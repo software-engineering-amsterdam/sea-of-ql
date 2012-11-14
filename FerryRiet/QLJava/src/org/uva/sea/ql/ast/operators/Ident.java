@@ -1,13 +1,14 @@
-package org.uva.sea.ql.ast;
+package org.uva.sea.ql.ast.operators;
 
 import java.util.HashMap;
 
 import org.antlr.runtime.Token;
-import org.uva.sea.ql.ast.nodevisitor.Visitor;
-import org.uva.sea.ql.ast.nodevisitor.VisitorResult;
-import org.uva.sea.ql.ast.operators.ExpressionResult;
+import org.uva.sea.ql.ast.LineStatement;
+import org.uva.sea.ql.ast.Statement;
+import org.uva.sea.ql.ast.literals.Result;
 import org.uva.sea.ql.ast.types.ErrorType;
-import org.uva.sea.ql.ast.types.TypeDescription;
+import org.uva.sea.ql.ast.types.Type;
+import org.uva.sea.ql.ast.visitor.Visitor;
 
 public class Ident extends Expr {
 	private final Token token;
@@ -29,12 +30,12 @@ public class Ident extends Expr {
 	}
 
 	@Override
-	public VisitorResult accept(Visitor visitor) {
+	public <T> T accept(Visitor<T> visitor) {
 		return visitor.visit(this);
 	}
 
 	@Override
-	public TypeDescription typeOf(HashMap<String, Statement> typeEnv) {
+	public Type typeOf(HashMap<String, Statement> typeEnv) {
 		LineStatement line = (LineStatement) typeEnv.get(this.getName());
 		if (line != null) {
 			return line.getTypeDescription();
@@ -43,7 +44,7 @@ public class Ident extends Expr {
 	}
 
 	@Override
-	public ExpressionResult eval(HashMap<String, ExpressionResult> symbolMap) {
+	public Result eval(HashMap<String, Result> symbolMap) {
 		return symbolMap.get(this.getName());
 	}
 }

@@ -1,8 +1,7 @@
 package org.uva.sea.ql.ast;
 
 import org.antlr.runtime.Token;
-import org.uva.sea.ql.ast.nodevisitor.Visitor;
-import org.uva.sea.ql.ast.nodevisitor.VisitorResult;
+import org.uva.sea.ql.ast.visitor.Visitor;
 
 public class QLProgram implements ASTNode {
 	private Token token;
@@ -22,7 +21,7 @@ public class QLProgram implements ASTNode {
 	}
 
 	@Override
-	public VisitorResult accept(Visitor visitor) {
+	public <T> T accept(Visitor<T> visitor) {
 		return visitor.visit(this);
 	}
 }

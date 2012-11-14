@@ -12,6 +12,19 @@ import net.miginfocom.swing.MigLayout;
 
 
 public class CompoundPanel extends Panel {
+	private JPanel compoundJPanel ;
+
+	private List<Panel> panelList = new ArrayList<Panel>() ;
+	public CompoundPanel() {
+		compoundJPanel = new JPanel() ;
+		compoundJPanel.setLayout(new MigLayout("",
+				"[]", "[20]"));
+
+	}
+	
+	public void addPanel(Panel newPanel) {
+		panelList.add(newPanel) ;
+	}
 	@Override
 	public Panel isActionSource(ActionEvent ev) {
 		for (Panel panel : panelList) {
@@ -20,24 +33,11 @@ public class CompoundPanel extends Panel {
 		return null;
 	}
 
-	private JPanel compoundJPanel ;
-	private List<Panel> panelList = new ArrayList<Panel>() ;
-	
-	public CompoundPanel() {
-		compoundJPanel = new JPanel() ;
-		compoundJPanel.setLayout(new MigLayout("",
-				"[]", "[][][][][][][][][][][]"));
-
-	}
 	@Override
 	public void registerActionListener(ActionListener actionHandler) {
 		for (Panel panel : panelList) {
 			panel.registerActionListener(actionHandler);
 		}
-	}
-
-	public void addPanel(Panel newPanel) {
-		panelList.add(newPanel) ;
 	}
 	@Override
 	public void registerAt(JPanel parentPanel, int location) {

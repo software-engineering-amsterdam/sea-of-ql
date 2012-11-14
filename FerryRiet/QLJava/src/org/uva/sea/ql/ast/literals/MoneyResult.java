@@ -1,12 +1,12 @@
-package org.uva.sea.ql.ast.operators;
+package org.uva.sea.ql.ast.literals;
 
 import java.math.BigDecimal;
 
-import org.uva.sea.ql.ast.types.TypeDescription;
+import org.uva.sea.ql.ast.types.Type;
 
 import org.uva.sea.ql.ast.types.MoneyType;
 
-public class MoneyResult implements ExpressionResult {
+public class MoneyResult implements Result {
 	private BigDecimal value;
 
 	public MoneyResult(BigDecimal val) {
@@ -30,7 +30,7 @@ public class MoneyResult implements ExpressionResult {
 	}
 
 	@Override
-	public TypeDescription typeOf() {
+	public Type typeOf() {
 		return new MoneyType();
 	}
 
@@ -50,7 +50,7 @@ public class MoneyResult implements ExpressionResult {
 	}
 
 	@Override
-	public ExpressionResult setValue(String string) {
+	public Result setValue(String string) {
 		try {
 		value = new BigDecimal(string); 
 		}

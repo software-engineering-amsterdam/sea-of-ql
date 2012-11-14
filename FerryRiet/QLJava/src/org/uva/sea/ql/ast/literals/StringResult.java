@@ -1,12 +1,12 @@
-package org.uva.sea.ql.ast.operators;
+package org.uva.sea.ql.ast.literals;
 
 import java.math.BigDecimal;
 
-import org.uva.sea.ql.ast.types.TypeDescription;
+import org.uva.sea.ql.ast.types.Type;
 
 import org.uva.sea.ql.ast.types.StringType;
 
-public class StringResult implements ExpressionResult {
+public class StringResult implements Result {
 	private String value;
 
 	public StringResult(String string) {
@@ -23,7 +23,7 @@ public class StringResult implements ExpressionResult {
 	}
 
 	@Override
-	public TypeDescription typeOf() {
+	public Type typeOf() {
 		return new StringType();
 	}
 
@@ -43,7 +43,7 @@ public class StringResult implements ExpressionResult {
 	}
 
 	@Override
-	public ExpressionResult setValue(String string) {
+	public Result setValue(String string) {
 		value = string;
 		return this;
 	}

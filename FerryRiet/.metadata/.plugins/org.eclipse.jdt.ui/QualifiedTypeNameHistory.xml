@@ -39,11 +39,12 @@
 <fullyQualifiedTypeName name="org.uva.sea.ql.driver.ConditionalPanel"/>
 <fullyQualifiedTypeName name="org.uva.sea.ql.ast.ConditionalStatement"/>
 <fullyQualifiedTypeName name="org.uva.sea.ql.driver.CompoundPanel"/>
-<fullyQualifiedTypeName name="org.uva.sea.ql.ast.nodevisitor.VisitorResult"/>
 <fullyQualifiedTypeName name="java.awt.event.ActionEvent"/>
 <fullyQualifiedTypeName name="org.uva.sea.ql.driver.Panel"/>
-<fullyQualifiedTypeName name="javax.swing.JPanel"/>
 <fullyQualifiedTypeName name="java.lang.Override"/>
 <fullyQualifiedTypeName name="javax.sound.sampled.Line"/>
 <fullyQualifiedTypeName name="org.uva.sea.ql.driver.LinePanel"/>
+<fullyQualifiedTypeName name="org.uva.sea.ql.ast.nodevisitor.Visitable"/>
+<fullyQualifiedTypeName name="org.uva.sea.ql.ast.nodevisitor.VisitorResult"/>
+<fullyQualifiedTypeName name="javax.swing.JPanel"/>
 </qualifiedTypeNameHistroy>

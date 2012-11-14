@@ -6,10 +6,10 @@ import java.util.HashMap;
 import junit.framework.TestCase;
 
 import org.junit.Test;
-import org.uva.sea.ql.ast.operators.BooleanResult;
-import org.uva.sea.ql.ast.operators.ExpressionResult;
-import org.uva.sea.ql.ast.operators.IntegerResult;
-import org.uva.sea.ql.ast.operators.MoneyResult;
+import org.uva.sea.ql.ast.literals.BooleanResult;
+import org.uva.sea.ql.ast.literals.IntegerResult;
+import org.uva.sea.ql.ast.literals.MoneyResult;
+import org.uva.sea.ql.ast.literals.Result;
 
 public class TestExprEval extends TestCase {
 
@@ -18,7 +18,7 @@ public class TestExprEval extends TestCase {
 	@Test
 	public void testExprEval() throws Exception {
 	
-		HashMap<String, ExpressionResult> symbols = new HashMap<String, ExpressionResult>();
+		HashMap<String, Result> symbols = new HashMap<String, Result>();
 
 		symbols.put("bool", new BooleanResult(false));
 		symbols.put("money1", new MoneyResult(10));

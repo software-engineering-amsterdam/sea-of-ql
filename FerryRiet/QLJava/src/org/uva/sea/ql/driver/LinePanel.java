@@ -11,10 +11,9 @@ import javax.swing.JTextField;
 
 import net.miginfocom.swing.MigLayout;
 
-import org.uva.sea.ql.ast.Expr;
 import org.uva.sea.ql.ast.LineStatement;
-import org.uva.sea.ql.ast.nodevisitor.VisitorResult;
-import org.uva.sea.ql.ast.operators.ExpressionResult;
+import org.uva.sea.ql.ast.literals.Result;
+import org.uva.sea.ql.ast.operators.Expr;
 import org.uva.sea.ql.ast.types.BooleanType;
 
 public class LinePanel extends Panel {
@@ -23,7 +22,7 @@ public class LinePanel extends Panel {
 	private JTextField jTextField;
 	private JCheckBox jCheckBox;
 	private JLabel jLabel;
-	private ExpressionResult fieldResult;
+	private Result fieldResult;
 	private Expr fieldInitializer;
 
 	public LinePanel(LineStatement statement) {
@@ -56,19 +55,22 @@ public class LinePanel extends Panel {
 		}
 	}
 
-	public void updatecalculatedField(HashMap<String, ExpressionResult> symbols) {
+	public void updatecalculatedField(HashMap<String, Result> symbols) {
 		if (fieldInitializer != null) {
 			fieldResult = fieldInitializer.eval(symbols);
 			jTextField.setText(fieldResult.toString());
 		}
 	}
+
 	@Override
 	public Panel isActionSource(ActionEvent ev) {
-		if ( jTextField == null ) {
-				if (  ev.getSource() == jCheckBox ) return this ;
+		if (jTextField == null) {
+			if (ev.getSource() == jCheckBox)
+				return this;
 		}
-		if ( ev.getSource() == jTextField ) return this ;
- 		return null ;
+		if (ev.getSource() == jTextField)
+			return this;
+		return null;
 	}
 
 	public void registerAt(JPanel parentPanel, int location) {
@@ -80,7 +82,7 @@ public class LinePanel extends Panel {
 		parentPanel.add(jPanel, stringBuilder.toString());
 	}
 
-	public ExpressionResult getFieldValue() {
+	public Result getFieldValue() {
 		if (jCheckBox != null)
 			return fieldResult.setValue(jCheckBox.isSelected() ? "true"
 					: "false");

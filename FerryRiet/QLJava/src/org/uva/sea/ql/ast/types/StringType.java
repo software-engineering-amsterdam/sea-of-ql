@@ -1,16 +1,16 @@
 package org.uva.sea.ql.ast.types;
 
-import org.uva.sea.ql.ast.operators.ExpressionResult;
-import org.uva.sea.ql.ast.operators.StringResult;
+import org.uva.sea.ql.ast.literals.Result;
+import org.uva.sea.ql.ast.literals.StringResult;
 
-public class StringType extends TypeDescription {
+public class StringType extends Type {
 
 	public StringType() {
 		super("string");
 	}
 
 	@Override
-	public boolean isCompatibleTo(TypeDescription t) {
+	public boolean isCompatibleTo(Type t) {
 		return t.isCompatibleToString();
 	}
 
@@ -20,7 +20,7 @@ public class StringType extends TypeDescription {
 	}
 
 	@Override
-	public ExpressionResult getTypeContainer() {
+	public Result getTypeContainer() {
 		return new StringResult("");
 	}
 }

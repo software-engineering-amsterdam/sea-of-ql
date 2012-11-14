@@ -16,7 +16,7 @@ import javax.swing.JTextPane;
 import org.antlr.runtime.ANTLRStringStream;
 import org.antlr.runtime.CommonTokenStream;
 import org.uva.sea.ql.ast.QLProgram;
-import org.uva.sea.ql.ast.nodevisitor.TypeCheckVisitor;
+import org.uva.sea.ql.ast.visitor.TypeCheck;
 import org.uva.sea.ql.parser.antlr.QLLexer;
 import org.uva.sea.ql.parser.antlr.QLParser;
 import javax.swing.JPanel;
@@ -114,7 +114,7 @@ public class QLDriver extends JFrame implements ActionListener {
 				QLProgram qlprogram = parser.qlprogram();
 				if (parser.getErrorCount() == 0) {
 
-					TypeCheckVisitor typeCheck = new TypeCheckVisitor();
+					TypeCheck typeCheck = new TypeCheck();
 					qlprogram.accept(typeCheck);
 
 					if (typeCheck.getErrorCount() == 0) {

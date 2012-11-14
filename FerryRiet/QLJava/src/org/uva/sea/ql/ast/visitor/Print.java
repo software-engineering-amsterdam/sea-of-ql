@@ -1,12 +1,19 @@
-package org.uva.sea.ql.ast.nodevisitor;
+package org.uva.sea.ql.ast.visitor;
 
 import org.uva.sea.ql.ast.*;
+import org.uva.sea.ql.ast.literals.BooleanLiteral;
+import org.uva.sea.ql.ast.literals.IntegerLiteral;
+import org.uva.sea.ql.ast.literals.MoneyLiteral;
+import org.uva.sea.ql.ast.literals.StringLiteral;
 import org.uva.sea.ql.ast.operators.Add;
 import org.uva.sea.ql.ast.operators.And;
+import org.uva.sea.ql.ast.operators.BinExpr;
 import org.uva.sea.ql.ast.operators.Div;
 import org.uva.sea.ql.ast.operators.Eq;
+import org.uva.sea.ql.ast.operators.Expr;
 import org.uva.sea.ql.ast.operators.GEq;
 import org.uva.sea.ql.ast.operators.GT;
+import org.uva.sea.ql.ast.operators.Ident;
 import org.uva.sea.ql.ast.operators.LEq;
 import org.uva.sea.ql.ast.operators.LT;
 import org.uva.sea.ql.ast.operators.Mul;
@@ -16,18 +23,19 @@ import org.uva.sea.ql.ast.operators.Not;
 import org.uva.sea.ql.ast.operators.Or;
 import org.uva.sea.ql.ast.operators.Pos;
 import org.uva.sea.ql.ast.operators.Sub;
+import org.uva.sea.ql.ast.operators.UnExpr;
 import org.uva.sea.ql.ast.types.BooleanType;
 import org.uva.sea.ql.ast.types.MoneyType;
 import org.uva.sea.ql.ast.types.StringType;
-import org.uva.sea.ql.ast.types.TypeDescription;
+import org.uva.sea.ql.ast.types.Type;
 
-public class PrintVisitor implements Visitor {
+public class Print implements Visitor<PrintResult> {
 
 	@Override
-	public VisitorResult visit(QLProgram qlProgram) {
-		PrintVisitorResult pres;
+	public PrintResult visit(QLProgram qlProgram) {
+		PrintResult pres;
 
-		pres = new PrintVisitorResult("form " + qlProgram.getProgramName());
+		pres = new PrintResult("form " + qlProgram.getProgramName());
 
 		pres.appendResult(qlProgram.getCompound().accept(this));
 
@@ -35,10 +43,10 @@ public class PrintVisitor implements Visitor {
 	}
 
 	@Override
-	public VisitorResult visit(CompoundStatement compoundBlock) {
-		PrintVisitorResult pres;
+	public PrintResult visit(CompoundStatement compoundBlock) {
+		PrintResult pres;
 
-		pres = new PrintVisitorResult(" { ");
+		pres = new PrintResult(" { ");
 		for (Statement statement : compoundBlock.getStatementList())
 			pres.appendResult(statement.accept(this));
 
@@ -47,10 +55,10 @@ public class PrintVisitor implements Visitor {
 	}
 
 	@Override
-	public VisitorResult visit(LineStatement lineStatement) {
-		PrintVisitorResult pres;
+	public PrintResult visit(LineStatement lineStatement) {
+		PrintResult pres;
 
-		pres = new PrintVisitorResult(lineStatement.getLineName() + ": "
+		pres = new PrintResult(lineStatement.getLineName() + ": "
 				+ lineStatement.getDisplayText());
 
 		pres.appendResult(lineStatement.getTypeDescription().accept(this));
@@ -65,8 +73,8 @@ public class PrintVisitor implements Visitor {
 	}
 
 	@Override
-	public VisitorResult visit(ConditionalStatement conditionalStatement) {
-		PrintVisitorResult result = new PrintVisitorResult(" if ( ");
+	public PrintResult visit(ConditionalStatement conditionalStatement) {
+		PrintResult result = new PrintResult(" if ( ");
 
 		result.appendResult(conditionalStatement.getExpression().accept(this));
 
@@ -83,37 +91,37 @@ public class PrintVisitor implements Visitor {
 	}
 
 	@Override
-	public VisitorResult visit(TypeDescription typeDescription) {
-		PrintVisitorResult pres = null;
+	public PrintResult visit(Type typeDescription) {
+		PrintResult pres = null;
 
 		if (typeDescription.getClass() == BooleanType.class) {
-			pres = new PrintVisitorResult(" boolean ");
+			pres = new PrintResult(" boolean ");
 		}
 		if (typeDescription.getClass() == StringType.class) {
-			pres = new PrintVisitorResult(" string ");
+			pres = new PrintResult(" string ");
 		}
 		if (typeDescription.getClass() == MoneyType.class) {
-			pres = new PrintVisitorResult(" money ");
+			pres = new PrintResult(" money ");
 
 		}
 		return pres;
 	}
 
 	@Override
-	public VisitorResult visit(BinExpr expr) {
+	public PrintResult visit(BinExpr expr) {
 		return null;
 	}
 
 	@Override
-	public VisitorResult visit(UnExpr expr) {
-		PrintVisitorResult result = null;
+	public PrintResult visit(UnExpr expr) {
+		PrintResult result = null;
 
 		if (expr.getClass() == Not.class)
-			result = new PrintVisitorResult(" ! ");
+			result = new PrintResult(" ! ");
 		else if (expr.getClass() == Pos.class)
-			result = new PrintVisitorResult(" + ");
+			result = new PrintResult(" + ");
 		else if (expr.getClass() == Neg.class)
-			result = new PrintVisitorResult(" - ");
+			result = new PrintResult(" - ");
 
 		result.appendResult(expr.getExprRightHand().accept(this));
 
@@ -121,15 +129,15 @@ public class PrintVisitor implements Visitor {
 	}
 
 	@Override
-	public VisitorResult visit(Expr expr) {
+	public PrintResult visit(Expr expr) {
 		return null;
 	}
 
 	@Override
-	public VisitorResult visit(Add expr) {
-		PrintVisitorResult result = null;
+	public PrintResult visit(Add expr) {
+		PrintResult result = null;
 
-		result = (PrintVisitorResult) expr.getExprLeftHand().accept(this);
+		result = expr.getExprLeftHand().accept(this);
 		result.appendResult(" + ");
 		result.appendResult(expr.getExprRightHand().accept(this));
 
@@ -137,10 +145,10 @@ public class PrintVisitor implements Visitor {
 	}
 
 	@Override
-	public VisitorResult visit(Mul expr) {
-		PrintVisitorResult result = null;
+	public PrintResult visit(Mul expr) {
+		PrintResult result = null;
 
-		result = (PrintVisitorResult) expr.getExprLeftHand().accept(this);
+		result = expr.getExprLeftHand().accept(this);
 		result.appendResult(" * ");
 		result.appendResult(expr.getExprRightHand().accept(this));
 
@@ -148,10 +156,10 @@ public class PrintVisitor implements Visitor {
 	}
 
 	@Override
-	public VisitorResult visit(Div expr) {
-		PrintVisitorResult result = null;
+	public PrintResult visit(Div expr) {
+		PrintResult result = null;
 
-		result = (PrintVisitorResult) expr.getExprLeftHand().accept(this);
+		result = expr.getExprLeftHand().accept(this);
 		result.appendResult(" / ");
 		result.appendResult(expr.getExprRightHand().accept(this));
 
@@ -159,10 +167,10 @@ public class PrintVisitor implements Visitor {
 	}
 
 	@Override
-	public VisitorResult visit(Sub expr) {
-		PrintVisitorResult result = null;
+	public PrintResult visit(Sub expr) {
+		PrintResult result = null;
 
-		result = (PrintVisitorResult) expr.getExprLeftHand().accept(this);
+		result = expr.getExprLeftHand().accept(this);
 		result.appendResult(" - ");
 		result.appendResult(expr.getExprRightHand().accept(this));
 
@@ -170,10 +178,10 @@ public class PrintVisitor implements Visitor {
 	}
 
 	@Override
-	public VisitorResult visit(And expr) {
-		PrintVisitorResult result = null;
+	public PrintResult visit(And expr) {
+		PrintResult result = null;
 
-		result = (PrintVisitorResult) expr.getExprLeftHand().accept(this);
+		result = expr.getExprLeftHand().accept(this);
 		result.appendResult(" && ");
 		result.appendResult(expr.getExprRightHand().accept(this));
 
@@ -181,10 +189,10 @@ public class PrintVisitor implements Visitor {
 	}
 
 	@Override
-	public VisitorResult visit(Or expr) {
-		PrintVisitorResult result = null;
+	public PrintResult visit(Or expr) {
+		PrintResult result = null;
 
-		result = (PrintVisitorResult) expr.getExprLeftHand().accept(this);
+		result = expr.getExprLeftHand().accept(this);
 		result.appendResult(" || ");
 		result.appendResult(expr.getExprRightHand().accept(this));
 
@@ -192,10 +200,10 @@ public class PrintVisitor implements Visitor {
 	}
 
 	@Override
-	public VisitorResult visit(Eq expr) {
-		PrintVisitorResult result = null;
+	public PrintResult visit(Eq expr) {
+		PrintResult result = null;
 
-		result = (PrintVisitorResult) expr.getExprLeftHand().accept(this);
+		result = expr.getExprLeftHand().accept(this);
 		result.appendResult(" == ");
 		result.appendResult(expr.getExprRightHand().accept(this));
 
@@ -203,10 +211,10 @@ public class PrintVisitor implements Visitor {
 	}
 
 	@Override
-	public VisitorResult visit(GT expr) {
-		PrintVisitorResult result = null;
+	public PrintResult visit(GT expr) {
+		PrintResult result = null;
 
-		result = (PrintVisitorResult) expr.getExprLeftHand().accept(this);
+		result = expr.getExprLeftHand().accept(this);
 		result.appendResult(" > ");
 		result.appendResult(expr.getExprRightHand().accept(this));
 
@@ -214,10 +222,10 @@ public class PrintVisitor implements Visitor {
 	}
 
 	@Override
-	public VisitorResult visit(LT expr) {
-		PrintVisitorResult result = null;
+	public PrintResult visit(LT expr) {
+		PrintResult result = null;
 
-		result = (PrintVisitorResult) expr.getExprLeftHand().accept(this);
+		result = expr.getExprLeftHand().accept(this);
 		result.appendResult(" < ");
 		result.appendResult(expr.getExprRightHand().accept(this));
 
@@ -225,10 +233,10 @@ public class PrintVisitor implements Visitor {
 	}
 
 	@Override
-	public VisitorResult visit(LEq expr) {
-		PrintVisitorResult result = null;
+	public PrintResult visit(LEq expr) {
+		PrintResult result = null;
 
-		result = (PrintVisitorResult) expr.getExprLeftHand().accept(this);
+		result = expr.getExprLeftHand().accept(this);
 		result.appendResult(" <= ");
 		result.appendResult(expr.getExprRightHand().accept(this));
 
@@ -236,10 +244,10 @@ public class PrintVisitor implements Visitor {
 	}
 
 	@Override
-	public VisitorResult visit(NEq expr) {
-		PrintVisitorResult result = null;
+	public PrintResult visit(NEq expr) {
+		PrintResult result = null;
 
-		result = (PrintVisitorResult) expr.getExprLeftHand().accept(this);
+		result = expr.getExprLeftHand().accept(this);
 		result.appendResult(" != ");
 		result.appendResult(expr.getExprRightHand().accept(this));
 
@@ -247,10 +255,10 @@ public class PrintVisitor implements Visitor {
 	}
 
 	@Override
-	public VisitorResult visit(GEq expr) {
-		PrintVisitorResult result = null;
+	public PrintResult visit(GEq expr) {
+		PrintResult result = null;
 
-		result = (PrintVisitorResult) expr.getExprLeftHand().accept(this);
+		result = expr.getExprLeftHand().accept(this);
 		result.appendResult(" >= ");
 		result.appendResult(expr.getExprRightHand().accept(this));
 
@@ -258,44 +266,44 @@ public class PrintVisitor implements Visitor {
 	}
 
 	@Override
-	public VisitorResult visit(Not expr) {
-		PrintVisitorResult result = new PrintVisitorResult(" ! ");
+	public PrintResult visit(Not expr) {
+		PrintResult result = new PrintResult(" ! ");
 		return result.appendResult(expr.getExprRightHand().accept(this));
 	}
 
 	@Override
-	public VisitorResult visit(Neg expr) {
-		PrintVisitorResult result = new PrintVisitorResult(" - ");
+	public PrintResult visit(Neg expr) {
+		PrintResult result = new PrintResult(" - ");
 		return result.appendResult(expr.getExprRightHand().accept(this));
 	}
 
 	@Override
-	public VisitorResult visit(Pos expr) {
-		PrintVisitorResult result = new PrintVisitorResult(" + ");
+	public PrintResult visit(Pos expr) {
+		PrintResult result = new PrintResult(" + ");
 		return result.appendResult(expr.getExprRightHand().accept(this));
 	}
 
 	@Override
-	public VisitorResult visit(Ident expr) {
-		return new PrintVisitorResult(expr.getName());
+	public PrintResult visit(Ident expr) {
+		return new PrintResult(expr.getName());
 	}
 
 	@Override
-	public VisitorResult visit(IntLiteral expr) {
-		return new PrintVisitorResult(Integer.toString(expr.getValue()));
+	public PrintResult visit(IntegerLiteral expr) {
+		return new PrintResult(Integer.toString(expr.getValue()));
 	}
 
 	@Override
-	public VisitorResult visit(StringLiteral expr) {
-		return new PrintVisitorResult(expr.getValue());
+	public PrintResult visit(StringLiteral expr) {
+		return new PrintResult(expr.getValue());
 	}
 
 	@Override
-	public VisitorResult visit(BooleanLiteral expr) {
-		return new PrintVisitorResult(expr.getValue());
+	public PrintResult visit(BooleanLiteral expr) {
+		return new PrintResult(expr.getValue());
 	}
 	@Override
-	public VisitorResult visit(BigLiteral expr) {
-		return new PrintVisitorResult(expr.getValue().toString());
+	public PrintResult visit(MoneyLiteral expr) {
+		return new PrintResult(expr.getValue().toString());
 	}
 }

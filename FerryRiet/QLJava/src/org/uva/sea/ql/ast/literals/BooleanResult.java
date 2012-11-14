@@ -1,11 +1,11 @@
-package org.uva.sea.ql.ast.operators;
+package org.uva.sea.ql.ast.literals;
 
 import java.math.BigDecimal;
 
 import org.uva.sea.ql.ast.types.BooleanType;
-import org.uva.sea.ql.ast.types.TypeDescription;
+import org.uva.sea.ql.ast.types.Type;
 
-public class BooleanResult implements ExpressionResult {
+public class BooleanResult implements Result {
 	private boolean value;
 
 	public BooleanResult(boolean bol) {
@@ -18,7 +18,7 @@ public class BooleanResult implements ExpressionResult {
 	}
 
 	@Override
-	public TypeDescription typeOf() {
+	public Type typeOf() {
 		return new BooleanType();
 	}
 
@@ -38,7 +38,7 @@ public class BooleanResult implements ExpressionResult {
 	}
 
 	@Override
-	public ExpressionResult setValue(String string) {
+	public Result setValue(String string) {
 		value = string.equals("true") ? true : false ;
 		return this ;
 	}

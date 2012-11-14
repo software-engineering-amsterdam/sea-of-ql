@@ -1,11 +1,11 @@
-package org.uva.sea.ql.ast.operators;
+package org.uva.sea.ql.ast.literals;
 
 import java.math.BigDecimal;
 
-import org.uva.sea.ql.ast.types.TypeDescription;
+import org.uva.sea.ql.ast.types.Type;
 import org.uva.sea.ql.ast.types.IntegerType;
 
-public class IntegerResult implements ExpressionResult {
+public class IntegerResult implements Result {
 	private Integer value;
 
 	public IntegerResult(int val) {
@@ -25,7 +25,7 @@ public class IntegerResult implements ExpressionResult {
 	}
 
 	@Override
-	public TypeDescription typeOf() {
+	public Type typeOf() {
 		return new IntegerType();
 	}
 
@@ -45,7 +45,7 @@ public class IntegerResult implements ExpressionResult {
 	}
 
 	@Override
-	public ExpressionResult setValue(String string) {
+	public Result setValue(String string) {
 		try {
 		value = Integer.parseInt(string);
 		}

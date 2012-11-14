@@ -1,28 +1,27 @@
 package org.uva.sea.ql.ast.types;
 
 import org.uva.sea.ql.ast.ASTNode;
-import org.uva.sea.ql.ast.nodevisitor.Visitor;
-import org.uva.sea.ql.ast.nodevisitor.VisitorResult;
-import org.uva.sea.ql.ast.operators.ExpressionResult;
+import org.uva.sea.ql.ast.literals.Result;
+import org.uva.sea.ql.ast.visitor.Visitor;
 
-public abstract class TypeDescription implements ASTNode {
+public abstract class Type implements ASTNode {
 	private String typeName;
 
-	public TypeDescription(String typeName) {
+	public Type(String typeName) {
 		this.typeName = typeName;
 	}
  
-	public abstract ExpressionResult getTypeContainer() ;
+	public abstract Result getTypeContainer() ;
 	
 	public String getTypeName() {
 		return typeName;
 	}
 
-	public VisitorResult accept(Visitor visitor) {
+	public <T> T accept(Visitor<T> visitor) {
 		return visitor.visit(this);
 	}
 
-	public abstract boolean isCompatibleTo(TypeDescription t);
+	public abstract boolean isCompatibleTo(Type t);
 
 	public boolean isCompatibleToInt() {
 		return false;
