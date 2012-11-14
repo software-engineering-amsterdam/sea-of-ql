@@ -47,4 +47,6 @@
 <fullyQualifiedTypeName name="org.uva.sea.ql.ast.nodevisitor.Visitable"/>
 <fullyQualifiedTypeName name="org.uva.sea.ql.ast.nodevisitor.VisitorResult"/>
 <fullyQualifiedTypeName name="javax.swing.JPanel"/>
+<fullyQualifiedTypeName name="org.uva.sea.ql.ui.Panel"/>
+<fullyQualifiedTypeName name="java.awt.Color"/>
 </qualifiedTypeNameHistroy>

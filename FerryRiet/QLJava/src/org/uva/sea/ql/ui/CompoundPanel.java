@@ -1,15 +1,18 @@
-package org.uva.sea.ql.driver;
+package org.uva.sea.ql.ui;
 
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.swing.JPanel;
 
+import org.uva.sea.ql.ast.literals.Result;
+
+
 import net.miginfocom.swing.MigLayout;
-
-
 
 public class CompoundPanel extends Panel {
 	private JPanel compoundJPanel ;
@@ -18,7 +21,8 @@ public class CompoundPanel extends Panel {
 	public CompoundPanel() {
 		compoundJPanel = new JPanel() ;
 		compoundJPanel.setLayout(new MigLayout("",
-				"[]", "[20]"));
+				"[]", "[18]"));
+		compoundJPanel.setBackground(Color.GREEN) ;
 
 	}
 	
@@ -27,10 +31,19 @@ public class CompoundPanel extends Panel {
 	}
 	@Override
 	public Panel isActionSource(ActionEvent ev) {
+		Panel actionPanel ;
 		for (Panel panel : panelList) {
-			if ( panel.isActionSource(ev) != null ) return panel ;
+			actionPanel = panel.isActionSource(ev) ;
+			if ( actionPanel != null ) return actionPanel ;
 		}
 		return null;
+	}
+
+	@Override
+	public void updatecalculatedField(HashMap<String, Result> symbols) {
+		for (Panel panel : panelList) {
+			panel.updatecalculatedField(symbols) ;
+		}
 	}
 
 	@Override
@@ -42,7 +55,11 @@ public class CompoundPanel extends Panel {
 	@Override
 	public void registerAt(JPanel parentPanel, int location) {
 
-		parentPanel.add(compoundJPanel, "cell 0 0 , growx");
+		StringBuilder stringBuilder = new StringBuilder("cell 0 ");
+
+		stringBuilder.append(location);
+		stringBuilder.append(" ,growx");
+		parentPanel.add(compoundJPanel, stringBuilder.toString());
 		
 		int panelCount = 0 ;
 		for (Panel panel : panelList) {

@@ -1,4 +1,4 @@
-package org.uva.sea.ql.driver;
+package org.uva.sea.ql.ui;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;

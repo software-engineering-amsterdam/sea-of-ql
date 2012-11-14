@@ -25,6 +25,8 @@ import org.uva.sea.ql.ast.QLProgram;
 import org.uva.sea.ql.ast.visitor.TypeCheck;
 import org.uva.sea.ql.parser.antlr.QLLexer;
 import org.uva.sea.ql.parser.antlr.QLParser;
+import org.uva.sea.ql.ui.QLForm;
+import java.awt.Color;
 
 public class QLDriver extends JFrame implements ActionListener {
 
@@ -86,6 +88,7 @@ public class QLDriver extends JFrame implements ActionListener {
 		getContentPane().add(btnNewButton);
 		
 		JPanel panel = new JPanel();
+		panel.setBackground(Color.PINK);
 		panel.setBounds(146, 245, 260, 30);
 		getContentPane().add(panel);
 		panel.setLayout(new MigLayout("", "[18px][][][][][][grow]", "[14px]"));

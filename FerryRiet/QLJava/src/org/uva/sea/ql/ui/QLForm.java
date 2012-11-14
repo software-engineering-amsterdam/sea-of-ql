@@ -1,4 +1,4 @@
-package org.uva.sea.ql.driver;
+package org.uva.sea.ql.ui;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -18,7 +18,7 @@ import org.uva.sea.ql.ast.visitor.QLFormCreator;
 
 public class QLForm extends JFrame implements ActionListener {
 	private static final long serialVersionUID = 1L;
-	private HashMap<String, Result> symbols;
+	private HashMap<String, Result> qlSymbols;
 	private JPanel contentPane;
 	private CompoundPanel cPanel;
 	QLFormCreator symCreator = new QLFormCreator();
@@ -27,19 +27,20 @@ public class QLForm extends JFrame implements ActionListener {
 
 		cPanel = (CompoundPanel) qlprogram.accept(symCreator);
 
-		symbols = symCreator.getSymbols();
+		qlSymbols = symCreator.getSymbols();
 
 		String formName = symCreator.getFormName();
 
 		setBounds(700, 100, 480, 600);
 
-		this.setTitle(formName) ;
+		setTitle(formName) ;
 		
 		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		setContentPane(contentPane);
-		contentPane.setLayout(new MigLayout("", "[grow]", "[][][][][][][][][]"));
+		contentPane.setBorder(new EmptyBorder(1, 1, 1, 1));
+		contentPane.setLayout(new MigLayout("", "[grow]", "[]"));
 
+		setContentPane(contentPane);
+		
 		cPanel.registerAt(contentPane, 0);
 		cPanel.registerActionListener(this);
 	}
@@ -51,10 +52,11 @@ public class QLForm extends JFrame implements ActionListener {
 		LinePanel linePanel = (LinePanel) cPanel.isActionSource(e);
 
 		if (linePanel != null) {
-			symbols.put(linePanel.getFieldName(), linePanel.getFieldValue());
+			qlSymbols.put(linePanel.getFieldName(), linePanel.getFieldValue());
 		}
 
-		printMap(symbols);
+		cPanel.updatecalculatedField(qlSymbols) ;
+		printMap(qlSymbols);
 
 		// 1: find source of action
 		// 2: update variable
