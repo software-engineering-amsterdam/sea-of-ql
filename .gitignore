@@ -1,0 +1,5 @@
+kemi/bin/*
+vkomsiyski/bin/*
+*~ # Temporary files
+*.class # Compiled Java
+
