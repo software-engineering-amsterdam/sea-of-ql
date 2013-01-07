@@ -22,7 +22,6 @@ import org.uva.sea.ql.parser.rats.RatsParser;
 
 /**
  * 
- *
  */
 @RunWith( Parameterized.class )
 public class TestExpressions {
