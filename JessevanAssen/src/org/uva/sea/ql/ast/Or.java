@@ -2,8 +2,11 @@ package org.uva.sea.ql.ast;
 
 public class Or extends Expr {
 
-	public Or(Expr result, Expr rhs) {
-		// TODO Auto-generated constructor stub
+	private final Expr left, right;
+
+	public Or(Expr left, Expr right) {
+		this.left = left;
+		this.right = right;
 	}
 
 }

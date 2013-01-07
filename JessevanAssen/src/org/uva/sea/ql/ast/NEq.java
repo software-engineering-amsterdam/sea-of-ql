@@ -2,8 +2,11 @@ package org.uva.sea.ql.ast;
 
 public class NEq extends Expr {
 
-	public NEq(Expr result, Expr rhs) {
-		// TODO Auto-generated constructor stub
+	private final Expr left, right;
+
+	public NEq(Expr left, Expr right) {
+		this.left = left;
+		this.right = right;
 	}
 
 }

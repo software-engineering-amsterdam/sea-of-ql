@@ -2,8 +2,10 @@ package org.uva.sea.ql.ast;
 
 public class Not extends Expr {
 
-	public Not(Expr x) {
-		// TODO Auto-generated constructor stub
+	private final Expr expression;
+	
+	public Not(Expr expression) {
+		this.expression = expression;
 	}
 
 }

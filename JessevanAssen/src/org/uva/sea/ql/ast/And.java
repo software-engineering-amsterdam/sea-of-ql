@@ -2,8 +2,11 @@ package org.uva.sea.ql.ast;
 
 public class And extends Expr {
 
-	public And(Expr result, Expr rhs) {
-		// TODO Auto-generated constructor stub
+	private final Expr left, right;
+	
+	public And(Expr left, Expr right) {
+		this.left = left;
+		this.right = right;
 	}
 
 }
