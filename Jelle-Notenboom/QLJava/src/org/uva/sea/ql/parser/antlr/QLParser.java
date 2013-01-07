@@ -1,8 +1,6 @@
-// $ANTLR 3.4 /Users/tvdstorm/SEA/courses/sc/2012-2013/repos/sc-ql-2012-2013-java/src/org/uva/sea/ql/parser/antlr/QL.g 2013-01-03 12:00:33
-
 package org.uva.sea.ql.parser.antlr;
-import org.uva.sea.ql.ast.*;
 
+import org.uva.sea.ql.ast.*;
 
 import org.antlr.runtime.*;
 import java.util.Stack;
