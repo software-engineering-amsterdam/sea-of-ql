@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<launchConfiguration type="rascal.launchType">
+<stringAttribute key="rascal.debugModel.ATTR_RASCAL_PROGRAM" value="/QLRascal/src/Plugin.rsc"/>
+</launchConfiguration>
