@@ -3,6 +3,8 @@ module lang::ql::ast::AST
 data Expr
   = ident(str name)
   | \int(int ivalue)
+  | money(real mvalue)
+  | boolean(bool bvalue)
   | pos(Expr a)
   | neg(Expr a)
   | not(Expr a)

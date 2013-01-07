@@ -3,8 +3,11 @@ module lang::ql::tests::TestExpressions
 import lang::ql::util::Parse;
 import lang::ql::util::Implode;
 import lang::ql::ast::AST;
+import IO;
+
 
 private Expr p(str src) = implode(parse(src, |file:///-|));
+
 
 public test bool testAdd1() = p("a + b") is add;
 public test bool testAdd2() = p("a + b + c") is add;
@@ -45,3 +48,9 @@ public test bool testInt2() = p("1223") is \int;
 public test bool testInt3() = p("234234234") is \int;
 
 
+//public test bool testText() = t("\"HAllo holla\"") is text;
+
+
+public void main() {
+    println(p("\"HAllo?\", bool, var"));
+}
