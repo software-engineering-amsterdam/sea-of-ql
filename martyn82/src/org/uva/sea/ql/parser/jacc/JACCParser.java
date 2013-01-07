@@ -17,5 +17,4 @@ public class JACCParser implements IParse {
 		}
 		return parser.getResult();
 	}
-
 }
