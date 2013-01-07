@@ -1,2 +1,1 @@
-@echo off
-java -jar %JACC_PATH%\jacc.jar %*
+java -jar jacc.jar -v ../../src/org/uva/sea/ql/parser/jacc/ql.jacc
