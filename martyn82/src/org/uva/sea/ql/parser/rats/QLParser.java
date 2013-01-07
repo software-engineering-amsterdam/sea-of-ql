@@ -19,8 +19,6 @@ import xtc.parser.Result;
 import xtc.parser.SemanticValue;
 import xtc.parser.ParseError;
 
-import java.util.List;
-import java.util.ArrayList;
 import xtc.util.Action;
 import org.uva.sea.ql.ast.*;
 
