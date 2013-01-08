@@ -1,11 +1,12 @@
 module lang::ql::util::Implode
 
+import IO;
 import ParseTree;
 import lang::ql::util::Parse;
 import lang::ql::ast::AST;
-import IO;
 
+public Form implode(Tree t) = implode(#Form, t);
+public Expr implodeExpr(Tree t) = implode(#Expr, t);
 
-public Expr implode(Tree t) = implode(#Expr, t);
-
-public Expr load(loc l) = implode(parse(readFile(l), l));
+public Form load(loc l) = implode(parse(readFile(l), l));
+public Form load(str text) = implode(parse(text));
