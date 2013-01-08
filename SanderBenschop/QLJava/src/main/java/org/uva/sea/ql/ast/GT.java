@@ -1,9 +1,16 @@
 package org.uva.sea.ql.ast;
 
-public class GT extends Expr {
+public class GT extends Expr<Boolean> {
 
-	public GT(Expr result, Expr rhs) {
-		// TODO Auto-generated constructor stub
+	private final boolean value;
+	
+	public GT(Expr<Integer> leftHandSide, Expr<Integer> rightHandSide) {
+		this.value = false;
 	}
 
+	@Override
+	public Boolean getValue() {
+		return value;
+	}
+	
 }

@@ -1,6 +1,6 @@
 package org.uva.sea.ql.ast;
 
-public class Int extends Expr {
+public class Int extends Expr<Integer> {
 
 	private final int value;
 
@@ -8,7 +8,8 @@ public class Int extends Expr {
 		this.value = n;
 	}
 
-	public int getValue() {
+	@Override
+	public Integer getValue() {
 		return value;
 	}
 	

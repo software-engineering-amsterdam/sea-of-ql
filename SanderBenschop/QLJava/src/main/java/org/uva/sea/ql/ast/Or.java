@@ -1,9 +1,16 @@
 package org.uva.sea.ql.ast;
 
-public class Or extends Expr {
+public class Or extends Expr<Boolean> {
 
-	public Or(Expr result, Expr rhs) {
-		// TODO Auto-generated constructor stub
+	private final boolean value;
+	
+	public Or(Expr<Integer> leftHandSide, Expr<Integer> rightHandSide) {
+		this.value = false;
 	}
 
+	@Override
+	public Boolean getValue() {
+		return value;
+	}
+	
 }

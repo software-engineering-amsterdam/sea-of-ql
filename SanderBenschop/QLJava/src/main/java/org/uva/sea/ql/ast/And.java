@@ -1,9 +1,15 @@
 package org.uva.sea.ql.ast;
 
-public class And extends Expr {
+public class And extends Expr<Boolean> {
 
-	public And(Expr result, Expr rhs) {
-		// TODO Auto-generated constructor stub
+	private final boolean value;
+	
+	public And(Expr<Boolean> leftHandSide, Expr<Boolean> rightHandSide) {
+		this.value = leftHandSide.getValue() && rightHandSide.getValue();
 	}
 
+	@Override
+	public Boolean getValue() {
+		return value;
+	}
 }

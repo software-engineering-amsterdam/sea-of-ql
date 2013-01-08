@@ -1,6 +1,6 @@
 package org.uva.sea.ql.ast;
 
-public class Bool extends Expr {
+public class Bool extends Expr<Boolean> {
 
 	private final boolean value;
 	
@@ -8,7 +8,8 @@ public class Bool extends Expr {
 		this.value = value;
 	}
 	
-	public boolean getValue() {
+	@Override
+	public Boolean getValue() {
 		return value;
 	}
 }
