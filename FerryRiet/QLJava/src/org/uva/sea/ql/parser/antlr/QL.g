@@ -12,15 +12,19 @@ import org.uva.sea.ql.ast.*;
 package org.uva.sea.ql.parser.antlr;
 }
 
-qlprogram : 'form' Ident compoundblock ;
+qlprogram : 
+  'form' Ident compoundblock ;
 
-compoundblock : LBRACE stmt* RBRACE ;
+compoundblock 
+    : LBRACE stmt* RBRACE ;
 
-stmt      : Ident COLON String type 
-          | 'if' '('Ident ')' compoundblock ;
+stmt returns [Stmt result]     
+    : x=Ident COLON st=String t=type { $result = new Stmt($x,$st,$t.result); }
+    | 'if' '('Ident ')' compoundblock ;
 
-type   : 'boolean'
-       | 'money' ;
+type
+    : 'boolean'
+    | 'money' ;
 
 
 

@@ -1,16 +1,8 @@
 package org.uva.sea.ql.parser.test;
 
-import static org.junit.Assert.assertEquals;
-
-import java.util.Arrays;
-import java.util.List;
-
 import junit.framework.TestCase;
 
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
-import org.junit.runners.Parameterized.Parameters;
 import org.uva.sea.ql.ast.Add;
 import org.uva.sea.ql.ast.GT;
 import org.uva.sea.ql.ast.Ident;
@@ -19,14 +11,27 @@ import org.uva.sea.ql.ast.LEq;
 import org.uva.sea.ql.ast.LT;
 import org.uva.sea.ql.ast.Mul;
 import org.uva.sea.ql.parser.antlr.ANTLRParser;
-import org.uva.sea.ql.parser.jacc.JACCParser;
-import org.uva.sea.ql.parser.rats.RatsParser;
 
 public class TestExpressions extends TestCase{
 
 	static final private IParse parser = new ANTLRParser(); 
 
-	
+	@Test
+	public void testSTMT() throws ParseError {
+	    String a = "form Box1HouseOwning {\n" + 
+	    		"   hasSoldHouse: \"Did you sell a house in 2010?\" boolean\n" + 
+	    		"   hasBoughtHouse: \"Did you by a house in 2010?\" boolean\n" + 
+	    		"   hasMaintLoan: \"Did you enter a loan for maintenance/reconstruction?\"\n" + 
+	    		"boolean\n" + 
+	    		"   if (hasSoldHouse) {\n" + 
+	    		"     sellingPrice:    \"Price the house was sold for:\" money\n" + 
+	    		"     privateDebt:   \"Private debts for the sold house:\" money\n" + 
+	    		"     valueResidue: \"Value residue:\" money(sellingPrice - privateDebt)\n" + 
+	    		"   }\n" + 
+	    		"}" ;
+		parser.stmt("hasSoldHouse: \"Did you sell a house in 2010?\" boolean\n");
+	}
+
 	@Test
 	public void testAdds() throws ParseError {
 		assertEquals(parser.parse("a + b").getClass(), Add.class);
