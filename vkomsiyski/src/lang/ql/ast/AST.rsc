@@ -3,7 +3,7 @@ module lang::ql::ast::AST
 import List;
  
  
-data Form = form(list[Question] questions);
+data Form = form(str name, list[Question] questions);
  
  
 data Question 
@@ -44,3 +44,8 @@ data Expr
   
   | and(Expr expr1, Expr expr2)    
   | or(Expr expr1, Expr expr2);
+  
+  
+anno loc Form@location;
+  
+  

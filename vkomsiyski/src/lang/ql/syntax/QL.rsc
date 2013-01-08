@@ -1,11 +1,11 @@
 module lang::ql::syntax::QL
 
 
-start syntax Form = form: "form" "{" Question* questions "}";
+start syntax Form = form: "form" Ident? name "{" Question* questions "}";
 
 
 syntax Question 
-  = question: Ident name ":" Label label Type type Expr? expr
+  = question: QuestionName name ":" Label label Type type Expr? expr
   | conditional: IfStatement;
 
 
@@ -59,19 +59,24 @@ keyword Keywords = "form" | "if" | "else" | Type;
 
 layout Standard = WhitespaceOrComment* !>> [\ \t\n\f\r] !>> "//" !>> "/*";
   
-  
-lexical Ident = ([a-z A-Z 0-9 _] !<< [a-z A-Z][a-z A-Z 0-9 _]* !>> [a-z A-Z 0-9 _]) \ Keywords;
+
+lexical QuestionName = @category="Variable" Ident;
+
+lexical Ident =
+  ([a-z A-Z 0-9 _] !<< [a-z A-Z][a-z A-Z 0-9 _]* !>> [a-z A-Z 0-9 _]) \ Keywords;
 
 lexical Int = [0-9]+ !>> [0-9];
 
-lexical Label = "\"" LabelChar* [\\] !<< "\"" ;
+lexical Label = @category="Identifier" "\"" LabelChar* [\\] !<< "\"" ;
   
 lexical LabelChar = ![\"] | [\\] << [\"];
 
-lexical Comment = @category="Comment" "/*" CommentChar* "*/";
+lexical Comment 
+  = @category="Comment" "/*" CommentChar* "*/"
+  | @category="Comment" "//" ![\n\r]*; 
 
 lexical CommentChar = ![*] | [*] !>> [/];
- 
+
 lexical Type 
   = @category="Type" "boolean" 
   | @category="Type" "integer" 
