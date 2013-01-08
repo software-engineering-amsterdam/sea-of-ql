@@ -1,11 +1,9 @@
 package org.uva.sea.ql.ast;
 
-public class Not extends Expr {
+public class Not extends UnaryExpr {
 
-	private final Expr expression;
-	
 	public Not(Expr expression) {
-		this.expression = expression;
+		super(expression);
 	}
 
 }

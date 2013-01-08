@@ -1,12 +1,9 @@
 package org.uva.sea.ql.ast;
 
-public class LT extends Expr {
+public class LT extends BinaryExpr {
 
-	private final Expr left, right;
-
-	public LT(Expr left, Expr right) {
-		this.left = left;
-		this.right = right;
+	public LT(Expr leftExpression, Expr rightExpression) {
+		super(leftExpression, rightExpression);
 	}
 
 }

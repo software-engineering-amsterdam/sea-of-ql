@@ -1,11 +1,9 @@
 package org.uva.sea.ql.ast;
 
-public class Pos extends Expr {
+public class Pos extends UnaryExpr {
 
-	private final Expr expression;
-	
 	public Pos(Expr expression) {
-		this.expression = expression;
+		super(expression);
 	}
 
 }

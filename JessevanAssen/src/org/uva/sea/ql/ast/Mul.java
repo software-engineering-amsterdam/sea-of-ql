@@ -1,12 +1,9 @@
 package org.uva.sea.ql.ast;
 
-public class Mul extends Expr {
+public class Mul extends BinaryExpr {
 
-	private final Expr left, right;
-	
-	public Mul(Expr left, Expr right) {
-		this.left = left;
-		this.right = right;
+	public Mul(Expr leftExpression, Expr rightExpression) {
+		super(leftExpression, rightExpression);
 	}
 
 }

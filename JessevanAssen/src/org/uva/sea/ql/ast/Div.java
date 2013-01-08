@@ -1,12 +1,9 @@
 package org.uva.sea.ql.ast;
 
-public class Div extends Expr {
+public class Div extends BinaryExpr {
 
-	private final Expr left, right;
-	
-	public Div(Expr left, Expr right) {
-		this.left = left;
-		this.right = right;
+	public Div(Expr leftExpression, Expr rightExpression) {
+		super(leftExpression, rightExpression);
 	}
 
 }

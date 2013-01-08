@@ -1,12 +1,9 @@
 package org.uva.sea.ql.ast;
 
-public class Or extends Expr {
+public class Or extends BinaryExpr {
 
-	private final Expr left, right;
-
-	public Or(Expr left, Expr right) {
-		this.left = left;
-		this.right = right;
+	public Or(Expr leftExpression, Expr rightExpression) {
+		super(leftExpression, rightExpression);
 	}
 
 }
