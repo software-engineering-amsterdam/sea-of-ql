@@ -2,7 +2,7 @@ module lang::ql::syntax::QL
 
 
 start syntax Form
-  = form: "form" FormName "{" Question+ "}"
+  = form: "form" Ident "{" Question+ "}"
   ;
 
 

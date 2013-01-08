@@ -28,7 +28,7 @@ data Expr
 
   
 data Form
-  = form(Expr ident, list[Question] questions)
+  = form(str ident, list[Question] questions)
   ;
 
 data Type
