@@ -1,15 +1,9 @@
 package org.uva.sea.ql.ast;
 
-public class NEq extends Expr<Boolean> {
-	
-	private final boolean value;
-	
-	public NEq(Expr<Integer> leftHandSide, Expr<Integer> rightHandSide) {
-		this.value = false;
+public class NEq extends Expr {
+
+	public NEq(Expr result, Expr rhs) {
+		// TODO Auto-generated constructor stub
 	}
 
-	@Override
-	public Boolean getValue() {
-		return value;
-	}
 }

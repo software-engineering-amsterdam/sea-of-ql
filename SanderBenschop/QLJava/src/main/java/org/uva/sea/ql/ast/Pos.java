@@ -1,16 +1,9 @@
 package org.uva.sea.ql.ast;
 
-public class Pos extends Expr<Integer> {
+public class Pos extends Expr {
 
-	private final int value;
-	
-	public Pos(Expr<Integer> x) {
-		this.value = 0;
+	public Pos(Expr x) {
+		// TODO Auto-generated constructor stub
 	}
 	
-	@Override
-	public Integer getValue() {
-		return value;
-	}
-
 }

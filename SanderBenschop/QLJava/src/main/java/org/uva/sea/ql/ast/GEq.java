@@ -1,15 +1,9 @@
 package org.uva.sea.ql.ast;
 
-public class GEq extends Expr<Boolean> {
+public class GEq extends Expr {
 
-	private final boolean value;
-	
-	public GEq(Expr<Integer> leftHandSide, Expr<Integer> rightHandSide) {
-		this.value = false;
+	public GEq(Expr result, Expr rhs) {
+		// TODO Auto-generated constructor stub
 	}
 
-	@Override
-	public Boolean getValue() {
-		return value;
-	}
 }

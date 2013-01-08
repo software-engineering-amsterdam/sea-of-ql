@@ -1,17 +1,10 @@
 package org.uva.sea.ql.ast;
 
 
-public class Not extends Expr<Boolean> {
+public class Not extends Expr {
 
-	private final boolean value;
-	
-	public Not(Expr<Boolean> x) {
-		this.value = false;
+	public Not(Expr x) {
+		// TODO Auto-generated constructor stub
 	}
 
-	@Override
-	public Boolean getValue() {
-		return value;
-	}
-	
 }

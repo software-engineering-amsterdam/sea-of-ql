@@ -1,15 +1,9 @@
 package org.uva.sea.ql.ast;
 
-public class Div extends Expr<Integer> {
+public class Div extends Expr {
 
-	private final int value;
-	
-	public Div(Expr<Integer> leftHandSide, Expr<Integer> rightHandSide) {
-		this.value = 0;
+	public Div(Expr result, Expr rhs) {
+		// TODO Auto-generated constructor stub
 	}
 
-	@Override
-	public Integer getValue() {
-		return value;
-	}
 }

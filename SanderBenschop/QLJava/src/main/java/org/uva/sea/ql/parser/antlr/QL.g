@@ -91,7 +91,7 @@ WS  :	(' ' | '\t' | '\n' | '\r') { $channel=HIDDEN; }
     ;
 
 COMMENT 
-    : '/*' .* '*/' {$channel=HIDDEN;}
+     : '/*' .* '*/' {$channel=HIDDEN;}
     ;
 
 Bool: 'true'|'false';

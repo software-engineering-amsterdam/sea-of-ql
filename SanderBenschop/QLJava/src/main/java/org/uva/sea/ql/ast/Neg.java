@@ -1,16 +1,9 @@
 package org.uva.sea.ql.ast;
 
-public class Neg extends Expr<Integer> {
+public class Neg extends Expr {
 
-	private final int value;
-	
-	public Neg(Expr<Integer> x) {
-		this.value = 0;
-	}
-	
-	@Override
-	public Integer getValue() {
-		return value;
+	public Neg(Expr x) {
+		// TODO Auto-generated constructor stub
 	}
 
 }

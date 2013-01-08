@@ -1,16 +1,10 @@
 package org.uva.sea.ql.ast;
 
 
-public class LEq extends Expr<Boolean> {
+public class LEq extends Expr {
 
-	private final boolean value;
-	
-	public LEq(Expr<Integer> leftHandSide, Expr<Integer> rightHandSide) {
-		this.value = false;
+	public LEq(Expr result, Expr rhs) {
+		// TODO Auto-generated constructor stub
 	}
 
-	@Override
-	public Boolean getValue() {
-		return value;
-	}
 }

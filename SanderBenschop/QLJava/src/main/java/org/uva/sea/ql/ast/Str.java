@@ -1,6 +1,6 @@
 package org.uva.sea.ql.ast;
 
-public class Str extends Expr<String> {
+public class Str extends Expr {
 
 	private final String value;
 	

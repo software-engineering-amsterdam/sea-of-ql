@@ -10,7 +10,7 @@ import org.uva.sea.ql.parser.test.ParseError;
 public class ANTLRParser implements IParse {
 
 	@Override
-	public Expr<?> parse(String src) throws ParseError {
+	public Expr parse(String src) throws ParseError {
 		ANTLRStringStream stream = new ANTLRStringStream(src);
 		CommonTokenStream tokens = new CommonTokenStream();
 		tokens.setTokenSource(new QLLexer(stream));

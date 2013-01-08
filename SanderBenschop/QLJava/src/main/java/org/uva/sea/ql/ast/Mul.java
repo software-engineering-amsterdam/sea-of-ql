@@ -1,17 +1,10 @@
 package org.uva.sea.ql.ast;
 
 
-public class Mul extends Expr<Integer> {
+public class Mul extends Expr {
 
-	private final int value;
-	
-	public Mul(Expr<Integer> leftHandSide, Expr<Integer> rightHandSide) {
-		this.value = 0;
+	public Mul(Expr result, Expr rhs) {
+		// TODO Auto-generated constructor stub
 	}
 
-	@Override
-	public Integer getValue() {
-		return value;
-	}
-	
 }

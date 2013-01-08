@@ -1,15 +1,9 @@
 package org.uva.sea.ql.ast;
 
-public class Add extends Expr<Integer> {
+public class Add extends Expr {
 
-	private final int value;
-	
-	public Add(Expr<Integer> leftHandSide, Expr<Integer> rightHandSide) {
-		this.value = 0;
+	public Add(Expr result, Expr rhs) {
+		// TODO Auto-generated constructor stub
 	}
-	
-	@Override
-	public Integer getValue() {
-		return value;
-	}
+
 }
