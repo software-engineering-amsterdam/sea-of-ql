@@ -24,11 +24,12 @@ public class TestExpressions {
 	private IParse parser;
 
 	@Parameters
-	public static List<Object[]> theParser() {
-	  List<Object[]> parserList = new ArrayList<Object[]>();
-	  parserList.add(new Object[] {new ANTLRParser()});
-	  return parserList;
+	public static List<Object[]> theParsers() {
+		List<Object[]> list = new ArrayList<Object[]>();
+		list.add(new Object[] {new ANTLRParser()});
+		return list;
 	}
+
 	
 	public TestExpressions(IParse parser) {
 		this.parser = parser;
@@ -86,5 +87,6 @@ public class TestExpressions {
 		assertEquals(parser.parse("0").getClass(), Int.class);
 		assertEquals(parser.parse("1223").getClass(), Int.class);
 		assertEquals(parser.parse("234234234").getClass(), Int.class);
-	}	
+	}
+	
 }
