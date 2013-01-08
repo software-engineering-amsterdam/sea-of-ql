@@ -4,5 +4,6 @@ import org.uva.sea.ql.ast.*;
 
 public interface IParse {
 	QLProgram qlprogram(String src)  throws ParseError;
+	Statement stmt(String src)  throws ParseError;
 	Expr parse(String src) throws ParseError;
 }
