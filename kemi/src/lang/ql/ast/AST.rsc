@@ -29,12 +29,12 @@ data Expr
 
   
 data Form
-  = form(str name, list[FormItem] items)
-  ;
+  = form(str name, list[FormItem] item)
+    ;
 
 data FormItem
   = question(Question question)
-  | conditional(/*Expr,*/ list[FormItem])//, list[FormItem])
+  | conditional(Expr)//, list[FormItem])//, list[FormItem])
   ;
 
 data Type

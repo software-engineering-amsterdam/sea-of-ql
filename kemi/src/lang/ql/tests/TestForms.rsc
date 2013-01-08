@@ -17,9 +17,9 @@ public test bool testAdd1() = p("form Hello") is form;
 //public test bool testQuestion1() = p("\"HAllo?\", bool, var") is question;
 
 public void main() {
-    try x = p(|project://QL-R/src/lang/ql/tests/form.q|);
-    catch IllegalArgument( y, z ): text([z, y]);
-    return;
+    //try x = p(|project://QL-R/src/lang/ql/tests/form.q|);
+    //catch IllegalArgument( y, z ): text([z, y]);
+    //return;
     
     //text(readFile(|project://QL-R/src/lang/ql/tests/form.q|));
     

@@ -8,7 +8,8 @@ start syntax Form
 
 start syntax Conditional
   // TODO: else if? I say no, if you want this: else { if ( ... ) {
-  = conditional: "if" /*Expr*/ "{" FormItem+ "}"// ("else" "{" FormItem+ "}")?
+  = conditional: Expr
+  //= conditional: "if" /*Expr*/ "{" FormItem+ "}"// ("else" "{" FormItem+ "}")?
   ;
 
 
@@ -52,7 +53,8 @@ start syntax Expr
 
 syntax FormItem
   = question: Question
-  | conditional: Conditional
+  //| conditional: Conditional
+  | conditional: Expr
   ;
 
 syntax WhitespaceOrComment 
