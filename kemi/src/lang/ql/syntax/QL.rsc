@@ -1,22 +1,19 @@
 module lang::ql::syntax::QL
 
+start syntax Form = form: "form" Ident formName "{" FormItem+ formElements "}";
 
-start syntax Form
-  = form: "form" Ident "{" FormItem+ "}"
+syntax FormItem
+  = question: Question question
+  | conditional: "if" Expr booleanExpression "{" FormItem+ thenStatement "}" 
+  | conditional: "if" Expr booleanExpression "{" FormItem+ thenStatement "}" "else" "{" FormItem+ elseStatement "}" 
   ;
 
-
-start syntax Conditional
-  // TODO: else if? I say no, if you want this: else { if ( ... ) {
-  = conditional: Expr
-  //= conditional: "if" /*Expr*/ "{" FormItem+ "}"// ("else" "{" FormItem+ "}")?
+//start syntax Question = question: String questionText "," Type answerDataType "," Ident answerIdentifier (":" Expr)?;
+start syntax Question 
+  = question: String questionText "," Type answerDataType "," Ident answerIdentifier
+  // This is not working...
+  //| question: String questionText "," Type answerDataType "," Ident answerIdentifier ":" Expr x
   ;
-
-
-start syntax Question
-  = question: String "," Type "," Ident (":" Expr)?
-  ;
-
 
 start syntax Expr
   = ident: Ident name
@@ -47,14 +44,6 @@ start syntax Expr
   )
   > left and: Expr "&&" Expr
   > left or: Expr "||" Expr
-  ;
-
-
-
-syntax FormItem
-  = question: Question
-  //| conditional: Conditional
-  | conditional: Expr
   ;
 
 syntax WhitespaceOrComment 

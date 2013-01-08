@@ -28,13 +28,12 @@ data Expr
   ;
 
   
-data Form
-  = form(str name, list[FormItem] item)
-    ;
+data Form = form(str formName, list[FormItem] formElements);
 
 data FormItem
   = question(Question question)
-  | conditional(Expr)//, list[FormItem])//, list[FormItem])
+  | conditional(Expr booleanExpression, list[FormItem] thenStatement)
+  | conditional(Expr booleanExpression, list[FormItem] thenStatement, list[FormItem] elseStatement)
   ;
 
 data Type
@@ -42,6 +41,9 @@ data Type
   ;
 
 data Question
-  = question(str, str, str, list[Expr])
-  | question(Expr question, Type \type, Expr identifier, Maybe[Expr] aa) //TODO: Do we want this?
+  = question(str, str, str)
+  | question(str, str, str, str)
+  | question(Expr questionText, Type answerDataType, Expr answerIdentifier) //TODO: Do we want this?
+  | question(Expr questionText, Type answerDataType, Expr answerIdentifier, Expr aa) //TODO: Do we want this?
+  //| question(Expr questionText, Type answerDataType, Expr answerIdentifier, Maybe[Expr] aa) //TODO: Do we want this?
   ;
