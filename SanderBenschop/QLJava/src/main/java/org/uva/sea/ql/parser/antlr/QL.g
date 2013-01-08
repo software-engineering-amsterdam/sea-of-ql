@@ -14,7 +14,9 @@ package org.uva.sea.ql.parser.antlr;
 
 primary returns [Expr result]
   : Int   { $result = new Int(Integer.parseInt($Int.text)); }
+  | Bool  { $result = new Bool(Boolean.parseBoolean($Bool.text)); }
   | Ident { $result = new Ident($Ident.text); }
+  | Str   { $result = new Str($Str.text); }
   | '(' x=orExpr ')'{ $result = $x.result; }
   ;
     
@@ -92,6 +94,7 @@ COMMENT
      : '/*' .* '*/' {$channel=HIDDEN;}
     ;
 
+Bool: 'true'|'false';
 Ident:   ('a'..'z'|'A'..'Z')('a'..'z'|'A'..'Z'|'0'..'9'|'_')*;
-
+Str:  '\"' .* '\"';
 Int: ('0'..'9')+;
