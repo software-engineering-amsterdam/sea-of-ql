@@ -1,17 +1,5 @@
 [
   {
-    "symbolicName": "QL_R",
-    "version": {
-      "major": 1,
-      "minor": 0,
-      "micro": 0,
-      "qualifier": ""
-    },
-    "jarFileModificationDate": "2013-01-07T12:54:53+01:00",
-    "location": "/Users/Ferry/Applications/eclipse/plugins/rascal_0.5.4.201211191106/src",
-    "javaRuntime": false
-  },
-  {
     "symbolicName": "jre",
     "version": {
       "major": 1,
@@ -23,6 +11,18 @@
     "jarFileModificationDate": "2012-10-05T05:19:18+02:00",
     "location": "/System/Library/Java/JavaVirtualMachines/1.6.0.jdk/Contents/Home/lib/ext/sunjce_provider.jar",
     "javaRuntime": true
+  },
+  {
+    "symbolicName": "QL_R",
+    "version": {
+      "major": 1,
+      "minor": 0,
+      "micro": 0,
+      "qualifier": ""
+    },
+    "jarFileModificationDate": "2013-01-07T12:54:53+01:00",
+    "location": "/Users/Ferry/Applications/eclipse/plugins/rascal_0.5.4.201211191106/src",
+    "javaRuntime": false
   },
   {
     "symbolicName": "jre",
@@ -64,19 +64,6 @@
     "javaRuntime": false
   },
   {
-    "symbolicName": "org.eclipse.imp.pdb.values",
-    "version": {
-      "major": 0,
-      "minor": 3,
-      "micro": 2,
-      "qualifier": "201211191106"
-    },
-    "jarFileFingerprint": "2b0fec0c76188afcef3ffeaecab33dcc34ba4c61",
-    "jarFileModificationDate": "2013-01-07T12:54:37+01:00",
-    "location": "/Users/Ferry/Applications/eclipse/plugins/org.eclipse.imp.pdb.values_0.3.2.201211191106.jar",
-    "javaRuntime": false
-  },
-  {
     "symbolicName": "jre",
     "version": {
       "major": 1,
@@ -88,6 +75,19 @@
     "jarFileModificationDate": "2009-07-21T01:29:55+02:00",
     "location": "/System/Library/Java/Extensions/j3dcore.jar",
     "javaRuntime": true
+  },
+  {
+    "symbolicName": "org.eclipse.imp.pdb.values",
+    "version": {
+      "major": 0,
+      "minor": 3,
+      "micro": 2,
+      "qualifier": "201211191106"
+    },
+    "jarFileFingerprint": "2b0fec0c76188afcef3ffeaecab33dcc34ba4c61",
+    "jarFileModificationDate": "2013-01-07T12:54:37+01:00",
+    "location": "/Users/Ferry/Applications/eclipse/plugins/org.eclipse.imp.pdb.values_0.3.2.201211191106.jar",
+    "javaRuntime": false
   },
   {
     "symbolicName": "jre",
@@ -122,9 +122,9 @@
       "micro": 0,
       "qualifier": ""
     },
-    "jarFileFingerprint": "71cfd38915abb7f780ebe7024f7b6581e6a46528",
-    "jarFileModificationDate": "2012-07-30T04:26:34+02:00",
-    "location": "/System/Library/Java/Extensions/QTJava.zip",
+    "jarFileFingerprint": "90a5f62308008857f9dbcf8af6f4a954ef5650a2",
+    "jarFileModificationDate": "2012-10-05T05:32:46+02:00",
+    "location": "/System/Library/Java/JavaVirtualMachines/1.6.0.jdk/Contents/Home/lib/ext/apple_provider.jar",
     "javaRuntime": true
   },
   {
@@ -135,9 +135,9 @@
       "micro": 0,
       "qualifier": ""
     },
-    "jarFileFingerprint": "90a5f62308008857f9dbcf8af6f4a954ef5650a2",
-    "jarFileModificationDate": "2012-10-05T05:32:46+02:00",
-    "location": "/System/Library/Java/JavaVirtualMachines/1.6.0.jdk/Contents/Home/lib/ext/apple_provider.jar",
+    "jarFileFingerprint": "71cfd38915abb7f780ebe7024f7b6581e6a46528",
+    "jarFileModificationDate": "2012-07-30T04:26:34+02:00",
+    "location": "/System/Library/Java/Extensions/QTJava.zip",
     "javaRuntime": true
   },
   {
@@ -310,19 +310,6 @@
     "javaRuntime": true
   },
   {
-    "symbolicName": "rats",
-    "version": {
-      "major": -1,
-      "minor": -1,
-      "micro": -1,
-      "qualifier": ""
-    },
-    "jarFileFingerprint": "202944e187f52dbe30ecac772210908dda8864c2",
-    "jarFileModificationDate": "2013-01-07T12:34:33+01:00",
-    "location": "/Users/Ferry/sea-of-ql/FerryRiet/QLJava/lib/rats.jar",
-    "javaRuntime": false
-  },
-  {
     "symbolicName": "jre",
     "version": {
       "major": 1,
@@ -334,6 +321,19 @@
     "jarFileModificationDate": "2009-05-18T20:20:24+02:00",
     "location": "/System/Library/Java/Extensions/jai_core.jar",
     "javaRuntime": true
+  },
+  {
+    "symbolicName": "rats",
+    "version": {
+      "major": -1,
+      "minor": -1,
+      "micro": -1,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "202944e187f52dbe30ecac772210908dda8864c2",
+    "jarFileModificationDate": "2013-01-07T12:34:33+01:00",
+    "location": "/Users/Ferry/sea-of-ql/FerryRiet/QLJava/lib/rats.jar",
+    "javaRuntime": false
   },
   {
     "symbolicName": "jre",
@@ -356,9 +356,9 @@
       "micro": 0,
       "qualifier": ""
     },
-    "jarFileFingerprint": "2aeafae8b3ae6f162a9720568ad73eab9ec91a5a",
-    "jarFileModificationDate": "2011-05-26T23:40:55+02:00",
-    "location": "/System/Library/Java/Extensions/dns_sd.jar",
+    "jarFileFingerprint": "2ec06f76a2651c721e12a9bacc3b4df1a92a31fe",
+    "jarFileModificationDate": "2012-10-05T05:24:16+02:00",
+    "location": "/System/Library/Java/JavaVirtualMachines/1.6.0.jdk/Contents/Home/lib/ext/dnsns.jar",
     "javaRuntime": true
   },
   {
@@ -382,9 +382,9 @@
       "micro": 0,
       "qualifier": ""
     },
-    "jarFileFingerprint": "2ec06f76a2651c721e12a9bacc3b4df1a92a31fe",
-    "jarFileModificationDate": "2012-10-05T05:24:16+02:00",
-    "location": "/System/Library/Java/JavaVirtualMachines/1.6.0.jdk/Contents/Home/lib/ext/dnsns.jar",
+    "jarFileFingerprint": "2aeafae8b3ae6f162a9720568ad73eab9ec91a5a",
+    "jarFileModificationDate": "2011-05-26T23:40:55+02:00",
+    "location": "/System/Library/Java/Extensions/dns_sd.jar",
     "javaRuntime": true
   }
 ]
