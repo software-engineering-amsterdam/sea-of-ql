@@ -5,6 +5,7 @@ options {backtrack=true; memoize=true;}
 {
 package org.uva.sea.ql.parser.antlr;
 import org.uva.sea.ql.ast.*;
+import org.uva.sea.ql.parser.antlr.operators.*;
 }
 
 @lexer::header
@@ -12,21 +13,24 @@ import org.uva.sea.ql.ast.*;
 package org.uva.sea.ql.parser.antlr;
 }
 
-primary returns [Expr result]
+primary returns [Expression result]
   : Int   { $result = new Int(Integer.parseInt($Int.text)); }
+  | Money { $result = new Money($Money.text); }
+  | Bool { $result = new Bool(Boolean.parseBoolean($Bool.text)); }
   | Ident { $result = new Ident($Ident.text); }
-  | '(' x=orExpr ')'{ $result = $x.result; }
+  | String { $result = new StringLiteral($String.text.substring(1)); }
+  | '(' x=orExpression ')'{ $result = $x.result; }
   ;
     
-unExpr returns [Expr result]
-    :  '+' x=unExpr { $result = new Pos($x.result); }
-    |  '-' x=unExpr { $result = new Neg($x.result); }
-    |  '!' x=unExpr { $result = new Not($x.result); }
+unExpression returns [Expression result]
+    :  '+' x=unExpression { $result = new Pos($x.result); }
+    |  '-' x=unExpression { $result = new Neg($x.result); }
+    |  '!' x=unExpression { $result = new Not($x.result); }
     |  x=primary    { $result = $x.result; }
     ;    
     
-mulExpr returns [Expr result]
-    :   lhs=unExpr { $result=$lhs.result; } ( op=( '*' | '/' ) rhs=unExpr 
+mulExpression returns [Expression result]
+    :   lhs=unExpression { $result=$lhs.result; } ( op=( '*' | '/' ) rhs=unExpression 
     { 
       if ($op.text.equals("*")) {
         $result = new Mul($result, rhs);
@@ -38,8 +42,8 @@ mulExpr returns [Expr result]
     ;
     
   
-addExpr returns [Expr result]
-    :   lhs=mulExpr { $result=$lhs.result; } ( op=('+' | '-') rhs=mulExpr
+addExpression returns [Expression result]
+    :   lhs=mulExpression { $result=$lhs.result; } ( op=('+' | '-') rhs=mulExpression
     { 
       if ($op.text.equals("+")) {
         $result = new Add($result, rhs);
@@ -50,8 +54,8 @@ addExpr returns [Expr result]
     })*
     ;
   
-relExpr returns [Expr result]
-    :   lhs=addExpr { $result=$lhs.result; } ( op=('<'|'<='|'>'|'>='|'=='|'!=') rhs=addExpr 
+relExpression returns [Expression result]
+    :   lhs=addExpression { $result=$lhs.result; } ( op=('<'|'<='|'>'|'>='|'=='|'!=') rhs=addExpression 
     { 
       if ($op.text.equals("<")) {
         $result = new LT($result, rhs);
@@ -74,13 +78,13 @@ relExpr returns [Expr result]
     })*
     ;
     
-andExpr returns [Expr result]
-    :   lhs=relExpr { $result=$lhs.result; } ( '&&' rhs=relExpr { $result = new And($result, rhs); } )*
+andExpression returns [Expression result]
+    :   lhs=relExpression { $result=$lhs.result; } ( '&&' rhs=relExpression { $result = new And($result, rhs); } )*
     ;
     
 
-orExpr returns [Expr result]
-    :   lhs=andExpr { $result = $lhs.result; } ( '||' rhs=andExpr { $result = new Or($result, rhs); } )*
+orExpression returns [Expression result]
+    :   lhs=andExpression { $result = $lhs.result; } ( '||' rhs=andExpression { $result = new Or($result, rhs); } )*
     ;
 
     
@@ -90,8 +94,15 @@ WS  :	(' ' | '\t' | '\n' | '\r') { $channel=HIDDEN; }
 
 COMMENT 
      : '/*' .* '*/' {$channel=HIDDEN;}
-    ;
+     | '//' ~('\n'|'\r')* {$channel=HIDDEN;}
+;
+
+Bool: ('TRUE' | 'FALSE' | 'true' | 'false');
 
 Ident:   ('a'..'z'|'A'..'Z')('a'..'z'|'A'..'Z'|'0'..'9'|'_')*;
 
 Int: ('0'..'9')+;
+
+Money: ('0'..'9')+ ('.' ('0'..'9')+)?;
+
+String: '"'~('"')*;

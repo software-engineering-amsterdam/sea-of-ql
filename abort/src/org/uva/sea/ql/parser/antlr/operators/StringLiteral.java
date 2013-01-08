@@ -2,16 +2,17 @@ package org.uva.sea.ql.parser.antlr.operators;
 
 import org.uva.sea.ql.ast.Expression;
 
-public class Pos extends Expression {
-
-	public Pos(Expression x) {
-		// TODO Auto-generated constructor stub
-	}
-
+public class StringLiteral extends Expression {
+	private String value;
+	
 	@Override
 	public Object getValue() {
 		// TODO Auto-generated method stub
-		return null;
+		return value;
+	}
+	
+	public StringLiteral(String string) {
+		this.value = string;
 	}
 
 }

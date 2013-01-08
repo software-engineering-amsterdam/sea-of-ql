@@ -10,10 +10,11 @@ import org.uva.sea.ql.parser.antlr.operators.GT;
 import org.uva.sea.ql.parser.antlr.operators.Int;
 import org.uva.sea.ql.parser.antlr.operators.LEq;
 import org.uva.sea.ql.parser.antlr.operators.LT;
+import org.uva.sea.ql.parser.antlr.operators.Money;
 import org.uva.sea.ql.parser.antlr.operators.Mul;
+import org.uva.sea.ql.parser.antlr.operators.StringLiteral;
 
 public class TestExpressions extends TestCase {
-
 	private static final IParse parser = new ANTLRParser();
 
 	
@@ -66,8 +67,30 @@ public class TestExpressions extends TestCase {
 	@Test
 	public void testNums() throws ParseError {
 		assertEquals(parser.parse("0").getClass(), Int.class);
+
 		assertEquals(parser.parse("1223").getClass(), Int.class);
 		assertEquals(parser.parse("234234234").getClass(), Int.class);
 	}
 	
+	@Test
+	public void testMoney() throws ParseError {
+		assertEquals(parser.parse("0.000").getClass(), Money.class);
+
+		assertEquals(parser.parse("1.234").getClass(), Money.class);
+		assertEquals(parser.parse("1932.123214141").getClass(), Money.class);
+	}
+	
+	@Test
+	public void testSinglelineComments() throws ParseError {
+		assertNull(parser.parse("// this is a comment\n"));
+		assertEquals(Ident.class, parser.parse("// this is a comment\n this is not").getClass());
+		assertEquals(Ident.class, parser.parse("// this is a comment\r this is not").getClass());
+	}
+	
+	@Test
+	public void testStringLiterals() throws ParseError {
+		assertEquals(StringLiteral.class, parser.parse("\"Hello\"").getClass());
+		assertEquals("Hello", ((StringLiteral)parser.parse("\"Hello\"")).getValue());
+		assertEquals(Ident.class, parser.parse("Hello").getClass());
+	}
 }

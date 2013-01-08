@@ -2,16 +2,14 @@ package org.uva.sea.ql.parser.antlr.operators;
 
 import org.uva.sea.ql.ast.Expression;
 
-public class Int extends Expression {
+public class Money extends Expression {
+	private double value;
 
-	private final int value;
-
-	public Int(int n) {
-		this.value = n;
+	public Money(String value) {
+		this.value = Double.parseDouble(value);
 	}
-
+	
 	public Object getValue() {
 		return value;
 	}
-	
 }
