@@ -1,5 +1,10 @@
 package org.uva.sea.ql.ast;
 
-public interface ASTNode {
+import org.uva.sea.ql.visitor.NodeVisitor;
 
+public interface ASTNode {
+	
+	public void walkChild(ASTNode parent);
+
+	public void accept(NodeVisitor visitor);
 }

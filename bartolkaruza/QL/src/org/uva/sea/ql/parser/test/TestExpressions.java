@@ -3,19 +3,19 @@ package org.uva.sea.ql.parser.test;
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
-import org.uva.sea.ql.ast.Add;
-import org.uva.sea.ql.ast.GT;
 import org.uva.sea.ql.ast.Ident;
 import org.uva.sea.ql.ast.Int;
-import org.uva.sea.ql.ast.LEq;
-import org.uva.sea.ql.ast.LT;
-import org.uva.sea.ql.ast.Mul;
+import org.uva.sea.ql.ast.expr.Add;
+import org.uva.sea.ql.ast.expr.GT;
+import org.uva.sea.ql.ast.expr.LEq;
+import org.uva.sea.ql.ast.expr.LT;
+import org.uva.sea.ql.ast.expr.Mul;
 import org.uva.sea.ql.parser.antlr.ANTLRParser;
 
 public class TestExpressions {
 
 	private static final IParse parser = new ANTLRParser();
-	
+
 	@Test
 	public void testAdds() throws ParseError {
 		assertEquals(parser.parse("a + b").getClass(), Add.class);
@@ -38,7 +38,7 @@ public class TestExpressions {
 		assertEquals(parser.parse("(a + b) * c").getClass(), Mul.class);
 		assertEquals(parser.parse("a * (b + c)").getClass(), Mul.class);
 	}
-	
+
 	@Test
 	public void testRels() throws ParseError {
 		assertEquals(parser.parse("a < b").getClass(), LT.class);
@@ -49,7 +49,6 @@ public class TestExpressions {
 		assertEquals(parser.parse("a + b > c").getClass(), GT.class);
 		assertEquals(parser.parse("a > b + c").getClass(), GT.class);
 	}
-
 
 	@Test
 	public void testIds() throws ParseError {
@@ -68,5 +67,5 @@ public class TestExpressions {
 		assertEquals(parser.parse("1223").getClass(), Int.class);
 		assertEquals(parser.parse("234234234").getClass(), Int.class);
 	}
-	
+
 }

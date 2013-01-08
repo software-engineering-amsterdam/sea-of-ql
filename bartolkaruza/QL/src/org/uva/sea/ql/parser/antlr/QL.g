@@ -12,7 +12,21 @@ import org.uva.sea.ql.ast.*;
 package org.uva.sea.ql.parser.antlr;
 }
 
+form returns [ASTNode result] 
+  : 'form' Ident '{' NL questions '}' { $result = new Form($Ident.text); };
 
+questions returns [ASTNode result]
+  : question NL questions {$result = new Questions(); $result.add($question); $result.add($questions)}
+  | statement NL questions {$result = new Questions($statement); $result.add($questions); } 
+  | NL {return null}};
+
+question returns [ASTNode result]
+    : Ident':' label TYPE;
+    
+statement returns [ASTNode result] 
+  : IF (expr) '{' questions '}' { $result = new Stmt($orExpr, $questions); };
+
+label : '\"' (Ident|WS)* '\"';
 
 primary returns [Expr result]
   : Int   { $result = new Int(Integer.parseInt($Int.text)); }
@@ -41,7 +55,7 @@ mulExpr returns [Expr result]
     
   
 addExpr returns [Expr result]
-    :   lhs=mulExpr { $result=$lhs.result; } ( op=('+' | '-') rhs=mulExpr
+    :   lhs=unExpr { $result=$lhs.result; } ( op=('+' | '-') rhs=mulExpr
     { 
       if ($op.text.equals("+")) {
         $result = new Add($result, rhs);
@@ -85,14 +99,21 @@ orExpr returns [Expr result]
     :   lhs=andExpr { $result = $lhs.result; } ( '||' rhs=andExpr { $result = new Or($result, rhs); } )*
     ;
 
+expr returns [Expr result]
+    : lhs=orExpr { $result = $lhs.result; };
+
     
 // Tokens
-WS  :	(' ' | '\t' | '\n' | '\r') { $channel=HIDDEN; }
-    ;
 
-COMMENT 
-     : '/*' .* '*/' {$channel=HIDDEN;}
-    ;
+TYPE : 'boolean' | 'number' | 'textfield';
+
+IF : 'if';
+
+NL : '\n' | '\r' { $channel=HIDDEN; };
+
+WS  :	(' ' | '\t') { $channel=HIDDEN; };
+
+COMMENT : '/*' .* '*/' {$channel=HIDDEN;};
 
 Ident:   ('a'..'z'|'A'..'Z')('a'..'z'|'A'..'Z'|'0'..'9'|'_')*;
 
