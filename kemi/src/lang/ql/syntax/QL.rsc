@@ -2,12 +2,18 @@ module lang::ql::syntax::QL
 
 
 start syntax Form
-  = form: "form" Ident "{" Question+ "}"
+  = form: "form" Ident "{" FormItem+ "}"
+  ;
+
+
+start syntax Conditional
+  // TODO: else if? I say no, if you want this: else { if ( ... ) {
+  = conditional: "if" /*Expr*/ "{" FormItem+ "}"// ("else" "{" FormItem+ "}")?
   ;
 
 
 start syntax Question
-  = question: QuestionString "," QuestionType "," QuestionIdent
+  = question: String "," Type "," Ident (":" Expr)?
   ;
 
 
@@ -43,24 +49,11 @@ start syntax Expr
   ;
 
 
-  
-syntax FormName
-  = ident: Ident
+
+syntax FormItem
+  = question: Question
+  | conditional: Conditional
   ;
-
-
-syntax QuestionString
-  = string: String
-  ;
-
-syntax QuestionType
-  = \type: Type
-  ;
-
-syntax QuestionIdent
-  = ident: Ident
-  ;
-
 
 syntax WhitespaceOrComment 
   = whitespace: Whitespace

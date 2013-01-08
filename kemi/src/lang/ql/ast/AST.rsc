@@ -1,6 +1,7 @@
 module lang::ql::ast::AST
 
 import DateTime;
+import util::Maybe;
 
 data Expr
   = ident(str name)
@@ -28,7 +29,12 @@ data Expr
 
   
 data Form
-  = form(str ident, list[Question] questions)
+  = form(str name, list[FormItem] items)
+  ;
+
+data FormItem
+  = question(Question question)
+  | conditional(/*Expr,*/ list[FormItem])//, list[FormItem])
   ;
 
 data Type
@@ -36,5 +42,6 @@ data Type
   ;
 
 data Question
-  = question(Expr qtext, Type \type, Expr ident)
+  = question(str, str, str, list[Expr])
+  | question(Expr question, Type \type, Expr identifier, Maybe[Expr] aa) //TODO: Do we want this?
   ;
