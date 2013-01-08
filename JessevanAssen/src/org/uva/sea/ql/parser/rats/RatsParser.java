@@ -4,12 +4,12 @@ import java.io.IOException;
 import java.io.StringReader;
 
 import org.uva.sea.ql.ast.Expr;
-import org.uva.sea.ql.parser.IParser;
+import org.uva.sea.ql.parser.Parser;
 import org.uva.sea.ql.parser.ParseError;
 
 import xtc.parser.Result;
 
-public class RatsParser implements IParser {
+public class RatsParser implements Parser {
 	public RatsParser() {
 		
 	}

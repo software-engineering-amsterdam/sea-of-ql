@@ -20,7 +20,7 @@ import org.uva.sea.ql.ast.LEq;
 import org.uva.sea.ql.ast.LT;
 import org.uva.sea.ql.ast.Mul;
 import org.uva.sea.ql.ast.Str;
-import org.uva.sea.ql.parser.IParser;
+import org.uva.sea.ql.parser.Parser;
 import org.uva.sea.ql.parser.ParseError;
 import org.uva.sea.ql.parser.antlr.ANTLRParser;
 import org.uva.sea.ql.parser.jacc.JACCParser;
@@ -29,7 +29,7 @@ import org.uva.sea.ql.parser.rats.RatsParser;
 @RunWith(Parameterized.class)
 public class TestExpressions {
 
-	private IParser parser;
+	private Parser parser;
 
 	@Parameters
 	public static List<Object[]> theParsers() {
@@ -41,7 +41,7 @@ public class TestExpressions {
 	}
 
 	
-	public TestExpressions(IParser parser) {
+	public TestExpressions(Parser parser) {
 		this.parser = parser;
 	}
 
