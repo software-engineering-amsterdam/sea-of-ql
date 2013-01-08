@@ -1,13 +1,18 @@
 package org.uva.sea.ql.ast;
 
 public class Add extends Expr {
-	Expr  exLeftHand, exRightHand ;
+
 	public Add(Expr result, Expr rhs) {
-		// TODO Auto-generated constructor stub
-		exLeftHand = result ;
-		exRightHand = rhs ;
+		super(result, rhs);
 	}
-	public int eval(){
-		return 1 ;
+
+	public void eval() {
+
+		exLeftHand.eval();
+
+		System.out.print(" + ");
+
+		exRightHand.eval();
+
 	}
 }

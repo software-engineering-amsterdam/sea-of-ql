@@ -10,6 +10,9 @@ public class ConditionalStatement extends Statement {
 		compound = c ;
 	}
 	public void eval() {
+		System.out.print("if (");
+		expression.eval() ;
+		System.out.print(") ");
 		compound.eval();
 	}
 }

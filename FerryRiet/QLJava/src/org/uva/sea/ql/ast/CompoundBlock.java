@@ -8,11 +8,9 @@ public class CompoundBlock {
 	private List<Statement> statementList = new ArrayList<Statement>();
 
 	public CompoundBlock() {
-		System.out.println("----------------Started Compound");
 	}
 
 	public void addStatement(Statement st) {
-		System.out.println("Adding statements to Compound");
 		statementList.add(st);
 	}
 
@@ -20,11 +18,11 @@ public class CompoundBlock {
 
 		Iterator<Statement> it = statementList.iterator();
 
-		System.out.println("{{{{{{{{{{");
+		System.out.print("{");
 		while (it.hasNext()) {
 			Statement value = (Statement) it.next();
-			value.eval() ;
+			value.eval();
 		}
-		System.out.println("}}}}}}}}}}}");
+		System.out.println("}");
 	}
 }

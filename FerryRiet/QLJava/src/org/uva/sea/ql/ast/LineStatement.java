@@ -6,14 +6,16 @@ public class LineStatement extends Statement {
 
 	private String lineName;
 	private String displayText;
+	private TypeDescription typeDescription ;
 
-	public LineStatement(String string, Token st) {
+	public LineStatement(String string, Token st, TypeDescription ty) {
 		lineName = string;
 		displayText = st.getText();
+		typeDescription = ty ;
 	}
-
 	public void eval() {
-		System.out.println(lineName + ":" + displayText);
+		System.out.print(lineName + ":" + displayText);
+		typeDescription.eval() ;
+		System.out.print("\n");
 	}
-
 }

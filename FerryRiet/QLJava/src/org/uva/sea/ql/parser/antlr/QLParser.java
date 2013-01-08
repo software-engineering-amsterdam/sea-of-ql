@@ -1,4 +1,4 @@
-// $ANTLR 3.4 QL.g 2013-01-08 14:23:40
+// $ANTLR 3.4 QL.g 2013-01-08 15:22:02
 
 package org.uva.sea.ql.parser.antlr;
 import org.uva.sea.ql.ast.*;
@@ -195,7 +195,7 @@ public class QLParser extends Parser {
 
 
     // $ANTLR start "stmt"
-    // QL.g:25:1: stmt returns [Statement result] : ( Ident COLON st= String type | 'if' '(' ex= orExpr ')' c= compoundblock );
+    // QL.g:25:1: stmt returns [Statement result] : ( Ident COLON st= String ty= type | 'if' '(' ex= orExpr ')' c= compoundblock );
     public final QLParser.stmt_return stmt() throws RecognitionException {
         QLParser.stmt_return retval = new QLParser.stmt_return();
         retval.start = input.LT(1);
@@ -204,6 +204,8 @@ public class QLParser extends Parser {
 
         Token st=null;
         Token Ident2=null;
+        TypeDescription ty =null;
+
         Expr ex =null;
 
         CompoundBlock c =null;
@@ -212,7 +214,7 @@ public class QLParser extends Parser {
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 3) ) { return retval; }
 
-            // QL.g:26:5: ( Ident COLON st= String type | 'if' '(' ex= orExpr ')' c= compoundblock )
+            // QL.g:26:5: ( Ident COLON st= String ty= type | 'if' '(' ex= orExpr ')' c= compoundblock )
             int alt2=2;
             int LA2_0 = input.LA(1);
 
@@ -232,7 +234,7 @@ public class QLParser extends Parser {
             }
             switch (alt2) {
                 case 1 :
-                    // QL.g:26:7: Ident COLON st= String type
+                    // QL.g:26:7: Ident COLON st= String ty= type
                     {
                     Ident2=(Token)match(input,Ident,FOLLOW_Ident_in_stmt136); if (state.failed) return retval;
 
@@ -240,32 +242,32 @@ public class QLParser extends Parser {
 
                     st=(Token)match(input,String,FOLLOW_String_in_stmt142); if (state.failed) return retval;
 
-                    pushFollow(FOLLOW_type_in_stmt144);
-                    type();
+                    pushFollow(FOLLOW_type_in_stmt146);
+                    ty=type();
 
                     state._fsp--;
                     if (state.failed) return retval;
 
-                    if ( state.backtracking==0 ) { retval.result = new LineStatement(new String((Ident2!=null?Ident2.getText():null)),st); }
+                    if ( state.backtracking==0 ) { retval.result = new LineStatement(new String((Ident2!=null?Ident2.getText():null)),st,ty); }
 
                     }
                     break;
                 case 2 :
                     // QL.g:27:7: 'if' '(' ex= orExpr ')' c= compoundblock
                     {
-                    match(input,28,FOLLOW_28_in_stmt154); if (state.failed) return retval;
+                    match(input,28,FOLLOW_28_in_stmt156); if (state.failed) return retval;
 
-                    match(input,15,FOLLOW_15_in_stmt156); if (state.failed) return retval;
+                    match(input,15,FOLLOW_15_in_stmt158); if (state.failed) return retval;
 
-                    pushFollow(FOLLOW_orExpr_in_stmt160);
+                    pushFollow(FOLLOW_orExpr_in_stmt162);
                     ex=orExpr();
 
                     state._fsp--;
                     if (state.failed) return retval;
 
-                    match(input,16,FOLLOW_16_in_stmt162); if (state.failed) return retval;
+                    match(input,16,FOLLOW_16_in_stmt164); if (state.failed) return retval;
 
-                    pushFollow(FOLLOW_compoundblock_in_stmt166);
+                    pushFollow(FOLLOW_compoundblock_in_stmt168);
                     c=compoundblock();
 
                     state._fsp--;
@@ -332,7 +334,7 @@ public class QLParser extends Parser {
                 case 1 :
                     // QL.g:31:7: 'boolean'
                     {
-                    match(input,26,FOLLOW_26_in_type193); if (state.failed) return result;
+                    match(input,26,FOLLOW_26_in_type195); if (state.failed) return result;
 
                     if ( state.backtracking==0 ) { result = new BooleanType() ;}
 
@@ -341,7 +343,7 @@ public class QLParser extends Parser {
                 case 2 :
                     // QL.g:32:7: 'money' ( '(' x= orExpr ')' )?
                     {
-                    match(input,29,FOLLOW_29_in_type203); if (state.failed) return result;
+                    match(input,29,FOLLOW_29_in_type205); if (state.failed) return result;
 
                     // QL.g:32:15: ( '(' x= orExpr ')' )?
                     int alt3=2;
@@ -354,15 +356,15 @@ public class QLParser extends Parser {
                         case 1 :
                             // QL.g:32:16: '(' x= orExpr ')'
                             {
-                            match(input,15,FOLLOW_15_in_type206); if (state.failed) return result;
+                            match(input,15,FOLLOW_15_in_type208); if (state.failed) return result;
 
-                            pushFollow(FOLLOW_orExpr_in_type210);
+                            pushFollow(FOLLOW_orExpr_in_type212);
                             x=orExpr();
 
                             state._fsp--;
                             if (state.failed) return result;
 
-                            match(input,16,FOLLOW_16_in_type212); if (state.failed) return result;
+                            match(input,16,FOLLOW_16_in_type214); if (state.failed) return result;
 
                             }
                             break;
@@ -439,7 +441,7 @@ public class QLParser extends Parser {
                 case 1 :
                     // QL.g:38:5: Int
                     {
-                    Int3=(Token)match(input,Int,FOLLOW_Int_in_primary238); if (state.failed) return result;
+                    Int3=(Token)match(input,Int,FOLLOW_Int_in_primary240); if (state.failed) return result;
 
                     if ( state.backtracking==0 ) { result = new Int(Integer.parseInt((Int3!=null?Int3.getText():null))); }
 
@@ -448,7 +450,7 @@ public class QLParser extends Parser {
                 case 2 :
                     // QL.g:39:5: Ident
                     {
-                    Ident4=(Token)match(input,Ident,FOLLOW_Ident_in_primary248); if (state.failed) return result;
+                    Ident4=(Token)match(input,Ident,FOLLOW_Ident_in_primary250); if (state.failed) return result;
 
                     if ( state.backtracking==0 ) { result = new Ident((Ident4!=null?Ident4.getText():null)); }
 
@@ -457,15 +459,15 @@ public class QLParser extends Parser {
                 case 3 :
                     // QL.g:40:5: '(' x= orExpr ')'
                     {
-                    match(input,15,FOLLOW_15_in_primary256); if (state.failed) return result;
+                    match(input,15,FOLLOW_15_in_primary258); if (state.failed) return result;
 
-                    pushFollow(FOLLOW_orExpr_in_primary260);
+                    pushFollow(FOLLOW_orExpr_in_primary262);
                     x=orExpr();
 
                     state._fsp--;
                     if (state.failed) return result;
 
-                    match(input,16,FOLLOW_16_in_primary262); if (state.failed) return result;
+                    match(input,16,FOLLOW_16_in_primary264); if (state.failed) return result;
 
                     if ( state.backtracking==0 ) { result = x; }
 
@@ -541,9 +543,9 @@ public class QLParser extends Parser {
                 case 1 :
                     // QL.g:44:8: '+' x= unExpr
                     {
-                    match(input,18,FOLLOW_18_in_unExpr287); if (state.failed) return result;
+                    match(input,18,FOLLOW_18_in_unExpr289); if (state.failed) return result;
 
-                    pushFollow(FOLLOW_unExpr_in_unExpr291);
+                    pushFollow(FOLLOW_unExpr_in_unExpr293);
                     x=unExpr();
 
                     state._fsp--;
@@ -556,9 +558,9 @@ public class QLParser extends Parser {
                 case 2 :
                     // QL.g:45:8: '-' x= unExpr
                     {
-                    match(input,19,FOLLOW_19_in_unExpr302); if (state.failed) return result;
+                    match(input,19,FOLLOW_19_in_unExpr304); if (state.failed) return result;
 
-                    pushFollow(FOLLOW_unExpr_in_unExpr306);
+                    pushFollow(FOLLOW_unExpr_in_unExpr308);
                     x=unExpr();
 
                     state._fsp--;
@@ -571,9 +573,9 @@ public class QLParser extends Parser {
                 case 3 :
                     // QL.g:46:8: '!' x= unExpr
                     {
-                    match(input,12,FOLLOW_12_in_unExpr317); if (state.failed) return result;
+                    match(input,12,FOLLOW_12_in_unExpr319); if (state.failed) return result;
 
-                    pushFollow(FOLLOW_unExpr_in_unExpr321);
+                    pushFollow(FOLLOW_unExpr_in_unExpr323);
                     x=unExpr();
 
                     state._fsp--;
@@ -586,7 +588,7 @@ public class QLParser extends Parser {
                 case 4 :
                     // QL.g:47:8: x= primary
                     {
-                    pushFollow(FOLLOW_primary_in_unExpr334);
+                    pushFollow(FOLLOW_primary_in_unExpr336);
                     x=primary();
 
                     state._fsp--;
@@ -634,7 +636,7 @@ public class QLParser extends Parser {
             // QL.g:51:5: (lhs= unExpr (op= ( '*' | '/' ) rhs= unExpr )* )
             // QL.g:51:9: lhs= unExpr (op= ( '*' | '/' ) rhs= unExpr )*
             {
-            pushFollow(FOLLOW_unExpr_in_mulExpr372);
+            pushFollow(FOLLOW_unExpr_in_mulExpr374);
             lhs=unExpr();
 
             state._fsp--;
@@ -671,7 +673,7 @@ public class QLParser extends Parser {
             	    }
 
 
-            	    pushFollow(FOLLOW_unExpr_in_mulExpr392);
+            	    pushFollow(FOLLOW_unExpr_in_mulExpr394);
             	    rhs=unExpr();
 
             	    state._fsp--;
@@ -733,7 +735,7 @@ public class QLParser extends Parser {
             // QL.g:64:5: (lhs= mulExpr (op= ( '+' | '-' ) rhs= mulExpr )* )
             // QL.g:64:9: lhs= mulExpr (op= ( '+' | '-' ) rhs= mulExpr )*
             {
-            pushFollow(FOLLOW_mulExpr_in_addExpr433);
+            pushFollow(FOLLOW_mulExpr_in_addExpr435);
             lhs=mulExpr();
 
             state._fsp--;
@@ -770,7 +772,7 @@ public class QLParser extends Parser {
             	    }
 
 
-            	    pushFollow(FOLLOW_mulExpr_in_addExpr451);
+            	    pushFollow(FOLLOW_mulExpr_in_addExpr453);
             	    rhs=mulExpr();
 
             	    state._fsp--;
@@ -832,7 +834,7 @@ public class QLParser extends Parser {
             // QL.g:76:5: (lhs= addExpr (op= ( '<' | '<=' | '>' | '>=' | '==' | '!=' ) rhs= addExpr )* )
             // QL.g:76:9: lhs= addExpr (op= ( '<' | '<=' | '>' | '>=' | '==' | '!=' ) rhs= addExpr )*
             {
-            pushFollow(FOLLOW_addExpr_in_relExpr486);
+            pushFollow(FOLLOW_addExpr_in_relExpr488);
             lhs=addExpr();
 
             state._fsp--;
@@ -869,7 +871,7 @@ public class QLParser extends Parser {
             	    }
 
 
-            	    pushFollow(FOLLOW_addExpr_in_relExpr510);
+            	    pushFollow(FOLLOW_addExpr_in_relExpr512);
             	    rhs=addExpr();
 
             	    state._fsp--;
@@ -942,7 +944,7 @@ public class QLParser extends Parser {
             // QL.g:100:5: (lhs= relExpr ( '&&' rhs= relExpr )* )
             // QL.g:100:9: lhs= relExpr ( '&&' rhs= relExpr )*
             {
-            pushFollow(FOLLOW_relExpr_in_andExpr548);
+            pushFollow(FOLLOW_relExpr_in_andExpr550);
             lhs=relExpr();
 
             state._fsp--;
@@ -965,9 +967,9 @@ public class QLParser extends Parser {
             	case 1 :
             	    // QL.g:100:48: '&&' rhs= relExpr
             	    {
-            	    match(input,14,FOLLOW_14_in_andExpr554); if (state.failed) return result;
+            	    match(input,14,FOLLOW_14_in_andExpr556); if (state.failed) return result;
 
-            	    pushFollow(FOLLOW_relExpr_in_andExpr558);
+            	    pushFollow(FOLLOW_relExpr_in_andExpr560);
             	    rhs=relExpr();
 
             	    state._fsp--;
@@ -1021,7 +1023,7 @@ public class QLParser extends Parser {
             // QL.g:105:5: (lhs= andExpr ( '||' rhs= andExpr )* )
             // QL.g:105:9: lhs= andExpr ( '||' rhs= andExpr )*
             {
-            pushFollow(FOLLOW_andExpr_in_orExpr593);
+            pushFollow(FOLLOW_andExpr_in_orExpr595);
             lhs=andExpr();
 
             state._fsp--;
@@ -1044,9 +1046,9 @@ public class QLParser extends Parser {
             	case 1 :
             	    // QL.g:105:50: '||' rhs= andExpr
             	    {
-            	    match(input,30,FOLLOW_30_in_orExpr599); if (state.failed) return result;
+            	    match(input,30,FOLLOW_30_in_orExpr601); if (state.failed) return result;
 
-            	    pushFollow(FOLLOW_andExpr_in_orExpr603);
+            	    pushFollow(FOLLOW_andExpr_in_orExpr605);
             	    rhs=andExpr();
 
             	    state._fsp--;
@@ -1094,43 +1096,43 @@ public class QLParser extends Parser {
     public static final BitSet FOLLOW_Ident_in_stmt136 = new BitSet(new long[]{0x0000000000000010L});
     public static final BitSet FOLLOW_COLON_in_stmt138 = new BitSet(new long[]{0x0000000000000400L});
     public static final BitSet FOLLOW_String_in_stmt142 = new BitSet(new long[]{0x0000000024000000L});
-    public static final BitSet FOLLOW_type_in_stmt144 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_28_in_stmt154 = new BitSet(new long[]{0x0000000000008000L});
-    public static final BitSet FOLLOW_15_in_stmt156 = new BitSet(new long[]{0x00000000000C90C0L});
-    public static final BitSet FOLLOW_orExpr_in_stmt160 = new BitSet(new long[]{0x0000000000010000L});
-    public static final BitSet FOLLOW_16_in_stmt162 = new BitSet(new long[]{0x0000000000000100L});
-    public static final BitSet FOLLOW_compoundblock_in_stmt166 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_26_in_type193 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_29_in_type203 = new BitSet(new long[]{0x0000000000008002L});
-    public static final BitSet FOLLOW_15_in_type206 = new BitSet(new long[]{0x00000000000C90C0L});
-    public static final BitSet FOLLOW_orExpr_in_type210 = new BitSet(new long[]{0x0000000000010000L});
-    public static final BitSet FOLLOW_16_in_type212 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_Int_in_primary238 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_Ident_in_primary248 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_15_in_primary256 = new BitSet(new long[]{0x00000000000C90C0L});
-    public static final BitSet FOLLOW_orExpr_in_primary260 = new BitSet(new long[]{0x0000000000010000L});
-    public static final BitSet FOLLOW_16_in_primary262 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_18_in_unExpr287 = new BitSet(new long[]{0x00000000000C90C0L});
-    public static final BitSet FOLLOW_unExpr_in_unExpr291 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_19_in_unExpr302 = new BitSet(new long[]{0x00000000000C90C0L});
-    public static final BitSet FOLLOW_unExpr_in_unExpr306 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_12_in_unExpr317 = new BitSet(new long[]{0x00000000000C90C0L});
-    public static final BitSet FOLLOW_unExpr_in_unExpr321 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_primary_in_unExpr334 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_unExpr_in_mulExpr372 = new BitSet(new long[]{0x0000000000120002L});
-    public static final BitSet FOLLOW_set_in_mulExpr380 = new BitSet(new long[]{0x00000000000C90C0L});
-    public static final BitSet FOLLOW_unExpr_in_mulExpr392 = new BitSet(new long[]{0x0000000000120002L});
-    public static final BitSet FOLLOW_mulExpr_in_addExpr433 = new BitSet(new long[]{0x00000000000C0002L});
-    public static final BitSet FOLLOW_set_in_addExpr441 = new BitSet(new long[]{0x00000000000C90C0L});
-    public static final BitSet FOLLOW_mulExpr_in_addExpr451 = new BitSet(new long[]{0x00000000000C0002L});
-    public static final BitSet FOLLOW_addExpr_in_relExpr486 = new BitSet(new long[]{0x0000000003E02002L});
-    public static final BitSet FOLLOW_set_in_relExpr494 = new BitSet(new long[]{0x00000000000C90C0L});
-    public static final BitSet FOLLOW_addExpr_in_relExpr510 = new BitSet(new long[]{0x0000000003E02002L});
-    public static final BitSet FOLLOW_relExpr_in_andExpr548 = new BitSet(new long[]{0x0000000000004002L});
-    public static final BitSet FOLLOW_14_in_andExpr554 = new BitSet(new long[]{0x00000000000C90C0L});
-    public static final BitSet FOLLOW_relExpr_in_andExpr558 = new BitSet(new long[]{0x0000000000004002L});
-    public static final BitSet FOLLOW_andExpr_in_orExpr593 = new BitSet(new long[]{0x0000000040000002L});
-    public static final BitSet FOLLOW_30_in_orExpr599 = new BitSet(new long[]{0x00000000000C90C0L});
-    public static final BitSet FOLLOW_andExpr_in_orExpr603 = new BitSet(new long[]{0x0000000040000002L});
+    public static final BitSet FOLLOW_type_in_stmt146 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_28_in_stmt156 = new BitSet(new long[]{0x0000000000008000L});
+    public static final BitSet FOLLOW_15_in_stmt158 = new BitSet(new long[]{0x00000000000C90C0L});
+    public static final BitSet FOLLOW_orExpr_in_stmt162 = new BitSet(new long[]{0x0000000000010000L});
+    public static final BitSet FOLLOW_16_in_stmt164 = new BitSet(new long[]{0x0000000000000100L});
+    public static final BitSet FOLLOW_compoundblock_in_stmt168 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_26_in_type195 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_29_in_type205 = new BitSet(new long[]{0x0000000000008002L});
+    public static final BitSet FOLLOW_15_in_type208 = new BitSet(new long[]{0x00000000000C90C0L});
+    public static final BitSet FOLLOW_orExpr_in_type212 = new BitSet(new long[]{0x0000000000010000L});
+    public static final BitSet FOLLOW_16_in_type214 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_Int_in_primary240 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_Ident_in_primary250 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_15_in_primary258 = new BitSet(new long[]{0x00000000000C90C0L});
+    public static final BitSet FOLLOW_orExpr_in_primary262 = new BitSet(new long[]{0x0000000000010000L});
+    public static final BitSet FOLLOW_16_in_primary264 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_18_in_unExpr289 = new BitSet(new long[]{0x00000000000C90C0L});
+    public static final BitSet FOLLOW_unExpr_in_unExpr293 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_19_in_unExpr304 = new BitSet(new long[]{0x00000000000C90C0L});
+    public static final BitSet FOLLOW_unExpr_in_unExpr308 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_12_in_unExpr319 = new BitSet(new long[]{0x00000000000C90C0L});
+    public static final BitSet FOLLOW_unExpr_in_unExpr323 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_primary_in_unExpr336 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_unExpr_in_mulExpr374 = new BitSet(new long[]{0x0000000000120002L});
+    public static final BitSet FOLLOW_set_in_mulExpr382 = new BitSet(new long[]{0x00000000000C90C0L});
+    public static final BitSet FOLLOW_unExpr_in_mulExpr394 = new BitSet(new long[]{0x0000000000120002L});
+    public static final BitSet FOLLOW_mulExpr_in_addExpr435 = new BitSet(new long[]{0x00000000000C0002L});
+    public static final BitSet FOLLOW_set_in_addExpr443 = new BitSet(new long[]{0x00000000000C90C0L});
+    public static final BitSet FOLLOW_mulExpr_in_addExpr453 = new BitSet(new long[]{0x00000000000C0002L});
+    public static final BitSet FOLLOW_addExpr_in_relExpr488 = new BitSet(new long[]{0x0000000003E02002L});
+    public static final BitSet FOLLOW_set_in_relExpr496 = new BitSet(new long[]{0x00000000000C90C0L});
+    public static final BitSet FOLLOW_addExpr_in_relExpr512 = new BitSet(new long[]{0x0000000003E02002L});
+    public static final BitSet FOLLOW_relExpr_in_andExpr550 = new BitSet(new long[]{0x0000000000004002L});
+    public static final BitSet FOLLOW_14_in_andExpr556 = new BitSet(new long[]{0x00000000000C90C0L});
+    public static final BitSet FOLLOW_relExpr_in_andExpr560 = new BitSet(new long[]{0x0000000000004002L});
+    public static final BitSet FOLLOW_andExpr_in_orExpr595 = new BitSet(new long[]{0x0000000040000002L});
+    public static final BitSet FOLLOW_30_in_orExpr601 = new BitSet(new long[]{0x00000000000C90C0L});
+    public static final BitSet FOLLOW_andExpr_in_orExpr605 = new BitSet(new long[]{0x0000000040000002L});
 
 }
