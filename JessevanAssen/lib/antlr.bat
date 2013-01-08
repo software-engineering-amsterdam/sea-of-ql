@@ -1,1 +1,1 @@
-java -jar antlr-3.4-complete-no-antlrv2.jar -o ../src/org/uva/sea/ql/parser/antlr/ ../src/org/uva/sea/ql/parser/antlr/QL.g
+java -jar antlr-3.5-complete.jar -o ../src/org/uva/sea/ql/parser/antlr/ ../src/org/uva/sea/ql/parser/antlr/QL.g
