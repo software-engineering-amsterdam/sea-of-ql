@@ -10,26 +10,27 @@ import org.uva.sea.ql.ast.Int;
 import org.uva.sea.ql.ast.LEq;
 import org.uva.sea.ql.ast.LT;
 import org.uva.sea.ql.ast.Mul;
-import org.uva.sea.ql.parser.antlr.ANTLRParser;
+import org.uva.sea.ql.ast.QLProgram;
 
-public class TestExpressions extends TestCase{
+public class TestExpressions extends TestCase {
 
-	static final private IParse parser = new ANTLRParser(); 
+	static final private IParse parser = new ANTLRParser();
 
 	@Test
 	public void testSTMT() throws ParseError {
-	    String a = "form Box1HouseOwning {\n" + 
-	    		"   hasSoldHouse: \"Did you sell a house in 2010?\" boolean\n" + 
-	    		"   hasBoughtHouse: \"Did you by a house in 2010?\" boolean\n" + 
-	    		"   hasMaintLoan: \"Did you enter a loan for maintenance/reconstruction?\"\n" + 
-	    		"boolean\n" + 
-	    		"   if (hasSoldHouse) {\n" + 
-	    		"     sellingPrice:    \"Price the house was sold for:\" money\n" + 
-	    		"     privateDebt:   \"Private debts for the sold house:\" money\n" + 
-	    		"     valueResidue: \"Value residue:\" money(sellingPrice - privateDebt)\n" + 
-	    		"   }\n" + 
-	    		"}" ;
-		parser.stmt("hasSoldHouse: \"Did you sell a house in 2010?\" boolean\n");
+		String a0 = "form Box1HouseOwning { hasSoldHouse: \"Did you sell a house in 2010?\" boolean } ";
+		String a1 = "form Box1HouseOwning {\n"
+				+ "   hasSoldHouse: \"Did you sell a house in 2010?\" boolean\n"
+				+ "   hasBoughtHouse: \"Did you by a house in 2010?\" boolean\n"
+				+ "   hasMaintLoan: \"Did you enter a loan for maintenance/reconstruction?\"\n"
+				+ "boolean\n"
+				+ "   if (hasSoldHouse) {\n"
+				+ "     sellingPrice:    \"Price the house was sold for:\" money\n"
+				+ "     privateDebt:   \"Private debts for the sold house:\" money\n"
+				+ "     valueResidue: \"Value residue:\" money(sellingPrice + privateDebt + 12)\n"
+				+ "   }\n" + "}";
+		assertEquals(parser.qlprogram(a0).getClass(), QLProgram.class);
+		assertEquals(parser.qlprogram(a1).getClass(), QLProgram.class);
 	}
 
 	@Test
@@ -54,7 +55,7 @@ public class TestExpressions extends TestCase{
 		assertEquals(parser.parse("(a + b) * c").getClass(), Mul.class);
 		assertEquals(parser.parse("a * (b + c)").getClass(), Mul.class);
 	}
-	
+
 	@Test
 	public void testRels() throws ParseError {
 		assertEquals(parser.parse("a < b").getClass(), LT.class);
@@ -65,7 +66,6 @@ public class TestExpressions extends TestCase{
 		assertEquals(parser.parse("a + b > c").getClass(), GT.class);
 		assertEquals(parser.parse("a > b + c").getClass(), GT.class);
 	}
-
 
 	@Test
 	public void testIds() throws ParseError {
@@ -84,5 +84,5 @@ public class TestExpressions extends TestCase{
 		assertEquals(parser.parse("1223").getClass(), Int.class);
 		assertEquals(parser.parse("234234234").getClass(), Int.class);
 	}
-	
+
 }

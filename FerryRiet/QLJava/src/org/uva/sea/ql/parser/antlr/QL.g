@@ -12,21 +12,25 @@ import org.uva.sea.ql.ast.*;
 package org.uva.sea.ql.parser.antlr;
 }
 
-qlprogram : 
-  'form' Ident compoundblock ;
+qlprogram returns [QLProgram result]
+    : 'form' id=Ident c=compoundblock { $result = new QLProgram(new Ident($Ident.text),c) ; } 
+    ;
 
-compoundblock 
-    : LBRACE stmt* RBRACE ;
+compoundblock returns [CompoundBlock result]
+    : LBRACE stmt* RBRACE { $result = new CompoundBlock() ; } 
+    ;
 
-stmt returns [Stmt result]     
-    : x=Ident COLON st=String t=type { $result = new Stmt($x,$st,$t.result); }
-    | 'if' '('Ident ')' compoundblock ;
+stmt returns [Statement result]     
+    : id=Ident COLON st=String type { $result = new LineStatement($id,$st); }
+    | 'if' '(' ex=orExpr ')' c=compoundblock    { $result = new ConditionalStatement(ex,c) ; } 
+    ;
 
-type
-    : 'boolean'
-    | 'money' ;
+type returns [TypeDescription result]
+    : 'boolean' { $result = new BooleanType() ;}
+    | 'money' ('(' x=orExpr ')')? { $result = new MoneyType(x) ;}
+    ;
 
-
+ 
 
 primary returns [Expr result]
   : Int   { $result = new Int(Integer.parseInt($Int.text)); }
