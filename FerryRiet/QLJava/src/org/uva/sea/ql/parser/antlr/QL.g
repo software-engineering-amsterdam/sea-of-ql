@@ -13,15 +13,17 @@ package org.uva.sea.ql.parser.antlr;
 }
 
 qlprogram returns [QLProgram result]
-    : 'form' id=Ident c=compoundblock { $result = new QLProgram(new Ident($Ident.text),c) ; } 
+    : 'form' Ident  cb=compoundblock { $result = new QLProgram(new String($Ident.text), cb) ; } 
     ;
 
 compoundblock returns [CompoundBlock result]
-    : LBRACE stmt* RBRACE { $result = new CompoundBlock() ; } 
+    : LBRACE 
+      { $result = new CompoundBlock() ; } (st=stmt  { $result.addStatement($st.result) ; } )* 
+      RBRACE  
     ;
 
 stmt returns [Statement result]     
-    : id=Ident COLON st=String type { $result = new LineStatement($id,$st); }
+    : Ident COLON st=String ty=type { $result = new LineStatement(new String($Ident.text),$st,$ty.result); }
     | 'if' '(' ex=orExpr ')' c=compoundblock    { $result = new ConditionalStatement(ex,c) ; } 
     ;
 
@@ -51,7 +53,7 @@ mulExpr returns [Expr result]
       if ($op.text.equals("*")) {
         $result = new Mul($result, rhs);
       }
-      if ($op.text.equals("<=")) {
+      if ($op.text.equals("/")) {
         $result = new Div($result, rhs);      
       }
     })*

@@ -1,15 +1,13 @@
 package org.uva.sea.ql.ast;
 
 public class Ident extends Expr {
-
-	private final String name;
+	private final String _name;
 
 	public Ident(String name) {
-		this.name = name;
+		_name = name;
 	}
 	
 	public String getName() {
-		return name;
+		return _name;
 	}
-
 }
