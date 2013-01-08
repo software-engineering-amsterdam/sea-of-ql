@@ -1,5 +1,27 @@
 module lang::ql::ast::AST
  
+import List;
+ 
+ 
+data Form = form(list[Question] questions);
+ 
+ 
+data Question 
+  = question(str name, str label, str questionType, Expr expr)
+  | conditional(IfStatement ifStatement);
+ 
+  
+data IfStatement 
+  = ifStatementSingle(Expr condition, Question question, ElseStatement elseStatement)
+  | ifStatementMultiple(Expr condition, list[Question] questions, ElseStatement elseStatement);
+ 
+  
+data ElseStatement
+  = elseIfStatement(IfStatement ifStatement)
+  | elseStatementSingle(Question question)
+  | elseStatementMultiple(list[Question] questions); 
+    
+
 data Expr
   = ident(str name)
   | \int(int ivalue)
@@ -21,5 +43,4 @@ data Expr
   | neq(Expr expr1, Expr expr2)    
   
   | and(Expr expr1, Expr expr2)    
-  | or(Expr expr1, Expr expr2)
-  ;
+  | or(Expr expr1, Expr expr2);
