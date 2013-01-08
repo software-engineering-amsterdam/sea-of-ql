@@ -6,6 +6,6 @@ import lang::ql::ast::AST;
 import IO;
 
 
-public Expr implode(Tree t) = implode(#Expr, t);
+public Form implode(Tree t) = implode(#Form, t);
 
-public Expr load(loc l) = implode(parse(readFile(l), l));
+public Form load(loc l) = implode(parse(readFile(l), l));
