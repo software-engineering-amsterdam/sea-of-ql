@@ -1,15 +1,13 @@
 package org.uva.sea.ql.ast;
 
 public class Int extends Expr {
+	private final int _value;
 
-	private final int value;
-
-	public Int(int n) {
-		this.value = n;
+	public Int(int value) {
+		_value = value;
 	}
 
 	public int getValue() {
-		return value;
-	}
-	
+		return _value;
+	}	
 }
