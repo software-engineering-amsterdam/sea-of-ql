@@ -1,10 +1,14 @@
 module lang::ql::ast::AST
 
+import DateTime;
+
 data Expr
   = ident(str name)
   | \int(int ivalue)
   | money(real mvalue)
   | boolean(bool bvalue)
+  | date(str dvalue)
+  | string(str tvalue)
   | pos(Expr a)
   | neg(Expr a)
   | not(Expr a)
@@ -20,4 +24,17 @@ data Expr
   | neq(Expr a, Expr b)
   | and(Expr a, Expr b)
   | or(Expr a, Expr b)
+  ;
+
+  
+data Form
+  = form(Expr ident, list[Question] questions)
+  ;
+
+data Type
+  = \type(str name)
+  ;
+
+data Question
+  = question(Expr qtext, Type \type, Expr ident)
   ;
