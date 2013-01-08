@@ -92,12 +92,14 @@ WS  :	(' ' | '\t' | '\n' | '\r') { $channel=HIDDEN; }
 
 COMMENT 
     : '/*' .* '*/' {$channel=HIDDEN;}
-    | '//' .* '\n' {$channel=HIDDEN;}
+    | '//' ~NewLine* {$channel=HIDDEN;}
     ;
+
+NewLine: '\n' | '\r\n';
 
 Bool: 'true'|'false';
 
-Str: '\"' .* '\"';
+Str: '\"' ('\\"'|~'\"')* '\"';
 
 Ident:   ('a'..'z'|'A'..'Z')('a'..'z'|'A'..'Z'|'0'..'9'|'_')*;
 
