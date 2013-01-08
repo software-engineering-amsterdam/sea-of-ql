@@ -1,8 +1,17 @@
 module lang::ql::tests::TestExpressions
 
-import lang::ql::util::Parse;
-import lang::ql::util::Implode;
+import ParseTree;
+import IO;
+
 import lang::ql::ast::AST;
+import lang::ql::syntax::QL;
+import lang::ql::util::Parse;
+
+private start[Expr] parse(str src, loc l) = parse(#start[Expr], src, l);
+
+private Expr implode(Tree t) = implode(#Expr, t);
+private Expr load(loc l) = implode(parse(readFile(l), l));
+
 
 private Expr p(str src) = implode(parse(src, |file:///-|));
 
@@ -45,3 +54,21 @@ public test bool testInt2() = p("1223") is \int;
 public test bool testInt3() = p("234234234") is \int;
 
 
+public test bool testBool1() = p("true") is boolean;
+public test bool testBool2() = p("false") is boolean;
+
+public test bool testMoney1() = p("1.21") is money;
+public test bool testMoney2() = p("2.") is money;
+public test bool testMoney3() = p("0.5") is money;
+
+public test bool testText1() = p("\"afalse\"") is string;
+public test bool testText2() = p("\"a b c @ $ ^\"") is string;
+public test bool testText3() = p("\"af\\\"alse\"") is string;
+
+public test bool testDate1() = p("$2013-01-08") is date;
+
+//public test bool testQuestion1() = p("\"HAllo?\", bool, var") is question;
+
+public void main() {
+    println();
+}
