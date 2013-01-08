@@ -8,6 +8,4 @@ public abstract class Expr implements ASTNode {
 		exLeftHand = result;
 		exRightHand = rhs ;
 	}
-
-	abstract void eval() ;
 }

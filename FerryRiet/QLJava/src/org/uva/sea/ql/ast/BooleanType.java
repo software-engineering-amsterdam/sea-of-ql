@@ -4,7 +4,7 @@ public class BooleanType extends TypeDescription {
 
 	
 	@Override
-	void eval() {
+	public void eval() {
 		System.out.print("boolean");	
 	}
 }

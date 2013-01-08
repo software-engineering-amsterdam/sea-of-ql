@@ -9,12 +9,12 @@ public class MoneyType extends TypeDescription {
 	}
 
 	@Override
-	void eval() {
+	public void eval() {
 		System.out.print("money");
 		// TODO Auto-generated method stub
-		if ( expression != null ) {
+		if (expression != null) {
 			System.out.print("(");
-			expression.eval() ;
+			expression.eval();
 			System.out.print(")");
 		}
 	}

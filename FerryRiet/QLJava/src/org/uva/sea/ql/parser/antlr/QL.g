@@ -37,6 +37,7 @@ type returns [TypeDescription result]
 primary returns [Expr result]
   : Int   { $result = new Int(Integer.parseInt($Int.text)); }
   | Ident { $result = new Ident($Ident.text); }
+  | Boolean { $result = new BooleanType($Ident.text) ;}
   | '(' x=orExpr ')'{ $result = $x.result; }
   ;
     
@@ -110,7 +111,6 @@ orExpr returns [Expr result]
 WS  :	(' ' | '\t' | '\n' | '\r') { $channel=HIDDEN; }
     ;
 
-
 String : '"' ~('\n' | '\r' | '"')* '"' ;
 
 COLON  : ':' ;
@@ -118,9 +118,17 @@ LBRACE : '{' ;
 RBRACE : '}' ;
 
 COMMENT 
-     : '/*' .* '*/' {$channel=HIDDEN;}
+    : '/*' .* '*/'    {$channel=HIDDEN;}
+    | '//' ( ~'\n' )* {$channel=HIDDEN;}
     ;
 
+Boolean
+    : 'true'
+    | 'false'
+    ;
+        
 Ident:   ('a'..'z'|'A'..'Z')('a'..'z'|'A'..'Z'|'0'..'9'|'_')*;
+
+
 
 Int: ('0'..'9')+;
