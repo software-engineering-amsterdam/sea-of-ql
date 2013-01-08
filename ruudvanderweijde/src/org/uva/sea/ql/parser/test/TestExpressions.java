@@ -25,11 +25,8 @@ public class TestExpressions {
 
 	@Parameters
 	public static List<Object[]> theParsers() {
-	  return Arrays.asList(
-			  new Object[] {new ANTLRParser()}, 
-			  new Object[] {new ANTLRParser()},
-			  new Object[] {new ANTLRParser()}
-			 );
+		Object[][] data = new Object[][] { new Object[] {new ANTLRParser()} };
+		return Arrays.asList(data);
 	}
 
 	
@@ -37,6 +34,11 @@ public class TestExpressions {
 		this.parser = parser;
 	}
 
+	@Test
+	public void testForm() throws ParseError {
+		//String strQL = "form Box1HouseOwning { hasSoldHouse: \"Did you sell a house in 2010?\" boolean }";
+		//assertEquals(parser.parse(strQL).getClass(), true);
+	}
 	
 	@Test
 	public void testAdds() throws ParseError {
