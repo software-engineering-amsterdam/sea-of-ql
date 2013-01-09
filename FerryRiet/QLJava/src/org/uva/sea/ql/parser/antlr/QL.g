@@ -23,7 +23,7 @@ compoundblock returns [CompoundBlock result]
     ;
 
 stmt returns [Statement result]     
-    : Ident COLON st=String ty=type { $result = new LineStatement(new String($Ident.text),$st,$ty.result); }
+    : Ident COLON st=StringLiteral ty=type { $result = new LineStatement(new String($Ident.text),$st,$ty.result); }
     | 'if' '(' ex=orExpr ')' c=compoundblock    { $result = new ConditionalStatement(ex,c) ; } 
     ;
 
@@ -35,9 +35,10 @@ type returns [TypeDescription result]
  
 
 primary returns [Expr result]
-  : Int   { $result = new Int(Integer.parseInt($Int.text)); }
-  | Ident { $result = new Ident($Ident.text); }
-  | Boolean { $result = new BooleanType($Ident.text) ;}
+  : IntLiteral     { $result = new IntLiteral(Integer.parseInt($Int.text)); }
+  | Ident   { $result = new Ident($Ident.text); }
+  | BooleanLiteral { $result = new BooleanLiteral($Ident.text) ;}
+  | StringLiteral  { $result = new StringLiteral($Ident.text) ;}
   | '(' x=orExpr ')'{ $result = $x.result; }
   ;
     
@@ -111,7 +112,7 @@ orExpr returns [Expr result]
 WS  :	(' ' | '\t' | '\n' | '\r') { $channel=HIDDEN; }
     ;
 
-String : '"' ~('\n' | '\r' | '"')* '"' ;
+StringLiteral : '"' ~('\n' | '\r' | '"')* '"' ;
 
 COLON  : ':' ;
 LBRACE : '{' ;
@@ -122,13 +123,12 @@ COMMENT
     | '//' ( ~'\n' )* {$channel=HIDDEN;}
     ;
 
-Boolean
-    : 'true'
-    | 'false'
+BooleanLiteral
+    : 'true'| 'false' | 'TRUE' | 'FALSE'
     ;
         
 Ident:   ('a'..'z'|'A'..'Z')('a'..'z'|'A'..'Z'|'0'..'9'|'_')*;
 
 
 
-Int: ('0'..'9')+;
+IntLiteral: ('0'..'9')+;

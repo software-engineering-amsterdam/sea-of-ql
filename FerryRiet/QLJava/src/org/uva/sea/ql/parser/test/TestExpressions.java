@@ -7,7 +7,7 @@ import org.uva.sea.ql.ast.Add;
 import org.uva.sea.ql.ast.ConditionalStatement;
 import org.uva.sea.ql.ast.GT;
 import org.uva.sea.ql.ast.Ident;
-import org.uva.sea.ql.ast.Int;
+import org.uva.sea.ql.ast.IntLiteral;
 import org.uva.sea.ql.ast.LEq;
 import org.uva.sea.ql.ast.LT;
 import org.uva.sea.ql.ast.LineStatement;
@@ -98,9 +98,9 @@ public class TestExpressions extends TestCase {
 
 	@Test
 	public void testNums() throws ParseError {
-		assertEquals(parser.parse("0").getClass(), Int.class);
-		assertEquals(parser.parse("1223").getClass(), Int.class);
-		assertEquals(parser.parse("234234234").getClass(), Int.class);
+		assertEquals(parser.parse("0").getClass(), IntLiteral.class);
+		assertEquals(parser.parse("1223").getClass(), IntLiteral.class);
+		assertEquals(parser.parse("234234234").getClass(), IntLiteral.class);
 	}
 
 }

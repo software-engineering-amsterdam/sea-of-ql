@@ -3,9 +3,9 @@
 <properties>
 <comment>ANTLR Packages</comment>
 <entry key="antlr.3.4.selected">true</entry>
-<entry key="antlr.3.4.home">D:\Users\Ferry\Desktop\sea-of-ql\FerryRiet\QLJava\lib</entry>
 <entry key="antlr.3.4.desc">ANTLR Parser Generator  Version 3.4</entry>
+<entry key="antlr.3.4.home">/Users/Ferry/sea-of-ql/FerryRiet/QLJava/lib</entry>
+<entry key="antlr.3.4.created">1357755456743</entry>
 <entry key="antlr.packages">3.4</entry>
-<entry key="antlr.3.4.created">1357630740038</entry>
-<entry key="antlr.3.4.cp">D:\Users\Ferry\Desktop\sea-of-ql\FerryRiet\QLJava\lib\antlr-3.4-complete-no-antlrv2.jar;D:\Users\Ferry\Desktop\sea-of-ql\FerryRiet\QLJava\lib\rats.jar</entry>
+<entry key="antlr.3.4.cp">/Users/Ferry/sea-of-ql/FerryRiet/QLJava/lib/antlr-3.4-complete-no-antlrv2.jar:/Users/Ferry/sea-of-ql/FerryRiet/QLJava/lib/rats.jar</entry>
 </properties>
