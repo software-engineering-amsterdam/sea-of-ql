@@ -10,13 +10,13 @@ public class MulTests extends ParserTests {
 	
 	@Test
 	public void testMuls() throws ParseError {
-		assertEquals(Mul.class, parser.parse("a * b").getClass());
-		assertEquals(Mul.class, parser.parse("a * b * c").getClass());
-		assertEquals(Mul.class, parser.parse("a * (b * c)").getClass());
-		assertEquals(Mul.class, parser.parse("(a * b) * c").getClass());
-		assertEquals(Mul.class, parser.parse("(a * b)").getClass());
-		assertEquals(Mul.class, parser.parse("(a + b) * c").getClass());
-		assertEquals(Mul.class, parser.parse("a * (b + c)").getClass());
+		assertEquals(Mul.class, parseExpression("a * b").getClass());
+		assertEquals(Mul.class, parseExpression("a * b * c").getClass());
+		assertEquals(Mul.class, parseExpression("a * (b * c)").getClass());
+		assertEquals(Mul.class, parseExpression("(a * b) * c").getClass());
+		assertEquals(Mul.class, parseExpression("(a * b)").getClass());
+		assertEquals(Mul.class, parseExpression("(a + b) * c").getClass());
+		assertEquals(Mul.class, parseExpression("a * (b + c)").getClass());
 	}
 	
 }

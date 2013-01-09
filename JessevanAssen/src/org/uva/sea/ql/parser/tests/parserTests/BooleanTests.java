@@ -11,7 +11,7 @@ public class BooleanTests extends ParserTests {
 
 	@Test
 	public void testParseTrue() throws ParseError {
-		ASTNode parsed = parser.parse("true");
+		ASTNode parsed = parseExpression("true");
 		assertEquals(Bool.class, parsed.getClass());
 		
 		assertTrue(((Bool) parsed).getValue());
@@ -19,7 +19,7 @@ public class BooleanTests extends ParserTests {
 	
 	@Test
 	public void testParseFalse() throws ParseError {
-		ASTNode parsed = parser.parse("false");
+		ASTNode parsed = parseExpression("false");
 		assertEquals(Bool.class, parsed.getClass());
 		
 		assertFalse(((Bool) parsed).getValue());

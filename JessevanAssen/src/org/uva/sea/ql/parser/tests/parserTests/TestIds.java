@@ -10,13 +10,13 @@ public class TestIds extends ParserTests {
 
 	@Test
 	public void testIds() throws ParseError {
-		assertEquals(Ident.class, parser.parse("a").getClass());
-		assertEquals(Ident.class, parser.parse("abc").getClass());
-		assertEquals(Ident.class, parser.parse("ABC").getClass());
-		assertEquals(Ident.class, parser.parse("ABCDEF").getClass());
-		assertEquals(Ident.class, parser.parse("abc2323").getClass());
-		assertEquals(Ident.class, parser.parse("a2bc232").getClass());
-		assertEquals(Ident.class, parser.parse("a2bc232aa").getClass());
+		assertEquals(Ident.class, parseExpression("a").getClass());
+		assertEquals(Ident.class, parseExpression("abc").getClass());
+		assertEquals(Ident.class, parseExpression("ABC").getClass());
+		assertEquals(Ident.class, parseExpression("ABCDEF").getClass());
+		assertEquals(Ident.class, parseExpression("abc2323").getClass());
+		assertEquals(Ident.class, parseExpression("a2bc232").getClass());
+		assertEquals(Ident.class, parseExpression("a2bc232aa").getClass());
 	}
 	
 }

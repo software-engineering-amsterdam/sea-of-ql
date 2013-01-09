@@ -25,4 +25,10 @@ public abstract class ParserTests {
 		return parsed.getBody().get(0);
 	}
 	
+	protected Expr parseExpression(String expression) throws ParseError {
+		final String template = "if(%s) { }";
+		
+		FormElement parsed = parseFormElement(String.format(template, expression));
+		return ((If) parsed).getCondition();
+	}
 }

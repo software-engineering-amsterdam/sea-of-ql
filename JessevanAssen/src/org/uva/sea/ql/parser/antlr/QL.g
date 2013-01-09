@@ -13,12 +13,16 @@ package org.uva.sea.ql.parser.antlr;
 }
 
 primary returns [Expr result]
-  : Bool  { $result = new Bool(Boolean.parseBoolean($Bool.text)); }
-  | Int   { $result = new Int(Integer.parseInt($Int.text)); }
-  | Str   { $result = new Str($Str.text.substring(1, $Str.text.length() - 1)); }
-  | Ident { $result = new Ident($Ident.text); }
-  | '(' x=orExpr ')'{ $result = $x.result; }
-  ;
+    : Bool    { $result = new Bool(Boolean.parseBoolean($Bool.text)); }
+    | Int     { $result = new Int(Integer.parseInt($Int.text)); }
+    | strExpr { $result = $strExpr.result; }
+    | Ident   { $result = new Ident($Ident.text); }
+    | '(' x=orExpr ')'{ $result = $x.result; }
+    ;
+    
+strExpr returns [Str result]
+    : Str   { $result = new Str($Str.text.substring(1, $Str.text.length() - 1)); }
+    ;    
     
 unExpr returns [Expr result]
     :  '+' x=unExpr { $result = new Pos($x.result); }
@@ -86,18 +90,25 @@ orExpr returns [Expr result]
     ;
 
 form returns [Form result]
-    @init {
-        List<FormElement> body = new ArrayList<FormElement>();
-    }
-    : 'form' Ident '{'
-        (
-          x = questionFormElement { body.add($x.result); }
-        )*
-      '}' { $result = new Form(new Ident($Ident.text), body); }
+    : 'form' Ident '{' formElements '}' { 
+        $result = new Form(new Ident($Ident.text), $formElements.result); 
+      }
     ;
     
-questionFormElement returns [FormElement result]
-    : Str Ident ':' Type { $result = new Question($Str.text, new Ident($Ident.text), $Type.text); }
+formElements returns [List<FormElement> result]
+    @init {
+        result = new ArrayList<FormElement>();
+    }
+    : q = questionFormElement { result.add($q.result); }
+    | i = ifFormElement { result.add($i.result); }
+    ;
+    
+questionFormElement returns [Question result]
+    : strExpr Ident ':' Type { $result = new Question($strExpr.result.getValue(), new Ident($Ident.text), $Type.text); }
+    ;
+    
+ifFormElement returns [If result]
+    : 'if' '(' orExpr ')' '{' formElements '}' { $result = new If($orExpr.result, $formElements.result, null); }
     ;
     
 // Tokens

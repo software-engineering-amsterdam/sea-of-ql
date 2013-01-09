@@ -10,11 +10,11 @@ public class IfTests extends ParserTests {
 
 	@Test
 	public void testLonelyIf() throws ParseError {
-		FormElement formElement = parseFormElement("if(true) { }");
+		FormElement formElement = parseFormElement("if(true) { \"a\" x : boolean }");
 		assertEquals(If.class, formElement.getClass());
 		If i = (If) formElement;
 		
-		assertEquals(Bool.class, i.getCondition());
+		assertEquals(Bool.class, i.getCondition().getClass());
 	}
 	
 }

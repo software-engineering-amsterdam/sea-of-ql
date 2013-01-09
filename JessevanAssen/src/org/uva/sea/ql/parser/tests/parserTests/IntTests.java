@@ -10,9 +10,9 @@ public class IntTests extends ParserTests {
 
 	@Test
 	public void testInts() throws ParseError {
-		assertEquals(Int.class, parser.parse("0").getClass());
-		assertEquals(Int.class, parser.parse("1223").getClass());
-		assertEquals(Int.class, parser.parse("234234234").getClass());
+		assertEquals(Int.class, parseExpression("0").getClass());
+		assertEquals(Int.class, parseExpression("1223").getClass());
+		assertEquals(Int.class, parseExpression("234234234").getClass());
 	}
 	
 }

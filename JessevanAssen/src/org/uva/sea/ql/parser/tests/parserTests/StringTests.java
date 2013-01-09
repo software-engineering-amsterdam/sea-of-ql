@@ -20,7 +20,7 @@ public class StringTests extends ParserTests {
 	}
 	
 	private void testString(String stringValue) throws ParseError {
-		ASTNode parsed = parser.parse(String.format("\"%s\"", stringValue));
+		ASTNode parsed = parseExpression(String.format("\"%s\"", stringValue));
 		assertEquals(Str.class, parsed.getClass());
 		assertEquals(stringValue, ((Str) parsed).getValue());
 	}

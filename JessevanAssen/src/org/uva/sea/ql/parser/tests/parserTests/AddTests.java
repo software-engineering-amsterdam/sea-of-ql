@@ -10,14 +10,14 @@ public class AddTests extends ParserTests {
 
 	@Test
 	public void testAdds() throws ParseError {
-		assertEquals(Add.class, parser.parse("a + b").getClass());
-		assertEquals(Add.class, parser.parse("a + b + c").getClass());
-		assertEquals(Add.class, parser.parse("(a + b + c)").getClass());
-		assertEquals(Add.class, parser.parse("a + (b + c)").getClass());
-		assertEquals(Add.class, parser.parse("(a + b) + c").getClass());
-		assertEquals(Add.class, parser.parse("(a + b)").getClass());
-		assertEquals(Add.class, parser.parse("a + b * c").getClass());
-		assertEquals(Add.class, parser.parse("a * b + c").getClass());
+		assertEquals(Add.class, parseExpression("a + b").getClass());
+		assertEquals(Add.class, parseExpression("a + b + c").getClass());
+		assertEquals(Add.class, parseExpression("(a + b + c)").getClass());
+		assertEquals(Add.class, parseExpression("a + (b + c)").getClass());
+		assertEquals(Add.class, parseExpression("(a + b) + c").getClass());
+		assertEquals(Add.class, parseExpression("(a + b)").getClass());
+		assertEquals(Add.class, parseExpression("a + b * c").getClass());
+		assertEquals(Add.class, parseExpression("a * b + c").getClass());
 	}
 	
 }

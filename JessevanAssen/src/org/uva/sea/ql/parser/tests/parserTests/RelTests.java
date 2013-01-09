@@ -12,13 +12,13 @@ public class RelTests extends ParserTests {
 
 	@Test
 	public void testRels() throws ParseError {
-		assertEquals(LT.class, parser.parse("a < b").getClass());
-		assertEquals(LT.class, parser.parse("a < b + c").getClass());
-		assertEquals(LT.class, parser.parse("a < (b * c)").getClass());
-		assertEquals(LT.class, parser.parse("(a * b) < c").getClass());
-		assertEquals(LEq.class, parser.parse("(a <= b)").getClass());
-		assertEquals(GT.class, parser.parse("a + b > c").getClass());
-		assertEquals(GT.class, parser.parse("a > b + c").getClass());
+		assertEquals(LT.class, parseExpression("a < b").getClass());
+		assertEquals(LT.class, parseExpression("a < b + c").getClass());
+		assertEquals(LT.class, parseExpression("a < (b * c)").getClass());
+		assertEquals(LT.class, parseExpression("(a * b) < c").getClass());
+		assertEquals(LEq.class, parseExpression("(a <= b)").getClass());
+		assertEquals(GT.class, parseExpression("a + b > c").getClass());
+		assertEquals(GT.class, parseExpression("a > b + c").getClass());
 	}    
 	
 }
