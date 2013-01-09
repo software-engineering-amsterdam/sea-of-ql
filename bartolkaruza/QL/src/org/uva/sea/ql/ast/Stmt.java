@@ -11,12 +11,6 @@ public class Stmt implements ASTNode {
 
 	@Override
 	public void accept(NodeVisitor visitor) {
-
-	}
-
-	@Override
-	public void walkChild(ASTNode parent) {
-		
 	}
 
 }

@@ -35,9 +35,4 @@ public class Questions implements Question {
 		this.statement = statement;
 	}
 
-	@Override
-	public void walkChild(ASTNode parent) {
-		
-	}
-
 }
