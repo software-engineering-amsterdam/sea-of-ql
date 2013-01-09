@@ -5,5 +5,7 @@ form commentForm {
 	/* Even a multiline one
 	 * You never know when it might be handy!
 	 */
+	 "A question", date, aDate
+	 // Single line comment is supported as well. 
 }
 /* Tadaaaaaa */
