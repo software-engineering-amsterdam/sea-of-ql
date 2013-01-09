@@ -1,5 +1,7 @@
-form SSSSS {
+form calculatedField {
   "Number?", integer, number
-  /* This is broken..., see QL.rsc @ line 14-15 */
-  "3x your number is:", integer, numberx3: number * 3
+  /* Now for some weird stuff: The line below works (see Forms.rsc -> main()) */
+  "Working:", integer, numberx3: boolean
+  /* And this one is broken. */
+  "Broken:", integer, numberx3: number * 3
 }

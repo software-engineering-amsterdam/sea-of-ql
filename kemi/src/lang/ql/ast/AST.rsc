@@ -15,11 +15,13 @@ data Type
   ;
 
 data Question
+  // Needed for implode. We will rewrite it.
   = question(str, str, str)
+  | question(Expr questionText, Type answerDataType, Expr answerIdentifier)
   | question(str, str, str, str)
-  | question(Expr questionText, Type answerDataType, Expr answerIdentifier) //TODO: Do we want this?
-  | question(Expr questionText, Type answerDataType, Expr answerIdentifier, Expr aa) //TODO: Do we want this?
-  //| question(Expr questionText, Type answerDataType, Expr answerIdentifier, Maybe[Expr] aa) //TODO: Do we want this?
+  // It works with a type, an expression throws an error...
+  | question(Expr questionText, Type answerDataType, Expr answerIdentifier, Expr calculatedField)
+  | question(Expr awtf, Type bwtf, Expr cwtf, Type dwtf) 
   ;
 
 data Expr

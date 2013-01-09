@@ -5,6 +5,7 @@ import lang::ql::util::Parse;
 import lang::ql::util::Implode;
 
 import IO;
+import Exception;
 
 private Form p(str src) = implode(parse(src, |file:///-|));
 private Form p(loc f) = implode(parse(readFile(f), |file:///-|));
@@ -17,3 +18,9 @@ public test bool testMultipleQuestions() = p(|project://QL-R/src/lang/ql/tests/f
 public test bool testIfCondition() = p(|project://QL-R/src/lang/ql/tests/forms/examples/ifCondition.q|) is form;
 public test bool testIfElseCondition() = p(|project://QL-R/src/lang/ql/tests/forms/examples/ifElseCondition.q|) is form;
 public test bool testCalculatedField() = p(|project://QL-R/src/lang/ql/tests/forms/examples/calculatedField.q|) is form;
+
+public void main() {
+	try x = p(|project://QL-R/src/lang/ql/tests/forms/examples/calculatedField.q|);
+	catch IllegalArgument( y, z ): println("Error: <z> (@<y>)");
+	println("Correct: \n<x>");
+}

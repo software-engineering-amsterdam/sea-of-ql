@@ -11,8 +11,8 @@ syntax FormItem
 //start syntax Question = question: String questionText "," Type answerDataType "," Ident answerIdentifier (":" Expr)?;
 start syntax Question 
   = question: String questionText "," Type answerDataType "," Ident answerIdentifier
-  // This is not working...
-  //| question: String questionText "," Type answerDataType "," Ident answerIdentifier "," Expr x
+  | question: String questionText "," Type answerDataType "," Ident answerIdentifier ":" Expr calculatedField
+  | question: String questionText "," Type answerDataType "," Ident answerIdentifier ":" Type calculatedField
   ;
 
 start syntax Expr

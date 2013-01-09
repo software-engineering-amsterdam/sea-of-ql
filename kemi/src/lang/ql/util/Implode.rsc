@@ -11,7 +11,8 @@ public Form implode(Tree t) {
     i = implode(#Form, t);
     return visit(i) {
         case question(a, b, c) => question(string(a), \type(b), ident(c))
-        //case question(a, b, c, d) => question(string(a), \type(b), ident(c), string(d))
+        case question(a, b, c, d) => question(string(a), \type(b), ident(c), string(d))
+        case question(a, b, c, d) => question(string(a), \type(b), ident(c), \type(d))
     };
 }
 
