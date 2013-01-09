@@ -2,6 +2,7 @@ module Plugin
 
 import util::IDE;
 import lang::ql::util::Parse;
+import lang::ql::util::Implode;
 import lang::ql::ide::Outline;
 import ParseTree;
 
@@ -14,10 +15,13 @@ public void main() {
      return parse(src, l);
   });
   
+  registerContributions(LANG, {getOutliner()});
+  
+  /*
    contribs = {
-  		outliner(node (lang::ql::syntax::QL::Form input) {
+  		outliner(node (Form input) {
     		return outlineForm(implode(input));
-  		})/*,
+  		}),
   		annotator(demo::lang::MissGrant::MissGrant::Controller (demo::lang::MissGrant::MissGrant::Controller input) {
     		msgs = toSet(checkController(implode(input)));
     		return input[@messages=msgs];
@@ -30,9 +34,9 @@ public void main() {
 	    		edit("Rename...", rename) 
 		    ])
 	  	),
-	  	proposerContrib*/
+	  	proposerContrib
   };
 	
   registerContributions(LANG, contribs);
-    
+    */
 }

@@ -1,38 +1,27 @@
 module lang::ql::ide::Outline
 
 import lang::ql::ast::AST;
+import lang::ql::util::Implode;
 import util::IDE;
+import ParseTree;
+import List;
 
 
-public node outlineForm(Form form) {
+public Contribution getOutliner() = outliner(node(Tree input) {
+	return outlineForm(implode(input));
+});
 
-	n = "Form"("meh");
-	n@\loc = form@location;
-	n@label = "basi";
-	return n;
-}
 
-node outline(Form form) = "outline"(outline(form.name));
+node outlineForm(Form form) = outline(form);
 
-node outline(str name) = "form"[@label=name];
+node outline(Form form) = "outline"([outline(form.questions)])[@label="Form"][@\loc=form@location];
+ 
+node outline(list[Question] qs) = "questions"([outline(q) | q <- qs])[@label="Questions (<size(qs)>)"];
 
-/*
-node outline(list[Event] es) = "events"([ outline(e) | e <- es])[@label="Events"];
+node outline(Question q:regular(t, n, l)) = "regular"()[@label="<n>"][@\loc=q@location];
 
-// todo: pass env around to lookup resets
-// node outline(list[str] rs) = "resets"([ outline(e) | e <- es])[@label="Reset Events"];
+node outline(Question q:computed(t, n, e, l)) = "computed"()[@label="<n> = "][@\loc=q@location];
 
-node outline(list[Command] cs) = "commands"([ outline(c) | c <- cs])[@label="Commands"];
+node outline(Question q:conditional(c, qs)) = "conditional"([outline(qu) | qu <- qs])[@label="Conditional ()"][@\loc=q@location];
 
-node outline(list[State] ss) = "states"([ outline(s) | s <- ss])[@label="States"];
-
-node outline(e:event(n, t)) = "event"()[@label="<n> <t>"][@\loc=e@location];
-
-node outline(c:command(n, t)) = "command"()[@label="<n> <t>"][@\loc=c@location];
-
-node outline(s:state(n, as, ts)) = "state"([ outline(t) | t <- ts ])[@label=n][@\loc=s@location];
-
-// todo: pass env around to lookup state locs.
-node outline(t:transition(e, s)) = "transition"()[@label="<e> -\> <s>"][@\loc=t@location];
-*/
 
