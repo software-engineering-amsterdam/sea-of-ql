@@ -2,25 +2,13 @@ module lang::ql::ast::AST
  
 import List;
  
- 
-data Form = form(str name, list[Question] questions);
- 
+
+data Form = form(str name, list[Question] questions); 
  
 data Question 
-  = question(str name, str label, str questionType, Expr expr)
-  | conditional(IfStatement ifStatement);
- 
-  
-data IfStatement 
-  = ifStatementSingle(Expr condition, Question question, ElseStatement elseStatement)
-  | ifStatementMultiple(Expr condition, list[Question] questions, ElseStatement elseStatement);
- 
-  
-data ElseStatement
-  = elseIfStatement(IfStatement ifStatement)
-  | elseStatementSingle(Question question)
-  | elseStatementMultiple(list[Question] questions); 
-    
+  = regular(str \type, str name, str label)
+  | computed(str \type, str name, Expr expr, str label)
+  | conditional(Expr condition, list[Question] questions);
 
 data Expr
   = ident(str name)
@@ -44,8 +32,10 @@ data Expr
   
   | and(Expr expr1, Expr expr2)    
   | or(Expr expr1, Expr expr2);
-  
+ 
+data Comment = comment(str c);
   
 anno loc Form@location;
+anno loc Question@location;
   
   

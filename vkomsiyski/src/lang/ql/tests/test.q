@@ -1,11 +1,21 @@
-form Box1HouseOwning{
-   hasSoldHouse: "Did you sell a house in 2010?" boolean
-   hasBoughtHouse: "Did you by a house in 2010?" boolean
-   hasMaintLoan: "Did you enter a loan for maintenance/reconstruction?"
-boolean
+form Box1HouseOwning {
+   boolean hasSoldHouse for "Did you sell a house in 2010?" 
+   boolean hasBoughtHouse for "Did you by a house in 2010?" 
+   boolean 
+   hasMaintLoan for "Did you enter a loan for maintenance/reconstruction?"
+
+	boolean name = 5 for "label"
+	boolean name = 5 for "label"
+
+
    if (hasSoldHouse) {
-     sellingPrice: "Price the house was sold for:" integer
-     privateDebt: "Private debts for the sold house:" integer
-     valueResidue: "Value residue:" integer(sellingPrice - privateDebt)
-   } 
+     integer sellingPrice for "Price the house was sold for:"
+     integer privateDebt for "Private debts for the sold house:" 
+     integer valueResidue = (sellingPrice - privateDebt) for "Value residue:"
+   }
+   
+   
+   if (hasSoldHouse) {
+     integer sellingPrice for "Price the house was sold for:"
+	}
 }
