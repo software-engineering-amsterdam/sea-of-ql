@@ -3,16 +3,13 @@ module lang::ql::syntax::QL
 
 start syntax Form = form: "form" Ident name "{" Questions questions "}";
 
-
 syntax Questions = @Foldable Question+;
-
 
 syntax Question
   = regular: Type type QuestionName name "for" Label label 
   | computed: Type type QuestionName name "=" Expr expr "for" Label label 
   | conditional: "if" "(" Expr condition ")" "{" Questions questions "}"; 
- 
- 
+
 syntax Expr
   = ident: Ident name
   | \int: Int
@@ -35,18 +32,14 @@ syntax Expr
     | neq: Expr "!=" Expr)
   > left and: Expr "&&" Expr
   > left or: Expr "||" Expr;
-    
-    
+     
 syntax WhitespaceOrComment 
   = whitespace: Whitespace
   | comment: Comment;     
-    
-    
+   
 keyword Keywords = "form" | "if" | "for" | Type;
 
-
 layout Standard = WhitespaceOrComment* !>> [\ \t\n\f\r] !>> "//" !>> "/*";
-  
 
 lexical QuestionName = @category="Variable" Ident;
 
