@@ -105,10 +105,15 @@ formElements returns [List<FormElement> result]
 formElement returns [FormElement result]
     : questionFormElement { $result = $questionFormElement.result; }
     | ifFormElement { $result = $ifFormElement.result; }
+    | computedFormElement { $result = $computedFormElement.result; }
     ;
     
 questionFormElement returns [Question result]
     : strExpr Ident ':' Type { $result = new Question($strExpr.result.getValue(), new Ident($Ident.text), $Type.text); }
+    ;
+
+computedFormElement returns [Computed result]
+    : strExpr orExpr { $result = new Computed($strExpr.result.getValue(), $orExpr.result); }
     ;
     
 ifFormElement returns [If result]
