@@ -4,10 +4,11 @@ import util::Maybe;
 
 data Form = form(str formName, list[FormItem] formElements);
 
-data FormItem
+alias ElseIf = tuple[Expr condition, list[FormItem] body];
+
+data FormItem 
   = question(Question question)
-  | conditional(Expr booleanExpression, list[FormItem] thenStatement)
-  | conditional(Expr booleanExpression, list[FormItem] thenStatement, list[FormItem] elseStatement)
+  | ifCondition(Expr condition, list[FormItem] ifPart, list[ElseIf] elseIfs, list[FormItem] elsePart)
   ;
 
 data Type

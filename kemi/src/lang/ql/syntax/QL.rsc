@@ -2,11 +2,14 @@ module lang::ql::syntax::QL
 
 start syntax Form = form: "form" Ident formName "{" FormItem+ formElements "}";
 
-syntax FormItem
+syntax FormItem 
   = question: Question question
-  | conditional: "if" Expr booleanExpression "{" FormItem+ thenStatement "}"
-  | conditional: "if" Expr booleanExpression "{" FormItem+ thenStatement "}" "else" "{" FormItem+ elseStatement "}"
+  | ifCondition: "if" Expr condition "{" FormItem+ ifPart "}" ElsIfPart* elseIfs ElsePart? elsePart
   ;
+
+syntax ElsIfPart = "else if" Expr condition "{" FormItem+ body "}";
+
+syntax ElsePart = "else" "{" FormItem+ body "}";
 
 //start syntax Question = question: String questionText "," Type answerDataType "," Ident answerIdentifier (":" Expr)?;
 start syntax Question 
