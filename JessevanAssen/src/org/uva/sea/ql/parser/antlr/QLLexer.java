@@ -1,4 +1,4 @@
-// $ANTLR 3.5 \\\\pc-jesse\\c$\\Users\\Jesse\\workspace\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g 2013-01-08 21:21:46
+// $ANTLR 3.5 C:\\Users\\Jesse\\workspace\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g 2013-01-09 11:34:30
 
 package org.uva.sea.ql.parser.antlr;
 
@@ -11,7 +11,6 @@ import java.util.ArrayList;
 @SuppressWarnings("all")
 public class QLLexer extends Lexer {
 	public static final int EOF=-1;
-	public static final int T__11=11;
 	public static final int T__12=12;
 	public static final int T__13=13;
 	public static final int T__14=14;
@@ -26,13 +25,19 @@ public class QLLexer extends Lexer {
 	public static final int T__23=23;
 	public static final int T__24=24;
 	public static final int T__25=25;
+	public static final int T__26=26;
+	public static final int T__27=27;
+	public static final int T__28=28;
+	public static final int T__29=29;
+	public static final int T__30=30;
 	public static final int Bool=4;
 	public static final int COMMENT=5;
 	public static final int Ident=6;
 	public static final int Int=7;
 	public static final int NewLine=8;
 	public static final int Str=9;
-	public static final int WS=10;
+	public static final int Type=10;
+	public static final int WS=11;
 
 	// delegates
 	// delegators
@@ -47,38 +52,17 @@ public class QLLexer extends Lexer {
 	public QLLexer(CharStream input, RecognizerSharedState state) {
 		super(input,state);
 	}
-	@Override public String getGrammarFileName() { return "\\\\pc-jesse\\c$\\Users\\Jesse\\workspace\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g"; }
-
-	// $ANTLR start "T__11"
-	public final void mT__11() throws RecognitionException {
-		try {
-			int _type = T__11;
-			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// \\\\pc-jesse\\c$\\Users\\Jesse\\workspace\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:6:7: ( '!' )
-			// \\\\pc-jesse\\c$\\Users\\Jesse\\workspace\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:6:9: '!'
-			{
-			match('!'); 
-			}
-
-			state.type = _type;
-			state.channel = _channel;
-		}
-		finally {
-			// do for sure before leaving
-		}
-	}
-	// $ANTLR end "T__11"
+	@Override public String getGrammarFileName() { return "C:\\Users\\Jesse\\workspace\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g"; }
 
 	// $ANTLR start "T__12"
 	public final void mT__12() throws RecognitionException {
 		try {
 			int _type = T__12;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// \\\\pc-jesse\\c$\\Users\\Jesse\\workspace\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:7:7: ( '!=' )
-			// \\\\pc-jesse\\c$\\Users\\Jesse\\workspace\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:7:9: '!='
+			// C:\\Users\\Jesse\\workspace\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:6:7: ( '!' )
+			// C:\\Users\\Jesse\\workspace\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:6:9: '!'
 			{
-			match("!="); 
-
+			match('!'); 
 			}
 
 			state.type = _type;
@@ -95,10 +79,10 @@ public class QLLexer extends Lexer {
 		try {
 			int _type = T__13;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// \\\\pc-jesse\\c$\\Users\\Jesse\\workspace\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:8:7: ( '&&' )
-			// \\\\pc-jesse\\c$\\Users\\Jesse\\workspace\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:8:9: '&&'
+			// C:\\Users\\Jesse\\workspace\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:7:7: ( '!=' )
+			// C:\\Users\\Jesse\\workspace\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:7:9: '!='
 			{
-			match("&&"); 
+			match("!="); 
 
 			}
 
@@ -116,10 +100,11 @@ public class QLLexer extends Lexer {
 		try {
 			int _type = T__14;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// \\\\pc-jesse\\c$\\Users\\Jesse\\workspace\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:9:7: ( '(' )
-			// \\\\pc-jesse\\c$\\Users\\Jesse\\workspace\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:9:9: '('
+			// C:\\Users\\Jesse\\workspace\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:8:7: ( '&&' )
+			// C:\\Users\\Jesse\\workspace\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:8:9: '&&'
 			{
-			match('('); 
+			match("&&"); 
+
 			}
 
 			state.type = _type;
@@ -136,10 +121,10 @@ public class QLLexer extends Lexer {
 		try {
 			int _type = T__15;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// \\\\pc-jesse\\c$\\Users\\Jesse\\workspace\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:10:7: ( ')' )
-			// \\\\pc-jesse\\c$\\Users\\Jesse\\workspace\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:10:9: ')'
+			// C:\\Users\\Jesse\\workspace\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:9:7: ( '(' )
+			// C:\\Users\\Jesse\\workspace\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:9:9: '('
 			{
-			match(')'); 
+			match('('); 
 			}
 
 			state.type = _type;
@@ -156,10 +141,10 @@ public class QLLexer extends Lexer {
 		try {
 			int _type = T__16;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// \\\\pc-jesse\\c$\\Users\\Jesse\\workspace\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:11:7: ( '*' )
-			// \\\\pc-jesse\\c$\\Users\\Jesse\\workspace\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:11:9: '*'
+			// C:\\Users\\Jesse\\workspace\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:10:7: ( ')' )
+			// C:\\Users\\Jesse\\workspace\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:10:9: ')'
 			{
-			match('*'); 
+			match(')'); 
 			}
 
 			state.type = _type;
@@ -176,10 +161,10 @@ public class QLLexer extends Lexer {
 		try {
 			int _type = T__17;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// \\\\pc-jesse\\c$\\Users\\Jesse\\workspace\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:12:7: ( '+' )
-			// \\\\pc-jesse\\c$\\Users\\Jesse\\workspace\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:12:9: '+'
+			// C:\\Users\\Jesse\\workspace\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:11:7: ( '*' )
+			// C:\\Users\\Jesse\\workspace\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:11:9: '*'
 			{
-			match('+'); 
+			match('*'); 
 			}
 
 			state.type = _type;
@@ -196,10 +181,10 @@ public class QLLexer extends Lexer {
 		try {
 			int _type = T__18;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// \\\\pc-jesse\\c$\\Users\\Jesse\\workspace\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:13:7: ( '-' )
-			// \\\\pc-jesse\\c$\\Users\\Jesse\\workspace\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:13:9: '-'
+			// C:\\Users\\Jesse\\workspace\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:12:7: ( '+' )
+			// C:\\Users\\Jesse\\workspace\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:12:9: '+'
 			{
-			match('-'); 
+			match('+'); 
 			}
 
 			state.type = _type;
@@ -216,10 +201,10 @@ public class QLLexer extends Lexer {
 		try {
 			int _type = T__19;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// \\\\pc-jesse\\c$\\Users\\Jesse\\workspace\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:14:7: ( '/' )
-			// \\\\pc-jesse\\c$\\Users\\Jesse\\workspace\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:14:9: '/'
+			// C:\\Users\\Jesse\\workspace\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:13:7: ( '-' )
+			// C:\\Users\\Jesse\\workspace\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:13:9: '-'
 			{
-			match('/'); 
+			match('-'); 
 			}
 
 			state.type = _type;
@@ -236,10 +221,10 @@ public class QLLexer extends Lexer {
 		try {
 			int _type = T__20;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// \\\\pc-jesse\\c$\\Users\\Jesse\\workspace\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:15:7: ( '<' )
-			// \\\\pc-jesse\\c$\\Users\\Jesse\\workspace\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:15:9: '<'
+			// C:\\Users\\Jesse\\workspace\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:14:7: ( '/' )
+			// C:\\Users\\Jesse\\workspace\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:14:9: '/'
 			{
-			match('<'); 
+			match('/'); 
 			}
 
 			state.type = _type;
@@ -256,11 +241,10 @@ public class QLLexer extends Lexer {
 		try {
 			int _type = T__21;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// \\\\pc-jesse\\c$\\Users\\Jesse\\workspace\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:16:7: ( '<=' )
-			// \\\\pc-jesse\\c$\\Users\\Jesse\\workspace\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:16:9: '<='
+			// C:\\Users\\Jesse\\workspace\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:15:7: ( ':' )
+			// C:\\Users\\Jesse\\workspace\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:15:9: ':'
 			{
-			match("<="); 
-
+			match(':'); 
 			}
 
 			state.type = _type;
@@ -277,11 +261,10 @@ public class QLLexer extends Lexer {
 		try {
 			int _type = T__22;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// \\\\pc-jesse\\c$\\Users\\Jesse\\workspace\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:17:7: ( '==' )
-			// \\\\pc-jesse\\c$\\Users\\Jesse\\workspace\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:17:9: '=='
+			// C:\\Users\\Jesse\\workspace\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:16:7: ( '<' )
+			// C:\\Users\\Jesse\\workspace\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:16:9: '<'
 			{
-			match("=="); 
-
+			match('<'); 
 			}
 
 			state.type = _type;
@@ -298,10 +281,11 @@ public class QLLexer extends Lexer {
 		try {
 			int _type = T__23;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// \\\\pc-jesse\\c$\\Users\\Jesse\\workspace\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:18:7: ( '>' )
-			// \\\\pc-jesse\\c$\\Users\\Jesse\\workspace\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:18:9: '>'
+			// C:\\Users\\Jesse\\workspace\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:17:7: ( '<=' )
+			// C:\\Users\\Jesse\\workspace\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:17:9: '<='
 			{
-			match('>'); 
+			match("<="); 
+
 			}
 
 			state.type = _type;
@@ -318,10 +302,10 @@ public class QLLexer extends Lexer {
 		try {
 			int _type = T__24;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// \\\\pc-jesse\\c$\\Users\\Jesse\\workspace\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:19:7: ( '>=' )
-			// \\\\pc-jesse\\c$\\Users\\Jesse\\workspace\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:19:9: '>='
+			// C:\\Users\\Jesse\\workspace\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:18:7: ( '==' )
+			// C:\\Users\\Jesse\\workspace\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:18:9: '=='
 			{
-			match(">="); 
+			match("=="); 
 
 			}
 
@@ -339,8 +323,90 @@ public class QLLexer extends Lexer {
 		try {
 			int _type = T__25;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// \\\\pc-jesse\\c$\\Users\\Jesse\\workspace\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:20:7: ( '||' )
-			// \\\\pc-jesse\\c$\\Users\\Jesse\\workspace\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:20:9: '||'
+			// C:\\Users\\Jesse\\workspace\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:19:7: ( '>' )
+			// C:\\Users\\Jesse\\workspace\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:19:9: '>'
+			{
+			match('>'); 
+			}
+
+			state.type = _type;
+			state.channel = _channel;
+		}
+		finally {
+			// do for sure before leaving
+		}
+	}
+	// $ANTLR end "T__25"
+
+	// $ANTLR start "T__26"
+	public final void mT__26() throws RecognitionException {
+		try {
+			int _type = T__26;
+			int _channel = DEFAULT_TOKEN_CHANNEL;
+			// C:\\Users\\Jesse\\workspace\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:20:7: ( '>=' )
+			// C:\\Users\\Jesse\\workspace\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:20:9: '>='
+			{
+			match(">="); 
+
+			}
+
+			state.type = _type;
+			state.channel = _channel;
+		}
+		finally {
+			// do for sure before leaving
+		}
+	}
+	// $ANTLR end "T__26"
+
+	// $ANTLR start "T__27"
+	public final void mT__27() throws RecognitionException {
+		try {
+			int _type = T__27;
+			int _channel = DEFAULT_TOKEN_CHANNEL;
+			// C:\\Users\\Jesse\\workspace\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:21:7: ( 'form' )
+			// C:\\Users\\Jesse\\workspace\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:21:9: 'form'
+			{
+			match("form"); 
+
+			}
+
+			state.type = _type;
+			state.channel = _channel;
+		}
+		finally {
+			// do for sure before leaving
+		}
+	}
+	// $ANTLR end "T__27"
+
+	// $ANTLR start "T__28"
+	public final void mT__28() throws RecognitionException {
+		try {
+			int _type = T__28;
+			int _channel = DEFAULT_TOKEN_CHANNEL;
+			// C:\\Users\\Jesse\\workspace\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:22:7: ( '{' )
+			// C:\\Users\\Jesse\\workspace\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:22:9: '{'
+			{
+			match('{'); 
+			}
+
+			state.type = _type;
+			state.channel = _channel;
+		}
+		finally {
+			// do for sure before leaving
+		}
+	}
+	// $ANTLR end "T__28"
+
+	// $ANTLR start "T__29"
+	public final void mT__29() throws RecognitionException {
+		try {
+			int _type = T__29;
+			int _channel = DEFAULT_TOKEN_CHANNEL;
+			// C:\\Users\\Jesse\\workspace\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:23:7: ( '||' )
+			// C:\\Users\\Jesse\\workspace\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:23:9: '||'
 			{
 			match("||"); 
 
@@ -353,15 +419,35 @@ public class QLLexer extends Lexer {
 			// do for sure before leaving
 		}
 	}
-	// $ANTLR end "T__25"
+	// $ANTLR end "T__29"
+
+	// $ANTLR start "T__30"
+	public final void mT__30() throws RecognitionException {
+		try {
+			int _type = T__30;
+			int _channel = DEFAULT_TOKEN_CHANNEL;
+			// C:\\Users\\Jesse\\workspace\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:24:7: ( '}' )
+			// C:\\Users\\Jesse\\workspace\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:24:9: '}'
+			{
+			match('}'); 
+			}
+
+			state.type = _type;
+			state.channel = _channel;
+		}
+		finally {
+			// do for sure before leaving
+		}
+	}
+	// $ANTLR end "T__30"
 
 	// $ANTLR start "WS"
 	public final void mWS() throws RecognitionException {
 		try {
 			int _type = WS;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// \\\\pc-jesse\\c$\\Users\\Jesse\\workspace\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:90:5: ( ( ' ' | '\\t' | '\\n' | '\\r' ) )
-			// \\\\pc-jesse\\c$\\Users\\Jesse\\workspace\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:90:7: ( ' ' | '\\t' | '\\n' | '\\r' )
+			// C:\\Users\\Jesse\\workspace\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:104:5: ( ( ' ' | '\\t' | '\\n' | '\\r' ) )
+			// C:\\Users\\Jesse\\workspace\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:104:7: ( ' ' | '\\t' | '\\n' | '\\r' )
 			{
 			if ( (input.LA(1) >= '\t' && input.LA(1) <= '\n')||input.LA(1)=='\r'||input.LA(1)==' ' ) {
 				input.consume();
@@ -388,7 +474,7 @@ public class QLLexer extends Lexer {
 		try {
 			int _type = COMMENT;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// \\\\pc-jesse\\c$\\Users\\Jesse\\workspace\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:94:5: ( '/*' ( . )* '*/' | '//' (~ NewLine )* )
+			// C:\\Users\\Jesse\\workspace\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:108:5: ( '/*' ( . )* '*/' | '//' (~ NewLine )* )
 			int alt3=2;
 			int LA3_0 = input.LA(1);
 			if ( (LA3_0=='/') ) {
@@ -422,11 +508,11 @@ public class QLLexer extends Lexer {
 
 			switch (alt3) {
 				case 1 :
-					// \\\\pc-jesse\\c$\\Users\\Jesse\\workspace\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:94:7: '/*' ( . )* '*/'
+					// C:\\Users\\Jesse\\workspace\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:108:7: '/*' ( . )* '*/'
 					{
 					match("/*"); 
 
-					// \\\\pc-jesse\\c$\\Users\\Jesse\\workspace\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:94:12: ( . )*
+					// C:\\Users\\Jesse\\workspace\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:108:12: ( . )*
 					loop1:
 					while (true) {
 						int alt1=2;
@@ -447,7 +533,7 @@ public class QLLexer extends Lexer {
 
 						switch (alt1) {
 						case 1 :
-							// \\\\pc-jesse\\c$\\Users\\Jesse\\workspace\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:94:12: .
+							// C:\\Users\\Jesse\\workspace\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:108:12: .
 							{
 							matchAny(); 
 							}
@@ -464,11 +550,11 @@ public class QLLexer extends Lexer {
 					}
 					break;
 				case 2 :
-					// \\\\pc-jesse\\c$\\Users\\Jesse\\workspace\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:95:7: '//' (~ NewLine )*
+					// C:\\Users\\Jesse\\workspace\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:109:7: '//' (~ NewLine )*
 					{
 					match("//"); 
 
-					// \\\\pc-jesse\\c$\\Users\\Jesse\\workspace\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:95:12: (~ NewLine )*
+					// C:\\Users\\Jesse\\workspace\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:109:12: (~ NewLine )*
 					loop2:
 					while (true) {
 						int alt2=2;
@@ -479,7 +565,7 @@ public class QLLexer extends Lexer {
 
 						switch (alt2) {
 						case 1 :
-							// \\\\pc-jesse\\c$\\Users\\Jesse\\workspace\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:95:12: ~ NewLine
+							// C:\\Users\\Jesse\\workspace\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:109:12: ~ NewLine
 							{
 							if ( (input.LA(1) >= '\u0000' && input.LA(1) <= '\u0007')||(input.LA(1) >= '\t' && input.LA(1) <= '\uFFFF') ) {
 								input.consume();
@@ -516,7 +602,7 @@ public class QLLexer extends Lexer {
 		try {
 			int _type = NewLine;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// \\\\pc-jesse\\c$\\Users\\Jesse\\workspace\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:98:8: ( '\\n' | '\\r\\n' )
+			// C:\\Users\\Jesse\\workspace\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:112:8: ( '\\n' | '\\r\\n' )
 			int alt4=2;
 			int LA4_0 = input.LA(1);
 			if ( (LA4_0=='\n') ) {
@@ -534,13 +620,13 @@ public class QLLexer extends Lexer {
 
 			switch (alt4) {
 				case 1 :
-					// \\\\pc-jesse\\c$\\Users\\Jesse\\workspace\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:98:10: '\\n'
+					// C:\\Users\\Jesse\\workspace\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:112:10: '\\n'
 					{
 					match('\n'); 
 					}
 					break;
 				case 2 :
-					// \\\\pc-jesse\\c$\\Users\\Jesse\\workspace\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:98:17: '\\r\\n'
+					// C:\\Users\\Jesse\\workspace\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:112:17: '\\r\\n'
 					{
 					match("\r\n"); 
 
@@ -562,7 +648,7 @@ public class QLLexer extends Lexer {
 		try {
 			int _type = Bool;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// \\\\pc-jesse\\c$\\Users\\Jesse\\workspace\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:100:5: ( 'true' | 'false' )
+			// C:\\Users\\Jesse\\workspace\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:114:5: ( 'true' | 'false' )
 			int alt5=2;
 			int LA5_0 = input.LA(1);
 			if ( (LA5_0=='t') ) {
@@ -580,14 +666,14 @@ public class QLLexer extends Lexer {
 
 			switch (alt5) {
 				case 1 :
-					// \\\\pc-jesse\\c$\\Users\\Jesse\\workspace\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:100:7: 'true'
+					// C:\\Users\\Jesse\\workspace\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:114:7: 'true'
 					{
 					match("true"); 
 
 					}
 					break;
 				case 2 :
-					// \\\\pc-jesse\\c$\\Users\\Jesse\\workspace\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:100:14: 'false'
+					// C:\\Users\\Jesse\\workspace\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:114:14: 'false'
 					{
 					match("false"); 
 
@@ -604,51 +690,112 @@ public class QLLexer extends Lexer {
 	}
 	// $ANTLR end "Bool"
 
+	// $ANTLR start "Type"
+	public final void mType() throws RecognitionException {
+		try {
+			int _type = Type;
+			int _channel = DEFAULT_TOKEN_CHANNEL;
+			// C:\\Users\\Jesse\\workspace\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:116:5: ( 'string' | 'boolean' | 'integer' )
+			int alt6=3;
+			switch ( input.LA(1) ) {
+			case 's':
+				{
+				alt6=1;
+				}
+				break;
+			case 'b':
+				{
+				alt6=2;
+				}
+				break;
+			case 'i':
+				{
+				alt6=3;
+				}
+				break;
+			default:
+				NoViableAltException nvae =
+					new NoViableAltException("", 6, 0, input);
+				throw nvae;
+			}
+			switch (alt6) {
+				case 1 :
+					// C:\\Users\\Jesse\\workspace\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:116:7: 'string'
+					{
+					match("string"); 
+
+					}
+					break;
+				case 2 :
+					// C:\\Users\\Jesse\\workspace\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:116:16: 'boolean'
+					{
+					match("boolean"); 
+
+					}
+					break;
+				case 3 :
+					// C:\\Users\\Jesse\\workspace\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:116:26: 'integer'
+					{
+					match("integer"); 
+
+					}
+					break;
+
+			}
+			state.type = _type;
+			state.channel = _channel;
+		}
+		finally {
+			// do for sure before leaving
+		}
+	}
+	// $ANTLR end "Type"
+
 	// $ANTLR start "Str"
 	public final void mStr() throws RecognitionException {
 		try {
 			int _type = Str;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// \\\\pc-jesse\\c$\\Users\\Jesse\\workspace\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:102:4: ( '\\\"' ( '\\\\\"' |~ '\\\"' )* '\\\"' )
-			// \\\\pc-jesse\\c$\\Users\\Jesse\\workspace\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:102:6: '\\\"' ( '\\\\\"' |~ '\\\"' )* '\\\"'
+			// C:\\Users\\Jesse\\workspace\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:118:4: ( '\\\"' ( '\\\\\"' |~ '\\\"' )* '\\\"' )
+			// C:\\Users\\Jesse\\workspace\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:118:6: '\\\"' ( '\\\\\"' |~ '\\\"' )* '\\\"'
 			{
 			match('\"'); 
-			// \\\\pc-jesse\\c$\\Users\\Jesse\\workspace\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:102:11: ( '\\\\\"' |~ '\\\"' )*
-			loop6:
+			// C:\\Users\\Jesse\\workspace\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:118:11: ( '\\\\\"' |~ '\\\"' )*
+			loop7:
 			while (true) {
-				int alt6=3;
-				int LA6_0 = input.LA(1);
-				if ( (LA6_0=='\\') ) {
-					int LA6_2 = input.LA(2);
-					if ( (LA6_2=='\"') ) {
-						int LA6_4 = input.LA(3);
-						if ( ((LA6_4 >= '\u0000' && LA6_4 <= '\uFFFF')) ) {
-							alt6=1;
+				int alt7=3;
+				int LA7_0 = input.LA(1);
+				if ( (LA7_0=='\\') ) {
+					int LA7_2 = input.LA(2);
+					if ( (LA7_2=='\"') ) {
+						int LA7_4 = input.LA(3);
+						if ( ((LA7_4 >= '\u0000' && LA7_4 <= '\uFFFF')) ) {
+							alt7=1;
 						}
 						else {
-							alt6=2;
+							alt7=2;
 						}
 
 					}
-					else if ( ((LA6_2 >= '\u0000' && LA6_2 <= '!')||(LA6_2 >= '#' && LA6_2 <= '\uFFFF')) ) {
-						alt6=2;
+					else if ( ((LA7_2 >= '\u0000' && LA7_2 <= '!')||(LA7_2 >= '#' && LA7_2 <= '\uFFFF')) ) {
+						alt7=2;
 					}
 
 				}
-				else if ( ((LA6_0 >= '\u0000' && LA6_0 <= '!')||(LA6_0 >= '#' && LA6_0 <= '[')||(LA6_0 >= ']' && LA6_0 <= '\uFFFF')) ) {
-					alt6=2;
+				else if ( ((LA7_0 >= '\u0000' && LA7_0 <= '!')||(LA7_0 >= '#' && LA7_0 <= '[')||(LA7_0 >= ']' && LA7_0 <= '\uFFFF')) ) {
+					alt7=2;
 				}
 
-				switch (alt6) {
+				switch (alt7) {
 				case 1 :
-					// \\\\pc-jesse\\c$\\Users\\Jesse\\workspace\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:102:12: '\\\\\"'
+					// C:\\Users\\Jesse\\workspace\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:118:12: '\\\\\"'
 					{
 					match("\\\""); 
 
 					}
 					break;
 				case 2 :
-					// \\\\pc-jesse\\c$\\Users\\Jesse\\workspace\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:102:18: ~ '\\\"'
+					// C:\\Users\\Jesse\\workspace\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:118:18: ~ '\\\"'
 					{
 					if ( (input.LA(1) >= '\u0000' && input.LA(1) <= '!')||(input.LA(1) >= '#' && input.LA(1) <= '\uFFFF') ) {
 						input.consume();
@@ -662,7 +809,7 @@ public class QLLexer extends Lexer {
 					break;
 
 				default :
-					break loop6;
+					break loop7;
 				}
 			}
 
@@ -683,8 +830,8 @@ public class QLLexer extends Lexer {
 		try {
 			int _type = Ident;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// \\\\pc-jesse\\c$\\Users\\Jesse\\workspace\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:104:6: ( ( 'a' .. 'z' | 'A' .. 'Z' ) ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )* )
-			// \\\\pc-jesse\\c$\\Users\\Jesse\\workspace\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:104:10: ( 'a' .. 'z' | 'A' .. 'Z' ) ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )*
+			// C:\\Users\\Jesse\\workspace\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:120:6: ( ( 'a' .. 'z' | 'A' .. 'Z' ) ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )* )
+			// C:\\Users\\Jesse\\workspace\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:120:10: ( 'a' .. 'z' | 'A' .. 'Z' ) ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )*
 			{
 			if ( (input.LA(1) >= 'A' && input.LA(1) <= 'Z')||(input.LA(1) >= 'a' && input.LA(1) <= 'z') ) {
 				input.consume();
@@ -694,18 +841,18 @@ public class QLLexer extends Lexer {
 				recover(mse);
 				throw mse;
 			}
-			// \\\\pc-jesse\\c$\\Users\\Jesse\\workspace\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:104:29: ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )*
-			loop7:
+			// C:\\Users\\Jesse\\workspace\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:120:29: ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )*
+			loop8:
 			while (true) {
-				int alt7=2;
-				int LA7_0 = input.LA(1);
-				if ( ((LA7_0 >= '0' && LA7_0 <= '9')||(LA7_0 >= 'A' && LA7_0 <= 'Z')||LA7_0=='_'||(LA7_0 >= 'a' && LA7_0 <= 'z')) ) {
-					alt7=1;
+				int alt8=2;
+				int LA8_0 = input.LA(1);
+				if ( ((LA8_0 >= '0' && LA8_0 <= '9')||(LA8_0 >= 'A' && LA8_0 <= 'Z')||LA8_0=='_'||(LA8_0 >= 'a' && LA8_0 <= 'z')) ) {
+					alt8=1;
 				}
 
-				switch (alt7) {
+				switch (alt8) {
 				case 1 :
-					// \\\\pc-jesse\\c$\\Users\\Jesse\\workspace\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:
+					// C:\\Users\\Jesse\\workspace\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:
 					{
 					if ( (input.LA(1) >= '0' && input.LA(1) <= '9')||(input.LA(1) >= 'A' && input.LA(1) <= 'Z')||input.LA(1)=='_'||(input.LA(1) >= 'a' && input.LA(1) <= 'z') ) {
 						input.consume();
@@ -719,7 +866,7 @@ public class QLLexer extends Lexer {
 					break;
 
 				default :
-					break loop7;
+					break loop8;
 				}
 			}
 
@@ -739,22 +886,22 @@ public class QLLexer extends Lexer {
 		try {
 			int _type = Int;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// \\\\pc-jesse\\c$\\Users\\Jesse\\workspace\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:106:4: ( ( '0' .. '9' )+ )
-			// \\\\pc-jesse\\c$\\Users\\Jesse\\workspace\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:106:6: ( '0' .. '9' )+
+			// C:\\Users\\Jesse\\workspace\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:122:4: ( ( '0' .. '9' )+ )
+			// C:\\Users\\Jesse\\workspace\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:122:6: ( '0' .. '9' )+
 			{
-			// \\\\pc-jesse\\c$\\Users\\Jesse\\workspace\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:106:6: ( '0' .. '9' )+
-			int cnt8=0;
-			loop8:
+			// C:\\Users\\Jesse\\workspace\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:122:6: ( '0' .. '9' )+
+			int cnt9=0;
+			loop9:
 			while (true) {
-				int alt8=2;
-				int LA8_0 = input.LA(1);
-				if ( ((LA8_0 >= '0' && LA8_0 <= '9')) ) {
-					alt8=1;
+				int alt9=2;
+				int LA9_0 = input.LA(1);
+				if ( ((LA9_0 >= '0' && LA9_0 <= '9')) ) {
+					alt9=1;
 				}
 
-				switch (alt8) {
+				switch (alt9) {
 				case 1 :
-					// \\\\pc-jesse\\c$\\Users\\Jesse\\workspace\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:
+					// C:\\Users\\Jesse\\workspace\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:
 					{
 					if ( (input.LA(1) >= '0' && input.LA(1) <= '9') ) {
 						input.consume();
@@ -768,11 +915,11 @@ public class QLLexer extends Lexer {
 					break;
 
 				default :
-					if ( cnt8 >= 1 ) break loop8;
-					EarlyExitException eee = new EarlyExitException(8, input);
+					if ( cnt9 >= 1 ) break loop9;
+					EarlyExitException eee = new EarlyExitException(9, input);
 					throw eee;
 				}
-				cnt8++;
+				cnt9++;
 			}
 
 			}
@@ -788,435 +935,194 @@ public class QLLexer extends Lexer {
 
 	@Override
 	public void mTokens() throws RecognitionException {
-		// \\\\pc-jesse\\c$\\Users\\Jesse\\workspace\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:1:8: ( T__11 | T__12 | T__13 | T__14 | T__15 | T__16 | T__17 | T__18 | T__19 | T__20 | T__21 | T__22 | T__23 | T__24 | T__25 | WS | COMMENT | NewLine | Bool | Str | Ident | Int )
-		int alt9=22;
-		switch ( input.LA(1) ) {
-		case '!':
-			{
-			int LA9_1 = input.LA(2);
-			if ( (LA9_1=='=') ) {
-				alt9=2;
-			}
-
-			else {
-				alt9=1;
-			}
-
-			}
-			break;
-		case '&':
-			{
-			alt9=3;
-			}
-			break;
-		case '(':
-			{
-			alt9=4;
-			}
-			break;
-		case ')':
-			{
-			alt9=5;
-			}
-			break;
-		case '*':
-			{
-			alt9=6;
-			}
-			break;
-		case '+':
-			{
-			alt9=7;
-			}
-			break;
-		case '-':
-			{
-			alt9=8;
-			}
-			break;
-		case '/':
-			{
-			int LA9_8 = input.LA(2);
-			if ( (LA9_8=='*'||LA9_8=='/') ) {
-				alt9=17;
-			}
-
-			else {
-				alt9=9;
-			}
-
-			}
-			break;
-		case '<':
-			{
-			int LA9_9 = input.LA(2);
-			if ( (LA9_9=='=') ) {
-				alt9=11;
-			}
-
-			else {
-				alt9=10;
-			}
-
-			}
-			break;
-		case '=':
-			{
-			alt9=12;
-			}
-			break;
-		case '>':
-			{
-			int LA9_11 = input.LA(2);
-			if ( (LA9_11=='=') ) {
-				alt9=14;
-			}
-
-			else {
-				alt9=13;
-			}
-
-			}
-			break;
-		case '|':
-			{
-			alt9=15;
-			}
-			break;
-		case '\n':
-			{
-			alt9=16;
-			}
-			break;
-		case '\r':
-			{
-			int LA9_14 = input.LA(2);
-			if ( (LA9_14=='\n') ) {
-				alt9=18;
-			}
-
-			else {
-				alt9=16;
-			}
-
-			}
-			break;
-		case '\t':
-		case ' ':
-			{
-			alt9=16;
-			}
-			break;
-		case 't':
-			{
-			int LA9_16 = input.LA(2);
-			if ( (LA9_16=='r') ) {
-				int LA9_30 = input.LA(3);
-				if ( (LA9_30=='u') ) {
-					int LA9_32 = input.LA(4);
-					if ( (LA9_32=='e') ) {
-						int LA9_34 = input.LA(5);
-						if ( ((LA9_34 >= '0' && LA9_34 <= '9')||(LA9_34 >= 'A' && LA9_34 <= 'Z')||LA9_34=='_'||(LA9_34 >= 'a' && LA9_34 <= 'z')) ) {
-							alt9=21;
-						}
-
-						else {
-							alt9=19;
-						}
-
-					}
-
-					else {
-						alt9=21;
-					}
-
-				}
-
-				else {
-					alt9=21;
-				}
-
-			}
-
-			else {
-				alt9=21;
-			}
-
-			}
-			break;
-		case 'f':
-			{
-			int LA9_17 = input.LA(2);
-			if ( (LA9_17=='a') ) {
-				int LA9_31 = input.LA(3);
-				if ( (LA9_31=='l') ) {
-					int LA9_33 = input.LA(4);
-					if ( (LA9_33=='s') ) {
-						int LA9_35 = input.LA(5);
-						if ( (LA9_35=='e') ) {
-							int LA9_37 = input.LA(6);
-							if ( ((LA9_37 >= '0' && LA9_37 <= '9')||(LA9_37 >= 'A' && LA9_37 <= 'Z')||LA9_37=='_'||(LA9_37 >= 'a' && LA9_37 <= 'z')) ) {
-								alt9=21;
-							}
-
-							else {
-								alt9=19;
-							}
-
-						}
-
-						else {
-							alt9=21;
-						}
-
-					}
-
-					else {
-						alt9=21;
-					}
-
-				}
-
-				else {
-					alt9=21;
-				}
-
-			}
-
-			else {
-				alt9=21;
-			}
-
-			}
-			break;
-		case '\"':
-			{
-			alt9=20;
-			}
-			break;
-		case 'A':
-		case 'B':
-		case 'C':
-		case 'D':
-		case 'E':
-		case 'F':
-		case 'G':
-		case 'H':
-		case 'I':
-		case 'J':
-		case 'K':
-		case 'L':
-		case 'M':
-		case 'N':
-		case 'O':
-		case 'P':
-		case 'Q':
-		case 'R':
-		case 'S':
-		case 'T':
-		case 'U':
-		case 'V':
-		case 'W':
-		case 'X':
-		case 'Y':
-		case 'Z':
-		case 'a':
-		case 'b':
-		case 'c':
-		case 'd':
-		case 'e':
-		case 'g':
-		case 'h':
-		case 'i':
-		case 'j':
-		case 'k':
-		case 'l':
-		case 'm':
-		case 'n':
-		case 'o':
-		case 'p':
-		case 'q':
-		case 'r':
-		case 's':
-		case 'u':
-		case 'v':
-		case 'w':
-		case 'x':
-		case 'y':
-		case 'z':
-			{
-			alt9=21;
-			}
-			break;
-		case '0':
-		case '1':
-		case '2':
-		case '3':
-		case '4':
-		case '5':
-		case '6':
-		case '7':
-		case '8':
-		case '9':
-			{
-			alt9=22;
-			}
-			break;
-		default:
-			NoViableAltException nvae =
-				new NoViableAltException("", 9, 0, input);
-			throw nvae;
-		}
-		switch (alt9) {
+		// C:\\Users\\Jesse\\workspace\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:1:8: ( T__12 | T__13 | T__14 | T__15 | T__16 | T__17 | T__18 | T__19 | T__20 | T__21 | T__22 | T__23 | T__24 | T__25 | T__26 | T__27 | T__28 | T__29 | T__30 | WS | COMMENT | NewLine | Bool | Type | Str | Ident | Int )
+		int alt10=27;
+		alt10 = dfa10.predict(input);
+		switch (alt10) {
 			case 1 :
-				// \\\\pc-jesse\\c$\\Users\\Jesse\\workspace\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:1:10: T__11
-				{
-				mT__11(); 
-
-				}
-				break;
-			case 2 :
-				// \\\\pc-jesse\\c$\\Users\\Jesse\\workspace\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:1:16: T__12
+				// C:\\Users\\Jesse\\workspace\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:1:10: T__12
 				{
 				mT__12(); 
 
 				}
 				break;
-			case 3 :
-				// \\\\pc-jesse\\c$\\Users\\Jesse\\workspace\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:1:22: T__13
+			case 2 :
+				// C:\\Users\\Jesse\\workspace\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:1:16: T__13
 				{
 				mT__13(); 
 
 				}
 				break;
-			case 4 :
-				// \\\\pc-jesse\\c$\\Users\\Jesse\\workspace\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:1:28: T__14
+			case 3 :
+				// C:\\Users\\Jesse\\workspace\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:1:22: T__14
 				{
 				mT__14(); 
 
 				}
 				break;
-			case 5 :
-				// \\\\pc-jesse\\c$\\Users\\Jesse\\workspace\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:1:34: T__15
+			case 4 :
+				// C:\\Users\\Jesse\\workspace\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:1:28: T__15
 				{
 				mT__15(); 
 
 				}
 				break;
-			case 6 :
-				// \\\\pc-jesse\\c$\\Users\\Jesse\\workspace\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:1:40: T__16
+			case 5 :
+				// C:\\Users\\Jesse\\workspace\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:1:34: T__16
 				{
 				mT__16(); 
 
 				}
 				break;
-			case 7 :
-				// \\\\pc-jesse\\c$\\Users\\Jesse\\workspace\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:1:46: T__17
+			case 6 :
+				// C:\\Users\\Jesse\\workspace\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:1:40: T__17
 				{
 				mT__17(); 
 
 				}
 				break;
-			case 8 :
-				// \\\\pc-jesse\\c$\\Users\\Jesse\\workspace\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:1:52: T__18
+			case 7 :
+				// C:\\Users\\Jesse\\workspace\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:1:46: T__18
 				{
 				mT__18(); 
 
 				}
 				break;
-			case 9 :
-				// \\\\pc-jesse\\c$\\Users\\Jesse\\workspace\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:1:58: T__19
+			case 8 :
+				// C:\\Users\\Jesse\\workspace\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:1:52: T__19
 				{
 				mT__19(); 
 
 				}
 				break;
-			case 10 :
-				// \\\\pc-jesse\\c$\\Users\\Jesse\\workspace\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:1:64: T__20
+			case 9 :
+				// C:\\Users\\Jesse\\workspace\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:1:58: T__20
 				{
 				mT__20(); 
 
 				}
 				break;
-			case 11 :
-				// \\\\pc-jesse\\c$\\Users\\Jesse\\workspace\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:1:70: T__21
+			case 10 :
+				// C:\\Users\\Jesse\\workspace\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:1:64: T__21
 				{
 				mT__21(); 
 
 				}
 				break;
-			case 12 :
-				// \\\\pc-jesse\\c$\\Users\\Jesse\\workspace\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:1:76: T__22
+			case 11 :
+				// C:\\Users\\Jesse\\workspace\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:1:70: T__22
 				{
 				mT__22(); 
 
 				}
 				break;
-			case 13 :
-				// \\\\pc-jesse\\c$\\Users\\Jesse\\workspace\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:1:82: T__23
+			case 12 :
+				// C:\\Users\\Jesse\\workspace\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:1:76: T__23
 				{
 				mT__23(); 
 
 				}
 				break;
-			case 14 :
-				// \\\\pc-jesse\\c$\\Users\\Jesse\\workspace\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:1:88: T__24
+			case 13 :
+				// C:\\Users\\Jesse\\workspace\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:1:82: T__24
 				{
 				mT__24(); 
 
 				}
 				break;
-			case 15 :
-				// \\\\pc-jesse\\c$\\Users\\Jesse\\workspace\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:1:94: T__25
+			case 14 :
+				// C:\\Users\\Jesse\\workspace\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:1:88: T__25
 				{
 				mT__25(); 
 
 				}
 				break;
+			case 15 :
+				// C:\\Users\\Jesse\\workspace\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:1:94: T__26
+				{
+				mT__26(); 
+
+				}
+				break;
 			case 16 :
-				// \\\\pc-jesse\\c$\\Users\\Jesse\\workspace\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:1:100: WS
+				// C:\\Users\\Jesse\\workspace\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:1:100: T__27
+				{
+				mT__27(); 
+
+				}
+				break;
+			case 17 :
+				// C:\\Users\\Jesse\\workspace\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:1:106: T__28
+				{
+				mT__28(); 
+
+				}
+				break;
+			case 18 :
+				// C:\\Users\\Jesse\\workspace\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:1:112: T__29
+				{
+				mT__29(); 
+
+				}
+				break;
+			case 19 :
+				// C:\\Users\\Jesse\\workspace\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:1:118: T__30
+				{
+				mT__30(); 
+
+				}
+				break;
+			case 20 :
+				// C:\\Users\\Jesse\\workspace\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:1:124: WS
 				{
 				mWS(); 
 
 				}
 				break;
-			case 17 :
-				// \\\\pc-jesse\\c$\\Users\\Jesse\\workspace\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:1:103: COMMENT
+			case 21 :
+				// C:\\Users\\Jesse\\workspace\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:1:127: COMMENT
 				{
 				mCOMMENT(); 
 
 				}
 				break;
-			case 18 :
-				// \\\\pc-jesse\\c$\\Users\\Jesse\\workspace\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:1:111: NewLine
+			case 22 :
+				// C:\\Users\\Jesse\\workspace\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:1:135: NewLine
 				{
 				mNewLine(); 
 
 				}
 				break;
-			case 19 :
-				// \\\\pc-jesse\\c$\\Users\\Jesse\\workspace\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:1:119: Bool
+			case 23 :
+				// C:\\Users\\Jesse\\workspace\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:1:143: Bool
 				{
 				mBool(); 
 
 				}
 				break;
-			case 20 :
-				// \\\\pc-jesse\\c$\\Users\\Jesse\\workspace\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:1:124: Str
+			case 24 :
+				// C:\\Users\\Jesse\\workspace\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:1:148: Type
+				{
+				mType(); 
+
+				}
+				break;
+			case 25 :
+				// C:\\Users\\Jesse\\workspace\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:1:153: Str
 				{
 				mStr(); 
 
 				}
 				break;
-			case 21 :
-				// \\\\pc-jesse\\c$\\Users\\Jesse\\workspace\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:1:128: Ident
+			case 26 :
+				// C:\\Users\\Jesse\\workspace\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:1:157: Ident
 				{
 				mIdent(); 
 
 				}
 				break;
-			case 22 :
-				// \\\\pc-jesse\\c$\\Users\\Jesse\\workspace\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:1:134: Int
+			case 27 :
+				// C:\\Users\\Jesse\\workspace\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:1:163: Int
 				{
 				mInt(); 
 
@@ -1227,5 +1133,137 @@ public class QLLexer extends Lexer {
 	}
 
 
+	protected DFA10 dfa10 = new DFA10(this);
+	static final String DFA10_eotS =
+		"\1\uffff\1\34\6\uffff\1\36\1\uffff\1\40\1\uffff\1\42\1\31\4\uffff\1\23"+
+		"\1\uffff\4\31\13\uffff\2\31\1\uffff\12\31\1\66\1\31\1\70\3\31\1\uffff"+
+		"\1\70\1\uffff\3\31\1\77\2\31\1\uffff\2\77";
+	static final String DFA10_eofS =
+		"\102\uffff";
+	static final String DFA10_minS =
+		"\1\11\1\75\6\uffff\1\52\1\uffff\1\75\1\uffff\1\75\1\141\4\uffff\1\12\1"+
+		"\uffff\1\162\1\164\1\157\1\156\13\uffff\1\162\1\154\1\uffff\1\165\1\162"+
+		"\1\157\1\164\1\155\1\163\1\145\1\151\1\154\1\145\1\60\1\145\1\60\1\156"+
+		"\1\145\1\147\1\uffff\1\60\1\uffff\1\147\1\141\1\145\1\60\1\156\1\162\1"+
+		"\uffff\2\60";
+	static final String DFA10_maxS =
+		"\1\175\1\75\6\uffff\1\57\1\uffff\1\75\1\uffff\1\75\1\157\4\uffff\1\12"+
+		"\1\uffff\1\162\1\164\1\157\1\156\13\uffff\1\162\1\154\1\uffff\1\165\1"+
+		"\162\1\157\1\164\1\155\1\163\1\145\1\151\1\154\1\145\1\172\1\145\1\172"+
+		"\1\156\1\145\1\147\1\uffff\1\172\1\uffff\1\147\1\141\1\145\1\172\1\156"+
+		"\1\162\1\uffff\2\172";
+	static final String DFA10_acceptS =
+		"\2\uffff\1\3\1\4\1\5\1\6\1\7\1\10\1\uffff\1\12\1\uffff\1\15\2\uffff\1"+
+		"\21\1\22\1\23\1\24\1\uffff\1\24\4\uffff\1\31\1\32\1\33\1\2\1\1\1\25\1"+
+		"\11\1\14\1\13\1\17\1\16\2\uffff\1\26\20\uffff\1\20\1\uffff\1\27\6\uffff"+
+		"\1\30\2\uffff";
+	static final String DFA10_specialS =
+		"\102\uffff}>";
+	static final String[] DFA10_transitionS = {
+			"\1\23\1\21\2\uffff\1\22\22\uffff\1\23\1\1\1\30\3\uffff\1\2\1\uffff\1"+
+			"\3\1\4\1\5\1\6\1\uffff\1\7\1\uffff\1\10\12\32\1\11\1\uffff\1\12\1\13"+
+			"\1\14\2\uffff\32\31\6\uffff\1\31\1\26\3\31\1\15\2\31\1\27\11\31\1\25"+
+			"\1\24\6\31\1\16\1\17\1\20",
+			"\1\33",
+			"",
+			"",
+			"",
+			"",
+			"",
+			"",
+			"\1\35\4\uffff\1\35",
+			"",
+			"\1\37",
+			"",
+			"\1\41",
+			"\1\44\15\uffff\1\43",
+			"",
+			"",
+			"",
+			"",
+			"\1\45",
+			"",
+			"\1\46",
+			"\1\47",
+			"\1\50",
+			"\1\51",
+			"",
+			"",
+			"",
+			"",
+			"",
+			"",
+			"",
+			"",
+			"",
+			"",
+			"",
+			"\1\52",
+			"\1\53",
+			"",
+			"\1\54",
+			"\1\55",
+			"\1\56",
+			"\1\57",
+			"\1\60",
+			"\1\61",
+			"\1\62",
+			"\1\63",
+			"\1\64",
+			"\1\65",
+			"\12\31\7\uffff\32\31\4\uffff\1\31\1\uffff\32\31",
+			"\1\67",
+			"\12\31\7\uffff\32\31\4\uffff\1\31\1\uffff\32\31",
+			"\1\71",
+			"\1\72",
+			"\1\73",
+			"",
+			"\12\31\7\uffff\32\31\4\uffff\1\31\1\uffff\32\31",
+			"",
+			"\1\74",
+			"\1\75",
+			"\1\76",
+			"\12\31\7\uffff\32\31\4\uffff\1\31\1\uffff\32\31",
+			"\1\100",
+			"\1\101",
+			"",
+			"\12\31\7\uffff\32\31\4\uffff\1\31\1\uffff\32\31",
+			"\12\31\7\uffff\32\31\4\uffff\1\31\1\uffff\32\31"
+	};
+
+	static final short[] DFA10_eot = DFA.unpackEncodedString(DFA10_eotS);
+	static final short[] DFA10_eof = DFA.unpackEncodedString(DFA10_eofS);
+	static final char[] DFA10_min = DFA.unpackEncodedStringToUnsignedChars(DFA10_minS);
+	static final char[] DFA10_max = DFA.unpackEncodedStringToUnsignedChars(DFA10_maxS);
+	static final short[] DFA10_accept = DFA.unpackEncodedString(DFA10_acceptS);
+	static final short[] DFA10_special = DFA.unpackEncodedString(DFA10_specialS);
+	static final short[][] DFA10_transition;
+
+	static {
+		int numStates = DFA10_transitionS.length;
+		DFA10_transition = new short[numStates][];
+		for (int i=0; i<numStates; i++) {
+			DFA10_transition[i] = DFA.unpackEncodedString(DFA10_transitionS[i]);
+		}
+	}
+
+	protected class DFA10 extends DFA {
+
+		public DFA10(BaseRecognizer recognizer) {
+			this.recognizer = recognizer;
+			this.decisionNumber = 10;
+			this.eot = DFA10_eot;
+			this.eof = DFA10_eof;
+			this.min = DFA10_min;
+			this.max = DFA10_max;
+			this.accept = DFA10_accept;
+			this.special = DFA10_special;
+			this.transition = DFA10_transition;
+		}
+		@Override
+		public String getDescription() {
+			return "1:1: Tokens : ( T__12 | T__13 | T__14 | T__15 | T__16 | T__17 | T__18 | T__19 | T__20 | T__21 | T__22 | T__23 | T__24 | T__25 | T__26 | T__27 | T__28 | T__29 | T__30 | WS | COMMENT | NewLine | Bool | Type | Str | Ident | Int );";
+		}
+	}
 
 }

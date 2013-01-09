@@ -1,4 +1,4 @@
-package org.uva.sea.ql.parser.tests.expressionTests;
+package org.uva.sea.ql.parser.tests.parserTests;
 
 import static org.junit.Assert.assertEquals;
 
@@ -8,7 +8,7 @@ import org.uva.sea.ql.ast.LEq;
 import org.uva.sea.ql.ast.LT;
 import org.uva.sea.ql.parser.ParseError;
 
-public class RelTests extends ExpressionTests {
+public class RelTests extends ParserTests {
 
 	@Test
 	public void testRels() throws ParseError {

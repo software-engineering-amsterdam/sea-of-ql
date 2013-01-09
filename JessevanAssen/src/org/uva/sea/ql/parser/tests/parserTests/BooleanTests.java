@@ -1,4 +1,4 @@
-package org.uva.sea.ql.parser.tests.expressionTests;
+package org.uva.sea.ql.parser.tests.parserTests;
 
 import static org.junit.Assert.*;
 
@@ -7,7 +7,7 @@ import org.uva.sea.ql.ast.*;
 import org.uva.sea.ql.parser.ParseError;
 
 
-public class BooleanTests extends ExpressionTests {
+public class BooleanTests extends ParserTests {
 
 	@Test
 	public void testParseTrue() throws ParseError {

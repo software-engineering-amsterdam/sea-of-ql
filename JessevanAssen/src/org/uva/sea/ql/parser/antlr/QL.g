@@ -85,12 +85,26 @@ orExpr returns [Expr result]
     :   lhs=andExpr { $result = $lhs.result; } ( '||' rhs=andExpr { $result = new Or($result, rhs); } )*
     ;
 
+form returns [Form result]
+    @init {
+        List<FormElement> body = new ArrayList<FormElement>();
+    }
+    : 'form' Ident '{'
+        (
+          x = questionFormElement { body.add($x.result); }
+        )*
+      '}' { $result = new Form(new Ident($Ident.text), body); }
+    ;
+    
+questionFormElement returns [FormElement result]
+    : Str Ident ':' Type { $result = new Question($Str.text, new Ident($Ident.text), $Type.text); }
+    ;
     
 // Tokens
 WS  :	(' ' | '\t' | '\n' | '\r') { $channel=HIDDEN; }
     ;
 
-COMMENT 
+COMMENT
     : '/*' .* '*/' {$channel=HIDDEN;}
     | '//' ~NewLine* {$channel=HIDDEN;}
     ;
@@ -98,6 +112,8 @@ COMMENT
 NewLine: '\n' | '\r\n';
 
 Bool: 'true'|'false';
+
+Type: 'string'|'boolean'|'integer';
 
 Str: '\"' ('\\"'|~'\"')* '\"';
 

@@ -1,4 +1,4 @@
-package org.uva.sea.ql.parser.tests.expressionTests;
+package org.uva.sea.ql.parser.tests.parserTests;
 
 import static org.junit.Assert.assertEquals;
 
@@ -6,7 +6,7 @@ import org.junit.Test;
 import org.uva.sea.ql.ast.Ident;
 import org.uva.sea.ql.parser.ParseError;
 
-public class TestIds extends ExpressionTests {
+public class TestIds extends ParserTests {
 
 	@Test
 	public void testIds() throws ParseError {
