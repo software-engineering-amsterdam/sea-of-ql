@@ -52,3 +52,8 @@ data Expr
   | and(Expr left, Expr right)
   | or(Expr left, Expr right)
   ;
+  
+// Some annotation for language integration
+anno loc Form@location;
+anno loc FormItem@location;
+anno loc Question@location;

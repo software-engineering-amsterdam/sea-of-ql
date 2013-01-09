@@ -4,12 +4,13 @@ start syntax Form = form: "form" Ident formName "{" FormItem+ formElements "}";
 
 syntax FormItem 
   = question: Question question
-  | ifCondition: "if" Expr condition "{" FormItem+ ifPart "}" ElsIfPart* elseIfs ElsePart? elsePart
+  | @Foldable ifCondition: "if" Expr condition "{" FormItem+ ifPart "}" ElsIfPart* elseIfs ElsePart? elsePart
   ;
 
-syntax ElsIfPart = "else if" Expr condition "{" FormItem+ body "}";
+// Keep this elseif for now, using "else if" does not highlight the two words, bug?
+syntax ElsIfPart = @Foldable "elseif" Expr condition "{" FormItem+ body "}";
 
-syntax ElsePart = "else" "{" FormItem+ body "}";
+syntax ElsePart = @Foldable "else" "{" FormItem+ body "}";
 
 //start syntax Question = question: String questionText "," Type answerDataType "," Ident answerIdentifier (":" Expr)?;
 start syntax Question 
@@ -55,15 +56,15 @@ syntax WhitespaceOrComment
   ;   
 
 lexical Ident 
-  = ([a-z A-Z 0-9 _] !<< [a-z A-Z][a-z A-Z 0-9 _]* !>> [a-z A-Z 0-9 _]) \ Keywords
+  = @category="Variable" ([a-z A-Z 0-9 _] !<< [a-z A-Z][a-z A-Z 0-9 _]* !>> [a-z A-Z 0-9 _]) \ Keywords
   ;
 
 lexical Type
-  = "boolean"
-  | "integer"
-  | "money"
-  | "date"
-  | "string"
+  = @category="Type" "boolean"
+  | @category="Type" "integer"
+  | @category="Type" "money"
+  | @category="Type" "date"
+  | @category="Type" "string"
   ;
 
 lexical String 

@@ -12,17 +12,17 @@ private Form p(loc f) = implode(parse(readFile(f), |file:///-|));
 
 public test bool testForm1() = p("form Hello { \"Income?\", money, myIncome }") is form;
 
-public test bool testBasicForm() = p(|project://QL-R/src/lang/ql/tests/forms/examples/basic.q|) is form;
-public test bool testCommentForm() = p(|project://QL-R/src/lang/ql/tests/forms/examples/comment.q|) is form;
-public test bool testMultipleQuestions() = p(|project://QL-R/src/lang/ql/tests/forms/examples/multipleQuestions.q|) is form;
-public test bool testIfCondition() = p(|project://QL-R/src/lang/ql/tests/forms/examples/ifCondition.q|) is form;
-public test bool testIfElseCondition() = p(|project://QL-R/src/lang/ql/tests/forms/examples/ifElseCondition.q|) is form;
-public test bool testIfElseIfCondition() = p(|project://QL-R/src/lang/ql/tests/forms/examples/ifElseIfCondition.q|) is form;
-public test bool testIfElseIfElseCondition() = p(|project://QL-R/src/lang/ql/tests/forms/examples/ifElseIfElseCondition.q|) is form;
-public test bool testCalculatedField() = p(|project://QL-R/src/lang/ql/tests/forms/examples/calculatedField.q|) is form;
+public test bool testBasicForm() = p(|project://QL-R-kemi/src/lang/ql/tests/forms/examples/basic.q|) is form;
+public test bool testCommentForm() = p(|project://QL-R-kemi/src/lang/ql/tests/forms/examples/comment.q|) is form;
+public test bool testMultipleQuestions() = p(|project://QL-R-kemi/src/lang/ql/tests/forms/examples/multipleQuestions.q|) is form;
+public test bool testIfCondition() = p(|project://QL-R-kemi/src/lang/ql/tests/forms/examples/ifCondition.q|) is form;
+public test bool testIfElseCondition() = p(|project://QL-R-kemi/src/lang/ql/tests/forms/examples/ifElseCondition.q|) is form;
+public test bool testIfElseIfCondition() = p(|project://QL-R-kemi/src/lang/ql/tests/forms/examples/ifElseIfCondition.q|) is form;
+public test bool testIfElseIfElseCondition() = p(|project://QL-R-kemi/src/lang/ql/tests/forms/examples/ifElseIfElseCondition.q|) is form;
+public test bool testCalculatedField() = p(|project://QL-R-kemi/src/lang/ql/tests/forms/examples/calculatedField.q|) is form;
 
 public void main() {
-	try x = p(|project://QL-R/src/lang/ql/tests/forms/examples/calculatedField.q|);
+	try x = p(|project://QL-R-kemi/src/lang/ql/tests/forms/examples/basic.q|);
 	catch IllegalArgument( y, z ): println("Error: <z> (@<y>)");
 	println("Correct: \n<x>");
 }
