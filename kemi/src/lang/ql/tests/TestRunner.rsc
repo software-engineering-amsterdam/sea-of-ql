@@ -1,6 +1,5 @@
 module lang::ql::tests::TestRunner
 
-// All files from the lang::ql::tests::expressions package:
 import lang::ql::tests::expressions::Addition;
 import lang::ql::tests::expressions::And;
 import lang::ql::tests::expressions::Boolean;
@@ -22,6 +21,8 @@ import lang::ql::tests::expressions::Or;
 import lang::ql::tests::expressions::Positive;
 import lang::ql::tests::expressions::String;
 import lang::ql::tests::expressions::Subtraction;
+
+import lang::ql::tests::questions::Questions;
 
 import IO;
 
