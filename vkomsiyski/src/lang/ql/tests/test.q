@@ -1,12 +1,13 @@
-form { 
-	q1: "df	fg" boolean 
-	if (7) {
-		q443: "dkj" integer
- 	    q2: "smf\"k df\"vf"  string 7 + 5 
-		q3: "ffgfgf" integer
-	} else if (5)  dfkd : "dfkdf" string
-    else dfkd : "df\"k   \" dkgdf" string fdkrig
-        
-     }
-		 
- /* dk*f */ 
+form Box1HouseOwning{ 
+   boolean hasSoldHouse for "Did you sell a house in 2010?"
+   boolean hasBoughtHouse for "Did you by a house in 2010?"
+   boolean hasMaintLoan for "Did you enter a loan for maintenance/reconstruction?"
+
+
+   if (hasSoldHouse) {
+     integer sellingPrice for "Price the house was sold for:" 
+     integer privateDebt for "Private debts for the sold house:"   
+     
+     integer valueResidue  = (sellingPrice - privateDebt)  for "Value residue:"
+   }
+}
