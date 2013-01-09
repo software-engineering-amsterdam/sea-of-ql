@@ -2,4 +2,11 @@
 <qualifiedTypeNameHistroy>
 <fullyQualifiedTypeName name="org.uva.sea.ql.ast.Expr"/>
 <fullyQualifiedTypeName name="org.uva.sea.ql.parser.antlr.ANTLRParser"/>
+<fullyQualifiedTypeName name="org.uva.sea.ql.ast.QLProgram"/>
+<fullyQualifiedTypeName name="org.uva.sea.ql.ast.Statement"/>
+<fullyQualifiedTypeName name="org.uva.sea.ql.ast.LineStatement"/>
+<fullyQualifiedTypeName name="org.uva.sea.ql.ast.ConditionalStatement"/>
+<fullyQualifiedTypeName name="java.util.List"/>
+<fullyQualifiedTypeName name="org.uva.sea.ql.ast.CompoundBlock"/>
+<fullyQualifiedTypeName name="org.uva.sea.ql.ast.TypeDescription"/>
 </qualifiedTypeNameHistroy>
