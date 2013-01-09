@@ -5,6 +5,7 @@ options {backtrack=true; memoize=true;}
 {
 package org.uva.sea.ql.parser.antlr;
 import org.uva.sea.ql.ast.*;
+import org.uva.sea.ql.ast.expr.*;
 }
 
 @lexer::header
@@ -12,27 +13,29 @@ import org.uva.sea.ql.ast.*;
 package org.uva.sea.ql.parser.antlr;
 }
 
-form returns [ASTNode result] 
-  : 'form' Ident '{' NL questions '}' { $result = new Form($Ident.text); };
+form returns [Form result] 
+    : 'form' lbl=Ident '{' qs=questions '}' { $result = new Form($lbl.text, $qs.result ); }
+    ;
 
-questions returns [ASTNode result]
-  : question NL questions {$result = new Questions(); $result.add($question); $result.add($questions)}
-  | statement NL questions {$result = new Questions($statement); $result.add($questions); } 
-  | NL {return null}};
+questions returns [Questions result]
+	  : q=question qs=questions {$result = new Questions(); $result.add($q.result); $result.add($qs.result); }
+	  | s=statement qs=questions {$result = new Questions($s.result); $result.add($qs.result); } 
+	  | {return null; } // Empty string
+	  ;
 
-question returns [ASTNode result]
-    : Ident':' label TYPE;
+question returns [Question result]
+    : label=Ident':' '\"' text=Ident* '\"' TYPE
+    ;
     
-statement returns [ASTNode result] 
-  : IF (expr) '{' questions '}' { $result = new Stmt($orExpr, $questions); };
-
-label : '\"' (Ident|WS)* '\"';
+statement returns [Stmt result] 
+    : IF (x=expr) '{' qs=questions '}' { $result = new Stmt($x.result, $qs.result); }
+    ;
 
 primary returns [Expr result]
-  : Int   { $result = new Int(Integer.parseInt($Int.text)); }
-  | Ident { $result = new Ident($Ident.text); }
-  | '(' x=orExpr ')'{ $result = $x.result; }
-  ;
+	  : Int   { $result = new Int(Integer.parseInt($Int.text)); }
+	  | Ident { $result = new Ident($Ident.text); }
+	  | '(' x=orExpr ')'{ $result = $x.result; }
+	  ;
     
 unExpr returns [Expr result]
     :  '+' x=unExpr { $result = new Pos($x.result); }
@@ -52,10 +55,9 @@ mulExpr returns [Expr result]
       }
     })*
     ;
-    
   
 addExpr returns [Expr result]
-    :   lhs=unExpr { $result=$lhs.result; } ( op=('+' | '-') rhs=mulExpr
+    :   lhs=mulExpr { $result=$lhs.result; } ( op=('+' | '-') rhs=mulExpr
     { 
       if ($op.text.equals("+")) {
         $result = new Add($result, rhs);
@@ -93,15 +95,14 @@ relExpr returns [Expr result]
 andExpr returns [Expr result]
     :   lhs=relExpr { $result=$lhs.result; } ( '&&' rhs=relExpr { $result = new And($result, rhs); } )*
     ;
-    
 
 orExpr returns [Expr result]
     :   lhs=andExpr { $result = $lhs.result; } ( '||' rhs=andExpr { $result = new Or($result, rhs); } )*
     ;
-
+    
 expr returns [Expr result]
-    : lhs=orExpr { $result = $lhs.result; };
-
+    : e=orExpr { $result = $e.result; }
+    ;
     
 // Tokens
 
@@ -109,11 +110,11 @@ TYPE : 'boolean' | 'number' | 'textfield';
 
 IF : 'if';
 
-NL : '\n' | '\r' { $channel=HIDDEN; };
+//NL : '\n' | '\r' { $channel=HIDDEN; };
 
-WS  :	(' ' | '\t') { $channel=HIDDEN; };
+WS  :	(' ' | '\t' | '\n' | '\r') { $channel=HIDDEN; };
 
-COMMENT : '/*' .* '*/' {$channel=HIDDEN;};
+COMMENT : '/*' .* '*/' {$channel=HIDDEN; };
 
 Ident:   ('a'..'z'|'A'..'Z')('a'..'z'|'A'..'Z'|'0'..'9'|'_')*;
 
