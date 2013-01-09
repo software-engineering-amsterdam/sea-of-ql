@@ -2,9 +2,8 @@ module Plugin
 
 import util::IDE;
 import lang::ql::util::Parse;
+import lang::ql::ide::Outline;
 import ParseTree;
-
-import lang::ql::syntax::QL;
 
 private str LANG = "QL-R";
 private str EXT = "q";
@@ -14,14 +13,26 @@ public void main() {
   registerLanguage(LANG, EXT, Tree(str src, loc l) {
      return parse(src, l);
   });
-  /*
-  registerOutliner("myLanguage", node (Form t) { 
-  n = "myNode"();
-  n@\loc = t@\loc;
-  n@label = "My node label";
-return n;
-});*/
   
+   contribs = {
+  		outliner(node (lang::ql::syntax::QL::Form input) {
+    		return outlineForm(implode(input));
+  		})/*,
+  		annotator(demo::lang::MissGrant::MissGrant::Controller (demo::lang::MissGrant::MissGrant::Controller input) {
+    		msgs = toSet(checkController(implode(input)));
+    		return input[@messages=msgs];
+  		}),
+		popup(
+			menu(CONTROLLER_LANG,[
+	    		action("Generate Switch", generateSwitch), 
+	    		action("Generate Methods", generateMethods),
+	    		action("Visualize", visualizeController),
+	    		edit("Rename...", rename) 
+		    ])
+	  	),
+	  	proposerContrib*/
+  };
+	
+  registerContributions(LANG, contribs);
+    
 }
-
-

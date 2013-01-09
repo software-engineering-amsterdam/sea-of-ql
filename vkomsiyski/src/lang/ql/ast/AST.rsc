@@ -7,20 +7,10 @@ data Form = form(str name, list[Question] questions);
  
  
 data Question 
-  = question(str name, str label, str questionType, Expr expr)
-  | conditional(IfStatement ifStatement);
+  = regular(str \type, str name, str label)
+  | computed(str \type, str name, str label,  Expr expr)
+  | conditional(Expr condition, list[Question] questions);
  
-  
-data IfStatement 
-  = ifStatementSingle(Expr condition, Question question, ElseStatement elseStatement)
-  | ifStatementMultiple(Expr condition, list[Question] questions, ElseStatement elseStatement);
- 
-  
-data ElseStatement
-  = elseIfStatement(IfStatement ifStatement)
-  | elseStatementSingle(Question question)
-  | elseStatementMultiple(list[Question] questions); 
-    
 
 data Expr
   = ident(str name)
@@ -46,6 +36,12 @@ data Expr
   | or(Expr expr1, Expr expr2);
   
   
+data Comment = comment(str c);
+  
+  
 anno loc Form@location;
+anno loc Question@location;
+anno loc Expr@location;
+anno loc Comment@location;
   
   
