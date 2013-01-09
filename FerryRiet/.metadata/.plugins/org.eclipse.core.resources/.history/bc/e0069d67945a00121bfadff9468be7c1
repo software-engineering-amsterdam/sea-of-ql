@@ -23,7 +23,7 @@ compoundblock returns [CompoundBlock result]
     ;
 
 stmt returns [Statement result]     
-    : Ident COLON st=StringLiteral ty=type { $result = new LineStatement(new String($Ident.text),$st,$ty.result); }
+    : Ident COLON st=StringLiteral ty=type { $result = new LineStatement(new StringLiteral($Ident.text),$st,$ty.result); }
     | 'if' '(' ex=orExpr ')' c=compoundblock    { $result = new ConditionalStatement(ex,c) ; } 
     ;
 

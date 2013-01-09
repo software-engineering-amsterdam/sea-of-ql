@@ -5,3 +5,6 @@
 1357629662324	Move compilation unit
 1357631360719	Rename type 'Statemt'
 1357636284270	Move compilation unit
+1357756628757	Rename type 'Int'
+1357759198940	Rename type 'BooleanType'
+1357760189243	Delete element

@@ -9,4 +9,5 @@
 <fullyQualifiedTypeName name="java.util.List"/>
 <fullyQualifiedTypeName name="org.uva.sea.ql.ast.CompoundBlock"/>
 <fullyQualifiedTypeName name="org.uva.sea.ql.ast.TypeDescription"/>
+<fullyQualifiedTypeName name="org.uva.sea.ql.ast.ASTNode"/>
 </qualifiedTypeNameHistroy>

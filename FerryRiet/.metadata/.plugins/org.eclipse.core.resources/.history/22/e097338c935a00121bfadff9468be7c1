@@ -1,6 +1,6 @@
 package org.uva.sea.ql.ast;
 
-public class BooleanType extends TypeDescription {
+public class StringLiteral extends Expr {
 
 	@Override
 	public void eval() {

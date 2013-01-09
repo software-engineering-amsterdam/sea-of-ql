@@ -35,10 +35,10 @@ type returns [TypeDescription result]
  
 
 primary returns [Expr result]
-  : IntLiteral     { $result = new IntLiteral(Integer.parseInt($IntLiteral.text)); }
+  : IntLiteral     { $result = new IntLiteral(Integer.parseInt($Int.text)); }
   | Ident   { $result = new Ident($Ident.text); }
-  | BooleanLiteral { $result = new BooleanLiteral($BooleanLiteral.text) ;}
-  | StringLiteral  { $result = new StringLiteral($StringLiteral.text) ;}
+  | BooleanLiteral { $result = new BooleanLiteral($Ident.text) ;}
+  | StringLiteral  { $result = new StringLiteral($Ident.text) ;}
   | '(' x=orExpr ')'{ $result = $x.result; }
   ;
     
