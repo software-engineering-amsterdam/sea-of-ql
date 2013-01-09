@@ -24,13 +24,18 @@ public class FormTests extends ParserTests {
 	@Test
 	public void testFilledForm() throws ParseError {
 		final String formName = "awesomeForm";
-		ASTNode parsed = parser.parse(String.format("form %s { \"Favorite flavor of bread?\" break : string }", formName));
+		ASTNode parsed = parser.parse(String.format(
+				"form %s { " +
+						"\"Favorite flavor of bread?\" bread : string " +
+						"\"Favorite flavor of cheese?\" cheese : string " +
+						"\"Favorite flavor of candy?\" candy : string " +
+				"}", formName));
 		
 		assertEquals(Form.class, parsed.getClass());
 		
 		Form form = (Form) parsed;
 		assertEquals(formName, form.getName().getName());
 		assertNotNull(form.getBody());
-		assertEquals(1, form.getBody().size());
+		assertEquals(3, form.getBody().size());
 	}
 }

@@ -99,8 +99,12 @@ formElements returns [List<FormElement> result]
     @init {
         result = new ArrayList<FormElement>();
     }
-    : q = questionFormElement { result.add($q.result); }
-    | i = ifFormElement { result.add($i.result); }
+    : (formElement { result.add($formElement.result); })*
+    ;
+    
+formElement returns [FormElement result]
+    : questionFormElement { $result = $questionFormElement.result; }
+    | ifFormElement { $result = $ifFormElement.result; }
     ;
     
 questionFormElement returns [Question result]
