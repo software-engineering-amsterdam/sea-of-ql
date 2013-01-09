@@ -1,33 +1,7 @@
 module lang::ql::ast::AST
 
-import DateTime;
 import util::Maybe;
 
-data Expr
-  = ident(str name)
-  | \int(int ivalue)
-  | money(real mvalue)
-  | boolean(bool bvalue)
-  | date(str dvalue)
-  | string(str tvalue)
-  | pos(Expr a)
-  | neg(Expr a)
-  | not(Expr a)
-  | mul(Expr a, Expr b)
-  | div(Expr a, Expr b)
-  | add(Expr a, Expr b)
-  | sub(Expr a, Expr b)
-  | lt(Expr a, Expr b)
-  | leq(Expr a, Expr b)
-  | gt(Expr a, Expr b)
-  | geq(Expr a, Expr b)
-  | eq(Expr a, Expr b)
-  | neq(Expr a, Expr b)
-  | and(Expr a, Expr b)
-  | or(Expr a, Expr b)
-  ;
-
-  
 data Form = form(str formName, list[FormItem] formElements);
 
 data FormItem
@@ -46,4 +20,32 @@ data Question
   | question(Expr questionText, Type answerDataType, Expr answerIdentifier) //TODO: Do we want this?
   | question(Expr questionText, Type answerDataType, Expr answerIdentifier, Expr aa) //TODO: Do we want this?
   //| question(Expr questionText, Type answerDataType, Expr answerIdentifier, Maybe[Expr] aa) //TODO: Do we want this?
+  ;
+
+data Expr
+  = ident(str name)
+  | \int(int intValue)
+  | money(real moneyValue)
+  | boolean(bool booleanValue)
+  | date(str dateValue)
+  | string(str text)
+  
+  | pos(Expr posValue)
+  | neg(Expr negValue)
+  | not(Expr notValue)
+  
+  | mul(Expr multiplicand, Expr multiplier)
+  | div(Expr numerator, Expr denominator)
+  | add(Expr leftAddend, Expr rightAddend)
+  | sub(Expr minuend, Expr subtrahend)
+  
+  | lt(Expr left, Expr right)
+  | leq(Expr left, Expr right)
+  | gt(Expr left, Expr right)
+  | geq(Expr left, Expr rigt)
+  | eq(Expr left, Expr right)
+  | neq(Expr left, Expr right)
+  
+  | and(Expr left, Expr right)
+  | or(Expr left, Expr right)
   ;

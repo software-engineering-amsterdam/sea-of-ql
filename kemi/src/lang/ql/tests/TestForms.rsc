@@ -27,7 +27,7 @@ public void main() {
     
     x = p(|project://QL-R/src/lang/ql/tests/form.q|);
     
-    text(x);
+    //text(x);
     println("sasadsadsadsadp: <x>  ss");
     println();
 }
