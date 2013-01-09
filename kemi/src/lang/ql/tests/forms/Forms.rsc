@@ -19,7 +19,7 @@ public test bool testIfCondition() = p(|project://QL-R/src/lang/ql/tests/forms/e
 public test bool testIfElseCondition() = p(|project://QL-R/src/lang/ql/tests/forms/examples/ifElseCondition.q|) is form;
 public test bool testIfElseIfCondition() = p(|project://QL-R/src/lang/ql/tests/forms/examples/ifElseIfCondition.q|) is form;
 public test bool testIfElseIfElseCondition() = p(|project://QL-R/src/lang/ql/tests/forms/examples/ifElseIfElseCondition.q|) is form;
-//public test bool testCalculatedField() = p(|project://QL-R/src/lang/ql/tests/forms/examples/calculatedField.q|) is form;
+public test bool testCalculatedField() = p(|project://QL-R/src/lang/ql/tests/forms/examples/calculatedField.q|) is form;
 
 public void main() {
 	try x = p(|project://QL-R/src/lang/ql/tests/forms/examples/calculatedField.q|);
