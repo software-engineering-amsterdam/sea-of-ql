@@ -24,6 +24,8 @@ import lang::ql::tests::expressions::Subtraction;
 
 import lang::ql::tests::questions::Questions;
 
+import lang::ql::tests::forms::Forms;
+
 import IO;
 
 public void main() {
