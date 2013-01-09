@@ -14,13 +14,4 @@ public void main() {
      return parse(src, l);
   });
   registerContributions(LANG, {getOutliner()});
-/*
-  contribs = {
-  		outliner(node (Tree input) {
-    		return outlineForm(implode(input));
-  		})
-  };
-	
-  registerContributions(LANG, contribs);
-  */
 }
