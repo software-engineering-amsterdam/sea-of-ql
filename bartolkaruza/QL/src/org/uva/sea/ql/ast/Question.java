@@ -1,5 +1,17 @@
 package org.uva.sea.ql.ast;
 
-public interface Question extends ASTNode {
+import org.uva.sea.ql.visitor.NodeVisitor;
+
+public class Question implements QuestionElement {
+
+	@Override
+	public void accept(NodeVisitor visitor) {
+		visitor.visit(this);
+	}
+
+	@Override
+	public void add(QuestionElement question) {
+
+	}
 
 }

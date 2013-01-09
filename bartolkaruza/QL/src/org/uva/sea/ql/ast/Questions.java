@@ -1,37 +1,44 @@
 package org.uva.sea.ql.ast;
 
-import java.beans.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.uva.sea.ql.visitor.NodeVisitor;
 
-public class Questions implements Question {
+public class Questions implements QuestionElement {
 
-	private List<Question> questions = new ArrayList<Question>();
-	private Statement statement;
+	private List<QuestionElement> questions = new ArrayList<QuestionElement>();
+	private Stmt statement;
 	
-	public Questions (Statement statement) {
-		this.setStatement(statement);
+	public Questions() {
+		
+	}
+	
+	public Questions (Stmt s) {
+		this.setStatement(s);
 	}
 	
 	@Override
 	public void accept(NodeVisitor visitor) {
-		for(Question question : questions) {
-			visitor.visit(question);
+		if(statement != null) {
+			statement.accept(visitor);
 		}
-		visitor.visit(this);
+		if(questions != null && questions.size() > 0) {
+			for(QuestionElement question : questions) {
+				visitor.visit(question);
+			}
+		}
 	}
 	
-	public void add(Question question) {
+	public void add(QuestionElement question) {
 		questions.add(question);
 	}
 
-	public Statement getStatement() {
+	public Stmt getStatement() {
 		return statement;
 	}
 
-	public void setStatement(Statement statement) {
+	public void setStatement(Stmt statement) {
 		this.statement = statement;
 	}
 

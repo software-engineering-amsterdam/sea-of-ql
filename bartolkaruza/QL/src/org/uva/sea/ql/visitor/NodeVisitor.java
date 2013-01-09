@@ -3,7 +3,7 @@ package org.uva.sea.ql.visitor;
 import org.uva.sea.ql.ast.Form;
 import org.uva.sea.ql.ast.Ident;
 import org.uva.sea.ql.ast.Int;
-import org.uva.sea.ql.ast.Question;
+import org.uva.sea.ql.ast.QuestionElement;
 import org.uva.sea.ql.ast.Stmt;
 import org.uva.sea.ql.ast.expr.Expr;
 
@@ -17,7 +17,7 @@ public interface NodeVisitor {
 
 	public void visit(Expr expr);
 
-	public void visit(Question node);
+	public void visit(QuestionElement node);
 
 	public void visit(Stmt node);
 

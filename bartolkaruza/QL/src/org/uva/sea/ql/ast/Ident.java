@@ -21,7 +21,7 @@ public class Ident extends Expr {
 
 	@Override
 	public void accept(NodeVisitor visitor) {
-
+		visitor.visit(this);
 	}
 
 }

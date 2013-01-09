@@ -5,13 +5,16 @@ import org.uva.sea.ql.visitor.NodeVisitor;
 public class Form implements ASTNode {
 	
 	private String label;
+	private Questions questions;
 	
-	public Form (String label) {
+	public Form (String label, Questions questions) {
 		this.setLabel(label);
+		this.questions = questions;
 	}
 
 	@Override
 	public void accept(NodeVisitor visitor) {
+		questions.accept(visitor);
 		visitor.visit(this);
 	}
 
@@ -23,8 +26,4 @@ public class Form implements ASTNode {
 		this.label = label;
 	}
 
-	@Override
-	public void walkChild(ASTNode parent) {
-		
-	}
 }

@@ -5,12 +5,12 @@ import org.uva.sea.ql.visitor.NodeVisitor;
 
 public class Stmt implements ASTNode {
 	
-	public Stmt(Expr expression, Question questions) {
+	public Stmt(Expr expression, QuestionElement questions) {
 		
 	}
 
 	@Override
 	public void accept(NodeVisitor visitor) {
+		visitor.visit(this);
 	}
-
 }
