@@ -12,7 +12,7 @@ syntax Statement
 
 syntax IfPart = "if" "(" Expr condition ")" "{" Statements body "}";
 
-syntax ElseIfPart = "else" IfPart;
+syntax ElseIfPart = "else" IfPart ifPart;
 
 syntax ElsePart = "else" "{" Statements body "}"; 
  
