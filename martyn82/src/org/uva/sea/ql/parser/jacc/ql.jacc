@@ -16,10 +16,11 @@
 %left '*' '/'
 %left UMIN UPLUS UNOT
 
-%type <Expr> expr comp
+%type <Expression> expr comp
 
 %{
 import org.uva.sea.ql.ast.*;
+import org.uva.sea.ql.ast.expression.*;
 %}
 
 %%
@@ -27,7 +28,7 @@ import org.uva.sea.ql.ast.*;
  top : comp { result = $1; }
      ;
 
- comp    : expr EQ expr		    { $$ = new Eq($1, $3); }
+ comp    : expr EQ expr 	    { $$ = new Eq($1, $3); }
 		 | expr NEQ expr		{ $$ = new NEq($1, $3); }
 		 | expr '>' expr		{ $$ = new GT($1, $3); }
 		 | expr '<' expr		{ $$ = new LT($1, $3); }
@@ -35,7 +36,6 @@ import org.uva.sea.ql.ast.*;
 		 | expr LEQ expr		{ $$ = new LEq($1, $3); }
 		 | expr					{ $$ = $1; }
 		 ;
-
 
  expr	 : '+' expr	%prec UPLUS { $$ = new Pos($2); }
 		 | '-' expr	%prec UMIN  { $$ = new Neg($2); }
@@ -50,21 +50,20 @@ import org.uva.sea.ql.ast.*;
 		 | IDENT         		{ $$ = $1; }
 		 | '(' comp ')'			{ $$ = $2; }
 		 ;
-		 
 
 %%
-private QLLexer lexer; 
+    private QLLexer lexer; 
 
-private Expr result;
+    private Expression result;
 
-public Expr getResult() {
-  return result;
-}
+    public Expression getResult() {
+        return result;
+    }
 
-public QLParser(QLLexer lexer) { 
-  this.lexer = lexer; 
-}
+    public QLParser( QLLexer lexer ) { 
+        this.lexer = lexer;
+    }
 
-private void yyerror(String msg) { 
-  System.err.println(msg); 
-}
+    private void yyerror( String msg ) { 
+        System.err.println( msg );
+    }

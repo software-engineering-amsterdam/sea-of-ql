@@ -19,8 +19,8 @@
   </developers>
 
   <properties>
-  	<junit-version>4.11</junit-version>
   	<antlr-runtime-version>3.5</antlr-runtime-version>
+  	<junit-version>4.11</junit-version>
   </properties>
 
   <dependencies>

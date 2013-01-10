@@ -12,21 +12,32 @@ import org.uva.sea.ql.ast.*;
 package org.uva.sea.ql.parser.antlr;
 }
 
-qlprogram : 'form' Ident compoundblock ;
+qlprogram returns [QLProgram result]
+    : 'form' Ident  cb=compoundblock { $result = new QLProgram(new String($Ident.text), cb) ; } 
+    ;
 
-compoundblock : LBRACE stmt* RBRACE ;
+compoundblock returns [CompoundBlock result]
+    : LBRACE 
+      { $result = new CompoundBlock() ; } (st=stmt  { $result.addStatement($st.result) ; } )* 
+      RBRACE  
+    ;
 
-stmt      : Ident COLON String type 
-          | 'if' '('Ident ')' compoundblock ;
+stmt returns [Statement result]     
+    : Ident COLON st=String ty=type { $result = new LineStatement(new String($Ident.text),$st,$ty.result); }
+    | 'if' '(' ex=orExpr ')' c=compoundblock    { $result = new ConditionalStatement(ex,c) ; } 
+    ;
 
-type   : 'boolean'
-       | 'money' ;
+type returns [TypeDescription result]
+    : 'boolean' { $result = new BooleanType() ;}
+    | 'money' ('(' x=orExpr ')')? { $result = new MoneyType(x) ;}
+    ;
 
-
+ 
 
 primary returns [Expr result]
   : Int   { $result = new Int(Integer.parseInt($Int.text)); }
   | Ident { $result = new Ident($Ident.text); }
+  | Boolean { $result = new BooleanType($Ident.text) ;}
   | '(' x=orExpr ')'{ $result = $x.result; }
   ;
     
@@ -43,7 +54,7 @@ mulExpr returns [Expr result]
       if ($op.text.equals("*")) {
         $result = new Mul($result, rhs);
       }
-      if ($op.text.equals("<=")) {
+      if ($op.text.equals("/")) {
         $result = new Div($result, rhs);      
       }
     })*
@@ -100,7 +111,6 @@ orExpr returns [Expr result]
 WS  :	(' ' | '\t' | '\n' | '\r') { $channel=HIDDEN; }
     ;
 
-
 String : '"' ~('\n' | '\r' | '"')* '"' ;
 
 COLON  : ':' ;
@@ -108,9 +118,17 @@ LBRACE : '{' ;
 RBRACE : '}' ;
 
 COMMENT 
-     : '/*' .* '*/' {$channel=HIDDEN;}
+    : '/*' .* '*/'    {$channel=HIDDEN;}
+    | '//' ( ~'\n' )* {$channel=HIDDEN;}
     ;
 
+Boolean
+    : 'true'
+    | 'false'
+    ;
+        
 Ident:   ('a'..'z'|'A'..'Z')('a'..'z'|'A'..'Z'|'0'..'9'|'_')*;
+
+
 
 Int: ('0'..'9')+;
