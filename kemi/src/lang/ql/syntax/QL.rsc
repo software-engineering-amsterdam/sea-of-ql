@@ -1,6 +1,6 @@
 module lang::ql::syntax::QL
 
-start syntax Form = form: "form" Ident formName "{" FormItem+ formElements "}";
+start syntax Form = @Foldable form: "form" Ident formName "{" FormItem+ formElements "}";
 
 syntax FormItem 
   = question: Question question
@@ -55,9 +55,7 @@ syntax WhitespaceOrComment
   | comment: Comment comment
   ;   
 
-lexical Ident 
-  = @category="Variable" ([a-z A-Z 0-9 _] !<< [a-z A-Z][a-z A-Z 0-9 _]* !>> [a-z A-Z 0-9 _]) \ Keywords
-  ;
+lexical Ident = @category="Variable" ([a-z A-Z 0-9 _] !<< [a-z A-Z][a-z A-Z 0-9 _]* !>> [a-z A-Z 0-9 _]) \ Keywords;
 
 lexical Type
   = @category="Type" "boolean"
@@ -67,18 +65,14 @@ lexical Type
   | @category="Type" "string"
   ;
 
-lexical String 
-  = "\"" TextChar* "\""
-  ;
+lexical String = "\"" TextChar* "\"";
 
 lexical TextChar
   = [\\] << [\"]
   | ![\"]
   ;
 
-lexical Int
-  = [0-9]+ !>> [0-9]
-  ;
+lexical Int = [0-9]+ !>> [0-9];
 
 lexical Boolean
   = "true"
@@ -92,14 +86,10 @@ lexical Money
   | [0-9]+ "." [0-9][0-9]
   ;
 
-lexical Date
-  = "$" Year "-" Month "-" Day
-  ;
+lexical Date = "$" Year "-" Month "-" Day;
 
 // Note: We assume that dates are valid in domain [1000 to 2999]
-lexical Year
-  = [1-2][0-9][0-9][0-9]
-  ;
+lexical Year = [1-2][0-9][0-9][0-9];
 
 lexical Month
   = [0][0-9]
@@ -121,12 +111,9 @@ lexical CommentChar
   | [*] !>> [/]
   ;
 
-lexical Whitespace
-  = [\u0009-\u000D \u0020 \u0085 \u00A0 \u1680 \u180E \u2000-\u200A \u2028 \u2029 \u202F \u205F \u3000]
-  ;
+lexical Whitespace = [\u0009-\u000D \u0020 \u0085 \u00A0 \u1680 \u180E \u2000-\u200A \u2028 \u2029 \u202F \u205F \u3000];
 
-layout Standard
-  = WhitespaceOrComment* !>> [\ \t\n\f\r] !>> "//" !>> "/*";
+layout Standard = WhitespaceOrComment* !>> [\ \t\n\f\r] !>> "//" !>> "/*";
 
 keyword Keywords 
   = boolean: "boolean"
