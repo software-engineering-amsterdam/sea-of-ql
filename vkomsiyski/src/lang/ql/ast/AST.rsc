@@ -1,15 +1,14 @@
 module lang::ql::ast::AST
  
 import List;
- 
 
-data Form = form(str name, list[Question] questions); 
- 
-data Question 
+data Form = form(str name, list[Statement] statements); 
+
+data Statement
   = regular(str \type, str name, str label)
-  | computed(str \type, str name, Expr expr, str label)
-  | conditional(Expr condition, list[Question] questions);
-
+  | computed(str \type, str name, str label, Expr expr)
+  | conditional(IfStatement ifStatement, list[IfStatement] elseIfs, list[Statement] elsePart);
+  
 data Expr
   = ident(str name)
   | \int(int ivalue)
@@ -33,9 +32,21 @@ data Expr
   | and(Expr expr1, Expr expr2)    
   | or(Expr expr1, Expr expr2);
  
-data Comment = comment(str c);
-  
+ 
+alias IfStatement = tuple[Expr condition, list[Statement] body]; 
+
+alias SeparatedStatements = tuple[list[Statement] regs, list[Statement] comps, list[Statement] conds];
+
+// return a list of all top level statements contained in a conditional
+public list[Statement] flatten(Statement s:conditional(i,[],e)) = s.ifStatement.body + e;  
+public list[Statement] flatten(Statement s:conditional(i,ei,e)) = s.ifStatement.body + flatten(conditional(head(ei), tail(ei), e));  
+
+// return a tuple with groups of different kinds of statements
+public SeparatedStatements separate(list[Statement] s) = 
+  <[r | r:regular(_,_,_) <- s], [c | c:computed(_,_,_,_) <- s], [c | c:conditional(_,_,_) <- s]>;
+
+
 anno loc Form@location;
-anno loc Question@location;
+anno loc Statement@location;
   
   

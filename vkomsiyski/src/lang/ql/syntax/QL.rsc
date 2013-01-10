@@ -1,15 +1,21 @@
 module lang::ql::syntax::QL
 
 
-start syntax Form = form: "form" Ident name "{" Questions questions "}";
+start syntax Form = form: "form" Ident name "{" Statements body "}";
 
-syntax Questions = @Foldable Question+;
+syntax Statements = @Foldable Statement+;
 
-syntax Question
-  = regular: Type type QuestionName name "for" Label label 
-  | computed: Type type QuestionName name "=" Expr expr "for" Label label 
-  | conditional: "if" "(" Expr condition ")" "{" Questions questions "}"; 
+syntax Statement 
+  = regular: Type type QuestionName name "=" String label
+  | computed: Type type QuestionName name "=" String label Expr expr 
+  | conditional:  IfPart ElseIfPart* ElsePart?;
 
+syntax IfPart = "if" "(" Expr condition ")" "{" Statements body "}";
+
+syntax ElseIfPart = "else" IfPart;
+
+syntax ElsePart = "else" "{" Statements body "}"; 
+ 
 syntax Expr
   = ident: Ident name
   | \int: Int
@@ -37,33 +43,42 @@ syntax WhitespaceOrComment
   = whitespace: Whitespace
   | comment: Comment;     
    
-keyword Keywords = "form" | "if" | "for" | Type;
-
-layout Standard = WhitespaceOrComment* !>> [\ \t\n\f\r] !>> "//" !>> "/*";
+lexical Type 
+  = @category="Type" "bool" 
+  | @category="Type" "int" 
+  | @category="Type" "string"
+  | @category="Type" "money"
+  | @category="Type" "float"
+  | @category="Type" "date";
 
 lexical QuestionName = @category="Variable" Ident;
 
 lexical Ident = ([a-z A-Z 0-9 _] !<< [a-z A-Z][a-z A-Z 0-9 _]* !>> [a-z A-Z 0-9 _]) \ Keywords;
 
+lexical Bool = "true" | "false";
+
 lexical Int = [0-9]+ !>> [0-9];
 
-lexical Label = @category="Identifier" "\"" LabelChar* [\\] !<< "\"" ;
+lexical String = @category="Identifier" "\"" StringChar* [\\] !<< "\"" ;
   
-lexical LabelChar = ![\"] | [\\] << [\"];
+lexical StringChar = ![\"] | [\\] << [\"];
 
 lexical Comment 
   = @category="Comment" "/*" CommentChar* "*/"
-  | @category="Comment" "//" ![\n\r]*; 
+  | @category="Comment" "//" ![\n\r]*  NewLine;
 
 lexical CommentChar = ![*] | [*] !>> [/];
 
-lexical Type 
-  = @category="Type" "boolean" 
-  | @category="Type" "integer" 
-  | @category="Type" "string";
+lexical NewLine = "\n" | "\r" | "\r\n";
 
 lexical Whitespace 
   = [\u0009-\u000D \u0020 \u0085 \u00A0 \u1680 \u180E 
      \u2000-\u200A \u2028 \u2029 \u202F \u205F \u3000]; 
 
- 
+
+keyword Keywords = "form" | "if" | "bool" | "int" | "string" | "money" | "float" | "date" | "true" | "false";
+
+layout Standard = WhitespaceOrComment* !>> [\ \t\n\f\r] !>> "//" !>> "/*";
+
+
+
