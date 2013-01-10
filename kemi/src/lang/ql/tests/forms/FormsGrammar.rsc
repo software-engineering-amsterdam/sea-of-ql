@@ -1,4 +1,4 @@
-module lang::ql::tests::forms::Forms
+module lang::ql::tests::forms::FormsGrammar
 
 import lang::ql::ast::AST;
 import lang::ql::util::Parse;

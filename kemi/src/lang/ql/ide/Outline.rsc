@@ -34,13 +34,18 @@ public void main() {
 
 public node outlineForm(Form form) = "outline"([outline(form)])[@label="Form"];
 
-node outline(Form form) = "form"([outline(form.formElements)])[@label="Form <form.formName>"][@\loc=form@location];
- 
-node outline(list[FormItem] formElements) = "FormItem"([outline(e) | e <- formElements])[@label="Form Items (<size(formElements)>)"];
+node outline(Form form) = "form"([outline(e) | e <- form.formElements])[@label="Form <form.formName> (<size(form.formElements)>)"][@\loc=form@location];
+
+//node outline(list[FormItem] formElements) = "FormItem"([outline(e) | e <- formElements])[@label="Form Items (<size(formElements)>)"];
 
 node outline(FormItem item) {
 	switch(item) {
 		case question(Question question): return outline(question);
+		case ifCondition(Expr condition, list[FormItem] ifPart, [], []): {
+			return "ifCondition"(
+						"ifPart"([outline(e) | e <- ifPart])[@label="ifPart"][@\loc=getLocationSpan(ifPart)] 
+					)[@label="If (<condition>) else"][@\loc=item@location];
+		}
 		case ifCondition(Expr condition, list[FormItem] ifPart, [], list[FormItem] elsePart): {
 			return "ifElseCondition"(
 						"ifPart"([outline(e) | e <- ifPart])[@label="ifPart"][@\loc=getLocationSpan(ifPart)], 
