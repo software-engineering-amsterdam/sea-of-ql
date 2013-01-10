@@ -4,7 +4,9 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.ArrayList;
 
-public class CompoundBlock {
+import org.uva.sea.ql.astvisitor.ASTNodeVisitor;
+
+public class CompoundBlock implements ASTNode  {
 	private List<Statement> statementList = new ArrayList<Statement>();
 
 	public CompoundBlock() {
@@ -24,5 +26,11 @@ public class CompoundBlock {
 			value.eval();
 		}
 		System.out.println("}");
+	}
+
+	@Override
+	public void accept(ASTNodeVisitor visitor) {
+		// TODO Auto-generated method stub
+		visitor.visit(this) ;
 	}
 }

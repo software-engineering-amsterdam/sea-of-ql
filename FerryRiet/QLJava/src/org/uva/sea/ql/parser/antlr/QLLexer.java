@@ -1,4 +1,4 @@
-// $ANTLR 3.4 QL.g 2013-01-09 20:44:17
+// $ANTLR 3.4 QL.g 2013-01-10 11:50:00
 
 package org.uva.sea.ql.parser.antlr;
 
@@ -30,6 +30,7 @@ public class QLLexer extends Lexer {
     public static final int T__29=29;
     public static final int T__30=30;
     public static final int T__31=31;
+    public static final int T__32=32;
     public static final int BooleanLiteral=4;
     public static final int COLON=5;
     public static final int COMMENT=6;
@@ -456,10 +457,10 @@ public class QLLexer extends Lexer {
         try {
             int _type = T__31;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // QL.g:24:7: ( '||' )
-            // QL.g:24:9: '||'
+            // QL.g:24:7: ( 'string' )
+            // QL.g:24:9: 'string'
             {
-            match("||"); 
+            match("string"); 
 
 
 
@@ -474,13 +475,36 @@ public class QLLexer extends Lexer {
     }
     // $ANTLR end "T__31"
 
+    // $ANTLR start "T__32"
+    public final void mT__32() throws RecognitionException {
+        try {
+            int _type = T__32;
+            int _channel = DEFAULT_TOKEN_CHANNEL;
+            // QL.g:25:7: ( '||' )
+            // QL.g:25:9: '||'
+            {
+            match("||"); 
+
+
+
+            }
+
+            state.type = _type;
+            state.channel = _channel;
+        }
+        finally {
+        	// do for sure before leaving
+        }
+    }
+    // $ANTLR end "T__32"
+
     // $ANTLR start "WS"
     public final void mWS() throws RecognitionException {
         try {
             int _type = WS;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // QL.g:112:5: ( ( ' ' | '\\t' | '\\n' | '\\r' ) )
-            // QL.g:112:7: ( ' ' | '\\t' | '\\n' | '\\r' )
+            // QL.g:108:5: ( ( ' ' | '\\t' | '\\n' | '\\r' ) )
+            // QL.g:108:7: ( ' ' | '\\t' | '\\n' | '\\r' )
             {
             if ( (input.LA(1) >= '\t' && input.LA(1) <= '\n')||input.LA(1)=='\r'||input.LA(1)==' ' ) {
                 input.consume();
@@ -510,12 +534,12 @@ public class QLLexer extends Lexer {
         try {
             int _type = StringLiteral;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // QL.g:115:15: ( '\"' (~ ( '\\n' | '\\r' | '\"' ) )* '\"' )
-            // QL.g:115:17: '\"' (~ ( '\\n' | '\\r' | '\"' ) )* '\"'
+            // QL.g:111:15: ( '\"' (~ ( '\\n' | '\\r' | '\"' ) )* '\"' )
+            // QL.g:111:17: '\"' (~ ( '\\n' | '\\r' | '\"' ) )* '\"'
             {
             match('\"'); 
 
-            // QL.g:115:21: (~ ( '\\n' | '\\r' | '\"' ) )*
+            // QL.g:111:21: (~ ( '\\n' | '\\r' | '\"' ) )*
             loop1:
             do {
                 int alt1=2;
@@ -567,8 +591,8 @@ public class QLLexer extends Lexer {
         try {
             int _type = COLON;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // QL.g:117:8: ( ':' )
-            // QL.g:117:10: ':'
+            // QL.g:113:8: ( ':' )
+            // QL.g:113:10: ':'
             {
             match(':'); 
 
@@ -588,8 +612,8 @@ public class QLLexer extends Lexer {
         try {
             int _type = LBRACE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // QL.g:118:8: ( '{' )
-            // QL.g:118:10: '{'
+            // QL.g:114:8: ( '{' )
+            // QL.g:114:10: '{'
             {
             match('{'); 
 
@@ -609,8 +633,8 @@ public class QLLexer extends Lexer {
         try {
             int _type = RBRACE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // QL.g:119:8: ( '}' )
-            // QL.g:119:10: '}'
+            // QL.g:115:8: ( '}' )
+            // QL.g:115:10: '}'
             {
             match('}'); 
 
@@ -630,7 +654,7 @@ public class QLLexer extends Lexer {
         try {
             int _type = COMMENT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // QL.g:122:5: ( '/*' ( . )* '*/' | '//' (~ '\\n' )* )
+            // QL.g:118:5: ( '/*' ( . )* '*/' | '//' (~ '\\n' )* )
             int alt4=2;
             int LA4_0 = input.LA(1);
 
@@ -660,13 +684,13 @@ public class QLLexer extends Lexer {
             }
             switch (alt4) {
                 case 1 :
-                    // QL.g:122:7: '/*' ( . )* '*/'
+                    // QL.g:118:7: '/*' ( . )* '*/'
                     {
                     match("/*"); 
 
 
 
-                    // QL.g:122:12: ( . )*
+                    // QL.g:118:12: ( . )*
                     loop2:
                     do {
                         int alt2=2;
@@ -691,7 +715,7 @@ public class QLLexer extends Lexer {
 
                         switch (alt2) {
                     	case 1 :
-                    	    // QL.g:122:12: .
+                    	    // QL.g:118:12: .
                     	    {
                     	    matchAny(); 
 
@@ -713,13 +737,13 @@ public class QLLexer extends Lexer {
                     }
                     break;
                 case 2 :
-                    // QL.g:123:7: '//' (~ '\\n' )*
+                    // QL.g:119:7: '//' (~ '\\n' )*
                     {
                     match("//"); 
 
 
 
-                    // QL.g:123:12: (~ '\\n' )*
+                    // QL.g:119:12: (~ '\\n' )*
                     loop3:
                     do {
                         int alt3=2;
@@ -773,7 +797,7 @@ public class QLLexer extends Lexer {
         try {
             int _type = BooleanLiteral;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // QL.g:127:5: ( 'true' | 'false' | 'TRUE' | 'FALSE' )
+            // QL.g:123:5: ( 'true' | 'false' | 'TRUE' | 'FALSE' )
             int alt5=4;
             switch ( input.LA(1) ) {
             case 't':
@@ -806,7 +830,7 @@ public class QLLexer extends Lexer {
 
             switch (alt5) {
                 case 1 :
-                    // QL.g:127:7: 'true'
+                    // QL.g:123:7: 'true'
                     {
                     match("true"); 
 
@@ -815,7 +839,7 @@ public class QLLexer extends Lexer {
                     }
                     break;
                 case 2 :
-                    // QL.g:127:15: 'false'
+                    // QL.g:123:15: 'false'
                     {
                     match("false"); 
 
@@ -824,7 +848,7 @@ public class QLLexer extends Lexer {
                     }
                     break;
                 case 3 :
-                    // QL.g:127:25: 'TRUE'
+                    // QL.g:123:25: 'TRUE'
                     {
                     match("TRUE"); 
 
@@ -833,7 +857,7 @@ public class QLLexer extends Lexer {
                     }
                     break;
                 case 4 :
-                    // QL.g:127:34: 'FALSE'
+                    // QL.g:123:34: 'FALSE'
                     {
                     match("FALSE"); 
 
@@ -857,8 +881,8 @@ public class QLLexer extends Lexer {
         try {
             int _type = Ident;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // QL.g:130:6: ( ( 'a' .. 'z' | 'A' .. 'Z' ) ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )* )
-            // QL.g:130:10: ( 'a' .. 'z' | 'A' .. 'Z' ) ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )*
+            // QL.g:126:6: ( ( 'a' .. 'z' | 'A' .. 'Z' ) ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )* )
+            // QL.g:126:10: ( 'a' .. 'z' | 'A' .. 'Z' ) ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )*
             {
             if ( (input.LA(1) >= 'A' && input.LA(1) <= 'Z')||(input.LA(1) >= 'a' && input.LA(1) <= 'z') ) {
                 input.consume();
@@ -870,7 +894,7 @@ public class QLLexer extends Lexer {
             }
 
 
-            // QL.g:130:29: ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )*
+            // QL.g:126:29: ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )*
             loop6:
             do {
                 int alt6=2;
@@ -920,10 +944,10 @@ public class QLLexer extends Lexer {
         try {
             int _type = IntLiteral;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // QL.g:134:11: ( ( '0' .. '9' )+ )
-            // QL.g:134:13: ( '0' .. '9' )+
+            // QL.g:128:11: ( ( '0' .. '9' )+ )
+            // QL.g:128:13: ( '0' .. '9' )+
             {
-            // QL.g:134:13: ( '0' .. '9' )+
+            // QL.g:128:13: ( '0' .. '9' )+
             int cnt7=0;
             loop7:
             do {
@@ -974,8 +998,8 @@ public class QLLexer extends Lexer {
     // $ANTLR end "IntLiteral"
 
     public void mTokens() throws RecognitionException {
-        // QL.g:1:8: ( T__13 | T__14 | T__15 | T__16 | T__17 | T__18 | T__19 | T__20 | T__21 | T__22 | T__23 | T__24 | T__25 | T__26 | T__27 | T__28 | T__29 | T__30 | T__31 | WS | StringLiteral | COLON | LBRACE | RBRACE | COMMENT | BooleanLiteral | Ident | IntLiteral )
-        int alt8=28;
+        // QL.g:1:8: ( T__13 | T__14 | T__15 | T__16 | T__17 | T__18 | T__19 | T__20 | T__21 | T__22 | T__23 | T__24 | T__25 | T__26 | T__27 | T__28 | T__29 | T__30 | T__31 | T__32 | WS | StringLiteral | COLON | LBRACE | RBRACE | COMMENT | BooleanLiteral | Ident | IntLiteral )
+        int alt8=29;
         alt8 = dfa8.predict(input);
         switch (alt8) {
             case 1 :
@@ -1131,71 +1155,79 @@ public class QLLexer extends Lexer {
                 }
                 break;
             case 20 :
-                // QL.g:1:124: WS
+                // QL.g:1:124: T__32
+                {
+                mT__32(); 
+
+
+                }
+                break;
+            case 21 :
+                // QL.g:1:130: WS
                 {
                 mWS(); 
 
 
                 }
                 break;
-            case 21 :
-                // QL.g:1:127: StringLiteral
+            case 22 :
+                // QL.g:1:133: StringLiteral
                 {
                 mStringLiteral(); 
 
 
                 }
                 break;
-            case 22 :
-                // QL.g:1:141: COLON
+            case 23 :
+                // QL.g:1:147: COLON
                 {
                 mCOLON(); 
 
 
                 }
                 break;
-            case 23 :
-                // QL.g:1:147: LBRACE
+            case 24 :
+                // QL.g:1:153: LBRACE
                 {
                 mLBRACE(); 
 
 
                 }
                 break;
-            case 24 :
-                // QL.g:1:154: RBRACE
+            case 25 :
+                // QL.g:1:160: RBRACE
                 {
                 mRBRACE(); 
 
 
                 }
                 break;
-            case 25 :
-                // QL.g:1:161: COMMENT
+            case 26 :
+                // QL.g:1:167: COMMENT
                 {
                 mCOMMENT(); 
 
 
                 }
                 break;
-            case 26 :
-                // QL.g:1:169: BooleanLiteral
+            case 27 :
+                // QL.g:1:175: BooleanLiteral
                 {
                 mBooleanLiteral(); 
 
 
                 }
                 break;
-            case 27 :
-                // QL.g:1:184: Ident
+            case 28 :
+                // QL.g:1:190: Ident
                 {
                 mIdent(); 
 
 
                 }
                 break;
-            case 28 :
-                // QL.g:1:190: IntLiteral
+            case 29 :
+                // QL.g:1:196: IntLiteral
                 {
                 mIntLiteral(); 
 
@@ -1210,102 +1242,109 @@ public class QLLexer extends Lexer {
 
     protected DFA8 dfa8 = new DFA8(this);
     static final String DFA8_eotS =
-        "\1\uffff\1\34\6\uffff\1\36\1\40\1\uffff\1\42\4\31\6\uffff\3\31\12"+
-        "\uffff\3\31\1\56\7\31\1\uffff\5\31\1\73\2\31\2\76\2\31\1\uffff\1"+
-        "\76\1\101\1\uffff\1\76\1\31\1\uffff\1\103\1\uffff";
+        "\1\uffff\1\35\6\uffff\1\37\1\41\1\uffff\1\43\5\32\6\uffff\3\32\12"+
+        "\uffff\3\32\1\60\10\32\1\uffff\6\32\1\77\3\32\2\103\2\32\1\uffff"+
+        "\1\103\1\106\1\32\1\uffff\1\103\1\32\1\uffff\1\111\1\112\2\uffff";
     static final String DFA8_eofS =
-        "\104\uffff";
+        "\113\uffff";
     static final String DFA8_minS =
         "\1\11\1\75\6\uffff\1\52\1\75\1\uffff\1\75\1\157\1\141\1\146\1\157"+
-        "\6\uffff\1\162\1\122\1\101\12\uffff\1\157\1\162\1\154\1\60\1\156"+
-        "\1\165\1\125\1\114\1\154\1\155\1\163\1\uffff\2\145\1\105\1\123\1"+
-        "\145\1\60\1\145\1\171\2\60\1\105\1\141\1\uffff\2\60\1\uffff\1\60"+
-        "\1\156\1\uffff\1\60\1\uffff";
+        "\1\164\6\uffff\1\162\1\122\1\101\12\uffff\1\157\1\162\1\154\1\60"+
+        "\1\156\1\162\1\165\1\125\1\114\1\154\1\155\1\163\1\uffff\1\145\1"+
+        "\151\1\145\1\105\1\123\1\145\1\60\1\145\1\171\1\156\2\60\1\105\1"+
+        "\141\1\uffff\2\60\1\147\1\uffff\1\60\1\156\1\uffff\2\60\2\uffff";
     static final String DFA8_maxS =
-        "\1\175\1\75\6\uffff\1\57\1\75\1\uffff\1\75\2\157\1\146\1\157\6\uffff"+
-        "\1\162\1\122\1\101\12\uffff\1\157\1\162\1\154\1\172\1\156\1\165"+
-        "\1\125\1\114\1\154\1\155\1\163\1\uffff\2\145\1\105\1\123\1\145\1"+
-        "\172\1\145\1\171\2\172\1\105\1\141\1\uffff\2\172\1\uffff\1\172\1"+
-        "\156\1\uffff\1\172\1\uffff";
+        "\1\175\1\75\6\uffff\1\57\1\75\1\uffff\1\75\2\157\1\146\1\157\1\164"+
+        "\6\uffff\1\162\1\122\1\101\12\uffff\1\157\1\162\1\154\1\172\1\156"+
+        "\1\162\1\165\1\125\1\114\1\154\1\155\1\163\1\uffff\1\145\1\151\1"+
+        "\145\1\105\1\123\1\145\1\172\1\145\1\171\1\156\2\172\1\105\1\141"+
+        "\1\uffff\2\172\1\147\1\uffff\1\172\1\156\1\uffff\2\172\2\uffff";
     static final String DFA8_acceptS =
-        "\2\uffff\1\3\1\4\1\5\1\6\1\7\1\10\2\uffff\1\14\5\uffff\1\23\1\24"+
-        "\1\25\1\26\1\27\1\30\3\uffff\1\33\1\34\1\2\1\1\1\31\1\11\1\13\1"+
-        "\12\1\16\1\15\13\uffff\1\21\14\uffff\1\20\2\uffff\1\32\2\uffff\1"+
-        "\22\1\uffff\1\17";
+        "\2\uffff\1\3\1\4\1\5\1\6\1\7\1\10\2\uffff\1\14\6\uffff\1\24\1\25"+
+        "\1\26\1\27\1\30\1\31\3\uffff\1\34\1\35\1\2\1\1\1\32\1\11\1\13\1"+
+        "\12\1\16\1\15\14\uffff\1\21\16\uffff\1\20\3\uffff\1\33\2\uffff\1"+
+        "\22\2\uffff\1\23\1\17";
     static final String DFA8_specialS =
-        "\104\uffff}>";
+        "\113\uffff}>";
     static final String[] DFA8_transitionS = {
-            "\2\21\2\uffff\1\21\22\uffff\1\21\1\1\1\22\3\uffff\1\2\1\uffff"+
-            "\1\3\1\4\1\5\1\6\1\uffff\1\7\1\uffff\1\10\12\32\1\23\1\uffff"+
-            "\1\11\1\12\1\13\2\uffff\5\31\1\30\15\31\1\27\6\31\6\uffff\1"+
-            "\31\1\14\3\31\1\15\2\31\1\16\3\31\1\17\6\31\1\26\6\31\1\24\1"+
-            "\20\1\25",
-            "\1\33",
+            "\2\22\2\uffff\1\22\22\uffff\1\22\1\1\1\23\3\uffff\1\2\1\uffff"+
+            "\1\3\1\4\1\5\1\6\1\uffff\1\7\1\uffff\1\10\12\33\1\24\1\uffff"+
+            "\1\11\1\12\1\13\2\uffff\5\32\1\31\15\32\1\30\6\32\6\uffff\1"+
+            "\32\1\14\3\32\1\15\2\32\1\16\3\32\1\17\5\32\1\20\1\27\6\32\1"+
+            "\25\1\21\1\26",
+            "\1\34",
             "",
             "",
             "",
             "",
             "",
             "",
-            "\1\35\4\uffff\1\35",
-            "\1\37",
+            "\1\36\4\uffff\1\36",
+            "\1\40",
             "",
-            "\1\41",
-            "\1\43",
-            "\1\45\15\uffff\1\44",
-            "\1\46",
+            "\1\42",
+            "\1\44",
+            "\1\46\15\uffff\1\45",
             "\1\47",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
             "\1\50",
             "\1\51",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
             "\1\52",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
             "\1\53",
             "\1\54",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
             "\1\55",
-            "\12\31\7\uffff\32\31\4\uffff\1\31\1\uffff\32\31",
+            "\1\56",
             "\1\57",
-            "\1\60",
+            "\12\32\7\uffff\32\32\4\uffff\1\32\1\uffff\32\32",
             "\1\61",
             "\1\62",
             "\1\63",
             "\1\64",
             "\1\65",
-            "",
             "\1\66",
             "\1\67",
             "\1\70",
+            "",
             "\1\71",
             "\1\72",
-            "\12\31\7\uffff\32\31\4\uffff\1\31\1\uffff\32\31",
+            "\1\73",
             "\1\74",
             "\1\75",
-            "\12\31\7\uffff\32\31\4\uffff\1\31\1\uffff\32\31",
-            "\12\31\7\uffff\32\31\4\uffff\1\31\1\uffff\32\31",
-            "\1\77",
+            "\1\76",
+            "\12\32\7\uffff\32\32\4\uffff\1\32\1\uffff\32\32",
             "\1\100",
-            "",
-            "\12\31\7\uffff\32\31\4\uffff\1\31\1\uffff\32\31",
-            "\12\31\7\uffff\32\31\4\uffff\1\31\1\uffff\32\31",
-            "",
-            "\12\31\7\uffff\32\31\4\uffff\1\31\1\uffff\32\31",
+            "\1\101",
             "\1\102",
+            "\12\32\7\uffff\32\32\4\uffff\1\32\1\uffff\32\32",
+            "\12\32\7\uffff\32\32\4\uffff\1\32\1\uffff\32\32",
+            "\1\104",
+            "\1\105",
             "",
-            "\12\31\7\uffff\32\31\4\uffff\1\31\1\uffff\32\31",
+            "\12\32\7\uffff\32\32\4\uffff\1\32\1\uffff\32\32",
+            "\12\32\7\uffff\32\32\4\uffff\1\32\1\uffff\32\32",
+            "\1\107",
+            "",
+            "\12\32\7\uffff\32\32\4\uffff\1\32\1\uffff\32\32",
+            "\1\110",
+            "",
+            "\12\32\7\uffff\32\32\4\uffff\1\32\1\uffff\32\32",
+            "\12\32\7\uffff\32\32\4\uffff\1\32\1\uffff\32\32",
+            "",
             ""
     };
 
@@ -1339,7 +1378,7 @@ public class QLLexer extends Lexer {
             this.transition = DFA8_transition;
         }
         public String getDescription() {
-            return "1:1: Tokens : ( T__13 | T__14 | T__15 | T__16 | T__17 | T__18 | T__19 | T__20 | T__21 | T__22 | T__23 | T__24 | T__25 | T__26 | T__27 | T__28 | T__29 | T__30 | T__31 | WS | StringLiteral | COLON | LBRACE | RBRACE | COMMENT | BooleanLiteral | Ident | IntLiteral );";
+            return "1:1: Tokens : ( T__13 | T__14 | T__15 | T__16 | T__17 | T__18 | T__19 | T__20 | T__21 | T__22 | T__23 | T__24 | T__25 | T__26 | T__27 | T__28 | T__29 | T__30 | T__31 | T__32 | WS | StringLiteral | COLON | LBRACE | RBRACE | COMMENT | BooleanLiteral | Ident | IntLiteral );";
         }
     }
  

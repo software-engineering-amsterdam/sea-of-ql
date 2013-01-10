@@ -8,3 +8,6 @@
 1357756628757	Rename type 'Int'
 1357759198940	Rename type 'BooleanType'
 1357760189243	Delete element
+1357813451330	Rename type 'AsrNodeVisitor'
+1357813499321	Rename type 'AstNodeVisitor'
+1357813622774	Delete element
