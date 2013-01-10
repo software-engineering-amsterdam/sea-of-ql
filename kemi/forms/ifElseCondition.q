@@ -2,6 +2,7 @@ form ifCondition {
   "Question one?", integer, numberOne
   if(numberOne == 10) {
   	"Question two?", date, theDate
+  	"Mah Money?", money, blaat
   } else {
   	"Foo Bar?", string, aText
   }
