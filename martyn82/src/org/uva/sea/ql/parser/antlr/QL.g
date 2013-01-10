@@ -5,6 +5,7 @@ options {backtrack=true; memoize=true;}
 {
 package org.uva.sea.ql.parser.antlr;
 import org.uva.sea.ql.ast.*;
+import org.uva.sea.ql.ast.expression.*;
 }
 
 @lexer::header
@@ -12,7 +13,7 @@ import org.uva.sea.ql.ast.*;
 package org.uva.sea.ql.parser.antlr;
 }
 
-primary returns [Expr result]
+primary returns [Expression result]
   : Int   { $result = new Int(Integer.parseInt($Int.text)); }
   | Ident { $result = new Ident($Ident.text); }
   | '(' x=orExpr ')'{ $result = $x.result; }
@@ -38,7 +39,7 @@ mulExpr returns [Expr result]
     ;
     
   
-addExpr returns [Expr result]
+addExpr returns [Expression result]
     :   lhs=mulExpr { $result=$lhs.result; } ( op=('+' | '-') rhs=mulExpr
     { 
       if ($op.text.equals("+")) {
@@ -50,7 +51,7 @@ addExpr returns [Expr result]
     })*
     ;
   
-relExpr returns [Expr result]
+relExpr returns [Expression result]
     :   lhs=addExpr { $result=$lhs.result; } ( op=('<'|'<='|'>'|'>='|'=='|'!=') rhs=addExpr 
     { 
       if ($op.text.equals("<")) {
@@ -74,12 +75,12 @@ relExpr returns [Expr result]
     })*
     ;
     
-andExpr returns [Expr result]
+andExpr returns [Expression result]
     :   lhs=relExpr { $result=$lhs.result; } ( '&&' rhs=relExpr { $result = new And($result, rhs); } )*
     ;
     
 
-orExpr returns [Expr result]
+orExpr returns [Expression result]
     :   lhs=andExpr { $result = $lhs.result; } ( '||' rhs=andExpr { $result = new Or($result, rhs); } )*
     ;
 

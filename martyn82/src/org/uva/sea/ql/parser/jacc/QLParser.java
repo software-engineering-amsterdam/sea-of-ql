@@ -1,8 +1,9 @@
-// Output created by jacc on Thu Jan 03 15:28:05 CET 2013
+// Output created by jacc on Thu Jan 10 11:49:29 CET 2013
 
 package org.uva.sea.ql.parser.jacc;
 
 import org.uva.sea.ql.ast.*;
+import org.uva.sea.ql.ast.expression.*;
 
 class QLParser implements QLTokens {
     private int yyss = 100;
@@ -1173,61 +1174,61 @@ class QLParser implements QLTokens {
     }
 
     private int yyr1() { // top : comp
-        { result = ((Expr)yysv[yysp-1]); }
+        { result = ((Expression)yysv[yysp-1]); }
         yysv[yysp-=1] = yyrv;
         return 1;
     }
 
     private int yyr9() { // expr : '+' expr
-        { yyrv = new Pos(((Expr)yysv[yysp-1])); }
+        { yyrv = new Pos(((Expression)yysv[yysp-1])); }
         yysv[yysp-=2] = yyrv;
         return yypexpr();
     }
 
     private int yyr10() { // expr : '-' expr
-        { yyrv = new Neg(((Expr)yysv[yysp-1])); }
+        { yyrv = new Neg(((Expression)yysv[yysp-1])); }
         yysv[yysp-=2] = yyrv;
         return yypexpr();
     }
 
     private int yyr11() { // expr : '!' expr
-        { yyrv = new Not(((Expr)yysv[yysp-1])); }
+        { yyrv = new Not(((Expression)yysv[yysp-1])); }
         yysv[yysp-=2] = yyrv;
         return yypexpr();
     }
 
     private int yyr12() { // expr : expr '*' expr
-        { yyrv = new Mul(((Expr)yysv[yysp-3]), ((Expr)yysv[yysp-1])); }
+        { yyrv = new Mul(((Expression)yysv[yysp-3]), ((Expression)yysv[yysp-1])); }
         yysv[yysp-=3] = yyrv;
         return yypexpr();
     }
 
     private int yyr13() { // expr : expr '/' expr
-        { yyrv = new Div(((Expr)yysv[yysp-3]), ((Expr)yysv[yysp-1])); }
+        { yyrv = new Div(((Expression)yysv[yysp-3]), ((Expression)yysv[yysp-1])); }
         yysv[yysp-=3] = yyrv;
         return yypexpr();
     }
 
     private int yyr14() { // expr : expr '+' expr
-        { yyrv = new Add(((Expr)yysv[yysp-3]), ((Expr)yysv[yysp-1])); }
+        { yyrv = new Add(((Expression)yysv[yysp-3]), ((Expression)yysv[yysp-1])); }
         yysv[yysp-=3] = yyrv;
         return yypexpr();
     }
 
     private int yyr15() { // expr : expr '-' expr
-        { yyrv = new Sub(((Expr)yysv[yysp-3]), ((Expr)yysv[yysp-1])); }
+        { yyrv = new Sub(((Expression)yysv[yysp-3]), ((Expression)yysv[yysp-1])); }
         yysv[yysp-=3] = yyrv;
         return yypexpr();
     }
 
     private int yyr16() { // expr : expr AND expr
-        { yyrv = new And(((Expr)yysv[yysp-3]), ((Expr)yysv[yysp-1])); }
+        { yyrv = new And(((Expression)yysv[yysp-3]), ((Expression)yysv[yysp-1])); }
         yysv[yysp-=3] = yyrv;
         return yypexpr();
     }
 
     private int yyr17() { // expr : expr OR expr
-        { yyrv = new Or(((Expr)yysv[yysp-3]), ((Expr)yysv[yysp-1])); }
+        { yyrv = new Or(((Expression)yysv[yysp-3]), ((Expression)yysv[yysp-1])); }
         yysv[yysp-=3] = yyrv;
         return yypexpr();
     }
@@ -1245,7 +1246,7 @@ class QLParser implements QLTokens {
     }
 
     private int yyr20() { // expr : '(' comp ')'
-        { yyrv = ((Expr)yysv[yysp-2]); }
+        { yyrv = ((Expression)yysv[yysp-2]); }
         yysv[yysp-=3] = yyrv;
         return yypexpr();
     }
@@ -1272,43 +1273,43 @@ class QLParser implements QLTokens {
     }
 
     private int yyr2() { // comp : expr EQ expr
-        { yyrv = new Eq(((Expr)yysv[yysp-3]), ((Expr)yysv[yysp-1])); }
+        { yyrv = new Eq(((Expression)yysv[yysp-3]), ((Expression)yysv[yysp-1])); }
         yysv[yysp-=3] = yyrv;
         return yypcomp();
     }
 
     private int yyr3() { // comp : expr NEQ expr
-        { yyrv = new NEq(((Expr)yysv[yysp-3]), ((Expr)yysv[yysp-1])); }
+        { yyrv = new NEq(((Expression)yysv[yysp-3]), ((Expression)yysv[yysp-1])); }
         yysv[yysp-=3] = yyrv;
         return yypcomp();
     }
 
     private int yyr4() { // comp : expr '>' expr
-        { yyrv = new GT(((Expr)yysv[yysp-3]), ((Expr)yysv[yysp-1])); }
+        { yyrv = new GT(((Expression)yysv[yysp-3]), ((Expression)yysv[yysp-1])); }
         yysv[yysp-=3] = yyrv;
         return yypcomp();
     }
 
     private int yyr5() { // comp : expr '<' expr
-        { yyrv = new LT(((Expr)yysv[yysp-3]), ((Expr)yysv[yysp-1])); }
+        { yyrv = new LT(((Expression)yysv[yysp-3]), ((Expression)yysv[yysp-1])); }
         yysv[yysp-=3] = yyrv;
         return yypcomp();
     }
 
     private int yyr6() { // comp : expr GEQ expr
-        { yyrv = new GEq(((Expr)yysv[yysp-3]), ((Expr)yysv[yysp-1])); }
+        { yyrv = new GEq(((Expression)yysv[yysp-3]), ((Expression)yysv[yysp-1])); }
         yysv[yysp-=3] = yyrv;
         return yypcomp();
     }
 
     private int yyr7() { // comp : expr LEQ expr
-        { yyrv = new LEq(((Expr)yysv[yysp-3]), ((Expr)yysv[yysp-1])); }
+        { yyrv = new LEq(((Expression)yysv[yysp-3]), ((Expression)yysv[yysp-1])); }
         yysv[yysp-=3] = yyrv;
         return yypcomp();
     }
 
     private int yyr8() { // comp : expr
-        { yyrv = ((Expr)yysv[yysp-1]); }
+        { yyrv = ((Expression)yysv[yysp-1]); }
         yysv[yysp-=1] = yyrv;
         return yypcomp();
     }
@@ -1323,20 +1324,20 @@ class QLParser implements QLTokens {
     protected String[] yyerrmsgs = {
     };
 
-private QLLexer lexer; 
+    private QLLexer lexer; 
 
-private Expr result;
+    private Expression result;
 
-public Expr getResult() {
-  return result;
-}
+    public Expression getResult() {
+        return result;
+    }
 
-public QLParser(QLLexer lexer) { 
-  this.lexer = lexer; 
-}
+    public QLParser( QLLexer lexer ) { 
+        this.lexer = lexer;
+    }
 
-private void yyerror(String msg) { 
-  System.err.println(msg); 
-}
+    private void yyerror( String msg ) { 
+        System.err.println( msg );
+    }
 
 }
