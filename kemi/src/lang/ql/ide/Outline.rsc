@@ -4,6 +4,7 @@ import List;
 import ParseTree;
 import lang::ql::ast::AST;
 import lang::ql::ide::Outline;
+import lang::ql::util::Implode;
 import lang::ql::util::Parse;
 import util::IDE;
 
@@ -11,6 +12,7 @@ import IO;
 
 public Contribution getOutliner() = outliner(node(Tree input) {
 	writeFile(|tmp:///KUT/1|, input);
+	// Can't implode input for some strange reason... 
 	writeFile(|tmp:///KUT/2|, implode(input));
 	t = outlineForm(implode(input));
 	writeFile(|tmp:///KUT/3|, t);
@@ -18,7 +20,7 @@ public Contribution getOutliner() = outliner(node(Tree input) {
 });
 
 public void main() {
-	x = parse(readFile(|tmp:///KUT/1|), |file:///-|);
+	x = parse(readFile(|project://QL-R-kemi/src/lang/ql/tests/forms/examples/ifCondition.q|), |file:///-|);
 	println("Parsing done: <x>");
 	i = implode(x);
 	println("Imploding done: <i>");
