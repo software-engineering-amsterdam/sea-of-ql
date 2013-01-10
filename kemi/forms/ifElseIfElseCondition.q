@@ -8,6 +8,9 @@ form ifCondition {
   } elseif (c == d) {
   	// They can be arbitrarily nested
   	"Blah?", string, bText
+    "Question one?", integer, numberOne
+  	"Question two?", date, theDate
+  	"Question three?", money, myFunding
   } else {
   	// And even contain an else!
   	"santhuonhaunosau?", string, cText
