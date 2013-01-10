@@ -1,7 +1,5 @@
 module lang::ql::ast::AST
 
-import util::Maybe;
-
 data Form = form(str formName, list[FormItem] formElements);
 
 alias ElseIf = tuple[Expr condition, list[FormItem] body];
