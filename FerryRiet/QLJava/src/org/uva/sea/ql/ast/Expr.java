@@ -3,8 +3,8 @@ package org.uva.sea.ql.ast;
 import org.uva.sea.ql.astvisitor.ASTNodeVisitor;
 
 public abstract class Expr implements ASTNode {
-	protected Expr exLeftHand;
-	protected Expr exRightHand;
+	public Expr exLeftHand;
+	public Expr exRightHand;
 	
 	public Expr(Expr result, Expr rhs) {
 		exLeftHand = result;

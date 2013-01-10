@@ -4,8 +4,8 @@ import org.uva.sea.ql.astvisitor.ASTNodeVisitor;
 
 public class ConditionalStatement extends Statement {
 	
-	private Expr expression ;
-	private CompoundBlock compound ;
+	public Expr expression ;
+	public CompoundBlock compound ;
 
 	public ConditionalStatement(Expr ex, CompoundBlock c) {
 		expression = ex ;
@@ -19,7 +19,6 @@ public class ConditionalStatement extends Statement {
 	}
 	@Override
 	public void accept(ASTNodeVisitor visitor) {
-		// TODO Auto-generated method stub
 		visitor.visit(this) ;
 	}
 }

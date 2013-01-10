@@ -5,9 +5,9 @@ import org.uva.sea.ql.astvisitor.ASTNodeVisitor;
 
 public class LineStatement extends Statement {
 
-	private String lineName;
-	private String displayText;
-	private TypeDescription typeDescription ;
+	public String lineName;
+	public String displayText;
+	public TypeDescription typeDescription ;
 
 	public LineStatement(String string, Token st, TypeDescription ty) {
 		lineName = string;
