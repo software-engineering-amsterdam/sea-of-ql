@@ -117,7 +117,12 @@ computedFormElement returns [Computed result]
     ;
     
 ifFormElement returns [If result]
-    : 'if' '(' orExpr ')' '{' formElements '}' { $result = new If($orExpr.result, $formElements.result, null); }
+    : 'if' '(' orExpr ')' '{' ifElements = formElements '}' 'else' elseElement = ifFormElement 
+        { $result = new If($orExpr.result, $formElements.result, java.util.Arrays.asList((FormElement)$elseElement.result)); }
+    | 'if' '(' orExpr ')' '{' ifElements = formElements '}' 'else' '{' elseElements = formElements'}' 
+        { $result = new If($orExpr.result, $ifElements.result, $elseElements.result); }
+    | 'if' '(' orExpr ')' '{' formElements '}' 
+        { $result = new If($orExpr.result, $formElements.result, new ArrayList<FormElement>()); }
     ;
     
 // Tokens
