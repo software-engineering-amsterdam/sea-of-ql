@@ -1,4 +1,4 @@
-package org.uva.sea.ql.parser.tests.parserTests;
+package org.uva.sea.ql.tests.parser.parserTests;
 
 import org.junit.Test;
 import static org.junit.Assert.*;
