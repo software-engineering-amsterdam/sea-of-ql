@@ -1,6 +1,6 @@
 form ifCondition {
   "Question one?", integer, numberOne
-  if(numberOne == 10) {
+  if(numberOne > 10 && numberOne < 100) {
   	"Question two?", date, theDate
   }
   "Question three?", money, myFunding
