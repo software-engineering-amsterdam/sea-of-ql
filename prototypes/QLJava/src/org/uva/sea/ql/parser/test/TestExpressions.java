@@ -80,12 +80,8 @@ public class TestExpressions {
 	public void testBools() throws ParseError {
 		assertEquals(parser.parse("!b").getClass(), Not.class);
 		assertEquals(parser.parse("a && b").getClass(), And.class);
-		assertEquals(parser.parse("a < b + c").getClass(), LT.class);
-		assertEquals(parser.parse("a < (b * c)").getClass(), LT.class);
-		assertEquals(parser.parse("(a * b) < c").getClass(), LT.class);
-		assertEquals(parser.parse("(a <= b)").getClass(), LEq.class);
-		assertEquals(parser.parse("a + b > c").getClass(), GT.class);
-		assertEquals(parser.parse("a > b + c").getClass(), GT.class);
+		assertEquals(parser.parse("a > b && b > c").getClass(), And.class);
+		assertEquals(parser.parse("(a > b) && (b > c)").getClass(), And.class);
 	}
 
 
