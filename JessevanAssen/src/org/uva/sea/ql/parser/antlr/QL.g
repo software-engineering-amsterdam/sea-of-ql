@@ -103,8 +103,8 @@ formElements returns [List<FormElement> result]
     ;
     
 formElement returns [FormElement result]
-    : questionFormElement { $result = $questionFormElement.result; }
-    | ifFormElement { $result = $ifFormElement.result; }
+    : ifFormElement { $result = $ifFormElement.result; }
+    | questionFormElement { $result = $questionFormElement.result; }
     | computedFormElement { $result = $computedFormElement.result; }
     ;
     

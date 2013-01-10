@@ -1,4 +1,4 @@
-// $ANTLR 3.5 C:\\Users\\Jesse\\workspace\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g 2013-01-10 10:40:09
+// $ANTLR 3.5 C:\\Users\\Jesse\\workspace\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g 2013-01-10 10:43:47
 
 package org.uva.sea.ql.parser.antlr;
 import org.uva.sea.ql.ast.*;
@@ -831,28 +831,31 @@ public class QLParser extends Parser {
 
 
 	// $ANTLR start "formElement"
-	// C:\\Users\\Jesse\\workspace\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:105:1: formElement returns [FormElement result] : ( questionFormElement | ifFormElement | computedFormElement );
+	// C:\\Users\\Jesse\\workspace\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:105:1: formElement returns [FormElement result] : ( ifFormElement | questionFormElement | computedFormElement );
 	public final FormElement formElement() throws RecognitionException {
 		FormElement result = null;
 
 		int formElement_StartIndex = input.index();
 
-		Question questionFormElement9 =null;
-		If ifFormElement10 =null;
+		If ifFormElement9 =null;
+		Question questionFormElement10 =null;
 		Computed computedFormElement11 =null;
 
 		try {
 			if ( state.backtracking>0 && alreadyParsedRule(input, 11) ) { return result; }
 
-			// C:\\Users\\Jesse\\workspace\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:106:5: ( questionFormElement | ifFormElement | computedFormElement )
+			// C:\\Users\\Jesse\\workspace\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:106:5: ( ifFormElement | questionFormElement | computedFormElement )
 			int alt9=3;
 			int LA9_0 = input.LA(1);
-			if ( (LA9_0==Str) ) {
-				int LA9_1 = input.LA(2);
-				if ( (LA9_1==Ident) ) {
+			if ( (LA9_0==29) ) {
+				alt9=1;
+			}
+			else if ( (LA9_0==Str) ) {
+				int LA9_2 = input.LA(2);
+				if ( (LA9_2==Ident) ) {
 					int LA9_3 = input.LA(3);
 					if ( (LA9_3==21) ) {
-						alt9=1;
+						alt9=2;
 					}
 					else if ( (LA9_3==EOF||LA9_3==Str||(LA9_3 >= 13 && LA9_3 <= 14)||(LA9_3 >= 17 && LA9_3 <= 20)||(LA9_3 >= 22 && LA9_3 <= 26)||LA9_3==29||(LA9_3 >= 31 && LA9_3 <= 32)) ) {
 						alt9=3;
@@ -874,7 +877,7 @@ public class QLParser extends Parser {
 					}
 
 				}
-				else if ( (LA9_1==Bool||LA9_1==Int||LA9_1==Str||LA9_1==12||LA9_1==15||(LA9_1 >= 18 && LA9_1 <= 19)) ) {
+				else if ( (LA9_2==Bool||LA9_2==Int||LA9_2==Str||LA9_2==12||LA9_2==15||(LA9_2 >= 18 && LA9_2 <= 19)) ) {
 					alt9=3;
 				}
 
@@ -884,16 +887,13 @@ public class QLParser extends Parser {
 					try {
 						input.consume();
 						NoViableAltException nvae =
-							new NoViableAltException("", 9, 1, input);
+							new NoViableAltException("", 9, 2, input);
 						throw nvae;
 					} finally {
 						input.rewind(nvaeMark);
 					}
 				}
 
-			}
-			else if ( (LA9_0==29) ) {
-				alt9=2;
 			}
 
 			else {
@@ -905,23 +905,23 @@ public class QLParser extends Parser {
 
 			switch (alt9) {
 				case 1 :
-					// C:\\Users\\Jesse\\workspace\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:106:7: questionFormElement
+					// C:\\Users\\Jesse\\workspace\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:106:7: ifFormElement
 					{
-					pushFollow(FOLLOW_questionFormElement_in_formElement579);
-					questionFormElement9=questionFormElement();
+					pushFollow(FOLLOW_ifFormElement_in_formElement579);
+					ifFormElement9=ifFormElement();
 					state._fsp--;
 					if (state.failed) return result;
-					if ( state.backtracking==0 ) { result = questionFormElement9; }
+					if ( state.backtracking==0 ) { result = ifFormElement9; }
 					}
 					break;
 				case 2 :
-					// C:\\Users\\Jesse\\workspace\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:107:7: ifFormElement
+					// C:\\Users\\Jesse\\workspace\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:107:7: questionFormElement
 					{
-					pushFollow(FOLLOW_ifFormElement_in_formElement589);
-					ifFormElement10=ifFormElement();
+					pushFollow(FOLLOW_questionFormElement_in_formElement589);
+					questionFormElement10=questionFormElement();
 					state._fsp--;
 					if (state.failed) return result;
-					if ( state.backtracking==0 ) { result = ifFormElement10; }
+					if ( state.backtracking==0 ) { result = questionFormElement10; }
 					}
 					break;
 				case 3 :
@@ -1299,8 +1299,8 @@ public class QLParser extends Parser {
 	public static final BitSet FOLLOW_formElements_in_form511 = new BitSet(new long[]{0x0000000100000000L});
 	public static final BitSet FOLLOW_32_in_form513 = new BitSet(new long[]{0x0000000000000002L});
 	public static final BitSet FOLLOW_formElement_in_formElements550 = new BitSet(new long[]{0x0000000020000202L});
-	public static final BitSet FOLLOW_questionFormElement_in_formElement579 = new BitSet(new long[]{0x0000000000000002L});
-	public static final BitSet FOLLOW_ifFormElement_in_formElement589 = new BitSet(new long[]{0x0000000000000002L});
+	public static final BitSet FOLLOW_ifFormElement_in_formElement579 = new BitSet(new long[]{0x0000000000000002L});
+	public static final BitSet FOLLOW_questionFormElement_in_formElement589 = new BitSet(new long[]{0x0000000000000002L});
 	public static final BitSet FOLLOW_computedFormElement_in_formElement599 = new BitSet(new long[]{0x0000000000000002L});
 	public static final BitSet FOLLOW_strExpr_in_questionFormElement626 = new BitSet(new long[]{0x0000000000000040L});
 	public static final BitSet FOLLOW_Ident_in_questionFormElement628 = new BitSet(new long[]{0x0000000000200000L});
