@@ -2,6 +2,23 @@
 
 package org.uva.sea.ql.parser.antlr;
 import org.uva.sea.ql.ast.*;
+import org.uva.sea.ql.ast.expression.Add;
+import org.uva.sea.ql.ast.expression.And;
+import org.uva.sea.ql.ast.expression.Div;
+import org.uva.sea.ql.ast.expression.Eq;
+import org.uva.sea.ql.ast.expression.GEq;
+import org.uva.sea.ql.ast.expression.GT;
+import org.uva.sea.ql.ast.expression.Ident;
+import org.uva.sea.ql.ast.expression.Int;
+import org.uva.sea.ql.ast.expression.LEq;
+import org.uva.sea.ql.ast.expression.LT;
+import org.uva.sea.ql.ast.expression.Mul;
+import org.uva.sea.ql.ast.expression.NEq;
+import org.uva.sea.ql.ast.expression.Neg;
+import org.uva.sea.ql.ast.expression.Not;
+import org.uva.sea.ql.ast.expression.Or;
+import org.uva.sea.ql.ast.expression.Pos;
+import org.uva.sea.ql.ast.expression.Sub;
 
 
 import org.antlr.runtime.*;
@@ -63,14 +80,14 @@ public class QLParser extends Parser {
 
     // $ANTLR start "primary"
     // /Users/tvdstorm/SEA/courses/sc/2012-2013/repos/sc-ql-2012-2013-java/src/org/uva/sea/ql/parser/antlr/QL.g:15:1: primary returns [Expr result] : ( Int | Ident | '(' x= orExpr ')' );
-    public final Expr primary() throws RecognitionException {
-        Expr result = null;
+    public final Expression primary() throws RecognitionException {
+        Expression result = null;
 
         int primary_StartIndex = input.index();
 
         Token Int1=null;
         Token Ident2=null;
-        Expr x =null;
+        Expression x =null;
 
 
         try {
@@ -160,12 +177,12 @@ public class QLParser extends Parser {
 
     // $ANTLR start "unExpr"
     // /Users/tvdstorm/SEA/courses/sc/2012-2013/repos/sc-ql-2012-2013-java/src/org/uva/sea/ql/parser/antlr/QL.g:21:1: unExpr returns [Expr result] : ( '+' x= unExpr | '-' x= unExpr | '!' x= unExpr |x= primary );
-    public final Expr unExpr() throws RecognitionException {
-        Expr result = null;
+    public final Expression unExpr() throws RecognitionException {
+        Expression result = null;
 
         int unExpr_StartIndex = input.index();
 
-        Expr x =null;
+        Expression x =null;
 
 
         try {
@@ -285,15 +302,15 @@ public class QLParser extends Parser {
 
     // $ANTLR start "mulExpr"
     // /Users/tvdstorm/SEA/courses/sc/2012-2013/repos/sc-ql-2012-2013-java/src/org/uva/sea/ql/parser/antlr/QL.g:28:1: mulExpr returns [Expr result] : lhs= unExpr (op= ( '*' | '/' ) rhs= unExpr )* ;
-    public final Expr mulExpr() throws RecognitionException {
-        Expr result = null;
+    public final Expression mulExpr() throws RecognitionException {
+        Expression result = null;
 
         int mulExpr_StartIndex = input.index();
 
         Token op=null;
-        Expr lhs =null;
+        Expression lhs =null;
 
-        Expr rhs =null;
+        Expression rhs =null;
 
 
         try {
@@ -384,15 +401,15 @@ public class QLParser extends Parser {
 
     // $ANTLR start "addExpr"
     // /Users/tvdstorm/SEA/courses/sc/2012-2013/repos/sc-ql-2012-2013-java/src/org/uva/sea/ql/parser/antlr/QL.g:41:1: addExpr returns [Expr result] : lhs= mulExpr (op= ( '+' | '-' ) rhs= mulExpr )* ;
-    public final Expr addExpr() throws RecognitionException {
-        Expr result = null;
+    public final Expression addExpr() throws RecognitionException {
+        Expression result = null;
 
         int addExpr_StartIndex = input.index();
 
         Token op=null;
-        Expr lhs =null;
+        Expression lhs =null;
 
-        Expr rhs =null;
+        Expression rhs =null;
 
 
         try {
@@ -483,15 +500,15 @@ public class QLParser extends Parser {
 
     // $ANTLR start "relExpr"
     // /Users/tvdstorm/SEA/courses/sc/2012-2013/repos/sc-ql-2012-2013-java/src/org/uva/sea/ql/parser/antlr/QL.g:53:1: relExpr returns [Expr result] : lhs= addExpr (op= ( '<' | '<=' | '>' | '>=' | '==' | '!=' ) rhs= addExpr )* ;
-    public final Expr relExpr() throws RecognitionException {
-        Expr result = null;
+    public final Expression relExpr() throws RecognitionException {
+        Expression result = null;
 
         int relExpr_StartIndex = input.index();
 
         Token op=null;
-        Expr lhs =null;
+        Expression lhs =null;
 
-        Expr rhs =null;
+        Expression rhs =null;
 
 
         try {
@@ -594,14 +611,14 @@ public class QLParser extends Parser {
 
     // $ANTLR start "andExpr"
     // /Users/tvdstorm/SEA/courses/sc/2012-2013/repos/sc-ql-2012-2013-java/src/org/uva/sea/ql/parser/antlr/QL.g:77:1: andExpr returns [Expr result] : lhs= relExpr ( '&&' rhs= relExpr )* ;
-    public final Expr andExpr() throws RecognitionException {
-        Expr result = null;
+    public final Expression andExpr() throws RecognitionException {
+        Expression result = null;
 
         int andExpr_StartIndex = input.index();
 
-        Expr lhs =null;
+        Expression lhs =null;
 
-        Expr rhs =null;
+        Expression rhs =null;
 
 
         try {
@@ -673,14 +690,14 @@ public class QLParser extends Parser {
 
     // $ANTLR start "orExpr"
     // /Users/tvdstorm/SEA/courses/sc/2012-2013/repos/sc-ql-2012-2013-java/src/org/uva/sea/ql/parser/antlr/QL.g:82:1: orExpr returns [Expr result] : lhs= andExpr ( '||' rhs= andExpr )* ;
-    public final Expr orExpr() throws RecognitionException {
-        Expr result = null;
+    public final Expression orExpr() throws RecognitionException {
+        Expression result = null;
 
         int orExpr_StartIndex = input.index();
 
-        Expr lhs =null;
+        Expression lhs =null;
 
-        Expr rhs =null;
+        Expression rhs =null;
 
 
         try {
