@@ -1,10 +1,7 @@
-// Output created by jacc on Thu Jan 10 11:49:29 CET 2013
+// Output created by jacc on Thu Jan 10 19:32:43 CET 2013
 
 package org.uva.sea.ql.parser.jacc;
 
-/**
- * Interface that represents a list of tokens.
- */
 interface QLTokens {
     int ENDINPUT = 0;
     int AND = 1;
