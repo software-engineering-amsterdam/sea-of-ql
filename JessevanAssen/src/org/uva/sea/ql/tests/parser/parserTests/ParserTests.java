@@ -11,7 +11,7 @@ import org.uva.sea.ql.parser.antlr.ANTLRParser;
 
 public abstract class ParserTests {
 	
-	protected Parser parser;
+	protected final Parser parser;
 	
 	public ParserTests() {
 		this.parser = new ANTLRParser();
