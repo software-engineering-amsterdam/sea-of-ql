@@ -1,21 +1,21 @@
-package org.uva.sea.ql.ast.expr;
+package org.uva.sea.ql.ast.expr.value;
 
 import org.uva.sea.ql.ASTNodeVisitor;
 
-public class Int extends Expr {
+public class Bool extends Value {
 
-	private final int value;
+	private final boolean value;
 
-	public Int(int value) {
+	public Bool(boolean value) {
 		this.value = value;
 	}
 
-	public int getValue() {
+	public boolean getValue() {
 		return value;
 	}
-
+	
 	@Override
 	public <ReturnType, ParameterType> ReturnType accept(ASTNodeVisitor<ReturnType, ParameterType> visitor, ParameterType param) {
 		return visitor.visit(this, param);
-	}	
+	}
 }

@@ -10,7 +10,7 @@ import org.uva.sea.ql.ast.expr.Eq;
 import org.uva.sea.ql.ast.expr.Expr;
 import org.uva.sea.ql.ast.expr.GEq;
 import org.uva.sea.ql.ast.expr.GT;
-import org.uva.sea.ql.ast.expr.Int;
+import org.uva.sea.ql.ast.expr.value.Int;
 import org.uva.sea.ql.ast.expr.LEq;
 import org.uva.sea.ql.ast.expr.LT;
 import org.uva.sea.ql.ast.expr.Mul;

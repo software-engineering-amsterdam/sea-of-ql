@@ -7,7 +7,7 @@ import java.util.List;
 
 import org.junit.Test;
 import org.uva.sea.ql.ast.*;
-import org.uva.sea.ql.ast.expr.Bool;
+import org.uva.sea.ql.ast.expr.value.Bool;
 import org.uva.sea.ql.ast.expr.If;
 import org.uva.sea.ql.parser.ParseError;
 

@@ -1,8 +1,8 @@
-package org.uva.sea.ql.ast.expr;
+package org.uva.sea.ql.ast.expr.value;
 
 import org.uva.sea.ql.ASTNodeVisitor;
 
-public class Str extends Expr {
+public class Str extends Value {
 
 	private final String value;
 

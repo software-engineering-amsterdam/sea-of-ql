@@ -7,7 +7,7 @@ import java.util.Map;
 
 import org.uva.sea.ql.ast.ASTNode;
 import org.uva.sea.ql.ast.expr.Ident;
-import org.uva.sea.ql.ast.expr.Int;
+import org.uva.sea.ql.ast.expr.value.Int;
 
 public class QLLexer implements QLTokens {
 	private static final Map<String, Integer> KEYWORDS;
