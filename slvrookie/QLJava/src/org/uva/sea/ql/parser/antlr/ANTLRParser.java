@@ -9,17 +9,29 @@ import org.uva.sea.ql.parser.test.ParseError;
 
 public class ANTLRParser implements IParse {
 
-	@Override
-	public Expr parse(String src) throws ParseError {
-		ANTLRStringStream stream = new ANTLRStringStream(src);
-		CommonTokenStream tokens = new CommonTokenStream();
-		tokens.setTokenSource(new QLLexer(stream));
-		QLParser parser = new QLParser(tokens);
-		try {
-			return parser.orExpr();
-		} catch (RecognitionException e) {
-			throw new ParseError(e.getMessage());
-		}
-	}
+ public static void main(String[] args)  {
+  ANTLRStringStream stream = new ANTLRStringStream("\n3*3");
+  CommonTokenStream tokens = new CommonTokenStream();
+  tokens.setTokenSource(new QLLexer(stream));
+  QLParser parser = new QLParser(tokens);
+  try {
+   System.out.println(parser.orExpr());
+  } catch (RecognitionException e) {
+   // TODO Auto-generated catch block
+   e.printStackTrace();
+  }
+  /* try {
+   return parser.orExpr();
+  } catch (RecognitionException e) {
+   throw new ParseError(e.getMessage());
+  }
+  */
+ }
+
+ @Override
+ public Expr parse(String src) throws ParseError {
+  // TODO Auto-generated method stub
+  return null;
+ }
 
 }
