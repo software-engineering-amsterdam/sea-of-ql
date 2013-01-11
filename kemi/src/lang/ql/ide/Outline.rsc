@@ -4,10 +4,11 @@ import List;
 import Node;
 import ParseTree;
 import lang::ql::ast::AST;
+import lang::ql::compiler::PrettyPrinter;
 import lang::ql::ide::Outline;
 import lang::ql::util::Implode;
-import lang::ql::util::Parse;
 import lang::ql::util::LocationSpan;
+import lang::ql::util::Parse;
 import util::IDE;
 
 import IO;
@@ -59,7 +60,7 @@ private node outline(FormItem item:
 	ifCondition(Expr condition, list[FormItem] ifPart, [], [])) {
 	
 	str name = "ifCondition";
-	str label = "If (<condition>)";
+	str label = "If (<prettyPrint(condition)>)";
 	childs = [outlineBranch("ifPart", "ifPart", ifPart)];
 	
 	return con(name, label, item@location, childs);
@@ -69,7 +70,7 @@ private node outline(FormItem item:
 	ifCondition(Expr condition,	list[FormItem] ifPart, [], list[FormItem] elsePart)) {
 	
 	str name = "ifElseCondition";
-	str label = "If (<condition>) else";
+	str label = "If (<prettyPrint(condition)>) else";
 	childs = [	outlineBranch("ifPart", "ifPart", ifPart),
 				outlineBranch("elsePart", "elsePart", elsePart)];
 	
@@ -80,9 +81,9 @@ private node outline(FormItem item:
 	ifCondition(Expr condition,	list[FormItem] ifPart, list[ElseIf] elseIfs, [])) {
 	
 	str name = "ifElseIfCondition";
-	str label = "If (<condition>) elseif...";
+	str label = "If (<prettyPrint(condition)>) elseif...";
 	childs = [outlineBranch("ifPart", "ifPart", ifPart)];
-	childs += [outlineBranch("elseIf", "<branch.condition>", branch.body) | branch <- elseIfs];
+	childs += [outlineBranch("elseIf", "<prettyPrint(branch.condition)>", branch.body) | branch <- elseIfs];
 	
 	return con(name, label, item@location, childs);
 }
@@ -91,9 +92,9 @@ private node outline(FormItem item:
 	ifCondition(Expr condition,	list[FormItem] ifPart, list[ElseIf] elseIfs, list[FormItem] elsePart)) {
 	
 	str name = "ifElseIfElseCondition";
-	str label = "If (<condition>) elseif... else";
+	str label = "If (<prettyPrint(condition)>) elseif... else";
 	childs = [outlineBranch("ifPart", "ifPart", ifPart)];
-	childs += [outlineBranch("elseIf", "<branch.condition>", branch.body) | branch <- elseIfs];
+	childs += [outlineBranch("elseIf", "<prettyPrint(branch.condition)>", branch.body) | branch <- elseIfs];
 	childs += outlineBranch("elsePart", "elsePart", elsePart);
 		
 	return con(name, label, item@location, childs);

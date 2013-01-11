@@ -20,6 +20,7 @@ public test bool testIfElseCondition() = p(|project://QL-R-kemi/forms/ifElseCond
 public test bool testIfElseIfCondition() = p(|project://QL-R-kemi/forms/ifElseIfCondition.q|) is form;
 public test bool testIfElseIfElseCondition() = p(|project://QL-R-kemi/forms/ifElseIfElseCondition.q|) is form;
 public test bool testCalculatedField() = p(|project://QL-R-kemi/forms/calculatedField.q|) is form;
+public test bool testUglyFormattedForm() = p(|project://QL-R-kemi/forms/uglyFormatted.q|) is form;
 
 public void main() {
 	try x = p(|project://QL-R-kemi/forms/basic.q|);
