@@ -2,7 +2,7 @@ package org.uva.sea.ql.ast.expr;
 
 import java.util.List;
 
-import org.uva.sea.ql.Visitor;
+import org.uva.sea.ql.ASTNodeVisitor;
 import org.uva.sea.ql.ast.FormElement;
 
 public class If extends FormElement {
@@ -22,7 +22,7 @@ public class If extends FormElement {
 	public List<FormElement> getElseBody() { return elseBody; }
 
 	@Override
-	public <ReturnType, ParameterType> ReturnType accept(Visitor<ReturnType, ParameterType> visitor, ParameterType param) {
+	public <ReturnType, ParameterType> ReturnType accept(ASTNodeVisitor<ReturnType, ParameterType> visitor, ParameterType param) {
 		return visitor.visit(this, param);
 	}	
 }

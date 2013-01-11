@@ -1,6 +1,6 @@
 package org.uva.sea.ql.ast.expr;
 
-import org.uva.sea.ql.Visitor;
+import org.uva.sea.ql.ASTNodeVisitor;
 
 public class Int extends Expr {
 
@@ -15,7 +15,7 @@ public class Int extends Expr {
 	}
 
 	@Override
-	public <ReturnType, ParameterType> ReturnType accept(Visitor<ReturnType, ParameterType> visitor, ParameterType param) {
+	public <ReturnType, ParameterType> ReturnType accept(ASTNodeVisitor<ReturnType, ParameterType> visitor, ParameterType param) {
 		return visitor.visit(this, param);
 	}	
 }

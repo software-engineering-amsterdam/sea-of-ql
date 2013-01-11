@@ -1,16 +1,15 @@
 package org.uva.sea.ql.ast.expr;
 
-import org.uva.sea.ql.Visitee;
-import org.uva.sea.ql.Visitor;
+import org.uva.sea.ql.ASTNodeVisitor;
 
-public class Add extends BinaryExpr implements Visitee {
+public class Add extends BinaryExpr {
 
 	public Add(Expr leftExpression, Expr rightExpression) {
 		super(leftExpression, rightExpression);
 	}
 
 	@Override
-	public <ReturnType, ParameterType> ReturnType accept(Visitor<ReturnType, ParameterType> visitor, ParameterType param) {
+	public <ReturnType, ParameterType> ReturnType accept(ASTNodeVisitor<ReturnType, ParameterType> visitor, ParameterType param) {
 		return visitor.visit(this, param);
 	}
 }

@@ -22,7 +22,7 @@ import org.uva.sea.ql.ast.expr.Pos;
 import org.uva.sea.ql.ast.expr.Str;
 import org.uva.sea.ql.ast.expr.Sub;
 
-public interface Visitor<ReturnType, ParameterType> {
+public interface ASTNodeVisitor<ReturnType, ParameterType> {
 	public ReturnType visit(Add      visitee, ParameterType param);
 	public ReturnType visit(And      visitee, ParameterType param);
 	public ReturnType visit(Bool     visitee, ParameterType param);

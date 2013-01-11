@@ -2,7 +2,7 @@ package org.uva.sea.ql.ast;
 
 import java.util.List;
 
-import org.uva.sea.ql.Visitor;
+import org.uva.sea.ql.ASTNodeVisitor;
 import org.uva.sea.ql.ast.expr.Ident;
 
 public class Form implements ASTNode {
@@ -19,7 +19,7 @@ public class Form implements ASTNode {
 	public List<FormElement> getBody() { return body; }
 	
 	@Override
-	public <ReturnType, ParameterType> ReturnType accept(Visitor<ReturnType, ParameterType> visitor, ParameterType param) {
+	public <ReturnType, ParameterType> ReturnType accept(ASTNodeVisitor<ReturnType, ParameterType> visitor, ParameterType param) {
 		return visitor.visit(this, param);
 	}
 }
