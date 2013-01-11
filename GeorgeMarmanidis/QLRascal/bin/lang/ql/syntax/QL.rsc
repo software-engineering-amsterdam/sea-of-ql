@@ -1,5 +1,22 @@
 module lang::ql::syntax::QL
 
+//Syntax for Form
+start syntax Form = form: "form" Ident name "{" FormItems formContent "}"; 
+
+//Syntax for FormItems
+start syntax FormItems
+	= question: Question question
+	| conditionalStatement: ConditionalStatement conditionalStatement;
+	//maybe insert -> |comment: Comment comment
+
+//Syntax for Conditional Statements .. needs changes	
+start syntax ConditionalStatement
+	= ifCond: "if" Expr cond "{" Question+ question "}" else "{" Question+ question "}"
+	| ifElseIfCond : "if" Expr cond "{" Question+ question "}" elseif Expr cond "{" Question+ question "}" else "{" Question+ question "}";   
+	
+//Syntax for Question
+//start syntax Question
+//	= simpleQuestion: Ident ident "," 	
 start syntax Expr
   = ident: Ident name
   | \int: Int
