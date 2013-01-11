@@ -1,4 +1,4 @@
-// $ANTLR 3.5 C:\\Users\\Jesse\\workspace\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g 2013-01-11 12:10:58
+// $ANTLR 3.5 C:\\Users\\Jesse\\workspace\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g 2013-01-11 12:47:43
 
 package org.uva.sea.ql.parser.antlr;
 import org.uva.sea.ql.ast.*;
@@ -977,7 +977,7 @@ public class QLParser extends Parser {
 			Ident13=(Token)match(input,Ident,FOLLOW_Ident_in_questionFormElement628); if (state.failed) return result;
 			match(input,21,FOLLOW_21_in_questionFormElement630); if (state.failed) return result;
 			Type14=(Token)match(input,Type,FOLLOW_Type_in_questionFormElement632); if (state.failed) return result;
-			if ( state.backtracking==0 ) { result = new Question(strExpr12.getValue(), new Ident((Ident13!=null?Ident13.getText():null)), (Type14!=null?Type14.getText():null)); }
+			if ( state.backtracking==0 ) { result = new Question(strExpr12.getValue(), new Declaration(new Ident((Ident13!=null?Ident13.getText():null)), (Type14!=null?Type14.getText():null))); }
 			}
 
 		}

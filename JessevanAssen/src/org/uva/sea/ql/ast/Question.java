@@ -1,23 +1,19 @@
 package org.uva.sea.ql.ast;
 
 import org.uva.sea.ql.ASTNodeVisitor;
-import org.uva.sea.ql.ast.expr.Ident;
 
 public class Question extends FormElement {
 
 	private final String question;
-	private final Ident value;
-	private final String type;
+	private final Declaration declaration;
 	
-	public Question(String question, Ident value, String type) {
+	public Question(String question, Declaration declaration) {
 		this.question = question;
-		this.value = value;
-		this.type = type;
+		this.declaration = declaration;
 	}
 	
 	public String getQuestion() { return question; }
-	public Ident getValue() { return value; }
-	public String getType() { return type; }
+	public Declaration getDeclaration() { return declaration; }
 
 	@Override
 	public <ReturnType, ParameterType> ReturnType accept(ASTNodeVisitor<ReturnType, ParameterType> visitor, ParameterType param) {

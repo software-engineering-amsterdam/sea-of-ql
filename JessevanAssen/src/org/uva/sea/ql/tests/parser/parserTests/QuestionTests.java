@@ -19,8 +19,8 @@ public class QuestionTests extends ParserTests {
 		Question q = (Question) formElement;
 		
 		assertEquals(question, q.getQuestion());
-		assertEquals(value,    q.getValue().getName());
-		assertEquals(type,     q.getType());
+		assertEquals(value,    q.getDeclaration().getIdentity().getName());
+		assertEquals(type,     q.getDeclaration().getType());
 	}
 	
 }

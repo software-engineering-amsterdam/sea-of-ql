@@ -110,7 +110,7 @@ formElement returns [FormElement result]
     ;
     
 questionFormElement returns [Question result]
-    : strExpr Ident ':' Type { $result = new Question($strExpr.result.getValue(), new Ident($Ident.text), $Type.text); }
+    : strExpr Ident ':' Type { $result = new Question($strExpr.result.getValue(), new Declaration(new Ident($Ident.text), $Type.text)); }
     ;
 
 computedFormElement returns [Computed result]
