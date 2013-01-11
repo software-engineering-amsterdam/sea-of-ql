@@ -5,7 +5,7 @@
   } elseif (a == b) {
   	// We also have else if statements.
   	"Foo Bar?", string, aText
-} elseif (c == d) {
+} elseif (c || d && x > 3) {
   	// They can be arbitrarily nested
 "Blah?", string, bText "Question one?", integer, numberOne "Question two?", 
 date, theDate "Question three?", money, myFunding
