@@ -3,6 +3,8 @@ package org.uva.sea.ql.tests.parser.parserTests;
 import static org.junit.Assert.*;
 
 import org.uva.sea.ql.ast.*;
+import org.uva.sea.ql.ast.expr.Expr;
+import org.uva.sea.ql.ast.expr.If;
 import org.uva.sea.ql.parser.ParseError;
 import org.uva.sea.ql.parser.Parser;
 import org.uva.sea.ql.parser.antlr.ANTLRParser;

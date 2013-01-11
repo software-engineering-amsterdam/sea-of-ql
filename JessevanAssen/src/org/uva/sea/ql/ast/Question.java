@@ -1,5 +1,8 @@
 package org.uva.sea.ql.ast;
 
+import org.uva.sea.ql.Visitor;
+import org.uva.sea.ql.ast.expr.Ident;
+
 public class Question extends FormElement {
 
 	private final String question;
@@ -16,4 +19,8 @@ public class Question extends FormElement {
 	public Ident getValue() { return value; }
 	public String getType() { return type; }
 
+	@Override
+	public <ReturnType, ParameterType> ReturnType accept(Visitor<ReturnType, ParameterType> visitor, ParameterType param) {
+		return visitor.visit(this, param);
+	}
 }

@@ -1,6 +1,9 @@
-package org.uva.sea.ql.ast;
+package org.uva.sea.ql.ast.expr;
 
 import java.util.List;
+
+import org.uva.sea.ql.Visitor;
+import org.uva.sea.ql.ast.FormElement;
 
 public class If extends FormElement {
 	
@@ -17,5 +20,9 @@ public class If extends FormElement {
 	public Expr getCondition() { return condition; }
 	public List<FormElement> getIfBody() { return ifBody; }
 	public List<FormElement> getElseBody() { return elseBody; }
-	
+
+	@Override
+	public <ReturnType, ParameterType> ReturnType accept(Visitor<ReturnType, ParameterType> visitor, ParameterType param) {
+		return visitor.visit(this, param);
+	}	
 }

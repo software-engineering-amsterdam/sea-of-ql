@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;                         
 import org.uva.sea.ql.ast.*;                 
+import org.uva.sea.ql.ast.expr.Bool;
 import org.uva.sea.ql.parser.ParseError;       
 
 public class ComputedTests extends ParserTests {

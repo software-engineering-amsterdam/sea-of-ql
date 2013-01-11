@@ -1,5 +1,8 @@
 package org.uva.sea.ql.ast;
 
+import org.uva.sea.ql.Visitor;
+import org.uva.sea.ql.ast.expr.Expr;
+
 public class Computed extends FormElement {
 	
 	private final String label;
@@ -12,5 +15,9 @@ public class Computed extends FormElement {
 
 	public String getLabel() { return label; }
 	public Expr getExpression() { return expression; }
-	
+
+	@Override
+	public <ReturnType, ParameterType> ReturnType accept(Visitor<ReturnType, ParameterType> visitor, ParameterType param) {
+		return visitor.visit(this, param);
+	}
 }

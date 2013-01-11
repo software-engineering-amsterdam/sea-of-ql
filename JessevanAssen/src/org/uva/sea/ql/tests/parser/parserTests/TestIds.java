@@ -3,7 +3,7 @@ package org.uva.sea.ql.tests.parser.parserTests;
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
-import org.uva.sea.ql.ast.Ident;
+import org.uva.sea.ql.ast.expr.Ident;
 import org.uva.sea.ql.parser.ParseError;
 
 public class TestIds extends ParserTests {
