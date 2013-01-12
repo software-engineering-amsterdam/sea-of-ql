@@ -1,3 +1,4 @@
 form basic {
-  "What is your number?", integer, numberQuestion
+  "What is your number?"
+    integer numberQuestion
 }

@@ -12,20 +12,20 @@ syntax ElsIfPart = @Foldable "elseif" Expr condition "{" FormItem+ body "}";
 
 syntax ElsePart = @Foldable "else" "{" FormItem+ body "}";
 
-//start syntax Question = question: String questionText "," Type answerDataType "," Ident answerIdentifier (":" Expr)?;
+// What the ...?! Colons don't work, but equals signs do...
 start syntax Question 
-  = question: String questionText "," Type answerDataType "," Ident answerIdentifier
-  | question: String questionText "," Type answerDataType "," Ident answerIdentifier ":" Expr calculatedField
-  | question: String questionText "," Type answerDataType "," Ident answerIdentifier ":" Type calculatedField
+  = question: String questionText Type answerDataType Ident answerIdentifier
+  | question: String questionText Type answerDataType Ident answerIdentifier "=" Expr calculatedField
   ;
+
 
 start syntax Expr
   = ident: Ident name
-  | \int: Int number
-  | money: Money monetaryValue
-  | boolean: Boolean truthValue
-  | date: Date date
-  | string: String text
+  | @category="Constant" \int: Int number
+  | @category="Constant" money: Money monetaryValue
+  | @category="Constant" boolean: Boolean truthValue
+  | @category="Constant" date: Date date
+  | @category="Constant" string: String text
   | bracket "(" Expr expression ")"
   | pos: "+" Expr pos
   | neg: "-" Expr neg

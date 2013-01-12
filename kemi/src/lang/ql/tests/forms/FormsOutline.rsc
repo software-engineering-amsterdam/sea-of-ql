@@ -21,3 +21,4 @@ public test bool testIfElseCondition() = ol(|project://QL-R-kemi/forms/ifElseCon
 public test bool testIfElseIfCondition() = ol(|project://QL-R-kemi/forms/ifElseIfCondition.q|) > "outline"();
 public test bool testIfElseIfElseCondition() = ol(|project://QL-R-kemi/forms/ifElseIfElseCondition.q|) > "outline"();
 public test bool testCalculatedField() = ol(|project://QL-R-kemi/forms/calculatedField.q|) > "outline"();
+public test bool testUglyFormattedForm() = ol(|project://QL-R-kemi/forms/uglyFormatted.q|) > "outline"();

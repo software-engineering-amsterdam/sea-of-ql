@@ -26,6 +26,7 @@ import lang::ql::tests::questions::Questions;
 
 import lang::ql::tests::forms::FormsGrammar;
 import lang::ql::tests::forms::FormsOutline;
+import lang::ql::tests::forms::ForsPrettyPrinter;
 
 import IO;
 
