@@ -1,6 +1,6 @@
 package org.uva.sc.antlr;
 
-// $ANTLR 3.5 C:\\Users\\caytekin\\Downloads\\ANTLR\\grammars\\SimpleCalc.g 2013-01-11 13:52:35
+// $ANTLR 3.5 C:\\Users\\caytekin\\Downloads\\ANTLR\\grammars\\SimpleCalc.g 2013-01-12 14:41:04
 
 import org.antlr.runtime.*;
 import java.util.Stack;
@@ -118,10 +118,10 @@ public class SimpleCalcLexer extends Lexer {
 		try {
 			int _type = NUMBER;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// C:\\Users\\caytekin\\Downloads\\ANTLR\\grammars\\SimpleCalc.g:16:9: ( ( DIGIT )+ )
-			// C:\\Users\\caytekin\\Downloads\\ANTLR\\grammars\\SimpleCalc.g:16:11: ( DIGIT )+
+			// C:\\Users\\caytekin\\Downloads\\ANTLR\\grammars\\SimpleCalc.g:17:9: ( ( DIGIT )+ )
+			// C:\\Users\\caytekin\\Downloads\\ANTLR\\grammars\\SimpleCalc.g:17:11: ( DIGIT )+
 			{
-			// C:\\Users\\caytekin\\Downloads\\ANTLR\\grammars\\SimpleCalc.g:16:11: ( DIGIT )+
+			// C:\\Users\\caytekin\\Downloads\\ANTLR\\grammars\\SimpleCalc.g:17:11: ( DIGIT )+
 			int cnt1=0;
 			loop1:
 			while (true) {
@@ -170,10 +170,10 @@ public class SimpleCalcLexer extends Lexer {
 		try {
 			int _type = WHITESPACE;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// C:\\Users\\caytekin\\Downloads\\ANTLR\\grammars\\SimpleCalc.g:18:12: ( ( '\\t' | ' ' | '\\r' | '\\n' | '\\u000C' )+ )
-			// C:\\Users\\caytekin\\Downloads\\ANTLR\\grammars\\SimpleCalc.g:18:14: ( '\\t' | ' ' | '\\r' | '\\n' | '\\u000C' )+
+			// C:\\Users\\caytekin\\Downloads\\ANTLR\\grammars\\SimpleCalc.g:19:12: ( ( '\\t' | ' ' | '\\r' | '\\n' | '\\u000C' )+ )
+			// C:\\Users\\caytekin\\Downloads\\ANTLR\\grammars\\SimpleCalc.g:19:14: ( '\\t' | ' ' | '\\r' | '\\n' | '\\u000C' )+
 			{
-			// C:\\Users\\caytekin\\Downloads\\ANTLR\\grammars\\SimpleCalc.g:18:14: ( '\\t' | ' ' | '\\r' | '\\n' | '\\u000C' )+
+			// C:\\Users\\caytekin\\Downloads\\ANTLR\\grammars\\SimpleCalc.g:19:14: ( '\\t' | ' ' | '\\r' | '\\n' | '\\u000C' )+
 			int cnt2=0;
 			loop2:
 			while (true) {
@@ -221,7 +221,7 @@ public class SimpleCalcLexer extends Lexer {
 	// $ANTLR start "DIGIT"
 	public final void mDIGIT() throws RecognitionException {
 		try {
-			// C:\\Users\\caytekin\\Downloads\\ANTLR\\grammars\\SimpleCalc.g:20:17: ( '0' .. '9' )
+			// C:\\Users\\caytekin\\Downloads\\ANTLR\\grammars\\SimpleCalc.g:21:17: ( '0' .. '9' )
 			// C:\\Users\\caytekin\\Downloads\\ANTLR\\grammars\\SimpleCalc.g:
 			{
 			if ( (input.LA(1) >= '0' && input.LA(1) <= '9') ) {
