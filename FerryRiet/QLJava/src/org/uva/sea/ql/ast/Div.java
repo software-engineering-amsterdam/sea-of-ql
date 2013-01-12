@@ -1,6 +1,6 @@
 package org.uva.sea.ql.ast;
 
-public class Div extends Expr {
+public class Div extends BinExpr {
 
 	private Expr exLeftHand;
 	private Expr exRightHand;

@@ -17,13 +17,9 @@ public class CompoundBlock implements ASTNode {
 	}
 
 	public void eval() {
-		Iterator<Statement> it = statementList.iterator();
-
 		System.out.print("{");
-		while (it.hasNext()) {
-			Statement value = (Statement) it.next();
-			value.eval();
-		}
+		for (Statement statement : statementList)
+			statement.eval();
 		System.out.println("}");
 	}
 

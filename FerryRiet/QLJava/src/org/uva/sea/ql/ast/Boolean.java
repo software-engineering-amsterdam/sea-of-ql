@@ -1,10 +1,10 @@
 package org.uva.sea.ql.ast;
 
-public class IntLiteral extends Expr {
+public class Boolean extends Expr {
+	private final int value;
 
-	public final int value;
-
-	public IntLiteral(int n) {
+	public Boolean(int n) {
+		super(null, null);
 		this.value = n;
 	}
 

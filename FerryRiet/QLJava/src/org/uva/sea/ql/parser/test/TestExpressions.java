@@ -37,7 +37,7 @@ public class TestExpressions extends TestCase {
 				+ "boolean\n"
 				+ "   if (hasSoldHouse < 10 && 20 > 10) {\n"
 				+ "     sellingPrice:    \"Price the house was sold for:\" string\n"
-				+ "     privateDebt:   \"Private debts for the sold house:\" money\n"
+				+ "     if ( ! hasSoldHouse ) { privateDebt:   \"Private debts for the sold house:\" money\n }" 
 				+ "     valueResidue: \"Value residue:\" money(sellingPrice + privateDebt + 12)\n"
 				+ "   }\n" + "}";
 		String s1 = "if (hasSoldHouse < 100 || 10 < 20) {\n"

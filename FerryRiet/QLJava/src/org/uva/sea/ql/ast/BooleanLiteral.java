@@ -1,11 +1,10 @@
 package org.uva.sea.ql.ast;
 
 public class BooleanLiteral extends Expr {
-
+	public String value ;
 	
 	public BooleanLiteral(String string) {
-		super(null,null);
-		// TODO Auto-generated constructor stub
+		value = string ;
 	}
 
 	@Override

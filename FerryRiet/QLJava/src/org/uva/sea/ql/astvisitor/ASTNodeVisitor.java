@@ -4,6 +4,8 @@ import org.uva.sea.ql.ast.*;
 
 public interface ASTNodeVisitor {
 	void visit(Expr expr) ;
+	void visit(BinExpr expr) ;
+	void visit(UnExpr expr) ;
 	void visit(QLProgram qlProgram) ;
 	void visit(CompoundBlock compoundBlock) ;
 	void visit(LineStatement lineStatement) ;
