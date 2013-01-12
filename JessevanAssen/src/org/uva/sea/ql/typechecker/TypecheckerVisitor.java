@@ -10,6 +10,10 @@ import org.uva.sea.ql.ast.type.*;
 
 public class TypecheckerVisitor implements ASTNodeVisitor<Type, Map<Ident, Type>> {
 
+	private static final Type BOOL_TYPE   = new org.uva.sea.ql.ast.type.Bool(),
+			                  INT_TYPE    = new org.uva.sea.ql.ast.type.Int(),
+			                  STRING_TYPE = new org.uva.sea.ql.ast.type.Str();
+	
 	public void typecheck(Form form) {
 		form.accept(this, new HashMap<Ident, Type>());
 	}
@@ -26,7 +30,7 @@ public class TypecheckerVisitor implements ASTNodeVisitor<Type, Map<Ident, Type>
 
 	@Override
 	public Type visit(org.uva.sea.ql.ast.expr.value.Bool astNode, Map<Ident, Type> param) {
-		return null;
+		return BOOL_TYPE;
 	}
 
 	@Override
@@ -84,7 +88,7 @@ public class TypecheckerVisitor implements ASTNodeVisitor<Type, Map<Ident, Type>
 
 	@Override
 	public Type visit(org.uva.sea.ql.ast.expr.value.Int astNode, Map<Ident, Type> param) {
-		return null;
+		return INT_TYPE;
 	}
 
 	@Override
@@ -134,7 +138,7 @@ public class TypecheckerVisitor implements ASTNodeVisitor<Type, Map<Ident, Type>
 
 	@Override
 	public Type visit(org.uva.sea.ql.ast.expr.value.Str astNode, Map<Ident, Type> param) {
-		return null;
+		return STRING_TYPE;
 	}
 
 	@Override
