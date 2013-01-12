@@ -84,80 +84,115 @@ public class TypecheckerVisitor implements ASTNodeVisitor<Type, Map<Ident, Type>
 	// Integer operations
 	@Override
 	public Type visit(Add astNode, Map<Ident, Type> param) {
-		return null;
+		checkBothSidesAreInts(astNode, param, "+");
+		return INT_TYPE;
 	}
 	@Override
 	public Type visit(Div astNode, Map<Ident, Type> param) {
-		return null;
+		checkBothSidesAreInts(astNode, param, "/");
+		return INT_TYPE;
 	}
 	
 	@Override
 	public Type visit(GEq astNode, Map<Ident, Type> param) {
-		return null;
+		checkBothSidesAreInts(astNode, param, ">=");
+		return BOOL_TYPE;
 	}
 	
 	@Override
 	public Type visit(GT astNode, Map<Ident, Type> param) {
-		return null;
+		checkBothSidesAreInts(astNode, param, ">");
+		return BOOL_TYPE;
 	}
 	
 	@Override
 	public Type visit(LEq astNode, Map<Ident, Type> param) {
-		return null;
+		checkBothSidesAreInts(astNode, param, "<=");
+		return BOOL_TYPE;
 	}
 	
 	@Override
 	public Type visit(LT astNode, Map<Ident, Type> param) {
-		return null;
+		checkBothSidesAreInts(astNode, param, "<");
+		return BOOL_TYPE;
 	}
 	
 	@Override
 	public Type visit(Mul astNode, Map<Ident, Type> param) {
-		return null;
+		checkBothSidesAreInts(astNode, param, "*");
+		return BOOL_TYPE;
 	}
 	
 	@Override
 	public Type visit(Neg astNode, Map<Ident, Type> param) {
-		return null;
+		return INT_TYPE;
 	}
 	
 	@Override
 	public Type visit(Pos astNode, Map<Ident, Type> param) {
-		return null;
+		return INT_TYPE;
 	}
 	
 	@Override
 	public Type visit(Sub astNode, Map<Ident, Type> param) {
-		return null;
+		checkBothSidesAreInts(astNode, param, "-");
+		return INT_TYPE;
 	}
 	
 	
 	// Boolean operations
 	@Override
 	public Type visit(And astNode, Map<Ident, Type> param) {
-		return null;
+		checkBothSidesAreBools(astNode, param, "||");
+		return BOOL_TYPE;
 	}
 
 
 	@Override
 	public Type visit(Not astNode, Map<Ident, Type> param) {
-		return null;
+		if(isBoolType(astNode.getExpression().accept(this, param)))
+			return BOOL_TYPE;
+		else
+			throw new TypecheckerException("The expression of the '!' operator has to be of type boolean.");
 	}
 	
 	@Override
 	public Type visit(Or astNode, Map<Ident, Type> param) {
-		return null;
+		checkBothSidesAreBools(astNode, param, "||");
+		return BOOL_TYPE;
 	}
-
 
 	// Same type on both sides
 	@Override
 	public Type visit(Eq astNode, Map<Ident, Type> param) {
-		return null;
+		if (astNode.getLeftExpression().accept(this, param).getClass().equals(
+				astNode.getRightExpression().accept(this, param).getClass()))
+			return BOOL_TYPE;
+		else
+			throw new TypecheckerException("The left and right side of the '==' operator need to be of the same type.");
 	}
 
 	@Override
 	public Type visit(NEq astNode, Map<Ident, Type> param) {
-		return null;
+		return BOOL_TYPE;
+	}
+	
+	private boolean isBoolType(Type type) { return type instanceof Bool; }
+	private boolean isIntType(Type type) { return type instanceof Int; }
+	
+	private void checkBothSidesAreBools(BinaryExpr expression, Map<Ident, Type> param, String operator) {
+		if(
+			!isBoolType(expression.getLeftExpression().accept(this, param)) || 
+			!isBoolType(expression.getRightExpression().accept(this, param)))
+			
+			throw new TypecheckerException(String.format("Both sides of the '%s' have to be of type boolean.", operator));
+	}
+	
+	private void checkBothSidesAreInts(BinaryExpr expression, Map<Ident, Type> param, String operator) {
+		if(
+			!isIntType(expression.getLeftExpression().accept(this, param)) || 
+			!isIntType(expression.getRightExpression().accept(this, param)))
+			
+			throw new TypecheckerException(String.format("Both sides of the '%s' have to be of type integer.", operator));
 	}
 }
