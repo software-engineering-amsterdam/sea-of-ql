@@ -78,7 +78,11 @@ public class TypecheckerVisitor implements ASTNodeVisitor<Type, Map<Ident, Type>
 
 	@Override
 	public Type visit(Ident astNode, Map<Ident, Type> param) {
-		return null;
+		if(param.containsKey(astNode))
+			return param.get(astNode);
+		else
+			throw new TypecheckerException(
+				String.format("Identity '%s' has not yet been declared!", astNode.getName()));
 	}
 
 	@Override
