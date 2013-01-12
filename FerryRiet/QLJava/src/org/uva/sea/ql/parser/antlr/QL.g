@@ -13,7 +13,7 @@ package org.uva.sea.ql.parser.antlr;
 }
 
 qlprogram returns [QLProgram result]
-    : 'form' Ident  cb=compoundblock { $result = new QLProgram(new String($Ident.text), cb) ; } 
+    : 'form' Ident  cb=compoundblock { $result = new QLProgram($Ident, cb) ; } 
     ;
 
 compoundblock returns [CompoundBlock result]
@@ -23,21 +23,21 @@ compoundblock returns [CompoundBlock result]
     ;
 
 stmt returns [Statement result]     
-    : Ident COLON st=String ty=type { $result = new LineStatement(new String($Ident.text),$st,$ty.result); }
+    : Ident COLON st=StringLiteral ty=type { $result = new LineStatement(new String($Ident.text),$st,$ty.result); }
     | 'if' '(' ex=orExpr ')' c=compoundblock    { $result = new ConditionalStatement(ex,c) ; } 
     ;
 
 type returns [TypeDescription result]
     : 'boolean' { $result = new BooleanType() ;}
+    | 'string'  { $result = new StringType() ;}
     | 'money' ('(' x=orExpr ')')? { $result = new MoneyType(x) ;}
     ;
 
- 
-
 primary returns [Expr result]
-  : Int   { $result = new Int(Integer.parseInt($Int.text)); }
-  | Ident { $result = new Ident($Ident.text); }
-  | Boolean { $result = new BooleanType($Ident.text) ;}
+  : IntLiteral      { $result = new IntLiteral(Integer.parseInt($IntLiteral.text)); }
+  | Ident           { $result = new Ident($Ident.text); }
+  | BooleanLiteral  { $result = new BooleanLiteral($BooleanLiteral.text) ;}
+  | StringLiteral   { $result = new StringLiteral($StringLiteral.text) ;}
   | '(' x=orExpr ')'{ $result = $x.result; }
   ;
     
@@ -60,7 +60,6 @@ mulExpr returns [Expr result]
     })*
     ;
     
-  
 addExpr returns [Expr result]
     :   lhs=mulExpr { $result=$lhs.result; } ( op=('+' | '-') rhs=mulExpr
     { 
@@ -101,17 +100,15 @@ andExpr returns [Expr result]
     :   lhs=relExpr { $result=$lhs.result; } ( '&&' rhs=relExpr { $result = new And($result, rhs); } )*
     ;
     
-
 orExpr returns [Expr result]
     :   lhs=andExpr { $result = $lhs.result; } ( '||' rhs=andExpr { $result = new Or($result, rhs); } )*
     ;
-
     
-// Tokens
+// Lexer Tokens
 WS  :	(' ' | '\t' | '\n' | '\r') { $channel=HIDDEN; }
     ;
 
-String : '"' ~('\n' | '\r' | '"')* '"' ;
+StringLiteral : '"' ~('\n' | '\r' | '"')* '"' ;
 
 COLON  : ':' ;
 LBRACE : '{' ;
@@ -122,13 +119,10 @@ COMMENT
     | '//' ( ~'\n' )* {$channel=HIDDEN;}
     ;
 
-Boolean
-    : 'true'
-    | 'false'
+BooleanLiteral
+    : 'true'| 'false' | 'TRUE' | 'FALSE'
     ;
         
 Ident:   ('a'..'z'|'A'..'Z')('a'..'z'|'A'..'Z'|'0'..'9'|'_')*;
 
-
-
-Int: ('0'..'9')+;
+IntLiteral: ('0'..'9')+;

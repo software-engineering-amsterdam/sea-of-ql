@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="ASCII"?>
-<cache:CacheIndex xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:cache="http://eclipse.org/dltk/cache_model" lastIndex="26" environment="org.eclipse.dltk.core.environment.localEnvironment">
-  <entries path="/Users/Ferry/sea-of-ql/FerryRiet/QLJava/src/org/uva/sea/ql/parser/antlr" timestamp="1357628040000" lastAccessTime="1357628085751">
-    <attributes name=".dltk.core.archive.cache.lastaccess" location="2838196607/424818351/25.idx"/>
+<cache:CacheIndex xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:cache="http://eclipse.org/dltk/cache_model" lastIndex="154" environment="org.eclipse.dltk.core.environment.localEnvironment">
+  <entries path="D:/Users/Ferry/Desktop/sea-of-ql/FerryRiet/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g" timestamp="1357665398671" lastAccessTime="1357753650873">
+    <attributes name="indexed" location="2838196607/1616698823/113.idx"/>
   </entries>
 </cache:CacheIndex>

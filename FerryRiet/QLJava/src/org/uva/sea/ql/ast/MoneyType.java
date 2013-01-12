@@ -2,7 +2,7 @@ package org.uva.sea.ql.ast;
 
 public class MoneyType extends TypeDescription {
 
-	private Expr expression;
+	public Expr expression;
 
 	public MoneyType(Expr x) {
 		expression = x;

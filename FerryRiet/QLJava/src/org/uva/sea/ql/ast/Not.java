@@ -1,9 +1,9 @@
 package org.uva.sea.ql.ast;
 
-public class Not extends Expr {
+public class Not extends UnExpr {
 
 	public Not(Expr x) {
-		super(null, x);
+		super(x);
 	}
 
 	public void eval() {

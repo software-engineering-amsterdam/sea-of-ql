@@ -9,7 +9,7 @@ public class Int extends Expr {
 	}
 
 	public int getValue() {
-		return value;
+		return this.value;
 	}
 	
 }
