@@ -30,4 +30,10 @@ public class DeclarationTests extends TypecheckerVisitorTests {
 		declaration.accept(visitor, symbolTable);
 	}
 	
+	@Test(expected = TypecheckerException.class)
+	public void variableNameIsDeclaredTwice_throwsException() {
+		new Declaration(new Ident("a"), new Bool()).accept(visitor, symbolTable);
+		new Declaration(new Ident("a"), new Int()).accept(visitor, symbolTable);
+	}
+	
 }
