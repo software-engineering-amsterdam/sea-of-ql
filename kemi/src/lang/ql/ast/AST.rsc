@@ -14,13 +14,12 @@ data Type
   ;
 
 data Question
-  // Needed for implode. We will rewrite it.
+  // How standard implode returns it
   = question(str, str, str)
-  | question(Expr questionText, Type answerDataType, Expr answerIdentifier)
-  | question(str, str, str, str)
-  // It works with a type, an expression throws an error...
-  | question(Expr questionText, Type answerDataType, Expr answerIdentifier, Expr calculatedField)
-  | question(Expr awtf, Type bwtf, Expr cwtf, Type dwtf) 
+  | question(str, str, str, Expr e)
+  // How we want it
+  //| question(Expr questionText, Type answerDataType, Expr answerIdentifier)
+  //| question(Expr questionText, Type answerDataType, Expr answerIdentifier, Expr calculatedField)
   ;
 
 data Expr

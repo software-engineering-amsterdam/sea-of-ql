@@ -23,7 +23,7 @@ public test bool testCalculatedField() = p(|project://QL-R-kemi/forms/calculated
 public test bool testUglyFormattedForm() = p(|project://QL-R-kemi/forms/uglyFormatted.q|) is form;
 
 public void main() {
-	try x = p(|project://QL-R-kemi/forms/basic.q|);
+	try x = p(|project://QL-R-kemi/forms/calculatedField.q|);
 	catch IllegalArgument( y, z ): println("Error: <z> (@<y>)");
 	println("Correct: \n<x>");
 }

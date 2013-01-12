@@ -12,12 +12,12 @@ syntax ElsIfPart = @Foldable "elseif" Expr condition "{" FormItem+ body "}";
 
 syntax ElsePart = @Foldable "else" "{" FormItem+ body "}";
 
-//start syntax Question = question: String questionText "," Type answerDataType "," Ident answerIdentifier (":" Expr)?;
+// What the ...?! Colons don't work, but equals signs do...
 start syntax Question 
-  = question: String questionText "," Type answerDataType "," Ident answerIdentifier
-  | question: String questionText "," Type answerDataType "," Ident answerIdentifier ":" Expr calculatedField
-  | question: String questionText "," Type answerDataType "," Ident answerIdentifier ":" Type calculatedField
+  = question: String questionText Type answerDataType Ident answerIdentifier
+  | question: String questionText Type answerDataType Ident answerIdentifier "=" Expr calculatedField
   ;
+
 
 start syntax Expr
   = ident: Ident name
