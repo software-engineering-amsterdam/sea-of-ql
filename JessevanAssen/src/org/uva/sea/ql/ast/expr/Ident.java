@@ -18,4 +18,18 @@ public class Ident extends Expr {
 	public <ReturnType, ParameterType> ReturnType accept(ASTNodeVisitor<ReturnType, ParameterType> visitor, ParameterType param) {
 		return visitor.visit(this, param);
 	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		if(!(obj instanceof Ident)) 
+			return false;
+		Ident ident = (Ident) obj;
+		
+		return this.getName().equals(ident.getName());
+	}
+	
+	@Override
+	public int hashCode() {
+		return name.hashCode();
+	}
 }
