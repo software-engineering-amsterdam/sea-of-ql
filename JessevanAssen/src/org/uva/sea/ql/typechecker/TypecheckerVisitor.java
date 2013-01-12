@@ -1,49 +1,61 @@
 package org.uva.sea.ql.typechecker;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.uva.sea.ql.ASTNodeVisitor;
 import org.uva.sea.ql.ast.*;
 import org.uva.sea.ql.ast.expr.*;
-import org.uva.sea.ql.ast.expr.value.*;
+import org.uva.sea.ql.ast.type.*;
 
-public class TypecheckerVisitor implements ASTNodeVisitor<Void, Void> {
+public class TypecheckerVisitor implements ASTNodeVisitor<Type, Map<Ident, Type>> {
 
+	public void typecheck(Form form) {
+		form.accept(this, new HashMap<Ident, Type>());
+	}
+	
 	@Override
-	public Void visit(Add astNode, Void param) {
+	public Type visit(Add astNode, Map<Ident, Type> param) {
 		return null;
 	}
 
 	@Override
-	public Void visit(And astNode, Void param) {
+	public Type visit(And astNode, Map<Ident, Type> param) {
 		return null;
 	}
 
 	@Override
-	public Void visit(Bool astNode, Void param) {
+	public Type visit(org.uva.sea.ql.ast.expr.value.Bool astNode, Map<Ident, Type> param) {
 		return null;
 	}
 
 	@Override
-	public Void visit(Computed astNode, Void param) {
+	public Type visit(Computed astNode, Map<Ident, Type> param) {
 		return null;
 	}
 
 	@Override
-	public Void visit(Declaration astNode, Void param) {
+	public Type visit(Declaration astNode, Map<Ident, Type> param) {
+		if(param.containsKey(astNode.getIdentity()))
+			throw new TypecheckerException(String.format("The identity '%s' is already declared!", astNode.getIdentity().getName()));
+		
+		param.put(astNode.getIdentity(), astNode.getType());
+		
 		return null;
 	}
 
 	@Override
-	public Void visit(Div astNode, Void param) {
+	public Type visit(Div astNode, Map<Ident, Type> param) {
 		return null;
 	}
 
 	@Override
-	public Void visit(Eq astNode, Void param) {
+	public Type visit(Eq astNode, Map<Ident, Type> param) {
 		return null;
 	}
 
 	@Override
-	public Void visit(Form astNode, Void param) {
+	public Type visit(Form astNode, Map<Ident, Type> param) {
 		for(FormElement formElement : astNode.getBody())
 			formElement.accept(this, param);
 		
@@ -51,82 +63,82 @@ public class TypecheckerVisitor implements ASTNodeVisitor<Void, Void> {
 	}
 
 	@Override
-	public Void visit(GEq astNode, Void param) {
+	public Type visit(GEq astNode, Map<Ident, Type> param) {
 		return null;
 	}
 
 	@Override
-	public Void visit(GT astNode, Void param) {
+	public Type visit(GT astNode, Map<Ident, Type> param) {
 		return null;
 	}
 
 	@Override
-	public Void visit(Ident astNode, Void param) {
+	public Type visit(Ident astNode, Map<Ident, Type> param) {
 		return null;
 	}
 
 	@Override
-	public Void visit(If astNode, Void param) {
+	public Type visit(If astNode, Map<Ident, Type> param) {
 		return null;
 	}
 
 	@Override
-	public Void visit(Int astNode, Void param) {
+	public Type visit(org.uva.sea.ql.ast.expr.value.Int astNode, Map<Ident, Type> param) {
 		return null;
 	}
 
 	@Override
-	public Void visit(LEq astNode, Void param) {
+	public Type visit(LEq astNode, Map<Ident, Type> param) {
 		return null;
 	}
 
 	@Override
-	public Void visit(LT astNode, Void param) {
+	public Type visit(LT astNode, Map<Ident, Type> param) {
 		return null;
 	}
 
 	@Override
-	public Void visit(Mul astNode, Void param) {
+	public Type visit(Mul astNode, Map<Ident, Type> param) {
 		return null;
 	}
 
 	@Override
-	public Void visit(Neg astNode, Void param) {
+	public Type visit(Neg astNode, Map<Ident, Type> param) {
 		return null;
 	}
 
 	@Override
-	public Void visit(NEq astNode, Void param) {
+	public Type visit(NEq astNode, Map<Ident, Type> param) {
 		return null;
 	}
 
 	@Override
-	public Void visit(Not astNode, Void param) {
+	public Type visit(Not astNode, Map<Ident, Type> param) {
 		return null;
 	}
 
 	@Override
-	public Void visit(Or astNode, Void param) {
+	public Type visit(Or astNode, Map<Ident, Type> param) {
 		return null;
 	}
 
 	@Override
-	public Void visit(Pos astNode, Void param) {
+	public Type visit(Pos astNode, Map<Ident, Type> param) {
 		return null;
 	}
 
 	@Override
-	public Void visit(Question astNode, Void param) {
+	public Type visit(Question astNode, Map<Ident, Type> param) {
 		return null;
 	}
 
 	@Override
-	public Void visit(Str astNode, Void param) {
+	public Type visit(org.uva.sea.ql.ast.expr.value.Str astNode, Map<Ident, Type> param) {
 		return null;
 	}
 
 	@Override
-	public Void visit(Sub astNode, Void param) {
+	public Type visit(Sub astNode, Map<Ident, Type> param) {
 		return null;
 	}
 
