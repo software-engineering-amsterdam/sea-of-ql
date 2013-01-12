@@ -21,11 +21,11 @@ start syntax Question
 
 start syntax Expr
   = ident: Ident name
-  | \int: Int number
-  | money: Money monetaryValue
-  | boolean: Boolean truthValue
-  | date: Date date
-  | string: String text
+  | @category="Constant" \int: Int number
+  | @category="Constant" money: Money monetaryValue
+  | @category="Constant" boolean: Boolean truthValue
+  | @category="Constant" date: Date date
+  | @category="Constant" string: String text
   | bracket "(" Expr expression ")"
   | pos: "+" Expr pos
   | neg: "-" Expr neg
