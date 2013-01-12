@@ -85,12 +85,14 @@ orExpr returns [Expr result]
 
     
 // Tokens
-WS  :	(' ' | '\t' | '\n' | '\r') { $channel=HIDDEN; }
+WS  :	(' ' | '\t' | NEWLINE) { $channel=HIDDEN; }
     ;
 
 COMMENT 
-     : '/*' .* '*/' {$channel=HIDDEN;}
+     : ('/*' .* '*/' | '//' ~(NEWLINE)*) {$channel=HIDDEN;}
     ;
+fragment NEWLINE 
+	: ('\n' | '\r');
 
 Ident:   ('a'..'z'|'A'..'Z')('a'..'z'|'A'..'Z'|'0'..'9'|'_')*;
 
