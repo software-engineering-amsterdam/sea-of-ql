@@ -174,16 +174,14 @@ public class TypecheckerVisitor implements ASTNodeVisitor<Type, Map<Ident, Type>
 	// Same type on both sides
 	@Override
 	public Type visit(Eq astNode, Map<Ident, Type> param) {
-		if (astNode.getLeftExpression().accept(this, param).getClass().equals(
-				astNode.getRightExpression().accept(this, param).getClass()))
-			return BOOL_TYPE;
-		else
-			throw new TypecheckerException("The left and right side of the '==' operator need to be of the same type.");
+		checkBothSidesAreOfSameType(astNode, param, "==");
+		return BOOL_TYPE;
 	}
 
 	@Override
 	public Type visit(NEq astNode, Map<Ident, Type> param) {
-		return BOOL_TYPE;
+        checkBothSidesAreOfSameType(astNode, param, "!=");
+        return BOOL_TYPE;
 	}
 	
 	private boolean isBoolType(Type type) { return type instanceof Bool; }
@@ -204,6 +202,13 @@ public class TypecheckerVisitor implements ASTNodeVisitor<Type, Map<Ident, Type>
 			
 			throw new TypecheckerException(String.format("Both sides of the '%s' have to be of type integer.", operator));
 	}
+
+    private void checkBothSidesAreOfSameType(BinaryExpr expression, Map<Ident, Type> param, String operator) {
+        if (
+            !expression.getLeftExpression().accept(this, param).getClass().equals(
+                expression.getRightExpression().accept(this, param).getClass()))
+            throw new TypecheckerException(String.format("The left and right side of the '%s' operator need to be of the same type.", operator));
+    }
 	
 	private void checkExpressionIsBool(UnaryExpr expression, Map<Ident, Type> param, String operator) {
 		if(!isBoolType(expression.getExpression().accept(this, param)))

@@ -28,7 +28,7 @@ public class BooleanOperatorTests extends OperatorTests {
 	
 	@Test
 	public void testOr() { 
-		testBinaryOperator(new AndExpressionFactory(), SUCCEEDING_PAIRS, FAILING_PAIRS); 
+		testBinaryOperator(new OrExpressionFactory(), SUCCEEDING_PAIRS, FAILING_PAIRS);
 	}
 	
 	@Test
