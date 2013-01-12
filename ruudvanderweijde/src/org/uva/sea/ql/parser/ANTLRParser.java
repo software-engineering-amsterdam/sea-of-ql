@@ -1,4 +1,4 @@
-package org.uva.sea.ql.parser.antlr;
+package org.uva.sea.ql.parser;
 
 import org.antlr.runtime.ANTLRStringStream;
 import org.antlr.runtime.CommonTokenStream;
