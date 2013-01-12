@@ -5,6 +5,7 @@ options {backtrack=true; memoize=true;}
 {
 package org.uva.sea.ql.parser.antlr;
 import org.uva.sea.ql.ast.*;
+import org.uva.sea.ql.parser.antlr.types.*;
 import org.uva.sea.ql.parser.antlr.operators.*;
 }
 
@@ -13,14 +14,41 @@ import org.uva.sea.ql.parser.antlr.operators.*;
 package org.uva.sea.ql.parser.antlr;
 }
 
+// TODO: comment out = successful tests
+@lexer::members {
+  @Override
+  public void reportError(RecognitionException e) {
+    throw new RuntimeException(e.getMessage()); 
+  }
+}
+
+// TODO: comment out = successful tests
+@parser::members {
+  @Override
+  public void reportError(RecognitionException e) {
+    throw new RuntimeException(e.getMessage()); 
+  }
+}
+// Change the start symbol of the parser to parse forms, instead of Expressions.
+
 primary returns [Expression result]
   : Int   { $result = new Int(Integer.parseInt($Int.text)); }
   | Money { $result = new Money($Money.text); }
   | Bool { $result = new Bool(Boolean.parseBoolean($Bool.text)); }
   | Ident { $result = new Ident($Ident.text); }
-  | String { $result = new StringLiteral($String.text.substring(1)); }
+  | String { $result = new StringLiteral($String.text.substring(1, $String.text.length() - 1)); }
   | '(' x=orExpression ')'{ $result = $x.result; }
+  | ifExpression { $result = $ifExpression.result; }
   ;
+        
+//    | '(' Bool ')' { $result = new If($x.result); };
+
+ifExpression returns [If result]
+    : 'if' '(' statement=orExpression ')' '{' successStatements=orExpression '}'
+    {
+      $result = new If($statement.result, $successStatements.result);
+    };  
+    
     
 unExpression returns [Expression result]
     :  '+' x=unExpression { $result = new Pos($x.result); }
@@ -87,17 +115,23 @@ orExpression returns [Expression result]
     :   lhs=andExpression { $result = $lhs.result; } ( '||' rhs=andExpression { $result = new Or($result, rhs); } )*
     ;
 
-    
+
 // Tokens
+COMMENT 
+     : '/*' .* '*/' { $channel=HIDDEN; }  // multi line
+     | '//' ~('\n'|'\r')* { $channel=HIDDEN; } // single line
+;
+
 WS  :	(' ' | '\t' | '\n' | '\r') { $channel=HIDDEN; }
     ;
 
-COMMENT 
-     : '/*' .* '*/' {$channel=HIDDEN;}
-     | '//' ~('\n'|'\r')* {$channel=HIDDEN;}
-;
-
+/*IF: 'if \(';
+THEN: '\) then';
+ENDIF: 'endif';
+*/
 Bool: ('TRUE' | 'FALSE' | 'true' | 'false');
+
+Type: 'string' | 'integer' | 'boolean' | 'money';
 
 Ident:   ('a'..'z'|'A'..'Z')('a'..'z'|'A'..'Z'|'0'..'9'|'_')*;
 
@@ -105,4 +139,10 @@ Int: ('0'..'9')+;
 
 Money: ('0'..'9')+ ('.' ('0'..'9')+)?;
 
-String: '"'~('"')*;
+//String: '"'~('"');
+
+
+String: '"' (EscapedCharacterSequence | ~('\\' | '"'))* '"';
+fragment
+EscapedCharacterSequence: '\\' ('\"' | '\\')
+;

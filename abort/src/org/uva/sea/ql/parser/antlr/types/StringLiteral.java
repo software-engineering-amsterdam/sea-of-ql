@@ -1,4 +1,4 @@
-package org.uva.sea.ql.parser.antlr.operators;
+package org.uva.sea.ql.parser.antlr.types;
 
 import org.uva.sea.ql.ast.Expression;
 
