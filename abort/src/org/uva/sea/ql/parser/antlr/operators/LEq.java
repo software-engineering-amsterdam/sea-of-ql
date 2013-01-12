@@ -1,11 +1,17 @@
 package org.uva.sea.ql.parser.antlr.operators;
 
-import org.uva.sea.ql.ast.Expr;
+import org.uva.sea.ql.ast.Expression;
 
-public class LEq extends Expr {
+public class LEq extends Expression {
 
-	public LEq(Expr result, Expr rhs) {
+	public LEq(Expression result, Expression rhs) {
 		// TODO Auto-generated constructor stub
+	}
+
+	@Override
+	public Object getValue() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

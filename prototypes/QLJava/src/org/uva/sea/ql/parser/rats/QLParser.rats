@@ -67,6 +67,7 @@ constant Action<Expr> MulTail =
 Expr Unary = 
     "+" Spacing un:Unary { yyValue = new Pos(un); }
     / "-" Spacing un:Unary { yyValue = new Neg(un); }
+    / "!" Spacing un:Unary { yyValue = new Not(un); }
 	/ yyValue:Primary;
 	
 

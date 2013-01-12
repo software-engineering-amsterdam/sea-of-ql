@@ -1,2 +1,2 @@
 #!/bin/sh
-java -jar ../lib/jacc/jacc.jar $*
+java -jar lib/jacc/jacc.jar $*

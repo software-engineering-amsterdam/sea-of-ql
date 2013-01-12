@@ -2,19 +2,19 @@ package org.uva.sea.ql.ast;
 
 public class MoneyType extends TypeDescription {
 
-	private Expr expression;
+	public Expr expression;
 
 	public MoneyType(Expr x) {
 		expression = x;
 	}
 
 	@Override
-	void eval() {
+	public void eval() {
 		System.out.print("money");
 		// TODO Auto-generated method stub
-		if ( expression != null ) {
+		if (expression != null) {
 			System.out.print("(");
-			expression.eval() ;
+			expression.eval();
 			System.out.print(")");
 		}
 	}

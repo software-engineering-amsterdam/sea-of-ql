@@ -4,12 +4,12 @@ import java.io.IOException;
 import java.io.StringReader;
 
 import org.uva.sea.ql.ast.Expr;
-import org.uva.sea.ql.parser.test.IParse;
+import org.uva.sea.ql.parser.test.IParser;
 import org.uva.sea.ql.parser.test.ParseError;
 
 import xtc.parser.Result;
 
-public class RatsParser implements IParse {
+public class RatsParser implements IParser {
 	public RatsParser() {
 		
 	}
@@ -28,5 +28,4 @@ public class RatsParser implements IParse {
 			return null;
 		}
 	}
-
 }
