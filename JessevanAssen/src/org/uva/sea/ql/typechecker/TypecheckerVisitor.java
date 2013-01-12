@@ -8,6 +8,8 @@ import org.uva.sea.ql.ast.*;
 import org.uva.sea.ql.ast.expr.*;
 import org.uva.sea.ql.ast.type.*;
 
+import sun.org.mozilla.javascript.internal.ast.UnaryExpression;
+
 public class TypecheckerVisitor implements ASTNodeVisitor<Type, Map<Ident, Type>> {
 
 	private static final Type BOOL_TYPE   = new org.uva.sea.ql.ast.type.Bool(),
@@ -55,11 +57,18 @@ public class TypecheckerVisitor implements ASTNodeVisitor<Type, Map<Ident, Type>
 	
 	@Override
 	public Type visit(If astNode, Map<Ident, Type> param) {
+		astNode.getCondition().accept(this, param);
+		for(ASTNode x : astNode.getIfBody())
+			x.accept(this, param);
+		for(ASTNode x : astNode.getElseBody())
+			x.accept(this, param);
+		
 		return null;
 	}
 	
 	@Override
 	public Type visit(Question astNode, Map<Ident, Type> param) {
+		astNode.getDeclaration().accept(this, param);
 		return null;
 	}
 	
@@ -124,18 +133,20 @@ public class TypecheckerVisitor implements ASTNodeVisitor<Type, Map<Ident, Type>
 	}
 	
 	@Override
+	public Type visit(Sub astNode, Map<Ident, Type> param) {
+		checkBothSidesAreInts(astNode, param, "-");
+		return INT_TYPE;
+	}
+	
+	@Override
 	public Type visit(Neg astNode, Map<Ident, Type> param) {
+		checkExpressionIsInt(astNode, param, "-");
 		return INT_TYPE;
 	}
 	
 	@Override
 	public Type visit(Pos astNode, Map<Ident, Type> param) {
-		return INT_TYPE;
-	}
-	
-	@Override
-	public Type visit(Sub astNode, Map<Ident, Type> param) {
-		checkBothSidesAreInts(astNode, param, "-");
+		checkExpressionIsInt(astNode, param, "+");
 		return INT_TYPE;
 	}
 	
@@ -150,10 +161,8 @@ public class TypecheckerVisitor implements ASTNodeVisitor<Type, Map<Ident, Type>
 
 	@Override
 	public Type visit(Not astNode, Map<Ident, Type> param) {
-		if(isBoolType(astNode.getExpression().accept(this, param)))
-			return BOOL_TYPE;
-		else
-			throw new TypecheckerException("The expression of the '!' operator has to be of type boolean.");
+		checkExpressionIsBool(astNode, param, "!");
+		return BOOL_TYPE;
 	}
 	
 	@Override
@@ -194,5 +203,15 @@ public class TypecheckerVisitor implements ASTNodeVisitor<Type, Map<Ident, Type>
 			!isIntType(expression.getRightExpression().accept(this, param)))
 			
 			throw new TypecheckerException(String.format("Both sides of the '%s' have to be of type integer.", operator));
+	}
+	
+	private void checkExpressionIsBool(UnaryExpr expression, Map<Ident, Type> param, String operator) {
+		if(!isBoolType(expression.getExpression().accept(this, param)))
+			throw new TypecheckerException(String.format("The expression of the '%s' operator has to be of type boolean.", operator));
+	}
+	
+	private void checkExpressionIsInt(UnaryExpr expression, Map<Ident, Type> param, String operator) {
+		if(!isIntType(expression.getExpression().accept(this, param)))
+			throw new TypecheckerException(String.format("The expression of the '%s' operator has to be of type boolean.", operator));
 	}
 }

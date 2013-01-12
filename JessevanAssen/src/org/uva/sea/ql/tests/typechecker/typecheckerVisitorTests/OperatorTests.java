@@ -34,9 +34,6 @@ public class OperatorTests extends TypecheckerVisitorTests {
 				fail();
 			} catch(TypecheckerException x) {
 				// The test actually succeeds if this exception occurs
-			} catch(Exception x) {
-				// Other exception, shouldn't occur
-				fail();
 			}
 		}	
 	}
@@ -58,9 +55,6 @@ public class OperatorTests extends TypecheckerVisitorTests {
 				fail();
 			} catch(TypecheckerException x) {
 				// The test actually succeeds if this exception occurs
-			} catch(Exception x) {
-				// Other exception, shouldn't occur
-				fail();
 			}
 		}		
 	}
