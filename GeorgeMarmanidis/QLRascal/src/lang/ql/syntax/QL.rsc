@@ -1,22 +1,25 @@
 module lang::ql::syntax::QL
 
 //Syntax for Form
-start syntax Form = form: "form" Ident name "{" FormItems formContent "}"; 
+start syntax Form = form: "form" Ident name "{" FormBody+ formBody "}"; 
 
-//Syntax for FormItems
-start syntax FormItems
+//Syntax for FormBody
+start syntax FormBody
 	= question: Question question
 	| conditionalStatement: ConditionalStatement conditionalStatement;
 	//maybe insert -> |comment: Comment comment
 
-//Syntax for Conditional Statements .. needs changes	
+//Syntax for Conditional Statements .. needs changes -> elseif more to 1 times if possible	
 start syntax ConditionalStatement
 	= ifCond: "if" Expr cond "{" Question+ question "}" else "{" Question+ question "}"
-	| ifElseIfCond : "if" Expr cond "{" Question+ question "}" elseif Expr cond "{" Question+ question "}" else "{" Question+ question "}";   
-	
+	| ifElseIfCond : "if" Expr cond "{" Question+ question "}" elseif Expr cond "{" Question+ question "}" else "{" Question+ question "}";
+
+		
 //Syntax for Question
-//start syntax Question
-//	= simpleQuestion: Ident ident "," 	
+start syntax Question
+	= simpleQuestion: Ident ident ":" "\"" String label "\"" Type type
+	| computedQuestion: Ident ident ":" "\"" String label "\"" Type type Expr compExpression;
+
 start syntax Expr
   = ident: Ident name
   | \int: Int
@@ -50,11 +53,19 @@ lexical Ident
   = ([a-z A-Z 0-9 _] !<< [a-z A-Z][a-z A-Z 0-9 _]* !>> [a-z A-Z 0-9 _]) \ Keywords
   ;
 
+start syntax Type
+ =booltype:"boolean";
+
 lexical Int
   = [0-9]+ !>> [0-9]
   ;
 
+lexical Boolean
+  ="true"
+  |"false";
   
+lexical String=([a-z A-Z 0-9 _])*;
+
 layout Standard 
   = WhitespaceOrComment* !>> [\ \t\n\f\r] !>> "//" !>> "/*";
   
