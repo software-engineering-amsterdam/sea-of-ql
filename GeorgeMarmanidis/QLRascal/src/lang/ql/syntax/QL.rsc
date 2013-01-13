@@ -1,7 +1,8 @@
 module lang::ql::syntax::QL
 
 //Syntax for Form
-start syntax Form = form: "form" Ident name "{" FormBody+ formBody "}"; 
+start syntax Form 
+	= form: "form" Ident name "{" FormBody+ formBody "}";
 
 //Syntax for FormBody
 start syntax FormBody
@@ -11,14 +12,16 @@ start syntax FormBody
 
 //Syntax for Conditional Statements .. needs changes -> elseif more to 1 times if possible	
 start syntax ConditionalStatement
-	= ifCond: "if" Expr cond "{" Question+ question "}" else "{" Question+ question "}"
-	| ifElseIfCond : "if" Expr cond "{" Question+ question "}" elseif Expr cond "{" Question+ question "}" else "{" Question+ question "}";
+	= ifCond: "if" Expr cond "{" Question+ question "}" "else" "{" Question+ question "}"
+	| simpleIfCond : "if" Expr cond "{" Question+ question "}"
+	| ifElseIfCond : "if" Expr cond "{" Question+ question "}" ElseIf+ elseIfCondition "else" "{" Question+ question "}";
 
+start syntax ElseIf = "else" "if" Expr cond "{"Question+ question"}";
 		
 //Syntax for Question
 start syntax Question
-	= simpleQuestion: Ident ident ":" "\"" String label "\"" Type type
-	| computedQuestion: Ident ident ":" "\"" String label "\"" Type type Expr compExpression;
+	= simpleQuestion: Ident ident ":" String label Type type
+	| computedQuestion: Ident ident ":"  String label  Type type Expr compExpression;
 
 start syntax Expr
   = ident: Ident name
@@ -46,15 +49,25 @@ start syntax Expr
   > left and: Expr "&&" Expr
   > left or: Expr "||" Expr
   ;
-    
+
+start syntax Type
+ = boolean:"boolean"
+ | integer:"integer"
+ | date:"date"
+ | money:"money"
+ | string:"string";    
+
 keyword Keywords =;
   
 lexical Ident 
   = ([a-z A-Z 0-9 _] !<< [a-z A-Z][a-z A-Z 0-9 _]* !>> [a-z A-Z 0-9 _]) \ Keywords
   ;
 
-start syntax Type
- =booltype:"boolean";
+//lexical money
+lexical Money = [0-9]+ "." ([0-9][0-9])*;
+
+//lexical date
+lexical Date= [0-3][0-9] >> "/" >>[0-1][0-9] >>"/">> [0-9][0-9][0-9][0-9];
 
 lexical Int
   = [0-9]+ !>> [0-9]
@@ -64,7 +77,7 @@ lexical Boolean
   ="true"
   |"false";
   
-lexical String=([a-z A-Z 0-9 _])*;
+lexical String="\"" ![\"]* "\"";
 
 layout Standard 
   = WhitespaceOrComment* !>> [\ \t\n\f\r] !>> "//" !>> "/*";
