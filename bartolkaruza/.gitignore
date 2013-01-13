@@ -1,0 +1,9 @@
+.metadata
+bin/**
+tmp/**
+tmp/**/*
+*.tmp
+*.bak
+local.properties
+.classpath
+.loadpath
