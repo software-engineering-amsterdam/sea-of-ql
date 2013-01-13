@@ -10,7 +10,8 @@ import Exception;
 private Form p(str src) = implode(parse(src, |file:///-|));
 private Form p(loc f) = implode(parse(readFile(f), |file:///-|));
 
-public test bool testForm1() = p("form Hello { \"Income?\", money, myIncome }") is form;
+public test bool testForm1() = p("form Hello { \"Income?\" money myIncome }") is form;
+public test bool testForm1() = p("form Hello { \"Tax?\" money myTax = myIncome * 0.40 }") is form;
 
 public test bool testBasicForm() = p(|project://QL-R-kemi/forms/basic.q|) is form;
 public test bool testCommentForm() = p(|project://QL-R-kemi/forms/comment.q|) is form;

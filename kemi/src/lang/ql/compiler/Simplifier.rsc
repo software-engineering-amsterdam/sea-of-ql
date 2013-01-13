@@ -8,7 +8,9 @@ import lang::ql::util::Parse;
 import IO;
 import util::ValueUI;
 
-private Form p(loc f) = implode(parse(readFile(f), |file:///-|));
+private Form p(loc f) =implode(parse(readFile(f), |file:///-|));
+
+// On second thought: this isn't needed... 
 
 public void main() {
 	f = p(|project://QL-R-kemi/forms/complexForm.q|);
