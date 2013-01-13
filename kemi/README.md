@@ -12,12 +12,15 @@ Coding Style
 * Spaces instead of tabs: window -> pref -> type 'imp' -> IMP -> checkbox 'use spaces instead of tabs'
 * Tab Width: 2 (same dialogue)
 * Curlies of functions on same line, closing on a new line:
+
 ```javascript
 public str foo(int a, int b) {
   return "<a> + <b> = <a + b>";
 }
 ```
+
 * if/else/if parenthesis, curlies etc should be like this:
+
 ```javascript
 if(foo) {
   return 1;
@@ -27,4 +30,3 @@ if(foo) {
   return 3;
 }
 ```
-
