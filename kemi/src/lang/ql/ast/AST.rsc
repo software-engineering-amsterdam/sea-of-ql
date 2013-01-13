@@ -2,11 +2,11 @@ module lang::ql::ast::AST
 
 data Form = form(str formName, list[Statement] formElements);
 
-alias ElseIf = tuple[Expr condition, list[Statement] body];
+alias Conditional = tuple[Expr condition, list[Statement] body];
 
 data Statement 
   = question(Question question)
-  | ifCondition(Expr condition, list[Statement] ifPart, list[ElseIf] elseIfs, list[Statement] elsePart)
+  | ifCondition(Conditional ifPart, list[Conditional] elseIfs, list[Statement] elsePart)
   ;
 
 data Type

@@ -48,17 +48,17 @@ public str prettyPrint(Question q:
 }
 
 public str prettyPrint(Statement item: 
-  ifCondition(Expr condition, list[Statement] ifPart, [], [])) {
+  ifCondition(Conditional ifPart, [], [])) {
   return 
-    "if ( <prettyPrint(condition)> ) { <for (e <- ifPart) {>
+    "if ( <prettyPrint(ifPart.condition)> ) { <for (e <- ifPart.body) {>
     '  <prettyPrint(e)><}>
     '}";
 }
 
 public str prettyPrint(Statement item: 
-  ifCondition(Expr condition,  list[Statement] ifPart, [], list[Statement] elsePart)) {
+  ifCondition(Conditional ifPart, [], list[Statement] elsePart)) {
   return 
-    "if ( <prettyPrint(condition)> ) { <for (e <- ifPart) {>
+    "if ( <prettyPrint(ifPart.condition)> ) { <for (e <- ifPart.body) {>
     '  <prettyPrint(e)><}>
     '} else { <for (e <- elsePart) {>
     '  <prettyPrint(e)><}>
@@ -66,22 +66,22 @@ public str prettyPrint(Statement item:
 }
 
 public str prettyPrint(Statement item: 
-  ifCondition(Expr condition,  list[Statement] ifPart, list[ElseIf] elseIfs, [])) {
+  ifCondition(Conditional ifPart, list[Conditional] elseIfs, [])) {
   return
-    "if ( <prettyPrint(condition)> ) { <for (e <- ifPart) {>
-    '  <prettyPrint(e)><}> <for (ec <- elseIfs) {>
-    '} elseif ( <prettyPrint(ec.condition)> ) { <for (eb <- ec.body) {>
-    '  <prettyPrint(eb)><}><}>
+    "if ( <prettyPrint(ifPart.condition)> ) { <for (e <- ifPart.body) {>
+    '  <prettyPrint(e)><}> <for (elsePart <- elseIfs) {>
+    '} elseif ( <prettyPrint(elsePart.condition)> ) { <for (ee <- elsePart.body) {>
+    '  <prettyPrint(ee)><}><}>
     '}";
 }
 
 public str prettyPrint(Statement item: 
-  ifCondition(Expr condition,  list[Statement] ifPart, list[ElseIf] elseIfs, list[Statement] elsePart)) {
+  ifCondition(Conditional ifPart, list[Conditional] elseIfs, list[Statement] elsePart)) {
   return 
-    "if ( <prettyPrint(condition)> ) { <for (e <- ifPart) {>
-    '  <prettyPrint(e)><}> <for (ec <- elseIfs) {>
-    '} elseif ( <prettyPrint(ec.condition)> ) { <for (eb <- ec.body) {>
-    '  <prettyPrint(eb)><}><}>
+    "if ( <prettyPrint(ifPart.condition)> ) { <for (e <- ifPart.body) {>
+    '  <prettyPrint(e)><}> <for (elseifPart <- elseIfs) {>
+    '} elseif ( <prettyPrint(elseifPart.condition)> ) { <for (e <- elseifPart.body) {>
+    '  <prettyPrint(e)><}><}>
     '} else { <for (e <- elsePart) {>
     '  <prettyPrint(e)><}>
     '}";

@@ -4,8 +4,10 @@ start syntax Form = @Foldable form: "form" Ident formName "{" Statement+ formEle
 
 syntax Statement 
   = question: Question question
-  | @Foldable ifCondition: "if" Expr condition "{" Statement+ ifPart "}" ElsIfPart* elseIfs ElsePart? elsePart
+  | ifCondition: IfPart ifPart ElsIfPart* elseIfs ElsePart? elsePart
   ;
+
+syntax IfPart = @Foldable "if" Expr condition "{" Statement+ body "}";
 
 syntax ElsIfPart = @Foldable "else" "if" Expr condition "{" Statement+ body "}";
 
