@@ -7,7 +7,7 @@ import java.util.Map;
 
 import org.uva.sea.ql.ast.ASTNode;
 import org.uva.sea.ql.ast.expression.Ident;
-import org.uva.sea.ql.ast.expression.Int;
+import org.uva.sea.ql.ast.expression.value.Int;
 
 /**
  * Lexer class.
@@ -220,7 +220,7 @@ public class QLLexer implements QLTokens {
 						yylval = new Int( n );
 						return token = INT;
 					}
-				
+					
 					if ( Character.isLetter( c ) ) {
 						StringBuilder sb = new StringBuilder();
 				

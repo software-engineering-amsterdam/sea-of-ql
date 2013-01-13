@@ -3,7 +3,7 @@ package org.uva.sea.ql.parser.antlr;
 import org.antlr.runtime.ANTLRStringStream;
 import org.antlr.runtime.CommonTokenStream;
 import org.antlr.runtime.RecognitionException;
-import org.uva.sea.ql.ast.Expression;
+import org.uva.sea.ql.ast.expression.Expression;
 import org.uva.sea.ql.parser.test.IParser;
 import org.uva.sea.ql.parser.test.ParseError;
 

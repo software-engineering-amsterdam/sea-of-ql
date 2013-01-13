@@ -1,13 +1,11 @@
-package org.uva.sea.ql.ast.expression;
+package org.uva.sea.ql.ast.expression.value;
 
-import org.uva.sea.ql.ast.Expression;
-import org.uva.sea.ql.interpreter.Context;
-import org.uva.sea.ql.interpreter.Value;
+import org.uva.sea.ql.visitor.Visitor;
 
 /**
  * Represents an integer expression.
  */
-public class Int extends Expression {
+public class Int extends Literal {
 	/**
 	 * Holds the integer value of the expression.
 	 */
@@ -28,12 +26,16 @@ public class Int extends Expression {
 	 * @return The value.
 	 */
 	public int getValue() {
-		return value;
+		return this.value;
 	}
 
 	@Override
-	public Value eval( Context context ) {
-		// TODO Auto-generated method stub
-		return null;
+	public void accept( Visitor visitor ) {
+		visitor.visit( this );
+	}
+
+	@Override
+	public String toString() {
+		return String.valueOf( this.value );
 	}
 }

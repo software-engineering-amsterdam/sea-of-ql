@@ -25,10 +25,10 @@ import org.uva.sea.ql.ast.expression.Add;
 import org.uva.sea.ql.ast.expression.And;
 import org.uva.sea.ql.ast.expression.Div;
 import org.uva.sea.ql.ast.expression.Eq;
+import org.uva.sea.ql.ast.expression.Expression;
 import org.uva.sea.ql.ast.expression.GEq;
 import org.uva.sea.ql.ast.expression.GT;
 import org.uva.sea.ql.ast.expression.Ident;
-import org.uva.sea.ql.ast.expression.Int;
 import org.uva.sea.ql.ast.expression.LEq;
 import org.uva.sea.ql.ast.expression.LT;
 import org.uva.sea.ql.ast.expression.Mul;
@@ -36,6 +36,7 @@ import org.uva.sea.ql.ast.expression.NEq;
 import org.uva.sea.ql.ast.expression.Neg;
 import org.uva.sea.ql.ast.expression.Or;
 import org.uva.sea.ql.ast.expression.Pos;
+import org.uva.sea.ql.ast.expression.value.Int;
 
 /**
  * Packrat parser for grammar <code>org.uva.sea.ql.parser.rats.QLParser</code>.
