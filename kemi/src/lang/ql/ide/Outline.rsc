@@ -39,14 +39,14 @@ private node outline(Form form) {
 }
 
 private node outline(Statement item: 
-	ifCondition(Expr condition,	list[Statement] ifPart, list[ElseIf] elseIfs, list[Statement] elsePart)) {
+	ifCondition(Conditional ifPart, list[Conditional] elseIfs, list[Statement] elsePart)) {
 	str name = "IfCondition";
-	str label = "If (<prettyPrint(condition)>)";
+	str label = "If (<prettyPrint(ifPart.condition)>)";
 	
 	bool elseIfBlock = false;
 	bool elseBlock = false;
 	
-	childs = [outlineBranch("ifPart", "<prettyPrint(condition)>", item@location, ifPart)];
+	childs = [outlineBranch("ifPart", "<prettyPrint(ifPart.condition)>", item@location, ifPart.body)];
 	
 	if (elseIfs != []) {
 		elseIfBlock = true;
@@ -60,13 +60,13 @@ private node outline(Statement item:
 	
 	if(elseIfBlock && elseBlock) {
 		name = "ifElseIfElseCondition";
-		label = "If (<prettyPrint(condition)>) elseif... else";	
+		label = "If (<prettyPrint(ifPart.condition)>) elseif... else";	
 	} else if(elseIfBlock) {
 		name = "ifElseIfCondition";
-		label = "If (<prettyPrint(condition)>) elseif...";	
+		label = "If (<prettyPrint(ifPart.condition)>) elseif...";	
 	} else if(elseBlock) {
 		name = "ifElseCondition";
-		label = "If (<prettyPrint(condition)>) else ...";	
+		label = "If (<prettyPrint(ifPart.condition)>) else ...";	
 	}
 	
 	return con(name, label, item@location, childs);
