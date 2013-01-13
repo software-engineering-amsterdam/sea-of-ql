@@ -25,6 +25,7 @@ public class TypecheckerVisitor implements ASTNodeVisitor<Type, Map<Ident, Type>
 	// Form operations
 	@Override
 	public Type visit(Computed astNode, Map<Ident, Type> param) {
+        astNode.getExpression().accept(this, param);
 		return null;
 	}
 
