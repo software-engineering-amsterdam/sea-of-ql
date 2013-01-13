@@ -24,9 +24,9 @@ import lang::ql::tests::expressions::Subtraction;
 
 import lang::ql::tests::questions::Questions;
 
-import lang::ql::tests::forms::FormsGrammar;
-import lang::ql::tests::forms::FormsOutline;
-import lang::ql::tests::forms::FormsPrettyPrinter;
+import lang::ql::tests::forms::Grammar;
+import lang::ql::tests::forms::Outline;
+import lang::ql::tests::forms::PrettyPrinter;
 
 import IO;
 

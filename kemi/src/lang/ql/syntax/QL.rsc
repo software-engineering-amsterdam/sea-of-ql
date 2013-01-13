@@ -18,7 +18,6 @@ start syntax Question
   | question: String questionText Type answerDataType Ident answerIdentifier "=" Expr calculatedField
   ;
 
-
 start syntax Expr
   = ident: Ident name
   | @category="Constant" \int: Int number

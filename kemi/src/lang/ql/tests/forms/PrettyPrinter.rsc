@@ -1,21 +1,10 @@
-module lang::ql::tests::forms::FormsPrettyPrinter
+module lang::ql::tests::forms::PrettyPrinter
 
 import lang::ql::ast::AST;
 import lang::ql::compiler::PrettyPrinter;
-import lang::ql::ide::Outline;
-import lang::ql::util::Implode;
-import lang::ql::util::Parse;
+import lang::ql::tests::forms::ParseHelper;
 
-import IO;
-
-private Form p(str src) = implode(parse(src, |file:///-|));
-private Form p(loc f) = implode(parse(readFile(f), |file:///-|));
-
-private bool prettyPrintAndCompare(loc f) {
-	fp = p(f);
-	pp = prettyPrint(fp);
-	return p(pp) == fp;
-}
+private bool prettyPrintAndCompare(loc f) = parse(f) == parse(prettyPrint(parse(f)));
 
 public test bool testBasicForm() = prettyPrintAndCompare(|project://QL-R-kemi/forms/basic.q|);
 public test bool testCommentForm() = prettyPrintAndCompare(|project://QL-R-kemi/forms/comment.q|);
