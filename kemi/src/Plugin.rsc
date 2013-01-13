@@ -12,13 +12,13 @@ private str EXT = "q";
 
 public void main() {
   registerLanguage(LANG, EXT, Tree(str src, loc l) {
-	return parse(src, l);
+  return parse(src, l);
   });
   
   contribs = {
-	outliner(node(Tree input) {
-		return outlineForm(implode(input));
-	})
+    outliner(node(Tree input) {
+      return outlineForm(implode(input));
+    })
   };
   
   registerContributions(LANG, contribs);
