@@ -1,0 +1,14 @@
+Eclipse highlight categories (probably):
+  - "Normal";
+  - "Type";
+  - "Identifier";
+  - "Variable";
+  - "Constant";
+  - "Comment";
+  - "Todo";
+  - "Quote";
+  - "MetaAmbiguity";
+  - "MetaVariable";
+  - "MetaKeyword";
+  - "MetaSkipped";
+  - "NonterminalLabel".
