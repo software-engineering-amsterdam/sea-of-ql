@@ -61,7 +61,7 @@ private node outline(FormItem item:
 	
 	str name = "ifCondition";
 	str label = "If (<prettyPrint(condition)>)";
-	childs = [outlineBranch("ifPart", "ifPart", ifPart)];
+	childs = [outlineBranch("ifPart", "<prettyPrint(condition)>", ifPart)];
 	
 	return con(name, label, item@location, childs);
 }
@@ -71,8 +71,8 @@ private node outline(FormItem item:
 	
 	str name = "ifElseCondition";
 	str label = "If (<prettyPrint(condition)>) else";
-	childs = [	outlineBranch("ifPart", "ifPart", ifPart),
-				outlineBranch("elsePart", "elsePart", elsePart)];
+	childs = [	outlineBranch("ifPart", "<prettyPrint(condition)>", ifPart),
+				outlineBranch("elsePart", "else", elsePart)];
 	
 	return con(name, label, item@location, childs);
 }
@@ -82,7 +82,7 @@ private node outline(FormItem item:
 	
 	str name = "ifElseIfCondition";
 	str label = "If (<prettyPrint(condition)>) elseif...";
-	childs = [outlineBranch("ifPart", "ifPart", ifPart)];
+	childs = [outlineBranch("ifPart", "<prettyPrint(condition)>", ifPart)];
 	childs += [outlineBranch("elseIf", "<prettyPrint(branch.condition)>", branch.body) | branch <- elseIfs];
 	
 	return con(name, label, item@location, childs);
@@ -93,9 +93,9 @@ private node outline(FormItem item:
 	
 	str name = "ifElseIfElseCondition";
 	str label = "If (<prettyPrint(condition)>) elseif... else";
-	childs = [outlineBranch("ifPart", "ifPart", ifPart)];
+	childs = [outlineBranch("ifPart", "<prettyPrint(condition)>", ifPart)];
 	childs += [outlineBranch("elseIf", "<prettyPrint(branch.condition)>", branch.body) | branch <- elseIfs];
-	childs += outlineBranch("elsePart", "elsePart", elsePart);
+	childs += outlineBranch("elsePart", "else", elsePart);
 		
 	return con(name, label, item@location, childs);
 }
