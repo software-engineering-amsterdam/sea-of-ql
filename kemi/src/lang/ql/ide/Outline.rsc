@@ -36,10 +36,11 @@ private node con(str name, str label, loc location, list[node] childs)
 	= setAnnotations(makeNode(name, childs), ("label": label, "loc": location));
 
 // Helper to create a node for a branch of an if/ifelse/... statemnt	
-private node outlineBranch(str name, str label, list[Statement] items) {
+private node outlineBranch(str name, str label, loc location, list[Statement] items) {
 	return 	"<name>"([outline(i) | i <- items])
 			[@label="<label>"]
-			[@\loc=getLocationSpan(items)];
+			//[@\loc=getLocationSpan(items)];
+			[@\loc=location];
 }
 
 // Below this are functions to rewrite the Tree to a tree of Nodes for the outliner
@@ -50,18 +51,12 @@ private node outline(Form form) {
 			[@\loc=form@location];
 }
 
-private node outlineBranch(str name, str label, list[Statement] items) {
-	return 	"<name>"([outline(i) | i <- items])
-			[@label="<label>"]
-			[@\loc=getLocationSpan(items)];
-}
-
 private node outline(Statement item: 
 	ifCondition(Expr condition, list[Statement] ifPart, [], [])) {
 	
 	str name = "ifCondition";
 	str label = "If (<prettyPrint(condition)>)";
-	childs = [outlineBranch("ifPart", "<prettyPrint(condition)>", ifPart)];
+	childs = [outlineBranch("ifPart", "<prettyPrint(condition)>", item@location, ifPart)];
 	
 	return con(name, label, item@location, childs);
 }
@@ -71,8 +66,8 @@ private node outline(Statement item:
 	
 	str name = "ifElseCondition";
 	str label = "If (<prettyPrint(condition)>) else";
-	childs = [	outlineBranch("ifPart", "<prettyPrint(condition)>", ifPart),
-				outlineBranch("elsePart", "else", elsePart)];
+	childs = [	outlineBranch("ifPart", "<prettyPrint(condition)>", item@location, ifPart),
+				outlineBranch("elsePart", "else", item@location, elsePart)];
 	
 	return con(name, label, item@location, childs);
 }
@@ -82,8 +77,8 @@ private node outline(Statement item:
 	
 	str name = "ifElseIfCondition";
 	str label = "If (<prettyPrint(condition)>) elseif...";
-	childs = [outlineBranch("ifPart", "<prettyPrint(condition)>", ifPart)];
-	childs += [outlineBranch("elseIf", "<prettyPrint(branch.condition)>", branch.body) | branch <- elseIfs];
+	childs = [outlineBranch("ifPart", "<prettyPrint(condition)>", item@location, ifPart)];
+	childs += [outlineBranch("elseIf", "<prettyPrint(branch.condition)>", item@location, branch.body) | branch <- elseIfs];
 	
 	return con(name, label, item@location, childs);
 }
@@ -93,9 +88,9 @@ private node outline(Statement item:
 	
 	str name = "ifElseIfElseCondition";
 	str label = "If (<prettyPrint(condition)>) elseif... else";
-	childs = [outlineBranch("ifPart", "<prettyPrint(condition)>", ifPart)];
-	childs += [outlineBranch("elseIf", "<prettyPrint(branch.condition)>", branch.body) | branch <- elseIfs];
-	childs += outlineBranch("elsePart", "else", elsePart);
+	childs = [outlineBranch("ifPart", "<prettyPrint(condition)>", item@location, ifPart)];
+	childs += [outlineBranch("elseIf", "<prettyPrint(branch.condition)>", item@location, branch.body) | branch <- elseIfs];
+	childs += outlineBranch("elsePart", "else", item@location, elsePart);
 		
 	return con(name, label, item@location, childs);
 }
