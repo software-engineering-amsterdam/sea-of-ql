@@ -15,14 +15,14 @@ import util::ValueUI;
 /*
  Checks:
 x 	- bool, int, string expressions
- 	- float, date expressions 
+x 	- float, date expressions 
 x 	- The type of the expression of a computed question must match the declared one
 x	- The expression in a conditional statement must be boolean
 x 	- The expression of a computed question must not contain undeclared variables
 x	- The expression in a conditional statement must not contain undeclared variables
 x	- No computed question can refer to itself
 	- A question must appear at most once per execution path (determinism)
-	- No cyclic dependencies
+x	- No cyclic dependencies -> do not allow a variable to be referenced before declared
 x	- Multiple questions with the same name must have the same type
 x	- Warning on duplicate labels
 	
@@ -36,76 +36,197 @@ public Contribution getAnnotator()
     });
     
     
+ 
 alias Var = tuple[str \type, str name, str label, loc location];
 
-alias Env = map[str name, str \type];        
-    
-alias Dep = tuple[str name, Expr expr];    
+alias ExpOccurence = tuple[str \type, Expr expr];
 
+alias Environment = tuple[list[value] app, list[Var] vars, list[ExpOccurence] exps];
+
+alias VarMap = map[str name, str \type];        
     
-private Message redeclError(str name, loc l) 
+
+private Message undeclaredError(Expr e:ident(name)) 
+  = error("Undeclared variable: <name>", e@location);  
+
+private Message redeclaredError(str name, loc l) 
   = error("Variable <name> redeclared with different type", l);
+    
+private Message typeError(str \type, Expr e) 
+  = error("Type mismatch: <\type> required", e@location);
+  
+private Message duplicateLabel(loc l) 
+  = warning("Duplicate label", l);
 
+    
+// return a subset of all errors in order not to cluster with error messages
+private set[Message] annotate(node input) {
+
+	// making a list of vars and expressions in order of appearance
+	env = getEnvironment(input);
+	
+	// check if a variable is referenced before it's declared (fixes cyclic dependencies)
+	msg = checkDeclarationOrder(env.app);
+	if (!isEmpty(msg))	return msg;
+	
+	// check if a variable is declared inconsistently with a different type
+	msg = checkRedeclarations(env.vars);
+	if (!isEmpty(msg))	return msg;
+			  		
+	// create a mapping between variable names and their types
+	vars = ( v.name : v.\type | v <- env.vars);
+	
+	// check expressions types
+	msg = checkTypes(env.exps, vars);
+	if (!isEmpty(msg))	return msg;
+			  
+	// check for duplicate labels
+	msg = checkLabels(env.vars);
+	return msg;
+}
+        
+    
+// get all variable declarations, expression occurences, and their order of appearance
+private Environment getEnvironment(node input) {
+	list[value] app = [];
+	vars = [];
+	exps = [];
+	top-down visit (input) {
+		case F:form(name, statements):  
+			vars += <"form", name, "", F@location>;			
+		case R:regular(\type, name, label): {
+			vars += <\type, name, label, R@location>; 
+			app += name;
+		}	
+		case C:computed(\type, name, label, expr): {
+			vars += <\type, name, label, C@location>;
+	 		app += [expr, name];
+	 		exps += <\type, expr>;
+	 	}
+		case C:conditional(_,_,_): {
+			app += C.ifStatement.condition + [c.condition | c <- C.elseIfs];
+			exps += <"bool", C.ifStatement.condition> + [<"bool", c.condition> | c <- C.elseIfs];
+		}
+	}
+	return <app, vars, exps>;
+}    
+ 
+ 
+// check for undeclared variables 
+private set[Message] checkDeclarationOrder(list[value] env) {
+	err = {};
+	for (value val <- env)
+		visit(val) {
+		case e:ident(name): 
+			if (indexOf(env, name) < 0 || indexOf(env, name) > indexOf(env, val))
+				err += undeclaredError(e);
+		} 
+	return err;
+}
+ 
+// check for type inconsistency with declarations 
+private set[Message] checkRedeclarations(list[Var] vars) =
+	{redeclaredError(v1.name, v1.location), redeclaredError(v2.name, v2.location) |
+	 v1 <- vars, v2 <- vars, v1.name == v2.name, v1.\type != v2.\type};
+
+
+// check for duplicate labels
+private set[Message] checkLabels(list[Var] vars) =
+	{duplicateLabel(l1.location), duplicateLabel(l2.location) | 
+	 l1 <- vars, l2 <- vars, l1 != l2, l1.label == l2.label};
+	
+	
+// check expression types
+private set[Message] checkTypes(list[ExpOccurence] exps, VarMap vars) =
+	{typeError(occurence.\type, occurence.expr) |
+	 occurence <- exps, !expected(occurence.\type, occurence.expr, vars)};
+
+
+private bool expected(str t, Expr expr, VarMap vars) {
+	switch(expr) {
+		case ident(name): return ((t == vars[name]) || (t == "float" && vars[name] == "int"));
+		case \int(_): return ((t == "int") || (t == "float"));
+		case \bool(_): return (t == "bool");
+		case string(_): return (t == "string");
+		case float(_): return (t == "float");
+		case date(_): return (t == "date");
+		case pos(e): return ((t == "int" || t == "float") && expected(t, e, vars)); 
+		case neg(e): return ((t == "int" || t == "float") && expected(t, e, vars));
+		case not(e): return (t == "bool" && expected(t, e, vars));
+		case and(e1, e2): return (t == "bool" && expected(t, e1, vars) && expected(t, e2, vars));			 				     
+		case or(e1, e2): return (t == "bool" && expected(t, e1, vars) && expected(t, e2, vars));	
+		case mul(e1, e2): 
+			return ((t == "int" && expected(t, e1, vars) && expected(t, e2, vars)) ||
+			 	     (t == "float" && (expected(t, e1, vars) || expected("int", e1, vars)) &&
+								      (expected(t, e2, vars) || expected("int", e2, vars))));
+		case div(e1, e2): 
+			return ((t == "int" && expected(t, e1, vars) && expected(t, e2, vars)) ||
+			 	     (t == "float" && (expected(t, e1, vars) || expected("int", e1, vars)) &&
+								      (expected(t, e2, vars) || expected("int", e2, vars))));
+		case add(e1, e2): 
+			return (((t == "int" || t == "string") && expected(t, e1, vars) && expected(t, e2, vars)) ||
+			 	     (t == "float" && (expected(t, e1, vars) || expected("int", e1, vars)) &&
+								      (expected(t, e2, vars) || expected("int", e2, vars))));
+		case sub(e1, e2): 
+			return ((t == "int" && expected(t, e1, vars) && expected(t, e2, vars)) ||
+			 	     (t == "float" && (expected(t, e1, vars) || expected("int", e1, vars)) &&
+								      (expected(t, e2, vars) || expected("int", e2, vars))));
+		case lt(e1, e2):
+			return (t == "bool" && (((expected("float", e1, vars) || expected("int", e1, vars)) &&
+								      (expected("float", e2, vars) || expected("int", e2, vars))) ||
+								     (expected("date", e1, vars) && expected("date", e2, vars)))); 	
+		case leq(e1, e2):
+			return (t == "bool" && (((expected("float", e1, vars) || expected("int", e1, vars)) &&
+								      (expected("float", e2, vars) || expected("int", e2, vars))) ||
+								     (expected("date", e1, vars) && expected("date", e2, vars)))); 	
+		case gt(e1, e2):
+			return (t == "bool" && (((expected("float", e1, vars) || expected("int", e1, vars)) &&
+								      (expected("float", e2, vars) || expected("int", e2, vars))) ||
+								     (expected("date", e1, vars) && expected("date", e2, vars)))); 	
+		case geq(e1, e2):
+			return (t == "bool" && (((expected("float", e1, vars) || expected("int", e1, vars)) &&
+								      (expected("float", e2, vars) || expected("int", e2, vars))) ||
+								     (expected("date", e1, vars) && expected("date", e2, vars)))); 	
+		case eq(e1, e2):
+			return (t == "bool" && (((expected("float", e1, vars) || expected("int", e1, vars)) &&
+								      (expected("float", e2, vars) || expected("int", e2, vars))) ||
+								     (expected("date", e1, vars) && expected("date", e2, vars)) ||
+								     (expected("string", e1, vars) && expected("string", e2, vars)))); 	
+		case neq(e1, e2):
+			return (t == "bool" && (((expected("float", e1, vars) || expected("int", e1, vars)) &&
+								      (expected("float", e2, vars) || expected("int", e2, vars))) ||
+								     (expected("date", e1, vars) && expected("date", e2, vars)) ||
+								     (expected("string", e1, vars) && expected("string", e2, vars)))); 	
+		default: throw IllegalArgument();
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+// TODO: redeclaration withing the same execution path
+
+
+/*
+
+
+alias Dep = tuple[str name, list[Expr] expr];    
+
+
+
+  
+  
 private Message declError(str name, loc l) 
   = error("Variable <name> redeclared within the same execution path", l);
 
-private Message typeError(str expected, str got, Expr e) 
-  = error("Type mismatch: expected <expected> but got <got>", e@location);
 
-private Message undeclError(Expr e:ident(name)) 
-  = error("Undeclared variable: <name>", e@location);    
-  
-private Message selfError(loc l) 
-  = error("Self-referral is not allowed", l);
-  
-private Message duplLabel(loc l) 
-  = warning("Duplicate label", l);
-    
-
-private set[Message] annotate(node input) {
-	// get a list of declared questions as tuples
-	vars = getVars(input); 
-	// check for incosistent redeclarations
-	err = {redeclError(v1.name, v1.location), redeclError(v2.name, v2.location) |
-			v1 <- vars, v2 <- vars, v1.name == v2.name, v1.\type != v2.\type};
-	if (!isEmpty(err))	return err;
-
-	deps = getDeps(input);
-	// check for cyclic dependencies
-	// TODO
-	// check for redeclarations on the same execution path (non-determinism)
-	// TODO
-	
-	env = (v.name : v.\type | v <- vars);
-	// check for missing declarations and type consistency
-	err = checkType(input, env);
-	if (!isEmpty(err))	return err;
-	
-	// check for computed questions referring to themselves
-	err = checkSelf(input);
-	if (!isEmpty(err))	return err;
-	
-	// check for duplicate labels
-	err = {duplLabel(l1.location), duplLabel(l2.location) | 
-			l1 <- vars, l2 <- vars, l1.label == l2.label}; 
-	return err;
-}
-    
-    
-
-private list[Var] getVars(node input) {
-	vars = [];
-	labels = [];
-	top-down visit(input) {
-	case F:form(name, statements): 
-		vars = vars + [<"form", name, "", F@location>];	
-	case R:regular(\type, name, label):
-		vars = vars + [<\type, name, label, R@location>]; 
-	case C:computed(\type, name, label, _):
-		vars = vars + [<\type, name, label, C@location>];
-	}
-	return vars;
-}
 
 
 
@@ -116,7 +237,7 @@ private list[Dep] getDeps(node input) {
 		deps = deps + [d | s <- statements, d <- addDep(s, \bool(true))];
 	}
 	// put all reocurring question expressions in lists
-	deps = dup([<n, [e | <n,e> <- deps]> | <n, _> <- deps]);
+	deps = dup([<n, [e | <n,el> <- deps, e <- el]> | <n, _> <- deps]);
 	// discard unique questions
 	deps = [<n, l> | <n ,l> <- deps, size(l) > 1];
 	text(deps);
@@ -127,8 +248,8 @@ private list[Dep] getDeps(node input) {
 public list[Dep] addDep(Statement s, Expr expr) {
 
 	top-down-break visit (s) {
-	case regular(_,name,_): return [<name, expr>];
-	case computed(_,name,_,_): return [<name, expr>];
+	case regular(_,name,_): return [<name, [expr]>];
+	case computed(_,name,_,_): return [<name, [expr]>];
 	case C:conditional(ifStatement, [], elsePart):
 		return 	[d | st <- C.ifStatement.body, d <- addDep(st, and(expr, C.ifStatement.condition))] +
 				[d | st <- C.elsePart, d <- addDep(st, and(expr, not(C.ifStatement.condition)))];
@@ -136,90 +257,8 @@ public list[Dep] addDep(Statement s, Expr expr) {
 		return 	[d | st <- C.ifStatement.body, d <- addDep(st, and(expr, C.ifStatement.condition))] +
 				addDep(conditional(head(C.elseIfs), tail(C.elseIfs), C.elsePart), and(expr, not(C.ifStatement.condition)));		    	
 	}
-}
+}*/
 
-
-
-public set[Message] checkType(node input, Env env) {
-	err = {};
-	top-down visit (input) { 
-	case C:computed(\type,_,_,expr): 
-		err = err + expect(\type, expr, env);
-	case C:conditional(ifStatement,[],_):
-		err = err + expect("bool", C.ifStatement.condition, env);
-	case C:conditional(ifStatement,elseIfs,elsePart):
-		err = err + expect("bool", C.ifStatement.condition, env) +
-   			  checkType(conditional(head(C.elseIfs), tail(C.elseIfs), C.elsePart), env);
-	}
-	return err;
-}
- 
-
-
-public set[Message] checkSelf(node input) {
-	err = {};
-	visit (input) {
-	case C:computed(_,name,_,expr):
-		visit (C.expr) {
-		case ident(var): 
-			if (C.name == var) 
-				err = err + selfError(C@location);
-		}
-	}
-	return err;
-}
-
- 
- 
-public set[Message] expect(str t, Expr e, Env env) {
-	err = {};
- 	top-down-break visit (e) {
- 	
- 	case ident(name): 
- 		if (!env[name]?)
- 			err = err + undeclError(e);
- 		else if (t != env[name])
- 			err = err + typeError(t, env[name], e);
- 	case \int(_): 
- 		err = err + ((t == "int")? {} : typeError(t, "int", e));
- 	case string(_): 
- 		err = err + ((t == "string")? {} : typeError(t, "string", e)); 
- 	case \bool(_): 
- 		err = err + ((t == "bool")? {} : typeError(t, "bool", e)); 
- 	case pos(e): 
- 		err = err + ((t == "int")? expect("int", e, env) : typeError(t, "int", e));  
- 	case neg(e): 
- 		err = err + ((t == "int")? expect("int", e, env) : typeError(t, "int", e));  
- 	case not(e): 
- 		err = err + ((t == "bool")? expect("bool", e, env) : typeError(t, "bool", e));  
-  	case mul(e1, e2): 
-  		err = err + ((t == "int")? expect("int", e1, env) + expect("int", e2, env) : typeError(t, "int", e));  
-  	case div(e1, e2): 
-   		err = err + ((t == "int")? expect("int", e1, env) + expect("int", e2, env) : typeError(t, "int", e));  
-  	case add(e1, e2): 
-   		err = err + ((t == "int")? expect("int", e1, env) + expect("int", e2, env) : typeError(t, "int", e));  
-  	case sub(e1, e2): 
-   		err = err + ((t == "int")? expect("int", e1, env) + expect("int", e2, env) : typeError(t, "int", e));  
- 	case lt(e1, e2): 
-  		err = err + ((t == "bool")? expect("int", e1, env) + expect("int", e2, env) : typeError(t, "bool", e));  
-	case leq(e1, e2): 
-  		err = err + ((t == "bool")? expect("int", e1, env) + expect("int", e2, env) : typeError(t, "bool", e));  
-	case gt(e1, e2): 
-  		err = err + ((t == "bool")? expect("int", e1, env) + expect("int", e2, env) : typeError(t, "bool", e));  
- 	case geq(e1, e2): 
-  		err = err + ((t == "bool")? expect("int", e1, env) + expect("int", e2, env) : typeError(t, "bool", e));  
- 	case eq(e1, e2): 
-  		err = err + ((t == "bool")? expect("int", e1, env) + expect("int", e2, env) : typeError(t, "bool", e));  
- 	case neq(e1, e2): 
-  		err = err + ((t == "bool")? expect("int", e1, env) + expect("int", e2, env) : typeError(t, "bool", e));  
- 	case and(e1, e2): 
-  		err = err + ((t == "bool")? expect("bool", e1, env) + expect("bool", e2, env) : typeError(t, "bool", e));  
- 	case or(e1, e2): 
-  		err = err + ((t == "bool")? expect("bool", e1, env) + expect("bool", e2, env) : typeError(t, "bool", e));  
- 	default: throw IllegalArgument();
- 	}
- 	return err;
-}
  
  
  
