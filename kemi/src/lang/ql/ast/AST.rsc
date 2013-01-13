@@ -2,15 +2,13 @@ module lang::ql::ast::AST
 
 data Form = form(str formName, list[Statement] formElements);
 
-alias Conditional = tuple[Expr condition, list[Statement] body];
+data Conditional
+  = conditional(Expr condition, list[Statement] body)
+  ;
 
 data Statement 
   = question(Question question)
   | ifCondition(Conditional ifPart, list[Conditional] elseIfs, list[Statement] elsePart)
-  ;
-
-data Type
-  = \type(str name)
   ;
 
 data Question
@@ -21,6 +19,36 @@ data Question
   //| question(Expr questionText, Type answerDataType, Expr answerIdentifier)
   //| question(Expr questionText, Type answerDataType, Expr answerIdentifier, Expr calculatedField)
   ;
+
+data Type
+  = \type(str typeName)
+  ;
+
+/* Nevermind, thought this would help but probably won't
+data Ident
+  = ident(str name)
+  ;
+
+data String
+  = string(str stringValue)
+  ;
+
+data Int
+  = integer(int intValue)
+  ;
+
+data Boolean
+  = boolean(bool booleanValue)
+  ;
+
+data Money
+  = money(real moneyValue)
+  ;
+
+data Date
+  = date(str dateValue)
+  ;
+*/
 
 data Expr
   = ident(str name)

@@ -1,3 +1,2 @@
-* Fixing the grammar (see unit tests)
 * Fixing the length of location annotations in the outline (fixed at a static 10 now).
-* Default indentation eclipse kevin
+* De-obfuscating the conditionals grammar

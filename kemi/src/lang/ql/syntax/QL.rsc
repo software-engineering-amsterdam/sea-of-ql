@@ -7,9 +7,15 @@ syntax Statement
   | ifCondition: IfPart ifPart ElsIfPart* elseIfs ElsePart? elsePart
   ;
 
-syntax IfPart = @Foldable "if" Expr condition "{" Statement+ body "}";
 
-syntax ElsIfPart = @Foldable "else" "if" Expr condition "{" Statement+ body "}";
+//TODO: this is needed for the AST, however, now it seems kinda vague / ambiguous (maybe?)
+syntax Conditional 
+  = conditional: Expr condition "{" Statement+ body "}"
+  ;
+
+syntax IfPart = @Foldable "if" Conditional ifPart;
+
+syntax ElsIfPart = @Foldable "else" "if" Conditional elsePart;
 
 syntax ElsePart = @Foldable "else" "{" Statement+ body "}";
 
