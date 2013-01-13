@@ -4,7 +4,9 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 import org.uva.sea.ql.ast.expression.*;
-import org.uva.sea.ql.parser.jacc.JACCParser;
+import org.uva.sea.ql.ast.expression.value.Bool;
+import org.uva.sea.ql.ast.expression.value.Int;
+import org.uva.sea.ql.parser.antlr.ANTLRParser;
 
 /**
  * Testing expressions.
@@ -19,7 +21,7 @@ public class TestExpressions {
 	 * Constructor.
 	 */
 	public TestExpressions() {
-		this.parser = new JACCParser();
+		this.parser = new ANTLRParser();
 	}
 
 	/**
@@ -149,7 +151,7 @@ public class TestExpressions {
 	}
 
 	/**
-	 * Tests numerical expressions.
+	 * Tests numerical literals.
 	 * 
 	 * @throws ParseError
 	 */
@@ -170,6 +172,17 @@ public class TestExpressions {
 		assertEquals( Pos.class, parser.parse( "+0" ).getClass() );
 		assertEquals( Pos.class, parser.parse( "+991821" ).getClass() );
 		assertEquals( Pos.class, parser.parse( "+(-43 * (11 + -3))" ).getClass() );
+	}
+	
+	/**
+	 * Tests boolean literals.
+	 * 
+	 * @throws ParseError
+	 */
+	@Test
+	public void testBools() throws ParseError {
+		assertEquals( Bool.class, parser.parse( "true" ).getClass() );
+		assertEquals( Bool.class, parser.parse( "false" ).getClass() );
 	}
 	
 	/**

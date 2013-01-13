@@ -1,8 +1,7 @@
 package org.uva.sea.ql.ast.expression;
 
 import org.uva.sea.ql.ast.Expression;
-import org.uva.sea.ql.interpreter.Context;
-import org.uva.sea.ql.interpreter.Value;
+import org.uva.sea.ql.visitor.Visitor;
 
 /**
  * Represents a not-equals expression.
@@ -19,8 +18,7 @@ public class NEq extends BinaryExpression {
 	}
 
 	@Override
-	public Value eval( Context context ) {
-		// TODO Auto-generated method stub
-		return null;
+	public void accept( Visitor visitor ) {
+		visitor.visit( this );
 	}
 }

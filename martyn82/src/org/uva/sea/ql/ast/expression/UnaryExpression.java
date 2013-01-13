@@ -18,6 +18,7 @@ abstract public class UnaryExpression extends Expression {
 	 */
 	protected UnaryExpression( Expression expression ) {
 		this.expression = expression;
+		this.expression.setParent( this );
 	}
 	
 	/**
@@ -25,7 +26,12 @@ abstract public class UnaryExpression extends Expression {
 	 * 
 	 * @return The expression.
 	 */
-	protected Expression getExpression() {
+	public Expression getExpression() {
 		return this.expression;
+	}
+	
+	@Override
+	public String toString() {
+		return this.getClass().getSimpleName();
 	}
 }

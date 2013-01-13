@@ -1,18 +1,28 @@
 package org.uva.sea.ql.ast;
 
-import org.uva.sea.ql.interpreter.Context;
-import org.uva.sea.ql.interpreter.Value;
+import org.uva.sea.ql.visitor.Visitor;
 
 /**
  * Represents an expression.
  */
 abstract public class Expression implements ASTNode {
+	public final char TOKEN = '\0';
+	private Expression parent;
+	
+	public void setParent( Expression parent ) {
+		this.parent = parent;
+	}
+	
+	public Expression getParent() {
+		return this.parent;
+	}
+	
 	/**
-	 * Evaluates the Expression.
+	 * Accepts a visitor.
 	 * 
-	 * @param context The evaluation environment.
+	 * @param visitor The visitor.
 	 * 
 	 * @return The value the expression produces.
 	 */
-	abstract public Value eval( Context context );
+	abstract public void accept( Visitor visitor );
 }
