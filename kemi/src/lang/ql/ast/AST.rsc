@@ -1,12 +1,12 @@
 module lang::ql::ast::AST
 
-data Form = form(str formName, list[FormItem] formElements);
+data Form = form(str formName, list[Statement] formElements);
 
-alias ElseIf = tuple[Expr condition, list[FormItem] body];
+alias ElseIf = tuple[Expr condition, list[Statement] body];
 
-data FormItem 
+data Statement 
   = question(Question question)
-  | ifCondition(Expr condition, list[FormItem] ifPart, list[ElseIf] elseIfs, list[FormItem] elsePart)
+  | ifCondition(Expr condition, list[Statement] ifPart, list[ElseIf] elseIfs, list[Statement] elsePart)
   ;
 
 data Type
@@ -52,5 +52,5 @@ data Expr
   
 // Some annotation for language integration
 anno loc Form@location;
-anno loc FormItem@location;
+anno loc Statement@location;
 anno loc Question@location;

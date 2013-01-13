@@ -4,7 +4,7 @@ import List;
 
 import lang::ql::ast::AST;
 
-public loc getLocationSpan(list[FormItem] items) {
+public loc getLocationSpan(list[Statement] items) {
 	h = head(items);
 	t = last(items);
 	

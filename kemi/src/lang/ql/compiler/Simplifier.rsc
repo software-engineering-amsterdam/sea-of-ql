@@ -28,23 +28,23 @@ public void main() {
 // The root note of the form
 public Form simplify(Form f) = form(f.formName, [simplify(e) | e <- f.formElements]);
 
-public FormItem simplify(FormItem item: 
-	ifCondition(Expr condition, list[FormItem] ifPart, [], [])) {
+public Statement simplify(Statement item: 
+	ifCondition(Expr condition, list[Statement] ifPart, [], [])) {
 	return ifCondition(simplify(condition), [simplify(i) | i <- ifPart], [], []);
 }
 
-public FormItem simplify(FormItem item: 
-	ifCondition(Expr condition,	list[FormItem] ifPart, [], list[FormItem] elsePart)) {
+public Statement simplify(Statement item: 
+	ifCondition(Expr condition,	list[Statement] ifPart, [], list[Statement] elsePart)) {
 	return ifCondition(simplify(condition), [simplify(i) | i <- ifPart], [], [simplify(i) | i <- elsePart]);
 }
 
-private node simplify(FormItem item: 
-	ifCondition(Expr condition,	list[FormItem] ifPart, list[ElseIf] elseIfs, [])) {
+private node simplify(Statement item: 
+	ifCondition(Expr condition,	list[Statement] ifPart, list[ElseIf] elseIfs, [])) {
 	return ifCondition(simplify(condition), [simplify(i) | i <- ifPart], [simplify(ei) | ei <- elseIfs], []);
 }
 
-public FormItem simplify(FormItem item: 
-	ifCondition(Expr condition,	list[FormItem] ifPart, list[ElseIf] elseIfs, list[FormItem] elsePart)) {
+public Statement simplify(Statement item: 
+	ifCondition(Expr condition,	list[Statement] ifPart, list[ElseIf] elseIfs, list[Statement] elsePart)) {
 	return ifCondition(simplify(condition), [simplify(i) | i <- ifPart], [simplify(ei) | ei <- elseIfs], [simplify(i) | i <- elsePart]);
 }
 
@@ -52,7 +52,7 @@ public ElseIf simplify(ElseIf elseif) {
 	return <simplify(elseif.condition), simplify(elseif.body)>;
 }
 
-public FormItem simplify(FormItem item: question(Question q)) {
+public Statement simplify(Statement item: question(Question q)) {
 	return question(simplify(q));
 }
 
