@@ -11,19 +11,6 @@ import lang::ql::util::LocationSpan;
 import lang::ql::util::Parse;
 import util::IDE;
 
-import IO;
-
-public void main() {
-	x = parse(readFile(|project://QL-R-kemi/forms/ifElseCondition.q|), |file:///-|);
-	println("Parsing done: <x>");
-	i = implode(x);
-	println("Imploding done: <i>");
-	t = outlineForm(i);
-	t = outlineForm(i);
-	println("Outline done: <t>");
-	iprintln(t);
-}
-
 // The root note of the form
 public node outlineForm(Form form) {
 	return 	"outline"(outline(form))
@@ -52,46 +39,36 @@ private node outline(Form form) {
 }
 
 private node outline(Statement item: 
-	ifCondition(Expr condition, list[Statement] ifPart, [], [])) {
-	
-	str name = "ifCondition";
-	str label = "If (<prettyPrint(condition)>)";
-	childs = [outlineBranch("ifPart", "<prettyPrint(condition)>", item@location, ifPart)];
-	
-	return con(name, label, item@location, childs);
-}
-
-private node outline(Statement item: 
-	ifCondition(Expr condition,	list[Statement] ifPart, [], list[Statement] elsePart)) {
-	
-	str name = "ifElseCondition";
-	str label = "If (<prettyPrint(condition)>) else";
-	childs = [	outlineBranch("ifPart", "<prettyPrint(condition)>", item@location, ifPart),
-				outlineBranch("elsePart", "else", item@location, elsePart)];
-	
-	return con(name, label, item@location, childs);
-}
-
-private node outline(Statement item: 
-	ifCondition(Expr condition,	list[Statement] ifPart, list[ElseIf] elseIfs, [])) {
-	
-	str name = "ifElseIfCondition";
-	str label = "If (<prettyPrint(condition)>) elseif...";
-	childs = [outlineBranch("ifPart", "<prettyPrint(condition)>", item@location, ifPart)];
-	childs += [outlineBranch("elseIf", "<prettyPrint(branch.condition)>", item@location, branch.body) | branch <- elseIfs];
-	
-	return con(name, label, item@location, childs);
-}
-
-private node outline(Statement item: 
 	ifCondition(Expr condition,	list[Statement] ifPart, list[ElseIf] elseIfs, list[Statement] elsePart)) {
+	str name = "IfCondition";
+	str label = "If (<prettyPrint(condition)>)";
 	
-	str name = "ifElseIfElseCondition";
-	str label = "If (<prettyPrint(condition)>) elseif... else";
+	bool elseIfBlock = false;
+	bool elseBlock = false;
+	
 	childs = [outlineBranch("ifPart", "<prettyPrint(condition)>", item@location, ifPart)];
-	childs += [outlineBranch("elseIf", "<prettyPrint(branch.condition)>", item@location, branch.body) | branch <- elseIfs];
-	childs += outlineBranch("elsePart", "else", item@location, elsePart);
-		
+	
+	if (elseIfs != []) {
+		elseIfBlock = true;
+		childs += [outlineBranch("elseIf", "<prettyPrint(branch.condition)>", item@location, branch.body) | branch <- elseIfs];
+	}
+	
+	if(elsePart != []) {
+		elseBlock = true;
+		childs += outlineBranch("elsePart", "else", item@location, elsePart);
+	}
+	
+	if(elseIfBlock && elseBlock) {
+		name = "ifElseIfElseCondition";
+		label = "If (<prettyPrint(condition)>) elseif... else";	
+	} else if(elseIfBlock) {
+		name = "ifElseIfCondition";
+		label = "If (<prettyPrint(condition)>) elseif...";	
+	} else if(elseBlock) {
+		name = "ifElseCondition";
+		label = "If (<prettyPrint(condition)>) else ...";	
+	}
+	
 	return con(name, label, item@location, childs);
 }
 
