@@ -5,6 +5,9 @@ options {backtrack=true; memoize=true;}
 {
 package org.uva.sea.ql.parser.antlr;
 import org.uva.sea.ql.ast.*;
+import org.uva.sea.ql.ast.type.*;
+import org.uva.sea.ql.ast.expr.*;
+import org.uva.sea.ql.ast.expr.value.*;
 }
 
 @lexer::header
@@ -13,15 +16,15 @@ package org.uva.sea.ql.parser.antlr;
 }
 
 primary returns [Expr result]
-    : Bool    { $result = new Bool(Boolean.parseBoolean($Bool.text)); }
-    | Int     { $result = new Int(Integer.parseInt($Int.text)); }
+    : Bool    { $result = new org.uva.sea.ql.ast.expr.value.Bool(Boolean.parseBoolean($Bool.text)); }
+    | Int     { $result = new org.uva.sea.ql.ast.expr.value.Int(Integer.parseInt($Int.text)); }
     | strExpr { $result = $strExpr.result; }
     | Ident   { $result = new Ident($Ident.text); }
     | '(' x=orExpr ')'{ $result = $x.result; }
     ;
     
-strExpr returns [Str result]
-    : Str   { $result = new Str($Str.text.substring(1, $Str.text.length() - 1)); }
+strExpr returns [org.uva.sea.ql.ast.expr.value.Str result]
+    : Str   { $result = new org.uva.sea.ql.ast.expr.value.Str($Str.text.substring(1, $Str.text.length() - 1)); }
     ;    
     
 unExpr returns [Expr result]
@@ -109,13 +112,26 @@ formElement returns [FormElement result]
     ;
     
 questionFormElement returns [Question result]
-    : strExpr Ident ':' Type { $result = new Question($strExpr.result.getValue(), new Ident($Ident.text), $Type.text); }
+    : strExpr Ident ':' typeDeclaration { 
+        $result = new Question($strExpr.result.getValue(), new Declaration(new Ident($Ident.text), $typeDeclaration.result)); }
+    ;
+
+Type: 'string'|'boolean'|'integer'; 
+typeDeclaration returns [Type result]
+    : Type {
+        if($Type.text.equals("boolean"))
+          $result = new org.uva.sea.ql.ast.type.Bool();
+        else if($Type.text.equals("integer"))
+          $result = new org.uva.sea.ql.ast.type.Int();
+        else if($Type.text.equals("string"))
+          $result = new org.uva.sea.ql.ast.type.Str();
+      }
     ;
 
 computedFormElement returns [Computed result]
     : strExpr orExpr { $result = new Computed($strExpr.result.getValue(), $orExpr.result); }
     ;
-    
+   
 ifFormElement returns [If result]
     : 'if' '(' orExpr ')' '{' ifElements = formElements '}' 'else' elseElement = ifFormElement 
         { $result = new If($orExpr.result, $formElements.result, java.util.Arrays.asList((FormElement)$elseElement.result)); }
@@ -137,8 +153,6 @@ COMMENT
 NewLine: '\n' | '\r\n';
 
 Bool: 'true'|'false';
-
-Type: 'string'|'boolean'|'integer';
 
 Str: '\"' ('\\"'|~'\"')* '\"';
 

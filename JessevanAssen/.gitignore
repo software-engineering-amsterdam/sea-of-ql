@@ -22,3 +22,9 @@ local.properties
 
 # PDT-specific
 .buildpath
+
+*.iml
+*.ipr
+*.iws
+.idea/
+out/**
