@@ -224,4 +224,21 @@ public class TestExpressions {
 		assertEquals( Not.class, parser.parse( "!a" ).getClass() );
 		assertEquals( Not.class, parser.parse( "!(a && b)" ).getClass() );
 	}
+	
+	/**
+	 * Tests comment structures.
+	 * 
+	 * @throws ParseError
+	 */
+	@Test
+	public void testComments() throws ParseError {
+		assertEquals( Mul.class, parser.parse( "a /* some comments */ * c" ).getClass() );
+		assertEquals( Mul.class, parser.parse( "a */**/b" ).getClass() );
+		assertEquals( Mul.class, parser.parse( "a /** some\nlines\nof\ncomments\n*/\n*c" ).getClass() );
+		assertEquals( Div.class, parser.parse( "a / /**/ b" ).getClass() );
+
+		assertEquals( Div.class, parser.parse( "a / b // something" ).getClass() );
+		assertEquals( Div.class, parser.parse( "a // blablabla\n/b" ).getClass() );
+		assertEquals( Mul.class, parser.parse( "a *// comments\rd" ).getClass() );
+	}
 }

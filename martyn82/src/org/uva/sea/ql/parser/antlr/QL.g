@@ -92,16 +92,20 @@ orExpr returns [Expression result]
 
     
 // Tokens
-WS  :	(' ' | '\t' | '\n' | '\r') { $channel=HIDDEN; }
+WS  :	(' ' | '\t' | NEWLINE) { $channel=HIDDEN; }
     ;
 
 COMMENT 
-     : '/*' .* '*/' {$channel=HIDDEN;}
+    : ('//' ~(NEWLINE)* | '/*' .* '*/') {$channel=HIDDEN;}
     ;
 
-Bool:   'true'|'false';
+fragment NEWLINE
+    : ('\r' | '\n')
+    ;
 
-Str:    '\"' ('\\"'|~'\"')* '\"';
+Bool:   'true' | 'false';
+
+Str:    '\"' ('\\"' | ~'\"')* '\"';
 
 Ident:  ('a'..'z'|'A'..'Z')('a'..'z'|'A'..'Z'|'0'..'9'|'_')*;
 
