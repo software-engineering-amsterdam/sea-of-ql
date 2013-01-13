@@ -1,15 +1,16 @@
 package nl.stgm.ql.ast;
 
-public class Ident extends Expr {
-
+public class Ident extends Expr
+{
 	private final String name;
 
-	public Ident(String name) {
+	public Ident(String name)
+	{
 		this.name = name;
 	}
-	
-	public String getName() {
+
+	public String getName()
+	{
 		return name;
 	}
-
 }
