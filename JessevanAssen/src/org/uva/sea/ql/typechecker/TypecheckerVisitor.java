@@ -184,40 +184,38 @@ public class TypecheckerVisitor implements ASTNodeVisitor<Type, Map<Ident, Type>
         checkBothSidesAreOfSameType(astNode, param, "!=");
         return BOOL_TYPE;
 	}
-	
-	private boolean isBoolType(Type type) { return type instanceof Bool; }
-	private boolean isIntType(Type type) { return type instanceof Int; }
+
 	
 	private void checkBothSidesAreBools(BinaryExpr expression, Map<Ident, Type> param, String operator) {
 		if(
-			!isBoolType(expression.getLeftExpression().accept(this, param)) || 
-			!isBoolType(expression.getRightExpression().accept(this, param)))
+			expression.getLeftExpression().accept(this, param) != BOOL_TYPE ||
+			expression.getRightExpression().accept(this, param) != BOOL_TYPE)
 			
 			throw new TypecheckerException(String.format("Both sides of the '%s' have to be of type boolean.", operator));
 	}
 	
 	private void checkBothSidesAreInts(BinaryExpr expression, Map<Ident, Type> param, String operator) {
 		if(
-			!isIntType(expression.getLeftExpression().accept(this, param)) || 
-			!isIntType(expression.getRightExpression().accept(this, param)))
+			expression.getLeftExpression().accept(this, param) != INT_TYPE ||
+			expression.getRightExpression().accept(this, param) != INT_TYPE)
 			
 			throw new TypecheckerException(String.format("Both sides of the '%s' have to be of type integer.", operator));
 	}
 
     private void checkBothSidesAreOfSameType(BinaryExpr expression, Map<Ident, Type> param, String operator) {
         if (
-            !expression.getLeftExpression().accept(this, param).getClass().equals(
-                expression.getRightExpression().accept(this, param).getClass()))
+            expression.getLeftExpression().accept(this, param) !=
+                expression.getRightExpression().accept(this, param))
             throw new TypecheckerException(String.format("The left and right side of the '%s' operator need to be of the same type.", operator));
     }
 	
 	private void checkExpressionIsBool(UnaryExpr expression, Map<Ident, Type> param, String operator) {
-		if(!isBoolType(expression.getExpression().accept(this, param)))
+		if(expression.getExpression().accept(this, param) != BOOL_TYPE)
 			throw new TypecheckerException(String.format("The expression of the '%s' operator has to be of type boolean.", operator));
 	}
 	
 	private void checkExpressionIsInt(UnaryExpr expression, Map<Ident, Type> param, String operator) {
-		if(!isIntType(expression.getExpression().accept(this, param)))
+		if(expression.getExpression().accept(this, param) != INT_TYPE)
 			throw new TypecheckerException(String.format("The expression of the '%s' operator has to be of type boolean.", operator));
 	}
 }
