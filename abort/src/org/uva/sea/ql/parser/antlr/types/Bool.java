@@ -1,9 +1,9 @@
 package org.uva.sea.ql.parser.antlr.types;
 
-import org.uva.sea.ql.ast.Expression;
-
-public class Bool extends Expression {
+public class Bool extends DataType {
 	private boolean value; 
+	
+	public Bool() { }
 	
 	public Bool(boolean value) {
 		this.value = value;

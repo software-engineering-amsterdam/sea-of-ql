@@ -1,0 +1,53 @@
+diff a/abort/src/org/uva/sea/ql/parser/test/TestExpressions.java b/abort/src/org/uva/sea/ql/parser/test/TestExpressions.java	(rejected hunks)
+@@ -7,12 +7,13 @@ import org.uva.sea.ql.ast.Ident;
+ import org.uva.sea.ql.parser.antlr.ANTLRParser;
+ import org.uva.sea.ql.parser.antlr.operators.Add;
+ import org.uva.sea.ql.parser.antlr.operators.GT;
+-import org.uva.sea.ql.parser.antlr.operators.Int;
++import org.uva.sea.ql.parser.antlr.operators.If;
+ import org.uva.sea.ql.parser.antlr.operators.LEq;
+ import org.uva.sea.ql.parser.antlr.operators.LT;
+-import org.uva.sea.ql.parser.antlr.operators.Money;
+ import org.uva.sea.ql.parser.antlr.operators.Mul;
+-import org.uva.sea.ql.parser.antlr.operators.StringLiteral;
++import org.uva.sea.ql.parser.antlr.types.Int;
++import org.uva.sea.ql.parser.antlr.types.Money;
++import org.uva.sea.ql.parser.antlr.types.StringLiteral;
+ 
+ public class TestExpressions extends TestCase {
+ 	private static final IParse parser = new ANTLRParser();
+@@ -82,15 +83,31 @@ public class TestExpressions extends TestCase {
+ 	
+ 	@Test
+ 	public void testSinglelineComments() throws ParseError {
+-		assertNull(parser.parse("// this is a comment\n"));
+-		assertEquals(Ident.class, parser.parse("// this is a comment\n this is not").getClass());
+-		assertEquals(Ident.class, parser.parse("// this is a comment\r this is not").getClass());
++		assertNull(parser.parse("//this is a comment\n0.11"));
++		assertNull(parser.parse("//this is a comment\r0.11"));
++		//assertNotNull(parser.parse("// this is a comment\na < b"));
++	}
++	
++	@Test
++	public void testMultilineComments() throws ParseError {
++		assertNull(parser.parse("/* blabla\nhahaha\rqweqweq */0.011"));
+ 	}
+ 	
+ 	@Test
+ 	public void testStringLiterals() throws ParseError {
+ 		assertEquals(StringLiteral.class, parser.parse("\"Hello\"").getClass());
+ 		assertEquals("Hello", ((StringLiteral)parser.parse("\"Hello\"")).getValue());
++		assertEquals("\\\"Hello\\\"", ((StringLiteral)parser.parse("\"\\\"Hello\\\"\"")).getValue());
+ 		assertEquals(Ident.class, parser.parse("Hello").getClass());
+ 	}
++	
++	@Test
++	public void testIfExpression() throws ParseError {
++		try {
++			assertEquals(If.class, parser.parse("if (\"Hello\") { \"Hello\" }").getClass());			
++		}
++		catch (RuntimeException e) {
++			throw new ParseError(e.getMessage());
++		}
++	}
+ }

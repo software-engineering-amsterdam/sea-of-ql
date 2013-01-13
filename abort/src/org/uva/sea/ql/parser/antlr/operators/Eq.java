@@ -7,11 +7,4 @@ public class Eq extends Expression {
 	public Eq(Expression result, Expression rhs) {
 		// TODO Auto-generated constructor stub
 	}
-
-	@Override
-	public Object getValue() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 }

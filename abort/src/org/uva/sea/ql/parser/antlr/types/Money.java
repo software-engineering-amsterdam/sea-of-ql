@@ -1,10 +1,12 @@
 package org.uva.sea.ql.parser.antlr.types;
 
-import org.uva.sea.ql.ast.Expression;
 
-public class Money extends Expression {
+public class Money extends DataType {
 	private double value;
 
+	public Money() { }
+	
+	
 	public Money(String value) {
 		this.value = Double.parseDouble(value);
 	}

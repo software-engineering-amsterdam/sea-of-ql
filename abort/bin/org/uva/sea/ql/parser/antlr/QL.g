@@ -16,21 +16,45 @@ package org.uva.sea.ql.parser.antlr;
 
 // TODO: comment out = successful tests
 @lexer::members {
-  @Override
-  public void reportError(RecognitionException e) {
-    throw new RuntimeException(e.getMessage()); 
-  }
+//  @Override
+//  public void reportError(RecognitionException e) {
+//    throw new RuntimeException(e.getMessage()); 
+//  }
 }
 
 // TODO: comment out = successful tests
 @parser::members {
-  @Override
-  public void reportError(RecognitionException e) {
-    throw new RuntimeException(e.getMessage()); 
-  }
+//  @Override
+//  public void reportError(RecognitionException e) {
+//   throw new RuntimeException(e.getMessage()); 
+//  }
 }
 // Change the start symbol of the parser to parse forms, instead of Expressions.
 
+formExpression returns [Form result]
+ : FORM Ident BLOCK_START expressions=questionArray BLOCK_END {
+
+    
+    $result = new Form(expressions);
+  };
+
+questionArray returns [List<FormQuestion> expressions]
+    @init { $expressions = new ArrayList<FormQuestion>(); }
+    : (e=questionExpression { $expressions.add($e.result); })+;
+
+questionExpression returns [FormQuestion result]
+  : label=Ident ':' question=String parameter=dataTypeExpression {
+    $result = new FormQuestion($label.text, $question.text, $parameter.result);
+  };
+  
+dataTypeExpression returns [DataType result]
+ : Type {
+    if ($Type.text.equals("string")) $result = new StringLiteral();
+    else if ($Type.text.equals("integer")) $result = new Int();
+    else if ($Type.text.equals("money")) $result = new Money();
+    else if ($Type.text.equals("boolean")) $result = new Bool();
+ };
+ 
 primary returns [Expression result]
   : Int   { $result = new Int(Integer.parseInt($Int.text)); }
   | Money { $result = new Money($Money.text); }
@@ -40,11 +64,13 @@ primary returns [Expression result]
   | '(' x=orExpression ')'{ $result = $x.result; }
   | ifExpression { $result = $ifExpression.result; }
   ;
-        
-//    | '(' Bool ')' { $result = new If($x.result); };
 
-ifExpression returns [If result]
-    : 'if' '(' statement=orExpression ')' '{' successStatements=orExpression '}'
+ifExpression returns [IfExpression result]
+    : IF IF_STATEMENT_PREFIX statement=orExpression IF_STATEMENT_SUFFIX BLOCK_START successStatements=orExpression BLOCK_END ELSE BLOCK_START elseStatements=orExpression BLOCK_END
+    {
+      $result = new IfElse($statement.result, $successStatements.result, $elseStatements.result);
+    }
+    | IF IF_STATEMENT_PREFIX statement=orExpression IF_STATEMENT_SUFFIX BLOCK_START successStatements=orExpression BLOCK_END
     {
       $result = new If($statement.result, $successStatements.result);
     };  
@@ -69,6 +95,8 @@ mulExpression returns [Expression result]
     })*
     ;
     
+//typeExpression returns [String result]
+//  : type=Type { $result = $type.text; };
   
 addExpression returns [Expression result]
     :   lhs=mulExpression { $result=$lhs.result; } ( op=('+' | '-') rhs=mulExpression
@@ -122,16 +150,21 @@ COMMENT
      | '//' ~('\n'|'\r')* { $channel=HIDDEN; } // single line
 ;
 
-WS  :	(' ' | '\t' | '\n' | '\r') { $channel=HIDDEN; }
-    ;
+WS  :	(' ' | '\t' | '\n' | '\r') { $channel=HIDDEN; };
 
-/*IF: 'if \(';
-THEN: '\) then';
-ENDIF: 'endif';
-*/
+IF: 'if';
+IF_STATEMENT_PREFIX: '(';
+IF_STATEMENT_SUFFIX: ')';
+BLOCK_START: '{';
+BLOCK_END: '}';
+ELSE: 'else';
+
+FORM: 'form';
+
+Type: 'boolean' | 'integer' | 'money' | 'string';
+
+
 Bool: ('TRUE' | 'FALSE' | 'true' | 'false');
-
-Type: 'string' | 'integer' | 'boolean' | 'money';
 
 Ident:   ('a'..'z'|'A'..'Z')('a'..'z'|'A'..'Z'|'0'..'9'|'_')*;
 

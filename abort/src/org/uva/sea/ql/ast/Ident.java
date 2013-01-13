@@ -14,13 +14,4 @@ public class Ident extends Expression {
 	public String getName() {
 		return name;
 	}
-
-	@Override
-	public Object getValue() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	
-	
-
 }

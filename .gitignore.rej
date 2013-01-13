@@ -1,0 +1,8 @@
+diff a/.gitignore b/.gitignore	(rejected hunks)
+@@ -1,5 +1,6 @@
+ kemi/bin/*
+ vkomsiyski/bin/*
++abort/bin/*
+ *~ # Temporary files
+ *.class # Compiled Java
+ .DS_Store

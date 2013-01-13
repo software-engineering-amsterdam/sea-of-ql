@@ -8,10 +8,4 @@ public class Or extends Expression {
 		// TODO Auto-generated constructor stub
 	}
 
-	@Override
-	public Object getValue() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 }
