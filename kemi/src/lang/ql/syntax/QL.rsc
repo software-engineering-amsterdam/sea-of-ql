@@ -7,8 +7,7 @@ syntax FormItem
   | @Foldable ifCondition: "if" Expr condition "{" FormItem+ ifPart "}" ElsIfPart* elseIfs ElsePart? elsePart
   ;
 
-// Keep this elseif for now, using "else if" does not highlight the two words, bug?
-syntax ElsIfPart = @Foldable "elseif" Expr condition "{" FormItem+ body "}";
+syntax ElsIfPart = @Foldable "else" "if" Expr condition "{" FormItem+ body "}";
 
 syntax ElsePart = @Foldable "else" "{" FormItem+ body "}";
 

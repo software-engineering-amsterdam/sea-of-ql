@@ -4,11 +4,11 @@ form ifCondition {
   if(numberOne == 10) {
   	"Question two?"
   	  date theDate
-  } elseif (a == b) {
+  } else if (a == b) {
   	// We also have else if statements.
   	"Foo Bar?"
   	  string aText
-  } elseif (c == d) {
+  } else if (c == d) {
   	// They can be arbitrarily nested
   	"Blah?"
   	  string bText
