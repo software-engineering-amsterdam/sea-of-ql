@@ -1,4 +1,4 @@
-module lang::ql::tests::TestExpressions
+module lang::ql::tests::ASTTests::TestExpressions
 
 import lang::ql::util::Parse;
 import lang::ql::util::Implode;
@@ -15,6 +15,7 @@ public test bool testAdd6() = p("(a + b)") is add;
 public test bool testAdd7() = p("a + b * c") is add;
 public test bool testAdd8() = p("a * b + c") is add;
 
+public test bool testQuestion() = p("test1: \"has name?\" boolean") is simpleQuestion;
 
 public test bool testMul1() = p("a * b") is mul;
 public test bool testMul2() = p("a * b * c") is mul;
