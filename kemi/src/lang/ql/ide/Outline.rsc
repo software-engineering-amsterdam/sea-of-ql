@@ -36,7 +36,7 @@ private node con(str name, str label, loc location, list[node] childs)
 	= setAnnotations(makeNode(name, childs), ("label": label, "loc": location));
 
 // Helper to create a node for a branch of an if/ifelse/... statemnt	
-private node outlineBranch(str name, str label, list[FormItem] items) {
+private node outlineBranch(str name, str label, list[Statement] items) {
 	return 	"<name>"([outline(i) | i <- items])
 			[@label="<label>"]
 			[@\loc=getLocationSpan(items)];
@@ -50,14 +50,14 @@ private node outline(Form form) {
 			[@\loc=form@location];
 }
 
-private node outlineBranch(str name, str label, list[FormItem] items) {
+private node outlineBranch(str name, str label, list[Statement] items) {
 	return 	"<name>"([outline(i) | i <- items])
 			[@label="<label>"]
 			[@\loc=getLocationSpan(items)];
 }
 
-private node outline(FormItem item: 
-	ifCondition(Expr condition, list[FormItem] ifPart, [], [])) {
+private node outline(Statement item: 
+	ifCondition(Expr condition, list[Statement] ifPart, [], [])) {
 	
 	str name = "ifCondition";
 	str label = "If (<prettyPrint(condition)>)";
@@ -66,8 +66,8 @@ private node outline(FormItem item:
 	return con(name, label, item@location, childs);
 }
 
-private node outline(FormItem item: 
-	ifCondition(Expr condition,	list[FormItem] ifPart, [], list[FormItem] elsePart)) {
+private node outline(Statement item: 
+	ifCondition(Expr condition,	list[Statement] ifPart, [], list[Statement] elsePart)) {
 	
 	str name = "ifElseCondition";
 	str label = "If (<prettyPrint(condition)>) else";
@@ -77,8 +77,8 @@ private node outline(FormItem item:
 	return con(name, label, item@location, childs);
 }
 
-private node outline(FormItem item: 
-	ifCondition(Expr condition,	list[FormItem] ifPart, list[ElseIf] elseIfs, [])) {
+private node outline(Statement item: 
+	ifCondition(Expr condition,	list[Statement] ifPart, list[ElseIf] elseIfs, [])) {
 	
 	str name = "ifElseIfCondition";
 	str label = "If (<prettyPrint(condition)>) elseif...";
@@ -88,8 +88,8 @@ private node outline(FormItem item:
 	return con(name, label, item@location, childs);
 }
 
-private node outline(FormItem item: 
-	ifCondition(Expr condition,	list[FormItem] ifPart, list[ElseIf] elseIfs, list[FormItem] elsePart)) {
+private node outline(Statement item: 
+	ifCondition(Expr condition,	list[Statement] ifPart, list[ElseIf] elseIfs, list[Statement] elsePart)) {
 	
 	str name = "ifElseIfElseCondition";
 	str label = "If (<prettyPrint(condition)>) elseif... else";
@@ -100,7 +100,7 @@ private node outline(FormItem item:
 	return con(name, label, item@location, childs);
 }
 
-private node outline(FormItem item: question(Question question)) = outline(question);
+private node outline(Statement item: question(Question question)) = outline(question);
 
 private node outline(Question q: 
 	question(questionText, answerDataType, answerIdentifier)) {

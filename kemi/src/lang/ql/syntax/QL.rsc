@@ -1,15 +1,15 @@
 module lang::ql::syntax::QL
 
-start syntax Form = @Foldable form: "form" Ident formName "{" FormItem+ formElements "}";
+start syntax Form = @Foldable form: "form" Ident formName "{" Statement+ formElements "}";
 
-syntax FormItem 
+syntax Statement 
   = question: Question question
-  | @Foldable ifCondition: "if" Expr condition "{" FormItem+ ifPart "}" ElsIfPart* elseIfs ElsePart? elsePart
+  | @Foldable ifCondition: "if" Expr condition "{" Statement+ ifPart "}" ElsIfPart* elseIfs ElsePart? elsePart
   ;
 
-syntax ElsIfPart = @Foldable "else" "if" Expr condition "{" FormItem+ body "}";
+syntax ElsIfPart = @Foldable "else" "if" Expr condition "{" Statement+ body "}";
 
-syntax ElsePart = @Foldable "else" "{" FormItem+ body "}";
+syntax ElsePart = @Foldable "else" "{" Statement+ body "}";
 
 // What the ...?! Colons don't work, but equals signs do...
 start syntax Question 

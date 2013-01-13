@@ -31,7 +31,7 @@ public str prettyPrint(Form form) {
     '";
 }
 
-public str prettyPrint(FormItem item: question(Question question)) = prettyPrint(question);
+public str prettyPrint(Statement item: question(Question question)) = prettyPrint(question);
 
 public str prettyPrint(Question q: 
   question(questionText, answerDataType, answerIdentifier)) {
@@ -47,16 +47,16 @@ public str prettyPrint(Question q:
   '  <answerDataType> <answerIdentifier> = <prettyPrint(calculatedField)>";
 }
 
-public str prettyPrint(FormItem item: 
-  ifCondition(Expr condition, list[FormItem] ifPart, [], [])) {
+public str prettyPrint(Statement item: 
+  ifCondition(Expr condition, list[Statement] ifPart, [], [])) {
   return 
     "if ( <prettyPrint(condition)> ) { <for (e <- ifPart) {>
     '  <prettyPrint(e)><}>
     '}";
 }
 
-public str prettyPrint(FormItem item: 
-  ifCondition(Expr condition,  list[FormItem] ifPart, [], list[FormItem] elsePart)) {
+public str prettyPrint(Statement item: 
+  ifCondition(Expr condition,  list[Statement] ifPart, [], list[Statement] elsePart)) {
   return 
     "if ( <prettyPrint(condition)> ) { <for (e <- ifPart) {>
     '  <prettyPrint(e)><}>
@@ -65,8 +65,8 @@ public str prettyPrint(FormItem item:
     '}";
 }
 
-public str prettyPrint(FormItem item: 
-  ifCondition(Expr condition,  list[FormItem] ifPart, list[ElseIf] elseIfs, [])) {
+public str prettyPrint(Statement item: 
+  ifCondition(Expr condition,  list[Statement] ifPart, list[ElseIf] elseIfs, [])) {
   return
     "if ( <prettyPrint(condition)> ) { <for (e <- ifPart) {>
     '  <prettyPrint(e)><}> <for (ec <- elseIfs) {>
@@ -75,8 +75,8 @@ public str prettyPrint(FormItem item:
     '}";
 }
 
-public str prettyPrint(FormItem item: 
-  ifCondition(Expr condition,  list[FormItem] ifPart, list[ElseIf] elseIfs, list[FormItem] elsePart)) {
+public str prettyPrint(Statement item: 
+  ifCondition(Expr condition,  list[Statement] ifPart, list[ElseIf] elseIfs, list[Statement] elsePart)) {
   return 
     "if ( <prettyPrint(condition)> ) { <for (e <- ifPart) {>
     '  <prettyPrint(e)><}> <for (ec <- elseIfs) {>
