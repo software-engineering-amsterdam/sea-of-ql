@@ -12,19 +12,19 @@ Coding Style
 * Spaces instead of tabs: window -> pref -> type 'imp' -> IMP -> checkbox 'use spaces instead of tabs'
 * Tab Width: 2 (same dialogue)
 * Curlies of functions on same line, closing on a new line:
-<pre>
+```javascript
 public str foo(int a, int b) {
   return "<a> + <b> = <a + b>";
 }
-</pre>
+```
 * if/else/if parenthesis, curlies etc should be like this:
-<pre>
+```javascript
 if(foo) {
-  // Do something
+  return 1;
 } else if(bar) {
-  // Do something else
+  return 2;
 } else {
-  // The end
+  return 3;
 }
-</pre>
+```
 
