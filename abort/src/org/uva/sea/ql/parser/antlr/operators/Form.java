@@ -5,7 +5,7 @@ import java.util.List;
 import org.uva.sea.ql.ast.Expression;
 
 public class Form extends Expression {
-	public Form(List<FormQuestion> questions) {
+	public Form(List<FormExpression> expressions) {
 		
 	}
 }

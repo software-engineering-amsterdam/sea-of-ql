@@ -110,6 +110,7 @@ public class TestExpressions extends TestCase {
 	
 	@Test
 	public void testIfElseExpression() throws ParseError {
+		// TODO: make a different parser for just if statements, fails now as ifs are dependant on forms
 		try {
 			Expression result = parser.parse("if (\"Hello\") { \"Hello\" } else { \"Hello\" }");
 			assertEquals(IfElse.class, result.getClass());
@@ -124,6 +125,7 @@ public class TestExpressions extends TestCase {
 	
 	@Test
 	public void testIfExpression() throws ParseError {
+		// TODO: make a different parser for just if statements, fails now as ifs are dependant on forms
 		try {
 			assertEquals(If.class, parser.parse("if (\"Hello\") { \"Hello\" }").getClass());			
 		}
@@ -133,8 +135,14 @@ public class TestExpressions extends TestCase {
 	}
 	
 	@Test
-	public void testFormExpression() throws ParseError {
+	public void testSimpleForm() throws ParseError {
 			assertEquals(Form.class, ((ANTLRParser)parser).parseForm(
 					"form Box1HouseOwning { hasSoldHouse: \"Did you sell a house in 2010?\" boolean hasBoughtHouse: \"Did you buy a house in 2010?\" boolean }").getClass());
+	}
+	
+	@Test
+	public void testFormWithIfExpressions() throws ParseError {
+		assertEquals(Form.class, ((ANTLRParser)parser).parseForm(
+				"form Box1HouseOwning { hasSoldHouse: \"Did you sell a house in 2010?\" boolean\nhasBoughtHouse: \"Did you buy a house in 2010?\" boolean\nif (hasSoldHouse) { sellingPrice: \"Price was sold for:\" money } else { reasonNotSelling: \"Why did you not sell the house?\" string\n }\n age: \"How old are you?\" integer\n\n}").getClass());
 	}
 }

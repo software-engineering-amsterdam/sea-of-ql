@@ -32,11 +32,30 @@ package org.uva.sea.ql.parser.antlr;
 // Change the start symbol of the parser to parse forms, instead of Expressions.
 
 formExpression returns [Form result]
- : FORM Ident BLOCK_START expressions=questionArray BLOCK_END {
-
+ : FORM Ident BLOCK_START elements=formElementArray BLOCK_END {
+ 
     
-    $result = new Form(expressions);
+    $result = new Form(elements);
   };
+
+formElementArray returns [List<FormExpression> formExpressions]
+  @init { $formExpressions = new ArrayList<FormExpression>(); }
+  : (e=formElementExpression { $formExpressions.add($e.result); })+;
+
+formElementExpression returns [FormExpression result]
+    : questionExpression { $result = $questionExpression.result; }
+    | formIfExpression { $result = $formIfExpression.result; }
+    ;
+
+formIfExpression returns [IfExpression result]
+    : IF IF_STATEMENT_PREFIX statement=orExpression IF_STATEMENT_SUFFIX BLOCK_START successStatements=formElementArray BLOCK_END ELSE BLOCK_START elseStatements=formElementArray BLOCK_END
+    {
+      $result = new IfElse($statement.result, successStatements, elseStatements);
+    }
+    | IF IF_STATEMENT_PREFIX statement=orExpression IF_STATEMENT_SUFFIX BLOCK_START successStatements=formElementArray BLOCK_END
+    {
+      $result = new If($statement.result, successStatements);
+    };  
 
 questionArray returns [List<FormQuestion> expressions]
     @init { $expressions = new ArrayList<FormQuestion>(); }
@@ -62,19 +81,18 @@ primary returns [Expression result]
   | Ident { $result = new Ident($Ident.text); }
   | String { $result = new StringLiteral($String.text.substring(1, $String.text.length() - 1)); }
   | '(' x=orExpression ')'{ $result = $x.result; }
-  | ifExpression { $result = $ifExpression.result; }
   ;
 
-ifExpression returns [IfExpression result]
-    : IF IF_STATEMENT_PREFIX statement=orExpression IF_STATEMENT_SUFFIX BLOCK_START successStatements=orExpression BLOCK_END ELSE BLOCK_START elseStatements=orExpression BLOCK_END
-    {
-      $result = new IfElse($statement.result, $successStatements.result, $elseStatements.result);
-    }
-    | IF IF_STATEMENT_PREFIX statement=orExpression IF_STATEMENT_SUFFIX BLOCK_START successStatements=orExpression BLOCK_END
-    {
-      $result = new If($statement.result, $successStatements.result);
-    };  
-    
+//ifExpression returns [IfExpression result]
+//    : IF IF_STATEMENT_PREFIX statement=orExpression IF_STATEMENT_SUFFIX BLOCK_START successStatements=orExpression BLOCK_END ELSE BLOCK_START elseStatements=orExpression BLOCK_END
+//    {
+//      $result = new IfElse($statement.result, $successStatements.result, $elseStatements.result);
+//    }
+//    | IF IF_STATEMENT_PREFIX statement=orExpression IF_STATEMENT_SUFFIX BLOCK_START successStatements=orExpression BLOCK_END
+//    {
+//      $result = new If($statement.result, $successStatements.result);
+//    };  
+//    
     
 unExpression returns [Expression result]
     :  '+' x=unExpression { $result = new Pos($x.result); }
