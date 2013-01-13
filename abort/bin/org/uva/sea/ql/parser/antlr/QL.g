@@ -44,15 +44,16 @@ formElementArray returns [List<FormExpression> formExpressions]
 
 formElementExpression returns [FormExpression result]
     : questionExpression { $result = $questionExpression.result; }
+    | computedExpression { $result = $computedExpression.result; }
     | formIfExpression { $result = $formIfExpression.result; }
     ;
 
 formIfExpression returns [IfExpression result]
-    : IF IF_STATEMENT_PREFIX statement=orExpression IF_STATEMENT_SUFFIX BLOCK_START successStatements=formElementArray BLOCK_END ELSE BLOCK_START elseStatements=formElementArray BLOCK_END
+    : IF PARENTHESES_OPEN statement=orExpression PARENTHESES_CLOSE BLOCK_START successStatements=formElementArray BLOCK_END ELSE BLOCK_START elseStatements=formElementArray BLOCK_END
     {
       $result = new IfElse($statement.result, successStatements, elseStatements);
     }
-    | IF IF_STATEMENT_PREFIX statement=orExpression IF_STATEMENT_SUFFIX BLOCK_START successStatements=formElementArray BLOCK_END
+    | IF PARENTHESES_OPEN statement=orExpression PARENTHESES_CLOSE BLOCK_START successStatements=formElementArray BLOCK_END
     {
       $result = new If($statement.result, successStatements);
     };  
@@ -60,6 +61,11 @@ formIfExpression returns [IfExpression result]
 questionArray returns [List<FormQuestion> expressions]
     @init { $expressions = new ArrayList<FormQuestion>(); }
     : (e=questionExpression { $expressions.add($e.result); })+;
+
+computedExpression returns [FormComputed result]
+  : label=Ident ':' question=String parameter=dataTypeExpression PARENTHESES_OPEN operation=orExpression PARENTHESES_CLOSE {
+    $result = new FormComputed($label.text, $question.text, $parameter.result, $operation.result);
+  };
 
 questionExpression returns [FormQuestion result]
   : label=Ident ':' question=String parameter=dataTypeExpression {
@@ -171,8 +177,8 @@ COMMENT
 WS  :	(' ' | '\t' | '\n' | '\r') { $channel=HIDDEN; };
 
 IF: 'if';
-IF_STATEMENT_PREFIX: '(';
-IF_STATEMENT_SUFFIX: ')';
+PARENTHESES_OPEN: '(';
+PARENTHESES_CLOSE: ')';
 BLOCK_START: '{';
 BLOCK_END: '}';
 ELSE: 'else';
