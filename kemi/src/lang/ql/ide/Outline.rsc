@@ -45,16 +45,16 @@ private node outline(Statement item:
   bool elseIfBlock = false;
   bool elseBlock = false;
 
-  childs = [outlineBranch("ifPart", "<prettyPrint(ifPart.condition)>", item@location, ifPart.body)];
-  
+  childs = [outlineBranch("ifPart", "<prettyPrint(ifPart.condition)>", ifPart@location, ifPart.body)];
+
   if (elseIfs != []) {
     elseIfBlock = true;
-    childs += [outlineBranch("elseIf", "<prettyPrint(branch.condition)>", item@location, branch.body) | branch <- elseIfs];
+    childs += [outlineBranch("elseIf", "<prettyPrint(branch.condition)>", branch@location, branch.body) | branch <- elseIfs];
   }
 
   if(elsePart != []) {
     elseBlock = true;
-    childs += outlineBranch("elsePart", "else", item@location, elsePart);
+    childs += [outlineBranch("elsePart", "else", ifPart@location, elsePart)];
   }
 
   if(elseIfBlock && elseBlock) {

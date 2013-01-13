@@ -1,2 +1,2 @@
-* Fixing the length of location annotations in the outline (fixed at a static 10 now).
+* Fixing the 'else' location annotation. It is (for now) a copy of the if part.
 * De-obfuscating the conditionals grammar
