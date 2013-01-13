@@ -24,14 +24,14 @@ import lang::ql::tests::expressions::Subtraction;
 
 import lang::ql::tests::questions::Questions;
 
-import lang::ql::tests::forms::FormsGrammar;
-import lang::ql::tests::forms::FormsOutline;
-import lang::ql::tests::forms::ForsPrettyPrinter;
+import lang::ql::tests::forms::Grammar;
+import lang::ql::tests::forms::Outline;
+import lang::ql::tests::forms::PrettyPrinter;
 
 import IO;
 
 public void main() {
-	println("1) Load this module to import all modules that contain tests");
-	println("2) When every module is loaded, all unit tests can be run with a simple :test");
-	println("3) Wait for the tests to finish, and be done with it");
+  println("1) Load this module to import all modules that contain tests");
+  println("2) When every module is loaded, all unit tests can be run with a simple :test");
+  println("3) Wait for the tests to finish, and be done with it");
 }

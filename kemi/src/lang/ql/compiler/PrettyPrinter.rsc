@@ -9,19 +9,6 @@ import util::ValueUI;
 
 private Form p(loc f) = implode(parse(readFile(f), |file:///-|));
 
-public void main() {
-  f = p(|project://QL-R-kemi/forms/uglyFormatted.q|);
-  println("Form: <f>");
-  pf = prettyPrint(f);
-  println("Pretty: ");
-  iprintln(pf);
-  text(pf);
-  writeFile(|tmp:///out|, pf);
-  
-  f2 = p(|tmp:///out|);
-  println(f == f2);
-}
-
 // The root note of the form
 public str prettyPrint(Form form) {
   return 
@@ -31,57 +18,57 @@ public str prettyPrint(Form form) {
     '";
 }
 
-public str prettyPrint(FormItem item: question(Question question)) = prettyPrint(question);
+public str prettyPrint(Statement item: question(Question question)) = prettyPrint(question);
 
 public str prettyPrint(Question q: 
   question(questionText, answerDataType, answerIdentifier)) {
   return
-  "<questionText>
-  '  <answerDataType> <answerIdentifier>";
+    "<questionText>
+    '  <answerDataType> <answerIdentifier>";
 }
 
 public str prettyPrint(Question q: 
   question(questionText, answerDataType, answerIdentifier, calculatedField)) {
   return
-  "<questionText>
-  '  <answerDataType> <answerIdentifier> = <prettyPrint(calculatedField)>";
+    "<questionText>
+    '  <answerDataType> <answerIdentifier> = <prettyPrint(calculatedField)>";
 }
 
-public str prettyPrint(FormItem item: 
-  ifCondition(Expr condition, list[FormItem] ifPart, [], [])) {
+public str prettyPrint(Statement item: 
+  ifCondition(Conditional ifPart, [], [])) {
   return 
-    "if ( <prettyPrint(condition)> ) { <for (e <- ifPart) {>
+    "if ( <prettyPrint(ifPart.condition)> ) { <for (e <- ifPart.body) {>
     '  <prettyPrint(e)><}>
     '}";
 }
 
-public str prettyPrint(FormItem item: 
-  ifCondition(Expr condition,  list[FormItem] ifPart, [], list[FormItem] elsePart)) {
+public str prettyPrint(Statement item: 
+  ifCondition(Conditional ifPart, [], list[Statement] elsePart)) {
   return 
-    "if ( <prettyPrint(condition)> ) { <for (e <- ifPart) {>
+    "if ( <prettyPrint(ifPart.condition)> ) { <for (e <- ifPart.body) {>
     '  <prettyPrint(e)><}>
     '} else { <for (e <- elsePart) {>
     '  <prettyPrint(e)><}>
     '}";
 }
 
-public str prettyPrint(FormItem item: 
-  ifCondition(Expr condition,  list[FormItem] ifPart, list[ElseIf] elseIfs, [])) {
+public str prettyPrint(Statement item: 
+  ifCondition(Conditional ifPart, list[Conditional] elseIfs, [])) {
   return
-    "if ( <prettyPrint(condition)> ) { <for (e <- ifPart) {>
-    '  <prettyPrint(e)><}> <for (ec <- elseIfs) {>
-    '} elseif ( <prettyPrint(ec.condition)> ) { <for (eb <- ec.body) {>
-    '  <prettyPrint(eb)><}><}>
+    "if ( <prettyPrint(ifPart.condition)> ) { <for (e <- ifPart.body) {>
+    '  <prettyPrint(e)><}> <for (elsePart <- elseIfs) {>
+    '} elseif ( <prettyPrint(elsePart.condition)> ) { <for (ee <- elsePart.body) {>
+    '  <prettyPrint(ee)><}><}>
     '}";
 }
 
-public str prettyPrint(FormItem item: 
-  ifCondition(Expr condition,  list[FormItem] ifPart, list[ElseIf] elseIfs, list[FormItem] elsePart)) {
+public str prettyPrint(Statement item: 
+  ifCondition(Conditional ifPart, list[Conditional] elseIfs, list[Statement] elsePart)) {
   return 
-    "if ( <prettyPrint(condition)> ) { <for (e <- ifPart) {>
-    '  <prettyPrint(e)><}> <for (ec <- elseIfs) {>
-    '} elseif ( <prettyPrint(ec.condition)> ) { <for (eb <- ec.body) {>
-    '  <prettyPrint(eb)><}><}>
+    "if ( <prettyPrint(ifPart.condition)> ) { <for (e <- ifPart.body) {>
+    '  <prettyPrint(e)><}> <for (elseifPart <- elseIfs) {>
+    '} elseif ( <prettyPrint(elseifPart.condition)> ) { <for (e <- elseifPart.body) {>
+    '  <prettyPrint(e)><}><}>
     '} else { <for (e <- elsePart) {>
     '  <prettyPrint(e)><}>
     '}";

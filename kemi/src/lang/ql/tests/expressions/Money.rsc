@@ -1,19 +1,11 @@
 module lang::ql::tests::expressions::Money
 
-import ParseTree;
-
 import lang::ql::ast::AST;
-import lang::ql::syntax::QL;
-import lang::ql::util::Parse;
+import lang::ql::tests::expressions::ParseHelper;
 
-private start[Expr] parse(str src, loc l) = parse(#start[Expr], src, l);
-
-private Expr implode(Tree t) = implode(#Expr, t);
-private Expr p(str src) = implode(parse(src, |file:///-|));
-
-public test bool testMoney1() = p("9.21") is money;
-public test bool testMoney2() = p("2.") is money;
-public test bool testMoney3() = p("0.5") is money;
-public test bool testMoney1() = p("1.2") is money;
-public test bool testMoney2() = p("2.00") is money;
-public test bool testMoney3() = p("0.99") is money;
+public test bool testMoney1() = parse("9.21") is money;
+public test bool testMoney2() = parse("2.") is money;
+public test bool testMoney3() = parse("0.5") is money;
+public test bool testMoney1() = parse("1.2") is money;
+public test bool testMoney2() = parse("2.00") is money;
+public test bool testMoney3() = parse("0.99") is money;
