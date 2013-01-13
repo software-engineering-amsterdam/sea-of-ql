@@ -14,8 +14,8 @@ public Contribution getOutliner()
     });
 
 
-private node outline(node n) {
-	top-down visit (n) {
+private node outline(node input) {
+	top-down-break visit (input) {
 	
 	case F:form(name, statements): 
 		return "form"(getNodesFromStatements(statements))
@@ -30,9 +30,9 @@ private node outline(node n) {
 				[@label="<name>"][@\loc=C@location];
 	
 	// note: label is only the first condition, any further "else if"s are ignored
-	case I:conditional(ifStatement, _, _): 
-		return "condQuestion"(getNodesFromStatements(flatten(I)))
-				[@label=unparse(I.ifStatement.condition)][@\loc=I@location];
+	case C:conditional(ifStatement, _, _): 
+		return "condQuestion"(getNodesFromStatements(flatten(C)))
+				[@label=unparse(C.ifStatement.condition)][@\loc=C@location];
 	
 	default: 
 		throw IllegalArgument();
@@ -41,14 +41,18 @@ private node outline(node n) {
 
 
 private list[node] getNodesFromStatements(list[Statement] s) 
-  = ["regular"([outline(r) | r <- separate(s).regs])[@label="Regular (<size(separate(s).regs)>)"],
-	 "computed"([outline(c) | c <- separate(s).comps])[@label="Computed (<size(separate(s).comps)>)"],
-	 "conditional"([outline(c) | c <- separate(s).conds])[@label="Conditional (<size(separate(s).conds)>)"]];
+  = ["regular"([outline(r) | r <- separate(s).regs])
+  			  [@label="Regular (<size(separate(s).regs)>)"],
+	 "computed"([outline(c) | c <- separate(s).comps])
+	 		   [@label="Computed (<size(separate(s).comps)>)"],
+	 "conditional"([outline(c) | c <- separate(s).conds])
+	 			  [@label="Conditional (<size(separate(s).conds)>)"]];
+
 
 // needed for the conditional label; 
 // it's impossible to use library functions because the expression is already imploded 
 private str unparse(Expr expr) {
-	top-down visit (expr) {
+	top-down-break visit (expr) {
 	case ident(name): return name;
 	case \int(val): return "<val>";
 	case pos(e): return "+" + unparse(e);

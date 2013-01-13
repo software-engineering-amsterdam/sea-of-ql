@@ -8,10 +8,14 @@ data Statement
   = regular(str \type, str name, str label)
   | computed(str \type, str name, str label, Expr expr)
   | conditional(IfStatement ifStatement, list[IfStatement] elseIfs, list[Statement] elsePart);
-  
+   
 data Expr
   = ident(str name)
   | \int(int ivalue)
+  | \bool(bool bvalue)
+  | string(str svalue)
+//  | float (real fvalue)
+//  | date(str dvalue)
   
   | pos(Expr expr)
   | neg(Expr expr)
@@ -39,14 +43,20 @@ alias SeparatedStatements = tuple[list[Statement] regs, list[Statement] comps, l
 
 // return a list of all top level statements contained in a conditional
 public list[Statement] flatten(Statement s:conditional(i,[],e)) = s.ifStatement.body + e;  
-public list[Statement] flatten(Statement s:conditional(i,ei,e)) = s.ifStatement.body + flatten(conditional(head(ei), tail(ei), e));  
+public list[Statement] flatten(Statement s:conditional(i,ei,e)) 
+  = s.ifStatement.body + flatten(conditional(head(ei), tail(ei), e));  
 
 // return a tuple with groups of different kinds of statements
 public SeparatedStatements separate(list[Statement] s) = 
   <[r | r:regular(_,_,_) <- s], [c | c:computed(_,_,_,_) <- s], [c | c:conditional(_,_,_) <- s]>;
 
+// get all expressions from a conditional statement
+public list[Expr] getExpressions(Statement s: conditional(i,[],_)) = [s.ifStatement.condition]; 
+public list[Expr] getExpressions(Statement s: conditional(i,ie,e)) 
+  = [s.ifStatement.condition] + getExpressions(conditional(head(ei), tail(ei), e));
 
 anno loc Form@location;
 anno loc Statement@location;
+anno loc Expr@location;
   
   
