@@ -13,5 +13,6 @@ public test bool testIfCondition() = parse(|project://QL-R-kemi/forms/ifConditio
 public test bool testIfElseCondition() = parse(|project://QL-R-kemi/forms/ifElseCondition.q|) is form;
 public test bool testIfElseIfCondition() = parse(|project://QL-R-kemi/forms/ifElseIfCondition.q|) is form;
 public test bool testIfElseIfElseCondition() = parse(|project://QL-R-kemi/forms/ifElseIfElseCondition.q|) is form;
+public test bool testNestedIfElseIfElseCondition() = parse(|project://QL-R-kemi/forms/nestedIfElseIfElseCondition.q|) is form;
 public test bool testCalculatedField() = parse(|project://QL-R-kemi/forms/calculatedField.q|) is form;
 public test bool testUglyFormattedForm() = parse(|project://QL-R-kemi/forms/uglyFormatted.q|) is form;
