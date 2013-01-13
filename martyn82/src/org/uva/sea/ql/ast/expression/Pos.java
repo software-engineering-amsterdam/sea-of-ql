@@ -1,6 +1,5 @@
 package org.uva.sea.ql.ast.expression;
 
-import org.uva.sea.ql.ast.Expression;
 import org.uva.sea.ql.visitor.Visitor;
 
 /**

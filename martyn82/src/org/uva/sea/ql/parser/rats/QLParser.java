@@ -25,6 +25,7 @@ import org.uva.sea.ql.ast.expression.Add;
 import org.uva.sea.ql.ast.expression.And;
 import org.uva.sea.ql.ast.expression.Div;
 import org.uva.sea.ql.ast.expression.Eq;
+import org.uva.sea.ql.ast.expression.Expression;
 import org.uva.sea.ql.ast.expression.GEq;
 import org.uva.sea.ql.ast.expression.GT;
 import org.uva.sea.ql.ast.expression.Ident;

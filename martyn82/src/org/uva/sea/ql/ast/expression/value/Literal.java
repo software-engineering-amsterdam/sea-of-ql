@@ -1,6 +1,6 @@
-package org.uva.sea.ql.ast.expression;
+package org.uva.sea.ql.ast.expression.value;
 
-import org.uva.sea.ql.ast.Expression;
+import org.uva.sea.ql.ast.expression.Expression;
 
 /**
  * Represents a literal expression.

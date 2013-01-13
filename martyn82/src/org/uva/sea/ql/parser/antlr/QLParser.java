@@ -1,7 +1,6 @@
-// $ANTLR 3.4 src/org/uva/sea/ql/parser/antlr/QL.g 2013-01-13 14:14:08
+// $ANTLR 3.4 src/org/uva/sea/ql/parser/antlr/QL.g 2013-01-13 14:31:52
 
 package org.uva.sea.ql.parser.antlr;
-import org.uva.sea.ql.ast.*;
 import org.uva.sea.ql.ast.expression.*;
 import org.uva.sea.ql.ast.expression.value.*;
 
@@ -66,7 +65,7 @@ public class QLParser extends Parser {
 
 
     // $ANTLR start "primary"
-    // src/org/uva/sea/ql/parser/antlr/QL.g:17:1: primary returns [Expression result] : ( Bool | Int | strExpr | Ident | '(' x= orExpr ')' );
+    // src/org/uva/sea/ql/parser/antlr/QL.g:16:1: primary returns [Expression result] : ( Bool | Int | strExpr | Ident | '(' x= orExpr ')' );
     public final Expression primary() throws RecognitionException {
         Expression result = null;
 
@@ -83,7 +82,7 @@ public class QLParser extends Parser {
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 1) ) { return result; }
 
-            // src/org/uva/sea/ql/parser/antlr/QL.g:18:3: ( Bool | Int | strExpr | Ident | '(' x= orExpr ')' )
+            // src/org/uva/sea/ql/parser/antlr/QL.g:17:3: ( Bool | Int | strExpr | Ident | '(' x= orExpr ')' )
             int alt1=5;
             switch ( input.LA(1) ) {
             case Bool:
@@ -122,7 +121,7 @@ public class QLParser extends Parser {
 
             switch (alt1) {
                 case 1 :
-                    // src/org/uva/sea/ql/parser/antlr/QL.g:18:5: Bool
+                    // src/org/uva/sea/ql/parser/antlr/QL.g:17:5: Bool
                     {
                     Bool1=(Token)match(input,Bool,FOLLOW_Bool_in_primary46); if (state.failed) return result;
 
@@ -131,7 +130,7 @@ public class QLParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // src/org/uva/sea/ql/parser/antlr/QL.g:19:5: Int
+                    // src/org/uva/sea/ql/parser/antlr/QL.g:18:5: Int
                     {
                     Int2=(Token)match(input,Int,FOLLOW_Int_in_primary66); if (state.failed) return result;
 
@@ -140,7 +139,7 @@ public class QLParser extends Parser {
                     }
                     break;
                 case 3 :
-                    // src/org/uva/sea/ql/parser/antlr/QL.g:20:5: strExpr
+                    // src/org/uva/sea/ql/parser/antlr/QL.g:19:5: strExpr
                     {
                     pushFollow(FOLLOW_strExpr_in_primary87);
                     strExpr3=strExpr();
@@ -153,7 +152,7 @@ public class QLParser extends Parser {
                     }
                     break;
                 case 4 :
-                    // src/org/uva/sea/ql/parser/antlr/QL.g:21:5: Ident
+                    // src/org/uva/sea/ql/parser/antlr/QL.g:20:5: Ident
                     {
                     Ident4=(Token)match(input,Ident,FOLLOW_Ident_in_primary104); if (state.failed) return result;
 
@@ -162,7 +161,7 @@ public class QLParser extends Parser {
                     }
                     break;
                 case 5 :
-                    // src/org/uva/sea/ql/parser/antlr/QL.g:22:5: '(' x= orExpr ')'
+                    // src/org/uva/sea/ql/parser/antlr/QL.g:21:5: '(' x= orExpr ')'
                     {
                     match(input,13,FOLLOW_13_in_primary123); if (state.failed) return result;
 
@@ -198,7 +197,7 @@ public class QLParser extends Parser {
 
 
     // $ANTLR start "strExpr"
-    // src/org/uva/sea/ql/parser/antlr/QL.g:25:1: strExpr returns [Str result] : Str ;
+    // src/org/uva/sea/ql/parser/antlr/QL.g:24:1: strExpr returns [Str result] : Str ;
     public final Str strExpr() throws RecognitionException {
         Str result = null;
 
@@ -209,8 +208,8 @@ public class QLParser extends Parser {
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 2) ) { return result; }
 
-            // src/org/uva/sea/ql/parser/antlr/QL.g:26:3: ( Str )
-            // src/org/uva/sea/ql/parser/antlr/QL.g:26:5: Str
+            // src/org/uva/sea/ql/parser/antlr/QL.g:25:3: ( Str )
+            // src/org/uva/sea/ql/parser/antlr/QL.g:25:5: Str
             {
             Str5=(Token)match(input,Str,FOLLOW_Str_in_strExpr148); if (state.failed) return result;
 
@@ -236,7 +235,7 @@ public class QLParser extends Parser {
 
 
     // $ANTLR start "unExpr"
-    // src/org/uva/sea/ql/parser/antlr/QL.g:29:1: unExpr returns [Expression result] : ( '+' x= unExpr | '-' x= unExpr | '!' x= unExpr |x= primary );
+    // src/org/uva/sea/ql/parser/antlr/QL.g:28:1: unExpr returns [Expression result] : ( '+' x= unExpr | '-' x= unExpr | '!' x= unExpr |x= primary );
     public final Expression unExpr() throws RecognitionException {
         Expression result = null;
 
@@ -248,7 +247,7 @@ public class QLParser extends Parser {
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 3) ) { return result; }
 
-            // src/org/uva/sea/ql/parser/antlr/QL.g:30:5: ( '+' x= unExpr | '-' x= unExpr | '!' x= unExpr |x= primary )
+            // src/org/uva/sea/ql/parser/antlr/QL.g:29:5: ( '+' x= unExpr | '-' x= unExpr | '!' x= unExpr |x= primary )
             int alt2=4;
             switch ( input.LA(1) ) {
             case 16:
@@ -286,7 +285,7 @@ public class QLParser extends Parser {
 
             switch (alt2) {
                 case 1 :
-                    // src/org/uva/sea/ql/parser/antlr/QL.g:30:8: '+' x= unExpr
+                    // src/org/uva/sea/ql/parser/antlr/QL.g:29:8: '+' x= unExpr
                     {
                     match(input,16,FOLLOW_16_in_unExpr174); if (state.failed) return result;
 
@@ -301,7 +300,7 @@ public class QLParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // src/org/uva/sea/ql/parser/antlr/QL.g:31:8: '-' x= unExpr
+                    // src/org/uva/sea/ql/parser/antlr/QL.g:30:8: '-' x= unExpr
                     {
                     match(input,17,FOLLOW_17_in_unExpr189); if (state.failed) return result;
 
@@ -316,7 +315,7 @@ public class QLParser extends Parser {
                     }
                     break;
                 case 3 :
-                    // src/org/uva/sea/ql/parser/antlr/QL.g:32:8: '!' x= unExpr
+                    // src/org/uva/sea/ql/parser/antlr/QL.g:31:8: '!' x= unExpr
                     {
                     match(input,10,FOLLOW_10_in_unExpr204); if (state.failed) return result;
 
@@ -331,7 +330,7 @@ public class QLParser extends Parser {
                     }
                     break;
                 case 4 :
-                    // src/org/uva/sea/ql/parser/antlr/QL.g:33:8: x= primary
+                    // src/org/uva/sea/ql/parser/antlr/QL.g:32:8: x= primary
                     {
                     pushFollow(FOLLOW_primary_in_unExpr221);
                     x=primary();
@@ -363,7 +362,7 @@ public class QLParser extends Parser {
 
 
     // $ANTLR start "mulExpr"
-    // src/org/uva/sea/ql/parser/antlr/QL.g:36:1: mulExpr returns [Expression result] : lhs= unExpr (op= ( '*' | '/' ) rhs= unExpr )* ;
+    // src/org/uva/sea/ql/parser/antlr/QL.g:35:1: mulExpr returns [Expression result] : lhs= unExpr (op= ( '*' | '/' ) rhs= unExpr )* ;
     public final Expression mulExpr() throws RecognitionException {
         Expression result = null;
 
@@ -378,8 +377,8 @@ public class QLParser extends Parser {
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 4) ) { return result; }
 
-            // src/org/uva/sea/ql/parser/antlr/QL.g:37:5: (lhs= unExpr (op= ( '*' | '/' ) rhs= unExpr )* )
-            // src/org/uva/sea/ql/parser/antlr/QL.g:37:9: lhs= unExpr (op= ( '*' | '/' ) rhs= unExpr )*
+            // src/org/uva/sea/ql/parser/antlr/QL.g:36:5: (lhs= unExpr (op= ( '*' | '/' ) rhs= unExpr )* )
+            // src/org/uva/sea/ql/parser/antlr/QL.g:36:9: lhs= unExpr (op= ( '*' | '/' ) rhs= unExpr )*
             {
             pushFollow(FOLLOW_unExpr_in_mulExpr255);
             lhs=unExpr();
@@ -389,7 +388,7 @@ public class QLParser extends Parser {
 
             if ( state.backtracking==0 ) { result =lhs; }
 
-            // src/org/uva/sea/ql/parser/antlr/QL.g:37:45: (op= ( '*' | '/' ) rhs= unExpr )*
+            // src/org/uva/sea/ql/parser/antlr/QL.g:36:45: (op= ( '*' | '/' ) rhs= unExpr )*
             loop3:
             do {
                 int alt3=2;
@@ -402,7 +401,7 @@ public class QLParser extends Parser {
 
                 switch (alt3) {
             	case 1 :
-            	    // src/org/uva/sea/ql/parser/antlr/QL.g:37:47: op= ( '*' | '/' ) rhs= unExpr
+            	    // src/org/uva/sea/ql/parser/antlr/QL.g:36:47: op= ( '*' | '/' ) rhs= unExpr
             	    {
             	    op=(Token)input.LT(1);
 
@@ -462,7 +461,7 @@ public class QLParser extends Parser {
 
 
     // $ANTLR start "addExpr"
-    // src/org/uva/sea/ql/parser/antlr/QL.g:49:1: addExpr returns [Expression result] : lhs= mulExpr (op= ( '+' | '-' ) rhs= mulExpr )* ;
+    // src/org/uva/sea/ql/parser/antlr/QL.g:48:1: addExpr returns [Expression result] : lhs= mulExpr (op= ( '+' | '-' ) rhs= mulExpr )* ;
     public final Expression addExpr() throws RecognitionException {
         Expression result = null;
 
@@ -477,8 +476,8 @@ public class QLParser extends Parser {
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 5) ) { return result; }
 
-            // src/org/uva/sea/ql/parser/antlr/QL.g:50:5: (lhs= mulExpr (op= ( '+' | '-' ) rhs= mulExpr )* )
-            // src/org/uva/sea/ql/parser/antlr/QL.g:50:9: lhs= mulExpr (op= ( '+' | '-' ) rhs= mulExpr )*
+            // src/org/uva/sea/ql/parser/antlr/QL.g:49:5: (lhs= mulExpr (op= ( '+' | '-' ) rhs= mulExpr )* )
+            // src/org/uva/sea/ql/parser/antlr/QL.g:49:9: lhs= mulExpr (op= ( '+' | '-' ) rhs= mulExpr )*
             {
             pushFollow(FOLLOW_mulExpr_in_addExpr316);
             lhs=mulExpr();
@@ -488,7 +487,7 @@ public class QLParser extends Parser {
 
             if ( state.backtracking==0 ) { result =lhs; }
 
-            // src/org/uva/sea/ql/parser/antlr/QL.g:50:46: (op= ( '+' | '-' ) rhs= mulExpr )*
+            // src/org/uva/sea/ql/parser/antlr/QL.g:49:46: (op= ( '+' | '-' ) rhs= mulExpr )*
             loop4:
             do {
                 int alt4=2;
@@ -501,7 +500,7 @@ public class QLParser extends Parser {
 
                 switch (alt4) {
             	case 1 :
-            	    // src/org/uva/sea/ql/parser/antlr/QL.g:50:48: op= ( '+' | '-' ) rhs= mulExpr
+            	    // src/org/uva/sea/ql/parser/antlr/QL.g:49:48: op= ( '+' | '-' ) rhs= mulExpr
             	    {
             	    op=(Token)input.LT(1);
 
@@ -561,7 +560,7 @@ public class QLParser extends Parser {
 
 
     // $ANTLR start "relExpr"
-    // src/org/uva/sea/ql/parser/antlr/QL.g:61:1: relExpr returns [Expression result] : lhs= addExpr (op= ( '<' | '<=' | '>' | '>=' | '==' | '!=' ) rhs= addExpr )* ;
+    // src/org/uva/sea/ql/parser/antlr/QL.g:60:1: relExpr returns [Expression result] : lhs= addExpr (op= ( '<' | '<=' | '>' | '>=' | '==' | '!=' ) rhs= addExpr )* ;
     public final Expression relExpr() throws RecognitionException {
         Expression result = null;
 
@@ -576,8 +575,8 @@ public class QLParser extends Parser {
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 6) ) { return result; }
 
-            // src/org/uva/sea/ql/parser/antlr/QL.g:62:5: (lhs= addExpr (op= ( '<' | '<=' | '>' | '>=' | '==' | '!=' ) rhs= addExpr )* )
-            // src/org/uva/sea/ql/parser/antlr/QL.g:62:9: lhs= addExpr (op= ( '<' | '<=' | '>' | '>=' | '==' | '!=' ) rhs= addExpr )*
+            // src/org/uva/sea/ql/parser/antlr/QL.g:61:5: (lhs= addExpr (op= ( '<' | '<=' | '>' | '>=' | '==' | '!=' ) rhs= addExpr )* )
+            // src/org/uva/sea/ql/parser/antlr/QL.g:61:9: lhs= addExpr (op= ( '<' | '<=' | '>' | '>=' | '==' | '!=' ) rhs= addExpr )*
             {
             pushFollow(FOLLOW_addExpr_in_relExpr369);
             lhs=addExpr();
@@ -587,7 +586,7 @@ public class QLParser extends Parser {
 
             if ( state.backtracking==0 ) { result =lhs; }
 
-            // src/org/uva/sea/ql/parser/antlr/QL.g:62:46: (op= ( '<' | '<=' | '>' | '>=' | '==' | '!=' ) rhs= addExpr )*
+            // src/org/uva/sea/ql/parser/antlr/QL.g:61:46: (op= ( '<' | '<=' | '>' | '>=' | '==' | '!=' ) rhs= addExpr )*
             loop5:
             do {
                 int alt5=2;
@@ -600,7 +599,7 @@ public class QLParser extends Parser {
 
                 switch (alt5) {
             	case 1 :
-            	    // src/org/uva/sea/ql/parser/antlr/QL.g:62:48: op= ( '<' | '<=' | '>' | '>=' | '==' | '!=' ) rhs= addExpr
+            	    // src/org/uva/sea/ql/parser/antlr/QL.g:61:48: op= ( '<' | '<=' | '>' | '>=' | '==' | '!=' ) rhs= addExpr
             	    {
             	    op=(Token)input.LT(1);
 
@@ -672,7 +671,7 @@ public class QLParser extends Parser {
 
 
     // $ANTLR start "andExpr"
-    // src/org/uva/sea/ql/parser/antlr/QL.g:85:1: andExpr returns [Expression result] : lhs= relExpr ( '&&' rhs= relExpr )* ;
+    // src/org/uva/sea/ql/parser/antlr/QL.g:84:1: andExpr returns [Expression result] : lhs= relExpr ( '&&' rhs= relExpr )* ;
     public final Expression andExpr() throws RecognitionException {
         Expression result = null;
 
@@ -686,8 +685,8 @@ public class QLParser extends Parser {
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 7) ) { return result; }
 
-            // src/org/uva/sea/ql/parser/antlr/QL.g:86:5: (lhs= relExpr ( '&&' rhs= relExpr )* )
-            // src/org/uva/sea/ql/parser/antlr/QL.g:86:9: lhs= relExpr ( '&&' rhs= relExpr )*
+            // src/org/uva/sea/ql/parser/antlr/QL.g:85:5: (lhs= relExpr ( '&&' rhs= relExpr )* )
+            // src/org/uva/sea/ql/parser/antlr/QL.g:85:9: lhs= relExpr ( '&&' rhs= relExpr )*
             {
             pushFollow(FOLLOW_relExpr_in_andExpr431);
             lhs=relExpr();
@@ -697,7 +696,7 @@ public class QLParser extends Parser {
 
             if ( state.backtracking==0 ) { result =lhs; }
 
-            // src/org/uva/sea/ql/parser/antlr/QL.g:86:46: ( '&&' rhs= relExpr )*
+            // src/org/uva/sea/ql/parser/antlr/QL.g:85:46: ( '&&' rhs= relExpr )*
             loop6:
             do {
                 int alt6=2;
@@ -710,7 +709,7 @@ public class QLParser extends Parser {
 
                 switch (alt6) {
             	case 1 :
-            	    // src/org/uva/sea/ql/parser/antlr/QL.g:86:48: '&&' rhs= relExpr
+            	    // src/org/uva/sea/ql/parser/antlr/QL.g:85:48: '&&' rhs= relExpr
             	    {
             	    match(input,12,FOLLOW_12_in_andExpr437); if (state.failed) return result;
 
@@ -751,7 +750,7 @@ public class QLParser extends Parser {
 
 
     // $ANTLR start "orExpr"
-    // src/org/uva/sea/ql/parser/antlr/QL.g:90:1: orExpr returns [Expression result] : lhs= andExpr ( '||' rhs= andExpr )* ;
+    // src/org/uva/sea/ql/parser/antlr/QL.g:89:1: orExpr returns [Expression result] : lhs= andExpr ( '||' rhs= andExpr )* ;
     public final Expression orExpr() throws RecognitionException {
         Expression result = null;
 
@@ -765,8 +764,8 @@ public class QLParser extends Parser {
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 8) ) { return result; }
 
-            // src/org/uva/sea/ql/parser/antlr/QL.g:91:5: (lhs= andExpr ( '||' rhs= andExpr )* )
-            // src/org/uva/sea/ql/parser/antlr/QL.g:91:9: lhs= andExpr ( '||' rhs= andExpr )*
+            // src/org/uva/sea/ql/parser/antlr/QL.g:90:5: (lhs= andExpr ( '||' rhs= andExpr )* )
+            // src/org/uva/sea/ql/parser/antlr/QL.g:90:9: lhs= andExpr ( '||' rhs= andExpr )*
             {
             pushFollow(FOLLOW_andExpr_in_orExpr476);
             lhs=andExpr();
@@ -776,7 +775,7 @@ public class QLParser extends Parser {
 
             if ( state.backtracking==0 ) { result = lhs; }
 
-            // src/org/uva/sea/ql/parser/antlr/QL.g:91:48: ( '||' rhs= andExpr )*
+            // src/org/uva/sea/ql/parser/antlr/QL.g:90:48: ( '||' rhs= andExpr )*
             loop7:
             do {
                 int alt7=2;
@@ -789,7 +788,7 @@ public class QLParser extends Parser {
 
                 switch (alt7) {
             	case 1 :
-            	    // src/org/uva/sea/ql/parser/antlr/QL.g:91:50: '||' rhs= andExpr
+            	    // src/org/uva/sea/ql/parser/antlr/QL.g:90:50: '||' rhs= andExpr
             	    {
             	    match(input,24,FOLLOW_24_in_orExpr482); if (state.failed) return result;
 

@@ -1,9 +1,9 @@
 package org.uva.sea.ql.visitor;
 
-import org.uva.sea.ql.ast.Expression;
 import org.uva.sea.ql.ast.expression.BinaryExpression;
-import org.uva.sea.ql.ast.expression.Literal;
+import org.uva.sea.ql.ast.expression.Expression;
 import org.uva.sea.ql.ast.expression.UnaryExpression;
+import org.uva.sea.ql.ast.expression.value.Literal;
 
 /**
  * Visitor that prints the AST.

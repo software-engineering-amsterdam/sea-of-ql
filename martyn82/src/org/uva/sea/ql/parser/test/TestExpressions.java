@@ -6,6 +6,7 @@ import org.junit.Test;
 import org.uva.sea.ql.ast.expression.*;
 import org.uva.sea.ql.ast.expression.value.Bool;
 import org.uva.sea.ql.ast.expression.value.Int;
+import org.uva.sea.ql.ast.expression.value.Str;
 import org.uva.sea.ql.parser.antlr.ANTLRParser;
 
 /**
@@ -183,6 +184,20 @@ public class TestExpressions {
 	public void testBools() throws ParseError {
 		assertEquals( Bool.class, parser.parse( "true" ).getClass() );
 		assertEquals( Bool.class, parser.parse( "false" ).getClass() );
+	}
+	
+	/**
+	 * Tests string literals.
+	 * 
+	 * @throws ParseError
+	 */
+	@Test
+	public void testStrings() throws ParseError {
+		assertEquals( Str.class, parser.parse( "\"\"" ).getClass() );
+		assertEquals( Str.class, parser.parse( "\"abc\"" ).getClass() );
+		assertEquals( Str.class, parser.parse( "\"321\"" ).getClass() );
+		assertEquals( Str.class, parser.parse( "\"s1t2r3\"" ).getClass() );
+		assertEquals( Str.class, parser.parse( "\"-53\"" ).getClass() );
 	}
 	
 	/**

@@ -1,6 +1,5 @@
 package org.uva.sea.ql.ast.expression;
 
-import org.uva.sea.ql.ast.Expression;
 
 /**
  * Represents a binary expression.

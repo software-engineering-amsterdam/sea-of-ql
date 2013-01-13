@@ -1,4 +1,4 @@
-// $ANTLR 3.4 src/org/uva/sea/ql/parser/antlr/QL.g 2013-01-13 14:14:08
+// $ANTLR 3.4 src/org/uva/sea/ql/parser/antlr/QL.g 2013-01-13 14:31:52
 
 package org.uva.sea.ql.parser.antlr;
 
@@ -380,8 +380,8 @@ public class QLLexer extends Lexer {
         try {
             int _type = WS;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/org/uva/sea/ql/parser/antlr/QL.g:96:5: ( ( ' ' | '\\t' | '\\n' | '\\r' ) )
-            // src/org/uva/sea/ql/parser/antlr/QL.g:96:7: ( ' ' | '\\t' | '\\n' | '\\r' )
+            // src/org/uva/sea/ql/parser/antlr/QL.g:95:5: ( ( ' ' | '\\t' | '\\n' | '\\r' ) )
+            // src/org/uva/sea/ql/parser/antlr/QL.g:95:7: ( ' ' | '\\t' | '\\n' | '\\r' )
             {
             if ( (input.LA(1) >= '\t' && input.LA(1) <= '\n')||input.LA(1)=='\r'||input.LA(1)==' ' ) {
                 input.consume();
@@ -411,14 +411,14 @@ public class QLLexer extends Lexer {
         try {
             int _type = COMMENT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/org/uva/sea/ql/parser/antlr/QL.g:100:6: ( '/*' ( . )* '*/' )
-            // src/org/uva/sea/ql/parser/antlr/QL.g:100:8: '/*' ( . )* '*/'
+            // src/org/uva/sea/ql/parser/antlr/QL.g:99:6: ( '/*' ( . )* '*/' )
+            // src/org/uva/sea/ql/parser/antlr/QL.g:99:8: '/*' ( . )* '*/'
             {
             match("/*"); 
 
 
 
-            // src/org/uva/sea/ql/parser/antlr/QL.g:100:13: ( . )*
+            // src/org/uva/sea/ql/parser/antlr/QL.g:99:13: ( . )*
             loop1:
             do {
                 int alt1=2;
@@ -443,7 +443,7 @@ public class QLLexer extends Lexer {
 
                 switch (alt1) {
             	case 1 :
-            	    // src/org/uva/sea/ql/parser/antlr/QL.g:100:13: .
+            	    // src/org/uva/sea/ql/parser/antlr/QL.g:99:13: .
             	    {
             	    matchAny(); 
 
@@ -478,7 +478,7 @@ public class QLLexer extends Lexer {
         try {
             int _type = Bool;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/org/uva/sea/ql/parser/antlr/QL.g:103:5: ( 'true' | 'false' )
+            // src/org/uva/sea/ql/parser/antlr/QL.g:102:5: ( 'true' | 'false' )
             int alt2=2;
             int LA2_0 = input.LA(1);
 
@@ -497,7 +497,7 @@ public class QLLexer extends Lexer {
             }
             switch (alt2) {
                 case 1 :
-                    // src/org/uva/sea/ql/parser/antlr/QL.g:103:9: 'true'
+                    // src/org/uva/sea/ql/parser/antlr/QL.g:102:9: 'true'
                     {
                     match("true"); 
 
@@ -506,7 +506,7 @@ public class QLLexer extends Lexer {
                     }
                     break;
                 case 2 :
-                    // src/org/uva/sea/ql/parser/antlr/QL.g:103:16: 'false'
+                    // src/org/uva/sea/ql/parser/antlr/QL.g:102:16: 'false'
                     {
                     match("false"); 
 
@@ -530,12 +530,12 @@ public class QLLexer extends Lexer {
         try {
             int _type = Str;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/org/uva/sea/ql/parser/antlr/QL.g:105:4: ( '\\\"' ( '\\\\\"' |~ '\\\"' )* '\\\"' )
-            // src/org/uva/sea/ql/parser/antlr/QL.g:105:9: '\\\"' ( '\\\\\"' |~ '\\\"' )* '\\\"'
+            // src/org/uva/sea/ql/parser/antlr/QL.g:104:4: ( '\\\"' ( '\\\\\"' |~ '\\\"' )* '\\\"' )
+            // src/org/uva/sea/ql/parser/antlr/QL.g:104:9: '\\\"' ( '\\\\\"' |~ '\\\"' )* '\\\"'
             {
             match('\"'); 
 
-            // src/org/uva/sea/ql/parser/antlr/QL.g:105:14: ( '\\\\\"' |~ '\\\"' )*
+            // src/org/uva/sea/ql/parser/antlr/QL.g:104:14: ( '\\\\\"' |~ '\\\"' )*
             loop3:
             do {
                 int alt3=3;
@@ -570,7 +570,7 @@ public class QLLexer extends Lexer {
 
                 switch (alt3) {
             	case 1 :
-            	    // src/org/uva/sea/ql/parser/antlr/QL.g:105:15: '\\\\\"'
+            	    // src/org/uva/sea/ql/parser/antlr/QL.g:104:15: '\\\\\"'
             	    {
             	    match("\\\""); 
 
@@ -579,7 +579,7 @@ public class QLLexer extends Lexer {
             	    }
             	    break;
             	case 2 :
-            	    // src/org/uva/sea/ql/parser/antlr/QL.g:105:21: ~ '\\\"'
+            	    // src/org/uva/sea/ql/parser/antlr/QL.g:104:21: ~ '\\\"'
             	    {
             	    if ( (input.LA(1) >= '\u0000' && input.LA(1) <= '!')||(input.LA(1) >= '#' && input.LA(1) <= '\uFFFF') ) {
             	        input.consume();
@@ -618,8 +618,8 @@ public class QLLexer extends Lexer {
         try {
             int _type = Ident;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/org/uva/sea/ql/parser/antlr/QL.g:107:6: ( ( 'a' .. 'z' | 'A' .. 'Z' ) ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )* )
-            // src/org/uva/sea/ql/parser/antlr/QL.g:107:9: ( 'a' .. 'z' | 'A' .. 'Z' ) ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )*
+            // src/org/uva/sea/ql/parser/antlr/QL.g:106:6: ( ( 'a' .. 'z' | 'A' .. 'Z' ) ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )* )
+            // src/org/uva/sea/ql/parser/antlr/QL.g:106:9: ( 'a' .. 'z' | 'A' .. 'Z' ) ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )*
             {
             if ( (input.LA(1) >= 'A' && input.LA(1) <= 'Z')||(input.LA(1) >= 'a' && input.LA(1) <= 'z') ) {
                 input.consume();
@@ -631,7 +631,7 @@ public class QLLexer extends Lexer {
             }
 
 
-            // src/org/uva/sea/ql/parser/antlr/QL.g:107:28: ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )*
+            // src/org/uva/sea/ql/parser/antlr/QL.g:106:28: ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )*
             loop4:
             do {
                 int alt4=2;
@@ -681,10 +681,10 @@ public class QLLexer extends Lexer {
         try {
             int _type = Int;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/org/uva/sea/ql/parser/antlr/QL.g:109:4: ( ( '0' .. '9' )+ )
-            // src/org/uva/sea/ql/parser/antlr/QL.g:109:9: ( '0' .. '9' )+
+            // src/org/uva/sea/ql/parser/antlr/QL.g:108:4: ( ( '0' .. '9' )+ )
+            // src/org/uva/sea/ql/parser/antlr/QL.g:108:9: ( '0' .. '9' )+
             {
-            // src/org/uva/sea/ql/parser/antlr/QL.g:109:9: ( '0' .. '9' )+
+            // src/org/uva/sea/ql/parser/antlr/QL.g:108:9: ( '0' .. '9' )+
             int cnt5=0;
             loop5:
             do {

@@ -1,6 +1,6 @@
 package org.uva.sea.ql.visitor;
 
-import org.uva.sea.ql.ast.Expression;
+import org.uva.sea.ql.ast.expression.Expression;
 
 /**
  * Visitor for printing AST.
