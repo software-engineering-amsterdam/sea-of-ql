@@ -13,8 +13,8 @@ public class ComputedTests extends TypecheckerVisitorTests {
     public void acceptIsCalled_callsAcceptOnExpression() {
         Expr mockExpression = mock(Expr.class);
         Computed computed = new Computed("a", mockExpression);
-        computed.accept(visitor, symbolTable);
-        verify(mockExpression).accept(visitor, symbolTable);
+        computed.accept(visitor, context);
+        verify(mockExpression).accept(visitor, context);
     }
 
 }

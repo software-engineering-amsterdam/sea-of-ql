@@ -1,12 +1,12 @@
 package org.uva.sea.ql.tests.typechecker.typecheckerVisitorTests;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 
 import org.junit.Test;
 import org.uva.sea.ql.ast.Declaration;
 import org.uva.sea.ql.ast.expr.Ident;
 import org.uva.sea.ql.ast.type.*;
-import org.uva.sea.ql.typechecker.TypecheckerException;
 
 public class IdentTests extends TypecheckerVisitorTests {
 
@@ -23,17 +23,19 @@ public class IdentTests extends TypecheckerVisitorTests {
 			new Declaration(idents[2], new Int()),
 		};
 		for(Declaration declaration : declarations)
-			declaration.accept(visitor, symbolTable);
+			declaration.accept(visitor, context);
 		
-		assertEquals(Int.class,  idents[2].accept(visitor, symbolTable).getClass());
-		assertEquals(Str.class,  idents[1].accept(visitor, symbolTable).getClass());
-		assertEquals(Bool.class, idents[0].accept(visitor, symbolTable).getClass());
+		assertEquals(Int.class,  idents[2].accept(visitor, context).getClass());
+		assertEquals(Str.class,  idents[1].accept(visitor, context).getClass());
+		assertEquals(Bool.class, idents[0].accept(visitor, context).getClass());
 	}
-	
-	@Test(expected = TypecheckerException.class)
-	public void visitsIdent_typeNotInSymbolTable_throwsTypeckeckerException() {
-		new Declaration(new Ident("a"), new Bool()).accept(visitor, symbolTable);
-		new Ident("b").accept(visitor, symbolTable);
+
+    @Test
+	public void visitsIdent_typeNotInSymbolTable_addsError() {
+		new Declaration(new Ident("a"), new Bool()).accept(visitor, context);
+		new Ident("b").accept(visitor, context);
+
+        assertFalse(context.getSymbolTable().isEmpty());
 	}
 	
 }
