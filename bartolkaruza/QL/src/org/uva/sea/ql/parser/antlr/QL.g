@@ -5,6 +5,8 @@ options {backtrack=true; memoize=true;}
 {
 package org.uva.sea.ql.parser.antlr;
 import org.uva.sea.ql.ast.*;
+import org.uva.sea.ql.ast.value.Number;
+import org.uva.sea.ql.ast.value.*;
 import org.uva.sea.ql.ast.expr.*;
 }
 
@@ -14,26 +16,40 @@ package org.uva.sea.ql.parser.antlr;
 }
 
 form returns [Form result] 
-    : 'form' lbl=Ident '{' qs=questions '}' { $result = new Form($lbl.text, $qs.result ); }
+    : 'form' lbl=Ident '{' stmts=statements '}' { $result = new Form($lbl.text, $stmts.result ); }
     ;
 
-questions returns [Questions result]
-	  : q=question qs=questions {$result = new Questions(); $result.add($q.result); $result.add($qs.result); }
-	  | s=statement qs=questions {$result = new Questions($s.result); $result.add($qs.result); } 
-	  | {return null; } // Empty string
-	  ;
+statements returns [List<Statement> result]
+    :  { $result = new ArrayList<Statement>(); } (stmt=statement {$result.add($stmt.result); })*  
+    ;
+
+statement returns [Statement result] 
+    : firstToken=IF (x=expr) '{' stmts=statements '}' { $result = new ConditionalStatement($x.result, $stmts.result, $firstToken.line); }
+    | question {$result = $question.result; }
+    ;
 
 question returns [Question result]
-    : label=Ident':' '\"' text=Ident* '\"' TYPE
+    : name=Ident':' '\"' label=Ident* '\"' TYPE {
+      $result = new Question($name.text, $label.text, $name.line);
+      if ($TYPE.text.equals("boolean")) {
+        $result.setValue(new Bool());
+      }
+      if ($TYPE.text.equals("integer")) {
+        $result.setValue(new Number());
+      }
+      if ($TYPE.text.equals("string")) {
+        $result.setValue(new TextString());
+      }
+      if ($TYPE.text.equals("money")) {
+        $result.setValue(new Money());
+      }
+    }
     ;
     
-statement returns [Stmt result] 
-    : IF (x=expr) '{' qs=questions '}' { $result = new Stmt($x.result, $qs.result); }
-    ;
 
 primary returns [Expr result]
-	  : Int   { $result = new Int(Integer.parseInt($Int.text)); }
-	  | Ident { $result = new Ident($Ident.text); }
+	  : Int   { $result = new Int(Integer.parseInt($Int.text), $Int.line); }
+	  | Ident { $result = new Ident($Ident.text, $Ident.line); }
 	  | '(' x=orExpr ')'{ $result = $x.result; }
 	  ;
     
@@ -106,11 +122,9 @@ expr returns [Expr result]
     
 // Tokens
 
-TYPE : 'boolean' | 'number' | 'textfield';
+TYPE : 'boolean' | 'integer' | 'string' | 'money';
 
 IF : 'if';
-
-//NL : '\n' | '\r' { $channel=HIDDEN; };
 
 WS  :	(' ' | '\t' | '\n' | '\r') { $channel=HIDDEN; };
 

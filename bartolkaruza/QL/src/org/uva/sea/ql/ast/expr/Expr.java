@@ -1,15 +1,36 @@
 package org.uva.sea.ql.ast.expr;
 
 import org.uva.sea.ql.ast.ASTNode;
-import org.uva.sea.ql.visitor.NodeVisitor;
 
 public abstract class Expr implements ASTNode {
 	
-	boolean value;
+	protected Expr lhs;
+	protected Expr rhs;
+	private int lineNumber;
+	
+	public Expr() {
+		
+	}
+	
+	public Expr(Expr lhs, Expr rhs) {
+		this.lhs = lhs;
+		this.rhs = rhs;
+	}
+	
+	public Expr getLhs() {
+		return lhs;
+	}
+	
+	public Expr getRhs() {
+		return rhs;
+	}
 
-	@Override
-	public void accept(NodeVisitor visitor) {
-		visitor.visit(this);
+	public int getLineNumber() {
+		return lineNumber;
+	}
+
+	public void setLineNumber(int lineNumber) {
+		this.lineNumber = lineNumber;
 	}
 
 }

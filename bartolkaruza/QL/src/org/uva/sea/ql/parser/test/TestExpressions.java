@@ -3,10 +3,10 @@ package org.uva.sea.ql.parser.test;
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
-import org.uva.sea.ql.ast.Ident;
-import org.uva.sea.ql.ast.Int;
 import org.uva.sea.ql.ast.expr.Add;
 import org.uva.sea.ql.ast.expr.GT;
+import org.uva.sea.ql.ast.expr.Ident;
+import org.uva.sea.ql.ast.expr.Int;
 import org.uva.sea.ql.ast.expr.LEq;
 import org.uva.sea.ql.ast.expr.LT;
 import org.uva.sea.ql.ast.expr.Mul;
