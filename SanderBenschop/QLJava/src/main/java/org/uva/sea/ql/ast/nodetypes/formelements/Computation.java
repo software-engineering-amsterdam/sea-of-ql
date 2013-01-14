@@ -12,20 +12,24 @@ public class Computation extends QLStatement {
 	private final QLExpression expression;
     
 	public Computation(Ident identifier, Str label, QLExpression expression) {
+		
 		this.identifier = identifier;
 		this.label = label;
 		this.expression = expression;
 	}
 
 	public Ident getIdentifier() {
+		
 		return identifier;
 	}
 
 	public Str getLabel() {
+		
 		return label;
 	}
 
 	public QLExpression getExpression() {
+		
 		return expression;
 	}
 }

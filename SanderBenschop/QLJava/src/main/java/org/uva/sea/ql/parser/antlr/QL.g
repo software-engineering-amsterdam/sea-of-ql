@@ -24,10 +24,10 @@ import org.uva.sea.ql.ast.nodetypes.formelements.*;
 package org.uva.sea.ql.parser.antlr;
 }
 
-form [Form result]
+form returns [Form result]
   : FORM Ident BRACE_OPEN statementList BRACE_CLOSE
 	  {
-	    $result = new Form($statementList.result);
+	    $result = new Form(new Ident($Ident.text), $statementList.result);
 	  }
   ;
     
@@ -43,13 +43,13 @@ statementList returns [List<QLStatement> result]
   {
     $result = new ArrayList<QLStatement>();
   }
-  : (stmnt=statement '\n' {result.add(stmnt);})*
+  : (stmnt=statement {result.add(stmnt);})*
   ;
 
 statement returns [QLStatement result]
-  : question
-  | computation
-  | conditional
+  : question { $result = $question.result; }
+  | computation { $result = $computation.result; }
+  | conditional { $result = $conditional.result; }
   ;
 
 question returns [Question result]

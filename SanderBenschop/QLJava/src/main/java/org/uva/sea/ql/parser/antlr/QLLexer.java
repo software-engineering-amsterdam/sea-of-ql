@@ -1,4 +1,4 @@
-// $ANTLR 3.5 /Users/benschop/Documents/workspace/studie/sea-of-ql/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g 2013-01-14 18:46:35
+// $ANTLR 3.5 /Users/benschop/Documents/workspace/studie/sea-of-ql/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g 2013-01-14 21:06:43
 
 package org.uva.sea.ql.parser.antlr;
 
@@ -27,7 +27,6 @@ public class QLLexer extends Lexer {
 	public static final int T__30=30;
 	public static final int T__31=31;
 	public static final int T__32=32;
-	public static final int T__33=33;
 	public static final int BRACE_CLOSE=4;
 	public static final int BRACE_OPEN=5;
 	public static final int Bool=6;
@@ -327,10 +326,11 @@ public class QLLexer extends Lexer {
 		try {
 			int _type = T__30;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// /Users/benschop/Documents/workspace/studie/sea-of-ql/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:19:7: ( '\\n' )
-			// /Users/benschop/Documents/workspace/studie/sea-of-ql/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:19:9: '\\n'
+			// /Users/benschop/Documents/workspace/studie/sea-of-ql/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:19:7: ( 'else' )
+			// /Users/benschop/Documents/workspace/studie/sea-of-ql/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:19:9: 'else'
 			{
-			match('\n'); 
+			match("else"); 
+
 			}
 
 			state.type = _type;
@@ -347,10 +347,10 @@ public class QLLexer extends Lexer {
 		try {
 			int _type = T__31;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// /Users/benschop/Documents/workspace/studie/sea-of-ql/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:20:7: ( 'else' )
-			// /Users/benschop/Documents/workspace/studie/sea-of-ql/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:20:9: 'else'
+			// /Users/benschop/Documents/workspace/studie/sea-of-ql/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:20:7: ( 'if' )
+			// /Users/benschop/Documents/workspace/studie/sea-of-ql/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:20:9: 'if'
 			{
-			match("else"); 
+			match("if"); 
 
 			}
 
@@ -368,29 +368,8 @@ public class QLLexer extends Lexer {
 		try {
 			int _type = T__32;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// /Users/benschop/Documents/workspace/studie/sea-of-ql/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:21:7: ( 'if' )
-			// /Users/benschop/Documents/workspace/studie/sea-of-ql/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:21:9: 'if'
-			{
-			match("if"); 
-
-			}
-
-			state.type = _type;
-			state.channel = _channel;
-		}
-		finally {
-			// do for sure before leaving
-		}
-	}
-	// $ANTLR end "T__32"
-
-	// $ANTLR start "T__33"
-	public final void mT__33() throws RecognitionException {
-		try {
-			int _type = T__33;
-			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// /Users/benschop/Documents/workspace/studie/sea-of-ql/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:22:7: ( '||' )
-			// /Users/benschop/Documents/workspace/studie/sea-of-ql/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:22:9: '||'
+			// /Users/benschop/Documents/workspace/studie/sea-of-ql/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:21:7: ( '||' )
+			// /Users/benschop/Documents/workspace/studie/sea-of-ql/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:21:9: '||'
 			{
 			match("||"); 
 
@@ -403,7 +382,7 @@ public class QLLexer extends Lexer {
 			// do for sure before leaving
 		}
 	}
-	// $ANTLR end "T__33"
+	// $ANTLR end "T__32"
 
 	// $ANTLR start "FORM"
 	public final void mFORM() throws RecognitionException {
@@ -964,8 +943,8 @@ public class QLLexer extends Lexer {
 
 	@Override
 	public void mTokens() throws RecognitionException {
-		// /Users/benschop/Documents/workspace/studie/sea-of-ql/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:1:8: ( T__17 | T__18 | T__19 | T__20 | T__21 | T__22 | T__23 | T__24 | T__25 | T__26 | T__27 | T__28 | T__29 | T__30 | T__31 | T__32 | T__33 | FORM | BRACE_OPEN | BRACE_CLOSE | PAREN_OPEN | PAREN_CLOSE | WS | COMMENT | Datatype | Bool | Ident | Str | Int )
-		int alt9=29;
+		// /Users/benschop/Documents/workspace/studie/sea-of-ql/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:1:8: ( T__17 | T__18 | T__19 | T__20 | T__21 | T__22 | T__23 | T__24 | T__25 | T__26 | T__27 | T__28 | T__29 | T__30 | T__31 | T__32 | FORM | BRACE_OPEN | BRACE_CLOSE | PAREN_OPEN | PAREN_CLOSE | WS | COMMENT | Datatype | Bool | Ident | Str | Int )
+		int alt9=28;
 		alt9 = dfa9.predict(input);
 		switch (alt9) {
 			case 1 :
@@ -1081,91 +1060,84 @@ public class QLLexer extends Lexer {
 				}
 				break;
 			case 17 :
-				// /Users/benschop/Documents/workspace/studie/sea-of-ql/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:1:106: T__33
-				{
-				mT__33(); 
-
-				}
-				break;
-			case 18 :
-				// /Users/benschop/Documents/workspace/studie/sea-of-ql/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:1:112: FORM
+				// /Users/benschop/Documents/workspace/studie/sea-of-ql/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:1:106: FORM
 				{
 				mFORM(); 
 
 				}
 				break;
-			case 19 :
-				// /Users/benschop/Documents/workspace/studie/sea-of-ql/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:1:117: BRACE_OPEN
+			case 18 :
+				// /Users/benschop/Documents/workspace/studie/sea-of-ql/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:1:111: BRACE_OPEN
 				{
 				mBRACE_OPEN(); 
 
 				}
 				break;
-			case 20 :
-				// /Users/benschop/Documents/workspace/studie/sea-of-ql/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:1:128: BRACE_CLOSE
+			case 19 :
+				// /Users/benschop/Documents/workspace/studie/sea-of-ql/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:1:122: BRACE_CLOSE
 				{
 				mBRACE_CLOSE(); 
 
 				}
 				break;
-			case 21 :
-				// /Users/benschop/Documents/workspace/studie/sea-of-ql/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:1:140: PAREN_OPEN
+			case 20 :
+				// /Users/benschop/Documents/workspace/studie/sea-of-ql/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:1:134: PAREN_OPEN
 				{
 				mPAREN_OPEN(); 
 
 				}
 				break;
-			case 22 :
-				// /Users/benschop/Documents/workspace/studie/sea-of-ql/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:1:151: PAREN_CLOSE
+			case 21 :
+				// /Users/benschop/Documents/workspace/studie/sea-of-ql/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:1:145: PAREN_CLOSE
 				{
 				mPAREN_CLOSE(); 
 
 				}
 				break;
-			case 23 :
-				// /Users/benschop/Documents/workspace/studie/sea-of-ql/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:1:163: WS
+			case 22 :
+				// /Users/benschop/Documents/workspace/studie/sea-of-ql/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:1:157: WS
 				{
 				mWS(); 
 
 				}
 				break;
-			case 24 :
-				// /Users/benschop/Documents/workspace/studie/sea-of-ql/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:1:166: COMMENT
+			case 23 :
+				// /Users/benschop/Documents/workspace/studie/sea-of-ql/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:1:160: COMMENT
 				{
 				mCOMMENT(); 
 
 				}
 				break;
-			case 25 :
-				// /Users/benschop/Documents/workspace/studie/sea-of-ql/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:1:174: Datatype
+			case 24 :
+				// /Users/benschop/Documents/workspace/studie/sea-of-ql/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:1:168: Datatype
 				{
 				mDatatype(); 
 
 				}
 				break;
-			case 26 :
-				// /Users/benschop/Documents/workspace/studie/sea-of-ql/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:1:183: Bool
+			case 25 :
+				// /Users/benschop/Documents/workspace/studie/sea-of-ql/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:1:177: Bool
 				{
 				mBool(); 
 
 				}
 				break;
-			case 27 :
-				// /Users/benschop/Documents/workspace/studie/sea-of-ql/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:1:188: Ident
+			case 26 :
+				// /Users/benschop/Documents/workspace/studie/sea-of-ql/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:1:182: Ident
 				{
 				mIdent(); 
 
 				}
 				break;
-			case 28 :
-				// /Users/benschop/Documents/workspace/studie/sea-of-ql/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:1:194: Str
+			case 27 :
+				// /Users/benschop/Documents/workspace/studie/sea-of-ql/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:1:188: Str
 				{
 				mStr(); 
 
 				}
 				break;
-			case 29 :
-				// /Users/benschop/Documents/workspace/studie/sea-of-ql/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:1:198: Int
+			case 28 :
+				// /Users/benschop/Documents/workspace/studie/sea-of-ql/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:1:192: Int
 				{
 				mInt(); 
 
@@ -1178,102 +1150,100 @@ public class QLLexer extends Lexer {
 
 	protected DFA9 dfa9 = new DFA9(this);
 	static final String DFA9_eotS =
-		"\1\uffff\1\34\4\uffff\1\36\1\uffff\1\40\1\uffff\1\42\1\uffff\2\30\1\uffff"+
-		"\1\30\5\uffff\3\30\14\uffff\1\30\1\55\7\30\1\uffff\1\65\5\30\1\73\1\uffff"+
-		"\1\74\3\30\1\100\2\uffff\1\100\2\30\1\uffff\1\30\2\65";
+		"\1\uffff\1\33\4\uffff\1\35\1\uffff\1\37\1\uffff\1\41\2\27\1\uffff\1\27"+
+		"\5\uffff\3\27\13\uffff\1\27\1\53\7\27\1\uffff\1\63\5\27\1\71\1\uffff\1"+
+		"\72\3\27\1\76\2\uffff\1\76\2\27\1\uffff\1\27\2\63";
 	static final String DFA9_eofS =
-		"\104\uffff";
+		"\102\uffff";
 	static final String DFA9_minS =
-		"\1\11\1\75\4\uffff\1\52\1\uffff\1\75\1\uffff\1\75\1\uffff\1\154\1\146"+
-		"\1\uffff\1\141\5\uffff\1\157\1\164\1\162\14\uffff\1\163\1\60\1\164\1\162"+
-		"\1\154\1\157\1\162\1\165\1\145\1\uffff\1\60\1\155\1\163\1\154\1\151\1"+
-		"\145\1\60\1\uffff\1\60\2\145\1\156\1\60\2\uffff\1\60\1\141\1\147\1\uffff"+
-		"\1\156\2\60";
+		"\1\11\1\75\4\uffff\1\52\1\uffff\1\75\1\uffff\1\75\1\154\1\146\1\uffff"+
+		"\1\141\5\uffff\1\157\1\164\1\162\13\uffff\1\163\1\60\1\164\1\162\1\154"+
+		"\1\157\1\162\1\165\1\145\1\uffff\1\60\1\155\1\163\1\154\1\151\1\145\1"+
+		"\60\1\uffff\1\60\2\145\1\156\1\60\2\uffff\1\60\1\141\1\147\1\uffff\1\156"+
+		"\2\60";
 	static final String DFA9_maxS =
-		"\1\175\1\75\4\uffff\1\57\1\uffff\1\75\1\uffff\1\75\1\uffff\1\154\1\156"+
-		"\1\uffff\1\157\5\uffff\1\157\1\164\1\162\14\uffff\1\163\1\172\1\164\1"+
-		"\162\1\154\1\157\1\162\1\165\1\145\1\uffff\1\172\1\155\1\163\1\154\1\151"+
-		"\1\145\1\172\1\uffff\1\172\2\145\1\156\1\172\2\uffff\1\172\1\141\1\147"+
-		"\1\uffff\1\156\2\172";
+		"\1\175\1\75\4\uffff\1\57\1\uffff\1\75\1\uffff\1\75\1\154\1\156\1\uffff"+
+		"\1\157\5\uffff\1\157\1\164\1\162\13\uffff\1\163\1\172\1\164\1\162\1\154"+
+		"\1\157\1\162\1\165\1\145\1\uffff\1\172\1\155\1\163\1\154\1\151\1\145\1"+
+		"\172\1\uffff\1\172\2\145\1\156\1\172\2\uffff\1\172\1\141\1\147\1\uffff"+
+		"\1\156\2\172";
 	static final String DFA9_acceptS =
-		"\2\uffff\1\3\1\4\1\5\1\6\1\uffff\1\10\1\uffff\1\13\1\uffff\1\16\2\uffff"+
-		"\1\21\1\uffff\1\23\1\24\1\25\1\26\1\27\3\uffff\1\33\1\34\1\35\1\2\1\1"+
-		"\1\30\1\7\1\12\1\11\1\15\1\14\1\16\11\uffff\1\20\7\uffff\1\31\5\uffff"+
-		"\1\17\1\22\3\uffff\1\32\3\uffff";
+		"\2\uffff\1\3\1\4\1\5\1\6\1\uffff\1\10\1\uffff\1\13\3\uffff\1\20\1\uffff"+
+		"\1\22\1\23\1\24\1\25\1\26\3\uffff\1\32\1\33\1\34\1\2\1\1\1\27\1\7\1\12"+
+		"\1\11\1\15\1\14\11\uffff\1\17\7\uffff\1\30\5\uffff\1\16\1\21\3\uffff\1"+
+		"\31\3\uffff";
 	static final String DFA9_specialS =
-		"\104\uffff}>";
+		"\102\uffff}>";
 	static final String[] DFA9_transitionS = {
-			"\1\24\1\13\2\uffff\1\24\22\uffff\1\24\1\1\1\31\3\uffff\1\2\1\uffff\1"+
-			"\22\1\23\1\3\1\4\1\uffff\1\5\1\uffff\1\6\12\32\1\7\1\uffff\1\10\1\11"+
-			"\1\12\2\uffff\32\30\6\uffff\1\30\1\25\2\30\1\14\1\17\2\30\1\15\11\30"+
-			"\1\26\1\27\6\30\1\20\1\16\1\21",
-			"\1\33",
+			"\2\23\2\uffff\1\23\22\uffff\1\23\1\1\1\30\3\uffff\1\2\1\uffff\1\21\1"+
+			"\22\1\3\1\4\1\uffff\1\5\1\uffff\1\6\12\31\1\7\1\uffff\1\10\1\11\1\12"+
+			"\2\uffff\32\27\6\uffff\1\27\1\24\2\27\1\13\1\16\2\27\1\14\11\27\1\25"+
+			"\1\26\6\27\1\17\1\15\1\20",
+			"\1\32",
 			"",
 			"",
 			"",
 			"",
-			"\1\35\4\uffff\1\35",
+			"\1\34\4\uffff\1\34",
 			"",
-			"\1\37",
+			"\1\36",
 			"",
-			"\1\41",
+			"\1\40",
+			"\1\42",
+			"\1\43\7\uffff\1\44",
 			"",
-			"\1\44",
-			"\1\45\7\uffff\1\46",
-			"",
-			"\1\50\15\uffff\1\47",
-			"",
+			"\1\46\15\uffff\1\45",
 			"",
 			"",
 			"",
 			"",
+			"",
+			"\1\47",
+			"\1\50",
 			"\1\51",
+			"",
+			"",
+			"",
+			"",
+			"",
+			"",
+			"",
+			"",
+			"",
+			"",
+			"",
 			"\1\52",
-			"\1\53",
-			"",
-			"",
-			"",
-			"",
-			"",
-			"",
-			"",
-			"",
-			"",
-			"",
-			"",
-			"",
+			"\12\27\7\uffff\32\27\4\uffff\1\27\1\uffff\32\27",
 			"\1\54",
-			"\12\30\7\uffff\32\30\4\uffff\1\30\1\uffff\32\30",
+			"\1\55",
 			"\1\56",
 			"\1\57",
 			"\1\60",
 			"\1\61",
 			"\1\62",
-			"\1\63",
-			"\1\64",
 			"",
-			"\12\30\7\uffff\32\30\4\uffff\1\30\1\uffff\32\30",
+			"\12\27\7\uffff\32\27\4\uffff\1\27\1\uffff\32\27",
+			"\1\64",
+			"\1\65",
 			"\1\66",
 			"\1\67",
 			"\1\70",
-			"\1\71",
-			"\1\72",
-			"\12\30\7\uffff\32\30\4\uffff\1\30\1\uffff\32\30",
+			"\12\27\7\uffff\32\27\4\uffff\1\27\1\uffff\32\27",
 			"",
-			"\12\30\7\uffff\32\30\4\uffff\1\30\1\uffff\32\30",
+			"\12\27\7\uffff\32\27\4\uffff\1\27\1\uffff\32\27",
+			"\1\73",
+			"\1\74",
 			"\1\75",
-			"\1\76",
+			"\12\27\7\uffff\32\27\4\uffff\1\27\1\uffff\32\27",
+			"",
+			"",
+			"\12\27\7\uffff\32\27\4\uffff\1\27\1\uffff\32\27",
 			"\1\77",
-			"\12\30\7\uffff\32\30\4\uffff\1\30\1\uffff\32\30",
+			"\1\100",
 			"",
-			"",
-			"\12\30\7\uffff\32\30\4\uffff\1\30\1\uffff\32\30",
 			"\1\101",
-			"\1\102",
-			"",
-			"\1\103",
-			"\12\30\7\uffff\32\30\4\uffff\1\30\1\uffff\32\30",
-			"\12\30\7\uffff\32\30\4\uffff\1\30\1\uffff\32\30"
+			"\12\27\7\uffff\32\27\4\uffff\1\27\1\uffff\32\27",
+			"\12\27\7\uffff\32\27\4\uffff\1\27\1\uffff\32\27"
 	};
 
 	static final short[] DFA9_eot = DFA.unpackEncodedString(DFA9_eotS);
@@ -1307,7 +1277,7 @@ public class QLLexer extends Lexer {
 		}
 		@Override
 		public String getDescription() {
-			return "1:1: Tokens : ( T__17 | T__18 | T__19 | T__20 | T__21 | T__22 | T__23 | T__24 | T__25 | T__26 | T__27 | T__28 | T__29 | T__30 | T__31 | T__32 | T__33 | FORM | BRACE_OPEN | BRACE_CLOSE | PAREN_OPEN | PAREN_CLOSE | WS | COMMENT | Datatype | Bool | Ident | Str | Int );";
+			return "1:1: Tokens : ( T__17 | T__18 | T__19 | T__20 | T__21 | T__22 | T__23 | T__24 | T__25 | T__26 | T__27 | T__28 | T__29 | T__30 | T__31 | T__32 | FORM | BRACE_OPEN | BRACE_CLOSE | PAREN_OPEN | PAREN_CLOSE | WS | COMMENT | Datatype | Bool | Ident | Str | Int );";
 		}
 	}
 

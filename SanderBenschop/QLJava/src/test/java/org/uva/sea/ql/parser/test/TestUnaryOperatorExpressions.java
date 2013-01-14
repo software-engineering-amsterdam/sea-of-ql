@@ -8,23 +8,23 @@ import org.uva.sea.ql.ast.nodetypes.unary.Not;
 import org.uva.sea.ql.ast.nodetypes.unary.Pos;
 import org.uva.sea.ql.parser.exception.ParseError;
 
-public class TestUnaryOperatorExpressions extends TestExpressions {
+public class TestUnaryOperatorExpressions extends TestParser {
 
 	@Test
 	public void testPositive() throws ParseError {
 		
-		assertEquals(Pos.class, parse("+1").getClass());
+		assertEquals(Pos.class, parseExpression("+1").getClass());
 	}
 	
 	@Test
 	public void testNegative() throws ParseError {
 		
-		assertEquals(Neg.class, parse("-1").getClass());
+		assertEquals(Neg.class, parseExpression("-1").getClass());
 	}
 	
 	@Test
 	public void testNot() throws ParseError {
 		
-		assertEquals(Not.class, parse("!5").getClass());
+		assertEquals(Not.class, parseExpression("!5").getClass());
 	}
 }
