@@ -6,9 +6,13 @@ data Conditional
   = conditional(Expr condition, list[Statement] body)
   ;
 
+data ElsePart
+  = elsePart(list[Statement] body)
+  ;
+
 data Statement 
   = question(Question question)
-  | ifCondition(Conditional ifPart, list[Conditional] elseIfs, list[Statement] elsePart)
+  | ifCondition(Conditional ifPart, list[Conditional] elseIfs, list[ElsePart] elsePart)
   ;
 
 data Question
@@ -83,3 +87,4 @@ anno loc Form@location;
 anno loc Statement@location;
 anno loc Question@location;
 anno loc Conditional@location;
+anno loc ElsePart@location;

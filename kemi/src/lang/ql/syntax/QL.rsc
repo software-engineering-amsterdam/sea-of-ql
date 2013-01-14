@@ -17,7 +17,7 @@ syntax IfPart = @Foldable "if" Conditional ifPart;
 
 syntax ElsIfPart = @Foldable "else" "if" Conditional elsePart;
 
-syntax ElsePart = @Foldable "else" "{" Statement+ body "}";
+syntax ElsePart = @Foldable elsePart: "else" "{" Statement+ body "}";
 
 // What the ...?! Colons don't work, but equals signs do...
 start syntax Question 
