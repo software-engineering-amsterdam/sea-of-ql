@@ -11,7 +11,7 @@
 
 %left OR
 %left AND
-%left EQ NEW '>' '<' GEQ LEQ
+%left '>' '<' GEQ LEQ NEQ EQ
 %left '+' '-'
 %left '*' '/'
 %left UMIN UPLUS UNOT
