@@ -1,4 +1,4 @@
-// $ANTLR 3.4 QL.g 2013-01-13 14:57:47
+// $ANTLR 3.4 QL.g 2013-01-14 11:23:16
 
 package org.uva.sea.ql.parser.antlr;
 
@@ -11,7 +11,6 @@ import java.util.ArrayList;
 @SuppressWarnings({"all", "warnings", "unchecked"})
 public class QLLexer extends Lexer {
     public static final int EOF=-1;
-    public static final int T__11=11;
     public static final int T__12=12;
     public static final int T__13=13;
     public static final int T__14=14;
@@ -26,13 +25,16 @@ public class QLLexer extends Lexer {
     public static final int T__23=23;
     public static final int T__24=24;
     public static final int T__25=25;
+    public static final int T__26=26;
+    public static final int T__27=27;
     public static final int Bool=4;
     public static final int COMMENT=5;
     public static final int Ident=6;
     public static final int Int=7;
     public static final int NEWLINE=8;
     public static final int Str=9;
-    public static final int WS=10;
+    public static final int Type=10;
+    public static final int WS=11;
 
     // delegates
     // delegators
@@ -49,38 +51,15 @@ public class QLLexer extends Lexer {
     }
     public String getGrammarFileName() { return "QL.g"; }
 
-    // $ANTLR start "T__11"
-    public final void mT__11() throws RecognitionException {
-        try {
-            int _type = T__11;
-            int _channel = DEFAULT_TOKEN_CHANNEL;
-            // QL.g:6:7: ( '!' )
-            // QL.g:6:9: '!'
-            {
-            match('!'); 
-
-            }
-
-            state.type = _type;
-            state.channel = _channel;
-        }
-        finally {
-        	// do for sure before leaving
-        }
-    }
-    // $ANTLR end "T__11"
-
     // $ANTLR start "T__12"
     public final void mT__12() throws RecognitionException {
         try {
             int _type = T__12;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // QL.g:7:7: ( '!=' )
-            // QL.g:7:9: '!='
+            // QL.g:6:7: ( '!' )
+            // QL.g:6:9: '!'
             {
-            match("!="); 
-
-
+            match('!'); 
 
             }
 
@@ -98,10 +77,10 @@ public class QLLexer extends Lexer {
         try {
             int _type = T__13;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // QL.g:8:7: ( '&&' )
-            // QL.g:8:9: '&&'
+            // QL.g:7:7: ( '!=' )
+            // QL.g:7:9: '!='
             {
-            match("&&"); 
+            match("!="); 
 
 
 
@@ -121,10 +100,12 @@ public class QLLexer extends Lexer {
         try {
             int _type = T__14;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // QL.g:9:7: ( '(' )
-            // QL.g:9:9: '('
+            // QL.g:8:7: ( '&&' )
+            // QL.g:8:9: '&&'
             {
-            match('('); 
+            match("&&"); 
+
+
 
             }
 
@@ -142,10 +123,10 @@ public class QLLexer extends Lexer {
         try {
             int _type = T__15;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // QL.g:10:7: ( ')' )
-            // QL.g:10:9: ')'
+            // QL.g:9:7: ( '(' )
+            // QL.g:9:9: '('
             {
-            match(')'); 
+            match('('); 
 
             }
 
@@ -163,10 +144,10 @@ public class QLLexer extends Lexer {
         try {
             int _type = T__16;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // QL.g:11:7: ( '*' )
-            // QL.g:11:9: '*'
+            // QL.g:10:7: ( ')' )
+            // QL.g:10:9: ')'
             {
-            match('*'); 
+            match(')'); 
 
             }
 
@@ -184,10 +165,10 @@ public class QLLexer extends Lexer {
         try {
             int _type = T__17;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // QL.g:12:7: ( '+' )
-            // QL.g:12:9: '+'
+            // QL.g:11:7: ( '*' )
+            // QL.g:11:9: '*'
             {
-            match('+'); 
+            match('*'); 
 
             }
 
@@ -205,10 +186,10 @@ public class QLLexer extends Lexer {
         try {
             int _type = T__18;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // QL.g:13:7: ( '-' )
-            // QL.g:13:9: '-'
+            // QL.g:12:7: ( '+' )
+            // QL.g:12:9: '+'
             {
-            match('-'); 
+            match('+'); 
 
             }
 
@@ -226,10 +207,10 @@ public class QLLexer extends Lexer {
         try {
             int _type = T__19;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // QL.g:14:7: ( '/' )
-            // QL.g:14:9: '/'
+            // QL.g:13:7: ( '-' )
+            // QL.g:13:9: '-'
             {
-            match('/'); 
+            match('-'); 
 
             }
 
@@ -247,10 +228,10 @@ public class QLLexer extends Lexer {
         try {
             int _type = T__20;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // QL.g:15:7: ( '<' )
-            // QL.g:15:9: '<'
+            // QL.g:14:7: ( '/' )
+            // QL.g:14:9: '/'
             {
-            match('<'); 
+            match('/'); 
 
             }
 
@@ -268,12 +249,10 @@ public class QLLexer extends Lexer {
         try {
             int _type = T__21;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // QL.g:16:7: ( '<=' )
-            // QL.g:16:9: '<='
+            // QL.g:15:7: ( ':' )
+            // QL.g:15:9: ':'
             {
-            match("<="); 
-
-
+            match(':'); 
 
             }
 
@@ -291,12 +270,10 @@ public class QLLexer extends Lexer {
         try {
             int _type = T__22;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // QL.g:17:7: ( '==' )
-            // QL.g:17:9: '=='
+            // QL.g:16:7: ( '<' )
+            // QL.g:16:9: '<'
             {
-            match("=="); 
-
-
+            match('<'); 
 
             }
 
@@ -314,10 +291,12 @@ public class QLLexer extends Lexer {
         try {
             int _type = T__23;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // QL.g:18:7: ( '>' )
-            // QL.g:18:9: '>'
+            // QL.g:17:7: ( '<=' )
+            // QL.g:17:9: '<='
             {
-            match('>'); 
+            match("<="); 
+
+
 
             }
 
@@ -335,10 +314,10 @@ public class QLLexer extends Lexer {
         try {
             int _type = T__24;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // QL.g:19:7: ( '>=' )
-            // QL.g:19:9: '>='
+            // QL.g:18:7: ( '==' )
+            // QL.g:18:9: '=='
             {
-            match(">="); 
+            match("=="); 
 
 
 
@@ -358,8 +337,52 @@ public class QLLexer extends Lexer {
         try {
             int _type = T__25;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // QL.g:20:7: ( '||' )
-            // QL.g:20:9: '||'
+            // QL.g:19:7: ( '>' )
+            // QL.g:19:9: '>'
+            {
+            match('>'); 
+
+            }
+
+            state.type = _type;
+            state.channel = _channel;
+        }
+        finally {
+        	// do for sure before leaving
+        }
+    }
+    // $ANTLR end "T__25"
+
+    // $ANTLR start "T__26"
+    public final void mT__26() throws RecognitionException {
+        try {
+            int _type = T__26;
+            int _channel = DEFAULT_TOKEN_CHANNEL;
+            // QL.g:20:7: ( '>=' )
+            // QL.g:20:9: '>='
+            {
+            match(">="); 
+
+
+
+            }
+
+            state.type = _type;
+            state.channel = _channel;
+        }
+        finally {
+        	// do for sure before leaving
+        }
+    }
+    // $ANTLR end "T__26"
+
+    // $ANTLR start "T__27"
+    public final void mT__27() throws RecognitionException {
+        try {
+            int _type = T__27;
+            int _channel = DEFAULT_TOKEN_CHANNEL;
+            // QL.g:21:7: ( '||' )
+            // QL.g:21:9: '||'
             {
             match("||"); 
 
@@ -374,15 +397,85 @@ public class QLLexer extends Lexer {
         	// do for sure before leaving
         }
     }
-    // $ANTLR end "T__25"
+    // $ANTLR end "T__27"
+
+    // $ANTLR start "Type"
+    public final void mType() throws RecognitionException {
+        try {
+            int _type = Type;
+            int _channel = DEFAULT_TOKEN_CHANNEL;
+            // QL.g:119:3: ( 'boolean' | 'integer' | 'string' )
+            int alt1=3;
+            switch ( input.LA(1) ) {
+            case 'b':
+                {
+                alt1=1;
+                }
+                break;
+            case 'i':
+                {
+                alt1=2;
+                }
+                break;
+            case 's':
+                {
+                alt1=3;
+                }
+                break;
+            default:
+                NoViableAltException nvae =
+                    new NoViableAltException("", 1, 0, input);
+
+                throw nvae;
+
+            }
+
+            switch (alt1) {
+                case 1 :
+                    // QL.g:119:5: 'boolean'
+                    {
+                    match("boolean"); 
+
+
+
+                    }
+                    break;
+                case 2 :
+                    // QL.g:119:17: 'integer'
+                    {
+                    match("integer"); 
+
+
+
+                    }
+                    break;
+                case 3 :
+                    // QL.g:119:29: 'string'
+                    {
+                    match("string"); 
+
+
+
+                    }
+                    break;
+
+            }
+            state.type = _type;
+            state.channel = _channel;
+        }
+        finally {
+        	// do for sure before leaving
+        }
+    }
+    // $ANTLR end "Type"
 
     // $ANTLR start "WS"
     public final void mWS() throws RecognitionException {
         try {
             int _type = WS;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // QL.g:95:5: ( ( ' ' | '\\t' | NEWLINE ) )
-            // QL.g:95:7: ( ' ' | '\\t' | NEWLINE )
+            // QL.g:122:5: ( ( ' ' | '\\t' | NEWLINE ) )
+            // QL.g:122:7: ( ' ' | '\\t' | NEWLINE )
             {
             if ( (input.LA(1) >= '\t' && input.LA(1) <= '\n')||input.LA(1)=='\r'||input.LA(1)==' ' ) {
                 input.consume();
@@ -412,25 +505,25 @@ public class QLLexer extends Lexer {
         try {
             int _type = COMMENT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // QL.g:99:5: ( ( '//' (~ ( NEWLINE ) )* | '/*' ( . )* '*/' ) )
-            // QL.g:99:7: ( '//' (~ ( NEWLINE ) )* | '/*' ( . )* '*/' )
+            // QL.g:126:5: ( ( '//' (~ ( NEWLINE ) )* | '/*' ( . )* '*/' ) )
+            // QL.g:126:7: ( '//' (~ ( NEWLINE ) )* | '/*' ( . )* '*/' )
             {
-            // QL.g:99:7: ( '//' (~ ( NEWLINE ) )* | '/*' ( . )* '*/' )
-            int alt3=2;
-            int LA3_0 = input.LA(1);
+            // QL.g:126:7: ( '//' (~ ( NEWLINE ) )* | '/*' ( . )* '*/' )
+            int alt4=2;
+            int LA4_0 = input.LA(1);
 
-            if ( (LA3_0=='/') ) {
-                int LA3_1 = input.LA(2);
+            if ( (LA4_0=='/') ) {
+                int LA4_1 = input.LA(2);
 
-                if ( (LA3_1=='/') ) {
-                    alt3=1;
+                if ( (LA4_1=='/') ) {
+                    alt4=1;
                 }
-                else if ( (LA3_1=='*') ) {
-                    alt3=2;
+                else if ( (LA4_1=='*') ) {
+                    alt4=2;
                 }
                 else {
                     NoViableAltException nvae =
-                        new NoViableAltException("", 3, 1, input);
+                        new NoViableAltException("", 4, 1, input);
 
                     throw nvae;
 
@@ -438,31 +531,31 @@ public class QLLexer extends Lexer {
             }
             else {
                 NoViableAltException nvae =
-                    new NoViableAltException("", 3, 0, input);
+                    new NoViableAltException("", 4, 0, input);
 
                 throw nvae;
 
             }
-            switch (alt3) {
+            switch (alt4) {
                 case 1 :
-                    // QL.g:99:8: '//' (~ ( NEWLINE ) )*
+                    // QL.g:126:8: '//' (~ ( NEWLINE ) )*
                     {
                     match("//"); 
 
 
 
-                    // QL.g:99:13: (~ ( NEWLINE ) )*
-                    loop1:
+                    // QL.g:126:13: (~ ( NEWLINE ) )*
+                    loop2:
                     do {
-                        int alt1=2;
-                        int LA1_0 = input.LA(1);
+                        int alt2=2;
+                        int LA2_0 = input.LA(1);
 
-                        if ( ((LA1_0 >= '\u0000' && LA1_0 <= '\t')||(LA1_0 >= '\u000B' && LA1_0 <= '\f')||(LA1_0 >= '\u000E' && LA1_0 <= '\uFFFF')) ) {
-                            alt1=1;
+                        if ( ((LA2_0 >= '\u0000' && LA2_0 <= '\t')||(LA2_0 >= '\u000B' && LA2_0 <= '\f')||(LA2_0 >= '\u000E' && LA2_0 <= '\uFFFF')) ) {
+                            alt2=1;
                         }
 
 
-                        switch (alt1) {
+                        switch (alt2) {
                     	case 1 :
                     	    // QL.g:
                     	    {
@@ -480,7 +573,7 @@ public class QLLexer extends Lexer {
                     	    break;
 
                     	default :
-                    	    break loop1;
+                    	    break loop2;
                         }
                     } while (true);
 
@@ -488,38 +581,38 @@ public class QLLexer extends Lexer {
                     }
                     break;
                 case 2 :
-                    // QL.g:99:27: '/*' ( . )* '*/'
+                    // QL.g:126:27: '/*' ( . )* '*/'
                     {
                     match("/*"); 
 
 
 
-                    // QL.g:99:32: ( . )*
-                    loop2:
+                    // QL.g:126:32: ( . )*
+                    loop3:
                     do {
-                        int alt2=2;
-                        int LA2_0 = input.LA(1);
+                        int alt3=2;
+                        int LA3_0 = input.LA(1);
 
-                        if ( (LA2_0=='*') ) {
-                            int LA2_1 = input.LA(2);
+                        if ( (LA3_0=='*') ) {
+                            int LA3_1 = input.LA(2);
 
-                            if ( (LA2_1=='/') ) {
-                                alt2=2;
+                            if ( (LA3_1=='/') ) {
+                                alt3=2;
                             }
-                            else if ( ((LA2_1 >= '\u0000' && LA2_1 <= '.')||(LA2_1 >= '0' && LA2_1 <= '\uFFFF')) ) {
-                                alt2=1;
+                            else if ( ((LA3_1 >= '\u0000' && LA3_1 <= '.')||(LA3_1 >= '0' && LA3_1 <= '\uFFFF')) ) {
+                                alt3=1;
                             }
 
 
                         }
-                        else if ( ((LA2_0 >= '\u0000' && LA2_0 <= ')')||(LA2_0 >= '+' && LA2_0 <= '\uFFFF')) ) {
-                            alt2=1;
+                        else if ( ((LA3_0 >= '\u0000' && LA3_0 <= ')')||(LA3_0 >= '+' && LA3_0 <= '\uFFFF')) ) {
+                            alt3=1;
                         }
 
 
-                        switch (alt2) {
+                        switch (alt3) {
                     	case 1 :
-                    	    // QL.g:99:32: .
+                    	    // QL.g:126:32: .
                     	    {
                     	    matchAny(); 
 
@@ -527,7 +620,7 @@ public class QLLexer extends Lexer {
                     	    break;
 
                     	default :
-                    	    break loop2;
+                    	    break loop3;
                         }
                     } while (true);
 
@@ -558,7 +651,7 @@ public class QLLexer extends Lexer {
     // $ANTLR start "NEWLINE"
     public final void mNEWLINE() throws RecognitionException {
         try {
-            // QL.g:103:5: ( ( '\\r' | '\\n' ) )
+            // QL.g:130:5: ( ( '\\r' | '\\n' ) )
             // QL.g:
             {
             if ( input.LA(1)=='\n'||input.LA(1)=='\r' ) {
@@ -586,26 +679,26 @@ public class QLLexer extends Lexer {
         try {
             int _type = Bool;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // QL.g:106:5: ( 'true' | 'false' )
-            int alt4=2;
-            int LA4_0 = input.LA(1);
+            // QL.g:133:5: ( 'true' | 'false' )
+            int alt5=2;
+            int LA5_0 = input.LA(1);
 
-            if ( (LA4_0=='t') ) {
-                alt4=1;
+            if ( (LA5_0=='t') ) {
+                alt5=1;
             }
-            else if ( (LA4_0=='f') ) {
-                alt4=2;
+            else if ( (LA5_0=='f') ) {
+                alt5=2;
             }
             else {
                 NoViableAltException nvae =
-                    new NoViableAltException("", 4, 0, input);
+                    new NoViableAltException("", 5, 0, input);
 
                 throw nvae;
 
             }
-            switch (alt4) {
+            switch (alt5) {
                 case 1 :
-                    // QL.g:106:9: 'true'
+                    // QL.g:133:9: 'true'
                     {
                     match("true"); 
 
@@ -614,7 +707,7 @@ public class QLLexer extends Lexer {
                     }
                     break;
                 case 2 :
-                    // QL.g:106:18: 'false'
+                    // QL.g:133:18: 'false'
                     {
                     match("false"); 
 
@@ -638,47 +731,47 @@ public class QLLexer extends Lexer {
         try {
             int _type = Str;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // QL.g:108:4: ( '\\\"' ( '\\\\\"' |~ '\\\"' )* '\\\"' )
-            // QL.g:108:9: '\\\"' ( '\\\\\"' |~ '\\\"' )* '\\\"'
+            // QL.g:134:4: ( '\\\"' ( '\\\\\"' |~ '\\\"' )* '\\\"' )
+            // QL.g:134:9: '\\\"' ( '\\\\\"' |~ '\\\"' )* '\\\"'
             {
             match('\"'); 
 
-            // QL.g:108:14: ( '\\\\\"' |~ '\\\"' )*
-            loop5:
+            // QL.g:134:14: ( '\\\\\"' |~ '\\\"' )*
+            loop6:
             do {
-                int alt5=3;
-                int LA5_0 = input.LA(1);
+                int alt6=3;
+                int LA6_0 = input.LA(1);
 
-                if ( (LA5_0=='\\') ) {
-                    int LA5_2 = input.LA(2);
+                if ( (LA6_0=='\\') ) {
+                    int LA6_2 = input.LA(2);
 
-                    if ( (LA5_2=='\"') ) {
-                        int LA5_4 = input.LA(3);
+                    if ( (LA6_2=='\"') ) {
+                        int LA6_4 = input.LA(3);
 
-                        if ( ((LA5_4 >= '\u0000' && LA5_4 <= '\uFFFF')) ) {
-                            alt5=1;
+                        if ( ((LA6_4 >= '\u0000' && LA6_4 <= '\uFFFF')) ) {
+                            alt6=1;
                         }
 
                         else {
-                            alt5=2;
+                            alt6=2;
                         }
 
 
                     }
-                    else if ( ((LA5_2 >= '\u0000' && LA5_2 <= '!')||(LA5_2 >= '#' && LA5_2 <= '\uFFFF')) ) {
-                        alt5=2;
+                    else if ( ((LA6_2 >= '\u0000' && LA6_2 <= '!')||(LA6_2 >= '#' && LA6_2 <= '\uFFFF')) ) {
+                        alt6=2;
                     }
 
 
                 }
-                else if ( ((LA5_0 >= '\u0000' && LA5_0 <= '!')||(LA5_0 >= '#' && LA5_0 <= '[')||(LA5_0 >= ']' && LA5_0 <= '\uFFFF')) ) {
-                    alt5=2;
+                else if ( ((LA6_0 >= '\u0000' && LA6_0 <= '!')||(LA6_0 >= '#' && LA6_0 <= '[')||(LA6_0 >= ']' && LA6_0 <= '\uFFFF')) ) {
+                    alt6=2;
                 }
 
 
-                switch (alt5) {
+                switch (alt6) {
             	case 1 :
-            	    // QL.g:108:15: '\\\\\"'
+            	    // QL.g:134:15: '\\\\\"'
             	    {
             	    match("\\\""); 
 
@@ -687,7 +780,7 @@ public class QLLexer extends Lexer {
             	    }
             	    break;
             	case 2 :
-            	    // QL.g:108:23: ~ '\\\"'
+            	    // QL.g:134:23: ~ '\\\"'
             	    {
             	    if ( (input.LA(1) >= '\u0000' && input.LA(1) <= '!')||(input.LA(1) >= '#' && input.LA(1) <= '\uFFFF') ) {
             	        input.consume();
@@ -703,7 +796,7 @@ public class QLLexer extends Lexer {
             	    break;
 
             	default :
-            	    break loop5;
+            	    break loop6;
                 }
             } while (true);
 
@@ -726,8 +819,8 @@ public class QLLexer extends Lexer {
         try {
             int _type = Ident;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // QL.g:110:6: ( ( 'a' .. 'z' | 'A' .. 'Z' ) ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )* )
-            // QL.g:110:9: ( 'a' .. 'z' | 'A' .. 'Z' ) ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )*
+            // QL.g:135:6: ( ( 'a' .. 'z' | 'A' .. 'Z' ) ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )* )
+            // QL.g:135:9: ( 'a' .. 'z' | 'A' .. 'Z' ) ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )*
             {
             if ( (input.LA(1) >= 'A' && input.LA(1) <= 'Z')||(input.LA(1) >= 'a' && input.LA(1) <= 'z') ) {
                 input.consume();
@@ -739,18 +832,18 @@ public class QLLexer extends Lexer {
             }
 
 
-            // QL.g:110:28: ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )*
-            loop6:
+            // QL.g:135:28: ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )*
+            loop7:
             do {
-                int alt6=2;
-                int LA6_0 = input.LA(1);
+                int alt7=2;
+                int LA7_0 = input.LA(1);
 
-                if ( ((LA6_0 >= '0' && LA6_0 <= '9')||(LA6_0 >= 'A' && LA6_0 <= 'Z')||LA6_0=='_'||(LA6_0 >= 'a' && LA6_0 <= 'z')) ) {
-                    alt6=1;
+                if ( ((LA7_0 >= '0' && LA7_0 <= '9')||(LA7_0 >= 'A' && LA7_0 <= 'Z')||LA7_0=='_'||(LA7_0 >= 'a' && LA7_0 <= 'z')) ) {
+                    alt7=1;
                 }
 
 
-                switch (alt6) {
+                switch (alt7) {
             	case 1 :
             	    // QL.g:
             	    {
@@ -768,7 +861,7 @@ public class QLLexer extends Lexer {
             	    break;
 
             	default :
-            	    break loop6;
+            	    break loop7;
                 }
             } while (true);
 
@@ -789,22 +882,22 @@ public class QLLexer extends Lexer {
         try {
             int _type = Int;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // QL.g:112:4: ( ( '0' .. '9' )+ )
-            // QL.g:112:9: ( '0' .. '9' )+
+            // QL.g:136:4: ( ( '0' .. '9' )+ )
+            // QL.g:136:9: ( '0' .. '9' )+
             {
-            // QL.g:112:9: ( '0' .. '9' )+
-            int cnt7=0;
-            loop7:
+            // QL.g:136:9: ( '0' .. '9' )+
+            int cnt8=0;
+            loop8:
             do {
-                int alt7=2;
-                int LA7_0 = input.LA(1);
+                int alt8=2;
+                int LA8_0 = input.LA(1);
 
-                if ( ((LA7_0 >= '0' && LA7_0 <= '9')) ) {
-                    alt7=1;
+                if ( ((LA8_0 >= '0' && LA8_0 <= '9')) ) {
+                    alt8=1;
                 }
 
 
-                switch (alt7) {
+                switch (alt8) {
             	case 1 :
             	    // QL.g:
             	    {
@@ -822,12 +915,12 @@ public class QLLexer extends Lexer {
             	    break;
 
             	default :
-            	    if ( cnt7 >= 1 ) break loop7;
+            	    if ( cnt8 >= 1 ) break loop8;
                         EarlyExitException eee =
-                            new EarlyExitException(7, input);
+                            new EarlyExitException(8, input);
                         throw eee;
                 }
-                cnt7++;
+                cnt8++;
             } while (true);
 
 
@@ -843,95 +936,255 @@ public class QLLexer extends Lexer {
     // $ANTLR end "Int"
 
     public void mTokens() throws RecognitionException {
-        // QL.g:1:8: ( T__11 | T__12 | T__13 | T__14 | T__15 | T__16 | T__17 | T__18 | T__19 | T__20 | T__21 | T__22 | T__23 | T__24 | T__25 | WS | COMMENT | Bool | Str | Ident | Int )
-        int alt8=21;
+        // QL.g:1:8: ( T__12 | T__13 | T__14 | T__15 | T__16 | T__17 | T__18 | T__19 | T__20 | T__21 | T__22 | T__23 | T__24 | T__25 | T__26 | T__27 | Type | WS | COMMENT | Bool | Str | Ident | Int )
+        int alt9=23;
         switch ( input.LA(1) ) {
         case '!':
             {
-            int LA8_1 = input.LA(2);
+            int LA9_1 = input.LA(2);
 
-            if ( (LA8_1=='=') ) {
-                alt8=2;
+            if ( (LA9_1=='=') ) {
+                alt9=2;
             }
             else {
-                alt8=1;
+                alt9=1;
             }
             }
             break;
         case '&':
             {
-            alt8=3;
+            alt9=3;
             }
             break;
         case '(':
             {
-            alt8=4;
+            alt9=4;
             }
             break;
         case ')':
             {
-            alt8=5;
+            alt9=5;
             }
             break;
         case '*':
             {
-            alt8=6;
+            alt9=6;
             }
             break;
         case '+':
             {
-            alt8=7;
+            alt9=7;
             }
             break;
         case '-':
             {
-            alt8=8;
+            alt9=8;
             }
             break;
         case '/':
             {
-            int LA8_8 = input.LA(2);
+            int LA9_8 = input.LA(2);
 
-            if ( (LA8_8=='*'||LA8_8=='/') ) {
-                alt8=17;
+            if ( (LA9_8=='*'||LA9_8=='/') ) {
+                alt9=19;
             }
             else {
-                alt8=9;
+                alt9=9;
             }
+            }
+            break;
+        case ':':
+            {
+            alt9=10;
             }
             break;
         case '<':
             {
-            int LA8_9 = input.LA(2);
+            int LA9_10 = input.LA(2);
 
-            if ( (LA8_9=='=') ) {
-                alt8=11;
+            if ( (LA9_10=='=') ) {
+                alt9=12;
             }
             else {
-                alt8=10;
+                alt9=11;
             }
             }
             break;
         case '=':
             {
-            alt8=12;
+            alt9=13;
             }
             break;
         case '>':
             {
-            int LA8_11 = input.LA(2);
+            int LA9_12 = input.LA(2);
 
-            if ( (LA8_11=='=') ) {
-                alt8=14;
+            if ( (LA9_12=='=') ) {
+                alt9=15;
             }
             else {
-                alt8=13;
+                alt9=14;
             }
             }
             break;
         case '|':
             {
-            alt8=15;
+            alt9=16;
+            }
+            break;
+        case 'b':
+            {
+            int LA9_14 = input.LA(2);
+
+            if ( (LA9_14=='o') ) {
+                int LA9_31 = input.LA(3);
+
+                if ( (LA9_31=='o') ) {
+                    int LA9_36 = input.LA(4);
+
+                    if ( (LA9_36=='l') ) {
+                        int LA9_41 = input.LA(5);
+
+                        if ( (LA9_41=='e') ) {
+                            int LA9_46 = input.LA(6);
+
+                            if ( (LA9_46=='a') ) {
+                                int LA9_51 = input.LA(7);
+
+                                if ( (LA9_51=='n') ) {
+                                    int LA9_54 = input.LA(8);
+
+                                    if ( ((LA9_54 >= '0' && LA9_54 <= '9')||(LA9_54 >= 'A' && LA9_54 <= 'Z')||LA9_54=='_'||(LA9_54 >= 'a' && LA9_54 <= 'z')) ) {
+                                        alt9=22;
+                                    }
+                                    else {
+                                        alt9=17;
+                                    }
+                                }
+                                else {
+                                    alt9=22;
+                                }
+                            }
+                            else {
+                                alt9=22;
+                            }
+                        }
+                        else {
+                            alt9=22;
+                        }
+                    }
+                    else {
+                        alt9=22;
+                    }
+                }
+                else {
+                    alt9=22;
+                }
+            }
+            else {
+                alt9=22;
+            }
+            }
+            break;
+        case 'i':
+            {
+            int LA9_15 = input.LA(2);
+
+            if ( (LA9_15=='n') ) {
+                int LA9_32 = input.LA(3);
+
+                if ( (LA9_32=='t') ) {
+                    int LA9_37 = input.LA(4);
+
+                    if ( (LA9_37=='e') ) {
+                        int LA9_42 = input.LA(5);
+
+                        if ( (LA9_42=='g') ) {
+                            int LA9_47 = input.LA(6);
+
+                            if ( (LA9_47=='e') ) {
+                                int LA9_52 = input.LA(7);
+
+                                if ( (LA9_52=='r') ) {
+                                    int LA9_55 = input.LA(8);
+
+                                    if ( ((LA9_55 >= '0' && LA9_55 <= '9')||(LA9_55 >= 'A' && LA9_55 <= 'Z')||LA9_55=='_'||(LA9_55 >= 'a' && LA9_55 <= 'z')) ) {
+                                        alt9=22;
+                                    }
+                                    else {
+                                        alt9=17;
+                                    }
+                                }
+                                else {
+                                    alt9=22;
+                                }
+                            }
+                            else {
+                                alt9=22;
+                            }
+                        }
+                        else {
+                            alt9=22;
+                        }
+                    }
+                    else {
+                        alt9=22;
+                    }
+                }
+                else {
+                    alt9=22;
+                }
+            }
+            else {
+                alt9=22;
+            }
+            }
+            break;
+        case 's':
+            {
+            int LA9_16 = input.LA(2);
+
+            if ( (LA9_16=='t') ) {
+                int LA9_33 = input.LA(3);
+
+                if ( (LA9_33=='r') ) {
+                    int LA9_38 = input.LA(4);
+
+                    if ( (LA9_38=='i') ) {
+                        int LA9_43 = input.LA(5);
+
+                        if ( (LA9_43=='n') ) {
+                            int LA9_48 = input.LA(6);
+
+                            if ( (LA9_48=='g') ) {
+                                int LA9_53 = input.LA(7);
+
+                                if ( ((LA9_53 >= '0' && LA9_53 <= '9')||(LA9_53 >= 'A' && LA9_53 <= 'Z')||LA9_53=='_'||(LA9_53 >= 'a' && LA9_53 <= 'z')) ) {
+                                    alt9=22;
+                                }
+                                else {
+                                    alt9=17;
+                                }
+                            }
+                            else {
+                                alt9=22;
+                            }
+                        }
+                        else {
+                            alt9=22;
+                        }
+                    }
+                    else {
+                        alt9=22;
+                    }
+                }
+                else {
+                    alt9=22;
+                }
+            }
+            else {
+                alt9=22;
+            }
             }
             break;
         case '\t':
@@ -939,85 +1192,85 @@ public class QLLexer extends Lexer {
         case '\r':
         case ' ':
             {
-            alt8=16;
+            alt9=18;
             }
             break;
         case 't':
             {
-            int LA8_14 = input.LA(2);
+            int LA9_18 = input.LA(2);
 
-            if ( (LA8_14=='r') ) {
-                int LA8_27 = input.LA(3);
+            if ( (LA9_18=='r') ) {
+                int LA9_34 = input.LA(3);
 
-                if ( (LA8_27=='u') ) {
-                    int LA8_29 = input.LA(4);
+                if ( (LA9_34=='u') ) {
+                    int LA9_39 = input.LA(4);
 
-                    if ( (LA8_29=='e') ) {
-                        int LA8_31 = input.LA(5);
+                    if ( (LA9_39=='e') ) {
+                        int LA9_44 = input.LA(5);
 
-                        if ( ((LA8_31 >= '0' && LA8_31 <= '9')||(LA8_31 >= 'A' && LA8_31 <= 'Z')||LA8_31=='_'||(LA8_31 >= 'a' && LA8_31 <= 'z')) ) {
-                            alt8=20;
+                        if ( ((LA9_44 >= '0' && LA9_44 <= '9')||(LA9_44 >= 'A' && LA9_44 <= 'Z')||LA9_44=='_'||(LA9_44 >= 'a' && LA9_44 <= 'z')) ) {
+                            alt9=22;
                         }
                         else {
-                            alt8=18;
+                            alt9=20;
                         }
                     }
                     else {
-                        alt8=20;
+                        alt9=22;
                     }
                 }
                 else {
-                    alt8=20;
+                    alt9=22;
                 }
             }
             else {
-                alt8=20;
+                alt9=22;
             }
             }
             break;
         case 'f':
             {
-            int LA8_15 = input.LA(2);
+            int LA9_19 = input.LA(2);
 
-            if ( (LA8_15=='a') ) {
-                int LA8_28 = input.LA(3);
+            if ( (LA9_19=='a') ) {
+                int LA9_35 = input.LA(3);
 
-                if ( (LA8_28=='l') ) {
-                    int LA8_30 = input.LA(4);
+                if ( (LA9_35=='l') ) {
+                    int LA9_40 = input.LA(4);
 
-                    if ( (LA8_30=='s') ) {
-                        int LA8_32 = input.LA(5);
+                    if ( (LA9_40=='s') ) {
+                        int LA9_45 = input.LA(5);
 
-                        if ( (LA8_32=='e') ) {
-                            int LA8_34 = input.LA(6);
+                        if ( (LA9_45=='e') ) {
+                            int LA9_50 = input.LA(6);
 
-                            if ( ((LA8_34 >= '0' && LA8_34 <= '9')||(LA8_34 >= 'A' && LA8_34 <= 'Z')||LA8_34=='_'||(LA8_34 >= 'a' && LA8_34 <= 'z')) ) {
-                                alt8=20;
+                            if ( ((LA9_50 >= '0' && LA9_50 <= '9')||(LA9_50 >= 'A' && LA9_50 <= 'Z')||LA9_50=='_'||(LA9_50 >= 'a' && LA9_50 <= 'z')) ) {
+                                alt9=22;
                             }
                             else {
-                                alt8=18;
+                                alt9=20;
                             }
                         }
                         else {
-                            alt8=20;
+                            alt9=22;
                         }
                     }
                     else {
-                        alt8=20;
+                        alt9=22;
                     }
                 }
                 else {
-                    alt8=20;
+                    alt9=22;
                 }
             }
             else {
-                alt8=20;
+                alt9=22;
             }
             }
             break;
         case '\"':
             {
-            alt8=19;
+            alt9=21;
             }
             break;
         case 'A':
@@ -1047,13 +1300,11 @@ public class QLLexer extends Lexer {
         case 'Y':
         case 'Z':
         case 'a':
-        case 'b':
         case 'c':
         case 'd':
         case 'e':
         case 'g':
         case 'h':
-        case 'i':
         case 'j':
         case 'k':
         case 'l':
@@ -1063,7 +1314,6 @@ public class QLLexer extends Lexer {
         case 'p':
         case 'q':
         case 'r':
-        case 's':
         case 'u':
         case 'v':
         case 'w':
@@ -1071,7 +1321,7 @@ public class QLLexer extends Lexer {
         case 'y':
         case 'z':
             {
-            alt8=20;
+            alt9=22;
             }
             break;
         case '0':
@@ -1085,180 +1335,196 @@ public class QLLexer extends Lexer {
         case '8':
         case '9':
             {
-            alt8=21;
+            alt9=23;
             }
             break;
         default:
             NoViableAltException nvae =
-                new NoViableAltException("", 8, 0, input);
+                new NoViableAltException("", 9, 0, input);
 
             throw nvae;
 
         }
 
-        switch (alt8) {
+        switch (alt9) {
             case 1 :
-                // QL.g:1:10: T__11
-                {
-                mT__11(); 
-
-
-                }
-                break;
-            case 2 :
-                // QL.g:1:16: T__12
+                // QL.g:1:10: T__12
                 {
                 mT__12(); 
 
 
                 }
                 break;
-            case 3 :
-                // QL.g:1:22: T__13
+            case 2 :
+                // QL.g:1:16: T__13
                 {
                 mT__13(); 
 
 
                 }
                 break;
-            case 4 :
-                // QL.g:1:28: T__14
+            case 3 :
+                // QL.g:1:22: T__14
                 {
                 mT__14(); 
 
 
                 }
                 break;
-            case 5 :
-                // QL.g:1:34: T__15
+            case 4 :
+                // QL.g:1:28: T__15
                 {
                 mT__15(); 
 
 
                 }
                 break;
-            case 6 :
-                // QL.g:1:40: T__16
+            case 5 :
+                // QL.g:1:34: T__16
                 {
                 mT__16(); 
 
 
                 }
                 break;
-            case 7 :
-                // QL.g:1:46: T__17
+            case 6 :
+                // QL.g:1:40: T__17
                 {
                 mT__17(); 
 
 
                 }
                 break;
-            case 8 :
-                // QL.g:1:52: T__18
+            case 7 :
+                // QL.g:1:46: T__18
                 {
                 mT__18(); 
 
 
                 }
                 break;
-            case 9 :
-                // QL.g:1:58: T__19
+            case 8 :
+                // QL.g:1:52: T__19
                 {
                 mT__19(); 
 
 
                 }
                 break;
-            case 10 :
-                // QL.g:1:64: T__20
+            case 9 :
+                // QL.g:1:58: T__20
                 {
                 mT__20(); 
 
 
                 }
                 break;
-            case 11 :
-                // QL.g:1:70: T__21
+            case 10 :
+                // QL.g:1:64: T__21
                 {
                 mT__21(); 
 
 
                 }
                 break;
-            case 12 :
-                // QL.g:1:76: T__22
+            case 11 :
+                // QL.g:1:70: T__22
                 {
                 mT__22(); 
 
 
                 }
                 break;
-            case 13 :
-                // QL.g:1:82: T__23
+            case 12 :
+                // QL.g:1:76: T__23
                 {
                 mT__23(); 
 
 
                 }
                 break;
-            case 14 :
-                // QL.g:1:88: T__24
+            case 13 :
+                // QL.g:1:82: T__24
                 {
                 mT__24(); 
 
 
                 }
                 break;
-            case 15 :
-                // QL.g:1:94: T__25
+            case 14 :
+                // QL.g:1:88: T__25
                 {
                 mT__25(); 
 
 
                 }
                 break;
+            case 15 :
+                // QL.g:1:94: T__26
+                {
+                mT__26(); 
+
+
+                }
+                break;
             case 16 :
-                // QL.g:1:100: WS
+                // QL.g:1:100: T__27
+                {
+                mT__27(); 
+
+
+                }
+                break;
+            case 17 :
+                // QL.g:1:106: Type
+                {
+                mType(); 
+
+
+                }
+                break;
+            case 18 :
+                // QL.g:1:111: WS
                 {
                 mWS(); 
 
 
                 }
                 break;
-            case 17 :
-                // QL.g:1:103: COMMENT
+            case 19 :
+                // QL.g:1:114: COMMENT
                 {
                 mCOMMENT(); 
 
 
                 }
                 break;
-            case 18 :
-                // QL.g:1:111: Bool
+            case 20 :
+                // QL.g:1:122: Bool
                 {
                 mBool(); 
 
 
                 }
                 break;
-            case 19 :
-                // QL.g:1:116: Str
+            case 21 :
+                // QL.g:1:127: Str
                 {
                 mStr(); 
 
 
                 }
                 break;
-            case 20 :
-                // QL.g:1:120: Ident
+            case 22 :
+                // QL.g:1:131: Ident
                 {
                 mIdent(); 
 
 
                 }
                 break;
-            case 21 :
-                // QL.g:1:126: Int
+            case 23 :
+                // QL.g:1:137: Int
                 {
                 mInt(); 
 
