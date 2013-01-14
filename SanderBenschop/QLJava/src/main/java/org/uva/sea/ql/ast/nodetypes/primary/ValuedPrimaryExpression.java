@@ -1,4 +1,4 @@
-package org.uva.sea.ql.ast.primary;
+package org.uva.sea.ql.ast.nodetypes.primary;
 
 import org.uva.sea.ql.ast.QLExpression;
 

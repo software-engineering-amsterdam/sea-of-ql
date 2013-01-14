@@ -1,15 +1,14 @@
-package org.uva.sea.ql.ast.primary;
+package org.uva.sea.ql.ast.nodetypes.primary;
 
-import org.uva.sea.ql.ast.QLExpression;
-
-public final class Ident extends QLExpression {
+public final class Ident extends NamedPrimaryExpression {
 
 	private final String name;
 
 	public Ident(String name) {
 		this.name = name;
 	}
-	
+
+    @Override
 	public String getName() {
 		return name;
 	}

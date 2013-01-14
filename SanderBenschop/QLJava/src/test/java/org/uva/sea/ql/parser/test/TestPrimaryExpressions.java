@@ -3,11 +3,11 @@ package org.uva.sea.ql.parser.test;
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
-import org.uva.sea.ql.ast.primary.Bool;
-import org.uva.sea.ql.ast.primary.Ident;
-import org.uva.sea.ql.ast.primary.Int;
-import org.uva.sea.ql.ast.primary.Str;
-import org.uva.sea.ql.ast.primary.ValuedPrimaryExpression;
+import org.uva.sea.ql.ast.nodetypes.primary.Bool;
+import org.uva.sea.ql.ast.nodetypes.primary.Ident;
+import org.uva.sea.ql.ast.nodetypes.primary.Int;
+import org.uva.sea.ql.ast.nodetypes.primary.Str;
+import org.uva.sea.ql.ast.nodetypes.primary.ValuedPrimaryExpression;
 import org.uva.sea.ql.parser.exception.ParseError;
 
 public class TestPrimaryExpressions extends TestExpressions {

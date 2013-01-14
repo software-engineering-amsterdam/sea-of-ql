@@ -3,11 +3,11 @@ package org.uva.sea.ql.parser.test;
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
-import org.uva.sea.ql.ast.binary.Add;
-import org.uva.sea.ql.ast.binary.GT;
-import org.uva.sea.ql.ast.binary.LEq;
-import org.uva.sea.ql.ast.binary.LT;
-import org.uva.sea.ql.ast.binary.Mul;
+import org.uva.sea.ql.ast.nodetypes.binary.Add;
+import org.uva.sea.ql.ast.nodetypes.binary.GT;
+import org.uva.sea.ql.ast.nodetypes.binary.LEq;
+import org.uva.sea.ql.ast.nodetypes.binary.LT;
+import org.uva.sea.ql.ast.nodetypes.binary.Mul;
 import org.uva.sea.ql.parser.exception.ParseError;
 
 public class TestBinaryOperatorExpressions extends TestExpressions {

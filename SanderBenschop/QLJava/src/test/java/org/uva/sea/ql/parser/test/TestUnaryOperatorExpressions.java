@@ -3,9 +3,9 @@ package org.uva.sea.ql.parser.test;
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
-import org.uva.sea.ql.ast.unary.Neg;
-import org.uva.sea.ql.ast.unary.Not;
-import org.uva.sea.ql.ast.unary.Pos;
+import org.uva.sea.ql.ast.nodetypes.unary.Neg;
+import org.uva.sea.ql.ast.nodetypes.unary.Not;
+import org.uva.sea.ql.ast.nodetypes.unary.Pos;
 import org.uva.sea.ql.parser.exception.ParseError;
 
 public class TestUnaryOperatorExpressions extends TestExpressions {

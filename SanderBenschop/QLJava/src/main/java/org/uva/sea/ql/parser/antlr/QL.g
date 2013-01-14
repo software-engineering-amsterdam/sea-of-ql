@@ -5,27 +5,68 @@ options {backtrack=true; memoize=true;}
 {
 package org.uva.sea.ql.parser.antlr;
 import org.uva.sea.ql.ast.*;
-import org.uva.sea.ql.ast.primary.*;
-import org.uva.sea.ql.ast.unary.*;
-import org.uva.sea.ql.ast.binary.*;
+import org.uva.sea.ql.ast.nodetypes.primary.*;
+import org.uva.sea.ql.ast.nodetypes.unary.*;
+import org.uva.sea.ql.ast.nodetypes.binary.*;
+import org.uva.sea.ql.ast.nodetypes.conditional.*;
+import org.uva.sea.ql.ast.nodetypes.formelements.*;
+}
+
+@parser::members 
+{
+  private String removeOuterQuotes(String original) {
+    return original.substring(1, original.length()-1);
+  }
 }
 
 @lexer::header
 {
 package org.uva.sea.ql.parser.antlr;
 }
+    
+statementList returns [List<QLStatement> result]
+  @init
+  {
+    $result = new ArrayList<QLStatement>();
+  }
+  : (stmnt=statement '\n' {result.add(stmnt);})*
+  ;
+
+statement returns [QLStatement result]
+  : question
+  | conditional
+  ;
+
+question returns [Question result]
+  : Ident ':' Str Datatype {
+                              Ident ident = new Ident($Ident.text);
+                              Str label = new Str(removeOuterQuotes($Str.text));
+                              Str datatype = new Str($Datatype.text);
+                              $result = new Question(ident, label, datatype);
+                           }
+  ;
+  
+conditional returns [Conditional result]
+  : 'if' '(' condition=orExpr ')' BRACE_OPEN success=statementList BRACE_CLOSE
+    ( ('else') => 'else' BRACE_OPEN failure=statementList BRACE_CLOSE
+    | ( ) //No else
+    ) {
+      if (failure != null) {
+        $result = new Conditional(condition, success, failure);
+      } else {
+        $result = new Conditional(condition, success);
+      }
+    }
+  ;
 
 primary returns [QLExpression result]
   : Int   { $result = new Int(Integer.parseInt($Int.text)); }
   | Bool  { $result = new Bool(Boolean.parseBoolean($Bool.text)); }
   | Ident { $result = new Ident($Ident.text); }
-  | Str   { 
-            String temp = $Str.text;
-            $result = new Str(temp.substring(1, temp.length()-1));
-          }
+  | Str   { $result = new Str(removeOuterQuotes($Str.text)); }
   | '(' x=orExpr ')'{ $result = $x.result; }
   ;
-    
+
 unExpr returns [QLExpression result]
     :  '+' x=unExpr { $result = new Pos($x.result); }
     |  '-' x=unExpr { $result = new Neg($x.result); }
@@ -39,7 +80,7 @@ mulExpr returns [QLExpression result]
       if ($op.text.equals("*")) {
         $result = new Mul($result, rhs);
       }
-      if ($op.text.equals("<=")) {
+      if ($op.text.equals("/")) {
         $result = new Div($result, rhs);      
       }
     })*
@@ -90,18 +131,23 @@ andExpr returns [QLExpression result]
 orExpr returns [QLExpression result]
     :   lhs=andExpr { $result = $lhs.result; } ( '||' rhs=andExpr { $result = new Or($result, rhs); } )*
     ;
-
     
 // Tokens
+
+BRACE_OPEN : '{';
+BRACE_CLOSE : '}';
+
 WS  :	(' ' | '\t' | '\n' | '\r') { $channel=HIDDEN; }
     ;
 
 COMMENT 
-     : '/*' .* '*/' {$channel=HIDDEN;}
-     | '//' ~('\n')* {$channel=HIDDEN;} 
+    : '/*' .* '*/' {$channel=HIDDEN;}
+    | '//' ~('\n')* {$channel=HIDDEN;} 
     ;
+    
+Datatype: 'boolean' | 'string' | 'int';
 
-Bool: 'true'|'false';
+Bool: 'true' | 'false';
 Ident:   ('a'..'z'|'A'..'Z')('a'..'z'|'A'..'Z'|'0'..'9'|'_')*;
 
 Str: '"' (EscapedCharacterSequence | ~('\\' | '"'))* '"';
