@@ -112,6 +112,16 @@ public class QLLexer implements QLTokens {
 						nextChar();
 						continue;
 					}
+					else if ( c == '/' ) {
+						// single line comments
+						nextChar();
+
+						while ( c >= ENDINPUT && c != '\r' && c != '\n' ) {
+							nextChar();
+						}
+						
+						continue;
+					}
 					
 					return token = '/';
 				}
@@ -209,15 +219,19 @@ public class QLLexer implements QLTokens {
 					return token = '>';
 				}
 				
+				case '"': {
+					if ( this.matchString() ) {
+						return token = STR;
+					}
+				}
+				
 				default: {
-					if ( c == '"' ) {
-						return this.matchString();
+					if ( this.matchInteger() ) {
+						return token = INT;
 					}
-					else if ( Character.isDigit( c ) ) {
-						return this.matchInteger();
-					}
-					else if ( Character.isLetter( c ) ) {
-						return this.matchOther();
+					
+					if ( this.matchToken() ) {
+						return token;
 					}
 				
 					throw new RuntimeException( "Unexpected character: " + (char) c );
@@ -229,27 +243,84 @@ public class QLLexer implements QLTokens {
 	/**
 	 * Matches a string literal.
 	 * 
-	 * @return token
+	 * @return True if string, false otherwise.
 	 */
-	private int matchString() {
+	private boolean matchString() {
 		StringBuilder sb = new StringBuilder();
+		boolean inString = true;
 		
-		do {
-			sb.append( (char) c );
+		while ( inString ) {
 			nextChar();
+			
+			if ( c < ENDINPUT ) {
+				throw new RuntimeException( "Unterminated string literal" );
+			}
+			else if ( c == '"' ) {
+				inString = false;
+			}
+			else if ( c == '\\' ) {
+				nextChar();
+				sb.append( this.getEscapedChar( (char) c ) );
+			}
+			else {
+				sb.append( (char) c );
+			}
 		}
-		while ( c != '"' );
-		
+
+		nextChar();
+
 		yylval = new org.uva.sea.ql.ast.expression.value.Str( sb.toString() );
-		return token = STR;
+		return true;
 	}
 	
 	/**
+	 * Unescapes an escaped character within a string literal.
+	 * 
+	 * @param input Character to unescape.
+	 * 
+	 * @return The unescaped character.
+	 */
+	private char getEscapedChar( char input ) {
+		switch ( input ) {
+			// whitespace
+			case 'n':
+				return '\n';
+				
+			case 'r':
+				return '\r';
+				
+			case 't':
+				return '\t';
+				
+			case 'b':
+				return '\b';
+				
+			case 'f':
+				return '\f';
+				
+			case '\'':
+				return '\'';
+				
+			case '"':
+				return '"';
+				
+			case '\\':
+				return '\\';
+		}
+		
+		throw new RuntimeException( "Unrecognized escape sequence" );
+	}
+		
+	/**
 	 * Matches an integer literal.
 	 * 
-	 * @return token
+	 * @return True if integer, false otherwise.
 	 */
-	private int matchInteger() {
+	private boolean matchInteger() {
+		if ( !Character.isDigit( c ) ) {
+			return false;
+		}
+		
 		int n = 0;
 		
 		do {
@@ -259,15 +330,15 @@ public class QLLexer implements QLTokens {
 		while ( Character.isDigit( c ) );
 
 		yylval = new Int( n );
-		return token = INT;
+		return true;
 	}
 	
 	/**
-	 * Matches keywords and identifiers.
+	 * Matches arbitrary token.
 	 * 
-	 * @return token
+	 * @return True if successful, false otherwise.
 	 */
-	private int matchOther() {
+	private boolean matchToken() {
 		StringBuilder sb = new StringBuilder();
 		
 		do {
@@ -289,11 +360,13 @@ public class QLLexer implements QLTokens {
 					break;
 			}
 
-			return token;
+			return true;
 		}
 
 		yylval = new Ident( name );
-		return token = IDENT;
+		token = IDENT;
+		
+		return true;
 	}
 
 	/**
