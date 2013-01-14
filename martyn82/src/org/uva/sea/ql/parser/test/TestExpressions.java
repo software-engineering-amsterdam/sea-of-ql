@@ -160,15 +160,15 @@ public class TestExpressions {
 	@Test
 	public void testNums() throws ParseError {
 		// integer
-//		assertEquals( Int.class, parser.parse( "0" ).getClass() );
-//		assertEquals( Int.class, parser.parse( "1223" ).getClass() );
-//		assertEquals( Int.class, parser.parse( "234234234" ).getClass() );
+		assertEquals( Int.class, parser.parse( "0" ).getClass() );
+		assertEquals( Int.class, parser.parse( "1223" ).getClass() );
+		assertEquals( Int.class, parser.parse( "234234234" ).getClass() );
 		
 		// money
-//		assertEquals( Money.class, parser.parse( "0.0" ).getClass() );
-//		assertEquals( Money.class, parser.parse( "0.034982390" ).getClass() );
-//		assertEquals( Money.class, parser.parse( ".5" ).getClass() );
-//		assertEquals( Money.class, parser.parse( ".121e-10" ).getClass() );
+		assertEquals( Money.class, parser.parse( "0.0" ).getClass() );
+		assertEquals( Money.class, parser.parse( "0.034982390" ).getClass() );
+		assertEquals( Money.class, parser.parse( ".5" ).getClass() );
+		assertEquals( Money.class, parser.parse( ".121e-10" ).getClass() );
 		assertEquals( Money.class, parser.parse( "141232.12141E+04" ).getClass() );
 		
 		// negative
