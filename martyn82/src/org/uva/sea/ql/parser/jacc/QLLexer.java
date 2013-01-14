@@ -25,6 +25,7 @@ public class QLLexer implements QLTokens {
 		KEYWORDS = new HashMap<String, Integer>();
 		KEYWORDS.put( "true", BOOL );
 		KEYWORDS.put( "false", BOOL );
+		KEYWORDS.put( "if", IF );
 	}
 
 	/**
@@ -346,10 +347,10 @@ public class QLLexer implements QLTokens {
 			|| c == '+'
 		);
 		
-		String value = sb.toString().toUpperCase();
+		String value = sb.toString();
 		
 		if ( this.decimal == null ) {
-			this.decimal = Pattern.compile( "[0-9]*\\.[0-9]+(E[\\+|\\-][0-9]+)?" );
+			this.decimal = Pattern.compile( "[0-9]*\\.[0-9]+([E|e][\\+|\\-]?[0-9]+)?" );
 		}
 		
 		if ( decimal.matcher( value ).matches() ) {
@@ -396,6 +397,7 @@ public class QLLexer implements QLTokens {
 						Boolean.parseBoolean( name )
 					);
 					break;
+				
 			}
 
 			return true;

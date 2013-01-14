@@ -8,12 +8,13 @@ import org.uva.sea.ql.ast.expression.value.Bool;
 import org.uva.sea.ql.ast.expression.value.Int;
 import org.uva.sea.ql.ast.expression.value.Money;
 import org.uva.sea.ql.ast.expression.value.Str;
+import org.uva.sea.ql.ast.statement.If;
 import org.uva.sea.ql.parser.jacc.JACCParser;
 
 /**
  * Testing expressions.
  */
-public class TestExpressions {
+public class TestParser {
 	/**
 	 * Holds working parser object.
 	 */
@@ -22,7 +23,7 @@ public class TestExpressions {
 	/**
 	 * Constructor.
 	 */
-	public TestExpressions() {
+	public TestParser() {
 		this.parser = new JACCParser();
 	}
 
@@ -170,6 +171,7 @@ public class TestExpressions {
 		assertEquals( Money.class, parser.parse( ".5" ).getClass() );
 		assertEquals( Money.class, parser.parse( ".121e-10" ).getClass() );
 		assertEquals( Money.class, parser.parse( "141232.12141E+04" ).getClass() );
+		assertEquals( Money.class, parser.parse( "1.9e4" ).getClass() );
 		
 		// negative
 		assertEquals( Neg.class, parser.parse( "-1" ).getClass() );
@@ -255,5 +257,15 @@ public class TestExpressions {
 		assertEquals( Div.class, parser.parse( "a / b // something" ).getClass() );
 		assertEquals( Div.class, parser.parse( "a // blablabla\n/b" ).getClass() );
 		assertEquals( Mul.class, parser.parse( "a *// comments\rd" ).getClass() );
+	}
+	
+	/**
+	 * Tests IF-statements.
+	 * 
+	 * @throws ParseError
+	 */
+	@Test
+	public void testIf() throws ParseError {
+		assertEquals( If.class, parser.parse( "if ( true ) { }" ).getClass() );
 	}
 }

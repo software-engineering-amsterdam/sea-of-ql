@@ -1,5 +1,6 @@
 package org.uva.sea.ql.visitor;
 
+import org.uva.sea.ql.ast.ASTNode;
 import org.uva.sea.ql.ast.expression.BinaryExpression;
 import org.uva.sea.ql.ast.expression.Expression;
 import org.uva.sea.ql.ast.expression.UnaryExpression;
@@ -33,23 +34,22 @@ public class PrintVisitor extends Visitor {
 	}
 	
 	/**
-	 * Visits an arbitrary expression.
+	 * Visits an arbitrary node.
 	 */
-	public void visit( Expression expression ) {
-		if ( expression instanceof BinaryExpression ) {
+	public void visit( ASTNode node ) {
+		if ( node instanceof BinaryExpression ) {
 			this.level++;
-			this.visitBinary( (BinaryExpression) expression );
+			this.visitBinary( (BinaryExpression) node );
 			this.level--;
 		}
-		else if ( expression instanceof UnaryExpression ) {
-			this.visitUnary( (UnaryExpression) expression );
+		else if ( node instanceof UnaryExpression ) {
+			this.visitUnary( (UnaryExpression) node );
 		}
-		else if ( expression instanceof Literal ) {
-			this.visitLiteral( (Literal) expression );
+		else if ( node instanceof Literal ) {
+			this.visitLiteral( (Literal) node );
 		}
-	
-		else {
-			this.visitExpression( expression );
+		else if ( node instanceof Expression ) {
+			this.visitExpression( (Expression) node );
 		}
 	}
 	
