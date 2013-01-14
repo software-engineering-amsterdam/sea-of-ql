@@ -92,6 +92,7 @@ public class QLLexer implements QLTokens {
 			    case '&': {
 			    	nextChar(); 
 			    	if  (c == '&') {
+			    		nextChar();
 			    		return token = AND;
 			    	}
 			    	throw new RuntimeException("Unexpected character: " + (char)c);
@@ -99,6 +100,7 @@ public class QLLexer implements QLTokens {
 			    case '|': {
 			    	nextChar(); 
 			    	if  (c == '|') {
+			    		nextChar();
 			    		return token = OR;
 			    	}
 			    	throw new RuntimeException("Unexpected character: " + (char)c);
@@ -115,6 +117,7 @@ public class QLLexer implements QLTokens {
 			    case '=': { 
 			    	nextChar(); 
 			    	if  (c == '=') {
+			    		nextChar();
 			    		return token = EQ;
 			    	}
 			    	throw new RuntimeException("Unexpected character: " + (char)c);
