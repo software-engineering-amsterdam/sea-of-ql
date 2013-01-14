@@ -20,13 +20,14 @@ import org.uva.sea.ql.ast.Neg;
 import org.uva.sea.ql.ast.*;
 
 public class ASTNodePrintVisitor implements ASTNodeVisitor {
-	
-	private String prettyQLProgram = new String() ; ;
+
+	private String prettyQLProgram = new String();;
 
 	@Override
 	public void visit(Expr expr) {
 		if (expr.getClass() == IntLiteral.class) {
-			prettyQLProgram = prettyQLProgram.concat(Integer.toString(((IntLiteral) expr).getValue()));
+			prettyQLProgram = prettyQLProgram.concat(Integer
+					.toString(((IntLiteral) expr).getValue()));
 		}
 		if (expr.getClass() == Ident.class) {
 			prettyQLProgram = prettyQLProgram.concat(((Ident) expr).getName());
@@ -35,34 +36,39 @@ public class ASTNodePrintVisitor implements ASTNodeVisitor {
 
 	@Override
 	public void visit(QLProgram qlProgram) {
-		prettyQLProgram = prettyQLProgram.concat("form " + qlProgram.getProgramName()) ;
+		prettyQLProgram = prettyQLProgram.concat("form "
+				+ qlProgram.getProgramName());
 		qlProgram.getCompound().accept(this);
-		System.out.println("hello there\n");
 		System.out.println(prettyQLProgram);
 	}
 
 	@Override
 	public void visit(CompoundStatement compoundBlock) {
-		prettyQLProgram = prettyQLProgram.concat(" { \n") ;
+		prettyQLProgram = prettyQLProgram.concat(" { \n");
 
 		for (Statement statement : compoundBlock.getStatementList())
 			statement.accept(this);
-		
-		prettyQLProgram = prettyQLProgram.concat(" } \n") ;
+
+		prettyQLProgram = prettyQLProgram.concat(" } \n");
 	}
 
 	@Override
 	public void visit(LineStatement lineStatement) {
-		prettyQLProgram = prettyQLProgram.concat(lineStatement.getLineName() + ": " + lineStatement.getDisplayText());
+		prettyQLProgram = prettyQLProgram.concat(lineStatement.getLineName()
+				+ ": " + lineStatement.getDisplayText());
 		lineStatement.getTypeDescription().accept(this);
 	}
 
 	@Override
 	public void visit(ConditionalStatement conditionalStatement) {
-		prettyQLProgram = prettyQLProgram.concat("\nif ( ") ;
+		prettyQLProgram = prettyQLProgram.concat("\nif ( ");
 		conditionalStatement.getExpression().accept(this);
-		prettyQLProgram = prettyQLProgram.concat(" ) ") ;
-		conditionalStatement.getCompound().accept(this);
+		prettyQLProgram = prettyQLProgram.concat(" ) ");
+		conditionalStatement.getTrueCompound().accept(this);
+		if ( conditionalStatement.getFalseCompound() != null ) {
+			prettyQLProgram = prettyQLProgram.concat("\nelse ");
+			conditionalStatement.getFalseCompound().accept(this) ;
+		}
 	}
 
 	@Override
@@ -86,24 +92,37 @@ public class ASTNodePrintVisitor implements ASTNodeVisitor {
 	@Override
 	public void visit(BinExpr expr) {
 		expr.getExprLeftHand().accept(this);
-		if (expr.getClass() == Add.class) prettyQLProgram = prettyQLProgram.concat(" + ");
-		else if (expr.getClass() == Sub.class) prettyQLProgram = prettyQLProgram.concat(" - ");
-		else if (expr.getClass() == Div.class) prettyQLProgram = prettyQLProgram.concat(" / ");
-		else if (expr.getClass() == Mul.class) prettyQLProgram = prettyQLProgram.concat(" * ");
-		else if (expr.getClass() == And.class) prettyQLProgram = prettyQLProgram.concat(" && ");
-		else if (expr.getClass() == Or.class) prettyQLProgram = prettyQLProgram.concat(" || ");
-		else if (expr.getClass() == Eq.class) prettyQLProgram = prettyQLProgram.concat(" == ");
-		else if (expr.getClass() == NEq.class) prettyQLProgram = prettyQLProgram.concat(" != ");
-		else if (expr.getClass() == GT.class) prettyQLProgram = prettyQLProgram.concat(" > ");
-		else if (expr.getClass() == LT.class) prettyQLProgram = prettyQLProgram.concat(" < ");
+		if (expr.getClass() == Add.class)
+			prettyQLProgram = prettyQLProgram.concat(" + ");
+		else if (expr.getClass() == Sub.class)
+			prettyQLProgram = prettyQLProgram.concat(" - ");
+		else if (expr.getClass() == Div.class)
+			prettyQLProgram = prettyQLProgram.concat(" / ");
+		else if (expr.getClass() == Mul.class)
+			prettyQLProgram = prettyQLProgram.concat(" * ");
+		else if (expr.getClass() == And.class)
+			prettyQLProgram = prettyQLProgram.concat(" && ");
+		else if (expr.getClass() == Or.class)
+			prettyQLProgram = prettyQLProgram.concat(" || ");
+		else if (expr.getClass() == Eq.class)
+			prettyQLProgram = prettyQLProgram.concat(" == ");
+		else if (expr.getClass() == NEq.class)
+			prettyQLProgram = prettyQLProgram.concat(" != ");
+		else if (expr.getClass() == GT.class)
+			prettyQLProgram = prettyQLProgram.concat(" > ");
+		else if (expr.getClass() == LT.class)
+			prettyQLProgram = prettyQLProgram.concat(" < ");
 		expr.getExprRightHand().accept(this);
 	}
 
 	@Override
 	public void visit(UnExpr expr) {
-		if (expr.getClass() == Not.class) prettyQLProgram = prettyQLProgram.concat(" ! ");
-		else if (expr.getClass() == Pos.class) prettyQLProgram = prettyQLProgram.concat(" + ");
-		else if (expr.getClass() == Neg.class) prettyQLProgram = prettyQLProgram.concat(" - ");
-		expr.getExprRightHand().accept(this) ;
+		if (expr.getClass() == Not.class)
+			prettyQLProgram = prettyQLProgram.concat(" ! ");
+		else if (expr.getClass() == Pos.class)
+			prettyQLProgram = prettyQLProgram.concat(" + ");
+		else if (expr.getClass() == Neg.class)
+			prettyQLProgram = prettyQLProgram.concat(" - ");
+		expr.getExprRightHand().accept(this);
 	}
 }
