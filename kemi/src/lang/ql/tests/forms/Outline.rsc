@@ -2,9 +2,9 @@ module lang::ql::tests::forms::Outline
 
 import lang::ql::ast::AST;
 import lang::ql::ide::Outline;
-import lang::ql::tests::forms::ParseHelper;
+import lang::ql::tests::ParseHelper;
 
-private node outline(loc f) = outlineForm(parse(f));
+private node outline(loc f) = outlineForm(parseForm(f));
 
 public test bool testBasicForm() = outline(|project://QL-R-kemi/forms/basic.q|) > "outline"();
 public test bool testCommentForm() = outline(|project://QL-R-kemi/forms/comment.q|) > "outline"();

@@ -1,10 +1,13 @@
 module lang::ql::tests::expressions::Equality
 
 import lang::ql::ast::AST;
-import lang::ql::tests::expressions::ParseHelper;
+import lang::ql::tests::ParseHelper;
+import lang::ql::util::Random;
 
-public test bool testEq1() = parse("a == b") is eq;
-public test bool testEq2() = parse("a == (b + c)") is eq;
-public test bool testEq3() = parse("(a + b) == c") is eq;
-public test bool testEq4() = parse("(a == b)") is eq;
-public test bool testEq5() = parse("(a != b) == c") is eq;
+public test bool testEq1() = parseExpr("a == b") is eq;
+public test bool testEq2() = parseExpr("a == (b + c)") is eq;
+public test bool testEq3() = parseExpr("(a + b) == c") is eq;
+public test bool testEq4() = parseExpr("(a == b)") is eq;
+public test bool testEq5() = parseExpr("(a != b) == c") is eq;
+
+public test bool testRandomEq() = parseExpr("<randomWord()> == <randomWord()>") is eq;

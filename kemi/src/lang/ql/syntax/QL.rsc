@@ -31,7 +31,8 @@ lexical StyleClass
   = @category="NonterminalLabel" "." [a-z A-Z][a-z A-Z 0-9 _]*
   ;
 
-start syntax Expr
+//start syntax Expr
+syntax Expr
   = ident: Ident name
   |  \int: Int number
   | money: Money monetaryValue
