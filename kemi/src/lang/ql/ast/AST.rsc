@@ -19,8 +19,6 @@ data Question
   // How standard implode returns it
   = question(str, str, str)
   | question(str, str, str, Expr e)
-  | question(str, str, str, str)
-  | question(str, str, str, Expr e, str)
   // How we want it
   //| question(Expr questionText, Type answerDataType, Expr answerIdentifier)
   //| question(Expr questionText, Type answerDataType, Expr answerIdentifier, Expr calculatedField)

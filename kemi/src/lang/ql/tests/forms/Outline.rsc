@@ -16,4 +16,3 @@ public test bool testIfElseIfElseCondition() = outline(|project://QL-R-kemi/form
 public test bool testNestedIfElseIfElseCondition() = outline(|project://QL-R-kemi/forms/nestedIfElseIfElseCondition.q|) > "outline"();
 public test bool testCalculatedField() = outline(|project://QL-R-kemi/forms/calculatedField.q|) > "outline"();
 public test bool testUglyFormattedForm() = outline(|project://QL-R-kemi/forms/uglyFormatted.q|) > "outline"();
-public test bool testStyleClass() = outline(|project://QL-R-kemi/forms/styleClass.q|) > "outline"();

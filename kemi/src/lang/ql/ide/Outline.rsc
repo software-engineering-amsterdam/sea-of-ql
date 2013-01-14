@@ -82,25 +82,9 @@ private node outline(Question q:
 }
 
 private node outline(Question q:
-  question(questionText, answerDataType, answerIdentifier, Expr calculatedField)) {
+  question(questionText, answerDataType, answerIdentifier, calculatedField)) {
   str name = "CalculatedQuestion";
   str label = "CQ: <answerDataType>:<questionText>(<calculatedField>)";
-  
-  return con(name, label, q@location, []);
-}
-
-private node outline(Question q:
-  question(questionText, answerDataType, answerIdentifier, str styleClass)) {
-  str name = "StyledQuestion";
-  str label = "SQ: <answerDataType>:<questionText>[<styleClass>]";
-
-  return con(name, label, q@location, []);
-}
-
-private node outline(Question q:
-  question(questionText, answerDataType, answerIdentifier, Expr calculatedField, str styleClass)) {
-  str name = "StyledCalculatedQuestion";
-  str label = "SCQ: <answerDataType>:<questionText>(<calculatedField>)[<styleClass>]";
   
   return con(name, label, q@location, []);
 }

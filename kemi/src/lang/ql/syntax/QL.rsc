@@ -23,12 +23,6 @@ syntax ElsePart = @Foldable elsePart: "else" "{" Statement+ body "}";
 start syntax Question 
   = question: String questionText Type answerDataType Ident answerIdentifier
   | question: String questionText Type answerDataType Ident answerIdentifier "=" Expr calculatedField
-  | question: String questionText Type answerDataType Ident answerIdentifier StyleClass styleClass
-  | question: String questionText Type answerDataType Ident answerIdentifier "=" Expr calculatedField StyleClass styleClass
-  ;
-
-lexical StyleClass
-  = @category="NonterminalLabel" "." [a-z A-Z][a-z A-Z 0-9 _]*
   ;
 
 //start syntax Expr

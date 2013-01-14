@@ -16,4 +16,3 @@ public test bool testIfElseIfElseCondition() = parseForm(|project://QL-R-kemi/fo
 public test bool testNestedIfElseIfElseCondition() = parseForm(|project://QL-R-kemi/forms/nestedIfElseIfElseCondition.q|) is form;
 public test bool testCalculatedField() = parseForm(|project://QL-R-kemi/forms/calculatedField.q|) is form;
 public test bool testUglyFormattedForm() = parseForm(|project://QL-R-kemi/forms/uglyFormatted.q|) is form;
-public test bool testStyleClassForm() = parseForm(|project://QL-R-kemi/forms/styleClass.q|) is form;

@@ -16,4 +16,3 @@ public test bool testIfElseIfElseCondition() = prettyPrintAndCompare(|project://
 public test bool testNestedIfElseIfElseCondition() = prettyPrintAndCompare(|project://QL-R-kemi/forms/nestedIfElseIfElseCondition.q|);
 public test bool testCalculatedField() = prettyPrintAndCompare(|project://QL-R-kemi/forms/calculatedField.q|);
 public test bool testUglyFormattedForm() = prettyPrintAndCompare(|project://QL-R-kemi/forms/uglyFormatted.q|);
-public test bool testStyleClass() = prettyPrintAndCompare(|project://QL-R-kemi/forms/styleClass.q|);
