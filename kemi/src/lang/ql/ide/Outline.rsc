@@ -54,7 +54,8 @@ private node outline(Statement item:
 
   if(elsePart != []) {
     elseBlock = true;
-    childs += [outlineBranch("elsePart", "else", ifPart@location, head(elsePart).body)];
+    ElsePart ep = head(elsePart);
+    childs += [outlineBranch("elsePart", "else", ep@location, ep.body)];
   }
 
   if(elseIfBlock && elseBlock) {
