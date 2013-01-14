@@ -3,8 +3,10 @@ module lang::ql::tests::forms::PrettyPrinter
 import lang::ql::ast::AST;
 import lang::ql::compiler::PrettyPrinter;
 import lang::ql::tests::ParseHelper;
+import lang::ql::util::Random;
 
 private bool prettyPrintAndCompare(loc f) = parseForm(f) == parseForm(prettyPrint(parseForm(f)));
+private bool prettyPrintAndCompare(str s) = parseForm(s) == parseForm(prettyPrint(parseForm(s)));
 
 public test bool testBasicForm() = prettyPrintAndCompare(|project://QL-R-kemi/forms/basic.q|);
 public test bool testCommentForm() = prettyPrintAndCompare(|project://QL-R-kemi/forms/comment.q|);
@@ -16,3 +18,5 @@ public test bool testIfElseIfElseCondition() = prettyPrintAndCompare(|project://
 public test bool testNestedIfElseIfElseCondition() = prettyPrintAndCompare(|project://QL-R-kemi/forms/nestedIfElseIfElseCondition.q|);
 public test bool testCalculatedField() = prettyPrintAndCompare(|project://QL-R-kemi/forms/calculatedField.q|);
 public test bool testUglyFormattedForm() = prettyPrintAndCompare(|project://QL-R-kemi/forms/uglyFormatted.q|);
+
+public test bool testRandomForm() = prettyPrintAndCompare(randomForm(5, 3));

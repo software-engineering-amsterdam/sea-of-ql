@@ -2,6 +2,7 @@ module lang::ql::tests::forms::Grammar
 
 import lang::ql::ast::AST;
 import lang::ql::tests::ParseHelper;
+import lang::ql::util::Random;
 
 public test bool testForm1() = parseForm("form Hello { \"Income?\" money myIncome }") is form;
 public test bool testForm1() = parseForm("form Hello { \"Tax?\" money myTax = myIncome * 0.40 }") is form;
@@ -16,3 +17,5 @@ public test bool testIfElseIfElseCondition() = parseForm(|project://QL-R-kemi/fo
 public test bool testNestedIfElseIfElseCondition() = parseForm(|project://QL-R-kemi/forms/nestedIfElseIfElseCondition.q|) is form;
 public test bool testCalculatedField() = parseForm(|project://QL-R-kemi/forms/calculatedField.q|) is form;
 public test bool testUglyFormattedForm() = parseForm(|project://QL-R-kemi/forms/uglyFormatted.q|) is form;
+
+public test bool testRandomForm() = parseForm(randomForm(5, 3)) is form;
