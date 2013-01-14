@@ -1,10 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="src" path="src"/>
-	<classpathentry kind="lib" path="lib/jacc/jacc.jar"/>
-	<classpathentry kind="lib" path="lib/rats.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="lib" path="lib/junit-4.11.jar"/>
-	<classpathentry kind="lib" path="/Users/abort/Documents/UvA/Repository/abort/lib/antlr-3.5-complete.jar"/>
+	<classpathentry kind="lib" path="/Users/jdijkstra/Documents/UvA/Software Construction/git/abort/lib/antlr-3.5-complete.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

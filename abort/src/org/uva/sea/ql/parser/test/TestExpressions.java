@@ -2,28 +2,29 @@ package org.uva.sea.ql.parser.test;
 
 import junit.framework.TestCase;
 
+import org.antlr.runtime.RecognitionException;
 import org.junit.Test;
 import org.uva.sea.ql.ast.Expression;
 import org.uva.sea.ql.ast.Ident;
+import org.uva.sea.ql.ast.conditionals.IfThen;
+import org.uva.sea.ql.ast.conditionals.IfThenElse;
+import org.uva.sea.ql.ast.form.Form;
+import org.uva.sea.ql.ast.operators.binary.Add;
+import org.uva.sea.ql.ast.operators.binary.GT;
+import org.uva.sea.ql.ast.operators.binary.LEq;
+import org.uva.sea.ql.ast.operators.binary.LT;
+import org.uva.sea.ql.ast.operators.binary.Mul;
+import org.uva.sea.ql.ast.types.Int;
+import org.uva.sea.ql.ast.types.Money;
+import org.uva.sea.ql.ast.types.StringLiteral;
 import org.uva.sea.ql.parser.antlr.ANTLRParser;
-import org.uva.sea.ql.parser.antlr.operators.Add;
-import org.uva.sea.ql.parser.antlr.operators.Form;
-import org.uva.sea.ql.parser.antlr.operators.GT;
-import org.uva.sea.ql.parser.antlr.operators.If;
-import org.uva.sea.ql.parser.antlr.operators.IfElse;
-import org.uva.sea.ql.parser.antlr.operators.LEq;
-import org.uva.sea.ql.parser.antlr.operators.LT;
-import org.uva.sea.ql.parser.antlr.operators.Mul;
-import org.uva.sea.ql.parser.antlr.types.Int;
-import org.uva.sea.ql.parser.antlr.types.Money;
-import org.uva.sea.ql.parser.antlr.types.StringLiteral;
 
 public class TestExpressions extends TestCase {
-	private static final IParse parser = new ANTLRParser();
+	private static final ANTLRParser parser = new ANTLRParser();
 
 	
 	@Test
-	public void testAdds() throws ParseError {
+	public void testAdds() throws RecognitionException {
 		assertEquals(parser.parse("a + b").getClass(), Add.class);
 		assertEquals(parser.parse("a + b + c").getClass(), Add.class);
 		assertEquals(parser.parse("(a + b + c)").getClass(), Add.class);
@@ -35,7 +36,7 @@ public class TestExpressions extends TestCase {
 	}
 
 	@Test
-	public void testMuls() throws ParseError {
+	public void testMuls() throws RecognitionException {
 		assertEquals(parser.parse("a * b").getClass(), Mul.class);
 		assertEquals(parser.parse("a * b * c").getClass(), Mul.class);
 		assertEquals(parser.parse("a * (b * c)").getClass(), Mul.class);
@@ -46,7 +47,7 @@ public class TestExpressions extends TestCase {
 	}
 	
 	@Test
-	public void testRels() throws ParseError {
+	public void testRels() throws RecognitionException {
 		assertEquals(parser.parse("a < b").getClass(), LT.class);
 		assertEquals(parser.parse("a < b + c").getClass(), LT.class);
 		assertEquals(parser.parse("a < (b * c)").getClass(), LT.class);
@@ -58,7 +59,7 @@ public class TestExpressions extends TestCase {
 
 
 	@Test
-	public void testIds() throws ParseError {
+	public void testIds() throws RecognitionException {
 		assertEquals(parser.parse("a").getClass(), Ident.class);
 		assertEquals(parser.parse("abc").getClass(), Ident.class);
 		assertEquals(parser.parse("ABC").getClass(), Ident.class);
@@ -69,7 +70,7 @@ public class TestExpressions extends TestCase {
 	}
 
 	@Test
-	public void testNums() throws ParseError {
+	public void testNums() throws RecognitionException {
 		assertEquals(parser.parse("0").getClass(), Int.class);
 
 		assertEquals(parser.parse("1223").getClass(), Int.class);
@@ -77,7 +78,7 @@ public class TestExpressions extends TestCase {
 	}
 	
 	@Test
-	public void testMoney() throws ParseError {
+	public void testMoney() throws RecognitionException {
 		assertEquals(parser.parse("0.000").getClass(), Money.class);
 
 		assertEquals(parser.parse("1.234").getClass(), Money.class);
@@ -85,19 +86,18 @@ public class TestExpressions extends TestCase {
 	}
 	
 	@Test
-	public void testSinglelineComments() throws ParseError {
-		assertNull(parser.parse("//this is a comment\n0.11"));
-		assertNull(parser.parse("//this is a comment\r0.11"));
-		//assertNotNull(parser.parse("// this is a comment\na < b"));
+	public void testSinglelineComments() throws RecognitionException {
+		assertNull(parser.parse("// this is a comment\n"));
+		assertNull(parser.parse("// this is a comment\r"));
 	}
 	
 	@Test
-	public void testMultilineComments() throws ParseError {
-		assertNull(parser.parse("/* blabla\nhahaha\rqweqweq */0.011"));
+	public void testMultilineComments() throws RecognitionException {
+		assertNull(parser.parse("/* blabla\nhahaha\rqweqweq */"));
 	}
 	
 	@Test
-	public void testStringLiterals() throws ParseError {
+	public void testStringLiterals() throws RecognitionException {
 		assertEquals(StringLiteral.class, parser.parse("\"Hello\"").getClass());
 		
 		// TODO: repair these statements
@@ -109,39 +109,35 @@ public class TestExpressions extends TestCase {
 	}
 	
 	@Test
-	public void testIfElseExpression() throws ParseError {
+	public void testIfElseExpression() throws RecognitionException {
 		// TODO: make a different parser for just if statements, fails now as ifs are dependant on forms
-		try {
-			Expression result = parser.parse("if (\"Hello\") { \"Hello\" } else { \"Hello\" }");
-			assertEquals(IfElse.class, result.getClass());
-			
-			// Invalid else statement
-			assertNotSame(IfElse.class, parser.parse("if (\"Hello\") { \"Hello\" } else \"Hello\"").getClass());
-		}
-		catch (RuntimeException e) {
-			throw new ParseError(e.getMessage());
-		}		
+		Expression result = parser
+				.parse("if (\"Hello\") { \"Hello\" } else { \"Hello\" }");
+		assertEquals(IfThenElse.class, result.getClass());
+
+		// Invalid else statement
+		assertNotSame(IfThenElse.class,
+				parser.parse("if (\"Hello\") { \"Hello\" } else \"Hello\"")
+						.getClass());
 	}
 	
 	@Test
-	public void testIfExpression() throws ParseError {
+	public void testIfExpression() throws RecognitionException {
 		// TODO: make a different parser for just if statements, fails now as ifs are dependant on forms
-		try {
-			assertEquals(If.class, parser.parse("if (\"Hello\") { \"Hello\" }").getClass());			
-		}
-		catch (RuntimeException e) {
-			throw new ParseError(e.getMessage());
-		}
+		assertEquals(IfThen.class, parser.parse("if (\"Hello\") { \"Hello\" }").getClass());			
 	}
 	
 	@Test
-	public void testSimpleForm() throws ParseError {
+	public void testSimpleForm() throws RecognitionException {
 			assertEquals(Form.class, ((ANTLRParser)parser).parseForm(
 					"form Box1HouseOwning { hasSoldHouse: \"Did you sell a house in 2010?\" boolean hasBoughtHouse: \"Did you buy a house in 2010?\" boolean }").getClass());
 	}
 	
 	@Test
-	public void testFormWithIfExpressions() throws ParseError {
+	public void testFormWithIfExpressions() throws RecognitionException {
+		
+		Form form = (Form)((ANTLRParser)parser).parseForm(
+				"form Box1HouseOwning { hasSoldHouse: \"Did you sell a house in 2010?\" boolean\nhasBoughtHouse: \"Did you buy a house in 2010?\" boolean\nif (hasSoldHouse) { sellingPrice: \"Price was sold for:\" money\nprivateDebt: \"Private debts for the sold house:\" money\nvalueResidue: \"Value residue:\" money(sellingPrice - privateDebt) } else { reasonNotSelling: \"Why did you not sell the house?\" string\n }\n age: \"How old are you?\" integer\n\n}");
 		assertEquals(Form.class, ((ANTLRParser)parser).parseForm(
 				"form Box1HouseOwning { hasSoldHouse: \"Did you sell a house in 2010?\" boolean\nhasBoughtHouse: \"Did you buy a house in 2010?\" boolean\nif (hasSoldHouse) { sellingPrice: \"Price was sold for:\" money\nprivateDebt: \"Private debts for the sold house:\" money\nvalueResidue: \"Value residue:\" money(sellingPrice - privateDebt) } else { reasonNotSelling: \"Why did you not sell the house?\" string\n }\n age: \"How old are you?\" integer\n\n}").getClass());
 		System.out.println("form Box1HouseOwning { hasSoldHouse: \"Did you sell a house in 2010?\" boolean\nhasBoughtHouse: \"Did you buy a house in 2010?\" boolean\nif (hasSoldHouse) { sellingPrice: \"Price was sold for:\" money\nprivateDebt: \"Private debts for the sold house:\" money\nvalueResidue: \"Value residue:\" money(sellingPrice - privateDebt) } else { reasonNotSelling: \"Why did you not sell the house?\" string\n }\n age: \"How old are you?\" integer\n\n}");

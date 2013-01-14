@@ -5,8 +5,12 @@ options {backtrack=true; memoize=true;}
 {
 package org.uva.sea.ql.parser.antlr;
 import org.uva.sea.ql.ast.*;
-import org.uva.sea.ql.parser.antlr.types.*;
-import org.uva.sea.ql.parser.antlr.operators.*;
+import org.uva.sea.ql.ast.form.*;
+import org.uva.sea.ql.ast.types.*;
+import org.uva.sea.ql.ast.operators.base.*;
+import org.uva.sea.ql.ast.operators.unary.*;
+import org.uva.sea.ql.ast.operators.binary.*;
+import org.uva.sea.ql.ast.conditionals.*;
 }
 
 @lexer::header
@@ -14,65 +18,51 @@ import org.uva.sea.ql.parser.antlr.operators.*;
 package org.uva.sea.ql.parser.antlr;
 }
 
-// TODO: comment out = successful tests
 @lexer::members {
-//  @Override
-//  public void reportError(RecognitionException e) {
-//    throw new RuntimeException(e.getMessage()); 
-//  }
 }
 
-// TODO: comment out = successful tests
 @parser::members {
-//  @Override
-//  public void reportError(RecognitionException e) {
-//   throw new RuntimeException(e.getMessage()); 
-//  }
 }
-// Change the start symbol of the parser to parse forms, instead of Expressions.
 
-formExpression returns [Form result]
- : FORM Ident BLOCK_START elements=formElementArray BLOCK_END {
- 
-    
-    $result = new Form(elements);
+form returns [Form result]
+  : FORM Ident BLOCK_START e=elements BLOCK_END {    
+    $result = new Form(e);
   };
 
-formElementArray returns [List<FormExpression> formExpressions]
-  @init { $formExpressions = new ArrayList<FormExpression>(); }
-  : (e=formElementExpression { $formExpressions.add($e.result); })+;
+elements returns [List<Element> results]
+  @init { $results = new ArrayList<Element>(); }
+  : (element { $results.add($element.result); })+;
 
-formElementExpression returns [FormExpression result]
-    : questionExpression { $result = $questionExpression.result; }
-    | computedExpression { $result = $computedExpression.result; }
-    | formIfExpression { $result = $formIfExpression.result; }
-    ;
+element returns [Element result]
+    : question { $result = $question.result; }
+    | computation { $result = $computation.result; }
+    | ifExpression { $result = $ifExpression.result; };
 
-formIfExpression returns [IfExpression result]
-    : IF PARENTHESES_OPEN statement=orExpression PARENTHESES_CLOSE BLOCK_START successStatements=formElementArray BLOCK_END ELSE BLOCK_START elseStatements=formElementArray BLOCK_END
+ifExpression returns [IfStatement result]
+    : IF PARENTHESES_OPEN statement=orExpression PARENTHESES_CLOSE BLOCK_START successStatements=elements BLOCK_END ELSE BLOCK_START elseStatements=elements BLOCK_END
     {
-      $result = new IfElse($statement.result, successStatements, elseStatements);
+      $result = new IfThenElse($statement.result, successStatements, elseStatements);
     }
-    | IF PARENTHESES_OPEN statement=orExpression PARENTHESES_CLOSE BLOCK_START successStatements=formElementArray BLOCK_END
+    | IF PARENTHESES_OPEN statement=orExpression PARENTHESES_CLOSE BLOCK_START successStatements=elements BLOCK_END
     {
-      $result = new If($statement.result, successStatements);
+      $result = new IfThen($statement.result, successStatements);
     };  
 
-questionArray returns [List<FormQuestion> expressions]
-    @init { $expressions = new ArrayList<FormQuestion>(); }
-    : (e=questionExpression { $expressions.add($e.result); })+;
+questions returns [List<Question> results]
+    @init { $results = new ArrayList<Question>(); }
+    : (question { $results.add($question.result); })+;
 
-computedExpression returns [FormComputed result]
-  : label=Ident ':' question=String parameter=dataTypeExpression PARENTHESES_OPEN operation=orExpression PARENTHESES_CLOSE {
-    $result = new FormComputed($label.text, $question.text, $parameter.result, $operation.result);
+computation returns [Computation result]
+  : label=Ident ':' String parameter=dataType PARENTHESES_OPEN operation=orExpression PARENTHESES_CLOSE {
+    $result = new Computation($label.text, $String.text, $parameter.result, $operation.result);
   };
 
-questionExpression returns [FormQuestion result]
-  : label=Ident ':' question=String parameter=dataTypeExpression {
-    $result = new FormQuestion($label.text, $question.text, $parameter.result);
+question returns [Question result]
+  : label=Ident ':' String parameter=dataType {
+    $result = new Question($label.text, $String.text, $parameter.result);
   };
   
-dataTypeExpression returns [DataType result]
+dataType returns [DataType result]
  : Type {
     if ($Type.text.equals("string")) $result = new StringLiteral();
     else if ($Type.text.equals("integer")) $result = new Int();
@@ -86,26 +76,13 @@ primary returns [Expression result]
   | Bool { $result = new Bool(Boolean.parseBoolean($Bool.text)); }
   | Ident { $result = new Ident($Ident.text); }
   | String { $result = new StringLiteral($String.text.substring(1, $String.text.length() - 1)); }
-  | '(' x=orExpression ')'{ $result = $x.result; }
-  ;
+  | PARENTHESES_OPEN orExpression PARENTHESES_CLOSE { $result = $orExpression.result; };
 
-//ifExpression returns [IfExpression result]
-//    : IF IF_STATEMENT_PREFIX statement=orExpression IF_STATEMENT_SUFFIX BLOCK_START successStatements=orExpression BLOCK_END ELSE BLOCK_START elseStatements=orExpression BLOCK_END
-//    {
-//      $result = new IfElse($statement.result, $successStatements.result, $elseStatements.result);
-//    }
-//    | IF IF_STATEMENT_PREFIX statement=orExpression IF_STATEMENT_SUFFIX BLOCK_START successStatements=orExpression BLOCK_END
-//    {
-//      $result = new If($statement.result, $successStatements.result);
-//    };  
-//    
-    
 unExpression returns [Expression result]
     :  '+' x=unExpression { $result = new Pos($x.result); }
     |  '-' x=unExpression { $result = new Neg($x.result); }
     |  '!' x=unExpression { $result = new Not($x.result); }
-    |  x=primary    { $result = $x.result; }
-    ;    
+    |  x=primary    { $result = $x.result; };    
     
 mulExpression returns [Expression result]
     :   lhs=unExpression { $result=$lhs.result; } ( op=( '*' | '/' ) rhs=unExpression 
@@ -116,12 +93,8 @@ mulExpression returns [Expression result]
       if ($op.text.equals("<=")) {
         $result = new Div($result, rhs);      
       }
-    })*
-    ;
-    
-//typeExpression returns [String result]
-//  : type=Type { $result = $type.text; };
-  
+    })*;
+
 addExpression returns [Expression result]
     :   lhs=mulExpression { $result=$lhs.result; } ( op=('+' | '-') rhs=mulExpression
     { 
@@ -131,12 +104,11 @@ addExpression returns [Expression result]
       if ($op.text.equals("-")) {
         $result = new Sub($result, rhs);      
       }
-    })*
-    ;
+    })*;
   
 relExpression returns [Expression result]
     :   lhs=addExpression { $result=$lhs.result; } ( op=('<'|'<='|'>'|'>='|'=='|'!=') rhs=addExpression 
-    { 
+    {
       if ($op.text.equals("<")) {
         $result = new LT($result, rhs);
       }
@@ -155,17 +127,14 @@ relExpression returns [Expression result]
       if ($op.text.equals("!=")) {
         $result = new NEq($result, rhs);
       }
-    })*
-    ;
+    })*;
     
 andExpression returns [Expression result]
-    :   lhs=relExpression { $result=$lhs.result; } ( '&&' rhs=relExpression { $result = new And($result, rhs); } )*
-    ;
+    :   lhs=relExpression { $result=$lhs.result; } ( '&&' rhs=relExpression { $result = new And($result, rhs); } )*;
     
 
 orExpression returns [Expression result]
-    :   lhs=andExpression { $result = $lhs.result; } ( '||' rhs=andExpression { $result = new Or($result, rhs); } )*
-    ;
+    :   lhs=andExpression { $result = $lhs.result; } ( '||' rhs=andExpression { $result = new Or($result, rhs); } )*;
 
 
 // Tokens
@@ -187,17 +156,13 @@ FORM: 'form';
 
 Type: 'boolean' | 'integer' | 'money' | 'string';
 
+Bool: 'TRUE' | 'FALSE' | 'true' | 'false';
 
-Bool: ('TRUE' | 'FALSE' | 'true' | 'false');
-
-Ident:   ('a'..'z'|'A'..'Z')('a'..'z'|'A'..'Z'|'0'..'9'|'_')*;
+Ident: ('a'..'z'|'A'..'Z')('a'..'z'|'A'..'Z'|'0'..'9'|'_')*;
 
 Int: ('0'..'9')+;
 
 Money: ('0'..'9')+ ('.' ('0'..'9')+)?;
-
-//String: '"'~('"');
-
 
 String: '"' (EscapedCharacterSequence | ~('\\' | '"'))* '"';
 fragment
