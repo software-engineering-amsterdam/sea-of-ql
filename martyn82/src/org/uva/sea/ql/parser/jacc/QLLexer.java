@@ -23,6 +23,8 @@ public class QLLexer implements QLTokens {
 	 */
 	static {
 		KEYWORDS = new HashMap<String, Integer>();
+		KEYWORDS.put( "true", BOOL );
+		KEYWORDS.put( "false", BOOL );
 	}
 
 	/**
@@ -208,42 +210,90 @@ public class QLLexer implements QLTokens {
 				}
 				
 				default: {
-					if ( Character.isDigit( c ) ) {
-						int n = 0;
-				
-						do {
-							n = 10 * n + ( c - '0' );
-							nextChar();
-						}
-						while ( Character.isDigit( c ) );
-				
-						yylval = new Int( n );
-						return token = INT;
+					if ( c == '"' ) {
+						return this.matchString();
 					}
-					
-					if ( Character.isLetter( c ) ) {
-						StringBuilder sb = new StringBuilder();
-				
-						do {
-							sb.append( (char) c );
-							nextChar();
-						}
-						while ( Character.isLetterOrDigit( c ) );
-				
-						String name = sb.toString();
-				
-						if ( KEYWORDS.containsKey( name ) ) {
-							return token = KEYWORDS.get( name );
-						}
-				
-						yylval = new Ident( name );
-						return token = IDENT;
+					else if ( Character.isDigit( c ) ) {
+						return this.matchInteger();
+					}
+					else if ( Character.isLetter( c ) ) {
+						return this.matchOther();
 					}
 				
 					throw new RuntimeException( "Unexpected character: " + (char) c );
 				}
 			}
 		}
+	}
+	
+	/**
+	 * Matches a string literal.
+	 * 
+	 * @return token
+	 */
+	private int matchString() {
+		StringBuilder sb = new StringBuilder();
+		
+		do {
+			sb.append( (char) c );
+			nextChar();
+		}
+		while ( c != '"' );
+		
+		yylval = new org.uva.sea.ql.ast.expression.value.Str( sb.toString() );
+		return token = STR;
+	}
+	
+	/**
+	 * Matches an integer literal.
+	 * 
+	 * @return token
+	 */
+	private int matchInteger() {
+		int n = 0;
+		
+		do {
+			n = 10 * n + ( c - '0' );
+			nextChar();
+		}
+		while ( Character.isDigit( c ) );
+
+		yylval = new Int( n );
+		return token = INT;
+	}
+	
+	/**
+	 * Matches keywords and identifiers.
+	 * 
+	 * @return token
+	 */
+	private int matchOther() {
+		StringBuilder sb = new StringBuilder();
+		
+		do {
+			sb.append( (char) c );
+			nextChar();
+		}
+		while ( Character.isLetterOrDigit( c ) );
+
+		String name = sb.toString();
+
+		if ( KEYWORDS.containsKey( name ) ) {
+			token = KEYWORDS.get( name );
+			
+			switch ( token ) {
+				case BOOL: 
+					yylval = new org.uva.sea.ql.ast.expression.value.Bool(
+						Boolean.parseBoolean( name )
+					);
+					break;
+			}
+
+			return token;
+		}
+
+		yylval = new Ident( name );
+		return token = IDENT;
 	}
 
 	/**
@@ -258,7 +308,7 @@ public class QLLexer implements QLTokens {
 	/**
 	 * Returns the current AST.
 	 * 
-	 * @return The current AST.
+	 * @return The AST.
 	 */
 	public ASTNode getSemantic() {
 		return yylval;
