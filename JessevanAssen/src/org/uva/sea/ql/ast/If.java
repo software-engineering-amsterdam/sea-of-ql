@@ -1,11 +1,11 @@
-package org.uva.sea.ql.ast.expr;
+package org.uva.sea.ql.ast;
 
 import java.util.List;
 
 import org.uva.sea.ql.ASTNodeVisitor;
-import org.uva.sea.ql.ast.FormElement;
+import org.uva.sea.ql.ast.expr.Expr;
 
-public class If extends FormElement {
+public class If implements FormElement {
 	
 	private final Expr condition;
 	private final List<FormElement> ifBody;

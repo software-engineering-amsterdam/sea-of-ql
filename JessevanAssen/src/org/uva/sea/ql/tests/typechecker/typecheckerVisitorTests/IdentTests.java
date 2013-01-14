@@ -2,7 +2,6 @@ package org.uva.sea.ql.tests.typechecker.typecheckerVisitorTests;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertThat;
 
 import org.junit.Test;
 import org.uva.sea.ql.ast.Declaration;

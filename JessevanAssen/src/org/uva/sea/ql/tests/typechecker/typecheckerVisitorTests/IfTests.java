@@ -3,7 +3,7 @@ package org.uva.sea.ql.tests.typechecker.typecheckerVisitorTests;
 import org.junit.Test;
 import org.uva.sea.ql.ast.FormElement;
 import org.uva.sea.ql.ast.expr.Expr;
-import org.uva.sea.ql.ast.expr.If;
+import org.uva.sea.ql.ast.If;
 import org.uva.sea.ql.ast.expr.value.Bool;
 
 import java.util.ArrayList;
