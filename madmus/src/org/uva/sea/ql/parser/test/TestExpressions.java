@@ -13,6 +13,8 @@ import org.uva.sea.ql.parser.jacc.JACCParser;
 
 import org.uva.sea.ql.ast.Add;
 import org.uva.sea.ql.ast.Sub;
+
+import org.uva.sea.ql.ast.Div;
 import org.uva.sea.ql.ast.GT;
 import org.uva.sea.ql.ast.Ident;
 import org.uva.sea.ql.ast.Int;
@@ -70,6 +72,16 @@ public class TestExpressions {
 		assertEquals(parser.parse("(a * b)").getClass(), Mul.class);
 		assertEquals(parser.parse("(a + b) * c").getClass(), Mul.class);
 		assertEquals(parser.parse("a * (b + c)").getClass(), Mul.class);
+	}
+	
+	@Test
+	public void testDivs() throws ParseError {
+		assertEquals(parser.parse("a / b").getClass(), Div.class);
+		assertEquals(parser.parse("a / (b * c)").getClass(), Div.class);
+		assertEquals(parser.parse("(a * b) / c").getClass(), Div.class);
+		assertEquals(parser.parse("(a / b)").getClass(), Div.class);
+		assertEquals(parser.parse("(a + b) / c").getClass(), Div.class);
+		assertEquals(parser.parse("a / (b + c)").getClass(), Div.class);
 	}
 	
 	@Test
