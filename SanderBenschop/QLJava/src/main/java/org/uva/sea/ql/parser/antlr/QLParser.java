@@ -1,4 +1,4 @@
-// $ANTLR 3.5 /Users/benschop/Documents/workspace/studie/sea-of-ql/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g 2013-01-14 13:57:13
+// $ANTLR 3.5 /Users/benschop/Documents/workspace/studie/sea-of-ql/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g 2013-01-14 18:46:35
 
 package org.uva.sea.ql.parser.antlr;
 import org.uva.sea.ql.ast.*;
@@ -20,15 +20,12 @@ import java.util.HashMap;
 public class QLParser extends Parser {
 	public static final String[] tokenNames = new String[] {
 		"<invalid>", "<EOR>", "<DOWN>", "<UP>", "BRACE_CLOSE", "BRACE_OPEN", "Bool", 
-		"COMMENT", "Datatype", "EscapedCharacterSequence", "Ident", "Int", "Str", 
-		"WS", "'!'", "'!='", "'&&'", "'('", "')'", "'*'", "'+'", "'-'", "'/'", 
-		"':'", "'<'", "'<='", "'=='", "'>'", "'>='", "'\\n'", "'else'", "'if'", 
-		"'||'"
+		"COMMENT", "Datatype", "EscapedCharacterSequence", "FORM", "Ident", "Int", 
+		"PAREN_CLOSE", "PAREN_OPEN", "Str", "WS", "'!'", "'!='", "'&&'", "'*'", 
+		"'+'", "'-'", "'/'", "':'", "'<'", "'<='", "'=='", "'>'", "'>='", "'\\n'", 
+		"'else'", "'if'", "'||'"
 	};
 	public static final int EOF=-1;
-	public static final int T__14=14;
-	public static final int T__15=15;
-	public static final int T__16=16;
 	public static final int T__17=17;
 	public static final int T__18=18;
 	public static final int T__19=19;
@@ -45,16 +42,20 @@ public class QLParser extends Parser {
 	public static final int T__30=30;
 	public static final int T__31=31;
 	public static final int T__32=32;
+	public static final int T__33=33;
 	public static final int BRACE_CLOSE=4;
 	public static final int BRACE_OPEN=5;
 	public static final int Bool=6;
 	public static final int COMMENT=7;
 	public static final int Datatype=8;
 	public static final int EscapedCharacterSequence=9;
-	public static final int Ident=10;
-	public static final int Int=11;
-	public static final int Str=12;
-	public static final int WS=13;
+	public static final int FORM=10;
+	public static final int Ident=11;
+	public static final int Int=12;
+	public static final int PAREN_CLOSE=13;
+	public static final int PAREN_OPEN=14;
+	public static final int Str=15;
+	public static final int WS=16;
 
 	// delegates
 	public Parser[] getDelegates() {
@@ -69,7 +70,7 @@ public class QLParser extends Parser {
 	}
 	public QLParser(TokenStream input, RecognizerSharedState state) {
 		super(input, state);
-		this.state.ruleMemo = new HashMap[33+1];
+		this.state.ruleMemo = new HashMap[37+1];
 
 
 	}
@@ -84,8 +85,91 @@ public class QLParser extends Parser {
 
 
 
+	// $ANTLR start "form"
+	// /Users/benschop/Documents/workspace/studie/sea-of-ql/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:27:1: form[Form result] : FORM Ident BRACE_OPEN statementList BRACE_CLOSE ;
+	public final void form(Form result) throws RecognitionException {
+		int form_StartIndex = input.index();
+
+		List<QLStatement> statementList1 =null;
+
+		try {
+			if ( state.backtracking>0 && alreadyParsedRule(input, 1) ) { return; }
+
+			// /Users/benschop/Documents/workspace/studie/sea-of-ql/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:28:3: ( FORM Ident BRACE_OPEN statementList BRACE_CLOSE )
+			// /Users/benschop/Documents/workspace/studie/sea-of-ql/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:28:5: FORM Ident BRACE_OPEN statementList BRACE_CLOSE
+			{
+			match(input,FORM,FOLLOW_FORM_in_form54); if (state.failed) return;
+			match(input,Ident,FOLLOW_Ident_in_form56); if (state.failed) return;
+			match(input,BRACE_OPEN,FOLLOW_BRACE_OPEN_in_form58); if (state.failed) return;
+			pushFollow(FOLLOW_statementList_in_form60);
+			statementList1=statementList();
+			state._fsp--;
+			if (state.failed) return;
+			match(input,BRACE_CLOSE,FOLLOW_BRACE_CLOSE_in_form62); if (state.failed) return;
+			if ( state.backtracking==0 ) {
+				    result = new Form(statementList1);
+				  }
+			}
+
+		}
+		catch (RecognitionException re) {
+			reportError(re);
+			recover(input,re);
+		}
+		finally {
+			// do for sure before leaving
+			if ( state.backtracking>0 ) { memoize(input, 1, form_StartIndex); }
+
+		}
+	}
+	// $ANTLR end "form"
+
+
+
+	// $ANTLR start "block"
+	// /Users/benschop/Documents/workspace/studie/sea-of-ql/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:34:1: block returns [List<QLStatement> result] : BRACE_OPEN statementList BRACE_CLOSE ;
+	public final List<QLStatement> block() throws RecognitionException {
+		List<QLStatement> result = null;
+
+		int block_StartIndex = input.index();
+
+		List<QLStatement> statementList2 =null;
+
+		try {
+			if ( state.backtracking>0 && alreadyParsedRule(input, 2) ) { return result; }
+
+			// /Users/benschop/Documents/workspace/studie/sea-of-ql/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:35:3: ( BRACE_OPEN statementList BRACE_CLOSE )
+			// /Users/benschop/Documents/workspace/studie/sea-of-ql/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:35:5: BRACE_OPEN statementList BRACE_CLOSE
+			{
+			match(input,BRACE_OPEN,FOLLOW_BRACE_OPEN_in_block88); if (state.failed) return result;
+			pushFollow(FOLLOW_statementList_in_block90);
+			statementList2=statementList();
+			state._fsp--;
+			if (state.failed) return result;
+			match(input,BRACE_CLOSE,FOLLOW_BRACE_CLOSE_in_block92); if (state.failed) return result;
+			if ( state.backtracking==0 ) {
+				    result = statementList2;
+				  }
+			}
+
+		}
+		catch (RecognitionException re) {
+			reportError(re);
+			recover(input,re);
+		}
+		finally {
+			// do for sure before leaving
+			if ( state.backtracking>0 ) { memoize(input, 2, block_StartIndex); }
+
+		}
+		return result;
+	}
+	// $ANTLR end "block"
+
+
+
 	// $ANTLR start "statementList"
-	// /Users/benschop/Documents/workspace/studie/sea-of-ql/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:27:1: statementList returns [List<QLStatement> result] : (stmnt= statement '\\n' )* ;
+	// /Users/benschop/Documents/workspace/studie/sea-of-ql/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:41:1: statementList returns [List<QLStatement> result] : (stmnt= statement '\\n' )* ;
 	public final List<QLStatement> statementList() throws RecognitionException {
 		List<QLStatement> result = null;
 
@@ -97,29 +181,29 @@ public class QLParser extends Parser {
 		    result = new ArrayList<QLStatement>();
 		  
 		try {
-			if ( state.backtracking>0 && alreadyParsedRule(input, 1) ) { return result; }
+			if ( state.backtracking>0 && alreadyParsedRule(input, 3) ) { return result; }
 
-			// /Users/benschop/Documents/workspace/studie/sea-of-ql/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:32:3: ( (stmnt= statement '\\n' )* )
-			// /Users/benschop/Documents/workspace/studie/sea-of-ql/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:32:5: (stmnt= statement '\\n' )*
+			// /Users/benschop/Documents/workspace/studie/sea-of-ql/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:46:3: ( (stmnt= statement '\\n' )* )
+			// /Users/benschop/Documents/workspace/studie/sea-of-ql/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:46:5: (stmnt= statement '\\n' )*
 			{
-			// /Users/benschop/Documents/workspace/studie/sea-of-ql/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:32:5: (stmnt= statement '\\n' )*
+			// /Users/benschop/Documents/workspace/studie/sea-of-ql/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:46:5: (stmnt= statement '\\n' )*
 			loop1:
 			while (true) {
 				int alt1=2;
 				int LA1_0 = input.LA(1);
-				if ( (LA1_0==Ident||LA1_0==31) ) {
+				if ( (LA1_0==Ident||LA1_0==32) ) {
 					alt1=1;
 				}
 
 				switch (alt1) {
 				case 1 :
-					// /Users/benschop/Documents/workspace/studie/sea-of-ql/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:32:6: stmnt= statement '\\n'
+					// /Users/benschop/Documents/workspace/studie/sea-of-ql/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:46:6: stmnt= statement '\\n'
 					{
-					pushFollow(FOLLOW_statement_in_statementList72);
+					pushFollow(FOLLOW_statement_in_statementList130);
 					stmnt=statement();
 					state._fsp--;
 					if (state.failed) return result;
-					match(input,29,FOLLOW_29_in_statementList74); if (state.failed) return result;
+					match(input,30,FOLLOW_30_in_statementList132); if (state.failed) return result;
 					if ( state.backtracking==0 ) {result.add(stmnt);}
 					}
 					break;
@@ -138,7 +222,7 @@ public class QLParser extends Parser {
 		}
 		finally {
 			// do for sure before leaving
-			if ( state.backtracking>0 ) { memoize(input, 1, statementList_StartIndex); }
+			if ( state.backtracking>0 ) { memoize(input, 3, statementList_StartIndex); }
 
 		}
 		return result;
@@ -148,23 +232,81 @@ public class QLParser extends Parser {
 
 
 	// $ANTLR start "statement"
-	// /Users/benschop/Documents/workspace/studie/sea-of-ql/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:35:1: statement returns [QLStatement result] : ( question | conditional );
+	// /Users/benschop/Documents/workspace/studie/sea-of-ql/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:49:1: statement returns [QLStatement result] : ( question | computation | conditional );
 	public final QLStatement statement() throws RecognitionException {
 		QLStatement result = null;
 
 		int statement_StartIndex = input.index();
 
 		try {
-			if ( state.backtracking>0 && alreadyParsedRule(input, 2) ) { return result; }
+			if ( state.backtracking>0 && alreadyParsedRule(input, 4) ) { return result; }
 
-			// /Users/benschop/Documents/workspace/studie/sea-of-ql/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:36:3: ( question | conditional )
-			int alt2=2;
+			// /Users/benschop/Documents/workspace/studie/sea-of-ql/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:50:3: ( question | computation | conditional )
+			int alt2=3;
 			int LA2_0 = input.LA(1);
 			if ( (LA2_0==Ident) ) {
-				alt2=1;
+				int LA2_1 = input.LA(2);
+				if ( (LA2_1==24) ) {
+					int LA2_3 = input.LA(3);
+					if ( (LA2_3==Str) ) {
+						int LA2_4 = input.LA(4);
+						if ( (LA2_4==Datatype) ) {
+							alt2=1;
+						}
+						else if ( (LA2_4==PAREN_OPEN) ) {
+							alt2=2;
+						}
+
+						else {
+							if (state.backtracking>0) {state.failed=true; return result;}
+							int nvaeMark = input.mark();
+							try {
+								for (int nvaeConsume = 0; nvaeConsume < 4 - 1; nvaeConsume++) {
+									input.consume();
+								}
+								NoViableAltException nvae =
+									new NoViableAltException("", 2, 4, input);
+								throw nvae;
+							} finally {
+								input.rewind(nvaeMark);
+							}
+						}
+
+					}
+
+					else {
+						if (state.backtracking>0) {state.failed=true; return result;}
+						int nvaeMark = input.mark();
+						try {
+							for (int nvaeConsume = 0; nvaeConsume < 3 - 1; nvaeConsume++) {
+								input.consume();
+							}
+							NoViableAltException nvae =
+								new NoViableAltException("", 2, 3, input);
+							throw nvae;
+						} finally {
+							input.rewind(nvaeMark);
+						}
+					}
+
+				}
+
+				else {
+					if (state.backtracking>0) {state.failed=true; return result;}
+					int nvaeMark = input.mark();
+					try {
+						input.consume();
+						NoViableAltException nvae =
+							new NoViableAltException("", 2, 1, input);
+						throw nvae;
+					} finally {
+						input.rewind(nvaeMark);
+					}
+				}
+
 			}
-			else if ( (LA2_0==31) ) {
-				alt2=2;
+			else if ( (LA2_0==32) ) {
+				alt2=3;
 			}
 
 			else {
@@ -176,18 +318,27 @@ public class QLParser extends Parser {
 
 			switch (alt2) {
 				case 1 :
-					// /Users/benschop/Documents/workspace/studie/sea-of-ql/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:36:5: question
+					// /Users/benschop/Documents/workspace/studie/sea-of-ql/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:50:5: question
 					{
-					pushFollow(FOLLOW_question_in_statement95);
+					pushFollow(FOLLOW_question_in_statement153);
 					question();
 					state._fsp--;
 					if (state.failed) return result;
 					}
 					break;
 				case 2 :
-					// /Users/benschop/Documents/workspace/studie/sea-of-ql/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:37:5: conditional
+					// /Users/benschop/Documents/workspace/studie/sea-of-ql/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:51:5: computation
 					{
-					pushFollow(FOLLOW_conditional_in_statement101);
+					pushFollow(FOLLOW_computation_in_statement159);
+					computation();
+					state._fsp--;
+					if (state.failed) return result;
+					}
+					break;
+				case 3 :
+					// /Users/benschop/Documents/workspace/studie/sea-of-ql/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:52:5: conditional
+					{
+					pushFollow(FOLLOW_conditional_in_statement165);
 					conditional();
 					state._fsp--;
 					if (state.failed) return result;
@@ -202,7 +353,7 @@ public class QLParser extends Parser {
 		}
 		finally {
 			// do for sure before leaving
-			if ( state.backtracking>0 ) { memoize(input, 2, statement_StartIndex); }
+			if ( state.backtracking>0 ) { memoize(input, 4, statement_StartIndex); }
 
 		}
 		return result;
@@ -212,32 +363,32 @@ public class QLParser extends Parser {
 
 
 	// $ANTLR start "question"
-	// /Users/benschop/Documents/workspace/studie/sea-of-ql/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:40:1: question returns [Question result] : Ident ':' Str Datatype ;
+	// /Users/benschop/Documents/workspace/studie/sea-of-ql/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:55:1: question returns [Question result] : Ident ':' Str Datatype ;
 	public final Question question() throws RecognitionException {
 		Question result = null;
 
 		int question_StartIndex = input.index();
 
-		Token Ident1=null;
-		Token Str2=null;
-		Token Datatype3=null;
+		Token Ident3=null;
+		Token Str4=null;
+		Token Datatype5=null;
 
 		try {
-			if ( state.backtracking>0 && alreadyParsedRule(input, 3) ) { return result; }
+			if ( state.backtracking>0 && alreadyParsedRule(input, 5) ) { return result; }
 
-			// /Users/benschop/Documents/workspace/studie/sea-of-ql/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:41:3: ( Ident ':' Str Datatype )
-			// /Users/benschop/Documents/workspace/studie/sea-of-ql/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:41:5: Ident ':' Str Datatype
+			// /Users/benschop/Documents/workspace/studie/sea-of-ql/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:56:3: ( Ident ':' Str Datatype )
+			// /Users/benschop/Documents/workspace/studie/sea-of-ql/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:56:5: Ident ':' Str Datatype
 			{
-			Ident1=(Token)match(input,Ident,FOLLOW_Ident_in_question118); if (state.failed) return result;
-			match(input,23,FOLLOW_23_in_question120); if (state.failed) return result;
-			Str2=(Token)match(input,Str,FOLLOW_Str_in_question122); if (state.failed) return result;
-			Datatype3=(Token)match(input,Datatype,FOLLOW_Datatype_in_question124); if (state.failed) return result;
+			Ident3=(Token)match(input,Ident,FOLLOW_Ident_in_question182); if (state.failed) return result;
+			match(input,24,FOLLOW_24_in_question184); if (state.failed) return result;
+			Str4=(Token)match(input,Str,FOLLOW_Str_in_question186); if (state.failed) return result;
+			Datatype5=(Token)match(input,Datatype,FOLLOW_Datatype_in_question188); if (state.failed) return result;
 			if ( state.backtracking==0 ) {
-			                              Ident ident = new Ident((Ident1!=null?Ident1.getText():null));
-			                              Str label = new Str(removeOuterQuotes((Str2!=null?Str2.getText():null)));
-			                              Str datatype = new Str((Datatype3!=null?Datatype3.getText():null));
-			                              result = new Question(ident, label, datatype);
-			                           }
+				    Ident ident = new Ident((Ident3!=null?Ident3.getText():null));
+				    Str label = new Str(removeOuterQuotes((Str4!=null?Str4.getText():null)));
+				    Str datatype = new Str((Datatype5!=null?Datatype5.getText():null));
+				    result = new Question(ident, label, datatype);
+			    }
 			}
 
 		}
@@ -247,7 +398,7 @@ public class QLParser extends Parser {
 		}
 		finally {
 			// do for sure before leaving
-			if ( state.backtracking>0 ) { memoize(input, 3, question_StartIndex); }
+			if ( state.backtracking>0 ) { memoize(input, 5, question_StartIndex); }
 
 		}
 		return result;
@@ -256,8 +407,57 @@ public class QLParser extends Parser {
 
 
 
+	// $ANTLR start "computation"
+	// /Users/benschop/Documents/workspace/studie/sea-of-ql/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:65:1: computation returns [Computation result] : Ident ':' Str PAREN_OPEN orExpr PAREN_CLOSE ;
+	public final Computation computation() throws RecognitionException {
+		Computation result = null;
+
+		int computation_StartIndex = input.index();
+
+		Token Ident6=null;
+		Token Str7=null;
+		QLExpression orExpr8 =null;
+
+		try {
+			if ( state.backtracking>0 && alreadyParsedRule(input, 6) ) { return result; }
+
+			// /Users/benschop/Documents/workspace/studie/sea-of-ql/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:66:3: ( Ident ':' Str PAREN_OPEN orExpr PAREN_CLOSE )
+			// /Users/benschop/Documents/workspace/studie/sea-of-ql/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:66:5: Ident ':' Str PAREN_OPEN orExpr PAREN_CLOSE
+			{
+			Ident6=(Token)match(input,Ident,FOLLOW_Ident_in_computation214); if (state.failed) return result;
+			match(input,24,FOLLOW_24_in_computation216); if (state.failed) return result;
+			Str7=(Token)match(input,Str,FOLLOW_Str_in_computation218); if (state.failed) return result;
+			match(input,PAREN_OPEN,FOLLOW_PAREN_OPEN_in_computation220); if (state.failed) return result;
+			pushFollow(FOLLOW_orExpr_in_computation222);
+			orExpr8=orExpr();
+			state._fsp--;
+			if (state.failed) return result;
+			match(input,PAREN_CLOSE,FOLLOW_PAREN_CLOSE_in_computation224); if (state.failed) return result;
+			if ( state.backtracking==0 ) {
+			      Ident ident = new Ident((Ident6!=null?Ident6.getText():null));
+			      Str label = new Str(removeOuterQuotes((Str7!=null?Str7.getText():null)));
+			      result = new Computation(ident, label, orExpr8);
+			    }
+			}
+
+		}
+		catch (RecognitionException re) {
+			reportError(re);
+			recover(input,re);
+		}
+		finally {
+			// do for sure before leaving
+			if ( state.backtracking>0 ) { memoize(input, 6, computation_StartIndex); }
+
+		}
+		return result;
+	}
+	// $ANTLR end "computation"
+
+
+
 	// $ANTLR start "conditional"
-	// /Users/benschop/Documents/workspace/studie/sea-of-ql/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:49:1: conditional returns [Conditional result] : 'if' '(' condition= orExpr ')' BRACE_OPEN success= statementList BRACE_CLOSE ( ( 'else' )=> 'else' BRACE_OPEN failure= statementList BRACE_CLOSE | () ) ;
+	// /Users/benschop/Documents/workspace/studie/sea-of-ql/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:74:1: conditional returns [Conditional result] : 'if' '(' condition= orExpr ')' success= block ( ( 'else' )=> 'else' failure= block | () ) ;
 	public final Conditional conditional() throws RecognitionException {
 		Conditional result = null;
 
@@ -268,31 +468,29 @@ public class QLParser extends Parser {
 		List<QLStatement> failure =null;
 
 		try {
-			if ( state.backtracking>0 && alreadyParsedRule(input, 4) ) { return result; }
+			if ( state.backtracking>0 && alreadyParsedRule(input, 7) ) { return result; }
 
-			// /Users/benschop/Documents/workspace/studie/sea-of-ql/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:50:3: ( 'if' '(' condition= orExpr ')' BRACE_OPEN success= statementList BRACE_CLOSE ( ( 'else' )=> 'else' BRACE_OPEN failure= statementList BRACE_CLOSE | () ) )
-			// /Users/benschop/Documents/workspace/studie/sea-of-ql/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:50:5: 'if' '(' condition= orExpr ')' BRACE_OPEN success= statementList BRACE_CLOSE ( ( 'else' )=> 'else' BRACE_OPEN failure= statementList BRACE_CLOSE | () )
+			// /Users/benschop/Documents/workspace/studie/sea-of-ql/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:75:3: ( 'if' '(' condition= orExpr ')' success= block ( ( 'else' )=> 'else' failure= block | () ) )
+			// /Users/benschop/Documents/workspace/studie/sea-of-ql/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:75:5: 'if' '(' condition= orExpr ')' success= block ( ( 'else' )=> 'else' failure= block | () )
 			{
-			match(input,31,FOLLOW_31_in_conditional145); if (state.failed) return result;
-			match(input,17,FOLLOW_17_in_conditional147); if (state.failed) return result;
-			pushFollow(FOLLOW_orExpr_in_conditional151);
+			match(input,32,FOLLOW_32_in_conditional249); if (state.failed) return result;
+			match(input,PAREN_OPEN,FOLLOW_PAREN_OPEN_in_conditional251); if (state.failed) return result;
+			pushFollow(FOLLOW_orExpr_in_conditional255);
 			condition=orExpr();
 			state._fsp--;
 			if (state.failed) return result;
-			match(input,18,FOLLOW_18_in_conditional153); if (state.failed) return result;
-			match(input,BRACE_OPEN,FOLLOW_BRACE_OPEN_in_conditional155); if (state.failed) return result;
-			pushFollow(FOLLOW_statementList_in_conditional159);
-			success=statementList();
+			match(input,PAREN_CLOSE,FOLLOW_PAREN_CLOSE_in_conditional257); if (state.failed) return result;
+			pushFollow(FOLLOW_block_in_conditional261);
+			success=block();
 			state._fsp--;
 			if (state.failed) return result;
-			match(input,BRACE_CLOSE,FOLLOW_BRACE_CLOSE_in_conditional161); if (state.failed) return result;
-			// /Users/benschop/Documents/workspace/studie/sea-of-ql/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:51:5: ( ( 'else' )=> 'else' BRACE_OPEN failure= statementList BRACE_CLOSE | () )
+			// /Users/benschop/Documents/workspace/studie/sea-of-ql/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:76:5: ( ( 'else' )=> 'else' failure= block | () )
 			int alt3=2;
 			int LA3_0 = input.LA(1);
-			if ( (LA3_0==30) && (synpred3_QL())) {
+			if ( (LA3_0==31) && (synpred4_QL())) {
 				alt3=1;
 			}
-			else if ( (LA3_0==29) ) {
+			else if ( (LA3_0==30) ) {
 				alt3=2;
 			}
 
@@ -305,22 +503,20 @@ public class QLParser extends Parser {
 
 			switch (alt3) {
 				case 1 :
-					// /Users/benschop/Documents/workspace/studie/sea-of-ql/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:51:7: ( 'else' )=> 'else' BRACE_OPEN failure= statementList BRACE_CLOSE
+					// /Users/benschop/Documents/workspace/studie/sea-of-ql/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:76:7: ( 'else' )=> 'else' failure= block
 					{
-					match(input,30,FOLLOW_30_in_conditional175); if (state.failed) return result;
-					match(input,BRACE_OPEN,FOLLOW_BRACE_OPEN_in_conditional177); if (state.failed) return result;
-					pushFollow(FOLLOW_statementList_in_conditional181);
-					failure=statementList();
+					match(input,31,FOLLOW_31_in_conditional275); if (state.failed) return result;
+					pushFollow(FOLLOW_block_in_conditional279);
+					failure=block();
 					state._fsp--;
 					if (state.failed) return result;
-					match(input,BRACE_CLOSE,FOLLOW_BRACE_CLOSE_in_conditional183); if (state.failed) return result;
 					}
 					break;
 				case 2 :
-					// /Users/benschop/Documents/workspace/studie/sea-of-ql/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:52:7: ()
+					// /Users/benschop/Documents/workspace/studie/sea-of-ql/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:77:7: ()
 					{
-					// /Users/benschop/Documents/workspace/studie/sea-of-ql/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:52:7: ()
-					// /Users/benschop/Documents/workspace/studie/sea-of-ql/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:52:9: 
+					// /Users/benschop/Documents/workspace/studie/sea-of-ql/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:77:7: ()
+					// /Users/benschop/Documents/workspace/studie/sea-of-ql/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:77:9: 
 					{
 					}
 
@@ -345,7 +541,7 @@ public class QLParser extends Parser {
 		}
 		finally {
 			// do for sure before leaving
-			if ( state.backtracking>0 ) { memoize(input, 4, conditional_StartIndex); }
+			if ( state.backtracking>0 ) { memoize(input, 7, conditional_StartIndex); }
 
 		}
 		return result;
@@ -355,22 +551,22 @@ public class QLParser extends Parser {
 
 
 	// $ANTLR start "primary"
-	// /Users/benschop/Documents/workspace/studie/sea-of-ql/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:62:1: primary returns [QLExpression result] : ( Int | Bool | Ident | Str | '(' x= orExpr ')' );
+	// /Users/benschop/Documents/workspace/studie/sea-of-ql/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:88:1: primary returns [QLExpression result] : ( Int | Bool | Ident | Str | '(' x= orExpr ')' );
 	public final QLExpression primary() throws RecognitionException {
 		QLExpression result = null;
 
 		int primary_StartIndex = input.index();
 
-		Token Int4=null;
-		Token Bool5=null;
-		Token Ident6=null;
-		Token Str7=null;
+		Token Int9=null;
+		Token Bool10=null;
+		Token Ident11=null;
+		Token Str12=null;
 		QLExpression x =null;
 
 		try {
-			if ( state.backtracking>0 && alreadyParsedRule(input, 5) ) { return result; }
+			if ( state.backtracking>0 && alreadyParsedRule(input, 8) ) { return result; }
 
-			// /Users/benschop/Documents/workspace/studie/sea-of-ql/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:63:3: ( Int | Bool | Ident | Str | '(' x= orExpr ')' )
+			// /Users/benschop/Documents/workspace/studie/sea-of-ql/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:89:3: ( Int | Bool | Ident | Str | '(' x= orExpr ')' )
 			int alt4=5;
 			switch ( input.LA(1) ) {
 			case Int:
@@ -393,7 +589,7 @@ public class QLParser extends Parser {
 				alt4=4;
 				}
 				break;
-			case 17:
+			case PAREN_OPEN:
 				{
 				alt4=5;
 				}
@@ -406,42 +602,42 @@ public class QLParser extends Parser {
 			}
 			switch (alt4) {
 				case 1 :
-					// /Users/benschop/Documents/workspace/studie/sea-of-ql/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:63:5: Int
+					// /Users/benschop/Documents/workspace/studie/sea-of-ql/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:89:5: Int
 					{
-					Int4=(Token)match(input,Int,FOLLOW_Int_in_primary219); if (state.failed) return result;
-					if ( state.backtracking==0 ) { result = new Int(Integer.parseInt((Int4!=null?Int4.getText():null))); }
+					Int9=(Token)match(input,Int,FOLLOW_Int_in_primary322); if (state.failed) return result;
+					if ( state.backtracking==0 ) { result = new Int(Integer.parseInt((Int9!=null?Int9.getText():null))); }
 					}
 					break;
 				case 2 :
-					// /Users/benschop/Documents/workspace/studie/sea-of-ql/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:64:5: Bool
+					// /Users/benschop/Documents/workspace/studie/sea-of-ql/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:90:5: Bool
 					{
-					Bool5=(Token)match(input,Bool,FOLLOW_Bool_in_primary229); if (state.failed) return result;
-					if ( state.backtracking==0 ) { result = new Bool(Boolean.parseBoolean((Bool5!=null?Bool5.getText():null))); }
+					Bool10=(Token)match(input,Bool,FOLLOW_Bool_in_primary332); if (state.failed) return result;
+					if ( state.backtracking==0 ) { result = new Bool(Boolean.parseBoolean((Bool10!=null?Bool10.getText():null))); }
 					}
 					break;
 				case 3 :
-					// /Users/benschop/Documents/workspace/studie/sea-of-ql/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:65:5: Ident
+					// /Users/benschop/Documents/workspace/studie/sea-of-ql/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:91:5: Ident
 					{
-					Ident6=(Token)match(input,Ident,FOLLOW_Ident_in_primary238); if (state.failed) return result;
-					if ( state.backtracking==0 ) { result = new Ident((Ident6!=null?Ident6.getText():null)); }
+					Ident11=(Token)match(input,Ident,FOLLOW_Ident_in_primary341); if (state.failed) return result;
+					if ( state.backtracking==0 ) { result = new Ident((Ident11!=null?Ident11.getText():null)); }
 					}
 					break;
 				case 4 :
-					// /Users/benschop/Documents/workspace/studie/sea-of-ql/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:66:5: Str
+					// /Users/benschop/Documents/workspace/studie/sea-of-ql/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:92:5: Str
 					{
-					Str7=(Token)match(input,Str,FOLLOW_Str_in_primary246); if (state.failed) return result;
-					if ( state.backtracking==0 ) { result = new Str(removeOuterQuotes((Str7!=null?Str7.getText():null))); }
+					Str12=(Token)match(input,Str,FOLLOW_Str_in_primary349); if (state.failed) return result;
+					if ( state.backtracking==0 ) { result = new Str(removeOuterQuotes((Str12!=null?Str12.getText():null))); }
 					}
 					break;
 				case 5 :
-					// /Users/benschop/Documents/workspace/studie/sea-of-ql/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:67:5: '(' x= orExpr ')'
+					// /Users/benschop/Documents/workspace/studie/sea-of-ql/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:93:5: '(' x= orExpr ')'
 					{
-					match(input,17,FOLLOW_17_in_primary256); if (state.failed) return result;
-					pushFollow(FOLLOW_orExpr_in_primary260);
+					match(input,PAREN_OPEN,FOLLOW_PAREN_OPEN_in_primary359); if (state.failed) return result;
+					pushFollow(FOLLOW_orExpr_in_primary363);
 					x=orExpr();
 					state._fsp--;
 					if (state.failed) return result;
-					match(input,18,FOLLOW_18_in_primary262); if (state.failed) return result;
+					match(input,PAREN_CLOSE,FOLLOW_PAREN_CLOSE_in_primary365); if (state.failed) return result;
 					if ( state.backtracking==0 ) { result = x; }
 					}
 					break;
@@ -454,7 +650,7 @@ public class QLParser extends Parser {
 		}
 		finally {
 			// do for sure before leaving
-			if ( state.backtracking>0 ) { memoize(input, 5, primary_StartIndex); }
+			if ( state.backtracking>0 ) { memoize(input, 8, primary_StartIndex); }
 
 		}
 		return result;
@@ -464,7 +660,7 @@ public class QLParser extends Parser {
 
 
 	// $ANTLR start "unExpr"
-	// /Users/benschop/Documents/workspace/studie/sea-of-ql/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:70:1: unExpr returns [QLExpression result] : ( '+' x= unExpr | '-' x= unExpr | '!' x= unExpr |x= primary );
+	// /Users/benschop/Documents/workspace/studie/sea-of-ql/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:96:1: unExpr returns [QLExpression result] : ( '+' x= unExpr | '-' x= unExpr | '!' x= unExpr |x= primary );
 	public final QLExpression unExpr() throws RecognitionException {
 		QLExpression result = null;
 
@@ -473,22 +669,22 @@ public class QLParser extends Parser {
 		QLExpression x =null;
 
 		try {
-			if ( state.backtracking>0 && alreadyParsedRule(input, 6) ) { return result; }
+			if ( state.backtracking>0 && alreadyParsedRule(input, 9) ) { return result; }
 
-			// /Users/benschop/Documents/workspace/studie/sea-of-ql/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:71:5: ( '+' x= unExpr | '-' x= unExpr | '!' x= unExpr |x= primary )
+			// /Users/benschop/Documents/workspace/studie/sea-of-ql/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:97:5: ( '+' x= unExpr | '-' x= unExpr | '!' x= unExpr |x= primary )
 			int alt5=4;
 			switch ( input.LA(1) ) {
-			case 20:
+			case 21:
 				{
 				alt5=1;
 				}
 				break;
-			case 21:
+			case 22:
 				{
 				alt5=2;
 				}
 				break;
-			case 14:
+			case 17:
 				{
 				alt5=3;
 				}
@@ -496,8 +692,8 @@ public class QLParser extends Parser {
 			case Bool:
 			case Ident:
 			case Int:
+			case PAREN_OPEN:
 			case Str:
-			case 17:
 				{
 				alt5=4;
 				}
@@ -510,10 +706,10 @@ public class QLParser extends Parser {
 			}
 			switch (alt5) {
 				case 1 :
-					// /Users/benschop/Documents/workspace/studie/sea-of-ql/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:71:8: '+' x= unExpr
+					// /Users/benschop/Documents/workspace/studie/sea-of-ql/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:97:8: '+' x= unExpr
 					{
-					match(input,20,FOLLOW_20_in_unExpr283); if (state.failed) return result;
-					pushFollow(FOLLOW_unExpr_in_unExpr287);
+					match(input,21,FOLLOW_21_in_unExpr386); if (state.failed) return result;
+					pushFollow(FOLLOW_unExpr_in_unExpr390);
 					x=unExpr();
 					state._fsp--;
 					if (state.failed) return result;
@@ -521,10 +717,10 @@ public class QLParser extends Parser {
 					}
 					break;
 				case 2 :
-					// /Users/benschop/Documents/workspace/studie/sea-of-ql/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:72:8: '-' x= unExpr
+					// /Users/benschop/Documents/workspace/studie/sea-of-ql/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:98:8: '-' x= unExpr
 					{
-					match(input,21,FOLLOW_21_in_unExpr298); if (state.failed) return result;
-					pushFollow(FOLLOW_unExpr_in_unExpr302);
+					match(input,22,FOLLOW_22_in_unExpr401); if (state.failed) return result;
+					pushFollow(FOLLOW_unExpr_in_unExpr405);
 					x=unExpr();
 					state._fsp--;
 					if (state.failed) return result;
@@ -532,10 +728,10 @@ public class QLParser extends Parser {
 					}
 					break;
 				case 3 :
-					// /Users/benschop/Documents/workspace/studie/sea-of-ql/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:73:8: '!' x= unExpr
+					// /Users/benschop/Documents/workspace/studie/sea-of-ql/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:99:8: '!' x= unExpr
 					{
-					match(input,14,FOLLOW_14_in_unExpr313); if (state.failed) return result;
-					pushFollow(FOLLOW_unExpr_in_unExpr317);
+					match(input,17,FOLLOW_17_in_unExpr416); if (state.failed) return result;
+					pushFollow(FOLLOW_unExpr_in_unExpr420);
 					x=unExpr();
 					state._fsp--;
 					if (state.failed) return result;
@@ -543,9 +739,9 @@ public class QLParser extends Parser {
 					}
 					break;
 				case 4 :
-					// /Users/benschop/Documents/workspace/studie/sea-of-ql/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:74:8: x= primary
+					// /Users/benschop/Documents/workspace/studie/sea-of-ql/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:100:8: x= primary
 					{
-					pushFollow(FOLLOW_primary_in_unExpr330);
+					pushFollow(FOLLOW_primary_in_unExpr433);
 					x=primary();
 					state._fsp--;
 					if (state.failed) return result;
@@ -561,7 +757,7 @@ public class QLParser extends Parser {
 		}
 		finally {
 			// do for sure before leaving
-			if ( state.backtracking>0 ) { memoize(input, 6, unExpr_StartIndex); }
+			if ( state.backtracking>0 ) { memoize(input, 9, unExpr_StartIndex); }
 
 		}
 		return result;
@@ -571,7 +767,7 @@ public class QLParser extends Parser {
 
 
 	// $ANTLR start "mulExpr"
-	// /Users/benschop/Documents/workspace/studie/sea-of-ql/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:77:1: mulExpr returns [QLExpression result] : lhs= unExpr (op= ( '*' | '/' ) rhs= unExpr )* ;
+	// /Users/benschop/Documents/workspace/studie/sea-of-ql/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:103:1: mulExpr returns [QLExpression result] : lhs= unExpr (op= ( '*' | '/' ) rhs= unExpr )* ;
 	public final QLExpression mulExpr() throws RecognitionException {
 		QLExpression result = null;
 
@@ -582,31 +778,31 @@ public class QLParser extends Parser {
 		QLExpression rhs =null;
 
 		try {
-			if ( state.backtracking>0 && alreadyParsedRule(input, 7) ) { return result; }
+			if ( state.backtracking>0 && alreadyParsedRule(input, 10) ) { return result; }
 
-			// /Users/benschop/Documents/workspace/studie/sea-of-ql/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:78:5: (lhs= unExpr (op= ( '*' | '/' ) rhs= unExpr )* )
-			// /Users/benschop/Documents/workspace/studie/sea-of-ql/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:78:9: lhs= unExpr (op= ( '*' | '/' ) rhs= unExpr )*
+			// /Users/benschop/Documents/workspace/studie/sea-of-ql/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:104:5: (lhs= unExpr (op= ( '*' | '/' ) rhs= unExpr )* )
+			// /Users/benschop/Documents/workspace/studie/sea-of-ql/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:104:9: lhs= unExpr (op= ( '*' | '/' ) rhs= unExpr )*
 			{
-			pushFollow(FOLLOW_unExpr_in_mulExpr368);
+			pushFollow(FOLLOW_unExpr_in_mulExpr471);
 			lhs=unExpr();
 			state._fsp--;
 			if (state.failed) return result;
 			if ( state.backtracking==0 ) { result =lhs; }
-			// /Users/benschop/Documents/workspace/studie/sea-of-ql/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:78:45: (op= ( '*' | '/' ) rhs= unExpr )*
+			// /Users/benschop/Documents/workspace/studie/sea-of-ql/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:104:45: (op= ( '*' | '/' ) rhs= unExpr )*
 			loop6:
 			while (true) {
 				int alt6=2;
 				int LA6_0 = input.LA(1);
-				if ( (LA6_0==19||LA6_0==22) ) {
+				if ( (LA6_0==20||LA6_0==23) ) {
 					alt6=1;
 				}
 
 				switch (alt6) {
 				case 1 :
-					// /Users/benschop/Documents/workspace/studie/sea-of-ql/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:78:47: op= ( '*' | '/' ) rhs= unExpr
+					// /Users/benschop/Documents/workspace/studie/sea-of-ql/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:104:47: op= ( '*' | '/' ) rhs= unExpr
 					{
 					op=input.LT(1);
-					if ( input.LA(1)==19||input.LA(1)==22 ) {
+					if ( input.LA(1)==20||input.LA(1)==23 ) {
 						input.consume();
 						state.errorRecovery=false;
 						state.failed=false;
@@ -616,18 +812,18 @@ public class QLParser extends Parser {
 						MismatchedSetException mse = new MismatchedSetException(null,input);
 						throw mse;
 					}
-					pushFollow(FOLLOW_unExpr_in_mulExpr388);
+					pushFollow(FOLLOW_unExpr_in_mulExpr491);
 					rhs=unExpr();
 					state._fsp--;
 					if (state.failed) return result;
 					if ( state.backtracking==0 ) { 
-					      if ((op!=null?op.getText():null).equals("*")) {
-					        result = new Mul(result, rhs);
-					      }
-					      if ((op!=null?op.getText():null).equals("/")) {
-					        result = new Div(result, rhs);      
-					      }
-					    }
+						      if ((op!=null?op.getText():null).equals("*")) {
+						        result = new Mul(result, rhs);
+						      }
+						      if ((op!=null?op.getText():null).equals("/")) {
+						        result = new Div(result, rhs);      
+						      }
+						    }
 					}
 					break;
 
@@ -645,7 +841,7 @@ public class QLParser extends Parser {
 		}
 		finally {
 			// do for sure before leaving
-			if ( state.backtracking>0 ) { memoize(input, 7, mulExpr_StartIndex); }
+			if ( state.backtracking>0 ) { memoize(input, 10, mulExpr_StartIndex); }
 
 		}
 		return result;
@@ -655,7 +851,7 @@ public class QLParser extends Parser {
 
 
 	// $ANTLR start "addExpr"
-	// /Users/benschop/Documents/workspace/studie/sea-of-ql/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:90:1: addExpr returns [QLExpression result] : lhs= mulExpr (op= ( '+' | '-' ) rhs= mulExpr )* ;
+	// /Users/benschop/Documents/workspace/studie/sea-of-ql/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:116:1: addExpr returns [QLExpression result] : lhs= mulExpr (op= ( '+' | '-' ) rhs= mulExpr )* ;
 	public final QLExpression addExpr() throws RecognitionException {
 		QLExpression result = null;
 
@@ -666,31 +862,31 @@ public class QLParser extends Parser {
 		QLExpression rhs =null;
 
 		try {
-			if ( state.backtracking>0 && alreadyParsedRule(input, 8) ) { return result; }
+			if ( state.backtracking>0 && alreadyParsedRule(input, 11) ) { return result; }
 
-			// /Users/benschop/Documents/workspace/studie/sea-of-ql/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:91:5: (lhs= mulExpr (op= ( '+' | '-' ) rhs= mulExpr )* )
-			// /Users/benschop/Documents/workspace/studie/sea-of-ql/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:91:9: lhs= mulExpr (op= ( '+' | '-' ) rhs= mulExpr )*
+			// /Users/benschop/Documents/workspace/studie/sea-of-ql/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:117:5: (lhs= mulExpr (op= ( '+' | '-' ) rhs= mulExpr )* )
+			// /Users/benschop/Documents/workspace/studie/sea-of-ql/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:117:9: lhs= mulExpr (op= ( '+' | '-' ) rhs= mulExpr )*
 			{
-			pushFollow(FOLLOW_mulExpr_in_addExpr429);
+			pushFollow(FOLLOW_mulExpr_in_addExpr533);
 			lhs=mulExpr();
 			state._fsp--;
 			if (state.failed) return result;
 			if ( state.backtracking==0 ) { result =lhs; }
-			// /Users/benschop/Documents/workspace/studie/sea-of-ql/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:91:46: (op= ( '+' | '-' ) rhs= mulExpr )*
+			// /Users/benschop/Documents/workspace/studie/sea-of-ql/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:117:46: (op= ( '+' | '-' ) rhs= mulExpr )*
 			loop7:
 			while (true) {
 				int alt7=2;
 				int LA7_0 = input.LA(1);
-				if ( ((LA7_0 >= 20 && LA7_0 <= 21)) ) {
+				if ( ((LA7_0 >= 21 && LA7_0 <= 22)) ) {
 					alt7=1;
 				}
 
 				switch (alt7) {
 				case 1 :
-					// /Users/benschop/Documents/workspace/studie/sea-of-ql/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:91:48: op= ( '+' | '-' ) rhs= mulExpr
+					// /Users/benschop/Documents/workspace/studie/sea-of-ql/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:117:48: op= ( '+' | '-' ) rhs= mulExpr
 					{
 					op=input.LT(1);
-					if ( (input.LA(1) >= 20 && input.LA(1) <= 21) ) {
+					if ( (input.LA(1) >= 21 && input.LA(1) <= 22) ) {
 						input.consume();
 						state.errorRecovery=false;
 						state.failed=false;
@@ -700,18 +896,18 @@ public class QLParser extends Parser {
 						MismatchedSetException mse = new MismatchedSetException(null,input);
 						throw mse;
 					}
-					pushFollow(FOLLOW_mulExpr_in_addExpr447);
+					pushFollow(FOLLOW_mulExpr_in_addExpr551);
 					rhs=mulExpr();
 					state._fsp--;
 					if (state.failed) return result;
 					if ( state.backtracking==0 ) { 
-					      if ((op!=null?op.getText():null).equals("+")) {
-					        result = new Add(result, rhs);
-					      }
-					      if ((op!=null?op.getText():null).equals("-")) {
-					        result = new Sub(result, rhs);      
-					      }
-					    }
+						      if ((op!=null?op.getText():null).equals("+")) {
+						        result = new Add(result, rhs);
+						      }
+						      if ((op!=null?op.getText():null).equals("-")) {
+						        result = new Sub(result, rhs);      
+						      }
+						    }
 					}
 					break;
 
@@ -729,7 +925,7 @@ public class QLParser extends Parser {
 		}
 		finally {
 			// do for sure before leaving
-			if ( state.backtracking>0 ) { memoize(input, 8, addExpr_StartIndex); }
+			if ( state.backtracking>0 ) { memoize(input, 11, addExpr_StartIndex); }
 
 		}
 		return result;
@@ -739,7 +935,7 @@ public class QLParser extends Parser {
 
 
 	// $ANTLR start "relExpr"
-	// /Users/benschop/Documents/workspace/studie/sea-of-ql/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:102:1: relExpr returns [QLExpression result] : lhs= addExpr (op= ( '<' | '<=' | '>' | '>=' | '==' | '!=' ) rhs= addExpr )* ;
+	// /Users/benschop/Documents/workspace/studie/sea-of-ql/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:128:1: relExpr returns [QLExpression result] : lhs= addExpr (op= ( '<' | '<=' | '>' | '>=' | '==' | '!=' ) rhs= addExpr )* ;
 	public final QLExpression relExpr() throws RecognitionException {
 		QLExpression result = null;
 
@@ -750,31 +946,31 @@ public class QLParser extends Parser {
 		QLExpression rhs =null;
 
 		try {
-			if ( state.backtracking>0 && alreadyParsedRule(input, 9) ) { return result; }
+			if ( state.backtracking>0 && alreadyParsedRule(input, 12) ) { return result; }
 
-			// /Users/benschop/Documents/workspace/studie/sea-of-ql/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:103:5: (lhs= addExpr (op= ( '<' | '<=' | '>' | '>=' | '==' | '!=' ) rhs= addExpr )* )
-			// /Users/benschop/Documents/workspace/studie/sea-of-ql/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:103:9: lhs= addExpr (op= ( '<' | '<=' | '>' | '>=' | '==' | '!=' ) rhs= addExpr )*
+			// /Users/benschop/Documents/workspace/studie/sea-of-ql/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:129:5: (lhs= addExpr (op= ( '<' | '<=' | '>' | '>=' | '==' | '!=' ) rhs= addExpr )* )
+			// /Users/benschop/Documents/workspace/studie/sea-of-ql/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:129:9: lhs= addExpr (op= ( '<' | '<=' | '>' | '>=' | '==' | '!=' ) rhs= addExpr )*
 			{
-			pushFollow(FOLLOW_addExpr_in_relExpr482);
+			pushFollow(FOLLOW_addExpr_in_relExpr587);
 			lhs=addExpr();
 			state._fsp--;
 			if (state.failed) return result;
 			if ( state.backtracking==0 ) { result =lhs; }
-			// /Users/benschop/Documents/workspace/studie/sea-of-ql/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:103:46: (op= ( '<' | '<=' | '>' | '>=' | '==' | '!=' ) rhs= addExpr )*
+			// /Users/benschop/Documents/workspace/studie/sea-of-ql/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:129:46: (op= ( '<' | '<=' | '>' | '>=' | '==' | '!=' ) rhs= addExpr )*
 			loop8:
 			while (true) {
 				int alt8=2;
 				int LA8_0 = input.LA(1);
-				if ( (LA8_0==15||(LA8_0 >= 24 && LA8_0 <= 28)) ) {
+				if ( (LA8_0==18||(LA8_0 >= 25 && LA8_0 <= 29)) ) {
 					alt8=1;
 				}
 
 				switch (alt8) {
 				case 1 :
-					// /Users/benschop/Documents/workspace/studie/sea-of-ql/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:103:48: op= ( '<' | '<=' | '>' | '>=' | '==' | '!=' ) rhs= addExpr
+					// /Users/benschop/Documents/workspace/studie/sea-of-ql/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:129:48: op= ( '<' | '<=' | '>' | '>=' | '==' | '!=' ) rhs= addExpr
 					{
 					op=input.LT(1);
-					if ( input.LA(1)==15||(input.LA(1) >= 24 && input.LA(1) <= 28) ) {
+					if ( input.LA(1)==18||(input.LA(1) >= 25 && input.LA(1) <= 29) ) {
 						input.consume();
 						state.errorRecovery=false;
 						state.failed=false;
@@ -784,30 +980,30 @@ public class QLParser extends Parser {
 						MismatchedSetException mse = new MismatchedSetException(null,input);
 						throw mse;
 					}
-					pushFollow(FOLLOW_addExpr_in_relExpr506);
+					pushFollow(FOLLOW_addExpr_in_relExpr611);
 					rhs=addExpr();
 					state._fsp--;
 					if (state.failed) return result;
 					if ( state.backtracking==0 ) { 
-					      if ((op!=null?op.getText():null).equals("<")) {
-					        result = new LT(result, rhs);
-					      }
-					      if ((op!=null?op.getText():null).equals("<=")) {
-					        result = new LEq(result, rhs);      
-					      }
-					      if ((op!=null?op.getText():null).equals(">")) {
-					        result = new GT(result, rhs);
-					      }
-					      if ((op!=null?op.getText():null).equals(">=")) {
-					        result = new GEq(result, rhs);      
-					      }
-					      if ((op!=null?op.getText():null).equals("==")) {
-					        result = new Eq(result, rhs);
-					      }
-					      if ((op!=null?op.getText():null).equals("!=")) {
-					        result = new NEq(result, rhs);
-					      }
-					    }
+						      if ((op!=null?op.getText():null).equals("<")) {
+						        result = new LT(result, rhs);
+						      }
+						      if ((op!=null?op.getText():null).equals("<=")) {
+						        result = new LEq(result, rhs);      
+						      }
+						      if ((op!=null?op.getText():null).equals(">")) {
+						        result = new GT(result, rhs);
+						      }
+						      if ((op!=null?op.getText():null).equals(">=")) {
+						        result = new GEq(result, rhs);      
+						      }
+						      if ((op!=null?op.getText():null).equals("==")) {
+						        result = new Eq(result, rhs);
+						      }
+						      if ((op!=null?op.getText():null).equals("!=")) {
+						        result = new NEq(result, rhs);
+						      }
+						    }
 					}
 					break;
 
@@ -825,7 +1021,7 @@ public class QLParser extends Parser {
 		}
 		finally {
 			// do for sure before leaving
-			if ( state.backtracking>0 ) { memoize(input, 9, relExpr_StartIndex); }
+			if ( state.backtracking>0 ) { memoize(input, 12, relExpr_StartIndex); }
 
 		}
 		return result;
@@ -835,7 +1031,7 @@ public class QLParser extends Parser {
 
 
 	// $ANTLR start "andExpr"
-	// /Users/benschop/Documents/workspace/studie/sea-of-ql/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:126:1: andExpr returns [QLExpression result] : lhs= relExpr ( '&&' rhs= relExpr )* ;
+	// /Users/benschop/Documents/workspace/studie/sea-of-ql/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:152:1: andExpr returns [QLExpression result] : lhs= relExpr ( '&&' rhs= relExpr )* ;
 	public final QLExpression andExpr() throws RecognitionException {
 		QLExpression result = null;
 
@@ -845,31 +1041,31 @@ public class QLParser extends Parser {
 		QLExpression rhs =null;
 
 		try {
-			if ( state.backtracking>0 && alreadyParsedRule(input, 10) ) { return result; }
+			if ( state.backtracking>0 && alreadyParsedRule(input, 13) ) { return result; }
 
-			// /Users/benschop/Documents/workspace/studie/sea-of-ql/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:127:5: (lhs= relExpr ( '&&' rhs= relExpr )* )
-			// /Users/benschop/Documents/workspace/studie/sea-of-ql/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:127:9: lhs= relExpr ( '&&' rhs= relExpr )*
+			// /Users/benschop/Documents/workspace/studie/sea-of-ql/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:153:5: (lhs= relExpr ( '&&' rhs= relExpr )* )
+			// /Users/benschop/Documents/workspace/studie/sea-of-ql/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:153:9: lhs= relExpr ( '&&' rhs= relExpr )*
 			{
-			pushFollow(FOLLOW_relExpr_in_andExpr544);
+			pushFollow(FOLLOW_relExpr_in_andExpr650);
 			lhs=relExpr();
 			state._fsp--;
 			if (state.failed) return result;
 			if ( state.backtracking==0 ) { result =lhs; }
-			// /Users/benschop/Documents/workspace/studie/sea-of-ql/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:127:46: ( '&&' rhs= relExpr )*
+			// /Users/benschop/Documents/workspace/studie/sea-of-ql/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:153:46: ( '&&' rhs= relExpr )*
 			loop9:
 			while (true) {
 				int alt9=2;
 				int LA9_0 = input.LA(1);
-				if ( (LA9_0==16) ) {
+				if ( (LA9_0==19) ) {
 					alt9=1;
 				}
 
 				switch (alt9) {
 				case 1 :
-					// /Users/benschop/Documents/workspace/studie/sea-of-ql/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:127:48: '&&' rhs= relExpr
+					// /Users/benschop/Documents/workspace/studie/sea-of-ql/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:153:48: '&&' rhs= relExpr
 					{
-					match(input,16,FOLLOW_16_in_andExpr550); if (state.failed) return result;
-					pushFollow(FOLLOW_relExpr_in_andExpr554);
+					match(input,19,FOLLOW_19_in_andExpr656); if (state.failed) return result;
+					pushFollow(FOLLOW_relExpr_in_andExpr660);
 					rhs=relExpr();
 					state._fsp--;
 					if (state.failed) return result;
@@ -891,7 +1087,7 @@ public class QLParser extends Parser {
 		}
 		finally {
 			// do for sure before leaving
-			if ( state.backtracking>0 ) { memoize(input, 10, andExpr_StartIndex); }
+			if ( state.backtracking>0 ) { memoize(input, 13, andExpr_StartIndex); }
 
 		}
 		return result;
@@ -901,7 +1097,7 @@ public class QLParser extends Parser {
 
 
 	// $ANTLR start "orExpr"
-	// /Users/benschop/Documents/workspace/studie/sea-of-ql/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:131:1: orExpr returns [QLExpression result] : lhs= andExpr ( '||' rhs= andExpr )* ;
+	// /Users/benschop/Documents/workspace/studie/sea-of-ql/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:157:1: orExpr returns [QLExpression result] : lhs= andExpr ( '||' rhs= andExpr )* ;
 	public final QLExpression orExpr() throws RecognitionException {
 		QLExpression result = null;
 
@@ -911,31 +1107,31 @@ public class QLParser extends Parser {
 		QLExpression rhs =null;
 
 		try {
-			if ( state.backtracking>0 && alreadyParsedRule(input, 11) ) { return result; }
+			if ( state.backtracking>0 && alreadyParsedRule(input, 14) ) { return result; }
 
-			// /Users/benschop/Documents/workspace/studie/sea-of-ql/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:132:5: (lhs= andExpr ( '||' rhs= andExpr )* )
-			// /Users/benschop/Documents/workspace/studie/sea-of-ql/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:132:9: lhs= andExpr ( '||' rhs= andExpr )*
+			// /Users/benschop/Documents/workspace/studie/sea-of-ql/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:158:5: (lhs= andExpr ( '||' rhs= andExpr )* )
+			// /Users/benschop/Documents/workspace/studie/sea-of-ql/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:158:9: lhs= andExpr ( '||' rhs= andExpr )*
 			{
-			pushFollow(FOLLOW_andExpr_in_orExpr589);
+			pushFollow(FOLLOW_andExpr_in_orExpr695);
 			lhs=andExpr();
 			state._fsp--;
 			if (state.failed) return result;
 			if ( state.backtracking==0 ) { result = lhs; }
-			// /Users/benschop/Documents/workspace/studie/sea-of-ql/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:132:48: ( '||' rhs= andExpr )*
+			// /Users/benschop/Documents/workspace/studie/sea-of-ql/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:158:48: ( '||' rhs= andExpr )*
 			loop10:
 			while (true) {
 				int alt10=2;
 				int LA10_0 = input.LA(1);
-				if ( (LA10_0==32) ) {
+				if ( (LA10_0==33) ) {
 					alt10=1;
 				}
 
 				switch (alt10) {
 				case 1 :
-					// /Users/benschop/Documents/workspace/studie/sea-of-ql/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:132:50: '||' rhs= andExpr
+					// /Users/benschop/Documents/workspace/studie/sea-of-ql/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:158:50: '||' rhs= andExpr
 					{
-					match(input,32,FOLLOW_32_in_orExpr595); if (state.failed) return result;
-					pushFollow(FOLLOW_andExpr_in_orExpr599);
+					match(input,33,FOLLOW_33_in_orExpr701); if (state.failed) return result;
+					pushFollow(FOLLOW_andExpr_in_orExpr705);
 					rhs=andExpr();
 					state._fsp--;
 					if (state.failed) return result;
@@ -957,31 +1153,31 @@ public class QLParser extends Parser {
 		}
 		finally {
 			// do for sure before leaving
-			if ( state.backtracking>0 ) { memoize(input, 11, orExpr_StartIndex); }
+			if ( state.backtracking>0 ) { memoize(input, 14, orExpr_StartIndex); }
 
 		}
 		return result;
 	}
 	// $ANTLR end "orExpr"
 
-	// $ANTLR start synpred3_QL
-	public final void synpred3_QL_fragment() throws RecognitionException {
-		// /Users/benschop/Documents/workspace/studie/sea-of-ql/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:51:7: ( 'else' )
-		// /Users/benschop/Documents/workspace/studie/sea-of-ql/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:51:8: 'else'
+	// $ANTLR start synpred4_QL
+	public final void synpred4_QL_fragment() throws RecognitionException {
+		// /Users/benschop/Documents/workspace/studie/sea-of-ql/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:76:7: ( 'else' )
+		// /Users/benschop/Documents/workspace/studie/sea-of-ql/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:76:8: 'else'
 		{
-		match(input,30,FOLLOW_30_in_synpred3_QL170); if (state.failed) return;
+		match(input,31,FOLLOW_31_in_synpred4_QL270); if (state.failed) return;
 		}
 
 	}
-	// $ANTLR end synpred3_QL
+	// $ANTLR end synpred4_QL
 
 	// Delegated rules
 
-	public final boolean synpred3_QL() {
+	public final boolean synpred4_QL() {
 		state.backtracking++;
 		int start = input.mark();
 		try {
-			synpred3_QL_fragment(); // can never throw exception
+			synpred4_QL_fragment(); // can never throw exception
 		} catch (RecognitionException re) {
 			System.err.println("impossible: "+re);
 		}
@@ -994,53 +1190,64 @@ public class QLParser extends Parser {
 
 
 
-	public static final BitSet FOLLOW_statement_in_statementList72 = new BitSet(new long[]{0x0000000020000000L});
-	public static final BitSet FOLLOW_29_in_statementList74 = new BitSet(new long[]{0x0000000080000402L});
-	public static final BitSet FOLLOW_question_in_statement95 = new BitSet(new long[]{0x0000000000000002L});
-	public static final BitSet FOLLOW_conditional_in_statement101 = new BitSet(new long[]{0x0000000000000002L});
-	public static final BitSet FOLLOW_Ident_in_question118 = new BitSet(new long[]{0x0000000000800000L});
-	public static final BitSet FOLLOW_23_in_question120 = new BitSet(new long[]{0x0000000000001000L});
-	public static final BitSet FOLLOW_Str_in_question122 = new BitSet(new long[]{0x0000000000000100L});
-	public static final BitSet FOLLOW_Datatype_in_question124 = new BitSet(new long[]{0x0000000000000002L});
-	public static final BitSet FOLLOW_31_in_conditional145 = new BitSet(new long[]{0x0000000000020000L});
-	public static final BitSet FOLLOW_17_in_conditional147 = new BitSet(new long[]{0x0000000000325C40L});
-	public static final BitSet FOLLOW_orExpr_in_conditional151 = new BitSet(new long[]{0x0000000000040000L});
-	public static final BitSet FOLLOW_18_in_conditional153 = new BitSet(new long[]{0x0000000000000020L});
-	public static final BitSet FOLLOW_BRACE_OPEN_in_conditional155 = new BitSet(new long[]{0x0000000080000410L});
-	public static final BitSet FOLLOW_statementList_in_conditional159 = new BitSet(new long[]{0x0000000000000010L});
-	public static final BitSet FOLLOW_BRACE_CLOSE_in_conditional161 = new BitSet(new long[]{0x0000000040000002L});
-	public static final BitSet FOLLOW_30_in_conditional175 = new BitSet(new long[]{0x0000000000000020L});
-	public static final BitSet FOLLOW_BRACE_OPEN_in_conditional177 = new BitSet(new long[]{0x0000000080000410L});
-	public static final BitSet FOLLOW_statementList_in_conditional181 = new BitSet(new long[]{0x0000000000000010L});
-	public static final BitSet FOLLOW_BRACE_CLOSE_in_conditional183 = new BitSet(new long[]{0x0000000000000002L});
-	public static final BitSet FOLLOW_Int_in_primary219 = new BitSet(new long[]{0x0000000000000002L});
-	public static final BitSet FOLLOW_Bool_in_primary229 = new BitSet(new long[]{0x0000000000000002L});
-	public static final BitSet FOLLOW_Ident_in_primary238 = new BitSet(new long[]{0x0000000000000002L});
-	public static final BitSet FOLLOW_Str_in_primary246 = new BitSet(new long[]{0x0000000000000002L});
-	public static final BitSet FOLLOW_17_in_primary256 = new BitSet(new long[]{0x0000000000325C40L});
-	public static final BitSet FOLLOW_orExpr_in_primary260 = new BitSet(new long[]{0x0000000000040000L});
-	public static final BitSet FOLLOW_18_in_primary262 = new BitSet(new long[]{0x0000000000000002L});
-	public static final BitSet FOLLOW_20_in_unExpr283 = new BitSet(new long[]{0x0000000000325C40L});
-	public static final BitSet FOLLOW_unExpr_in_unExpr287 = new BitSet(new long[]{0x0000000000000002L});
-	public static final BitSet FOLLOW_21_in_unExpr298 = new BitSet(new long[]{0x0000000000325C40L});
-	public static final BitSet FOLLOW_unExpr_in_unExpr302 = new BitSet(new long[]{0x0000000000000002L});
-	public static final BitSet FOLLOW_14_in_unExpr313 = new BitSet(new long[]{0x0000000000325C40L});
-	public static final BitSet FOLLOW_unExpr_in_unExpr317 = new BitSet(new long[]{0x0000000000000002L});
-	public static final BitSet FOLLOW_primary_in_unExpr330 = new BitSet(new long[]{0x0000000000000002L});
-	public static final BitSet FOLLOW_unExpr_in_mulExpr368 = new BitSet(new long[]{0x0000000000480002L});
-	public static final BitSet FOLLOW_set_in_mulExpr376 = new BitSet(new long[]{0x0000000000325C40L});
-	public static final BitSet FOLLOW_unExpr_in_mulExpr388 = new BitSet(new long[]{0x0000000000480002L});
-	public static final BitSet FOLLOW_mulExpr_in_addExpr429 = new BitSet(new long[]{0x0000000000300002L});
-	public static final BitSet FOLLOW_set_in_addExpr437 = new BitSet(new long[]{0x0000000000325C40L});
-	public static final BitSet FOLLOW_mulExpr_in_addExpr447 = new BitSet(new long[]{0x0000000000300002L});
-	public static final BitSet FOLLOW_addExpr_in_relExpr482 = new BitSet(new long[]{0x000000001F008002L});
-	public static final BitSet FOLLOW_set_in_relExpr490 = new BitSet(new long[]{0x0000000000325C40L});
-	public static final BitSet FOLLOW_addExpr_in_relExpr506 = new BitSet(new long[]{0x000000001F008002L});
-	public static final BitSet FOLLOW_relExpr_in_andExpr544 = new BitSet(new long[]{0x0000000000010002L});
-	public static final BitSet FOLLOW_16_in_andExpr550 = new BitSet(new long[]{0x0000000000325C40L});
-	public static final BitSet FOLLOW_relExpr_in_andExpr554 = new BitSet(new long[]{0x0000000000010002L});
-	public static final BitSet FOLLOW_andExpr_in_orExpr589 = new BitSet(new long[]{0x0000000100000002L});
-	public static final BitSet FOLLOW_32_in_orExpr595 = new BitSet(new long[]{0x0000000000325C40L});
-	public static final BitSet FOLLOW_andExpr_in_orExpr599 = new BitSet(new long[]{0x0000000100000002L});
-	public static final BitSet FOLLOW_30_in_synpred3_QL170 = new BitSet(new long[]{0x0000000000000002L});
+	public static final BitSet FOLLOW_FORM_in_form54 = new BitSet(new long[]{0x0000000000000800L});
+	public static final BitSet FOLLOW_Ident_in_form56 = new BitSet(new long[]{0x0000000000000020L});
+	public static final BitSet FOLLOW_BRACE_OPEN_in_form58 = new BitSet(new long[]{0x0000000100000810L});
+	public static final BitSet FOLLOW_statementList_in_form60 = new BitSet(new long[]{0x0000000000000010L});
+	public static final BitSet FOLLOW_BRACE_CLOSE_in_form62 = new BitSet(new long[]{0x0000000000000002L});
+	public static final BitSet FOLLOW_BRACE_OPEN_in_block88 = new BitSet(new long[]{0x0000000100000810L});
+	public static final BitSet FOLLOW_statementList_in_block90 = new BitSet(new long[]{0x0000000000000010L});
+	public static final BitSet FOLLOW_BRACE_CLOSE_in_block92 = new BitSet(new long[]{0x0000000000000002L});
+	public static final BitSet FOLLOW_statement_in_statementList130 = new BitSet(new long[]{0x0000000040000000L});
+	public static final BitSet FOLLOW_30_in_statementList132 = new BitSet(new long[]{0x0000000100000802L});
+	public static final BitSet FOLLOW_question_in_statement153 = new BitSet(new long[]{0x0000000000000002L});
+	public static final BitSet FOLLOW_computation_in_statement159 = new BitSet(new long[]{0x0000000000000002L});
+	public static final BitSet FOLLOW_conditional_in_statement165 = new BitSet(new long[]{0x0000000000000002L});
+	public static final BitSet FOLLOW_Ident_in_question182 = new BitSet(new long[]{0x0000000001000000L});
+	public static final BitSet FOLLOW_24_in_question184 = new BitSet(new long[]{0x0000000000008000L});
+	public static final BitSet FOLLOW_Str_in_question186 = new BitSet(new long[]{0x0000000000000100L});
+	public static final BitSet FOLLOW_Datatype_in_question188 = new BitSet(new long[]{0x0000000000000002L});
+	public static final BitSet FOLLOW_Ident_in_computation214 = new BitSet(new long[]{0x0000000001000000L});
+	public static final BitSet FOLLOW_24_in_computation216 = new BitSet(new long[]{0x0000000000008000L});
+	public static final BitSet FOLLOW_Str_in_computation218 = new BitSet(new long[]{0x0000000000004000L});
+	public static final BitSet FOLLOW_PAREN_OPEN_in_computation220 = new BitSet(new long[]{0x000000000062D840L});
+	public static final BitSet FOLLOW_orExpr_in_computation222 = new BitSet(new long[]{0x0000000000002000L});
+	public static final BitSet FOLLOW_PAREN_CLOSE_in_computation224 = new BitSet(new long[]{0x0000000000000002L});
+	public static final BitSet FOLLOW_32_in_conditional249 = new BitSet(new long[]{0x0000000000004000L});
+	public static final BitSet FOLLOW_PAREN_OPEN_in_conditional251 = new BitSet(new long[]{0x000000000062D840L});
+	public static final BitSet FOLLOW_orExpr_in_conditional255 = new BitSet(new long[]{0x0000000000002000L});
+	public static final BitSet FOLLOW_PAREN_CLOSE_in_conditional257 = new BitSet(new long[]{0x0000000000000020L});
+	public static final BitSet FOLLOW_block_in_conditional261 = new BitSet(new long[]{0x0000000080000002L});
+	public static final BitSet FOLLOW_31_in_conditional275 = new BitSet(new long[]{0x0000000000000020L});
+	public static final BitSet FOLLOW_block_in_conditional279 = new BitSet(new long[]{0x0000000000000002L});
+	public static final BitSet FOLLOW_Int_in_primary322 = new BitSet(new long[]{0x0000000000000002L});
+	public static final BitSet FOLLOW_Bool_in_primary332 = new BitSet(new long[]{0x0000000000000002L});
+	public static final BitSet FOLLOW_Ident_in_primary341 = new BitSet(new long[]{0x0000000000000002L});
+	public static final BitSet FOLLOW_Str_in_primary349 = new BitSet(new long[]{0x0000000000000002L});
+	public static final BitSet FOLLOW_PAREN_OPEN_in_primary359 = new BitSet(new long[]{0x000000000062D840L});
+	public static final BitSet FOLLOW_orExpr_in_primary363 = new BitSet(new long[]{0x0000000000002000L});
+	public static final BitSet FOLLOW_PAREN_CLOSE_in_primary365 = new BitSet(new long[]{0x0000000000000002L});
+	public static final BitSet FOLLOW_21_in_unExpr386 = new BitSet(new long[]{0x000000000062D840L});
+	public static final BitSet FOLLOW_unExpr_in_unExpr390 = new BitSet(new long[]{0x0000000000000002L});
+	public static final BitSet FOLLOW_22_in_unExpr401 = new BitSet(new long[]{0x000000000062D840L});
+	public static final BitSet FOLLOW_unExpr_in_unExpr405 = new BitSet(new long[]{0x0000000000000002L});
+	public static final BitSet FOLLOW_17_in_unExpr416 = new BitSet(new long[]{0x000000000062D840L});
+	public static final BitSet FOLLOW_unExpr_in_unExpr420 = new BitSet(new long[]{0x0000000000000002L});
+	public static final BitSet FOLLOW_primary_in_unExpr433 = new BitSet(new long[]{0x0000000000000002L});
+	public static final BitSet FOLLOW_unExpr_in_mulExpr471 = new BitSet(new long[]{0x0000000000900002L});
+	public static final BitSet FOLLOW_set_in_mulExpr479 = new BitSet(new long[]{0x000000000062D840L});
+	public static final BitSet FOLLOW_unExpr_in_mulExpr491 = new BitSet(new long[]{0x0000000000900002L});
+	public static final BitSet FOLLOW_mulExpr_in_addExpr533 = new BitSet(new long[]{0x0000000000600002L});
+	public static final BitSet FOLLOW_set_in_addExpr541 = new BitSet(new long[]{0x000000000062D840L});
+	public static final BitSet FOLLOW_mulExpr_in_addExpr551 = new BitSet(new long[]{0x0000000000600002L});
+	public static final BitSet FOLLOW_addExpr_in_relExpr587 = new BitSet(new long[]{0x000000003E040002L});
+	public static final BitSet FOLLOW_set_in_relExpr595 = new BitSet(new long[]{0x000000000062D840L});
+	public static final BitSet FOLLOW_addExpr_in_relExpr611 = new BitSet(new long[]{0x000000003E040002L});
+	public static final BitSet FOLLOW_relExpr_in_andExpr650 = new BitSet(new long[]{0x0000000000080002L});
+	public static final BitSet FOLLOW_19_in_andExpr656 = new BitSet(new long[]{0x000000000062D840L});
+	public static final BitSet FOLLOW_relExpr_in_andExpr660 = new BitSet(new long[]{0x0000000000080002L});
+	public static final BitSet FOLLOW_andExpr_in_orExpr695 = new BitSet(new long[]{0x0000000200000002L});
+	public static final BitSet FOLLOW_33_in_orExpr701 = new BitSet(new long[]{0x000000000062D840L});
+	public static final BitSet FOLLOW_andExpr_in_orExpr705 = new BitSet(new long[]{0x0000000200000002L});
+	public static final BitSet FOLLOW_31_in_synpred4_QL270 = new BitSet(new long[]{0x0000000000000002L});
 }

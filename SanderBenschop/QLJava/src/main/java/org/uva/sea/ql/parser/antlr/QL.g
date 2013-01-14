@@ -23,6 +23,20 @@ import org.uva.sea.ql.ast.nodetypes.formelements.*;
 {
 package org.uva.sea.ql.parser.antlr;
 }
+
+form [Form result]
+  : FORM Ident BRACE_OPEN statementList BRACE_CLOSE
+	  {
+	    $result = new Form($statementList.result);
+	  }
+  ;
+    
+block returns [List<QLStatement> result]
+  : BRACE_OPEN statementList BRACE_CLOSE
+	  {
+	    $result = $statementList.result;
+	  }
+  ;
     
 statementList returns [List<QLStatement> result]
   @init
@@ -34,23 +48,35 @@ statementList returns [List<QLStatement> result]
 
 statement returns [QLStatement result]
   : question
+  | computation
   | conditional
   ;
 
 question returns [Question result]
-  : Ident ':' Str Datatype {
-                              Ident ident = new Ident($Ident.text);
-                              Str label = new Str(removeOuterQuotes($Str.text));
-                              Str datatype = new Str($Datatype.text);
-                              $result = new Question(ident, label, datatype);
-                           }
+  : Ident ':' Str Datatype 
+    {
+	    Ident ident = new Ident($Ident.text);
+	    Str label = new Str(removeOuterQuotes($Str.text));
+	    Str datatype = new Str($Datatype.text);
+	    $result = new Question(ident, label, datatype);
+    }
+  ;
+  
+computation returns [Computation result]
+  : Ident ':' Str PAREN_OPEN orExpr PAREN_CLOSE
+    {
+      Ident ident = new Ident($Ident.text);
+      Str label = new Str(removeOuterQuotes($Str.text));
+      $result = new Computation(ident, label, $orExpr.result);
+    }
   ;
   
 conditional returns [Conditional result]
-  : 'if' '(' condition=orExpr ')' BRACE_OPEN success=statementList BRACE_CLOSE
-    ( ('else') => 'else' BRACE_OPEN failure=statementList BRACE_CLOSE
+  : 'if' '(' condition=orExpr ')' success=block
+    ( ('else') => 'else' failure=block
     | ( ) //No else
-    ) {
+    ) 
+      {
       if (failure != null) {
         $result = new Conditional(condition, success, failure);
       } else {
@@ -76,51 +102,51 @@ unExpr returns [QLExpression result]
     
 mulExpr returns [QLExpression result]
     :   lhs=unExpr { $result=$lhs.result; } ( op=( '*' | '/' ) rhs=unExpr 
-    { 
-      if ($op.text.equals("*")) {
-        $result = new Mul($result, rhs);
-      }
-      if ($op.text.equals("/")) {
-        $result = new Div($result, rhs);      
-      }
-    })*
+	    { 
+	      if ($op.text.equals("*")) {
+	        $result = new Mul($result, rhs);
+	      }
+	      if ($op.text.equals("/")) {
+	        $result = new Div($result, rhs);      
+	      }
+	    })*
     ;
     
   
 addExpr returns [QLExpression result]
     :   lhs=mulExpr { $result=$lhs.result; } ( op=('+' | '-') rhs=mulExpr
-    { 
-      if ($op.text.equals("+")) {
-        $result = new Add($result, rhs);
-      }
-      if ($op.text.equals("-")) {
-        $result = new Sub($result, rhs);      
-      }
-    })*
+	    { 
+	      if ($op.text.equals("+")) {
+	        $result = new Add($result, rhs);
+	      }
+	      if ($op.text.equals("-")) {
+	        $result = new Sub($result, rhs);      
+	      }
+	    })*
     ;
   
 relExpr returns [QLExpression result]
     :   lhs=addExpr { $result=$lhs.result; } ( op=('<'|'<='|'>'|'>='|'=='|'!=') rhs=addExpr 
-    { 
-      if ($op.text.equals("<")) {
-        $result = new LT($result, rhs);
-      }
-      if ($op.text.equals("<=")) {
-        $result = new LEq($result, rhs);      
-      }
-      if ($op.text.equals(">")) {
-        $result = new GT($result, rhs);
-      }
-      if ($op.text.equals(">=")) {
-        $result = new GEq($result, rhs);      
-      }
-      if ($op.text.equals("==")) {
-        $result = new Eq($result, rhs);
-      }
-      if ($op.text.equals("!=")) {
-        $result = new NEq($result, rhs);
-      }
-    })*
+	    { 
+	      if ($op.text.equals("<")) {
+	        $result = new LT($result, rhs);
+	      }
+	      if ($op.text.equals("<=")) {
+	        $result = new LEq($result, rhs);      
+	      }
+	      if ($op.text.equals(">")) {
+	        $result = new GT($result, rhs);
+	      }
+	      if ($op.text.equals(">=")) {
+	        $result = new GEq($result, rhs);      
+	      }
+	      if ($op.text.equals("==")) {
+	        $result = new Eq($result, rhs);
+	      }
+	      if ($op.text.equals("!=")) {
+	        $result = new NEq($result, rhs);
+	      }
+	    })*
     ;
     
 andExpr returns [QLExpression result]
@@ -134,8 +160,12 @@ orExpr returns [QLExpression result]
     
 // Tokens
 
+FORM : 'form';
+
 BRACE_OPEN : '{';
 BRACE_CLOSE : '}';
+PAREN_OPEN : '(';
+PAREN_CLOSE : ')';
 
 WS  :	(' ' | '\t' | '\n' | '\r') { $channel=HIDDEN; }
     ;
