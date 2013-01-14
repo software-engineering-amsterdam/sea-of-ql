@@ -1,6 +1,4 @@
-package org.uva.sc.antlr;
-
-// $ANTLR 3.5 C:\\Users\\caytekin\\Downloads\\ANTLR\\grammars\\SimpleCalc.g 2013-01-12 14:41:04
+// $ANTLR 3.5 C:\\Users\\caytekin\\Downloads\\ANTLR\\grammars\\SimpleCalc.g 2013-01-14 14:35:32
 
 import org.antlr.runtime.*;
 import java.util.Stack;
