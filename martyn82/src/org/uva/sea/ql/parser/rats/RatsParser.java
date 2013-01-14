@@ -3,7 +3,7 @@ package org.uva.sea.ql.parser.rats;
 import java.io.IOException;
 import java.io.StringReader;
 
-import org.uva.sea.ql.ast.Expr;
+import org.uva.sea.ql.ast.expression.Expression;
 import org.uva.sea.ql.parser.test.IParser;
 import org.uva.sea.ql.parser.test.ParseError;
 
@@ -15,7 +15,7 @@ public class RatsParser implements IParser {
 	}
 
 	@Override
-	public Expr parse(String src) throws ParseError {
+	public Expression parse(String src) throws ParseError {
 		QLParser parser = new QLParser(new StringReader(src), "-");
 		
 		try {

@@ -21,6 +21,22 @@ import xtc.parser.ParseError;
 
 import xtc.util.Action;
 import org.uva.sea.ql.ast.*;
+import org.uva.sea.ql.ast.expression.Add;
+import org.uva.sea.ql.ast.expression.And;
+import org.uva.sea.ql.ast.expression.Div;
+import org.uva.sea.ql.ast.expression.Eq;
+import org.uva.sea.ql.ast.expression.Expression;
+import org.uva.sea.ql.ast.expression.GEq;
+import org.uva.sea.ql.ast.expression.GT;
+import org.uva.sea.ql.ast.expression.Ident;
+import org.uva.sea.ql.ast.expression.LEq;
+import org.uva.sea.ql.ast.expression.LT;
+import org.uva.sea.ql.ast.expression.Mul;
+import org.uva.sea.ql.ast.expression.NEq;
+import org.uva.sea.ql.ast.expression.Neg;
+import org.uva.sea.ql.ast.expression.Or;
+import org.uva.sea.ql.ast.expression.Pos;
+import org.uva.sea.ql.ast.expression.value.Int;
 
 /**
  * Packrat parser for grammar <code>org.uva.sea.ql.parser.rats.QLParser</code>.
@@ -83,7 +99,7 @@ public final class QLParser extends ParserBase {
    */
   public Result pRunParse(final int yyStart) throws IOException {
     Result     yyResult;
-    Expr       yyValue;
+    Expression       yyValue;
     ParseError yyError = ParseError.DUMMY;
 
     // Alternative 1.
@@ -120,7 +136,7 @@ public final class QLParser extends ParserBase {
     int        yyC;
     int        yyIndex;
     Result     yyResult;
-    Expr       yyValue;
+    Expression       yyValue;
     ParseError yyError = ParseError.DUMMY;
 
     // Alternative 1.
@@ -128,7 +144,7 @@ public final class QLParser extends ParserBase {
     yyResult = pRelExpr(yyStart);
     yyError  = yyResult.select(yyError);
     if (yyResult.hasValue()) {
-      Expr l = yyResult.semanticValue();
+      Expression l = yyResult.semanticValue();
 
       final int yyChoice1 = yyResult.index;
 
@@ -153,7 +169,7 @@ public final class QLParser extends ParserBase {
                   yyResult = pRelExpr(yyResult.index);
                   yyError  = yyResult.select(yyError);
                   if (yyResult.hasValue()) {
-                    Expr r = yyResult.semanticValue();
+                    Expression r = yyResult.semanticValue();
 
                     yyValue = new And(l, r);
 
@@ -179,7 +195,7 @@ public final class QLParser extends ParserBase {
                   yyResult = pRelExpr(yyResult.index);
                   yyError  = yyResult.select(yyError);
                   if (yyResult.hasValue()) {
-                    Expr r = yyResult.semanticValue();
+                    Expression r = yyResult.semanticValue();
 
                     yyValue = new Or(l, r);
 
@@ -232,7 +248,7 @@ public final class QLParser extends ParserBase {
     int        yyC;
     int        yyIndex;
     Result     yyResult;
-    Expr       yyValue;
+    Expression       yyValue;
     ParseError yyError = ParseError.DUMMY;
 
     // Alternative 1.
@@ -240,7 +256,7 @@ public final class QLParser extends ParserBase {
     yyResult = pAddExpr(yyStart);
     yyError  = yyResult.select(yyError);
     if (yyResult.hasValue()) {
-      Expr l = yyResult.semanticValue();
+      Expression l = yyResult.semanticValue();
 
       final int yyChoice1 = yyResult.index;
 
@@ -269,7 +285,7 @@ public final class QLParser extends ParserBase {
                   yyResult = pAddExpr(yyResult.index);
                   yyError  = yyResult.select(yyError);
                   if (yyResult.hasValue()) {
-                    Expr r = yyResult.semanticValue();
+                    Expression r = yyResult.semanticValue();
 
                     yyValue = new LEq(l, r);
 
@@ -288,7 +304,7 @@ public final class QLParser extends ParserBase {
               yyResult = pAddExpr(yyResult.index);
               yyError  = yyResult.select(yyError);
               if (yyResult.hasValue()) {
-                Expr r = yyResult.semanticValue();
+                Expression r = yyResult.semanticValue();
 
                 yyValue = new LT(l, r);
 
@@ -316,7 +332,7 @@ public final class QLParser extends ParserBase {
                   yyResult = pAddExpr(yyResult.index);
                   yyError  = yyResult.select(yyError);
                   if (yyResult.hasValue()) {
-                    Expr r = yyResult.semanticValue();
+                    Expression r = yyResult.semanticValue();
 
                     yyValue = new GEq(l, r);
 
@@ -335,7 +351,7 @@ public final class QLParser extends ParserBase {
               yyResult = pAddExpr(yyResult.index);
               yyError  = yyResult.select(yyError);
               if (yyResult.hasValue()) {
-                Expr r = yyResult.semanticValue();
+                Expression r = yyResult.semanticValue();
 
                 yyValue = new GT(l, r);
 
@@ -359,7 +375,7 @@ public final class QLParser extends ParserBase {
                   yyResult = pAddExpr(yyResult.index);
                   yyError  = yyResult.select(yyError);
                   if (yyResult.hasValue()) {
-                    Expr r = yyResult.semanticValue();
+                    Expression r = yyResult.semanticValue();
 
                     yyValue = new Eq(l, r);
 
@@ -385,7 +401,7 @@ public final class QLParser extends ParserBase {
                   yyResult = pAddExpr(yyResult.index);
                   yyError  = yyResult.select(yyError);
                   if (yyResult.hasValue()) {
-                    Expr r = yyResult.semanticValue();
+                    Expression r = yyResult.semanticValue();
 
                     yyValue = new NEq(l, r);
 
@@ -436,7 +452,7 @@ public final class QLParser extends ParserBase {
   /** Actually parse org.uva.sea.ql.parser.rats.QLParser.AddExpr. */
   private Result pAddExpr$1(final int yyStart) throws IOException {
     Result     yyResult;
-    Expr       yyValue;
+    Expression       yyValue;
     ParseError yyError = ParseError.DUMMY;
 
     // Alternative 1.
@@ -444,12 +460,12 @@ public final class QLParser extends ParserBase {
     yyResult = pMulExpr(yyStart);
     yyError  = yyResult.select(yyError);
     if (yyResult.hasValue()) {
-      Expr seed = yyResult.semanticValue();
+      Expression seed = yyResult.semanticValue();
 
       yyResult = pAddExpr$$Star1(yyResult.index);
       yyError  = yyResult.select(yyError);
       if (yyResult.hasValue()) {
-        Pair<Action<Expr>> actions = yyResult.semanticValue();
+        Pair<Action<Expression>> actions = yyResult.semanticValue();
 
         yyValue = apply(actions, seed);
 
@@ -481,7 +497,7 @@ public final class QLParser extends ParserBase {
   /** Actually parse org.uva.sea.ql.parser.rats.QLParser.AddExpr$$Star1. */
   private Result pAddExpr$$Star1$1(final int yyStart) throws IOException {
     Result             yyResult;
-    Pair<Action<Expr>> yyValue;
+    Pair<Action<Expression>> yyValue;
     ParseError         yyError = ParseError.DUMMY;
 
     // Alternative 1.
@@ -489,14 +505,14 @@ public final class QLParser extends ParserBase {
     yyResult = pAddTail(yyStart);
     yyError  = yyResult.select(yyError);
     if (yyResult.hasValue()) {
-      Action<Expr> v$el$1 = yyResult.semanticValue();
+      Action<Expression> v$el$1 = yyResult.semanticValue();
 
       yyResult = pAddExpr$$Star1(yyResult.index);
       yyError  = yyResult.select(yyError);
       if (yyResult.hasValue()) {
-        Pair<Action<Expr>> v$2 = yyResult.semanticValue();
+        Pair<Action<Expression>> v$2 = yyResult.semanticValue();
 
-        yyValue = new Pair<Action<Expr>>(v$el$1, v$2);
+        yyValue = new Pair<Action<Expression>>(v$el$1, v$2);
 
         return yyResult.createValue(yyValue, yyError);
       }
@@ -522,7 +538,7 @@ public final class QLParser extends ParserBase {
     int          yyC;
     int          yyIndex;
     Result       yyResult;
-    Action<Expr> yyValue;
+    Action<Expression> yyValue;
     ParseError   yyError = ParseError.DUMMY;
 
     // Alternative 1.
@@ -541,10 +557,10 @@ public final class QLParser extends ParserBase {
             yyResult = pMulExpr(yyResult.index);
             yyError  = yyResult.select(yyError);
             if (yyResult.hasValue()) {
-              final Expr right = yyResult.semanticValue();
+              final Expression right = yyResult.semanticValue();
 
-              yyValue = new Action<Expr>() {
-                public Expr run(Expr left) {
+              yyValue = new Action<Expression>() {
+                public Expression run(Expression left) {
                   return new Add(left, right);
                 }
               };
@@ -564,10 +580,10 @@ public final class QLParser extends ParserBase {
             yyResult = pMulExpr(yyResult.index);
             yyError  = yyResult.select(yyError);
             if (yyResult.hasValue()) {
-              final Expr right = yyResult.semanticValue();
+              final Expression right = yyResult.semanticValue();
 
-              yyValue = new Action<Expr>() {
-                public Expr run(Expr left) {
+              yyValue = new Action<Expression>() {
+                public Expression run(Expression left) {
                   return new Add(left, right);
                 }
               };
@@ -606,7 +622,7 @@ public final class QLParser extends ParserBase {
   /** Actually parse org.uva.sea.ql.parser.rats.QLParser.MulExpr. */
   private Result pMulExpr$1(final int yyStart) throws IOException {
     Result     yyResult;
-    Expr       yyValue;
+    Expression       yyValue;
     ParseError yyError = ParseError.DUMMY;
 
     // Alternative 1.
@@ -614,12 +630,12 @@ public final class QLParser extends ParserBase {
     yyResult = pUnary(yyStart);
     yyError  = yyResult.select(yyError);
     if (yyResult.hasValue()) {
-      Expr seed = yyResult.semanticValue();
+      Expression seed = yyResult.semanticValue();
 
       yyResult = pMulExpr$$Star1(yyResult.index);
       yyError  = yyResult.select(yyError);
       if (yyResult.hasValue()) {
-        Pair<Action<Expr>> actions = yyResult.semanticValue();
+        Pair<Action<Expression>> actions = yyResult.semanticValue();
 
         yyValue = apply(actions, seed);
 
@@ -651,7 +667,7 @@ public final class QLParser extends ParserBase {
   /** Actually parse org.uva.sea.ql.parser.rats.QLParser.MulExpr$$Star1. */
   private Result pMulExpr$$Star1$1(final int yyStart) throws IOException {
     Result             yyResult;
-    Pair<Action<Expr>> yyValue;
+    Pair<Action<Expression>> yyValue;
     ParseError         yyError = ParseError.DUMMY;
 
     // Alternative 1.
@@ -659,14 +675,14 @@ public final class QLParser extends ParserBase {
     yyResult = pMulTail(yyStart);
     yyError  = yyResult.select(yyError);
     if (yyResult.hasValue()) {
-      Action<Expr> v$el$1 = yyResult.semanticValue();
+      Action<Expression> v$el$1 = yyResult.semanticValue();
 
       yyResult = pMulExpr$$Star1(yyResult.index);
       yyError  = yyResult.select(yyError);
       if (yyResult.hasValue()) {
-        Pair<Action<Expr>> v$2 = yyResult.semanticValue();
+        Pair<Action<Expression>> v$2 = yyResult.semanticValue();
 
-        yyValue = new Pair<Action<Expr>>(v$el$1, v$2);
+        yyValue = new Pair<Action<Expression>>(v$el$1, v$2);
 
         return yyResult.createValue(yyValue, yyError);
       }
@@ -692,7 +708,7 @@ public final class QLParser extends ParserBase {
     int          yyC;
     int          yyIndex;
     Result       yyResult;
-    Action<Expr> yyValue;
+    Action<Expression> yyValue;
     ParseError   yyError = ParseError.DUMMY;
 
     // Alternative 1.
@@ -711,10 +727,10 @@ public final class QLParser extends ParserBase {
             yyResult = pUnary(yyResult.index);
             yyError  = yyResult.select(yyError);
             if (yyResult.hasValue()) {
-              final Expr right = yyResult.semanticValue();
+              final Expression right = yyResult.semanticValue();
 
-              yyValue = new Action<Expr>() {
-                public Expr run(Expr left) {
+              yyValue = new Action<Expression>() {
+                public Expression run(Expression left) {
                   return new Mul(left, right);
                 }
               };
@@ -734,10 +750,10 @@ public final class QLParser extends ParserBase {
             yyResult = pUnary(yyResult.index);
             yyError  = yyResult.select(yyError);
             if (yyResult.hasValue()) {
-              final Expr right = yyResult.semanticValue();
+              final Expression right = yyResult.semanticValue();
 
-              yyValue = new Action<Expr>() {
-                public Expr run(Expr left) {
+              yyValue = new Action<Expression>() {
+                public Expression run(Expression left) {
                   return new Div(left, right);
                 }
               };
@@ -778,7 +794,7 @@ public final class QLParser extends ParserBase {
     int        yyC;
     int        yyIndex;
     Result     yyResult;
-    Expr       yyValue;
+    Expression       yyValue;
     ParseError yyError = ParseError.DUMMY;
 
     // Alternative 1.
@@ -797,7 +813,7 @@ public final class QLParser extends ParserBase {
             yyResult = pUnary(yyResult.index);
             yyError  = yyResult.select(yyError);
             if (yyResult.hasValue()) {
-              Expr un = yyResult.semanticValue();
+              Expression un = yyResult.semanticValue();
 
               yyValue = new Pos(un);
 
@@ -816,7 +832,7 @@ public final class QLParser extends ParserBase {
             yyResult = pUnary(yyResult.index);
             yyError  = yyResult.select(yyError);
             if (yyResult.hasValue()) {
-              Expr un = yyResult.semanticValue();
+              Expression un = yyResult.semanticValue();
 
               yyValue = new Neg(un);
 
@@ -857,7 +873,7 @@ public final class QLParser extends ParserBase {
    */
   private Result pPrimary(final int yyStart) throws IOException {
     Result     yyResult;
-    Expr       yyValue;
+    Expression       yyValue;
     ParseError yyError = ParseError.DUMMY;
 
     // Alternative 1.

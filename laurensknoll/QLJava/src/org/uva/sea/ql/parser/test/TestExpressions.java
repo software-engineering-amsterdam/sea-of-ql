@@ -10,6 +10,7 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
 import org.uva.sea.ql.ast.Add;
+import org.uva.sea.ql.ast.Expr;
 import org.uva.sea.ql.ast.GT;
 import org.uva.sea.ql.ast.Ident;
 import org.uva.sea.ql.ast.Int;
@@ -55,7 +56,8 @@ public class TestExpressions {
 	@Test
 	public void testMuls() throws ParseError {
 		assertEquals(parser.parse("a * b").getClass(), Mul.class);
-		assertEquals(parser.parse("a * b * c").getClass(), Mul.class);
+		Expr x = parser.parse("a * b * c");
+		assertEquals(x.getClass(), Mul.class);
 		assertEquals(parser.parse("a * (b * c)").getClass(), Mul.class);
 		assertEquals(parser.parse("(a * b) * c").getClass(), Mul.class);
 		assertEquals(parser.parse("(a * b)").getClass(), Mul.class);
