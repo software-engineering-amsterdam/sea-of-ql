@@ -19,8 +19,8 @@ public node outlineForm(Form form) {
 }
 
 // Helper function to create nodes with appropriate annotations and members.
-private node con(str name, str label, loc location, list[node] childs)
-  = setAnnotations(makeNode(name, childs), ("label": label, "loc": location));
+private node con(str name, str label, loc location, list[node] children)
+  = setAnnotations(makeNode(name, children), ("label": label, "loc": location));
 
 // Helper to create a node for a branch of an if/ifelse/... statemnt
 private node outlineBranch(str name, str label, loc location, list[Statement] items) {
@@ -45,17 +45,17 @@ private node outline(Statement item:
   bool elseIfBlock = false;
   bool elseBlock = false;
 
-  childs = [outlineBranch("ifPart", "<prettyPrint(ifPart.condition)>", ifPart@location, ifPart.body)];
+  children = [outlineBranch("ifPart", "<prettyPrint(ifPart.condition)>", ifPart@location, ifPart.body)];
 
   if (elseIfs != []) {
     elseIfBlock = true;
-    childs += [outlineBranch("elseIf", "<prettyPrint(branch.condition)>", branch@location, branch.body) | branch <- elseIfs];
+    children += [outlineBranch("elseIf", "<prettyPrint(branch.condition)>", branch@location, branch.body) | branch <- elseIfs];
   }
 
   if(elsePart != []) {
     elseBlock = true;
     ElsePart ep = head(elsePart);
-    childs += [outlineBranch("elsePart", "else", ep@location, ep.body)];
+    children += [outlineBranch("elsePart", "else", ep@location, ep.body)];
   }
 
   if(elseIfBlock && elseBlock) {
@@ -69,7 +69,7 @@ private node outline(Statement item:
     label = "If (<prettyPrint(ifPart.condition)>) else ...";
   }
   
-  return con(name, label, item@location, childs);
+  return con(name, label, item@location, children);
 }
 
 private node outline(Statement item: question(Question question)) = outline(question);
