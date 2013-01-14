@@ -8,8 +8,7 @@ import org.uva.sea.ql.ast.*;
 import org.uva.sea.ql.ast.nodetypes.primary.*;
 import org.uva.sea.ql.ast.nodetypes.unary.*;
 import org.uva.sea.ql.ast.nodetypes.binary.*;
-import org.uva.sea.ql.ast.nodetypes.conditional.*;
-import org.uva.sea.ql.ast.nodetypes.formelements.*;
+import org.uva.sea.ql.ast.nodetypes.formelement.*;
 }
 
 @parser::members 
@@ -67,7 +66,8 @@ computation returns [Computation result]
     {
       Ident ident = new Ident($Ident.text);
       Str label = new Str(removeOuterQuotes($Str.text));
-      $result = new Computation(ident, label, $orExpr.result);
+      QLExpression orExpression = $orExpr.result;
+      $result = new Computation(ident, label, orExpression);
     }
   ;
   

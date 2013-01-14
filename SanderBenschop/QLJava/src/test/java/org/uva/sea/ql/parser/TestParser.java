@@ -1,11 +1,10 @@
-package org.uva.sea.ql.parser.test;
+package org.uva.sea.ql.parser;
 
 import org.junit.Before;
 import org.uva.sea.ql.ast.QLExpression;
 import org.uva.sea.ql.ast.QLStatement;
-import org.uva.sea.ql.ast.nodetypes.conditional.Conditional;
-import org.uva.sea.ql.ast.nodetypes.formelements.Form;
-import org.uva.sea.ql.parser.Parser;
+import org.uva.sea.ql.ast.nodetypes.formelement.Conditional;
+import org.uva.sea.ql.ast.nodetypes.formelement.Form;
 import org.uva.sea.ql.parser.antlr.ANTLRParser;
 import org.uva.sea.ql.parser.exception.ParseError;
 
