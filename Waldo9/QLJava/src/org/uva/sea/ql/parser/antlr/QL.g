@@ -15,6 +15,7 @@ package org.uva.sea.ql.parser.antlr;
 primary returns [Expr result]
   : Int   { $result = new Int(Integer.parseInt($Int.text)); }
   | Ident { $result = new Ident($Ident.text); }
+  | Bool
   | '(' x=orExpr ')'{ $result = $x.result; }
   ;
     
@@ -83,6 +84,13 @@ orExpr returns [Expr result]
     :   lhs=andExpr { $result = $lhs.result; } ( '||' rhs=andExpr { $result = new Or($result, rhs); } )*
     ;
 
+question returns [Question result]
+	:	Ident ':' String type;
+
+type	:	BoolType | IntType | StringType;
+
+ifCondition 
+	:	If '(' orExpr ')' '{' (question)* '}';
     
 // Tokens
 WS  :	(' ' | '\t' | NEWLINE) { $channel=HIDDEN; }
@@ -93,6 +101,20 @@ COMMENT
     ;
 fragment NEWLINE 
 	: ('\n' | '\r');
+
+Form 	:	'form';
+
+BoolType:	'bool';
+
+IntType	:	'int';
+
+StringType 
+	:	'string';
+If	:	'if';
+	
+String 	:	('"' .* '"');
+
+Bool 	:	('true' | 'false');
 
 Ident:   ('a'..'z'|'A'..'Z')('a'..'z'|'A'..'Z'|'0'..'9'|'_')*;
 

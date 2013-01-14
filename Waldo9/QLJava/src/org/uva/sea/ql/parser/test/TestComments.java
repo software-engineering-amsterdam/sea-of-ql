@@ -28,7 +28,6 @@ public class TestComments {
 	public TestComments(IParse parser) {
 		this.parser = parser;
 	}
-
 	
 	@Test
 	public void testMultiLineComment() throws ParseError {
@@ -40,6 +39,12 @@ public class TestComments {
 		assertEquals(parser.parse("// a + \n b * c").getClass(), Mul.class);
 		assertEquals(parser.parse("// a + b * c"), null);
 		assertEquals(parser.parse("// a + b * c \n 5").getClass(), Int.class);
+	}
+	
+	@Test
+	public void testQuestion() throws ParseError {
+		//parser.parse("hasSoldHouse: \"Did you sell a house in 2010?\" boolean");
+		parser.parse("true");
 	}
 
 }
