@@ -19,6 +19,7 @@
 *	Development of the QLS layout language (including IDE support). Include support for at least date picker, spin lock and radio button widgets. This language has to be designed!
 *	Checking of the QLS language against the QL language.
 * Naming convention for ident/expr/pos/neg/...
+* beatify public str randomDataType() { ...
 
 BONUS:
 * 	Bonus exercise for Rascal variants: use SAT/SMT/Constraint solver to check for non-determinism.

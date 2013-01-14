@@ -23,6 +23,7 @@ extend lang::ql::tests::expressions::String;
 extend lang::ql::tests::expressions::Subtraction;
 
 extend lang::ql::tests::questions::Questions;
+extend lang::ql::tests::questions::CalculatedQuestions;
 
 extend lang::ql::tests::forms::Grammar;
 extend lang::ql::tests::forms::Outline;
