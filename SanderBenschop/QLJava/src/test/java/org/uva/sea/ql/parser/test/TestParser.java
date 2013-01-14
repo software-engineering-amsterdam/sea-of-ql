@@ -5,13 +5,13 @@ import org.uva.sea.ql.ast.QLExpression;
 import org.uva.sea.ql.ast.QLStatement;
 import org.uva.sea.ql.ast.nodetypes.conditional.Conditional;
 import org.uva.sea.ql.ast.nodetypes.formelements.Form;
-import org.uva.sea.ql.parser.IParse;
+import org.uva.sea.ql.parser.Parser;
 import org.uva.sea.ql.parser.antlr.ANTLRParser;
 import org.uva.sea.ql.parser.exception.ParseError;
 
 public abstract class TestParser {
 
-	private IParse parser;
+	private Parser parser;
 	
 	@Before
 	public void prepareTest() {

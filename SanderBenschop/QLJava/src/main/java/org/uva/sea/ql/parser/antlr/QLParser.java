@@ -1,4 +1,4 @@
-// $ANTLR 3.5 /Users/benschop/Documents/workspace/studie/sea-of-ql/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g 2013-01-14 21:06:42
+// $ANTLR 3.5 /Users/benschop/Documents/workspace/studie/sea-of-ql/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g 2013-01-14 22:02:46
 
 package org.uva.sea.ql.parser.antlr;
 import org.uva.sea.ql.ast.*;
@@ -722,7 +722,7 @@ public class QLParser extends Parser {
 					x=unExpr();
 					state._fsp--;
 					if (state.failed) return result;
-					if ( state.backtracking==0 ) { result = new Pos(x); }
+					if ( state.backtracking==0 ) { result = new Positive(x); }
 					}
 					break;
 				case 2 :
@@ -733,7 +733,7 @@ public class QLParser extends Parser {
 					x=unExpr();
 					state._fsp--;
 					if (state.failed) return result;
-					if ( state.backtracking==0 ) { result = new Neg(x); }
+					if ( state.backtracking==0 ) { result = new Negative(x); }
 					}
 					break;
 				case 3 :
@@ -827,10 +827,10 @@ public class QLParser extends Parser {
 					if (state.failed) return result;
 					if ( state.backtracking==0 ) { 
 						      if ((op!=null?op.getText():null).equals("*")) {
-						        result = new Mul(result, rhs);
+						        result = new Multiply(result, rhs);
 						      }
 						      if ((op!=null?op.getText():null).equals("/")) {
-						        result = new Div(result, rhs);      
+						        result = new Divide(result, rhs);      
 						      }
 						    }
 					}
@@ -914,7 +914,7 @@ public class QLParser extends Parser {
 						        result = new Add(result, rhs);
 						      }
 						      if ((op!=null?op.getText():null).equals("-")) {
-						        result = new Sub(result, rhs);      
+						        result = new Subtract(result, rhs);      
 						      }
 						    }
 					}
@@ -995,22 +995,22 @@ public class QLParser extends Parser {
 					if (state.failed) return result;
 					if ( state.backtracking==0 ) { 
 						      if ((op!=null?op.getText():null).equals("<")) {
-						        result = new LT(result, rhs);
+						        result = new LessThan(result, rhs);
 						      }
 						      if ((op!=null?op.getText():null).equals("<=")) {
-						        result = new LEq(result, rhs);      
+						        result = new LessThanOrEqualTo(result, rhs);      
 						      }
 						      if ((op!=null?op.getText():null).equals(">")) {
-						        result = new GT(result, rhs);
+						        result = new GreaterThan(result, rhs);
 						      }
 						      if ((op!=null?op.getText():null).equals(">=")) {
-						        result = new GEq(result, rhs);      
+						        result = new GreaterThanOrEqualTo(result, rhs);      
 						      }
 						      if ((op!=null?op.getText():null).equals("==")) {
-						        result = new Eq(result, rhs);
+						        result = new EqualTo(result, rhs);
 						      }
 						      if ((op!=null?op.getText():null).equals("!=")) {
-						        result = new NEq(result, rhs);
+						        result = new NotEqualTo(result, rhs);
 						      }
 						    }
 					}

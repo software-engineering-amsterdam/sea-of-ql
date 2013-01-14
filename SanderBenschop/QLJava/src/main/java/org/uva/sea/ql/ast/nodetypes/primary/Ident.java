@@ -8,7 +8,7 @@ public final class Ident extends NamedPrimaryExpression {
 		this.name = name;
 	}
 
-    @Override
+	@Override
 	public String getName() {
 		return name;
 	}

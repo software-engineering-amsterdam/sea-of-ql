@@ -2,9 +2,9 @@ package org.uva.sea.ql.ast.nodetypes.unary;
 
 import org.uva.sea.ql.ast.QLExpression;
 
-public class Neg extends UnaryOperationExpression {
+public class Negative extends UnaryOperationExpression {
 
-	public Neg(QLExpression expression) {
+	public Negative(QLExpression expression) {
 		super(expression);
 	}
 }

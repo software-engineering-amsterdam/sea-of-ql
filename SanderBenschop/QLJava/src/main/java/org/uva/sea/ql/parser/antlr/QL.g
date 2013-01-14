@@ -94,8 +94,8 @@ primary returns [QLExpression result]
   ;
 
 unExpr returns [QLExpression result]
-    :  '+' x=unExpr { $result = new Pos($x.result); }
-    |  '-' x=unExpr { $result = new Neg($x.result); }
+    :  '+' x=unExpr { $result = new Positive($x.result); }
+    |  '-' x=unExpr { $result = new Negative($x.result); }
     |  '!' x=unExpr { $result = new Not($x.result); }
     |  x=primary    { $result = $x.result; }
     ;    
@@ -104,10 +104,10 @@ mulExpr returns [QLExpression result]
     :   lhs=unExpr { $result=$lhs.result; } ( op=( '*' | '/' ) rhs=unExpr 
 	    { 
 	      if ($op.text.equals("*")) {
-	        $result = new Mul($result, rhs);
+	        $result = new Multiply($result, rhs);
 	      }
 	      if ($op.text.equals("/")) {
-	        $result = new Div($result, rhs);      
+	        $result = new Divide($result, rhs);      
 	      }
 	    })*
     ;
@@ -120,7 +120,7 @@ addExpr returns [QLExpression result]
 	        $result = new Add($result, rhs);
 	      }
 	      if ($op.text.equals("-")) {
-	        $result = new Sub($result, rhs);      
+	        $result = new Subtract($result, rhs);      
 	      }
 	    })*
     ;
@@ -129,22 +129,22 @@ relExpr returns [QLExpression result]
     :   lhs=addExpr { $result=$lhs.result; } ( op=('<'|'<='|'>'|'>='|'=='|'!=') rhs=addExpr 
 	    { 
 	      if ($op.text.equals("<")) {
-	        $result = new LT($result, rhs);
+	        $result = new LessThan($result, rhs);
 	      }
 	      if ($op.text.equals("<=")) {
-	        $result = new LEq($result, rhs);      
+	        $result = new LessThanOrEqualTo($result, rhs);      
 	      }
 	      if ($op.text.equals(">")) {
-	        $result = new GT($result, rhs);
+	        $result = new GreaterThan($result, rhs);
 	      }
 	      if ($op.text.equals(">=")) {
-	        $result = new GEq($result, rhs);      
+	        $result = new GreaterThanOrEqualTo($result, rhs);      
 	      }
 	      if ($op.text.equals("==")) {
-	        $result = new Eq($result, rhs);
+	        $result = new EqualTo($result, rhs);
 	      }
 	      if ($op.text.equals("!=")) {
-	        $result = new NEq($result, rhs);
+	        $result = new NotEqualTo($result, rhs);
 	      }
 	    })*
     ;

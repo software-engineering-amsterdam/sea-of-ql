@@ -2,9 +2,9 @@ package org.uva.sea.ql.ast.nodetypes.binary;
 
 import org.uva.sea.ql.ast.QLExpression;
 
-public class Sub extends BinaryOperationExpression {
+public class Divide extends BinaryOperationExpression {
 
-	public Sub(QLExpression leftHandSide, QLExpression rightHandSide) {
+	public Divide(QLExpression leftHandSide, QLExpression rightHandSide) {
 		super(leftHandSide, rightHandSide);
 	}
 

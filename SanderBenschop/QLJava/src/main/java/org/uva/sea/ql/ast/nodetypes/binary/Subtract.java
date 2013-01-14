@@ -2,9 +2,9 @@ package org.uva.sea.ql.ast.nodetypes.binary;
 
 import org.uva.sea.ql.ast.QLExpression;
 
-public class GEq extends BinaryOperationExpression {
+public class Subtract extends BinaryOperationExpression {
 
-	public GEq(QLExpression leftHandSide, QLExpression rightHandSide) {
+	public Subtract(QLExpression leftHandSide, QLExpression rightHandSide) {
 		super(leftHandSide, rightHandSide);
 	}
 
