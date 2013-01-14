@@ -29,7 +29,7 @@ public class ANTLRParser implements IParse {
 		tokens.setTokenSource(new QLLexer(stream));
 		QLParser parser = new QLParser(tokens);
 		try {
-			return parser.stmt().result ;
+			return parser.statement().result ;
 		} catch (RecognitionException e) {
 		  throw new ParseError(e.getMessage());
 		}

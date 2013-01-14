@@ -3,14 +3,18 @@ package org.uva.sea.ql.ast;
 import org.uva.sea.ql.astvisitor.ASTNodeVisitor;
 
 public abstract class UnExpr extends Expr {
-	public Expr exRightHand;
-	
+	private final Expr exprRightHand;
+
 	public UnExpr(Expr rhs) {
-		exRightHand = rhs ;
+		exprRightHand = rhs;
 	}
+
+	public Expr getExprRightHand() {
+		return exprRightHand;
+	}
+
 	@Override
 	public void accept(ASTNodeVisitor visitor) {
-		// TODO Auto-generated method stub
-		visitor.visit(this) ;
+		visitor.visit(this);
 	}
 }

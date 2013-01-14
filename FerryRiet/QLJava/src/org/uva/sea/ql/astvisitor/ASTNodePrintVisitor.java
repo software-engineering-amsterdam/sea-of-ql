@@ -1,10 +1,9 @@
 package org.uva.sea.ql.astvisitor;
 
-import java.util.Iterator;
-
 import org.uva.sea.ql.ast.BinExpr;
+import org.uva.sea.ql.ast.UnExpr;
 import org.uva.sea.ql.ast.BooleanType;
-import org.uva.sea.ql.ast.CompoundBlock;
+import org.uva.sea.ql.ast.CompoundStatement;
 import org.uva.sea.ql.ast.ConditionalStatement;
 import org.uva.sea.ql.ast.Expr;
 import org.uva.sea.ql.ast.Ident;
@@ -15,76 +14,96 @@ import org.uva.sea.ql.ast.QLProgram;
 import org.uva.sea.ql.ast.Statement;
 import org.uva.sea.ql.ast.StringType;
 import org.uva.sea.ql.ast.TypeDescription;
-import org.uva.sea.ql.ast.UnExpr;
+import org.uva.sea.ql.ast.Not;
+import org.uva.sea.ql.ast.Pos;
+import org.uva.sea.ql.ast.Neg;
+import org.uva.sea.ql.ast.*;
 
 public class ASTNodePrintVisitor implements ASTNodeVisitor {
+	
+	private String prettyQLProgram = new String() ; ;
 
 	@Override
 	public void visit(Expr expr) {
 		if (expr.getClass() == IntLiteral.class) {
-			System.out.print(((IntLiteral) expr).value);
+			prettyQLProgram = prettyQLProgram.concat(Integer.toString(((IntLiteral) expr).getValue()));
 		}
 		if (expr.getClass() == Ident.class) {
-			System.out.print(((Ident) expr).getName());
+			prettyQLProgram = prettyQLProgram.concat(((Ident) expr).getName());
 		}
 	}
 
 	@Override
 	public void visit(QLProgram qlProgram) {
-		System.out.print("form " + qlProgram.programName);
-		qlProgram.compound.accept(this);
+		prettyQLProgram = prettyQLProgram.concat("form " + qlProgram.getProgramName()) ;
+		qlProgram.getCompound().accept(this);
+		System.out.println("hello there\n");
+		System.out.println(prettyQLProgram);
 	}
 
 	@Override
-	public void visit(CompoundBlock compoundBlock) {
-		System.out.print(" { \n");
-		for (Statement statement : compoundBlock.statementList)
+	public void visit(CompoundStatement compoundBlock) {
+		prettyQLProgram = prettyQLProgram.concat(" { \n") ;
+
+		for (Statement statement : compoundBlock.getStatementList())
 			statement.accept(this);
-		System.out.println(" } ");
+		
+		prettyQLProgram = prettyQLProgram.concat(" } \n") ;
 	}
 
 	@Override
 	public void visit(LineStatement lineStatement) {
-		System.out.print(lineStatement.lineName + ": ");
-		System.out.print(lineStatement.displayText);
-		lineStatement.typeDescription.accept(this);
-		System.out.println();
+		prettyQLProgram = prettyQLProgram.concat(lineStatement.getLineName() + ": " + lineStatement.getDisplayText());
+		lineStatement.getTypeDescription().accept(this);
 	}
 
 	@Override
 	public void visit(ConditionalStatement conditionalStatement) {
-		System.out.print("if (");
-		conditionalStatement.expression.accept(this);
-		System.out.print(") ");
-		conditionalStatement.compound.accept(this);
+		prettyQLProgram = prettyQLProgram.concat("\nif ( ") ;
+		conditionalStatement.getExpression().accept(this);
+		prettyQLProgram = prettyQLProgram.concat(" ) ") ;
+		conditionalStatement.getCompound().accept(this);
 	}
 
 	@Override
 	public void visit(TypeDescription typeDescription) {
 		if (typeDescription.getClass() == BooleanType.class) {
-			System.out.println("boolean");
+			prettyQLProgram = prettyQLProgram.concat(" boolean ");
 		}
 		if (typeDescription.getClass() == StringType.class) {
-			System.out.println("string");
+			prettyQLProgram = prettyQLProgram.concat(" string ");
 		}
 		if (typeDescription.getClass() == MoneyType.class) {
-			System.out.println("money");
-			if (((MoneyType) typeDescription).expression != null) {
-				((MoneyType) typeDescription).expression.accept(this);
+			prettyQLProgram = prettyQLProgram.concat(" money ");
+			if (((MoneyType) typeDescription).getExpr() != null) {
+				prettyQLProgram = prettyQLProgram.concat(" ( ");
+				((MoneyType) typeDescription).getExpr().accept(this);
+				prettyQLProgram = prettyQLProgram.concat(" ) ");
 			}
 		}
 	}
 
 	@Override
 	public void visit(BinExpr expr) {
-		expr.exLeftHand.accept(this);
-		System.out.print(" BinOp ");
-		expr.exRightHand.accept(this);
+		expr.getExprLeftHand().accept(this);
+		if (expr.getClass() == Add.class) prettyQLProgram = prettyQLProgram.concat(" + ");
+		else if (expr.getClass() == Sub.class) prettyQLProgram = prettyQLProgram.concat(" - ");
+		else if (expr.getClass() == Div.class) prettyQLProgram = prettyQLProgram.concat(" / ");
+		else if (expr.getClass() == Mul.class) prettyQLProgram = prettyQLProgram.concat(" * ");
+		else if (expr.getClass() == And.class) prettyQLProgram = prettyQLProgram.concat(" && ");
+		else if (expr.getClass() == Or.class) prettyQLProgram = prettyQLProgram.concat(" || ");
+		else if (expr.getClass() == Eq.class) prettyQLProgram = prettyQLProgram.concat(" == ");
+		else if (expr.getClass() == NEq.class) prettyQLProgram = prettyQLProgram.concat(" != ");
+		else if (expr.getClass() == GT.class) prettyQLProgram = prettyQLProgram.concat(" > ");
+		else if (expr.getClass() == LT.class) prettyQLProgram = prettyQLProgram.concat(" < ");
+		expr.getExprRightHand().accept(this);
 	}
 
 	@Override
 	public void visit(UnExpr expr) {
-		System.out.print(" UnOp ");
-		expr.exRightHand.accept(this);
+		if (expr.getClass() == Not.class) prettyQLProgram = prettyQLProgram.concat(" ! ");
+		else if (expr.getClass() == Pos.class) prettyQLProgram = prettyQLProgram.concat(" + ");
+		else if (expr.getClass() == Neg.class) prettyQLProgram = prettyQLProgram.concat(" - ");
+		expr.getExprRightHand().accept(this) ;
 	}
 }
