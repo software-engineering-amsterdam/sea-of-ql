@@ -195,11 +195,15 @@ public class TestExpressions {
 	 */
 	@Test
 	public void testStrings() throws ParseError {
-//		assertEquals( Str.class, parser.parse( "\"\"" ).getClass() );
+		assertEquals( Str.class, parser.parse( "\"\"" ).getClass() );
 		assertEquals( Str.class, parser.parse( "\"abc\"" ).getClass() );
-//		assertEquals( Str.class, parser.parse( "\"321\"" ).getClass() );
-//		assertEquals( Str.class, parser.parse( "\"s1t2r3\"" ).getClass() );
-//		assertEquals( Str.class, parser.parse( "\"-53\"" ).getClass() );
+		assertEquals( Str.class, parser.parse( "\"321\"" ).getClass() );
+		assertEquals( Str.class, parser.parse( "\"s1t2r3\"" ).getClass() );
+		assertEquals( Str.class, parser.parse( "\"-53\"" ).getClass() );
+		
+		// escaped characters
+		assertEquals( Str.class, parser.parse( "\"\\'\"" ).getClass() );
+		assertEquals( Str.class, parser.parse( "\"\\n\"" ).getClass() );
 	}
 	
 	/**
@@ -234,14 +238,16 @@ public class TestExpressions {
 	 */
 	@Test
 	public void testComments() throws ParseError {
-//		assertEquals( Mul.class, parser.parse( "a /* some comments */ * c" ).getClass() );
-//		assertEquals( Mul.class, parser.parse( "a */**/b" ).getClass() );
-//		assertEquals( Mul.class, parser.parse( "a /** some\nlines\nof\ncomments\n*/\n*c" ).getClass() );
-//		assertEquals( Div.class, parser.parse( "a / /**/ b" ).getClass() );
+		// multiline
+		assertEquals( Mul.class, parser.parse( "a /* some comments */ * c" ).getClass() );
+		assertEquals( Mul.class, parser.parse( "a */**/b" ).getClass() );
+		assertEquals( Mul.class, parser.parse( "a /** some\nlines\nof\ncomments\n*/\n*c" ).getClass() );
+		assertEquals( Div.class, parser.parse( "a / /**/ b" ).getClass() );
 
-//		assertEquals( Div.class, parser.parse( "a / b // something" ).getClass() );
-//		assertEquals( Div.class, parser.parse( "a // blablabla\n/b" ).getClass() );
-//		assertEquals( Mul.class, parser.parse( "a *// comments\rd" ).getClass() );
+		// single line
+		assertEquals( Div.class, parser.parse( "a / b // something" ).getClass() );
+		assertEquals( Div.class, parser.parse( "a // blablabla\n/b" ).getClass() );
+		assertEquals( Mul.class, parser.parse( "a *// comments\rd" ).getClass() );
 	}
 	
 	/**

@@ -1,7 +1,7 @@
 package org.uva.sea.ql.visitor.test;
 
 import org.junit.Test;
-import org.uva.sea.ql.parser.antlr.ANTLRParser;
+import org.uva.sea.ql.parser.jacc.JACCParser;
 import org.uva.sea.ql.parser.test.IParser;
 import org.uva.sea.ql.parser.test.ParseError;
 import org.uva.sea.ql.visitor.*;
@@ -25,7 +25,7 @@ public class TestVisitor {
 	 */
 	public TestVisitor() {
 		this.visitor = new PrintVisitor();
-		this.parser = new ANTLRParser();
+		this.parser = new JACCParser();
 	}
 
 	@Test
