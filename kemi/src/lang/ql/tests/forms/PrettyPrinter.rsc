@@ -3,6 +3,7 @@ module lang::ql::tests::forms::PrettyPrinter
 import lang::ql::ast::AST;
 import lang::ql::compiler::PrettyPrinter;
 import lang::ql::tests::ParseHelper;
+import lang::ql::util::FormGenerator;
 import lang::ql::util::Random;
 
 private bool prettyPrintAndCompare(loc f) = parseForm(f) == parseForm(prettyPrint(parseForm(f)));

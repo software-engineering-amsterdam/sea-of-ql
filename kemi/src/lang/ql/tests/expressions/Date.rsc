@@ -11,4 +11,4 @@ public test bool testDate4() = parseExpr("$1550-11-23") is date;
 public test bool testDate5() = parseExpr("$2025-12-31") is date;
 public test bool testDate6() = parseExpr("$2999-12-31") is date;
 
-public test bool testRandomDate() = parseExpr(randomDateString(1000, 2999)) is date;
+public test bool testRandomDate() = parseExpr(randomDateString()) is date;

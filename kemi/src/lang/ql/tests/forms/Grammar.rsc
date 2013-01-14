@@ -2,6 +2,7 @@ module lang::ql::tests::forms::Grammar
 
 import lang::ql::ast::AST;
 import lang::ql::tests::ParseHelper;
+import lang::ql::util::FormGenerator;
 import lang::ql::util::Random;
 
 public test bool testForm1() = parseForm("form Hello { \"Income?\" money myIncome }") is form;
