@@ -3,12 +3,11 @@ package org.uva.sea.ql.parser.test;
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
-import org.uva.sea.ql.ast.declaration.VarDeclaration;
 import org.uva.sea.ql.ast.expression.*;
 import org.uva.sea.ql.ast.expression.value.Bool;
 import org.uva.sea.ql.ast.expression.value.Int;
+import org.uva.sea.ql.ast.expression.value.Money;
 import org.uva.sea.ql.ast.expression.value.Str;
-import org.uva.sea.ql.ast.type.Type;
 import org.uva.sea.ql.parser.jacc.JACCParser;
 
 /**
@@ -160,9 +159,17 @@ public class TestExpressions {
 	 */
 	@Test
 	public void testNums() throws ParseError {
-		assertEquals( Int.class, parser.parse( "0" ).getClass() );
-		assertEquals( Int.class, parser.parse( "1223" ).getClass() );
-		assertEquals( Int.class, parser.parse( "234234234" ).getClass() );
+		// integer
+//		assertEquals( Int.class, parser.parse( "0" ).getClass() );
+//		assertEquals( Int.class, parser.parse( "1223" ).getClass() );
+//		assertEquals( Int.class, parser.parse( "234234234" ).getClass() );
+		
+		// money
+//		assertEquals( Money.class, parser.parse( "0.0" ).getClass() );
+//		assertEquals( Money.class, parser.parse( "0.034982390" ).getClass() );
+//		assertEquals( Money.class, parser.parse( ".5" ).getClass() );
+//		assertEquals( Money.class, parser.parse( ".121e-10" ).getClass() );
+		assertEquals( Money.class, parser.parse( "141232.12141E+04" ).getClass() );
 		
 		// negative
 		assertEquals( Neg.class, parser.parse( "-1" ).getClass() );
@@ -248,13 +255,5 @@ public class TestExpressions {
 		assertEquals( Div.class, parser.parse( "a / b // something" ).getClass() );
 		assertEquals( Div.class, parser.parse( "a // blablabla\n/b" ).getClass() );
 		assertEquals( Mul.class, parser.parse( "a *// comments\rd" ).getClass() );
-	}
-	
-	/**
-	 * 
-	 */
-	@Test
-	public void testVarDeclaration() throws ParseError {
-//		assertEquals( VarDeclaration.class, parser.parse( "isTrue: boolean" ).getClass() );
 	}
 }

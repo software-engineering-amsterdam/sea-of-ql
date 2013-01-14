@@ -5,6 +5,7 @@
 %start top
 
 %token <org.uva.sea.ql.ast.expression.value.Bool> BOOL
+%token <org.uva.sea.ql.ast.expression.value.Money> MON
 %token <org.uva.sea.ql.ast.expression.value.Int> INT
 %token <org.uva.sea.ql.ast.expression.value.Str> STR
 %token IDENT
@@ -21,9 +22,7 @@
 %type <Expression> expr
 
 %{
-import org.uva.sea.ql.ast.*;
 import org.uva.sea.ql.ast.expression.*;
-import org.uva.sea.ql.ast.expression.value.*;
 %}
 
 %%
@@ -47,6 +46,7 @@ import org.uva.sea.ql.ast.expression.value.*;
          | expr AND expr        { $$ = new And($1, $3); }
          | expr OR expr         { $$ = new Or($1, $3); }
          | BOOL                 { $$ = $1; }
+         | MON                  { $$ = $1; }
          | INT                  { $$ = $1; }
          | STR                  { $$ = $1; }
          | IDENT                { $$ = $1; }
@@ -54,18 +54,39 @@ import org.uva.sea.ql.ast.expression.value.*;
          ;
 
 %%
+    /**
+     * Holds the lexer.
+     */
     private QLLexer lexer;
     
+    /**
+     * Holds the parsing result (AST)
+     */
     private Expression result;
     
+    /**
+     * Retrieves the generated AST.
+     *
+     * @return The AST.
+     */
     public Expression getResult() {
       return result;
     }
     
+    /**
+     * Sets the lexer.
+     *
+     * @param lexer
+     */
     public QLParser( QLLexer lexer ) { 
       this.lexer = lexer;
     }
     
+    /**
+     * Output error message.
+     *
+     * @param msg The error message.
+     */
     private void yyerror( String msg ) { 
       System.err.println( msg );
     }
