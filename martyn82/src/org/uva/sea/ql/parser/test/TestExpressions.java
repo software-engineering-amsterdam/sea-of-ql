@@ -246,8 +246,8 @@ public class TestExpressions {
 
 		// single line
 		assertEquals( Div.class, parser.parse( "a / b // something" ).getClass() );
-//		assertEquals( Div.class, parser.parse( "a // blablabla\n/b" ).getClass() );
-//		assertEquals( Mul.class, parser.parse( "a *// comments\rd" ).getClass() );
+		assertEquals( Div.class, parser.parse( "a // blablabla\n/b" ).getClass() );
+		assertEquals( Mul.class, parser.parse( "a *// comments\rd" ).getClass() );
 	}
 	
 	/**
