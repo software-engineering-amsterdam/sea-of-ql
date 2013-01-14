@@ -2,9 +2,9 @@ module lang::ql::tests::forms::PrettyPrinter
 
 import lang::ql::ast::AST;
 import lang::ql::compiler::PrettyPrinter;
-import lang::ql::tests::forms::ParseHelper;
+import lang::ql::tests::ParseHelper;
 
-private bool prettyPrintAndCompare(loc f) = parse(f) == parse(prettyPrint(parse(f)));
+private bool prettyPrintAndCompare(loc f) = parseForm(f) == parseForm(prettyPrint(parseForm(f)));
 
 public test bool testBasicForm() = prettyPrintAndCompare(|project://QL-R-kemi/forms/basic.q|);
 public test bool testCommentForm() = prettyPrintAndCompare(|project://QL-R-kemi/forms/comment.q|);

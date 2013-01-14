@@ -1,37 +1,37 @@
 module lang::ql::tests::TestRunner
 
-import lang::ql::tests::expressions::Addition;
-import lang::ql::tests::expressions::And;
-import lang::ql::tests::expressions::Boolean;
-import lang::ql::tests::expressions::Date;
-import lang::ql::tests::expressions::Division;
-import lang::ql::tests::expressions::Equality;
-import lang::ql::tests::expressions::GreaterThen;
-import lang::ql::tests::expressions::GreaterThenOrEqual;
-import lang::ql::tests::expressions::Ident;
-import lang::ql::tests::expressions::InEquality;
-import lang::ql::tests::expressions::Int;
-import lang::ql::tests::expressions::LessThen;
-import lang::ql::tests::expressions::LessThenOrEqual;
-import lang::ql::tests::expressions::Money;
-import lang::ql::tests::expressions::Multiplication;
-import lang::ql::tests::expressions::Negation;
-import lang::ql::tests::expressions::Negative;
-import lang::ql::tests::expressions::Or;
-import lang::ql::tests::expressions::Positive;
-import lang::ql::tests::expressions::String;
-import lang::ql::tests::expressions::Subtraction;
+extend lang::ql::tests::expressions::Addition;
+extend lang::ql::tests::expressions::And;
+extend lang::ql::tests::expressions::Boolean;
+extend lang::ql::tests::expressions::Date;
+extend lang::ql::tests::expressions::Division;
+extend lang::ql::tests::expressions::Equality;
+extend lang::ql::tests::expressions::GreaterThen;
+extend lang::ql::tests::expressions::GreaterThenOrEqual;
+extend lang::ql::tests::expressions::Ident;
+extend lang::ql::tests::expressions::InEquality;
+extend lang::ql::tests::expressions::Int;
+extend lang::ql::tests::expressions::LessThen;
+extend lang::ql::tests::expressions::LessThenOrEqual;
+extend lang::ql::tests::expressions::Money;
+extend lang::ql::tests::expressions::Multiplication;
+extend lang::ql::tests::expressions::Negation;
+extend lang::ql::tests::expressions::Negative;
+extend lang::ql::tests::expressions::Or;
+extend lang::ql::tests::expressions::Positive;
+extend lang::ql::tests::expressions::String;
+extend lang::ql::tests::expressions::Subtraction;
 
-import lang::ql::tests::questions::Questions;
+extend lang::ql::tests::questions::Questions;
 
-import lang::ql::tests::forms::Grammar;
-import lang::ql::tests::forms::Outline;
-import lang::ql::tests::forms::PrettyPrinter;
+extend lang::ql::tests::forms::Grammar;
+extend lang::ql::tests::forms::Outline;
+extend lang::ql::tests::forms::PrettyPrinter;
 
 import IO;
 
 public void main() {
-  println("1) Load this module to import all modules that contain tests");
+  println("1) Load this module to extend all modules that contain tests");
   println("2) When every module is loaded, all unit tests can be run with a simple :test");
   println("3) Wait for the tests to finish, and be done with it");
 }

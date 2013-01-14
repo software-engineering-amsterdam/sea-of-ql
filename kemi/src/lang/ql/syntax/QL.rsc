@@ -25,7 +25,8 @@ start syntax Question
   | question: String questionText Type answerDataType Ident answerIdentifier "=" Expr calculatedField
   ;
 
-start syntax Expr
+//start syntax Expr
+syntax Expr
   = ident: Ident name
   | @category="Constant" \int: Int number
   | @category="Constant" money: Money monetaryValue
