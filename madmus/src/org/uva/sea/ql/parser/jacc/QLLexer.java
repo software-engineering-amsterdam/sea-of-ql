@@ -15,8 +15,7 @@ public class QLLexer implements QLTokens {
 	static {
 		KEYWORDS = new HashMap<String, Integer>();
 	}
-	
-	
+		
 	private int token;
 	private int c = ' ';
 	
@@ -26,8 +25,7 @@ public class QLLexer implements QLTokens {
 	public QLLexer(Reader input) {
 		this.input = input;
 	}
-	
-	
+		
 	private void nextChar() {
 		if (c >= 0) {
 			try {
@@ -60,8 +58,7 @@ public class QLLexer implements QLTokens {
 			while (c == ' ' || c == '\t' || c == '\n' || c == '\r') {
 				nextChar();
 			}
-			
-			
+						
 			if (c < 0) {
 				return token = ENDINPUT;
 			}
@@ -159,7 +156,6 @@ public class QLLexer implements QLTokens {
 			}
 		}
 	}
-
 	
 	public int getToken() {
 		return token;

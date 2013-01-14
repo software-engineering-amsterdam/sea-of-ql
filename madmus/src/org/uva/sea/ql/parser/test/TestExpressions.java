@@ -10,6 +10,7 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
 import org.uva.sea.ql.ast.Add;
+import org.uva.sea.ql.ast.Sub;
 import org.uva.sea.ql.ast.GT;
 import org.uva.sea.ql.ast.Ident;
 import org.uva.sea.ql.ast.Int;
@@ -33,12 +34,10 @@ public class TestExpressions {
 			  new Object[] {new ANTLRParser()}
 			 );
 	}
-
 	
 	public TestExpressions(IParse parser) {
 		this.parser = parser;
 	}
-
 	
 	@Test
 	public void testAdds() throws ParseError {
@@ -51,7 +50,11 @@ public class TestExpressions {
 		assertEquals(parser.parse("a + b * c").getClass(), Add.class);
 		assertEquals(parser.parse("a * b + c").getClass(), Add.class);
 	}
-
+	
+	public void testSubs() throws ParseError {
+		assertEquals(parser.parse("a - b").getClass(), Sub.class);
+	}
+	
 	@Test
 	public void testMuls() throws ParseError {
 		assertEquals(parser.parse("a * b").getClass(), Mul.class);
@@ -73,7 +76,6 @@ public class TestExpressions {
 		assertEquals(parser.parse("a + b > c").getClass(), GT.class);
 		assertEquals(parser.parse("a > b + c").getClass(), GT.class);
 	}
-
 
 	@Test
 	public void testIds() throws ParseError {
