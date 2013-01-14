@@ -23,15 +23,21 @@ syntax ElsePart = @Foldable elsePart: "else" "{" Statement+ body "}";
 start syntax Question 
   = question: String questionText Type answerDataType Ident answerIdentifier
   | question: String questionText Type answerDataType Ident answerIdentifier "=" Expr calculatedField
+  | question: String questionText Type answerDataType Ident answerIdentifier StyleClass styleClass
+  | question: String questionText Type answerDataType Ident answerIdentifier "=" Expr calculatedField StyleClass styleClass
+  ;
+
+lexical StyleClass
+  = @category="NonterminalLabel" "." [a-z A-Z][a-z A-Z 0-9 _]*
   ;
 
 start syntax Expr
   = ident: Ident name
-  | @category="Constant" \int: Int number
-  | @category="Constant" money: Money monetaryValue
-  | @category="Constant" boolean: Boolean truthValue
-  | @category="Constant" date: Date date
-  | @category="Constant" string: String text
+  |  \int: Int number
+  | money: Money monetaryValue
+  | boolean: Boolean truthValue
+  | date: Date date
+  | string: String text
   | bracket "(" Expr expression ")"
   | pos: "+" Expr pos
   | neg: "-" Expr neg
@@ -71,28 +77,32 @@ lexical Type
   | @category="Type" "string"
   ;
 
-lexical String = "\"" TextChar* "\"";
+lexical String = @category="Identifier" "\"" TextChar* "\"";
 
 lexical TextChar
   = [\\] << [\"]
   | ![\"]
   ;
 
-lexical Int = [0-9]+ !>> [0-9];
+lexical Int 
+  = @category="Constant" [0-9]+ !>> [0-9]
+  ;
 
 lexical Boolean
   = "true"
   | "false"
   ;
 
+syntax Money = @category="Constant" LMoney;
+
 // Somhehow [0-9]+ "." [0-9]? [0-9]? does not work,[0-9]+ "." ([0-9]?[0-9])? does 
-lexical Money
+lexical LMoney
   = [0-9]+ "."
   | [0-9]+ "." [0-9]
   | [0-9]+ "." [0-9][0-9]
   ;
 
-lexical Date = "$" Year "-" Month "-" Day;
+lexical Date = @category="Constant" "$" Year "-" Month "-" Day;
 
 // Note: We assume that dates are valid in domain [1000 to 2999]
 lexical Year = [1-2][0-9][0-9][0-9];

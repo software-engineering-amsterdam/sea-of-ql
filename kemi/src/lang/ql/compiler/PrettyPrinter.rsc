@@ -29,10 +29,26 @@ public str prettyPrint(Question q:
 }
 
 public str prettyPrint(Question q: 
-  question(questionText, answerDataType, answerIdentifier, calculatedField)) {
+  question(questionText, answerDataType, answerIdentifier, Expr calculatedField)) {
   return
     "<questionText>
     '  <answerDataType> <answerIdentifier> = <prettyPrint(calculatedField)>";
+}
+
+public str prettyPrint(Question q: 
+  question(questionText, answerDataType, answerIdentifier, str styleClass)) {
+  return
+    "<questionText>
+    '  <answerDataType> <answerIdentifier>
+    '  <styleClass>";
+}
+
+public str prettyPrint(Question q: 
+  question(questionText, answerDataType, answerIdentifier, Expr calculatedField, str styleClass)) {
+  return
+    "<questionText>
+    '  <answerDataType> <answerIdentifier> = <prettyPrint(calculatedField)>
+    '  <styleClass>";
 }
 
 public str prettyPrint(Statement item: 
