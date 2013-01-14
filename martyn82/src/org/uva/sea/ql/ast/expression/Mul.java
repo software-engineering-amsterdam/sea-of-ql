@@ -5,7 +5,7 @@ import org.uva.sea.ql.visitor.Visitor;
 /**
  * Represents a multiplication expression.
  */
-public class Mul extends BinaryExpression {
+public class Mul extends ArithmeticExpression {
 	/**
 	 * Constructs a new multiplication expression.
 	 * 

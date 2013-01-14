@@ -5,7 +5,7 @@ import org.uva.sea.ql.visitor.Visitor;
 /**
  * Represents a subtraction expression.
  */
-public class Sub extends BinaryExpression {
+public class Sub extends ArithmeticExpression {
 	/**
 	 * Constructs a new subtraction expression.
 	 * 
