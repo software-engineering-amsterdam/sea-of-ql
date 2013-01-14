@@ -14,7 +14,12 @@ public class RunRats {
 	
 	public static void main(String[] args) {
 		Rats rats = new Rats();
-		rats.run(RATS_ARGS);
+		try{
+			rats.run(RATS_ARGS);
+		}catch(Exception e){
+			System.out.println(e.getMessage());
+		}
+		System.out.println("done");
 	}
 
 }
