@@ -4,20 +4,15 @@ import junit.framework.TestCase;
 
 import org.junit.Test;
 import org.uva.sea.ql.ast.Add;
-import org.uva.sea.ql.ast.CompoundStatement;
 import org.uva.sea.ql.ast.ConditionalStatement;
-import org.uva.sea.ql.ast.Expr;
 import org.uva.sea.ql.ast.GT;
 import org.uva.sea.ql.ast.Ident;
 import org.uva.sea.ql.ast.IntLiteral;
 import org.uva.sea.ql.ast.LEq;
 import org.uva.sea.ql.ast.LT;
-import org.uva.sea.ql.ast.LineStatement;
 import org.uva.sea.ql.ast.Mul;
 import org.uva.sea.ql.ast.QLProgram;
-import org.uva.sea.ql.ast.TypeDescription;
 import org.uva.sea.ql.astvisitor.ASTNodePrintVisitor;
-import org.uva.sea.ql.astvisitor.ASTNodeVisitor;
 
 public class TestExpressions extends TestCase {
 
@@ -34,29 +29,26 @@ public class TestExpressions extends TestCase {
 				+ "   hasSoldHouse: \"Did you sell a house in 2010?\" boolean\n"
 				+ "   { hasBoughtHouse: \"Did you by a house in 2010?\" boolean\n"
 				+ "   hasMaintLoan: \"Did you enter a loan for maintenance/reconstruction?\"\n"
-				+ "boolean\n }" 
+				+ "boolean\n }"
 				+ "   if (hasSoldHouse < 10 && 20 > 10) {\n"
 				+ "     sellingPrice:    \"Price the house was sold for:\" string\n"
-				+ "     if ( ! hasSoldHouse ) { privateDebt:   \"Private debts for the sold house:\" money\n }" 
+				+ "     if ( ! hasSoldHouse ) { privateDebt:   \"Private debts for the sold house:\" money\n }"
 				+ "     valueResidue: \"Value residue:\" money(sellingPrice + privateDebt + 12)\n"
-				+ "   }\n" + "}";
+				+ "   } else { valueResidue: \"Value residue:\" money } }";
 		String s1 = "if (hasSoldHouse < 100 || 10 < 20) {\n"
 				+ "     sellingPrice:    \"Price the house was sold for:\" money\n"
 				+ "     privateDebt:   \"Private debts for the sold house:\" money\n"
 				+ "     valueResidue: \"Value residue:\" money(sellingPrice + privateDebt + 12)\n"
 				+ "   }\n" + "}";
 
-		assertEquals(
-				parser.stmt(
-						"sellingPrice: \"Price the house was sold for:\" money\n")
-						.getClass(), LineStatement.class);
+		// assertEquals(parser.stmt("sellingPrice: \"Price the house was sold for:\" money\n").getClass(),
+		// LineStatement.class);
 		assertEquals(parser.stmt(s1).getClass(), ConditionalStatement.class);
-
 		assertEquals(parser.qlprogram(a0).getClass(), QLProgram.class);
 		assertEquals(parser.qlprogram(a1).getClass(), QLProgram.class);
 		assertEquals(parser.qlprogram(a2).getClass(), QLProgram.class);
-		
-		parser.qlprogram(a2).accept(new ASTNodePrintVisitor()) ;
+
+		parser.qlprogram(a2).accept(new ASTNodePrintVisitor());
 	}
 
 	@Test
@@ -110,5 +102,4 @@ public class TestExpressions extends TestCase {
 		assertEquals(parser.parse("1223").getClass(), IntLiteral.class);
 		assertEquals(parser.parse("234234234").getClass(), IntLiteral.class);
 	}
-
 }

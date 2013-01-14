@@ -5,19 +5,24 @@ import org.uva.sea.ql.astvisitor.ASTNodeVisitor;
 public class ConditionalStatement extends Statement {
 
 	private final Expr expression;
-	private final Statement compound;
+	private final Statement trueCompound;
+	private final Statement falseCompound;
 
-	public ConditionalStatement(Expr ex, Statement c) {
-		expression = ex;
-		compound = c;
+	public ConditionalStatement(Expr expr, Statement ctrue, Statement cfalse) {
+		expression = expr;
+		trueCompound = ctrue;
+		falseCompound = cfalse;
 	}
 
 	public Expr getExpression() {
 		return expression;
 	}
 
-	public Statement getCompound() {
-		return compound;
+	public Statement getFalseCompound() {
+		return falseCompound;
+	}
+	public Statement getTrueCompound() {
+		return trueCompound;
 	}
 
 	@Override
