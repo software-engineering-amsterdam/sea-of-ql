@@ -19,8 +19,8 @@ syntax Expr
   | \int: Int
   | \bool: Bool
   | string: String
-//  | float: Float
-//  | date: Date
+  | float: Float
+  | date: Date
   | bracket "(" Expr arg ")"
   | pos: "+" Expr
   | neg: "-" Expr
@@ -48,9 +48,9 @@ syntax WhitespaceOrComment
 lexical Type 
   = @category="Type" "bool" 
   | @category="Type" "int" 
-  | @category="Type" "string";
-//  | @category="Type" "float"
-//  | @category="Type" "date";
+  | @category="Type" "string"
+  | @category="Type" "float"
+  | @category="Type" "date";
 
 lexical QuestionName = @category="Variable" Ident;
 
