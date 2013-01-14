@@ -5,6 +5,7 @@ import lang::ql::util::Parse;
 import lang::ql::util::Implode;
 
 import IO;
+import List;
 import util::ValueUI;
 
 private Form p(loc f) = implode(parse(readFile(f), |file:///-|));
@@ -43,11 +44,11 @@ public str prettyPrint(Statement item:
 }
 
 public str prettyPrint(Statement item: 
-  ifCondition(Conditional ifPart, [], list[Statement] elsePart)) {
+  ifCondition(Conditional ifPart, [], list[ElsePart] elsePart)) {
   return 
     "if ( <prettyPrint(ifPart.condition)> ) { <for (e <- ifPart.body) {>
     '  <prettyPrint(e)><}>
-    '} else { <for (e <- elsePart) {>
+    '} else { <for (e <- head(elsePart).body) {>
     '  <prettyPrint(e)><}>
     '}";
 }
@@ -63,13 +64,13 @@ public str prettyPrint(Statement item:
 }
 
 public str prettyPrint(Statement item: 
-  ifCondition(Conditional ifPart, list[Conditional] elseIfs, list[Statement] elsePart)) {
+  ifCondition(Conditional ifPart, list[Conditional] elseIfs, list[ElsePart] elsePart)) {
   return 
     "if ( <prettyPrint(ifPart.condition)> ) { <for (e <- ifPart.body) {>
     '  <prettyPrint(e)><}> <for (elseifPart <- elseIfs) {>
     '} elseif ( <prettyPrint(elseifPart.condition)> ) { <for (e <- elseifPart.body) {>
     '  <prettyPrint(e)><}><}>
-    '} else { <for (e <- elsePart) {>
+    '} else { <for (e <- head(elsePart).body) {>
     '  <prettyPrint(e)><}>
     '}";
 }
