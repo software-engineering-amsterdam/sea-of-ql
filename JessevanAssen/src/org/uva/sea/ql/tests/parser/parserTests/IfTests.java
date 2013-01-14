@@ -3,6 +3,7 @@ package org.uva.sea.ql.tests.parser.parserTests;
 import static org.junit.Assert.*;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.junit.Test;
@@ -31,8 +32,8 @@ public class IfTests extends ParserTests {
 		If i = parseIf(ifString);
 		
 		assertEquals(Bool.class, i.getCondition().getClass());
-		assertEquals(ArrayList.class, i.getIfBody().getClass());
-		assertTrue(i.getElseBody().isEmpty());
+		assertEquals(Question.class, i.getIfBody().getClass());
+        assertEquals(NullFormElement.class, i.getElseBody().getClass());
 	}
 	
 	@Test
@@ -44,15 +45,15 @@ public class IfTests extends ParserTests {
 	@Test
 	public void testIfElseif() throws ParseError {
 		If i = parseIf(ifString + elseIfStrings);
-		List<FormElement> elseBody = parseElseIf(i.getElseBody());
+		FormElement elseBody = parseElseIf(i.getElseBody());
 		assertNotNull(elseBody);
-		assertTrue(elseBody.isEmpty());		
+		assertEquals(NullFormElement.class, elseBody.getClass());
 	}
 	
 	@Test
 	public void testIfElseifElse() throws ParseError {
 		If i = parseIf(ifString + elseIfStrings + elseString);
-		List<FormElement> elseBody = parseElseIf(i.getElseBody());
+		FormElement elseBody = parseElseIf(i.getElseBody());
 		parseElse(elseBody);
 	}
 	
@@ -63,19 +64,17 @@ public class IfTests extends ParserTests {
 		return (If) formElement;
 	}
 
-	private void parseElse(List<FormElement> input) {
-		assertNotNull(input);
-		assertEquals(1, input.size());
-		assertEquals(Question.class, input.get(0).getClass());
+	private void parseElse(FormElement formElement) {
+		assertNotNull(formElement);
+		assertEquals(Question.class, formElement.getClass());
 	}
 
-	private List<FormElement> parseElseIf(List<FormElement> input) {
+	private FormElement parseElseIf(FormElement formElement) {
 		for(int i = 0; i < 2; ++i) {
-			assertNotNull(input);
-			assertEquals(1, input.size());
-			assertEquals(If.class, input.get(0).getClass());
-			input = ((If) input.get(0)).getElseBody();
+			assertNotNull(formElement);
+			assertEquals(If.class, formElement.getClass());
+			formElement =((If) formElement).getElseBody();
 		}
-		return input;
+		return formElement;
 	}
 }
