@@ -2,6 +2,7 @@ package org.uva.sea.ql.tests.typechecker.typecheckerVisitorTests;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertThat;
 
 import org.junit.Test;
 import org.uva.sea.ql.ast.Declaration;
@@ -33,9 +34,12 @@ public class IdentTests extends TypecheckerVisitorTests {
     @Test
 	public void visitsIdent_typeNotInSymbolTable_addsError() {
 		new Declaration(new Ident("a"), new Bool()).accept(visitor, context);
-		new Ident("b").accept(visitor, context);
+		Type type = new Ident("b").accept(visitor, context);
 
         assertFalse(context.getSymbolTable().isEmpty());
+        assertFalse(type.getClass().equals(Bool.class));
+        assertFalse(type.getClass().equals(Int.class));
+        assertFalse(type.getClass().equals(Str.class));
 	}
 	
 }
