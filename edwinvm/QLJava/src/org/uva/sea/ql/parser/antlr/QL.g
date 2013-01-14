@@ -12,9 +12,13 @@ import org.uva.sea.ql.ast.*;
 package org.uva.sea.ql.parser.antlr;
 }
 
+form: primary+;
+
 primary returns [Expr result]
   : Int   { $result = new Int(Integer.parseInt($Int.text)); }
   | Ident { $result = new Ident($Ident.text); }
+  | Boolean { $result = new Bool($Boolean.text); }
+  | String { $result = new Str($String.text); }
   | '(' x=orExpr ')'{ $result = $x.result; }
   ;
     
@@ -32,7 +36,7 @@ mulExpr returns [Expr result]
         $result = new Mul($result, rhs);
       }
       if ($op.text.equals("<=")) {
-        $result = new Div($result, rhs);      
+        $result = new Div($result, rhs);
       }
     })*
     ;
@@ -85,13 +89,16 @@ orExpr returns [Expr result]
 
     
 // Tokens
-WS  :	(' ' | '\t' | '\n' | '\r') { $channel=HIDDEN; }
-    ;
+WS:	        (' ' | '\t' | '\n' | '\r') { $channel=HIDDEN; };
 
-COMMENT 
-     : '/*' .* '*/' {$channel=HIDDEN;}
-    ;
+COMMENT:        '/*' .* '*/' { $channel=HIDDEN; };
 
-Ident:   ('a'..'z'|'A'..'Z')('a'..'z'|'A'..'Z'|'0'..'9'|'_')*;
+SINGLE_COMMENT:	'//' (WS*Ident*) { $channel=HIDDEN; };
 
-Int: ('0'..'9')+;
+Boolean:        ('true'|'false'|'True'|'False');
+
+Ident:          ('a'..'z'|'A'..'Z')('a'..'z'|'A'..'Z'|'0'..'9'|'_')*;
+
+String:	        '"' Ident+ '"';
+
+Int:            ('0'..'9')+;
