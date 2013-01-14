@@ -6,4 +6,4 @@ import lang::ql::util::Random;
 
 public test bool testCalculatedQuestion1() = parseQuestion("\"A calculated question?\" money myFieldName2 = myFieldName + 100") is question;
 
-public test bool testRandomCalculatedQuestion() = parseQuestion("\"<randomSentence()>\" <randomDataType()> <randomWord()> = <randomWord()> <randomOperator()> <randomWord()>") is question;
+public test bool testRandomCalculatedQuestion() = parseQuestion(randomCalculatedQuestion()) is question;
