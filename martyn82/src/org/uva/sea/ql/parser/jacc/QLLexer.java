@@ -46,6 +46,16 @@ public class QLLexer implements QLTokens {
 	 * Holds the input reader.
 	 */
 	private final Reader input;
+	
+	/**
+	 * Holds the regular expression pattern for decimals.
+	 */
+	private Pattern decimal;
+	
+	/**
+	 * Holds the regular expression pattern for integers.
+	 */
+	private Pattern integer;
 
 	/**
 	 * Constructs a new QLLexer instance.
@@ -338,7 +348,9 @@ public class QLLexer implements QLTokens {
 		
 		String value = sb.toString().toUpperCase();
 		
-		Pattern decimal = Pattern.compile( "[0-9]*\\.[0-9]+(E[\\+|\\-][0-9]+)?" );
+		if ( this.decimal == null ) {
+			this.decimal = Pattern.compile( "[0-9]*\\.[0-9]+(E[\\+|\\-][0-9]+)?" );
+		}
 		
 		if ( decimal.matcher( value ).matches() ) {
 			yylval = new org.uva.sea.ql.ast.expression.value.Money( Double.parseDouble( value ) );
@@ -346,7 +358,9 @@ public class QLLexer implements QLTokens {
 			return true;
 		}
 		
-		Pattern integer = Pattern.compile( "[0-9]+" );
+		if ( this.integer == null ) {
+			this.integer = Pattern.compile( "[0-9]+" );
+		}
 		
 		if ( integer.matcher( value ).matches() ) {
 			yylval = new org.uva.sea.ql.ast.expression.value.Int( Integer.parseInt( value ) );
