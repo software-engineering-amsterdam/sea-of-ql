@@ -2,7 +2,7 @@ module lang::ql::tests::expressions::And
 
 import lang::ql::ast::AST;
 import lang::ql::tests::ParseHelper;
-import util::Random;
+import lang::ql::util::Random;
 
 public test bool testAnd1() = parseExpr("a && b") is and;
 public test bool testAnd2() = parseExpr("a && b && c") is and;

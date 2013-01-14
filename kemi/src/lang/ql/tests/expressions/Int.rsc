@@ -2,7 +2,7 @@ module lang::ql::tests::expressions::Int
 
 import lang::ql::ast::AST;
 import lang::ql::tests::ParseHelper;
-import util::Random;
+import lang::ql::util::Random;
 
 public test bool testInt1() = parseExpr("0") is \int;
 public test bool testInt2() = parseExpr("1223") is \int;

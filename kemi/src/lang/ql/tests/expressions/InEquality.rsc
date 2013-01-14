@@ -2,7 +2,7 @@ module lang::ql::tests::expressions::InEquality
 
 import lang::ql::ast::AST;
 import lang::ql::tests::ParseHelper;
-import util::Random;
+import lang::ql::util::Random;
 
 public test bool testneq1() = parseExpr("a != b") is neq;
 public test bool testneq2() = parseExpr("a != (b + c)") is neq;

@@ -2,7 +2,7 @@ module lang::ql::tests::expressions::Equality
 
 import lang::ql::ast::AST;
 import lang::ql::tests::ParseHelper;
-import util::Random;
+import lang::ql::util::Random;
 
 public test bool testEq1() = parseExpr("a == b") is eq;
 public test bool testEq2() = parseExpr("a == (b + c)") is eq;

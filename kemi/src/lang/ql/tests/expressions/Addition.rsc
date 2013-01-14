@@ -2,7 +2,7 @@ module lang::ql::tests::expressions::Addition
 
 import lang::ql::ast::AST;
 import lang::ql::tests::ParseHelper;
-import util::Random;
+import lang::ql::util::Random;
 
 public test bool testAdd1() = parseExpr("a + b") is add;
 public test bool testAdd2() = parseExpr("a + b + c") is add;

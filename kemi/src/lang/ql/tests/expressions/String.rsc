@@ -2,7 +2,7 @@ module lang::ql::tests::expressions::String
 
 import lang::ql::ast::AST;
 import lang::ql::tests::ParseHelper;
-import util::Random;
+import lang::ql::util::Random;
 
 public test bool testString1() = parseExpr("\"afalse\"") is string;
 public test bool testString2() = parseExpr("\"a b _c @ $ ^\"") is string;

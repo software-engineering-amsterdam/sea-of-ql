@@ -2,7 +2,7 @@ module lang::ql::tests::expressions::Subtraction
 
 import lang::ql::ast::AST;
 import lang::ql::tests::ParseHelper;
-import util::Random;
+import lang::ql::util::Random;
 
 public test bool testsub1() = parseExpr("a - b") is sub;
 public test bool testSub2() = parseExpr("a - b - c") is sub;

@@ -2,7 +2,7 @@ module lang::ql::tests::expressions::Date
 
 import lang::ql::ast::AST;
 import lang::ql::tests::ParseHelper;
-import util::Random;
+import lang::ql::util::Random;
 
 public test bool testDate1() = parseExpr("$1000-01-01") is date;
 public test bool testDate2() = parseExpr("$2013-01-08") is date;

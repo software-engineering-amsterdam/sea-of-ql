@@ -2,7 +2,7 @@ module lang::ql::tests::expressions::Multiplication
 
 import lang::ql::ast::AST;
 import lang::ql::tests::ParseHelper;
-import util::Random;
+import lang::ql::util::Random;
 
 public test bool testMul1() = parseExpr("a * b") is mul;
 public test bool testMul2() = parseExpr("a * b * c") is mul;

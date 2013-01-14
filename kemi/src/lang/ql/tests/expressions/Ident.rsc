@@ -2,7 +2,7 @@ module lang::ql::tests::expressions::Ident
 
 import lang::ql::ast::AST;
 import lang::ql::tests::ParseHelper;
-import util::Random;
+import lang::ql::util::Random;
 
 public test bool testIdent1() = parseExpr("a") is ident;
 public test bool testIdent2() = parseExpr("abc") is ident;
