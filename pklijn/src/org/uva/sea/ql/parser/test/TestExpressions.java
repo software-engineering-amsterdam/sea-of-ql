@@ -89,4 +89,20 @@ public class TestExpressions {
 		assertEquals(parser.parse("234234234").getClass(), Int.class);
 	}
 	
+	@Test
+	public void testCalculation() throws ParseError {
+		assertEquals(
+				((org.uva.sea.ql.ast.values.Int)parser.parse("1 + 2").eval()).getValue(), 
+				((org.uva.sea.ql.ast.values.Int)parser.parse("3").eval()).getValue());
+		assertEquals(
+				((org.uva.sea.ql.ast.values.Int)parser.parse("1 + 2 * 3").eval()).getValue(), 
+				((org.uva.sea.ql.ast.values.Int)parser.parse("7").eval()).getValue());
+		assertEquals(
+				((org.uva.sea.ql.ast.values.Int)parser.parse("(1 + 2) * 3").eval()).getValue(), 
+				((org.uva.sea.ql.ast.values.Int)parser.parse("9").eval()).getValue());
+		assertEquals(
+				((org.uva.sea.ql.ast.values.Int)parser.parse("(1 + 2) * 3 - (2 + 3)").eval()).getValue(), 
+				((org.uva.sea.ql.ast.values.Int)parser.parse("4").eval()).getValue());
+	}
+	
 }
