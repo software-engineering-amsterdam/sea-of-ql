@@ -1,6 +1,6 @@
 package org.uva.sea.ql.ast.expr;
 
-public abstract class BinaryExpr extends Expr {
+public abstract class BinaryExpr implements Expr {
 	
 	private final Expr leftExpression, 
 	                   rightExpression;

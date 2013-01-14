@@ -55,9 +55,7 @@ public class TypecheckerVisitor implements ASTNodeVisitor<Type, TypecheckerVisit
 
 	@Override
 	public Type visit(Form astNode, Context context) {
-		for(FormElement formElement : astNode.getBody())
-			formElement.accept(this, context);
-		
+		astNode.getBody().accept(this, context);
 		return null;			
 	}
 	
@@ -80,10 +78,8 @@ public class TypecheckerVisitor implements ASTNodeVisitor<Type, TypecheckerVisit
 	@Override
 	public Type visit(If astNode, Context context) {
 		astNode.getCondition().accept(this, context);
-		for(ASTNode x : astNode.getIfBody())
-			x.accept(this, context);
-		for(ASTNode x : astNode.getElseBody())
-			x.accept(this, context);
+		astNode.getIfBody().accept(this, context);
+		astNode.getElseBody().accept(this, context);
 		
 		return null;
 	}
