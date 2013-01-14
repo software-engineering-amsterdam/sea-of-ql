@@ -2,10 +2,6 @@ package org.uva.sea.ql.tests.parser.parserTests;
 
 import static org.junit.Assert.*;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
 import org.junit.Test;
 import org.uva.sea.ql.ast.*;
 import org.uva.sea.ql.ast.expr.value.Bool;

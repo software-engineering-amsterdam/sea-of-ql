@@ -1,8 +1,5 @@
 package org.uva.sea.ql.tests.typechecker.typecheckerVisitorTests;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.junit.Test;
 import org.uva.sea.ql.ast.Form;
 import org.uva.sea.ql.ast.FormElement;

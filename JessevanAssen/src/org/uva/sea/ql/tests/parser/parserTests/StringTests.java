@@ -18,6 +18,11 @@ public class StringTests extends ParserTests {
 	public void testStringWithEscapedQuote() throws ParseError {
 		testString("imma firin mah \\\"LASER\\\"");		
 	}
+
+    @Test
+    public void testStringWithEscapedBackslash() throws ParseError {
+        testString("First part \\\\\" Second part");
+    }
 	
 	private void testString(String stringValue) throws ParseError {
 		ASTNode parsed = parseExpression(String.format("\"%s\"", stringValue));
