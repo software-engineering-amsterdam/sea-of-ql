@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section name="Workbench">
+	<section name="registerLanguageTarget">
+		<item value="250" key="height"/>
+		<item value="383" key="width"/>
+		<item value="400" key="y"/>
+		<item value="1928" key="x"/>
+	</section>
+	<section name="package">
+		<item value="388" key="height"/>
+		<item value="525" key="width"/>
+		<item value="243" key="y"/>
+		<item value="457" key="x"/>
+	</section>
+</section>

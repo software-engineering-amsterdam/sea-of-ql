@@ -1,0 +1,10 @@
+package org.uva.sea.ql.astvisitor;
+
+import org.uva.sea.ql.ast.*;
+
+public interface ASTNodeVisitor {
+	void visit(Expr expr) ;
+	void visit(QLProgram qlProgram) ;
+	void visit(CompoundBlock compoundBlock) ;
+	void visit(LineStatement lineStatement) ;
+}

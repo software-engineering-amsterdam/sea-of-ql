@@ -1,0 +1,2 @@
+* Fixing the length of location annotations in the outline (fixed at a static 10 now).
+* De-obfuscating the conditionals grammar
