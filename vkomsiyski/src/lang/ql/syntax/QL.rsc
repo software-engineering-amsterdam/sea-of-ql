@@ -1,24 +1,26 @@
 module lang::ql::syntax::QL
 
 
-start syntax Form = form: "form" Ident name "{" Statements body "}";
+start syntax Form = @Foldable form: "form" Ident name "{" Statement+ body "}";
 
-syntax Statements = @Foldable Statement+;
+syntax Statement  
+  = regular: Type type QuestionName name "=" QuestionLabel label
+  | computed: Type type QuestionName name "=" QuestionLabel label Expr expr 
+  | @Foldable conditional: IfPart ElseIfPart* ElsePart?;
 
-syntax Statement 
-  = regular: Type type QuestionName name "=" String label
-  | computed: Type type QuestionName name "=" String label Expr expr 
-  | conditional:  IfPart ElseIfPart* ElsePart?;
-
-syntax IfPart = "if" "(" Expr condition ")" "{" Statements body "}";
+syntax IfPart = "if" "(" Expr condition ")" "{" Statement+ body "}";
 
 syntax ElseIfPart = "else" IfPart ifPart;
 
-syntax ElsePart = "else" "{" Statements body "}"; 
+syntax ElsePart = "else" "{" Statement+ body "}"; 
  
 syntax Expr
   = ident: Ident name
   | \int: Int
+  | \bool: Bool
+  | string: String
+  | float: Float
+  | date: Date
   | bracket "(" Expr arg ")"
   | pos: "+" Expr
   | neg: "-" Expr
@@ -47,11 +49,12 @@ lexical Type
   = @category="Type" "bool" 
   | @category="Type" "int" 
   | @category="Type" "string"
-  | @category="Type" "money"
   | @category="Type" "float"
   | @category="Type" "date";
 
 lexical QuestionName = @category="Variable" Ident;
+
+lexical QuestionLabel = @category="Identifier" String;
 
 lexical Ident = ([a-z A-Z 0-9 _] !<< [a-z A-Z][a-z A-Z 0-9 _]* !>> [a-z A-Z 0-9 _]) \ Keywords;
 
@@ -59,7 +62,17 @@ lexical Bool = "true" | "false";
 
 lexical Int = [0-9]+ !>> [0-9];
 
-lexical String = @category="Identifier" "\"" StringChar* [\\] !<< "\"" ;
+lexical Float = [0-9]* "." [0-9]+ !>> [0-9];
+
+lexical Date = Day "." Month "." Year;
+
+lexical Day = "0"?[1-9] | [12][0-9] | "3" [01];
+
+lexical Month = "0"?[1-9] | "1"[12];
+
+lexical Year = Int; 
+
+lexical String = "\"" StringChar* [\\] !<< "\"" ; 
   
 lexical StringChar = ![\"] | [\\] << [\"];
 
@@ -76,7 +89,8 @@ lexical Whitespace
      \u2000-\u200A \u2028 \u2029 \u202F \u205F \u3000]; 
 
 
-keyword Keywords = "form" | "if" | "bool" | "int" | "string" | "money" | "float" | "date" | "true" | "false";
+keyword Keywords = "form" | "if" | "else" | "bool" | "int" | "string" | 
+					| "float" | "date" | "true" | "false";
 
 layout Standard = WhitespaceOrComment* !>> [\ \t\n\f\r] !>> "//" !>> "/*";
 

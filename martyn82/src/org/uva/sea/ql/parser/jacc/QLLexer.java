@@ -7,7 +7,7 @@ import java.util.Map;
 
 import org.uva.sea.ql.ast.ASTNode;
 import org.uva.sea.ql.ast.expression.Ident;
-import org.uva.sea.ql.ast.expression.Int;
+import org.uva.sea.ql.ast.expression.value.Int;
 
 /**
  * Lexer class.
@@ -23,6 +23,8 @@ public class QLLexer implements QLTokens {
 	 */
 	static {
 		KEYWORDS = new HashMap<String, Integer>();
+		KEYWORDS.put( "true", BOOL );
+		KEYWORDS.put( "false", BOOL );
 	}
 
 	/**
@@ -108,6 +110,16 @@ public class QLLexer implements QLTokens {
 					if ( c == '*' ) {
 						inComment = true;
 						nextChar();
+						continue;
+					}
+					else if ( c == '/' ) {
+						// single line comments
+						nextChar();
+
+						while ( c >= ENDINPUT && c != '\r' && c != '\n' ) {
+							nextChar();
+						}
+						
 						continue;
 					}
 					
@@ -207,43 +219,154 @@ public class QLLexer implements QLTokens {
 					return token = '>';
 				}
 				
+				case '"': {
+					if ( this.matchString() ) {
+						return token = STR;
+					}
+				}
+				
 				default: {
-					if ( Character.isDigit( c ) ) {
-						int n = 0;
-				
-						do {
-							n = 10 * n + ( c - '0' );
-							nextChar();
-						}
-						while ( Character.isDigit( c ) );
-				
-						yylval = new Int( n );
+					if ( this.matchInteger() ) {
 						return token = INT;
 					}
-				
-					if ( Character.isLetter( c ) ) {
-						StringBuilder sb = new StringBuilder();
-				
-						do {
-							sb.append( (char) c );
-							nextChar();
-						}
-						while ( Character.isLetterOrDigit( c ) );
-				
-						String name = sb.toString();
-				
-						if ( KEYWORDS.containsKey( name ) ) {
-							return token = KEYWORDS.get( name );
-						}
-				
-						yylval = new Ident( name );
-						return token = IDENT;
+					
+					if ( this.matchToken() ) {
+						return token;
 					}
 				
 					throw new RuntimeException( "Unexpected character: " + (char) c );
 				}
 			}
 		}
+	}
+	
+	/**
+	 * Matches a string literal.
+	 * 
+	 * @return True if string, false otherwise.
+	 */
+	private boolean matchString() {
+		StringBuilder sb = new StringBuilder();
+		boolean inString = true;
+		
+		while ( inString ) {
+			nextChar();
+			
+			if ( c < ENDINPUT ) {
+				throw new RuntimeException( "Unterminated string literal" );
+			}
+			else if ( c == '"' ) {
+				inString = false;
+			}
+			else if ( c == '\\' ) {
+				nextChar();
+				sb.append( this.getEscapedChar( (char) c ) );
+			}
+			else {
+				sb.append( (char) c );
+			}
+		}
+
+		nextChar();
+
+		yylval = new org.uva.sea.ql.ast.expression.value.Str( sb.toString() );
+		return true;
+	}
+	
+	/**
+	 * Unescapes an escaped character within a string literal.
+	 * 
+	 * @param input Character to unescape.
+	 * 
+	 * @return The unescaped character.
+	 */
+	private char getEscapedChar( char input ) {
+		switch ( input ) {
+			// whitespace
+			case 'n':
+				return '\n';
+				
+			case 'r':
+				return '\r';
+				
+			case 't':
+				return '\t';
+				
+			case 'b':
+				return '\b';
+				
+			case 'f':
+				return '\f';
+				
+			case '\'':
+				return '\'';
+				
+			case '"':
+				return '"';
+				
+			case '\\':
+				return '\\';
+		}
+		
+		throw new RuntimeException( "Unrecognized escape sequence" );
+	}
+		
+	/**
+	 * Matches an integer literal.
+	 * 
+	 * @return True if integer, false otherwise.
+	 */
+	private boolean matchInteger() {
+		if ( !Character.isDigit( c ) ) {
+			return false;
+		}
+		
+		int n = 0;
+		
+		do {
+			n = 10 * n + ( c - '0' );
+			nextChar();
+		}
+		while ( Character.isDigit( c ) );
+
+		yylval = new Int( n );
+		return true;
+	}
+	
+	/**
+	 * Matches arbitrary token.
+	 * 
+	 * @return True if successful, false otherwise.
+	 */
+	private boolean matchToken() {
+		StringBuilder sb = new StringBuilder();
+		
+		do {
+			sb.append( (char) c );
+			nextChar();
+		}
+		while ( Character.isLetterOrDigit( c ) );
+
+		String name = sb.toString();
+
+		if ( KEYWORDS.containsKey( name ) ) {
+			token = KEYWORDS.get( name );
+			
+			switch ( token ) {
+				case BOOL: 
+					yylval = new org.uva.sea.ql.ast.expression.value.Bool(
+						Boolean.parseBoolean( name )
+					);
+					break;
+			}
+
+			return true;
+		}
+
+		yylval = new Ident( name );
+		token = IDENT;
+		
+		return true;
 	}
 
 	/**
@@ -258,7 +381,7 @@ public class QLLexer implements QLTokens {
 	/**
 	 * Returns the current AST.
 	 * 
-	 * @return The current AST.
+	 * @return The AST.
 	 */
 	public ASTNode getSemantic() {
 		return yylval;

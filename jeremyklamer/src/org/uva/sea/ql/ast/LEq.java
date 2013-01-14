@@ -1,9 +1,17 @@
 package org.uva.sea.ql.ast;
 
-public class LEq extends Expr{
+import org.uva.sea.ql.interpreter.Value;
 
-	public LEq(Expr result, Expr rhs) {
-		// TODO Auto-generated constructor stub
+public class LEq extends Binary{
+	
+	public LEq(Expr left, Expr right) {
+		super(left,right);
+	}
+
+	@Override
+	public Value interpret() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

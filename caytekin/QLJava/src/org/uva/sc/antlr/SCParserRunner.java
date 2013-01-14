@@ -4,8 +4,10 @@ import org.antlr.runtime.ANTLRFileStream;
 import org.antlr.runtime.CommonTokenStream;
 import org.antlr.runtime.RecognitionException;
 import org.antlr.runtime.tree.CommonTree;
+import org.junit.Test;
 
 public class SCParserRunner {
+	
 	
 	public static void printTree(CommonTree tree) {
 		int noOfChildren = tree.getChildCount();
@@ -25,7 +27,6 @@ public class SCParserRunner {
         try {
         	CommonTree ast = (CommonTree) parser.expr().getTree();
         	printTree(ast);
-            System.out.println(parser.expr());
             System.out.println("I did it.");
         } 
         catch (RecognitionException e)  {

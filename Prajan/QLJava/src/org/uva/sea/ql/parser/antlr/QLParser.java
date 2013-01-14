@@ -161,7 +161,7 @@ public class QLParser extends Parser {
     // $ANTLR start "unExpr"
     // /Users/tvdstorm/SEA/courses/sc/2012-2013/repos/sc-ql-2012-2013-java/src/org/uva/sea/ql/parser/antlr/QL.g:21:1: unExpr returns [Expr result] : ( '+' x= unExpr | '-' x= unExpr | '!' x= unExpr |x= primary );
     public final Expr unExpr() throws RecognitionException {
-        Expr result = null;
+        Pos result = null;
 
         int unExpr_StartIndex = input.index();
 

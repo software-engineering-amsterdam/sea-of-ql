@@ -1,1 +1,0 @@
-java -jar jacc.jar -v ../../src/org/uva/sea/ql/parser/jacc/ql.jacc

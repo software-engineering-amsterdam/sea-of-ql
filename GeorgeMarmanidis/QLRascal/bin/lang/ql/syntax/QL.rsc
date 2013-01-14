@@ -1,24 +1,64 @@
 module lang::ql::syntax::QL
 
-//Syntax for Form
-start syntax Form = form: "form" Ident name "{" FormBody+ formBody "}"; 
+lexical Ident 
+  = ([a-z A-Z 0-9 _] !<< [a-z A-Z][a-z A-Z 0-9 _]* !>> [a-z A-Z 0-9 _]) \ Keywords
+  ;
 
-//Syntax for FormBody
+lexical Money = [0-9]+ "." ([0-9][0-9])*;
+
+lexical Date= [0-3][0-9] >> "/" >>[0-1][0-9] >>"/">> [0-9][0-9][0-9][0-9];
+
+lexical Int
+  = [0-9]+ !>> [0-9]
+  ;
+
+lexical Float = [0-9]+ "." [0-9] [0-9];
+
+lexical Boolean
+  ="true"
+  |"false";
+  
+lexical String="\"" ![\"]* "\"";
+
+layout Standard 
+  = WhitespaceOrComment* !>> [\ \t\n\f\r] !>> "//" !>> "/*";
+  
+lexical Comment 
+  = @category="Comment" "/*" CommentChar* "*/"
+  | @category="Comment" "//" CommentChar* [\n]$
+  ;
+
+lexical CommentChar
+  = ![*]
+  | [*] !>> [/]
+  ;
+  
+lexical Whitespace 
+  = [\u0009-\u000D \u0020 \u0085 \u00A0 \u1680 \u180E \u2000-\u200A \u2028 \u2029 \u202F \u205F \u3000]
+  ; 
+  
+syntax WhitespaceOrComment 
+  = whitespace: Whitespace
+  | comment: Comment
+  ;   
+ 
+start syntax Form 
+	= form: "form" Ident name "{" FormBody+ formBody "}";
+
 start syntax FormBody
 	= question: Question question
 	| conditionalStatement: ConditionalStatement conditionalStatement;
-	//maybe insert -> |comment: Comment comment
 
-//Syntax for Conditional Statements .. needs changes -> elseif more to 1 times if possible	
 start syntax ConditionalStatement
-	= ifCond: "if" Expr cond "{" Question+ question "}" else "{" Question+ question "}"
-	| ifElseIfCond : "if" Expr cond "{" Question+ question "}" elseif Expr cond "{" Question+ question "}" else "{" Question+ question "}";
+	= ifCond: "if" Expr cond "{" Question+ question "}" "else" "{" Question+ question "}"
+	| simpleIfCond : "if" Expr cond "{" Question+ question "}"
+	| ifElseIfCond : "if" Expr cond "{" Question+ question "}" ElseIf+ elseIfCondition "else" "{" Question+ question "}";
 
-		
-//Syntax for Question
+start syntax ElseIf = "else" "if" Expr cond "{"Question+ question"}";
+
 start syntax Question
-	= simpleQuestion: Ident ident ":" "\"" String label "\"" Type type
-	| computedQuestion: Ident ident ":" "\"" String label "\"" Type type Expr compExpression;
+	= simpleQuestion: Ident ident ":" String label Type type
+	| computedQuestion: Ident ident ":"  String label  Type type Expr compExpression;
 
 start syntax Expr
   = ident: Ident name
@@ -46,45 +86,19 @@ start syntax Expr
   > left and: Expr "&&" Expr
   > left or: Expr "||" Expr
   ;
-    
-keyword Keywords =;
-  
-lexical Ident 
-  = ([a-z A-Z 0-9 _] !<< [a-z A-Z][a-z A-Z 0-9 _]* !>> [a-z A-Z 0-9 _]) \ Keywords
-  ;
 
 start syntax Type
- =booltype:"boolean";
+ = boolean:"boolean"
+ | integer:"integer"
+ | date:"date"
+ | money:"money"
+ | string:"string"
+ | float: "float";    
 
-lexical Int
-  = [0-9]+ !>> [0-9]
-  ;
-
-lexical Boolean
-  ="true"
-  |"false";
+keyword Keywords =;
   
-lexical String=([a-z A-Z 0-9 _])*;
 
-layout Standard 
-  = WhitespaceOrComment* !>> [\ \t\n\f\r] !>> "//" !>> "/*";
-  
-lexical Comment 
-  = @category="Comment" "/*" CommentChar* "*/"
-  ;
 
-lexical CommentChar
-  = ![*]
-  | [*] !>> [/]
-  ;
 
-syntax WhitespaceOrComment 
-  = whitespace: Whitespace
-  | comment: Comment
-  ;   
-
-lexical Whitespace 
-  = [\u0009-\u000D \u0020 \u0085 \u00A0 \u1680 \u180E \u2000-\u200A \u2028 \u2029 \u202F \u205F \u3000]
-  ; 
 
   

@@ -192,7 +192,6 @@ public class QLParser extends Parser {
             reportError(re);
             recover(input, re);
         }
-
         finally {
         	// do for sure before leaving
             if (state.backtracking > 0) { 
@@ -340,7 +339,6 @@ public class QLParser extends Parser {
             reportError(re);
             recover(input, re);
         }
-
         finally {
         	// do for sure before leaving
             if (state.backtracking > 0) { 
@@ -435,7 +433,6 @@ public class QLParser extends Parser {
             reportError(re);
             recover(input, re);
         }
-
         finally {
         	// do for sure before leaving
             if (state.backtracking > 0) { 
@@ -525,12 +522,11 @@ public class QLParser extends Parser {
 	                }
 	            } while (true);
             }
-        }
+        } 
         catch (RecognitionException re) {
             reportError(re);
             recover(input, re);
         }
-
         finally {
         	// do for sure before leaving
             if (state.backtracking > 0) { 
@@ -540,8 +536,6 @@ public class QLParser extends Parser {
         return result;
     }
     // $ANTLR end "addExpr"
-
-
 
     // $ANTLR start "relExpr"
     // relExpr returns [Expr result] : lhs = addExpr (op = ( '<' | '<=' | '>' | '>=' | '==' | '!=' ) rhs = addExpr )* ;
@@ -558,259 +552,252 @@ public class QLParser extends Parser {
 
             // ( lhs = addExpr (op = ( '<' | '<=' | '>' | '>=' | '==' | '!=' ) rhs = addExpr )* )
             {
-            pushFollow(_FOLLOW_addExpr_in_relExpr294);
-            lhs=addExpr();
-
-            state._fsp--;
-            if (state.failed) return result;
-
-            if ( state.backtracking==0 ) { result =lhs; }
-
-            // /Users/tvdstorm/SEA/courses/sc/2012-2013/repos/sc-ql-2012-2013-java/src/org/uva/sea/ql/parser/antlr/QL.g:54:46: (op= ( '<' | '<=' | '>' | '>=' | '==' | '!=' ) rhs= addExpr )*
-            loop5:
-            do {
-                int alt5=2;
-                int LA5_0 = input.LA(1);
-
-                if ( (LA5_0==9||(LA5_0 >= 17 && LA5_0 <= 21)) ) {
-                    alt5=1;
-                }
-
-
-                switch (alt5) {
-            	case 1 :
-            	    // /Users/tvdstorm/SEA/courses/sc/2012-2013/repos/sc-ql-2012-2013-java/src/org/uva/sea/ql/parser/antlr/QL.g:54:48: op= ( '<' | '<=' | '>' | '>=' | '==' | '!=' ) rhs= addExpr
-            	    {
-            	    op=(Token)input.LT(1);
-
-            	    if ( input.LA(1)==9||(input.LA(1) >= 17 && input.LA(1) <= 21) ) {
-            	        input.consume();
-            	        state.errorRecovery=false;
-            	        state.failed=false;
-            	    }
-            	    else {
-            	        if (state.backtracking>0) {state.failed=true; return result;}
-            	        MismatchedSetException mse = new MismatchedSetException(null,input);
-            	        throw mse;
-            	    }
-
-
-            	    pushFollow(_FOLLOW_addExpr_in_relExpr318);
-            	    rhs=addExpr();
-
-            	    state._fsp--;
-            	    if (state.failed) return result;
-
-            	    if ( state.backtracking==0 ) { 
-            	          if ((op!=null?op.getText():null).equals("<")) {
-            	            result = new LT(result, rhs);
-            	          }
-            	          if ((op!=null?op.getText():null).equals("<=")) {
-            	            result = new LEq(result, rhs);      
-            	          }
-            	          if ((op!=null?op.getText():null).equals(">")) {
-            	            result = new GT(result, rhs);
-            	          }
-            	          if ((op!=null?op.getText():null).equals(">=")) {
-            	            result = new GEq(result, rhs);      
-            	          }
-            	          if ((op!=null?op.getText():null).equals("==")) {
-            	            result = new Eq(result, rhs);
-            	          }
-            	          if ((op!=null?op.getText():null).equals("!=")) {
-            	            result = new NEq(result, rhs);
-            	          }
-            	        }
-
-            	    }
-            	    break;
-
-            	default :
-            	    break loop5;
-                }
-            } while (true);
-
-
+	            pushFollow(_FOLLOW_addExpr_in_relExpr294);
+	            lhs = addExpr();
+	
+	            state._fsp--;
+	            if (state.failed) { 
+	            	return result;
+	            }
+	
+	            if (state.backtracking == 0) { 
+	            	result = lhs; 
+	            }
+	
+	            // (op= ( '<' | '<=' | '>' | '>=' | '==' | '!=' ) rhs = addExpr )*
+	            loop5:
+	            do {
+	                int alt5 = 2;
+	                int lA5_0 = input.LA(1);
+	
+	                if (lA5_0 == 9 || (lA5_0 >= 17 && lA5_0 <= 21)) {
+	                    alt5 = 1;
+	                }
+	
+	                switch (alt5) {
+	            	case 1 :
+	            	    // op= ( '<' | '<=' | '>' | '>=' | '==' | '!=' ) rhs = addExpr
+	            	    {
+		            	    op = (Token)input.LT(1);
+		
+		            	    if (input.LA(1) == 9 || (input.LA(1) >= 17 && input.LA(1) <= 21)) {
+		            	        input.consume();
+		            	        state.errorRecovery = false;
+		            	        state.failed = false;
+		            	    } else {
+		            	        if (state.backtracking > 0) {
+		            	        	state.failed = true; 
+		            	        	return result;
+		            	        }
+		            	        MismatchedSetException mse = new MismatchedSetException(null, input);
+		            	        throw mse;
+		            	    }
+		
+		            	    pushFollow(_FOLLOW_addExpr_in_relExpr318);
+		            	    rhs = addExpr();
+		
+		            	    state._fsp--;
+		            	    if (state.failed) {
+		            	    	return result;
+		            	    }
+		
+		            	    if (state.backtracking == 0) { 
+								if ((op != null ? op.getText() : null).equals("<")) {
+									result = new LT(result, rhs);
+								}
+								if ((op != null ? op.getText() : null).equals("<=")) {
+								    result = new LEq(result, rhs);      
+								}
+								if ((op != null ? op.getText() : null).equals(">")) {
+								    result = new GT(result, rhs);
+								}
+								if ((op != null ? op.getText() : null).equals(">=")) {
+								    result = new GEq(result, rhs);      
+								}
+								if ((op != null ? op.getText() : null).equals("==")) {
+								    result = new Eq(result, rhs);
+								}
+								if ((op != null ? op.getText() : null).equals("!=")) {
+								    result = new NEq(result, rhs);
+								}
+	            	        }
+	            	    }
+	            	    break;
+	            	default :
+	            	    break loop5;
+	                }
+	            } while (true);
             }
-
-        }
+        } 
         catch (RecognitionException re) {
             reportError(re);
-            recover(input,re);
+            recover(input, re);
         }
-
         finally {
         	// do for sure before leaving
-            if ( state.backtracking>0 ) { memoize(input, 5, relExprStartIndex); }
-
+            if (state.backtracking > 0) { 
+            	memoize(input, 5, relExprStartIndex); 
+            }
         }
         return result;
     }
     // $ANTLR end "relExpr"
 
-
-
     // $ANTLR start "andExpr"
-    // /Users/tvdstorm/SEA/courses/sc/2012-2013/repos/sc-ql-2012-2013-java/src/org/uva/sea/ql/parser/antlr/QL.g:77:1: andExpr returns [Expr result] : lhs= relExpr ( '&&' rhs= relExpr )* ;
+    // andExpr returns [Expr result] : lhs= relExpr ( '&&' rhs= relExpr )* ;
     public final Expr andExpr() throws RecognitionException {
         Expr result = null;
+        int andExprStartIndex = input.index();
 
-        int andExpr_StartIndex = input.index();
-
-        Expr lhs =null;
-
-        Expr rhs =null;
-
-
+        Expr lhs, rhs = null;
         try {
-            if ( state.backtracking>0 && alreadyParsedRule(input, 6) ) { return result; }
-
-            // /Users/tvdstorm/SEA/courses/sc/2012-2013/repos/sc-ql-2012-2013-java/src/org/uva/sea/ql/parser/antlr/QL.g:78:5: (lhs= relExpr ( '&&' rhs= relExpr )* )
-            // /Users/tvdstorm/SEA/courses/sc/2012-2013/repos/sc-ql-2012-2013-java/src/org/uva/sea/ql/parser/antlr/QL.g:78:9: lhs= relExpr ( '&&' rhs= relExpr )*
-            {
-            pushFollow(_FOLLOW_relExpr_in_andExpr356);
-            lhs=relExpr();
-
-            state._fsp--;
-            if (state.failed) return result;
-
-            if ( state.backtracking==0 ) { result =lhs; }
-
-            // /Users/tvdstorm/SEA/courses/sc/2012-2013/repos/sc-ql-2012-2013-java/src/org/uva/sea/ql/parser/antlr/QL.g:78:46: ( '&&' rhs= relExpr )*
-            loop6:
-            do {
-                int alt6=2;
-                int LA6_0 = input.LA(1);
-
-                if ( (LA6_0==10) ) {
-                    alt6=1;
-                }
-
-
-                switch (alt6) {
-            	case 1 :
-            	    // /Users/tvdstorm/SEA/courses/sc/2012-2013/repos/sc-ql-2012-2013-java/src/org/uva/sea/ql/parser/antlr/QL.g:78:48: '&&' rhs= relExpr
-            	    {
-            	    match(input,10,_FOLLOW_10_in_andExpr362); if (state.failed) return result;
-
-            	    pushFollow(_FOLLOW_relExpr_in_andExpr366);
-            	    rhs=relExpr();
-
-            	    state._fsp--;
-            	    if (state.failed) return result;
-
-            	    if ( state.backtracking==0 ) { result = new And(result, rhs); }
-
-            	    }
-            	    break;
-
-            	default :
-            	    break loop6;
-                }
-            } while (true);
-
-
+            if (state.backtracking > 0 && alreadyParsedRule(input, 6)) { 
+            	return result; 
             }
 
+            // (lhs = relExpr ( '&&' rhs= relExpr )* )
+            {
+	            pushFollow(_FOLLOW_relExpr_in_andExpr356);
+	            lhs = relExpr();
+	
+	            state._fsp--;
+	            if (state.failed) { 
+	            	return result;
+	            }
+	
+	            if (state.backtracking == 0) { 
+	            	result = lhs; 
+	            }
+	
+	            // ( '&&' rhs= relExpr )*
+	            loop6:
+	            do {
+	                int alt6 = 2;
+	                int lA6_0 = input.LA(1);
+	
+	                if (lA6_0 == 10) {
+	                    alt6 = 1;
+	                }
+	
+	                switch (alt6) {
+	            	case 1 :
+	            	    // '&&' rhs = relExpr
+	            	    {
+		            	    match(input, 10, _FOLLOW_10_in_andExpr362); 
+		            	    if (state.failed) { 
+		            	    	return result;
+		            	    }
+		
+		            	    pushFollow(_FOLLOW_relExpr_in_andExpr366);
+		            	    rhs = relExpr();
+		
+		            	    state._fsp--;
+		            	    if (state.failed) {
+		            	    	return result;
+		            	    }
+		
+		            	    if (state.backtracking == 0) { 
+		            	    	result = new And(result, rhs); 
+		            	    }
+	            	    }
+	            	    break;
+	            	default :
+	            	    break loop6;
+	                }
+	            } while (true);
+            }
         }
         catch (RecognitionException re) {
             reportError(re);
-            recover(input,re);
+            recover(input, re);
         }
-
         finally {
         	// do for sure before leaving
-            if ( state.backtracking>0 ) { memoize(input, 6, andExpr_StartIndex); }
-
+            if (state.backtracking > 0) { 
+            	memoize(input, 6, andExprStartIndex); 
+            }
         }
         return result;
     }
     // $ANTLR end "andExpr"
 
-
-
     // $ANTLR start "orExpr"
-    // /Users/tvdstorm/SEA/courses/sc/2012-2013/repos/sc-ql-2012-2013-java/src/org/uva/sea/ql/parser/antlr/QL.g:82:1: orExpr returns [Expr result] : lhs= andExpr ( '||' rhs= andExpr )* ;
+    // lhs = andExpr ( '||' rhs = andExpr )* ;
     public final Expr orExpr() throws RecognitionException {
         Expr result = null;
+        int orExprStartIndex = input.index();
 
-        int orExpr_StartIndex = input.index();
-
-        Expr lhs =null;
-
-        Expr rhs =null;
-
-
+        Expr lhs, rhs = null;
         try {
-            if ( state.backtracking>0 && alreadyParsedRule(input, 7) ) { return result; }
-
-            // /Users/tvdstorm/SEA/courses/sc/2012-2013/repos/sc-ql-2012-2013-java/src/org/uva/sea/ql/parser/antlr/QL.g:83:5: (lhs= andExpr ( '||' rhs= andExpr )* )
-            // /Users/tvdstorm/SEA/courses/sc/2012-2013/repos/sc-ql-2012-2013-java/src/org/uva/sea/ql/parser/antlr/QL.g:83:9: lhs= andExpr ( '||' rhs= andExpr )*
-            {
-            pushFollow(_FOLLOW_andExpr_in_orExpr401);
-            lhs=andExpr();
-
-            state._fsp--;
-            if (state.failed) return result;
-
-            if ( state.backtracking==0 ) { result = lhs; }
-
-            // /Users/tvdstorm/SEA/courses/sc/2012-2013/repos/sc-ql-2012-2013-java/src/org/uva/sea/ql/parser/antlr/QL.g:83:48: ( '||' rhs= andExpr )*
-            loop7:
-            do {
-                int alt7=2;
-                int LA7_0 = input.LA(1);
-
-                if ( (LA7_0==22) ) {
-                    alt7=1;
-                }
-
-
-                switch (alt7) {
-            	case 1 :
-            	    // /Users/tvdstorm/SEA/courses/sc/2012-2013/repos/sc-ql-2012-2013-java/src/org/uva/sea/ql/parser/antlr/QL.g:83:50: '||' rhs= andExpr
-            	    {
-            	    match(input,22,_FOLLOW_22_in_orExpr407); if (state.failed) return result;
-
-            	    pushFollow(_FOLLOW_andExpr_in_orExpr411);
-            	    rhs=andExpr();
-
-            	    state._fsp--;
-            	    if (state.failed) return result;
-
-            	    if ( state.backtracking==0 ) { result = new Or(result, rhs); }
-
-            	    }
-            	    break;
-
-            	default :
-            	    break loop7;
-                }
-            } while (true);
-
-
+            if (state.backtracking > 0 && alreadyParsedRule(input, 7)) { 
+            	return result; 
             }
 
+            // (lhs = andExpr ( '||' rhs= andExpr )* )
+            {
+	            pushFollow(_FOLLOW_andExpr_in_orExpr401);
+	            lhs = andExpr();
+	
+	            state._fsp--;
+	            if (state.failed) {
+	            	return result;
+	            }
+	
+	            if (state.backtracking == 0) { 
+	            	result = lhs; 
+	            }
+	
+	            // ( '||' rhs = andExpr )*
+	            loop7:
+	            do {
+	                int alt7 = 2;
+	                int lA7_0 = input.LA(1);
+	
+	                if (lA7_0 == 22) {
+	                    alt7 = 1;
+	                }
+	
+	                switch (alt7) {
+		            	case 1 :
+		            	    // '||' rhs = andExpr
+		            	    {
+			            	    match(input, 22, _FOLLOW_22_in_orExpr407); 
+			            	    if (state.failed) {
+			            	    	return result;
+			            	    }
+			
+			            	    pushFollow(_FOLLOW_andExpr_in_orExpr411);
+			            	    rhs = andExpr();
+			
+			            	    state._fsp--;
+			            	    if (state.failed) { 
+			            	    	return result;
+			            	    }
+			
+			            	    if (state.backtracking == 0) { 
+			            	    	result = new Or(result, rhs); 
+			            	    }
+		            	    }
+		            	    break;
+		            	default :
+		            	    break loop7;
+	                }
+	            } while (true);
+            }
         }
         catch (RecognitionException re) {
             reportError(re);
-            recover(input,re);
+            recover(input, re);
         }
-
         finally {
         	// do for sure before leaving
-            if ( state.backtracking>0 ) { memoize(input, 7, orExpr_StartIndex); }
-
+            if (state.backtracking > 0) { 
+            	memoize(input, 7, orExprStartIndex); 
+        	}
         }
         return result;
     }
     // $ANTLR end "orExpr"
 
     // Delegated rules
-
-
- 
-
-    
-
 }

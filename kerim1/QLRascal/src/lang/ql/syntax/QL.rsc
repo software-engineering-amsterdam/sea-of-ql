@@ -2,7 +2,7 @@ module lang::ql::syntax::QL
 
 keyword Keywords = "form" | "int" | "bool" | "string" | "if" | "else" | "true" | "false";
 
-lexical Ident = ([a-z A-Z 0-9 _] !<< [a-z A-Z][a-z A-Z 0-9 _]* !>> [a-z A-Z 0-9 _]) \ Keywords;
+lexical Ident = @category="Identifier" ([a-z A-Z 0-9 _] !<< [a-z A-Z][a-z A-Z 0-9 _]* !>> [a-z A-Z 0-9 _]) \ Keywords;
 lexical Int = [0-9]+ !>> [0-9];
 lexical Bool = "true" | "false";
 lexical String = "\"" ![\"]* "\"";
@@ -28,9 +28,12 @@ start syntax Form
 
 syntax Statement 
   = question: Question question
-  | @Foldable ifThenElse:	"if" Expr condition "{" Statement* thenPart "}" "else" "{" Statement* elsePart "}"
-  | @Foldable ifThen: "if" Expr condition "{" Statement* thenPart "}";
-	
+  | @Foldable ifThenElse: "if" Expr condition "{" Statement+ thenPart "}" ElseIf* elseIfs "else" "{" Statement+ elsePart "}"
+  | @Foldable ifThen: "if" Expr condition "{" Statement+ thenPart "}" ElseIf* elseIfs;
+
+syntax ElseIf 
+  = @Foldable elseIf: "else" "if" Expr condition "{" Statement+ thenPart "}";
+
 syntax Question 
   = computed: Ident identifier ":" String label Type tp Expr expression
   | noncomputed: Ident identifier ":" String label Type tp;

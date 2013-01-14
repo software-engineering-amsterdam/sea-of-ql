@@ -1,6 +1,5 @@
 * 	A correct Rascal grammar for the syntax of QL
 * 	A meta-model/abstract syntax ADT for representing QL models
-* 	Basic IDE features for QL files: syntax highlighting and outlining.
 * 	A semantic checker hooked up to the IDE. This means that, if there are errors, they are shown in QL editors.
 	- Basic type checking for integer, string and boolean expressions.
 	- Check cyclic dependencies,
@@ -19,8 +18,12 @@
 	- Change the start symbol of the parser to parse forms, instead of Expressions.
 *	Development of the QLS layout language (including IDE support). Include support for at least date picker, spin lock and radio button widgets. This language has to be designed!
 *	Checking of the QLS language against the QL language.
+* Naming convention for ident/expr/pos/neg/...
 
 BONUS:
 * 	Bonus exercise for Rascal variants: use SAT/SMT/Constraint solver to check for non-determinism.
 
 Grading: See wiki
+
+
+

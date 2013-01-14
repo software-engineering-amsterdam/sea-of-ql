@@ -7,7 +7,7 @@ public interface ASTNodeVisitor {
 	void visit(BinExpr expr) ;
 	void visit(UnExpr expr) ;
 	void visit(QLProgram qlProgram) ;
-	void visit(CompoundBlock compoundBlock) ;
+	void visit(CompoundStatement compoundBlock) ;
 	void visit(LineStatement lineStatement) ;
 	void visit(ConditionalStatement conditionalStatement) ;
 	void visit(TypeDescription typeDescription) ;
