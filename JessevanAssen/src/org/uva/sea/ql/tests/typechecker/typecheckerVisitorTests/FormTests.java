@@ -20,10 +20,10 @@ public class FormTests extends TypecheckerVisitorTests {
 		
 		Form form = new Form(new Ident("form1"), mockFormElements);
 		
-		form.accept(visitor, symbolTable);
+		form.accept(visitor, context);
 		
 		for(FormElement mockFormElement : mockFormElements)
-			verify(mockFormElement).accept(visitor, symbolTable);
+			verify(mockFormElement).accept(visitor, context);
 	}
 	
 }

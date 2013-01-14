@@ -9,7 +9,6 @@ import org.uva.sea.ql.ast.expr.value.Bool;
 import org.uva.sea.ql.ast.expr.value.Int;
 import org.uva.sea.ql.ast.expr.value.Str;
 import org.uva.sea.ql.ast.expr.value.Value;
-import org.uva.sea.ql.typechecker.TypecheckerException;
 
 public class OperatorTests extends TypecheckerVisitorTests {
 	
@@ -23,18 +22,17 @@ public class OperatorTests extends TypecheckerVisitorTests {
 			List<Value> failingValues) {
 		for(Value value : succeedingValues) {
 			Expr validExpression = unaryExpressionFactory.createUnaryExpression(value);
-			validExpression.accept(visitor, symbolTable);
+			validExpression.accept(visitor, context);
+            assertTrue(context.getErrors().isEmpty());
 		}
-		
+
+        int numberOfErrors = 0;
 		for(Value value : failingValues) {
-			try {
-				Expr failingExpression = unaryExpressionFactory.createUnaryExpression(value);
-				failingExpression.accept(visitor, symbolTable);
-				// An exception should have been thrown at this point, so the test failed if this code is reached.
-				fail();
-			} catch(TypecheckerException x) {
-				// The test actually succeeds if this exception occurs
-			}
+            Expr failingExpression = unaryExpressionFactory.createUnaryExpression(value);
+            failingExpression.accept(visitor, context);
+
+            assertTrue(context.getErrors().size() > numberOfErrors);
+            numberOfErrors = context.getErrors().size();
 		}	
 	}
 	
@@ -44,18 +42,17 @@ public class OperatorTests extends TypecheckerVisitorTests {
 			List<Pair<Value>> failingPairs) {
 		for(Pair<Value> pair : succeedingPairs) {
 			Expr validExpression = binaryExpressionFactory.createBinaryExpression(pair.getLeft(), pair.getRight());
-			validExpression.accept(visitor, symbolTable);
+			validExpression.accept(visitor, context);
+            assertTrue(context.getErrors().isEmpty());
 		}
-		
+
+        int numberOfErrors = 0;
 		for(Pair<Value> pair : failingPairs) {
-			try {
-				Expr failingExpression = binaryExpressionFactory.createBinaryExpression(pair.getLeft(), pair.getRight());
-				failingExpression.accept(visitor, symbolTable);
-				// An exception should have been thrown at this point, so the test failed if this code is reached.
-				fail();
-			} catch(TypecheckerException x) {
-				// The test actually succeeds if this exception occurs
-			}
+            Expr failingExpression = binaryExpressionFactory.createBinaryExpression(pair.getLeft(), pair.getRight());
+            failingExpression.accept(visitor, context);
+
+            assertTrue(context.getErrors().size() > numberOfErrors);
+            numberOfErrors = context.getErrors().size();
 		}		
 	}
 	

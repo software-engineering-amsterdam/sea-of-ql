@@ -10,11 +10,11 @@ import org.uva.sea.ql.ast.expr.Ident;
 public abstract class TypecheckerVisitorTests {
 
 	protected final TypecheckerVisitor visitor;
-	protected final Map<Ident, Type> symbolTable;
+	protected final TypecheckerVisitor.Context context;
 	
 	public TypecheckerVisitorTests() {
 		visitor = new TypecheckerVisitor();
-		symbolTable = new HashMap<Ident, Type>();
+		context = new TypecheckerVisitor.Context();
 	}
 	
 }

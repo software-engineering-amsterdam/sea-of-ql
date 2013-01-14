@@ -19,8 +19,8 @@ public class IfTests extends TypecheckerVisitorTests {
     public void acceptIsCalled_conditionAcceptIsCalled() {
         Expr mockExpression = mock(Expr.class);
         If i = new If(mockExpression, new ArrayList<FormElement>(), new ArrayList<FormElement>());
-        i.accept(visitor, symbolTable);
-        verify(mockExpression).accept(visitor, symbolTable);
+        i.accept(visitor, context);
+        verify(mockExpression).accept(visitor, context);
     }
 
     @Test
@@ -31,10 +31,10 @@ public class IfTests extends TypecheckerVisitorTests {
             mock(FormElement.class)
         );
         If i = new If(new Bool(true), mockFormElements, new ArrayList<FormElement>());
-        i.accept(visitor, symbolTable);
+        i.accept(visitor, context);
 
         for(FormElement f : mockFormElements)
-            verify(f).accept(visitor, symbolTable);
+            verify(f).accept(visitor, context);
     }
 
     @Test
@@ -45,10 +45,10 @@ public class IfTests extends TypecheckerVisitorTests {
                 mock(FormElement.class)
         );
         If i = new If(new Bool(true), new ArrayList<FormElement>(), mockFormElements);
-        i.accept(visitor, symbolTable);
+        i.accept(visitor, context);
 
         for(FormElement f : mockFormElements)
-            verify(f).accept(visitor, symbolTable);
+            verify(f).accept(visitor, context);
     }
 
 }

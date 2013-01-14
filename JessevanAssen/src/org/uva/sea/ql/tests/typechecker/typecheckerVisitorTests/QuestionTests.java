@@ -13,8 +13,8 @@ public class QuestionTests extends TypecheckerVisitorTests {
     public void acceptIsCalled_declarationAcceptIsCalled() {
         Declaration mockDeclaration = mock(Declaration.class);
         Question question = new Question("a", mockDeclaration);
-        question.accept(visitor, symbolTable);
-        verify(mockDeclaration).accept(visitor, symbolTable);
+        question.accept(visitor, context);
+        verify(mockDeclaration).accept(visitor, context);
     }
 
 }
