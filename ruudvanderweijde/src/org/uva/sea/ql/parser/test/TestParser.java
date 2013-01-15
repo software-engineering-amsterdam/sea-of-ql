@@ -21,7 +21,7 @@ import org.uva.sea.ql.ast.expr.Mul;
 import org.uva.sea.ql.parser.ANTLRParser;
 
 @RunWith(Parameterized.class)
-public class TestExpressions {
+public class TestParser {
 
 	private IParse parser;
 
@@ -32,7 +32,7 @@ public class TestExpressions {
 	}
 
 	
-	public TestExpressions(IParse parser) {
+	public TestParser(IParse parser) {
 		this.parser = parser;
 	}
 
