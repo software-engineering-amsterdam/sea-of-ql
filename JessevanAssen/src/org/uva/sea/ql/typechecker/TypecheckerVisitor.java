@@ -77,7 +77,10 @@ public class TypecheckerVisitor implements ASTNodeVisitor<Type, TypecheckerVisit
 	
 	@Override
 	public Type visit(If astNode, Context context) {
-		astNode.getCondition().accept(this, context);
+		Type type = astNode.getCondition().accept(this, context);
+        if(type != BOOL_TYPE)
+            context.getErrors().add("The condition of an if-statement should have type boolean.");
+
 		astNode.getIfBody().accept(this, context);
 		astNode.getElseBody().accept(this, context);
 		
