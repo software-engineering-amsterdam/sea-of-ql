@@ -30,7 +30,15 @@ public class Identifier extends Simple {
 	
 	public void setType(QLType value)
 	{
-		this.type = value;
+		if (type == null) {
+			this.type = value;	
+		} else {
+			//invalid operation: we need to be able to set the type later
+			//when it is inferred from an assignment. We cannot change 
+			//the type once it is set.
+			throw new IllegalStateException("Unable to change type of identifier.");
+		}
+		
 	}
 
 }

@@ -2,6 +2,11 @@ package org.uva.sea.ql.ast.expressions;
 
 import org.uva.sea.ql.ICodeLocationInformation;
 
+/**
+ *	Abstract implementation of a binary expression.
+ *  Provides basic implementation and constructor for
+ *  a left/right binary expression node.
+ */
 public abstract class Binary extends Expression {
 	
 	private final Expression left;

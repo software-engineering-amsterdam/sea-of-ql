@@ -19,6 +19,10 @@ import org.uva.sea.ql.ast.expressions.StringLiteral;
 import org.uva.sea.ql.ast.types.QLType;
 import org.uva.sea.ql.ast.types.TypeDeclaration;
 
+/**
+ * @author Bastiaan.Brekelmans
+ *
+ */
 public class Lexer implements Tokens {
 	private static final Map<String, Integer> KEYWORDS;
 
@@ -36,11 +40,17 @@ public class Lexer implements Tokens {
 		KEYWORDS.put("string", TYPE);
 	}
 
+	//last token
 	private int token;
+	//current character
 	private int c = ' ';
+	//current line number
 	private int line = 1;
+	//current position in line
 	private int column = 1;
+	//current file name
 	private String fileName;
+	//latest token recovered
 	private Node yylval;
 	private final Reader input;
 
@@ -49,6 +59,9 @@ public class Lexer implements Tokens {
 		this.fileName = fileName;
 	}
 
+	/**
+	 * @return An immutable object containing line number, column and file name information.
+	 */
 	public ICodeLocationInformation location()
 	{
 		return new CodeLocationInformationImpl(line, column, fileName);
@@ -59,6 +72,12 @@ public class Lexer implements Tokens {
 		throw new ParseError(line, column, fileName, msg);
 	}
 	
+	
+	/**
+	 * Move to next character position. Alters the field 'c'
+	 * and updates line/column numbers if required.
+	 * c becomes -1 if the end of input is reached.
+	 */
 	private void nextChar() {
 		if (c >= 0) {
 			try {
@@ -73,12 +92,12 @@ public class Lexer implements Tokens {
 				c = -1;
 			}
 		}
-
 	}
 
 	public int nextToken() {
 		boolean inComment = false;
 		while (true) {
+			//skip through to end of comment if we are in a comment.
 			if (inComment) {
 				while (c != '*' && c != -1) {
 					nextChar();
@@ -93,16 +112,19 @@ public class Lexer implements Tokens {
 				}
 			}
 
+			//skip whitespace
 			while (Character.isWhitespace(c)) {
 				nextChar();
 			}
-
+			
+			//check for end of input
 			if (c < 0) {
 				return token = ENDINPUT;
 			}
 
 			switch (c) {
 			case '/': {
+				//division or start of comment.
 				nextChar();
 				if (c == '*') {
 					inComment = true;
@@ -112,7 +134,7 @@ public class Lexer implements Tokens {
 				return token = '/';
 			}
 			case '"': {
-				return tokenizeString();
+				return getStringLiteral();
 			}
 			case ')':
 				nextChar();
@@ -195,7 +217,7 @@ public class Lexer implements Tokens {
 					return token = NUMBERLITERAL;
 
 				}
-				if (Character.isLetter(c)) {
+				if (Character.isLetter(c) || c == '_') {
 					StringBuilder sb = new StringBuilder();
 					do {
 						sb.append((char) c);
@@ -223,7 +245,7 @@ public class Lexer implements Tokens {
 		}
 	}
 
-	private int tokenizeString() {
+	private int getStringLiteral() {
 		nextChar();
 		StringBuilder builder = new StringBuilder();
 		boolean inString = true;

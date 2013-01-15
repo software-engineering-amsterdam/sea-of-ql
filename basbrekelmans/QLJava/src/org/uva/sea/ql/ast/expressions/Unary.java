@@ -3,6 +3,11 @@ package org.uva.sea.ql.ast.expressions;
 import org.uva.sea.ql.ICodeLocationInformation;
 import org.uva.sea.ql.ast.types.QLType;
 
+
+/**
+ * Unary expression has one operand. Implemented by 
+ * unary minus (-), unary plus (+) and unary not (!).
+ */
 public abstract class Unary extends Expression {
 	
 	private final Expression operand;
@@ -25,6 +30,11 @@ public abstract class Unary extends Expression {
 		}
 	}
 	
+	/**
+	 * @param type
+	 * @return When overridden in a derived method, determines
+	 * if a certain type is valid for this type of expression.
+	 */
 	protected abstract boolean isValidType(QLType type);
 	
 	public Expression getOperand() {

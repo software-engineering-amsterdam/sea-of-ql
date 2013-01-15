@@ -3,6 +3,10 @@ package org.uva.sea.ql.ast.expressions;
 import org.uva.sea.ql.ICodeLocationInformation;
 import org.uva.sea.ql.ast.types.QLType;
 
+
+/**
+ * A logical expression is either an AND or an OR binary switch.
+ */
 public abstract class Logical extends Binary {
 
 	public Logical(ICodeLocationInformation codeLocation,

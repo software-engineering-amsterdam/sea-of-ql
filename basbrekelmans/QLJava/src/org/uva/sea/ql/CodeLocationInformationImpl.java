@@ -1,6 +1,9 @@
 package org.uva.sea.ql;
 
 
+/**
+ *	Provides an immutable implementation of ICodeLocationInformation.
+ */
 public class CodeLocationInformationImpl implements ICodeLocationInformation {
 
 	private final int lineNumber;

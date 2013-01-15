@@ -8,8 +8,10 @@ public abstract class Arithmetic extends Binary {
 		super(codeLocation, left, right);
 	}
 	
-	/* (non-Javadoc)
-	 * @see org.uva.sea.ql.ast.expressions.Expression#getType()
+	/* This implementation checks the left and right type of 
+	 * the arithmetic expression. Both types should be a number
+	 * and money has the precedence if both integer and money type
+	 * are provided.
 	 */
 	@Override
 	public QLType getType() {
