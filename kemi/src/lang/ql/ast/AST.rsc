@@ -1,40 +1,91 @@
 module lang::ql::ast::AST
 
-import DateTime;
+data Form = form(str formName, list[Statement] formElements);
 
-data Expr
-  = ident(str name)
-  | \int(int ivalue)
-  | money(real mvalue)
-  | boolean(bool bvalue)
-  | date(str dvalue)
-  | string(str tvalue)
-  | pos(Expr a)
-  | neg(Expr a)
-  | not(Expr a)
-  | mul(Expr a, Expr b)
-  | div(Expr a, Expr b)
-  | add(Expr a, Expr b)
-  | sub(Expr a, Expr b)
-  | lt(Expr a, Expr b)
-  | leq(Expr a, Expr b)
-  | gt(Expr a, Expr b)
-  | geq(Expr a, Expr b)
-  | eq(Expr a, Expr b)
-  | neq(Expr a, Expr b)
-  | and(Expr a, Expr b)
-  | or(Expr a, Expr b)
+data Conditional
+  = conditional(Expr condition, list[Statement] body)
   ;
 
-  
-data Form
-  = form(Expr ident, list[Question] questions)
+data ElsePart
+  = elsePart(list[Statement] body)
   ;
 
-data Type
-  = \type(str name)
+data Statement 
+  = question(Question question)
+  | ifCondition(Conditional ifPart, list[Conditional] elseIfs, list[ElsePart] elsePart)
   ;
 
 data Question
-  = question(Expr qtext, Type \type, Expr ident)
+  // How standard implode returns it
+  = question(str, str, str)
+  | question(str, str, str, Expr e)
+  // How we want it
+  //| question(Expr questionText, Type answerDataType, Expr answerIdentifier)
+  //| question(Expr questionText, Type answerDataType, Expr answerIdentifier, Expr calculatedField)
   ;
+
+data Type
+  = \type(str typeName)
+  ;
+
+/* Nevermind, thought this would help but probably won't
+data Ident
+  = ident(str name)
+  ;
+
+data String
+  = string(str stringValue)
+  ;
+
+data Int
+  = integer(int intValue)
+  ;
+
+data Boolean
+  = boolean(bool booleanValue)
+  ;
+
+data Money
+  = money(real moneyValue)
+  ;
+
+data Date
+  = date(str dateValue)
+  ;
+*/
+
+data Expr
+  = ident(str name)
+  | \int(int intValue)
+  | money(real moneyValue)
+  | boolean(bool booleanValue)
+  | date(str dateValue)
+  | string(str text)
+  
+  | pos(Expr posValue)
+  | neg(Expr negValue)
+  | not(Expr notValue)
+  
+  | mul(Expr multiplicand, Expr multiplier)
+  | div(Expr numerator, Expr denominator)
+  | add(Expr leftAddend, Expr rightAddend)
+  | sub(Expr minuend, Expr subtrahend)
+  
+  | lt(Expr left, Expr right)
+  | leq(Expr left, Expr right)
+  | gt(Expr left, Expr right)
+  | geq(Expr left, Expr rigt)
+  | eq(Expr left, Expr right)
+  | neq(Expr left, Expr right)
+  
+  | and(Expr left, Expr right)
+  | or(Expr left, Expr right)
+  ;
+  
+// Some annotation for language integration
+anno loc Conditional@location;
+anno loc ElsePart@location;
+anno loc Expr@location;
+anno loc Form@location;
+anno loc Question@location;
+anno loc Statement@location;
