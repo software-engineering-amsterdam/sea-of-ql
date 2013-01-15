@@ -1,6 +1,6 @@
-class .styleClass {
-  fieldOne
-  fieldTwo
+class styleClass {
+  #fieldOne
+  #fieldTwo
 }
 
 boolean {
@@ -11,6 +11,6 @@ boolean {
   type radio
 }
 
-fieldThree {
+#fieldThree {
   width 200
 }

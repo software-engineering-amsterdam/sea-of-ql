@@ -1,18 +1,19 @@
 module lang::qls::syntax::QLS
 
+// TODO support trailing empty lines
 start syntax QLS
   = qls: Statement+ statements
   ;
 
 syntax Statement
-  = @Foldable classDefinition: ClassDefinition
-  | @Foldable typeStyleDefinition: TypeStyleDefinition
-  | @Foldable classStyleDefinition: ClassStyleDefinition
-  | @Foldable identStyleDefinition: IdentStyleDefinition
+  = @Foldable statement: ClassDefinition
+  | @Foldable statement: TypeStyleDefinition
+  | @Foldable statement: ClassStyleDefinition
+  | @Foldable statement: IdentStyleDefinition
   ;
 
 syntax ClassDefinition
-  = classDefinition: "class" ClassIdent "{" QuestionIdent+ "}"
+  = classDefinition: "class" Ident "{" QuestionIdent+ "}"
   ;
 
 syntax TypeStyleDefinition
@@ -36,7 +37,7 @@ lexical ClassIdent
   ; 
 
 lexical QuestionIdent
-  = Ident
+  = [#]Ident
   ;
 
 lexical Ident
@@ -67,4 +68,36 @@ lexical StyleTypeValue
 
 lexical Int
   = [0-9]+ !>> [0-9]
+  ;
+
+syntax WhitespaceOrComment 
+  = whitespace: Whitespace whitespace
+  | comment: Comment comment
+  ;
+  
+lexical Comment 
+  = @category="Comment" "/*" CommentChar* "*/"
+  | @category="Comment" "//" ![\n]* $
+  ;
+
+lexical CommentChar
+  = ![*]
+  | [*] !>> [/]
+  ;
+
+lexical Whitespace = [\u0009-\u000D \u0020 \u0085 \u00A0 \u1680 \u180E \u2000-\u200A \u2028 \u2029 \u202F \u205F \u3000];
+
+layout Standard = WhitespaceOrComment* !>> [\ \t\n\f\r] !>> "//" !>> "/*";
+
+keyword Keywords 
+  = boolean: "boolean"
+  | \int: "integer"
+  | money: "money"
+  | date: "date"
+  | string: "string"
+  | form: "class"
+  | \type: "type"
+  | width: "width"
+  | radio: "radio"
+  | checkbox: "checkbox"
   ;
