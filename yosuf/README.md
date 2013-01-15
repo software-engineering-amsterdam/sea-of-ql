@@ -1,1 +1,0 @@
-Yosuf's directory for SC assignments.
