@@ -52,28 +52,28 @@ syntax WhitespaceOrComment
  	;   
  
 start syntax Form 
-	= form: "form" Ident name "{" FormBody+ formBody "}"
+	= form: "form" Ident name "{" FormBodyItem+ formBody "}"
 	;
 
-start syntax FormBody
+start syntax FormBodyItem
 	= question: Question question
 	| conditionalStatement: ConditionalStatement conditionalStatement
 	;
 
-start syntax ConditionalStatement
+start syntax ConditionalStatement //"{" Question+ question "}" can i insert FormBodyItem??
 	= ifCond: "if" Expr cond "{" Question+ question "}" "else" "{" Question+ question "}"
 	| simpleIfCond : "if" Expr cond "{" Question+ question "}"
 	| ifElseIfCond : "if" Expr cond "{" Question+ question "}" ElseIf+ elseIfCondition "else" "{" Question+ question "}"
 	;
 
 start syntax ElseIf
-	= "else" "if" Expr cond "{"Question+ question"}"
+	= elseif: "else" "if" Expr cond "{"Question+ question"}"
 	;
 
 start syntax Question
 	= simpleQuestion: Ident ident ":" String label Type type
 	| computedQuestion: Ident ident ":"  String label  Type type Expr compExpression
-	| testQ: String label
+	 
 	;
 
 start syntax Expr
@@ -115,7 +115,8 @@ start syntax Type
  	| date:"date"
  	| money:"money"
  	| string:"string"
- 	| float: "float";    
+ 	| float: "float"
+ 	;    
 
 keyword Keywords
 	= \true: "true"
