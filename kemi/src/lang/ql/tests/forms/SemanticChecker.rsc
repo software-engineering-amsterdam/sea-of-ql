@@ -34,16 +34,19 @@ public test bool testIfElseCondition() =
   semanticChecker(|project://QL-R-kemi/forms/ifElseCondition.q|, 0);
   
 public test bool testIfElseIfCondition() = 
-  semanticChecker(|project://QL-R-kemi/forms/ifElseIfCondition.q|, 0);
+  semanticChecker(|project://QL-R-kemi/forms/ifElseIfCondition.q|, 4);
   
 public test bool testIfElseIfElseCondition() = 
-  semanticChecker(|project://QL-R-kemi/forms/ifElseIfElseCondition.q|, 8);
+  semanticChecker(|project://QL-R-kemi/forms/ifElseIfElseCondition.q|, 12);
   
 public test bool testMultipleQuestions() = 
   semanticChecker(|project://QL-R-kemi/forms/multipleQuestions.q|, 0);
   
 public test bool testNestedIfElseIfElseCondition() = 
-  semanticChecker(|project://QL-R-kemi/forms/nestedIfElseIfElseCondition.q|, 14);
+  semanticChecker(|project://QL-R-kemi/forms/nestedIfElseIfElseCondition.q|, 22);
   
 public test bool testUglyFormattedForm() = 
-  semanticChecker(|project://QL-R-kemi/forms/uglyFormatted.q|, 8);
+  semanticChecker(|project://QL-R-kemi/forms/uglyFormatted.q|, 13);
+  
+public test bool testUndefinedVariableForm() = 
+  semanticChecker(|project://QL-R-kemi/forms/undefinedVariable.q|, 1);
