@@ -1,13 +1,15 @@
 package org.uva.sea.ql.ast;
 
-import java.util.List;
-
-public class IfThenElse implements ASTNode {
+public class IfThenElse extends Statement {
 	
-	private List<Question> body;
+	private Block body;
+	private Block elseBody;
+	private Expr condition;
 	
-	public IfThenElse(List<Question> body) {
+	public IfThenElse(Expr condition, Block body, Block elseBody) {
 		this.body = body;
+		this.elseBody = elseBody;
+		this.condition = condition;
 	}
 
 }
