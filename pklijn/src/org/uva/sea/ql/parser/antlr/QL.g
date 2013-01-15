@@ -12,6 +12,21 @@ import org.uva.sea.ql.ast.*;
 package org.uva.sea.ql.parser.antlr;
 }
 
+form returns [Form result]
+@init { List<Question> questions = new ArrayList(); }
+  : 'form' Ident '{'
+    (question {questions.add($question.result);})*
+    '}' { $result = new Form($Ident.text,questions); }
+  ;
+
+question returns [Question result]
+  : Ident ':' String {$result = new Question($Ident.text, $String.text);}
+  ;
+
+//questionType
+//  : 'boolean'
+//  ;
+
 primary returns [Expr result]
   : Int   { $result = new Int(Integer.parseInt($Int.text)); }
   | Ident { $result = new Ident($Ident.text); }
@@ -95,3 +110,5 @@ COMMENT
 Ident:   ('a'..'z'|'A'..'Z')('a'..'z'|'A'..'Z'|'0'..'9'|'_')*;
 
 Int: ('0'..'9')+;
+
+String: '"' .* '"';
