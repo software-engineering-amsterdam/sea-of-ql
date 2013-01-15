@@ -26,10 +26,11 @@ public interface IVisitor {
 	void visit(final Not not);
 	void visit(final Pos pos);
 	
-	// Computation
+	// Form
 	void visit(final Computation computation);
 	void visit(final Form form);
 	void visit(final Question question);
+	void visit(final Label label);
 	
 	// Conditionals
 	void visit(final IfThen ifThen);
@@ -40,4 +41,5 @@ public interface IVisitor {
 	void visit(final Int i);
 	void visit(final Money money);
 	void visit(final StringLiteral literal);
+	void visit(final Ident ident);
 }

@@ -13,10 +13,12 @@ public class IfThen extends IfStatement {
 
 	// TODO: remove duplicate code with IfThenElse
 	@Override
-	public void accept(final IVisitor visitor) {
+	public void accept(final IVisitor visitor) {		
 		for (final Element nodeToVisit : successElements) {
 			nodeToVisit.accept(visitor);
 		}
+		
+		super.accept(visitor);
 		
 		visitor.visit(this);
 	}

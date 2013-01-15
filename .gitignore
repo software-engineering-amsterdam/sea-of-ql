@@ -1,6 +1,9 @@
-kemi/bin/*
-vkomsiyski/bin/*
 abort/bin/*
 *~ # Temporary files
 *.class # Compiled Java
 .DS_Store
+*.rej
+*.tokens
+abort/src/org.uva.sea.ql.parser.antlr/QLLexer.java
+abort/src/org.uva.sea.ql.parser.antlr/QLParser.java
+.classpath

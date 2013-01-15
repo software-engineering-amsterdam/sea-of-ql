@@ -1,5 +1,6 @@
-package org.uva.sea.ql.ast.base;
+package org.uva.sea.ql.ast.types;
 
+import org.uva.sea.ql.ast.base.Node;
 import org.uva.sea.ql.ast.traversal.base.IVisitor;
 
 public class Ident extends Node {
@@ -15,7 +16,6 @@ public class Ident extends Node {
 
 	@Override
 	public void accept(final IVisitor visitor) {
-		// TODO Auto-generated method stub
-		
+		visitor.visit(this);
 	}
 }

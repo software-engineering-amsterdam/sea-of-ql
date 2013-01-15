@@ -22,4 +22,9 @@ public abstract class IfStatement extends Element {
 	public final List<Element> getSuccessElements() {
 		return successElements;
 	}
+	
+	@Override
+	public void accept(IVisitor visitor) {
+		conditions.accept(visitor);
+	}
 }

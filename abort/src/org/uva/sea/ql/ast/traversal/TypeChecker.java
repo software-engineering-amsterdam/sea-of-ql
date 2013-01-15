@@ -1,7 +1,6 @@
 package org.uva.sea.ql.ast.traversal;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 
 import org.uva.sea.ql.ast.base.Node;
@@ -10,9 +9,8 @@ import org.uva.sea.ql.ast.conditionals.IfThenElse;
 import org.uva.sea.ql.ast.form.Computation;
 import org.uva.sea.ql.ast.form.Element;
 import org.uva.sea.ql.ast.form.Form;
+import org.uva.sea.ql.ast.form.Label;
 import org.uva.sea.ql.ast.form.Question;
-import org.uva.sea.ql.ast.operators.base.BinaryOperator;
-import org.uva.sea.ql.ast.operators.base.UnaryOperator;
 import org.uva.sea.ql.ast.operators.binary.Add;
 import org.uva.sea.ql.ast.operators.binary.And;
 import org.uva.sea.ql.ast.operators.binary.Div;
@@ -28,40 +26,66 @@ import org.uva.sea.ql.ast.operators.binary.Sub;
 import org.uva.sea.ql.ast.operators.unary.Neg;
 import org.uva.sea.ql.ast.operators.unary.Not;
 import org.uva.sea.ql.ast.operators.unary.Pos;
-import org.uva.sea.ql.ast.traversal.base.IVisitable;
 import org.uva.sea.ql.ast.traversal.base.IVisitor;
 import org.uva.sea.ql.ast.types.Bool;
-import org.uva.sea.ql.ast.types.DataType;
+import org.uva.sea.ql.ast.types.Ident;
 import org.uva.sea.ql.ast.types.Int;
 import org.uva.sea.ql.ast.types.Money;
 import org.uva.sea.ql.ast.types.StringLiteral;
-
-import sun.tools.tree.AddExpression;
 
 // TODO: use observer pattern to store errors
 public class TypeChecker implements IVisitor {
 	private List<String> errors = new ArrayList<String>();
 	private List<String> log = new ArrayList<String>();
-	private TypeContainer resultTypes = new TypeContainer(); 
-	//sprivate Set<String> labels = new HashSet<E>();
 
+	private ResultTypeTable resultTable = new ResultTypeTable(); 
+	private SymbolTable symbolTable = new SymbolTable();
+
+	public List<String> getErrors() {
+		return errors;
+	}
+	
+	public List<String> getLog() {
+		return log;
+	}
+	
+	@Override
+	public void visit(final Label label) {
+		resultTable.addTypeForNode(label, Label.class);
+	}
+
+	@Override
+	public void visit(final Ident ident) {
+		final String name = ident.getName();
+		
+		// Invalid reference, this label has not been declared and can not be used
+		if (!symbolTable.isLabelDeclared(name)) {
+			errors.add("[Ident] Invalid reference to label (" + name + ")");
+		}
+		else {
+			// Substitute ident for the value from the symbol table
+			log.add("[Ident] Success");
+			resultTable.addTypeForNode(ident, symbolTable.getTypeOfNode(new Label(name)));
+		}
+	}
+	
 	@Override
 	public void visit(final And and) {
 		// TODO: remove duplicate code of And and Or
-		final Class<? extends Node> leftHandSide = getLeftHandSideResultType(and);
-		final Class<? extends Node> rightHandSide = getRightHandSideResultType(and);
+		final Class<? extends Node> leftHandSide = resultTable.getLeftHandSideResultType(and);
+		final Class<? extends Node> rightHandSide = resultTable.getRightHandSideResultType(and);
 		boolean error = false;
-		if (!isBooleanType(leftHandSide)) {
+		if (!resultTable.isBooleanType(leftHandSide)) {
 			errors.add("[And] the left hand side is not of the type Int or money");
 			error = true;
 		}
-		if (!isBooleanType(rightHandSide)) {
+		if (!resultTable.isBooleanType(rightHandSide)) {
 			errors.add("[And] the right hand side is not of the type Int or money");
 			error = true;
 		}
 		
 		if (!error) {
-			resultTypes.addTypeForNode(and, Bool.class);
+			resultTable.addTypeForNode(and, Bool.class);
 			
 			log.add("[And] valid");
 		}
@@ -69,130 +93,130 @@ public class TypeChecker implements IVisitor {
 
 	@Override
 	public void visit(final Div div) {
-		final Class<? extends Node> leftHandSide = getLeftHandSideResultType(div);
-		final Class<? extends Node> rightHandSide = getRightHandSideResultType(div);
+		final Class<? extends Node> leftHandSide =resultTable.getLeftHandSideResultType(div);
+		final Class<? extends Node> rightHandSide = resultTable.getRightHandSideResultType(div);
 		boolean error = false;
 		
-		if (!isMoneyOrIntegerType(leftHandSide)) {
+		if (!resultTable.isMoneyOrIntegerType(leftHandSide)) {
 			errors.add("[Div] the left hand side is not of the type Int or money");
 			error = true;
 		}
-		if (!isMoneyOrIntegerType(rightHandSide)) {
+		if (!resultTable.isMoneyOrIntegerType(rightHandSide)) {
 			errors.add("[Div] the right hand side is not of the type Int or money");
 			error = true;
 		}
 		
 		if (!error) {
 			log.add("[Div] success");
-			resultTypes.addTypeForNode(div, isMoneyTypeInvolved(div) ? Money.class : Int.class);
+			resultTable.addTypeForNode(div, resultTable.isMoneyTypeInvolved(div) ? Money.class : Int.class);
 		}		
 	}
 
 	@Override
 	public void visit(final Eq eq) {
-		if (!hasOperationGotEqualTypes(eq)) {
+		if (!resultTable.hasOperationGotEqualTypes(eq)) {
 			errors.add("[Eq] the operation requires both the left hand side and the right hands side to be of the same type");
 		}
 		else {
 			log.add("[Eq] success");
-			resultTypes.addTypeForNode(eq, Bool.class);			
+			resultTable.addTypeForNode(eq, Bool.class);			
 		}
 	}
 
 	@Override
 	public void visit(final GEq geq) {
-		final Class<? extends Node> leftHandSide = getLeftHandSideResultType(geq);
-		final Class<? extends Node> rightHandSide = getRightHandSideResultType(geq);
+		final Class<? extends Node> leftHandSide =resultTable.getLeftHandSideResultType(geq);
+		final Class<? extends Node> rightHandSide = resultTable.getRightHandSideResultType(geq);
 		boolean error = false;
 		
-		if (!isMoneyOrIntegerType(leftHandSide)) {
+		if (!resultTable.isMoneyOrIntegerType(leftHandSide)) {
 			errors.add("[GEq] the left hand side is not of the type Int or money");
 			error = true;
 		}
 
-		if (!isMoneyOrIntegerType(rightHandSide)) {
+		if (!resultTable.isMoneyOrIntegerType(rightHandSide)) {
 			errors.add("[GEq] the right hand side is not of the type Int or money");
 			error = true;
 		}
 		
-		if (!hasOperationGotEqualTypes(geq)) {
+		if (!resultTable.hasOperationGotEqualTypes(geq)) {
 			errors.add("[GEq] the operation requires both the left hand side and the right hands side to be of the same type");
 			error = true;
 		}
 		
 		if (!error) {
 			log.add("[GEq] success");
-			resultTypes.addTypeForNode(geq, Bool.class);			
+			resultTable.addTypeForNode(geq, Bool.class);			
 		}		
 	}
 	
 	
 	@Override
 	public void visit(final GT gt) {
-		final Class<? extends Node> leftHandSide = getLeftHandSideResultType(gt);
-		final Class<? extends Node> rightHandSide = getRightHandSideResultType(gt);
+		final Class<? extends Node> leftHandSide =resultTable.getLeftHandSideResultType(gt);
+		final Class<? extends Node> rightHandSide = resultTable.getRightHandSideResultType(gt);
 		boolean error = false;
 		
-		if (!isMoneyOrIntegerType(leftHandSide)) {
+		if (!resultTable.isMoneyOrIntegerType(leftHandSide)) {
 			errors.add("[GEq] the left hand side is not of the type Int or money");
 			error = true;
 		}
 
-		if (!isMoneyOrIntegerType(rightHandSide)) {
+		if (!resultTable.isMoneyOrIntegerType(rightHandSide)) {
 			errors.add("[GEq] the right hand side is not of the type Int or money");
 			error = true;
 		}
 		
-		if (!hasOperationGotEqualTypes(gt)) {
+		if (!resultTable.hasOperationGotEqualTypes(gt)) {
 			errors.add("[GEq] the operation requires both the left hand side and the right hands side to be of the same type");
 			error = true;
 		}
 		
 		if (!error) {
 			log.add("[GEq] success");
-			resultTypes.addTypeForNode(gt, Bool.class);			
+			resultTable.addTypeForNode(gt, Bool.class);			
 		}		
 	}
 	
 	@Override
 	public void visit(final LEq leq) {
-		final Class<? extends Node> leftHandSide = getLeftHandSideResultType(leq);
-		final Class<? extends Node> rightHandSide = getRightHandSideResultType(leq);
+		final Class<? extends Node> leftHandSide =resultTable.getLeftHandSideResultType(leq);
+		final Class<? extends Node> rightHandSide = resultTable.getRightHandSideResultType(leq);
 		boolean error = false;
 		
-		if (!isMoneyOrIntegerType(leftHandSide)) {
+		if (!resultTable.isMoneyOrIntegerType(leftHandSide)) {
 			errors.add("[LEq] the left hand side is not of the type Int or money");
 			error = true;
 		}
 
-		if (!isMoneyOrIntegerType(rightHandSide)) {
+		if (!resultTable.isMoneyOrIntegerType(rightHandSide)) {
 			errors.add("[LEq] the right hand side is not of the type Int or money");
 			error = true;
 		}
 		
-		if (!hasOperationGotEqualTypes(leq)) {
+		if (!resultTable.hasOperationGotEqualTypes(leq)) {
 			errors.add("[LEq] the operation requires both the left hand side and the right hands side to be of the same type");
 			error = true;
 		}
 		
 		if (!error) {
 			log.add("[LEq] success");
-			resultTypes.addTypeForNode(leq, Bool.class);			
+			resultTable.addTypeForNode(leq, Bool.class);			
 		}	
 	}
 
 	@Override
 	public void visit(final Mul mul) {
-		final Class<? extends Node> leftHandSide = getLeftHandSideResultType(mul);
-		final Class<? extends Node> rightHandSide = getRightHandSideResultType(mul);
+		final Class<? extends Node> leftHandSide =resultTable.getLeftHandSideResultType(mul);
+		final Class<? extends Node> rightHandSide = resultTable.getRightHandSideResultType(mul);
 		boolean error = false;
 		
-		if (!isMoneyOrIntegerType(leftHandSide)) {
+		if (!resultTable.isMoneyOrIntegerType(leftHandSide)) {
 			errors.add("[Mul] the left hand side is not of the type Int or money");
 			error = true;
 		}
 
-		if (!isMoneyOrIntegerType(rightHandSide)) {
+		if (!resultTable.isMoneyOrIntegerType(rightHandSide)) {
 			errors.add("[Mul] the right hand side is not of the type Int or money");
 			error = true;
 		}
@@ -204,37 +228,37 @@ public class TypeChecker implements IVisitor {
 		
 		if (!error) {
 			log.add("[Mul] success");
-			resultTypes.addTypeForNode(mul, isMoneyTypeInvolved(mul) ? Money.class : Int.class);
+			resultTable.addTypeForNode(mul, resultTable.isMoneyTypeInvolved(mul) ? Money.class : Int.class);
 		}
 	}
 	
 	@Override
 	public void visit(final NEq neq) {
-		if (!hasOperationGotEqualTypes(neq)) {
+		if (!resultTable.hasOperationGotEqualTypes(neq)) {
 			errors.add("[NEq] the operation requires both the left hand side and the right hands side to be of the same type");
 		}
 		else {
 			log.add("[NEq] success");
-			resultTypes.addTypeForNode(neq, Bool.class);			
+			resultTable.addTypeForNode(neq, Bool.class);			
 		}		
 	}
 	
 	@Override
 	public void visit(final Or or) {
-		final Class<? extends Node> leftHandSide = getLeftHandSideResultType(or);
-		final Class<? extends Node> rightHandSide = getRightHandSideResultType(or);
+		final Class<? extends Node> leftHandSide =resultTable.getLeftHandSideResultType(or);
+		final Class<? extends Node> rightHandSide = resultTable.getRightHandSideResultType(or);
 		boolean error = false;
-		if (!isBooleanType(leftHandSide)) {
+		if (!resultTable.isBooleanType(leftHandSide)) {
 			errors.add("[Or] the left hand side is not of the type Int or money");
 			error = true;
 		}
-		if (!isBooleanType(rightHandSide)) {
+		if (!resultTable.isBooleanType(rightHandSide)) {
 			errors.add("[Or] the right hand side is not of the type Int or money");
 			error = true;
 		}
 		
 		if (!error) {
-			resultTypes.addTypeForNode(or, Bool.class);
+			resultTable.addTypeForNode(or, Bool.class);
 			
 			log.add("[Or] valid");
 		}
@@ -242,29 +266,29 @@ public class TypeChecker implements IVisitor {
 	
 	@Override
 	public void visit(final Sub sub) {
-		final Class<? extends Node> leftHandSide = getLeftHandSideResultType(sub);
-		final Class<? extends Node> rightHandSide = getRightHandSideResultType(sub);
+		final Class<? extends Node> leftHandSide = resultTable.getLeftHandSideResultType(sub);
+		final Class<? extends Node> rightHandSide = resultTable.getRightHandSideResultType(sub);
 		boolean error = false;
 
-		if (!isMoneyOrIntegerType(leftHandSide)) {
+		if (!resultTable.isMoneyOrIntegerType(leftHandSide)) {
 			errors.add("[Sub] the left hand side is not of the type Int or money");
 			error = true;
 		}
 		
-		if (!isMoneyOrIntegerType(rightHandSide)) {
+		if (!resultTable.isMoneyOrIntegerType(rightHandSide)) {
 			errors.add("[Sub] the right hand side is not of the type Int or money");
 			error = true;
 		}
 
-		if (!hasOperationGotEqualTypes(sub)) {
+		if (!resultTable.hasOperationGotEqualTypes(sub)) {
 			errors.add("[Sub] the operation requires both the left hand side and the right hands side to be of the same type");
 			error = true;
 		}
 		
 		if (!error) {
 			// result in money if necessary
-			Class<? extends Node> resultType = isMoneyTypeInvolved(sub) ? Money.class : Int.class;
-			resultTypes.addTypeForNode(sub, resultType);
+			Class<? extends Node> resultType = resultTable.isMoneyTypeInvolved(sub) ? Money.class : Int.class;
+			resultTable.addTypeForNode(sub, resultType);
 			
 			log.add("[Add] valid");
 		}
@@ -272,49 +296,72 @@ public class TypeChecker implements IVisitor {
 
 	@Override
 	public void visit(final Neg neg) {
-		final Class<? extends Node> resultType = getUnaryResultType(neg);
-		if (!isMoneyOrIntegerType(resultType)) {
+		final Class<? extends Node> resultType = resultTable.getUnaryResultType(neg);
+		if (!resultTable.isMoneyOrIntegerType(resultType)) {
 			errors.add("[Neg] negation requires the type of Int or Money");
 		}
 		else {
 			log.add("[Neg] success");
-			resultTypes.addTypeForNode(neg, resultType);
+			resultTable.addTypeForNode(neg, resultType);
 		}
 	}
 
 	@Override
 	public void visit(final Not not) {
-		final Class<? extends Node> resultType = getUnaryResultType(not);
-		if (!isBooleanType(resultType)) {
+		final Class<? extends Node> resultType = resultTable.getUnaryResultType(not);
+		if (!resultTable.isBooleanType(resultType)) {
 			errors.add("[Not] negation requires the type of Int or Money");
 		}
 		else {
 			log.add("[Not] success");
-			resultTypes.addTypeForNode(not, resultType);
+			resultTable.addTypeForNode(not, resultType);
 		}
 	}
 
 	@Override
 	public void visit(final Pos pos) {
-		final Class<? extends Node> resultType = getUnaryResultType(pos);
-		if (!isBooleanType(resultType)) {
+		final Class<? extends Node> resultType = resultTable.getUnaryResultType(pos);
+		if (!resultTable.isBooleanType(resultType)) {
 			errors.add("[Pos] operation requires the type of Int or Money");
 		}
 		else {
 			log.add("[Pos] success");
-			resultTypes.addTypeForNode(pos, resultType);
+			resultTable.addTypeForNode(pos, resultType);
 		}		
 	}
 	
 	@Override
 	public void visit(final Computation computation) {
+		final Label label = computation.getLabel();
+		if (symbolTable.isLabelDeclared(label)) {
+			errors.add("[Computation] redeclaration of label " + label.getIdentifier());
+		}
+		else {
+			symbolTable.addTypeForNode(computation.getLabel(), computation.getExpectedType().getClass());
+		}
+		
 		final Node calculationOperation = computation.getCalculationOperation();
-		if (calculationOperation == null || !isMoneyOrIntegerType(resultTypes.getTypeOfNode(calculationOperation))) {
+		if (calculationOperation == null || !resultTable.isMoneyOrIntegerType(resultTable.getTypeOfNode(calculationOperation))) {
 			errors.add("[Computation] A computation should result in an integer or money");
 		}
 		else {
 			log.add("[Computation] success");
-			resultTypes.addTypeForNode(computation, Computation.class);
+			resultTable.addTypeForNode(computation, Computation.class);
+		}
+	}
+
+	@Override
+	public void visit(final Question question) {
+		log.add("[Question] success");
+		resultTable.addTypeForNode(question, Question.class);
+		
+		
+		final Label label = question.getLabel();
+		if (symbolTable.isLabelDeclared(label)) {
+			errors.add("[Question] redeclaration of label " + label.getIdentifier());
+		}
+		else {
+			symbolTable.addTypeForNode(question.getLabel(), question.getExpectedType().getClass());
 		}
 	}
 	
@@ -326,19 +373,14 @@ public class TypeChecker implements IVisitor {
 		}
 		else {
 			log.add("[Form] success");
-			resultTypes.addTypeForNode(form, Form.class);
+			resultTable.addTypeForNode(form, Form.class);
 		}
 	}
-	
-	@Override
-	public void visit(final Question question) {
-		log.add("[Question] success");
-		resultTypes.addTypeForNode(question, Question.class);
-	}
+
 	@Override
 	public void visit(final IfThen ifThen) {
 		final Node conditions = ifThen.getConditions();
-		if (!Bool.class.equals(resultTypes.getTypeOfNode(conditions))) {
+		if (!Bool.class.equals(resultTable.getTypeOfNode(conditions))) {
 			errors.add("[IfThen] The condition does not result in boolean type");
 		}
 		else {
@@ -349,14 +391,14 @@ public class TypeChecker implements IVisitor {
 				errors.add("[IfThen] warning: empty success flow");
 			}
 			
-			resultTypes.addTypeForNode(ifThen, IfThen.class);
+			resultTable.addTypeForNode(ifThen, IfThen.class);
 		}
 	}
 	
 	@Override
 	public void visit(final IfThenElse ifThenElse) {
 		final Node conditions = ifThenElse.getConditions();
-		if (!Bool.class.equals(resultTypes.getTypeOfNode(conditions))) {
+		if (!Bool.class.equals(resultTable.getTypeOfNode(conditions))) {
 			errors.add("[IfThenElse] The condition does not result in boolean type");
 		}
 		else {
@@ -364,62 +406,62 @@ public class TypeChecker implements IVisitor {
 		
 			final List<Element> successElements = ifThenElse.getSuccessElements();
 			if (successElements == null || successElements.size() == 0) {
-				errors.add("[IfThen] warning: empty success flow");
+				errors.add("[IfThenElse] warning: empty success flow");
 			}
 
 			final List<Element> elseElements = ifThenElse.getElseElements();
 			if (elseElements == null || elseElements.size() == 0) {
-				errors.add("[IfThen] warning: empty success flow");
+				errors.add("[IfThenElse] warning: empty success flow");
 			}
 			
-			resultTypes.addTypeForNode(ifThenElse, IfThen.class);
+			resultTable.addTypeForNode(ifThenElse, IfThen.class);
 		}		
 	}
 	
 	@Override
 	public void visit(final Bool bool) {
-		resultTypes.addTypeForNode(bool, Bool.class);
+		resultTable.addTypeForNode(bool, Bool.class);
 	}
 	
 	@Override
 	public void visit(final Int i) {
-		resultTypes.addTypeForNode(i, Int.class);
+		resultTable.addTypeForNode(i, Int.class);
 	}
 
 	@Override
 	public void visit(final Money money) {
-		resultTypes.addTypeForNode(money, Money.class);
+		resultTable.addTypeForNode(money, Money.class);
 	}
 	@Override
 	public void visit(final StringLiteral literal) {
-		resultTypes.addTypeForNode(literal, StringLiteral.class);
+		resultTable.addTypeForNode(literal, StringLiteral.class);
 	}
 
 	@Override
 	public void visit(final Add add) {
-		final Class<? extends Node> leftHandSide = getLeftHandSideResultType(add);
-		final Class<? extends Node> rightHandSide = getRightHandSideResultType(add);
+		final Class<? extends Node> leftHandSide =resultTable.getLeftHandSideResultType(add);
+		final Class<? extends Node> rightHandSide = resultTable.getRightHandSideResultType(add);
 		boolean error = false;
 
-		if (!isMoneyOrIntegerType(leftHandSide)) {
+		if (!resultTable.isMoneyOrIntegerType(leftHandSide)) {
 			errors.add("[Add] the left hand side is not of the type Int or money");
 			error = true;
 		}
 		
-		if (!isMoneyOrIntegerType(rightHandSide)) {
+		if (!resultTable.isMoneyOrIntegerType(rightHandSide)) {
 			errors.add("[Add] the right hand side is not of the type Int or money");
 			error = true;
 		}
 
-		if (!hasOperationGotEqualTypes(add)) {
+		if (!resultTable.hasOperationGotEqualTypes(add)) {
 			errors.add("[Add] the operation requires both the left hand side and the right hands side to be of the same type");
 			error = true;
 		}
 		
 		if (!error) {
 			// result in money if necessary
-			Class<? extends Node> resultType = isMoneyTypeInvolved(add) ? Money.class : Int.class;
-			resultTypes.addTypeForNode(add, resultType);
+			Class<? extends Node> resultType = (resultTable.isMoneyTypeInvolved(add) ? Money.class : Int.class);
+			resultTable.addTypeForNode(add, resultType);
 			
 			log.add("[Add] valid");
 		}
@@ -427,65 +469,26 @@ public class TypeChecker implements IVisitor {
 
 	@Override
 	public void visit(final LT lt) {
-		final Class<? extends Node> leftHandSide = getLeftHandSideResultType(lt);
-		final Class<? extends Node> rightHandSide = getRightHandSideResultType(lt);
+		final Class<? extends Node> leftHandSide = resultTable.getLeftHandSideResultType(lt);
+		final Class<? extends Node> rightHandSide = resultTable.getRightHandSideResultType(lt);
 		
 		boolean error = false;
 		
-		if (!isMoneyOrIntegerType(leftHandSide)) {
+		if (!resultTable.isMoneyOrIntegerType(leftHandSide)) {
 			errors.add("[LT] the left hand side is not of the type Int or money");
 			error = true;
 		}
 		
-		if (!isMoneyOrIntegerType(rightHandSide)) {
+		if (!resultTable.isMoneyOrIntegerType(rightHandSide)) {
 			errors.add("[LT] the right hand side is not of the type Int or money");
 			error = true;
 		}
 		
 		if (!error) {
 			// TODO: result type factory?
-			resultTypes.addTypeForNode(lt, Bool.class);
+			resultTable.addTypeForNode(lt, Bool.class);
 			
 			log.add("[LT] valid");
 		}
-	}
-	
-	private boolean hasOperationGotEqualTypes(final BinaryOperator operator) {
-		final Class<? extends Node> leftHandSide = getLeftHandSideResultType(operator);
-		final Class<? extends Node> rightHandSide = getRightHandSideResultType(operator);		
-		
-		if (leftHandSide == null || rightHandSide == null) {
-			return false;
-		}
-		else {
-			return leftHandSide.equals(rightHandSide);
-		}
-	}
-	
-	private boolean isBooleanType(final Class<? extends Node> nodeType) {
-		return (Bool.class.equals(nodeType));
-	}
-	
-	private boolean isMoneyOrIntegerType(final Class<? extends Node> nodeType) {
-		return (Int.class.equals(nodeType) || !Money.class.equals(nodeType));
-	}
-	
-	private final boolean isMoneyTypeInvolved(final BinaryOperator operator) {
-		final Class<? extends Node> leftHandSide = getLeftHandSideResultType(operator);
-		final Class<? extends Node> rightHandSide = getRightHandSideResultType(operator);		
-		
-		return (leftHandSide.equals(Money.class) || rightHandSide.equals(Money.class));
-	}
-
-	private final Class<? extends Node> getLeftHandSideResultType(final BinaryOperator operator) {
-		return resultTypes.getTypeOfNode(operator.getLeftHandSide());
-	}
-	
-	private final Class<? extends Node> getRightHandSideResultType(final BinaryOperator operator) {
-		return resultTypes.getTypeOfNode(operator.getRightHandSide());
-	}
-	
-	private final Class<? extends Node> getUnaryResultType(final UnaryOperator operator) {
-		return resultTypes.getTypeOfNode(operator.getNode());
 	}
 }

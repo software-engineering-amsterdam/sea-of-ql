@@ -24,6 +24,8 @@ public class IfThenElse extends IfStatement {
 			nodeToVisit.accept(visitor);
 		}
 		
+		super.accept(visitor);
+
 		visitor.visit(this);		
 	}
 	

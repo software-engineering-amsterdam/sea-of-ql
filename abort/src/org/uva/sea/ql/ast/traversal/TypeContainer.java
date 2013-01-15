@@ -1,26 +1,26 @@
 package org.uva.sea.ql.ast.traversal;
 
-import java.util.LinkedHashMap;
+import java.util.HashMap;
 import java.util.Map;
 
 import org.uva.sea.ql.ast.base.Node;
-import org.uva.sea.ql.ast.types.DataType;
 
-class TypeContainer {
-	// Store the return type for a node
-	private Map<Node, Class<? extends Node>> resolvedTypes = new LinkedHashMap<Node, Class<? extends Node>>();
+abstract class TypeContainer {
+	// Store the type for a node
+	protected Map<Node, Class<? extends Node>> types = new HashMap<Node, Class<? extends Node>>();
 	
-	public TypeContainer() {
+	protected TypeContainer() {
 		
 	}
-	
+
+	// TODO: might remove subnode values
 	public void addTypeForNode(final Node node, final Class<? extends Node> type) {
-		resolvedTypes.put(node, type);
-		// TODO: remove subnode values
+		types.put(node, type);
 	}
 	
+
 	public Class<? extends Node> getTypeOfNode(final Node node) {
-		final Class<? extends Node> type = resolvedTypes.get(node);
+		final Class<? extends Node> type = types.get(node);
 		
 		// Type is invalid or not yet resolved
 		return type;

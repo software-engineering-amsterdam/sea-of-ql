@@ -56,12 +56,12 @@ questions returns [List<Question> results]
 
 computation returns [Computation result]
   : label=Ident ':' String parameter=dataType PARENTHESES_OPEN operation=orExpression PARENTHESES_CLOSE {
-    $result = new Computation($label.text, $String.text, $parameter.result, $operation.result);
+    $result = new Computation(new Label($label.text), $String.text, $parameter.result, $operation.result);
   };
 
 question returns [Question result]
   : label=Ident ':' String parameter=dataType {
-    $result = new Question($label.text, $String.text, $parameter.result);
+    $result = new Question(new Label($label.text), $String.text, $parameter.result);
   };
   
 dataType returns [DataType result]
