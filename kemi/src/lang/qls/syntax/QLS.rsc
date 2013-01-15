@@ -33,15 +33,15 @@ syntax StyleRule
   ; 
 
 lexical ClassIdent
-  = [.]Ident
+  = @category="NonterminalLabel" [.]Ident
   ; 
 
 lexical QuestionIdent
-  = [#]Ident
+  = @category="Variable" [#]Ident
   ;
 
 lexical Ident
-  = @category="Variable" ([a-z A-Z 0-9 _] !<< [a-z A-Z][a-z A-Z 0-9 _]* !>> [a-z A-Z 0-9 _]) \ Keywords;
+  = ([a-z A-Z 0-9 _] !<< [a-z A-Z][a-z A-Z 0-9 _]* !>> [a-z A-Z 0-9 _]) \ Keywords;
 
 lexical Type
   = @category="Type" "boolean"
@@ -52,8 +52,8 @@ lexical Type
   ; 
 
 lexical StyleAttr
-  = @category="Constant" "type"
-  | @category="Constant" "width"
+  = @category="Identifier" "type"
+  | @category="Identifier" "width"
   ;
 
 syntax StyleAttrValue
@@ -62,8 +62,8 @@ syntax StyleAttrValue
   ;
 
 lexical StyleTypeValue
-  = @category="Constant" "radio"
-  | @category="Constant" "checkbox"
+  = "radio"
+  | "checkbox"
   ;
 
 lexical Int
