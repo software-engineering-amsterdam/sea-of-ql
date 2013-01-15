@@ -1,6 +1,6 @@
 package org.uva.sea.ql.ast;
 
-import org.uva.sea.ql.astvisitor.ASTNodeVisitor;
+import org.uva.sea.ql.astnodevisitor.Visitor;
 
 public abstract class TypeDescription implements ASTNode {
 	private String typeName ;
@@ -11,7 +11,7 @@ public abstract class TypeDescription implements ASTNode {
 	public String getTypeName() {
 		return typeName;
 	}
-	public void accept(ASTNodeVisitor visitor) {
+	public void accept(Visitor visitor) {
 		visitor.visit(this) ;
 	}
 }

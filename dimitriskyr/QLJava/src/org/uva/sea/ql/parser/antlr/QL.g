@@ -1,15 +1,15 @@
 grammar QL;
-options {backtrack=true; memoize=true;}
+options {language=Java; output= AST; backtrack=true; memoize=true; }
+
+@lexer::header
+{
+package org.uva.sea.ql.parser.antlr;
+}
 
 @parser::header
 {
 package org.uva.sea.ql.parser.antlr;
 import org.uva.sea.ql.ast.*;
-}
-
-@lexer::header
-{
-package org.uva.sea.ql.parser.antlr;
 }
 
 primary returns [Expr result]
@@ -88,8 +88,10 @@ orExpr returns [Expr result]
 WS  :	(' ' | '\t' | '\n' | '\r') { $channel=HIDDEN; }
     ;
 
-COMMENT 
-     : '/*' .* '*/' {$channel=HIDDEN;}
+COMMENT : '/*' .* '*/' {$channel=HIDDEN;}
+    ;
+    
+SIMPLECOMMENT : '//' .* ('\n' | '\r') {$channel= HIDDEN;}
     ;
 
 Ident:   ('a'..'z'|'A'..'Z')('a'..'z'|'A'..'Z'|'0'..'9'|'_')*;

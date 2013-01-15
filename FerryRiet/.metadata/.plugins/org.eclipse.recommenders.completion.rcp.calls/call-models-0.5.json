@@ -14,19 +14,24 @@
     "status": "UNRESOLVED",
     "error": "No call model found for \u0027D:\\Users\\Ferry\\Desktop\\sea-of-ql\\FerryRiet\\QLJava\\lib\\antlr-3.4-complete-no-antlrv2.jar\u0027. Neither fingerprint \u002726637d33c701d8e12769259910024b60d140690c\u0027 nor symbolic name \u0027antlr-3.4-complete-no-antlrv2\u0027 are known."
   },
-  "/Users/Ferry/sea-of-ql/FerryRiet/QLJava/src": {
-    "location": "/Users/Ferry/sea-of-ql/FerryRiet/QLJava/src",
+  "\\Users\\Ferry\\sea-of-ql\\FerryRiet\\QLJava\\src": {
+    "location": "\\Users\\Ferry\\sea-of-ql\\FerryRiet\\QLJava\\src",
     "status": "UNRESOLVED",
     "error": "No class path info available for \u0027/Users/Ferry/sea-of-ql/FerryRiet/QLJava/src\u0027. Skipped."
   },
-  "/Users/Ferry/sea-of-ql/FerryRiet/QLJava/lib/antlr-3.4-complete-no-antlrv2.jar": {
-    "location": "/Users/Ferry/sea-of-ql/FerryRiet/QLJava/lib/antlr-3.4-complete-no-antlrv2.jar",
+  "\\Users\\Ferry\\sea-of-ql\\FerryRiet\\QLJava\\lib\\antlr-3.4-complete-no-antlrv2.jar": {
+    "location": "\\Users\\Ferry\\sea-of-ql\\FerryRiet\\QLJava\\lib\\antlr-3.4-complete-no-antlrv2.jar",
     "status": "UNRESOLVED",
     "error": "No call model found for \u0027/Users/Ferry/sea-of-ql/FerryRiet/QLJava/lib/antlr-3.4-complete-no-antlrv2.jar\u0027. Neither fingerprint \u002726637d33c701d8e12769259910024b60d140690c\u0027 nor symbolic name \u0027antlr-3.4-complete-no-antlrv2\u0027 are known."
   },
-  "/System/Library/Java/JavaVirtualMachines/1.6.0.jdk/Contents/Classes/classes.jar": {
+  "\\System\\Library\\Java\\JavaVirtualMachines\\1.6.0.jdk\\Contents\\Classes\\classes.jar": {
     "coordinate": "jre:jre:zip:call:1.0.0",
-    "location": "/System/Library/Java/JavaVirtualMachines/1.6.0.jdk/Contents/Classes/classes.jar",
+    "location": "\\System\\Library\\Java\\JavaVirtualMachines\\1.6.0.jdk\\Contents\\Classes\\classes.jar",
     "status": "RESOLVED"
+  },
+  "D:\\Users\\Ferry\\Desktop\\sea-of-ql\\FerryRiet\\QLJava\\antlr-3.5-complete-no-st3.jar": {
+    "location": "D:\\Users\\Ferry\\Desktop\\sea-of-ql\\FerryRiet\\QLJava\\antlr-3.5-complete-no-st3.jar",
+    "status": "UNRESOLVED",
+    "error": "No call model found for \u0027D:\\Users\\Ferry\\Desktop\\sea-of-ql\\FerryRiet\\QLJava\\antlr-3.5-complete-no-st3.jar\u0027. Neither fingerprint \u0027bc52a0a00362d164bbfbd28db91aa7598cf32042\u0027 nor symbolic name \u0027org.antlr.gunit\u0027 are known."
   }
 }

@@ -5,7 +5,7 @@ import org.uva.sea.ql.visitor.Visitor;
 /**
  * Represents a greater-than expression.
  */
-public class GT extends BinaryExpression {
+public class GT extends ComparisonExpression {
 	/**
 	 * Constructs a new greater-than expression.
 	 * 

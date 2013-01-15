@@ -5,7 +5,7 @@ import org.uva.sea.ql.visitor.Visitor;
 /**
  * Represents a less-than-equals expression.
  */
-public class LEq extends BinaryExpression {
+public class LEq extends ComparisonExpression {
 	/**
 	 * Constructs a new lesser-than-equals expression.
 	 * 

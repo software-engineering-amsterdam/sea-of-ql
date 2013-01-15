@@ -1,15 +1,38 @@
 module lang::ql::tests::expressions::Addition
 
 import lang::ql::ast::AST;
-import lang::ql::tests::expressions::ParseHelper;
+import lang::ql::tests::ParseHelper;
+import lang::ql::util::Random;
 
-public test bool testAdd1() = parse("a + b") is add;
-public test bool testAdd2() = parse("a + b + c") is add;
-public test bool testAdd3() = parse("(a + b + c)") is add;
-public test bool testAdd4() = parse("a + (b + c)") is add;
-public test bool testAdd5() = parse("(a + b) + c") is add;
-public test bool testAdd6() = parse("(a + b)") is add;
-public test bool testAdd7() = parse("a + b * c") is add;
-public test bool testAdd8() = parse("a * b + c") is add;
-public test bool testAdd9() = parse("a + b / c") is add;
-public test bool testAdd10() = parse("a / b + c") is add;
+public test bool testAdd1() = 
+  parseExpr("a + b") is add;
+
+public test bool testAdd2() = 
+  parseExpr("a + b + c") is add;
+
+public test bool testAdd3() = 
+  parseExpr("(a + b + c)") is add;
+
+public test bool testAdd4() = 
+  parseExpr("a + (b + c)") is add;
+
+public test bool testAdd5() = 
+  parseExpr("(a + b) + c") is add;
+
+public test bool testAdd6() = 
+  parseExpr("(a + b)") is add;
+
+public test bool testAdd7() = 
+  parseExpr("a + b * c") is add;
+
+public test bool testAdd8() = 
+  parseExpr("a * b + c") is add;
+
+public test bool testAdd9() = 
+  parseExpr("a + b / c") is add;
+
+public test bool testAdd10() = 
+  parseExpr("a / b + c") is add;
+
+public test bool testRandomAdd() = 
+  parseExpr("<randomWord()> + <randomWord()>") is add;

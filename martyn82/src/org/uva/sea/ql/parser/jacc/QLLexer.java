@@ -4,10 +4,10 @@ import java.io.IOException;
 import java.io.Reader;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.regex.Pattern;
 
 import org.uva.sea.ql.ast.ASTNode;
 import org.uva.sea.ql.ast.expression.Ident;
-import org.uva.sea.ql.ast.expression.value.Int;
 
 /**
  * Lexer class.
@@ -25,6 +25,7 @@ public class QLLexer implements QLTokens {
 		KEYWORDS = new HashMap<String, Integer>();
 		KEYWORDS.put( "true", BOOL );
 		KEYWORDS.put( "false", BOOL );
+		KEYWORDS.put( "if", IF );
 	}
 
 	/**
@@ -46,6 +47,16 @@ public class QLLexer implements QLTokens {
 	 * Holds the input reader.
 	 */
 	private final Reader input;
+	
+	/**
+	 * Holds the regular expression pattern for decimals.
+	 */
+	private Pattern decimal;
+	
+	/**
+	 * Holds the regular expression pattern for integers.
+	 */
+	private Pattern integer;
 
 	/**
 	 * Constructs a new QLLexer instance.
@@ -112,6 +123,16 @@ public class QLLexer implements QLTokens {
 						nextChar();
 						continue;
 					}
+					else if ( c == '/' ) {
+						// single line comments
+						nextChar();
+
+						while ( c >= ENDINPUT && c != '\r' && c != '\n' ) {
+							nextChar();
+						}
+						
+						continue;
+					}
 					
 					return token = '/';
 				}
@@ -123,6 +144,14 @@ public class QLLexer implements QLTokens {
 				case '(':
 					nextChar();
 					return token = '(';
+					
+				case '{':
+					nextChar();
+					return token = '{';
+					
+				case '}':
+					nextChar();
+					return token = '}';
 				
 				case '*': {
 					nextChar();
@@ -209,15 +238,19 @@ public class QLLexer implements QLTokens {
 					return token = '>';
 				}
 				
+				case '"': {
+					if ( this.matchString() ) {
+						return token = STR;
+					}
+				}
+				
 				default: {
-					if ( c == '"' ) {
-						return this.matchString();
+					if ( this.matchNumber() ) {
+						return token;
 					}
-					else if ( Character.isDigit( c ) ) {
-						return this.matchInteger();
-					}
-					else if ( Character.isLetter( c ) ) {
-						return this.matchOther();
+					
+					if ( this.matchToken() ) {
+						return token;
 					}
 				
 					throw new RuntimeException( "Unexpected character: " + (char) c );
@@ -229,45 +262,130 @@ public class QLLexer implements QLTokens {
 	/**
 	 * Matches a string literal.
 	 * 
-	 * @return token
+	 * @return True if string, false otherwise.
 	 */
-	private int matchString() {
+	private boolean matchString() {
+		StringBuilder sb = new StringBuilder();
+		boolean inString = true;
+		
+		while ( inString ) {
+			nextChar();
+			
+			if ( c < ENDINPUT ) {
+				throw new RuntimeException( "Unterminated string literal" );
+			}
+			else if ( c == '"' ) {
+				inString = false;
+			}
+			else if ( c == '\\' ) {
+				nextChar();
+				sb.append( this.getEscapedChar( (char) c ) );
+			}
+			else {
+				sb.append( (char) c );
+			}
+		}
+
+		nextChar();
+
+		yylval = new org.uva.sea.ql.ast.expression.value.Str( sb.toString() );
+		return true;
+	}
+	
+	/**
+	 * Unescapes an escaped character within a string literal.
+	 * 
+	 * @param input Character to unescape.
+	 * 
+	 * @return The unescaped character.
+	 */
+	private char getEscapedChar( char input ) {
+		switch ( input ) {
+			// whitespace
+			case 'n':
+				return '\n';
+				
+			case 'r':
+				return '\r';
+				
+			case 't':
+				return '\t';
+				
+			case 'b':
+				return '\b';
+				
+			case 'f':
+				return '\f';
+				
+			case '\'':
+				return '\'';
+				
+			case '"':
+				return '"';
+				
+			case '\\':
+				return '\\';
+		}
+		
+		throw new RuntimeException( "Unrecognized escape sequence" );
+	}
+		
+	/**
+	 * Matches a number literal.
+	 * 
+	 * @return True if integer, false otherwise.
+	 */
+	private boolean matchNumber() {
+		if ( !Character.isDigit( c ) && c != '.' ) {
+			return false;
+		}
+		
 		StringBuilder sb = new StringBuilder();
 		
 		do {
 			sb.append( (char) c );
 			nextChar();
 		}
-		while ( c != '"' );
+		while (
+			Character.isDigit( c )
+			|| c == 'e'
+			|| c == 'E'
+			|| c == '.'
+			|| c == '-'
+			|| c == '+'
+		);
 		
-		yylval = new org.uva.sea.ql.ast.expression.value.Str( sb.toString() );
-		return token = STR;
-	}
-	
-	/**
-	 * Matches an integer literal.
-	 * 
-	 * @return token
-	 */
-	private int matchInteger() {
-		int n = 0;
+		String value = sb.toString();
 		
-		do {
-			n = 10 * n + ( c - '0' );
-			nextChar();
+		if ( this.decimal == null ) {
+			this.decimal = Pattern.compile( "[0-9]*\\.[0-9]+([E|e][\\+|\\-]?[0-9]+)?" );
 		}
-		while ( Character.isDigit( c ) );
-
-		yylval = new Int( n );
-		return token = INT;
+		
+		if ( decimal.matcher( value ).matches() ) {
+			yylval = new org.uva.sea.ql.ast.expression.value.Money( Double.parseDouble( value ) );
+			token = MON;
+			return true;
+		}
+		
+		if ( this.integer == null ) {
+			this.integer = Pattern.compile( "[0-9]+" );
+		}
+		
+		if ( integer.matcher( value ).matches() ) {
+			yylval = new org.uva.sea.ql.ast.expression.value.Int( Integer.parseInt( value ) );
+			token = INT;
+			return true;
+		}
+		
+		return false;
 	}
 	
 	/**
-	 * Matches keywords and identifiers.
+	 * Matches arbitrary token.
 	 * 
-	 * @return token
+	 * @return True if successful, false otherwise.
 	 */
-	private int matchOther() {
+	private boolean matchToken() {
 		StringBuilder sb = new StringBuilder();
 		
 		do {
@@ -280,20 +398,23 @@ public class QLLexer implements QLTokens {
 
 		if ( KEYWORDS.containsKey( name ) ) {
 			token = KEYWORDS.get( name );
-			
+
 			switch ( token ) {
 				case BOOL: 
 					yylval = new org.uva.sea.ql.ast.expression.value.Bool(
 						Boolean.parseBoolean( name )
 					);
 					break;
+				
 			}
 
-			return token;
+			return true;
 		}
 
 		yylval = new Ident( name );
-		return token = IDENT;
+		token = IDENT;
+		
+		return true;
 	}
 
 	/**

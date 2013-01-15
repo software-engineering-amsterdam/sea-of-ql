@@ -5,7 +5,7 @@ import org.uva.sea.ql.visitor.Visitor;
 /**
  * Represents a positive expression.
  */
-public class Pos extends UnaryExpression {
+public class Pos extends UnaryNumericExpression {
 	/**
 	 * Constructs a new positive expression.
 	 * 

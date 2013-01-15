@@ -1,6 +1,5 @@
 package org.uva.sea.ql.ast.expression;
 
-
 /**
  * Represents a binary expression.
  */
@@ -24,9 +23,6 @@ abstract public class BinaryExpression extends Expression {
 	protected BinaryExpression( Expression lhs, Expression rhs ) {
 		this.lhs = lhs;
 		this.rhs = rhs;
-		
-		this.lhs.setParent( this );
-		this.rhs.setParent( this );
 	}
 	
 	/**

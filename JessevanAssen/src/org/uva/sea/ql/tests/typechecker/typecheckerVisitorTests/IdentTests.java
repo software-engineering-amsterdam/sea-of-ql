@@ -33,9 +33,12 @@ public class IdentTests extends TypecheckerVisitorTests {
     @Test
 	public void visitsIdent_typeNotInSymbolTable_addsError() {
 		new Declaration(new Ident("a"), new Bool()).accept(visitor, context);
-		new Ident("b").accept(visitor, context);
+		Type type = new Ident("b").accept(visitor, context);
 
         assertFalse(context.getSymbolTable().isEmpty());
+        assertFalse(type.getClass().equals(Bool.class));
+        assertFalse(type.getClass().equals(Int.class));
+        assertFalse(type.getClass().equals(Str.class));
 	}
 	
 }
