@@ -30,7 +30,8 @@ public class TestVisitor {
 
 	@Test
 	public void testVisitor() throws ParseError {
-		String program = "((true && !false) || ((a + b) == -31)) != \"hello world\"";
+//		String program = "((true && !false) || ((a + b) == -31)) != \"hello world\"";
+		String program = "if ( true ) {  }";
 		
 		this.parser.parse( program ).accept( visitor );
 		System.out.println( visitor.toString() );

@@ -1,10 +1,10 @@
-// Output created by jacc on Mon Jan 14 14:28:05 CET 2013
+// Output created by jacc on Mon Jan 14 23:37:08 CET 2013
 
 package org.uva.sea.ql.parser.jacc;
 
 import org.uva.sea.ql.ast.*;
 import org.uva.sea.ql.ast.expression.*;
-import org.uva.sea.ql.ast.expression.value.*;
+import org.uva.sea.ql.ast.statement.*;
 
 class QLParser implements QLTokens {
     private int yyss = 100;
@@ -30,8 +30,16 @@ class QLParser implements QLTokens {
                     if (++yysp>=yyst.length) {
                         yyexpand();
                     }
-                case 40:
-                    yyn = yys0();
+                case 48:
+                    switch (yytok) {
+                        case IF:
+                            yyn = 3;
+                            continue;
+                        case ENDINPUT:
+                            yyn = yyr3();
+                            continue;
+                    }
+                    yyn = 99;
                     continue;
 
                 case 1:
@@ -39,13 +47,13 @@ class QLParser implements QLTokens {
                     if (++yysp>=yyst.length) {
                         yyexpand();
                     }
-                case 41:
+                case 49:
                     switch (yytok) {
                         case ENDINPUT:
-                            yyn = 80;
+                            yyn = 96;
                             continue;
                     }
-                    yyn = 83;
+                    yyn = 99;
                     continue;
 
                 case 2:
@@ -53,8 +61,13 @@ class QLParser implements QLTokens {
                     if (++yysp>=yyst.length) {
                         yyexpand();
                     }
-                case 42:
-                    yyn = yys2();
+                case 50:
+                    switch (yytok) {
+                        case ENDINPUT:
+                            yyn = yyr1();
+                            continue;
+                    }
+                    yyn = 99;
                     continue;
 
                 case 3:
@@ -66,8 +79,13 @@ class QLParser implements QLTokens {
                     if (++yysp>=yyst.length) {
                         yyexpand();
                     }
-                case 43:
-                    yyn = yys3();
+                case 51:
+                    switch (yytok) {
+                        case '(':
+                            yyn = 4;
+                            continue;
+                    }
+                    yyn = 99;
                     continue;
 
                 case 4:
@@ -79,20 +97,16 @@ class QLParser implements QLTokens {
                     if (++yysp>=yyst.length) {
                         yyexpand();
                     }
-                case 44:
+                case 52:
                     yyn = yys4();
                     continue;
 
                 case 5:
                     yyst[yysp] = 5;
-                    yysv[yysp] = (lexer.getSemantic()
-                                 );
-                    yytok = (lexer.nextToken()
-                            );
                     if (++yysp>=yyst.length) {
                         yyexpand();
                     }
-                case 45:
+                case 53:
                     yyn = yys5();
                     continue;
 
@@ -105,7 +119,7 @@ class QLParser implements QLTokens {
                     if (++yysp>=yyst.length) {
                         yyexpand();
                     }
-                case 46:
+                case 54:
                     yyn = yys6();
                     continue;
 
@@ -118,7 +132,7 @@ class QLParser implements QLTokens {
                     if (++yysp>=yyst.length) {
                         yyexpand();
                     }
-                case 47:
+                case 55:
                     yyn = yys7();
                     continue;
 
@@ -131,7 +145,7 @@ class QLParser implements QLTokens {
                     if (++yysp>=yyst.length) {
                         yyexpand();
                     }
-                case 48:
+                case 56:
                     yyn = yys8();
                     continue;
 
@@ -144,7 +158,7 @@ class QLParser implements QLTokens {
                     if (++yysp>=yyst.length) {
                         yyexpand();
                     }
-                case 49:
+                case 57:
                     yyn = yys9();
                     continue;
 
@@ -157,7 +171,7 @@ class QLParser implements QLTokens {
                     if (++yysp>=yyst.length) {
                         yyexpand();
                     }
-                case 50:
+                case 58:
                     yyn = yys10();
                     continue;
 
@@ -170,7 +184,7 @@ class QLParser implements QLTokens {
                     if (++yysp>=yyst.length) {
                         yyexpand();
                     }
-                case 51:
+                case 59:
                     yyn = yys11();
                     continue;
 
@@ -183,7 +197,7 @@ class QLParser implements QLTokens {
                     if (++yysp>=yyst.length) {
                         yyexpand();
                     }
-                case 52:
+                case 60:
                     yyn = yys12();
                     continue;
 
@@ -196,7 +210,7 @@ class QLParser implements QLTokens {
                     if (++yysp>=yyst.length) {
                         yyexpand();
                     }
-                case 53:
+                case 61:
                     yyn = yys13();
                     continue;
 
@@ -209,7 +223,7 @@ class QLParser implements QLTokens {
                     if (++yysp>=yyst.length) {
                         yyexpand();
                     }
-                case 54:
+                case 62:
                     yyn = yys14();
                     continue;
 
@@ -222,7 +236,7 @@ class QLParser implements QLTokens {
                     if (++yysp>=yyst.length) {
                         yyexpand();
                     }
-                case 55:
+                case 63:
                     yyn = yys15();
                     continue;
 
@@ -235,7 +249,7 @@ class QLParser implements QLTokens {
                     if (++yysp>=yyst.length) {
                         yyexpand();
                     }
-                case 56:
+                case 64:
                     yyn = yys16();
                     continue;
 
@@ -248,7 +262,7 @@ class QLParser implements QLTokens {
                     if (++yysp>=yyst.length) {
                         yyexpand();
                     }
-                case 57:
+                case 65:
                     yyn = yys17();
                     continue;
 
@@ -261,7 +275,7 @@ class QLParser implements QLTokens {
                     if (++yysp>=yyst.length) {
                         yyexpand();
                     }
-                case 58:
+                case 66:
                     yyn = yys18();
                     continue;
 
@@ -274,7 +288,7 @@ class QLParser implements QLTokens {
                     if (++yysp>=yyst.length) {
                         yyexpand();
                     }
-                case 59:
+                case 67:
                     yyn = yys19();
                     continue;
 
@@ -287,7 +301,7 @@ class QLParser implements QLTokens {
                     if (++yysp>=yyst.length) {
                         yyexpand();
                     }
-                case 60:
+                case 68:
                     yyn = yys20();
                     continue;
 
@@ -300,8 +314,13 @@ class QLParser implements QLTokens {
                     if (++yysp>=yyst.length) {
                         yyexpand();
                     }
-                case 61:
-                    yyn = yys21();
+                case 69:
+                    switch (yytok) {
+                        case '{':
+                            yyn = 38;
+                            continue;
+                    }
+                    yyn = 99;
                     continue;
 
                 case 22:
@@ -313,52 +332,72 @@ class QLParser implements QLTokens {
                     if (++yysp>=yyst.length) {
                         yyexpand();
                     }
-                case 62:
+                case 70:
                     yyn = yys22();
                     continue;
 
                 case 23:
                     yyst[yysp] = 23;
+                    yysv[yysp] = (lexer.getSemantic()
+                                 );
+                    yytok = (lexer.nextToken()
+                            );
                     if (++yysp>=yyst.length) {
                         yyexpand();
                     }
-                case 63:
+                case 71:
                     yyn = yys23();
                     continue;
 
                 case 24:
                     yyst[yysp] = 24;
+                    yysv[yysp] = (lexer.getSemantic()
+                                 );
+                    yytok = (lexer.nextToken()
+                            );
                     if (++yysp>=yyst.length) {
                         yyexpand();
                     }
-                case 64:
+                case 72:
                     yyn = yys24();
                     continue;
 
                 case 25:
                     yyst[yysp] = 25;
+                    yysv[yysp] = (lexer.getSemantic()
+                                 );
+                    yytok = (lexer.nextToken()
+                            );
                     if (++yysp>=yyst.length) {
                         yyexpand();
                     }
-                case 65:
+                case 73:
                     yyn = yys25();
                     continue;
 
                 case 26:
                     yyst[yysp] = 26;
+                    yysv[yysp] = (lexer.getSemantic()
+                                 );
+                    yytok = (lexer.nextToken()
+                            );
                     if (++yysp>=yyst.length) {
                         yyexpand();
                     }
-                case 66:
+                case 74:
                     yyn = yys26();
                     continue;
 
                 case 27:
                     yyst[yysp] = 27;
+                    yysv[yysp] = (lexer.getSemantic()
+                                 );
+                    yytok = (lexer.nextToken()
+                            );
                     if (++yysp>=yyst.length) {
                         yyexpand();
                     }
-                case 67:
+                case 75:
                     yyn = yys27();
                     continue;
 
@@ -367,7 +406,7 @@ class QLParser implements QLTokens {
                     if (++yysp>=yyst.length) {
                         yyexpand();
                     }
-                case 68:
+                case 76:
                     yyn = yys28();
                     continue;
 
@@ -376,7 +415,7 @@ class QLParser implements QLTokens {
                     if (++yysp>=yyst.length) {
                         yyexpand();
                     }
-                case 69:
+                case 77:
                     yyn = yys29();
                     continue;
 
@@ -385,7 +424,7 @@ class QLParser implements QLTokens {
                     if (++yysp>=yyst.length) {
                         yyexpand();
                     }
-                case 70:
+                case 78:
                     yyn = yys30();
                     continue;
 
@@ -394,7 +433,7 @@ class QLParser implements QLTokens {
                     if (++yysp>=yyst.length) {
                         yyexpand();
                     }
-                case 71:
+                case 79:
                     yyn = yys31();
                     continue;
 
@@ -403,7 +442,7 @@ class QLParser implements QLTokens {
                     if (++yysp>=yyst.length) {
                         yyexpand();
                     }
-                case 72:
+                case 80:
                     yyn = yys32();
                     continue;
 
@@ -412,7 +451,7 @@ class QLParser implements QLTokens {
                     if (++yysp>=yyst.length) {
                         yyexpand();
                     }
-                case 73:
+                case 81:
                     yyn = yys33();
                     continue;
 
@@ -421,7 +460,7 @@ class QLParser implements QLTokens {
                     if (++yysp>=yyst.length) {
                         yyexpand();
                     }
-                case 74:
+                case 82:
                     yyn = yys34();
                     continue;
 
@@ -430,7 +469,7 @@ class QLParser implements QLTokens {
                     if (++yysp>=yyst.length) {
                         yyexpand();
                     }
-                case 75:
+                case 83:
                     yyn = yys35();
                     continue;
 
@@ -439,7 +478,7 @@ class QLParser implements QLTokens {
                     if (++yysp>=yyst.length) {
                         yyexpand();
                     }
-                case 76:
+                case 84:
                     yyn = yys36();
                     continue;
 
@@ -448,21 +487,12 @@ class QLParser implements QLTokens {
                     if (++yysp>=yyst.length) {
                         yyexpand();
                     }
-                case 77:
+                case 85:
                     yyn = yys37();
                     continue;
 
                 case 38:
                     yyst[yysp] = 38;
-                    if (++yysp>=yyst.length) {
-                        yyexpand();
-                    }
-                case 78:
-                    yyn = yys38();
-                    continue;
-
-                case 39:
-                    yyst[yysp] = 39;
                     yysv[yysp] = (lexer.getSemantic()
                                  );
                     yytok = (lexer.nextToken()
@@ -470,17 +500,125 @@ class QLParser implements QLTokens {
                     if (++yysp>=yyst.length) {
                         yyexpand();
                     }
-                case 79:
+                case 86:
+                    switch (yytok) {
+                        case IF:
+                            yyn = 3;
+                            continue;
+                        case '}':
+                            yyn = yyr3();
+                            continue;
+                    }
+                    yyn = 99;
+                    continue;
+
+                case 39:
+                    yyst[yysp] = 39;
+                    if (++yysp>=yyst.length) {
+                        yyexpand();
+                    }
+                case 87:
                     yyn = yys39();
                     continue;
 
-                case 80:
+                case 40:
+                    yyst[yysp] = 40;
+                    if (++yysp>=yyst.length) {
+                        yyexpand();
+                    }
+                case 88:
+                    yyn = yys40();
+                    continue;
+
+                case 41:
+                    yyst[yysp] = 41;
+                    if (++yysp>=yyst.length) {
+                        yyexpand();
+                    }
+                case 89:
+                    yyn = yys41();
+                    continue;
+
+                case 42:
+                    yyst[yysp] = 42;
+                    if (++yysp>=yyst.length) {
+                        yyexpand();
+                    }
+                case 90:
+                    yyn = yys42();
+                    continue;
+
+                case 43:
+                    yyst[yysp] = 43;
+                    if (++yysp>=yyst.length) {
+                        yyexpand();
+                    }
+                case 91:
+                    yyn = yys43();
+                    continue;
+
+                case 44:
+                    yyst[yysp] = 44;
+                    if (++yysp>=yyst.length) {
+                        yyexpand();
+                    }
+                case 92:
+                    yyn = yys44();
+                    continue;
+
+                case 45:
+                    yyst[yysp] = 45;
+                    yysv[yysp] = (lexer.getSemantic()
+                                 );
+                    yytok = (lexer.nextToken()
+                            );
+                    if (++yysp>=yyst.length) {
+                        yyexpand();
+                    }
+                case 93:
+                    yyn = yys45();
+                    continue;
+
+                case 46:
+                    yyst[yysp] = 46;
+                    if (++yysp>=yyst.length) {
+                        yyexpand();
+                    }
+                case 94:
+                    switch (yytok) {
+                        case '}':
+                            yyn = 47;
+                            continue;
+                    }
+                    yyn = 99;
+                    continue;
+
+                case 47:
+                    yyst[yysp] = 47;
+                    yysv[yysp] = (lexer.getSemantic()
+                                 );
+                    yytok = (lexer.nextToken()
+                            );
+                    if (++yysp>=yyst.length) {
+                        yyexpand();
+                    }
+                case 95:
+                    switch (yytok) {
+                        case ENDINPUT:
+                        case '}':
+                            yyn = yyr2();
+                            continue;
+                    }
+                    yyn = 99;
+                    continue;
+
+                case 96:
                     return true;
-                case 81:
+                case 97:
                     yyerror("stack overflow");
-                case 82:
+                case 98:
                     return false;
-                case 83:
+                case 99:
                     yyerror("syntax error");
                     return false;
             }
@@ -498,1034 +636,1156 @@ class QLParser implements QLTokens {
         yysv = newyysv;
     }
 
-    private int yys0() {
-        switch (yytok) {
-            case BOOL:
-                return 3;
-            case IDENT:
-                return 4;
-            case INT:
-                return 5;
-            case STR:
-                return 6;
-            case '!':
-                return 7;
-            case '(':
-                return 8;
-            case '+':
-                return 9;
-            case '-':
-                return 10;
-        }
-        return 83;
-    }
-
-    private int yys2() {
-        switch (yytok) {
-            case AND:
-                return 11;
-            case EQ:
-                return 12;
-            case GEQ:
-                return 13;
-            case LEQ:
-                return 14;
-            case NEQ:
-                return 15;
-            case OR:
-                return 16;
-            case '*':
-                return 17;
-            case '+':
-                return 18;
-            case '-':
-                return 19;
-            case '/':
-                return 20;
-            case '<':
-                return 21;
-            case '>':
-                return 22;
-            case ENDINPUT:
-                return yyr1();
-        }
-        return 83;
-    }
-
-    private int yys3() {
-        switch (yytok) {
-            case '!':
-            case INT:
-            case IDENT:
-            case '(':
-            case error:
-            case UPLUS:
-            case UNOT:
-            case STR:
-            case UMIN:
-            case BOOL:
-                return 83;
-        }
-        return yyr17();
-    }
-
     private int yys4() {
         switch (yytok) {
-            case '!':
-            case INT:
-            case IDENT:
-            case '(':
-            case error:
-            case UPLUS:
-            case UNOT:
-            case STR:
-            case UMIN:
             case BOOL:
-                return 83;
+                return 6;
+            case IDENT:
+                return 7;
+            case INT:
+                return 8;
+            case MON:
+                return 9;
+            case STR:
+                return 10;
+            case '!':
+                return 11;
+            case '(':
+                return 12;
+            case '+':
+                return 13;
+            case '-':
+                return 14;
         }
-        return yyr20();
+        return 99;
     }
 
     private int yys5() {
         switch (yytok) {
-            case '!':
-            case INT:
-            case IDENT:
-            case '(':
-            case error:
-            case UPLUS:
-            case UNOT:
-            case STR:
-            case UMIN:
-            case BOOL:
-                return 83;
+            case AND:
+                return 15;
+            case EQ:
+                return 16;
+            case GEQ:
+                return 17;
+            case LEQ:
+                return 18;
+            case NEQ:
+                return 19;
+            case OR:
+                return 20;
+            case ')':
+                return 21;
+            case '*':
+                return 22;
+            case '+':
+                return 23;
+            case '-':
+                return 24;
+            case '/':
+                return 25;
+            case '<':
+                return 26;
+            case '>':
+                return 27;
         }
-        return yyr18();
+        return 99;
     }
 
     private int yys6() {
         switch (yytok) {
-            case '!':
-            case INT:
-            case IDENT:
-            case '(':
-            case error:
-            case UPLUS:
-            case UNOT:
-            case STR:
-            case UMIN:
-            case BOOL:
-                return 83;
+            case '>':
+            case '<':
+            case EQ:
+            case '-':
+            case OR:
+            case '+':
+            case '/':
+            case '*':
+            case NEQ:
+            case ')':
+            case LEQ:
+            case GEQ:
+            case AND:
+                return yyr19();
         }
-        return yyr19();
+        return 99;
     }
 
     private int yys7() {
         switch (yytok) {
-            case BOOL:
-                return 3;
-            case IDENT:
-                return 4;
-            case INT:
-                return 5;
-            case STR:
-                return 6;
-            case '!':
-                return 7;
-            case '(':
-                return 8;
-            case '+':
-                return 9;
+            case '>':
+            case '<':
+            case EQ:
             case '-':
-                return 10;
+            case OR:
+            case '+':
+            case '/':
+            case '*':
+            case NEQ:
+            case ')':
+            case LEQ:
+            case GEQ:
+            case AND:
+                return yyr23();
         }
-        return 83;
+        return 99;
     }
 
     private int yys8() {
         switch (yytok) {
-            case BOOL:
-                return 3;
-            case IDENT:
-                return 4;
-            case INT:
-                return 5;
-            case STR:
-                return 6;
-            case '!':
-                return 7;
-            case '(':
-                return 8;
-            case '+':
-                return 9;
+            case '>':
+            case '<':
+            case EQ:
             case '-':
-                return 10;
+            case OR:
+            case '+':
+            case '/':
+            case '*':
+            case NEQ:
+            case ')':
+            case LEQ:
+            case GEQ:
+            case AND:
+                return yyr21();
         }
-        return 83;
+        return 99;
     }
 
     private int yys9() {
         switch (yytok) {
-            case BOOL:
-                return 3;
-            case IDENT:
-                return 4;
-            case INT:
-                return 5;
-            case STR:
-                return 6;
-            case '!':
-                return 7;
-            case '(':
-                return 8;
-            case '+':
-                return 9;
+            case '>':
+            case '<':
+            case EQ:
             case '-':
-                return 10;
+            case OR:
+            case '+':
+            case '/':
+            case '*':
+            case NEQ:
+            case ')':
+            case LEQ:
+            case GEQ:
+            case AND:
+                return yyr20();
         }
-        return 83;
+        return 99;
     }
 
     private int yys10() {
         switch (yytok) {
-            case BOOL:
-                return 3;
-            case IDENT:
-                return 4;
-            case INT:
-                return 5;
-            case STR:
-                return 6;
-            case '!':
-                return 7;
-            case '(':
-                return 8;
-            case '+':
-                return 9;
+            case '>':
+            case '<':
+            case EQ:
             case '-':
-                return 10;
+            case OR:
+            case '+':
+            case '/':
+            case '*':
+            case NEQ:
+            case ')':
+            case LEQ:
+            case GEQ:
+            case AND:
+                return yyr22();
         }
-        return 83;
+        return 99;
     }
 
     private int yys11() {
         switch (yytok) {
             case BOOL:
-                return 3;
-            case IDENT:
-                return 4;
-            case INT:
-                return 5;
-            case STR:
                 return 6;
-            case '!':
+            case IDENT:
                 return 7;
-            case '(':
+            case INT:
                 return 8;
-            case '+':
+            case MON:
                 return 9;
-            case '-':
+            case STR:
                 return 10;
+            case '!':
+                return 11;
+            case '(':
+                return 12;
+            case '+':
+                return 13;
+            case '-':
+                return 14;
         }
-        return 83;
+        return 99;
     }
 
     private int yys12() {
         switch (yytok) {
             case BOOL:
-                return 3;
-            case IDENT:
-                return 4;
-            case INT:
-                return 5;
-            case STR:
                 return 6;
-            case '!':
+            case IDENT:
                 return 7;
-            case '(':
+            case INT:
                 return 8;
-            case '+':
+            case MON:
                 return 9;
-            case '-':
+            case STR:
                 return 10;
+            case '!':
+                return 11;
+            case '(':
+                return 12;
+            case '+':
+                return 13;
+            case '-':
+                return 14;
         }
-        return 83;
+        return 99;
     }
 
     private int yys13() {
         switch (yytok) {
             case BOOL:
-                return 3;
-            case IDENT:
-                return 4;
-            case INT:
-                return 5;
-            case STR:
                 return 6;
-            case '!':
+            case IDENT:
                 return 7;
-            case '(':
+            case INT:
                 return 8;
-            case '+':
+            case MON:
                 return 9;
-            case '-':
+            case STR:
                 return 10;
+            case '!':
+                return 11;
+            case '(':
+                return 12;
+            case '+':
+                return 13;
+            case '-':
+                return 14;
         }
-        return 83;
+        return 99;
     }
 
     private int yys14() {
         switch (yytok) {
             case BOOL:
-                return 3;
-            case IDENT:
-                return 4;
-            case INT:
-                return 5;
-            case STR:
                 return 6;
-            case '!':
+            case IDENT:
                 return 7;
-            case '(':
+            case INT:
                 return 8;
-            case '+':
+            case MON:
                 return 9;
-            case '-':
+            case STR:
                 return 10;
+            case '!':
+                return 11;
+            case '(':
+                return 12;
+            case '+':
+                return 13;
+            case '-':
+                return 14;
         }
-        return 83;
+        return 99;
     }
 
     private int yys15() {
         switch (yytok) {
             case BOOL:
-                return 3;
-            case IDENT:
-                return 4;
-            case INT:
-                return 5;
-            case STR:
                 return 6;
-            case '!':
+            case IDENT:
                 return 7;
-            case '(':
+            case INT:
                 return 8;
-            case '+':
+            case MON:
                 return 9;
-            case '-':
+            case STR:
                 return 10;
+            case '!':
+                return 11;
+            case '(':
+                return 12;
+            case '+':
+                return 13;
+            case '-':
+                return 14;
         }
-        return 83;
+        return 99;
     }
 
     private int yys16() {
         switch (yytok) {
             case BOOL:
-                return 3;
-            case IDENT:
-                return 4;
-            case INT:
-                return 5;
-            case STR:
                 return 6;
-            case '!':
+            case IDENT:
                 return 7;
-            case '(':
+            case INT:
                 return 8;
-            case '+':
+            case MON:
                 return 9;
-            case '-':
+            case STR:
                 return 10;
+            case '!':
+                return 11;
+            case '(':
+                return 12;
+            case '+':
+                return 13;
+            case '-':
+                return 14;
         }
-        return 83;
+        return 99;
     }
 
     private int yys17() {
         switch (yytok) {
             case BOOL:
-                return 3;
-            case IDENT:
-                return 4;
-            case INT:
-                return 5;
-            case STR:
                 return 6;
-            case '!':
+            case IDENT:
                 return 7;
-            case '(':
+            case INT:
                 return 8;
-            case '+':
+            case MON:
                 return 9;
-            case '-':
+            case STR:
                 return 10;
+            case '!':
+                return 11;
+            case '(':
+                return 12;
+            case '+':
+                return 13;
+            case '-':
+                return 14;
         }
-        return 83;
+        return 99;
     }
 
     private int yys18() {
         switch (yytok) {
             case BOOL:
-                return 3;
-            case IDENT:
-                return 4;
-            case INT:
-                return 5;
-            case STR:
                 return 6;
-            case '!':
+            case IDENT:
                 return 7;
-            case '(':
+            case INT:
                 return 8;
-            case '+':
+            case MON:
                 return 9;
-            case '-':
+            case STR:
                 return 10;
+            case '!':
+                return 11;
+            case '(':
+                return 12;
+            case '+':
+                return 13;
+            case '-':
+                return 14;
         }
-        return 83;
+        return 99;
     }
 
     private int yys19() {
         switch (yytok) {
             case BOOL:
-                return 3;
-            case IDENT:
-                return 4;
-            case INT:
-                return 5;
-            case STR:
                 return 6;
-            case '!':
+            case IDENT:
                 return 7;
-            case '(':
+            case INT:
                 return 8;
-            case '+':
+            case MON:
                 return 9;
-            case '-':
+            case STR:
                 return 10;
+            case '!':
+                return 11;
+            case '(':
+                return 12;
+            case '+':
+                return 13;
+            case '-':
+                return 14;
         }
-        return 83;
+        return 99;
     }
 
     private int yys20() {
         switch (yytok) {
             case BOOL:
-                return 3;
-            case IDENT:
-                return 4;
-            case INT:
-                return 5;
-            case STR:
                 return 6;
-            case '!':
-                return 7;
-            case '(':
-                return 8;
-            case '+':
-                return 9;
-            case '-':
-                return 10;
-        }
-        return 83;
-    }
-
-    private int yys21() {
-        switch (yytok) {
-            case BOOL:
-                return 3;
             case IDENT:
-                return 4;
-            case INT:
-                return 5;
-            case STR:
-                return 6;
-            case '!':
                 return 7;
-            case '(':
+            case INT:
                 return 8;
-            case '+':
+            case MON:
                 return 9;
-            case '-':
+            case STR:
                 return 10;
+            case '!':
+                return 11;
+            case '(':
+                return 12;
+            case '+':
+                return 13;
+            case '-':
+                return 14;
         }
-        return 83;
+        return 99;
     }
 
     private int yys22() {
         switch (yytok) {
             case BOOL:
-                return 3;
-            case IDENT:
-                return 4;
-            case INT:
-                return 5;
-            case STR:
                 return 6;
-            case '!':
+            case IDENT:
                 return 7;
-            case '(':
+            case INT:
                 return 8;
-            case '+':
+            case MON:
                 return 9;
-            case '-':
+            case STR:
                 return 10;
+            case '!':
+                return 11;
+            case '(':
+                return 12;
+            case '+':
+                return 13;
+            case '-':
+                return 14;
         }
-        return 83;
+        return 99;
     }
 
     private int yys23() {
         switch (yytok) {
-            case '!':
-            case INT:
-            case IDENT:
-            case '(':
-            case error:
-            case UPLUS:
-            case UNOT:
-            case STR:
-            case UMIN:
             case BOOL:
-                return 83;
+                return 6;
+            case IDENT:
+                return 7;
+            case INT:
+                return 8;
+            case MON:
+                return 9;
+            case STR:
+                return 10;
+            case '!':
+                return 11;
+            case '(':
+                return 12;
+            case '+':
+                return 13;
+            case '-':
+                return 14;
         }
-        return yyr4();
+        return 99;
     }
 
     private int yys24() {
         switch (yytok) {
-            case AND:
+            case BOOL:
+                return 6;
+            case IDENT:
+                return 7;
+            case INT:
+                return 8;
+            case MON:
+                return 9;
+            case STR:
+                return 10;
+            case '!':
                 return 11;
-            case EQ:
+            case '(':
                 return 12;
-            case GEQ:
-                return 13;
-            case LEQ:
-                return 14;
-            case NEQ:
-                return 15;
-            case OR:
-                return 16;
-            case '*':
-                return 17;
             case '+':
-                return 18;
+                return 13;
             case '-':
-                return 19;
-            case '/':
-                return 20;
-            case '<':
-                return 21;
-            case '>':
-                return 22;
-            case ')':
-                return 39;
+                return 14;
         }
-        return 83;
+        return 99;
     }
 
     private int yys25() {
         switch (yytok) {
-            case '!':
-            case INT:
-            case IDENT:
-            case '(':
-            case error:
-            case UPLUS:
-            case UNOT:
-            case STR:
-            case UMIN:
             case BOOL:
-                return 83;
+                return 6;
+            case IDENT:
+                return 7;
+            case INT:
+                return 8;
+            case MON:
+                return 9;
+            case STR:
+                return 10;
+            case '!':
+                return 11;
+            case '(':
+                return 12;
+            case '+':
+                return 13;
+            case '-':
+                return 14;
         }
-        return yyr2();
+        return 99;
     }
 
     private int yys26() {
         switch (yytok) {
-            case '!':
-            case INT:
-            case IDENT:
-            case '(':
-            case error:
-            case UPLUS:
-            case UNOT:
-            case STR:
-            case UMIN:
             case BOOL:
-                return 83;
+                return 6;
+            case IDENT:
+                return 7;
+            case INT:
+                return 8;
+            case MON:
+                return 9;
+            case STR:
+                return 10;
+            case '!':
+                return 11;
+            case '(':
+                return 12;
+            case '+':
+                return 13;
+            case '-':
+                return 14;
         }
-        return yyr3();
+        return 99;
     }
 
     private int yys27() {
         switch (yytok) {
-            case EQ:
+            case BOOL:
+                return 6;
+            case IDENT:
+                return 7;
+            case INT:
+                return 8;
+            case MON:
+                return 9;
+            case STR:
+                return 10;
+            case '!':
+                return 11;
+            case '(':
                 return 12;
-            case GEQ:
-                return 13;
-            case LEQ:
-                return 14;
-            case NEQ:
-                return 15;
-            case '*':
-                return 17;
             case '+':
-                return 18;
+                return 13;
             case '-':
-                return 19;
-            case '/':
-                return 20;
-            case '<':
-                return 21;
-            case '>':
-                return 22;
-            case ENDINPUT:
-            case OR:
-            case ')':
-            case AND:
-                return yyr15();
+                return 14;
         }
-        return 83;
+        return 99;
     }
 
     private int yys28() {
         switch (yytok) {
-            case '*':
-                return 17;
-            case '+':
-                return 18;
-            case '-':
-                return 19;
-            case '/':
-                return 20;
-            case LEQ:
-            case ENDINPUT:
-            case EQ:
             case '>':
             case '<':
+            case EQ:
+            case '-':
             case OR:
-            case ')':
+            case '+':
+            case '/':
+            case '*':
             case NEQ:
+            case ')':
+            case LEQ:
             case GEQ:
             case AND:
-                return yyr9();
+                return yyr6();
         }
-        return 83;
+        return 99;
     }
 
     private int yys29() {
         switch (yytok) {
-            case '*':
-                return 17;
-            case '+':
-                return 18;
-            case '-':
-                return 19;
-            case '/':
-                return 20;
-            case LEQ:
-            case ENDINPUT:
-            case EQ:
-            case '>':
-            case '<':
-            case OR:
-            case ')':
-            case NEQ:
-            case GEQ:
             case AND:
-                return yyr13();
+                return 15;
+            case EQ:
+                return 16;
+            case GEQ:
+                return 17;
+            case LEQ:
+                return 18;
+            case NEQ:
+                return 19;
+            case OR:
+                return 20;
+            case '*':
+                return 22;
+            case '+':
+                return 23;
+            case '-':
+                return 24;
+            case '/':
+                return 25;
+            case '<':
+                return 26;
+            case '>':
+                return 27;
+            case ')':
+                return 45;
         }
-        return 83;
+        return 99;
     }
 
     private int yys30() {
         switch (yytok) {
-            case '*':
-                return 17;
-            case '+':
-                return 18;
-            case '-':
-                return 19;
-            case '/':
-                return 20;
-            case LEQ:
-            case ENDINPUT:
-            case EQ:
             case '>':
             case '<':
+            case EQ:
+            case '-':
             case OR:
-            case ')':
+            case '+':
+            case '/':
+            case '*':
             case NEQ:
+            case ')':
+            case LEQ:
             case GEQ:
             case AND:
-                return yyr14();
+                return yyr4();
         }
-        return 83;
+        return 99;
     }
 
     private int yys31() {
         switch (yytok) {
-            case '*':
-                return 17;
-            case '+':
-                return 18;
-            case '-':
-                return 19;
-            case '/':
-                return 20;
-            case LEQ:
-            case ENDINPUT:
-            case EQ:
             case '>':
             case '<':
+            case EQ:
+            case '-':
             case OR:
-            case ')':
+            case '+':
+            case '/':
+            case '*':
             case NEQ:
+            case ')':
+            case LEQ:
             case GEQ:
             case AND:
-                return yyr10();
+                return yyr5();
         }
-        return 83;
+        return 99;
     }
 
     private int yys32() {
         switch (yytok) {
-            case AND:
-                return 11;
             case EQ:
-                return 12;
+                return 16;
             case GEQ:
-                return 13;
-            case LEQ:
-                return 14;
-            case NEQ:
-                return 15;
-            case '*':
                 return 17;
-            case '+':
+            case LEQ:
                 return 18;
-            case '-':
+            case NEQ:
                 return 19;
-            case '/':
-                return 20;
-            case '<':
-                return 21;
-            case '>':
+            case '*':
                 return 22;
-            case ENDINPUT:
+            case '+':
+                return 23;
+            case '-':
+                return 24;
+            case '/':
+                return 25;
+            case '<':
+                return 26;
+            case '>':
+                return 27;
             case OR:
             case ')':
-                return yyr16();
+            case AND:
+                return yyr17();
         }
-        return 83;
+        return 99;
     }
 
     private int yys33() {
         switch (yytok) {
-            case '!':
-            case INT:
-            case IDENT:
-            case '(':
-            case error:
-            case UPLUS:
-            case UNOT:
-            case STR:
-            case UMIN:
-            case BOOL:
-                return 83;
-        }
-        return yyr5();
-    }
-
-    private int yys34() {
-        switch (yytok) {
-            case INT:
-            case error:
-            case UPLUS:
-            case BOOL:
-            case '(':
-            case '!':
-            case UNOT:
-            case STR:
-            case IDENT:
-            case UMIN:
-                return 83;
             case '*':
-                return 17;
-            case '/':
-                return 20;
-        }
-        return yyr7();
-    }
-
-    private int yys35() {
-        switch (yytok) {
-            case INT:
-            case error:
-            case UPLUS:
-            case BOOL:
-            case '(':
-            case '!':
-            case UNOT:
-            case STR:
-            case IDENT:
-            case UMIN:
-                return 83;
-            case '*':
-                return 17;
-            case '/':
-                return 20;
-        }
-        return yyr8();
-    }
-
-    private int yys36() {
-        switch (yytok) {
-            case '!':
-            case INT:
-            case IDENT:
-            case '(':
-            case error:
-            case UPLUS:
-            case UNOT:
-            case STR:
-            case UMIN:
-            case BOOL:
-                return 83;
-        }
-        return yyr6();
-    }
-
-    private int yys37() {
-        switch (yytok) {
-            case '*':
-                return 17;
+                return 22;
             case '+':
-                return 18;
+                return 23;
             case '-':
-                return 19;
+                return 24;
             case '/':
-                return 20;
-            case LEQ:
-            case ENDINPUT:
-            case EQ:
+                return 25;
             case '>':
             case '<':
-            case OR:
-            case ')':
-            case NEQ:
-            case GEQ:
-            case AND:
-                return yyr12();
-        }
-        return 83;
-    }
-
-    private int yys38() {
-        switch (yytok) {
-            case '*':
-                return 17;
-            case '+':
-                return 18;
-            case '-':
-                return 19;
-            case '/':
-                return 20;
-            case LEQ:
-            case ENDINPUT:
             case EQ:
-            case '>':
-            case '<':
             case OR:
-            case ')':
             case NEQ:
+            case ')':
+            case LEQ:
             case GEQ:
             case AND:
                 return yyr11();
         }
-        return 83;
+        return 99;
+    }
+
+    private int yys34() {
+        switch (yytok) {
+            case '*':
+                return 22;
+            case '+':
+                return 23;
+            case '-':
+                return 24;
+            case '/':
+                return 25;
+            case '>':
+            case '<':
+            case EQ:
+            case OR:
+            case NEQ:
+            case ')':
+            case LEQ:
+            case GEQ:
+            case AND:
+                return yyr15();
+        }
+        return 99;
+    }
+
+    private int yys35() {
+        switch (yytok) {
+            case '*':
+                return 22;
+            case '+':
+                return 23;
+            case '-':
+                return 24;
+            case '/':
+                return 25;
+            case '>':
+            case '<':
+            case EQ:
+            case OR:
+            case NEQ:
+            case ')':
+            case LEQ:
+            case GEQ:
+            case AND:
+                return yyr16();
+        }
+        return 99;
+    }
+
+    private int yys36() {
+        switch (yytok) {
+            case '*':
+                return 22;
+            case '+':
+                return 23;
+            case '-':
+                return 24;
+            case '/':
+                return 25;
+            case '>':
+            case '<':
+            case EQ:
+            case OR:
+            case NEQ:
+            case ')':
+            case LEQ:
+            case GEQ:
+            case AND:
+                return yyr12();
+        }
+        return 99;
+    }
+
+    private int yys37() {
+        switch (yytok) {
+            case AND:
+                return 15;
+            case EQ:
+                return 16;
+            case GEQ:
+                return 17;
+            case LEQ:
+                return 18;
+            case NEQ:
+                return 19;
+            case '*':
+                return 22;
+            case '+':
+                return 23;
+            case '-':
+                return 24;
+            case '/':
+                return 25;
+            case '<':
+                return 26;
+            case '>':
+                return 27;
+            case OR:
+            case ')':
+                return yyr18();
+        }
+        return 99;
     }
 
     private int yys39() {
         switch (yytok) {
-            case '!':
-            case INT:
-            case IDENT:
-            case '(':
-            case error:
-            case UPLUS:
-            case UNOT:
-            case STR:
-            case UMIN:
-            case BOOL:
-                return 83;
+            case '>':
+            case '<':
+            case EQ:
+            case '-':
+            case OR:
+            case '+':
+            case '/':
+            case '*':
+            case NEQ:
+            case ')':
+            case LEQ:
+            case GEQ:
+            case AND:
+                return yyr7();
         }
-        return yyr21();
+        return 99;
     }
 
-    private int yyr1() { // top : expr
-        { result = ((Expression)yysv[yysp-1]); }
+    private int yys40() {
+        switch (yytok) {
+            case '*':
+                return 22;
+            case '/':
+                return 25;
+            case '>':
+            case '<':
+            case EQ:
+            case '-':
+            case OR:
+            case '+':
+            case NEQ:
+            case ')':
+            case LEQ:
+            case GEQ:
+            case AND:
+                return yyr9();
+        }
+        return 99;
+    }
+
+    private int yys41() {
+        switch (yytok) {
+            case '*':
+                return 22;
+            case '/':
+                return 25;
+            case '>':
+            case '<':
+            case EQ:
+            case '-':
+            case OR:
+            case '+':
+            case NEQ:
+            case ')':
+            case LEQ:
+            case GEQ:
+            case AND:
+                return yyr10();
+        }
+        return 99;
+    }
+
+    private int yys42() {
+        switch (yytok) {
+            case '>':
+            case '<':
+            case EQ:
+            case '-':
+            case OR:
+            case '+':
+            case '/':
+            case '*':
+            case NEQ:
+            case ')':
+            case LEQ:
+            case GEQ:
+            case AND:
+                return yyr8();
+        }
+        return 99;
+    }
+
+    private int yys43() {
+        switch (yytok) {
+            case '*':
+                return 22;
+            case '+':
+                return 23;
+            case '-':
+                return 24;
+            case '/':
+                return 25;
+            case '>':
+            case '<':
+            case EQ:
+            case OR:
+            case NEQ:
+            case ')':
+            case LEQ:
+            case GEQ:
+            case AND:
+                return yyr14();
+        }
+        return 99;
+    }
+
+    private int yys44() {
+        switch (yytok) {
+            case '*':
+                return 22;
+            case '+':
+                return 23;
+            case '-':
+                return 24;
+            case '/':
+                return 25;
+            case '>':
+            case '<':
+            case EQ:
+            case OR:
+            case NEQ:
+            case ')':
+            case LEQ:
+            case GEQ:
+            case AND:
+                return yyr13();
+        }
+        return 99;
+    }
+
+    private int yys45() {
+        switch (yytok) {
+            case '>':
+            case '<':
+            case EQ:
+            case '-':
+            case OR:
+            case '+':
+            case '/':
+            case '*':
+            case NEQ:
+            case ')':
+            case LEQ:
+            case GEQ:
+            case AND:
+                return yyr24();
+        }
+        return 99;
+    }
+
+    private int yyr1() { // top : statement
+        { result = ((Statement)yysv[yysp-1]); }
         yysv[yysp-=1] = yyrv;
         return 1;
     }
 
-    private int yyr2() { // expr : '+' expr
-        { yyrv = new Pos(((Expression)yysv[yysp-1])); }
+    private int yyr2() { // statement : IF '(' expression ')' '{' statement '}'
+        { yyrv = new If( ((Expression)yysv[yysp-5]), ((Statement)yysv[yysp-2]) ); }
+        yysv[yysp-=7] = yyrv;
+        return yypstatement();
+    }
+
+    private int yyr3() { // statement : /* empty */
+        return yypstatement();
+    }
+
+    private int yypstatement() {
+        switch (yyst[yysp-1]) {
+            case 0: return 2;
+            default: return 46;
+        }
+    }
+
+    private int yyr4() { // expression : '+' expression
+        { yyrv = new Pos( ((Expression)yysv[yysp-1]) ); }
         yysv[yysp-=2] = yyrv;
-        return yypexpr();
+        return yypexpression();
     }
 
-    private int yyr3() { // expr : '-' expr
-        { yyrv = new Neg(((Expression)yysv[yysp-1])); }
+    private int yyr5() { // expression : '-' expression
+        { yyrv = new Neg( ((Expression)yysv[yysp-1]) ); }
         yysv[yysp-=2] = yyrv;
-        return yypexpr();
+        return yypexpression();
     }
 
-    private int yyr4() { // expr : '!' expr
-        { yyrv = new Not(((Expression)yysv[yysp-1])); }
+    private int yyr6() { // expression : '!' expression
+        { yyrv = new Not( ((Expression)yysv[yysp-1])); }
         yysv[yysp-=2] = yyrv;
-        return yypexpr();
+        return yypexpression();
     }
 
-    private int yyr5() { // expr : expr '*' expr
-        { yyrv = new Mul(((Expression)yysv[yysp-3]), ((Expression)yysv[yysp-1])); }
+    private int yyr7() { // expression : expression '*' expression
+        { yyrv = new Mul( ((Expression)yysv[yysp-3]), ((Expression)yysv[yysp-1]) ); }
         yysv[yysp-=3] = yyrv;
-        return yypexpr();
+        return yypexpression();
     }
 
-    private int yyr6() { // expr : expr '/' expr
-        { yyrv = new Div(((Expression)yysv[yysp-3]), ((Expression)yysv[yysp-1])); }
+    private int yyr8() { // expression : expression '/' expression
+        { yyrv = new Div( ((Expression)yysv[yysp-3]), ((Expression)yysv[yysp-1]) ); }
         yysv[yysp-=3] = yyrv;
-        return yypexpr();
+        return yypexpression();
     }
 
-    private int yyr7() { // expr : expr '+' expr
-        { yyrv = new Add(((Expression)yysv[yysp-3]), ((Expression)yysv[yysp-1])); }
+    private int yyr9() { // expression : expression '+' expression
+        { yyrv = new Add( ((Expression)yysv[yysp-3]), ((Expression)yysv[yysp-1]) ); }
         yysv[yysp-=3] = yyrv;
-        return yypexpr();
+        return yypexpression();
     }
 
-    private int yyr8() { // expr : expr '-' expr
-        { yyrv = new Sub(((Expression)yysv[yysp-3]), ((Expression)yysv[yysp-1])); }
+    private int yyr10() { // expression : expression '-' expression
+        { yyrv = new Sub( ((Expression)yysv[yysp-3]), ((Expression)yysv[yysp-1]) ); }
         yysv[yysp-=3] = yyrv;
-        return yypexpr();
+        return yypexpression();
     }
 
-    private int yyr9() { // expr : expr EQ expr
-        { yyrv = new Eq(((Expression)yysv[yysp-3]), ((Expression)yysv[yysp-1])); }
+    private int yyr11() { // expression : expression EQ expression
+        { yyrv = new Eq( ((Expression)yysv[yysp-3]), ((Expression)yysv[yysp-1]) ); }
         yysv[yysp-=3] = yyrv;
-        return yypexpr();
+        return yypexpression();
     }
 
-    private int yyr10() { // expr : expr NEQ expr
-        { yyrv = new NEq(((Expression)yysv[yysp-3]), ((Expression)yysv[yysp-1])); }
+    private int yyr12() { // expression : expression NEQ expression
+        { yyrv = new NEq( ((Expression)yysv[yysp-3]), ((Expression)yysv[yysp-1]) ); }
         yysv[yysp-=3] = yyrv;
-        return yypexpr();
+        return yypexpression();
     }
 
-    private int yyr11() { // expr : expr '>' expr
-        { yyrv = new GT(((Expression)yysv[yysp-3]), ((Expression)yysv[yysp-1])); }
+    private int yyr13() { // expression : expression '>' expression
+        { yyrv = new GT( ((Expression)yysv[yysp-3]), ((Expression)yysv[yysp-1]) ); }
         yysv[yysp-=3] = yyrv;
-        return yypexpr();
+        return yypexpression();
     }
 
-    private int yyr12() { // expr : expr '<' expr
-        { yyrv = new LT(((Expression)yysv[yysp-3]), ((Expression)yysv[yysp-1])); }
+    private int yyr14() { // expression : expression '<' expression
+        { yyrv = new LT( ((Expression)yysv[yysp-3]), ((Expression)yysv[yysp-1]) ); }
         yysv[yysp-=3] = yyrv;
-        return yypexpr();
+        return yypexpression();
     }
 
-    private int yyr13() { // expr : expr GEQ expr
-        { yyrv = new GEq(((Expression)yysv[yysp-3]), ((Expression)yysv[yysp-1])); }
+    private int yyr15() { // expression : expression GEQ expression
+        { yyrv = new GEq( ((Expression)yysv[yysp-3]), ((Expression)yysv[yysp-1]) ); }
         yysv[yysp-=3] = yyrv;
-        return yypexpr();
+        return yypexpression();
     }
 
-    private int yyr14() { // expr : expr LEQ expr
-        { yyrv = new LEq(((Expression)yysv[yysp-3]), ((Expression)yysv[yysp-1])); }
+    private int yyr16() { // expression : expression LEQ expression
+        { yyrv = new LEq( ((Expression)yysv[yysp-3]), ((Expression)yysv[yysp-1]) ); }
         yysv[yysp-=3] = yyrv;
-        return yypexpr();
+        return yypexpression();
     }
 
-    private int yyr15() { // expr : expr AND expr
-        { yyrv = new And(((Expression)yysv[yysp-3]), ((Expression)yysv[yysp-1])); }
+    private int yyr17() { // expression : expression AND expression
+        { yyrv = new And( ((Expression)yysv[yysp-3]), ((Expression)yysv[yysp-1]) ); }
         yysv[yysp-=3] = yyrv;
-        return yypexpr();
+        return yypexpression();
     }
 
-    private int yyr16() { // expr : expr OR expr
-        { yyrv = new Or(((Expression)yysv[yysp-3]), ((Expression)yysv[yysp-1])); }
+    private int yyr18() { // expression : expression OR expression
+        { yyrv = new Or( ((Expression)yysv[yysp-3]), ((Expression)yysv[yysp-1]) ); }
         yysv[yysp-=3] = yyrv;
-        return yypexpr();
+        return yypexpression();
     }
 
-    private int yyr17() { // expr : BOOL
+    private int yyr19() { // expression : BOOL
         { yyrv = ((org.uva.sea.ql.ast.expression.value.Bool)yysv[yysp-1]); }
         yysv[yysp-=1] = yyrv;
-        return yypexpr();
+        return yypexpression();
     }
 
-    private int yyr18() { // expr : INT
+    private int yyr20() { // expression : MON
+        { yyrv = ((org.uva.sea.ql.ast.expression.value.Money)yysv[yysp-1]); }
+        yysv[yysp-=1] = yyrv;
+        return yypexpression();
+    }
+
+    private int yyr21() { // expression : INT
         { yyrv = ((org.uva.sea.ql.ast.expression.value.Int)yysv[yysp-1]); }
         yysv[yysp-=1] = yyrv;
-        return yypexpr();
+        return yypexpression();
     }
 
-    private int yyr19() { // expr : STR
+    private int yyr22() { // expression : STR
         { yyrv = ((org.uva.sea.ql.ast.expression.value.Str)yysv[yysp-1]); }
         yysv[yysp-=1] = yyrv;
-        return yypexpr();
+        return yypexpression();
     }
 
-    private int yyr20() { // expr : IDENT
+    private int yyr23() { // expression : IDENT
         { yyrv = yysv[yysp-1]; }
         yysv[yysp-=1] = yyrv;
-        return yypexpr();
+        return yypexpression();
     }
 
-    private int yyr21() { // expr : '(' expr ')'
+    private int yyr24() { // expression : '(' expression ')'
         { yyrv = ((Expression)yysv[yysp-2]); }
         yysv[yysp-=3] = yyrv;
-        return yypexpr();
+        return yypexpression();
     }
 
-    private int yypexpr() {
+    private int yypexpression() {
         switch (yyst[yysp-1]) {
-            case 21: return 37;
-            case 20: return 36;
-            case 19: return 35;
-            case 18: return 34;
-            case 17: return 33;
-            case 16: return 32;
-            case 15: return 31;
-            case 14: return 30;
-            case 13: return 29;
-            case 12: return 28;
-            case 11: return 27;
-            case 10: return 26;
-            case 9: return 25;
-            case 8: return 24;
-            case 7: return 23;
-            case 0: return 2;
-            default: return 38;
+            case 26: return 43;
+            case 25: return 42;
+            case 24: return 41;
+            case 23: return 40;
+            case 22: return 39;
+            case 20: return 37;
+            case 19: return 36;
+            case 18: return 35;
+            case 17: return 34;
+            case 16: return 33;
+            case 15: return 32;
+            case 14: return 31;
+            case 13: return 30;
+            case 12: return 29;
+            case 11: return 28;
+            case 4: return 5;
+            default: return 44;
         }
     }
 
     protected String[] yyerrmsgs = {
     };
 
+    /**
+     * Holds the lexer.
+     */
     private QLLexer lexer;
     
-    private Expression result;
+    /**
+     * Holds the parsing result (AST)
+     */
+    private ASTNode result;
     
-    public Expression getResult() {
-      return result;
+    /**
+     * Retrieves the generated AST.
+     *
+     * @return The AST.
+     */
+    public ASTNode getResult() {
+        return result;
     }
     
+    /**
+     * Sets the lexer.
+     *
+     * @param lexer
+     */
     public QLParser( QLLexer lexer ) { 
-      this.lexer = lexer;
+        this.lexer = lexer;
     }
     
+    /**
+     * Output error message.
+     *
+     * @param msg The error message.
+     */
     private void yyerror( String msg ) { 
-      System.err.println( msg );
+        System.err.println( msg );
     }
 
 }

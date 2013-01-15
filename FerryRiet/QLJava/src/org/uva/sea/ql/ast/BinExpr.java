@@ -1,6 +1,6 @@
 package org.uva.sea.ql.ast;
 
-import org.uva.sea.ql.astvisitor.ASTNodeVisitor;
+import org.uva.sea.ql.astnodevisitor.Visitor;
 
 public abstract class BinExpr extends Expr {
 	private final Expr exprLeftHand;
@@ -20,7 +20,7 @@ public abstract class BinExpr extends Expr {
 	}
 
 	@Override
-	public void accept(ASTNodeVisitor visitor) {
+	public void accept(Visitor visitor) {
 		visitor.visit(this);
 	}
 }

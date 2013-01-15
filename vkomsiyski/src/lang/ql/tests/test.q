@@ -17,14 +17,14 @@ sd
  	//s//
 //sdfsdlfksdjghlkj
 
-	date hasSoldHouse2 = "dsfkdf" 23.12.1998
-	date d2 = "jgfgj" 11.1.2002
+	date hasSoldHouse2 = "dsfkdf" 23.11.1998
+	date d2 = "jgfgj" 11.11.2002
 	
 	string intq = "int" "shish"
 	string ja = "st" "sj"
 	
 	if (intq + ja == "hff") {
-	 	float fjd = "fjdfsj" 4
+	 	float fjd = "fjdfsj" 
 	 }
 
 	if (sd1) {	
@@ -82,7 +82,7 @@ sd
      int privateDebt5= "Private debtss for the sold house:"787878
      int sellingPrice5 ="Price the hous was sold for:"  
    } else {
-     int privateDebt6= "Private debts for the sold house:" 
+     int privateDebt6= "what?d" 
      int sellingPrice6 ="Price the house was sold for:"  
    }  
 }

@@ -5,7 +5,7 @@ import org.uva.sea.ql.visitor.Visitor;
 /**
  * Represents an integer expression.
  */
-public class Int extends Literal {
+public class Int extends Number {
 	/**
 	 * Holds the integer value of the expression.
 	 */

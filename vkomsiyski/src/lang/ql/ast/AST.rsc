@@ -7,7 +7,7 @@ data Form = form(str name, list[Statement] statements);
 data Statement
   = regular(str \type, str name, str label)
   | computed(str \type, str name, str label, Expr expr)
-  | conditional(IfStatement ifStatement, list[IfStatement] elseIfs, list[Statement] elsePart);
+  | conditional(If \if, list[If] elseIfs, list[Statement] \else);
    
 data Expr
   = ident(str name)
@@ -37,9 +37,12 @@ data Expr
   | or(Expr expr1, Expr expr2);
  
  
-alias IfStatement = tuple[Expr condition, list[Statement] body]; 
+alias If = tuple[Expr condition, list[Statement] body]; 
 
-alias SeparatedStatements = tuple[list[Statement] regs, list[Statement] comps, list[Statement] conds];
+alias SeparatedStatements 
+  = tuple[list[Statement] regularQuestions, 
+		   list[Statement] computedQuestions, 
+		   list[Statement] conditionals];
 
 anno loc Form@location;
 anno loc Statement@location;

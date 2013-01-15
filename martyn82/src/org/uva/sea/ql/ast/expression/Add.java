@@ -5,7 +5,7 @@ import org.uva.sea.ql.visitor.Visitor;
 /**
  * Represents an addition expression.
  */
-public class Add extends BinaryExpression {
+public class Add extends ArithmeticExpression {
 	/**
 	 * Constructs a new addition expression.
 	 * 

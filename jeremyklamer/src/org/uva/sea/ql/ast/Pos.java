@@ -11,6 +11,7 @@ public class Pos extends Expr {
 	@Override
 	public Value interpret() {
 		// TODO Auto-generated method stub
+		Boolean.parseBoolean("true");
 		return null;
 	}
 

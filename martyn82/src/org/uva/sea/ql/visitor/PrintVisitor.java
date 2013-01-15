@@ -1,9 +1,11 @@
 package org.uva.sea.ql.visitor;
 
+import org.uva.sea.ql.ast.ASTNode;
 import org.uva.sea.ql.ast.expression.BinaryExpression;
 import org.uva.sea.ql.ast.expression.Expression;
 import org.uva.sea.ql.ast.expression.UnaryExpression;
 import org.uva.sea.ql.ast.expression.value.Literal;
+import org.uva.sea.ql.ast.statement.If;
 
 /**
  * Visitor that prints the AST.
@@ -33,24 +35,41 @@ public class PrintVisitor extends Visitor {
 	}
 	
 	/**
-	 * Visits an arbitrary expression.
+	 * Visits an arbitrary node.
 	 */
-	public void visit( Expression expression ) {
-		if ( expression instanceof BinaryExpression ) {
+	public void visit( ASTNode node ) {
+		if ( node instanceof BinaryExpression ) {
 			this.level++;
-			this.visitBinary( (BinaryExpression) expression );
+			this.visitBinary( (BinaryExpression) node );
 			this.level--;
 		}
-		else if ( expression instanceof UnaryExpression ) {
-			this.visitUnary( (UnaryExpression) expression );
+		else if ( node instanceof UnaryExpression ) {
+			this.visitUnary( (UnaryExpression) node );
 		}
-		else if ( expression instanceof Literal ) {
-			this.visitLiteral( (Literal) expression );
+		else if ( node instanceof Literal ) {
+			this.visitLiteral( (Literal) node );
 		}
+		else if ( node instanceof Expression ) {
+			this.visitExpression( (Expression) node );
+		}
+		else if ( node instanceof If ) {
+			this.visitIf( (If) node );
+		}
+	}
 	
-		else {
-			this.visitExpression( expression );
+	private void visitIf( If statement ) {
+		buffer.append( "IF( " );
+		statement.getCondition().accept( this );
+		buffer.append( " " );
+		
+		if ( statement.getBody() != null ) {
+			statement.getBody().accept( this );
 		}
+		else {
+			buffer.append( "NULL" );
+		}
+		
+		buffer.append( " )" );
 	}
 	
 	/**
