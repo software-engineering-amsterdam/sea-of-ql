@@ -1,14 +1,14 @@
 Eclipse highlight categories (probably):
-  - "Normal";
-  - "Type";
-  - "Identifier";
-  - "Variable";
-  - "Constant";
-  - "Comment";
-  - "Todo";
-  - "Quote";
-  - "MetaAmbiguity";
-  - "MetaVariable";
-  - "MetaKeyword";
-  - "MetaSkipped";
-  - "NonterminalLabel".
+  - "Normal"; -> black
+  - "Type"; -> red
+  - "Identifier"; -> blue'ish
+  - "Variable"; -> light green
+  - "Constant"; -> purple
+  - "Comment"; -> dark green, italic
+  - "Todo"; -> blue'ish, bold
+  - "Quote"; -> red, dark green background
+  - "MetaAmbiguity"; -> red, bold
+  - "MetaVariable"; -> blue'ish, italic
+  - "MetaKeyword"; -> purple, bold
+  - "MetaSkipped"; -> black, dark green background
+  - "NonterminalLabel". -> gray, italic
