@@ -11,7 +11,7 @@ public test bool testDate2() =
   parseExpr("$2013-01-08") is date;
 
 public test bool testDate3() = 
-  arseExpr("$1000-01-01") is date;
+  parseExpr("$1000-01-01") is date;
 
 public test bool testDate4() = 
   parseExpr("$1550-11-23") is date;
