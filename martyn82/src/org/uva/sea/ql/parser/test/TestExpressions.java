@@ -4,6 +4,10 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 import org.uva.sea.ql.ast.expression.*;
+import org.uva.sea.ql.ast.expression.value.Bool;
+import org.uva.sea.ql.ast.expression.value.Int;
+import org.uva.sea.ql.ast.expression.value.Money;
+import org.uva.sea.ql.ast.expression.value.Str;
 import org.uva.sea.ql.parser.jacc.JACCParser;
 
 /**
@@ -149,15 +153,23 @@ public class TestExpressions {
 	}
 
 	/**
-	 * Tests numerical expressions.
+	 * Tests numerical literals.
 	 * 
 	 * @throws ParseError
 	 */
 	@Test
 	public void testNums() throws ParseError {
-		assertEquals( Int.class, parser.parse( "0" ).getClass() );
-		assertEquals( Int.class, parser.parse( "1223" ).getClass() );
-		assertEquals( Int.class, parser.parse( "234234234" ).getClass() );
+		// integer
+//		assertEquals( Int.class, parser.parse( "0" ).getClass() );
+//		assertEquals( Int.class, parser.parse( "1223" ).getClass() );
+//		assertEquals( Int.class, parser.parse( "234234234" ).getClass() );
+		
+		// money
+//		assertEquals( Money.class, parser.parse( "0.0" ).getClass() );
+//		assertEquals( Money.class, parser.parse( "0.034982390" ).getClass() );
+//		assertEquals( Money.class, parser.parse( ".5" ).getClass() );
+//		assertEquals( Money.class, parser.parse( ".121e-10" ).getClass() );
+		assertEquals( Money.class, parser.parse( "141232.12141E+04" ).getClass() );
 		
 		// negative
 		assertEquals( Neg.class, parser.parse( "-1" ).getClass() );
@@ -170,6 +182,35 @@ public class TestExpressions {
 		assertEquals( Pos.class, parser.parse( "+0" ).getClass() );
 		assertEquals( Pos.class, parser.parse( "+991821" ).getClass() );
 		assertEquals( Pos.class, parser.parse( "+(-43 * (11 + -3))" ).getClass() );
+	}
+	
+	/**
+	 * Tests boolean literals.
+	 * 
+	 * @throws ParseError
+	 */
+	@Test
+	public void testBools() throws ParseError {
+		assertEquals( Bool.class, parser.parse( "true" ).getClass() );
+		assertEquals( Bool.class, parser.parse( "false" ).getClass() );
+	}
+	
+	/**
+	 * Tests string literals.
+	 * 
+	 * @throws ParseError
+	 */
+	@Test
+	public void testStrings() throws ParseError {
+		assertEquals( Str.class, parser.parse( "\"\"" ).getClass() );
+		assertEquals( Str.class, parser.parse( "\"abc\"" ).getClass() );
+		assertEquals( Str.class, parser.parse( "\"321\"" ).getClass() );
+		assertEquals( Str.class, parser.parse( "\"s1t2r3\"" ).getClass() );
+		assertEquals( Str.class, parser.parse( "\"-53\"" ).getClass() );
+		
+		// escaped characters
+		assertEquals( Str.class, parser.parse( "\"\\'\"" ).getClass() );
+		assertEquals( Str.class, parser.parse( "\"\\n\"" ).getClass() );
 	}
 	
 	/**
@@ -195,5 +236,24 @@ public class TestExpressions {
 		// logical NOT
 		assertEquals( Not.class, parser.parse( "!a" ).getClass() );
 		assertEquals( Not.class, parser.parse( "!(a && b)" ).getClass() );
+	}
+	
+	/**
+	 * Tests comment structures.
+	 * 
+	 * @throws ParseError
+	 */
+	@Test
+	public void testComments() throws ParseError {
+		// multiline
+		assertEquals( Mul.class, parser.parse( "a /* some comments */ * c" ).getClass() );
+		assertEquals( Mul.class, parser.parse( "a */**/b" ).getClass() );
+		assertEquals( Mul.class, parser.parse( "a /** some\nlines\nof\ncomments\n*/\n*c" ).getClass() );
+		assertEquals( Div.class, parser.parse( "a / /**/ b" ).getClass() );
+
+		// single line
+		assertEquals( Div.class, parser.parse( "a / b // something" ).getClass() );
+		assertEquals( Div.class, parser.parse( "a // blablabla\n/b" ).getClass() );
+		assertEquals( Mul.class, parser.parse( "a *// comments\rd" ).getClass() );
 	}
 }

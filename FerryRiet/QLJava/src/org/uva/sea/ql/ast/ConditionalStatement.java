@@ -3,22 +3,30 @@ package org.uva.sea.ql.ast;
 import org.uva.sea.ql.astvisitor.ASTNodeVisitor;
 
 public class ConditionalStatement extends Statement {
-	
-	public Expr expression ;
-	public CompoundBlock compound ;
 
-	public ConditionalStatement(Expr ex, CompoundBlock c) {
-		expression = ex ;
-		compound = c ;
+	private final Expr expression;
+	private final Statement trueCompound;
+	private final Statement falseCompound;
+
+	public ConditionalStatement(Expr expr, Statement ctrue, Statement cfalse) {
+		expression = expr;
+		trueCompound = ctrue;
+		falseCompound = cfalse;
 	}
-	public void eval() {
-		System.out.print("if (");
-		expression.eval() ;
-		System.out.print(") ");
-		compound.eval();
+
+	public Expr getExpression() {
+		return expression;
 	}
+
+	public Statement getFalseCompound() {
+		return falseCompound;
+	}
+	public Statement getTrueCompound() {
+		return trueCompound;
+	}
+
 	@Override
 	public void accept(ASTNodeVisitor visitor) {
-		visitor.visit(this) ;
+		visitor.visit(this);
 	}
 }

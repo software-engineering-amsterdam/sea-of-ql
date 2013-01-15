@@ -1,15 +1,13 @@
 package org.uva.sea.ql.ast;
 
 public class BooleanLiteral extends Expr {
+	private final String value;
 
-	
 	public BooleanLiteral(String string) {
-		super(null,null);
-		// TODO Auto-generated constructor stub
+		value = string;
 	}
 
-	@Override
-	public void eval() {
-		System.out.print("boolean");	
+	public String getValue() {
+		return value;
 	}
 }

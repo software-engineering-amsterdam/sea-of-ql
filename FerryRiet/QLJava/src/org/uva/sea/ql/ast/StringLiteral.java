@@ -2,15 +2,13 @@ package org.uva.sea.ql.ast;
 
 public class StringLiteral extends Expr {
 
+	private final String value;
+
 	public StringLiteral(String string) {
-		super(null,null);
-		// TODO Auto-generated constructor stub
+		value = string;
 	}
 
-	@Override
-	public void eval() {
-		// TODO Auto-generated method stub
-
+	public String getValue() {
+		return value;
 	}
-
 }

@@ -1,22 +1,24 @@
-// Output created by jacc on Thu Jan 10 19:32:43 CET 2013
+// Output created by jacc on Mon Jan 14 16:09:09 CET 2013
 
 package org.uva.sea.ql.parser.jacc;
 
 interface QLTokens {
     int ENDINPUT = 0;
     int AND = 1;
-    int EQ = 2;
-    int GEQ = 3;
-    int IDENT = 4;
-    int INT = 5;
-    int LEQ = 6;
-    int NEQ = 7;
-    int NEW = 8;
-    int OR = 9;
-    int UMIN = 10;
-    int UNOT = 11;
-    int UPLUS = 12;
-    int error = 13;
+    int BOOL = 2;
+    int EQ = 3;
+    int GEQ = 4;
+    int IDENT = 5;
+    int INT = 6;
+    int LEQ = 7;
+    int MON = 8;
+    int NEQ = 9;
+    int OR = 10;
+    int STR = 11;
+    int UMIN = 12;
+    int UNOT = 13;
+    int UPLUS = 14;
+    int error = 15;
     // '!' (code=33)
     // '(' (code=40)
     // ')' (code=41)

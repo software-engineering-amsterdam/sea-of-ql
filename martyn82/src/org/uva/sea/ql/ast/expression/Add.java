@@ -1,13 +1,11 @@
 package org.uva.sea.ql.ast.expression;
 
-import org.uva.sea.ql.ast.Expression;
-import org.uva.sea.ql.interpreter.Context;
-import org.uva.sea.ql.interpreter.Value;
+import org.uva.sea.ql.visitor.Visitor;
 
 /**
  * Represents an addition expression.
  */
-public class Add extends BinaryExpression {
+public class Add extends ArithmeticExpression {
 	/**
 	 * Constructs a new addition expression.
 	 * 
@@ -19,8 +17,7 @@ public class Add extends BinaryExpression {
 	}
 
 	@Override
-	public Value eval( Context context ) {
-		// TODO Auto-generated method stub
-		return null;
+	public void accept( Visitor visitor ) {
+		visitor.visit( this );
 	}
 }

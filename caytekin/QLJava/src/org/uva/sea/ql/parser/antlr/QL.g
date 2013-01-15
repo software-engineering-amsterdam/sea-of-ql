@@ -91,6 +91,11 @@ WS  :	(' ' | '\t' | '\n' | '\r') { $channel=HIDDEN; }
 COMMENT 
      : '/*' .* '*/' {$channel=HIDDEN;}
     ;
+    
+SINGLE_LINE_COMMENT 
+     	:	'//' .* '\n'  {$channel=HIDDEN;}
+     	;
+     	    
 
 Ident:   ('a'..'z'|'A'..'Z')('a'..'z'|'A'..'Z'|'0'..'9'|'_')*;
 

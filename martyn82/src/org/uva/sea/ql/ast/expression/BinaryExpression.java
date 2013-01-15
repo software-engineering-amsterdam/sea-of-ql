@@ -1,7 +1,5 @@
 package org.uva.sea.ql.ast.expression;
 
-import org.uva.sea.ql.ast.Expression;
-
 /**
  * Represents a binary expression.
  */
@@ -25,6 +23,9 @@ abstract public class BinaryExpression extends Expression {
 	protected BinaryExpression( Expression lhs, Expression rhs ) {
 		this.lhs = lhs;
 		this.rhs = rhs;
+		
+		this.lhs.setParent( this );
+		this.rhs.setParent( this );
 	}
 	
 	/**
@@ -32,7 +33,7 @@ abstract public class BinaryExpression extends Expression {
 	 * 
 	 * @return The left-hand side expression.
 	 */
-	protected Expression getLhs() {
+	public Expression getLhs() {
 		return this.lhs;
 	}
 	
@@ -41,7 +42,12 @@ abstract public class BinaryExpression extends Expression {
 	 * 
 	 * @return The right-hand side expression.
 	 */
-	protected Expression getRhs() {
+	public Expression getRhs() {
 		return this.rhs;
+	}
+	
+	@Override
+	public String toString() {
+		return this.getClass().getSimpleName();
 	}
 }

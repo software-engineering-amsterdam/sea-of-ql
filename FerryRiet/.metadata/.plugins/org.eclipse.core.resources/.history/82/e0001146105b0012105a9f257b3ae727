@@ -1,6 +1,0 @@
-package org.uva.sea.ql.astvisitor;
-
-public class ASTNodeVisitor {
-	void visit() ;
-
-}

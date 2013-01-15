@@ -1,27 +1,54 @@
 module lang::ql::ast::AST
 
-data Form = form(str formName, list[FormItem] formElements);
+data Form = form(str formName, list[Statement] formElements);
 
-alias ElseIf = tuple[Expr condition, list[FormItem] body];
-
-data FormItem 
-  = question(Question question)
-  | ifCondition(Expr condition, list[FormItem] ifPart, list[ElseIf] elseIfs, list[FormItem] elsePart)
+data Conditional
+  = conditional(Expr condition, list[Statement] body)
   ;
 
-data Type
-  = \type(str name)
+data Statement 
+  = question(Question question)
+  | ifCondition(Conditional ifPart, list[Conditional] elseIfs, list[Statement] elsePart)
   ;
 
 data Question
-  // Needed for implode. We will rewrite it.
+  // How standard implode returns it
   = question(str, str, str)
-  | question(Expr questionText, Type answerDataType, Expr answerIdentifier)
-  | question(str, str, str, str)
-  // It works with a type, an expression throws an error...
-  | question(Expr questionText, Type answerDataType, Expr answerIdentifier, Expr calculatedField)
-  | question(Expr awtf, Type bwtf, Expr cwtf, Type dwtf) 
+  | question(str, str, str, Expr e)
+  // How we want it
+  //| question(Expr questionText, Type answerDataType, Expr answerIdentifier)
+  //| question(Expr questionText, Type answerDataType, Expr answerIdentifier, Expr calculatedField)
   ;
+
+data Type
+  = \type(str typeName)
+  ;
+
+/* Nevermind, thought this would help but probably won't
+data Ident
+  = ident(str name)
+  ;
+
+data String
+  = string(str stringValue)
+  ;
+
+data Int
+  = integer(int intValue)
+  ;
+
+data Boolean
+  = boolean(bool booleanValue)
+  ;
+
+data Money
+  = money(real moneyValue)
+  ;
+
+data Date
+  = date(str dateValue)
+  ;
+*/
 
 data Expr
   = ident(str name)
@@ -53,5 +80,5 @@ data Expr
   
 // Some annotation for language integration
 anno loc Form@location;
-anno loc FormItem@location;
+anno loc Statement@location;
 anno loc Question@location;

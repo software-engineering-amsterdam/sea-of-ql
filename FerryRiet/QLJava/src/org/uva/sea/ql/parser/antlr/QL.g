@@ -13,19 +13,24 @@ package org.uva.sea.ql.parser.antlr;
 }
 
 qlprogram returns [QLProgram result]
-    : 'form' Ident  cb=compoundblock { $result = new QLProgram($Ident, cb) ; } 
+    : 'form' Ident  cb=compoundStatement { $result = new QLProgram($Ident, cb) ; } 
     ;
 
-compoundblock returns [CompoundBlock result]
+compoundStatement returns [Statement result]
+  @init { CompoundStatement compoundStatement = new CompoundStatement() ; }
     : LBRACE 
-      { $result = new CompoundBlock() ; } (st=stmt  { $result.addStatement($st.result) ; } )* 
-      RBRACE  
+      (st=statement  { compoundStatement.addStatement($st.result) ; } )* 
+      RBRACE    { $result = compoundStatement ; }
+    ;
+    
+
+statement returns [Statement result]     
+    : Ident COLON st=StringLiteral ty=type { $result = new LineStatement(new String($Ident.text),$st,$ty.result); }
+    | 'if' '(' ex=orExpr ')' ctrue=compoundStatement ('else' cfalse=compoundStatement)? { $result = new ConditionalStatement(ex,ctrue,cfalse) ; }
+    | c=compoundStatement { $result = c ;}  
     ;
 
-stmt returns [Statement result]     
-    : Ident COLON st=StringLiteral ty=type { $result = new LineStatement(new String($Ident.text),$st,$ty.result); }
-    | 'if' '(' ex=orExpr ')' c=compoundblock    { $result = new ConditionalStatement(ex,c) ; } 
-    ;
+//    | 'if' '(' ex=orExpr ')' ctrue=compoundStatement  { $result = new ConditionalStatement(ex,ctrue,null) ; }
 
 type returns [TypeDescription result]
     : 'boolean' { $result = new BooleanType() ;}
@@ -108,11 +113,12 @@ orExpr returns [Expr result]
 WS  :	(' ' | '\t' | '\n' | '\r') { $channel=HIDDEN; }
     ;
 
-StringLiteral : '"' ~('\n' | '\r' | '"')* '"' ;
+StringLiteral : '"' ~('\n' | '\r' | '\f' | '"')* '"' ;
 
 COLON  : ':' ;
 LBRACE : '{' ;
 RBRACE : '}' ;
+
 
 COMMENT 
     : '/*' .* '*/'    {$channel=HIDDEN;}

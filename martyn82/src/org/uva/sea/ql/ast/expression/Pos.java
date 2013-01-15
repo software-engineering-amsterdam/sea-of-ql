@@ -1,13 +1,11 @@
 package org.uva.sea.ql.ast.expression;
 
-import org.uva.sea.ql.ast.Expression;
-import org.uva.sea.ql.interpreter.Context;
-import org.uva.sea.ql.interpreter.Value;
+import org.uva.sea.ql.visitor.Visitor;
 
 /**
  * Represents a positive expression.
  */
-public class Pos extends UnaryExpression {
+public class Pos extends UnaryNumericExpression {
 	/**
 	 * Constructs a new positive expression.
 	 * 
@@ -18,8 +16,7 @@ public class Pos extends UnaryExpression {
 	}
 
 	@Override
-	public Value eval( Context context ) {
-		// TODO Auto-generated method stub
-		return null;
+	public void accept( Visitor visitor ) {
+		visitor.visit( this );
 	}
 }

@@ -22,8 +22,7 @@ public class TestExpressions {
 	@Parameters
 	public static List<Object[]> theParsers() {
 		return Arrays.asList(
-			new Object[] {new JACCParser()}, 
-			new Object[] {new RatsParser()},
+			new Object[] {new ANTLRParser()}, 
 			new Object[] {new ANTLRParser()}
 		);
 	}
@@ -78,11 +77,30 @@ public class TestExpressions {
 		assertEquals(_parser.parse("a2bc232").getClass(), Ident.class);
 		assertEquals(_parser.parse("a2bc232aa").getClass(), Ident.class);
 	}
-
+	
 	@Test
 	public void testNums() throws ParseError {
 		assertEquals(_parser.parse("0").getClass(), Int.class);
 		assertEquals(_parser.parse("1223").getClass(), Int.class);
 		assertEquals(_parser.parse("234234234").getClass(), Int.class);
+	}
+	
+	@Test
+	public void testBooleans() throws ParseError {
+		assertEquals(_parser.parse("true").getClass(), Bool.class);
+		assertEquals(_parser.parse("false").getClass(), Bool.class);
+		assertEquals(_parser.parse("True").getClass(), Bool.class);
+		assertEquals(_parser.parse("False").getClass(), Bool.class);
+	}
+	
+	@Test
+	public void testStrings() throws ParseError {
+		assertEquals(_parser.parse("\"a\"").getClass(), Str.class);
+		assertEquals(_parser.parse("\"abc\"").getClass(), Str.class);
+		assertEquals(_parser.parse("\"ABC\"").getClass(), Str.class);
+		assertEquals(_parser.parse("\"ABCDEF\"").getClass(), Str.class);
+		assertEquals(_parser.parse("\"abc2323\"").getClass(), Str.class);
+		assertEquals(_parser.parse("\"a2bc232\"").getClass(), Str.class);
+		assertEquals(_parser.parse("\"a2bc232aa\"").getClass(), Str.class);
 	}
 }

@@ -2,20 +2,24 @@ package org.uva.sea.ql.ast;
 
 public abstract class BinaryTree extends Expr {
 	
-	private Expr left;
-	private Expr right;
+	private Expr lhs;
+	private Expr rhs;
 	
-	protected BinaryTree(Expr left, Expr right) {
-		this.left = left;
-		this.right = right;
+	protected BinaryTree(Expr lhs, Expr rhs) {
+		this.lhs = lhs;
+		this.rhs = rhs;
+	}
+	
+	protected BinaryTree(Expr lhs) {
+		this.lhs = lhs;
 	}
 	
 	protected Expr getLeft() {
-		return left;
+		return lhs;
 	}
 	
 	protected Expr getRight() {
-		return right;
+		return rhs;
 	}
 	
 }
