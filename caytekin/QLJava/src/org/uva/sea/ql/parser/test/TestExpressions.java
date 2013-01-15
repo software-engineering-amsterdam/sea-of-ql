@@ -27,9 +27,7 @@ public class TestExpressions {
 
 	@Parameters
 	public static List<Object[]> theParsers() {
-	  return Arrays.asList(
-			  new Object[] {new JACCParser()}, 
-			  new Object[] {new RatsParser()},
+	  return Arrays.asList( new Object[] {new ANTLRParser()},
 			  new Object[] {new ANTLRParser()}
 			 );
 	}
@@ -91,6 +89,16 @@ public class TestExpressions {
 		assertEquals(parser.parse("0").getClass(), Int.class);
 		assertEquals(parser.parse("1223").getClass(), Int.class);
 		assertEquals(parser.parse("234234234").getClass(), Int.class);
+	}
+	
+	@Test
+	public void testSingleComment() throws ParseError {
+		assertEquals(parser.parse("0123 // This is a single line comment." + "\n").getClass(), Int.class);
+	}
+	
+	@Test 
+	public void testStringLiteral() throws ParseError {
+		assertEquals(parser.parse(" \" This is a String liteal indeed...").getClass(), String.class);
 	}
 	
 }
