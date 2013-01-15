@@ -26,7 +26,7 @@ compoundStatement returns [Statement result]
 statement returns [Statement result]     
     : Ident COLON StringLiteral type { $result = new LineStatement($Ident,$StringLiteral,$type.result); }
     | 'if' '(' ex=orExpr ')' ctrue=compoundStatement ('else' cfalse=compoundStatement)? { $result = new ConditionalStatement(ex,ctrue,cfalse) ; }
-    | c=compoundStatement { $result = c ;}  
+    |  cst=compoundStatement { $result = cst ;}  
     ;
 
 type returns [TypeDescription result]
