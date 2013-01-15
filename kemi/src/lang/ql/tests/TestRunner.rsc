@@ -28,6 +28,7 @@ extend lang::ql::tests::questions::CalculatedQuestions;
 extend lang::ql::tests::forms::Grammar;
 extend lang::ql::tests::forms::Outline;
 extend lang::ql::tests::forms::PrettyPrinter;
+extend lang::ql::tests::forms::SemanticChecker;
 
 import IO;
 

@@ -27,7 +27,7 @@ form ifCondition {
   	"Blah?"
   	  string bText
     "Question one?"
-      integer numberOne
+      integer numberOneAgain
   	"Question two?"
   	  date theDate
   	"Question three?"

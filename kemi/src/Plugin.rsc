@@ -2,6 +2,7 @@ module Plugin
 
 import util::IDE;
 import lang::ql::ide::Outline;
+import lang::ql::ide::SemanticChecker;
 import lang::ql::util::Parse;
 import lang::ql::util::Implode;
 import ParseTree;
@@ -18,6 +19,10 @@ public void main() {
   contribs = {
     outliner(node(Tree input) {
       return outlineForm(implode(input));
+    }),
+    
+    annotator(Tree (Tree input) {
+      return input[@messages=semanticChecker(implode(input))];
     })
   };
   
