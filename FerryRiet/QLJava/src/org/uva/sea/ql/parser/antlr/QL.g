@@ -21,16 +21,13 @@ compoundStatement returns [Statement result]
     : LBRACE 
       (st=statement  { compoundStatement.addStatement($st.result) ; } )* 
       RBRACE    { $result = compoundStatement ; }
-    ;
-    
+    ;    
 
 statement returns [Statement result]     
-    : Ident COLON st=StringLiteral ty=type { $result = new LineStatement(new String($Ident.text),$st,$ty.result); }
+    : Ident COLON StringLiteral type { $result = new LineStatement($Ident,$StringLiteral,$type.result); }
     | 'if' '(' ex=orExpr ')' ctrue=compoundStatement ('else' cfalse=compoundStatement)? { $result = new ConditionalStatement(ex,ctrue,cfalse) ; }
     | c=compoundStatement { $result = c ;}  
     ;
-
-//    | 'if' '(' ex=orExpr ')' ctrue=compoundStatement  { $result = new ConditionalStatement(ex,ctrue,null) ; }
 
 type returns [TypeDescription result]
     : 'boolean' { $result = new BooleanType() ;}
@@ -40,7 +37,7 @@ type returns [TypeDescription result]
 
 primary returns [Expr result]
   : IntLiteral      { $result = new IntLiteral(Integer.parseInt($IntLiteral.text)); }
-  | Ident           { $result = new Ident($Ident.text); }
+  | Ident           { $result = new Ident($Ident); }
   | BooleanLiteral  { $result = new BooleanLiteral($BooleanLiteral.text) ;}
   | StringLiteral   { $result = new StringLiteral($StringLiteral.text) ;}
   | '(' x=orExpr ')'{ $result = $x.result; }

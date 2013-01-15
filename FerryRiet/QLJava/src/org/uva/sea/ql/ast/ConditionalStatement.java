@@ -1,6 +1,6 @@
 package org.uva.sea.ql.ast;
 
-import org.uva.sea.ql.astvisitor.ASTNodeVisitor;
+import org.uva.sea.ql.astnodevisitor.Visitor;
 
 public class ConditionalStatement extends Statement {
 
@@ -26,7 +26,7 @@ public class ConditionalStatement extends Statement {
 	}
 
 	@Override
-	public void accept(ASTNodeVisitor visitor) {
+	public void accept(Visitor visitor) {
 		visitor.visit(this);
 	}
 }

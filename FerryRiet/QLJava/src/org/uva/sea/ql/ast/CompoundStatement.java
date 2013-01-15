@@ -3,7 +3,7 @@ package org.uva.sea.ql.ast;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.uva.sea.ql.astvisitor.ASTNodeVisitor;
+import org.uva.sea.ql.astnodevisitor.Visitor;
 
 public class CompoundStatement extends Statement {
 	private List<Statement> statementList = new ArrayList<Statement>();
@@ -20,7 +20,7 @@ public class CompoundStatement extends Statement {
 	}
 
 	@Override
-	public void accept(ASTNodeVisitor visitor) {
+	public void accept(Visitor visitor) {
 		visitor.visit(this);
 	}
 }
