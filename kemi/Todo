@@ -18,7 +18,7 @@
 	- Change the start symbol of the parser to parse forms, instead of Expressions.
 *	Development of the QLS layout language (including IDE support). Include support for at least date picker, spin lock and radio button widgets. This language has to be designed!
 *	Checking of the QLS language against the QL language.
-
+* Randomized testing for semantic checker
 * Naming convention for ident/expr/pos/neg/...
 
 BONUS:
