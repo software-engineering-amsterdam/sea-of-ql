@@ -15,7 +15,15 @@ package org.uva.sea.ql.parser.antlr;
 primary returns [Expr result]
   : Int   { $result = new Int(Integer.parseInt($Int.text)); }
   | Ident { $result = new Ident($Ident.text); }
-  | String { $result = new String($Ident.text); }
+  | String_Literal { $result = new String_Literal($String_Literal.text); }
+  | Boolean_Type { $result = new Boolean_Type($Boolean_Type.text); }
+  | Integer_Type { $result = new Integer_Type($Integer_Type.text); }
+  | String_Type {$result = new String_Type($String_Type.text); } 
+  | True_RW {$result = new True_RW($True_RW.text); }
+  | False_RW {$result = new False_RW($False_RW.text); }  
+  | If_RW {$result = new If_RW($If_RW.text); }  
+  | Then_RW {$result = new Then_RW($Then_RW.text); }  
+  | Else_RW {$result = new Else_RW($Else_RW.text); }     
   | '(' x=orExpr ')'{ $result = $x.result; }
   ;
     
@@ -97,11 +105,29 @@ SINGLE_LINE_COMMENT
      	:	'//' .* '\n'  {$channel=HIDDEN;}
      	;
      	    
+Boolean_Type 	:  'bool';
+
+Integer_Type 	:  'int';
+
+String_Type	:  'string';
+
+True_RW 	:  'true';
+
+False_RW 	:  'false'; 
+
+If_RW 		:  'if';
+
+Then_RW 	:  'then';
+
+Else_RW		:  'else';
 
 Ident:   ('a'..'z'|'A'..'Z')('a'..'z'|'A'..'Z'|'0'..'9'|'_')*;
 
 Int: ('0'..'9')+;
 
-String	: '"' .* '"';
+String_Literal	: '"' .* '"';
+
+
+
 
  
