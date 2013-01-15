@@ -5,6 +5,7 @@ options {backtrack=true; memoize=true;}
 {
 package org.uva.sea.ql.parser.antlr;
 import org.uva.sea.ql.ast.*;
+import org.uva.sea.ql.ast.base.*;
 import org.uva.sea.ql.ast.form.*;
 import org.uva.sea.ql.ast.types.*;
 import org.uva.sea.ql.ast.operators.base.*;
@@ -24,6 +25,7 @@ package org.uva.sea.ql.parser.antlr;
 @parser::members {
 }
 
+// TODO: distinguish literals with non-literals (data type and parse)
 form returns [Form result]
   : FORM Ident BLOCK_START e=elements BLOCK_END {    
     $result = new Form(e);

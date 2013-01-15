@@ -2,7 +2,7 @@ package org.uva.sea.ql.ast.conditionals;
 
 import java.util.List;
 
-import org.uva.sea.ql.ast.Expression;
+import org.uva.sea.ql.ast.base.Expression;
 import org.uva.sea.ql.ast.form.Element;
 
 public class IfThen extends IfStatement {

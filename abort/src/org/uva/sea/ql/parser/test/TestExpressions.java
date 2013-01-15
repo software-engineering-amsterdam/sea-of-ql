@@ -4,8 +4,8 @@ import junit.framework.TestCase;
 
 import org.antlr.runtime.RecognitionException;
 import org.junit.Test;
-import org.uva.sea.ql.ast.Expression;
-import org.uva.sea.ql.ast.Ident;
+import org.uva.sea.ql.ast.base.Expression;
+import org.uva.sea.ql.ast.base.Ident;
 import org.uva.sea.ql.ast.conditionals.IfThen;
 import org.uva.sea.ql.ast.conditionals.IfThenElse;
 import org.uva.sea.ql.ast.form.Form;
