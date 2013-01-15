@@ -5,6 +5,7 @@ import org.uva.sea.ql.ast.expression.BinaryExpression;
 import org.uva.sea.ql.ast.expression.Expression;
 import org.uva.sea.ql.ast.expression.UnaryExpression;
 import org.uva.sea.ql.ast.expression.value.Literal;
+import org.uva.sea.ql.ast.statement.If;
 
 /**
  * Visitor that prints the AST.
@@ -51,6 +52,24 @@ public class PrintVisitor extends Visitor {
 		else if ( node instanceof Expression ) {
 			this.visitExpression( (Expression) node );
 		}
+		else if ( node instanceof If ) {
+			this.visitIf( (If) node );
+		}
+	}
+	
+	private void visitIf( If statement ) {
+		buffer.append( "IF( " );
+		statement.getCondition().accept( this );
+		buffer.append( " " );
+		
+		if ( statement.getBody() != null ) {
+			statement.getBody().accept( this );
+		}
+		else {
+			buffer.append( "NULL" );
+		}
+		
+		buffer.append( " )" );
 	}
 	
 	/**

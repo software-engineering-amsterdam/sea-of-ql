@@ -33,10 +33,9 @@ import org.uva.sea.ql.ast.statement.*;
 %%
 
  top : statement   { result = $1; }
-     | expression  { result = $1; }
      ;
 
- statement      : IF '(' expression ')' '{' statement '}' { $$ = new If( $3, $6 ); }
+ statement      : IF '(' expression ')' '{' statement '}'   { $$ = new If( $3, $6 ); }
                 | /* empty */
                 ;
 

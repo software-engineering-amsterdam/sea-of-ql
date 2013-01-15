@@ -144,6 +144,14 @@ public class QLLexer implements QLTokens {
 				case '(':
 					nextChar();
 					return token = '(';
+					
+				case '{':
+					nextChar();
+					return token = '{';
+					
+				case '}':
+					nextChar();
+					return token = '}';
 				
 				case '*': {
 					nextChar();
@@ -390,7 +398,7 @@ public class QLLexer implements QLTokens {
 
 		if ( KEYWORDS.containsKey( name ) ) {
 			token = KEYWORDS.get( name );
-			
+
 			switch ( token ) {
 				case BOOL: 
 					yylval = new org.uva.sea.ql.ast.expression.value.Bool(

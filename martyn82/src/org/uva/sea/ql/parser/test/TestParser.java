@@ -266,6 +266,7 @@ public class TestParser {
 	 */
 	@Test
 	public void testIf() throws ParseError {
-		assertEquals( If.class, parser.parse( "if ( true ) { }" ).getClass() );
+		System.out.println("now");
+		assertEquals( If.class, parser.parse( "if( true ){}" ).getClass() );
 	}
 }
