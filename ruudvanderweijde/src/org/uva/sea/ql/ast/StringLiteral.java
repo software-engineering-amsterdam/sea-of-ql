@@ -1,5 +1,7 @@
 package org.uva.sea.ql.ast;
 
+import org.uva.sea.ql.ast.expr.Expr;
+
 public class StringLiteral extends Expr {
 
 	private final String name;

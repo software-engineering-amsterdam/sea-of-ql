@@ -9,6 +9,6 @@ public class ParseDebug {
 	 */	
 	public static void main(String[] args) throws ParseError {
 		IParse parser = new ANTLRParser();
-		System.out.println(parser.parse("identa-Ident").getClass());
+		System.out.println(parser.parseExpression("identa-Ident").getClass());
 	}
 }

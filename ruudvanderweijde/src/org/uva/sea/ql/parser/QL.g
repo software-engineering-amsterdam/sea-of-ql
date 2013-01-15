@@ -13,7 +13,7 @@ package org.uva.sea.ql.parser;
 }
 
 form returns [Form result]
-  : 'form' Ident OBrace statements=block CBrace
+  : 'form' Ident statements=block
 	  { 
 	    $result = new Form(new Ident($Ident.text), $statements.result); 
 	  } 
@@ -47,7 +47,7 @@ ifStatement returns [Statement result]
   ;
   
 question returns [Statement result]
-  : Ident Colon String tp=type { $result = new Question(new Ident($Ident.text), $String.text, tp); }
+  : Ident Colon String tp=type { $result = new Question(new Ident($Ident.text), $String.text, $tp.result); }
   ;
 
 type returns [Type result]
