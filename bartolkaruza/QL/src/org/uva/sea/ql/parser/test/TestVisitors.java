@@ -5,10 +5,10 @@ import static org.junit.Assert.assertNotNull;
 
 import org.junit.Test;
 import org.uva.sea.ql.ast.Form;
-import org.uva.sea.ql.ast.value.Bool;
+import org.uva.sea.ql.ast.expr.value.Bool;
 import org.uva.sea.ql.parser.antlr.ANTLRParser;
+import org.uva.sea.ql.utility.ErrorHandler;
 import org.uva.sea.ql.utility.SymbolTable;
-import org.uva.sea.ql.utility.TestUtility;
 import org.uva.sea.ql.visitor.PrintVisitor;
 import org.uva.sea.ql.visitor.SymbolTableVisitor;
 import org.uva.sea.ql.visitor.TypeCheckVisitor;
@@ -29,7 +29,7 @@ public class TestVisitors {
 		form.accept(new SymbolTableVisitor());
 		SymbolTable table = SymbolTable.getInstance();
 		assertNotNull(table.getSymbol("question1"));
-		assertEquals(table.getSymbol("question1").getClass(), org.uva.sea.ql.ast.value.Bool.class);
+		assertEquals(table.getSymbol("question1").getClass(), org.uva.sea.ql.ast.expr.value.Bool.class);
 		assertEquals(((Bool)table.getSymbol("question1")).getValue(), false);
 	}
 
@@ -37,6 +37,6 @@ public class TestVisitors {
 	public void testTypeChecker() throws ParseError {
 		Form form = (Form) parser.parseNode("form somelabel { if(1==kaas) { question1: \" some text label\" boolean} }");
 		form.accept(new TypeCheckVisitor());
-		TestUtility.printAndFailErrors();
+		ErrorHandler.getInstance().printErrors();
 	}
 }

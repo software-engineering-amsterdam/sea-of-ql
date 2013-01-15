@@ -7,11 +7,9 @@ import org.uva.sea.ql.ast.expr.Add;
 import org.uva.sea.ql.ast.expr.And;
 import org.uva.sea.ql.ast.expr.Div;
 import org.uva.sea.ql.ast.expr.Eq;
-import org.uva.sea.ql.ast.expr.Expr;
 import org.uva.sea.ql.ast.expr.GEq;
 import org.uva.sea.ql.ast.expr.GT;
 import org.uva.sea.ql.ast.expr.Ident;
-import org.uva.sea.ql.ast.expr.Int;
 import org.uva.sea.ql.ast.expr.LEq;
 import org.uva.sea.ql.ast.expr.LT;
 import org.uva.sea.ql.ast.expr.Mul;
@@ -21,13 +19,14 @@ import org.uva.sea.ql.ast.expr.Not;
 import org.uva.sea.ql.ast.expr.Or;
 import org.uva.sea.ql.ast.expr.Pos;
 import org.uva.sea.ql.ast.expr.Sub;
-import org.uva.sea.ql.ast.value.Bool;
-import org.uva.sea.ql.ast.value.TextString;
-import org.uva.sea.ql.ast.value.Value;
+import org.uva.sea.ql.ast.expr.value.Bool;
+import org.uva.sea.ql.ast.expr.value.Int;
+import org.uva.sea.ql.ast.expr.value.Money;
+import org.uva.sea.ql.ast.expr.value.TextString;
 import org.uva.sea.ql.utility.ErrorHandler;
 import org.uva.sea.ql.utility.QLError;
-import org.uva.sea.ql.utility.SymbolTable;
-import org.uva.sea.ql.utility.TypeUtility;
+import org.uva.sea.ql.utility.TypeBooleanUtility;
+import org.uva.sea.ql.utility.TypeNumberUtility;
 
 public class TypeCheckVisitor extends LeftRecursiveVisitor {
 
@@ -39,6 +38,7 @@ public class TypeCheckVisitor extends LeftRecursiveVisitor {
 	private static final String GT = ">";
 	private static final String LEQ = "<=";
 	private static final String LT = "<";
+	private static final String NEQ = "!=";
 	private static final String MUL = "*";
 	private static final String NEG = "--";
 	private static final String NOT = "!";
@@ -73,12 +73,9 @@ public class TypeCheckVisitor extends LeftRecursiveVisitor {
 
 	@Override
 	protected void beforeConditionalStatement(ConditionalStatement node) {
-		if (!TypeUtility.isValidCondition(node.getExpression()) && !(node.getExpression() instanceof Ident)) {
-			ErrorHandler.getInstance().addError(new QLError("Invalid type in statement at line: " + node.getLineNumber()));
-		} else if(node.getExpression() instanceof Ident) {
-			if(!checkIdentIsBoolean((Ident) node.getExpression())) {
-				ErrorHandler.getInstance().addError(new QLError("Invalid identifier type at line: " + node.getLineNumber()));
-			}
+		if(TypeBooleanUtility.isNodeBoolean(node.getExpression())) {
+			QLError error = new QLError("Invalid non-boolean expression in conditional statement, at: " + node.getLineNumber());
+			ErrorHandler.getInstance().addError(error);
 		}
 	}
 
@@ -89,11 +86,8 @@ public class TypeCheckVisitor extends LeftRecursiveVisitor {
 
 	@Override
 	protected void beforeAdd(Add node) {
-		checkNumber(node.getLhs(), ADD);
-		checkNumber(node.getRhs(), ADD);
+		
 	}
-
-	
 
 	@Override
 	protected void afterAdd(Add node) {
@@ -102,7 +96,9 @@ public class TypeCheckVisitor extends LeftRecursiveVisitor {
 
 	@Override
 	protected void beforeAnd(And node) {
-
+		if(!TypeBooleanUtility.areNodesBoolean(node)) {
+			ErrorHandler.reportOperationTypeError(AND);
+		}
 	}
 
 	@Override
@@ -112,8 +108,9 @@ public class TypeCheckVisitor extends LeftRecursiveVisitor {
 
 	@Override
 	protected void beforeDiv(Div node) {
-		checkNumber(node.getLhs(), DIV);
-		checkNumber(node.getRhs(), DIV);
+		if(!TypeNumberUtility.areNodesNumbers(node)) {
+			ErrorHandler.reportOperationTypeError(DIV);
+		}
 	}
 
 	@Override
@@ -133,7 +130,9 @@ public class TypeCheckVisitor extends LeftRecursiveVisitor {
 
 	@Override
 	protected void beforeGEq(GEq node) {
-
+		if(!TypeNumberUtility.areNodesNumbers(node)) {
+			ErrorHandler.reportOperationTypeError(GEQ);
+		}
 	}
 
 	@Override
@@ -143,7 +142,9 @@ public class TypeCheckVisitor extends LeftRecursiveVisitor {
 
 	@Override
 	protected void beforeGT(GT node) {
-
+		if(!TypeNumberUtility.areNodesNumbers(node)) {
+			ErrorHandler.reportOperationTypeError(GT);
+		}
 	}
 
 	@Override
@@ -153,7 +154,9 @@ public class TypeCheckVisitor extends LeftRecursiveVisitor {
 
 	@Override
 	protected void beforeLEq(LEq node) {
-
+		if(!TypeNumberUtility.areNodesNumbers(node)) {
+			ErrorHandler.reportOperationTypeError(LEQ);
+		}
 	}
 
 	@Override
@@ -163,7 +166,9 @@ public class TypeCheckVisitor extends LeftRecursiveVisitor {
 
 	@Override
 	protected void beforeLT(LT node) {
-
+		if(!TypeNumberUtility.areNodesNumbers(node)) {
+			ErrorHandler.reportOperationTypeError(LT);
+		}
 	}
 
 	@Override
@@ -173,8 +178,9 @@ public class TypeCheckVisitor extends LeftRecursiveVisitor {
 
 	@Override
 	protected void beforeMul(Mul node) {
-		checkNumber(node.getLhs(), MUL);
-		checkNumber(node.getRhs(), MUL);
+		if(!TypeNumberUtility.areNodesNumbers(node)) {
+			ErrorHandler.reportOperationTypeError(MUL);
+		}
 	}
 
 	@Override
@@ -184,8 +190,9 @@ public class TypeCheckVisitor extends LeftRecursiveVisitor {
 
 	@Override
 	protected void beforeNeg(Neg node) {
-		checkNumber(node.getLhs(), NEG);
-		checkNumber(node.getRhs(), NEG);
+		if(!TypeNumberUtility.areNodesNumbers(node)) {
+			ErrorHandler.reportOperationTypeError(NEG);
+		}
 	}
 
 	@Override
@@ -195,7 +202,7 @@ public class TypeCheckVisitor extends LeftRecursiveVisitor {
 
 	@Override
 	protected void beforeNEq(NEq node) {
-
+		
 	}
 
 	@Override
@@ -205,7 +212,9 @@ public class TypeCheckVisitor extends LeftRecursiveVisitor {
 
 	@Override
 	protected void beforeNot(Not node) {
-
+		if(!TypeBooleanUtility.areNodesBoolean(node)) {
+			ErrorHandler.reportOperationTypeError(NOT);
+		}
 	}
 
 	@Override
@@ -215,7 +224,9 @@ public class TypeCheckVisitor extends LeftRecursiveVisitor {
 
 	@Override
 	protected void beforeOr(Or node) {
-
+		if(!TypeBooleanUtility.areNodesBoolean(node)) {
+			ErrorHandler.reportOperationTypeError(OR);
+		}
 	}
 
 	@Override
@@ -225,8 +236,9 @@ public class TypeCheckVisitor extends LeftRecursiveVisitor {
 
 	@Override
 	protected void beforePos(Pos node) {
-		checkNumber(node.getLhs(), POS);
-		checkNumber(node.getRhs(), POS);
+		if(!TypeNumberUtility.areNodesNumbers(node)) {
+			ErrorHandler.reportOperationTypeError(POS);
+		}
 	}
 
 	@Override
@@ -236,50 +248,29 @@ public class TypeCheckVisitor extends LeftRecursiveVisitor {
 
 	@Override
 	protected void beforeSub(Sub node) {
-		checkNumber(node.getLhs(), SUB);
-		checkNumber(node.getRhs(), SUB);
+		if(!TypeNumberUtility.areNodesNumbers(node)) {
+			ErrorHandler.reportOperationTypeError(SUB);
+		}
 	}
 
 	@Override
 	protected void afterSub(Sub node) {
 
 	}
+
+	@Override
+	public void visit(Bool node) {
+		
+	}
+
+	@Override
+	public void visit(Money node) {
+		
+	}
+
+	@Override
+	public void visit(TextString node) {
+		
+	}
 	
-	private void checkNumber(Expr node, String operation) {
-		if (node instanceof Ident && !checkIdentIsNumber((Ident) node)) {
-			reportOperationTypeError(getValue((Ident) node), operation);
-		} else if (TypeUtility.isValidCondition(node)) {
-			reportOperationMustBeNumberError(operation);
-		}
-	}
-	
-	private boolean checkIdentIsBoolean(Ident node) {
-		Value value = getValue(node);
-		if (value instanceof Bool) {
-			return true;
-		} else {
-			return false;
-		}
-	}
-
-	private boolean checkIdentIsNumber(Ident node) {
-		Value value = getValue(node);
-		if (value instanceof TextString || value instanceof Bool) {
-			return false;
-		} else {
-			return true;
-		}
-	}
-
-	private Value getValue(Ident node) {
-		return SymbolTable.getInstance().getSymbol(((Ident) node.getLhs()).getName());
-	}
-
-	private void reportOperationTypeError(Value value, String operation) {
-		ErrorHandler.getInstance().addError(new QLError("Unsupported operation\"" + operation + "\"on type: " + value.getClass()));
-	}
-
-	private static void reportOperationMustBeNumberError(String operation) {
-		ErrorHandler.getInstance().addError(new QLError("operation \"" + operation + "\" not allowed on boolean type"));
-	}
 }

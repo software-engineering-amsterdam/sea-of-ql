@@ -22,5 +22,20 @@ public class ErrorHandler {
 	public List<QLError> getErrors() {
 		return errors;
 	}
+	
+	public void printErrors() {
+		for(QLError error : errors) {
+			System.out.println("E: " + error.getCause());
+		}
+	}
+	
+	public boolean hasErrors() {
+		return errors.size() > 0;
+	}
+	
+	public static void reportOperationTypeError(String operation) {
+		QLError error = new QLError("Invalid type for operation: " + operation);
+		getInstance().addError(error);
+	}
 
 }

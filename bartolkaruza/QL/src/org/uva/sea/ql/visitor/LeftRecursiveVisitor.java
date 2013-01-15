@@ -19,11 +19,13 @@ import org.uva.sea.ql.ast.expr.Not;
 import org.uva.sea.ql.ast.expr.Or;
 import org.uva.sea.ql.ast.expr.Pos;
 import org.uva.sea.ql.ast.expr.Sub;
+import org.uva.sea.ql.ast.expr.value.Bool;
 
 /**
- * Abstract tree walker that gives implementing a default left recursive
- * traversal for all nodes Special visitor logic can be implemented before or
- * after child node traversal by implementing the corresponding methods
+ * Abstract tree walker that gives implementing visitors a default left recursive
+ * traversal for all nodes. Special visitor logic can be implemented before or
+ * after child node traversal by implementing the corresponding abstract methods
+ * For leaf nodes the default visit methods can be used
  * 
  * @author bartol
  * 

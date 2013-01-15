@@ -11,7 +11,6 @@ import org.uva.sea.ql.ast.expr.Eq;
 import org.uva.sea.ql.ast.expr.GEq;
 import org.uva.sea.ql.ast.expr.GT;
 import org.uva.sea.ql.ast.expr.Ident;
-import org.uva.sea.ql.ast.expr.Int;
 import org.uva.sea.ql.ast.expr.LEq;
 import org.uva.sea.ql.ast.expr.LT;
 import org.uva.sea.ql.ast.expr.Mul;
@@ -21,6 +20,10 @@ import org.uva.sea.ql.ast.expr.Not;
 import org.uva.sea.ql.ast.expr.Or;
 import org.uva.sea.ql.ast.expr.Pos;
 import org.uva.sea.ql.ast.expr.Sub;
+import org.uva.sea.ql.ast.expr.value.Bool;
+import org.uva.sea.ql.ast.expr.value.Int;
+import org.uva.sea.ql.ast.expr.value.Money;
+import org.uva.sea.ql.ast.expr.value.TextString;
 
 public class PrintVisitor extends LeftRecursiveVisitor {
 
@@ -217,6 +220,24 @@ public class PrintVisitor extends LeftRecursiveVisitor {
 	}
 	
 	private void printNodeClassNameAfter(ASTNode node) {
+		System.out.println("After node: " + node.getClass().getName());
+	}
+
+	@Override
+	public void visit(Bool node) {
+		System.out.println("At start of node: " + node.getClass().getName());
+		System.out.println("After node: " + node.getClass().getName());
+	}
+
+	@Override
+	public void visit(Money node) {
+		System.out.println("At start of node: " + node.getClass().getName());
+		System.out.println("After node: " + node.getClass().getName());
+	}
+
+	@Override
+	public void visit(TextString node) {
+		System.out.println("At start of node: " + node.getClass().getName());
 		System.out.println("After node: " + node.getClass().getName());
 	}
 

@@ -7,7 +7,7 @@ import org.uva.sea.ql.ast.ConditionalStatement;
 import org.uva.sea.ql.ast.Form;
 import org.uva.sea.ql.ast.Question;
 import org.uva.sea.ql.parser.antlr.ANTLRParser;
-import org.uva.sea.ql.utility.TestUtility;
+import org.uva.sea.ql.utility.ErrorHandler;
 
 public class TestNodes {
 
@@ -31,7 +31,7 @@ public class TestNodes {
 		assertEquals(((ConditionalStatement) form.getStatements().get(0)).getStatements().get(0).getClass(), ConditionalStatement.class);
 		assertEquals(((ConditionalStatement) ((ConditionalStatement) form.getStatements().get(0)).getStatements().get(0)).getStatements().get(0).getClass(),
 				Question.class);
-		TestUtility.printAndFailErrors();
+		ErrorHandler.getInstance().printErrors();
 	}
 
 	

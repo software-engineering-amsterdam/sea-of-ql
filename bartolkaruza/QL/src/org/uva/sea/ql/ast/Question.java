@@ -1,6 +1,6 @@
 package org.uva.sea.ql.ast;
 
-import org.uva.sea.ql.ast.value.Value;
+import org.uva.sea.ql.ast.expr.Expr;
 import org.uva.sea.ql.visitor.NodeVisitor;
 
 public class Question implements Statement {
@@ -8,11 +8,12 @@ public class Question implements Statement {
 	private final String name;
 	private final String label;
 	private final int lineNumber;
-	private Value value;
-		
-	public Question (String name, String label, int lineNumber) {
+	private Expr expression;
+
+	public Question(String name, String label, Expr expression, int lineNumber) {
 		this.name = name;
 		this.label = label;
+		this.expression = expression;
 		this.lineNumber = lineNumber;
 	}
 
@@ -24,7 +25,7 @@ public class Question implements Statement {
 	public String getName() {
 		return name;
 	}
-	
+
 	public String getLabel() {
 		return label;
 	}
@@ -33,12 +34,12 @@ public class Question implements Statement {
 		return lineNumber;
 	}
 
-	public Value getValue() {
-		return value;
+	public Expr getExpression() {
+		return expression;
 	}
 
-	public void setValue(Value value) {
-		this.value = value;
+	public void setExpression(Expr expression) {
+		this.expression = expression;
 	}
 
 }

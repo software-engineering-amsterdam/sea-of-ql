@@ -5,9 +5,8 @@ options {backtrack=true; memoize=true;}
 {
 package org.uva.sea.ql.parser.antlr;
 import org.uva.sea.ql.ast.*;
-import org.uva.sea.ql.ast.value.Number;
-import org.uva.sea.ql.ast.value.*;
 import org.uva.sea.ql.ast.expr.*;
+import org.uva.sea.ql.ast.expr.value.*;
 }
 
 @lexer::header
@@ -29,26 +28,33 @@ statement returns [Statement result]
     ;
 
 question returns [Question result]
-    : name=Ident':' '\"' label=Ident* '\"' TYPE {
-      $result = new Question($name.text, $label.text, $name.line);
+    : name=Ident':' label=STRING_VALUE qt=questionType {
+      $result = new Question($name.text, $label.text, $qt.result, $name.line); } 
+    | name=Ident':' '\"' label=Ident*    
+    ;
+
+questionType returns [Expr result]
+    : x=expr {$result = $x.result; }
+    | TYPE {
       if ($TYPE.text.equals("boolean")) {
-        $result.setValue(new Bool());
+        $result = new Bool();
       }
       if ($TYPE.text.equals("integer")) {
-        $result.setValue(new Number());
+        $result = new Int();
       }
       if ($TYPE.text.equals("string")) {
-        $result.setValue(new TextString());
+        $result = new TextString();
       }
       if ($TYPE.text.equals("money")) {
-        $result.setValue(new Money());
-      }
-    }
-    ;
+        $result = new Money();
+      }};
     
 
 primary returns [Expr result]
-	  : Int   { $result = new Int(Integer.parseInt($Int.text), $Int.line); }
+	  : INT_VALUE   { $result = new Int($INT_VALUE.text); }
+	  | STRING_VALUE { $result = new TextString($STRING_VALUE.text.substring(1, $STRING_VALUE.text.length() - 1)); }
+	  | BOOLEAN_VALUE { $result = new Bool($BOOLEAN_VALUE.text); }
+	  | MONEY_VALUE { $result = new Money($MONEY_VALUE.text); }
 	  | Ident { $result = new Ident($Ident.text, $Ident.line); }
 	  | '(' x=orExpr ')'{ $result = $x.result; }
 	  ;
@@ -126,10 +132,16 @@ TYPE : 'boolean' | 'integer' | 'string' | 'money';
 
 IF : 'if';
 
-WS  :	(' ' | '\t' | '\n' | '\r') { $channel=HIDDEN; };
+BOOLEAN_VALUE: 'true' | 'false';
 
-COMMENT : '/*' .* '*/' {$channel=HIDDEN; };
+STRING_VALUE : '\"' .* '\"';
+
+MONEY_VALUE: ('0'..'9')+ '\.' ('0'..'9')('0'..'9');
+
+INT_VALUE: ('0'..'9')+;
 
 Ident:   ('a'..'z'|'A'..'Z')('a'..'z'|'A'..'Z'|'0'..'9'|'_')*;
 
-Int: ('0'..'9')+;
+WS  :	(' ' | '\t' | '\n' | '\r') { $channel=HIDDEN; };
+
+COMMENT : '/*' .* '*/' {$channel=HIDDEN; };
