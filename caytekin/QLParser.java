@@ -1,4 +1,4 @@
-// $ANTLR 3.4 C:\\Users\\caytekin\\Documents\\GitHub\\sea-of-ql\\caytekin\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g 2013-01-15 15:29:57
+// $ANTLR 3.4 C:\\Users\\caytekin\\Documents\\GitHub\\sea-of-ql\\caytekin\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g 2013-01-15 14:42:34
 
 package org.uva.sea.ql.parser.antlr;
 import org.uva.sea.ql.ast.*;
@@ -81,7 +81,7 @@ public class QLParser extends Parser {
 
         Token Ident1=null;
         Token String_Literal2=null;
-        QLParser.type_return t =null;
+        Type t =null;
 
 
         try {
@@ -102,7 +102,7 @@ public class QLParser extends Parser {
             state._fsp--;
             if (state.failed) return result;
 
-            if ( state.backtracking==0 ) { result = new Question((Ident1!=null?Ident1.getText():null), (String_Literal2!=null?String_Literal2.getText():null), (t!=null?input.toString(t.start,t.stop):null)); }
+            if ( state.backtracking==0 ) { result = new Question((Ident1!=null?Ident1.getText():null), (String_Literal2!=null?String_Literal2.getText():null), t); }
 
             }
 
@@ -122,21 +122,16 @@ public class QLParser extends Parser {
     // $ANTLR end "question"
 
 
-    public static class type_return extends ParserRuleReturnScope {
-        public Type result;
-    };
-
 
     // $ANTLR start "type"
     // C:\\Users\\caytekin\\Documents\\GitHub\\sea-of-ql\\caytekin\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:21:1: type returns [Type result] : ( Boolean_Type | Integer_Type | String_Type );
-    public final QLParser.type_return type() throws RecognitionException {
-        QLParser.type_return retval = new QLParser.type_return();
-        retval.start = input.LT(1);
+    public final Type type() throws RecognitionException {
+        Type result = null;
 
         int type_StartIndex = input.index();
 
         try {
-            if ( state.backtracking>0 && alreadyParsedRule(input, 2) ) { return retval; }
+            if ( state.backtracking>0 && alreadyParsedRule(input, 2) ) { return result; }
 
             // C:\\Users\\caytekin\\Documents\\GitHub\\sea-of-ql\\caytekin\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:22:4: ( Boolean_Type | Integer_Type | String_Type )
             int alt1=3;
@@ -157,7 +152,7 @@ public class QLParser extends Parser {
                 }
                 break;
             default:
-                if (state.backtracking>0) {state.failed=true; return retval;}
+                if (state.backtracking>0) {state.failed=true; return result;}
                 NoViableAltException nvae =
                     new NoViableAltException("", 1, 0, input);
 
@@ -169,35 +164,32 @@ public class QLParser extends Parser {
                 case 1 :
                     // C:\\Users\\caytekin\\Documents\\GitHub\\sea-of-ql\\caytekin\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:22:6: Boolean_Type
                     {
-                    match(input,Boolean_Type,FOLLOW_Boolean_Type_in_type81); if (state.failed) return retval;
+                    match(input,Boolean_Type,FOLLOW_Boolean_Type_in_type81); if (state.failed) return result;
 
-                    if ( state.backtracking==0 ) { retval.result = new Boolean_Type("" ); }
+                    if ( state.backtracking==0 ) { result = new Boolean_Type("" ); }
 
                     }
                     break;
                 case 2 :
                     // C:\\Users\\caytekin\\Documents\\GitHub\\sea-of-ql\\caytekin\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:23:6: Integer_Type
                     {
-                    match(input,Integer_Type,FOLLOW_Integer_Type_in_type90); if (state.failed) return retval;
+                    match(input,Integer_Type,FOLLOW_Integer_Type_in_type90); if (state.failed) return result;
 
-                    if ( state.backtracking==0 ) { retval.result = new Integer_Type(""); }
+                    if ( state.backtracking==0 ) { result = new Integer_Type(""); }
 
                     }
                     break;
                 case 3 :
                     // C:\\Users\\caytekin\\Documents\\GitHub\\sea-of-ql\\caytekin\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:24:6: String_Type
                     {
-                    match(input,String_Type,FOLLOW_String_Type_in_type99); if (state.failed) return retval;
+                    match(input,String_Type,FOLLOW_String_Type_in_type99); if (state.failed) return result;
 
-                    if ( state.backtracking==0 ) { retval.result = new String_Type(""); }
+                    if ( state.backtracking==0 ) { result = new String_Type(""); }
 
                     }
                     break;
 
             }
-            retval.stop = input.LT(-1);
-
-
         }
         catch (RecognitionException re) {
             reportError(re);
@@ -209,7 +201,7 @@ public class QLParser extends Parser {
             if ( state.backtracking>0 ) { memoize(input, 2, type_StartIndex); }
 
         }
-        return retval;
+        return result;
     }
     // $ANTLR end "type"
 

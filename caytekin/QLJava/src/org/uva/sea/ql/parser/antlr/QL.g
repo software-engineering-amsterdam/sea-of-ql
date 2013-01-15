@@ -1,6 +1,7 @@
 grammar QL;
 options {backtrack=true; memoize=true;}
 
+
 @parser::header
 {
 package org.uva.sea.ql.parser.antlr;
@@ -12,6 +13,18 @@ import org.uva.sea.ql.ast.*;
 package org.uva.sea.ql.parser.antlr;
 }
 
+question returns [Question result] 
+  : Ident ':' String_Literal t=type
+   { $result = new Question($Ident.text, $String_Literal.text, $t.text); };
+  
+  
+type returns [Type result]
+  	: Boolean_Type { $result = new Boolean_Type("" ); }
+  	| Integer_Type { $result = new Integer_Type(""); }
+  	| String_Type { $result = new String_Type(""); } 
+	;
+	
+	
 primary returns [Expr result]
   : Int   { $result = new Int(Integer.parseInt($Int.text)); }
   | Ident { $result = new Ident($Ident.text); }
