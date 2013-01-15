@@ -15,8 +15,16 @@ package org.uva.sea.ql.parser.antlr;
 form returns [Form result]
 @init { List<Question> questions = new ArrayList(); }
   : 'form' Ident '{'
-    (question {questions.add($question.result);})*
+    formItem {questions.addAll($formItem.result);}
     '}' { $result = new Form($Ident.text,questions); }
+  ;
+
+formItem returns [List<Question> result]
+@init { List<Question> questions = new ArrayList(); }
+  : (
+      question {questions.add($question.result); }
+      | 'if' '(' Ident ')' '{' frmItm=formItem '}' {questions.addAll($frmItm.result);}
+      )+ { $result = questions; }
   ;
 
 question returns [Question result]
