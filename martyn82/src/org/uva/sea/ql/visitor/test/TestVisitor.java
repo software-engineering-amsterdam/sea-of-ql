@@ -11,29 +11,27 @@ import org.uva.sea.ql.visitor.*;
  */
 public class TestVisitor {
 	/**
-	 * 
-	 */
-	private final Visitor visitor;
-	
-	/**
-	 * 
+	 * Holds the parser to use.
 	 */
 	private final IParser parser;
 	
 	/**
-	 * 
+	 * Constructs a new TestVisitor instance.
 	 */
 	public TestVisitor() {
-		this.visitor = new PrintVisitor();
 		this.parser = new JACCParser();
 	}
 
+	/**
+	 * Tests the print visitor.
+	 * 
+	 * @throws ParseError
+	 */
 	@Test
-	public void testVisitor() throws ParseError {
-//		String program = "((true && !false) || ((a + b) == -31)) != \"hello world\"";
-		String program = "if ( true ) {  }";
+	public void testPrint() throws ParseError {
+		Visitor visitor = new PrintVisitor( System.out );
 		
+		String program = "if ( a && b || c ) {  }";
 		this.parser.parse( program ).accept( visitor );
-		System.out.println( visitor.toString() );
 	}
 }

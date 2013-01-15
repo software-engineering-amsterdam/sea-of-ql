@@ -1,20 +1,29 @@
 package org.uva.sea.ql.visitor;
 
+import java.io.IOException;
+import java.io.OutputStream;
+
 import org.uva.sea.ql.ast.ASTNode;
 import org.uva.sea.ql.ast.expression.BinaryExpression;
-import org.uva.sea.ql.ast.expression.Expression;
+import org.uva.sea.ql.ast.expression.Ident;
 import org.uva.sea.ql.ast.expression.UnaryExpression;
 import org.uva.sea.ql.ast.expression.value.Literal;
 import org.uva.sea.ql.ast.statement.If;
+import org.uva.sea.ql.ast.statement.Statement;
 
 /**
  * Visitor that prints the AST.
  */
-public class PrintVisitor extends Visitor {
+public class PrintVisitor implements Visitor {
 	/**
 	 * String used for indenting.
 	 */
 	private static final String INDENT = "  ";
+	
+	/**
+	 * Holds the output stream to print to.
+	 */
+	private final OutputStream out;
 	
 	/**
 	 * Holds the current nesting level.
@@ -22,125 +31,158 @@ public class PrintVisitor extends Visitor {
 	private int level;
 	
 	/**
-	 * The buffer.
-	 */
-	private StringBuffer buffer;
-	
-	/**
 	 * Constructs a new print visitor.
+	 * 
+	 * @param out
 	 */
-	public PrintVisitor() {
+	public PrintVisitor( OutputStream out ) {
+		this.out = out;
 		this.level = 0;
-		this.buffer = new StringBuffer();
+		
+		this.init();
 	}
 	
 	/**
-	 * Visits an arbitrary node.
+	 * Initializer.
 	 */
+	private void init() {
+		put( "<AST>" );
+		level++;
+	}
+
+	/**
+	 * Puts data into the output stream.
+	 * 
+	 * @param data
+	 */
+	private void put( String data ) {
+		try {
+			out.write( data.getBytes() );
+		}
+		catch ( IOException e ) {
+			// keep silent
+		}
+	}
+
+	@Override
 	public void visit( ASTNode node ) {
+		indent();
+		
 		if ( node instanceof BinaryExpression ) {
-			this.level++;
-			this.visitBinary( (BinaryExpression) node );
-			this.level--;
+			visit( (BinaryExpression) node );
 		}
 		else if ( node instanceof UnaryExpression ) {
-			this.visitUnary( (UnaryExpression) node );
+			visit( (UnaryExpression) node );
 		}
 		else if ( node instanceof Literal ) {
-			this.visitLiteral( (Literal) node );
+			visit( (Literal) node );
 		}
-		else if ( node instanceof Expression ) {
-			this.visitExpression( (Expression) node );
+		else if ( node instanceof Ident ) {
+			visit( (Ident) node );
 		}
 		else if ( node instanceof If ) {
-			this.visitIf( (If) node );
+			visit( (If) node );
+		}
+		else if ( node instanceof Statement ) {
+			visit( (Statement) node );
 		}
 	}
-	
-	private void visitIf( If statement ) {
-		buffer.append( "IF( " );
-		statement.getCondition().accept( this );
-		buffer.append( " " );
-		
-		if ( statement.getBody() != null ) {
-			statement.getBody().accept( this );
-		}
-		else {
-			buffer.append( "NULL" );
-		}
-		
-		buffer.append( " )" );
-	}
-	
-	/**
-	 * Visits a literal value expression.
-	 * 
-	 * @param expression
-	 */
-	private void visitLiteral( Literal expression ) {
-		buffer.append( expression.getClass().getSimpleName().toUpperCase() );
-		buffer.append( "(" );
-		buffer.append( expression.toString() );
-		buffer.append( ")" );
-	}
-	
-	/**
-	 * Visits a regular expression.
-	 * 
-	 * @param expression
-	 */
-	private void visitExpression( Expression expression ) {
-		buffer.append( expression.toString() );
-	}
-	
-	/**
-	 * Visits an unary expression.
-	 * 
-	 * @param expression
-	 */
-	private void visitUnary( UnaryExpression expression ) {
-		buffer.append( expression.getClass().getSimpleName().toUpperCase() );
-		buffer.append( "( " );
-		this.visit( expression.getExpression() );
-		buffer.append( " )" );
-	}
-	
-	/**
-	 * Visits a binary expression.
-	 * 
-	 * @param expression
-	 */
-	private void visitBinary( BinaryExpression expression ) {
-		if ( buffer.length() > 0 ) {
-			buffer.append( "\n" );
-		}
-		
-		this.indent( this.level );
-		
-		buffer.append( expression.getClass().getSimpleName().toUpperCase() );
-		buffer.append( "( " );
 
-		this.visit( expression.getLhs() );
-		buffer.append( " " );
+	/**
+	 * Visit binary expression.
+	 * 
+	 * @param node
+	 */
+	public void visit( BinaryExpression node ) {
+		put( node.getClass().getSimpleName().toUpperCase() );
 		
-		this.visit( expression.getRhs() );
+		level++;
+		
+		visit( node.getLhs() );
+		visit( node.getRhs() );
+		
+		level--;
+	}
 
-		buffer.append( " )" );
+	/**
+	 * Visit unary expression.
+	 * 
+	 * @param node
+	 */
+	public void visit( UnaryExpression node ) {
+	}
+
+	/**
+	 * Visit literal expression.
+	 * 
+	 * @param node
+	 */
+	public void visit( Literal node ) {
+		put( node.getClass().getSimpleName().toUpperCase() );
+		put( "(" );
+		put( node.toString() );
+		put( ")" );
+	}
+	
+	/**
+	 * Visit identifier expression.
+	 * 
+	 * @param node
+	 */
+	public void visit( Ident node ) {
+		put( node.getClass().getSimpleName().toUpperCase() );
+		put( "(" );
+		put( node.getName() );
+		put( ")" );
+	}
+	
+	/**
+	 * Visit general statement.
+	 * 
+	 * @param node
+	 */
+	public void visit( Statement node ) {
+		put( "NULL" );
+	}
+
+	/**
+	 * Visit IF-statement.
+	 * 
+	 * @param node
+	 */
+	public void visit( If node ) {
+		put( "IF" );
+		
+		level++;
+		visit( node.getCondition() );
+		level--;
+
+		indent();
+		put( "THEN" );
+		
+		level++;
+		indent();
+		visit( node.getBody() );
+		level--;
 	}
 	
 	/**
 	 * Appends indentation to the buffer.
-	 * 
-	 * @param levels
 	 */
-	private void indent( int levels ) {
-		for ( int i = 0; i < ( levels - 1); i++ ) {
-			buffer.append( INDENT );
+	private void indent() {
+		put( "\n" );
+		
+		for ( int i = 0; i < level; i++ ) {
+			put( INDENT );
 		}
 	}
 	
-	@Override
-	public String toString() {
-		return buffer.toString();
+	/**
+	 * Retrieves the output stream.
+	 * 
+	 * @return Output stream
+	 */
+	public OutputStream getOutput() {
+		return out;
 	}
 }

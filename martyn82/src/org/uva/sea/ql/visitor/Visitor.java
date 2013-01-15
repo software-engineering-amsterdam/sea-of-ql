@@ -5,11 +5,11 @@ import org.uva.sea.ql.ast.ASTNode;
 /**
  * Visitor for printing AST.
  */
-abstract public class Visitor {
+public interface Visitor {
 	/**
-	 * Visits the given expression object.
+	 * Dispatcher visit.
 	 * 
-	 * @param expression The expression to visit.
+	 * @param node
 	 */
-	abstract public void visit( ASTNode expression );
+	void visit( ASTNode node );
 }

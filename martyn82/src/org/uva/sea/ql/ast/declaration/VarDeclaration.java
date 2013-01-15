@@ -27,6 +27,6 @@ public class VarDeclaration extends Expression {
 
 	@Override
 	public void accept( Visitor visitor ) {
-		visitor.visit( this );
+//		visitor.visit( this );
 	}
 }
