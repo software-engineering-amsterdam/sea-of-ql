@@ -1,5 +1,5 @@
 package org.uva.sea.ql.ast;
 
-public class TypeString {
+public class TypeString extends Type {
 
 }

@@ -1,15 +1,21 @@
 grammar QL;
-options {backtrack=true; memoize=true;}
+
+options 
+{ 
+  backtrack=true; 
+  memoize=true; 
+}
 
 @parser::header
 {
-package org.uva.sea.ql.parser;
-import org.uva.sea.ql.ast.*;
+  package org.uva.sea.ql.parser;
+  import org.uva.sea.ql.ast.*;
+  import org.uva.sea.ql.ast.expr.*;
 }
 
 @lexer::header
 {
-package org.uva.sea.ql.parser;
+  package org.uva.sea.ql.parser;
 }
 
 form returns [Form result]
@@ -21,10 +27,10 @@ form returns [Form result]
 
 block returns [List<Statement> result]
   @init
-  {
+    {
       $result = new ArrayList<Statement>();
-  }
-  : OBrace ( stmt=statement { $result.add(stmt); } )* CBrace
+    }
+  : OBrace ( stmt=statement { $result.add($stmt.result); } )* CBrace
   ;
   
 statement returns [Statement result]
@@ -51,13 +57,13 @@ question returns [Statement result]
   ;
 
 type returns [Type result]
-  : 'string'  { $result = new StringType(); }  ( cp=computation { $result.add(cp); } )? 
-  | 'boolean' { $result = new BooleanType(); } ( cp=computation { $result.add(cp); } )? 
-  | 'integer' { $result = new IntegerType(); } ( cp=computation { $result.add(cp); } )? 
+  : 'string'  { $result = new StringType(); }  ( cp=computation { $result.add($cp.result); } )? 
+  | 'boolean' { $result = new BooleanType(); } ( cp=computation { $result.add($cp.result); } )? 
+  | 'integer' { $result = new IntegerType(); } ( cp=computation { $result.add($cp.result); } )? 
   ;
   
-computation returns [Computation result]
-  : '(' expr=orExpr ')' { $result = new Computation(expr); }
+computation returns [Expr result]
+  : '(' expr=orExpr ')' { $result = $expr.result; }
   ;
 
 primary returns [Expr result]
@@ -81,7 +87,7 @@ mulExpr returns [Expr result]
       if ($op.text.equals("*")) {
         $result = new Mul($result, rhs);
       }
-      if ($op.text.equals("<=")) {
+      if ($op.text.equals("/")) {
         $result = new Div($result, rhs);      
       }
     })*

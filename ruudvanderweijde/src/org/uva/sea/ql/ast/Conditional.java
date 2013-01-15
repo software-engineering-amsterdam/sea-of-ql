@@ -1,5 +1,5 @@
 package org.uva.sea.ql.ast;
 
-public class Conditional {
+public class Conditional implements ASTNode {
 
 }

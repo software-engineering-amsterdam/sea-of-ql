@@ -6,8 +6,20 @@ import org.uva.sea.ql.ast.expr.Expr;
 
 public class ifThen extends Statement {
 
+	private final Expr condition;
+	private final List<Statement> ifBlock;
+	
 	public ifThen(Expr condition, List<Statement> ifBlock) {
-		// TODO Auto-generated constructor stub
+		this.condition = condition;
+		this.ifBlock = ifBlock;
+	}
+
+	public Expr getCondition() {
+		return condition;
+	}
+
+	public List<Statement> getIfBlock() {
+		return ifBlock;
 	}
 
 }
