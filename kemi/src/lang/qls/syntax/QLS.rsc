@@ -6,10 +6,10 @@ start syntax Stylesheet
   ;
 
 syntax Statement
-  = @Foldable statement: ClassDefinition
-  | @Foldable statement: TypeStyleDefinition
-  | @Foldable statement: ClassStyleDefinition
-  | @Foldable statement: IdentStyleDefinition
+  = @Foldable ClassDefinition
+  | @Foldable TypeStyleDefinition
+  | @Foldable ClassStyleDefinition
+  | @Foldable IdentStyleDefinition
   ;
 
 syntax ClassDefinition

@@ -11,7 +11,7 @@ import lang::ql::util::Implode;
 import lang::ql::util::Parse;
 
 import lang::qls::ast::AST;
-//import lang::qls::ide::Outline;
+import lang::qls::ide::Outline;
 //import lang::qls::ide::SemanticChecker;
 import lang::qls::syntax::QLS;
 import lang::qls::util::Implode;
@@ -60,19 +60,19 @@ private void setupQLS() {
     return parseStylesheet(src, l);
   });
   
-  /*
   contribs = {
     outliner(node(Tree input) {
-      return outlineForm(implodeStylesheet(input));
-    }),
+      return outlineStylesheet(implodeStylesheet(input));
+    })
     
+  /*,
     annotator(Tree (Tree input) {
       return input[@messages=semanticChecker(implodeStylesheet(input))];
     })
+  */
   };
   
-  registerContributions(LANG_QL, contribs);
-  */
+  registerContributions(LANG_QLS, contribs);
 }
 
 
