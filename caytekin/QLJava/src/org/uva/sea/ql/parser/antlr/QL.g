@@ -15,6 +15,7 @@ package org.uva.sea.ql.parser.antlr;
 primary returns [Expr result]
   : Int   { $result = new Int(Integer.parseInt($Int.text)); }
   | Ident { $result = new Ident($Ident.text); }
+  | String { $result = new String($Ident.text); }
   | '(' x=orExpr ')'{ $result = $x.result; }
   ;
     
@@ -100,3 +101,7 @@ SINGLE_LINE_COMMENT
 Ident:   ('a'..'z'|'A'..'Z')('a'..'z'|'A'..'Z'|'0'..'9'|'_')*;
 
 Int: ('0'..'9')+;
+
+String	: '"' .* '"';
+
+ 

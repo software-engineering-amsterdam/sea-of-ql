@@ -26,9 +26,11 @@ compoundStatement returns [Statement result]
 
 statement returns [Statement result]     
     : Ident COLON st=StringLiteral ty=type { $result = new LineStatement(new String($Ident.text),$st,$ty.result); }
-    | 'if' '(' ex=orExpr ')' c=compoundStatement { $result = new ConditionalStatement(ex,c) ; }
+    | 'if' '(' ex=orExpr ')' ctrue=compoundStatement ('else' cfalse=compoundStatement)? { $result = new ConditionalStatement(ex,ctrue,cfalse) ; }
     | c=compoundStatement { $result = c ;}  
     ;
+
+//    | 'if' '(' ex=orExpr ')' ctrue=compoundStatement  { $result = new ConditionalStatement(ex,ctrue,null) ; }
 
 type returns [TypeDescription result]
     : 'boolean' { $result = new BooleanType() ;}
@@ -111,11 +113,12 @@ orExpr returns [Expr result]
 WS  :	(' ' | '\t' | '\n' | '\r') { $channel=HIDDEN; }
     ;
 
-StringLiteral : '"' ~('\n' | '\r' | '"')* '"' ;
+StringLiteral : '"' ~('\n' | '\r' | '\f' | '"')* '"' ;
 
 COLON  : ':' ;
 LBRACE : '{' ;
 RBRACE : '}' ;
+
 
 COMMENT 
     : '/*' .* '*/'    {$channel=HIDDEN;}
