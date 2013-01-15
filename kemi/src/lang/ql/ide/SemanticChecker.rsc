@@ -44,10 +44,36 @@ public void main() {
   text(semanticChecker(x));
 }
 
-public set[Message] semanticChecker(node input) { 
+public set[Message] semanticChecker(node form) { 
   set[Message] ret = {};
-  ret += duplicateElements(input);
-  ret += undefinedVariables(input);
+  
+  labelMap identifierMapDuplicates = ();
+  map[str text, list[loc] \loc] textMap = ();
+
+  // Needed, see issue 32: https://github.com/cwi-swat/rascal/issues/32
+  list[identInfo] init = [];
+  list[loc] qinit = [];
+  
+  top-down visit(form) {
+    case q:question(text, \type, ident): {
+      identifierMapDuplicates[ident]?init += [<q@location, \type>];
+      textMap[text]?qinit += [q@location];
+    }
+    case q:question(text, \type, ident, _): {
+      identifierMapDuplicates[ident]?init += [<q@location, \type>];
+      textMap[text]?qinit += [q@location];
+    }
+  }
+
+  identifierMapDuplicates = (key : identifierMapDuplicates[key] | key <- identifierMapDuplicates, size(identifierMapDuplicates[key]) > 1);
+  identifierMapDuplicatesRel = { < x, d> | d <- identifierMapDuplicates, x <- identifierMapDuplicates[d] };
+  ret += {duplicateIdentifierMessage(name, \type, \loc) | <<\loc, \type>, name> <- identifierMapDuplicatesRel};
+    
+  textMap = (key : textMap[key] | key <- textMap, size(textMap[key]) > 1);
+  textMapRel = { < x, d> | d <- textMap, x <- textMap[d] };
+  ret += {duplicateQuestionMessage(text, \loc) | <\loc, text> <- textMapRel};  
+
+  ret += undefinedVariables(form);
   return ret;
 }
 
@@ -59,38 +85,6 @@ private Message duplicateQuestionMessage(text, \loc)
   
 private Message useBeforeDeclaration(name, \loc) 
   = error("Undeclared: \"<name>\" is used before a declaration", \loc);
-
-public set[Message] duplicateElements(Form form) {
-  labelMap identifierMap = ();
-  map[str text, list[loc] \loc] textMap = ();
-
-  // Needed, see issue 32: https://github.com/cwi-swat/rascal/issues/32
-  list[identInfo] iinit = [];
-  list[loc] qinit = [];
-  
-  top-down visit(form) {
-    case q:question(text, \type, ident): {
-      identifierMap[ident]?iinit += [<q@location, \type>];
-      textMap[text]?qinit += [q@location];
-    }
-    case q:question(text, \type, ident, _): {
-      identifierMap[ident]?iinit += [<q@location, \type>];
-      textMap[text]?qinit += [q@location];
-    }
-  }
-
-  identifierMap = (key : identifierMap[key] | key <- identifierMap, size(identifierMap[key]) > 1);
-  
-  identifierMapRel = { < x, d> | d <- identifierMap, x <- identifierMap[d] };
-  
-  textMap = (key : textMap[key] | key <- textMap, size(textMap[key]) > 1);
-  
-  textMapRel = { < x, d> | d <- textMap, x <- textMap[d] };
-  
-  return 
-    {duplicateIdentifierMessage(name, \type, \loc) | <<\loc, \type>, name> <- identifierMapRel} +
-    {duplicateQuestionMessage(text, \loc) | <\loc, text> <- textMapRel};
-}
 
 public set[Message] undefinedVariables(Form form) {
   labelMap identifierMap = ();
