@@ -45,6 +45,7 @@ public class TestExpressions {
 		String strQL5 = "form Box1HouseOwning { b: \"lege string\" boolean }";
 		String strQL6 = "form Box1HouseOwning { s: \"string\" string }";
 		
+		
 		assertEquals(parser.parseForm(strQL1).getClass(), Form.class);
 		assertEquals(parser.parseForm(strQL2).getClass(), Form.class);
 		assertEquals(parser.parseForm(strQL3).getClass(), Form.class);
