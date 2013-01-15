@@ -2,12 +2,10 @@ module Plugin
 
 import ParseTree;
 import util::IDE;
-import IO;
 
 import lang::ql::syntax::QL;
 import lang::ql::ast::Outline;
-import lang::ql::ast::TypeCheck;
-
+import lang::ql::ast::Check;
 import lang::ql::util::Parse;
 import lang::ql::util::Implode;
 
@@ -26,5 +24,5 @@ public void main() {
 		annotator(Tree (Tree t) {
 			return t[@messages = checkForm(implode(t))];
   		})
-  	});
+	});
 }

@@ -7,7 +7,6 @@ import lang::ql::ast::AST;
 import lang::ql::compiler::PrettyPrinter;
 import lang::ql::ide::Outline;
 import lang::ql::util::Implode;
-import lang::ql::util::LocationSpan;
 import lang::ql::util::Parse;
 import util::IDE;
 
@@ -19,8 +18,8 @@ public node outlineForm(Form form) {
 }
 
 // Helper function to create nodes with appropriate annotations and members.
-private node con(str name, str label, loc location, list[node] childs)
-  = setAnnotations(makeNode(name, childs), ("label": label, "loc": location));
+private node con(str name, str label, loc location, list[node] children)
+  = setAnnotations(makeNode(name, children), ("label": label, "loc": location));
 
 // Helper to create a node for a branch of an if/ifelse/... statemnt
 private node outlineBranch(str name, str label, loc location, list[Statement] items) {
@@ -38,23 +37,24 @@ private node outline(Form form) {
 }
 
 private node outline(Statement item:
-  ifCondition(Conditional ifPart, list[Conditional] elseIfs, list[Statement] elsePart)) {
+  ifCondition(Conditional ifPart, list[Conditional] elseIfs, list[ElsePart] elsePart)) {
   str name = "IfCondition";
   str label = "If (<prettyPrint(ifPart.condition)>)";
 
   bool elseIfBlock = false;
   bool elseBlock = false;
 
-  childs = [outlineBranch("ifPart", "<prettyPrint(ifPart.condition)>", item@location, ifPart.body)];
-  
+  children = [outlineBranch("ifPart", "<prettyPrint(ifPart.condition)>", ifPart@location, ifPart.body)];
+
   if (elseIfs != []) {
     elseIfBlock = true;
-    childs += [outlineBranch("elseIf", "<prettyPrint(branch.condition)>", item@location, branch.body) | branch <- elseIfs];
+    children += [outlineBranch("elseIf", "<prettyPrint(branch.condition)>", branch@location, branch.body) | branch <- elseIfs];
   }
 
   if(elsePart != []) {
     elseBlock = true;
-    childs += outlineBranch("elsePart", "else", item@location, elsePart);
+    ElsePart ep = head(elsePart);
+    children += [outlineBranch("elsePart", "else", ep@location, ep.body)];
   }
 
   if(elseIfBlock && elseBlock) {
@@ -68,7 +68,7 @@ private node outline(Statement item:
     label = "If (<prettyPrint(ifPart.condition)>) else ...";
   }
   
-  return con(name, label, item@location, childs);
+  return con(name, label, item@location, children);
 }
 
 private node outline(Statement item: question(Question question)) = outline(question);
