@@ -1,7 +1,7 @@
 package org.uva.sea.ql.ast.form;
 
-import org.uva.sea.ql.ast.base.Expression;
+import org.uva.sea.ql.ast.base.Node;
 
-public abstract class Element extends Expression {
+public abstract class Element extends Node {
 
 }

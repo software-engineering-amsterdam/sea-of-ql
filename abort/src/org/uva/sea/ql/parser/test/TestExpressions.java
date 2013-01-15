@@ -4,7 +4,7 @@ import junit.framework.TestCase;
 
 import org.antlr.runtime.RecognitionException;
 import org.junit.Test;
-import org.uva.sea.ql.ast.base.Expression;
+import org.uva.sea.ql.ast.base.Node;
 import org.uva.sea.ql.ast.base.Ident;
 import org.uva.sea.ql.ast.conditionals.IfThen;
 import org.uva.sea.ql.ast.conditionals.IfThenElse;
@@ -111,7 +111,7 @@ public class TestExpressions extends TestCase {
 	@Test
 	public void testIfElseExpression() throws RecognitionException {
 		// TODO: make a different parser for just if statements, fails now as ifs are dependant on forms
-		Expression result = parser
+		Node result = parser
 				.parse("if (\"Hello\") { \"Hello\" } else { \"Hello\" }");
 		assertEquals(IfThenElse.class, result.getClass());
 

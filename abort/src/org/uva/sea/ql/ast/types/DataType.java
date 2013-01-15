@@ -1,7 +1,7 @@
 package org.uva.sea.ql.ast.types;
 
-import org.uva.sea.ql.ast.base.Expression;
+import org.uva.sea.ql.ast.base.Node;
 
-public abstract class DataType extends Expression {
+public abstract class DataType extends Node {
 
 }

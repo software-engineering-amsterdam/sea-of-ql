@@ -1,6 +1,6 @@
 package org.uva.sea.ql.ast.form;
 
-import org.uva.sea.ql.ast.base.Expression;
+import org.uva.sea.ql.ast.traversal.base.IVisitor;
 import org.uva.sea.ql.ast.types.DataType;
 
 public class Question extends Element {
@@ -12,5 +12,10 @@ public class Question extends Element {
 		this.label = label;
 		this.question = question;
 		this.expectedType = expectedType;
+	}
+
+	@Override
+	public void accept(final IVisitor visitor) {
+		visitor.visit(this);
 	}
 }
