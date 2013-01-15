@@ -12,10 +12,29 @@ import org.uva.sea.ql.ast.*;
 package org.uva.sea.ql.parser.antlr;
 }
 
+form returns [Form result]
+  : 'form' id=Ident { $result = new Form(id); } LBrace stmt=statement { $result.addStatement(stmt); } RBrace
+  ;
+
+statement returns [Statement result]
+  : id=Ident Colon lbl=String tp=type { $result = new Question(id, lbl, tp); }
+  |
+  ;
+  
+type returns [Type result]
+  : 'string'  { $result = new TypeString(); }  ( cp=computation { $result.computation(cp); } )? 
+  : 'boolean' { $result = new TypeBoolean(); } ( cp=computation { $result.computation(cp); } )? 
+  : 'integer' { $result = new TypeInteger(); } ( cp=computation { $result.computation(cp); } )? 
+  ;
+  
+computation returns [Computation result]
+  : '(' x=orExpr ')' { $result = $x.result; }
+  ;
+
 primary returns [Expr result]
   : Int   { $result = new Int(Integer.parseInt($Int.text)); }
   | Ident { $result = new Ident($Ident.text); }
-  | '(' x=orExpr ')'{ $result = $x.result; }
+  | '(' x=orExpr ')' { $result = $x.result; }
   ;
     
 unExpr returns [Expr result]
@@ -85,13 +104,26 @@ orExpr returns [Expr result]
 
     
 // Tokens
-WS  :	(' ' | '\t' | '\n' | '\r') { $channel=HIDDEN; }
-    ;
+If      : 'if' ;
+Else    : 'else' ; 
 
-COMMENT 
-     : '/*' .* '*/' {$channel=HIDDEN;}
-    ;
+LBrace  : '{' ;
+RBrace  : '}' ;
+Colon   : ':' ;
 
-Ident:   ('a'..'z'|'A'..'Z')('a'..'z'|'A'..'Z'|'0'..'9'|'_')*;
+Bool    : 'true' | 'false' ;
+Int     : '-' ? Digit+ ;    
+Ident   : ('a'..'z' | 'A'..'Z' | '_') ('a'..'z' | 'A'..'Z' | '_' | Int)* ;  
+String
+@after { 
+  setText(getText().substring(1, getText().length()-1).replaceAll("\\\\(.)", "$1")); 
+}  
+        :  '"'  (~('"' | '\\')  | '\\' .)* '"'   
+        |  '\'' (~('\'' | '\\') | '\\' .)* '\''   
+        ;
+            
+WS      :	(' ' | '\t' | '\n' | '\r') { $channel=HIDDEN; } ;
 
-Int: ('0'..'9')+;
+Comment : '//' ~('\r' | '\n')*  {$channel=HIDDEN;}  
+        |  '/*' .* '*/'         {$channel=HIDDEN;} 
+        ;   
