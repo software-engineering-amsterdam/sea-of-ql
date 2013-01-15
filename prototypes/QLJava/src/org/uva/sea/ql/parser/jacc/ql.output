@@ -1,19 +1,18 @@
-// Output created by jacc on Thu Jan 03 15:28:05 CET 2013
+// Output created by jacc on Thu Jan 10 17:02:47 CET 2013
 
 state 0 (entry on top)
     $accept : _top $end
 
-    IDENT shift 4
-    INT shift 5
-    '!' shift 6
-    '(' shift 7
-    '+' shift 8
-    '-' shift 9
+    IDENT shift 3
+    INT shift 4
+    '!' shift 5
+    '(' shift 6
+    '+' shift 7
+    '-' shift 8
     . error
 
     top goto 1
     expr goto 2
-    comp goto 3
 
 state 1 (entry on top)
     $accept : top_$end
@@ -22,606 +21,727 @@ state 1 (entry on top)
     . error
 
 state 2 (entry on expr)
-    expr : expr_'*' expr    (12)
-    expr : expr_'/' expr    (13)
-    expr : expr_'+' expr    (14)
-    expr : expr_'-' expr    (15)
-    expr : expr_AND expr    (16)
-    expr : expr_OR expr    (17)
-    comp : expr_EQ expr    (2)
-    comp : expr_NEQ expr    (3)
-    comp : expr_'>' expr    (4)
-    comp : expr_'<' expr    (5)
-    comp : expr_GEQ expr    (6)
-    comp : expr_LEQ expr    (7)
-    comp : expr_    (8)
+    top : expr_    (1)
+    expr : expr_'*' expr    (5)
+    expr : expr_'/' expr    (6)
+    expr : expr_'+' expr    (7)
+    expr : expr_'-' expr    (8)
+    expr : expr_EQ expr    (9)
+    expr : expr_NEQ expr    (10)
+    expr : expr_'>' expr    (11)
+    expr : expr_'<' expr    (12)
+    expr : expr_GEQ expr    (13)
+    expr : expr_LEQ expr    (14)
+    expr : expr_AND expr    (15)
+    expr : expr_OR expr    (16)
 
-    AND shift 10
-    EQ shift 11
-    GEQ shift 12
-    LEQ shift 13
-    NEQ shift 14
-    OR shift 15
-    '*' shift 16
-    '+' shift 17
-    '-' shift 18
-    '/' shift 19
-    '<' shift 20
-    '>' shift 21
-    $end reduce 8
-    ')' reduce 8
-    . error
-
-state 3 (entry on comp)
-    top : comp_    (1)
-
+    AND shift 9
+    EQ shift 10
+    GEQ shift 11
+    LEQ shift 12
+    NEQ shift 13
+    OR shift 14
+    '*' shift 15
+    '+' shift 16
+    '-' shift 17
+    '/' shift 18
+    '<' shift 19
+    '>' shift 20
     $end reduce 1
     . error
 
-state 4 (entry on IDENT)
-    expr : IDENT_    (19)
+state 3 (entry on IDENT)
+    expr : IDENT_    (18)
 
     '!' error
-    NEW error
-    INT error
+    UPLUS error
+    UMIN error
     '(' error
     error error
-    UPLUS error
-    UNOT error
-    UMIN error
     IDENT error
-    . reduce 19
-
-state 5 (entry on INT)
-    expr : INT_    (18)
-
-    '!' error
-    NEW error
     INT error
-    '(' error
-    error error
-    UPLUS error
     UNOT error
-    UMIN error
-    IDENT error
     . reduce 18
 
-state 6 (entry on '!')
-    expr : '!'_expr    (11)
+state 4 (entry on INT)
+    expr : INT_    (17)
 
-    IDENT shift 4
-    INT shift 5
-    '!' shift 6
-    '(' shift 7
-    '+' shift 8
-    '-' shift 9
+    '!' error
+    UPLUS error
+    UMIN error
+    '(' error
+    error error
+    IDENT error
+    INT error
+    UNOT error
+    . reduce 17
+
+state 5 (entry on '!')
+    expr : '!'_expr    (4)
+
+    IDENT shift 3
+    INT shift 4
+    '!' shift 5
+    '(' shift 6
+    '+' shift 7
+    '-' shift 8
+    . error
+
+    expr goto 21
+
+state 6 (entry on '(')
+    expr : '('_expr ')'    (19)
+
+    IDENT shift 3
+    INT shift 4
+    '!' shift 5
+    '(' shift 6
+    '+' shift 7
+    '-' shift 8
     . error
 
     expr goto 22
 
-state 7 (entry on '(')
-    expr : '('_comp ')'    (20)
+state 7 (entry on '+')
+    expr : '+'_expr    (2)
 
-    IDENT shift 4
-    INT shift 5
-    '!' shift 6
-    '(' shift 7
-    '+' shift 8
-    '-' shift 9
+    IDENT shift 3
+    INT shift 4
+    '!' shift 5
+    '(' shift 6
+    '+' shift 7
+    '-' shift 8
     . error
 
-    expr goto 2
-    comp goto 23
+    expr goto 23
 
-state 8 (entry on '+')
-    expr : '+'_expr    (9)
+state 8 (entry on '-')
+    expr : '-'_expr    (3)
 
-    IDENT shift 4
-    INT shift 5
-    '!' shift 6
-    '(' shift 7
-    '+' shift 8
-    '-' shift 9
+    IDENT shift 3
+    INT shift 4
+    '!' shift 5
+    '(' shift 6
+    '+' shift 7
+    '-' shift 8
     . error
 
     expr goto 24
 
-state 9 (entry on '-')
-    expr : '-'_expr    (10)
+state 9 (entry on AND)
+    expr : expr AND_expr    (15)
 
-    IDENT shift 4
-    INT shift 5
-    '!' shift 6
-    '(' shift 7
-    '+' shift 8
-    '-' shift 9
+    IDENT shift 3
+    INT shift 4
+    '!' shift 5
+    '(' shift 6
+    '+' shift 7
+    '-' shift 8
     . error
 
     expr goto 25
 
-state 10 (entry on AND)
-    expr : expr AND_expr    (16)
+state 10 (entry on EQ)
+    expr : expr EQ_expr    (9)
 
-    IDENT shift 4
-    INT shift 5
-    '!' shift 6
-    '(' shift 7
-    '+' shift 8
-    '-' shift 9
+    IDENT shift 3
+    INT shift 4
+    '!' shift 5
+    '(' shift 6
+    '+' shift 7
+    '-' shift 8
     . error
 
     expr goto 26
 
-state 11 (entry on EQ)
-    comp : expr EQ_expr    (2)
+state 11 (entry on GEQ)
+    expr : expr GEQ_expr    (13)
 
-    IDENT shift 4
-    INT shift 5
-    '!' shift 6
-    '(' shift 7
-    '+' shift 8
-    '-' shift 9
+    IDENT shift 3
+    INT shift 4
+    '!' shift 5
+    '(' shift 6
+    '+' shift 7
+    '-' shift 8
     . error
 
     expr goto 27
 
-state 12 (entry on GEQ)
-    comp : expr GEQ_expr    (6)
+state 12 (entry on LEQ)
+    expr : expr LEQ_expr    (14)
 
-    IDENT shift 4
-    INT shift 5
-    '!' shift 6
-    '(' shift 7
-    '+' shift 8
-    '-' shift 9
+    IDENT shift 3
+    INT shift 4
+    '!' shift 5
+    '(' shift 6
+    '+' shift 7
+    '-' shift 8
     . error
 
     expr goto 28
 
-state 13 (entry on LEQ)
-    comp : expr LEQ_expr    (7)
+state 13 (entry on NEQ)
+    expr : expr NEQ_expr    (10)
 
-    IDENT shift 4
-    INT shift 5
-    '!' shift 6
-    '(' shift 7
-    '+' shift 8
-    '-' shift 9
+    IDENT shift 3
+    INT shift 4
+    '!' shift 5
+    '(' shift 6
+    '+' shift 7
+    '-' shift 8
     . error
 
     expr goto 29
 
-state 14 (entry on NEQ)
-    comp : expr NEQ_expr    (3)
+state 14 (entry on OR)
+    expr : expr OR_expr    (16)
 
-    IDENT shift 4
-    INT shift 5
-    '!' shift 6
-    '(' shift 7
-    '+' shift 8
-    '-' shift 9
+    IDENT shift 3
+    INT shift 4
+    '!' shift 5
+    '(' shift 6
+    '+' shift 7
+    '-' shift 8
     . error
 
     expr goto 30
 
-state 15 (entry on OR)
-    expr : expr OR_expr    (17)
+state 15 (entry on '*')
+    expr : expr '*'_expr    (5)
 
-    IDENT shift 4
-    INT shift 5
-    '!' shift 6
-    '(' shift 7
-    '+' shift 8
-    '-' shift 9
+    IDENT shift 3
+    INT shift 4
+    '!' shift 5
+    '(' shift 6
+    '+' shift 7
+    '-' shift 8
     . error
 
     expr goto 31
 
-state 16 (entry on '*')
-    expr : expr '*'_expr    (12)
+state 16 (entry on '+')
+    expr : expr '+'_expr    (7)
 
-    IDENT shift 4
-    INT shift 5
-    '!' shift 6
-    '(' shift 7
-    '+' shift 8
-    '-' shift 9
+    IDENT shift 3
+    INT shift 4
+    '!' shift 5
+    '(' shift 6
+    '+' shift 7
+    '-' shift 8
     . error
 
     expr goto 32
 
-state 17 (entry on '+')
-    expr : expr '+'_expr    (14)
+state 17 (entry on '-')
+    expr : expr '-'_expr    (8)
 
-    IDENT shift 4
-    INT shift 5
-    '!' shift 6
-    '(' shift 7
-    '+' shift 8
-    '-' shift 9
+    IDENT shift 3
+    INT shift 4
+    '!' shift 5
+    '(' shift 6
+    '+' shift 7
+    '-' shift 8
     . error
 
     expr goto 33
 
-state 18 (entry on '-')
-    expr : expr '-'_expr    (15)
+state 18 (entry on '/')
+    expr : expr '/'_expr    (6)
 
-    IDENT shift 4
-    INT shift 5
-    '!' shift 6
-    '(' shift 7
-    '+' shift 8
-    '-' shift 9
+    IDENT shift 3
+    INT shift 4
+    '!' shift 5
+    '(' shift 6
+    '+' shift 7
+    '-' shift 8
     . error
 
     expr goto 34
 
-state 19 (entry on '/')
-    expr : expr '/'_expr    (13)
+state 19 (entry on '<')
+    expr : expr '<'_expr    (12)
 
-    IDENT shift 4
-    INT shift 5
-    '!' shift 6
-    '(' shift 7
-    '+' shift 8
-    '-' shift 9
+    IDENT shift 3
+    INT shift 4
+    '!' shift 5
+    '(' shift 6
+    '+' shift 7
+    '-' shift 8
     . error
 
     expr goto 35
 
-state 20 (entry on '<')
-    comp : expr '<'_expr    (5)
+state 20 (entry on '>')
+    expr : expr '>'_expr    (11)
 
-    IDENT shift 4
-    INT shift 5
-    '!' shift 6
-    '(' shift 7
-    '+' shift 8
-    '-' shift 9
+    IDENT shift 3
+    INT shift 4
+    '!' shift 5
+    '(' shift 6
+    '+' shift 7
+    '-' shift 8
     . error
 
     expr goto 36
 
-state 21 (entry on '>')
-    comp : expr '>'_expr    (4)
+state 21 (entry on expr)
+    expr : '!' expr_    (4)
+    expr : expr_'*' expr    (5)
+    expr : expr_'/' expr    (6)
+    expr : expr_'+' expr    (7)
+    expr : expr_'-' expr    (8)
+    expr : expr_EQ expr    (9)
+    expr : expr_NEQ expr    (10)
+    expr : expr_'>' expr    (11)
+    expr : expr_'<' expr    (12)
+    expr : expr_GEQ expr    (13)
+    expr : expr_LEQ expr    (14)
+    expr : expr_AND expr    (15)
+    expr : expr_OR expr    (16)
 
-    IDENT shift 4
-    INT shift 5
-    '!' shift 6
-    '(' shift 7
-    '+' shift 8
-    '-' shift 9
-    . error
-
-    expr goto 37
+    '!' error
+    UPLUS error
+    UMIN error
+    '(' error
+    error error
+    IDENT error
+    INT error
+    UNOT error
+    . reduce 4
 
 state 22 (entry on expr)
-    expr : '!' expr_    (11)
-    expr : expr_'*' expr    (12)
-    expr : expr_'/' expr    (13)
-    expr : expr_'+' expr    (14)
-    expr : expr_'-' expr    (15)
-    expr : expr_AND expr    (16)
-    expr : expr_OR expr    (17)
+    expr : expr_'*' expr    (5)
+    expr : expr_'/' expr    (6)
+    expr : expr_'+' expr    (7)
+    expr : expr_'-' expr    (8)
+    expr : expr_EQ expr    (9)
+    expr : expr_NEQ expr    (10)
+    expr : expr_'>' expr    (11)
+    expr : expr_'<' expr    (12)
+    expr : expr_GEQ expr    (13)
+    expr : expr_LEQ expr    (14)
+    expr : expr_AND expr    (15)
+    expr : expr_OR expr    (16)
+    expr : '(' expr_')'    (19)
+
+    AND shift 9
+    EQ shift 10
+    GEQ shift 11
+    LEQ shift 12
+    NEQ shift 13
+    OR shift 14
+    '*' shift 15
+    '+' shift 16
+    '-' shift 17
+    '/' shift 18
+    '<' shift 19
+    '>' shift 20
+    ')' shift 37
+    . error
+
+state 23 (entry on expr)
+    expr : '+' expr_    (2)
+    expr : expr_'*' expr    (5)
+    expr : expr_'/' expr    (6)
+    expr : expr_'+' expr    (7)
+    expr : expr_'-' expr    (8)
+    expr : expr_EQ expr    (9)
+    expr : expr_NEQ expr    (10)
+    expr : expr_'>' expr    (11)
+    expr : expr_'<' expr    (12)
+    expr : expr_GEQ expr    (13)
+    expr : expr_LEQ expr    (14)
+    expr : expr_AND expr    (15)
+    expr : expr_OR expr    (16)
 
     '!' error
-    NEW error
-    INT error
+    UPLUS error
+    UMIN error
     '(' error
     error error
-    UPLUS error
-    UNOT error
-    UMIN error
     IDENT error
-    . reduce 11
-
-state 23 (entry on comp)
-    expr : '(' comp_')'    (20)
-
-    ')' shift 38
-    . error
+    INT error
+    UNOT error
+    . reduce 2
 
 state 24 (entry on expr)
-    expr : '+' expr_    (9)
-    expr : expr_'*' expr    (12)
-    expr : expr_'/' expr    (13)
-    expr : expr_'+' expr    (14)
-    expr : expr_'-' expr    (15)
-    expr : expr_AND expr    (16)
-    expr : expr_OR expr    (17)
+    expr : '-' expr_    (3)
+    expr : expr_'*' expr    (5)
+    expr : expr_'/' expr    (6)
+    expr : expr_'+' expr    (7)
+    expr : expr_'-' expr    (8)
+    expr : expr_EQ expr    (9)
+    expr : expr_NEQ expr    (10)
+    expr : expr_'>' expr    (11)
+    expr : expr_'<' expr    (12)
+    expr : expr_GEQ expr    (13)
+    expr : expr_LEQ expr    (14)
+    expr : expr_AND expr    (15)
+    expr : expr_OR expr    (16)
 
     '!' error
-    NEW error
-    INT error
+    UPLUS error
+    UMIN error
     '(' error
     error error
-    UPLUS error
-    UNOT error
-    UMIN error
     IDENT error
-    . reduce 9
+    INT error
+    UNOT error
+    . reduce 3
 
 state 25 (entry on expr)
-    expr : '-' expr_    (10)
-    expr : expr_'*' expr    (12)
-    expr : expr_'/' expr    (13)
-    expr : expr_'+' expr    (14)
-    expr : expr_'-' expr    (15)
-    expr : expr_AND expr    (16)
-    expr : expr_OR expr    (17)
+    expr : expr_'*' expr    (5)
+    expr : expr_'/' expr    (6)
+    expr : expr_'+' expr    (7)
+    expr : expr_'-' expr    (8)
+    expr : expr_EQ expr    (9)
+    expr : expr_NEQ expr    (10)
+    expr : expr_'>' expr    (11)
+    expr : expr_'<' expr    (12)
+    expr : expr_GEQ expr    (13)
+    expr : expr_LEQ expr    (14)
+    expr : expr_AND expr    (15)
+    expr : expr AND expr_    (15)
+    expr : expr_OR expr    (16)
 
-    '!' error
-    NEW error
-    INT error
-    '(' error
-    error error
-    UPLUS error
-    UNOT error
-    UMIN error
-    IDENT error
-    . reduce 10
+    EQ shift 10
+    GEQ shift 11
+    LEQ shift 12
+    NEQ shift 13
+    '*' shift 15
+    '+' shift 16
+    '-' shift 17
+    '/' shift 18
+    '<' shift 19
+    '>' shift 20
+    ')' reduce 15
+    $end reduce 15
+    OR reduce 15
+    AND reduce 15
+    . error
 
 state 26 (entry on expr)
-    expr : expr_'*' expr    (12)
-    expr : expr_'/' expr    (13)
-    expr : expr_'+' expr    (14)
-    expr : expr_'-' expr    (15)
-    expr : expr_AND expr    (16)
-    expr : expr AND expr_    (16)
-    expr : expr_OR expr    (17)
+    expr : expr_'*' expr    (5)
+    expr : expr_'/' expr    (6)
+    expr : expr_'+' expr    (7)
+    expr : expr_'-' expr    (8)
+    expr : expr_EQ expr    (9)
+    expr : expr EQ expr_    (9)
+    expr : expr_NEQ expr    (10)
+    expr : expr_'>' expr    (11)
+    expr : expr_'<' expr    (12)
+    expr : expr_GEQ expr    (13)
+    expr : expr_LEQ expr    (14)
+    expr : expr_AND expr    (15)
+    expr : expr_OR expr    (16)
 
+    UNOT error
     INT error
-    '(' error
-    UPLUS error
+    error error
     UMIN error
     IDENT error
-    NEW error
-    error error
+    '(' error
     '!' error
-    UNOT error
-    '*' shift 16
-    '+' shift 17
-    '-' shift 18
-    '/' shift 19
-    . reduce 16
+    UPLUS error
+    '*' shift 15
+    '+' shift 16
+    '-' shift 17
+    '/' shift 18
+    . reduce 9
 
 state 27 (entry on expr)
-    expr : expr_'*' expr    (12)
-    expr : expr_'/' expr    (13)
-    expr : expr_'+' expr    (14)
-    expr : expr_'-' expr    (15)
-    expr : expr_AND expr    (16)
-    expr : expr_OR expr    (17)
-    comp : expr EQ expr_    (2)
+    expr : expr_'*' expr    (5)
+    expr : expr_'/' expr    (6)
+    expr : expr_'+' expr    (7)
+    expr : expr_'-' expr    (8)
+    expr : expr_EQ expr    (9)
+    expr : expr_NEQ expr    (10)
+    expr : expr_'>' expr    (11)
+    expr : expr_'<' expr    (12)
+    expr : expr_GEQ expr    (13)
+    expr : expr GEQ expr_    (13)
+    expr : expr_LEQ expr    (14)
+    expr : expr_AND expr    (15)
+    expr : expr_OR expr    (16)
 
-    AND shift 10
-    OR shift 15
-    '*' shift 16
-    '+' shift 17
-    '-' shift 18
-    '/' shift 19
-    $end reduce 2
-    ')' reduce 2
-    . error
+    UNOT error
+    INT error
+    error error
+    UMIN error
+    IDENT error
+    '(' error
+    '!' error
+    UPLUS error
+    '*' shift 15
+    '+' shift 16
+    '-' shift 17
+    '/' shift 18
+    . reduce 13
 
 state 28 (entry on expr)
-    expr : expr_'*' expr    (12)
-    expr : expr_'/' expr    (13)
-    expr : expr_'+' expr    (14)
-    expr : expr_'-' expr    (15)
-    expr : expr_AND expr    (16)
-    expr : expr_OR expr    (17)
-    comp : expr GEQ expr_    (6)
+    expr : expr_'*' expr    (5)
+    expr : expr_'/' expr    (6)
+    expr : expr_'+' expr    (7)
+    expr : expr_'-' expr    (8)
+    expr : expr_EQ expr    (9)
+    expr : expr_NEQ expr    (10)
+    expr : expr_'>' expr    (11)
+    expr : expr_'<' expr    (12)
+    expr : expr_GEQ expr    (13)
+    expr : expr_LEQ expr    (14)
+    expr : expr LEQ expr_    (14)
+    expr : expr_AND expr    (15)
+    expr : expr_OR expr    (16)
 
-    AND shift 10
-    OR shift 15
-    '*' shift 16
-    '+' shift 17
-    '-' shift 18
-    '/' shift 19
-    $end reduce 6
-    ')' reduce 6
-    . error
+    UNOT error
+    INT error
+    error error
+    UMIN error
+    IDENT error
+    '(' error
+    '!' error
+    UPLUS error
+    '*' shift 15
+    '+' shift 16
+    '-' shift 17
+    '/' shift 18
+    . reduce 14
 
 state 29 (entry on expr)
-    expr : expr_'*' expr    (12)
-    expr : expr_'/' expr    (13)
-    expr : expr_'+' expr    (14)
-    expr : expr_'-' expr    (15)
-    expr : expr_AND expr    (16)
-    expr : expr_OR expr    (17)
-    comp : expr LEQ expr_    (7)
+    expr : expr_'*' expr    (5)
+    expr : expr_'/' expr    (6)
+    expr : expr_'+' expr    (7)
+    expr : expr_'-' expr    (8)
+    expr : expr_EQ expr    (9)
+    expr : expr_NEQ expr    (10)
+    expr : expr NEQ expr_    (10)
+    expr : expr_'>' expr    (11)
+    expr : expr_'<' expr    (12)
+    expr : expr_GEQ expr    (13)
+    expr : expr_LEQ expr    (14)
+    expr : expr_AND expr    (15)
+    expr : expr_OR expr    (16)
 
-    AND shift 10
-    OR shift 15
-    '*' shift 16
-    '+' shift 17
-    '-' shift 18
-    '/' shift 19
-    $end reduce 7
-    ')' reduce 7
-    . error
+    UNOT error
+    INT error
+    error error
+    UMIN error
+    IDENT error
+    '(' error
+    '!' error
+    UPLUS error
+    '*' shift 15
+    '+' shift 16
+    '-' shift 17
+    '/' shift 18
+    . reduce 10
 
 state 30 (entry on expr)
-    expr : expr_'*' expr    (12)
-    expr : expr_'/' expr    (13)
-    expr : expr_'+' expr    (14)
-    expr : expr_'-' expr    (15)
-    expr : expr_AND expr    (16)
-    expr : expr_OR expr    (17)
-    comp : expr NEQ expr_    (3)
+    expr : expr_'*' expr    (5)
+    expr : expr_'/' expr    (6)
+    expr : expr_'+' expr    (7)
+    expr : expr_'-' expr    (8)
+    expr : expr_EQ expr    (9)
+    expr : expr_NEQ expr    (10)
+    expr : expr_'>' expr    (11)
+    expr : expr_'<' expr    (12)
+    expr : expr_GEQ expr    (13)
+    expr : expr_LEQ expr    (14)
+    expr : expr_AND expr    (15)
+    expr : expr_OR expr    (16)
+    expr : expr OR expr_    (16)
 
-    AND shift 10
-    OR shift 15
-    '*' shift 16
-    '+' shift 17
-    '-' shift 18
-    '/' shift 19
-    $end reduce 3
-    ')' reduce 3
+    AND shift 9
+    EQ shift 10
+    GEQ shift 11
+    LEQ shift 12
+    NEQ shift 13
+    '*' shift 15
+    '+' shift 16
+    '-' shift 17
+    '/' shift 18
+    '<' shift 19
+    '>' shift 20
+    ')' reduce 16
+    $end reduce 16
+    OR reduce 16
     . error
 
 state 31 (entry on expr)
-    expr : expr_'*' expr    (12)
-    expr : expr_'/' expr    (13)
-    expr : expr_'+' expr    (14)
-    expr : expr_'-' expr    (15)
-    expr : expr_AND expr    (16)
-    expr : expr_OR expr    (17)
-    expr : expr OR expr_    (17)
+    expr : expr_'*' expr    (5)
+    expr : expr '*' expr_    (5)
+    expr : expr_'/' expr    (6)
+    expr : expr_'+' expr    (7)
+    expr : expr_'-' expr    (8)
+    expr : expr_EQ expr    (9)
+    expr : expr_NEQ expr    (10)
+    expr : expr_'>' expr    (11)
+    expr : expr_'<' expr    (12)
+    expr : expr_GEQ expr    (13)
+    expr : expr_LEQ expr    (14)
+    expr : expr_AND expr    (15)
+    expr : expr_OR expr    (16)
 
-    AND shift 10
-    '*' shift 16
-    '+' shift 17
-    '-' shift 18
-    '/' shift 19
-    NEQ reduce 17
-    LEQ reduce 17
-    GEQ reduce 17
-    '>' reduce 17
-    '<' reduce 17
-    OR reduce 17
-    ')' reduce 17
-    $end reduce 17
-    EQ reduce 17
-    . error
+    '!' error
+    UPLUS error
+    UMIN error
+    '(' error
+    error error
+    IDENT error
+    INT error
+    UNOT error
+    . reduce 5
 
 state 32 (entry on expr)
-    expr : expr_'*' expr    (12)
-    expr : expr '*' expr_    (12)
-    expr : expr_'/' expr    (13)
-    expr : expr_'+' expr    (14)
-    expr : expr_'-' expr    (15)
-    expr : expr_AND expr    (16)
-    expr : expr_OR expr    (17)
+    expr : expr_'*' expr    (5)
+    expr : expr_'/' expr    (6)
+    expr : expr_'+' expr    (7)
+    expr : expr '+' expr_    (7)
+    expr : expr_'-' expr    (8)
+    expr : expr_EQ expr    (9)
+    expr : expr_NEQ expr    (10)
+    expr : expr_'>' expr    (11)
+    expr : expr_'<' expr    (12)
+    expr : expr_GEQ expr    (13)
+    expr : expr_LEQ expr    (14)
+    expr : expr_AND expr    (15)
+    expr : expr_OR expr    (16)
 
-    '!' error
-    NEW error
     INT error
-    '(' error
     error error
-    UPLUS error
-    UNOT error
     UMIN error
     IDENT error
-    . reduce 12
+    '(' error
+    '!' error
+    UPLUS error
+    UNOT error
+    '*' shift 15
+    '/' shift 18
+    . reduce 7
 
 state 33 (entry on expr)
-    expr : expr_'*' expr    (12)
-    expr : expr_'/' expr    (13)
-    expr : expr_'+' expr    (14)
-    expr : expr '+' expr_    (14)
-    expr : expr_'-' expr    (15)
-    expr : expr_AND expr    (16)
-    expr : expr_OR expr    (17)
+    expr : expr_'*' expr    (5)
+    expr : expr_'/' expr    (6)
+    expr : expr_'+' expr    (7)
+    expr : expr_'-' expr    (8)
+    expr : expr '-' expr_    (8)
+    expr : expr_EQ expr    (9)
+    expr : expr_NEQ expr    (10)
+    expr : expr_'>' expr    (11)
+    expr : expr_'<' expr    (12)
+    expr : expr_GEQ expr    (13)
+    expr : expr_LEQ expr    (14)
+    expr : expr_AND expr    (15)
+    expr : expr_OR expr    (16)
 
-    UNOT error
+    INT error
     error error
-    UPLUS error
-    NEW error
+    UMIN error
+    IDENT error
     '(' error
     '!' error
-    UMIN error
-    INT error
-    IDENT error
-    '*' shift 16
-    '/' shift 19
-    . reduce 14
+    UPLUS error
+    UNOT error
+    '*' shift 15
+    '/' shift 18
+    . reduce 8
 
 state 34 (entry on expr)
-    expr : expr_'*' expr    (12)
-    expr : expr_'/' expr    (13)
-    expr : expr_'+' expr    (14)
-    expr : expr_'-' expr    (15)
-    expr : expr '-' expr_    (15)
-    expr : expr_AND expr    (16)
-    expr : expr_OR expr    (17)
+    expr : expr_'*' expr    (5)
+    expr : expr_'/' expr    (6)
+    expr : expr '/' expr_    (6)
+    expr : expr_'+' expr    (7)
+    expr : expr_'-' expr    (8)
+    expr : expr_EQ expr    (9)
+    expr : expr_NEQ expr    (10)
+    expr : expr_'>' expr    (11)
+    expr : expr_'<' expr    (12)
+    expr : expr_GEQ expr    (13)
+    expr : expr_LEQ expr    (14)
+    expr : expr_AND expr    (15)
+    expr : expr_OR expr    (16)
 
-    UNOT error
-    error error
-    UPLUS error
-    NEW error
-    '(' error
     '!' error
+    UPLUS error
     UMIN error
-    INT error
+    '(' error
+    error error
     IDENT error
-    '*' shift 16
-    '/' shift 19
-    . reduce 15
+    INT error
+    UNOT error
+    . reduce 6
 
 state 35 (entry on expr)
-    expr : expr_'*' expr    (12)
-    expr : expr_'/' expr    (13)
-    expr : expr '/' expr_    (13)
-    expr : expr_'+' expr    (14)
-    expr : expr_'-' expr    (15)
-    expr : expr_AND expr    (16)
-    expr : expr_OR expr    (17)
+    expr : expr_'*' expr    (5)
+    expr : expr_'/' expr    (6)
+    expr : expr_'+' expr    (7)
+    expr : expr_'-' expr    (8)
+    expr : expr_EQ expr    (9)
+    expr : expr_NEQ expr    (10)
+    expr : expr_'>' expr    (11)
+    expr : expr_'<' expr    (12)
+    expr : expr '<' expr_    (12)
+    expr : expr_GEQ expr    (13)
+    expr : expr_LEQ expr    (14)
+    expr : expr_AND expr    (15)
+    expr : expr_OR expr    (16)
 
-    '!' error
-    NEW error
-    INT error
-    '(' error
-    error error
-    UPLUS error
     UNOT error
+    INT error
+    error error
     UMIN error
     IDENT error
-    . reduce 13
+    '(' error
+    '!' error
+    UPLUS error
+    '*' shift 15
+    '+' shift 16
+    '-' shift 17
+    '/' shift 18
+    . reduce 12
 
 state 36 (entry on expr)
-    expr : expr_'*' expr    (12)
-    expr : expr_'/' expr    (13)
-    expr : expr_'+' expr    (14)
-    expr : expr_'-' expr    (15)
-    expr : expr_AND expr    (16)
-    expr : expr_OR expr    (17)
-    comp : expr '<' expr_    (5)
+    expr : expr_'*' expr    (5)
+    expr : expr_'/' expr    (6)
+    expr : expr_'+' expr    (7)
+    expr : expr_'-' expr    (8)
+    expr : expr_EQ expr    (9)
+    expr : expr_NEQ expr    (10)
+    expr : expr_'>' expr    (11)
+    expr : expr '>' expr_    (11)
+    expr : expr_'<' expr    (12)
+    expr : expr_GEQ expr    (13)
+    expr : expr_LEQ expr    (14)
+    expr : expr_AND expr    (15)
+    expr : expr_OR expr    (16)
 
-    AND shift 10
-    OR shift 15
-    '*' shift 16
-    '+' shift 17
-    '-' shift 18
-    '/' shift 19
-    $end reduce 5
-    ')' reduce 5
-    . error
-
-state 37 (entry on expr)
-    expr : expr_'*' expr    (12)
-    expr : expr_'/' expr    (13)
-    expr : expr_'+' expr    (14)
-    expr : expr_'-' expr    (15)
-    expr : expr_AND expr    (16)
-    expr : expr_OR expr    (17)
-    comp : expr '>' expr_    (4)
-
-    AND shift 10
-    OR shift 15
-    '*' shift 16
-    '+' shift 17
-    '-' shift 18
-    '/' shift 19
-    $end reduce 4
-    ')' reduce 4
-    . error
-
-state 38 (entry on ')')
-    expr : '(' comp ')'_    (20)
-
-    '!' error
-    NEW error
-    INT error
-    '(' error
-    error error
-    UPLUS error
     UNOT error
+    INT error
+    error error
     UMIN error
     IDENT error
-    . reduce 20
+    '(' error
+    '!' error
+    UPLUS error
+    '*' shift 15
+    '+' shift 16
+    '-' shift 17
+    '/' shift 18
+    . reduce 11
 
-23 terminals, 3 nonterminals;
-20 grammar rules, 39 states;
+state 37 (entry on ')')
+    expr : '(' expr ')'_    (19)
+
+    '!' error
+    UPLUS error
+    UMIN error
+    '(' error
+    error error
+    IDENT error
+    INT error
+    UNOT error
+    . reduce 19
+
+22 terminals, 2 nonterminals;
+19 grammar rules, 38 states;
 0 shift/reduce and 0 reduce/reduce conflicts reported.

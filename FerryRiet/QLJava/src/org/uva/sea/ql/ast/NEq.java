@@ -1,9 +1,8 @@
 package org.uva.sea.ql.ast;
 
-public class NEq extends Expr {
+public class NEq extends BinExpr {
 
 	public NEq(Expr result, Expr rhs) {
-		// TODO Auto-generated constructor stub
+		super(result,rhs) ;
 	}
-
 }

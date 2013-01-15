@@ -1227,7 +1227,7 @@ class QLParser implements QLTokens {
     }
 
     private int yyr17() { // expr : expr OR expr
-        { yyrv = new Or(((Expr)yysv[yysp-3]), ((Expr)yysv[yysp-1])); }
+        { yyrv = new Or(((Expr)yysv[yysp-3]), ((Expr)yysv[yysp-1])); } //
         yysv[yysp-=3] = yyrv;
         return yypexpr();
     }

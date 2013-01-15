@@ -1,16 +1,19 @@
 package org.uva.sea.ql.parser.test;
 
-import org.uva.sea.ql.ast.Expr;
+import org.uva.sea.ql.ast.ASTNode;
 
 /**
- * 
+ * Parser interface.
  */
 public interface IParser {
 	/**
+	 * Parses the given string.
 	 * 
-	 * @param src
-	 * @return
+	 * @param src A string program.
+	 * 
+	 * @return The AST.
+	 * 
 	 * @throws ParseError
 	 */
-	Expr parse( String src ) throws ParseError;
+	ASTNode parse( String src ) throws ParseError;
 }

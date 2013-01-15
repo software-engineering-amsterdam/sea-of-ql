@@ -1,4 +1,4 @@
-// $ANTLR 3.4 /Users/tvdstorm/SEA/courses/sc/2012-2013/repos/sc-ql-2012-2013-java/src/org/uva/sea/ql/parser/antlr/QL.g 2013-01-03 12:00:35
+// $ANTLR 3.4 /Users/tvdstorm/SEA/courses/sc/2012-2013/repos/sea-of-ql/prototypes/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g 2013-01-07 10:45:15
 
 package org.uva.sea.ql.parser.antlr;
 
@@ -44,15 +44,15 @@ public class QLLexer extends Lexer {
     public QLLexer(CharStream input, RecognizerSharedState state) {
         super(input,state);
     }
-    public String getGrammarFileName() { return "/Users/tvdstorm/SEA/courses/sc/2012-2013/repos/sc-ql-2012-2013-java/src/org/uva/sea/ql/parser/antlr/QL.g"; }
+    public String getGrammarFileName() { return "/Users/tvdstorm/SEA/courses/sc/2012-2013/repos/sea-of-ql/prototypes/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g"; }
 
     // $ANTLR start "T__8"
     public final void mT__8() throws RecognitionException {
         try {
             int _type = T__8;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /Users/tvdstorm/SEA/courses/sc/2012-2013/repos/sc-ql-2012-2013-java/src/org/uva/sea/ql/parser/antlr/QL.g:6:6: ( '!' )
-            // /Users/tvdstorm/SEA/courses/sc/2012-2013/repos/sc-ql-2012-2013-java/src/org/uva/sea/ql/parser/antlr/QL.g:6:8: '!'
+            // /Users/tvdstorm/SEA/courses/sc/2012-2013/repos/sea-of-ql/prototypes/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:6:6: ( '!' )
+            // /Users/tvdstorm/SEA/courses/sc/2012-2013/repos/sea-of-ql/prototypes/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:6:8: '!'
             {
             match('!'); 
 
@@ -72,8 +72,8 @@ public class QLLexer extends Lexer {
         try {
             int _type = T__9;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /Users/tvdstorm/SEA/courses/sc/2012-2013/repos/sc-ql-2012-2013-java/src/org/uva/sea/ql/parser/antlr/QL.g:7:6: ( '!=' )
-            // /Users/tvdstorm/SEA/courses/sc/2012-2013/repos/sc-ql-2012-2013-java/src/org/uva/sea/ql/parser/antlr/QL.g:7:8: '!='
+            // /Users/tvdstorm/SEA/courses/sc/2012-2013/repos/sea-of-ql/prototypes/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:7:6: ( '!=' )
+            // /Users/tvdstorm/SEA/courses/sc/2012-2013/repos/sea-of-ql/prototypes/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:7:8: '!='
             {
             match("!="); 
 
@@ -95,8 +95,8 @@ public class QLLexer extends Lexer {
         try {
             int _type = T__10;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /Users/tvdstorm/SEA/courses/sc/2012-2013/repos/sc-ql-2012-2013-java/src/org/uva/sea/ql/parser/antlr/QL.g:8:7: ( '&&' )
-            // /Users/tvdstorm/SEA/courses/sc/2012-2013/repos/sc-ql-2012-2013-java/src/org/uva/sea/ql/parser/antlr/QL.g:8:9: '&&'
+            // /Users/tvdstorm/SEA/courses/sc/2012-2013/repos/sea-of-ql/prototypes/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:8:7: ( '&&' )
+            // /Users/tvdstorm/SEA/courses/sc/2012-2013/repos/sea-of-ql/prototypes/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:8:9: '&&'
             {
             match("&&"); 
 
@@ -118,8 +118,8 @@ public class QLLexer extends Lexer {
         try {
             int _type = T__11;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /Users/tvdstorm/SEA/courses/sc/2012-2013/repos/sc-ql-2012-2013-java/src/org/uva/sea/ql/parser/antlr/QL.g:9:7: ( '(' )
-            // /Users/tvdstorm/SEA/courses/sc/2012-2013/repos/sc-ql-2012-2013-java/src/org/uva/sea/ql/parser/antlr/QL.g:9:9: '('
+            // /Users/tvdstorm/SEA/courses/sc/2012-2013/repos/sea-of-ql/prototypes/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:9:7: ( '(' )
+            // /Users/tvdstorm/SEA/courses/sc/2012-2013/repos/sea-of-ql/prototypes/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:9:9: '('
             {
             match('('); 
 
@@ -139,8 +139,8 @@ public class QLLexer extends Lexer {
         try {
             int _type = T__12;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /Users/tvdstorm/SEA/courses/sc/2012-2013/repos/sc-ql-2012-2013-java/src/org/uva/sea/ql/parser/antlr/QL.g:10:7: ( ')' )
-            // /Users/tvdstorm/SEA/courses/sc/2012-2013/repos/sc-ql-2012-2013-java/src/org/uva/sea/ql/parser/antlr/QL.g:10:9: ')'
+            // /Users/tvdstorm/SEA/courses/sc/2012-2013/repos/sea-of-ql/prototypes/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:10:7: ( ')' )
+            // /Users/tvdstorm/SEA/courses/sc/2012-2013/repos/sea-of-ql/prototypes/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:10:9: ')'
             {
             match(')'); 
 
@@ -160,8 +160,8 @@ public class QLLexer extends Lexer {
         try {
             int _type = T__13;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /Users/tvdstorm/SEA/courses/sc/2012-2013/repos/sc-ql-2012-2013-java/src/org/uva/sea/ql/parser/antlr/QL.g:11:7: ( '*' )
-            // /Users/tvdstorm/SEA/courses/sc/2012-2013/repos/sc-ql-2012-2013-java/src/org/uva/sea/ql/parser/antlr/QL.g:11:9: '*'
+            // /Users/tvdstorm/SEA/courses/sc/2012-2013/repos/sea-of-ql/prototypes/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:11:7: ( '*' )
+            // /Users/tvdstorm/SEA/courses/sc/2012-2013/repos/sea-of-ql/prototypes/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:11:9: '*'
             {
             match('*'); 
 
@@ -181,8 +181,8 @@ public class QLLexer extends Lexer {
         try {
             int _type = T__14;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /Users/tvdstorm/SEA/courses/sc/2012-2013/repos/sc-ql-2012-2013-java/src/org/uva/sea/ql/parser/antlr/QL.g:12:7: ( '+' )
-            // /Users/tvdstorm/SEA/courses/sc/2012-2013/repos/sc-ql-2012-2013-java/src/org/uva/sea/ql/parser/antlr/QL.g:12:9: '+'
+            // /Users/tvdstorm/SEA/courses/sc/2012-2013/repos/sea-of-ql/prototypes/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:12:7: ( '+' )
+            // /Users/tvdstorm/SEA/courses/sc/2012-2013/repos/sea-of-ql/prototypes/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:12:9: '+'
             {
             match('+'); 
 
@@ -202,8 +202,8 @@ public class QLLexer extends Lexer {
         try {
             int _type = T__15;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /Users/tvdstorm/SEA/courses/sc/2012-2013/repos/sc-ql-2012-2013-java/src/org/uva/sea/ql/parser/antlr/QL.g:13:7: ( '-' )
-            // /Users/tvdstorm/SEA/courses/sc/2012-2013/repos/sc-ql-2012-2013-java/src/org/uva/sea/ql/parser/antlr/QL.g:13:9: '-'
+            // /Users/tvdstorm/SEA/courses/sc/2012-2013/repos/sea-of-ql/prototypes/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:13:7: ( '-' )
+            // /Users/tvdstorm/SEA/courses/sc/2012-2013/repos/sea-of-ql/prototypes/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:13:9: '-'
             {
             match('-'); 
 
@@ -223,8 +223,8 @@ public class QLLexer extends Lexer {
         try {
             int _type = T__16;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /Users/tvdstorm/SEA/courses/sc/2012-2013/repos/sc-ql-2012-2013-java/src/org/uva/sea/ql/parser/antlr/QL.g:14:7: ( '/' )
-            // /Users/tvdstorm/SEA/courses/sc/2012-2013/repos/sc-ql-2012-2013-java/src/org/uva/sea/ql/parser/antlr/QL.g:14:9: '/'
+            // /Users/tvdstorm/SEA/courses/sc/2012-2013/repos/sea-of-ql/prototypes/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:14:7: ( '/' )
+            // /Users/tvdstorm/SEA/courses/sc/2012-2013/repos/sea-of-ql/prototypes/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:14:9: '/'
             {
             match('/'); 
 
@@ -244,8 +244,8 @@ public class QLLexer extends Lexer {
         try {
             int _type = T__17;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /Users/tvdstorm/SEA/courses/sc/2012-2013/repos/sc-ql-2012-2013-java/src/org/uva/sea/ql/parser/antlr/QL.g:15:7: ( '<' )
-            // /Users/tvdstorm/SEA/courses/sc/2012-2013/repos/sc-ql-2012-2013-java/src/org/uva/sea/ql/parser/antlr/QL.g:15:9: '<'
+            // /Users/tvdstorm/SEA/courses/sc/2012-2013/repos/sea-of-ql/prototypes/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:15:7: ( '<' )
+            // /Users/tvdstorm/SEA/courses/sc/2012-2013/repos/sea-of-ql/prototypes/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:15:9: '<'
             {
             match('<'); 
 
@@ -265,8 +265,8 @@ public class QLLexer extends Lexer {
         try {
             int _type = T__18;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /Users/tvdstorm/SEA/courses/sc/2012-2013/repos/sc-ql-2012-2013-java/src/org/uva/sea/ql/parser/antlr/QL.g:16:7: ( '<=' )
-            // /Users/tvdstorm/SEA/courses/sc/2012-2013/repos/sc-ql-2012-2013-java/src/org/uva/sea/ql/parser/antlr/QL.g:16:9: '<='
+            // /Users/tvdstorm/SEA/courses/sc/2012-2013/repos/sea-of-ql/prototypes/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:16:7: ( '<=' )
+            // /Users/tvdstorm/SEA/courses/sc/2012-2013/repos/sea-of-ql/prototypes/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:16:9: '<='
             {
             match("<="); 
 
@@ -288,8 +288,8 @@ public class QLLexer extends Lexer {
         try {
             int _type = T__19;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /Users/tvdstorm/SEA/courses/sc/2012-2013/repos/sc-ql-2012-2013-java/src/org/uva/sea/ql/parser/antlr/QL.g:17:7: ( '==' )
-            // /Users/tvdstorm/SEA/courses/sc/2012-2013/repos/sc-ql-2012-2013-java/src/org/uva/sea/ql/parser/antlr/QL.g:17:9: '=='
+            // /Users/tvdstorm/SEA/courses/sc/2012-2013/repos/sea-of-ql/prototypes/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:17:7: ( '==' )
+            // /Users/tvdstorm/SEA/courses/sc/2012-2013/repos/sea-of-ql/prototypes/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:17:9: '=='
             {
             match("=="); 
 
@@ -311,8 +311,8 @@ public class QLLexer extends Lexer {
         try {
             int _type = T__20;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /Users/tvdstorm/SEA/courses/sc/2012-2013/repos/sc-ql-2012-2013-java/src/org/uva/sea/ql/parser/antlr/QL.g:18:7: ( '>' )
-            // /Users/tvdstorm/SEA/courses/sc/2012-2013/repos/sc-ql-2012-2013-java/src/org/uva/sea/ql/parser/antlr/QL.g:18:9: '>'
+            // /Users/tvdstorm/SEA/courses/sc/2012-2013/repos/sea-of-ql/prototypes/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:18:7: ( '>' )
+            // /Users/tvdstorm/SEA/courses/sc/2012-2013/repos/sea-of-ql/prototypes/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:18:9: '>'
             {
             match('>'); 
 
@@ -332,8 +332,8 @@ public class QLLexer extends Lexer {
         try {
             int _type = T__21;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /Users/tvdstorm/SEA/courses/sc/2012-2013/repos/sc-ql-2012-2013-java/src/org/uva/sea/ql/parser/antlr/QL.g:19:7: ( '>=' )
-            // /Users/tvdstorm/SEA/courses/sc/2012-2013/repos/sc-ql-2012-2013-java/src/org/uva/sea/ql/parser/antlr/QL.g:19:9: '>='
+            // /Users/tvdstorm/SEA/courses/sc/2012-2013/repos/sea-of-ql/prototypes/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:19:7: ( '>=' )
+            // /Users/tvdstorm/SEA/courses/sc/2012-2013/repos/sea-of-ql/prototypes/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:19:9: '>='
             {
             match(">="); 
 
@@ -355,8 +355,8 @@ public class QLLexer extends Lexer {
         try {
             int _type = T__22;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /Users/tvdstorm/SEA/courses/sc/2012-2013/repos/sc-ql-2012-2013-java/src/org/uva/sea/ql/parser/antlr/QL.g:20:7: ( '||' )
-            // /Users/tvdstorm/SEA/courses/sc/2012-2013/repos/sc-ql-2012-2013-java/src/org/uva/sea/ql/parser/antlr/QL.g:20:9: '||'
+            // /Users/tvdstorm/SEA/courses/sc/2012-2013/repos/sea-of-ql/prototypes/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:20:7: ( '||' )
+            // /Users/tvdstorm/SEA/courses/sc/2012-2013/repos/sea-of-ql/prototypes/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:20:9: '||'
             {
             match("||"); 
 
@@ -378,8 +378,8 @@ public class QLLexer extends Lexer {
         try {
             int _type = WS;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /Users/tvdstorm/SEA/courses/sc/2012-2013/repos/sc-ql-2012-2013-java/src/org/uva/sea/ql/parser/antlr/QL.g:88:5: ( ( ' ' | '\\t' | '\\n' | '\\r' ) )
-            // /Users/tvdstorm/SEA/courses/sc/2012-2013/repos/sc-ql-2012-2013-java/src/org/uva/sea/ql/parser/antlr/QL.g:88:7: ( ' ' | '\\t' | '\\n' | '\\r' )
+            // /Users/tvdstorm/SEA/courses/sc/2012-2013/repos/sea-of-ql/prototypes/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:88:5: ( ( ' ' | '\\t' | '\\n' | '\\r' ) )
+            // /Users/tvdstorm/SEA/courses/sc/2012-2013/repos/sea-of-ql/prototypes/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:88:7: ( ' ' | '\\t' | '\\n' | '\\r' )
             {
             if ( (input.LA(1) >= '\t' && input.LA(1) <= '\n')||input.LA(1)=='\r'||input.LA(1)==' ' ) {
                 input.consume();
@@ -409,14 +409,14 @@ public class QLLexer extends Lexer {
         try {
             int _type = COMMENT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /Users/tvdstorm/SEA/courses/sc/2012-2013/repos/sc-ql-2012-2013-java/src/org/uva/sea/ql/parser/antlr/QL.g:92:6: ( '/*' ( . )* '*/' )
-            // /Users/tvdstorm/SEA/courses/sc/2012-2013/repos/sc-ql-2012-2013-java/src/org/uva/sea/ql/parser/antlr/QL.g:92:8: '/*' ( . )* '*/'
+            // /Users/tvdstorm/SEA/courses/sc/2012-2013/repos/sea-of-ql/prototypes/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:92:6: ( '/*' ( . )* '*/' )
+            // /Users/tvdstorm/SEA/courses/sc/2012-2013/repos/sea-of-ql/prototypes/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:92:8: '/*' ( . )* '*/'
             {
             match("/*"); 
 
 
 
-            // /Users/tvdstorm/SEA/courses/sc/2012-2013/repos/sc-ql-2012-2013-java/src/org/uva/sea/ql/parser/antlr/QL.g:92:13: ( . )*
+            // /Users/tvdstorm/SEA/courses/sc/2012-2013/repos/sea-of-ql/prototypes/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:92:13: ( . )*
             loop1:
             do {
                 int alt1=2;
@@ -441,7 +441,7 @@ public class QLLexer extends Lexer {
 
                 switch (alt1) {
             	case 1 :
-            	    // /Users/tvdstorm/SEA/courses/sc/2012-2013/repos/sc-ql-2012-2013-java/src/org/uva/sea/ql/parser/antlr/QL.g:92:13: .
+            	    // /Users/tvdstorm/SEA/courses/sc/2012-2013/repos/sea-of-ql/prototypes/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:92:13: .
             	    {
             	    matchAny(); 
 
@@ -476,8 +476,8 @@ public class QLLexer extends Lexer {
         try {
             int _type = Ident;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /Users/tvdstorm/SEA/courses/sc/2012-2013/repos/sc-ql-2012-2013-java/src/org/uva/sea/ql/parser/antlr/QL.g:95:6: ( ( 'a' .. 'z' | 'A' .. 'Z' ) ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )* )
-            // /Users/tvdstorm/SEA/courses/sc/2012-2013/repos/sc-ql-2012-2013-java/src/org/uva/sea/ql/parser/antlr/QL.g:95:10: ( 'a' .. 'z' | 'A' .. 'Z' ) ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )*
+            // /Users/tvdstorm/SEA/courses/sc/2012-2013/repos/sea-of-ql/prototypes/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:95:6: ( ( 'a' .. 'z' | 'A' .. 'Z' ) ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )* )
+            // /Users/tvdstorm/SEA/courses/sc/2012-2013/repos/sea-of-ql/prototypes/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:95:10: ( 'a' .. 'z' | 'A' .. 'Z' ) ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )*
             {
             if ( (input.LA(1) >= 'A' && input.LA(1) <= 'Z')||(input.LA(1) >= 'a' && input.LA(1) <= 'z') ) {
                 input.consume();
@@ -489,7 +489,7 @@ public class QLLexer extends Lexer {
             }
 
 
-            // /Users/tvdstorm/SEA/courses/sc/2012-2013/repos/sc-ql-2012-2013-java/src/org/uva/sea/ql/parser/antlr/QL.g:95:29: ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )*
+            // /Users/tvdstorm/SEA/courses/sc/2012-2013/repos/sea-of-ql/prototypes/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:95:29: ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )*
             loop2:
             do {
                 int alt2=2;
@@ -502,7 +502,7 @@ public class QLLexer extends Lexer {
 
                 switch (alt2) {
             	case 1 :
-            	    // /Users/tvdstorm/SEA/courses/sc/2012-2013/repos/sc-ql-2012-2013-java/src/org/uva/sea/ql/parser/antlr/QL.g:
+            	    // /Users/tvdstorm/SEA/courses/sc/2012-2013/repos/sea-of-ql/prototypes/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:
             	    {
             	    if ( (input.LA(1) >= '0' && input.LA(1) <= '9')||(input.LA(1) >= 'A' && input.LA(1) <= 'Z')||input.LA(1)=='_'||(input.LA(1) >= 'a' && input.LA(1) <= 'z') ) {
             	        input.consume();
@@ -539,10 +539,10 @@ public class QLLexer extends Lexer {
         try {
             int _type = Int;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /Users/tvdstorm/SEA/courses/sc/2012-2013/repos/sc-ql-2012-2013-java/src/org/uva/sea/ql/parser/antlr/QL.g:97:4: ( ( '0' .. '9' )+ )
-            // /Users/tvdstorm/SEA/courses/sc/2012-2013/repos/sc-ql-2012-2013-java/src/org/uva/sea/ql/parser/antlr/QL.g:97:6: ( '0' .. '9' )+
+            // /Users/tvdstorm/SEA/courses/sc/2012-2013/repos/sea-of-ql/prototypes/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:97:4: ( ( '0' .. '9' )+ )
+            // /Users/tvdstorm/SEA/courses/sc/2012-2013/repos/sea-of-ql/prototypes/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:97:6: ( '0' .. '9' )+
             {
-            // /Users/tvdstorm/SEA/courses/sc/2012-2013/repos/sc-ql-2012-2013-java/src/org/uva/sea/ql/parser/antlr/QL.g:97:6: ( '0' .. '9' )+
+            // /Users/tvdstorm/SEA/courses/sc/2012-2013/repos/sea-of-ql/prototypes/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:97:6: ( '0' .. '9' )+
             int cnt3=0;
             loop3:
             do {
@@ -556,7 +556,7 @@ public class QLLexer extends Lexer {
 
                 switch (alt3) {
             	case 1 :
-            	    // /Users/tvdstorm/SEA/courses/sc/2012-2013/repos/sc-ql-2012-2013-java/src/org/uva/sea/ql/parser/antlr/QL.g:
+            	    // /Users/tvdstorm/SEA/courses/sc/2012-2013/repos/sea-of-ql/prototypes/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:
             	    {
             	    if ( (input.LA(1) >= '0' && input.LA(1) <= '9') ) {
             	        input.consume();
@@ -593,7 +593,7 @@ public class QLLexer extends Lexer {
     // $ANTLR end "Int"
 
     public void mTokens() throws RecognitionException {
-        // /Users/tvdstorm/SEA/courses/sc/2012-2013/repos/sc-ql-2012-2013-java/src/org/uva/sea/ql/parser/antlr/QL.g:1:8: ( T__8 | T__9 | T__10 | T__11 | T__12 | T__13 | T__14 | T__15 | T__16 | T__17 | T__18 | T__19 | T__20 | T__21 | T__22 | WS | COMMENT | Ident | Int )
+        // /Users/tvdstorm/SEA/courses/sc/2012-2013/repos/sea-of-ql/prototypes/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:1:8: ( T__8 | T__9 | T__10 | T__11 | T__12 | T__13 | T__14 | T__15 | T__16 | T__17 | T__18 | T__19 | T__20 | T__21 | T__22 | WS | COMMENT | Ident | Int )
         int alt4=19;
         switch ( input.LA(1) ) {
         case '!':
@@ -772,7 +772,7 @@ public class QLLexer extends Lexer {
 
         switch (alt4) {
             case 1 :
-                // /Users/tvdstorm/SEA/courses/sc/2012-2013/repos/sc-ql-2012-2013-java/src/org/uva/sea/ql/parser/antlr/QL.g:1:10: T__8
+                // /Users/tvdstorm/SEA/courses/sc/2012-2013/repos/sea-of-ql/prototypes/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:1:10: T__8
                 {
                 mT__8(); 
 
@@ -780,7 +780,7 @@ public class QLLexer extends Lexer {
                 }
                 break;
             case 2 :
-                // /Users/tvdstorm/SEA/courses/sc/2012-2013/repos/sc-ql-2012-2013-java/src/org/uva/sea/ql/parser/antlr/QL.g:1:15: T__9
+                // /Users/tvdstorm/SEA/courses/sc/2012-2013/repos/sea-of-ql/prototypes/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:1:15: T__9
                 {
                 mT__9(); 
 
@@ -788,7 +788,7 @@ public class QLLexer extends Lexer {
                 }
                 break;
             case 3 :
-                // /Users/tvdstorm/SEA/courses/sc/2012-2013/repos/sc-ql-2012-2013-java/src/org/uva/sea/ql/parser/antlr/QL.g:1:20: T__10
+                // /Users/tvdstorm/SEA/courses/sc/2012-2013/repos/sea-of-ql/prototypes/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:1:20: T__10
                 {
                 mT__10(); 
 
@@ -796,7 +796,7 @@ public class QLLexer extends Lexer {
                 }
                 break;
             case 4 :
-                // /Users/tvdstorm/SEA/courses/sc/2012-2013/repos/sc-ql-2012-2013-java/src/org/uva/sea/ql/parser/antlr/QL.g:1:26: T__11
+                // /Users/tvdstorm/SEA/courses/sc/2012-2013/repos/sea-of-ql/prototypes/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:1:26: T__11
                 {
                 mT__11(); 
 
@@ -804,7 +804,7 @@ public class QLLexer extends Lexer {
                 }
                 break;
             case 5 :
-                // /Users/tvdstorm/SEA/courses/sc/2012-2013/repos/sc-ql-2012-2013-java/src/org/uva/sea/ql/parser/antlr/QL.g:1:32: T__12
+                // /Users/tvdstorm/SEA/courses/sc/2012-2013/repos/sea-of-ql/prototypes/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:1:32: T__12
                 {
                 mT__12(); 
 
@@ -812,7 +812,7 @@ public class QLLexer extends Lexer {
                 }
                 break;
             case 6 :
-                // /Users/tvdstorm/SEA/courses/sc/2012-2013/repos/sc-ql-2012-2013-java/src/org/uva/sea/ql/parser/antlr/QL.g:1:38: T__13
+                // /Users/tvdstorm/SEA/courses/sc/2012-2013/repos/sea-of-ql/prototypes/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:1:38: T__13
                 {
                 mT__13(); 
 
@@ -820,7 +820,7 @@ public class QLLexer extends Lexer {
                 }
                 break;
             case 7 :
-                // /Users/tvdstorm/SEA/courses/sc/2012-2013/repos/sc-ql-2012-2013-java/src/org/uva/sea/ql/parser/antlr/QL.g:1:44: T__14
+                // /Users/tvdstorm/SEA/courses/sc/2012-2013/repos/sea-of-ql/prototypes/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:1:44: T__14
                 {
                 mT__14(); 
 
@@ -828,7 +828,7 @@ public class QLLexer extends Lexer {
                 }
                 break;
             case 8 :
-                // /Users/tvdstorm/SEA/courses/sc/2012-2013/repos/sc-ql-2012-2013-java/src/org/uva/sea/ql/parser/antlr/QL.g:1:50: T__15
+                // /Users/tvdstorm/SEA/courses/sc/2012-2013/repos/sea-of-ql/prototypes/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:1:50: T__15
                 {
                 mT__15(); 
 
@@ -836,7 +836,7 @@ public class QLLexer extends Lexer {
                 }
                 break;
             case 9 :
-                // /Users/tvdstorm/SEA/courses/sc/2012-2013/repos/sc-ql-2012-2013-java/src/org/uva/sea/ql/parser/antlr/QL.g:1:56: T__16
+                // /Users/tvdstorm/SEA/courses/sc/2012-2013/repos/sea-of-ql/prototypes/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:1:56: T__16
                 {
                 mT__16(); 
 
@@ -844,7 +844,7 @@ public class QLLexer extends Lexer {
                 }
                 break;
             case 10 :
-                // /Users/tvdstorm/SEA/courses/sc/2012-2013/repos/sc-ql-2012-2013-java/src/org/uva/sea/ql/parser/antlr/QL.g:1:62: T__17
+                // /Users/tvdstorm/SEA/courses/sc/2012-2013/repos/sea-of-ql/prototypes/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:1:62: T__17
                 {
                 mT__17(); 
 
@@ -852,7 +852,7 @@ public class QLLexer extends Lexer {
                 }
                 break;
             case 11 :
-                // /Users/tvdstorm/SEA/courses/sc/2012-2013/repos/sc-ql-2012-2013-java/src/org/uva/sea/ql/parser/antlr/QL.g:1:68: T__18
+                // /Users/tvdstorm/SEA/courses/sc/2012-2013/repos/sea-of-ql/prototypes/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:1:68: T__18
                 {
                 mT__18(); 
 
@@ -860,7 +860,7 @@ public class QLLexer extends Lexer {
                 }
                 break;
             case 12 :
-                // /Users/tvdstorm/SEA/courses/sc/2012-2013/repos/sc-ql-2012-2013-java/src/org/uva/sea/ql/parser/antlr/QL.g:1:74: T__19
+                // /Users/tvdstorm/SEA/courses/sc/2012-2013/repos/sea-of-ql/prototypes/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:1:74: T__19
                 {
                 mT__19(); 
 
@@ -868,7 +868,7 @@ public class QLLexer extends Lexer {
                 }
                 break;
             case 13 :
-                // /Users/tvdstorm/SEA/courses/sc/2012-2013/repos/sc-ql-2012-2013-java/src/org/uva/sea/ql/parser/antlr/QL.g:1:80: T__20
+                // /Users/tvdstorm/SEA/courses/sc/2012-2013/repos/sea-of-ql/prototypes/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:1:80: T__20
                 {
                 mT__20(); 
 
@@ -876,7 +876,7 @@ public class QLLexer extends Lexer {
                 }
                 break;
             case 14 :
-                // /Users/tvdstorm/SEA/courses/sc/2012-2013/repos/sc-ql-2012-2013-java/src/org/uva/sea/ql/parser/antlr/QL.g:1:86: T__21
+                // /Users/tvdstorm/SEA/courses/sc/2012-2013/repos/sea-of-ql/prototypes/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:1:86: T__21
                 {
                 mT__21(); 
 
@@ -884,7 +884,7 @@ public class QLLexer extends Lexer {
                 }
                 break;
             case 15 :
-                // /Users/tvdstorm/SEA/courses/sc/2012-2013/repos/sc-ql-2012-2013-java/src/org/uva/sea/ql/parser/antlr/QL.g:1:92: T__22
+                // /Users/tvdstorm/SEA/courses/sc/2012-2013/repos/sea-of-ql/prototypes/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:1:92: T__22
                 {
                 mT__22(); 
 
@@ -892,7 +892,7 @@ public class QLLexer extends Lexer {
                 }
                 break;
             case 16 :
-                // /Users/tvdstorm/SEA/courses/sc/2012-2013/repos/sc-ql-2012-2013-java/src/org/uva/sea/ql/parser/antlr/QL.g:1:98: WS
+                // /Users/tvdstorm/SEA/courses/sc/2012-2013/repos/sea-of-ql/prototypes/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:1:98: WS
                 {
                 mWS(); 
 
@@ -900,7 +900,7 @@ public class QLLexer extends Lexer {
                 }
                 break;
             case 17 :
-                // /Users/tvdstorm/SEA/courses/sc/2012-2013/repos/sc-ql-2012-2013-java/src/org/uva/sea/ql/parser/antlr/QL.g:1:101: COMMENT
+                // /Users/tvdstorm/SEA/courses/sc/2012-2013/repos/sea-of-ql/prototypes/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:1:101: COMMENT
                 {
                 mCOMMENT(); 
 
@@ -908,7 +908,7 @@ public class QLLexer extends Lexer {
                 }
                 break;
             case 18 :
-                // /Users/tvdstorm/SEA/courses/sc/2012-2013/repos/sc-ql-2012-2013-java/src/org/uva/sea/ql/parser/antlr/QL.g:1:109: Ident
+                // /Users/tvdstorm/SEA/courses/sc/2012-2013/repos/sea-of-ql/prototypes/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:1:109: Ident
                 {
                 mIdent(); 
 
@@ -916,7 +916,7 @@ public class QLLexer extends Lexer {
                 }
                 break;
             case 19 :
-                // /Users/tvdstorm/SEA/courses/sc/2012-2013/repos/sc-ql-2012-2013-java/src/org/uva/sea/ql/parser/antlr/QL.g:1:115: Int
+                // /Users/tvdstorm/SEA/courses/sc/2012-2013/repos/sea-of-ql/prototypes/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:1:115: Int
                 {
                 mInt(); 
 

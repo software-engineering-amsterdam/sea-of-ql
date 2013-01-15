@@ -1,8 +1,8 @@
 package org.uva.sea.ql.parser.antlr.operators;
 
-import org.uva.sea.ql.ast.Expr;
+import org.uva.sea.ql.ast.Expression;
 
-public class Int extends Expr {
+public class Int extends Expression {
 
 	private final int value;
 
@@ -10,7 +10,7 @@ public class Int extends Expr {
 		this.value = n;
 	}
 
-	public int getValue() {
+	public Object getValue() {
 		return value;
 	}
 	

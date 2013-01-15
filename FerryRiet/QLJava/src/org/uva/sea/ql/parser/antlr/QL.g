@@ -13,28 +13,33 @@ package org.uva.sea.ql.parser.antlr;
 }
 
 qlprogram returns [QLProgram result]
-    : 'form' id=Ident c=compoundblock { $result = new QLProgram(new Ident($Ident.text),c) ; } 
+    : 'form' Ident  cb=compoundStatement { $result = new QLProgram($Ident, cb) ; } 
     ;
 
-compoundblock returns [CompoundBlock result]
-    : LBRACE stmt* RBRACE { $result = new CompoundBlock() ; } 
-    ;
+compoundStatement returns [Statement result]
+  @init { CompoundStatement compoundStatement = new CompoundStatement() ; }
+    : LBRACE 
+      (st=statement  { compoundStatement.addStatement($st.result) ; } )* 
+      RBRACE    { $result = compoundStatement ; }
+    ;    
 
-stmt returns [Statement result]     
-    : id=Ident COLON st=String type { $result = new LineStatement($id,$st); }
-    | 'if' '(' ex=orExpr ')' c=compoundblock    { $result = new ConditionalStatement(ex,c) ; } 
+statement returns [Statement result]     
+    : Ident COLON StringLiteral type { $result = new LineStatement($Ident,$StringLiteral,$type.result); }
+    | 'if' '(' ex=orExpr ')' ctrue=compoundStatement ('else' cfalse=compoundStatement)? { $result = new ConditionalStatement(ex,ctrue,cfalse) ; }
+    | c=compoundStatement { $result = c ;}  
     ;
 
 type returns [TypeDescription result]
     : 'boolean' { $result = new BooleanType() ;}
+    | 'string'  { $result = new StringType() ;}
     | 'money' ('(' x=orExpr ')')? { $result = new MoneyType(x) ;}
     ;
 
- 
-
 primary returns [Expr result]
-  : Int   { $result = new Int(Integer.parseInt($Int.text)); }
-  | Ident { $result = new Ident($Ident.text); }
+  : IntLiteral      { $result = new IntLiteral(Integer.parseInt($IntLiteral.text)); }
+  | Ident           { $result = new Ident($Ident); }
+  | BooleanLiteral  { $result = new BooleanLiteral($BooleanLiteral.text) ;}
+  | StringLiteral   { $result = new StringLiteral($StringLiteral.text) ;}
   | '(' x=orExpr ')'{ $result = $x.result; }
   ;
     
@@ -51,13 +56,12 @@ mulExpr returns [Expr result]
       if ($op.text.equals("*")) {
         $result = new Mul($result, rhs);
       }
-      if ($op.text.equals("<=")) {
+      if ($op.text.equals("/")) {
         $result = new Div($result, rhs);      
       }
     })*
     ;
     
-  
 addExpr returns [Expr result]
     :   lhs=mulExpr { $result=$lhs.result; } ( op=('+' | '-') rhs=mulExpr
     { 
@@ -98,27 +102,30 @@ andExpr returns [Expr result]
     :   lhs=relExpr { $result=$lhs.result; } ( '&&' rhs=relExpr { $result = new And($result, rhs); } )*
     ;
     
-
 orExpr returns [Expr result]
     :   lhs=andExpr { $result = $lhs.result; } ( '||' rhs=andExpr { $result = new Or($result, rhs); } )*
     ;
-
     
-// Tokens
+// Lexer Tokens
 WS  :	(' ' | '\t' | '\n' | '\r') { $channel=HIDDEN; }
     ;
 
-
-String : '"' ~('\n' | '\r' | '"')* '"' ;
+StringLiteral : '"' ~('\n' | '\r' | '\f' | '"')* '"' ;
 
 COLON  : ':' ;
 LBRACE : '{' ;
 RBRACE : '}' ;
 
+
 COMMENT 
-     : '/*' .* '*/' {$channel=HIDDEN;}
+    : '/*' .* '*/'    {$channel=HIDDEN;}
+    | '//' ( ~'\n' )* {$channel=HIDDEN;}
     ;
 
+BooleanLiteral
+    : 'true'| 'false' | 'TRUE' | 'FALSE'
+    ;
+        
 Ident:   ('a'..'z'|'A'..'Z')('a'..'z'|'A'..'Z'|'0'..'9'|'_')*;
 
-Int: ('0'..'9')+;
+IntLiteral: ('0'..'9')+;

@@ -25,6 +25,7 @@ public class QLLexer implements QLTokens {
 
 	public QLLexer(Reader input) {
 		this.input = input;
+		nextChar();
 	}
 	
 	
@@ -59,6 +60,7 @@ public class QLLexer implements QLTokens {
 			
 			while (c == ' ' || c == '\t' || c == '\n' || c == '\r') {
 				nextChar();
+				System.out.println("WS");
 			}
 			
 			
@@ -92,6 +94,7 @@ public class QLLexer implements QLTokens {
 			    case '&': {
 			    	nextChar(); 
 			    	if  (c == '&') {
+			    		nextChar();
 			    		return token = AND;
 			    	}
 			    	throw new RuntimeException("Unexpected character: " + (char)c);
@@ -99,6 +102,7 @@ public class QLLexer implements QLTokens {
 			    case '|': {
 			    	nextChar(); 
 			    	if  (c == '|') {
+			    		nextChar();
 			    		return token = OR;
 			    	}
 			    	throw new RuntimeException("Unexpected character: " + (char)c);
