@@ -1,9 +1,9 @@
 package org.uva.sea.ql.ast;
 
-public class LT extends Expr {
+public class LT extends BinaryTree {
 
 	public LT(Expr result, Expr rhs) {
-		// TODO Auto-generated constructor stub
+		super(result, rhs);
 	}
 
 }

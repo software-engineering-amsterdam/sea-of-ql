@@ -33,7 +33,6 @@ public class TestExpressions {
 	public TestExpressions(IParse parser) {
 		this.parser = parser;
 	}
-
 	
 	@Test
 	public void testAdds() throws ParseError {
@@ -87,4 +86,5 @@ public class TestExpressions {
 		assertEquals(parser.parse("1223").getClass(), Int.class);
 		assertEquals(parser.parse("234234234").getClass(), Int.class);
 	}	
+	
 }

@@ -1,18 +1,21 @@
 module lang::ql::ast::AST
  
 import List;
- 
 
-data Form = form(str name, list[Question] questions); 
- 
-data Question 
+data Form = form(str name, list[Statement] statements); 
+
+data Statement
   = regular(str \type, str name, str label)
-  | computed(str \type, str name, Expr expr, str label)
-  | conditional(Expr condition, list[Question] questions);
-
+  | computed(str \type, str name, str label, Expr expr)
+  | conditional(If \if, list[If] elseIfs, list[Statement] \else);
+   
 data Expr
   = ident(str name)
   | \int(int ivalue)
+  | \bool(bool bvalue)
+  | string(str svalue)
+  | float (real fvalue)
+  | date(str dvalue)
   
   | pos(Expr expr)
   | neg(Expr expr)
@@ -33,9 +36,17 @@ data Expr
   | and(Expr expr1, Expr expr2)    
   | or(Expr expr1, Expr expr2);
  
-data Comment = comment(str c);
-  
+ 
+alias If = tuple[Expr condition, list[Statement] body]; 
+
+alias SeparatedStatements 
+  = tuple[list[Statement] regularQuestions, 
+		   list[Statement] computedQuestions, 
+		   list[Statement] conditionals];
+
 anno loc Form@location;
-anno loc Question@location;
+anno loc Statement@location;
+anno loc Expr@location;
+
   
   

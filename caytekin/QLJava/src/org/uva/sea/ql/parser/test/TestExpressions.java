@@ -9,16 +9,8 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
-import org.uva.sea.ql.ast.Add;
-import org.uva.sea.ql.ast.GT;
-import org.uva.sea.ql.ast.Ident;
-import org.uva.sea.ql.ast.Int;
-import org.uva.sea.ql.ast.LEq;
-import org.uva.sea.ql.ast.LT;
-import org.uva.sea.ql.ast.Mul;
+import org.uva.sea.ql.ast.*;
 import org.uva.sea.ql.parser.antlr.ANTLRParser;
-import org.uva.sea.ql.parser.jacc.JACCParser;
-import org.uva.sea.ql.parser.rats.RatsParser;
 
 @RunWith(Parameterized.class)
 public class TestExpressions {
@@ -27,9 +19,7 @@ public class TestExpressions {
 
 	@Parameters
 	public static List<Object[]> theParsers() {
-	  return Arrays.asList(
-			  new Object[] {new JACCParser()}, 
-			  new Object[] {new RatsParser()},
+	  return Arrays.asList( new Object[] {new ANTLRParser()},
 			  new Object[] {new ANTLRParser()}
 			 );
 	}
@@ -92,5 +82,62 @@ public class TestExpressions {
 		assertEquals(parser.parse("1223").getClass(), Int.class);
 		assertEquals(parser.parse("234234234").getClass(), Int.class);
 	}
+	
+	@Test
+	public void testSingleComment() throws ParseError {
+		assertEquals(parser.parse("0123 // This is a single line comment." + "\n").getClass(), Int.class);
+	}
+	
+	@Test 
+	public void testStringLiteral() throws ParseError {
+		assertEquals(parser.parse(" \" This is a String liteal indeed... \" ").getClass(), String_Literal.class);
+	}
+	
+	@Test 
+	public void testBoolean_Type() throws ParseError {
+		assertEquals(parser.parse("bool").getClass(), Boolean_Type.class);
+	}
+	
+	@Test 
+	public void testInteger_Type() throws ParseError {
+		assertEquals(parser.parse("int").getClass(), Integer_Type.class);
+	}
+	
+	@Test 
+	public void testString_Type() throws ParseError {
+		assertEquals(parser.parse("string").getClass(), String_Type.class);
+	}
+	
+	@Test 
+	public void testTrue_RW() throws ParseError {
+		assertEquals(parser.parse("true").getClass(), True_RW.class);
+	}
+	
+	@Test 
+	public void testFalse_RW() throws ParseError {
+		assertEquals(parser.parse("false").getClass(), False_RW.class);
+	}
+	
+	@Test 
+	public void testIf_RW() throws ParseError {
+		assertEquals(parser.parse("if").getClass(), If_RW.class);
+	}
+	
+	@Test 
+	public void testThen_RW() throws ParseError {
+		assertEquals(parser.parse("then").getClass(), Then_RW.class);
+	}
+	
+	@Test 
+	public void testElse_RW() throws ParseError {
+		assertEquals(parser.parse("else").getClass(), Else_RW.class);
+	}
+	
+	@Test
+	public void testQuestion() throws ParseError {
+		assertEquals(parser.parse("hasSoldHouse : \"Did you sell a house in 2012?\" bool").getClass(), Question.class);
+	}
+	
+	
 	
 }

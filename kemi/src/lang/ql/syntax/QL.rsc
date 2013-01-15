@@ -1,97 +1,86 @@
 module lang::ql::syntax::QL
 
+start syntax Form = @Foldable form: "form" Ident formName "{" Statement+ formElements "}";
 
-start syntax Form
-  = form: "form" FormName "{" Question+ "}"
+syntax Statement 
+  = question: Question question
+  | ifCondition: IfPart ifPart ElsIfPart* elseIfs ElsePart? elsePart
   ;
 
 
-start syntax Question
-  = question: QuestionString "," QuestionType "," QuestionIdent
+//TODO: this is needed for the AST, however, now it seems kinda vague / ambiguous (maybe?)
+syntax Conditional 
+  = conditional: Expr condition "{" Statement+ body "}"
   ;
 
+syntax IfPart = @Foldable "if" Conditional ifPart;
 
-start syntax Expr
+syntax ElsIfPart = @Foldable "else" "if" Conditional elsePart;
+
+syntax ElsePart = @Foldable elsePart: "else" "{" Statement+ body "}";
+
+// What the ...?! Colons don't work, but equals signs do...
+start syntax Question 
+  = question: String questionText Type answerDataType Ident answerIdentifier
+  | question: String questionText Type answerDataType Ident answerIdentifier "=" Expr calculatedField
+  ;
+
+//start syntax Expr
+syntax Expr
   = ident: Ident name
-  | \int: Int
-  | money: Money
-  | boolean: Boolean
-  | date: Date
-  | string: String
-  | bracket "(" Expr arg ")"
-  | pos: "+" Expr
-  | neg: "-" Expr
-  | not: "!" Expr
+  |  \int: Int number
+  | money: Money monetaryValue
+  | boolean: Boolean truthValue
+  | date: Date date
+  | string: String text
+  | bracket "(" Expr expression ")"
+  | pos: "+" Expr pos
+  | neg: "-" Expr neg
+  | not: "!" Expr not
   > left (
-      mul: Expr "*" Expr
-    | div: Expr "/" Expr
+      mul: Expr multiplicand "*" Expr multiplier
+    | div: Expr numerator "/" Expr denominator
   )
   > left (
-      add: Expr "+" Expr
-    | sub: Expr "-" Expr
+      add: Expr leftAddend "+" Expr rightAddend
+    | sub: Expr minuend "-" Expr subtrahend
   )
   > non-assoc (
-      lt: Expr "\<" Expr
-    | leq: Expr "\<=" Expr
-    | gt: Expr "\>" Expr
-    | geq: Expr "\>=" Expr
-    | eq: Expr "==" Expr
-    | neq: Expr "!=" Expr
+      lt: Expr left "\<" Expr right
+    | leq: Expr left "\<=" Expr right
+    | gt: Expr left "\>" Expr right
+    | geq: Expr left "\>=" Expr right
+    | eq: Expr left "==" Expr right
+    | neq: Expr left "!=" Expr right
   )
-  > left and: Expr "&&" Expr
-  > left or: Expr "||" Expr
+  > left and: Expr left "&&" Expr right
+  > left or: Expr left "||" Expr right
   ;
-
-
-  
-syntax FormName
-  = ident: Ident
-  ;
-
-
-syntax QuestionString
-  = string: String
-  ;
-
-syntax QuestionType
-  = \type: Type
-  ;
-
-syntax QuestionIdent
-  = ident: Ident
-  ;
-
 
 syntax WhitespaceOrComment 
-  = whitespace: Whitespace
-  | comment: Comment
+  = whitespace: Whitespace whitespace
+  | comment: Comment comment
   ;   
 
-
-
-lexical Ident 
-  = ([a-z A-Z 0-9 _] !<< [a-z A-Z][a-z A-Z 0-9 _]* !>> [a-z A-Z 0-9 _]) \ Keywords
-  ;
+lexical Ident = @category="Variable" ([a-z A-Z 0-9 _] !<< [a-z A-Z][a-z A-Z 0-9 _]* !>> [a-z A-Z 0-9 _]) \ Keywords;
 
 lexical Type
-  = "boolean"
-  | "integer"
-  | "money"
-  | "date"
-  | "string"
+  = @category="Type" "boolean"
+  | @category="Type" "integer"
+  | @category="Type" "money"
+  | @category="Type" "date"
+  | @category="Type" "string"
   ;
 
-lexical String 
-  = "\"" TextChar* "\""
-  ;
+lexical String = @category="Identifier" "\"" TextChar* "\"";
 
 lexical TextChar
   = [\\] << [\"]
   | ![\"]
   ;
 
-lexical Int
-  = [0-9]+ !>> [0-9]
+lexical Int 
+  = @category="Constant" [0-9]+ !>> [0-9]
   ;
 
 lexical Boolean
@@ -99,19 +88,19 @@ lexical Boolean
   | "false"
   ;
 
-// Somhehow [0-9]+ "." [0-9]? [0-9]? does not work
-lexical Money
-  = [0-9]+ "." ([0-9]?[0-9])?
+syntax Money = @category="Constant" LMoney;
+
+// Somhehow [0-9]+ "." [0-9]? [0-9]? does not work,[0-9]+ "." ([0-9]?[0-9])? does 
+lexical LMoney
+  = [0-9]+ "."
+  | [0-9]+ "." [0-9]
+  | [0-9]+ "." [0-9][0-9]
   ;
 
-lexical Date
-  = "$" Year "-" Month "-" Day
-  ;
+lexical Date = @category="Constant" "$" Year "-" Month "-" Day;
 
-// Only valid from 1000 to 2999
-lexical Year
-  = [1-2][0-9][0-9][0-9]
-  ;
+// Note: We assume that dates are valid in domain [1000 to 2999]
+lexical Year = [1-2][0-9][0-9][0-9];
 
 lexical Month
   = [0][0-9]
@@ -125,6 +114,7 @@ lexical Day
   
 lexical Comment 
   = @category="Comment" "/*" CommentChar* "*/"
+  | @category="Comment" "//" ![\n]* $
   ;
 
 lexical CommentChar
@@ -132,16 +122,9 @@ lexical CommentChar
   | [*] !>> [/]
   ;
 
-lexical Whitespace
-  = [\u0009-\u000D \u0020 \u0085 \u00A0 \u1680 \u180E \u2000-\u200A \u2028 \u2029 \u202F \u205F \u3000]
-  ;
+lexical Whitespace = [\u0009-\u000D \u0020 \u0085 \u00A0 \u1680 \u180E \u2000-\u200A \u2028 \u2029 \u202F \u205F \u3000];
 
-
-
-layout Standard
-  = WhitespaceOrComment* !>> [\ \t\n\f\r] !>> "//" !>> "/*";
-
-
+layout Standard = WhitespaceOrComment* !>> [\ \t\n\f\r] !>> "//" !>> "/*";
 
 keyword Keywords 
   = boolean: "boolean"

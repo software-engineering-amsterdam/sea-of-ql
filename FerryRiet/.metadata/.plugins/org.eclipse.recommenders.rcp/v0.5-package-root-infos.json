@@ -143,16 +143,16 @@
     "javaRuntime": true
   },
   {
-    "symbolicName": "antlr-3.4-complete-no-antlrv2",
+    "symbolicName": "org.antlr.gunit",
     "version": {
-      "major": -1,
-      "minor": -1,
-      "micro": -1,
+      "major": 3,
+      "minor": 5,
+      "micro": 0,
       "qualifier": ""
     },
-    "jarFileFingerprint": "26637d33c701d8e12769259910024b60d140690c",
-    "jarFileModificationDate": "2013-01-08T08:15:31.324+01:00",
-    "location": "D:\\Users\\Ferry\\Desktop\\sea-of-ql\\FerryRiet\\QLJava\\lib\\antlr-3.4-complete-no-antlrv2.jar",
+    "jarFileFingerprint": "bc52a0a00362d164bbfbd28db91aa7598cf32042",
+    "jarFileModificationDate": "2013-01-15T07:49:25.508+01:00",
+    "location": "D:\\Users\\Ferry\\Desktop\\sea-of-ql\\FerryRiet\\QLJava\\antlr-3.5-complete-no-st3.jar",
     "javaRuntime": false
   },
   {

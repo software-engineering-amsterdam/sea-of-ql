@@ -15,6 +15,7 @@ package org.uva.sea.ql.parser.antlr;
 primary returns [Expr result]
   : Int   { $result = new Int(Integer.parseInt($Int.text)); }
   | Ident { $result = new Ident($Ident.text); }
+  | Bool
   | '(' x=orExpr ')'{ $result = $x.result; }
   ;
     
@@ -83,15 +84,65 @@ orExpr returns [Expr result]
     :   lhs=andExpr { $result = $lhs.result; } ( '||' rhs=andExpr { $result = new Or($result, rhs); } )*
     ;
 
+form returns [Form result]
+	: 'form' Ident b=block {$result = new Form(new Ident($Ident.text), b);};
+
+block returns [Block result]
+	@init
+	{
+		List<Statement> statements = new ArrayList<Statement>();
+	}
+	:	'{' (s=statement {statements.add(s);})* '}' {$result = new Block(statements);};
+
+statement returns [Statement result]
+  	: i=ifStatement {$result = i;}
+  	| b=block {$result = b;}
+  	| q=question {$result = q;}
+  	;
+
+question returns [Question result]
+:	(c=computedQuestion {$result=c;} | n=normalQuestion {$result=n;});
+
+normalQuestion returns [Question result]
+	:	Ident ':' String t=type { $result = new Question(new Ident($Ident.text), new StringLiteral($String.text), t); };
+	
+computedQuestion returns [ComputedQuestion result]
+	:	Ident ':' String t=type '(' exp=orExpr ')' { $result = new ComputedQuestion(new Ident($Ident.text), new StringLiteral($String.text), t, exp);};
+	
+type returns [Type result]
+	: IntType {$result = new IntType();} 
+	| BoolType {$result = new BoolType();} 
+	| StringType {$result = new StringType();};
+
+ifStatement returns [IfThenElse result]
+	:	If '(' cond=orExpr ')' body=block (Else elseBody=block)?		
+		{ $result = new IfThenElse(cond, body, elseBody); };
     
 // Tokens
-WS  :	(' ' | '\t' | '\n' | '\r') { $channel=HIDDEN; }
-    ;
+WS  :	(' ' | '\t' | NEWLINE) { $channel=HIDDEN; };
+    
 
 COMMENT 
-     : '/*' .* '*/' {$channel=HIDDEN;}
-    ;
+     : ('/*' .* '*/' | '//' ~(NEWLINE)*) {$channel=HIDDEN;};
 
-Ident:   ('a'..'z'|'A'..'Z')('a'..'z'|'A'..'Z'|'0'..'9'|'_')*;
+fragment NEWLINE 
+	: 	('\n' | '\r');
 
-Int: ('0'..'9')+;
+BoolType:	'bool';
+
+IntType	:	'int';
+
+StringType 
+	:	'string';
+	
+If	:	'if';
+
+Else	:	'else';
+	
+String	:	('"' .* '"');
+
+Bool	:	('true' | 'false');
+
+Ident	:	 ('a'..'z'|'A'..'Z')('a'..'z'|'A'..'Z'|'0'..'9'|'_')*;
+
+Int	:	 ('0'..'9')+;
