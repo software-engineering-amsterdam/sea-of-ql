@@ -78,6 +78,6 @@ private void setupQLS() {
 
 
 public void main() {
+  setupQLS(); 
   setupQL();
-  setupQLS();
 }
