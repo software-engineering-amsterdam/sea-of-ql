@@ -11,8 +11,6 @@ import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
 import org.uva.sea.ql.ast.*;
 import org.uva.sea.ql.parser.antlr.ANTLRParser;
-import org.uva.sea.ql.parser.jacc.JACCParser;
-import org.uva.sea.ql.parser.rats.RatsParser;
 
 @RunWith(Parameterized.class)
 public class TestExpressions {
@@ -134,6 +132,12 @@ public class TestExpressions {
 	public void testElse_RW() throws ParseError {
 		assertEquals(parser.parse("else").getClass(), Else_RW.class);
 	}
+	
+	@Test
+	public void testQuestion() throws ParseError {
+		assertEquals(parser.parse("hasSoldHouse : \"Did you sell a house in 2012?\" bool").getClass(), Question.class);
+	}
+	
 	
 	
 }

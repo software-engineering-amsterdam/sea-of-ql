@@ -16,6 +16,7 @@ import org.uva.sea.ql.ast.Int;
 import org.uva.sea.ql.ast.LEq;
 import org.uva.sea.ql.ast.LT;
 import org.uva.sea.ql.ast.Mul;
+import org.uva.sea.ql.ast.Form;
 import org.uva.sea.ql.parser.antlr.ANTLRParser;
 
 @RunWith(Parameterized.class)
@@ -38,6 +39,7 @@ public class TestExpressions {
 	
 	@Test
 	public void testAdds() throws ParseError {
+		System.out.println(parser.parse("a + b").getClass());
 		assertEquals(parser.parse("a + b").getClass(), Add.class);
 		assertEquals(parser.parse("a + b + c").getClass(), Add.class);
 		assertEquals(parser.parse("(a + b + c)").getClass(), Add.class);
@@ -103,6 +105,16 @@ public class TestExpressions {
 		assertEquals(
 				((org.uva.sea.ql.ast.values.Int)parser.parse("(1 + 2) * 3 - (2 + 3)").eval()).getValue(), 
 				((org.uva.sea.ql.ast.values.Int)parser.parse("4").eval()).getValue());
+	}
+	
+	@Test 
+	public void testQuestionForm() throws ParseError {
+		assertEquals(parser.parseForm("form testForm1 {\n" +
+				"}").getClass(),Form.class);
+		assertEquals(parser.parseForm("form testForm2 {\n" +
+				"hasSoldHouse: \"Have you sold a house in 2012?\"\n" +
+				"hasBoughtHouse: \"Have you bought a house in 2012?\"\n" +
+				"}").getQuestions().size(),2);
 	}
 	
 }

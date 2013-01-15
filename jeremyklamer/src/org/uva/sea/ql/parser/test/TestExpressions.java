@@ -40,12 +40,17 @@ public class TestExpressions {
 	
 	@Test
 	public void testAdds() throws ParseError {
-		assertEquals(parser.parse("5 + 6").getClass(), Add.class);
+		//assertEquals(parser.parse("5 + 6").getClass(), Add.class);
 		//Why is this SUB? 
-		System.out.println(parser.parse("5 + 8 - 3"));
-		System.out.println(parser.parse("5 - 8 + 3"));
-		//And this ADD? (Not Mul).
-		System.out.println(parser.parse("5 + 8 * 3"));
+		//System.out.println(parser.parse("5 + 8 - 3"));
+//		System.out.println(parser.parse("form testForm1 { question1 : \"alles goed ? \" boolean " +
+//				"question2 : \"Heel goed ? \" boolean " +
+//				"question3 : \"Super goed ? \" boolean " + 
+//				"question4 : \"Niet goed ? \" boolean }"));
+		
+		System.out.println(parser.parse("form testForm1 { question1 : \"alles goed ? \" money( a + b) } "));
+		//parser.parse("true");
+		
 //		assertEquals(parser.parse("a + b").getClass(), Add.class);
 //		assertEquals(parser.parse("a + b + c").getClass(), Add.class);
 //		assertEquals(parser.parse("(a + b + c)").getClass(), Add.class);

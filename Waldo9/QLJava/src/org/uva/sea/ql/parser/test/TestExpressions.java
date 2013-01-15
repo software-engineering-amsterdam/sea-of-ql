@@ -33,7 +33,6 @@ public class TestExpressions {
 	public TestExpressions(IParse parser) {
 		this.parser = parser;
 	}
-
 	
 	@Test
 	public void testAdds() throws ParseError {
