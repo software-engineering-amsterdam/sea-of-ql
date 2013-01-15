@@ -48,6 +48,7 @@ public set[Message] semanticChecker(node form) {
   set[Message] ret = {};
   
   labelMap identifierMapDuplicates = ();
+  labelMap identifierMap = ();
   map[str text, list[loc] \loc] textMap = ();
 
   // Needed, see issue 32: https://github.com/cwi-swat/rascal/issues/32
@@ -57,14 +58,25 @@ public set[Message] semanticChecker(node form) {
   top-down visit(form) {
     case q:question(text, \type, ident): {
       identifierMapDuplicates[ident]?init += [<q@location, \type>];
+      identifierMap[ident]?init += [<q@location, \type>];
       textMap[text]?qinit += [q@location];
     }
-    case q:question(text, \type, ident, _): {
+    
+    case q:question(text, \type, ident, calculated): {
       identifierMapDuplicates[ident]?init += [<q@location, \type>];
+      identifierMap[ident]?init += [<q@location, \type>];
       textMap[text]?qinit += [q@location];
+
+      for(/ident(name) <- calculated)
+        identifierMap[name]?init += [<calculated@location, "">];
+    }
+
+    case e:conditional(Expr condition, _): {
+      for(/ident(name) <- condition)
+        identifierMap[name]?init += [<condition@location, "">];
     }
   }
-
+  
   identifierMapDuplicates = (key : identifierMapDuplicates[key] | key <- identifierMapDuplicates, size(identifierMapDuplicates[key]) > 1);
   identifierMapDuplicatesRel = { < x, d> | d <- identifierMapDuplicates, x <- identifierMapDuplicates[d] };
   ret += {duplicateIdentifierMessage(name, \type, \loc) | <<\loc, \type>, name> <- identifierMapDuplicatesRel};
@@ -73,49 +85,8 @@ public set[Message] semanticChecker(node form) {
   textMapRel = { < x, d> | d <- textMap, x <- textMap[d] };
   ret += {duplicateQuestionMessage(text, \loc) | <\loc, text> <- textMapRel};  
 
-  ret += undefinedVariables(form);
-  return ret;
-}
-
-private Message duplicateIdentifierMessage(name, \type, \loc) 
-  = error("Duplicate identifier: \"<\type> <name>\"", \loc);
-
-private Message duplicateQuestionMessage(text, \loc) 
-  = error("Duplicate question: \"<text>\"", \loc);
-  
-private Message useBeforeDeclaration(name, \loc) 
-  = error("Undeclared: \"<name>\" is used before a declaration", \loc);
-
-public set[Message] undefinedVariables(Form form) {
-  labelMap identifierMap = ();
-  set[Message] ret = {};
-
-  // Needed, see issue 32: https://github.com/cwi-swat/rascal/issues/32
-  list[identInfo] init = [];
-  
-  top-down visit(form) {
-    case q:question(text, \type, ident): {
-      identifierMap[ident]?init += [<q@location, \type>];
-    }
-    case q:question(text, \type, ident, calculated): {
-      identifierMap[ident]?init += [<q@location, \type>];
-
-      for(/ident(name) <- calculated)
-        identifierMap[name]?init += [<calculated@location, "">];
-    }
-    case e:conditional(Expr condition, _): {
-      for(/ident(name) <- condition)
-        identifierMap[name]?init += [<condition@location, "">];
-    }
-  }
-  
   ids = [ <\loc, name, \type> | name <- identifierMap, ii <- identifierMap[name], <\loc, \type> := ii];
-  
-  ids = sort( ids, 
-              bool( tuple[loc loca, str namea, str typea] a, 
-                    tuple[loc locb, str nameb, str typeb] b) {
-                      return a.loca.begin.line <= b.locb.begin.line;
-                     });
+  ids = sort(ids, sortTypeTuple); 
                      
   set[str] declared = {};
   
@@ -130,4 +101,22 @@ public set[Message] undefinedVariables(Form form) {
   }
   
   return ret;
+}
+
+private Message duplicateIdentifierMessage(name, \type, \loc) 
+  = error("Duplicate identifier: \"<\type> <name>\"", \loc);
+
+private Message duplicateQuestionMessage(text, \loc) 
+  = error("Duplicate question: \"<text>\"", \loc);
+  
+private Message useBeforeDeclaration(name, \loc) 
+  = error("Undeclared: \"<name>\" is used before a declaration", \loc);
+
+/*
+ * This is a comparator for sort() so a list of given tuples is sorted on line number 
+ */
+private bool sortTypeTuple(
+  tuple[loc loca, str namea, str typea] a, 
+  tuple[loc locb, str nameb, str typeb] b) {
+    return a.loca.begin.line <= b.locb.begin.line;
 }
