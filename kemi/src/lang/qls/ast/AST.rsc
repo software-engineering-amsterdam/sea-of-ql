@@ -1,8 +1,8 @@
 module lang::qls::ast::AST
 
 
-data QLS
-  = qls(list[Statement] statements)
+data Stylesheet
+  = stylesheet(list[Statement] statements)
   ;
 
 data Statement
@@ -36,7 +36,7 @@ data StyleAttrValue
   = styleAttrValue(str stringValue)
   ;
 
-anno loc QLS@location;
+anno loc Stylesheet@location;
 anno loc Statement@location;
 anno loc ClassStyleDefinition@location;
 anno loc TypeStyleDefinition@location;

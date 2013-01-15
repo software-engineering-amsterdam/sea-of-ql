@@ -30,10 +30,10 @@ private Form implodeQL(Tree t)
 private start[Form] parseQL(str src, loc l)
   = lang::ql::util::Parse::parse(src, l);
 
-private QLS implodeQLS(Tree t)
+private Stylesheet implodeStylesheet(Tree t)
   = lang::qls::util::Implode::implode(t);
 
-private start[QLS] parseQLS(str src, loc l)
+private start[Stylesheet] parseStylesheet(str src, loc l)
   = lang::qls::util::Parse::parse(src, l);
 
 
@@ -57,17 +57,17 @@ private void setupQL() {
 
 private void setupQLS() {
   registerLanguage(LANG_QLS, EXT_QLS, Tree(str src, loc l) {
-    return parseQLS(src, l);
+    return parseStylesheet(src, l);
   });
   
   /*
   contribs = {
     outliner(node(Tree input) {
-      return outlineForm(implodeQLS(input));
+      return outlineForm(implodeStylesheet(input));
     }),
     
     annotator(Tree (Tree input) {
-      return input[@messages=semanticChecker(implodeQLS(input))];
+      return input[@messages=semanticChecker(implodeStylesheet(input))];
     })
   };
   

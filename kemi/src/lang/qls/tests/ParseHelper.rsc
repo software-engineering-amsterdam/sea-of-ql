@@ -5,5 +5,5 @@ import ParseTree;
 import lang::qls::ast::AST;
 import lang::qls::syntax::QLS;
 
-public QLS parseStyles(str src) = implode(#lang::qls::ast::AST::QLS, parse(#start[QLS], src, |file:///-|));
-public QLS parseStyles(loc f) = parseStyles(readFile(f));
+public Stylesheet parseStylesheet(str src) = implode(#lang::qls::ast::AST::Stylesheet, parse(#start[Stylesheet], src, |file:///-|));
+public Stylesheet parseStylesheet(loc f) = parseStylesheet(readFile(f));

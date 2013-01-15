@@ -1,8 +1,8 @@
 module lang::qls::syntax::QLS
 
 // TODO support trailing empty lines
-start syntax QLS
-  = qls: Statement+ statements
+start syntax Stylesheet
+  = stylesheet: Statement+ statements
   ;
 
 syntax Statement
