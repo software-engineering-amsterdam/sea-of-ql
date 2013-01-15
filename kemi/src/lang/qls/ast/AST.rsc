@@ -6,10 +6,14 @@ data Stylesheet
   ;
 
 data Statement
-  = classDefinition(str ident, list[str] questionIdent)
+  = classDefinition(str ident, list[ClassRule] questionIdent)
   | typeStyleDefinition(str \type, list[StyleRule] styleRules)
   | classStyleDefinition(str ident, list[StyleRule] styleRules)
   | identStyleDefinition(str ident, list[StyleRule] styleRules)
+  ;
+
+data ClassRule
+  = classRule(str ident)
   ;
 
 data StyleRule
@@ -22,5 +26,6 @@ data StyleAttrValue
 
 anno loc Stylesheet@location;
 anno loc Statement@location;
+anno loc ClassRule@location;
 anno loc StyleRule@location;
 anno loc StyleAttrValue@location;

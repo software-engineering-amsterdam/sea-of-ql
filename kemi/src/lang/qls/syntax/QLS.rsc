@@ -13,7 +13,11 @@ syntax Statement
   ;
 
 syntax ClassDefinition
-  = classDefinition: "class" Ident "{" QuestionIdent+ "}"
+  = classDefinition: "class" Ident "{" ClassRule+ "}"
+  ;
+
+syntax ClassRule
+  = classRule: QuestionIdent
   ;
 
 syntax TypeStyleDefinition

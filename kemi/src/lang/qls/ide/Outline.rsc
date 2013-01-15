@@ -31,18 +31,26 @@ private node outline(Stylesheet sh) {
           [@\loc=sh@location];
 }
 
-private node outline(Statement s: classDefinition(str ident, list[str] questionIdents))
+private node outline(Statement s: classDefinition(str ident, list[ClassRule] classRules))
   = con(
     "ClassDefinition",
-    "class <ident>",
+    "class <ident> (<size(classRules)>)",
     s@location,
+    [outline(cr) | cr <- classRules]
+  );
+
+private node outline(ClassRule cr: classRule(str ident))
+  = con(
+    "ClassRule",
+    ident,
+    cr@location,
     []
   );
 
 private node outline(Statement s: typeStyleDefinition(str ident, list[StyleRule] styleRules))
   = con(
     "TypeStyleDefinition",
-    ident,
+    "<ident> (<size(styleRules)>)",
     s@location,
     [outline(sr) | sr <- styleRules]
   );
@@ -50,7 +58,7 @@ private node outline(Statement s: typeStyleDefinition(str ident, list[StyleRule]
 private node outline(Statement s: classStyleDefinition(str ident, list[StyleRule] styleRules))
   = con(
     "ClassStyleDefinition",
-    ident,
+    "<ident> (<size(styleRules)>)",
     s@location,
     [outline(sr) | sr <- styleRules]
   );
@@ -58,7 +66,7 @@ private node outline(Statement s: classStyleDefinition(str ident, list[StyleRule
 private node outline(Statement s: identStyleDefinition(str ident, list[StyleRule] styleRules))
   = con(
     "IdentStyleDefinition",
-    ident,
+    "<ident> (<size(styleRules)>)",
     s@location,
     [outline(sr) | sr <- styleRules]
   );
