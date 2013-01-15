@@ -1,4 +1,4 @@
-module lang::ql::tests::TestQuestion
+module lang::ql::tests::TestQuestions
 
 import ParseTree;
 
