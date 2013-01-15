@@ -4,7 +4,7 @@ import lang::ql::util::Random;
 
 public str randomForm(int numberOfStatements, int maxDepth) {
   return
-    "form <randomWord()> { <for (n <- [1..numberOfStatements]) {>
+    "form <randomWord()> { <for (_ <- [1..numberOfStatements]) {>
     '  <randomStatement(maxDepth - 1)><}>
     '}
     '";
@@ -33,14 +33,14 @@ public str randomCalculatedQuestion() =
   
 public str randomConditional(int maxDepth) {
   return 
-  "if (<randomExpression()>) { <for (n <- [0..randomInt(1, 5)]) {>
+  "if (<randomExpression()>) { <for (_ <- [0..randomInt(1, 5)]) {>
   '  <randomStatement(maxDepth)><}>
   
-  '<for(n <- [0..1]) { ><if(randomBool()) {>
-  '} else if(<randomExpression()>) { <for (n <- [0..randomInt(1, 5)]) {>
+  '<for(_ <- [0..1]) { ><if(randomBool()) {>
+  '} else if(<randomExpression()>) { <for (_ <- [0..randomInt(1, 5)]) {>
   '  <randomStatement(maxDepth)><}><}><}>
   
-  '} else { <for (n <- [0..randomInt(1, 5)]) {>
+  '} else { <for (_ <- [0..randomInt(1, 5)]) {>
   '  <randomStatement(maxDepth)><}>
   '}
   '";

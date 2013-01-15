@@ -14,6 +14,8 @@ import util::IDE;
 import IO;
 import util::ValueUI;
 
+alias identInfo = tuple[loc \loc, str \type];
+alias labelMap = map[str ident, list[identInfo] identInfo];
 
 
 /*
@@ -37,28 +39,29 @@ import util::ValueUI;
   
 
 public void main() {
-  x = implode(parse(readFile(|project://QL-R-kemi/forms/duplicateQuestions.q|), |file:///-|));
+  x = implode(parse(readFile(|project://QL-R-kemi/forms/calculatedField.q|), |file:///-|));
   println("Parsing done: <x>");
-  text(duplicateElements(x));
+  text(semanticChecker(x));
 }
 
 public set[Message] semanticChecker(node input) { 
   set[Message] ret = {};
   ret += duplicateElements(input);
+  ret += undefinedVariables(input);
   return ret;
 }
 
 private Message duplicateIdentifierMessage(name, \type, \loc) 
-  = error("Duplicate identifier: <name>::<\type>", \loc);
+  = error("Duplicate identifier: \"<\type> <name>\"", \loc);
 
 private Message duplicateQuestionMessage(text, \loc) 
-  = error("Duplicate question: <text>", \loc);
+  = error("Duplicate question: \"<text>\"", \loc);
   
-alias identInfo = tuple[loc \loc, str \type];
-alias labelMap = map[str ident, list[identInfo] identInfo];
+private Message useBeforeDeclaration(name, \loc) 
+  = error("Undeclared: \"<name>\" is used before a declaration", \loc);
 
 public set[Message] duplicateElements(Form form) {
-  labelMap labelMap = ();
+  labelMap identifierMap = ();
   map[str text, list[loc] \loc] textMap = ();
 
   // Needed, see issue 32: https://github.com/cwi-swat/rascal/issues/32
@@ -67,24 +70,70 @@ public set[Message] duplicateElements(Form form) {
   
   top-down visit(form) {
     case q:question(text, \type, ident): {
-      labelMap[ident]?iinit += [<q@location, \type>];
+      identifierMap[ident]?iinit += [<q@location, \type>];
       textMap[text]?qinit += [q@location];
     }
     case q:question(text, \type, ident, _): {
-      labelMap[ident]?iinit += [<q@location, \type>];
+      identifierMap[ident]?iinit += [<q@location, \type>];
       textMap[text]?qinit += [q@location];
     }
   }
 
-  labelMap = (key : labelMap[key] | key <- labelMap, size(labelMap[key]) > 1);
+  identifierMap = (key : identifierMap[key] | key <- identifierMap, size(identifierMap[key]) > 1);
   
-  labelMapRel = { < x, d> | d <- labelMap, x <- labelMap[d] };
+  identifierMapRel = { < x, d> | d <- identifierMap, x <- identifierMap[d] };
   
   textMap = (key : textMap[key] | key <- textMap, size(textMap[key]) > 1);
   
   textMapRel = { < x, d> | d <- textMap, x <- textMap[d] };
   
   return 
-    {duplicateIdentifierMessage(name, \type, \loc) | <<\loc, \type>, name> <- labelMapRel} +
+    {duplicateIdentifierMessage(name, \type, \loc) | <<\loc, \type>, name> <- identifierMapRel} +
     {duplicateQuestionMessage(text, \loc) | <\loc, text> <- textMapRel};
+}
+
+public set[Message] undefinedVariables(Form form) {
+  labelMap identifierMap = ();
+  set[Message] ret = {};
+
+  // Needed, see issue 32: https://github.com/cwi-swat/rascal/issues/32
+  list[identInfo] init = [];
+  
+  top-down visit(form) {
+    case q:question(text, \type, ident): {
+      identifierMap[ident]?init += [<q@location, \type>];
+    }
+    case q:question(text, \type, ident, calculated): {
+      identifierMap[ident]?init += [<q@location, \type>];
+
+      for(/ident(name) <- calculated)
+        identifierMap[name]?init += [<calculated@location, "">];
+    }
+    case e:conditional(Expr condition, _): {
+      for(/ident(name) <- condition)
+        identifierMap[name]?init += [<condition@location, "">];
+    }
+  }
+  
+  ids = [ <\loc, name, \type> | name <- identifierMap, ii <- identifierMap[name], <\loc, \type> := ii];
+  
+  ids = sort( ids, 
+              bool( tuple[loc loca, str namea, str typea] a, 
+                    tuple[loc locb, str nameb, str typeb] b) {
+                      return a.loca.begin.line <= b.locb.begin.line;
+                     });
+                     
+  set[str] declared = {};
+  
+  for(x <- ids, <\loc, name, \type> := x) {
+    if(\type == "") {
+      if(name notin declared) {
+        ret += useBeforeDeclaration(name, \loc);
+      }
+    } else {
+      declared += {name};
+    }
+  }
+  
+  return ret;
 }

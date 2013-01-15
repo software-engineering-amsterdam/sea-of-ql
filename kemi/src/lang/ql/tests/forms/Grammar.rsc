@@ -19,4 +19,8 @@ public test bool testNestedIfElseIfElseCondition() = parseForm(|project://QL-R-k
 public test bool testCalculatedField() = parseForm(|project://QL-R-kemi/forms/calculatedField.q|) is form;
 public test bool testUglyFormattedForm() = parseForm(|project://QL-R-kemi/forms/uglyFormatted.q|) is form;
 
+public test bool testUndefinedVariableForm() = parseForm(|project://QL-R-kemi/forms/undefinedVariable.q|) is form;
+
+public test bool testUglyFormattedForm() = parseForm(|project://QL-R-kemi/forms/duplicateLabels.q|) is form;
+
 public test bool testRandomForm() = parseForm(randomForm(5, 3)) is form;

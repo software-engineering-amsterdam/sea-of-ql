@@ -83,8 +83,9 @@ data Expr
   ;
   
 // Some annotation for language integration
-anno loc Form@location;
-anno loc Statement@location;
-anno loc Question@location;
 anno loc Conditional@location;
 anno loc ElsePart@location;
+anno loc Expr@location;
+anno loc Form@location;
+anno loc Question@location;
+anno loc Statement@location;
