@@ -30,3 +30,13 @@ if(foo) {
   return 3;
 }
 ```
+
+* Variable and function names should be in camelCase:
+
+```javascript
+myAwesomeFooBar(int myInt, bool myBoolean) {
+  return aVariable;
+}
+```
+
+* Modules should start with a capital letter, and be camelcased (MyModule.rsc)

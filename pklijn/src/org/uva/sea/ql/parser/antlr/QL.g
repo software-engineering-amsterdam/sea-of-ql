@@ -5,12 +5,38 @@ options {backtrack=true; memoize=true;}
 {
 package org.uva.sea.ql.parser.antlr;
 import org.uva.sea.ql.ast.*;
+import org.uva.sea.ql.form.*;
 }
 
 @lexer::header
 {
 package org.uva.sea.ql.parser.antlr;
 }
+
+form returns [Form result]
+@init { List<FormItem> formItems = new ArrayList(); }
+  : 'form' Ident '{'
+    formItem {formItems.addAll($formItem.result);}
+    '}' { $result = new Form($Ident.text,formItems); }
+  ;
+
+
+formItem returns [List<FormItem> result]
+@init { List<FormItem> formItems = new ArrayList(); }
+  : (i=ifStatement { formItems.add($i.result); } | q=question { formItems.add($q.result); })+ { $result = formItems; }
+  ;
+ 
+ifStatement returns [IfStatement result]
+  : 'if' '(' Ident ')' '{' formItem '}' { $result = new IfStatement($Ident.text,$formItem.result); }
+  ;
+
+question returns [Question result]
+  : Ident ':' String {$result = new Question($Ident.text, $String.text);}
+  ;
+
+//questionType
+//  : 'boolean'
+//  ;
 
 primary returns [Expr result]
   : Int   { $result = new Int(Integer.parseInt($Int.text)); }
@@ -95,3 +121,5 @@ COMMENT
 Ident:   ('a'..'z'|'A'..'Z')('a'..'z'|'A'..'Z'|'0'..'9'|'_')*;
 
 Int: ('0'..'9')+;
+
+String: '"' .* '"';

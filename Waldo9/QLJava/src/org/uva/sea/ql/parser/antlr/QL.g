@@ -84,25 +84,49 @@ orExpr returns [Expr result]
     :   lhs=andExpr { $result = $lhs.result; } ( '||' rhs=andExpr { $result = new Or($result, rhs); } )*
     ;
 
+form returns [Form result]
+	: 'form' Ident b=block {$result = new Form(new Ident($Ident.text), b);};
+
+block returns [Block result]
+	@init
+	{
+		List<Statement> statements = new ArrayList<Statement>();
+	}
+	:	'{' (s=statement {statements.add(s);})* '}' {$result = new Block(statements);};
+
+statement returns [Statement result]
+  	: i=ifStatement {$result = i;}
+  	| b=block {$result = b;}
+  	| q=question {$result = q;}
+  	;
+
 question returns [Question result]
-	:	Ident ':' String type;
+:	(c=computedQuestion {$result=c;} | n=normalQuestion {$result=n;});
 
-type	:	BoolType | IntType | StringType;
+normalQuestion returns [Question result]
+	:	Ident ':' String t=type { $result = new Question(new Ident($Ident.text), new StringLiteral($String.text), t); };
+	
+computedQuestion returns [ComputedQuestion result]
+	:	Ident ':' String t=type '(' exp=orExpr ')' { $result = new ComputedQuestion(new Ident($Ident.text), new StringLiteral($String.text), t, exp);};
+	
+type returns [Type result]
+	: IntType {$result = new IntType();} 
+	| BoolType {$result = new BoolType();} 
+	| StringType {$result = new StringType();};
 
-ifCondition 
-	:	If '(' orExpr ')' '{' (question)* '}';
+ifStatement returns [IfThenElse result]
+	:	If '(' cond=orExpr ')' body=block (Else elseBody=block)?		
+		{ $result = new IfThenElse(cond, body, elseBody); };
     
 // Tokens
-WS  :	(' ' | '\t' | NEWLINE) { $channel=HIDDEN; }
-    ;
+WS  :	(' ' | '\t' | NEWLINE) { $channel=HIDDEN; };
+    
 
 COMMENT 
-     : ('/*' .* '*/' | '//' ~(NEWLINE)*) {$channel=HIDDEN;}
-    ;
-fragment NEWLINE 
-	: ('\n' | '\r');
+     : ('/*' .* '*/' | '//' ~(NEWLINE)*) {$channel=HIDDEN;};
 
-Form 	:	'form';
+fragment NEWLINE 
+	: 	('\n' | '\r');
 
 BoolType:	'bool';
 
@@ -110,12 +134,15 @@ IntType	:	'int';
 
 StringType 
 	:	'string';
-If	:	'if';
 	
-String 	:	('"' .* '"');
+If	:	'if';
 
-Bool 	:	('true' | 'false');
+Else	:	'else';
+	
+String	:	('"' .* '"');
 
-Ident:   ('a'..'z'|'A'..'Z')('a'..'z'|'A'..'Z'|'0'..'9'|'_')*;
+Bool	:	('true' | 'false');
 
-Int: ('0'..'9')+;
+Ident	:	 ('a'..'z'|'A'..'Z')('a'..'z'|'A'..'Z'|'0'..'9'|'_')*;
+
+Int	:	 ('0'..'9')+;

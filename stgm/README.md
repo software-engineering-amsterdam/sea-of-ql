@@ -13,7 +13,8 @@ sources), or use the Eclipse build tools.
 Running.
 --------
 
-	make runtest
+	make run/rats
+	make run/test
 
 References.
 -----------
@@ -29,3 +30,7 @@ References.
 *Tools*
 
 * [JUnit on GitHub](https://github.com/KentBeck/junit/wiki)
+
+*Rats!*
+
+* [Rats! Intro](http://cs.nyu.edu/rgrimm/xtc/rats-intro.html)
