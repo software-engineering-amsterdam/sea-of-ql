@@ -43,7 +43,7 @@ import org.uva.sea.ql.ast.type.Type;
                 ;
 
  node           : expression
-                | statement
+                | statement ';'
                 ;
 
  statements     : statement ';' statements          { $$ = new Statements( $1, $3 ); }
@@ -51,7 +51,8 @@ import org.uva.sea.ql.ast.type.Type;
                 ;
                 
  statement      : ifthenelse
-                | declaration
+                | vardeclaration
+                | assignment
                 ;
                 
  ifthenelse     : IF '(' expression ')' '{' statements '}' ELSE '{' statements '}'  { $$ = new If( $3, $6, $10 ); }
@@ -59,9 +60,11 @@ import org.uva.sea.ql.ast.type.Type;
                 | IF '(' expression ')' '{' '}'                                     { $$ = new If( $3 ); }
                 ;
                 
- declaration    : IDENT ':' type                   { $$ = new VarDeclaration( (Ident) $1, (Type) $3 ); }
+ vardeclaration : IDENT ':' type                   { $$ = new VarDeclaration( (Ident) $1, (Type) $3 ); }
                 ;
                 
+ assignment     : IDENT '=' expression             { $$ = new Assignment( (Ident) $1, (Expression) $3 ); }
+                ;
                 
  expression     : '+' expression %prec UPLUS       { $$ = new Pos( $2 ); }
                 | '-' expression %prec UMIN        { $$ = new Neg( $2 ); }

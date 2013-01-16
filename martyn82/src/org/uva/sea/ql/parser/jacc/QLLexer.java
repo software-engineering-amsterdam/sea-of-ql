@@ -218,8 +218,10 @@ public class QLLexer implements QLTokens {
 						nextChar();
 						return token = EQ;
 					}
-				
-					throw new RuntimeException( "Unexpected character: " + (char) c );
+					else {
+						nextChar();
+						return token = '=';
+					}
 				}
 				
 				case '>': {
