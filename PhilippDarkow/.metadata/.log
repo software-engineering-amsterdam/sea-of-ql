@@ -1,0 +1,34 @@
+!SESSION 2013-01-16 17:07:28.254 -----------------------------------------------
+eclipse.buildId=M20120914-1800
+java.version=1.6.0_29
+java.vendor=Sun Microsystems Inc.
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=de_DE
+Framework arguments:  -product org.eclipse.epp.package.rcp.product
+Command-line arguments:  -os win32 -ws win32 -arch x86_64 -product org.eclipse.epp.package.rcp.product
+
+!ENTRY org.eclipse.core.resources 2 10035 2013-01-16 17:07:34.547
+!MESSAGE The workspace exited with unsaved changes in the previous session; refreshing workspace to recover changes.
+
+!ENTRY org.eclipse.jdt.core 2 0 2013-01-16 17:08:12.613
+!MESSAGE The Java indexing could not index C:/Users/Philipp/Desktop/eclipse/plugins/rascal_0.5.4.201211191106/rascal.jar|org/rascalmpl/test/functionality/AccumulatingTests.class. This .class file doesn't follow the class file format specification. Please report this issue against the .class file vendor
+
+!ENTRY org.eclipse.jdt.core 2 0 2013-01-16 17:08:12.642
+!MESSAGE The Java indexing could not index C:/Users/Philipp/Desktop/eclipse/plugins/rascal_0.5.4.201211191106/rascal.jar|org/rascalmpl/test/functionality/AliasTests.class. This .class file doesn't follow the class file format specification. Please report this issue against the .class file vendor
+
+!ENTRY org.eclipse.jdt.core 2 0 2013-01-16 17:08:12.645
+!MESSAGE The Java indexing could not index C:/Users/Philipp/Desktop/eclipse/plugins/rascal_0.5.4.201211191106/rascal.jar|org/rascalmpl/test/functionality/AnnotationTests.class. This .class file doesn't follow the class file format specification. Please report this issue against the .class file vendor
+
+!ENTRY org.eclipse.jdt.core 2 0 2013-01-16 17:08:12.646
+!MESSAGE The Java indexing could not index C:/Users/Philipp/Desktop/eclipse/plugins/rascal_0.5.4.201211191106/rascal.jar|org/rascalmpl/test/functionality/AssignmentTests.class. This .class file doesn't follow the class file format specification. Please report this issue against the .class file vendor
+
+!ENTRY org.eclipse.jdt.core 2 0 2013-01-16 17:08:12.648
+!MESSAGE The Java indexing could not index C:/Users/Philipp/Desktop/eclipse/plugins/rascal_0.5.4.201211191106/rascal.jar|org/rascalmpl/test/functionality/CallTests.class. This .class file doesn't follow the class file format specification. Please report this issue against the .class file vendor
+
+!ENTRY org.eclipse.jdt.core 2 0 2013-01-16 17:08:12.652
+!MESSAGE The Java indexing could not index C:/Users/Philipp/Desktop/eclipse/plugins/rascal_0.5.4.201211191106/rascal.jar|org/rascalmpl/test/functionality/ImportTests.class. This .class file doesn't follow the class file format specification. Please report this issue against the .class file vendor
+
+!ENTRY org.eclipse.jdt.core 2 0 2013-01-16 17:08:12.654
+!MESSAGE The Java indexing could not index C:/Users/Philipp/Desktop/eclipse/plugins/rascal_0.5.4.201211191106/rascal.jar|org/rascalmpl/test/functionality/PatternTests.class. This .class file doesn't follow the class file format specification. Please report this issue against the .class file vendor
+
+!ENTRY org.eclipse.jdt.core 2 0 2013-01-16 17:08:12.657
+!MESSAGE The Java indexing could not index C:/Users/Philipp/Desktop/eclipse/plugins/rascal_0.5.4.201211191106/rascal.jar|org/rascalmpl/test/functionality/ScopeTests.class. This .class file doesn't follow the class file format specification. Please report this issue against the .class file vendor
