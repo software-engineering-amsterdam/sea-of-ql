@@ -15,6 +15,7 @@ package org.uva.sea.ql.parser.antlr;
 primary returns [Expr result]
   : Int   { $result = new Int(Integer.parseInt($Int.text)); }
   | Ident { $result = new Ident($Ident.text); }
+  | String { $result = new String($String.text); }
   | '(' x=orExpr ')'{ $result = $x.result; }
   ;
     
@@ -85,13 +86,48 @@ orExpr returns [Expr result]
 
     
 // Tokens
-WS  :	(' ' | '\t' | '\n' | '\r') { $channel=HIDDEN; }
-    ;
+Ident
+  : ('a'..'z'|'A'..'Z')('a'..'z'|'A'..'Z'|'0'..'9'|'_')*
+  ;
 
-COMMENT 
-     : '/*' .* '*/' {$channel=HIDDEN;}
-    ;
+Int
+  : ('0'..'9')+
+  ;
 
-Ident:   ('a'..'z'|'A'..'Z')('a'..'z'|'A'..'Z'|'0'..'9'|'_')*;
+Comment 
+  : '//' ~('\n'|'\r')* '\r'? '\n' {$channel=HIDDEN;}
+  | '/*' ( options {greedy=false;} : . )* '*/' {$channel=HIDDEN;}
+  ;
 
-Int: ('0'..'9')+;
+// Whitespace
+Ws
+  : (' ' | '\t' | '\n' | '\r') { $channel=HIDDEN; }
+  ;
+
+String
+  :  '"' ( EscSeq | ~('\\'|'"') )* '"'
+  ;
+
+fragment
+HexDigit
+  : ('0'..'9'|'a'..'f'|'A'..'F')
+  ;
+
+fragment
+EscSeq
+  : '\\' ('b'|'t'|'n'|'f'|'r'|'\"'|'\''|'\\')
+  | UnicodeEsc
+  | OctalEsc
+  ;
+
+fragment
+OctalEsc
+  : '\\' ('0'..'3') ('0'..'7') ('0'..'7')
+  | '\\' ('0'..'7') ('0'..'7')
+  | '\\' ('0'..'7')
+  ;
+
+fragment
+UnicodeEsc
+  : '\\' 'u' HexDigit HexDigit HexDigit HexDigit
+  ;

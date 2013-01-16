@@ -1,6 +1,4 @@
-package org.uva.sc.antlr;
-
-// $ANTLR 3.5 C:\\Users\\caytekin\\Downloads\\ANTLR\\grammars\\SimpleCalc.g 2013-01-12 14:41:04
+// $ANTLR 3.5 C:\\Users\\caytekin\\Downloads\\ANTLR\\grammars\\SimpleCalc.g 2013-01-14 14:35:32
 
 import org.antlr.runtime.*;
 import java.util.Stack;
@@ -61,7 +59,7 @@ public class SimpleCalcParser extends Parser {
 
 	// $ANTLR start "expr"
 	// C:\\Users\\caytekin\\Downloads\\ANTLR\\grammars\\SimpleCalc.g:11:1: expr : term ( ( PLUS | MINUS ) term )* ;
-	public final SimpleCalcParser.expr_return expr() throws RecognitionException {
+	public final SimpleCalcParser.expr_return expr() throws  {
 		SimpleCalcParser.expr_return retval = new SimpleCalcParser.expr_return();
 		retval.start = input.LT(1);
 
@@ -153,7 +151,7 @@ public class SimpleCalcParser extends Parser {
 
 	// $ANTLR start "term"
 	// C:\\Users\\caytekin\\Downloads\\ANTLR\\grammars\\SimpleCalc.g:13:1: term : factor ( ( MULT | DIV ) factor )* ;
-	public final SimpleCalcParser.term_return term() throws RecognitionException {
+	public final SimpleCalcParser.term_return term() throws  {
 		SimpleCalcParser.term_return retval = new SimpleCalcParser.term_return();
 		retval.start = input.LT(1);
 
@@ -245,7 +243,7 @@ public class SimpleCalcParser extends Parser {
 
 	// $ANTLR start "factor"
 	// C:\\Users\\caytekin\\Downloads\\ANTLR\\grammars\\SimpleCalc.g:15:1: factor : NUMBER ;
-	public final SimpleCalcParser.factor_return factor() throws  RecognitionException {
+	public final SimpleCalcParser.factor_return factor() throws  {
 		SimpleCalcParser.factor_return retval = new SimpleCalcParser.factor_return();
 		retval.start = input.LT(1);
 

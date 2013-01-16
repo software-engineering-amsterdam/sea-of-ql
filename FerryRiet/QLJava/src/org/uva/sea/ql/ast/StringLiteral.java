@@ -2,15 +2,13 @@ package org.uva.sea.ql.ast;
 
 public class StringLiteral extends Expr {
 
-	String value;
+	private final String value;
 
 	public StringLiteral(String string) {
 		value = string;
 	}
 
-	@Override
-	public void eval() {
-
+	public String getValue() {
+		return value;
 	}
-
 }

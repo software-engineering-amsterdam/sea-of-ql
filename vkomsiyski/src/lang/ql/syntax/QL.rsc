@@ -6,13 +6,13 @@ start syntax Form = @Foldable form: "form" Ident name "{" Statement+ body "}";
 syntax Statement  
   = regular: Type type QuestionName name "=" QuestionLabel label
   | computed: Type type QuestionName name "=" QuestionLabel label Expr expr 
-  | @Foldable conditional: IfPart ElseIfPart* ElsePart?;
+  | @Foldable conditional: If ElseIf* Else?;
 
-syntax IfPart = "if" "(" Expr condition ")" "{" Statement+ body "}";
+syntax If = "if" "(" Expr condition ")" "{" Statement+ body "}";
 
-syntax ElseIfPart = "else" IfPart ifPart;
+syntax ElseIf = "else" If ifPart;
 
-syntax ElsePart = "else" "{" Statement+ body "}"; 
+syntax Else = "else" "{" Statement+ body "}"; 
  
 syntax Expr
   = ident: Ident name
@@ -68,7 +68,7 @@ lexical Date = Day "." Month "." Year;
 
 lexical Day = "0"?[1-9] | [12][0-9] | "3" [01];
 
-lexical Month = "0"?[1-9] | "1"[12];
+lexical Month = "0"?[1-9] | "1"[0-2];
 
 lexical Year = Int; 
 

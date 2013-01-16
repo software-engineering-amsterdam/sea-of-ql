@@ -17,7 +17,6 @@ abstract public class UnaryExpression extends Expression {
 	 */
 	protected UnaryExpression( Expression expression ) {
 		this.expression = expression;
-		this.expression.setParent( this );
 	}
 	
 	/**

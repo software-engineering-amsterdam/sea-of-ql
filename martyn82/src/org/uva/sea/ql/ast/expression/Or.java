@@ -5,7 +5,7 @@ import org.uva.sea.ql.visitor.Visitor;
 /**
  * Represents a logical OR expression.
  */
-public class Or extends BinaryExpression {
+public class Or extends LogicalExpression {
 	/**
 	 * Constructs a new logical OR expression.
 	 * 

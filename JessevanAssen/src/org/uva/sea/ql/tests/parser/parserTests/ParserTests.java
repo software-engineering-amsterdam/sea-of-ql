@@ -4,10 +4,12 @@ import static org.junit.Assert.*;
 
 import org.uva.sea.ql.ast.*;
 import org.uva.sea.ql.ast.expr.Expr;
-import org.uva.sea.ql.ast.expr.If;
 import org.uva.sea.ql.parser.ParseError;
 import org.uva.sea.ql.parser.Parser;
 import org.uva.sea.ql.parser.antlr.ANTLRParser;
+
+import java.util.Arrays;
+import java.util.Iterator;
 
 public abstract class ParserTests {
 	
@@ -22,9 +24,7 @@ public abstract class ParserTests {
 		
 		Form parsed = (Form) parser.parse(String.format(template, formElement));
 		assertNotNull(parsed.getBody());
-		assertEquals(1, parsed.getBody().size());
-		
-		return parsed.getBody().get(0);
+        return parsed.getBody();
 	}
 	
 	protected Expr parseExpression(String expression) throws ParseError {

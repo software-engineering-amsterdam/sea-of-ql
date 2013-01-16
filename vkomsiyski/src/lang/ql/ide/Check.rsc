@@ -2,6 +2,7 @@ module lang::ql::ide::Check
 
 import lang::ql::ast::AST;
 import lang::ql::util::Implode;
+import lang::ql::util::Typecheck;
 import util::IDE;
 import ParseTree;
 import Message;
@@ -104,8 +105,8 @@ private Environment getEnvironment(node input) {
 	 		exps += <\type, expr>;
 	 	}
 		case C:conditional(_,_,_): {
-			app += C.ifStatement.condition + [c.condition | c <- C.elseIfs];
-			exps += <"bool", C.ifStatement.condition> + [<"bool", c.condition> | c <- C.elseIfs];
+			app += C.\if.condition + [c.condition | c <- C.elseIfs];
+			exps += <"bool", C.\if.condition> + [<"bool", c.condition> | c <- C.elseIfs];
 		}
 	}
 	return <app, vars, exps>;
@@ -140,70 +141,6 @@ private set[Message] checkLabels(list[Var] vars) =
 private set[Message] checkTypes(list[ExpOccurence] exps, VarMap vars) =
 	{typeError(occurence.\type, occurence.expr) |
 	 occurence <- exps, !expected(occurence.\type, occurence.expr, vars)};
-
-
-private bool expected(str t, Expr expr, VarMap vars) {
-	switch(expr) {
-		case ident(name): return ((t == vars[name]) || (t == "float" && vars[name] == "int"));
-		case \int(_): return ((t == "int") || (t == "float"));
-		case \bool(_): return (t == "bool");
-		case string(_): return (t == "string");
-		case float(_): return (t == "float");
-		case date(_): return (t == "date");
-		case pos(e): return ((t == "int" || t == "float") && expected(t, e, vars)); 
-		case neg(e): return ((t == "int" || t == "float") && expected(t, e, vars));
-		case not(e): return (t == "bool" && expected(t, e, vars));
-		case and(e1, e2): return (t == "bool" && expected(t, e1, vars) && expected(t, e2, vars));			 				     
-		case or(e1, e2): return (t == "bool" && expected(t, e1, vars) && expected(t, e2, vars));	
-		case mul(e1, e2): 
-			return ((t == "int" && expected(t, e1, vars) && expected(t, e2, vars)) ||
-			 	     (t == "float" && (expected(t, e1, vars) || expected("int", e1, vars)) &&
-								      (expected(t, e2, vars) || expected("int", e2, vars))));
-		case div(e1, e2): 
-			return ((t == "int" && expected(t, e1, vars) && expected(t, e2, vars)) ||
-			 	     (t == "float" && (expected(t, e1, vars) || expected("int", e1, vars)) &&
-								      (expected(t, e2, vars) || expected("int", e2, vars))));
-		case add(e1, e2): 
-			return (((t == "int" || t == "string") && expected(t, e1, vars) && expected(t, e2, vars)) ||
-			 	     (t == "float" && (expected(t, e1, vars) || expected("int", e1, vars)) &&
-								      (expected(t, e2, vars) || expected("int", e2, vars))));
-		case sub(e1, e2): 
-			return ((t == "int" && expected(t, e1, vars) && expected(t, e2, vars)) ||
-			 	     (t == "float" && (expected(t, e1, vars) || expected("int", e1, vars)) &&
-								      (expected(t, e2, vars) || expected("int", e2, vars))));
-		case lt(e1, e2):
-			return (t == "bool" && (((expected("float", e1, vars) || expected("int", e1, vars)) &&
-								      (expected("float", e2, vars) || expected("int", e2, vars))) ||
-								     (expected("date", e1, vars) && expected("date", e2, vars)))); 	
-		case leq(e1, e2):
-			return (t == "bool" && (((expected("float", e1, vars) || expected("int", e1, vars)) &&
-								      (expected("float", e2, vars) || expected("int", e2, vars))) ||
-								     (expected("date", e1, vars) && expected("date", e2, vars)))); 	
-		case gt(e1, e2):
-			return (t == "bool" && (((expected("float", e1, vars) || expected("int", e1, vars)) &&
-								      (expected("float", e2, vars) || expected("int", e2, vars))) ||
-								     (expected("date", e1, vars) && expected("date", e2, vars)))); 	
-		case geq(e1, e2):
-			return (t == "bool" && (((expected("float", e1, vars) || expected("int", e1, vars)) &&
-								      (expected("float", e2, vars) || expected("int", e2, vars))) ||
-								     (expected("date", e1, vars) && expected("date", e2, vars)))); 	
-		case eq(e1, e2):
-			return (t == "bool" && (((expected("float", e1, vars) || expected("int", e1, vars)) &&
-								      (expected("float", e2, vars) || expected("int", e2, vars))) ||
-								     (expected("date", e1, vars) && expected("date", e2, vars)) ||
-								     (expected("string", e1, vars) && expected("string", e2, vars)))); 	
-		case neq(e1, e2):
-			return (t == "bool" && (((expected("float", e1, vars) || expected("int", e1, vars)) &&
-								      (expected("float", e2, vars) || expected("int", e2, vars))) ||
-								     (expected("date", e1, vars) && expected("date", e2, vars)) ||
-								     (expected("string", e1, vars) && expected("string", e2, vars)))); 	
-		default: throw IllegalArgument();
-	}
-}
-
-
-
-
 
 
 

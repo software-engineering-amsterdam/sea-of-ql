@@ -5,7 +5,7 @@ import org.uva.sea.ql.visitor.Visitor;
 /**
  * Represents a not-equals expression.
  */
-public class NEq extends BinaryExpression {
+public class NEq extends ComparisonExpression {
 	/**
 	 * Constructs a new not-equals expression.
 	 * 

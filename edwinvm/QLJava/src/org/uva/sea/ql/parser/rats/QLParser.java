@@ -21,6 +21,21 @@ import xtc.parser.ParseError;
 
 import xtc.util.Action;
 import org.uva.sea.ql.ast.*;
+import org.uva.sea.ql.ast.expressions.Add;
+import org.uva.sea.ql.ast.expressions.And;
+import org.uva.sea.ql.ast.expressions.Div;
+import org.uva.sea.ql.ast.expressions.Eq;
+import org.uva.sea.ql.ast.expressions.GEq;
+import org.uva.sea.ql.ast.expressions.GT;
+import org.uva.sea.ql.ast.expressions.Ident;
+import org.uva.sea.ql.ast.expressions.Int;
+import org.uva.sea.ql.ast.expressions.LEq;
+import org.uva.sea.ql.ast.expressions.LT;
+import org.uva.sea.ql.ast.expressions.Mul;
+import org.uva.sea.ql.ast.expressions.NEq;
+import org.uva.sea.ql.ast.expressions.Neg;
+import org.uva.sea.ql.ast.expressions.Or;
+import org.uva.sea.ql.ast.expressions.Pos;
 
 /**
  * Packrat parser for grammar <code>org.uva.sea.ql.parser.rats.QLParser</code>.

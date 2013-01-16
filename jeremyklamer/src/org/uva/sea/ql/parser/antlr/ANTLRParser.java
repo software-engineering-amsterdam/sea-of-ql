@@ -16,7 +16,9 @@ public class ANTLRParser implements IParse {
 		tokens.setTokenSource(new QLLexer(stream));
 		QLParser parser = new QLParser(tokens);
 		try {
-			return parser.orExpr();
+			System.out.println(parser.form());
+			return null;
+			//return parser.orExpr();
 		} catch (RecognitionException e) {
 			throw new ParseError(e.getMessage());
 		}

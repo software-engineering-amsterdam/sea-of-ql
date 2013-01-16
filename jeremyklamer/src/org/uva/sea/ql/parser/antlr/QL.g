@@ -5,6 +5,7 @@ options {backtrack=true; memoize=true;}
 {
 package org.uva.sea.ql.parser.antlr;
 import org.uva.sea.ql.ast.*;
+import org.uva.sea.ql.ast.type.*;
 }
 
 @lexer::header
@@ -12,20 +13,20 @@ import org.uva.sea.ql.ast.*;
 package org.uva.sea.ql.parser.antlr;
 }
 
-primary returns [Expr result]
+primary returns [Expr result] 
   : Int   { $result = new Int(Integer.parseInt($Int.text)); }
   | Ident { $result = new Ident($Ident.text); }
   | '(' x=orExpr ')'{ $result = $x.result; }
   ;
     
-unExpr returns [Expr result]
+unExpr returns [Expr result] 
     :  '+' x=unExpr { $result = new Pos($x.result); }
     |  '-' x=unExpr { $result = new Neg($x.result); }
     |  '!' x=unExpr { $result = new Not($x.result); }
     |  x=primary    { $result = $x.result; }
     ;    
     
-mulExpr returns [Expr result]
+mulExpr returns [Expr result] 
     :   lhs=unExpr { $result=$lhs.result; } ( op=( '*' | '/' ) rhs=unExpr 
     { 
       if ($op.text.equals("*")) {
@@ -38,7 +39,7 @@ mulExpr returns [Expr result]
     ;
     
   
-addExpr returns [Expr result]
+addExpr returns [Expr result] 
     :   lhs=mulExpr { $result=$lhs.result; } ( op=('+' | '-') rhs=mulExpr
     { 
       if ($op.text.equals("+")) {
@@ -50,7 +51,7 @@ addExpr returns [Expr result]
     })*
     ;
   
-relExpr returns [Expr result]
+relExpr returns [Expr result] 
     :   lhs=addExpr { $result=$lhs.result; } ( op=('<'|'<='|'>'|'>='|'=='|'!=') rhs=addExpr 
     { 
       if ($op.text.equals("<")) {
@@ -69,27 +70,48 @@ relExpr returns [Expr result]
         $result = new Eq($result, rhs);
       }
       if ($op.text.equals("!=")) {
-        $result = new NEq($result, rhs);
+        $result = new NEq($result, rhs); 
       }
     })*
     ;
     
-andExpr returns [Expr result]
+andExpr returns [Expr result] 
     :   lhs=relExpr { $result=$lhs.result; } ( '&&' rhs=relExpr { $result = new And($result, rhs); } )*
     ;
     
 
-orExpr returns [Expr result]
+orExpr returns [Expr result] 
     :   lhs=andExpr { $result = $lhs.result; } ( '||' rhs=andExpr { $result = new Or($result, rhs); } )*
     ;
 
+form returns [Type result] 
+     @init { List<Question> questions = new ArrayList<Question>();}
+    : 'form' Ident '{' (question {questions.add($question.result);})+ '}'
+    { $result = new Form(new Ident($Ident.text), new Questions(questions));}
+    ;
+  
+question returns [Question result] 
+   : Ident ':' String returnType {$result = new Question($String.text, $returnType.result);}
+    ;
     
+returnType returns [Type result] 
+    : 'boolean' { $result = new BoolType(false); }
+    | 'money(' orExpr ')' {$result = new Money(-2);} //Fill in actual numbers. 
+    | 'money' {$result = new Money(-1);} // Fill in actual numbers.
+    ;
+    
+BOOL	: ('true' | 'false');    
+
 // Tokens
 WS  :	(' ' | '\t' | '\n' | '\r') { $channel=HIDDEN; }
     ;
 
 COMMENT 
-     : '/*' .* '*/' {$channel=HIDDEN;}
+    : '/*' .* '*/' {$channel=HIDDEN;} 
+    ;
+
+String  
+    :('"' .* '"') 
     ;
 
 Ident:   ('a'..'z'|'A'..'Z')('a'..'z'|'A'..'Z'|'0'..'9'|'_')*;

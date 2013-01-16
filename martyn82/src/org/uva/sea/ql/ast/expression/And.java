@@ -5,7 +5,7 @@ import org.uva.sea.ql.visitor.Visitor;
 /**
  * Represents a logical AND expression.
  */
-public class And extends BinaryExpression {
+public class And extends LogicalExpression {
 	/**
 	 * Constructs a new logical AND expression.
 	 * 

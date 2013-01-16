@@ -5,7 +5,7 @@ import org.uva.sea.ql.visitor.Visitor;
 /**
  * Represents an equation expression.
  */
-public class Eq extends BinaryExpression {
+public class Eq extends ComparisonExpression {
 	/**
 	 * Constructs a new equation expression.
 	 * 
