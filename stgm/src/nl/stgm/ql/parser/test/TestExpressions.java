@@ -14,8 +14,6 @@ import nl.stgm.ql.ast.LT;
 import nl.stgm.ql.ast.Mul;
 import nl.stgm.ql.ast.Not;
 
-import nl.stgm.ql.ast.Form;
-
 import nl.stgm.ql.parser.rats.RatsParser;
 
 public class TestExpressions

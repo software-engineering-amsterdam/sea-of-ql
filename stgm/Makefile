@@ -6,7 +6,7 @@ all: RunRats TestExpressions
 
 # Runnable classes
 RunRats: src/nl/stgm/ql/parser/rats/RunRats.class
-TestExpressions: src/nl/stgm/ql/parser/test/TestExpressions.class
+TestExpressions: src/nl/stgm/ql/parser/rats/QLParser.class src/nl/stgm/ql/parser/test/TestExpressions.class
 
 # Utilities
 run/rats: RunRats
