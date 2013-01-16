@@ -1,0 +1,8 @@
+Grammar:
+    - tidy: restructure on semantics
+    - support IF-THEN(-ELSE)
+
+    - Typechecker visitor
+    - Get the type of expressions (static/dynamic)
+
+    - Interpreter visitor

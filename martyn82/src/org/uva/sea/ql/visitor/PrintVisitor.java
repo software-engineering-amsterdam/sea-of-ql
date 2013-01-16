@@ -10,6 +10,9 @@ import org.uva.sea.ql.ast.expression.UnaryExpression;
 import org.uva.sea.ql.ast.expression.value.Literal;
 import org.uva.sea.ql.ast.statement.If;
 import org.uva.sea.ql.ast.statement.Statement;
+import org.uva.sea.ql.ast.statement.Statements;
+import org.uva.sea.ql.ast.statement.VarDeclaration;
+import org.uva.sea.ql.ast.type.Type;
 
 /**
  * Visitor that prints the AST.
@@ -66,7 +69,15 @@ public class PrintVisitor implements Visitor {
 
 	@Override
 	public void visit( ASTNode node ) {
+		// *before* indentation
+		if ( node instanceof Statements ) {
+			visit( (Statements) node );
+			return;
+		}
+		
 		indent();
+		
+		// *after* indentation
 		
 		if ( node instanceof BinaryExpression ) {
 			visit( (BinaryExpression) node );
@@ -83,8 +94,14 @@ public class PrintVisitor implements Visitor {
 		else if ( node instanceof If ) {
 			visit( (If) node );
 		}
-		else if ( node instanceof Statement ) {
-			visit( (Statement) node );
+		else if ( node instanceof VarDeclaration ) {
+			visit( (VarDeclaration) node );
+		}
+		else if ( node instanceof Type ) {
+			visit( (Type) node );
+		}
+		else {
+			System.err.println( "Unrecognized node type: " + node.getClass().getSimpleName() );
 		}
 	}
 
@@ -110,6 +127,13 @@ public class PrintVisitor implements Visitor {
 	 * @param node
 	 */
 	public void visit( UnaryExpression node ) {
+		put( node.getClass().getSimpleName().toUpperCase() );
+		
+		level++;
+		
+		visit( node.getExpression() );
+		
+		level--;
 	}
 
 	/**
@@ -137,15 +161,6 @@ public class PrintVisitor implements Visitor {
 	}
 	
 	/**
-	 * Visit general statement.
-	 * 
-	 * @param node
-	 */
-	public void visit( Statement node ) {
-		put( "NULL" );
-	}
-
-	/**
 	 * Visit IF-statement.
 	 * 
 	 * @param node
@@ -157,13 +172,42 @@ public class PrintVisitor implements Visitor {
 		visit( node.getCondition() );
 		level--;
 
-		indent();
-		put( "THEN" );
+		if ( node.getIfThen() != null ) {
+			indent();
+			put( "THEN" );
 		
+			level++;
+			visit( node.getIfThen() );
+			level--;
+		}
+		
+		if ( node.getIfElse() != null ) {
+			indent();
+			put( "ELSE" );
+			
+			level++;
+			visit( node.getIfElse() );
+			level--;
+		}
+	}
+	
+	private void visit( VarDeclaration node ) {
+		put( node.getClass().getSimpleName().toUpperCase() );
+
 		level++;
-		indent();
-		visit( node.getBody() );
+		visit( node.getIdent() );
+		visit( node.getType() );
 		level--;
+	}
+	
+	private void visit( Type node ) {
+		put( node.getClass().getSimpleName().toUpperCase() );
+	}
+	
+	private void visit( Statements node ) {
+		for ( Statement statement : node ) {
+			visit( statement );
+		}
 	}
 	
 	/**

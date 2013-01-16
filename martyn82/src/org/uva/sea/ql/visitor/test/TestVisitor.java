@@ -31,7 +31,7 @@ public class TestVisitor {
 	public void testPrint() throws ParseError {
 		Visitor visitor = new PrintVisitor( System.out );
 		
-		String program = "if ( a && b || c ) {  }";
+		String program = "if ( a && !b ) { c: boolean; } else { c: integer; }";
 		this.parser.parse( program ).accept( visitor );
 	}
 }

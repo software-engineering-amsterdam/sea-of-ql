@@ -1,5 +1,6 @@
 package org.uva.sea.ql.ast.statement;
 
+import org.uva.sea.ql.ast.ASTNode;
 import org.uva.sea.ql.ast.expression.Expression;
 import org.uva.sea.ql.visitor.Visitor;
 
@@ -13,27 +14,46 @@ public class If extends Statement {
 	private final Expression condition;
 	
 	/**
-	 * Holds the statement body.
+	 * Holds the if body.
 	 */
-	private final Statement body;
+	private final ASTNode ifThen;
+	
+	/**
+	 * Holds the else body.
+	 */
+	private final Statements ifElse;
 	
 	/**
 	 * Constructs a new IF-statement.
 	 * 
 	 * @param condition The expression condition.
-	 * @param body The statement body.
+	 * @param ifThen The if-body.
+	 * @param ifElse The else-body.
 	 */
-	public If( Expression condition, Statement body ) {
+	public If( Expression condition, ASTNode ifThen, Statements ifElse ) {
 		this.condition = condition;
-		this.body = body;
+		this.ifThen = ifThen;
+		this.ifElse = ifElse;
+	}
+	
+	public If( Expression condition, ASTNode ifThen ) {
+		this( condition, ifThen, null );
+	}
+	
+	public If( Expression condition ) {
+		this( condition, null, null );
 	}
 	
 	public Expression getCondition() {
 		return this.condition;
 	}
 	
-	public Statement getBody() {
-		return this.body;
+	public ASTNode getIfThen() {
+		return this.ifThen;
+	}
+	
+	public Statements getIfElse() {
+		return this.ifElse;
 	}
 
 	@Override
