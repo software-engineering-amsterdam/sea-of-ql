@@ -333,10 +333,10 @@ public class TestParser {
 	 */
 	@Test
 	public void testVarDeclaration() throws ParseError {
-		assertEquals( VarDeclaration.class, parser.parse( "a : boolean" ).getClass() );
-		assertEquals( VarDeclaration.class, parser.parse( "b: integer" ).getClass() );
-		assertEquals( VarDeclaration.class, parser.parse( "c : string" ).getClass() );
-		assertEquals( VarDeclaration.class, parser.parse( "d : money" ).getClass() );
+		assertEquals( VarDeclaration.class, parser.parse( "a : boolean;" ).getClass() );
+		assertEquals( VarDeclaration.class, parser.parse( "b: integer;" ).getClass() );
+		assertEquals( VarDeclaration.class, parser.parse( "c : string;" ).getClass() );
+		assertEquals( VarDeclaration.class, parser.parse( "d : money;" ).getClass() );
 	}
 	
 	/**
@@ -346,7 +346,7 @@ public class TestParser {
 	 */
 	@Test
 	public void testAssignment() throws ParseError {
-		assertEquals( Assignment.class, parser.parse( "a = 4 + 5" ).getClass() );
-		assertEquals( Assignment.class, parser.parse( "c3 = (55 + -3) * 45" ).getClass() );
+		assertEquals( Assignment.class, parser.parse( "a = 4 + 5;" ).getClass() );
+		assertEquals( Assignment.class, parser.parse( "c3 = (55 + -3) * 45;" ).getClass() );
 	}
 }

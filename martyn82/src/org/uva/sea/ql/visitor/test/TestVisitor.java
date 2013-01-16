@@ -39,7 +39,7 @@ public class TestVisitor {
 			"c = (a && b);\n" +
 			"if ( c ) {\n" +
 				"c = !c;\n" +
-			"};" +
+			"}" +
 		"}";
 		
 		this.parser.parse( program ).accept( visitor );
