@@ -4,13 +4,6 @@ import lang::ql::ast::AST;
 import lang::ql::util::Parse;
 import lang::ql::util::Implode;
 
-import IO;
-import List;
-import util::ValueUI;
-
-private Form p(loc f) = implode(parse(readFile(f), |file:///-|));
-
-// The root note of the form
 public str prettyPrint(Form form) {
   return 
     "form <form.formName> { <for (e <- form.formElements) {>
@@ -36,127 +29,80 @@ public str prettyPrint(Question q:
 }
 
 public str prettyPrint(Statement item: 
-  ifCondition(Conditional ifPart, [], [])) {
-  return 
-    "if ( <prettyPrint(ifPart.condition)> ) { <for (e <- ifPart.body) {>
-    '  <prettyPrint(e)><}>
-    '}";
-}
-
-public str prettyPrint(Statement item: 
-  ifCondition(Conditional ifPart, [], list[ElsePart] elsePart)) {
-  return 
-    "if ( <prettyPrint(ifPart.condition)> ) { <for (e <- ifPart.body) {>
-    '  <prettyPrint(e)><}>
-    '} else { <for (e <- head(elsePart).body) {>
-    '  <prettyPrint(e)><}>
-    '}";
-}
-
-public str prettyPrint(Statement item: 
-  ifCondition(Conditional ifPart, list[Conditional] elseIfs, [])) {
-  return
-    "if ( <prettyPrint(ifPart.condition)> ) { <for (e <- ifPart.body) {>
-    '  <prettyPrint(e)><}> <for (elsePart <- elseIfs) {>
-    '} elseif ( <prettyPrint(elsePart.condition)> ) { <for (ee <- elsePart.body) {>
-    '  <prettyPrint(ee)><}><}>
-    '}";
-}
-
-public str prettyPrint(Statement item: 
   ifCondition(Conditional ifPart, list[Conditional] elseIfs, list[ElsePart] elsePart)) {
   return 
-    "if ( <prettyPrint(ifPart.condition)> ) { <for (e <- ifPart.body) {>
-    '  <prettyPrint(e)><}> <for (elseifPart <- elseIfs) {>
-    '} elseif ( <prettyPrint(elseifPart.condition)> ) { <for (e <- elseifPart.body) {>
+    "if (<prettyPrint(ifPart.condition)>) { <for (e <- ifPart.body) {>
+    ' <prettyPrint(e)><}>
+
+    '<for(ei <- elseIfs) { >
+    '} else if(<prettyPrint(ei.condition)>) { <for (e <- ei.body) {>
     '  <prettyPrint(e)><}><}>
-    '} else { <for (e <- head(elsePart).body) {>
-    '  <prettyPrint(e)><}>
+  
+    '<for(ep <- elsePart) { >
+    '} else { <for (e <- ep.body) {>
+    '  <prettyPrint(e)><}><}>
     '}";
 }
 
-// And all Expr's to wrap up
+public str prettyPrint(pos(Expr posValue)) = 
+  "+<prettyPrint(posValue)>";
 
-public str prettyPrint(pos(Expr posValue)) {
-  return "+<prettyPrint(posValue)>";
-}
+public str prettyPrint(neg(Expr negValue)) =
+  "-<prettyPrint(negValue)>)";
 
-public str prettyPrint(neg(Expr negValue)) {
-  return "-<prettyPrint(negValue)>)";
-}
+public str prettyPrint(not(Expr notValue)) =
+  "!<prettyPrint(notValue)>";
 
-public str prettyPrint(not(Expr notValue)) {
-  return "!<prettyPrint(notValue)>";
-}
+public str prettyPrint(mul(multiplicand, multiplier)) =
+  "<prettyPrint(multiplicand)> * <prettyPrint(multiplier)>";
 
-public str prettyPrint(mul(multiplicand, multiplier)) {
-  return "<prettyPrint(multiplicand)> * <prettyPrint(multiplier)>";
-}
+public str prettyPrint(div(numerator, denominator)) =
+  "<prettyPrint(numerator)> / <prettyPrint(denominator)>";
 
-public str prettyPrint(div(numerator, denominator)) {
-  return "<prettyPrint(numerator)> / <prettyPrint(denominator)>";
-}
+public str prettyPrint(add(leftAddend, rightAddend)) =
+  "<prettyPrint(leftAddend)> + <prettyPrint(rightAddend)>";
 
-public str prettyPrint(add(leftAddend, rightAddend)) {
-  return "<prettyPrint(leftAddend)> + <prettyPrint(rightAddend)>";
-}
+public str prettyPrint(sub(minuend, subtrahend)) =
+  "<prettyPrint(minuend)> - <prettyPrint(subtrahend)>";
 
-public str prettyPrint(sub(minuend, subtrahend)) {
-  return "<prettyPrint(minuend)> - <prettyPrint(subtrahend)>";
-}
+public str prettyPrint(lt(left, right)) =
+  "<prettyPrint(left)> \< <prettyPrint(right)>";
 
-public str prettyPrint(lt(left, right)) {
-  return "<prettyPrint(left)> \< <prettyPrint(right)>";
-}
+public str prettyPrint(leq(left, right)) =
+  "<prettyPrint(left)> \<= <prettyPrint(right)>";
 
-public str prettyPrint(leq(left, right)) {
-  return "<prettyPrint(left)> \<= <prettyPrint(right)>";
-}
+public str prettyPrint(gt(left, right)) =
+  "<prettyPrint(left)> \> <prettyPrint(right)>";
 
-public str prettyPrint(gt(left, right)) {
-  return "<prettyPrint(left)> \> <prettyPrint(right)>";
-}
+public str prettyPrint(geq(left, right)) =
+  "<prettyPrint(left)> \>= <prettyPrint(right)>";
 
-public str prettyPrint(geq(left, right)) {
-  return "<prettyPrint(left)> \>= <prettyPrint(right)>";
-}
+public str prettyPrint(eq(left, right)) =
+  "<prettyPrint(left)> == <prettyPrint(right)>";
 
-public str prettyPrint(eq(left, right)) {
-  return "<prettyPrint(left)> == <prettyPrint(right)>";
-}
+public str prettyPrint(neq(left, right)) =
+  "<prettyPrint(left)> != <prettyPrint(right)>";
 
-public str prettyPrint(neq(left, right)) {
-  return "<prettyPrint(left)> != <prettyPrint(right)>";
-}
+public str prettyPrint(and(left, right)) =
+  "<prettyPrint(left)> && <prettyPrint(right)>";
 
-public str prettyPrint(and(left, right)) {
-  return "<prettyPrint(left)> && <prettyPrint(right)>";
-}
+public str prettyPrint(or(left, right)) =
+  "<prettyPrint(left)> || <prettyPrint(right)>";
 
-public str prettyPrint(or(left, right)) {
-  return "<prettyPrint(left)> || <prettyPrint(right)>";
-}
+public str prettyPrint(ident(name)) =
+  "<name>";
 
-public str prettyPrint(ident(name)) {
-  return "<name>";
-}
+public str prettyPrint(\int(intValue)) =
+  "<intValue>";
 
-public str prettyPrint(\int(intValue)) {
-  return "<intValue>";
-}
+public str prettyPrint(money(moneyValue)) =
+  "<moneyValue>";
 
-public str prettyPrint(money(moneyValue)) {
-  return "<moneyValue>";
-}
+public str prettyPrint(boolean(booleanValue)) =
+  "<booleanValue>";
 
-public str prettyPrint(boolean(booleanValue)) {
-  return "<booleanValue>";
-}
+public str prettyPrint(date(dateValue)) =
+  "<dateValue>";
 
-public str prettyPrint(date(dateValue)) {
-  return "<dateValue>";
-}
-
-public str prettyPrint(string(text)) {
-  return "<text>";
-}
+public str prettyPrint(string(text)) =
+  "<text>";
