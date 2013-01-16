@@ -9,5 +9,5 @@ form Box1HouseOwning2 {
    		soldPlaaning: "Are you thinking of selling this?" boolean
    		/*dadawdadaw*/
    	}
-   }
+}
    
