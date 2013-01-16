@@ -18,15 +18,15 @@ Document Document = Spacing
 	{ yyValue = new Document(); };
 
 Form Form =
-	"form" Spacing Ident Spacing '{' Spacing FormItem* '}' Spacing
-	{ yyValue = new Form(); };
+	"form" Spacing id:Ident Spacing '{' Spacing FormItem* '}' Spacing
+	{ yyValue = new Form(id); };
 
 FormItem FormItem =
-	yyValue:(Question / Conditional);
+	Question / Conditional;
 
 FormItem Question =
-	Ident ':' Spacing StringLit Spacing Ident Spacing
-	{ yyValue = new Question(); };
+	id:Ident ':' Spacing question:StringLit Spacing type:Ident Spacing
+	{ yyValue = new Question(id, question, type); };
 
 FormItem Conditional =
 	"if" Spacing Condition Spacing '{' Question* '}' Spacing
