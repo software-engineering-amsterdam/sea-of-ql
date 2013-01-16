@@ -98,6 +98,16 @@ public class TestParser {
 	}
 
 	/**
+	 * Tests power expressions.
+	 * 
+	 * @throws ParseError
+	 */
+	@Test
+	public void testPows() throws ParseError {
+		assertEquals( Pow.class, parser.parse( "a ^ b" ).getClass() );
+	}
+
+	/**
 	 * Tests partial order relation expressions.
 	 * 
 	 * @throws ParseError

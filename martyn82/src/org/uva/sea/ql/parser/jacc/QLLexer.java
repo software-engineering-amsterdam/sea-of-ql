@@ -171,6 +171,7 @@ public class QLLexer implements QLTokens {
 				case ';':
 				case '+':
 				case '-':
+				case '^':
 					token = c;
 					nextChar();
 					return token;
