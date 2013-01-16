@@ -42,6 +42,16 @@ public class QLLexer implements QLTokens {
 	 * Holds the current character code.
 	 */
 	private int c = ' ';
+	
+	/**
+	 * Holds current column number.
+	 */
+	private int column;
+	
+	/**
+	 * Holds current line number.
+	 */
+	private int line;
 
 	/**
 	 * Holds the current AST node.
@@ -70,6 +80,8 @@ public class QLLexer implements QLTokens {
 	 */
 	public QLLexer( Reader input ) {
 		this.input = input;
+		this.column = 0;
+		this.line = 1;
 	}
 
 	/**
@@ -79,6 +91,14 @@ public class QLLexer implements QLTokens {
 		if ( c >= 0 ) {
 			try {
 				c = input.read();
+				
+				if ( c == '\n' ) {
+					line++;
+					column = 0;
+				}
+				else if ( c > 0 ) {
+					column++;
+				}
 			}
 			catch ( IOException e ) {
 				c = -1;
@@ -448,5 +468,23 @@ public class QLLexer implements QLTokens {
 	 */
 	public Node getSemantic() {
 		return yylval;
+	}
+	
+	/**
+	 * Retrieves the current column number on the current line.
+	 * 
+	 * @return Column number.
+	 */
+	public int getColumn() {
+		return this.column;
+	}
+	
+	/**
+	 * Retrieves the current line number.
+	 * 
+	 * @return Line number.
+	 */
+	public int getLineNumber() {
+		return this.line;
 	}
 }

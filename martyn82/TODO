@@ -6,5 +6,3 @@
 - Interpreter visitor
 
 - better statement ending (;) but not for curly-brackets
-
-- better parse errors: column, line

@@ -11,6 +11,8 @@ import org.uva.sea.ql.ast.expression.value.Str;
 import org.uva.sea.ql.ast.statement.Assignment;
 import org.uva.sea.ql.ast.statement.If;
 import org.uva.sea.ql.ast.statement.VarDeclaration;
+import org.uva.sea.ql.parser.IParser;
+import org.uva.sea.ql.parser.ParseError;
 import org.uva.sea.ql.parser.jacc.JACCParser;
 
 /**

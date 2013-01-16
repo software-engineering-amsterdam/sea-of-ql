@@ -2,8 +2,8 @@ package org.uva.sea.ql.visitor.test;
 
 import org.junit.Test;
 import org.uva.sea.ql.parser.jacc.JACCParser;
-import org.uva.sea.ql.parser.test.IParser;
-import org.uva.sea.ql.parser.test.ParseError;
+import org.uva.sea.ql.parser.IParser;
+import org.uva.sea.ql.parser.ParseError;
 import org.uva.sea.ql.visitor.*;
 
 /**
@@ -30,14 +30,15 @@ public class TestVisitor {
 	@Test
 	public void testPrint() throws ParseError {
 		Visitor visitor = new PrintVisitor( System.out );
-		
+
 		String program = "" +
 		"if ( a && !b ) {\n" +
 			"c: boolean;\n" +
-		"} else {\n" +
+		"}\n" +
+		"else {\n" +
 			"c = (a && b);\n" +
 			"if ( c ) {\n" +
-				"c = !c;" +
+				"c = !c;\n" +
 			"};" +
 		"}";
 		
