@@ -14,7 +14,7 @@ Running.
 --------
 
 	make run/rats
-	make run/test
+	make run/testform
 
 References.
 -----------
