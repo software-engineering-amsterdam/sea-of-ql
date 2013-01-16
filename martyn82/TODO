@@ -5,4 +5,4 @@
 
 - Interpreter visitor
 
-- assignment
+- better statement ending (;) but not for curly-brackets

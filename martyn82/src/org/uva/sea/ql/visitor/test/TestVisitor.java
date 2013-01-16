@@ -31,7 +31,16 @@ public class TestVisitor {
 	public void testPrint() throws ParseError {
 		Visitor visitor = new PrintVisitor( System.out );
 		
-		String program = "if ( a && !b ) { c: boolean; } else { c: integer; }";
+		String program = "" +
+		"if ( a && !b ) {\n" +
+			"c: boolean;\n" +
+		"} else {\n" +
+			"c = (a && b);\n" +
+			"if ( c ) {\n" +
+				"c = !c;" +
+			"};" +
+		"}";
+		
 		this.parser.parse( program ).accept( visitor );
 	}
 }

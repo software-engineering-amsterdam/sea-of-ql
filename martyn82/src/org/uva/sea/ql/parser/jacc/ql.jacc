@@ -39,11 +39,11 @@ import org.uva.sea.ql.ast.type.Type;
 
 %%
 
- start          : node   { result = $1; }
+ start          : node  { result = $1; }
                 ;
 
  node           : expression
-                | statement ';'
+                | statement
                 ;
 
  statements     : statement ';' statements          { $$ = new Statements( $1, $3 ); }

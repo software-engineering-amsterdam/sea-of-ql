@@ -8,6 +8,7 @@ import org.uva.sea.ql.ast.expression.BinaryExpression;
 import org.uva.sea.ql.ast.expression.Ident;
 import org.uva.sea.ql.ast.expression.UnaryExpression;
 import org.uva.sea.ql.ast.expression.value.Literal;
+import org.uva.sea.ql.ast.statement.Assignment;
 import org.uva.sea.ql.ast.statement.If;
 import org.uva.sea.ql.ast.statement.Statement;
 import org.uva.sea.ql.ast.statement.Statements;
@@ -97,6 +98,9 @@ public class PrintVisitor implements Visitor {
 		else if ( node instanceof VarDeclaration ) {
 			visit( (VarDeclaration) node );
 		}
+		else if ( node instanceof Assignment ) {
+			visit( (Assignment) node );
+		}
 		else if ( node instanceof Type ) {
 			visit( (Type) node );
 		}
@@ -110,7 +114,7 @@ public class PrintVisitor implements Visitor {
 	 * 
 	 * @param node
 	 */
-	public void visit( BinaryExpression node ) {
+	private void visit( BinaryExpression node ) {
 		put( node.getClass().getSimpleName().toUpperCase() );
 		
 		level++;
@@ -126,7 +130,7 @@ public class PrintVisitor implements Visitor {
 	 * 
 	 * @param node
 	 */
-	public void visit( UnaryExpression node ) {
+	private void visit( UnaryExpression node ) {
 		put( node.getClass().getSimpleName().toUpperCase() );
 		
 		level++;
@@ -141,7 +145,7 @@ public class PrintVisitor implements Visitor {
 	 * 
 	 * @param node
 	 */
-	public void visit( Literal node ) {
+	private void visit( Literal node ) {
 		put( node.getClass().getSimpleName().toUpperCase() );
 		put( "(" );
 		put( node.toString() );
@@ -153,7 +157,7 @@ public class PrintVisitor implements Visitor {
 	 * 
 	 * @param node
 	 */
-	public void visit( Ident node ) {
+	private void visit( Ident node ) {
 		put( node.getClass().getSimpleName().toUpperCase() );
 		put( "(" );
 		put( node.getName() );
@@ -165,7 +169,7 @@ public class PrintVisitor implements Visitor {
 	 * 
 	 * @param node
 	 */
-	public void visit( If node ) {
+	private void visit( If node ) {
 		put( "IF" );
 		
 		level++;
@@ -191,23 +195,61 @@ public class PrintVisitor implements Visitor {
 		}
 	}
 	
+	/**
+	 * Visit a variable declaration.
+	 * 
+	 * @param node
+	 */
 	private void visit( VarDeclaration node ) {
 		put( node.getClass().getSimpleName().toUpperCase() );
 
 		level++;
+		
+		indent();
 		visit( node.getIdent() );
+		
+		indent();
 		visit( node.getType() );
+		
 		level--;
 	}
 	
+	/**
+	 * Visit a Type node.
+	 * 
+	 * @param node
+	 */
 	private void visit( Type node ) {
 		put( node.getClass().getSimpleName().toUpperCase() );
 	}
 	
+	/**
+	 * Visit a collection of statements.
+	 * 
+	 * @param node
+	 */
 	private void visit( Statements node ) {
 		for ( Statement statement : node ) {
 			visit( statement );
 		}
+	}
+	
+	/**
+	 * Visit an assignment.
+	 * 
+	 * @param node
+	 */
+	private void visit( Assignment node ) {
+		put( node.getClass().getSimpleName().toUpperCase() );
+		
+		level++;
+		
+		indent();
+		visit( node.getIdent() );
+		
+		visit( node.getExpression() );
+		
+		level--;
 	}
 	
 	/**
