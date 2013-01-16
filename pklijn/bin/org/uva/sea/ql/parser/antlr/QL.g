@@ -5,6 +5,7 @@ options {backtrack=true; memoize=true;}
 {
 package org.uva.sea.ql.parser.antlr;
 import org.uva.sea.ql.ast.*;
+import org.uva.sea.ql.form.*;
 }
 
 @lexer::header
@@ -13,23 +14,37 @@ package org.uva.sea.ql.parser.antlr;
 }
 
 form returns [Form result]
-@init { List<Question> questions = new ArrayList(); }
+@init { List<FormItem> formItems = new ArrayList(); }
   : 'form' Ident '{'
-    formItem {questions.addAll($formItem.result);}
-    '}' { $result = new Form($Ident.text,questions); }
+    formItem {formItems.addAll($formItem.result);}
+    '}' { $result = new Form($Ident.text,formItems); }
   ;
 
-formItem returns [List<Question> result]
-@init { List<Question> questions = new ArrayList(); }
-  : (
-      question {questions.add($question.result); }
-      | 'if' '(' Ident ')' '{' frmItm=formItem '}' {questions.addAll($frmItm.result);}
-      )+ { $result = questions; }
+
+formItem returns [List<FormItem> result]
+@init { List<FormItem> formItems = new ArrayList(); }
+  : (i=ifStatement { formItems.add($i.result); } | q=question { formItems.add($q.result); })+ { $result = formItems; }
+//  : (i=ifStatement { $result = $i.result; } | q=question{ $result = $q.result; })+
+//  : (i=ifStatement { formItems.add($i.result); } | q=question{formItems.add($q.result); })+ { $result = formItems; }
+  ;
+ 
+ifStatement returns [IfStatement result]
+//  @init { List<FormItem> formItems = new ArrayList(); }
+//  : 'if' '(' Ident ')' '{' (formItem { formItems.add($formItem.result); })+ '}' { $result = new IfStatement($Ident,formItems); }
+  : 'if' '(' Ident ')' '{' formItem '}' { $result = new IfStatement($Ident.text,$formItem.result); }
   ;
 
 question returns [Question result]
   : Ident ':' String {$result = new Question($Ident.text, $String.text);}
   ;
+
+//formItem returns [List<formItem> result]
+//@init { List<formItem> formItems = new ArrayList(); }
+//  : (
+//      question {formItems.add($question.result); }
+//      | 'if' '(' Ident ')' '{' frmItm=formItem '}' {formItems.addAll($frmItm.result);}
+//      )+ { $result = formItems; }
+//  ;
 
 //questionType
 //  : 'boolean'

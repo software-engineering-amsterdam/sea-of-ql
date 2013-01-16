@@ -16,8 +16,8 @@ import org.uva.sea.ql.ast.Int;
 import org.uva.sea.ql.ast.LEq;
 import org.uva.sea.ql.ast.LT;
 import org.uva.sea.ql.ast.Mul;
-import org.uva.sea.ql.ast.Form;
 import org.uva.sea.ql.parser.antlr.ANTLRParser;
+import org.uva.sea.ql.form.Form;
 
 @RunWith(Parameterized.class)
 public class TestExpressions {
@@ -115,11 +115,15 @@ public class TestExpressions {
 		assertEquals(parser.parseForm("form testForm2 {\n" +
 				"hasSoldHouse: \"Have you sold a house in 2012?\"\n" +
 				"hasBoughtHouse: \"Have you bought a house in 2012?\"\n" +
-				"}").getQuestions().size(),2);
+				"}").getFormItems().size(),2);
 		assertEquals(parser.parseForm("form testForm3 {\n" +
 				"demoQuestion: \"Is this really a question?\"" +
 				"if (demoQuestion) {" +
 				"	demoQuestion2: \"So this must also be a question then?\"" +
+				"	demoQuestion3: \"And this one two?\"" +
+				"	if (demoQuestion3) {" +
+				"		demoQuestion4: \"What, a question in a if in a if?\"" +
+				"	}" +
 				"}" +
 				"}").getClass(),Form.class);
 	}
