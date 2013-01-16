@@ -1,15 +1,12 @@
 module lang::ql::tests::questions::Questions
 
-import ParseTree;
-
 import lang::ql::ast::AST;
-import lang::ql::syntax::QL;
-import lang::ql::util::Parse;
+import lang::ql::tests::ParseHelper;
+import lang::ql::util::FormGenerator;
+import lang::ql::util::Random;
 
-private start[Question] parse(str src, loc l) = parse(#start[Question], src, l);
+public test bool testQuestion1() = 
+  parseQuestion("\"A question?\" boolean myFieldName") is question;
 
-private Question implode(Tree t) = implode(#Question, t);
-private Question p(str src) = implode(parse(src, |file:///-|));
-
-public test bool testQuestion1() = p("\"A question?\", boolean, myFieldName") is question;
-public test bool testQuestion1() = p("\"A question 2?\", money, myFieldName2") is question;
+public test bool testRandomQuestion() = 
+  parseQuestion(randomQuestion()) is question;

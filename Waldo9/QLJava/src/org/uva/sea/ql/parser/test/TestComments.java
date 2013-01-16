@@ -11,7 +11,7 @@ import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
 import org.uva.sea.ql.ast.Int;
 import org.uva.sea.ql.ast.Mul;
-import org.uva.sea.ql.parser.antlr.ANTLRParser;
+import org.uva.sea.ql.parser.antlr.*;
 
 @RunWith(Parameterized.class)
 public class TestComments {
@@ -28,7 +28,6 @@ public class TestComments {
 	public TestComments(IParse parser) {
 		this.parser = parser;
 	}
-
 	
 	@Test
 	public void testMultiLineComment() throws ParseError {

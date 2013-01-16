@@ -1,6 +1,6 @@
 package org.uva.sea.ql.visitor;
 
-import org.uva.sea.ql.ast.expression.Expression;
+import org.uva.sea.ql.ast.ASTNode;
 
 /**
  * Visitor for printing AST.
@@ -11,5 +11,5 @@ abstract public class Visitor {
 	 * 
 	 * @param expression The expression to visit.
 	 */
-	abstract public void visit( Expression expression );
+	abstract public void visit( ASTNode expression );
 }

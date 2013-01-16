@@ -1,16 +1,17 @@
 module lang::ql::tests::expressions::GreaterThenOrEqual
 
-import ParseTree;
-
 import lang::ql::ast::AST;
-import lang::ql::syntax::QL;
-import lang::ql::util::Parse;
+import lang::ql::tests::ParseHelper;
+import lang::ql::util::Random;
 
-private start[Expr] parse(str src, loc l) = parse(#start[Expr], src, l);
+public test bool testGeq1() = 
+  parseExpr("a \>= b") is geq;
 
-private Expr implode(Tree t) = implode(#Expr, t);
-private Expr p(str src) = implode(parse(src, |file:///-|));
+public test bool testGeq2() = 
+  parseExpr("a + b \>= c") is geq;
 
-public test bool testGeq1() = p("a \>= b") is geq;
-public test bool testGeq2() = p("a + b \>= c") is geq;
-public test bool testGeq3() = p("a \>= b + c") is geq;
+public test bool testGeq3() = 
+  parseExpr("a \>= b + c") is geq;
+
+public test bool testRandomGeq() = 
+  parseExpr("<randomWord()> \>= <randomWord()>") is geq;

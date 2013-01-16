@@ -1,20 +1,26 @@
 module lang::ql::tests::expressions::Or
 
-import ParseTree;
-import IO;
-
 import lang::ql::ast::AST;
-import lang::ql::syntax::QL;
-import lang::ql::util::Parse;
+import lang::ql::tests::ParseHelper;
+import lang::ql::util::Random;
 
-private start[Expr] parse(str src, loc l) = parse(#start[Expr], src, l);
+public test bool testOr1() = 
+  parseExpr("a || b") is or;
+  
+public test bool testOr2() = 
+  parseExpr("a || b || c") is or;
+  
+public test bool testOr3() = 
+  parseExpr("(a || b || c)") is or;
+  
+public test bool testOr4() = 
+  parseExpr("a || (b && c)") is or;
+  
+public test bool testOr5() = 
+  parseExpr("(a && b) || c") is or;
+  
+public test bool testOr6() = 
+  parseExpr("(a || b)") is or;
 
-private Expr implode(Tree t) = implode(#Expr, t);
-private Expr p(str src) = implode(parse(src, |file:///-|));
-
-public test bool testOr1() = p("a || b") is or;
-public test bool testOr2() = p("a || b || c") is or;
-public test bool testOr3() = p("(a || b || c)") is or;
-public test bool testOr4() = p("a || (b && c)") is or;
-public test bool testOr5() = p("(a && b) || c") is or;
-public test bool testOr6() = p("(a || b)") is or;
+public test bool testRandomOr() = 
+  parseExpr("<randomWord()> || <randomWord()>") is or;

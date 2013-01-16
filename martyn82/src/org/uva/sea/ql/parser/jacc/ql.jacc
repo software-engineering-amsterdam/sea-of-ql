@@ -4,10 +4,15 @@
 %semantic org.uva.sea.ql.ast.ASTNode 
 %start top
 
-%token <Int> INT
+%token <org.uva.sea.ql.ast.expression.value.Bool> BOOL
+%token <org.uva.sea.ql.ast.expression.value.Money> MON
+%token <org.uva.sea.ql.ast.expression.value.Int> INT
+%token <org.uva.sea.ql.ast.expression.value.Str> STR
 %token IDENT
 %token '*' '/' '+' '-' OR AND NEQ EQ '<' LEQ '>' GEQ '!'
 %token '(' ')'
+%token '{' '}'
+%token IF
 
 %left OR
 %left AND
@@ -16,53 +21,81 @@
 %left '*' '/'
 %left UMIN UPLUS UNOT
 
-%type <Expression> expr 
+%type <Expression> expression
+%type <Statement> statement
 
 %{
 import org.uva.sea.ql.ast.*;
 import org.uva.sea.ql.ast.expression.*;
+import org.uva.sea.ql.ast.statement.*;
 %}
 
 %%
 
- top : expr { result = $1; }
+ top : statement   { result = $1; }
      ;
 
- expr    : '+' expr %prec UPLUS { $$ = new Pos($2); }
-         | '-' expr %prec UMIN  { $$ = new Neg($2); }
-         | '!' expr %prec UNOT  { $$ = new Not($2); }
-         | expr '*' expr        { $$ = new Mul($1, $3); }
-         | expr '/' expr        { $$ = new Div($1, $3); }
-         | expr '+' expr        { $$ = new Add($1, $3); }
-         | expr '-' expr        { $$ = new Sub($1, $3); }
-         | expr EQ expr         { $$ = new Eq($1, $3); }
-         | expr NEQ expr        { $$ = new NEq($1, $3); }
-         | expr '>' expr        { $$ = new GT($1, $3); }
-         | expr '<' expr        { $$ = new LT($1, $3); }
-         | expr GEQ expr        { $$ = new GEq($1, $3); }
-         | expr LEQ expr        { $$ = new LEq($1, $3); }
-         | expr AND expr        { $$ = new And($1, $3); }
-         | expr OR expr         { $$ = new Or($1, $3); }
-         | BOOL                 { $$ = $1; }
-         | INT                  { $$ = $1; }
-         | IDENT                { $$ = $1; }
-         | '(' expr ')'         { $$ = $2; }
-         ;
-         
+ statement      : IF '(' expression ')' '{' statement '}'   { $$ = new If( $3, $6 ); }
+                | /* empty */
+                ;
+
+ expression     : '+' expression %prec UPLUS       { $$ = new Pos( $2 ); }
+                | '-' expression %prec UMIN        { $$ = new Neg( $2 ); }
+                | '!' expression %prec UNOT        { $$ = new Not( $2); }
+                | expression '*' expression        { $$ = new Mul( $1, $3 ); }
+                | expression '/' expression        { $$ = new Div( $1, $3 ); }
+                | expression '+' expression        { $$ = new Add( $1, $3 ); }
+                | expression '-' expression        { $$ = new Sub( $1, $3 ); }
+                | expression EQ expression         { $$ = new Eq( $1, $3 ); }
+                | expression NEQ expression        { $$ = new NEq( $1, $3 ); }
+                | expression '>' expression        { $$ = new GT( $1, $3 ); }
+                | expression '<' expression        { $$ = new LT( $1, $3 ); }
+                | expression GEQ expression        { $$ = new GEq( $1, $3 ); }
+                | expression LEQ expression        { $$ = new LEq( $1, $3 ); }
+                | expression AND expression        { $$ = new And( $1, $3 ); }
+                | expression OR expression         { $$ = new Or( $1, $3 ); }
+                | BOOL                             { $$ = $1; }
+                | MON                              { $$ = $1; }
+                | INT                              { $$ = $1; }
+                | STR                              { $$ = $1; }
+                | IDENT                            { $$ = $1; }
+                | '(' expression ')'               { $$ = $2; }
+                ;
 
 %%
+    /**
+     * Holds the lexer.
+     */
     private QLLexer lexer;
     
-    private Expression result;
+    /**
+     * Holds the parsing result (AST)
+     */
+    private ASTNode result;
     
-    public Expression getResult() {
-      return result;
+    /**
+     * Retrieves the generated AST.
+     *
+     * @return The AST.
+     */
+    public ASTNode getResult() {
+        return result;
     }
     
+    /**
+     * Sets the lexer.
+     *
+     * @param lexer
+     */
     public QLParser( QLLexer lexer ) { 
-      this.lexer = lexer;
+        this.lexer = lexer;
     }
     
+    /**
+     * Output error message.
+     *
+     * @param msg The error message.
+     */
     private void yyerror( String msg ) { 
-      System.err.println( msg );
+        System.err.println( msg );
     }

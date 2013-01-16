@@ -1,16 +1,18 @@
 module lang::ql::ast::AST
 
-data Form = form(str formName, list[FormItem] formElements);
+data Form = form(str formName, list[Statement] formElements);
 
-alias ElseIf = tuple[Expr condition, list[FormItem] body];
-
-data FormItem 
-  = question(Question question)
-  | ifCondition(Expr condition, list[FormItem] ifPart, list[ElseIf] elseIfs, list[FormItem] elsePart)
+data Conditional
+  = conditional(Expr condition, list[Statement] body)
   ;
 
-data Type
-  = \type(str name)
+data ElsePart
+  = elsePart(list[Statement] body)
+  ;
+
+data Statement 
+  = question(Question question)
+  | ifCondition(Conditional ifPart, list[Conditional] elseIfs, list[ElsePart] elsePart)
   ;
 
 data Question
@@ -21,6 +23,36 @@ data Question
   //| question(Expr questionText, Type answerDataType, Expr answerIdentifier)
   //| question(Expr questionText, Type answerDataType, Expr answerIdentifier, Expr calculatedField)
   ;
+
+data Type
+  = \type(str typeName)
+  ;
+
+/* Nevermind, thought this would help but probably won't
+data Ident
+  = ident(str name)
+  ;
+
+data String
+  = string(str stringValue)
+  ;
+
+data Int
+  = integer(int intValue)
+  ;
+
+data Boolean
+  = boolean(bool booleanValue)
+  ;
+
+data Money
+  = money(real moneyValue)
+  ;
+
+data Date
+  = date(str dateValue)
+  ;
+*/
 
 data Expr
   = ident(str name)
@@ -51,6 +83,9 @@ data Expr
   ;
   
 // Some annotation for language integration
+anno loc Conditional@location;
+anno loc ElsePart@location;
+anno loc Expr@location;
 anno loc Form@location;
-anno loc FormItem@location;
 anno loc Question@location;
+anno loc Statement@location;

@@ -1,20 +1,29 @@
 module lang::ql::tests::expressions::Division
 
-import ParseTree;
-
 import lang::ql::ast::AST;
-import lang::ql::syntax::QL;
-import lang::ql::util::Parse;
+import lang::ql::tests::ParseHelper;
+import lang::ql::util::Random;
 
-private start[Expr] parse(str src, loc l) = parse(#start[Expr], src, l);
+public test bool testDiv1() = 
+  parseExpr("a / b") is div;
 
-private Expr implode(Tree t) = implode(#Expr, t);
-private Expr p(str src) = implode(parse(src, |file:///-|));
+public test bool testDiv2() = 
+  parseExpr("a / b / c") is div;
 
-public test bool testDiv1() = p("a / b") is div;
-public test bool testDiv2() = p("a / b / c") is div;
-public test bool testDiv3() = p("a / (b / c)") is div;
-public test bool testDiv4() = p("(a / b) / c") is div;
-public test bool testDiv5() = p("(a / b)") is div;
-public test bool testDiv6() = p("(a + b) / c") is div;
-public test bool testDiv7() = p("a / (b + c)") is div;
+public test bool testDiv3() = 
+  parseExpr("a / (b / c)") is div;
+
+public test bool testDiv4() = 
+  parseExpr("(a / b) / c") is div;
+
+public test bool testDiv5() = 
+  parseExpr("(a / b)") is div;
+
+public test bool testDiv6() = 
+  parseExpr("(a + b) / c") is div;
+
+public test bool testDiv7() = 
+  parseExpr("a / (b + c)") is div;
+
+public test bool testRandomDiv() = 
+  parseExpr("<randomWord()> / <randomWord()>") is div;

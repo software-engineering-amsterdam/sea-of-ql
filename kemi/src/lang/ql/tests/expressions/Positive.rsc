@@ -1,17 +1,21 @@
 module lang::ql::tests::expressions::Positive
 
-import ParseTree;
-
 import lang::ql::ast::AST;
-import lang::ql::syntax::QL;
-import lang::ql::util::Parse;
+import lang::ql::tests::ParseHelper;
+import lang::ql::util::FormGenerator;
+import lang::ql::util::Random;
 
-private start[Expr] parse(str src, loc l) = parse(#start[Expr], src, l);
+public test bool testPos1() = 
+  parseExpr("+0") is pos;
+  
+public test bool testPos2() = 
+  parseExpr("+1223") is pos;
+  
+public test bool testPos3() = 
+  parseExpr("+234234234") is pos;
+  
+public test bool testPos4() = 
+  parseExpr("+(1223 - 10)") is pos;
 
-private Expr implode(Tree t) = implode(#Expr, t);
-private Expr p(str src) = implode(parse(src, |file:///-|));
-
-public test bool testPos1() = p("+0") is pos;
-public test bool testPos2() = p("+1223") is pos;
-public test bool testPos3() = p("+234234234") is pos;
-public test bool testPos4() = p("+(1223 - 10)") is pos;
+public test bool testRandomEq() = 
+  parseExpr("+<randomInt()>") is pos;

@@ -2,7 +2,7 @@ package org.uva.sea.ql.ast;
 
 import org.uva.sea.ql.ASTNodeVisitor;
 
-public class Question extends FormElement {
+public class Question implements  FormElement {
 
 	private final String question;
 	private final Declaration declaration;

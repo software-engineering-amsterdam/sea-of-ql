@@ -1,23 +1,38 @@
 module lang::ql::tests::expressions::Subtraction
 
-import ParseTree;
-
 import lang::ql::ast::AST;
-import lang::ql::syntax::QL;
-import lang::ql::util::Parse;
+import lang::ql::tests::ParseHelper;
+import lang::ql::util::Random;
 
-private start[Expr] parse(str src, loc l) = parse(#start[Expr], src, l);
+public test bool testsub1() = 
+  parseExpr("a - b") is sub;
 
-private Expr implode(Tree t) = implode(#Expr, t);
-private Expr p(str src) = implode(parse(src, |file:///-|));
+public test bool testSub2() = 
+  parseExpr("a - b - c") is sub;
 
-public test bool testsub1() = p("a - b") is sub;
-public test bool testSub2() = p("a - b - c") is sub;
-public test bool testSub3() = p("(a - b - c)") is sub;
-public test bool testSub4() = p("a - (b - c)") is sub;
-public test bool testSub5() = p("(a - b) - c") is sub;
-public test bool testSub6() = p("(a - b)") is sub;
-public test bool testSub7() = p("a - b * c") is sub;
-public test bool testSub8() = p("a * b - c") is sub;
-public test bool testSub9() = p("a - b / c") is sub;
-public test bool testSub10() = p("a / b - c") is sub;
+public test bool testSub3() = 
+  parseExpr("(a - b - c)") is sub;
+
+public test bool testSub4() = 
+  parseExpr("a - (b - c)") is sub;
+
+public test bool testSub5() = 
+  parseExpr("(a - b) - c") is sub;
+
+public test bool testSub6() = 
+  parseExpr("(a - b)") is sub;
+
+public test bool testSub7() = 
+  parseExpr("a - b * c") is sub;
+
+public test bool testSub8() = 
+  parseExpr("a * b - c") is sub;
+
+public test bool testSub9() = 
+  parseExpr("a - b / c") is sub;
+
+public test bool testSub10() = 
+  parseExpr("a / b - c") is sub;
+
+public test bool testRandomSub() = 
+  parseExpr("<randomWord()> - <randomWord()>") is sub;
