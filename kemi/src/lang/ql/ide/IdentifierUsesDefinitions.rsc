@@ -2,17 +2,17 @@ module lang::ql::ide::IdentifierUsesDefinitions
 
 import lang::ql::ast::AST;
 
-public alias Occurence = tuple[loc location, str \type, Expr expr];
+public alias Occurrence = tuple[loc location, str \type, Expr expr];
 
-public set[Occurence] identifierUses(Form form) = uses(form.formElements);
+public set[Occurrence] identifierUses(Form form) = uses(form.formElements);
 
-public set[Occurence] identifierDefinitions(Form f) =                 
+public set[Occurrence] identifierDefinitions(Form f) =                 
   { < q@location, \type, ident(id) > | /q:question(qtext, \type, id) <- f.formElements} +
   { < q@location, \type, ident(id) > | /q:question(qtext, \type, id, cfield) <- f.formElements};
 
-private set[Occurence] uses(list[Statement] formElements) = {*uses(e) | e <- formElements};
+private set[Occurrence] uses(list[Statement] formElements) = {*uses(e) | e <- formElements};
 
-private set[Occurence] uses(Statement item:
+private set[Occurrence] uses(Statement item:
   ifCondition(Conditional ifPart, list[Conditional] elseIfs, list[ElsePart] elsePart)) {
   return
     uses(ifPart) +
@@ -20,23 +20,23 @@ private set[Occurence] uses(Statement item:
     {*uses(e.body) | e <- elsePart};
 }
 
-private set[Occurence] uses(Conditional cond:
+private set[Occurrence] uses(Conditional cond:
   conditional(Expr condition, list[Statement] body)) {
   return uses(condition) + {*uses(e) | e <- body};
 }
 
-private set[Occurence] uses(Statement item: question(Question question)) = uses(question);
+private set[Occurrence] uses(Statement item: question(Question question)) = uses(question);
 
-private set[Occurence] uses(Question q:
+private set[Occurrence] uses(Question q:
   question(questionText, answerDataType, answerIdentifier)) {
   return {};
 }
 
-private set[Occurence] uses(Question q:
+private set[Occurrence] uses(Question q:
   question(questionText, answerDataType, answerIdentifier, calculatedField)) {
-  return {<q@location, answerDataType, ident(answerIdentifier)>}; 
+  return uses(calculatedField); 
 }
 
-private set[Occurence] uses(Expr e) = 
+private set[Occurrence] uses(Expr e) = 
   u:ident(str name) := e ? {< u@location, "", ident(name)>}
                        : {< u@location, "", ident(name)> | /u:ident(str name) <- e };

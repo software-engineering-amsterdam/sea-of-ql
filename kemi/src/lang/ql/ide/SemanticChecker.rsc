@@ -28,7 +28,6 @@ alias labelMap = map[str ident, list[identInfo] identInfo];
   - Check cyclic dependencies, 
     -> niet een variabele referencen in een expression voordat die is gedeclareerd.
   
-
   - Check for undefined variables used in expressions.  
     -> declrataion voor expression usage.
 
@@ -65,8 +64,8 @@ public set[Message] semanticChecker(node form) {
 }
 
 // TODO: This does not take control flow into account!
-private set[Message] useBeforeDeclarationMessages(set[Occurence] us, set[Occurence] defs) {
-  ids = sort(toList(us + defs), sortOccurences);
+private set[Message] useBeforeDeclarationMessages(set[Occurrence] us, set[Occurrence] defs) {
+  ids = sort(toList(us + defs), sortOccurrences);
   set[Message] ret = {};
   
   set[str] declared = {};
@@ -83,7 +82,7 @@ private set[Message] useBeforeDeclarationMessages(set[Occurence] us, set[Occuren
   return ret;
 }
 
-private set[Message] duplicateIdentifierMessages(set[Occurence] defs) {
+private set[Message] duplicateIdentifierMessages(set[Occurrence] defs) {
   map[Expr id, set[Occurence] occurences] ids;
   
   ids = toMap( { <key, \value> | \value <- defs, <_, _, key> := \value } );
@@ -119,7 +118,7 @@ private Message useBeforeDeclaration(name, \loc)
 private Message duplicateIdentifierMessage(name, \type, \loc) 
   = error("Duplicate identifier: \"<\type> <name>\"", \loc);
 
-private bool sortOccurences(
+private bool sortOccurrences(
   tuple[loc loca, str \type, Expr ident] a, 
   tuple[loc locb, str \type, Expr ident] b) {
     return a.loca.begin.line <= b.locb.begin.line;
