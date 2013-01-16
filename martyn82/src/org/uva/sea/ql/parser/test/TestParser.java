@@ -8,6 +8,7 @@ import org.uva.sea.ql.ast.expression.value.Bool;
 import org.uva.sea.ql.ast.expression.value.Int;
 import org.uva.sea.ql.ast.expression.value.Money;
 import org.uva.sea.ql.ast.expression.value.Str;
+import org.uva.sea.ql.ast.statement.Assignment;
 import org.uva.sea.ql.ast.statement.If;
 import org.uva.sea.ql.ast.statement.VarDeclaration;
 import org.uva.sea.ql.parser.jacc.JACCParser;
@@ -307,15 +308,9 @@ public class TestParser {
 		
 		// with THEN body statements
 		assertEquals( If.class, parser.parse( "if ( true ) { c: integer; }" ).getClass() );
-	}
-	
-	/**
-	 * Tests IF-THEN-ELSE statements
-	 * 
-	 * @throws ParseError
-	 */
-	@Test
-	public void testIfElse() throws ParseError {
+		assertEquals( If.class, parser.parse( "if ( true ) { a = 3; }" ).getClass() );
+		
+		// with ELSE body statements
 		assertEquals( If.class, parser.parse( "if ( true ) { c: integer; } else { c: boolean; }" ).getClass() );
 	}
 	
@@ -330,5 +325,16 @@ public class TestParser {
 		assertEquals( VarDeclaration.class, parser.parse( "b: integer" ).getClass() );
 		assertEquals( VarDeclaration.class, parser.parse( "c : string" ).getClass() );
 		assertEquals( VarDeclaration.class, parser.parse( "d : money" ).getClass() );
+	}
+	
+	/**
+	 * Tests variable assignments.
+	 * 
+	 * @throws ParseError
+	 */
+	@Test
+	public void testAssignment() throws ParseError {
+		assertEquals( Assignment.class, parser.parse( "a = 4 + 5" ).getClass() );
+		assertEquals( Assignment.class, parser.parse( "c3 = (55 + -3) * 45" ).getClass() );
 	}
 }

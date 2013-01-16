@@ -34,6 +34,7 @@
 import org.uva.sea.ql.ast.*;
 import org.uva.sea.ql.ast.expression.*;
 import org.uva.sea.ql.ast.statement.*;
+import org.uva.sea.ql.ast.type.Type;
 %}
 
 %%
@@ -42,23 +43,27 @@ import org.uva.sea.ql.ast.statement.*;
                 ;
 
  node           : expression
-                | statement
+                | statement ';'
                 ;
 
  statements     : statement ';' statements          { $$ = new Statements( $1, $3 ); }
                 | statement ';'                     { $$ = new Statements( $1 ); }
                 ;
                 
- statement      : ifblock
-                | vardecl
+ statement      : ifthenelse
+                | vardeclaration
+                | assignment
                 ;
                 
- ifblock        : IF '(' expression ')' '{' statements '}' ELSE '{' statements '}'  { $$ = new If( $3, $6, $10 ); }
+ ifthenelse     : IF '(' expression ')' '{' statements '}' ELSE '{' statements '}'  { $$ = new If( $3, $6, $10 ); }
                 | IF '(' expression ')' '{' statements '}'                          { $$ = new If( $3, $6 ); }
                 | IF '(' expression ')' '{' '}'                                     { $$ = new If( $3 ); }
                 ;
                 
- vardecl        : IDENT ':' type                   { $$ = new VarDeclaration( $1, $3 ); }
+ vardeclaration : IDENT ':' type                   { $$ = new VarDeclaration( (Ident) $1, (Type) $3 ); }
+                ;
+                
+ assignment     : IDENT '=' expression             { $$ = new Assignment( (Ident) $1, (Expression) $3 ); }
                 ;
                 
  expression     : '+' expression %prec UPLUS       { $$ = new Pos( $2 ); }
