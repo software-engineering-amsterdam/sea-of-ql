@@ -14,11 +14,6 @@ public class Form {
 		for (FormItem f : formItems) {
 			f.print(0);
 		}
-//		int i = 1;
-//		for (Question q : formItems) {
-//			System.out.println("--Q" + i + ": " + q.getId() + " ::> " + q.getQuestion());
-//			i++;
-//		}
 	}
 
 	public String getIdentity() {

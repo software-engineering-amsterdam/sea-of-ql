@@ -2,5 +2,10 @@ package org.uva.sea.ql.form;
 
 public abstract class FormItem {
 
-	public abstract void print(int level);
+	public void print(int level) {
+		// Print some nice indentation
+		for (int i = 0; i <= level; i++) {
+			System.out.print("  ");
+		}
+	}
 }

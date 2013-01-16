@@ -20,10 +20,7 @@ public class Question extends FormItem {
 
 	@Override
 	public void print(int level) {
-		String s = "--";
-		for (int i = 0; i < level; i++) {
-			s += "--";
-		}
-		System.out.println(s + "Q:" + question + " (id: " + id + ")");
+		super.print(level);
+		System.out.println("Q:" + question + " (id: " + id + ")");
 	}
 }
