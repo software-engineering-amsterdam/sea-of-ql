@@ -5,7 +5,7 @@ import org.uva.sea.ql.visitor.Visitor;
 /**
  * Represents a node in an AST.
  */
-public interface ASTNode {
+public interface Node {
 	/**
 	 * Accepts a visitor.
 	 * 

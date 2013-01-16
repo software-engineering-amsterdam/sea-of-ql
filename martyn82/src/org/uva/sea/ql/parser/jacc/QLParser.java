@@ -1,4 +1,4 @@
-// Output created by jacc on Wed Jan 16 16:04:05 CET 2013
+// Output created by jacc on Wed Jan 16 20:06:56 CET 2013
 
 package org.uva.sea.ql.parser.jacc;
 
@@ -13,14 +13,14 @@ class QLParser implements QLTokens {
     private int yysp = 0;
     private int[] yyst;
     protected int yyerrno = (-1);
-    private org.uva.sea.ql.ast.ASTNode[] yysv;
-    private org.uva.sea.ql.ast.ASTNode yyrv;
+    private org.uva.sea.ql.ast.Node[] yysv;
+    private org.uva.sea.ql.ast.Node yyrv;
 
     public boolean parse() {
         int yyn = 0;
         yysp = 0;
         yyst = new int[yyss];
-        yysv = new org.uva.sea.ql.ast.ASTNode[yyss];
+        yysv = new org.uva.sea.ql.ast.Node[yyss];
         yytok = (lexer.getToken()
                  );
     loop:
@@ -1020,7 +1020,7 @@ class QLParser implements QLTokens {
 
     protected void yyexpand() {
         int[] newyyst = new int[2*yyst.length];
-        org.uva.sea.ql.ast.ASTNode[] newyysv = new org.uva.sea.ql.ast.ASTNode[2*yyst.length];
+        org.uva.sea.ql.ast.Node[] newyysv = new org.uva.sea.ql.ast.Node[2*yyst.length];
         for (int i=0; i<yyst.length; i++) {
             newyyst[i] = yyst[i];
             newyysv[i] = yysv[i];
@@ -2174,7 +2174,7 @@ class QLParser implements QLTokens {
     }
 
     private int yyr1() { // start : node
-        { result = ((ASTNode)yysv[yysp-1]); }
+        { result = ((Node)yysv[yysp-1]); }
         yysv[yysp-=1] = yyrv;
         return 1;
     }
@@ -2451,14 +2451,14 @@ class QLParser implements QLTokens {
     /**
      * Holds the parsing result (AST)
      */
-    private ASTNode result;
+    private Node result;
     
     /**
      * Retrieves the generated AST.
      *
      * @return The AST.
      */
-    public ASTNode getResult() {
+    public Node getResult() {
         return result;
     }
     

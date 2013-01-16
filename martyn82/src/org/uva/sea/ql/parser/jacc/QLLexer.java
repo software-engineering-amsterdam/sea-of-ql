@@ -6,10 +6,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.regex.Pattern;
 
-import org.uva.sea.ql.ast.ASTNode;
+import org.uva.sea.ql.ast.Node;
 import org.uva.sea.ql.ast.expression.Ident;
-import org.uva.sea.ql.ast.expression.value.Int;
-import org.uva.sea.ql.ast.expression.value.Money;
 
 /**
  * Lexer class.
@@ -48,7 +46,7 @@ public class QLLexer implements QLTokens {
 	/**
 	 * Holds the current AST node.
 	 */
-	private ASTNode yylval;
+	private Node yylval;
 	
 	/**
 	 * Holds the input reader.
@@ -448,7 +446,7 @@ public class QLLexer implements QLTokens {
 	 * 
 	 * @return The AST.
 	 */
-	public ASTNode getSemantic() {
+	public Node getSemantic() {
 		return yylval;
 	}
 }

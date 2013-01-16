@@ -3,7 +3,7 @@ package org.uva.sea.ql.visitor;
 import java.io.IOException;
 import java.io.OutputStream;
 
-import org.uva.sea.ql.ast.ASTNode;
+import org.uva.sea.ql.ast.Node;
 import org.uva.sea.ql.ast.expression.BinaryExpression;
 import org.uva.sea.ql.ast.expression.Ident;
 import org.uva.sea.ql.ast.expression.UnaryExpression;
@@ -69,7 +69,7 @@ public class PrintVisitor implements Visitor {
 	}
 
 	@Override
-	public void visit( ASTNode node ) {
+	public void visit( Node node ) {
 		// *before* indentation
 		if ( node instanceof Statements ) {
 			visit( (Statements) node );

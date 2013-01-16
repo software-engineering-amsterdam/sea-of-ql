@@ -1,7 +1,7 @@
 %package org.uva.sea.ql.parser.jacc
 %class QLParser
 %interface QLTokens
-%semantic org.uva.sea.ql.ast.ASTNode 
+%semantic org.uva.sea.ql.ast.Node 
 %start start
 
 %token <org.uva.sea.ql.ast.expression.value.Bool> BOOL
@@ -25,7 +25,7 @@
 %left '*' '/'
 %left UMIN UPLUS UNOT
 
-%type <ASTNode> node
+%type <Node> node
 %type <Expression> expression
 %type <Statement> statement
 %type <Statements> statements
@@ -107,14 +107,14 @@ import org.uva.sea.ql.ast.type.Type;
     /**
      * Holds the parsing result (AST)
      */
-    private ASTNode result;
+    private Node result;
     
     /**
      * Retrieves the generated AST.
      *
      * @return The AST.
      */
-    public ASTNode getResult() {
+    public Node getResult() {
         return result;
     }
     

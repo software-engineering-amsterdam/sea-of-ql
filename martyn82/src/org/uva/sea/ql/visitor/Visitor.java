@@ -1,6 +1,6 @@
 package org.uva.sea.ql.visitor;
 
-import org.uva.sea.ql.ast.ASTNode;
+import org.uva.sea.ql.ast.Node;
 
 /**
  * Visitor for printing AST.
@@ -11,5 +11,5 @@ public interface Visitor {
 	 * 
 	 * @param node
 	 */
-	void visit( ASTNode node );
+	void visit( Node node );
 }
