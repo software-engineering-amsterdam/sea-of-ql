@@ -1,10 +1,11 @@
-// Output created by jacc on Wed Jan 16 14:52:27 CET 2013
+// Output created by jacc on Wed Jan 16 15:32:12 CET 2013
 
 package org.uva.sea.ql.parser.jacc;
 
 import org.uva.sea.ql.ast.*;
 import org.uva.sea.ql.ast.expression.*;
 import org.uva.sea.ql.ast.statement.*;
+import org.uva.sea.ql.ast.type.Type;
 
 class QLParser implements QLTokens {
     private int yyss = 100;
@@ -2301,7 +2302,7 @@ class QLParser implements QLTokens {
     }
 
     private int yyr11() { // vardecl : IDENT ':' type
-        { yyrv = new VarDeclaration( yysv[yysp-3], yysv[yysp-1] ); }
+        { yyrv = new VarDeclaration( (Ident) yysv[yysp-3], (Type) yysv[yysp-1] ); }
         yysv[yysp-=3] = yyrv;
         return 7;
     }
