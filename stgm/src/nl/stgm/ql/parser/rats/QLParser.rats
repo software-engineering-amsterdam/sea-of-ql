@@ -1,5 +1,6 @@
 module nl.stgm.ql.parser.rats.QLParser;
 import nl.stgm.ql.parser.rats.QLExpr;
+import nl.stgm.ql.parser.rats.QLUtil;
 
 header {
 import java.util.List;
@@ -8,4 +9,29 @@ import xtc.util.Action;
 import nl.stgm.ql.ast.*;
 }
 
-public Expr RunParse = yyValue:Expr;
+public Expr ParseExpr    = yyValue:Expr;
+public Form ParseForm    = yyValue:Form;
+public Document ParseDoc = yyValue:Document;
+
+Document Document = Spacing
+	Form*
+	{ yyValue = new Document(); };
+
+Form Form =
+	"form" Spacing Ident Spacing '{' Spacing FormItem* '}' Spacing
+	{ yyValue = new Form(); };
+
+FormItem FormItem =
+	yyValue:(Question / Conditional);
+
+FormItem Question =
+	Ident ':' Spacing StringLit Spacing Ident Spacing
+	{ yyValue = new Question(); };
+
+FormItem Conditional =
+	"if" Spacing Condition Spacing '{' Question* '}' Spacing
+	{ yyValue = new Conditional(); };
+
+Expr Condition =
+	'(' Spacing Expr ')' Spacing
+	{ yyValue = new Condition(); };

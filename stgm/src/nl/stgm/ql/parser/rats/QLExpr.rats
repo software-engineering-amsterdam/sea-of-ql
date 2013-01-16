@@ -54,14 +54,13 @@ constant Action<Expr> MulTail =
               return new Div(left, right);
             }
         };
-    }; 
+    };
 
 Expr Unary = 
     "+" Spacing un:Unary { yyValue = new Pos(un); }
     / "-" Spacing un:Unary { yyValue = new Neg(un); }
     / "!" Spacing un:Unary { yyValue = new Not(un); }
 	/ yyValue:Primary;
-	
 
 Expr Primary = 
 	n:Int Spacing { yyValue = new Int(Integer.parseInt(n)); }
