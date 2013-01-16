@@ -2,68 +2,78 @@ module nl.stgm.ql.parser.rats.QLExpr;
 import nl.stgm.ql.parser.rats.QLUtil;
 
 Expr Expr =
-    l:RelExpr "&&" Spacing r:RelExpr { yyValue = new And(l, r); }
-    / l:RelExpr "||" Spacing r:RelExpr { yyValue = new Or(l, r); }
-    / yyValue:RelExpr
-    ; 
+	l:RelExpr "&&" Spacing r:RelExpr { yyValue = new And(l, r); } /
+	l:RelExpr "||" Spacing r:RelExpr { yyValue = new Or(l, r); }  /
+	yyValue:RelExpr; 
     
 Expr RelExpr =
-   l:AddExpr "<=" Spacing r:AddExpr { yyValue = new LEq(l, r); }
-   / l:AddExpr ">=" Spacing r:AddExpr { yyValue = new GEq(l, r); }
-   / l:AddExpr "<" Spacing r:AddExpr { yyValue = new LT(l, r); }
-   / l:AddExpr ">" Spacing r:AddExpr { yyValue = new GT(l, r); }
-   / l:AddExpr "==" Spacing r:AddExpr { yyValue = new Eq(l, r); }
-   / l:AddExpr "!=" Spacing r:AddExpr { yyValue = new NEq(l, r); }
-   / yyValue:AddExpr
-   ;
+	l:AddExpr "<=" Spacing r:AddExpr { yyValue = new LEq(l, r); } /
+	l:AddExpr ">=" Spacing r:AddExpr { yyValue = new GEq(l, r); } /
+	l:AddExpr "<"  Spacing r:AddExpr { yyValue = new LT(l, r); }  /
+	l:AddExpr ">"  Spacing r:AddExpr { yyValue = new GT(l, r); }  /
+	l:AddExpr "==" Spacing r:AddExpr { yyValue = new Eq(l, r); }  /
+	l:AddExpr "!=" Spacing r:AddExpr { yyValue = new NEq(l, r); } /
+	yyValue:AddExpr;
  
 Expr AddExpr =
-     seed:MulExpr actions:AddTail* { yyValue = apply(actions, seed); };
+	seed:MulExpr actions:AddTail*
+	{
+		yyValue = apply(actions, seed);
+	};
 
 constant Action<Expr> AddTail = 
-	"+" Spacing right:MulExpr { 
+	"+" Spacing right:MulExpr
+	{ 
 		yyValue = new Action<Expr>() {
 			public Expr run(Expr left) {
-              return new Add(left, right);
-            }
-        };
-    }
-	/ "-" Spacing right:MulExpr { 
-		yyValue = new Action<Expr>() {
-			public Expr run(Expr left) {
-              return new Sub(left, right);
-            }
-        };
-    }; 
-	
-   
+				return new Add(left, right);
+			}
+		};
+	}
+	/ "-" Spacing right:MulExpr
+	{
+		yyValue = new Action<Expr>()
+		{
+			public Expr run(Expr left)
+			{
+				return new Sub(left, right);
+			}
+		};
+	};
+
 Expr MulExpr =
-	seed:Unary actions:MulTail* { yyValue = apply(actions, seed); };
+	seed:Unary actions:MulTail*
+	{
+		yyValue = apply(actions, seed);
+	};
 
 constant Action<Expr> MulTail =
-	"*" Spacing right:Unary { 
+	"*" Spacing right:Unary
+	{ 
 		yyValue = new Action<Expr>() {
 			public Expr run(Expr left) {
-              return new Mul(left, right);
-            }
-        };
-    }
-    / "/" Spacing right:Unary { 
-		yyValue = new Action<Expr>() {
-			public Expr run(Expr left) {
-              return new Div(left, right);
-            }
-        };
-    };
+				return new Mul(left, right);
+			}
+		};
+	}
+	/ "/" Spacing right:Unary
+	{ 
+		yyValue = new Action<Expr>()
+		{
+			public Expr run(Expr left)
+			{
+				return new Div(left, right);
+			}
+		};
+	};
 
 Expr Unary = 
-    "+" Spacing un:Unary { yyValue = new Pos(un); }
-    / "-" Spacing un:Unary { yyValue = new Neg(un); }
-    / "!" Spacing un:Unary { yyValue = new Not(un); }
-	/ yyValue:Primary;
+	"+" Spacing un:Unary { yyValue = new Pos(un); } /
+	"-" Spacing un:Unary { yyValue = new Neg(un); } /
+	"!" Spacing un:Unary { yyValue = new Not(un); } /
+	yyValue:Primary;
 
-Expr Primary = 
-	n:Int Spacing { yyValue = new Int(Integer.parseInt(n)); }
-	/ x:Ident Spacing { yyValue = new Ident(x); }
-	/ LParen yyValue:Expr RParen
-	;
+Expr Primary =
+	n:Int Spacing { yyValue = new Int(Integer.parseInt(n)); } /
+	x:Ident Spacing { yyValue = new Ident(x); } /
+	LParen yyValue:Expr RParen;
