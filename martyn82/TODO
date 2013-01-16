@@ -1,5 +1,3 @@
-- tidy grammar: restructure on semantics
-
 - Typechecker visitor
 - Get the type of expressions (static/dynamic)
 
