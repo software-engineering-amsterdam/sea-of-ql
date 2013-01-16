@@ -107,9 +107,9 @@ public class QLLexer implements QLTokens {
 	}
 
 	/**
-	 * Computes and retrieves the next token.
+	 * Retrieves the next token.
 	 * 
-	 * @return The computed token.
+	 * @return The token.
 	 */
 	public int nextToken() {
 		boolean inComment = false;
