@@ -32,13 +32,9 @@ public str prettyPrint(Statement item:
   ifCondition(Conditional ifPart, list[Conditional] elseIfs, list[ElsePart] elsePart)) {
   return 
     "if (<prettyPrint(ifPart.condition)>) { <for (e <- ifPart.body) {>
-    ' <prettyPrint(e)><}>
-
-    '<for(ei <- elseIfs) { >
+    ' <prettyPrint(e)><}><for(ei <- elseIfs) { >
     '} else if(<prettyPrint(ei.condition)>) { <for (e <- ei.body) {>
-    '  <prettyPrint(e)><}><}>
-  
-    '<for(ep <- elsePart) { >
+    '  <prettyPrint(e)><}><}><for(ep <- elsePart) { >
     '} else { <for (e <- ep.body) {>
     '  <prettyPrint(e)><}><}>
     '}";
