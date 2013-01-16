@@ -1,0 +1,9 @@
+module nl.stgm.ql.parser.rats.QLUtil;
+
+transient void LParen = '(' Spacing;
+transient void RParen = ')' Spacing;
+
+transient void Spacing = (Space / Comment)*;
+transient void Space              = ' ' /  '\t' / '\f' / LineTerminator ;
+transient void LineTerminator     = '\r' '\n' / '\r' / '\n' ;
+transient void Comment  = "/*" (('*' !'/') / (!'*' _))* "*/" ;
