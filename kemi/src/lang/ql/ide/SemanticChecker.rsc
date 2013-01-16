@@ -4,8 +4,10 @@ import List;
 import Map;
 import Node;
 import ParseTree;
+import Set;
 import lang::ql::ast::AST;
 import lang::ql::compiler::PrettyPrinter;
+import lang::ql::ide::IdentifierUsesDefinitions;
 import lang::ql::ide::Outline;
 import lang::ql::util::Implode;
 import lang::ql::util::Parse;
@@ -16,6 +18,7 @@ import util::ValueUI;
 
 alias identInfo = tuple[loc \loc, str \type];
 alias labelMap = map[str ident, list[identInfo] identInfo];
+
 
 
 /*
@@ -39,58 +42,36 @@ alias labelMap = map[str ident, list[identInfo] identInfo];
   
 
 public void main() {
-  x = implode(parse(readFile(|project://QL-R-kemi/forms/calculatedField.q|), |file:///-|));
+  //f = |project://QL-R-kemi/forms/ifCondition.q|;
+  //f = |project://QL-R-kemi/forms/duplicateLabels.q|;
+  //f = |project://QL-R-kemi/forms/undefinedVariable.q|;
+  f = |project://QL-R-kemi/forms/undefinedVariable.q|;
+
+  x = implode(parse(readFile(f), |file:///-|));
   println("Parsing done: <x>");
-  text(semanticChecker(x));
+  sx = semanticChecker(x);
+  iprintln(sx);
 }
 
-public set[Message] semanticChecker(node form) { 
+
+public set[Message] semanticChecker(node form) {
+  set[Message] ret = {};
+  us = identifierUses(form);
+  def = identifierDefinitions(form);
+  ret += duplicateIdentifierMessages(def);
+  ret += duplicateQuestionMessages(form);
+  ret += useBeforeDeclarationMessages(us, def);
+  return ret;
+}
+
+// TODO: This does not take control flow into account!
+private set[Message] useBeforeDeclarationMessages(set[Occurence] us, set[Occurence] defs) {
+  ids = sort(toList(us + defs), sortOccurences);
   set[Message] ret = {};
   
-  labelMap identifierMapDuplicates = ();
-  labelMap identifierMap = ();
-  map[str text, list[loc] \loc] textMap = ();
-
-  // Needed, see issue 32: https://github.com/cwi-swat/rascal/issues/32
-  list[identInfo] init = [];
-  list[loc] qinit = [];
-  
-  top-down visit(form) {
-    case q:question(text, \type, ident): {
-      identifierMapDuplicates[ident]?init += [<q@location, \type>];
-      identifierMap[ident]?init += [<q@location, \type>];
-      textMap[text]?qinit += [q@location];
-    }
-    
-    case q:question(text, \type, ident, calculated): {
-      identifierMapDuplicates[ident]?init += [<q@location, \type>];
-      identifierMap[ident]?init += [<q@location, \type>];
-      textMap[text]?qinit += [q@location];
-
-      for(/ident(name) <- calculated)
-        identifierMap[name]?init += [<calculated@location, "">];
-    }
-
-    case e:conditional(Expr condition, _): {
-      for(/ident(name) <- condition)
-        identifierMap[name]?init += [<condition@location, "">];
-    }
-  }
-  
-  identifierMapDuplicates = (key : identifierMapDuplicates[key] | key <- identifierMapDuplicates, size(identifierMapDuplicates[key]) > 1);
-  identifierMapDuplicatesRel = { < x, d> | d <- identifierMapDuplicates, x <- identifierMapDuplicates[d] };
-  ret += {duplicateIdentifierMessage(name, \type, \loc) | <<\loc, \type>, name> <- identifierMapDuplicatesRel};
-    
-  textMap = (key : textMap[key] | key <- textMap, size(textMap[key]) > 1);
-  textMapRel = { < x, d> | d <- textMap, x <- textMap[d] };
-  ret += {duplicateQuestionMessage(text, \loc) | <\loc, text> <- textMapRel};  
-
-  ids = [ <\loc, name, \type> | name <- identifierMap, ii <- identifierMap[name], <\loc, \type> := ii];
-  ids = sort(ids, sortTypeTuple); 
-                     
   set[str] declared = {};
   
-  for(x <- ids, <\loc, name, \type> := x) {
+  for(x <- ids, <\loc, \type, ident(name)> := x) {
     if(\type == "") {
       if(name notin declared) {
         ret += useBeforeDeclaration(name, \loc);
@@ -99,24 +80,47 @@ public set[Message] semanticChecker(node form) {
       declared += {name};
     }
   }
-  
   return ret;
 }
 
-private Message duplicateIdentifierMessage(name, \type, \loc) 
-  = error("Duplicate identifier: \"<\type> <name>\"", \loc);
+private set[Message] duplicateIdentifierMessages(set[Occurence] defs) {
+  map[Expr id, set[Occurence] occurences] ids;
+  
+  ids = toMap( { <key, \value> | \value <- defs, <_, _, key> := \value } );
+  ids = (key : ids[key] | key <- ids, size(ids[key]) > 1);
+  
+  idsRel = { < x, d> | d <- ids, x <- ids[d] };
+  return 
+    {duplicateIdentifierMessage(name, \type, \loc) | <<\loc, \type, _>, ident(name)> <- idsRel};
+}
+
+private set[Message] duplicateQuestionMessages(Form form) { 
+  map[str text, list[loc] \loc] textMap = ();
+
+  // Needed, see issue 32: https://github.com/cwi-swat/rascal/issues/32
+  list[loc] qinit = [];
+  
+  top-down visit(form) {
+    case q:question(text, \type, ident): textMap[text]?qinit += [q@location];
+    case q:question(text, \type, ident, calculated): textMap[text]?qinit += [q@location];
+  }
+  
+  textMap = (key : textMap[key] | key <- textMap, size(textMap[key]) > 1);
+  textMapRel = { < x, d> | d <- textMap, x <- textMap[d] };
+  return {duplicateQuestionMessage(text, \loc) | <\loc, text> <- textMapRel};  
+}
 
 private Message duplicateQuestionMessage(text, \loc) 
   = error("Duplicate question: \"<text>\"", \loc);
   
 private Message useBeforeDeclaration(name, \loc) 
   = error("Undeclared: \"<name>\" is used before a declaration", \loc);
+  
+private Message duplicateIdentifierMessage(name, \type, \loc) 
+  = error("Duplicate identifier: \"<\type> <name>\"", \loc);
 
-/*
- * This is a comparator for sort() so a list of given tuples is sorted on line number 
- */
-private bool sortTypeTuple(
-  tuple[loc loca, str namea, str typea] a, 
-  tuple[loc locb, str nameb, str typeb] b) {
+private bool sortOccurences(
+  tuple[loc loca, str \type, Expr ident] a, 
+  tuple[loc locb, str \type, Expr ident] b) {
     return a.loca.begin.line <= b.locb.begin.line;
 }
