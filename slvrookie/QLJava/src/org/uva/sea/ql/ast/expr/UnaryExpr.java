@@ -1,4 +1,4 @@
-package org.uva.sea.ql.ast;
+package org.uva.sea.ql.ast.expr;
 
 public abstract class UnaryExpr extends Expr {
 
@@ -7,6 +7,7 @@ public abstract class UnaryExpr extends Expr {
 	protected UnaryExpr(Expr arg) {
 		this.arg = arg;
 	}
+
 	public Expr getArg() {
 		return arg;
 	}

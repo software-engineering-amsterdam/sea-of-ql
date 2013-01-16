@@ -9,17 +9,16 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
-import org.uva.sea.ql.ast.Add;
-import org.uva.sea.ql.ast.And;
-import org.uva.sea.ql.ast.GT;
-import org.uva.sea.ql.ast.Ident;
-import org.uva.sea.ql.ast.Int;
-import org.uva.sea.ql.ast.LEq;
-import org.uva.sea.ql.ast.LT;
-import org.uva.sea.ql.ast.Mul;
-import org.uva.sea.ql.ast.Not;
+import org.uva.sea.ql.ast.expr.Add;
+import org.uva.sea.ql.ast.expr.And;
+import org.uva.sea.ql.ast.expr.GT;
+import org.uva.sea.ql.ast.expr.Ident;
+import org.uva.sea.ql.ast.expr.LEq;
+import org.uva.sea.ql.ast.expr.LT;
+import org.uva.sea.ql.ast.expr.Mul;
+import org.uva.sea.ql.ast.expr.Not;
+import org.uva.sea.ql.ast.expr.value.IntLiteral;
 import org.uva.sea.ql.parser.antlr.ANTLRParser;
-
 
 @RunWith(Parameterized.class)
 public class TestExpressions {
@@ -28,17 +27,15 @@ public class TestExpressions {
 
 	@Parameters
 	public static List<Object[]> theParser() {
-		  List<Object[]> parserList = new ArrayList<Object[]>();
-		  parserList.add(new Object[] {new ANTLRParser()});
-		  return parserList;
-		}
+		List<Object[]> parserList = new ArrayList<Object[]>();
+		parserList.add(new Object[] { new ANTLRParser() });
+		return parserList;
+	}
 
-	
 	public TestExpressions(IParse parser) {
 		this.parser = parser;
 	}
 
-	
 	@Test
 	public void testAdds() throws ParseError {
 		assertEquals(parser.parse("a + b").getClass(), Add.class);
@@ -61,7 +58,7 @@ public class TestExpressions {
 		assertEquals(parser.parse("(a + b) * c").getClass(), Mul.class);
 		assertEquals(parser.parse("a * (b + c)").getClass(), Mul.class);
 	}
-	
+
 	@Test
 	public void testRels() throws ParseError {
 		assertEquals(parser.parse("a < b").getClass(), LT.class);
@@ -72,7 +69,7 @@ public class TestExpressions {
 		assertEquals(parser.parse("a + b > c").getClass(), GT.class);
 		assertEquals(parser.parse("a > b + c").getClass(), GT.class);
 	}
-	
+
 	@Test
 	public void testBools() throws ParseError {
 		assertEquals(parser.parse("!b").getClass(), Not.class);
@@ -80,7 +77,6 @@ public class TestExpressions {
 		assertEquals(parser.parse("a > b && b > c").getClass(), And.class);
 		assertEquals(parser.parse("(a > b) && (b > c)").getClass(), And.class);
 	}
-
 
 	@Test
 	public void testIds() throws ParseError {
@@ -95,9 +91,9 @@ public class TestExpressions {
 
 	@Test
 	public void testNums() throws ParseError {
-		assertEquals(parser.parse("0").getClass(), Int.class);
-		assertEquals(parser.parse("1223").getClass(), Int.class);
-		assertEquals(parser.parse("234234234").getClass(), Int.class);
+		assertEquals(parser.parse("0").getClass(), IntLiteral.class);
+		assertEquals(parser.parse("1223").getClass(), IntLiteral.class);
+		assertEquals(parser.parse("234234234").getClass(), IntLiteral.class);
 	}
-	
+
 }

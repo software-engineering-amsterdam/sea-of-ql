@@ -1,7 +1,7 @@
-package org.uva.sea.ql.ast;
+package org.uva.sea.ql.ast.expr;
 
-public abstract class BinaryExpr extends Expr{
-	
+public abstract class BinaryExpr extends Expr {
+
 	private final Expr lhs;
 	private final Expr rhs;
 
@@ -17,4 +17,5 @@ public abstract class BinaryExpr extends Expr{
 	public Expr getRhs() {
 		return rhs;
 	}
+	
 }

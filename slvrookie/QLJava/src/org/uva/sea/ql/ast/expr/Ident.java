@@ -1,4 +1,4 @@
-package org.uva.sea.ql.ast;
+package org.uva.sea.ql.ast.expr;
 
 public class Ident extends Expr {
 
@@ -7,7 +7,7 @@ public class Ident extends Expr {
 	public Ident(String name) {
 		this.name = name;
 	}
-	
+
 	public String getName() {
 		return name;
 	}
