@@ -83,7 +83,7 @@ private set[Message] useBeforeDeclarationMessages(set[Occurrence] us, set[Occurr
 }
 
 private set[Message] duplicateIdentifierMessages(set[Occurrence] defs) {
-  map[Expr id, set[Occurence] occurences] ids;
+  map[Expr id, set[Occurrence] occurrences] ids;
   
   ids = toMap( { <key, \value> | \value <- defs, <_, _, key> := \value } );
   ids = (key : ids[key] | key <- ids, size(ids[key]) > 1);
