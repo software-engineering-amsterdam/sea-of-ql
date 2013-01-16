@@ -74,7 +74,7 @@ public class QLLexer implements QLTokens {
 	private Pattern integer;
 
 	/**
-	 * Constructs a new QLLexer instance.
+	 * Constructs a new lexer instance.
 	 * 
 	 * @param input The input reader.
 	 */
@@ -85,7 +85,8 @@ public class QLLexer implements QLTokens {
 	}
 
 	/**
-	 * Reads the next character.
+	 * Reads the next character into field c.
+	 * On end of input or failure, c will be -1.
 	 */
 	private void nextChar() {
 		if ( c >= 0 ) {
@@ -107,7 +108,7 @@ public class QLLexer implements QLTokens {
 	}
 
 	/**
-	 * Retrieves the next token.
+	 * Retrieves the next token based on previously read character.
 	 * 
 	 * @return The token.
 	 */
@@ -255,7 +256,7 @@ public class QLLexer implements QLTokens {
 				
 				case '"': {
 					if ( this.matchString() ) {
-						return token = STR;
+						return token;
 					}
 				}
 				
@@ -275,7 +276,7 @@ public class QLLexer implements QLTokens {
 	}
 	
 	/**
-	 * Matches a string literal.
+	 * Matches a string literal and updates the token field.
 	 * 
 	 * @return True if string, false otherwise.
 	 */
@@ -304,15 +305,19 @@ public class QLLexer implements QLTokens {
 		}
 
 		yylval = new org.uva.sea.ql.ast.expression.value.Str( sb.toString() );
+		token = STR;
+		
 		return true;
 	}
 	
 	/**
-	 * Unescapes an escaped character within a string literal.
+	 * Retrieves an escaped character within a string literal.
 	 * 
-	 * @param input Character to unescape.
+	 * @param input The escaped character.
 	 * 
-	 * @return The unescaped character.
+	 * @return The un-escaped character.
+	 * 
+	 * @throws RuntimeException if escaped character is invalid.
 	 */
 	private char getEscapedChar( char input ) {
 		switch ( input ) {
@@ -347,7 +352,8 @@ public class QLLexer implements QLTokens {
 	}
 		
 	/**
-	 * Matches a number literal.
+	 * Matches a number literal and updates the token field.
+	 * This matches any number of Integer or Money types.
 	 * 
 	 * @return True if integer, false otherwise.
 	 */
@@ -397,7 +403,7 @@ public class QLLexer implements QLTokens {
 	}
 	
 	/**
-	 * Matches a keyword or identifier token.
+	 * Matches a keyword or identifier token and updates the token field accordingly on success.
 	 * 
 	 * @return True if successful, false otherwise.
 	 */
@@ -453,7 +459,7 @@ public class QLLexer implements QLTokens {
 	}
 
 	/**
-	 * Returns the current token.
+	 * Returns the most recent identified token.
 	 * 
 	 * @return The current token.
 	 */
@@ -476,7 +482,7 @@ public class QLLexer implements QLTokens {
 	 * @return Column number.
 	 */
 	public int getColumn() {
-		return this.column;
+		return column;
 	}
 	
 	/**
@@ -485,6 +491,6 @@ public class QLLexer implements QLTokens {
 	 * @return Line number.
 	 */
 	public int getLineNumber() {
-		return this.line;
+		return line;
 	}
 }
