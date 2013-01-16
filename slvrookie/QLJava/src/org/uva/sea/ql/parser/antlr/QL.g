@@ -130,7 +130,7 @@ Comment : '/*' .* '*/' {$channel=HIDDEN;};
 
 LineComment : '//' ~('\n'|'\r')* '\r'? '\n' {$channel=HIDDEN;};
     
-StringLiteral : '"' ~('\n' | '\r' | '"')* '"' ;
+StringLiteral : '"' .* '"';
 
 Ident :   ('a'..'z'|'A'..'Z')('a'..'z'|'A'..'Z'|'0'..'9'|'_')*;
 

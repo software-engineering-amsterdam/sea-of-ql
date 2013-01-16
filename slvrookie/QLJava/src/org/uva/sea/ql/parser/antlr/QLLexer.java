@@ -1,4 +1,4 @@
-// $ANTLR 3.5 C:\\Users\\SliverPente\\workspaceindigo\\QLJAVA\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g 2013-01-16 18:28:59
+// $ANTLR 3.5 C:\\Users\\SliverPente\\workspaceindigo\\QLJAVA\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g 2013-01-16 21:02:20
 
 package org.uva.sea.ql.parser.antlr;
 
@@ -777,31 +777,27 @@ public class QLLexer extends Lexer {
 		try {
 			int _type = StringLiteral;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// C:\\Users\\SliverPente\\workspaceindigo\\QLJAVA\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:133:15: ( '\"' (~ ( '\\n' | '\\r' | '\"' ) )* '\"' )
-			// C:\\Users\\SliverPente\\workspaceindigo\\QLJAVA\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:133:17: '\"' (~ ( '\\n' | '\\r' | '\"' ) )* '\"'
+			// C:\\Users\\SliverPente\\workspaceindigo\\QLJAVA\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:133:15: ( '\"' ( . )* '\"' )
+			// C:\\Users\\SliverPente\\workspaceindigo\\QLJAVA\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:133:17: '\"' ( . )* '\"'
 			{
 			match('\"'); 
-			// C:\\Users\\SliverPente\\workspaceindigo\\QLJAVA\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:133:21: (~ ( '\\n' | '\\r' | '\"' ) )*
+			// C:\\Users\\SliverPente\\workspaceindigo\\QLJAVA\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:133:21: ( . )*
 			loop5:
 			while (true) {
 				int alt5=2;
 				int LA5_0 = input.LA(1);
-				if ( ((LA5_0 >= '\u0000' && LA5_0 <= '\t')||(LA5_0 >= '\u000B' && LA5_0 <= '\f')||(LA5_0 >= '\u000E' && LA5_0 <= '!')||(LA5_0 >= '#' && LA5_0 <= '\uFFFF')) ) {
+				if ( (LA5_0=='\"') ) {
+					alt5=2;
+				}
+				else if ( ((LA5_0 >= '\u0000' && LA5_0 <= '!')||(LA5_0 >= '#' && LA5_0 <= '\uFFFF')) ) {
 					alt5=1;
 				}
 
 				switch (alt5) {
 				case 1 :
-					// C:\\Users\\SliverPente\\workspaceindigo\\QLJAVA\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:
+					// C:\\Users\\SliverPente\\workspaceindigo\\QLJAVA\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:133:21: .
 					{
-					if ( (input.LA(1) >= '\u0000' && input.LA(1) <= '\t')||(input.LA(1) >= '\u000B' && input.LA(1) <= '\f')||(input.LA(1) >= '\u000E' && input.LA(1) <= '!')||(input.LA(1) >= '#' && input.LA(1) <= '\uFFFF') ) {
-						input.consume();
-					}
-					else {
-						MismatchedSetException mse = new MismatchedSetException(null,input);
-						recover(mse);
-						throw mse;
-					}
+					matchAny(); 
 					}
 					break;
 

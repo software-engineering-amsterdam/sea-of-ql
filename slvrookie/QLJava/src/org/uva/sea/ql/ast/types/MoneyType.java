@@ -1,9 +1,5 @@
 package org.uva.sea.ql.ast.types;
 
-public class MoneyType extends Type {
-
-	public MoneyType() {
-		super("money");
-	}
+public abstract class MoneyType extends Type {
 
 }

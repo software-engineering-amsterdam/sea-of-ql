@@ -1,9 +1,7 @@
 package org.uva.sea.ql.ast.types;
 
-public class StringType extends Type {
+public abstract class StringType extends Type {
 
-	public StringType() {
-		super("string");
-	}
+
 
 }
