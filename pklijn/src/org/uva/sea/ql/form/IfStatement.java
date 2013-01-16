@@ -4,27 +4,27 @@ import java.util.List;
 
 public class IfStatement extends FormItem {
 
-	private String indentifier;
-	private List<FormItem> elements;
+	private String id;
+	private List<FormItem> formItems;
 	
-	public IfStatement(String ident4, List<FormItem> elements) {
-		this.indentifier = ident4;
-		this.elements = elements;
+	public IfStatement(String id, List<FormItem> formItems) {
+		this.id = id;
+		this.formItems = formItems;
 	}
 	
-	public String getIndentier() {
-		return indentifier;
+	public String getId() {
+		return id;
 	}
 	
-	public List<FormItem> getElements() {
-		return elements;
+	public List<FormItem> getFormItems() {
+		return formItems;
 	}
 
 	@Override
 	public void print(int level) {
 		super.print(level);
-		System.out.println("IF id: "+ indentifier +" level:" + level);
-		for (FormItem f : elements) {
+		System.out.println("IF id: "+ id +" level:" + level);
+		for (FormItem f : formItems) {
 			f.print(level + 1);
 		}
 	}

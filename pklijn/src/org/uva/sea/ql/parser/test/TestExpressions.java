@@ -35,11 +35,9 @@ public class TestExpressions {
 	public TestExpressions(IParse parser) {
 		this.parser = parser;
 	}
-
 	
 	@Test
 	public void testAdds() throws ParseError {
-		System.out.println(parser.parse("a + b").getClass());
 		assertEquals(parser.parse("a + b").getClass(), Add.class);
 		assertEquals(parser.parse("a + b + c").getClass(), Add.class);
 		assertEquals(parser.parse("(a + b + c)").getClass(), Add.class);
