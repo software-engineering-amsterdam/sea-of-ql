@@ -5,27 +5,27 @@ lexical Ident
  	;
 
 lexical Money 
-	= [0-9]+ "." !>> [0-9]?[0-9]
+	=   [0-9]+ "." !>> [0-9]?[0-9]
 	;
 
 lexical Date
-	= [0-3][0-9] "/" [0-2][0-3] "/"[0-9][0-9][0-9][0-9]"/"
+	=  [0-3][0-9] "/" [0-2][0-3] "/"[0-9][0-9][0-9][0-9]"/"
 	;
 
 lexical Int
- 	= [0-9]+ !>> [0-9]
+ 	=  [0-9]+ !>> [0-9]
  	;
 
 lexical Float 
-	= [0-9]+ "." [0-9] [0-9]
+	=  [0-9]+ "." [0-9] [0-9]
 	;
 
 lexical Boolean
-	= "true"
-	| "false";
+	=  "true"
+	|  "false";
   
 lexical String
-	= "\"" ![\"]* "\""
+	=   "\"" ![\"]* "\""
 	;
 
 layout Standard 
@@ -72,8 +72,7 @@ start syntax ElseIf
 
 start syntax Question
 	= simpleQuestion: Ident ident ":" String label Type type
-	| computedQuestion: Ident ident ":"  String label  Type type Expr compExpression
-	 
+	| computedQuestion: Ident ident ":"  String label  Type type Expr compExpression 
 	;
 
 start syntax Expr
@@ -110,7 +109,7 @@ start syntax Expr
   	;
 
 start syntax Type
- 	= boolean:"boolean"
+ 	= @category="TypeDeclaration" boolean:"boolean"
  	| integer:"integer"
  	| date:"date"
  	| money:"money"
