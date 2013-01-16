@@ -1,10 +1,10 @@
 package org.uva.sea.ql.ast;
 
-public class Ident extends Expr {
+public class Literal extends Expr {
 
 	private final String name;
 
-	public Ident(String name) {
+	public Literal(String name) {
 		this.name = name;
 	}
 	
