@@ -11,6 +11,9 @@ public test bool testForm2() = p("form Box1HouseOwning2 {
    hasSoldHouse: \"Did you sell a house in 2010?\" boolean 
    hasBoughtHouse: \"Did you by a house in 2010?\" boolean
    if(hasSoldHouse){
+   		if(addaw){
+   		price: \"in what price\" money
+   		}
    		price: \"in what price\" money
    		year: \" Which Year \" date
    		}
