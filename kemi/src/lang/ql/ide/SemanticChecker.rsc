@@ -72,11 +72,11 @@ public set[Message] semanticChecker(node form) {
   def = identifierDefinitions(form);
   fgraph = flowGraph(form);
   
-  ret += duplicateIdentifierMessages(def, fgraph);
-  ret += duplicateQuestionMessages(def, fgraph);
+  ret += duplicateIdentifierMessages(def);
+  ret += duplicateQuestionMessages(def);
   ret += useBeforeDeclarationMessages(us, def, fgraph);
   
-   return ret;  
+  return ret;  
 }
 
 private set[Message] useBeforeDeclarationMessages(
@@ -104,8 +104,7 @@ private set[Message] useBeforeDeclarationMessages(
     {useBeforeDeclaration(prettyPrint(u.expr), u.location) | u <- (idUses - found)};
 }
 
-private set[Message] duplicateIdentifierMessages(
-  list[GraphNode] definitions, rel[GraphNode, GraphNode] fgraph) {
+private set[Message] duplicateIdentifierMessages(list[GraphNode] definitions) {
   
   ids = toMap([ <name, <\type, x@location>> | 
     i <- definitions, question(x, _) := i, 
@@ -120,9 +119,7 @@ private set[Message] duplicateIdentifierMessages(
     {duplicateIdentifierMessage(name, \type, \loc) | <<\type, \loc>, name> <- idsRel};
 }
 
-private set[Message] duplicateQuestionMessages(
-  list[GraphNode] definitions, rel[GraphNode, GraphNode] fgraph) {
-   
+private set[Message] duplicateQuestionMessages(list[GraphNode] definitions) {
   textMap = toMap([ <text, x@location> | 
     i <- definitions, question(x, _) := i, 
     question(text, _, _) := x || 
@@ -130,8 +127,6 @@ private set[Message] duplicateQuestionMessages(
     
   textMap = (key : textMap[key] | key <- textMap, size(textMap[key]) > 1);
   textMapRel = { < x, d> | d <- textMap, x <- textMap[d] };
-  
-  //text(textMapRel);
   
   return 
     {duplicateQuestionMessage(text, \loc) | <\loc, text> <- textMapRel};
@@ -153,9 +148,17 @@ private bool sortOccurrences(
 }
 
 private bool idNameMatches(GraphNode use, GraphNode definition) {
-  if(question(question(_, \type, name), _) := definition) {
+  if(question(question(_, _, name), _) := definition) {
     return name == use.expr.name;
-  } else if(question(question(_, \type, name, _), _) := definition) {
+  } else if(question(question(_, _, name, _), _) := definition) {
     return name == use.expr.name;
+  }
+}
+
+private bool getQuestionTextFromGraphNode(GraphNode definition) {
+  if(question(question(text, _, _), _) := definition) {
+    return text;
+  } else if(question(question(text, _, _, _), _) := definition) {
+    return text;
   }
 }

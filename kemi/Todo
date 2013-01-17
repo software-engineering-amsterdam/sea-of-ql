@@ -27,6 +27,7 @@ BONUS:
 Grading: See wiki
 
 
-* Test the questions via the graph
+* Test the questions via the graph ? -> makes our compilation life harder...
+* Test the identifiers via the graph ? -> makes our compilation life harder... 
 * Randomized testing for semantic checker
 * Isolated tests for each of the semantic checks
