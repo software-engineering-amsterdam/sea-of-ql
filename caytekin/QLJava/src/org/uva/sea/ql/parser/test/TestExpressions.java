@@ -90,47 +90,47 @@ public class TestExpressions {
 	
 	@Test 
 	public void testStringLiteral() throws ParseError {
-		assertEquals(parser.parse(" \" This is a String liteal indeed... \" ").getClass(), String_Literal.class);
+		assertEquals(parser.parse(" \" This is a String liteal indeed... \" ").getClass(), StringLiteral.class);
 	}
 	
 	@Test 
-	public void testBoolean_Type() throws ParseError {
-		assertEquals(parser.parse("bool").getClass(), Boolean_Type.class);
+	public void testBooleanType() throws ParseError {
+		assertEquals(parser.parse("bool").getClass(), BooleanType.class);
 	}
 	
 	@Test 
-	public void testInteger_Type() throws ParseError {
-		assertEquals(parser.parse("int").getClass(), Integer_Type.class);
+	public void testIntegerType() throws ParseError {
+		assertEquals(parser.parse("int").getClass(), IntegerType.class);
 	}
 	
 	@Test 
-	public void testString_Type() throws ParseError {
-		assertEquals(parser.parse("string").getClass(), String_Type.class);
+	public void testStringType() throws ParseError {
+		assertEquals(parser.parse("string").getClass(), StringType.class);
 	}
 	
 	@Test 
-	public void testTrue_RW() throws ParseError {
-		assertEquals(parser.parse("true").getClass(), True_RW.class);
+	public void testTrueRW() throws ParseError {
+		assertEquals(parser.parse("true").getClass(), TrueRW.class);
 	}
 	
 	@Test 
-	public void testFalse_RW() throws ParseError {
-		assertEquals(parser.parse("false").getClass(), False_RW.class);
+	public void testFalseRW() throws ParseError {
+		assertEquals(parser.parse("false").getClass(), FalseRW.class);
 	}
 	
 	@Test 
-	public void testIf_RW() throws ParseError {
-		assertEquals(parser.parse("if").getClass(), If_RW.class);
+	public void testIfRW() throws ParseError {
+		assertEquals(parser.parse("if").getClass(), IfRW.class);
 	}
 	
 	@Test 
-	public void testThen_RW() throws ParseError {
-		assertEquals(parser.parse("then").getClass(), Then_RW.class);
+	public void testThenRW() throws ParseError {
+		assertEquals(parser.parse("then").getClass(), ThenRW.class);
 	}
 	
 	@Test 
-	public void testElse_RW() throws ParseError {
-		assertEquals(parser.parse("else").getClass(), Else_RW.class);
+	public void testElseRW() throws ParseError {
+		assertEquals(parser.parse("else").getClass(), ElseRW.class);
 	}
 	
 	@Test

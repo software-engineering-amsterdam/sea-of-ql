@@ -1,13 +1,11 @@
 package org.uva.sea.ql.ast;
 
-public class Integer_Type extends Type {
+public class StringLiteral extends Expr {
 
 	private final String value;
 
-	public Integer_Type(String s) {
-		super(s);
+	public StringLiteral(String s) {
 		this.value = s;
-		// TODO
 	}
 
 	public String getValue() {
