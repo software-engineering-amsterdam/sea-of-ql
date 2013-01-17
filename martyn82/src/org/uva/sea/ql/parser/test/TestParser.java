@@ -11,6 +11,8 @@ import org.uva.sea.ql.ast.expression.value.Str;
 import org.uva.sea.ql.ast.statement.Assignment;
 import org.uva.sea.ql.ast.statement.If;
 import org.uva.sea.ql.ast.statement.VarDeclaration;
+import org.uva.sea.ql.parser.IParser;
+import org.uva.sea.ql.parser.ParseError;
 import org.uva.sea.ql.parser.jacc.JACCParser;
 
 /**
@@ -93,6 +95,16 @@ public class TestParser {
 		assertEquals( Div.class, parser.parse( "(a / b)" ).getClass() );
 		assertEquals( Div.class, parser.parse( "(a + b) / c" ).getClass() );
 		assertEquals( Div.class, parser.parse( "a / (b + c)" ).getClass() );
+	}
+
+	/**
+	 * Tests power expressions.
+	 * 
+	 * @throws ParseError
+	 */
+	@Test
+	public void testPows() throws ParseError {
+		assertEquals( Pow.class, parser.parse( "a ^ b" ).getClass() );
 	}
 
 	/**
@@ -321,10 +333,10 @@ public class TestParser {
 	 */
 	@Test
 	public void testVarDeclaration() throws ParseError {
-		assertEquals( VarDeclaration.class, parser.parse( "a : boolean" ).getClass() );
-		assertEquals( VarDeclaration.class, parser.parse( "b: integer" ).getClass() );
-		assertEquals( VarDeclaration.class, parser.parse( "c : string" ).getClass() );
-		assertEquals( VarDeclaration.class, parser.parse( "d : money" ).getClass() );
+		assertEquals( VarDeclaration.class, parser.parse( "a : boolean;" ).getClass() );
+		assertEquals( VarDeclaration.class, parser.parse( "b: integer;" ).getClass() );
+		assertEquals( VarDeclaration.class, parser.parse( "c : string;" ).getClass() );
+		assertEquals( VarDeclaration.class, parser.parse( "d : money;" ).getClass() );
 	}
 	
 	/**
@@ -334,7 +346,7 @@ public class TestParser {
 	 */
 	@Test
 	public void testAssignment() throws ParseError {
-		assertEquals( Assignment.class, parser.parse( "a = 4 + 5" ).getClass() );
-		assertEquals( Assignment.class, parser.parse( "c3 = (55 + -3) * 45" ).getClass() );
+		assertEquals( Assignment.class, parser.parse( "a = 4 + 5;" ).getClass() );
+		assertEquals( Assignment.class, parser.parse( "c3 = (55 + -3) * 45;" ).getClass() );
 	}
 }

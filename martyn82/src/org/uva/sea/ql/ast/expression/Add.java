@@ -1,5 +1,6 @@
 package org.uva.sea.ql.ast.expression;
 
+import org.uva.sea.ql.ast.type.Type;
 import org.uva.sea.ql.visitor.Visitor;
 
 /**
@@ -19,5 +20,19 @@ public class Add extends ArithmeticExpression {
 	@Override
 	public void accept( Visitor visitor ) {
 		visitor.visit( this );
+	}
+	
+	@Override
+	public boolean checkType() {
+		// both be Number
+		// both be Ident
+		// one be Number, other be Ident
+		return false;
+	}
+
+	@Override
+	public Type getType() {
+		// both or one money: money
+		return null;
 	}
 }

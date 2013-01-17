@@ -4,16 +4,16 @@ import org.uva.sea.ql.ast.type.Type;
 import org.uva.sea.ql.visitor.Visitor;
 
 /**
- * Represents a subtraction expression.
+ * Represents a power expression.
  */
-public class Sub extends ArithmeticExpression {
+public class Pow extends ArithmeticExpression {
 	/**
-	 * Constructs a new subtraction expression.
+	 * Constructs a new power expression.
 	 * 
 	 * @param lhs The left-hand side.
 	 * @param rhs The right-hand side.
 	 */
-	public Sub( Expression lhs, Expression rhs ) {
+	public Pow( Expression lhs, Expression rhs ) {
 		super( lhs, rhs );
 	}
 

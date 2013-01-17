@@ -10,10 +10,8 @@ public class Form {
 	public Form(String id, List<FormItem> formItems) {
 		this.id = id;
 		this.formItems = formItems;
-//		System.out.println("formItems: " + id);
-//		for (FormItem f : formItems) {
-//			f.print(0);
-//		}
+		
+		print();
 	}
 
 	public String getIdentity() {
@@ -24,4 +22,10 @@ public class Form {
 		return formItems;
 	}
 
+	public void print() {
+		System.out.println("formItems: " + id);
+		for (FormItem f : formItems) {
+			f.print(0);
+		}		
+	}
 }

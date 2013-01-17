@@ -6,10 +6,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.regex.Pattern;
 
-import org.uva.sea.ql.ast.ASTNode;
+import org.uva.sea.ql.ast.Node;
 import org.uva.sea.ql.ast.expression.Ident;
-import org.uva.sea.ql.ast.expression.value.Int;
-import org.uva.sea.ql.ast.expression.value.Money;
 
 /**
  * Lexer class.
@@ -44,11 +42,21 @@ public class QLLexer implements QLTokens {
 	 * Holds the current character code.
 	 */
 	private int c = ' ';
+	
+	/**
+	 * Holds current column number.
+	 */
+	private int column;
+	
+	/**
+	 * Holds current line number.
+	 */
+	private int line;
 
 	/**
 	 * Holds the current AST node.
 	 */
-	private ASTNode yylval;
+	private Node yylval;
 	
 	/**
 	 * Holds the input reader.
@@ -66,21 +74,32 @@ public class QLLexer implements QLTokens {
 	private Pattern integer;
 
 	/**
-	 * Constructs a new QLLexer instance.
+	 * Constructs a new lexer instance.
 	 * 
 	 * @param input The input reader.
 	 */
 	public QLLexer( Reader input ) {
 		this.input = input;
+		this.column = 0;
+		this.line = 1;
 	}
 
 	/**
-	 * Reads the next character.
+	 * Reads the next character into field c.
+	 * On end of input or failure, c will be -1.
 	 */
 	private void nextChar() {
 		if ( c >= 0 ) {
 			try {
 				c = input.read();
+				
+				if ( c == '\n' ) {
+					line++;
+					column = 0;
+				}
+				else if ( c > 0 ) {
+					column++;
+				}
 			}
 			catch ( IOException e ) {
 				c = -1;
@@ -89,9 +108,9 @@ public class QLLexer implements QLTokens {
 	}
 
 	/**
-	 * Computes and retrieves the next token.
+	 * Retrieves the next token based on previously read character.
 	 * 
-	 * @return The computed token.
+	 * @return The token.
 	 */
 	public int nextToken() {
 		boolean inComment = false;
@@ -152,6 +171,7 @@ public class QLLexer implements QLTokens {
 				case ';':
 				case '+':
 				case '-':
+				case '^':
 					token = c;
 					nextChar();
 					return token;
@@ -237,7 +257,7 @@ public class QLLexer implements QLTokens {
 				
 				case '"': {
 					if ( this.matchString() ) {
-						return token = STR;
+						return token;
 					}
 				}
 				
@@ -257,7 +277,7 @@ public class QLLexer implements QLTokens {
 	}
 	
 	/**
-	 * Matches a string literal.
+	 * Matches a string literal and updates the token field.
 	 * 
 	 * @return True if string, false otherwise.
 	 */
@@ -286,15 +306,19 @@ public class QLLexer implements QLTokens {
 		}
 
 		yylval = new org.uva.sea.ql.ast.expression.value.Str( sb.toString() );
+		token = STR;
+		
 		return true;
 	}
 	
 	/**
-	 * Unescapes an escaped character within a string literal.
+	 * Retrieves an escaped character within a string literal.
 	 * 
-	 * @param input Character to unescape.
+	 * @param input The escaped character.
 	 * 
-	 * @return The unescaped character.
+	 * @return The un-escaped character.
+	 * 
+	 * @throws RuntimeException if escaped character is invalid.
 	 */
 	private char getEscapedChar( char input ) {
 		switch ( input ) {
@@ -329,7 +353,8 @@ public class QLLexer implements QLTokens {
 	}
 		
 	/**
-	 * Matches a number literal.
+	 * Matches a number literal and updates the token field.
+	 * This matches any number of Integer or Money types.
 	 * 
 	 * @return True if integer, false otherwise.
 	 */
@@ -379,7 +404,7 @@ public class QLLexer implements QLTokens {
 	}
 	
 	/**
-	 * Matches a keyword or identifier token.
+	 * Matches a keyword or identifier token and updates the token field accordingly on success.
 	 * 
 	 * @return True if successful, false otherwise.
 	 */
@@ -435,7 +460,7 @@ public class QLLexer implements QLTokens {
 	}
 
 	/**
-	 * Returns the current token.
+	 * Returns the most recent identified token.
 	 * 
 	 * @return The current token.
 	 */
@@ -448,7 +473,25 @@ public class QLLexer implements QLTokens {
 	 * 
 	 * @return The AST.
 	 */
-	public ASTNode getSemantic() {
+	public Node getSemantic() {
 		return yylval;
+	}
+	
+	/**
+	 * Retrieves the current column number on the current line.
+	 * 
+	 * @return Column number.
+	 */
+	public int getColumn() {
+		return column;
+	}
+	
+	/**
+	 * Retrieves the current line number.
+	 * 
+	 * @return Line number.
+	 */
+	public int getLineNumber() {
+		return line;
 	}
 }

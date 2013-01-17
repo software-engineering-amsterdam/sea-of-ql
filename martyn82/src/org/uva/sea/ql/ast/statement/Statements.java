@@ -4,13 +4,13 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
-import org.uva.sea.ql.ast.ASTNode;
+import org.uva.sea.ql.ast.Node;
 import org.uva.sea.ql.visitor.Visitor;
 
 /**
  * 
  */
-public class Statements implements ASTNode, Iterable<Statement> {
+public class Statements implements Node, Iterable<Statement> {
 	private final List<Statement> statements;
 	
 	public Statements( Statement statement, Statements statements ) {
