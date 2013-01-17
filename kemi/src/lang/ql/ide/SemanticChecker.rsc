@@ -3,6 +3,7 @@ module lang::ql::ide::SemanticChecker
 import List;
 import Map;
 import ParseTree;
+import Set;
 import analysis::graphs::Graph;
 import lang::ql::ast::AST;
 import lang::ql::ast::Graph;
@@ -57,8 +58,8 @@ public void main() {
   us = identifierUses(x);
   def = identifierDefinitions(x);
 
-  sx = useBeforeDeclarationMessages(us, def, x);
-  //sx = semanticChecker(x);
+  //sx = useBeforeDeclarationMessages(us, def, x);
+  sx = semanticChecker(x);
 
 
   iprintln(sx);
@@ -66,22 +67,25 @@ public void main() {
 
 public set[Message] semanticChecker(node form) {
   set[Message] ret = {};
+  
   us = identifierUses(form);
   def = identifierDefinitions(form);
+  fgraph = flowGraph(form);
   
-  ret += duplicateIdentifierMessages(def);
-  ret += duplicateQuestionMessages(form);
-  ret += useBeforeDeclarationMessages(us, def, form);
+  ret += duplicateIdentifierMessages(def, fgraph);
+  ret += duplicateQuestionMessages(def, fgraph);
+  ret += useBeforeDeclarationMessages(us, def, fgraph);
   
    return ret;  
 }
 
-private set[Message] useBeforeDeclarationMessages(list[GraphNode] idUses, list[GraphNode] defs, Form form) {
+private set[Message] useBeforeDeclarationMessages(
+  list[GraphNode] idUses, list[GraphNode] definitions, rel[GraphNode, GraphNode] fgraph) {
+  
   list[GraphNode] found = [];
-  fgraph = formGraph(form);
 
   for(u <- idUses) {
-    for(d <- defs) {
+    for(d <- definitions) {
       if(idNameMatches(u, d)) {
         parents = [ a | <a, b> <- fgraph, b == d];
         
@@ -100,12 +104,14 @@ private set[Message] useBeforeDeclarationMessages(list[GraphNode] idUses, list[G
     {useBeforeDeclaration(prettyPrint(u.expr), u.location) | u <- (idUses - found)};
 }
 
-private set[Message] duplicateIdentifierMessages(list[GraphNode] defs) {
+private set[Message] duplicateIdentifierMessages(
+  list[GraphNode] definitions, rel[GraphNode, GraphNode] fgraph) {
+  
   ids = toMap([ <name, <\type, x@location>> | 
-    i <- defs, question(x, _) := i, 
+    i <- definitions, question(x, _) := i, 
     question(_, \type, name) := x || 
     question(_, \type, name, _) := x]);
-  
+    
   ids = (key : ids[key] | key <- ids, size(ids[key]) > 1);
   
   idsRel = { < x, d> | d <- ids, x <- ids[d] };
@@ -114,20 +120,21 @@ private set[Message] duplicateIdentifierMessages(list[GraphNode] defs) {
     {duplicateIdentifierMessage(name, \type, \loc) | <<\type, \loc>, name> <- idsRel};
 }
 
-private set[Message] duplicateQuestionMessages(Form form) { 
-  map[str text, list[loc] \loc] textMap = ();
-
-  // Needed, see issue 32: https://github.com/cwi-swat/rascal/issues/32
-  list[loc] qinit = [];
-  
-  top-down visit(form) {
-    case q:question(text, \type, ident): textMap[text]?qinit += [q@location];
-    case q:question(text, \type, ident, calculated): textMap[text]?qinit += [q@location];
-  }
-  
+private set[Message] duplicateQuestionMessages(
+  list[GraphNode] definitions, rel[GraphNode, GraphNode] fgraph) {
+   
+  textMap = toMap([ <text, x@location> | 
+    i <- definitions, question(x, _) := i, 
+    question(text, _, _) := x || 
+    question(text, _, _, _) := x]);
+    
   textMap = (key : textMap[key] | key <- textMap, size(textMap[key]) > 1);
   textMapRel = { < x, d> | d <- textMap, x <- textMap[d] };
-  return {duplicateQuestionMessage(text, \loc) | <\loc, text> <- textMapRel};  
+  
+  //text(textMapRel);
+  
+  return 
+    {duplicateQuestionMessage(text, \loc) | <\loc, text> <- textMapRel};
 }
 
 private Message duplicateQuestionMessage(text, \loc) 
