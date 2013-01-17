@@ -6,9 +6,9 @@ import org.uva.sea.ql.ast.types.DataType;
 public class Question extends Element {
 	private final Label label;
 	private final String question;
-	private final DataType expectedType;
+	private final Class<? extends DataType> expectedType;
 	
-	public Question(Label label, String question, DataType expectedType) {
+	public Question(Label label, String question, Class<? extends DataType> expectedType) {
 		this.label = label;
 		this.question = question;
 		this.expectedType = expectedType;
@@ -22,7 +22,7 @@ public class Question extends Element {
 		return question;
 	}
 	
-	public DataType getExpectedType() {
+	public Class<? extends DataType> getExpectedType() {
 		return expectedType;
 	}
 

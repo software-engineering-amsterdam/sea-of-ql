@@ -7,10 +7,10 @@ import org.uva.sea.ql.ast.types.DataType;
 public class Computation extends Element {
 	private Label label;
 	private String description;
-	private DataType expectedType;
+	private Class<? extends DataType> expectedType;
 	private Node calculationOperation;
 	
-	public Computation(Label label, String description, DataType expectedType, Node calculationOperation) {
+	public Computation(final Label label, final String description, final Class<? extends DataType> expectedType, final Node calculationOperation) {
 		this.label = label;
 		this.description = description;
 		this.expectedType = expectedType;
@@ -25,7 +25,7 @@ public class Computation extends Element {
 		return description;
 	}
 	
-	public DataType getExpectedType() {
+	public Class<? extends DataType> getExpectedType() {
 		return expectedType;
 	}
 

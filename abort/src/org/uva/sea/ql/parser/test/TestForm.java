@@ -1,8 +1,11 @@
 package org.uva.sea.ql.parser.test;
 
+import static org.junit.Assert.*;
+
 import java.util.List;
 
 import org.antlr.runtime.RecognitionException;
+import org.junit.After;
 import org.junit.Test;
 import org.uva.sea.ql.ast.base.Node;
 import org.uva.sea.ql.ast.form.Form;
@@ -11,7 +14,7 @@ import org.uva.sea.ql.parser.antlr.QLParserController;
 
 import junit.framework.TestCase;
 
-public class TestForm extends TestCase {
+public class TestForm extends TestBase {
 	private static final String FORM = 
 			"form Box1HouseOwning { hasSoldHouse: \"Did you sell a house in 2010?\" boolean\nhasBoughtHouse: \"Did you buy a house in 2010?\" boolean\nif (hasSoldHouse) { sellingPrice: \"Price was sold for:\" money\nprivateDebt: \"Private debts for the sold house:\" money\nvalueResidue: \"Value residue:\" money(sellingPrice - privateDebt) } else { reasonNotSelling: \"Why did you not sell the house?\" string\n }\n age: \"How old are you?\" integer\n\n}";
 			
@@ -46,5 +49,11 @@ public class TestForm extends TestCase {
 	@Test
 	public void testQuestion() {
 		
+	}
+	
+	@After
+	public void printErrorLog() {
+		typeChecker.getErrorLog().write(System.err);
+		typeChecker.getEventLog().write(System.out);
 	}
 }

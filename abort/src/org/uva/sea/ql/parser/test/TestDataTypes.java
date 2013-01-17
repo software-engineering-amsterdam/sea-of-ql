@@ -1,9 +1,10 @@
 package org.uva.sea.ql.parser.test;
 
+import static org.junit.Assert.*;
+
 import org.antlr.runtime.RecognitionException;
 import org.junit.Test;
 import org.uva.sea.ql.ast.base.Node;
-import org.uva.sea.ql.ast.types.Ident;
 import org.uva.sea.ql.ast.types.Int;
 import org.uva.sea.ql.ast.types.Money;
 import org.uva.sea.ql.ast.types.StringLiteral;

@@ -64,12 +64,12 @@ question returns [Question result]
     $result = new Question(new Label($label.text), $String.text, $parameter.result);
   };
   
-dataType returns [DataType result]
+dataType returns [Class<? extends DataType> result]
  : Type {
-    if ($Type.text.equals("string")) $result = new StringLiteral();
-    else if ($Type.text.equals("integer")) $result = new Int();
-    else if ($Type.text.equals("money")) $result = new Money();
-    else if ($Type.text.equals("boolean")) $result = new Bool();
+    if ($Type.text.equals("string")) $result = StringLiteral.class;
+    else if ($Type.text.equals("integer")) $result = Int.class;
+    else if ($Type.text.equals("money")) $result = Money.class;
+    else if ($Type.text.equals("boolean")) $result = Bool.class;
  };
  
 primary returns [Node result]

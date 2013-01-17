@@ -7,7 +7,7 @@ import org.uva.sea.ql.parser.antlr.QLParser;
 
 import junit.framework.TestCase;
 
-public class TestBase extends TestCase {
+public class TestBase {
 	protected QLParser parse(final String source) {
 		final ANTLRStringStream stream = new ANTLRStringStream(source);
 		final CommonTokenStream tokens = new CommonTokenStream();

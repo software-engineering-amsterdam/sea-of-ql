@@ -106,7 +106,7 @@ public class TypeChecker implements IVisitor {
 		}
 		else {
 			// The label has not yet been declared before, thus we store it in the symbol table here
-			symbolTable.addTypeForNode(label, computation.getExpectedType().getClass());
+			symbolTable.addTypeForNode(label, computation.getExpectedType());
 		}
 		
 		final Node calculationOperation = computation.getCalculationOperation();
@@ -135,7 +135,7 @@ public class TypeChecker implements IVisitor {
 		}
 		else {
 			// The label has not yet been declared before, thus we store it in the symbol table here
-			symbolTable.addTypeForNode(question.getLabel(), question.getExpectedType().getClass());
+			symbolTable.addTypeForNode(question.getLabel(), question.getExpectedType());
 		}
 	}
 	
@@ -354,7 +354,11 @@ public class TypeChecker implements IVisitor {
 	
 	public TypeErrorLog getErrorLog() {
 		return errorLog;
-	}	
+	}
+	
+	public TypeEventLog getEventLog() {
+		return eventLog;
+	}
 	
 	private boolean checkForEmptyFlow(final IfStatement conditional, final List<Element> flowElements) {
 		if (flowElements == null || flowElements.size() == 0) {

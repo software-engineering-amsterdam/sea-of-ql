@@ -1,5 +1,7 @@
 package org.uva.sea.ql.parser.test;
 
+import static org.junit.Assert.*;
+
 import org.antlr.runtime.RecognitionException;
 import org.junit.Test;
 import org.uva.sea.ql.ast.base.Node;

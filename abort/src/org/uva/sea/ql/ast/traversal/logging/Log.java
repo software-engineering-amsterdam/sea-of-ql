@@ -45,7 +45,7 @@ abstract class Log {
 	}
 	
 	private String getStringRepresentation(final Line line) {
-		return String.format("[%s]: %s -> %s\n", dateFormat.format(line.getCalendar()),
+		return String.format("[%s]: %s -> %s\n", dateFormat.format(line.getCalendar().getTime()),
 				line.getNode().toString(), line.getText());
 	}
 }

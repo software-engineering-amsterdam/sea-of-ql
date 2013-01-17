@@ -1,4 +1,4 @@
-// $ANTLR 3.5 /Users/abort/Documents/UvA/Repository/abort/src/org/uva/sea/ql/parser/antlr/QL.g 2013-01-17 11:11:35
+// $ANTLR 3.5 /Users/abort/Documents/UvA/Repository/abort/src/org/uva/sea/ql/parser/antlr/QL.g 2013-01-17 15:27:06
 
 package org.uva.sea.ql.parser.antlr;
 import org.uva.sea.ql.ast.*;
@@ -528,7 +528,7 @@ public class QLParser extends Parser {
 
 		Token label=null;
 		Token String7=null;
-		DataType parameter =null;
+		Class<? extends DataType> parameter =null;
 		Node operation =null;
 
 		try {
@@ -580,7 +580,7 @@ public class QLParser extends Parser {
 
 		Token label=null;
 		Token String8=null;
-		DataType parameter =null;
+		Class<? extends DataType> parameter =null;
 
 		try {
 			if ( state.backtracking>0 && alreadyParsedRule(input, 7) ) { return result; }
@@ -617,9 +617,9 @@ public class QLParser extends Parser {
 
 
 	// $ANTLR start "dataType"
-	// /Users/abort/Documents/UvA/Repository/abort/src/org/uva/sea/ql/parser/antlr/QL.g:67:1: dataType returns [DataType result] : Type ;
-	public final DataType dataType() throws RecognitionException {
-		DataType result = null;
+	// /Users/abort/Documents/UvA/Repository/abort/src/org/uva/sea/ql/parser/antlr/QL.g:67:1: dataType returns [Class<? extends DataType> result] : Type ;
+	public final Class<? extends DataType> dataType() throws RecognitionException {
+		Class<? extends DataType> result = null;
 
 		int dataType_StartIndex = input.index();
 
@@ -633,10 +633,10 @@ public class QLParser extends Parser {
 			{
 			Type9=(Token)match(input,Type,FOLLOW_Type_in_dataType326); if (state.failed) return result;
 			if ( state.backtracking==0 ) {
-			    if ((Type9!=null?Type9.getText():null).equals("string")) result = new StringLiteral();
-			    else if ((Type9!=null?Type9.getText():null).equals("integer")) result = new Int();
-			    else if ((Type9!=null?Type9.getText():null).equals("money")) result = new Money();
-			    else if ((Type9!=null?Type9.getText():null).equals("boolean")) result = new Bool();
+			    if ((Type9!=null?Type9.getText():null).equals("string")) result = StringLiteral.class;
+			    else if ((Type9!=null?Type9.getText():null).equals("integer")) result = Int.class;
+			    else if ((Type9!=null?Type9.getText():null).equals("money")) result = Money.class;
+			    else if ((Type9!=null?Type9.getText():null).equals("boolean")) result = Bool.class;
 			 }
 			}
 
