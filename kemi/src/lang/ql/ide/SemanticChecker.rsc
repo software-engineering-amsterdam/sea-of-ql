@@ -71,7 +71,7 @@ public set[Message] semanticChecker(node form) {
   set[Message] ret = {};
   us = identifierUses(form);
   def = identifierDefinitions(form);
-/*
+
   ret = duplicateIdentifierMessages(def);
     if(ret != {})
       return ret;
@@ -79,7 +79,7 @@ public set[Message] semanticChecker(node form) {
   ret = duplicateQuestionMessages(form);
     if(ret != {})
       return ret;  
-*/
+
   ret = useBeforeDeclarationMessages(us, def, form);
     if(ret != {})
       return ret;
@@ -87,52 +87,28 @@ public set[Message] semanticChecker(node form) {
    return ret;  
 }
 
-public bool idNameMatches(GraphNode use, GraphNode definition) {
-  if(question(question(_, \type, name), _) := definition) {
-    return name == use.expr.name;
-  } else if(question(question(_, \type, name, _), _) := definition) {
-    return name == use.expr.name;
-  } else {
-    throw "GraphNode def is not a definition.";
-  }
-}
+private set[Message] useBeforeDeclarationMessages(list[GraphNode] idUses, list[GraphNode] defs, Form form) {
+  list[GraphNode] found = [];
+  fgraph = formGraph(form);
 
-private set[Message] useBeforeDeclarationMessages(list[GraphNode] us, list[GraphNode] defs, Form form) {
-  set[GraphNode] unreachable = {};
-  g = formGraph(form);
-  
-  list[GraphNode] nextUse = us;
-  
-  for(d <- defs) {
-    // First get the parent of the current definition:
-    parent = [ a | <a, b> <- g, b == d];
-    r = reach(g, toSet(parent));
-    
-    list[GraphNode] curUse = nextUse;
-    nextUse = [];
-    
-    for(u <- curUse) {
+  for(u <- idUses) {
+    for(d <- defs) {
       if(idNameMatches(u, d)) {
-        println(u.expr.name);
+        parents = [ a | <a, b> <- fgraph, b == d];
         
-        ids = { x | /x:ident(str name) <- r };
+        reachable = reach(fgraph, toSet(parents));
         
-        if(u.expr notin ids) {
-          // use in graph of definition
-          unreachable += {u};
-          println("Unreachable use: <u.location>");
+        ids = { x | /x:ident(str name) <- reachable };
+        
+        if(u.expr in ids) {
+          found += [u];
         }
-      } else {
-        nextUse += [u];
       }
     }
   }
   
-  println("Rest: ");
-  iprintln(nextUse);
-  unreachable += {u | u <- nextUse};
-    
-  return {useBeforeDeclaration(prettyPrint(u.expr), u.location) | u <- unreachable};
+  return 
+    {useBeforeDeclaration(prettyPrint(u.expr), u.location) | u <- (idUses - found)};
 }
 
 private set[Message] duplicateIdentifierMessages(list[GraphNode] defs) {
@@ -178,4 +154,12 @@ private bool sortOccurrences(
   tuple[loc loca, str \type, Expr ident] a, 
   tuple[loc locb, str \type, Expr ident] b) {
     return a.loca.begin.line <= b.locb.begin.line;
+}
+
+private bool idNameMatches(GraphNode use, GraphNode definition) {
+  if(question(question(_, \type, name), _) := definition) {
+    return name == use.expr.name;
+  } else if(question(question(_, \type, name, _), _) := definition) {
+    return name == use.expr.name;
+  }
 }
