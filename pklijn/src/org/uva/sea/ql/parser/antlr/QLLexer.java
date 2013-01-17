@@ -1,4 +1,4 @@
-// $ANTLR 3.4 /Users/peter/Documents/school/UvA/Software Construction/Git/sea-of-ql/pklijn/src/org/uva/sea/ql/parser/antlr/QL.g 2013-01-17 11:19:59
+// $ANTLR 3.4 /Users/peter/Documents/school/UvA/Software Construction/Git/sea-of-ql/pklijn/src/org/uva/sea/ql/parser/antlr/QL.g 2013-01-17 11:42:58
 
 package org.uva.sea.ql.parser.antlr;
 
@@ -31,6 +31,7 @@ public class QLLexer extends Lexer {
     public static final int T__28=28;
     public static final int T__29=29;
     public static final int T__30=30;
+    public static final int T__31=31;
     public static final int Boolean=4;
     public static final int COMMENT=5;
     public static final int Ident=6;
@@ -384,10 +385,10 @@ public class QLLexer extends Lexer {
         try {
             int _type = T__26;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /Users/peter/Documents/school/UvA/Software Construction/Git/sea-of-ql/pklijn/src/org/uva/sea/ql/parser/antlr/QL.g:21:7: ( 'form' )
-            // /Users/peter/Documents/school/UvA/Software Construction/Git/sea-of-ql/pklijn/src/org/uva/sea/ql/parser/antlr/QL.g:21:9: 'form'
+            // /Users/peter/Documents/school/UvA/Software Construction/Git/sea-of-ql/pklijn/src/org/uva/sea/ql/parser/antlr/QL.g:21:7: ( 'else' )
+            // /Users/peter/Documents/school/UvA/Software Construction/Git/sea-of-ql/pklijn/src/org/uva/sea/ql/parser/antlr/QL.g:21:9: 'else'
             {
-            match("form"); 
+            match("else"); 
 
 
 
@@ -407,10 +408,10 @@ public class QLLexer extends Lexer {
         try {
             int _type = T__27;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /Users/peter/Documents/school/UvA/Software Construction/Git/sea-of-ql/pklijn/src/org/uva/sea/ql/parser/antlr/QL.g:22:7: ( 'if' )
-            // /Users/peter/Documents/school/UvA/Software Construction/Git/sea-of-ql/pklijn/src/org/uva/sea/ql/parser/antlr/QL.g:22:9: 'if'
+            // /Users/peter/Documents/school/UvA/Software Construction/Git/sea-of-ql/pklijn/src/org/uva/sea/ql/parser/antlr/QL.g:22:7: ( 'form' )
+            // /Users/peter/Documents/school/UvA/Software Construction/Git/sea-of-ql/pklijn/src/org/uva/sea/ql/parser/antlr/QL.g:22:9: 'form'
             {
-            match("if"); 
+            match("form"); 
 
 
 
@@ -430,10 +431,12 @@ public class QLLexer extends Lexer {
         try {
             int _type = T__28;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /Users/peter/Documents/school/UvA/Software Construction/Git/sea-of-ql/pklijn/src/org/uva/sea/ql/parser/antlr/QL.g:23:7: ( '{' )
-            // /Users/peter/Documents/school/UvA/Software Construction/Git/sea-of-ql/pklijn/src/org/uva/sea/ql/parser/antlr/QL.g:23:9: '{'
+            // /Users/peter/Documents/school/UvA/Software Construction/Git/sea-of-ql/pklijn/src/org/uva/sea/ql/parser/antlr/QL.g:23:7: ( 'if' )
+            // /Users/peter/Documents/school/UvA/Software Construction/Git/sea-of-ql/pklijn/src/org/uva/sea/ql/parser/antlr/QL.g:23:9: 'if'
             {
-            match('{'); 
+            match("if"); 
+
+
 
             }
 
@@ -451,12 +454,10 @@ public class QLLexer extends Lexer {
         try {
             int _type = T__29;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /Users/peter/Documents/school/UvA/Software Construction/Git/sea-of-ql/pklijn/src/org/uva/sea/ql/parser/antlr/QL.g:24:7: ( '||' )
-            // /Users/peter/Documents/school/UvA/Software Construction/Git/sea-of-ql/pklijn/src/org/uva/sea/ql/parser/antlr/QL.g:24:9: '||'
+            // /Users/peter/Documents/school/UvA/Software Construction/Git/sea-of-ql/pklijn/src/org/uva/sea/ql/parser/antlr/QL.g:24:7: ( '{' )
+            // /Users/peter/Documents/school/UvA/Software Construction/Git/sea-of-ql/pklijn/src/org/uva/sea/ql/parser/antlr/QL.g:24:9: '{'
             {
-            match("||"); 
-
-
+            match('{'); 
 
             }
 
@@ -474,10 +475,12 @@ public class QLLexer extends Lexer {
         try {
             int _type = T__30;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /Users/peter/Documents/school/UvA/Software Construction/Git/sea-of-ql/pklijn/src/org/uva/sea/ql/parser/antlr/QL.g:25:7: ( '}' )
-            // /Users/peter/Documents/school/UvA/Software Construction/Git/sea-of-ql/pklijn/src/org/uva/sea/ql/parser/antlr/QL.g:25:9: '}'
+            // /Users/peter/Documents/school/UvA/Software Construction/Git/sea-of-ql/pklijn/src/org/uva/sea/ql/parser/antlr/QL.g:25:7: ( '||' )
+            // /Users/peter/Documents/school/UvA/Software Construction/Git/sea-of-ql/pklijn/src/org/uva/sea/ql/parser/antlr/QL.g:25:9: '||'
             {
-            match('}'); 
+            match("||"); 
+
+
 
             }
 
@@ -490,13 +493,34 @@ public class QLLexer extends Lexer {
     }
     // $ANTLR end "T__30"
 
+    // $ANTLR start "T__31"
+    public final void mT__31() throws RecognitionException {
+        try {
+            int _type = T__31;
+            int _channel = DEFAULT_TOKEN_CHANNEL;
+            // /Users/peter/Documents/school/UvA/Software Construction/Git/sea-of-ql/pklijn/src/org/uva/sea/ql/parser/antlr/QL.g:26:7: ( '}' )
+            // /Users/peter/Documents/school/UvA/Software Construction/Git/sea-of-ql/pklijn/src/org/uva/sea/ql/parser/antlr/QL.g:26:9: '}'
+            {
+            match('}'); 
+
+            }
+
+            state.type = _type;
+            state.channel = _channel;
+        }
+        finally {
+        	// do for sure before leaving
+        }
+    }
+    // $ANTLR end "T__31"
+
     // $ANTLR start "WS"
     public final void mWS() throws RecognitionException {
         try {
             int _type = WS;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /Users/peter/Documents/school/UvA/Software Construction/Git/sea-of-ql/pklijn/src/org/uva/sea/ql/parser/antlr/QL.g:115:5: ( ( ' ' | '\\t' | '\\n' | '\\r' ) )
-            // /Users/peter/Documents/school/UvA/Software Construction/Git/sea-of-ql/pklijn/src/org/uva/sea/ql/parser/antlr/QL.g:115:7: ( ' ' | '\\t' | '\\n' | '\\r' )
+            // /Users/peter/Documents/school/UvA/Software Construction/Git/sea-of-ql/pklijn/src/org/uva/sea/ql/parser/antlr/QL.g:116:5: ( ( ' ' | '\\t' | '\\n' | '\\r' ) )
+            // /Users/peter/Documents/school/UvA/Software Construction/Git/sea-of-ql/pklijn/src/org/uva/sea/ql/parser/antlr/QL.g:116:7: ( ' ' | '\\t' | '\\n' | '\\r' )
             {
             if ( (input.LA(1) >= '\t' && input.LA(1) <= '\n')||input.LA(1)=='\r'||input.LA(1)==' ' ) {
                 input.consume();
@@ -526,14 +550,14 @@ public class QLLexer extends Lexer {
         try {
             int _type = COMMENT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /Users/peter/Documents/school/UvA/Software Construction/Git/sea-of-ql/pklijn/src/org/uva/sea/ql/parser/antlr/QL.g:119:5: ( '/*' ( . )* '*/' )
-            // /Users/peter/Documents/school/UvA/Software Construction/Git/sea-of-ql/pklijn/src/org/uva/sea/ql/parser/antlr/QL.g:119:7: '/*' ( . )* '*/'
+            // /Users/peter/Documents/school/UvA/Software Construction/Git/sea-of-ql/pklijn/src/org/uva/sea/ql/parser/antlr/QL.g:120:5: ( '/*' ( . )* '*/' )
+            // /Users/peter/Documents/school/UvA/Software Construction/Git/sea-of-ql/pklijn/src/org/uva/sea/ql/parser/antlr/QL.g:120:7: '/*' ( . )* '*/'
             {
             match("/*"); 
 
 
 
-            // /Users/peter/Documents/school/UvA/Software Construction/Git/sea-of-ql/pklijn/src/org/uva/sea/ql/parser/antlr/QL.g:119:12: ( . )*
+            // /Users/peter/Documents/school/UvA/Software Construction/Git/sea-of-ql/pklijn/src/org/uva/sea/ql/parser/antlr/QL.g:120:12: ( . )*
             loop1:
             do {
                 int alt1=2;
@@ -558,7 +582,7 @@ public class QLLexer extends Lexer {
 
                 switch (alt1) {
             	case 1 :
-            	    // /Users/peter/Documents/school/UvA/Software Construction/Git/sea-of-ql/pklijn/src/org/uva/sea/ql/parser/antlr/QL.g:119:12: .
+            	    // /Users/peter/Documents/school/UvA/Software Construction/Git/sea-of-ql/pklijn/src/org/uva/sea/ql/parser/antlr/QL.g:120:12: .
             	    {
             	    matchAny(); 
 
@@ -593,8 +617,8 @@ public class QLLexer extends Lexer {
         try {
             int _type = Boolean;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /Users/peter/Documents/school/UvA/Software Construction/Git/sea-of-ql/pklijn/src/org/uva/sea/ql/parser/antlr/QL.g:122:8: ( 'boolean' )
-            // /Users/peter/Documents/school/UvA/Software Construction/Git/sea-of-ql/pklijn/src/org/uva/sea/ql/parser/antlr/QL.g:122:10: 'boolean'
+            // /Users/peter/Documents/school/UvA/Software Construction/Git/sea-of-ql/pklijn/src/org/uva/sea/ql/parser/antlr/QL.g:123:8: ( 'boolean' )
+            // /Users/peter/Documents/school/UvA/Software Construction/Git/sea-of-ql/pklijn/src/org/uva/sea/ql/parser/antlr/QL.g:123:10: 'boolean'
             {
             match("boolean"); 
 
@@ -616,14 +640,14 @@ public class QLLexer extends Lexer {
         try {
             int _type = Money;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /Users/peter/Documents/school/UvA/Software Construction/Git/sea-of-ql/pklijn/src/org/uva/sea/ql/parser/antlr/QL.g:123:6: ( 'money' ( '(' ( . )* ')' )? )
-            // /Users/peter/Documents/school/UvA/Software Construction/Git/sea-of-ql/pklijn/src/org/uva/sea/ql/parser/antlr/QL.g:123:8: 'money' ( '(' ( . )* ')' )?
+            // /Users/peter/Documents/school/UvA/Software Construction/Git/sea-of-ql/pklijn/src/org/uva/sea/ql/parser/antlr/QL.g:124:6: ( 'money' ( '(' ( . )* ')' )? )
+            // /Users/peter/Documents/school/UvA/Software Construction/Git/sea-of-ql/pklijn/src/org/uva/sea/ql/parser/antlr/QL.g:124:8: 'money' ( '(' ( . )* ')' )?
             {
             match("money"); 
 
 
 
-            // /Users/peter/Documents/school/UvA/Software Construction/Git/sea-of-ql/pklijn/src/org/uva/sea/ql/parser/antlr/QL.g:123:16: ( '(' ( . )* ')' )?
+            // /Users/peter/Documents/school/UvA/Software Construction/Git/sea-of-ql/pklijn/src/org/uva/sea/ql/parser/antlr/QL.g:124:16: ( '(' ( . )* ')' )?
             int alt3=2;
             int LA3_0 = input.LA(1);
 
@@ -632,11 +656,11 @@ public class QLLexer extends Lexer {
             }
             switch (alt3) {
                 case 1 :
-                    // /Users/peter/Documents/school/UvA/Software Construction/Git/sea-of-ql/pklijn/src/org/uva/sea/ql/parser/antlr/QL.g:123:18: '(' ( . )* ')'
+                    // /Users/peter/Documents/school/UvA/Software Construction/Git/sea-of-ql/pklijn/src/org/uva/sea/ql/parser/antlr/QL.g:124:18: '(' ( . )* ')'
                     {
                     match('('); 
 
-                    // /Users/peter/Documents/school/UvA/Software Construction/Git/sea-of-ql/pklijn/src/org/uva/sea/ql/parser/antlr/QL.g:123:22: ( . )*
+                    // /Users/peter/Documents/school/UvA/Software Construction/Git/sea-of-ql/pklijn/src/org/uva/sea/ql/parser/antlr/QL.g:124:22: ( . )*
                     loop2:
                     do {
                         int alt2=2;
@@ -652,7 +676,7 @@ public class QLLexer extends Lexer {
 
                         switch (alt2) {
                     	case 1 :
-                    	    // /Users/peter/Documents/school/UvA/Software Construction/Git/sea-of-ql/pklijn/src/org/uva/sea/ql/parser/antlr/QL.g:123:22: .
+                    	    // /Users/peter/Documents/school/UvA/Software Construction/Git/sea-of-ql/pklijn/src/org/uva/sea/ql/parser/antlr/QL.g:124:22: .
                     	    {
                     	    matchAny(); 
 
@@ -689,12 +713,12 @@ public class QLLexer extends Lexer {
         try {
             int _type = String;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /Users/peter/Documents/school/UvA/Software Construction/Git/sea-of-ql/pklijn/src/org/uva/sea/ql/parser/antlr/QL.g:124:7: ( '\"' ( . )* '\"' )
-            // /Users/peter/Documents/school/UvA/Software Construction/Git/sea-of-ql/pklijn/src/org/uva/sea/ql/parser/antlr/QL.g:124:9: '\"' ( . )* '\"'
+            // /Users/peter/Documents/school/UvA/Software Construction/Git/sea-of-ql/pklijn/src/org/uva/sea/ql/parser/antlr/QL.g:125:7: ( '\"' ( . )* '\"' )
+            // /Users/peter/Documents/school/UvA/Software Construction/Git/sea-of-ql/pklijn/src/org/uva/sea/ql/parser/antlr/QL.g:125:9: '\"' ( . )* '\"'
             {
             match('\"'); 
 
-            // /Users/peter/Documents/school/UvA/Software Construction/Git/sea-of-ql/pklijn/src/org/uva/sea/ql/parser/antlr/QL.g:124:13: ( . )*
+            // /Users/peter/Documents/school/UvA/Software Construction/Git/sea-of-ql/pklijn/src/org/uva/sea/ql/parser/antlr/QL.g:125:13: ( . )*
             loop4:
             do {
                 int alt4=2;
@@ -710,7 +734,7 @@ public class QLLexer extends Lexer {
 
                 switch (alt4) {
             	case 1 :
-            	    // /Users/peter/Documents/school/UvA/Software Construction/Git/sea-of-ql/pklijn/src/org/uva/sea/ql/parser/antlr/QL.g:124:13: .
+            	    // /Users/peter/Documents/school/UvA/Software Construction/Git/sea-of-ql/pklijn/src/org/uva/sea/ql/parser/antlr/QL.g:125:13: .
             	    {
             	    matchAny(); 
 
@@ -741,10 +765,10 @@ public class QLLexer extends Lexer {
         try {
             int _type = Int;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /Users/peter/Documents/school/UvA/Software Construction/Git/sea-of-ql/pklijn/src/org/uva/sea/ql/parser/antlr/QL.g:126:4: ( ( '0' .. '9' )+ )
-            // /Users/peter/Documents/school/UvA/Software Construction/Git/sea-of-ql/pklijn/src/org/uva/sea/ql/parser/antlr/QL.g:126:6: ( '0' .. '9' )+
+            // /Users/peter/Documents/school/UvA/Software Construction/Git/sea-of-ql/pklijn/src/org/uva/sea/ql/parser/antlr/QL.g:127:4: ( ( '0' .. '9' )+ )
+            // /Users/peter/Documents/school/UvA/Software Construction/Git/sea-of-ql/pklijn/src/org/uva/sea/ql/parser/antlr/QL.g:127:6: ( '0' .. '9' )+
             {
-            // /Users/peter/Documents/school/UvA/Software Construction/Git/sea-of-ql/pklijn/src/org/uva/sea/ql/parser/antlr/QL.g:126:6: ( '0' .. '9' )+
+            // /Users/peter/Documents/school/UvA/Software Construction/Git/sea-of-ql/pklijn/src/org/uva/sea/ql/parser/antlr/QL.g:127:6: ( '0' .. '9' )+
             int cnt5=0;
             loop5:
             do {
@@ -799,8 +823,8 @@ public class QLLexer extends Lexer {
         try {
             int _type = Ident;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /Users/peter/Documents/school/UvA/Software Construction/Git/sea-of-ql/pklijn/src/org/uva/sea/ql/parser/antlr/QL.g:127:6: ( ( 'a' .. 'z' | 'A' .. 'Z' ) ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )* )
-            // /Users/peter/Documents/school/UvA/Software Construction/Git/sea-of-ql/pklijn/src/org/uva/sea/ql/parser/antlr/QL.g:127:8: ( 'a' .. 'z' | 'A' .. 'Z' ) ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )*
+            // /Users/peter/Documents/school/UvA/Software Construction/Git/sea-of-ql/pklijn/src/org/uva/sea/ql/parser/antlr/QL.g:128:6: ( ( 'a' .. 'z' | 'A' .. 'Z' ) ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )* )
+            // /Users/peter/Documents/school/UvA/Software Construction/Git/sea-of-ql/pklijn/src/org/uva/sea/ql/parser/antlr/QL.g:128:8: ( 'a' .. 'z' | 'A' .. 'Z' ) ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )*
             {
             if ( (input.LA(1) >= 'A' && input.LA(1) <= 'Z')||(input.LA(1) >= 'a' && input.LA(1) <= 'z') ) {
                 input.consume();
@@ -812,7 +836,7 @@ public class QLLexer extends Lexer {
             }
 
 
-            // /Users/peter/Documents/school/UvA/Software Construction/Git/sea-of-ql/pklijn/src/org/uva/sea/ql/parser/antlr/QL.g:127:27: ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )*
+            // /Users/peter/Documents/school/UvA/Software Construction/Git/sea-of-ql/pklijn/src/org/uva/sea/ql/parser/antlr/QL.g:128:27: ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )*
             loop6:
             do {
                 int alt6=2;
@@ -858,8 +882,8 @@ public class QLLexer extends Lexer {
     // $ANTLR end "Ident"
 
     public void mTokens() throws RecognitionException {
-        // /Users/peter/Documents/school/UvA/Software Construction/Git/sea-of-ql/pklijn/src/org/uva/sea/ql/parser/antlr/QL.g:1:8: ( T__11 | T__12 | T__13 | T__14 | T__15 | T__16 | T__17 | T__18 | T__19 | T__20 | T__21 | T__22 | T__23 | T__24 | T__25 | T__26 | T__27 | T__28 | T__29 | T__30 | WS | COMMENT | Boolean | Money | String | Int | Ident )
-        int alt7=27;
+        // /Users/peter/Documents/school/UvA/Software Construction/Git/sea-of-ql/pklijn/src/org/uva/sea/ql/parser/antlr/QL.g:1:8: ( T__11 | T__12 | T__13 | T__14 | T__15 | T__16 | T__17 | T__18 | T__19 | T__20 | T__21 | T__22 | T__23 | T__24 | T__25 | T__26 | T__27 | T__28 | T__29 | T__30 | T__31 | WS | COMMENT | Boolean | Money | String | Int | Ident )
+        int alt7=28;
         switch ( input.LA(1) ) {
         case '!':
             {
@@ -908,7 +932,7 @@ public class QLLexer extends Lexer {
             int LA7_8 = input.LA(2);
 
             if ( (LA7_8=='*') ) {
-                alt7=22;
+                alt7=23;
             }
             else {
                 alt7=9;
@@ -949,71 +973,104 @@ public class QLLexer extends Lexer {
             }
             }
             break;
-        case 'f':
+        case 'e':
             {
             int LA7_13 = input.LA(2);
 
-            if ( (LA7_13=='o') ) {
-                int LA7_32 = input.LA(3);
+            if ( (LA7_13=='l') ) {
+                int LA7_33 = input.LA(3);
 
-                if ( (LA7_32=='r') ) {
-                    int LA7_36 = input.LA(4);
+                if ( (LA7_33=='s') ) {
+                    int LA7_38 = input.LA(4);
 
-                    if ( (LA7_36=='m') ) {
-                        int LA7_40 = input.LA(5);
+                    if ( (LA7_38=='e') ) {
+                        int LA7_43 = input.LA(5);
 
-                        if ( ((LA7_40 >= '0' && LA7_40 <= '9')||(LA7_40 >= 'A' && LA7_40 <= 'Z')||LA7_40=='_'||(LA7_40 >= 'a' && LA7_40 <= 'z')) ) {
-                            alt7=27;
+                        if ( ((LA7_43 >= '0' && LA7_43 <= '9')||(LA7_43 >= 'A' && LA7_43 <= 'Z')||LA7_43=='_'||(LA7_43 >= 'a' && LA7_43 <= 'z')) ) {
+                            alt7=28;
                         }
                         else {
                             alt7=16;
                         }
                     }
                     else {
-                        alt7=27;
+                        alt7=28;
                     }
                 }
                 else {
-                    alt7=27;
+                    alt7=28;
                 }
             }
             else {
-                alt7=27;
+                alt7=28;
+            }
+            }
+            break;
+        case 'f':
+            {
+            int LA7_14 = input.LA(2);
+
+            if ( (LA7_14=='o') ) {
+                int LA7_34 = input.LA(3);
+
+                if ( (LA7_34=='r') ) {
+                    int LA7_39 = input.LA(4);
+
+                    if ( (LA7_39=='m') ) {
+                        int LA7_44 = input.LA(5);
+
+                        if ( ((LA7_44 >= '0' && LA7_44 <= '9')||(LA7_44 >= 'A' && LA7_44 <= 'Z')||LA7_44=='_'||(LA7_44 >= 'a' && LA7_44 <= 'z')) ) {
+                            alt7=28;
+                        }
+                        else {
+                            alt7=17;
+                        }
+                    }
+                    else {
+                        alt7=28;
+                    }
+                }
+                else {
+                    alt7=28;
+                }
+            }
+            else {
+                alt7=28;
             }
             }
             break;
         case 'i':
             {
-            int LA7_14 = input.LA(2);
+            int LA7_15 = input.LA(2);
 
-            if ( (LA7_14=='f') ) {
-                int LA7_33 = input.LA(3);
+            if ( (LA7_15=='f') ) {
+                int LA7_35 = input.LA(3);
 
-                if ( ((LA7_33 >= '0' && LA7_33 <= '9')||(LA7_33 >= 'A' && LA7_33 <= 'Z')||LA7_33=='_'||(LA7_33 >= 'a' && LA7_33 <= 'z')) ) {
-                    alt7=27;
+                if ( ((LA7_35 >= '0' && LA7_35 <= '9')||(LA7_35 >= 'A' && LA7_35 <= 'Z')||LA7_35=='_'||(LA7_35 >= 'a' && LA7_35 <= 'z')) ) {
+                    alt7=28;
                 }
                 else {
-                    alt7=17;
+                    alt7=18;
                 }
             }
             else {
-                alt7=27;
+                alt7=28;
             }
             }
             break;
         case '{':
             {
-            alt7=18;
+            alt7=19;
             }
             break;
         case '|':
             {
-            alt7=19;
+            alt7=20;
             }
             break;
         case '}':
             {
-            alt7=20;
+            alt7=21;
             }
             break;
         case '\t':
@@ -1021,106 +1078,106 @@ public class QLLexer extends Lexer {
         case '\r':
         case ' ':
             {
-            alt7=21;
+            alt7=22;
             }
             break;
         case 'b':
             {
-            int LA7_19 = input.LA(2);
+            int LA7_20 = input.LA(2);
 
-            if ( (LA7_19=='o') ) {
-                int LA7_34 = input.LA(3);
+            if ( (LA7_20=='o') ) {
+                int LA7_36 = input.LA(3);
 
-                if ( (LA7_34=='o') ) {
-                    int LA7_38 = input.LA(4);
+                if ( (LA7_36=='o') ) {
+                    int LA7_41 = input.LA(4);
 
-                    if ( (LA7_38=='l') ) {
-                        int LA7_41 = input.LA(5);
+                    if ( (LA7_41=='l') ) {
+                        int LA7_45 = input.LA(5);
 
-                        if ( (LA7_41=='e') ) {
-                            int LA7_44 = input.LA(6);
+                        if ( (LA7_45=='e') ) {
+                            int LA7_49 = input.LA(6);
 
-                            if ( (LA7_44=='a') ) {
-                                int LA7_46 = input.LA(7);
+                            if ( (LA7_49=='a') ) {
+                                int LA7_51 = input.LA(7);
 
-                                if ( (LA7_46=='n') ) {
-                                    int LA7_48 = input.LA(8);
+                                if ( (LA7_51=='n') ) {
+                                    int LA7_53 = input.LA(8);
 
-                                    if ( ((LA7_48 >= '0' && LA7_48 <= '9')||(LA7_48 >= 'A' && LA7_48 <= 'Z')||LA7_48=='_'||(LA7_48 >= 'a' && LA7_48 <= 'z')) ) {
-                                        alt7=27;
+                                    if ( ((LA7_53 >= '0' && LA7_53 <= '9')||(LA7_53 >= 'A' && LA7_53 <= 'Z')||LA7_53=='_'||(LA7_53 >= 'a' && LA7_53 <= 'z')) ) {
+                                        alt7=28;
                                     }
                                     else {
-                                        alt7=23;
+                                        alt7=24;
                                     }
                                 }
                                 else {
-                                    alt7=27;
+                                    alt7=28;
                                 }
                             }
                             else {
-                                alt7=27;
+                                alt7=28;
                             }
                         }
                         else {
-                            alt7=27;
+                            alt7=28;
                         }
                     }
                     else {
-                        alt7=27;
+                        alt7=28;
                     }
                 }
                 else {
-                    alt7=27;
+                    alt7=28;
                 }
             }
             else {
-                alt7=27;
+                alt7=28;
             }
             }
             break;
         case 'm':
             {
-            int LA7_20 = input.LA(2);
+            int LA7_21 = input.LA(2);
 
-            if ( (LA7_20=='o') ) {
-                int LA7_35 = input.LA(3);
+            if ( (LA7_21=='o') ) {
+                int LA7_37 = input.LA(3);
 
-                if ( (LA7_35=='n') ) {
-                    int LA7_39 = input.LA(4);
+                if ( (LA7_37=='n') ) {
+                    int LA7_42 = input.LA(4);
 
-                    if ( (LA7_39=='e') ) {
-                        int LA7_42 = input.LA(5);
+                    if ( (LA7_42=='e') ) {
+                        int LA7_46 = input.LA(5);
 
-                        if ( (LA7_42=='y') ) {
-                            int LA7_45 = input.LA(6);
+                        if ( (LA7_46=='y') ) {
+                            int LA7_50 = input.LA(6);
 
-                            if ( ((LA7_45 >= '0' && LA7_45 <= '9')||(LA7_45 >= 'A' && LA7_45 <= 'Z')||LA7_45=='_'||(LA7_45 >= 'a' && LA7_45 <= 'z')) ) {
-                                alt7=27;
+                            if ( ((LA7_50 >= '0' && LA7_50 <= '9')||(LA7_50 >= 'A' && LA7_50 <= 'Z')||LA7_50=='_'||(LA7_50 >= 'a' && LA7_50 <= 'z')) ) {
+                                alt7=28;
                             }
                             else {
-                                alt7=24;
+                                alt7=25;
                             }
                         }
                         else {
-                            alt7=27;
+                            alt7=28;
                         }
                     }
                     else {
-                        alt7=27;
+                        alt7=28;
                     }
                 }
                 else {
-                    alt7=27;
+                    alt7=28;
                 }
             }
             else {
-                alt7=27;
+                alt7=28;
             }
             }
             break;
         case '\"':
             {
-            alt7=25;
+            alt7=26;
             }
             break;
         case '0':
@@ -1134,7 +1191,7 @@ public class QLLexer extends Lexer {
         case '8':
         case '9':
             {
-            alt7=26;
+            alt7=27;
             }
             break;
         case 'A':
@@ -1166,7 +1223,6 @@ public class QLLexer extends Lexer {
         case 'a':
         case 'c':
         case 'd':
-        case 'e':
         case 'g':
         case 'h':
         case 'j':
@@ -1186,7 +1242,7 @@ public class QLLexer extends Lexer {
         case 'y':
         case 'z':
             {
-            alt7=27;
+            alt7=28;
             }
             break;
         default:
@@ -1359,55 +1415,63 @@ public class QLLexer extends Lexer {
                 }
                 break;
             case 21 :
-                // /Users/peter/Documents/school/UvA/Software Construction/Git/sea-of-ql/pklijn/src/org/uva/sea/ql/parser/antlr/QL.g:1:130: WS
+                // /Users/peter/Documents/school/UvA/Software Construction/Git/sea-of-ql/pklijn/src/org/uva/sea/ql/parser/antlr/QL.g:1:130: T__31
+                {
+                mT__31(); 
+
+
+                }
+                break;
+            case 22 :
+                // /Users/peter/Documents/school/UvA/Software Construction/Git/sea-of-ql/pklijn/src/org/uva/sea/ql/parser/antlr/QL.g:1:136: WS
                 {
                 mWS(); 
 
 
                 }
                 break;
-            case 22 :
-                // /Users/peter/Documents/school/UvA/Software Construction/Git/sea-of-ql/pklijn/src/org/uva/sea/ql/parser/antlr/QL.g:1:133: COMMENT
+            case 23 :
+                // /Users/peter/Documents/school/UvA/Software Construction/Git/sea-of-ql/pklijn/src/org/uva/sea/ql/parser/antlr/QL.g:1:139: COMMENT
                 {
                 mCOMMENT(); 
 
 
                 }
                 break;
-            case 23 :
-                // /Users/peter/Documents/school/UvA/Software Construction/Git/sea-of-ql/pklijn/src/org/uva/sea/ql/parser/antlr/QL.g:1:141: Boolean
+            case 24 :
+                // /Users/peter/Documents/school/UvA/Software Construction/Git/sea-of-ql/pklijn/src/org/uva/sea/ql/parser/antlr/QL.g:1:147: Boolean
                 {
                 mBoolean(); 
 
 
                 }
                 break;
-            case 24 :
-                // /Users/peter/Documents/school/UvA/Software Construction/Git/sea-of-ql/pklijn/src/org/uva/sea/ql/parser/antlr/QL.g:1:149: Money
+            case 25 :
+                // /Users/peter/Documents/school/UvA/Software Construction/Git/sea-of-ql/pklijn/src/org/uva/sea/ql/parser/antlr/QL.g:1:155: Money
                 {
                 mMoney(); 
 
 
                 }
                 break;
-            case 25 :
-                // /Users/peter/Documents/school/UvA/Software Construction/Git/sea-of-ql/pklijn/src/org/uva/sea/ql/parser/antlr/QL.g:1:155: String
+            case 26 :
+                // /Users/peter/Documents/school/UvA/Software Construction/Git/sea-of-ql/pklijn/src/org/uva/sea/ql/parser/antlr/QL.g:1:161: String
                 {
                 mString(); 
 
 
                 }
                 break;
-            case 26 :
-                // /Users/peter/Documents/school/UvA/Software Construction/Git/sea-of-ql/pklijn/src/org/uva/sea/ql/parser/antlr/QL.g:1:162: Int
+            case 27 :
+                // /Users/peter/Documents/school/UvA/Software Construction/Git/sea-of-ql/pklijn/src/org/uva/sea/ql/parser/antlr/QL.g:1:168: Int
                 {
                 mInt(); 
 
 
                 }
                 break;
-            case 27 :
-                // /Users/peter/Documents/school/UvA/Software Construction/Git/sea-of-ql/pklijn/src/org/uva/sea/ql/parser/antlr/QL.g:1:166: Ident
+            case 28 :
+                // /Users/peter/Documents/school/UvA/Software Construction/Git/sea-of-ql/pklijn/src/org/uva/sea/ql/parser/antlr/QL.g:1:172: Ident
                 {
                 mIdent(); 
 

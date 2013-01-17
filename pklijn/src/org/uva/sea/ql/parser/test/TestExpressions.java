@@ -120,9 +120,13 @@ public class TestExpressions {
 				"	demoQuestion2: \"So this must also be a question then?\" boolean\n" +
 				"	demoQuestion3: \"And this one two?\" money(10 - 4)\n" +
 				"	if (demoQuestion3) {\n" +
-				"		demoQuestion4: \"What, a question in a if in a if?\" boolean \n" +
+				"		demoQuestion4: \"What, a question in a if in a if?\" boolean\n" +
+				"	}\n" +
+				"	else {\n" +
+				"		demoQuestion5: \"There is even an else, really?\" boolean\n" +
 				"	}\n" +
 				"}\n" +
+				"demoQuestion6: \"Is it true?\" boolean" +
 				"}").getClass(),Form.class);
 	}
 	

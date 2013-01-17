@@ -27,7 +27,8 @@ formItem returns [List<FormItem> result]
   ;
  
 ifStatement returns [IfStatement result]
-  : 'if' '(' Ident ')' '{' formItem '}' { $result = new IfStatement($Ident.text,$formItem.result); }
+  : 'if' '(' Ident ')' '{' ifBody=formItem '}'
+    ('else' '{' elseBody=formItem '}')? { $result = new IfStatement($Ident.text,$ifBody.result,$elseBody.result); }
   ;
 
 question returns [Question result]
