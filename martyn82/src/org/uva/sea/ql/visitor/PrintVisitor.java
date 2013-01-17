@@ -3,22 +3,19 @@ package org.uva.sea.ql.visitor;
 import java.io.IOException;
 import java.io.OutputStream;
 
-import org.uva.sea.ql.ast.Node;
 import org.uva.sea.ql.ast.expression.BinaryExpression;
 import org.uva.sea.ql.ast.expression.Ident;
 import org.uva.sea.ql.ast.expression.UnaryExpression;
 import org.uva.sea.ql.ast.expression.value.Literal;
 import org.uva.sea.ql.ast.statement.Assignment;
 import org.uva.sea.ql.ast.statement.If;
-import org.uva.sea.ql.ast.statement.Statement;
-import org.uva.sea.ql.ast.statement.Statements;
 import org.uva.sea.ql.ast.statement.VarDeclaration;
 import org.uva.sea.ql.ast.type.Type;
 
 /**
  * Visitor that prints the AST.
  */
-public class PrintVisitor implements Visitor {
+public class PrintVisitor extends Visitor {
 	/**
 	 * String used for indenting.
 	 */
@@ -35,6 +32,11 @@ public class PrintVisitor implements Visitor {
 	private int level;
 	
 	/**
+	 * Holds a value to determine whether there were bytes written to the output stream.
+	 */
+	private boolean empty;
+	
+	/**
 	 * Constructs a new print visitor.
 	 * 
 	 * @param out
@@ -42,16 +44,33 @@ public class PrintVisitor implements Visitor {
 	public PrintVisitor( OutputStream out ) {
 		this.out = out;
 		this.level = 0;
-		
-		this.init();
+		this.empty = true;
 	}
 	
 	/**
-	 * Initializer.
+	 * Appends indentation to the buffer.
 	 */
-	private void init() {
-		put( "<AST>" );
-		level++;
+	private void indent() {
+		if ( !empty ) {
+			put( "\n" );
+		}
+		
+		StringBuilder sb = new StringBuilder();
+		
+		for ( int i = 0; i < level; i++ ) {
+			sb.append( INDENT );
+		}
+		
+		put( sb.toString() );
+	}
+	
+	/**
+	 * Retrieves the output stream.
+	 * 
+	 * @return Output stream
+	 */
+	public OutputStream getOutput() {
+		return out;
 	}
 
 	/**
@@ -62,118 +81,66 @@ public class PrintVisitor implements Visitor {
 	private void put( String data ) {
 		try {
 			out.write( data.getBytes() );
+			empty = false;
 		}
 		catch ( IOException e ) {
 			// keep silent
 		}
 	}
-
+	
 	@Override
-	public void visit( Node node ) {
-		// *before* indentation
-		if ( node instanceof Statements ) {
-			visit( (Statements) node );
-			return;
-		}
-		
-		indent();
-		
-		// *after* indentation
-		
-		if ( node instanceof BinaryExpression ) {
-			visit( (BinaryExpression) node );
-		}
-		else if ( node instanceof UnaryExpression ) {
-			visit( (UnaryExpression) node );
-		}
-		else if ( node instanceof Literal ) {
-			visit( (Literal) node );
-		}
-		else if ( node instanceof Ident ) {
-			visit( (Ident) node );
-		}
-		else if ( node instanceof If ) {
-			visit( (If) node );
-		}
-		else if ( node instanceof VarDeclaration ) {
-			visit( (VarDeclaration) node );
-		}
-		else if ( node instanceof Assignment ) {
-			visit( (Assignment) node );
-		}
-		else if ( node instanceof Type ) {
-			visit( (Type) node );
-		}
-		else {
-			System.err.println( "Unrecognized node type: " + node.getClass().getSimpleName() );
-		}
-	}
-
-	/**
-	 * Visit binary expression.
-	 * 
-	 * @param node
-	 */
-	private void visit( BinaryExpression node ) {
+	public void visit( BinaryExpression node ) {
 		put( node.getClass().getSimpleName().toUpperCase() );
 		
 		level++;
 		
+		indent();
 		visit( node.getLhs() );
+		
+		indent();
 		visit( node.getRhs() );
 		
 		level--;
 	}
 
-	/**
-	 * Visit unary expression.
-	 * 
-	 * @param node
-	 */
-	private void visit( UnaryExpression node ) {
+	@Override
+	public void visit( UnaryExpression node ) {
 		put( node.getClass().getSimpleName().toUpperCase() );
 		
 		level++;
 		
+		indent();
 		visit( node.getExpression() );
 		
 		level--;
 	}
 
-	/**
-	 * Visit literal expression.
-	 * 
-	 * @param node
-	 */
-	private void visit( Literal node ) {
+	@Override
+	public void visit( Literal node ) {
 		put( node.getClass().getSimpleName().toUpperCase() );
 		put( "(" );
 		put( node.toString() );
 		put( ")" );
 	}
-	
-	/**
-	 * Visit identifier expression.
-	 * 
-	 * @param node
-	 */
-	private void visit( Ident node ) {
+
+	@Override
+	public void visit( Ident node ) {
 		put( node.getClass().getSimpleName().toUpperCase() );
 		put( "(" );
 		put( node.getName() );
 		put( ")" );
 	}
 	
-	/**
-	 * Visit IF-statement.
-	 * 
-	 * @param node
-	 */
-	private void visit( If node ) {
+	@Override
+	public void visit( If node ) {
+		indent();
 		put( "IF" );
 		
 		level++;
+		
+		indent();
 		visit( node.getCondition() );
+		
 		level--;
 
 		if ( node.getIfThen() != null ) {
@@ -181,7 +148,10 @@ public class PrintVisitor implements Visitor {
 			put( "THEN" );
 		
 			level++;
+			
+			indent();
 			visit( node.getIfThen() );
+			
 			level--;
 		}
 		
@@ -190,17 +160,16 @@ public class PrintVisitor implements Visitor {
 			put( "ELSE" );
 			
 			level++;
+			
+			indent();
 			visit( node.getIfElse() );
+			
 			level--;
 		}
 	}
-	
-	/**
-	 * Visit a variable declaration.
-	 * 
-	 * @param node
-	 */
-	private void visit( VarDeclaration node ) {
+
+	@Override
+	public void visit( VarDeclaration node ) {
 		put( node.getClass().getSimpleName().toUpperCase() );
 
 		level++;
@@ -213,62 +182,24 @@ public class PrintVisitor implements Visitor {
 		
 		level--;
 	}
-	
-	/**
-	 * Visit a Type node.
-	 * 
-	 * @param node
-	 */
-	private void visit( Type node ) {
+
+	@Override
+	public void visit( Type node ) {
 		put( node.getClass().getSimpleName().toUpperCase() );
 	}
 	
-	/**
-	 * Visit a collection of statements.
-	 * 
-	 * @param node
-	 */
-	private void visit( Statements node ) {
-		for ( Statement statement : node ) {
-			visit( statement );
-		}
-	}
-	
-	/**
-	 * Visit an assignment.
-	 * 
-	 * @param node
-	 */
-	private void visit( Assignment node ) {
+	@Override
+	public void visit( Assignment node ) {
 		put( node.getClass().getSimpleName().toUpperCase() );
 		
 		level++;
 		
 		indent();
-		visit( node.getIdent() );
+		visit( node.getLhs() );
 		
-		visit( node.getExpression() );
+		indent();
+		visit( node.getRhs() );
 		
 		level--;
-	}
-	
-	/**
-	 * Appends indentation to the buffer.
-	 */
-	private void indent() {
-		put( "\n" );
-		
-		for ( int i = 0; i < level; i++ ) {
-			put( INDENT );
-		}
-	}
-	
-	/**
-	 * Retrieves the output stream.
-	 * 
-	 * @return Output stream
-	 */
-	public OutputStream getOutput() {
-		return out;
 	}
 }

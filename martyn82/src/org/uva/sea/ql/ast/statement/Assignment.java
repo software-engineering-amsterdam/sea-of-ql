@@ -8,41 +8,41 @@ import org.uva.sea.ql.ast.expression.Ident;
  */
 public class Assignment extends Statement {
 	/**
-	 * Holds the identifier.
+	 * Holds the left-hand side.
 	 */
-	private final Ident ident;
+	private final Ident lhs;
 	
 	/**
-	 * Holds the expression.
+	 * Holds the right-hand side.
 	 */
-	private final Expression expression;
+	private final Expression rhs;
 	
 	/**
 	 * Constructs a new Assignment instance.
 	 * 
-	 * @param ident The identifier to assign a value to.
-	 * @param expression The expression that represents the value.
+	 * @param lhs The left-hand side to assign a value to.
+	 * @param rhs The right-hand side that evaluates to the value.
 	 */
-	public Assignment( Ident ident, Expression expression ) {
-		this.ident = ident;
-		this.expression = expression;
+	public Assignment( Ident lhs, Expression rhs ) {
+		this.lhs = lhs;
+		this.rhs = rhs;
 	}
 	
 	/**
-	 * Retrieves the identifier.
+	 * Retrieves the left-hand side.
 	 * 
-	 * @return The identifier.
+	 * @return The left-hand side.
 	 */
-	public Ident getIdent() {
-		return this.ident;
+	public Ident getLhs() {
+		return this.lhs;
 	}
 	
 	/**
-	 * Retrieves the expression.
+	 * Retrieves the right-hand side.
 	 * 
-	 * @return The expression.
+	 * @return The right-hand side.
 	 */
-	public Expression getExpression() {
-		return this.expression;
+	public Expression getRhs() {
+		return this.rhs;
 	}
 }
