@@ -15,10 +15,10 @@ package org.uva.sea.ql.parser.antlr;
 }
 
 primary returns [Expr result] 
-  : Int   { $result = new Int(Integer.parseInt($Int.text)); }
-  | Ident { $result = new Ident($Ident.text); }
-  | '(' x=orExpr ')'{ $result = $x.result; }
-  ;
+    : Int   { $result = new Int(Integer.parseInt($Int.text)); }
+    | Ident { $result = new Ident($Ident.text); }
+    | '(' x=orExpr ')'{ $result = $x.result; }
+    ;
     
 unExpr returns [Expr result] 
     : '+' x=unExpr { $result = new Pos($x.result); }
@@ -117,8 +117,6 @@ returnType returns [Type result]
     | 'money(' orExpr ')' {$result = new Money($orExpr.result);} //Fill in actual numbers. 
     | 'money' {$result = new Money();} 
     ;
-    
-    
     
 BOOL	
     : ('true' | 'false')
