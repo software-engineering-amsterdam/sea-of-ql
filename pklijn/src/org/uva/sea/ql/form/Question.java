@@ -26,7 +26,9 @@ public class Question extends FormItem {
 
 	@Override
 	public void print(int level) {
-		super.print(level);
-		System.out.println("Q:" + question + " (id: " + id + ", type: " + questionType + ")");
+		printIndent(level);
+		System.out.println("Q:" + question 
+				+ " (id: " + id 
+				+ ", type: " + questionType + ")");
 	}
 }

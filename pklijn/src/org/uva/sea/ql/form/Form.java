@@ -10,7 +10,6 @@ public class Form {
 	public Form(String id, List<FormItem> formItems) {
 		this.id = id;
 		this.formItems = formItems;
-		
 		print();
 	}
 

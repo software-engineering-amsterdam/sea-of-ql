@@ -29,13 +29,13 @@ public class IfStatement extends FormItem {
 
 	@Override
 	public void print(int level) {
-		super.print(level);
+		printIndent(level);
 		System.out.println("IF id: "+ id);
 		for (FormItem f : ifBody) {
 			f.print(level + 1);
 		}
 		if (elseBody.size() > 0) {
-			super.print(level);
+			printIndent(level);
 			System.out.println("ELSE");
 			for (FormItem f : elseBody) {
 				f.print(level + 1);
