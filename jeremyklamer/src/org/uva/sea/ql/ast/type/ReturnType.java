@@ -11,4 +11,5 @@ public class ReturnType extends Type{
 	public String getType() {
 		return type;
 	}
+	
 }

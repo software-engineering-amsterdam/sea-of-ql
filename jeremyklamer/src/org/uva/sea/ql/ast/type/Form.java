@@ -22,6 +22,5 @@ public class Form extends Type{
 	public List<Statement> getStatements() {
 		return statements;
 	}
-
-
+	
 }

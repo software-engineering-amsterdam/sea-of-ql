@@ -19,4 +19,5 @@ public class Question extends Statement {
 	public Type getReturnType() {
 		return returnType;
 	}
+	
 }
