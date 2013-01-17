@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.uva.sea.ql.ast.base.Node;
+import org.uva.sea.ql.ast.conditionals.IfStatement;
 import org.uva.sea.ql.ast.conditionals.IfThen;
 import org.uva.sea.ql.ast.conditionals.IfThenElse;
 import org.uva.sea.ql.ast.form.Computation;
@@ -11,6 +12,7 @@ import org.uva.sea.ql.ast.form.Element;
 import org.uva.sea.ql.ast.form.Form;
 import org.uva.sea.ql.ast.form.Label;
 import org.uva.sea.ql.ast.form.Question;
+import org.uva.sea.ql.ast.operators.base.BinaryOperator;
 import org.uva.sea.ql.ast.operators.binary.Add;
 import org.uva.sea.ql.ast.operators.binary.And;
 import org.uva.sea.ql.ast.operators.binary.Div;
@@ -26,29 +28,24 @@ import org.uva.sea.ql.ast.operators.binary.Sub;
 import org.uva.sea.ql.ast.operators.unary.Neg;
 import org.uva.sea.ql.ast.operators.unary.Not;
 import org.uva.sea.ql.ast.operators.unary.Pos;
+import org.uva.sea.ql.ast.traversal.base.HandSide;
 import org.uva.sea.ql.ast.traversal.base.IVisitor;
+import org.uva.sea.ql.ast.traversal.logging.TypeErrorLog;
+import org.uva.sea.ql.ast.traversal.logging.TypeEventLog;
 import org.uva.sea.ql.ast.types.Bool;
 import org.uva.sea.ql.ast.types.Ident;
 import org.uva.sea.ql.ast.types.Int;
 import org.uva.sea.ql.ast.types.Money;
 import org.uva.sea.ql.ast.types.StringLiteral;
 
-// TODO: use observer pattern to store errors
 public class TypeChecker implements IVisitor {
-	private List<String> errors = new ArrayList<String>();
-	private List<String> log = new ArrayList<String>();
+	private final TypeErrorLog errorLog = new TypeErrorLog();
+	private final TypeEventLog eventLog = new TypeEventLog();
 
-	private ResultTypeTable resultTable = new ResultTypeTable(); 
-	private SymbolTable symbolTable = new SymbolTable();
+	private final ResultTypeTable resultTable = new ResultTypeTable(); 
+	private final SymbolTable symbolTable = new SymbolTable();
 
-	public List<String> getErrors() {
-		return errors;
-	}
-	
-	public List<String> getLog() {
-		return log;
-	}
-	
+	// DataTypes
 	@Override
 	public void visit(final Label label) {
 		resultTable.addTypeForNode(label, Label.class);
@@ -60,362 +57,13 @@ public class TypeChecker implements IVisitor {
 		
 		// Invalid reference, this label has not been declared and can not be used
 		if (!symbolTable.isLabelDeclared(name)) {
-			errors.add("[Ident] Invalid reference to label (" + name + ")");
+			errorLog.addInvalidReference(ident, name);
 		}
 		else {
 			// Substitute ident for the value from the symbol table
-			log.add("[Ident] Success");
 			resultTable.addTypeForNode(ident, symbolTable.getTypeOfNode(new Label(name)));
+			eventLog.addCorrectSemantics(ident);
 		}
-	}
-	
-	@Override
-	public void visit(final And and) {
-		// TODO: remove duplicate code of And and Or
-		final Class<? extends Node> leftHandSide = resultTable.getLeftHandSideResultType(and);
-		final Class<? extends Node> rightHandSide = resultTable.getRightHandSideResultType(and);
-		boolean error = false;
-		if (!resultTable.isBooleanType(leftHandSide)) {
-			errors.add("[And] the left hand side is not of the type Int or money");
-			error = true;
-		}
-		if (!resultTable.isBooleanType(rightHandSide)) {
-			errors.add("[And] the right hand side is not of the type Int or money");
-			error = true;
-		}
-		
-		if (!error) {
-			resultTable.addTypeForNode(and, Bool.class);
-			
-			log.add("[And] valid");
-		}
-	}
-
-	@Override
-	public void visit(final Div div) {
-		final Class<? extends Node> leftHandSide =resultTable.getLeftHandSideResultType(div);
-		final Class<? extends Node> rightHandSide = resultTable.getRightHandSideResultType(div);
-		boolean error = false;
-		
-		if (!resultTable.isMoneyOrIntegerType(leftHandSide)) {
-			errors.add("[Div] the left hand side is not of the type Int or money");
-			error = true;
-		}
-		if (!resultTable.isMoneyOrIntegerType(rightHandSide)) {
-			errors.add("[Div] the right hand side is not of the type Int or money");
-			error = true;
-		}
-		
-		if (!error) {
-			log.add("[Div] success");
-			resultTable.addTypeForNode(div, resultTable.isMoneyTypeInvolved(div) ? Money.class : Int.class);
-		}		
-	}
-
-	@Override
-	public void visit(final Eq eq) {
-		if (!resultTable.hasOperationGotEqualTypes(eq)) {
-			errors.add("[Eq] the operation requires both the left hand side and the right hands side to be of the same type");
-		}
-		else {
-			log.add("[Eq] success");
-			resultTable.addTypeForNode(eq, Bool.class);			
-		}
-	}
-
-	@Override
-	public void visit(final GEq geq) {
-		final Class<? extends Node> leftHandSide =resultTable.getLeftHandSideResultType(geq);
-		final Class<? extends Node> rightHandSide = resultTable.getRightHandSideResultType(geq);
-		boolean error = false;
-		
-		if (!resultTable.isMoneyOrIntegerType(leftHandSide)) {
-			errors.add("[GEq] the left hand side is not of the type Int or money");
-			error = true;
-		}
-
-		if (!resultTable.isMoneyOrIntegerType(rightHandSide)) {
-			errors.add("[GEq] the right hand side is not of the type Int or money");
-			error = true;
-		}
-		
-		if (!resultTable.hasOperationGotEqualTypes(geq)) {
-			errors.add("[GEq] the operation requires both the left hand side and the right hands side to be of the same type");
-			error = true;
-		}
-		
-		if (!error) {
-			log.add("[GEq] success");
-			resultTable.addTypeForNode(geq, Bool.class);			
-		}		
-	}
-	
-	
-	@Override
-	public void visit(final GT gt) {
-		final Class<? extends Node> leftHandSide =resultTable.getLeftHandSideResultType(gt);
-		final Class<? extends Node> rightHandSide = resultTable.getRightHandSideResultType(gt);
-		boolean error = false;
-		
-		if (!resultTable.isMoneyOrIntegerType(leftHandSide)) {
-			errors.add("[GEq] the left hand side is not of the type Int or money");
-			error = true;
-		}
-
-		if (!resultTable.isMoneyOrIntegerType(rightHandSide)) {
-			errors.add("[GEq] the right hand side is not of the type Int or money");
-			error = true;
-		}
-		
-		if (!resultTable.hasOperationGotEqualTypes(gt)) {
-			errors.add("[GEq] the operation requires both the left hand side and the right hands side to be of the same type");
-			error = true;
-		}
-		
-		if (!error) {
-			log.add("[GEq] success");
-			resultTable.addTypeForNode(gt, Bool.class);			
-		}		
-	}
-	
-	@Override
-	public void visit(final LEq leq) {
-		final Class<? extends Node> leftHandSide =resultTable.getLeftHandSideResultType(leq);
-		final Class<? extends Node> rightHandSide = resultTable.getRightHandSideResultType(leq);
-		boolean error = false;
-		
-		if (!resultTable.isMoneyOrIntegerType(leftHandSide)) {
-			errors.add("[LEq] the left hand side is not of the type Int or money");
-			error = true;
-		}
-
-		if (!resultTable.isMoneyOrIntegerType(rightHandSide)) {
-			errors.add("[LEq] the right hand side is not of the type Int or money");
-			error = true;
-		}
-		
-		if (!resultTable.hasOperationGotEqualTypes(leq)) {
-			errors.add("[LEq] the operation requires both the left hand side and the right hands side to be of the same type");
-			error = true;
-		}
-		
-		if (!error) {
-			log.add("[LEq] success");
-			resultTable.addTypeForNode(leq, Bool.class);			
-		}	
-	}
-
-	@Override
-	public void visit(final Mul mul) {
-		final Class<? extends Node> leftHandSide =resultTable.getLeftHandSideResultType(mul);
-		final Class<? extends Node> rightHandSide = resultTable.getRightHandSideResultType(mul);
-		boolean error = false;
-		
-		if (!resultTable.isMoneyOrIntegerType(leftHandSide)) {
-			errors.add("[Mul] the left hand side is not of the type Int or money");
-			error = true;
-		}
-
-		if (!resultTable.isMoneyOrIntegerType(rightHandSide)) {
-			errors.add("[Mul] the right hand side is not of the type Int or money");
-			error = true;
-		}
-		
-		if (Money.class.equals(leftHandSide) && Money.class.equals(rightHandSide)) {
-			errors.add("[Mul] you can not multiply money by money, that would make life way too easy");
-			error = true;
-		}
-		
-		if (!error) {
-			log.add("[Mul] success");
-			resultTable.addTypeForNode(mul, resultTable.isMoneyTypeInvolved(mul) ? Money.class : Int.class);
-		}
-	}
-	
-	@Override
-	public void visit(final NEq neq) {
-		if (!resultTable.hasOperationGotEqualTypes(neq)) {
-			errors.add("[NEq] the operation requires both the left hand side and the right hands side to be of the same type");
-		}
-		else {
-			log.add("[NEq] success");
-			resultTable.addTypeForNode(neq, Bool.class);			
-		}		
-	}
-	
-	@Override
-	public void visit(final Or or) {
-		final Class<? extends Node> leftHandSide =resultTable.getLeftHandSideResultType(or);
-		final Class<? extends Node> rightHandSide = resultTable.getRightHandSideResultType(or);
-		boolean error = false;
-		if (!resultTable.isBooleanType(leftHandSide)) {
-			errors.add("[Or] the left hand side is not of the type Int or money");
-			error = true;
-		}
-		if (!resultTable.isBooleanType(rightHandSide)) {
-			errors.add("[Or] the right hand side is not of the type Int or money");
-			error = true;
-		}
-		
-		if (!error) {
-			resultTable.addTypeForNode(or, Bool.class);
-			
-			log.add("[Or] valid");
-		}
-	}
-	
-	@Override
-	public void visit(final Sub sub) {
-		final Class<? extends Node> leftHandSide = resultTable.getLeftHandSideResultType(sub);
-		final Class<? extends Node> rightHandSide = resultTable.getRightHandSideResultType(sub);
-		boolean error = false;
-
-		if (!resultTable.isMoneyOrIntegerType(leftHandSide)) {
-			errors.add("[Sub] the left hand side is not of the type Int or money");
-			error = true;
-		}
-		
-		if (!resultTable.isMoneyOrIntegerType(rightHandSide)) {
-			errors.add("[Sub] the right hand side is not of the type Int or money");
-			error = true;
-		}
-
-		if (!resultTable.hasOperationGotEqualTypes(sub)) {
-			errors.add("[Sub] the operation requires both the left hand side and the right hands side to be of the same type");
-			error = true;
-		}
-		
-		if (!error) {
-			// result in money if necessary
-			Class<? extends Node> resultType = resultTable.isMoneyTypeInvolved(sub) ? Money.class : Int.class;
-			resultTable.addTypeForNode(sub, resultType);
-			
-			log.add("[Add] valid");
-		}
-	}
-
-	@Override
-	public void visit(final Neg neg) {
-		final Class<? extends Node> resultType = resultTable.getUnaryResultType(neg);
-		if (!resultTable.isMoneyOrIntegerType(resultType)) {
-			errors.add("[Neg] negation requires the type of Int or Money");
-		}
-		else {
-			log.add("[Neg] success");
-			resultTable.addTypeForNode(neg, resultType);
-		}
-	}
-
-	@Override
-	public void visit(final Not not) {
-		final Class<? extends Node> resultType = resultTable.getUnaryResultType(not);
-		if (!resultTable.isBooleanType(resultType)) {
-			errors.add("[Not] negation requires the type of Int or Money");
-		}
-		else {
-			log.add("[Not] success");
-			resultTable.addTypeForNode(not, resultType);
-		}
-	}
-
-	@Override
-	public void visit(final Pos pos) {
-		final Class<? extends Node> resultType = resultTable.getUnaryResultType(pos);
-		if (!resultTable.isBooleanType(resultType)) {
-			errors.add("[Pos] operation requires the type of Int or Money");
-		}
-		else {
-			log.add("[Pos] success");
-			resultTable.addTypeForNode(pos, resultType);
-		}		
-	}
-	
-	@Override
-	public void visit(final Computation computation) {
-		final Label label = computation.getLabel();
-		if (symbolTable.isLabelDeclared(label)) {
-			errors.add("[Computation] redeclaration of label " + label.getIdentifier());
-		}
-		else {
-			symbolTable.addTypeForNode(computation.getLabel(), computation.getExpectedType().getClass());
-		}
-		
-		final Node calculationOperation = computation.getCalculationOperation();
-		if (calculationOperation == null || !resultTable.isMoneyOrIntegerType(resultTable.getTypeOfNode(calculationOperation))) {
-			errors.add("[Computation] A computation should result in an integer or money");
-		}
-		else {
-			log.add("[Computation] success");
-			resultTable.addTypeForNode(computation, Computation.class);
-		}
-	}
-
-	@Override
-	public void visit(final Question question) {
-		log.add("[Question] success");
-		resultTable.addTypeForNode(question, Question.class);
-		
-		
-		final Label label = question.getLabel();
-		if (symbolTable.isLabelDeclared(label)) {
-			errors.add("[Question] redeclaration of label " + label.getIdentifier());
-		}
-		else {
-			symbolTable.addTypeForNode(question.getLabel(), question.getExpectedType().getClass());
-		}
-	}
-	
-	@Override
-	public void visit(final Form form) {
-		final List<Element> elements = form.getNodes();
-		if (elements.isEmpty()) {
-			errors.add("[Form] form does not contain valid elements");
-		}
-		else {
-			log.add("[Form] success");
-			resultTable.addTypeForNode(form, Form.class);
-		}
-	}
-
-	@Override
-	public void visit(final IfThen ifThen) {
-		final Node conditions = ifThen.getConditions();
-		if (!Bool.class.equals(resultTable.getTypeOfNode(conditions))) {
-			errors.add("[IfThen] The condition does not result in boolean type");
-		}
-		else {
-			log.add("[IfThen] success");
-		
-			final List<Element> successElements = ifThen.getSuccessElements();
-			if (successElements == null || successElements.size() == 0) {
-				errors.add("[IfThen] warning: empty success flow");
-			}
-			
-			resultTable.addTypeForNode(ifThen, IfThen.class);
-		}
-	}
-	
-	@Override
-	public void visit(final IfThenElse ifThenElse) {
-		final Node conditions = ifThenElse.getConditions();
-		if (!Bool.class.equals(resultTable.getTypeOfNode(conditions))) {
-			errors.add("[IfThenElse] The condition does not result in boolean type");
-		}
-		else {
-			log.add("[IfThenElse] success");
-		
-			final List<Element> successElements = ifThenElse.getSuccessElements();
-			if (successElements == null || successElements.size() == 0) {
-				errors.add("[IfThenElse] warning: empty success flow");
-			}
-
-			final List<Element> elseElements = ifThenElse.getElseElements();
-			if (elseElements == null || elseElements.size() == 0) {
-				errors.add("[IfThenElse] warning: empty success flow");
-			}
-			
-			resultTable.addTypeForNode(ifThenElse, IfThen.class);
-		}		
 	}
 	
 	@Override
@@ -437,58 +85,338 @@ public class TypeChecker implements IVisitor {
 		resultTable.addTypeForNode(literal, StringLiteral.class);
 	}
 
+	// Form Types
 	@Override
-	public void visit(final Add add) {
-		final Class<? extends Node> leftHandSide =resultTable.getLeftHandSideResultType(add);
-		final Class<? extends Node> rightHandSide = resultTable.getRightHandSideResultType(add);
-		boolean error = false;
-
-		if (!resultTable.isMoneyOrIntegerType(leftHandSide)) {
-			errors.add("[Add] the left hand side is not of the type Int or money");
-			error = true;
+	public void visit(final Form form) {
+		final List<Element> elements = form.getNodes();
+		if (elements.isEmpty()) {
+			errorLog.addFormContainsInvalidElements(form);
+		}
+		else {
+			resultTable.addTypeForNode(form, Form.class);
+			eventLog.addCorrectSemantics(form);
+		}
+	}
+	
+	@Override
+	public void visit(final Computation computation) {
+		final Label label = computation.getLabel();
+		if (symbolTable.isLabelDeclared(label)) {
+			errorLog.addLabelRedeclaration(computation, label);
+		}
+		else {
+			// The label has not yet been declared before, thus we store it in the symbol table here
+			symbolTable.addTypeForNode(label, computation.getExpectedType().getClass());
 		}
 		
-		if (!resultTable.isMoneyOrIntegerType(rightHandSide)) {
-			errors.add("[Add] the right hand side is not of the type Int or money");
-			error = true;
-		}
-
-		if (!resultTable.hasOperationGotEqualTypes(add)) {
-			errors.add("[Add] the operation requires both the left hand side and the right hands side to be of the same type");
-			error = true;
-		}
-		
-		if (!error) {
-			// result in money if necessary
-			Class<? extends Node> resultType = (resultTable.isMoneyTypeInvolved(add) ? Money.class : Int.class);
-			resultTable.addTypeForNode(add, resultType);
+		final Node calculationOperation = computation.getCalculationOperation();
+		if (calculationOperation == null || !resultTable.isMoneyOrIntegerType(resultTable.getTypeOfNode(calculationOperation))) {
 			
-			log.add("[Add] valid");
+			final List<Class<? extends Node>> expectedTypes = new ArrayList<Class <? extends Node>>();
+			expectedTypes.add(Int.class);
+			expectedTypes.add(Money.class);
+			
+			errorLog.addExpectedDifferentTypes(computation, expectedTypes);
+		}
+		else {
+			resultTable.addTypeForNode(computation, Computation.class);
+			eventLog.addCorrectSemantics(computation);
 		}
 	}
 
 	@Override
-	public void visit(final LT lt) {
-		final Class<? extends Node> leftHandSide = resultTable.getLeftHandSideResultType(lt);
-		final Class<? extends Node> rightHandSide = resultTable.getRightHandSideResultType(lt);
+	public void visit(final Question question) {
+		resultTable.addTypeForNode(question, Question.class);
+		eventLog.addCorrectSemantics(question);
+		
+		final Label label = question.getLabel();
+		if (symbolTable.isLabelDeclared(label)) {
+			errorLog.addLabelRedeclaration(question, label);
+		}
+		else {
+			// The label has not yet been declared before, thus we store it in the symbol table here
+			symbolTable.addTypeForNode(question.getLabel(), question.getExpectedType().getClass());
+		}
+	}
+	
+	// Conditionals
+	@Override
+	public void visit(final IfThen ifThen) {
+		final Node conditions = ifThen.getConditions();
+		if (!Bool.class.equals(resultTable.getTypeOfNode(conditions))) {
+			errorLog.addExpectedDifferentType(ifThen, Bool.class);
+		}
+		else {
+			checkForEmptyFlow(ifThen, ifThen.getSuccessElements());
+			
+			resultTable.addTypeForNode(ifThen, IfThen.class);
+			eventLog.addCorrectSemantics(ifThen);
+		}
+	}
+	
+	@Override
+	public void visit(final IfThenElse ifThenElse) {
+		final Node conditions = ifThenElse.getConditions();
+		if (!Bool.class.equals(resultTable.getTypeOfNode(conditions))) {
+			errorLog.addExpectedDifferentType(ifThenElse, Bool.class);
+		}
+		else {
+			checkForEmptyFlow(ifThenElse, ifThenElse.getSuccessElements());
+			checkForEmptyFlow(ifThenElse, ifThenElse.getElseElements());
+
+			resultTable.addTypeForNode(ifThenElse, IfThenElse.class);
+			
+			eventLog.addCorrectSemantics(ifThenElse);
+		}		
+	}
+
+	// Binary operators
+	@Override
+	public void visit(final And and) {
+		if (!checkForBooleanBothSideErors(and)) {
+			resultTable.addTypeForNode(and, Bool.class);
+			
+			eventLog.addCorrectSemantics(and);
+		}
+	}
+	
+	@Override
+	public void visit(final Or or) {
+		if (!checkForBooleanBothSideErors(or)) {
+			resultTable.addTypeForNode(or, Bool.class);
+			
+			eventLog.addCorrectSemantics(or);
+		}
+	}
+
+	@Override
+	public void visit(final Div div) {
+		boolean error = checkForNumberTypeErrors(div);
+		if (!error) {
+			error = checkForSameTypeErrors(div);
+		}
+		
+		if (!error) {
+			resultTable.addTypeForNode(div, getNumberResultType(div));
+			eventLog.addCorrectSemantics(div);
+		}		
+	}
+
+	@Override
+	public void visit(final Eq eq) {
+		if (!resultTable.hasOperationGotEqualTypes(eq)) {
+			errorLog.addBothSidesAreDifferentTypes(eq);
+		}
+		else {
+			resultTable.addTypeForNode(eq, Bool.class);			
+			eventLog.addCorrectSemantics(eq);
+		}
+	}
+
+	@Override
+	public void visit(final GEq geq) {
+		boolean error = checkForNumberTypeErrors(geq);
+		if (!error) {
+			error = checkForSameTypeErrors(geq);
+		}
+		
+		if (!error) {
+			resultTable.addTypeForNode(geq, Bool.class);			
+			eventLog.addCorrectSemantics(geq);
+		}		
+	}
+	
+	
+	@Override
+	public void visit(final GT gt) {
+		boolean error = checkForNumberTypeErrors(gt);
+		if (!error) {
+			error = checkForSameTypeErrors(gt);
+		}
+		
+		if (!error) {
+			resultTable.addTypeForNode(gt, Bool.class);			
+			eventLog.addCorrectSemantics(gt);			
+		}		
+	}
+	
+	@Override
+	public void visit(final LEq leq) {
+		boolean error = checkForNumberTypeErrors(leq);
+		if (!error) {
+			error = checkForSameTypeErrors(leq);
+		}
+		
+		if (!error) {
+			resultTable.addTypeForNode(leq, Bool.class);
+			eventLog.addCorrectSemantics(leq);
+		}	
+	}
+
+	@Override
+	public void visit(final Mul mul) {
+		// TODO: can not multiply money with money
+
+		if (!checkForNumberTypeErrors(mul)) {
+			resultTable.addTypeForNode(mul, getNumberResultType(mul));
+			eventLog.addCorrectSemantics(mul);
+		}
+	}
+	
+	@Override
+	public void visit(final NEq neq) {
+		if (!checkForSameTypeErrors(neq)) {
+			resultTable.addTypeForNode(neq, Bool.class);
+			eventLog.addCorrectSemantics(neq);
+		}		
+	}
+
+	@Override
+	public void visit(final Sub sub) {
+		boolean error = checkForNumberTypeErrors(sub);
+		if (!error) {
+			error = checkForSameTypeErrors(sub);
+		}
+		
+		if (!error) {
+			resultTable.addTypeForNode(sub, getNumberResultType(sub));
+			eventLog.addCorrectSemantics(sub);
+		}
+	}
+	
+	@Override
+	public void visit(final Add add) {
+		// Error check
+		boolean error = checkForNumberTypeErrors(add);
+		if (!error) {
+			error = checkForSameTypeErrors(add);
+		}
+		
+		if (!error) {
+			resultTable.addTypeForNode(add, getNumberResultType(add));
+			eventLog.addCorrectSemantics(add);
+		}
+	}
+
+	@Override
+	public void visit(final LT lt) {		
+		// Error check
+		boolean error = checkForNumberTypeErrors(lt);
+		if (!error) {
+			error = checkForSameTypeErrors(lt);
+		}
+		
+		// No errors
+		if (!error) {
+			resultTable.addTypeForNode(lt, Bool.class);
+			eventLog.addCorrectSemantics(lt);
+		}
+	}
+	
+	// Unary operators
+	@Override
+	public void visit(final Not not) {
+		final Class<? extends Node> resultType = resultTable.getUnaryResultType(not);
+		if (!resultTable.isBooleanType(resultType)) {
+			errorLog.addTypeIsNotBoolean(HandSide.RIGHT, not);
+		}
+		else {
+			resultTable.addTypeForNode(not, resultType);
+			eventLog.addCorrectSemantics(not);
+		}
+	}
+
+	
+	@Override
+	public void visit(final Neg neg) {
+		final Class<? extends Node> resultType = resultTable.getUnaryResultType(neg);
+		if (!resultTable.isMoneyOrIntegerType(resultType)) {
+			errorLog.addTypeIsNotIntegerOrMoney(HandSide.RIGHT, neg);
+		}
+		else {
+			resultTable.addTypeForNode(neg, resultType);
+			eventLog.addCorrectSemantics(neg);
+		}
+	}
+
+	@Override
+	public void visit(final Pos pos) {		
+		final Class<? extends Node> resultType = resultTable.getUnaryResultType(pos);
+		if (!resultTable.isMoneyOrIntegerType(resultType)) {
+			errorLog.addTypeIsNotIntegerOrMoney(HandSide.RIGHT, pos);
+		}
+		else {
+			resultTable.addTypeForNode(pos, resultType);
+			eventLog.addCorrectSemantics(pos);
+		}		
+	}
+	
+	
+	public TypeErrorLog getErrorLog() {
+		return errorLog;
+	}	
+	
+	private boolean checkForEmptyFlow(final IfStatement conditional, final List<Element> flowElements) {
+		if (flowElements == null || flowElements.size() == 0) {
+			errorLog.addEmptyFlow(conditional);
+			
+			return true;
+		}
+		
+		return false;
+	}
+	
+	
+	// Both sides have to be of a number type
+	private boolean checkForNumberTypeErrors(final BinaryOperator operator) {
+		final Class<? extends Node> leftHandSide = resultTable.getLeftHandSideResultType(operator);
+		final Class<? extends Node> rightHandSide = resultTable.getRightHandSideResultType(operator);
 		
 		boolean error = false;
 		
 		if (!resultTable.isMoneyOrIntegerType(leftHandSide)) {
-			errors.add("[LT] the left hand side is not of the type Int or money");
+			errorLog.addTypeIsNotIntegerOrMoney(HandSide.LEFT, operator);
 			error = true;
 		}
 		
 		if (!resultTable.isMoneyOrIntegerType(rightHandSide)) {
-			errors.add("[LT] the right hand side is not of the type Int or money");
+			errorLog.addTypeIsNotIntegerOrMoney(HandSide.RIGHT, operator);
 			error = true;
 		}
 		
-		if (!error) {
-			// TODO: result type factory?
-			resultTable.addTypeForNode(lt, Bool.class);
+		return error;
+	}
+	
+	private boolean checkForSameTypeErrors(final BinaryOperator operator) {	
+		if (!resultTable.hasOperationGotEqualTypes(operator)) {
+			errorLog.addBothSidesAreDifferentTypes(operator);
 			
-			log.add("[LT] valid");
+			return true;
 		}
+		
+		return false;
+	}
+	
+	private boolean checkForBooleanBothSideErors(final BinaryOperator operator) {
+		final Class<? extends Node> leftHandSide = resultTable.getLeftHandSideResultType(operator);
+		final Class<? extends Node> rightHandSide = resultTable.getRightHandSideResultType(operator);
+		
+		boolean error = false;
+		if (!resultTable.isBooleanType(leftHandSide)) {
+			errorLog.addTypeIsNotBoolean(HandSide.LEFT, operator);
+			error = true;
+		}
+		
+		if (!resultTable.isBooleanType(rightHandSide)) {
+			errorLog.addTypeIsNotBoolean(HandSide.RIGHT, operator);
+			error = true;
+		}
+
+		return error;
+	}
+
+	// Determine what of the two types to return
+	private Class<? extends Node> getNumberResultType(final BinaryOperator operator) {
+		return (resultTable.isMoneyTypeInvolved(operator) ? Money.class : Int.class); 
 	}
 }

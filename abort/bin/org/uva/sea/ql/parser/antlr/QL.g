@@ -28,7 +28,7 @@ package org.uva.sea.ql.parser.antlr;
 // TODO: distinguish literals with non-literals (data type and parse)
 form returns [Form result]
   : FORM Ident BLOCK_START e=elements BLOCK_END {    
-    $result = new Form(e);
+    $result = new Form($Ident.text, e);
   };
 
 elements returns [List<Element> results]
@@ -92,7 +92,7 @@ mulExpression returns [Node result]
       if ($op.text.equals("*")) {
         $result = new Mul($result, rhs);
       }
-      if ($op.text.equals("<=")) {
+      if ($op.text.equals("/")) {
         $result = new Div($result, rhs);      
       }
     })*;

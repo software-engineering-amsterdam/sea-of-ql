@@ -1,4 +1,4 @@
-// $ANTLR 3.5 /Users/abort/Documents/UvA/Repository/abort/src/org/uva/sea/ql/parser/antlr/QL.g 2013-01-15 22:06:52
+// $ANTLR 3.5 /Users/abort/Documents/UvA/Repository/abort/src/org/uva/sea/ql/parser/antlr/QL.g 2013-01-17 11:11:35
 
 package org.uva.sea.ql.parser.antlr;
 import org.uva.sea.ql.ast.*;
@@ -91,6 +91,7 @@ public class QLParser extends Parser {
 
 		int form_StartIndex = input.index();
 
+		Token Ident1=null;
 		List<Element> e =null;
 
 		try {
@@ -100,7 +101,7 @@ public class QLParser extends Parser {
 			// /Users/abort/Documents/UvA/Repository/abort/src/org/uva/sea/ql/parser/antlr/QL.g:30:5: FORM Ident BLOCK_START e= elements BLOCK_END
 			{
 			match(input,FORM,FOLLOW_FORM_in_form65); if (state.failed) return result;
-			match(input,Ident,FOLLOW_Ident_in_form67); if (state.failed) return result;
+			Ident1=(Token)match(input,Ident,FOLLOW_Ident_in_form67); if (state.failed) return result;
 			match(input,BLOCK_START,FOLLOW_BLOCK_START_in_form69); if (state.failed) return result;
 			pushFollow(FOLLOW_elements_in_form73);
 			e=elements();
@@ -108,7 +109,7 @@ public class QLParser extends Parser {
 			if (state.failed) return result;
 			match(input,BLOCK_END,FOLLOW_BLOCK_END_in_form75); if (state.failed) return result;
 			if ( state.backtracking==0 ) {    
-			    result = new Form(e);
+			    result = new Form((Ident1!=null?Ident1.getText():null), e);
 			  }
 			}
 
@@ -135,7 +136,7 @@ public class QLParser extends Parser {
 
 		int elements_StartIndex = input.index();
 
-		Element element1 =null;
+		Element element2 =null;
 
 		 results = new ArrayList<Element>(); 
 		try {
@@ -159,10 +160,10 @@ public class QLParser extends Parser {
 					// /Users/abort/Documents/UvA/Repository/abort/src/org/uva/sea/ql/parser/antlr/QL.g:36:6: element
 					{
 					pushFollow(FOLLOW_element_in_elements99);
-					element1=element();
+					element2=element();
 					state._fsp--;
 					if (state.failed) return results;
-					if ( state.backtracking==0 ) { results.add(element1); }
+					if ( state.backtracking==0 ) { results.add(element2); }
 					}
 					break;
 
@@ -200,9 +201,9 @@ public class QLParser extends Parser {
 
 		int element_StartIndex = input.index();
 
-		Question question2 =null;
-		Computation computation3 =null;
-		IfStatement ifExpression4 =null;
+		Question question3 =null;
+		Computation computation4 =null;
+		IfStatement ifExpression5 =null;
 
 		try {
 			if ( state.backtracking>0 && alreadyParsedRule(input, 3) ) { return result; }
@@ -306,30 +307,30 @@ public class QLParser extends Parser {
 					// /Users/abort/Documents/UvA/Repository/abort/src/org/uva/sea/ql/parser/antlr/QL.g:39:7: question
 					{
 					pushFollow(FOLLOW_question_in_element119);
-					question2=question();
+					question3=question();
 					state._fsp--;
 					if (state.failed) return result;
-					if ( state.backtracking==0 ) { result = question2; }
+					if ( state.backtracking==0 ) { result = question3; }
 					}
 					break;
 				case 2 :
 					// /Users/abort/Documents/UvA/Repository/abort/src/org/uva/sea/ql/parser/antlr/QL.g:40:7: computation
 					{
 					pushFollow(FOLLOW_computation_in_element129);
-					computation3=computation();
+					computation4=computation();
 					state._fsp--;
 					if (state.failed) return result;
-					if ( state.backtracking==0 ) { result = computation3; }
+					if ( state.backtracking==0 ) { result = computation4; }
 					}
 					break;
 				case 3 :
 					// /Users/abort/Documents/UvA/Repository/abort/src/org/uva/sea/ql/parser/antlr/QL.g:41:7: ifExpression
 					{
 					pushFollow(FOLLOW_ifExpression_in_element139);
-					ifExpression4=ifExpression();
+					ifExpression5=ifExpression();
 					state._fsp--;
 					if (state.failed) return result;
-					if ( state.backtracking==0 ) { result = ifExpression4; }
+					if ( state.backtracking==0 ) { result = ifExpression5; }
 					}
 					break;
 
@@ -460,7 +461,7 @@ public class QLParser extends Parser {
 
 		int questions_StartIndex = input.index();
 
-		Question question5 =null;
+		Question question6 =null;
 
 		 results = new ArrayList<Question>(); 
 		try {
@@ -484,10 +485,10 @@ public class QLParser extends Parser {
 					// /Users/abort/Documents/UvA/Repository/abort/src/org/uva/sea/ql/parser/antlr/QL.g:55:8: question
 					{
 					pushFollow(FOLLOW_question_in_questions247);
-					question5=question();
+					question6=question();
 					state._fsp--;
 					if (state.failed) return results;
-					if ( state.backtracking==0 ) { results.add(question5); }
+					if ( state.backtracking==0 ) { results.add(question6); }
 					}
 					break;
 
@@ -526,7 +527,7 @@ public class QLParser extends Parser {
 		int computation_StartIndex = input.index();
 
 		Token label=null;
-		Token String6=null;
+		Token String7=null;
 		DataType parameter =null;
 		Node operation =null;
 
@@ -538,7 +539,7 @@ public class QLParser extends Parser {
 			{
 			label=(Token)match(input,Ident,FOLLOW_Ident_in_computation267); if (state.failed) return result;
 			match(input,27,FOLLOW_27_in_computation269); if (state.failed) return result;
-			String6=(Token)match(input,String,FOLLOW_String_in_computation271); if (state.failed) return result;
+			String7=(Token)match(input,String,FOLLOW_String_in_computation271); if (state.failed) return result;
 			pushFollow(FOLLOW_dataType_in_computation275);
 			parameter=dataType();
 			state._fsp--;
@@ -550,7 +551,7 @@ public class QLParser extends Parser {
 			if (state.failed) return result;
 			match(input,PARENTHESES_CLOSE,FOLLOW_PARENTHESES_CLOSE_in_computation283); if (state.failed) return result;
 			if ( state.backtracking==0 ) {
-			    result = new Computation(new Label((label!=null?label.getText():null)), (String6!=null?String6.getText():null), parameter, operation);
+			    result = new Computation(new Label((label!=null?label.getText():null)), (String7!=null?String7.getText():null), parameter, operation);
 			  }
 			}
 
@@ -578,7 +579,7 @@ public class QLParser extends Parser {
 		int question_StartIndex = input.index();
 
 		Token label=null;
-		Token String7=null;
+		Token String8=null;
 		DataType parameter =null;
 
 		try {
@@ -589,13 +590,13 @@ public class QLParser extends Parser {
 			{
 			label=(Token)match(input,Ident,FOLLOW_Ident_in_question301); if (state.failed) return result;
 			match(input,27,FOLLOW_27_in_question303); if (state.failed) return result;
-			String7=(Token)match(input,String,FOLLOW_String_in_question305); if (state.failed) return result;
+			String8=(Token)match(input,String,FOLLOW_String_in_question305); if (state.failed) return result;
 			pushFollow(FOLLOW_dataType_in_question309);
 			parameter=dataType();
 			state._fsp--;
 			if (state.failed) return result;
 			if ( state.backtracking==0 ) {
-			    result = new Question(new Label((label!=null?label.getText():null)), (String7!=null?String7.getText():null), parameter);
+			    result = new Question(new Label((label!=null?label.getText():null)), (String8!=null?String8.getText():null), parameter);
 			  }
 			}
 
@@ -622,7 +623,7 @@ public class QLParser extends Parser {
 
 		int dataType_StartIndex = input.index();
 
-		Token Type8=null;
+		Token Type9=null;
 
 		try {
 			if ( state.backtracking>0 && alreadyParsedRule(input, 8) ) { return result; }
@@ -630,12 +631,12 @@ public class QLParser extends Parser {
 			// /Users/abort/Documents/UvA/Repository/abort/src/org/uva/sea/ql/parser/antlr/QL.g:68:2: ( Type )
 			// /Users/abort/Documents/UvA/Repository/abort/src/org/uva/sea/ql/parser/antlr/QL.g:68:4: Type
 			{
-			Type8=(Token)match(input,Type,FOLLOW_Type_in_dataType326); if (state.failed) return result;
+			Type9=(Token)match(input,Type,FOLLOW_Type_in_dataType326); if (state.failed) return result;
 			if ( state.backtracking==0 ) {
-			    if ((Type8!=null?Type8.getText():null).equals("string")) result = new StringLiteral();
-			    else if ((Type8!=null?Type8.getText():null).equals("integer")) result = new Int();
-			    else if ((Type8!=null?Type8.getText():null).equals("money")) result = new Money();
-			    else if ((Type8!=null?Type8.getText():null).equals("boolean")) result = new Bool();
+			    if ((Type9!=null?Type9.getText():null).equals("string")) result = new StringLiteral();
+			    else if ((Type9!=null?Type9.getText():null).equals("integer")) result = new Int();
+			    else if ((Type9!=null?Type9.getText():null).equals("money")) result = new Money();
+			    else if ((Type9!=null?Type9.getText():null).equals("boolean")) result = new Bool();
 			 }
 			}
 
@@ -662,12 +663,12 @@ public class QLParser extends Parser {
 
 		int primary_StartIndex = input.index();
 
-		Token Int9=null;
-		Token Money10=null;
-		Token Bool11=null;
-		Token Ident12=null;
-		Token String13=null;
-		Node orExpression14 =null;
+		Token Int10=null;
+		Token Money11=null;
+		Token Bool12=null;
+		Token Ident13=null;
+		Token String14=null;
+		Node orExpression15 =null;
 
 		try {
 			if ( state.backtracking>0 && alreadyParsedRule(input, 9) ) { return result; }
@@ -715,36 +716,36 @@ public class QLParser extends Parser {
 				case 1 :
 					// /Users/abort/Documents/UvA/Repository/abort/src/org/uva/sea/ql/parser/antlr/QL.g:76:5: Int
 					{
-					Int9=(Token)match(input,Int,FOLLOW_Int_in_primary343); if (state.failed) return result;
-					if ( state.backtracking==0 ) { result = new Int(Integer.parseInt((Int9!=null?Int9.getText():null))); }
+					Int10=(Token)match(input,Int,FOLLOW_Int_in_primary343); if (state.failed) return result;
+					if ( state.backtracking==0 ) { result = new Int(Integer.parseInt((Int10!=null?Int10.getText():null))); }
 					}
 					break;
 				case 2 :
 					// /Users/abort/Documents/UvA/Repository/abort/src/org/uva/sea/ql/parser/antlr/QL.g:77:5: Money
 					{
-					Money10=(Token)match(input,Money,FOLLOW_Money_in_primary353); if (state.failed) return result;
-					if ( state.backtracking==0 ) { result = new Money((Money10!=null?Money10.getText():null)); }
+					Money11=(Token)match(input,Money,FOLLOW_Money_in_primary353); if (state.failed) return result;
+					if ( state.backtracking==0 ) { result = new Money((Money11!=null?Money11.getText():null)); }
 					}
 					break;
 				case 3 :
 					// /Users/abort/Documents/UvA/Repository/abort/src/org/uva/sea/ql/parser/antlr/QL.g:78:5: Bool
 					{
-					Bool11=(Token)match(input,Bool,FOLLOW_Bool_in_primary361); if (state.failed) return result;
-					if ( state.backtracking==0 ) { result = new Bool(Boolean.parseBoolean((Bool11!=null?Bool11.getText():null))); }
+					Bool12=(Token)match(input,Bool,FOLLOW_Bool_in_primary361); if (state.failed) return result;
+					if ( state.backtracking==0 ) { result = new Bool(Boolean.parseBoolean((Bool12!=null?Bool12.getText():null))); }
 					}
 					break;
 				case 4 :
 					// /Users/abort/Documents/UvA/Repository/abort/src/org/uva/sea/ql/parser/antlr/QL.g:79:5: Ident
 					{
-					Ident12=(Token)match(input,Ident,FOLLOW_Ident_in_primary369); if (state.failed) return result;
-					if ( state.backtracking==0 ) { result = new Ident((Ident12!=null?Ident12.getText():null)); }
+					Ident13=(Token)match(input,Ident,FOLLOW_Ident_in_primary369); if (state.failed) return result;
+					if ( state.backtracking==0 ) { result = new Ident((Ident13!=null?Ident13.getText():null)); }
 					}
 					break;
 				case 5 :
 					// /Users/abort/Documents/UvA/Repository/abort/src/org/uva/sea/ql/parser/antlr/QL.g:80:5: String
 					{
-					String13=(Token)match(input,String,FOLLOW_String_in_primary377); if (state.failed) return result;
-					if ( state.backtracking==0 ) { result = new StringLiteral((String13!=null?String13.getText():null).substring(1, (String13!=null?String13.getText():null).length() - 1)); }
+					String14=(Token)match(input,String,FOLLOW_String_in_primary377); if (state.failed) return result;
+					if ( state.backtracking==0 ) { result = new StringLiteral((String14!=null?String14.getText():null).substring(1, (String14!=null?String14.getText():null).length() - 1)); }
 					}
 					break;
 				case 6 :
@@ -752,11 +753,11 @@ public class QLParser extends Parser {
 					{
 					match(input,PARENTHESES_OPEN,FOLLOW_PARENTHESES_OPEN_in_primary385); if (state.failed) return result;
 					pushFollow(FOLLOW_orExpression_in_primary387);
-					orExpression14=orExpression();
+					orExpression15=orExpression();
 					state._fsp--;
 					if (state.failed) return result;
 					match(input,PARENTHESES_CLOSE,FOLLOW_PARENTHESES_CLOSE_in_primary389); if (state.failed) return result;
-					if ( state.backtracking==0 ) { result = orExpression14; }
+					if ( state.backtracking==0 ) { result = orExpression15; }
 					}
 					break;
 
@@ -939,7 +940,7 @@ public class QLParser extends Parser {
 					      if ((op!=null?op.getText():null).equals("*")) {
 					        result = new Mul(result, rhs);
 					      }
-					      if ((op!=null?op.getText():null).equals("<=")) {
+					      if ((op!=null?op.getText():null).equals("/")) {
 					        result = new Div(result, rhs);      
 					      }
 					    }

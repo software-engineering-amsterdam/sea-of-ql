@@ -17,10 +17,10 @@ import org.uva.sea.ql.ast.types.Ident;
 import org.uva.sea.ql.ast.types.Int;
 import org.uva.sea.ql.ast.types.Money;
 import org.uva.sea.ql.ast.types.StringLiteral;
-import org.uva.sea.ql.parser.antlr.ANTLRParser;
+import org.uva.sea.ql.parser.antlr.QLParserController;
 
 public class TestExpressions extends TestCase {
-	private static final ANTLRParser parser = new ANTLRParser();
+	private static final QLParserController parser = new QLParserController();
 
 	
 	@Test
@@ -129,16 +129,16 @@ public class TestExpressions extends TestCase {
 	
 	@Test
 	public void testSimpleForm() throws RecognitionException {
-			assertEquals(Form.class, ((ANTLRParser)parser).parseForm(
+			assertEquals(Form.class, ((QLParserController)parser).parseForm(
 					"form Box1HouseOwning { hasSoldHouse: \"Did you sell a house in 2010?\" boolean hasBoughtHouse: \"Did you buy a house in 2010?\" boolean }").getClass());
 	}
 	
 	@Test
 	public void testFormWithIfExpressions() throws RecognitionException {
 		
-		Form form = (Form)((ANTLRParser)parser).parseForm(
+		Form form = (Form)((QLParserController)parser).parseForm(
 				"form Box1HouseOwning { hasSoldHouse: \"Did you sell a house in 2010?\" boolean\nhasBoughtHouse: \"Did you buy a house in 2010?\" boolean\nif (hasSoldHouse) { sellingPrice: \"Price was sold for:\" money\nprivateDebt: \"Private debts for the sold house:\" money\nvalueResidue: \"Value residue:\" money(sellingPrice - privateDebt) } else { reasonNotSelling: \"Why did you not sell the house?\" string\n }\n age: \"How old are you?\" integer\n\n}");
-		assertEquals(Form.class, ((ANTLRParser)parser).parseForm(
+		assertEquals(Form.class, ((QLParserController)parser).parseForm(
 				"form Box1HouseOwning { hasSoldHouse: \"Did you sell a house in 2010?\" boolean\nhasBoughtHouse: \"Did you buy a house in 2010?\" boolean\nif (hasSoldHouse) { sellingPrice: \"Price was sold for:\" money\nprivateDebt: \"Private debts for the sold house:\" money\nvalueResidue: \"Value residue:\" money(sellingPrice - privateDebt) } else { reasonNotSelling: \"Why did you not sell the house?\" string\n }\n age: \"How old are you?\" integer\n\n}").getClass());
 		System.out.println("form Box1HouseOwning { hasSoldHouse: \"Did you sell a house in 2010?\" boolean\nhasBoughtHouse: \"Did you buy a house in 2010?\" boolean\nif (hasSoldHouse) { sellingPrice: \"Price was sold for:\" money\nprivateDebt: \"Private debts for the sold house:\" money\nvalueResidue: \"Value residue:\" money(sellingPrice - privateDebt) } else { reasonNotSelling: \"Why did you not sell the house?\" string\n }\n age: \"How old are you?\" integer\n\n}");
 	}

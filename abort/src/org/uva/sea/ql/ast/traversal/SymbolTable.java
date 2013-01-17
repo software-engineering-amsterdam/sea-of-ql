@@ -4,7 +4,9 @@ import org.uva.sea.ql.ast.base.Node;
 import org.uva.sea.ql.ast.form.Label;
 
 
-class SymbolTable extends TypeContainer {
+class SymbolTable extends TypeTable {
+	protected SymbolTable() { }
+	
 	public boolean isLabelDeclared(final Label label) {
 		if (label == null) {
 			return false;

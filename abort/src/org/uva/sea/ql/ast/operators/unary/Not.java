@@ -1,7 +1,6 @@
 package org.uva.sea.ql.ast.operators.unary;
 
 import org.uva.sea.ql.ast.base.Node;
-import org.uva.sea.ql.ast.operators.base.BinaryOperator;
 import org.uva.sea.ql.ast.operators.base.UnaryOperator;
 import org.uva.sea.ql.ast.traversal.base.IVisitor;
 

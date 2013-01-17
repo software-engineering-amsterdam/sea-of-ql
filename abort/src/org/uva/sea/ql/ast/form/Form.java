@@ -6,9 +6,11 @@ import org.uva.sea.ql.ast.base.Node;
 import org.uva.sea.ql.ast.traversal.base.IVisitor;
 
 public class Form extends Node {
+	private final String name;
 	private final List<Element> nodes;
 	
-	public Form(final List<Element> nodes) {
+	public Form(final String name, final List<Element> nodes) {
+		this.name = name;
 		this.nodes = nodes;
 	}
 
@@ -23,5 +25,9 @@ public class Form extends Node {
 
 	public final List<Element> getNodes() {
 		return nodes;
+	}
+	
+	public String getName() {
+		return name;
 	}
 }

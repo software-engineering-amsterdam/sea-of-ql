@@ -4,7 +4,7 @@ import org.antlr.runtime.RecognitionException;
 import org.junit.Test;
 import org.uva.sea.ql.ast.base.Node;
 import org.uva.sea.ql.ast.traversal.TypeChecker;
-import org.uva.sea.ql.parser.antlr.ANTLRParser;
+import org.uva.sea.ql.parser.antlr.QLParserController;
 
 import junit.framework.TestCase;
 
@@ -14,7 +14,7 @@ public class TestTraversal extends TestCase {
 	
 	@Test
 	public void testTypeChecker() throws RecognitionException {
-		ANTLRParser parser = new ANTLRParser();
+		QLParserController parser = new QLParserController();
 	//	parser.parseAndVisitForm(form);
 		TypeChecker t = new TypeChecker();
 		Node n = parser.parse("31 * 3 + 2 + 80 + 16 * 1");

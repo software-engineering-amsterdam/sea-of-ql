@@ -7,7 +7,9 @@ import org.uva.sea.ql.ast.types.Bool;
 import org.uva.sea.ql.ast.types.Int;
 import org.uva.sea.ql.ast.types.Money;
 
-public class ResultTypeTable extends TypeContainer {
+class ResultTypeTable extends TypeTable {
+	protected ResultTypeTable() { }
+	
 	public boolean hasOperationGotEqualTypes(final BinaryOperator operator) {
 		final Class<? extends Node> leftHandSide = getLeftHandSideResultType(operator);
 		final Class<? extends Node> rightHandSide = getRightHandSideResultType(operator);		
@@ -28,6 +30,12 @@ public class ResultTypeTable extends TypeContainer {
 		return (Int.class.equals(nodeType) || Money.class.equals(nodeType));
 	}
 
+	public final boolean isMoneyTypeInvolved(final UnaryOperator operator) {
+		final Class<? extends Node> type = getTypeOfNode(operator.getNode());
+		
+		return type.equals(Money.class);
+	}
+	
 	public final boolean isMoneyTypeInvolved(final BinaryOperator operator) {
 		final Class<? extends Node> leftHandSide = getLeftHandSideResultType(operator);
 		final Class<? extends Node> rightHandSide = getRightHandSideResultType(operator);		

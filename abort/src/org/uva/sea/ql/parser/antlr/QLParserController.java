@@ -7,8 +7,8 @@ import org.uva.sea.ql.ast.base.Node;
 import org.uva.sea.ql.ast.form.Form;
 import org.uva.sea.ql.ast.traversal.TypeChecker;
 
-public class ANTLRParser {
-	public Node parse(String src) throws RecognitionException {
+public class QLParserController {
+	public Node parse(final String src) throws RecognitionException {
 		ANTLRStringStream stream = new ANTLRStringStream(src);
 		CommonTokenStream tokens = new CommonTokenStream();
 		tokens.setTokenSource(new QLLexer(stream));
@@ -17,7 +17,7 @@ public class ANTLRParser {
 		return parser.orExpression();
 	}
 	
-	public Form parseForm(String src) throws RecognitionException {
+	public Form parseForm(final String src) throws RecognitionException {
 		ANTLRStringStream stream = new ANTLRStringStream(src);
 		CommonTokenStream tokens = new CommonTokenStream();
 		tokens.setTokenSource(new QLLexer(stream));
@@ -26,7 +26,7 @@ public class ANTLRParser {
 		return parser.form();
 	}
 	
-	public void parseAndVisitForm(String src) throws RecognitionException {
+	public void parseAndVisitForm(final String src) throws RecognitionException {
 		final Node form = parseForm(src);
 		final TypeChecker t = new TypeChecker();
 		form.accept(t);

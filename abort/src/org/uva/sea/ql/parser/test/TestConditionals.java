@@ -4,7 +4,7 @@ import org.junit.Test;
 
 import junit.framework.TestCase;
 
-public class TestConditionals extends TestCase {
+public class TestConditionals extends TestBase {
 	@Test
 	public void testIfThen() {
 		

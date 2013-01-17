@@ -5,15 +5,14 @@ import java.util.Map;
 
 import org.uva.sea.ql.ast.base.Node;
 
-abstract class TypeContainer {
+abstract class TypeTable {
 	// Store the type for a node
 	protected Map<Node, Class<? extends Node>> types = new HashMap<Node, Class<? extends Node>>();
 	
-	protected TypeContainer() {
+	protected TypeTable() {
 		
 	}
 
-	// TODO: might remove subnode values
 	public void addTypeForNode(final Node node, final Class<? extends Node> type) {
 		types.put(node, type);
 	}
