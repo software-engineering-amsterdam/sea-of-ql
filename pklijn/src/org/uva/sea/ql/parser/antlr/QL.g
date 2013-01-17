@@ -31,12 +31,13 @@ ifStatement returns [IfStatement result]
   ;
 
 question returns [Question result]
-  : Ident ':' String {$result = new Question($Ident.text, $String.text);}
+  : Ident ':' String questionType {$result = new Question($Ident.text, $String.text, $questionType.text);}
   ;
 
-//questionType
-//  : 'boolean'
-//  ;
+questionType
+  : Boolean
+  | Money
+  ;
 
 primary returns [Expr result]
   : Int   { $result = new Int(Integer.parseInt($Int.text)); }
@@ -118,8 +119,9 @@ COMMENT
     : '/*' .* '*/' {$channel=HIDDEN;}
     ;
 
-Int: ('0'..'9')+;
-//Boolean: ('true'|'false');
-Ident: ('a'..'z'|'A'..'Z')('a'..'z'|'A'..'Z'|'0'..'9'|'_')*;
+Boolean: 'boolean';
+Money: 'money' ( '(' .* ')' )?;
 String: '"' .* '"';
-//Money: ('0'..'9')+ ((',') ('0'..'9') ('0'..'9');
+
+Int: ('0'..'9')+;
+Ident: ('a'..'z'|'A'..'Z')('a'..'z'|'A'..'Z'|'0'..'9'|'_')*;

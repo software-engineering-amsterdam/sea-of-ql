@@ -23,7 +23,7 @@ public class IfStatement extends FormItem {
 	@Override
 	public void print(int level) {
 		super.print(level);
-		System.out.println("IF id: "+ id +" level:" + level);
+		System.out.println("IF id: "+ id);
 		for (FormItem f : formItems) {
 			f.print(level + 1);
 		}

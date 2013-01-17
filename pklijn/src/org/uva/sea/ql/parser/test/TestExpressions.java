@@ -108,21 +108,21 @@ public class TestExpressions {
 	@Test 
 	public void testQuestionForm() throws ParseError {
 		assertEquals(parser.parseForm("form testForm1 {\n" +
-				"demoQuestion: \"Is this really a question?\"" +
+				"  demoQuestion: \"Is this really a question?\" boolean\n" +
 				"}").getClass(),Form.class);
 		assertEquals(parser.parseForm("form testForm2 {\n" +
-				"hasSoldHouse: \"Have you sold a house in 2012?\"\n" +
-				"hasBoughtHouse: \"Have you bought a house in 2012?\"\n" +
+				"hasSoldHouse: \"Have you sold a house in 2012?\" boolean\n" +
+				"hasBoughtHouse: \"Have you bought a house in 2012?\" money\n" +
 				"}").getFormItems().size(),2);
 		assertEquals(parser.parseForm("form testForm3 {\n" +
-				"demoQuestion: \"Is this really a question?\"" +
-				"if (demoQuestion) {" +
-				"	demoQuestion2: \"So this must also be a question then?\"" +
-				"	demoQuestion3: \"And this one two?\"" +
-				"	if (demoQuestion3) {" +
-				"		demoQuestion4: \"What, a question in a if in a if?\"" +
-				"	}" +
-				"}" +
+				"demoQuestion: \"Is this really a question?\" boolean\n" +
+				"if (demoQuestion) {\n" +
+				"	demoQuestion2: \"So this must also be a question then?\" boolean\n" +
+				"	demoQuestion3: \"And this one two?\" money(10 - 4)\n" +
+				"	if (demoQuestion3) {\n" +
+				"		demoQuestion4: \"What, a question in a if in a if?\" boolean \n" +
+				"	}\n" +
+				"}\n" +
 				"}").getClass(),Form.class);
 	}
 	
