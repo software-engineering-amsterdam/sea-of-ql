@@ -1,5 +1,6 @@
 package org.uva.sea.ql.checker;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.uva.sea.ql.ast.Bool;
@@ -17,6 +18,8 @@ import org.uva.sea.ql.ast.numeric.NumericBaseOperator2;
 import org.uva.sea.ql.ast.propositional.Not;
 import org.uva.sea.ql.ast.propositional.PropositionalBaseOperator2;
 import org.uva.sea.ql.errors.ExpressionTypeError;
+import org.uva.sea.ql.errors.FormCheckerCompiledErrors;
+import org.uva.sea.ql.errors.FormCheckerError;
 import org.uva.sea.ql.errors.IdentifierExistsError;
 import org.uva.sea.ql.errors.IdentifierScopeError;
 import org.uva.sea.ql.errors.IdentifierTypeError;
@@ -26,7 +29,7 @@ import org.uva.sea.ql.interfaces.INumeric;
 import org.uva.sea.ql.util.Stack;
 
 public class VisitorFormChecking implements IVisitor {
-
+	
 	private void checkIdentifier(Ident i, Class<?> type, Stack s) throws Exception {
 
 		if(!s.contains(i)){
@@ -104,6 +107,7 @@ public class VisitorFormChecking implements IVisitor {
 
 
 	public void visit(Form n, Stack s) throws Exception {
+		
 		n.getBody().accept(this, s);
 	}
 
@@ -111,12 +115,28 @@ public class VisitorFormChecking implements IVisitor {
 	public void visit(Body n, Stack s) throws Exception {
 		
 		List<Expr> nodes = n.getNodes();
+		List<FormCheckerError> errors = new ArrayList<FormCheckerError>();	
 		
 		for(int i=0; i<nodes.size(); i++){
+			
 			Expr node = nodes.get(i);
-			node.accept(this, s);
+			
+			try{
+				node.accept(this, s);
+			}
+			catch(FormCheckerError e){
+				errors.add(e); //register the error in the list
+			}
+			catch(Exception e){
+				throw e; //this shouldn't happen so throw it further down the chain
+			}
+
 		}
 		
+		//were there any errors in this form? then throw the compiled list down the chain
+		if(errors.size() > 0)
+			throw new FormCheckerCompiledErrors(errors);
+
 	}
 
 

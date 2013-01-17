@@ -2,7 +2,7 @@ package org.uva.sea.ql.errors;
 
 import org.uva.sea.ql.ast.Ident;
 
-public class IdentifierScopeError extends Exception{
+public class IdentifierScopeError extends FormCheckerError{
 	private static final long serialVersionUID = 2L;
 	
 	public IdentifierScopeError(Ident i) {
