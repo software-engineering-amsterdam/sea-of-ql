@@ -1,12 +1,12 @@
 package org.uva.sea.ql.ast;
 
-public class GT extends Expr{
+public class And extends Expr{
 	private Expr lhs;
 	private Expr rhs;
 	
-	public GT (Expr lhs, Expr rhs){
-		this.lhs=lhs;	
-		this.rhs=rhs;
+	public And(Expr lhs, Expr rhs) {
+		this.lhs = lhs;
+		this.rhs = rhs;
 	}
 	
 	public Expr getLhs() {
@@ -17,4 +17,5 @@ public class GT extends Expr{
 		return rhs;
 	}
 
+	
 }

@@ -1,10 +1,10 @@
 package org.uva.sea.ql.ast;
 
-public class GT extends Expr{
+public class Eq extends Expr{
 	private Expr lhs;
 	private Expr rhs;
 	
-	public GT (Expr lhs, Expr rhs){
+	public Eq (Expr lhs, Expr rhs){
 		this.lhs=lhs;	
 		this.rhs=rhs;
 	}

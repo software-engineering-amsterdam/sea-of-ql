@@ -1,11 +1,11 @@
 package org.uva.sea.ql.ast;
 
-public class GT extends Expr{
+public class Or extends Expr {
 	private Expr lhs;
 	private Expr rhs;
 	
-	public GT (Expr lhs, Expr rhs){
-		this.lhs=lhs;	
+	public Or(Expr lhs, Expr rhs){
+		this.lhs=lhs;
 		this.rhs=rhs;
 	}
 	
@@ -16,5 +16,4 @@ public class GT extends Expr{
 	public Expr getRhs() {
 		return rhs;
 	}
-
 }
