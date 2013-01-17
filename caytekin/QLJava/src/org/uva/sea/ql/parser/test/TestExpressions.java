@@ -2,6 +2,7 @@ package org.uva.sea.ql.parser.test;
 
 import static org.junit.Assert.assertEquals;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -10,18 +11,21 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
 import org.uva.sea.ql.ast.*;
+import org.uva.sea.ql.parser.antlr.ANTLRExpressionParser;
 import org.uva.sea.ql.parser.antlr.ANTLRParser;
 
 @RunWith(Parameterized.class)
 public class TestExpressions {
 
+
 	private IParse parser;
 
 	@Parameters
 	public static List<Object[]> theParsers() {
-	  return Arrays.asList( new Object[] {new ANTLRParser()},
-			  new Object[] {new ANTLRParser()}
-			 );
+	  List<Object[]> retList = new ArrayList<Object[]>();
+	  Object[] oArray = {new ANTLRExpressionParser() } ;
+	  retList.add(oArray);
+	  return retList;
 	}
 
 	
@@ -92,52 +96,5 @@ public class TestExpressions {
 	public void testStringLiteral() throws ParseError {
 		assertEquals(parser.parse(" \" This is a String liteal indeed... \" ").getClass(), StringLiteral.class);
 	}
-	
-	@Test 
-	public void testBooleanType() throws ParseError {
-		assertEquals(parser.parse("bool").getClass(), BooleanType.class);
-	}
-	
-	@Test 
-	public void testIntegerType() throws ParseError {
-		assertEquals(parser.parse("int").getClass(), IntegerType.class);
-	}
-	
-	@Test 
-	public void testStringType() throws ParseError {
-		assertEquals(parser.parse("string").getClass(), StringType.class);
-	}
-	
-	@Test 
-	public void testTrueRW() throws ParseError {
-		assertEquals(parser.parse("true").getClass(), TrueRW.class);
-	}
-	
-	@Test 
-	public void testFalseRW() throws ParseError {
-		assertEquals(parser.parse("false").getClass(), FalseRW.class);
-	}
-	
-	@Test 
-	public void testIfRW() throws ParseError {
-		assertEquals(parser.parse("if").getClass(), IfRW.class);
-	}
-	
-	@Test 
-	public void testThenRW() throws ParseError {
-		assertEquals(parser.parse("then").getClass(), ThenRW.class);
-	}
-	
-	@Test 
-	public void testElseRW() throws ParseError {
-		assertEquals(parser.parse("else").getClass(), ElseRW.class);
-	}
-	
-	@Test
-	public void testQuestion() throws ParseError {
-		assertEquals(parser.parse("hasSoldHouse : \"Did you sell a house in 2012?\" bool").getClass(), Question.class);
-	}
-	
-	
-	
+		
 }
