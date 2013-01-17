@@ -109,7 +109,7 @@ start syntax Expr
   	;
 
 start syntax Type
- 	= @category="TypeDeclaration" boolean:"boolean"
+ 	= boolean:"boolean"
  	| integer:"integer"
  	| date:"date"
  	| money:"money"
@@ -120,6 +120,7 @@ start syntax Type
 keyword Keywords
 	= \true: "true"
 	| \false: "false"
+	| \if: "if"
 	;
   
 

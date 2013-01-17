@@ -49,4 +49,4 @@ public test bool testUglyFormattedForm() =
   semanticChecker(|project://QL-R-kemi/forms/uglyFormatted.q|, 13);
   
 public test bool testUndefinedVariableForm() = 
-  semanticChecker(|project://QL-R-kemi/forms/undefinedVariable.q|, 1);
+  semanticChecker(|project://QL-R-kemi/forms/undefinedVariable.q|, 3);

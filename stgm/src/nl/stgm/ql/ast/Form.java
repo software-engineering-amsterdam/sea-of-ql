@@ -2,7 +2,10 @@ package nl.stgm.ql.ast;
 
 public class Form extends Expr
 {
-	public Form()
+	private String id;
+	
+	public Form(String id)
 	{
+		this.id = id;
 	}
 }

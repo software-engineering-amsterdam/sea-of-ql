@@ -51,6 +51,7 @@ public class TestForms
 
 	@Test(expected=ParseError.class) public void testBadFormsWithOneQuestion() throws ParseError
 	{
+		// hmm this testing may not work as expected, if first ParseError already validates test
 		parser.parse("form Box1HouseOwning { hasSoldHouse: '\"Did?\" boolean }");
 		parser.parse("form Box1HouseOwning { hasSoldHouse : \"Did?\" boolean }");
 		parser.parse("form Box1HouseOwning { hasSoldHouse '\"Did?\" boolean }");
