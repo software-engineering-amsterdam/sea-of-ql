@@ -1,42 +1,47 @@
 module lang::ql::ide::IdentifierUsesDefinitions
 
 import lang::ql::ast::AST;
+import lang::ql::ast::Graph;
+import lang::ql::ide::FlowGraph;
 
 public alias Occurrence = tuple[loc location, str \type, Expr expr];
 
-public set[Occurrence] identifierUses(Form form) = uses(form.formElements);
+public list[GraphNode] identifierUses(Form form) = uses(form.formElements);            
+                       
+public list[GraphNode] identifierDefinitions(Form f) =                 
+  [ question(q, q@location) | /s:question(Question q) <- f.formElements];
+                       
+private list[GraphNode] uses(list[Statement] formElements) = [*uses(e) | e <- formElements];
 
-public set[Occurrence] identifierDefinitions(Form f) =                 
-  { < q@location, \type, ident(id) > | /q:question(qtext, \type, id) <- f.formElements} +
-  { < q@location, \type, ident(id) > | /q:question(qtext, \type, id, cfield) <- f.formElements};
-
-private set[Occurrence] uses(list[Statement] formElements) = {*uses(e) | e <- formElements};
-
-private set[Occurrence] uses(Statement item:
+private list[GraphNode] uses(Statement item:
   ifCondition(Conditional ifPart, list[Conditional] elseIfs, list[ElsePart] elsePart)) {
   return
     uses(ifPart) +
-    {*uses(e) | e <- elseIfs} +
-    {*uses(e.body) | e <- elsePart};
+    [*uses(e) | e <- elseIfs] +
+    [*uses(e.body) | e <- elsePart];
 }
 
-private set[Occurrence] uses(Conditional cond:
+private list[GraphNode] uses(Conditional cond:
   conditional(Expr condition, list[Statement] body)) {
-  return uses(condition) + {*uses(e) | e <- body};
+  return uses(condition) + [*uses(e) | e <- body];
 }
 
-private set[Occurrence] uses(Statement item: question(Question question)) = uses(question);
+private list[GraphNode] uses(Statement item: question(Question question)) = uses(question);
 
-private set[Occurrence] uses(Question q:
+private list[GraphNode] uses(Question q:
   question(questionText, answerDataType, answerIdentifier)) {
-  return {};
+  return [];
 }
 
-private set[Occurrence] uses(Question q:
+private list[GraphNode] uses(Question q:
   question(questionText, answerDataType, answerIdentifier, calculatedField)) {
   return uses(calculatedField); 
 }
 
-private set[Occurrence] uses(Expr e) = 
-  u:ident(str name) := e ? {< u@location, "", ident(name)>}
-                       : {< u@location, "", ident(name)> | /u:ident(str name) <- e };
+private list[GraphNode] uses(Expr e) {
+  if(u:ident(str name) := e) {
+    return [expr(e, e@location)];
+  } else {
+    return [expr(u, u@location) | /u:ident(str name) <- e ];
+  }
+} 
