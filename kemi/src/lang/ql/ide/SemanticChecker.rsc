@@ -5,7 +5,9 @@ import Map;
 import Node;
 import ParseTree;
 import Set;
+import analysis::graphs::Graph;
 import lang::ql::ast::AST;
+import lang::ql::ast::Graph;
 import lang::ql::compiler::PrettyPrinter;
 import lang::ql::ide::IdentifierUsesDefinitions;
 import lang::ql::ide::Outline;
@@ -14,6 +16,7 @@ import lang::ql::util::Parse;
 import util::IDE;
 
 import IO;
+import lang::ql::ide::FlowGraph;
 import util::ValueUI;
 
 alias identInfo = tuple[loc \loc, str \type];
@@ -41,56 +44,109 @@ alias labelMap = map[str ident, list[identInfo] identInfo];
   
 
 public void main() {
+  //f = |tmp:///t.q|;
   //f = |project://QL-R-kemi/forms/ifCondition.q|;
+  f = |project://QL-R-kemi/forms/ifElseCondition.q|;
+  //f = |project://QL-R-kemi/forms/ifElseIfCondition.q|;
+  //f = |project://QL-R-kemi/forms/calculatedField.q|;
   //f = |project://QL-R-kemi/forms/duplicateLabels.q|;
   //f = |project://QL-R-kemi/forms/undefinedVariable.q|;
-  f = |project://QL-R-kemi/forms/undefinedVariable.q|;
+  //f = |project://QL-R-kemi/forms/undefinedVariable.q|;
 
   x = implode(parse(readFile(f), |file:///-|));
   println("Parsing done: <x>");
-  sx = semanticChecker(x);
+  
+  us = identifierUses(x);
+  def = identifierDefinitions(x);
+
+  sx = useBeforeDeclarationMessages(us, def, x);
+  //sx = semanticChecker(x);
+
+
   iprintln(sx);
 }
 
-
+// Return after each error-checking step so the IDE will not be flooded with possible recursive errors
 public set[Message] semanticChecker(node form) {
   set[Message] ret = {};
   us = identifierUses(form);
   def = identifierDefinitions(form);
-  ret += duplicateIdentifierMessages(def);
-  ret += duplicateQuestionMessages(form);
-  ret += useBeforeDeclarationMessages(us, def);
-  return ret;
+/*
+  ret = duplicateIdentifierMessages(def);
+    if(ret != {})
+      return ret;
+
+  ret = duplicateQuestionMessages(form);
+    if(ret != {})
+      return ret;  
+*/
+  ret = useBeforeDeclarationMessages(us, def, form);
+    if(ret != {})
+      return ret;
+
+   return ret;  
 }
 
-// TODO: This does not take control flow into account!
-private set[Message] useBeforeDeclarationMessages(set[Occurrence] us, set[Occurrence] defs) {
-  ids = sort(toList(us + defs), sortOccurrences);
-  set[Message] ret = {};
+public bool idNameMatches(GraphNode use, GraphNode definition) {
+  if(question(question(_, \type, name), _) := definition) {
+    return name == use.expr.name;
+  } else if(question(question(_, \type, name, _), _) := definition) {
+    return name == use.expr.name;
+  } else {
+    throw "GraphNode def is not a definition.";
+  }
+}
+
+private set[Message] useBeforeDeclarationMessages(list[GraphNode] us, list[GraphNode] defs, Form form) {
+  set[GraphNode] unreachable = {};
+  g = formGraph(form);
   
-  set[str] declared = {};
+  list[GraphNode] nextUse = us;
   
-  for(x <- ids, <\loc, \type, ident(name)> := x) {
-    if(\type == "") {
-      if(name notin declared) {
-        ret += useBeforeDeclaration(name, \loc);
+  for(d <- defs) {
+    // First get the parent of the current definition:
+    parent = [ a | <a, b> <- g, b == d];
+    r = reach(g, toSet(parent));
+    
+    list[GraphNode] curUse = nextUse;
+    nextUse = [];
+    
+    for(u <- curUse) {
+      if(idNameMatches(u, d)) {
+        println(u.expr.name);
+        
+        ids = { x | /x:ident(str name) <- r };
+        
+        if(u.expr notin ids) {
+          // use in graph of definition
+          unreachable += {u};
+          println("Unreachable use: <u.location>");
+        }
+      } else {
+        nextUse += [u];
       }
-    } else {
-      declared += {name};
     }
   }
-  return ret;
+  
+  println("Rest: ");
+  iprintln(nextUse);
+  unreachable += {u | u <- nextUse};
+    
+  return {useBeforeDeclaration(prettyPrint(u.expr), u.location) | u <- unreachable};
 }
 
-private set[Message] duplicateIdentifierMessages(set[Occurrence] defs) {
-  map[Expr id, set[Occurrence] occurrences] ids;
+private set[Message] duplicateIdentifierMessages(list[GraphNode] defs) {
+  ids = toMap([ <name, <\type, x@location>> | 
+    i <- defs, question(x, _) := i, 
+    question(_, \type, name) := x || 
+    question(_, \type, name, _) := x]);
   
-  ids = toMap( { <key, \value> | \value <- defs, <_, _, key> := \value } );
   ids = (key : ids[key] | key <- ids, size(ids[key]) > 1);
   
   idsRel = { < x, d> | d <- ids, x <- ids[d] };
-  return 
-    {duplicateIdentifierMessage(name, \type, \loc) | <<\loc, \type, _>, ident(name)> <- idsRel};
+  
+  return
+    {duplicateIdentifierMessage(name, \type, \loc) | <<\type, \loc>, name> <- idsRel};
 }
 
 private set[Message] duplicateQuestionMessages(Form form) { 
