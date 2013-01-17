@@ -27,11 +27,13 @@ primary returns [Expr result]
   ;
   
 type returns [Type result]
-   : 'boolean' { $result = new BoolType() ;}
-   | 'string'  { $result = new StringType() ;}
-   | 'int'     { $result = new IntType() ;}
-   | 'money'   { $result = new MoneyType() ;}
-   ;
+ : Type {
+    if ($Type.text.equals("string")) $result = new StringType();
+    else if ($Type.text.equals("int")) $result = new IntType();
+    else if ($Type.text.equals("money")) $result = new MoneyType();
+    else if ($Type.text.equals("boolean")) $result = new BoolType();
+  }
+  ;
     
 unExpr returns [Expr result]
     :  '+' x=unExpr { $result = new Pos($x.result); }
@@ -102,38 +104,39 @@ question returns [Question result]
     |   Ident ':' StringLiteral type { $result = new Question(new Ident($Ident.text) ,new StringLiteral($StringLiteral.text), $type.result); }
     ;
 
-ifThenElse returns [IfThenElse result]
-    :   'if' '(' orExpr ')' thenbody=formblock ('else' elseBody=formblock)? { $result = new IfThenElse($orExpr.result, thenbody, elseBody); }
+ifbody returns [IfBody result]
+    :   'if' '(' x = orExpr ')' '{' body=formblock '}' { $result = new IfBody($x.result, $body.result); }
     ;
 
 formElement returns [FormElement result]
-    : ifThenElse { $result = $ifThenElse.result; }
+    : ifbody     { $result = $ifbody.result; }
     | question   { $result = $question.result; }
     ;
     
-formblock returns [FormBlock result]
-    @init {
-        ArrayList<FormElement> formElements = new ArrayList<FormElement>();
-    }
-    : '{' (formElement { formElements.add($formElement.result); })* '}' {$result = new FormBlock(formElements); }
+formblock returns [List<FormElement> result]
+    :  {$result = new ArrayList<FormElement>(); } (ele=formElement { $result.add($ele.result); })*  
     ;
 
 form returns [Form result]
-    : 'form' Ident formblock { $result = new Form(new Ident($Ident.text), $formblock.result); }
+    : 'form' Ident '{' formblock '}' { $result = new Form(new Ident($Ident.text), $formblock.result); }
     ;
+    
 // Tokens
+
+IntLiteral : ('0'..'9')+;
+
 Ws  :	(' ' | '\t' | '\n' | '\r') { $channel=HIDDEN; };
 
 BoolLiteral: 'true'|'false';
+
+Type: 'string' | 'int' | 'money' | 'boolean';
 
 Comment : '/*' .* '*/' {$channel=HIDDEN;};
 
 LineComment : '//' ~('\n'|'\r')* '\r'? '\n' {$channel=HIDDEN;};
     
-StringLiteral : '"' .* '"';
+StringLiteral : '"' ~('\n' | '\r' | '\f' | '"')* '"' ;
 
 Ident :   ('a'..'z'|'A'..'Z')('a'..'z'|'A'..'Z'|'0'..'9'|'_')*;
-
-IntLiteral : ('0'..'9')+;
 
 MoneyLiteral : ('0'..'9')+ '\.' ('0'..'9')('0'..'9');

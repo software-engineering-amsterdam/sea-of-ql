@@ -1,5 +1,13 @@
 package org.uva.sea.ql.ast.types;
 
-public abstract class IntType extends Type {
+import org.uva.sea.ql.visitor.Visitor;
+
+public class IntType extends Type {
+
+	@Override
+	public void accept(Visitor visitor) {
+		// TODO Auto-generated method stub
+		
+	}
 
 }

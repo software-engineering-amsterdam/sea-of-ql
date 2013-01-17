@@ -1,6 +1,6 @@
 package org.uva.sea.ql.parser.test;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,19 +9,12 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
-import org.uva.sea.ql.ast.expr.Add;
-import org.uva.sea.ql.ast.expr.And;
-import org.uva.sea.ql.ast.expr.GT;
-import org.uva.sea.ql.ast.expr.Ident;
-import org.uva.sea.ql.ast.expr.LEq;
-import org.uva.sea.ql.ast.expr.LT;
-import org.uva.sea.ql.ast.expr.Mul;
-import org.uva.sea.ql.ast.expr.Not;
-import org.uva.sea.ql.ast.expr.value.IntLiteral;
+import org.uva.sea.ql.ast.expr.*;
+import org.uva.sea.ql.ast.expr.value.*;
 import org.uva.sea.ql.parser.antlr.ANTLRParser;
 
 @RunWith(Parameterized.class)
-public class TestExpressions {
+public class Tests {
 
 	private IParse parser;
 
@@ -32,7 +25,7 @@ public class TestExpressions {
 		return parserList;
 	}
 
-	public TestExpressions(IParse parser) {
+	public Tests(IParse parser) {
 		this.parser = parser;
 	}
 
@@ -90,10 +83,40 @@ public class TestExpressions {
 	}
 
 	@Test
-	public void testNums() throws ParseError {
+	public void testInt() throws ParseError {
 		assertEquals(parser.parse("0").getClass(), IntLiteral.class);
 		assertEquals(parser.parse("1223").getClass(), IntLiteral.class);
 		assertEquals(parser.parse("234234234").getClass(), IntLiteral.class);
 	}
+	
+	@Test
+	public void testMoney() throws ParseError {
+		assertEquals(parser.parse("120.00").getClass(), MoneyLiteral.class);
+		assertEquals(parser.parse("1231121.11").getClass(), MoneyLiteral.class);
+		assertEquals(parser.parse("00.00").getClass(), MoneyLiteral.class);
+	}
+	
+	@Test
+	public void testBoolean() throws ParseError {
+		assertEquals(parser.parse("true").getClass(), BoolLiteral.class);
+		assertEquals(parser.parse("false").getClass(), BoolLiteral.class);
+	}
+	
+	@Test
+	public void testString() throws ParseError {
+		assertEquals(parser.parse("\"trues dat\"").getClass(), StringLiteral.class);
+		assertEquals(parser.parse("\"true dat\"").getClass(), StringLiteral.class);
+		assertEquals(parser.parse("\"true dat\" \" nice to SEE ya\"").getClass(), StringLiteral.class);
+		assertEquals(parser.parse("\"True dat\" \n \t \" nice to SEE ya\"").getClass(), StringLiteral.class);
+		assertEquals(parser.parse("\"tr<ue **dat\" \" nice) to SEE ya\"").getClass(), StringLiteral.class);
+	}
+	
+	@Test
+	public void testComments() throws ParseError {
+		assertNull(parser.parse("// \"trues dat\"\n"));
+		assertNull(parser.parse("/* true \r \"Dat\" \n 123 */"));
+	}
+	
+	
 
 }

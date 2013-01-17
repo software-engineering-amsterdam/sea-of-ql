@@ -1,5 +1,13 @@
 package org.uva.sea.ql.ast.types;
 
-public abstract class BoolType extends Type {
+import org.uva.sea.ql.visitor.Visitor;
+
+public class BoolType extends Type {
+
+	@Override
+	public void accept(Visitor visitor) {
+		// TODO Auto-generated method stub
+		
+	}
 
 }
