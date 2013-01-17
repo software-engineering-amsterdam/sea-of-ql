@@ -1,6 +1,8 @@
-package org.uva.sea.ql.ast.type;
+package org.uva.sea.ql.ast.statement;
 
-public class Question extends Type {	
+import org.uva.sea.ql.ast.type.Type;
+
+public class Question extends Statement {	
 	
 	private final String sentence; 
 	private final Type returnType; 

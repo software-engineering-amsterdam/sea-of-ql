@@ -48,7 +48,22 @@ public class TestExpressions {
 //				"question3 : \"Super goed ? \" boolean " + 
 //				"question4 : \"Niet goed ? \" boolean }"));
 		
-		System.out.println(parser.parse("form testForm1 { question1 : \"alles goed ? \" money( a + b) } "));
+		//System.out.println(parser.parse("form testForm1 { question1 : \"alles goed ? \" money( a + b) } "));
+		
+		System.out.println(parser.parse(
+				"form Box1HouseOwning {" +
+					"hasSoldHouse: \"Did you sell a house in 2010?\" money(15 + 18) " +
+					"hasBoughtHouse: \"Did you by a house in 2010?\" boolean " +
+					"hasMaintLoan: \"Did you enter a loan for maintenance/reconstruction?\"" +
+					"boolean " +
+					"if (hasSoldHouse) {" +
+						"sellingPrice: \"Price the house was sold for:\" money " +
+						"privateDebt: \"Private debts for the sold house:\" money " +
+						"valueResidue: \"Value residue:\" money(13 - 5) " +
+						"}" +
+					"}"));
+		
+		
 		//parser.parse("true");
 		
 //		assertEquals(parser.parse("a + b").getClass(), Add.class);

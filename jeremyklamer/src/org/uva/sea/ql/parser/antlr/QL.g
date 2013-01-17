@@ -6,6 +6,7 @@ options {backtrack=true; memoize=true;}
 package org.uva.sea.ql.parser.antlr;
 import org.uva.sea.ql.ast.*;
 import org.uva.sea.ql.ast.type.*;
+import org.uva.sea.ql.ast.statement.*;
 }
 
 @lexer::header
@@ -85,19 +86,37 @@ orExpr returns [Expr result]
     ;
 
 form returns [Type result] 
-     @init { List<Question> questions = new ArrayList<Question>();}
-    : 'form' Ident '{' (question {questions.add($question.result);})+ '}'
-    { $result = new Form(new Ident($Ident.text), new Questions(questions));}
+    @init { List<Statement> formParts = new ArrayList<Statement>();}
+    : 'form' Ident '{' (formPart {formParts.add($formPart.result);})+ '}' { $result = new Form(new Ident($Ident.text), formParts);}
+    ;
+    
+formPart returns [Statement result]
+    : question {$result = $question.result;}
+    | ifStatement {$result = $ifStatement.result;}
+    | ifThenStatement {$reuslt = $ifThenStatement.result;}
+    ;
+    
+ifStatement returns[Statement result]
+    @init { List<Statement> formParts = new ArrayList<Statement>();}
+    : 'if' '(' Ident ')' '{' (formPart {formParts.add($formPart.result);})+ '}' {$result = new If(new Ident($Ident.text), formParts);}
+    ;
+    
+ifThenStatement returns [Statement result]
+    @init { List<Statement> ifFormParts = new ArrayList<Statement>();
+            List<Statement> elseFormParts = new ArrayList<Statement>();}
+    : 'if' '(' Ident ')' '{' (formPart {formParts.add($formPart.result);})+ '}'
+      'else' '{' (formPart {formParts.add($formPart.result);})+ '}'
+      {$result = new IfThenElse(new Ident($Ident.text), formParts);}  
     ;
   
 question returns [Question result] 
-   : Ident ':' String returnType {$result = new Question($String.text, $returnType.result);}
+    : Ident ':' String returnType {$result = new Question($String.text, $returnType.result);}
     ;
     
 returnType returns [Type result] 
     : 'boolean' { $result = new BoolType(false); }
-    | 'money(' orExpr ')' {$result = new Money(-2);} //Fill in actual numbers. 
-    | 'money' {$result = new Money(-1);} // Fill in actual numbers.
+    | 'money(' orExpr ')' {$result = new Money($orExpr.result);} //Fill in actual numbers. 
+    | 'money' {$result = new Money();} // Fill in actual numbers.
     ;
     
 BOOL	: ('true' | 'false');    
