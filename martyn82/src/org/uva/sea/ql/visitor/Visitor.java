@@ -35,7 +35,7 @@ abstract public class Visitor {
 			visit( (Ident) node );
 		}
 		else {
-			System.err.println( node.getClass().getName() );
+			throw new RuntimeException( "Unknown expression type: " + node.getClass().getSimpleName() );
 		}
 	}
 	
@@ -66,7 +66,7 @@ abstract public class Visitor {
 			visit( (Assignment) node );
 		}
 		else {
-			System.out.println( node.getClass().getName() );
+			throw new RuntimeException( "Unknown statement type: " + node.getClass().getSimpleName() );
 		}
 	}
 	
