@@ -7,5 +7,8 @@ public class Unary extends Expr {
 	public Unary(Expr expr) {
 		this.expr = expr;
 	}
-	
+
+	public Expr getExpression() {
+		return this.expr;
+	}
 }

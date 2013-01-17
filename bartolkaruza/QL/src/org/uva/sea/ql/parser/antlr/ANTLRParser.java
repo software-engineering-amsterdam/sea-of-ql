@@ -12,12 +12,8 @@ public class ANTLRParser implements IParse {
 
 	@Override
 	public Expr parseExpression(String src) throws ParseError {
-		ANTLRStringStream stream = new ANTLRStringStream(src);
-		CommonTokenStream tokens = new CommonTokenStream();
-		tokens.setTokenSource(new QLLexer(stream));
-		QLParser parser = new QLParser(tokens);
 		try {
-			return parser.orExpr();
+			return getParser(src).orExpr();
 		} catch (RecognitionException e) {
 			throw new ParseError(e.getMessage());
 		}

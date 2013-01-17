@@ -1,5 +1,9 @@
 module Plugin
 
+/*Module Plugin
+Instantiates the DSL QL
+*/
+
 import util::IDE;
 import lang::ql::util::Parse;
 import ParseTree;

@@ -39,7 +39,7 @@ constant Action<Expr> AddTail =
 	/ "-" Spacing right:MulExpr { 
 		yyValue = new Action<Expr>() {
 			public Expr run(Expr left) {
-              return new Add(left, right);
+              return new Sub(left, right);
             }
         };
     }; 
@@ -67,6 +67,7 @@ constant Action<Expr> MulTail =
 Expr Unary = 
     "+" Spacing un:Unary { yyValue = new Pos(un); }
     / "-" Spacing un:Unary { yyValue = new Neg(un); }
+    / "!" Spacing un:Unary { yyValue = new Not(un); }
 	/ yyValue:Primary;
 	
 
@@ -79,6 +80,10 @@ Expr Primary =
 String Int
   = [0-9]+ //![0-9a-zA-Z] 
 	;
+	
+String Str
+  = /"(?:[^"\\]|\\.)*"/
+    ;
 
 String Ident
   = [a-zA-Z_][A-Za-z0-9_]* //![0-9a-zA-Z_]

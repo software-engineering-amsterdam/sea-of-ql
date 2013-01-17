@@ -1,7 +1,8 @@
-content_assist_disabled_computers=org.eclipse.recommenders.completion.rcp.templates.category\u0000org.eclipse.jdt.ui.javaAllProposalCategory\u0000org.eclipse.jdt.ui.javaNoTypeProposalCategory\u0000org.eclipse.jdt.ui.textProposalCategory\u0000org.eclipse.recommenders.subwords.rcp.category\u0000org.eclipse.recommenders.completion.rcp.chain.category\u0000org.eclipse.jdt.ui.javaTypeProposalCategory\u0000
+CustomFiltersActionGroup.org.eclipse.jdt.ui.PackageExplorer.TAG_DUMMY_TO_TEST_EXISTENCE=storedViewPreferences
+command=C\:\\Program Files\\Java\\jre7\\bin\\javadoc.exe
 content_assist_favorite_static_members=
-content_assist_lru_history=<?xml version\="1.0" encoding\="UTF-8" standalone\="no"?><history maxLHS\="100" maxRHS\="10"><lhs name\="org.uva.sea.ql.parser.test.IParse"><rhs name\="org.uva.sea.ql.parser.antlr.ANTLRParser"/></lhs></history>
-content_assist_number_of_computers=23
+content_assist_lru_history=<?xml version\="1.0" encoding\="UTF-8" standalone\="no"?><history maxLHS\="100" maxRHS\="10"><lhs name\="org.uva.sea.ql.parser.test.IParse"><rhs name\="org.uva.sea.ql.parser.antlr.ANTLRParser"/></lhs><lhs name\="org.uva.sea.ql.astvisitor.ASTNodeVisitor"><rhs name\="org.uva.sea.ql.astvisitor.ASTNodePrintVisitor"/></lhs></history>
+content_assist_number_of_computers=17
 content_assist_proposals_background=255,255,255
 content_assist_proposals_foreground=0,0,0
 eclipse.preferences.version=1
@@ -9,6 +10,14 @@ escapeStrings=true
 fontPropagated=true
 hoverModifierMasks=org.eclipse.jdt.ui.BestMatchHover;0;org.eclipse.jdt.internal.debug.ui.JavaDebugHover;0;org.eclipse.jdt.ui.ProblemHover;0;org.eclipse.jdt.ui.NLSStringHover;4259840;org.eclipse.jdt.ui.JavadocHover;4325376;org.eclipse.jdt.ui.AnnotationHover;0;org.eclipse.jdt.ui.JavaSourceHover;131072;
 hoverModifiers=org.eclipse.jdt.ui.BestMatchHover;0;org.eclipse.jdt.internal.debug.ui.JavaDebugHover;\!0;org.eclipse.jdt.ui.ProblemHover;\!0;org.eclipse.jdt.ui.NLSStringHover;Command+Alt;org.eclipse.jdt.ui.JavadocHover;Command+Shift;org.eclipse.jdt.ui.AnnotationHover;\!0;org.eclipse.jdt.ui.JavaSourceHover;Shift;
+lastRecentlyUsedFilters=org.eclipse.jdt.ui.PackageExplorer_patternFilterId_.*,
+org.eclipse.jdt.internal.ui.PackageExplorer.EmptyInnerPackageFilter=true
+org.eclipse.jdt.internal.ui.PackageExplorer.HideInnerClassFilesFilter=true
+org.eclipse.jdt.ui.PackageExplorer.EmptyLibraryContainerFilter=true
+org.eclipse.jdt.ui.PackageExplorer.ImportDeclarationFilter=true
+org.eclipse.jdt.ui.PackageExplorer.PackageDeclarationFilter=true
+org.eclipse.jdt.ui.PackageExplorer.SyntheticMembersFilter=true
+org.eclipse.jdt.ui.PackageExplorer_patternFilterId_.*=true
 org.eclipse.jdt.ui.editor.tab.width=
 org.eclipse.jdt.ui.formatterprofiles.version=12
 org.eclipse.jdt.ui.javadoclocations.migrated=true
@@ -17,6 +26,7 @@ org.eclipse.jdt.ui.text.custom_code_templates=<?xml version\="1.0" encoding\="UT
 org.eclipse.jdt.ui.text.custom_templates=<?xml version\="1.0" encoding\="UTF-8" standalone\="no"?><templates/>
 org.eclipse.jdt.ui.text.templates_migrated=true
 org.eclipse.jface.textfont=1|Consolas|10.0|0|WINDOWS|1|0|0|0|0|0|0|0|0|1|0|0|0|0|Consolas;
+org.eclipse.pde.ui.ExternalPluginLibrariesFilter1=true
 proposalOrderMigrated=true
 sp_cleanup.add_default_serial_version_id=true
 sp_cleanup.add_generated_serial_version_id=false

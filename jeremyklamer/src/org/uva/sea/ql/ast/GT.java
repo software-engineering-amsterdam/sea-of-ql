@@ -1,9 +1,20 @@
 package org.uva.sea.ql.ast;
 
-public class GT extends Expr{
+import org.uva.sea.ql.interpreter.BoolType;
+import org.uva.sea.ql.interpreter.Int;
+import org.uva.sea.ql.interpreter.Value;
 
-	public GT(Expr result, Expr rhs) {
-		// TODO Auto-generated constructor stub
+public class GT extends Binary{
+
+	public GT(Expr left, Expr right) {
+		super(left,right);
+	}
+
+	@Override
+	public Value interpret() {
+		Int li = (Int)getLeft().interpret();
+		Int ri = (Int)getRight().interpret();
+		return new BoolType( li.getVal() > ri.getVal());
 	}
 
 }

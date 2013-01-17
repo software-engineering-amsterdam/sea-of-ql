@@ -1,10 +1,20 @@
 package org.uva.sea.ql.ast;
 
+import org.uva.sea.ql.ast.values.Value;
+import org.uva.sea.ql.ast.values.Int;
 
-public class Add extends Expr {
+
+public class Add extends Binary {
 
 	public Add(Expr result, Expr rhs) {
-		// TODO Auto-generated constructor stub
+		super(result,rhs);
 	}
-
+	
+	@Override
+	public Value eval() {
+		return new Int(
+				((Int)getLeft().eval()).getValue() + 
+				((Int)getRight().eval()).getValue()
+				); 
+	}
 }

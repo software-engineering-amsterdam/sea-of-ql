@@ -10,4 +10,11 @@ public class Binary extends Expr {
 		this.rhsExpr = rhsExpr;
 	}
 	
+	public Expr getLeftHandSideExpression() {
+		return this.lhsExpr;
+	}
+	
+	public Expr getRightHandSideExpression() {
+		return this.rhsExpr;
+	}
 }

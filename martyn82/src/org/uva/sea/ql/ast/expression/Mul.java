@@ -1,13 +1,12 @@
 package org.uva.sea.ql.ast.expression;
 
-import org.uva.sea.ql.ast.Expression;
-import org.uva.sea.ql.interpreter.Context;
-import org.uva.sea.ql.interpreter.Value;
+import org.uva.sea.ql.ast.type.Type;
+import org.uva.sea.ql.visitor.Visitor;
 
 /**
  * Represents a multiplication expression.
  */
-public class Mul extends BinaryExpression {
+public class Mul extends ArithmeticExpression {
 	/**
 	 * Constructs a new multiplication expression.
 	 * 
@@ -19,7 +18,18 @@ public class Mul extends BinaryExpression {
 	}
 
 	@Override
-	public Value eval( Context context ) {
+	public void accept( Visitor visitor ) {
+		visitor.visit( this );
+	}
+
+	@Override
+	public boolean checkType() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public Type getType() {
 		// TODO Auto-generated method stub
 		return null;
 	}

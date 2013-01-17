@@ -1,5 +1,10 @@
 grammar QL;
-options {backtrack=true; memoize=true;}
+options {language=Java; output= AST; }//backtrack=true; memoize=true; }
+
+@lexer::header
+{
+package org.uva.sea.ql.parser.antlr;
+}
 
 @parser::header
 {
@@ -7,10 +12,8 @@ package org.uva.sea.ql.parser.antlr;
 import org.uva.sea.ql.ast.*;
 }
 
-@lexer::header
-{
-package org.uva.sea.ql.parser.antlr;
-}
+
+form : primary ;
 
 primary returns [Expr result]
   : Int   { $result = new Int(Integer.parseInt($Int.text)); }
@@ -18,7 +21,7 @@ primary returns [Expr result]
   | '(' x=orExpr ')'{ $result = $x.result; }
   ;
     
-unExpr returns [Expr result]
+unExpr returns [Expr result] 
     :  '+' x=unExpr { $result = new Pos($x.result); }
     |  '-' x=unExpr { $result = new Neg($x.result); }
     |  '!' x=unExpr { $result = new Not($x.result); }
@@ -31,7 +34,7 @@ mulExpr returns [Expr result]
       if ($op.text.equals("*")) {
         $result = new Mul($result, rhs);
       }
-      if ($op.text.equals("<=")) {
+      if ($op.text.equals("/")) {
         $result = new Div($result, rhs);      
       }
     })*
@@ -83,13 +86,14 @@ orExpr returns [Expr result]
     :   lhs=andExpr { $result = $lhs.result; } ( '||' rhs=andExpr { $result = new Or($result, rhs); } )*
     ;
 
-    
 // Tokens
 WS  :	(' ' | '\t' | '\n' | '\r') { $channel=HIDDEN; }
     ;
 
-COMMENT 
-     : '/*' .* '*/' {$channel=HIDDEN;}
+COMMENT : '/*' .* '*/' {$channel=HIDDEN;}
+    ;
+    
+SIMPLECOMMENT : '//' .* ('\n' | '\r') {$channel= HIDDEN;}
     ;
 
 Ident:   ('a'..'z'|'A'..'Z')('a'..'z'|'A'..'Z'|'0'..'9'|'_')*;
