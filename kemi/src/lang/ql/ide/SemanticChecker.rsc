@@ -2,15 +2,12 @@ module lang::ql::ide::SemanticChecker
 
 import List;
 import Map;
-import Node;
 import ParseTree;
-import Set;
 import analysis::graphs::Graph;
 import lang::ql::ast::AST;
 import lang::ql::ast::Graph;
 import lang::ql::compiler::PrettyPrinter;
 import lang::ql::ide::IdentifierUsesDefinitions;
-import lang::ql::ide::Outline;
 import lang::ql::util::Implode;
 import lang::ql::util::Parse;
 import util::IDE;
@@ -46,8 +43,9 @@ alias labelMap = map[str ident, list[identInfo] identInfo];
 public void main() {
   //f = |tmp:///t.q|;
   //f = |project://QL-R-kemi/forms/ifCondition.q|;
-  f = |project://QL-R-kemi/forms/ifElseCondition.q|;
+  //f = |project://QL-R-kemi/forms/ifElseCondition.q|;
   //f = |project://QL-R-kemi/forms/ifElseIfCondition.q|;
+  f = |project://QL-R-kemi/forms/nestedIfElseIfElseCondition.q|;
   //f = |project://QL-R-kemi/forms/calculatedField.q|;
   //f = |project://QL-R-kemi/forms/duplicateLabels.q|;
   //f = |project://QL-R-kemi/forms/undefinedVariable.q|;
@@ -66,24 +64,15 @@ public void main() {
   iprintln(sx);
 }
 
-// Return after each error-checking step so the IDE will not be flooded with possible recursive errors
 public set[Message] semanticChecker(node form) {
   set[Message] ret = {};
   us = identifierUses(form);
   def = identifierDefinitions(form);
-
-  ret = duplicateIdentifierMessages(def);
-    if(ret != {})
-      return ret;
-
-  ret = duplicateQuestionMessages(form);
-    if(ret != {})
-      return ret;  
-
-  ret = useBeforeDeclarationMessages(us, def, form);
-    if(ret != {})
-      return ret;
-
+  
+  ret += duplicateIdentifierMessages(def);
+  ret += duplicateQuestionMessages(form);
+  ret += useBeforeDeclarationMessages(us, def, form);
+  
    return ret;  
 }
 

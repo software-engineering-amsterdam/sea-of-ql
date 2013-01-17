@@ -27,5 +27,6 @@ BONUS:
 Grading: See wiki
 
 
-
+* Test the questions via the graph
 * Randomized testing for semantic checker
+* Isolated tests for each of the semantic checks
