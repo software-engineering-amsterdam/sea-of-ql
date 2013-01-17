@@ -1,8 +1,9 @@
-// $ANTLR 3.4 src/org/uva/sea/ql/parser/antlr/QL.g 2013-01-09 20:35:19
+// $ANTLR 3.5 src/org/uva/sea/ql/parser/antlr/QL.g 2013-01-15 22:47:19
 
 package org.uva.sea.ql.parser.antlr;
 import org.uva.sea.ql.ast.*;
 import org.uva.sea.ql.ast.expr.*;
+import org.uva.sea.ql.ast.expr.value.*;
 
 
 import org.antlr.runtime.*;
@@ -12,1141 +13,1183 @@ import java.util.ArrayList;
 import java.util.Map;
 import java.util.HashMap;
 
-@SuppressWarnings({"all", "warnings", "unchecked"})
+@SuppressWarnings("all")
 public class QLParser extends Parser {
-    public static final String[] tokenNames = new String[] {
-        "<invalid>", "<EOR>", "<DOWN>", "<UP>", "COMMENT", "IF", "Ident", "Int", "TYPE", "WS", "'!'", "'!='", "'&&'", "'('", "')'", "'*'", "'+'", "'-'", "'/'", "':'", "'<'", "'<='", "'=='", "'>'", "'>='", "'\\\"'", "'form'", "'{'", "'||'", "'}'"
-    };
-
-    public static final int EOF=-1;
-    public static final int T__10=10;
-    public static final int T__11=11;
-    public static final int T__12=12;
-    public static final int T__13=13;
-    public static final int T__14=14;
-    public static final int T__15=15;
-    public static final int T__16=16;
-    public static final int T__17=17;
-    public static final int T__18=18;
-    public static final int T__19=19;
-    public static final int T__20=20;
-    public static final int T__21=21;
-    public static final int T__22=22;
-    public static final int T__23=23;
-    public static final int T__24=24;
-    public static final int T__25=25;
-    public static final int T__26=26;
-    public static final int T__27=27;
-    public static final int T__28=28;
-    public static final int T__29=29;
-    public static final int COMMENT=4;
-    public static final int IF=5;
-    public static final int Ident=6;
-    public static final int Int=7;
-    public static final int TYPE=8;
-    public static final int WS=9;
+	public static final String[] tokenNames = new String[] {
+		"<invalid>", "<EOR>", "<DOWN>", "<UP>", "BOOLEAN_VALUE", "COMMENT", "IF", 
+		"INT_VALUE", "Ident", "MONEY_VALUE", "STRING_VALUE", "TYPE", "WS", "'!'", 
+		"'!='", "'&&'", "'('", "')'", "'*'", "'+'", "'-'", "'/'", "':'", "'<'", 
+		"'<='", "'=='", "'>'", "'>='", "'\\\"'", "'form'", "'{'", "'||'", "'}'"
+	};
+	public static final int EOF=-1;
+	public static final int T__13=13;
+	public static final int T__14=14;
+	public static final int T__15=15;
+	public static final int T__16=16;
+	public static final int T__17=17;
+	public static final int T__18=18;
+	public static final int T__19=19;
+	public static final int T__20=20;
+	public static final int T__21=21;
+	public static final int T__22=22;
+	public static final int T__23=23;
+	public static final int T__24=24;
+	public static final int T__25=25;
+	public static final int T__26=26;
+	public static final int T__27=27;
+	public static final int T__28=28;
+	public static final int T__29=29;
+	public static final int T__30=30;
+	public static final int T__31=31;
+	public static final int T__32=32;
+	public static final int BOOLEAN_VALUE=4;
+	public static final int COMMENT=5;
+	public static final int IF=6;
+	public static final int INT_VALUE=7;
+	public static final int Ident=8;
+	public static final int MONEY_VALUE=9;
+	public static final int STRING_VALUE=10;
+	public static final int TYPE=11;
+	public static final int WS=12;
+
+	// delegates
+	public Parser[] getDelegates() {
+		return new Parser[] {};
+	}
+
+	// delegators
+
+
+	public QLParser(TokenStream input) {
+		this(input, new RecognizerSharedState());
+	}
+	public QLParser(TokenStream input, RecognizerSharedState state) {
+		super(input, state);
+		this.state.ruleMemo = new HashMap[38+1];
+
+
+	}
+
+	@Override public String[] getTokenNames() { return QLParser.tokenNames; }
+	@Override public String getGrammarFileName() { return "src/org/uva/sea/ql/parser/antlr/QL.g"; }
+
+
+
+	// $ANTLR start "form"
+	// src/org/uva/sea/ql/parser/antlr/QL.g:17:1: form returns [Form result] : 'form' lbl= Ident '{' stmts= statements '}' ;
+	public final Form form() throws RecognitionException {
+		Form result = null;
+
+		int form_StartIndex = input.index();
+
+		Token lbl=null;
+		List<Statement> stmts =null;
+
+		try {
+			if ( state.backtracking>0 && alreadyParsedRule(input, 1) ) { return result; }
+
+			// src/org/uva/sea/ql/parser/antlr/QL.g:18:5: ( 'form' lbl= Ident '{' stmts= statements '}' )
+			// src/org/uva/sea/ql/parser/antlr/QL.g:18:7: 'form' lbl= Ident '{' stmts= statements '}'
+			{
+			match(input,29,FOLLOW_29_in_form49); if (state.failed) return result;
+			lbl=(Token)match(input,Ident,FOLLOW_Ident_in_form53); if (state.failed) return result;
+			match(input,30,FOLLOW_30_in_form55); if (state.failed) return result;
+			pushFollow(FOLLOW_statements_in_form59);
+			stmts=statements();
+			state._fsp--;
+			if (state.failed) return result;
+			match(input,32,FOLLOW_32_in_form61); if (state.failed) return result;
+			if ( state.backtracking==0 ) { result = new Form((lbl!=null?lbl.getText():null), stmts ); }
+			}
+
+		}
+		catch (RecognitionException re) {
+			reportError(re);
+			recover(input,re);
+		}
+		finally {
+			// do for sure before leaving
+			if ( state.backtracking>0 ) { memoize(input, 1, form_StartIndex); }
+
+		}
+		return result;
+	}
+	// $ANTLR end "form"
+
 
-    // delegates
-    public Parser[] getDelegates() {
-        return new Parser[] {};
-    }
 
-    // delegators
-
-
-    public QLParser(TokenStream input) {
-        this(input, new RecognizerSharedState());
-    }
-    public QLParser(TokenStream input, RecognizerSharedState state) {
-        super(input, state);
-        this.state.ruleMemo = new HashMap[32+1];
-         
-
-    }
-
-    public String[] getTokenNames() { return QLParser.tokenNames; }
-    public String getGrammarFileName() { return "src/org/uva/sea/ql/parser/antlr/QL.g"; }
-
-
-
-    // $ANTLR start "form"
-    // src/org/uva/sea/ql/parser/antlr/QL.g:16:1: form returns [Form result] : 'form' lbl= Ident '{' qs= questions '}' ;
-    public final Form form() throws RecognitionException {
-        Form result = null;
-
-        int form_StartIndex = input.index();
-
-        Token lbl=null;
-        Questions qs =null;
-
-
-        try {
-            if ( state.backtracking>0 && alreadyParsedRule(input, 1) ) { return result; }
-
-            // src/org/uva/sea/ql/parser/antlr/QL.g:17:5: ( 'form' lbl= Ident '{' qs= questions '}' )
-            // src/org/uva/sea/ql/parser/antlr/QL.g:17:7: 'form' lbl= Ident '{' qs= questions '}'
-            {
-            match(input,26,FOLLOW_26_in_form49); if (state.failed) return result;
-
-            lbl=(Token)match(input,Ident,FOLLOW_Ident_in_form53); if (state.failed) return result;
-
-            match(input,27,FOLLOW_27_in_form55); if (state.failed) return result;
-
-            pushFollow(FOLLOW_questions_in_form59);
-            qs=questions();
-
-            state._fsp--;
-            if (state.failed) return result;
-
-            match(input,29,FOLLOW_29_in_form61); if (state.failed) return result;
-
-            if ( state.backtracking==0 ) { result = new Form((lbl!=null?lbl.getText():null), qs ); }
-
-            }
-
-        }
-        catch (RecognitionException re) {
-            reportError(re);
-            recover(input,re);
-        }
-
-        finally {
-        	// do for sure before leaving
-            if ( state.backtracking>0 ) { memoize(input, 1, form_StartIndex); }
-
-        }
-        return result;
-    }
-    // $ANTLR end "form"
-
-
-
-    // $ANTLR start "questions"
-    // src/org/uva/sea/ql/parser/antlr/QL.g:20:1: questions returns [Questions result] : (q= question qs= questions |s= statement qs= questions |);
-    public final Questions questions() throws RecognitionException {
-        Questions result = null;
-
-        int questions_StartIndex = input.index();
-
-        QuestionElement q =null;
-
-        Questions qs =null;
-
-        Stmt s =null;
-
-
-        try {
-            if ( state.backtracking>0 && alreadyParsedRule(input, 2) ) { return result; }
-
-            // src/org/uva/sea/ql/parser/antlr/QL.g:21:4: (q= question qs= questions |s= statement qs= questions |)
-            int alt1=3;
-            switch ( input.LA(1) ) {
-            case Ident:
-                {
-                alt1=1;
-                }
-                break;
-            case IF:
-                {
-                alt1=2;
-                }
-                break;
-            case EOF:
-            case 29:
-                {
-                alt1=3;
-                }
-                break;
-            default:
-                if (state.backtracking>0) {state.failed=true; return result;}
-                NoViableAltException nvae =
-                    new NoViableAltException("", 1, 0, input);
-
-                throw nvae;
-
-            }
-
-            switch (alt1) {
-                case 1 :
-                    // src/org/uva/sea/ql/parser/antlr/QL.g:21:6: q= question qs= questions
-                    {
-                    pushFollow(FOLLOW_question_in_questions85);
-                    q=question();
-
-                    state._fsp--;
-                    if (state.failed) return result;
-
-                    pushFollow(FOLLOW_questions_in_questions89);
-                    qs=questions();
-
-                    state._fsp--;
-                    if (state.failed) return result;
-
-                    if ( state.backtracking==0 ) {result = new Questions(); result.add(q); result.add(qs); }
-
-                    }
-                    break;
-                case 2 :
-                    // src/org/uva/sea/ql/parser/antlr/QL.g:22:6: s= statement qs= questions
-                    {
-                    pushFollow(FOLLOW_statement_in_questions100);
-                    s=statement();
-
-                    state._fsp--;
-                    if (state.failed) return result;
-
-                    pushFollow(FOLLOW_questions_in_questions104);
-                    qs=questions();
-
-                    state._fsp--;
-                    if (state.failed) return result;
-
-                    if ( state.backtracking==0 ) {result = new Questions(s); result.add(qs); }
-
-                    }
-                    break;
-                case 3 :
-                    // src/org/uva/sea/ql/parser/antlr/QL.g:23:6: 
-                    {
-                    if ( state.backtracking==0 ) {return null; }
-
-                    }
-                    break;
-
-            }
-        }
-        catch (RecognitionException re) {
-            reportError(re);
-            recover(input,re);
-        }
-
-        finally {
-        	// do for sure before leaving
-            if ( state.backtracking>0 ) { memoize(input, 2, questions_StartIndex); }
-
-        }
-        return result;
-    }
-    // $ANTLR end "questions"
-
-
-
-    // $ANTLR start "question"
-    // src/org/uva/sea/ql/parser/antlr/QL.g:26:1: question returns [Question result] : label= Ident ':' '\\\"' (text= Ident )* '\\\"' TYPE ;
-    public final QuestionElement question() throws RecognitionException {
-        QuestionElement result = null;
-
-        int question_StartIndex = input.index();
-
-        Token label=null;
-        Token text=null;
-
-        try {
-            if ( state.backtracking>0 && alreadyParsedRule(input, 3) ) { return result; }
-
-            // src/org/uva/sea/ql/parser/antlr/QL.g:27:5: (label= Ident ':' '\\\"' (text= Ident )* '\\\"' TYPE )
-            // src/org/uva/sea/ql/parser/antlr/QL.g:27:7: label= Ident ':' '\\\"' (text= Ident )* '\\\"' TYPE
-            {
-            label=(Token)match(input,Ident,FOLLOW_Ident_in_question137); if (state.failed) return result;
-
-            match(input,19,FOLLOW_19_in_question138); if (state.failed) return result;
-
-            match(input,25,FOLLOW_25_in_question140); if (state.failed) return result;
-
-            // src/org/uva/sea/ql/parser/antlr/QL.g:27:31: (text= Ident )*
-            loop2:
-            do {
-                int alt2=2;
-                int LA2_0 = input.LA(1);
-
-                if ( (LA2_0==Ident) ) {
-                    alt2=1;
-                }
-
-
-                switch (alt2) {
-            	case 1 :
-            	    // src/org/uva/sea/ql/parser/antlr/QL.g:27:31: text= Ident
-            	    {
-            	    text=(Token)match(input,Ident,FOLLOW_Ident_in_question144); if (state.failed) return result;
-
-            	    }
-            	    break;
-
-            	default :
-            	    break loop2;
-                }
-            } while (true);
-
-
-            match(input,25,FOLLOW_25_in_question147); if (state.failed) return result;
-
-            match(input,TYPE,FOLLOW_TYPE_in_question149); if (state.failed) return result;
-
-            }
-
-        }
-        catch (RecognitionException re) {
-            reportError(re);
-            recover(input,re);
-        }
-
-        finally {
-        	// do for sure before leaving
-            if ( state.backtracking>0 ) { memoize(input, 3, question_StartIndex); }
-
-        }
-        return result;
-    }
-    // $ANTLR end "question"
-
-
-
-    // $ANTLR start "statement"
-    // src/org/uva/sea/ql/parser/antlr/QL.g:30:1: statement returns [Stmt result] : IF (x= expr ) '{' qs= questions '}' ;
-    public final Stmt statement() throws RecognitionException {
-        Stmt result = null;
-
-        int statement_StartIndex = input.index();
-
-        Expr x =null;
-
-        Questions qs =null;
-
-
-        try {
-            if ( state.backtracking>0 && alreadyParsedRule(input, 4) ) { return result; }
-
-            // src/org/uva/sea/ql/parser/antlr/QL.g:31:5: ( IF (x= expr ) '{' qs= questions '}' )
-            // src/org/uva/sea/ql/parser/antlr/QL.g:31:7: IF (x= expr ) '{' qs= questions '}'
-            {
-            match(input,IF,FOLLOW_IF_in_statement175); if (state.failed) return result;
-
-            // src/org/uva/sea/ql/parser/antlr/QL.g:31:10: (x= expr )
-            // src/org/uva/sea/ql/parser/antlr/QL.g:31:11: x= expr
-            {
-            pushFollow(FOLLOW_expr_in_statement180);
-            x=expr();
-
-            state._fsp--;
-            if (state.failed) return result;
-
-            }
-
-
-            match(input,27,FOLLOW_27_in_statement183); if (state.failed) return result;
-
-            pushFollow(FOLLOW_questions_in_statement187);
-            qs=questions();
-
-            state._fsp--;
-            if (state.failed) return result;
-
-            match(input,29,FOLLOW_29_in_statement189); if (state.failed) return result;
-
-            if ( state.backtracking==0 ) { result = new Stmt(x, qs); }
-
-            }
-
-        }
-        catch (RecognitionException re) {
-            reportError(re);
-            recover(input,re);
-        }
-
-        finally {
-        	// do for sure before leaving
-            if ( state.backtracking>0 ) { memoize(input, 4, statement_StartIndex); }
-
-        }
-        return result;
-    }
-    // $ANTLR end "statement"
-
-
-
-    // $ANTLR start "primary"
-    // src/org/uva/sea/ql/parser/antlr/QL.g:34:1: primary returns [Expr result] : ( Int | Ident | '(' x= orExpr ')' );
-    public final Expr primary() throws RecognitionException {
-        Expr result = null;
-
-        int primary_StartIndex = input.index();
-
-        Token Int1=null;
-        Token Ident2=null;
-        Expr x =null;
-
-
-        try {
-            if ( state.backtracking>0 && alreadyParsedRule(input, 5) ) { return result; }
-
-            // src/org/uva/sea/ql/parser/antlr/QL.g:35:4: ( Int | Ident | '(' x= orExpr ')' )
-            int alt3=3;
-            switch ( input.LA(1) ) {
-            case Int:
-                {
-                alt3=1;
-                }
-                break;
-            case Ident:
-                {
-                alt3=2;
-                }
-                break;
-            case 13:
-                {
-                alt3=3;
-                }
-                break;
-            default:
-                if (state.backtracking>0) {state.failed=true; return result;}
-                NoViableAltException nvae =
-                    new NoViableAltException("", 3, 0, input);
-
-                throw nvae;
-
-            }
-
-            switch (alt3) {
-                case 1 :
-                    // src/org/uva/sea/ql/parser/antlr/QL.g:35:6: Int
-                    {
-                    Int1=(Token)match(input,Int,FOLLOW_Int_in_primary211); if (state.failed) return result;
-
-                    if ( state.backtracking==0 ) { result = new Int(Integer.parseInt((Int1!=null?Int1.getText():null))); }
-
-                    }
-                    break;
-                case 2 :
-                    // src/org/uva/sea/ql/parser/antlr/QL.g:36:6: Ident
-                    {
-                    Ident2=(Token)match(input,Ident,FOLLOW_Ident_in_primary222); if (state.failed) return result;
-
-                    if ( state.backtracking==0 ) { result = new Ident((Ident2!=null?Ident2.getText():null)); }
-
-                    }
-                    break;
-                case 3 :
-                    // src/org/uva/sea/ql/parser/antlr/QL.g:37:6: '(' x= orExpr ')'
-                    {
-                    match(input,13,FOLLOW_13_in_primary231); if (state.failed) return result;
-
-                    pushFollow(FOLLOW_orExpr_in_primary235);
-                    x=orExpr();
-
-                    state._fsp--;
-                    if (state.failed) return result;
-
-                    match(input,14,FOLLOW_14_in_primary237); if (state.failed) return result;
-
-                    if ( state.backtracking==0 ) { result = x; }
-
-                    }
-                    break;
-
-            }
-        }
-        catch (RecognitionException re) {
-            reportError(re);
-            recover(input,re);
-        }
-
-        finally {
-        	// do for sure before leaving
-            if ( state.backtracking>0 ) { memoize(input, 5, primary_StartIndex); }
-
-        }
-        return result;
-    }
-    // $ANTLR end "primary"
-
-
-
-    // $ANTLR start "unExpr"
-    // src/org/uva/sea/ql/parser/antlr/QL.g:40:1: unExpr returns [Expr result] : ( '+' x= unExpr | '-' x= unExpr | '!' x= unExpr |x= primary );
-    public final Expr unExpr() throws RecognitionException {
-        Expr result = null;
-
-        int unExpr_StartIndex = input.index();
-
-        Expr x =null;
-
-
-        try {
-            if ( state.backtracking>0 && alreadyParsedRule(input, 6) ) { return result; }
-
-            // src/org/uva/sea/ql/parser/antlr/QL.g:41:5: ( '+' x= unExpr | '-' x= unExpr | '!' x= unExpr |x= primary )
-            int alt4=4;
-            switch ( input.LA(1) ) {
-            case 16:
-                {
-                alt4=1;
-                }
-                break;
-            case 17:
-                {
-                alt4=2;
-                }
-                break;
-            case 10:
-                {
-                alt4=3;
-                }
-                break;
-            case Ident:
-            case Int:
-            case 13:
-                {
-                alt4=4;
-                }
-                break;
-            default:
-                if (state.backtracking>0) {state.failed=true; return result;}
-                NoViableAltException nvae =
-                    new NoViableAltException("", 4, 0, input);
-
-                throw nvae;
-
-            }
-
-            switch (alt4) {
-                case 1 :
-                    // src/org/uva/sea/ql/parser/antlr/QL.g:41:8: '+' x= unExpr
-                    {
-                    match(input,16,FOLLOW_16_in_unExpr263); if (state.failed) return result;
-
-                    pushFollow(FOLLOW_unExpr_in_unExpr267);
-                    x=unExpr();
-
-                    state._fsp--;
-                    if (state.failed) return result;
-
-                    if ( state.backtracking==0 ) { result = new Pos(x); }
-
-                    }
-                    break;
-                case 2 :
-                    // src/org/uva/sea/ql/parser/antlr/QL.g:42:8: '-' x= unExpr
-                    {
-                    match(input,17,FOLLOW_17_in_unExpr278); if (state.failed) return result;
-
-                    pushFollow(FOLLOW_unExpr_in_unExpr282);
-                    x=unExpr();
-
-                    state._fsp--;
-                    if (state.failed) return result;
-
-                    if ( state.backtracking==0 ) { result = new Neg(x); }
-
-                    }
-                    break;
-                case 3 :
-                    // src/org/uva/sea/ql/parser/antlr/QL.g:43:8: '!' x= unExpr
-                    {
-                    match(input,10,FOLLOW_10_in_unExpr293); if (state.failed) return result;
-
-                    pushFollow(FOLLOW_unExpr_in_unExpr297);
-                    x=unExpr();
-
-                    state._fsp--;
-                    if (state.failed) return result;
-
-                    if ( state.backtracking==0 ) { result = new Not(x); }
-
-                    }
-                    break;
-                case 4 :
-                    // src/org/uva/sea/ql/parser/antlr/QL.g:44:8: x= primary
-                    {
-                    pushFollow(FOLLOW_primary_in_unExpr310);
-                    x=primary();
-
-                    state._fsp--;
-                    if (state.failed) return result;
-
-                    if ( state.backtracking==0 ) { result = x; }
-
-                    }
-                    break;
-
-            }
-        }
-        catch (RecognitionException re) {
-            reportError(re);
-            recover(input,re);
-        }
-
-        finally {
-        	// do for sure before leaving
-            if ( state.backtracking>0 ) { memoize(input, 6, unExpr_StartIndex); }
-
-        }
-        return result;
-    }
-    // $ANTLR end "unExpr"
-
-
-
-    // $ANTLR start "mulExpr"
-    // src/org/uva/sea/ql/parser/antlr/QL.g:47:1: mulExpr returns [Expr result] : lhs= unExpr (op= ( '*' | '/' ) rhs= unExpr )* ;
-    public final Expr mulExpr() throws RecognitionException {
-        Expr result = null;
-
-        int mulExpr_StartIndex = input.index();
-
-        Token op=null;
-        Expr lhs =null;
-
-        Expr rhs =null;
-
-
-        try {
-            if ( state.backtracking>0 && alreadyParsedRule(input, 7) ) { return result; }
-
-            // src/org/uva/sea/ql/parser/antlr/QL.g:48:5: (lhs= unExpr (op= ( '*' | '/' ) rhs= unExpr )* )
-            // src/org/uva/sea/ql/parser/antlr/QL.g:48:9: lhs= unExpr (op= ( '*' | '/' ) rhs= unExpr )*
-            {
-            pushFollow(FOLLOW_unExpr_in_mulExpr348);
-            lhs=unExpr();
-
-            state._fsp--;
-            if (state.failed) return result;
-
-            if ( state.backtracking==0 ) { result =lhs; }
-
-            // src/org/uva/sea/ql/parser/antlr/QL.g:48:45: (op= ( '*' | '/' ) rhs= unExpr )*
-            loop5:
-            do {
-                int alt5=2;
-                int LA5_0 = input.LA(1);
-
-                if ( (LA5_0==15||LA5_0==18) ) {
-                    alt5=1;
-                }
-
-
-                switch (alt5) {
-            	case 1 :
-            	    // src/org/uva/sea/ql/parser/antlr/QL.g:48:47: op= ( '*' | '/' ) rhs= unExpr
-            	    {
-            	    op=(Token)input.LT(1);
-
-            	    if ( input.LA(1)==15||input.LA(1)==18 ) {
-            	        input.consume();
-            	        state.errorRecovery=false;
-            	        state.failed=false;
-            	    }
-            	    else {
-            	        if (state.backtracking>0) {state.failed=true; return result;}
-            	        MismatchedSetException mse = new MismatchedSetException(null,input);
-            	        throw mse;
-            	    }
-
-
-            	    pushFollow(FOLLOW_unExpr_in_mulExpr368);
-            	    rhs=unExpr();
-
-            	    state._fsp--;
-            	    if (state.failed) return result;
-
-            	    if ( state.backtracking==0 ) { 
-            	          if ((op!=null?op.getText():null).equals("*")) {
-            	            result = new Mul(result, rhs);
-            	          }
-            	          if ((op!=null?op.getText():null).equals("<=")) {
-            	            result = new Div(result, rhs);      
-            	          }
-            	        }
-
-            	    }
-            	    break;
-
-            	default :
-            	    break loop5;
-                }
-            } while (true);
-
-
-            }
-
-        }
-        catch (RecognitionException re) {
-            reportError(re);
-            recover(input,re);
-        }
-
-        finally {
-        	// do for sure before leaving
-            if ( state.backtracking>0 ) { memoize(input, 7, mulExpr_StartIndex); }
-
-        }
-        return result;
-    }
-    // $ANTLR end "mulExpr"
-
-
-
-    // $ANTLR start "addExpr"
-    // src/org/uva/sea/ql/parser/antlr/QL.g:59:1: addExpr returns [Expr result] : lhs= mulExpr (op= ( '+' | '-' ) rhs= mulExpr )* ;
-    public final Expr addExpr() throws RecognitionException {
-        Expr result = null;
-
-        int addExpr_StartIndex = input.index();
-
-        Token op=null;
-        Expr lhs =null;
-
-        Expr rhs =null;
-
-
-        try {
-            if ( state.backtracking>0 && alreadyParsedRule(input, 8) ) { return result; }
-
-            // src/org/uva/sea/ql/parser/antlr/QL.g:60:5: (lhs= mulExpr (op= ( '+' | '-' ) rhs= mulExpr )* )
-            // src/org/uva/sea/ql/parser/antlr/QL.g:60:9: lhs= mulExpr (op= ( '+' | '-' ) rhs= mulExpr )*
-            {
-            pushFollow(FOLLOW_mulExpr_in_addExpr404);
-            lhs=mulExpr();
-
-            state._fsp--;
-            if (state.failed) return result;
-
-            if ( state.backtracking==0 ) { result =lhs; }
-
-            // src/org/uva/sea/ql/parser/antlr/QL.g:60:46: (op= ( '+' | '-' ) rhs= mulExpr )*
-            loop6:
-            do {
-                int alt6=2;
-                int LA6_0 = input.LA(1);
-
-                if ( ((LA6_0 >= 16 && LA6_0 <= 17)) ) {
-                    alt6=1;
-                }
-
-
-                switch (alt6) {
-            	case 1 :
-            	    // src/org/uva/sea/ql/parser/antlr/QL.g:60:48: op= ( '+' | '-' ) rhs= mulExpr
-            	    {
-            	    op=(Token)input.LT(1);
-
-            	    if ( (input.LA(1) >= 16 && input.LA(1) <= 17) ) {
-            	        input.consume();
-            	        state.errorRecovery=false;
-            	        state.failed=false;
-            	    }
-            	    else {
-            	        if (state.backtracking>0) {state.failed=true; return result;}
-            	        MismatchedSetException mse = new MismatchedSetException(null,input);
-            	        throw mse;
-            	    }
-
-
-            	    pushFollow(FOLLOW_mulExpr_in_addExpr422);
-            	    rhs=mulExpr();
-
-            	    state._fsp--;
-            	    if (state.failed) return result;
-
-            	    if ( state.backtracking==0 ) { 
-            	          if ((op!=null?op.getText():null).equals("+")) {
-            	            result = new Add(result, rhs);
-            	          }
-            	          if ((op!=null?op.getText():null).equals("-")) {
-            	            result = new Sub(result, rhs);      
-            	          }
-            	        }
-
-            	    }
-            	    break;
-
-            	default :
-            	    break loop6;
-                }
-            } while (true);
-
-
-            }
-
-        }
-        catch (RecognitionException re) {
-            reportError(re);
-            recover(input,re);
-        }
-
-        finally {
-        	// do for sure before leaving
-            if ( state.backtracking>0 ) { memoize(input, 8, addExpr_StartIndex); }
-
-        }
-        return result;
-    }
-    // $ANTLR end "addExpr"
-
-
-
-    // $ANTLR start "relExpr"
-    // src/org/uva/sea/ql/parser/antlr/QL.g:71:1: relExpr returns [Expr result] : lhs= addExpr (op= ( '<' | '<=' | '>' | '>=' | '==' | '!=' ) rhs= addExpr )* ;
-    public final Expr relExpr() throws RecognitionException {
-        Expr result = null;
-
-        int relExpr_StartIndex = input.index();
-
-        Token op=null;
-        Expr lhs =null;
-
-        Expr rhs =null;
-
-
-        try {
-            if ( state.backtracking>0 && alreadyParsedRule(input, 9) ) { return result; }
-
-            // src/org/uva/sea/ql/parser/antlr/QL.g:72:5: (lhs= addExpr (op= ( '<' | '<=' | '>' | '>=' | '==' | '!=' ) rhs= addExpr )* )
-            // src/org/uva/sea/ql/parser/antlr/QL.g:72:9: lhs= addExpr (op= ( '<' | '<=' | '>' | '>=' | '==' | '!=' ) rhs= addExpr )*
-            {
-            pushFollow(FOLLOW_addExpr_in_relExpr457);
-            lhs=addExpr();
-
-            state._fsp--;
-            if (state.failed) return result;
-
-            if ( state.backtracking==0 ) { result =lhs; }
-
-            // src/org/uva/sea/ql/parser/antlr/QL.g:72:46: (op= ( '<' | '<=' | '>' | '>=' | '==' | '!=' ) rhs= addExpr )*
-            loop7:
-            do {
-                int alt7=2;
-                int LA7_0 = input.LA(1);
-
-                if ( (LA7_0==11||(LA7_0 >= 20 && LA7_0 <= 24)) ) {
-                    alt7=1;
-                }
-
-
-                switch (alt7) {
-            	case 1 :
-            	    // src/org/uva/sea/ql/parser/antlr/QL.g:72:48: op= ( '<' | '<=' | '>' | '>=' | '==' | '!=' ) rhs= addExpr
-            	    {
-            	    op=(Token)input.LT(1);
-
-            	    if ( input.LA(1)==11||(input.LA(1) >= 20 && input.LA(1) <= 24) ) {
-            	        input.consume();
-            	        state.errorRecovery=false;
-            	        state.failed=false;
-            	    }
-            	    else {
-            	        if (state.backtracking>0) {state.failed=true; return result;}
-            	        MismatchedSetException mse = new MismatchedSetException(null,input);
-            	        throw mse;
-            	    }
-
-
-            	    pushFollow(FOLLOW_addExpr_in_relExpr481);
-            	    rhs=addExpr();
-
-            	    state._fsp--;
-            	    if (state.failed) return result;
-
-            	    if ( state.backtracking==0 ) { 
-            	          if ((op!=null?op.getText():null).equals("<")) {
-            	            result = new LT(result, rhs);
-            	          }
-            	          if ((op!=null?op.getText():null).equals("<=")) {
-            	            result = new LEq(result, rhs);      
-            	          }
-            	          if ((op!=null?op.getText():null).equals(">")) {
-            	            result = new GT(result, rhs);
-            	          }
-            	          if ((op!=null?op.getText():null).equals(">=")) {
-            	            result = new GEq(result, rhs);      
-            	          }
-            	          if ((op!=null?op.getText():null).equals("==")) {
-            	            result = new Eq(result, rhs);
-            	          }
-            	          if ((op!=null?op.getText():null).equals("!=")) {
-            	            result = new NEq(result, rhs);
-            	          }
-            	        }
-
-            	    }
-            	    break;
-
-            	default :
-            	    break loop7;
-                }
-            } while (true);
-
-
-            }
-
-        }
-        catch (RecognitionException re) {
-            reportError(re);
-            recover(input,re);
-        }
-
-        finally {
-        	// do for sure before leaving
-            if ( state.backtracking>0 ) { memoize(input, 9, relExpr_StartIndex); }
-
-        }
-        return result;
-    }
-    // $ANTLR end "relExpr"
-
-
-
-    // $ANTLR start "andExpr"
-    // src/org/uva/sea/ql/parser/antlr/QL.g:95:1: andExpr returns [Expr result] : lhs= relExpr ( '&&' rhs= relExpr )* ;
-    public final Expr andExpr() throws RecognitionException {
-        Expr result = null;
-
-        int andExpr_StartIndex = input.index();
-
-        Expr lhs =null;
-
-        Expr rhs =null;
-
-
-        try {
-            if ( state.backtracking>0 && alreadyParsedRule(input, 10) ) { return result; }
-
-            // src/org/uva/sea/ql/parser/antlr/QL.g:96:5: (lhs= relExpr ( '&&' rhs= relExpr )* )
-            // src/org/uva/sea/ql/parser/antlr/QL.g:96:9: lhs= relExpr ( '&&' rhs= relExpr )*
-            {
-            pushFollow(FOLLOW_relExpr_in_andExpr519);
-            lhs=relExpr();
-
-            state._fsp--;
-            if (state.failed) return result;
-
-            if ( state.backtracking==0 ) { result =lhs; }
-
-            // src/org/uva/sea/ql/parser/antlr/QL.g:96:46: ( '&&' rhs= relExpr )*
-            loop8:
-            do {
-                int alt8=2;
-                int LA8_0 = input.LA(1);
-
-                if ( (LA8_0==12) ) {
-                    alt8=1;
-                }
-
-
-                switch (alt8) {
-            	case 1 :
-            	    // src/org/uva/sea/ql/parser/antlr/QL.g:96:48: '&&' rhs= relExpr
-            	    {
-            	    match(input,12,FOLLOW_12_in_andExpr525); if (state.failed) return result;
-
-            	    pushFollow(FOLLOW_relExpr_in_andExpr529);
-            	    rhs=relExpr();
-
-            	    state._fsp--;
-            	    if (state.failed) return result;
-
-            	    if ( state.backtracking==0 ) { result = new And(result, rhs); }
-
-            	    }
-            	    break;
-
-            	default :
-            	    break loop8;
-                }
-            } while (true);
-
-
-            }
-
-        }
-        catch (RecognitionException re) {
-            reportError(re);
-            recover(input,re);
-        }
-
-        finally {
-        	// do for sure before leaving
-            if ( state.backtracking>0 ) { memoize(input, 10, andExpr_StartIndex); }
-
-        }
-        return result;
-    }
-    // $ANTLR end "andExpr"
-
-
-
-    // $ANTLR start "orExpr"
-    // src/org/uva/sea/ql/parser/antlr/QL.g:99:1: orExpr returns [Expr result] : lhs= andExpr ( '||' rhs= andExpr )* ;
-    public final Expr orExpr() throws RecognitionException {
-        Expr result = null;
-
-        int orExpr_StartIndex = input.index();
-
-        Expr lhs =null;
-
-        Expr rhs =null;
-
-
-        try {
-            if ( state.backtracking>0 && alreadyParsedRule(input, 11) ) { return result; }
-
-            // src/org/uva/sea/ql/parser/antlr/QL.g:100:5: (lhs= andExpr ( '||' rhs= andExpr )* )
-            // src/org/uva/sea/ql/parser/antlr/QL.g:100:9: lhs= andExpr ( '||' rhs= andExpr )*
-            {
-            pushFollow(FOLLOW_andExpr_in_orExpr559);
-            lhs=andExpr();
-
-            state._fsp--;
-            if (state.failed) return result;
-
-            if ( state.backtracking==0 ) { result = lhs; }
-
-            // src/org/uva/sea/ql/parser/antlr/QL.g:100:48: ( '||' rhs= andExpr )*
-            loop9:
-            do {
-                int alt9=2;
-                int LA9_0 = input.LA(1);
-
-                if ( (LA9_0==28) ) {
-                    alt9=1;
-                }
-
-
-                switch (alt9) {
-            	case 1 :
-            	    // src/org/uva/sea/ql/parser/antlr/QL.g:100:50: '||' rhs= andExpr
-            	    {
-            	    match(input,28,FOLLOW_28_in_orExpr565); if (state.failed) return result;
-
-            	    pushFollow(FOLLOW_andExpr_in_orExpr569);
-            	    rhs=andExpr();
-
-            	    state._fsp--;
-            	    if (state.failed) return result;
-
-            	    if ( state.backtracking==0 ) { result = new Or(result, rhs); }
-
-            	    }
-            	    break;
-
-            	default :
-            	    break loop9;
-                }
-            } while (true);
-
-
-            }
-
-        }
-        catch (RecognitionException re) {
-            reportError(re);
-            recover(input,re);
-        }
-
-        finally {
-        	// do for sure before leaving
-            if ( state.backtracking>0 ) { memoize(input, 11, orExpr_StartIndex); }
-
-        }
-        return result;
-    }
-    // $ANTLR end "orExpr"
-
-
-
-    // $ANTLR start "expr"
-    // src/org/uva/sea/ql/parser/antlr/QL.g:103:1: expr returns [Expr result] : e= orExpr ;
-    public final Expr expr() throws RecognitionException {
-        Expr result = null;
-
-        int expr_StartIndex = input.index();
-
-        Expr e =null;
-
-
-        try {
-            if ( state.backtracking>0 && alreadyParsedRule(input, 12) ) { return result; }
-
-            // src/org/uva/sea/ql/parser/antlr/QL.g:104:5: (e= orExpr )
-            // src/org/uva/sea/ql/parser/antlr/QL.g:104:7: e= orExpr
-            {
-            pushFollow(FOLLOW_orExpr_in_expr601);
-            e=orExpr();
-
-            state._fsp--;
-            if (state.failed) return result;
-
-            if ( state.backtracking==0 ) { result = e; }
-
-            }
-
-        }
-        catch (RecognitionException re) {
-            reportError(re);
-            recover(input,re);
-        }
-
-        finally {
-        	// do for sure before leaving
-            if ( state.backtracking>0 ) { memoize(input, 12, expr_StartIndex); }
-
-        }
-        return result;
-    }
-    // $ANTLR end "expr"
-
-    // Delegated rules
-
-
- 
-
-    public static final BitSet FOLLOW_26_in_form49 = new BitSet(new long[]{0x0000000000000040L});
-    public static final BitSet FOLLOW_Ident_in_form53 = new BitSet(new long[]{0x0000000008000000L});
-    public static final BitSet FOLLOW_27_in_form55 = new BitSet(new long[]{0x0000000020000060L});
-    public static final BitSet FOLLOW_questions_in_form59 = new BitSet(new long[]{0x0000000020000000L});
-    public static final BitSet FOLLOW_29_in_form61 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_question_in_questions85 = new BitSet(new long[]{0x0000000000000060L});
-    public static final BitSet FOLLOW_questions_in_questions89 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_statement_in_questions100 = new BitSet(new long[]{0x0000000000000060L});
-    public static final BitSet FOLLOW_questions_in_questions104 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_Ident_in_question137 = new BitSet(new long[]{0x0000000000080000L});
-    public static final BitSet FOLLOW_19_in_question138 = new BitSet(new long[]{0x0000000002000000L});
-    public static final BitSet FOLLOW_25_in_question140 = new BitSet(new long[]{0x0000000002000040L});
-    public static final BitSet FOLLOW_Ident_in_question144 = new BitSet(new long[]{0x0000000002000040L});
-    public static final BitSet FOLLOW_25_in_question147 = new BitSet(new long[]{0x0000000000000100L});
-    public static final BitSet FOLLOW_TYPE_in_question149 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_IF_in_statement175 = new BitSet(new long[]{0x00000000000324C0L});
-    public static final BitSet FOLLOW_expr_in_statement180 = new BitSet(new long[]{0x0000000008000000L});
-    public static final BitSet FOLLOW_27_in_statement183 = new BitSet(new long[]{0x0000000020000060L});
-    public static final BitSet FOLLOW_questions_in_statement187 = new BitSet(new long[]{0x0000000020000000L});
-    public static final BitSet FOLLOW_29_in_statement189 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_Int_in_primary211 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_Ident_in_primary222 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_13_in_primary231 = new BitSet(new long[]{0x00000000000324C0L});
-    public static final BitSet FOLLOW_orExpr_in_primary235 = new BitSet(new long[]{0x0000000000004000L});
-    public static final BitSet FOLLOW_14_in_primary237 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_16_in_unExpr263 = new BitSet(new long[]{0x00000000000324C0L});
-    public static final BitSet FOLLOW_unExpr_in_unExpr267 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_17_in_unExpr278 = new BitSet(new long[]{0x00000000000324C0L});
-    public static final BitSet FOLLOW_unExpr_in_unExpr282 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_10_in_unExpr293 = new BitSet(new long[]{0x00000000000324C0L});
-    public static final BitSet FOLLOW_unExpr_in_unExpr297 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_primary_in_unExpr310 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_unExpr_in_mulExpr348 = new BitSet(new long[]{0x0000000000048002L});
-    public static final BitSet FOLLOW_set_in_mulExpr356 = new BitSet(new long[]{0x00000000000324C0L});
-    public static final BitSet FOLLOW_unExpr_in_mulExpr368 = new BitSet(new long[]{0x0000000000048002L});
-    public static final BitSet FOLLOW_mulExpr_in_addExpr404 = new BitSet(new long[]{0x0000000000030002L});
-    public static final BitSet FOLLOW_set_in_addExpr412 = new BitSet(new long[]{0x00000000000324C0L});
-    public static final BitSet FOLLOW_mulExpr_in_addExpr422 = new BitSet(new long[]{0x0000000000030002L});
-    public static final BitSet FOLLOW_addExpr_in_relExpr457 = new BitSet(new long[]{0x0000000001F00802L});
-    public static final BitSet FOLLOW_set_in_relExpr465 = new BitSet(new long[]{0x00000000000324C0L});
-    public static final BitSet FOLLOW_addExpr_in_relExpr481 = new BitSet(new long[]{0x0000000001F00802L});
-    public static final BitSet FOLLOW_relExpr_in_andExpr519 = new BitSet(new long[]{0x0000000000001002L});
-    public static final BitSet FOLLOW_12_in_andExpr525 = new BitSet(new long[]{0x00000000000324C0L});
-    public static final BitSet FOLLOW_relExpr_in_andExpr529 = new BitSet(new long[]{0x0000000000001002L});
-    public static final BitSet FOLLOW_andExpr_in_orExpr559 = new BitSet(new long[]{0x0000000010000002L});
-    public static final BitSet FOLLOW_28_in_orExpr565 = new BitSet(new long[]{0x00000000000324C0L});
-    public static final BitSet FOLLOW_andExpr_in_orExpr569 = new BitSet(new long[]{0x0000000010000002L});
-    public static final BitSet FOLLOW_orExpr_in_expr601 = new BitSet(new long[]{0x0000000000000002L});
-
+	// $ANTLR start "statements"
+	// src/org/uva/sea/ql/parser/antlr/QL.g:21:1: statements returns [List<Statement> result] : (stmt= statement )* ;
+	public final List<Statement> statements() throws RecognitionException {
+		List<Statement> result = null;
+
+		int statements_StartIndex = input.index();
+
+		Statement stmt =null;
+
+		try {
+			if ( state.backtracking>0 && alreadyParsedRule(input, 2) ) { return result; }
+
+			// src/org/uva/sea/ql/parser/antlr/QL.g:22:5: ( (stmt= statement )* )
+			// src/org/uva/sea/ql/parser/antlr/QL.g:22:8: (stmt= statement )*
+			{
+			if ( state.backtracking==0 ) { result = new ArrayList<Statement>(); }
+			// src/org/uva/sea/ql/parser/antlr/QL.g:22:50: (stmt= statement )*
+			loop1:
+			while (true) {
+				int alt1=2;
+				int LA1_0 = input.LA(1);
+				if ( (LA1_0==IF||LA1_0==Ident) ) {
+					alt1=1;
+				}
+
+				switch (alt1) {
+				case 1 :
+					// src/org/uva/sea/ql/parser/antlr/QL.g:22:51: stmt= statement
+					{
+					pushFollow(FOLLOW_statement_in_statements90);
+					stmt=statement();
+					state._fsp--;
+					if (state.failed) return result;
+					if ( state.backtracking==0 ) {result.add(stmt); }
+					}
+					break;
+
+				default :
+					break loop1;
+				}
+			}
+
+			}
+
+		}
+		catch (RecognitionException re) {
+			reportError(re);
+			recover(input,re);
+		}
+		finally {
+			// do for sure before leaving
+			if ( state.backtracking>0 ) { memoize(input, 2, statements_StartIndex); }
+
+		}
+		return result;
+	}
+	// $ANTLR end "statements"
+
+
+
+	// $ANTLR start "statement"
+	// src/org/uva/sea/ql/parser/antlr/QL.g:25:1: statement returns [Statement result] : (firstToken= IF (x= expr ) '{' stmts= statements '}' | question );
+	public final Statement statement() throws RecognitionException {
+		Statement result = null;
+
+		int statement_StartIndex = input.index();
+
+		Token firstToken=null;
+		Expr x =null;
+		List<Statement> stmts =null;
+		Question question1 =null;
+
+		try {
+			if ( state.backtracking>0 && alreadyParsedRule(input, 3) ) { return result; }
+
+			// src/org/uva/sea/ql/parser/antlr/QL.g:26:5: (firstToken= IF (x= expr ) '{' stmts= statements '}' | question )
+			int alt2=2;
+			int LA2_0 = input.LA(1);
+			if ( (LA2_0==IF) ) {
+				alt2=1;
+			}
+			else if ( (LA2_0==Ident) ) {
+				alt2=2;
+			}
+
+			else {
+				if (state.backtracking>0) {state.failed=true; return result;}
+				NoViableAltException nvae =
+					new NoViableAltException("", 2, 0, input);
+				throw nvae;
+			}
+
+			switch (alt2) {
+				case 1 :
+					// src/org/uva/sea/ql/parser/antlr/QL.g:26:7: firstToken= IF (x= expr ) '{' stmts= statements '}'
+					{
+					firstToken=(Token)match(input,IF,FOLLOW_IF_in_statement120); if (state.failed) return result;
+					// src/org/uva/sea/ql/parser/antlr/QL.g:26:21: (x= expr )
+					// src/org/uva/sea/ql/parser/antlr/QL.g:26:22: x= expr
+					{
+					pushFollow(FOLLOW_expr_in_statement125);
+					x=expr();
+					state._fsp--;
+					if (state.failed) return result;
+					}
+
+					match(input,30,FOLLOW_30_in_statement128); if (state.failed) return result;
+					pushFollow(FOLLOW_statements_in_statement132);
+					stmts=statements();
+					state._fsp--;
+					if (state.failed) return result;
+					match(input,32,FOLLOW_32_in_statement134); if (state.failed) return result;
+					if ( state.backtracking==0 ) { result = new ConditionalStatement(x, stmts, (firstToken!=null?firstToken.getLine():0)); }
+					}
+					break;
+				case 2 :
+					// src/org/uva/sea/ql/parser/antlr/QL.g:27:7: question
+					{
+					pushFollow(FOLLOW_question_in_statement144);
+					question1=question();
+					state._fsp--;
+					if (state.failed) return result;
+					if ( state.backtracking==0 ) {result = question1; }
+					}
+					break;
+
+			}
+		}
+		catch (RecognitionException re) {
+			reportError(re);
+			recover(input,re);
+		}
+		finally {
+			// do for sure before leaving
+			if ( state.backtracking>0 ) { memoize(input, 3, statement_StartIndex); }
+
+		}
+		return result;
+	}
+	// $ANTLR end "statement"
+
+
+
+	// $ANTLR start "question"
+	// src/org/uva/sea/ql/parser/antlr/QL.g:30:1: question returns [Question result] : (name= Ident ':' label= STRING_VALUE qt= questionType |name= Ident ':' '\\\"' (label= Ident )* );
+	public final Question question() throws RecognitionException {
+		Question result = null;
+
+		int question_StartIndex = input.index();
+
+		Token name=null;
+		Token label=null;
+		Expr qt =null;
+
+		try {
+			if ( state.backtracking>0 && alreadyParsedRule(input, 4) ) { return result; }
+
+			// src/org/uva/sea/ql/parser/antlr/QL.g:31:5: (name= Ident ':' label= STRING_VALUE qt= questionType |name= Ident ':' '\\\"' (label= Ident )* )
+			int alt4=2;
+			int LA4_0 = input.LA(1);
+			if ( (LA4_0==Ident) ) {
+				int LA4_1 = input.LA(2);
+				if ( (LA4_1==22) ) {
+					int LA4_2 = input.LA(3);
+					if ( (LA4_2==STRING_VALUE) ) {
+						alt4=1;
+					}
+					else if ( (LA4_2==28) ) {
+						alt4=2;
+					}
+
+					else {
+						if (state.backtracking>0) {state.failed=true; return result;}
+						int nvaeMark = input.mark();
+						try {
+							for (int nvaeConsume = 0; nvaeConsume < 3 - 1; nvaeConsume++) {
+								input.consume();
+							}
+							NoViableAltException nvae =
+								new NoViableAltException("", 4, 2, input);
+							throw nvae;
+						} finally {
+							input.rewind(nvaeMark);
+						}
+					}
+
+				}
+
+				else {
+					if (state.backtracking>0) {state.failed=true; return result;}
+					int nvaeMark = input.mark();
+					try {
+						input.consume();
+						NoViableAltException nvae =
+							new NoViableAltException("", 4, 1, input);
+						throw nvae;
+					} finally {
+						input.rewind(nvaeMark);
+					}
+				}
+
+			}
+
+			else {
+				if (state.backtracking>0) {state.failed=true; return result;}
+				NoViableAltException nvae =
+					new NoViableAltException("", 4, 0, input);
+				throw nvae;
+			}
+
+			switch (alt4) {
+				case 1 :
+					// src/org/uva/sea/ql/parser/antlr/QL.g:31:7: name= Ident ':' label= STRING_VALUE qt= questionType
+					{
+					name=(Token)match(input,Ident,FOLLOW_Ident_in_question169); if (state.failed) return result;
+					match(input,22,FOLLOW_22_in_question170); if (state.failed) return result;
+					label=(Token)match(input,STRING_VALUE,FOLLOW_STRING_VALUE_in_question174); if (state.failed) return result;
+					pushFollow(FOLLOW_questionType_in_question178);
+					qt=questionType();
+					state._fsp--;
+					if (state.failed) return result;
+					if ( state.backtracking==0 ) {
+					      result = new Question((name!=null?name.getText():null), (label!=null?label.getText():null), qt, (name!=null?name.getLine():0)); }
+					}
+					break;
+				case 2 :
+					// src/org/uva/sea/ql/parser/antlr/QL.g:33:7: name= Ident ':' '\\\"' (label= Ident )*
+					{
+					name=(Token)match(input,Ident,FOLLOW_Ident_in_question191); if (state.failed) return result;
+					match(input,22,FOLLOW_22_in_question192); if (state.failed) return result;
+					match(input,28,FOLLOW_28_in_question194); if (state.failed) return result;
+					// src/org/uva/sea/ql/parser/antlr/QL.g:33:31: (label= Ident )*
+					loop3:
+					while (true) {
+						int alt3=2;
+						int LA3_0 = input.LA(1);
+						if ( (LA3_0==Ident) ) {
+							int LA3_2 = input.LA(2);
+							if ( (LA3_2==EOF||LA3_2==IF||LA3_2==Ident||LA3_2==32) ) {
+								alt3=1;
+							}
+
+						}
+
+						switch (alt3) {
+						case 1 :
+							// src/org/uva/sea/ql/parser/antlr/QL.g:33:31: label= Ident
+							{
+							label=(Token)match(input,Ident,FOLLOW_Ident_in_question198); if (state.failed) return result;
+							}
+							break;
+
+						default :
+							break loop3;
+						}
+					}
+
+					}
+					break;
+
+			}
+		}
+		catch (RecognitionException re) {
+			reportError(re);
+			recover(input,re);
+		}
+		finally {
+			// do for sure before leaving
+			if ( state.backtracking>0 ) { memoize(input, 4, question_StartIndex); }
+
+		}
+		return result;
+	}
+	// $ANTLR end "question"
+
+
+
+	// $ANTLR start "questionType"
+	// src/org/uva/sea/ql/parser/antlr/QL.g:36:1: questionType returns [Expr result] : (x= expr | TYPE );
+	public final Expr questionType() throws RecognitionException {
+		Expr result = null;
+
+		int questionType_StartIndex = input.index();
+
+		Token TYPE2=null;
+		Expr x =null;
+
+		try {
+			if ( state.backtracking>0 && alreadyParsedRule(input, 5) ) { return result; }
+
+			// src/org/uva/sea/ql/parser/antlr/QL.g:37:5: (x= expr | TYPE )
+			int alt5=2;
+			int LA5_0 = input.LA(1);
+			if ( (LA5_0==BOOLEAN_VALUE||(LA5_0 >= INT_VALUE && LA5_0 <= STRING_VALUE)||LA5_0==13||LA5_0==16||(LA5_0 >= 19 && LA5_0 <= 20)) ) {
+				alt5=1;
+			}
+			else if ( (LA5_0==TYPE) ) {
+				alt5=2;
+			}
+
+			else {
+				if (state.backtracking>0) {state.failed=true; return result;}
+				NoViableAltException nvae =
+					new NoViableAltException("", 5, 0, input);
+				throw nvae;
+			}
+
+			switch (alt5) {
+				case 1 :
+					// src/org/uva/sea/ql/parser/antlr/QL.g:37:7: x= expr
+					{
+					pushFollow(FOLLOW_expr_in_questionType226);
+					x=expr();
+					state._fsp--;
+					if (state.failed) return result;
+					if ( state.backtracking==0 ) {result = x; }
+					}
+					break;
+				case 2 :
+					// src/org/uva/sea/ql/parser/antlr/QL.g:38:7: TYPE
+					{
+					TYPE2=(Token)match(input,TYPE,FOLLOW_TYPE_in_questionType236); if (state.failed) return result;
+					if ( state.backtracking==0 ) {
+					      if ((TYPE2!=null?TYPE2.getText():null).equals("boolean")) {
+					        result = new Bool();
+					      }
+					      if ((TYPE2!=null?TYPE2.getText():null).equals("integer")) {
+					        result = new Int();
+					      }
+					      if ((TYPE2!=null?TYPE2.getText():null).equals("string")) {
+					        result = new TextString();
+					      }
+					      if ((TYPE2!=null?TYPE2.getText():null).equals("money")) {
+					        result = new Money();
+					      }}
+					}
+					break;
+
+			}
+		}
+		catch (RecognitionException re) {
+			reportError(re);
+			recover(input,re);
+		}
+		finally {
+			// do for sure before leaving
+			if ( state.backtracking>0 ) { memoize(input, 5, questionType_StartIndex); }
+
+		}
+		return result;
+	}
+	// $ANTLR end "questionType"
+
+
+
+	// $ANTLR start "primary"
+	// src/org/uva/sea/ql/parser/antlr/QL.g:53:1: primary returns [Expr result] : ( INT_VALUE | STRING_VALUE | BOOLEAN_VALUE | MONEY_VALUE | Ident | '(' x= orExpr ')' );
+	public final Expr primary() throws RecognitionException {
+		Expr result = null;
+
+		int primary_StartIndex = input.index();
+
+		Token INT_VALUE3=null;
+		Token STRING_VALUE4=null;
+		Token BOOLEAN_VALUE5=null;
+		Token MONEY_VALUE6=null;
+		Token Ident7=null;
+		Expr x =null;
+
+		try {
+			if ( state.backtracking>0 && alreadyParsedRule(input, 6) ) { return result; }
+
+			// src/org/uva/sea/ql/parser/antlr/QL.g:54:4: ( INT_VALUE | STRING_VALUE | BOOLEAN_VALUE | MONEY_VALUE | Ident | '(' x= orExpr ')' )
+			int alt6=6;
+			switch ( input.LA(1) ) {
+			case INT_VALUE:
+				{
+				alt6=1;
+				}
+				break;
+			case STRING_VALUE:
+				{
+				alt6=2;
+				}
+				break;
+			case BOOLEAN_VALUE:
+				{
+				alt6=3;
+				}
+				break;
+			case MONEY_VALUE:
+				{
+				alt6=4;
+				}
+				break;
+			case Ident:
+				{
+				alt6=5;
+				}
+				break;
+			case 16:
+				{
+				alt6=6;
+				}
+				break;
+			default:
+				if (state.backtracking>0) {state.failed=true; return result;}
+				NoViableAltException nvae =
+					new NoViableAltException("", 6, 0, input);
+				throw nvae;
+			}
+			switch (alt6) {
+				case 1 :
+					// src/org/uva/sea/ql/parser/antlr/QL.g:54:6: INT_VALUE
+					{
+					INT_VALUE3=(Token)match(input,INT_VALUE,FOLLOW_INT_VALUE_in_primary258); if (state.failed) return result;
+					if ( state.backtracking==0 ) { result = new Int((INT_VALUE3!=null?INT_VALUE3.getText():null)); }
+					}
+					break;
+				case 2 :
+					// src/org/uva/sea/ql/parser/antlr/QL.g:55:6: STRING_VALUE
+					{
+					STRING_VALUE4=(Token)match(input,STRING_VALUE,FOLLOW_STRING_VALUE_in_primary269); if (state.failed) return result;
+					if ( state.backtracking==0 ) { result = new TextString((STRING_VALUE4!=null?STRING_VALUE4.getText():null).substring(1, (STRING_VALUE4!=null?STRING_VALUE4.getText():null).length() - 1)); }
+					}
+					break;
+				case 3 :
+					// src/org/uva/sea/ql/parser/antlr/QL.g:56:6: BOOLEAN_VALUE
+					{
+					BOOLEAN_VALUE5=(Token)match(input,BOOLEAN_VALUE,FOLLOW_BOOLEAN_VALUE_in_primary278); if (state.failed) return result;
+					if ( state.backtracking==0 ) { result = new Bool((BOOLEAN_VALUE5!=null?BOOLEAN_VALUE5.getText():null)); }
+					}
+					break;
+				case 4 :
+					// src/org/uva/sea/ql/parser/antlr/QL.g:57:6: MONEY_VALUE
+					{
+					MONEY_VALUE6=(Token)match(input,MONEY_VALUE,FOLLOW_MONEY_VALUE_in_primary287); if (state.failed) return result;
+					if ( state.backtracking==0 ) { result = new Money((MONEY_VALUE6!=null?MONEY_VALUE6.getText():null)); }
+					}
+					break;
+				case 5 :
+					// src/org/uva/sea/ql/parser/antlr/QL.g:58:6: Ident
+					{
+					Ident7=(Token)match(input,Ident,FOLLOW_Ident_in_primary296); if (state.failed) return result;
+					if ( state.backtracking==0 ) { result = new Ident((Ident7!=null?Ident7.getText():null), (Ident7!=null?Ident7.getLine():0)); }
+					}
+					break;
+				case 6 :
+					// src/org/uva/sea/ql/parser/antlr/QL.g:59:6: '(' x= orExpr ')'
+					{
+					match(input,16,FOLLOW_16_in_primary305); if (state.failed) return result;
+					pushFollow(FOLLOW_orExpr_in_primary309);
+					x=orExpr();
+					state._fsp--;
+					if (state.failed) return result;
+					match(input,17,FOLLOW_17_in_primary311); if (state.failed) return result;
+					if ( state.backtracking==0 ) { result = x; }
+					}
+					break;
+
+			}
+		}
+		catch (RecognitionException re) {
+			reportError(re);
+			recover(input,re);
+		}
+		finally {
+			// do for sure before leaving
+			if ( state.backtracking>0 ) { memoize(input, 6, primary_StartIndex); }
+
+		}
+		return result;
+	}
+	// $ANTLR end "primary"
+
+
+
+	// $ANTLR start "unExpr"
+	// src/org/uva/sea/ql/parser/antlr/QL.g:62:1: unExpr returns [Expr result] : ( '+' x= unExpr | '-' x= unExpr | '!' x= unExpr |x= primary );
+	public final Expr unExpr() throws RecognitionException {
+		Expr result = null;
+
+		int unExpr_StartIndex = input.index();
+
+		Expr x =null;
+
+		try {
+			if ( state.backtracking>0 && alreadyParsedRule(input, 7) ) { return result; }
+
+			// src/org/uva/sea/ql/parser/antlr/QL.g:63:5: ( '+' x= unExpr | '-' x= unExpr | '!' x= unExpr |x= primary )
+			int alt7=4;
+			switch ( input.LA(1) ) {
+			case 19:
+				{
+				alt7=1;
+				}
+				break;
+			case 20:
+				{
+				alt7=2;
+				}
+				break;
+			case 13:
+				{
+				alt7=3;
+				}
+				break;
+			case BOOLEAN_VALUE:
+			case INT_VALUE:
+			case Ident:
+			case MONEY_VALUE:
+			case STRING_VALUE:
+			case 16:
+				{
+				alt7=4;
+				}
+				break;
+			default:
+				if (state.backtracking>0) {state.failed=true; return result;}
+				NoViableAltException nvae =
+					new NoViableAltException("", 7, 0, input);
+				throw nvae;
+			}
+			switch (alt7) {
+				case 1 :
+					// src/org/uva/sea/ql/parser/antlr/QL.g:63:8: '+' x= unExpr
+					{
+					match(input,19,FOLLOW_19_in_unExpr337); if (state.failed) return result;
+					pushFollow(FOLLOW_unExpr_in_unExpr341);
+					x=unExpr();
+					state._fsp--;
+					if (state.failed) return result;
+					if ( state.backtracking==0 ) { result = new Pos(x); }
+					}
+					break;
+				case 2 :
+					// src/org/uva/sea/ql/parser/antlr/QL.g:64:8: '-' x= unExpr
+					{
+					match(input,20,FOLLOW_20_in_unExpr352); if (state.failed) return result;
+					pushFollow(FOLLOW_unExpr_in_unExpr356);
+					x=unExpr();
+					state._fsp--;
+					if (state.failed) return result;
+					if ( state.backtracking==0 ) { result = new Neg(x); }
+					}
+					break;
+				case 3 :
+					// src/org/uva/sea/ql/parser/antlr/QL.g:65:8: '!' x= unExpr
+					{
+					match(input,13,FOLLOW_13_in_unExpr367); if (state.failed) return result;
+					pushFollow(FOLLOW_unExpr_in_unExpr371);
+					x=unExpr();
+					state._fsp--;
+					if (state.failed) return result;
+					if ( state.backtracking==0 ) { result = new Not(x); }
+					}
+					break;
+				case 4 :
+					// src/org/uva/sea/ql/parser/antlr/QL.g:66:8: x= primary
+					{
+					pushFollow(FOLLOW_primary_in_unExpr384);
+					x=primary();
+					state._fsp--;
+					if (state.failed) return result;
+					if ( state.backtracking==0 ) { result = x; }
+					}
+					break;
+
+			}
+		}
+		catch (RecognitionException re) {
+			reportError(re);
+			recover(input,re);
+		}
+		finally {
+			// do for sure before leaving
+			if ( state.backtracking>0 ) { memoize(input, 7, unExpr_StartIndex); }
+
+		}
+		return result;
+	}
+	// $ANTLR end "unExpr"
+
+
+
+	// $ANTLR start "mulExpr"
+	// src/org/uva/sea/ql/parser/antlr/QL.g:69:1: mulExpr returns [Expr result] : lhs= unExpr (op= ( '*' | '/' ) rhs= unExpr )* ;
+	public final Expr mulExpr() throws RecognitionException {
+		Expr result = null;
+
+		int mulExpr_StartIndex = input.index();
+
+		Token op=null;
+		Expr lhs =null;
+		Expr rhs =null;
+
+		try {
+			if ( state.backtracking>0 && alreadyParsedRule(input, 8) ) { return result; }
+
+			// src/org/uva/sea/ql/parser/antlr/QL.g:70:5: (lhs= unExpr (op= ( '*' | '/' ) rhs= unExpr )* )
+			// src/org/uva/sea/ql/parser/antlr/QL.g:70:9: lhs= unExpr (op= ( '*' | '/' ) rhs= unExpr )*
+			{
+			pushFollow(FOLLOW_unExpr_in_mulExpr422);
+			lhs=unExpr();
+			state._fsp--;
+			if (state.failed) return result;
+			if ( state.backtracking==0 ) { result =lhs; }
+			// src/org/uva/sea/ql/parser/antlr/QL.g:70:45: (op= ( '*' | '/' ) rhs= unExpr )*
+			loop8:
+			while (true) {
+				int alt8=2;
+				int LA8_0 = input.LA(1);
+				if ( (LA8_0==18||LA8_0==21) ) {
+					alt8=1;
+				}
+
+				switch (alt8) {
+				case 1 :
+					// src/org/uva/sea/ql/parser/antlr/QL.g:70:47: op= ( '*' | '/' ) rhs= unExpr
+					{
+					op=input.LT(1);
+					if ( input.LA(1)==18||input.LA(1)==21 ) {
+						input.consume();
+						state.errorRecovery=false;
+						state.failed=false;
+					}
+					else {
+						if (state.backtracking>0) {state.failed=true; return result;}
+						MismatchedSetException mse = new MismatchedSetException(null,input);
+						throw mse;
+					}
+					pushFollow(FOLLOW_unExpr_in_mulExpr442);
+					rhs=unExpr();
+					state._fsp--;
+					if (state.failed) return result;
+					if ( state.backtracking==0 ) { 
+					      if ((op!=null?op.getText():null).equals("*")) {
+					        result = new Mul(result, rhs);
+					      }
+					      if ((op!=null?op.getText():null).equals("<=")) {
+					        result = new Div(result, rhs);      
+					      }
+					    }
+					}
+					break;
+
+				default :
+					break loop8;
+				}
+			}
+
+			}
+
+		}
+		catch (RecognitionException re) {
+			reportError(re);
+			recover(input,re);
+		}
+		finally {
+			// do for sure before leaving
+			if ( state.backtracking>0 ) { memoize(input, 8, mulExpr_StartIndex); }
+
+		}
+		return result;
+	}
+	// $ANTLR end "mulExpr"
+
+
+
+	// $ANTLR start "addExpr"
+	// src/org/uva/sea/ql/parser/antlr/QL.g:81:1: addExpr returns [Expr result] : lhs= mulExpr (op= ( '+' | '-' ) rhs= mulExpr )* ;
+	public final Expr addExpr() throws RecognitionException {
+		Expr result = null;
+
+		int addExpr_StartIndex = input.index();
+
+		Token op=null;
+		Expr lhs =null;
+		Expr rhs =null;
+
+		try {
+			if ( state.backtracking>0 && alreadyParsedRule(input, 9) ) { return result; }
+
+			// src/org/uva/sea/ql/parser/antlr/QL.g:82:5: (lhs= mulExpr (op= ( '+' | '-' ) rhs= mulExpr )* )
+			// src/org/uva/sea/ql/parser/antlr/QL.g:82:9: lhs= mulExpr (op= ( '+' | '-' ) rhs= mulExpr )*
+			{
+			pushFollow(FOLLOW_mulExpr_in_addExpr478);
+			lhs=mulExpr();
+			state._fsp--;
+			if (state.failed) return result;
+			if ( state.backtracking==0 ) { result =lhs; }
+			// src/org/uva/sea/ql/parser/antlr/QL.g:82:46: (op= ( '+' | '-' ) rhs= mulExpr )*
+			loop9:
+			while (true) {
+				int alt9=2;
+				int LA9_0 = input.LA(1);
+				if ( ((LA9_0 >= 19 && LA9_0 <= 20)) ) {
+					alt9=1;
+				}
+
+				switch (alt9) {
+				case 1 :
+					// src/org/uva/sea/ql/parser/antlr/QL.g:82:48: op= ( '+' | '-' ) rhs= mulExpr
+					{
+					op=input.LT(1);
+					if ( (input.LA(1) >= 19 && input.LA(1) <= 20) ) {
+						input.consume();
+						state.errorRecovery=false;
+						state.failed=false;
+					}
+					else {
+						if (state.backtracking>0) {state.failed=true; return result;}
+						MismatchedSetException mse = new MismatchedSetException(null,input);
+						throw mse;
+					}
+					pushFollow(FOLLOW_mulExpr_in_addExpr496);
+					rhs=mulExpr();
+					state._fsp--;
+					if (state.failed) return result;
+					if ( state.backtracking==0 ) { 
+					      if ((op!=null?op.getText():null).equals("+")) {
+					        result = new Add(result, rhs);
+					      }
+					      if ((op!=null?op.getText():null).equals("-")) {
+					        result = new Sub(result, rhs);      
+					      }
+					    }
+					}
+					break;
+
+				default :
+					break loop9;
+				}
+			}
+
+			}
+
+		}
+		catch (RecognitionException re) {
+			reportError(re);
+			recover(input,re);
+		}
+		finally {
+			// do for sure before leaving
+			if ( state.backtracking>0 ) { memoize(input, 9, addExpr_StartIndex); }
+
+		}
+		return result;
+	}
+	// $ANTLR end "addExpr"
+
+
+
+	// $ANTLR start "relExpr"
+	// src/org/uva/sea/ql/parser/antlr/QL.g:93:1: relExpr returns [Expr result] : lhs= addExpr (op= ( '<' | '<=' | '>' | '>=' | '==' | '!=' ) rhs= addExpr )* ;
+	public final Expr relExpr() throws RecognitionException {
+		Expr result = null;
+
+		int relExpr_StartIndex = input.index();
+
+		Token op=null;
+		Expr lhs =null;
+		Expr rhs =null;
+
+		try {
+			if ( state.backtracking>0 && alreadyParsedRule(input, 10) ) { return result; }
+
+			// src/org/uva/sea/ql/parser/antlr/QL.g:94:5: (lhs= addExpr (op= ( '<' | '<=' | '>' | '>=' | '==' | '!=' ) rhs= addExpr )* )
+			// src/org/uva/sea/ql/parser/antlr/QL.g:94:9: lhs= addExpr (op= ( '<' | '<=' | '>' | '>=' | '==' | '!=' ) rhs= addExpr )*
+			{
+			pushFollow(FOLLOW_addExpr_in_relExpr531);
+			lhs=addExpr();
+			state._fsp--;
+			if (state.failed) return result;
+			if ( state.backtracking==0 ) { result =lhs; }
+			// src/org/uva/sea/ql/parser/antlr/QL.g:94:46: (op= ( '<' | '<=' | '>' | '>=' | '==' | '!=' ) rhs= addExpr )*
+			loop10:
+			while (true) {
+				int alt10=2;
+				int LA10_0 = input.LA(1);
+				if ( (LA10_0==14||(LA10_0 >= 23 && LA10_0 <= 27)) ) {
+					alt10=1;
+				}
+
+				switch (alt10) {
+				case 1 :
+					// src/org/uva/sea/ql/parser/antlr/QL.g:94:48: op= ( '<' | '<=' | '>' | '>=' | '==' | '!=' ) rhs= addExpr
+					{
+					op=input.LT(1);
+					if ( input.LA(1)==14||(input.LA(1) >= 23 && input.LA(1) <= 27) ) {
+						input.consume();
+						state.errorRecovery=false;
+						state.failed=false;
+					}
+					else {
+						if (state.backtracking>0) {state.failed=true; return result;}
+						MismatchedSetException mse = new MismatchedSetException(null,input);
+						throw mse;
+					}
+					pushFollow(FOLLOW_addExpr_in_relExpr555);
+					rhs=addExpr();
+					state._fsp--;
+					if (state.failed) return result;
+					if ( state.backtracking==0 ) { 
+					      if ((op!=null?op.getText():null).equals("<")) {
+					        result = new LT(result, rhs);
+					      }
+					      if ((op!=null?op.getText():null).equals("<=")) {
+					        result = new LEq(result, rhs);      
+					      }
+					      if ((op!=null?op.getText():null).equals(">")) {
+					        result = new GT(result, rhs);
+					      }
+					      if ((op!=null?op.getText():null).equals(">=")) {
+					        result = new GEq(result, rhs);      
+					      }
+					      if ((op!=null?op.getText():null).equals("==")) {
+					        result = new Eq(result, rhs);
+					      }
+					      if ((op!=null?op.getText():null).equals("!=")) {
+					        result = new NEq(result, rhs);
+					      }
+					    }
+					}
+					break;
+
+				default :
+					break loop10;
+				}
+			}
+
+			}
+
+		}
+		catch (RecognitionException re) {
+			reportError(re);
+			recover(input,re);
+		}
+		finally {
+			// do for sure before leaving
+			if ( state.backtracking>0 ) { memoize(input, 10, relExpr_StartIndex); }
+
+		}
+		return result;
+	}
+	// $ANTLR end "relExpr"
+
+
+
+	// $ANTLR start "andExpr"
+	// src/org/uva/sea/ql/parser/antlr/QL.g:117:1: andExpr returns [Expr result] : lhs= relExpr ( '&&' rhs= relExpr )* ;
+	public final Expr andExpr() throws RecognitionException {
+		Expr result = null;
+
+		int andExpr_StartIndex = input.index();
+
+		Expr lhs =null;
+		Expr rhs =null;
+
+		try {
+			if ( state.backtracking>0 && alreadyParsedRule(input, 11) ) { return result; }
+
+			// src/org/uva/sea/ql/parser/antlr/QL.g:118:5: (lhs= relExpr ( '&&' rhs= relExpr )* )
+			// src/org/uva/sea/ql/parser/antlr/QL.g:118:9: lhs= relExpr ( '&&' rhs= relExpr )*
+			{
+			pushFollow(FOLLOW_relExpr_in_andExpr593);
+			lhs=relExpr();
+			state._fsp--;
+			if (state.failed) return result;
+			if ( state.backtracking==0 ) { result =lhs; }
+			// src/org/uva/sea/ql/parser/antlr/QL.g:118:46: ( '&&' rhs= relExpr )*
+			loop11:
+			while (true) {
+				int alt11=2;
+				int LA11_0 = input.LA(1);
+				if ( (LA11_0==15) ) {
+					alt11=1;
+				}
+
+				switch (alt11) {
+				case 1 :
+					// src/org/uva/sea/ql/parser/antlr/QL.g:118:48: '&&' rhs= relExpr
+					{
+					match(input,15,FOLLOW_15_in_andExpr599); if (state.failed) return result;
+					pushFollow(FOLLOW_relExpr_in_andExpr603);
+					rhs=relExpr();
+					state._fsp--;
+					if (state.failed) return result;
+					if ( state.backtracking==0 ) { result = new And(result, rhs); }
+					}
+					break;
+
+				default :
+					break loop11;
+				}
+			}
+
+			}
+
+		}
+		catch (RecognitionException re) {
+			reportError(re);
+			recover(input,re);
+		}
+		finally {
+			// do for sure before leaving
+			if ( state.backtracking>0 ) { memoize(input, 11, andExpr_StartIndex); }
+
+		}
+		return result;
+	}
+	// $ANTLR end "andExpr"
+
+
+
+	// $ANTLR start "orExpr"
+	// src/org/uva/sea/ql/parser/antlr/QL.g:121:1: orExpr returns [Expr result] : lhs= andExpr ( '||' rhs= andExpr )* ;
+	public final Expr orExpr() throws RecognitionException {
+		Expr result = null;
+
+		int orExpr_StartIndex = input.index();
+
+		Expr lhs =null;
+		Expr rhs =null;
+
+		try {
+			if ( state.backtracking>0 && alreadyParsedRule(input, 12) ) { return result; }
+
+			// src/org/uva/sea/ql/parser/antlr/QL.g:122:5: (lhs= andExpr ( '||' rhs= andExpr )* )
+			// src/org/uva/sea/ql/parser/antlr/QL.g:122:9: lhs= andExpr ( '||' rhs= andExpr )*
+			{
+			pushFollow(FOLLOW_andExpr_in_orExpr633);
+			lhs=andExpr();
+			state._fsp--;
+			if (state.failed) return result;
+			if ( state.backtracking==0 ) { result = lhs; }
+			// src/org/uva/sea/ql/parser/antlr/QL.g:122:48: ( '||' rhs= andExpr )*
+			loop12:
+			while (true) {
+				int alt12=2;
+				int LA12_0 = input.LA(1);
+				if ( (LA12_0==31) ) {
+					alt12=1;
+				}
+
+				switch (alt12) {
+				case 1 :
+					// src/org/uva/sea/ql/parser/antlr/QL.g:122:50: '||' rhs= andExpr
+					{
+					match(input,31,FOLLOW_31_in_orExpr639); if (state.failed) return result;
+					pushFollow(FOLLOW_andExpr_in_orExpr643);
+					rhs=andExpr();
+					state._fsp--;
+					if (state.failed) return result;
+					if ( state.backtracking==0 ) { result = new Or(result, rhs); }
+					}
+					break;
+
+				default :
+					break loop12;
+				}
+			}
+
+			}
+
+		}
+		catch (RecognitionException re) {
+			reportError(re);
+			recover(input,re);
+		}
+		finally {
+			// do for sure before leaving
+			if ( state.backtracking>0 ) { memoize(input, 12, orExpr_StartIndex); }
+
+		}
+		return result;
+	}
+	// $ANTLR end "orExpr"
+
+
+
+	// $ANTLR start "expr"
+	// src/org/uva/sea/ql/parser/antlr/QL.g:125:1: expr returns [Expr result] : e= orExpr ;
+	public final Expr expr() throws RecognitionException {
+		Expr result = null;
+
+		int expr_StartIndex = input.index();
+
+		Expr e =null;
+
+		try {
+			if ( state.backtracking>0 && alreadyParsedRule(input, 13) ) { return result; }
+
+			// src/org/uva/sea/ql/parser/antlr/QL.g:126:5: (e= orExpr )
+			// src/org/uva/sea/ql/parser/antlr/QL.g:126:7: e= orExpr
+			{
+			pushFollow(FOLLOW_orExpr_in_expr675);
+			e=orExpr();
+			state._fsp--;
+			if (state.failed) return result;
+			if ( state.backtracking==0 ) { result = e; }
+			}
+
+		}
+		catch (RecognitionException re) {
+			reportError(re);
+			recover(input,re);
+		}
+		finally {
+			// do for sure before leaving
+			if ( state.backtracking>0 ) { memoize(input, 13, expr_StartIndex); }
+
+		}
+		return result;
+	}
+	// $ANTLR end "expr"
+
+	// Delegated rules
+
+
+
+	public static final BitSet FOLLOW_29_in_form49 = new BitSet(new long[]{0x0000000000000100L});
+	public static final BitSet FOLLOW_Ident_in_form53 = new BitSet(new long[]{0x0000000040000000L});
+	public static final BitSet FOLLOW_30_in_form55 = new BitSet(new long[]{0x0000000100000140L});
+	public static final BitSet FOLLOW_statements_in_form59 = new BitSet(new long[]{0x0000000100000000L});
+	public static final BitSet FOLLOW_32_in_form61 = new BitSet(new long[]{0x0000000000000002L});
+	public static final BitSet FOLLOW_statement_in_statements90 = new BitSet(new long[]{0x0000000000000142L});
+	public static final BitSet FOLLOW_IF_in_statement120 = new BitSet(new long[]{0x0000000000192790L});
+	public static final BitSet FOLLOW_expr_in_statement125 = new BitSet(new long[]{0x0000000040000000L});
+	public static final BitSet FOLLOW_30_in_statement128 = new BitSet(new long[]{0x0000000100000140L});
+	public static final BitSet FOLLOW_statements_in_statement132 = new BitSet(new long[]{0x0000000100000000L});
+	public static final BitSet FOLLOW_32_in_statement134 = new BitSet(new long[]{0x0000000000000002L});
+	public static final BitSet FOLLOW_question_in_statement144 = new BitSet(new long[]{0x0000000000000002L});
+	public static final BitSet FOLLOW_Ident_in_question169 = new BitSet(new long[]{0x0000000000400000L});
+	public static final BitSet FOLLOW_22_in_question170 = new BitSet(new long[]{0x0000000000000400L});
+	public static final BitSet FOLLOW_STRING_VALUE_in_question174 = new BitSet(new long[]{0x0000000000192F90L});
+	public static final BitSet FOLLOW_questionType_in_question178 = new BitSet(new long[]{0x0000000000000002L});
+	public static final BitSet FOLLOW_Ident_in_question191 = new BitSet(new long[]{0x0000000000400000L});
+	public static final BitSet FOLLOW_22_in_question192 = new BitSet(new long[]{0x0000000010000000L});
+	public static final BitSet FOLLOW_28_in_question194 = new BitSet(new long[]{0x0000000000000102L});
+	public static final BitSet FOLLOW_Ident_in_question198 = new BitSet(new long[]{0x0000000000000102L});
+	public static final BitSet FOLLOW_expr_in_questionType226 = new BitSet(new long[]{0x0000000000000002L});
+	public static final BitSet FOLLOW_TYPE_in_questionType236 = new BitSet(new long[]{0x0000000000000002L});
+	public static final BitSet FOLLOW_INT_VALUE_in_primary258 = new BitSet(new long[]{0x0000000000000002L});
+	public static final BitSet FOLLOW_STRING_VALUE_in_primary269 = new BitSet(new long[]{0x0000000000000002L});
+	public static final BitSet FOLLOW_BOOLEAN_VALUE_in_primary278 = new BitSet(new long[]{0x0000000000000002L});
+	public static final BitSet FOLLOW_MONEY_VALUE_in_primary287 = new BitSet(new long[]{0x0000000000000002L});
+	public static final BitSet FOLLOW_Ident_in_primary296 = new BitSet(new long[]{0x0000000000000002L});
+	public static final BitSet FOLLOW_16_in_primary305 = new BitSet(new long[]{0x0000000000192790L});
+	public static final BitSet FOLLOW_orExpr_in_primary309 = new BitSet(new long[]{0x0000000000020000L});
+	public static final BitSet FOLLOW_17_in_primary311 = new BitSet(new long[]{0x0000000000000002L});
+	public static final BitSet FOLLOW_19_in_unExpr337 = new BitSet(new long[]{0x0000000000192790L});
+	public static final BitSet FOLLOW_unExpr_in_unExpr341 = new BitSet(new long[]{0x0000000000000002L});
+	public static final BitSet FOLLOW_20_in_unExpr352 = new BitSet(new long[]{0x0000000000192790L});
+	public static final BitSet FOLLOW_unExpr_in_unExpr356 = new BitSet(new long[]{0x0000000000000002L});
+	public static final BitSet FOLLOW_13_in_unExpr367 = new BitSet(new long[]{0x0000000000192790L});
+	public static final BitSet FOLLOW_unExpr_in_unExpr371 = new BitSet(new long[]{0x0000000000000002L});
+	public static final BitSet FOLLOW_primary_in_unExpr384 = new BitSet(new long[]{0x0000000000000002L});
+	public static final BitSet FOLLOW_unExpr_in_mulExpr422 = new BitSet(new long[]{0x0000000000240002L});
+	public static final BitSet FOLLOW_set_in_mulExpr430 = new BitSet(new long[]{0x0000000000192790L});
+	public static final BitSet FOLLOW_unExpr_in_mulExpr442 = new BitSet(new long[]{0x0000000000240002L});
+	public static final BitSet FOLLOW_mulExpr_in_addExpr478 = new BitSet(new long[]{0x0000000000180002L});
+	public static final BitSet FOLLOW_set_in_addExpr486 = new BitSet(new long[]{0x0000000000192790L});
+	public static final BitSet FOLLOW_mulExpr_in_addExpr496 = new BitSet(new long[]{0x0000000000180002L});
+	public static final BitSet FOLLOW_addExpr_in_relExpr531 = new BitSet(new long[]{0x000000000F804002L});
+	public static final BitSet FOLLOW_set_in_relExpr539 = new BitSet(new long[]{0x0000000000192790L});
+	public static final BitSet FOLLOW_addExpr_in_relExpr555 = new BitSet(new long[]{0x000000000F804002L});
+	public static final BitSet FOLLOW_relExpr_in_andExpr593 = new BitSet(new long[]{0x0000000000008002L});
+	public static final BitSet FOLLOW_15_in_andExpr599 = new BitSet(new long[]{0x0000000000192790L});
+	public static final BitSet FOLLOW_relExpr_in_andExpr603 = new BitSet(new long[]{0x0000000000008002L});
+	public static final BitSet FOLLOW_andExpr_in_orExpr633 = new BitSet(new long[]{0x0000000080000002L});
+	public static final BitSet FOLLOW_31_in_orExpr639 = new BitSet(new long[]{0x0000000000192790L});
+	public static final BitSet FOLLOW_andExpr_in_orExpr643 = new BitSet(new long[]{0x0000000080000002L});
+	public static final BitSet FOLLOW_orExpr_in_expr675 = new BitSet(new long[]{0x0000000000000002L});
 }

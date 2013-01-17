@@ -1,11 +1,13 @@
 package org.uva.sea.ql.ast.expression.value;
 
+import org.uva.sea.ql.ast.type.Type;
 import org.uva.sea.ql.visitor.Visitor;
 
 /**
  * Represents a decimal number.
  */
 public class Money extends Number {
+	private static final Type TYPE = new org.uva.sea.ql.ast.type.Money();
 	/**
 	 * Holds the value of this instance.
 	 */
@@ -37,5 +39,15 @@ public class Money extends Number {
 	@Override
 	public void accept( Visitor visitor ) {
 		visitor.visit( this );
+	}
+
+	@Override
+	public boolean checkType() {
+		return true;
+	}
+
+	@Override
+	public Type getType() {
+		return TYPE;
 	}
 }

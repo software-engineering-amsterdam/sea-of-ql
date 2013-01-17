@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="ASCII"?>
-<cache:CacheIndex xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:cache="http://eclipse.org/dltk/cache_model" lastIndex="210" environment="org.eclipse.dltk.core.environment.localEnvironment">
+<cache:CacheIndex xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:cache="http://eclipse.org/dltk/cache_model" lastIndex="228" environment="org.eclipse.dltk.core.environment.localEnvironment">
   <entries path="/Users/Ferry/sea-of-ql/FerryRiet/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g" timestamp="1358177936000" lastAccessTime="1358177937453"/>
+  <entries path="D:/Users/Ferry/Desktop/sea-of-ql/FerryRiet/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g" timestamp="1358258390724" lastAccessTime="1358266127143">
+    <attributes name="indexed" location="2838196607/1616698823/227.idx"/>
+  </entries>
 </cache:CacheIndex>

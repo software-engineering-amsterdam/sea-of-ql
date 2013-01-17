@@ -25,8 +25,8 @@ public class SemanticCheckVisitor implements Visitor {
 	@Override
 	public void visit(Expr expr) {
 		if (expr.getClass() == Ident.class) {
-			Ident id = ((Ident) expr);
-			if (symbolMap.get(((Ident) expr).getName()) == null) {
+			Ident id = (Ident) expr;
+			if (symbolMap.get(id.getName()) == null) {
 				errorReport = errorReport.concat("\nLine(" + id.getLine() + ","
 						+ id.getCharPositionInLine() + ") Field :"
 						+ id.getName() + " is not defined.");
@@ -60,7 +60,7 @@ public class SemanticCheckVisitor implements Visitor {
 	@Override
 	public void visit(LineStatement lineStatement) {
 		// Add symbols to the symbolmap so the
-		// visitor of the expression can test their validity
+		// visitor of the expression can test their existance
 		// it also tests for duplicate symbols.
 		if (symbolMap.get(lineStatement.getLineName()) == null) {
 			// New symbol in map

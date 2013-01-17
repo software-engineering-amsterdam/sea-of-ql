@@ -5,6 +5,7 @@ options {backtrack=true; memoize=true;}
 {
 package org.uva.sea.ql.parser.antlr;
 import org.uva.sea.ql.ast.*;
+import org.uva.sea.ql.form.*;
 }
 
 @lexer::header
@@ -13,19 +14,41 @@ package org.uva.sea.ql.parser.antlr;
 }
 
 form returns [Form result]
-@init { List<Question> questions = new ArrayList(); }
+@init { List<FormItem> formItems = new ArrayList(); }
   : 'form' Ident '{'
-    (question {questions.add($question.result);})*
-    '}' { $result = new Form($Ident.text,questions); }
+    formItem { formItems.addAll($formItem.result); }
+    '}' { $result = new Form($Ident.text,formItems); }
+  ;
+
+
+formItem returns [List<FormItem> result]
+@init { List<FormItem> formItems = new ArrayList(); }
+  : (i=ifStatement { formItems.add($i.result); } 
+    | cq=computedQuestion { formItems.add($cq.result); } 
+    | q=question { formItems.add($q.result); })+ 
+      { $result = formItems; }
+  ;
+ 
+ifStatement returns [IfStatement result]
+  : 'if' '(' Ident ')' '{' ifBody=formItem '}'
+    ('else' '{' elseBody=formItem '}')? 
+      { $result = new IfStatement($Ident.text,$ifBody.result,$elseBody.result); }
+  ;
+
+computedQuestion returns [ComputedQuestion result]
+  : Ident ':' String questionType '(' orExpr ')' 
+      { $result = new ComputedQuestion($Ident.text, $String.text, $questionType.text, $orExpr.result); }
   ;
 
 question returns [Question result]
-  : Ident ':' String {$result = new Question($Ident.text, $String.text);}
+  : Ident ':' String questionType { $result = new Question($Ident.text, $String.text, $questionType.text); }
   ;
 
-//questionType
-//  : 'boolean'
-//  ;
+questionType
+  : BooleanType
+  | IntType
+  | StringType
+  ;
 
 primary returns [Expr result]
   : Int   { $result = new Int(Integer.parseInt($Int.text)); }
@@ -46,7 +69,7 @@ mulExpr returns [Expr result]
       if ($op.text.equals("*")) {
         $result = new Mul($result, rhs);
       }
-      if ($op.text.equals("<=")) {
+      if ($op.text.equals("/")) {
         $result = new Div($result, rhs);      
       }
     })*
@@ -104,11 +127,13 @@ WS  :	(' ' | '\t' | '\n' | '\r') { $channel=HIDDEN; }
     ;
 
 COMMENT 
-     : '/*' .* '*/' {$channel=HIDDEN;}
+    : ('/*' .* '*/' | '//'.* '\n') {$channel=HIDDEN;}
     ;
 
-Ident:   ('a'..'z'|'A'..'Z')('a'..'z'|'A'..'Z'|'0'..'9'|'_')*;
-
-Int: ('0'..'9')+;
+BooleanType: 'boolean';
+IntType: 'int';
+StringType: 'string';
 
 String: '"' .* '"';
+Int: ('0'..'9')+;
+Ident: ('a'..'z'|'A'..'Z')('a'..'z'|'A'..'Z'|'0'..'9'|'_')*;

@@ -5,6 +5,8 @@ options {backtrack=true; memoize=true;}
 {
 package org.uva.sea.ql.parser.antlr;
 import org.uva.sea.ql.ast.*;
+import org.uva.sea.ql.ast.expressions.*;
+import org.uva.sea.ql.ast.types.*;
 }
 
 @lexer::header
@@ -14,10 +16,14 @@ package org.uva.sea.ql.parser.antlr;
 
 form: primary+;
 
+question returns [Question result]
+  : String Ident ':' t=type { $result = new Question(new Str($String.text), new Ident($Ident.text), t); }
+  ;
+
 primary returns [Expr result]
   : Int   { $result = new Int(Integer.parseInt($Int.text)); }
   | Ident { $result = new Ident($Ident.text); }
-  | Boolean { $result = new Bool($Boolean.text); }
+  | Bool { $result = new Bool(Boolean.parseBoolean($Bool.text)); }
   | String { $result = new Str($String.text); }
   | '(' x=orExpr ')'{ $result = $x.result; }
   ;
@@ -87,18 +93,28 @@ orExpr returns [Expr result]
     :   lhs=andExpr { $result = $lhs.result; } ( '||' rhs=andExpr { $result = new Or($result, rhs); } )*
     ;
 
+type returns [Type result]
+    :   IntType    { $result = new IntType();    }
+    |   StringType { $result = new StringType(); }
+    |   BoolType   { $result = new BoolType();   }
+    ;
+
     
 // Tokens
-WS:	        (' ' | '\t' | '\n' | '\r') { $channel=HIDDEN; };
+WS:	            (' ' | '\t' | '\n' | '\r') { $channel=HIDDEN; };
 
-COMMENT:        '/*' .* '*/' { $channel=HIDDEN; };
+COMMENT:        ('/*' .* '*/' | '//') { $channel=HIDDEN; };
 
-SINGLE_COMMENT:	'//' (WS*Ident*) { $channel=HIDDEN; };
+BoolType:       'boolean';
 
-Boolean:        ('true'|'false'|'True'|'False');
+IntType:        'integer';
+
+StringType:     'string';
+
+Bool:           ('true'|'false');
 
 Ident:          ('a'..'z'|'A'..'Z')('a'..'z'|'A'..'Z'|'0'..'9'|'_')*;
 
-String:	        '"' Ident+ '"';
+String:	        ('"' .* '"');
 
 Int:            ('0'..'9')+;

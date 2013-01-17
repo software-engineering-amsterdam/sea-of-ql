@@ -5,27 +5,27 @@ lexical Ident
  	;
 
 lexical Money 
-	= [0-9]+ "." !>> [0-9]?[0-9]
+	=   [0-9]+ "." !>> [0-9]?[0-9]
 	;
 
 lexical Date
-	= [0-3][0-9] "/" [0-2][0-3] "/"[0-9][0-9][0-9][0-9]"/"
+	=  [0-3][0-9] "/" [0-2][0-3] "/"[0-9][0-9][0-9][0-9]"/"
 	;
 
 lexical Int
- 	= [0-9]+ !>> [0-9]
+ 	=  [0-9]+ !>> [0-9]
  	;
 
 lexical Float 
-	= [0-9]+ "." [0-9] [0-9]
+	=  [0-9]+ "." [0-9] [0-9]
 	;
 
 lexical Boolean
-	= "true"
-	| "false";
+	=  "true"
+	|  "false";
   
 lexical String
-	= "\"" ![\"]* "\""
+	=   "\"" ![\"]* "\""
 	;
 
 layout Standard 
@@ -52,28 +52,41 @@ syntax WhitespaceOrComment
  	;   
  
 start syntax Form 
-	= form: "form" Ident name "{" FormBody+ formBody "}"
+	= form: "form" Ident name "{" FormBodyItem+ formBody "}"
 	;
 
-start syntax FormBody
+start syntax FormBodyItem
 	= question: Question question
 	| conditionalStatement: ConditionalStatement conditionalStatement
 	;
-
-start syntax ConditionalStatement
+/*
+start syntax ConditionalStatement //"{" Question+ question "}" can i insert FormBodyItem??
 	= ifCond: "if" Expr cond "{" Question+ question "}" "else" "{" Question+ question "}"
 	| simpleIfCond : "if" Expr cond "{" Question+ question "}"
 	| ifElseIfCond : "if" Expr cond "{" Question+ question "}" ElseIf+ elseIfCondition "else" "{" Question+ question "}"
 	;
 
 start syntax ElseIf
-	= "else" "if" Expr cond "{"Question+ question"}"
+	= elseif: "else" "if" Expr cond "{"Question+ question"}"
 	;
+
+*/	
+////
+start syntax ConditionalStatement //"{" Question+ question "}" can i insert FormBodyItem??
+	= ifCond: "if" Expr cond "{" FormBodyItem+ question "}" "else" "{" FormBodyItem+ question "}"
+	| simpleIfCond : "if" Expr cond "{" FormBodyItem+ question "}"
+	| ifElseIfCond : "if" Expr cond "{" FormBodyItem+ question "}" ElseIf+ elseIfCondition "else" "{" FormBodyItem+ question "}"
+	;
+
+start syntax ElseIf
+	= elseif: "else" "if" Expr cond "{"FormBodyItem+ question"}"
+	;
+
+////
 
 start syntax Question
 	= simpleQuestion: Ident ident ":" String label Type type
-	| computedQuestion: Ident ident ":"  String label  Type type Expr compExpression
-	| testQ: String label
+	| computedQuestion: Ident ident ":"  String label  Type type Expr compExpression 
 	;
 
 start syntax Expr
@@ -115,11 +128,13 @@ start syntax Type
  	| date:"date"
  	| money:"money"
  	| string:"string"
- 	| float: "float";    
+ 	| float: "float"
+ 	;    
 
-keyword Keywords
+keyword Keywords //create Keywords in order to not use them in form declaration
 	= \true: "true"
 	| \false: "false"
+	| \if: "if"
 	;
   
 

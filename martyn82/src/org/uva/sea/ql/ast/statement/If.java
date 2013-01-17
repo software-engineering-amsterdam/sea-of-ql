@@ -13,27 +13,57 @@ public class If extends Statement {
 	private final Expression condition;
 	
 	/**
-	 * Holds the statement body.
+	 * Holds the if body.
 	 */
-	private final Statement body;
+	private final Statements ifThen;
+	
+	/**
+	 * Holds the else body.
+	 */
+	private final Statements ifElse;
 	
 	/**
 	 * Constructs a new IF-statement.
 	 * 
 	 * @param condition The expression condition.
-	 * @param body The statement body.
+	 * @param ifThen The if-body.
+	 * @param ifElse The else-body.
 	 */
-	public If( Expression condition, Statement body ) {
+	public If( Expression condition, Statements ifThen, Statements ifElse ) {
 		this.condition = condition;
-		this.body = body;
+		this.ifThen = ifThen;
+		this.ifElse = ifElse;
+	}
+	
+	/**
+	 * Constructs new IF-statement.
+	 * 
+	 * @param condition The expression condition.
+	 * @param ifThen The if-body.
+	 */
+	public If( Expression condition, Statements ifThen ) {
+		this( condition, ifThen, null );
+	}
+	
+	/**
+	 * Constructs a new IF-statement without any body statements.
+	 * 
+	 * @param condition The expression condition.
+	 */
+	public If( Expression condition ) {
+		this( condition, null, null );
 	}
 	
 	public Expression getCondition() {
 		return this.condition;
 	}
 	
-	public Statement getBody() {
-		return this.body;
+	public Statements getIfThen() {
+		return this.ifThen;
+	}
+	
+	public Statements getIfElse() {
+		return this.ifElse;
 	}
 
 	@Override

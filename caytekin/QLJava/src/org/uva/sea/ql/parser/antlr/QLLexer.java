@@ -1,4 +1,4 @@
-// $ANTLR 3.4 C:\\Users\\caytekin\\Documents\\GitHub\\sea-of-ql\\caytekin\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g 2013-01-15 15:29:58
+// $ANTLR 3.4 C:\\Users\\caytekin\\Documents\\GitHub\\sea-of-ql\\caytekin\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g 2013-01-17 10:41:47
 
 package org.uva.sea.ql.parser.antlr;
 
@@ -27,19 +27,19 @@ public class QLLexer extends Lexer {
     public static final int T__31=31;
     public static final int T__32=32;
     public static final int T__33=33;
-    public static final int Boolean_Type=4;
+    public static final int BooleanType=4;
     public static final int COMMENT=5;
-    public static final int Else_RW=6;
-    public static final int False_RW=7;
+    public static final int ElseRW=6;
+    public static final int FalseRW=7;
     public static final int Ident=8;
-    public static final int If_RW=9;
+    public static final int IfRW=9;
     public static final int Int=10;
-    public static final int Integer_Type=11;
+    public static final int IntegerType=11;
     public static final int SINGLE_LINE_COMMENT=12;
-    public static final int String_Literal=13;
-    public static final int String_Type=14;
-    public static final int Then_RW=15;
-    public static final int True_RW=16;
+    public static final int StringLiteral=13;
+    public static final int StringType=14;
+    public static final int ThenRW=15;
+    public static final int TrueRW=16;
     public static final int WS=17;
 
     // delegates
@@ -410,8 +410,8 @@ public class QLLexer extends Lexer {
         try {
             int _type = WS;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // C:\\Users\\caytekin\\Documents\\GitHub\\sea-of-ql\\caytekin\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:110:5: ( ( ' ' | '\\t' | '\\n' | '\\r' ) )
-            // C:\\Users\\caytekin\\Documents\\GitHub\\sea-of-ql\\caytekin\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:110:7: ( ' ' | '\\t' | '\\n' | '\\r' )
+            // C:\\Users\\caytekin\\Documents\\GitHub\\sea-of-ql\\caytekin\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:111:5: ( ( ' ' | '\\t' | '\\n' | '\\r' ) )
+            // C:\\Users\\caytekin\\Documents\\GitHub\\sea-of-ql\\caytekin\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:111:7: ( ' ' | '\\t' | '\\n' | '\\r' )
             {
             if ( (input.LA(1) >= '\t' && input.LA(1) <= '\n')||input.LA(1)=='\r'||input.LA(1)==' ' ) {
                 input.consume();
@@ -441,14 +441,14 @@ public class QLLexer extends Lexer {
         try {
             int _type = COMMENT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // C:\\Users\\caytekin\\Documents\\GitHub\\sea-of-ql\\caytekin\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:114:6: ( '/*' ( . )* '*/' )
-            // C:\\Users\\caytekin\\Documents\\GitHub\\sea-of-ql\\caytekin\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:114:8: '/*' ( . )* '*/'
+            // C:\\Users\\caytekin\\Documents\\GitHub\\sea-of-ql\\caytekin\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:115:6: ( '/*' ( . )* '*/' )
+            // C:\\Users\\caytekin\\Documents\\GitHub\\sea-of-ql\\caytekin\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:115:8: '/*' ( . )* '*/'
             {
             match("/*"); 
 
 
 
-            // C:\\Users\\caytekin\\Documents\\GitHub\\sea-of-ql\\caytekin\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:114:13: ( . )*
+            // C:\\Users\\caytekin\\Documents\\GitHub\\sea-of-ql\\caytekin\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:115:13: ( . )*
             loop1:
             do {
                 int alt1=2;
@@ -473,7 +473,7 @@ public class QLLexer extends Lexer {
 
                 switch (alt1) {
             	case 1 :
-            	    // C:\\Users\\caytekin\\Documents\\GitHub\\sea-of-ql\\caytekin\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:114:13: .
+            	    // C:\\Users\\caytekin\\Documents\\GitHub\\sea-of-ql\\caytekin\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:115:13: .
             	    {
             	    matchAny(); 
 
@@ -508,14 +508,14 @@ public class QLLexer extends Lexer {
         try {
             int _type = SINGLE_LINE_COMMENT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // C:\\Users\\caytekin\\Documents\\GitHub\\sea-of-ql\\caytekin\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:118:7: ( '//' ( . )* '\\n' )
-            // C:\\Users\\caytekin\\Documents\\GitHub\\sea-of-ql\\caytekin\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:118:9: '//' ( . )* '\\n'
+            // C:\\Users\\caytekin\\Documents\\GitHub\\sea-of-ql\\caytekin\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:119:7: ( '//' ( . )* '\\n' )
+            // C:\\Users\\caytekin\\Documents\\GitHub\\sea-of-ql\\caytekin\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:119:9: '//' ( . )* '\\n'
             {
             match("//"); 
 
 
 
-            // C:\\Users\\caytekin\\Documents\\GitHub\\sea-of-ql\\caytekin\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:118:14: ( . )*
+            // C:\\Users\\caytekin\\Documents\\GitHub\\sea-of-ql\\caytekin\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:119:14: ( . )*
             loop2:
             do {
                 int alt2=2;
@@ -531,7 +531,7 @@ public class QLLexer extends Lexer {
 
                 switch (alt2) {
             	case 1 :
-            	    // C:\\Users\\caytekin\\Documents\\GitHub\\sea-of-ql\\caytekin\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:118:14: .
+            	    // C:\\Users\\caytekin\\Documents\\GitHub\\sea-of-ql\\caytekin\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:119:14: .
             	    {
             	    matchAny(); 
 
@@ -559,13 +559,13 @@ public class QLLexer extends Lexer {
     }
     // $ANTLR end "SINGLE_LINE_COMMENT"
 
-    // $ANTLR start "Boolean_Type"
-    public final void mBoolean_Type() throws RecognitionException {
+    // $ANTLR start "BooleanType"
+    public final void mBooleanType() throws RecognitionException {
         try {
-            int _type = Boolean_Type;
+            int _type = BooleanType;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // C:\\Users\\caytekin\\Documents\\GitHub\\sea-of-ql\\caytekin\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:121:15: ( 'bool' )
-            // C:\\Users\\caytekin\\Documents\\GitHub\\sea-of-ql\\caytekin\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:121:18: 'bool'
+            // C:\\Users\\caytekin\\Documents\\GitHub\\sea-of-ql\\caytekin\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:122:14: ( 'bool' )
+            // C:\\Users\\caytekin\\Documents\\GitHub\\sea-of-ql\\caytekin\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:122:17: 'bool'
             {
             match("bool"); 
 
@@ -580,15 +580,15 @@ public class QLLexer extends Lexer {
         	// do for sure before leaving
         }
     }
-    // $ANTLR end "Boolean_Type"
+    // $ANTLR end "BooleanType"
 
-    // $ANTLR start "Integer_Type"
-    public final void mInteger_Type() throws RecognitionException {
+    // $ANTLR start "IntegerType"
+    public final void mIntegerType() throws RecognitionException {
         try {
-            int _type = Integer_Type;
+            int _type = IntegerType;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // C:\\Users\\caytekin\\Documents\\GitHub\\sea-of-ql\\caytekin\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:123:15: ( 'int' )
-            // C:\\Users\\caytekin\\Documents\\GitHub\\sea-of-ql\\caytekin\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:123:18: 'int'
+            // C:\\Users\\caytekin\\Documents\\GitHub\\sea-of-ql\\caytekin\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:124:14: ( 'int' )
+            // C:\\Users\\caytekin\\Documents\\GitHub\\sea-of-ql\\caytekin\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:124:17: 'int'
             {
             match("int"); 
 
@@ -603,15 +603,15 @@ public class QLLexer extends Lexer {
         	// do for sure before leaving
         }
     }
-    // $ANTLR end "Integer_Type"
+    // $ANTLR end "IntegerType"
 
-    // $ANTLR start "String_Type"
-    public final void mString_Type() throws RecognitionException {
+    // $ANTLR start "StringType"
+    public final void mStringType() throws RecognitionException {
         try {
-            int _type = String_Type;
+            int _type = StringType;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // C:\\Users\\caytekin\\Documents\\GitHub\\sea-of-ql\\caytekin\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:125:13: ( 'string' )
-            // C:\\Users\\caytekin\\Documents\\GitHub\\sea-of-ql\\caytekin\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:125:16: 'string'
+            // C:\\Users\\caytekin\\Documents\\GitHub\\sea-of-ql\\caytekin\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:126:12: ( 'string' )
+            // C:\\Users\\caytekin\\Documents\\GitHub\\sea-of-ql\\caytekin\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:126:15: 'string'
             {
             match("string"); 
 
@@ -626,15 +626,15 @@ public class QLLexer extends Lexer {
         	// do for sure before leaving
         }
     }
-    // $ANTLR end "String_Type"
+    // $ANTLR end "StringType"
 
-    // $ANTLR start "True_RW"
-    public final void mTrue_RW() throws RecognitionException {
+    // $ANTLR start "TrueRW"
+    public final void mTrueRW() throws RecognitionException {
         try {
-            int _type = True_RW;
+            int _type = TrueRW;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // C:\\Users\\caytekin\\Documents\\GitHub\\sea-of-ql\\caytekin\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:127:10: ( 'true' )
-            // C:\\Users\\caytekin\\Documents\\GitHub\\sea-of-ql\\caytekin\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:127:13: 'true'
+            // C:\\Users\\caytekin\\Documents\\GitHub\\sea-of-ql\\caytekin\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:128:10: ( 'true' )
+            // C:\\Users\\caytekin\\Documents\\GitHub\\sea-of-ql\\caytekin\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:128:13: 'true'
             {
             match("true"); 
 
@@ -649,15 +649,15 @@ public class QLLexer extends Lexer {
         	// do for sure before leaving
         }
     }
-    // $ANTLR end "True_RW"
+    // $ANTLR end "TrueRW"
 
-    // $ANTLR start "False_RW"
-    public final void mFalse_RW() throws RecognitionException {
+    // $ANTLR start "FalseRW"
+    public final void mFalseRW() throws RecognitionException {
         try {
-            int _type = False_RW;
+            int _type = FalseRW;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // C:\\Users\\caytekin\\Documents\\GitHub\\sea-of-ql\\caytekin\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:129:11: ( 'false' )
-            // C:\\Users\\caytekin\\Documents\\GitHub\\sea-of-ql\\caytekin\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:129:14: 'false'
+            // C:\\Users\\caytekin\\Documents\\GitHub\\sea-of-ql\\caytekin\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:130:10: ( 'false' )
+            // C:\\Users\\caytekin\\Documents\\GitHub\\sea-of-ql\\caytekin\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:130:13: 'false'
             {
             match("false"); 
 
@@ -672,15 +672,15 @@ public class QLLexer extends Lexer {
         	// do for sure before leaving
         }
     }
-    // $ANTLR end "False_RW"
+    // $ANTLR end "FalseRW"
 
-    // $ANTLR start "If_RW"
-    public final void mIf_RW() throws RecognitionException {
+    // $ANTLR start "IfRW"
+    public final void mIfRW() throws RecognitionException {
         try {
-            int _type = If_RW;
+            int _type = IfRW;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // C:\\Users\\caytekin\\Documents\\GitHub\\sea-of-ql\\caytekin\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:131:9: ( 'if' )
-            // C:\\Users\\caytekin\\Documents\\GitHub\\sea-of-ql\\caytekin\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:131:12: 'if'
+            // C:\\Users\\caytekin\\Documents\\GitHub\\sea-of-ql\\caytekin\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:132:8: ( 'if' )
+            // C:\\Users\\caytekin\\Documents\\GitHub\\sea-of-ql\\caytekin\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:132:11: 'if'
             {
             match("if"); 
 
@@ -695,15 +695,15 @@ public class QLLexer extends Lexer {
         	// do for sure before leaving
         }
     }
-    // $ANTLR end "If_RW"
+    // $ANTLR end "IfRW"
 
-    // $ANTLR start "Then_RW"
-    public final void mThen_RW() throws RecognitionException {
+    // $ANTLR start "ThenRW"
+    public final void mThenRW() throws RecognitionException {
         try {
-            int _type = Then_RW;
+            int _type = ThenRW;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // C:\\Users\\caytekin\\Documents\\GitHub\\sea-of-ql\\caytekin\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:133:10: ( 'then' )
-            // C:\\Users\\caytekin\\Documents\\GitHub\\sea-of-ql\\caytekin\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:133:13: 'then'
+            // C:\\Users\\caytekin\\Documents\\GitHub\\sea-of-ql\\caytekin\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:134:10: ( 'then' )
+            // C:\\Users\\caytekin\\Documents\\GitHub\\sea-of-ql\\caytekin\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:134:13: 'then'
             {
             match("then"); 
 
@@ -718,15 +718,15 @@ public class QLLexer extends Lexer {
         	// do for sure before leaving
         }
     }
-    // $ANTLR end "Then_RW"
+    // $ANTLR end "ThenRW"
 
-    // $ANTLR start "Else_RW"
-    public final void mElse_RW() throws RecognitionException {
+    // $ANTLR start "ElseRW"
+    public final void mElseRW() throws RecognitionException {
         try {
-            int _type = Else_RW;
+            int _type = ElseRW;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // C:\\Users\\caytekin\\Documents\\GitHub\\sea-of-ql\\caytekin\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:135:10: ( 'else' )
-            // C:\\Users\\caytekin\\Documents\\GitHub\\sea-of-ql\\caytekin\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:135:13: 'else'
+            // C:\\Users\\caytekin\\Documents\\GitHub\\sea-of-ql\\caytekin\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:136:9: ( 'else' )
+            // C:\\Users\\caytekin\\Documents\\GitHub\\sea-of-ql\\caytekin\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:136:12: 'else'
             {
             match("else"); 
 
@@ -741,15 +741,15 @@ public class QLLexer extends Lexer {
         	// do for sure before leaving
         }
     }
-    // $ANTLR end "Else_RW"
+    // $ANTLR end "ElseRW"
 
     // $ANTLR start "Ident"
     public final void mIdent() throws RecognitionException {
         try {
             int _type = Ident;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // C:\\Users\\caytekin\\Documents\\GitHub\\sea-of-ql\\caytekin\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:137:6: ( ( 'a' .. 'z' | 'A' .. 'Z' ) ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )* )
-            // C:\\Users\\caytekin\\Documents\\GitHub\\sea-of-ql\\caytekin\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:137:10: ( 'a' .. 'z' | 'A' .. 'Z' ) ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )*
+            // C:\\Users\\caytekin\\Documents\\GitHub\\sea-of-ql\\caytekin\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:138:6: ( ( 'a' .. 'z' | 'A' .. 'Z' ) ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )* )
+            // C:\\Users\\caytekin\\Documents\\GitHub\\sea-of-ql\\caytekin\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:138:10: ( 'a' .. 'z' | 'A' .. 'Z' ) ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )*
             {
             if ( (input.LA(1) >= 'A' && input.LA(1) <= 'Z')||(input.LA(1) >= 'a' && input.LA(1) <= 'z') ) {
                 input.consume();
@@ -761,7 +761,7 @@ public class QLLexer extends Lexer {
             }
 
 
-            // C:\\Users\\caytekin\\Documents\\GitHub\\sea-of-ql\\caytekin\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:137:29: ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )*
+            // C:\\Users\\caytekin\\Documents\\GitHub\\sea-of-ql\\caytekin\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:138:29: ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )*
             loop3:
             do {
                 int alt3=2;
@@ -811,10 +811,10 @@ public class QLLexer extends Lexer {
         try {
             int _type = Int;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // C:\\Users\\caytekin\\Documents\\GitHub\\sea-of-ql\\caytekin\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:139:4: ( ( '0' .. '9' )+ )
-            // C:\\Users\\caytekin\\Documents\\GitHub\\sea-of-ql\\caytekin\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:139:6: ( '0' .. '9' )+
+            // C:\\Users\\caytekin\\Documents\\GitHub\\sea-of-ql\\caytekin\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:140:4: ( ( '0' .. '9' )+ )
+            // C:\\Users\\caytekin\\Documents\\GitHub\\sea-of-ql\\caytekin\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:140:6: ( '0' .. '9' )+
             {
-            // C:\\Users\\caytekin\\Documents\\GitHub\\sea-of-ql\\caytekin\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:139:6: ( '0' .. '9' )+
+            // C:\\Users\\caytekin\\Documents\\GitHub\\sea-of-ql\\caytekin\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:140:6: ( '0' .. '9' )+
             int cnt4=0;
             loop4:
             do {
@@ -864,17 +864,17 @@ public class QLLexer extends Lexer {
     }
     // $ANTLR end "Int"
 
-    // $ANTLR start "String_Literal"
-    public final void mString_Literal() throws RecognitionException {
+    // $ANTLR start "StringLiteral"
+    public final void mStringLiteral() throws RecognitionException {
         try {
-            int _type = String_Literal;
+            int _type = StringLiteral;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // C:\\Users\\caytekin\\Documents\\GitHub\\sea-of-ql\\caytekin\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:141:16: ( '\"' ( . )* '\"' )
-            // C:\\Users\\caytekin\\Documents\\GitHub\\sea-of-ql\\caytekin\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:141:18: '\"' ( . )* '\"'
+            // C:\\Users\\caytekin\\Documents\\GitHub\\sea-of-ql\\caytekin\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:142:15: ( '\"' ( . )* '\"' )
+            // C:\\Users\\caytekin\\Documents\\GitHub\\sea-of-ql\\caytekin\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:142:17: '\"' ( . )* '\"'
             {
             match('\"'); 
 
-            // C:\\Users\\caytekin\\Documents\\GitHub\\sea-of-ql\\caytekin\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:141:22: ( . )*
+            // C:\\Users\\caytekin\\Documents\\GitHub\\sea-of-ql\\caytekin\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:142:21: ( . )*
             loop5:
             do {
                 int alt5=2;
@@ -890,7 +890,7 @@ public class QLLexer extends Lexer {
 
                 switch (alt5) {
             	case 1 :
-            	    // C:\\Users\\caytekin\\Documents\\GitHub\\sea-of-ql\\caytekin\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:141:22: .
+            	    // C:\\Users\\caytekin\\Documents\\GitHub\\sea-of-ql\\caytekin\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:142:21: .
             	    {
             	    matchAny(); 
 
@@ -914,10 +914,10 @@ public class QLLexer extends Lexer {
         	// do for sure before leaving
         }
     }
-    // $ANTLR end "String_Literal"
+    // $ANTLR end "StringLiteral"
 
     public void mTokens() throws RecognitionException {
-        // C:\\Users\\caytekin\\Documents\\GitHub\\sea-of-ql\\caytekin\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:1:8: ( T__18 | T__19 | T__20 | T__21 | T__22 | T__23 | T__24 | T__25 | T__26 | T__27 | T__28 | T__29 | T__30 | T__31 | T__32 | T__33 | WS | COMMENT | SINGLE_LINE_COMMENT | Boolean_Type | Integer_Type | String_Type | True_RW | False_RW | If_RW | Then_RW | Else_RW | Ident | Int | String_Literal )
+        // C:\\Users\\caytekin\\Documents\\GitHub\\sea-of-ql\\caytekin\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:1:8: ( T__18 | T__19 | T__20 | T__21 | T__22 | T__23 | T__24 | T__25 | T__26 | T__27 | T__28 | T__29 | T__30 | T__31 | T__32 | T__33 | WS | COMMENT | SINGLE_LINE_COMMENT | BooleanType | IntegerType | StringType | TrueRW | FalseRW | IfRW | ThenRW | ElseRW | Ident | Int | StringLiteral )
         int alt6=30;
         alt6 = dfa6.predict(input);
         switch (alt6) {
@@ -1074,71 +1074,71 @@ public class QLLexer extends Lexer {
                 }
                 break;
             case 20 :
-                // C:\\Users\\caytekin\\Documents\\GitHub\\sea-of-ql\\caytekin\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:1:137: Boolean_Type
+                // C:\\Users\\caytekin\\Documents\\GitHub\\sea-of-ql\\caytekin\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:1:137: BooleanType
                 {
-                mBoolean_Type(); 
+                mBooleanType(); 
 
 
                 }
                 break;
             case 21 :
-                // C:\\Users\\caytekin\\Documents\\GitHub\\sea-of-ql\\caytekin\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:1:150: Integer_Type
+                // C:\\Users\\caytekin\\Documents\\GitHub\\sea-of-ql\\caytekin\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:1:149: IntegerType
                 {
-                mInteger_Type(); 
+                mIntegerType(); 
 
 
                 }
                 break;
             case 22 :
-                // C:\\Users\\caytekin\\Documents\\GitHub\\sea-of-ql\\caytekin\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:1:163: String_Type
+                // C:\\Users\\caytekin\\Documents\\GitHub\\sea-of-ql\\caytekin\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:1:161: StringType
                 {
-                mString_Type(); 
+                mStringType(); 
 
 
                 }
                 break;
             case 23 :
-                // C:\\Users\\caytekin\\Documents\\GitHub\\sea-of-ql\\caytekin\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:1:175: True_RW
+                // C:\\Users\\caytekin\\Documents\\GitHub\\sea-of-ql\\caytekin\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:1:172: TrueRW
                 {
-                mTrue_RW(); 
+                mTrueRW(); 
 
 
                 }
                 break;
             case 24 :
-                // C:\\Users\\caytekin\\Documents\\GitHub\\sea-of-ql\\caytekin\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:1:183: False_RW
+                // C:\\Users\\caytekin\\Documents\\GitHub\\sea-of-ql\\caytekin\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:1:179: FalseRW
                 {
-                mFalse_RW(); 
+                mFalseRW(); 
 
 
                 }
                 break;
             case 25 :
-                // C:\\Users\\caytekin\\Documents\\GitHub\\sea-of-ql\\caytekin\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:1:192: If_RW
+                // C:\\Users\\caytekin\\Documents\\GitHub\\sea-of-ql\\caytekin\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:1:187: IfRW
                 {
-                mIf_RW(); 
+                mIfRW(); 
 
 
                 }
                 break;
             case 26 :
-                // C:\\Users\\caytekin\\Documents\\GitHub\\sea-of-ql\\caytekin\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:1:198: Then_RW
+                // C:\\Users\\caytekin\\Documents\\GitHub\\sea-of-ql\\caytekin\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:1:192: ThenRW
                 {
-                mThen_RW(); 
+                mThenRW(); 
 
 
                 }
                 break;
             case 27 :
-                // C:\\Users\\caytekin\\Documents\\GitHub\\sea-of-ql\\caytekin\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:1:206: Else_RW
+                // C:\\Users\\caytekin\\Documents\\GitHub\\sea-of-ql\\caytekin\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:1:199: ElseRW
                 {
-                mElse_RW(); 
+                mElseRW(); 
 
 
                 }
                 break;
             case 28 :
-                // C:\\Users\\caytekin\\Documents\\GitHub\\sea-of-ql\\caytekin\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:1:214: Ident
+                // C:\\Users\\caytekin\\Documents\\GitHub\\sea-of-ql\\caytekin\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:1:206: Ident
                 {
                 mIdent(); 
 
@@ -1146,7 +1146,7 @@ public class QLLexer extends Lexer {
                 }
                 break;
             case 29 :
-                // C:\\Users\\caytekin\\Documents\\GitHub\\sea-of-ql\\caytekin\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:1:220: Int
+                // C:\\Users\\caytekin\\Documents\\GitHub\\sea-of-ql\\caytekin\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:1:212: Int
                 {
                 mInt(); 
 
@@ -1154,9 +1154,9 @@ public class QLLexer extends Lexer {
                 }
                 break;
             case 30 :
-                // C:\\Users\\caytekin\\Documents\\GitHub\\sea-of-ql\\caytekin\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:1:224: String_Literal
+                // C:\\Users\\caytekin\\Documents\\GitHub\\sea-of-ql\\caytekin\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:1:216: StringLiteral
                 {
-                mString_Literal(); 
+                mStringLiteral(); 
 
 
                 }
@@ -1294,7 +1294,7 @@ public class QLLexer extends Lexer {
             this.transition = DFA6_transition;
         }
         public String getDescription() {
-            return "1:1: Tokens : ( T__18 | T__19 | T__20 | T__21 | T__22 | T__23 | T__24 | T__25 | T__26 | T__27 | T__28 | T__29 | T__30 | T__31 | T__32 | T__33 | WS | COMMENT | SINGLE_LINE_COMMENT | Boolean_Type | Integer_Type | String_Type | True_RW | False_RW | If_RW | Then_RW | Else_RW | Ident | Int | String_Literal );";
+            return "1:1: Tokens : ( T__18 | T__19 | T__20 | T__21 | T__22 | T__23 | T__24 | T__25 | T__26 | T__27 | T__28 | T__29 | T__30 | T__31 | T__32 | T__33 | WS | COMMENT | SINGLE_LINE_COMMENT | BooleanType | IntegerType | StringType | TrueRW | FalseRW | IfRW | ThenRW | ElseRW | Ident | Int | StringLiteral );";
         }
     }
  

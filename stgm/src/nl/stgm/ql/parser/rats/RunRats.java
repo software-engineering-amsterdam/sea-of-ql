@@ -4,7 +4,7 @@ import xtc.parser.Rats;
 
 public class RunRats {
 	public static final String SRC_ROOT = "src";
-	public static final String PACKAGE_DIR = "org/uva/sea/ql/parser/rats";
+	public static final String PACKAGE_DIR = "nl/stgm/ql/parser/rats";
 	public static final String GRAMMAR = SRC_ROOT + "/" + PACKAGE_DIR + "/QLParser.rats";
 	public static final String OUTPUT_DIR = SRC_ROOT + "/" + PACKAGE_DIR;
 	public static final String[] RATS_ARGS = { 

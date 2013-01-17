@@ -6,6 +6,7 @@ options {backtrack=true; memoize=true;}
 package org.uva.sea.ql.parser.antlr;
 import org.uva.sea.ql.ast.*;
 import org.uva.sea.ql.ast.type.*;
+import org.uva.sea.ql.ast.statement.*;
 }
 
 @lexer::header
@@ -14,25 +15,25 @@ package org.uva.sea.ql.parser.antlr;
 }
 
 primary returns [Expr result] 
-  : Int   { $result = new Int(Integer.parseInt($Int.text)); }
-  | Ident { $result = new Ident($Ident.text); }
-  | '(' x=orExpr ')'{ $result = $x.result; }
-  ;
+    : Int   { $result = new Int(Integer.parseInt($Int.text)); }
+    | Ident { $result = new Ident($Ident.text); }
+    | '(' x=orExpr ')'{ $result = $x.result; }
+    ;
     
 unExpr returns [Expr result] 
-    :  '+' x=unExpr { $result = new Pos($x.result); }
-    |  '-' x=unExpr { $result = new Neg($x.result); }
-    |  '!' x=unExpr { $result = new Not($x.result); }
-    |  x=primary    { $result = $x.result; }
+    : '+' x=unExpr { $result = new Pos($x.result); }
+    | '-' x=unExpr { $result = new Neg($x.result); }
+    | '!' x=unExpr { $result = new Not($x.result); }
+    | x=primary    { $result = $x.result; }
     ;    
     
 mulExpr returns [Expr result] 
-    :   lhs=unExpr { $result=$lhs.result; } ( op=( '*' | '/' ) rhs=unExpr 
+    : lhs=unExpr { $result=$lhs.result; } ( op=( '*' | '/' ) rhs=unExpr 
     { 
       if ($op.text.equals("*")) {
         $result = new Mul($result, rhs);
       }
-      if ($op.text.equals("<=")) {
+      if ($op.text.equals("/")) {
         $result = new Div($result, rhs);      
       }
     })*
@@ -40,7 +41,7 @@ mulExpr returns [Expr result]
     
   
 addExpr returns [Expr result] 
-    :   lhs=mulExpr { $result=$lhs.result; } ( op=('+' | '-') rhs=mulExpr
+    : lhs=mulExpr { $result=$lhs.result; } ( op=('+' | '-') rhs=mulExpr
     { 
       if ($op.text.equals("+")) {
         $result = new Add($result, rhs);
@@ -52,7 +53,7 @@ addExpr returns [Expr result]
     ;
   
 relExpr returns [Expr result] 
-    :   lhs=addExpr { $result=$lhs.result; } ( op=('<'|'<='|'>'|'>='|'=='|'!=') rhs=addExpr 
+    : lhs=addExpr { $result=$lhs.result; } ( op=('<'|'<='|'>'|'>='|'=='|'!=') rhs=addExpr 
     { 
       if ($op.text.equals("<")) {
         $result = new LT($result, rhs);
@@ -76,44 +77,67 @@ relExpr returns [Expr result]
     ;
     
 andExpr returns [Expr result] 
-    :   lhs=relExpr { $result=$lhs.result; } ( '&&' rhs=relExpr { $result = new And($result, rhs); } )*
+    : lhs=relExpr { $result=$lhs.result; } ( '&&' rhs=relExpr { $result = new And($result, rhs); } )*
     ;
     
 
 orExpr returns [Expr result] 
-    :   lhs=andExpr { $result = $lhs.result; } ( '||' rhs=andExpr { $result = new Or($result, rhs); } )*
+    : lhs=andExpr { $result = $lhs.result; } ( '||' rhs=andExpr { $result = new Or($result, rhs); } )*
     ;
 
 form returns [Type result] 
-     @init { List<Question> questions = new ArrayList<Question>();}
-    : 'form' Ident '{' (question {questions.add($question.result);})+ '}'
-    { $result = new Form(new Ident($Ident.text), new Questions(questions));}
+      @init { List<Statement> formParts = new ArrayList<Statement>();}
+    : 'form' Ident '{' (formPart {formParts.add($formPart.result);})+ '}' { $result = new Form(new Ident($Ident.text), formParts);}
+    ;
+    
+formPart returns [Statement result]
+    : question {$result = $question.result;}
+    | ifThenStatement {$result = $ifThenStatement.result;}
+    | ifStatement {$result = $ifStatement.result;}
+    ;
+    
+ifStatement returns[Statement result]
+      @init { List<Statement> formParts = new ArrayList<Statement>();}
+    : 'if' '(' Ident ')' '{' (formPart {formParts.add($formPart.result);})+ '}' {$result = new If(new Ident($Ident.text), formParts);}
+    ;
+    
+ifThenStatement returns [Statement result]
+      @init { List<Statement> ifFormParts = new ArrayList<Statement>();
+              List<Statement> elseFormParts = new ArrayList<Statement>();}
+    : 'if' '(' Ident ')' '{' (f1=formPart {ifFormParts.add($f1.result);})+ '}' 'else' '{' (f2=formPart {elseFormParts.add($f2.result);})+ '}'
+      {$result = new IfThenElse(new Ident($Ident.text), ifFormParts, elseFormParts);}  
     ;
   
 question returns [Question result] 
-   : Ident ':' String returnType {$result = new Question($String.text, $returnType.result);}
+    : Ident ':' String returnType {$result = new Question($String.text, $returnType.result);}
     ;
     
 returnType returns [Type result] 
     : 'boolean' { $result = new BoolType(false); }
-    | 'money(' orExpr ')' {$result = new Money(-2);} //Fill in actual numbers. 
-    | 'money' {$result = new Money(-1);} // Fill in actual numbers.
+    | 'money(' orExpr ')' {$result = new Money($orExpr.result);} //Fill in actual numbers. 
+    | 'money' {$result = new Money();} 
     ;
     
-BOOL	: ('true' | 'false');    
+BOOL	
+    : ('true' | 'false')
+    ;    
 
-// Tokens
-WS  :	(' ' | '\t' | '\n' | '\r') { $channel=HIDDEN; }
+WS 
+    :	(' ' | '\t' | '\n' | '\r') { $channel=HIDDEN; }
     ;
 
 COMMENT 
-    : '/*' .* '*/' {$channel=HIDDEN;} 
+    : ( '/*' .* '*/' | '//' .* '\n') {$channel=HIDDEN;}
     ;
 
 String  
-    :('"' .* '"') 
+    : ('"' .* '"') 
     ;
 
-Ident:   ('a'..'z'|'A'..'Z')('a'..'z'|'A'..'Z'|'0'..'9'|'_')*;
+Ident
+    : ('a'..'z'|'A'..'Z')('a'..'z'|'A'..'Z'|'0'..'9'|'_')*
+    ;
 
-Int: ('0'..'9')+;
+Int 
+    : ('0'..'9')+
+    ;

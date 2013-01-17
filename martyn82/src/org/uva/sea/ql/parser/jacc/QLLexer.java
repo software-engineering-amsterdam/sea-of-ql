@@ -6,7 +6,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.regex.Pattern;
 
-import org.uva.sea.ql.ast.ASTNode;
+import org.uva.sea.ql.ast.Node;
 import org.uva.sea.ql.ast.expression.Ident;
 
 /**
@@ -26,6 +26,11 @@ public class QLLexer implements QLTokens {
 		KEYWORDS.put( "true", BOOL );
 		KEYWORDS.put( "false", BOOL );
 		KEYWORDS.put( "if", IF );
+		KEYWORDS.put( "else", ELSE );
+		KEYWORDS.put( "boolean", BOOLEAN  );
+		KEYWORDS.put( "integer", INTEGER );
+		KEYWORDS.put( "string", STRING );
+		KEYWORDS.put( "money", MONEY );
 	}
 
 	/**
@@ -37,11 +42,21 @@ public class QLLexer implements QLTokens {
 	 * Holds the current character code.
 	 */
 	private int c = ' ';
+	
+	/**
+	 * Holds current column number.
+	 */
+	private int column;
+	
+	/**
+	 * Holds current line number.
+	 */
+	private int line;
 
 	/**
 	 * Holds the current AST node.
 	 */
-	private ASTNode yylval;
+	private Node yylval;
 	
 	/**
 	 * Holds the input reader.
@@ -59,21 +74,32 @@ public class QLLexer implements QLTokens {
 	private Pattern integer;
 
 	/**
-	 * Constructs a new QLLexer instance.
+	 * Constructs a new lexer instance.
 	 * 
 	 * @param input The input reader.
 	 */
 	public QLLexer( Reader input ) {
 		this.input = input;
+		this.column = 0;
+		this.line = 1;
 	}
 
 	/**
-	 * Reads the next character.
+	 * Reads the next character into field c.
+	 * On end of input or failure, c will be -1.
 	 */
 	private void nextChar() {
 		if ( c >= 0 ) {
 			try {
 				c = input.read();
+				
+				if ( c == '\n' ) {
+					line++;
+					column = 0;
+				}
+				else if ( c > 0 ) {
+					column++;
+				}
 			}
 			catch ( IOException e ) {
 				c = -1;
@@ -82,9 +108,9 @@ public class QLLexer implements QLTokens {
 	}
 
 	/**
-	 * Computes and retrieves the next token.
+	 * Retrieves the next token based on previously read character.
 	 * 
-	 * @return The computed token.
+	 * @return The token.
 	 */
 	public int nextToken() {
 		boolean inComment = false;
@@ -138,20 +164,17 @@ public class QLLexer implements QLTokens {
 				}
 				
 				case ')':
-					nextChar();
-					return token = ')';
-				
 				case '(':
-					nextChar();
-					return token = '(';
-					
 				case '{':
-					nextChar();
-					return token = '{';
-					
 				case '}':
+				case ':':
+				case ';':
+				case '+':
+				case '-':
+				case '^':
+					token = c;
 					nextChar();
-					return token = '}';
+					return token;
 				
 				case '*': {
 					nextChar();
@@ -164,14 +187,6 @@ public class QLLexer implements QLTokens {
 					
 					return token = '*';
 				}
-				
-				case '+':
-					nextChar();
-					return token = '+';
-				
-				case '-':
-					nextChar();
-					return token = '-';
 				
 				case '&': {
 					nextChar();
@@ -223,8 +238,10 @@ public class QLLexer implements QLTokens {
 						nextChar();
 						return token = EQ;
 					}
-				
-					throw new RuntimeException( "Unexpected character: " + (char) c );
+					else {
+						nextChar();
+						return token = '=';
+					}
 				}
 				
 				case '>': {
@@ -240,7 +257,7 @@ public class QLLexer implements QLTokens {
 				
 				case '"': {
 					if ( this.matchString() ) {
-						return token = STR;
+						return token;
 					}
 				}
 				
@@ -249,7 +266,7 @@ public class QLLexer implements QLTokens {
 						return token;
 					}
 					
-					if ( this.matchToken() ) {
+					if ( this.matchWord() ) {
 						return token;
 					}
 				
@@ -260,7 +277,7 @@ public class QLLexer implements QLTokens {
 	}
 	
 	/**
-	 * Matches a string literal.
+	 * Matches a string literal and updates the token field.
 	 * 
 	 * @return True if string, false otherwise.
 	 */
@@ -268,9 +285,9 @@ public class QLLexer implements QLTokens {
 		StringBuilder sb = new StringBuilder();
 		boolean inString = true;
 		
+		nextChar(); // go around the string boundaries (")
+		
 		while ( inString ) {
-			nextChar();
-			
 			if ( c < ENDINPUT ) {
 				throw new RuntimeException( "Unterminated string literal" );
 			}
@@ -284,20 +301,24 @@ public class QLLexer implements QLTokens {
 			else {
 				sb.append( (char) c );
 			}
+			
+			nextChar();
 		}
 
-		nextChar();
-
 		yylval = new org.uva.sea.ql.ast.expression.value.Str( sb.toString() );
+		token = STR;
+		
 		return true;
 	}
 	
 	/**
-	 * Unescapes an escaped character within a string literal.
+	 * Retrieves an escaped character within a string literal.
 	 * 
-	 * @param input Character to unescape.
+	 * @param input The escaped character.
 	 * 
-	 * @return The unescaped character.
+	 * @return The un-escaped character.
+	 * 
+	 * @throws RuntimeException if escaped character is invalid.
 	 */
 	private char getEscapedChar( char input ) {
 		switch ( input ) {
@@ -317,6 +338,7 @@ public class QLLexer implements QLTokens {
 			case 'f':
 				return '\f';
 				
+			// others
 			case '\'':
 				return '\'';
 				
@@ -331,7 +353,8 @@ public class QLLexer implements QLTokens {
 	}
 		
 	/**
-	 * Matches a number literal.
+	 * Matches a number literal and updates the token field.
+	 * This matches any number of Integer or Money types.
 	 * 
 	 * @return True if integer, false otherwise.
 	 */
@@ -381,11 +404,15 @@ public class QLLexer implements QLTokens {
 	}
 	
 	/**
-	 * Matches arbitrary token.
+	 * Matches a keyword or identifier token and updates the token field accordingly on success.
 	 * 
 	 * @return True if successful, false otherwise.
 	 */
-	private boolean matchToken() {
+	private boolean matchWord() {
+		if ( !Character.isLetter( c ) ) {
+			return false;
+		}
+		
 		StringBuilder sb = new StringBuilder();
 		
 		do {
@@ -405,7 +432,22 @@ public class QLLexer implements QLTokens {
 						Boolean.parseBoolean( name )
 					);
 					break;
-				
+					
+				case BOOLEAN:
+					yylval = new org.uva.sea.ql.ast.type.Bool();
+					break;
+					
+				case MONEY:
+					yylval = new org.uva.sea.ql.ast.type.Money();
+					break;
+					
+				case INTEGER:
+					yylval = new org.uva.sea.ql.ast.type.Int();
+					break;
+					
+				case STRING:
+					yylval = new org.uva.sea.ql.ast.type.Str();
+					break;
 			}
 
 			return true;
@@ -413,12 +455,12 @@ public class QLLexer implements QLTokens {
 
 		yylval = new Ident( name );
 		token = IDENT;
-		
+
 		return true;
 	}
 
 	/**
-	 * Returns the current token.
+	 * Returns the most recent identified token.
 	 * 
 	 * @return The current token.
 	 */
@@ -431,7 +473,25 @@ public class QLLexer implements QLTokens {
 	 * 
 	 * @return The AST.
 	 */
-	public ASTNode getSemantic() {
+	public Node getSemantic() {
 		return yylval;
+	}
+	
+	/**
+	 * Retrieves the current column number on the current line.
+	 * 
+	 * @return Column number.
+	 */
+	public int getColumn() {
+		return column;
+	}
+	
+	/**
+	 * Retrieves the current line number.
+	 * 
+	 * @return Line number.
+	 */
+	public int getLineNumber() {
+		return line;
 	}
 }
