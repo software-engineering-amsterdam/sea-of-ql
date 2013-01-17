@@ -1,26 +1,30 @@
 module lang::ql::ast::AST
+import List;
 
-//data Form
-
-//data FormBody
-
-//data ConditionalStatement
-
-//data ElseIf
-
-//data Question
-data Question
-	=simpleQuestion(Expr,Expr,Type)
-	|computedQuestion(str questionVar, str label, str Type, Expr computation)
-	|testQ(str questionVar)
+data Form
+	= form(str ident,list[FormBodyItem] formItem)
 	;
-//data Type..it doesn't have it in Pico example
-data Type=\type (str);
-data Ident=ident (str);
+	
+data FormBodyItem
+	= question(Question itemQuestion)
+	| conditionalStatement(ConditionalStatement itemCondStatement)
+	;
+	
+data ConditionalStatement
+	= ifCond(Expr ifCondition,list[Question] ifQuestion,list[Question] elseQuestion)
+	| simpleIfCond(Expr ifCondition,list[Question] ifQuestion)
+	| ifElseIfCond(Expr ifCondition,list[Question] ifQuestion,list[ElseIf] elseifBranch,list[Question] elseQuestion)
+	;
+	
+data ElseIf = elseif(Expr ifExpression,list[Question] elseQuestion);
+
+data Question//needs more tests
+	= simpleQuestion(str questionId,str questionLabel,Type questionType)
+	| computedQuestion(str questionId, str questionLabel, Type questionType, Expr questionComputation) 
+	;
+
 //data WhitespaceOrComment 
 
-
-//data Expr
 data Expr
   = ident(str name)
   | \int(int ivalue) 
@@ -47,4 +51,14 @@ data Expr
   | neq(Expr neqLeft, Expr neqRight)
   
   | and(Expr andLeft, Expr andRight)
-  | or(Expr orLeft, Expr orRight);
+  | or(Expr orLeft, Expr orRight)
+  ;
+  
+data Type
+	= boolean()
+	| integer()
+	| string()
+	| money()
+	| date()
+	| float()
+	;

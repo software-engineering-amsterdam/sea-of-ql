@@ -11,7 +11,7 @@ import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
 import org.uva.sea.ql.ast.Int;
 import org.uva.sea.ql.ast.Mul;
-import org.uva.sea.ql.parser.antlr.ANTLRParser;
+import org.uva.sea.ql.parser.antlr.*;
 
 @RunWith(Parameterized.class)
 public class TestComments {
@@ -39,12 +39,6 @@ public class TestComments {
 		assertEquals(parser.parse("// a + \n b * c").getClass(), Mul.class);
 		assertEquals(parser.parse("// a + b * c"), null);
 		assertEquals(parser.parse("// a + b * c \n 5").getClass(), Int.class);
-	}
-	
-	@Test
-	public void testQuestion() throws ParseError {
-		//parser.parse("hasSoldHouse: \"Did you sell a house in 2010?\" boolean");
-		parser.parse("true");
 	}
 
 }

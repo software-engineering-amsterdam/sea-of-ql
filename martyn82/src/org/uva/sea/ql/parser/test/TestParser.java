@@ -8,7 +8,9 @@ import org.uva.sea.ql.ast.expression.value.Bool;
 import org.uva.sea.ql.ast.expression.value.Int;
 import org.uva.sea.ql.ast.expression.value.Money;
 import org.uva.sea.ql.ast.expression.value.Str;
+import org.uva.sea.ql.ast.statement.Assignment;
 import org.uva.sea.ql.ast.statement.If;
+import org.uva.sea.ql.ast.statement.VarDeclaration;
 import org.uva.sea.ql.parser.jacc.JACCParser;
 
 /**
@@ -227,7 +229,7 @@ public class TestParser {
 		assertEquals( And.class, parser.parse( "(a && b)" ).getClass() );
 		assertEquals( And.class, parser.parse( "a && (b || c)" ).getClass() );
 		assertEquals( And.class, parser.parse( "a && b && c" ).getClass() );
-		assertEquals( And.class, parser.parse( "!a && !b" ).getClass() );
+		assertEquals( And.class, parser.parse( "a && !b" ).getClass() );
 		
 		// logical OR
 		assertEquals( Or.class, parser.parse( "a || b" ).getClass() );
@@ -238,6 +240,8 @@ public class TestParser {
 		// logical NOT
 		assertEquals( Not.class, parser.parse( "!a" ).getClass() );
 		assertEquals( Not.class, parser.parse( "!(a && b)" ).getClass() );
+		assertEquals( Not.class, parser.parse( "!(a && !b)" ).getClass() );
+		assertEquals( Not.class, parser.parse( "!((a && !b) || !c)" ).getClass() );
 	}
 	
 	/**
@@ -266,7 +270,71 @@ public class TestParser {
 	 */
 	@Test
 	public void testIf() throws ParseError {
-		System.out.println("now");
-		assertEquals( If.class, parser.parse( "if( true ){}" ).getClass() );
+		// literal conditions
+		assertEquals( If.class, parser.parse( "if ( true ) { }" ).getClass() );
+		assertEquals( If.class, parser.parse( "if ( false ) { }" ).getClass() );
+		assertEquals( If.class, parser.parse( "if ( 1 ) { }" ).getClass() );
+		assertEquals( If.class, parser.parse( "if ( \"str\" ) { }" ).getClass() );
+		assertEquals( If.class, parser.parse( "if ( 131.5e-02 ) { }" ).getClass() );
+		
+		// comparison conditions
+		assertEquals( If.class, parser.parse( "if ( a == b ) { }" ).getClass() );
+		assertEquals( If.class, parser.parse( "if ( a != b ) { }" ).getClass() );
+		assertEquals( If.class, parser.parse( "if ( a >= b ) { }" ).getClass() );
+		assertEquals( If.class, parser.parse( "if ( a > b ) { }" ).getClass() );
+		assertEquals( If.class, parser.parse( "if ( a < b ) { }" ).getClass() );
+		assertEquals( If.class, parser.parse( "if ( a <= b && c ) { }" ).getClass() );
+		
+		// arithmetic conditions
+		assertEquals( If.class, parser.parse( "if ( 12 + 123 - 1 ) { }" ).getClass() );
+		assertEquals( If.class, parser.parse( "if ( 0 - 121 + .5 ) { }" ).getClass() );
+		assertEquals( If.class, parser.parse( "if ( 3 * 55 ) { }" ).getClass() );
+		assertEquals( If.class, parser.parse( "if ( 100 / 2 ) { }" ).getClass() );
+		
+		// logical conditions
+		assertEquals( If.class, parser.parse( "if ( true && false ) { }" ).getClass() );
+		assertEquals( If.class, parser.parse( "if ( a || b ) { }" ).getClass() );
+		assertEquals( If.class, parser.parse( "if ( b && c ) { }" ).getClass() );
+		assertEquals( If.class, parser.parse( "if ( a && b || c ) { }" ).getClass() );
+		
+		// unary numerical conditions
+		assertEquals( If.class, parser.parse( "if ( +22 ) { }" ).getClass() );
+		assertEquals( If.class, parser.parse( "if ( -22 ) { }" ).getClass() );
+		assertEquals( If.class, parser.parse( "if ( --9 ) { }" ).getClass() );
+		
+		// unary logical conditions
+		assertEquals( If.class, parser.parse( "if ( !a ) { }" ).getClass() );
+		assertEquals( If.class, parser.parse( "if ( b && !a ) { }" ).getClass() );
+		
+		// with THEN body statements
+		assertEquals( If.class, parser.parse( "if ( true ) { c: integer; }" ).getClass() );
+		assertEquals( If.class, parser.parse( "if ( true ) { a = 3; }" ).getClass() );
+		
+		// with ELSE body statements
+		assertEquals( If.class, parser.parse( "if ( true ) { c: integer; } else { c: boolean; }" ).getClass() );
+	}
+	
+	/**
+	 * Tests variable declarations.
+	 * 
+	 * @throws ParseError
+	 */
+	@Test
+	public void testVarDeclaration() throws ParseError {
+		assertEquals( VarDeclaration.class, parser.parse( "a : boolean" ).getClass() );
+		assertEquals( VarDeclaration.class, parser.parse( "b: integer" ).getClass() );
+		assertEquals( VarDeclaration.class, parser.parse( "c : string" ).getClass() );
+		assertEquals( VarDeclaration.class, parser.parse( "d : money" ).getClass() );
+	}
+	
+	/**
+	 * Tests variable assignments.
+	 * 
+	 * @throws ParseError
+	 */
+	@Test
+	public void testAssignment() throws ParseError {
+		assertEquals( Assignment.class, parser.parse( "a = 4 + 5" ).getClass() );
+		assertEquals( Assignment.class, parser.parse( "c3 = (55 + -3) * 45" ).getClass() );
 	}
 }

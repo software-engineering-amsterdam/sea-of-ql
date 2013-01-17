@@ -1,8 +1,15 @@
 package org.uva.sea.ql.ast.expr;
 
+import org.uva.sea.ql.visitor.NodeVisitor;
+
 public class Or extends Expr {
+	
+	public Or(Expr lhs, Expr rhs) {
+		super(lhs, rhs);
+	}
 
-	public Or(Expr expr1, Expr expr2) {
-
+	@Override
+	public void accept(NodeVisitor visitor) {
+		visitor.visit(this);
 	}
 }

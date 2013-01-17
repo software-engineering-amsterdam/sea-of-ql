@@ -8,6 +8,8 @@ import java.util.regex.Pattern;
 
 import org.uva.sea.ql.ast.ASTNode;
 import org.uva.sea.ql.ast.expression.Ident;
+import org.uva.sea.ql.ast.expression.value.Int;
+import org.uva.sea.ql.ast.expression.value.Money;
 
 /**
  * Lexer class.
@@ -26,6 +28,11 @@ public class QLLexer implements QLTokens {
 		KEYWORDS.put( "true", BOOL );
 		KEYWORDS.put( "false", BOOL );
 		KEYWORDS.put( "if", IF );
+		KEYWORDS.put( "else", ELSE );
+		KEYWORDS.put( "boolean", BOOLEAN  );
+		KEYWORDS.put( "integer", INTEGER );
+		KEYWORDS.put( "string", STRING );
+		KEYWORDS.put( "money", MONEY );
 	}
 
 	/**
@@ -138,20 +145,16 @@ public class QLLexer implements QLTokens {
 				}
 				
 				case ')':
-					nextChar();
-					return token = ')';
-				
 				case '(':
-					nextChar();
-					return token = '(';
-					
 				case '{':
-					nextChar();
-					return token = '{';
-					
 				case '}':
+				case ':':
+				case ';':
+				case '+':
+				case '-':
+					token = c;
 					nextChar();
-					return token = '}';
+					return token;
 				
 				case '*': {
 					nextChar();
@@ -164,14 +167,6 @@ public class QLLexer implements QLTokens {
 					
 					return token = '*';
 				}
-				
-				case '+':
-					nextChar();
-					return token = '+';
-				
-				case '-':
-					nextChar();
-					return token = '-';
 				
 				case '&': {
 					nextChar();
@@ -223,8 +218,10 @@ public class QLLexer implements QLTokens {
 						nextChar();
 						return token = EQ;
 					}
-				
-					throw new RuntimeException( "Unexpected character: " + (char) c );
+					else {
+						nextChar();
+						return token = '=';
+					}
 				}
 				
 				case '>': {
@@ -249,7 +246,7 @@ public class QLLexer implements QLTokens {
 						return token;
 					}
 					
-					if ( this.matchToken() ) {
+					if ( this.matchWord() ) {
 						return token;
 					}
 				
@@ -268,9 +265,9 @@ public class QLLexer implements QLTokens {
 		StringBuilder sb = new StringBuilder();
 		boolean inString = true;
 		
+		nextChar(); // go around the string boundaries (")
+		
 		while ( inString ) {
-			nextChar();
-			
 			if ( c < ENDINPUT ) {
 				throw new RuntimeException( "Unterminated string literal" );
 			}
@@ -284,9 +281,9 @@ public class QLLexer implements QLTokens {
 			else {
 				sb.append( (char) c );
 			}
+			
+			nextChar();
 		}
-
-		nextChar();
 
 		yylval = new org.uva.sea.ql.ast.expression.value.Str( sb.toString() );
 		return true;
@@ -317,6 +314,7 @@ public class QLLexer implements QLTokens {
 			case 'f':
 				return '\f';
 				
+			// others
 			case '\'':
 				return '\'';
 				
@@ -381,11 +379,15 @@ public class QLLexer implements QLTokens {
 	}
 	
 	/**
-	 * Matches arbitrary token.
+	 * Matches a keyword or identifier token.
 	 * 
 	 * @return True if successful, false otherwise.
 	 */
-	private boolean matchToken() {
+	private boolean matchWord() {
+		if ( !Character.isLetter( c ) ) {
+			return false;
+		}
+		
 		StringBuilder sb = new StringBuilder();
 		
 		do {
@@ -405,7 +407,22 @@ public class QLLexer implements QLTokens {
 						Boolean.parseBoolean( name )
 					);
 					break;
-				
+					
+				case BOOLEAN:
+					yylval = new org.uva.sea.ql.ast.type.Bool();
+					break;
+					
+				case MONEY:
+					yylval = new org.uva.sea.ql.ast.type.Money();
+					break;
+					
+				case INTEGER:
+					yylval = new org.uva.sea.ql.ast.type.Int();
+					break;
+					
+				case STRING:
+					yylval = new org.uva.sea.ql.ast.type.Str();
+					break;
 			}
 
 			return true;
@@ -413,7 +430,7 @@ public class QLLexer implements QLTokens {
 
 		yylval = new Ident( name );
 		token = IDENT;
-		
+
 		return true;
 	}
 

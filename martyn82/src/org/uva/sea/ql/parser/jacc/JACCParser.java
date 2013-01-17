@@ -22,7 +22,7 @@ public class JACCParser implements IParser {
 		QLParser parser = new QLParser( lexer );
 		
 		if ( !parser.parse() ) {
-			throw new ParseError( "error at: " + lexer.getToken() );
+			throw new ParseError( "error at token " + lexer.getToken() );
 		}
 		
 		return parser.getResult();

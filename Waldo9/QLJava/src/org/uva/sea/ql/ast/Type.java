@@ -1,5 +1,6 @@
 package org.uva.sea.ql.ast;
 
-public class Type implements ASTNode {
-
+public abstract class Type implements ASTNode {
+	
+	
 }
