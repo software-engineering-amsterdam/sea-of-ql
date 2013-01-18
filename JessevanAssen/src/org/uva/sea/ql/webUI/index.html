@@ -26,5 +26,14 @@
     <script type="text/javascript">
 
     </script>
+
+    <script type="text/html" id="boolean-input-template">
+        <label><input type="radio" value="1" data-bind="name: name, checked: value" /> Yes</label>
+        <label><input type="radio" value="0" data-bind="name: name, checked: value" /> No</label>
+    </script>
+
+    <script type="text/html" id="text-input-template">
+        <input type="text" data-bind="value: value" />
+    </script>
 </body>
 </html>
