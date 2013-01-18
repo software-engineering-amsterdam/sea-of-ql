@@ -1,5 +1,7 @@
 package org.uva.sea.ql.checker.test;
 
+import java.util.List;
+
 import org.junit.Test;
 import org.uva.sea.ql.ast.ASTNode;
 import org.uva.sea.ql.checker.VisitorFormChecking;
@@ -21,16 +23,66 @@ public class TestForms {
 	}
 	
 
+	/** Confirm that the formchecker found the error we were expecting to get.
+	 * the error will be wrapped in the FormCheckerCompiledErrors object, so it needs
+	 * to be extracted. Also for the purposes of these tests, the FormCheckerCompiledErrors
+	 * should only contain the error we are looking for, if it contains more then there
+	 * is a problem
+	 */
+	private Exception extractExpected(FormCheckerCompiledErrors ex, Class<?> type){
+		
+		List<FormCheckerError> errors = ex.getErrors();
+		FormCheckerError error = errors.get(0);
+		Class<?> compiledErrorType = FormCheckerCompiledErrors.class;
+		
+		//there is more than one error, that should not happen
+		if(errors.size() > 1){ 
+			return new Exception("FormCheckerCompiledErrors contained more than one error");
+		}
+		
+		 //we found the expected error
+		else if(type.isInstance(error)){
+			return error;
+		}
+		
+		//there is a nested FormCheckerCompiledErrors object, ie. 
+		//the error we are looking for is inside the body of a branch statement
+		else if(compiledErrorType.isInstance(error)){ 
+			//recursively check the nested compiledErrors object
+			return extractExpected( (FormCheckerCompiledErrors)error, type); 
+		}
+		
+		return new Exception("Did not find expected error, but received: " + ex.getMessage());
+	}
+	
+	
+	/** wrap provided form elements into form structure
+	 * parse and perform validation check 
+	 */
 	private void execute(String... args) throws Exception{
 		
 		String sForm = FormStringBuilder.form("a", args);
 
-		ASTNode Form = parser.parse(sForm);
-		Form.accept(checker, new Stack() );
+		ASTNode form = parser.parse(sForm);
+		form.accept(checker, new Stack() );
+	}
+	
+	
+	/** provided form elements are expected to trigger the provided error,
+	 * if this happens, the error is extracted from the returned FormCheckerCompiledErrors
+	 * object. Any other error is just passed on down the chain
+	 */
+	private void execute(Class<?> expectedFailureType, String... args) throws Exception{
+		try{
+			execute(args);
+		}catch(FormCheckerCompiledErrors ex){
+			throw extractExpected(ex, expectedFailureType);
+		}
 	}
 	
 	
 
+	
 	@Test(expected = IdentifierScopeError.class)
 	public void outOfScopeTestSimpleCondition() throws Exception{
 		
@@ -40,8 +92,10 @@ public class TestForms {
 		String sBranch1 = FormStringBuilder.ifStatement("q1", q2);
 		String sBranch2 = FormStringBuilder.ifStatement("q2", ""); 
 		
+		
 		//the second branch statement evaluates q2 as its condition, but q2 is out of scope 
-		execute(q1, sBranch1, sBranch2);
+		execute(IdentifierScopeError.class, q1, sBranch1, sBranch2);
+		
 	}
 	
 	
@@ -55,8 +109,8 @@ public class TestForms {
 		String sBranch2 = FormStringBuilder.ifStatement("q1 && q2", "");
 		
 		//the second branch statement evaluates the conjunction q1 and q2, but q2 is out of scope
-		execute(q1, sBranch1, sBranch2);
-		
+		execute(IdentifierScopeError.class, q1, sBranch1, sBranch2);
+
 	}
 	
 	
@@ -71,8 +125,7 @@ public class TestForms {
 		
 		//q2 will be out of scope when q3 attempts to calculate it's value based on q2
 		//this is because q2's scope is only within the branch's body
-		execute(q1, sBranch1, q3);
-		
+		execute(IdentifierScopeError.class, q1, sBranch1, q3);
 	}
 		
 	
@@ -83,7 +136,7 @@ public class TestForms {
 		String q2 = FormStringBuilder.question("q1", "integer");
 		
 		//should fail because q1 is defined twice
-		execute(q1, q2);
+		execute(IdentifierExistsError.class, q1, q2);
 	}
 	
 	
@@ -94,7 +147,8 @@ public class TestForms {
 		String q2 = FormStringBuilder.question("q1", "boolean");
 		
 		//should fail because q1 is defined twice
-		execute(q1, q2);
+		execute(IdentifierExistsError.class, q1, q2);
+
 	}
 	
 	
@@ -106,7 +160,7 @@ public class TestForms {
 		String q3 = FormStringBuilder.question("q3", "q2+q1");
 		
 		//q3 should fail due to a type mismatch: boolean(q1)+integer(q2)
-		execute(q1, q2, q3);
+		execute(IdentifierTypeError.class, q1, q2, q3);
 		
 	}
 	
@@ -119,7 +173,7 @@ public class TestForms {
 		String q3 = FormStringBuilder.question("q3", "q2&&q1");
 		
 		//q3 should fail due to a type mismatch: boolean(q1)&&integer(q2)
-		execute(q1, q2, q3);
+		execute(IdentifierTypeError.class, q1, q2, q3);
 	}
 	
 	
@@ -131,7 +185,7 @@ public class TestForms {
 		String q3 = FormStringBuilder.question("q3", "q2>q1");
 		
 		//q3 should fail due to a type mismatch: boolean(q1)>integer(q2)
-		execute(q1, q2, q3);
+		execute(IdentifierTypeError.class, q1, q2, q3);
 	}
 	
 	
@@ -139,7 +193,7 @@ public class TestForms {
 	public void expressionTypeCheckingNumeric() throws Exception{
 		
 		//should fail because 'false' is not a numeric expression
-		execute(FormStringBuilder.question("q1", "1 + false"));
+		execute(ExpressionTypeError.class, FormStringBuilder.question("q1", "1 + false"));
 	}
 	
 	
@@ -147,7 +201,7 @@ public class TestForms {
 	public void expressionTypeCheckingComparative() throws Exception{
 		
 		//should fail because 'false' is not a numeric expression	
-		execute(FormStringBuilder.question("q1", "1 > false"));
+		execute(ExpressionTypeError.class, FormStringBuilder.question("q1", "1 > false"));
 	}
 	
 	
@@ -155,7 +209,7 @@ public class TestForms {
 	public void expressionTypeCheckingBoolean() throws Exception{
 		
 		//should fail because (1+1) is not a boolean expression
-		execute(FormStringBuilder.question("q1", "(1+1) && false"));
+		execute(ExpressionTypeError.class, FormStringBuilder.question("q1", "(1+1) && false"));
 	}
 	
 

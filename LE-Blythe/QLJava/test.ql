@@ -1,6 +1,6 @@
 form a{
 	"question" q1:boolean
-	if(q2){ 
+	if(q1 && !q1){ 
 		"question" q2:boolean 	
 	}
 	else{

@@ -5,7 +5,7 @@ import org.uva.sea.ql.interfaces.IVisitor;
 import org.uva.sea.ql.util.Stack;
 
 
-public class Question extends Expr{
+public class Question extends FormElement{
 	
 	private String sQuestion;
 	private Ident pIdentifier;

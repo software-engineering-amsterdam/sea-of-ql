@@ -6,23 +6,23 @@ import org.uva.sea.ql.util.Stack;
 
 public class Form extends FormElement {
 
-	private String sName;
-	private Expr pBody;
+	private String name;
+	private FormElement body;
 	
 	
-	public Form(String sName, Expr pBody){
-		this.sName = sName;
-		this.pBody = pBody;
+	public Form(String sName, FormElement body){
+		this.name = sName;
+		this.body = body;
 	}
 	
 	
-	public Expr getBody(){
-		return pBody;
+	public FormElement getBody(){
+		return body;
 	}
 	
 	
 	public String getName(){
-		return sName;
+		return name;
 	}
 	
 	

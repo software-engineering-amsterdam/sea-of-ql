@@ -14,25 +14,25 @@ public Form RunParse = yyValue:Form;
 FormElement Form = 
 	"form" Spacing f:Ident Spacing LBracket b:Body RBracket { yyValue = new Form(f, b); };
 	
-Expr Body =
+FormElement Body =
 	l:BodyNode* { yyValue= new Body(l.list()); }
 	;
 
-Expr BodyNode =
+FormElement BodyNode =
 	yyValue:Branch
 	/ yyValue:Question
 	;
 	
-Expr Branch =
+FormElement Branch =
 	"if" Spacing LParen c:Expr RParen LBracket b:Body RBracket e:Else { yyValue = new Branch(c,b,e); }
 	;		
 
-Expr Else =
+FormElement Else =
 	"else" Spacing LBracket yyValue:Body RBracket
 	/ { yyValue=null; }
 	;
 
-Expr Question =
+FormElement Question =
 	q:Literal Spacing x:Ident Spacing ":" Spacing t:Type Spacing { yyValue = new Question(q, new Ident(x), t); }
 	; 
 	

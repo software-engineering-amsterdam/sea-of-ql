@@ -6,7 +6,7 @@ public class FormCheckerCompiledErrors extends FormCheckerError{
 	
 	private static final long serialVersionUID = 6L;
 	
-	List<FormCheckerError> errors;
+	private List<FormCheckerError> errors;
 	
 	public FormCheckerCompiledErrors(List<FormCheckerError> errors){
 		super();
@@ -24,5 +24,10 @@ public class FormCheckerCompiledErrors extends FormCheckerError{
 		}
 	
 		return result;
+	}
+	
+	
+	public List<FormCheckerError> getErrors(){
+		return errors;
 	}
 }

@@ -6,17 +6,17 @@ import org.uva.sea.ql.ast.*;
 import org.uva.sea.ql.interfaces.IVisitor;
 import org.uva.sea.ql.util.Stack;
 
-public class Body extends Expr{
+public class Body extends FormElement{
 	
-	private List<Expr> nodes;
+	private List<FormElement> nodes;
 	
 	
-	public Body(List<Expr> nodes){
+	public Body(List<FormElement> nodes){
 		this.nodes = nodes;
 	}
 	
 	
-	public List<Expr> getNodes(){
+	public List<FormElement> getNodes(){
 		return nodes;
 	}
 	

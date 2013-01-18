@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.uva.sea.ql.ast.Bool;
 import org.uva.sea.ql.ast.Expr;
+import org.uva.sea.ql.ast.FormElement;
 import org.uva.sea.ql.ast.Ident;
 import org.uva.sea.ql.ast.Int;
 import org.uva.sea.ql.ast.Str;
@@ -66,6 +67,26 @@ public class VisitorFormChecking implements IVisitor {
 	}
 	
 
+	private void checkCondition(Expr condition, Stack s, List<FormCheckerError> errors) throws Exception {
+		try{
+			checkCondition(condition, s);
+		}catch(FormCheckerError e){
+			errors.add(e);
+		}
+	}
+	
+
+	private void checkFormElement(FormElement el, Stack s, List<FormCheckerError> errors) throws Exception {
+		try{
+			if(el != null){
+				el.accept(this, s);
+			}
+		}catch(FormCheckerError e){
+			errors.add(e);
+		}
+	}
+
+	
 	private void checkOperand(Expr op, Class<?> type, Stack s) throws Exception{
 		
 		//if the operand is an identifier, check it's existence in the stack and 
@@ -114,23 +135,20 @@ public class VisitorFormChecking implements IVisitor {
 
 	public void visit(Body n, Stack s) throws Exception {
 		
-		List<Expr> nodes = n.getNodes();
+		List<FormElement> nodes = n.getNodes();
 		List<FormCheckerError> errors = new ArrayList<FormCheckerError>();	
+		
+		//variables declared within this body should stay within the scope of this
+		//body, therefore we copy the current stack and pass that to the body.
+		//changes made to the copy do not affect the original stack, and is destroyed
+		//after the body completes execution
+		Stack bodyStack = s.clone();
 		
 		for(int i=0; i<nodes.size(); i++){
 			
-			Expr node = nodes.get(i);
+			FormElement node = nodes.get(i);
 			
-			try{
-				node.accept(this, s);
-			}
-			catch(FormCheckerError e){
-				errors.add(e); //register the error in the list
-			}
-			catch(Exception e){
-				throw e; //this shouldn't happen so throw it further down the chain
-			}
-
+			checkFormElement(node, bodyStack, errors);
 		}
 		
 		//were there any errors in this form? then throw the compiled list down the chain
@@ -163,20 +181,17 @@ public class VisitorFormChecking implements IVisitor {
 	public void visit(Branch n, Stack s) throws Exception {
 		
 		Expr condition = n.getIfCondition();
+		FormElement ifBody = n.getIfBody();
+		FormElement elseBody = n.getElseBody();
 		
-		checkCondition(condition, s);
+		List<FormCheckerError> errors = new ArrayList<FormCheckerError>();
 		
-		//clone the current stack to ensure that variables declared
-		//inside the body of the branch stay within the scope of the branch's body 
-		Stack ifStack = s.clone();
+		checkCondition(condition,  s, errors);
+		checkFormElement(ifBody,   s, errors);	
+		checkFormElement(elseBody, s, errors);	
 		
-		//continue type checking on the body
-		n.getIfBody().accept(this, ifStack);
-		
-		//same for else (if present)
-		if(n.getElseBody() != null){
-			Stack elseStack = s.clone();
-			n.getElseBody().accept(this, elseStack);
+		if(errors.size() > 0){
+			throw new FormCheckerCompiledErrors(errors);
 		}
 	}
 
