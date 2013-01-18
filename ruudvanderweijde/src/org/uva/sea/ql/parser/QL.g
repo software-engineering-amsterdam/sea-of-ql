@@ -21,7 +21,7 @@ options
 form returns [Form result]
   : 'form' Ident statements=block
 	  { 
-	    $result = new Form(new Ident($Ident.text), $statements.result); 
+	    $result = new Form($Ident.text, $statements.result); 
 	  } 
   ;
 
@@ -53,7 +53,7 @@ ifStatement returns [Statement result]
   ;
   
 question returns [Statement result]
-  : Ident Colon String tp=type { $result = new Question(new Ident($Ident.text), $String.text, $tp.result); }
+  : Ident Colon String tp=type { $result = new Question($Ident.text, $String.text, $tp.result); }
   ;
 
 type returns [Type result]

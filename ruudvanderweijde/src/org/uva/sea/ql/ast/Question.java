@@ -3,17 +3,17 @@ package org.uva.sea.ql.ast;
 
 public class Question extends Statement {
 	
-	private final Ident id;
+	private final String id;
 	private final String label;
 	private final Type type;
 
-	public Question(Ident id, String label, Type type) {
+	public Question(String id, String label, Type type) {
 		this.id = id;
 		this.label = label;
 		this.type = type;
 	}
 
-	public Ident getId() {
+	public String getId() {
 		return id;
 	}
 

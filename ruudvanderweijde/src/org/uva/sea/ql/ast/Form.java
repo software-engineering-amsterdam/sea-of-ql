@@ -4,15 +4,15 @@ import java.util.List;
 
 public class Form {
 
-	private final Ident id;
+	private final String id;
 	private List<Statement> statements;
 	
-	public Form(Ident id, List<Statement> statements) {
+	public Form(String id, List<Statement> statements) {
 		this.id = id;
 		this.setStatements(statements);
 	}
 
-	public Ident getId() {
+	public String getId() {
 		return id;
 	}
 

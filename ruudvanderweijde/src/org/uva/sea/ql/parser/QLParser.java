@@ -1,4 +1,4 @@
-// $ANTLR 3.5 C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g 2013-01-15 22:48:31
+// $ANTLR 3.5 C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g 2013-01-18 21:47:15
 
   package org.uva.sea.ql.parser;
   import org.uva.sea.ql.ast.*;
@@ -102,7 +102,7 @@ public class QLParser extends Parser {
 			state._fsp--;
 			if (state.failed) return result;
 			if ( state.backtracking==0 ) { 
-				    result = new Form(new Ident((Ident1!=null?Ident1.getText():null)), statements); 
+				    result = new Form((Ident1!=null?Ident1.getText():null), statements); 
 				  }
 			}
 
@@ -373,7 +373,7 @@ public class QLParser extends Parser {
 			tp=type();
 			state._fsp--;
 			if (state.failed) return result;
-			if ( state.backtracking==0 ) { result = new Question(new Ident((Ident2!=null?Ident2.getText():null)), (String3!=null?String3.getText():null), tp); }
+			if ( state.backtracking==0 ) { result = new Question((Ident2!=null?Ident2.getText():null), (String3!=null?String3.getText():null), tp); }
 			}
 
 		}
