@@ -5,6 +5,17 @@
     <title></title>
     <script type="text/javascript" src="knockout-2.2.1.js"></script>
     <script type="text/javascript">
+        var DataType = {
+            BOOLEAN : 0,
+            INTEGER : 1,
+            STRING  : 2
+        };
+        var Type = {
+            QUESTION : 0,
+            BLOCK : 1,
+            COMPUTED : 2
+        };
+
         function integerValidator(input) {
             return input != undefined &&
                     input.length > 0 &&
@@ -19,12 +30,80 @@
         function booleanValidator(input) {
             return input == "true" || input == "false";
         }
+
+        function Block(parent, condition, elements) {
+            this.parent = parent;
+            this.condition = condition;
+            this.elements = elements;
+            this.type = Type.BLOCK;
+
+            this.required = function() { return (parent != undefined ? parent.required() : true) && condition(); };
+        }
+
+        function Computed(label, expression) {
+            this.label = label;
+            this.expression = ko.computed(expression);
+            this.type = Type.COMPUTED;
+        }
+
+        function Question(parent, label, name, dataType) {
+            this.parent = parent;
+            this.label = label;
+            this.name = name;
+            this.value = ko.observable();
+            this.dataType = dataType;
+            this.type = Type.QUESTION;
+
+            switch(dataType) {
+                case DataType.BOOLEAN:
+                    this.validator = booleanValidator;
+                    break;
+                case DataType.INTEGER:
+                    this.validator = integerValidator;
+                    break;
+                case DataType.STRING:
+                    this.validator = stringValidator;
+                    break;
+            }
+
+            this.required = function() { return parent.required(); };
+            this.valid = function() { return this.required() && validator(this.value()); };
+
+        }
     </script>
-</head>
-<body>
 
-    <script type="text/javascript">
+    <script type="text/html" id="formelement-template">
+        <!-- ko if: $data.type == Type.BLOCK && $data.condition() -->
+        <!-- ko template: { name: "formelement-template", foreach: $data.elements } --><!-- /ko -->
+        <!-- /ko -->
+        <!-- ko if: $data.type == Type.QUESTION -->
+            <!-- ko template: { name: "question-template", data: $data } --><!-- /ko -->
+        <!-- /ko -->
+        <!-- ko if: $data.type == Type.COMPUTED -->
+            <!-- ko template: { name: "computed-template", data: $data } --><!-- /ko -->
+        <!-- /ko -->
 
+    </script>
+
+    <script type="text/html" id="question-template">
+        <tr>
+            <td data-bind="text: label"></td>
+            <td>
+                <!-- ko if: $data.dataType == DataType.BOOLEAN -->
+                    <!-- ko template: { name: "boolean-input-template" } --><!-- /ko -->
+                <!-- /ko -->
+                <!-- ko if: $data.dataType == DataType.INTEGER || $data.dataType == DataType.STRING -->
+                    <!-- ko template: { name: "text-input-template" } --><!-- /ko -->
+                <!-- /ko -->
+            </td>
+        </tr>
+    </script>
+
+    <script type="text/html" id="computed-template">
+        <tr>
+            <td data-bind="text: label"></td>
+            <td data-bind="text: expression"></td>
+        </tr>
     </script>
 
     <script type="text/html" id="boolean-input-template">
@@ -35,5 +114,11 @@
     <script type="text/html" id="text-input-template">
         <input type="text" data-bind="value: value" />
     </script>
+</head>
+<body>
+
+    <table>
+        <!-- ko template: { name : "formelement-template", foreach: viewModel } --><!-- /ko -->
+    </table>
 </body>
 </html>
