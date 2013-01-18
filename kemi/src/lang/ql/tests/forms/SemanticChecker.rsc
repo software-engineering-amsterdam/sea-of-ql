@@ -7,6 +7,7 @@ import lang::ql::ide::FlowGraph;
 import lang::ql::ide::IdentifierUsesDefinitions;
 import lang::ql::ide::Outline;
 import lang::ql::ide::SemanticChecker;
+import lang::ql::ide::TypeChecker;
 import lang::ql::tests::ParseHelper;
 import lang::ql::util::FormGenerator;
 import lang::ql::util::Random;
@@ -37,6 +38,13 @@ private bool useBeforeDeclarations(loc f, int count) {
   fgraph = flowGraph(fm);
   return 
     size(useBeforeDeclarationMessages(us, def, fgraph)) == count;
+}
+
+private bool typeChecker(loc f, int count) {
+  fm = parseForm(f);
+  def = identifierDefinitions(fm);
+  return 
+    size(typeChecker(fm, def)) == count;
 }
 
 public test bool duplicateIdentifiersTestBasicForm() = 
@@ -151,6 +159,41 @@ public test bool useBeforeDeclarationsTestUglyFormattedForm() =
 public test bool useBeforeDeclarationsTestUndefinedVariableForm() = 
   useBeforeDeclarations(|project://QL-R-kemi/forms/undefinedVariable.q|, 3);
   
+// Typechecker:
+
+public test bool typeCheckerTestBasicForm() = 
+  typeChecker(|project://QL-R-kemi/forms/basic.q|, 0);
+  
+public test bool typeCheckerTestCalculatedField() = 
+  typeChecker(|project://QL-R-kemi/forms/calculatedField.q|, 0);
+  
+public test bool typeCheckerTestCommentForm() = 
+  typeChecker(|project://QL-R-kemi/forms/comment.q|, 0);
+  
+public test bool typeCheckerTestIfCondition() = 
+  typeChecker(|project://QL-R-kemi/forms/ifCondition.q|, 1);
+  
+public test bool typeCheckerTestIfElseCondition() = 
+  typeChecker(|project://QL-R-kemi/forms/ifElseCondition.q|, 1);
+  
+public test bool typeCheckerTestIfElseIfCondition() = 
+  typeChecker(|project://QL-R-kemi/forms/ifElseIfCondition.q|, 0);
+  
+public test bool typeCheckerTestIfElseIfElseCondition() = 
+  typeChecker(|project://QL-R-kemi/forms/ifElseIfElseCondition.q|, 0);
+  
+public test bool typeCheckerTestMultipleQuestions() = 
+  typeChecker(|project://QL-R-kemi/forms/multipleQuestions.q|, 0);
+  
+public test bool typeCheckerTestNestedIfElseIfElseCondition() = 
+  typeChecker(|project://QL-R-kemi/forms/nestedIfElseIfElseCondition.q|, 0);
+  
+public test bool typeCheckerTestUglyFormattedForm() = 
+  typeChecker(|project://QL-R-kemi/forms/uglyFormatted.q|, 1);
+  
+public test bool typeCheckerTestUndefinedVariableForm() = 
+  typeChecker(|project://QL-R-kemi/forms/undefinedVariable.q|, 1);
+  
 // And all tests combined:
 
 public test bool semanticTestBasicForm() = 
@@ -166,25 +209,25 @@ public test bool semanticTestUglyFormattedForm() =
   semanticChecker(|project://QL-R-kemi/forms/duplicateLabels.q|, 5);
   
 public test bool semanticTestIfCondition() = 
-  semanticChecker(|project://QL-R-kemi/forms/ifCondition.q|, 0);
+  semanticChecker(|project://QL-R-kemi/forms/ifCondition.q|, 1);
   
 public test bool semanticTestIfElseCondition() = 
-  semanticChecker(|project://QL-R-kemi/forms/ifElseCondition.q|, 0);
+  semanticChecker(|project://QL-R-kemi/forms/ifElseCondition.q|, 1);
   
 public test bool semanticTestIfElseIfCondition() = 
   semanticChecker(|project://QL-R-kemi/forms/ifElseIfCondition.q|, 4);
   
 public test bool semanticTestIfElseIfElseCondition() = 
-  semanticChecker(|project://QL-R-kemi/forms/ifElseIfElseCondition.q|, 12);
+  semanticChecker(|project://QL-R-kemi/forms/ifElseIfElseCondition.q|, 4);
   
 public test bool semanticTestMultipleQuestions() = 
   semanticChecker(|project://QL-R-kemi/forms/multipleQuestions.q|, 0);
   
 public test bool semanticTestNestedIfElseIfElseCondition() = 
-  semanticChecker(|project://QL-R-kemi/forms/nestedIfElseIfElseCondition.q|, 22);
+  semanticChecker(|project://QL-R-kemi/forms/nestedIfElseIfElseCondition.q|, 6);
   
 public test bool semanticTestUglyFormattedForm() = 
-  semanticChecker(|project://QL-R-kemi/forms/uglyFormatted.q|, 13);
+  semanticChecker(|project://QL-R-kemi/forms/uglyFormatted.q|, 4);
   
 public test bool semanticTestUndefinedVariableForm() = 
   semanticChecker(|project://QL-R-kemi/forms/undefinedVariable.q|, 3);
