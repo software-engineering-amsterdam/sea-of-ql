@@ -17,7 +17,7 @@ form returns [Form result]
 @init { List<FormItem> formItems = new ArrayList(); }
   : 'form' Ident '{'
     formItem { formItems.addAll($formItem.result); }
-    '}' { $result = new Form($Ident.text,formItems); }
+    '}' { $result = new Form($Ident.text, formItems); }
   ;
 
 
@@ -30,9 +30,9 @@ formItem returns [List<FormItem> result]
   ;
  
 ifStatement returns [IfStatement result]
-  : 'if' '(' Ident ')' '{' ifBody=formItem '}'
+  : 'if' '(' orExpr ')' '{' ifBody=formItem '}'
     ('else' '{' elseBody=formItem '}')? 
-      { $result = new IfStatement($Ident.text,$ifBody.result,$elseBody.result); }
+      { $result = new IfStatement($orExpr.result, $ifBody.result, $elseBody.result); }
   ;
 
 computedQuestion returns [ComputedQuestion result]

@@ -1,4 +1,4 @@
-// $ANTLR 3.4 /Users/peter/Documents/school/UvA/Software Construction/Git/sea-of-ql/pklijn/src/org/uva/sea/ql/parser/antlr/QL.g 2013-01-17 15:19:26
+// $ANTLR 3.4 /Users/peter/Documents/school/UvA/Software Construction/Git/sea-of-ql/pklijn/src/org/uva/sea/ql/parser/antlr/QL.g 2013-01-18 13:06:28
 
 package org.uva.sea.ql.parser.antlr;
 import org.uva.sea.ql.ast.*;
@@ -106,7 +106,7 @@ public class QLParser extends Parser {
 
             match(input,32,FOLLOW_32_in_form69); if (state.failed) return result;
 
-            if ( state.backtracking==0 ) { result = new Form((Ident2!=null?Ident2.getText():null),formItems); }
+            if ( state.backtracking==0 ) { result = new Form((Ident2!=null?Ident2.getText():null), formItems); }
 
             }
 
@@ -264,29 +264,34 @@ public class QLParser extends Parser {
 
 
     // $ANTLR start "ifStatement"
-    // /Users/peter/Documents/school/UvA/Software Construction/Git/sea-of-ql/pklijn/src/org/uva/sea/ql/parser/antlr/QL.g:32:1: ifStatement returns [IfStatement result] : 'if' '(' Ident ')' '{' ifBody= formItem '}' ( 'else' '{' elseBody= formItem '}' )? ;
+    // /Users/peter/Documents/school/UvA/Software Construction/Git/sea-of-ql/pklijn/src/org/uva/sea/ql/parser/antlr/QL.g:32:1: ifStatement returns [IfStatement result] : 'if' '(' orExpr ')' '{' ifBody= formItem '}' ( 'else' '{' elseBody= formItem '}' )? ;
     public final IfStatement ifStatement() throws RecognitionException {
         IfStatement result = null;
 
         int ifStatement_StartIndex = input.index();
 
-        Token Ident3=null;
         List<FormItem> ifBody =null;
 
         List<FormItem> elseBody =null;
+
+        Expr orExpr3 =null;
 
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 3) ) { return result; }
 
-            // /Users/peter/Documents/school/UvA/Software Construction/Git/sea-of-ql/pklijn/src/org/uva/sea/ql/parser/antlr/QL.g:33:3: ( 'if' '(' Ident ')' '{' ifBody= formItem '}' ( 'else' '{' elseBody= formItem '}' )? )
-            // /Users/peter/Documents/school/UvA/Software Construction/Git/sea-of-ql/pklijn/src/org/uva/sea/ql/parser/antlr/QL.g:33:5: 'if' '(' Ident ')' '{' ifBody= formItem '}' ( 'else' '{' elseBody= formItem '}' )?
+            // /Users/peter/Documents/school/UvA/Software Construction/Git/sea-of-ql/pklijn/src/org/uva/sea/ql/parser/antlr/QL.g:33:3: ( 'if' '(' orExpr ')' '{' ifBody= formItem '}' ( 'else' '{' elseBody= formItem '}' )? )
+            // /Users/peter/Documents/school/UvA/Software Construction/Git/sea-of-ql/pklijn/src/org/uva/sea/ql/parser/antlr/QL.g:33:5: 'if' '(' orExpr ')' '{' ifBody= formItem '}' ( 'else' '{' elseBody= formItem '}' )?
             {
             match(input,29,FOLLOW_29_in_ifStatement154); if (state.failed) return result;
 
             match(input,15,FOLLOW_15_in_ifStatement156); if (state.failed) return result;
 
-            Ident3=(Token)match(input,Ident,FOLLOW_Ident_in_ifStatement158); if (state.failed) return result;
+            pushFollow(FOLLOW_orExpr_in_ifStatement158);
+            orExpr3=orExpr();
+
+            state._fsp--;
+            if (state.failed) return result;
 
             match(input,16,FOLLOW_16_in_ifStatement160); if (state.failed) return result;
 
@@ -329,7 +334,7 @@ public class QLParser extends Parser {
             }
 
 
-            if ( state.backtracking==0 ) { result = new IfStatement((Ident3!=null?Ident3.getText():null),ifBody,elseBody); }
+            if ( state.backtracking==0 ) { result = new IfStatement(orExpr3, ifBody, elseBody); }
 
             }
 
@@ -1216,8 +1221,8 @@ public class QLParser extends Parser {
     public static final BitSet FOLLOW_computedQuestion_in_formItem110 = new BitSet(new long[]{0x0000000020000042L});
     public static final BitSet FOLLOW_question_in_formItem123 = new BitSet(new long[]{0x0000000020000042L});
     public static final BitSet FOLLOW_29_in_ifStatement154 = new BitSet(new long[]{0x0000000000008000L});
-    public static final BitSet FOLLOW_15_in_ifStatement156 = new BitSet(new long[]{0x0000000000000040L});
-    public static final BitSet FOLLOW_Ident_in_ifStatement158 = new BitSet(new long[]{0x0000000000010000L});
+    public static final BitSet FOLLOW_15_in_ifStatement156 = new BitSet(new long[]{0x00000000000C90C0L});
+    public static final BitSet FOLLOW_orExpr_in_ifStatement158 = new BitSet(new long[]{0x0000000000010000L});
     public static final BitSet FOLLOW_16_in_ifStatement160 = new BitSet(new long[]{0x0000000040000000L});
     public static final BitSet FOLLOW_30_in_ifStatement162 = new BitSet(new long[]{0x0000000020000040L});
     public static final BitSet FOLLOW_formItem_in_ifStatement166 = new BitSet(new long[]{0x0000000100000000L});
