@@ -43,12 +43,14 @@ primary returns [Expr result]
   | '(' x=orExpr ')'{ $result = $x.result; }
   ;
     
+
 unExpr returns [Expr result]
-    :  '+' x=unExpr { $result = new Pos($x.result); }
-    |  '-' x=unExpr { $result = new Neg($x.result); }
-    |  '!' x=unExpr { $result = new Not($x.result); }
-    |  x=primary    { $result = $x.result; }
-    ;    
+    : '+' x=unExpr { $result = new Pos($x.result); }
+    | '-' x=unExpr { $result = new Neg($x.result); }
+    | '!' x=unExpr { $result = new Not($x.result); }
+    | x=primary { $result = $x.result; }
+    ;
+    
     
 mulExpr returns [Expr result]
     :   lhs=unExpr { $result=$lhs.result; } ( op=( '*' | '/' ) rhs=unExpr 
@@ -146,4 +148,3 @@ StringLiteral	: '"' .* '"';
 
 
 
- 
