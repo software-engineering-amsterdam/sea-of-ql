@@ -1,5 +1,7 @@
 package org.uva.sea.ql.ast.expression;
 
+import org.uva.sea.ql.visitor.NodeVisitor;
+
 /**
  * Represents a binary expression.
  */
@@ -46,5 +48,10 @@ abstract public class BinaryExpression extends Expression {
 	@Override
 	public String toString() {
 		return this.getClass().getSimpleName();
+	}
+	
+	@Override
+	public void accept( NodeVisitor visitor ) {
+		visitor.visit( this );
 	}
 }

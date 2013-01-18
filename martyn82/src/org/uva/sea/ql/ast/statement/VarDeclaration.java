@@ -2,7 +2,7 @@ package org.uva.sea.ql.ast.statement;
 
 import org.uva.sea.ql.ast.expression.Ident;
 import org.uva.sea.ql.ast.type.Type;
-import org.uva.sea.ql.visitor.Visitor;
+import org.uva.sea.ql.visitor.NodeVisitor;
 
 /**
  * Represents a variable declaration.
@@ -25,7 +25,7 @@ public class VarDeclaration extends Statement {
 	}
 
 	@Override
-	public void accept( Visitor visitor ) {
+	public void accept( NodeVisitor visitor ) {
 		visitor.visit( this );
 	}
 }

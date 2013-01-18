@@ -6,7 +6,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.regex.Pattern;
 
-import org.uva.sea.ql.ast.Node;
+import org.uva.sea.ql.ast.INode;
 import org.uva.sea.ql.ast.expression.Ident;
 
 /**
@@ -56,7 +56,7 @@ public class QLLexer implements QLTokens {
 	/**
 	 * Holds the current AST node.
 	 */
-	private Node yylval;
+	private INode yylval;
 	
 	/**
 	 * Holds the input reader.
@@ -473,7 +473,7 @@ public class QLLexer implements QLTokens {
 	 * 
 	 * @return The AST.
 	 */
-	public Node getSemantic() {
+	public INode getSemantic() {
 		return yylval;
 	}
 	

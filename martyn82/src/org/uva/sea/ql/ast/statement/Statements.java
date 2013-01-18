@@ -4,13 +4,13 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
-import org.uva.sea.ql.ast.Node;
-import org.uva.sea.ql.visitor.Visitor;
+import org.uva.sea.ql.ast.INode;
+import org.uva.sea.ql.visitor.NodeVisitor;
 
 /**
  * 
  */
-public class Statements implements Node, Iterable<Statement> {
+public class Statements implements INode, Iterable<Statement> {
 	private final List<Statement> statements;
 	
 	public Statements( Statement statement, Statements statements ) {
@@ -24,8 +24,10 @@ public class Statements implements Node, Iterable<Statement> {
 	}
 	
 	@Override
-	public void accept( Visitor visitor ) {
-		visitor.visit( this );
+	public void accept( NodeVisitor visitor ) {
+		for ( Statement statement : this.statements ) {
+			statement.accept( visitor );
+		}
 	}
 
 	@Override

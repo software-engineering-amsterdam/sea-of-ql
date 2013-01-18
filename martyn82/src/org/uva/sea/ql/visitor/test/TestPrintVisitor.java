@@ -9,7 +9,7 @@ import org.uva.sea.ql.visitor.*;
 /**
  * Testing visitor.
  */
-public class TestVisitor {
+public class TestPrintVisitor {
 	/**
 	 * Holds the parser to use.
 	 */
@@ -18,7 +18,7 @@ public class TestVisitor {
 	/**
 	 * Constructs a new TestVisitor instance.
 	 */
-	public TestVisitor() {
+	public TestPrintVisitor() {
 		this.parser = new JACCParser();
 	}
 
@@ -29,7 +29,7 @@ public class TestVisitor {
 	 */
 	@Test
 	public void testPrint() throws ParseError {
-		Visitor visitor = new PrintVisitor( System.out );
+		NodeVisitor visitor = new PrintVisitor( System.out );
 
 		String program = "" +
 		"if ( a && !b ) {\n" +

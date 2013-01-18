@@ -1,7 +1,6 @@
 package org.uva.sea.ql.ast.expression;
 
 import org.uva.sea.ql.ast.type.Type;
-import org.uva.sea.ql.visitor.Visitor;
 
 /**
  * Represents a division expression.
@@ -15,11 +14,6 @@ public class Div extends ArithmeticExpression {
 	 */
 	public Div( Expression lhs, Expression rhs ) {
 		super( lhs, rhs );
-	}
-
-	@Override
-	public void accept( Visitor visitor ) {
-		visitor.visit( this );
 	}
 
 	@Override

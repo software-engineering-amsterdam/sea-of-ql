@@ -13,14 +13,14 @@ class QLParser implements QLTokens {
     private int yysp = 0;
     private int[] yyst;
     protected int yyerrno = (-1);
-    private org.uva.sea.ql.ast.Node[] yysv;
-    private org.uva.sea.ql.ast.Node yyrv;
+    private org.uva.sea.ql.ast.INode[] yysv;
+    private org.uva.sea.ql.ast.INode yyrv;
 
     public boolean parse() {
         int yyn = 0;
         yysp = 0;
         yyst = new int[yyss];
-        yysv = new org.uva.sea.ql.ast.Node[yyss];
+        yysv = new org.uva.sea.ql.ast.INode[yyss];
         yytok = (lexer.getToken()
                  );
     loop:
@@ -1135,7 +1135,7 @@ class QLParser implements QLTokens {
 
     protected void yyexpand() {
         int[] newyyst = new int[2*yyst.length];
-        org.uva.sea.ql.ast.Node[] newyysv = new org.uva.sea.ql.ast.Node[2*yyst.length];
+        org.uva.sea.ql.ast.INode[] newyysv = new org.uva.sea.ql.ast.INode[2*yyst.length];
         for (int i=0; i<yyst.length; i++) {
             newyyst[i] = yyst[i];
             newyysv[i] = yysv[i];
@@ -2447,7 +2447,7 @@ class QLParser implements QLTokens {
     }
 
     private int yyr1() { // start : node
-        { result = ((Node)yysv[yysp-1]); }
+        { result = ((INode)yysv[yysp-1]); }
         yysv[yysp-=1] = yyrv;
         return 1;
     }
@@ -2757,14 +2757,14 @@ class QLParser implements QLTokens {
     /**
      * Holds the parsing result (AST)
      */
-    private Node result;
+    private INode result;
     
     /**
      * Retrieves the generated AST.
      *
      * @return The AST.
      */
-    public Node getResult() {
+    public INode getResult() {
         return result;
     }
     
