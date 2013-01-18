@@ -1,7 +1,6 @@
 package org.uva.sea.ql.ast.expression;
 
 import org.uva.sea.ql.ast.type.Type;
-import org.uva.sea.ql.visitor.Visitor;
 
 /**
  * Represents an addition expression.
@@ -17,11 +16,6 @@ public class Add extends ArithmeticExpression {
 		super( lhs, rhs );
 	}
 
-	@Override
-	public void accept( Visitor visitor ) {
-		visitor.visit( this );
-	}
-	
 	@Override
 	public boolean checkType() {
 		// both be Number

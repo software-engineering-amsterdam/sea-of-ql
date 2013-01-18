@@ -15,7 +15,7 @@ import org.uva.sea.ql.ast.type.Type;
 /**
  * Visitor that prints the AST.
  */
-public class PrintVisitor extends Visitor {
+public class PrintVisitor implements INodeVisitor {
 	/**
 	 * String used for indenting.
 	 */
@@ -27,14 +27,14 @@ public class PrintVisitor extends Visitor {
 	private final OutputStream out;
 	
 	/**
-	 * Holds the current nesting level.
-	 */
-	private int level;
-	
-	/**
 	 * Holds a value to determine whether there were bytes written to the output stream.
 	 */
 	private boolean empty;
+	
+	/**
+	 * Holds the current nesting level.
+	 */
+	private int level;
 	
 	/**
 	 * Constructs a new print visitor.
@@ -87,7 +87,7 @@ public class PrintVisitor extends Visitor {
 			// keep silent
 		}
 	}
-	
+
 	@Override
 	public void visit( BinaryExpression node ) {
 		put( node.getClass().getSimpleName().toUpperCase() );
@@ -95,10 +95,10 @@ public class PrintVisitor extends Visitor {
 		level++;
 		
 		indent();
-		visit( node.getLhs() );
+		node.getLhs().accept( this );
 		
 		indent();
-		visit( node.getRhs() );
+		node.getRhs().accept( this );
 		
 		level--;
 	}
@@ -110,7 +110,7 @@ public class PrintVisitor extends Visitor {
 		level++;
 		
 		indent();
-		visit( node.getExpression() );
+		node.getExpression().accept( this );
 		
 		level--;
 	}
@@ -139,7 +139,7 @@ public class PrintVisitor extends Visitor {
 		level++;
 		
 		indent();
-		visit( node.getCondition() );
+		node.getCondition().accept( this );
 		
 		level--;
 
@@ -150,7 +150,7 @@ public class PrintVisitor extends Visitor {
 			level++;
 			
 			indent();
-			visit( node.getIfThen() );
+			node.getIfThen().accept( this );
 			
 			level--;
 		}
@@ -162,7 +162,7 @@ public class PrintVisitor extends Visitor {
 			level++;
 			
 			indent();
-			visit( node.getIfElse() );
+			node.getIfElse().accept( this );
 			
 			level--;
 		}
@@ -175,10 +175,10 @@ public class PrintVisitor extends Visitor {
 		level++;
 		
 		indent();
-		visit( node.getIdent() );
+		node.getIdent().accept( this );
 		
 		indent();
-		visit( node.getType() );
+		node.getType().accept( this );
 		
 		level--;
 	}
@@ -195,10 +195,10 @@ public class PrintVisitor extends Visitor {
 		level++;
 		
 		indent();
-		visit( node.getLhs() );
+		node.getLhs().accept( this );
 		
 		indent();
-		visit( node.getRhs() );
+		node.getRhs().accept( this );
 		
 		level--;
 	}

@@ -1,7 +1,6 @@
 package org.uva.sea.ql.ast.expression;
 
 import org.uva.sea.ql.ast.type.Type;
-import org.uva.sea.ql.visitor.Visitor;
 
 /**
  * Represents a logical NOT expression.
@@ -14,11 +13,6 @@ public class Not extends UnaryExpression {
 	 */
 	public Not( Expression expression ) {
 		super( expression );
-	}
-
-	@Override
-	public void accept( Visitor visitor ) {
-		visitor.visit( this );
 	}
 
 	@Override

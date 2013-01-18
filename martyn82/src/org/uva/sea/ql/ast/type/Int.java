@@ -1,7 +1,7 @@
 package org.uva.sea.ql.ast.type;
 
 import org.uva.sea.ql.ast.DataType;
-import org.uva.sea.ql.visitor.Visitor;
+import org.uva.sea.ql.visitor.INodeVisitor;
 
 /**
  * Represents an integer type.
@@ -15,7 +15,7 @@ public class Int extends Number {
 	}
 	
 	@Override
-	public void accept( Visitor visitor ) {
+	public void accept( INodeVisitor visitor ) {
 		visitor.visit( this );
 	}
 }

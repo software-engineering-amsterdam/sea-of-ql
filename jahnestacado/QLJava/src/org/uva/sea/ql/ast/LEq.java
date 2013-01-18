@@ -2,10 +2,10 @@ package org.uva.sea.ql.ast;
 
 import org.uva.sea.ql.ast.Expr;
 
-public class LEq extends Expr {
+public class LEq extends BinaryExpr {
 
 	public LEq(Expr result, Expr rhs) {
-		// TODO Auto-generated constructor stub
+		super(result,rhs) ;
 	}
 
 }

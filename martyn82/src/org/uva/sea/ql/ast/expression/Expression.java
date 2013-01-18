@@ -1,12 +1,12 @@
 package org.uva.sea.ql.ast.expression;
 
-import org.uva.sea.ql.ast.Node;
+import org.uva.sea.ql.ast.INode;
 import org.uva.sea.ql.ast.type.Type;
 
 /**
  * Represents an expression.
  */
-abstract public class Expression implements Node {
+abstract public class Expression implements INode {
 	/**
 	 * Determines whether the type of this expression conforms to semantics.
 	 * 

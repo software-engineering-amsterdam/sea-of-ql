@@ -1,7 +1,7 @@
 package org.uva.sea.ql.ast.expression.value;
 
 import org.uva.sea.ql.ast.type.Type;
-import org.uva.sea.ql.visitor.Visitor;
+import org.uva.sea.ql.visitor.INodeVisitor;
 
 /**
  * Represents a string literal expression.
@@ -38,7 +38,7 @@ public class Str extends Literal {
 	}
 
 	@Override
-	public void accept( Visitor visitor ) {
+	public void accept( INodeVisitor visitor ) {
 		visitor.visit( this );
 	}
 
