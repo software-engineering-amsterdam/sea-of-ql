@@ -1,16 +1,13 @@
 module lang::ql::tests::forms::IdentifierUsesDefinitions
 
 import Set;
+import List; 
 import lang::ql::ast::AST;
 import lang::ql::ide::IdentifierUsesDefinitions;
 import lang::ql::ide::SemanticChecker;
 import lang::ql::tests::ParseHelper;
 import lang::ql::util::Random;
 import util::IDE;
-
-import IO;
-
-loc x = |tmp:///out/|;
 
 private bool usesDefsCounter(loc f, int numberOfUses, int numberOfDefinitions) =
   (size(identifierUses(parseForm(f))) == numberOfUses) &&

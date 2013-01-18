@@ -31,7 +31,9 @@ public class TestForm {
 	
 	@Test
 	public void testForm() throws ParseError, IOException {
-		assertEquals(parser.parse(FileReader.readFile()).getClass(), Form.class);
+		QLFileReader qlFileReader = new QLFileReader();
+		assertEquals(Form.class, parser.parseForm(qlFileReader.readQLFile("QLTestcase1.ql")).getClass());
+		assertEquals(Form.class, parser.parseForm(qlFileReader.readQLFile("QLTestcase2.ql")).getClass());
 	}
 
 }

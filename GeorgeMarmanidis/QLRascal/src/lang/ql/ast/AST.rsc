@@ -10,13 +10,23 @@ data FormBodyItem
 	| conditionalStatement(ConditionalStatement itemCondStatement)
 	;
 	
-data ConditionalStatement
+/*data ConditionalStatement
 	= ifCond(Expr ifCondition,list[Question] ifQuestion,list[Question] elseQuestion)
 	| simpleIfCond(Expr ifCondition,list[Question] ifQuestion)
 	| ifElseIfCond(Expr ifCondition,list[Question] ifQuestion,list[ElseIf] elseifBranch,list[Question] elseQuestion)
 	;
 	
 data ElseIf = elseif(Expr ifExpression,list[Question] elseQuestion);
+*/
+////
+data ConditionalStatement
+	= ifCond(Expr ifCondition,list[FormBodyItem] ifQuestion,list[FormBodyItem] elseQuestion)
+	| simpleIfCond(Expr ifCondition,list[FormBodyItem] ifQuestion)
+	| ifElseIfCond(Expr ifCondition,list[FormBodyItem] ifQuestion,list[ElseIf] elseifBranch,list[FormBodyItem] elseQuestion)
+	;
+	
+data ElseIf = elseif(Expr ifExpression,list[FormBodyItem] elseQuestion);
+////
 
 data Question//needs more tests
 	= simpleQuestion(str questionId,str questionLabel,Type questionType)

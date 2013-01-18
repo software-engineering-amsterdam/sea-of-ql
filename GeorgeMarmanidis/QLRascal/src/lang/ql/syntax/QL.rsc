@@ -59,7 +59,7 @@ start syntax FormBodyItem
 	= question: Question question
 	| conditionalStatement: ConditionalStatement conditionalStatement
 	;
-
+/*
 start syntax ConditionalStatement //"{" Question+ question "}" can i insert FormBodyItem??
 	= ifCond: "if" Expr cond "{" Question+ question "}" "else" "{" Question+ question "}"
 	| simpleIfCond : "if" Expr cond "{" Question+ question "}"
@@ -69,6 +69,20 @@ start syntax ConditionalStatement //"{" Question+ question "}" can i insert Form
 start syntax ElseIf
 	= elseif: "else" "if" Expr cond "{"Question+ question"}"
 	;
+
+*/	
+////
+start syntax ConditionalStatement //"{" Question+ question "}" can i insert FormBodyItem??
+	= ifCond: "if" Expr cond "{" FormBodyItem+ question "}" "else" "{" FormBodyItem+ question "}"
+	| simpleIfCond : "if" Expr cond "{" FormBodyItem+ question "}"
+	| ifElseIfCond : "if" Expr cond "{" FormBodyItem+ question "}" ElseIf+ elseIfCondition "else" "{" FormBodyItem+ question "}"
+	;
+
+start syntax ElseIf
+	= elseif: "else" "if" Expr cond "{"FormBodyItem+ question"}"
+	;
+
+////
 
 start syntax Question
 	= simpleQuestion: Ident ident ":" String label Type type
@@ -117,7 +131,7 @@ start syntax Type
  	| float: "float"
  	;    
 
-keyword Keywords
+keyword Keywords //create Keywords in order to not use them in form declaration
 	= \true: "true"
 	| \false: "false"
 	| \if: "if"
