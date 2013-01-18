@@ -16,7 +16,6 @@ Change the start symbol of the parser to parse forms, instead of Expressions.
 Note: don't be seduced by the provided example code and start copy-pasting grammar rules around. It is important to really understand the parser technology involved. ANTLR, Rats! and Jacc are well-documented on the web. Please use this information to fulfill the above requirements.
 
 TODO
-- Restore prettyprinter (quick)
 - Extend language and AST with Form, Question, etc.
 - Typechecker visitor
 - Interpreter visitor
