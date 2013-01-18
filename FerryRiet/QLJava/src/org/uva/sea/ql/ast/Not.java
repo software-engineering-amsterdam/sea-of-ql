@@ -1,9 +1,8 @@
 package org.uva.sea.ql.ast;
 
-public class Not extends Expr {
+public class Not extends UnExpr {
 
 	public Not(Expr x) {
-		// TODO Auto-generated constructor stub
+		super(x);
 	}
-
 }

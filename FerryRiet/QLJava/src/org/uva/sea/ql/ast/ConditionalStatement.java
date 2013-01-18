@@ -1,15 +1,32 @@
 package org.uva.sea.ql.ast;
 
-public class ConditionalStatement extends Statement {
-	
-	private Expr expression ;
-	private CompoundBlock compound ;
+import org.uva.sea.ql.astnodevisitor.Visitor;
 
-	public ConditionalStatement(Expr ex, CompoundBlock c) {
-		expression = ex ;
-		compound = c ;
+public class ConditionalStatement extends Statement {
+
+	private final Expr expression;
+	private final Statement trueCompound;
+	private final Statement falseCompound;
+
+	public ConditionalStatement(Expr expr, Statement ctrue, Statement cfalse) {
+		expression = expr;
+		trueCompound = ctrue;
+		falseCompound = cfalse;
 	}
-	public void eval() {
-		compound.eval();
+
+	public Expr getExpression() {
+		return expression;
+	}
+
+	public Statement getFalseCompound() {
+		return falseCompound;
+	}
+	public Statement getTrueCompound() {
+		return trueCompound;
+	}
+
+	@Override
+	public void accept(Visitor visitor) {
+		visitor.visit(this);
 	}
 }

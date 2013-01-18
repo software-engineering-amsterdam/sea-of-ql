@@ -1,5 +1,10 @@
 grammar QL;
-options {backtrack=true; memoize=true;}
+options { 	
+	backtrack=true; 
+	memoize=true; 
+	language=java; 
+	output=AST; 
+}
 
 @parser::header
 {
@@ -85,11 +90,13 @@ orExpr returns [Expr result]
 
     
 // Tokens
-WS  :	(' ' | '\t' | '\n' | '\r') { $channel=HIDDEN; }
+NEWLINE : ('\n' | '\r')
+WS  :	(' ' | '\t' | NEWLINE) { $channel=HIDDEN; }
     ;
 
 COMMENT 
-     : '/*' .* '*/' {$channel=HIDDEN;}
+     : '/*' .* '*/' {$channel=HIDDEN;} 
+     | '//' ~(NEWLINE)* '\r'? '\n' {$channel=HIDDEN;} 
     ;
 
 Ident:   ('a'..'z'|'A'..'Z')('a'..'z'|'A'..'Z'|'0'..'9'|'_')*;

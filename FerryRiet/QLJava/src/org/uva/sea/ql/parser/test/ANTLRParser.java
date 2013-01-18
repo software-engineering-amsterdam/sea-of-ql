@@ -23,19 +23,19 @@ public class ANTLRParser implements IParse {
 			throw new ParseError(e.getMessage());
 		}
 	}	@Override
-	public Statement stmt(String src) throws ParseError {
+	public Statement statement(String src) throws ParseError {
 		ANTLRStringStream stream = new ANTLRStringStream(src);
 		CommonTokenStream tokens = new CommonTokenStream();
 		tokens.setTokenSource(new QLLexer(stream));
 		QLParser parser = new QLParser(tokens);
 		try {
-			return parser.stmt().result ;
+			return parser.statement() ;
 		} catch (RecognitionException e) {
 		  throw new ParseError(e.getMessage());
 		}
 	}
 	@Override
-	public Expr parse(String src) throws ParseError {
+	public Expr expr(String src) throws ParseError {
 		ANTLRStringStream stream = new ANTLRStringStream(src);
 		CommonTokenStream tokens = new CommonTokenStream();
 		tokens.setTokenSource(new QLLexer(stream));

@@ -1,9 +1,8 @@
 package org.uva.sea.ql.ast;
 
-public class Div extends Expr {
+public class Div extends BinExpr {
 
-	public Div(Expr result, Expr rhs) {
-		// TODO Auto-generated constructor stub
+	public Div(Expr lhs, Expr rhs) {
+		super(lhs,rhs) ;
 	}
-
 }

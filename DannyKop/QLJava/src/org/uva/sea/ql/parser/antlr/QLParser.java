@@ -2,6 +2,22 @@
 
 package org.uva.sea.ql.parser.antlr;
 import org.uva.sea.ql.ast.*;
+import org.uva.sea.ql.ast.expressions.binary.Add;
+import org.uva.sea.ql.ast.expressions.binary.And;
+import org.uva.sea.ql.ast.expressions.binary.Div;
+import org.uva.sea.ql.ast.expressions.binary.Eq;
+import org.uva.sea.ql.ast.expressions.binary.GEq;
+import org.uva.sea.ql.ast.expressions.binary.GT;
+import org.uva.sea.ql.ast.expressions.binary.LEq;
+import org.uva.sea.ql.ast.expressions.binary.LT;
+import org.uva.sea.ql.ast.expressions.binary.Mul;
+import org.uva.sea.ql.ast.expressions.binary.NEq;
+import org.uva.sea.ql.ast.expressions.binary.Or;
+import org.uva.sea.ql.ast.expressions.binary.Sub;
+import org.uva.sea.ql.ast.expressions.unary.Neg;
+import org.uva.sea.ql.ast.expressions.unary.Not;
+import org.uva.sea.ql.ast.expressions.unary.Pos;
+import org.uva.sea.ql.ast.types.Int;
 
 
 import org.antlr.runtime.*;

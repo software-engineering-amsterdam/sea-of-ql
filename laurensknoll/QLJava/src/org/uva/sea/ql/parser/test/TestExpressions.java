@@ -2,7 +2,7 @@ package org.uva.sea.ql.parser.test;
 
 import static org.junit.Assert.assertEquals;
 
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Test;
@@ -16,9 +16,7 @@ import org.uva.sea.ql.ast.Int;
 import org.uva.sea.ql.ast.LEq;
 import org.uva.sea.ql.ast.LT;
 import org.uva.sea.ql.ast.Mul;
-import org.uva.sea.ql.parser.antlr.ANTLRParser;
-import org.uva.sea.ql.parser.jacc.JACCParser;
-import org.uva.sea.ql.parser.rats.RatsParser;
+import org.uva.sea.ql.parser.antlr.ExprParser;
 
 @RunWith(Parameterized.class)
 public class TestExpressions {
@@ -27,11 +25,9 @@ public class TestExpressions {
 
 	@Parameters
 	public static List<Object[]> theParsers() {
-	  return Arrays.asList(
-			  new Object[] {new JACCParser()}, 
-			  new Object[] {new RatsParser()},
-			  new Object[] {new ANTLRParser()}
-			 );
+		List<Object[]> parserList = new ArrayList<Object[]>();
+		parserList.add(new Object[] {new ExprParser()});
+		return parserList;
 	}
 
 	
@@ -39,7 +35,6 @@ public class TestExpressions {
 		this.parser = parser;
 	}
 
-	
 	@Test
 	public void testAdds() throws ParseError {
 		assertEquals(parser.parse("a + b").getClass(), Add.class);

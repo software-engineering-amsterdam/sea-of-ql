@@ -1,11 +1,17 @@
 package org.uva.sea.ql.parser.antlr.operators;
 
-import org.uva.sea.ql.ast.Expr;
+import org.uva.sea.ql.ast.Expression;
 
-public class Neg extends Expr {
+public class Neg extends Expression {
 
-	public Neg(Expr x) {
+	public Neg(Expression x) {
 		// TODO Auto-generated constructor stub
+	}
+
+	@Override
+	public Object getValue() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

@@ -1,9 +1,8 @@
 package org.uva.sea.ql.ast;
 
-public class Mul extends Expr {
+public class Mul extends BinExpr {
 
 	public Mul(Expr result, Expr rhs) {
-		// TODO Auto-generated constructor stub
+		super(result,rhs) ;
 	}
-
 }
