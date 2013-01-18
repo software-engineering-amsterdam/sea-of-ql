@@ -2,12 +2,12 @@ package org.uva.sea.ql.ast;
 
 
 
-public abstract class BinaryExpr extends Expr {
+public abstract class Binary extends Expr {
 
 	private final Expr exprLeftHand;
 	private final Expr exprRightHand;
 
-	public BinaryExpr(Expr result, Expr rhs) {
+	public Binary(Expr result, Expr rhs) {
 		exprLeftHand = result;
 		exprRightHand = rhs;
 	}
