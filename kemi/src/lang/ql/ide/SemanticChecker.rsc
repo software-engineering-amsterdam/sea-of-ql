@@ -79,7 +79,7 @@ public set[Message] semanticChecker(node form) {
   return ret;  
 }
 
-private set[Message] useBeforeDeclarationMessages(
+public set[Message] useBeforeDeclarationMessages(
   list[GraphNode] idUses, list[GraphNode] definitions, rel[GraphNode, GraphNode] fgraph) {
   
   list[GraphNode] found = [];
@@ -104,7 +104,7 @@ private set[Message] useBeforeDeclarationMessages(
     {useBeforeDeclaration(prettyPrint(u.expr), u.location) | u <- (idUses - found)};
 }
 
-private set[Message] duplicateIdentifierMessages(list[GraphNode] definitions) {
+public set[Message] duplicateIdentifierMessages(list[GraphNode] definitions) {
   
   ids = toMap([ <name, <\type, x@location>> | 
     i <- definitions, question(x, _) := i, 
@@ -119,7 +119,7 @@ private set[Message] duplicateIdentifierMessages(list[GraphNode] definitions) {
     {duplicateIdentifierMessage(name, \type, \loc) | <<\type, \loc>, name> <- idsRel};
 }
 
-private set[Message] duplicateQuestionMessages(list[GraphNode] definitions) {
+public set[Message] duplicateQuestionMessages(list[GraphNode] definitions) {
   textMap = toMap([ <text, x@location> | 
     i <- definitions, question(x, _) := i, 
     question(text, _, _) := x || 

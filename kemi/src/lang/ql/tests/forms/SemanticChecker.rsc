@@ -1,7 +1,10 @@
 module lang::ql::tests::forms::SemanticChecker
 
 import Set;
+import analysis::graphs::Graph;
 import lang::ql::ast::AST;
+import lang::ql::ide::FlowGraph;
+import lang::ql::ide::IdentifierUsesDefinitions;
 import lang::ql::ide::Outline;
 import lang::ql::ide::SemanticChecker;
 import lang::ql::tests::ParseHelper;
@@ -14,39 +17,174 @@ private set[Message] semanticChecker(loc f) =
   
 private bool semanticChecker(loc f, int numberOfErrors) = 
   size(semanticChecker(f)) == numberOfErrors;
+  
+private bool duplicateIdentifiers(loc f, int count) {
+  def = identifierDefinitions(parseForm(f));
+  return 
+    size(duplicateIdentifierMessages(def)) == count;
+}   
+  
+private bool duplicateQuestions(loc f, int count) {
+  def = identifierDefinitions(parseForm(f));
+  return 
+    size(duplicateQuestionMessages(def)) == count;
+}
 
-public test bool testBasicForm() = 
+private bool useBeforeDeclarations(loc f, int count) {
+  fm = parseForm(f);
+  us = identifierUses(fm);
+  def = identifierDefinitions(fm);
+  fgraph = flowGraph(fm);
+  return 
+    size(useBeforeDeclarationMessages(us, def, fgraph)) == count;
+}
+
+public test bool duplicateIdentifiersTestBasicForm() = 
+  duplicateIdentifiers(|project://QL-R-kemi/forms/basic.q|, 0);
+  
+public test bool duplicateIdentifiersTestCalculatedField() = 
+  duplicateIdentifiers(|project://QL-R-kemi/forms/calculatedField.q|, 0);
+  
+public test bool duplicateIdentifiersTestCommentForm() = 
+  duplicateIdentifiers(|project://QL-R-kemi/forms/comment.q|, 0);
+  
+public test bool duplicateIdentifiersTestUglyFormattedForm() = 
+  duplicateIdentifiers(|project://QL-R-kemi/forms/duplicateLabels.q|, 5);
+  
+public test bool duplicateIdentifiersTestIfCondition() = 
+  duplicateIdentifiers(|project://QL-R-kemi/forms/ifCondition.q|, 0);
+  
+public test bool duplicateIdentifiersTestIfElseCondition() = 
+  duplicateIdentifiers(|project://QL-R-kemi/forms/ifElseCondition.q|, 0);
+  
+public test bool duplicateIdentifiersTestIfElseIfCondition() = 
+  duplicateIdentifiers(|project://QL-R-kemi/forms/ifElseIfCondition.q|, 0);
+  
+public test bool duplicateIdentifiersTestIfElseIfElseCondition() = 
+  duplicateIdentifiers(|project://QL-R-kemi/forms/ifElseIfElseCondition.q|, 4);
+  
+public test bool duplicateIdentifiersTestMultipleQuestions() = 
+  duplicateIdentifiers(|project://QL-R-kemi/forms/multipleQuestions.q|, 0);
+  
+public test bool duplicateIdentifiersTestNestedIfElseIfElseCondition() = 
+  duplicateIdentifiers(|project://QL-R-kemi/forms/nestedIfElseIfElseCondition.q|, 6);
+  
+public test bool duplicateIdentifiersTestUglyFormattedForm() = 
+  duplicateIdentifiers(|project://QL-R-kemi/forms/uglyFormatted.q|, 4);
+  
+public test bool duplicateIdentifiersTestUndefinedVariableForm() = 
+  duplicateIdentifiers(|project://QL-R-kemi/forms/undefinedVariable.q|, 0);
+  
+// Duplicate questions
+
+public test bool duplicateQuestionsTestBasicForm() = 
+  duplicateQuestions(|project://QL-R-kemi/forms/basic.q|, 0);
+  
+public test bool duplicateQuestionsTestCalculatedField() = 
+  duplicateQuestions(|project://QL-R-kemi/forms/calculatedField.q|, 0);
+  
+public test bool duplicateQuestionsTestCommentForm() = 
+  duplicateQuestions(|project://QL-R-kemi/forms/comment.q|, 0);
+  
+public test bool duplicateQuestionsTestUglyFormattedForm() = 
+  duplicateQuestions(|project://QL-R-kemi/forms/duplicateLabels.q|, 0);
+  
+public test bool duplicateQuestionsTestIfCondition() = 
+  duplicateQuestions(|project://QL-R-kemi/forms/ifCondition.q|, 0);
+  
+public test bool duplicateQuestionsTestIfElseCondition() = 
+  duplicateQuestions(|project://QL-R-kemi/forms/ifElseCondition.q|, 0);
+  
+public test bool duplicateQuestionsTestIfElseIfCondition() = 
+  duplicateQuestions(|project://QL-R-kemi/forms/ifElseIfCondition.q|, 0);
+  
+public test bool duplicateQuestionsTestIfElseIfElseCondition() = 
+  duplicateQuestions(|project://QL-R-kemi/forms/ifElseIfElseCondition.q|, 4);
+  
+public test bool duplicateQuestionsTestMultipleQuestions() = 
+  duplicateQuestions(|project://QL-R-kemi/forms/multipleQuestions.q|, 0);
+  
+public test bool duplicateQuestionsTestNestedIfElseIfElseCondition() = 
+  duplicateQuestions(|project://QL-R-kemi/forms/nestedIfElseIfElseCondition.q|, 8);
+  
+public test bool duplicateQuestionsTestUglyFormattedForm() = 
+  duplicateQuestions(|project://QL-R-kemi/forms/uglyFormatted.q|, 4);
+  
+public test bool duplicateQuestionsTestUndefinedVariableForm() = 
+  duplicateQuestions(|project://QL-R-kemi/forms/undefinedVariable.q|, 0);
+  
+// Use before declarations
+  
+public test bool useBeforeDeclarationsTestBasicForm() = 
+  useBeforeDeclarations(|project://QL-R-kemi/forms/basic.q|, 0);
+  
+public test bool useBeforeDeclarationsTestCalculatedField() = 
+  useBeforeDeclarations(|project://QL-R-kemi/forms/calculatedField.q|, 0);
+  
+public test bool useBeforeDeclarationsTestCommentForm() = 
+  useBeforeDeclarations(|project://QL-R-kemi/forms/comment.q|, 0);
+  
+public test bool useBeforeDeclarationsTestUglyFormattedForm() = 
+  useBeforeDeclarations(|project://QL-R-kemi/forms/duplicateLabels.q|, 0);
+  
+public test bool useBeforeDeclarationsTestIfCondition() = 
+  useBeforeDeclarations(|project://QL-R-kemi/forms/ifCondition.q|, 0);
+  
+public test bool useBeforeDeclarationsTestIfElseCondition() = 
+  useBeforeDeclarations(|project://QL-R-kemi/forms/ifElseCondition.q|, 0);
+  
+public test bool useBeforeDeclarationsTestIfElseIfCondition() = 
+  useBeforeDeclarations(|project://QL-R-kemi/forms/ifElseIfCondition.q|, 4);
+  
+public test bool useBeforeDeclarationsTestIfElseIfElseCondition() = 
+  useBeforeDeclarations(|project://QL-R-kemi/forms/ifElseIfElseCondition.q|, 4);
+  
+public test bool useBeforeDeclarationsTestMultipleQuestions() = 
+  useBeforeDeclarations(|project://QL-R-kemi/forms/multipleQuestions.q|, 0);
+  
+public test bool useBeforeDeclarationsTestNestedIfElseIfElseCondition() = 
+  useBeforeDeclarations(|project://QL-R-kemi/forms/nestedIfElseIfElseCondition.q|, 8);
+  
+public test bool useBeforeDeclarationsTestUglyFormattedForm() = 
+  useBeforeDeclarations(|project://QL-R-kemi/forms/uglyFormatted.q|, 5);
+  
+public test bool useBeforeDeclarationsTestUndefinedVariableForm() = 
+  useBeforeDeclarations(|project://QL-R-kemi/forms/undefinedVariable.q|, 3);
+  
+// And all tests combined:
+
+public test bool semanticTestBasicForm() = 
   semanticChecker(|project://QL-R-kemi/forms/basic.q|, 0);
   
-public test bool testCalculatedField() = 
+public test bool semanticTestCalculatedField() = 
   semanticChecker(|project://QL-R-kemi/forms/calculatedField.q|, 0);
   
-public test bool testCommentForm() = 
+public test bool semanticTestCommentForm() = 
   semanticChecker(|project://QL-R-kemi/forms/comment.q|, 0);
   
-public test bool testUglyFormattedForm() = 
+public test bool semanticTestUglyFormattedForm() = 
   semanticChecker(|project://QL-R-kemi/forms/duplicateLabels.q|, 5);
   
-public test bool testIfCondition() = 
+public test bool semanticTestIfCondition() = 
   semanticChecker(|project://QL-R-kemi/forms/ifCondition.q|, 0);
   
-public test bool testIfElseCondition() = 
+public test bool semanticTestIfElseCondition() = 
   semanticChecker(|project://QL-R-kemi/forms/ifElseCondition.q|, 0);
   
-public test bool testIfElseIfCondition() = 
+public test bool semanticTestIfElseIfCondition() = 
   semanticChecker(|project://QL-R-kemi/forms/ifElseIfCondition.q|, 4);
   
-public test bool testIfElseIfElseCondition() = 
+public test bool semanticTestIfElseIfElseCondition() = 
   semanticChecker(|project://QL-R-kemi/forms/ifElseIfElseCondition.q|, 12);
   
-public test bool testMultipleQuestions() = 
+public test bool semanticTestMultipleQuestions() = 
   semanticChecker(|project://QL-R-kemi/forms/multipleQuestions.q|, 0);
   
-public test bool testNestedIfElseIfElseCondition() = 
+public test bool semanticTestNestedIfElseIfElseCondition() = 
   semanticChecker(|project://QL-R-kemi/forms/nestedIfElseIfElseCondition.q|, 22);
   
-public test bool testUglyFormattedForm() = 
+public test bool semanticTestUglyFormattedForm() = 
   semanticChecker(|project://QL-R-kemi/forms/uglyFormatted.q|, 13);
   
-public test bool testUndefinedVariableForm() = 
+public test bool semanticTestUndefinedVariableForm() = 
   semanticChecker(|project://QL-R-kemi/forms/undefinedVariable.q|, 3);
