@@ -3,6 +3,7 @@
 <head>
     <meta charset="utf-8">
     <title></title>
+    <link href="style.css" rel="stylesheet" type="text/css">
     <script type="text/javascript" src="knockout-2.2.1.js"></script>
     <script type="text/javascript">
         var DataType = {
@@ -28,16 +29,16 @@
         }
 
         function booleanValidator(input) {
-            return input == "true" || input == "false";
+            return input == true || input == false;
         }
 
-        function Block(parent, condition, elements) {
-            this.parent = parent;
+        function Block(condition, elements) {
+            var self = this;
             this.condition = condition;
-            this.elements = elements;
+            this.elements = elements.map(function(element) { element.parent = self; return element; });
             this.type = Type.BLOCK;
 
-            this.required = function() { return (parent != undefined ? parent.required() : true) && condition(); };
+            this.required = function() { return (self.parent != undefined ? self.parent.required() : true) && self.condition(); };
         }
 
         function Computed(label, expression) {
@@ -46,8 +47,8 @@
             this.type = Type.COMPUTED;
         }
 
-        function Question(parent, label, name, dataType) {
-            this.parent = parent;
+        function Question(label, name, dataType) {
+            var self = this;
             this.label = label;
             this.name = name;
             this.value = ko.observable();
@@ -66,8 +67,8 @@
                     break;
             }
 
-            this.required = function() { return parent.required(); };
-            this.valid = function() { return this.required() && validator(this.value()); };
+            this.required = function() { return self.parent.required(); };
+            this.valid = function() { return self.required() && self.validator(self.value()); };
 
         }
     </script>
@@ -88,7 +89,7 @@
     <script type="text/html" id="question-template">
         <tr>
             <td data-bind="text: label"></td>
-            <td>
+            <td data-bind="css: { invalid : !valid() }">
                 <!-- ko if: $data.dataType == DataType.BOOLEAN -->
                     <!-- ko template: { name: "boolean-input-template" } --><!-- /ko -->
                 <!-- /ko -->
@@ -118,7 +119,19 @@
 <body>
 
     <table>
-        <!-- ko template: { name : "formelement-template", foreach: viewModel } --><!-- /ko -->
+        <!-- ko template: { name : "formelement-template", foreach: viewModel.elements } --><!-- /ko -->
     </table>
+
+    <script type="text/javascript">
+        var viewModel = new Block(function() { return true; }, [
+            new Question("Is bread nice?", "bread", DataType.BOOLEAN),
+            new Question("What is your favorite kind of bread?", "bread", DataType.STRING),
+            new Question("How many slices of bread do you eat each day?", "bread", DataType.INTEGER),
+            new Block(function() { return true; }, [
+                new Computed("My favorite kind of bread is:", function() { return true; })
+            ])
+        ]);
+        ko.applyBindings(viewModel);
+    </script>
 </body>
 </html>

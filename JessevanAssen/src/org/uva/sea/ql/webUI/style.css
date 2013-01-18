@@ -1,0 +1,4 @@
+.invalid,
+.invalid > input{
+    color: #f00;
+}
