@@ -23,16 +23,22 @@ form returns [Form result]
 
 formItem returns [List<FormItem> result]
 @init { List<FormItem> formItems = new ArrayList(); }
-  : (i=ifStatement { formItems.add($i.result); } 
+  : ( ie=ifElseStatement { formItems.add($ie.result); }
+    | i=ifStatement { formItems.add($i.result); } 
     | cq=computedQuestion { formItems.add($cq.result); } 
-    | q=question { formItems.add($q.result); })+ 
+    | q=question { formItems.add($q.result); } )+ 
       { $result = formItems; }
   ;
- 
+
+ifElseStatement returns [IfElseStatement result]
+  : 'if' '(' orExpr ')' '{' ifBody=formItem '}'
+    'else' '{' elseBody=formItem '}' 
+      { $result = new IfElseStatement($orExpr.result, $ifBody.result, $elseBody.result); }
+  ;
+
 ifStatement returns [IfStatement result]
   : 'if' '(' orExpr ')' '{' ifBody=formItem '}'
-    ('else' '{' elseBody=formItem '}')? 
-      { $result = new IfStatement($orExpr.result, $ifBody.result, $elseBody.result); }
+      { $result = new IfStatement($orExpr.result, $ifBody.result); }
   ;
 
 computedQuestion returns [ComputedQuestion result]
