@@ -13,6 +13,7 @@ import org.uva.sea.ql.ast.*;
 package org.uva.sea.ql.parser.antlr;
 }
 
+
 question returns [Question result] 
   : Ident ':' StringLiteral t=type
    { $result = new Question($Ident.text, $StringLiteral.text, $t.result); }
@@ -33,6 +34,7 @@ reservedWord returns [ReservedWord result]
 	| ElseRW { $result = new ElseRW(); }
 	; 
 
+
 	
 primary returns [Expr result]
   : Int   { $result = new Int(Integer.parseInt($Int.text)); }
@@ -41,12 +43,14 @@ primary returns [Expr result]
   | '(' x=orExpr ')'{ $result = $x.result; }
   ;
     
+
 unExpr returns [Expr result]
-    :  '+' x=unExpr { $result = new Pos($x.result); }
-    |  '-' x=unExpr { $result = new Neg($x.result); }
-    |  '!' x=unExpr { $result = new Not($x.result); }
-    |  x=primary    { $result = $x.result; }
-    ;    
+    : '+' x=unExpr { $result = new Pos($x.result); }
+    | '-' x=unExpr { $result = new Neg($x.result); }
+    | '!' x=unExpr { $result = new Not($x.result); }
+    | x=primary { $result = $x.result; }
+    ;
+    
     
 mulExpr returns [Expr result]
     :   lhs=unExpr { $result=$lhs.result; } ( op=( '*' | '/' ) rhs=unExpr 
@@ -144,4 +148,3 @@ StringLiteral	: '"' .* '"';
 
 
 
- 
