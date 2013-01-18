@@ -1,6 +1,6 @@
 package org.uva.sea.ql.ast.expression;
 
-import org.uva.sea.ql.visitor.NodeVisitor;
+import org.uva.sea.ql.visitor.INodeVisitor;
 
 /**
  * Represents a binary expression.
@@ -51,7 +51,7 @@ abstract public class BinaryExpression extends Expression {
 	}
 	
 	@Override
-	public void accept( NodeVisitor visitor ) {
+	public void accept( INodeVisitor visitor ) {
 		visitor.visit( this );
 	}
 }

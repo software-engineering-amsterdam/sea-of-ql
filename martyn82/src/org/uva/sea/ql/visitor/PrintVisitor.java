@@ -15,7 +15,7 @@ import org.uva.sea.ql.ast.type.Type;
 /**
  * Visitor that prints the AST.
  */
-public class PrintVisitor extends NodeVisitor {
+public class PrintVisitor implements INodeVisitor {
 	/**
 	 * String used for indenting.
 	 */

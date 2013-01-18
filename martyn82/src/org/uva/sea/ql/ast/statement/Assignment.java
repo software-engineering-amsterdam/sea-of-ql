@@ -2,7 +2,7 @@ package org.uva.sea.ql.ast.statement;
 
 import org.uva.sea.ql.ast.expression.Expression;
 import org.uva.sea.ql.ast.expression.Ident;
-import org.uva.sea.ql.visitor.NodeVisitor;
+import org.uva.sea.ql.visitor.INodeVisitor;
 
 /**
  * Represents an assignment.
@@ -48,7 +48,7 @@ public class Assignment extends Statement {
 	}
 	
 	@Override
-	public void accept( NodeVisitor visitor ) {
+	public void accept( INodeVisitor visitor ) {
 		visitor.visit( this );
 	}
 

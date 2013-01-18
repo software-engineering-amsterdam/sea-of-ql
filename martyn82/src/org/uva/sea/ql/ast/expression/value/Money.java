@@ -1,7 +1,7 @@
 package org.uva.sea.ql.ast.expression.value;
 
 import org.uva.sea.ql.ast.type.Type;
-import org.uva.sea.ql.visitor.NodeVisitor;
+import org.uva.sea.ql.visitor.INodeVisitor;
 
 /**
  * Represents a decimal number.
@@ -37,7 +37,7 @@ public class Money extends Number {
 	}
 
 	@Override
-	public void accept( NodeVisitor visitor ) {
+	public void accept( INodeVisitor visitor ) {
 		visitor.visit( this );
 	}
 

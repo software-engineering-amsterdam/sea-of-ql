@@ -1,7 +1,7 @@
 package org.uva.sea.ql.ast.statement;
 
 import org.uva.sea.ql.ast.expression.Expression;
-import org.uva.sea.ql.visitor.NodeVisitor;
+import org.uva.sea.ql.visitor.INodeVisitor;
 
 /**
  * Represents an IF-THEN statement block.
@@ -67,7 +67,7 @@ public class If extends Statement {
 	}
 
 	@Override
-	public void accept( NodeVisitor visitor ) {
+	public void accept( INodeVisitor visitor ) {
 		visitor.visit( this );
 	}
 }

@@ -5,7 +5,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import org.uva.sea.ql.ast.INode;
-import org.uva.sea.ql.visitor.NodeVisitor;
+import org.uva.sea.ql.visitor.INodeVisitor;
 
 /**
  * 
@@ -24,7 +24,7 @@ public class Statements implements INode, Iterable<Statement> {
 	}
 	
 	@Override
-	public void accept( NodeVisitor visitor ) {
+	public void accept( INodeVisitor visitor ) {
 		for ( Statement statement : this.statements ) {
 			statement.accept( visitor );
 		}

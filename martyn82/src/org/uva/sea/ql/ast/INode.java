@@ -1,6 +1,6 @@
 package org.uva.sea.ql.ast;
 
-import org.uva.sea.ql.visitor.NodeVisitor;
+import org.uva.sea.ql.visitor.INodeVisitor;
 
 /**
  * Represents a node in an AST.
@@ -11,5 +11,5 @@ public interface INode {
 	 * 
 	 * @param visitor
 	 */
-	void accept( NodeVisitor visitor );
+	void accept( INodeVisitor visitor );
 }

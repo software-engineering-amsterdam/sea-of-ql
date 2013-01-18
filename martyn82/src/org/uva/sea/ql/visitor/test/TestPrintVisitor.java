@@ -29,7 +29,7 @@ public class TestPrintVisitor {
 	 */
 	@Test
 	public void testPrint() throws ParseError {
-		NodeVisitor visitor = new PrintVisitor( System.out );
+		INodeVisitor visitor = new PrintVisitor( System.out );
 
 		String program = "" +
 		"if ( a && !b ) {\n" +
