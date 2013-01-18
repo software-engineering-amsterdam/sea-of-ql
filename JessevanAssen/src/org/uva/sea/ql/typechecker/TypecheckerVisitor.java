@@ -5,7 +5,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.uva.sea.ql.ASTNodeVisitor;
 import org.uva.sea.ql.ast.*;
 import org.uva.sea.ql.ast.expr.*;
 import org.uva.sea.ql.ast.type.*;
