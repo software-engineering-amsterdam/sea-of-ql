@@ -4,14 +4,11 @@ import org.antlr.runtime.RecognitionException;
 import org.uva.sea.ql.ast.ASTNode;
 import org.uva.sea.ql.parser.test.ParseError;
 
-public class ANTLRExpressionParser extends GeneralANTLRParser{
+public class ANTLRAddsParser extends GeneralANTLRParser{
 	
-	public ASTNode parseANonTerminal (QLParser parser) throws ParseError {
-		System.out.println("Parsing an expression  11");
-		
-		System.out.println("Parsing an expression  22");
+	public ASTNode parseANonTerminal(QLParser parser) throws ParseError {
 		try {
-			return parser.unExpr();
+			return parser.addExpr();
 		} catch (RecognitionException e) {
 			throw new ParseError(e.getMessage());
 		}

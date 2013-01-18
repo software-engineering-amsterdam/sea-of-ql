@@ -13,6 +13,7 @@ import org.uva.sea.ql.ast.*;
 package org.uva.sea.ql.parser.antlr;
 }
 
+
 question returns [Question result] 
   : Ident ':' StringLiteral t=type
    { $result = new Question($Ident.text, $StringLiteral.text, $t.result); }
@@ -32,6 +33,7 @@ reservedWord returns [ReservedWord result]
 	| ThenRW { $result = new ThenRW(); }
 	| ElseRW { $result = new ElseRW(); }
 	; 
+
 
 	
 primary returns [Expr result]
