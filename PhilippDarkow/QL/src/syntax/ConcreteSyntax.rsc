@@ -3,7 +3,7 @@ module syntax::ConcreteSyntax
 import Prelude;
 
 lexical QuestionString  = [a-z][a-z0-9]* !>> [a-z0-9];
-lexical Id  = [a-z][a-z0-9]* !>> [a-z0-9]; 
+lexical Id  = [a-z A-Z 0-9 _] !<< [a-z A-Z][a-z A-Z 0-9 _]* !>> [a-z A-Z 0-9 _]; 
 lexical Boolean = [true,false];
 lexical Money = [0-9]+ ;
 lexical String = "\"" ![\"]*  "\"";
@@ -32,15 +32,18 @@ syntax Question
    = qName: QuestionString questionString Type tp;
 
 syntax Statement 
-   = asgStat: Id var ":" Expression qExp " " Type tp
-   | ifStat: "if" Expression cond "then" {Statement "\n"}* thenPart  // "else" {Statement ";"}* elsePart "fi"
-  ;
+   = asgStat: Id var ":" Expression qExp " " Type tp   // Question qName
+   | ifStat: "if" Expression cond "{" Declaration* decls "}"  // Question 
+   | ifThenStat: "if" Expression cond "then" Statement*
+   | ifElseStat: "if" Expression cond "then" {Statement ";"}*  thenPart "else" Statement* elsePart
+   ;
 
 syntax Type 
    = natural:"natural" 
    | string :"string"
    | boolean :"boolean"
-   | money :"money" 
+   | money :"money"
+   | money :"money" Expression 
    ;
   
 syntax Expression 
@@ -48,11 +51,22 @@ syntax Expression
    | strQue: String string
    | strCon: String string
    | boolCon: Boolean boolean
+   | bracket "(" Expression arg ")"
    | moneyCon: Money money
    > left ( add: Expression lhs "+" Expression rhs
           | sub: Expression lhs "-" Expression rhs
           )
-  ;
+   > left and: Expression "&&" Expression
+   > left or: Expression "||" Expression
+   > non-assoc (
+      lt: Expression "\<" Expression
+    | leq: Expression "\<=" Expression
+    | gt: Expression "\>" Expression
+    | geq: Expression "\>=" Expression
+    | eq: Expression "==" Expression
+    | neq: Expression "!=" Expression
+  )
+   ;
 
 public start[Program] program(str s) {
   return parse(#start[Program], s);
