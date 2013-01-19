@@ -19,6 +19,7 @@ import org.uva.sea.ql.evaluate.Value;
 import org.uva.sea.ql.evaluate.value.Boolean;
 import org.uva.sea.ql.evaluate.value.Integer;
 import org.uva.sea.ql.evaluate.value.Money;
+import org.uva.sea.ql.evaluate.value.Number;
 import org.uva.sea.ql.visitor.INodeVisitor;
 
 /**
@@ -31,12 +32,7 @@ public class TypeChecker implements INodeVisitor {
 		Value left = node.getLhs().accept( this, context );
 		Value right = node.getRhs().accept( this, context );
 
-		if (
-			!(
-				left instanceof org.uva.sea.ql.evaluate.value.Number
-				&& right instanceof org.uva.sea.ql.evaluate.value.Number
-			)
-		) {
+		if ( !( left instanceof Number && right instanceof Number ) ) {
 			context.addError(
 				String.format(
 					"Both sides of the %s-expression must be a Number type.",
@@ -76,24 +72,30 @@ public class TypeChecker implements INodeVisitor {
 		Value left = node.getLhs().accept( this, context );
 		Value right = node.getRhs().accept( this, context );
 
-		if ( !left.getClass().isInstance( right ) ) {
+		/*
+		 * This type is only valid if left and right hand side of comparison are both of the same (sub)type.
+		 * So, check for either:
+		 * - Left and right hand side of comparison are both a Number type (Integer or Money).
+		 *   or
+		 * - Left and right hand side of comparison are both of the same (sub)type.
+		 */
+
+		if (
+			!( left instanceof Number && right instanceof Number )
+			&&
+			!( left.getClass().isInstance( right ) || right.getClass().isInstance( left ) )
+		) {
 			context.addError(
 				String.format(
-					"Both sides of the comparison must be of the same type.",
+					"Both sides of the comparison must be of the same (sub)type.",
 					node.getClass().getSimpleName().toUpperCase()
 				)
 			);
+
 			return null;
 		}
 		else {
-			try {
-				return left.getClass().newInstance();
-			}
-			catch ( Exception e ) {
-				context.addError( "Unknown type: " + left.getClass().getSimpleName() );
-			}
-
-			return null;
+			return new Boolean();
 		}
 	}
 
