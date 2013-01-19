@@ -8,7 +8,9 @@ import org.uva.sea.ql.ast.expression.Ident;
 import org.uva.sea.ql.ast.expression.UnaryExpression;
 import org.uva.sea.ql.ast.expression.value.Literal;
 import org.uva.sea.ql.ast.statement.Assignment;
+import org.uva.sea.ql.ast.statement.FormDeclaration;
 import org.uva.sea.ql.ast.statement.If;
+import org.uva.sea.ql.ast.statement.QuestionDeclaration;
 import org.uva.sea.ql.ast.statement.VarDeclaration;
 import org.uva.sea.ql.ast.type.Type;
 
@@ -20,25 +22,25 @@ public class PrintVisitor implements INodeVisitor {
 	 * String used for indenting.
 	 */
 	private static final String INDENT = "  ";
-	
+
 	/**
 	 * Holds the output stream to print to.
 	 */
 	private final OutputStream out;
-	
+
 	/**
 	 * Holds a value to determine whether there were bytes written to the output stream.
 	 */
 	private boolean empty;
-	
+
 	/**
 	 * Holds the current nesting level.
 	 */
 	private int level;
-	
+
 	/**
 	 * Constructs a new print visitor.
-	 * 
+	 *
 	 * @param out
 	 */
 	public PrintVisitor( OutputStream out ) {
@@ -46,7 +48,7 @@ public class PrintVisitor implements INodeVisitor {
 		this.level = 0;
 		this.empty = true;
 	}
-	
+
 	/**
 	 * Appends indentation to the buffer.
 	 */
@@ -54,19 +56,19 @@ public class PrintVisitor implements INodeVisitor {
 		if ( !empty ) {
 			put( "\n" );
 		}
-		
+
 		StringBuilder sb = new StringBuilder();
-		
+
 		for ( int i = 0; i < level; i++ ) {
 			sb.append( INDENT );
 		}
-		
+
 		put( sb.toString() );
 	}
-	
+
 	/**
 	 * Retrieves the output stream.
-	 * 
+	 *
 	 * @return Output stream
 	 */
 	public OutputStream getOutput() {
@@ -75,7 +77,7 @@ public class PrintVisitor implements INodeVisitor {
 
 	/**
 	 * Puts data into the output stream.
-	 * 
+	 *
 	 * @param data
 	 */
 	private void put( String data ) {
@@ -91,27 +93,27 @@ public class PrintVisitor implements INodeVisitor {
 	@Override
 	public void visit( BinaryExpression node ) {
 		put( node.getClass().getSimpleName().toUpperCase() );
-		
+
 		level++;
-		
+
 		indent();
 		node.getLhs().accept( this );
-		
+
 		indent();
 		node.getRhs().accept( this );
-		
+
 		level--;
 	}
 
 	@Override
 	public void visit( UnaryExpression node ) {
 		put( node.getClass().getSimpleName().toUpperCase() );
-		
+
 		level++;
-		
+
 		indent();
 		node.getExpression().accept( this );
-		
+
 		level--;
 	}
 
@@ -130,40 +132,28 @@ public class PrintVisitor implements INodeVisitor {
 		put( node.getName() );
 		put( ")" );
 	}
-	
+
 	@Override
 	public void visit( If node ) {
 		indent();
 		put( "IF" );
-		
+
 		level++;
-		
+
 		indent();
 		node.getCondition().accept( this );
-		
+
 		level--;
 
 		if ( node.getIfThen() != null ) {
 			indent();
 			put( "THEN" );
-		
+
 			level++;
-			
+
 			indent();
 			node.getIfThen().accept( this );
-			
-			level--;
-		}
-		
-		if ( node.getIfElse() != null ) {
-			indent();
-			put( "ELSE" );
-			
-			level++;
-			
-			indent();
-			node.getIfElse().accept( this );
-			
+
 			level--;
 		}
 	}
@@ -173,13 +163,13 @@ public class PrintVisitor implements INodeVisitor {
 		put( node.getClass().getSimpleName().toUpperCase() );
 
 		level++;
-		
+
 		indent();
 		node.getIdent().accept( this );
-		
+
 		indent();
 		node.getType().accept( this );
-		
+
 		level--;
 	}
 
@@ -187,19 +177,50 @@ public class PrintVisitor implements INodeVisitor {
 	public void visit( Type node ) {
 		put( node.getClass().getSimpleName().toUpperCase() );
 	}
-	
+
 	@Override
 	public void visit( Assignment node ) {
 		put( node.getClass().getSimpleName().toUpperCase() );
-		
+
 		level++;
-		
+
 		indent();
 		node.getLhs().accept( this );
-		
+
 		indent();
 		node.getRhs().accept( this );
-		
+
+		level--;
+	}
+
+	@Override
+	public void visit( FormDeclaration node ) {
+		put( node.getClass().getSimpleName().toUpperCase() );
+
+		level++;
+
+		indent();
+		node.getIdent().accept( this );
+
+		indent();
+		node.getStatements().accept( this );
+
+		level--;
+	}
+
+	@Override
+	public void visit( QuestionDeclaration node ) {
+		indent();
+		put( node.getClass().getSimpleName().toUpperCase() );
+
+		level++;
+
+		indent();
+		node.getName().accept( this );
+
+		indent();
+		node.getDeclaration().accept( this );
+
 		level--;
 	}
 }
