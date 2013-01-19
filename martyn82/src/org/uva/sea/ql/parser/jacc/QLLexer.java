@@ -31,6 +31,7 @@ public class QLLexer implements QLTokens {
 		KEYWORDS.put( "integer", INTEGER );
 		KEYWORDS.put( "string", STRING );
 		KEYWORDS.put( "money", MONEY );
+		KEYWORDS.put( "form", FORM );
 	}
 
 	/**

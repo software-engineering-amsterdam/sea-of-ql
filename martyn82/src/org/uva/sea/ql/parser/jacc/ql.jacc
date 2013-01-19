@@ -1,22 +1,22 @@
 %package org.uva.sea.ql.parser.jacc
 %class QLParser
 %interface QLTokens
-%semantic org.uva.sea.ql.ast.Node 
+%semantic org.uva.sea.ql.ast.INode 
 %start start
 
-%token <org.uva.sea.ql.ast.expression.value.Bool> BOOL
-%token <org.uva.sea.ql.ast.expression.value.Money> MON
-%token <org.uva.sea.ql.ast.expression.value.Int> INT
-%token <org.uva.sea.ql.ast.expression.value.Str> STR
 %token <org.uva.sea.ql.ast.type.Bool> BOOLEAN
 %token <org.uva.sea.ql.ast.type.Money> MONEY
 %token <org.uva.sea.ql.ast.type.Int> INTEGER
 %token <org.uva.sea.ql.ast.type.Str> STRING
-%token IDENT
+%token <org.uva.sea.ql.ast.expression.value.Bool> BOOL
+%token <org.uva.sea.ql.ast.expression.value.Money> MON
+%token <org.uva.sea.ql.ast.expression.value.Int> INT
+%token <org.uva.sea.ql.ast.expression.value.Str> STR
+%token <org.uva.sea.ql.ast.expression.Ident> IDENT
 %token '^' '*' '/' '+' '-' OR AND NEQ EQ '<' LEQ '>' GEQ '!'
 %token '(' ')' '{' '}'
 %token ';' ':'
-%token IF ELSE
+%token IF ELSE FORM
 
 %left OR
 %left AND
@@ -26,10 +26,13 @@
 %left '^'
 %left UMIN UPLUS UNOT
 
-%type <Node> node
+%type <Assignment> assignment
 %type <Expression> expression
+%type <FormDeclaration> form
 %type <Statement> statement
-%type <Statements> statements
+%type <Statements> formbody ifbody statements
+%type <Type> type
+%type <VarDeclaration> vardeclaration
 
 %{
 import org.uva.sea.ql.ast.*;
@@ -43,34 +46,49 @@ import org.uva.sea.ql.ast.type.Type;
  start          : node  { result = $1; }
                 ;
 
- node           : expression
+ node           : form
+                | expression
                 | statement
                 ;
 
- statements     : statement statements          { $$ = new Statements( $1, $2 ); }
-                | statement                     { $$ = new Statements( $1 ); }
+ form           : FORM IDENT '{' formbody '}'      { $$ = new FormDeclaration( $2, $4 ); }
                 ;
-                
- statement      : vardeclaration ';'
-                | assignment ';'
+
+ formbody       : statements
+                ;
+
+ statements     : statement statements             { $$ = new Statements( $1, $2 ); }
+                | statement                        { $$ = new Statements( $1 ); }
+                ;
+
+ statement      : question
                 | blockstatement
                 ;
-                
+
+ question       : STR vardeclaration               { $$ = new QuestionDeclaration( $1, $2 ); }
+                | STR assignment                   { $$ = new QuestionDeclaration( $1, $2 ); }
+                ;
+
  blockstatement : ifblock
                 ;
-                
- ifblock        : IF '(' expression ')' '{' statements '}' ELSE '{' statements '}'  { $$ = new If( $3, $6, $10 ); }
-                | IF '(' expression ')' '{' statements '}' ELSE '{' '}'             { $$ = new If( $3, $6 ); }
-                | IF '(' expression ')' '{' statements '}'                          { $$ = new If( $3, $6 ); }
-                | IF '(' expression ')' '{' '}'                                     { $$ = new If( $3 ); }
+
+ ifblock        : IF '(' expression ')' '{' ifbody '}' ELSE '{' ifbody '}'      { $$ = new If( $3, $6, $10 ); }
+                | IF '(' expression ')' '{' '}' ELSE '{' ifbody '}'             { $$ = new If( $3, null, $9 ); }
+                | IF '(' expression ')' '{' ifbody '}' ELSE '{' '}'             { $$ = new If( $3, $6 ); }
+                | IF '(' expression ')' '{' '}' ELSE '{' '}'                    { $$ = new If( $3 ); }
+                | IF '(' expression ')' '{' ifbody '}'                          { $$ = new If( $3, $6 ); }
+                | IF '(' expression ')' '{' '}'                                 { $$ = new If( $3 ); }
                 ;
-                
- vardeclaration : IDENT ':' type                   { $$ = new VarDeclaration( (Ident) $1, (Type) $3 ); }
+
+ ifbody         : formbody
                 ;
-                
- assignment     : IDENT '=' expression             { $$ = new Assignment( (Ident) $1, (Expression) $3 ); }
+
+ vardeclaration : IDENT ':' type                   { $$ = new VarDeclaration( $1, $3 ); }
                 ;
-                
+
+ assignment     : IDENT '=' expression             { $$ = new Assignment( $1, $3 ); }
+                ;
+
  comparison     : expression EQ expression         { $$ = new Eq( $1, $3 ); }
                 | expression NEQ expression        { $$ = new NEq( $1, $3 ); }
                 | expression '>' expression        { $$ = new GT( $1, $3 ); }
@@ -78,14 +96,14 @@ import org.uva.sea.ql.ast.type.Type;
                 | expression GEQ expression        { $$ = new GEq( $1, $3 ); }
                 | expression LEQ expression        { $$ = new LEq( $1, $3 ); }
                 ;
-                
+
  arithmetic     : expression '*' expression        { $$ = new Mul( $1, $3 ); }
                 | expression '/' expression        { $$ = new Div( $1, $3 ); }
                 | expression '+' expression        { $$ = new Add( $1, $3 ); }
                 | expression '-' expression        { $$ = new Sub( $1, $3 ); }
                 | expression '^' expression        { $$ = new Pow( $1, $3 ); }
                 ;
-                
+
  logical        : '!' expression %prec UNOT        { $$ = new Not( $2); }
                 | expression AND expression        { $$ = new And( $1, $3 ); }
                 | expression OR expression         { $$ = new Or( $1, $3 ); }
@@ -122,14 +140,14 @@ import org.uva.sea.ql.ast.type.Type;
     /**
      * Holds the parsing result (AST)
      */
-    private Node result;
+    private INode result;
     
     /**
      * Retrieves the generated AST.
      *
      * @return The AST.
      */
-    public Node getResult() {
+    public INode getResult() {
         return result;
     }
     
