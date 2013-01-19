@@ -18,4 +18,5 @@ Note: don't be seduced by the provided example code and start copy-pasting gramm
 TODO
 - Extend language and AST with Form, Question, etc.
 - Typechecker visitor
+- Unit tests for individual classes
 - Interpreter visitor
