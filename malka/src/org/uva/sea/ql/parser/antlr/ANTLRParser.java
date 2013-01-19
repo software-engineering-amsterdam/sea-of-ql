@@ -8,15 +8,21 @@ import org.antlr.runtime.RecognitionException;
 import org.uva.sea.ql.ast.Expr;
 import org.uva.sea.ql.parser.test.IParse;
 import org.uva.sea.ql.parser.test.ParseError;
+import java.util.List;
 
 public class ANTLRParser implements IParse {
-
-	@Override
-	public Expr parseExpr(String src) throws ParseError {
+	
+	private CommonTokenStream getTokens(String src)
+	{
 		ANTLRStringStream stream = new ANTLRStringStream(src);
 		CommonTokenStream tokens = new CommonTokenStream();
 		tokens.setTokenSource(new QLLexer(stream));
-		QLParser parser = new QLParser(tokens);
+		return tokens;
+	}
+	
+	@Override
+	public Expr parseExpr(String src) throws ParseError {
+		QLParser parser = new QLParser(getTokens(src));
 		try {
 			return parser.orExpr();
 		} catch (RecognitionException e) {
@@ -26,10 +32,7 @@ public class ANTLRParser implements IParse {
 	
 	@Override
 	public FormElement parseFormElement(String src) throws ParseError {
-		ANTLRStringStream stream = new ANTLRStringStream(src);
-		CommonTokenStream tokens = new CommonTokenStream();
-		tokens.setTokenSource(new QLLexer(stream));
-		QLParser parser = new QLParser(tokens);
+		QLParser parser = new QLParser(getTokens(src));
 		try {
 			return parser.formElement();
 		} catch (RecognitionException e) {
@@ -37,4 +40,25 @@ public class ANTLRParser implements IParse {
 		}
 	}
 
+
+	@Override
+	public Form parseForm(String src) throws ParseError {
+		QLParser parser = new QLParser(getTokens(src));
+		try {
+			return parser.form();
+		} catch (RecognitionException e) {
+			throw new ParseError(e.getMessage());
+		}
+	}
+	
+	@Override
+	public List<FormElement> parseFormElements(String src) throws ParseError {
+		QLParser parser = new QLParser(getTokens(src));
+		try {
+			return parser.formElementList();
+		} catch (RecognitionException e) {
+			throw new ParseError(e.getMessage());
+		}
+	}
+	
 }

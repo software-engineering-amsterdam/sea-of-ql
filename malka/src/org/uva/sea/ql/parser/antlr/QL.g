@@ -17,17 +17,16 @@ package org.uva.sea.ql.parser.antlr;
 }
 
 form returns [Form result]
-	: 'form' IDENT '{' formElementList? '}'
+	: FORM IDENT '{' (elements=formElementList)? '}' { $result = new Form(elements); }
 	;
 
 formElementList returns [List<FormElement> result]
-	: (element=formElement {$result.add($element.result);})*
+	: {$result = new ArrayList<FormElement>();} (element=formElement {$result.add($element.result);})*
 	;
 
 formElement returns [FormElement result]
 	: IDENT ':' STRING TYPE { $result = new Question(new Ident($IDENT.text), new QLString($STRING.text), new Type($TYPE.text)); }
-	| IDENT ':' STRING TYPE '(' x=addExpr ')' { $result = new FormText(new Ident($IDENT.text), new QLString($STRING.text), new Type($TYPE.text), $x.result); }
-	| IF '(' orExpr ')' '{' formElementList '}' (ELSE '{' formElementList '}')?
+	| IDENT ':' STRING TYPE '(' x=addExpr ')' { $result = new FormText(new Ident($IDENT.text), new QLString($STRING.text), new Type($TYPE.text), $x.result); }	
 	;
 
 primary returns [Expr result]
@@ -43,7 +42,7 @@ unExpr returns [Expr result]
     |  '-' x=unExpr { $result = new Neg($x.result); }
     |  '!' x=unExpr { $result = new Not($x.result); }
     |  x=primary    { $result = $x.result; }
-    ;    
+    ;
     
 mulExpr returns [Expr result]
     :   lhs=unExpr { $result=$lhs.result; } ( op=( '*' | '/' ) rhs=unExpr 
@@ -124,6 +123,10 @@ IF
 
 ELSE
 	: 'else'
+	;
+
+FORM
+	: 'form'
 	;
 
 BOOL

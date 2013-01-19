@@ -2,6 +2,9 @@ package org.uva.sea.ql.parser.test;
 
 import static org.junit.Assert.assertEquals;
 
+import java.util.ArrayList;
+import java.util.List;
+
 //import java.util.Arrays;
 //import java.util.List;
 
@@ -9,6 +12,8 @@ import org.junit.Test;
 //import org.junit.runner.RunWith;
 //import org.junit.runners.Parameterized;
 //import org.junit.runners.Parameterized.Parameters;
+import org.uva.sea.ql.ast.form.Form;
+import org.uva.sea.ql.ast.form.FormElement;
 import org.uva.sea.ql.ast.form.Question;
 import org.uva.sea.ql.ast.form.FormText;
 import org.uva.sea.ql.ast.operations.Add;
@@ -75,7 +80,7 @@ public class TestExpressions {
 		assertEquals(parser.parseExpr("TRUE").getClass(), Bool.class);
 	}
 
-	@Test	
+	@Test
 	public void testStrings() throws ParseError {
 		assertEquals(parser.parseExpr("\"'a'\"").getClass(), QLString.class);
 		assertEquals(parser.parseExpr("\"TRUE\"").getClass(), QLString.class);
@@ -83,10 +88,21 @@ public class TestExpressions {
 		assertEquals(parser.parseExpr("\"Did you sell a house in 2010?\"").getClass(), QLString.class);
 	}
 
-	@Test	
+	@Test
 	public void testFormElements() throws ParseError {
 		assertEquals(parser.parseFormElement("hasSoldHouse: \"Did you sell a house in 2010?\" boolean").getClass(), Question.class);
+		assertEquals(parser.parseFormElement("hasBoughtHouse: \"Did you by a house in 2010?\" boolean").getClass(), Question.class);
+		assertEquals(parser.parseFormElement("hasMaintLoan: \"Did you enter a loan for maintenance/reconstruction?\" boolean").getClass(), Question.class);
 		assertEquals(parser.parseFormElement("hasSoldHouse: \"Did you sell a house in 2010?\" boolean(blabla-haishgdiasd)").getClass(), FormText.class);
+		
+		assertEquals(parser.parseFormElements("hasSoldHouse: \"Did you sell a house in 2010?\" boolean \n hasBoughtHouse: \"Did you by a house in 2010?\" boolean \n hasMaintLoan: \"Did you enter a loan for maintenance/reconstruction?\" boolean").getClass(), ArrayList.class);
+		List<FormElement> elements = parser.parseFormElements("hasSoldHouse: \"Did you sell a house in 2010?\" boolean \n hasBoughtHouse: \"Did you by a house in 2010?\" boolean \n hasMaintLoan: \"Did you enter a loan for maintenance/reconstruction?\" boolean");
+		assertEquals(elements.size(), 3);
+	}
+	
+	@Test
+	public void testForm() throws ParseError {
+		assertEquals(parser.parseForm("form Box1HouseOwning { \n hasSoldHouse: \"Did you sell a house in 2010?\" boolean \n hasBoughtHouse: \"Did you by a house in 2010?\" boolean \n hasMaintLoan: \"Did you enter a loan for maintenance/reconstruction?\" boolean \n}").getClass(), Form.class);
 	}
 	
 	@Test

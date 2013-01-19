@@ -14,4 +14,9 @@ public class FormElement {
 		this.label = label;
 		this.type  = type;
 	}
+	
+	public Ident getId()
+	{
+		return this.id;
+	}
 }

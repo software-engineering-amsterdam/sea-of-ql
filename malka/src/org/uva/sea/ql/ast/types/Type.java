@@ -3,8 +3,6 @@ package org.uva.sea.ql.ast.types;
 import java.util.Arrays;
 import java.util.List;
 
-import org.uva.sea.ql.ast.*;
-import org.uva.sea.ql.ast.form.*;
 
 public class Type {
 	

@@ -1,4 +1,4 @@
-// $ANTLR !Unknown version! QL.g 2013-01-19 17:14:56
+// $ANTLR !Unknown version! QL.g 2013-01-19 20:02:06
 
 package org.uva.sea.ql.parser.antlr;
 
@@ -19,25 +19,25 @@ public class QLLexer extends Lexer {
     public static final int T__22=22;
     public static final int T__21=21;
     public static final int T__20=20;
-    public static final int ELSE=8;
-    public static final int BOOL=10;
-    public static final int INT=9;
+    public static final int ELSE=13;
+    public static final int BOOL=9;
+    public static final int INT=8;
     public static final int EOF=-1;
-    public static final int IF=7;
-    public static final int TYPE=6;
+    public static final int IF=12;
+    public static final int TYPE=7;
     public static final int T__19=19;
     public static final int T__30=30;
     public static final int T__31=31;
     public static final int T__16=16;
-    public static final int WS=11;
+    public static final int WS=10;
     public static final int T__15=15;
     public static final int T__18=18;
     public static final int T__17=17;
     public static final int T__14=14;
-    public static final int T__13=13;
-    public static final int IDENT=4;
-    public static final int COMMENT=12;
-    public static final int STRING=5;
+    public static final int IDENT=5;
+    public static final int FORM=4;
+    public static final int COMMENT=11;
+    public static final int STRING=6;
 
     // delegates
     // delegators
@@ -52,34 +52,13 @@ public class QLLexer extends Lexer {
     }
     public String getGrammarFileName() { return "QL.g"; }
 
-    // $ANTLR start "T__13"
-    public final void mT__13() throws RecognitionException {
-        try {
-            int _type = T__13;
-            int _channel = DEFAULT_TOKEN_CHANNEL;
-            // QL.g:7:7: ( 'form' )
-            // QL.g:7:9: 'form'
-            {
-            match("form"); 
-
-
-            }
-
-            state.type = _type;
-            state.channel = _channel;
-        }
-        finally {
-        }
-    }
-    // $ANTLR end "T__13"
-
     // $ANTLR start "T__14"
     public final void mT__14() throws RecognitionException {
         try {
             int _type = T__14;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // QL.g:8:7: ( '{' )
-            // QL.g:8:9: '{'
+            // QL.g:7:7: ( '{' )
+            // QL.g:7:9: '{'
             {
             match('{'); 
 
@@ -98,8 +77,8 @@ public class QLLexer extends Lexer {
         try {
             int _type = T__15;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // QL.g:9:7: ( '}' )
-            // QL.g:9:9: '}'
+            // QL.g:8:7: ( '}' )
+            // QL.g:8:9: '}'
             {
             match('}'); 
 
@@ -118,8 +97,8 @@ public class QLLexer extends Lexer {
         try {
             int _type = T__16;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // QL.g:10:7: ( ':' )
-            // QL.g:10:9: ':'
+            // QL.g:9:7: ( ':' )
+            // QL.g:9:9: ':'
             {
             match(':'); 
 
@@ -138,8 +117,8 @@ public class QLLexer extends Lexer {
         try {
             int _type = T__17;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // QL.g:11:7: ( '(' )
-            // QL.g:11:9: '('
+            // QL.g:10:7: ( '(' )
+            // QL.g:10:9: '('
             {
             match('('); 
 
@@ -158,8 +137,8 @@ public class QLLexer extends Lexer {
         try {
             int _type = T__18;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // QL.g:12:7: ( ')' )
-            // QL.g:12:9: ')'
+            // QL.g:11:7: ( ')' )
+            // QL.g:11:9: ')'
             {
             match(')'); 
 
@@ -178,8 +157,8 @@ public class QLLexer extends Lexer {
         try {
             int _type = T__19;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // QL.g:13:7: ( '+' )
-            // QL.g:13:9: '+'
+            // QL.g:12:7: ( '+' )
+            // QL.g:12:9: '+'
             {
             match('+'); 
 
@@ -198,8 +177,8 @@ public class QLLexer extends Lexer {
         try {
             int _type = T__20;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // QL.g:14:7: ( '-' )
-            // QL.g:14:9: '-'
+            // QL.g:13:7: ( '-' )
+            // QL.g:13:9: '-'
             {
             match('-'); 
 
@@ -218,8 +197,8 @@ public class QLLexer extends Lexer {
         try {
             int _type = T__21;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // QL.g:15:7: ( '!' )
-            // QL.g:15:9: '!'
+            // QL.g:14:7: ( '!' )
+            // QL.g:14:9: '!'
             {
             match('!'); 
 
@@ -238,8 +217,8 @@ public class QLLexer extends Lexer {
         try {
             int _type = T__22;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // QL.g:16:7: ( '*' )
-            // QL.g:16:9: '*'
+            // QL.g:15:7: ( '*' )
+            // QL.g:15:9: '*'
             {
             match('*'); 
 
@@ -258,8 +237,8 @@ public class QLLexer extends Lexer {
         try {
             int _type = T__23;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // QL.g:17:7: ( '/' )
-            // QL.g:17:9: '/'
+            // QL.g:16:7: ( '/' )
+            // QL.g:16:9: '/'
             {
             match('/'); 
 
@@ -278,8 +257,8 @@ public class QLLexer extends Lexer {
         try {
             int _type = T__24;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // QL.g:18:7: ( '<' )
-            // QL.g:18:9: '<'
+            // QL.g:17:7: ( '<' )
+            // QL.g:17:9: '<'
             {
             match('<'); 
 
@@ -298,8 +277,8 @@ public class QLLexer extends Lexer {
         try {
             int _type = T__25;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // QL.g:19:7: ( '<=' )
-            // QL.g:19:9: '<='
+            // QL.g:18:7: ( '<=' )
+            // QL.g:18:9: '<='
             {
             match("<="); 
 
@@ -319,8 +298,8 @@ public class QLLexer extends Lexer {
         try {
             int _type = T__26;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // QL.g:20:7: ( '>' )
-            // QL.g:20:9: '>'
+            // QL.g:19:7: ( '>' )
+            // QL.g:19:9: '>'
             {
             match('>'); 
 
@@ -339,8 +318,8 @@ public class QLLexer extends Lexer {
         try {
             int _type = T__27;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // QL.g:21:7: ( '>=' )
-            // QL.g:21:9: '>='
+            // QL.g:20:7: ( '>=' )
+            // QL.g:20:9: '>='
             {
             match(">="); 
 
@@ -360,8 +339,8 @@ public class QLLexer extends Lexer {
         try {
             int _type = T__28;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // QL.g:22:7: ( '==' )
-            // QL.g:22:9: '=='
+            // QL.g:21:7: ( '==' )
+            // QL.g:21:9: '=='
             {
             match("=="); 
 
@@ -381,8 +360,8 @@ public class QLLexer extends Lexer {
         try {
             int _type = T__29;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // QL.g:23:7: ( '!=' )
-            // QL.g:23:9: '!='
+            // QL.g:22:7: ( '!=' )
+            // QL.g:22:9: '!='
             {
             match("!="); 
 
@@ -402,8 +381,8 @@ public class QLLexer extends Lexer {
         try {
             int _type = T__30;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // QL.g:24:7: ( '&&' )
-            // QL.g:24:9: '&&'
+            // QL.g:23:7: ( '&&' )
+            // QL.g:23:9: '&&'
             {
             match("&&"); 
 
@@ -423,8 +402,8 @@ public class QLLexer extends Lexer {
         try {
             int _type = T__31;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // QL.g:25:7: ( '||' )
-            // QL.g:25:9: '||'
+            // QL.g:24:7: ( '||' )
+            // QL.g:24:9: '||'
             {
             match("||"); 
 
@@ -444,8 +423,8 @@ public class QLLexer extends Lexer {
         try {
             int _type = WS;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // QL.g:109:5: ( ( ' ' | '\\t' | '\\n' | '\\r' ) )
-            // QL.g:109:7: ( ' ' | '\\t' | '\\n' | '\\r' )
+            // QL.g:108:5: ( ( ' ' | '\\t' | '\\n' | '\\r' ) )
+            // QL.g:108:7: ( ' ' | '\\t' | '\\n' | '\\r' )
             {
             if ( (input.LA(1)>='\t' && input.LA(1)<='\n')||input.LA(1)=='\r'||input.LA(1)==' ' ) {
                 input.consume();
@@ -473,12 +452,12 @@ public class QLLexer extends Lexer {
         try {
             int _type = COMMENT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // QL.g:113:5: ( '/*' ( options {greedy=false; } : . )* '*/' )
-            // QL.g:113:7: '/*' ( options {greedy=false; } : . )* '*/'
+            // QL.g:112:5: ( '/*' ( options {greedy=false; } : . )* '*/' )
+            // QL.g:112:7: '/*' ( options {greedy=false; } : . )* '*/'
             {
             match("/*"); 
 
-            // QL.g:113:12: ( options {greedy=false; } : . )*
+            // QL.g:112:12: ( options {greedy=false; } : . )*
             loop1:
             do {
                 int alt1=2;
@@ -503,7 +482,7 @@ public class QLLexer extends Lexer {
 
                 switch (alt1) {
             	case 1 :
-            	    // QL.g:113:38: .
+            	    // QL.g:112:38: .
             	    {
             	    matchAny(); 
 
@@ -534,7 +513,7 @@ public class QLLexer extends Lexer {
         try {
             int _type = STRING;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // QL.g:117:2: ( '\"' ( options {greedy=false; } : . )* '\"' | '\\'' ( options {greedy=false; } : . )* '\\'' )
+            // QL.g:116:2: ( '\"' ( options {greedy=false; } : . )* '\"' | '\\'' ( options {greedy=false; } : . )* '\\'' )
             int alt4=2;
             int LA4_0 = input.LA(1);
 
@@ -552,10 +531,10 @@ public class QLLexer extends Lexer {
             }
             switch (alt4) {
                 case 1 :
-                    // QL.g:117:4: '\"' ( options {greedy=false; } : . )* '\"'
+                    // QL.g:116:4: '\"' ( options {greedy=false; } : . )* '\"'
                     {
                     match('\"'); 
-                    // QL.g:117:8: ( options {greedy=false; } : . )*
+                    // QL.g:116:8: ( options {greedy=false; } : . )*
                     loop2:
                     do {
                         int alt2=2;
@@ -571,7 +550,7 @@ public class QLLexer extends Lexer {
 
                         switch (alt2) {
                     	case 1 :
-                    	    // QL.g:117:34: .
+                    	    // QL.g:116:34: .
                     	    {
                     	    matchAny(); 
 
@@ -588,10 +567,10 @@ public class QLLexer extends Lexer {
                     }
                     break;
                 case 2 :
-                    // QL.g:118:4: '\\'' ( options {greedy=false; } : . )* '\\''
+                    // QL.g:117:4: '\\'' ( options {greedy=false; } : . )* '\\''
                     {
                     match('\''); 
-                    // QL.g:118:9: ( options {greedy=false; } : . )*
+                    // QL.g:117:9: ( options {greedy=false; } : . )*
                     loop3:
                     do {
                         int alt3=2;
@@ -607,7 +586,7 @@ public class QLLexer extends Lexer {
 
                         switch (alt3) {
                     	case 1 :
-                    	    // QL.g:118:35: .
+                    	    // QL.g:117:35: .
                     	    {
                     	    matchAny(); 
 
@@ -638,8 +617,8 @@ public class QLLexer extends Lexer {
         try {
             int _type = IF;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // QL.g:122:2: ( 'if' )
-            // QL.g:122:4: 'if'
+            // QL.g:121:2: ( 'if' )
+            // QL.g:121:4: 'if'
             {
             match("if"); 
 
@@ -659,8 +638,8 @@ public class QLLexer extends Lexer {
         try {
             int _type = ELSE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // QL.g:126:2: ( 'else' )
-            // QL.g:126:4: 'else'
+            // QL.g:125:2: ( 'else' )
+            // QL.g:125:4: 'else'
             {
             match("else"); 
 
@@ -675,12 +654,33 @@ public class QLLexer extends Lexer {
     }
     // $ANTLR end "ELSE"
 
+    // $ANTLR start "FORM"
+    public final void mFORM() throws RecognitionException {
+        try {
+            int _type = FORM;
+            int _channel = DEFAULT_TOKEN_CHANNEL;
+            // QL.g:129:2: ( 'form' )
+            // QL.g:129:4: 'form'
+            {
+            match("form"); 
+
+
+            }
+
+            state.type = _type;
+            state.channel = _channel;
+        }
+        finally {
+        }
+    }
+    // $ANTLR end "FORM"
+
     // $ANTLR start "BOOL"
     public final void mBOOL() throws RecognitionException {
         try {
             int _type = BOOL;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // QL.g:130:2: ( 'true' | 'false' | 'TRUE' | 'FALSE' )
+            // QL.g:133:2: ( 'true' | 'false' | 'TRUE' | 'FALSE' )
             int alt5=4;
             switch ( input.LA(1) ) {
             case 't':
@@ -712,7 +712,7 @@ public class QLLexer extends Lexer {
 
             switch (alt5) {
                 case 1 :
-                    // QL.g:130:4: 'true'
+                    // QL.g:133:4: 'true'
                     {
                     match("true"); 
 
@@ -720,7 +720,7 @@ public class QLLexer extends Lexer {
                     }
                     break;
                 case 2 :
-                    // QL.g:131:4: 'false'
+                    // QL.g:134:4: 'false'
                     {
                     match("false"); 
 
@@ -728,7 +728,7 @@ public class QLLexer extends Lexer {
                     }
                     break;
                 case 3 :
-                    // QL.g:132:4: 'TRUE'
+                    // QL.g:135:4: 'TRUE'
                     {
                     match("TRUE"); 
 
@@ -736,7 +736,7 @@ public class QLLexer extends Lexer {
                     }
                     break;
                 case 4 :
-                    // QL.g:133:4: 'FALSE'
+                    // QL.g:136:4: 'FALSE'
                     {
                     match("FALSE"); 
 
@@ -758,7 +758,7 @@ public class QLLexer extends Lexer {
         try {
             int _type = TYPE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // QL.g:137:2: ( 'boolean' | 'integer' | 'string' )
+            // QL.g:140:2: ( 'boolean' | 'integer' | 'string' )
             int alt6=3;
             switch ( input.LA(1) ) {
             case 'b':
@@ -785,7 +785,7 @@ public class QLLexer extends Lexer {
 
             switch (alt6) {
                 case 1 :
-                    // QL.g:137:4: 'boolean'
+                    // QL.g:140:4: 'boolean'
                     {
                     match("boolean"); 
 
@@ -793,7 +793,7 @@ public class QLLexer extends Lexer {
                     }
                     break;
                 case 2 :
-                    // QL.g:138:4: 'integer'
+                    // QL.g:141:4: 'integer'
                     {
                     match("integer"); 
 
@@ -801,7 +801,7 @@ public class QLLexer extends Lexer {
                     }
                     break;
                 case 3 :
-                    // QL.g:139:4: 'string'
+                    // QL.g:142:4: 'string'
                     {
                     match("string"); 
 
@@ -823,8 +823,8 @@ public class QLLexer extends Lexer {
         try {
             int _type = IDENT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // QL.g:143:2: ( ( 'a' .. 'z' | 'A' .. 'Z' ) ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )* )
-            // QL.g:143:4: ( 'a' .. 'z' | 'A' .. 'Z' ) ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )*
+            // QL.g:146:2: ( ( 'a' .. 'z' | 'A' .. 'Z' ) ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )* )
+            // QL.g:146:4: ( 'a' .. 'z' | 'A' .. 'Z' ) ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )*
             {
             if ( (input.LA(1)>='A' && input.LA(1)<='Z')||(input.LA(1)>='a' && input.LA(1)<='z') ) {
                 input.consume();
@@ -835,7 +835,7 @@ public class QLLexer extends Lexer {
                 recover(mse);
                 throw mse;}
 
-            // QL.g:143:23: ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )*
+            // QL.g:146:23: ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )*
             loop7:
             do {
                 int alt7=2;
@@ -884,10 +884,10 @@ public class QLLexer extends Lexer {
         try {
             int _type = INT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // QL.g:146:2: ( ( '0' .. '9' )+ )
-            // QL.g:146:4: ( '0' .. '9' )+
+            // QL.g:149:2: ( ( '0' .. '9' )+ )
+            // QL.g:149:4: ( '0' .. '9' )+
             {
-            // QL.g:146:4: ( '0' .. '9' )+
+            // QL.g:149:4: ( '0' .. '9' )+
             int cnt8=0;
             loop8:
             do {
@@ -901,7 +901,7 @@ public class QLLexer extends Lexer {
 
                 switch (alt8) {
             	case 1 :
-            	    // QL.g:146:5: '0' .. '9'
+            	    // QL.g:149:5: '0' .. '9'
             	    {
             	    matchRange('0','9'); 
 
@@ -929,201 +929,201 @@ public class QLLexer extends Lexer {
     // $ANTLR end "INT"
 
     public void mTokens() throws RecognitionException {
-        // QL.g:1:8: ( T__13 | T__14 | T__15 | T__16 | T__17 | T__18 | T__19 | T__20 | T__21 | T__22 | T__23 | T__24 | T__25 | T__26 | T__27 | T__28 | T__29 | T__30 | T__31 | WS | COMMENT | STRING | IF | ELSE | BOOL | TYPE | IDENT | INT )
+        // QL.g:1:8: ( T__14 | T__15 | T__16 | T__17 | T__18 | T__19 | T__20 | T__21 | T__22 | T__23 | T__24 | T__25 | T__26 | T__27 | T__28 | T__29 | T__30 | T__31 | WS | COMMENT | STRING | IF | ELSE | FORM | BOOL | TYPE | IDENT | INT )
         int alt9=28;
         alt9 = dfa9.predict(input);
         switch (alt9) {
             case 1 :
-                // QL.g:1:10: T__13
-                {
-                mT__13(); 
-
-                }
-                break;
-            case 2 :
-                // QL.g:1:16: T__14
+                // QL.g:1:10: T__14
                 {
                 mT__14(); 
 
                 }
                 break;
-            case 3 :
-                // QL.g:1:22: T__15
+            case 2 :
+                // QL.g:1:16: T__15
                 {
                 mT__15(); 
 
                 }
                 break;
-            case 4 :
-                // QL.g:1:28: T__16
+            case 3 :
+                // QL.g:1:22: T__16
                 {
                 mT__16(); 
 
                 }
                 break;
-            case 5 :
-                // QL.g:1:34: T__17
+            case 4 :
+                // QL.g:1:28: T__17
                 {
                 mT__17(); 
 
                 }
                 break;
-            case 6 :
-                // QL.g:1:40: T__18
+            case 5 :
+                // QL.g:1:34: T__18
                 {
                 mT__18(); 
 
                 }
                 break;
-            case 7 :
-                // QL.g:1:46: T__19
+            case 6 :
+                // QL.g:1:40: T__19
                 {
                 mT__19(); 
 
                 }
                 break;
-            case 8 :
-                // QL.g:1:52: T__20
+            case 7 :
+                // QL.g:1:46: T__20
                 {
                 mT__20(); 
 
                 }
                 break;
-            case 9 :
-                // QL.g:1:58: T__21
+            case 8 :
+                // QL.g:1:52: T__21
                 {
                 mT__21(); 
 
                 }
                 break;
-            case 10 :
-                // QL.g:1:64: T__22
+            case 9 :
+                // QL.g:1:58: T__22
                 {
                 mT__22(); 
 
                 }
                 break;
-            case 11 :
-                // QL.g:1:70: T__23
+            case 10 :
+                // QL.g:1:64: T__23
                 {
                 mT__23(); 
 
                 }
                 break;
-            case 12 :
-                // QL.g:1:76: T__24
+            case 11 :
+                // QL.g:1:70: T__24
                 {
                 mT__24(); 
 
                 }
                 break;
-            case 13 :
-                // QL.g:1:82: T__25
+            case 12 :
+                // QL.g:1:76: T__25
                 {
                 mT__25(); 
 
                 }
                 break;
-            case 14 :
-                // QL.g:1:88: T__26
+            case 13 :
+                // QL.g:1:82: T__26
                 {
                 mT__26(); 
 
                 }
                 break;
-            case 15 :
-                // QL.g:1:94: T__27
+            case 14 :
+                // QL.g:1:88: T__27
                 {
                 mT__27(); 
 
                 }
                 break;
-            case 16 :
-                // QL.g:1:100: T__28
+            case 15 :
+                // QL.g:1:94: T__28
                 {
                 mT__28(); 
 
                 }
                 break;
-            case 17 :
-                // QL.g:1:106: T__29
+            case 16 :
+                // QL.g:1:100: T__29
                 {
                 mT__29(); 
 
                 }
                 break;
-            case 18 :
-                // QL.g:1:112: T__30
+            case 17 :
+                // QL.g:1:106: T__30
                 {
                 mT__30(); 
 
                 }
                 break;
-            case 19 :
-                // QL.g:1:118: T__31
+            case 18 :
+                // QL.g:1:112: T__31
                 {
                 mT__31(); 
 
                 }
                 break;
-            case 20 :
-                // QL.g:1:124: WS
+            case 19 :
+                // QL.g:1:118: WS
                 {
                 mWS(); 
 
                 }
                 break;
-            case 21 :
-                // QL.g:1:127: COMMENT
+            case 20 :
+                // QL.g:1:121: COMMENT
                 {
                 mCOMMENT(); 
 
                 }
                 break;
-            case 22 :
-                // QL.g:1:135: STRING
+            case 21 :
+                // QL.g:1:129: STRING
                 {
                 mSTRING(); 
 
                 }
                 break;
-            case 23 :
-                // QL.g:1:142: IF
+            case 22 :
+                // QL.g:1:136: IF
                 {
                 mIF(); 
 
                 }
                 break;
-            case 24 :
-                // QL.g:1:145: ELSE
+            case 23 :
+                // QL.g:1:139: ELSE
                 {
                 mELSE(); 
 
                 }
                 break;
+            case 24 :
+                // QL.g:1:144: FORM
+                {
+                mFORM(); 
+
+                }
+                break;
             case 25 :
-                // QL.g:1:150: BOOL
+                // QL.g:1:149: BOOL
                 {
                 mBOOL(); 
 
                 }
                 break;
             case 26 :
-                // QL.g:1:155: TYPE
+                // QL.g:1:154: TYPE
                 {
                 mTYPE(); 
 
                 }
                 break;
             case 27 :
-                // QL.g:1:160: IDENT
+                // QL.g:1:159: IDENT
                 {
                 mIDENT(); 
 
                 }
                 break;
             case 28 :
-                // QL.g:1:166: INT
+                // QL.g:1:165: INT
                 {
                 mINT(); 
 
@@ -1137,58 +1137,57 @@ public class QLLexer extends Lexer {
 
     protected DFA9 dfa9 = new DFA9(this);
     static final String DFA9_eotS =
-        "\1\uffff\1\32\7\uffff\1\37\1\uffff\1\41\1\43\1\45\5\uffff\7\32\2"+
-        "\uffff\2\32\10\uffff\1\60\11\32\1\uffff\7\32\1\101\2\32\1\104\2"+
-        "\105\3\32\1\uffff\1\105\1\32\2\uffff\1\105\4\32\3\116\1\uffff";
+        "\10\uffff\1\35\1\uffff\1\37\1\41\1\43\5\uffff\10\32\12\uffff\1\56"+
+        "\11\32\1\uffff\12\32\1\102\1\103\1\32\2\105\4\32\2\uffff\1\105\1"+
+        "\uffff\1\105\4\32\3\116\1\uffff";
     static final String DFA9_eofS =
         "\117\uffff";
     static final String DFA9_minS =
-        "\1\11\1\141\7\uffff\1\75\1\uffff\1\52\2\75\5\uffff\1\146\1\154\1"+
-        "\162\1\122\1\101\1\157\1\164\2\uffff\1\162\1\154\10\uffff\1\60\1"+
-        "\164\1\163\1\165\1\125\1\114\1\157\1\162\1\155\1\163\1\uffff\3\145"+
-        "\1\105\1\123\1\154\1\151\1\60\1\145\1\147\3\60\1\105\1\145\1\156"+
-        "\1\uffff\1\60\1\145\2\uffff\1\60\1\141\1\147\1\162\1\156\3\60\1"+
-        "\uffff";
+        "\1\11\7\uffff\1\75\1\uffff\1\52\2\75\5\uffff\1\146\1\154\1\141\1"+
+        "\162\1\122\1\101\1\157\1\164\12\uffff\1\60\1\164\1\163\1\162\1\154"+
+        "\1\165\1\125\1\114\1\157\1\162\1\uffff\2\145\1\155\1\163\1\145\1"+
+        "\105\1\123\1\154\1\151\1\147\2\60\1\145\2\60\1\105\1\145\1\156\1"+
+        "\145\2\uffff\1\60\1\uffff\1\60\1\141\1\147\1\162\1\156\3\60\1\uffff";
     static final String DFA9_maxS =
-        "\1\175\1\157\7\uffff\1\75\1\uffff\1\52\2\75\5\uffff\1\156\1\154"+
-        "\1\162\1\122\1\101\1\157\1\164\2\uffff\1\162\1\154\10\uffff\1\172"+
-        "\1\164\1\163\1\165\1\125\1\114\1\157\1\162\1\155\1\163\1\uffff\3"+
-        "\145\1\105\1\123\1\154\1\151\1\172\1\145\1\147\3\172\1\105\1\145"+
-        "\1\156\1\uffff\1\172\1\145\2\uffff\1\172\1\141\1\147\1\162\1\156"+
+        "\1\175\7\uffff\1\75\1\uffff\1\52\2\75\5\uffff\1\156\1\154\1\157"+
+        "\1\162\1\122\1\101\1\157\1\164\12\uffff\1\172\1\164\1\163\1\162"+
+        "\1\154\1\165\1\125\1\114\1\157\1\162\1\uffff\2\145\1\155\1\163\1"+
+        "\145\1\105\1\123\1\154\1\151\1\147\2\172\1\145\2\172\1\105\1\145"+
+        "\1\156\1\145\2\uffff\1\172\1\uffff\1\172\1\141\1\147\1\162\1\156"+
         "\3\172\1\uffff";
     static final String DFA9_acceptS =
-        "\2\uffff\1\2\1\3\1\4\1\5\1\6\1\7\1\10\1\uffff\1\12\3\uffff\1\20"+
-        "\1\22\1\23\1\24\1\26\7\uffff\1\33\1\34\2\uffff\1\21\1\11\1\25\1"+
-        "\13\1\15\1\14\1\17\1\16\12\uffff\1\27\20\uffff\1\1\2\uffff\1\30"+
-        "\1\31\10\uffff\1\32";
+        "\1\uffff\1\1\1\2\1\3\1\4\1\5\1\6\1\7\1\uffff\1\11\3\uffff\1\17\1"+
+        "\21\1\22\1\23\1\25\10\uffff\1\33\1\34\1\20\1\10\1\24\1\12\1\14\1"+
+        "\13\1\16\1\15\12\uffff\1\26\23\uffff\1\27\1\30\1\uffff\1\31\10\uffff"+
+        "\1\32";
     static final String DFA9_specialS =
         "\117\uffff}>";
     static final String[] DFA9_transitionS = {
-            "\2\21\2\uffff\1\21\22\uffff\1\21\1\11\1\22\3\uffff\1\17\1\22"+
-            "\1\5\1\6\1\12\1\7\1\uffff\1\10\1\uffff\1\13\12\33\1\4\1\uffff"+
-            "\1\14\1\16\1\15\2\uffff\5\32\1\27\15\32\1\26\6\32\6\uffff\1"+
-            "\32\1\30\2\32\1\24\1\1\2\32\1\23\11\32\1\31\1\25\6\32\1\2\1"+
-            "\20\1\3",
-            "\1\35\15\uffff\1\34",
+            "\2\20\2\uffff\1\20\22\uffff\1\20\1\10\1\21\3\uffff\1\16\1\21"+
+            "\1\4\1\5\1\11\1\6\1\uffff\1\7\1\uffff\1\12\12\33\1\3\1\uffff"+
+            "\1\13\1\15\1\14\2\uffff\5\32\1\27\15\32\1\26\6\32\6\uffff\1"+
+            "\32\1\30\2\32\1\23\1\24\2\32\1\22\11\32\1\31\1\25\6\32\1\1\1"+
+            "\17\1\2",
             "",
             "",
             "",
             "",
             "",
             "",
+            "",
+            "\1\34",
             "",
             "\1\36",
-            "",
             "\1\40",
             "\1\42",
-            "\1\44",
             "",
             "",
             "",
             "",
             "",
-            "\1\46\7\uffff\1\47",
-            "\1\50",
+            "\1\44\7\uffff\1\45",
+            "\1\46",
+            "\1\50\15\uffff\1\47",
             "\1\51",
             "\1\52",
             "\1\53",
@@ -1196,8 +1195,6 @@ public class QLLexer extends Lexer {
             "\1\55",
             "",
             "",
-            "\1\56",
-            "\1\57",
             "",
             "",
             "",
@@ -1207,6 +1204,8 @@ public class QLLexer extends Lexer {
             "",
             "",
             "\12\32\7\uffff\32\32\4\uffff\1\32\1\uffff\32\32",
+            "\1\57",
+            "\1\60",
             "\1\61",
             "\1\62",
             "\1\63",
@@ -1214,9 +1213,9 @@ public class QLLexer extends Lexer {
             "\1\65",
             "\1\66",
             "\1\67",
+            "",
             "\1\70",
             "\1\71",
-            "",
             "\1\72",
             "\1\73",
             "\1\74",
@@ -1224,19 +1223,19 @@ public class QLLexer extends Lexer {
             "\1\76",
             "\1\77",
             "\1\100",
+            "\1\101",
             "\12\32\7\uffff\32\32\4\uffff\1\32\1\uffff\32\32",
-            "\1\102",
-            "\1\103",
             "\12\32\7\uffff\32\32\4\uffff\1\32\1\uffff\32\32",
+            "\1\104",
             "\12\32\7\uffff\32\32\4\uffff\1\32\1\uffff\32\32",
             "\12\32\7\uffff\32\32\4\uffff\1\32\1\uffff\32\32",
             "\1\106",
             "\1\107",
             "\1\110",
-            "",
-            "\12\32\7\uffff\32\32\4\uffff\1\32\1\uffff\32\32",
             "\1\111",
             "",
+            "",
+            "\12\32\7\uffff\32\32\4\uffff\1\32\1\uffff\32\32",
             "",
             "\12\32\7\uffff\32\32\4\uffff\1\32\1\uffff\32\32",
             "\1\112",
@@ -1279,7 +1278,7 @@ public class QLLexer extends Lexer {
             this.transition = DFA9_transition;
         }
         public String getDescription() {
-            return "1:1: Tokens : ( T__13 | T__14 | T__15 | T__16 | T__17 | T__18 | T__19 | T__20 | T__21 | T__22 | T__23 | T__24 | T__25 | T__26 | T__27 | T__28 | T__29 | T__30 | T__31 | WS | COMMENT | STRING | IF | ELSE | BOOL | TYPE | IDENT | INT );";
+            return "1:1: Tokens : ( T__14 | T__15 | T__16 | T__17 | T__18 | T__19 | T__20 | T__21 | T__22 | T__23 | T__24 | T__25 | T__26 | T__27 | T__28 | T__29 | T__30 | T__31 | WS | COMMENT | STRING | IF | ELSE | FORM | BOOL | TYPE | IDENT | INT );";
         }
     }
  
