@@ -4,33 +4,27 @@ import lang::ql::ast::AST;
 import lang::ql::util::Parse;
 import lang::ql::util::Implode;
 
-public str prettyPrint(Form form) {
-  return 
-    "form <form.formName> { <for (e <- form.formElements) {>
-    '  <prettyPrint(e)><}>
-    '}
-    '";
-}
+public str prettyPrint(Form form) =
+  "form <form.formName> { <for (e <- form.formElements) {>
+  '  <prettyPrint(e)><}>
+  '}
+  '";
 
-public str prettyPrint(Statement item: question(Question question)) = prettyPrint(question);
+public str prettyPrint(Statement item: question(Question question)) = 
+  prettyPrint(question);
 
 public str prettyPrint(Question q: 
-  question(questionText, answerDataType, answerIdentifier)) {
-  return
+  question(questionText, answerDataType, answerIdentifier)) =
     "<questionText>
     '  <answerDataType> <answerIdentifier>";
-}
 
 public str prettyPrint(Question q: 
-  question(questionText, answerDataType, answerIdentifier, calculatedField)) {
-  return
+  question(questionText, answerDataType, answerIdentifier, calculatedField)) =
     "<questionText>
     '  <answerDataType> <answerIdentifier> = <prettyPrint(calculatedField)>";
-}
 
 public str prettyPrint(Statement item: 
-  ifCondition(Conditional ifPart, list[Conditional] elseIfs, list[ElsePart] elsePart)) {
-  return 
+  ifCondition(Conditional ifPart, list[Conditional] elseIfs, list[ElsePart] elsePart)) = 
     "if (<prettyPrint(ifPart.condition)>) { <for (e <- ifPart.body) {>
     ' <prettyPrint(e)><}><for(ei <- elseIfs) { >
     '} else if(<prettyPrint(ei.condition)>) { <for (e <- ei.body) {>
@@ -38,7 +32,6 @@ public str prettyPrint(Statement item:
     '} else { <for (e <- ep.body) {>
     '  <prettyPrint(e)><}><}>
     '}";
-}
 
 public str prettyPrint(pos(Expr posValue)) = 
   "+<prettyPrint(posValue)>";

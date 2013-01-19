@@ -1,4 +1,4 @@
-module lang::ql::ide::FlowGraph
+module lang::ql::analysis::FlowGraph
 
 import ParseTree;
 import lang::ql::ast::AST;
@@ -8,21 +8,21 @@ public set[CG] flowGraph(Form form) =
   flowGraph(root(form, form@location), form.formElements);
 
 private set[CG] flowGraph(GraphNode parent, list[Statement] formElements) = 
-  {*flowGraph(parent, e) | e <- formElements};
+  {* flowGraph(parent, e) | e <- formElements};
 
 private set[CG] flowGraph(GraphNode parent, Statement item:
   ifCondition(Conditional ifPart, list[Conditional] elseIfs, list[ElsePart] elsePart)) {
   cur = statement(item, item@location);
   return {<parent, cur>} +  
     flowGraph(cur, ifPart) + 
-    {*flowGraph(cur, e) | e <- elseIfs} +
-    {*flowGraph(cur, e.body) | e <- elsePart};
+    {* flowGraph(cur, e) | e <- elseIfs} +
+    {* flowGraph(cur, e.body) | e <- elsePart};
 }
 
 private set[CG] flowGraph(GraphNode parent, Conditional cond:
   conditional(Expr condition, list[Statement] body)) {
   cur = conditional(cond, cond@location);
-  return {<parent, cur>}+ flowGraph(cur, condition) + {*flowGraph(cur, e) | e <- body};
+  return {<parent, cur>} + flowGraph(cur, condition) + {* flowGraph(cur, e) | e <- body};
 }
 
 private set[CG] flowGraph(GraphNode parent, Statement item: question(Question question)) = flowGraph(parent, question);

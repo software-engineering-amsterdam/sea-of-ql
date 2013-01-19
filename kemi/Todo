@@ -20,13 +20,14 @@
 *	Checking of the QLS language against the QL language.
 
 * Naming convention for ident/expr/pos/neg/...
+* Naming of CG in ql::ast::Graph
 
 BONUS:
 * 	Bonus exercise for Rascal variants: use SAT/SMT/Constraint solver to check for non-determinism.
 
 Grading: See wiki
 
-
+* Type checking: Conditionals -> bools
 * Test the questions via the graph ? -> makes our compilation phase harder...
 * Test the identifiers via the graph ? -> makes our compilation phase harder... 
 * Randomized testing for semantic checker? -> how exactly are we going to do this

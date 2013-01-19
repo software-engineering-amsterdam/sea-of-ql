@@ -1,4 +1,4 @@
-module lang::ql::ide::TypeChecker
+module lang::ql::analysis::TypeChecker
 
 import List;
 import ParseTree;
@@ -20,7 +20,7 @@ public set[Message] typeChecker(Form f, definitions) {
     question(_, \type, name, _) := x});
     
   // Check all calculatedQuestions:
-  cq = [ <name, expr> | 
+  cq = [<name, expr> | 
     i <- definitions, 
     question(x, _) := i, 
     question(_, _, name, expr) := x];
@@ -73,4 +73,4 @@ private set[EST] generateExpressionTypeSet(map[str, str] typeMap, Expr e) {
 private Message typeError(set[EST] info, \loc) {
   info = intercalate(", ", [ "<v>:<t>" | <v, t> <- info ]);
   return error("Varying types given in expression: <info>", \loc);
-} 
+}

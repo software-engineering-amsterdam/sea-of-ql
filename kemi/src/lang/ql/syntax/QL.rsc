@@ -7,8 +7,6 @@ syntax Statement
   | ifCondition: IfPart ifPart ElsIfPart* elseIfs ElsePart? elsePart
   ;
 
-
-//TODO: this is needed for the AST, however, now it seems kinda vague / ambiguous (maybe?)
 syntax Conditional 
   = conditional: Expr condition "{" Statement+ body "}"
   ;

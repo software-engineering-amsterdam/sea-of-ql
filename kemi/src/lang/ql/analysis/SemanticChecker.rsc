@@ -1,4 +1,4 @@
-module lang::ql::ide::SemanticChecker
+module lang::ql::analysis::SemanticChecker
 
 import List;
 import Set;
@@ -6,9 +6,9 @@ import analysis::graphs::Graph;
 import lang::ql::ast::AST;
 import lang::ql::ast::Graph;
 import lang::ql::compiler::PrettyPrinter;
-import lang::ql::ide::FlowGraph;
-import lang::ql::ide::IdentifierUsesDefinitions;
-import lang::ql::ide::TypeChecker;
+import lang::ql::analysis::FlowGraph;
+import lang::ql::analysis::IdentifierOccurrences;
+import lang::ql::analysis::TypeChecker;
 import util::IDE;
 
 // main() deps:
@@ -115,7 +115,6 @@ public set[Message] useBeforeDeclarationMessages(
 }
 
 public set[Message] duplicateIdentifierMessages(list[GraphNode] definitions) {
-  
   ids = toMap([ <name, <\type, x@location>> | 
     i <- definitions, 
     question(x, _) := i, 
@@ -124,7 +123,7 @@ public set[Message] duplicateIdentifierMessages(list[GraphNode] definitions) {
     
   ids = (key : ids[key] | key <- ids, size(ids[key]) > 1);
   
-  idsRel = { < x, d> | d <- ids, x <- ids[d] };
+  idsRel = {< x, d> | d <- ids, x <- ids[d]};
   
   return
     {duplicateIdentifierMessage(name, \type, \loc) | <<\type, \loc>, name> <- idsRel};
@@ -138,7 +137,7 @@ public set[Message] duplicateQuestionMessages(list[GraphNode] definitions) {
     question(text, _, _, _) := x]);
     
   textMap = (key : textMap[key] | key <- textMap, size(textMap[key]) > 1);
-  textMapRel = { < x, d> | d <- textMap, x <- textMap[d] };
+  textMapRel = {< x, d> | d <- textMap, x <- textMap[d]};
   
   return 
     {duplicateQuestionMessage(text, \loc) | <\loc, text> <- textMapRel};

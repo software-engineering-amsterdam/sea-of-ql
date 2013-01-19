@@ -1,10 +1,10 @@
-module lang::ql::tests::forms::IdentifierUsesDefinitions
+module lang::ql::tests::forms::IdentifierOccurrences
 
 import Set;
 import List; 
 import lang::ql::ast::AST;
-import lang::ql::ide::IdentifierUsesDefinitions;
-import lang::ql::ide::SemanticChecker;
+import lang::ql::analysis::IdentifierOccurrences;
+import lang::ql::analysis::SemanticChecker;
 import lang::ql::tests::ParseHelper;
 import lang::ql::util::Random;
 import util::IDE;

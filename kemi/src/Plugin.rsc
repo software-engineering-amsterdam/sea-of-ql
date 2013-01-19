@@ -5,7 +5,7 @@ import util::IDE;
 
 import lang::ql::ast::AST;
 import lang::ql::ide::Outline;
-import lang::ql::ide::SemanticChecker;
+import lang::ql::analysis::SemanticChecker;
 import lang::ql::syntax::QL;
 import lang::ql::util::Implode;
 import lang::ql::util::Parse;
@@ -23,7 +23,6 @@ private str EXT_QL = "q";
 private str LANG_QLS = "QLS-R";
 private str EXT_QLS = "qs";
 
-
 private Form implodeQL(Tree t)
   = lang::ql::util::Implode::implode(t);
 
@@ -35,7 +34,6 @@ private Stylesheet implodeStylesheet(Tree t)
 
 private start[Stylesheet] parseStylesheet(str src, loc l)
   = lang::qls::util::Parse::parse(src, l);
-
 
 private void setupQL() {
   registerLanguage(LANG_QL, EXT_QL, Tree(str src, loc l) {
@@ -64,18 +62,10 @@ private void setupQLS() {
     outliner(node(Tree input) {
       return outlineStylesheet(implodeStylesheet(input));
     })
-    
-  /*,
-    annotator(Tree (Tree input) {
-      return input[@messages=semanticChecker(implodeStylesheet(input))];
-    })
-  */
   };
   
   registerContributions(LANG_QLS, contribs);
 }
-
-
 
 public void main() {
   setupQLS(); 

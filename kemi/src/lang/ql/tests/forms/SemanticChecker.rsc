@@ -3,11 +3,11 @@ module lang::ql::tests::forms::SemanticChecker
 import Set;
 import analysis::graphs::Graph;
 import lang::ql::ast::AST;
-import lang::ql::ide::FlowGraph;
-import lang::ql::ide::IdentifierUsesDefinitions;
+import lang::ql::analysis::FlowGraph;
+import lang::ql::analysis::IdentifierOccurrences;
 import lang::ql::ide::Outline;
-import lang::ql::ide::SemanticChecker;
-import lang::ql::ide::TypeChecker;
+import lang::ql::analysis::SemanticChecker;
+import lang::ql::analysis::TypeChecker;
 import lang::ql::tests::ParseHelper;
 import lang::ql::util::FormGenerator;
 import lang::ql::util::Random;
