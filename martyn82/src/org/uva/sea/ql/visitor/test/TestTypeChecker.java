@@ -3,9 +3,7 @@ package org.uva.sea.ql.visitor.test;
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
-import org.uva.sea.ql.ast.INode;
 import org.uva.sea.ql.evaluate.Context;
-import org.uva.sea.ql.evaluate.Value;
 import org.uva.sea.ql.evaluate.value.Boolean;
 import org.uva.sea.ql.evaluate.value.Integer;
 import org.uva.sea.ql.evaluate.value.Money;
@@ -103,20 +101,9 @@ public class TestTypeChecker extends VisitorTest {
 
 	@Test
 	public void testExample() throws ParseError {
-		program = "form Box1HouseOwning {\n" +
-				"\t\"Q1\" q1: boolean\n" +
-				"\t\"Q2\" q1 = 1 + 1\n" +
-			"}\n";
+		parser.parse( program ).accept( visitor, context );
 
-		Context context = new Context();
-		INode root = parser.parse( program );
-		Value value = root.accept( visitor, context );
-
-		if ( context.getErrors().size() == 0 ) {
-			System.out.println( "Output type: " + value.getClass().getSimpleName() );
-			System.out.println( "OK" );
-		}
-		else {
+		if ( context.getErrors().size() > 0 ) {
 			for ( java.lang.String error : context.getErrors() ) {
 				System.err.println( error );
 			}
