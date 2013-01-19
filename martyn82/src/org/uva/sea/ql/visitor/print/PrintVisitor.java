@@ -1,11 +1,14 @@
-package org.uva.sea.ql.visitor;
+package org.uva.sea.ql.visitor.print;
 
 import java.io.IOException;
 import java.io.OutputStream;
 
+import org.uva.sea.ql.ast.expression.ArithmeticExpression;
 import org.uva.sea.ql.ast.expression.BinaryExpression;
 import org.uva.sea.ql.ast.expression.Ident;
+import org.uva.sea.ql.ast.expression.LogicalExpression;
 import org.uva.sea.ql.ast.expression.UnaryExpression;
+import org.uva.sea.ql.ast.expression.UnaryNumericExpression;
 import org.uva.sea.ql.ast.expression.value.Literal;
 import org.uva.sea.ql.ast.statement.Assignment;
 import org.uva.sea.ql.ast.statement.FormDeclaration;
@@ -13,6 +16,7 @@ import org.uva.sea.ql.ast.statement.IfThenElse;
 import org.uva.sea.ql.ast.statement.QuestionDeclaration;
 import org.uva.sea.ql.ast.statement.VarDeclaration;
 import org.uva.sea.ql.ast.type.Type;
+import org.uva.sea.ql.visitor.INodeVisitor;
 
 /**
  * Visitor that prints the AST.
@@ -91,6 +95,36 @@ public class PrintVisitor implements INodeVisitor {
 	}
 
 	@Override
+	public void visit( ArithmeticExpression node ) {
+		put( node.getClass().getSimpleName().toUpperCase() );
+
+		level++;
+
+		indent();
+		node.getLhs().accept( this );
+
+		indent();
+		node.getRhs().accept( this );
+
+		level--;
+	}
+
+	@Override
+	public void visit( LogicalExpression node ) {
+		put( node.getClass().getSimpleName().toUpperCase() );
+
+		level++;
+
+		indent();
+		node.getLhs().accept( this );
+
+		indent();
+		node.getRhs().accept( this );
+
+		level--;
+	}
+
+	@Override
 	public void visit( BinaryExpression node ) {
 		put( node.getClass().getSimpleName().toUpperCase() );
 
@@ -107,6 +141,18 @@ public class PrintVisitor implements INodeVisitor {
 
 	@Override
 	public void visit( UnaryExpression node ) {
+		put( node.getClass().getSimpleName().toUpperCase() );
+
+		level++;
+
+		indent();
+		node.getExpression().accept( this );
+
+		level--;
+	}
+
+	@Override
+	public void visit( UnaryNumericExpression node ) {
 		put( node.getClass().getSimpleName().toUpperCase() );
 
 		level++;
