@@ -4,6 +4,7 @@ import Prelude;
 import syntax::AbstractSyntax;
 import util::Load;
 import typeChecker::TypeCheck;
+import typeChecker::Mapping;
 
 // First we introduce a data type QuestionValue that wraps all possible values that can occur at run-time.
 data QuestionValue = boolVal(bool b) | strVal(str s) | moneyVal (Money m) | errorval(loc l, str msg);  
@@ -63,8 +64,8 @@ VENV evalStats(list[STATEMENT] Stats1, VENV env) {
   
 // Eval declarations
 
-VENV evalDecls (map[QuestionId Id, TYPE tp] results) =   
-   ( results.Id : (results.tp == money() ? moneyVal(0) : strVal("")) ); // | results(QuestionId Id, TYPE tp) <- results); 
+VENV evalDecls (list[QUET] results) =   
+   ( results.Id : (results.tp == money() ? moneyVal(0) : strVal("")) | result(QuestionId Id, TYPE tp) <- results); // | results(QuestionId Id, TYPE tp) <- results); 
  // (results.tp == money() ? moneyVal(0) : strVal(""))
  
 VENV evalDecls (list[tuple [QuestionId qId, TYPE tp]] results) =   
@@ -72,18 +73,36 @@ VENV evalDecls (list[tuple [QuestionId qId, TYPE tp]] results) =
     
 TENV checkDecls(list[DECL] Decls) =                                                 
     <( Id : question | decl(QuestionId Id, QUE question)  <- Decls), []>;
+
+/* Method to map a questionId to the type
+ * @param q a map with questionId and QUE  
+ * @return result a map with QuestionId and the type
+ * @author Philipp
+*/
+VENV mapQuestionIdToType(map[QuestionId QId, QUE ques] q){
+    list[tuple[QuestionId QId, QUE ques]] questionList = toList(q);
+    list[QuestionId] ids = getQuestionIds(questionList);
+    list[TYPE] tps = getQuestionTypes(questionList);
+   println("CHECK SIZE TPS : <size(tps)>  CHECK SIZE IDS : <size(ids)>");
+   map[QUET] result = (ids[0] : tps[0]);
+   for(int n <- [0 .. size(ids) -1]){
+    	result += (ids[n] : tps[n]);
+    }   
+    println("MAP result : <result>");
+    return result;
+}
+
 // Evaluate a Pico program
 
 public VENV evalProgram(PROGRAM P){
   if(program(EXP exp,list[DECL] Decls, list[STATEMENT] Series) := P){
-     println("EVAL DECLS : <Decls>");
-     
+     println("EVAL DECLS : <Decls>");     
      TENV tenv = checkDecls(Decls);
      println("TENV : <tenv>");  
      //VENV env = checkDecls(Decls);
      map[QuestionId qId, TYPE tp] results = mapQuestionIdToType(tenv.symbols);
      println("MAP RESULTS IN EVAL : <toList(results)>");
-     list[tuple [QuestionId qId, TYPE tp]] gg = toList(results);
+     list[QUET] gg = toList(results);
      println("gg : <gg>");
      VENV env = evalDecls(gg);
      

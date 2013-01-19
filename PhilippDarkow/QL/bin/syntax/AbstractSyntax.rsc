@@ -1,25 +1,22 @@
 module syntax::AbstractSyntax
 
-public data TYPE = string() | boolean() | money();
+public data TYPE = string() | boolean() | money() | money(EXP);
 
 public alias QuestionId = str;
 public alias QuestionString = str;
 public alias Money = int;
-	
-public data PROGRAM =
-	program(EXP exp, list[DECL] decls, list[STATEMENT] stats); 
 
-//public data DECL =
-//   decl(QuestionId name, QuestionString qName, TYPE tp);
-   
+// syntax to start a QL Program	
+public data PROGRAM =
+	program(EXP exp, list[DECL] decls, list[STATEMENT] stats);   // list[QUET] results
+// Syntax for a question declaration   
 public data DECL =
    decl(QuestionId name, QUE qName);
-   
+// Syntax for the question   
 public data QUE = qName(QuestionString questionString, TYPE tp);
-
-// Question Type
+// syntax to map the questionid with the type
 public data QUET = result(QuestionId id, TYPE tp);
-   
+// syntax for the expression   
 public data EXP =
 	  id (QuestionId name)
 	| strQue (QuestionString questionString)
@@ -37,7 +34,7 @@ public data EXP =
     | eq (EXP left, EXP right)
     | neq (EXP left, EXP right)
 	;
-	
+// syntax for statements	
 public data STATEMENT =
      asgStat(QuestionId name, TYPE tp) // asgStat(QuestionId name, QuestionString qDefinition, TYPE tp) // EXP exp
     // | resStat(QuestionId name, QuestionString qDefinition, EXP exp)  
@@ -52,6 +49,7 @@ anno loc DECL@location;
 anno loc EXP@location;
 anno loc STATEMENT@location;
 anno loc QUE@location;
+anno loc QUET@location;
 
 public alias Occurrence = tuple[loc location, QuestionId name, STATEMENT stat]; 
    

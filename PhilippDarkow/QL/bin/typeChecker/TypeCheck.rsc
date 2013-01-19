@@ -6,15 +6,17 @@ import util::Load;
 import typeChecker::QuestionTypeChecker;
 
 // We will use TENV (type environment) as an alias for a tuple that contains all relevant type information:
-// symbols: a map from Pico identifiers to their declared type.
-// errors: a list of error messages. An error message is represented by its location and a textual message.
-alias TENV = tuple[ map[QuestionId, QUE] symbols, list[tuple[loc l, str msg]] errors];  // list[DECL] Decls
+alias TENV = tuple[ map[QuestionId, QUE] symbols, list[tuple[loc l, str msg]] errors];
 
 TENV addError(TENV env, loc l, str msg) = env[errors = env.errors + <l, msg>]; 
 
-alias QTENV = tuple[ map[QuestionString, TYPE] symbols, list[tuple[loc l, str msg]] errors]; 
+alias QTENV = tuple[ map[QuestionId, TYPE] symbols, list[tuple[loc l, str msg]] errors]; 
 
 QTENV addError(QTENV qEnv, loc l, str msg) = env[errors = qEnv.errors + <l, msg>];
+
+alias TTENV = tuple[ map[QuestionId, TYPE] symbols, list[tuple[loc l, str msg]] errors]; 
+
+TTENV addError(TTENV qEnv, loc l, str msg) = env[errors = TTENV.errors + <l, msg>];
 
 // compile Expressions.
 TENV checkExp(exp:boolCon(bool B), TYPE req, TENV env) =                              
@@ -82,7 +84,8 @@ TENV checkStats(list[STATEMENT] Stats1, TENV env) {
 TENV checkDecls(list[DECL] Decls) =                                                 
     <( Id : question | decl(QuestionId Id, QUE question)  <- Decls), []>;    // decl(QuestionId Id, QuestionString qName)
 
-QTENV checkQuestion(list[QUE] qNames) =   
+// check question
+public QTENV checkQuestion(list[QUE] qNames) =   
    <(questionString : tp | qName(QuestionString questionString, TYPE tp) <- qNames),[]>;
 
 list[QuestionId] getQuestionIds(list[tuple[QuestionId QId, QUE ques]] questionList){
@@ -114,6 +117,11 @@ list[TYPE] getQuestionTypes(list[tuple[QuestionId QId, QUE ques]] questionList){
     return getQuestionTypes(j);
 }
 
+/* Method to map a questionId to the type
+ * @param q a map with questionId and QUE  
+ * @return result a map with QuestionId and the type
+ * @author Philipp
+*/
 public map[QuestionId , TYPE] mapQuestionIdToType(map[QuestionId QId, QUE ques] q){
     list[tuple[QuestionId QId, QUE ques]] questionList = toList(q);
     list[QuestionId] ids = getQuestionIds(questionList);
@@ -127,6 +135,21 @@ public map[QuestionId , TYPE] mapQuestionIdToType(map[QuestionId QId, QUE ques] 
     return result;
 }
 
+QTENV mapQuestionIdToType2(map[QuestionId QId, QUE ques] q){
+    list[tuple[QuestionId QId, QUE ques]] questionList = toList(q);
+    list[QuestionId] ids = getQuestionIds(questionList);
+    list[TYPE] tps = getQuestionTypes(questionList);
+   println("CHECK SIZE TPS : <size(tps)>  CHECK SIZE IDS : <size(ids)>");
+   QTENV result = <( ids[0] : tps[0] ), []>; // (ids[0] : tps[0]);
+   for(int n <- [0 .. size(ids) -1]){
+    	result.symbols += (ids[n] : tps[n]);
+    }   
+    println("MAP result : <result>");
+    return result;
+}
+
+
+
 QTENV checkQuestionType(map[QuestionId, TYPE] results) =   
    <results,[]>;
 
@@ -136,10 +159,11 @@ public TENV checkProgram(PROGRAM P){
      println("Decls : <Decls>");	 
      TENV env = checkDecls(Decls);
      println("ENV : <env.symbols>");  // gives the map 
-     map[QuestionId, TYPE] results = mapQuestionIdToType(env.symbols);
-	QTENV qEnv = checkQuestionType(results);
+     QTENV qEnv = mapQuestionIdToType2(env.symbols);  // map[QuestionId, TYPE]
+     println("QTENV RESULT : <qEnv>");
+	// QTENV qEnv = checkQuestionType(results);
 	
-	println("QENV SYMBOLS : <qEnv>");
+	//println("QENV SYMBOLS : <qEnv>");
 	checkQuestionStats(Series, qEnv);
      println("Series : <Series>");
      return checkStats(Series, env);
