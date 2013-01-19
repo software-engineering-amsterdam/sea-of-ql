@@ -1,21 +1,21 @@
-module lang::ql::ide::SemanticChecker
+module lang::ql::analysis::SemanticChecker
 
 import List;
-import Map;
-import ParseTree;
 import Set;
 import analysis::graphs::Graph;
 import lang::ql::ast::AST;
 import lang::ql::ast::Graph;
 import lang::ql::compiler::PrettyPrinter;
-import lang::ql::ide::IdentifierUsesDefinitions;
-import lang::ql::util::Implode;
-import lang::ql::util::Parse;
+import lang::ql::analysis::FlowGraph;
+import lang::ql::analysis::IdentifierOccurrences;
+import lang::ql::analysis::TypeChecker;
 import util::IDE;
 
+// main() deps:
 import IO;
-import lang::ql::ide::FlowGraph;
 import util::ValueUI;
+import lang::ql::util::Implode;
+import lang::ql::util::Parse;
 
 alias identInfo = tuple[loc \loc, str \type];
 alias labelMap = map[str ident, list[identInfo] identInfo];
@@ -46,11 +46,11 @@ public void main() {
   //f = |project://QL-R-kemi/forms/ifCondition.q|;
   //f = |project://QL-R-kemi/forms/ifElseCondition.q|;
   //f = |project://QL-R-kemi/forms/ifElseIfCondition.q|;
-  f = |project://QL-R-kemi/forms/nestedIfElseIfElseCondition.q|;
+  //f = |project://QL-R-kemi/forms/nestedIfElseIfElseCondition.q|;
   //f = |project://QL-R-kemi/forms/calculatedField.q|;
   //f = |project://QL-R-kemi/forms/duplicateLabels.q|;
-  //f = |project://QL-R-kemi/forms/undefinedVariable.q|;
-  //f = |project://QL-R-kemi/forms/undefinedVariable.q|;
+  f = |project://QL-R-kemi/forms/undefinedVariable.q|;
+  //f = |project://QL-R-kemi/forms/uglyFormatted.q|;
 
   x = implode(parse(readFile(f), |file:///-|));
   println("Parsing done: <x>");
@@ -71,15 +71,25 @@ public set[Message] semanticChecker(node form) {
   us = identifierUses(form);
   def = identifierDefinitions(form);
   fgraph = flowGraph(form);
+
+  ret = duplicateIdentifierMessages(def);
+  if(ret != {})
+    return ret;
+    
+  ret = duplicateQuestionMessages(def);
+  if(ret != {})
+    return ret;
   
-  ret += duplicateIdentifierMessages(def);
-  ret += duplicateQuestionMessages(def);
-  ret += useBeforeDeclarationMessages(us, def, fgraph);
+  ret = useBeforeDeclarationMessages(us, def, fgraph);
+  if(ret != {})
+    return ret;
+
+  ret = typeChecker(form, def);
   
   return ret;  
 }
 
-private set[Message] useBeforeDeclarationMessages(
+public set[Message] useBeforeDeclarationMessages(
   list[GraphNode] idUses, list[GraphNode] definitions, rel[GraphNode, GraphNode] fgraph) {
   
   list[GraphNode] found = [];
@@ -104,29 +114,30 @@ private set[Message] useBeforeDeclarationMessages(
     {useBeforeDeclaration(prettyPrint(u.expr), u.location) | u <- (idUses - found)};
 }
 
-private set[Message] duplicateIdentifierMessages(list[GraphNode] definitions) {
-  
+public set[Message] duplicateIdentifierMessages(list[GraphNode] definitions) {
   ids = toMap([ <name, <\type, x@location>> | 
-    i <- definitions, question(x, _) := i, 
+    i <- definitions, 
+    question(x, _) := i, 
     question(_, \type, name) := x || 
     question(_, \type, name, _) := x]);
     
   ids = (key : ids[key] | key <- ids, size(ids[key]) > 1);
   
-  idsRel = { < x, d> | d <- ids, x <- ids[d] };
+  idsRel = {< x, d> | d <- ids, x <- ids[d]};
   
   return
     {duplicateIdentifierMessage(name, \type, \loc) | <<\type, \loc>, name> <- idsRel};
 }
 
-private set[Message] duplicateQuestionMessages(list[GraphNode] definitions) {
+public set[Message] duplicateQuestionMessages(list[GraphNode] definitions) {
   textMap = toMap([ <text, x@location> | 
-    i <- definitions, question(x, _) := i, 
+    i <- definitions, 
+    question(x, _) := i, 
     question(text, _, _) := x || 
     question(text, _, _, _) := x]);
     
   textMap = (key : textMap[key] | key <- textMap, size(textMap[key]) > 1);
-  textMapRel = { < x, d> | d <- textMap, x <- textMap[d] };
+  textMapRel = {< x, d> | d <- textMap, x <- textMap[d]};
   
   return 
     {duplicateQuestionMessage(text, \loc) | <\loc, text> <- textMapRel};
