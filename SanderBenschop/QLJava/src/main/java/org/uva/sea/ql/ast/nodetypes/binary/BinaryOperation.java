@@ -27,6 +27,7 @@ public abstract class BinaryOperation extends QLExpression {
     public void accept(ASTNodeVisitor visitor) {
         getLeftHandSide().accept(visitor);
         getRightHandSide().accept(visitor);
+        visitor.visitBinaryOperation(this);
     }
 
     public abstract List<Class<?>> getSupportedTypes();

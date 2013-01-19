@@ -1,10 +1,16 @@
 package org.uva.sea.ql.ast.nodetypes.unary;
 
 import org.uva.sea.ql.ast.QLExpression;
+import org.uva.sea.ql.ast.nodetypes.primary.Bool;
 
-public class Not extends UnaryOperationExpression {
+public class Not extends UnaryOperation {
 
 	public Not(QLExpression expression) {
 		super(expression);
 	}
+
+    @Override
+    public Class<?> getSupportedType() {
+        return Bool.class;
+    }
 }

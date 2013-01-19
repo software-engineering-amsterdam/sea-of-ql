@@ -1,6 +1,7 @@
 package org.uva.sea.ql.parser.visitor.typechecking;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.uva.sea.ql.ast.ASTNode;
@@ -10,7 +11,7 @@ import org.uva.sea.ql.ast.nodetypes.formelement.Computation;
 import org.uva.sea.ql.ast.nodetypes.formelement.Conditional;
 import org.uva.sea.ql.ast.nodetypes.formelement.Question;
 import org.uva.sea.ql.ast.nodetypes.primary.Primary;
-import org.uva.sea.ql.ast.nodetypes.unary.UnaryOperationExpression;
+import org.uva.sea.ql.ast.nodetypes.unary.UnaryOperation;
 import org.uva.sea.ql.parser.visitor.ASTNodeVisitor;
 import org.uva.sea.ql.parser.visitor.QLError;
 import org.uva.sea.ql.parser.visitor.QLValidator;
@@ -45,8 +46,14 @@ public class TypeCheckingVisitor implements ASTNodeVisitor, QLValidator {
 
 
     @Override
-    public void visitUnaryOperation(UnaryOperationExpression unaryOperation) {
+    public void visitUnaryOperation(UnaryOperation unaryOperation) {
+        Class<?> supportedType = unaryOperation.getSupportedType(), reduction = reductionTable.getReduceableType(unaryOperation.getExpression());
 
+        if (reduction == supportedType) {
+            reductionTable.setReducableToType(unaryOperation, reduction);
+        } else {
+            addErrorForVariable(unaryOperation.getExpression(), supportedType);
+        }
     }
 
     @Override
@@ -84,6 +91,11 @@ public class TypeCheckingVisitor implements ASTNodeVisitor, QLValidator {
     @Override
     public List<QLError> getErrors() {
         return typeCheckingErrors;
+    }
+
+    private void addErrorForVariable(ASTNode astNode, Class<?> allowedType) {
+        List<Class<?>> allowedTypeList = Arrays.asList(new Class<?>[]{allowedType});
+        addErrorForVariable(astNode, allowedTypeList);
     }
 
     private void addErrorForVariable(ASTNode astNode, List<Class<?>> allowedTypes) {

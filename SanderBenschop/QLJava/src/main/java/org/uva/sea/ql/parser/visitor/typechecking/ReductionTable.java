@@ -15,10 +15,6 @@ public class ReductionTable {
         typeReductionMap.put(object.hashCode(), type);
     }
 
-    public boolean isReducableToType(Object object, Class<?> type) {
-        return getReduceableType(object) == type;
-    }
-
     public Class<?> getReduceableType(Object object) {
         return typeReductionMap.get(object.hashCode());
     }
