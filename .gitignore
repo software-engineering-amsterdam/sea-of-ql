@@ -1,5 +1,3 @@
-kemi/bin/*
-vkomsiyski/bin/*
-*~ # Temporary files
-*.class # Compiled Java
+*~
+*.class
 .DS_Store
