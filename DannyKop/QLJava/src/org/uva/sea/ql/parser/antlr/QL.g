@@ -2,14 +2,16 @@ grammar QL;
 options { 	
 	backtrack=true; 
 	memoize=true; 
-	language=java; 
-	output=AST; 
+	language=Java;  
 }
 
 @parser::header
 {
 package org.uva.sea.ql.parser.antlr;
 import org.uva.sea.ql.ast.*;
+import org.uva.sea.ql.ast.expressions.binary.*;
+import org.uva.sea.ql.ast.expressions.unary.*;
+import org.uva.sea.ql.ast.types.*;
 }
 
 @lexer::header
@@ -90,14 +92,11 @@ orExpr returns [Expr result]
 
     
 // Tokens
-NEWLINE : ('\n' | '\r')
-WS  :	(' ' | '\t' | NEWLINE) { $channel=HIDDEN; }
-    ;
-
+NEWLINE : ('\n' | '\r');
+WS  :	(' ' | '\t' | NEWLINE) { $channel=HIDDEN; };
 COMMENT 
      : '/*' .* '*/' {$channel=HIDDEN;} 
-     | '//' ~(NEWLINE)* '\r'? '\n' {$channel=HIDDEN;} 
-    ;
+     | '//' ~(NEWLINE)* '\r'? '\n' {$channel=HIDDEN;} ;
 
 Ident:   ('a'..'z'|'A'..'Z')('a'..'z'|'A'..'Z'|'0'..'9'|'_')*;
 
