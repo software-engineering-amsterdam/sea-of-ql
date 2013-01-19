@@ -10,6 +10,7 @@ import org.uva.sea.ql.ast.nodetypes.binary.BinaryOperation;
 import org.uva.sea.ql.ast.nodetypes.formelement.Computation;
 import org.uva.sea.ql.ast.nodetypes.formelement.Conditional;
 import org.uva.sea.ql.ast.nodetypes.formelement.Question;
+import org.uva.sea.ql.ast.nodetypes.primary.Bool;
 import org.uva.sea.ql.ast.nodetypes.primary.Primary;
 import org.uva.sea.ql.ast.nodetypes.unary.UnaryOperation;
 import org.uva.sea.ql.parser.visitor.ASTNodeVisitor;
@@ -36,7 +37,10 @@ public class TypeCheckingVisitor implements ASTNodeVisitor, QLValidator {
 
     @Override
     public void visitConditional(Conditional conditional) {
-        //Check if condition evaluates to true or false and check identifier is not redefined.
+        Class<?> supportedType = Bool.class;
+        if (reductionTable.getReduceableType(conditional.getCondition()) != supportedType) {
+            addErrorForUnsupportedType(conditional, supportedType);
+        }
     }
 
     @Override
@@ -52,7 +56,7 @@ public class TypeCheckingVisitor implements ASTNodeVisitor, QLValidator {
         if (reduction == supportedType) {
             reductionTable.setReducableToType(unaryOperation, reduction);
         } else {
-            addErrorForVariable(unaryOperation.getExpression(), supportedType);
+            addErrorForUnsupportedType(unaryOperation.getExpression(), supportedType);
         }
     }
 
@@ -75,11 +79,11 @@ public class TypeCheckingVisitor implements ASTNodeVisitor, QLValidator {
         }
 
         if (!leftHandSideReduceable) {
-            addErrorForVariable(leftHandSide, supportedTypes);
+            addErrorForUnsupportedType(leftHandSide, supportedTypes);
         }
 
         if (!rightHandSideReduceable) {
-            addErrorForVariable(leftHandSide, supportedTypes);
+            addErrorForUnsupportedType(leftHandSide, supportedTypes);
         }
     }
 
@@ -93,12 +97,12 @@ public class TypeCheckingVisitor implements ASTNodeVisitor, QLValidator {
         return typeCheckingErrors;
     }
 
-    private void addErrorForVariable(ASTNode astNode, Class<?> allowedType) {
+    private void addErrorForUnsupportedType(ASTNode astNode, Class<?> allowedType) {
         List<Class<?>> allowedTypeList = Arrays.asList(new Class<?>[]{allowedType});
-        addErrorForVariable(astNode, allowedTypeList);
+        addErrorForUnsupportedType(astNode, allowedTypeList);
     }
 
-    private void addErrorForVariable(ASTNode astNode, List<Class<?>> allowedTypes) {
+    private void addErrorForUnsupportedType(ASTNode astNode, List<Class<?>> allowedTypes) {
         QLError unsupportedTypeError = new UnsupportedTypeError(0, astNode.getClass().getSimpleName(), allowedTypes);
         typeCheckingErrors.add(unsupportedTypeError);
     }

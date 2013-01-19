@@ -1,5 +1,6 @@
 package org.uva.sea.ql.ast.nodetypes.formelement;
 
+import java.util.Collections;
 import java.util.List;
 
 import org.uva.sea.ql.ast.QLExpression;
@@ -16,7 +17,7 @@ public class Conditional extends QLStatement {
 
 		this.condition = condition;
 		this.successBlock = successBlock;
-		this.failureBlock = null;
+		this.failureBlock = Collections.emptyList();
 	}
 
 	public Conditional(QLExpression condition, List<QLStatement> successBlock, List<QLStatement> failureBlock) {
@@ -43,5 +44,16 @@ public class Conditional extends QLStatement {
 
     @Override
     public void accept(ASTNodeVisitor visitor) {
+        condition.accept(visitor);
+
+        for (QLStatement qlStatement : successBlock) {
+            qlStatement.accept(visitor);
+        }
+
+        for(QLStatement qlStatement : failureBlock) {
+            qlStatement.accept(visitor);
+        }
+
+        visitor.visitConditional(this);
     }
 }
