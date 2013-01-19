@@ -37,7 +37,7 @@ public class TestForm extends TestBase {
 	@Test
 	public void testValidForm() throws RecognitionException {
 		parser.parseForm(FORM).accept(typeChecker);
-		assertTrue(typeChecker.getErrorLog().getLength() == 0);
+		assertEquals(0, typeChecker.getErrorLog().getLength());
 	}
 
 	@Test

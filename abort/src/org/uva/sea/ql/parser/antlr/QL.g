@@ -25,7 +25,6 @@ package org.uva.sea.ql.parser.antlr;
 @parser::members {
 }
 
-// TODO: distinguish literals with non-literals (data type and parse)
 form returns [Form result]
   : FORM Ident BLOCK_START e=elements BLOCK_END {    
     $result = new Form($Ident.text, e);
@@ -61,7 +60,7 @@ computation returns [Computation result]
 
 question returns [Question result]
   : label=Ident ':' String parameter=dataType {
-    $result = new Question(new Label($label.text), $String.text, $parameter.result);
+    $result = new Question(new Label($label.text), $String.text.substring(1, $String.text.length() - 1), $parameter.result);
   };
   
 dataType returns [Class<? extends DataType> result]

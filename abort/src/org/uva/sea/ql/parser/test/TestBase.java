@@ -14,4 +14,9 @@ public class TestBase {
 		tokens.setTokenSource(new QLLexer(stream));
 		return new QLParser(tokens);
 	}
+	
+	protected QLParser parseResource(final String path) {
+		// TODO: parse resource
+		return null;
+	}
 }

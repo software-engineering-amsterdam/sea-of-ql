@@ -29,6 +29,10 @@ public class TestBinaryOperators extends TestBase {
 		assertNotNull(node);
 		assertEquals(Add.class, node.getClass());
 		
+		node = parse("(a + b)").addExpression();
+		assertNotNull(node);
+		assertEquals(Add.class, node.getClass());
+		
 		node = parse("+ 1 1").addExpression();
 		assertFalse(Add.class.equals(node));
 	}

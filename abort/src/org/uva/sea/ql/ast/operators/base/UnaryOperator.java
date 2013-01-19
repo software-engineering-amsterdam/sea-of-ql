@@ -16,7 +16,7 @@ public abstract class UnaryOperator extends Operator {
 	
 	// Override in subclasses for stronger typing
 	@Override
-	public void accept(IVisitor visitor) {
+	public void accept(final IVisitor visitor) {
 		node.accept(visitor);
 	}
 }

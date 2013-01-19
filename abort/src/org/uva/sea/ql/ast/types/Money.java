@@ -1,19 +1,18 @@
 package org.uva.sea.ql.ast.types;
 
+import java.math.BigDecimal;
+
 import org.uva.sea.ql.ast.traversal.base.IVisitor;
 
 
 public class Money extends DataType {
-	private double value;
-
-	public Money() { }
-	
+	private final BigDecimal value;	
 	
 	public Money(final String value) {
-		this.value = Double.parseDouble(value);
+		this.value = new BigDecimal(value);
 	}
 	
-	public Object getValue() {
+	public BigDecimal getValue() {
 		return value;
 	}
 

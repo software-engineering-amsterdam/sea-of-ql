@@ -13,6 +13,7 @@ import org.uva.sea.ql.ast.form.Form;
 import org.uva.sea.ql.ast.form.Label;
 import org.uva.sea.ql.ast.form.Question;
 import org.uva.sea.ql.ast.operators.base.BinaryOperator;
+import org.uva.sea.ql.ast.operators.base.UnaryOperator;
 import org.uva.sea.ql.ast.operators.binary.Add;
 import org.uva.sea.ql.ast.operators.binary.And;
 import org.uva.sea.ql.ast.operators.binary.Div;
@@ -38,6 +39,9 @@ import org.uva.sea.ql.ast.types.Int;
 import org.uva.sea.ql.ast.types.Money;
 import org.uva.sea.ql.ast.types.StringLiteral;
 
+
+// TODO: add scope support for forms and internal scopes
+// TODO: type dispatcher, binary, unary, form
 public class TypeChecker implements IVisitor {
 	private final TypeErrorLog errorLog = new TypeErrorLog();
 	private final TypeEventLog eventLog = new TypeEventLog();
@@ -109,9 +113,10 @@ public class TypeChecker implements IVisitor {
 			symbolTable.addTypeForNode(label, computation.getExpectedType());
 		}
 		
+		// Should be a calculation
 		final Node calculationOperation = computation.getCalculationOperation();
 		if (calculationOperation == null || !resultTable.isMoneyOrIntegerType(resultTable.getTypeOfNode(calculationOperation))) {
-			
+			// Mention expected types in the error log
 			final List<Class<? extends Node>> expectedTypes = new ArrayList<Class <? extends Node>>();
 			expectedTypes.add(Int.class);
 			expectedTypes.add(Money.class);
@@ -119,21 +124,22 @@ public class TypeChecker implements IVisitor {
 			errorLog.addExpectedDifferentTypes(computation, expectedTypes);
 		}
 		else {
+			// Correct semantics
 			resultTable.addTypeForNode(computation, Computation.class);
 			eventLog.addCorrectSemantics(computation);
 		}
 	}
 
 	@Override
-	public void visit(final Question question) {
-		resultTable.addTypeForNode(question, Question.class);
-		eventLog.addCorrectSemantics(question);
-		
+	public void visit(final Question question) {	
 		final Label label = question.getLabel();
 		if (symbolTable.isLabelDeclared(label)) {
 			errorLog.addLabelRedeclaration(question, label);
 		}
 		else {
+			resultTable.addTypeForNode(question, Question.class);
+			eventLog.addCorrectSemantics(question);
+			
 			// The label has not yet been declared before, thus we store it in the symbol table here
 			symbolTable.addTypeForNode(question.getLabel(), question.getExpectedType());
 		}
@@ -361,6 +367,7 @@ public class TypeChecker implements IVisitor {
 	}
 	
 	private boolean checkForEmptyFlow(final IfStatement conditional, final List<Element> flowElements) {
+		// The flow of the condition appears to be empty. The error log should contain a warning
 		if (flowElements == null || flowElements.size() == 0) {
 			errorLog.addEmptyFlow(conditional);
 			
@@ -369,7 +376,6 @@ public class TypeChecker implements IVisitor {
 		
 		return false;
 	}
-	
 	
 	// Both sides have to be of a number type
 	private boolean checkForNumberTypeErrors(final BinaryOperator operator) {
@@ -391,6 +397,7 @@ public class TypeChecker implements IVisitor {
 		return error;
 	}
 	
+	// Both sides have to be of the same type
 	private boolean checkForSameTypeErrors(final BinaryOperator operator) {	
 		if (!resultTable.hasOperationGotEqualTypes(operator)) {
 			errorLog.addBothSidesAreDifferentTypes(operator);
@@ -401,6 +408,7 @@ public class TypeChecker implements IVisitor {
 		return false;
 	}
 	
+	// Both sides have to be booleans
 	private boolean checkForBooleanBothSideErors(final BinaryOperator operator) {
 		final Class<? extends Node> leftHandSide = resultTable.getLeftHandSideResultType(operator);
 		final Class<? extends Node> rightHandSide = resultTable.getRightHandSideResultType(operator);

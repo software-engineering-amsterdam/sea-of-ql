@@ -11,7 +11,7 @@ public class Mul extends BinaryOperator {
 	}
 	
 	@Override
-	public void accept(IVisitor visitor) {
+	public void accept(final IVisitor visitor) {
 		super.accept(visitor);
 		visitor.visit(this);
 	}

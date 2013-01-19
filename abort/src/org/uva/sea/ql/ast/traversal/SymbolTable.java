@@ -20,7 +20,7 @@ class SymbolTable extends TypeTable {
 	}
 	
 	@Override
-	public void addTypeForNode(Node node, Class<? extends Node> type) {
+	public void addTypeForNode(final Node node, final Class<? extends Node> type) {
 		super.addTypeForNode(node, type);
 	}
 }

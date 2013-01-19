@@ -4,10 +4,9 @@ import org.uva.sea.ql.ast.traversal.base.IVisitor;
 
 
 public class StringLiteral extends DataType {
-	private String value;
+	private final String value;
 	
 	public StringLiteral(final String value) { this.value = value; }	
-	public StringLiteral() { }
 
 	public String getValue() {
 		return value;

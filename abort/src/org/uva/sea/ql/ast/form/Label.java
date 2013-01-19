@@ -35,7 +35,7 @@ public class Label extends Node {
 	}
 
 	@Override
-	public void accept(IVisitor visitor) {
+	public void accept(final IVisitor visitor) {
 		visitor.visit(this);
 	}
 }

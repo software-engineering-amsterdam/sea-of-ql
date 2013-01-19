@@ -54,5 +54,4 @@ class ResultTypeTable extends TypeTable {
 	public final Class<? extends Node> getUnaryResultType(final UnaryOperator operator) {
 		return getTypeOfNode(operator.getNode());
 	}
-
 }
