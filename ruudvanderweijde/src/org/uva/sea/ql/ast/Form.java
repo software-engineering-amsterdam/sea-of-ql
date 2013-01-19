@@ -2,6 +2,8 @@ package org.uva.sea.ql.ast;
 
 import java.util.List;
 
+import org.uva.sea.ql.ast.stmt.Statement;
+
 public class Form {
 
 	private final String id;

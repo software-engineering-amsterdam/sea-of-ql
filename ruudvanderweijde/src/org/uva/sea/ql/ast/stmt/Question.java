@@ -1,4 +1,6 @@
-package org.uva.sea.ql.ast;
+package org.uva.sea.ql.ast.stmt;
+
+import org.uva.sea.ql.ast.type.Type;
 
 
 public class Question extends Statement {

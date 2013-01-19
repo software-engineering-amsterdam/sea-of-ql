@@ -1,6 +1,5 @@
-package org.uva.sea.ql.ast;
+package org.uva.sea.ql.ast.expr;
 
-import org.uva.sea.ql.ast.expr.Expr;
 
 public class Int extends Expr {
 

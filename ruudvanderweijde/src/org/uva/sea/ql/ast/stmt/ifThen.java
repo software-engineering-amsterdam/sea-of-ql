@@ -1,20 +1,17 @@
-package org.uva.sea.ql.ast;
+package org.uva.sea.ql.ast.stmt;
 
 import java.util.List;
 
 import org.uva.sea.ql.ast.expr.Expr;
 
-public class ifElse extends Statement {
+public class ifThen extends Statement {
 
 	private final Expr condition;
 	private final List<Statement> ifBlock;
-	private final List<Statement> elseBlock;
 	
-	public ifElse(Expr condition, List<Statement> ifBlock,
-			List<Statement> elseBlock) {
+	public ifThen(Expr condition, List<Statement> ifBlock) {
 		this.condition = condition;
 		this.ifBlock = ifBlock;
-		this.elseBlock = elseBlock;
 	}
 
 	public Expr getCondition() {
@@ -23,10 +20,6 @@ public class ifElse extends Statement {
 
 	public List<Statement> getIfBlock() {
 		return ifBlock;
-	}
-
-	public List<Statement> getElseBlock() {
-		return elseBlock;
 	}
 
 }
