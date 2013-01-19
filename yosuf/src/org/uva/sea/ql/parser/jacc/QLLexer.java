@@ -6,7 +6,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.uva.sea.ql.ast.ASTNode;
-import org.uva.sea.ql.ast.Ident;
+import org.uva.sea.ql.ast.Identifier;
 import org.uva.sea.ql.ast.Int;
 
 public class QLLexer implements QLTokens {
@@ -157,7 +157,7 @@ public class QLLexer implements QLTokens {
 					if (KEYWORDS.containsKey(name)) {
 						return token = KEYWORDS.get(name);
 					}
-					yylval = new Ident(name);
+					yylval = new Identifier(name);
 					return token = IDENT;
 				}
 				throw new RuntimeException("Unexpected character: " + (char) c);

@@ -1,9 +1,9 @@
 package org.uva.sea.ql.ast;
 
-public class NotEquals extends Expression implements ASTNode {
+public class NotEquals extends Binary {
 
-	public NotEquals(Expression expression, Expression expression2) {
-		// TODO Auto-generated constructor stub
+	public NotEquals(final Expression left, final Expression right) {
+		super(left, right);
 	}
 
 }

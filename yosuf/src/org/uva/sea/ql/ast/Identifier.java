@@ -1,10 +1,10 @@
 package org.uva.sea.ql.ast;
 
-public class Ident extends Expression {
+public class Identifier extends Expression {
 
 	private final String name;
 
-	public Ident(String name) {
+	public Identifier(String name) {
 		this.name = name;
 	}
 	

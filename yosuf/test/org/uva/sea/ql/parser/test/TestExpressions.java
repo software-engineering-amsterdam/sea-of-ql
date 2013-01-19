@@ -12,12 +12,14 @@ import org.junit.runners.Parameterized.Parameters;
 import org.uva.sea.ql.ast.Add;
 import org.uva.sea.ql.ast.And;
 import org.uva.sea.ql.ast.GreaterThan;
-import org.uva.sea.ql.ast.Ident;
+import org.uva.sea.ql.ast.Identifier;
 import org.uva.sea.ql.ast.Int;
 import org.uva.sea.ql.ast.Multiply;
 import org.uva.sea.ql.ast.Not;
 import org.uva.sea.ql.ast.SmallerOrEquals;
 import org.uva.sea.ql.ast.SmallerThan;
+import org.uva.sea.ql.parser.IParse;
+import org.uva.sea.ql.parser.ParseError;
 import org.uva.sea.ql.parser.jacc.JACCParser;
 
 @RunWith(Parameterized.class)
@@ -79,13 +81,13 @@ public class TestExpressions {
 
 	@Test
 	public void testIds() throws ParseError {
-		assertEquals(parser.parse("a").getClass(), Ident.class);
-		assertEquals(parser.parse("abc").getClass(), Ident.class);
-		assertEquals(parser.parse("ABC").getClass(), Ident.class);
-		assertEquals(parser.parse("ABCDEF").getClass(), Ident.class);
-		assertEquals(parser.parse("abc2323").getClass(), Ident.class);
-		assertEquals(parser.parse("a2bc232").getClass(), Ident.class);
-		assertEquals(parser.parse("a2bc232aa").getClass(), Ident.class);
+		assertEquals(parser.parse("a").getClass(), Identifier.class);
+		assertEquals(parser.parse("abc").getClass(), Identifier.class);
+		assertEquals(parser.parse("ABC").getClass(), Identifier.class);
+		assertEquals(parser.parse("ABCDEF").getClass(), Identifier.class);
+		assertEquals(parser.parse("abc2323").getClass(), Identifier.class);
+		assertEquals(parser.parse("a2bc232").getClass(), Identifier.class);
+		assertEquals(parser.parse("a2bc232aa").getClass(), Identifier.class);
 	}
 
 	@Test

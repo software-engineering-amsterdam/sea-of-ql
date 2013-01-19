@@ -1,9 +1,9 @@
 package org.uva.sea.ql.ast;
 
-public class Equals extends Expression implements ASTNode {
+public class Equals extends Binary {
 
-	public Equals(Expression expression, Expression expression2) {
-		// TODO Auto-generated constructor stub
+	public Equals(final Expression left, final Expression right) {
+		super(left, right);
 	}
 
 }

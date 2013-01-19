@@ -1,9 +1,9 @@
 package org.uva.sea.ql.ast;
 
-public class GreaterOrEquals extends Expression implements ASTNode {
+public class GreaterOrEquals extends Binary {
 
-	public GreaterOrEquals(Expression expression, Expression expression2) {
-		// TODO Auto-generated constructor stub
+	public GreaterOrEquals(final Expression left, final Expression right) {
+		super(left, right);
 	}
 
 }

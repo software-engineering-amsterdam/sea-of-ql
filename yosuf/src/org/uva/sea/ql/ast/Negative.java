@@ -1,9 +1,9 @@
 package org.uva.sea.ql.ast;
 
-public class Negative extends Expression implements ASTNode {
+public class Negative extends Unary {
 
-	public Negative(Expression expression) {
-		// TODO Auto-generated constructor stub
+	public Negative(final Expression operation) {
+		super(operation);
 	}
 
 }

@@ -1,9 +1,8 @@
 package org.uva.sea.ql.ast;
 
-public class SmallerOrEquals extends Expression implements ASTNode {
+public class SmallerOrEquals extends Binary {
 
-	public SmallerOrEquals(Expression expression, Expression expression2) {
-		// TODO Auto-generated constructor stub
+	public SmallerOrEquals(final Expression left, final Expression right) {
+		super(left, right);
 	}
-
 }

@@ -1,9 +1,9 @@
 package org.uva.sea.ql.ast;
 
-public class Divide extends Expression {
+public class Divide extends Binary {
 
-	public Divide(Expression expression, Expression expression2) {
-		// TODO Auto-generated constructor stub
+	public Divide(final Expression left, final Expression right) {
+		super(left, right);
 	}
 
 }

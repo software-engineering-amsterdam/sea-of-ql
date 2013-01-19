@@ -1,9 +1,9 @@
 package org.uva.sea.ql.ast;
 
-public class Substitute extends Expression implements ASTNode {
+public class Substitute extends Binary {
 
-	public Substitute(Expression expression, Expression expression2) {
-		// TODO Auto-generated constructor stub
+	public Substitute(final Expression left, final Expression right) {
+		super(left, right);
 	}
 
 }

@@ -1,9 +1,9 @@
 package org.uva.sea.ql.ast;
 
-public class Not extends Expression implements ASTNode {
+public class Not extends Unary {
 
-	public Not(Expression expression) {
-		// TODO Auto-generated constructor stub
+	public Not(final Expression operation) {
+		super(operation);
 	}
 
 }

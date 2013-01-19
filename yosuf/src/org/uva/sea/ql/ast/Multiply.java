@@ -1,9 +1,9 @@
 package org.uva.sea.ql.ast;
 
-public class Multiply extends Expression implements ASTNode {
+public class Multiply extends Binary {
 
-	public Multiply(Expression expression, Expression expression2) {
-		// TODO Auto-generated constructor stub
+	public Multiply(final Expression left, final Expression right) {
+		super(left, right);
 	}
 
 }

@@ -1,9 +1,9 @@
 package org.uva.sea.ql.ast;
 
-public class Add extends Expression implements ASTNode {
+public class Add extends Binary {
 
-	public Add(Expression expression, Expression expression2) {
-		// TODO Auto-generated constructor stub
+	public Add(final Expression left, final Expression right) {
+		super(left, right);
 	}
 
 }
