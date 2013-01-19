@@ -11,6 +11,8 @@ options
   package org.uva.sea.ql.parser;
   import org.uva.sea.ql.ast.*;
   import org.uva.sea.ql.ast.expr.*;
+  import org.uva.sea.ql.ast.type.*;
+  import org.uva.sea.ql.ast.stmt.*;
 }
 
 @lexer::header
