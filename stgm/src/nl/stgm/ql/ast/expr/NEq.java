@@ -1,4 +1,4 @@
-package nl.stgm.ql.ast;
+package nl.stgm.ql.ast.expr;
 
 public class NEq extends Expr
 {

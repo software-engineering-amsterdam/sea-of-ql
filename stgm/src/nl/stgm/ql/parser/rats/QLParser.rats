@@ -6,12 +6,13 @@ header {
 import java.util.List;
 import java.util.ArrayList;
 import xtc.util.Action;
-import nl.stgm.ql.ast.*;
+import nl.stgm.ql.ast.expr.*;
+import nl.stgm.ql.ast.form.*;
 }
 
-public Expr ParseExpr    = yyValue:Expr;
-public Form ParseForm    = yyValue:Form;
-public Document ParseDoc = yyValue:Document;
+public Expr ParseExpr = yyValue:Expr;
+public Form ParseForm = yyValue:Form;
+public Document Parse = yyValue:Document;
 
 Document Document = Spacing
 	Form*
