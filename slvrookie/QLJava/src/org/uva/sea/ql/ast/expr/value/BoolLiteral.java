@@ -1,5 +1,7 @@
 package org.uva.sea.ql.ast.expr.value;
 
+import org.uva.sea.ql.visitor.Visitor;
+
 public class BoolLiteral extends Value {
 
 	private final boolean value;
@@ -10,6 +12,12 @@ public class BoolLiteral extends Value {
 
 	public boolean getValue() {
 		return value;
+	}
+
+	@Override
+	public void accept(Visitor visitor) {
+		// TODO Auto-generated method stub
+		
 	}
 	
 }

@@ -3,33 +3,59 @@ package org.uva.sea.ql.parser.antlr;
 import org.antlr.runtime.ANTLRStringStream;
 import org.antlr.runtime.CommonTokenStream;
 import org.antlr.runtime.RecognitionException;
+import org.uva.sea.ql.ast.Form;
+import org.uva.sea.ql.ast.FormElement;
 import org.uva.sea.ql.ast.expr.Expr;
-import org.antlr.runtime.Token;
+import org.uva.sea.ql.ast.types.Type;
 import org.uva.sea.ql.parser.test.IParse;
 import org.uva.sea.ql.parser.test.ParseError;
 
 public class ANTLRParser implements IParse {
 
-	@Override
-	public Expr parse(String src) throws ParseError {
+	
+	public QLParser parse(String src) throws ParseError {
 		ANTLRStringStream stream = new ANTLRStringStream(src);
-		QLLexer qlLexer = new QLLexer(stream);
-		Token token;
-		while (true) {
-			token = qlLexer.nextToken();
-			if (token.getType() == Token.EOF) {
-				break;
-			}
-			System.out.println(token.getText());
-		}
-		qlLexer.reset();
-		CommonTokenStream tokens = new CommonTokenStream(qlLexer);
+		CommonTokenStream tokens = new CommonTokenStream();
+		tokens.setTokenSource(new QLLexer(stream));
 		QLParser parser = new QLParser(tokens);
+		return parser;
+	}
+	
+
+	@Override
+	public Expr parseExpr(String src) throws ParseError {
 		try {
-			return parser.orExpr();
+			return parse(src).orExpr();
 		} catch (RecognitionException e) {
 			throw new ParseError(e.getMessage());
 		}
 	}
 
+	@Override
+	public Type parseType(String src) throws ParseError {
+		try {
+			return parse(src).type();
+		} catch (RecognitionException e) {
+			throw new ParseError(e.getMessage());
+		}
+	}
+	
+
+	@Override
+	public FormElement parseFormElement(String src) throws ParseError {
+		try {
+			return parse(src).formElement();
+		} catch (RecognitionException e) {
+			throw new ParseError(e.getMessage());
+		}
+	}
+
+	@Override
+	public Form parseForm(String src) throws ParseError {
+		try {
+			return parse(src).form();
+		} catch (RecognitionException e) {
+			throw new ParseError(e.getMessage());
+		}
+	}
 }

@@ -1,27 +1,24 @@
 package org.uva.sea.ql.ast;
 
-import java.util.List;
 import org.uva.sea.ql.ast.expr.Expr;
 import org.uva.sea.ql.visitor.Visitor;
 
-public class IfBody extends FormElement {
+public class IfBody implements FormElement {
 
 	private final Expr expression;
-	private final List<FormElement> formelements;
+	private final FormBlock ifbody;
 
-	public IfBody(Expr expression, List<FormElement> formelements ) {
-
+	public IfBody(Expr expression, FormBlock ifbody) {
 		this.expression = expression;
-		this.formelements = formelements;
-
+		this.ifbody = ifbody;
 	}
 
 	public Expr getExpression() {
 		return expression;
 	}
 
-	public List<FormElement> getFormElements() {
-		return formelements;
+	public FormBlock getIfElements() {
+		return ifbody;
 	}
 
 	@Override

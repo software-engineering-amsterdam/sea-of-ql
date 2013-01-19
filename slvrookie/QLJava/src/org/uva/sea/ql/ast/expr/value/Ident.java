@@ -2,16 +2,16 @@ package org.uva.sea.ql.ast.expr.value;
 
 import org.uva.sea.ql.visitor.Visitor;
 
-public class StringLiteral extends Value {
+public class Ident extends Value {
 
-	private final String value;
+	private final String name;
 
-	public StringLiteral(String value) {
-		this.value = value;
+	public Ident(String name) {
+		this.name = name;
 	}
 
-	public String getValue() {
-		return value;
+	public String getName() {
+		return name;
 	}
 
 	@Override
@@ -19,5 +19,5 @@ public class StringLiteral extends Value {
 		// TODO Auto-generated method stub
 		
 	}
-	
+
 }
