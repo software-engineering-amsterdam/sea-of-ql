@@ -1,6 +1,9 @@
 package org.uva.sea.ql.ast.nodetypes.primary;
 
-public final class Ident extends NamedPrimaryExpression {
+import org.uva.sea.ql.ast.QLExpression;
+import org.uva.sea.ql.parser.visitor.ASTNodeVisitor;
+
+public final class Ident extends QLExpression {
 
 	private final String name;
 
@@ -8,8 +11,12 @@ public final class Ident extends NamedPrimaryExpression {
 		this.name = name;
 	}
 
-	@Override
 	public String getName() {
 		return name;
 	}
+
+    @Override
+    public void accept(ASTNodeVisitor visitor) {
+        visitor.visitIdent(this);
+    }
 }

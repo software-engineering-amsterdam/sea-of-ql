@@ -1,6 +1,6 @@
 package org.uva.sea.ql.ast.nodetypes.primary;
 
-public final class Bool extends ValuedPrimaryExpression<Boolean> {
+public final class Bool extends Primary<Boolean> {
 
 	private final boolean value;
 	

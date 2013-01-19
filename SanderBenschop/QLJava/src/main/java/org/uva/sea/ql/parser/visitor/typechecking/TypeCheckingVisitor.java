@@ -11,6 +11,7 @@ import org.uva.sea.ql.ast.nodetypes.formelement.Computation;
 import org.uva.sea.ql.ast.nodetypes.formelement.Conditional;
 import org.uva.sea.ql.ast.nodetypes.formelement.Question;
 import org.uva.sea.ql.ast.nodetypes.primary.Bool;
+import org.uva.sea.ql.ast.nodetypes.primary.Ident;
 import org.uva.sea.ql.ast.nodetypes.primary.Primary;
 import org.uva.sea.ql.ast.nodetypes.unary.UnaryOperation;
 import org.uva.sea.ql.parser.visitor.ASTNodeVisitor;
@@ -22,6 +23,7 @@ import org.uva.sea.ql.parser.visitor.QLValidator;
  */
 public class TypeCheckingVisitor implements ASTNodeVisitor, QLValidator {
 
+    private InstanceVariableTable instanceVariableTable;
     private ReductionTable reductionTable;
     private List<QLError> typeCheckingErrors;
 
@@ -32,7 +34,6 @@ public class TypeCheckingVisitor implements ASTNodeVisitor, QLValidator {
 
     @Override
     public void visitComputation(Computation computation) {
-
     }
 
     @Override
@@ -45,7 +46,6 @@ public class TypeCheckingVisitor implements ASTNodeVisitor, QLValidator {
 
     @Override
     public void visitQuestion(Question question) {
-        //Check if identifier is not redefined.
     }
 
 
@@ -85,6 +85,10 @@ public class TypeCheckingVisitor implements ASTNodeVisitor, QLValidator {
         if (!rightHandSideReduceable) {
             addErrorForUnsupportedType(leftHandSide, supportedTypes);
         }
+    }
+
+    @Override
+    public void visitIdent(Ident ident) {
     }
 
     @Override
