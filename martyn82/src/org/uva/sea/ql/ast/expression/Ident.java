@@ -1,6 +1,5 @@
 package org.uva.sea.ql.ast.expression;
 
-import org.uva.sea.ql.ast.type.Type;
 import org.uva.sea.ql.visitor.INodeVisitor;
 
 /**
@@ -14,7 +13,7 @@ public class Ident extends Expression {
 
 	/**
 	 * Constructs a new identifier expression.
-	 * 
+	 *
 	 * @param name The name of the identifier.
 	 */
 	public Ident( String name ) {
@@ -23,7 +22,7 @@ public class Ident extends Expression {
 
 	/**
 	 * Retrieves the name of the identifier.
-	 * 
+	 *
 	 * @return The name of the identifier.
 	 */
 	public String getName() {
@@ -34,21 +33,9 @@ public class Ident extends Expression {
 	public void accept( INodeVisitor visitor ) {
 		visitor.visit( this );
 	}
-	
+
 	@Override
 	public String toString() {
 		return this.name;
-	}
-
-	@Override
-	public boolean checkType() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public Type getType() {
-		// TODO Auto-generated method stub
-		return null;
 	}
 }
