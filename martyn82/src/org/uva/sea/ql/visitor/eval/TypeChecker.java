@@ -6,14 +6,11 @@ import org.uva.sea.ql.ast.expression.Ident;
 import org.uva.sea.ql.ast.expression.LogicalExpression;
 import org.uva.sea.ql.ast.expression.UnaryExpression;
 import org.uva.sea.ql.ast.expression.UnaryNumericExpression;
-import org.uva.sea.ql.ast.expression.value.Int;
-import org.uva.sea.ql.ast.expression.value.Str;
 import org.uva.sea.ql.ast.statement.Assignment;
 import org.uva.sea.ql.ast.statement.FormDeclaration;
 import org.uva.sea.ql.ast.statement.IfThenElse;
 import org.uva.sea.ql.ast.statement.QuestionDeclaration;
 import org.uva.sea.ql.ast.statement.VarDeclaration;
-import org.uva.sea.ql.ast.type.Bool;
 import org.uva.sea.ql.evaluate.Context;
 import org.uva.sea.ql.evaluate.Value;
 import org.uva.sea.ql.evaluate.value.Boolean;
@@ -131,22 +128,22 @@ public class TypeChecker implements INodeVisitor {
 	}
 
 	@Override
-	public Value visit( Int node, Context context ) {
-		return new Integer();
+	public Value visit( org.uva.sea.ql.ast.expression.value.Int node, Context context ) {
+		return new org.uva.sea.ql.evaluate.value.Integer();
 	}
 
 	@Override
 	public Value visit( org.uva.sea.ql.ast.expression.value.Bool node, Context context ) {
-		return new Boolean();
+		return new org.uva.sea.ql.evaluate.value.Boolean();
 	}
 
 	@Override
 	public Value visit( org.uva.sea.ql.ast.expression.value.Money node, Context context ) {
-		return new Money();
+		return new org.uva.sea.ql.evaluate.value.Money();
 	}
 
 	@Override
-	public Value visit( Str node, Context context ) {
+	public Value visit( org.uva.sea.ql.ast.expression.value.Str node, Context context ) {
 		return new org.uva.sea.ql.evaluate.value.String();
 	}
 
@@ -159,6 +156,7 @@ public class TypeChecker implements INodeVisitor {
 		}
 		catch ( RuntimeException e ) {
 			context.addError( e.getMessage() );
+			return null;
 		}
 
 		return ident;
@@ -169,7 +167,7 @@ public class TypeChecker implements INodeVisitor {
 		Value condition = node.getCondition().accept( this, context );
 
 		if ( !( condition instanceof Boolean ) ) {
-			context.addError( "Condition of an IF block should evaluate to a Boolean." );
+			context.addError( "Condition of an IF block should evaluate to Boolean." );
 			return null;
 		}
 
@@ -196,19 +194,31 @@ public class TypeChecker implements INodeVisitor {
 			return null;
 		}
 
-		context.declareType( node.getIdent(), node.getType() );
-		context.declareVariable( node.getIdent(), null );
-
-		node.getIdent().accept( this, context );
-		node.getType().accept( this, context );
+		context.declareVariable( node.getIdent(), node.getType().accept( this, context ) );
 
 		return null;
 	}
 
 	@Override
 	public Value visit( Assignment node, Context context ) {
-		Value value = node.getRhs().accept( this, context );
-		context.declareVariable( node.getLhs(), value );
+		Value value = node.getExpression().accept( this, context );
+
+		if ( context.isDeclared( node.getIdent() ) ) {
+			Value ident = node.getIdent().accept( this, context );
+
+			if ( ident.getClass() != value.getClass() ) {
+				context.addError(
+					String.format(
+						"Type mismatch: cannot convert from %s to %s.",
+						ident.getClass().getSimpleName(),
+						value.getClass().getSimpleName()
+					)
+				);
+				return null;
+			}
+		}
+
+		context.declareVariable( node.getIdent(), value );
 
 		return value;
 	}
@@ -216,25 +226,23 @@ public class TypeChecker implements INodeVisitor {
 	@Override
 	public Value visit( FormDeclaration node, Context context ) {
 		node.getStatements().accept( this, context );
-
-		return new Boolean();
+		return new org.uva.sea.ql.evaluate.value.Boolean();
 	}
 
 	@Override
 	public Value visit( QuestionDeclaration node, Context context ) {
 		node.getName().accept( this, context );
-
 		return node.getDeclaration().accept( this, context );
 	}
 
 	@Override
-	public Value visit( Bool node, Context context ) {
-		return new Boolean();
+	public Value visit( org.uva.sea.ql.ast.type.Bool node, Context context ) {
+		return new org.uva.sea.ql.evaluate.value.Boolean();
 	}
 
 	@Override
 	public Value visit( org.uva.sea.ql.ast.type.Int node, Context context ) {
-		return new Integer();
+		return new org.uva.sea.ql.evaluate.value.Integer();
 	}
 
 	@Override
@@ -244,6 +252,6 @@ public class TypeChecker implements INodeVisitor {
 
 	@Override
 	public Value visit( org.uva.sea.ql.ast.type.Money node, Context context ) {
-		return new Money();
+		return new org.uva.sea.ql.evaluate.value.Money();
 	}
 }
