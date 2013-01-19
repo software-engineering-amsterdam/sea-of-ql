@@ -1,6 +1,8 @@
 package org.uva.sea.ql.ast.statement;
 
 import org.uva.sea.ql.ast.expression.value.Str;
+import org.uva.sea.ql.evaluate.Context;
+import org.uva.sea.ql.evaluate.Value;
 import org.uva.sea.ql.visitor.INodeVisitor;
 
 /**
@@ -11,15 +13,15 @@ public class QuestionDeclaration extends Statement {
 	 * Holds the name node.
 	 */
 	private final Str name;
-	
+
 	/**
 	 * Holds the declaration node.
 	 */
 	private final Statement statement;
-	
+
 	/**
 	 * Constructs a new question declaration node.
-	 * 
+	 *
 	 * @param name
 	 * @param declaration
 	 */
@@ -27,10 +29,10 @@ public class QuestionDeclaration extends Statement {
 		this.name = name;
 		this.statement = declaration;
 	}
-	
+
 	/**
 	 * Constructs a new question declaration.
-	 * 
+	 *
 	 * @param name
 	 * @param assignment
 	 */
@@ -38,19 +40,19 @@ public class QuestionDeclaration extends Statement {
 		this.name = name;
 		this.statement = assignment;
 	}
-	
+
 	/**
 	 * Retrieves the name node.
-	 * 
+	 *
 	 * @return Name AST node.
 	 */
 	public Str getName() {
 		return this.name;
 	}
-	
+
 	/**
 	 * Retrieves the declaration node.
-	 * 
+	 *
 	 * @return Declaration AST node.
 	 */
 	public Statement getDeclaration() {
@@ -58,7 +60,7 @@ public class QuestionDeclaration extends Statement {
 	}
 
 	@Override
-	public void accept( INodeVisitor visitor ) {
-		visitor.visit( this );
+	public Value accept( INodeVisitor visitor, Context context ) {
+		return visitor.visit( this, context );
 	}
 }

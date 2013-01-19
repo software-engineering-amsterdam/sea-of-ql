@@ -3,19 +3,25 @@ package org.uva.sea.ql.visitor.print;
 import java.io.IOException;
 import java.io.OutputStream;
 
+import org.uva.sea.ql.ast.INode;
 import org.uva.sea.ql.ast.expression.ArithmeticExpression;
-import org.uva.sea.ql.ast.expression.BinaryExpression;
+import org.uva.sea.ql.ast.expression.ComparisonExpression;
 import org.uva.sea.ql.ast.expression.Ident;
 import org.uva.sea.ql.ast.expression.LogicalExpression;
 import org.uva.sea.ql.ast.expression.UnaryExpression;
 import org.uva.sea.ql.ast.expression.UnaryNumericExpression;
+import org.uva.sea.ql.ast.expression.value.Bool;
+import org.uva.sea.ql.ast.expression.value.Int;
 import org.uva.sea.ql.ast.expression.value.Literal;
+import org.uva.sea.ql.ast.expression.value.Money;
+import org.uva.sea.ql.ast.expression.value.Str;
 import org.uva.sea.ql.ast.statement.Assignment;
 import org.uva.sea.ql.ast.statement.FormDeclaration;
 import org.uva.sea.ql.ast.statement.IfThenElse;
 import org.uva.sea.ql.ast.statement.QuestionDeclaration;
 import org.uva.sea.ql.ast.statement.VarDeclaration;
-import org.uva.sea.ql.ast.type.Type;
+import org.uva.sea.ql.evaluate.Context;
+import org.uva.sea.ql.evaluate.Value;
 import org.uva.sea.ql.visitor.INodeVisitor;
 
 /**
@@ -26,6 +32,11 @@ public class PrintVisitor implements INodeVisitor {
 	 * String used for indenting.
 	 */
 	private static final String INDENT = "  ";
+
+	/**
+	 * String template used for printing atomic nodes.
+	 */
+	private static final String TPL_ATOMIC_NODE = "%s(%s)";
 
 	/**
 	 * Holds the output stream to print to.
@@ -58,7 +69,7 @@ public class PrintVisitor implements INodeVisitor {
 	 */
 	private void indent() {
 		if ( !empty ) {
-			put( "\n" );
+			write( "\n" );
 		}
 
 		StringBuilder sb = new StringBuilder();
@@ -67,7 +78,7 @@ public class PrintVisitor implements INodeVisitor {
 			sb.append( INDENT );
 		}
 
-		put( sb.toString() );
+		write( sb.toString() );
 	}
 
 	/**
@@ -84,7 +95,7 @@ public class PrintVisitor implements INodeVisitor {
 	 *
 	 * @param data
 	 */
-	private void put( String data ) {
+	private void write( String data ) {
 		try {
 			out.write( data.getBytes() );
 			empty = false;
@@ -94,191 +105,283 @@ public class PrintVisitor implements INodeVisitor {
 		}
 	}
 
+	/**
+	 * Writes a node name to output.
+	 *
+	 * @param node
+	 */
+	private void writeName( INode node ) {
+		write( node.getClass().getSimpleName().toUpperCase() );
+	}
+
+	/**
+	 * Writes an atomic node to output stream.
+	 *
+	 * @param node
+	 */
+	private void writeAtomic( Literal node ) {
+		write(
+			String.format(
+				TPL_ATOMIC_NODE,
+				node.getClass().getSimpleName().toUpperCase(),
+				node.toString()
+			)
+		);
+	}
+
+	/**
+	 * Writes an atomic node to output stream.
+	 *
+	 * @param node
+	 */
+	private void writeAtomic( Ident node ) {
+		write(
+			String.format(
+				TPL_ATOMIC_NODE,
+				node.getClass().getSimpleName().toUpperCase(),
+				node.getName()
+			)
+		);
+	}
+
 	@Override
-	public void visit( ArithmeticExpression node ) {
-		put( node.getClass().getSimpleName().toUpperCase() );
+	public Value visit( LogicalExpression node, Context context ) {
+		writeName( node );
 
 		level++;
 
 		indent();
-		node.getLhs().accept( this );
+		node.getLhs().accept( this, context );
 
 		indent();
-		node.getRhs().accept( this );
+		node.getRhs().accept( this, context );
 
 		level--;
+
+		return null;
 	}
 
 	@Override
-	public void visit( LogicalExpression node ) {
-		put( node.getClass().getSimpleName().toUpperCase() );
+	public Value visit( ArithmeticExpression node, Context context ) {
+		writeName( node );
 
 		level++;
 
 		indent();
-		node.getLhs().accept( this );
+		node.getLhs().accept( this, context );
 
 		indent();
-		node.getRhs().accept( this );
+		node.getRhs().accept( this, context );
 
 		level--;
+
+		return null;
 	}
 
 	@Override
-	public void visit( BinaryExpression node ) {
-		put( node.getClass().getSimpleName().toUpperCase() );
+	public Value visit( UnaryExpression node, Context context ) {
+		writeName( node );
 
 		level++;
 
 		indent();
-		node.getLhs().accept( this );
-
-		indent();
-		node.getRhs().accept( this );
+		node.getExpression().accept( this, context );
 
 		level--;
+
+		return null;
 	}
 
 	@Override
-	public void visit( UnaryExpression node ) {
-		put( node.getClass().getSimpleName().toUpperCase() );
+	public Value visit( UnaryNumericExpression node, Context context ) {
+		writeName( node );
 
 		level++;
 
 		indent();
-		node.getExpression().accept( this );
+		node.getExpression().accept( this, context );
 
 		level--;
+
+		return null;
 	}
 
 	@Override
-	public void visit( UnaryNumericExpression node ) {
-		put( node.getClass().getSimpleName().toUpperCase() );
+	public Value visit( Str node, Context context ) {
+		writeAtomic( node );
+		return null;
+	}
+
+	@Override
+	public Value visit( Money node, Context context ) {
+		writeAtomic( node );
+		return null;
+	}
+
+	@Override
+	public Value visit( Int node, Context context ) {
+		writeAtomic( node );
+		return null;
+	}
+
+	@Override
+	public Value visit( Bool node, Context context ) {
+		writeAtomic( node );
+		return null;
+	}
+
+	@Override
+	public Value visit( Ident node, Context context ) {
+		writeAtomic( node );
+		return null;
+	}
+
+	@Override
+	public Value visit( IfThenElse node, Context context ) {
+		indent();
+		write( "IF" );
 
 		level++;
 
 		indent();
-		node.getExpression().accept( this );
-
-		level--;
-	}
-
-	@Override
-	public void visit( Literal node ) {
-		put( node.getClass().getSimpleName().toUpperCase() );
-		put( "(" );
-		put( node.toString() );
-		put( ")" );
-	}
-
-	@Override
-	public void visit( Ident node ) {
-		put( node.getClass().getSimpleName().toUpperCase() );
-		put( "(" );
-		put( node.getName() );
-		put( ")" );
-	}
-
-	@Override
-	public void visit( IfThenElse node ) {
-		indent();
-		put( "IF" );
-
-		level++;
-
-		indent();
-		node.getCondition().accept( this );
+		node.getCondition().accept( this, context );
 
 		level--;
 
 		if ( node.getIfThen() != null ) {
 			indent();
-			put( "THEN" );
+			write( "THEN" );
 
 			level++;
 
 			indent();
-			node.getIfThen().accept( this );
+			node.getIfThen().accept( this, context );
 
 			level--;
 		}
 
 		if ( node.getIfElse() != null ) {
 			indent();
-			put( "ELSE" );
+			write( "ELSE" );
 
 			level++;
 
 			indent();
-			node.getIfElse().accept( this );
+			node.getIfElse().accept( this, context );
 
 			level--;
 		}
+
+		return null;
 	}
 
 	@Override
-	public void visit( VarDeclaration node ) {
-		put( node.getClass().getSimpleName().toUpperCase() );
+	public Value visit( VarDeclaration node, Context context ) {
+		writeName( node );
 
 		level++;
 
 		indent();
-		node.getIdent().accept( this );
+		node.getIdent().accept( this, context );
 
 		indent();
-		node.getType().accept( this );
+		node.getType().accept( this, context );
 
 		level--;
+
+		return null;
 	}
 
 	@Override
-	public void visit( Type node ) {
-		put( node.getClass().getSimpleName().toUpperCase() );
-	}
-
-	@Override
-	public void visit( Assignment node ) {
-		put( node.getClass().getSimpleName().toUpperCase() );
+	public Value visit( Assignment node, Context context ) {
+		writeName( node );
 
 		level++;
 
 		indent();
-		node.getLhs().accept( this );
+		node.getLhs().accept( this, context );
 
 		indent();
-		node.getRhs().accept( this );
+		node.getRhs().accept( this, context );
 
 		level--;
+
+		return null;
 	}
 
 	@Override
-	public void visit( FormDeclaration node ) {
-		put( node.getClass().getSimpleName().toUpperCase() );
+	public Value visit( FormDeclaration node, Context context ) {
+		writeName( node );
 
 		level++;
 
 		indent();
-		node.getIdent().accept( this );
+		node.getIdent().accept( this, context );
 
 		indent();
-		node.getStatements().accept( this );
+		node.getStatements().accept( this, context );
 
 		level--;
+
+		return null;
 	}
 
 	@Override
-	public void visit( QuestionDeclaration node ) {
+	public Value visit( QuestionDeclaration node, Context context ) {
 		indent();
-		put( node.getClass().getSimpleName().toUpperCase() );
+		writeName( node );
 
 		level++;
 
 		indent();
-		node.getName().accept( this );
+		node.getName().accept( this, context );
 
 		indent();
-		node.getDeclaration().accept( this );
+		node.getDeclaration().accept( this, context );
 
 		level--;
+
+		return null;
+	}
+
+	@Override
+	public Value visit( ComparisonExpression node, Context context ) {
+		writeName( node );
+
+		level++;
+
+		indent();
+		node.getLhs().accept( this, context );
+
+		indent();
+		node.getRhs().accept( this, context );
+
+		level--;
+
+		return null;
+	}
+
+	@Override
+	public Value visit( org.uva.sea.ql.ast.type.Bool node, Context context ) {
+		writeName( node );
+		return null;
+	}
+
+	@Override
+	public Value visit( org.uva.sea.ql.ast.type.Int node, Context context ) {
+		writeName( node );
+		return null;
+	}
+
+	@Override
+	public Value visit( org.uva.sea.ql.ast.type.Money node, Context context ) {
+		writeName( node );
+		return null;
+	}
+
+	@Override
+	public Value visit( org.uva.sea.ql.ast.type.Str node, Context context ) {
+		writeName( node );
+		return null;
 	}
 }

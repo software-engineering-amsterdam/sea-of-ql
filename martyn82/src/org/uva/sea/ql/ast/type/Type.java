@@ -2,24 +2,31 @@ package org.uva.sea.ql.ast.type;
 
 import org.uva.sea.ql.ast.DataType;
 import org.uva.sea.ql.ast.INode;
-import org.uva.sea.ql.visitor.INodeVisitor;
 
 /**
  * Represents a type value.
  */
-public class Type implements INode {
+abstract public class Type implements INode {
+	/**
+	 * Holds the datatype.
+	 */
 	private final DataType type;
-	
+
+	/**
+	 * Constructs a new Type instance.
+	 *
+	 * @param type
+	 */
 	public Type( DataType type ) {
 		this.type = type;
 	}
-	
+
+	/**
+	 * Retrieves the data type.
+	 *
+	 * @return The data type.
+	 */
 	public DataType getType() {
 		return this.type;
-	}
-	
-	@Override
-	public void accept( INodeVisitor visitor ) {
-		visitor.visit( this );
 	}
 }
