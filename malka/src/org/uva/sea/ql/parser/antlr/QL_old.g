@@ -16,19 +16,14 @@ import org.uva.sea.ql.ast.operations.*;
 package org.uva.sea.ql.parser.antlr;
 }
 
-form returns [Form result]
-	: 'form' IDENT '{' formElementList? '}'
-	;
-
-formElementList returns [List<FormElement> result]
-	: (element=formElement {$result.add($element.result);})*
-	;
-
 formElement returns [FormElement result]
 	: IDENT ':' STRING TYPE { $result = new Question(new Ident($IDENT.text), new QLString($STRING.text), new Type($TYPE.text)); }
 	| IDENT ':' STRING TYPE '(' x=addExpr ')' { $result = new FormText(new Ident($IDENT.text), new QLString($STRING.text), new Type($TYPE.text), $x.result); }
-	| IF '(' orExpr ')' '{' formElementList '}' (ELSE '{' formElementList '}')?
 	;
+
+findType returns [Type result]
+  : TYPE { $result = new Type($TYPE.text); }
+  ;
 
 primary returns [Expr result]
   : INT    { $result = new Int(Integer.parseInt($INT.text)); }
@@ -83,7 +78,7 @@ relExpr returns [Expr result]
         $result = new GT($result, rhs);
       }
       if ($op.text.equals(">=")) {
-        $result = new GEq($result, rhs);
+        $result = new GEq($result, rhs);      
       }
       if ($op.text.equals("==")) {
         $result = new Eq($result, rhs);
@@ -116,14 +111,6 @@ COMMENT
 STRING
 	: '"' ( options{greedy=false;}: . )* '"'
 	| '\'' ( options{greedy=false;}: . )* '\''
-	;
-
-IF
-	: 'if'
-	;
-
-ELSE
-	: 'else'
 	;
 
 BOOL
