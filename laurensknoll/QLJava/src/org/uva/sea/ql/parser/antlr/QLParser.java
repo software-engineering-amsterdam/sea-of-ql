@@ -2,6 +2,30 @@
 
 package org.uva.sea.ql.parser.antlr;
 import org.uva.sea.ql.ast.*;
+import org.uva.sea.ql.ast.expr.Add;
+import org.uva.sea.ql.ast.expr.And;
+import org.uva.sea.ql.ast.expr.Div;
+import org.uva.sea.ql.ast.expr.Eq;
+import org.uva.sea.ql.ast.expr.AbstractExpr;
+import org.uva.sea.ql.ast.expr.GEq;
+import org.uva.sea.ql.ast.expr.GT;
+import org.uva.sea.ql.ast.expr.LEq;
+import org.uva.sea.ql.ast.expr.LT;
+import org.uva.sea.ql.ast.expr.Mul;
+import org.uva.sea.ql.ast.expr.NEq;
+import org.uva.sea.ql.ast.expr.Neg;
+import org.uva.sea.ql.ast.expr.Not;
+import org.uva.sea.ql.ast.expr.Or;
+import org.uva.sea.ql.ast.expr.Pos;
+import org.uva.sea.ql.ast.expr.Sub;
+import org.uva.sea.ql.ast.statement.AbstractStatement;
+import org.uva.sea.ql.ast.statement.Block;
+import org.uva.sea.ql.ast.statement.IfStatement;
+import org.uva.sea.ql.ast.statement.Question;
+import org.uva.sea.ql.ast.statement.QuestionForm;
+import org.uva.sea.ql.ast.statement.Summary;
+import org.uva.sea.ql.ast.type.Bool;
+import org.uva.sea.ql.ast.type.Money;
 
 
 import org.antlr.runtime.*;
@@ -72,15 +96,15 @@ public class QLParser extends Parser {
 
 	// $ANTLR start "primary"
 	// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:15:1: primary returns [Expr result] : ( Int | Ident | String |x= expression );
-	public final Expr primary() throws RecognitionException {
-		Expr result = null;
+	public final AbstractExpr primary() throws RecognitionException {
+		AbstractExpr result = null;
 
 		int primary_StartIndex = input.index();
 
 		Token Int1=null;
 		Token Ident2=null;
 		Token String3=null;
-		Expr x =null;
+		AbstractExpr x =null;
 
 		try {
 			if ( state.backtracking>0 && alreadyParsedRule(input, 1) ) { return result; }
@@ -166,12 +190,12 @@ public class QLParser extends Parser {
 
 	// $ANTLR start "expression"
 	// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:23:1: expression returns [Expr result] : '(' x= orExpr ')' ;
-	public final Expr expression() throws RecognitionException {
-		Expr result = null;
+	public final AbstractExpr expression() throws RecognitionException {
+		AbstractExpr result = null;
 
 		int expression_StartIndex = input.index();
 
-		Expr x =null;
+		AbstractExpr x =null;
 
 		try {
 			if ( state.backtracking>0 && alreadyParsedRule(input, 2) ) { return result; }
@@ -206,12 +230,12 @@ public class QLParser extends Parser {
 
 	// $ANTLR start "unExpr"
 	// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:27:1: unExpr returns [Expr result] : ( '+' x= unExpr | '-' x= unExpr | '!' x= unExpr |x= primary );
-	public final Expr unExpr() throws RecognitionException {
-		Expr result = null;
+	public final AbstractExpr unExpr() throws RecognitionException {
+		AbstractExpr result = null;
 
 		int unExpr_StartIndex = input.index();
 
-		Expr x =null;
+		AbstractExpr x =null;
 
 		try {
 			if ( state.backtracking>0 && alreadyParsedRule(input, 3) ) { return result; }
@@ -312,14 +336,14 @@ public class QLParser extends Parser {
 
 	// $ANTLR start "mulExpr"
 	// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:34:1: mulExpr returns [Expr result] : lhs= unExpr (op= ( '*' | '/' ) rhs= unExpr )* ;
-	public final Expr mulExpr() throws RecognitionException {
-		Expr result = null;
+	public final AbstractExpr mulExpr() throws RecognitionException {
+		AbstractExpr result = null;
 
 		int mulExpr_StartIndex = input.index();
 
 		Token op=null;
-		Expr lhs =null;
-		Expr rhs =null;
+		AbstractExpr lhs =null;
+		AbstractExpr rhs =null;
 
 		try {
 			if ( state.backtracking>0 && alreadyParsedRule(input, 4) ) { return result; }
@@ -396,14 +420,14 @@ public class QLParser extends Parser {
 
 	// $ANTLR start "addExpr"
 	// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:47:1: addExpr returns [Expr result] : lhs= mulExpr (op= ( '+' | '-' ) rhs= mulExpr )* ;
-	public final Expr addExpr() throws RecognitionException {
-		Expr result = null;
+	public final AbstractExpr addExpr() throws RecognitionException {
+		AbstractExpr result = null;
 
 		int addExpr_StartIndex = input.index();
 
 		Token op=null;
-		Expr lhs =null;
-		Expr rhs =null;
+		AbstractExpr lhs =null;
+		AbstractExpr rhs =null;
 
 		try {
 			if ( state.backtracking>0 && alreadyParsedRule(input, 5) ) { return result; }
@@ -480,14 +504,14 @@ public class QLParser extends Parser {
 
 	// $ANTLR start "relExpr"
 	// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:59:1: relExpr returns [Expr result] : lhs= addExpr (op= ( '<' | '<=' | '>' | '>=' | '==' | '!=' ) rhs= addExpr )* ;
-	public final Expr relExpr() throws RecognitionException {
-		Expr result = null;
+	public final AbstractExpr relExpr() throws RecognitionException {
+		AbstractExpr result = null;
 
 		int relExpr_StartIndex = input.index();
 
 		Token op=null;
-		Expr lhs =null;
-		Expr rhs =null;
+		AbstractExpr lhs =null;
+		AbstractExpr rhs =null;
 
 		try {
 			if ( state.backtracking>0 && alreadyParsedRule(input, 6) ) { return result; }
@@ -576,13 +600,13 @@ public class QLParser extends Parser {
 
 	// $ANTLR start "andExpr"
 	// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:83:1: andExpr returns [Expr result] : lhs= relExpr ( '&&' rhs= relExpr )* ;
-	public final Expr andExpr() throws RecognitionException {
-		Expr result = null;
+	public final AbstractExpr andExpr() throws RecognitionException {
+		AbstractExpr result = null;
 
 		int andExpr_StartIndex = input.index();
 
-		Expr lhs =null;
-		Expr rhs =null;
+		AbstractExpr lhs =null;
+		AbstractExpr rhs =null;
 
 		try {
 			if ( state.backtracking>0 && alreadyParsedRule(input, 7) ) { return result; }
@@ -642,13 +666,13 @@ public class QLParser extends Parser {
 
 	// $ANTLR start "orExpr"
 	// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:88:1: orExpr returns [Expr result] : lhs= andExpr ( '||' rhs= andExpr )* ;
-	public final Expr orExpr() throws RecognitionException {
-		Expr result = null;
+	public final AbstractExpr orExpr() throws RecognitionException {
+		AbstractExpr result = null;
 
 		int orExpr_StartIndex = input.index();
 
-		Expr lhs =null;
-		Expr rhs =null;
+		AbstractExpr lhs =null;
+		AbstractExpr rhs =null;
 
 		try {
 			if ( state.backtracking>0 && alreadyParsedRule(input, 8) ) { return result; }
@@ -713,7 +737,7 @@ public class QLParser extends Parser {
 
 		int form_StartIndex = input.index();
 
-		Statement x =null;
+		AbstractStatement x =null;
 
 		try {
 			if ( state.backtracking>0 && alreadyParsedRule(input, 9) ) { return result; }
@@ -746,12 +770,12 @@ public class QLParser extends Parser {
 
 	// $ANTLR start "statement"
 	// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:97:1: statement returns [Statement result] : (x= blockStatement |x= ifStatement |x= declStatement );
-	public final Statement statement() throws RecognitionException {
-		Statement result = null;
+	public final AbstractStatement statement() throws RecognitionException {
+		AbstractStatement result = null;
 
 		int statement_StartIndex = input.index();
 
-		Statement x =null;
+		AbstractStatement x =null;
 
 		try {
 			if ( state.backtracking>0 && alreadyParsedRule(input, 10) ) { return result; }
@@ -831,15 +855,15 @@ public class QLParser extends Parser {
 
 	// $ANTLR start "blockStatement"
 	// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:103:1: blockStatement returns [Statement result] : '{' (s= statement )* '}' ;
-	public final Statement blockStatement() throws RecognitionException {
-		Statement result = null;
+	public final AbstractStatement blockStatement() throws RecognitionException {
+		AbstractStatement result = null;
 
 		int blockStatement_StartIndex = input.index();
 
-		Statement s =null;
+		AbstractStatement s =null;
 
 
-				List<Statement> list = new ArrayList<Statement>();
+				List<AbstractStatement> list = new ArrayList<AbstractStatement>();
 			
 		try {
 			if ( state.backtracking>0 && alreadyParsedRule(input, 11) ) { return result; }
@@ -898,13 +922,13 @@ public class QLParser extends Parser {
 
 	// $ANTLR start "ifStatement"
 	// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:115:1: ifStatement returns [Statement result] : 'if' condition= expression truePath= statement ;
-	public final Statement ifStatement() throws RecognitionException {
-		Statement result = null;
+	public final AbstractStatement ifStatement() throws RecognitionException {
+		AbstractStatement result = null;
 
 		int ifStatement_StartIndex = input.index();
 
-		Expr condition =null;
-		Statement truePath =null;
+		AbstractExpr condition =null;
+		AbstractStatement truePath =null;
 
 		try {
 			if ( state.backtracking>0 && alreadyParsedRule(input, 12) ) { return result; }
@@ -942,15 +966,15 @@ public class QLParser extends Parser {
 
 	// $ANTLR start "declStatement"
 	// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:120:1: declStatement returns [Statement result] : (ident= Ident ':' description= String type= Boolean (expr= expression )? |ident= Ident ':' description= String type= Money (expr= expression )? );
-	public final Statement declStatement() throws RecognitionException {
-		Statement result = null;
+	public final AbstractStatement declStatement() throws RecognitionException {
+		AbstractStatement result = null;
 
 		int declStatement_StartIndex = input.index();
 
 		Token ident=null;
 		Token description=null;
 		Token type=null;
-		Expr expr =null;
+		AbstractExpr expr =null;
 
 		try {
 			if ( state.backtracking>0 && alreadyParsedRule(input, 13) ) { return result; }

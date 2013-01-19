@@ -9,13 +9,13 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
-import org.uva.sea.ql.ast.Add;
-import org.uva.sea.ql.ast.GT;
 import org.uva.sea.ql.ast.Ident;
 import org.uva.sea.ql.ast.Int;
-import org.uva.sea.ql.ast.LEq;
-import org.uva.sea.ql.ast.LT;
-import org.uva.sea.ql.ast.Mul;
+import org.uva.sea.ql.ast.expr.Add;
+import org.uva.sea.ql.ast.expr.GT;
+import org.uva.sea.ql.ast.expr.LEq;
+import org.uva.sea.ql.ast.expr.LT;
+import org.uva.sea.ql.ast.expr.Mul;
 import org.uva.sea.ql.parser.antlr.ExprParser;
 
 @RunWith(Parameterized.class)
@@ -26,66 +26,64 @@ public class TestExpressions {
 	@Parameters
 	public static List<Object[]> theParsers() {
 		List<Object[]> parserList = new ArrayList<Object[]>();
-		parserList.add(new Object[] {new ExprParser()});
+		parserList.add(new Object[] { new ExprParser() });
 		return parserList;
 	}
 
-	
 	public TestExpressions(IParse parser) {
 		this.parser = parser;
 	}
 
 	@Test
 	public void testAdds() throws ParseError {
-		assertEquals(parser.parse("a + b").getClass(), Add.class);
-		assertEquals(parser.parse("a + b + c").getClass(), Add.class);
-		assertEquals(parser.parse("(a + b + c)").getClass(), Add.class);
-		assertEquals(parser.parse("a + (b + c)").getClass(), Add.class);
-		assertEquals(parser.parse("(a + b) + c").getClass(), Add.class);
-		assertEquals(parser.parse("(a + b)").getClass(), Add.class);
-		assertEquals(parser.parse("a + b * c").getClass(), Add.class);
-		assertEquals(parser.parse("a * b + c").getClass(), Add.class);
+		assertEquals(Add.class, parser.parse("a + b").getClass());
+		assertEquals(Add.class, parser.parse("a + b + c").getClass());
+		assertEquals(Add.class, parser.parse("(a + b + c)").getClass());
+		assertEquals(Add.class, parser.parse("a + (b + c)").getClass());
+		assertEquals(Add.class, parser.parse("(a + b) + c").getClass());
+		assertEquals(Add.class, parser.parse("(a + b)").getClass());
+		assertEquals(Add.class, parser.parse("a + b * c").getClass());
+		assertEquals(Add.class, parser.parse("a * b + c").getClass());
 	}
 
 	@Test
 	public void testMuls() throws ParseError {
-		assertEquals(parser.parse("a * b").getClass(), Mul.class);
-		assertEquals(parser.parse("a * b * c").getClass(), Mul.class);
-		assertEquals(parser.parse("a * (b * c)").getClass(), Mul.class);
-		assertEquals(parser.parse("(a * b) * c").getClass(), Mul.class);
-		assertEquals(parser.parse("(a * b)").getClass(), Mul.class);
-		assertEquals(parser.parse("(a + b) * c").getClass(), Mul.class);
-		assertEquals(parser.parse("a * (b + c)").getClass(), Mul.class);
-	}
-	
-	@Test
-	public void testRels() throws ParseError {
-		assertEquals(parser.parse("a < b").getClass(), LT.class);
-		assertEquals(parser.parse("a < b + c").getClass(), LT.class);
-		assertEquals(parser.parse("a < (b * c)").getClass(), LT.class);
-		assertEquals(parser.parse("(a * b) < c").getClass(), LT.class);
-		assertEquals(parser.parse("(a <= b)").getClass(), LEq.class);
-		assertEquals(parser.parse("a + b > c").getClass(), GT.class);
-		assertEquals(parser.parse("a > b + c").getClass(), GT.class);
+		assertEquals(Mul.class, parser.parse("a * b").getClass());
+		assertEquals(Mul.class, parser.parse("a * b * c").getClass());
+		assertEquals(Mul.class, parser.parse("a * (b * c)").getClass());
+		assertEquals(Mul.class, parser.parse("(a * b) * c").getClass());
+		assertEquals(Mul.class, parser.parse("(a * b)").getClass());
+		assertEquals(Mul.class, parser.parse("(a + b) * c").getClass());
+		assertEquals(Mul.class, parser.parse("a * (b + c)").getClass());
 	}
 
+	@Test
+	public void testRels() throws ParseError {
+		assertEquals(LT.class, parser.parse("a < b").getClass());
+		assertEquals(LT.class, parser.parse("a < b + c").getClass());
+		assertEquals(LT.class, parser.parse("a < (b * c)").getClass());
+		assertEquals(LT.class, parser.parse("(a * b) < c").getClass());
+		assertEquals(LEq.class, parser.parse("(a <= b)").getClass());
+		assertEquals(GT.class, parser.parse("a + b > c").getClass());
+		assertEquals(GT.class, parser.parse("a > b + c").getClass());
+	}
 
 	@Test
 	public void testIds() throws ParseError {
-		assertEquals(parser.parse("a").getClass(), Ident.class);
-		assertEquals(parser.parse("abc").getClass(), Ident.class);
-		assertEquals(parser.parse("ABC").getClass(), Ident.class);
-		assertEquals(parser.parse("ABCDEF").getClass(), Ident.class);
-		assertEquals(parser.parse("abc2323").getClass(), Ident.class);
-		assertEquals(parser.parse("a2bc232").getClass(), Ident.class);
-		assertEquals(parser.parse("a2bc232aa").getClass(), Ident.class);
+		assertEquals(Ident.class, parser.parse("a").getClass());
+		assertEquals(Ident.class, parser.parse("abc").getClass());
+		assertEquals(Ident.class, parser.parse("ABC").getClass());
+		assertEquals(Ident.class, parser.parse("ABCDEF").getClass());
+		assertEquals(Ident.class, parser.parse("abc2323").getClass());
+		assertEquals(Ident.class, parser.parse("a2bc232").getClass());
+		assertEquals(Ident.class, parser.parse("a2bc232aa").getClass());
 	}
 
 	@Test
 	public void testNums() throws ParseError {
-		assertEquals(parser.parse("0").getClass(), Int.class);
-		assertEquals(parser.parse("1223").getClass(), Int.class);
-		assertEquals(parser.parse("234234234").getClass(), Int.class);
+		assertEquals(Int.class, parser.parse("0").getClass());
+		assertEquals(Int.class, parser.parse("1223").getClass());
+		assertEquals(Int.class, parser.parse("234234234").getClass());
 	}
-	
+
 }
