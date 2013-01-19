@@ -92,11 +92,18 @@ orExpr returns [Expr result]
 
     
 // Tokens
-NEWLINE : ('\n' | '\r');
-WS  :	(' ' | '\t' | NEWLINE) { $channel=HIDDEN; };
-COMMENT 
-     : '/*' .* '*/' {$channel=HIDDEN;} 
-     | '//' ~(NEWLINE)* '\r'? '\n' {$channel=HIDDEN;} ;
+NEWLINE: ('\n' | '\r');
+
+WS:	(' ' | '\t' | NEWLINE) { $channel=HIDDEN; };
+
+COMMENT: '/*' .* '*/' {$channel=HIDDEN;} 
+       | '//' ~(NEWLINE)* '\r'? '\n' {$channel=HIDDEN;} ;
+
+SpecialChars: ('!' | '?' | ',' | '.' | '(' | ')' | '{' | '}' | '<' | '>' | '~' | '=' | '+' | '-' | '[' | ']' | '|');
+
+Bool: ('true' | 'false');
+
+String: '"' (Ident | WS | Int | SpecialChars)* '"';
 
 Ident:   ('a'..'z'|'A'..'Z')('a'..'z'|'A'..'Z'|'0'..'9'|'_')*;
 

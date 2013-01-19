@@ -1,4 +1,4 @@
-// $ANTLR 3.5 /Users/toysoldier/Documents/School/UvA/Master Software Engineering/Software Construction/sea-of-ql/sea-of-ql/DannyKop/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g 2013-01-19 19:01:10
+// $ANTLR 3.5 /Users/toysoldier/Documents/School/UvA/Master Software Engineering/Software Construction/sea-of-ql/sea-of-ql/DannyKop/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g 2013-01-19 22:15:10
 
 package org.uva.sea.ql.parser.antlr;
 import org.uva.sea.ql.ast.*;
@@ -17,14 +17,12 @@ import java.util.HashMap;
 @SuppressWarnings("all")
 public class QLParser extends Parser {
 	public static final String[] tokenNames = new String[] {
-		"<invalid>", "<EOR>", "<DOWN>", "<UP>", "COMMENT", "Ident", "Int", "NEWLINE", 
-		"WS", "'!'", "'!='", "'&&'", "'('", "')'", "'*'", "'+'", "'-'", "'/'", 
-		"'<'", "'<='", "'=='", "'>'", "'>='", "'||'"
+		"<invalid>", "<EOR>", "<DOWN>", "<UP>", "Bool", "COMMENT", "Ident", "Int", 
+		"NEWLINE", "SpecialChars", "String", "WS", "'!'", "'!='", "'&&'", "'('", 
+		"')'", "'*'", "'+'", "'-'", "'/'", "'<'", "'<='", "'=='", "'>'", "'>='", 
+		"'||'"
 	};
 	public static final int EOF=-1;
-	public static final int T__9=9;
-	public static final int T__10=10;
-	public static final int T__11=11;
 	public static final int T__12=12;
 	public static final int T__13=13;
 	public static final int T__14=14;
@@ -37,11 +35,17 @@ public class QLParser extends Parser {
 	public static final int T__21=21;
 	public static final int T__22=22;
 	public static final int T__23=23;
-	public static final int COMMENT=4;
-	public static final int Ident=5;
-	public static final int Int=6;
-	public static final int NEWLINE=7;
-	public static final int WS=8;
+	public static final int T__24=24;
+	public static final int T__25=25;
+	public static final int T__26=26;
+	public static final int Bool=4;
+	public static final int COMMENT=5;
+	public static final int Ident=6;
+	public static final int Int=7;
+	public static final int NEWLINE=8;
+	public static final int SpecialChars=9;
+	public static final int String=10;
+	public static final int WS=11;
 
 	// delegates
 	public Parser[] getDelegates() {
@@ -93,7 +97,7 @@ public class QLParser extends Parser {
 				alt1=2;
 				}
 				break;
-			case 12:
+			case 15:
 				{
 				alt1=3;
 				}
@@ -122,12 +126,12 @@ public class QLParser extends Parser {
 				case 3 :
 					// /Users/toysoldier/Documents/School/UvA/Master Software Engineering/Software Construction/sea-of-ql/sea-of-ql/DannyKop/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:25:5: '(' x= orExpr ')'
 					{
-					match(input,12,FOLLOW_12_in_primary80); if (state.failed) return result;
+					match(input,15,FOLLOW_15_in_primary80); if (state.failed) return result;
 					pushFollow(FOLLOW_orExpr_in_primary84);
 					x=orExpr();
 					state._fsp--;
 					if (state.failed) return result;
-					match(input,13,FOLLOW_13_in_primary86); if (state.failed) return result;
+					match(input,16,FOLLOW_16_in_primary86); if (state.failed) return result;
 					if ( state.backtracking==0 ) { result = x; }
 					}
 					break;
@@ -164,24 +168,24 @@ public class QLParser extends Parser {
 			// /Users/toysoldier/Documents/School/UvA/Master Software Engineering/Software Construction/sea-of-ql/sea-of-ql/DannyKop/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:29:5: ( '+' x= unExpr | '-' x= unExpr | '!' x= unExpr |x= primary )
 			int alt2=4;
 			switch ( input.LA(1) ) {
-			case 15:
+			case 18:
 				{
 				alt2=1;
 				}
 				break;
-			case 16:
+			case 19:
 				{
 				alt2=2;
 				}
 				break;
-			case 9:
+			case 12:
 				{
 				alt2=3;
 				}
 				break;
 			case Ident:
 			case Int:
-			case 12:
+			case 15:
 				{
 				alt2=4;
 				}
@@ -196,7 +200,7 @@ public class QLParser extends Parser {
 				case 1 :
 					// /Users/toysoldier/Documents/School/UvA/Master Software Engineering/Software Construction/sea-of-ql/sea-of-ql/DannyKop/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:29:8: '+' x= unExpr
 					{
-					match(input,15,FOLLOW_15_in_unExpr111); if (state.failed) return result;
+					match(input,18,FOLLOW_18_in_unExpr111); if (state.failed) return result;
 					pushFollow(FOLLOW_unExpr_in_unExpr115);
 					x=unExpr();
 					state._fsp--;
@@ -207,7 +211,7 @@ public class QLParser extends Parser {
 				case 2 :
 					// /Users/toysoldier/Documents/School/UvA/Master Software Engineering/Software Construction/sea-of-ql/sea-of-ql/DannyKop/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:30:8: '-' x= unExpr
 					{
-					match(input,16,FOLLOW_16_in_unExpr126); if (state.failed) return result;
+					match(input,19,FOLLOW_19_in_unExpr126); if (state.failed) return result;
 					pushFollow(FOLLOW_unExpr_in_unExpr130);
 					x=unExpr();
 					state._fsp--;
@@ -218,7 +222,7 @@ public class QLParser extends Parser {
 				case 3 :
 					// /Users/toysoldier/Documents/School/UvA/Master Software Engineering/Software Construction/sea-of-ql/sea-of-ql/DannyKop/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:31:8: '!' x= unExpr
 					{
-					match(input,9,FOLLOW_9_in_unExpr141); if (state.failed) return result;
+					match(input,12,FOLLOW_12_in_unExpr141); if (state.failed) return result;
 					pushFollow(FOLLOW_unExpr_in_unExpr145);
 					x=unExpr();
 					state._fsp--;
@@ -281,7 +285,7 @@ public class QLParser extends Parser {
 			while (true) {
 				int alt3=2;
 				int LA3_0 = input.LA(1);
-				if ( (LA3_0==14||LA3_0==17) ) {
+				if ( (LA3_0==17||LA3_0==20) ) {
 					alt3=1;
 				}
 
@@ -290,7 +294,7 @@ public class QLParser extends Parser {
 					// /Users/toysoldier/Documents/School/UvA/Master Software Engineering/Software Construction/sea-of-ql/sea-of-ql/DannyKop/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:36:47: op= ( '*' | '/' ) rhs= unExpr
 					{
 					op=input.LT(1);
-					if ( input.LA(1)==14||input.LA(1)==17 ) {
+					if ( input.LA(1)==17||input.LA(1)==20 ) {
 						input.consume();
 						state.errorRecovery=false;
 						state.failed=false;
@@ -365,7 +369,7 @@ public class QLParser extends Parser {
 			while (true) {
 				int alt4=2;
 				int LA4_0 = input.LA(1);
-				if ( ((LA4_0 >= 15 && LA4_0 <= 16)) ) {
+				if ( ((LA4_0 >= 18 && LA4_0 <= 19)) ) {
 					alt4=1;
 				}
 
@@ -374,7 +378,7 @@ public class QLParser extends Parser {
 					// /Users/toysoldier/Documents/School/UvA/Master Software Engineering/Software Construction/sea-of-ql/sea-of-ql/DannyKop/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:49:48: op= ( '+' | '-' ) rhs= mulExpr
 					{
 					op=input.LT(1);
-					if ( (input.LA(1) >= 15 && input.LA(1) <= 16) ) {
+					if ( (input.LA(1) >= 18 && input.LA(1) <= 19) ) {
 						input.consume();
 						state.errorRecovery=false;
 						state.failed=false;
@@ -449,7 +453,7 @@ public class QLParser extends Parser {
 			while (true) {
 				int alt5=2;
 				int LA5_0 = input.LA(1);
-				if ( (LA5_0==10||(LA5_0 >= 18 && LA5_0 <= 22)) ) {
+				if ( (LA5_0==13||(LA5_0 >= 21 && LA5_0 <= 25)) ) {
 					alt5=1;
 				}
 
@@ -458,7 +462,7 @@ public class QLParser extends Parser {
 					// /Users/toysoldier/Documents/School/UvA/Master Software Engineering/Software Construction/sea-of-ql/sea-of-ql/DannyKop/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:61:48: op= ( '<' | '<=' | '>' | '>=' | '==' | '!=' ) rhs= addExpr
 					{
 					op=input.LT(1);
-					if ( input.LA(1)==10||(input.LA(1) >= 18 && input.LA(1) <= 22) ) {
+					if ( input.LA(1)==13||(input.LA(1) >= 21 && input.LA(1) <= 25) ) {
 						input.consume();
 						state.errorRecovery=false;
 						state.failed=false;
@@ -544,7 +548,7 @@ public class QLParser extends Parser {
 			while (true) {
 				int alt6=2;
 				int LA6_0 = input.LA(1);
-				if ( (LA6_0==11) ) {
+				if ( (LA6_0==14) ) {
 					alt6=1;
 				}
 
@@ -552,7 +556,7 @@ public class QLParser extends Parser {
 				case 1 :
 					// /Users/toysoldier/Documents/School/UvA/Master Software Engineering/Software Construction/sea-of-ql/sea-of-ql/DannyKop/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:85:48: '&&' rhs= relExpr
 					{
-					match(input,11,FOLLOW_11_in_andExpr378); if (state.failed) return result;
+					match(input,14,FOLLOW_14_in_andExpr378); if (state.failed) return result;
 					pushFollow(FOLLOW_relExpr_in_andExpr382);
 					rhs=relExpr();
 					state._fsp--;
@@ -610,7 +614,7 @@ public class QLParser extends Parser {
 			while (true) {
 				int alt7=2;
 				int LA7_0 = input.LA(1);
-				if ( (LA7_0==23) ) {
+				if ( (LA7_0==26) ) {
 					alt7=1;
 				}
 
@@ -618,7 +622,7 @@ public class QLParser extends Parser {
 				case 1 :
 					// /Users/toysoldier/Documents/School/UvA/Master Software Engineering/Software Construction/sea-of-ql/sea-of-ql/DannyKop/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:90:50: '||' rhs= andExpr
 					{
-					match(input,23,FOLLOW_23_in_orExpr423); if (state.failed) return result;
+					match(input,26,FOLLOW_26_in_orExpr423); if (state.failed) return result;
 					pushFollow(FOLLOW_andExpr_in_orExpr427);
 					rhs=andExpr();
 					state._fsp--;
@@ -654,29 +658,29 @@ public class QLParser extends Parser {
 
 	public static final BitSet FOLLOW_Int_in_primary62 = new BitSet(new long[]{0x0000000000000002L});
 	public static final BitSet FOLLOW_Ident_in_primary72 = new BitSet(new long[]{0x0000000000000002L});
-	public static final BitSet FOLLOW_12_in_primary80 = new BitSet(new long[]{0x0000000000019260L});
-	public static final BitSet FOLLOW_orExpr_in_primary84 = new BitSet(new long[]{0x0000000000002000L});
-	public static final BitSet FOLLOW_13_in_primary86 = new BitSet(new long[]{0x0000000000000002L});
-	public static final BitSet FOLLOW_15_in_unExpr111 = new BitSet(new long[]{0x0000000000019260L});
+	public static final BitSet FOLLOW_15_in_primary80 = new BitSet(new long[]{0x00000000000C90C0L});
+	public static final BitSet FOLLOW_orExpr_in_primary84 = new BitSet(new long[]{0x0000000000010000L});
+	public static final BitSet FOLLOW_16_in_primary86 = new BitSet(new long[]{0x0000000000000002L});
+	public static final BitSet FOLLOW_18_in_unExpr111 = new BitSet(new long[]{0x00000000000C90C0L});
 	public static final BitSet FOLLOW_unExpr_in_unExpr115 = new BitSet(new long[]{0x0000000000000002L});
-	public static final BitSet FOLLOW_16_in_unExpr126 = new BitSet(new long[]{0x0000000000019260L});
+	public static final BitSet FOLLOW_19_in_unExpr126 = new BitSet(new long[]{0x00000000000C90C0L});
 	public static final BitSet FOLLOW_unExpr_in_unExpr130 = new BitSet(new long[]{0x0000000000000002L});
-	public static final BitSet FOLLOW_9_in_unExpr141 = new BitSet(new long[]{0x0000000000019260L});
+	public static final BitSet FOLLOW_12_in_unExpr141 = new BitSet(new long[]{0x00000000000C90C0L});
 	public static final BitSet FOLLOW_unExpr_in_unExpr145 = new BitSet(new long[]{0x0000000000000002L});
 	public static final BitSet FOLLOW_primary_in_unExpr158 = new BitSet(new long[]{0x0000000000000002L});
-	public static final BitSet FOLLOW_unExpr_in_mulExpr196 = new BitSet(new long[]{0x0000000000024002L});
-	public static final BitSet FOLLOW_set_in_mulExpr204 = new BitSet(new long[]{0x0000000000019260L});
-	public static final BitSet FOLLOW_unExpr_in_mulExpr216 = new BitSet(new long[]{0x0000000000024002L});
-	public static final BitSet FOLLOW_mulExpr_in_addExpr257 = new BitSet(new long[]{0x0000000000018002L});
-	public static final BitSet FOLLOW_set_in_addExpr265 = new BitSet(new long[]{0x0000000000019260L});
-	public static final BitSet FOLLOW_mulExpr_in_addExpr275 = new BitSet(new long[]{0x0000000000018002L});
-	public static final BitSet FOLLOW_addExpr_in_relExpr310 = new BitSet(new long[]{0x00000000007C0402L});
-	public static final BitSet FOLLOW_set_in_relExpr318 = new BitSet(new long[]{0x0000000000019260L});
-	public static final BitSet FOLLOW_addExpr_in_relExpr334 = new BitSet(new long[]{0x00000000007C0402L});
-	public static final BitSet FOLLOW_relExpr_in_andExpr372 = new BitSet(new long[]{0x0000000000000802L});
-	public static final BitSet FOLLOW_11_in_andExpr378 = new BitSet(new long[]{0x0000000000019260L});
-	public static final BitSet FOLLOW_relExpr_in_andExpr382 = new BitSet(new long[]{0x0000000000000802L});
-	public static final BitSet FOLLOW_andExpr_in_orExpr417 = new BitSet(new long[]{0x0000000000800002L});
-	public static final BitSet FOLLOW_23_in_orExpr423 = new BitSet(new long[]{0x0000000000019260L});
-	public static final BitSet FOLLOW_andExpr_in_orExpr427 = new BitSet(new long[]{0x0000000000800002L});
+	public static final BitSet FOLLOW_unExpr_in_mulExpr196 = new BitSet(new long[]{0x0000000000120002L});
+	public static final BitSet FOLLOW_set_in_mulExpr204 = new BitSet(new long[]{0x00000000000C90C0L});
+	public static final BitSet FOLLOW_unExpr_in_mulExpr216 = new BitSet(new long[]{0x0000000000120002L});
+	public static final BitSet FOLLOW_mulExpr_in_addExpr257 = new BitSet(new long[]{0x00000000000C0002L});
+	public static final BitSet FOLLOW_set_in_addExpr265 = new BitSet(new long[]{0x00000000000C90C0L});
+	public static final BitSet FOLLOW_mulExpr_in_addExpr275 = new BitSet(new long[]{0x00000000000C0002L});
+	public static final BitSet FOLLOW_addExpr_in_relExpr310 = new BitSet(new long[]{0x0000000003E02002L});
+	public static final BitSet FOLLOW_set_in_relExpr318 = new BitSet(new long[]{0x00000000000C90C0L});
+	public static final BitSet FOLLOW_addExpr_in_relExpr334 = new BitSet(new long[]{0x0000000003E02002L});
+	public static final BitSet FOLLOW_relExpr_in_andExpr372 = new BitSet(new long[]{0x0000000000004002L});
+	public static final BitSet FOLLOW_14_in_andExpr378 = new BitSet(new long[]{0x00000000000C90C0L});
+	public static final BitSet FOLLOW_relExpr_in_andExpr382 = new BitSet(new long[]{0x0000000000004002L});
+	public static final BitSet FOLLOW_andExpr_in_orExpr417 = new BitSet(new long[]{0x0000000004000002L});
+	public static final BitSet FOLLOW_26_in_orExpr423 = new BitSet(new long[]{0x00000000000C90C0L});
+	public static final BitSet FOLLOW_andExpr_in_orExpr427 = new BitSet(new long[]{0x0000000004000002L});
 }
