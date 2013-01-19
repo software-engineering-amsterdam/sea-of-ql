@@ -73,19 +73,6 @@ import org.uva.sea.ql.ast.type.Type;
  blockstatement : ifblock
                 ;
 
-/*
- ifblock        : IF '(' expression ')' '{' ifbody '}' ifelse      { $$ = new IfThenElse( $3, $6, $8 ); }
-                | IF '(' expression ')' '{' '}' ifelse             { $$ = new IfThenElse( $3, null, $7 ); }
-                | IF '(' expression ')' '{' ifbody '}'             { $$ = new IfThenElse( $3, $6 ); }
-                | IF '(' expression ')' '{' '}'                    { $$ = new IfThenElse( $3 ); }
-                ;
-                
- ifelse         : ELSE '{' ifbody '}'              { $$ = $3; }
-                | ELSE ifblock                     { $$ = $2; }
-                | ELSE '{' '}'                     { $$ = null; }
-                ;
-*/
-
  ifblock        : IF '(' expression ')' '{' ifbody '}' ifelse  { $$ = new IfThenElse( $3, $6, $8 ); }
                 | IF '(' expression ')' '{' ifbody '}'         { $$ = new IfThenElse( $3, $6 ); }
                 | IF '(' expression ')' '{' '}' ifelse         { $$ = new IfThenElse( $3, null, $7 ); }
