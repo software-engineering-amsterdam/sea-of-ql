@@ -286,3 +286,17 @@ org.eclipse.imp.pdb.facts.exceptions.UndeclaredFieldException: VENV does not hav
 	at org.rascalmpl.eclipse.console.RascalScriptInterpreter.execCommand(RascalScriptInterpreter.java:432)
 	at org.rascalmpl.eclipse.console.RascalScriptInterpreter.run(RascalScriptInterpreter.java:236)
 	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:53)
+!SESSION 2013-01-18 16:50:58.906 -----------------------------------------------
+eclipse.buildId=M20120914-1800
+java.version=1.6.0_29
+java.vendor=Sun Microsystems Inc.
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=de_DE
+Framework arguments:  -product org.eclipse.epp.package.rcp.product
+Command-line arguments:  -os win32 -ws win32 -arch x86_64 -product org.eclipse.epp.package.rcp.product
+
+!ENTRY rascal_eclipse 4 0 2013-01-18 19:32:54.599
+!MESSAGE No message given
+!STACK 0
+java.lang.NullPointerException
+	at org.rascalmpl.eclipse.console.RascalScriptInterpreter.run(RascalScriptInterpreter.java:298)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:53)

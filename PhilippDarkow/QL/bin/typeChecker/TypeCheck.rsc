@@ -2,7 +2,7 @@ module typeChecker::TypeCheck
 
 import Prelude;
 import syntax::AbstractSyntax;
-import typeChecker::Load;
+import util::Load;
 import typeChecker::QuestionTypeChecker;
 
 // We will use TENV (type environment) as an alias for a tuple that contains all relevant type information:
@@ -68,14 +68,14 @@ TENV checkStats(list[STATEMENT] Stats1, TENV env) {
   return env;
 }
 	
-//TENV checkStat(stat:ifElseStat(EXP Exp,                                             
+// TENV checkStat(stat:ifElseStat(EXP Exp,                                             
 //                              list[STATEMENT] Stats1,
 //                              list[STATEMENT] Stats2),
 //               TENV env){
 //    env0 = checkExp(Exp, natural(), env);
 //    env1 = checkStats(Stats1, env0);
 //    env2 = checkStats(Stats2, env1);
-//    return env2;
+//    return env;
 //}
 
 // check declarations

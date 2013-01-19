@@ -2,7 +2,7 @@ module typeChecker::Eval
 
 import Prelude;
 import syntax::AbstractSyntax;
-import typeChecker::Load;
+import util::Load;
 import typeChecker::TypeCheck;
 
 // First we introduce a data type QuestionValue that wraps all possible values that can occur at run-time.
@@ -64,17 +64,28 @@ VENV evalStats(list[STATEMENT] Stats1, VENV env) {
 // Eval declarations
 
 VENV evalDecls (map[QuestionId Id, TYPE tp] results) =   
-   ( result.Id : (result.tp == money() ? moneyVal(0) : strVal(""))  | result(QuestionId Id, TYPE tp) <- results); 
+   ( results.Id : (results.tp == money() ? moneyVal(0) : strVal("")) ); // | results(QuestionId Id, TYPE tp) <- results); 
+ // (results.tp == money() ? moneyVal(0) : strVal(""))
+ 
+VENV evalDecls (list[tuple [QuestionId qId, TYPE tp]] results) =   
+   ( result.qId : (results.tp == money() ? moneyVal(0) : strVal("")) | result(QuestionId Id, TYPE tp) <- results);
     
-VENV checkDecls(list[DECL] Decls) =                                                 
+TENV checkDecls(list[DECL] Decls) =                                                 
     <( Id : question | decl(QuestionId Id, QUE question)  <- Decls), []>;
 // Evaluate a Pico program
 
 public VENV evalProgram(PROGRAM P){
   if(program(EXP exp,list[DECL] Decls, list[STATEMENT] Series) := P){
-     println("EVAL DECLS : <Decls>");  
-     map[QuestionId, TYPE] results = mapQuestionIdToType(env.symbols);
-     env = evalDecls(Decls);
+     println("EVAL DECLS : <Decls>");
+     
+     TENV tenv = checkDecls(Decls);
+     println("TENV : <tenv>");  
+     //VENV env = checkDecls(Decls);
+     map[QuestionId qId, TYPE tp] results = mapQuestionIdToType(tenv.symbols);
+     println("MAP RESULTS IN EVAL : <toList(results)>");
+     list[tuple [QuestionId qId, TYPE tp]] gg = toList(results);
+     println("gg : <gg>");
+     VENV env = evalDecls(gg);
      
      println(env);
      return evalStats(Series, env);

@@ -16,6 +16,9 @@ public data DECL =
    decl(QuestionId name, QUE qName);
    
 public data QUE = qName(QuestionString questionString, TYPE tp);
+
+// Question Type
+public data QUET = result(QuestionId id, TYPE tp);
    
 public data EXP =
 	  id (QuestionId name)
@@ -36,7 +39,7 @@ public data EXP =
 	;
 	
 public data STATEMENT =
-       asgStat(QuestionId name, QuestionString qDefinition, TYPE tp) // EXP exp
+     asgStat(QuestionId name, TYPE tp) // asgStat(QuestionId name, QuestionString qDefinition, TYPE tp) // EXP exp
     // | resStat(QuestionId name, QuestionString qDefinition, EXP exp)  
      | ifStat(EXP exp, list[DECL] decls)  //, QUE
      | ifThenStat(EXP exp, list[STATEMENT] thenpart)

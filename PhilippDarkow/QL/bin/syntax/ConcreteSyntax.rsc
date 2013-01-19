@@ -3,10 +3,15 @@ module syntax::ConcreteSyntax
 import Prelude;
 
 lexical QuestionString  = [a-z][a-z0-9]* !>> [a-z0-9];
-lexical Id  = [a-z A-Z 0-9 _] !<< [a-z A-Z][a-z A-Z 0-9 _]* !>> [a-z A-Z 0-9 _]; 
+//lexical Id  = [a-z A-Z 0-9 _] !<< [a-z A-Z][a-z A-Z 0-9 _]* !>> [a-z A-Z 0-9 _]; 
 lexical Boolean = [true,false];
 lexical Money = [0-9]+ ;
 lexical String = "\"" ![\"]*  "\"";
+keyword Keywords =;
+  
+lexical Id
+  = ([a-z A-Z 0-9 _] !<< [a-z A-Z][a-z A-Z 0-9 _]* !>> [a-z A-Z 0-9 _]) \ Keywords
+  ;
 
 layout Layout = WhitespaceAndComment* !>> [\ \t\n\r%];   // copied from Pico
 
@@ -17,7 +22,7 @@ lexical WhitespaceAndComment
    ;
 
 start syntax Program 
-   = program: "form" Expression qName "{" Declarations decls {Statement  ";"}* body "}" ; // Statement stmt 
+   = program: "form" Expression questionnaireName "{" Declarations decls {Statement  ";"}* body "}" ; // Statement stmt 
    
 syntax Declarations
    = Declaration* decls;
@@ -31,8 +36,12 @@ syntax Declaration
 syntax Question
    = qName: QuestionString questionString Type tp;
 
+syntax QuestionType
+   = result: Id id ":" Type tp;
+
 syntax Statement 
-   = asgStat: Id var ":" Expression qExp " " Type tp   // Question qName
+   = asgStat: Id var ":" Type tp  //asgStat: Id var ":" Expression qExp " " Type tp   
+//   | asgSta
    | ifStat: "if" Expression cond "{" Declaration* decls "}"  // Question 
    | ifThenStat: "if" Expression cond "then" Statement*
    | ifElseStat: "if" Expression cond "then" {Statement ";"}*  thenPart "else" Statement* elsePart

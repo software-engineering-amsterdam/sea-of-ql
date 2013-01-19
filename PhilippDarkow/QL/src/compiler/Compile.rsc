@@ -74,6 +74,9 @@ Instrs compileDecls(list[DECL] Decls) =
 public Instrs compileProgram(PROGRAM P){
   nLabel = 0;
   if(program(EXP exp, list[DECL] Decls, list[STATEMENT] Series) := P){
+     println("EXP in COMPILE : <exp>");
+     println("DECL in COMPILE : <Decls>");
+     println("STATEMENT in COMPILE : <Series>");
      return [*compileDecls(Decls), *compileStats(Series)];
   } else
     throw "Cannot happen";
