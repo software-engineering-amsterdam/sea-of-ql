@@ -23,6 +23,20 @@ import java.util.List;
 import java.util.ArrayList;
 import xtc.util.Action;
 import org.uva.sea.ql.ast.*;
+import org.uva.sea.ql.ast.operators.logical.And;
+import org.uva.sea.ql.ast.operators.logical.Not;
+import org.uva.sea.ql.ast.operators.logical.Or;
+import org.uva.sea.ql.ast.operators.numeric.Add;
+import org.uva.sea.ql.ast.operators.numeric.Div;
+import org.uva.sea.ql.ast.operators.numeric.Mul;
+import org.uva.sea.ql.ast.operators.numeric.Neg;
+import org.uva.sea.ql.ast.operators.numeric.Pos;
+import org.uva.sea.ql.ast.operators.relational.Eq;
+import org.uva.sea.ql.ast.operators.relational.GEq;
+import org.uva.sea.ql.ast.operators.relational.GT;
+import org.uva.sea.ql.ast.operators.relational.LEq;
+import org.uva.sea.ql.ast.operators.relational.LT;
+import org.uva.sea.ql.ast.operators.relational.NEq;
 
 /**
  * Packrat parser for grammar <code>org.uva.sea.ql.parser.rats.QLParser</code>.

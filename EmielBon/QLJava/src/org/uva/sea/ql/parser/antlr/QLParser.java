@@ -12,14 +12,27 @@ import org.antlr.runtime.RecognitionException;
 import org.antlr.runtime.RecognizerSharedState;
 import org.antlr.runtime.Token;
 import org.antlr.runtime.TokenStream;
-import org.uva.sea.ql.ast.Expr;
-import org.uva.sea.ql.ast.Ident;
-import org.uva.sea.ql.ast.Int;
+import org.uva.sea.ql.ast.*;
+import org.uva.sea.ql.ast.operators.logical.And;
+import org.uva.sea.ql.ast.operators.logical.Not;
+import org.uva.sea.ql.ast.operators.logical.Or;
+import org.uva.sea.ql.ast.operators.numeric.Add;
+import org.uva.sea.ql.ast.operators.numeric.Div;
+import org.uva.sea.ql.ast.operators.numeric.Mul;
+import org.uva.sea.ql.ast.operators.numeric.Neg;
+import org.uva.sea.ql.ast.operators.numeric.Pos;
+import org.uva.sea.ql.ast.operators.numeric.Sub;
+import org.uva.sea.ql.ast.operators.relational.Eq;
+import org.uva.sea.ql.ast.operators.relational.GEq;
+import org.uva.sea.ql.ast.operators.relational.GT;
+import org.uva.sea.ql.ast.operators.relational.LEq;
+import org.uva.sea.ql.ast.operators.relational.LT;
+import org.uva.sea.ql.ast.operators.relational.NEq;
 
-import com.sun.org.apache.xpath.internal.operations.And;
-import com.sun.org.apache.xpath.internal.operations.Div;
-import com.sun.org.apache.xpath.internal.operations.Neg;
-import com.sun.org.apache.xpath.internal.operations.Or;
+//import com.sun.org.apache.xpath.internal.operations.And;
+//import com.sun.org.apache.xpath.internal.operations.Div;
+//import com.sun.org.apache.xpath.internal.operations.Neg;
+//import com.sun.org.apache.xpath.internal.operations.Or;
 
 @SuppressWarnings({ "all", "warnings", "unchecked" })
 public class QLParser extends Parser {
