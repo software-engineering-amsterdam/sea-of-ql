@@ -1,7 +1,7 @@
 package org.uva.sea.ql.ast;
 
-public class Pos extends ExprUnary {
-	public Pos(Expr expr) {
+public class Pos extends UnaryExpression {
+	public Pos(ASTNode expr) {
 		super(expr);
 	}
 

@@ -1,7 +1,7 @@
 package org.uva.sea.ql.ast;
 
-public class GEq extends ExprBinary {
-	public GEq(Expr lhs, Expr rhs) {
+public class GEq extends BinaryExpression {
+	public GEq(ASTNode lhs, ASTNode rhs) {
 		super(lhs, rhs);
 	}
 

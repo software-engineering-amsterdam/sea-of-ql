@@ -1,10 +1,9 @@
 package org.uva.sea.ql.ast;
 
-public class Int extends Expr {
-
+public class IntegerValue implements ASTNode {
 	private final int value;
 
-	public Int(int n) {
+	public IntegerValue(int n) {
 		this.value = n;
 	}
 
