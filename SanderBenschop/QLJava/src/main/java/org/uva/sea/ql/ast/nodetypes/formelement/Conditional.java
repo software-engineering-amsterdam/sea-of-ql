@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.uva.sea.ql.ast.QLExpression;
 import org.uva.sea.ql.ast.QLStatement;
+import org.uva.sea.ql.parser.visitor.ASTNodeVisitor;
 
 public class Conditional extends QLStatement {
 
@@ -39,4 +40,8 @@ public class Conditional extends QLStatement {
 		
 		return failureBlock;
 	}
+
+    @Override
+    public void accept(ASTNodeVisitor visitor) {
+    }
 }

@@ -5,6 +5,7 @@ import java.util.List;
 import org.uva.sea.ql.ast.ASTNode;
 import org.uva.sea.ql.ast.QLStatement;
 import org.uva.sea.ql.ast.nodetypes.primary.Ident;
+import org.uva.sea.ql.parser.visitor.ASTNodeVisitor;
 
 public class Form implements ASTNode {
 
@@ -26,4 +27,8 @@ public class Form implements ASTNode {
 		
 		return statements;
 	}
+
+    @Override
+    public void accept(ASTNodeVisitor visitor) {
+    }
 }

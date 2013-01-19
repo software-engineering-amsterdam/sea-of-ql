@@ -1,4 +1,4 @@
-package org.uva.sea.ql.parser.primary;
+package org.uva.sea.ql.parser.stringparsing.primary;
 
 import static org.junit.Assert.assertEquals;
 

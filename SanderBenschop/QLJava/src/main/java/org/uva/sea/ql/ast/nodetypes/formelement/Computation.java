@@ -4,6 +4,7 @@ import org.uva.sea.ql.ast.QLExpression;
 import org.uva.sea.ql.ast.QLStatement;
 import org.uva.sea.ql.ast.nodetypes.primary.Ident;
 import org.uva.sea.ql.ast.nodetypes.primary.Str;
+import org.uva.sea.ql.parser.visitor.ASTNodeVisitor;
 
 public class Computation extends QLStatement {
     
@@ -32,4 +33,8 @@ public class Computation extends QLStatement {
 		
 		return expression;
 	}
+
+    @Override
+    public void accept(ASTNodeVisitor visitor) {
+    }
 }

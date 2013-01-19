@@ -1,13 +1,14 @@
 package org.uva.sea.ql.ast.nodetypes.binary;
 
 import org.uva.sea.ql.ast.QLExpression;
+import org.uva.sea.ql.parser.visitor.ASTNodeVisitor;
 
-public abstract class BinaryOperationExpression extends QLExpression {
+public abstract class BinaryOperation extends QLExpression {
 	
 	private final QLExpression leftHandSide;
 	private final QLExpression rightHandSide;
 	
-	public BinaryOperationExpression(QLExpression leftHandSide, QLExpression rightHandSide) {
+	public BinaryOperation(QLExpression leftHandSide, QLExpression rightHandSide) {
 		this.leftHandSide = leftHandSide;
 		this.rightHandSide = rightHandSide;
 	}
@@ -19,4 +20,11 @@ public abstract class BinaryOperationExpression extends QLExpression {
 	public QLExpression getRightHandSide() {
 		return rightHandSide;
 	}
+
+    @Override
+    public void accept(ASTNodeVisitor visitor) {
+        getLeftHandSide().accept(visitor);
+        getRightHandSide().accept(visitor);
+    }
+
 }

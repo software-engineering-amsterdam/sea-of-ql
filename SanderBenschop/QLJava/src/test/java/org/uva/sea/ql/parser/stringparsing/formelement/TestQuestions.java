@@ -1,4 +1,4 @@
-package org.uva.sea.ql.parser.formelement;
+package org.uva.sea.ql.parser.stringparsing.formelement;
 
 import static org.junit.Assert.assertEquals;
 
