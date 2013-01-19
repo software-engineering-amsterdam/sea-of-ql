@@ -11,20 +11,20 @@ public class If extends Statement {
 	 * Holds the condition of the statement.
 	 */
 	private final Expression condition;
-	
+
 	/**
 	 * Holds the if body.
 	 */
 	private final Statements ifThen;
-	
+
 	/**
 	 * Holds the else body.
 	 */
 	private final Statements ifElse;
-	
+
 	/**
 	 * Constructs a new IF-statement.
-	 * 
+	 *
 	 * @param condition The expression condition.
 	 * @param ifThen The if-body.
 	 * @param ifElse The else-body.
@@ -34,34 +34,49 @@ public class If extends Statement {
 		this.ifThen = ifThen;
 		this.ifElse = ifElse;
 	}
-	
+
 	/**
 	 * Constructs new IF-statement.
-	 * 
+	 *
 	 * @param condition The expression condition.
 	 * @param ifThen The if-body.
 	 */
 	public If( Expression condition, Statements ifThen ) {
 		this( condition, ifThen, null );
 	}
-	
+
 	/**
 	 * Constructs a new IF-statement without any body statements.
-	 * 
+	 *
 	 * @param condition The expression condition.
 	 */
 	public If( Expression condition ) {
 		this( condition, null, null );
 	}
-	
+
+	/**
+	 * Retrieves the condition of the IF.
+	 *
+	 * @return The condition.
+	 */
 	public Expression getCondition() {
 		return this.condition;
 	}
-	
+
+	/**
+	 * Retrieves the THEN body.
+	 *
+	 * @return The body of the IF.
+	 */
 	public Statements getIfThen() {
 		return this.ifThen;
 	}
-	
+
+	/**
+	 * Retrieves the ELSE-body.
+	 *
+	 * @return The body of the ELSE.
+	 */
 	public Statements getIfElse() {
 		return this.ifElse;
 	}
