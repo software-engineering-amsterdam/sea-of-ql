@@ -6,13 +6,11 @@ import lang::ql::ast::Pretty;
 import Prelude;
 import Message;
 
-import IO;
-
 // Environment that contains all relevant information for checking an abstract syntax tree
 alias Env = tuple[
 	map[str, Type] questionVars,
 	map[str, Type] computedQuestionVars,
-	map[str, set[str]] varsDependOn, 
+	map[str, set[str]] varsDependencies, 
 	rel[Expr expr, Type reqType] expressions, // Store all expressions while visiting tree, to check them later
 	set[str] labels, 
 	set[Message] errors
@@ -60,7 +58,7 @@ map[str, Type] resultTypes = (
 // Helper functions to add values to the environment
 Env addQuestionVar(Env env, str ident, Type tp) = env[questionVars = env.questionVars + (ident: tp)];
 Env addComputedQuestionVar(Env env, str ident, Type tp) = env[computedQuestionVars = env.computedQuestionVars + (ident: tp)];
-Env addVarsDependOn(Env env, str variable, set[str] depending) = env[varsDependOn = env.varsDependOn + (variable: depending)];
+Env addVarsDependencies(Env env, str ident, set[str] dependencies) = env[varsDependencies = env.varsDependencies + (ident: dependencies)];
 Env addExpression(Env env, Expr expression, Type tp) = env[expressions = env.expressions + <expression, tp>];
 Env addLabel(Env env, str label) = env[labels = env.labels + label];
 Env addError(Env env, loc l, str msg) = env[errors = env.errors + error(msg, l)];
@@ -96,8 +94,6 @@ public set[Message] checkForm(form(_, list[Statement] statements)) {
 	for (s <- statements) {
 		env = checkStatement(s, {}, env);
 	}
-	
-	println(env.varsDependOn);
 	
 	// Now that we have gathered all type information, check all the expressions encountered
 	for (<Expr e, Type tp> <- env.expressions) {
@@ -139,73 +135,63 @@ Env checkStatement(Statement statement, set[str] identifiers, Env env) {
  * computed and answerable questions that bind the same variable 
  * and provides warnings for duplicate labels.
  */
-Env checkQuestion(q:computed(str identifier, str label, Type tp, Expr expression), set[str] identifiers, Env env) {
-	if (identifier in env.computedQuestionVars) {		
-		Type declaredType = env.computedQuestionVars[identifier];
-		
-		if (declaredType != tp) {
-			env = addError(env, q@location, "Question has already been defined before with type <pretty(declaredType)>");
-		}
-	}
-	else { 
-		if (identifier in env.questionVars) {
-			env = addError(env, q@location, "There is already a non-computed version of this question");	
-		}
-		
-		env = addComputedQuestionVar(env, identifier, tp);
-	}
+Env checkQuestion(Question question, set[str] identifiers, Env env) {
+	bool isComputed = question has expression;
+	env = checkQuestionDeclaration(question, isComputed, env);
 	
-	if (identifier notin env.varsDependOn) {
-		env = addVarsDependOn(env, identifier, identifiers);
+	if (question.identifier notin env.varsDependencies) {
+		env = addVarsDependencies(env, question.identifier, identifiers);
 	}
 	else {
-		env = addVarsDependOn(env, identifier, env.varsDependOn & identifiers);
+		env = addVarsDependencies(env, question.identifier, env.varsDependencies[question.identifier] & identifiers);
 	}
 	
-	if (label in env.labels) {
-		env = addWarning(env, q@location, "Duplicate label");	
+	if (question.label in env.labels) {
+		env = addWarning(env, question@location, "Duplicate label");	
 	}
 	else {
-		env = addLabel(env, label);
+		env = addLabel(env, question.label);
 	}
 	
-	env = addExpression(env, expression, tp);
+	if (isComputed) {
+		env = addExpression(env, question.expression, question.tp);
+	}
 	
 	return env;
 }
 
 /* Checks for duplicate questions with different types,
- * computed and answerable questions that bind the same variable 
- * and provides warnings for duplicate labels.
+ * computed and answerable questions that bind the same variable
  */
-Env checkQuestion(q:noncomputed(str identifier, str label, Type tp), set[str] identifiers, Env env) {
-	if (identifier in env.questionVars) {	
-		Type declaredType = env.questionVars[identifier];
+Env checkQuestionDeclaration(Question question, bool computed, Env env) {
+	if (	(computed && (question.identifier in env.computedQuestionVars)) || 
+			(!computed && (question.identifier in env.questionVars))) {	
+		Type declaredType;
+		if (computed) {
+			declaredType = env.computedQuestionVars[question.identifier];
+		}
+		else {
+			declaredType = env.questionVars[question.identifier];	
+		}
 		
-		if (declaredType != tp) {
-			env = addError(env, q@location, "Question has already been defined before with type <pretty(declaredType)>");
+		if (declaredType != question.tp) {
+			env = addError(env, question@location, "Question has already been defined before with type <pretty(declaredType)>");
 		}		
 	}
 	else { 
-		if (identifier in env.computedQuestionVars) {
-			env = addError(env, q@location, "There is already a computed version of this question");	
+		if (computed && (question.identifier in env.questionVars)) {
+			env = addError(env, question@location, "There is already a non-computed version of this question");	
+		}
+		else if (!computed && (question.identifier in env.computedQuestionVars)) {
+			env = addError(env, question@location, "There is already a computed version of this question");	
 		}
 		
-		env = addQuestionVar(env, identifier, tp);
-	}
-	
-	if (identifier notin env.varsDependOn) {
-		env = addVarsDependOn(env, identifier, identifiers);
-	}
-	else {
-		env = addVarsDependOn(env, identifier, env.varsDependOn[identifier] & identifiers);
-	}
-	
-	if (label in env.labels) {
-		env = addWarning(env, q@location, "Duplicate label");	
-	}
-	else {
-		env = addLabel(env, label);
+		if (computed) {
+			env = addComputedQuestionVar(env, question.identifier, question.tp);
+		}
+		else {
+			env = addQuestionVar(env, question.identifier, question.tp);
+		}
 	}
 	
 	return env;
@@ -255,8 +241,8 @@ Env checkExpr(Expr e:ident(str name), set[Type] req, Env env) {
 	  		env = addError(env, e@location, "Required <readableTypes(req)>, got <pretty(tp)>");
 		}
 		
-		for (str identifier <- env.varsDependOn[name]) {
-			if (name in env.varsDependOn[identifier]) {
+		for (str identifier <- env.varsDependencies[name]) {
+			if ((identifier in env.varsDependencies) && (name in env.varsDependencies[identifier])) {
 				env = addError(env, e@location, "Cyclic dependency for <name> and <identifier>");
 			}	
 		}		
