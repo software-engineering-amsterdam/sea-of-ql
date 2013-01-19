@@ -9,14 +9,14 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
-public class NotEqualTo extends MultipleTypeBinaryOperation {
+public class NotEqualTo extends BinaryOperation {
 
 	public NotEqualTo(QLExpression leftHandSide, QLExpression rightHandSide) {
 		super(leftHandSide, rightHandSide);
 	}
 
     @Override
-    public Collection<Class<?>> getSupportedTypes() {
+    public List<Class<?>> getSupportedTypes() {
         List<Class<?>> supportedTypes = Arrays.asList(new Class<?>[]{Int.class, Bool.class});
         return Collections.unmodifiableList(supportedTypes);
     }

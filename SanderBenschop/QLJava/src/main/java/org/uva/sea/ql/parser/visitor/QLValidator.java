@@ -2,7 +2,7 @@ package org.uva.sea.ql.parser.visitor;
 
 import java.util.Collection;
 
-public interface QLValidator<T extends QLError> {
+public interface QLValidator {
 
-    Collection<T> getErrors();
+    Collection<QLError> getErrors();
 }

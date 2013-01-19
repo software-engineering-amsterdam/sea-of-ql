@@ -11,4 +11,6 @@ public abstract class QLError {
     protected int getLine() {
         return line;
     }
+
+    public abstract String getErrorMessage();
 }

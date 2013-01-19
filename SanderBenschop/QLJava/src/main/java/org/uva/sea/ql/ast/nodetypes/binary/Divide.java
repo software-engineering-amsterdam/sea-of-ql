@@ -1,16 +1,22 @@
 package org.uva.sea.ql.ast.nodetypes.binary;
 
 import org.uva.sea.ql.ast.QLExpression;
+import org.uva.sea.ql.ast.nodetypes.primary.Bool;
 import org.uva.sea.ql.ast.nodetypes.primary.Int;
 
-public class Divide extends SingleTypeBinaryOperation {
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+
+public class Divide extends BinaryOperation {
 
 	public Divide(QLExpression leftHandSide, QLExpression rightHandSide) {
 		super(leftHandSide, rightHandSide);
 	}
 
     @Override
-    public Class<?> getSupportedType() {
-        return Int.class;
+    public List<Class<?>> getSupportedTypes() {
+        List<Class<?>> supportedTypes = Arrays.asList(new Class<?>[]{Int.class});
+        return Collections.unmodifiableList(supportedTypes);
     }
 }

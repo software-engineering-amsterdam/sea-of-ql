@@ -6,28 +6,26 @@ import java.util.List;
 import org.uva.sea.ql.ast.ASTNode;
 import org.uva.sea.ql.ast.QLExpression;
 import org.uva.sea.ql.ast.nodetypes.binary.BinaryOperation;
-import org.uva.sea.ql.ast.nodetypes.binary.EqualTo;
-import org.uva.sea.ql.ast.nodetypes.binary.MultipleTypeBinaryOperation;
-import org.uva.sea.ql.ast.nodetypes.binary.SingleTypeBinaryOperation;
 import org.uva.sea.ql.ast.nodetypes.formelement.Computation;
 import org.uva.sea.ql.ast.nodetypes.formelement.Conditional;
 import org.uva.sea.ql.ast.nodetypes.formelement.Question;
 import org.uva.sea.ql.ast.nodetypes.primary.Primary;
 import org.uva.sea.ql.ast.nodetypes.unary.UnaryOperationExpression;
 import org.uva.sea.ql.parser.visitor.ASTNodeVisitor;
+import org.uva.sea.ql.parser.visitor.QLError;
 import org.uva.sea.ql.parser.visitor.QLValidator;
 
 /**
  * Visitor that's responsible for checking if the variables that are used in the QL program are of the proper types.
  */
-public class TypeCheckingVisitor implements ASTNodeVisitor, QLValidator<TypeCheckingError> {
+public class TypeCheckingVisitor implements ASTNodeVisitor, QLValidator {
 
     private ReductionTable reductionTable;
-    private List<TypeCheckingError> typeCheckingErrors;
+    private List<QLError> typeCheckingErrors;
 
     public TypeCheckingVisitor() {
         this.reductionTable = new ReductionTable();
-        this.typeCheckingErrors = new ArrayList<TypeCheckingError>();
+        this.typeCheckingErrors = new ArrayList<QLError>();
     }
 
     @Override
@@ -48,33 +46,33 @@ public class TypeCheckingVisitor implements ASTNodeVisitor, QLValidator<TypeChec
 
     @Override
     public void visitUnaryOperation(UnaryOperationExpression unaryOperation) {
-    }
-
-    @Override
-    public void visitBinaryOperation(MultipleTypeBinaryOperation multipleTypeBinaryOperation) {
 
     }
 
     @Override
-    public void visitBinaryOperation(SingleTypeBinaryOperation binaryOperation) {
-        Class<?> expectedType = binaryOperation.getSupportedType();
+    public void visitBinaryOperation(BinaryOperation binaryOperation) {
+        List<Class<?>> supportedTypes = binaryOperation.getSupportedTypes();
         QLExpression leftHandSide = binaryOperation.getLeftHandSide(), rightHandSide = binaryOperation.getRightHandSide();
 
-        boolean leftHandSideReducable = reductionTable.isReducableToType(leftHandSide, expectedType), rightHandSideReducable = reductionTable.isReducableToType(rightHandSide, expectedType);
+        Class<?> leftHandSideReduction = reductionTable.getReduceableType(leftHandSide), rightHandSideReduction = reductionTable.getReduceableType(rightHandSide);
+        boolean leftHandSideReduceable = supportedTypes.contains(leftHandSideReduction), rightHandSideReduceable = supportedTypes.contains(rightHandSideReduction);
 
-        //Success case
-        if(leftHandSideReducable && rightHandSideReducable) {
-            //Reduce this expression to the neededClass in the map.
-            reductionTable.setReducableToType(binaryOperation, expectedType);
-            return;
+        if (leftHandSideReduction == rightHandSideReduction) {
+            if(leftHandSideReduceable) {
+                //Reduce this expression to the neededClass in the map.
+                reductionTable.setReducableToType(binaryOperation, leftHandSideReduction);
+                return;
+            }
+        } else if (supportedTypes.size() > 1) {
+            addErrorForUnequalTypes(binaryOperation);
         }
 
-        if (!leftHandSideReducable) {
-            addErrorForVariable(leftHandSide, expectedType);
+        if (!leftHandSideReduceable) {
+            addErrorForVariable(leftHandSide, supportedTypes);
         }
 
-        if (!rightHandSideReducable) {
-            addErrorForVariable(leftHandSide, expectedType);
+        if (!rightHandSideReduceable) {
+            addErrorForVariable(leftHandSide, supportedTypes);
         }
     }
 
@@ -84,12 +82,17 @@ public class TypeCheckingVisitor implements ASTNodeVisitor, QLValidator<TypeChec
     }
 
     @Override
-    public List<TypeCheckingError> getErrors() {
+    public List<QLError> getErrors() {
         return typeCheckingErrors;
     }
 
-    private void addErrorForVariable(ASTNode astNode, Class<?> expectedType) {
-        TypeCheckingError typeCheckingError = new TypeCheckingError(0, astNode.getClass().getSimpleName(), expectedType.getSimpleName());
-        typeCheckingErrors.add(typeCheckingError);
+    private void addErrorForVariable(ASTNode astNode, List<Class<?>> allowedTypes) {
+        QLError unsupportedTypeError = new UnsupportedTypeError(0, astNode.getClass().getSimpleName(), allowedTypes);
+        typeCheckingErrors.add(unsupportedTypeError);
+    }
+
+    private void addErrorForUnequalTypes(BinaryOperation binaryOperation) {
+        QLError unequalTypesError = new UnequalTypesError(0, binaryOperation);
+        typeCheckingErrors.add(unequalTypesError);
     }
 }

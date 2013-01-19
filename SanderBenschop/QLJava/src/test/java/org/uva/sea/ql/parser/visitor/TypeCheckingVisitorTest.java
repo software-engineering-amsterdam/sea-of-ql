@@ -1,40 +1,26 @@
 package org.uva.sea.ql.parser.visitor;
 
 import org.junit.Test;
-import org.uva.sea.ql.ast.nodetypes.binary.BinaryOperation;
-import org.uva.sea.ql.ast.nodetypes.binary.Divide;
-import org.uva.sea.ql.ast.nodetypes.binary.Multiply;
-import org.uva.sea.ql.ast.nodetypes.binary.SingleTypeBinaryOperation;
+import org.uva.sea.ql.ast.nodetypes.binary.*;
 import org.uva.sea.ql.ast.nodetypes.primary.Bool;
 import org.uva.sea.ql.ast.nodetypes.primary.Int;
 import org.uva.sea.ql.ast.nodetypes.primary.Primary;
 import org.uva.sea.ql.parser.visitor.typechecking.TypeCheckingVisitor;
+import org.uva.sea.ql.parser.visitor.typechecking.UnequalTypesError;
+import org.uva.sea.ql.parser.visitor.typechecking.UnsupportedTypeError;
 
 import static junit.framework.Assert.assertEquals;
+import static junit.framework.Assert.assertTrue;
 
 public class TypeCheckingVisitorTest {
-
-    @Test
-    public void shouldDetectTypeErrorForSingleTypeBinaryExpression() {
-        Primary leftHandSide = new Int(1);
-        Primary rightHandSide = new Bool(false);
-        SingleTypeBinaryOperation multiply = new Multiply(leftHandSide, rightHandSide);
-
-        TypeCheckingVisitor nodeVisitor = new TypeCheckingVisitor();
-        nodeVisitor.visitPrimary(leftHandSide);
-        nodeVisitor.visitPrimary(rightHandSide);
-        nodeVisitor.visitBinaryOperation(multiply);
-
-        assertEquals(1, nodeVisitor.getErrors().size());
-    }
 
     @Test
     public void shouldReduceProperlyForSingleTypeBinaryExpression() {
         Primary leftHandSide = new Int(1);
         Primary leftHandSide2 = new Int(2);
         Primary rightHandSide = new Int(3);
-        SingleTypeBinaryOperation multiply = new Multiply(leftHandSide, rightHandSide);
-        SingleTypeBinaryOperation divide = new Divide(leftHandSide2, multiply);
+        BinaryOperation multiply = new Multiply(leftHandSide, rightHandSide);
+        BinaryOperation divide = new Divide(leftHandSide2, multiply);
 
         TypeCheckingVisitor nodeVisitor = new TypeCheckingVisitor();
         nodeVisitor.visitPrimary(leftHandSide);
@@ -47,12 +33,27 @@ public class TypeCheckingVisitorTest {
     }
 
     @Test
+    public void shouldDetectTypeErrorForSingleTypeBinaryExpression() {
+        Primary leftHandSide = new Int(1);
+        Primary rightHandSide = new Bool(false);
+        BinaryOperation multiply = new Multiply(leftHandSide, rightHandSide);
+
+        TypeCheckingVisitor nodeVisitor = new TypeCheckingVisitor();
+        nodeVisitor.visitPrimary(leftHandSide);
+        nodeVisitor.visitPrimary(rightHandSide);
+        nodeVisitor.visitBinaryOperation(multiply);
+
+        assertEquals(1, nodeVisitor.getErrors().size());
+        assertTrue(nodeVisitor.getErrors().get(0) instanceof UnsupportedTypeError);
+    }
+
+    @Test
     public void shouldCascadeErrorForNestedSingleTypeBinaryExpression() {
         Primary leftHandSide = new Bool(true);
         Primary leftHandSide2 = new Int(2);
         Primary rightHandSide = new Int(3);
-        SingleTypeBinaryOperation multiply = new Multiply(leftHandSide, rightHandSide);
-        SingleTypeBinaryOperation divide = new Divide(leftHandSide2, multiply);
+        BinaryOperation multiply = new Multiply(leftHandSide, rightHandSide);
+        BinaryOperation divide = new Divide(leftHandSide2, multiply);
 
         TypeCheckingVisitor nodeVisitor = new TypeCheckingVisitor();
         nodeVisitor.visitPrimary(leftHandSide);
@@ -62,5 +63,22 @@ public class TypeCheckingVisitorTest {
         nodeVisitor.visitBinaryOperation(divide);
 
         assertEquals(2, nodeVisitor.getErrors().size());
+        assertTrue(nodeVisitor.getErrors().get(0) instanceof UnsupportedTypeError);
+        assertTrue(nodeVisitor.getErrors().get(1) instanceof UnsupportedTypeError);
+    }
+
+    @Test
+    public void shouldThrowErrorIfTypesAreUnequalInMultipleTypeBinaryExpression() {
+        Primary leftHandSide = new Int(1);
+        Primary rightHandSide = new Bool(false);
+        BinaryOperation equalTo = new EqualTo(leftHandSide, rightHandSide);
+
+        TypeCheckingVisitor nodeVisitor = new TypeCheckingVisitor();
+        nodeVisitor.visitPrimary(leftHandSide);
+        nodeVisitor.visitPrimary(rightHandSide);
+        nodeVisitor.visitBinaryOperation(equalTo);
+
+        assertEquals(1, nodeVisitor.getErrors().size());
+        assertTrue(nodeVisitor.getErrors().get(0) instanceof UnequalTypesError);
     }
 }
