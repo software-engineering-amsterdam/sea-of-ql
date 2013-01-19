@@ -8,7 +8,7 @@ import org.uva.sea.ql.visitor.INodeVisitor;
 public interface INode {
 	/**
 	 * Accepts a visitor.
-	 * 
+	 *
 	 * @param visitor
 	 */
 	void accept( INodeVisitor visitor );
