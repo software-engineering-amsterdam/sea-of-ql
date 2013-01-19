@@ -1,7 +1,7 @@
 package org.uva.sea.ql.ast;
 
-public class Mul extends ExprBinary {
-	public Mul(Expr lhs, Expr rhs) {
+public class Mul extends BinaryExpression {
+	public Mul(ASTNode lhs, ASTNode rhs) {
 		super(lhs, rhs);
 	}
 

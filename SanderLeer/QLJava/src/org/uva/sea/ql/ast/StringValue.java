@@ -1,13 +1,13 @@
 package org.uva.sea.ql.ast;
 
-public class Bool extends Expr {
-	private final boolean value;
+public class StringValue implements ASTNode {
+	private final String value;
 	
-	public Bool(boolean value) {
+	public StringValue(String value) {
 		this.value = value;
 	}
 
-	public boolean getValue() {
+	public String getValue() {
 		return value;
 	}
 
@@ -15,5 +15,4 @@ public class Bool extends Expr {
 	public void accept(ASTNodeVisitor visitor) {
 		visitor.visit(this);
 	}
-
 }
