@@ -1,2 +1,2 @@
 @echo off
-java -jar %JACC_PATH%\jacc.jar %*
+java -jar "C:\Users\bastiaan.brekelmans\git\sea-of-ql\basbrekelmans\lib\jacc\jacc.jar" "C:\Users\bastiaan.brekelmans\git\sea-of-ql\basbrekelmans\src\org\uva\sea\ql\parser\ql.jacc"

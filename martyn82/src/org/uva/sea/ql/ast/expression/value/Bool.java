@@ -1,11 +1,14 @@
 package org.uva.sea.ql.ast.expression.value;
 
-import org.uva.sea.ql.visitor.Visitor;
+import org.uva.sea.ql.ast.type.Type;
+import org.uva.sea.ql.visitor.INodeVisitor;
 
 /**
  * Represents a boolean literal expression.
  */
 public class Bool extends Literal {
+	private static final Type TYPE = new org.uva.sea.ql.ast.type.Bool();
+	
 	/**
 	 * Holds the value of the boolean literal.
 	 */
@@ -30,12 +33,22 @@ public class Bool extends Literal {
 	}
 
 	@Override
-	public void accept( Visitor visitor ) {
+	public void accept( INodeVisitor visitor ) {
 		visitor.visit( this );
 	}
-
+	
 	@Override
 	public String toString() {
 		return String.valueOf( this.value );
+	}
+
+	@Override
+	public boolean checkType() {
+		return true;
+	}
+
+	@Override
+	public Type getType() {
+		return TYPE;
 	}
 }

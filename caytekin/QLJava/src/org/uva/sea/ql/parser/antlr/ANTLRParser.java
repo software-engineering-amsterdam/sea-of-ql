@@ -9,6 +9,7 @@ import org.uva.sea.ql.parser.test.ParseError;
 
 public class ANTLRParser implements IParse {
 
+	
 	@Override
 	public Expr parse(String src) throws ParseError {
 		ANTLRStringStream stream = new ANTLRStringStream(src);
@@ -16,7 +17,7 @@ public class ANTLRParser implements IParse {
 		tokens.setTokenSource(new QLLexer(stream));
 		QLParser parser = new QLParser(tokens);
 		try {
-			return parser.orExpr();
+			return parser.unExpr();
 		} catch (RecognitionException e) {
 			throw new ParseError(e.getMessage());
 		}

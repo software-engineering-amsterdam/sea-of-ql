@@ -1,17 +1,23 @@
 package org.uva.sea.ql.ast;
 
 import org.uva.sea.ql.interpreter.Value;
+import org.uva.sea.ql.interpreter.Int;
 
 public class Pos extends Expr {
 
-	public Pos(Expr x) {
-		// TODO Auto-generated constructor stub
+	private final Expr expr;
+	
+	public Pos(Expr expr) {
+		this.expr = expr;
 	}
 
 	@Override
 	public Value interpret() {
-		// TODO Auto-generated method stub
-		return null;
+		return (Int) getExpr().interpret();
+	}
+
+	public Expr getExpr() {
+		return expr;
 	}
 
 }

@@ -37,11 +37,13 @@ public data Expr
   | neq(Expr lhs, Expr rhs)
   | and(Expr lhs, Expr rhs)
   | or(Expr lhs, Expr rhs);
-  
+
+/* Annotation for source code location of all AST types. 
+ * This will be used when imploding a parse tree into an abstract syntax tree.
+ */
 anno loc Form@location;                   
 anno loc Statement@location;
 anno loc ElseIf@location;
 anno loc Question@location;
 anno loc Type@location;
 anno loc Expr@location;
-  

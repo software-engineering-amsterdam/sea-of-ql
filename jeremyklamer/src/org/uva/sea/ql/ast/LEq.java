@@ -1,5 +1,7 @@
 package org.uva.sea.ql.ast;
 
+import org.uva.sea.ql.interpreter.BoolType;
+import org.uva.sea.ql.interpreter.Int;
 import org.uva.sea.ql.interpreter.Value;
 
 public class LEq extends Binary{
@@ -10,8 +12,9 @@ public class LEq extends Binary{
 
 	@Override
 	public Value interpret() {
-		// TODO Auto-generated method stub
-		return null;
+		Int li = (Int)getLeft().interpret();
+		Int ri = (Int)getRight().interpret();
+		return new BoolType( li.getVal() <= ri.getVal());
 	}
 
 }

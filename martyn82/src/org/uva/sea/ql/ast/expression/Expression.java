@@ -1,29 +1,23 @@
 package org.uva.sea.ql.ast.expression;
 
-import org.uva.sea.ql.ast.ASTNode;
-import org.uva.sea.ql.visitor.Visitor;
+import org.uva.sea.ql.ast.INode;
+import org.uva.sea.ql.ast.type.Type;
 
 /**
  * Represents an expression.
  */
-abstract public class Expression implements ASTNode {
-	public final char TOKEN = '\0';
-	private Expression parent;
-	
-	public void setParent( Expression parent ) {
-		this.parent = parent;
-	}
-	
-	public Expression getParent() {
-		return this.parent;
-	}
+abstract public class Expression implements INode {
+	/**
+	 * Determines whether the type of this expression conforms to semantics.
+	 * 
+	 * @return True if type of expression is OK, false otherwise.
+	 */
+	abstract public boolean checkType();
 	
 	/**
-	 * Accepts a visitor.
+	 * Determines and retrieves the type of the expression.
 	 * 
-	 * @param visitor The visitor.
-	 * 
-	 * @return The value the expression produces.
+	 * @return The actual type of the expression.
 	 */
-	abstract public void accept( Visitor visitor );
+	abstract public Type getType();
 }

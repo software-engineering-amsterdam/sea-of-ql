@@ -1,97 +1,38 @@
 module nl.stgm.ql.parser.rats.QLParser;
+import nl.stgm.ql.parser.rats.QLExpr;
+import nl.stgm.ql.parser.rats.QLUtil;
 
 header {
 import java.util.List;
 import java.util.ArrayList;
 import xtc.util.Action;
-import nl.stgm.ql.ast.*;
+import nl.stgm.ql.ast.expr.*;
+import nl.stgm.ql.ast.form.*;
 }
 
-public Expr RunParse = yyValue:Expr;
-	
-Expr Expr =
-    l:RelExpr "&&" Spacing r:RelExpr { yyValue = new And(l, r); }
-    / l:RelExpr "||" Spacing r:RelExpr { yyValue = new Or(l, r); }
-    / yyValue:RelExpr
-    ; 
-    
-Expr RelExpr =
-   l:AddExpr "<=" Spacing r:AddExpr { yyValue = new LEq(l, r); }
-   / l:AddExpr ">=" Spacing r:AddExpr { yyValue = new GEq(l, r); }
-   / l:AddExpr "<" Spacing r:AddExpr { yyValue = new LT(l, r); }
-   / l:AddExpr ">" Spacing r:AddExpr { yyValue = new GT(l, r); }
-   / l:AddExpr "==" Spacing r:AddExpr { yyValue = new Eq(l, r); }
-   / l:AddExpr "!=" Spacing r:AddExpr { yyValue = new NEq(l, r); }
-   / yyValue:AddExpr
-   ;
- 
-Expr AddExpr =
-     seed:MulExpr actions:AddTail* { yyValue = apply(actions, seed); };
+public Expr ParseExpr = yyValue:Expr;
+public Form ParseForm = yyValue:Form;
+public Document Parse = yyValue:Document;
 
-constant Action<Expr> AddTail = 
-	"+" Spacing right:MulExpr { 
-		yyValue = new Action<Expr>() {
-			public Expr run(Expr left) {
-              return new Add(left, right);
-            }
-        };
-    }
-	/ "-" Spacing right:MulExpr { 
-		yyValue = new Action<Expr>() {
-			public Expr run(Expr left) {
-              return new Add(left, right);
-            }
-        };
-    }; 
-	
-   
-Expr MulExpr =
-	seed:Unary actions:MulTail* { yyValue = apply(actions, seed); };
+Document Document = Spacing
+	Form*
+	{ yyValue = new Document(); };
 
-constant Action<Expr> MulTail =
-	"*" Spacing right:Unary { 
-		yyValue = new Action<Expr>() {
-			public Expr run(Expr left) {
-              return new Mul(left, right);
-            }
-        };
-    }
-    / "/" Spacing right:Unary { 
-		yyValue = new Action<Expr>() {
-			public Expr run(Expr left) {
-              return new Div(left, right);
-            }
-        };
-    }; 
+Form Form =
+	"form" Spacing id:Ident Spacing '{' Spacing FormItem* '}' Spacing
+	{ yyValue = new Form(id); };
 
-Expr Unary = 
-    "+" Spacing un:Unary { yyValue = new Pos(un); }
-    / "-" Spacing un:Unary { yyValue = new Neg(un); }
-    / "!" Spacing un:Unary { yyValue = new Not(un); }
-	/ yyValue:Primary;
-	
+FormItem FormItem =
+	Question / Conditional;
 
-Expr Primary = 
-	n:Int Spacing { yyValue = new Int(Integer.parseInt(n)); }
-	/ x:Ident Spacing { yyValue = new Ident(x); }
-	/ LParen yyValue:Expr RParen
-	;
+FormItem Question =
+	id:Ident ':' Spacing question:StringLit Spacing type:Ident Spacing
+	{ yyValue = new Question(id, question, type); };
 
-String Int
-  = [0-9]+ //![0-9a-zA-Z] 
-	;
+FormItem Conditional =
+	"if" Spacing Condition Spacing '{' Question* '}' Spacing
+	{ yyValue = new Conditional(); };
 
-String Ident
-  = [a-zA-Z_][A-Za-z0-9_]* //![0-9a-zA-Z_]
-  ;
-
-
-transient void LParen = '(' Spacing;
-transient void RParen = ')' Spacing;
-
-transient void Spacing = (Space / Comment)*;
-transient void Space              = ' ' /  '\t' / '\f' / LineTerminator ;
-transient void LineTerminator     = '\r' '\n' / '\r' / '\n' ;
-transient void Comment  = "/*" (('*' !'/') / (!'*' _))* "*/" ;
-
-
+Expr Condition =
+	'(' Spacing Expr ')' Spacing
+	{ yyValue = new Condition(); };

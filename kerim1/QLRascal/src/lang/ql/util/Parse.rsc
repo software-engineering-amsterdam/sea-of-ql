@@ -14,3 +14,9 @@ public Type parseType(str src, loc l) = parse(#Type, src, l);
 
 public Question parseQuestion(str src) = parse(#Question, src);
 public Question parseQuestion(str src, loc l) = parse(#Question, src, l);
+
+public Statement parseStatement(str src) = parse(#Statement, src);
+public Statement parseStatement(str src, loc l) = parse(#Statement, src, l);
+
+public ElseIf parseElseIf(str src) = parse(#ElseIf, src);
+public ElseIf parseElseIf(str src, loc l) = parse(#ElseIf, src, l);

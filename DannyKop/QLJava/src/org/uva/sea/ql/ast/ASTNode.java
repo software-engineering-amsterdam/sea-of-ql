@@ -1,5 +1,8 @@
 package org.uva.sea.ql.ast;
 
-public interface ASTNode {
-
-}
+/**
+ * Interface: ASTNode
+ * @author Danny
+ *
+ */
+public interface ASTNode {}

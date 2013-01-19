@@ -1,6 +1,7 @@
 package org.uva.sea.ql.ast.expression;
 
-import org.uva.sea.ql.visitor.Visitor;
+import org.uva.sea.ql.ast.type.Type;
+import org.uva.sea.ql.visitor.INodeVisitor;
 
 /**
  * Represents an identifier expression.
@@ -30,12 +31,24 @@ public class Ident extends Expression {
 	}
 
 	@Override
-	public void accept( Visitor visitor ) {
+	public void accept( INodeVisitor visitor ) {
 		visitor.visit( this );
 	}
 	
 	@Override
 	public String toString() {
 		return this.name;
+	}
+
+	@Override
+	public boolean checkType() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public Type getType() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

@@ -1,6 +1,6 @@
 package org.uva.sea.ql.ast.expression;
 
-import org.uva.sea.ql.visitor.Visitor;
+import org.uva.sea.ql.ast.type.Type;
 
 /**
  * Represents a multiplication expression.
@@ -17,7 +17,14 @@ public class Mul extends ArithmeticExpression {
 	}
 
 	@Override
-	public void accept( Visitor visitor ) {
-		visitor.visit( this );
+	public boolean checkType() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public Type getType() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

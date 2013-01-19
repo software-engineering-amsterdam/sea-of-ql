@@ -1,5 +1,6 @@
 package org.uva.sea.ql.ast.expression;
 
+import org.uva.sea.ql.visitor.INodeVisitor;
 
 /**
  * Represents a unary expression.
@@ -17,7 +18,6 @@ abstract public class UnaryExpression extends Expression {
 	 */
 	protected UnaryExpression( Expression expression ) {
 		this.expression = expression;
-		this.expression.setParent( this );
 	}
 	
 	/**
@@ -27,6 +27,11 @@ abstract public class UnaryExpression extends Expression {
 	 */
 	public Expression getExpression() {
 		return this.expression;
+	}
+	
+	@Override
+	public void accept( INodeVisitor visitor ) {
+		visitor.visit( this );
 	}
 	
 	@Override
