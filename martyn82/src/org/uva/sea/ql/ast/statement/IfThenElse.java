@@ -6,7 +6,7 @@ import org.uva.sea.ql.visitor.INodeVisitor;
 /**
  * Represents an IF-THEN statement block.
  */
-public class If extends Statement {
+public class IfThenElse extends Statement {
 	/**
 	 * Holds the condition of the statement.
 	 */
@@ -29,7 +29,7 @@ public class If extends Statement {
 	 * @param ifThen The if-body.
 	 * @param ifElse The else-body.
 	 */
-	public If( Expression condition, Statements ifThen, Statements ifElse ) {
+	public IfThenElse( Expression condition, Statements ifThen, Statements ifElse ) {
 		this.condition = condition;
 		this.ifThen = ifThen;
 		this.ifElse = ifElse;
@@ -41,7 +41,7 @@ public class If extends Statement {
 	 * @param condition The expression condition.
 	 * @param ifThen The if-body.
 	 */
-	public If( Expression condition, Statements ifThen ) {
+	public IfThenElse( Expression condition, Statements ifThen ) {
 		this( condition, ifThen, null );
 	}
 
@@ -50,7 +50,7 @@ public class If extends Statement {
 	 *
 	 * @param condition The expression condition.
 	 */
-	public If( Expression condition ) {
+	public IfThenElse( Expression condition ) {
 		this( condition, null, null );
 	}
 

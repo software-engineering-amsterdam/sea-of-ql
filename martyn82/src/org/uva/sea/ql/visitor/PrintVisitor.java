@@ -9,7 +9,7 @@ import org.uva.sea.ql.ast.expression.UnaryExpression;
 import org.uva.sea.ql.ast.expression.value.Literal;
 import org.uva.sea.ql.ast.statement.Assignment;
 import org.uva.sea.ql.ast.statement.FormDeclaration;
-import org.uva.sea.ql.ast.statement.If;
+import org.uva.sea.ql.ast.statement.IfThenElse;
 import org.uva.sea.ql.ast.statement.QuestionDeclaration;
 import org.uva.sea.ql.ast.statement.VarDeclaration;
 import org.uva.sea.ql.ast.type.Type;
@@ -134,7 +134,7 @@ public class PrintVisitor implements INodeVisitor {
 	}
 
 	@Override
-	public void visit( If node ) {
+	public void visit( IfThenElse node ) {
 		indent();
 		put( "IF" );
 
@@ -153,6 +153,18 @@ public class PrintVisitor implements INodeVisitor {
 
 			indent();
 			node.getIfThen().accept( this );
+
+			level--;
+		}
+
+		if ( node.getIfElse() != null ) {
+			indent();
+			put( "ELSE" );
+
+			level++;
+
+			indent();
+			node.getIfElse().accept( this );
 
 			level--;
 		}

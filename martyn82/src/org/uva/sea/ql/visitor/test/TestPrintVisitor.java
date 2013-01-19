@@ -31,19 +31,7 @@ public class TestPrintVisitor {
 	@Test
 	public void testPrint() throws ParseError {
 		INodeVisitor visitor = new PrintVisitor( System.out );
-
-		String program = "" +
-		"if ( a && !b ) {\n" +
-			"c: boolean;\n" +
-		"}\n" +
-		"else {\n" +
-			"c = (a && b);\n" +
-			"if ( c ) {\n" +
-				"c = !c;\n" +
-			"}" +
-		"}";
-
-		program =
+		String program =
 			"form Box1HouseOwning {\n" +
 				"\t\"Did you sell a house in 2010?\" hasSoldHouse : boolean\n" +
 				"\t\"Did you buy a house in 2010?\" hasBoughtHouse: boolean\n" +
@@ -54,8 +42,6 @@ public class TestPrintVisitor {
 				"\t\t\"Value residue:\" valueResidue = sellingPrice - privateDebt\n" +
 				"\t}\n" +
 			"}";
-
-		program = "if ( true ) { } else { }";
 
 		this.parser.parse( program ).accept( visitor );
 	}

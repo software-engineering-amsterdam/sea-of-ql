@@ -2,7 +2,7 @@ package org.uva.sea.ql.visitor;
 
 import org.uva.sea.ql.ast.statement.Assignment;
 import org.uva.sea.ql.ast.statement.FormDeclaration;
-import org.uva.sea.ql.ast.statement.If;
+import org.uva.sea.ql.ast.statement.IfThenElse;
 import org.uva.sea.ql.ast.statement.QuestionDeclaration;
 import org.uva.sea.ql.ast.statement.VarDeclaration;
 
@@ -15,7 +15,7 @@ public interface IStatementVisitor {
 	 *
 	 * @param node
 	 */
-	void visit( If node );
+	void visit( IfThenElse node );
 
 	/**
 	 * Visit a variable declaration.

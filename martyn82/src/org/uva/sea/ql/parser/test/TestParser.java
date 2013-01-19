@@ -25,7 +25,7 @@ import org.uva.sea.ql.ast.expression.value.Int;
 import org.uva.sea.ql.ast.expression.value.Money;
 import org.uva.sea.ql.ast.expression.value.Str;
 import org.uva.sea.ql.ast.statement.FormDeclaration;
-import org.uva.sea.ql.ast.statement.If;
+import org.uva.sea.ql.ast.statement.IfThenElse;
 import org.uva.sea.ql.ast.statement.QuestionDeclaration;
 import org.uva.sea.ql.parser.IParser;
 import org.uva.sea.ql.parser.ParseError;
@@ -299,43 +299,55 @@ public class TestParser {
 	@Test
 	public void testIf() throws ParseError {
 		// literal conditions
-		assertEquals( If.class, parser.parse( "if ( true ) { }" ).getClass() );
-		assertEquals( If.class, parser.parse( "if ( false ) { }" ).getClass() );
-		assertEquals( If.class, parser.parse( "if ( 1 ) { }" ).getClass() );
-		assertEquals( If.class, parser.parse( "if ( \"str\" ) { }" ).getClass() );
-		assertEquals( If.class, parser.parse( "if ( 131.5e-02 ) { }" ).getClass() );
+		assertEquals( IfThenElse.class, parser.parse( "if ( true ) { }" ).getClass() );
+		assertEquals( IfThenElse.class, parser.parse( "if ( false ) { }" ).getClass() );
+		assertEquals( IfThenElse.class, parser.parse( "if ( 1 ) { }" ).getClass() );
+		assertEquals( IfThenElse.class, parser.parse( "if ( \"str\" ) { }" ).getClass() );
+		assertEquals( IfThenElse.class, parser.parse( "if ( 131.5e-02 ) { }" ).getClass() );
 
 		// comparison conditions
-		assertEquals( If.class, parser.parse( "if ( a == b ) { }" ).getClass() );
-		assertEquals( If.class, parser.parse( "if ( a != b ) { }" ).getClass() );
-		assertEquals( If.class, parser.parse( "if ( a >= b ) { }" ).getClass() );
-		assertEquals( If.class, parser.parse( "if ( a > b ) { }" ).getClass() );
-		assertEquals( If.class, parser.parse( "if ( a < b ) { }" ).getClass() );
-		assertEquals( If.class, parser.parse( "if ( a <= b && c ) { }" ).getClass() );
+		assertEquals( IfThenElse.class, parser.parse( "if ( a == b ) { }" ).getClass() );
+		assertEquals( IfThenElse.class, parser.parse( "if ( a != b ) { }" ).getClass() );
+		assertEquals( IfThenElse.class, parser.parse( "if ( a >= b ) { }" ).getClass() );
+		assertEquals( IfThenElse.class, parser.parse( "if ( a > b ) { }" ).getClass() );
+		assertEquals( IfThenElse.class, parser.parse( "if ( a < b ) { }" ).getClass() );
+		assertEquals( IfThenElse.class, parser.parse( "if ( a <= b && c ) { }" ).getClass() );
 
 		// arithmetic conditions
-		assertEquals( If.class, parser.parse( "if ( 12 + 123 - 1 ) { }" ).getClass() );
-		assertEquals( If.class, parser.parse( "if ( 0 - 121 + .5 ) { }" ).getClass() );
-		assertEquals( If.class, parser.parse( "if ( 3 * 55 ) { }" ).getClass() );
-		assertEquals( If.class, parser.parse( "if ( 100 / 2 ) { }" ).getClass() );
+		assertEquals( IfThenElse.class, parser.parse( "if ( 12 + 123 - 1 ) { }" ).getClass() );
+		assertEquals( IfThenElse.class, parser.parse( "if ( 0 - 121 + .5 ) { }" ).getClass() );
+		assertEquals( IfThenElse.class, parser.parse( "if ( 3 * 55 ) { }" ).getClass() );
+		assertEquals( IfThenElse.class, parser.parse( "if ( 100 / 2 ) { }" ).getClass() );
 
 		// logical conditions
-		assertEquals( If.class, parser.parse( "if ( true && false ) { }" ).getClass() );
-		assertEquals( If.class, parser.parse( "if ( a || b ) { }" ).getClass() );
-		assertEquals( If.class, parser.parse( "if ( b && c ) { }" ).getClass() );
-		assertEquals( If.class, parser.parse( "if ( a && b || c ) { }" ).getClass() );
+		assertEquals( IfThenElse.class, parser.parse( "if ( true && false ) { }" ).getClass() );
+		assertEquals( IfThenElse.class, parser.parse( "if ( a || b ) { }" ).getClass() );
+		assertEquals( IfThenElse.class, parser.parse( "if ( b && c ) { }" ).getClass() );
+		assertEquals( IfThenElse.class, parser.parse( "if ( a && b || c ) { }" ).getClass() );
 
 		// unary numerical conditions
-		assertEquals( If.class, parser.parse( "if ( +22 ) { }" ).getClass() );
-		assertEquals( If.class, parser.parse( "if ( -22 ) { }" ).getClass() );
-		assertEquals( If.class, parser.parse( "if ( --9 ) { }" ).getClass() );
+		assertEquals( IfThenElse.class, parser.parse( "if ( +22 ) { }" ).getClass() );
+		assertEquals( IfThenElse.class, parser.parse( "if ( -22 ) { }" ).getClass() );
+		assertEquals( IfThenElse.class, parser.parse( "if ( --9 ) { }" ).getClass() );
 
 		// unary logical conditions
-		assertEquals( If.class, parser.parse( "if ( !a ) { }" ).getClass() );
-		assertEquals( If.class, parser.parse( "if ( b && !a ) { }" ).getClass() );
+		assertEquals( IfThenElse.class, parser.parse( "if ( !a ) { }" ).getClass() );
+		assertEquals( IfThenElse.class, parser.parse( "if ( b && !a ) { }" ).getClass() );
 
-		// else-variant
-		assertEquals( If.class, parser.parse( "if ( true ) { } else { }" ).getClass() );
+		// nested IFs
+		assertEquals( IfThenElse.class, parser.parse( "if ( true ) { if ( false ) { } }" ).getClass() );
+
+		// else variant
+		assertEquals( IfThenElse.class, parser.parse( "if ( true ) { } else { }" ).getClass() );
+		assertEquals( IfThenElse.class, parser.parse( "if ( true ) { \"\" c: boolean } else { }" ).getClass() );
+		assertEquals( IfThenElse.class, parser.parse( "if ( true ) { } else { \"\" c: boolean }" ).getClass() );
+		assertEquals( IfThenElse.class, parser.parse( "if ( true ) { \"\" c: boolean } else { \"\" c: boolean }" ).getClass() );
+
+		// else-if variant
+		assertEquals( IfThenElse.class, parser.parse( "if ( true ) { } else if ( false ) { }" ).getClass() );
+		assertEquals( IfThenElse.class, parser.parse( "if ( true ) { \"\" c: boolean } else if ( false ) { }" ).getClass() );
+		assertEquals( IfThenElse.class, parser.parse( "if ( true ) { } else if ( false ) { \"\" c: boolean }" ).getClass() );
+		assertEquals( IfThenElse.class, parser.parse( "if ( true ) { \"\" c: boolean } else if ( false ) { \"\" c : boolean }" ).getClass() );
 	}
 
 	/**
