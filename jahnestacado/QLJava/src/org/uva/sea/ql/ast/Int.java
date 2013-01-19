@@ -6,9 +6,11 @@ public class Int extends Expr {
 
 	public Int(int n) {
 		this.value = n;
+		
 	}
 
 	public int getValue() {
+		
 		return value;
 	}
 	

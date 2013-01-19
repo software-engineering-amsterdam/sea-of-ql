@@ -2,10 +2,10 @@ package org.uva.sea.ql.ast;
 
 import org.uva.sea.ql.ast.Expr;
 
-public class Pos extends Expr {
+public class Pos extends Unary {
 
-	public Pos (Expr position){
-		
+	public Pos (Expr x){
+		System.out.println("+");
 	}
 	
 	

@@ -1,26 +1,24 @@
 package org.uva.sea.ql.ast;
 
-import java.util.List;
-
-import org.uva.sea.ql.ast.expr.Ident;
+import org.uva.sea.ql.ast.expr.value.Ident;
 import org.uva.sea.ql.visitor.Visitor;
 
 public class Form implements ASTNode {
 
 	private final Ident fID;
-	private final List<FormElement> felements;
+	private final FormBlock fBody;
 
-	public Form(Ident fID, List<FormElement> felements) {
+	public Form(Ident fID, FormBlock fBody) {
 		this.fID = fID;
-		this.felements = felements;
+		this.fBody = fBody;
 	}
 
-	public Ident getfID() {
+	public Ident getFormID() {
 		return fID;
 	}
 
-	public List<FormElement> getfelements() {
-		return felements;
+	public FormBlock getFormBody() {
+		return fBody;
 	}
 
 	@Override
