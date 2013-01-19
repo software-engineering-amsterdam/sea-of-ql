@@ -8,16 +8,30 @@ import org.uva.sea.ql.ast.INode;
 import org.uva.sea.ql.visitor.INodeVisitor;
 
 /**
- * 
+ * Represents a collection of statements.
  */
 public class Statements implements INode, Iterable<Statement> {
+	/**
+	 * Holds the list of statements.
+	 */
 	private final List<Statement> statements;
 	
+	/**
+	 * Constructs a new collection of statements.
+	 * 
+	 * @param statement
+	 * @param statements
+	 */
 	public Statements( Statement statement, Statements statements ) {
 		this( statement );
 		this.statements.addAll( statements.statements );
 	}
 	
+	/**
+	 * Constructs a new collection of statements.
+	 * 
+	 * @param statement
+	 */
 	public Statements( Statement statement ) {
 		this.statements = new LinkedList<Statement>();
 		this.statements.add( statement );
@@ -34,5 +48,4 @@ public class Statements implements INode, Iterable<Statement> {
 	public Iterator<Statement> iterator() {
 		return this.statements.iterator();
 	}
-	
 }
