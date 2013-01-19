@@ -5,6 +5,8 @@ import java.util.LinkedList;
 import java.util.List;
 
 import org.uva.sea.ql.ast.INode;
+import org.uva.sea.ql.evaluate.Context;
+import org.uva.sea.ql.evaluate.Value;
 import org.uva.sea.ql.visitor.INodeVisitor;
 
 /**
@@ -15,10 +17,10 @@ public class Statements implements INode, Iterable<Statement> {
 	 * Holds the list of statements.
 	 */
 	private final List<Statement> statements;
-	
+
 	/**
 	 * Constructs a new collection of statements.
-	 * 
+	 *
 	 * @param statement
 	 * @param statements
 	 */
@@ -26,22 +28,24 @@ public class Statements implements INode, Iterable<Statement> {
 		this( statement );
 		this.statements.addAll( statements.statements );
 	}
-	
+
 	/**
 	 * Constructs a new collection of statements.
-	 * 
+	 *
 	 * @param statement
 	 */
 	public Statements( Statement statement ) {
 		this.statements = new LinkedList<Statement>();
 		this.statements.add( statement );
 	}
-	
+
 	@Override
-	public void accept( INodeVisitor visitor ) {
+	public Value accept( INodeVisitor visitor, Context context ) {
 		for ( Statement statement : this.statements ) {
-			statement.accept( visitor );
+			statement.accept( visitor, context );
 		}
+
+		return null;
 	}
 
 	@Override

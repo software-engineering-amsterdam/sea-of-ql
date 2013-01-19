@@ -1,13 +1,13 @@
 package org.uva.sea.ql.ast.expression.value;
 
-import org.uva.sea.ql.ast.type.Type;
+import org.uva.sea.ql.evaluate.Context;
+import org.uva.sea.ql.evaluate.Value;
 import org.uva.sea.ql.visitor.INodeVisitor;
-import org.uva.sea.ql.visitor.typecheck.TypeChecker;
 
 /**
  * Represents a boolean literal expression.
  */
-public class Bool extends Value {
+public class Bool extends Literal {
 	/**
 	 * Holds the value of the boolean literal.
 	 */
@@ -37,12 +37,7 @@ public class Bool extends Value {
 	}
 
 	@Override
-	public void accept( INodeVisitor visitor ) {
-		visitor.visit( this );
-	}
-
-	@Override
-	public Type accept( TypeChecker visitor ) {
-		return new org.uva.sea.ql.ast.type.Bool();
+	public Value accept( INodeVisitor visitor, Context context ) {
+		return visitor.visit( this, context );
 	}
 }

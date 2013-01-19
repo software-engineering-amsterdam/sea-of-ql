@@ -1,8 +1,8 @@
 package org.uva.sea.ql.ast.expression.value;
 
-import org.uva.sea.ql.ast.type.Type;
+import org.uva.sea.ql.evaluate.Context;
+import org.uva.sea.ql.evaluate.Value;
 import org.uva.sea.ql.visitor.INodeVisitor;
-import org.uva.sea.ql.visitor.typecheck.TypeChecker;
 
 /**
  * Represents an integer expression.
@@ -37,13 +37,7 @@ public class Int extends Number {
 	}
 
 	@Override
-	public void accept( INodeVisitor visitor ) {
-		visitor.visit( this );
-	}
-
-	@Override
-	public Type accept( TypeChecker visitor ) {
-		visitor.visit( this );
-		return new org.uva.sea.ql.ast.type.Int();
+	public Value accept( INodeVisitor visitor, Context context ) {
+		return visitor.visit( this, context );
 	}
 }

@@ -1,5 +1,7 @@
 package org.uva.sea.ql.ast.expression;
 
+import org.uva.sea.ql.evaluate.Context;
+import org.uva.sea.ql.evaluate.Value;
 import org.uva.sea.ql.visitor.INodeVisitor;
 
 /**
@@ -30,12 +32,12 @@ public class Ident extends Expression {
 	}
 
 	@Override
-	public void accept( INodeVisitor visitor ) {
-		visitor.visit( this );
+	public String toString() {
+		return this.name;
 	}
 
 	@Override
-	public String toString() {
-		return this.name;
+	public Value accept( INodeVisitor visitor, Context context ) {
+		return visitor.visit( this, context );
 	}
 }

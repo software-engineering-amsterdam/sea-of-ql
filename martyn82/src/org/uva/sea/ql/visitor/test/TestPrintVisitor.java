@@ -21,7 +21,7 @@ public class TestPrintVisitor extends VisitorTest {
 	 * @throws ParseError
 	 */
 	@Test
-	public void testPrint() throws ParseError {
-		this.parser.parse( program ).accept( visitor );
+	public void test() throws ParseError {
+		this.parser.parse( program ).accept( visitor, null );
 	}
 }
