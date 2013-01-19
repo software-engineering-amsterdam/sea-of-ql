@@ -1,9 +1,15 @@
 package org.uva.sea.ql.ast;
 
-public class Mul extends Expr {
+public class Mul extends Binary {
 
-	public Mul(Expr result, Expr rhs) {
-		// TODO Auto-generated constructor stub
+	public Mul(Expr lhs, Expr rhs) {
+		super(lhs,rhs);
+	}
+
+	@Override
+	public Value eval() {
+		return new Int(((Int)getLeft().eval()).getValue() * 
+					   ((Int)getRight().eval()).getValue()); 
 	}
 
 }

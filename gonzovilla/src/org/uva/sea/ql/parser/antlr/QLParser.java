@@ -1,4 +1,4 @@
-// $ANTLR 3.5 /Users/gonzovilla89/Documents/workspace/sea-of-ql/gonzovilla/src/org/uva/sea/ql/parser/antlr/QL.g 2013-01-17 17:32:05
+// $ANTLR 3.5 /Users/gonzovilla89/Documents/workspace/sea-of-ql/gonzovilla/src/org/uva/sea/ql/parser/antlr/QL.g 2013-01-19 19:43:24
 
 package org.uva.sea.ql.parser.antlr;
 import org.uva.sea.ql.ast.*;
@@ -12,13 +12,13 @@ import java.util.ArrayList;
 @SuppressWarnings("all")
 public class QLParser extends Parser {
 	public static final String[] tokenNames = new String[] {
-		"<invalid>", "<EOR>", "<DOWN>", "<UP>", "COMMENT", "Ident", "Int", "WS", 
-		"'!'", "'!='", "'&&'", "'('", "')'", "'*'", "'+'", "'-'", "'.'", "'/'", 
-		"':'", "':='", "'<'", "'<='", "'='", "'=='", "'>'", "'>='", "'?'", "'Float'", 
-		"'Integer'", "'String'", "'end'", "'question'", "'start'", "'||'"
+		"<invalid>", "<EOR>", "<DOWN>", "<UP>", "COMMENT", "Ident", "Int", "SINGLECOMMENT", 
+		"WS", "'!'", "'!='", "'&&'", "'('", "')'", "'*'", "'+'", "'-'", "'.'", 
+		"'/'", "':'", "':='", "'<'", "'<='", "'='", "'=='", "'>'", "'>='", "'?'", 
+		"'Boolean'", "'Integer'", "'String'", "'end'", "'question'", "'start'", 
+		"'||'"
 	};
 	public static final int EOF=-1;
-	public static final int T__8=8;
 	public static final int T__9=9;
 	public static final int T__10=10;
 	public static final int T__11=11;
@@ -44,10 +44,12 @@ public class QLParser extends Parser {
 	public static final int T__31=31;
 	public static final int T__32=32;
 	public static final int T__33=33;
+	public static final int T__34=34;
 	public static final int COMMENT=4;
 	public static final int Ident=5;
 	public static final int Int=6;
-	public static final int WS=7;
+	public static final int SINGLECOMMENT=7;
+	public static final int WS=8;
 
 	// delegates
 	public Parser[] getDelegates() {
@@ -76,15 +78,15 @@ public class QLParser extends Parser {
 			// /Users/gonzovilla89/Documents/workspace/sea-of-ql/gonzovilla/src/org/uva/sea/ql/parser/antlr/QL.g:16:3: ( 'start' Ident '=' ( question )* 'end' Ident '.' )
 			// /Users/gonzovilla89/Documents/workspace/sea-of-ql/gonzovilla/src/org/uva/sea/ql/parser/antlr/QL.g:16:5: 'start' Ident '=' ( question )* 'end' Ident '.'
 			{
-			match(input,32,FOLLOW_32_in_program39); 
+			match(input,33,FOLLOW_33_in_program39); 
 			match(input,Ident,FOLLOW_Ident_in_program41); 
-			match(input,22,FOLLOW_22_in_program43); 
+			match(input,23,FOLLOW_23_in_program43); 
 			// /Users/gonzovilla89/Documents/workspace/sea-of-ql/gonzovilla/src/org/uva/sea/ql/parser/antlr/QL.g:17:5: ( question )*
 			loop1:
 			while (true) {
 				int alt1=2;
 				int LA1_0 = input.LA(1);
-				if ( (LA1_0==31) ) {
+				if ( (LA1_0==32) ) {
 					alt1=1;
 				}
 
@@ -104,9 +106,9 @@ public class QLParser extends Parser {
 				}
 			}
 
-			match(input,30,FOLLOW_30_in_program57); 
+			match(input,31,FOLLOW_31_in_program57); 
 			match(input,Ident,FOLLOW_Ident_in_program59); 
-			match(input,16,FOLLOW_16_in_program61); 
+			match(input,17,FOLLOW_17_in_program61); 
 			}
 
 		}
@@ -123,25 +125,25 @@ public class QLParser extends Parser {
 
 
 	// $ANTLR start "question"
-	// /Users/gonzovilla89/Documents/workspace/sea-of-ql/gonzovilla/src/org/uva/sea/ql/parser/antlr/QL.g:21:1: question : 'question' Ident ':' returnType ':=' expression '?' ;
+	// /Users/gonzovilla89/Documents/workspace/sea-of-ql/gonzovilla/src/org/uva/sea/ql/parser/antlr/QL.g:21:1: question : 'question' Ident ':' type ':=' expression '?' ;
 	public final void question() throws RecognitionException {
 		try {
-			// /Users/gonzovilla89/Documents/workspace/sea-of-ql/gonzovilla/src/org/uva/sea/ql/parser/antlr/QL.g:22:3: ( 'question' Ident ':' returnType ':=' expression '?' )
-			// /Users/gonzovilla89/Documents/workspace/sea-of-ql/gonzovilla/src/org/uva/sea/ql/parser/antlr/QL.g:22:5: 'question' Ident ':' returnType ':=' expression '?'
+			// /Users/gonzovilla89/Documents/workspace/sea-of-ql/gonzovilla/src/org/uva/sea/ql/parser/antlr/QL.g:22:3: ( 'question' Ident ':' type ':=' expression '?' )
+			// /Users/gonzovilla89/Documents/workspace/sea-of-ql/gonzovilla/src/org/uva/sea/ql/parser/antlr/QL.g:22:5: 'question' Ident ':' type ':=' expression '?'
 			{
-			match(input,31,FOLLOW_31_in_question74); 
+			match(input,32,FOLLOW_32_in_question74); 
 			match(input,Ident,FOLLOW_Ident_in_question76); 
-			match(input,18,FOLLOW_18_in_question78); 
-			pushFollow(FOLLOW_returnType_in_question80);
-			returnType();
+			match(input,19,FOLLOW_19_in_question78); 
+			pushFollow(FOLLOW_type_in_question80);
+			type();
 			state._fsp--;
 
-			match(input,19,FOLLOW_19_in_question82); 
+			match(input,20,FOLLOW_20_in_question82); 
 			pushFollow(FOLLOW_expression_in_question84);
 			expression();
 			state._fsp--;
 
-			match(input,26,FOLLOW_26_in_question86); 
+			match(input,27,FOLLOW_27_in_question86); 
 			}
 
 		}
@@ -157,14 +159,14 @@ public class QLParser extends Parser {
 
 
 
-	// $ANTLR start "returnType"
-	// /Users/gonzovilla89/Documents/workspace/sea-of-ql/gonzovilla/src/org/uva/sea/ql/parser/antlr/QL.g:25:1: returnType : ( 'Integer' | 'Float' | 'String' );
-	public final void returnType() throws RecognitionException {
+	// $ANTLR start "type"
+	// /Users/gonzovilla89/Documents/workspace/sea-of-ql/gonzovilla/src/org/uva/sea/ql/parser/antlr/QL.g:25:1: type : ( 'Boolean' | 'Integer' | 'String' );
+	public final void type() throws RecognitionException {
 		try {
-			// /Users/gonzovilla89/Documents/workspace/sea-of-ql/gonzovilla/src/org/uva/sea/ql/parser/antlr/QL.g:26:3: ( 'Integer' | 'Float' | 'String' )
+			// /Users/gonzovilla89/Documents/workspace/sea-of-ql/gonzovilla/src/org/uva/sea/ql/parser/antlr/QL.g:26:3: ( 'Boolean' | 'Integer' | 'String' )
 			// /Users/gonzovilla89/Documents/workspace/sea-of-ql/gonzovilla/src/org/uva/sea/ql/parser/antlr/QL.g:
 			{
-			if ( (input.LA(1) >= 27 && input.LA(1) <= 29) ) {
+			if ( (input.LA(1) >= 28 && input.LA(1) <= 30) ) {
 				input.consume();
 				state.errorRecovery=false;
 			}
@@ -183,7 +185,7 @@ public class QLParser extends Parser {
 			// do for sure before leaving
 		}
 	}
-	// $ANTLR end "returnType"
+	// $ANTLR end "type"
 
 
 
@@ -266,7 +268,7 @@ public class QLParser extends Parser {
 				alt3=2;
 				}
 				break;
-			case 11:
+			case 12:
 				{
 				alt3=3;
 				}
@@ -280,26 +282,26 @@ public class QLParser extends Parser {
 				case 1 :
 					// /Users/gonzovilla89/Documents/workspace/sea-of-ql/gonzovilla/src/org/uva/sea/ql/parser/antlr/QL.g:36:5: Int
 					{
-					Int1=(Token)match(input,Int,FOLLOW_Int_in_primary148); 
+					Int1=(Token)match(input,Int,FOLLOW_Int_in_primary149); 
 					 result = new Int(Integer.parseInt((Int1!=null?Int1.getText():null))); 
 					}
 					break;
 				case 2 :
 					// /Users/gonzovilla89/Documents/workspace/sea-of-ql/gonzovilla/src/org/uva/sea/ql/parser/antlr/QL.g:37:5: Ident
 					{
-					Ident2=(Token)match(input,Ident,FOLLOW_Ident_in_primary158); 
+					Ident2=(Token)match(input,Ident,FOLLOW_Ident_in_primary159); 
 					 result = new Ident((Ident2!=null?Ident2.getText():null)); 
 					}
 					break;
 				case 3 :
 					// /Users/gonzovilla89/Documents/workspace/sea-of-ql/gonzovilla/src/org/uva/sea/ql/parser/antlr/QL.g:38:5: '(' x= orExpr ')'
 					{
-					match(input,11,FOLLOW_11_in_primary166); 
-					pushFollow(FOLLOW_orExpr_in_primary170);
+					match(input,12,FOLLOW_12_in_primary167); 
+					pushFollow(FOLLOW_orExpr_in_primary171);
 					x=orExpr();
 					state._fsp--;
 
-					match(input,12,FOLLOW_12_in_primary172); 
+					match(input,13,FOLLOW_13_in_primary173); 
 					 result = x; 
 					}
 					break;
@@ -331,24 +333,24 @@ public class QLParser extends Parser {
 			// /Users/gonzovilla89/Documents/workspace/sea-of-ql/gonzovilla/src/org/uva/sea/ql/parser/antlr/QL.g:42:5: ( '+' x= unExpr | '-' x= unExpr | '!' x= unExpr |x= primary )
 			int alt4=4;
 			switch ( input.LA(1) ) {
-			case 14:
+			case 15:
 				{
 				alt4=1;
 				}
 				break;
-			case 15:
+			case 16:
 				{
 				alt4=2;
 				}
 				break;
-			case 8:
+			case 9:
 				{
 				alt4=3;
 				}
 				break;
 			case Ident:
 			case Int:
-			case 11:
+			case 12:
 				{
 				alt4=4;
 				}
@@ -362,8 +364,8 @@ public class QLParser extends Parser {
 				case 1 :
 					// /Users/gonzovilla89/Documents/workspace/sea-of-ql/gonzovilla/src/org/uva/sea/ql/parser/antlr/QL.g:42:8: '+' x= unExpr
 					{
-					match(input,14,FOLLOW_14_in_unExpr197); 
-					pushFollow(FOLLOW_unExpr_in_unExpr201);
+					match(input,15,FOLLOW_15_in_unExpr198); 
+					pushFollow(FOLLOW_unExpr_in_unExpr202);
 					x=unExpr();
 					state._fsp--;
 
@@ -373,8 +375,8 @@ public class QLParser extends Parser {
 				case 2 :
 					// /Users/gonzovilla89/Documents/workspace/sea-of-ql/gonzovilla/src/org/uva/sea/ql/parser/antlr/QL.g:43:8: '-' x= unExpr
 					{
-					match(input,15,FOLLOW_15_in_unExpr212); 
-					pushFollow(FOLLOW_unExpr_in_unExpr216);
+					match(input,16,FOLLOW_16_in_unExpr213); 
+					pushFollow(FOLLOW_unExpr_in_unExpr217);
 					x=unExpr();
 					state._fsp--;
 
@@ -384,8 +386,8 @@ public class QLParser extends Parser {
 				case 3 :
 					// /Users/gonzovilla89/Documents/workspace/sea-of-ql/gonzovilla/src/org/uva/sea/ql/parser/antlr/QL.g:44:8: '!' x= unExpr
 					{
-					match(input,8,FOLLOW_8_in_unExpr227); 
-					pushFollow(FOLLOW_unExpr_in_unExpr231);
+					match(input,9,FOLLOW_9_in_unExpr228); 
+					pushFollow(FOLLOW_unExpr_in_unExpr232);
 					x=unExpr();
 					state._fsp--;
 
@@ -395,7 +397,7 @@ public class QLParser extends Parser {
 				case 4 :
 					// /Users/gonzovilla89/Documents/workspace/sea-of-ql/gonzovilla/src/org/uva/sea/ql/parser/antlr/QL.g:45:8: x= primary
 					{
-					pushFollow(FOLLOW_primary_in_unExpr244);
+					pushFollow(FOLLOW_primary_in_unExpr245);
 					x=primary();
 					state._fsp--;
 
@@ -432,7 +434,7 @@ public class QLParser extends Parser {
 			// /Users/gonzovilla89/Documents/workspace/sea-of-ql/gonzovilla/src/org/uva/sea/ql/parser/antlr/QL.g:49:5: (lhs= unExpr (op= ( '*' | '/' ) rhs= unExpr )* )
 			// /Users/gonzovilla89/Documents/workspace/sea-of-ql/gonzovilla/src/org/uva/sea/ql/parser/antlr/QL.g:49:9: lhs= unExpr (op= ( '*' | '/' ) rhs= unExpr )*
 			{
-			pushFollow(FOLLOW_unExpr_in_mulExpr282);
+			pushFollow(FOLLOW_unExpr_in_mulExpr283);
 			lhs=unExpr();
 			state._fsp--;
 
@@ -442,7 +444,7 @@ public class QLParser extends Parser {
 			while (true) {
 				int alt5=2;
 				int LA5_0 = input.LA(1);
-				if ( (LA5_0==13||LA5_0==17) ) {
+				if ( (LA5_0==14||LA5_0==18) ) {
 					alt5=1;
 				}
 
@@ -451,7 +453,7 @@ public class QLParser extends Parser {
 					// /Users/gonzovilla89/Documents/workspace/sea-of-ql/gonzovilla/src/org/uva/sea/ql/parser/antlr/QL.g:49:47: op= ( '*' | '/' ) rhs= unExpr
 					{
 					op=input.LT(1);
-					if ( input.LA(1)==13||input.LA(1)==17 ) {
+					if ( input.LA(1)==14||input.LA(1)==18 ) {
 						input.consume();
 						state.errorRecovery=false;
 					}
@@ -459,7 +461,7 @@ public class QLParser extends Parser {
 						MismatchedSetException mse = new MismatchedSetException(null,input);
 						throw mse;
 					}
-					pushFollow(FOLLOW_unExpr_in_mulExpr302);
+					pushFollow(FOLLOW_unExpr_in_mulExpr303);
 					rhs=unExpr();
 					state._fsp--;
 
@@ -467,7 +469,7 @@ public class QLParser extends Parser {
 					      if ((op!=null?op.getText():null).equals("*")) {
 					        result = new Mul(result, rhs);
 					      }
-					      if ((op!=null?op.getText():null).equals("<=")) {
+					      if ((op!=null?op.getText():null).equals("/")) {
 					        result = new Div(result, rhs);      
 					      }
 					    
@@ -509,7 +511,7 @@ public class QLParser extends Parser {
 			// /Users/gonzovilla89/Documents/workspace/sea-of-ql/gonzovilla/src/org/uva/sea/ql/parser/antlr/QL.g:62:5: (lhs= mulExpr (op= ( '+' | '-' ) rhs= mulExpr )* )
 			// /Users/gonzovilla89/Documents/workspace/sea-of-ql/gonzovilla/src/org/uva/sea/ql/parser/antlr/QL.g:62:9: lhs= mulExpr (op= ( '+' | '-' ) rhs= mulExpr )*
 			{
-			pushFollow(FOLLOW_mulExpr_in_addExpr343);
+			pushFollow(FOLLOW_mulExpr_in_addExpr344);
 			lhs=mulExpr();
 			state._fsp--;
 
@@ -519,7 +521,7 @@ public class QLParser extends Parser {
 			while (true) {
 				int alt6=2;
 				int LA6_0 = input.LA(1);
-				if ( ((LA6_0 >= 14 && LA6_0 <= 15)) ) {
+				if ( ((LA6_0 >= 15 && LA6_0 <= 16)) ) {
 					alt6=1;
 				}
 
@@ -528,7 +530,7 @@ public class QLParser extends Parser {
 					// /Users/gonzovilla89/Documents/workspace/sea-of-ql/gonzovilla/src/org/uva/sea/ql/parser/antlr/QL.g:62:48: op= ( '+' | '-' ) rhs= mulExpr
 					{
 					op=input.LT(1);
-					if ( (input.LA(1) >= 14 && input.LA(1) <= 15) ) {
+					if ( (input.LA(1) >= 15 && input.LA(1) <= 16) ) {
 						input.consume();
 						state.errorRecovery=false;
 					}
@@ -536,7 +538,7 @@ public class QLParser extends Parser {
 						MismatchedSetException mse = new MismatchedSetException(null,input);
 						throw mse;
 					}
-					pushFollow(FOLLOW_mulExpr_in_addExpr361);
+					pushFollow(FOLLOW_mulExpr_in_addExpr362);
 					rhs=mulExpr();
 					state._fsp--;
 
@@ -586,7 +588,7 @@ public class QLParser extends Parser {
 			// /Users/gonzovilla89/Documents/workspace/sea-of-ql/gonzovilla/src/org/uva/sea/ql/parser/antlr/QL.g:74:5: (lhs= addExpr (op= ( '<' | '<=' | '>' | '>=' | '==' | '!=' ) rhs= addExpr )* )
 			// /Users/gonzovilla89/Documents/workspace/sea-of-ql/gonzovilla/src/org/uva/sea/ql/parser/antlr/QL.g:74:9: lhs= addExpr (op= ( '<' | '<=' | '>' | '>=' | '==' | '!=' ) rhs= addExpr )*
 			{
-			pushFollow(FOLLOW_addExpr_in_relExpr396);
+			pushFollow(FOLLOW_addExpr_in_relExpr397);
 			lhs=addExpr();
 			state._fsp--;
 
@@ -596,7 +598,7 @@ public class QLParser extends Parser {
 			while (true) {
 				int alt7=2;
 				int LA7_0 = input.LA(1);
-				if ( (LA7_0==9||(LA7_0 >= 20 && LA7_0 <= 21)||(LA7_0 >= 23 && LA7_0 <= 25)) ) {
+				if ( (LA7_0==10||(LA7_0 >= 21 && LA7_0 <= 22)||(LA7_0 >= 24 && LA7_0 <= 26)) ) {
 					alt7=1;
 				}
 
@@ -605,7 +607,7 @@ public class QLParser extends Parser {
 					// /Users/gonzovilla89/Documents/workspace/sea-of-ql/gonzovilla/src/org/uva/sea/ql/parser/antlr/QL.g:74:48: op= ( '<' | '<=' | '>' | '>=' | '==' | '!=' ) rhs= addExpr
 					{
 					op=input.LT(1);
-					if ( input.LA(1)==9||(input.LA(1) >= 20 && input.LA(1) <= 21)||(input.LA(1) >= 23 && input.LA(1) <= 25) ) {
+					if ( input.LA(1)==10||(input.LA(1) >= 21 && input.LA(1) <= 22)||(input.LA(1) >= 24 && input.LA(1) <= 26) ) {
 						input.consume();
 						state.errorRecovery=false;
 					}
@@ -613,7 +615,7 @@ public class QLParser extends Parser {
 						MismatchedSetException mse = new MismatchedSetException(null,input);
 						throw mse;
 					}
-					pushFollow(FOLLOW_addExpr_in_relExpr420);
+					pushFollow(FOLLOW_addExpr_in_relExpr421);
 					rhs=addExpr();
 					state._fsp--;
 
@@ -674,7 +676,7 @@ public class QLParser extends Parser {
 			// /Users/gonzovilla89/Documents/workspace/sea-of-ql/gonzovilla/src/org/uva/sea/ql/parser/antlr/QL.g:98:5: (lhs= relExpr ( '&&' rhs= relExpr )* )
 			// /Users/gonzovilla89/Documents/workspace/sea-of-ql/gonzovilla/src/org/uva/sea/ql/parser/antlr/QL.g:98:9: lhs= relExpr ( '&&' rhs= relExpr )*
 			{
-			pushFollow(FOLLOW_relExpr_in_andExpr458);
+			pushFollow(FOLLOW_relExpr_in_andExpr459);
 			lhs=relExpr();
 			state._fsp--;
 
@@ -684,7 +686,7 @@ public class QLParser extends Parser {
 			while (true) {
 				int alt8=2;
 				int LA8_0 = input.LA(1);
-				if ( (LA8_0==10) ) {
+				if ( (LA8_0==11) ) {
 					alt8=1;
 				}
 
@@ -692,8 +694,8 @@ public class QLParser extends Parser {
 				case 1 :
 					// /Users/gonzovilla89/Documents/workspace/sea-of-ql/gonzovilla/src/org/uva/sea/ql/parser/antlr/QL.g:98:48: '&&' rhs= relExpr
 					{
-					match(input,10,FOLLOW_10_in_andExpr464); 
-					pushFollow(FOLLOW_relExpr_in_andExpr468);
+					match(input,11,FOLLOW_11_in_andExpr465); 
+					pushFollow(FOLLOW_relExpr_in_andExpr469);
 					rhs=relExpr();
 					state._fsp--;
 
@@ -735,7 +737,7 @@ public class QLParser extends Parser {
 			// /Users/gonzovilla89/Documents/workspace/sea-of-ql/gonzovilla/src/org/uva/sea/ql/parser/antlr/QL.g:103:5: (lhs= andExpr ( '||' rhs= andExpr )* )
 			// /Users/gonzovilla89/Documents/workspace/sea-of-ql/gonzovilla/src/org/uva/sea/ql/parser/antlr/QL.g:103:9: lhs= andExpr ( '||' rhs= andExpr )*
 			{
-			pushFollow(FOLLOW_andExpr_in_orExpr503);
+			pushFollow(FOLLOW_andExpr_in_orExpr504);
 			lhs=andExpr();
 			state._fsp--;
 
@@ -745,7 +747,7 @@ public class QLParser extends Parser {
 			while (true) {
 				int alt9=2;
 				int LA9_0 = input.LA(1);
-				if ( (LA9_0==33) ) {
+				if ( (LA9_0==34) ) {
 					alt9=1;
 				}
 
@@ -753,8 +755,8 @@ public class QLParser extends Parser {
 				case 1 :
 					// /Users/gonzovilla89/Documents/workspace/sea-of-ql/gonzovilla/src/org/uva/sea/ql/parser/antlr/QL.g:103:50: '||' rhs= andExpr
 					{
-					match(input,33,FOLLOW_33_in_orExpr509); 
-					pushFollow(FOLLOW_andExpr_in_orExpr513);
+					match(input,34,FOLLOW_34_in_orExpr510); 
+					pushFollow(FOLLOW_andExpr_in_orExpr514);
 					rhs=andExpr();
 					state._fsp--;
 
@@ -785,45 +787,45 @@ public class QLParser extends Parser {
 
 
 
-	public static final BitSet FOLLOW_32_in_program39 = new BitSet(new long[]{0x0000000000000020L});
-	public static final BitSet FOLLOW_Ident_in_program41 = new BitSet(new long[]{0x0000000000400000L});
-	public static final BitSet FOLLOW_22_in_program43 = new BitSet(new long[]{0x00000000C0000000L});
-	public static final BitSet FOLLOW_question_in_program49 = new BitSet(new long[]{0x00000000C0000000L});
-	public static final BitSet FOLLOW_30_in_program57 = new BitSet(new long[]{0x0000000000000020L});
-	public static final BitSet FOLLOW_Ident_in_program59 = new BitSet(new long[]{0x0000000000010000L});
-	public static final BitSet FOLLOW_16_in_program61 = new BitSet(new long[]{0x0000000000000002L});
-	public static final BitSet FOLLOW_31_in_question74 = new BitSet(new long[]{0x0000000000000020L});
-	public static final BitSet FOLLOW_Ident_in_question76 = new BitSet(new long[]{0x0000000000040000L});
-	public static final BitSet FOLLOW_18_in_question78 = new BitSet(new long[]{0x0000000038000000L});
-	public static final BitSet FOLLOW_returnType_in_question80 = new BitSet(new long[]{0x0000000000080000L});
-	public static final BitSet FOLLOW_19_in_question82 = new BitSet(new long[]{0x00000000000000A0L});
-	public static final BitSet FOLLOW_expression_in_question84 = new BitSet(new long[]{0x0000000004000000L});
-	public static final BitSet FOLLOW_26_in_question86 = new BitSet(new long[]{0x0000000000000002L});
-	public static final BitSet FOLLOW_Int_in_primary148 = new BitSet(new long[]{0x0000000000000002L});
-	public static final BitSet FOLLOW_Ident_in_primary158 = new BitSet(new long[]{0x0000000000000002L});
-	public static final BitSet FOLLOW_11_in_primary166 = new BitSet(new long[]{0x000000000000C960L});
-	public static final BitSet FOLLOW_orExpr_in_primary170 = new BitSet(new long[]{0x0000000000001000L});
-	public static final BitSet FOLLOW_12_in_primary172 = new BitSet(new long[]{0x0000000000000002L});
-	public static final BitSet FOLLOW_14_in_unExpr197 = new BitSet(new long[]{0x000000000000C960L});
-	public static final BitSet FOLLOW_unExpr_in_unExpr201 = new BitSet(new long[]{0x0000000000000002L});
-	public static final BitSet FOLLOW_15_in_unExpr212 = new BitSet(new long[]{0x000000000000C960L});
-	public static final BitSet FOLLOW_unExpr_in_unExpr216 = new BitSet(new long[]{0x0000000000000002L});
-	public static final BitSet FOLLOW_8_in_unExpr227 = new BitSet(new long[]{0x000000000000C960L});
-	public static final BitSet FOLLOW_unExpr_in_unExpr231 = new BitSet(new long[]{0x0000000000000002L});
-	public static final BitSet FOLLOW_primary_in_unExpr244 = new BitSet(new long[]{0x0000000000000002L});
-	public static final BitSet FOLLOW_unExpr_in_mulExpr282 = new BitSet(new long[]{0x0000000000022002L});
-	public static final BitSet FOLLOW_set_in_mulExpr290 = new BitSet(new long[]{0x000000000000C960L});
-	public static final BitSet FOLLOW_unExpr_in_mulExpr302 = new BitSet(new long[]{0x0000000000022002L});
-	public static final BitSet FOLLOW_mulExpr_in_addExpr343 = new BitSet(new long[]{0x000000000000C002L});
-	public static final BitSet FOLLOW_set_in_addExpr351 = new BitSet(new long[]{0x000000000000C960L});
-	public static final BitSet FOLLOW_mulExpr_in_addExpr361 = new BitSet(new long[]{0x000000000000C002L});
-	public static final BitSet FOLLOW_addExpr_in_relExpr396 = new BitSet(new long[]{0x0000000003B00202L});
-	public static final BitSet FOLLOW_set_in_relExpr404 = new BitSet(new long[]{0x000000000000C960L});
-	public static final BitSet FOLLOW_addExpr_in_relExpr420 = new BitSet(new long[]{0x0000000003B00202L});
-	public static final BitSet FOLLOW_relExpr_in_andExpr458 = new BitSet(new long[]{0x0000000000000402L});
-	public static final BitSet FOLLOW_10_in_andExpr464 = new BitSet(new long[]{0x000000000000C960L});
-	public static final BitSet FOLLOW_relExpr_in_andExpr468 = new BitSet(new long[]{0x0000000000000402L});
-	public static final BitSet FOLLOW_andExpr_in_orExpr503 = new BitSet(new long[]{0x0000000200000002L});
-	public static final BitSet FOLLOW_33_in_orExpr509 = new BitSet(new long[]{0x000000000000C960L});
-	public static final BitSet FOLLOW_andExpr_in_orExpr513 = new BitSet(new long[]{0x0000000200000002L});
+	public static final BitSet FOLLOW_33_in_program39 = new BitSet(new long[]{0x0000000000000020L});
+	public static final BitSet FOLLOW_Ident_in_program41 = new BitSet(new long[]{0x0000000000800000L});
+	public static final BitSet FOLLOW_23_in_program43 = new BitSet(new long[]{0x0000000180000000L});
+	public static final BitSet FOLLOW_question_in_program49 = new BitSet(new long[]{0x0000000180000000L});
+	public static final BitSet FOLLOW_31_in_program57 = new BitSet(new long[]{0x0000000000000020L});
+	public static final BitSet FOLLOW_Ident_in_program59 = new BitSet(new long[]{0x0000000000020000L});
+	public static final BitSet FOLLOW_17_in_program61 = new BitSet(new long[]{0x0000000000000002L});
+	public static final BitSet FOLLOW_32_in_question74 = new BitSet(new long[]{0x0000000000000020L});
+	public static final BitSet FOLLOW_Ident_in_question76 = new BitSet(new long[]{0x0000000000080000L});
+	public static final BitSet FOLLOW_19_in_question78 = new BitSet(new long[]{0x0000000070000000L});
+	public static final BitSet FOLLOW_type_in_question80 = new BitSet(new long[]{0x0000000000100000L});
+	public static final BitSet FOLLOW_20_in_question82 = new BitSet(new long[]{0x0000000000000120L});
+	public static final BitSet FOLLOW_expression_in_question84 = new BitSet(new long[]{0x0000000008000000L});
+	public static final BitSet FOLLOW_27_in_question86 = new BitSet(new long[]{0x0000000000000002L});
+	public static final BitSet FOLLOW_Int_in_primary149 = new BitSet(new long[]{0x0000000000000002L});
+	public static final BitSet FOLLOW_Ident_in_primary159 = new BitSet(new long[]{0x0000000000000002L});
+	public static final BitSet FOLLOW_12_in_primary167 = new BitSet(new long[]{0x0000000000019260L});
+	public static final BitSet FOLLOW_orExpr_in_primary171 = new BitSet(new long[]{0x0000000000002000L});
+	public static final BitSet FOLLOW_13_in_primary173 = new BitSet(new long[]{0x0000000000000002L});
+	public static final BitSet FOLLOW_15_in_unExpr198 = new BitSet(new long[]{0x0000000000019260L});
+	public static final BitSet FOLLOW_unExpr_in_unExpr202 = new BitSet(new long[]{0x0000000000000002L});
+	public static final BitSet FOLLOW_16_in_unExpr213 = new BitSet(new long[]{0x0000000000019260L});
+	public static final BitSet FOLLOW_unExpr_in_unExpr217 = new BitSet(new long[]{0x0000000000000002L});
+	public static final BitSet FOLLOW_9_in_unExpr228 = new BitSet(new long[]{0x0000000000019260L});
+	public static final BitSet FOLLOW_unExpr_in_unExpr232 = new BitSet(new long[]{0x0000000000000002L});
+	public static final BitSet FOLLOW_primary_in_unExpr245 = new BitSet(new long[]{0x0000000000000002L});
+	public static final BitSet FOLLOW_unExpr_in_mulExpr283 = new BitSet(new long[]{0x0000000000044002L});
+	public static final BitSet FOLLOW_set_in_mulExpr291 = new BitSet(new long[]{0x0000000000019260L});
+	public static final BitSet FOLLOW_unExpr_in_mulExpr303 = new BitSet(new long[]{0x0000000000044002L});
+	public static final BitSet FOLLOW_mulExpr_in_addExpr344 = new BitSet(new long[]{0x0000000000018002L});
+	public static final BitSet FOLLOW_set_in_addExpr352 = new BitSet(new long[]{0x0000000000019260L});
+	public static final BitSet FOLLOW_mulExpr_in_addExpr362 = new BitSet(new long[]{0x0000000000018002L});
+	public static final BitSet FOLLOW_addExpr_in_relExpr397 = new BitSet(new long[]{0x0000000007600402L});
+	public static final BitSet FOLLOW_set_in_relExpr405 = new BitSet(new long[]{0x0000000000019260L});
+	public static final BitSet FOLLOW_addExpr_in_relExpr421 = new BitSet(new long[]{0x0000000007600402L});
+	public static final BitSet FOLLOW_relExpr_in_andExpr459 = new BitSet(new long[]{0x0000000000000802L});
+	public static final BitSet FOLLOW_11_in_andExpr465 = new BitSet(new long[]{0x0000000000019260L});
+	public static final BitSet FOLLOW_relExpr_in_andExpr469 = new BitSet(new long[]{0x0000000000000802L});
+	public static final BitSet FOLLOW_andExpr_in_orExpr504 = new BitSet(new long[]{0x0000000400000002L});
+	public static final BitSet FOLLOW_34_in_orExpr510 = new BitSet(new long[]{0x0000000000019260L});
+	public static final BitSet FOLLOW_andExpr_in_orExpr514 = new BitSet(new long[]{0x0000000400000002L});
 }
