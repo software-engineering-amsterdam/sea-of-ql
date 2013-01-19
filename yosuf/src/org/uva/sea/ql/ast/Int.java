@@ -1,6 +1,6 @@
 package org.uva.sea.ql.ast;
 
-public class Int extends Expr {
+public class Int extends Expression {
 
 	private final int value;
 

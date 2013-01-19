@@ -11,16 +11,14 @@ import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
 import org.uva.sea.ql.ast.Add;
 import org.uva.sea.ql.ast.And;
-import org.uva.sea.ql.ast.GT;
+import org.uva.sea.ql.ast.GreaterThan;
 import org.uva.sea.ql.ast.Ident;
 import org.uva.sea.ql.ast.Int;
-import org.uva.sea.ql.ast.LEq;
-import org.uva.sea.ql.ast.LT;
-import org.uva.sea.ql.ast.Mul;
+import org.uva.sea.ql.ast.Multiply;
 import org.uva.sea.ql.ast.Not;
-import org.uva.sea.ql.parser.antlr.ANTLRParser;
+import org.uva.sea.ql.ast.SmallerOrEquals;
+import org.uva.sea.ql.ast.SmallerThan;
 import org.uva.sea.ql.parser.jacc.JACCParser;
-import org.uva.sea.ql.parser.rats.RatsParser;
 
 @RunWith(Parameterized.class)
 public class TestExpressions {
@@ -29,19 +27,14 @@ public class TestExpressions {
 
 	@Parameters
 	public static List<Object[]> theParsers() {
-	  return Arrays.asList(
-			  new Object[] {new JACCParser()}, 
-			  new Object[] {new RatsParser()},
-			  new Object[] {new ANTLRParser()}
-			 );
+		return Arrays.asList(new Object[] { new JACCParser() },
+				new Object[] { new JACCParser() });
 	}
 
-	
 	public TestExpressions(IParse parser) {
 		this.parser = parser;
 	}
 
-	
 	@Test
 	public void testAdds() throws ParseError {
 		assertEquals(parser.parse("a + b").getClass(), Add.class);
@@ -56,26 +49,26 @@ public class TestExpressions {
 
 	@Test
 	public void testMuls() throws ParseError {
-		assertEquals(parser.parse("a * b").getClass(), Mul.class);
-		assertEquals(parser.parse("a * b * c").getClass(), Mul.class);
-		assertEquals(parser.parse("a * (b * c)").getClass(), Mul.class);
-		assertEquals(parser.parse("(a * b) * c").getClass(), Mul.class);
-		assertEquals(parser.parse("(a * b)").getClass(), Mul.class);
-		assertEquals(parser.parse("(a + b) * c").getClass(), Mul.class);
-		assertEquals(parser.parse("a * (b + c)").getClass(), Mul.class);
+		assertEquals(parser.parse("a * b").getClass(), Multiply.class);
+		assertEquals(parser.parse("a * b * c").getClass(), Multiply.class);
+		assertEquals(parser.parse("a * (b * c)").getClass(), Multiply.class);
+		assertEquals(parser.parse("(a * b) * c").getClass(), Multiply.class);
+		assertEquals(parser.parse("(a * b)").getClass(), Multiply.class);
+		assertEquals(parser.parse("(a + b) * c").getClass(), Multiply.class);
+		assertEquals(parser.parse("a * (b + c)").getClass(), Multiply.class);
 	}
-	
+
 	@Test
 	public void testRels() throws ParseError {
-		assertEquals(parser.parse("a < b").getClass(), LT.class);
-		assertEquals(parser.parse("a < b + c").getClass(), LT.class);
-		assertEquals(parser.parse("a < (b * c)").getClass(), LT.class);
-		assertEquals(parser.parse("(a * b) < c").getClass(), LT.class);
-		assertEquals(parser.parse("(a <= b)").getClass(), LEq.class);
-		assertEquals(parser.parse("a + b > c").getClass(), GT.class);
-		assertEquals(parser.parse("a > b + c").getClass(), GT.class);
+		assertEquals(parser.parse("a < b").getClass(), SmallerThan.class);
+		assertEquals(parser.parse("a < b + c").getClass(), SmallerThan.class);
+		assertEquals(parser.parse("a < (b * c)").getClass(), SmallerThan.class);
+		assertEquals(parser.parse("(a * b) < c").getClass(), SmallerThan.class);
+		assertEquals(parser.parse("(a <= b)").getClass(), SmallerOrEquals.class);
+		assertEquals(parser.parse("a + b > c").getClass(), GreaterThan.class);
+		assertEquals(parser.parse("a > b + c").getClass(), GreaterThan.class);
 	}
-	
+
 	@Test
 	public void testBools() throws ParseError {
 		assertEquals(parser.parse("!b").getClass(), Not.class);
@@ -83,7 +76,6 @@ public class TestExpressions {
 		assertEquals(parser.parse("a > b && b > c").getClass(), And.class);
 		assertEquals(parser.parse("(a > b) && (b > c)").getClass(), And.class);
 	}
-
 
 	@Test
 	public void testIds() throws ParseError {
@@ -102,5 +94,5 @@ public class TestExpressions {
 		assertEquals(parser.parse("1223").getClass(), Int.class);
 		assertEquals(parser.parse("234234234").getClass(), Int.class);
 	}
-	
+
 }
