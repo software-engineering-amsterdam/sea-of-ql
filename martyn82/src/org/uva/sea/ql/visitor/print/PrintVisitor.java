@@ -299,10 +299,10 @@ public class PrintVisitor implements INodeVisitor {
 		level++;
 
 		indent();
-		node.getLhs().accept( this, context );
+		node.getIdent().accept( this, context );
 
 		indent();
-		node.getRhs().accept( this, context );
+		node.getExpression().accept( this, context );
 
 		level--;
 
