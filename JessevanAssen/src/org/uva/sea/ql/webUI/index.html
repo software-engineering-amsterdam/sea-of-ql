@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <title></title>
     <link href="style.css" rel="stylesheet" type="text/css">
+    <script type="text/javascript" src="jquery-1.9.0.min.js"></script>
     <script type="text/javascript" src="knockout-2.2.1.js"></script>
     <script type="text/javascript">
         var DataType = {
@@ -29,7 +30,7 @@
         }
 
         function booleanValidator(input) {
-            return input == true || input == false;
+            return input == "true" || input == "false";
         }
 
         function Block(condition, elements) {
@@ -39,6 +40,15 @@
             this.type = Type.BLOCK;
 
             this.required = function() { return (self.parent != undefined ? self.parent.required() : true) && self.condition(); };
+
+            this.collectValues = function() {
+                var values = {};
+                self.elements.map(function(element) {
+                    if((element.type == Type.QUESTION || element.type == Type.BLOCK) && element.required())
+                        $.extend(values, element.collectValues());
+                });
+                return values;
+            };
         }
 
         function Computed(label, expression) {
@@ -70,6 +80,11 @@
             this.required = function() { return self.parent.required(); };
             this.valid = function() { return self.required() && self.validator(self.value()); };
 
+            this.collectValues = function() {
+                var o = {};
+                o[self.name] = self.value();
+                return o;
+            };
         }
     </script>
 
@@ -108,8 +123,8 @@
     </script>
 
     <script type="text/html" id="boolean-input-template">
-        <label><input type="radio" value="1" data-bind="name: name, checked: value" /> Yes</label>
-        <label><input type="radio" value="0" data-bind="name: name, checked: value" /> No</label>
+        <label><input type="radio" value="true" data-bind="name: name, checked: value" /> Yes</label>
+        <label><input type="radio" value="false" data-bind="name: name, checked: value" /> No</label>
     </script>
 
     <script type="text/html" id="text-input-template">
@@ -119,18 +134,21 @@
 <body>
 
     <table>
-        <!-- ko template: { name : "formelement-template", foreach: viewModel.elements } --><!-- /ko -->
+        <!-- ko template: { name : "formelement-template", foreach: viewModel.root.elements } --><!-- /ko -->
     </table>
 
     <script type="text/javascript">
-        var viewModel = new Block(function() { return true; }, [
-            new Question("Is bread nice?", "bread", DataType.BOOLEAN),
-            new Question("What is your favorite kind of bread?", "bread", DataType.STRING),
-            new Question("How many slices of bread do you eat each day?", "bread", DataType.INTEGER),
-            new Block(function() { return true; }, [
-                new Computed("My favorite kind of bread is:", function() { return true; })
+        var viewModel =
+        {
+            root : new Block(function() { return true; }, [
+                new Question("Is bread nice?", "isBreadNice", DataType.BOOLEAN),
+                new Question("What is your favorite kind of bread?", "favoriteBread", DataType.STRING),
+                new Question("How many slices of bread do you eat each day?", "howManyBread", DataType.INTEGER),
+                new Block(function() { return true; }, [
+                    new Computed("My favorite kind of bread is:", function() { return true; })
+                ])
             ])
-        ]);
+        };
         ko.applyBindings(viewModel);
     </script>
 </body>
