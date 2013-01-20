@@ -7,19 +7,31 @@ import nl.stgm.ql.inspector.CodeInspector;
 public class Conditional extends FormItem
 {
 	private Expr condition;
-	private List<Question> questions;
+	private List<Question> ifQuestions;
+	private List<Question> elseQuestions;
 	
-	public Conditional(Expr condition, List<Question> questions)
+	public Conditional(Expr condition, List<Question> ifQuestions, List<Question> elseQuestions)
 	{
 		this.condition = condition;
-		this.questions = questions;
+		this.ifQuestions = ifQuestions;
+		this.elseQuestions = elseQuestions;
 	}
 
 	public void accept(CodeInspector inspector)
 	{
-		for (Question question: questions)
+		condition.accept(inspector);
+		
+		for (Question question: ifQuestions)
 		{
 			question.accept(inspector);
+		}
+		
+		if(elseQuestions != null)
+		{
+			for (Question question: elseQuestions)
+			{
+				question.accept(inspector);
+			}
 		}
 		
 		inspector.visit(this);

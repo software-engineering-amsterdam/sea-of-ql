@@ -1,5 +1,5 @@
 form Box1HouseOwning {
-	hasSoldHouse: "Did you sell a house in 2010?" boolean
+	hasSoldHouse: "Did you sell a house in 2010?" boolean // cool comment
 	hasBoughtHouse: "Did you by a house in 2010?" boolean
 	hasMaintLoan: "Did you enter a loan for maintenance/reconstruction?" boolean
 
@@ -8,4 +8,8 @@ form Box1HouseOwning {
 		privateDebt: "Private debts for the sold house:" int
 		valueResidue: "Value residue:" int (sellingPrice - privateDebt)
 	}
+}
+
+form Box1Loans {
+	hasGeneralLoan: "Did you have a loan from a general bank higher than 10.000 euros?" boolean
 }

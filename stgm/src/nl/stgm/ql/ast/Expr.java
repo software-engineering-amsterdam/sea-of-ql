@@ -13,4 +13,9 @@ public abstract class Expr implements ASTNode
 	{
 		inspector.visit(this);
 	}
+	
+	public String toString()
+	{
+		return("expr " + this.getClass().getSimpleName());
+	}
 }
