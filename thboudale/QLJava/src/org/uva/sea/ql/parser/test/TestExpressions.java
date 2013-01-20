@@ -10,12 +10,15 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
 import org.uva.sea.ql.ast.Add;
+import org.uva.sea.ql.ast.And;
 import org.uva.sea.ql.ast.GT;
 import org.uva.sea.ql.ast.Ident;
 import org.uva.sea.ql.ast.Int;
 import org.uva.sea.ql.ast.LEq;
 import org.uva.sea.ql.ast.LT;
 import org.uva.sea.ql.ast.Mul;
+import org.uva.sea.ql.ast.Not;
+import org.uva.sea.ql.ast.Or;
 import org.uva.sea.ql.parser.antlr.ANTLRParser;
 import org.uva.sea.ql.parser.jacc.JACCParser;
 import org.uva.sea.ql.parser.rats.RatsParser;
@@ -73,6 +76,15 @@ public class TestExpressions {
 		assertEquals(parser.parse("a + b > c").getClass(), GT.class);
 		assertEquals(parser.parse("a > b + c").getClass(), GT.class);
 	}
+	
+	@Test
+	public void testBools() throws ParseError {
+		assertEquals(parser.parse("!b").getClass(), Not.class);
+		assertEquals(parser.parse("a && b").getClass(), And.class);
+		assertEquals(parser.parse("a > b && b > c").getClass(), And.class);
+		assertEquals(parser.parse("(a > b) && (b > c)").getClass(), And.class);
+		assertEquals(parser.parse("a || b").getClass(), Or.class);
+	}
 
 
 	@Test
@@ -92,5 +104,4 @@ public class TestExpressions {
 		assertEquals(parser.parse("1223").getClass(), Int.class);
 		assertEquals(parser.parse("234234234").getClass(), Int.class);
 	}
-	
 }
