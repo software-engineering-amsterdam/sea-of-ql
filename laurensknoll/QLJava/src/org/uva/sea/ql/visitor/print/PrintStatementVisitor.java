@@ -21,7 +21,7 @@ public class PrintStatementVisitor implements StatementVisitor {
 			statement.accept(this);
 		}
 
-		return null;
+		return new PrintVisitorResult(true);
 	}
 
 	@Override
@@ -34,7 +34,7 @@ public class PrintStatementVisitor implements StatementVisitor {
 		ExpressionVisitor expressionVisitor = new PrintExpressionVisitor();
 		computedQuestion.getComputeExpression().accept(expressionVisitor);
 
-		return null;
+		return new PrintVisitorResult(true);
 	}
 
 	@Override
@@ -47,7 +47,7 @@ public class PrintStatementVisitor implements StatementVisitor {
 
 		ifStatement.getTruePath().accept(this);
 
-		return null;
+		return new PrintVisitorResult(true);
 	}
 
 	@Override
@@ -62,7 +62,7 @@ public class PrintStatementVisitor implements StatementVisitor {
 		AnswerTypeVisitor answerTypeVisitor = new PrintAnswerTypeVisitor();
 		question.getType().accept(answerTypeVisitor);
 
-		return null;
+		return new PrintVisitorResult(true);
 	}
 
 }

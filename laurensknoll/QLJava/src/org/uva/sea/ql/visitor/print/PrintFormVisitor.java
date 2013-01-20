@@ -19,7 +19,7 @@ public class PrintFormVisitor implements FormVisitor {
 		StatementVisitor statementVisitor = new PrintStatementVisitor();
 		questionForm.getStatements().accept(statementVisitor);
 
-		return null;
+		return new PrintVisitorResult(true);
 	}
 
 }

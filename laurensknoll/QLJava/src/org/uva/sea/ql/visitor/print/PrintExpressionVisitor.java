@@ -34,7 +34,7 @@ public class PrintExpressionVisitor implements ExpressionVisitor {
 		add.getLeftHandSideExpression().accept(expressionVisitor);
 		add.getRightHandSideExpression().accept(expressionVisitor);
 
-		return null;
+		return new PrintVisitorResult(true);
 	}
 
 	@Override
@@ -46,7 +46,7 @@ public class PrintExpressionVisitor implements ExpressionVisitor {
 		and.getLeftHandSideExpression().accept(expressionVisitor);
 		and.getRightHandSideExpression().accept(expressionVisitor);
 
-		return null;
+		return new PrintVisitorResult(true);
 	}
 
 	@Override
@@ -58,7 +58,7 @@ public class PrintExpressionVisitor implements ExpressionVisitor {
 		div.getLeftHandSideExpression().accept(expressionVisitor);
 		div.getRightHandSideExpression().accept(expressionVisitor);
 
-		return null;
+		return new PrintVisitorResult(true);
 	}
 
 	@Override
@@ -70,7 +70,7 @@ public class PrintExpressionVisitor implements ExpressionVisitor {
 		eq.getLeftHandSideExpression().accept(expressionVisitor);
 		eq.getRightHandSideExpression().accept(expressionVisitor);
 
-		return null;
+		return new PrintVisitorResult(true);
 	}
 
 	@Override
@@ -82,7 +82,7 @@ public class PrintExpressionVisitor implements ExpressionVisitor {
 		geq.getLeftHandSideExpression().accept(expressionVisitor);
 		geq.getRightHandSideExpression().accept(expressionVisitor);
 
-		return null;
+		return new PrintVisitorResult(true);
 	}
 
 	@Override
@@ -94,7 +94,7 @@ public class PrintExpressionVisitor implements ExpressionVisitor {
 		gt.getLeftHandSideExpression().accept(expressionVisitor);
 		gt.getRightHandSideExpression().accept(expressionVisitor);
 
-		return null;
+		return new PrintVisitorResult(true);
 	}
 
 	@Override
@@ -106,7 +106,7 @@ public class PrintExpressionVisitor implements ExpressionVisitor {
 		leq.getLeftHandSideExpression().accept(expressionVisitor);
 		leq.getRightHandSideExpression().accept(expressionVisitor);
 
-		return null;
+		return new PrintVisitorResult(true);
 	}
 
 	@Override
@@ -118,7 +118,7 @@ public class PrintExpressionVisitor implements ExpressionVisitor {
 		lt.getLeftHandSideExpression().accept(expressionVisitor);
 		lt.getRightHandSideExpression().accept(expressionVisitor);
 
-		return null;
+		return new PrintVisitorResult(true);
 	}
 
 	@Override
@@ -130,7 +130,7 @@ public class PrintExpressionVisitor implements ExpressionVisitor {
 		mul.getLeftHandSideExpression().accept(expressionVisitor);
 		mul.getRightHandSideExpression().accept(expressionVisitor);
 
-		return null;
+		return new PrintVisitorResult(true);
 	}
 
 	@Override
@@ -141,7 +141,7 @@ public class PrintExpressionVisitor implements ExpressionVisitor {
 		ExpressionVisitor expressionVisitor = new PrintExpressionVisitor();
 		neg.getExpression().accept(expressionVisitor);
 
-		return null;
+		return new PrintVisitorResult(true);
 	}
 
 	@Override
@@ -153,7 +153,7 @@ public class PrintExpressionVisitor implements ExpressionVisitor {
 		neq.getLeftHandSideExpression().accept(expressionVisitor);
 		neq.getRightHandSideExpression().accept(expressionVisitor);
 
-		return null;
+		return new PrintVisitorResult(true);
 	}
 
 	@Override
@@ -164,7 +164,7 @@ public class PrintExpressionVisitor implements ExpressionVisitor {
 		ExpressionVisitor expressionVisitor = new PrintExpressionVisitor();
 		not.getExpression().accept(expressionVisitor);
 
-		return null;
+		return new PrintVisitorResult(true);
 	}
 
 	@Override
@@ -176,7 +176,7 @@ public class PrintExpressionVisitor implements ExpressionVisitor {
 		or.getLeftHandSideExpression().accept(expressionVisitor);
 		or.getRightHandSideExpression().accept(expressionVisitor);
 
-		return null;
+		return new PrintVisitorResult(true);
 	}
 
 	@Override
@@ -187,7 +187,7 @@ public class PrintExpressionVisitor implements ExpressionVisitor {
 		ExpressionVisitor expressionVisitor = new PrintExpressionVisitor();
 		pos.getExpression().accept(expressionVisitor);
 
-		return null;
+		return new PrintVisitorResult(true);
 	}
 
 	@Override
@@ -199,42 +199,42 @@ public class PrintExpressionVisitor implements ExpressionVisitor {
 		sub.getLeftHandSideExpression().accept(expressionVisitor);
 		sub.getRightHandSideExpression().accept(expressionVisitor);
 
-		return null;
+		return new PrintVisitorResult(true);
 	}
 
 	@Override
 	public VisitorResult visit(BoolExprType bool) {
 		System.out.println("Visiting Bool Expression Type");
 
-		return null;
+		return new PrintVisitorResult(true);
 	}
 
 	@Override
 	public VisitorResult visit(IdentExprType ident) {
 		System.out.println("Visiting Ident Expression Type");
 
-		return null;
+		return new PrintVisitorResult(true);
 	}
 
 	@Override
 	public VisitorResult visit(IntExprType intType) {
 		System.out.println("Visiting Int Expression Type");
 
-		return null;
+		return new PrintVisitorResult(true);
 	}
 
 	@Override
 	public VisitorResult visit(MoneyExprType money) {
 		System.out.println("Visiting Money Expression Type");
 
-		return null;
+		return new PrintVisitorResult(true);
 	}
 
 	@Override
 	public VisitorResult visit(StringExprType string) {
 		System.out.println("Visiting String Expression Type");
 
-		return null;
+		return new PrintVisitorResult(true);
 	}
 
 }

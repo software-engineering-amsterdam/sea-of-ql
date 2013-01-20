@@ -13,28 +13,28 @@ public class PrintAnswerTypeVisitor implements AnswerTypeVisitor {
 	public VisitorResult visit(BoolAnswerType bool) {
 		System.out.println("Visiting Bool AnswerType");
 
-		return null;
+		return new PrintVisitorResult(true);
 	}
 
 	@Override
 	public VisitorResult visit(IntAnswerType intType) {
 		System.out.println("Visiting Int AnswerType");
 
-		return null;
+		return new PrintVisitorResult(true);
 	}
 
 	@Override
 	public VisitorResult visit(MoneyAnswerType money) {
 		System.out.println("Visiting Money AnswerType");
 
-		return null;
+		return new PrintVisitorResult(true);
 	}
 
 	@Override
 	public VisitorResult visit(StringAnswerType string) {
 		System.out.println("Visiting String AnswerType");
 
-		return null;
+		return new PrintVisitorResult(true);
 	}
 
 }
