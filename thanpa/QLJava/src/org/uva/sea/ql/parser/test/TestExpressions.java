@@ -13,6 +13,7 @@ import org.uva.sea.ql.ast.Add;
 import org.uva.sea.ql.ast.And;
 import org.uva.sea.ql.ast.GT;
 import org.uva.sea.ql.ast.Ident;
+import org.uva.sea.ql.ast.Bool;
 import org.uva.sea.ql.ast.Int;
 import org.uva.sea.ql.ast.LEq;
 import org.uva.sea.ql.ast.LT;
@@ -97,6 +98,12 @@ public class TestExpressions {
 		assertEquals(parser.parse("0").getClass(), Int.class);
 		assertEquals(parser.parse("1223").getClass(), Int.class);
 		assertEquals(parser.parse("234234234").getClass(), Int.class);
+	}
+	
+	@Test
+	public void testBooleans() throws ParseError {
+		assertEquals(parser.parse("true").getClass(), Bool.class);
+		assertEquals(parser.parse("false").getClass(), Bool.class);
 	}
 	
 }
