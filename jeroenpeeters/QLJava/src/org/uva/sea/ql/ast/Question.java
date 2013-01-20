@@ -1,14 +1,18 @@
 package org.uva.sea.ql.ast;
 
+import org.uva.sea.ql.ast.literals.Text;
+
 
 public class Question extends Expr {
 
-	private final ASTNode variable, label, type;
+	private final Ident ident;
+	private final Text label;
+	private final DataType dataType;
 	
-	public Question(final ASTNode variable, final ASTNode yysv, final ASTNode yysv2){
-		this.variable = variable;
-		this.label = yysv;
-		this.type = yysv2;
+	public Question(final Ident ident, final Text label, final DataType dataType){
+		this.ident = ident;
+		this.label = label;
+		this.dataType = dataType;
 	}
 
 }

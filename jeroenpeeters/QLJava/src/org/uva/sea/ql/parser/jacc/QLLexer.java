@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.uva.sea.ql.ast.ASTNode;
+import org.uva.sea.ql.ast.DataType;
 import org.uva.sea.ql.ast.Ident;
 import org.uva.sea.ql.ast.literals.Int;
 import org.uva.sea.ql.ast.literals.Text;
@@ -15,8 +16,16 @@ public class QLLexer implements QLTokens {
 	
 	static {
 		KEYWORDS = new HashMap<String, Integer>();
+		
+		// Structural keywords
 		KEYWORDS.put("form", FORM);
 		KEYWORDS.put("if", IF);
+		
+		// DataType keywords
+		KEYWORDS.put("boolean", BOOLEAN);
+		KEYWORDS.put("int", INTEGER);
+		KEYWORDS.put("money", MONEY);
+		KEYWORDS.put("text", TEXT);
 	}
 	
 	
