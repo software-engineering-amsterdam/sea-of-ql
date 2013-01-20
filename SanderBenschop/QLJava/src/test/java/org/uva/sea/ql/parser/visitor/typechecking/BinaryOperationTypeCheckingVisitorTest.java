@@ -5,7 +5,7 @@ import org.junit.Test;
 import org.uva.sea.ql.ast.nodetypes.binary.*;
 import org.uva.sea.ql.ast.nodetypes.primary.Bool;
 import org.uva.sea.ql.ast.nodetypes.primary.Int;
-import org.uva.sea.ql.ast.nodetypes.primary.Primary;
+import org.uva.sea.ql.ast.nodetypes.primary.Datatype;
 import org.uva.sea.ql.ast.nodetypes.primary.Str;
 import org.uva.sea.ql.parser.visitor.typechecking.TypeCheckingVisitor;
 import org.uva.sea.ql.parser.visitor.typechecking.UnequalTypesError;
@@ -25,9 +25,9 @@ public class BinaryOperationTypeCheckingVisitorTest {
 
     @Test
     public void shouldReduceProperlyForSingleType() {
-        Primary leftHandSide = new Int(1);
-        Primary leftHandSide2 = new Int(2);
-        Primary rightHandSide = new Int(3);
+        Datatype leftHandSide = new Int(1);
+        Datatype leftHandSide2 = new Int(2);
+        Datatype rightHandSide = new Int(3);
         BinaryOperation multiply = new Multiply(leftHandSide, rightHandSide);
         BinaryOperation divide = new Divide(leftHandSide2, multiply);
 
@@ -42,8 +42,8 @@ public class BinaryOperationTypeCheckingVisitorTest {
 
     @Test
     public void shouldDetectTypeErrorForSingleType() {
-        Primary leftHandSide = new Int(1);
-        Primary rightHandSide = new Bool(false);
+        Datatype leftHandSide = new Int(1);
+        Datatype rightHandSide = new Bool(false);
         BinaryOperation multiply = new Multiply(leftHandSide, rightHandSide);
 
         typeCheckingVisitor.visitPrimary(leftHandSide);
@@ -56,9 +56,9 @@ public class BinaryOperationTypeCheckingVisitorTest {
 
     @Test
     public void shouldCascadeErrorForNestedSingleType() {
-        Primary leftHandSide = new Bool(true);
-        Primary leftHandSide2 = new Int(2);
-        Primary rightHandSide = new Int(3);
+        Datatype leftHandSide = new Bool(true);
+        Datatype leftHandSide2 = new Int(2);
+        Datatype rightHandSide = new Int(3);
         BinaryOperation multiply = new Multiply(leftHandSide, rightHandSide);
         BinaryOperation divide = new Divide(leftHandSide2, multiply);
 
@@ -75,8 +75,8 @@ public class BinaryOperationTypeCheckingVisitorTest {
 
     @Test
     public void shouldThrowErrorIfTypesAreUnequalInMultipleType() {
-        Primary leftHandSide = new Int(1);
-        Primary rightHandSide = new Bool(false);
+        Datatype leftHandSide = new Int(1);
+        Datatype rightHandSide = new Bool(false);
         BinaryOperation equalTo = new EqualTo(leftHandSide, rightHandSide);
 
         typeCheckingVisitor.visitPrimary(leftHandSide);
@@ -89,8 +89,8 @@ public class BinaryOperationTypeCheckingVisitorTest {
 
     @Test
     public void shouldThrowErrorsIfTypesAreUnequalAndDisallowedInMultipleType() {
-        Primary leftHandSide = new Int(1);
-        Primary rightHandSide = new Str("");
+        Datatype leftHandSide = new Int(1);
+        Datatype rightHandSide = new Str("");
         BinaryOperation equalTo = new EqualTo(leftHandSide, rightHandSide);
 
         typeCheckingVisitor.visitPrimary(leftHandSide);

@@ -1,11 +1,12 @@
 package org.uva.sea.ql.ast.nodetypes.unary;
 
+import org.uva.sea.ql.ast.ASTNode;
 import org.uva.sea.ql.ast.QLExpression;
 import org.uva.sea.ql.ast.nodetypes.primary.Bool;
 
 public class Not extends UnaryOperation {
 
-	public Not(QLExpression expression) {
+	public Not(ASTNode expression) {
 		super(expression);
 	}
 

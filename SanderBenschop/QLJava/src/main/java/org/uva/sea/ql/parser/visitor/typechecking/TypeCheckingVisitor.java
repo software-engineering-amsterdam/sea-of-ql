@@ -12,7 +12,7 @@ import org.uva.sea.ql.ast.nodetypes.formelement.Conditional;
 import org.uva.sea.ql.ast.nodetypes.formelement.Question;
 import org.uva.sea.ql.ast.nodetypes.primary.Bool;
 import org.uva.sea.ql.ast.nodetypes.primary.Ident;
-import org.uva.sea.ql.ast.nodetypes.primary.Primary;
+import org.uva.sea.ql.ast.nodetypes.primary.Datatype;
 import org.uva.sea.ql.ast.nodetypes.unary.UnaryOperation;
 import org.uva.sea.ql.parser.visitor.ASTNodeVisitor;
 import org.uva.sea.ql.parser.visitor.QLError;
@@ -28,12 +28,14 @@ public class TypeCheckingVisitor implements ASTNodeVisitor, QLValidator {
     private List<QLError> typeCheckingErrors;
 
     public TypeCheckingVisitor() {
+    	this.instanceVariableTable = new InstanceVariableTable();
         this.reductionTable = new ReductionTable();
         this.typeCheckingErrors = new ArrayList<QLError>();
     }
 
     @Override
     public void visitComputation(Computation computation) {
+    	
     }
 
     @Override
@@ -46,6 +48,7 @@ public class TypeCheckingVisitor implements ASTNodeVisitor, QLValidator {
 
     @Override
     public void visitQuestion(Question question) {
+
     }
 
 
@@ -63,7 +66,7 @@ public class TypeCheckingVisitor implements ASTNodeVisitor, QLValidator {
     @Override
     public void visitBinaryOperation(BinaryOperation binaryOperation) {
         List<Class<?>> supportedTypes = binaryOperation.getSupportedTypes();
-        QLExpression leftHandSide = binaryOperation.getLeftHandSide(), rightHandSide = binaryOperation.getRightHandSide();
+        ASTNode leftHandSide = binaryOperation.getLeftHandSide(), rightHandSide = binaryOperation.getRightHandSide();
 
         Class<?> leftHandSideReduction = reductionTable.getReduceableType(leftHandSide), rightHandSideReduction = reductionTable.getReduceableType(rightHandSide);
         boolean leftHandSideReduceable = supportedTypes.contains(leftHandSideReduction), rightHandSideReduceable = supportedTypes.contains(rightHandSideReduction);
@@ -89,11 +92,12 @@ public class TypeCheckingVisitor implements ASTNodeVisitor, QLValidator {
 
     @Override
     public void visitIdent(Ident ident) {
+
     }
 
     @Override
-    public void visitPrimary(Primary primary) {
-        reductionTable.setReducableToType(primary, primary.getClass());
+    public void visitPrimary(Datatype datatype) {
+        reductionTable.setReducableToType(datatype, datatype.getClass());
     }
 
     @Override

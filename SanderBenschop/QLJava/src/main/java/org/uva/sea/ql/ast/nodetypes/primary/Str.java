@@ -1,6 +1,6 @@
 package org.uva.sea.ql.ast.nodetypes.primary;
 
-public final class Str extends Primary<String> {
+public final class Str extends Datatype<String> {
 
 	private final String value;
 	

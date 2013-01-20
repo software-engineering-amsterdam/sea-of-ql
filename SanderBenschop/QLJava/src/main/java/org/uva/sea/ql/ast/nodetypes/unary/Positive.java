@@ -1,11 +1,12 @@
 package org.uva.sea.ql.ast.nodetypes.unary;
 
+import org.uva.sea.ql.ast.ASTNode;
 import org.uva.sea.ql.ast.QLExpression;
 import org.uva.sea.ql.ast.nodetypes.primary.Int;
 
 public class Positive extends UnaryOperation {
 
-	public Positive(QLExpression expression) {
+	public Positive(ASTNode expression) {
 		super(expression);
 	}
 

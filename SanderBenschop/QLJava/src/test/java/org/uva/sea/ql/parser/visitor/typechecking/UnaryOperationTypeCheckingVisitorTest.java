@@ -7,7 +7,7 @@ import org.uva.sea.ql.ast.nodetypes.binary.Divide;
 import org.uva.sea.ql.ast.nodetypes.binary.Multiply;
 import org.uva.sea.ql.ast.nodetypes.primary.Bool;
 import org.uva.sea.ql.ast.nodetypes.primary.Int;
-import org.uva.sea.ql.ast.nodetypes.primary.Primary;
+import org.uva.sea.ql.ast.nodetypes.primary.Datatype;
 import org.uva.sea.ql.ast.nodetypes.unary.Not;
 import org.uva.sea.ql.ast.nodetypes.unary.UnaryOperation;
 

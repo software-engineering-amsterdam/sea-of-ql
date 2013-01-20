@@ -1,5 +1,6 @@
 package org.uva.sea.ql.ast.nodetypes.binary;
 
+import org.uva.sea.ql.ast.ASTNode;
 import org.uva.sea.ql.ast.QLExpression;
 import org.uva.sea.ql.ast.nodetypes.primary.Bool;
 import org.uva.sea.ql.ast.nodetypes.primary.Int;
@@ -10,7 +11,7 @@ import java.util.List;
 
 public class LessThan extends BinaryOperation {
 
-	public LessThan(QLExpression leftHandSide, QLExpression rightHandSide) {
+	public LessThan(ASTNode leftHandSide, ASTNode rightHandSide) {
 		super(leftHandSide, rightHandSide);
 	}
 

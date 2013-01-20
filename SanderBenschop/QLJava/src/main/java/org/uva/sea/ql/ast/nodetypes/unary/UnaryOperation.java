@@ -1,17 +1,18 @@
 package org.uva.sea.ql.ast.nodetypes.unary;
 
+import org.uva.sea.ql.ast.ASTNode;
 import org.uva.sea.ql.ast.QLExpression;
 import org.uva.sea.ql.parser.visitor.ASTNodeVisitor;
 
 public abstract class UnaryOperation extends QLExpression {
 	
-	private final QLExpression expression;
+	private final ASTNode expression;
 	
-	public UnaryOperation(QLExpression expression) {
+	public UnaryOperation(ASTNode expression) {
 		this.expression = expression;
 	}
 	
-	public QLExpression getExpression() {
+	public ASTNode getExpression() {
 		return expression;
 	}
 

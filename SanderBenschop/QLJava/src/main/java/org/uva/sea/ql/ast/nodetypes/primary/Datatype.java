@@ -1,9 +1,10 @@
 package org.uva.sea.ql.ast.nodetypes.primary;
 
+import org.uva.sea.ql.ast.ASTNode;
 import org.uva.sea.ql.ast.QLExpression;
 import org.uva.sea.ql.parser.visitor.ASTNodeVisitor;
 
-public abstract class Primary<T> extends QLExpression {
+public abstract class Datatype<T> implements ASTNode {
 
     public abstract T getValue();
 

@@ -52,13 +52,19 @@ statement returns [QLStatement result]
   ;
 
 question returns [Question result]
-  : Ident ':' Str Datatype 
+  : Ident ':' Str datatype 
     {
 	    Ident ident = new Ident($Ident.text);
 	    Str label = new Str(removeOuterQuotes($Str.text));
-	    Str datatype = new Str($Datatype.text);
+	    Class<? extends Datatype<?>> datatype = $datatype.result;
 	    $result = new Question(ident, label, datatype);
     }
+  ;
+  
+datatype returns [Class<? extends Datatype<?>> result]
+  : 'boolean' { $result = Bool.class; }
+  | 'string' { $result = Str.class; }
+  | 'integer' { $result = Int.class; }
   ;
   
 computation returns [Computation result]
@@ -66,7 +72,7 @@ computation returns [Computation result]
     {
       Ident ident = new Ident($Ident.text);
       Str label = new Str(removeOuterQuotes($Str.text));
-      QLExpression orExpression = $orExpr.result;
+      ASTNode orExpression = $orExpr.result;
       $result = new Computation(ident, label, orExpression);
     }
   ;
@@ -85,22 +91,22 @@ conditional returns [Conditional result]
     }
   ;
 
-primary returns [QLExpression result]
+primary returns [ASTNode result]
   : Int   { $result = new Int(Integer.parseInt($Int.text)); }
   | Bool  { $result = new Bool(Boolean.parseBoolean($Bool.text)); }
-  | Ident { $result = new Ident($Ident.text); }
   | Str   { $result = new Str(removeOuterQuotes($Str.text)); }
+  | Ident { $result = new Ident($Ident.text); }
   | '(' x=orExpr ')'{ $result = $x.result; }
   ;
 
-unExpr returns [QLExpression result]
+unExpr returns [ASTNode result]
     :  '+' x=unExpr { $result = new Positive($x.result); }
     |  '-' x=unExpr { $result = new Negative($x.result); }
     |  '!' x=unExpr { $result = new Not($x.result); }
     |  x=primary    { $result = $x.result; }
     ;    
     
-mulExpr returns [QLExpression result]
+mulExpr returns [ASTNode result]
     :   lhs=unExpr { $result=$lhs.result; } ( op=( '*' | '/' ) rhs=unExpr 
 	    { 
 	      if ($op.text.equals("*")) {
@@ -113,7 +119,7 @@ mulExpr returns [QLExpression result]
     ;
     
   
-addExpr returns [QLExpression result]
+addExpr returns [ASTNode result]
     :   lhs=mulExpr { $result=$lhs.result; } ( op=('+' | '-') rhs=mulExpr
 	    { 
 	      if ($op.text.equals("+")) {
@@ -125,7 +131,7 @@ addExpr returns [QLExpression result]
 	    })*
     ;
   
-relExpr returns [QLExpression result]
+relExpr returns [ASTNode result]
     :   lhs=addExpr { $result=$lhs.result; } ( op=('<'|'<='|'>'|'>='|'=='|'!=') rhs=addExpr 
 	    { 
 	      if ($op.text.equals("<")) {
@@ -149,12 +155,12 @@ relExpr returns [QLExpression result]
 	    })*
     ;
     
-andExpr returns [QLExpression result]
+andExpr returns [ASTNode result]
     :   lhs=relExpr { $result=$lhs.result; } ( '&&' rhs=relExpr { $result = new And($result, rhs); } )*
     ;
     
 
-orExpr returns [QLExpression result]
+orExpr returns [ASTNode result]
     :   lhs=andExpr { $result = $lhs.result; } ( '||' rhs=andExpr { $result = new Or($result, rhs); } )*
     ;
     
@@ -175,8 +181,6 @@ COMMENT
     | '//' ~('\n')* {$channel=HIDDEN;} 
     ;
     
-Datatype: 'boolean' | 'string' | 'int';
-
 Bool: 'true' | 'false';
 Ident:   ('a'..'z'|'A'..'Z')('a'..'z'|'A'..'Z'|'0'..'9'|'_')*;
 

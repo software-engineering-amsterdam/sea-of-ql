@@ -11,7 +11,7 @@ public class TestBooleans extends TestParser {
 
     @Test
     public void shouldEvaluateToBoolClass() throws ParseError {
-        assertEquals(Bool.class, parseExpression("true").getClass());
-        assertEquals(Bool.class, parseExpression("false").getClass());
+        assertEquals(Bool.class, parsePrimary("true").getClass());
+        assertEquals(Bool.class, parsePrimary("false").getClass());
     }
 }

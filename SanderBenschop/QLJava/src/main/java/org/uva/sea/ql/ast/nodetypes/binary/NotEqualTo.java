@@ -1,5 +1,6 @@
 package org.uva.sea.ql.ast.nodetypes.binary;
 
+import org.uva.sea.ql.ast.ASTNode;
 import org.uva.sea.ql.ast.QLExpression;
 import org.uva.sea.ql.ast.nodetypes.primary.Bool;
 import org.uva.sea.ql.ast.nodetypes.primary.Int;
@@ -11,7 +12,7 @@ import java.util.List;
 
 public class NotEqualTo extends BinaryOperation {
 
-	public NotEqualTo(QLExpression leftHandSide, QLExpression rightHandSide) {
+	public NotEqualTo(ASTNode leftHandSide, ASTNode rightHandSide) {
 		super(leftHandSide, rightHandSide);
 	}
 

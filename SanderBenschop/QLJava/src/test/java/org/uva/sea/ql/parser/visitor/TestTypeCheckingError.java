@@ -9,6 +9,7 @@ import org.uva.sea.ql.ast.nodetypes.binary.Add;
 import org.uva.sea.ql.ast.nodetypes.binary.BinaryOperation;
 import org.uva.sea.ql.ast.nodetypes.primary.Bool;
 import org.uva.sea.ql.ast.nodetypes.primary.Int;
+import org.uva.sea.ql.ast.nodetypes.primary.Datatype;
 import org.uva.sea.ql.ast.nodetypes.primary.Str;
 import org.uva.sea.ql.parser.visitor.typechecking.UnequalTypesError;
 import org.uva.sea.ql.parser.visitor.typechecking.UnsupportedTypeError;
@@ -52,8 +53,8 @@ public class TestTypeCheckingError {
     @Test
     public void shouldGetUnequalTypeErrorMessage() {
         int line = 42;
-        QLExpression leftHandSide = new Int(0);
-        QLExpression rightHandSide = new Bool(true);
+        Datatype<Integer> leftHandSide = new Int(0);
+        Datatype<Boolean> rightHandSide = new Bool(true);
         BinaryOperation binaryOperation = new Add(leftHandSide, rightHandSide);
 
         QLError error = new UnequalTypesError(line, binaryOperation);

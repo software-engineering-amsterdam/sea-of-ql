@@ -1,6 +1,6 @@
 package org.uva.sea.ql.ast.nodetypes.primary;
 
-public final class Int extends Primary<Integer> {
+public final class Int extends Datatype<Integer> {
 
 	private final int value;
 

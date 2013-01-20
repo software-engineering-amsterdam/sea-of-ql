@@ -1,5 +1,6 @@
 package org.uva.sea.ql.ast.nodetypes.binary;
 
+import org.uva.sea.ql.ast.ASTNode;
 import org.uva.sea.ql.ast.QLExpression;
 import org.uva.sea.ql.ast.nodetypes.primary.Bool;
 import org.uva.sea.ql.ast.nodetypes.primary.Int;
@@ -8,7 +9,7 @@ import java.util.*;
 
 public class EqualTo extends BinaryOperation {
 
-	public EqualTo(QLExpression leftHandSide, QLExpression rightHandSide) {
+	public EqualTo(ASTNode leftHandSide, ASTNode rightHandSide) {
 		super(leftHandSide, rightHandSide);
 	}
 

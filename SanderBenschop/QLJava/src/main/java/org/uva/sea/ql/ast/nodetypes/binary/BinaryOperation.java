@@ -1,5 +1,6 @@
 package org.uva.sea.ql.ast.nodetypes.binary;
 
+import org.uva.sea.ql.ast.ASTNode;
 import org.uva.sea.ql.ast.QLExpression;
 import org.uva.sea.ql.parser.visitor.ASTNodeVisitor;
 
@@ -7,19 +8,19 @@ import java.util.List;
 
 public abstract class BinaryOperation extends QLExpression {
 	
-	private final QLExpression leftHandSide;
-	private final QLExpression rightHandSide;
+	private final ASTNode leftHandSide;
+	private final ASTNode rightHandSide;
 	
-	public BinaryOperation(QLExpression leftHandSide, QLExpression rightHandSide) {
+	public BinaryOperation(ASTNode leftHandSide, ASTNode rightHandSide) {
 		this.leftHandSide = leftHandSide;
 		this.rightHandSide = rightHandSide;
 	}
 
-	public QLExpression getLeftHandSide() {
+	public ASTNode getLeftHandSide() {
 		return leftHandSide;
 	}
 
-	public QLExpression getRightHandSide() {
+	public ASTNode getRightHandSide() {
 		return rightHandSide;
 	}
 

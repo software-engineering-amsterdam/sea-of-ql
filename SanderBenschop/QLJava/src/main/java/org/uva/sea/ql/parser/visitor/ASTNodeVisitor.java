@@ -5,7 +5,7 @@ import org.uva.sea.ql.ast.nodetypes.formelement.Computation;
 import org.uva.sea.ql.ast.nodetypes.formelement.Conditional;
 import org.uva.sea.ql.ast.nodetypes.formelement.Question;
 import org.uva.sea.ql.ast.nodetypes.primary.Ident;
-import org.uva.sea.ql.ast.nodetypes.primary.Primary;
+import org.uva.sea.ql.ast.nodetypes.primary.Datatype;
 import org.uva.sea.ql.ast.nodetypes.unary.UnaryOperation;
 
 public interface ASTNodeVisitor {
@@ -16,5 +16,5 @@ public interface ASTNodeVisitor {
     void visitUnaryOperation(UnaryOperation unaryOperation);
     void visitBinaryOperation(BinaryOperation binaryOperation);
     void visitIdent(Ident ident);
-    void visitPrimary(Primary primary);
+    void visitPrimary(Datatype datatype);
 }
