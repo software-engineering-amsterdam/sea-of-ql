@@ -13,28 +13,26 @@ public class Question extends QLStatement {
     private final Class<? extends Datatype<?>> datatype;
 
     public Question(Ident identifier, Str label, Class<? extends Datatype<?>> datatype) {
-        
     	this.identifier = identifier;
         this.label = label;
         this.datatype = datatype;
     }
 
 	public Ident getIdentifier() {
-		
 		return identifier;
 	}
 
 	public Str getLabel() {
-		
 		return label;
 	}
 
 	public Class<? extends Datatype<?>> getDatatype() {
-		
 		return datatype;
 	}
 
     @Override
     public void accept(ASTNodeVisitor visitor) {
+        identifier.accept(visitor);
+        visitor.visitQuestion(this);
     }
 }

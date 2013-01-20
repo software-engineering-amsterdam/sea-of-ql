@@ -7,9 +7,6 @@ import org.uva.sea.ql.ast.nodetypes.primary.Bool;
 import org.uva.sea.ql.ast.nodetypes.primary.Int;
 import org.uva.sea.ql.ast.nodetypes.primary.Datatype;
 import org.uva.sea.ql.ast.nodetypes.primary.Str;
-import org.uva.sea.ql.parser.visitor.typechecking.TypeCheckingVisitor;
-import org.uva.sea.ql.parser.visitor.typechecking.UnequalTypesError;
-import org.uva.sea.ql.parser.visitor.typechecking.UnsupportedTypeError;
 
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertTrue;
@@ -31,9 +28,9 @@ public class BinaryOperationTypeCheckingVisitorTest {
         BinaryOperation multiply = new Multiply(leftHandSide, rightHandSide);
         BinaryOperation divide = new Divide(leftHandSide2, multiply);
 
-        typeCheckingVisitor.visitPrimary(leftHandSide);
-        typeCheckingVisitor.visitPrimary(leftHandSide2);
-        typeCheckingVisitor.visitPrimary(rightHandSide);
+        typeCheckingVisitor.visitDatatype(leftHandSide);
+        typeCheckingVisitor.visitDatatype(leftHandSide2);
+        typeCheckingVisitor.visitDatatype(rightHandSide);
         typeCheckingVisitor.visitBinaryOperation(multiply);
         typeCheckingVisitor.visitBinaryOperation(divide);
 
@@ -46,8 +43,8 @@ public class BinaryOperationTypeCheckingVisitorTest {
         Datatype rightHandSide = new Bool(false);
         BinaryOperation multiply = new Multiply(leftHandSide, rightHandSide);
 
-        typeCheckingVisitor.visitPrimary(leftHandSide);
-        typeCheckingVisitor.visitPrimary(rightHandSide);
+        typeCheckingVisitor.visitDatatype(leftHandSide);
+        typeCheckingVisitor.visitDatatype(rightHandSide);
         typeCheckingVisitor.visitBinaryOperation(multiply);
 
         assertEquals(1, typeCheckingVisitor.getErrors().size());
@@ -62,9 +59,9 @@ public class BinaryOperationTypeCheckingVisitorTest {
         BinaryOperation multiply = new Multiply(leftHandSide, rightHandSide);
         BinaryOperation divide = new Divide(leftHandSide2, multiply);
 
-        typeCheckingVisitor.visitPrimary(leftHandSide);
-        typeCheckingVisitor.visitPrimary(leftHandSide2);
-        typeCheckingVisitor.visitPrimary(rightHandSide);
+        typeCheckingVisitor.visitDatatype(leftHandSide);
+        typeCheckingVisitor.visitDatatype(leftHandSide2);
+        typeCheckingVisitor.visitDatatype(rightHandSide);
         typeCheckingVisitor.visitBinaryOperation(multiply);
         typeCheckingVisitor.visitBinaryOperation(divide);
 
@@ -79,8 +76,8 @@ public class BinaryOperationTypeCheckingVisitorTest {
         Datatype rightHandSide = new Bool(false);
         BinaryOperation equalTo = new EqualTo(leftHandSide, rightHandSide);
 
-        typeCheckingVisitor.visitPrimary(leftHandSide);
-        typeCheckingVisitor.visitPrimary(rightHandSide);
+        typeCheckingVisitor.visitDatatype(leftHandSide);
+        typeCheckingVisitor.visitDatatype(rightHandSide);
         typeCheckingVisitor.visitBinaryOperation(equalTo);
 
         assertEquals(1, typeCheckingVisitor.getErrors().size());
@@ -93,8 +90,8 @@ public class BinaryOperationTypeCheckingVisitorTest {
         Datatype rightHandSide = new Str("");
         BinaryOperation equalTo = new EqualTo(leftHandSide, rightHandSide);
 
-        typeCheckingVisitor.visitPrimary(leftHandSide);
-        typeCheckingVisitor.visitPrimary(rightHandSide);
+        typeCheckingVisitor.visitDatatype(leftHandSide);
+        typeCheckingVisitor.visitDatatype(rightHandSide);
         typeCheckingVisitor.visitBinaryOperation(equalTo);
 
         assertEquals(2, typeCheckingVisitor.getErrors().size());

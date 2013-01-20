@@ -15,31 +15,26 @@ public class Conditional extends QLStatement {
 	private final List<QLStatement> failureBlock;
 
 	public Conditional(ASTNode condition, List<QLStatement> successBlock) {
-
 		this.condition = condition;
 		this.successBlock = successBlock;
 		this.failureBlock = Collections.emptyList();
 	}
 
 	public Conditional(ASTNode condition, List<QLStatement> successBlock, List<QLStatement> failureBlock) {
-
 		this.condition = condition;
 		this.successBlock = successBlock;
 		this.failureBlock = failureBlock;
 	}
 
 	public ASTNode getCondition() {
-		
 		return condition;
 	}
 
 	public List<QLStatement> getSuccessBlock() {
-		
 		return successBlock;
 	}
-	
+
 	public List<QLStatement> getFailureBlock() {
-		
 		return failureBlock;
 	}
 

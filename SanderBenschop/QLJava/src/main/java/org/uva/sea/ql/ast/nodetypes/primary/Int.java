@@ -4,8 +4,8 @@ public final class Int extends Datatype<Integer> {
 
 	private final int value;
 
-	public Int(int n) {
-		this.value = n;
+	public Int(int value) {
+		this.value = value;
 	}
 
 	@Override

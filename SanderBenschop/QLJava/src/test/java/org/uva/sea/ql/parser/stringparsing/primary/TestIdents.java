@@ -1,7 +1,10 @@
 package org.uva.sea.ql.parser.stringparsing.primary;
 
+import static junit.framework.Assert.assertFalse;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
+import org.junit.Assert;
 import org.junit.Test;
 import org.uva.sea.ql.ast.nodetypes.primary.Ident;
 import org.uva.sea.ql.parser.TestParser;
@@ -18,5 +21,19 @@ public class TestIdents extends TestParser {
         assertEquals(Ident.class, parseExpression("abc2323").getClass());
         assertEquals(Ident.class, parseExpression("a2bc232").getClass());
         assertEquals(Ident.class, parseExpression("a2bc232aa").getClass());
+    }
+
+    @Test
+    public void shouldHaveHashCodeAndEquals() {
+        Ident ident1 = new Ident("a"), ident2 = new Ident("a");
+        assertTrue(ident1.equals(ident2));
+        assertEquals(ident1.hashCode(), ident2.hashCode());
+    }
+
+    @Test
+    public void shouldNotHaveSameHasCodeAndNotEquals() {
+        Ident ident1 = new Ident("a"), ident2 = new Ident("b");
+        assertFalse(ident1.equals(ident2));
+        assertFalse(ident1.hashCode() == ident2.hashCode());
     }
 }

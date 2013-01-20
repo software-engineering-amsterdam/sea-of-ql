@@ -8,30 +8,26 @@ import org.uva.sea.ql.ast.nodetypes.primary.Str;
 import org.uva.sea.ql.parser.visitor.ASTNodeVisitor;
 
 public class Computation extends QLStatement {
-    
+
 	private final Ident identifier;
     private final Str label;
 	private final ASTNode expression;
-    
+
 	public Computation(Ident identifier, Str label, ASTNode expression) {
-		
 		this.identifier = identifier;
 		this.label = label;
 		this.expression = expression;
 	}
 
 	public Ident getIdentifier() {
-		
 		return identifier;
 	}
 
 	public Str getLabel() {
-		
 		return label;
 	}
 
 	public ASTNode getExpression() {
-		
 		return expression;
 	}
 

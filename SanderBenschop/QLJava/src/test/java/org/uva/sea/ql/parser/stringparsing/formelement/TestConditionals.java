@@ -21,6 +21,15 @@ public class TestConditionals extends TestParser {
     }
 
     @Test
+    public void shouldHaveEmptyBlocks() throws ParseError {
+        Conditional ifStatement = (Conditional) parseStatement("if(1==2){}"), ifElseStatement = (Conditional) parseStatement("if(1==2){} else {}");
+        assertEquals(0, ifStatement.getSuccessBlock().size());
+        assertEquals(0, ifStatement.getFailureBlock().size());
+        assertEquals(0, ifElseStatement.getSuccessBlock().size());
+        assertEquals(0, ifElseStatement.getFailureBlock().size());
+    }
+
+    @Test
     public void shouldNotHaveDanglingElseProblemBecauseOfMandatoryBrackets() throws ParseError {
         String parseText = "if(true) {" +       //Outer conditional & successBlock start
                                 "if(false) {" + //Inner conditional & successBlock start

@@ -4,3 +4,7 @@ sea.ql.iml
 target
 .idea
 .settings
+/.classpath~
+/.gitignore~
+/.project~
+/sea.ql.iml

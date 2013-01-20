@@ -5,14 +5,15 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.uva.sea.ql.ast.ASTNode;
-import org.uva.sea.ql.ast.QLExpression;
 import org.uva.sea.ql.ast.nodetypes.binary.BinaryOperation;
 import org.uva.sea.ql.ast.nodetypes.formelement.Computation;
 import org.uva.sea.ql.ast.nodetypes.formelement.Conditional;
+import org.uva.sea.ql.ast.nodetypes.formelement.Form;
 import org.uva.sea.ql.ast.nodetypes.formelement.Question;
 import org.uva.sea.ql.ast.nodetypes.primary.Bool;
-import org.uva.sea.ql.ast.nodetypes.primary.Ident;
 import org.uva.sea.ql.ast.nodetypes.primary.Datatype;
+import org.uva.sea.ql.ast.nodetypes.primary.Ident;
+import org.uva.sea.ql.ast.nodetypes.primary.Int;
 import org.uva.sea.ql.ast.nodetypes.unary.UnaryOperation;
 import org.uva.sea.ql.parser.visitor.ASTNodeVisitor;
 import org.uva.sea.ql.parser.visitor.QLError;
@@ -23,19 +24,28 @@ import org.uva.sea.ql.parser.visitor.QLValidator;
  */
 public class TypeCheckingVisitor implements ASTNodeVisitor, QLValidator {
 
-    private InstanceVariableTable instanceVariableTable;
     private ReductionTable reductionTable;
-    private List<QLError> typeCheckingErrors;
+    private List<QLError> semanticValidationErrors;
 
     public TypeCheckingVisitor() {
-    	this.instanceVariableTable = new InstanceVariableTable();
         this.reductionTable = new ReductionTable();
-        this.typeCheckingErrors = new ArrayList<QLError>();
+        this.semanticValidationErrors = new ArrayList<QLError>();
     }
 
     @Override
     public void visitComputation(Computation computation) {
-    	
+        Class<?> expressionReduction = reductionTable.getReduceableType(computation.getExpression());
+
+        Ident identifier = computation.getIdentifier();
+        if (expressionReduction != null && !reductionTable.containsReductionFor(identifier)) {
+            reductionTable.setReducableToType(identifier, expressionReduction);
+        }
+
+        Class<?> supportedExpressionType = Int.class;
+        ASTNode expression = computation.getExpression();
+        if (reductionTable.getReduceableType(expression) != supportedExpressionType) {
+            addErrorForUnsupportedType(expression, supportedExpressionType);
+        }
     }
 
     @Override
@@ -48,9 +58,11 @@ public class TypeCheckingVisitor implements ASTNodeVisitor, QLValidator {
 
     @Override
     public void visitQuestion(Question question) {
-
+        Ident identifier = question.getIdentifier();
+        if (!reductionTable.containsReductionFor(identifier)) {
+            reductionTable.setReducableToType(identifier, question.getDatatype());
+        }
     }
-
 
     @Override
     public void visitUnaryOperation(UnaryOperation unaryOperation) {
@@ -68,11 +80,13 @@ public class TypeCheckingVisitor implements ASTNodeVisitor, QLValidator {
         List<Class<?>> supportedTypes = binaryOperation.getSupportedTypes();
         ASTNode leftHandSide = binaryOperation.getLeftHandSide(), rightHandSide = binaryOperation.getRightHandSide();
 
-        Class<?> leftHandSideReduction = reductionTable.getReduceableType(leftHandSide), rightHandSideReduction = reductionTable.getReduceableType(rightHandSide);
-        boolean leftHandSideReduceable = supportedTypes.contains(leftHandSideReduction), rightHandSideReduceable = supportedTypes.contains(rightHandSideReduction);
+        Class<?> leftHandSideReduction = reductionTable.getReduceableType(leftHandSide), rightHandSideReduction = reductionTable
+                .getReduceableType(rightHandSide);
+        boolean leftHandSideReduceable = supportedTypes.contains(leftHandSideReduction), rightHandSideReduceable = supportedTypes
+                .contains(rightHandSideReduction);
 
         if (leftHandSideReduction == rightHandSideReduction) {
-            if(leftHandSideReduceable) {
+            if (leftHandSideReduceable) {
                 //Reduce this expression to the neededClass in the map.
                 reductionTable.setReducableToType(binaryOperation, leftHandSideReduction);
                 return;
@@ -92,31 +106,42 @@ public class TypeCheckingVisitor implements ASTNodeVisitor, QLValidator {
 
     @Override
     public void visitIdent(Ident ident) {
-
+        if (reductionTable.containsReductionFor(ident)) {
+            addErrorForIdentifierRedeclaration(ident);
+        }
     }
 
     @Override
-    public void visitPrimary(Datatype datatype) {
+    public void visitDatatype(Datatype<?> datatype) {
         reductionTable.setReducableToType(datatype, datatype.getClass());
     }
 
     @Override
     public List<QLError> getErrors() {
-        return typeCheckingErrors;
+        return semanticValidationErrors;
+    }
+
+    protected void setReductionTable(ReductionTable reductionTable) {
+        this.reductionTable = reductionTable;
     }
 
     private void addErrorForUnsupportedType(ASTNode astNode, Class<?> allowedType) {
-        List<Class<?>> allowedTypeList = Arrays.asList(new Class<?>[]{allowedType});
+        List<Class<?>> allowedTypeList = Arrays.asList(new Class<?>[] { allowedType });
         addErrorForUnsupportedType(astNode, allowedTypeList);
     }
 
     private void addErrorForUnsupportedType(ASTNode astNode, List<Class<?>> allowedTypes) {
         QLError unsupportedTypeError = new UnsupportedTypeError(0, astNode.getClass().getSimpleName(), allowedTypes);
-        typeCheckingErrors.add(unsupportedTypeError);
+        semanticValidationErrors.add(unsupportedTypeError);
     }
 
     private void addErrorForUnequalTypes(BinaryOperation binaryOperation) {
         QLError unequalTypesError = new UnequalTypesError(0, binaryOperation);
-        typeCheckingErrors.add(unequalTypesError);
+        semanticValidationErrors.add(unequalTypesError);
+    }
+
+    private void addErrorForIdentifierRedeclaration(Ident ident) {
+        QLError identifierRedeclarationError = new IdentifierRedeclarationError(0, ident.getName());
+        semanticValidationErrors.add(identifierRedeclarationError);
     }
 }

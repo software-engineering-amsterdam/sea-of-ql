@@ -6,8 +6,6 @@ import org.uva.sea.ql.ast.QLStatement;
 import org.uva.sea.ql.ast.nodetypes.formelement.Conditional;
 import org.uva.sea.ql.ast.nodetypes.primary.Bool;
 import org.uva.sea.ql.ast.nodetypes.primary.Int;
-import org.uva.sea.ql.ast.nodetypes.unary.Not;
-import org.uva.sea.ql.ast.nodetypes.unary.UnaryOperation;
 
 import java.util.Collections;
 import java.util.List;
@@ -29,7 +27,7 @@ public class ConditionalTypeCheckingVisitorTest {
         Bool expression = new Bool(true);
         List<QLStatement> emptyStatementList = Collections.emptyList();
         Conditional conditional = new Conditional(expression, emptyStatementList);
-        typeCheckingVisitor.visitPrimary(expression);
+        typeCheckingVisitor.visitDatatype(expression);
         typeCheckingVisitor.visitConditional(conditional);
 
         assertEquals(0, typeCheckingVisitor.getErrors().size());
@@ -40,7 +38,7 @@ public class ConditionalTypeCheckingVisitorTest {
         Int expression = new Int(0);
         List<QLStatement> emptyStatementList = Collections.emptyList();
         Conditional conditional = new Conditional(expression, emptyStatementList);
-        typeCheckingVisitor.visitPrimary(expression);
+        typeCheckingVisitor.visitDatatype(expression);
         typeCheckingVisitor.visitConditional(conditional);
 
         assertEquals(1, typeCheckingVisitor.getErrors().size());
