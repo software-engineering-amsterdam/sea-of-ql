@@ -1,2 +1,4 @@
 @echo off
-java -jar %JACC_PATH%\jacc.jar %*
+java -jar jacc.jar -pt ./../../src/sea/ql/parser/jacc/ql.jacc -r ./../../src/sea/ql/parser/jacc/test.md
+pause
+jacc.bat
