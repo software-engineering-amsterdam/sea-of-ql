@@ -1,7 +1,6 @@
 bin/
-*.class
-
 .metadata/
+*.class
 
 # Package Files #
 *.war

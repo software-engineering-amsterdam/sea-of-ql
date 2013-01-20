@@ -1,6 +1,8 @@
 package org.uva.sea.ql.ast.expr;
 
-public abstract class BinaryExpr extends Expr {
+import org.uva.sea.ql.visitor.Visitor;
+
+public class BinaryExpr extends Expr {
 
 	private final Expr lhs;
 	private final Expr rhs;
@@ -16,6 +18,12 @@ public abstract class BinaryExpr extends Expr {
 
 	public Expr getRhs() {
 		return rhs;
+	}
+
+	@Override
+	public void accept(Visitor visitor) {
+		// TODO Auto-generated method stub
+		
 	}
 	
 }

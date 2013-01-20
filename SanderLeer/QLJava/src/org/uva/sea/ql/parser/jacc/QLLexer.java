@@ -5,9 +5,7 @@ import java.io.Reader;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.uva.sea.ql.ast.ASTNode;
-import org.uva.sea.ql.ast.Ident;
-import org.uva.sea.ql.ast.Int;
+import org.uva.sea.ql.ast.*;
 
 public class QLLexer implements QLTokens {
 	private static final Map<String, Integer> KEYWORDS;
@@ -17,13 +15,13 @@ public class QLLexer implements QLTokens {
 		KEYWORDS.put("form", FORM);
 		KEYWORDS.put("true", TRUE);
 		KEYWORDS.put("false", FALSE);
-		KEYWORDS.put("boolean", BOOLEAN);
-		KEYWORDS.put("string", STRING);
-		KEYWORDS.put("integer", INTEGER);
+		KEYWORDS.put("integer", INTEGER_TYPE);
+		KEYWORDS.put("string", STRING_TYPE);
+		KEYWORDS.put("boolean", BOOLEAN_TYPE);
 		KEYWORDS.put("if", IF);
 	}
 	
-	
+	private boolean tokenRead = false;
 	private int token;
 	private int c = ' ';
 	
@@ -34,7 +32,6 @@ public class QLLexer implements QLTokens {
 		this.input = input;
 		nextChar();
 	}
-	
 	
 	private void nextChar() {
 		if (c >= 0) {
@@ -49,6 +46,7 @@ public class QLLexer implements QLTokens {
 	}
 	
 	public int nextToken() {
+		tokenRead = true;
 		boolean inComment = false;
 		for (;;) {
 			if (inComment) {
@@ -82,10 +80,15 @@ public class QLLexer implements QLTokens {
 			    		nextChar();
 			    		continue;
 			    	}
+			    	if (c == '/') {
+			    		do {
+			    			nextChar();
+			    		} while(c != '\n' && c != '\r' && c != -1);
+				    	nextChar();
+			    		continue;
+			    	}
 			    	return token = '/'; 
 			    }
-			    case ')': nextChar(); return token = ')';
-			    case '(': nextChar(); return token = '(';
 			    case '*': {
 			    	nextChar();
 			    	if (inComment && c == '/') {
@@ -94,6 +97,28 @@ public class QLLexer implements QLTokens {
 			    		continue;
 			    	}
 			    	return token = '*';
+			    }
+			    case '(': nextChar(); return token = '(';
+			    case ')': nextChar(); return token = ')';
+			    case '{': nextChar(); return token = '{';
+			    case '}': nextChar(); return token = '}';
+			    case ':': nextChar(); return token = ':';
+			    case ';': nextChar(); return token = ';';
+			    case '"': {
+			    	nextChar();
+					StringBuilder sb = new StringBuilder();
+					while (c != '"' && c != -1) {
+						sb.append((char)c);
+						nextChar();
+					}
+					if (c == '"') {
+			    		nextChar();
+						String s = sb.toString();
+			    		yylval = new StringValue(s);
+			    		return token = STRING;
+					} else {
+						throw new RuntimeException("Unterminated string");
+					}
 			    }
 			    case '+': nextChar(); return token = '+';
 			    case '-': nextChar(); return token = '-';
@@ -152,8 +177,8 @@ public class QLLexer implements QLTokens {
 			    			n = 10 * n + (c - '0');
 			    			nextChar(); 
 			    		} while (Character.isDigit(c)); 
-			    		yylval = new Int(n);
-			    		return token = INT;
+			    		yylval = new IntegerValue(n);
+			    		return token = INTEGER;
 			    	}
 			    	if (Character.isLetter(c)) {
 			    		StringBuilder sb = new StringBuilder();
@@ -166,8 +191,8 @@ public class QLLexer implements QLTokens {
 			    		if (KEYWORDS.containsKey(name)) {
 			    			return token = KEYWORDS.get(name);
 			    		}
-						yylval = new Ident(name);
-			    		return token = IDENT;
+						yylval = new Identifier(name);
+			    		return token = IDENTIFIER;
 			    	}
 			    	throw new RuntimeException("Unexpected character: " + (char)c);
 			    }
@@ -177,6 +202,8 @@ public class QLLexer implements QLTokens {
 
 	
 	public int getToken() {
+		if (!tokenRead)
+			nextToken();
 		return token;
 	}
 

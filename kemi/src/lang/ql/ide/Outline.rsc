@@ -10,29 +10,23 @@ import lang::ql::util::Implode;
 import lang::ql::util::Parse;
 import util::IDE;
 
-public node outlineForm(Form form) {
-  return 
-    "outline"(outline(form))
-    [@label="Form"]
-    [@\loc=form@location];
-}
+public node outlineForm(Form form) =
+  "outline"(outline(form))
+  [@label="Form"]
+  [@\loc=form@location];
 
 private node createNode(str name, str label, loc location, list[node] children)
   = setAnnotations(makeNode(name, children), ("label": label, "loc": location));
 
-private node outlineBranch(str name, str label, loc location, list[Statement] items) {
-  return
-    "<name>"([outline(i) | i <- items])
-    [@label="<label>"]
-    [@\loc=location];
-}
+private node outlineBranch(str name, str label, loc location, list[Statement] items) =
+  "<name>"([outline(i) | i <- items])
+  [@label="<label>"]
+  [@\loc=location];
 
-private node outline(Form form) {
-  return  
-    "form"([outline(e) | e <- form.formElements])
-    [@label="Form <form.formName> (<size(form.formElements)>)"]
-    [@\loc=form@location];
-}
+private node outline(Form form) = 
+  "form"([outline(e) | e <- form.formElements])
+  [@label="Form <form.formName> (<size(form.formElements)>)"]
+  [@\loc=form@location];
 
 private node outline(Statement item:
   ifCondition(Conditional ifPart, list[Conditional] elseIfs, list[ElsePart] elsePart)) {

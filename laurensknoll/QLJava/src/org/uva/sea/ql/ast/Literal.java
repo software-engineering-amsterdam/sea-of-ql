@@ -1,6 +1,8 @@
 package org.uva.sea.ql.ast;
 
-public class Literal extends Expr {
+import org.uva.sea.ql.ast.expr.AbstractExpr;
+
+public class Literal extends AbstractExpr {
 
 	private final String name;
 

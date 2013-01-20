@@ -28,5 +28,4 @@ public class Ident extends Expr {
 	public String getName() {
 		return name;
 	}
-
 }

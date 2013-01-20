@@ -1,6 +1,8 @@
 package org.uva.sea.ql.ast;
 
-public class Int extends Expr {
+import org.uva.sea.ql.ast.expr.AbstractExpr;
+
+public class Int extends AbstractExpr {
 
 	private final int value;
 

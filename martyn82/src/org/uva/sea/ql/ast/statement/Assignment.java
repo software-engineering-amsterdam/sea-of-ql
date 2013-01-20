@@ -2,6 +2,8 @@ package org.uva.sea.ql.ast.statement;
 
 import org.uva.sea.ql.ast.expression.Expression;
 import org.uva.sea.ql.ast.expression.Ident;
+import org.uva.sea.ql.evaluate.Context;
+import org.uva.sea.ql.evaluate.Value;
 import org.uva.sea.ql.visitor.INodeVisitor;
 
 /**
@@ -11,45 +13,45 @@ public class Assignment extends Statement {
 	/**
 	 * Holds the left-hand side.
 	 */
-	private final Ident lhs;
-	
+	private final Ident ident;
+
 	/**
 	 * Holds the right-hand side.
 	 */
-	private final Expression rhs;
-	
+	private final Expression expression;
+
 	/**
 	 * Constructs a new Assignment instance.
-	 * 
-	 * @param lhs The left-hand side to assign a value to.
-	 * @param rhs The right-hand side that evaluates to the value.
+	 *
+	 * @param ident The left-hand side to assign a value to.
+	 * @param expression The right-hand side that evaluates to the value.
 	 */
-	public Assignment( Ident lhs, Expression rhs ) {
-		this.lhs = lhs;
-		this.rhs = rhs;
+	public Assignment( Ident ident, Expression expression ) {
+		this.ident = ident;
+		this.expression = expression;
 	}
-	
+
 	/**
-	 * Retrieves the left-hand side.
-	 * 
+	 * Retrieves the identifier.
+	 *
 	 * @return The left-hand side.
 	 */
-	public Ident getLhs() {
-		return this.lhs;
+	public Ident getIdent() {
+		return this.ident;
 	}
-	
+
 	/**
-	 * Retrieves the right-hand side.
-	 * 
+	 * Retrieves the right-hand side expression.
+	 *
 	 * @return The right-hand side.
 	 */
-	public Expression getRhs() {
-		return this.rhs;
+	public Expression getExpression() {
+		return this.expression;
 	}
-	
+
 	@Override
-	public void accept( INodeVisitor visitor ) {
-		visitor.visit( this );
+	public Value accept( INodeVisitor visitor, Context context ) {
+		return visitor.visit( this, context );
 	}
 
 }

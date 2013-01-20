@@ -38,8 +38,8 @@ data Question//needs more tests
 data Expr
   = ident(str name)
   | \int(int ivalue) 
-  | \string (str strValue) //works needs more tests
-  | boolean (str bValue) 
+  | string(str strValue) //works needs more tests
+  | boolean(str bValue) 
   | date(str dValue) // works..needs to set the days and month numbers correclty
   | money (real monValue)//works but problem with 1,22 two decimal digits
   | float (real fValue) 
@@ -72,3 +72,6 @@ data Type
 	| date()
 	| float()
 	;
+	
+anno loc Expr@location;
+anno loc Question@location;

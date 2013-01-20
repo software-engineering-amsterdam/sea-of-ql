@@ -1,22 +1,21 @@
 package org.uva.sea.ql.ast.expression.value;
 
-import org.uva.sea.ql.ast.type.Type;
+import org.uva.sea.ql.evaluate.Context;
+import org.uva.sea.ql.evaluate.Value;
 import org.uva.sea.ql.visitor.INodeVisitor;
 
 /**
  * Represents an integer expression.
  */
 public class Int extends Number {
-	private static final Type TYPE = new org.uva.sea.ql.ast.type.Int();
-	
 	/**
 	 * Holds the integer value of the expression.
 	 */
 	private final int value;
-	
+
 	/**
 	 * Constructs a new integer expression.
-	 * 
+	 *
 	 * @param value The value of the expression.
 	 */
 	public Int( int value ) {
@@ -25,21 +24,11 @@ public class Int extends Number {
 
 	/**
 	 * Retrieves the value of the expression.
-	 * 
+	 *
 	 * @return The value.
 	 */
 	public int getValue() {
 		return this.value;
-	}
-
-	@Override
-	public void accept( INodeVisitor visitor ) {
-		visitor.visit( this );
-	}
-
-	@Override
-	public boolean checkType() {
-		return true;
 	}
 
 	@Override
@@ -48,7 +37,7 @@ public class Int extends Number {
 	}
 
 	@Override
-	public Type getType() {
-		return TYPE;
+	public Value accept( INodeVisitor visitor, Context context ) {
+		return visitor.visit( this, context );
 	}
 }

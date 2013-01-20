@@ -1,7 +1,7 @@
 package org.uva.sea.ql.ast;
 
-public class Not extends ExprUnary {
-	public Not(Expr expr) {
+public class Not extends UnaryExpression {
+	public Not(ASTNode expr) {
 		super(expr);
 	}
 

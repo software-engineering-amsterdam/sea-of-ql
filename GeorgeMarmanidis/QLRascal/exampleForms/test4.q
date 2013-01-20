@@ -1,21 +1,26 @@
-form test4 {
+form test4  {
 	name: "Name:" string
 	surname: "Surname:" string
+	surname: "Surname:" string
 	age: "Age:" integer
-	isEmpl: "Do you work?" boolean
+	age2: "Age2:" integer
 	
-	if (age>=18)
+	isEmpl: "Do you work?" boolean
+	completeage: "Complete name:" integer (age +age2)
+	
+	if (isEmpl)
 	{
-		if(isEmpl==true){
+		if(false){
 		salary: "Annual income:" money
 		}
 		else{
 		salary: "what salary you except?:" money
 		}
 	}
-	else if(age>15 && age<18)
+	else if(!isEmpl)
 	{
-		interests: "What are you seeking in a job?" string  (a-b)
+	isEmpl: "Do you work?" boolean (true)
+		interests: "What are you seeking in a job?" string  ("dawdawdawd")
 	}
 	else
 	{

@@ -1,6 +1,6 @@
 package org.uva.sea.ql.ast;
 
-public class Ident extends Expr {
+public class Ident implements ASTNode {
 
 	private final String name;
 

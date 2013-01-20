@@ -1,47 +1,27 @@
 package org.uva.sea.ql.visitor.test;
 
 import org.junit.Test;
-import org.uva.sea.ql.parser.jacc.JACCParser;
-import org.uva.sea.ql.parser.IParser;
 import org.uva.sea.ql.parser.ParseError;
-import org.uva.sea.ql.visitor.*;
+import org.uva.sea.ql.visitor.print.PrintVisitor;
 
 /**
  * Testing visitor.
  */
-public class TestPrintVisitor {
+public class TestPrintVisitor extends VisitorTest {
 	/**
-	 * Holds the parser to use.
-	 */
-	private final IParser parser;
-	
-	/**
-	 * Constructs a new TestVisitor instance.
+	 * Constructs a new pretty printer test.
 	 */
 	public TestPrintVisitor() {
-		this.parser = new JACCParser();
+		super( new PrintVisitor( System.out ) );
 	}
 
 	/**
 	 * Tests the print visitor.
-	 * 
+	 *
 	 * @throws ParseError
 	 */
 	@Test
-	public void testPrint() throws ParseError {
-		INodeVisitor visitor = new PrintVisitor( System.out );
-
-		String program = "" +
-		"if ( a && !b ) {\n" +
-			"c: boolean;\n" +
-		"}\n" +
-		"else {\n" +
-			"c = (a && b);\n" +
-			"if ( c ) {\n" +
-				"c = !c;\n" +
-			"}" +
-		"}";
-		
-		this.parser.parse( program ).accept( visitor );
+	public void test() throws ParseError {
+		this.parser.parse( program ).accept( visitor, null );
 	}
 }

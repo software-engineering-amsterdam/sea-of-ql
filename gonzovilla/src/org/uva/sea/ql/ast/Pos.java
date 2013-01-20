@@ -1,9 +1,9 @@
 package org.uva.sea.ql.ast;
 
-public class Pos extends Expr {
+public class Pos extends Unary {
 
 	public Pos(Expr x) {
-		// TODO Auto-generated constructor stub
+		super(x);
 	}
 
 }

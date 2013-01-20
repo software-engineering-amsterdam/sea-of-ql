@@ -1,6 +1,8 @@
 package org.uva.sea.ql.ast;
 
-public class Ident extends Expr {
+import org.uva.sea.ql.ast.expr.AbstractExpr;
+
+public class Ident extends AbstractExpr {
 
 	private final String name;
 

@@ -3,8 +3,9 @@ package nl.stgm.ql.parser.test;
 import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 
-import nl.stgm.ql.ast.*;
 import nl.stgm.ql.parser.rats.RatsParser;
+
+import nl.stgm.ql.ast.form.*;
 
 public class TestForms
 {
@@ -19,31 +20,31 @@ public class TestForms
 	{
 		assertEquals(
 			Form.class,
-			parser.parse("form Box1HouseOwning { }").getClass()
+			parser.parseForm("form Box1HouseOwning { }").getClass()
 		);
 		assertEquals(
 			Form.class,
-			parser.parse("form Box1HouseOwning{}").getClass()
+			parser.parseForm("form Box1HouseOwning{}").getClass()
 		);
 		assertEquals(
 			Form.class,
-			parser.parse("form Box1HouseOwning{  } ").getClass()
+			parser.parseForm("form Box1HouseOwning{  } ").getClass()
 		);
 	}
 
 	@Test(expected=ParseError.class) public void testBadEmptyForms() throws ParseError
 	{
 		// extra spacing before form is only allowed in full Document
-		parser.parse(" form Box1HouseOwning{}");
-		parser.parse("form Box1HouseOwning");
-		parser.parse("form {}");
+		parser.parseForm(" form Box1HouseOwning{}");
+		parser.parseForm("form Box1HouseOwning");
+		parser.parseForm("form {}");
 	}
 
 	@Test public void testFormWithOneQuestion() throws ParseError
 	{
 		assertEquals(
 			Form.class,
-			parser.parse(
+			parser.parseForm(
 				"form Box1HouseOwning { hasSoldHouse: \"Did?\" boolean }"
 			).getClass()
 		);
@@ -52,11 +53,11 @@ public class TestForms
 	@Test(expected=ParseError.class) public void testBadFormsWithOneQuestion() throws ParseError
 	{
 		// hmm this testing may not work as expected, if first ParseError already validates test
-		parser.parse("form Box1HouseOwning { hasSoldHouse: '\"Did?\" boolean }");
-		parser.parse("form Box1HouseOwning { hasSoldHouse : \"Did?\" boolean }");
-		parser.parse("form Box1HouseOwning { hasSoldHouse '\"Did?\" boolean }");
-		parser.parse("form Box1HouseOwning { hasSoldHouse '\"Did?\" }");
-		parser.parse("form Box1HouseOwning { hasSoldHouse boolean }");
-		parser.parse("form Box1HouseOwning { hasSoldHouse: }");
+		parser.parseForm("form Box1HouseOwning { hasSoldHouse: '\"Did?\" boolean }");
+		parser.parseForm("form Box1HouseOwning { hasSoldHouse : \"Did?\" boolean }");
+		parser.parseForm("form Box1HouseOwning { hasSoldHouse '\"Did?\" boolean }");
+		parser.parseForm("form Box1HouseOwning { hasSoldHouse '\"Did?\" }");
+		parser.parseForm("form Box1HouseOwning { hasSoldHouse boolean }");
+		parser.parseForm("form Box1HouseOwning { hasSoldHouse: }");
 	}
 }

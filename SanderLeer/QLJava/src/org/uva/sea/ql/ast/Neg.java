@@ -1,7 +1,7 @@
 package org.uva.sea.ql.ast;
 
-public class Neg extends ExprUnary {
-	public Neg(Expr expr) {
+public class Neg extends UnaryExpression {
+	public Neg(ASTNode expr) {
 		super(expr);
 	}
 

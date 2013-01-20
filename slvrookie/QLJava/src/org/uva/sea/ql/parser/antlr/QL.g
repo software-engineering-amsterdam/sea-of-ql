@@ -48,7 +48,7 @@ mulExpr returns [Expr result]
       if ($op.text.equals("*")) {
         $result = new Mul($result, rhs);
       }
-      if ($op.text.equals("<=")) {
+      if ($op.text.equals("/")) {
         $result = new Div($result, rhs);      
       }
     })*
@@ -99,44 +99,39 @@ orExpr returns [Expr result]
     :   lhs=andExpr { $result = $lhs.result; } ( '||' rhs=andExpr { $result = new Or($result, rhs); } )*
     ;
 
-question returns [Question result]
-    :   Ident ':' StringLiteral type '(' orExpr ')' { $result = new Question(new Ident($Ident.text) ,new StringLiteral($StringLiteral.text), $type.result, $orExpr.result); }
-    |   Ident ':' StringLiteral type { $result = new Question(new Ident($Ident.text) ,new StringLiteral($StringLiteral.text), $type.result); }
-    ;
-
-ifbody returns [IfBody result]
-    :   'if' '(' x = orExpr ')' '{' body=formblock '}' { $result = new IfBody($x.result, $body.result); }
-    ;
 
 formElement returns [FormElement result]
-    : ifbody     { $result = $ifbody.result; }
-    | question   { $result = $question.result; }
+    : 'if' '(' x = orExpr ')' '{' body=formblock '}' { $result = new IfBody($x.result, $body.result); }
+    | Ident ':' StringLiteral type '(' orExpr ')' { $result = new CompQuestion(new Ident($Ident.text) ,new StringLiteral($StringLiteral.text), $type.result, $orExpr.result); }
+    | Ident ':' StringLiteral type { $result = new Question(new Ident($Ident.text) ,new StringLiteral($StringLiteral.text), $type.result); }
     ;
     
-formblock returns [List<FormElement> result]
-    :  {$result = new ArrayList<FormElement>(); } (ele=formElement { $result.add($ele.result); })*  
+formblock returns [FormBlock result]
+  @init { List<FormElement> formelements = new ArrayList<FormElement>() ; }
+    :  (forme=formElement  { formelements.add(forme) ; } )*  { $result = new FormBlock(formelements) ; }
     ;
-
+    
 form returns [Form result]
-    : 'form' Ident '{' formblock '}' { $result = new Form(new Ident($Ident.text), $formblock.result); }
+    : 'form' Ident '{' formblock '}'  { $result = new Form(new Ident($Ident.text), $formblock.result); }
     ;
     
 // Tokens
 
-IntLiteral : ('0'..'9')+;
-
 Ws  :	(' ' | '\t' | '\n' | '\r') { $channel=HIDDEN; };
-
-BoolLiteral: 'true'|'false';
-
-Type: 'string' | 'int' | 'money' | 'boolean';
 
 Comment : '/*' .* '*/' {$channel=HIDDEN;};
 
 LineComment : '//' ~('\n'|'\r')* '\r'? '\n' {$channel=HIDDEN;};
-    
-StringLiteral : '"' ~('\n' | '\r' | '\f' | '"')* '"' ;
+
+Type: 'string' | 'int' | 'money' | 'boolean';
+
+BoolLiteral: 'true'|'false';
 
 Ident :   ('a'..'z'|'A'..'Z')('a'..'z'|'A'..'Z'|'0'..'9'|'_')*;
 
+StringLiteral : '"' ~('\n' | '\r' | '\f' | '"')* '"' ;
+
 MoneyLiteral : ('0'..'9')+ '\.' ('0'..'9')('0'..'9');
+
+IntLiteral : ('0'..'9')+;
+    
