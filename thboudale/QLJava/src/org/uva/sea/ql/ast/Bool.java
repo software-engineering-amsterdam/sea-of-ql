@@ -1,13 +1,10 @@
 package org.uva.sea.ql.ast;
 
+
 public class Bool extends Expr {
-	private final String value;
 
-	public Bool(String n) {
-		this.value = n;
+	public Bool(String string) {
+		// TODO Auto-generated constructor stub
 	}
 
-	public String getValue() {
-		return value;
-	}
 }

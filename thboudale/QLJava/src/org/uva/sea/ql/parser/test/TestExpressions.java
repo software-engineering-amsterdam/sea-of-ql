@@ -11,6 +11,7 @@ import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
 import org.uva.sea.ql.ast.Add;
 import org.uva.sea.ql.ast.And;
+import org.uva.sea.ql.ast.Bool;
 import org.uva.sea.ql.ast.GT;
 import org.uva.sea.ql.ast.Ident;
 import org.uva.sea.ql.ast.Int;
@@ -21,7 +22,6 @@ import org.uva.sea.ql.ast.Not;
 import org.uva.sea.ql.ast.Or;
 import org.uva.sea.ql.parser.antlr.ANTLRParser;
 import org.uva.sea.ql.parser.jacc.JACCParser;
-import org.uva.sea.ql.parser.rats.RatsParser;
 
 @RunWith(Parameterized.class)
 public class TestExpressions {
@@ -32,7 +32,6 @@ public class TestExpressions {
 	public static List<Object[]> theParsers() {
 	  return Arrays.asList(
 			  new Object[] {new JACCParser()}, 
-			  new Object[] {new RatsParser()},
 			  new Object[] {new ANTLRParser()}
 			 );
 	}
@@ -104,4 +103,10 @@ public class TestExpressions {
 		assertEquals(parser.parse("1223").getClass(), Int.class);
 		assertEquals(parser.parse("234234234").getClass(), Int.class);
 	}
+	
+	@Test
+	 public void testBooleans() throws ParseError {
+	  assertEquals(parser.parse("true").getClass(), Bool.class);
+	  assertEquals(parser.parse("false").getClass(), Bool.class);
+	 }
 }

@@ -11,8 +11,12 @@ import org.uva.sea.ql.ast.*;
 {
 package org.uva.sea.ql.parser.antlr;
 }
-
 /*
+form
+	: 'form' IDENT
+	  (question | computedQuestion | ifStatement)*
+	;
+
 ifStatement
 	: 'if' '(' orExpr ')'
 	 '{' (question | computedQuestion)* '}'
@@ -22,21 +26,23 @@ ifStatement
 computedQuestion
 	: question '(' orExpr ')'
 	;
-*/
 
 question
 	: IDENT ':' STRING_LITERAL x=type
 	;
-	
+
+
 type
 	:
-	| 'boolean'
+	| 'boolean' 
 	| 'money'
-	; 
+	; */
+
 
 primary returns [Expr result]
   	: INT   { $result = new Int(Integer.parseInt($INT.text)); }
   	| IDENT { $result = new Ident($IDENT.text); }
+  	| BOOLEAN { $result = new Bool($BOOLEAN.text); }
   	| '(' x=orExpr ')'{ $result = $x.result; }
   	;
     
