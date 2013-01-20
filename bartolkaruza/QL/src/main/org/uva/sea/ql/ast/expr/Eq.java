@@ -4,7 +4,7 @@ import org.uva.sea.ql.ast.expr.grouping.Expr;
 import org.uva.sea.ql.visitor.NodeVisitor;
 
 public class Eq extends Expr {
-	
+
 	public Eq(Expr lhs, Expr rhs) {
 		super(lhs, rhs);
 	}
@@ -13,5 +13,5 @@ public class Eq extends Expr {
 	public void accept(NodeVisitor visitor) {
 		visitor.visit(this);
 	}
-	
+
 }

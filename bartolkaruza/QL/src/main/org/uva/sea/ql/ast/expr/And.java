@@ -9,11 +9,10 @@ public class And extends BooleanExpr {
 	public And(Expr lhs, Expr rhs) {
 		super(lhs, rhs);
 	}
-	
+
 	@Override
 	public void accept(NodeVisitor visitor) {
 		visitor.visit(this);
 	}
-
 
 }

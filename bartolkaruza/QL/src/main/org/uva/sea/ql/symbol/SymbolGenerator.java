@@ -1,12 +1,8 @@
-package org.uva.sea.ql.visitor;
-
-import java.util.Iterator;
-import java.util.Map.Entry;
+package org.uva.sea.ql.symbol;
 
 import org.uva.sea.ql.ast.ConditionalStatement;
 import org.uva.sea.ql.ast.Form;
 import org.uva.sea.ql.ast.Question;
-import org.uva.sea.ql.ast.Statement;
 import org.uva.sea.ql.ast.expr.Add;
 import org.uva.sea.ql.ast.expr.And;
 import org.uva.sea.ql.ast.expr.Div;
@@ -27,29 +23,14 @@ import org.uva.sea.ql.ast.expr.value.Bool;
 import org.uva.sea.ql.ast.expr.value.Int;
 import org.uva.sea.ql.ast.expr.value.Money;
 import org.uva.sea.ql.ast.expr.value.TextString;
-import org.uva.sea.ql.utility.Symbol;
-import org.uva.sea.ql.utility.SymbolTable;
+import org.uva.sea.ql.error.ErrorHandler;
+import org.uva.sea.ql.error.QLError;
+import org.uva.sea.ql.visitor.AbstractTreeWalker;
 
-public class DereferenceChecker extends AbstractTreeWalker {
-	
-	private Statement currentStatement;
-	
-	public DereferenceChecker() {
-		
-	}
-	
+public class SymbolGenerator extends AbstractTreeWalker {
+
 	@Override
 	public void visit(Ident node) {
-		SymbolTable.getInstance().getSymbol(node.getName()).addEvaluationPoint(currentStatement);
-	}
-
-	@Override
-	public void visit(Question node) {
-		currentStatement = node;
-	}
-
-	@Override
-	public void visit(Bool node) {
 
 	}
 
@@ -59,13 +40,12 @@ public class DereferenceChecker extends AbstractTreeWalker {
 	}
 
 	@Override
-	public void visit(Money node) {
-
-	}
-
-	@Override
-	public void visit(TextString node) {
-
+	public void visit(Question node) {
+		if (SymbolTable.getInstance().hasSymbol(node.getName())) {
+			ErrorHandler.getInstance().addError(new QLError("Duplicate entry with name: " + node.getName() + " at line: " + node.getLineNumber()));
+		} else {
+			SymbolTable.getInstance().putSymbol(node.getName(), new Symbol(node, node.getExpression()));
+		}
 	}
 
 	@Override
@@ -75,21 +55,17 @@ public class DereferenceChecker extends AbstractTreeWalker {
 
 	@Override
 	protected void afterForm(Form node) {
-		Iterator<Entry<String, Symbol>> iterator = SymbolTable.getInstance().getSymbols().entrySet().iterator();
-		while(iterator.hasNext()) {
-			
-		}
-		
+
 	}
-	
+
 	@Override
 	protected void beforeConditionalStatement(ConditionalStatement node) {
-		currentStatement = node;
+
 	}
 
 	@Override
 	protected void afterConditionalStatement(ConditionalStatement node) {
-		
+
 	}
 
 	@Override
@@ -239,6 +215,21 @@ public class DereferenceChecker extends AbstractTreeWalker {
 
 	@Override
 	protected void afterSub(Sub node) {
+
+	}
+
+	@Override
+	public void visit(Bool node) {
+
+	}
+
+	@Override
+	public void visit(Money node) {
+
+	}
+
+	@Override
+	public void visit(TextString node) {
 
 	}
 

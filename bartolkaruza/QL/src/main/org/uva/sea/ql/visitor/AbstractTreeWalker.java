@@ -21,10 +21,10 @@ import org.uva.sea.ql.ast.expr.Sub;
 import org.uva.sea.ql.ast.expr.grouping.Expr;
 
 /**
- * Abstract tree walker that gives implementing visitors a default left recursive
- * traversal for all nodes. Special visitor logic can be implemented before or
- * after child node traversal by implementing the corresponding abstract methods
- * For leaf nodes the default visit methods can be used
+ * Abstract tree walker that gives implementing visitors a default left
+ * recursive traversal for all nodes. Special visitor logic can be implemented
+ * before or after child node traversal by implementing the corresponding
+ * abstract methods For leaf nodes the default visit methods can be used
  * 
  * @author bartol
  * 
@@ -51,7 +51,7 @@ public abstract class AbstractTreeWalker implements NodeVisitor {
 		beforeConditionalStatement(node);
 		node.getExpression().accept(this);
 		for (Statement statement : node.getStatements()) {
-			if(statement != null) {
+			if (statement != null) {
 				statement.accept(this);
 			}
 		}
@@ -101,7 +101,7 @@ public abstract class AbstractTreeWalker implements NodeVisitor {
 		acceptTwoSidedExpressionChildren(node);
 		afterEq(node);
 	}
-	
+
 	protected abstract void beforeEq(Eq node);
 
 	protected abstract void afterEq(Eq node);
@@ -112,7 +112,7 @@ public abstract class AbstractTreeWalker implements NodeVisitor {
 		acceptTwoSidedExpressionChildren(node);
 		afterGEq(node);
 	}
-	
+
 	protected abstract void beforeGEq(GEq node);
 
 	protected abstract void afterGEq(GEq node);
@@ -123,7 +123,7 @@ public abstract class AbstractTreeWalker implements NodeVisitor {
 		acceptTwoSidedExpressionChildren(node);
 		afterGT(node);
 	}
-	
+
 	protected abstract void beforeGT(GT node);
 
 	protected abstract void afterGT(GT node);
@@ -134,7 +134,7 @@ public abstract class AbstractTreeWalker implements NodeVisitor {
 		acceptTwoSidedExpressionChildren(node);
 		afterLEq(node);
 	}
-	
+
 	protected abstract void beforeLEq(LEq node);
 
 	protected abstract void afterLEq(LEq node);
@@ -145,7 +145,7 @@ public abstract class AbstractTreeWalker implements NodeVisitor {
 		acceptTwoSidedExpressionChildren(node);
 		afterLT(node);
 	}
-	
+
 	protected abstract void beforeLT(LT node);
 
 	protected abstract void afterLT(LT node);
@@ -156,7 +156,7 @@ public abstract class AbstractTreeWalker implements NodeVisitor {
 		acceptTwoSidedExpressionChildren(node);
 		afterMul(node);
 	}
-	
+
 	protected abstract void beforeMul(Mul node);
 
 	protected abstract void afterMul(Mul node);
@@ -167,7 +167,7 @@ public abstract class AbstractTreeWalker implements NodeVisitor {
 		acceptOneSidedExpressionChildren(node);
 		afterNeg(node);
 	}
-	
+
 	protected abstract void beforeNeg(Neg node);
 
 	protected abstract void afterNeg(Neg node);
@@ -178,7 +178,7 @@ public abstract class AbstractTreeWalker implements NodeVisitor {
 		acceptTwoSidedExpressionChildren(node);
 		afterNEq(node);
 	}
-	
+
 	protected abstract void beforeNEq(NEq node);
 
 	protected abstract void afterNEq(NEq node);
@@ -189,7 +189,7 @@ public abstract class AbstractTreeWalker implements NodeVisitor {
 		acceptOneSidedExpressionChildren(node);
 		afterNot(node);
 	}
-	
+
 	protected abstract void beforeNot(Not node);
 
 	protected abstract void afterNot(Not node);
@@ -200,7 +200,7 @@ public abstract class AbstractTreeWalker implements NodeVisitor {
 		acceptTwoSidedExpressionChildren(node);
 		afterOr(node);
 	}
-	
+
 	protected abstract void beforeOr(Or node);
 
 	protected abstract void afterOr(Or node);
@@ -211,7 +211,7 @@ public abstract class AbstractTreeWalker implements NodeVisitor {
 		acceptOneSidedExpressionChildren(node);
 		afterPos(node);
 	}
-	
+
 	protected abstract void beforePos(Pos node);
 
 	protected abstract void afterPos(Pos node);
@@ -222,16 +222,16 @@ public abstract class AbstractTreeWalker implements NodeVisitor {
 		acceptTwoSidedExpressionChildren(node);
 		afterSub(node);
 	}
-	
+
 	protected abstract void beforeSub(Sub node);
 
 	protected abstract void afterSub(Sub node);
-	
+
 	private void acceptTwoSidedExpressionChildren(Expr node) {
 		node.getLhs().accept(this);
 		node.getRhs().accept(this);
 	}
-	
+
 	private void acceptOneSidedExpressionChildren(Expr node) {
 		node.getLhs().accept(this);
 	}

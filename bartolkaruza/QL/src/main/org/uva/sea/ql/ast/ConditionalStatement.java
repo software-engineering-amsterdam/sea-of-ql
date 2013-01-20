@@ -21,11 +21,11 @@ public class ConditionalStatement implements Statement {
 	public void accept(NodeVisitor visitor) {
 		visitor.visit(this);
 	}
-	
+
 	public List<Statement> getStatements() {
 		return statements;
 	}
-	
+
 	public Expr getExpression() {
 		return expression;
 	}

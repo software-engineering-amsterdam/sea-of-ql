@@ -1,4 +1,4 @@
-package org.uva.sea.ql.utility;
+package org.uva.sea.ql.typeutil;
 
 import org.uva.sea.ql.ast.expr.And;
 import org.uva.sea.ql.ast.expr.Eq;
@@ -12,8 +12,9 @@ import org.uva.sea.ql.ast.expr.Not;
 import org.uva.sea.ql.ast.expr.Or;
 import org.uva.sea.ql.ast.expr.grouping.Expr;
 import org.uva.sea.ql.ast.expr.value.Bool;
+import org.uva.sea.ql.symbol.SymbolTable;
 
-public class TypeBooleanUtility {
+public class BooleanUtility {
 
 	public static boolean areNodesBoolean(Expr node) {
 		return isNodeBoolean(node.getLhs()) && (node.getRhs() == null || isNodeBoolean(node.getRhs()));

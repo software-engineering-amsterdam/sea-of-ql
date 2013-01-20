@@ -5,7 +5,7 @@ import org.uva.sea.ql.ast.expr.grouping.Expr;
 import org.uva.sea.ql.visitor.NodeVisitor;
 
 public class Or extends BooleanExpr {
-	
+
 	public Or(Expr lhs, Expr rhs) {
 		super(lhs, rhs);
 	}

@@ -1,4 +1,4 @@
-package org.uva.sea.ql.utility;
+package org.uva.sea.ql.symbol;
 
 import java.util.HashMap;
 
@@ -25,7 +25,7 @@ public class SymbolTable {
 	public Symbol getSymbol(String name) {
 		return symbols.get(name);
 	}
-	
+
 	public HashMap<String, Symbol> getSymbols() {
 		return symbols;
 	}

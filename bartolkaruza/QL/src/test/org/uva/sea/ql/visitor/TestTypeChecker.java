@@ -4,11 +4,11 @@ import junit.framework.Assert;
 
 import org.junit.Test;
 import org.uva.sea.ql.ast.Form;
+import org.uva.sea.ql.error.ErrorHandler;
+import org.uva.sea.ql.error.ParseError;
+import org.uva.sea.ql.parser.IParse;
 import org.uva.sea.ql.parser.antlr.ANTLRParser;
-import org.uva.sea.ql.parser.antlr.IParse;
-import org.uva.sea.ql.parser.antlr.ParseError;
-import org.uva.sea.ql.utility.ErrorHandler;
-import org.uva.sea.ql.visitor.TypeChecker;
+import org.uva.sea.ql.semantic.TypeChecker;
 
 public class TestTypeChecker {
 
@@ -52,6 +52,8 @@ public class TestTypeChecker {
 		form = (Form) parser.parseNode("form somelabel { if(!true) { question1: \" some text label\" boolean} }");
 		form.accept(new TypeChecker());
 		form = (Form) parser.parseNode("form somelabel { if(true==true) { question1: \" some text label\" boolean} }");
+		form.accept(new TypeChecker());
+		form = (Form) parser.parseNode("form somelabel { if(true) { question1: \" some text label\" boolean} }");
 		form.accept(new TypeChecker());
 		form = (Form) parser.parseNode("form somelabel { if(false!=true) { question1: \" some text label\" boolean} }");
 		form.accept(new TypeChecker());

@@ -5,7 +5,7 @@ import org.uva.sea.ql.ast.expr.grouping.Expr;
 import org.uva.sea.ql.visitor.NodeVisitor;
 
 public class Sub extends ArithmeticExpr {
-	
+
 	public Sub(Expr lhs, Expr rhs) {
 		super(lhs, rhs);
 	}

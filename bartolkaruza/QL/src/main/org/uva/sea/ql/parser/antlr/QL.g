@@ -7,6 +7,7 @@ package org.uva.sea.ql.parser.antlr;
 import org.uva.sea.ql.ast.*;
 import org.uva.sea.ql.ast.expr.*;
 import org.uva.sea.ql.ast.expr.value.*;
+import org.uva.sea.ql.ast.expr.grouping.*;
 }
 
 @lexer::header
@@ -142,6 +143,8 @@ INT_VALUE: ('0'..'9')+;
 
 Ident:   ('a'..'z'|'A'..'Z')('a'..'z'|'A'..'Z'|'0'..'9'|'_')*;
 
-WS  :	(' ' | '\t' | '\n' | '\r') { $channel=HIDDEN; };
+NL : ('\n' | '\r' | '\n\r' ) { $channel=HIDDEN; };
 
-COMMENT : '/*' .* '*/' {$channel=HIDDEN; };
+WS  :	(' ' | '\t' ) { $channel=HIDDEN; };
+
+COMMENT : '/*' .* '*/' | '//' .* NL {$channel=HIDDEN; };

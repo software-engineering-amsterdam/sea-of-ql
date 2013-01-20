@@ -10,9 +10,9 @@ import org.uva.sea.ql.ast.expr.LEq;
 import org.uva.sea.ql.ast.expr.LT;
 import org.uva.sea.ql.ast.expr.Mul;
 import org.uva.sea.ql.ast.expr.value.Int;
+import org.uva.sea.ql.error.ParseError;
+import org.uva.sea.ql.parser.IParse;
 import org.uva.sea.ql.parser.antlr.ANTLRParser;
-import org.uva.sea.ql.parser.antlr.IParse;
-import org.uva.sea.ql.parser.antlr.ParseError;
 
 public class TestExpressions {
 

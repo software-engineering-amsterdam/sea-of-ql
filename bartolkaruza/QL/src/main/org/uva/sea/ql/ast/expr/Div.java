@@ -5,7 +5,7 @@ import org.uva.sea.ql.ast.expr.grouping.Expr;
 import org.uva.sea.ql.visitor.NodeVisitor;
 
 public class Div extends ArithmeticExpr {
-	
+
 	public Div(Expr lhs, Expr rhs) {
 		super(lhs, rhs);
 	}
@@ -13,6 +13,6 @@ public class Div extends ArithmeticExpr {
 	@Override
 	public void accept(NodeVisitor visitor) {
 		visitor.visit(this);
-	}	
+	}
 
 }

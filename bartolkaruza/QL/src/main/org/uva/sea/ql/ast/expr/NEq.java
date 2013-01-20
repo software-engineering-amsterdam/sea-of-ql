@@ -5,7 +5,7 @@ import org.uva.sea.ql.ast.expr.grouping.InEqualityExpr;
 import org.uva.sea.ql.visitor.NodeVisitor;
 
 public class NEq extends InEqualityExpr {
-	
+
 	public NEq(Expr lhs, Expr rhs) {
 		super(lhs, rhs);
 	}

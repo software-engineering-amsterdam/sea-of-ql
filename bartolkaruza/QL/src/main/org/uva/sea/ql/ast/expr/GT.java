@@ -4,9 +4,8 @@ import org.uva.sea.ql.ast.expr.grouping.Expr;
 import org.uva.sea.ql.ast.expr.grouping.InEqualityExpr;
 import org.uva.sea.ql.visitor.NodeVisitor;
 
-
 public class GT extends InEqualityExpr {
-	
+
 	public GT(Expr lhs, Expr rhs) {
 		super(lhs, rhs);
 	}
@@ -16,5 +15,4 @@ public class GT extends InEqualityExpr {
 		visitor.visit(this);
 	}
 
-	
 }

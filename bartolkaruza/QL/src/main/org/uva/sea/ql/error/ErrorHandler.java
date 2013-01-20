@@ -1,4 +1,4 @@
-package org.uva.sea.ql.utility;
+package org.uva.sea.ql.error;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,17 +22,17 @@ public class ErrorHandler {
 	public List<QLError> getErrors() {
 		return errors;
 	}
-	
+
 	public static void printErrors() {
-		for(QLError error : getInstance().errors) {
+		for (QLError error : getInstance().errors) {
 			System.out.println("E: " + error.getCause());
 		}
 	}
-	
+
 	public boolean hasErrors() {
 		return errors.size() > 0;
 	}
-	
+
 	public static void reportOperationTypeError(String operation) {
 		QLError error = new QLError("Invalid type for operation: " + operation);
 		getInstance().addError(error);

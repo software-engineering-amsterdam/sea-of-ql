@@ -5,8 +5,8 @@ import org.uva.sea.ql.ast.expr.grouping.Expr;
 import org.uva.sea.ql.visitor.NodeVisitor;
 
 public class Not extends BooleanExpr {
-	
-	public Not (Expr lhs) {
+
+	public Not(Expr lhs) {
 		super(lhs, null);
 	}
 

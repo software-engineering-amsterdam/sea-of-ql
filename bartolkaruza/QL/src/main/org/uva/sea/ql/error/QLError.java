@@ -1,4 +1,4 @@
-package org.uva.sea.ql.utility;
+package org.uva.sea.ql.error;
 
 public class QLError {
 

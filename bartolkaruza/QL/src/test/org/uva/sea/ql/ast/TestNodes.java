@@ -6,10 +6,10 @@ import org.junit.Test;
 import org.uva.sea.ql.ast.ConditionalStatement;
 import org.uva.sea.ql.ast.Form;
 import org.uva.sea.ql.ast.Question;
+import org.uva.sea.ql.error.ErrorHandler;
+import org.uva.sea.ql.error.ParseError;
+import org.uva.sea.ql.parser.IParse;
 import org.uva.sea.ql.parser.antlr.ANTLRParser;
-import org.uva.sea.ql.parser.antlr.IParse;
-import org.uva.sea.ql.parser.antlr.ParseError;
-import org.uva.sea.ql.utility.ErrorHandler;
 
 public class TestNodes {
 
@@ -29,13 +29,18 @@ public class TestNodes {
 	public void testNestedIf() throws ParseError {
 		Form form = (Form) parser
 				.parseNode("form somelabel { if(1==kaas) { if(someTest) {question2: \"label \" boolean } question1: \" some text label\" boolean} }");
-		assertEquals(form.getStatements().get(0).getClass(), ConditionalStatement.class);
-		assertEquals(((ConditionalStatement) form.getStatements().get(0)).getStatements().get(0).getClass(), ConditionalStatement.class);
-		assertEquals(((ConditionalStatement) ((ConditionalStatement) form.getStatements().get(0)).getStatements().get(0)).getStatements().get(0).getClass(),
-				Question.class);
+		assertEquals(ConditionalStatement.class, form.getStatements().get(0).getClass());
+		assertEquals(ConditionalStatement.class, ((ConditionalStatement) form.getStatements().get(0)).getStatements().get(0).getClass());
+		assertEquals(Question.class, ((ConditionalStatement) ((ConditionalStatement) form.getStatements().get(0)).getStatements().get(0)).getStatements()
+				.get(0).getClass());
 		ErrorHandler.printErrors();
 	}
 
-	
+	@Test
+	public void testSingleLineComment() throws ParseError {
+		Form form = (Form) parser
+				.parseNode("form somelabel { \nif(1==kaas) { \n//if(someTest) {question2: \"label \" boolean }\n question1: \" some text label\" boolean} }");
+		assertEquals(Question.class, ((ConditionalStatement) form.getStatements().get(0)).getStatements().get(0).getClass());
+	}
 
 }

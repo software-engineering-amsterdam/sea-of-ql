@@ -1,8 +1,12 @@
-package org.uva.sea.ql.visitor;
+package org.uva.sea.ql.semantic;
+
+import java.util.Iterator;
+import java.util.Stack;
 
 import org.uva.sea.ql.ast.ConditionalStatement;
 import org.uva.sea.ql.ast.Form;
 import org.uva.sea.ql.ast.Question;
+import org.uva.sea.ql.ast.Statement;
 import org.uva.sea.ql.ast.expr.Add;
 import org.uva.sea.ql.ast.expr.And;
 import org.uva.sea.ql.ast.expr.Div;
@@ -23,15 +27,40 @@ import org.uva.sea.ql.ast.expr.value.Bool;
 import org.uva.sea.ql.ast.expr.value.Int;
 import org.uva.sea.ql.ast.expr.value.Money;
 import org.uva.sea.ql.ast.expr.value.TextString;
-import org.uva.sea.ql.utility.ErrorHandler;
-import org.uva.sea.ql.utility.QLError;
-import org.uva.sea.ql.utility.Symbol;
-import org.uva.sea.ql.utility.SymbolTable;
+import org.uva.sea.ql.error.ErrorHandler;
+import org.uva.sea.ql.error.QLError;
+import org.uva.sea.ql.symbol.SymbolTable;
+import org.uva.sea.ql.visitor.AbstractTreeWalker;
 
-public class SymbolGenerator extends AbstractTreeWalker {
+public class DereferenceChecker extends AbstractTreeWalker {
+
+	private Statement currentStatement;
+	private Stack<Statement> dependentOnStack = new Stack<Statement>();
+
+	public DereferenceChecker() {
+
+	}
 
 	@Override
 	public void visit(Ident node) {
+		if(SymbolTable.getInstance().hasSymbol(node.getName())) {
+			SymbolTable.getInstance().getSymbol(node.getName()).addEvaluationPoint(currentStatement);
+		} else {
+			ErrorHandler.getInstance().addError(new QLError("undeclared variable dereference: " + node.getName()));
+		}
+	}
+
+	@Override
+	public void visit(Question node) {
+		currentStatement = node;
+		Iterator<Statement> stackIterator = dependentOnStack.iterator();
+		while (stackIterator.hasNext()) {
+			SymbolTable.getInstance().getSymbol(node.getName()).addDependantOn(stackIterator.next());
+		}
+	}
+
+	@Override
+	public void visit(Bool node) {
 
 	}
 
@@ -41,12 +70,13 @@ public class SymbolGenerator extends AbstractTreeWalker {
 	}
 
 	@Override
-	public void visit(Question node) {
-		if(SymbolTable.getInstance().hasSymbol(node.getName())) {
-			ErrorHandler.getInstance().addError(new QLError("Duplicate entry with name: " + node.getName() + " at line: " + node.getLineNumber()));
-		} else {
-			SymbolTable.getInstance().putSymbol(node.getName(), new Symbol(node, node.getExpression()));
-		}
+	public void visit(Money node) {
+
+	}
+
+	@Override
+	public void visit(TextString node) {
+
 	}
 
 	@Override
@@ -61,12 +91,13 @@ public class SymbolGenerator extends AbstractTreeWalker {
 
 	@Override
 	protected void beforeConditionalStatement(ConditionalStatement node) {
-
+		currentStatement = node;
+		dependentOnStack.push(node);
 	}
 
 	@Override
 	protected void afterConditionalStatement(ConditionalStatement node) {
-
+		dependentOnStack.pop();
 	}
 
 	@Override
@@ -217,21 +248,6 @@ public class SymbolGenerator extends AbstractTreeWalker {
 	@Override
 	protected void afterSub(Sub node) {
 
-	}
-
-	@Override
-	public void visit(Bool node) {
-		
-	}
-
-	@Override
-	public void visit(Money node) {
-		
-	}
-
-	@Override
-	public void visit(TextString node) {
-		
 	}
 
 }

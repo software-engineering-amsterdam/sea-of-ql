@@ -1,6 +1,7 @@
-package org.uva.sea.ql.visitor;
+package org.uva.sea.ql.symbol;
 
-import org.uva.sea.ql.ast.ASTNode;
+import java.util.List;
+
 import org.uva.sea.ql.ast.ConditionalStatement;
 import org.uva.sea.ql.ast.Form;
 import org.uva.sea.ql.ast.Question;
@@ -24,221 +25,214 @@ import org.uva.sea.ql.ast.expr.value.Bool;
 import org.uva.sea.ql.ast.expr.value.Int;
 import org.uva.sea.ql.ast.expr.value.Money;
 import org.uva.sea.ql.ast.expr.value.TextString;
+import org.uva.sea.ql.visitor.AbstractTreeWalker;
 
-public class NodePrinter extends AbstractTreeWalker {
+public class VariableSeeker extends AbstractTreeWalker {
+	
+	private List<Ident> dependencies;
 
+	public VariableSeeker(List<Ident> dependencies) {
+		this.dependencies = dependencies;
+	}
+	
 	@Override
 	public void visit(Ident node) {
-		printNodeClassNameBefore(node);
-		printNodeClassNameAfter(node);
-	}
-
-	@Override
-	public void visit(Int node) {
-		printNodeClassNameBefore(node);
-		printNodeClassNameAfter(node);
+		dependencies.add(node);
 	}
 
 	@Override
 	public void visit(Question node) {
-		printNodeClassNameBefore(node);
-		printNodeClassNameAfter(node);
-	}
 
-	@Override
-	protected void beforeForm(Form node) {
-		printNodeClassNameBefore(node);
-	}
-
-	@Override
-	protected void afterForm(Form node) {
-		printNodeClassNameAfter(node);
-	}
-
-	@Override
-	protected void beforeConditionalStatement(ConditionalStatement node) {
-		printNodeClassNameBefore(node);
-	}
-
-	@Override
-	protected void afterConditionalStatement(ConditionalStatement node) {
-		printNodeClassNameAfter(node);
-	}
-
-	@Override
-	protected void beforeAdd(Add node) {
-		printNodeClassNameBefore(node);
-	}
-
-	@Override
-	protected void afterAdd(Add node) {
-		printNodeClassNameAfter(node);
-	}
-
-	@Override
-	protected void beforeAnd(And node) {
-		printNodeClassNameBefore(node);
-	}
-
-	@Override
-	protected void afterAnd(And node) {
-		printNodeClassNameAfter(node);
-	}
-
-	@Override
-	protected void beforeDiv(Div node) {
-		printNodeClassNameBefore(node);
-	}
-
-	@Override
-	protected void afterDiv(Div node) {
-		printNodeClassNameAfter(node);
-	}
-
-	@Override
-	protected void beforeEq(Eq node) {
-		printNodeClassNameBefore(node);
-	}
-
-	@Override
-	protected void afterEq(Eq node) {
-		printNodeClassNameAfter(node);
-	}
-
-	@Override
-	protected void beforeGEq(GEq node) {
-		printNodeClassNameBefore(node);
-	}
-
-	@Override
-	protected void afterGEq(GEq node) {
-		printNodeClassNameAfter(node);
-	}
-
-	@Override
-	protected void beforeGT(GT node) {
-		printNodeClassNameBefore(node);
-	}
-
-	@Override
-	protected void afterGT(GT node) {
-		printNodeClassNameAfter(node);
-	}
-
-	@Override
-	protected void beforeLEq(LEq node) {
-		printNodeClassNameBefore(node);
-	}
-
-	@Override
-	protected void afterLEq(LEq node) {
-		printNodeClassNameAfter(node);
-	}
-
-	@Override
-	protected void beforeLT(LT node) {
-		printNodeClassNameBefore(node);
-	}
-
-	@Override
-	protected void afterLT(LT node) {
-		printNodeClassNameAfter(node);
-	}
-
-	@Override
-	protected void beforeMul(Mul node) {
-		printNodeClassNameBefore(node);
-	}
-
-	@Override
-	protected void afterMul(Mul node) {
-		printNodeClassNameAfter(node);
-	}
-
-	@Override
-	protected void beforeNeg(Neg node) {
-		printNodeClassNameBefore(node);
-	}
-
-	@Override
-	protected void afterNeg(Neg node) {
-		printNodeClassNameAfter(node);
-	}
-
-	@Override
-	protected void beforeNEq(NEq node) {
-		printNodeClassNameBefore(node);
-	}
-
-	@Override
-	protected void afterNEq(NEq node) {
-		printNodeClassNameAfter(node);
-	}
-
-	@Override
-	protected void beforeNot(Not node) {
-		printNodeClassNameBefore(node);
-	}
-
-	@Override
-	protected void afterNot(Not node) {
-		printNodeClassNameAfter(node);
-	}
-
-	@Override
-	protected void beforeOr(Or node) {
-		printNodeClassNameBefore(node);
-	}
-
-	@Override
-	protected void afterOr(Or node) {
-		printNodeClassNameAfter(node);
-	}
-
-	@Override
-	protected void beforePos(Pos node) {
-		printNodeClassNameBefore(node);
-	}
-
-	@Override
-	protected void afterPos(Pos node) {
-		printNodeClassNameAfter(node);
-	}
-
-	@Override
-	protected void beforeSub(Sub node) {
-		printNodeClassNameBefore(node);
-	}
-
-	@Override
-	protected void afterSub(Sub node) {
-		printNodeClassNameAfter(node);
-	}
-
-	private void printNodeClassNameBefore(ASTNode node) {
-		System.out.println("At start of node: " + node.getClass().getName());
-	}
-
-	private void printNodeClassNameAfter(ASTNode node) {
-		System.out.println("After node: " + node.getClass().getName());
 	}
 
 	@Override
 	public void visit(Bool node) {
-		System.out.println("At start of node: " + node.getClass().getName());
-		System.out.println("After node: " + node.getClass().getName());
+
+	}
+
+	@Override
+	public void visit(Int node) {
+
 	}
 
 	@Override
 	public void visit(Money node) {
-		System.out.println("At start of node: " + node.getClass().getName());
-		System.out.println("After node: " + node.getClass().getName());
+
 	}
 
 	@Override
 	public void visit(TextString node) {
-		System.out.println("At start of node: " + node.getClass().getName());
-		System.out.println("After node: " + node.getClass().getName());
+
+	}
+
+	@Override
+	protected void beforeForm(Form node) {
+
+	}
+
+	@Override
+	protected void afterForm(Form node) {
+
+	}
+
+	@Override
+	protected void beforeConditionalStatement(ConditionalStatement node) {
+
+	}
+
+	@Override
+	protected void afterConditionalStatement(ConditionalStatement node) {
+
+	}
+
+	@Override
+	protected void beforeAdd(Add node) {
+
+	}
+
+	@Override
+	protected void afterAdd(Add node) {
+
+	}
+
+	@Override
+	protected void beforeAnd(And node) {
+
+	}
+
+	@Override
+	protected void afterAnd(And node) {
+
+	}
+
+	@Override
+	protected void beforeDiv(Div node) {
+
+	}
+
+	@Override
+	protected void afterDiv(Div node) {
+
+	}
+
+	@Override
+	protected void beforeEq(Eq node) {
+
+	}
+
+	@Override
+	protected void afterEq(Eq node) {
+
+	}
+
+	@Override
+	protected void beforeGEq(GEq node) {
+
+	}
+
+	@Override
+	protected void afterGEq(GEq node) {
+
+	}
+
+	@Override
+	protected void beforeGT(GT node) {
+
+	}
+
+	@Override
+	protected void afterGT(GT node) {
+
+	}
+
+	@Override
+	protected void beforeLEq(LEq node) {
+
+	}
+
+	@Override
+	protected void afterLEq(LEq node) {
+
+	}
+
+	@Override
+	protected void beforeLT(LT node) {
+
+	}
+
+	@Override
+	protected void afterLT(LT node) {
+
+	}
+
+	@Override
+	protected void beforeMul(Mul node) {
+
+	}
+
+	@Override
+	protected void afterMul(Mul node) {
+
+	}
+
+	@Override
+	protected void beforeNeg(Neg node) {
+
+	}
+
+	@Override
+	protected void afterNeg(Neg node) {
+
+	}
+
+	@Override
+	protected void beforeNEq(NEq node) {
+
+	}
+
+	@Override
+	protected void afterNEq(NEq node) {
+
+	}
+
+	@Override
+	protected void beforeNot(Not node) {
+
+	}
+
+	@Override
+	protected void afterNot(Not node) {
+
+	}
+
+	@Override
+	protected void beforeOr(Or node) {
+
+	}
+
+	@Override
+	protected void afterOr(Or node) {
+
+	}
+
+	@Override
+	protected void beforePos(Pos node) {
+
+	}
+
+	@Override
+	protected void afterPos(Pos node) {
+
+	}
+
+	@Override
+	protected void beforeSub(Sub node) {
+
+	}
+
+	@Override
+	protected void afterSub(Sub node) {
+
 	}
 
 }

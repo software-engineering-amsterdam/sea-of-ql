@@ -1,4 +1,4 @@
-package org.uva.sea.ql.visitor;
+package org.uva.sea.ql.semantic;
 
 import org.uva.sea.ql.ast.ConditionalStatement;
 import org.uva.sea.ql.ast.Form;
@@ -23,10 +23,12 @@ import org.uva.sea.ql.ast.expr.value.Bool;
 import org.uva.sea.ql.ast.expr.value.Int;
 import org.uva.sea.ql.ast.expr.value.Money;
 import org.uva.sea.ql.ast.expr.value.TextString;
-import org.uva.sea.ql.utility.ErrorHandler;
-import org.uva.sea.ql.utility.QLError;
-import org.uva.sea.ql.utility.TypeBooleanUtility;
-import org.uva.sea.ql.utility.TypeNumberUtility;
+import org.uva.sea.ql.error.ErrorHandler;
+import org.uva.sea.ql.error.QLError;
+import org.uva.sea.ql.typeutil.BooleanUtility;
+import org.uva.sea.ql.typeutil.NumberUtility;
+import org.uva.sea.ql.typeutil.StringUtility;
+import org.uva.sea.ql.visitor.AbstractTreeWalker;
 
 public class TypeChecker extends AbstractTreeWalker {
 
@@ -71,7 +73,7 @@ public class TypeChecker extends AbstractTreeWalker {
 
 	@Override
 	protected void beforeConditionalStatement(ConditionalStatement node) {
-		if(TypeBooleanUtility.isNodeBoolean(node.getExpression())) {
+		if (!BooleanUtility.isNodeBoolean(node.getExpression())) {
 			QLError error = new QLError("Invalid non-boolean expression in conditional statement, at: " + node.getLineNumber());
 			ErrorHandler.getInstance().addError(error);
 		}
@@ -83,12 +85,13 @@ public class TypeChecker extends AbstractTreeWalker {
 	}
 
 	/**
-	 * Checks to see if the add operation is on two numbers or on two text strings
+	 * Checks to see if the add operation is on two numbers or on two text
+	 * strings
 	 */
 	@Override
 	protected void beforeAdd(Add node) {
-		if(!TypeNumberUtility.areNodesNumbers(node) && !(node.getLhs() instanceof TextString && node.getRhs() instanceof TextString)) {
-				ErrorHandler.reportOperationTypeError(ADD);
+		if (!NumberUtility.areNodesNumbers(node) && !(StringUtility.isNodeString(node.getLhs()) && StringUtility.isNodeString(node.getRhs()))) {
+			ErrorHandler.reportOperationTypeError(ADD);
 		}
 	}
 
@@ -99,7 +102,7 @@ public class TypeChecker extends AbstractTreeWalker {
 
 	@Override
 	protected void beforeAnd(And node) {
-		if(!TypeBooleanUtility.areNodesBoolean(node)) {
+		if (!BooleanUtility.areNodesBoolean(node)) {
 			ErrorHandler.reportOperationTypeError(AND);
 		}
 	}
@@ -111,7 +114,7 @@ public class TypeChecker extends AbstractTreeWalker {
 
 	@Override
 	protected void beforeDiv(Div node) {
-		if(!TypeNumberUtility.areNodesNumbers(node)) {
+		if (!NumberUtility.areNodesNumbers(node)) {
 			ErrorHandler.reportOperationTypeError(DIV);
 		}
 	}
@@ -133,7 +136,7 @@ public class TypeChecker extends AbstractTreeWalker {
 
 	@Override
 	protected void beforeGEq(GEq node) {
-		if(!TypeNumberUtility.areNodesNumbers(node)) {
+		if (!NumberUtility.areNodesNumbers(node)) {
 			ErrorHandler.reportOperationTypeError(GEQ);
 		}
 	}
@@ -145,7 +148,7 @@ public class TypeChecker extends AbstractTreeWalker {
 
 	@Override
 	protected void beforeGT(GT node) {
-		if(!TypeNumberUtility.areNodesNumbers(node)) {
+		if (!NumberUtility.areNodesNumbers(node)) {
 			ErrorHandler.reportOperationTypeError(GT);
 		}
 	}
@@ -157,7 +160,7 @@ public class TypeChecker extends AbstractTreeWalker {
 
 	@Override
 	protected void beforeLEq(LEq node) {
-		if(!TypeNumberUtility.areNodesNumbers(node)) {
+		if (!NumberUtility.areNodesNumbers(node)) {
 			ErrorHandler.reportOperationTypeError(LEQ);
 		}
 	}
@@ -169,7 +172,7 @@ public class TypeChecker extends AbstractTreeWalker {
 
 	@Override
 	protected void beforeLT(LT node) {
-		if(!TypeNumberUtility.areNodesNumbers(node)) {
+		if (!NumberUtility.areNodesNumbers(node)) {
 			ErrorHandler.reportOperationTypeError(LT);
 		}
 	}
@@ -181,7 +184,7 @@ public class TypeChecker extends AbstractTreeWalker {
 
 	@Override
 	protected void beforeMul(Mul node) {
-		if(!TypeNumberUtility.areNodesNumbers(node)) {
+		if (!NumberUtility.areNodesNumbers(node)) {
 			ErrorHandler.reportOperationTypeError(MUL);
 		}
 	}
@@ -193,7 +196,7 @@ public class TypeChecker extends AbstractTreeWalker {
 
 	@Override
 	protected void beforeNeg(Neg node) {
-		if(!TypeNumberUtility.areNodesNumbers(node)) {
+		if (!NumberUtility.areNodesNumbers(node)) {
 			ErrorHandler.reportOperationTypeError(NEG);
 		}
 	}
@@ -205,7 +208,7 @@ public class TypeChecker extends AbstractTreeWalker {
 
 	@Override
 	protected void beforeNEq(NEq node) {
-		
+
 	}
 
 	@Override
@@ -215,7 +218,7 @@ public class TypeChecker extends AbstractTreeWalker {
 
 	@Override
 	protected void beforeNot(Not node) {
-		if(!TypeBooleanUtility.areNodesBoolean(node)) {
+		if (!BooleanUtility.areNodesBoolean(node)) {
 			ErrorHandler.reportOperationTypeError(NOT);
 		}
 	}
@@ -227,7 +230,7 @@ public class TypeChecker extends AbstractTreeWalker {
 
 	@Override
 	protected void beforeOr(Or node) {
-		if(!TypeBooleanUtility.areNodesBoolean(node)) {
+		if (!BooleanUtility.areNodesBoolean(node)) {
 			ErrorHandler.reportOperationTypeError(OR);
 		}
 	}
@@ -239,7 +242,7 @@ public class TypeChecker extends AbstractTreeWalker {
 
 	@Override
 	protected void beforePos(Pos node) {
-		if(!TypeNumberUtility.areNodesNumbers(node)) {
+		if (!NumberUtility.areNodesNumbers(node)) {
 			ErrorHandler.reportOperationTypeError(POS);
 		}
 	}
@@ -251,7 +254,7 @@ public class TypeChecker extends AbstractTreeWalker {
 
 	@Override
 	protected void beforeSub(Sub node) {
-		if(!TypeNumberUtility.areNodesNumbers(node)) {
+		if (!NumberUtility.areNodesNumbers(node)) {
 			ErrorHandler.reportOperationTypeError(SUB);
 		}
 	}
@@ -263,17 +266,17 @@ public class TypeChecker extends AbstractTreeWalker {
 
 	@Override
 	public void visit(Bool node) {
-		
+
 	}
 
 	@Override
 	public void visit(Money node) {
-		
+
 	}
 
 	@Override
 	public void visit(TextString node) {
-		
+
 	}
-	
+
 }
