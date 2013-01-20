@@ -11,9 +11,9 @@ form Box1HouseOwning {
 		valueResidue: "Value residue:" int(privateDebt - sellingPrice)
 	}
 	testQuestion1: "This is a test question" string
-	if (true) {
+	if (5 + 5) {
 		testQuestion2: "This is an additional test question" int
-		if (true != false) {
+		if (7 > 2) {
 			testQuestion3: "This is an additional test question" string
 		}
 	}
