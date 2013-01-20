@@ -12,4 +12,9 @@ public class Question extends FormItem
 		this.question = question;
 		this.type = type;
 	}
+	
+	public String toString()
+	{
+		return("Question " + question);
+	}
 }

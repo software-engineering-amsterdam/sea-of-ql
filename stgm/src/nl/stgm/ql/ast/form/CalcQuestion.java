@@ -11,4 +11,9 @@ public class CalcQuestion extends Question
 		super(id, question, type);
 		this.calculation = calculation;
 	}
+
+	public String toString()
+	{
+		return("Calculated question: " + question);
+	}
 }

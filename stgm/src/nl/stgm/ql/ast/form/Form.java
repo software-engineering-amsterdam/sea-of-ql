@@ -25,4 +25,9 @@ public class Form implements ASTNode
 		
 		inspector.visit(this);
 	}
+	
+	public String toString()
+	{
+		return("Form " + id);
+	}
 }

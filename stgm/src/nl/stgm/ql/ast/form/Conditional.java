@@ -26,4 +26,9 @@ public class Conditional extends FormItem
 		
 		inspector.visit(this);
 	}
+
+	public String toString()
+	{
+		return("Conditional");
+	}
 }

@@ -18,8 +18,8 @@ public class TreeWalker implements CodeInspector
 {
 	public void visit(ASTNode node)
 	{
-		System.out.print("Visiting an instance of class ");
-		System.out.println(node.getClass().getName());
+		System.out.print("-> ");
+		System.out.println(node);
 	}
 	
 	public static void main(String[] args)

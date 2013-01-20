@@ -23,4 +23,9 @@ public class Document implements ASTNode
 		
 		inspector.visit(this);
 	}
+	
+	public String toString()
+	{
+		return("Document");
+	}
 }
