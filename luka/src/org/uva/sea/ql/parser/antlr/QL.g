@@ -3,11 +3,12 @@ grammar QL;
 options {
 backtrack=true; 
 memoize=true;  
-tokenVocab=QL;
 ASTLabelType=CommonTree;
 output=AST;
 } 
 
+tokens{
+}
 
 @parser::header
 {
@@ -34,15 +35,15 @@ import org.uva.sea.ql.ast.*;
 	// expression (ein wort, nur frage
 	//Type (boolean)
 parse returns [QuestionnaireForm root]
-	: questionnaireExpr {$root = $questionnaireExpr.root;} EOF! ;
+	: questionnaireExpr {$root = $questionnaireExpr.root;} EOF!;
 	
 questionnaireExpr returns [QuestionnaireForm root]
-	:	FormStart qStartExp {$root = $qStartExp.root;} ;
+	:	FormStart! qStartExp {$root = $qStartExp.root;} ;
 	
 //Start of questionnaire
 qStartExp returns [QuestionnaireForm root]
 
-	: FormId Lbr! qStartQExpr { $root = new QuestionnaireForm($FormId.text, new QuestionnaireContent($qStartQExpr.result));} Rbr!;
+	: FormId^ Lbr! qStartQExpr { $root = new QuestionnaireForm($FormId.text, new QuestionnaireContent($qStartQExpr.result));} Rbr!;
 
 //Start of sum of questions	
 qStartQExpr returns [List<QuestionnaireItemInterface> result]
@@ -52,18 +53,18 @@ qStartQExpr returns [List<QuestionnaireItemInterface> result]
 	: (qDeclaration {$result.add($qDeclaration.result);} | ifStatementExpr {$result.add($ifStatementExpr.result);})*;
 
 qDeclaration returns [Question result] //question with child elements
-	: i=qIdentifier ':' l =qLabel (t =qType {$result = new Question($i.text,$l.text,$t.result);} |t= qType e =qValueCalcExpr {$result = new Question($i.text,$l.text,$t.result,$e.result);});
+	: i=qIdentifier^ ':'! l =qLabel (t =qType {$result = new Question($i.text,$l.text,$t.result);} |t= qType^ e =qValueCalcExpr {$result = new Question($i.text,$l.text,$t.result,$e.result);});
 
 // if(x<y) / verschachtelt TODO
 ifStatementExpr returns [IfBlock result]
 @init{
 	List<QuestionnaireItemInterface> blockContent = new ArrayList<QuestionnaireItemInterface>();
 }
-	:	 IF! '('! qId=qIdentifier ')'! Lbr! ( qDecl =qDeclaration {blockContent.add($qDecl.result);} | ifStatem = ifStatementExpr {blockContent.add($ifStatem.result);})+ {$result = new IfBlock($qId.text,blockContent);} Rbr! ;
+	:	 IF^ '('! qId=qIdentifier ')'! Lbr! ( qDecl =qDeclaration {blockContent.add($qDecl.result);} | ifStatem = ifStatementExpr^ {blockContent.add($ifStatem.result);})+ {$result = new IfBlock($qId.text,blockContent);} Rbr! ;
 	
 // ANPASSEN !
 qValueCalcExpr returns [Expr result]
-	:  '('! orExpr ')'! {$result = new ValueExpr($orExpr.result);}; // qType //('-'| '+' | '*') Ident mulExpr Ident
+	:  '('! orExpr^ ')'! {$result = new ValueExpr($orExpr.result);}; // qType //('-'| '+' | '*') Ident mulExpr Ident
 	
 //Question ID / alos in IF STATEMENT, rename ?
 qIdentifier : QuestionId ; //QuestionId;
