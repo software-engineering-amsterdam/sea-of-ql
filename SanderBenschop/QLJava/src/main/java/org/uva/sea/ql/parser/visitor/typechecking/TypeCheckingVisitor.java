@@ -12,7 +12,6 @@ import org.uva.sea.ql.ast.nodetypes.primary.Int;
 import org.uva.sea.ql.ast.nodetypes.unary.UnaryOperation;
 import org.uva.sea.ql.parser.visitor.ASTNodeVisitor;
 import org.uva.sea.ql.parser.visitor.QLError;
-import org.uva.sea.ql.parser.visitor.QLValidator;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -21,7 +20,7 @@ import java.util.List;
 /**
  * Visitor that's responsible for checking if the variables that are used in the QL program are of the proper types.
  */
-public class TypeCheckingVisitor implements ASTNodeVisitor, QLValidator {
+public class TypeCheckingVisitor implements ASTNodeVisitor {
 
     private ReductionTable reductionTable;
     private List<QLError> semanticValidationErrors;
@@ -115,7 +114,6 @@ public class TypeCheckingVisitor implements ASTNodeVisitor, QLValidator {
         reductionTable.setReducableToType(datatype, datatype.getClass());
     }
 
-    @Override
     public List<QLError> getErrors() {
         return semanticValidationErrors;
     }
