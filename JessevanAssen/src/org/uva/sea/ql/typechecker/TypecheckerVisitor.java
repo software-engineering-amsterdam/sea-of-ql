@@ -28,12 +28,16 @@ public class TypecheckerVisitor implements ASTNodeVisitor<Type, TypecheckerVisit
 			                  INT_TYPE     = new org.uva.sea.ql.ast.type.Int(),
 			                  STRING_TYPE  = new org.uva.sea.ql.ast.type.Str();
 
-	
-	
-	public void typecheck(Form form) {
-		form.accept(this, new Context());
-	}	
-	
+
+    /**
+     * This method checks a form for errors.
+     * @return A list of errors. When no errors are found, an empty list is returned.
+     */
+	public List<String> typecheck(Form form) {
+		Context context = new Context();
+        form.accept(this, context);
+        return context.getErrors();
+    }
 	
 	// Form operations
 	@Override
