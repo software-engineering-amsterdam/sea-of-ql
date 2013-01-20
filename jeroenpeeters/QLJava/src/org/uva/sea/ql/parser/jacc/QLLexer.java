@@ -7,13 +7,16 @@ import java.util.Map;
 
 import org.uva.sea.ql.ast.ASTNode;
 import org.uva.sea.ql.ast.Ident;
-import org.uva.sea.ql.ast.Int;
+import org.uva.sea.ql.ast.literals.Int;
+import org.uva.sea.ql.ast.literals.Text;
 
 public class QLLexer implements QLTokens {
 	private static final Map<String, Integer> KEYWORDS;
 	
 	static {
 		KEYWORDS = new HashMap<String, Integer>();
+		KEYWORDS.put("form", FORM);
+		KEYWORDS.put("if", IF);
 	}
 	
 	
@@ -22,6 +25,9 @@ public class QLLexer implements QLTokens {
 	
 	private ASTNode yylval;
 	private final Reader input;
+	
+	private long lineNum = 1;
+	private int colNum = 0;
 
 	public QLLexer(Reader input) {
 		this.input = input;
@@ -36,11 +42,23 @@ public class QLLexer implements QLTokens {
 			catch (IOException e) {
 				c = -1;
 			}
+			if(c == '\n'){
+				lineNum++;
+				colNum = 0;
+			}else{
+				colNum++;
+			}
 		}
 		
 	}
 	
 	public int nextToken() {
+		int n = this._nextToken();
+		//System.out.println(n);
+		return n;
+	}
+	
+	private int _nextToken() {
 		boolean inComment = false;
 		for (;;) {
 			if (inComment) {
@@ -76,6 +94,9 @@ public class QLLexer implements QLTokens {
 			    	}
 			    	return token = '/'; 
 			    }
+			    case ':': nextChar(); return token = ':';
+			    case '}': nextChar(); return token = '}';
+			    case '{': nextChar(); return token = '{';
 			    case ')': nextChar(); return token = ')';
 			    case '(': nextChar(); return token = '(';
 			    case '*': {
@@ -94,14 +115,14 @@ public class QLLexer implements QLTokens {
 			    	if  (c == '&') {
 			    		return token = AND;
 			    	}
-			    	throw new RuntimeException("Unexpected character: " + (char)c);
+			    	this.throwLexicalException("Unexpected character: " + (char)c);
 			    }
 			    case '|': {
 			    	nextChar(); 
 			    	if  (c == '|') {
 			    		return token = OR;
 			    	}
-			    	throw new RuntimeException("Unexpected character: " + (char)c);
+			    	this.throwLexicalException("Unexpected character: " + (char)c);
 			    }
 			    case '!': nextChar(); return token = '!';
 			    case '<': {
@@ -117,7 +138,7 @@ public class QLLexer implements QLTokens {
 			    	if  (c == '=') {
 			    		return token = EQ;
 			    	}
-			    	throw new RuntimeException("Unexpected character: " + (char)c);
+			    	this.throwLexicalException("Unexpected character: " + (char)c);
 			    }
 			    case '>': {
 			    	nextChar();
@@ -126,6 +147,21 @@ public class QLLexer implements QLTokens {
 			    		return token = GEQ;
 			    	}
 			    	return token = '>';
+			    } 
+			    case '"': {
+			    	StringBuilder sb = new StringBuilder();
+			    	do {
+			    		nextChar();
+			    		if(c == -1){
+			    			this.throwLexicalException("Unexpected end while expecting Text closure literal");
+			    		}
+			    		if(c != '"'){
+			    			sb.append((char)c);
+			    		}
+			    	}while( c != '"');
+			    	nextChar();
+			    	yylval = new Text(sb.toString());
+			    	return token = TEXT;
 			    }
 			    default: {
 			    	if (Character.isDigit(c)) {
@@ -137,7 +173,7 @@ public class QLLexer implements QLTokens {
 			    		yylval = new Int(n);
 			    		return token = INT;
 			    	}
-			    	if (Character.isLetter(c)) {
+			    	if (Character.isLetter((char)c)) {
 			    		StringBuilder sb = new StringBuilder();
 			    		do {
 			    			sb.append((char)c);
@@ -151,12 +187,11 @@ public class QLLexer implements QLTokens {
 						yylval = new Ident(name);
 			    		return token = IDENT;
 			    	}
-			    	throw new RuntimeException("Unexpected character: " + (char)c);
+			    	this.throwLexicalException("Unexpected character: " + (char)c);
 			    }
 			}
 		}
 	}
-
 	
 	public int getToken() {
 		return token;
@@ -166,5 +201,8 @@ public class QLLexer implements QLTokens {
 		return yylval;
 	}
 
+	protected void throwLexicalException(final String errorMessage){
+		throw new RuntimeException(errorMessage + " at line " + lineNum + ", column " + colNum + ".");
+	}
 
 }

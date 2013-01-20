@@ -4,55 +4,78 @@
 %semantic org.uva.sea.ql.ast.ASTNode 
 %start top
 
+%token <Form> FORM
 %token <Int> INT
-%token IDENT
+%token <Text> TEXT
+%token <Ident> IDENT
 %token '*' '/' '+' '-' OR AND NEQ EQ '<' LEQ '>' GEQ '!'
-%token '(' ')'
-
+%token '(' ')' '{' '}' ':' '"'
+%token IF
+ 
 %left OR
 %left AND
-%left EQ NEW '>' '<' GEQ LEQ
+%left '>' '<' GEQ LEQ NEQ EQ
 %left '+' '-'
 %left '*' '/'
 %left UMIN UPLUS UNOT
 
-%type <Expr> expr comp
+%type <Form> frm
+%type <CompoundStatement> cmpnd_stmnt
+%type <Question> quest
+%type <Expr> expr stmnt
+%type <If> if_stmnt
 
 %{
 import org.uva.sea.ql.ast.*;
+import org.uva.sea.ql.ast.literals.*;
 %}
 
 %%
 
- top : comp { result = $1; }
-     ;
+ top 			: frm	 					{ result = $1; }
+ 				| expr						{ result = $1; }
+ 				| quest						{ result = $1; }
+     			; 
+ 
+ frm    		: FORM IDENT '{' cmpnd_stmnt '}'	{ $$ = new Form($2, $4); }
+ 				;
+ 				
+ cmpnd_stmnt 	: stmnt					{ $$ = new CompoundStatement($1); }
+ 				| cmpnd_stmnt stmnt		{ $1.add($2); $$ = $1; }
+ 				;
+ 				
+ stmnt			: if_stmnt				{ $$ = $1; }
+ 				| quest					{ $$ = $1; }
+ 				;
 
- comp    : expr EQ expr		    { $$ = new Eq($1, $3); }
-		 | expr NEQ expr		{ $$ = new NEq($1, $3); }
-		 | expr '>' expr		{ $$ = new GT($1, $3); }
-		 | expr '<' expr		{ $$ = new LT($1, $3); }
-		 | expr GEQ expr		{ $$ = new GEq($1, $3); }
-		 | expr LEQ expr		{ $$ = new LEq($1, $3); }
-		 | expr					{ $$ = $1; }
-		 ;
-
-
- expr	 : '+' expr	%prec UPLUS { $$ = new Pos($2); }
-		 | '-' expr	%prec UMIN  { $$ = new Neg($2); }
-		 | '!' expr %prec UNOT  { $$ = new Not($2); }
-		 | expr '*' expr		{ $$ = new Mul($1, $3); }
-		 | expr '/' expr 		{ $$ = new Div($1, $3); }
-		 | expr '+' expr		{ $$ = new Add($1, $3); }
-		 | expr '-' expr		{ $$ = new Sub($1, $3); }
-		 | expr AND expr	    { $$ = new And($1, $3); }
-		 | expr OR expr			{ $$ = new Or($1, $3); }
-		 | INT					{ $$ = $1; }
-		 | IDENT         		{ $$ = $1; }
-		 | '(' comp ')'			{ $$ = $2; }
-		 ;
+ if_stmnt		: IF '(' expr ')' '{' cmpnd_stmnt '}' 	{ $$ = new If($3, $6); } 				
+				;
+				
+ expr	 		: '+' expr	%prec UPLUS { $$ = new Pos($2); }
+				| '-' expr	%prec UMIN  { $$ = new Neg($2); }
+				| '!' expr %prec UNOT  	{ $$ = new Not($2); }
+				| expr '*' expr			{ $$ = new Mul($1, $3); }
+				| expr '/' expr 		{ $$ = new Div($1, $3); }
+				| expr '+' expr			{ $$ = new Add($1, $3); }
+				| expr '-' expr			{ $$ = new Sub($1, $3); }
+				| expr EQ expr		    { $$ = new Eq($1, $3); }
+				| expr NEQ expr			{ $$ = new NEq($1, $3); }
+				| expr '>' expr			{ $$ = new GT($1, $3); }
+				| expr '<' expr			{ $$ = new LT($1, $3); }
+				| expr GEQ expr			{ $$ = new GEq($1, $3); }
+				| expr LEQ expr			{ $$ = new LEq($1, $3); }
+				| expr AND expr	    	{ $$ = new And($1, $3); }
+			    | expr OR expr  		{ $$ = new Or($1, $3); }
+				| INT					{ $$ = $1; }
+				| IDENT         		{ $$ = $1; }
+				| '(' expr ')'			{ $$ = $2; }
+				;
+			 	
+ quest   		: IDENT ':' TEXT IDENT 	{ $$ = new Question($1, $3, $4); }
+         		;
 		 
-
 %%
+
 private QLLexer lexer; 
 
 private Expr result;
