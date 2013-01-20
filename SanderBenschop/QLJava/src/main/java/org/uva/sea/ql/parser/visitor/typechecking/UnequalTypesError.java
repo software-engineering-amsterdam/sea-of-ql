@@ -5,7 +5,7 @@ import org.uva.sea.ql.parser.visitor.QLError;
 
 public class UnequalTypesError extends QLError {
 
-    private static final String TEMPLATE = "Error: binary operation on line %d contains unequal types of respectively %s and %s.";
+    private static final String ERROR_MESSAGE_TEMPLATE = "Error: binary operation on line %d contains unequal types of respectively %s and %s.";
 
     private final Class<?> leftHandSideType;
     private final Class<?> rightHandSideType;
@@ -18,6 +18,6 @@ public class UnequalTypesError extends QLError {
 
     @Override
     public String getErrorMessage() {
-        return String.format(TEMPLATE, getLine(), leftHandSideType.getSimpleName(), rightHandSideType.getSimpleName());
+        return String.format(ERROR_MESSAGE_TEMPLATE, getLine(), leftHandSideType.getSimpleName(), rightHandSideType.getSimpleName());
     }
 }

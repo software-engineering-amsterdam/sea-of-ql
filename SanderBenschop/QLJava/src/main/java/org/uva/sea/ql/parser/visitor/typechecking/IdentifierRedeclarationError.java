@@ -4,7 +4,7 @@ import org.uva.sea.ql.parser.visitor.QLError;
 
 public class IdentifierRedeclarationError extends QLError {
 
-    private static final String TEMPLATE = "Error: attempt to declare identifier with name '%s' on line %d failed, because it is already defined.";
+    private static final String ERROR_MESSAGE_TEMPLATE = "Error: attempt to declare identifier with name '%s' on line %d failed, because it is already defined.";
 
     private final String identifierName;
 
@@ -15,6 +15,6 @@ public class IdentifierRedeclarationError extends QLError {
 
     @Override
     public String getErrorMessage() {
-        return String.format(TEMPLATE, identifierName, getLine());
+        return String.format(ERROR_MESSAGE_TEMPLATE, identifierName, getLine());
     }
 }

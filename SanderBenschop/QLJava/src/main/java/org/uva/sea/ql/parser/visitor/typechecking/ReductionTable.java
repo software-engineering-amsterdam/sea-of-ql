@@ -7,7 +7,7 @@ import java.util.Map;
 
 public class ReductionTable {
 
-    private Map<ASTNode, Class<?>> typeReductionMap;
+    private final Map<ASTNode, Class<?>> typeReductionMap;
 
     public ReductionTable() {
         this.typeReductionMap = new HashMap<ASTNode, Class<?>>();

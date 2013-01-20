@@ -6,7 +6,9 @@ import java.util.List;
 
 public class UnsupportedTypeError extends QLError {
 
-    private static final String TEMPLATE = "Error: variable on line %d of type %s was expected to be reduceable to %s.";
+    private static final String ERROR_MESSAGE_TEMPLATE = "Error: variable on line %d of type %s was expected to be reduceable to %s.";
+    private static final String NON_LAST_CLASS_TEMPLATE = ", %s";
+    private static final String LAST_CLASS_TEMPLATE = " or %s";
 
     private final String allowedTypeNames;
     private final String actualTypeName;
@@ -26,10 +28,10 @@ public class UnsupportedTypeError extends QLError {
 
             if (first) {
                stringBuilder.append(simpleName);
-            } else if (last) {
-                stringBuilder.append(" or " + simpleName);
+            } else if (!last) {
+                stringBuilder.append(String.format(NON_LAST_CLASS_TEMPLATE, simpleName));
             } else {
-                stringBuilder.append(", " + simpleName);
+                stringBuilder.append(String.format(LAST_CLASS_TEMPLATE, simpleName));
             }
         }
         return stringBuilder.toString();
@@ -37,6 +39,6 @@ public class UnsupportedTypeError extends QLError {
 
     @Override
     public String getErrorMessage() {
-        return String.format(TEMPLATE, getLine(), actualTypeName, allowedTypeNames);
+        return String.format(ERROR_MESSAGE_TEMPLATE, getLine(), actualTypeName, allowedTypeNames);
     }
 }
