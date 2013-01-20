@@ -48,8 +48,8 @@ import org.uva.sea.ql.ast.type.Type;
                 ;
 
  node           : form
-                | expression
                 | statement
+                | expression
                 ;
 
  form           : FORM IDENT '{' formbody '}'      { $$ = new FormDeclaration( $2, $4 ); }
@@ -64,6 +64,8 @@ import org.uva.sea.ql.ast.type.Type;
 
  statement      : question
                 | blockstatement
+                | vardeclaration
+                | assignment
                 ;
 
  question       : STR vardeclaration               { $$ = new QuestionDeclaration( $1, $2 ); }

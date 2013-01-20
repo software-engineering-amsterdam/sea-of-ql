@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.Map;
 
 import org.uva.sea.ql.ast.expression.Ident;
-import org.uva.sea.ql.ast.type.Type;
 
 /**
  * Represents an evaluation context.
@@ -20,12 +19,7 @@ public class Context {
 	/**
 	 * Holds the declared variables.
 	 */
-	private final Map<Ident, Value> variables;
-
-	/**
-	 * Holds the variable types.
-	 */
-	private final Map<Ident, Type> types;
+	private final Map<String, Value> variables;
 
 	/**
 	 * Holds the error list.
@@ -39,8 +33,7 @@ public class Context {
 	 */
 	public Context( Context parent ) {
 		this.parent = parent;
-		this.variables = new HashMap<Ident, Value>();
-		this.types = new HashMap<Ident, Type>();
+		this.variables = new HashMap<String, Value>();
 		this.errors = new LinkedList<String>();
 	}
 
@@ -95,7 +88,7 @@ public class Context {
 	 * @return True if it is defined, false otherwise.
 	 */
 	public boolean isDeclared( Ident ident ) {
-		if ( this.types.containsKey( ident ) ) {
+		if ( this.variables.containsKey( ident.getName() ) ) {
 			return true;
 		}
 
@@ -116,8 +109,8 @@ public class Context {
 	 * @throws RuntimeException If the variable cannot be found.
 	 */
 	public Value find( Ident ident ) {
-		if ( this.variables.containsKey( ident ) ) {
-			return this.variables.get( ident );
+		if ( this.variables.containsKey( ident.getName() ) ) {
+			return this.variables.get( ident.getName() );
 		}
 
 		if ( !this.isRoot() ) {
@@ -128,43 +121,12 @@ public class Context {
 	}
 
 	/**
-	 * Finds the type of a given identifier.
-	 *
-	 * @param ident
-	 *
-	 * @return The type of the variable.
-	 *
-	 * @throws RuntimeException If the variable cannot be found.
-	 */
-	public Type findType( Ident ident ) {
-		if ( this.types.containsKey( ident ) ) {
-			return this.types.get( ident );
-		}
-
-		if ( !this.isRoot() ) {
-			return this.parent.findType( ident );
-		}
-
-		throw new RuntimeException( "Undefined variable: " + ident.getName() );
-	}
-
-	/**
-	 * Declares a variable for the given identifier and value.
+	 * Declares a variable value for the given identifier and value.
 	 *
 	 * @param ident
 	 * @param value
 	 */
 	public void declareVariable( Ident ident, Value value ) {
-		this.variables.put( ident, value );
-	}
-
-	/**
-	 * Declares a variable for the given identifier and type.
-	 *
-	 * @param ident
-	 * @param type
-	 */
-	public void declareType( Ident ident, Type type ) {
-		this.types.put( ident, type );
+		this.variables.put( ident.getName(), value );
 	}
 }

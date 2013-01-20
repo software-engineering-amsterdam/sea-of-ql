@@ -16,7 +16,6 @@ Change the start symbol of the parser to parse forms, instead of Expressions.
 Note: don't be seduced by the provided example code and start copy-pasting grammar rules around. It is important to really understand the parser technology involved. ANTLR, Rats! and Jacc are well-documented on the web. Please use this information to fulfill the above requirements.
 
 TODO
-- Revise AST
-- Typechecker visitor
+- Is the Type subtree really necessary?
 - Unit tests for individual classes
-- Interpreter visitor
+- Interpreter visitor: evaluate to values instead of just types.
