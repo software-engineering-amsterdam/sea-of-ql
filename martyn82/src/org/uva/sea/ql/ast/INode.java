@@ -14,7 +14,7 @@ public interface INode {
 	 * @param visitor
 	 * @param context
 	 *
-	 * @return The type of the node.
+	 * @return The value of the node.
 	 */
 	Value accept( INodeVisitor visitor, Context context );
 }

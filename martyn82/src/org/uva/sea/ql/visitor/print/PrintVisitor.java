@@ -285,7 +285,7 @@ public class PrintVisitor implements INodeVisitor {
 		node.getIdent().accept( this, context );
 
 		indent();
-		node.getType().accept( this, context );
+		write( node.getType().name() );
 
 		level--;
 
@@ -358,30 +358,6 @@ public class PrintVisitor implements INodeVisitor {
 
 		level--;
 
-		return null;
-	}
-
-	@Override
-	public Value visit( org.uva.sea.ql.ast.type.Bool node, Context context ) {
-		writeName( node );
-		return null;
-	}
-
-	@Override
-	public Value visit( org.uva.sea.ql.ast.type.Int node, Context context ) {
-		writeName( node );
-		return null;
-	}
-
-	@Override
-	public Value visit( org.uva.sea.ql.ast.type.Money node, Context context ) {
-		writeName( node );
-		return null;
-	}
-
-	@Override
-	public Value visit( org.uva.sea.ql.ast.type.Str node, Context context ) {
-		writeName( node );
 		return null;
 	}
 }

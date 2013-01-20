@@ -1,5 +1,6 @@
 package org.uva.sea.ql.visitor.eval;
 
+import org.uva.sea.ql.ast.DataType;
 import org.uva.sea.ql.ast.expression.ArithmeticExpression;
 import org.uva.sea.ql.ast.expression.ComparisonExpression;
 import org.uva.sea.ql.ast.expression.Ident;
@@ -23,6 +24,29 @@ import org.uva.sea.ql.visitor.INodeVisitor;
  * Represents a type checker visitor.
  */
 public class TypeChecker implements INodeVisitor {
+	/**
+	 * Initializes a value of the given type.
+	 *
+	 * @param type
+	 *
+	 * @return The initialized value.
+	 */
+	private Value initializeType( DataType type ) {
+		if ( type == DataType.BOOLEAN ) {
+			return new org.uva.sea.ql.evaluate.value.Boolean();
+		}
+		else if ( type == DataType.INTEGER ) {
+			return new org.uva.sea.ql.evaluate.value.Integer();
+		}
+		else if ( type == DataType.MONEY ) {
+			return new org.uva.sea.ql.evaluate.value.Money();
+		}
+		else if ( type == DataType.STRING ) {
+			return new org.uva.sea.ql.evaluate.value.String();
+		}
+
+		return null;
+	}
 
 	@Override
 	public Value visit( ArithmeticExpression node, Context context ) {
@@ -194,9 +218,10 @@ public class TypeChecker implements INodeVisitor {
 			return null;
 		}
 
-		context.declareVariable( node.getIdent(), node.getType().accept( this, context ) );
+		Value value = initializeType( node.getType() );
+		context.declareVariable( node.getIdent(), value );
 
-		return null;
+		return value;
 	}
 
 	@Override
@@ -233,25 +258,5 @@ public class TypeChecker implements INodeVisitor {
 	public Value visit( QuestionDeclaration node, Context context ) {
 		node.getName().accept( this, context );
 		return node.getDeclaration().accept( this, context );
-	}
-
-	@Override
-	public Value visit( org.uva.sea.ql.ast.type.Bool node, Context context ) {
-		return new org.uva.sea.ql.evaluate.value.Boolean();
-	}
-
-	@Override
-	public Value visit( org.uva.sea.ql.ast.type.Int node, Context context ) {
-		return new org.uva.sea.ql.evaluate.value.Integer();
-	}
-
-	@Override
-	public Value visit( org.uva.sea.ql.ast.type.Str node, Context context ) {
-		return new org.uva.sea.ql.evaluate.value.String();
-	}
-
-	@Override
-	public Value visit( org.uva.sea.ql.ast.type.Money node, Context context ) {
-		return new org.uva.sea.ql.evaluate.value.Money();
 	}
 }
