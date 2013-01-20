@@ -32,6 +32,7 @@ public class Question extends Statement {
 	@Override
 	public void accept(Visitor visitor) {
 		getId().accept(visitor);
+		getType().accept(visitor);
 		
 		visitor.visit(this);		
 	}

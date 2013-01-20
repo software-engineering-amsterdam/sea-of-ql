@@ -24,10 +24,10 @@ options
 }
 
 form returns [Form result]
-  : 'form' Ident statements=block
+  : ('form' Ident statements=block
 	  { 
 	    $result = new Form(new Ident($Ident.text), $statements.result); 
-	  } 
+	  })*
   ;
 
 block returns [List<Statement> result]

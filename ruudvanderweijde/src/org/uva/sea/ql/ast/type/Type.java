@@ -1,16 +1,16 @@
 package org.uva.sea.ql.ast.type;
 
+import org.uva.sea.ql.ast.ASTNode;
 import org.uva.sea.ql.ast.expr.Expr;
+import org.uva.sea.ql.visitor.Visitor;
 
-public class Type {
-
+public abstract class Type implements ASTNode {
 	private boolean computated = false;
 	private Expr expr;
 	
 	public void add(Expr expr) {
 		this.computated = true;
-		this.expr = expr;
-		
+		this.expr = expr;	
 	}
 
 	public boolean isComputated() {
@@ -23,5 +23,13 @@ public class Type {
 
 	public Expr getExpr() {
 		return expr;
+	}
+	
+	@Override
+	public void accept(Visitor visitor) {
+		if (isComputated()) {
+			getExpr().accept(visitor);
+		}
+		visitor.visit(this);	
 	}
 }

@@ -9,6 +9,7 @@ import org.uva.sea.ql.ast.expr.primary.StringLiteral;
 import org.uva.sea.ql.ast.expr.unary.Unary;
 import org.uva.sea.ql.ast.stmt.IfThenElse;
 import org.uva.sea.ql.ast.stmt.Question;
+import org.uva.sea.ql.ast.type.Type;
 
 public class PrintVisitor implements Visitor {
 
@@ -37,20 +38,30 @@ public class PrintVisitor implements Visitor {
 				"\t type: " + question.getType().getClass()
 				);
 	}
+	
+	@Override
+	public void visit(Type type) {
+		System.out.println("Visit Type " + 
+				"\t type: " + type.getClass()				
+				);
+	}
 
 	@Override
 	public void visit(Unary unary) {
-		System.out.println("Visit Unary class: " + unary.getClass());
+		System.out.println("Visit Unary class: " +
+				"\t class:" + unary.getClass());
 	}
 	
 	@Override
 	public void visit(Binary binary) {
-		System.out.println("Visit Binary class: \t\t\t" + binary.getClass());
+		System.out.println("Visit Binary: " +
+				"\t class:" + binary.getClass());
 	}
 
 	@Override
 	public void visit(Ident ident) {
-		System.out.println("Visit Ident: " + ident.getName());
+		System.out.println("Visit Ident " +
+				"\t name: " + ident.getName());
 	}
 
 	@Override

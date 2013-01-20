@@ -11,9 +11,10 @@ public class VisitorDemo {
     	String testString = "";
     	testString += "form Box1HouseOwning {\n";
     	testString += "   hasSoldHouse: \"Did you sell a house in 2010?\" boolean\n";
+    	testString += "   hasSoldHouse: \"Did you sell a house in 2010?\" boolean\n";
     	testString += "   hasBoughtHouse: \"Did you by a house in 2010?\" boolean\n";
     	testString += "   hasMaintLoan: \"Did you enter a loan for maintenance/reconstruction?\" boolean\n";
-    	testString += "   if (hasSoldHouse && true) {\n";
+    	testString += "   if (hasSoldHouse == true) {\n";
     	testString += "     sellingPrice: \"Price the house was sold for:\" integer\n";
     	testString += "     privateDebt: \"Private debts for the sold house:\" integer\n";
     	testString += "     valueResidue: \"Value residue:\" integer(sellingPrice - privateDebt)\n";
@@ -23,6 +24,8 @@ public class VisitorDemo {
     	ANTLRParser parser = new ANTLRParser();
 		Form form = parser.parseForm(testString);
 		
-		form.accept(new PrintVisitor());
+		//form.accept(new PrintVisitor());
+		//System.out.println("----- Semantic check: ------");
+		form.accept(new SemanticVisitor());
     }
 }
