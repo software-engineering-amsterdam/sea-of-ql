@@ -10,14 +10,17 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
 import org.uva.sea.ql.ast.Form;
-import org.uva.sea.ql.ast.Ident;
-import org.uva.sea.ql.ast.Int;
-import org.uva.sea.ql.ast.expr.Add;
-import org.uva.sea.ql.ast.expr.Div;
-import org.uva.sea.ql.ast.expr.GT;
-import org.uva.sea.ql.ast.expr.LEq;
-import org.uva.sea.ql.ast.expr.LT;
-import org.uva.sea.ql.ast.expr.Mul;
+import org.uva.sea.ql.ast.expr.binary.Add;
+import org.uva.sea.ql.ast.expr.binary.Div;
+import org.uva.sea.ql.ast.expr.binary.GT;
+import org.uva.sea.ql.ast.expr.binary.LEq;
+import org.uva.sea.ql.ast.expr.binary.LT;
+import org.uva.sea.ql.ast.expr.binary.Mul;
+import org.uva.sea.ql.ast.expr.primary.Ident;
+import org.uva.sea.ql.ast.expr.primary.Int;
+import org.uva.sea.ql.ast.stmt.IfElse;
+import org.uva.sea.ql.ast.stmt.IfThen;
+import org.uva.sea.ql.ast.stmt.Question;
 import org.uva.sea.ql.parser.ANTLRParser;
 
 @RunWith(Parameterized.class)
@@ -34,6 +37,24 @@ public class TestParser {
 	
 	public TestParser(IParse parser) {
 		this.parser = parser;
+	}
+
+	@Test
+	public void testStatement() throws ParseError {
+		String strQL1 = "if (true) { question: \"\" boolean }";
+		String strQL2 = "if (a) { }";
+		String strQL3 = "if (true) { b: \"lege string\" boolean } else { b: \"lege string\" boolean }";
+		String strQL4 = "if (a) { } else { b: \"lege string\" boolean }";
+		String strQL5 = "s: \"string\" string";
+		String strQL6 = "b: \"lege string\" integer (ident > 1)";
+		
+		
+		assertEquals(parser.parseStatement(strQL1).getClass(), IfThen.class);
+		assertEquals(parser.parseStatement(strQL2).getClass(), IfThen.class);
+		assertEquals(parser.parseStatement(strQL3).getClass(), IfElse.class);
+		assertEquals(parser.parseStatement(strQL4).getClass(), IfElse.class);
+		assertEquals(parser.parseStatement(strQL5).getClass(), Question.class);
+		assertEquals(parser.parseStatement(strQL6).getClass(), Question.class);
 	}
 
 	@Test

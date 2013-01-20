@@ -1,4 +1,6 @@
-package org.uva.sea.ql.ast.expr;
+package org.uva.sea.ql.ast.expr.binary;
+
+import org.uva.sea.ql.ast.expr.Expr;
 
 public class And extends Binary {
 

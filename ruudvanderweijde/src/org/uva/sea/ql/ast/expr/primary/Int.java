@@ -1,4 +1,6 @@
-package org.uva.sea.ql.ast.expr;
+package org.uva.sea.ql.ast.expr.primary;
+
+import org.uva.sea.ql.ast.expr.Expr;
 
 
 public class Int extends Expr {

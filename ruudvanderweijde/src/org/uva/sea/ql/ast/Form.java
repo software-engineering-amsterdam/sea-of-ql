@@ -3,8 +3,9 @@ package org.uva.sea.ql.ast;
 import java.util.List;
 
 import org.uva.sea.ql.ast.stmt.Statement;
+import org.uva.sea.ql.visitor.Visitor;
 
-public class Form {
+public class Form implements ASTNode {
 
 	private final String id;
 	private List<Statement> statements;
@@ -26,4 +27,11 @@ public class Form {
 		this.statements = statements;
 	}
 
+	@Override
+	public void accept(Visitor visitor) {
+		for(ASTNode node : statements) {
+            node.accept(visitor);
+        }
+        visitor.visit(this);	
+	}
 }

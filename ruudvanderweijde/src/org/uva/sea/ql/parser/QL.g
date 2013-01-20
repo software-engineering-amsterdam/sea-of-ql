@@ -11,6 +11,9 @@ options
   package org.uva.sea.ql.parser;
   import org.uva.sea.ql.ast.*;
   import org.uva.sea.ql.ast.expr.*;
+  import org.uva.sea.ql.ast.expr.binary.*;
+  import org.uva.sea.ql.ast.expr.primary.*;
+  import org.uva.sea.ql.ast.expr.unary.*;
   import org.uva.sea.ql.ast.type.*;
   import org.uva.sea.ql.ast.stmt.*;
 }
@@ -47,9 +50,9 @@ ifStatement returns [Statement result]
     )
     {
       if (elseBlock != null) {
-        $result = new ifElse(condition, ifBlock, elseBlock);
+        $result = new IfElse(condition, ifBlock, elseBlock);
       } else {
-        $result = new ifThen(condition, ifBlock);
+        $result = new IfThen(condition, ifBlock);
       }
     }
   ;

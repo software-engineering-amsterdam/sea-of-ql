@@ -1,10 +1,13 @@
-// $ANTLR 3.5 C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g 2013-01-19 13:05:03
+// $ANTLR 3.5 C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g 2013-01-20 01:01:57
 
   package org.uva.sea.ql.parser;
   import org.uva.sea.ql.ast.*;
-import org.uva.sea.ql.ast.expr.*;
-import org.uva.sea.ql.ast.type.*;
-import org.uva.sea.ql.ast.stmt.*;
+  import org.uva.sea.ql.ast.expr.*;
+  import org.uva.sea.ql.ast.expr.binary.*;
+  import org.uva.sea.ql.ast.expr.primary.*;
+  import org.uva.sea.ql.ast.expr.unary.*;
+  import org.uva.sea.ql.ast.type.*;
+  import org.uva.sea.ql.ast.stmt.*;
 
 
 import org.antlr.runtime.*;
@@ -82,7 +85,7 @@ public class QLParser extends Parser {
 
 
 	// $ANTLR start "form"
-	// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:23:1: form returns [Form result] : 'form' Ident statements= block ;
+	// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:26:1: form returns [Form result] : 'form' Ident statements= block ;
 	public final Form form() throws RecognitionException {
 		Form result = null;
 
@@ -94,8 +97,8 @@ public class QLParser extends Parser {
 		try {
 			if ( state.backtracking>0 && alreadyParsedRule(input, 1) ) { return result; }
 
-			// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:24:3: ( 'form' Ident statements= block )
-			// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:24:5: 'form' Ident statements= block
+			// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:27:3: ( 'form' Ident statements= block )
+			// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:27:5: 'form' Ident statements= block
 			{
 			match(input,33,FOLLOW_33_in_form56); if (state.failed) return result;
 			Ident1=(Token)match(input,Ident,FOLLOW_Ident_in_form58); if (state.failed) return result;
@@ -125,7 +128,7 @@ public class QLParser extends Parser {
 
 
 	// $ANTLR start "block"
-	// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:30:1: block returns [List<Statement> result] : OBrace (stmt= statement )* CBrace ;
+	// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:33:1: block returns [List<Statement> result] : OBrace (stmt= statement )* CBrace ;
 	public final List<Statement> block() throws RecognitionException {
 		List<Statement> result = null;
 
@@ -139,11 +142,11 @@ public class QLParser extends Parser {
 		try {
 			if ( state.backtracking>0 && alreadyParsedRule(input, 2) ) { return result; }
 
-			// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:35:3: ( OBrace (stmt= statement )* CBrace )
-			// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:35:5: OBrace (stmt= statement )* CBrace
+			// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:38:3: ( OBrace (stmt= statement )* CBrace )
+			// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:38:5: OBrace (stmt= statement )* CBrace
 			{
 			match(input,OBrace,FOLLOW_OBrace_in_block96); if (state.failed) return result;
-			// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:35:12: (stmt= statement )*
+			// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:38:12: (stmt= statement )*
 			loop1:
 			while (true) {
 				int alt1=2;
@@ -154,7 +157,7 @@ public class QLParser extends Parser {
 
 				switch (alt1) {
 				case 1 :
-					// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:35:14: stmt= statement
+					// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:38:14: stmt= statement
 					{
 					pushFollow(FOLLOW_statement_in_block102);
 					stmt=statement();
@@ -189,7 +192,7 @@ public class QLParser extends Parser {
 
 
 	// $ANTLR start "statement"
-	// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:38:1: statement returns [Statement result] : (q= question |i= ifStatement );
+	// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:41:1: statement returns [Statement result] : (q= question |i= ifStatement );
 	public final Statement statement() throws RecognitionException {
 		Statement result = null;
 
@@ -201,7 +204,7 @@ public class QLParser extends Parser {
 		try {
 			if ( state.backtracking>0 && alreadyParsedRule(input, 3) ) { return result; }
 
-			// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:39:3: (q= question |i= ifStatement )
+			// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:42:3: (q= question |i= ifStatement )
 			int alt2=2;
 			int LA2_0 = input.LA(1);
 			if ( (LA2_0==Ident) ) {
@@ -220,7 +223,7 @@ public class QLParser extends Parser {
 
 			switch (alt2) {
 				case 1 :
-					// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:39:5: q= question
+					// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:42:5: q= question
 					{
 					pushFollow(FOLLOW_question_in_statement130);
 					q=question();
@@ -230,7 +233,7 @@ public class QLParser extends Parser {
 					}
 					break;
 				case 2 :
-					// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:40:5: i= ifStatement
+					// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:43:5: i= ifStatement
 					{
 					pushFollow(FOLLOW_ifStatement_in_statement143);
 					i=ifStatement();
@@ -258,7 +261,7 @@ public class QLParser extends Parser {
 
 
 	// $ANTLR start "ifStatement"
-	// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:43:1: ifStatement returns [Statement result] : If OParen condition= orExpr CParen ifBlock= block ( ( Else )=> Else elseBlock= block | () ) ;
+	// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:46:1: ifStatement returns [Statement result] : If OParen condition= orExpr CParen ifBlock= block ( ( Else )=> Else elseBlock= block | () ) ;
 	public final Statement ifStatement() throws RecognitionException {
 		Statement result = null;
 
@@ -271,8 +274,8 @@ public class QLParser extends Parser {
 		try {
 			if ( state.backtracking>0 && alreadyParsedRule(input, 4) ) { return result; }
 
-			// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:44:3: ( If OParen condition= orExpr CParen ifBlock= block ( ( Else )=> Else elseBlock= block | () ) )
-			// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:44:5: If OParen condition= orExpr CParen ifBlock= block ( ( Else )=> Else elseBlock= block | () )
+			// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:47:3: ( If OParen condition= orExpr CParen ifBlock= block ( ( Else )=> Else elseBlock= block | () ) )
+			// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:47:5: If OParen condition= orExpr CParen ifBlock= block ( ( Else )=> Else elseBlock= block | () )
 			{
 			match(input,If,FOLLOW_If_in_ifStatement164); if (state.failed) return result;
 			match(input,OParen,FOLLOW_OParen_in_ifStatement166); if (state.failed) return result;
@@ -285,7 +288,7 @@ public class QLParser extends Parser {
 			ifBlock=block();
 			state._fsp--;
 			if (state.failed) return result;
-			// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:45:5: ( ( Else )=> Else elseBlock= block | () )
+			// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:48:5: ( ( Else )=> Else elseBlock= block | () )
 			int alt3=2;
 			int LA3_0 = input.LA(1);
 			if ( (LA3_0==Else) && (synpred3_QL())) {
@@ -304,7 +307,7 @@ public class QLParser extends Parser {
 
 			switch (alt3) {
 				case 1 :
-					// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:45:7: ( Else )=> Else elseBlock= block
+					// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:48:7: ( Else )=> Else elseBlock= block
 					{
 					match(input,Else,FOLLOW_Else_in_ifStatement189); if (state.failed) return result;
 					pushFollow(FOLLOW_block_in_ifStatement193);
@@ -314,10 +317,10 @@ public class QLParser extends Parser {
 					}
 					break;
 				case 2 :
-					// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:46:7: ()
+					// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:49:7: ()
 					{
-					// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:46:7: ()
-					// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:46:9: 
+					// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:49:7: ()
+					// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:49:9: 
 					{
 					}
 
@@ -328,9 +331,9 @@ public class QLParser extends Parser {
 
 			if ( state.backtracking==0 ) {
 			      if (elseBlock != null) {
-			        result = new ifElse(condition, ifBlock, elseBlock);
+			        result = new IfElse(condition, ifBlock, elseBlock);
 			      } else {
-			        result = new ifThen(condition, ifBlock);
+			        result = new IfThen(condition, ifBlock);
 			      }
 			    }
 			}
@@ -352,7 +355,7 @@ public class QLParser extends Parser {
 
 
 	// $ANTLR start "question"
-	// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:57:1: question returns [Statement result] : Ident Colon String tp= type ;
+	// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:60:1: question returns [Statement result] : Ident Colon String tp= type ;
 	public final Statement question() throws RecognitionException {
 		Statement result = null;
 
@@ -365,8 +368,8 @@ public class QLParser extends Parser {
 		try {
 			if ( state.backtracking>0 && alreadyParsedRule(input, 5) ) { return result; }
 
-			// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:58:3: ( Ident Colon String tp= type )
-			// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:58:5: Ident Colon String tp= type
+			// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:61:3: ( Ident Colon String tp= type )
+			// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:61:5: Ident Colon String tp= type
 			{
 			Ident2=(Token)match(input,Ident,FOLLOW_Ident_in_question235); if (state.failed) return result;
 			match(input,Colon,FOLLOW_Colon_in_question237); if (state.failed) return result;
@@ -395,7 +398,7 @@ public class QLParser extends Parser {
 
 
 	// $ANTLR start "type"
-	// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:61:1: type returns [Type result] : ( 'string' (cp= computation )? | 'boolean' (cp= computation )? | 'integer' (cp= computation )? );
+	// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:64:1: type returns [Type result] : ( 'string' (cp= computation )? | 'boolean' (cp= computation )? | 'integer' (cp= computation )? );
 	public final Type type() throws RecognitionException {
 		Type result = null;
 
@@ -406,7 +409,7 @@ public class QLParser extends Parser {
 		try {
 			if ( state.backtracking>0 && alreadyParsedRule(input, 6) ) { return result; }
 
-			// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:62:3: ( 'string' (cp= computation )? | 'boolean' (cp= computation )? | 'integer' (cp= computation )? )
+			// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:65:3: ( 'string' (cp= computation )? | 'boolean' (cp= computation )? | 'integer' (cp= computation )? )
 			int alt7=3;
 			switch ( input.LA(1) ) {
 			case 35:
@@ -432,11 +435,11 @@ public class QLParser extends Parser {
 			}
 			switch (alt7) {
 				case 1 :
-					// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:62:5: 'string' (cp= computation )?
+					// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:65:5: 'string' (cp= computation )?
 					{
 					match(input,35,FOLLOW_35_in_type262); if (state.failed) return result;
 					if ( state.backtracking==0 ) { result = new StringType(); }
-					// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:62:48: (cp= computation )?
+					// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:65:48: (cp= computation )?
 					int alt4=2;
 					int LA4_0 = input.LA(1);
 					if ( (LA4_0==OParen) ) {
@@ -444,7 +447,7 @@ public class QLParser extends Parser {
 					}
 					switch (alt4) {
 						case 1 :
-							// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:62:50: cp= computation
+							// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:65:50: cp= computation
 							{
 							pushFollow(FOLLOW_computation_in_type272);
 							cp=computation();
@@ -459,11 +462,11 @@ public class QLParser extends Parser {
 					}
 					break;
 				case 2 :
-					// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:63:5: 'boolean' (cp= computation )?
+					// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:66:5: 'boolean' (cp= computation )?
 					{
 					match(input,32,FOLLOW_32_in_type284); if (state.failed) return result;
 					if ( state.backtracking==0 ) { result = new BooleanType(); }
-					// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:63:48: (cp= computation )?
+					// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:66:48: (cp= computation )?
 					int alt5=2;
 					int LA5_0 = input.LA(1);
 					if ( (LA5_0==OParen) ) {
@@ -471,7 +474,7 @@ public class QLParser extends Parser {
 					}
 					switch (alt5) {
 						case 1 :
-							// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:63:50: cp= computation
+							// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:66:50: cp= computation
 							{
 							pushFollow(FOLLOW_computation_in_type292);
 							cp=computation();
@@ -486,11 +489,11 @@ public class QLParser extends Parser {
 					}
 					break;
 				case 3 :
-					// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:64:5: 'integer' (cp= computation )?
+					// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:67:5: 'integer' (cp= computation )?
 					{
 					match(input,34,FOLLOW_34_in_type304); if (state.failed) return result;
 					if ( state.backtracking==0 ) { result = new IntegerType(); }
-					// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:64:48: (cp= computation )?
+					// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:67:48: (cp= computation )?
 					int alt6=2;
 					int LA6_0 = input.LA(1);
 					if ( (LA6_0==OParen) ) {
@@ -498,7 +501,7 @@ public class QLParser extends Parser {
 					}
 					switch (alt6) {
 						case 1 :
-							// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:64:50: cp= computation
+							// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:67:50: cp= computation
 							{
 							pushFollow(FOLLOW_computation_in_type312);
 							cp=computation();
@@ -531,7 +534,7 @@ public class QLParser extends Parser {
 
 
 	// $ANTLR start "computation"
-	// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:67:1: computation returns [Expr result] : '(' expr= orExpr ')' ;
+	// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:70:1: computation returns [Expr result] : '(' expr= orExpr ')' ;
 	public final Expr computation() throws RecognitionException {
 		Expr result = null;
 
@@ -542,8 +545,8 @@ public class QLParser extends Parser {
 		try {
 			if ( state.backtracking>0 && alreadyParsedRule(input, 7) ) { return result; }
 
-			// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:68:3: ( '(' expr= orExpr ')' )
-			// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:68:5: '(' expr= orExpr ')'
+			// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:71:3: ( '(' expr= orExpr ')' )
+			// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:71:5: '(' expr= orExpr ')'
 			{
 			match(input,OParen,FOLLOW_OParen_in_computation337); if (state.failed) return result;
 			pushFollow(FOLLOW_orExpr_in_computation341);
@@ -571,7 +574,7 @@ public class QLParser extends Parser {
 
 
 	// $ANTLR start "primary"
-	// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:71:1: primary returns [Expr result] : ( Int | Ident | Bool | String | '(' x= orExpr ')' );
+	// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:74:1: primary returns [Expr result] : ( Int | Ident | Bool | String | '(' x= orExpr ')' );
 	public final Expr primary() throws RecognitionException {
 		Expr result = null;
 
@@ -586,7 +589,7 @@ public class QLParser extends Parser {
 		try {
 			if ( state.backtracking>0 && alreadyParsedRule(input, 8) ) { return result; }
 
-			// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:72:3: ( Int | Ident | Bool | String | '(' x= orExpr ')' )
+			// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:75:3: ( Int | Ident | Bool | String | '(' x= orExpr ')' )
 			int alt8=5;
 			switch ( input.LA(1) ) {
 			case Int:
@@ -622,35 +625,35 @@ public class QLParser extends Parser {
 			}
 			switch (alt8) {
 				case 1 :
-					// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:72:5: Int
+					// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:75:5: Int
 					{
 					Int4=(Token)match(input,Int,FOLLOW_Int_in_primary362); if (state.failed) return result;
 					if ( state.backtracking==0 ) { result = new Int(Integer.parseInt((Int4!=null?Int4.getText():null))); }
 					}
 					break;
 				case 2 :
-					// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:73:5: Ident
+					// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:76:5: Ident
 					{
 					Ident5=(Token)match(input,Ident,FOLLOW_Ident_in_primary374); if (state.failed) return result;
 					if ( state.backtracking==0 ) { result = new Ident((Ident5!=null?Ident5.getText():null)); }
 					}
 					break;
 				case 3 :
-					// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:74:5: Bool
+					// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:77:5: Bool
 					{
 					Bool6=(Token)match(input,Bool,FOLLOW_Bool_in_primary384); if (state.failed) return result;
 					if ( state.backtracking==0 ) { result = new Bool(Boolean.parseBoolean((Bool6!=null?Bool6.getText():null))); }
 					}
 					break;
 				case 4 :
-					// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:75:5: String
+					// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:78:5: String
 					{
 					String7=(Token)match(input,String,FOLLOW_String_in_primary395); if (state.failed) return result;
 					if ( state.backtracking==0 ) { result = new StringLiteral((String7!=null?String7.getText():null)); }
 					}
 					break;
 				case 5 :
-					// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:76:5: '(' x= orExpr ')'
+					// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:79:5: '(' x= orExpr ')'
 					{
 					match(input,OParen,FOLLOW_OParen_in_primary404); if (state.failed) return result;
 					pushFollow(FOLLOW_orExpr_in_primary408);
@@ -680,7 +683,7 @@ public class QLParser extends Parser {
 
 
 	// $ANTLR start "unExpr"
-	// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:79:1: unExpr returns [Expr result] : ( '+' x= unExpr | '-' x= unExpr | '!' x= unExpr |x= primary );
+	// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:82:1: unExpr returns [Expr result] : ( '+' x= unExpr | '-' x= unExpr | '!' x= unExpr |x= primary );
 	public final Expr unExpr() throws RecognitionException {
 		Expr result = null;
 
@@ -691,7 +694,7 @@ public class QLParser extends Parser {
 		try {
 			if ( state.backtracking>0 && alreadyParsedRule(input, 9) ) { return result; }
 
-			// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:80:5: ( '+' x= unExpr | '-' x= unExpr | '!' x= unExpr |x= primary )
+			// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:83:5: ( '+' x= unExpr | '-' x= unExpr | '!' x= unExpr |x= primary )
 			int alt9=4;
 			switch ( input.LA(1) ) {
 			case 24:
@@ -726,7 +729,7 @@ public class QLParser extends Parser {
 			}
 			switch (alt9) {
 				case 1 :
-					// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:80:8: '+' x= unExpr
+					// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:83:8: '+' x= unExpr
 					{
 					match(input,24,FOLLOW_24_in_unExpr436); if (state.failed) return result;
 					pushFollow(FOLLOW_unExpr_in_unExpr440);
@@ -737,7 +740,7 @@ public class QLParser extends Parser {
 					}
 					break;
 				case 2 :
-					// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:81:8: '-' x= unExpr
+					// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:84:8: '-' x= unExpr
 					{
 					match(input,25,FOLLOW_25_in_unExpr451); if (state.failed) return result;
 					pushFollow(FOLLOW_unExpr_in_unExpr455);
@@ -748,7 +751,7 @@ public class QLParser extends Parser {
 					}
 					break;
 				case 3 :
-					// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:82:8: '!' x= unExpr
+					// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:85:8: '!' x= unExpr
 					{
 					match(input,20,FOLLOW_20_in_unExpr466); if (state.failed) return result;
 					pushFollow(FOLLOW_unExpr_in_unExpr470);
@@ -759,7 +762,7 @@ public class QLParser extends Parser {
 					}
 					break;
 				case 4 :
-					// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:83:8: x= primary
+					// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:86:8: x= primary
 					{
 					pushFollow(FOLLOW_primary_in_unExpr483);
 					x=primary();
@@ -787,7 +790,7 @@ public class QLParser extends Parser {
 
 
 	// $ANTLR start "mulExpr"
-	// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:86:1: mulExpr returns [Expr result] : lhs= unExpr (op= ( '*' | '/' ) rhs= unExpr )* ;
+	// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:89:1: mulExpr returns [Expr result] : lhs= unExpr (op= ( '*' | '/' ) rhs= unExpr )* ;
 	public final Expr mulExpr() throws RecognitionException {
 		Expr result = null;
 
@@ -800,15 +803,15 @@ public class QLParser extends Parser {
 		try {
 			if ( state.backtracking>0 && alreadyParsedRule(input, 10) ) { return result; }
 
-			// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:87:5: (lhs= unExpr (op= ( '*' | '/' ) rhs= unExpr )* )
-			// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:87:9: lhs= unExpr (op= ( '*' | '/' ) rhs= unExpr )*
+			// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:90:5: (lhs= unExpr (op= ( '*' | '/' ) rhs= unExpr )* )
+			// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:90:9: lhs= unExpr (op= ( '*' | '/' ) rhs= unExpr )*
 			{
 			pushFollow(FOLLOW_unExpr_in_mulExpr521);
 			lhs=unExpr();
 			state._fsp--;
 			if (state.failed) return result;
 			if ( state.backtracking==0 ) { result =lhs; }
-			// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:87:45: (op= ( '*' | '/' ) rhs= unExpr )*
+			// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:90:45: (op= ( '*' | '/' ) rhs= unExpr )*
 			loop10:
 			while (true) {
 				int alt10=2;
@@ -819,7 +822,7 @@ public class QLParser extends Parser {
 
 				switch (alt10) {
 				case 1 :
-					// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:87:47: op= ( '*' | '/' ) rhs= unExpr
+					// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:90:47: op= ( '*' | '/' ) rhs= unExpr
 					{
 					op=input.LT(1);
 					if ( input.LA(1)==23||input.LA(1)==26 ) {
@@ -871,7 +874,7 @@ public class QLParser extends Parser {
 
 
 	// $ANTLR start "addExpr"
-	// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:99:1: addExpr returns [Expr result] : lhs= mulExpr (op= ( '+' | '-' ) rhs= mulExpr )* ;
+	// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:102:1: addExpr returns [Expr result] : lhs= mulExpr (op= ( '+' | '-' ) rhs= mulExpr )* ;
 	public final Expr addExpr() throws RecognitionException {
 		Expr result = null;
 
@@ -884,15 +887,15 @@ public class QLParser extends Parser {
 		try {
 			if ( state.backtracking>0 && alreadyParsedRule(input, 11) ) { return result; }
 
-			// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:100:5: (lhs= mulExpr (op= ( '+' | '-' ) rhs= mulExpr )* )
-			// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:100:9: lhs= mulExpr (op= ( '+' | '-' ) rhs= mulExpr )*
+			// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:103:5: (lhs= mulExpr (op= ( '+' | '-' ) rhs= mulExpr )* )
+			// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:103:9: lhs= mulExpr (op= ( '+' | '-' ) rhs= mulExpr )*
 			{
 			pushFollow(FOLLOW_mulExpr_in_addExpr582);
 			lhs=mulExpr();
 			state._fsp--;
 			if (state.failed) return result;
 			if ( state.backtracking==0 ) { result =lhs; }
-			// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:100:46: (op= ( '+' | '-' ) rhs= mulExpr )*
+			// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:103:46: (op= ( '+' | '-' ) rhs= mulExpr )*
 			loop11:
 			while (true) {
 				int alt11=2;
@@ -903,7 +906,7 @@ public class QLParser extends Parser {
 
 				switch (alt11) {
 				case 1 :
-					// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:100:48: op= ( '+' | '-' ) rhs= mulExpr
+					// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:103:48: op= ( '+' | '-' ) rhs= mulExpr
 					{
 					op=input.LT(1);
 					if ( (input.LA(1) >= 24 && input.LA(1) <= 25) ) {
@@ -955,7 +958,7 @@ public class QLParser extends Parser {
 
 
 	// $ANTLR start "relExpr"
-	// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:111:1: relExpr returns [Expr result] : lhs= addExpr (op= ( '<' | '<=' | '>' | '>=' | '==' | '!=' ) rhs= addExpr )* ;
+	// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:114:1: relExpr returns [Expr result] : lhs= addExpr (op= ( '<' | '<=' | '>' | '>=' | '==' | '!=' ) rhs= addExpr )* ;
 	public final Expr relExpr() throws RecognitionException {
 		Expr result = null;
 
@@ -968,15 +971,15 @@ public class QLParser extends Parser {
 		try {
 			if ( state.backtracking>0 && alreadyParsedRule(input, 12) ) { return result; }
 
-			// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:112:5: (lhs= addExpr (op= ( '<' | '<=' | '>' | '>=' | '==' | '!=' ) rhs= addExpr )* )
-			// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:112:9: lhs= addExpr (op= ( '<' | '<=' | '>' | '>=' | '==' | '!=' ) rhs= addExpr )*
+			// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:115:5: (lhs= addExpr (op= ( '<' | '<=' | '>' | '>=' | '==' | '!=' ) rhs= addExpr )* )
+			// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:115:9: lhs= addExpr (op= ( '<' | '<=' | '>' | '>=' | '==' | '!=' ) rhs= addExpr )*
 			{
 			pushFollow(FOLLOW_addExpr_in_relExpr635);
 			lhs=addExpr();
 			state._fsp--;
 			if (state.failed) return result;
 			if ( state.backtracking==0 ) { result =lhs; }
-			// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:112:46: (op= ( '<' | '<=' | '>' | '>=' | '==' | '!=' ) rhs= addExpr )*
+			// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:115:46: (op= ( '<' | '<=' | '>' | '>=' | '==' | '!=' ) rhs= addExpr )*
 			loop12:
 			while (true) {
 				int alt12=2;
@@ -987,7 +990,7 @@ public class QLParser extends Parser {
 
 				switch (alt12) {
 				case 1 :
-					// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:112:48: op= ( '<' | '<=' | '>' | '>=' | '==' | '!=' ) rhs= addExpr
+					// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:115:48: op= ( '<' | '<=' | '>' | '>=' | '==' | '!=' ) rhs= addExpr
 					{
 					op=input.LT(1);
 					if ( input.LA(1)==21||(input.LA(1) >= 27 && input.LA(1) <= 31) ) {
@@ -1051,7 +1054,7 @@ public class QLParser extends Parser {
 
 
 	// $ANTLR start "andExpr"
-	// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:135:1: andExpr returns [Expr result] : lhs= relExpr ( '&&' rhs= relExpr )* ;
+	// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:138:1: andExpr returns [Expr result] : lhs= relExpr ( '&&' rhs= relExpr )* ;
 	public final Expr andExpr() throws RecognitionException {
 		Expr result = null;
 
@@ -1063,15 +1066,15 @@ public class QLParser extends Parser {
 		try {
 			if ( state.backtracking>0 && alreadyParsedRule(input, 13) ) { return result; }
 
-			// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:136:5: (lhs= relExpr ( '&&' rhs= relExpr )* )
-			// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:136:9: lhs= relExpr ( '&&' rhs= relExpr )*
+			// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:139:5: (lhs= relExpr ( '&&' rhs= relExpr )* )
+			// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:139:9: lhs= relExpr ( '&&' rhs= relExpr )*
 			{
 			pushFollow(FOLLOW_relExpr_in_andExpr697);
 			lhs=relExpr();
 			state._fsp--;
 			if (state.failed) return result;
 			if ( state.backtracking==0 ) { result =lhs; }
-			// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:136:46: ( '&&' rhs= relExpr )*
+			// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:139:46: ( '&&' rhs= relExpr )*
 			loop13:
 			while (true) {
 				int alt13=2;
@@ -1082,7 +1085,7 @@ public class QLParser extends Parser {
 
 				switch (alt13) {
 				case 1 :
-					// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:136:48: '&&' rhs= relExpr
+					// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:139:48: '&&' rhs= relExpr
 					{
 					match(input,22,FOLLOW_22_in_andExpr703); if (state.failed) return result;
 					pushFollow(FOLLOW_relExpr_in_andExpr707);
@@ -1117,7 +1120,7 @@ public class QLParser extends Parser {
 
 
 	// $ANTLR start "orExpr"
-	// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:140:1: orExpr returns [Expr result] : lhs= andExpr ( '||' rhs= andExpr )* ;
+	// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:143:1: orExpr returns [Expr result] : lhs= andExpr ( '||' rhs= andExpr )* ;
 	public final Expr orExpr() throws RecognitionException {
 		Expr result = null;
 
@@ -1129,15 +1132,15 @@ public class QLParser extends Parser {
 		try {
 			if ( state.backtracking>0 && alreadyParsedRule(input, 14) ) { return result; }
 
-			// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:141:5: (lhs= andExpr ( '||' rhs= andExpr )* )
-			// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:141:9: lhs= andExpr ( '||' rhs= andExpr )*
+			// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:144:5: (lhs= andExpr ( '||' rhs= andExpr )* )
+			// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:144:9: lhs= andExpr ( '||' rhs= andExpr )*
 			{
 			pushFollow(FOLLOW_andExpr_in_orExpr742);
 			lhs=andExpr();
 			state._fsp--;
 			if (state.failed) return result;
 			if ( state.backtracking==0 ) { result = lhs; }
-			// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:141:48: ( '||' rhs= andExpr )*
+			// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:144:48: ( '||' rhs= andExpr )*
 			loop14:
 			while (true) {
 				int alt14=2;
@@ -1148,7 +1151,7 @@ public class QLParser extends Parser {
 
 				switch (alt14) {
 				case 1 :
-					// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:141:50: '||' rhs= andExpr
+					// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:144:50: '||' rhs= andExpr
 					{
 					match(input,36,FOLLOW_36_in_orExpr748); if (state.failed) return result;
 					pushFollow(FOLLOW_andExpr_in_orExpr752);
@@ -1182,8 +1185,8 @@ public class QLParser extends Parser {
 
 	// $ANTLR start synpred3_QL
 	public final void synpred3_QL_fragment() throws RecognitionException {
-		// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:45:7: ( Else )
-		// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:45:8: Else
+		// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:48:7: ( Else )
+		// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:48:8: Else
 		{
 		match(input,Else,FOLLOW_Else_in_synpred3_QL185); if (state.failed) return;
 		}

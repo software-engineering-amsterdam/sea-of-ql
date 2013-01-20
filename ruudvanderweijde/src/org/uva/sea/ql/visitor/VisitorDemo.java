@@ -1,11 +1,24 @@
 package org.uva.sea.ql.visitor;
 
-import org.uva.sea.ql.ast.*;
+import org.uva.sea.ql.parser.ANTLRParser;
+import org.uva.sea.ql.parser.test.ParseError;
+
 
 public class VisitorDemo {
-    static public void main(String[] args) {
-//        Form form = new Form(id, statements);
-//        form.accept(new CarElementPrintVisitor());
-//        car.accept(new CarElementDoVisitor());
+	
+    static public void main(String[] args) throws ParseError{
+    	String testString = "";
+    	testString += "form Box1HouseOwning {\n";
+    	testString += "   hasSoldHouse: \"Did you sell a house in 2010?\" boolean\n";
+    	testString += "   hasBoughtHouse: \"Did you by a house in 2010?\" boolean\n";
+    	testString += "   hasMaintLoan: \"Did you enter a loan for maintenance/reconstruction?\" boolean\n";
+    	testString += "   if (hasSoldHouse) {\n";
+    	testString += "     sellingPrice: \"Price the house was sold for:\" integer\n";
+    	testString += "     privateDebt: \"Private debts for the sold house:\" integer\n";
+    	testString += "     valueResidue: \"Value residue:\" integer(sellingPrice - privateDebt)\n";
+    	testString += "   }\n";
+    	testString += "}\n";
+    	ANTLRParser parser = new ANTLRParser();
+		parser.parseForm(testString).accept(new PrintVisitor());
     }
 }

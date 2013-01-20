@@ -4,13 +4,13 @@ import java.util.List;
 
 import org.uva.sea.ql.ast.expr.Expr;
 
-public class ifElse extends Statement {
+public class IfElse extends Statement {
 
 	private final Expr condition;
 	private final List<Statement> ifBlock;
 	private final List<Statement> elseBlock;
 	
-	public ifElse(Expr condition, List<Statement> ifBlock,
+	public IfElse(Expr condition, List<Statement> ifBlock,
 			List<Statement> elseBlock) {
 		this.condition = condition;
 		this.ifBlock = ifBlock;
