@@ -1,6 +1,8 @@
 package org.uva.sea.ql.ast.expression;
 
-import org.uva.sea.ql.visitor.Visitor;
+import org.uva.sea.ql.eval.Context;
+import org.uva.sea.ql.eval.value.Value;
+import org.uva.sea.ql.visitor.INodeVisitor;
 
 /**
  * Represents an identifier expression.
@@ -13,7 +15,7 @@ public class Ident extends Expression {
 
 	/**
 	 * Constructs a new identifier expression.
-	 * 
+	 *
 	 * @param name The name of the identifier.
 	 */
 	public Ident( String name ) {
@@ -22,7 +24,7 @@ public class Ident extends Expression {
 
 	/**
 	 * Retrieves the name of the identifier.
-	 * 
+	 *
 	 * @return The name of the identifier.
 	 */
 	public String getName() {
@@ -30,12 +32,12 @@ public class Ident extends Expression {
 	}
 
 	@Override
-	public void accept( Visitor visitor ) {
-		visitor.visit( this );
-	}
-	
-	@Override
 	public String toString() {
 		return this.name;
+	}
+
+	@Override
+	public Value<?> accept( INodeVisitor visitor, Context context ) {
+		return visitor.visit( this, context );
 	}
 }

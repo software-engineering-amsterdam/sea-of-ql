@@ -8,5 +8,5 @@ import IO;
 
 public Form implode(Tree t) = implode(#Form, t);
 
-public Form load(loc l) = implode(parse(readFile(l), l));//doesn't work
+public Form load(loc l) = implode(parse(readFile(l), l));
 public Form load(str src) = implode(parse(src,|file:///-|));

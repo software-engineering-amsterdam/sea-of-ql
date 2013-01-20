@@ -94,9 +94,9 @@ orExpr returns [Expr result]
     ;
 
 type returns [Type result]
-    :   IntType    { $result = new IntType();    }
-    |   StringType { $result = new StringType(); }
-    |   BoolType   { $result = new BoolType();   }
+    :   'integer' { $result = new IntType();    }
+    |   'string'  { $result = new StringType(); }
+    |   'boolean' { $result = new BoolType();   }
     ;
 
     
@@ -104,12 +104,6 @@ type returns [Type result]
 WS:	            (' ' | '\t' | '\n' | '\r') { $channel=HIDDEN; };
 
 COMMENT:        ('/*' .* '*/' | '//') { $channel=HIDDEN; };
-
-BoolType:       'boolean';
-
-IntType:        'integer';
-
-StringType:     'string';
 
 Bool:           ('true'|'false');
 

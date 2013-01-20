@@ -10,31 +10,23 @@ import lang::ql::util::Implode;
 import lang::ql::util::Parse;
 import util::IDE;
 
-// The root note of the form
-public node outlineForm(Form form) {
-  return  "outline"(outline(form))
-          [@label="Form"]
-          [@\loc=form@location];
-}
+public node outlineForm(Form form) =
+  "outline"(outline(form))
+  [@label="Form"]
+  [@\loc=form@location];
 
-// Helper function to create nodes with appropriate annotations and members.
-private node con(str name, str label, loc location, list[node] children)
+private node createNode(str name, str label, loc location, list[node] children)
   = setAnnotations(makeNode(name, children), ("label": label, "loc": location));
 
-// Helper to create a node for a branch of an if/ifelse/... statemnt
-private node outlineBranch(str name, str label, loc location, list[Statement] items) {
-  return  "<name>"([outline(i) | i <- items])
-          [@label="<label>"]
-          [@\loc=location];
-}
+private node outlineBranch(str name, str label, loc location, list[Statement] items) =
+  "<name>"([outline(i) | i <- items])
+  [@label="<label>"]
+  [@\loc=location];
 
-// Below this are functions to rewrite the Tree to a tree of Nodes for the outliner
-
-private node outline(Form form) {
-  return  "form"([outline(e) | e <- form.formElements])
-          [@label="Form <form.formName> (<size(form.formElements)>)"]
-          [@\loc=form@location];
-}
+private node outline(Form form) = 
+  "form"([outline(e) | e <- form.formElements])
+  [@label="Form <form.formName> (<size(form.formElements)>)"]
+  [@\loc=form@location];
 
 private node outline(Statement item:
   ifCondition(Conditional ifPart, list[Conditional] elseIfs, list[ElsePart] elsePart)) {
@@ -48,7 +40,7 @@ private node outline(Statement item:
 
   if (elseIfs != []) {
     elseIfBlock = true;
-    children += [outlineBranch("elseIf", "<prettyPrint(branch.condition)>", branch@location, branch.body) | branch <- elseIfs];
+    children += [outlineBranch("elseIf", "<prettyPrint(b.condition)>", b@location, b.body) | b <- elseIfs];
   }
 
   if(elsePart != []) {
@@ -68,17 +60,19 @@ private node outline(Statement item:
     label = "If (<prettyPrint(ifPart.condition)>) else ...";
   }
   
-  return con(name, label, item@location, children);
+  return createNode(name, label, item@location, children);
 }
 
-private node outline(Statement item: question(Question question)) = outline(question);
+private node outline(Statement item: 
+  question(Question question)) = 
+    outline(question);
 
 private node outline(Question q:
   question(questionText, answerDataType, answerIdentifier)) {
   str name = "Question";
   str label = "Q: <answerDataType>:<questionText>";
 
-  return con(name, label, q@location, []);
+  return createNode(name, label, q@location, []);
 }
 
 private node outline(Question q:
@@ -86,5 +80,5 @@ private node outline(Question q:
   str name = "CalculatedQuestion";
   str label = "CQ: <answerDataType>:<questionText>(<calculatedField>)";
   
-  return con(name, label, q@location, []);
+  return createNode(name, label, q@location, []);
 }

@@ -1,6 +1,6 @@
 package org.uva.sea.ql.ast;
 
-public class Int extends Expr {
+public class Int extends Value {
 
 	private final int value;
 
@@ -11,5 +11,10 @@ public class Int extends Expr {
 	public int getValue() {
 		return value;
 	}
-	
+
+	public Value eval() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

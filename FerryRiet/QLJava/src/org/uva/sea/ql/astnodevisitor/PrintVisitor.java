@@ -24,7 +24,7 @@ public class PrintVisitor implements Visitor {
 	private String report = new String();;
 
 	@Override
-	public void visit(Expr expr) {
+	public VisitorResult visit(Expr expr) {
 		if (expr.getClass() == IntLiteral.class) {
 			report = report.concat(Integer
 					.toString(((IntLiteral) expr).getValue()));
@@ -32,35 +32,39 @@ public class PrintVisitor implements Visitor {
 		if (expr.getClass() == Ident.class) {
 			report = report.concat(((Ident) expr).getName());
 		}
+		return null; 
 	}
 
 	@Override
-	public void visit(QLProgram qlProgram) {
+	public VisitorResult visit(QLProgram qlProgram) {
 		report = report.concat("form "
 				+ qlProgram.getProgramName());
 		qlProgram.getCompound().accept(this);
 		System.out.println(report);
+		return null;
 	}
 
 	@Override
-	public void visit(CompoundStatement compoundBlock) {
+	public VisitorResult visit(CompoundStatement compoundBlock) {
 		report = report.concat(" { \n");
 
 		for (Statement statement : compoundBlock.getStatementList())
 			statement.accept(this);
 
 		report = report.concat(" } \n");
+		return null;
 	}
 
 	@Override
-	public void visit(LineStatement lineStatement) {
+	public VisitorResult visit(LineStatement lineStatement) {
 		report = report.concat(lineStatement.getLineName()
 				+ ": " + lineStatement.getDisplayText());
 		lineStatement.getTypeDescription().accept(this);
+		return null;
 	}
 
 	@Override
-	public void visit(ConditionalStatement conditionalStatement) {
+	public VisitorResult visit(ConditionalStatement conditionalStatement) {
 		report = report.concat("\nif ( ");
 		conditionalStatement.getExpression().accept(this);
 		report = report.concat(" ) ");
@@ -69,10 +73,11 @@ public class PrintVisitor implements Visitor {
 			report = report.concat("\nelse ");
 			conditionalStatement.getFalseCompound().accept(this) ;
 		}
+		return null;
 	}
 
 	@Override
-	public void visit(TypeDescription typeDescription) {
+	public VisitorResult visit(TypeDescription typeDescription) {
 		if (typeDescription.getClass() == BooleanType.class) {
 			report = report.concat(" boolean ");
 		}
@@ -87,10 +92,11 @@ public class PrintVisitor implements Visitor {
 				report = report.concat(" ) ");
 			}
 		}
+		return null;
 	}
 
 	@Override
-	public void visit(BinExpr expr) {
+	public VisitorResult visit(BinExpr expr) {
 		expr.getExprLeftHand().accept(this);
 		if (expr.getClass() == Add.class)
 			report = report.concat(" + ");
@@ -113,10 +119,11 @@ public class PrintVisitor implements Visitor {
 		else if (expr.getClass() == LT.class)
 			report = report.concat(" < ");
 		expr.getExprRightHand().accept(this);
+		return null;
 	}
 
 	@Override
-	public void visit(UnExpr expr) {
+	public VisitorResult visit(UnExpr expr) {
 		if (expr.getClass() == Not.class)
 			report = report.concat(" ! ");
 		else if (expr.getClass() == Pos.class)
@@ -124,5 +131,6 @@ public class PrintVisitor implements Visitor {
 		else if (expr.getClass() == Neg.class)
 			report = report.concat(" - ");
 		expr.getExprRightHand().accept(this);
+		return null;
 	}
 }

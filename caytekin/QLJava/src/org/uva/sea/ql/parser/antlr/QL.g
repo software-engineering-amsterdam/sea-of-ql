@@ -13,39 +13,44 @@ import org.uva.sea.ql.ast.*;
 package org.uva.sea.ql.parser.antlr;
 }
 
+
 question returns [Question result] 
-  : Ident ':' String_Literal t=type
-   { $result = new Question($Ident.text, $String_Literal.text, $t.text); };
+  : Ident ':' StringLiteral t=type
+   { $result = new Question($Ident.text, $StringLiteral.text, $t.result); }
+   ;
   
   
 type returns [Type result]
-  	: Boolean_Type { $result = new Boolean_Type("" ); }
-  	| Integer_Type { $result = new Integer_Type(""); }
-  	| String_Type { $result = new String_Type(""); } 
+  	: BooleanType { $result = new BooleanType(); }
+  	| IntegerType { $result = new IntegerType(); }
+  	| StringType { $result = new StringType(); } 
 	;
-	
+
+reservedWord returns [ReservedWord result]
+	: TrueRW { $result = new TrueRW(); }
+	| FalseRW { $result = new FalseRW(); }
+	| IfRW { $result = new IfRW(); }
+	| ThenRW { $result = new ThenRW(); }
+	| ElseRW { $result = new ElseRW(); }
+	; 
+
+
 	
 primary returns [Expr result]
   : Int   { $result = new Int(Integer.parseInt($Int.text)); }
   | Ident { $result = new Ident($Ident.text); }
-  | String_Literal { $result = new String_Literal($String_Literal.text); }
-  | Boolean_Type { $result = new Boolean_Type($Boolean_Type.text); }
-  | Integer_Type { $result = new Integer_Type($Integer_Type.text); }
-  | String_Type {$result = new String_Type($String_Type.text); } 
-  | True_RW {$result = new True_RW($True_RW.text); }
-  | False_RW {$result = new False_RW($False_RW.text); }  
-  | If_RW {$result = new If_RW($If_RW.text); }  
-  | Then_RW {$result = new Then_RW($Then_RW.text); }  
-  | Else_RW {$result = new Else_RW($Else_RW.text); }     
+  | StringLiteral { $result = new StringLiteral($StringLiteral.text); }
   | '(' x=orExpr ')'{ $result = $x.result; }
   ;
     
+
 unExpr returns [Expr result]
-    :  '+' x=unExpr { $result = new Pos($x.result); }
-    |  '-' x=unExpr { $result = new Neg($x.result); }
-    |  '!' x=unExpr { $result = new Not($x.result); }
-    |  x=primary    { $result = $x.result; }
-    ;    
+    : '+' x=unExpr { $result = new Pos($x.result); }
+    | '-' x=unExpr { $result = new Neg($x.result); }
+    | '!' x=unExpr { $result = new Not($x.result); }
+    | x=primary { $result = $x.result; }
+    ;
+    
     
 mulExpr returns [Expr result]
     :   lhs=unExpr { $result=$lhs.result; } ( op=( '*' | '/' ) rhs=unExpr 
@@ -53,7 +58,7 @@ mulExpr returns [Expr result]
       if ($op.text.equals("*")) {
         $result = new Mul($result, rhs);
       }
-      if ($op.text.equals("<=")) {
+      if ($op.text.equals("/")) {
         $result = new Div($result, rhs);      
       }
     })*
@@ -118,29 +123,28 @@ SINGLE_LINE_COMMENT
      	:	'//' .* '\n'  {$channel=HIDDEN;}
      	;
      	    
-Boolean_Type 	:  'bool';
+BooleanType 	:  'bool';
 
-Integer_Type 	:  'int';
+IntegerType 	:  'int';
 
-String_Type	:  'string';
+StringType	:  'string';
 
-True_RW 	:  'true';
+TrueRW 		:  'true';
 
-False_RW 	:  'false'; 
+FalseRW 	:  'false'; 
 
-If_RW 		:  'if';
+IfRW 		:  'if';
 
-Then_RW 	:  'then';
+ThenRW 		:  'then';
 
-Else_RW		:  'else';
+ElseRW		:  'else';
 
 Ident:   ('a'..'z'|'A'..'Z')('a'..'z'|'A'..'Z'|'0'..'9'|'_')*;
 
 Int: ('0'..'9')+;
 
-String_Literal	: '"' .* '"';
+StringLiteral	: '"' .* '"';
 
 
 
 
- 

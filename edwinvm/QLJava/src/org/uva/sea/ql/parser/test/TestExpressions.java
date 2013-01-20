@@ -1,9 +1,8 @@
 package org.uva.sea.ql.parser.test;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Arrays;
 
-import org.uva.sea.ql.ast.*;
 import org.uva.sea.ql.ast.expressions.Add;
 import org.uva.sea.ql.ast.expressions.Bool;
 import org.uva.sea.ql.ast.expressions.GT;
@@ -29,10 +28,9 @@ public class TestExpressions {
 
 	@Parameters
 	public static List<Object[]> theParsers() {
-		return Arrays.asList(
-			new Object[] {new ANTLRParser()}, 
-			new Object[] {new ANTLRParser()}
-		);
+		List<Object[]> parserList = new ArrayList<Object[]>();
+	    parserList.add(new Object[] {new ANTLRParser()});
+	    return parserList;
 	}
 	
 	public TestExpressions(IParser parser) {

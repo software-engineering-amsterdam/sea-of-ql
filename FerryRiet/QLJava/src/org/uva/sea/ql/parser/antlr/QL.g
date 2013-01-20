@@ -1,4 +1,4 @@
-grammar QL;
+ grammar QL;
 options {backtrack=true; memoize=true;}
 
 @parser::header

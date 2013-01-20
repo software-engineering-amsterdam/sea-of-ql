@@ -21,5 +21,4 @@ public class ANTLRParser implements IParse {
 			throw new ParseError(e.getMessage());
 		}
 	}
-
 }
