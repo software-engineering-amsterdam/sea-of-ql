@@ -1,4 +1,5 @@
 package nl.stgm.ql.inspector;
+
 import nl.stgm.ql.ast.*;
 
 public class SemanticChecker implements CodeInspector

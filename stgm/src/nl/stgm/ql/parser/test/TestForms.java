@@ -1,10 +1,10 @@
 package nl.stgm.ql.parser.test;
 
-import static org.junit.Assert.assertEquals;
 import org.junit.Test;
+import static org.junit.Assert.assertEquals;
 
+import nl.stgm.ql.parser.*;
 import nl.stgm.ql.parser.rats.RatsParser;
-
 import nl.stgm.ql.ast.form.*;
 
 public class TestForms

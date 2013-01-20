@@ -1,8 +1,10 @@
 package nl.stgm.ql.inspector;
+
 import nl.stgm.ql.ast.*;
 import nl.stgm.ql.ast.form.*;
+
+import nl.stgm.ql.parser.*;
 import nl.stgm.ql.parser.rats.*;
-import nl.stgm.ql.parser.test.*;
 
 public class TreeWalker implements CodeInspector
 {

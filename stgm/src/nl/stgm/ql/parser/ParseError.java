@@ -1,4 +1,4 @@
-package nl.stgm.ql.parser.test;
+package nl.stgm.ql.parser;
 
 public class ParseError extends Exception
 {

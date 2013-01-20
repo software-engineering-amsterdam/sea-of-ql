@@ -1,4 +1,4 @@
-package nl.stgm.ql.parser.test;
+package nl.stgm.ql.parser;
 
 import nl.stgm.ql.ast.form.Document;
 import nl.stgm.ql.ast.form.Form;
