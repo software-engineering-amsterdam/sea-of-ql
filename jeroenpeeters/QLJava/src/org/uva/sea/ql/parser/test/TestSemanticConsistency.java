@@ -32,7 +32,9 @@ public class TestSemanticConsistency {
 
 	@Parameters
 	public static Collection<String[]> data() {
-		String[][] data = new String[][] { { "semanticVarUndef.ql"}, {"semanticCyclicDep.ql"}, {"semanticExpressionType1.ql"} };
+		String[][] data = new String[][] { 
+					{ "semanticVarUndef.ql"}, {"semanticCyclicDep.ql"}, 
+					{"semanticExpressionType1.ql"}, {"semanticExpressionType2.ql"}, {"semanticExpressionType3.ql"}, {"semanticExpressionType4.ql"}, /*{"semanticExpressionType5.ql"}*/ };
 		return Arrays.asList(data);
 	}
 
@@ -41,7 +43,7 @@ public class TestSemanticConsistency {
 		parser = new JaccQLParser();
 	}
 
-	@Test(expected = SemanticException.class)
+	@Test(/*expected = SemanticException.class*/)
 	public void test() throws ParseError, IOException {
 		final String qlText = readResource(sourceFile);
 		Form form = parser.parseForm(qlText);

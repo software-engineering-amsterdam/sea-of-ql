@@ -15,7 +15,6 @@ import org.uva.sea.ql.ast.expression.Expression;
 import org.uva.sea.ql.ast.expression.Ident;
 import org.uva.sea.ql.ast.expression.Literal;
 import org.uva.sea.ql.ast.expression.UnaryExpr;
-import org.uva.sea.ql.ast.expression.literals.BooleanLiteral;
 
 public class SemanticVisitor implements ASTVisitor {
 	
@@ -44,9 +43,7 @@ public class SemanticVisitor implements ASTVisitor {
 	public void visit(IfStatement statement) throws SemanticException {
 		statement.getExpr().accept(this);
 		
-		if(expressionTypeMap.get(statement.getExpr()) != DataType.BOOLEAN){
-			throw new SemanticException("Expression does not evaluate to boolean type");
-		}
+		checkCast(DataType.BOOLEAN, expressionTypeMap.get(statement.getExpr()));
 		
 		statement.getCompoundStatement().accept(this);
 	}
@@ -56,9 +53,11 @@ public class SemanticVisitor implements ASTVisitor {
 		expression.getLhs().accept(this);
 		expression.getRhs().accept(this);
 		
-		if(expressionTypeMap.get(expression.getLhs()) != expressionTypeMap.get(expression.getRhs())){
-			throw new SemanticException("LHS and RHS not of same type");
-		}
+		final DataType lhsType = expressionTypeMap.get(expression.getLhs());
+		final DataType rhsType = expressionTypeMap.get(expression.getRhs());
+		
+		checkCast(lhsType, rhsType);
+		
 		expressionTypeMap.put(expression, expression instanceof BooleanExpression ? DataType.BOOLEAN : expressionTypeMap.get(expression.getLhs()));
 	}
 
@@ -67,9 +66,8 @@ public class SemanticVisitor implements ASTVisitor {
 		expression.getExpr().accept(this);
 		
 		if(expression instanceof BooleanExpression){
-			if(expressionTypeMap.get(expression.getExpr()) != DataType.BOOLEAN){
-				throw new SemanticException("Expression does not evaluate to boolean type");
-			}
+			checkCast(DataType.BOOLEAN, expressionTypeMap.get(expression.getExpr()));
+			
 		}
 		expressionTypeMap.put(expression, expressionTypeMap.get(expression.getExpr()));
 	}
@@ -86,6 +84,21 @@ public class SemanticVisitor implements ASTVisitor {
 	@Override
 	public void visit(final Literal literal) throws SemanticException {
 		expressionTypeMap.put(literal, literal.getDataType());
+	}
+	
+	private void checkCast(final DataType type1, final DataType type2) throws SemanticException{
+		if(type1 == type2){
+			return;
+		}
+		if(isNumeric(type1) && isNumeric(type2)){
+			return;
+		}
+		throw new SemanticException(type2 + " not castable to " + type1);
+	}
+	
+	
+	private boolean isNumeric(final DataType type){
+		return type == DataType.INTEGER || type == DataType.MONEY;
 	}
 	
 }
