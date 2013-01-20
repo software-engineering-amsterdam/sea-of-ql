@@ -53,7 +53,7 @@ qStartQExpr
 
 //question with child elements
 qDeclaration 
-	: qIdentifier  ':' qLabel questionTypeDefExpr ->^(QUESTION_BLOCK qIdentifier qLabel questionTypeDefExpr);
+	: qIdentifier  ':' qLabel questionTypeDefExpr ->^(QUESTION_BLOCK ^(qIdentifier questionTypeDefExpr) qLabel );
 
 //Type definition of question OR calculated value for type
 questionTypeDefExpr
@@ -61,13 +61,13 @@ questionTypeDefExpr
 	
 // if(x<y) / verschachtelt TODO
 ifStatementExpr 
-	:	 IF '(' qIdentifier ')' Lbr ifBlockContentExpr Rbr ->^(IF_BLOCK qIdentifier ifBlockContentExpr);
+	:	 IF '(' qIdentifier ')' Lbr ifBlockContentExpr Rbr ->^(IF_BLOCK ^(qIdentifier ifBlockContentExpr));
 
 ifBlockContentExpr
 	:	( qDeclaration  | ifStatementExpr )+;
 // ANPASSEN !
 qValueCalcExpr 
-	:  '(' orExpr ')' ->^(VALUE_CALC orExpr); 
+	:  '(' orExpr ')'  ->^(VALUE_CALC orExpr); //'(' ')'
 	
 //Question ID / alos in IF STATEMENT, rename ?
 qIdentifier : QuestionId ; //QuestionId;
@@ -83,10 +83,10 @@ primary returns [Expr result]
   | Ident { $result = new Ident($Ident.text); }
   //| Question {$result = new Question($Question.text);}
   | Boolean {$result = new Bool($Boolean.text);}
-  | QuestionId {$result = null;}
+  | QuestionId //{$result = $QuestionId.result;}
   | Money { $result = new Int(Integer.parseInt($Money.text));}
   //| IF {$result = new Condition($IF.)}
-  | '(' x=orExpr ')'{ $result = $x.result; }
+  |  '('!  x=orExpr ')'! { $result = $x.result; } // 
   ;
   
   //Unary 
@@ -98,7 +98,7 @@ unExpr returns [Expr result]
     ;    
     
 mulExpr returns [Expr result]
-    :   lhs=unExpr { $result=$lhs.result; } ( op=( '*'^ | '/' ) rhs=unExpr 
+    :   lhs=unExpr { $result=$lhs.result; } ( op=( '*'^ | '/'^ ) rhs=unExpr 
     { 
       if ($op.text.equals("*")) {
         $result = new Mul($result, $rhs.result);
@@ -154,15 +154,6 @@ andExpr returns [Expr result]
 orExpr returns [Expr result]
     :   lhs=andExpr { $result = $lhs.result; } ( '||'^ rhs=andExpr { $result = new Or($result, $rhs.result); } )*
     ;
-
-
-//formName: Ident qForm;	
-//qForm: '{' stat+ '}' stat*;
-//stat	: qId Question qType;
-//qId	: Ident ':'; //vll FALSCH!?
-//uQuestion : '"' Ident '"';
-//qType 	: (Boolean | Money);
-
 
 
 
