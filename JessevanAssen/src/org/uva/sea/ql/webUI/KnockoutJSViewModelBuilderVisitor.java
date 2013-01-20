@@ -37,7 +37,8 @@ public class KnockoutJSViewModelBuilderVisitor implements ASTNodeVisitor<Void, K
 
     @Override
     public Void visit(Bool astNode, Context param) {
-        return null; 
+        param.getObjectHierarchy().append(astNode.getValue());
+        return null;
     }
 
     @Override
@@ -87,7 +88,8 @@ public class KnockoutJSViewModelBuilderVisitor implements ASTNodeVisitor<Void, K
 
     @Override
     public Void visit(Int astNode, Context param) {
-        return null; 
+        param.getObjectHierarchy().append(astNode.getValue());
+        return null;
     }
 
     @Override
@@ -137,7 +139,8 @@ public class KnockoutJSViewModelBuilderVisitor implements ASTNodeVisitor<Void, K
 
     @Override
     public Void visit(Str astNode, Context param) {
-        return null; 
+        param.getObjectHierarchy().append(String.format("\"%s\"", astNode.getValue()));
+        return null;
     }
 
     @Override
