@@ -50,14 +50,13 @@ public class DereferenceChecker extends AbstractTreeWalker {
 		}
 	}
 
-	@Override
-	public void visit(Question node) {
+	protected void atQuestion(Question node) {
 		currentStatement = node;
 		Iterator<Statement> stackIterator = dependentOnStack.iterator();
 		while (stackIterator.hasNext()) {
 			SymbolTable.getInstance().getSymbol(node.getName()).addDependantOn(stackIterator.next());
 		}
-	}
+	};
 
 	@Override
 	public void visit(Bool node) {

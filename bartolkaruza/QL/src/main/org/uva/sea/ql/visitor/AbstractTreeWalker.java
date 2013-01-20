@@ -2,6 +2,7 @@ package org.uva.sea.ql.visitor;
 
 import org.uva.sea.ql.ast.ConditionalStatement;
 import org.uva.sea.ql.ast.Form;
+import org.uva.sea.ql.ast.Question;
 import org.uva.sea.ql.ast.Statement;
 import org.uva.sea.ql.ast.expr.Add;
 import org.uva.sea.ql.ast.expr.And;
@@ -45,6 +46,13 @@ public abstract class AbstractTreeWalker implements NodeVisitor {
 	protected abstract void beforeForm(Form node);
 
 	protected abstract void afterForm(Form node);
+
+	public void visit(Question node) {
+		node.getExpression().accept(this);
+		atQuestion(node);
+	};
+
+	protected abstract void atQuestion(Question node);
 
 	@Override
 	public void visit(ConditionalStatement node) {

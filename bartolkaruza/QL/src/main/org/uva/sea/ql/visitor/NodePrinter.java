@@ -39,11 +39,10 @@ public class NodePrinter extends AbstractTreeWalker {
 		printNodeClassNameAfter(node);
 	}
 
-	@Override
-	public void visit(Question node) {
+	protected void atQuestion(Question node) {
 		printNodeClassNameBefore(node);
 		printNodeClassNameAfter(node);
-	}
+	};
 
 	@Override
 	protected void beforeForm(Form node) {

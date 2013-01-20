@@ -39,14 +39,13 @@ public class SymbolGenerator extends AbstractTreeWalker {
 
 	}
 
-	@Override
-	public void visit(Question node) {
+	protected void atQuestion(Question node) {
 		if (SymbolTable.getInstance().hasSymbol(node.getName())) {
 			ErrorHandler.getInstance().addError(new QLError("Duplicate entry with name: " + node.getName() + " at line: " + node.getLineNumber()));
 		} else {
 			SymbolTable.getInstance().putSymbol(node.getName(), new Symbol(node, node.getExpression()));
 		}
-	}
+	};
 
 	@Override
 	protected void beforeForm(Form node) {

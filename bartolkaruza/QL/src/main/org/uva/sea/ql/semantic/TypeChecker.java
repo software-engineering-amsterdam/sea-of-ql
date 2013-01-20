@@ -47,8 +47,8 @@ public class TypeChecker extends AbstractTreeWalker {
 	private static final String SUB = "-";
 
 	@Override
-	public void visit(Question node) {
-
+	protected void atQuestion(Question node) {
+		
 	}
 
 	@Override

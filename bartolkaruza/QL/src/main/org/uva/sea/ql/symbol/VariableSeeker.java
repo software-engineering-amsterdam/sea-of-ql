@@ -28,20 +28,20 @@ import org.uva.sea.ql.ast.expr.value.TextString;
 import org.uva.sea.ql.visitor.AbstractTreeWalker;
 
 public class VariableSeeker extends AbstractTreeWalker {
-	
+
 	private List<Ident> dependencies;
 
 	public VariableSeeker(List<Ident> dependencies) {
 		this.dependencies = dependencies;
 	}
-	
+
 	@Override
 	public void visit(Ident node) {
 		dependencies.add(node);
 	}
 
 	@Override
-	public void visit(Question node) {
+	protected void atQuestion(Question node) {
 
 	}
 
