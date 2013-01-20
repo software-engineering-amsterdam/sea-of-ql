@@ -76,10 +76,10 @@ public class KnockoutJSViewModelBuilderVisitor implements ASTNodeVisitor<Void, K
         param.getObjectHierarchy()
                 .append("new Computed(\"")
                 .append(astNode.getLabel())
-                .append("\",");
+                .append("\",function(){return ");
         astNode.getExpression().accept(this, param);
         param.getObjectHierarchy()
-                .append(")");
+                .append(";})");
 
         return null;
     }

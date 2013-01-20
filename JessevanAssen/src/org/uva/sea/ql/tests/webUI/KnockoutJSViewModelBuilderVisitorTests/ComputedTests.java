@@ -15,7 +15,7 @@ public class ComputedTests extends KnockoutJSViewModelBuilderVisitorTests {
     @Test
     public void visitCalled_computedIsAddedToStringBuilder() {
         new Computed(COMPUTED_LABEL, EXPRESSION).accept(visitor, context);
-        assertEquals(String.format("new Computed(\"%s\",true)", COMPUTED_LABEL), context.getObjectHierarchy().toString());
+        assertEquals(String.format("new Computed(\"%s\",function(){return true;})", COMPUTED_LABEL), context.getObjectHierarchy().toString());
     }
 
 }
