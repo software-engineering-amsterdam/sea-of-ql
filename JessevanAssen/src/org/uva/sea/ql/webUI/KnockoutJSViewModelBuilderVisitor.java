@@ -8,9 +8,10 @@ import org.uva.sea.ql.ast.expr.value.Int;
 import org.uva.sea.ql.ast.expr.value.Str;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
-public class KnockoutJSViewModelBuilderVisitor implements ASTNodeVisitor<Void, KnockoutJSViewModelBuilderVisitor.Context>{
+public class KnockoutJSViewModelBuilderVisitor implements ASTNodeVisitor<Void, KnockoutJSViewModelBuilderVisitor.Context> {
 
     public static class Context {
         private final List<String> identities;
@@ -23,6 +24,32 @@ public class KnockoutJSViewModelBuilderVisitor implements ASTNodeVisitor<Void, K
 
         public List<String> getIdentities() { return identities; }
         public StringBuilder getObjectHierarchy() { return objectHierarchy; }
+    }
+
+    private static final String VIEWMODEL_TEMPLATE = "var _viewModel={identities:%s,root:%s};";
+
+    public String createViewModel(Form form) {
+        Context context = new Context();
+        form.accept(this, context);
+
+        return String.format(VIEWMODEL_TEMPLATE,
+                createIdentityObject(context.identities),
+                context.getObjectHierarchy().toString());
+    }
+
+    private String createIdentityObject(Iterable<String> identities) {
+        StringBuilder stringBuilder = new StringBuilder("{");
+        for(Iterator<String> iterator = identities.iterator(); iterator.hasNext(); ) {
+            stringBuilder
+                    .append(iterator.next())
+                    .append(":new ko.observable()");
+
+            if(iterator.hasNext())
+                stringBuilder.append(",");
+        }
+        stringBuilder.append("}");
+
+        return stringBuilder.toString();
     }
 
     @Override
@@ -45,12 +72,21 @@ public class KnockoutJSViewModelBuilderVisitor implements ASTNodeVisitor<Void, K
 
     @Override
     public Void visit(Computed astNode, Context param) {
-        return null; 
+        param.getObjectHierarchy()
+                .append("new Computed(\"")
+                .append(astNode.getLabel())
+                .append("\",");
+        astNode.getExpression().accept(this, param);
+        param.getObjectHierarchy()
+                .append(")");
+
+        return null;
     }
 
     @Override
     public Void visit(Declaration astNode, Context param) {
-        return null; 
+        param.getIdentities().add(astNode.getIdentity().getName());
+        return null;
     }
 
     @Override
@@ -67,7 +103,10 @@ public class KnockoutJSViewModelBuilderVisitor implements ASTNodeVisitor<Void, K
 
     @Override
     public Void visit(Form astNode, Context param) {
-        return null; 
+        param.getObjectHierarchy().append("new Block(function(){return true;},[");
+        astNode.getBody().accept(this, param);
+        param.getObjectHierarchy().append("])");
+        return null;
     }
 
     @Override
@@ -84,12 +123,25 @@ public class KnockoutJSViewModelBuilderVisitor implements ASTNodeVisitor<Void, K
 
     @Override
     public Void visit(Ident astNode, Context param) {
-        return null; 
+        param.getObjectHierarchy()
+                .append("_viewModel.identities.")
+                .append(astNode.getName())
+                .append("()");
+        return null;
     }
 
     @Override
     public Void visit(If astNode, Context param) {
-        return null; 
+        param.getObjectHierarchy().append("new Block(function(){return ");
+        astNode.getCondition().accept(this, param);
+        param.getObjectHierarchy().append(";},[");
+        astNode.getIfBody().accept(this, param);
+        param.getObjectHierarchy().append("]),new Block(function(){return !");
+        astNode.getCondition().accept(this, param);
+        param.getObjectHierarchy().append(";},[");
+        astNode.getElseBody().accept(this, param);
+        param.getObjectHierarchy().append("])");
+        return null;
     }
 
     @Override
@@ -148,7 +200,15 @@ public class KnockoutJSViewModelBuilderVisitor implements ASTNodeVisitor<Void, K
 
     @Override
     public Void visit(Question astNode, Context param) {
-        return null; 
+        astNode.getDeclaration().accept(this, param);
+        param.getObjectHierarchy()
+                .append("new Question(\"")
+                .append(astNode.getQuestion())
+                .append("\",\"")
+                .append(astNode.getDeclaration().getIdentity().getName())
+                .append("\",")
+                .append(")");
+        return null;
     }
 
     @Override
