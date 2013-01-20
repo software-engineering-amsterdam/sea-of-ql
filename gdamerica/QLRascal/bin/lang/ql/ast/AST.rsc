@@ -6,7 +6,7 @@ data Expr
   | boolean(bool bValue)
   | money(real mnValue)
   | string(str strValue)
-  | date(int dtValue)
+  | date(str dtValue)
   | decimal(real decValue)
   | pos(Expr posValue)
   | neg(Expr negValue)

@@ -24,13 +24,24 @@ public test bool testBool2() = p("false") is boolean;
 public test bool testMoney1() = p("1.0") is money;
 public test bool testMoney2() = p("1.12") is money;
 public test bool testMoney3() = p("12345.12") is money;
-public test bool testMoney4() = p("12.123") is money; // doesn't work with .000 need more testing returns parse error
+public test bool testMoney4() = p("12.123") is money; // doesn't work with .000 numbers need more testing
 
 public test bool testString1() = p("\"Testing\"") is string;
 public test bool testString2() = p("\"Test or not?\"") is string;
 public test bool testString3() = p("\"Test 12345#\"") is string;
 
-public test bool testDate1() = p("15/12/23") is date;
+public test bool testDate1() = p("20/01/2013/") is date;
+
+public test bool testDecimal1() = p("2.123") is decimal;
+public test bool testDecimal2() = p("12.123") is decimal;
+public test bool testDecimal3() = p("1234568.123") is decimal;
+
+public test bool testPos1() = p("+3") is pos;
+
+public test bool testNeg1() = p("-3") is neg;
+
+public test bool testNot1() = p("!(a+b)") is not;
+public test bool testNot2() = p("!b") is not;
 
 public test bool testAdd1() = p("a + b") is add;
 public test bool testAdd2() = p("a + b + c") is add;
