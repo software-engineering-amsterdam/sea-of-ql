@@ -9,8 +9,13 @@ output=AST;
 
 tokens{
 QUESTIONNAIRE;
-QUESTION_BLOCK ;
+QUESTION_BLOCK;
+QUESTION_VAR;
+QUESTION_LABEL;
 IF_BLOCK;
+IF_CONDITION;
+VAR_TYPE;
+VAR_NAME;
 VALUE_CALC;
 }
 
@@ -53,24 +58,25 @@ qStartQExpr
 
 //question with child elements
 qDeclaration 
-	: qIdentifier  ':' qLabel questionTypeDefExpr ->^(QUESTION_BLOCK ^(qIdentifier questionTypeDefExpr) qLabel );
+	: qVariable  ':' qLabel questionTypeDefExpr ->^(QUESTION_BLOCK ^(QUESTION_VAR ^(VAR_NAME qVariable) questionTypeDefExpr)  ^(QUESTION_LABEL qLabel));
 
 //Type definition of question OR calculated value for type
 questionTypeDefExpr
-	:	(qType | qType qValueCalcExpr );
+	:	(qType -> ^(VAR_TYPE qType) | qType qValueCalcExpr -> ^(VAR_TYPE qType ^(VALUE_CALC qValueCalcExpr)) );
 	
 // if(x<y) / verschachtelt TODO
 ifStatementExpr 
-	:	 IF '(' qIdentifier ')' Lbr ifBlockContentExpr Rbr ->^(IF_BLOCK ^(qIdentifier ifBlockContentExpr));
+	:	 IF '(' qVariable ')' Lbr ifBlockContentExpr Rbr ->^(IF_BLOCK ^(IF_CONDITION ^(qVariable ifBlockContentExpr)));
 
 ifBlockContentExpr
 	:	( qDeclaration  | ifStatementExpr )+;
+	
 // ANPASSEN !
 qValueCalcExpr 
-	:  '(' orExpr ')'  ->^(VALUE_CALC orExpr); //'(' ')'
+	:  '(' orExpr ')'  -> orExpr; //'(' ')'
 	
 //Question ID / alos in IF STATEMENT, rename ?
-qIdentifier : QuestionId ; //QuestionId;
+qVariable : QuestionId ; //QuestionId;
 //User Question
 qLabel	: Question;
 //Question type
