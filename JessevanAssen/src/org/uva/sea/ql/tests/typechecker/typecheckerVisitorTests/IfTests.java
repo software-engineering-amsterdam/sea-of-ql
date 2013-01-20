@@ -11,6 +11,7 @@ import org.uva.sea.ql.ast.expr.value.*;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 public class IfTests extends TypecheckerVisitorTests {
 
@@ -38,6 +39,8 @@ public class IfTests extends TypecheckerVisitorTests {
     @Test
     public void acceptIsCalled_conditionAcceptIsCalled() {
         Expr mockExpression = mock(Expr.class);
+        when(mockExpression.accept(visitor, context)).thenReturn(new org.uva.sea.ql.ast.type.Bool());
+
         If i = new If(mockExpression, new NullFormElement(), new NullFormElement());
         i.accept(visitor, context);
         verify(mockExpression).accept(visitor, context);
