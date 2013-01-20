@@ -46,6 +46,13 @@ public class TypecheckerVisitor implements ASTNodeVisitor<Type, TypecheckerVisit
 		return null;
 	}
 
+    @Override
+    public Type visit(CompositeFormElement astNode, Context context) {
+        for(FormElement formElement : astNode.getFormElements())
+            formElement.accept(this, context);
+        return null;
+    }
+
 	@Override
 	public Type visit(Declaration astNode, Context context) {
 		if(!context.getSymbolTable().containsKey(astNode.getIdentity()))
