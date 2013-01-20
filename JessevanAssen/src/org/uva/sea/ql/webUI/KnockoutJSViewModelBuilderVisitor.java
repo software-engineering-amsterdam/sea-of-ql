@@ -85,6 +85,17 @@ public class KnockoutJSViewModelBuilderVisitor implements ASTNodeVisitor<Void, K
     }
 
     @Override
+    public Void visit(CompositeFormElement astNode, Context param) {
+        for(Iterator<FormElement> iterator = astNode.getFormElements().iterator(); iterator.hasNext(); ) {
+            iterator.next().accept(this, param);
+            if(iterator.hasNext())
+                param.getObjectHierarchy().append(",");
+        }
+
+        return null;
+    }
+
+    @Override
     public Void visit(Declaration astNode, Context param) {
         param.getIdentities().add(astNode.getIdentity().getName());
         return null;
