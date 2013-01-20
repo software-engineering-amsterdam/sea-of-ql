@@ -6,7 +6,6 @@ import org.uva.sea.ql.ast.ASTNode;
  * interface: Type
  * @author Danny
  * 
- *
  */
 public interface Type <T> extends ASTNode {
 	
@@ -15,7 +14,6 @@ public interface Type <T> extends ASTNode {
 	 * @return String - the type description of the implemented type
 	 */
 	public String getType();
-	
 	/**
 	 * getValue()
 	 * @return T - the value of the type
