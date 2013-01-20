@@ -8,8 +8,10 @@ import org.antlr.runtime.RecognitionException;
 import org.uva.sea.ql.ast.ASTNode;
 import org.uva.sea.ql.ast.Expr;
 import org.uva.sea.ql.ast.form.BodyElements;
+import org.uva.sea.ql.ast.form.ComputedQuestion;
 import org.uva.sea.ql.ast.form.Form;
 import org.uva.sea.ql.ast.form.IfBlock;
+import org.uva.sea.ql.ast.form.Question;
 import org.uva.sea.ql.ast.types.Type;
 
 import org.uva.sea.ql.parser.test.IParse;
@@ -51,6 +53,42 @@ public class ANTLRParser implements IParse {
 	public Type parseType(String src) throws ParseError{
 		 try {
 			return parse(src).type();
+		} catch (RecognitionException e) {
+			throw new ParseError(e.getMessage());
+		}
+	}
+	
+	@Override
+	public Question parseQuestion(String src) throws ParseError{
+		 try {
+			return parse(src).question();
+		} catch (RecognitionException e) {
+			throw new ParseError(e.getMessage());
+		}
+	}
+	
+	@Override
+	public ComputedQuestion parseComputedQuestion(String src) throws ParseError{
+		 try {
+			return parse(src).computedQuestion();
+		} catch (RecognitionException e) {
+			throw new ParseError(e.getMessage());
+		}
+	}
+	
+	@Override
+	public IfBlock parseIfBlock(String src) throws ParseError{
+		 try {
+			return parse(src).ifBlock();
+		} catch (RecognitionException e) {
+			throw new ParseError(e.getMessage());
+		}
+	}
+	
+	@Override
+	public List<BodyElements> parseBodyElements(String src) throws ParseError{
+		 try {
+			return parse(src).bodyElements();
 		} catch (RecognitionException e) {
 			throw new ParseError(e.getMessage());
 		}

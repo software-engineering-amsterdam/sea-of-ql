@@ -4,9 +4,10 @@ import java.util.List;
 
 import org.uva.sea.ql.ast.ASTNode;
 import org.uva.sea.ql.ast.values.Ident;
+import org.uva.sea.ql.visitor.ASTNodeVisitor;
 
 
-public class Form implements ASTNode{
+public class Form extends ASTNode{
 	private final Ident id;
 	private final List<BodyElements> body;
 
@@ -22,6 +23,12 @@ public class Form implements ASTNode{
 
 	public List<BodyElements> getBody() {
 		return body;
+	}
+
+	@Override
+	public void accept(ASTNodeVisitor nodeVisitor) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

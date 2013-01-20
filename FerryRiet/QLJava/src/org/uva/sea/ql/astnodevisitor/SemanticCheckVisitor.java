@@ -23,7 +23,7 @@ public class SemanticCheckVisitor implements Visitor {
 	}
 
 	@Override
-	public void visit(Expr expr) {
+	public VisitorResult visit(Expr expr) {
 		if (expr.getClass() == Ident.class) {
 			Ident id = (Ident) expr;
 			if (symbolMap.get(id.getName()) == null) {
@@ -32,36 +32,40 @@ public class SemanticCheckVisitor implements Visitor {
 						+ id.getName() + " is not defined.");
 			}
 		}
+		return null;
 	}
 
 	@Override
-	public void visit(BinExpr expr) {
+	public VisitorResult visit(BinExpr expr) {
 		expr.getExprLeftHand().accept(this);
 		expr.getExprRightHand().accept(this);
+		return null;
 	}
 
 	@Override
-	public void visit(UnExpr expr) {
+	public VisitorResult visit(UnExpr expr) {
 		expr.getExprRightHand().accept(this);
+		return null;
 	}
 
 	@Override
-	public void visit(QLProgram qlProgram) {
+	public VisitorResult visit(QLProgram qlProgram) {
 		qlProgram.getCompound().accept(this);
 		System.out.println(errorReport);
+		return null;
 	}
 
 	@Override
-	public void visit(CompoundStatement compoundBlock) {
+	public VisitorResult visit(CompoundStatement compoundBlock) {
 		for (Statement statement : compoundBlock.getStatementList())
 			statement.accept(this);
+		return null;
 	}
 
 	@Override
-	public void visit(LineStatement lineStatement) {
-		// Add symbols to the symbolmap so the
-		// visitor of the expression can test their existance
-		// it also tests for duplicate symbols.
+	public VisitorResult visit(LineStatement lineStatement) {
+		// Add symbols to the symbolmap so the visitor of the
+		// expression can test their existance/missing.
 		if (symbolMap.get(lineStatement.getLineName()) == null) {
 			// New symbol in map
 			symbolMap.put(lineStatement.getLineName(), lineStatement);
@@ -73,25 +77,28 @@ public class SemanticCheckVisitor implements Visitor {
 					+ " has multiple definitions.");
 		}
 		lineStatement.getTypeDescription().accept(this);
+		return null;
 	}
 
 	@Override
-	public void visit(ConditionalStatement conditionalStatement) {
+	public VisitorResult visit(ConditionalStatement conditionalStatement) {
 		conditionalStatement.getExpression().accept(this);
 		conditionalStatement.getTrueCompound().accept(this);
 		if (conditionalStatement.getFalseCompound() != null) {
 			conditionalStatement.getFalseCompound().accept(this);
 		}
+		return null;
 	}
 
 	@Override
-	public void visit(TypeDescription typeDescription) {
+	public VisitorResult visit(TypeDescription typeDescription) {
 		if (typeDescription.getClass() == MoneyType.class) {
 			MoneyType moneyType = (MoneyType) typeDescription;
 			if (moneyType.getExpr() != null) {
 				moneyType.getExpr().accept(this);
 			}
 		}
+		return null;
 	}
 
 	public String getErrorReport() {

@@ -4,8 +4,9 @@ import org.uva.sea.ql.ast.ASTNode;
 import org.uva.sea.ql.ast.Expr;
 import org.uva.sea.ql.ast.types.Type;
 import org.uva.sea.ql.ast.values.Ident;
+import org.uva.sea.ql.visitor.ASTNodeVisitor;
 
-public class ComputedQuestion extends BodyElements implements ASTNode {
+public class ComputedQuestion extends BodyElements {
 	private final Ident id;
 	private final String label;
 	private final Type type;
@@ -32,6 +33,12 @@ public class ComputedQuestion extends BodyElements implements ASTNode {
 
 	public Expr getExpr() {
 		return expr;
+	}
+
+	@Override
+	public void accept(ASTNodeVisitor nodeVisitor) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

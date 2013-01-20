@@ -37,8 +37,8 @@ form returns [Form result]
 	
 bodyElements returns [List<BodyElements> result]
 @init { List<BodyElements> bodyElements = new ArrayList(); }
-	:( question {bodyElements.add($question.result);}
-	|computedQuestion {bodyElements.add($computedQuestion.result);}
+	:( computedQuestion  {bodyElements.add($computedQuestion.result);}
+	| question  {bodyElements.add($question.result);}
 	|ifBlock {bodyElements.add($ifBlock.result);}
 	 )+
 	{$result=$bodyElements.result;}
@@ -52,7 +52,7 @@ computedQuestion returns [ComputedQuestion result]
   
   
   ifBlock returns [IfBlock result]
-  : 'if' '(' expr=orExpr ')' '{' bodyElements'}' {$result=new IfBlock(expr,$bodyElements.result);};
+  : 'if' '(' expr=orExpr ')' '{'  bodyElements'}' {$result=new IfBlock(expr,$bodyElements.result);};
   
 
 
@@ -153,7 +153,7 @@ COMMENT
      : ('/*' .* '*/'|'//' ~(LB)* ){$channel=HIDDEN;}  
      ;
      
-   
+  
     
 StringLit	:	'"' .* '"' ;
 

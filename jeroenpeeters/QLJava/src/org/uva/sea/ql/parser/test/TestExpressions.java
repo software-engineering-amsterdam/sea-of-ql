@@ -2,40 +2,29 @@ package org.uva.sea.ql.parser.test;
 
 import static org.junit.Assert.assertEquals;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
+import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
-import org.junit.runners.Parameterized.Parameters;
 import org.uva.sea.ql.ast.Add;
+import org.uva.sea.ql.ast.Form;
 import org.uva.sea.ql.ast.GT;
 import org.uva.sea.ql.ast.Ident;
-import org.uva.sea.ql.ast.Int;
 import org.uva.sea.ql.ast.LEq;
 import org.uva.sea.ql.ast.LT;
 import org.uva.sea.ql.ast.Mul;
-import org.uva.sea.ql.parser.jacc.JACCParser;
+import org.uva.sea.ql.ast.Question;
+import org.uva.sea.ql.ast.literals.Int;
+import org.uva.sea.ql.parser.IParse;
+import org.uva.sea.ql.parser.ParseError;
+import org.uva.sea.ql.parser.jacc.JaccQLParser;
 
-@RunWith(Parameterized.class)
 public class TestExpressions {
 
 	private IParse parser;
-
-	@Parameters
-	public static List<Object[]> theParsers() {
-	  List<Object[]> l = new ArrayList<Object[]>();
-	  l.add(new Object[] {new JACCParser()});
-	  return l;
-	}
-
 	
-	public TestExpressions(IParse parser) {
-		this.parser = parser;
+	@Before
+	public void setup(){
+		parser = new JaccQLParser();
 	}
-
 	
 	@Test
 	public void testAdds() throws ParseError {
@@ -88,6 +77,11 @@ public class TestExpressions {
 		assertEquals(parser.parse("0").getClass(), Int.class);
 		assertEquals(parser.parse("1223").getClass(), Int.class);
 		assertEquals(parser.parse("234234234").getClass(), Int.class);
+	}
+	
+	@Test
+	public void testQuestions() throws ParseError {
+		assertEquals(parser.parse("hasSoldHouse: \"Did you sell a house?\" boolean").getClass(), Question.class);
 	}
 	
 }

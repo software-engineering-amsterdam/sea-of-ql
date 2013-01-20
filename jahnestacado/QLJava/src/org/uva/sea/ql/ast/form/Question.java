@@ -2,8 +2,9 @@ package org.uva.sea.ql.ast.form;
 
 import org.uva.sea.ql.ast.ASTNode;
 import org.uva.sea.ql.ast.types.Type;
+import org.uva.sea.ql.visitor.ASTNodeVisitor;
 
-public class Question extends BodyElements implements ASTNode {
+public class Question extends BodyElements  {
 	private final String id;
 	private final String label;
 	private final Type type;
@@ -25,6 +26,12 @@ public class Question extends BodyElements implements ASTNode {
 
 	public Type getType() {
 		return type;
+	}
+
+	@Override
+	public void accept(ASTNodeVisitor nodeVisitor) {
+		// TODO Auto-generated method stub
+		
 	}
 	
 	

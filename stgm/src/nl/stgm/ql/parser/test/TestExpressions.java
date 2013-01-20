@@ -1,20 +1,11 @@
 package nl.stgm.ql.parser.test;
 
-import static org.junit.Assert.assertEquals;
 import org.junit.Test;
+import static org.junit.Assert.assertEquals;
 
+import nl.stgm.ql.parser.*;
 import nl.stgm.ql.parser.rats.RatsParser;
-
-import nl.stgm.ql.ast.expr.Add;
-import nl.stgm.ql.ast.expr.Sub;
-import nl.stgm.ql.ast.expr.And;
-import nl.stgm.ql.ast.expr.GT;
-import nl.stgm.ql.ast.expr.Ident;
-import nl.stgm.ql.ast.expr.Int;
-import nl.stgm.ql.ast.expr.LEq;
-import nl.stgm.ql.ast.expr.LT;
-import nl.stgm.ql.ast.expr.Mul;
-import nl.stgm.ql.ast.expr.Not;
+import nl.stgm.ql.ast.expr.*;
 
 public class TestExpressions
 {
