@@ -1,28 +1,30 @@
 package org.uva.sea.ql.ast.statement;
 
-import org.uva.sea.ql.ast.type.AbstractType;
+import org.uva.sea.ql.ast.answertype.AbstractAnswerType;
+import org.uva.sea.ql.ast.expr.type.IdentExprType;
+import org.uva.sea.ql.ast.expr.type.StringExprType;
 
 public class Question extends AbstractStatement {
 
-	private final String ident;
-	private final String question;
-	private final AbstractType type;
+	private final IdentExprType ident;
+	private final StringExprType question;
+	private final AbstractAnswerType type;
 
-	public Question(String ident, String question, AbstractType type) {
+	public Question(IdentExprType ident, StringExprType question, AbstractAnswerType type) {
 		this.ident = ident;
 		this.question = question;
 		this.type = type;
 	}
 
-	public String getQuestion() {
+	public StringExprType getQuestion() {
 		return this.question;
 	}
 
-	public String getIdent() {
+	public IdentExprType getIdent() {
 		return this.ident;
 	}
 
-	public AbstractType getType() {
+	public AbstractAnswerType getType() {
 		return this.type;
 	}
 
