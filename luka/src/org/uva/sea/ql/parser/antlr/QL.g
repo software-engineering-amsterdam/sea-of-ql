@@ -8,6 +8,10 @@ output=AST;
 } 
 
 tokens{
+QUESTIONNAIRE;
+QUESTION_BLOCK ;
+IF_BLOCK;
+VALUE_CALC;
 }
 
 @parser::header
@@ -34,45 +38,44 @@ import org.uva.sea.ql.ast.*;
 	// declaration (complete question)
 	// expression (ein wort, nur frage
 	//Type (boolean)
-parse returns [QuestionnaireForm root]
-	: questionnaireExpr {$root = $questionnaireExpr.root;} EOF!;
+parse 
+	: FormStart qStartExp EOF -> ^(QUESTIONNAIRE qStartExp);
 	
-questionnaireExpr returns [QuestionnaireForm root]
-	:	FormStart! qStartExp {$root = $qStartExp.root;} ;
-	
+ 	
 //Start of questionnaire
-qStartExp returns [QuestionnaireForm root]
+qStartExp 
 
-	: FormId^ Lbr! qStartQExpr { $root = new QuestionnaireForm($FormId.text, new QuestionnaireContent($qStartQExpr.result));} Rbr!;
+	: FormId Lbr qStartQExpr Rbr ->^(FormId qStartQExpr);
 
 //Start of sum of questions	
-qStartQExpr returns [List<QuestionnaireItemInterface> result]
-@init{
-	$result = new ArrayList<QuestionnaireItemInterface>();
-}
-	: (qDeclaration {$result.add($qDeclaration.result);} | ifStatementExpr {$result.add($ifStatementExpr.result);})*;
+qStartQExpr 
+	: (qDeclaration | ifStatementExpr)*;
 
-qDeclaration returns [Question result] //question with child elements
-	: i=qIdentifier^ ':'! l =qLabel (t =qType {$result = new Question($i.text,$l.text,$t.result);} |t= qType^ e =qValueCalcExpr {$result = new Question($i.text,$l.text,$t.result,$e.result);});
+//question with child elements
+qDeclaration 
+	: qIdentifier  ':' qLabel questionTypeDefExpr ->^(QUESTION_BLOCK qIdentifier qLabel questionTypeDefExpr);
 
-// if(x<y) / verschachtelt TODO
-ifStatementExpr returns [IfBlock result]
-@init{
-	List<QuestionnaireItemInterface> blockContent = new ArrayList<QuestionnaireItemInterface>();
-}
-	:	 IF^ '('! qId=qIdentifier ')'! Lbr! ( qDecl =qDeclaration {blockContent.add($qDecl.result);} | ifStatem = ifStatementExpr^ {blockContent.add($ifStatem.result);})+ {$result = new IfBlock($qId.text,blockContent);} Rbr! ;
+//Type definition of question OR calculated value for type
+questionTypeDefExpr
+	:	(qType | qType qValueCalcExpr );
 	
+// if(x<y) / verschachtelt TODO
+ifStatementExpr 
+	:	 IF '(' qIdentifier ')' Lbr ifBlockContentExpr Rbr ->^(IF_BLOCK qIdentifier ifBlockContentExpr);
+
+ifBlockContentExpr
+	:	( qDeclaration  | ifStatementExpr )+;
 // ANPASSEN !
-qValueCalcExpr returns [Expr result]
-	:  '('! orExpr^ ')'! {$result = new ValueExpr($orExpr.result);}; // qType //('-'| '+' | '*') Ident mulExpr Ident
+qValueCalcExpr 
+	:  '(' orExpr ')' ->^(VALUE_CALC orExpr); 
 	
 //Question ID / alos in IF STATEMENT, rename ?
 qIdentifier : QuestionId ; //QuestionId;
 //User Question
 qLabel	: Question;
 //Question type
-qType	returns [QuestionType result]
-	: Boolean {$result = QuestionType.BOOL;} | Money {$result = QuestionType.MONEY;};	
+qType	
+	: Boolean | Money ;	
 
 
 primary returns [Expr result]
