@@ -145,7 +145,7 @@ public class PrintVisitor implements INodeVisitor {
 	}
 
 	@Override
-	public Value visit( LogicalExpression node, Context context ) {
+	public Value<?> visit( LogicalExpression node, Context context ) {
 		writeName( node );
 
 		level++;
@@ -162,7 +162,7 @@ public class PrintVisitor implements INodeVisitor {
 	}
 
 	@Override
-	public Value visit( ArithmeticExpression node, Context context ) {
+	public Value<?> visit( ArithmeticExpression node, Context context ) {
 		writeName( node );
 
 		level++;
@@ -179,7 +179,7 @@ public class PrintVisitor implements INodeVisitor {
 	}
 
 	@Override
-	public Value visit( UnaryExpression node, Context context ) {
+	public Value<?> visit( UnaryExpression node, Context context ) {
 		writeName( node );
 
 		level++;
@@ -193,7 +193,7 @@ public class PrintVisitor implements INodeVisitor {
 	}
 
 	@Override
-	public Value visit( UnaryNumericExpression node, Context context ) {
+	public Value<?> visit( UnaryNumericExpression node, Context context ) {
 		writeName( node );
 
 		level++;
@@ -207,37 +207,37 @@ public class PrintVisitor implements INodeVisitor {
 	}
 
 	@Override
-	public Value visit( Str node, Context context ) {
+	public Value<?> visit( Str node, Context context ) {
 		writeAtomic( node );
 		return null;
 	}
 
 	@Override
-	public Value visit( Money node, Context context ) {
+	public Value<?> visit( Money node, Context context ) {
 		writeAtomic( node );
 		return null;
 	}
 
 	@Override
-	public Value visit( Int node, Context context ) {
+	public Value<?> visit( Int node, Context context ) {
 		writeAtomic( node );
 		return null;
 	}
 
 	@Override
-	public Value visit( Bool node, Context context ) {
+	public Value<?> visit( Bool node, Context context ) {
 		writeAtomic( node );
 		return null;
 	}
 
 	@Override
-	public Value visit( Ident node, Context context ) {
+	public Value<?> visit( Ident node, Context context ) {
 		writeAtomic( node );
 		return null;
 	}
 
 	@Override
-	public Value visit( IfThenElse node, Context context ) {
+	public Value<?> visit( IfThenElse node, Context context ) {
 		indent();
 		write( "IF" );
 
@@ -276,7 +276,7 @@ public class PrintVisitor implements INodeVisitor {
 	}
 
 	@Override
-	public Value visit( VarDeclaration node, Context context ) {
+	public Value<?> visit( VarDeclaration node, Context context ) {
 		writeName( node );
 
 		level++;
@@ -293,7 +293,7 @@ public class PrintVisitor implements INodeVisitor {
 	}
 
 	@Override
-	public Value visit( Assignment node, Context context ) {
+	public Value<?> visit( Assignment node, Context context ) {
 		writeName( node );
 
 		level++;
@@ -310,7 +310,7 @@ public class PrintVisitor implements INodeVisitor {
 	}
 
 	@Override
-	public Value visit( FormDeclaration node, Context context ) {
+	public Value<?> visit( FormDeclaration node, Context context ) {
 		writeName( node );
 
 		level++;
@@ -327,7 +327,7 @@ public class PrintVisitor implements INodeVisitor {
 	}
 
 	@Override
-	public Value visit( QuestionDeclaration node, Context context ) {
+	public Value<?> visit( QuestionDeclaration node, Context context ) {
 		indent();
 		writeName( node );
 
@@ -345,7 +345,7 @@ public class PrintVisitor implements INodeVisitor {
 	}
 
 	@Override
-	public Value visit( ComparisonExpression node, Context context ) {
+	public Value<?> visit( ComparisonExpression node, Context context ) {
 		writeName( node );
 
 		level++;

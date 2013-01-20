@@ -37,7 +37,7 @@ public class Money extends Number {
 	}
 
 	@Override
-	public Value accept( INodeVisitor visitor, Context context ) {
+	public Value<?> accept( INodeVisitor visitor, Context context ) {
 		return visitor.visit( this, context );
 	}
 }

@@ -16,5 +16,5 @@ public interface INode {
 	 *
 	 * @return The value of the node.
 	 */
-	Value accept( INodeVisitor visitor, Context context );
+	Value<?> accept( INodeVisitor visitor, Context context );
 }

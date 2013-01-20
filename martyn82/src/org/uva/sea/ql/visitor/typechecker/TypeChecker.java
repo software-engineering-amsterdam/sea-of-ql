@@ -13,6 +13,7 @@ import org.uva.sea.ql.ast.statement.IfThenElse;
 import org.uva.sea.ql.ast.statement.QuestionDeclaration;
 import org.uva.sea.ql.ast.statement.VarDeclaration;
 import org.uva.sea.ql.eval.Context;
+import org.uva.sea.ql.eval.TypeInitializer;
 import org.uva.sea.ql.eval.value.Boolean;
 import org.uva.sea.ql.eval.value.Integer;
 import org.uva.sea.ql.eval.value.Money;
@@ -31,29 +32,149 @@ public class TypeChecker implements INodeVisitor {
 	 *
 	 * @return The initialized value.
 	 */
-	private Value initializeType( DataType type ) {
-		if ( type == DataType.BOOLEAN ) {
-			return new org.uva.sea.ql.eval.value.Boolean();
-		}
-		else if ( type == DataType.INTEGER ) {
-			return new org.uva.sea.ql.eval.value.Integer();
-		}
-		else if ( type == DataType.MONEY ) {
-			return new org.uva.sea.ql.eval.value.Money();
-		}
-		else if ( type == DataType.STRING ) {
-			return new org.uva.sea.ql.eval.value.String();
-		}
+	private Value<?> initializeType( DataType type ) {
+		return TypeInitializer.init( type );
+	}
 
-		return null;
+	/**
+	 * Checks whether both values are of the same type.
+	 *
+	 * @param value1
+	 * @param value2
+	 *
+	 * @return True if they are of the same type, false otherwise.
+	 */
+	private boolean checkBothSame( Value<?> value1, Value<?> value2 ) {
+		return ( value1.getClass() == value2.getClass() );
+	}
+
+	/**
+	 * Checks whether both values are numeric.
+	 *
+	 * @param value1
+	 * @param value2
+	 *
+	 * @return True if both are numeric, false otherwise.
+	 */
+	private boolean checkBothNumber( Value<?> value1, Value<?> value2 ) {
+		return ( value1 instanceof Number && value2 instanceof Number );
+	}
+
+	/**
+	 * Checks whether one of both values is of type money.
+	 *
+	 * @param value1
+	 * @param value2
+	 *
+	 * @return True if one is money, false if none of them is.
+	 */
+	private boolean checkEitherMoney( Value<?> value1, Value<?> value2 ) {
+		return ( value1.getClass() == Money.class || value2.getClass() == Money.class );
+	}
+
+	/**
+	 * Checks whether both values are of type boolean.
+	 *
+	 * @param value1
+	 * @param value2
+	 *
+	 * @return True if both are boolean, false otherwise.
+	 */
+	private boolean checkBothBoolean( Value<?> value1, Value<?> value2 ) {
+		return ( value1.getClass() == Boolean.class && value2.getClass() == Boolean.class );
+	}
+
+	/**
+	 * Checks whether both values are of type integer.
+	 *
+	 * @param value1
+	 * @param value2
+	 *
+	 * @return True if both are integer, false otherwise.
+	 */
+	@SuppressWarnings( "unused" ) // method added for consistency reasons
+	private boolean checkBothInteger( Value<?> value1, Value<?> value2 ) {
+		return ( value1.getClass() == Integer.class && value2.getClass() == Integer.class );
+	}
+
+	/**
+	 * Checks whether both values are of type string.
+	 *
+	 * @param value1
+	 * @param value2
+	 *
+	 * @return True if both are string, false otherwise.
+	 */
+	@SuppressWarnings( "unused" ) // method added for consistency reasons
+	private boolean checkBothString( Value<?> value1, Value<?> value2 ) {
+		return (
+			value1.getClass() == org.uva.sea.ql.eval.value.String.class
+			&& value2.getClass() == org.uva.sea.ql.eval.value.String.class
+		);
+	}
+
+	/**
+	 * Checks whether the given value is of type boolean.
+	 *
+	 * @param value
+	 *
+	 * @return True if value is boolean, false otherwise.
+	 */
+	private boolean checkIsBoolean( Value<?> value ) {
+		return value.getClass() == Boolean.class;
+	}
+
+	/**
+	 * Checks whether the given value is numeric.
+	 *
+	 * @param value
+	 *
+	 * @return True if the value is a number, false otherwise.
+	 */
+	private boolean checkIsNumber( Value<?> value ) {
+		return value instanceof Number;
+	}
+
+	/**
+	 * Checks whether the given value is a string.
+	 *
+	 * @param value
+	 *
+	 * @return True if the value is a string, false otherwise.
+	 */
+	@SuppressWarnings( "unused" ) // method added for consistency reasons
+	private boolean checkIsString( Value<?> value ) {
+		return value.getClass() == org.uva.sea.ql.eval.value.String.class;
+	}
+
+	/**
+	 * Checks whether the given value is an integer.
+	 *
+	 * @param value
+	 *
+	 * @return True if the value is an integer, false otherwise.
+	 */
+	private boolean checkIsInteger( Value<?> value ) {
+		return value.getClass() == org.uva.sea.ql.eval.value.Integer.class;
+	}
+
+	/**
+	 * Checks whether the given value is of type money.
+	 *
+	 * @param value
+	 *
+	 * @return True if the value is money, false otherwise.
+	 */
+	private boolean checkIsMoney( Value<?> value ) {
+		return value.getClass() == org.uva.sea.ql.eval.value.Money.class;
 	}
 
 	@Override
-	public Value visit( ArithmeticExpression node, Context context ) {
-		Value left = node.getLhs().accept( this, context );
-		Value right = node.getRhs().accept( this, context );
+	public Value<?> visit( ArithmeticExpression node, Context context ) {
+		Value<?> left = node.getLhs().accept( this, context );
+		Value<?> right = node.getRhs().accept( this, context );
 
-		if ( !( left instanceof Number && right instanceof Number ) ) {
+		if ( !checkBothNumber( left, right ) ) {
 			context.addError(
 				String.format(
 					"Both sides of the %s-expression must be a Number type.",
@@ -62,20 +183,20 @@ public class TypeChecker implements INodeVisitor {
 			);
 			return null;
 		}
-		else if ( left.getClass() == Money.class || right.getClass() == Money.class ) {
-			return new Money();
+		else if ( checkEitherMoney( left, right ) ) {
+			return initializeType( DataType.MONEY ); // new Money();
 		}
 		else {
-			return new Integer();
+			return initializeType( DataType.INTEGER ); // new Integer();
 		}
 	}
 
 	@Override
-	public Value visit( LogicalExpression node, Context context ) {
-		Value left = node.getLhs().accept( this, context );
-		Value right = node.getRhs().accept( this, context );
+	public Value<?> visit( LogicalExpression node, Context context ) {
+		Value<?> left = node.getLhs().accept( this, context );
+		Value<?> right = node.getRhs().accept( this, context );
 
-		if ( left.getClass() != Boolean.class || right.getClass() != Boolean.class ) {
+		if ( !checkBothBoolean( left, right ) ) {
 			context.addError(
 				String.format(
 					"Both sides of the %s-expression must be of type Boolean.",
@@ -85,13 +206,13 @@ public class TypeChecker implements INodeVisitor {
 			return null;
 		}
 
-		return new Boolean();
+		return initializeType( DataType.BOOLEAN ); // new Boolean();
 	}
 
 	@Override
-	public Value visit( ComparisonExpression node, Context context ) {
-		Value left = node.getLhs().accept( this, context );
-		Value right = node.getRhs().accept( this, context );
+	public Value<?> visit( ComparisonExpression node, Context context ) {
+		Value<?> left = node.getLhs().accept( this, context );
+		Value<?> right = node.getRhs().accept( this, context );
 
 		/*
 		 * This type is only valid if left and right hand side of comparison are both of the same (sub)type.
@@ -101,11 +222,7 @@ public class TypeChecker implements INodeVisitor {
 		 * - Left and right hand side of comparison are both of the same (sub)type.
 		 */
 
-		if (
-			!( left instanceof Number && right instanceof Number )
-			&&
-			!( left.getClass().isInstance( right ) || right.getClass().isInstance( left ) )
-		) {
+		if ( !checkBothNumber( left, right ) && !checkBothSame( left, right ) ) {
 			context.addError(
 				String.format(
 					"Both sides of the comparison must be of the same (sub)type.",
@@ -116,63 +233,63 @@ public class TypeChecker implements INodeVisitor {
 			return null;
 		}
 		else {
-			return new Boolean();
+			return initializeType( DataType.BOOLEAN ); // new Boolean();
 		}
 	}
 
 	@Override
-	public Value visit( UnaryExpression node, Context context ) {
-		Value expression = node.getExpression().accept( this, context );
+	public Value<?> visit( UnaryExpression node, Context context ) {
+		Value<?> expression = node.getExpression().accept( this, context );
 
-		if ( expression.getClass() != Boolean.class ) {
+		if ( !checkIsBoolean( expression ) ) {
 			context.addError( "Expression must be a Boolean type." );
 			return null;
 		}
 		else {
-			return new Boolean();
+			return initializeType( DataType.BOOLEAN ); // new Boolean();
 		}
 	}
 
 	@Override
-	public Value visit( UnaryNumericExpression node, Context context ) {
-		Value expression = node.getExpression().accept( this, context );
+	public Value<?> visit( UnaryNumericExpression node, Context context ) {
+		Value<?> expression = node.getExpression().accept( this, context );
 
-		if ( !( expression instanceof org.uva.sea.ql.eval.value.Number ) ) {
+		if ( !checkIsNumber( expression ) ) {
 			context.addError( "Expression must be a Number type." );
 			return null;
 		}
-		else if ( expression.getClass() == Integer.class ) {
-			return new Integer();
+		else if ( checkIsInteger( expression ) ) {
+			return initializeType( DataType.INTEGER ); // new Integer();
 		}
-		else if ( expression.getClass() == Money.class ) {
-			return new Money();
+		else if ( checkIsMoney( expression ) ) {
+			return initializeType( DataType.MONEY ); // new Money();
 		}
 
 		return null;
 	}
 
 	@Override
-	public Value visit( org.uva.sea.ql.ast.expression.literal.Int node, Context context ) {
-		return new org.uva.sea.ql.eval.value.Integer();
+	public Value<?> visit( org.uva.sea.ql.ast.expression.literal.Int node, Context context ) {
+		return initializeType( DataType.INTEGER ); // new org.uva.sea.ql.eval.value.Integer();
 	}
 
 	@Override
-	public Value visit( org.uva.sea.ql.ast.expression.literal.Bool node, Context context ) {
-		return new org.uva.sea.ql.eval.value.Boolean();
+	public Value<?> visit( org.uva.sea.ql.ast.expression.literal.Bool node, Context context ) {
+		return initializeType( DataType.BOOLEAN ); // new org.uva.sea.ql.eval.value.Boolean();
 	}
 
 	@Override
-	public Value visit( org.uva.sea.ql.ast.expression.literal.Money node, Context context ) {
-		return new org.uva.sea.ql.eval.value.Money();
+	public Value<?> visit( org.uva.sea.ql.ast.expression.literal.Money node, Context context ) {
+		return initializeType( DataType.MONEY ); // new org.uva.sea.ql.eval.value.Money();
 	}
 
 	@Override
-	public Value visit( org.uva.sea.ql.ast.expression.literal.Str node, Context context ) {
-		return new org.uva.sea.ql.eval.value.String();
+	public Value<?> visit( org.uva.sea.ql.ast.expression.literal.Str node, Context context ) {
+		return initializeType( DataType.STRING ); // new org.uva.sea.ql.eval.value.String();
 	}
 
 	@Override
-	public Value visit( Ident node, Context context ) {
+	public Value<?> visit( Ident node, Context context ) {
 		if ( !context.isDeclared( node ) ) {
 			context.addError( "Undefined variable: " + node.getName() );
 			return null;
@@ -182,10 +299,10 @@ public class TypeChecker implements INodeVisitor {
 	}
 
 	@Override
-	public Value visit( IfThenElse node, Context context ) {
-		Value condition = node.getCondition().accept( this, context );
+	public Value<?> visit( IfThenElse node, Context context ) {
+		Value<?> condition = node.getCondition().accept( this, context );
 
-		if ( !( condition instanceof Boolean ) ) {
+		if ( !checkIsBoolean( condition ) ) {
 			context.addError( "Condition of an IF block should evaluate to Boolean." );
 			return null;
 		}
@@ -202,7 +319,7 @@ public class TypeChecker implements INodeVisitor {
 	}
 
 	@Override
-	public Value visit( VarDeclaration node, Context context ) {
+	public Value<?> visit( VarDeclaration node, Context context ) {
 		if ( context.isDeclared( node.getIdent() ) ) {
 			context.addError(
 				String.format(
@@ -213,23 +330,23 @@ public class TypeChecker implements INodeVisitor {
 			return null;
 		}
 
-		Value value = initializeType( node.getType() );
+		Value<?> value = initializeType( node.getType() );
 		context.declareVariable( node.getIdent(), value );
 
 		return value;
 	}
 
 	@Override
-	public Value visit( Assignment node, Context context ) {
-		Value value = node.getExpression().accept( this, context );
+	public Value<?> visit( Assignment node, Context context ) {
+		Value<?> value = node.getExpression().accept( this, context );
 
 		if ( context.isDeclared( node.getIdent() ) ) {
-			Value ident = node.getIdent().accept( this, context );
+			Value<?> ident = node.getIdent().accept( this, context );
 
 			if ( value == null ) {
 				return null;
 			}
-			else if ( ident.getClass() != value.getClass() ) {
+			else if ( !checkBothSame( ident, value ) ) {
 				context.addError(
 					String.format(
 						"Type mismatch: cannot convert from %s to %s.",
@@ -247,13 +364,13 @@ public class TypeChecker implements INodeVisitor {
 	}
 
 	@Override
-	public Value visit( FormDeclaration node, Context context ) {
+	public Value<?> visit( FormDeclaration node, Context context ) {
 		node.getStatements().accept( this, context );
-		return new org.uva.sea.ql.eval.value.Boolean();
+		return initializeType( DataType.BOOLEAN ); // new org.uva.sea.ql.eval.value.Boolean();
 	}
 
 	@Override
-	public Value visit( QuestionDeclaration node, Context context ) {
+	public Value<?> visit( QuestionDeclaration node, Context context ) {
 		node.getName().accept( this, context );
 		return node.getDeclaration().accept( this, context );
 	}

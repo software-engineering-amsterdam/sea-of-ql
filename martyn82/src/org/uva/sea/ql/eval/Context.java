@@ -20,7 +20,7 @@ public class Context {
 	/**
 	 * Holds the declared variables.
 	 */
-	private final Map<String, Value> variables;
+	private final Map<String, Value<?>> variables;
 
 	/**
 	 * Holds the error list.
@@ -34,7 +34,7 @@ public class Context {
 	 */
 	public Context( Context parent ) {
 		this.parent = parent;
-		this.variables = new HashMap<String, Value>();
+		this.variables = new HashMap<String, Value<?>>();
 		this.errors = new LinkedList<String>();
 	}
 
@@ -109,7 +109,7 @@ public class Context {
 	 *
 	 * @throws RuntimeException If the variable cannot be found.
 	 */
-	public Value find( Ident ident ) {
+	public Value<?> find( Ident ident ) {
 		if ( this.variables.containsKey( ident.getName() ) ) {
 			return this.variables.get( ident.getName() );
 		}
@@ -127,7 +127,7 @@ public class Context {
 	 * @param ident
 	 * @param value
 	 */
-	public void declareVariable( Ident ident, Value value ) {
+	public void declareVariable( Ident ident, Value<?> value ) {
 		this.variables.put( ident.getName(), value );
 	}
 }

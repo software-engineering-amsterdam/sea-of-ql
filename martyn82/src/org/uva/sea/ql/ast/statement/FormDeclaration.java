@@ -49,7 +49,7 @@ public class FormDeclaration extends Statement {
 	}
 
 	@Override
-	public Value accept( INodeVisitor visitor, Context context ) {
+	public Value<?> accept( INodeVisitor visitor, Context context ) {
 		return visitor.visit( this, context );
 	}
 }

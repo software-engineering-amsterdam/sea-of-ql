@@ -20,14 +20,13 @@ public class TestTypeChecker extends VisitorTest {
 	/**
 	 * Holds the context for the typechecker.
 	 */
-	private final Context context;
+	private Context context;
 
 	/**
 	 * Constructs a new TypeChecker test.
 	 */
 	public TestTypeChecker() {
 		super( new TypeChecker() );
-		this.context = new Context();
 	}
 
 	/**
@@ -39,8 +38,8 @@ public class TestTypeChecker extends VisitorTest {
 	 *
 	 * @throws ParseError
 	 */
-	private Value typeCheck( java.lang.String source ) throws ParseError {
-		context.getErrors().clear();
+	private Value<?> typeCheck( java.lang.String source ) throws ParseError {
+		context = new Context();
 		return parser.parse( source ).accept( visitor, context );
 	}
 
@@ -127,6 +126,9 @@ public class TestTypeChecker extends VisitorTest {
 
 		typeCheck( "x = 24 * .5 + y ^ 2" );
 		assertEquals( "Undefined variable: y", context.getErrors().get( 0 ) );
+
+		typeCheck( "if ( true ) { x = 24 \n x: boolean }" );
+		assertEquals( "The variable x is already declared elsewhere.", context.getErrors().get( 0 ) );
 	}
 
 	/**
@@ -149,6 +151,33 @@ public class TestTypeChecker extends VisitorTest {
 	public void testTypeMismatch() throws ParseError {
 		typeCheck( "if ( true ) { x: boolean \n x = 23 }" );
 		assertEquals( "Type mismatch: cannot convert from Boolean to Integer.", context.getErrors().get( 0 ) );
+	}
+
+	/**
+	 * Tests comparison operators.
+	 * They have to compare values of the same (sub)type.
+	 *
+	 * @throws ParseError
+	 */
+	@Test
+	public void testComparison() throws ParseError {
+		typeCheck( "true == false" );
+		assertEquals( 0, context.getErrors().size() );
+
+		typeCheck( "true != !false" );
+		assertEquals( 0, context.getErrors().size() );
+
+		typeCheck( "12 >= .3" );
+		assertEquals( 0, context.getErrors().size() );
+
+		typeCheck( "12 != true" );
+		assertEquals( "Both sides of the comparison must be of the same (sub)type.", context.getErrors().get( 0 ) );
+
+		typeCheck( "\"\" != true" );
+		assertEquals( "Both sides of the comparison must be of the same (sub)type.", context.getErrors().get( 0 ) );
+
+		typeCheck( "\"hello\" == \"world\"" );
+		assertEquals( 0, context.getErrors().size() );
 	}
 
 	/**
