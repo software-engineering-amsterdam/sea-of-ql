@@ -26,41 +26,48 @@ public class PrintVisitor implements Visitor {
 	@Override
 	public VisitorResult visit(Expr expr) {
 		if (expr.getClass() == IntLiteral.class) {
-			report = report.concat(Integer
-					.toString(((IntLiteral) expr).getValue()));
+			report = report.concat(Integer.toString(((IntLiteral) expr)
+					.getValue()));
 		}
 		if (expr.getClass() == Ident.class) {
 			report = report.concat(((Ident) expr).getName());
 		}
-		return null; 
+		return null;
 	}
 
 	@Override
 	public VisitorResult visit(QLProgram qlProgram) {
-		report = report.concat("form "
-				+ qlProgram.getProgramName());
-		qlProgram.getCompound().accept(this);
-		System.out.println(report);
-		return null;
+		PrintVisitorResult pres;
+
+		pres = new PrintVisitorResult("form " + qlProgram.getProgramName());
+
+		pres.appendResult(qlProgram.getCompound().accept(this));
+
+		return pres;
 	}
 
 	@Override
 	public VisitorResult visit(CompoundStatement compoundBlock) {
-		report = report.concat(" { \n");
+		PrintVisitorResult pres;
 
+		pres = new PrintVisitorResult(" { ");
 		for (Statement statement : compoundBlock.getStatementList())
-			statement.accept(this);
+			pres.appendResult(statement.accept(this));
 
-		report = report.concat(" } \n");
-		return null;
+		pres.appendResult(" } ");
+		return pres;
 	}
 
 	@Override
 	public VisitorResult visit(LineStatement lineStatement) {
-		report = report.concat(lineStatement.getLineName()
-				+ ": " + lineStatement.getDisplayText());
-		lineStatement.getTypeDescription().accept(this);
-		return null;
+		PrintVisitorResult pres;
+
+		pres = new PrintVisitorResult(lineStatement.getLineName() + ": "
+				+ lineStatement.getDisplayText());
+
+		pres.appendResult(lineStatement.getTypeDescription().accept(this));
+
+		return pres;
 	}
 
 	@Override
@@ -69,30 +76,32 @@ public class PrintVisitor implements Visitor {
 		conditionalStatement.getExpression().accept(this);
 		report = report.concat(" ) ");
 		conditionalStatement.getTrueCompound().accept(this);
-		if ( conditionalStatement.getFalseCompound() != null ) {
+		if (conditionalStatement.getFalseCompound() != null) {
 			report = report.concat("\nelse ");
-			conditionalStatement.getFalseCompound().accept(this) ;
+			conditionalStatement.getFalseCompound().accept(this);
 		}
 		return null;
 	}
 
 	@Override
 	public VisitorResult visit(TypeDescription typeDescription) {
+		PrintVisitorResult pres = null;
+
 		if (typeDescription.getClass() == BooleanType.class) {
-			report = report.concat(" boolean ");
+			pres = new PrintVisitorResult(" boolean ");
 		}
 		if (typeDescription.getClass() == StringType.class) {
-			report = report.concat(" string ");
+			pres = new PrintVisitorResult(" string ");
 		}
 		if (typeDescription.getClass() == MoneyType.class) {
-			report = report.concat(" money ");
+			pres = new PrintVisitorResult(" money ");
 			if (((MoneyType) typeDescription).getExpr() != null) {
-				report = report.concat(" ( ");
+				pres.appendResult(" ( ");
 				((MoneyType) typeDescription).getExpr().accept(this);
-				report = report.concat(" ) ");
+				pres.appendResult(" ) ");
 			}
 		}
-		return null;
+		return pres;
 	}
 
 	@Override

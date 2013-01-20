@@ -4,16 +4,12 @@ import junit.framework.TestCase;
 
 import org.junit.Test;
 import org.uva.sea.ql.ast.Add;
-import org.uva.sea.ql.ast.ConditionalStatement;
 import org.uva.sea.ql.ast.GT;
 import org.uva.sea.ql.ast.Ident;
 import org.uva.sea.ql.ast.IntLiteral;
 import org.uva.sea.ql.ast.LEq;
 import org.uva.sea.ql.ast.LT;
 import org.uva.sea.ql.ast.Mul;
-import org.uva.sea.ql.ast.QLProgram;
-import org.uva.sea.ql.astnodevisitor.PrintVisitor;
-import org.uva.sea.ql.astnodevisitor.SemanticCheckVisitor;
 
 public class TestExpressions extends TestCase {
 
