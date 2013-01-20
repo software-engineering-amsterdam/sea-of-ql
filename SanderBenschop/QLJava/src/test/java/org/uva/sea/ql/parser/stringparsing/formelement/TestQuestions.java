@@ -1,6 +1,7 @@
 package org.uva.sea.ql.parser.stringparsing.formelement;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 
 import org.junit.Test;
 import org.uva.sea.ql.ast.QLStatement;
@@ -41,6 +42,6 @@ public class TestQuestions extends TestParser {
     @Test
     public void shouldNotAcceptOtherType() throws ParseError {
         Question question = (Question) parseStatement("salary : \"What is your gross salary?\" money");
-        int i = 0;
+        assertNull(question);
     }
 }
