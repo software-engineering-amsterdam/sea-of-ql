@@ -1,627 +1,695 @@
-// Output created by jacc on Thu Jan 03 15:28:05 CET 2013
+// Output created by jacc on Sun Jan 20 15:03:23 GMT 2013
 
-state 0 (entry on top)
-    $accept : _top $end
+state 0 (entry on form)
+    $accept : _form $end
 
-    IDENT shift 4
-    INT shift 5
-    '!' shift 6
-    '(' shift 7
-    '+' shift 8
-    '-' shift 9
+    FORM shift 2
     . error
 
-    top goto 1
-    expr goto 2
-    comp goto 3
+    form goto 1
 
-state 1 (entry on top)
-    $accept : top_$end
+state 1 (entry on form)
+    $accept : form_$end
 
     $end accept
     . error
 
-state 2 (entry on expr)
-    expr : expr_'*' expr    (12)
-    expr : expr_'/' expr    (13)
-    expr : expr_'+' expr    (14)
-    expr : expr_'-' expr    (15)
-    expr : expr_AND expr    (16)
-    expr : expr_OR expr    (17)
-    comp : expr_EQ expr    (2)
-    comp : expr_NEQ expr    (3)
-    comp : expr_'>' expr    (4)
-    comp : expr_'<' expr    (5)
-    comp : expr_GEQ expr    (6)
-    comp : expr_LEQ expr    (7)
-    comp : expr_    (8)
+state 2 (entry on FORM)
+    form : FORM_STRINGLITERAL statement    (1)
 
-    AND shift 10
-    EQ shift 11
-    GEQ shift 12
-    LEQ shift 13
-    NEQ shift 14
-    OR shift 15
-    '*' shift 16
-    '+' shift 17
-    '-' shift 18
-    '/' shift 19
-    '<' shift 20
-    '>' shift 21
-    $end reduce 8
-    ')' reduce 8
+    STRINGLITERAL shift 3
     . error
 
-state 3 (entry on comp)
-    top : comp_    (1)
+state 3 (entry on STRINGLITERAL)
+    form : FORM STRINGLITERAL_statement    (1)
+    question : _    (10)
+
+    IF shift 8
+    STRINGLITERAL shift 9
+    $end reduce 10
+    . error
+
+    closedstatement goto 4
+    openstatement goto 5
+    question goto 6
+    statement goto 7
+
+state 4 (entry on closedstatement)
+    statement : closedstatement_    (3)
+
+    $end reduce 3
+    . error
+
+state 5 (entry on openstatement)
+    statement : openstatement_    (2)
+
+    $end reduce 2
+    '}' reduce 2
+    . error
+
+state 6 (entry on question)
+    closedstatement : question_    (6)
+
+    $end reduce 6
+    '}' reduce 6
+    . error
+
+state 7 (entry on statement)
+    form : FORM STRINGLITERAL statement_    (1)
 
     $end reduce 1
     . error
 
-state 4 (entry on IDENT)
-    expr : IDENT_    (19)
+state 8 (entry on IF)
+    closedstatement : IF_expression '{' closedstatement '}' ELSE '{' closedstatement '}'    (7)
+    openstatement : IF_expression '{' statement '}'    (4)
+    openstatement : IF_expression '{' closedstatement '}' ELSE '{' openstatement '}'    (5)
 
-    '!' error
-    NEW error
-    INT error
-    '(' error
-    error error
-    UPLUS error
-    UNOT error
-    UMIN error
-    IDENT error
-    . reduce 19
-
-state 5 (entry on INT)
-    expr : INT_    (18)
-
-    '!' error
-    NEW error
-    INT error
-    '(' error
-    error error
-    UPLUS error
-    UNOT error
-    UMIN error
-    IDENT error
-    . reduce 18
-
-state 6 (entry on '!')
-    expr : '!'_expr    (11)
-
-    IDENT shift 4
-    INT shift 5
-    '!' shift 6
-    '(' shift 7
-    '+' shift 8
-    '-' shift 9
+    BOOLEANLITERAL shift 11
+    IDENTIFIER shift 12
+    NUMBERLITERAL shift 13
+    STRINGLITERAL shift 14
+    '!' shift 15
+    '(' shift 16
+    '+' shift 17
+    '-' shift 18
     . error
 
-    expr goto 22
+    expression goto 10
 
-state 7 (entry on '(')
-    expr : '('_comp ')'    (20)
+state 9 (entry on STRINGLITERAL)
+    question : STRINGLITERAL_IDENTIFIER ':' TYPE    (8)
+    question : STRINGLITERAL_IDENTIFIER '=' expression    (9)
 
-    IDENT shift 4
-    INT shift 5
-    '!' shift 6
-    '(' shift 7
-    '+' shift 8
-    '-' shift 9
+    IDENTIFIER shift 19
     . error
 
-    expr goto 2
-    comp goto 23
+state 10 (entry on expression)
+    expression : expression_'*' expression    (20)
+    expression : expression_'/' expression    (21)
+    expression : expression_'+' expression    (22)
+    expression : expression_'-' expression    (23)
+    expression : expression_AND expression    (24)
+    expression : expression_OR expression    (25)
+    closedstatement : IF expression_'{' closedstatement '}' ELSE '{' closedstatement '}'    (7)
+    openstatement : IF expression_'{' statement '}'    (4)
+    openstatement : IF expression_'{' closedstatement '}' ELSE '{' openstatement '}'    (5)
 
-state 8 (entry on '+')
-    expr : '+'_expr    (9)
-
-    IDENT shift 4
-    INT shift 5
-    '!' shift 6
-    '(' shift 7
-    '+' shift 8
-    '-' shift 9
+    AND shift 20
+    OR shift 21
+    '*' shift 22
+    '+' shift 23
+    '-' shift 24
+    '/' shift 25
+    '{' shift 26
     . error
 
-    expr goto 24
+state 11 (entry on BOOLEANLITERAL)
+    expression : BOOLEANLITERAL_    (28)
 
-state 9 (entry on '-')
-    expr : '-'_expr    (10)
-
-    IDENT shift 4
-    INT shift 5
-    '!' shift 6
-    '(' shift 7
-    '+' shift 8
-    '-' shift 9
+    '/' reduce 28
+    OR reduce 28
+    '-' reduce 28
+    '+' reduce 28
+    '*' reduce 28
+    ')' reduce 28
+    $end reduce 28
+    '}' reduce 28
+    '{' reduce 28
+    AND reduce 28
     . error
 
-    expr goto 25
+state 12 (entry on IDENTIFIER)
+    expression : IDENTIFIER_    (29)
 
-state 10 (entry on AND)
-    expr : expr AND_expr    (16)
-
-    IDENT shift 4
-    INT shift 5
-    '!' shift 6
-    '(' shift 7
-    '+' shift 8
-    '-' shift 9
+    '/' reduce 29
+    OR reduce 29
+    '-' reduce 29
+    '+' reduce 29
+    '*' reduce 29
+    ')' reduce 29
+    $end reduce 29
+    '}' reduce 29
+    '{' reduce 29
+    AND reduce 29
     . error
 
-    expr goto 26
+state 13 (entry on NUMBERLITERAL)
+    expression : NUMBERLITERAL_    (26)
 
-state 11 (entry on EQ)
-    comp : expr EQ_expr    (2)
-
-    IDENT shift 4
-    INT shift 5
-    '!' shift 6
-    '(' shift 7
-    '+' shift 8
-    '-' shift 9
+    '/' reduce 26
+    OR reduce 26
+    '-' reduce 26
+    '+' reduce 26
+    '*' reduce 26
+    ')' reduce 26
+    $end reduce 26
+    '}' reduce 26
+    '{' reduce 26
+    AND reduce 26
     . error
 
-    expr goto 27
+state 14 (entry on STRINGLITERAL)
+    expression : STRINGLITERAL_    (27)
 
-state 12 (entry on GEQ)
-    comp : expr GEQ_expr    (6)
-
-    IDENT shift 4
-    INT shift 5
-    '!' shift 6
-    '(' shift 7
-    '+' shift 8
-    '-' shift 9
+    '/' reduce 27
+    OR reduce 27
+    '-' reduce 27
+    '+' reduce 27
+    '*' reduce 27
+    ')' reduce 27
+    $end reduce 27
+    '}' reduce 27
+    '{' reduce 27
+    AND reduce 27
     . error
 
-    expr goto 28
+state 15 (entry on '!')
+    expression : '!'_expression    (19)
 
-state 13 (entry on LEQ)
-    comp : expr LEQ_expr    (7)
-
-    IDENT shift 4
-    INT shift 5
-    '!' shift 6
-    '(' shift 7
-    '+' shift 8
-    '-' shift 9
+    BOOLEANLITERAL shift 11
+    IDENTIFIER shift 12
+    NUMBERLITERAL shift 13
+    STRINGLITERAL shift 14
+    '!' shift 15
+    '(' shift 16
+    '+' shift 17
+    '-' shift 18
     . error
 
-    expr goto 29
+    expression goto 27
 
-state 14 (entry on NEQ)
-    comp : expr NEQ_expr    (3)
+state 16 (entry on '(')
+    expression : '('_expression ')'    (30)
 
-    IDENT shift 4
-    INT shift 5
-    '!' shift 6
-    '(' shift 7
-    '+' shift 8
-    '-' shift 9
+    BOOLEANLITERAL shift 11
+    IDENTIFIER shift 12
+    NUMBERLITERAL shift 13
+    STRINGLITERAL shift 14
+    '!' shift 15
+    '(' shift 16
+    '+' shift 17
+    '-' shift 18
     . error
 
-    expr goto 30
-
-state 15 (entry on OR)
-    expr : expr OR_expr    (17)
-
-    IDENT shift 4
-    INT shift 5
-    '!' shift 6
-    '(' shift 7
-    '+' shift 8
-    '-' shift 9
-    . error
-
-    expr goto 31
-
-state 16 (entry on '*')
-    expr : expr '*'_expr    (12)
-
-    IDENT shift 4
-    INT shift 5
-    '!' shift 6
-    '(' shift 7
-    '+' shift 8
-    '-' shift 9
-    . error
-
-    expr goto 32
+    expression goto 28
 
 state 17 (entry on '+')
-    expr : expr '+'_expr    (14)
+    expression : '+'_expression    (17)
 
-    IDENT shift 4
-    INT shift 5
-    '!' shift 6
-    '(' shift 7
-    '+' shift 8
-    '-' shift 9
+    BOOLEANLITERAL shift 11
+    IDENTIFIER shift 12
+    NUMBERLITERAL shift 13
+    STRINGLITERAL shift 14
+    '!' shift 15
+    '(' shift 16
+    '+' shift 17
+    '-' shift 18
     . error
 
-    expr goto 33
+    expression goto 29
 
 state 18 (entry on '-')
-    expr : expr '-'_expr    (15)
+    expression : '-'_expression    (18)
 
-    IDENT shift 4
-    INT shift 5
-    '!' shift 6
-    '(' shift 7
-    '+' shift 8
-    '-' shift 9
-    . error
-
-    expr goto 34
-
-state 19 (entry on '/')
-    expr : expr '/'_expr    (13)
-
-    IDENT shift 4
-    INT shift 5
-    '!' shift 6
-    '(' shift 7
-    '+' shift 8
-    '-' shift 9
-    . error
-
-    expr goto 35
-
-state 20 (entry on '<')
-    comp : expr '<'_expr    (5)
-
-    IDENT shift 4
-    INT shift 5
-    '!' shift 6
-    '(' shift 7
-    '+' shift 8
-    '-' shift 9
-    . error
-
-    expr goto 36
-
-state 21 (entry on '>')
-    comp : expr '>'_expr    (4)
-
-    IDENT shift 4
-    INT shift 5
-    '!' shift 6
-    '(' shift 7
-    '+' shift 8
-    '-' shift 9
-    . error
-
-    expr goto 37
-
-state 22 (entry on expr)
-    expr : '!' expr_    (11)
-    expr : expr_'*' expr    (12)
-    expr : expr_'/' expr    (13)
-    expr : expr_'+' expr    (14)
-    expr : expr_'-' expr    (15)
-    expr : expr_AND expr    (16)
-    expr : expr_OR expr    (17)
-
-    '!' error
-    NEW error
-    INT error
-    '(' error
-    error error
-    UPLUS error
-    UNOT error
-    UMIN error
-    IDENT error
-    . reduce 11
-
-state 23 (entry on comp)
-    expr : '(' comp_')'    (20)
-
-    ')' shift 38
-    . error
-
-state 24 (entry on expr)
-    expr : '+' expr_    (9)
-    expr : expr_'*' expr    (12)
-    expr : expr_'/' expr    (13)
-    expr : expr_'+' expr    (14)
-    expr : expr_'-' expr    (15)
-    expr : expr_AND expr    (16)
-    expr : expr_OR expr    (17)
-
-    '!' error
-    NEW error
-    INT error
-    '(' error
-    error error
-    UPLUS error
-    UNOT error
-    UMIN error
-    IDENT error
-    . reduce 9
-
-state 25 (entry on expr)
-    expr : '-' expr_    (10)
-    expr : expr_'*' expr    (12)
-    expr : expr_'/' expr    (13)
-    expr : expr_'+' expr    (14)
-    expr : expr_'-' expr    (15)
-    expr : expr_AND expr    (16)
-    expr : expr_OR expr    (17)
-
-    '!' error
-    NEW error
-    INT error
-    '(' error
-    error error
-    UPLUS error
-    UNOT error
-    UMIN error
-    IDENT error
-    . reduce 10
-
-state 26 (entry on expr)
-    expr : expr_'*' expr    (12)
-    expr : expr_'/' expr    (13)
-    expr : expr_'+' expr    (14)
-    expr : expr_'-' expr    (15)
-    expr : expr_AND expr    (16)
-    expr : expr AND expr_    (16)
-    expr : expr_OR expr    (17)
-
-    INT error
-    '(' error
-    UPLUS error
-    UMIN error
-    IDENT error
-    NEW error
-    error error
-    '!' error
-    UNOT error
-    '*' shift 16
+    BOOLEANLITERAL shift 11
+    IDENTIFIER shift 12
+    NUMBERLITERAL shift 13
+    STRINGLITERAL shift 14
+    '!' shift 15
+    '(' shift 16
     '+' shift 17
     '-' shift 18
-    '/' shift 19
-    . reduce 16
-
-state 27 (entry on expr)
-    expr : expr_'*' expr    (12)
-    expr : expr_'/' expr    (13)
-    expr : expr_'+' expr    (14)
-    expr : expr_'-' expr    (15)
-    expr : expr_AND expr    (16)
-    expr : expr_OR expr    (17)
-    comp : expr EQ expr_    (2)
-
-    AND shift 10
-    OR shift 15
-    '*' shift 16
-    '+' shift 17
-    '-' shift 18
-    '/' shift 19
-    $end reduce 2
-    ')' reduce 2
     . error
 
-state 28 (entry on expr)
-    expr : expr_'*' expr    (12)
-    expr : expr_'/' expr    (13)
-    expr : expr_'+' expr    (14)
-    expr : expr_'-' expr    (15)
-    expr : expr_AND expr    (16)
-    expr : expr_OR expr    (17)
-    comp : expr GEQ expr_    (6)
+    expression goto 30
 
-    AND shift 10
-    OR shift 15
-    '*' shift 16
-    '+' shift 17
-    '-' shift 18
-    '/' shift 19
-    $end reduce 6
-    ')' reduce 6
+state 19 (entry on IDENTIFIER)
+    question : STRINGLITERAL IDENTIFIER_':' TYPE    (8)
+    question : STRINGLITERAL IDENTIFIER_'=' expression    (9)
+
+    ':' shift 31
+    '=' shift 32
     . error
 
-state 29 (entry on expr)
-    expr : expr_'*' expr    (12)
-    expr : expr_'/' expr    (13)
-    expr : expr_'+' expr    (14)
-    expr : expr_'-' expr    (15)
-    expr : expr_AND expr    (16)
-    expr : expr_OR expr    (17)
-    comp : expr LEQ expr_    (7)
+state 20 (entry on AND)
+    expression : expression AND_expression    (24)
 
-    AND shift 10
-    OR shift 15
-    '*' shift 16
+    BOOLEANLITERAL shift 11
+    IDENTIFIER shift 12
+    NUMBERLITERAL shift 13
+    STRINGLITERAL shift 14
+    '!' shift 15
+    '(' shift 16
     '+' shift 17
     '-' shift 18
-    '/' shift 19
-    $end reduce 7
-    ')' reduce 7
     . error
 
-state 30 (entry on expr)
-    expr : expr_'*' expr    (12)
-    expr : expr_'/' expr    (13)
-    expr : expr_'+' expr    (14)
-    expr : expr_'-' expr    (15)
-    expr : expr_AND expr    (16)
-    expr : expr_OR expr    (17)
-    comp : expr NEQ expr_    (3)
+    expression goto 33
 
-    AND shift 10
-    OR shift 15
-    '*' shift 16
+state 21 (entry on OR)
+    expression : expression OR_expression    (25)
+
+    BOOLEANLITERAL shift 11
+    IDENTIFIER shift 12
+    NUMBERLITERAL shift 13
+    STRINGLITERAL shift 14
+    '!' shift 15
+    '(' shift 16
     '+' shift 17
     '-' shift 18
-    '/' shift 19
-    $end reduce 3
-    ')' reduce 3
     . error
 
-state 31 (entry on expr)
-    expr : expr_'*' expr    (12)
-    expr : expr_'/' expr    (13)
-    expr : expr_'+' expr    (14)
-    expr : expr_'-' expr    (15)
-    expr : expr_AND expr    (16)
-    expr : expr_OR expr    (17)
-    expr : expr OR expr_    (17)
+    expression goto 34
 
-    AND shift 10
-    '*' shift 16
+state 22 (entry on '*')
+    expression : expression '*'_expression    (20)
+
+    BOOLEANLITERAL shift 11
+    IDENTIFIER shift 12
+    NUMBERLITERAL shift 13
+    STRINGLITERAL shift 14
+    '!' shift 15
+    '(' shift 16
     '+' shift 17
     '-' shift 18
-    '/' shift 19
-    NEQ reduce 17
-    LEQ reduce 17
-    GEQ reduce 17
-    '>' reduce 17
-    '<' reduce 17
+    . error
+
+    expression goto 35
+
+state 23 (entry on '+')
+    expression : expression '+'_expression    (22)
+
+    BOOLEANLITERAL shift 11
+    IDENTIFIER shift 12
+    NUMBERLITERAL shift 13
+    STRINGLITERAL shift 14
+    '!' shift 15
+    '(' shift 16
+    '+' shift 17
+    '-' shift 18
+    . error
+
+    expression goto 36
+
+state 24 (entry on '-')
+    expression : expression '-'_expression    (23)
+
+    BOOLEANLITERAL shift 11
+    IDENTIFIER shift 12
+    NUMBERLITERAL shift 13
+    STRINGLITERAL shift 14
+    '!' shift 15
+    '(' shift 16
+    '+' shift 17
+    '-' shift 18
+    . error
+
+    expression goto 37
+
+state 25 (entry on '/')
+    expression : expression '/'_expression    (21)
+
+    BOOLEANLITERAL shift 11
+    IDENTIFIER shift 12
+    NUMBERLITERAL shift 13
+    STRINGLITERAL shift 14
+    '!' shift 15
+    '(' shift 16
+    '+' shift 17
+    '-' shift 18
+    . error
+
+    expression goto 38
+
+state 26 (entry on '{')
+    closedstatement : IF expression '{'_closedstatement '}' ELSE '{' closedstatement '}'    (7)
+    openstatement : IF expression '{'_statement '}'    (4)
+    openstatement : IF expression '{'_closedstatement '}' ELSE '{' openstatement '}'    (5)
+    question : _    (10)
+
+    IF shift 8
+    STRINGLITERAL shift 9
+    '}' reduce 10
+    . error
+
+    closedstatement goto 39
+    openstatement goto 5
+    question goto 6
+    statement goto 40
+
+state 27 (entry on expression)
+    expression : '!' expression_    (19)
+    expression : expression_'*' expression    (20)
+    expression : expression_'/' expression    (21)
+    expression : expression_'+' expression    (22)
+    expression : expression_'-' expression    (23)
+    expression : expression_AND expression    (24)
+    expression : expression_OR expression    (25)
+
+    '/' reduce 19
+    OR reduce 19
+    '-' reduce 19
+    '+' reduce 19
+    '*' reduce 19
+    ')' reduce 19
+    $end reduce 19
+    '}' reduce 19
+    '{' reduce 19
+    AND reduce 19
+    . error
+
+state 28 (entry on expression)
+    expression : expression_'*' expression    (20)
+    expression : expression_'/' expression    (21)
+    expression : expression_'+' expression    (22)
+    expression : expression_'-' expression    (23)
+    expression : expression_AND expression    (24)
+    expression : expression_OR expression    (25)
+    expression : '(' expression_')'    (30)
+
+    AND shift 20
+    OR shift 21
+    '*' shift 22
+    '+' shift 23
+    '-' shift 24
+    '/' shift 25
+    ')' shift 41
+    . error
+
+state 29 (entry on expression)
+    expression : '+' expression_    (17)
+    expression : expression_'*' expression    (20)
+    expression : expression_'/' expression    (21)
+    expression : expression_'+' expression    (22)
+    expression : expression_'-' expression    (23)
+    expression : expression_AND expression    (24)
+    expression : expression_OR expression    (25)
+
+    '/' reduce 17
     OR reduce 17
+    '-' reduce 17
+    '+' reduce 17
+    '*' reduce 17
     ')' reduce 17
     $end reduce 17
-    EQ reduce 17
+    '}' reduce 17
+    '{' reduce 17
+    AND reduce 17
     . error
 
-state 32 (entry on expr)
-    expr : expr_'*' expr    (12)
-    expr : expr '*' expr_    (12)
-    expr : expr_'/' expr    (13)
-    expr : expr_'+' expr    (14)
-    expr : expr_'-' expr    (15)
-    expr : expr_AND expr    (16)
-    expr : expr_OR expr    (17)
+state 30 (entry on expression)
+    expression : '-' expression_    (18)
+    expression : expression_'*' expression    (20)
+    expression : expression_'/' expression    (21)
+    expression : expression_'+' expression    (22)
+    expression : expression_'-' expression    (23)
+    expression : expression_AND expression    (24)
+    expression : expression_OR expression    (25)
 
-    '!' error
-    NEW error
-    INT error
-    '(' error
-    error error
-    UPLUS error
-    UNOT error
-    UMIN error
-    IDENT error
-    . reduce 12
-
-state 33 (entry on expr)
-    expr : expr_'*' expr    (12)
-    expr : expr_'/' expr    (13)
-    expr : expr_'+' expr    (14)
-    expr : expr '+' expr_    (14)
-    expr : expr_'-' expr    (15)
-    expr : expr_AND expr    (16)
-    expr : expr_OR expr    (17)
-
-    UNOT error
-    error error
-    UPLUS error
-    NEW error
-    '(' error
-    '!' error
-    UMIN error
-    INT error
-    IDENT error
-    '*' shift 16
-    '/' shift 19
-    . reduce 14
-
-state 34 (entry on expr)
-    expr : expr_'*' expr    (12)
-    expr : expr_'/' expr    (13)
-    expr : expr_'+' expr    (14)
-    expr : expr_'-' expr    (15)
-    expr : expr '-' expr_    (15)
-    expr : expr_AND expr    (16)
-    expr : expr_OR expr    (17)
-
-    UNOT error
-    error error
-    UPLUS error
-    NEW error
-    '(' error
-    '!' error
-    UMIN error
-    INT error
-    IDENT error
-    '*' shift 16
-    '/' shift 19
-    . reduce 15
-
-state 35 (entry on expr)
-    expr : expr_'*' expr    (12)
-    expr : expr_'/' expr    (13)
-    expr : expr '/' expr_    (13)
-    expr : expr_'+' expr    (14)
-    expr : expr_'-' expr    (15)
-    expr : expr_AND expr    (16)
-    expr : expr_OR expr    (17)
-
-    '!' error
-    NEW error
-    INT error
-    '(' error
-    error error
-    UPLUS error
-    UNOT error
-    UMIN error
-    IDENT error
-    . reduce 13
-
-state 36 (entry on expr)
-    expr : expr_'*' expr    (12)
-    expr : expr_'/' expr    (13)
-    expr : expr_'+' expr    (14)
-    expr : expr_'-' expr    (15)
-    expr : expr_AND expr    (16)
-    expr : expr_OR expr    (17)
-    comp : expr '<' expr_    (5)
-
-    AND shift 10
-    OR shift 15
-    '*' shift 16
-    '+' shift 17
-    '-' shift 18
-    '/' shift 19
-    $end reduce 5
-    ')' reduce 5
+    '/' reduce 18
+    OR reduce 18
+    '-' reduce 18
+    '+' reduce 18
+    '*' reduce 18
+    ')' reduce 18
+    $end reduce 18
+    '}' reduce 18
+    '{' reduce 18
+    AND reduce 18
     . error
 
-state 37 (entry on expr)
-    expr : expr_'*' expr    (12)
-    expr : expr_'/' expr    (13)
-    expr : expr_'+' expr    (14)
-    expr : expr_'-' expr    (15)
-    expr : expr_AND expr    (16)
-    expr : expr_OR expr    (17)
-    comp : expr '>' expr_    (4)
+state 31 (entry on ':')
+    question : STRINGLITERAL IDENTIFIER ':'_TYPE    (8)
 
-    AND shift 10
-    OR shift 15
-    '*' shift 16
+    TYPE shift 42
+    . error
+
+state 32 (entry on '=')
+    question : STRINGLITERAL IDENTIFIER '='_expression    (9)
+
+    BOOLEANLITERAL shift 11
+    IDENTIFIER shift 12
+    NUMBERLITERAL shift 13
+    STRINGLITERAL shift 14
+    '!' shift 15
+    '(' shift 16
     '+' shift 17
     '-' shift 18
-    '/' shift 19
+    . error
+
+    expression goto 43
+
+state 33 (entry on expression)
+    expression : expression_'*' expression    (20)
+    expression : expression_'/' expression    (21)
+    expression : expression_'+' expression    (22)
+    expression : expression_'-' expression    (23)
+    expression : expression_AND expression    (24)
+    expression : expression AND expression_    (24)
+    expression : expression_OR expression    (25)
+
+    '*' shift 22
+    '+' shift 23
+    '-' shift 24
+    '/' shift 25
+    OR reduce 24
+    ')' reduce 24
+    $end reduce 24
+    '}' reduce 24
+    '{' reduce 24
+    AND reduce 24
+    . error
+
+state 34 (entry on expression)
+    expression : expression_'*' expression    (20)
+    expression : expression_'/' expression    (21)
+    expression : expression_'+' expression    (22)
+    expression : expression_'-' expression    (23)
+    expression : expression_AND expression    (24)
+    expression : expression_OR expression    (25)
+    expression : expression OR expression_    (25)
+
+    AND shift 20
+    '*' shift 22
+    '+' shift 23
+    '-' shift 24
+    '/' shift 25
+    OR reduce 25
+    ')' reduce 25
+    $end reduce 25
+    '}' reduce 25
+    '{' reduce 25
+    . error
+
+state 35 (entry on expression)
+    expression : expression_'*' expression    (20)
+    expression : expression '*' expression_    (20)
+    expression : expression_'/' expression    (21)
+    expression : expression_'+' expression    (22)
+    expression : expression_'-' expression    (23)
+    expression : expression_AND expression    (24)
+    expression : expression_OR expression    (25)
+
+    '/' reduce 20
+    OR reduce 20
+    '-' reduce 20
+    '+' reduce 20
+    '*' reduce 20
+    ')' reduce 20
+    $end reduce 20
+    '}' reduce 20
+    '{' reduce 20
+    AND reduce 20
+    . error
+
+state 36 (entry on expression)
+    expression : expression_'*' expression    (20)
+    expression : expression_'/' expression    (21)
+    expression : expression_'+' expression    (22)
+    expression : expression '+' expression_    (22)
+    expression : expression_'-' expression    (23)
+    expression : expression_AND expression    (24)
+    expression : expression_OR expression    (25)
+
+    '*' shift 22
+    '/' shift 25
+    OR reduce 22
+    '-' reduce 22
+    '+' reduce 22
+    ')' reduce 22
+    $end reduce 22
+    '}' reduce 22
+    '{' reduce 22
+    AND reduce 22
+    . error
+
+state 37 (entry on expression)
+    expression : expression_'*' expression    (20)
+    expression : expression_'/' expression    (21)
+    expression : expression_'+' expression    (22)
+    expression : expression_'-' expression    (23)
+    expression : expression '-' expression_    (23)
+    expression : expression_AND expression    (24)
+    expression : expression_OR expression    (25)
+
+    '*' shift 22
+    '/' shift 25
+    OR reduce 23
+    '-' reduce 23
+    '+' reduce 23
+    ')' reduce 23
+    $end reduce 23
+    '}' reduce 23
+    '{' reduce 23
+    AND reduce 23
+    . error
+
+state 38 (entry on expression)
+    expression : expression_'*' expression    (20)
+    expression : expression_'/' expression    (21)
+    expression : expression '/' expression_    (21)
+    expression : expression_'+' expression    (22)
+    expression : expression_'-' expression    (23)
+    expression : expression_AND expression    (24)
+    expression : expression_OR expression    (25)
+
+    '/' reduce 21
+    OR reduce 21
+    '-' reduce 21
+    '+' reduce 21
+    '*' reduce 21
+    ')' reduce 21
+    $end reduce 21
+    '}' reduce 21
+    '{' reduce 21
+    AND reduce 21
+    . error
+
+39: shift/reduce conflict (shift 44 and red'n 3) on '}'
+state 39 (entry on closedstatement)
+    closedstatement : IF expression '{' closedstatement_'}' ELSE '{' closedstatement '}'    (7)
+    openstatement : IF expression '{' closedstatement_'}' ELSE '{' openstatement '}'    (5)
+    statement : closedstatement_    (3)
+
+    '}' shift 44
+    . error
+
+state 40 (entry on statement)
+    openstatement : IF expression '{' statement_'}'    (4)
+
+    '}' shift 45
+    . error
+
+state 41 (entry on ')')
+    expression : '(' expression ')'_    (30)
+
+    '/' reduce 30
+    OR reduce 30
+    '-' reduce 30
+    '+' reduce 30
+    '*' reduce 30
+    ')' reduce 30
+    $end reduce 30
+    '}' reduce 30
+    '{' reduce 30
+    AND reduce 30
+    . error
+
+state 42 (entry on TYPE)
+    question : STRINGLITERAL IDENTIFIER ':' TYPE_    (8)
+
+    $end reduce 8
+    '}' reduce 8
+    . error
+
+state 43 (entry on expression)
+    expression : expression_'*' expression    (20)
+    expression : expression_'/' expression    (21)
+    expression : expression_'+' expression    (22)
+    expression : expression_'-' expression    (23)
+    expression : expression_AND expression    (24)
+    expression : expression_OR expression    (25)
+    question : STRINGLITERAL IDENTIFIER '=' expression_    (9)
+
+    AND shift 20
+    OR shift 21
+    '*' shift 22
+    '+' shift 23
+    '-' shift 24
+    '/' shift 25
+    $end reduce 9
+    '}' reduce 9
+    . error
+
+state 44 (entry on '}')
+    closedstatement : IF expression '{' closedstatement '}'_ELSE '{' closedstatement '}'    (7)
+    openstatement : IF expression '{' closedstatement '}'_ELSE '{' openstatement '}'    (5)
+
+    ELSE shift 46
+    . error
+
+state 45 (entry on '}')
+    openstatement : IF expression '{' statement '}'_    (4)
+
     $end reduce 4
-    ')' reduce 4
+    '}' reduce 4
     . error
 
-state 38 (entry on ')')
-    expr : '(' comp ')'_    (20)
+state 46 (entry on ELSE)
+    closedstatement : IF expression '{' closedstatement '}' ELSE_'{' closedstatement '}'    (7)
+    openstatement : IF expression '{' closedstatement '}' ELSE_'{' openstatement '}'    (5)
 
-    '!' error
-    NEW error
-    INT error
-    '(' error
-    error error
-    UPLUS error
-    UNOT error
-    UMIN error
-    IDENT error
-    . reduce 20
+    '{' shift 47
+    . error
 
-23 terminals, 3 nonterminals;
-20 grammar rules, 39 states;
-0 shift/reduce and 0 reduce/reduce conflicts reported.
+state 47 (entry on '{')
+    closedstatement : IF expression '{' closedstatement '}' ELSE '{'_closedstatement '}'    (7)
+    openstatement : IF expression '{' closedstatement '}' ELSE '{'_openstatement '}'    (5)
+    question : _    (10)
+
+    IF shift 8
+    STRINGLITERAL shift 9
+    '}' reduce 10
+    . error
+
+    closedstatement goto 48
+    openstatement goto 49
+    question goto 6
+
+state 48 (entry on closedstatement)
+    closedstatement : IF expression '{' closedstatement '}' ELSE '{' closedstatement_'}'    (7)
+
+    '}' shift 50
+    . error
+
+state 49 (entry on openstatement)
+    openstatement : IF expression '{' closedstatement '}' ELSE '{' openstatement_'}'    (5)
+
+    '}' shift 51
+    . error
+
+state 50 (entry on '}')
+    closedstatement : IF expression '{' closedstatement '}' ELSE '{' closedstatement '}'_    (7)
+
+    $end reduce 7
+    '}' reduce 7
+    . error
+
+state 51 (entry on '}')
+    openstatement : IF expression '{' closedstatement '}' ELSE '{' openstatement '}'_    (5)
+
+    $end reduce 5
+    '}' reduce 5
+    . error
+
+Rule not reduced: comparison : expression EQ expression
+Rule not reduced: comparison : expression NEQ expression
+Rule not reduced: comparison : expression '>' expression
+Rule not reduced: comparison : expression '<' expression
+Rule not reduced: comparison : expression LEQ expression
+Rule not reduced: comparison : expression
+
+34 terminals, 7 nonterminals;
+30 grammar rules, 52 states;
+1 shift/reduce and 0 reduce/reduce conflicts reported.

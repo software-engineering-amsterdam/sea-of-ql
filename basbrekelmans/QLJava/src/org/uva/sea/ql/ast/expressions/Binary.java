@@ -1,6 +1,8 @@
 package org.uva.sea.ql.ast.expressions;
 
 import org.uva.sea.ql.ICodeLocationInformation;
+import org.uva.sea.ql.ast.ISyntaxTreeVisitor;
+import org.uva.sea.ql.ast.types.QLType;
 
 /**
  *	Abstract implementation of a binary expression.
@@ -25,4 +27,13 @@ public abstract class Binary extends Expression {
 	public Expression getRight() {
 		return right;
 	}
+
+	@Override
+	public void accept(ISyntaxTreeVisitor visitor) {
+		super.accept(visitor);
+		left.accept(visitor);
+		left.accept(visitor);
+	}
+	
+	
 }

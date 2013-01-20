@@ -2,7 +2,7 @@
 %class Parser
 %interface Tokens
 %semantic org.uva.sea.ql.ast.Node 
-%start testexpression
+%start form
 
 %token <NumberLiteral> NUMBERLITERAL
 %token <StringLiteral> STRINGLITERAL
@@ -22,8 +22,6 @@
 %type <Expression> expression comparison 
 %type <Question> question
 %type <Statement> statement
-%type <Statement> openstatement
-%type <Statement> closedstatement
 %type <FormDefintion> form
 %{
 import org.uva.sea.ql.ast.*;
@@ -34,30 +32,25 @@ import org.uva.sea.ql.ast.types.*;
 
 %%
 
-form : FORM STRINGLITERAL statement { $$ = new Form(lexer.location(), $2, $3);  } 
+form : FORM STRINGLITERAL statement { result = new Form(lexer.location(), $2, $3);  } 
 	 ;  
- 
-testexpression : expression { result = $1; }
-               ;
- 
+	 
 statement : openstatement
           | closedstatement
           ;
           
-openstatement : IF expression statement { $$ = new If(lexer.location(), $2, $3); }
-			  | IF expression closedstatement ELSE openstatement { $$ = new If(lexer.location(), $2, $3, $5); }
+openstatement : IF expression '{' statement '}' { $$ = new If(lexer.location(), $2, $4); }
+			  | IF expression '{' closedstatement '}' ELSE '{' openstatement '}' { $$ = new If(lexer.location(), $2, $4, $8); }
 			   ;
 
-closedstatement : IF expression closedstatement ELSE closedstatement { $$ = new If(lexer.location(), $2, $3, $5); } 
-				| question
-                | question question 
-                | '{' question '}'
-      			;	
-      			
-question : STRINGLITERAL IDENTIFIER ':' TYPE { $$ = new Question(lexer.location(), $1, $2, $4); }
-		 | STRINGLITERAL IDENTIFIER '=' expression { $$ = new Question(lexer.location(), $1, $2, $4); } 
+closedstatement : question
+          		| IF expression '{' closedstatement '}' ELSE '{' closedstatement '}' { $$ = new If(lexer.location(), $2, $4, $8); }
+          		;
+
+question : STRINGLITERAL IDENTIFIER ':'  TYPE { $$ = new Question(lexer.location(), $1, $2, $4); }
+		 | STRINGLITERAL IDENTIFIER '=' expression { $$ = new Question(lexer.location(), $1, $2, $4); }
 		 | /* empty */
-		 ;         
+		 ;
 	 
  comparison : expression EQ expression		{ $$ = new Equals(lexer.location(), $1, $3); }
 	 		| expression NEQ expression		{ $$ = new NotEquals(lexer.location(), $1, $3); }
@@ -82,9 +75,6 @@ question : STRINGLITERAL IDENTIFIER ':' TYPE { $$ = new Question(lexer.location(
 		 	| IDENTIFIER      				{ $$ = $1; }
 		 	| '(' expression ')'			{ $$ = $2; }
 		    ;
-		
-  
-          
 %%
 private Lexer lexer; 
 
@@ -101,3 +91,23 @@ public Parser(Lexer lexer) {
 private void yyerror(String msg) { 
   System.err.println(msg); 
 }
+
+private static Statement chainStatements(Statement... statements) {
+		BlockStatement block = null;
+		for (Statement s : statements) {
+			if (s instanceof BlockStatement) {
+				block = (BlockStatement) s;
+				break;
+			}
+		}
+		if (block == null) {
+			block = new BlockStatement(statements[0], statements);
+		} else {
+			for (Statement s : statements) {
+				if (s != block) {
+					block.addChild(s);
+				}
+			}
+		}
+		return block;
+	}
