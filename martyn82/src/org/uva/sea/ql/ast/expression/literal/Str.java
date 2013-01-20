@@ -1,7 +1,7 @@
 package org.uva.sea.ql.ast.expression.literal;
 
-import org.uva.sea.ql.evaluate.Context;
-import org.uva.sea.ql.evaluate.value.Value;
+import org.uva.sea.ql.eval.Context;
+import org.uva.sea.ql.eval.value.Value;
 import org.uva.sea.ql.visitor.INodeVisitor;
 
 /**

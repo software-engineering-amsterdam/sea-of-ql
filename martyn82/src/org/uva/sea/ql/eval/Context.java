@@ -1,4 +1,4 @@
-package org.uva.sea.ql.evaluate;
+package org.uva.sea.ql.eval;
 
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.uva.sea.ql.ast.expression.Ident;
-import org.uva.sea.ql.evaluate.value.Value;
+import org.uva.sea.ql.eval.value.Value;
 
 /**
  * Represents an evaluation context.

@@ -3,11 +3,11 @@ package org.uva.sea.ql.visitor.typechecker.test;
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
-import org.uva.sea.ql.evaluate.Context;
-import org.uva.sea.ql.evaluate.value.Boolean;
-import org.uva.sea.ql.evaluate.value.Integer;
-import org.uva.sea.ql.evaluate.value.Money;
-import org.uva.sea.ql.evaluate.value.String;
+import org.uva.sea.ql.eval.Context;
+import org.uva.sea.ql.eval.value.Boolean;
+import org.uva.sea.ql.eval.value.Integer;
+import org.uva.sea.ql.eval.value.Money;
+import org.uva.sea.ql.eval.value.String;
 import org.uva.sea.ql.parser.ParseError;
 import org.uva.sea.ql.visitor.test.VisitorTest;
 import org.uva.sea.ql.visitor.typechecker.TypeChecker;

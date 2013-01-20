@@ -10,8 +10,8 @@ import org.uva.sea.ql.ast.expression.literal.Bool;
 import org.uva.sea.ql.ast.expression.literal.Int;
 import org.uva.sea.ql.ast.expression.literal.Money;
 import org.uva.sea.ql.ast.expression.literal.Str;
-import org.uva.sea.ql.evaluate.Context;
-import org.uva.sea.ql.evaluate.value.Value;
+import org.uva.sea.ql.eval.Context;
+import org.uva.sea.ql.eval.value.Value;
 
 /**
  * Expression visitor.
