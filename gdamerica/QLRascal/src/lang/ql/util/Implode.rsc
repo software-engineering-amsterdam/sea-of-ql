@@ -9,3 +9,4 @@ import IO;
 public Expr implode(Tree t) = implode(#Expr, t);
 
 public Expr load(loc l) = implode(parse(readFile(l), l));
+
