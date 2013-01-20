@@ -15,12 +15,12 @@ public Form ParseForm = yyValue:Form;
 public Document Parse = yyValue:Document;
 
 Document Document = Spacing
-	Form*
-	{ yyValue = new Document(); };
+	forms:Form*
+	{ yyValue = new Document(forms.list()); };
 
 Form Form =
-	"form" Spacing id:Ident Spacing '{' Spacing FormItem* '}' Spacing
-	{ yyValue = new Form(id); };
+	"form" Spacing id:Ident Spacing '{' Spacing items:FormItem* '}' Spacing
+	{ yyValue = new Form(id, items.list()); };
 
 FormItem FormItem =
 	Question / Conditional;

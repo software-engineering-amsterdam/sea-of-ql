@@ -3,5 +3,5 @@ import nl.stgm.ql.inspector.*;
 
 public interface ASTNode
 {
-	void accept(CodeInspector inspector);
+	public void accept(CodeInspector inspector);
 }
