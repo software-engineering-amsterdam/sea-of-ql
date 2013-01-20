@@ -1,8 +1,9 @@
-package org.uva.sea.ql.ast.expr.value;
+package org.uva.sea.ql.ast.expr;
 
+import org.uva.sea.ql.visitor.Context;
 import org.uva.sea.ql.visitor.Visitor;
 
-public class Ident extends Value {
+public class Ident extends Expr {
 
 	private final String name;
 
@@ -15,9 +16,8 @@ public class Ident extends Value {
 	}
 
 	@Override
-	public void accept(Visitor visitor) {
-		// TODO Auto-generated method stub
-		
+	public void accept(Visitor visitor, Context context) {
+		visitor.visit( this, context );
 	}
 
 }

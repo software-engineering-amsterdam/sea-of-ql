@@ -1,33 +1,17 @@
-package org.uva.sea.ql.parser.test;
+package org.uva.sea.ql.parser.test.tests;
 
 import static org.junit.Assert.*;
-
-import java.util.ArrayList;
-import java.util.List;
-
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
-import org.junit.runners.Parameterized.Parameters;
 import org.uva.sea.ql.ast.expr.*;
 import org.uva.sea.ql.ast.expr.value.*;
 import org.uva.sea.ql.parser.antlr.ANTLRParser;
+import org.uva.sea.ql.parser.test.IParse;
+import org.uva.sea.ql.parser.test.ParseError;
 
-@RunWith(Parameterized.class)
-public class Tests {
 
-	private IParse parser;
+public class TestExpressions{
 
-	@Parameters
-	public static List<Object[]> theParser() {
-		List<Object[]> parserList = new ArrayList<Object[]>();
-		parserList.add(new Object[] { new ANTLRParser() });
-		return parserList;
-	}
-
-	public Tests(IParse parser) {
-		this.parser = parser;
-	}
+	final private IParse parser = new ANTLRParser();
 
 	@Test
 	public void testAdds() throws ParseError {
@@ -147,7 +131,7 @@ public class Tests {
 	
 	@Test
 	public void testStringLiteral() throws ParseError {
-		assertEquals(StringLiteral.class, parser.parseExpr("\"trues dat\"").getClass());
+		assertEquals(StringLiteral.class, parser.parseExpr("\"trues  dat\"").getClass());
 		assertEquals(StringLiteral.class, parser.parseExpr("\"true dat\"").getClass());
 		assertEquals(StringLiteral.class, parser.parseExpr("\"true dat\" \" nice to SEE ya\"").getClass());
 		assertEquals(StringLiteral.class, parser.parseExpr("\"True dat\" \n \t \" nice to SEE ya\"").getClass());

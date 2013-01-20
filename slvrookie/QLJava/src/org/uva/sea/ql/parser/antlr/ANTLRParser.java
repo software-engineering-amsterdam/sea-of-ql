@@ -12,7 +12,6 @@ import org.uva.sea.ql.parser.test.ParseError;
 
 public class ANTLRParser implements IParse {
 
-	
 	public QLParser parse(String src) throws ParseError {
 		ANTLRStringStream stream = new ANTLRStringStream(src);
 		CommonTokenStream tokens = new CommonTokenStream();
@@ -21,7 +20,6 @@ public class ANTLRParser implements IParse {
 		return parser;
 	}
 	
-
 	@Override
 	public Expr parseExpr(String src) throws ParseError {
 		try {
@@ -40,7 +38,6 @@ public class ANTLRParser implements IParse {
 		}
 	}
 	
-
 	@Override
 	public FormElement parseFormElement(String src) throws ParseError {
 		try {
@@ -58,4 +55,6 @@ public class ANTLRParser implements IParse {
 			throw new ParseError(e.getMessage());
 		}
 	}
+	
+	
 }

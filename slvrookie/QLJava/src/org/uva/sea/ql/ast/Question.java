@@ -1,11 +1,12 @@
 package org.uva.sea.ql.ast;
 
-import org.uva.sea.ql.ast.expr.value.Ident;
+import org.uva.sea.ql.ast.expr.Ident;
 import org.uva.sea.ql.ast.expr.value.StringLiteral;
 import org.uva.sea.ql.ast.types.Type;
+import org.uva.sea.ql.visitor.Context;
 import org.uva.sea.ql.visitor.Visitor;
 
-public class Question implements FormElement {
+public class Question extends FormElement {
 
 	private final Ident qID;
 	private final StringLiteral qlabel;
@@ -31,9 +32,9 @@ public class Question implements FormElement {
 
 
 	@Override
-	public void accept(Visitor visitor) {
-		// TODO Auto-generated method stub
-
+	public void accept(Visitor visitor, Context context) {
+		visitor.visit(this, context);
+		
 	}
 
 }
