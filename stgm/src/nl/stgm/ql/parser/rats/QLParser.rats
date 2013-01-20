@@ -37,7 +37,7 @@ CalcQuestion CalcQuestion =
 	{ yyValue = new CalcQuestion(id, question, type, calculation); };
 
 //
-// nesting of conditionals is forbidden, so only Question* in here
+// nesting of conditionals is currently forbidden, so only Question* in here
 // this could be allowed, but a nesting limit should probably be agreed on
 //
 Conditional Conditional =
