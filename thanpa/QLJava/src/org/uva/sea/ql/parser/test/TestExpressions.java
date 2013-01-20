@@ -14,6 +14,7 @@ import org.uva.sea.ql.ast.And;
 import org.uva.sea.ql.ast.GT;
 import org.uva.sea.ql.ast.Ident;
 import org.uva.sea.ql.ast.Bool;
+import org.uva.sea.ql.ast.StringLiteral;
 import org.uva.sea.ql.ast.Int;
 import org.uva.sea.ql.ast.LEq;
 import org.uva.sea.ql.ast.LT;
@@ -104,6 +105,11 @@ public class TestExpressions {
 	public void testBooleans() throws ParseError {
 		assertEquals(parser.parse("true").getClass(), Bool.class);
 		assertEquals(parser.parse("false").getClass(), Bool.class);
+	}
+	
+	@Test
+	public void testStrings() throws ParseError {
+		assertEquals(parser.parse("\"this is a comment\"").getClass(), StringLiteral.class);
 	}
 	
 }
