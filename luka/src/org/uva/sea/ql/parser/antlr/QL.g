@@ -90,7 +90,7 @@ primary returns [Expr result]
   | Ident { $result = new Ident($Ident.text); }
   //| Question {$result = new Question($Question.text);}
   | Boolean {$result = new Bool($Boolean.text);}
- /| QuestionVariable { $result = new Ident($QuestionVariable.text); }//{$result = $QuestionId.result;}
+ /| QuestionVariable  { $result = new Ident($QuestionVariable.text); } -> ^(VAR_NAME QuestionVariable) //{$result = $QuestionId.result;}
   | Money { $result = new Int(Integer.parseInt($Money.text));}
   //| IF {$result = new Condition($IF.)}
   |  '('!  x=orExpr ')'! { $result = $x.result; } // 
