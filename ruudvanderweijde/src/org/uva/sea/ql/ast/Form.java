@@ -2,20 +2,21 @@ package org.uva.sea.ql.ast;
 
 import java.util.List;
 
+import org.uva.sea.ql.ast.expr.primary.Ident;
 import org.uva.sea.ql.ast.stmt.Statement;
 import org.uva.sea.ql.visitor.Visitor;
 
 public class Form implements ASTNode {
 
-	private final String id;
+	private final Ident id;
 	private List<Statement> statements;
 	
-	public Form(String id, List<Statement> statements) {
+	public Form(Ident id, List<Statement> statements) {
 		this.id = id;
 		this.setStatements(statements);
 	}
 
-	public String getId() {
+	public Ident getId() {
 		return id;
 	}
 
@@ -28,10 +29,13 @@ public class Form implements ASTNode {
 	}
 
 	@Override
-	public void accept(Visitor visitor) {
+	public void accept(Visitor visitor) {	
+		getId().accept(visitor);
+		
 		for(ASTNode node : statements) {
             node.accept(visitor);
         }
-        visitor.visit(this);	
+        
+		visitor.visit(this);	
 	}
 }

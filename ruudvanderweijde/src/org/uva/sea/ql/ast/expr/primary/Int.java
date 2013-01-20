@@ -1,6 +1,7 @@
 package org.uva.sea.ql.ast.expr.primary;
 
 import org.uva.sea.ql.ast.expr.Expr;
+import org.uva.sea.ql.visitor.Visitor;
 
 
 public class Int extends Expr {
@@ -15,4 +16,8 @@ public class Int extends Expr {
 		return value;
 	}
 	
+	@Override
+	public void accept(Visitor visitor) {
+		visitor.visit(this);		
+	}
 }

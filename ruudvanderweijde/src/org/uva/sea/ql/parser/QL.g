@@ -26,7 +26,7 @@ options
 form returns [Form result]
   : 'form' Ident statements=block
 	  { 
-	    $result = new Form($Ident.text, $statements.result); 
+	    $result = new Form(new Ident($Ident.text), $statements.result); 
 	  } 
   ;
 
@@ -50,15 +50,15 @@ ifStatement returns [Statement result]
     )
     {
       if (elseBlock != null) {
-        $result = new IfElse(condition, ifBlock, elseBlock);
+        $result = new IfThenElse(condition, ifBlock, elseBlock);
       } else {
-        $result = new IfThen(condition, ifBlock);
+        $result = new IfThenElse(condition, ifBlock);
       }
     }
   ;
   
 question returns [Statement result]
-  : Ident Colon String tp=type { $result = new Question($Ident.text, $String.text, $tp.result); }
+  : Ident Colon String tp=type { $result = new Question(new Ident($Ident.text), $String.text, $tp.result); }
   ;
 
 type returns [Type result]
@@ -80,69 +80,69 @@ primary returns [Expr result]
   ;
     
 unExpr returns [Expr result]
-    :  '+' x=unExpr { $result = new Pos($x.result); }
-    |  '-' x=unExpr { $result = new Neg($x.result); }
-    |  '!' x=unExpr { $result = new Not($x.result); }
-    |  x=primary    { $result = $x.result; }
-    ;    
+  :  '+' x=unExpr { $result = new Pos($x.result); }
+  |  '-' x=unExpr { $result = new Neg($x.result); }
+  |  '!' x=unExpr { $result = new Not($x.result); }
+  |  x=primary    { $result = $x.result; }
+  ;    
     
 mulExpr returns [Expr result]
-    :   lhs=unExpr { $result=$lhs.result; } ( op=( '*' | '/' ) rhs=unExpr 
-    { 
-      if ($op.text.equals("*")) {
-        $result = new Mul($result, rhs);
-      }
-      if ($op.text.equals("/")) {
-        $result = new Div($result, rhs);      
-      }
-    })*
-    ;
+  :   lhs=unExpr { $result=$lhs.result; } ( op=( '*' | '/' ) rhs=unExpr 
+  { 
+    if ($op.text.equals("*")) {
+      $result = new Mul($result, rhs);
+    }
+    if ($op.text.equals("/")) {
+      $result = new Div($result, rhs);      
+    }
+  })*
+  ;
     
   
 addExpr returns [Expr result]
-    :   lhs=mulExpr { $result=$lhs.result; } ( op=('+' | '-') rhs=mulExpr
-    { 
-      if ($op.text.equals("+")) {
-        $result = new Add($result, rhs);
-      }
-      if ($op.text.equals("-")) {
-        $result = new Sub($result, rhs);      
-      }
-    })*
-    ;
-  
+  :   lhs=mulExpr { $result=$lhs.result; } ( op=('+' | '-') rhs=mulExpr
+  { 
+    if ($op.text.equals("+")) {
+      $result = new Add($result, rhs);
+    }
+    if ($op.text.equals("-")) {
+      $result = new Sub($result, rhs);      
+    }
+  })*
+  ;
+   
 relExpr returns [Expr result]
-    :   lhs=addExpr { $result=$lhs.result; } ( op=('<'|'<='|'>'|'>='|'=='|'!=') rhs=addExpr 
-    { 
-      if ($op.text.equals("<")) {
-        $result = new LT($result, rhs);
-      }
-      if ($op.text.equals("<=")) {
-        $result = new LEq($result, rhs);      
-      }
-      if ($op.text.equals(">")) {
-        $result = new GT($result, rhs);
-      }
-      if ($op.text.equals(">=")) {
-        $result = new GEq($result, rhs);      
-      }
-      if ($op.text.equals("==")) {
-        $result = new Eq($result, rhs);
-      }
-      if ($op.text.equals("!=")) {
-        $result = new NEq($result, rhs);
-      }
-    })*
-    ;
+  :   lhs=addExpr { $result=$lhs.result; } ( op=('<'|'<='|'>'|'>='|'=='|'!=') rhs=addExpr 
+  { 
+    if ($op.text.equals("<")) {
+      $result = new LT($result, rhs);
+    }
+    if ($op.text.equals("<=")) {
+      $result = new LEq($result, rhs);      
+    }
+    if ($op.text.equals(">")) {
+      $result = new GT($result, rhs);
+    }
+    if ($op.text.equals(">=")) {
+      $result = new GEq($result, rhs);      
+    }
+    if ($op.text.equals("==")) {
+      $result = new Eq($result, rhs);
+    }
+    if ($op.text.equals("!=")) {
+      $result = new NEq($result, rhs);
+    }
+  })*
+  ;
     
 andExpr returns [Expr result]
-    :   lhs=relExpr { $result=$lhs.result; } ( '&&' rhs=relExpr { $result = new And($result, rhs); } )*
-    ;
+  :   lhs=relExpr { $result=$lhs.result; } ( '&&' rhs=relExpr { $result = new And($result, rhs); } )*
+  ;
     
 
 orExpr returns [Expr result]
-    :   lhs=andExpr { $result = $lhs.result; } ( '||' rhs=andExpr { $result = new Or($result, rhs); } )*
-    ;
+  :   lhs=andExpr { $result = $lhs.result; } ( '||' rhs=andExpr { $result = new Or($result, rhs); } )*
+  ;
 
     
 // Tokens

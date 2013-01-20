@@ -1,6 +1,7 @@
 package org.uva.sea.ql.ast.expr.unary;
 
 import org.uva.sea.ql.ast.expr.Expr;
+import org.uva.sea.ql.visitor.Visitor;
 
 public class Unary extends Expr {
 
@@ -12,5 +13,11 @@ public class Unary extends Expr {
 	
 	public Expr getArg() {
 		return arg;
+	}
+	
+	@Override
+	public void accept(Visitor visitor) {
+		getArg().accept(visitor);
+		visitor.visit(this);
 	}
 }
