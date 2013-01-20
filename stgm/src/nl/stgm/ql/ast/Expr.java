@@ -1,5 +1,5 @@
-package nl.stgm.ql.ast.expr;
-import nl.stgm.ql.ast.ASTNode;
+package nl.stgm.ql.ast;
+
 import nl.stgm.ql.inspector.CodeInspector;
 
 public abstract class Expr implements ASTNode

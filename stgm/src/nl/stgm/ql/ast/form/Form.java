@@ -1,7 +1,6 @@
 package nl.stgm.ql.ast.form;
 
 import java.util.List;
-
 import nl.stgm.ql.ast.ASTNode;
 import nl.stgm.ql.inspector.CodeInspector;
 
