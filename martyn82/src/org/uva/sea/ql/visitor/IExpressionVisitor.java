@@ -6,12 +6,12 @@ import org.uva.sea.ql.ast.expression.Ident;
 import org.uva.sea.ql.ast.expression.LogicalExpression;
 import org.uva.sea.ql.ast.expression.UnaryExpression;
 import org.uva.sea.ql.ast.expression.UnaryNumericExpression;
-import org.uva.sea.ql.ast.expression.value.Bool;
-import org.uva.sea.ql.ast.expression.value.Int;
-import org.uva.sea.ql.ast.expression.value.Money;
-import org.uva.sea.ql.ast.expression.value.Str;
+import org.uva.sea.ql.ast.expression.literal.Bool;
+import org.uva.sea.ql.ast.expression.literal.Int;
+import org.uva.sea.ql.ast.expression.literal.Money;
+import org.uva.sea.ql.ast.expression.literal.Str;
 import org.uva.sea.ql.evaluate.Context;
-import org.uva.sea.ql.evaluate.Value;
+import org.uva.sea.ql.evaluate.value.Value;
 
 /**
  * Expression visitor.

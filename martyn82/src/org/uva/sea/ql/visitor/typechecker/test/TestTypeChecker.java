@@ -1,4 +1,4 @@
-package org.uva.sea.ql.visitor.test;
+package org.uva.sea.ql.visitor.typechecker.test;
 
 import static org.junit.Assert.assertEquals;
 
@@ -9,7 +9,8 @@ import org.uva.sea.ql.evaluate.value.Integer;
 import org.uva.sea.ql.evaluate.value.Money;
 import org.uva.sea.ql.evaluate.value.String;
 import org.uva.sea.ql.parser.ParseError;
-import org.uva.sea.ql.visitor.eval.TypeChecker;
+import org.uva.sea.ql.visitor.test.VisitorTest;
+import org.uva.sea.ql.visitor.typechecker.TypeChecker;
 
 /**
  * TypeChecker test.

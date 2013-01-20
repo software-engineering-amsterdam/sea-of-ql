@@ -1,4 +1,4 @@
-package org.uva.sea.ql.ast.expression.value;
+package org.uva.sea.ql.ast.expression.literal;
 
 /**
  * Represents a literal numeric value.

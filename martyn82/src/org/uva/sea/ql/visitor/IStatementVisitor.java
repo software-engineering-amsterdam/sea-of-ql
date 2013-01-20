@@ -6,7 +6,7 @@ import org.uva.sea.ql.ast.statement.IfThenElse;
 import org.uva.sea.ql.ast.statement.QuestionDeclaration;
 import org.uva.sea.ql.ast.statement.VarDeclaration;
 import org.uva.sea.ql.evaluate.Context;
-import org.uva.sea.ql.evaluate.Value;
+import org.uva.sea.ql.evaluate.value.Value;
 
 /**
  * Statement visitor.

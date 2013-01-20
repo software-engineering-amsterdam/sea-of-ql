@@ -1,4 +1,4 @@
-package org.uva.sea.ql.visitor.eval;
+package org.uva.sea.ql.visitor.typechecker;
 
 import org.uva.sea.ql.ast.DataType;
 import org.uva.sea.ql.ast.expression.ArithmeticExpression;
@@ -13,11 +13,11 @@ import org.uva.sea.ql.ast.statement.IfThenElse;
 import org.uva.sea.ql.ast.statement.QuestionDeclaration;
 import org.uva.sea.ql.ast.statement.VarDeclaration;
 import org.uva.sea.ql.evaluate.Context;
-import org.uva.sea.ql.evaluate.Value;
 import org.uva.sea.ql.evaluate.value.Boolean;
 import org.uva.sea.ql.evaluate.value.Integer;
 import org.uva.sea.ql.evaluate.value.Money;
 import org.uva.sea.ql.evaluate.value.Number;
+import org.uva.sea.ql.evaluate.value.Value;
 import org.uva.sea.ql.visitor.INodeVisitor;
 
 /**
@@ -152,22 +152,22 @@ public class TypeChecker implements INodeVisitor {
 	}
 
 	@Override
-	public Value visit( org.uva.sea.ql.ast.expression.value.Int node, Context context ) {
+	public Value visit( org.uva.sea.ql.ast.expression.literal.Int node, Context context ) {
 		return new org.uva.sea.ql.evaluate.value.Integer();
 	}
 
 	@Override
-	public Value visit( org.uva.sea.ql.ast.expression.value.Bool node, Context context ) {
+	public Value visit( org.uva.sea.ql.ast.expression.literal.Bool node, Context context ) {
 		return new org.uva.sea.ql.evaluate.value.Boolean();
 	}
 
 	@Override
-	public Value visit( org.uva.sea.ql.ast.expression.value.Money node, Context context ) {
+	public Value visit( org.uva.sea.ql.ast.expression.literal.Money node, Context context ) {
 		return new org.uva.sea.ql.evaluate.value.Money();
 	}
 
 	@Override
-	public Value visit( org.uva.sea.ql.ast.expression.value.Str node, Context context ) {
+	public Value visit( org.uva.sea.ql.ast.expression.literal.Str node, Context context ) {
 		return new org.uva.sea.ql.evaluate.value.String();
 	}
 

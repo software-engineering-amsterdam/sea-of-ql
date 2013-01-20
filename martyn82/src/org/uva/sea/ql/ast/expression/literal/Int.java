@@ -1,24 +1,24 @@
-package org.uva.sea.ql.ast.expression.value;
+package org.uva.sea.ql.ast.expression.literal;
 
 import org.uva.sea.ql.evaluate.Context;
-import org.uva.sea.ql.evaluate.Value;
+import org.uva.sea.ql.evaluate.value.Value;
 import org.uva.sea.ql.visitor.INodeVisitor;
 
 /**
- * Represents a boolean literal expression.
+ * Represents an integer expression.
  */
-public class Bool extends Literal {
+public class Int extends Number {
 	/**
-	 * Holds the value of the boolean literal.
+	 * Holds the integer value of the expression.
 	 */
-	private final boolean value;
+	private final int value;
 
 	/**
-	 * Constructs a new boolean expression.
+	 * Constructs a new integer expression.
 	 *
-	 * @param value The value.
+	 * @param value The value of the expression.
 	 */
-	public Bool( boolean value ) {
+	public Int( int value ) {
 		this.value = value;
 	}
 
@@ -27,7 +27,7 @@ public class Bool extends Literal {
 	 *
 	 * @return The value.
 	 */
-	public boolean getValue() {
+	public int getValue() {
 		return this.value;
 	}
 

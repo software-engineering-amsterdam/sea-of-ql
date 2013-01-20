@@ -4,7 +4,7 @@ package org.uva.sea.ql.parser.jacc;
 
 import org.uva.sea.ql.ast.*;
 import org.uva.sea.ql.ast.expression.*;
-import org.uva.sea.ql.ast.expression.value.*;
+import org.uva.sea.ql.ast.expression.literal.*;
 import org.uva.sea.ql.ast.statement.*;
 
 class QLParser implements QLTokens {

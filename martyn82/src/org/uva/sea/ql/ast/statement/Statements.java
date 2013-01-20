@@ -6,7 +6,7 @@ import java.util.List;
 
 import org.uva.sea.ql.ast.INode;
 import org.uva.sea.ql.evaluate.Context;
-import org.uva.sea.ql.evaluate.Value;
+import org.uva.sea.ql.evaluate.value.Value;
 import org.uva.sea.ql.visitor.INodeVisitor;
 
 /**

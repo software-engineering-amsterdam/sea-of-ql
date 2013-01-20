@@ -306,7 +306,7 @@ public class QLLexer implements QLTokens {
 			nextChar();
 		}
 
-		yylval = new org.uva.sea.ql.ast.expression.value.Str( sb.toString() );
+		yylval = new org.uva.sea.ql.ast.expression.literal.Str( sb.toString() );
 		token = STR;
 
 		return true;
@@ -386,7 +386,7 @@ public class QLLexer implements QLTokens {
 		}
 
 		if ( decimal.matcher( value ).matches() ) {
-			yylval = new org.uva.sea.ql.ast.expression.value.Money( Double.parseDouble( value ) );
+			yylval = new org.uva.sea.ql.ast.expression.literal.Money( Double.parseDouble( value ) );
 			token = MON;
 			return true;
 		}
@@ -396,7 +396,7 @@ public class QLLexer implements QLTokens {
 		}
 
 		if ( integer.matcher( value ).matches() ) {
-			yylval = new org.uva.sea.ql.ast.expression.value.Int( Integer.parseInt( value ) );
+			yylval = new org.uva.sea.ql.ast.expression.literal.Int( Integer.parseInt( value ) );
 			token = INT;
 			return true;
 		}
@@ -429,7 +429,7 @@ public class QLLexer implements QLTokens {
 
 			switch ( token ) {
 				case BOOL:
-					yylval = new org.uva.sea.ql.ast.expression.value.Bool(
+					yylval = new org.uva.sea.ql.ast.expression.literal.Bool(
 						Boolean.parseBoolean( name )
 					);
 					break;

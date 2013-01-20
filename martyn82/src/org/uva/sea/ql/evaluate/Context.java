@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.uva.sea.ql.ast.expression.Ident;
+import org.uva.sea.ql.evaluate.value.Value;
 
 /**
  * Represents an evaluation context.

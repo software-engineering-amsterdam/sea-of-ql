@@ -1,4 +1,4 @@
-package org.uva.sea.ql.visitor.print;
+package org.uva.sea.ql.visitor.printer;
 
 import java.io.IOException;
 import java.io.OutputStream;
@@ -10,18 +10,18 @@ import org.uva.sea.ql.ast.expression.Ident;
 import org.uva.sea.ql.ast.expression.LogicalExpression;
 import org.uva.sea.ql.ast.expression.UnaryExpression;
 import org.uva.sea.ql.ast.expression.UnaryNumericExpression;
-import org.uva.sea.ql.ast.expression.value.Bool;
-import org.uva.sea.ql.ast.expression.value.Int;
-import org.uva.sea.ql.ast.expression.value.Literal;
-import org.uva.sea.ql.ast.expression.value.Money;
-import org.uva.sea.ql.ast.expression.value.Str;
+import org.uva.sea.ql.ast.expression.literal.Bool;
+import org.uva.sea.ql.ast.expression.literal.Int;
+import org.uva.sea.ql.ast.expression.literal.Literal;
+import org.uva.sea.ql.ast.expression.literal.Money;
+import org.uva.sea.ql.ast.expression.literal.Str;
 import org.uva.sea.ql.ast.statement.Assignment;
 import org.uva.sea.ql.ast.statement.FormDeclaration;
 import org.uva.sea.ql.ast.statement.IfThenElse;
 import org.uva.sea.ql.ast.statement.QuestionDeclaration;
 import org.uva.sea.ql.ast.statement.VarDeclaration;
 import org.uva.sea.ql.evaluate.Context;
-import org.uva.sea.ql.evaluate.Value;
+import org.uva.sea.ql.evaluate.value.Value;
 import org.uva.sea.ql.visitor.INodeVisitor;
 
 /**
