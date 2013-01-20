@@ -2,6 +2,6 @@ package org.uva.sea.ql.ast;
 
 
 
-public abstract class Expr implements ASTNode {
+public abstract class Expr extends ASTNode {
 	
 }

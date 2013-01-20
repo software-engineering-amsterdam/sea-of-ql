@@ -1,25 +1,27 @@
 package org.uva.sea.ql.ast.values;
 
-import org.uva.sea.ql.ast.Expr;
+
 import org.uva.sea.ql.visitor.ASTNodeVisitor;
 
-public class BoolLit extends Expr{
-	private final String value;
+public class Int extends Value {
 
-	public BoolLit(String value) {
+	private final int value;
+
+	public Int(int value) {
 		this.value = value;
 		
-
 	}
-	
-	public String getValue() {
+
+	public int getValue() {
 		return value;
 	}
 
 	@Override
 	public void accept(ASTNodeVisitor nodeVisitor) {
-		// TODO Auto-generated method stub
+		nodeVisitor.visit(this);
 		
 	}
 
+	
+	
 }

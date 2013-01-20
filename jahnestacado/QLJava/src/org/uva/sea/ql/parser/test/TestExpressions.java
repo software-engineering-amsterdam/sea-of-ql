@@ -11,12 +11,13 @@ import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
 import org.uva.sea.ql.ast.Add;
 import org.uva.sea.ql.ast.GT;
-import org.uva.sea.ql.ast.Int;
+import org.uva.sea.ql.ast.values.Int;
 import org.uva.sea.ql.ast.LEq;
 import org.uva.sea.ql.ast.LT;
 import org.uva.sea.ql.ast.Mul;
 import org.uva.sea.ql.ast.values.Ident;
 import org.uva.sea.ql.parser.antlr.ANTLRParser;
+import org.uva.sea.ql.visitor.ASTNodeVisitor;
 
 
 
@@ -39,13 +40,20 @@ public class TestExpressions {
 	
 	public TestExpressions(IParse parser) {
 		this.parser = parser;
+		
 	}
 
 	
 	@Test
 	public void testAdds() throws ParseError {
-		assertEquals(Add.class,parser.parseExpr("a+b").getClass());
-		assertEquals(Add.class,parser.parseExpr("a + b + c").getClass());
+		ASTNodeVisitor visitor=new ASTNodeVisitor();
+		try {
+			parser.parseExpr("o*(9+9) ").accept(visitor);
+		} catch (ParseError e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		assertEquals(Add.class,parser.parseExpr("a + b + c ").getClass());
 		assertEquals(Add.class,parser.parseExpr("(a + b + c)").getClass());
 		assertEquals(Add.class,parser.parseExpr("a + (b + c)").getClass());
 		assertEquals(Add.class,parser.parseExpr("(a + b) + c").getClass());
