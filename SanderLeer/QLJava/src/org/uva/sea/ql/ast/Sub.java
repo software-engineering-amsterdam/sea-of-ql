@@ -1,7 +1,7 @@
 package org.uva.sea.ql.ast;
 
 public class Sub extends BinaryExpression {
-	public Sub(ASTNode lhs, ASTNode rhs) {
+	public Sub(Expression lhs, Expression rhs) {
 		super(lhs, rhs);
 	}
 

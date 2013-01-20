@@ -84,10 +84,9 @@ public class TestForms {
 
 	@Test
 	public void testSymbols() throws ParseException {
-		verifyException(parser, ParseException.class).parse("form form1 { q1: \"Value?\" integer if (q1 == 3) { q1: \"Value 2?\" integer } }");
+		verifyException(parser, ParseException.class).parse("form form1 { sameid: \"Value?\" integer if (sameid == 3) { sameid: \"Value 2?\" integer } }");
 		verifyException(parser, ParseException.class).parse("form form1 { q1: \"Value?\" integer if (notusedyet == 3) { q2: \"Value 2?\" integer } }");
 		verifyException(parser, ParseException.class).parse("form form1 { q1: \"Value?\" integer(notusedyet - 3) }");
-	
+		verifyException(parser, ParseException.class).parse("form form1 { sameid: \"Value?\" integer if (notusedyet == 3) { sameid: \"Value 2?\" integer } }");
 	}
-
 }

@@ -1,240 +1,192 @@
-package org.uva.sea.ql.utils;
+package org.uva.sea.ql.parser.jacc;
 
+import java.util.ArrayList;
 import org.uva.sea.ql.ast.*;
 
-public class ASTPrinter implements ASTNodeVisitor {
-	private StringBuilder sb = new StringBuilder();
-	private int ident;
+public class SymbolTableBuilder implements ASTNodeVisitor {
+	private final SymbolTable symbols;
+	private final ArrayList<String> errors;
 
-	private void print(String s) {
-		if (sb.length() > 0) {
-			sb.append("\n");
-		}
-		for (int i = 0; i < (ident *2); i++) {
-			sb.append(" ");
-		}
-		sb.append(s);
+	public SymbolTableBuilder(SymbolTable symboltable) {
+		this.errors = new ArrayList<>();
+		this.symbols = symboltable;
 	}
 
-	@Override
-	public String toString() {
+	protected void addError(String s) {
+		errors.add(s);
+	}
+
+	public ArrayList<String> getErrors() {
+		return errors;
+	}
+
+	public String getErrorsAsString() {
+		StringBuilder sb = new StringBuilder();
+		for (String error : errors) {
+			if (sb.length() > 0) {
+				sb.append("\n");
+			}
+			sb.append(error);
+		}
 		return sb.toString();
 	}
-	
+
+	public boolean hasErrors() {
+		return !errors.isEmpty();
+	}
+
 	@Override
 	public void visit(Pos node) {
-		print("+ (pos)");
-		ident++;
 		node.getOperand().accept(this);
-		ident--;
 	}
 
 	@Override
 	public void visit(Neg node) {
-		print("- (neg)");
-		ident++;
 		node.getOperand().accept(this);
-		ident--;
 	}
 
 	@Override
 	public void visit(Not node) {
-		print("! (not)");
-		ident++;
 		node.getOperand().accept(this);
-		ident--;
 	}
 
 	@Override
 	public void visit(Mul node) {
-		print("* (mul)");
-		ident++;
 		node.getLhs().accept(this);
 		node.getRhs().accept(this);
-		ident--;
 	}
 
 	@Override
 	public void visit(Div node) {
-		print("/ (div)");
-		ident++;
 		node.getLhs().accept(this);
 		node.getRhs().accept(this);
-		ident--;
 	}
 
 	@Override
 	public void visit(Add node) {
-		print("+ (add)");
-		ident++;
 		node.getLhs().accept(this);
 		node.getRhs().accept(this);
-		ident--;
 	}
 
 	@Override
 	public void visit(Sub node) {
-		print("- (sub)");
-		ident++;
 		node.getLhs().accept(this);
 		node.getRhs().accept(this);
-		ident--;
 	}
 
 	@Override
 	public void visit(Eq node) {
-		print("== (eq)");
-		ident++;
 		node.getLhs().accept(this);
 		node.getRhs().accept(this);
-		ident--;
 	}
 
 	@Override
 	public void visit(NEq node) {
-		print("!= (neq)");
-		ident++;
 		node.getLhs().accept(this);
 		node.getRhs().accept(this);
-		ident--;
 	}
 
 	@Override
 	public void visit(GT node) {
-		print("> (gt)");
-		ident++;
 		node.getLhs().accept(this);
 		node.getRhs().accept(this);
-		ident--;
 	}
 
 	@Override
 	public void visit(LT node) {
-		print("< (lt)");
-		ident++;
 		node.getLhs().accept(this);
 		node.getRhs().accept(this);
-		ident--;
 	}
 
 	@Override
 	public void visit(GEq node) {
-		print(">= (geq)");
-		ident++;
 		node.getLhs().accept(this);
 		node.getRhs().accept(this);
-		ident--;
 	}
 
 	@Override
 	public void visit(LEq node) {
-		print("<= (leq)");
-		ident++;
 		node.getLhs().accept(this);
 		node.getRhs().accept(this);
-		ident--;
 	}
 
 	@Override
 	public void visit(And node) {
-		print("&& (and)");
-		ident++;
 		node.getLhs().accept(this);
 		node.getRhs().accept(this);
-		ident--;
 	}
 
 	@Override
 	public void visit(Or node) {
-		print("|| (or)");
-		ident++;
 		node.getLhs().accept(this);
 		node.getRhs().accept(this);
-		ident--;
 	}
 
 	@Override
 	public void visit(Identifier node) {
-		print(node.getName() + " (identifier)");
+		if (!symbols.contains(node.getName())) {
+			addError("Variable '" + node.getName() + "' not defined");
+		}
 	}
 
 	@Override
 	public void visit(IntegerLiteral node) {
-		print(Integer.toString(node.getValue()) + " (integer literal)");
 	}
 
 	@Override
 	public void visit(BooleanLiteral node) {
-		print((node.getValue() ? "true" : "false") + " (boolean literal)");
 	}
 
 	@Override
 	public void visit(StringLiteral node) {
-		print("\"" + node.getValue() + "\" (string literal)");
 	}
 
 	@Override
 	public void visit(IntegerType node) {
-		print("(integer type)");
 	}
 
 	@Override
 	public void visit(StringType node) {
-		print("(string type)");
 	}
 
 	@Override
 	public void visit(BooleanType node) {
-		print("(boolean type)");
 	}
 
 	@Override
 	public void visit(Form node) {
-		print("(form)");
-		ident++;
-		node.getIdentifier().accept(this);
 		node.getStatements().accept(this);
-		ident--;
 	}
 
 	@Override
 	public void visit(StatementList node) {
-		print("(statementlist)");
-		ident++;
-		print(node.getList().size() + " statements in list");
-		for (ASTNode e : node.getList()) {
+		for (Statement e : node.getList()) {
 			e.accept(this);
 		}
-		ident--;
 	}
 
+	private void addQuestionSymbol(Identifier identifier, Datatype datatype) {
+		if (symbols.contains(identifier.getName())) {
+			addError("Question identifier '" + identifier.getName() + "' already defined");
+		} else {
+			symbols.put(identifier.getName(), datatype);
+		}
+	}
+	
 	@Override
 	public void visit(Question node) {
-		print("(question)");
-		ident++;
-		node.getIdentifier().accept(this);
-		node.getLabel().accept(this);
-		node.getDatatype().accept(this);
-		ident--;
+		addQuestionSymbol(node.getIdentifier(), node.getDatatype());
 	}
 
 	@Override
 	public void visit(ComputedQuestion node) {
-		print("(computed question)");
-		ident++;
-		node.getIdentifier().accept(this);
-		node.getLabel().accept(this);
-		node.getDatatype().accept(this);
+		addQuestionSymbol(node.getIdentifier(), node.getDatatype());
 		node.getExpression().accept(this);
-		ident--;
 	}
 
 	@Override
 	public void visit(IfStatement node) {
-		print("(if)");
-		ident++;
 		node.getExpression().accept(this);
 		node.getStatements().accept(this);
-		ident--;
 	}
 }

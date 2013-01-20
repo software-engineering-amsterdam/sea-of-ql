@@ -1,11 +1,11 @@
 package org.uva.sea.ql.ast;
 
-public class Question implements ASTNode {
+public class Question extends Statement {
 	private final Identifier identifier;
-	private final StringValue label;
+	private final StringLiteral label;
 	private final Datatype datatype;
 	
-	public Question(Identifier identifier, StringValue label, Datatype datatype) {
+	public Question(Identifier identifier, StringLiteral label, Datatype datatype) {
 		this.identifier = identifier;
 		this.label = label;
 		this.datatype = datatype;
@@ -15,7 +15,7 @@ public class Question implements ASTNode {
 		return identifier;
 	}
 
-	public StringValue getLabel() {
+	public StringLiteral getLabel() {
 		return label;
 	}
 
@@ -27,5 +27,4 @@ public class Question implements ASTNode {
 	public void accept(ASTNodeVisitor visitor) {
 		visitor.visit(this);
 	}
-
 }

@@ -104,9 +104,9 @@ public class TestExpressions {
 
 	@Test
 	public void testInts() throws ParseException {
-		assertEquals(IntegerValue.class, parser.parse("0").getClass());
-		assertEquals(IntegerValue.class, parser.parse("1223").getClass());
-		assertEquals(IntegerValue.class, parser.parse("234234234").getClass());
+		assertEquals(IntegerLiteral.class, parser.parse("0").getClass());
+		assertEquals(IntegerLiteral.class, parser.parse("1223").getClass());
+		assertEquals(IntegerLiteral.class, parser.parse("234234234").getClass());
 	}
 	
 	@Test
@@ -118,8 +118,8 @@ public class TestExpressions {
 		assertEquals(Or.class, parser.parse("a || b").getClass());
 		assertEquals(Or.class, parser.parse("a > b || b > c").getClass());
 		assertEquals(Or.class, parser.parse("(a > b) || (b > c)").getClass());
-		assertEquals(BooleanValue.class, parser.parse("true").getClass());
-		assertEquals(BooleanValue.class, parser.parse("false").getClass());
+		assertEquals(BooleanLiteral.class, parser.parse("true").getClass());
+		assertEquals(BooleanLiteral.class, parser.parse("false").getClass());
 		assertEquals(And.class, parser.parse("true && false").getClass());
 		assertEquals(Or.class, parser.parse("true || false").getClass());
 		assertEquals(Not.class, parser.parse("!true").getClass());
@@ -133,12 +133,12 @@ public class TestExpressions {
 
 	@Test
 	public void testStrings() throws ParseException {
-		assertEquals(StringValue.class, parser.parse("\"a\"").getClass());
-		assertEquals(StringValue.class, parser.parse("\"aa\"").getClass());
-		assertEquals(StringValue.class, parser.parse("\"abcdefghijklmnop\"").getClass());
-		assertEquals(StringValue.class, parser.parse("\" \"").getClass());
-		assertEquals(StringValue.class, parser.parse("\"\"").getClass());
-		assertEquals(StringValue.class, parser.parse("\"aa\nbbb\"").getClass());
+		assertEquals(StringLiteral.class, parser.parse("\"a\"").getClass());
+		assertEquals(StringLiteral.class, parser.parse("\"aa\"").getClass());
+		assertEquals(StringLiteral.class, parser.parse("\"abcdefghijklmnop\"").getClass());
+		assertEquals(StringLiteral.class, parser.parse("\" \"").getClass());
+		assertEquals(StringLiteral.class, parser.parse("\"\"").getClass());
+		assertEquals(StringLiteral.class, parser.parse("\"aa\nbbb\"").getClass());
 		verifyException(parser, RuntimeException.class).parse("\"aa");
 	}
 }

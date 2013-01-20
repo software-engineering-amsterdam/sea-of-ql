@@ -1,9 +1,9 @@
 package org.uva.sea.ql.ast;
 
-public class BooleanValue implements ASTNode {
+public class BooleanLiteral extends Literals {
 	private final boolean value;
 	
-	public BooleanValue(boolean value) {
+	public BooleanLiteral(boolean value) {
 		this.value = value;
 	}
 
@@ -15,5 +15,4 @@ public class BooleanValue implements ASTNode {
 	public void accept(ASTNodeVisitor visitor) {
 		visitor.visit(this);
 	}
-
 }

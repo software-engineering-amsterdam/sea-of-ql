@@ -9,12 +9,17 @@
 %token <IntegerType> INTEGER_TYPE
 %token <StringType> STRING_TYPE
 %token <BooleanType> BOOLEAN_TYPE
-%token <IntegerValue> INTEGER
-%token <BooleanValue> TRUE FALSE
-%token <StringValue> STRING
+%token <IntegerLiteral> INTEGER
+%token <BooleanLiteral> TRUE FALSE
+%token <StringLiteral> STRING
 %token <Identifier> IDENTIFIER
 %token '*' '/' '+' '-' OR AND NEQ EQ '<' LEQ '>' GEQ '!'
 %token '(' ')' '{' '}' ':' ';'
+
+%type <StatementList> statement_list
+%type <Statement> statement
+%type <Datatype> datatype
+%type <Expression> expr
 
 %left OR
 %left AND
@@ -29,35 +34,22 @@ import org.uva.sea.ql.ast.*;
 
 %%
 form			: FORM IDENTIFIER '{' statement_list '}'		{ result = new Form($2, $4); }
-
-//TODO: remove before production
- 				| expr											{ result = $1; }
  				;
  
-statement_list	: statement										{ $$ = new StatementList(); ((StatementList)$$).addStatement($1); }
- 				| statement_list statement						{ $$ = $1; ((StatementList)$1).addStatement($2); }
+statement_list	: statement										{ $$ = new StatementList();
+																  ((StatementList)$$).addStatement($1);
+																}
+ 				| statement_list statement						{ $$ = $1;
+ 																  $1.addStatement($2);
+ 																}
  				;
 
 statement		: question										{ $$ = $1; }
  				| if											{ $$ = $1; }
  				;
   			
-question		: IDENTIFIER ':' STRING datatype				{ $$ = new Question($1, $3, (Datatype)$4);
-																  if (symbols.contains($1.getName())) {
-																    yyerror("Question identifier '" + $1.getName() + "' already defined");
-																    // JACC does not seem to support the YYERROR and YYABORT macros
-																    return 0;
-																  }
-																  symbols.put($1.getName(), (Datatype)$4);
-																}
- 				| IDENTIFIER ':' STRING datatype '(' expr ')'	{ $$ = new ComputedQuestion($1, $3, (Datatype)$4, $6);
-																  if (symbols.contains($1.getName())) {
-																    yyerror("Question identifier '" + $1.getName() + "' already defined");
-																    // JACC does not seem to support the YYERROR and YYABORT macros
-																    return 0;
-																  }
-																  symbols.put($1.getName(), (Datatype)$4);
- 																}
+question		: IDENTIFIER ':' STRING datatype				{ $$ = new Question($1, $3, $4); }
+ 				| IDENTIFIER ':' STRING datatype '(' expr ')'	{ $$ = new ComputedQuestion($1, $3, $4, $6); }
  				; 
 
 datatype		: INTEGER_TYPE									{ $$ = new IntegerType(); }
@@ -65,7 +57,7 @@ datatype		: INTEGER_TYPE									{ $$ = new IntegerType(); }
  				| BOOLEAN_TYPE									{ $$ = new BooleanType(); }
  				;
 
-if				: IF '(' expr ')' '{' statement_list '}'		{ $$ = new IfStmt($3, $6); }
+if				: IF '(' expr ')' '{' statement_list '}'		{ $$ = new IfStatement($3, $6); }
  				;
  			
 expr			: '+' expr %prec UPLUS							{ $$ = new Pos($2); }
@@ -83,20 +75,14 @@ expr			: '+' expr %prec UPLUS							{ $$ = new Pos($2); }
 				| expr LEQ expr									{ $$ = new LEq($1, $3); }
 				| expr AND expr									{ $$ = new And($1, $3); }
 		    	| expr OR expr									{ $$ = new Or($1, $3); }
-				| TRUE											{ $$ = new BooleanValue(true); }
-				| FALSE											{ $$ = new BooleanValue(false); }
+				| TRUE											{ $$ = new BooleanLiteral(true); }
+				| FALSE											{ $$ = new BooleanLiteral(false); }
 				| INTEGER										{ $$ = $1; }
 				| STRING										{ $$ = $1; }
-				| IDENTIFIER									{ $$ = $1;
-																  if (!symbols.contains($1.getName())) {
-																    yyerror("Variable '" + $1.getName() + "' not defined");
-																    // JACC does not seem to support the YYERROR and YYABORT macros
-																    return 0;
-																  }
-																}
+				| IDENTIFIER									{ $$ = $1; }
 				| '(' expr ')'									{ $$ = $2; }
 				;
-
+				
 %%
 //TODO: remove before production
 private void printNode(String item, ASTNode node) {
@@ -115,15 +101,13 @@ private void printNode(String item, ASTNode node) {
 
 private QLLexer lexer; 
 private ASTNode result;
-private SymbolTable symbols;
 
 public ASTNode getResult() {
   return result;
 }
 
-public QLParser(QLLexer lexer, SymbolTable symbols) { 
+public QLParser(QLLexer lexer) { 
   this.lexer = lexer; 
-  this.symbols = symbols;
 }
 
 private void yyerror(String msg) { 
