@@ -1,4 +1,4 @@
-// $ANTLR 3.5 /Users/abort/Documents/UvA/Repository/abort/src/org/uva/sea/ql/parser/antlr/QL.g 2013-01-19 13:24:32
+// $ANTLR 3.5 /Users/abort/Documents/UvA/Repository/abort/src/org/uva/sea/ql/parser/antlr/QL.g 2013-01-20 16:41:38
 
 package org.uva.sea.ql.parser.antlr;
 import org.uva.sea.ql.ast.*;
@@ -551,7 +551,7 @@ public class QLParser extends Parser {
 			if (state.failed) return result;
 			match(input,PARENTHESES_CLOSE,FOLLOW_PARENTHESES_CLOSE_in_computation282); if (state.failed) return result;
 			if ( state.backtracking==0 ) {
-			    result = new Computation(new Label((label!=null?label.getText():null)), (String7!=null?String7.getText():null), parameter, operation);
+			    result = new Computation(new Label((label!=null?label.getText():null)), (String7!=null?String7.getText():null).substring(1, (String7!=null?String7.getText():null).length() - 1), parameter, operation);
 			  }
 			}
 

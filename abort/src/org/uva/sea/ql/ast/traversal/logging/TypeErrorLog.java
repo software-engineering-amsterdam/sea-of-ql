@@ -7,11 +7,10 @@ import org.uva.sea.ql.ast.form.Form;
 import org.uva.sea.ql.ast.form.Label;
 import org.uva.sea.ql.ast.traversal.base.HandSide;
 
+/**
+ * Type checking error logger, which contains common errors
+ */
 public class TypeErrorLog extends Log {
-	public void addFormContainsInvalidElements(final Form form) {
-		add(new Line(form, "The form contains invalid elements"));
-	}
-	
 	public void addEmptyFlow(final Node node) {
 		add(new Line(node, "Empty flow"));
 	}
@@ -55,6 +54,7 @@ public class TypeErrorLog extends Log {
 		add(new Line(node, String.format("Expected the following type: " + expectedType.getName())));
 	}
 	
+	// Get the hand-side of an operator as a string, to represent it in the log 
 	private String getHandSideString(final HandSide handSide) {
 		return String.format("%s handside", handSide.toString());
 	}

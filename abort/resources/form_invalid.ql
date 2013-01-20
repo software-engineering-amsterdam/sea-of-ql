@@ -10,4 +10,20 @@ form Box1HouseOwning {
 		reasonNotSelling: "Why did you not sell the house?" string
  	}
 	age: "How old are you?" integer
+	
+	// Invalid comparison
+	if (20 == hasSoldHouse) {
+		invisibleQuestion: "You should never be able to see this. How did you manage?" string
+	}
+	
+	// Invalid comparison
+	if (hasSoldHouse == 20) {
+		invisibleQuestion2: "Another question you should not see. How did you manage this time?" string
+	}
+	
+	if ("applepie" == "applepie") { }
+	
+	if (true && "applepie" || 1 + true || "haha" + 2.000) { }
+
+	hasSoldHouse: "Just to redeclare and annoy the type checker" integer	
 }

@@ -24,7 +24,7 @@ public abstract class IfStatement extends Element {
 	}
 	
 	@Override
-	public void accept(IVisitor visitor) {
+	public void accept(final IVisitor visitor) {
 		conditions.accept(visitor);
 	}
 }

@@ -5,18 +5,19 @@ import java.util.Map;
 
 import org.uva.sea.ql.ast.base.Node;
 
+/**
+ * Stores nodes and their expected result types
+ */
 abstract class TypeTable {
 	// Store the type for a node
 	protected Map<Node, Class<? extends Node>> types = new HashMap<Node, Class<? extends Node>>();
 	
-	protected TypeTable() {
-		
-	}
+	// Only usable in extended form
+	protected TypeTable() {	}
 
 	public void addTypeForNode(final Node node, final Class<? extends Node> type) {
 		types.put(node, type);
 	}
-	
 
 	public Class<? extends Node> getTypeOfNode(final Node node) {
 		final Class<? extends Node> type = types.get(node);

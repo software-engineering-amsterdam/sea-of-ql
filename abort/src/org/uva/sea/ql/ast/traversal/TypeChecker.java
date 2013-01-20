@@ -4,40 +4,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.uva.sea.ql.ast.base.Node;
-import org.uva.sea.ql.ast.conditionals.IfStatement;
-import org.uva.sea.ql.ast.conditionals.IfThen;
-import org.uva.sea.ql.ast.conditionals.IfThenElse;
-import org.uva.sea.ql.ast.form.Computation;
-import org.uva.sea.ql.ast.form.Element;
-import org.uva.sea.ql.ast.form.Form;
-import org.uva.sea.ql.ast.form.Label;
-import org.uva.sea.ql.ast.form.Question;
+import org.uva.sea.ql.ast.conditionals.*;
+import org.uva.sea.ql.ast.form.*;
 import org.uva.sea.ql.ast.operators.base.BinaryOperator;
-import org.uva.sea.ql.ast.operators.base.UnaryOperator;
-import org.uva.sea.ql.ast.operators.binary.Add;
-import org.uva.sea.ql.ast.operators.binary.And;
-import org.uva.sea.ql.ast.operators.binary.Div;
-import org.uva.sea.ql.ast.operators.binary.Eq;
-import org.uva.sea.ql.ast.operators.binary.GEq;
-import org.uva.sea.ql.ast.operators.binary.GT;
-import org.uva.sea.ql.ast.operators.binary.LEq;
-import org.uva.sea.ql.ast.operators.binary.LT;
-import org.uva.sea.ql.ast.operators.binary.Mul;
-import org.uva.sea.ql.ast.operators.binary.NEq;
-import org.uva.sea.ql.ast.operators.binary.Or;
-import org.uva.sea.ql.ast.operators.binary.Sub;
-import org.uva.sea.ql.ast.operators.unary.Neg;
-import org.uva.sea.ql.ast.operators.unary.Not;
-import org.uva.sea.ql.ast.operators.unary.Pos;
+import org.uva.sea.ql.ast.operators.binary.*;
+import org.uva.sea.ql.ast.operators.unary.*;
 import org.uva.sea.ql.ast.traversal.base.HandSide;
 import org.uva.sea.ql.ast.traversal.base.IVisitor;
-import org.uva.sea.ql.ast.traversal.logging.TypeErrorLog;
-import org.uva.sea.ql.ast.traversal.logging.TypeEventLog;
-import org.uva.sea.ql.ast.types.Bool;
-import org.uva.sea.ql.ast.types.Ident;
-import org.uva.sea.ql.ast.types.Int;
-import org.uva.sea.ql.ast.types.Money;
-import org.uva.sea.ql.ast.types.StringLiteral;
+import org.uva.sea.ql.ast.traversal.logging.*;
+import org.uva.sea.ql.ast.types.*;
 
 
 // TODO: add scope support for forms and internal scopes
@@ -92,14 +67,8 @@ public class TypeChecker implements IVisitor {
 	// Form Types
 	@Override
 	public void visit(final Form form) {
-		final List<Element> elements = form.getNodes();
-		if (elements.isEmpty()) {
-			errorLog.addFormContainsInvalidElements(form);
-		}
-		else {
-			resultTable.addTypeForNode(form, Form.class);
-			eventLog.addCorrectSemantics(form);
-		}
+		resultTable.addTypeForNode(form, Form.class);
+		eventLog.addCorrectSemantics(form);
 	}
 	
 	@Override
@@ -179,7 +148,7 @@ public class TypeChecker implements IVisitor {
 	// Binary operators
 	@Override
 	public void visit(final And and) {
-		if (!checkForBooleanBothSideErors(and)) {
+		if (!checkForBooleanBothSideErrors(and)) {
 			resultTable.addTypeForNode(and, Bool.class);
 			
 			eventLog.addCorrectSemantics(and);
@@ -188,7 +157,7 @@ public class TypeChecker implements IVisitor {
 	
 	@Override
 	public void visit(final Or or) {
-		if (!checkForBooleanBothSideErors(or)) {
+		if (!checkForBooleanBothSideErrors(or)) {
 			resultTable.addTypeForNode(or, Bool.class);
 			
 			eventLog.addCorrectSemantics(or);
@@ -196,13 +165,8 @@ public class TypeChecker implements IVisitor {
 	}
 
 	@Override
-	public void visit(final Div div) {
-		boolean error = checkForNumberTypeErrors(div);
-		if (!error) {
-			error = checkForSameTypeErrors(div);
-		}
-		
-		if (!error) {
+	public void visit(final Div div) {			
+		if (!checkForNumberTypeErrors(div)) {
 			resultTable.addTypeForNode(div, getNumberResultType(div));
 			eventLog.addCorrectSemantics(div);
 		}		
@@ -261,8 +225,6 @@ public class TypeChecker implements IVisitor {
 
 	@Override
 	public void visit(final Mul mul) {
-		// TODO: can not multiply money with money
-
 		if (!checkForNumberTypeErrors(mul)) {
 			resultTable.addTypeForNode(mul, getNumberResultType(mul));
 			eventLog.addCorrectSemantics(mul);
@@ -409,7 +371,7 @@ public class TypeChecker implements IVisitor {
 	}
 	
 	// Both sides have to be booleans
-	private boolean checkForBooleanBothSideErors(final BinaryOperator operator) {
+	private boolean checkForBooleanBothSideErrors(final BinaryOperator operator) {
 		final Class<? extends Node> leftHandSide = resultTable.getLeftHandSideResultType(operator);
 		final Class<? extends Node> rightHandSide = resultTable.getRightHandSideResultType(operator);
 		

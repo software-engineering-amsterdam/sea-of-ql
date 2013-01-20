@@ -8,7 +8,7 @@ public class Question extends Element {
 	private final String question;
 	private final Class<? extends DataType> expectedType;
 	
-	public Question(Label label, String question, Class<? extends DataType> expectedType) {
+	public Question(final Label label, final String question, final Class<? extends DataType> expectedType) {
 		this.label = label;
 		this.question = question;
 		this.expectedType = expectedType;
@@ -28,6 +28,7 @@ public class Question extends Element {
 
 	@Override
 	public void accept(final IVisitor visitor) {
+		label.accept(visitor);
 		visitor.visit(this);
 	}
 }

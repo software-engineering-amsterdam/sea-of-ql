@@ -5,7 +5,6 @@ import org.uva.sea.ql.ast.operators.base.BinaryOperator;
 import org.uva.sea.ql.ast.traversal.base.IVisitor;
 
 public class LT extends BinaryOperator {
-
 	public LT(final Node leftHandSide, final Node rightHandSide) {
 		super(leftHandSide, rightHandSide);
 	}

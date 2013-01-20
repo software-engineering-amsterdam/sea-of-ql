@@ -14,7 +14,7 @@ public class Label extends Node {
 		return identifier;
 	}
 
-	// Labels with the same identifier are the same
+	// Labels with the same identifier are the same (used for the symbol table and result type table)
 	@Override
 	public int hashCode() {
 		final int prime = 31;

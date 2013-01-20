@@ -67,14 +67,4 @@ public class TestConditionals extends TestBase {
 		assertEquals("whyNot", elseQuestion.getLabel().getIdentifier());
 		assertEquals("Why did you not buy this house?", elseQuestion.getQuestion());
 	}
-	
-	@Test
-	public void testNestedIfThen() {
-		
-	}
-	
-	@Test
-	public void testNestedIfThenElse() {
-		
-	}
 }

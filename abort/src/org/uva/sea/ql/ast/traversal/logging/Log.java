@@ -6,14 +6,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 abstract class Log {
+	// Store the log in an array list to easily present it in a later stage
 	protected final List<Line> log = new ArrayList<Line>();
 
+	// Used for date formatting the log
 	private static final String TIME_FORMAT = "HH:mm:ss";
 	private final SimpleDateFormat dateFormat = new SimpleDateFormat(TIME_FORMAT);
 	
-	protected Log() {
-		
-	}
+	// Only usable in extended form
+	protected Log() { }
 	
 	public void add(final Line line) {
 		log.add(line);
@@ -38,12 +39,14 @@ abstract class Log {
 		return buffer.toString();
 	}
 	
+	// Write the log to a stream
 	public void write(final PrintStream stream) {
 		for (final Line line : log) {
 			stream.print(getStringRepresentation(line));
 		}
 	}
 	
+	// Get the string representation of a line instance
 	private String getStringRepresentation(final Line line) {
 		return String.format("[%s]: %s -> %s\n", dateFormat.format(line.getCalendar().getTime()),
 				line.getNode().toString(), line.getText());

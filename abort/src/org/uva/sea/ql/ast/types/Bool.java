@@ -3,15 +3,13 @@ package org.uva.sea.ql.ast.types;
 import org.uva.sea.ql.ast.traversal.base.IVisitor;
 
 public class Bool extends DataType {
-	private boolean value; 
-	
-	public Bool() { }
+	private final boolean value; 
 	
 	public Bool(final boolean value) {
 		this.value = value;
 	}
 	
-	public Object getValue() {
+	public boolean getValue() {
 		return value;
 	}
 

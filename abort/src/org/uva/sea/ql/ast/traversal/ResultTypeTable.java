@@ -7,9 +7,14 @@ import org.uva.sea.ql.ast.types.Bool;
 import org.uva.sea.ql.ast.types.Int;
 import org.uva.sea.ql.ast.types.Money;
 
+/**
+ * Stores result types in a table/map of nodes while traversing the tree, required for semantical type checking
+ */
 class ResultTypeTable extends TypeTable {
+	// Only usable the current package
 	protected ResultTypeTable() { }
 	
+	// Check the left and right hand side to be of equal types
 	public boolean hasOperationGotEqualTypes(final BinaryOperator operator) {
 		final Class<? extends Node> leftHandSide = getLeftHandSideResultType(operator);
 		final Class<? extends Node> rightHandSide = getRightHandSideResultType(operator);		
@@ -26,16 +31,12 @@ class ResultTypeTable extends TypeTable {
 		return (Bool.class.equals(nodeType));
 	}
 
+	// Check for a numeric value
 	public boolean isMoneyOrIntegerType(final Class<? extends Node> nodeType) {
 		return (Int.class.equals(nodeType) || Money.class.equals(nodeType));
 	}
 
-	public final boolean isMoneyTypeInvolved(final UnaryOperator operator) {
-		final Class<? extends Node> type = getTypeOfNode(operator.getNode());
-		
-		return type.equals(Money.class);
-	}
-	
+	// Check if either the left or right (or both) hand sides are of the money type
 	public final boolean isMoneyTypeInvolved(final BinaryOperator operator) {
 		final Class<? extends Node> leftHandSide = getLeftHandSideResultType(operator);
 		final Class<? extends Node> rightHandSide = getRightHandSideResultType(operator);		

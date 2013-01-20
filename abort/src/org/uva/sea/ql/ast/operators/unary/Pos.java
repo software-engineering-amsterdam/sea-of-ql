@@ -10,7 +10,7 @@ public class Pos extends UnaryOperator {
 	}
 	
 	@Override
-	public void accept(IVisitor visitor) {
+	public void accept(final IVisitor visitor) {
 		super.accept(visitor);
 		visitor.visit(this);
 	}

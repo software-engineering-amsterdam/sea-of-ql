@@ -2,9 +2,13 @@ package org.uva.sea.ql.parser.test;
 
 import static org.junit.Assert.*;
 
+import java.math.BigDecimal;
+
 import org.antlr.runtime.RecognitionException;
 import org.junit.Test;
 import org.uva.sea.ql.ast.base.Node;
+import org.uva.sea.ql.ast.types.Bool;
+import org.uva.sea.ql.ast.types.Ident;
 import org.uva.sea.ql.ast.types.Int;
 import org.uva.sea.ql.ast.types.Money;
 import org.uva.sea.ql.ast.types.StringLiteral;
@@ -29,13 +33,42 @@ public class TestDataTypes extends TestBase {
 		assertEquals(Int.class, parseDataType("0").getClass());
 		assertEquals(Int.class, parseDataType("1223").getClass());
 		assertEquals(Int.class, parseDataType("234234234").getClass());
+		
+		assertEquals(0, ((Int)parseDataType("0")).getValue());
+		assertEquals(1223, ((Int)parseDataType("1223")).getValue());
+		assertEquals(234234234, ((Int)parseDataType("234234234")).getValue());
+		
 	}
 	
 	@Test
 	public void testMoney() throws RecognitionException {
-		assertEquals(parseDataType("0.000").getClass(), Money.class);
-		assertEquals(parseDataType("1.234").getClass(), Money.class);
-		assertEquals(parseDataType("1932.123214141").getClass(), Money.class);
+		assertEquals(Money.class, parseDataType("0.000").getClass());
+		assertEquals(Money.class, parseDataType("1.234").getClass());
+		assertEquals(Money.class, parseDataType("1932.123214141").getClass());
+		
+		assertEquals(new BigDecimal("0.000"), ((Money)parseDataType("0.000")).getValue());
+		assertEquals(new BigDecimal("1.234"), ((Money)parseDataType("1.234")).getValue());
+		assertEquals(new BigDecimal("1932.123214141"), ((Money)parseDataType("1932.123214141")).getValue());
+	}
+	
+	@Test
+	public void testBool() throws RecognitionException {
+		assertEquals(Bool.class, parseDataType("true").getClass());
+		assertEquals(Bool.class, parseDataType("TRUE").getClass());
+		assertEquals(Bool.class, parseDataType("false").getClass());
+		assertEquals(Bool.class, parseDataType("FALSE").getClass());
+		
+		assertEquals(true, ((Bool)parseDataType("true")).getValue());
+		assertEquals(true, ((Bool)parseDataType("TRUE")).getValue());
+		assertEquals(false, ((Bool)parseDataType("false")).getValue());
+		assertEquals(false, ((Bool)parseDataType("false")).getValue());
+	}
+	
+	@Test
+	public void testIdent() throws RecognitionException {
+		final Node node = parseDataType("identlabel");
+		assertEquals(Ident.class, node.getClass());
+		assertEquals("identlabel", ((Ident)node).getName());
 	}
 
 	@Test
@@ -43,6 +76,8 @@ public class TestDataTypes extends TestBase {
 		assertEquals(StringLiteral.class, parseDataType("\"Hello\"").getClass());
 		assertEquals("Hello", ((StringLiteral)parseDataType("\"Hello\"")).getValue());
 		assertEquals("\\\"Hello\\\"", ((StringLiteral)parseDataType("\"\\\"Hello\\\"\"")).getValue());
+		
+		// Should be recognized as an ident, not a stringliteral
 		assertFalse(StringLiteral.class.equals(parseDataType("Hello").getClass()));
 	}
 	

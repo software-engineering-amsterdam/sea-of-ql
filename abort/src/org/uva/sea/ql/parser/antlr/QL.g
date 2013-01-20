@@ -55,7 +55,7 @@ questions returns [List<Question> results]
 
 computation returns [Computation result]
   : label=Ident ':' String parameter=dataType PARENTHESES_OPEN operation=orExpression PARENTHESES_CLOSE {
-    $result = new Computation(new Label($label.text), $String.text, $parameter.result, $operation.result);
+    $result = new Computation(new Label($label.text), $String.text.substring(1, $String.text.length() - 1), $parameter.result, $operation.result);
   };
 
 question returns [Question result]

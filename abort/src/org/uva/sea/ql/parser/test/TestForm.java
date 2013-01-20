@@ -1,59 +1,127 @@
 package org.uva.sea.ql.parser.test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
+import java.io.IOException;
 import java.util.List;
 
 import org.antlr.runtime.RecognitionException;
-import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 import org.uva.sea.ql.ast.base.Node;
+import org.uva.sea.ql.ast.conditionals.IfThenElse;
+import org.uva.sea.ql.ast.form.Computation;
+import org.uva.sea.ql.ast.form.Element;
 import org.uva.sea.ql.ast.form.Form;
-import org.uva.sea.ql.ast.traversal.TypeChecker;
-import org.uva.sea.ql.parser.antlr.QLParserController;
-
-import junit.framework.TestCase;
+import org.uva.sea.ql.ast.form.Label;
+import org.uva.sea.ql.ast.form.Question;
+import org.uva.sea.ql.ast.operators.binary.Sub;
+import org.uva.sea.ql.ast.types.Bool;
+import org.uva.sea.ql.ast.types.Ident;
+import org.uva.sea.ql.ast.types.Int;
+import org.uva.sea.ql.ast.types.Money;
+import org.uva.sea.ql.ast.types.StringLiteral;
 
 public class TestForm extends TestBase {
-	private static final String FORM = 
-			"form Box1HouseOwning { hasSoldHouse: \"Did you sell a house in 2010?\" boolean\nhasBoughtHouse: \"Did you buy a house in 2010?\" boolean\nif (hasSoldHouse) { sellingPrice: \"Price was sold for:\" money\nprivateDebt: \"Private debts for the sold house:\" money\nvalueResidue: \"Value residue:\" money(sellingPrice - privateDebt) } else { reasonNotSelling: \"Why did you not sell the house?\" string\n }\n age: \"How old are you?\" integer\n\n}";
-			
-	private static final String INVALID_CONDITION_FORM = 
-			"form Box1HouseOwning { hasSoldHouse: \"Did you sell a house in 2010?\" boolean\nhasBoughtHouse: \"Did you buy a house in 2010?\" boolean\nif (applepie) { sellingPrice: \"Price was sold for:\" money\nprivateDebt: \"Private debts for the sold house:\" money\nvalueResidue: \"Value residue:\" money(sellingPrice - privateDebt) } else { reasonNotSelling: \"Why did you not sell the house?\" string\n }\n age: \"How old are you?\" integer\n\n}";
+	private static final String RESOURCE_FORM = "form.ql";
+	private Form form;
 	
-	private final QLParserController parser = new QLParserController();
-	private final TypeChecker typeChecker = new TypeChecker();
-	
-	@Test
-	public void testComputation() {
-		
+	@Before
+	public void beforeTest() throws RecognitionException, IOException {
+		form = parseFormFromResource(RESOURCE_FORM);
 	}
 	
 	@Test
-	public void testElement() {
+	public void testFormStructure() throws RecognitionException, IOException {	
+		assertEquals("Box1HouseOwning", form.getName());
+		assertEquals(5, form.getNodes().size());
 		
-	}
-	
-	@Test
-	public void testValidForm() throws RecognitionException {
-		parser.parseForm(FORM).accept(typeChecker);
-		assertEquals(0, typeChecker.getErrorLog().getLength());
+		testQuestion1();
+		testQuestion2();
+		testQuestion3();
+		testQuestion4();
+		testIfThenElse();
 	}
 
-	@Test
-	public void testInvalidForm() throws RecognitionException {
-		parser.parseForm(INVALID_CONDITION_FORM).accept(typeChecker);	
-		assertFalse(typeChecker.getErrorLog().getLength() == 0);
-	}
-	
-	@Test
-	public void testQuestion() {
+	private void testQuestion1() {
+		final Question question = (Question)form.getNodes().get(0);
 		
+		assertEquals(Question.class, question.getClass());
+		assertEquals(Bool.class, question.getExpectedType());
+		assertEquals("Did you sell a house in 2010?", question.getQuestion());
+		assertEquals(new Label("hasSoldHouse"), question.getLabel());		
+	}
+
+	private void testQuestion2() {
+		final Question question = (Question)form.getNodes().get(1);
+		
+		assertEquals(Question.class, question.getClass());
+		assertEquals(Bool.class, question.getExpectedType());
+		assertEquals("Did you buy a house in 2010?", question.getQuestion());
+		assertEquals(new Label("hasBoughtHouse"), question.getLabel());		
+	}
+
+	private void testQuestion3() {
+		final Question question = (Question)form.getNodes().get(2);
+
+		assertEquals(Question.class, question.getClass());
+		assertEquals(Int.class, question.getExpectedType());
+		assertEquals("What was the width of the house in meters?", question.getQuestion());
+		assertEquals(new Label("width"), question.getLabel());		
+	}
+
+	private void testQuestion4() {
+		final Question question = (Question)form.getNodes().get(3);
+
+		assertEquals(Question.class, question.getClass());
+		assertEquals(Int.class, question.getExpectedType());
+		assertEquals("What was the length of the house in meters?", question.getQuestion());
+		assertEquals(new Label("length"), question.getLabel());		
 	}
 	
-	@After
-	public void printErrorLog() {
-		typeChecker.getErrorLog().write(System.err);
-		typeChecker.getEventLog().write(System.out);
+	private void testIfThenElse() {
+		final IfThenElse ifThenElse = (IfThenElse)form.getNodes().get(4);
+		final Node conditions = ifThenElse.getConditions();
+		final List<Element> successElements = ifThenElse.getSuccessElements();
+		
+		assertEquals(Ident.class, conditions.getClass());
+		assertEquals("hasSoldHouse", ((Ident)conditions).getName());
+		assertEquals(3, successElements.size());
+		
+		assertEquals(Question.class, successElements.get(0).getClass());
+
+		final Question question1 = (Question)successElements.get(0);
+		assertEquals("Price was sold for:", question1.getQuestion());
+		assertEquals(new Label("sellingPrice"), question1.getLabel());
+		assertEquals(Money.class, question1.getExpectedType());
+		
+		assertEquals(Question.class, successElements.get(1).getClass());
+		
+		final Question question2 = (Question)successElements.get(1);
+		assertEquals("Private debts for the sold house:", question2.getQuestion());
+		assertEquals(new Label("privateDebt"), question2.getLabel());
+		assertEquals(Money.class, question2.getExpectedType());
+		
+		assertEquals(Computation.class, successElements.get(2).getClass());
+
+		// validate the computation which is a subtraction of two idents
+		final Computation computation = (Computation)successElements.get(2);
+		assertEquals("Value residue:", computation.getDescription());
+		assertEquals(new Label("valueResidue"), computation.getLabel());
+		assertEquals(Money.class, computation.getExpectedType());
+		assertEquals(Sub.class, computation.getCalculationOperation().getClass());
+
+		final Sub sub = (Sub)computation.getCalculationOperation();
+		assertEquals(Ident.class, sub.getLeftHandSide().getClass());
+		assertEquals(Ident.class, sub.getRightHandSide().getClass());
+		assertEquals("sellingPrice", ((Ident)sub.getLeftHandSide()).getName());
+		assertEquals("privateDebt", ((Ident)sub.getRightHandSide()).getName());
+		
+		// test the else flow
+		assertEquals(1, ifThenElse.getElseElements().size());
+		final Question questionElse = (Question)ifThenElse.getElseElements().get(0);
+		assertEquals(StringLiteral.class, questionElse.getExpectedType());
+		assertEquals(new Label("reasonNotSelling"), questionElse.getLabel());
+		assertEquals("Why did you not sell the house?", questionElse.getQuestion());
 	}
 }

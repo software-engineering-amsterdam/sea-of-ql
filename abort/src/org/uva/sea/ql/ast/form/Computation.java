@@ -5,10 +5,10 @@ import org.uva.sea.ql.ast.traversal.base.IVisitor;
 import org.uva.sea.ql.ast.types.DataType;
 
 public class Computation extends Element {
-	private Label label;
-	private String description;
-	private Class<? extends DataType> expectedType;
-	private Node calculationOperation;
+	private final Label label;
+	private final String description;
+	private final Class<? extends DataType> expectedType;
+	private final Node calculationOperation;
 	
 	public Computation(final Label label, final String description, final Class<? extends DataType> expectedType, final Node calculationOperation) {
 		this.label = label;
@@ -35,6 +35,7 @@ public class Computation extends Element {
 
 	@Override
 	public void accept(final IVisitor visitor) {
+		label.accept(visitor);
 		calculationOperation.accept(visitor);
 		visitor.visit(this);		
 	}

@@ -1,10 +1,16 @@
 package org.uva.sea.ql.parser.test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 import org.antlr.runtime.RecognitionException;
 import org.junit.Test;
 import org.uva.sea.ql.ast.base.Node;
+import org.uva.sea.ql.ast.operators.base.BinaryOperator;
 import org.uva.sea.ql.ast.operators.binary.Add;
 import org.uva.sea.ql.ast.operators.binary.And;
 import org.uva.sea.ql.ast.operators.binary.Div;
@@ -204,5 +210,19 @@ public class TestBinaryOperators extends TestBase {
 		
 		node = parse("- 1 1").addExpression();
 		assertFalse(Sub.class.equals(node));		
+	}
+	
+	@Test
+	public void testBaseClass() {
+		final Node leftHandSide = mock(Node.class);
+		final Node rightHandSide = mock(Node.class);
+		final BinaryOperator operator = mock(BinaryOperator.class);
+		when(operator.getLeftHandSide()).thenReturn(leftHandSide);
+		when(operator.getRightHandSide()).thenReturn(rightHandSide);
+
+		assertEquals(operator.getLeftHandSide(), leftHandSide);
+		assertEquals(operator.getRightHandSide(), rightHandSide);
+		verify(operator).getLeftHandSide();
+		verify(operator).getRightHandSide();
 	}
 }

@@ -2,7 +2,6 @@ package org.uva.sea.ql.ast.types;
 
 import org.uva.sea.ql.ast.traversal.base.IVisitor;
 
-
 public class StringLiteral extends DataType {
 	private final String value;
 	

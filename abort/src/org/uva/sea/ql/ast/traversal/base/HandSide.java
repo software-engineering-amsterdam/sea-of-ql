@@ -1,5 +1,8 @@
 package org.uva.sea.ql.ast.traversal.base;
 
+/**
+ * Hand Side used for error logging
+ */
 public enum HandSide {
 	LEFT("left"),
 	RIGHT("right"),
