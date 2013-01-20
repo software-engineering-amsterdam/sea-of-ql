@@ -1,7 +1,5 @@
 package org.uva.sea.ql.ast;
 
-import org.uva.sea.ql.ASTNodeVisitor;
-
 public class CompositeFormElement implements FormElement {
     
 	private final Iterable<FormElement> formElements;
