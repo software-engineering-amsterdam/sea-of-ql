@@ -7,7 +7,6 @@
 <fullyQualifiedTypeName name="org.antlr.runtime.Token"/>
 <fullyQualifiedTypeName name="org.uva.sea.ql.ast.ASTNode"/>
 <fullyQualifiedTypeName name="org.uva.sea.ql.ast.CompoundBlock"/>
-<fullyQualifiedTypeName name="org.uva.sea.ql.ast.LineStatement"/>
 <fullyQualifiedTypeName name="org.uva.sea.ql.ast.ConditionalStatement"/>
 <fullyQualifiedTypeName name="org.uva.sea.ql.ast.QLProgram"/>
 <fullyQualifiedTypeName name="org.uva.sea.ql.astvisitor.ASTNodeVisitor"/>
@@ -19,4 +18,6 @@
 <fullyQualifiedTypeName name="com.sun.tools.corba.se.idl.constExpr.Not"/>
 <fullyQualifiedTypeName name="org.uva.sea.ql.astnodevisitor.Visitor"/>
 <fullyQualifiedTypeName name="org.uva.sea.ql.astnodevisitor.SemanticCheckVisitor"/>
+<fullyQualifiedTypeName name="java.util.BitSet"/>
+<fullyQualifiedTypeName name="org.uva.sea.ql.ast.LineStatement"/>
 </qualifiedTypeNameHistroy>

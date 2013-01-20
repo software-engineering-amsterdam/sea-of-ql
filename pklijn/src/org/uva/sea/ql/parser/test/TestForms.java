@@ -47,7 +47,7 @@ public class TestForms {
 				"	/* \n" +
 				"	And this also? Yes this one also\n" +
 				"	*/ \n" +
-				"	if (demoQuestion3) {\n" +
+				"	if (demoQuestion3 - demoQuestion2 > 17) {\n" +
 				"		demoQuestion4: \"What, a question in a if in a if?\" int(demoQuestion2 - demoQuestion3)\n" +
 				"	}\n" +
 				"	else {\n" +
