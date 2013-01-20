@@ -28,12 +28,16 @@ public class TypecheckerVisitor implements ASTNodeVisitor<Type, TypecheckerVisit
 			                  INT_TYPE     = new org.uva.sea.ql.ast.type.Int(),
 			                  STRING_TYPE  = new org.uva.sea.ql.ast.type.Str();
 
-	
-	
-	public void typecheck(Form form) {
-		form.accept(this, new Context());
-	}	
-	
+
+    /**
+     * This method checks a form for errors.
+     * @return A list of errors. When no errors are found, an empty list is returned.
+     */
+	public List<String> typecheck(Form form) {
+		Context context = new Context();
+        form.accept(this, context);
+        return context.getErrors();
+    }
 	
 	// Form operations
 	@Override
@@ -77,7 +81,7 @@ public class TypecheckerVisitor implements ASTNodeVisitor<Type, TypecheckerVisit
 	@Override
 	public Type visit(If astNode, Context context) {
 		Type type = astNode.getCondition().accept(this, context);
-        if(type != BOOL_TYPE)
+        if(!type.equals(BOOL_TYPE))
             context.getErrors().add("The condition of an if-statement should have type boolean.");
 
 		astNode.getIfBody().accept(this, context);
@@ -207,34 +211,34 @@ public class TypecheckerVisitor implements ASTNodeVisitor<Type, TypecheckerVisit
 	
 	private void checkBothSidesAreBools(BinaryExpr expression, Context context, String operator) {
 		if(
-			expression.getLeftExpression().accept(this, context) != BOOL_TYPE ||
-			expression.getRightExpression().accept(this, context) != BOOL_TYPE)
+			!expression.getLeftExpression().accept(this, context).equals(BOOL_TYPE) ||
+			!expression.getRightExpression().accept(this, context).equals(BOOL_TYPE))
 			
 			context.getErrors().add(String.format("Both sides of the '%s' have to be of type boolean.", operator));
 	}
 	
 	private void checkBothSidesAreInts(BinaryExpr expression, Context context, String operator) {
 		if(
-			expression.getLeftExpression().accept(this, context) != INT_TYPE ||
-			expression.getRightExpression().accept(this, context) != INT_TYPE)
+			!expression.getLeftExpression().accept(this, context).equals(INT_TYPE) ||
+			!expression.getRightExpression().accept(this, context).equals(INT_TYPE))
 			
 			context.getErrors().add(String.format("Both sides of the '%s' have to be of type integer.", operator));
 	}
 
     private void checkBothSidesAreOfSameType(BinaryExpr expression, Context context, String operator) {
         if (
-            expression.getLeftExpression().accept(this, context) !=
-                expression.getRightExpression().accept(this, context))
+            !expression.getLeftExpression().accept(this, context).equals(
+                expression.getRightExpression().accept(this, context)))
             context.getErrors().add(String.format("The left and right side of the '%s' operator need to be of the same type.", operator));
     }
 	
 	private void checkExpressionIsBool(UnaryExpr expression, Context context, String operator) {
-		if(expression.getExpression().accept(this, context) != BOOL_TYPE)
+		if(!expression.getExpression().accept(this, context).equals(BOOL_TYPE))
             context.getErrors().add(String.format("The expression of the '%s' operator has to be of type boolean.", operator));
 	}
 	
 	private void checkExpressionIsInt(UnaryExpr expression, Context context, String operator) {
-		if(expression.getExpression().accept(this, context) != INT_TYPE)
+		if(!expression.getExpression().accept(this, context).equals(INT_TYPE))
             context.getErrors().add(String.format("The expression of the '%s' operator has to be of type boolean.", operator));
 	}
 }
