@@ -17,7 +17,7 @@ public class TestPrintVisitor extends VisitorTest {
 	}
 
 	/**
-	 * Tests the print visitor.
+	 * Performs AST pretty printer on the example program string as defined in abstract parent class.
 	 *
 	 * @throws ParseError
 	 */

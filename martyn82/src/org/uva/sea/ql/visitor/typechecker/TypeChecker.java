@@ -173,17 +173,12 @@ public class TypeChecker implements INodeVisitor {
 
 	@Override
 	public Value visit( Ident node, Context context ) {
-		Value ident = null;
-
-		try {
-			ident = context.find( node );
-		}
-		catch ( RuntimeException e ) {
-			context.addError( e.getMessage() );
+		if ( !context.isDeclared( node ) ) {
+			context.addError( "Undefined variable: " + node.getName() );
 			return null;
 		}
 
-		return ident;
+		return context.find( node );
 	}
 
 	@Override
@@ -231,7 +226,10 @@ public class TypeChecker implements INodeVisitor {
 		if ( context.isDeclared( node.getIdent() ) ) {
 			Value ident = node.getIdent().accept( this, context );
 
-			if ( ident.getClass() != value.getClass() ) {
+			if ( value == null ) {
+				return null;
+			}
+			else if ( ident.getClass() != value.getClass() ) {
 				context.addError(
 					String.format(
 						"Type mismatch: cannot convert from %s to %s.",

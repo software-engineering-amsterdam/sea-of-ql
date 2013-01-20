@@ -24,9 +24,11 @@ import org.uva.sea.ql.ast.expression.literal.Bool;
 import org.uva.sea.ql.ast.expression.literal.Int;
 import org.uva.sea.ql.ast.expression.literal.Money;
 import org.uva.sea.ql.ast.expression.literal.Str;
+import org.uva.sea.ql.ast.statement.Assignment;
 import org.uva.sea.ql.ast.statement.FormDeclaration;
 import org.uva.sea.ql.ast.statement.IfThenElse;
 import org.uva.sea.ql.ast.statement.QuestionDeclaration;
+import org.uva.sea.ql.ast.statement.VarDeclaration;
 import org.uva.sea.ql.parser.IParser;
 import org.uva.sea.ql.parser.ParseError;
 import org.uva.sea.ql.parser.jacc.JACCParser;
@@ -371,8 +373,27 @@ public class TestParser {
 	 */
 	@Test
 	public void testQuestionDeclarations() throws ParseError {
-		assertEquals( QuestionDeclaration.class, parser.parse(
-			"\"What?\" answer: boolean"
-		).getClass() );
+		assertEquals( QuestionDeclaration.class, parser.parse( "\"What?\" answer: boolean" ).getClass() );
+		assertEquals( QuestionDeclaration.class, parser.parse( "\"What?\" answer = (a && !b)" ).getClass() );
+	}
+
+	/**
+	 * Tests statements.
+	 *
+	 * @throws ParseError
+	 */
+	@Test
+	public void testStatements() throws ParseError {
+		// variable declarations
+		assertEquals( VarDeclaration.class, parser.parse( "var : boolean" ).getClass() );
+		assertEquals( VarDeclaration.class, parser.parse( "var2: integer" ).getClass() );
+		assertEquals( VarDeclaration.class, parser.parse( "var3: money" ).getClass() );
+		assertEquals( VarDeclaration.class, parser.parse( "var : string" ).getClass() );
+
+		// variable assignments
+		assertEquals( Assignment.class, parser.parse( "var = true" ).getClass() );
+		assertEquals( Assignment.class, parser.parse( "var = 1 + 45" ).getClass() );
+		assertEquals( Assignment.class, parser.parse( "var = 10 ^ 2 * 45 + .5e+3" ).getClass() );
 	}
 }
+
