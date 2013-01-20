@@ -6,11 +6,11 @@ import org.uva.sea.ql.parser.visitor.ASTNodeVisitor;
 
 import java.util.List;
 
-public abstract class BinaryOperation extends QLExpression {
-	
+public abstract class BinaryOperation implements QLExpression {
+
 	private final ASTNode leftHandSide;
 	private final ASTNode rightHandSide;
-	
+
 	public BinaryOperation(ASTNode leftHandSide, ASTNode rightHandSide) {
 		this.leftHandSide = leftHandSide;
 		this.rightHandSide = rightHandSide;

@@ -3,7 +3,7 @@ package org.uva.sea.ql.ast.nodetypes.primary;
 import org.uva.sea.ql.ast.QLExpression;
 import org.uva.sea.ql.parser.visitor.ASTNodeVisitor;
 
-public final class Ident extends QLExpression {
+public final class Ident implements QLExpression {
 
 	private final String name;
 

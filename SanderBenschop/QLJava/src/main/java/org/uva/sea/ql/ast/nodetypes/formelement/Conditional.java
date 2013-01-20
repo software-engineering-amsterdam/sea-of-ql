@@ -7,7 +7,7 @@ import org.uva.sea.ql.parser.visitor.ASTNodeVisitor;
 import java.util.Collections;
 import java.util.List;
 
-public class Conditional extends QLStatement {
+public class Conditional implements QLStatement {
 
 	private final ASTNode condition;
 	private final List<QLStatement> successBlock;
