@@ -1,6 +1,7 @@
 package org.uva.sea.ql.ast.statement;
 
 import org.uva.sea.ql.ast.expr.AbstractExpr;
+import org.uva.sea.ql.visitor.StatementVisitor;
 
 public class ComputedQuestion extends AbstractStatement {
 
@@ -18,6 +19,11 @@ public class ComputedQuestion extends AbstractStatement {
 
 	public AbstractExpr getComputeExpression() {
 		return this.computeExpression;
+	}
+
+	@Override
+	public void accept(StatementVisitor visitor) {
+		visitor.visit(this);
 	}
 
 }
