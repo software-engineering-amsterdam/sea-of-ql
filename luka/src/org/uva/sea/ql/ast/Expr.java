@@ -1,6 +1,8 @@
 package org.uva.sea.ql.ast;
 
-public abstract class Expr implements ASTNode {
+import org.antlr.runtime.tree.CommonTreeAdaptor;
+
+public abstract class Expr extends CommonTreeAdaptor implements ASTNode {
 
 	//public abstract void printExprType();
 }

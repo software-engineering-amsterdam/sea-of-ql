@@ -3,9 +3,10 @@ grammar QL;
 options {
 backtrack=true; 
 memoize=true;  
-//output = AST;
-//ASTLabelType = CommonTree;
-} //
+tokenVocab=QL;
+ASTLabelType=CommonTree;
+output=AST;
+} 
 
 
 @parser::header
@@ -33,7 +34,7 @@ import org.uva.sea.ql.ast.*;
 	// expression (ein wort, nur frage
 	//Type (boolean)
 parse returns [QuestionnaireForm root]
-	: questionnaireExpr {$root = $questionnaireExpr.root;} EOF ;
+	: questionnaireExpr {$root = $questionnaireExpr.root;} EOF! ;
 	
 questionnaireExpr returns [QuestionnaireForm root]
 	:	FormStart qStartExp {$root = $qStartExp.root;} ;
@@ -41,7 +42,7 @@ questionnaireExpr returns [QuestionnaireForm root]
 //Start of questionnaire
 qStartExp returns [QuestionnaireForm root]
 
-	: FormId Lbr qStartQExpr { $root = new QuestionnaireForm($FormId.text, new QuestionnaireContent($qStartQExpr.result));} Rbr;
+	: FormId Lbr! qStartQExpr { $root = new QuestionnaireForm($FormId.text, new QuestionnaireContent($qStartQExpr.result));} Rbr!;
 
 //Start of sum of questions	
 qStartQExpr returns [List<QuestionnaireItemInterface> result]
@@ -58,11 +59,11 @@ ifStatementExpr returns [IfBlock result]
 @init{
 	List<QuestionnaireItemInterface> blockContent = new ArrayList<QuestionnaireItemInterface>();
 }
-	:	 IF '(' qId=qIdentifier ')' Lbr ( qDecl =qDeclaration {blockContent.add($qDecl.result);} | ifStatem = ifStatementExpr {blockContent.add($ifStatem.result);})+ {$result = new IfBlock($qId.text,blockContent);} Rbr ;
+	:	 IF! '('! qId=qIdentifier ')'! Lbr! ( qDecl =qDeclaration {blockContent.add($qDecl.result);} | ifStatem = ifStatementExpr {blockContent.add($ifStatem.result);})+ {$result = new IfBlock($qId.text,blockContent);} Rbr! ;
 	
 // ANPASSEN !
 qValueCalcExpr returns [Expr result]
-	:  '(' orExpr ')' {$result = new ValueExpr($orExpr.result);}; // qType //('-'| '+' | '*') Ident mulExpr Ident
+	:  '('! orExpr ')'! {$result = new ValueExpr($orExpr.result);}; // qType //('-'| '+' | '*') Ident mulExpr Ident
 	
 //Question ID / alos in IF STATEMENT, rename ?
 qIdentifier : QuestionId ; //QuestionId;
@@ -76,78 +77,78 @@ qType	returns [QuestionType result]
 primary returns [Expr result]
   : Int   { $result = new Int(Integer.parseInt($Int.text)); }
   | Ident { $result = new Ident($Ident.text); }
-//  | Question {$result = new Question($Question.text);}
+  //| Question {$result = new Question($Question.text);}
   | Boolean {$result = new Bool($Boolean.text);}
   | QuestionId {$result = null;}
-  //| Money { $result = new Int(Integer.parseInt($Money.text));}
-  //| IF {$result = new Condition($IF.)};
+  | Money { $result = new Int(Integer.parseInt($Money.text));}
+  //| IF {$result = new Condition($IF.)}
   | '(' x=orExpr ')'{ $result = $x.result; }
   ;
   
   //Unary 
 unExpr returns [Expr result]
-    :  '+' x=unExpr { $result = new Pos($x.result); }
-    |  '-' x=unExpr { $result = new Neg($x.result); }
-    |  '!' x=unExpr { $result = new Not($x.result); }
+    :  '+'^ x=unExpr { $result = new Pos($x.result); }
+    |  '-'^ x=unExpr { $result = new Neg($x.result); }
+    |  '!'^ x=unExpr { $result = new Not($x.result); }
     |  x=primary    { $result = $x.result; }
     ;    
     
 mulExpr returns [Expr result]
-    :   lhs=unExpr { $result=$lhs.result; } ( op=( '*' | '/' ) rhs=unExpr 
+    :   lhs=unExpr { $result=$lhs.result; } ( op=( '*'^ | '/' ) rhs=unExpr 
     { 
       if ($op.text.equals("*")) {
-        $result = new Mul($result, rhs);
+        $result = new Mul($result, $rhs.result);
       }
       if ($op.text.equals("<=")) {
-        $result = new Div($result, rhs);      
+        $result = new Div($result, $rhs.result);      
       }
     })*
     ;
     
   
 addExpr returns [Expr result]
-    :   lhs=mulExpr { $result=$lhs.result; } ( op=('+' | '-') rhs=mulExpr
+    :   lhs=mulExpr { $result=$lhs.result; } ( op=('+'^ | '-'^) rhs=mulExpr
     { 
       if ($op.text.equals("+")) {
-        $result = new Add($result, rhs);
+        $result = new Add($result, $rhs.result);
       }
       if ($op.text.equals("-")) {
-        $result = new Sub($result, rhs);      
+        $result = new Sub($result, $rhs.result);      
       }
     })*
     ;
   
 relExpr returns [Expr result]
-    :   lhs=addExpr { $result=$lhs.result; } ( op=('<'|'<='|'>'|'>='|'=='|'!=') rhs=addExpr 
+    :   lhs=addExpr { $result=$lhs.result; } ( op=('<'^|'<='^|'>'^|'>='^ |'=='^ |'!='^) rhs=addExpr 
     { 
       if ($op.text.equals("<")) {
-        $result = new LT($result, rhs);
+        $result = new LT($result, $rhs.result);
       }
       if ($op.text.equals("<=")) {
-        $result = new LEq($result, rhs);      
+        $result = new LEq($result, $rhs.result);      
       }
       if ($op.text.equals(">")) {
-        $result = new GT($result, rhs);
+        $result = new GT($result, $rhs.result);
       }
       if ($op.text.equals(">=")) {
-        $result = new GEq($result, rhs);      
+        $result = new GEq($result, $rhs.result);      
       }
       if ($op.text.equals("==")) {
-        $result = new Eq($result, rhs);
+        $result = new Eq($result, $rhs.result);
       }
       if ($op.text.equals("!=")) {
-        $result = new NEq($result, rhs);
+        $result = new NEq($result, $rhs.result);
       }
     })*
     ;
     
 andExpr returns [Expr result]
-    :   lhs=relExpr { $result=$lhs.result; } ( '&&' rhs=relExpr { $result = new And($result, rhs); } )*
+    :   lhs=relExpr { $result=$lhs.result; } ( '&&'^ rhs=relExpr { $result = new And($result, $rhs.result); } )*
     ;
     
 
 orExpr returns [Expr result]
-    :   lhs=andExpr { $result = $lhs.result; } ( '||' rhs=andExpr { $result = new Or($result, rhs); } )*
+    :   lhs=andExpr { $result = $lhs.result; } ( '||'^ rhs=andExpr { $result = new Or($result, $rhs.result); } )*
     ;
 
 
