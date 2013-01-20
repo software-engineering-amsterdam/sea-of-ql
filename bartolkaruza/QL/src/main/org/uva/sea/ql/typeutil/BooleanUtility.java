@@ -1,15 +1,8 @@
 package org.uva.sea.ql.typeutil;
 
-import org.uva.sea.ql.ast.expr.And;
-import org.uva.sea.ql.ast.expr.Eq;
-import org.uva.sea.ql.ast.expr.GEq;
-import org.uva.sea.ql.ast.expr.GT;
 import org.uva.sea.ql.ast.expr.Ident;
-import org.uva.sea.ql.ast.expr.LEq;
-import org.uva.sea.ql.ast.expr.LT;
-import org.uva.sea.ql.ast.expr.NEq;
-import org.uva.sea.ql.ast.expr.Not;
-import org.uva.sea.ql.ast.expr.Or;
+import org.uva.sea.ql.ast.expr.grouping.BooleanExpr;
+import org.uva.sea.ql.ast.expr.grouping.EqualityExpr;
 import org.uva.sea.ql.ast.expr.grouping.Expr;
 import org.uva.sea.ql.ast.expr.value.Bool;
 import org.uva.sea.ql.symbol.SymbolTable;
@@ -21,12 +14,11 @@ public class BooleanUtility {
 	}
 
 	public static boolean isNodeBoolean(Expr node) {
-		return isBool(node) || isBooleanExpression(node.getLhs()) || (node instanceof Ident && isVariableBoolean((Ident) node));
+		return isBool(node) || isBooleanExpression(node) || (node instanceof Ident && isVariableBoolean((Ident) node));
 	}
 
 	public static boolean isBooleanExpression(Expr expression) {
-		return expression instanceof And || expression instanceof Eq || expression instanceof GEq || expression instanceof GT || expression instanceof LEq
-				|| expression instanceof LT || expression instanceof NEq || expression instanceof Not || expression instanceof Or;
+		return expression instanceof BooleanExpr || expression instanceof EqualityExpr;
 	}
 
 	public static boolean isBool(Expr expr) {
