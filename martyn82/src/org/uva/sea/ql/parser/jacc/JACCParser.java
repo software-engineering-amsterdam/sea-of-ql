@@ -15,10 +15,10 @@ public class JACCParser implements IParser {
 	public INode parse( String src ) throws ParseError {
 		QLLexer lexer = new QLLexer( new StringReader( src ) );
 		QLParser parser = new QLParser( lexer );
-		
+
 		try {
 			lexer.nextToken();
-			
+
 			if ( !parser.parse() ) {
 				this.onSyntaxError(
 					lexer.getToken(),
@@ -34,17 +34,17 @@ public class JACCParser implements IParser {
 				lexer.getColumn()
 			);
 		}
-		
+
 		return parser.getResult();
 	}
-	
+
 	/**
 	 * Converts syntax error to parse error.
-	 * 
+	 *
 	 * @param token
 	 * @param lineNumber
 	 * @param columnNumber
-	 * 
+	 *
 	 * @throws ParseError
 	 */
 	private void onSyntaxError( int token, int lineNumber, int columnNumber ) throws ParseError {
