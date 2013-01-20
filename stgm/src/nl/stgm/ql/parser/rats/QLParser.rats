@@ -25,14 +25,19 @@ Form Form =
 FormItem FormItem =
 	Question / Conditional;
 
-FormItem Question =
+Question Question =
+	CalcQuestion /
 	id:Ident ':' Spacing question:StringLit Spacing type:Ident Spacing
 	{ yyValue = new Question(id, question, type); };
 
-FormItem Conditional =
-	"if" Spacing Condition Spacing '{' Question* '}' Spacing
-	{ yyValue = new Conditional(); };
+CalcQuestion CalcQuestion =
+	id:Ident ':' Spacing question:StringLit Spacing type:Ident Spacing '(' Spacing calculation:Expr ')' Spacing
+	{ yyValue = new CalcQuestion(id, question, type, calculation); };
 
-Expr Condition =
-	'(' Spacing Expr ')' Spacing
-	{ yyValue = new Condition(); };
+//
+// nesting of conditionals is forbidden, so only Question* in here
+// this could be allowed, but a nesting limit should probably be agreed on
+//
+Conditional Conditional =
+	"if" Spacing '(' Spacing condition:Expr ')' Spacing '{' Spacing questions:Question* '}' Spacing
+	{ yyValue = new Conditional(condition, questions.list()); };
