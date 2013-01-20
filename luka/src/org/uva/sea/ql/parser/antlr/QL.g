@@ -1,8 +1,8 @@
 grammar QL;
 
 options {
-backtrack=true; 
-memoize=true;  
+//backtrack=true; 
+//memoize=true;  
 ASTLabelType=CommonTree;
 output=AST;
 } 
@@ -14,6 +14,7 @@ QUESTION_VAR;
 QUESTION_LABEL;
 IF_BLOCK;
 IF_CONDITION;
+IF_CONDITION_TRUE;
 VAR_TYPE;
 VAR_NAME;
 VALUE_CALC;
@@ -58,25 +59,25 @@ qStartQExpr
 
 //question with child elements
 qDeclaration 
-	: qVariable  ':' qLabel questionTypeDefExpr ->^(QUESTION_BLOCK ^(QUESTION_VAR ^(VAR_NAME qVariable) questionTypeDefExpr)  ^(QUESTION_LABEL qLabel));
+	: QuestionVariable  ':' qLabel qType ->^(QUESTION_BLOCK ^(QUESTION_VAR ^(VAR_NAME QuestionVariable) ^(VAR_TYPE qType))  ^(QUESTION_LABEL qLabel)) 
+	| QuestionVariable  ':' qLabel qType '(' orExpr ')'  ->^(QUESTION_BLOCK ^(QUESTION_VAR ^(VAR_NAME QuestionVariable) ^(VAR_TYPE qType) ^(VALUE_CALC orExpr))  ^(QUESTION_LABEL qLabel)) ;
 
 //Type definition of question OR calculated value for type
-questionTypeDefExpr
-	:	(qType -> ^(VAR_TYPE qType) | qType qValueCalcExpr -> ^(VAR_TYPE qType ^(VALUE_CALC qValueCalcExpr)) );
+//questionTypeDefExpr
+//	:	  |  -> ^(VAR_TYPE qType ^(VALUE_CALC qValueCalcExpr)) );
 	
 // if(x<y) / verschachtelt TODO
 ifStatementExpr 
-	:	 IF '(' qVariable ')' Lbr ifBlockContentExpr Rbr ->^(IF_BLOCK ^(IF_CONDITION ^(qVariable ifBlockContentExpr)));
+	:	 IF  '(' orExpr ')'   Lbr ifBlockContentExpr Rbr ->^(IF_BLOCK ^(IF_CONDITION orExpr) ^(IF_CONDITION_TRUE ifBlockContentExpr));
 
+//ifConditionExpr
+//	:  '(' QuestionId ')' -> QuestionId
+//	| '(' orExpr ')' -> orExpr;
+	
 ifBlockContentExpr
 	:	( qDeclaration  | ifStatementExpr )+;
 	
-// ANPASSEN !
-qValueCalcExpr 
-	:  '(' orExpr ')'  -> orExpr; //'(' ')'
 	
-//Question ID / alos in IF STATEMENT, rename ?
-qVariable : QuestionId ; //QuestionId;
 //User Question
 qLabel	: Question;
 //Question type
@@ -89,7 +90,7 @@ primary returns [Expr result]
   | Ident { $result = new Ident($Ident.text); }
   //| Question {$result = new Question($Question.text);}
   | Boolean {$result = new Bool($Boolean.text);}
-  | QuestionId //{$result = $QuestionId.result;}
+ /| QuestionVariable { $result = new Ident($QuestionVariable.text); }//{$result = $QuestionId.result;}
   | Money { $result = new Int(Integer.parseInt($Money.text));}
   //| IF {$result = new Condition($IF.)}
   |  '('!  x=orExpr ')'! { $result = $x.result; } // 
@@ -180,7 +181,7 @@ Money	: 'money' { System.out.println("Lex Money: "+getText()); };
 IF	: 'if' { System.out.println("Lex IF: "+getText()); };
 
 FormId 	: 'A'..'Z' ('a'..'z'|'A'..'Z'|'0'..'9')+  { System.out.println("Lex FormId: "+getText()); };
-QuestionId : 'a'..'z'('a'..'z'|'A'..'Z'|'0'..'9')+  { System.out.println("Lex QuesionID: "+getText()); };
+QuestionVariable : 'a'..'z'('a'..'z'|'A'..'Z'|'0'..'9')+  { System.out.println("Lex QuesionID: "+getText()); };
 Question: '"' .*  '"' { System.out.println("Lex Question: "+getText()); };
 
 
