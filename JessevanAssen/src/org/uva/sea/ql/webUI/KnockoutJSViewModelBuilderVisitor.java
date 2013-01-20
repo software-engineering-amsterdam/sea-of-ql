@@ -5,12 +5,14 @@ import org.uva.sea.ql.ast.expr.*;
 import org.uva.sea.ql.ast.expr.value.Bool;
 import org.uva.sea.ql.ast.expr.value.Int;
 import org.uva.sea.ql.ast.expr.value.Str;
+import org.uva.sea.ql.ast.type.TypeVisitor;
+import org.uva.sea.ql.ast.type.Unknown;
 
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-public class KnockoutJSViewModelBuilderVisitor implements ASTNodeVisitor<Void, KnockoutJSViewModelBuilderVisitor.Context> {
+public class KnockoutJSViewModelBuilderVisitor implements ASTNodeVisitor<Void, KnockoutJSViewModelBuilderVisitor.Context>, TypeVisitor<String, Void> {
 
     public static class Context {
         private final List<String> identities;
@@ -206,6 +208,7 @@ public class KnockoutJSViewModelBuilderVisitor implements ASTNodeVisitor<Void, K
                 .append("\",\"")
                 .append(astNode.getDeclaration().getIdentity().getName())
                 .append("\",")
+                .append(astNode.getDeclaration().getType().accept(this, null))
                 .append(")");
         return null;
     }
@@ -234,5 +237,26 @@ public class KnockoutJSViewModelBuilderVisitor implements ASTNodeVisitor<Void, K
         param.getObjectHierarchy().append(operator);
         binaryExpression.getRightExpression().accept(this, param);
         param.getObjectHierarchy().append(")");
+    }
+
+
+    @Override
+    public String visit(org.uva.sea.ql.ast.type.Bool type, Void param) {
+        return "DataType.BOOLEAN";
+    }
+
+    @Override
+    public String visit(org.uva.sea.ql.ast.type.Int type, Void param) {
+        return "DataType.INTEGER";
+    }
+
+    @Override
+    public String visit(org.uva.sea.ql.ast.type.Str type, Void param) {
+        return "DataType.STRING";
+    }
+
+    @Override
+    public String visit(Unknown type, Void param) {
+        throw new RuntimeException("Visit called on unknown type, no type should be unknown at this point!");
     }
 }
