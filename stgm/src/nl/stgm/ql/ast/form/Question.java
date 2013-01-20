@@ -2,9 +2,9 @@ package nl.stgm.ql.ast.form;
 
 public class Question extends FormItem
 {
-	private String id;
-	private String question;
-	private String type;
+	protected String id;
+	protected String question;
+	protected String type;
 	
 	public Question(String id, String question, String type)
 	{
