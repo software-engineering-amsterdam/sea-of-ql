@@ -1,6 +1,6 @@
 package org.uva.sea.ql.ast.expr.value;
 
-import org.uva.sea.ql.ASTNodeVisitor;
+import org.uva.sea.ql.ast.ASTNodeVisitor;
 
 public class Str implements Value {
 
