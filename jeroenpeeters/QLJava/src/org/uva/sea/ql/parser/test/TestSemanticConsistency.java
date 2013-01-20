@@ -20,13 +20,13 @@ import org.uva.sea.ql.parser.SemanticVisitor;
 import org.uva.sea.ql.parser.jacc.JaccQLParser;
 
 @RunWith(Parameterized.class)
-public class TestSemanticProblemForms {
+public class TestSemanticConsistency {
 
 	private IParse parser;
 	
 	private final String sourceFile;
 
-	public TestSemanticProblemForms(String sourceFile) {
+	public TestSemanticConsistency(String sourceFile) {
 		this.sourceFile = sourceFile;
 	}
 

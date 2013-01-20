@@ -20,6 +20,7 @@ public class QLLexer implements QLTokens {
 		// Structural keywords
 		KEYWORDS.put("form", FORM);
 		KEYWORDS.put("if", IF);
+		KEYWORDS.put("if", IF);
 		
 		// DataType keywords
 		KEYWORDS.put("boolean", DT_BOOLEAN);
@@ -125,6 +126,7 @@ public class QLLexer implements QLTokens {
 			    case '&': {
 			    	nextChar(); 
 			    	if  (c == '&') {
+			    		nextChar(); 
 			    		return token = AND;
 			    	}
 			    	this.throwLexicalException("Unexpected character: " + (char)c);
@@ -132,6 +134,7 @@ public class QLLexer implements QLTokens {
 			    case '|': {
 			    	nextChar(); 
 			    	if  (c == '|') {
+			    		nextChar(); 
 			    		return token = OR;
 			    	}
 			    	this.throwLexicalException("Unexpected character: " + (char)c);
@@ -148,6 +151,7 @@ public class QLLexer implements QLTokens {
 			    case '=': { 
 			    	nextChar(); 
 			    	if  (c == '=') {
+			    		nextChar(); 
 			    		return token = EQ;
 			    	}
 			    	this.throwLexicalException("Unexpected character: " + (char)c);
