@@ -6,6 +6,8 @@
     <link href="style.css" rel="stylesheet" type="text/css">
     <script type="text/javascript" src="jquery-1.9.0.min.js"></script>
     <script type="text/javascript" src="knockout-2.2.1.js"></script>
+    <script type="text/javascript" src="ko.bindingHandlers/booleanValue.js"></script>
+    <script type="text/javascript" src="ko.bindingHandlers/integerValue.js"></script>
     <script type="text/javascript">
         var DataType = {
             BOOLEAN : 0,
@@ -123,8 +125,8 @@
     </script>
 
     <script type="text/html" id="boolean-input-template">
-        <label><input type="radio" value="true" data-bind="name: name, checked: value" /> Yes</label>
-        <label><input type="radio" value="false" data-bind="name: name, checked: value" /> No</label>
+        <label><input type="radio" value="true" data-bind="name: name, booleanValue: value" /> Yes</label>
+        <label><input type="radio" value="false" data-bind="name: name, booleanValue: value" /> No</label>
     </script>
 
     <script type="text/html" id="text-input-template">
