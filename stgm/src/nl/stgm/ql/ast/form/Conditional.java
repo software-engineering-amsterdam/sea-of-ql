@@ -1,7 +1,7 @@
 package nl.stgm.ql.ast.form;
 
 import java.util.List;
-import nl.stgm.ql.ast.Expr;
+import nl.stgm.ql.ast.expr.*;
 import nl.stgm.ql.inspector.CodeInspector;
 
 public class Conditional extends FormItem
@@ -35,10 +35,5 @@ public class Conditional extends FormItem
 		}
 		
 		inspector.visit(this);
-	}
-
-	public String toString()
-	{
-		return("Conditional");
 	}
 }
