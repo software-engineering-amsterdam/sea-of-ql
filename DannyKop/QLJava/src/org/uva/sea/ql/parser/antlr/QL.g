@@ -1,10 +1,17 @@
 grammar QL;
-options {backtrack=true; memoize=true;}
+options { 	
+	backtrack=true; 
+	memoize=true; 
+	language=Java;  
+}
 
 @parser::header
 {
 package org.uva.sea.ql.parser.antlr;
 import org.uva.sea.ql.ast.*;
+import org.uva.sea.ql.ast.expressions.binary.*;
+import org.uva.sea.ql.ast.expressions.unary.*;
+import org.uva.sea.ql.ast.types.*;
 }
 
 @lexer::header
@@ -85,12 +92,18 @@ orExpr returns [Expr result]
 
     
 // Tokens
-WS  :	(' ' | '\t' | '\n' | '\r') { $channel=HIDDEN; }
-    ;
+NEWLINE: ('\n' | '\r');
 
-COMMENT 
-     : '/*' .* '*/' {$channel=HIDDEN;}
-    ;
+WS:	(' ' | '\t' | NEWLINE) { $channel=HIDDEN; };
+
+COMMENT: '/*' .* '*/' {$channel=HIDDEN;} 
+       | '//' ~(NEWLINE)* '\r'? '\n' {$channel=HIDDEN;} ;
+
+SpecialChars: ('!' | '?' | ',' | '.' | '(' | ')' | '{' | '}' | '<' | '>' | '~' | '=' | '+' | '-' | '[' | ']' | '|');
+
+Bool: ('true' | 'false');
+
+String: '"' (Ident | WS | Int | SpecialChars)* '"';
 
 Ident:   ('a'..'z'|'A'..'Z')('a'..'z'|'A'..'Z'|'0'..'9'|'_')*;
 

@@ -1,17 +1,15 @@
 package org.uva.sea.ql.ast;
 
-import org.uva.sea.ql.ast.expr.Expr;
-import org.uva.sea.ql.ast.expr.Ident;
+import org.uva.sea.ql.ast.expr.value.Ident;
 import org.uva.sea.ql.ast.expr.value.StringLiteral;
 import org.uva.sea.ql.ast.types.Type;
 import org.uva.sea.ql.visitor.Visitor;
 
-public class Question extends FormElement {
+public class Question implements FormElement {
 
 	private final Ident qID;
 	private final StringLiteral qlabel;
 	private final Type qtype;
-	private Expr qexpr;
 
 	public Question(Ident qID, StringLiteral qlabel, Type qtype) {
 		this.qID = qID;
@@ -19,28 +17,18 @@ public class Question extends FormElement {
 		this.qtype = qtype;
 	}
 
-	public Question(Ident qID, StringLiteral qlabel, Type qtype, Expr qexpr) {
-		this.qID = qID;
-		this.qlabel = qlabel;
-		this.qtype = qtype;
-		this.qexpr = qexpr;
-	}
-
-	public Ident getqID() {
+	public Ident getQuestionID() {
 		return qID;
 	}
 
-	public StringLiteral getqlabel() {
+	public StringLiteral getQuestionLabel() {
 		return qlabel;
 	}
 
-	public Type getqType() {
+	public Type getQuestionType() {
 		return qtype;
 	}
 
-	public Expr getqexpr() {
-		return qexpr;
-	}
 
 	@Override
 	public void accept(Visitor visitor) {

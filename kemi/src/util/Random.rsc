@@ -60,7 +60,7 @@ public str randomSentence() =
   randomSentence(randomInt(15), randomInt(8));
 
 public str randomSentence(int numberOfWords, int wordLength) = 
-  intercalate(" ", [ randomWord(wordLength) | x <- [1..numberOfWords] ]);
+  intercalate(" ", [randomWord(wordLength) | x <- [1 .. numberOfWords]]);
 
 public str randomDateString(int lowerYear, int upperYear) {
   int year = randomInt(lowerYear, upperYear);

@@ -2,13 +2,11 @@ module lang::ql::util::FormGenerator
 
 import lang::ql::util::Random;
 
-public str randomForm(int numberOfStatements, int maxDepth) {
-  return
-    "form <randomWord()> { <for (_ <- [1..numberOfStatements]) {>
-    '  <randomStatement(maxDepth - 1)><}>
-    '}
-    '";
-}
+public str randomForm(int numberOfStatements, int maxDepth) =
+  "form <randomWord()> { <for (_ <- [1..numberOfStatements]) {>
+  '  <randomStatement(maxDepth - 1)><}>
+  '}
+  '";
 
 public str randomStatement(int maxDepth) {
   int choice;
@@ -31,8 +29,7 @@ public str randomQuestion() =
 public str randomCalculatedQuestion() = 
   randomQuestion() + " = <randomWord(10)> <randomOperator()> <randomWord(10)>";
   
-public str randomConditional(int maxDepth) {
-  return 
+public str randomConditional(int maxDepth) =
   "if (<randomExpression()>) { <for (_ <- [0..randomInt(1, 5)]) {>
   '  <randomStatement(maxDepth)><}>
   
@@ -44,8 +41,6 @@ public str randomConditional(int maxDepth) {
   '  <randomStatement(maxDepth)><}>
   '}
   '";
-}
 
-public str randomExpression() {
-  return "<randomWord(5)> <randomOperator()> <randomWord(5)>";
-}
+public str randomExpression() =
+  "<randomWord(5)> <randomOperator()> <randomWord(5)>";

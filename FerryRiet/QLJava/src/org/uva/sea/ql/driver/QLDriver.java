@@ -34,7 +34,7 @@ public class QLDriver extends JFrame {
 	 */
 	public QLDriver() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 505, 349);
+		setBounds(100, 100, 505, 718);
 
 		JMenuBar menuBar = new JMenuBar();
 		setJMenuBar(menuBar);

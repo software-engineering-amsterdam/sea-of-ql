@@ -25,10 +25,9 @@ public class TestExpressions {
 
 	@Parameters
 	public static List<Object[]> theParsers() {
-		List<Object[]> parserList = new ArrayList<Object[]>();
-		parserList.add(new Object[] {new ANTLRParser()});
-		
-		return parserList;
+		List<Object[]> parser = new ArrayList<Object[]>();
+		parser.add(new Object[] {new ANTLRParser()});
+		return parser;
 	}
 
 	

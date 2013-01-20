@@ -1,11 +1,18 @@
 package org.uva.sea.ql.ast;
 
 import org.uva.sea.ql.ast.Expr;
+import org.uva.sea.ql.visitor.ASTNodeVisitor;
 
-public class LT extends Expr {
+public class LT extends Binary {
 
 	public LT(Expr result, Expr rhs) {
-		// TODO Auto-generated constructor stub
+		super(result,rhs) ;
+	}
+
+	@Override
+	public void accept(ASTNodeVisitor nodeVisitor) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

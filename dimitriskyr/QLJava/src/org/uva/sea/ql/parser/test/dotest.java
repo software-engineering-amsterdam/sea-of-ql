@@ -9,7 +9,7 @@ import org.uva.sea.ql.parser.antlr.QLParser;
 public class dotest{
 	
 public static void main(String[] args) throws ParseError{
-	ANTLRStringStream stream = new ANTLRStringStream("src > 432");
+	ANTLRStringStream stream = new ANTLRStringStream("(54 + 67)");
 	CommonTokenStream tokens = new CommonTokenStream();
 	tokens.setTokenSource(new QLLexer(stream));
 	QLParser parser = new QLParser(tokens);
