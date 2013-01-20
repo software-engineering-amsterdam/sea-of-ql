@@ -1,14 +1,13 @@
 package org.uva.sea.ql.parser.stringparsing.primary;
 
-import static junit.framework.Assert.assertFalse;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-
-import org.junit.Assert;
 import org.junit.Test;
 import org.uva.sea.ql.ast.nodetypes.primary.Ident;
 import org.uva.sea.ql.parser.TestParser;
 import org.uva.sea.ql.parser.exception.ParseError;
+
+import static junit.framework.Assert.assertFalse;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 public class TestIdents extends TestParser {
 

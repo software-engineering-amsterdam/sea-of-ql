@@ -1,14 +1,9 @@
 package org.uva.sea.ql.parser.visitor.typechecking;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
 import org.uva.sea.ql.ast.ASTNode;
 import org.uva.sea.ql.ast.nodetypes.binary.BinaryOperation;
 import org.uva.sea.ql.ast.nodetypes.formelement.Computation;
 import org.uva.sea.ql.ast.nodetypes.formelement.Conditional;
-import org.uva.sea.ql.ast.nodetypes.formelement.Form;
 import org.uva.sea.ql.ast.nodetypes.formelement.Question;
 import org.uva.sea.ql.ast.nodetypes.primary.Bool;
 import org.uva.sea.ql.ast.nodetypes.primary.Datatype;
@@ -18,6 +13,10 @@ import org.uva.sea.ql.ast.nodetypes.unary.UnaryOperation;
 import org.uva.sea.ql.parser.visitor.ASTNodeVisitor;
 import org.uva.sea.ql.parser.visitor.QLError;
 import org.uva.sea.ql.parser.visitor.QLValidator;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * Visitor that's responsible for checking if the variables that are used in the QL program are of the proper types.

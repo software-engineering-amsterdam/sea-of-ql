@@ -4,9 +4,6 @@ package org.uva.sea.ql.parser.antlr;
 
 
 import org.antlr.runtime.*;
-import java.util.Stack;
-import java.util.List;
-import java.util.ArrayList;
 
 @SuppressWarnings("all")
 public class QLLexer extends Lexer {
@@ -49,7 +46,7 @@ public class QLLexer extends Lexer {
 		return new Lexer[] {};
 	}
 
-	public QLLexer() {} 
+	public QLLexer() {}
 	public QLLexer(CharStream input) {
 		this(input, new RecognizerSharedState());
 	}
@@ -66,7 +63,7 @@ public class QLLexer extends Lexer {
 			// /home/sander/Documents/workspace/freshSeaOfQL/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:6:7: ( '!' )
 			// /home/sander/Documents/workspace/freshSeaOfQL/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:6:9: '!'
 			{
-			match('!'); 
+			match('!');
 			}
 
 			state.type = _type;
@@ -86,7 +83,7 @@ public class QLLexer extends Lexer {
 			// /home/sander/Documents/workspace/freshSeaOfQL/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:7:7: ( '!=' )
 			// /home/sander/Documents/workspace/freshSeaOfQL/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:7:9: '!='
 			{
-			match("!="); 
+			match("!=");
 
 			}
 
@@ -107,7 +104,7 @@ public class QLLexer extends Lexer {
 			// /home/sander/Documents/workspace/freshSeaOfQL/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:8:7: ( '&&' )
 			// /home/sander/Documents/workspace/freshSeaOfQL/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:8:9: '&&'
 			{
-			match("&&"); 
+			match("&&");
 
 			}
 
@@ -128,7 +125,7 @@ public class QLLexer extends Lexer {
 			// /home/sander/Documents/workspace/freshSeaOfQL/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:9:7: ( '*' )
 			// /home/sander/Documents/workspace/freshSeaOfQL/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:9:9: '*'
 			{
-			match('*'); 
+			match('*');
 			}
 
 			state.type = _type;
@@ -148,7 +145,7 @@ public class QLLexer extends Lexer {
 			// /home/sander/Documents/workspace/freshSeaOfQL/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:10:7: ( '+' )
 			// /home/sander/Documents/workspace/freshSeaOfQL/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:10:9: '+'
 			{
-			match('+'); 
+			match('+');
 			}
 
 			state.type = _type;
@@ -168,7 +165,7 @@ public class QLLexer extends Lexer {
 			// /home/sander/Documents/workspace/freshSeaOfQL/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:11:7: ( '-' )
 			// /home/sander/Documents/workspace/freshSeaOfQL/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:11:9: '-'
 			{
-			match('-'); 
+			match('-');
 			}
 
 			state.type = _type;
@@ -188,7 +185,7 @@ public class QLLexer extends Lexer {
 			// /home/sander/Documents/workspace/freshSeaOfQL/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:12:7: ( '/' )
 			// /home/sander/Documents/workspace/freshSeaOfQL/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:12:9: '/'
 			{
-			match('/'); 
+			match('/');
 			}
 
 			state.type = _type;
@@ -208,7 +205,7 @@ public class QLLexer extends Lexer {
 			// /home/sander/Documents/workspace/freshSeaOfQL/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:13:7: ( ':' )
 			// /home/sander/Documents/workspace/freshSeaOfQL/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:13:9: ':'
 			{
-			match(':'); 
+			match(':');
 			}
 
 			state.type = _type;
@@ -228,7 +225,7 @@ public class QLLexer extends Lexer {
 			// /home/sander/Documents/workspace/freshSeaOfQL/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:14:7: ( '<' )
 			// /home/sander/Documents/workspace/freshSeaOfQL/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:14:9: '<'
 			{
-			match('<'); 
+			match('<');
 			}
 
 			state.type = _type;
@@ -248,7 +245,7 @@ public class QLLexer extends Lexer {
 			// /home/sander/Documents/workspace/freshSeaOfQL/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:15:7: ( '<=' )
 			// /home/sander/Documents/workspace/freshSeaOfQL/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:15:9: '<='
 			{
-			match("<="); 
+			match("<=");
 
 			}
 
@@ -269,7 +266,7 @@ public class QLLexer extends Lexer {
 			// /home/sander/Documents/workspace/freshSeaOfQL/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:16:7: ( '==' )
 			// /home/sander/Documents/workspace/freshSeaOfQL/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:16:9: '=='
 			{
-			match("=="); 
+			match("==");
 
 			}
 
@@ -290,7 +287,7 @@ public class QLLexer extends Lexer {
 			// /home/sander/Documents/workspace/freshSeaOfQL/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:17:7: ( '>' )
 			// /home/sander/Documents/workspace/freshSeaOfQL/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:17:9: '>'
 			{
-			match('>'); 
+			match('>');
 			}
 
 			state.type = _type;
@@ -310,7 +307,7 @@ public class QLLexer extends Lexer {
 			// /home/sander/Documents/workspace/freshSeaOfQL/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:18:7: ( '>=' )
 			// /home/sander/Documents/workspace/freshSeaOfQL/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:18:9: '>='
 			{
-			match(">="); 
+			match(">=");
 
 			}
 
@@ -331,7 +328,7 @@ public class QLLexer extends Lexer {
 			// /home/sander/Documents/workspace/freshSeaOfQL/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:19:7: ( 'boolean' )
 			// /home/sander/Documents/workspace/freshSeaOfQL/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:19:9: 'boolean'
 			{
-			match("boolean"); 
+			match("boolean");
 
 			}
 
@@ -352,7 +349,7 @@ public class QLLexer extends Lexer {
 			// /home/sander/Documents/workspace/freshSeaOfQL/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:20:7: ( 'else' )
 			// /home/sander/Documents/workspace/freshSeaOfQL/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:20:9: 'else'
 			{
-			match("else"); 
+			match("else");
 
 			}
 
@@ -373,7 +370,7 @@ public class QLLexer extends Lexer {
 			// /home/sander/Documents/workspace/freshSeaOfQL/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:21:7: ( 'if' )
 			// /home/sander/Documents/workspace/freshSeaOfQL/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:21:9: 'if'
 			{
-			match("if"); 
+			match("if");
 
 			}
 
@@ -394,7 +391,7 @@ public class QLLexer extends Lexer {
 			// /home/sander/Documents/workspace/freshSeaOfQL/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:22:7: ( 'integer' )
 			// /home/sander/Documents/workspace/freshSeaOfQL/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:22:9: 'integer'
 			{
-			match("integer"); 
+			match("integer");
 
 			}
 
@@ -415,7 +412,7 @@ public class QLLexer extends Lexer {
 			// /home/sander/Documents/workspace/freshSeaOfQL/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:23:7: ( 'string' )
 			// /home/sander/Documents/workspace/freshSeaOfQL/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:23:9: 'string'
 			{
-			match("string"); 
+			match("string");
 
 			}
 
@@ -436,7 +433,7 @@ public class QLLexer extends Lexer {
 			// /home/sander/Documents/workspace/freshSeaOfQL/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:24:7: ( '||' )
 			// /home/sander/Documents/workspace/freshSeaOfQL/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:24:9: '||'
 			{
-			match("||"); 
+			match("||");
 
 			}
 
@@ -457,7 +454,7 @@ public class QLLexer extends Lexer {
 			// /home/sander/Documents/workspace/freshSeaOfQL/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:169:6: ( 'form' )
 			// /home/sander/Documents/workspace/freshSeaOfQL/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:169:8: 'form'
 			{
-			match("form"); 
+			match("form");
 
 			}
 
@@ -478,7 +475,7 @@ public class QLLexer extends Lexer {
 			// /home/sander/Documents/workspace/freshSeaOfQL/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:171:12: ( '{' )
 			// /home/sander/Documents/workspace/freshSeaOfQL/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:171:14: '{'
 			{
-			match('{'); 
+			match('{');
 			}
 
 			state.type = _type;
@@ -498,7 +495,7 @@ public class QLLexer extends Lexer {
 			// /home/sander/Documents/workspace/freshSeaOfQL/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:172:13: ( '}' )
 			// /home/sander/Documents/workspace/freshSeaOfQL/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:172:15: '}'
 			{
-			match('}'); 
+			match('}');
 			}
 
 			state.type = _type;
@@ -518,7 +515,7 @@ public class QLLexer extends Lexer {
 			// /home/sander/Documents/workspace/freshSeaOfQL/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:173:12: ( '(' )
 			// /home/sander/Documents/workspace/freshSeaOfQL/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:173:14: '('
 			{
-			match('('); 
+			match('(');
 			}
 
 			state.type = _type;
@@ -538,7 +535,7 @@ public class QLLexer extends Lexer {
 			// /home/sander/Documents/workspace/freshSeaOfQL/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:174:13: ( ')' )
 			// /home/sander/Documents/workspace/freshSeaOfQL/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:174:15: ')'
 			{
-			match(')'); 
+			match(')');
 			}
 
 			state.type = _type;
@@ -566,7 +563,7 @@ public class QLLexer extends Lexer {
 				recover(mse);
 				throw mse;
 			}
-			 _channel=HIDDEN; 
+			 _channel=HIDDEN;
 			}
 
 			state.type = _type;
@@ -619,7 +616,7 @@ public class QLLexer extends Lexer {
 				case 1 :
 					// /home/sander/Documents/workspace/freshSeaOfQL/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:180:7: '/*' ( . )* '*/'
 					{
-					match("/*"); 
+					match("/*");
 
 					// /home/sander/Documents/workspace/freshSeaOfQL/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:180:12: ( . )*
 					loop1:
@@ -644,7 +641,7 @@ public class QLLexer extends Lexer {
 						case 1 :
 							// /home/sander/Documents/workspace/freshSeaOfQL/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:180:12: .
 							{
-							matchAny(); 
+							matchAny();
 							}
 							break;
 
@@ -653,7 +650,7 @@ public class QLLexer extends Lexer {
 						}
 					}
 
-					match("*/"); 
+					match("*/");
 
 					_channel=HIDDEN;
 					}
@@ -661,7 +658,7 @@ public class QLLexer extends Lexer {
 				case 2 :
 					// /home/sander/Documents/workspace/freshSeaOfQL/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:181:7: '//' (~ ( '\\n' ) )*
 					{
-					match("//"); 
+					match("//");
 
 					// /home/sander/Documents/workspace/freshSeaOfQL/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:181:12: (~ ( '\\n' ) )*
 					loop2:
@@ -731,14 +728,14 @@ public class QLLexer extends Lexer {
 				case 1 :
 					// /home/sander/Documents/workspace/freshSeaOfQL/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:184:7: 'true'
 					{
-					match("true"); 
+					match("true");
 
 					}
 					break;
 				case 2 :
 					// /home/sander/Documents/workspace/freshSeaOfQL/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:184:16: 'false'
 					{
-					match("false"); 
+					match("false");
 
 					}
 					break;
@@ -817,7 +814,7 @@ public class QLLexer extends Lexer {
 			// /home/sander/Documents/workspace/freshSeaOfQL/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:187:4: ( '\"' ( EscapedCharacterSequence |~ ( '\\\\' | '\"' ) )* '\"' )
 			// /home/sander/Documents/workspace/freshSeaOfQL/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:187:6: '\"' ( EscapedCharacterSequence |~ ( '\\\\' | '\"' ) )* '\"'
 			{
-			match('\"'); 
+			match('\"');
 			// /home/sander/Documents/workspace/freshSeaOfQL/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:187:10: ( EscapedCharacterSequence |~ ( '\\\\' | '\"' ) )*
 			loop6:
 			while (true) {
@@ -834,7 +831,7 @@ public class QLLexer extends Lexer {
 				case 1 :
 					// /home/sander/Documents/workspace/freshSeaOfQL/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:187:11: EscapedCharacterSequence
 					{
-					mEscapedCharacterSequence(); 
+					mEscapedCharacterSequence();
 
 					}
 					break;
@@ -857,7 +854,7 @@ public class QLLexer extends Lexer {
 				}
 			}
 
-			match('\"'); 
+			match('\"');
 			}
 
 			state.type = _type;
@@ -875,7 +872,7 @@ public class QLLexer extends Lexer {
 			// /home/sander/Documents/workspace/freshSeaOfQL/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:190:25: ( '\\\\' ( '\\\"' | '\\\\' ) )
 			// /home/sander/Documents/workspace/freshSeaOfQL/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:190:27: '\\\\' ( '\\\"' | '\\\\' )
 			{
-			match('\\'); 
+			match('\\');
 			if ( input.LA(1)=='\"'||input.LA(1)=='\\' ) {
 				input.consume();
 			}
@@ -954,210 +951,210 @@ public class QLLexer extends Lexer {
 			case 1 :
 				// /home/sander/Documents/workspace/freshSeaOfQL/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:1:10: T__16
 				{
-				mT__16(); 
+				mT__16();
 
 				}
 				break;
 			case 2 :
 				// /home/sander/Documents/workspace/freshSeaOfQL/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:1:16: T__17
 				{
-				mT__17(); 
+				mT__17();
 
 				}
 				break;
 			case 3 :
 				// /home/sander/Documents/workspace/freshSeaOfQL/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:1:22: T__18
 				{
-				mT__18(); 
+				mT__18();
 
 				}
 				break;
 			case 4 :
 				// /home/sander/Documents/workspace/freshSeaOfQL/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:1:28: T__19
 				{
-				mT__19(); 
+				mT__19();
 
 				}
 				break;
 			case 5 :
 				// /home/sander/Documents/workspace/freshSeaOfQL/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:1:34: T__20
 				{
-				mT__20(); 
+				mT__20();
 
 				}
 				break;
 			case 6 :
 				// /home/sander/Documents/workspace/freshSeaOfQL/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:1:40: T__21
 				{
-				mT__21(); 
+				mT__21();
 
 				}
 				break;
 			case 7 :
 				// /home/sander/Documents/workspace/freshSeaOfQL/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:1:46: T__22
 				{
-				mT__22(); 
+				mT__22();
 
 				}
 				break;
 			case 8 :
 				// /home/sander/Documents/workspace/freshSeaOfQL/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:1:52: T__23
 				{
-				mT__23(); 
+				mT__23();
 
 				}
 				break;
 			case 9 :
 				// /home/sander/Documents/workspace/freshSeaOfQL/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:1:58: T__24
 				{
-				mT__24(); 
+				mT__24();
 
 				}
 				break;
 			case 10 :
 				// /home/sander/Documents/workspace/freshSeaOfQL/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:1:64: T__25
 				{
-				mT__25(); 
+				mT__25();
 
 				}
 				break;
 			case 11 :
 				// /home/sander/Documents/workspace/freshSeaOfQL/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:1:70: T__26
 				{
-				mT__26(); 
+				mT__26();
 
 				}
 				break;
 			case 12 :
 				// /home/sander/Documents/workspace/freshSeaOfQL/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:1:76: T__27
 				{
-				mT__27(); 
+				mT__27();
 
 				}
 				break;
 			case 13 :
 				// /home/sander/Documents/workspace/freshSeaOfQL/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:1:82: T__28
 				{
-				mT__28(); 
+				mT__28();
 
 				}
 				break;
 			case 14 :
 				// /home/sander/Documents/workspace/freshSeaOfQL/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:1:88: T__29
 				{
-				mT__29(); 
+				mT__29();
 
 				}
 				break;
 			case 15 :
 				// /home/sander/Documents/workspace/freshSeaOfQL/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:1:94: T__30
 				{
-				mT__30(); 
+				mT__30();
 
 				}
 				break;
 			case 16 :
 				// /home/sander/Documents/workspace/freshSeaOfQL/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:1:100: T__31
 				{
-				mT__31(); 
+				mT__31();
 
 				}
 				break;
 			case 17 :
 				// /home/sander/Documents/workspace/freshSeaOfQL/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:1:106: T__32
 				{
-				mT__32(); 
+				mT__32();
 
 				}
 				break;
 			case 18 :
 				// /home/sander/Documents/workspace/freshSeaOfQL/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:1:112: T__33
 				{
-				mT__33(); 
+				mT__33();
 
 				}
 				break;
 			case 19 :
 				// /home/sander/Documents/workspace/freshSeaOfQL/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:1:118: T__34
 				{
-				mT__34(); 
+				mT__34();
 
 				}
 				break;
 			case 20 :
 				// /home/sander/Documents/workspace/freshSeaOfQL/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:1:124: FORM
 				{
-				mFORM(); 
+				mFORM();
 
 				}
 				break;
 			case 21 :
 				// /home/sander/Documents/workspace/freshSeaOfQL/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:1:129: BRACE_OPEN
 				{
-				mBRACE_OPEN(); 
+				mBRACE_OPEN();
 
 				}
 				break;
 			case 22 :
 				// /home/sander/Documents/workspace/freshSeaOfQL/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:1:140: BRACE_CLOSE
 				{
-				mBRACE_CLOSE(); 
+				mBRACE_CLOSE();
 
 				}
 				break;
 			case 23 :
 				// /home/sander/Documents/workspace/freshSeaOfQL/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:1:152: PAREN_OPEN
 				{
-				mPAREN_OPEN(); 
+				mPAREN_OPEN();
 
 				}
 				break;
 			case 24 :
 				// /home/sander/Documents/workspace/freshSeaOfQL/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:1:163: PAREN_CLOSE
 				{
-				mPAREN_CLOSE(); 
+				mPAREN_CLOSE();
 
 				}
 				break;
 			case 25 :
 				// /home/sander/Documents/workspace/freshSeaOfQL/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:1:175: WS
 				{
-				mWS(); 
+				mWS();
 
 				}
 				break;
 			case 26 :
 				// /home/sander/Documents/workspace/freshSeaOfQL/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:1:178: COMMENT
 				{
-				mCOMMENT(); 
+				mCOMMENT();
 
 				}
 				break;
 			case 27 :
 				// /home/sander/Documents/workspace/freshSeaOfQL/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:1:186: Bool
 				{
-				mBool(); 
+				mBool();
 
 				}
 				break;
 			case 28 :
 				// /home/sander/Documents/workspace/freshSeaOfQL/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:1:191: Ident
 				{
-				mIdent(); 
+				mIdent();
 
 				}
 				break;
 			case 29 :
 				// /home/sander/Documents/workspace/freshSeaOfQL/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:1:197: Str
 				{
-				mStr(); 
+				mStr();
 
 				}
 				break;
 			case 30 :
 				// /home/sander/Documents/workspace/freshSeaOfQL/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:1:201: Int
 				{
-				mInt(); 
+				mInt();
 
 				}
 				break;

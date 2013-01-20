@@ -1,27 +1,31 @@
 // $ANTLR 3.5 /home/sander/Documents/workspace/freshSeaOfQL/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g 2013-01-20 16:42:33
 
 package org.uva.sea.ql.parser.antlr;
-import org.uva.sea.ql.ast.*;
-import org.uva.sea.ql.ast.nodetypes.primary.*;
-import org.uva.sea.ql.ast.nodetypes.unary.*;
-import org.uva.sea.ql.ast.nodetypes.binary.*;
-import org.uva.sea.ql.ast.nodetypes.formelement.*;
-
 
 import org.antlr.runtime.*;
-import java.util.Stack;
-import java.util.List;
+import org.uva.sea.ql.ast.ASTNode;
+import org.uva.sea.ql.ast.QLStatement;
+import org.uva.sea.ql.ast.nodetypes.binary.*;
+import org.uva.sea.ql.ast.nodetypes.formelement.Computation;
+import org.uva.sea.ql.ast.nodetypes.formelement.Conditional;
+import org.uva.sea.ql.ast.nodetypes.formelement.Form;
+import org.uva.sea.ql.ast.nodetypes.formelement.Question;
+import org.uva.sea.ql.ast.nodetypes.primary.*;
+import org.uva.sea.ql.ast.nodetypes.unary.Negative;
+import org.uva.sea.ql.ast.nodetypes.unary.Not;
+import org.uva.sea.ql.ast.nodetypes.unary.Positive;
+
 import java.util.ArrayList;
-import java.util.Map;
 import java.util.HashMap;
+import java.util.List;
 
 @SuppressWarnings("all")
 public class QLParser extends Parser {
 	public static final String[] tokenNames = new String[] {
-		"<invalid>", "<EOR>", "<DOWN>", "<UP>", "BRACE_CLOSE", "BRACE_OPEN", "Bool", 
-		"COMMENT", "EscapedCharacterSequence", "FORM", "Ident", "Int", "PAREN_CLOSE", 
-		"PAREN_OPEN", "Str", "WS", "'!'", "'!='", "'&&'", "'*'", "'+'", "'-'", 
-		"'/'", "':'", "'<'", "'<='", "'=='", "'>'", "'>='", "'boolean'", "'else'", 
+		"<invalid>", "<EOR>", "<DOWN>", "<UP>", "BRACE_CLOSE", "BRACE_OPEN", "Bool",
+		"COMMENT", "EscapedCharacterSequence", "FORM", "Ident", "Int", "PAREN_CLOSE",
+		"PAREN_OPEN", "Str", "WS", "'!'", "'!='", "'&&'", "'*'", "'+'", "'-'",
+		"'/'", "':'", "'<'", "'<='", "'=='", "'>'", "'>='", "'boolean'", "'else'",
 		"'if'", "'integer'", "'string'", "'||'"
 	};
 	public static final int EOF=-1;
@@ -183,7 +187,7 @@ public class QLParser extends Parser {
 
 
 		    result = new ArrayList<QLStatement>();
-		  
+
 		try {
 			if ( state.backtracking>0 && alreadyParsedRule(input, 3) ) { return result; }
 
@@ -604,7 +608,7 @@ public class QLParser extends Parser {
 					// /home/sander/Documents/workspace/freshSeaOfQL/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:83:7: ()
 					{
 					// /home/sander/Documents/workspace/freshSeaOfQL/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:83:7: ()
-					// /home/sander/Documents/workspace/freshSeaOfQL/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:83:9: 
+					// /home/sander/Documents/workspace/freshSeaOfQL/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:83:9:
 					{
 					}
 
@@ -904,12 +908,12 @@ public class QLParser extends Parser {
 					rhs=unExpr();
 					state._fsp--;
 					if (state.failed) return result;
-					if ( state.backtracking==0 ) { 
+					if ( state.backtracking==0 ) {
 						      if ((op!=null?op.getText():null).equals("*")) {
 						        result = new Multiply(result, rhs);
 						      }
 						      if ((op!=null?op.getText():null).equals("/")) {
-						        result = new Divide(result, rhs);      
+						        result = new Divide(result, rhs);
 						      }
 						    }
 					}
@@ -988,12 +992,12 @@ public class QLParser extends Parser {
 					rhs=mulExpr();
 					state._fsp--;
 					if (state.failed) return result;
-					if ( state.backtracking==0 ) { 
+					if ( state.backtracking==0 ) {
 						      if ((op!=null?op.getText():null).equals("+")) {
 						        result = new Add(result, rhs);
 						      }
 						      if ((op!=null?op.getText():null).equals("-")) {
-						        result = new Subtract(result, rhs);      
+						        result = new Subtract(result, rhs);
 						      }
 						    }
 					}
@@ -1072,18 +1076,18 @@ public class QLParser extends Parser {
 					rhs=addExpr();
 					state._fsp--;
 					if (state.failed) return result;
-					if ( state.backtracking==0 ) { 
+					if ( state.backtracking==0 ) {
 						      if ((op!=null?op.getText():null).equals("<")) {
 						        result = new LessThan(result, rhs);
 						      }
 						      if ((op!=null?op.getText():null).equals("<=")) {
-						        result = new LessThanOrEqualTo(result, rhs);      
+						        result = new LessThanOrEqualTo(result, rhs);
 						      }
 						      if ((op!=null?op.getText():null).equals(">")) {
 						        result = new GreaterThan(result, rhs);
 						      }
 						      if ((op!=null?op.getText():null).equals(">=")) {
-						        result = new GreaterThanOrEqualTo(result, rhs);      
+						        result = new GreaterThanOrEqualTo(result, rhs);
 						      }
 						      if ((op!=null?op.getText():null).equals("==")) {
 						        result = new EqualTo(result, rhs);

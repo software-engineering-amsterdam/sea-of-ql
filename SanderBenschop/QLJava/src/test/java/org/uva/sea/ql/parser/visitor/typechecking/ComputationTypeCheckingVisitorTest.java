@@ -1,14 +1,18 @@
 package org.uva.sea.ql.parser.visitor.typechecking;
 
+import static junit.framework.Assert.assertEquals;
+import static junit.framework.Assert.assertTrue;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.uva.sea.ql.ast.nodetypes.binary.BinaryOperation;
 import org.uva.sea.ql.ast.nodetypes.binary.Multiply;
 import org.uva.sea.ql.ast.nodetypes.formelement.Computation;
-import org.uva.sea.ql.ast.nodetypes.primary.*;
-
-import static junit.framework.Assert.assertEquals;
-import static junit.framework.Assert.assertTrue;
+import org.uva.sea.ql.ast.nodetypes.primary.Bool;
+import org.uva.sea.ql.ast.nodetypes.primary.Datatype;
+import org.uva.sea.ql.ast.nodetypes.primary.Ident;
+import org.uva.sea.ql.ast.nodetypes.primary.Int;
+import org.uva.sea.ql.ast.nodetypes.primary.Str;
 
 public class ComputationTypeCheckingVisitorTest {
 
@@ -43,9 +47,9 @@ public class ComputationTypeCheckingVisitorTest {
 
     @Test
     public void shouldMakeIdentifierReduceableIfExpressionIsReduceable() {
-        Datatype leftHandSide = new Int(1);
-        Datatype rightHandSide = new Int(3);
-        Datatype rightHandSide2 = new Int(5);
+        Datatype<?> leftHandSide = new Int(1);
+        Datatype<?> rightHandSide = new Int(3);
+        Datatype<?> rightHandSide2 = new Int(5);
         BinaryOperation multiply = new Multiply(leftHandSide, rightHandSide);
         Computation computation = new Computation(new Ident("test"), new Str("\"Label\""), multiply);
         BinaryOperation divide = new Multiply(new Ident("test"), rightHandSide2);
@@ -62,9 +66,9 @@ public class ComputationTypeCheckingVisitorTest {
 
     @Test
     public void shouldNotMakeIdentifierReduceableIfExpressionIsNotReduceable() {
-        Datatype leftHandSide = new Int(1);
-        Datatype rightHandSide = new Int(3);
-        Datatype rightHandSide2 = new Int(5);
+        Datatype<?> leftHandSide = new Int(1);
+        Datatype<?> rightHandSide = new Int(3);
+        Datatype<?> rightHandSide2 = new Int(5);
         BinaryOperation multiply = new Multiply(leftHandSide, rightHandSide);
         Computation computation = new Computation(new Ident("test"), new Str("\"Label\""), multiply);
         BinaryOperation divide = new Multiply(new Ident("test"), rightHandSide2);

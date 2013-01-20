@@ -1,8 +1,5 @@
 package org.uva.sea.ql.parser.stringparsing.formelement;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
-
 import org.junit.Test;
 import org.uva.sea.ql.ast.QLStatement;
 import org.uva.sea.ql.ast.nodetypes.formelement.Question;
@@ -12,6 +9,9 @@ import org.uva.sea.ql.ast.nodetypes.primary.Str;
 import org.uva.sea.ql.parser.TestParser;
 import org.uva.sea.ql.parser.exception.ParseError;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
+
 public class TestQuestions extends TestParser {
 
     @Test
@@ -20,13 +20,13 @@ public class TestQuestions extends TestParser {
         assertEquals(Question.class, question.getClass());
         assertEquals(Bool.class, ((Question) question).getDatatype());
     }
-    
+
     @Test
     public void shouldHaveDatatypeBool() throws ParseError {
     	Question question = (Question) parseStatement("overEighteen : \"Are you 18 years or older?\" boolean");
         assertEquals(Bool.class, question.getDatatype());
     }
-    
+
     @Test
     public void shouldHaveDatatypeInt() throws ParseError {
     	Question question = (Question) parseStatement("age : \"How old are you?\" integer");

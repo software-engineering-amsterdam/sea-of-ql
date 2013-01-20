@@ -2,7 +2,6 @@ package org.uva.sea.ql.parser.visitor.typechecking;
 
 import org.uva.sea.ql.parser.visitor.QLError;
 
-import java.util.Collection;
 import java.util.List;
 
 public class UnsupportedTypeError extends QLError {

@@ -1,12 +1,10 @@
 package org.uva.sea.ql.ast.nodetypes.binary;
 
 import org.uva.sea.ql.ast.ASTNode;
-import org.uva.sea.ql.ast.QLExpression;
 import org.uva.sea.ql.ast.nodetypes.primary.Bool;
 import org.uva.sea.ql.ast.nodetypes.primary.Int;
 
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 

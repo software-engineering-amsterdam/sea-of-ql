@@ -1,12 +1,11 @@
 package org.uva.sea.ql.ast.nodetypes.formelement;
 
-import java.util.Collections;
-import java.util.List;
-
 import org.uva.sea.ql.ast.ASTNode;
-import org.uva.sea.ql.ast.QLExpression;
 import org.uva.sea.ql.ast.QLStatement;
 import org.uva.sea.ql.parser.visitor.ASTNodeVisitor;
+
+import java.util.Collections;
+import java.util.List;
 
 public class Conditional extends QLStatement {
 

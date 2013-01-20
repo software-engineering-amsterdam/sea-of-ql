@@ -1,11 +1,11 @@
 package org.uva.sea.ql.parser.stringparsing.formelement;
 
-import static org.junit.Assert.assertEquals;
-
 import org.junit.Test;
 import org.uva.sea.ql.ast.nodetypes.formelement.Computation;
 import org.uva.sea.ql.parser.TestParser;
 import org.uva.sea.ql.parser.exception.ParseError;
+
+import static org.junit.Assert.assertEquals;
 
 public class TestComputations extends TestParser {
 

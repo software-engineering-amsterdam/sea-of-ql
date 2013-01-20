@@ -1,7 +1,6 @@
 package org.uva.sea.ql.ast.nodetypes.formelement;
 
 import org.uva.sea.ql.ast.ASTNode;
-import org.uva.sea.ql.ast.QLExpression;
 import org.uva.sea.ql.ast.QLStatement;
 import org.uva.sea.ql.ast.nodetypes.primary.Ident;
 import org.uva.sea.ql.ast.nodetypes.primary.Str;

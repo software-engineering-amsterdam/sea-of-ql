@@ -1,15 +1,12 @@
 package org.uva.sea.ql.parser.visitor;
 
-import static org.junit.Assert.assertEquals;
-
 import org.junit.Test;
 import org.uva.sea.ql.ast.ASTNode;
-import org.uva.sea.ql.ast.QLExpression;
 import org.uva.sea.ql.ast.nodetypes.binary.Add;
 import org.uva.sea.ql.ast.nodetypes.binary.BinaryOperation;
 import org.uva.sea.ql.ast.nodetypes.primary.Bool;
-import org.uva.sea.ql.ast.nodetypes.primary.Int;
 import org.uva.sea.ql.ast.nodetypes.primary.Datatype;
+import org.uva.sea.ql.ast.nodetypes.primary.Int;
 import org.uva.sea.ql.ast.nodetypes.primary.Str;
 import org.uva.sea.ql.parser.visitor.typechecking.IdentifierRedeclarationError;
 import org.uva.sea.ql.parser.visitor.typechecking.UnequalTypesError;
@@ -17,6 +14,8 @@ import org.uva.sea.ql.parser.visitor.typechecking.UnsupportedTypeError;
 
 import java.util.Arrays;
 import java.util.List;
+
+import static org.junit.Assert.assertEquals;
 
 public class TestQLErrors {
 

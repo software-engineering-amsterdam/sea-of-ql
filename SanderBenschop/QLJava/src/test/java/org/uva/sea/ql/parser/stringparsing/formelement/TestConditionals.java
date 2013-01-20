@@ -1,8 +1,5 @@
 package org.uva.sea.ql.parser.stringparsing.formelement;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-
 import org.junit.Test;
 import org.uva.sea.ql.ast.QLStatement;
 import org.uva.sea.ql.ast.nodetypes.formelement.Conditional;
@@ -11,6 +8,8 @@ import org.uva.sea.ql.parser.TestParser;
 import org.uva.sea.ql.parser.exception.ParseError;
 
 import java.util.List;
+
+import static org.junit.Assert.assertEquals;
 
 public class TestConditionals extends TestParser {
 

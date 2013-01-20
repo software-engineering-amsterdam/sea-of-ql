@@ -1,15 +1,18 @@
 package org.uva.sea.ql.parser.visitor.typechecking;
 
-import org.junit.Before;
-import org.junit.Test;
-import org.uva.sea.ql.ast.nodetypes.binary.*;
-import org.uva.sea.ql.ast.nodetypes.primary.Bool;
-import org.uva.sea.ql.ast.nodetypes.primary.Int;
-import org.uva.sea.ql.ast.nodetypes.primary.Datatype;
-import org.uva.sea.ql.ast.nodetypes.primary.Str;
-
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertTrue;
+
+import org.junit.Before;
+import org.junit.Test;
+import org.uva.sea.ql.ast.nodetypes.binary.BinaryOperation;
+import org.uva.sea.ql.ast.nodetypes.binary.Divide;
+import org.uva.sea.ql.ast.nodetypes.binary.EqualTo;
+import org.uva.sea.ql.ast.nodetypes.binary.Multiply;
+import org.uva.sea.ql.ast.nodetypes.primary.Bool;
+import org.uva.sea.ql.ast.nodetypes.primary.Datatype;
+import org.uva.sea.ql.ast.nodetypes.primary.Int;
+import org.uva.sea.ql.ast.nodetypes.primary.Str;
 
 public class BinaryOperationTypeCheckingVisitorTest {
 
@@ -22,9 +25,9 @@ public class BinaryOperationTypeCheckingVisitorTest {
 
     @Test
     public void shouldReduceProperlyForSingleType() {
-        Datatype leftHandSide = new Int(1);
-        Datatype leftHandSide2 = new Int(2);
-        Datatype rightHandSide = new Int(3);
+        Datatype<?> leftHandSide = new Int(1);
+        Datatype<?> leftHandSide2 = new Int(2);
+        Datatype<?> rightHandSide = new Int(3);
         BinaryOperation multiply = new Multiply(leftHandSide, rightHandSide);
         BinaryOperation divide = new Divide(leftHandSide2, multiply);
 
@@ -39,8 +42,8 @@ public class BinaryOperationTypeCheckingVisitorTest {
 
     @Test
     public void shouldDetectTypeErrorForSingleType() {
-        Datatype leftHandSide = new Int(1);
-        Datatype rightHandSide = new Bool(false);
+        Datatype<?> leftHandSide = new Int(1);
+        Datatype<?> rightHandSide = new Bool(false);
         BinaryOperation multiply = new Multiply(leftHandSide, rightHandSide);
 
         typeCheckingVisitor.visitDatatype(leftHandSide);
@@ -53,9 +56,9 @@ public class BinaryOperationTypeCheckingVisitorTest {
 
     @Test
     public void shouldCascadeErrorForNestedSingleType() {
-        Datatype leftHandSide = new Bool(true);
-        Datatype leftHandSide2 = new Int(2);
-        Datatype rightHandSide = new Int(3);
+        Datatype<?> leftHandSide = new Bool(true);
+        Datatype<?> leftHandSide2 = new Int(2);
+        Datatype<?> rightHandSide = new Int(3);
         BinaryOperation multiply = new Multiply(leftHandSide, rightHandSide);
         BinaryOperation divide = new Divide(leftHandSide2, multiply);
 
@@ -72,8 +75,8 @@ public class BinaryOperationTypeCheckingVisitorTest {
 
     @Test
     public void shouldThrowErrorIfTypesAreUnequalInMultipleType() {
-        Datatype leftHandSide = new Int(1);
-        Datatype rightHandSide = new Bool(false);
+        Datatype<?> leftHandSide = new Int(1);
+        Datatype<?> rightHandSide = new Bool(false);
         BinaryOperation equalTo = new EqualTo(leftHandSide, rightHandSide);
 
         typeCheckingVisitor.visitDatatype(leftHandSide);
@@ -86,8 +89,8 @@ public class BinaryOperationTypeCheckingVisitorTest {
 
     @Test
     public void shouldThrowErrorsIfTypesAreUnequalAndDisallowedInMultipleType() {
-        Datatype leftHandSide = new Int(1);
-        Datatype rightHandSide = new Str("");
+        Datatype<?> leftHandSide = new Int(1);
+        Datatype<?> rightHandSide = new Str("");
         BinaryOperation equalTo = new EqualTo(leftHandSide, rightHandSide);
 
         typeCheckingVisitor.visitDatatype(leftHandSide);
