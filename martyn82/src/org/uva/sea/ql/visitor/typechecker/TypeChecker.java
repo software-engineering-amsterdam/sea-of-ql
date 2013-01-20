@@ -184,10 +184,10 @@ public class TypeChecker implements INodeVisitor {
 			return null;
 		}
 		else if ( checkEitherMoney( left, right ) ) {
-			return initializeType( DataType.MONEY ); // new Money();
+			return initializeType( DataType.MONEY );
 		}
 		else {
-			return initializeType( DataType.INTEGER ); // new Integer();
+			return initializeType( DataType.INTEGER );
 		}
 	}
 
@@ -206,7 +206,7 @@ public class TypeChecker implements INodeVisitor {
 			return null;
 		}
 
-		return initializeType( DataType.BOOLEAN ); // new Boolean();
+		return initializeType( DataType.BOOLEAN );
 	}
 
 	@Override
@@ -233,7 +233,7 @@ public class TypeChecker implements INodeVisitor {
 			return null;
 		}
 		else {
-			return initializeType( DataType.BOOLEAN ); // new Boolean();
+			return initializeType( DataType.BOOLEAN );
 		}
 	}
 
@@ -246,7 +246,7 @@ public class TypeChecker implements INodeVisitor {
 			return null;
 		}
 		else {
-			return initializeType( DataType.BOOLEAN ); // new Boolean();
+			return initializeType( DataType.BOOLEAN );
 		}
 	}
 
@@ -259,10 +259,10 @@ public class TypeChecker implements INodeVisitor {
 			return null;
 		}
 		else if ( checkIsInteger( expression ) ) {
-			return initializeType( DataType.INTEGER ); // new Integer();
+			return initializeType( DataType.INTEGER );
 		}
 		else if ( checkIsMoney( expression ) ) {
-			return initializeType( DataType.MONEY ); // new Money();
+			return initializeType( DataType.MONEY );
 		}
 
 		return null;
@@ -270,22 +270,22 @@ public class TypeChecker implements INodeVisitor {
 
 	@Override
 	public Value<?> visit( org.uva.sea.ql.ast.expression.literal.Int node, Context context ) {
-		return initializeType( DataType.INTEGER ); // new org.uva.sea.ql.eval.value.Integer();
+		return initializeType( DataType.INTEGER );
 	}
 
 	@Override
 	public Value<?> visit( org.uva.sea.ql.ast.expression.literal.Bool node, Context context ) {
-		return initializeType( DataType.BOOLEAN ); // new org.uva.sea.ql.eval.value.Boolean();
+		return initializeType( DataType.BOOLEAN );
 	}
 
 	@Override
 	public Value<?> visit( org.uva.sea.ql.ast.expression.literal.Money node, Context context ) {
-		return initializeType( DataType.MONEY ); // new org.uva.sea.ql.eval.value.Money();
+		return initializeType( DataType.MONEY );
 	}
 
 	@Override
 	public Value<?> visit( org.uva.sea.ql.ast.expression.literal.Str node, Context context ) {
-		return initializeType( DataType.STRING ); // new org.uva.sea.ql.eval.value.String();
+		return initializeType( DataType.STRING );
 	}
 
 	@Override
@@ -366,7 +366,7 @@ public class TypeChecker implements INodeVisitor {
 	@Override
 	public Value<?> visit( FormDeclaration node, Context context ) {
 		node.getStatements().accept( this, context );
-		return initializeType( DataType.BOOLEAN ); // new org.uva.sea.ql.eval.value.Boolean();
+		return initializeType( DataType.BOOLEAN );
 	}
 
 	@Override
