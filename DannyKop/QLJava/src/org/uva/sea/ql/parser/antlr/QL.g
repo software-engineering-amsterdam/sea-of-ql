@@ -100,25 +100,23 @@ form returns [Form result]
 formElement returns [FormElement result] 
     : question {$result = $question.result;}
     | condition {$result = $condition.result;}
+    | computation {$result = $computation.result;}
     ;
 
 formElements returns [ArrayList<FormElement> result]
     @init { result = new ArrayList<FormElement>(); }
     : (element = formElement { $result.add(element);})*
     ;
-
+computation returns [Computation result]
+    : Ident ':' Str Vars '(' orExpr ')' { $result = new Computation(new Ident($Ident.text), $Str.text, $orExpr.result, $Vars.text); }
+    ;
 question returns [Question result] 
     : Ident ':' Str Vars { $result = new Question(new Ident($Ident.text), $Str.text, $Vars.text); }
     ;
-
 condition returns [Condition result]
-    : If '(' orExpr ')' LeftBrace (question | condition)* RightBrace { $result = new Condition($orExpr.result); }
+    : If '(' orExpr ')' LeftBrace (question | condition | computation)* RightBrace { $result = new Condition($orExpr.result); }
     // Else needs to be implemented
     ;
-computation returns [Computation result]
-    : Ident  ':' Str '(' orExpr ')' { $result = new Computation(new Ident($Ident.text), $Str.text, $orExpr.result ); }
-    ;
- 
 // Tokens
 Newline: ('\n' | '\r');
 
@@ -127,7 +125,7 @@ WS:	(' ' | '\t' | Newline) { $channel=HIDDEN; };
 Comment: '/*' .* '*/' {$channel=HIDDEN;} 
        | '//' ~(Newline)* {$channel=HIDDEN;};
 
-SpecialChars: ('!' | '?' | ',' | '.' | '<' | '>' | '=' | '+' | '-' | '[' | ']' | '|');
+SpecialChars: ('!' | '?' | ',' | '.' | '<' | '>' | '=' | '+' | '-' | '[' | ']' | '|' | ':' | '/' | '\\');
 
 Vars: ('int' | 'boolean' | 'string' | 'money');
 
