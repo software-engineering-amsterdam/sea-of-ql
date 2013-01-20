@@ -5,7 +5,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.uva.sea.ql.ASTNodeVisitor;
 import org.uva.sea.ql.ast.*;
 import org.uva.sea.ql.ast.expr.*;
 import org.uva.sea.ql.ast.type.*;
@@ -71,7 +70,7 @@ public class TypecheckerVisitor implements ASTNodeVisitor<Type, TypecheckerVisit
              * To avoid null checks everywhere where a type is used, return an 'null' implementation of the
              * Type interface.
              */
-            return new Type() { };
+            return new Unknown();
         }
 	}
 	

@@ -1,7 +1,6 @@
 package org.uva.sea.ql.tests.webUI.KnockoutJSViewModelBuilderVisitorTests;
 
 import org.junit.Test;
-import org.uva.sea.ql.ASTNodeVisitor;
 import org.uva.sea.ql.ast.*;
 import org.uva.sea.ql.ast.expr.Ident;
 import org.uva.sea.ql.ast.type.Bool;

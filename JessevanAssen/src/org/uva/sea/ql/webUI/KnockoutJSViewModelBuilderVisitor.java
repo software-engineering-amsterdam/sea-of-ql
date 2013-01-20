@@ -1,6 +1,5 @@
 package org.uva.sea.ql.webUI;
 
-import org.uva.sea.ql.ASTNodeVisitor;
 import org.uva.sea.ql.ast.*;
 import org.uva.sea.ql.ast.expr.*;
 import org.uva.sea.ql.ast.expr.value.Bool;
