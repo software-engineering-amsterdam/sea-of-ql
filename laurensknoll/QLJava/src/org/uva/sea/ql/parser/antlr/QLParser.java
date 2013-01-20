@@ -40,12 +40,12 @@ import org.uva.sea.ql.ast.expr.type.IdentExprType;
 import org.uva.sea.ql.ast.expr.type.IntExprType;
 import org.uva.sea.ql.ast.expr.type.MoneyExprType;
 import org.uva.sea.ql.ast.expr.type.StringExprType;
+import org.uva.sea.ql.ast.form.QuestionForm;
 import org.uva.sea.ql.ast.statement.AbstractStatement;
 import org.uva.sea.ql.ast.statement.Block;
 import org.uva.sea.ql.ast.statement.ComputedQuestion;
 import org.uva.sea.ql.ast.statement.IfStatement;
 import org.uva.sea.ql.ast.statement.Question;
-import org.uva.sea.ql.ast.statement.QuestionForm;
 
 @SuppressWarnings("all")
 public class QLParser extends Parser {

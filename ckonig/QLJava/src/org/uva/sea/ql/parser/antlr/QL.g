@@ -5,6 +5,10 @@ options {backtrack=true; memoize=true;}
 {
 package org.uva.sea.ql.parser.antlr;
 import org.uva.sea.ql.ast.*;
+import org.uva.sea.ql.ast.bool.*;
+import org.uva.sea.ql.ast.types.*;
+import org.uva.sea.ql.ast.math.*;
+import org.uva.sea.ql.ast.literal.*;
 }
 
 @lexer::header
@@ -12,9 +16,62 @@ import org.uva.sea.ql.ast.*;
 package org.uva.sea.ql.parser.antlr;
 }
 
+parse returns [Expr result]
+:	 formDefinition EOF {$result = $formDefinition.result;};
+
+formDefinition returns [Expr result]
+	:	 Form formDeclaration {$result = $formDeclaration.result;};
+	
+formDeclaration returns [Expr result]
+: 	FormIdent LEFTCBR blockContent RIGHTCBR {$result = new Form($FormIdent.text, $blockContent.result);};
+
+blockContent returns [Block result]
+@init 
+{
+	List l = new ArrayList();
+	result = new Block(l);	
+}
+: (blockLine {if($blockLine.result != null) {$result.addLine($blockLine.result);}} )* 
+;
+	
+blockLine returns [Expr result]
+:  question {$result = $question.result;}
+| ifStatement {$result = $ifStatement.result;}
+;
+
+question returns [Expr result]
+: Ident Assign String type {$result = new Question(new Ident($Ident.text), new Str($String.text), $type.result);}
+;
+
+ifStatement returns [Expr result]
+: 'if' LEFTBR orExpr RIGHTBR LEFTCBR blockContent RIGHTCBR {$result = new IfStatement($orExpr.result, $blockContent.result);}
+;
+
+type returns [Type result]
+	:  boolType { $result = new Bool();}
+	|  money   { $result = $money.result;} 
+	|  intType { $result = new IntType();}
+	|  strType { $result = new StrType();}	
+;
+
+
+
+money	returns [Money result]
+	: 	'money' { $result = new Money(); }
+	|	 moneyCalc { $result = $moneyCalc.result; }
+;
+
+moneyCalc returns [Money result]
+:	 'money' LEFTBR addExpr RIGHTBR {$result = new Money( $addExpr.result);}
+;
+
+	
+
 primary returns [Expr result]
   : Int   { $result = new Int(Integer.parseInt($Int.text)); }
   | Ident { $result = new Ident($Ident.text); }
+  | String { $result = new Str($String.text); }
+  | type {$result = $type.result; }
   | '(' x=orExpr ')'{ $result = $x.result; }
   ;
     
@@ -82,16 +139,30 @@ andExpr returns [Expr result]
 orExpr returns [Expr result]
     :   lhs=andExpr { $result = $lhs.result; } ( '||' rhs=andExpr { $result = new Or($result, rhs); } )*
     ;
+    
+boolType:	'boolean';
+strType :	'string';
+intType :	'integer';
 
     
 // Tokens
-WS  :	(' ' | '\t' | '\n' | '\r') { $channel=HIDDEN; }
-    ;
 
 COMMENT 
-     : '/*' .* '*/' {$channel=HIDDEN;}
+     : 		'/*' .* '*/' {$channel=HIDDEN;}
+     | 		'//' ( ~'\n' )* {$channel=HIDDEN;}
     ;
+    
+WS  :		(' ' | '\t' | '\n' | '\r') { $channel=HIDDEN; } ;
 
-Ident:   ('a'..'z'|'A'..'Z')('a'..'z'|'A'..'Z'|'0'..'9'|'_')*;
+Form 	:	'form';
+FormIdent:	'A'..'Z' ('a'..'z'|'A'..'Z'|'0'..'9')*;
+Ident	:   	('a'..'z')('a'..'z'|'A'..'Z'|'0'..'9'|'_')*;
+String	:	'"' .* '"';
 
-Int: ('0'..'9')+;
+Int 	: 	('0'..'9')+;
+Assign 	:	':';
+
+LEFTCBR	:	'{';
+RIGHTCBR:	'}';
+LEFTBR 	:	'(';
+RIGHTBR	:	')';

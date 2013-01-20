@@ -9,7 +9,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
-import org.uva.sea.ql.ast.statement.QuestionForm;
+import org.uva.sea.ql.ast.form.QuestionForm;
 import org.uva.sea.ql.parser.antlr.FormParser;
 
 @RunWith(Parameterized.class)

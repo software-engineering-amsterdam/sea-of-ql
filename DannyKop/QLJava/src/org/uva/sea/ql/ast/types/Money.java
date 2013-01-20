@@ -18,6 +18,9 @@ public class Money extends Expr implements Type<BigDecimal> {
 	public Money(BigDecimal v){
 		this.value = v;
 	}
+	public Money(String v){
+		this.value = new BigDecimal(v);
+	}
 	/**
 	 * getValue()
 	 * @return Double - the double value
@@ -33,7 +36,7 @@ public class Money extends Expr implements Type<BigDecimal> {
 	 */	
 	@Override
 	public String getType() {
-		return "money";
+		return "Money";
 	}
 
 }
