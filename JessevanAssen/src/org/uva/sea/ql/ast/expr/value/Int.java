@@ -1,8 +1,8 @@
 package org.uva.sea.ql.ast.expr.value;
 
-import org.uva.sea.ql.ASTNodeVisitor;
+import org.uva.sea.ql.ast.ASTNodeVisitor;
 
-public class Int extends Value {
+public class Int implements Value {
 
 	private final int value;
 

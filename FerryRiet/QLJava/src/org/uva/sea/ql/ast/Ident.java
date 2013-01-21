@@ -1,18 +1,24 @@
 package org.uva.sea.ql.ast;
 
+import org.antlr.runtime.Token;
+
 public class Ident extends Expr {
+	private final Token token;
 
-	private final String name;
-
-	public Ident(String name) {
-		this.name = name;
+	public Ident(Token token) {
+		this.token = token;
 	}
 
 	public String getName() {
-		return name;
+		return token.getText();
 	}
 
-	public void eval() {
-		System.out.print(name);
+	public int getLine() {
+		return token.getLine();
 	}
+
+	public int getCharPositionInLine() {
+		return token.getCharPositionInLine();
+	}
+
 }

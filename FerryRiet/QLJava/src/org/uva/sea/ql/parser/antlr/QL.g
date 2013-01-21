@@ -1,4 +1,4 @@
-grammar QL;
+ grammar QL;
 options {backtrack=true; memoize=true;}
 
 @parser::header
@@ -13,18 +13,20 @@ package org.uva.sea.ql.parser.antlr;
 }
 
 qlprogram returns [QLProgram result]
-    : 'form' Ident  cb=compoundblock { $result = new QLProgram($Ident, cb) ; } 
+    : 'form' Ident  cb=compoundStatement { $result = new QLProgram($Ident, cb) ; } 
     ;
 
-compoundblock returns [CompoundBlock result]
+compoundStatement returns [Statement result]
+  @init { CompoundStatement compoundStatement = new CompoundStatement() ; }
     : LBRACE 
-      { $result = new CompoundBlock() ; } (st=stmt  { $result.addStatement($st.result) ; } )* 
-      RBRACE  
-    ;
+      (st=statement  { compoundStatement.addStatement($st.result) ; } )* 
+      RBRACE    { $result = compoundStatement ; }
+    ;    
 
-stmt returns [Statement result]     
-    : Ident COLON st=StringLiteral ty=type { $result = new LineStatement(new String($Ident.text),$st,$ty.result); }
-    | 'if' '(' ex=orExpr ')' c=compoundblock    { $result = new ConditionalStatement(ex,c) ; } 
+statement returns [Statement result]     
+    : Ident COLON StringLiteral type { $result = new LineStatement($Ident,$StringLiteral,$type.result); }
+    | 'if' '(' ex=orExpr ')' ctrue=compoundStatement ('else' cfalse=compoundStatement)? { $result = new ConditionalStatement(ex,ctrue,cfalse) ; }
+    |  cst=compoundStatement { $result = cst ;}  
     ;
 
 type returns [TypeDescription result]
@@ -35,7 +37,7 @@ type returns [TypeDescription result]
 
 primary returns [Expr result]
   : IntLiteral      { $result = new IntLiteral(Integer.parseInt($IntLiteral.text)); }
-  | Ident           { $result = new Ident($Ident.text); }
+  | Ident           { $result = new Ident($Ident); }
   | BooleanLiteral  { $result = new BooleanLiteral($BooleanLiteral.text) ;}
   | StringLiteral   { $result = new StringLiteral($StringLiteral.text) ;}
   | '(' x=orExpr ')'{ $result = $x.result; }
@@ -108,11 +110,12 @@ orExpr returns [Expr result]
 WS  :	(' ' | '\t' | '\n' | '\r') { $channel=HIDDEN; }
     ;
 
-StringLiteral : '"' ~('\n' | '\r' | '"')* '"' ;
+StringLiteral : '"' ~('\n' | '\r' | '\f' | '"')* '"' ;
 
 COLON  : ':' ;
 LBRACE : '{' ;
 RBRACE : '}' ;
+
 
 COMMENT 
     : '/*' .* '*/'    {$channel=HIDDEN;}

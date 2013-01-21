@@ -1,8 +1,8 @@
 package org.uva.sea.ql.ast.expr.value;
 
-import org.uva.sea.ql.ASTNodeVisitor;
+import org.uva.sea.ql.ast.ASTNodeVisitor;
 
-public class Bool extends Value {
+public class Bool implements Value {
 
 	private final boolean value;
 

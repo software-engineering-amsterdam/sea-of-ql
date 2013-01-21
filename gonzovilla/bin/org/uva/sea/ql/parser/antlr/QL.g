@@ -1,5 +1,5 @@
 grammar QL;
-options {backtrack=true; memoize=true;}
+options {language = Java;}
 
 @parser::header
 {
@@ -11,6 +11,26 @@ import org.uva.sea.ql.ast.*;
 {
 package org.uva.sea.ql.parser.antlr;
 }
+
+program
+  : 'start' Ident '='
+    question* 
+    'end' Ident '.'
+  ;
+
+question
+  : 'question' Ident ':' type ':=' expression '?'
+  ;
+
+type
+  : 'Boolean'
+  | 'Integer'
+  | 'String'
+  ;
+
+expression
+  : (Ident | WS)+
+  ; 
 
 primary returns [Expr result]
   : Int   { $result = new Int(Integer.parseInt($Int.text)); }
@@ -31,7 +51,7 @@ mulExpr returns [Expr result]
       if ($op.text.equals("*")) {
         $result = new Mul($result, rhs);
       }
-      if ($op.text.equals("<=")) {
+      if ($op.text.equals("/")) {
         $result = new Div($result, rhs);      
       }
     })*
@@ -83,15 +103,16 @@ orExpr returns [Expr result]
     :   lhs=andExpr { $result = $lhs.result; } ( '||' rhs=andExpr { $result = new Or($result, rhs); } )*
     ;
 
-    
+     
 // Tokens
-WS  :	(' ' | '\t' | '\n' | '\r') { $channel=HIDDEN; }
+WS  :	(' ' | '\t' | '\n' | '\r')+ { $channel=HIDDEN; }
     ;
+
+SINGLECOMMENT : '//' .* ('\n' | '\r') {$channel=HIDDEN;} ;
 
 COMMENT 
-     : '/*' .* '*/' {$channel=HIDDEN;}
-    ;
-
+    : '/*' .* '*/' {$channel=HIDDEN;} ;
+    
 Ident:   ('a'..'z'|'A'..'Z')('a'..'z'|'A'..'Z'|'0'..'9'|'_')*;
 
 Int: ('0'..'9')+;

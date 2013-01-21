@@ -1,17 +1,23 @@
 package org.uva.sea.ql.ast;
 
+import org.uva.sea.ql.interpreter.Int;
 import org.uva.sea.ql.interpreter.Value;
 
 public class Neg extends Expr {
+	
+	private final Expr expr;
 
-	public Neg(Expr x) {
-		// TODO Auto-generated constructor stub
+	public Neg(Expr expr) {
+		this.expr = expr;
 	}
 
+	public Expr getExpr() {
+		return expr;
+	}
+	
 	@Override
 	public Value interpret() {
-		// TODO Auto-generated method stub
-		return null;
+		return new Int(((Int)getExpr().interpret()).getVal() * -1);
 	}
 
 }

@@ -2,53 +2,64 @@ package org.uva.sea.ql.tests.typechecker.typecheckerVisitorTests;
 
 import org.junit.Test;
 import org.uva.sea.ql.ast.FormElement;
+import org.uva.sea.ql.ast.NullFormElement;
 import org.uva.sea.ql.ast.expr.Expr;
-import org.uva.sea.ql.ast.expr.If;
+import org.uva.sea.ql.ast.If;
 import org.uva.sea.ql.ast.expr.value.Bool;
+import org.uva.sea.ql.ast.expr.value.*;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
+import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 public class IfTests extends TypecheckerVisitorTests {
 
     @Test
+    public void expressionIsBoolean_noErrorsAreAdded() {
+        If i = new If(new Bool(true), new NullFormElement(), new NullFormElement());
+        i.accept(visitor, context);
+        assertTrue(context.getErrors().isEmpty());
+    }
+
+    @Test
+    public void expressionIsNotBoolean_errorsAreAdded() {
+        final Value[] notBooleanValues = {
+                new Int(10),
+                new Str("Hello")
+        };
+
+        for(Value value : notBooleanValues) {
+            int errors = context.getErrors().size();
+            new If(value, new NullFormElement(), new NullFormElement()).accept(visitor, context);
+            assertTrue(errors + 1 == context.getErrors().size());
+        }
+    }
+
+    @Test
     public void acceptIsCalled_conditionAcceptIsCalled() {
         Expr mockExpression = mock(Expr.class);
-        If i = new If(mockExpression, new ArrayList<FormElement>(), new ArrayList<FormElement>());
-        i.accept(visitor, symbolTable);
-        verify(mockExpression).accept(visitor, symbolTable);
+        when(mockExpression.accept(visitor, context)).thenReturn(new org.uva.sea.ql.ast.type.Bool());
+
+        If i = new If(mockExpression, new NullFormElement(), new NullFormElement());
+        i.accept(visitor, context);
+        verify(mockExpression).accept(visitor, context);
     }
 
     @Test
     public void acceptIsCalled_ifBodyAcceptIsCalled() {
-        List<FormElement> mockFormElements = Arrays.asList(
-            mock(FormElement.class),
-            mock(FormElement.class),
-            mock(FormElement.class)
-        );
-        If i = new If(new Bool(true), mockFormElements, new ArrayList<FormElement>());
-        i.accept(visitor, symbolTable);
-
-        for(FormElement f : mockFormElements)
-            verify(f).accept(visitor, symbolTable);
+        FormElement mockFormElement = mock(FormElement.class);
+        If i = new If(new Bool(true), mockFormElement, new NullFormElement());
+        i.accept(visitor, context);
+        verify(mockFormElement).accept(visitor, context);
     }
 
     @Test
     public void acceptIsCalled_elseBodyAcceptIsCalled() {
-        List<FormElement> mockFormElements = Arrays.asList(
-                mock(FormElement.class),
-                mock(FormElement.class),
-                mock(FormElement.class)
-        );
-        If i = new If(new Bool(true), new ArrayList<FormElement>(), mockFormElements);
-        i.accept(visitor, symbolTable);
-
-        for(FormElement f : mockFormElements)
-            verify(f).accept(visitor, symbolTable);
+        FormElement mockFormElement = mock(FormElement.class);
+        If i = new If(new Bool(true), new NullFormElement(), mockFormElement);
+        i.accept(visitor, context);
+        verify(mockFormElement).accept(visitor, context);
     }
 
 }

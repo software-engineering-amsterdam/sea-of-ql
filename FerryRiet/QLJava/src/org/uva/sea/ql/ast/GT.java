@@ -6,14 +6,4 @@ public class GT extends BinExpr {
 		super(result, rhs);
 		// TODO Auto-generated constructor stub
 	}
-
-	public void eval() {
-
-		exLeftHand.eval();
-
-		System.out.print(" > ");
-
-		exRightHand.eval();
-
-	}
 }

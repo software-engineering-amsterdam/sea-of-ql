@@ -1,221 +1,251 @@
 package org.uva.sea.ql.typechecker;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
-import org.uva.sea.ql.ASTNodeVisitor;
 import org.uva.sea.ql.ast.*;
 import org.uva.sea.ql.ast.expr.*;
 import org.uva.sea.ql.ast.type.*;
 
-import sun.org.mozilla.javascript.internal.ast.UnaryExpression;
+public class TypecheckerVisitor implements ASTNodeVisitor<Type, TypecheckerVisitor.Context> {
 
-public class TypecheckerVisitor implements ASTNodeVisitor<Type, Map<Ident, Type>> {
+    public static class Context {
+        private final Map<Ident, Type> symbolTable;
+        private final List<String> errors;
 
-	private static final Type BOOL_TYPE   = new org.uva.sea.ql.ast.type.Bool(),
-			                  INT_TYPE    = new org.uva.sea.ql.ast.type.Int(),
-			                  STRING_TYPE = new org.uva.sea.ql.ast.type.Str();
-	
-	
-	public void typecheck(Form form) {
-		form.accept(this, new HashMap<Ident, Type>());
-	}	
-	
+        public Context() {
+            this.symbolTable = new HashMap<Ident, Type>();
+            this.errors = new ArrayList<String>();
+        }
+
+        public List<String> getErrors() { return errors; }
+        public Map<Ident, Type> getSymbolTable() { return symbolTable; }
+    }
+
+	private static final Type BOOL_TYPE    = new org.uva.sea.ql.ast.type.Bool(),
+			                  INT_TYPE     = new org.uva.sea.ql.ast.type.Int(),
+			                  STRING_TYPE  = new org.uva.sea.ql.ast.type.Str();
+
+
+    /**
+     * This method checks a form for errors.
+     * @return A list of errors. When no errors are found, an empty list is returned.
+     */
+	public List<String> typecheck(Form form) {
+		Context context = new Context();
+        form.accept(this, context);
+        return context.getErrors();
+    }
 	
 	// Form operations
 	@Override
-	public Type visit(Computed astNode, Map<Ident, Type> param) {
-        astNode.getExpression().accept(this, param);
+	public Type visit(Computed astNode, Context context) {
+        astNode.getExpression().accept(this, context);
+		return null;
+	}
+
+    @Override
+    public Type visit(CompositeFormElement astNode, Context context) {
+        for(FormElement formElement : astNode.getFormElements())
+            formElement.accept(this, context);
+        return null;
+    }
+
+	@Override
+	public Type visit(Declaration astNode, Context context) {
+		if(!context.getSymbolTable().containsKey(astNode.getIdentity()))
+            context.getSymbolTable().put(astNode.getIdentity(), astNode.getType());
+		else
+            context.getErrors().add(String.format("The identity '%s' is already declared!", astNode.getIdentity().getName()));
+
 		return null;
 	}
 
 	@Override
-	public Type visit(Declaration astNode, Map<Ident, Type> param) {
-		if(param.containsKey(astNode.getIdentity()))
-			throw new TypecheckerException(String.format("The identity '%s' is already declared!", astNode.getIdentity().getName()));
-		
-		param.put(astNode.getIdentity(), astNode.getType());
-		
-		return null;
-	}
-
-	@Override
-	public Type visit(Form astNode, Map<Ident, Type> param) {
-		for(FormElement formElement : astNode.getBody())
-			formElement.accept(this, param);
-		
+	public Type visit(Form astNode, Context context) {
+		astNode.getBody().accept(this, context);
 		return null;			
 	}
 	
 	@Override
-	public Type visit(Ident astNode, Map<Ident, Type> param) {
-		if(param.containsKey(astNode))
-			return param.get(astNode);
-		else
-			throw new TypecheckerException(
-				String.format("Identity '%s' has not yet been declared!", astNode.getName()));
+	public Type visit(Ident astNode, Context context) {
+		if(context.getSymbolTable().containsKey(astNode))
+			return context.getSymbolTable().get(astNode);
+		else {
+			context.errors.add(String.format("Identity '%s' has not yet been declared!", astNode.getName()));
+            /**
+             * We are trying to retrieve the type of an undefined variable. There is no way we can determine
+             * what type an undefined variable has, because it is literally unknown.
+             * To avoid null checks everywhere where a type is used, return an 'null' implementation of the
+             * Type interface.
+             */
+            return new Unknown();
+        }
 	}
 	
 	@Override
-	public Type visit(If astNode, Map<Ident, Type> param) {
-		astNode.getCondition().accept(this, param);
-		for(ASTNode x : astNode.getIfBody())
-			x.accept(this, param);
-		for(ASTNode x : astNode.getElseBody())
-			x.accept(this, param);
+	public Type visit(If astNode, Context context) {
+		Type type = astNode.getCondition().accept(this, context);
+        if(!type.equals(BOOL_TYPE))
+            context.getErrors().add("The condition of an if-statement should have type boolean.");
+
+		astNode.getIfBody().accept(this, context);
+		astNode.getElseBody().accept(this, context);
 		
 		return null;
 	}
 	
 	@Override
-	public Type visit(Question astNode, Map<Ident, Type> param) {
-		astNode.getDeclaration().accept(this, param);
+	public Type visit(Question astNode, Context context) {
+		astNode.getDeclaration().accept(this, context);
 		return null;
 	}
 	
 	
 	// Value operations
 	@Override
-	public Type visit(org.uva.sea.ql.ast.expr.value.Bool astNode, Map<Ident, Type> param) {
+	public Type visit(org.uva.sea.ql.ast.expr.value.Bool astNode, Context context) {
 		return BOOL_TYPE;
 	}
 
 	@Override
-	public Type visit(org.uva.sea.ql.ast.expr.value.Int astNode, Map<Ident, Type> param) {
+	public Type visit(org.uva.sea.ql.ast.expr.value.Int astNode, Context context) {
 		return INT_TYPE;
 	}
 
 	@Override
-	public Type visit(org.uva.sea.ql.ast.expr.value.Str astNode, Map<Ident, Type> param) {
+	public Type visit(org.uva.sea.ql.ast.expr.value.Str astNode, Context context) {
 		return STRING_TYPE;
 	}
 
 
 	// Integer operations
 	@Override
-	public Type visit(Add astNode, Map<Ident, Type> param) {
-		checkBothSidesAreInts(astNode, param, "+");
+	public Type visit(Add astNode, Context context) {
+		checkBothSidesAreInts(astNode, context, "+");
 		return INT_TYPE;
 	}
 	@Override
-	public Type visit(Div astNode, Map<Ident, Type> param) {
-		checkBothSidesAreInts(astNode, param, "/");
-		return INT_TYPE;
-	}
-	
-	@Override
-	public Type visit(GEq astNode, Map<Ident, Type> param) {
-		checkBothSidesAreInts(astNode, param, ">=");
-		return BOOL_TYPE;
-	}
-	
-	@Override
-	public Type visit(GT astNode, Map<Ident, Type> param) {
-		checkBothSidesAreInts(astNode, param, ">");
-		return BOOL_TYPE;
-	}
-	
-	@Override
-	public Type visit(LEq astNode, Map<Ident, Type> param) {
-		checkBothSidesAreInts(astNode, param, "<=");
-		return BOOL_TYPE;
-	}
-	
-	@Override
-	public Type visit(LT astNode, Map<Ident, Type> param) {
-		checkBothSidesAreInts(astNode, param, "<");
-		return BOOL_TYPE;
-	}
-	
-	@Override
-	public Type visit(Mul astNode, Map<Ident, Type> param) {
-		checkBothSidesAreInts(astNode, param, "*");
-		return BOOL_TYPE;
-	}
-	
-	@Override
-	public Type visit(Sub astNode, Map<Ident, Type> param) {
-		checkBothSidesAreInts(astNode, param, "-");
+	public Type visit(Div astNode, Context context) {
+		checkBothSidesAreInts(astNode, context, "/");
 		return INT_TYPE;
 	}
 	
 	@Override
-	public Type visit(Neg astNode, Map<Ident, Type> param) {
-		checkExpressionIsInt(astNode, param, "-");
+	public Type visit(GEq astNode, Context context) {
+		checkBothSidesAreInts(astNode, context, ">=");
+		return BOOL_TYPE;
+	}
+	
+	@Override
+	public Type visit(GT astNode, Context context) {
+		checkBothSidesAreInts(astNode, context, ">");
+		return BOOL_TYPE;
+	}
+	
+	@Override
+	public Type visit(LEq astNode, Context context) {
+		checkBothSidesAreInts(astNode, context, "<=");
+		return BOOL_TYPE;
+	}
+	
+	@Override
+	public Type visit(LT astNode, Context context) {
+		checkBothSidesAreInts(astNode, context, "<");
+		return BOOL_TYPE;
+	}
+	
+	@Override
+	public Type visit(Mul astNode, Context context) {
+		checkBothSidesAreInts(astNode, context, "*");
+		return BOOL_TYPE;
+	}
+	
+	@Override
+	public Type visit(Sub astNode, Context context) {
+		checkBothSidesAreInts(astNode, context, "-");
 		return INT_TYPE;
 	}
 	
 	@Override
-	public Type visit(Pos astNode, Map<Ident, Type> param) {
-		checkExpressionIsInt(astNode, param, "+");
+	public Type visit(Neg astNode, Context context) {
+		checkExpressionIsInt(astNode, context, "-");
+		return INT_TYPE;
+	}
+	
+	@Override
+	public Type visit(Pos astNode, Context context) {
+		checkExpressionIsInt(astNode, context, "+");
 		return INT_TYPE;
 	}
 	
 	
 	// Boolean operations
 	@Override
-	public Type visit(And astNode, Map<Ident, Type> param) {
-		checkBothSidesAreBools(astNode, param, "||");
+	public Type visit(And astNode, Context context) {
+		checkBothSidesAreBools(astNode, context, "||");
 		return BOOL_TYPE;
 	}
 
 
 	@Override
-	public Type visit(Not astNode, Map<Ident, Type> param) {
-		checkExpressionIsBool(astNode, param, "!");
+	public Type visit(Not astNode, Context context) {
+		checkExpressionIsBool(astNode, context, "!");
 		return BOOL_TYPE;
 	}
 	
 	@Override
-	public Type visit(Or astNode, Map<Ident, Type> param) {
-		checkBothSidesAreBools(astNode, param, "||");
+	public Type visit(Or astNode, Context context) {
+		checkBothSidesAreBools(astNode, context, "||");
 		return BOOL_TYPE;
 	}
 
 	// Same type on both sides
 	@Override
-	public Type visit(Eq astNode, Map<Ident, Type> param) {
-		checkBothSidesAreOfSameType(astNode, param, "==");
+	public Type visit(Eq astNode, Context context) {
+		checkBothSidesAreOfSameType(astNode, context, "==");
 		return BOOL_TYPE;
 	}
 
 	@Override
-	public Type visit(NEq astNode, Map<Ident, Type> param) {
-        checkBothSidesAreOfSameType(astNode, param, "!=");
+	public Type visit(NEq astNode, Context context) {
+        checkBothSidesAreOfSameType(astNode, context, "!=");
         return BOOL_TYPE;
 	}
 
 	
-	private void checkBothSidesAreBools(BinaryExpr expression, Map<Ident, Type> param, String operator) {
+	private void checkBothSidesAreBools(BinaryExpr expression, Context context, String operator) {
 		if(
-			expression.getLeftExpression().accept(this, param) != BOOL_TYPE ||
-			expression.getRightExpression().accept(this, param) != BOOL_TYPE)
+			!expression.getLeftExpression().accept(this, context).equals(BOOL_TYPE) ||
+			!expression.getRightExpression().accept(this, context).equals(BOOL_TYPE))
 			
-			throw new TypecheckerException(String.format("Both sides of the '%s' have to be of type boolean.", operator));
+			context.getErrors().add(String.format("Both sides of the '%s' have to be of type boolean.", operator));
 	}
 	
-	private void checkBothSidesAreInts(BinaryExpr expression, Map<Ident, Type> param, String operator) {
+	private void checkBothSidesAreInts(BinaryExpr expression, Context context, String operator) {
 		if(
-			expression.getLeftExpression().accept(this, param) != INT_TYPE ||
-			expression.getRightExpression().accept(this, param) != INT_TYPE)
+			!expression.getLeftExpression().accept(this, context).equals(INT_TYPE) ||
+			!expression.getRightExpression().accept(this, context).equals(INT_TYPE))
 			
-			throw new TypecheckerException(String.format("Both sides of the '%s' have to be of type integer.", operator));
+			context.getErrors().add(String.format("Both sides of the '%s' have to be of type integer.", operator));
 	}
 
-    private void checkBothSidesAreOfSameType(BinaryExpr expression, Map<Ident, Type> param, String operator) {
+    private void checkBothSidesAreOfSameType(BinaryExpr expression, Context context, String operator) {
         if (
-            expression.getLeftExpression().accept(this, param) !=
-                expression.getRightExpression().accept(this, param))
-            throw new TypecheckerException(String.format("The left and right side of the '%s' operator need to be of the same type.", operator));
+            !expression.getLeftExpression().accept(this, context).equals(
+                expression.getRightExpression().accept(this, context)))
+            context.getErrors().add(String.format("The left and right side of the '%s' operator need to be of the same type.", operator));
     }
 	
-	private void checkExpressionIsBool(UnaryExpr expression, Map<Ident, Type> param, String operator) {
-		if(expression.getExpression().accept(this, param) != BOOL_TYPE)
-			throw new TypecheckerException(String.format("The expression of the '%s' operator has to be of type boolean.", operator));
+	private void checkExpressionIsBool(UnaryExpr expression, Context context, String operator) {
+		if(!expression.getExpression().accept(this, context).equals(BOOL_TYPE))
+            context.getErrors().add(String.format("The expression of the '%s' operator has to be of type boolean.", operator));
 	}
 	
-	private void checkExpressionIsInt(UnaryExpr expression, Map<Ident, Type> param, String operator) {
-		if(expression.getExpression().accept(this, param) != INT_TYPE)
-			throw new TypecheckerException(String.format("The expression of the '%s' operator has to be of type boolean.", operator));
+	private void checkExpressionIsInt(UnaryExpr expression, Context context, String operator) {
+		if(!expression.getExpression().accept(this, context).equals(INT_TYPE))
+            context.getErrors().add(String.format("The expression of the '%s' operator has to be of type boolean.", operator));
 	}
 }

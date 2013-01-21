@@ -1,8 +1,8 @@
 package org.uva.sea.ql.ast.expr;
 
-import org.uva.sea.ql.ASTNodeVisitor;
+import org.uva.sea.ql.ast.ASTNodeVisitor;
 
-public class Ident extends Expr {
+public class Ident implements Expr {
 
 	private final String name;
 

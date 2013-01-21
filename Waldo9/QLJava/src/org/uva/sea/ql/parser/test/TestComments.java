@@ -9,9 +9,9 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
-import org.uva.sea.ql.ast.Int;
-import org.uva.sea.ql.ast.Mul;
-import org.uva.sea.ql.parser.antlr.ANTLRParser;
+import org.uva.sea.ql.ast.expressions.Int;
+import org.uva.sea.ql.ast.expressions.Mul;
+import org.uva.sea.ql.parser.antlr.*;
 
 @RunWith(Parameterized.class)
 public class TestComments {
@@ -28,18 +28,16 @@ public class TestComments {
 	public TestComments(IParse parser) {
 		this.parser = parser;
 	}
-
 	
 	@Test
 	public void testMultiLineComment() throws ParseError {
-		assertEquals(parser.parse("/* a + /n b + */ c * d").getClass(), Mul.class);
+		assertEquals(Mul.class, parser.parseExpr("/* a + /n b + */ c * d").getClass());
 	}
 	
 	@Test
 	public void testSingleLineComment() throws ParseError {
-		assertEquals(parser.parse("// a + \n b * c").getClass(), Mul.class);
-		assertEquals(parser.parse("// a + b * c"), null);
-		assertEquals(parser.parse("// a + b * c \n 5").getClass(), Int.class);
+		assertEquals(Mul.class, parser.parseExpr("// a + \n b * c").getClass());
+		assertEquals(Int.class, parser.parseExpr("// a + b * c \n 5").getClass());
 	}
 
 }

@@ -6,6 +6,8 @@ import static org.junit.Assert.*;
 import org.uva.sea.ql.ast.*;
 import org.uva.sea.ql.parser.ParseError;
 
+import java.util.Iterator;
+
 public class FormTests extends ParserTests {
 
 	@Test
@@ -18,7 +20,7 @@ public class FormTests extends ParserTests {
 		Form form = (Form) parsed;
 		assertEquals(formName, form.getName().getName());
 		assertNotNull(form.getBody());
-		assertEquals(0, form.getBody().size());
+		assertEquals(NullFormElement.class, form.getBody().getClass());
 	}
 	
 	@Test
@@ -36,6 +38,12 @@ public class FormTests extends ParserTests {
 		Form form = (Form) parsed;
 		assertEquals(formName, form.getName().getName());
 		assertNotNull(form.getBody());
-		assertEquals(3, form.getBody().size());
+        assertEquals(CompositeFormElement.class, form.getBody().getClass());
+        Iterator<FormElement> formElements = ((CompositeFormElement)form.getBody()).getFormElements().iterator();
+		for(int i = 0; i < 3; ++i) {
+            assertTrue(formElements.hasNext());
+            formElements.next();
+        }
+        assertFalse(formElements.hasNext());
 	}
 }

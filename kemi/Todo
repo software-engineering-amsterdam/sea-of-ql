@@ -10,20 +10,16 @@
 * 	A generator that converts QL models to an Java and/or JavaScript code. 
 	This functionality should be made available in the IDE.
 * 	Extending skeleton code:
-	- Syntax for booleans, string literals. Don't forget to take care of keyword reservation: true and false should be parsed as boolean literals, not as identifiers.
-	- the QL language should support date and (fixed-precision) decimal.
-	- Add syntax productions for forms, questions, computed quetsions, types (int, bool, and string) and if-then and if-then-else statements. Use string literals for question labels. See the LWC'13 link above for an example questionnaire.
-	- Add tests to check your syntax extensions.
-	- Add AST classes for the provided expression categories, and for you syntactic extensions. Make sure the parser creates objects of the appropriate type.
-	- Change the start symbol of the parser to parse forms, instead of Expressions.
 *	Development of the QLS layout language (including IDE support). Include support for at least date picker, spin lock and radio button widgets. This language has to be designed!
 *	Checking of the QLS language against the QL language.
-* Naming convention for ident/expr/pos/neg/...
+*   Naming convention for ident/expr/pos/neg/...
+*   Naming of CG in ql::ast::Graph
+*   Type checking: Conditionals -> bools
+*   Test the questions via the graph ? -> makes our compilation phase harder...
+*   Test the identifiers via the graph ? -> makes our compilation phase harder... 
+*   Randomized testing for semantic checker? -> how exactly are we going to do this
 
 BONUS:
 * 	Bonus exercise for Rascal variants: use SAT/SMT/Constraint solver to check for non-determinism.
 
 Grading: See wiki
-
-
-

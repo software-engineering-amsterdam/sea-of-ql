@@ -40,7 +40,7 @@ mulExpr returns [Expr result]
       if ($op.text.equals("*")) {
         $result = new Mul($result, rhs);
       }
-      if ($op.text.equals("<=")) {
+      if ($op.text.equals("/")) {
         $result = new Div($result, rhs);      
       }
     })*
@@ -98,11 +98,19 @@ form returns [Form result]
       }
     ;
     
-formElements returns [List<FormElement> result]
+formElements returns [FormElement result]
     @init {
-        result = new ArrayList<FormElement>();
+        ArrayList<FormElement> formElements = new ArrayList<FormElement>();
     }
-    : (formElement { result.add($formElement.result); })*
+    @after {
+        if(formElements.isEmpty())
+            result = new NullFormElement();
+        else if(formElements.size() == 1)
+            result = formElements.get(0);
+        else
+            result = new CompositeFormElement(formElements);
+    }
+    : (formElement { formElements.add($formElement.result); })*
     ;
     
 formElement returns [FormElement result]
@@ -134,11 +142,11 @@ computedFormElement returns [Computed result]
    
 ifFormElement returns [If result]
     : 'if' '(' orExpr ')' '{' ifElements = formElements '}' 'else' elseElement = ifFormElement 
-        { $result = new If($orExpr.result, $formElements.result, java.util.Arrays.asList((FormElement)$elseElement.result)); }
+        { $result = new If($orExpr.result, $ifElements.result, $elseElement.result); }
     | 'if' '(' orExpr ')' '{' ifElements = formElements '}' 'else' '{' elseElements = formElements'}' 
         { $result = new If($orExpr.result, $ifElements.result, $elseElements.result); }
     | 'if' '(' orExpr ')' '{' formElements '}' 
-        { $result = new If($orExpr.result, $formElements.result, new ArrayList<FormElement>()); }
+        { $result = new If($orExpr.result, $formElements.result, new NullFormElement()); }
     ;
     
 // Tokens

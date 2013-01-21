@@ -1,17 +1,23 @@
 package org.uva.sea.ql.ast;
 
+import org.uva.sea.ql.interpreter.BoolType;
 import org.uva.sea.ql.interpreter.Value;
 
 public class Not extends Expr {
 
-	public Not(Expr x) {
-		// TODO Auto-generated constructor stub
+	private final Expr expr;
+	
+	public Not(Expr expr) {
+		this.expr = expr;
 	}
 
+	public Expr getExpr() {
+		return expr;
+	}
+	
 	@Override
 	public Value interpret() {
-		// TODO Auto-generated method stub
-		return null;
+		return new BoolType(!((BoolType)getExpr().interpret()).getBool());
 	}
 
 }

@@ -1,5 +1,6 @@
 package org.uva.sea.ql.ast;
 
+import org.uva.sea.ql.interpreter.BoolType;
 import org.uva.sea.ql.interpreter.Value;
 
 public class Or extends Binary {
@@ -10,8 +11,9 @@ public class Or extends Binary {
 
 	@Override
 	public Value interpret() {
-		// TODO Auto-generated method stub
-		return null;
+		BoolType lb = (BoolType) getLeft().interpret();
+		BoolType rb = (BoolType) getRight().interpret();
+		return new BoolType(lb.getBool() || rb.getBool());
 	}
 
 }
