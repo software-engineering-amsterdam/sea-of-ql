@@ -4,6 +4,8 @@ abort/bin/*
 .DS_Store
 *.rej
 *.tokens
-abort/src/org.uva.sea.ql.parser.antlr/QLLexer.java
-abort/src/org.uva.sea.ql.parser.antlr/QLParser.java
+abort/src/main/org.uva.sea.ql.parser/QLLexer.java
+abort/src/main/org.uva.sea.ql.parser/QLParser.java
+abort/src/.sonar
+abort/.sonar
 .classpath
