@@ -1,5 +1,6 @@
 package org.uva.sea.ql.ast.expr.value;
 
+import org.uva.sea.ql.visitor.Context;
 import org.uva.sea.ql.visitor.Visitor;
 
 public class StringLiteral extends Value {
@@ -15,8 +16,8 @@ public class StringLiteral extends Value {
 	}
 
 	@Override
-	public void accept(Visitor visitor) {
-		// TODO Auto-generated method stub
+	public void accept(Visitor visitor, Context context) {
+		visitor.visit(this, context);
 		
 	}
 	

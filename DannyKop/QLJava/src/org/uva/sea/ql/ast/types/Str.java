@@ -33,6 +33,6 @@ public class Str extends Expr implements Type<String> {
 	 */
 	@Override
 	public String getType() {
-		return "string";
+		return "Str";
 	}
 }

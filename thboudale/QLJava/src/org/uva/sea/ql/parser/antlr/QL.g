@@ -11,12 +11,40 @@ import org.uva.sea.ql.ast.*;
 {
 package org.uva.sea.ql.parser.antlr;
 }
+/*
+form
+	: 'form' IDENT
+	  (question | computedQuestion | ifStatement)*
+	;
+
+ifStatement
+	: 'if' '(' orExpr ')'
+	 '{' (question | computedQuestion)* '}'
+	 ('else'  '{' (question | computedQuestion)* '}')?
+	;
+
+computedQuestion
+	: question '(' orExpr ')'
+	;
+
+question
+	: IDENT ':' STRING_LITERAL x=type
+	;
+
+
+type
+	:
+	| 'boolean' 
+	| 'money'
+	; */
+
 
 primary returns [Expr result]
-  : Int   { $result = new Int(Integer.parseInt($Int.text)); }
-  | Ident { $result = new Ident($Ident.text); }
-  | '(' x=orExpr ')'{ $result = $x.result; }
-  ;
+  	: INT   { $result = new Int(Integer.parseInt($INT.text)); }
+  	| IDENT { $result = new Ident($IDENT.text); }
+  	| BOOLEAN { $result = new Bool($BOOLEAN.text); }
+  	| '(' x=orExpr ')'{ $result = $x.result; }
+  	;
     
 unExpr returns [Expr result]
     :  '+' x=unExpr { $result = new Pos($x.result); }
@@ -82,16 +110,31 @@ andExpr returns [Expr result]
 orExpr returns [Expr result]
     :   lhs=andExpr { $result = $lhs.result; } ( '||' rhs=andExpr { $result = new Or($result, rhs); } )*
     ;
-
+  
     
 // Tokens
-WS  :	(' ' | '\t' | '\n' | '\r') { $channel=HIDDEN; }
+
+WS
+	: (' ' | '\t' | '\n' | '\r') { $channel=HIDDEN; }
+	;
+	
+COMMENT
+	: '/*' .* '*/' {$channel=HIDDEN;}
+    | '//' .* ('\n'|'\r') {$channel = HIDDEN;}
     ;
-
-COMMENT 
-     : '/*' .* '*/' {$channel=HIDDEN;}
-    ;
-
-Ident:   ('a'..'z'|'A'..'Z')('a'..'z'|'A'..'Z'|'0'..'9'|'_')*;
-
-Int: ('0'..'9')+;
+    
+INT
+	: ('0'..'9')+
+	;
+	
+STRING_LITERAL
+	: '"' .* '"'
+	;
+	
+BOOLEAN
+	: ('true' | 'false')
+	;
+	
+IDENT
+	: ('a'..'z'|'A'..'Z')('a'..'z'|'A'..'Z'|'0'..'9'|'_')*
+	;

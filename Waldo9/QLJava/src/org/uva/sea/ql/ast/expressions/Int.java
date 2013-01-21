@@ -1,5 +1,7 @@
 package org.uva.sea.ql.ast.expressions;
 
+import org.uva.sea.ql.ast.ASTNodeVisitor;
+
 public class Int extends Expr {
 
 	private final int value;
@@ -11,5 +13,9 @@ public class Int extends Expr {
 	public int getValue() {
 		return value;
 	}
+	
+	public void accept(ASTNodeVisitor visitor) {
+        visitor.visit(this);
+    }
 	
 }

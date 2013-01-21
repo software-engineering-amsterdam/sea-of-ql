@@ -1,8 +1,9 @@
 package nl.stgm.ql.ast.expr;
 
-public class Pos extends Expr
+public class Pos extends UnaryExpr
 {
-	public Pos(Expr expr)
+	public Pos(Expr arg)
 	{
+		this.arg = arg;
 	}
 }

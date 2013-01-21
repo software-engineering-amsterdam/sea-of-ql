@@ -3,3 +3,4 @@ yosuf/bin/*
 *~ # Temporary files
 *.class # Compiled Java
 .DS_Store
+.metadata/*

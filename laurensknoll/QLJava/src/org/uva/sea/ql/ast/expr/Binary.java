@@ -1,6 +1,6 @@
 package org.uva.sea.ql.ast.expr;
 
-public class Binary extends AbstractExpr {
+public abstract class Binary extends AbstractExpr {
 
 	private final AbstractExpr lhsExpr;
 	private final AbstractExpr rhsExpr;
@@ -17,4 +17,5 @@ public class Binary extends AbstractExpr {
 	public AbstractExpr getRightHandSideExpression() {
 		return this.rhsExpr;
 	}
+
 }

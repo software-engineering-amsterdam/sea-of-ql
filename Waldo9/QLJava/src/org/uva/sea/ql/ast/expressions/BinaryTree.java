@@ -1,5 +1,7 @@
 package org.uva.sea.ql.ast.expressions;
 
+import org.uva.sea.ql.ast.ASTNodeVisitor;
+
 public abstract class BinaryTree extends Expr {
 	
 	private Expr lhs;
@@ -14,12 +16,11 @@ public abstract class BinaryTree extends Expr {
 		this.lhs = lhs;
 	}
 	
-	protected Expr getLeft() {
-		return lhs;
-	}
-	
-	protected Expr getRight() {
-		return rhs;
-	}
+	public void accept(ASTNodeVisitor visitor) {
+		lhs.accept(visitor);
+		if (rhs != null)
+			rhs.accept(visitor);
+		visitor.visit(this);
+    }
 	
 }

@@ -6,12 +6,12 @@ import org.uva.sea.ql.ast.expression.Ident;
 import org.uva.sea.ql.ast.expression.LogicalExpression;
 import org.uva.sea.ql.ast.expression.UnaryExpression;
 import org.uva.sea.ql.ast.expression.UnaryNumericExpression;
-import org.uva.sea.ql.ast.expression.value.Bool;
-import org.uva.sea.ql.ast.expression.value.Int;
-import org.uva.sea.ql.ast.expression.value.Money;
-import org.uva.sea.ql.ast.expression.value.Str;
-import org.uva.sea.ql.evaluate.Context;
-import org.uva.sea.ql.evaluate.Value;
+import org.uva.sea.ql.ast.expression.literal.Bool;
+import org.uva.sea.ql.ast.expression.literal.Int;
+import org.uva.sea.ql.ast.expression.literal.Money;
+import org.uva.sea.ql.ast.expression.literal.Str;
+import org.uva.sea.ql.eval.Context;
+import org.uva.sea.ql.eval.value.Value;
 
 /**
  * Expression visitor.
@@ -25,7 +25,7 @@ public interface IExpressionVisitor {
 	 *
 	 * @return The value.
 	 */
-	Value visit( ArithmeticExpression node, Context context );
+	Value<?> visit( ArithmeticExpression node, Context context );
 
 	/**
 	 * Visit logical expression.
@@ -35,7 +35,7 @@ public interface IExpressionVisitor {
 	 *
 	 * @return The value.
 	 */
-	Value visit( LogicalExpression node, Context context );
+	Value<?> visit( LogicalExpression node, Context context );
 
 	/**
 	 * Visit binary expression.
@@ -45,7 +45,7 @@ public interface IExpressionVisitor {
 	 *
 	 * @return The value.
 	 */
-	Value visit( ComparisonExpression node, Context context );
+	Value<?> visit( ComparisonExpression node, Context context );
 
 	/**
 	 * Visit unary expression.
@@ -55,7 +55,7 @@ public interface IExpressionVisitor {
 	 *
 	 * @return The value.
 	 */
-	Value visit( UnaryExpression node, Context context );
+	Value<?> visit( UnaryExpression node, Context context );
 
 	/**
 	 * Visit unary numeric expression.
@@ -65,7 +65,7 @@ public interface IExpressionVisitor {
 	 *
 	 * @return The value.
 	 */
-	Value visit( UnaryNumericExpression node, Context context );
+	Value<?> visit( UnaryNumericExpression node, Context context );
 
 	/**
 	 * Visit integer literal expression.
@@ -75,7 +75,7 @@ public interface IExpressionVisitor {
 	 *
 	 * @return The value.
 	 */
-	Value visit( Int node, Context context );
+	Value<?> visit( Int node, Context context );
 
 	/**
 	 * Visit boolean literal expression.
@@ -85,7 +85,7 @@ public interface IExpressionVisitor {
 	 *
 	 * @return The value.
 	 */
-	Value visit( Bool node, Context context );
+	Value<?> visit( Bool node, Context context );
 
 	/**
 	 * Visit money literal expression.
@@ -95,7 +95,7 @@ public interface IExpressionVisitor {
 	 *
 	 * @return The value.
 	 */
-	Value visit( Money node, Context context );
+	Value<?> visit( Money node, Context context );
 
 	/**
 	 * Visit string literal expression.
@@ -105,7 +105,7 @@ public interface IExpressionVisitor {
 	 *
 	 * @return The value.
 	 */
-	Value visit( Str node, Context context );
+	Value<?> visit( Str node, Context context );
 
 	/**
 	 * Visit identifier expression.
@@ -115,5 +115,5 @@ public interface IExpressionVisitor {
 	 *
 	 * @return The value.
 	 */
-	Value visit( Ident node, Context context );
+	Value<?> visit( Ident node, Context context );
 }

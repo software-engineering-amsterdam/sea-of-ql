@@ -9,9 +9,10 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
+import org.uva.sea.ql.ast.statement.Block;
+import org.uva.sea.ql.ast.statement.ComputedQuestion;
 import org.uva.sea.ql.ast.statement.IfStatement;
 import org.uva.sea.ql.ast.statement.Question;
-import org.uva.sea.ql.ast.statement.Summary;
 import org.uva.sea.ql.parser.antlr.StatementParser;
 
 @RunWith(Parameterized.class)
@@ -28,6 +29,28 @@ public class TestStatements {
 
 	public TestStatements(IParse parser) {
 		this.parser = parser;
+	}
+
+	@Test
+	public void testBlockStatements() throws ParseError {
+		assertEquals(Block.class, parser.parse("{ }").getClass());
+		assertEquals(
+				Block.class,
+				parser.parse(
+						"{ if (a < b) { hasSoldHouse: \"Did you sell a house in 2010\" boolean } }")
+						.getClass());
+		assertEquals(
+				Block.class,
+				parser.parse(
+						"{ if (a < b) { } hasSoldHouse: \"Did you sell a house in 2010\" boolean }")
+						.getClass());
+
+	}
+
+	@Test
+	public void testComputedQuestionStatements() throws ParseError {
+		final String remainder = "remainder: \"Subtotal:\" money (priceOfHouse - debtOfHouse)";
+		assertEquals(ComputedQuestion.class, parser.parse(remainder).getClass());
 	}
 
 	@Test
@@ -51,9 +74,5 @@ public class TestStatements {
 
 		final String priceOfHouse = "priceOfHouse: \"What is the price of your house?\" money";
 		assertEquals(Question.class, parser.parse(priceOfHouse).getClass());
-
-		// TODO: Create new unit test for summaries.
-		final String remainder = "remainder: \"Subtotal:\" money (priceOfHouse - debtOfHouse)";
-		assertEquals(Summary.class, parser.parse(remainder).getClass());
 	}
 }
