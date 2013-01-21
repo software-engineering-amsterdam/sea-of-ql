@@ -3,15 +3,15 @@ package org.uva.sea.ql.ast;
 import org.uva.sea.ql.ast.expressions.Ident;
 import org.uva.sea.ql.ast.values.Str;
 
-public class Question {
+public class ComputedQuestion {
 	private final Str _label;
 	private final Ident _identifier;
-	private final Type _identifierType;
+	private final Expr _computedResult;
 
-	public Question(Str questionLabel, Ident questionIdentifier, Type identifierType) {
+	public ComputedQuestion(Str questionLabel, Ident questionIdentifier, Expr computedResult) {
 		_label = questionLabel;
 		_identifier = questionIdentifier;
-		_identifierType = identifierType;
+		_computedResult = computedResult;
 	}
 	
 	public Str getLabel() {
@@ -22,7 +22,7 @@ public class Question {
 		return _identifier;
 	}
 	
-	public Type getIdentifierType() {
-		return _identifierType;
+	public Expr getComputedResult() {
+		return _computedResult;
 	}
 }

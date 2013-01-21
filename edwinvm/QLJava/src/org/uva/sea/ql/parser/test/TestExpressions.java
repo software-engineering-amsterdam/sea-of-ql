@@ -4,14 +4,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.uva.sea.ql.ast.expressions.Add;
-import org.uva.sea.ql.ast.expressions.Bool;
 import org.uva.sea.ql.ast.expressions.GT;
 import org.uva.sea.ql.ast.expressions.Ident;
-import org.uva.sea.ql.ast.expressions.Int;
 import org.uva.sea.ql.ast.expressions.LEq;
 import org.uva.sea.ql.ast.expressions.LT;
 import org.uva.sea.ql.ast.expressions.Mul;
-import org.uva.sea.ql.ast.expressions.Str;
+import org.uva.sea.ql.ast.values.Bool;
+import org.uva.sea.ql.ast.values.Int;
+import org.uva.sea.ql.ast.values.Str;
 
 import org.uva.sea.ql.parser.antlr.ANTLRParser;
 
