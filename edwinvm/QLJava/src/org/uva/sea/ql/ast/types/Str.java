@@ -2,6 +2,6 @@ package org.uva.sea.ql.ast.types;
 
 import org.uva.sea.ql.ast.Type;
 
-public class IntType extends Type {
+public class Str extends Type {
 	
 }
