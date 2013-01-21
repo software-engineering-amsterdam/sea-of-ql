@@ -14,7 +14,7 @@ public data Declaration = decl(QuestionId name, Question qName);
 //public data Question = qName(list[QuestionString] questionString, Type tp);
 public data Question = 
 	   easyQuestion(str id, str labelQuestion, Type tp) // list[QuestionString] questionString, Type tp)
-	 | computedQuestion() 
+	 | computedQuestion(str id, str labelQuestion, Type tp, Expression exp) 
 	 ;
 // syntax to map the questionid with the type
 public data QuestionType = result(QuestionId id, Type tp);
