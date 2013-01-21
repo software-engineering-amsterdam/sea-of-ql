@@ -1,4 +1,6 @@
-package org.uva.sea.ql.ast;
+package org.uva.sea.ql.ast.operators;
+
+import org.uva.sea.ql.ast.Expr;
 
 public abstract class Unary extends Expr {
 	
