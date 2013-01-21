@@ -13,9 +13,10 @@ public class Form implements ASTNode {
 		this.block = block;
 	}
 	
-	public void accept(ASTNodeVisitor visitor) {
+	@Override
+	public <T> T accept(ASTNodeVisitor<T> visitor) {
 		identifier.accept(visitor);
         block.accept(visitor);
-		visitor.visit(this);
+		return visitor.visit(this);
     }
 }

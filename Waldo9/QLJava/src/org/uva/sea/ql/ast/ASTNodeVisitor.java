@@ -27,60 +27,60 @@ import org.uva.sea.ql.ast.types.BoolType;
 import org.uva.sea.ql.ast.types.IntType;
 import org.uva.sea.ql.ast.types.StringType;
 
-public interface ASTNodeVisitor {
+public interface ASTNodeVisitor<T> {
 
-	public void visit(Form form);
+	public T visit(Form form);
 
-	public void visit(StringLiteral stringLiteral);
+	public T visit(StringLiteral stringLiteral);
 
-	public void visit(BoolType boolType);
+	public T visit(BoolType boolType);
 
-	public void visit(IntType intType);
+	public T visit(IntType intType);
 
-	public void visit(StringType stringType);
+	public T visit(StringType stringType);
 
-	public void visit(Block block);
+	public T visit(Block block);
 
-	public void visit(IfThenElse ifThenElse);
+	public T visit(IfThenElse ifThenElse);
 
-	public void visit(Question question);
+	public T visit(Question question);
 
-	public void visit(Add add);
+	public T visit(Add add);
 
-	public void visit(And and);
+	public T visit(And and);
 
-	public void visit(Div div);
+	public T visit(Div div);
 
-	public void visit(Eq eq);
+	public T visit(Eq eq);
 
-	public void visit(GEq gEq);
+	public T visit(GEq gEq);
 
-	public void visit(GT gt);
+	public T visit(GT gt);
 
-	public void visit(Ident ident);
+	public T visit(Ident ident);
 
-	public void visit(Int int1);
+	public T visit(Int int1);
 
-	public void visit(LEq lEq);
+	public T visit(LEq lEq);
 
-	public void visit(LT lt);
+	public T visit(LT lt);
 
-	public void visit(Mul mul);
+	public T visit(Mul mul);
 
-	public void visit(Neg neg);
+	public T visit(Neg neg);
 
-	public void visit(NEq nEq);
+	public T visit(NEq nEq);
 
-	public void visit(Not not);
+	public T visit(Not not);
 
-	public void visit(Or or);
+	public T visit(Or or);
 
-	public void visit(Pos pos);
+	public T visit(Pos pos);
 
-	public void visit(Sub sub);
+	public T visit(Sub sub);
 
-	public void visit(Expr expr);
+	public T visit(Expr expr);
 
-	public void visit(BooleanLiteral booleanLiteral);
+	public T visit(BooleanLiteral booleanLiteral);
 
 }

@@ -8,9 +8,10 @@ public class Not extends Binary {
 		super(x);
 	}
 	
-	public void accept(ASTNodeVisitor visitor) {
+	@Override
+	public <T> T accept(ASTNodeVisitor<T> visitor) {
 		super.accept(visitor);
-		visitor.visit(this);
+		return visitor.visit(this);
     }
 
 }

@@ -30,168 +30,195 @@ import org.uva.sea.ql.ast.types.IntType;
 import org.uva.sea.ql.ast.types.StringType;
 import org.uva.sea.ql.ast.types.Type;
 
-public class ASTNodeTypeCheckingVisitor implements ASTNodeVisitor {
+public class ASTNodeTypeCheckingVisitor implements ASTNodeVisitor<Boolean> {
 	
 	private Map<Ident, Type> typeEnvironment;
 
 	@Override
-	public void visit(Form form) {
+	public Boolean visit(Form form) {
+		return null;
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void visit(StringLiteral stringLiteral) {
+	public Boolean visit(StringLiteral stringLiteral) {
+		return null;
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void visit(BoolType boolType) {
+	public Boolean visit(BoolType boolType) {
+		return null;
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void visit(IntType intType) {
+	public Boolean visit(IntType intType) {
+		return null;
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void visit(StringType stringType) {
+	public Boolean visit(StringType stringType) {
+		return null;
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void visit(Block block) {
+	public Boolean visit(Block block) {
+		return null;
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void visit(IfThenElse ifThenElse) {
+	public Boolean visit(IfThenElse ifThenElse) {
+		return null;
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void visit(Question question) {
+	public Boolean visit(Question question) {
+		return null;
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void visit(Add add) {
+	public Boolean visit(Add add) {
+		return null;
 		
 		
 	}
 
 	@Override
-	public void visit(And and) {
+	public Boolean visit(And and) {
+		return null;
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void visit(Div div) {
+	public Boolean visit(Div div) {
+		return null;
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void visit(Eq eq) {
+	public Boolean visit(Eq eq) {
+		return null;
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void visit(GEq gEq) {
+	public Boolean visit(GEq gEq) {
+		return null;
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void visit(GT gt) {
+	public Boolean visit(GT gt) {
+		return null;
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void visit(Ident ident) {
+	public Boolean visit(Ident ident) {
+		return null;
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void visit(Int int1) {
+	public Boolean visit(Int int1) {
+		return null;
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void visit(LEq lEq) {
+	public Boolean visit(LEq lEq) {
+		return null;
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void visit(LT lt) {
+	public Boolean visit(LT lt) {
+		return null;
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void visit(Mul mul) {
+	public Boolean visit(Mul mul) {
+		return null;
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void visit(Neg neg) {
+	public Boolean visit(Neg neg) {
+		return null;
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void visit(NEq nEq) {
+	public Boolean visit(NEq nEq) {
+		return null;
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void visit(Not not) {
+	public Boolean visit(Not not) {
+		return null;
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void visit(Or or) {
+	public Boolean visit(Or or) {
+		return null;
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void visit(Pos pos) {
+	public Boolean visit(Pos pos) {
+		return null;
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void visit(Sub sub) {
+	public Boolean visit(Sub sub) {
+		return null;
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void visit(Expr expr) {
+	public Boolean visit(Expr expr) {
+		return null;
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void visit(BooleanLiteral booleanLiteral) {
+	public Boolean visit(BooleanLiteral booleanLiteral) {
+		return null;
 		// TODO Auto-generated method stub
 		
 	}

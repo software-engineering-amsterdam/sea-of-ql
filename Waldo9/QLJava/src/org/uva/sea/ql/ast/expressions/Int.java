@@ -14,8 +14,9 @@ public class Int extends Expr {
 		return value;
 	}
 	
-	public void accept(ASTNodeVisitor visitor) {
-        visitor.visit(this);
+	@Override
+	public <T> T accept(ASTNodeVisitor<T> visitor) {
+        return visitor.visit(this);
     }
 	
 }

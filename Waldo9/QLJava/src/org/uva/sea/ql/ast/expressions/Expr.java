@@ -5,8 +5,9 @@ import org.uva.sea.ql.ast.ASTNodeVisitor;
 
 public abstract class Expr implements ASTNode {
 	
-	public void accept(ASTNodeVisitor visitor) {
-		visitor.visit(this);
+	@Override
+	public <T> T accept(ASTNodeVisitor<T> visitor) {
+        return visitor.visit(this);
     }
 
 }

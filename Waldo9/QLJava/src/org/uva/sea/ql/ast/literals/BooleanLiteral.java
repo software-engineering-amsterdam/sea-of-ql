@@ -17,9 +17,10 @@ public class BooleanLiteral extends Expr {
 	public boolean getValue() {
 		return value;
 	}
-
-	public void accept(ASTNodeVisitor visitor) {
-        visitor.visit(this);
+	
+	@Override
+	public <T> T accept(ASTNodeVisitor<T> visitor) {
+        return visitor.visit(this);
     }
 
 }

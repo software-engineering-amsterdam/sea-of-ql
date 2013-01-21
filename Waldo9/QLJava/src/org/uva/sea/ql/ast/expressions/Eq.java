@@ -8,9 +8,9 @@ public class Eq extends Binary {
 		super(result, rhs);
 	}
 	
-	public void accept(ASTNodeVisitor visitor) {
+	public <T> T accept(ASTNodeVisitor<T> visitor) {
 		super.accept(visitor);
-		visitor.visit(this);
+		return visitor.visit(this);
     }
 
 }

@@ -16,11 +16,12 @@ public abstract class Binary extends Expr {
 		this.lhs = lhs;
 	}
 	
-	public void accept(ASTNodeVisitor visitor) {
+	@Override
+	public <T> T accept(ASTNodeVisitor<T> visitor) {
 		lhs.accept(visitor);
 		if (rhs != null)
 			rhs.accept(visitor);
-		visitor.visit(this);
+		return visitor.visit(this);
     }
 	
 }

@@ -15,12 +15,12 @@ public class IfThenElse extends Statement {
 		this.condition = condition;
 	}
 	
-	public void accept(ASTNodeVisitor visitor) {
+	public <T> T accept(ASTNodeVisitor<T> visitor) {
 		body.accept(visitor);
 		if (elseBody != null)
 			elseBody.accept(visitor);
 		condition.accept(visitor);
-        visitor.visit(this);
+        return visitor.visit(this);
     }
 	
 }

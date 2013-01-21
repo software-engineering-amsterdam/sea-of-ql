@@ -13,10 +13,10 @@ public class Block extends Statement {
 		this.statements = statements;
 	}
 	
-	public void accept(ASTNodeVisitor visitor) {
+	public <T> T accept(ASTNodeVisitor<T> visitor) {
         for (Statement statement : statements)
         	statement.accept(visitor);
-		visitor.visit(this);
+		return visitor.visit(this);
     }
 
 }
