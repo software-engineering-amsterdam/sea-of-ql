@@ -5,6 +5,7 @@ public class QuestionnaireForm extends Expr {
 	
 	private String formName;
 	private QuestionnaireContent content;
+	
 	public QuestionnaireForm(String formName, QuestionnaireContent content) {
 		this.formName = formName;
 		this.content = content;
