@@ -330,6 +330,7 @@ public class TestParser {
 
 		// nested IFs
 		assertEquals( IfThenElse.class, parser.parse( "if ( true ) { if ( false ) { } }" ).getClass() );
+		assertEquals( IfThenElse.class, parser.parse( "if ( true ) { } else if ( true ) { if ( false ) { } }" ).getClass() );
 
 		// else variant
 		assertEquals( IfThenElse.class, parser.parse( "if ( true ) { } else { }" ).getClass() );

@@ -21,6 +21,7 @@ public class JACCParser implements IParser {
 
 			if ( !parser.parse() ) {
 				this.onSyntaxError(
+					"",
 					lexer.getToken(),
 					lexer.getLineNumber(),
 					lexer.getColumn()
@@ -29,6 +30,7 @@ public class JACCParser implements IParser {
 		}
 		catch ( RuntimeException e ) {
 			this.onSyntaxError(
+				e.getMessage(),
 				lexer.getToken(),
 				lexer.getLineNumber(),
 				lexer.getColumn()
@@ -41,16 +43,18 @@ public class JACCParser implements IParser {
 	/**
 	 * Converts syntax error to parse error.
 	 *
+	 * @param message
 	 * @param token
 	 * @param lineNumber
 	 * @param columnNumber
 	 *
 	 * @throws ParseError
 	 */
-	private void onSyntaxError( int token, int lineNumber, int columnNumber ) throws ParseError {
+	private void onSyntaxError( String message, int token, int lineNumber, int columnNumber ) throws ParseError {
 		throw new ParseError(
 			String.format(
-				"Syntax error near '%s' on line %d col %d",
+				"Syntax error: \"%s\" near '%s' on line %d col %d",
+				message,
 				(char) token,
 				lineNumber,
 				columnNumber

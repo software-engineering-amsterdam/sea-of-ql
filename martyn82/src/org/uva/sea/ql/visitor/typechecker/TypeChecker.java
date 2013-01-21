@@ -14,6 +14,10 @@ import org.uva.sea.ql.ast.statement.QuestionDeclaration;
 import org.uva.sea.ql.ast.statement.Statement;
 import org.uva.sea.ql.ast.statement.Statements;
 import org.uva.sea.ql.ast.statement.VarDeclaration;
+import org.uva.sea.ql.ast.type.Bool;
+import org.uva.sea.ql.ast.type.Int;
+import org.uva.sea.ql.ast.type.Str;
+import org.uva.sea.ql.ast.type.Type;
 import org.uva.sea.ql.eval.Context;
 import org.uva.sea.ql.eval.TypeInitializer;
 import org.uva.sea.ql.eval.value.Boolean;
@@ -36,6 +40,10 @@ public class TypeChecker implements INodeVisitor {
 	 */
 	private Value<?> initializeType( DataType type ) {
 		return TypeInitializer.init( type );
+	}
+
+	private Value<?> initializeType( Type type ) {
+		return null;
 	}
 
 	/**
@@ -384,5 +392,30 @@ public class TypeChecker implements INodeVisitor {
 		}
 
 		return initializeType( DataType.BOOLEAN );
+	}
+
+	@Override
+	public Value<?> visit( Bool node, Context context ) {
+		return initializeType( DataType.BOOLEAN );
+	}
+
+	@Override
+	public Value<?> visit( Int node, Context context ) {
+		return initializeType( DataType.INTEGER );
+	}
+
+	@Override
+	public Value<?> visit( Str node, Context context ) {
+		return initializeType( DataType.STRING );
+	}
+
+	@Override
+	public Value<?> visit( org.uva.sea.ql.ast.type.Money node, Context context ) {
+		return initializeType( DataType.MONEY );
+	}
+
+	@Override
+	public Value<?> visit( org.uva.sea.ql.ast.type.Number node, Context context ) {
+		return initializeType( DataType.INTEGER );
 	}
 }

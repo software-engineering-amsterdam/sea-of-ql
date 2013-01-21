@@ -23,8 +23,8 @@ public class QLLexer implements QLTokens {
 	 */
 	static {
 		KEYWORDS = new HashMap<String, Integer>();
-		KEYWORDS.put( "true", BOOL );
-		KEYWORDS.put( "false", BOOL );
+		KEYWORDS.put( "true", TRUE );
+		KEYWORDS.put( "false", FALSE );
 		KEYWORDS.put( "if", IF );
 		KEYWORDS.put( "else", ELSE );
 		KEYWORDS.put( "boolean", BOOLEAN  );
@@ -474,15 +474,6 @@ public class QLLexer implements QLTokens {
 
 		if ( KEYWORDS.containsKey( name ) ) {
 			token = KEYWORDS.get( name );
-
-			switch ( token ) {
-				case BOOL:
-					yylval = new org.uva.sea.ql.ast.expression.literal.Bool(
-						Boolean.parseBoolean( name )
-					);
-					break;
-			}
-
 			return true;
 		}
 
