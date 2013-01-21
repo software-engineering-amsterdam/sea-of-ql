@@ -4,26 +4,44 @@ import Prelude;
 
 // START LEXICAN TOKENS
 lexical QuestionString  = [a-z A-Z 0-9 _] !<< [a-z A-Z][a-z A-Z 0-9 _]* !>> [a-z A-Z 0-9 _];
-//lexical Id  = [a-z A-Z 0-9 _] !<< [a-z A-Z][a-z A-Z 0-9 _]* !>> [a-z A-Z 0-9 _]; 
 lexical Boolean = "true" | "false";
-lexical Money = [0-9]+ ;
+lexical Money = [0-9]*"."[0-9] + [0-9];
 lexical String = "\"" ![\"]*  "\"";
-lexical Int
-  = [0-9]+ !>> [0-9]
-  ;
+lexical Int = [0-9]+ !>> [0-9];
 keyword Keywords = "if" | "then" | "else" | "false" | "true";
   
 lexical Id
   = ([a-z A-Z 0-9 _] !<< [a-z A-Z][a-z A-Z 0-9 _]* !>> [a-z A-Z 0-9 _]) \ Keywords
   ;
 
-layout Layout = WhitespaceAndComment* !>> [\ \t\n\r%];   // copied from Pico
+lexical Comment 
+  = @category="Comment" "/*" CommentChar* "*/"
+  ;
 
-lexical WhitespaceAndComment 
-   = [\ \t\n\r]
-   | @category="Comment" "%" ![%]+ "%"
-   | @category="Comment" "%%" ![\n]* $
-   ;
+lexical CommentChar
+  = ![*]
+  | [*] !>> [/]
+  ;
+
+syntax WhitespaceOrComment 
+  = whitespace: Whitespace
+  | comment: Comment
+  ;   
+
+lexical Whitespace 
+  = [\u0009-\u000D \u0020 \u0085 \u00A0 \u1680 \u180E \u2000-\u200A \u2028 \u2029 \u202F \u205F \u3000]
+  ; 
+  
+layout Standard 
+  = WhitespaceOrComment* !>> [\ \t\n\f\r] !>> "//" !>> "/*";
+
+//layout Layout = WhitespaceAndComment* !>> [\ \t\n\r%];   // copied from Pico
+
+//lexical WhitespaceAndComment 
+//   = [\ \t\n\r]
+//   | @category="Comment" "%" ![%]+ "%"
+//   | @category="Comment" "%%" ![\n]* $
+//   ;
 
 // START SYNTAX 
 // start Program
@@ -43,8 +61,7 @@ syntax QuestionType
    = result: Id id ":" Type tp;
 // syntax Statement
 syntax Statement 
-   = asgStat: Id var ":" Type tp  //      asgStat: Id var ":" Expression qExp " " Type tp   
-  // | decStat: Declarations* decls
+   = asgStat: Id var ":" Type tp
    | ifStat: "if" Expression cond "{" Declarations decls "}"  // Question 
    | ifThenStat: "if" Expression cond "then" Statement*
    | ifElseStat: "if" Expression cond "then" {Statement ";"}*  thenPart "else" Statement* elsePart
@@ -58,16 +75,13 @@ syntax Type
    | money :"money" Expression exp   
    ;
 // syntax Expression  
-start syntax Expression 
+start syntax Expression // start 
    = id: Id name
    | \int: Int
-   //| strQue: String string
-   //| strCon: String string
    | bracket "(" Expression arg ")"
    | pos: "+" Expr
    | neg: "-" Expr
    | not: "!" Expr
-   //| moneyCon: Money money
    > left (
       add: Expression "+" Expression
     | sub: Expression "-" Expression
@@ -86,11 +100,12 @@ start syntax Expression
    )
    > left and: Expression "&&" Expression
    > left or: Expression "||" Expression
-   | boolCon: Boolean bVal
+    | boolCon: Boolean bVal
+   //| moneyCon: Money mVal
+   //| strQue: QuestionString qVal
+   //| strCon: String sVal
    ;
    
-//start syntax Expression = Expression;
-
 // METHODS
 
 public start[Program] program(str s) {

@@ -7,9 +7,9 @@ import IO;
 import Prelude;
 
 
-public EXP implode(Tree t) {
+public Expression implode(Tree t) {
  println("TREE : <t>");
- return implode(#EXP, t);
+ return implode(#Expression, t);
  }
 
-public EXP load(loc l) = implode(parse(readFile(l), l));
+public Expression load(loc l) = implode(parse(readFile(l), l));
