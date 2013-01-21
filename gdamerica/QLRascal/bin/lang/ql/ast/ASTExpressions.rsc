@@ -1,4 +1,4 @@
-module lang::ql::ast::ASTExpressionsDefn
+module lang::ql::ast::ASTExpressions
 
 /**
  * This module define the user-defined Expr DataType 

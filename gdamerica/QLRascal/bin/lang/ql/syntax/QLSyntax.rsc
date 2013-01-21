@@ -1,4 +1,4 @@
-module lang::ql::syntax::QLSyntaxDefn
+module lang::ql::syntax::QLSyntax
 
 /**
  * This module contains all the QL syntax definitions   

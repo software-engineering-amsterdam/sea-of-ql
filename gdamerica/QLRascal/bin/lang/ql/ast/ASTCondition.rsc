@@ -1,4 +1,4 @@
-module lang::ql::ast::ASTConditionDefn
+module lang::ql::ast::ASTCondition
 
 /**
  * This module define the user-defined Question DataType 

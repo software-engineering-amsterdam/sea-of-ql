@@ -1,4 +1,4 @@
-module lang::ql::syntax::QLKeyWordsDefn
+module lang::ql::syntax::QLKeyWords
 
 /**
  * This module contains all the QL reserved keywords definitions   

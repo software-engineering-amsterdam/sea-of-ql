@@ -1,4 +1,4 @@
-module lang::ql::ast::ASTQuestionDefn
+module lang::ql::ast::ASTQuestion
 
 /**
  * This module define the user-defined Question DataType 

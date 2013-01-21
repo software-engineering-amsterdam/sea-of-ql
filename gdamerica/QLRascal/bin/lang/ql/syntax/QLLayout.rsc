@@ -1,4 +1,4 @@
-module lang::ql::syntax::QLLayoutDefn
+module lang::ql::syntax::QLLayout
 
 /**
  * This module contains all the QL layout definitions   

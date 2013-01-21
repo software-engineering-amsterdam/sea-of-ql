@@ -1,4 +1,4 @@
-module lang::ql::ast::ASTDataTypeDefn
+module lang::ql::ast::ASTDataType
 
 /**
  * This module define the user-defined DataType DataType 

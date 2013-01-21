@@ -1,4 +1,4 @@
-module lang::ql::syntax::QLLexicalDefn
+module lang::ql::syntax::QLLexical
 
 /**
  * This module contains all the QL lexical definitions   
