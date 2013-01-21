@@ -1,9 +1,9 @@
 package org.uva.sea.ql.ast;
 
-public class StringValue implements ASTNode {
+public class StringLiteral extends Literals {
 	private final String value;
 	
-	public StringValue(String value) {
+	public StringLiteral(String value) {
 		this.value = value;
 	}
 

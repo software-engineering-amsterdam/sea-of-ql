@@ -1,9 +1,9 @@
 package org.uva.sea.ql.ast;
 
-public class IntegerValue implements ASTNode {
+public class IntegerLiteral extends Literals {
 	private final int value;
 
-	public IntegerValue(int n) {
+	public IntegerLiteral(int n) {
 		this.value = n;
 	}
 

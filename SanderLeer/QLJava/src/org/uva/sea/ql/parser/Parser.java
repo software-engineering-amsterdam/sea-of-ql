@@ -1,4 +1,4 @@
-package org.uva.sea.ql.parser.jacc;
+package org.uva.sea.ql.parser;
 
 import org.uva.sea.ql.ast.ASTNode;
 

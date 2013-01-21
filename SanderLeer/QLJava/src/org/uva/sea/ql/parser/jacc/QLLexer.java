@@ -42,7 +42,6 @@ public class QLLexer implements QLTokens {
 				c = -1;
 			}
 		}
-		
 	}
 	
 	public int nextToken() {
@@ -114,7 +113,7 @@ public class QLLexer implements QLTokens {
 					if (c == '"') {
 			    		nextChar();
 						String s = sb.toString();
-			    		yylval = new StringValue(s);
+			    		yylval = new StringLiteral(s);
 			    		return token = STRING;
 					} else {
 						throw new RuntimeException("Unterminated string");
@@ -177,7 +176,7 @@ public class QLLexer implements QLTokens {
 			    			n = 10 * n + (c - '0');
 			    			nextChar(); 
 			    		} while (Character.isDigit(c)); 
-			    		yylval = new IntegerValue(n);
+			    		yylval = new IntegerLiteral(n);
 			    		return token = INTEGER;
 			    	}
 			    	if (Character.isLetter(c)) {
@@ -199,7 +198,6 @@ public class QLLexer implements QLTokens {
 			}
 		}
 	}
-
 	
 	public int getToken() {
 		if (!tokenRead)
@@ -210,6 +208,4 @@ public class QLLexer implements QLTokens {
 	public ASTNode getSemantic() {
 		return yylval;
 	}
-
-
 }

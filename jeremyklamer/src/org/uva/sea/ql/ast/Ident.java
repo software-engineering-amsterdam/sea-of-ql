@@ -16,8 +16,7 @@ public class Ident extends Expr {
 
 	@Override
 	public Value interpret() {
-		// TODO Auto-generated method stub
-		return null;
+		return new org.uva.sea.ql.ast.type.StringType(getName());
 	}
 
 }
