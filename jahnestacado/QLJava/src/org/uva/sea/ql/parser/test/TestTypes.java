@@ -9,8 +9,8 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
-import org.uva.sea.ql.ast.Add;
-import org.uva.sea.ql.ast.Mul;
+import org.uva.sea.ql.ast.expr.Add;
+import org.uva.sea.ql.ast.expr.Mul;
 import org.uva.sea.ql.ast.types.BoolType;
 import org.uva.sea.ql.ast.types.IntType;
 import org.uva.sea.ql.ast.types.StringType;
@@ -43,6 +43,7 @@ public class TestTypes {
 		assertEquals(IntType.class,parser.parseType("int").getClass());
 		assertEquals(BoolType.class,parser.parseType("boolean").getClass());
 		assertEquals(StringType.class,parser.parseType("string").getClass());
+		assertEquals(StringType.class,parser.parseType("money").getClass());
 		
 	}
 	

@@ -1,7 +1,7 @@
 package org.uva.sea.ql.ast;
 
-import org.uva.sea.ql.evaluate.Context;
-import org.uva.sea.ql.evaluate.Value;
+import org.uva.sea.ql.eval.Context;
+import org.uva.sea.ql.eval.value.Value;
 import org.uva.sea.ql.visitor.INodeVisitor;
 
 /**
@@ -14,7 +14,7 @@ public interface INode {
 	 * @param visitor
 	 * @param context
 	 *
-	 * @return The type of the node.
+	 * @return The value of the node.
 	 */
-	Value accept( INodeVisitor visitor, Context context );
+	Value<?> accept( INodeVisitor visitor, Context context );
 }

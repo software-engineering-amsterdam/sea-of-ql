@@ -1,7 +1,7 @@
 package org.uva.sea.ql.ast.expression;
 
-import org.uva.sea.ql.evaluate.Context;
-import org.uva.sea.ql.evaluate.Value;
+import org.uva.sea.ql.eval.Context;
+import org.uva.sea.ql.eval.value.Value;
 import org.uva.sea.ql.visitor.INodeVisitor;
 
 /**
@@ -19,7 +19,7 @@ abstract public class ArithmeticExpression extends BinaryExpression {
 	}
 
 	@Override
-	public Value accept( INodeVisitor visitor, Context context ) {
+	public Value<?> accept( INodeVisitor visitor, Context context ) {
 		return visitor.visit( this, context );
 	}
 }

@@ -1,17 +1,24 @@
 package org.uva.sea.ql.ast.values;
 
-import org.uva.sea.ql.ast.Expr;
+import org.uva.sea.ql.ast.expr.Expr;
+import org.uva.sea.ql.visitor.ASTNodeVisitor;
 
 public class Ident extends Expr {
 
-	private final String name;
+	private final String id;
 
-	public Ident(String name) {
-		this.name = name;
+	public Ident(String id) {
+		this.id = id;
 	}
 	
-	public String getName() {
-		return name;
+	public String getId() {
+		return id;
+	}
+
+	@Override
+	public void accept(ASTNodeVisitor nodeVisitor) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }
