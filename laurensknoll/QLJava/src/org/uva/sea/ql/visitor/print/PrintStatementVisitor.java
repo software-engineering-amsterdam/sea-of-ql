@@ -8,12 +8,11 @@ import org.uva.sea.ql.ast.statement.Question;
 import org.uva.sea.ql.visitor.AnswerTypeVisitor;
 import org.uva.sea.ql.visitor.ExpressionVisitor;
 import org.uva.sea.ql.visitor.StatementVisitor;
-import org.uva.sea.ql.visitor.VisitorResult;
 
-public class PrintStatementVisitor implements StatementVisitor {
+public class PrintStatementVisitor implements StatementVisitor<Boolean> {
 
 	@Override
-	public VisitorResult visit(Block block) {
+	public Boolean visit(Block block) {
 		System.out.println("Visiting BlockStatement");
 
 		// Visit items
@@ -21,48 +20,48 @@ public class PrintStatementVisitor implements StatementVisitor {
 			statement.accept(this);
 		}
 
-		return new PrintVisitorResult(true);
+		return true;
 	}
 
 	@Override
-	public VisitorResult visit(ComputedQuestion computedQuestion) {
+	public Boolean visit(ComputedQuestion computedQuestion) {
 		System.out.println("Visiting ComputedQuestion Statement");
 
 		// Visit items
 		computedQuestion.getQuestion().accept(this);
 
-		ExpressionVisitor expressionVisitor = new PrintExpressionVisitor();
+		ExpressionVisitor<Boolean> expressionVisitor = new PrintExpressionVisitor();
 		computedQuestion.getComputeExpression().accept(expressionVisitor);
 
-		return new PrintVisitorResult(true);
+		return true;
 	}
 
 	@Override
-	public VisitorResult visit(IfStatement ifStatement) {
+	public Boolean visit(IfStatement ifStatement) {
 		System.out.println("Visiting If Statement");
 
 		// Visit items
-		ExpressionVisitor expressionVisitor = new PrintExpressionVisitor();
+		ExpressionVisitor<Boolean> expressionVisitor = new PrintExpressionVisitor();
 		ifStatement.getCondition().accept(expressionVisitor);
 
 		ifStatement.getTruePath().accept(this);
 
-		return new PrintVisitorResult(true);
+		return true;
 	}
 
 	@Override
-	public VisitorResult visit(Question question) {
+	public Boolean visit(Question question) {
 		System.out.println("Visiting Question Statement");
 
 		// Visit items
-		ExpressionVisitor expressionVisitor = new PrintExpressionVisitor();
+		ExpressionVisitor<Boolean> expressionVisitor = new PrintExpressionVisitor();
 		question.getIdent().accept(expressionVisitor);
 		question.getQuestion().accept(expressionVisitor);
 
-		AnswerTypeVisitor answerTypeVisitor = new PrintAnswerTypeVisitor();
+		AnswerTypeVisitor<Boolean> answerTypeVisitor = new PrintAnswerTypeVisitor();
 		question.getType().accept(answerTypeVisitor);
 
-		return new PrintVisitorResult(true);
+		return true;
 	}
 
 }

@@ -21,45 +21,45 @@ import org.uva.sea.ql.ast.expr.unary.Neg;
 import org.uva.sea.ql.ast.expr.unary.Not;
 import org.uva.sea.ql.ast.expr.unary.Pos;
 
-public interface ExpressionVisitor {
+public interface ExpressionVisitor<T> {
 
-	public VisitorResult visit(Add add);
+	public T visit(Add add);
 
-	public VisitorResult visit(And and);
+	public T visit(And and);
 
-	public VisitorResult visit(Div div);
+	public T visit(Div div);
 
-	public VisitorResult visit(Eq eq);
+	public T visit(Eq eq);
 
-	public VisitorResult visit(GEq geq);
+	public T visit(GEq geq);
 
-	public VisitorResult visit(GT gt);
+	public T visit(GT gt);
 
-	public VisitorResult visit(LEq leq);
+	public T visit(LEq leq);
 
-	public VisitorResult visit(LT lt);
+	public T visit(LT lt);
 
-	public VisitorResult visit(Mul mul);
+	public T visit(Mul mul);
 
-	public VisitorResult visit(Neg neg);
+	public T visit(Neg neg);
 
-	public VisitorResult visit(NEq neq);
+	public T visit(NEq neq);
 
-	public VisitorResult visit(Not not);
+	public T visit(Not not);
 
-	public VisitorResult visit(Or or);
+	public T visit(Or or);
 
-	public VisitorResult visit(Pos pos);
+	public T visit(Pos pos);
 
-	public VisitorResult visit(Sub sub);
+	public T visit(Sub sub);
 
-	public VisitorResult visit(BoolExprType bool);
+	public T visit(BoolExprType bool);
 
-	public VisitorResult visit(IdentExprType ident);
+	public T visit(IdentExprType ident);
 
-	public VisitorResult visit(IntExprType intType);
+	public T visit(IntExprType intType);
 
-	public VisitorResult visit(MoneyExprType money);
+	public T visit(MoneyExprType money);
 
-	public VisitorResult visit(StringExprType string);
+	public T visit(StringExprType string);
 }

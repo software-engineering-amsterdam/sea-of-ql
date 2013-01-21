@@ -5,14 +5,14 @@ import org.uva.sea.ql.ast.answertype.IntAnswerType;
 import org.uva.sea.ql.ast.answertype.MoneyAnswerType;
 import org.uva.sea.ql.ast.answertype.StringAnswerType;
 
-public interface AnswerTypeVisitor {
+public interface AnswerTypeVisitor<T> {
 
-	public VisitorResult visit(BoolAnswerType bool);
+	public T visit(BoolAnswerType bool);
 
-	public VisitorResult visit(IntAnswerType intType);
+	public T visit(IntAnswerType intType);
 
-	public VisitorResult visit(MoneyAnswerType money);
+	public T visit(MoneyAnswerType money);
 
-	public VisitorResult visit(StringAnswerType string);
+	public T visit(StringAnswerType string);
 
 }

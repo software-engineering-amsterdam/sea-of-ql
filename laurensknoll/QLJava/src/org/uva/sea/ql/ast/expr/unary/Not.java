@@ -10,7 +10,7 @@ public class Not extends AbstractUnaryExpr {
 	}
 
 	@Override
-	public void accept(ExpressionVisitor visitor) {
+	public void accept(ExpressionVisitor<?> visitor) {
 		visitor.visit(this);
 	}
 

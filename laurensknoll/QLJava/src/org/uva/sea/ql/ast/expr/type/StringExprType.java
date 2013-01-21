@@ -15,7 +15,7 @@ public class StringExprType extends AbstractExprType {
 	}
 
 	@Override
-	public void accept(ExpressionVisitor visitor) {
+	public void accept(ExpressionVisitor<?> visitor) {
 		visitor.visit(this);
 	}
 

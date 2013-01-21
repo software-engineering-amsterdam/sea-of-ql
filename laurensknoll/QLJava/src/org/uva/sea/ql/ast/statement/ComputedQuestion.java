@@ -22,7 +22,7 @@ public class ComputedQuestion extends AbstractStatement {
 	}
 
 	@Override
-	public void accept(StatementVisitor visitor) {
+	public void accept(StatementVisitor<?> visitor) {
 		visitor.visit(this);
 	}
 

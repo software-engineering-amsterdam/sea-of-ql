@@ -5,14 +5,14 @@ import org.uva.sea.ql.ast.statement.ComputedQuestion;
 import org.uva.sea.ql.ast.statement.IfStatement;
 import org.uva.sea.ql.ast.statement.Question;
 
-public interface StatementVisitor {
+public interface StatementVisitor<T> {
 
-	public VisitorResult visit(Block block);
+	public T visit(Block block);
 
-	public VisitorResult visit(ComputedQuestion computedQuestion);
+	public T visit(ComputedQuestion computedQuestion);
 
-	public VisitorResult visit(IfStatement ifStatement);
+	public T visit(IfStatement ifStatement);
 
-	public VisitorResult visit(Question question);
+	public T visit(Question question);
 
 }

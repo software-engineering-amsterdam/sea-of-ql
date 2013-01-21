@@ -5,6 +5,6 @@ import org.uva.sea.ql.visitor.FormVisitor;
 
 public abstract class AbstractForm implements ASTNode {
 
-	public abstract void accept(FormVisitor visitor);
+	public abstract void accept(FormVisitor<?> visitor);
 
 }

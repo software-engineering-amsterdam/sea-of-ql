@@ -10,7 +10,7 @@ public class NEq extends AbstractBinaryExpr {
 	}
 
 	@Override
-	public void accept(ExpressionVisitor visitor) {
+	public void accept(ExpressionVisitor<?> visitor) {
 		visitor.visit(this);
 	}
 

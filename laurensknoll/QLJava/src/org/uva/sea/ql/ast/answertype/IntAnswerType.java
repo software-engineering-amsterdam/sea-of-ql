@@ -9,7 +9,7 @@ public class IntAnswerType extends AbstractAnswerType {
 	}
 
 	@Override
-	public void accept(AnswerTypeVisitor visitor) {
+	public void accept(AnswerTypeVisitor<?> visitor) {
 		visitor.visit(this);
 	}
 

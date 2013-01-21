@@ -5,36 +5,35 @@ import org.uva.sea.ql.ast.answertype.IntAnswerType;
 import org.uva.sea.ql.ast.answertype.MoneyAnswerType;
 import org.uva.sea.ql.ast.answertype.StringAnswerType;
 import org.uva.sea.ql.visitor.AnswerTypeVisitor;
-import org.uva.sea.ql.visitor.VisitorResult;
 
-public class PrintAnswerTypeVisitor implements AnswerTypeVisitor {
+public class PrintAnswerTypeVisitor implements AnswerTypeVisitor<Boolean> {
 
 	@Override
-	public VisitorResult visit(BoolAnswerType bool) {
+	public Boolean visit(BoolAnswerType bool) {
 		System.out.println("Visiting Bool AnswerType");
 
-		return new PrintVisitorResult(true);
+		return true;
 	}
 
 	@Override
-	public VisitorResult visit(IntAnswerType intType) {
+	public Boolean visit(IntAnswerType intType) {
 		System.out.println("Visiting Int AnswerType");
 
-		return new PrintVisitorResult(true);
+		return true;
 	}
 
 	@Override
-	public VisitorResult visit(MoneyAnswerType money) {
+	public Boolean visit(MoneyAnswerType money) {
 		System.out.println("Visiting Money AnswerType");
 
-		return new PrintVisitorResult(true);
+		return true;
 	}
 
 	@Override
-	public VisitorResult visit(StringAnswerType string) {
+	public Boolean visit(StringAnswerType string) {
 		System.out.println("Visiting String AnswerType");
 
-		return new PrintVisitorResult(true);
+		return true;
 	}
 
 }

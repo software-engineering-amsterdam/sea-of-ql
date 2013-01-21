@@ -23,7 +23,7 @@ public class QuestionForm extends AbstractForm {
 	}
 
 	@Override
-	public void accept(FormVisitor visitor) {
+	public void accept(FormVisitor<?> visitor) {
 		visitor.visit(this);
 	}
 
