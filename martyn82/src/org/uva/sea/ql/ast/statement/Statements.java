@@ -46,10 +46,6 @@ public class Statements implements INode, Iterable<Statement> {
 
 	@Override
 	public Value<?> accept( INodeVisitor visitor, Context context ) {
-		for ( Statement statement : this.statements ) {
-			statement.accept( visitor, context );
-		}
-
-		return null;
+		return visitor.visit( this, context );
 	}
 }

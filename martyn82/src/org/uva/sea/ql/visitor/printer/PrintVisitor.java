@@ -19,6 +19,8 @@ import org.uva.sea.ql.ast.statement.Assignment;
 import org.uva.sea.ql.ast.statement.FormDeclaration;
 import org.uva.sea.ql.ast.statement.IfThenElse;
 import org.uva.sea.ql.ast.statement.QuestionDeclaration;
+import org.uva.sea.ql.ast.statement.Statement;
+import org.uva.sea.ql.ast.statement.Statements;
 import org.uva.sea.ql.ast.statement.VarDeclaration;
 import org.uva.sea.ql.eval.Context;
 import org.uva.sea.ql.eval.value.Value;
@@ -340,6 +342,15 @@ public class PrintVisitor implements INodeVisitor {
 		node.getDeclaration().accept( this, context );
 
 		level--;
+
+		return null;
+	}
+
+	@Override
+	public Value<?> visit( Statements node, Context context ) {
+		for ( Statement statement : node ) {
+			statement.accept( this, context );
+		}
 
 		return null;
 	}

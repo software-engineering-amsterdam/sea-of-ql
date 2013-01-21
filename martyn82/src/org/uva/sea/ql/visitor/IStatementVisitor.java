@@ -4,6 +4,7 @@ import org.uva.sea.ql.ast.statement.Assignment;
 import org.uva.sea.ql.ast.statement.FormDeclaration;
 import org.uva.sea.ql.ast.statement.IfThenElse;
 import org.uva.sea.ql.ast.statement.QuestionDeclaration;
+import org.uva.sea.ql.ast.statement.Statements;
 import org.uva.sea.ql.ast.statement.VarDeclaration;
 import org.uva.sea.ql.eval.Context;
 import org.uva.sea.ql.eval.value.Value;
@@ -61,4 +62,14 @@ public interface IStatementVisitor {
 	 * @return The value.
 	 */
 	Value<?> visit( QuestionDeclaration node, Context context );
+
+	/**
+	 * Visit statements node.
+	 *
+	 * @param node
+	 * @param context
+	 *
+	 * @return The value
+	 */
+	Value<?> visit( Statements node, Context context );
 }

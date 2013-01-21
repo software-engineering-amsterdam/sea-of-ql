@@ -82,7 +82,6 @@ public class TestTypeChecker extends VisitorTest {
 		assertEquals( Integer.class, typeCheck( "1 / 12" ).getClass() );
 		assertEquals( Integer.class, typeCheck( "9 * 7 + 1" ).getClass() );
 		assertEquals( Integer.class, typeCheck( "10 - -2" ).getClass() );
-		assertEquals( Integer.class, typeCheck( "12^2" ).getClass() );
 	}
 
 	/**
@@ -99,7 +98,7 @@ public class TestTypeChecker extends VisitorTest {
 		assertEquals( Money.class, typeCheck( "12 + .1" ).getClass() );
 		assertEquals( Money.class, typeCheck( "7 - .0001" ).getClass() );
 		assertEquals( Money.class, typeCheck( ".889e+121 + 7" ).getClass() );
-		assertEquals( Money.class, typeCheck( ".5 * .25 ^ .125" ).getClass() );
+		assertEquals( Money.class, typeCheck( ".5 * .25 + .125" ).getClass() );
 	}
 
 	/**
@@ -124,10 +123,10 @@ public class TestTypeChecker extends VisitorTest {
 		typeCheck( "x = y" );
 		assertEquals( "Undefined variable: y", context.getErrors().get( 0 ) );
 
-		typeCheck( "x = 24 * .5 + y ^ 2" );
+		typeCheck( "x = 24 * .5 + y" );
 		assertEquals( "Undefined variable: y", context.getErrors().get( 0 ) );
 
-		typeCheck( "if ( true ) { x = 24 \n x: boolean }" );
+		typeCheck( "if ( true ) { x = 24 \n \"\" x: boolean }" );
 		assertEquals( "The variable x is already declared elsewhere.", context.getErrors().get( 0 ) );
 	}
 
@@ -149,7 +148,7 @@ public class TestTypeChecker extends VisitorTest {
 	 */
 	@Test
 	public void testTypeMismatch() throws ParseError {
-		typeCheck( "if ( true ) { x: boolean \n x = 23 }" );
+		typeCheck( "if ( true ) { \"\" x: boolean \n x = 23 }" );
 		assertEquals( "Type mismatch: cannot convert from Boolean to Integer.", context.getErrors().get( 0 ) );
 	}
 
