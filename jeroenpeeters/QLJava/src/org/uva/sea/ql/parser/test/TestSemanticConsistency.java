@@ -43,7 +43,7 @@ public class TestSemanticConsistency {
 		parser = new JaccQLParser();
 	}
 
-	@Test(/*expected = SemanticException.class*/)
+	@Test(expected = SemanticException.class)
 	public void test() throws ParseError, IOException {
 		final String qlText = readResource(sourceFile);
 		Form form = parser.parseForm(qlText);
