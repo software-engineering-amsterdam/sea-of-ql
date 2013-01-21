@@ -121,7 +121,7 @@ formElement returns [FormElement result]
     
 questionFormElement returns [Question result]
     : strExpr Ident ':' typeDeclaration { 
-        $result = new Question($strExpr.result.getValue(), new Declaration(new Ident($Ident.text), $typeDeclaration.result)); }
+        $result = new Question($strExpr.result.getValue(), new Ident($Ident.text), $typeDeclaration.result); }
     ;
 
 Type: 'string'|'boolean'|'integer'; 

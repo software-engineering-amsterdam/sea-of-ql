@@ -59,14 +59,14 @@ public class IfTests extends ParserTests {
 		If i = (If) formElement;
 		assertEquals(Bool.class, i.getCondition().getClass());
 		assertEquals(Question.class, i.getIfBody().getClass());
-		assertEquals(new Ident("a"), ((Question)i.getIfBody()).getDeclaration().getIdentifier());
+		assertEquals(new Ident("a"), ((Question)i.getIfBody()).getIdentifier());
 		return i;
 	}
 
 	private void parseElse(FormElement formElement) {
 		assertNotNull(formElement);
 		assertEquals(Question.class, formElement.getClass());
-		assertEquals(new Ident("d"), ((Question)formElement).getDeclaration().getIdentifier());
+		assertEquals(new Ident("d"), ((Question)formElement).getIdentifier());
 
 	}
 
@@ -81,7 +81,7 @@ public class IfTests extends ParserTests {
 			assertEquals(If.class, formElement.getClass());
             If ifElement = (If) formElement;
             assertEquals(Question.class, ifElement.getIfBody().getClass());
-            assertEquals(identities[i], ((Question)ifElement.getIfBody()).getDeclaration().getIdentifier());
+            assertEquals(identities[i], ((Question)ifElement.getIfBody()).getIdentifier());
 			formElement = ifElement.getElseBody();
 		}
 		return formElement;
