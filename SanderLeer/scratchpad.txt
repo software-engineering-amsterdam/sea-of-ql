@@ -3,11 +3,8 @@ create multiple packages for AST
 move typechecker to seperate package
 build symbols during type checking
 don't throw exceptions during typecheck (return errors)
-rename 'org.uva.sea.ql.parser.test' to 'org.uva.sea.ql.tests'
 validate expression test on complete 'form' (add helper method method to add pre and post string to expression)
 add helper method in test expression to search for correct node (eg. find(root, Add.class))
 write test cases for type checker
 
 ADD COMMENTS!!
-
-move 'ParseException.java' and 'Parser.java' to package 'org.uva.sea.ql.parser'
