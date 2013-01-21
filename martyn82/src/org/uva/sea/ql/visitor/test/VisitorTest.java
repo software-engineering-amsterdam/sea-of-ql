@@ -6,8 +6,9 @@ import org.uva.sea.ql.visitor.INodeVisitor;
 
 /**
  * Implements basic functionality of visitor test classes.
+ * @param <T>
  */
-abstract public class VisitorTest {
+abstract public class VisitorTest<T> {
 	/**
 	 * Holds the parser object.
 	 */
@@ -16,7 +17,7 @@ abstract public class VisitorTest {
 	/**
 	 * Holds the visitor to use.
 	 */
-	protected final INodeVisitor visitor;
+	protected final INodeVisitor<T> visitor;
 
 	/**
 	 * Holds the program source to use.
@@ -28,7 +29,7 @@ abstract public class VisitorTest {
 	 *
 	 * @param visitor
 	 */
-	protected VisitorTest( INodeVisitor visitor ) {
+	protected VisitorTest( INodeVisitor<T> visitor ) {
 		this.parser = new JACCParser();
 		this.visitor = visitor;
 

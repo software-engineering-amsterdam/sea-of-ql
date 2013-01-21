@@ -1,7 +1,6 @@
 package org.uva.sea.ql.ast.expression;
 
 import org.uva.sea.ql.eval.Context;
-import org.uva.sea.ql.eval.value.Value;
 import org.uva.sea.ql.visitor.INodeVisitor;
 
 /**
@@ -18,7 +17,7 @@ abstract public class UnaryNumericExpression extends UnaryExpression {
 	}
 
 	@Override
-	public Value<?> accept( INodeVisitor visitor, Context context ) {
+	public <T> T accept( INodeVisitor<T> visitor, Context context ) {
 		return visitor.visit( this, context );
 	}
 }

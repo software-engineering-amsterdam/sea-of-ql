@@ -23,13 +23,12 @@ import org.uva.sea.ql.ast.statement.Statement;
 import org.uva.sea.ql.ast.statement.Statements;
 import org.uva.sea.ql.ast.statement.VarDeclaration;
 import org.uva.sea.ql.eval.Context;
-import org.uva.sea.ql.eval.value.Value;
 import org.uva.sea.ql.visitor.INodeVisitor;
 
 /**
  * Visitor that prints the AST.
  */
-public class PrintVisitor implements INodeVisitor {
+public class PrintVisitor implements INodeVisitor<Boolean> {
 	/**
 	 * String used for indenting.
 	 */
@@ -147,7 +146,7 @@ public class PrintVisitor implements INodeVisitor {
 	}
 
 	@Override
-	public Value<?> visit( LogicalExpression node, Context context ) {
+	public Boolean visit( LogicalExpression node, Context context ) {
 		writeName( node );
 
 		level++;
@@ -160,11 +159,11 @@ public class PrintVisitor implements INodeVisitor {
 
 		level--;
 
-		return null;
+		return true;
 	}
 
 	@Override
-	public Value<?> visit( ArithmeticExpression node, Context context ) {
+	public Boolean visit( ArithmeticExpression node, Context context ) {
 		writeName( node );
 
 		level++;
@@ -177,11 +176,11 @@ public class PrintVisitor implements INodeVisitor {
 
 		level--;
 
-		return null;
+		return true;
 	}
 
 	@Override
-	public Value<?> visit( UnaryExpression node, Context context ) {
+	public Boolean visit( UnaryExpression node, Context context ) {
 		writeName( node );
 
 		level++;
@@ -191,11 +190,11 @@ public class PrintVisitor implements INodeVisitor {
 
 		level--;
 
-		return null;
+		return true;
 	}
 
 	@Override
-	public Value<?> visit( UnaryNumericExpression node, Context context ) {
+	public Boolean visit( UnaryNumericExpression node, Context context ) {
 		writeName( node );
 
 		level++;
@@ -205,41 +204,41 @@ public class PrintVisitor implements INodeVisitor {
 
 		level--;
 
-		return null;
+		return true;
 	}
 
 	@Override
-	public Value<?> visit( Str node, Context context ) {
+	public Boolean visit( Str node, Context context ) {
 		writeAtomic( node );
-		return null;
+		return true;
 	}
 
 	@Override
-	public Value<?> visit( Money node, Context context ) {
+	public Boolean visit( Money node, Context context ) {
 		writeAtomic( node );
-		return null;
+		return true;
 	}
 
 	@Override
-	public Value<?> visit( Int node, Context context ) {
+	public Boolean visit( Int node, Context context ) {
 		writeAtomic( node );
-		return null;
+		return true;
 	}
 
 	@Override
-	public Value<?> visit( Bool node, Context context ) {
+	public Boolean visit( Bool node, Context context ) {
 		writeAtomic( node );
-		return null;
+		return true;
 	}
 
 	@Override
-	public Value<?> visit( Ident node, Context context ) {
+	public Boolean visit( Ident node, Context context ) {
 		writeAtomic( node );
-		return null;
+		return true;
 	}
 
 	@Override
-	public Value<?> visit( IfThenElse node, Context context ) {
+	public Boolean visit( IfThenElse node, Context context ) {
 		indent();
 		write( "IF" );
 
@@ -274,11 +273,11 @@ public class PrintVisitor implements INodeVisitor {
 			level--;
 		}
 
-		return null;
+		return true;
 	}
 
 	@Override
-	public Value<?> visit( VarDeclaration node, Context context ) {
+	public Boolean visit( VarDeclaration node, Context context ) {
 		writeName( node );
 
 		level++;
@@ -291,11 +290,11 @@ public class PrintVisitor implements INodeVisitor {
 
 		level--;
 
-		return null;
+		return true;
 	}
 
 	@Override
-	public Value<?> visit( Assignment node, Context context ) {
+	public Boolean visit( Assignment node, Context context ) {
 		writeName( node );
 
 		level++;
@@ -308,11 +307,11 @@ public class PrintVisitor implements INodeVisitor {
 
 		level--;
 
-		return null;
+		return true;
 	}
 
 	@Override
-	public Value<?> visit( FormDeclaration node, Context context ) {
+	public Boolean visit( FormDeclaration node, Context context ) {
 		writeName( node );
 
 		level++;
@@ -325,11 +324,11 @@ public class PrintVisitor implements INodeVisitor {
 
 		level--;
 
-		return null;
+		return true;
 	}
 
 	@Override
-	public Value<?> visit( QuestionDeclaration node, Context context ) {
+	public Boolean visit( QuestionDeclaration node, Context context ) {
 		indent();
 		writeName( node );
 
@@ -343,20 +342,20 @@ public class PrintVisitor implements INodeVisitor {
 
 		level--;
 
-		return null;
+		return true;
 	}
 
 	@Override
-	public Value<?> visit( Statements node, Context context ) {
+	public Boolean visit( Statements node, Context context ) {
 		for ( Statement statement : node ) {
 			statement.accept( this, context );
 		}
 
-		return null;
+		return true;
 	}
 
 	@Override
-	public Value<?> visit( ComparisonExpression node, Context context ) {
+	public Boolean visit( ComparisonExpression node, Context context ) {
 		writeName( node );
 
 		level++;
@@ -369,36 +368,36 @@ public class PrintVisitor implements INodeVisitor {
 
 		level--;
 
-		return null;
+		return true;
 	}
 
 	@Override
-	public Value<?> visit( org.uva.sea.ql.ast.type.Bool node, Context context ) {
+	public Boolean visit( org.uva.sea.ql.ast.type.Bool node, Context context ) {
 		writeName( node );
-		return null;
+		return true;
 	}
 
 	@Override
-	public Value<?> visit( org.uva.sea.ql.ast.type.Int node, Context context ) {
+	public Boolean visit( org.uva.sea.ql.ast.type.Int node, Context context ) {
 		writeName( node );
-		return null;
+		return true;
 	}
 
 	@Override
-	public Value<?> visit( org.uva.sea.ql.ast.type.Str node, Context context ) {
+	public Boolean visit( org.uva.sea.ql.ast.type.Str node, Context context ) {
 		writeName( node );
-		return null;
+		return true;
 	}
 
 	@Override
-	public Value<?> visit( org.uva.sea.ql.ast.type.Money node, Context context ) {
+	public Boolean visit( org.uva.sea.ql.ast.type.Money node, Context context ) {
 		writeName( node );
-		return null;
+		return true;
 	}
 
 	@Override
-	public Value<?> visit( org.uva.sea.ql.ast.type.Number node, Context context ) {
+	public Boolean visit( org.uva.sea.ql.ast.type.Number node, Context context ) {
 		writeName( node );
-		return null;
+		return true;
 	}
 }

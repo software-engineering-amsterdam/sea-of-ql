@@ -1,14 +1,10 @@
 package org.uva.sea.ql.visitor.typechecker.test;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 import org.uva.sea.ql.eval.Context;
-import org.uva.sea.ql.eval.value.Boolean;
-import org.uva.sea.ql.eval.value.Integer;
-import org.uva.sea.ql.eval.value.Money;
-import org.uva.sea.ql.eval.value.String;
-import org.uva.sea.ql.eval.value.Value;
 import org.uva.sea.ql.parser.ParseError;
 import org.uva.sea.ql.visitor.test.VisitorTest;
 import org.uva.sea.ql.visitor.typechecker.TypeChecker;
@@ -16,7 +12,7 @@ import org.uva.sea.ql.visitor.typechecker.TypeChecker;
 /**
  * TypeChecker test.
  */
-public class TestTypeChecker extends VisitorTest {
+public class TestTypeChecker extends VisitorTest<java.lang.Boolean> {
 	/**
 	 * Holds the context for the typechecker.
 	 */
@@ -34,11 +30,11 @@ public class TestTypeChecker extends VisitorTest {
 	 *
 	 * @param source
 	 *
-	 * @return The output value of source.
+	 * @return True if typecheck was OK, false otherwise.
 	 *
 	 * @throws ParseError
 	 */
-	private Value<?> typeCheck( java.lang.String source ) throws ParseError {
+	private java.lang.Boolean typeCheck( java.lang.String source ) throws ParseError {
 		context = new Context();
 		return parser.parse( source ).accept( visitor, context );
 	}
@@ -50,20 +46,20 @@ public class TestTypeChecker extends VisitorTest {
 	 */
 	@Test
 	public void testBooleanTypes() throws ParseError {
-		assertEquals( Boolean.class, typeCheck( "true" ).getClass() );
-		assertEquals( Boolean.class, typeCheck( "false" ).getClass() );
-		assertEquals( Boolean.class, typeCheck( "!true" ).getClass() );
+		assertTrue( typeCheck( "true" ) );
+		assertTrue( typeCheck( "false" ) );
+		assertTrue( typeCheck( "!true" ) );
 
-		assertEquals( Boolean.class, typeCheck( "true && true && false" ).getClass() );
-		assertEquals( Boolean.class, typeCheck( "true && false" ).getClass() );
-		assertEquals( Boolean.class, typeCheck( "!true || true" ).getClass() );
-		assertEquals( Boolean.class, typeCheck( "true || false" ).getClass() );
+		assertTrue( typeCheck( "true && true && false" ) );
+		assertTrue( typeCheck( "true && false" ) );
+		assertTrue( typeCheck( "!true || true" ) );
+		assertTrue( typeCheck( "true || false" ) );
 
-		assertEquals( Boolean.class, typeCheck( ".5 < .1" ).getClass() );
-		assertEquals( Boolean.class, typeCheck( "23 <= .10" ).getClass() );
-		assertEquals( Boolean.class, typeCheck( "\"a\" >= \"\"" ).getClass() );
-		assertEquals( Boolean.class, typeCheck( "true == !false" ).getClass() );
-		assertEquals( Boolean.class, typeCheck( "false != true" ).getClass() );
+		assertTrue( typeCheck( ".5 < .1" ) );
+		assertTrue( typeCheck( "23 <= .10" ) );
+		assertTrue( typeCheck( "\"a\" >= \"\"" ) );
+		assertTrue( typeCheck( "true == !false" ) );
+		assertTrue( typeCheck( "false != true" ) );
 	}
 
 	/**
@@ -73,15 +69,15 @@ public class TestTypeChecker extends VisitorTest {
 	 */
 	@Test
 	public void testIntegerTypes() throws ParseError {
-		assertEquals( Integer.class, typeCheck( "12" ).getClass() );
-		assertEquals( Integer.class, typeCheck( "0" ).getClass() );
-		assertEquals( Integer.class, typeCheck( "-3" ).getClass() );
-		assertEquals( Integer.class, typeCheck( "+2" ).getClass() );
+		assertTrue( typeCheck( "12" ) );
+		assertTrue( typeCheck( "0" ) );
+		assertTrue( typeCheck( "-3" ) );
+		assertTrue( typeCheck( "+2" ) );
 
-		assertEquals( Integer.class, typeCheck( "12 + 1" ).getClass() );
-		assertEquals( Integer.class, typeCheck( "1 / 12" ).getClass() );
-		assertEquals( Integer.class, typeCheck( "9 * 7 + 1" ).getClass() );
-		assertEquals( Integer.class, typeCheck( "10 - -2" ).getClass() );
+		assertTrue( typeCheck( "12 + 1" ) );
+		assertTrue( typeCheck( "1 / 12" ) );
+		assertTrue( typeCheck( "9 * 7 + 1" ) );
+		assertTrue( typeCheck( "10 - -2" ) );
 	}
 
 	/**
@@ -91,14 +87,14 @@ public class TestTypeChecker extends VisitorTest {
 	 */
 	@Test
 	public void testMoneyTypes() throws ParseError {
-		assertEquals( Money.class, typeCheck( ".1" ).getClass() );
-		assertEquals( Money.class, typeCheck( "13141.0" ).getClass() );
-		assertEquals( Money.class, typeCheck( ".1e+1" ).getClass() );
+		assertTrue( typeCheck( ".1" ) );
+		assertTrue( typeCheck( "13141.0" ) );
+		assertTrue( typeCheck( ".1e+1" ) );
 
-		assertEquals( Money.class, typeCheck( "12 + .1" ).getClass() );
-		assertEquals( Money.class, typeCheck( "7 - .0001" ).getClass() );
-		assertEquals( Money.class, typeCheck( ".889e+121 + 7" ).getClass() );
-		assertEquals( Money.class, typeCheck( ".5 * .25 + .125" ).getClass() );
+		assertTrue( typeCheck( "12 + .1" ) );
+		assertTrue( typeCheck( "7 - .0001" ) );
+		assertTrue( typeCheck( ".889e+121 + 7" ) );
+		assertTrue( typeCheck( ".5 * .25 + .125" ) );
 	}
 
 	/**
@@ -108,9 +104,9 @@ public class TestTypeChecker extends VisitorTest {
 	 */
 	@Test
 	public void testStringTypes() throws ParseError {
-		assertEquals( String.class, typeCheck( "\"\"" ).getClass() );
-		assertEquals( String.class, typeCheck( "\"yes\"" ).getClass() );
-		assertEquals( String.class, typeCheck( "\"this is a string\"" ).getClass() );
+		assertTrue( typeCheck( "\"\"" ) );
+		assertTrue( typeCheck( "\"yes\"" )  );
+		assertTrue( typeCheck( "\"this is a string\"" )  );
 	}
 
 	/**

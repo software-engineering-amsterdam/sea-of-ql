@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.uva.sea.ql.ast.expression.Ident;
-import org.uva.sea.ql.eval.value.Value;
+import org.uva.sea.ql.ast.type.Type;
 
 /**
  * Represents an evaluation context.
@@ -20,7 +20,7 @@ public class Context {
 	/**
 	 * Holds the declared variables.
 	 */
-	private final Map<String, Value<?>> variables;
+	private final Map<String, Type> types;
 
 	/**
 	 * Holds the error list.
@@ -34,7 +34,7 @@ public class Context {
 	 */
 	public Context( Context parent ) {
 		this.parent = parent;
-		this.variables = new HashMap<String, Value<?>>();
+		this.types = new HashMap<String, Type>();
 		this.errors = new LinkedList<String>();
 	}
 
@@ -89,7 +89,7 @@ public class Context {
 	 * @return True if it is defined, false otherwise.
 	 */
 	public boolean isDeclared( Ident ident ) {
-		if ( this.variables.containsKey( ident.getName() ) ) {
+		if ( this.types.containsKey( ident.getName() ) ) {
 			return true;
 		}
 
@@ -109,9 +109,9 @@ public class Context {
 	 *
 	 * @throws RuntimeException If the variable cannot be found.
 	 */
-	public Value<?> find( Ident ident ) {
-		if ( this.variables.containsKey( ident.getName() ) ) {
-			return this.variables.get( ident.getName() );
+	public Type find( Ident ident ) {
+		if ( this.types.containsKey( ident.getName() ) ) {
+			return this.types.get( ident.getName() );
 		}
 
 		if ( !this.isRoot() ) {
@@ -127,7 +127,7 @@ public class Context {
 	 * @param ident
 	 * @param value
 	 */
-	public void declareVariable( Ident ident, Value<?> value ) {
-		this.variables.put( ident.getName(), value );
+	public void declareVariable( Ident ident, Type type ) {
+		this.types.put( ident.getName(), type );
 	}
 }

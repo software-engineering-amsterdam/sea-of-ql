@@ -3,5 +3,5 @@ package org.uva.sea.ql.visitor;
 /**
  * Combined visitor interface for AST nodes.
  */
-public interface INodeVisitor extends IExpressionVisitor, IStatementVisitor, ITypeVisitor {
+public interface INodeVisitor<T> extends IExpressionVisitor<T>, IStatementVisitor<T>, ITypeVisitor<T> {
 }

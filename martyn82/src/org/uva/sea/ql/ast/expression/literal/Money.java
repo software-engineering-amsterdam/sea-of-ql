@@ -1,7 +1,6 @@
 package org.uva.sea.ql.ast.expression.literal;
 
 import org.uva.sea.ql.eval.Context;
-import org.uva.sea.ql.eval.value.Value;
 import org.uva.sea.ql.visitor.INodeVisitor;
 
 /**
@@ -37,7 +36,7 @@ public class Money extends Number {
 	}
 
 	@Override
-	public Value<?> accept( INodeVisitor visitor, Context context ) {
+	public <T> T accept( INodeVisitor<T> visitor, Context context ) {
 		return visitor.visit( this, context );
 	}
 }
