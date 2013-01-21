@@ -1,5 +1,7 @@
 package org.uva.sea.ql.ast.types;
 
-public class IntType extends Type {
+import org.uva.sea.ql.ast.ReturnsMathOperands;
+
+public class IntType extends Type implements ReturnsMathOperands{
 
 }

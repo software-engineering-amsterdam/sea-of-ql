@@ -1,13 +1,13 @@
 package org.uva.sea.ql.ast.literal;
 
 import org.uva.sea.ql.ast.Expr;
-import org.uva.sea.ql.ast.math.MathOperand;
+import org.uva.sea.ql.ast.ReturnsMathOperands;
 
-public class Int extends Expr implements MathOperand{
+public class IntLiteral extends Expr implements ReturnsMathOperands{
 
 	private final int value;
 
-	public Int(int n) {
+	public IntLiteral(int n) {
 		this.value = n;
 	}
 

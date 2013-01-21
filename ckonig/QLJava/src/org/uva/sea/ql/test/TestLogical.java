@@ -9,7 +9,7 @@ import org.uva.sea.ql.ast.bool.And;
 import org.uva.sea.ql.ast.bool.LT;
 import org.uva.sea.ql.ast.bool.Not;
 import org.uva.sea.ql.ast.bool.Or;
-import org.uva.sea.ql.ast.literal.Int;
+import org.uva.sea.ql.ast.literal.IntLiteral;
 import org.uva.sea.ql.ast.math.Neg;
 import org.uva.sea.ql.ast.math.Pos;
 import org.uva.sea.ql.parser.ParseError;
@@ -64,15 +64,15 @@ public class TestLogical extends TestExpressions {
 		Expr e = CurrentTest.parse("-1");
 		assertEquals(Neg.class, e.getClass());
 		UnaryExpr u = (UnaryExpr) e;
-		assertEquals(Int.class, u.getAdjacent().getClass());
-		Int i = (Int) u.getAdjacent();
+		assertEquals(IntLiteral.class, u.getAdjacent().getClass());
+		IntLiteral i = (IntLiteral) u.getAdjacent();
 		assertEquals(1, i.getValue());
 
 		e = CurrentTest.parse("+1");
 		assertEquals(Pos.class, e.getClass());
 		u = (UnaryExpr) e;
-		assertEquals(Int.class, u.getAdjacent().getClass());
-		i = (Int) u.getAdjacent();
+		assertEquals(IntLiteral.class, u.getAdjacent().getClass());
+		i = (IntLiteral) u.getAdjacent();
 		assertEquals(1, i.getValue());
 	}
 

@@ -5,7 +5,6 @@ import junit.framework.Assert;
 
 import org.uva.sea.ql.ast.Expr;
 import org.uva.sea.ql.ast.elements.Question;
-import org.uva.sea.ql.ast.math.MathOperand;
 import org.uva.sea.ql.ast.types.Bool;
 import org.uva.sea.ql.ast.types.Money;
 import org.uva.sea.ql.parser.ParseError;
@@ -54,7 +53,7 @@ public class TestQuestion {
 			assertEquals(Money.class, e.getClass());
 			Money m = (Money) e;
 			Expr ex = m.getExpr();
-			Assert.assertTrue(ex instanceof MathOperand);
+			Assert.assertNotNull(ex);
 		} else {
 			throw new RuntimeException("must be called with money(y*z)");
 		}
