@@ -2,37 +2,45 @@ module typeChecker::Eval
 
 import Prelude;
 import syntax::AbstractSyntax;
-import typeChecker::Load;
+import util::Load;
+import typeChecker::TypeCheck;
+import typeChecker::Mapping;
 
-
-data QuestionValue = boolCon(bool b) | strval(str s) | moneyCon (Money m) | errorval(loc l, str msg);  
+// First we introduce a data type QuestionValue that wraps all possible values that can occur at run-time.
+data QuestionValue = boolVal(bool b) | strVal(str s) | moneyVal (Money m) | errorval(loc l, str msg);  
 data QuestionName = strVal(str s) | errorval(loc l, str msg);
 
-alias VENV = map[QuestionId, QuestionName, QuestionValue];                                        
+alias VENV = map[QuestionId, QuestionValue];   // QuestionName
+alias QTENV = tuple[ map[QuestionId, TYPE] symbols, list[tuple[loc l, str msg]] errors];                                     
 
 // Evaluate Expressions.
 
-QuestionValue evalExp(exp:natCon(int N), VENV env) = natval(N);
+QuestionValue evalExp(exp:moneyCon(int M), VENV env) = moneyVal(N);
 
-QuestionValue evalExp(exp:strCon(str S), VENV env) = strval(S);
+QuestionValue evalExp(exp:strCon(str S), VENV env) = strVal(S);
 
-QuestionValue evalExp(exp:id(PicoId Id), VENV env)  = 
+QuestionValue evalExp(exp:id(QuestionId Id), VENV env)  = 
     env[Id]?  ? env[Id] : errorval(exp@location, "Uninitialized variable <Id>");
 
 QuestionValue evalExp(exp:add(EXP E1, EXP E2), VENV env) = 
    (natval(n1) := evalExp(E1, env) && 
-    natval(n2) := evalExp(E2, env)) ? natval(n1 + n2)
-                                    : errorval(exp@location, "+ requires natural arguments");
+    natval(n2) := evalExp(E2, env)) ? moneyVal(n1 + n2)
+                                    : errorval(exp@location, "+ requires money arguments");
   
 QuestionValue evalExp(exp:sub(EXP E1, EXP E2), VENV env) = 
    (natval(n1) := evalExp(E1, env) && 
-    natval(n2) := evalExp(E2, env)) ? natval(n1 - n2)
-                                    : errorval(exp@location, "- requires natural arguments");
+    natval(n2) := evalExp(E2, env)) ? moneyVal(n1 - n2)
+                                    : errorval(exp@location, "- requires money arguments");
                                                                      
-QuestionValue evalExp(exp:conc(EXP E1, EXP E2), VENV env) = 
+QuestionValue evalExp(exp:or(EXP E1, EXP E2), VENV env) = 
    (strval(s1) := evalExp(E1, env) && 
-    strval(s2) := evalExp(E2, env)) ? strval(s1 + s2)
-                                    : errorval(exp@location, "|| requires string arguments");
+    strval(s2) := evalExp(E2, env)) ? strVal(s1 + s2)
+                                    : errorval(exp@location, "or requires string arguments");
+
+QuestionValue evalExp(exp:and(EXP E1, EXP E2), VENV env) = 
+   (strval(s1) := evalExp(E1, env) && 
+    strval(s2) := evalExp(E2, env)) ? strVal(s1 + s2)
+                                    : errorval(exp@location, "and requires string arguments");
 
 // Evaluate a statement
 
@@ -45,16 +53,7 @@ VENV evalStat(stat:ifElseStat(EXP Exp,
                               list[STATEMENT] Stats1,
                               list[STATEMENT] Stats2),
               VENV env) =
-  evalStats(evalExp(Exp, env) != natval(0) ? Stats1 : Stats2, env);
-
-VENV evalStat(stat:whileStat(EXP Exp, 
-                             list[STATEMENT] Stats1),
-              VENV env) {
-    while(evalExp(Exp, env) != natval(0)){
-       env = evalStats(Stats1, env);
-    }
-    return env;
-}
+  evalStats(evalExp(Exp, env) != moneyVal(0) ? Stats1 : Stats2, env);
 
 // Evaluate a list of statements
 VENV evalStats(list[STATEMENT] Stats1, VENV env) {
@@ -66,14 +65,34 @@ VENV evalStats(list[STATEMENT] Stats1, VENV env) {
   
 // Eval declarations
 
-VENV evalDecls(list[DECL] Decls) =
-    ( Id : (tp == natural() ? natval(0) : strval(""))  | decl(QuestionId Id, QuestionString qName, TYPE tp) <- Decls);
+VENV evalDecls (list[QUET] results) =   
+   ( Id : ( tp == money() ? moneyVal(0) : strVal("")) | result(QuestionId Id, TYPE tp) <- results); // | results(QuestionId Id, TYPE tp) <- results); 
+ // (results.tp == money() ? moneyVal(0) : strVal(""))
+ 
+VENV evalDecls (list[tuple [QuestionId qId, TYPE tp]] results) =   
+   ( result.qId : ( tp == money() ? moneyVal(0) : strVal("")) ); //| result(QuestionId Id, TYPE tp) <- results);
+    
+//TENV checkDecls(list[DECL] Decls) =                                                 
+//    <( Id : question | decl(QuestionId Id, QUE question)  <- Decls), []>;
 
 // Evaluate a Pico program
 
 public VENV evalProgram(PROGRAM P){
-  if(program(list[DECL] Decls, list[STATEMENT] Series) := P){
-     VENV env = evalDecls(Decls);
+  if(program(EXP exp,list[DECL] Decls, list[STATEMENT] Series) := P){
+     println("EVAL DECLS : <Decls>");     
+     TENV tenv = checkDecls(Decls);
+     println("TENV : <tenv>");  
+     //VENV env = checkDecls(Decls);
+     //list[QUET] results = mapQuestionIdToType3(tenv.symbols);
+     QTENV results = mapQuestionIdToType2(tenv.symbols);
+     println("QTENV RESULTS IN EVAL : <results.symbols>");
+     list[tuple[QuestionId Id, TYPE tp]] hhh = toList(results.symbols);
+     println("HHHHH : <hhh>");
+     //VENV gg = results.symbols;  // QuestionValue
+     //println("gg : <gg>");
+     VENV env = evalDecls(hhh);
+     
+     println(env);
      return evalStats(Series, env);
   } else
     throw "Cannot happen";
