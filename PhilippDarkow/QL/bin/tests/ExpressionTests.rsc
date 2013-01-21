@@ -76,5 +76,7 @@ public test bool testMoney2() = p("0,01") is moneyCon;
 public test bool testMoney3() = p("1000,99") is moneyCon;
 // Test for keywords
 // public test bool testKeyword() = p("if") is id;
-// Tests for QuestionString
-// public test bool testQuestionString1() = p("How","are") is strQue;
+//Tests for QuestionString
+public test bool testString1() = p("\"How are you\"") is string;
+public test bool testString2() = p("\"String with numbers 321\"") is string;
+public test bool testString3() = p("\"String with specials : ?\"") is string;
