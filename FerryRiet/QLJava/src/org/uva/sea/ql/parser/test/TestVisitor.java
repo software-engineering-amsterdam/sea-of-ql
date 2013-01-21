@@ -5,7 +5,6 @@ import junit.framework.TestCase;
 import org.junit.Test;
 import org.uva.sea.ql.ast.QLProgram;
 import org.uva.sea.ql.astnodevisitor.PrintVisitor;
-import org.uva.sea.ql.astnodevisitor.PrintVisitorResult;
 import org.uva.sea.ql.astnodevisitor.SemanticCheckVisitor;
 
 public class TestVisitor extends TestCase {
@@ -24,36 +23,32 @@ public class TestVisitor extends TestCase {
 		PrintVisitor pvis = new PrintVisitor();
 		QLProgram qlp;
 
-/*		qlp = parser.qlprogram(a0);
-		expected = ((PrintVisitorResult) qlp.accept(pvis)).getPrintResult();
-		qlp = parser.qlprogram(expected);
-		actual = ((PrintVisitorResult) qlp.accept(pvis)).getPrintResult();
-		assertEquals(expected, actual);
-
-		qlp = parser.qlprogram(a1);
-		expected = ((PrintVisitorResult) qlp.accept(pvis)).getPrintResult();
-		qlp = parser.qlprogram(expected);
-		actual = ((PrintVisitorResult) qlp.accept(pvis)).getPrintResult();
-		assertEquals(expected, actual);
-
-		qlp = parser.qlprogram(a2);
-		expected = ((PrintVisitorResult) qlp.accept(pvis)).getPrintResult();
-		qlp = parser.qlprogram(expected);
-		actual = ((PrintVisitorResult) qlp.accept(pvis)).getPrintResult();
-		assertEquals(expected, actual);
-
-		qlp = parser.qlprogram(a3);
-		expected = ((PrintVisitorResult) qlp.accept(pvis)).getPrintResult();
-		qlp = parser.qlprogram(expected);
-		actual = ((PrintVisitorResult) qlp.accept(pvis)).getPrintResult();
-		assertEquals(expected, actual);
-
-		qlp = parser.qlprogram(a4);
-		expected = ((PrintVisitorResult) qlp.accept(pvis)).getPrintResult();
-		qlp = parser.qlprogram(expected);
-		actual = ((PrintVisitorResult) qlp.accept(pvis)).getPrintResult();
-		assertEquals(expected, actual);
-*/	}
+		/*
+		 * qlp = parser.qlprogram(a0); expected = ((PrintVisitorResult)
+		 * qlp.accept(pvis)).getPrintResult(); qlp = parser.qlprogram(expected);
+		 * actual = ((PrintVisitorResult) qlp.accept(pvis)).getPrintResult();
+		 * assertEquals(expected, actual);
+		 * 
+		 * qlp = parser.qlprogram(a1); expected = ((PrintVisitorResult)
+		 * qlp.accept(pvis)).getPrintResult(); qlp = parser.qlprogram(expected);
+		 * actual = ((PrintVisitorResult) qlp.accept(pvis)).getPrintResult();
+		 * assertEquals(expected, actual);
+		 * 
+		 * qlp = parser.qlprogram(a2); expected = ((PrintVisitorResult)
+		 * qlp.accept(pvis)).getPrintResult(); qlp = parser.qlprogram(expected);
+		 * actual = ((PrintVisitorResult) qlp.accept(pvis)).getPrintResult();
+		 * assertEquals(expected, actual);
+		 * 
+		 * qlp = parser.qlprogram(a3); expected = ((PrintVisitorResult)
+		 * qlp.accept(pvis)).getPrintResult(); qlp = parser.qlprogram(expected);
+		 * actual = ((PrintVisitorResult) qlp.accept(pvis)).getPrintResult();
+		 * assertEquals(expected, actual);
+		 * 
+		 * qlp = parser.qlprogram(a4); expected = ((PrintVisitorResult)
+		 * qlp.accept(pvis)).getPrintResult(); qlp = parser.qlprogram(expected);
+		 * actual = ((PrintVisitorResult) qlp.accept(pvis)).getPrintResult();
+		 * assertEquals(expected, actual);
+		 */}
 
 	@Test
 	public void testSemanticVisitor() throws ParseError {
@@ -67,7 +62,7 @@ public class TestVisitor extends TestCase {
 		 * qlp = parser.qlprogram(a1); qlp.accept(svis);
 		 * assertEquals(svis.getErrorReport(), "");
 		 */
-		String a33 = "form DoIt { field: \"doit\" boolean if ( field < 20 ) { fieldTwo : \"hello world!\" money( true + 20 ) }}";
+		String a33 = "form DoIt { field: \"doit\" money if ( field0 < 10 ) { fieldTwo : \"hello world!\" money( 20 + 20 ) }}";
 		qlp = parser.qlprogram(a33);
 		qlp.accept(svis);
 	}

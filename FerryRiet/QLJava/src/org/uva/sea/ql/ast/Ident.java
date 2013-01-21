@@ -26,19 +26,20 @@ public class Ident extends Expr {
 	}
 
 	@Override
-	public VisitorResult accept(Visitor astNodeVisitor) {
-		// TODO Auto-generated method stub
+	public VisitorResult accept(Visitor visitor) {
+		visitor.visit(this) ;
 		return null;
 	}
 
 	@Override
-	public TypeDescription typeOf(HashMap<Ident, Statement> typeEnv) {
-		System.out.println("test id :" + token.getText());
-		LineStatement line = null ;
-		if ( typeEnv.containsKey(this)){
-			line = (LineStatement) typeEnv.get(this);
+	public TypeDescription typeOf(HashMap<String, Statement> typeEnv) {
+		System.out.print("test id :" + token.getText());
+		LineStatement line = (LineStatement) typeEnv.get(this.getName());
+		if (line != null) {
+			System.out.println(" found it");
 			return line.getTypeDescription();
 		}
-		return new ErrorType() ;
+		System.out.println(" failed");
+		return new ErrorType();
 	}
 }

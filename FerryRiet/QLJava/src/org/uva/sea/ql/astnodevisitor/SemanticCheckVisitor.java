@@ -36,7 +36,7 @@ public class SemanticCheckVisitor implements Visitor {
 
 	final List<String> errorList = new ArrayList<String>();
 
-	private HashMap<Ident, Statement> symbolMap = new HashMap<Ident, Statement>();
+	private HashMap<String, Statement> symbolMap = new HashMap<String, Statement>();
 
 	public SemanticCheckVisitor() {
 	}
@@ -45,7 +45,7 @@ public class SemanticCheckVisitor implements Visitor {
 	public VisitorResult visit(Ident id) {
 		LineStatement lineStatement;
 
-		lineStatement = (LineStatement) symbolMap.get(id);
+		lineStatement = (LineStatement) symbolMap.get(id.getName());
 		if (lineStatement == null) {
 			/***
 			 * Ident not previous defined
@@ -86,9 +86,11 @@ public class SemanticCheckVisitor implements Visitor {
 	public VisitorResult visit(LineStatement lineStatement) {
 		// Add symbols to the symbolmap so the visitor of the
 		// expression can test their existance/missing.
-		if (symbolMap.get(lineStatement.getLineId()) == null) {
+		if (symbolMap.get(lineStatement.getLineId().getName()) == null) {
 			// New symbol in map
-			symbolMap.put(lineStatement.getLineId(), lineStatement);
+			System.out
+					.println("adding :" + lineStatement.getLineId().getName());
+			symbolMap.put(lineStatement.getLineId().getName(), lineStatement);
 		} else {
 			errorList.add("Line(" + lineStatement.getLine() + ","
 					+ lineStatement.getCharPositionInLine() + ") Field :"
@@ -169,18 +171,18 @@ public class SemanticCheckVisitor implements Visitor {
 
 	@Override
 	public VisitorResult visit(LT expr) {
-		if (expr.getExprLeftHand().typeOf(symbolMap)
-				.isCompatibleTo(expr.getExprRightHand().typeOf(symbolMap))) {
+		expr.getExprLeftHand().accept(this);
+		expr.getExprRightHand().accept(this);
 
-		} else {
-			errorList.add("Type mismatch");
+		if (!(expr.getExprLeftHand().typeOf(symbolMap).isCompatibleTo(expr
+				.getExprRightHand().typeOf(symbolMap)))) {
+			errorList.add("LT Type mismatch");
 		}
 		return null;
 	}
 
 	@Override
 	public VisitorResult visit(LEq expr) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 

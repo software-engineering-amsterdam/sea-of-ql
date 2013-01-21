@@ -12,9 +12,10 @@ public class LEq extends BinExpr {
 	}
 
 	@Override
-	public TypeDescription typeOf(HashMap<Ident, Statement> typeEnv) {
+	public TypeDescription typeOf(HashMap<String, Statement> typeEnv) {
 		return new BooleanType();
 	}
+
 	@Override
 	public VisitorResult accept(Visitor visitor) {
 		return visitor.visit(this);

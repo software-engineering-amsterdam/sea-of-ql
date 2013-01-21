@@ -12,9 +12,10 @@ public class Pos extends UnExpr {
 	}
 
 	@Override
-	public TypeDescription typeOf(HashMap<Ident, Statement> typeEnv) {
+	public TypeDescription typeOf(HashMap<String, Statement> typeEnv) {
 		return new NumeralType();
 	}
+
 	@Override
 	public VisitorResult accept(Visitor visitor) {
 		return visitor.visit(this);
