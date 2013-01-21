@@ -16,61 +16,66 @@ public class TestForms {
 		this.parser = new JACCParser();
 	}
 	
+	// helper method to assert source 's' returns an AST node of type 'Form'
+	private void test(String s) throws ParseException {
+		assertEquals(Form.class, parser.parse(s).getClass());
+	}
+	
 	@Test
 	public void testComments() throws ParseException {
-		assertEquals(Form.class, parser.parse("form a {b: \"test\" string}/* hello */").getClass());
-		assertEquals(Form.class, parser.parse("form a {b: \"test\" string} /* hello */").getClass());
-		assertEquals(Form.class, parser.parse("/* hello */form a {b: \"test\" string}").getClass());
-		assertEquals(Form.class, parser.parse("/* hello */ form a {b: \"test\" string}").getClass());
-		assertEquals(Form.class, parser.parse("form a /* hello */ {b: \"test\" string}").getClass());
-		assertEquals(Form.class, parser.parse("form a {b /* hello */ : \"test\" string}").getClass());
-		assertEquals(Form.class, parser.parse("form a {b: \"test\" string} /* hello \n world */").getClass());
-		assertEquals(Form.class, parser.parse("form a {b: \"test\" string} /* hello \r world */").getClass());
-		assertEquals(Form.class, parser.parse("form a {b: \"test\" string} /* hello \n\r world */").getClass());
+		test("form a {b: \"test\" string}/* hello */");
+		test("form a {b: \"test\" string} /* hello */");
+		test("/* hello */form a {b: \"test\" string}");
+		test("/* hello */ form a {b: \"test\" string}");
+		test("form a /* hello */ {b: \"test\" string}");
+		test("form a {b /* hello */ : \"test\" string}");
+		test("form a {b: \"test\" string} /* hello \n world */");
+		test("form a {b: \"test\" string} /* hello \r world */");
+		test("form a {b: \"test\" string} /* hello \n\r world */");
 
-		assertEquals(Form.class, parser.parse("form a {b: \"test\" string}// hello").getClass());
-		assertEquals(Form.class, parser.parse("form a {b: \"test\" string} // hello").getClass());
-		assertEquals(Form.class, parser.parse("form a {b: \"test\" string} // hello */").getClass());
-		assertEquals(Form.class, parser.parse("form // hello \n a {b: \"test\" string}").getClass());
-		assertEquals(Form.class, parser.parse("form // hello \r a {b: \"test\" string}").getClass());
-		assertEquals(Form.class, parser.parse("form // hello \n\r a {b: \"test\" string}").getClass());
+		test("form a {b: \"test\" string}// hello");
+		test("form a {b: \"test\" string} // hello");
+		test("form a {b: \"test\" string} // hello */");
+		test("form // hello \n a {b: \"test\" string}");
+		test("form // hello \r a {b: \"test\" string}");
+		test("form // hello \n\r a {b: \"test\" string}");
 	}
 
 	@Test
 	public void testFormStatements() throws ParseException {
-		assertEquals(Form.class, parser.parse("form form1 { question1: \"Name?\" integer }").getClass());
-		assertEquals(Form.class, parser.parse("form form1 { question1: \"Name1?\" integer question2: \"Name2?\" string }").getClass());
-		assertEquals(Form.class, parser.parse("form form1 { question1: \"Name1?\" integer question2: \"Name2?\" string question3: \"Name3?\" boolean }").getClass());
+		test("form form1 { question1: \"Name?\" integer }");
+		test("form form1 { question1: \"Name1?\" integer question2: \"Name2?\" string }");
+		test("form form1 { question1: \"Name1?\" integer question2: \"Name2?\" string question3: \"Name3?\" boolean }");
 	}
 
 	@Test
 	public void testQuestions() throws ParseException {
-		assertEquals(Form.class, parser.parse("form form1 { question1: \"Name?\" integer }").getClass());
-		assertEquals(Form.class, parser.parse("form form1 { question1: \"Name?\" string }").getClass());
-		assertEquals(Form.class, parser.parse("form form1 { question1: \"Name?\" boolean }").getClass());
-		assertEquals(Form.class, parser.parse("form form1 { question1: \"Name1?\" integer question2: \"Name2?\" string }").getClass());
-		assertEquals(Form.class, parser.parse("form form1 { question1: \"Name1?\" integer question2: \"Name2?\" string question3: \"Name3?\" boolean }").getClass());
+		test("form form1 { question1: \"Name?\" integer }");
+		test("form form1 { question1: \"Name?\" string }");
+		test("form form1 { question1: \"Name?\" boolean }");
+		test("form form1 { question1: \"Name1?\" integer question2: \"Name2?\" string }");
+		test("form form1 { question1: \"Name1?\" integer question2: \"Name2?\" string question3: \"Name3?\" boolean }");
 
-		assertEquals(Form.class, parser.parse("form form1 { question1: \"Name?\" integer(5 - 3)}").getClass());
-		assertEquals(Form.class, parser.parse("form form1 { question1: \"Name1?\" integer question2: \"Name2?\" boolean(true && false) }").getClass());
-		assertEquals(Form.class, parser.parse("form form1 { question1: \"Name1?\" integer question2: \"Name2?\" boolean(question1 == 3) }").getClass());
+		test("form form1 { question1: \"Name?\" integer(5 - 3)}");
+		test("form form1 { question1: \"Name1?\" integer question2: \"Name2?\" boolean(true && false) }");
+		test("form form1 { question1: \"Name1?\" integer question2: \"Name2?\" boolean(question1 == 3) }");
 	}
 
 	@Test
 	public void testDatatypes() throws ParseException {
-		assertEquals(Form.class, parser.parse("form form1 { question1: \"Name?\" integer }").getClass());
-		assertEquals(Form.class, parser.parse("form form1 { question1: \"Name1?\" string }").getClass());
-		assertEquals(Form.class, parser.parse("form form1 { question1: \"Name1?\" boolean }").getClass());
+		test("form form1 { question1: \"Name?\" integer }");
+		test("form form1 { question1: \"Name1?\" string }");
+		test("form form1 { question1: \"Name1?\" boolean }");
 	}
 
 	@Test
 	public void testIfs() throws ParseException {
-		assertEquals(Form.class, parser.parse("form form1 { q1: \"Value?\" integer if (q4 == 3) { q1: \"Value 2?\" integer } }").getClass());
+		test("form form1 { q1: \"Value?\" integer if (q1 == 3) { q2: \"Value 2?\" integer } }");
 	}
 
 	@Test
 	public void testExtendedForms() throws ParseException {
-		assertEquals(Form.class, parser.parse(
+		test(
 				"form Box1HouseOwning {" +
 				"	   hasSoldHouse: \"Did you sell a house in 2010?\" boolean" +
 				"	   hasBoughtHouse: \"Did you by a house in 2010?\" boolean" +
@@ -80,14 +85,6 @@ public class TestForms {
 				"		     privateDebt: \"Private debts for the sold house:\" integer" +
 				"		     valueResidue: \"Value residue:\" integer(sellingPrice - privateDebt)" +
 				"	   }" +
-				"}").getClass());
-	}
-
-	@Test
-	public void testSymbols() throws ParseException {
-		verifyException(parser, ParseException.class).parse("form form1 { sameid: \"Value?\" integer if (sameid == 3) { sameid: \"Value 2?\" integer } }");
-		verifyException(parser, ParseException.class).parse("form form1 { q1: \"Value?\" integer if (notusedyet == 3) { q2: \"Value 2?\" integer } }");
-		verifyException(parser, ParseException.class).parse("form form1 { q1: \"Value?\" integer(notusedyet - 3) }");
-		verifyException(parser, ParseException.class).parse("form form1 { sameid: \"Value?\" integer if (notusedyet == 3) { sameid: \"Value 2?\" integer } }");
+				"}");
 	}
 }

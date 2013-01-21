@@ -19,8 +19,8 @@ public class JACCParser implements Parser {
 		}
 		ASTNode astRoot = parser.getResult();
 
-		SymbolTableBuilder symbolsBuilder = new SymbolTableBuilder(astRoot);
-		SymbolTable symbols = symbolsBuilder.build();
+//		SymbolTableBuilder symbolsBuilder = new SymbolTableBuilder(astRoot);
+//		SymbolTable symbols = symbolsBuilder.build();
 		
 //		TypeChecker typeChecker = new TypeChecker(astRoot, symbols);
 //		if (!typeChecker.check()) {

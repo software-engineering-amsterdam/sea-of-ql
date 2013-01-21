@@ -2,6 +2,7 @@ package org.uva.sea.ql.tests;
 
 import static org.junit.Assert.assertEquals;
 import static com.googlecode.catchexception.CatchException.*;
+
 import org.junit.Test;
 import org.uva.sea.ql.ast.*;
 import org.uva.sea.ql.parser.*;
@@ -15,131 +16,141 @@ public class TestExpressions {
 		this.parser = new JACCParser();
 	}
 	
+	// helper method to assert source 's' returns an AST node of type 'expected'
+	private void test(Object expected, String s) throws ParseException {
+		assertEquals(expected, parser.parse(s).getClass());		
+	}
+	
+	// helper method to verify source 's' throws a RuntimeException
+    private void verify(String s) throws ParseException {
+		verifyException(parser, RuntimeException.class).parse(s);
+    }
+
 	@Test
 	public void testLexerErrors() throws ParseException {
-		verifyException(parser, RuntimeException.class).parse("&");
-		verifyException(parser, RuntimeException.class).parse("|");
-		verifyException(parser, RuntimeException.class).parse("=");
-		verifyException(parser, RuntimeException.class).parse("\"aa");
+		verify("&");
+		verify("|");
+		verify("=");
+		verify("\"aa");
 	}
 
 	@Test
 	public void testUnary() throws ParseException {		
-		assertEquals(Pos.class, parser.parse("+a").getClass());
-		assertEquals(Neg.class, parser.parse("-a").getClass());
-		assertEquals(Not.class, parser.parse("!a").getClass());
+		test(Pos.class, "+a");
+		test(Neg.class, "-a");
+		test(Not.class, "!a");
 	}
 
 	@Test
 	public void testBinary() throws ParseException {
-		assertEquals(Add.class, parser.parse("a + b").getClass());
-		assertEquals(Div.class, parser.parse("a / b").getClass());
-		assertEquals(Mul.class, parser.parse("a * b").getClass());
-		assertEquals(Sub.class, parser.parse("a - b").getClass());
+		test(Add.class, "a + b");
+		test(Div.class, "a / b");
+		test(Mul.class, "a * b");
+		test(Sub.class, "a - b");
 
-		assertEquals(And.class, parser.parse("a && b").getClass());
-		assertEquals(Or.class, parser.parse("a || b").getClass());
+		test(And.class, "a && b");
+		test(Or.class, "a || b");
 		
-		assertEquals(GT.class, parser.parse("a > b").getClass());
-		assertEquals(GEq.class, parser.parse("a >= b").getClass());
-		assertEquals(LT.class, parser.parse("a < b").getClass());
-		assertEquals(LEq.class, parser.parse("a <= b").getClass());
+		test(GT.class, "a > b");
+		test(GEq.class, "a >= b");
+		test(LT.class, "a < b");
+		test(LEq.class, "a <= b");
 
-		assertEquals(Eq.class, parser.parse("a == b").getClass());
-		assertEquals(NEq.class, parser.parse("a != b").getClass());
+		test(Eq.class, "a == b");
+		test(NEq.class, "a != b");
 	}
 
 	@Test
 	public void testAdds() throws ParseException {
-		assertEquals(Pos.class, parser.parse("+a").getClass());
-		assertEquals(Add.class, parser.parse("+b + c + (d + e)").getClass());
-		assertEquals(Add.class, parser.parse("a + b").getClass());
-		assertEquals(Add.class, parser.parse("a + b + c").getClass());
-		assertEquals(Add.class, parser.parse("(a + b + c)").getClass());
-		assertEquals(Add.class, parser.parse("a + (b + c)").getClass());
-		assertEquals(Add.class, parser.parse("(a + b) + c").getClass());
-		assertEquals(Add.class, parser.parse("(a + b)").getClass());
-		assertEquals(Add.class, parser.parse("a + b * c").getClass());
-		assertEquals(Add.class, parser.parse("a * b + c").getClass());
+		test(Pos.class, "+a");
+		test(Add.class, "+b + c + (d + e)");
+		test(Add.class, "a + b");
+		test(Add.class, "a + b + c");
+		test(Add.class, "(a + b + c)");
+		test(Add.class, "a + (b + c)");
+		test(Add.class, "(a + b) + c");
+		test(Add.class, "(a + b)");
+		test(Add.class, "a + b * c");
+		test(Add.class, "a * b + c");
 	}
 
 	@Test
 	public void testMuls() throws ParseException {
-		assertEquals(Mul.class, parser.parse("a * b").getClass());
-		assertEquals(Mul.class, parser.parse("a * b * c").getClass());
-		assertEquals(Mul.class, parser.parse("a * (b * c)").getClass());
-		assertEquals(Mul.class, parser.parse("(a * b) * c").getClass());
-		assertEquals(Mul.class, parser.parse("(a * b)").getClass());
-		assertEquals(Mul.class, parser.parse("(a + b) * c").getClass());
-		assertEquals(Mul.class, parser.parse("a * (b + c)").getClass());
+		test(Mul.class, "a * b");
+		test(Mul.class, "a * b * c");
+		test(Mul.class, "a * (b * c)");
+		test(Mul.class, "(a * b) * c");
+		test(Mul.class, "(a * b)");
+		test(Mul.class, "(a + b) * c");
+		test(Mul.class, "a * (b + c)");
 	}
 
 	@Test
 	public void testRels() throws ParseException {
-		assertEquals(LT.class, parser.parse("a < b").getClass());
-		assertEquals(LT.class, parser.parse("a < b + c").getClass());
-		assertEquals(LT.class, parser.parse("a < (b * c)").getClass());
-		assertEquals(LT.class, parser.parse("(a * b) < c").getClass());
-		assertEquals(LEq.class, parser.parse("a <= b").getClass());
-		assertEquals(LEq.class, parser.parse("a <= b + 4").getClass());
-		assertEquals(GT.class, parser.parse("a + b > c").getClass());
-		assertEquals(GT.class, parser.parse("a > b + c").getClass());
-		assertEquals(GEq.class, parser.parse("a >= b").getClass());
-		assertEquals(GEq.class, parser.parse("a >= b + 4").getClass());
-		assertEquals(Eq.class, parser.parse("a == b").getClass());
-		assertEquals(Eq.class, parser.parse("a == b + 4").getClass());
-		assertEquals(NEq.class, parser.parse("a != b").getClass());
-		assertEquals(NEq.class, parser.parse("a != b + 4").getClass());
+		test(LT.class, "a < b");
+		test(LT.class, "a < b + c");
+		test(LT.class, "a < (b * c)");
+		test(LT.class, "(a * b) < c");
+		test(LEq.class, "a <= b");
+		test(LEq.class, "a <= b + 4");
+		test(GT.class, "a + b > c");
+		test(GT.class, "a > b + c");
+		test(GEq.class, "a >= b");
+		test(GEq.class, "a >= b + 4");
+		test(Eq.class, "a == b");
+		test(Eq.class, "a == b + 4");
+		test(NEq.class, "a != b");
+		test(NEq.class, "a != b + 4");
 	}
 	
 	@Test
 	public void testIds() throws ParseException {
-		assertEquals(Identifier.class, parser.parse("a").getClass());
-		assertEquals(Identifier.class, parser.parse("abc").getClass());
-		assertEquals(Identifier.class, parser.parse("ABC").getClass());
-		assertEquals(Identifier.class, parser.parse("ABCDEF").getClass());
-		assertEquals(Identifier.class, parser.parse("abc2323").getClass());
-		assertEquals(Identifier.class, parser.parse("a2bc232").getClass());
-		assertEquals(Identifier.class, parser.parse("a2bc232aa").getClass());
+		test(Identifier.class, "a");
+		test(Identifier.class, "abc");
+		test(Identifier.class, "ABC");
+		test(Identifier.class, "ABCDEF");
+		test(Identifier.class, "abc2323");
+		test(Identifier.class, "a2bc232");
+		test(Identifier.class, "a2bc232aa");
 	}
 
 	@Test
 	public void testInts() throws ParseException {
-		assertEquals(IntegerLiteral.class, parser.parse("0").getClass());
-		assertEquals(IntegerLiteral.class, parser.parse("1223").getClass());
-		assertEquals(IntegerLiteral.class, parser.parse("234234234").getClass());
+		test(IntegerLiteral.class, "0");
+		test(IntegerLiteral.class, "1223");
+		test(IntegerLiteral.class, "234234234");
 	}
 	
 	@Test
 	public void testBools() throws ParseException {
-		assertEquals(Not.class, parser.parse("!b").getClass());
-		assertEquals(And.class, parser.parse("a && b").getClass());
-		assertEquals(And.class, parser.parse("a > b && b > c").getClass());
-		assertEquals(And.class, parser.parse("(a > b) && (b > c)").getClass());
-		assertEquals(Or.class, parser.parse("a || b").getClass());
-		assertEquals(Or.class, parser.parse("a > b || b > c").getClass());
-		assertEquals(Or.class, parser.parse("(a > b) || (b > c)").getClass());
-		assertEquals(BooleanLiteral.class, parser.parse("true").getClass());
-		assertEquals(BooleanLiteral.class, parser.parse("false").getClass());
-		assertEquals(And.class, parser.parse("true && false").getClass());
-		assertEquals(Or.class, parser.parse("true || false").getClass());
-		assertEquals(Not.class, parser.parse("!true").getClass());
-		assertEquals(And.class, parser.parse("true && a").getClass());
-		assertEquals(And.class, parser.parse("a && true").getClass());
-		assertEquals(And.class, parser.parse("false && a").getClass());
-		assertEquals(And.class, parser.parse("a && false").getClass());
-		assertEquals(Identifier.class, parser.parse("True").getClass());
-		assertEquals(Identifier.class, parser.parse("False").getClass());
+		test(Not.class, "!b");
+		test(And.class, "a && b");
+		test(And.class, "a > b && b > c");
+		test(And.class, "(a > b) && (b > c)");
+		test(Or.class, "a || b");
+		test(Or.class, "a > b || b > c");
+		test(Or.class, "(a > b) || (b > c)");
+		test(BooleanLiteral.class, "true");
+		test(BooleanLiteral.class, "false");
+		test(And.class, "true && false");
+		test(Or.class, "true || false");
+		test(Not.class, "!true");
+		test(And.class, "true && a");
+		test(And.class, "a && true");
+		test(And.class, "false && a");
+		test(And.class, "a && false");
+		test(Identifier.class, "True");
+		test(Identifier.class, "False");
 	}
 
 	@Test
 	public void testStrings() throws ParseException {
-		assertEquals(StringLiteral.class, parser.parse("\"a\"").getClass());
-		assertEquals(StringLiteral.class, parser.parse("\"aa\"").getClass());
-		assertEquals(StringLiteral.class, parser.parse("\"abcdefghijklmnop\"").getClass());
-		assertEquals(StringLiteral.class, parser.parse("\" \"").getClass());
-		assertEquals(StringLiteral.class, parser.parse("\"\"").getClass());
-		assertEquals(StringLiteral.class, parser.parse("\"aa\nbbb\"").getClass());
-		verifyException(parser, RuntimeException.class).parse("\"aa");
+		test(StringLiteral.class, "\"a\"");
+		test(StringLiteral.class, "\"aa\"");
+		test(StringLiteral.class, "\"abcdefghijklmnop\"");
+		test(StringLiteral.class, "\" \"");
+		test(StringLiteral.class, "\"\"");
+		test(StringLiteral.class, "\"aa\nbbb\"");
+		verify("\"aa");
 	}
 }
