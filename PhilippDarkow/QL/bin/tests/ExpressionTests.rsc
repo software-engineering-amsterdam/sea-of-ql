@@ -3,9 +3,13 @@ module tests::ExpressionTests
 import util::Parse;
 import util::Implode;
 import syntax::AbstractSyntax;
+//import syntax::ConcreteSyntax;
+import ParseTree;
 import Prelude;
 
-private Expression p(str src) = implode(parseExpression(src, |file:///test.q|));  // |file:///-|
+private Expression p(str src) = implodeExpression(parseExpression(src, |file:///test.q|));  // |file:///-|
+//public start[Expression] parseExpressions(str src) = parse(#start[Expression], src,|file:///test.q|);
+
 
 // Tests for addion
 public test bool testAdd1() = p("a + b") is add;

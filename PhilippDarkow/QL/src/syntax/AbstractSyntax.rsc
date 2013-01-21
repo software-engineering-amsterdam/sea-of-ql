@@ -1,6 +1,6 @@
 module syntax::AbstractSyntax
 
-public data Type = string() | boolean() | money() | money(Expression);
+public data Type = string() | integer() | boolean() | money() | money(Expression);
 
 public alias QuestionId = str;
 public alias QuestionString = str;
@@ -11,7 +11,11 @@ public data PROGRAM =
 // Syntax for a question declaration   
 public data Declaration = decl(QuestionId name, Question qName);
 // Syntax for the question   
-public data Question = qName(list[QuestionString] questionString, Type tp);
+//public data Question = qName(list[QuestionString] questionString, Type tp);
+public data Question = 
+	   easyQuestion(str id, str labelQuestion, Type tp) // list[QuestionString] questionString, Type tp)
+	 | computedQuestion() 
+	 ;
 // syntax to map the questionid with the type
 public data QuestionType = result(QuestionId id, Type tp);
 // syntax for the expression   

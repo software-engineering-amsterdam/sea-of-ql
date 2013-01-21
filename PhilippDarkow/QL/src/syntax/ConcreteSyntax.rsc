@@ -57,8 +57,11 @@ syntax Declarations
 syntax Declaration
    = decl: Id id ":" Question qName;
 // start syntax question
-syntax Question
-   = qName: "\"" QuestionString* questionString "\"" Type tp;
+start syntax Question
+   = easyQuestion: Id id ":" String label Type tp
+   | computedQuestion: Id id ":" String label Type tp Expression exp
+   ;
+   
 // syntax question id and question type
 syntax QuestionType
    = result: Id id ":" Type tp;
@@ -70,8 +73,8 @@ start syntax Statement
    | ifElseStat: "if" Expression cond "then" {Statement ";"}*  thenPart "else" Statement* elsePart
    ;
 // syntax Type
-syntax Type 
-   = natural:"natural" 
+start syntax Type 
+   = integer : "integer" 
    | string :"string"
    | boolean :"boolean"
    | money :"money"
@@ -105,6 +108,7 @@ start syntax Expression // start
    > left or: Expression "||" Expression
     | boolCon: Boolean bVal
     | moneyCon: Money mVal
+    | string: String
    //| strQue: QuestionString qVal
    //| strCon: String sVal
    ;

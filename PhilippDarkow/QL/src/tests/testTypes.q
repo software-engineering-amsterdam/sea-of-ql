@@ -1,0 +1,4 @@
+boolean
+integer
+string
+money

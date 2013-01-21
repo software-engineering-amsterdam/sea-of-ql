@@ -58,3 +58,5 @@ false
 33,32
 
 if
+
+soldHouse : \"Did you sold a house?\" boolean
