@@ -1408,3 +1408,87 @@ java.lang.NullPointerException
 !ENTRY rascal_eclipse 4 0 2013-01-21 02:58:17.530
 !MESSAGE project://QL/src/util/Load.rsc:13,66: Java("Undeclared non-terminal: start__EXP, in class: class org.rascalmpl.java.parser.object.util_Load")
 !STACK 0
+
+!ENTRY rascal_eclipse 4 0 2013-01-21 03:03:07.887
+!MESSAGE project://QL/src/util/Load.rsc:13,66: Java("Undeclared non-terminal: start__EXP, in class: class org.rascalmpl.java.parser.object.util_Load")
+!STACK 0
+
+!ENTRY rascal_eclipse 4 0 2013-01-21 03:03:08.160
+!MESSAGE project://QL/src/util/Load.rsc:13,66: Java("Undeclared non-terminal: start__EXP, in class: class org.rascalmpl.java.parser.object.util_Load")
+!STACK 0
+
+!ENTRY rascal_eclipse 4 0 2013-01-21 03:03:09.530
+!MESSAGE project://QL/src/util/Load.rsc:13,66: Java("Undeclared non-terminal: start__EXP, in class: class org.rascalmpl.java.parser.object.util_Load")
+!STACK 0
+
+!ENTRY rascal_eclipse 4 0 2013-01-21 03:03:09.793
+!MESSAGE project://QL/src/util/Load.rsc:13,66: Java("Undeclared non-terminal: start__EXP, in class: class org.rascalmpl.java.parser.object.util_Load")
+!STACK 0
+
+!ENTRY rascal_eclipse 4 0 2013-01-21 03:03:11.057
+!MESSAGE project://QL/src/util/Load.rsc:13,66: Java("Undeclared non-terminal: start__EXP, in class: class org.rascalmpl.java.parser.object.util_Load")
+!STACK 0
+
+!ENTRY rascal_eclipse 4 0 2013-01-21 03:03:11.312
+!MESSAGE project://QL/src/util/Load.rsc:13,66: Java("Undeclared non-terminal: start__EXP, in class: class org.rascalmpl.java.parser.object.util_Load")
+!STACK 0
+
+!ENTRY rascal_eclipse 4 0 2013-01-21 03:03:12.457
+!MESSAGE project://QL/src/util/Load.rsc:13,66: Java("Undeclared non-terminal: start__EXP, in class: class org.rascalmpl.java.parser.object.util_Load")
+!STACK 0
+
+!ENTRY rascal_eclipse 4 0 2013-01-21 03:03:12.715
+!MESSAGE project://QL/src/util/Load.rsc:13,66: Java("Undeclared non-terminal: start__EXP, in class: class org.rascalmpl.java.parser.object.util_Load")
+!STACK 0
+
+!ENTRY rascal_eclipse 4 0 2013-01-21 03:03:14.056
+!MESSAGE project://QL/src/util/Load.rsc:13,66: Java("Undeclared non-terminal: start__EXP, in class: class org.rascalmpl.java.parser.object.util_Load")
+!STACK 0
+
+!ENTRY rascal_eclipse 4 0 2013-01-21 03:03:15.600
+!MESSAGE project://QL/src/util/Load.rsc:13,66: Java("Undeclared non-terminal: start__EXP, in class: class org.rascalmpl.java.parser.object.util_Load")
+!STACK 0
+
+!ENTRY rascal_eclipse 4 0 2013-01-21 03:03:16.679
+!MESSAGE project://QL/src/util/Load.rsc:13,66: Java("Undeclared non-terminal: start__EXP, in class: class org.rascalmpl.java.parser.object.util_Load")
+!STACK 0
+
+!ENTRY rascal_eclipse 4 0 2013-01-21 03:03:18.506
+!MESSAGE project://QL/src/util/Load.rsc:13,66: Java("Undeclared non-terminal: start__EXP, in class: class org.rascalmpl.java.parser.object.util_Load")
+!STACK 0
+
+!ENTRY rascal_eclipse 4 0 2013-01-21 03:03:18.760
+!MESSAGE project://QL/src/util/Load.rsc:13,66: Java("Undeclared non-terminal: start__EXP, in class: class org.rascalmpl.java.parser.object.util_Load")
+!STACK 0
+
+!ENTRY rascal_eclipse 4 0 2013-01-21 03:03:20.281
+!MESSAGE project://QL/src/util/Load.rsc:13,66: Java("Undeclared non-terminal: start__EXP, in class: class org.rascalmpl.java.parser.object.util_Load")
+!STACK 0
+
+!ENTRY rascal_eclipse 4 0 2013-01-21 03:03:20.495
+!MESSAGE project://QL/src/util/Load.rsc:13,66: Java("Undeclared non-terminal: start__EXP, in class: class org.rascalmpl.java.parser.object.util_Load")
+!STACK 0
+
+!ENTRY rascal_eclipse 4 0 2013-01-21 03:03:21.960
+!MESSAGE project://QL/src/util/Load.rsc:13,66: Java("Undeclared non-terminal: start__EXP, in class: class org.rascalmpl.java.parser.object.util_Load")
+!STACK 0
+
+!ENTRY rascal_eclipse 4 0 2013-01-21 03:03:22.214
+!MESSAGE project://QL/src/util/Load.rsc:13,66: Java("Undeclared non-terminal: start__EXP, in class: class org.rascalmpl.java.parser.object.util_Load")
+!STACK 0
+
+!ENTRY rascal_eclipse 4 0 2013-01-21 03:03:23.958
+!MESSAGE project://QL/src/util/Load.rsc:13,66: Java("Undeclared non-terminal: start__EXP, in class: class org.rascalmpl.java.parser.object.util_Load")
+!STACK 0
+
+!ENTRY rascal_eclipse 4 0 2013-01-21 03:03:41.825
+!MESSAGE project://QL/src/util/Load.rsc:13,66: Java("Undeclared non-terminal: start__EXP, in class: class org.rascalmpl.java.parser.object.util_Load")
+!STACK 0
+
+!ENTRY rascal_eclipse 4 0 2013-01-21 03:03:45.313
+!MESSAGE project://QL/src/util/Load.rsc:13,66: Java("Undeclared non-terminal: start__EXP, in class: class org.rascalmpl.java.parser.object.util_Load")
+!STACK 0
+
+!ENTRY rascal_eclipse 4 0 2013-01-21 03:03:49.048
+!MESSAGE project://QL/src/util/Load.rsc:13,66: Java("Undeclared non-terminal: start__EXP, in class: class org.rascalmpl.java.parser.object.util_Load")
+!STACK 0
