@@ -1,6 +1,8 @@
 package org.uva.sea.ql.astnodevisitor;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import org.uva.sea.ql.ast.Add;
 import org.uva.sea.ql.ast.And;
@@ -31,12 +33,12 @@ import org.uva.sea.ql.ast.TypeDescription;
 import org.uva.sea.ql.ast.UnExpr;
 
 public class SemanticCheckVisitor implements Visitor {
-	private String errorReport = new String();
+
+	final List<String> errorList = new ArrayList<String>();
 
 	private HashMap<Ident, Statement> symbolMap = new HashMap<Ident, Statement>();
 
 	public SemanticCheckVisitor() {
-
 	}
 
 	@Override
@@ -48,26 +50,10 @@ public class SemanticCheckVisitor implements Visitor {
 			/***
 			 * Ident not previous defined
 			 */
-			errorReport = errorReport.concat("\nLine(" + id.getLine() + ","
+			errorList.add("Line(" + id.getLine() + ","
 					+ id.getCharPositionInLine() + ") Field :" + id.getName()
 					+ " is not defined.");
 		}
-		return null;
-	}
-
-	@Override
-	public VisitorResult visit(BinExpr expr) {
-
-		expr.getExprLeftHand().accept(this);
-		expr.getExprRightHand().accept(this);
-
-		if (!((expr.getExprType().compatibleType(expr.getExprLeftHand()
-				.getExprType())) && ((expr.getExprType().compatibleType(expr
-				.getExprRightHand().getExprType()))))) {
-			errorReport = errorReport
-					.concat("\nType mismatch in line.(but where, get some scanner info)..??????");
-		}
-
 		return null;
 	}
 
@@ -79,10 +65,13 @@ public class SemanticCheckVisitor implements Visitor {
 
 	@Override
 	public VisitorResult visit(QLProgram qlProgram) {
-
 		symbolMap.clear();
+		errorList.clear();
+
 		qlProgram.getCompound().accept(this);
-		System.out.println(errorReport);
+		for (String errorSting : errorList) {
+			System.out.println(errorSting);
+		}
 		return null;
 	}
 
@@ -97,12 +86,11 @@ public class SemanticCheckVisitor implements Visitor {
 	public VisitorResult visit(LineStatement lineStatement) {
 		// Add symbols to the symbolmap so the visitor of the
 		// expression can test their existance/missing.
-		if (symbolMap.get(lineStatement.getLineName()) == null) {
+		if (symbolMap.get(lineStatement.getLineId()) == null) {
 			// New symbol in map
-			symbolMap.put(lineStatement.getLineName(), lineStatement);
+			symbolMap.put(lineStatement.getLineId(), lineStatement);
 		} else {
-			errorReport = errorReport.concat("\nLine("
-					+ lineStatement.getLine() + ","
+			errorList.add("Line(" + lineStatement.getLine() + ","
 					+ lineStatement.getCharPositionInLine() + ") Field :"
 					+ lineStatement.getLineName()
 					+ " has multiple definitions.");
@@ -129,10 +117,6 @@ public class SemanticCheckVisitor implements Visitor {
 	@Override
 	public VisitorResult visit(TypeDescription typeDescription) {
 		return null;
-	}
-
-	public String getErrorReport() {
-		return errorReport;
 	}
 
 	@Override
@@ -185,7 +169,12 @@ public class SemanticCheckVisitor implements Visitor {
 
 	@Override
 	public VisitorResult visit(LT expr) {
-		// TODO Auto-generated method stub
+		if (expr.getExprLeftHand().typeOf(symbolMap)
+				.isCompatibleTo(expr.getExprRightHand().typeOf(symbolMap))) {
+
+		} else {
+			errorList.add("Type mismatch");
+		}
 		return null;
 	}
 
@@ -239,6 +228,12 @@ public class SemanticCheckVisitor implements Visitor {
 
 	@Override
 	public VisitorResult visit(Expr expr) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public VisitorResult visit(BinExpr expr) {
 		// TODO Auto-generated method stub
 		return null;
 	}

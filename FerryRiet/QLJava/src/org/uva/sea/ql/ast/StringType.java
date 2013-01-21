@@ -7,10 +7,12 @@ public class StringType extends TypeDescription {
 	}
 
 	@Override
-	public boolean compatibleType(TypeDescription testType) {
-		if (testType.getClass() == StringType.class) {
-			return true;
-		}
-		return false;
+	public boolean isCompatibleTo(TypeDescription t) {
+		return t.isCompatibleToString();
+	}
+
+	@Override
+	public boolean isCompatibleToString() {
+		return true;
 	}
 }

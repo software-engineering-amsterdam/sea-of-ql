@@ -18,5 +18,25 @@ public abstract class TypeDescription implements ASTNode {
 		return visitor.visit(this);
 	}
 
-	public abstract boolean compatibleType(TypeDescription testType) ;
+	public abstract boolean isCompatibleTo(TypeDescription t);
+
+	public boolean isCompatibleToInt() {
+		return false;
+	}
+
+	public boolean isCompatibleToNumeric() {
+		return false;
+	}
+
+	public boolean isCompatibleToString() {
+		return false;
+	}
+
+	public boolean isCompatibleToBool() {
+		return false;
+	}
+
+	public boolean isCompatibleToMoney() {
+		return false;
+	}
 }

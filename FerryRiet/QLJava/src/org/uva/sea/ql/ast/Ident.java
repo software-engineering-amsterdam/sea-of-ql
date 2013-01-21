@@ -33,7 +33,12 @@ public class Ident extends Expr {
 
 	@Override
 	public TypeDescription typeOf(HashMap<Ident, Statement> typeEnv) {
-		LineStatement line = (LineStatement) typeEnv.get(this);
-		return line.getTypeDescription();
+		System.out.println("test id :" + token.getText());
+		LineStatement line = null ;
+		if ( typeEnv.containsKey(this)){
+			line = (LineStatement) typeEnv.get(this);
+			return line.getTypeDescription();
+		}
+		return new ErrorType() ;
 	}
 }

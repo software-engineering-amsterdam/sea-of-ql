@@ -1,4 +1,4 @@
-// $ANTLR 3.5 /Users/Ferry/sea-of-ql/FerryRiet/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g 2013-01-21 12:24:02
+// $ANTLR 3.5 /Users/Ferry/sea-of-ql/FerryRiet/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g 2013-01-21 22:43:49
 
 package org.uva.sea.ql.parser.antlr;
 import org.uva.sea.ql.ast.*;
@@ -254,7 +254,7 @@ public class QLParser extends Parser {
 
 					}
 
-					if ( state.backtracking==0 ) { result = new LineStatement(Ident2,StringLiteral3,type4,x); }
+					if ( state.backtracking==0 ) { result = new LineStatement(new Ident(Ident2),StringLiteral3,type4,x); }
 					}
 					break;
 				case 2 :

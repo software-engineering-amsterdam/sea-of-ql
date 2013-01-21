@@ -7,11 +7,22 @@ public class NumeralType extends TypeDescription {
 	}
 
 	@Override
-	public boolean compatibleType(TypeDescription testType) {
-		if (testType.getClass() == NumeralType.class
-				|| testType.getClass() == MoneyType.class) {
-			return true;
-		}
-		return false;
+	public boolean isCompatibleTo(TypeDescription t) {
+		return t.isCompatibleToNumeric();
+	}
+
+	@Override
+	public boolean isCompatibleToInt() {
+		return true;
+	}
+
+	@Override
+	public boolean isCompatibleToMoney() {
+		return true;
+	}
+
+	@Override
+	public boolean isCompatibleToNumeric() {
+		return true;
 	}
 }
