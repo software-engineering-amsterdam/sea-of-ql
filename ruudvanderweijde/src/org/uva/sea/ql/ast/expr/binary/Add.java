@@ -1,14 +1,21 @@
 package org.uva.sea.ql.ast.expr.binary;
 
-import org.uva.sea.ql.ast.ASTNode;
+import java.util.Map;
+
 import org.uva.sea.ql.ast.expr.Expr;
-import org.uva.sea.ql.visitor.ExpressionVisitor;
-import org.uva.sea.ql.visitor.FormVisitor;
+import org.uva.sea.ql.ast.expr.primary.Ident;
+import org.uva.sea.ql.ast.type.NumericType;
+import org.uva.sea.ql.ast.type.Type;
 
 public class Add extends Binary {
 
 	public Add(Expr lhs, Expr rhs) {
 		super(lhs, rhs);
+	}
+
+	@Override
+	public Type typeOf(Map<Ident, Type> typeEnv) {
+		return new NumericType();
 	}
 
 }
