@@ -27,7 +27,7 @@ public class KnockoutJSViewModelBuilderVisitor implements ASTNodeVisitor<Void, K
         public StringBuilder getObjectHierarchy() { return objectHierarchy; }
     }
 
-    private static final String VIEWMODEL_TEMPLATE = "var _viewModel={identities:%s,root:%s};";
+    private static final String VIEWMODEL_TEMPLATE = "var _viewModel=new function(){var _self=this;_self.identities=%s;_self.root=%s;})();";
 
     public String createViewModel(Form form) {
         Context context = new Context();
@@ -136,7 +136,7 @@ public class KnockoutJSViewModelBuilderVisitor implements ASTNodeVisitor<Void, K
     @Override
     public Void visit(Ident astNode, Context param) {
         param.getObjectHierarchy()
-                .append("_viewModel.identities.")
+                .append("_self.identities.")
                 .append(astNode.getName())
                 .append("()");
         return null;

@@ -140,18 +140,34 @@
     </table>
 
     <script type="text/javascript">
-        var viewModel =
-        {
-            root : new Block(function() { return true; }, [
-                new Question("Is bread nice?", "isBreadNice", DataType.BOOLEAN),
-                new Question("What is your favorite kind of bread?", "favoriteBread", DataType.STRING),
-                new Question("How many slices of bread do you eat each day?", "howManyBread", DataType.INTEGER),
-                new Block(function() { return true; }, [
-                    new Computed("My favorite kind of bread is:", function() { return true; })
-                ])
-            ])
-        };
-        ko.applyBindings(viewModel);
+        var _viewModel = new (function(){
+            var _self = this;
+            _self.identities = {
+                hasSoldHouse:new ko.observable(),
+                hasBoughtHouse:new ko.observable(),
+                hasMaintLoan:new ko.observable(),
+                privateDebt:new ko.observable(),
+                sellingPrice:new ko.observable()
+            };
+            _self.root = new Block(
+                function(){return true;},
+                [
+                    new Question("Did you sell a house in 2010?","hasSoldHouse",DataType.BOOLEAN),
+                    new Question("Did you by a house in 2010?","hasBoughtHouse",DataType.BOOLEAN),
+                    new Question("Did you enter a loan for maintenance/reconstruction?","hasMaintLoan",DataType.BOOLEAN),
+                    new Block(
+                        function(){return _self.identities.hasSoldHouse();},
+                        [
+                            new Question("Private debts for the sold house:","privateDebt",DataType.INTEGER),
+                            new Question("Price the house was sold for:","sellingPrice",DataType.INTEGER),
+                            new Computed("Value residue:",function(){return (_self.identities.sellingPrice()-_self.identities.privateDebt());})
+                        ]
+                    ),
+                    new Block(function(){return !_self.identities.hasSoldHouse();},[])
+                ]
+            );
+        })();
+        ko.applyBindings(_viewModel);
     </script>
 </body>
 </html>

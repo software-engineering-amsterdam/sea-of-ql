@@ -27,7 +27,7 @@ public class CreateViewModelTests extends KnockoutJSViewModelBuilderVisitorTests
         String viewModel = visitor.createViewModel(FORM);
 
         assertTrue(viewModel.contains(
-                "identities:{a:new ko.observable(),b:new ko.observable(),c:new ko.observable()}"
+                "identities={a:new ko.observable(),b:new ko.observable(),c:new ko.observable()}"
         ));
     }
 
@@ -35,7 +35,7 @@ public class CreateViewModelTests extends KnockoutJSViewModelBuilderVisitorTests
     public void methodCalled_formIsAddedToViewModel() {
         String viewModel = visitor.createViewModel(FORM);
         FORM.accept(visitor, context);
-        assertTrue(viewModel.contains("root:" + context.getObjectHierarchy().toString()));
+        assertTrue(viewModel.contains("root=" + context.getObjectHierarchy().toString()));
     }
 
 }

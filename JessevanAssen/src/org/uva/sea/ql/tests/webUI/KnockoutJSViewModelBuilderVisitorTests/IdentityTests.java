@@ -12,7 +12,7 @@ public class IdentityTests extends KnockoutJSViewModelBuilderVisitorTests {
     @Test
     public void identityVisited_identityCallAddedToStringBuilder() {
         new Ident(IDENTITY_NAME).accept(visitor, context);
-        assertEquals(String.format("_viewModel.identities.%s()", IDENTITY_NAME), context.getObjectHierarchy().toString());
+        assertEquals(String.format("_self.identities.%s()", IDENTITY_NAME), context.getObjectHierarchy().toString());
     }
 
 }

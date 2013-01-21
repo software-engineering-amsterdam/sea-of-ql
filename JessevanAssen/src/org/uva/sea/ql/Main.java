@@ -5,6 +5,7 @@ import org.uva.sea.ql.parser.ParseError;
 import org.uva.sea.ql.parser.Parser;
 import org.uva.sea.ql.parser.antlr.ANTLRParser;
 import org.uva.sea.ql.typechecker.TypecheckerVisitor;
+import org.uva.sea.ql.webUI.KnockoutJSViewModelBuilderVisitor;
 
 import java.util.Iterator;
 import java.util.List;
@@ -42,6 +43,8 @@ public class Main {
                 }
                 throw new RuntimeException(stringBuilder.toString());
             }
+            String viewModel = new KnockoutJSViewModelBuilderVisitor().createViewModel(parsedForm);
+            viewModel.toString();
         } catch(ParseError parseError) {
             throw new RuntimeException("Error while parsing.", parseError);
         }
