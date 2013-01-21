@@ -1,4 +1,4 @@
-// $ANTLR 3.4 C:\\Users\\Theodora\\Documents\\GitHub\\sea-of-ql\\thboudale\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g 2013-01-21 21:28:34
+// $ANTLR 3.4 C:\\Users\\Theodora\\Documents\\GitHub\\sea-of-ql\\thboudale\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g 2013-01-21 21:55:32
 
 package org.uva.sea.ql.parser.antlr;
 import org.uva.sea.ql.ast.*;
@@ -6,7 +6,7 @@ import org.uva.sea.ql.ast.expressions.*;
 import org.uva.sea.ql.ast.expressions.binaryExpr.*;
 import org.uva.sea.ql.ast.expressions.unaryExpr.*;
 import org.uva.sea.ql.ast.statements.*;
-import org.uva.sea.ql.types.*;
+import org.uva.sea.ql.ast.types.*;
 
 
 import org.antlr.runtime.*;

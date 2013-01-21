@@ -9,7 +9,7 @@ import org.uva.sea.ql.ast.expressions.*;
 import org.uva.sea.ql.ast.expressions.binaryExpr.*;
 import org.uva.sea.ql.ast.expressions.unaryExpr.*;
 import org.uva.sea.ql.ast.statements.*;
-import org.uva.sea.ql.types.*;
+import org.uva.sea.ql.ast.types.*;
 }
 
 @lexer::header
