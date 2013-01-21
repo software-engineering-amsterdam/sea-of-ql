@@ -12,6 +12,7 @@ import lang::ql::syntax::QL;
 import lang::ql::util::Implode;
 import lang::ql::util::Parse;
 
+import lang::qls::analysis::SemanticChecker;
 import lang::qls::ast::AST;
 import lang::qls::compiler::PrettyPrinter;
 import lang::qls::ide::Outline;
@@ -31,6 +32,9 @@ private Form implodeQL(Tree t) =
 private start[Form] parseQL(str src, loc l) =
   lang::ql::util::Parse::parse(src, l);
 
+private set[Message] semanticCheckerQL(Tree t) =
+  lang::ql::analysis::SemanticChecker::semanticChecker(implodeQL(t));
+
 private void formatQL(start[Form] f, loc l) =
   writeFile(l, lang::ql::compiler::PrettyPrinter::prettyPrint(implodeQL(f)));
 
@@ -39,6 +43,9 @@ private Stylesheet implodeQLS(Tree t) =
 
 private start[Stylesheet] parseQLS(str src, loc l) =
   lang::qls::util::Parse::parse(src, l);
+
+private set[Message] semanticCheckerQLS(Tree t) =
+  lang::qls::analysis::SemanticChecker::semanticChecker(implodeQLS(t));
 
 private void formatQLS(start[Stylesheet] s, loc l) =
   writeFile(l, lang::qls::compiler::PrettyPrinter::prettyPrint(implodeQLS(s)));
@@ -54,7 +61,7 @@ private void setupQL() {
     }),
     
     annotator(Tree (Tree input) {
-      return input[@messages=semanticChecker(implodeQL(input))];
+      return input[@messages=semanticCheckerQL(input)];
     }),
     
     popup(
@@ -75,6 +82,10 @@ private void setupQLS() {
   contribs = {
     outliner(node(Tree input) {
       return outlineStylesheet(implodeQLS(input));
+    }),
+    
+    annotator(Tree (Tree input) {
+      return input[@messages=semanticCheckerQLS(input)];
     }),
     
     popup(
