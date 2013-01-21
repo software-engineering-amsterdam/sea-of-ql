@@ -1,24 +1,22 @@
 package org.uva.sea.ql.ast;
 
-import java.util.ArrayList;
-
 import org.uva.sea.ql.ast.expressions.Ident;
-import org.uva.sea.ql.ast.statements.Statement;
+import org.uva.sea.ql.ast.statements.BlockOfStatements;
 
 public class Form implements ASTNode {
 	private final Ident ident;
-	private final ArrayList<Statement> stms;
+	private final BlockOfStatements bStms;
 	
-	public Form(Ident ident, ArrayList<Statement> stms) {
+	public Form(Ident ident, BlockOfStatements bStms) {
 		this.ident = ident;
-		this.stms = stms;
+		this.bStms = bStms;
 	}
 	
 	public Ident getIdent() {
 		return ident;
 	}
 	
-	public ArrayList<Statement> getStms() {
-		return stms;
+	public BlockOfStatements getStms() {
+		return bStms;
 	}
 }
