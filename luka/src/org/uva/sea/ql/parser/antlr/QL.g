@@ -1,5 +1,6 @@
 grammar QL;
 //TODO: var_scope, var_declaration, 
+// easy & computed question
 options {
 backtrack=true; 
 memoize=true;  
@@ -17,6 +18,11 @@ IF_CONDITION_TRUE;
 IF_CONDITION_FALSE;
 VAR_TYPE;
 VAR_NAME;
+CONST_VAR;
+CONST_TYPE;
+CONST_VALUE;
+CONST_NAME;
+CONST_TYPE_INT;
 VALUE_CALC;
 UNARY_EXPR;
 NEG_EXPR;
@@ -47,7 +53,7 @@ parse
 //Start of questionnaire
 qStartExp 
 
-	: FormId Lbr qContentItemExpr Rbr ->^(FormId qContentItemExpr); 
+	: FormId Lbr qBodyItemExpr Rbr ->^(FormId qBodyItemExpr); 
 
 
 //question with child elements
@@ -58,15 +64,16 @@ qDeclaration
 
 // if(x<y) / verschachtelt TODO
 ifStatementExpr 
-	:	 IF  '(' orExpr ')'   Lbr qContentItemExpr Rbr elseStatementExpr? ->^(IF_BLOCK ^(IF_CONDITION orExpr) ^(IF_CONDITION_TRUE qContentItemExpr)  ^(IF_CONDITION_FALSE elseStatementExpr)?);
+	:	 IF  '(' orExpr ')'   Lbr qBodyItemExpr Rbr elseStatementExpr? ->^(IF_BLOCK ^(IF_CONDITION orExpr) ^(IF_CONDITION_TRUE qBodyItemExpr)  ^(IF_CONDITION_FALSE elseStatementExpr)?);
 
 elseStatementExpr
-	:	'else' Lbr qContentItemExpr* Rbr -> qContentItemExpr;
+	:	'else' Lbr qBodyItemExpr Rbr -> qBodyItemExpr;
 	
-qContentItemExpr
-	:	( qDeclaration  | ifStatementExpr )+;
+qBodyItemExpr
+	:	( qDeclaration  | ifStatementExpr | constantDeclarationExpr )+;
 	
-	
+constantDeclarationExpr
+	:	QuestionVariable  ':' Int -> ^(CONST_VAR ^(CONST_NAME QuestionVariable) ^(CONST_TYPE CONST_TYPE_INT) ^(CONST_VALUE Int));
 
 //Question type
 qType	
