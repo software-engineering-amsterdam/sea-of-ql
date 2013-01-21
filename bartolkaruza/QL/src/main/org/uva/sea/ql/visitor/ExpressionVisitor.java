@@ -21,7 +21,7 @@ import org.uva.sea.ql.ast.expr.value.Int;
 import org.uva.sea.ql.ast.expr.value.Money;
 import org.uva.sea.ql.ast.expr.value.TextString;
 
-public interface ExpressionVisitor {
+public interface ExpressionVisitor extends NodeVisitor {
 	
 	public void visit(Ident node);
 	

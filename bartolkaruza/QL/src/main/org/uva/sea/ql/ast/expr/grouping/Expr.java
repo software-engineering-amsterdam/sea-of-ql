@@ -3,6 +3,7 @@ package org.uva.sea.ql.ast.expr.grouping;
 import org.uva.sea.ql.ast.ASTNode;
 import org.uva.sea.ql.ast.expr.type.Type;
 import org.uva.sea.ql.symbol.SymbolTable;
+import org.uva.sea.ql.visitor.ExpressionVisitor;
 
 public abstract class Expr implements ASTNode {
 
@@ -21,4 +22,6 @@ public abstract class Expr implements ASTNode {
 	}
 	
 	public abstract Type typeOf(SymbolTable symbolTable);
+	
+	public abstract void accept(ExpressionVisitor visitor);
 }

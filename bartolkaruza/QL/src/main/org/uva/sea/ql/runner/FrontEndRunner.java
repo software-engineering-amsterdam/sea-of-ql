@@ -6,9 +6,8 @@ import org.uva.sea.ql.error.ParseError;
 import org.uva.sea.ql.error.QLError;
 import org.uva.sea.ql.parser.IParse;
 import org.uva.sea.ql.parser.antlr.ANTLRParser;
-import org.uva.sea.ql.semantic.DependencyChecker;
-import org.uva.sea.ql.semantic.DereferenceChecker;
-import org.uva.sea.ql.semantic.TypeChecker;
+import org.uva.sea.ql.semantic.ExpressionSemanticChecker;
+import org.uva.sea.ql.semantic.StatementSemanticChecker;
 import org.uva.sea.ql.symbol.SymbolGenerator;
 import org.uva.sea.ql.symbol.SymbolTable;
 
@@ -27,11 +26,7 @@ public class FrontEndRunner {
 				handler.addError(new QLError(e.getMessage()));
 			}
 			if(form != null) {
-				
-				form.accept(new SymbolGenerator(table, handler));
-				form.accept(new TypeChecker(table, handler));
-				form.accept(new DereferenceChecker(table, handler));
-				DependencyChecker.newInstance(table, handler).checkDependencies();
+				form.accept(new StatementSemanticChecker(table, handler, new SymbolGenerator(table, handler), new ExpressionSemanticChecker(table, handler)));
 			}
 			if(handler.getErrors().isEmpty()) {
 				System.out.println("All checks passed, 0 errors");

@@ -4,7 +4,7 @@ import org.uva.sea.ql.ast.expr.grouping.ValueExpr;
 import org.uva.sea.ql.ast.expr.type.TextStringType;
 import org.uva.sea.ql.ast.expr.type.Type;
 import org.uva.sea.ql.symbol.SymbolTable;
-import org.uva.sea.ql.visitor.NodeVisitor;
+import org.uva.sea.ql.visitor.ExpressionVisitor;
 
 public class TextString extends ValueExpr {
 
@@ -30,7 +30,7 @@ public class TextString extends ValueExpr {
 	}
 
 	@Override
-	public void accept(NodeVisitor visitor) {
+	public void accept(ExpressionVisitor visitor) {
 		visitor.visit(this);
 	}
 

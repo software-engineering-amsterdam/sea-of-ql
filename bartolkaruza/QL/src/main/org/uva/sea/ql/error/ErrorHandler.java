@@ -25,8 +25,8 @@ public class ErrorHandler {
 		return errors.size() > 0;
 	}
 
-	public void reportOperationTypeError(String operation) {
-		QLError error = new QLError("Invalid type for operation: " + operation);
+	public void reportOperationTypeError(String operation, int lineNumber) {
+		QLError error = new QLError("Invalid type for operation: " + operation + " at line: " + lineNumber);
 		errors.add(error);
 	}
 

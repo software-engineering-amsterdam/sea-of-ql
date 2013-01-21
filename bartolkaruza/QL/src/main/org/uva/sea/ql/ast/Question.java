@@ -1,6 +1,5 @@
 package org.uva.sea.ql.ast;
 
-import org.uva.sea.ql.visitor.NodeVisitor;
 
 public abstract class Question implements Statement {
 
@@ -14,11 +13,6 @@ public abstract class Question implements Statement {
 		this.lineNumber = lineNumber;
 	}
 
-	@Override
-	public void accept(NodeVisitor visitor) {
-		visitor.visit(this);
-	}
-
 	public String getName() {
 		return name;
 	}
@@ -30,5 +24,5 @@ public abstract class Question implements Statement {
 	public int getLineNumber() {
 		return lineNumber;
 	}
-
+	
 }

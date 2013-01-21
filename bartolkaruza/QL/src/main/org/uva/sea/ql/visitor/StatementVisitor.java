@@ -5,7 +5,7 @@ import org.uva.sea.ql.ast.ComputedQuestion;
 import org.uva.sea.ql.ast.ConditionalStatement;
 import org.uva.sea.ql.ast.Form;
 
-public interface StatementVisitor {
+public interface StatementVisitor extends NodeVisitor {
 	
 	public void visit(Form node);
 

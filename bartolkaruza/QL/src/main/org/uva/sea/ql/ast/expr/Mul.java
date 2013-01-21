@@ -5,7 +5,7 @@ import org.uva.sea.ql.ast.expr.grouping.Expr;
 import org.uva.sea.ql.ast.expr.type.NumericType;
 import org.uva.sea.ql.ast.expr.type.Type;
 import org.uva.sea.ql.symbol.SymbolTable;
-import org.uva.sea.ql.visitor.NodeVisitor;
+import org.uva.sea.ql.visitor.ExpressionVisitor;
 
 public class Mul extends BinaryExpr {
 
@@ -16,7 +16,7 @@ public class Mul extends BinaryExpr {
 	}
 
 	@Override
-	public void accept(NodeVisitor visitor) {
+	public void accept(ExpressionVisitor visitor) {
 		visitor.visit(this);
 	}
 	

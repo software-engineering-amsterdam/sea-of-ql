@@ -5,6 +5,7 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 import org.uva.sea.ql.ast.Form;
 import org.uva.sea.ql.ast.expr.value.Bool;
+import org.uva.sea.ql.error.ErrorHandler;
 import org.uva.sea.ql.error.ParseError;
 import org.uva.sea.ql.parser.IParse;
 import org.uva.sea.ql.parser.antlr.ANTLRParser;
@@ -18,14 +19,14 @@ public class TestVisitors {
 	@Test
 	public void testPrintVisitor() throws ParseError {
 		Form form = (Form) parser.parseNode("form somelabel { if(1+1) { question1: \" some text label\" boolean} }");
-		form.accept(new NodePrinter());
+		form.accept(new StatementPrinter(new ExpressionPrinter()));
 	}
 
 	@Test
 	public void testSymbolGenerator() throws ParseError {
 		Form form = (Form) parser.parseNode("form somelabel { if(1+1) { question1: \" some text label\" boolean} }");
-		form.accept(new SymbolGenerator());
-		SymbolTable table = SymbolTable.getInstance();
+		SymbolTable table = new SymbolTable();
+		form.accept(new SymbolGenerator(table, new ErrorHandler()));
 		assertEquals(false, ((Bool) table.getSymbol("question1").getVariable()).getValue());
 	}
 }

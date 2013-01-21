@@ -1,6 +1,7 @@
 package org.uva.sea.ql.ast;
 
 import org.uva.sea.ql.ast.expr.type.Type;
+import org.uva.sea.ql.visitor.StatementVisitor;
 
 public class AnswerableQuestion extends Question {
 
@@ -13,6 +14,12 @@ public class AnswerableQuestion extends Question {
 	
 	public Type getType() {
 		return type;
+	}
+
+	@Override
+	public void accept(StatementVisitor visitor) {
+		visitor.visit(this);
+		
 	}
 
 }
