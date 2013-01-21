@@ -6,22 +6,23 @@ import org.junit.Test;
 import org.uva.sea.ql.ast.QLProgram;
 import org.uva.sea.ql.astnodevisitor.PrintVisitor;
 import org.uva.sea.ql.astnodevisitor.PrintVisitorResult;
+import org.uva.sea.ql.astnodevisitor.SemanticCheckVisitor;
 
 public class TestVisitor extends TestCase {
 	static final private IParse parser = new ANTLRParser();
 
+	String a0 = "form DoIt { fieldOne: \"hello world!\" money }";
+	String a1 = "form DoIt { fieldOne: \"hello world!\" boolean fieldOne1: \"hello world!\" boolean if ( fieldOne1 ) { two: \"is here\" boolean } }";
+	String a2 = "form DoIt { fieldOne: \"hello world!\" money( 10 + 20 ) }";
+	String a3 = "form DoIt { if ( 10 < 10 ) { fieldTwo : \"hello world!\" money( 10 + 20 ) }}";
+	String a4 = "form DoIt { if ( fieldOne == \"StringLit\" ) { fieldTwo : \"hello world!\" money( 10 + 20 ) }}";
+
 	@Test
-	public void testvisitor() throws ParseError {
+	public void testPrintVisitor() throws ParseError {
 		String expected;
 		String actual;
 		PrintVisitor pvis = new PrintVisitor();
 		QLProgram qlp;
-
-		String a0 = "form DoIt { fieldOne: \"hello world!\" boolean }";
-		String a1 = "form DoIt { fieldOne: \"hello world!\" money }";
-		String a2 = "form DoIt { fieldOne: \"hello world!\" money( 10 + 20 ) }";
-		String a3 = "form DoIt { if ( fieldOne == true ) { fieldTwo : \"hello world!\" money( 10 + 20 ) }}";
-		String a4 = "form DoIt { if ( fieldOne == \"StringLit\" ) { fieldTwo : \"hello world!\" money( 10 + 20 ) }}";
 
 		qlp = parser.qlprogram(a0);
 		expected = ((PrintVisitorResult) qlp.accept(pvis)).getPrintResult();
@@ -53,4 +54,23 @@ public class TestVisitor extends TestCase {
 		actual = ((PrintVisitorResult) qlp.accept(pvis)).getPrintResult();
 		assertEquals(expected, actual);
 	}
+
+	@Test
+	public void testSemanticVisitor() throws ParseError {
+		SemanticCheckVisitor svis = new SemanticCheckVisitor();
+		QLProgram qlp;
+
+/*		qlp = parser.qlprogram(a0);
+		qlp.accept(svis);
+		assertEquals(svis.getErrorReport(), "");
+
+		qlp = parser.qlprogram(a1);
+		qlp.accept(svis);
+		assertEquals(svis.getErrorReport(), "");
+*/
+		qlp = parser.qlprogram(a3);
+		qlp.accept(svis);
+		assertEquals(svis.getErrorReport(), "");
+	}
+
 }

@@ -1,6 +1,8 @@
 package org.uva.sea.ql.ast;
 
 import org.antlr.runtime.Token;
+import org.uva.sea.ql.astnodevisitor.Visitor;
+import org.uva.sea.ql.astnodevisitor.VisitorResult;
 
 public class Ident extends Expr {
 	private final Token token;
@@ -20,6 +22,12 @@ public class Ident extends Expr {
 
 	public int getCharPositionInLine() {
 		return token.getCharPositionInLine();
+	}
+
+	@Override
+	public VisitorResult accept(Visitor astNodeVisitor) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

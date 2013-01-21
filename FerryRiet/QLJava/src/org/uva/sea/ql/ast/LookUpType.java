@@ -1,9 +1,9 @@
 package org.uva.sea.ql.ast;
 
-public class MoneyType extends TypeDescription {
+public class LookUpType extends TypeDescription {
 
-	public MoneyType() {
-		super("money");
+	public LookUpType() {
+		super("lookup");
 	}
 
 	@Override
