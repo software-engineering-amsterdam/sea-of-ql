@@ -55,10 +55,10 @@ public class TypecheckerVisitor implements ASTNodeVisitor<Type, TypecheckerVisit
 
 	@Override
 	public Type visit(Declaration astNode, Context context) {
-		if(!context.getSymbolTable().containsKey(astNode.getIdentity()))
-            context.getSymbolTable().put(astNode.getIdentity(), astNode.getType());
+		if(!context.getSymbolTable().containsKey(astNode.getIdentifier()))
+            context.getSymbolTable().put(astNode.getIdentifier(), astNode.getType());
 		else
-            context.getErrors().add(String.format("The identity '%s' is already declared!", astNode.getIdentity().getName()));
+            context.getErrors().add(String.format("The identifier '%s' is already declared!", astNode.getIdentifier().getName()));
 
 		return null;
 	}
@@ -74,7 +74,7 @@ public class TypecheckerVisitor implements ASTNodeVisitor<Type, TypecheckerVisit
 		if(context.getSymbolTable().containsKey(astNode))
 			return context.getSymbolTable().get(astNode);
 		else {
-			context.errors.add(String.format("Identity '%s' has not yet been declared!", astNode.getName()));
+			context.errors.add(String.format("Identifier '%s' has not yet been declared!", astNode.getName()));
             /**
              * We are trying to retrieve the type of an undefined variable. There is no way we can determine
              * what type an undefined variable has, because it is literally unknown.

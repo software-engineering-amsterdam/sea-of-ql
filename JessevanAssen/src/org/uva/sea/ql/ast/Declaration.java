@@ -5,15 +5,15 @@ import org.uva.sea.ql.ast.type.Type;
 
 public class Declaration implements ASTNode {
 
-	private final Ident identity;
+	private final Ident identifier;
 	private final Type type;
 	
-	public Declaration(Ident identity, Type type) {
-		this.identity = identity;
+	public Declaration(Ident identifier, Type type) {
+		this.identifier = identifier;
 		this.type = type;
 	}
 
-	public Ident getIdentity() { return identity; }
+	public Ident getIdentifier() { return identifier; }
 	public Type getType() { return type; }
 	
 	@Override

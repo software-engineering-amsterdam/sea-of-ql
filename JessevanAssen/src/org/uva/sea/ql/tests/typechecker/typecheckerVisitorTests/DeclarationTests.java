@@ -10,16 +10,16 @@ import org.uva.sea.ql.ast.type.*;
 public class DeclarationTests extends TypecheckerVisitorTests {
 
 	@Test
-	public void typecheckerIsCalledOnDeclaration_IdentityIsAddedToSymbolTable() {
-		final Ident identity = new Ident("a");
+	public void typecheckerIsCalledOnDeclaration_IdentifierIsAddedToSymbolTable() {
+		final Ident identifier = new Ident("a");
 		final Type type = new Bool();
-		final Declaration declaration = new Declaration(identity, type);
+		final Declaration declaration = new Declaration(identifier, type);
 		
 		declaration.accept(visitor, context);
 
         assertTrue(context.getErrors().isEmpty());
-		assertTrue(context.getSymbolTable().containsKey(identity));
-		assertEquals(type, context.getSymbolTable().get(identity));
+		assertTrue(context.getSymbolTable().containsKey(identifier));
+		assertEquals(type, context.getSymbolTable().get(identifier));
 	}
 
     @Test
