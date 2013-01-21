@@ -1,10 +1,10 @@
-module lang::ql::ast::SemanticCheck::IdentDeclarations
+@contributor{George Marmanidis -geo.marmani@gmail.com}
+module lang::ql::ast::SemanticCheck::IdentDeclarationsCheck
 
 import lang::ql::ast::SemanticCheck::utilities;
 import lang::ql::ast::AST;
 
-import IO;
-
+//Retrieves all the identifiers and keeps type,location,label and if is computed.
 public TENV getIdentDeclarations(list[FormBodyItem] formBodyItem,TENV env){
 	for(item<-formBodyItem){
 		env=getIdentDeclarations(item,env);
@@ -51,6 +51,10 @@ TENV getIdentDeclarations(list[Question] questionItem,TENV env){
 
 TENV getIdentDeclarations(question:simpleQuestion(str questionId,str questionLabel,Type questionType),TENV env){
 	
+	//we search for duplicating identifiers in this part of the code
+	//For every identifier we check the env if it's already existing
+	//if it exists with different variable type or in a computedQuestion
+	//it throws an error 
 	for(x<-env.symbols){
 		if(questionId==x.variableName){
 			
@@ -65,11 +69,16 @@ TENV getIdentDeclarations(question:simpleQuestion(str questionId,str questionLab
 		}
 	}
 	
-	env=addSymbol(env,questionId,questionLabel,questionType,false);
+	env=addSymbol(env,questionId,questionLabel,questionType,false,question@location);
 	return env;
 }
 
 TENV getIdentDeclarations(question:computedQuestion(str questionId, str questionLabel, Type questionType, Expr questionComputation),TENV env){
+	
+	//we search for duplicating identifiers in this part of the code
+	//For every identifier we check the env if it's already existing
+	//if it exists with different variable type or in a simpleQuestion
+	//it throws an error 
 	for(x<-env.symbols){
 		if(questionId==x.variableName){
 			
@@ -85,7 +94,7 @@ TENV getIdentDeclarations(question:computedQuestion(str questionId, str question
 	}
 	
 	
-	env=addSymbol(env,questionId,questionLabel,questionType,true);
+	env=addSymbol(env,questionId,questionLabel,questionType,true,question@location);
 	return env;
 }
 
