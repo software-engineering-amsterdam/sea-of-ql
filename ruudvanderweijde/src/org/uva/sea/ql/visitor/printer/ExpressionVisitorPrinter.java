@@ -1,4 +1,4 @@
-package org.uva.sea.ql.visitor;
+package org.uva.sea.ql.visitor.printer;
 
 import org.uva.sea.ql.ast.expr.binary.Add;
 import org.uva.sea.ql.ast.expr.binary.And;
@@ -19,120 +19,148 @@ import org.uva.sea.ql.ast.expr.primary.StringLiteral;
 import org.uva.sea.ql.ast.expr.unary.Neg;
 import org.uva.sea.ql.ast.expr.unary.Not;
 import org.uva.sea.ql.ast.expr.unary.Pos;
+import org.uva.sea.ql.visitor.ExpressionVisitor;
 
 public class ExpressionVisitorPrinter  implements ExpressionVisitor<Boolean> {
 
 	@Override
 	public Boolean visit(Add ast) {
 		System.out.println("Add");
+		ast.getLhs().accept(this);
+		ast.getLhs().accept(this);
 		return true;
 	}
 
 	@Override
 	public Boolean visit(And ast) {
 		System.out.println("And");
+		ast.getLhs().accept(this);
+		ast.getLhs().accept(this);
 		return true;
 	}
 
 	@Override
-	public Boolean visit(Div div) {
+	public Boolean visit(Div ast) {
 		System.out.println("Div");
+		ast.getLhs().accept(this);
+		ast.getLhs().accept(this);
 		return true;
 	}
 
 	@Override
-	public Boolean visit(Eq eq) {
+	public Boolean visit(Eq ast) {
 		System.out.println("Eq");
+		ast.getLhs().accept(this);
+		ast.getLhs().accept(this);
 		return true;
 	}
 
 	@Override
-	public Boolean visit(GEq geq) {
+	public Boolean visit(GEq ast) {
 		System.out.println("GEq");
+		ast.getLhs().accept(this);
+		ast.getLhs().accept(this);
 		return true;
 	}
 
 	@Override
-	public Boolean visit(GT gt) {
+	public Boolean visit(GT ast) {
 		System.out.println("GT");
+		ast.getLhs().accept(this);
+		ast.getLhs().accept(this);
 		return true;
 	}
 
 	@Override
-	public Boolean visit(LEq leq) {
+	public Boolean visit(LEq ast) {
 		System.out.println("LEq");
+		ast.getLhs().accept(this);
+		ast.getLhs().accept(this);
 		return true;
 	}
 
 	@Override
-	public Boolean visit(LT lt) {
+	public Boolean visit(LT ast) {
 		System.out.println("LT");
+		ast.getLhs().accept(this);
+		ast.getLhs().accept(this);
 		return true;
 	}
 
 	@Override
-	public Boolean visit(Mul mul) {
+	public Boolean visit(Mul ast) {
 		System.out.println("Mul");
+		ast.getLhs().accept(this);
+		ast.getLhs().accept(this);
 		return true;
 	}
 
 	@Override
-	public Boolean visit(NEq neq) {
+	public Boolean visit(NEq ast) {
 		System.out.println("NEq");
+		ast.getLhs().accept(this);
+		ast.getLhs().accept(this);
 		return true;
 	}
 
 	@Override
-	public Boolean visit(Or or) {
+	public Boolean visit(Or ast) {
 		System.out.println("Or");
+		ast.getLhs().accept(this);
+		ast.getLhs().accept(this);
 		return true;
 	}
 
 	@Override
-	public Boolean visit(Sub sub) {
+	public Boolean visit(Sub ast) {
 		System.out.println("Sub");
+		ast.getLhs().accept(this);
+		ast.getLhs().accept(this);
 		return true;
 	}
 
 	@Override
-	public Boolean visit(Neg neg) {
+	public Boolean visit(Neg ast) {
 		System.out.println("Neg");
+		ast.getArg().accept(this);
 		return true;
 	}
 
 	@Override
-	public Boolean visit(Not not) {
+	public Boolean visit(Not ast) {
 		System.out.println("Not");
+		ast.getArg().accept(this);
 		return true;
 	}
 
 	@Override
-	public Boolean visit(Pos pos) {
+	public Boolean visit(Pos ast) {
 		System.out.println("Pos");
+		ast.getArg().accept(this);
 		return true;
 	}
 
 	@Override
-	public Boolean visit(Bool bool) {
-		System.out.println("Bool");
+	public Boolean visit(Bool ast) {
+		System.out.println("Bool: " + ast.getValue());
 		return true;
 	}
 
 	@Override
-	public Boolean visit(Ident ident) {
-		System.out.println("Ident");
+	public Boolean visit(Ident ast) {
+		System.out.println("Ident: " + ast.getName());
 		return true;
 	}
 
 	@Override
-	public Boolean visit(Int integer) {
-		System.out.println("Int");
+	public Boolean visit(Int ast) {
+		System.out.println("Int: " + ast.getValue());
 		return true;
 	}
 
 	@Override
-	public Boolean visit(StringLiteral stringLiteral) {
-		System.out.println("StringLiteral");
+	public Boolean visit(StringLiteral ast) {
+		System.out.println("StringLiteral: " + ast.getValue());
 		return true;
 	}
 

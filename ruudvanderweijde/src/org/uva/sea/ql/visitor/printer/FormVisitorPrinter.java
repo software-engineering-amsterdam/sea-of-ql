@@ -1,10 +1,11 @@
-package org.uva.sea.ql.visitor;
+package org.uva.sea.ql.visitor.printer;
 
 import org.uva.sea.ql.ast.Form;
 import org.uva.sea.ql.ast.stmt.IfThenElse;
 import org.uva.sea.ql.ast.stmt.Question;
 import org.uva.sea.ql.ast.stmt.Statement;
 import org.uva.sea.ql.ast.type.Type;
+import org.uva.sea.ql.visitor.FormVisitor;
 
 public class FormVisitorPrinter implements FormVisitor {
 

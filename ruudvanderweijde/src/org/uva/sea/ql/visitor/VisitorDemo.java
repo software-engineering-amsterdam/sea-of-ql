@@ -9,16 +9,25 @@ import org.uva.sea.ql.ast.expr.Expr;
 import org.uva.sea.ql.ast.expr.primary.Ident;
 import org.uva.sea.ql.ast.type.Type;
 import org.uva.sea.ql.parser.ANTLRParser;
-import org.uva.sea.ql.parser.test.ParseError;
+import org.uva.sea.ql.parser.error.ParseError;
+import org.uva.sea.ql.visitor.checker.ExpressionChecker;
+import org.uva.sea.ql.visitor.checker.FormChecker;
+import org.uva.sea.ql.visitor.printer.ExpressionVisitorPrinter;
+import org.uva.sea.ql.visitor.printer.FormVisitorPrinter;
 
-
+/*
+ * This file is added to test visitors
+ * and will be removed in the future 
+ * and replaced by decent unittests.
+ */
 public class VisitorDemo {
 	
     static public void main(String[] args) throws ParseError {
     	ANTLRParser parser = new ANTLRParser();
     	
-    	String exprString = "1+1";
+    	String exprString = "1 && -1";
     	Expr expr = parser.parseExpression(exprString);
+    	System.out.println("Visiting string: " + exprString);
     	expr.accept(new ExpressionVisitorPrinter());
     	
     	HashMap<Ident, Type> ExprMap = new HashMap<Ident, Type>();
@@ -31,7 +40,7 @@ public class VisitorDemo {
     	// full form check
     	String testString = "";
     	testString += "form Box1HouseOwning {\n";
-    	testString += "   hasSoldHouse: \"Did you sell a house in 2010?\" boolean\n";
+//    	testString += "   hasSoldHouse: \"Did you sell a house in 2010?\" boolean\n";
 //    	testString += "   hasSoldHouse: \"Did you sell a house in 2010?\" boolean\n";
 //    	testString += "   hasBoughtHouse: \"Did you by a house in 2010?\" boolean\n";
 //    	testString += "   hasMaintLoan: \"Did you enter a loan for maintenance/reconstruction?\" boolean\n";

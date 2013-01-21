@@ -6,8 +6,8 @@ import org.antlr.runtime.RecognitionException;
 import org.uva.sea.ql.ast.Form;
 import org.uva.sea.ql.ast.expr.Expr;
 import org.uva.sea.ql.ast.stmt.Statement;
+import org.uva.sea.ql.parser.error.ParseError;
 import org.uva.sea.ql.parser.test.IParse;
-import org.uva.sea.ql.parser.test.ParseError;
 
 public class ANTLRParser implements IParse {
 

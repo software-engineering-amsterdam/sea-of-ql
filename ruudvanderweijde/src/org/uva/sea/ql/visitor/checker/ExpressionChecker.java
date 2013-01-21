@@ -1,4 +1,4 @@
-package org.uva.sea.ql.visitor;
+package org.uva.sea.ql.visitor.checker;
 
 import java.util.List;
 import java.util.Map;
@@ -25,12 +25,13 @@ import org.uva.sea.ql.ast.expr.unary.Neg;
 import org.uva.sea.ql.ast.expr.unary.Not;
 import org.uva.sea.ql.ast.expr.unary.Pos;
 import org.uva.sea.ql.ast.type.Type;
+import org.uva.sea.ql.visitor.ExpressionVisitor;
 
 public class ExpressionChecker implements ExpressionVisitor<Boolean> {
 	private final Map<Ident, Type> typeEnv;
 	private final List<Message> messages;
 
-	ExpressionChecker(Map<Ident, Type> tenv, List<Message> messages) {
+	public ExpressionChecker(Map<Ident, Type> tenv, List<Message> messages) {
 		this.typeEnv = tenv;
 		this.messages = messages;
 	}
@@ -42,16 +43,16 @@ public class ExpressionChecker implements ExpressionVisitor<Boolean> {
 	}
 
 	@Override
-	public Boolean visit(Add add) {
-		boolean checkLhs = add.getLhs().accept(this);
-		boolean checkRhs = add.getRhs().accept(this);
+	public Boolean visit(Add ast) {
+		boolean checkLhs = ast.getLhs().accept(this);
+		boolean checkRhs = ast.getRhs().accept(this);
 
 		if (!(checkLhs && checkRhs)) {
 			return false;
 		}
 
-		Type lhsType = add.getLhs().typeOf(typeEnv);
-		Type rhsType = add.getRhs().typeOf(typeEnv);
+		Type lhsType = ast.getLhs().typeOf(typeEnv);
+		Type rhsType = ast.getRhs().typeOf(typeEnv);
 
 		if (!(lhsType.isCompatibleToNumericType() && rhsType
 				.isCompatibleToNumericType())) {

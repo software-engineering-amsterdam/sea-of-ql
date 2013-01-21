@@ -1,4 +1,4 @@
-package org.uva.sea.ql.visitor;
+package org.uva.sea.ql.visitor.checker;
 
 import java.util.HashMap;
 
@@ -6,6 +6,7 @@ import org.uva.sea.ql.ast.Form;
 import org.uva.sea.ql.ast.stmt.IfThenElse;
 import org.uva.sea.ql.ast.stmt.Question;
 import org.uva.sea.ql.ast.type.Type;
+import org.uva.sea.ql.visitor.FormVisitor;
 
 /*
  * This SemanticVisitor check for:
@@ -14,7 +15,7 @@ import org.uva.sea.ql.ast.type.Type;
  * 	- expressions (TODO)
  * 	- computed questions (TODO)
  */
-class FormChecker implements FormVisitor {
+public class FormChecker implements FormVisitor {
 	private String errorString;
 	private HashMap<String, Form> formTable = new HashMap<String, Form>();
 	private HashMap<String, Question> questionTable = new HashMap<String, Question>();

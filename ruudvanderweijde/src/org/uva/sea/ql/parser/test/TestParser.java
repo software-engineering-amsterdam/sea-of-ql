@@ -21,6 +21,7 @@ import org.uva.sea.ql.ast.expr.primary.Int;
 import org.uva.sea.ql.ast.stmt.IfThenElse;
 import org.uva.sea.ql.ast.stmt.Question;
 import org.uva.sea.ql.parser.ANTLRParser;
+import org.uva.sea.ql.parser.error.ParseError;
 
 @RunWith(Parameterized.class)
 public class TestParser {
