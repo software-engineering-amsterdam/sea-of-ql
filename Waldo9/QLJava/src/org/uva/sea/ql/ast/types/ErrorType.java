@@ -10,4 +10,9 @@ public class ErrorType extends Type {
         return visitor.visit(this);
     }
 
+	@Override
+	public boolean isCompatibleTo(Type t) {
+		return false;
+	}
+
 }

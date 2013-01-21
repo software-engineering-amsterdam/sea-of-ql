@@ -9,5 +9,15 @@ public class IntType extends Type {
 	public <T> T accept(ASTNodeVisitor<T> visitor) {
         return visitor.visit(this);
     }
+	
+	@Override
+	public boolean isCompatibleTo(Type type) {
+		return type.isCompatibleToInt();
+	}
+	
+	@Override
+	public boolean isCompatibleToInt() {
+		return true;
+	}
 
 }
