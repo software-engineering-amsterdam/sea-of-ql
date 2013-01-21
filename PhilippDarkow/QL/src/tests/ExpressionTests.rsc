@@ -5,7 +5,7 @@ import util::Implode;
 import syntax::AbstractSyntax;
 import Prelude;
 
-private Expression p(str src) = implode(parse(src, |file:///test.q|));  // |file:///-|
+private Expression p(str src) = implode(parseExpression(src, |file:///test.q|));  // |file:///-|
 
 // Tests for addion
 public test bool testAdd1() = p("a + b") is add;
