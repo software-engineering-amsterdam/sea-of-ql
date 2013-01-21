@@ -1,5 +1,6 @@
 package org.uva.sea.ql.ast;
 
+import java.util.List;
 import java.util.Map;
 
 import org.uva.sea.ql.ast.types.Type;
@@ -21,6 +22,11 @@ public class Pos extends Expr {
 	public Type typeOf(Map<Ident, Type> typeEnv) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+	
+	@Override
+	public List<String> checkType(List<String> errors) {
+		return errors;
 	}
 
 }

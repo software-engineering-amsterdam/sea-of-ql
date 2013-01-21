@@ -1,5 +1,6 @@
 package org.uva.sea.ql.ast;
 
+import java.util.List;
 import java.util.Map;
 
 import org.uva.sea.ql.ast.types.Type;
@@ -24,5 +25,12 @@ public class Add extends Binary {
 	@Override
 	public Type typeOf(Map<Ident, Type> typeEnv) {
 		return new org.uva.sea.ql.ast.types.IntType();
+	}
+	
+	@Override
+	public List<String> checkType(List<String> errors) {
+		errors = super.checkType(errors);
+		
+		return errors;
 	}
 }

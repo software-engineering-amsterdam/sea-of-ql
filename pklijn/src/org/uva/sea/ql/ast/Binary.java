@@ -1,5 +1,6 @@
 package org.uva.sea.ql.ast;
 
+import java.util.List;
 import java.util.Map;
 
 import org.uva.sea.ql.ast.types.Type;
@@ -29,7 +30,18 @@ public class Binary extends Expr {
 
 	@Override
 	public Type typeOf(Map<Ident, Type> typeEnv) {
-		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public List<String> checkType(List<String> errors) {
+		Type leftType = getLeft().typeOf(null);
+		Type rightType = getRight().typeOf(null);
+		
+		if (leftType != rightType) {
+			errors.add("The left and right value are not of the same type.");
+		}
+		
+		return errors;
 	}
 }

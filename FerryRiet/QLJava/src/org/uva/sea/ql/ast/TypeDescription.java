@@ -17,4 +17,6 @@ public abstract class TypeDescription implements ASTNode {
 	public VisitorResult accept(Visitor visitor) {
 		return visitor.visit(this);
 	}
+
+	public abstract boolean compatibleType(TypeDescription testType) ;
 }

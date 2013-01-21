@@ -1,5 +1,6 @@
 package org.uva.sea.ql.ast;
 
+import java.util.List;
 import java.util.Map;
 
 import org.uva.sea.ql.ast.types.Type;
@@ -25,6 +26,11 @@ public class StringNode extends Expr {
 	@Override
 	public Type typeOf(Map<Ident, Type> typeEnv) {
 		return new org.uva.sea.ql.ast.types.StringType();
+	}
+	
+	@Override
+	public List<String> checkType(List<String> errors) {
+		return errors;
 	}
 
 }
