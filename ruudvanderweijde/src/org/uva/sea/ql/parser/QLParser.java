@@ -1,4 +1,4 @@
-// $ANTLR 3.5 C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g 2013-01-20 23:38:01
+// $ANTLR 3.5 C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g 2013-01-21 11:46:40
 
   package org.uva.sea.ql.parser;
   import org.uva.sea.ql.ast.*;
@@ -85,7 +85,7 @@ public class QLParser extends Parser {
 
 
 	// $ANTLR start "form"
-	// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:26:1: form returns [Form result] : ( 'form' Ident statements= block )* ;
+	// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:26:1: form returns [Form result] : ( 'form' Ident statements= block )+ ;
 	public final Form form() throws RecognitionException {
 		Form result = null;
 
@@ -97,10 +97,11 @@ public class QLParser extends Parser {
 		try {
 			if ( state.backtracking>0 && alreadyParsedRule(input, 1) ) { return result; }
 
-			// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:27:3: ( ( 'form' Ident statements= block )* )
-			// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:27:5: ( 'form' Ident statements= block )*
+			// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:27:3: ( ( 'form' Ident statements= block )+ )
+			// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:27:5: ( 'form' Ident statements= block )+
 			{
-			// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:27:5: ( 'form' Ident statements= block )*
+			// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:27:5: ( 'form' Ident statements= block )+
+			int cnt1=0;
 			loop1:
 			while (true) {
 				int alt1=2;
@@ -126,8 +127,12 @@ public class QLParser extends Parser {
 					break;
 
 				default :
-					break loop1;
+					if ( cnt1 >= 1 ) break loop1;
+					if (state.backtracking>0) {state.failed=true; return result;}
+					EarlyExitException eee = new EarlyExitException(1, input);
+					throw eee;
 				}
+				cnt1++;
 			}
 
 			}

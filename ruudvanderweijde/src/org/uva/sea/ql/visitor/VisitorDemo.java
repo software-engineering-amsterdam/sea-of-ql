@@ -15,17 +15,23 @@ public class VisitorDemo {
     	testString += "   hasBoughtHouse: \"Did you by a house in 2010?\" boolean\n";
     	testString += "   hasMaintLoan: \"Did you enter a loan for maintenance/reconstruction?\" boolean\n";
     	testString += "   if (hasSoldHouse == true) {\n";
-    	testString += "     sellingPrice: \"Price the house was sold for:\" integer\n";
-    	testString += "     privateDebt: \"Private debts for the sold house:\" integer\n";
-    	testString += "     valueResidue: \"Value residue:\" integer(sellingPrice - privateDebt)\n";
+    	testString += "     sellingPrice1: \"Price the house was sold for:\" integer\n";
+    	testString += "     privateDebt1: \"Private debts for the sold house:\" integer\n";
+    	testString += "     valueResidue1: \"Value residue:\" integer(sellingPrice - privateDebt)\n";
+    	testString += "	  } else {\n";
+    	testString += "     sellingPrice2: \"Price the house was sold for:\" integer\n";
+    	testString += "     privateDebt2: \"Private debts for the sold house:\" integer\n";
+    	testString += "     valueResidue2: \"Value residue:\" integer(sellingPrice - privateDebt)\n";
     	testString += "   }\n";
+    	testString += "   finalQuestion: \"Please confirm that you have filled in everything correctly?\" boolean\n";
+    	testString += "   terms: \"I accept the terms... etc\" boolean\n";
     	testString += "}\n";
     	
     	ANTLRParser parser = new ANTLRParser();
 		Form form = parser.parseForm(testString);
 		
-		//form.accept(new PrintVisitor());
+		form.accept(new PrintFormVisitor());
 		//System.out.println("----- Semantic check: ------");
-		form.accept(new SemanticChecker());
+//		form.accept(new SemanticChecker());
     }
 }

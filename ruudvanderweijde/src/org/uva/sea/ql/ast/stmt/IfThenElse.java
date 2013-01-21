@@ -5,7 +5,7 @@ import java.util.List;
 
 import org.uva.sea.ql.ast.ASTNode;
 import org.uva.sea.ql.ast.expr.Expr;
-import org.uva.sea.ql.visitor.Visitor;
+import org.uva.sea.ql.visitor.FormVisitor;
 
 public class IfThenElse extends Statement {
 
@@ -39,17 +39,7 @@ public class IfThenElse extends Statement {
 	}
 
 	@Override
-	public void accept(Visitor visitor) {
-		condition.accept(visitor);
-		
-		for(ASTNode node : ifBlock) {
-            node.accept(visitor);
-        }
-		
-		for(ASTNode node : elseBlock) {
-            node.accept(visitor);
-        }
-		
+	public void accept(FormVisitor visitor) {
 		visitor.visit(this);
 	}
 }

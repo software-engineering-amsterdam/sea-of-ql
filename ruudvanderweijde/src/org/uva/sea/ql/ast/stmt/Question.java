@@ -2,8 +2,7 @@ package org.uva.sea.ql.ast.stmt;
 
 import org.uva.sea.ql.ast.expr.primary.Ident;
 import org.uva.sea.ql.ast.type.Type;
-import org.uva.sea.ql.visitor.Visitor;
-
+import org.uva.sea.ql.visitor.FormVisitor;
 
 public class Question extends Statement {
 	
@@ -30,10 +29,7 @@ public class Question extends Statement {
 	}
 
 	@Override
-	public void accept(Visitor visitor) {
-		getId().accept(visitor);
-		getType().accept(visitor);
-		
+	public void accept(FormVisitor visitor) {
 		visitor.visit(this);		
 	}
 

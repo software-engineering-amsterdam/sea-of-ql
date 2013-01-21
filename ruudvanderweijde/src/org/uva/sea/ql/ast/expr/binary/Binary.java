@@ -1,7 +1,7 @@
 package org.uva.sea.ql.ast.expr.binary;
 
 import org.uva.sea.ql.ast.expr.Expr;
-import org.uva.sea.ql.visitor.Visitor;
+import org.uva.sea.ql.visitor.FormVisitor;
 
 public abstract class Binary extends Expr {
 
@@ -22,9 +22,6 @@ public abstract class Binary extends Expr {
 	}
 
 	@Override
-	public void accept(Visitor visitor) {
-		getLhs().accept(visitor);
-		getRhs().accept(visitor);
-		visitor.visit(this);
+	public void accept(FormVisitor visitor) {
 	}
 }

@@ -3,12 +3,6 @@ package org.uva.sea.ql.visitor;
 import java.util.HashMap;
 
 import org.uva.sea.ql.ast.Form;
-import org.uva.sea.ql.ast.expr.binary.Binary;
-import org.uva.sea.ql.ast.expr.primary.Bool;
-import org.uva.sea.ql.ast.expr.primary.Ident;
-import org.uva.sea.ql.ast.expr.primary.Int;
-import org.uva.sea.ql.ast.expr.primary.StringLiteral;
-import org.uva.sea.ql.ast.expr.unary.Unary;
 import org.uva.sea.ql.ast.stmt.IfThenElse;
 import org.uva.sea.ql.ast.stmt.Question;
 import org.uva.sea.ql.ast.type.Type;
@@ -20,7 +14,7 @@ import org.uva.sea.ql.ast.type.Type;
  * 	- expressions (TODO)
  * 	- computed questions (TODO)
  */
-class SemanticChecker implements Visitor {
+class SemanticChecker implements FormVisitor {
 	private String errorString;
 	private HashMap<String, Form> formTable = new HashMap<String, Form>();
 	private HashMap<String, Question> questionTable = new HashMap<String, Question>();
@@ -48,42 +42,6 @@ class SemanticChecker implements Visitor {
 			addError("Duplicate question id: " + question.getId().getName());
 		}
 		questionTable.put(question.getId().getName(), question);
-	}
-
-	@Override
-	public void visit(Unary unary) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void visit(Binary binary) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void visit(Ident ident) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void visit(Bool bool) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void visit(Int integer) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void visit(StringLiteral stringLiteral) {
-		// TODO Auto-generated method stub
-
 	}
 
 	@Override

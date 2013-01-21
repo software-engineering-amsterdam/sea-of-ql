@@ -2,7 +2,7 @@ package org.uva.sea.ql.ast.type;
 
 import org.uva.sea.ql.ast.ASTNode;
 import org.uva.sea.ql.ast.expr.Expr;
-import org.uva.sea.ql.visitor.Visitor;
+import org.uva.sea.ql.visitor.FormVisitor;
 
 public abstract class Type implements ASTNode {
 	private boolean computated = false;
@@ -26,7 +26,7 @@ public abstract class Type implements ASTNode {
 	}
 	
 	@Override
-	public void accept(Visitor visitor) {
+	public void accept(FormVisitor visitor) {
 		if (isComputated()) {
 			getExpr().accept(visitor);
 		}

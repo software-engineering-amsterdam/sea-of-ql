@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.uva.sea.ql.ast.expr.primary.Ident;
 import org.uva.sea.ql.ast.stmt.Statement;
-import org.uva.sea.ql.visitor.Visitor;
+import org.uva.sea.ql.visitor.FormVisitor;
 
 public class Form implements ASTNode {
 
@@ -29,13 +29,7 @@ public class Form implements ASTNode {
 	}
 
 	@Override
-	public void accept(Visitor visitor) {	
-		getId().accept(visitor);
-		
-		for(ASTNode node : statements) {
-            node.accept(visitor);
-        }
-        
+	public void accept(FormVisitor visitor) {	
 		visitor.visit(this);	
 	}
 }
