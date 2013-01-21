@@ -39,12 +39,13 @@ layout Standard
 start syntax Program 
    = program: "form" Expression questionnaireName "{" Body* body "}" ; 
 
+// start syntax Body
 start syntax Body =
 	  question: Question question
 	| statement: Statement statement
 	;
 
-// start syntax question
+// start syntax Question
 start syntax Question
    = easyQuestion: Id id ":" String label Type tp
    | computedQuestion: Id id ":" String label Type tp Expression exp
@@ -54,14 +55,14 @@ start syntax Question
 syntax QuestionType
    = result: Id id ":" Type tp;
    
-// syntax Statement
+// start syntax Statement
 start syntax Statement 
    = asgStat: Id var ":" Type tp
-   | ifStat: "if" Expression cond "{" Body* body "}"  // should be Body to have inner if's 
+   | ifStat: "if" Expression cond "{" Body* body "}"
    | ifElseStat: "if" Expression cond "{" Body* body "}" "else" "{" Body* body "}"
    ;
    
-// syntax Type
+// start syntax Type
 start syntax Type 
    = integer : "integer" 
    | string :"string"
@@ -69,8 +70,8 @@ start syntax Type
    | money :"money"  
    ;
    
-// syntax Expression  
-start syntax Expression // start 
+// start syntax Expression  
+start syntax Expression
    = id: Id name
    | \int: Int
    | bracket "(" Expression arg ")"

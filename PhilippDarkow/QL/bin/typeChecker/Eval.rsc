@@ -10,8 +10,8 @@ import typeChecker::Mapping;
 data QuestionValue = boolVal(bool b) | strVal(str s) | moneyVal (real m) | errorval(loc l, str msg);  
 data QuestionName = strVal(str s) | errorval(loc l, str msg);
 
-alias VENV = map[QuestionId, QuestionValue];   // QuestionName
-alias QTENV = tuple[ map[QuestionId, Type] symbols, list[tuple[loc l, str msg]] errors];                                     
+alias VENV = map[str , QuestionValue];   // QuestionName
+alias QTENV = tuple[ map[str, Type] symbols, list[tuple[loc l, str msg]] errors];                                     
 
 // Evaluate Expressions.
 
@@ -44,10 +44,10 @@ QuestionValue evalExp(exp:and(EXP E1, EXP E2), VENV env) =
 
 // Evaluate a statement
 
-VENV evalStat(stat:asgStat(QuestionId Id, EXP Exp), VENV env) {
-  env[Id] = evalExp(Exp, env);
-  return env;
-}
+//VENV evalStat(stat:asgStat(str Id, EXP Exp), VENV env) {
+//  env[Id] = evalExp(Exp, env);
+//  return env;
+//}
 	
 VENV evalStat(stat:ifElseStat(EXP Exp, 
                               list[STATEMENT] Stats1,
@@ -69,8 +69,8 @@ VENV evalDecls (list[Question] results) =
    ( Id : ( tp == money() ? moneyVal(0) : strVal("")) | result(QuestionId Id, TYPE tp) <- results); // | results(QuestionId Id, TYPE tp) <- results); 
  // (results.tp == money() ? moneyVal(0) : strVal(""))
  
-VENV evalDecls (list[tuple [QuestionId qId, Type tp]] results) =   
-   ( result.qId : ( tp == money() ? moneyVal(0) : strVal("")) ); //| result(QuestionId Id, TYPE tp) <- results);
+//VENV evalDecls (list[tuple [QuestionId qId, Type tp]] results) =   
+//   ( result.qId : ( tp == money() ? moneyVal(0) : strVal("")) ); //| result(QuestionId Id, TYPE tp) <- results);
     
 //TENV checkDecls(list[DECL] Decls) =                                                 
 //    <( Id : question | decl(QuestionId Id, QUE question)  <- Decls), []>;

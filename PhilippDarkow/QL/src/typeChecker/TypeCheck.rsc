@@ -6,13 +6,11 @@ import util::Load;
 import typeChecker::Mapping;
 
 // We will use TENV (type environment) as an alias for a tuple that contains all relevant type information:
-alias TENV = tuple[ map[QuestionId, list[Question]] symbols, list[tuple[loc l, str msg]] errors];
-alias QTENV = tuple[ map[QuestionId, Type] symbols, list[tuple[loc l, str msg]] errors]; 
-alias QSTRING = tuple[ map[QuestionString, Type] symbols, list[tuple[loc l, str msg]] errors];
+alias TENV = tuple[ map[str, list[Question]] symbols, list[tuple[loc l, str msg]] errors];
+alias QTENV = tuple[ map[str, Type] symbols, list[tuple[loc l, str msg]] errors]; 
 
 TENV addError(TENV env, loc l, str msg) = env[errors = env.errors + <l, msg>]; 
 QTENV addError(QTENV qEnv, loc l, str msg) = qEnv[errors = qEnv.errors + <l, msg>];
-QSTRING addError(QSTRING qString, loc l, str msg) = qString[errors = qString.errors + <l, msg>];
 
 str required(Type t, str got) = "Required <getName(t)>, got <got>";                 
 str required(Type t1, Type t2) = required(t1, getName(t2));
@@ -50,16 +48,13 @@ QTENV checkExp(exp:and(EXP E1, EXP E2), Type req, QTENV env) =
   req == string() ? checkExp(E1, string(), checkExp(E2, string(), env))
                    : addError(env, exp@location, required(req, "string"));
 
-//QSTRING checkExp(exp:strQue(str S), TYPE req, QSTRING qString) =
-// req == string() ? qString : addError(qString, exp@location, required(req, "string"));
-
 // check a statement
-QTENV checkStat(stat:asgStat(QuestionId id, Type tp), QTENV qEnv) {                    
-  if(!qEnv.symbols[id]?)
-     return addError(qEnv, stat@location, "Undeclared variable <id>");
-  tpid = qEnv.symbols[id];
-  return checkExp(Exp, tpid, qEnv);
-}
+//QTENV checkStat(stat:asgStat(str id, Type tp), QTENV qEnv) {                    
+//  if(!qEnv.symbols[id]?)
+//     return addError(qEnv, stat@location, "Undeclared variable <id>");
+//  tpid = qEnv.symbols[id];
+//  return checkExp(Exp, tpid, qEnv);
+//}
 
 // check statements for Questions 
 QTENV checkQuestionStats(list[Statement] Stats1, QTENV qEnv) {                                 
@@ -105,28 +100,18 @@ TENV checkBody(list[Body] Body) =
     ;
 
 // check question
-QTENV checkQuestionType(map[QuestionId, Type] results) =   
+QTENV checkQuestionType(map[str, Type] results) =   
    <results,[]>;
-
-/* Method to create an Astnode of a file
-   @param loc the location of the file
-   @return astNode of the file
-   @author Philipp
-*/
-public AstNode makeAnAstnode(loc file){
-	classNode = createAstFromFile(file);
-	return createAstFromFile(file);
-}
 
 // check a QL program
 public QTENV checkProgram(Program P){                                                
   if(program(Expression exp, list[Body] Body) := P){	 
+     println("EXP : <exp>");
      println("Body : <Body>");  // need to visit the body node to check the questions
      visit(Body){
-     	case Question q => println("Question is : <q>")
-     //	case Type tp => println("Type is : <tp>")
-     }
-     println("EXP : <exp>");
+     	case Question q: println("Question is : <q>");
+        case Statement s: println("Statement is : <S>");
+     };
      TENV env = checkBody(Body);
      println("ENV : <env>"); 
      QTENV qEnv = mapQuestionIdToType2(env.symbols);  // Mapping.rsc is doing that

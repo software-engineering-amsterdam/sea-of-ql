@@ -2,28 +2,23 @@ module syntax::AbstractSyntax
 
 public data Type = string() | integer() | boolean() | money() | money(Expression);
 
-public alias QuestionId = str;
-public alias QuestionString = str;
-
-// syntax to start a QL Program	
+// Data of a QL Program	
 public data Program =
 	program(Expression exp, list[Body] body);
 	
+// Data of a Body Rule
 public data Body =
 	  question(Question question)
 	| statement(Statement statement)
 	;
 
-// Syntax for the question   
+// Data of a Question   
 public data Question = 
 	   easyQuestion(str id, str labelQuestion, Type tp)
 	 | computedQuestion(str id, str labelQuestion, Type tp, Expression exp) 
 	 ;
 
-// syntax to map the questionid with the type
-public data QuestionType = result(QuestionId id, Type tp);
-
-// syntax for the expression   
+// Data of a Expression Rule   
 public data Expression =
 	  id (str name)
 	| \int(int ivalue)
@@ -44,10 +39,9 @@ public data Expression =
 	| string (str sVal)
 	;
 
-// syntax for statements	
+// Data of a Statements Rule 	
 public data Statement =
-       asgStat(QuestionId name, Type tp )
-     | ifStat(Expression exp, list[Body] body)  // need to change Question to Body
+       ifStat(Expression exp, list[Body] body) 
      | ifElseStat(Expression exp, list[Body] thenpart, list[Body] elsepart)
      ;
 
@@ -57,8 +51,7 @@ anno loc Body@location;
 anno loc Expression@location;
 anno loc Statement@location;
 anno loc Question@location;
-anno loc QuestionType@location;
 
-public alias Occurrence = tuple[loc location, QuestionId name, Statement stat]; 
+public alias Occurrence = tuple[loc location, str name, Statement stat]; 
    
 

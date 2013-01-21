@@ -5,8 +5,8 @@ import syntax::AbstractSyntax;
 import typeChecker::TypeCheck;
 import typeChecker::Eval;
 
-alias QTENV = tuple[ map[QuestionId, Type] symbols, list[tuple[loc l, str msg]] errors];
-alias QSTRING = tuple[ map[QuestionString, Type] symbols, list[tuple[loc l, str msg]] errors];
+alias QTENV = tuple[ map[str, Type] symbols, list[tuple[loc l, str msg]] errors];
+alias QSTRING = tuple[ map[str, Type] symbols, list[tuple[loc l, str msg]] errors];
 
 QSTRING addError(QSTRING qString, loc l, str msg) = qString[errors = qString.errors + <l, msg>];
 
@@ -26,7 +26,7 @@ public QTENV checkQuestion(list[Question] qNames) =
  * @return idList a list with the question ids
  * @author Philipp
 */
-public QTENV getQuestionIdsAndTypes(map[QuestionId QId, Question ques] questionList){
+public QTENV getQuestionIdsAndTypes(map[str QId, Question ques] questionList){
 	set[QuestionId] idSet = questionList.QId;
 	//println("QUESTIONLIST : <questionList.QId>");
 	list[QuestionId] idList = toList(idSet);
@@ -41,7 +41,7 @@ public QTENV getQuestionIdsAndTypes(map[QuestionId QId, Question ques] questionL
 
 
 
-public QSTRING checkQuestionString(map[QuestionId QId, Question ques] q){
+public QSTRING checkQuestionString(map[str QId, Question ques] q){
 	set[QuestionId] idSet = q.QId;
 	//println("QUESTIONLIST : <questionList.QId>");
 	list[QuestionId] idList = toList(idSet);
@@ -63,7 +63,7 @@ public QSTRING checkQuestionString(map[QuestionId QId, Question ques] q){
  * @return result a map with QuestionId and the Type
  * @author Philipp
 */
-public QTENV mapQuestionIdToType2(map[QuestionId QId, Question ques] q){
+public QTENV mapQuestionIdToType2(map[str QId, Question ques] q){
     list[tuple[QuestionId QId, QUE ques]] questionList = toList(q);
     QTENV result = getQuestionIdsAndTypes(q);
     return result;
