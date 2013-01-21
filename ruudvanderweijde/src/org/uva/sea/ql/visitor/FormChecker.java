@@ -14,12 +14,12 @@ import org.uva.sea.ql.ast.type.Type;
  * 	- expressions (TODO)
  * 	- computed questions (TODO)
  */
-class SemanticChecker implements FormVisitor {
+class FormChecker implements FormVisitor {
 	private String errorString;
 	private HashMap<String, Form> formTable = new HashMap<String, Form>();
 	private HashMap<String, Question> questionTable = new HashMap<String, Question>();
 
-	public SemanticChecker() {
+	public FormChecker() {
 
 	}
 
