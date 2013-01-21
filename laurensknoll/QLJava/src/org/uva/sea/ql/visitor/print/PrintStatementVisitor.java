@@ -20,6 +20,9 @@ public class PrintStatementVisitor implements StatementVisitor<Boolean> {
 			statement.accept(this);
 		}
 
+		System.out.println("Ended visiting BlockStatement");
+		System.out.println();
+
 		return true;
 	}
 
@@ -33,6 +36,9 @@ public class PrintStatementVisitor implements StatementVisitor<Boolean> {
 		ExpressionVisitor<Boolean> expressionVisitor = new PrintExpressionVisitor();
 		computedQuestion.getComputeExpression().accept(expressionVisitor);
 
+		System.out.println("Ended visiting ComputedQuestion Statement");
+		System.out.println();
+
 		return true;
 	}
 
@@ -45,6 +51,9 @@ public class PrintStatementVisitor implements StatementVisitor<Boolean> {
 		ifStatement.getCondition().accept(expressionVisitor);
 
 		ifStatement.getTruePath().accept(this);
+
+		System.out.println("Ended visiting If Statement");
+		System.out.println();
 
 		return true;
 	}
@@ -60,6 +69,9 @@ public class PrintStatementVisitor implements StatementVisitor<Boolean> {
 
 		AnswerTypeVisitor<Boolean> answerTypeVisitor = new PrintAnswerTypeVisitor();
 		question.getType().accept(answerTypeVisitor);
+
+		System.out.println("Ended visiting Question Statement");
+		System.out.println();
 
 		return true;
 	}

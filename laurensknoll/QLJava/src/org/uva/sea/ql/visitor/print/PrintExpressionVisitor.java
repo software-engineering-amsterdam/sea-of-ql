@@ -33,6 +33,9 @@ public class PrintExpressionVisitor implements ExpressionVisitor<Boolean> {
 		add.getLeftHandSideExpression().accept(expressionVisitor);
 		add.getRightHandSideExpression().accept(expressionVisitor);
 
+		System.out.println("Ended visiting Add Expression");
+		System.out.println();
+
 		return true;
 	}
 
@@ -44,6 +47,9 @@ public class PrintExpressionVisitor implements ExpressionVisitor<Boolean> {
 		ExpressionVisitor<Boolean> expressionVisitor = new PrintExpressionVisitor();
 		and.getLeftHandSideExpression().accept(expressionVisitor);
 		and.getRightHandSideExpression().accept(expressionVisitor);
+
+		System.out.println("Ended visiting And Expression");
+		System.out.println();
 
 		return true;
 	}
@@ -57,6 +63,9 @@ public class PrintExpressionVisitor implements ExpressionVisitor<Boolean> {
 		div.getLeftHandSideExpression().accept(expressionVisitor);
 		div.getRightHandSideExpression().accept(expressionVisitor);
 
+		System.out.println("Ended visiting Div Expression");
+		System.out.println();
+
 		return true;
 	}
 
@@ -68,6 +77,9 @@ public class PrintExpressionVisitor implements ExpressionVisitor<Boolean> {
 		ExpressionVisitor<Boolean> expressionVisitor = new PrintExpressionVisitor();
 		eq.getLeftHandSideExpression().accept(expressionVisitor);
 		eq.getRightHandSideExpression().accept(expressionVisitor);
+
+		System.out.println("Ended visiting Eq Expression");
+		System.out.println();
 
 		return true;
 	}
@@ -81,6 +93,9 @@ public class PrintExpressionVisitor implements ExpressionVisitor<Boolean> {
 		geq.getLeftHandSideExpression().accept(expressionVisitor);
 		geq.getRightHandSideExpression().accept(expressionVisitor);
 
+		System.out.println("Ended visiting GEq Expression");
+		System.out.println();
+
 		return true;
 	}
 
@@ -92,6 +107,9 @@ public class PrintExpressionVisitor implements ExpressionVisitor<Boolean> {
 		ExpressionVisitor<Boolean> expressionVisitor = new PrintExpressionVisitor();
 		gt.getLeftHandSideExpression().accept(expressionVisitor);
 		gt.getRightHandSideExpression().accept(expressionVisitor);
+
+		System.out.println("Ended visiting GT Expression");
+		System.out.println();
 
 		return true;
 	}
@@ -105,6 +123,9 @@ public class PrintExpressionVisitor implements ExpressionVisitor<Boolean> {
 		leq.getLeftHandSideExpression().accept(expressionVisitor);
 		leq.getRightHandSideExpression().accept(expressionVisitor);
 
+		System.out.println("Ended visiting LEq Expression");
+		System.out.println();
+
 		return true;
 	}
 
@@ -116,6 +137,9 @@ public class PrintExpressionVisitor implements ExpressionVisitor<Boolean> {
 		ExpressionVisitor<Boolean> expressionVisitor = new PrintExpressionVisitor();
 		lt.getLeftHandSideExpression().accept(expressionVisitor);
 		lt.getRightHandSideExpression().accept(expressionVisitor);
+
+		System.out.println("Ended visiting LT Expression");
+		System.out.println();
 
 		return true;
 	}
@@ -129,6 +153,9 @@ public class PrintExpressionVisitor implements ExpressionVisitor<Boolean> {
 		mul.getLeftHandSideExpression().accept(expressionVisitor);
 		mul.getRightHandSideExpression().accept(expressionVisitor);
 
+		System.out.println("Ended visiting Mul Expression");
+		System.out.println();
+
 		return true;
 	}
 
@@ -139,6 +166,9 @@ public class PrintExpressionVisitor implements ExpressionVisitor<Boolean> {
 		// Visit items
 		ExpressionVisitor<Boolean> expressionVisitor = new PrintExpressionVisitor();
 		neg.getExpression().accept(expressionVisitor);
+
+		System.out.println("Ended visiting Neg Expression");
+		System.out.println();
 
 		return true;
 	}
@@ -152,6 +182,9 @@ public class PrintExpressionVisitor implements ExpressionVisitor<Boolean> {
 		neq.getLeftHandSideExpression().accept(expressionVisitor);
 		neq.getRightHandSideExpression().accept(expressionVisitor);
 
+		System.out.println("Ended visiting NEq Expression");
+		System.out.println();
+
 		return true;
 	}
 
@@ -162,6 +195,9 @@ public class PrintExpressionVisitor implements ExpressionVisitor<Boolean> {
 		// Visit items
 		ExpressionVisitor<Boolean> expressionVisitor = new PrintExpressionVisitor();
 		not.getExpression().accept(expressionVisitor);
+
+		System.out.println("Ended visiting Not Expression");
+		System.out.println();
 
 		return true;
 	}
@@ -175,6 +211,9 @@ public class PrintExpressionVisitor implements ExpressionVisitor<Boolean> {
 		or.getLeftHandSideExpression().accept(expressionVisitor);
 		or.getRightHandSideExpression().accept(expressionVisitor);
 
+		System.out.println("Ended visiting Or Expression");
+		System.out.println();
+
 		return true;
 	}
 
@@ -185,6 +224,9 @@ public class PrintExpressionVisitor implements ExpressionVisitor<Boolean> {
 		// Visit items
 		ExpressionVisitor<Boolean> expressionVisitor = new PrintExpressionVisitor();
 		pos.getExpression().accept(expressionVisitor);
+
+		System.out.println("Ended visiting Pos Expression");
+		System.out.println();
 
 		return true;
 	}
@@ -198,40 +240,58 @@ public class PrintExpressionVisitor implements ExpressionVisitor<Boolean> {
 		sub.getLeftHandSideExpression().accept(expressionVisitor);
 		sub.getRightHandSideExpression().accept(expressionVisitor);
 
+		System.out.println("Ended visiting Sub Expression");
+		System.out.println();
+
 		return true;
 	}
 
 	@Override
 	public Boolean visit(BoolExprType bool) {
-		System.out.println("Visiting Bool Expression Type");
+		String boolVisitMessage = String.format(
+				"Visiting Bool Expression Type: %b", bool.getValue());
+
+		System.out.println(boolVisitMessage);
 
 		return true;
 	}
 
 	@Override
 	public Boolean visit(IdentExprType ident) {
-		System.out.println("Visiting Ident Expression Type");
+		String identVisitMessage = String.format(
+				"Visiting Ident Expression Type: %s", ident.getName());
+
+		System.out.println(identVisitMessage);
 
 		return true;
 	}
 
 	@Override
 	public Boolean visit(IntExprType intType) {
-		System.out.println("Visiting Int Expression Type");
+		String intVisitMessage = String.format(
+				"Visiting Int Expression Type: %d", intType.getValue());
+
+		System.out.println(intVisitMessage);
 
 		return true;
 	}
 
 	@Override
 	public Boolean visit(MoneyExprType money) {
-		System.out.println("Visiting Money Expression Type");
+		String moneyVisitMessage = String.format(
+				"Visiting Money Expression Type: %.2f", money.getValue());
+
+		System.out.println(moneyVisitMessage);
 
 		return true;
 	}
 
 	@Override
 	public Boolean visit(StringExprType string) {
-		System.out.println("Visiting String Expression Type");
+		String stringVisitMessage = String.format(
+				"Visiting String Expression Type: %s", string.getValue());
+
+		System.out.println(stringVisitMessage);
 
 		return true;
 	}

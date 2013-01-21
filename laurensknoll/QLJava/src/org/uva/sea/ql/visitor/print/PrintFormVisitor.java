@@ -18,6 +18,8 @@ public class PrintFormVisitor implements FormVisitor<Boolean> {
 		StatementVisitor<Boolean> statementVisitor = new PrintStatementVisitor();
 		questionForm.getStatements().accept(statementVisitor);
 
+		System.out.println("Ended visiting QuestionForm");
+
 		return true;
 	}
 
