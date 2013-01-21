@@ -6,7 +6,7 @@ import org.uva.sea.ql.ast.stmt.Question;
 import org.uva.sea.ql.ast.stmt.Statement;
 import org.uva.sea.ql.ast.type.Type;
 
-public class PrintFormVisitor implements FormVisitor {
+public class FormVisitorPrinter implements FormVisitor {
 
 	private int depth = 0;
 

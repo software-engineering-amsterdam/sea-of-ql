@@ -30,7 +30,7 @@ public class VisitorDemo {
     	ANTLRParser parser = new ANTLRParser();
 		Form form = parser.parseForm(testString);
 		
-		form.accept(new PrintFormVisitor());
+		form.accept(new FormVisitorPrinter());
 		//System.out.println("----- Semantic check: ------");
 //		form.accept(new SemanticChecker());
     }

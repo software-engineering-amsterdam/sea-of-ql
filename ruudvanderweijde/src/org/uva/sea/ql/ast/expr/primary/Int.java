@@ -5,6 +5,7 @@ import java.util.Map;
 import org.uva.sea.ql.ast.expr.Expr;
 import org.uva.sea.ql.ast.type.IntegerType;
 import org.uva.sea.ql.ast.type.Type;
+import org.uva.sea.ql.visitor.ExpressionVisitor;
 import org.uva.sea.ql.visitor.FormVisitor;
 
 
@@ -28,4 +29,10 @@ public class Int extends Expr {
 	public Type typeOf(Map<Ident, Type> typeEnv) {
 		return new IntegerType();
 	}
+
+	@Override
+	public <T> T accept(ExpressionVisitor<T> visitor) {
+		return visitor.visit(this);
+	}
+
 }

@@ -5,6 +5,8 @@ import org.uva.sea.ql.ast.expr.Expr;
 import org.uva.sea.ql.visitor.FormVisitor;
 
 public abstract class Type implements ASTNode {
+	public abstract boolean isCompatibleTo(Type t);
+	
 	private boolean computated = false;
 	private Expr expr;
 	
@@ -25,11 +27,14 @@ public abstract class Type implements ASTNode {
 		return expr;
 	}
 	
+	// subclasses will overwrite these functions when needed.
+	public boolean isCompatibleToIntegerType() { return false; }
+	public boolean isCompatibleToNumericType() { return false; }
+	public boolean isCompatibleToStringType() { return false; }
+	public boolean isCompatibleToBooleanType() { return false; }
+	
 	@Override
 	public void accept(FormVisitor visitor) {
-		if (isComputated()) {
-			getExpr().accept(visitor);
-		}
 		visitor.visit(this);	
 	}
 }

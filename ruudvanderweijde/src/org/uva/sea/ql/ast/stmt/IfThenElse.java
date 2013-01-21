@@ -3,7 +3,6 @@ package org.uva.sea.ql.ast.stmt;
 import java.util.Collections;
 import java.util.List;
 
-import org.uva.sea.ql.ast.ASTNode;
 import org.uva.sea.ql.ast.expr.Expr;
 import org.uva.sea.ql.visitor.FormVisitor;
 

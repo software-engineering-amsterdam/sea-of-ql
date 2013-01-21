@@ -4,6 +4,7 @@ import java.util.Map;
 
 import org.uva.sea.ql.ast.expr.Expr;
 import org.uva.sea.ql.ast.type.Type;
+import org.uva.sea.ql.visitor.ExpressionVisitor;
 import org.uva.sea.ql.visitor.FormVisitor;
 
 
@@ -31,6 +32,11 @@ public class Ident extends Expr {
 		// TODO return error;
 		//return new Error();
 		return null;
+	}
+
+	@Override
+	public <T> T accept(ExpressionVisitor<T> visitor) {
+		return visitor.visit(this);
 	}
 
 }
