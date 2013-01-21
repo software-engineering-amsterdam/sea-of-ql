@@ -1,5 +1,8 @@
 package org.uva.sea.ql.ast;
 
+import java.util.Map;
+
+import org.uva.sea.ql.ast.types.Type;
 import org.uva.sea.ql.ast.values.Value;
 
 public class Binary extends Expr {
@@ -22,5 +25,11 @@ public class Binary extends Expr {
 	@Override
 	public Value eval() {
 		throw new UnsupportedOperationException("Can't get a value from a Binary class");
+	}
+
+	@Override
+	public Type typeOf(Map<Ident, Type> typeEnv) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

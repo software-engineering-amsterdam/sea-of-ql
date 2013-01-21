@@ -1,6 +1,6 @@
 package org.uva.sea.ql.ast;
 
-import org.uva.sea.ql.ast.values.Int;
+import org.uva.sea.ql.ast.values.IntValue;
 import org.uva.sea.ql.ast.values.Value;
 
 public class Sub extends Binary {
@@ -11,9 +11,9 @@ public class Sub extends Binary {
 	
 	@Override
 	public Value eval() {
-		return new Int(
-				((Int)getLeft().eval()).getValue() - 
-				((Int)getRight().eval()).getValue()
-				); 
+		return new IntValue(
+				((IntValue)getLeft().eval()).getValue() - 
+				((IntValue)getRight().eval()).getValue()
+				);
 	}
 }

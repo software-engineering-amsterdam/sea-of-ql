@@ -1,10 +1,10 @@
 package org.uva.sea.ql.ast.values;
 
-public class Int extends Value {
+public class IntValue extends Value {
 	
 	private final Integer value;
 	
-	public Int(int value) {
+	public IntValue(int value) {
 		this.value = value;
 	}
 	
