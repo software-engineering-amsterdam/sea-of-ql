@@ -15,5 +15,5 @@ private Form p(loc f) = implode(parse(readFile(f), |file:///-|));
 
 public void main() {
   f = p(|project://QL-R-kemi/forms/calculatedField.q|);
-  generate(f, |tmp:///web/|);
+  buildForm(f, |tmp:///web/|);
 }

@@ -1,12 +1,14 @@
 module Plugin
 
-import ParseTree;
 import IO;
+import ParseTree;
 import util::IDE;
+import util::Prompt;
 
 import lang::ql::analysis::SemanticChecker;
 import lang::ql::ast::AST;
 import lang::ql::compiler::PrettyPrinter;
+import lang::ql::compiler::web::Web;
 import lang::ql::ide::Outline;
 import lang::ql::syntax::QL;
 import lang::ql::util::Implode;
@@ -34,6 +36,12 @@ private start[Form] parseQL(str src, loc l) =
 private void formatQL(start[Form] f, loc l) =
   writeFile(l, lang::ql::compiler::PrettyPrinter::prettyPrint(implodeQL(f)));
 
+private void buildQL(start[Form] f, loc l) {
+  target = |project://QL-R-kemi/bin/|;
+  destination = buildForm(implodeQL(f), target);
+  alert("The form is built in <destination>.");
+}
+
 private Stylesheet implodeQLS(Tree t) =
   lang::qls::util::Implode::implode(t);
 
@@ -59,7 +67,8 @@ private void setupQL() {
     
     popup(
       menu("QL",[
-        action("Format (removes comments)", formatQL)
+        action("Format (removes comments)", formatQL),
+        action("Build", buildQL)
       ])
     )
   };
