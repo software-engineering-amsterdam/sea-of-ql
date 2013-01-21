@@ -2,7 +2,7 @@ package org.uva.sea.ql.ast.answertype;
 
 import org.uva.sea.ql.visitor.AnswerTypeVisitor;
 
-public class IntAnswerType extends AbstractAnswerType {
+public class IntAnswerType extends NumericAnswerType {
 
 	public String getType() {
 		return "Integer";
