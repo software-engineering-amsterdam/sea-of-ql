@@ -7,6 +7,7 @@ import org.uva.sea.ql.ast.Expr;
 import org.uva.sea.ql.ast.elements.Form;
 import org.uva.sea.ql.parser.ParseError;
 import org.uva.sea.ql.test.common.CurrentTest;
+import org.uva.sea.ql.validation.AstValidationError;
 import org.uva.sea.ql.validation.ValidationVisitor;
 import org.uva.sea.ql.visitor.ASTVisitor;
 import org.uva.sea.ql.visitor.VisitorException;
@@ -56,9 +57,10 @@ public class TestValidator extends TestExpressions {
 			Assert.assertTrue(Form.class.equals(e.getClass()));
 			Form f = (Form) e;
 			f.accept(visitor);
-
-		} catch (VisitorException ex) {
+		} catch (AstValidationError ex) {
 			exceptionThrown = true;
+		} catch (VisitorException ex) {
+			Assert.fail("unexpected exception occured: " + ex.getMessage());
 		}
 		Assert.assertEquals(true, exceptionThrown);
 		exceptionThrown = false;
@@ -69,9 +71,11 @@ public class TestValidator extends TestExpressions {
 			Assert.assertTrue(Form.class.equals(e.getClass()));
 			Form f = (Form) e;
 			f.accept(visitor);
+		} catch (AstValidationError ex) {
+			exceptionThrown = true;
 
 		} catch (VisitorException ex) {
-			exceptionThrown = true;
+			Assert.fail("unexpected exception occured: " + ex.getMessage());
 		}
 		Assert.assertEquals(true, exceptionThrown);
 	}
@@ -86,9 +90,10 @@ public class TestValidator extends TestExpressions {
 			Assert.assertTrue(Form.class.equals(e.getClass()));
 			Form f = (Form) e;
 			f.accept(visitor);
-		
-		} catch (VisitorException ex) {
+		} catch (AstValidationError ex) {
 			exceptionThrown = true;
+		} catch (VisitorException ex) {
+			Assert.fail("unexpected exception occured: " + ex.getMessage());
 		}
 		Assert.assertEquals(true, exceptionThrown);
 		exceptionThrown = false;
@@ -99,9 +104,10 @@ public class TestValidator extends TestExpressions {
 			Assert.assertTrue(Form.class.equals(e.getClass()));
 			Form f = (Form) e;
 			f.accept(visitor);
-		
-		} catch (VisitorException ex) {
+		} catch (AstValidationError ex) {
 			exceptionThrown = true;
+		} catch (VisitorException ex) {
+			Assert.fail("unexpected exception occured: " + ex.getMessage());
 		}
 		Assert.assertEquals(true, exceptionThrown);
 	}

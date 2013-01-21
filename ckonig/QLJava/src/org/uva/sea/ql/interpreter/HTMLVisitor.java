@@ -3,9 +3,7 @@ package org.uva.sea.ql.interpreter;
 import org.uva.sea.ql.ast.AcceptsBoolOperands;
 import org.uva.sea.ql.ast.AcceptsBothOperands;
 import org.uva.sea.ql.ast.AcceptsMathOperands;
-import org.uva.sea.ql.ast.BinaryExpr;
 import org.uva.sea.ql.ast.Expr;
-import org.uva.sea.ql.ast.ReturnsBoolOperands;
 import org.uva.sea.ql.ast.elements.Block;
 import org.uva.sea.ql.ast.elements.Form;
 import org.uva.sea.ql.ast.elements.Ident;
@@ -15,7 +13,6 @@ import org.uva.sea.ql.ast.types.Bool;
 import org.uva.sea.ql.ast.types.Money;
 import org.uva.sea.ql.ast.types.StrType;
 import org.uva.sea.ql.ast.types.Type;
-import org.uva.sea.ql.validation.AstValidationError;
 import org.uva.sea.ql.visitor.ASTVisitor;
 import org.uva.sea.ql.visitor.Registry;
 import org.uva.sea.ql.visitor.VisitorException;
@@ -83,7 +80,7 @@ public class HTMLVisitor implements ASTVisitor {
 	}
 
 	@Override
-	public void visit(IfStatement ifStatement) throws VisitorException{
+	public void visit(IfStatement ifStatement) throws VisitorException {
 		registry.addIfStatement(ifStatement);
 		registry.appendToOutput("<div style=\"display:none;\" id=\"if_"
 				+ ifStatement.hashCode() + "\" class=\"question\">");
@@ -117,31 +114,24 @@ public class HTMLVisitor implements ASTVisitor {
 						}
 					}
 				}
-			} else {
-				
 			}
-
 		}
 		registry.appendToOutput("</script>");
 	}
 
-
 	@Override
 	public void visit(AcceptsBoolOperands r) {
-		
-		
+		throw new NotImplementedException();
 	}
 
 	@Override
 	public void visit(AcceptsMathOperands r) {
-		// TODO Auto-generated method stub
-		
+		throw new NotImplementedException();
 	}
 
 	@Override
 	public void visit(AcceptsBothOperands r) {
-		// TODO Auto-generated method stub
-		
+		throw new NotImplementedException();
 	}
 
 }
