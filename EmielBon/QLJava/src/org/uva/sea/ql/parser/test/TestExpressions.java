@@ -100,4 +100,11 @@ public class TestExpressions {
 		assertEquals(parser.parse("\"(a > b) && (b > c)\"").getClass(), Str.class);
 	}
 	
+	@Test
+	public void testQuestions() throws ParseError {
+		assertEquals(parser.parse("x : \"abc\"").getClass(), Question.class);
+		assertEquals(parser.parse("dasx : \"452abc\"").getClass(), Question.class);
+		assertEquals(parser.parse("hasSoldHouse: \"Did you sell a house in 2010?\"").getClass(), Question.class);
+	}
+	
 }

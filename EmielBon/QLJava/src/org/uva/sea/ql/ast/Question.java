@@ -3,7 +3,7 @@ package org.uva.sea.ql.ast;
 import org.uva.sea.ql.ast.Ident;
 import org.uva.sea.ql.ast.data.Str;
 
-public class Question extends Expression {
+public class Question extends Node {
 
 	private final Ident id;
 	private final Str label;
