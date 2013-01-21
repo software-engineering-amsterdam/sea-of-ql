@@ -1,15 +1,21 @@
 package org.uva.sea.ql.interpreter;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.uva.sea.ql.ast.AcceptsBoolOperands;
 import org.uva.sea.ql.ast.AcceptsBothOperands;
 import org.uva.sea.ql.ast.AcceptsMathOperands;
+import org.uva.sea.ql.ast.BinaryExpr;
 import org.uva.sea.ql.ast.Expr;
 import org.uva.sea.ql.ast.elements.Block;
 import org.uva.sea.ql.ast.elements.Form;
 import org.uva.sea.ql.ast.elements.Ident;
 import org.uva.sea.ql.ast.elements.IfStatement;
 import org.uva.sea.ql.ast.elements.Question;
-import org.uva.sea.ql.ast.types.Bool;
+import org.uva.sea.ql.ast.literal.IntLiteral;
+import org.uva.sea.ql.ast.literal.StringLiteral;
+import org.uva.sea.ql.ast.types.BooleanType;
 import org.uva.sea.ql.ast.types.Money;
 import org.uva.sea.ql.ast.types.StrType;
 import org.uva.sea.ql.ast.types.Type;
@@ -63,7 +69,7 @@ public class HTMLVisitor implements ASTVisitor {
 				+ question.getContent() + "</div><div class=\"q_input\">");
 		Type type = question.getType();
 		String name = question.getIdent().getName();
-		if (type instanceof Bool) {
+		if (type instanceof BooleanType) {
 			registry.appendToOutput("<input id=\"question_" + name
 					+ "\" type=\"checkbox\" class=\"qlinput\" name=\"" + name
 					+ "\"/>");
@@ -76,7 +82,7 @@ public class HTMLVisitor implements ASTVisitor {
 			registry.appendToOutput("<input type=\"text\" id=\"question_"
 					+ name + "\" name=\"" + name + "\"></input>");
 		}
-		registry.appendToOutput("</div></div><div id=\"content-below\">&nbsp;</div>");
+		registry.appendToOutput("</div></div><div class=\"content_below\">&nbsp;</div>");
 	}
 
 	@Override
@@ -100,21 +106,44 @@ public class HTMLVisitor implements ASTVisitor {
 	@Override
 	public void visit(Registry reg) {
 		registry.appendToOutput("<script type=\"text/javascript\">");
-		for (IfStatement i : reg.getIfStatements()) {
-			if (i.getCondition().getClass().equals(Ident.class)) {
-				Ident id = (Ident) i.getCondition();
-				for (Question q : reg.getQuestions()) {
-					if (q.getIdent().getName().equals(id.getName())) {
-						if (q.getType() instanceof Bool) {
-							registry.appendToOutput("$('#question_"
-									+ id.getName()
-									+ "').change(function(){if($(this).attr('checked')=='checked'){$('#if_"
-									+ i.hashCode() + "').show();}else{$('#if_"
-									+ i.hashCode() + "').hide();}});\n");
-						}
-					}
-				}
+		registry.appendToOutput("//helper\n"
+				+ "function toggleContent(value, id){\n"
+				+ "  if( value == true){\n" + "      $('#if_' + id).show();\n"
+				+ "  }else{\n" + "      $('#if_' + id).hide();\n" + "  }\n"
+				+ " }\n");
+		registry.appendToOutput("//getters for " + reg.getQuestions().size()
+				+ " questions\n");
+		for (Question q : reg.getQuestions()) {
+			if (q.getType().getClass().equals(BooleanType.class)) {
+				registry.appendToOutput("function " + q.getIdent().getName()
+						+ "(){\n" + " return $('#question_"
+						+ q.getIdent().getName()
+						+ "').attr('checked') == 'checked';\n" + "}\n");
 			}
+			if (q.getType().getClass().equals(Money.class)) {
+				registry.appendToOutput("function " + q.getIdent().getName()
+						+ "(){\n" + " return parseFloat($('#question_"
+						+ q.getIdent().getName() + "').val());\n" + "}\n");
+			}
+			if (q.getType().getClass().equals(StrType.class)) {
+				registry.appendToOutput("function " + q.getIdent().getName()
+						+ "(){\n" + " return $('#question_"
+						+ q.getIdent().getName() + "').val();\n" + "}\n");
+			}
+		}
+		registry.appendToOutput("//listeners\n");
+		for (IfStatement i : reg.getIfStatements()) {
+			List<Ident> idents = getIdents(i.getCondition());
+			for (Ident ident : idents) {
+				registry.appendToOutput("$('#question_" + ident.getName()
+						+ "').change(function(){\n" + "  eval" + i.hashCode()
+						+ "();\n" + "  });\n");
+			}
+		}
+		registry.appendToOutput("//evaluators\n");
+		for (IfStatement i : reg.getIfStatements()) {
+			String eval = getEvaluator(i, reg);
+			registry.appendToOutput(eval);
 		}
 		registry.appendToOutput("</script>");
 	}
@@ -134,4 +163,44 @@ public class HTMLVisitor implements ASTVisitor {
 		throw new NotImplementedException();
 	}
 
+	private String getEvaluator(IfStatement i, Registry reg) {
+		String ret = "function eval" + i.hashCode() + "(){\n"
+				+ "   toggleContent(";
+		ret += getConditionString(i.getCondition());
+		ret += ", '" + i.hashCode() + "');\n" + " }\n";
+		return ret;
+	}
+
+	private String getConditionString(Expr i) {
+		String ret = "";
+
+		if (i.getClass().equals(Ident.class)) {
+			ret = ((Ident) i).getName() + "()";
+		}
+		if (i instanceof BinaryExpr) {
+			BinaryExpr b = (BinaryExpr) i;
+			ret += "(" + getConditionString(b.getLeft()) + " " + b.toString() + " "
+					+ getConditionString(b.getRight()) + ")";
+		}
+		if (i instanceof IntLiteral) {
+			ret += ((IntLiteral) i).getValue();
+		}
+		if (i instanceof StringLiteral) {
+			ret += ((StringLiteral) i).getValue();
+		}
+		return ret;
+	}
+
+	private List<Ident> getIdents(Expr e) {
+		List<Ident> idents = new ArrayList<>();
+		if (e.getClass().equals(Ident.class)) {
+			idents.add((Ident) e);
+		}
+		if (e instanceof BinaryExpr) {
+			BinaryExpr b = (BinaryExpr) e;
+			idents.addAll(getIdents(b.getLeft()));
+			idents.addAll(getIdents(b.getRight()));
+		}
+		return idents;
+	}
 }

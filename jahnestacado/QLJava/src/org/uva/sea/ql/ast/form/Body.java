@@ -11,7 +11,6 @@ public  class Body extends ASTNode {
 	private final List<Element> body = new ArrayList<Element>();
 	
 	
-	
 	public List<Element> getBody(){
 		return body;
 	}

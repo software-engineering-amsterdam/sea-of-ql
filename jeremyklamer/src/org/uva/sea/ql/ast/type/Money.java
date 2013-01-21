@@ -2,7 +2,7 @@ package org.uva.sea.ql.ast.type;
 
 import org.uva.sea.ql.ast.Expr;
 
-public class Money extends Type {
+public class Money extends Numeric {
 	
 	private Expr amount; 
 

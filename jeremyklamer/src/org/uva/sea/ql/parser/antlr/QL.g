@@ -113,7 +113,7 @@ question returns [Question result]
     ;
     
 returnType returns [Type result] 
-    : 'boolean' { $result = new BoolType(false); }
+    : 'boolean' { $result = new BoolType(); }
     | 'money(' orExpr ')' {$result = new Money($orExpr.result);} //Fill in actual numbers. 
     | 'money' {$result = new Money();} 
     ;

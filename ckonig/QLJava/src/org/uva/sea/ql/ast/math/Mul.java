@@ -19,4 +19,9 @@ public class Mul extends BinaryExpr implements AcceptsMathOperands,
 	public void accept(ASTVisitor visitor) throws VisitorException {
 		visitor.visit(this);
 	}
+
+	@Override
+	public String toString() {
+		return str;
+	}
 }

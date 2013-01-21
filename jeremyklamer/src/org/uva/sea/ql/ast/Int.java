@@ -1,5 +1,8 @@
 package org.uva.sea.ql.ast;
 
+import org.uva.sea.ql.ast.type.IntType;
+import org.uva.sea.ql.ast.type.Type;
+import org.uva.sea.ql.interpreter.Env;
 import org.uva.sea.ql.interpreter.Value;
 
 public class Int extends Expr {
@@ -16,7 +19,12 @@ public class Int extends Expr {
 
 	@Override
 	public Value interpret() {
-		return new org.uva.sea.ql.interpreter.Int(this.value);
+		return new org.uva.sea.ql.interpreter.IntVal(this.value);
+	}
+	
+	@Override
+	public Type typeOf(Env env) {
+		return new IntType();
 	}
 	
 }

@@ -1,6 +1,8 @@
 package org.uva.sea.ql.ast;
 
-import org.uva.sea.ql.interpreter.BoolType;
+import org.uva.sea.ql.ast.type.Type;
+import org.uva.sea.ql.interpreter.BoolVal;
+import org.uva.sea.ql.interpreter.Env;
 import org.uva.sea.ql.interpreter.Value;
 
 public class And extends Binary {
@@ -11,9 +13,15 @@ public class And extends Binary {
 
 	@Override
 	public Value interpret() {
-		BoolType lb = (BoolType) getLeft().interpret();
-		BoolType rb = (BoolType) getRight().interpret();
-		return new BoolType(lb.getBool() && rb.getBool());
+		BoolVal lb = (BoolVal) getLeft().interpret();
+		BoolVal rb = (BoolVal) getRight().interpret();
+		return new BoolVal(lb.getBool() && rb.getBool());
+	}
+
+	@Override
+	public Type typeOf(Env env) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

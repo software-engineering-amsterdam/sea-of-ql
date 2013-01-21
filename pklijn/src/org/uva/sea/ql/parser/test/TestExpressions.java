@@ -92,16 +92,38 @@ public class TestExpressions {
 	public void testCalculation() throws ParseError {
 		assertEquals(
 				new Integer(3),
-				((org.uva.sea.ql.ast.values.Int)parser.parse("1 + 2").eval()).getValue());
+				((org.uva.sea.ql.ast.values.IntValue)parser.parse("1 + 2").eval()).getValue());
 		assertEquals(
 				new Integer(7),
-				((org.uva.sea.ql.ast.values.Int)parser.parse("1 + 2 * 3").eval()).getValue()); 
+				((org.uva.sea.ql.ast.values.IntValue)parser.parse("1 + 2 * 3").eval()).getValue()); 
 		assertEquals(
 				new Integer(9),
-				((org.uva.sea.ql.ast.values.Int)parser.parse("(1 + 2) * 3").eval()).getValue()); 
+				((org.uva.sea.ql.ast.values.IntValue)parser.parse("(1 + 2) * 3").eval()).getValue()); 
 		assertEquals(
 				new Integer(4),
-				((org.uva.sea.ql.ast.values.Int)parser.parse("(1 + 2) * 3 - (2 + 3)").eval()).getValue());
+				((org.uva.sea.ql.ast.values.IntValue)parser.parse("(1 + 2) * 3 - (2 + 3)").eval()).getValue());
+		assertEquals(
+				new Integer(3),
+				((org.uva.sea.ql.ast.values.IntValue)parser.parse("27 / 3 / 3").eval()).getValue());
+		assertEquals(
+				new Integer(5),
+				((org.uva.sea.ql.ast.values.IntValue)parser.parse("(4 * 5) / 4").eval()).getValue());
 	}
 	
+	@Test
+	public void testEquation() throws ParseError {
+		assertEquals(
+				true,
+				((org.uva.sea.ql.ast.values.BoolValue)parser.parse("(1 < 2) && (3 < 4)").eval()).getValue());
+		assertEquals(
+				true,
+				((org.uva.sea.ql.ast.values.BoolValue)parser.parse("(1 <= 1) && (7 > 4)").eval()).getValue());
+		assertEquals(
+				true,
+				((org.uva.sea.ql.ast.values.BoolValue)parser.parse("(1 > 2) || (3 < 4)").eval()).getValue());
+		assertEquals(
+				false,
+				((org.uva.sea.ql.ast.values.BoolValue)parser.parse("(1 >= 2) || (3 >= 4)").eval()).getValue());
+		
+	}
 }
