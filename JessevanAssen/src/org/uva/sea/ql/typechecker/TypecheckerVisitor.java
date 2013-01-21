@@ -185,7 +185,7 @@ public class TypecheckerVisitor implements ASTNodeVisitor<Type, TypecheckerVisit
 	// Boolean operations
 	@Override
 	public Type visit(And astNode, Context context) {
-		checkBothSidesAreBools(astNode, context, "||");
+		checkBothSidesAreBools(astNode, context, "&&");
 		return BOOL_TYPE;
 	}
 
