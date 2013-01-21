@@ -1,9 +1,15 @@
 package org.uva.sea.ql.ast;
 
+import java.util.HashMap;
+
 public class LT extends BinExpr {
 
 	public LT(Expr result, Expr rhs) {
-		super(result,rhs) ;
-		// TODO Auto-generated constructor stub
+		super(result, rhs);
+	}
+
+	@Override
+	public TypeDescription typeOf(HashMap<Ident, Statement> typeEnv) {
+		return new BooleanType();
 	}
 }

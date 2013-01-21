@@ -1,13 +1,14 @@
 package org.uva.sea.ql.ast;
 
-public class MoneyType extends TypeDescription {
+public class ErrorType extends TypeDescription {
 
-	public MoneyType() {
-		super("money");
+	public ErrorType() {
+		super("error");
 	}
 
 	@Override
 	public boolean compatibleType(TypeDescription testType) {
-		return false;
+		return true;
 	}
+
 }
