@@ -27,13 +27,5 @@ public abstract class Binary extends Expression {
 	public Expression getRight() {
 		return right;
 	}
-
-	@Override
-	public void accept(ISyntaxTreeVisitor visitor) {
-		super.accept(visitor);
-		left.accept(visitor);
-		left.accept(visitor);
-	}
-	
 	
 }

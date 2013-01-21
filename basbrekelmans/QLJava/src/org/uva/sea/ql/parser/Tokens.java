@@ -1,4 +1,4 @@
-// Output created by jacc on Sun Jan 20 15:03:23 GMT 2013
+// Output created by jacc on Sun Jan 20 19:06:27 GMT 2013
 
 package org.uva.sea.ql.parser;
 
@@ -35,6 +35,7 @@ interface Tokens {
     // '<' (code=60)
     // '=' (code=61)
     // '>' (code=62)
+    // '^' (code=94)
     // '{' (code=123)
     // '}' (code=125)
 }

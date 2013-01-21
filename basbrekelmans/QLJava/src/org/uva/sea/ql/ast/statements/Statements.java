@@ -8,16 +8,16 @@ import org.uva.sea.ql.ICodeLocationInformation;
 
 import com.sun.org.apache.bcel.internal.generic.INSTANCEOF;
 
-public class BlockStatement extends Statement {
+public class Statements extends Statement {
 
 	private List<Statement> children;
 	
-	public BlockStatement(ICodeLocationInformation info) {
+	public Statements(ICodeLocationInformation info) {
 		super(info);
 		children = new ArrayList<Statement>();
 	}
 	
-	public BlockStatement(ICodeLocationInformation info, Statement... statements) {
+	public Statements(ICodeLocationInformation info, Statement... statements) {
 		super(info);
 		children = Arrays.asList(statements);
 	}
