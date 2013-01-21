@@ -5,13 +5,13 @@ import Prelude;
 // START LEXICAN TOKENS
 lexical QuestionString  = [a-z A-Z 0-9 _] !<< [a-z A-Z][a-z A-Z 0-9 _]* !>> [a-z A-Z 0-9 _];
 //lexical Id  = [a-z A-Z 0-9 _] !<< [a-z A-Z][a-z A-Z 0-9 _]* !>> [a-z A-Z 0-9 _]; 
-lexical Boolean = [true,false];
+lexical Boolean = "true" | "false";
 lexical Money = [0-9]+ ;
 lexical String = "\"" ![\"]*  "\"";
 lexical Int
   = [0-9]+ !>> [0-9]
   ;
-keyword Keywords = "if" | "then" | "else";
+keyword Keywords = "if" | "then" | "else" | "false" | "true";
   
 lexical Id
   = ([a-z A-Z 0-9 _] !<< [a-z A-Z][a-z A-Z 0-9 _]* !>> [a-z A-Z 0-9 _]) \ Keywords
@@ -86,7 +86,7 @@ start syntax Expression
    )
    > left and: Expression "&&" Expression
    > left or: Expression "||" Expression
-   | boolCon: Boolean boolean
+   | boolCon: Boolean bVal
    ;
    
 //start syntax Expression = Expression;

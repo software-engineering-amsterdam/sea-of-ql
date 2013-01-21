@@ -66,3 +66,4 @@ public test bool testInt2() = p("1223") is \int;
 public test bool testInt3() = p("234234234") is \int;
 
 public test bool testBool1() = p("true") is boolCon;
+public test bool testBool2() = p("false") is boolCon;

@@ -34,12 +34,12 @@ public data EXP =
 	| and (EXP left, EXP right)
 	| or (EXP left, EXP right)
 	| lt (EXP left, EXP right)
-    | leq (EXP left, EXP right)
-    | gt (EXP left, EXP right)
-    | geq (EXP left, EXP right)
-    | eq (EXP left, EXP right)
-    | neq (EXP left, EXP right)
-    //| boolCon (bool bVal)
+| leq (EXP left, EXP right)
+| gt (EXP left, EXP right)
+| geq (EXP left, EXP right)
+| eq (EXP left, EXP right)
+| neq (EXP left, EXP right)
+| boolCon (bool bVal)
 	;
 // syntax for statements	
 public data STATEMENT =
