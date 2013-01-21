@@ -14,26 +14,26 @@ package org.uva.sea.ql.parser.antlr;
 }
 
 
-form
-	: Ident '{' (allStatements)* '}' 
+form returns [QLForm result]
+	: 'form' id = Ident '{' (stmt=allStatements)* '}' { $result = new QLForm($id.text, $stmt.result ); }  
 	;
 
 
-allStatements 
-	: questionStatement
-	| conditionalStatement
+allStatements returns [Statement result]
+	: qst = questionStatement { $result = $qst.result; } 
+	| cstmt = conditionalStatement { $result = $cstmt.result; }
 	;	
 	
 	
-questionStatement returns [ QuestionStatement result]
-	: q = question { $result = $q.result; } 
+questionStatement returns [QuestionStatement result]
+	: qst = question  { $result = $qst.result; }
 	| cq = computedQuestion { $result = $cq.result; }
 	;
 
 	
 conditionalStatement returns [ConditionalStatement result]
-	: stmt1 = ifThenStatement { $result = $stmt1.result; }
-	| stmt2 = ifThenElseStatement { $result = $stmt2.result; }
+	: ifths = ifThenStatement { $result = $ifths.result; }
+	| ifthels = ifThenElseStatement { $result = $ifthels.result; }
 	;
 	
 	
