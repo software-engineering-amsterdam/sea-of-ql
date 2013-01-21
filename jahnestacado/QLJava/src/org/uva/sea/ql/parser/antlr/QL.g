@@ -40,7 +40,8 @@ form returns [Form result]
 	
 		
 	body returns [List<Element> result]
-  @init { List<Element> list = new ArrayList<Element>() ; }:(element  { list.add($element.result) ; } )*
+  @init { List<Element> list = new ArrayList<Element>() ; }
+  :(element  { list.add($element.result) ; } )*
   {$result=list;}
   ;
 	

@@ -71,12 +71,7 @@ public class TestForm {
 	
 	
 	
-	@Test
-	public void testBodyElements() throws ParseError {
-		
-		assertEquals( ArrayList.class, parser.parseBody(	"3id : \"label\" string (a-b)  ").getClass());
 	
-	}
 
 	
 	@Test
