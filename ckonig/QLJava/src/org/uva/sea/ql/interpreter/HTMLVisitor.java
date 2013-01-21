@@ -18,6 +18,7 @@ import org.uva.sea.ql.ast.types.Type;
 import org.uva.sea.ql.validation.AstValidationError;
 import org.uva.sea.ql.visitor.ASTVisitor;
 import org.uva.sea.ql.visitor.Registry;
+import org.uva.sea.ql.visitor.VisitorException;
 
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
@@ -31,7 +32,7 @@ public class HTMLVisitor implements ASTVisitor {
 	}
 
 	@Override
-	public void visit(Form form) {
+	public void visit(Form form) throws VisitorException {
 		registry.appendToOutput(head);
 		registry.appendToOutput(jquery);
 		registry.appendToOutput("<h1>" + form.getName() + "</h1>");
@@ -41,7 +42,7 @@ public class HTMLVisitor implements ASTVisitor {
 	}
 
 	@Override
-	public void visit(Block block) {
+	public void visit(Block block) throws VisitorException {
 		for (Expr e : block.getContent()) {
 			if (e.getClass().equals(IfStatement.class)) {
 				IfStatement i = (IfStatement) e;
@@ -82,7 +83,7 @@ public class HTMLVisitor implements ASTVisitor {
 	}
 
 	@Override
-	public void visit(IfStatement ifStatement) {
+	public void visit(IfStatement ifStatement) throws VisitorException{
 		registry.addIfStatement(ifStatement);
 		registry.appendToOutput("<div style=\"display:none;\" id=\"if_"
 				+ ifStatement.hashCode() + "\" class=\"question\">");

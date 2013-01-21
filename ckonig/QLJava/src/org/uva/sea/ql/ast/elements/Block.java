@@ -5,6 +5,7 @@ import java.util.List;
 import org.uva.sea.ql.ast.Expr;
 import org.uva.sea.ql.visitor.ASTElement;
 import org.uva.sea.ql.visitor.ASTVisitor;
+import org.uva.sea.ql.visitor.VisitorException;
 
 public class Block extends Expr implements ASTElement {
 	private List<Expr> content;
@@ -22,7 +23,7 @@ public class Block extends Expr implements ASTElement {
 	}
 
 	@Override
-	public void accept(ASTVisitor visitor) {
+	public void accept(ASTVisitor visitor) throws VisitorException{
 		visitor.visit(this);
 	}
 }

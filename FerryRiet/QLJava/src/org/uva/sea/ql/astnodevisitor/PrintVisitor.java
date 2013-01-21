@@ -21,116 +21,150 @@ import org.uva.sea.ql.ast.*;
 
 public class PrintVisitor implements Visitor {
 
-	private String report = new String();;
-
-	@Override
-	public VisitorResult visit(Expr expr) {
-		if (expr.getClass() == IntLiteral.class) {
-			report = report.concat(Integer
-					.toString(((IntLiteral) expr).getValue()));
-		}
-		if (expr.getClass() == Ident.class) {
-			report = report.concat(((Ident) expr).getName());
-		}
-		return null; 
-	}
-
 	@Override
 	public VisitorResult visit(QLProgram qlProgram) {
-		report = report.concat("form "
-				+ qlProgram.getProgramName());
-		qlProgram.getCompound().accept(this);
-		System.out.println(report);
-		return null;
+		PrintVisitorResult pres;
+
+		pres = new PrintVisitorResult("form " + qlProgram.getProgramName());
+
+		pres.appendResult(qlProgram.getCompound().accept(this));
+
+		return pres;
 	}
 
 	@Override
 	public VisitorResult visit(CompoundStatement compoundBlock) {
-		report = report.concat(" { \n");
+		PrintVisitorResult pres;
 
+		pres = new PrintVisitorResult(" { ");
 		for (Statement statement : compoundBlock.getStatementList())
-			statement.accept(this);
+			pres.appendResult(statement.accept(this));
 
-		report = report.concat(" } \n");
-		return null;
+		pres.appendResult(" } ");
+		return pres;
 	}
 
 	@Override
 	public VisitorResult visit(LineStatement lineStatement) {
-		report = report.concat(lineStatement.getLineName()
-				+ ": " + lineStatement.getDisplayText());
-		lineStatement.getTypeDescription().accept(this);
-		return null;
+		PrintVisitorResult pres;
+
+		pres = new PrintVisitorResult(lineStatement.getLineName() + ": "
+				+ lineStatement.getDisplayText());
+
+		pres.appendResult(lineStatement.getTypeDescription().accept(this));
+
+		return pres;
 	}
 
 	@Override
 	public VisitorResult visit(ConditionalStatement conditionalStatement) {
-		report = report.concat("\nif ( ");
-		conditionalStatement.getExpression().accept(this);
-		report = report.concat(" ) ");
-		conditionalStatement.getTrueCompound().accept(this);
-		if ( conditionalStatement.getFalseCompound() != null ) {
-			report = report.concat("\nelse ");
-			conditionalStatement.getFalseCompound().accept(this) ;
+		PrintVisitorResult result = new PrintVisitorResult(" if ( ");
+
+		result.appendResult(conditionalStatement.getExpression().accept(this));
+
+		result.appendResult(" ) ");
+
+		result.appendResult(conditionalStatement.getTrueCompound().accept(this));
+
+		if (conditionalStatement.getFalseCompound() != null) {
+			result.appendResult("\nelse ");
+			result.appendResult(conditionalStatement.getFalseCompound().accept(
+					this));
 		}
-		return null;
+		return result;
 	}
 
 	@Override
 	public VisitorResult visit(TypeDescription typeDescription) {
+		PrintVisitorResult pres = null;
+
 		if (typeDescription.getClass() == BooleanType.class) {
-			report = report.concat(" boolean ");
+			pres = new PrintVisitorResult(" boolean ");
 		}
 		if (typeDescription.getClass() == StringType.class) {
-			report = report.concat(" string ");
+			pres = new PrintVisitorResult(" string ");
 		}
 		if (typeDescription.getClass() == MoneyType.class) {
-			report = report.concat(" money ");
-			if (((MoneyType) typeDescription).getExpr() != null) {
-				report = report.concat(" ( ");
-				((MoneyType) typeDescription).getExpr().accept(this);
-				report = report.concat(" ) ");
+			pres = new PrintVisitorResult(" money ");
+
+			MoneyType moneyType = (MoneyType) typeDescription;
+
+			if (moneyType.getExpr() != null) {
+				pres.appendResult(" ( ");
+				pres.appendResult(moneyType.getExpr().accept(this));
+				pres.appendResult(" ) ");
 			}
 		}
-		return null;
+		return pres;
 	}
 
 	@Override
 	public VisitorResult visit(BinExpr expr) {
-		expr.getExprLeftHand().accept(this);
+		PrintVisitorResult result = null;
+
+		result = (PrintVisitorResult) expr.getExprLeftHand().accept(this);
+
 		if (expr.getClass() == Add.class)
-			report = report.concat(" + ");
+			result.appendResult(" + ");
 		else if (expr.getClass() == Sub.class)
-			report = report.concat(" - ");
+			result.appendResult(" - ");
 		else if (expr.getClass() == Div.class)
-			report = report.concat(" / ");
+			result.appendResult(" / ");
 		else if (expr.getClass() == Mul.class)
-			report = report.concat(" * ");
+			result.appendResult(" * ");
 		else if (expr.getClass() == And.class)
-			report = report.concat(" && ");
+			result.appendResult(" && ");
 		else if (expr.getClass() == Or.class)
-			report = report.concat(" || ");
+			result.appendResult(" || ");
 		else if (expr.getClass() == Eq.class)
-			report = report.concat(" == ");
+			result.appendResult(" == ");
 		else if (expr.getClass() == NEq.class)
-			report = report.concat(" != ");
+			result.appendResult(" != ");
 		else if (expr.getClass() == GT.class)
-			report = report.concat(" > ");
+			result.appendResult(" > ");
 		else if (expr.getClass() == LT.class)
-			report = report.concat(" < ");
-		expr.getExprRightHand().accept(this);
-		return null;
+			result.appendResult(" < ");
+
+		result.appendResult(expr.getExprRightHand().accept(this));
+
+		return result;
 	}
 
 	@Override
 	public VisitorResult visit(UnExpr expr) {
+		PrintVisitorResult result = null;
+
 		if (expr.getClass() == Not.class)
-			report = report.concat(" ! ");
+			result = new PrintVisitorResult(" ! ");
 		else if (expr.getClass() == Pos.class)
-			report = report.concat(" + ");
+			result = new PrintVisitorResult(" + ");
 		else if (expr.getClass() == Neg.class)
-			report = report.concat(" - ");
-		expr.getExprRightHand().accept(this);
-		return null;
+			result = new PrintVisitorResult(" - ");
+
+		result.appendResult(expr.getExprRightHand().accept(this));
+
+		return result;
+	}
+
+	@Override
+	public VisitorResult visit(Expr expr) {
+		PrintVisitorResult result = null;
+		if (expr.getClass() == IntLiteral.class) {
+			IntLiteral intLit = (IntLiteral) expr;
+			result = new PrintVisitorResult(Integer.toString(intLit.getValue()));
+		}
+		if (expr.getClass() == BooleanLiteral.class) {
+			BooleanLiteral boolLit = (BooleanLiteral) expr;
+			result = new PrintVisitorResult(boolLit.getValue());
+		}
+		if (expr.getClass() == StringLiteral.class) {
+			StringLiteral stringLit = (StringLiteral) expr;
+			result = new PrintVisitorResult(stringLit.getValue());
+		}
+		if (expr.getClass() == Ident.class) {
+			Ident id = (Ident) expr;
+			result = new PrintVisitorResult(id.getName());
+		}
+		return result;
 	}
 }

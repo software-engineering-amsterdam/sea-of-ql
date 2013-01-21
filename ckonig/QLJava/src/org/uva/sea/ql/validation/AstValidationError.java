@@ -1,6 +1,8 @@
 package org.uva.sea.ql.validation;
 
-public class AstValidationError extends Exception {
+import org.uva.sea.ql.visitor.VisitorException;
+
+public class AstValidationError extends VisitorException {
 	/**
 	 * 
 	 */

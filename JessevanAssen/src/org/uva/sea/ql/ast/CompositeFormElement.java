@@ -9,10 +9,7 @@ public class CompositeFormElement implements FormElement {
     }
 
     public <ReturnType, ParameterType> ReturnType accept(ASTNodeVisitor<ReturnType, ParameterType> visitor, ParameterType param) {
-        for(FormElement formElement : formElements)
-            formElement.accept(visitor, param);
-
-        return null;
+        return visitor.visit(this, param);
     }
 
     public Iterable<FormElement> getFormElements() { return formElements; }

@@ -9,15 +9,15 @@ import org.uva.sea.ql.parser.ParseError;
 import org.uva.sea.ql.parser.antlr.ANTLRParser;
 import org.uva.sea.ql.validation.AstValidationError;
 import org.uva.sea.ql.validation.Validator;
+import org.uva.sea.ql.visitor.VisitorException;
 
 public class HTMLGen {
-	private static final String defaultSrc = "C:\\Users\\don\\workspace\\sea-of-ql-repo\\ckonig\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\example.ql";
-
+	
 	public static void main(String[] args) {
 		try {
 
 			IParse parser = new ANTLRParser();
-			Expr e = parser.parseFile(defaultSrc);
+			Expr e = parser.parseDefaultFile();
 			new Validator().validate(e);
 			Form f = (Form) e;
 			HTMLVisitor visitor = new HTMLVisitor();
@@ -30,6 +30,8 @@ public class HTMLGen {
 			System.out.println("ParseError: " + ex.getMessage());
 		} catch (AstValidationError ex) {
 			System.out.println("AST Validation Error: " + ex.getMessage());
+		} catch (VisitorException ex) {
+			System.out.println("Visitor Error: " + ex.getMessage());
 		}
 
 	}
