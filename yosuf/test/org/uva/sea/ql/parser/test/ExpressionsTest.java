@@ -2,13 +2,8 @@ package org.uva.sea.ql.parser.test;
 
 import static org.junit.Assert.assertEquals;
 
-import java.util.Arrays;
-import java.util.List;
-
+import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
-import org.junit.runners.Parameterized.Parameters;
 import org.uva.sea.ql.ast.Add;
 import org.uva.sea.ql.ast.And;
 import org.uva.sea.ql.ast.Divide;
@@ -29,19 +24,12 @@ import org.uva.sea.ql.parser.IParse;
 import org.uva.sea.ql.parser.ParseError;
 import org.uva.sea.ql.parser.jacc.JACCParser;
 
-@RunWith(Parameterized.class)
-public class TestExpressions {
+public class ExpressionsTest {
+	private IParse parser;
 
-	private final IParse parser;
-
-	@Parameters
-	public static List<Object[]> theParsers() {
-		return Arrays.asList(new Object[] { new JACCParser() },
-				new Object[] { new JACCParser() });
-	}
-
-	public TestExpressions(final IParse parser) {
-		this.parser = parser;
+	@Before
+	public void setUp() {
+		parser = new JACCParser();
 	}
 
 	@Test
@@ -140,5 +128,4 @@ public class TestExpressions {
 		assertEquals(parser.parse("++a").getClass(), Positive.class);
 		assertEquals(parser.parse("--a").getClass(), Negative.class);
 	}
-
 }
