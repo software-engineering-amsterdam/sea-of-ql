@@ -1,12 +1,12 @@
-package org.uva.sea.ql.ast.expr.type;
+package org.uva.sea.ql.ast.expr.atom;
 
 import org.uva.sea.ql.visitor.ExpressionVisitor;
 
-public class BoolExprType extends AbstractExprType {
+public class Bool extends AbstractAtom {
 
 	private final boolean value;
 
-	public BoolExprType(boolean value) {
+	public Bool(boolean value) {
 		this.value = value;
 	}
 

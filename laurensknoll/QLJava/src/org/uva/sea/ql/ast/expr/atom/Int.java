@@ -1,12 +1,12 @@
-package org.uva.sea.ql.ast.expr.type;
+package org.uva.sea.ql.ast.expr.atom;
 
 import org.uva.sea.ql.visitor.ExpressionVisitor;
 
-public class IntExprType extends NumericExprType {
+public class Int extends Numeric {
 
 	private final int value;
 
-	public IntExprType(int n) {
+	public Int(int n) {
 		this.value = n;
 	}
 

@@ -1,5 +1,9 @@
 package org.uva.sea.ql.visitor.print;
 
+import org.uva.sea.ql.ast.expr.atom.Bool;
+import org.uva.sea.ql.ast.expr.atom.Ident;
+import org.uva.sea.ql.ast.expr.atom.Int;
+import org.uva.sea.ql.ast.expr.atom.Money;
 import org.uva.sea.ql.ast.expr.binary.Add;
 import org.uva.sea.ql.ast.expr.binary.And;
 import org.uva.sea.ql.ast.expr.binary.Div;
@@ -12,11 +16,6 @@ import org.uva.sea.ql.ast.expr.binary.Mul;
 import org.uva.sea.ql.ast.expr.binary.NEq;
 import org.uva.sea.ql.ast.expr.binary.Or;
 import org.uva.sea.ql.ast.expr.binary.Sub;
-import org.uva.sea.ql.ast.expr.type.BoolExprType;
-import org.uva.sea.ql.ast.expr.type.IdentExprType;
-import org.uva.sea.ql.ast.expr.type.IntExprType;
-import org.uva.sea.ql.ast.expr.type.MoneyExprType;
-import org.uva.sea.ql.ast.expr.type.StringExprType;
 import org.uva.sea.ql.ast.expr.unary.Neg;
 import org.uva.sea.ql.ast.expr.unary.Not;
 import org.uva.sea.ql.ast.expr.unary.Pos;
@@ -247,7 +246,7 @@ public class PrintExpressionVisitor implements ExpressionVisitor<Boolean> {
 	}
 
 	@Override
-	public Boolean visit(BoolExprType bool) {
+	public Boolean visit(Bool bool) {
 		String boolVisitMessage = String.format(
 				"Visiting Bool Expression Type: %b", bool.getValue());
 
@@ -257,7 +256,7 @@ public class PrintExpressionVisitor implements ExpressionVisitor<Boolean> {
 	}
 
 	@Override
-	public Boolean visit(IdentExprType ident) {
+	public Boolean visit(Ident ident) {
 		String identVisitMessage = String.format(
 				"Visiting Ident Expression Type: %s", ident.getName());
 
@@ -267,7 +266,7 @@ public class PrintExpressionVisitor implements ExpressionVisitor<Boolean> {
 	}
 
 	@Override
-	public Boolean visit(IntExprType intType) {
+	public Boolean visit(Int intType) {
 		String intVisitMessage = String.format(
 				"Visiting Int Expression Type: %d", intType.getValue());
 
@@ -277,7 +276,7 @@ public class PrintExpressionVisitor implements ExpressionVisitor<Boolean> {
 	}
 
 	@Override
-	public Boolean visit(MoneyExprType money) {
+	public Boolean visit(Money money) {
 		String moneyVisitMessage = String.format(
 				"Visiting Money Expression Type: %.2f", money.getValue());
 
@@ -287,7 +286,7 @@ public class PrintExpressionVisitor implements ExpressionVisitor<Boolean> {
 	}
 
 	@Override
-	public Boolean visit(StringExprType string) {
+	public Boolean visit(org.uva.sea.ql.ast.expr.atom.String string) {
 		String stringVisitMessage = String.format(
 				"Visiting String Expression Type: %s", string.getValue());
 

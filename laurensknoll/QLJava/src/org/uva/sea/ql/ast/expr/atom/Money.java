@@ -1,12 +1,12 @@
-package org.uva.sea.ql.ast.expr.type;
+package org.uva.sea.ql.ast.expr.atom;
 
 import org.uva.sea.ql.visitor.ExpressionVisitor;
 
-public class MoneyExprType extends NumericExprType {
+public class Money extends Numeric {
 
 	private final float value;
 
-	public MoneyExprType(float value) {
+	public Money(float value) {
 		this.value = value;
 	}
 

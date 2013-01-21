@@ -1,20 +1,20 @@
 package org.uva.sea.ql.ast.form;
 
-import org.uva.sea.ql.ast.expr.type.IdentExprType;
+import org.uva.sea.ql.ast.expr.atom.Ident;
 import org.uva.sea.ql.ast.statement.Block;
 import org.uva.sea.ql.visitor.FormVisitor;
 
 public class QuestionForm extends AbstractForm {
 
-	private final IdentExprType ident;
+	private final Ident ident;
 	private final Block statements;
 
-	public QuestionForm(IdentExprType ident, Block statements) {
+	public QuestionForm(Ident ident, Block statements) {
 		this.ident = ident;
 		this.statements = statements;
 	}
 
-	public IdentExprType getIdent() {
+	public Ident getIdent() {
 		return this.ident;
 	}
 

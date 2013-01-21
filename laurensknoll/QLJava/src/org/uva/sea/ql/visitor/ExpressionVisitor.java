@@ -1,5 +1,10 @@
 package org.uva.sea.ql.visitor;
 
+import org.uva.sea.ql.ast.expr.atom.Bool;
+import org.uva.sea.ql.ast.expr.atom.Ident;
+import org.uva.sea.ql.ast.expr.atom.Int;
+import org.uva.sea.ql.ast.expr.atom.Money;
+import org.uva.sea.ql.ast.expr.atom.String;
 import org.uva.sea.ql.ast.expr.binary.Add;
 import org.uva.sea.ql.ast.expr.binary.And;
 import org.uva.sea.ql.ast.expr.binary.Div;
@@ -12,11 +17,6 @@ import org.uva.sea.ql.ast.expr.binary.Mul;
 import org.uva.sea.ql.ast.expr.binary.NEq;
 import org.uva.sea.ql.ast.expr.binary.Or;
 import org.uva.sea.ql.ast.expr.binary.Sub;
-import org.uva.sea.ql.ast.expr.type.BoolExprType;
-import org.uva.sea.ql.ast.expr.type.IdentExprType;
-import org.uva.sea.ql.ast.expr.type.IntExprType;
-import org.uva.sea.ql.ast.expr.type.MoneyExprType;
-import org.uva.sea.ql.ast.expr.type.StringExprType;
 import org.uva.sea.ql.ast.expr.unary.Neg;
 import org.uva.sea.ql.ast.expr.unary.Not;
 import org.uva.sea.ql.ast.expr.unary.Pos;
@@ -62,13 +62,13 @@ public interface ExpressionVisitor<T> {
 	/*
 	 * Types
 	 */
-	public T visit(BoolExprType bool);
+	public T visit(Bool bool);
 
-	public T visit(IdentExprType ident);
+	public T visit(Ident ident);
 
-	public T visit(IntExprType intType);
+	public T visit(Int intType);
 
-	public T visit(MoneyExprType money);
+	public T visit(Money money);
 
-	public T visit(StringExprType string);
+	public T visit(String string);
 }

@@ -1,16 +1,16 @@
-package org.uva.sea.ql.ast.expr.type;
+package org.uva.sea.ql.ast.expr.atom;
 
 import org.uva.sea.ql.visitor.ExpressionVisitor;
 
-public class StringExprType extends AbstractExprType {
+public class String extends AbstractAtom {
 
-	private final String value;
+	private final java.lang.String value;
 
-	public StringExprType(String value) {
+	public String(java.lang.String value) {
 		this.value = value;
 	}
 
-	public String getValue() {
+	public java.lang.String getValue() {
 		return value;
 	}
 
