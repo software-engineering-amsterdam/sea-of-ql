@@ -1,4 +1,4 @@
-package org.uva.sea.ql.ast.operators.numeric;
+package org.uva.sea.ql.ast.operators.unary;
 
 import org.uva.sea.ql.ast.Expr;
 import org.uva.sea.ql.ast.operators.Unary;

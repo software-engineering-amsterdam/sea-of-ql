@@ -1,4 +1,4 @@
-package org.uva.sea.ql.ast.operators.relational;
+package org.uva.sea.ql.ast.operators.binary.relational;
 
 import org.uva.sea.ql.ast.Expr;
 import org.uva.sea.ql.ast.operators.Binary;

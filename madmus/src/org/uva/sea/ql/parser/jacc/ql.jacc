@@ -20,13 +20,17 @@
 
 %{
 import org.uva.sea.ql.ast.*;
+import org.uva.sea.ql.ast.operators.binary.logical.*;
+import org.uva.sea.ql.ast.operators.binary.numeric.*;
+import org.uva.sea.ql.ast.operators.binary.relational.*;
+import org.uva.sea.ql.ast.operators.unary.*;
 %}
 
 %%
 
  top 	: expr 						{ result = $1; }
      	;
-
+     
  expr	: '+' expr %prec UPLUS 		{ $$ = new Pos($2); }
 		| '-' expr %prec UMIN 		{ $$ = new Neg($2); }
 		| '!' expr %prec UNOT 		{ $$ = new Not($2); }

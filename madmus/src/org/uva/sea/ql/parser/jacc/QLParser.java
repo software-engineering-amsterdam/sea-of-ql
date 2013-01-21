@@ -1,23 +1,12 @@
-// Output created by jacc on Sun Jan 20 18:56:52 CET 2013
+// Output created by jacc on Mon Jan 21 12:59:23 CET 2013
 
 package org.uva.sea.ql.parser.jacc;
 
 import org.uva.sea.ql.ast.*;
-import org.uva.sea.ql.ast.operators.logical.And;
-import org.uva.sea.ql.ast.operators.logical.Not;
-import org.uva.sea.ql.ast.operators.logical.Or;
-import org.uva.sea.ql.ast.operators.numeric.Add;
-import org.uva.sea.ql.ast.operators.numeric.Div;
-import org.uva.sea.ql.ast.operators.numeric.Mul;
-import org.uva.sea.ql.ast.operators.numeric.Neg;
-import org.uva.sea.ql.ast.operators.numeric.Pos;
-import org.uva.sea.ql.ast.operators.numeric.Sub;
-import org.uva.sea.ql.ast.operators.relational.Eq;
-import org.uva.sea.ql.ast.operators.relational.GEq;
-import org.uva.sea.ql.ast.operators.relational.GT;
-import org.uva.sea.ql.ast.operators.relational.LEq;
-import org.uva.sea.ql.ast.operators.relational.LT;
-import org.uva.sea.ql.ast.operators.relational.NEq;
+import org.uva.sea.ql.ast.operators.binary.logical.*;
+import org.uva.sea.ql.ast.operators.binary.numeric.*;
+import org.uva.sea.ql.ast.operators.binary.relational.*;
+import org.uva.sea.ql.ast.operators.unary.*;
 
 class QLParser implements QLTokens {
     private int yyss = 100;
