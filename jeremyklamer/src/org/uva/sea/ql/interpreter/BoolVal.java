@@ -1,10 +1,10 @@
 package org.uva.sea.ql.interpreter;
 
-public class BoolType extends Value{
+public class BoolVal extends Value{
 	
 	private final boolean bool;
 	
-	public BoolType(boolean bool){
+	public BoolVal(boolean bool){
 		this.bool = bool;
 	}
 

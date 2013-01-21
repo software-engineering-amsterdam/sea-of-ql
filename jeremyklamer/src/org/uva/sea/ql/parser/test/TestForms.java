@@ -29,14 +29,14 @@ public class TestForms {
 	}
 
 	
-	//@Test
+	@Test
 	public void testBasicForms() throws ParseError {
 		assertEquals(Form.class,parser.parseForm("form basicForm1 { question1 : \"Is everything ok? \" boolean }").getClass());
 		assertEquals(Form.class,parser.parseForm("form basicForm2 { question1 : \"How much does a burge cost? \" money }").getClass());
 		assertEquals(Form.class,parser.parseForm("form basicForm2 { question1 : \"Total money spent: \" money( 5 * 18) }").getClass());
 	}
 	
-	//@Test
+	@Test
 	public void testComplForms() throws ParseError {
 		assertEquals(Form.class, parser.parseForm("" +
 				"form testForm1 { question1 : \"How are you? \" boolean " +
@@ -45,7 +45,7 @@ public class TestForms {
 				"question4 : \"Best? \" boolean }").getClass());
 	}
 	
-	//@Test
+	@Test
 	public void testIfForms() throws ParseError {
 		assertEquals(Form.class, parser.parseForm(
 				"form Box1HouseOwning {" +
@@ -61,7 +61,7 @@ public class TestForms {
 					"}").getClass());
 	}
 	
-//	/@Test
+	@Test
 	public void testIfThenForms() throws ParseError {
 		assertEquals(Form.class, parser.parseForm(
 				"form Box1HouseOwning {" +

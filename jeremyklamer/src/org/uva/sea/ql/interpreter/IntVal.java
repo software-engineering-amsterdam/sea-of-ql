@@ -1,10 +1,10 @@
 package org.uva.sea.ql.interpreter;
 
-public class Int extends Value{
+public class IntVal extends Value{
 	
 	private final int val;
 	
-	public Int(int val){
+	public IntVal(int val){
 		this.val = val;
 	}
 	
