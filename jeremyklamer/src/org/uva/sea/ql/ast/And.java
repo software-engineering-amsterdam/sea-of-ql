@@ -11,9 +11,9 @@ public class And extends Binary {
 
 	@Override
 	public Value interpret() {
-		BoolType li = (BoolType) getLeft().interpret();
-		BoolType ri = (BoolType) getRight().interpret();
-		return new BoolType(li.getBool() && ri.getBool());
+		BoolType lb = (BoolType) getLeft().interpret();
+		BoolType rb = (BoolType) getRight().interpret();
+		return new BoolType(lb.getBool() && rb.getBool());
 	}
 
 }
