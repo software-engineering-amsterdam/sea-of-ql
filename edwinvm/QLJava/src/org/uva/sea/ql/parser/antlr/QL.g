@@ -32,9 +32,9 @@ computedQuestion returns [ComputedQuestion result]
     ;
 
 conditionBlock returns [ConditionBlock result]
-    :   'if' '(' condition=orExpr ')' '{' ifBody=formStatement '}' 'else' ('{')? elseBody=formStatement ('}')?
+    :   'if' '(' condition=orExpr ')' '{' ifBody=formStatement+ '}' 'else' ('{')? elseBody=formStatement+ ('}')?
         { $result = new ConditionBlock(condition, $ifBody.result, $elseBody.result); }
-    |   'if' '(' x=orExpr ')' '{' (formStatement)* '}'
+    |   'if' '(' x=orExpr ')' '{' formStatement+ '}'
         { $result = new ConditionBlock(condition, ifBody); }
     ;
 
@@ -61,7 +61,6 @@ mulExpr returns [Expr result]
     })*
     ;
     
-  
 addExpr returns [Expr result]
     :   lhs=mulExpr { $result=$lhs.result; } ( op=('+' | '-') rhs=mulExpr
     { 
