@@ -35,32 +35,15 @@ lexical Whitespace
 layout Standard 
   = WhitespaceOrComment* !>> [\ \t\n\f\r] !>> "//" !>> "/*";
 
-//layout Layout = WhitespaceAndComment* !>> [\ \t\n\r%];   // copied from Pico
-
-//lexical WhitespaceAndComment 
-//   = [\ \t\n\r]
-//   | @category="Comment" "%" ![%]+ "%"
-//   | @category="Comment" "%%" ![\n]* $
-//   ;
-
 // START SYNTAX 
-// start Program
-//start syntax Program 
-//   = program: "form" Expression questionnaireName "{" Declarations decls {Statement  ";"}* body "}" ; // Statement stmt 
-
 start syntax Program 
-   = program: "form" Expression questionnaireName "{" Body body "}" ; 
+   = program: "form" Expression questionnaireName "{" Body* body "}" ; 
 
 start syntax Body =
 	  question: Question question
 	| statement: Statement statement
 	;
-// start syntax question Declarations   
-syntax Declarations
-   = Declaration* decls;
-// start syntax question declaration      
-syntax Declaration
-   = decl: Id id ":" Question qName;
+
 // start syntax question
 start syntax Question
    = easyQuestion: Id id ":" String label Type tp
@@ -70,12 +53,14 @@ start syntax Question
 // syntax question id and question type
 syntax QuestionType
    = result: Id id ":" Type tp;
+   
 // syntax Statement
 start syntax Statement 
    = asgStat: Id var ":" Type tp
-   | ifStat: "if" Expression cond "{" Question body "}"  // should be Body to have inner if's 
-   | ifElseStat: "if" Expression cond "{" Question body "}" "else" "{" Question body "}"
+   | ifStat: "if" Expression cond "{" Body* body "}"  // should be Body to have inner if's 
+   | ifElseStat: "if" Expression cond "{" Body* body "}" "else" "{" Body* body "}"
    ;
+   
 // syntax Type
 start syntax Type 
    = integer : "integer" 
@@ -83,6 +68,7 @@ start syntax Type
    | boolean :"boolean"
    | money :"money"  
    ;
+   
 // syntax Expression  
 start syntax Expression // start 
    = id: Id name
@@ -112,12 +98,9 @@ start syntax Expression // start
     | boolCon: Boolean bVal
     | moneyCon: Money mVal
     | string: String
-   //| strQue: QuestionString qVal
-   //| strCon: String sVal
    ;
    
 // METHODS
-
 public start[Program] program(str s) {
   return parse(#start[Program], s);
 }

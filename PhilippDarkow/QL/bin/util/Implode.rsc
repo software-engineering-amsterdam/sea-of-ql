@@ -17,3 +17,7 @@ public Question load(loc l) = implode(parse(readFile(l), l));
 
 public Type implodeType(Tree t) = implode(#Type, t);
 public Type load(loc l) = implode(parse(readFile(l), l));
+
+public Program implodeProgram(Tree t) = implode(#Program, t);
+
+public Program load(loc l) = implode(parse(readFile(l), l));

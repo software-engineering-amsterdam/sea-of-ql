@@ -6,7 +6,7 @@ public alias QuestionId = str;
 public alias QuestionString = str;
 
 // syntax to start a QL Program	
-public data PROGRAM =
+public data Program =
 	program(Expression exp, list[Body] body);
 	
 public data Body =
@@ -47,12 +47,12 @@ public data Expression =
 // syntax for statements	
 public data Statement =
        asgStat(QuestionId name, Type tp )
-     | ifStat(Expression exp, Question body)  // need to change Question to Body
-     | ifElseStat(Expression exp, Question thenpart, Question elsepart)
+     | ifStat(Expression exp, list[Body] body)  // need to change Question to Body
+     | ifElseStat(Expression exp, list[Body] thenpart, list[Body] elsepart)
      ;
 
 anno loc Type@location;                   
-anno loc PROGRAM@location;
+anno loc Program@location;
 anno loc Body@location;
 anno loc Expression@location;
 anno loc Statement@location;
