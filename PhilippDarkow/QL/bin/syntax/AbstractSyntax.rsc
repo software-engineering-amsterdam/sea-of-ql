@@ -13,16 +13,16 @@ public data Body =
 	  question(Question question)
 	| statement(Statement statement)
 	;
-// Syntax for a question declaration   
-public data Declaration = decl(QuestionId name, Question qName);
+
 // Syntax for the question   
-//public data Question = qName(list[QuestionString] questionString, Type tp);
 public data Question = 
-	   easyQuestion(str id, str labelQuestion, Type tp) // list[QuestionString] questionString, Type tp)
+	   easyQuestion(str id, str labelQuestion, Type tp)
 	 | computedQuestion(str id, str labelQuestion, Type tp, Expression exp) 
 	 ;
+
 // syntax to map the questionid with the type
 public data QuestionType = result(QuestionId id, Type tp);
+
 // syntax for the expression   
 public data Expression =
 	  id (str name)
@@ -42,8 +42,8 @@ public data Expression =
 	| boolCon (bool bVal)
 	| moneyCon (str mVal)
 	| string (str sVal)
-//| strCon (str sVal)
 	;
+
 // syntax for statements	
 public data Statement =
        asgStat(QuestionId name, Type tp )
@@ -53,7 +53,7 @@ public data Statement =
 
 anno loc Type@location;                   
 anno loc PROGRAM@location;
-anno loc Declaration@location;
+anno loc Body@location;
 anno loc Expression@location;
 anno loc Statement@location;
 anno loc Question@location;
