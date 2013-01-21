@@ -8,16 +8,12 @@ import java.util.List;
 
 public class Form implements ASTNode {
 
-    private final String identifierName;
+    private final String formName;
     private final List<QLStatement> statements;
 
-    public Form(String identifierName, List<QLStatement> statements) {
-        this.identifierName = identifierName;
+    public Form(String formName, List<QLStatement> statements) {
+        this.formName = formName;
         this.statements = statements;
-    }
-
-    public String getIdentifier() {
-        return identifierName;
     }
 
     public List<QLStatement> getStatements() {
