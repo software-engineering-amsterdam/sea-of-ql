@@ -53,13 +53,13 @@ public test bool testRel6() = p("a + b \> c") is gt;
 public test bool testRel7() = p("a \> b + c") is gt;
 
 
-public test bool testIdent1() = p("a") is Id;
-public test bool testIdent2() = p("abc") is Id;
-public test bool testIdent3() = p("ABC") is Id;
-public test bool testIdent4() = p("ABCDEF") is Id;
-public test bool testIdent5() = p("abc2323") is Id;
-public test bool testIdent6() = p("a2bc232") is Id;
-public test bool testIdent7() = p("a2bc232aa") is Id;
+public test bool testIdent1() = p("a") is id;
+public test bool testIdent2() = p("abc") is id;
+public test bool testIdent3() = p("ABC") is id;
+public test bool testIdent4() = p("ABCDEF") is id;
+public test bool testIdent5() = p("abc2323") is id;
+public test bool testIdent6() = p("a2bc232") is id;
+public test bool testIdent7() = p("a2bc232aa") is id;
 public test bool testInt1() = p("0") is \int;
 public test bool testInt2() = p("1223") is \int;
 public test bool testInt3() = p("234234234") is \int;

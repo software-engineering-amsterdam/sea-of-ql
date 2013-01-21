@@ -21,7 +21,7 @@ public data QUET = result(QuestionId id, TYPE tp);
 public data KEY = key (str name);
 // syntax for the expression   
 public data EXP =
-	  id (QuestionId name)
+	  id (str name)  // QuestionId
 	| \int(int ivalue)  
 	//| strQue (QuestionString questionString)
 	//| strCon (str sVal)

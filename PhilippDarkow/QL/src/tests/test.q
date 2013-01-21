@@ -42,7 +42,7 @@ a \> b + c
 
 a
 abc
-ABC
+"ABC"
 ABCDEF
 abc2323
 a2bc232
