@@ -7,7 +7,12 @@ public alias QuestionString = str;
 
 // syntax to start a QL Program	
 public data PROGRAM =
-	program(Expression exp, list[Declaration] decls, list[Statement] stats);
+	program(Expression exp, list[Body] body);
+	
+public data Body =
+	  question(Question question)
+	| statement(Statement statement)
+	;
 // Syntax for a question declaration   
 public data Declaration = decl(QuestionId name, Question qName);
 // Syntax for the question   
@@ -41,10 +46,9 @@ public data Expression =
 	;
 // syntax for statements	
 public data Statement =
-     asgStat(QuestionId name, Type tp )
-     | ifStat(Expression exp, list[Declaration] decls)
-     | ifThenStat(Expression exp, list[Statement] thenpart)
-     | ifElseStat(Expression exp, list[Statement] thenpart, list[Statement] elsepart)
+       asgStat(QuestionId name, Type tp )
+     | ifStat(Expression exp, Question body)  // need to change Question to Body
+     | ifElseStat(Expression exp, Question thenpart, Question elsepart)
      ;
 
 anno loc Type@location;                   

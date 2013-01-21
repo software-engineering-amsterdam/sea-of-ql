@@ -1,1 +1,2 @@
-if (a+b) { hasHouse : \"nmxyc \" string }
+(a) hasHouse "Cool nice" boolean 
+ad : boolean

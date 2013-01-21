@@ -49,7 +49,12 @@ layout Standard
 //   = program: "form" Expression questionnaireName "{" Declarations decls {Statement  ";"}* body "}" ; // Statement stmt 
 
 start syntax Program 
-   = program: "form" Expression questionnaireName "{" Declaration* decls {Statement  ";"}* body "}" ; // Statement stmt 
+   = program: "form" Expression questionnaireName "{" Body body "}" ; 
+
+start syntax Body =
+	  question: Question question
+	| statement: Statement statement
+	;
 // start syntax question Declarations   
 syntax Declarations
    = Declaration* decls;
@@ -68,9 +73,8 @@ syntax QuestionType
 // syntax Statement
 start syntax Statement 
    = asgStat: Id var ":" Type tp
-   | ifStat: "if" Expression cond "{" Declarations decls "}"  // Question 
-   | ifThenStat: "if" Expression cond "then" Statement*
-   | ifElseStat: "if" Expression cond "then" {Statement ";"}*  thenPart "else" Statement* elsePart
+   | ifStat: "if" Expression cond "{" Question body "}"  // should be Body to have inner if's 
+   | ifElseStat: "if" Expression cond "{" Question body "}" "else" "{" Question body "}"
    ;
 // syntax Type
 start syntax Type 
