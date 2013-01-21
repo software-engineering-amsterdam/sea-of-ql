@@ -12,7 +12,6 @@ import lang::ql::util::Parse;
 
 import lang::qls::ast::AST;
 import lang::qls::ide::Outline;
-//import lang::qls::ide::SemanticChecker;
 import lang::qls::syntax::QLS;
 import lang::qls::util::Implode;
 import lang::qls::util::Parse;
@@ -23,17 +22,17 @@ private str EXT_QL = "q";
 private str LANG_QLS = "QLS-R";
 private str EXT_QLS = "qs";
 
-private Form implodeQL(Tree t)
-  = lang::ql::util::Implode::implode(t);
+private Form implodeQL(Tree t) =
+  lang::ql::util::Implode::implode(t);
 
-private start[Form] parseQL(str src, loc l)
-  = lang::ql::util::Parse::parse(src, l);
+private start[Form] parseQL(str src, loc l) =
+  lang::ql::util::Parse::parse(src, l);
 
-private Stylesheet implodeStylesheet(Tree t)
-  = lang::qls::util::Implode::implode(t);
+private Stylesheet implodeStylesheet(Tree t) =
+  lang::qls::util::Implode::implode(t);
 
-private start[Stylesheet] parseStylesheet(str src, loc l)
-  = lang::qls::util::Parse::parse(src, l);
+private start[Stylesheet] parseStylesheet(str src, loc l) =
+  lang::qls::util::Parse::parse(src, l);
 
 private void setupQL() {
   registerLanguage(LANG_QL, EXT_QL, Tree(str src, loc l) {

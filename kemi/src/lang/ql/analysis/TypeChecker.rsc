@@ -6,13 +6,17 @@ import Set;
 import lang::ql::ast::AST;
 import util::IDE;
 
-// Note: Because we check for duplicate questions AND duplicate identifiers, we can assume
-// that each name has a single type.
+private alias EST = 
+  tuple[str name, str \type];
+
+// Note: Because we check for duplicate questions AND duplicate identifiers, 
+// we can assume that each name has a single type.
 // We also already know that each variable binds to a single type, so 
 // we can freely use the toMap stuff below. 
 
 public set[Message] typeChecker(Form f, definitions) {
   set[Message] ret = {};
+
   // To decide on valid types, first make a make a map to do a lookup on:
   map[str, str] typeMap = toMapUnique({ <name, \type> | 
     i <- definitions, question(x, _) := i, 
@@ -48,8 +52,6 @@ public set[Message] typeChecker(Form f, definitions) {
   
   return ret;
 }
-
-private alias EST = tuple[str name, str \type];
 
 private set[EST] generateExpressionTypeSet(map[str, str] typeMap, Expr e) {
   typeset = {};
