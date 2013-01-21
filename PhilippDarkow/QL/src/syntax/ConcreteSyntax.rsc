@@ -3,12 +3,12 @@ module syntax::ConcreteSyntax
 import Prelude;
 
 // START LEXICAN TOKENS
-lexical QuestionString  = [a-z][a-z0-9]* !>> [a-z0-9];
+lexical QuestionString  = [a-z A-Z 0-9 _] !<< [a-z A-Z][a-z A-Z 0-9 _]* !>> [a-z A-Z 0-9 _];
 //lexical Id  = [a-z A-Z 0-9 _] !<< [a-z A-Z][a-z A-Z 0-9 _]* !>> [a-z A-Z 0-9 _]; 
 lexical Boolean = [true,false];
 lexical Money = [0-9]+ ;
 lexical String = "\"" ![\"]*  "\"";
-keyword Keywords =;
+keyword Keywords = "if" | "then" | "else";
   
 lexical Id
   = ([a-z A-Z 0-9 _] !<< [a-z A-Z][a-z A-Z 0-9 _]* !>> [a-z A-Z 0-9 _]) \ Keywords
@@ -34,15 +34,15 @@ syntax Declaration
    = decl: Id id ":" Question qName;
 // start syntax question
 syntax Question
-   = qName: QuestionString questionString Type tp;
+   = qName: "\"" QuestionString* questionString "\"" Type tp;
 // syntax question id and question type
 syntax QuestionType
    = result: Id id ":" Type tp;
 // syntax Statement
 syntax Statement 
-   = asgStat: Id var ":" Type tp  //asgStat: Id var ":" Expression qExp " " Type tp   
-//   | asgSta
-   | ifStat: "if" Expression cond "{" Declaration* decls "}"  // Question 
+   = asgStat: Id var ":" Type tp  //      asgStat: Id var ":" Expression qExp " " Type tp   
+  // | decStat: Declarations* decls
+   | ifStat: "if" Expression cond "{" Declarations decls "}"  // Question 
    | ifThenStat: "if" Expression cond "then" Statement*
    | ifElseStat: "if" Expression cond "then" {Statement ";"}*  thenPart "else" Statement* elsePart
    ;
@@ -60,6 +60,7 @@ syntax Expression
    | strQue: String string
    | strCon: String string
    | boolCon: Boolean boolean
+   | key: Keywords name
    | bracket "(" Expression arg ")"
    | moneyCon: Money money
    > left ( add: Expression lhs "+" Expression rhs

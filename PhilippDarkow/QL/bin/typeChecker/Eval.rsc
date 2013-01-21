@@ -10,7 +10,8 @@ import typeChecker::Mapping;
 data QuestionValue = boolVal(bool b) | strVal(str s) | moneyVal (Money m) | errorval(loc l, str msg);  
 data QuestionName = strVal(str s) | errorval(loc l, str msg);
 
-alias VENV = map[QuestionId, QuestionValue];   // QuestionName,                                      
+alias VENV = map[QuestionId, QuestionValue];   // QuestionName
+alias QTENV = tuple[ map[QuestionId, TYPE] symbols, list[tuple[loc l, str msg]] errors];                                     
 
 // Evaluate Expressions.
 
@@ -52,7 +53,7 @@ VENV evalStat(stat:ifElseStat(EXP Exp,
                               list[STATEMENT] Stats1,
                               list[STATEMENT] Stats2),
               VENV env) =
-  evalStats(evalExp(Exp, env) != natval(0) ? Stats1 : Stats2, env);
+  evalStats(evalExp(Exp, env) != moneyVal(0) ? Stats1 : Stats2, env);
 
 // Evaluate a list of statements
 VENV evalStats(list[STATEMENT] Stats1, VENV env) {
@@ -65,32 +66,14 @@ VENV evalStats(list[STATEMENT] Stats1, VENV env) {
 // Eval declarations
 
 VENV evalDecls (list[QUET] results) =   
-   ( results.Id : (results.tp == money() ? moneyVal(0) : strVal("")) | result(QuestionId Id, TYPE tp) <- results); // | results(QuestionId Id, TYPE tp) <- results); 
+   ( Id : ( tp == money() ? moneyVal(0) : strVal("")) | result(QuestionId Id, TYPE tp) <- results); // | results(QuestionId Id, TYPE tp) <- results); 
  // (results.tp == money() ? moneyVal(0) : strVal(""))
  
 VENV evalDecls (list[tuple [QuestionId qId, TYPE tp]] results) =   
-   ( result.qId : (results.tp == money() ? moneyVal(0) : strVal("")) | result(QuestionId Id, TYPE tp) <- results);
+   ( result.qId : ( tp == money() ? moneyVal(0) : strVal("")) ); //| result(QuestionId Id, TYPE tp) <- results);
     
-TENV checkDecls(list[DECL] Decls) =                                                 
-    <( Id : question | decl(QuestionId Id, QUE question)  <- Decls), []>;
-
-/* Method to map a questionId to the type
- * @param q a map with questionId and QUE  
- * @return result a map with QuestionId and the type
- * @author Philipp
-*/
-VENV mapQuestionIdToType(map[QuestionId QId, QUE ques] q){
-    list[tuple[QuestionId QId, QUE ques]] questionList = toList(q);
-    list[QuestionId] ids = getQuestionIds(questionList);
-    list[TYPE] tps = getQuestionTypes(questionList);
-   println("CHECK SIZE TPS : <size(tps)>  CHECK SIZE IDS : <size(ids)>");
-   map[QUET] result = (ids[0] : tps[0]);
-   for(int n <- [0 .. size(ids) -1]){
-    	result += (ids[n] : tps[n]);
-    }   
-    println("MAP result : <result>");
-    return result;
-}
+//TENV checkDecls(list[DECL] Decls) =                                                 
+//    <( Id : question | decl(QuestionId Id, QUE question)  <- Decls), []>;
 
 // Evaluate a Pico program
 
@@ -100,11 +83,14 @@ public VENV evalProgram(PROGRAM P){
      TENV tenv = checkDecls(Decls);
      println("TENV : <tenv>");  
      //VENV env = checkDecls(Decls);
-     map[QuestionId qId, TYPE tp] results = mapQuestionIdToType(tenv.symbols);
-     println("MAP RESULTS IN EVAL : <toList(results)>");
-     list[QUET] gg = toList(results);
-     println("gg : <gg>");
-     VENV env = evalDecls(gg);
+     //list[QUET] results = mapQuestionIdToType3(tenv.symbols);
+     QTENV results = mapQuestionIdToType2(tenv.symbols);
+     println("QTENV RESULTS IN EVAL : <results.symbols>");
+     list[tuple[QuestionId Id, TYPE tp]] hhh = toList(results.symbols);
+     println("HHHHH : <hhh>");
+     //VENV gg = results.symbols;  // QuestionValue
+     //println("gg : <gg>");
+     VENV env = evalDecls(hhh);
      
      println(env);
      return evalStats(Series, env);

@@ -5,17 +5,20 @@ public data TYPE = string() | boolean() | money() | money(EXP);
 public alias QuestionId = str;
 public alias QuestionString = str;
 public alias Money = int;
+//public alias Keywords = str;
 
 // syntax to start a QL Program	
 public data PROGRAM =
-	program(EXP exp, list[DECL] decls, list[STATEMENT] stats);   // list[QUET] results
+	program(EXP exp, list[DECL] decls, list[STATEMENT] stats);   // KEY key, 
 // Syntax for a question declaration   
 public data DECL =
    decl(QuestionId name, QUE qName);
 // Syntax for the question   
-public data QUE = qName(QuestionString questionString, TYPE tp);
+public data QUE = qName(list[QuestionString] questionString, TYPE tp);
 // syntax to map the questionid with the type
 public data QUET = result(QuestionId id, TYPE tp);
+
+public data KEY = key (str name);
 // syntax for the expression   
 public data EXP =
 	  id (QuestionId name)
@@ -33,11 +36,11 @@ public data EXP =
     | geq (EXP left, EXP right)
     | eq (EXP left, EXP right)
     | neq (EXP left, EXP right)
+    | key (str name)
 	;
 // syntax for statements	
 public data STATEMENT =
-     asgStat(QuestionId name, TYPE tp) // asgStat(QuestionId name, QuestionString qDefinition, TYPE tp) // EXP exp
-    // | resStat(QuestionId name, QuestionString qDefinition, EXP exp)  
+     asgStat(QuestionId name, TYPE tp ) //      asgStat(QuestionId name, QuestionString qDefinition, TYPE tp) // EXP exp
      | ifStat(EXP exp, list[DECL] decls)  //, QUE
      | ifThenStat(EXP exp, list[STATEMENT] thenpart)
      | ifElseStat(EXP exp, list[STATEMENT] thenpart, list[STATEMENT] elsepart)

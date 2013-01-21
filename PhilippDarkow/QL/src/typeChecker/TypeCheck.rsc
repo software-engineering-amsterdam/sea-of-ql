@@ -3,172 +3,122 @@ module typeChecker::TypeCheck
 import Prelude;
 import syntax::AbstractSyntax;
 import util::Load;
-import typeChecker::QuestionTypeChecker;
+import typeChecker::Mapping;
 
 // We will use TENV (type environment) as an alias for a tuple that contains all relevant type information:
 alias TENV = tuple[ map[QuestionId, QUE] symbols, list[tuple[loc l, str msg]] errors];
+alias QTENV = tuple[ map[QuestionId, TYPE] symbols, list[tuple[loc l, str msg]] errors]; 
+alias QSTRING = tuple[ map[QuestionString, TYPE] symbols, list[tuple[loc l, str msg]] errors];
 
 TENV addError(TENV env, loc l, str msg) = env[errors = env.errors + <l, msg>]; 
+QTENV addError(QTENV qEnv, loc l, str msg) = qEnv[errors = qEnv.errors + <l, msg>];
+QSTRING addError(QSTRING qString, loc l, str msg) = qString[errors = qString.errors + <l, msg>];
 
-alias QTENV = tuple[ map[QuestionId, TYPE] symbols, list[tuple[loc l, str msg]] errors]; 
-
-QTENV addError(QTENV qEnv, loc l, str msg) = env[errors = qEnv.errors + <l, msg>];
-
-alias TTENV = tuple[ map[QuestionId, TYPE] symbols, list[tuple[loc l, str msg]] errors]; 
-
-TTENV addError(TTENV qEnv, loc l, str msg) = env[errors = TTENV.errors + <l, msg>];
+str required(TYPE t, str got) = "Required <getName(t)>, got <got>";                 
+str required(TYPE t1, TYPE t2) = required(t1, getName(t2));
 
 // compile Expressions.
-TENV checkExp(exp:boolCon(bool B), TYPE req, TENV env) =                              
+QTENV checkExp(exp:boolCon(bool B), TYPE req, QTENV env) =                              
   req == boolean() ? env : addError(env, exp@location, required(req, "boolean"));
 
-TENV checkExp(exp:strCon(str S), TYPE req, TENV env) =
+QTENV checkExp(exp:strCon(str S), TYPE req, QTENV env) =
  req == string() ? env : addError(env, exp@location, required(req, "string"));
  
-TENV checkExp(exp:moneyCon(int I), TYPE req, TENV env) =
+QTENV checkExp(exp:moneyCon(int I), TYPE req, QTENV env) =
  req == money() ? env : addError(env, exp@location, required(req, "money"));
  
-TENV checkExp(exp:id(QuestionId Id), TYPE req, TENV env) {                              
+QTENV checkExp(exp:id(QuestionId Id), TYPE req, QTENV env) {                              
   if(!env.symbols[Id]?)
      return addError(env, exp@location, "Undeclared variable <Id>");
   tpid = env.symbols[Id];
   return req == tpid ? env : addError(env, exp@location, required(req, tpid));
 }
 
-TENV checkExp(exp:add(EXP E1, EXP E2), TYPE req, TENV env) =                        
+QTENV checkExp(exp:add(EXP E1, EXP E2), TYPE req, QTENV env) =                        
   req == money() ? checkExp(E1, money(), checkExp(E2, money(), env))
                    : addError(env, exp@location, required(req, "money"));
   
-TENV checkExp(exp:sub(EXP E1, EXP E2), TYPE req, TENV env) =                      
+QTENV checkExp(exp:sub(EXP E1, EXP E2), TYPE req, QTENV env) =                      
   req == money() ? checkExp(E1, money(), checkExp(E2, money(), env))
                    : addError(env, exp@location, required(req, "money"));
 
-TENV checkExp(exp:or(EXP E1, EXP E2), TYPE req, TENV env) =                    
+QTENV checkExp(exp:or(EXP E1, EXP E2), TYPE req, QTENV env) =                    
   req == string() ? checkExp(E1, string(), checkExp(E2, string(), env))
                    : addError(env, exp@location, required(req, "string"));
                    
-TENV checkExp(exp:and(EXP E1, EXP E2), TYPE req, TENV env) =                    
+QTENV checkExp(exp:and(EXP E1, EXP E2), TYPE req, QTENV env) =                    
   req == string() ? checkExp(E1, string(), checkExp(E2, string(), env))
                    : addError(env, exp@location, required(req, "string"));
 
+QSTRING checkExp(exp:strQue(str S), TYPE req, QSTRING qString) =
+ req == string() ? qString : addError(qString, exp@location, required(req, "string"));
 
 // check a statement
-TENV checkStat(stat:asgStat(QuestionId Id, EXP Exp), TENV env) {                        
-  if(!env.symbols[Id]?)
-     return addError(env, stat@location, "Undeclared variable <Id>");
-  tpid = env.symbols[Id];
-  return checkExp(Exp, tpid, env);
+QTENV checkStat(stat:asgStat(QuestionId id, Type tp), QTENV qEnv) {                    
+  if(!qEnv.symbols[id]?)
+     return addError(qEnv, stat@location, "Undeclared variable <id>");
+  tpid = qEnv.symbols[id];
+  return checkExp(Exp, tpid, qEnv);
 }
 
-// check a list of statements
-TENV checkStats(list[STATEMENT] Stats1, TENV env) {                                 
-  println("CHECK STATES : <Stats1>");
+// check statements for Questions 
+QTENV checkQuestionStats(list[STATEMENT] Stats1, QTENV qEnv) {                                 
+  println("CHECK Question STATES : <Stats1>");
   for(S <- Stats1){
-  		println("S : <S>");
-      env = checkStat(S, env);
+  	  println("S in LIST STATEMENT : <S>");
+      qEnv = checkStat(S, qEnv);
   }
-  return env;
+  return qEnv;
 }
-	
-// TENV checkStat(stat:ifElseStat(EXP Exp,                                             
-//                              list[STATEMENT] Stats1,
-//                              list[STATEMENT] Stats2),
-//               TENV env){
-//    env0 = checkExp(Exp, natural(), env);
-//    env1 = checkStats(Stats1, env0);
-//    env2 = checkStats(Stats2, env1);
-//    return env;
-//}
+
+QTENV checkQuestionStats(list[DECL] Stats1, QTENV qEnv) {                                 
+  println("CHECK Question STATES : <Stats1>");
+  for(S <- Stats1){
+  	  TENV ff = checkDecls([S]);
+  	  if(size(ff.symbols) != 0){
+  	  	QTENV qEnv = mapQuestionIdToType2(ff.symbols);
+  	  	println("IN QENV : <qEnv>");
+  	  	//return checkExp(qEnv, money(), );
+  	  	return qEnv;    // I need to call a new method then with decls one parameter
+  	  }
+      qEnv = checkStat(S, qEnv);
+  }
+  return qEnv;
+}
+
+ QTENV checkStat(stat:ifStat(EXP Exp,                                             
+                              list[DECL] Stats1),
+               QTENV env){
+               println("EXP : <Exp>"); 
+    env0 = checkExp(Exp, boolean(), env);
+    if(size(env0.errors) != 0)
+    	return addError(env0, env0.errors[0].l, env0.errors[0].msg);
+    env1 = checkQuestionStats(Stats1, env0);
+    return env;
+}
+
 
 // check declarations
 TENV checkDecls(list[DECL] Decls) =                                                 
-    <( Id : question | decl(QuestionId Id, QUE question)  <- Decls), []>;    // decl(QuestionId Id, QuestionString qName)
+    <( Id : question | decl(QuestionId Id, QUE question)  <- Decls), []>;
 
 // check question
-public QTENV checkQuestion(list[QUE] qNames) =   
-   <(questionString : tp | qName(QuestionString questionString, TYPE tp) <- qNames),[]>;
-
-list[QuestionId] getQuestionIds(list[tuple[QuestionId QId, QUE ques]] questionList){
-	list[QuestionId] idList = [];
-    for(int n <- [0 .. size(questionList)-1]){
-    	idList += questionList[n].QId;
-    }
-    return idList;
-}
-
-list[TYPE] getQuestionTypes(list [tuple[QuestionString qString, TYPE tp]] tList){
-	list[TYPE] typeList = [];
-	for(int n <- [0 .. size(tList)-1]){
-		typeList += tList[n].tp;
-	}
-	return typeList;
-}
-
-list[TYPE] getQuestionTypes(list[tuple[QuestionId QId, QUE ques]] questionList){
-	list[QUE] questionDeclarations = [];
-	for(int n <- [0 .. size(questionList) -1]){
-    	questionDeclarations += questionList[n].ques;
-    }
-    println("QUE from List : <questionDeclarations>");
-    QTENV qEnv = checkQuestion(questionDeclarations);    
-    println("QENV : <qEnv>");
-    
-    list [tuple[QuestionString qString, TYPE tp]] j = toList(qEnv.symbols);
-    return getQuestionTypes(j);
-}
-
-/* Method to map a questionId to the type
- * @param q a map with questionId and QUE  
- * @return result a map with QuestionId and the type
- * @author Philipp
-*/
-public map[QuestionId , TYPE] mapQuestionIdToType(map[QuestionId QId, QUE ques] q){
-    list[tuple[QuestionId QId, QUE ques]] questionList = toList(q);
-    list[QuestionId] ids = getQuestionIds(questionList);
-    list[TYPE] tps = getQuestionTypes(questionList);
-   println("CHECK SIZE TPS : <size(tps)>  CHECK SIZE IDS : <size(ids)>");
-   map[QuestionId, TYPE] result = (ids[0] : tps[0]);
-   for(int n <- [0 .. size(ids) -1]){
-    	result += (ids[n] : tps[n]);
-    }   
-    println("MAP result : <result>");
-    return result;
-}
-
-QTENV mapQuestionIdToType2(map[QuestionId QId, QUE ques] q){
-    list[tuple[QuestionId QId, QUE ques]] questionList = toList(q);
-    list[QuestionId] ids = getQuestionIds(questionList);
-    list[TYPE] tps = getQuestionTypes(questionList);
-   println("CHECK SIZE TPS : <size(tps)>  CHECK SIZE IDS : <size(ids)>");
-   QTENV result = <( ids[0] : tps[0] ), []>; // (ids[0] : tps[0]);
-   for(int n <- [0 .. size(ids) -1]){
-    	result.symbols += (ids[n] : tps[n]);
-    }   
-    println("MAP result : <result>");
-    return result;
-}
-
-
-
 QTENV checkQuestionType(map[QuestionId, TYPE] results) =   
    <results,[]>;
 
 // check a QL program
-public TENV checkProgram(PROGRAM P){                                                
-  if(program(EXP exp, list[DECL] Decls, list[STATEMENT] Series) := P){
-     println("Decls : <Decls>");	 
+public QTENV checkProgram(PROGRAM P){                                                
+  if(program(EXP exp, list[DECL] Decls, list[STATEMENT] Series) := P){	 
+     println("DECL : <Decls>");
+     println("EXP : <exp>");
      TENV env = checkDecls(Decls);
-     println("ENV : <env.symbols>");  // gives the map 
-     QTENV qEnv = mapQuestionIdToType2(env.symbols);  // map[QuestionId, TYPE]
-     println("QTENV RESULT : <qEnv>");
-	// QTENV qEnv = checkQuestionType(results);
-	
-	//println("QENV SYMBOLS : <qEnv>");
-	checkQuestionStats(Series, qEnv);
-     println("Series : <Series>");
-     return checkStats(Series, env);
+     //println("ENV : <env.symbols>"); 
+     QTENV qEnv = mapQuestionIdToType2(env.symbols);  // Mapping.rsc is doing that
+     println("QTENV : <qEnv>");
+     QSTRING qString = checkQuestionString(env.symbols); 
+	 return checkQuestionStats(Series, qEnv);
   } else
-    throw "Cannot happen";
+     throw "Cannot happen";
 }
                                                                                  
 public list[tuple[loc l, str msg]] checkProgram(str txt) = checkProgram(load(txt)).errors;
