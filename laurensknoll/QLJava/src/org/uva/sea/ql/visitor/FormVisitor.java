@@ -1,9 +1,9 @@
 package org.uva.sea.ql.visitor;
 
-import org.uva.sea.ql.ast.form.QuestionForm;
+import org.uva.sea.ql.ast.form.Question;
 
 public interface FormVisitor<T> {
 
-	public T visit(QuestionForm questionForm);
+	public T visit(Question questionForm);
 
 }

@@ -1,4 +1,4 @@
-// $ANTLR 3.5 C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g 2013-01-21 14:30:46
+// $ANTLR 3.5 C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g 2013-01-21 14:43:31
 
 package org.uva.sea.ql.parser.antlr;
 
@@ -30,12 +30,10 @@ import org.uva.sea.ql.ast.expr.binary.Sub;
 import org.uva.sea.ql.ast.expr.unary.Neg;
 import org.uva.sea.ql.ast.expr.unary.Not;
 import org.uva.sea.ql.ast.expr.unary.Pos;
-import org.uva.sea.ql.ast.form.QuestionForm;
 import org.uva.sea.ql.ast.statement.AbstractStatement;
 import org.uva.sea.ql.ast.statement.Block;
 import org.uva.sea.ql.ast.statement.ComputedQuestion;
 import org.uva.sea.ql.ast.statement.IfStatement;
-import org.uva.sea.ql.ast.statement.Question;
 import org.uva.sea.ql.ast.type.AbstractType;
 
 @SuppressWarnings("all")
@@ -92,7 +90,7 @@ public class QLParser extends Parser {
 
 	public QLParser(TokenStream input, RecognizerSharedState state) {
 		super(input, state);
-		this.state.ruleMemo = new HashMap[44 + 1];
+		this.state.ruleMemo = new HashMap[45 + 1];
 
 	}
 
@@ -1010,63 +1008,8 @@ public class QLParser extends Parser {
 
 	// $ANTLR end "orExpr"
 
-	// $ANTLR start "form"
-	// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:110:1:
-	// form returns [QuestionForm result] : 'form' id= identExpr s=
-	// blockStatement ;
-	public final QuestionForm form() throws RecognitionException {
-		QuestionForm result = null;
-
-		int form_StartIndex = input.index();
-
-		org.uva.sea.ql.ast.expr.atom.Ident id = null;
-		Block s = null;
-
-		try {
-			if (state.backtracking > 0 && alreadyParsedRule(input, 11)) {
-				return result;
-			}
-
-			// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:111:2:
-			// ( 'form' id= identExpr s= blockStatement )
-			// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:111:4:
-			// 'form' id= identExpr s= blockStatement
-			{
-				match(input, 27, FOLLOW_27_in_form485);
-				if (state.failed)
-					return result;
-				pushFollow(FOLLOW_identExpr_in_form489);
-				id = identExpr();
-				state._fsp--;
-				if (state.failed)
-					return result;
-				pushFollow(FOLLOW_blockStatement_in_form493);
-				s = blockStatement();
-				state._fsp--;
-				if (state.failed)
-					return result;
-				if (state.backtracking == 0) {
-					result = new QuestionForm(id, s);
-				}
-			}
-
-		} catch (RecognitionException re) {
-			reportError(re);
-			recover(input, re);
-		} finally {
-			// do for sure before leaving
-			if (state.backtracking > 0) {
-				memoize(input, 11, form_StartIndex);
-			}
-
-		}
-		return result;
-	}
-
-	// $ANTLR end "form"
-
 	// $ANTLR start "statement"
-	// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:115:1:
+	// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:111:1:
 	// statement returns [AbstractStatement result] : (x= blockStatement |x=
 	// ifStatement |x= declStatement );
 	public final AbstractStatement statement() throws RecognitionException {
@@ -1077,11 +1020,11 @@ public class QLParser extends Parser {
 		AbstractStatement x = null;
 
 		try {
-			if (state.backtracking > 0 && alreadyParsedRule(input, 12)) {
+			if (state.backtracking > 0 && alreadyParsedRule(input, 11)) {
 				return result;
 			}
 
-			// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:116:6:
+			// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:112:6:
 			// (x= blockStatement |x= ifStatement |x= declStatement )
 			int alt8 = 3;
 			switch (input.LA(1)) {
@@ -1108,10 +1051,10 @@ public class QLParser extends Parser {
 			}
 			switch (alt8) {
 			case 1:
-			// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:116:8:
+			// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:112:8:
 			// x= blockStatement
 			{
-				pushFollow(FOLLOW_blockStatement_in_statement518);
+				pushFollow(FOLLOW_blockStatement_in_statement492);
 				x = blockStatement();
 				state._fsp--;
 				if (state.failed)
@@ -1122,10 +1065,10 @@ public class QLParser extends Parser {
 			}
 				break;
 			case 2:
-			// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:117:8:
+			// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:113:8:
 			// x= ifStatement
 			{
-				pushFollow(FOLLOW_ifStatement_in_statement531);
+				pushFollow(FOLLOW_ifStatement_in_statement505);
 				x = ifStatement();
 				state._fsp--;
 				if (state.failed)
@@ -1136,10 +1079,10 @@ public class QLParser extends Parser {
 			}
 				break;
 			case 3:
-			// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:118:8:
+			// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:114:8:
 			// x= declStatement
 			{
-				pushFollow(FOLLOW_declStatement_in_statement544);
+				pushFollow(FOLLOW_declStatement_in_statement518);
 				x = declStatement();
 				state._fsp--;
 				if (state.failed)
@@ -1157,7 +1100,7 @@ public class QLParser extends Parser {
 		} finally {
 			// do for sure before leaving
 			if (state.backtracking > 0) {
-				memoize(input, 12, statement_StartIndex);
+				memoize(input, 11, statement_StartIndex);
 			}
 
 		}
@@ -1167,7 +1110,7 @@ public class QLParser extends Parser {
 	// $ANTLR end "statement"
 
 	// $ANTLR start "blockStatement"
-	// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:121:1:
+	// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:117:1:
 	// blockStatement returns [Block result] : '{' (s= statement )* '}' ;
 	public final Block blockStatement() throws RecognitionException {
 		Block result = null;
@@ -1179,19 +1122,19 @@ public class QLParser extends Parser {
 		List<AbstractStatement> list = new ArrayList<AbstractStatement>();
 
 		try {
-			if (state.backtracking > 0 && alreadyParsedRule(input, 13)) {
+			if (state.backtracking > 0 && alreadyParsedRule(input, 12)) {
 				return result;
 			}
 
-			// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:130:2:
+			// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:126:2:
 			// ( '{' (s= statement )* '}' )
-			// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:130:4:
+			// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:126:4:
 			// '{' (s= statement )* '}'
 			{
-				match(input, 32, FOLLOW_32_in_blockStatement579);
+				match(input, 32, FOLLOW_32_in_blockStatement553);
 				if (state.failed)
 					return result;
-				// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:130:8:
+				// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:126:8:
 				// (s= statement )*
 				loop9: while (true) {
 					int alt9 = 2;
@@ -1202,10 +1145,10 @@ public class QLParser extends Parser {
 
 					switch (alt9) {
 					case 1:
-					// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:130:9:
+					// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:126:9:
 					// s= statement
 					{
-						pushFollow(FOLLOW_statement_in_blockStatement584);
+						pushFollow(FOLLOW_statement_in_blockStatement558);
 						s = statement();
 						state._fsp--;
 						if (state.failed)
@@ -1221,7 +1164,7 @@ public class QLParser extends Parser {
 					}
 				}
 
-				match(input, 34, FOLLOW_34_in_blockStatement590);
+				match(input, 34, FOLLOW_34_in_blockStatement564);
 				if (state.failed)
 					return result;
 			}
@@ -1235,7 +1178,7 @@ public class QLParser extends Parser {
 		} finally {
 			// do for sure before leaving
 			if (state.backtracking > 0) {
-				memoize(input, 13, blockStatement_StartIndex);
+				memoize(input, 12, blockStatement_StartIndex);
 			}
 
 		}
@@ -1245,7 +1188,7 @@ public class QLParser extends Parser {
 	// $ANTLR end "blockStatement"
 
 	// $ANTLR start "ifStatement"
-	// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:133:1:
+	// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:129:1:
 	// ifStatement returns [IfStatement result] : 'if' condition= expr truePath=
 	// statement ;
 	public final IfStatement ifStatement() throws RecognitionException {
@@ -1257,24 +1200,24 @@ public class QLParser extends Parser {
 		AbstractStatement truePath = null;
 
 		try {
-			if (state.backtracking > 0 && alreadyParsedRule(input, 14)) {
+			if (state.backtracking > 0 && alreadyParsedRule(input, 13)) {
 				return result;
 			}
 
-			// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:134:6:
+			// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:130:6:
 			// ( 'if' condition= expr truePath= statement )
-			// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:134:8:
+			// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:130:8:
 			// 'if' condition= expr truePath= statement
 			{
-				match(input, 28, FOLLOW_28_in_ifStatement609);
+				match(input, 28, FOLLOW_28_in_ifStatement583);
 				if (state.failed)
 					return result;
-				pushFollow(FOLLOW_expr_in_ifStatement613);
+				pushFollow(FOLLOW_expr_in_ifStatement587);
 				condition = expr();
 				state._fsp--;
 				if (state.failed)
 					return result;
-				pushFollow(FOLLOW_statement_in_ifStatement617);
+				pushFollow(FOLLOW_statement_in_ifStatement591);
 				truePath = statement();
 				state._fsp--;
 				if (state.failed)
@@ -1290,7 +1233,7 @@ public class QLParser extends Parser {
 		} finally {
 			// do for sure before leaving
 			if (state.backtracking > 0) {
-				memoize(input, 14, ifStatement_StartIndex);
+				memoize(input, 13, ifStatement_StartIndex);
 			}
 
 		}
@@ -1300,26 +1243,235 @@ public class QLParser extends Parser {
 	// $ANTLR end "ifStatement"
 
 	// $ANTLR start "declStatement"
-	// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:138:1:
-	// declStatement returns [AbstractStatement result] : q= questionStatement ;
+	// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:134:1:
+	// declStatement returns [AbstractStatement result] : (cq=
+	// computedQuestionStatement |q= questionStatement );
 	public final AbstractStatement declStatement() throws RecognitionException {
 		AbstractStatement result = null;
 
 		int declStatement_StartIndex = input.index();
 
-		AbstractStatement q = null;
+		ComputedQuestion cq = null;
+		org.uva.sea.ql.ast.statement.Question q = null;
 
 		try {
-			if (state.backtracking > 0 && alreadyParsedRule(input, 15)) {
+			if (state.backtracking > 0 && alreadyParsedRule(input, 14)) {
 				return result;
 			}
 
-			// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:139:2:
-			// (q= questionStatement )
-			// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:139:4:
+			// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:135:2:
+			// (cq= computedQuestionStatement |q= questionStatement )
+			int alt10 = 2;
+			int LA10_0 = input.LA(1);
+			if ((LA10_0 == IDENT)) {
+				int LA10_1 = input.LA(2);
+				if ((LA10_1 == 20)) {
+					int LA10_2 = input.LA(3);
+					if ((LA10_2 == STRING)) {
+						switch (input.LA(4)) {
+						case 26: {
+							int LA10_4 = input.LA(5);
+							if ((LA10_4 == 14)) {
+								alt10 = 1;
+							} else if ((LA10_4 == EOF || LA10_4 == IDENT
+									|| LA10_4 == 28 || LA10_4 == 32 || LA10_4 == 34)) {
+								alt10 = 2;
+							}
+
+							else {
+								if (state.backtracking > 0) {
+									state.failed = true;
+									return result;
+								}
+								int nvaeMark = input.mark();
+								try {
+									for (int nvaeConsume = 0; nvaeConsume < 5 - 1; nvaeConsume++) {
+										input.consume();
+									}
+									NoViableAltException nvae = new NoViableAltException(
+											"", 10, 4, input);
+									throw nvae;
+								} finally {
+									input.rewind(nvaeMark);
+								}
+							}
+
+						}
+							break;
+						case 29: {
+							int LA10_5 = input.LA(5);
+							if ((LA10_5 == 14)) {
+								alt10 = 1;
+							} else if ((LA10_5 == EOF || LA10_5 == IDENT
+									|| LA10_5 == 28 || LA10_5 == 32 || LA10_5 == 34)) {
+								alt10 = 2;
+							}
+
+							else {
+								if (state.backtracking > 0) {
+									state.failed = true;
+									return result;
+								}
+								int nvaeMark = input.mark();
+								try {
+									for (int nvaeConsume = 0; nvaeConsume < 5 - 1; nvaeConsume++) {
+										input.consume();
+									}
+									NoViableAltException nvae = new NoViableAltException(
+											"", 10, 5, input);
+									throw nvae;
+								} finally {
+									input.rewind(nvaeMark);
+								}
+							}
+
+						}
+							break;
+						case 30: {
+							int LA10_6 = input.LA(5);
+							if ((LA10_6 == 14)) {
+								alt10 = 1;
+							} else if ((LA10_6 == EOF || LA10_6 == IDENT
+									|| LA10_6 == 28 || LA10_6 == 32 || LA10_6 == 34)) {
+								alt10 = 2;
+							}
+
+							else {
+								if (state.backtracking > 0) {
+									state.failed = true;
+									return result;
+								}
+								int nvaeMark = input.mark();
+								try {
+									for (int nvaeConsume = 0; nvaeConsume < 5 - 1; nvaeConsume++) {
+										input.consume();
+									}
+									NoViableAltException nvae = new NoViableAltException(
+											"", 10, 6, input);
+									throw nvae;
+								} finally {
+									input.rewind(nvaeMark);
+								}
+							}
+
+						}
+							break;
+						case 31: {
+							int LA10_7 = input.LA(5);
+							if ((LA10_7 == 14)) {
+								alt10 = 1;
+							} else if ((LA10_7 == EOF || LA10_7 == IDENT
+									|| LA10_7 == 28 || LA10_7 == 32 || LA10_7 == 34)) {
+								alt10 = 2;
+							}
+
+							else {
+								if (state.backtracking > 0) {
+									state.failed = true;
+									return result;
+								}
+								int nvaeMark = input.mark();
+								try {
+									for (int nvaeConsume = 0; nvaeConsume < 5 - 1; nvaeConsume++) {
+										input.consume();
+									}
+									NoViableAltException nvae = new NoViableAltException(
+											"", 10, 7, input);
+									throw nvae;
+								} finally {
+									input.rewind(nvaeMark);
+								}
+							}
+
+						}
+							break;
+						default:
+							if (state.backtracking > 0) {
+								state.failed = true;
+								return result;
+							}
+							int nvaeMark = input.mark();
+							try {
+								for (int nvaeConsume = 0; nvaeConsume < 4 - 1; nvaeConsume++) {
+									input.consume();
+								}
+								NoViableAltException nvae = new NoViableAltException(
+										"", 10, 3, input);
+								throw nvae;
+							} finally {
+								input.rewind(nvaeMark);
+							}
+						}
+					}
+
+					else {
+						if (state.backtracking > 0) {
+							state.failed = true;
+							return result;
+						}
+						int nvaeMark = input.mark();
+						try {
+							for (int nvaeConsume = 0; nvaeConsume < 3 - 1; nvaeConsume++) {
+								input.consume();
+							}
+							NoViableAltException nvae = new NoViableAltException(
+									"", 10, 2, input);
+							throw nvae;
+						} finally {
+							input.rewind(nvaeMark);
+						}
+					}
+
+				}
+
+				else {
+					if (state.backtracking > 0) {
+						state.failed = true;
+						return result;
+					}
+					int nvaeMark = input.mark();
+					try {
+						input.consume();
+						NoViableAltException nvae = new NoViableAltException(
+								"", 10, 1, input);
+						throw nvae;
+					} finally {
+						input.rewind(nvaeMark);
+					}
+				}
+
+			}
+
+			else {
+				if (state.backtracking > 0) {
+					state.failed = true;
+					return result;
+				}
+				NoViableAltException nvae = new NoViableAltException("", 10, 0,
+						input);
+				throw nvae;
+			}
+
+			switch (alt10) {
+			case 1:
+			// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:135:4:
+			// cq= computedQuestionStatement
+			{
+				pushFollow(FOLLOW_computedQuestionStatement_in_declStatement616);
+				cq = computedQuestionStatement();
+				state._fsp--;
+				if (state.failed)
+					return result;
+				if (state.backtracking == 0) {
+					result = cq;
+				}
+			}
+				break;
+			case 2:
+			// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:136:4:
 			// q= questionStatement
 			{
-				pushFollow(FOLLOW_questionStatement_in_declStatement642);
+				pushFollow(FOLLOW_questionStatement_in_declStatement625);
 				q = questionStatement();
 				state._fsp--;
 				if (state.failed)
@@ -1328,14 +1480,16 @@ public class QLParser extends Parser {
 					result = q;
 				}
 			}
+				break;
 
+			}
 		} catch (RecognitionException re) {
 			reportError(re);
 			recover(input, re);
 		} finally {
 			// do for sure before leaving
 			if (state.backtracking > 0) {
-				memoize(input, 15, declStatement_StartIndex);
+				memoize(input, 14, declStatement_StartIndex);
 			}
 
 		}
@@ -1345,78 +1499,51 @@ public class QLParser extends Parser {
 	// $ANTLR end "declStatement"
 
 	// $ANTLR start "questionStatement"
-	// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:142:1:
-	// questionStatement returns [AbstractStatement result] : id= identExpr ':'
-	// descr= stringExpr at= answerTypedef (ex= expr )? ;
-	public final AbstractStatement questionStatement()
+	// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:139:1:
+	// questionStatement returns [org.uva.sea.ql.ast.statement.Question result]
+	// : id= identExpr ':' descr= stringExpr at= answerTypedef ;
+	public final org.uva.sea.ql.ast.statement.Question questionStatement()
 			throws RecognitionException {
-		AbstractStatement result = null;
+		org.uva.sea.ql.ast.statement.Question result = null;
 
 		int questionStatement_StartIndex = input.index();
 
 		org.uva.sea.ql.ast.expr.atom.Ident id = null;
 		org.uva.sea.ql.ast.expr.atom.String descr = null;
 		AbstractType at = null;
-		AbstractExpr ex = null;
 
 		try {
-			if (state.backtracking > 0 && alreadyParsedRule(input, 16)) {
+			if (state.backtracking > 0 && alreadyParsedRule(input, 15)) {
 				return result;
 			}
 
-			// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:143:2:
-			// (id= identExpr ':' descr= stringExpr at= answerTypedef (ex= expr
-			// )? )
-			// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:143:4:
-			// id= identExpr ':' descr= stringExpr at= answerTypedef (ex= expr
-			// )?
+			// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:140:2:
+			// (id= identExpr ':' descr= stringExpr at= answerTypedef )
+			// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:140:4:
+			// id= identExpr ':' descr= stringExpr at= answerTypedef
 			{
-				pushFollow(FOLLOW_identExpr_in_questionStatement661);
+				pushFollow(FOLLOW_identExpr_in_questionStatement645);
 				id = identExpr();
 				state._fsp--;
 				if (state.failed)
 					return result;
-				match(input, 20, FOLLOW_20_in_questionStatement663);
+				match(input, 20, FOLLOW_20_in_questionStatement647);
 				if (state.failed)
 					return result;
-				pushFollow(FOLLOW_stringExpr_in_questionStatement667);
+				pushFollow(FOLLOW_stringExpr_in_questionStatement651);
 				descr = stringExpr();
 				state._fsp--;
 				if (state.failed)
 					return result;
-				pushFollow(FOLLOW_answerTypedef_in_questionStatement671);
+				pushFollow(FOLLOW_answerTypedef_in_questionStatement655);
 				at = answerTypedef();
 				state._fsp--;
 				if (state.failed)
 					return result;
 				if (state.backtracking == 0) {
-					result = new Question(id, descr, at);
+					result = new org.uva.sea.ql.ast.statement.Question(id,
+							descr, at);
 				}
-				// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:147:3:
-				// (ex= expr )?
-				int alt10 = 2;
-				int LA10_0 = input.LA(1);
-				if ((LA10_0 == 14)) {
-					alt10 = 1;
-				}
-				switch (alt10) {
-				case 1:
-				// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:147:4:
-				// ex= expr
-				{
-					pushFollow(FOLLOW_expr_in_questionStatement682);
-					ex = expr();
-					state._fsp--;
-					if (state.failed)
-						return result;
-					if (state.backtracking == 0) {
-						result = new ComputedQuestion((Question) result, ex);
-					}
-				}
-					break;
-
-				}
-
 			}
 
 		} catch (RecognitionException re) {
@@ -1425,7 +1552,7 @@ public class QLParser extends Parser {
 		} finally {
 			// do for sure before leaving
 			if (state.backtracking > 0) {
-				memoize(input, 16, questionStatement_StartIndex);
+				memoize(input, 15, questionStatement_StartIndex);
 			}
 
 		}
@@ -1434,8 +1561,61 @@ public class QLParser extends Parser {
 
 	// $ANTLR end "questionStatement"
 
+	// $ANTLR start "computedQuestionStatement"
+	// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:146:1:
+	// computedQuestionStatement returns [ComputedQuestion result] : q=
+	// questionStatement ex= expr ;
+	public final ComputedQuestion computedQuestionStatement()
+			throws RecognitionException {
+		ComputedQuestion result = null;
+
+		int computedQuestionStatement_StartIndex = input.index();
+
+		org.uva.sea.ql.ast.statement.Question q = null;
+		AbstractExpr ex = null;
+
+		try {
+			if (state.backtracking > 0 && alreadyParsedRule(input, 16)) {
+				return result;
+			}
+
+			// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:147:2:
+			// (q= questionStatement ex= expr )
+			// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:147:4:
+			// q= questionStatement ex= expr
+			{
+				pushFollow(FOLLOW_questionStatement_in_computedQuestionStatement676);
+				q = questionStatement();
+				state._fsp--;
+				if (state.failed)
+					return result;
+				pushFollow(FOLLOW_expr_in_computedQuestionStatement680);
+				ex = expr();
+				state._fsp--;
+				if (state.failed)
+					return result;
+				if (state.backtracking == 0) {
+					result = new ComputedQuestion(q, ex);
+				}
+			}
+
+		} catch (RecognitionException re) {
+			reportError(re);
+			recover(input, re);
+		} finally {
+			// do for sure before leaving
+			if (state.backtracking > 0) {
+				memoize(input, 16, computedQuestionStatement_StartIndex);
+			}
+
+		}
+		return result;
+	}
+
+	// $ANTLR end "computedQuestionStatement"
+
 	// $ANTLR start "answerTypedef"
-	// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:153:1:
+	// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:154:1:
 	// answerTypedef returns [AbstractType result] : ( 'boolean' | 'integer' |
 	// 'money' | 'string' );
 	public final AbstractType answerTypedef() throws RecognitionException {
@@ -1448,7 +1628,7 @@ public class QLParser extends Parser {
 				return result;
 			}
 
-			// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:154:2:
+			// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:155:2:
 			// ( 'boolean' | 'integer' | 'money' | 'string' )
 			int alt11 = 4;
 			switch (input.LA(1)) {
@@ -1479,10 +1659,10 @@ public class QLParser extends Parser {
 			}
 			switch (alt11) {
 			case 1:
-			// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:154:4:
+			// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:155:4:
 			// 'boolean'
 			{
-				match(input, 26, FOLLOW_26_in_answerTypedef703);
+				match(input, 26, FOLLOW_26_in_answerTypedef700);
 				if (state.failed)
 					return result;
 				if (state.backtracking == 0) {
@@ -1491,10 +1671,10 @@ public class QLParser extends Parser {
 			}
 				break;
 			case 2:
-			// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:155:4:
+			// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:156:4:
 			// 'integer'
 			{
-				match(input, 29, FOLLOW_29_in_answerTypedef710);
+				match(input, 29, FOLLOW_29_in_answerTypedef707);
 				if (state.failed)
 					return result;
 				if (state.backtracking == 0) {
@@ -1503,10 +1683,10 @@ public class QLParser extends Parser {
 			}
 				break;
 			case 3:
-			// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:156:4:
+			// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:157:4:
 			// 'money'
 			{
-				match(input, 30, FOLLOW_30_in_answerTypedef717);
+				match(input, 30, FOLLOW_30_in_answerTypedef714);
 				if (state.failed)
 					return result;
 				if (state.backtracking == 0) {
@@ -1515,10 +1695,10 @@ public class QLParser extends Parser {
 			}
 				break;
 			case 4:
-			// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:157:4:
+			// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:158:4:
 			// 'string'
 			{
-				match(input, 31, FOLLOW_31_in_answerTypedef725);
+				match(input, 31, FOLLOW_31_in_answerTypedef722);
 				if (state.failed)
 					return result;
 				if (state.backtracking == 0) {
@@ -1542,6 +1722,62 @@ public class QLParser extends Parser {
 	}
 
 	// $ANTLR end "answerTypedef"
+
+	// $ANTLR start "form"
+	// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:162:1:
+	// form returns [org.uva.sea.ql.ast.form.Question result] : 'form' id=
+	// identExpr s= blockStatement ;
+	public final org.uva.sea.ql.ast.form.Question form()
+			throws RecognitionException {
+		org.uva.sea.ql.ast.form.Question result = null;
+
+		int form_StartIndex = input.index();
+
+		org.uva.sea.ql.ast.expr.atom.Ident id = null;
+		Block s = null;
+
+		try {
+			if (state.backtracking > 0 && alreadyParsedRule(input, 18)) {
+				return result;
+			}
+
+			// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:163:2:
+			// ( 'form' id= identExpr s= blockStatement )
+			// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:163:4:
+			// 'form' id= identExpr s= blockStatement
+			{
+				match(input, 27, FOLLOW_27_in_form740);
+				if (state.failed)
+					return result;
+				pushFollow(FOLLOW_identExpr_in_form744);
+				id = identExpr();
+				state._fsp--;
+				if (state.failed)
+					return result;
+				pushFollow(FOLLOW_blockStatement_in_form748);
+				s = blockStatement();
+				state._fsp--;
+				if (state.failed)
+					return result;
+				if (state.backtracking == 0) {
+					result = new org.uva.sea.ql.ast.form.Question(id, s);
+				}
+			}
+
+		} catch (RecognitionException re) {
+			reportError(re);
+			recover(input, re);
+		} finally {
+			// do for sure before leaving
+			if (state.backtracking > 0) {
+				memoize(input, 18, form_StartIndex);
+			}
+
+		}
+		return result;
+	}
+
+	// $ANTLR end "form"
 
 	// Delegated rules
 
@@ -1611,48 +1847,52 @@ public class QLParser extends Parser {
 			new long[] { 0x0000000000064BD0L });
 	public static final BitSet FOLLOW_andExpr_in_orExpr462 = new BitSet(
 			new long[] { 0x0000000200000002L });
-	public static final BitSet FOLLOW_27_in_form485 = new BitSet(
-			new long[] { 0x0000000000000040L });
-	public static final BitSet FOLLOW_identExpr_in_form489 = new BitSet(
-			new long[] { 0x0000000100000000L });
-	public static final BitSet FOLLOW_blockStatement_in_form493 = new BitSet(
+	public static final BitSet FOLLOW_blockStatement_in_statement492 = new BitSet(
 			new long[] { 0x0000000000000002L });
-	public static final BitSet FOLLOW_blockStatement_in_statement518 = new BitSet(
+	public static final BitSet FOLLOW_ifStatement_in_statement505 = new BitSet(
 			new long[] { 0x0000000000000002L });
-	public static final BitSet FOLLOW_ifStatement_in_statement531 = new BitSet(
+	public static final BitSet FOLLOW_declStatement_in_statement518 = new BitSet(
 			new long[] { 0x0000000000000002L });
-	public static final BitSet FOLLOW_declStatement_in_statement544 = new BitSet(
-			new long[] { 0x0000000000000002L });
-	public static final BitSet FOLLOW_32_in_blockStatement579 = new BitSet(
+	public static final BitSet FOLLOW_32_in_blockStatement553 = new BitSet(
 			new long[] { 0x0000000510000040L });
-	public static final BitSet FOLLOW_statement_in_blockStatement584 = new BitSet(
+	public static final BitSet FOLLOW_statement_in_blockStatement558 = new BitSet(
 			new long[] { 0x0000000510000040L });
-	public static final BitSet FOLLOW_34_in_blockStatement590 = new BitSet(
+	public static final BitSet FOLLOW_34_in_blockStatement564 = new BitSet(
 			new long[] { 0x0000000000000002L });
-	public static final BitSet FOLLOW_28_in_ifStatement609 = new BitSet(
+	public static final BitSet FOLLOW_28_in_ifStatement583 = new BitSet(
 			new long[] { 0x0000000000004000L });
-	public static final BitSet FOLLOW_expr_in_ifStatement613 = new BitSet(
+	public static final BitSet FOLLOW_expr_in_ifStatement587 = new BitSet(
 			new long[] { 0x0000000110000040L });
-	public static final BitSet FOLLOW_statement_in_ifStatement617 = new BitSet(
+	public static final BitSet FOLLOW_statement_in_ifStatement591 = new BitSet(
 			new long[] { 0x0000000000000002L });
-	public static final BitSet FOLLOW_questionStatement_in_declStatement642 = new BitSet(
+	public static final BitSet FOLLOW_computedQuestionStatement_in_declStatement616 = new BitSet(
 			new long[] { 0x0000000000000002L });
-	public static final BitSet FOLLOW_identExpr_in_questionStatement661 = new BitSet(
+	public static final BitSet FOLLOW_questionStatement_in_declStatement625 = new BitSet(
+			new long[] { 0x0000000000000002L });
+	public static final BitSet FOLLOW_identExpr_in_questionStatement645 = new BitSet(
 			new long[] { 0x0000000000100000L });
-	public static final BitSet FOLLOW_20_in_questionStatement663 = new BitSet(
+	public static final BitSet FOLLOW_20_in_questionStatement647 = new BitSet(
 			new long[] { 0x0000000000000200L });
-	public static final BitSet FOLLOW_stringExpr_in_questionStatement667 = new BitSet(
+	public static final BitSet FOLLOW_stringExpr_in_questionStatement651 = new BitSet(
 			new long[] { 0x00000000E4000000L });
-	public static final BitSet FOLLOW_answerTypedef_in_questionStatement671 = new BitSet(
-			new long[] { 0x0000000000004002L });
-	public static final BitSet FOLLOW_expr_in_questionStatement682 = new BitSet(
+	public static final BitSet FOLLOW_answerTypedef_in_questionStatement655 = new BitSet(
 			new long[] { 0x0000000000000002L });
-	public static final BitSet FOLLOW_26_in_answerTypedef703 = new BitSet(
+	public static final BitSet FOLLOW_questionStatement_in_computedQuestionStatement676 = new BitSet(
+			new long[] { 0x0000000000004000L });
+	public static final BitSet FOLLOW_expr_in_computedQuestionStatement680 = new BitSet(
 			new long[] { 0x0000000000000002L });
-	public static final BitSet FOLLOW_29_in_answerTypedef710 = new BitSet(
+	public static final BitSet FOLLOW_26_in_answerTypedef700 = new BitSet(
 			new long[] { 0x0000000000000002L });
-	public static final BitSet FOLLOW_30_in_answerTypedef717 = new BitSet(
+	public static final BitSet FOLLOW_29_in_answerTypedef707 = new BitSet(
 			new long[] { 0x0000000000000002L });
-	public static final BitSet FOLLOW_31_in_answerTypedef725 = new BitSet(
+	public static final BitSet FOLLOW_30_in_answerTypedef714 = new BitSet(
+			new long[] { 0x0000000000000002L });
+	public static final BitSet FOLLOW_31_in_answerTypedef722 = new BitSet(
+			new long[] { 0x0000000000000002L });
+	public static final BitSet FOLLOW_27_in_form740 = new BitSet(
+			new long[] { 0x0000000000000040L });
+	public static final BitSet FOLLOW_identExpr_in_form744 = new BitSet(
+			new long[] { 0x0000000100000000L });
+	public static final BitSet FOLLOW_blockStatement_in_form748 = new BitSet(
 			new long[] { 0x0000000000000002L });
 }

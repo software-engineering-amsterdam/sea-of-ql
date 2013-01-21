@@ -4,12 +4,12 @@ import org.uva.sea.ql.ast.expr.atom.Ident;
 import org.uva.sea.ql.ast.statement.Block;
 import org.uva.sea.ql.visitor.FormVisitor;
 
-public class QuestionForm extends AbstractForm {
+public class Question extends AbstractForm {
 
 	private final Ident ident;
 	private final Block statements;
 
-	public QuestionForm(Ident ident, Block statements) {
+	public Question(Ident ident, Block statements) {
 		this.ident = ident;
 		this.statements = statements;
 	}

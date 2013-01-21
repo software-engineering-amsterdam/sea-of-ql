@@ -107,10 +107,6 @@ orExpr returns [AbstractExpr result]
     :   lhs=andExpr { $result = $lhs.result; } ( '||' rhs=andExpr { $result = new Or($result, rhs); } )*
     ;
 
-form returns [QuestionForm result]
-	:	'form' id=identExpr s=blockStatement { $result = new QuestionForm($id.result, $s.result); }
-	;
-	
 // Statements
 statement returns [AbstractStatement result]
     	:	x=blockStatement { $result = $x.result; }
@@ -136,27 +132,37 @@ ifStatement returns [IfStatement result]
 	;
 
 declStatement returns [AbstractStatement result]
-	:	q=questionStatement	{ $result = $q.result; }
+	:	cq=computedQuestionStatement	{ $result = $cq.result; }
+	|	q=questionStatement		{ $result = $q.result; }
 	;
 
-questionStatement returns [AbstractStatement result]
+questionStatement returns [org.uva.sea.ql.ast.statement.Question result]
 	:	id=identExpr ':' descr=stringExpr at=answerTypedef
 		{
-			$result = new Question($id.result, $descr.result, $at.result);
+			$result = new org.uva.sea.ql.ast.statement.Question($id.result, $descr.result, $at.result);
 		}
-		(ex=expr
-		{
-			$result = new ComputedQuestion((Question)$result, $ex.result);
-		})?
 	;
 
+computedQuestionStatement returns [ComputedQuestion result]
+	:	q=questionStatement ex=expr
+		{
+			$result = new ComputedQuestion($q.result, $ex.result);
+		}
+	;
+
+// Types
 answerTypedef returns [AbstractType result]
 	:	'boolean'	{ $result = new org.uva.sea.ql.ast.type.Bool(); }
 	|	'integer'	{ $result = new org.uva.sea.ql.ast.type.Int(); }
 	|	'money'		{ $result = new org.uva.sea.ql.ast.type.Money(); }
 	|	'string'	{ $result = new org.uva.sea.ql.ast.type.String(); }
 	;
-	
+
+// Forms
+form returns [org.uva.sea.ql.ast.form.Question result]
+	:	'form' id=identExpr s=blockStatement { $result = new org.uva.sea.ql.ast.form.Question($id.result, $s.result); }
+	;
+		
 // Tokens
 WS
 	:	(' ' | '\t' | '\n' | '\r') { $channel=HIDDEN; }

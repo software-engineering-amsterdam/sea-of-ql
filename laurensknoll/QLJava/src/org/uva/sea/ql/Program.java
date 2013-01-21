@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
-import org.uva.sea.ql.ast.form.QuestionForm;
+import org.uva.sea.ql.ast.form.Question;
 import org.uva.sea.ql.parser.antlr.FormParser;
 import org.uva.sea.ql.parser.test.ParseError;
 import org.uva.sea.ql.visitor.print.PrintFormVisitor;
@@ -15,7 +15,7 @@ public class Program {
 	public static void main(String[] args) {
 		String formText = Program.readResourceContent("questionForm.txt");
 
-		QuestionForm questionForm = null;
+		Question questionForm = null;
 
 		try {
 			FormParser formParser = new FormParser();
