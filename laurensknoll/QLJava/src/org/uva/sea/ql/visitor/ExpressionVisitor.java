@@ -23,6 +23,9 @@ import org.uva.sea.ql.ast.expr.unary.Pos;
 
 public interface ExpressionVisitor<T> {
 
+	/*
+	 * Binary Expressions
+	 */
 	public T visit(Add add);
 
 	public T visit(And and);
@@ -41,18 +44,24 @@ public interface ExpressionVisitor<T> {
 
 	public T visit(Mul mul);
 
-	public T visit(Neg neg);
-
 	public T visit(NEq neq);
-
-	public T visit(Not not);
 
 	public T visit(Or or);
 
-	public T visit(Pos pos);
-
 	public T visit(Sub sub);
 
+	/*
+	 * Unary expressions
+	 */
+	public T visit(Neg neg);
+
+	public T visit(Not not);
+
+	public T visit(Pos pos);
+
+	/*
+	 * Types
+	 */
 	public T visit(BoolExprType bool);
 
 	public T visit(IdentExprType ident);
