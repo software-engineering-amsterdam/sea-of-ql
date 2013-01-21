@@ -18,7 +18,7 @@ public class QuestionTests extends KnockoutJSViewModelBuilderVisitorTests {
     public void questionVisited_questionAddedToStringBuilder() {
         createQuestion(new Bool()).accept(visitor, context);
         assertEquals(
-                String.format("new Question(\"%s\",\"%s\",DataType.BOOLEAN)", QUESTION_LABEL, IDENTITY_NAME),
+                String.format("new Question(\"%s\",\"%s\",_self.identities.%s,DataType.BOOLEAN)", QUESTION_LABEL, IDENTITY_NAME, IDENTITY_NAME),
                 context.getObjectHierarchy().toString()
         );
     }

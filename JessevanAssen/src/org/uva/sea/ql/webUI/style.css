@@ -1,4 +1,14 @@
+input[type=text] {
+    border:1px solid #ccc;
+    padding:2px;
+}
+
 .invalid,
-.invalid > input{
+.invalid > input[type=text]{
     color: #f00;
+}
+
+.invalid > input[type=text]{
+    border-color: #f00;
+    background-color: #fdd;
 }

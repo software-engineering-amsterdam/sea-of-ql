@@ -8,8 +8,12 @@
             var value = valueAccessor();
             var newValueAccessor = function() {
                 return ko.computed({
-                    read  : function() { return valueToString(value()); },
-                    write : function(newValue) { value(newValue == "true"); }
+                    read  : function() {
+                        return valueToString(value());
+                    },
+                    write : function(newValue) {
+                        value(newValue == "true");
+                    }
                 });
             }
             ko.bindingHandlers.checked.init(element, newValueAccessor, allBindingsAccessor);

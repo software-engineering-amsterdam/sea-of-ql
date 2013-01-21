@@ -27,7 +27,7 @@ public class CreateViewModelTests extends KnockoutJSViewModelBuilderVisitorTests
         String viewModel = visitor.createViewModel(FORM);
 
         assertTrue(viewModel.contains(
-                "identities={a:new ko.observable(),b:new ko.observable(),c:new ko.observable()}"
+                "identities={a:ko.observable(),b:ko.observable(),c:ko.observable()}"
         ));
     }
 

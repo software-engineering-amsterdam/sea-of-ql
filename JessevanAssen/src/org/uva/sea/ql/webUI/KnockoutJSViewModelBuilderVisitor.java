@@ -43,7 +43,7 @@ public class KnockoutJSViewModelBuilderVisitor implements ASTNodeVisitor<Void, K
         for(Iterator<String> iterator = identities.iterator(); iterator.hasNext(); ) {
             stringBuilder
                     .append(iterator.next())
-                    .append(":new ko.observable()");
+                    .append(":ko.observable()");
 
             if(iterator.hasNext())
                 stringBuilder.append(",");
@@ -218,7 +218,9 @@ public class KnockoutJSViewModelBuilderVisitor implements ASTNodeVisitor<Void, K
                 .append(astNode.getQuestion())
                 .append("\",\"")
                 .append(astNode.getDeclaration().getIdentity().getName())
-                .append("\",")
+                .append("\",_self.identities.")
+                .append(astNode.getDeclaration().getIdentity().getName())
+                .append(",")
                 .append(astNode.getDeclaration().getType().accept(this, null))
                 .append(")");
         return null;

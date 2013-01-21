@@ -21,28 +21,29 @@
         };
 
         function integerValidator(input) {
-            return input != undefined &&
-                    input.length > 0 &&
-                    /^-?[0-9]+$/.test(input);
+            return input == undefined ||
+                    (typeof input) == 'number';
         }
 
         function stringValidator(input) {
-            return input != undefined &&
+            return input == undefined ||
                     input.length > 0;
         }
 
         function booleanValidator(input) {
-            return input == "true" || input == "false";
+            return input == true || input == false;
         }
 
         function Block(condition, elements) {
             var self = this;
-            this.condition = condition;
+            this.condition = ko.computed(condition);
             this.elements = elements.map(function(element) { element.parent = self; return element; });
             this.type = Type.BLOCK;
 
             this.required = function() { return (self.parent != undefined ? self.parent.required() : true) && self.condition(); };
-
+            this.valid = function() {
+                return elements.every(function(element) { return element.type == Type.COMPUTED || element.valid(); });
+            }
             this.collectValues = function() {
                 var values = {};
                 self.elements.map(function(element) {
@@ -55,15 +56,21 @@
 
         function Computed(label, expression) {
             this.label = label;
-            this.expression = ko.computed(expression);
+            this.expression = ko.computed(function() {
+                var expressionValue = expression();
+                if(expressionValue != undefined && !isNaN(expressionValue))
+                    return expressionValue;
+                else
+                    return undefined;
+            });
             this.type = Type.COMPUTED;
         }
 
-        function Question(label, name, dataType) {
+        function Question(label, name, valueObservable, dataType) {
             var self = this;
             this.label = label;
             this.name = name;
-            this.value = ko.observable();
+            this.value = valueObservable;
             this.dataType = dataType;
             this.type = Type.QUESTION;
 
@@ -80,7 +87,7 @@
             }
 
             this.required = function() { return self.parent.required(); };
-            this.valid = function() { return self.required() && self.validator(self.value()); };
+            this.valid = function() { return !self.required() || self.value() != undefined && self.validator(self.value()); };
 
             this.collectValues = function() {
                 var o = {};
@@ -110,8 +117,11 @@
                 <!-- ko if: $data.dataType == DataType.BOOLEAN -->
                     <!-- ko template: { name: "boolean-input-template" } --><!-- /ko -->
                 <!-- /ko -->
-                <!-- ko if: $data.dataType == DataType.INTEGER || $data.dataType == DataType.STRING -->
-                    <!-- ko template: { name: "text-input-template" } --><!-- /ko -->
+                <!-- ko if: $data.dataType == DataType.INTEGER -->
+                    <!-- ko template: { name: "integer-input-template" } --><!-- /ko -->
+                <!-- /ko -->
+                <!-- ko if: $data.dataType == $data.dataType == DataType.STRING -->
+                    <!-- ko template: { name: "string-input-template" } --><!-- /ko -->
                 <!-- /ko -->
             </td>
         </tr>
@@ -128,38 +138,43 @@
         <label><input type="radio" value="true" data-bind="name: name, booleanValue: value" /> Yes</label>
         <label><input type="radio" value="false" data-bind="name: name, booleanValue: value" /> No</label>
     </script>
-
-    <script type="text/html" id="text-input-template">
+    <script type="text/html" id="integer-input-template">
+        <input type="text" data-bind="integerValue: value" />
+    </script>
+    <script type="text/html" id="string-input-template">
         <input type="text" data-bind="value: value" />
     </script>
 </head>
 <body>
 
     <table>
-        <!-- ko template: { name : "formelement-template", foreach: viewModel.root.elements } --><!-- /ko -->
+        <!-- ko template: { name : "formelement-template", foreach: $root.root.elements } --><!-- /ko -->
     </table>
+    <input type="button" value="Send form" data-bind="enable: $root.root.valid(), click: function() {console.log($root.root.collectValues());}"/>
 
     <script type="text/javascript">
         var _viewModel = new (function(){
             var _self = this;
             _self.identities = {
-                hasSoldHouse:new ko.observable(),
-                hasBoughtHouse:new ko.observable(),
-                hasMaintLoan:new ko.observable(),
-                privateDebt:new ko.observable(),
-                sellingPrice:new ko.observable()
+                hasSoldHouse:ko.observable(true),
+                hasBoughtHouse:ko.observable(),
+                hasMaintLoan:ko.observable(true),
+                privateDebt:ko.observable(),
+                sellingPrice:ko.observable()
             };
             _self.root = new Block(
                 function(){return true;},
                 [
-                    new Question("Did you sell a house in 2010?","hasSoldHouse",DataType.BOOLEAN),
-                    new Question("Did you by a house in 2010?","hasBoughtHouse",DataType.BOOLEAN),
-                    new Question("Did you enter a loan for maintenance/reconstruction?","hasMaintLoan",DataType.BOOLEAN),
+                    new Question("Did you sell a house in 2010?","hasSoldHouse",_self.identities.hasSoldHouse,DataType.BOOLEAN),
+                    new Question("Did you by a house in 2010?","hasBoughtHouse",_self.identities.hasBoughtHouse,DataType.BOOLEAN),
+                    new Question("Did you enter a loan for maintenance/reconstruction?","hasMaintLoan",_self.identities.hasMaintLoan,DataType.BOOLEAN),
                     new Block(
-                        function(){return _self.identities.hasSoldHouse();},
+                        function(){
+                            return _self.identities.hasSoldHouse();
+                        },
                         [
-                            new Question("Private debts for the sold house:","privateDebt",DataType.INTEGER),
-                            new Question("Price the house was sold for:","sellingPrice",DataType.INTEGER),
+                            new Question("Private debts for the sold house:","privateDebt",_self.identities.privateDebt,DataType.INTEGER, _self),
+                            new Question("Price the house was sold for:","sellingPrice",_self.identities.sellingPrice,DataType.INTEGER, _self),
                             new Computed("Value residue:",function(){return (_self.identities.sellingPrice()-_self.identities.privateDebt());})
                         ]
                     ),
