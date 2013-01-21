@@ -9,6 +9,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
+import org.uva.sea.ql.ast.Form;
 import org.uva.sea.ql.ast.expressions.binaryExpr.*;
 import org.uva.sea.ql.ast.expressions.unaryExpr.*;
 import org.uva.sea.ql.ast.expressions.*;
@@ -103,7 +104,27 @@ public class TestExpressions {
 	
 	@Test
 	public void testQuestion() throws ParseError {
-	 	assertEquals(parser.parseForm("hasSoldHouse: \"Did you sell a house in 2010?\" boolean").getClass(), Question.class);
-	 	assertEquals(parser.parseForm("privateDebt: \"Private debts for the sold house:\" money").getClass(), Question.class);
+	 	assertEquals(parser.parseQuestion("hasSoldHouse: \"Did you sell a house in 2010?\" boolean").getClass(), Question.class);
+	 	assertEquals(parser.parseQuestion("privateDebt: \"Private debts for the sold house:\" int").getClass(), Question.class);
+	 	assertEquals(parser.parseCQ("privateDebt: \"Private debts for the sold house:\" int (sellingPrice * privateDebt)").getClass(), ComputedQuestion.class);
+	 	assertEquals(parser.parseIf("if (a>b) { privateDebt: \"Private debts for the sold house:\" int}").getClass(), ifStatement.class);
+	 	assertEquals(parser.parseIfElse("if (a>b) { privateDebt: \"Private debts for the sold house:\" int} else {hasSoldHouse: \"Did you sell a house in 2010?\" boolean} ").getClass(), ifElseStatement.class);
+	}
+	
+	@Test
+	public void testForm() throws ParseError {
+	 	assertEquals(parser.parseForm("form Box1HouseOwning { \n" +
+                                      "hasSoldHouse: \"Did you sell a house in 2010?\" boolean\n" +
+                                      "hasBoughtHouse: \"Did you by a house in 2010?\" boolean    \n"+
+                                      "hasMaintLoan: \"Did you enter a loan for maintenance/reconstruction?\" \n" +
+                                      	"boolean\n" +
+                                      "if (hasSoldHouse) {" +
+                                      "sellingPrice: \"Price the house was sold for:\" int \n" +
+                                      "privateDebt: \"Private debts for the sold house:\" int\n" +
+                                      "valueResidue: \"Value residue:\" int(sellingPrice - privateDebt)\n" +         
+										"}\n" +
+									  "}"
+										).getClass(), Form.class);
+	 	
 	}
 }

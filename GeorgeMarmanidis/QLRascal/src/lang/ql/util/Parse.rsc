@@ -1,3 +1,4 @@
+@contributor{George Marmanidis -geo.marmani@gmail.com}
 module lang::ql::util::Parse
 
 import lang::ql::syntax::QL;
