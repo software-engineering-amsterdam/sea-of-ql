@@ -8,6 +8,9 @@ lexical QuestionString  = [a-z A-Z 0-9 _] !<< [a-z A-Z][a-z A-Z 0-9 _]* !>> [a-z
 lexical Boolean = [true,false];
 lexical Money = [0-9]+ ;
 lexical String = "\"" ![\"]*  "\"";
+lexical Int
+  = [0-9]+ !>> [0-9]
+  ;
 keyword Keywords = "if" | "then" | "else";
   
 lexical Id
@@ -55,19 +58,25 @@ syntax Type
    | money :"money" Expression exp   
    ;
 // syntax Expression  
-syntax Expression 
+start syntax Expression 
    = id: Id name
-   | strQue: String string
-   | strCon: String string
-   | boolCon: Boolean boolean
-   | key: Keywords name
+   | \int: Int
+   //| strQue: String string
+   //| strCon: String string
+   //| boolCon: Boolean boolean
    | bracket "(" Expression arg ")"
-   | moneyCon: Money money
-   > left ( add: Expression lhs "+" Expression rhs
-          | sub: Expression lhs "-" Expression rhs
-          )
-   > left and: Expression "&&" Expression
-   > left or: Expression "||" Expression
+   | pos: "+" Expr
+   | neg: "-" Expr
+   | not: "!" Expr
+   //| moneyCon: Money money
+   > left (
+      add: Expression "+" Expression
+    | sub: Expression "-" Expression
+   )
+   > left (
+      mul: Expression "*" Expression
+    | div: Expression "/" Expression
+   )  
    > non-assoc (
       lt: Expression "\<" Expression
     | leq: Expression "\<=" Expression
@@ -75,8 +84,12 @@ syntax Expression
     | geq: Expression "\>=" Expression
     | eq: Expression "==" Expression
     | neq: Expression "!=" Expression
-  )
+   )
+   > left and: Expression "&&" Expression
+   > left or: Expression "||" Expression
    ;
+   
+//start syntax Expression = Expression;
 
 // METHODS
 

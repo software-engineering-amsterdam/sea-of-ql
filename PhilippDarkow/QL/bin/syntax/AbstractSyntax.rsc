@@ -22,11 +22,14 @@ public data KEY = key (str name);
 // syntax for the expression   
 public data EXP =
 	  id (QuestionId name)
-	| strQue (QuestionString questionString)
-	| strCon (str sVal)
-	| boolCon (bool bVal)
-	| moneyCon (Money mVal)
+	| \int(int ivalue)  
+	//| strQue (QuestionString questionString)
+	//| strCon (str sVal)
+	//| bracket ( EXP arg )
+	//| boolCon (bool bVal)
+	//| moneyCon (Money mVal)
 	| add (EXP left, EXP right)
+	| mul (EXP left, EXP right)
 	| sub (EXP left, EXP right)
 	| and (EXP left, EXP right)
 	| or (EXP left, EXP right)
@@ -36,7 +39,6 @@ public data EXP =
     | geq (EXP left, EXP right)
     | eq (EXP left, EXP right)
     | neq (EXP left, EXP right)
-    | key (str name)
 	;
 // syntax for statements	
 public data STATEMENT =
