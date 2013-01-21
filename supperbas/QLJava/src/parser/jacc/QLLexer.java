@@ -6,7 +6,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import ast.ASTNode;
-import ast.expressions.value.*;
+import ast.expression.value.*;
 
 
 public class QLLexer implements QLTokens {
