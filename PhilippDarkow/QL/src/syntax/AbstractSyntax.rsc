@@ -4,7 +4,6 @@ public data TYPE = string() | boolean() | money() | money(Expression);
 
 public alias QuestionId = str;
 public alias QuestionString = str;
-public alias Money = int;    // Need to change that to float
 //public alias Keywords = str;
 
 // syntax to start a QL Program	
@@ -37,7 +36,7 @@ public data Expression =
 | eq (Expression left, Expression right)
 | neq (Expression left, Expression right)
 | boolCon (bool bVal)
-//| moneyCon (real mVal)
+| moneyCon (str mVal)
 //| strQue (str qVal)
 //| strCon (str sVal)
 	;

@@ -5,7 +5,7 @@ import Prelude;
 // START LEXICAN TOKENS
 lexical QuestionString  = [a-z A-Z 0-9 _] !<< [a-z A-Z][a-z A-Z 0-9 _]* !>> [a-z A-Z 0-9 _];
 lexical Boolean = "true" | "false";
-lexical Money = [0-9]*"."[0-9] + [0-9];
+lexical Money = [0-9]*","[0-9] + [0-9];
 lexical String = "\"" ![\"]*  "\"";
 lexical Int = [0-9]+ !>> [0-9];
 keyword Keywords = "if" | "then" | "else" | "false" | "true";
@@ -101,7 +101,7 @@ start syntax Expression // start
    > left and: Expression "&&" Expression
    > left or: Expression "||" Expression
     | boolCon: Boolean bVal
-   //| moneyCon: Money mVal
+    | moneyCon: Money mVal
    //| strQue: QuestionString qVal
    //| strCon: String sVal
    ;

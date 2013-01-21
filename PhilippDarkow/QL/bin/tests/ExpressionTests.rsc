@@ -67,5 +67,7 @@ public test bool testBool1() = p("true") is boolCon;
 public test bool testBool2() = p("false") is boolCon;
 // Tests for money
 public test bool testMoney1() = p("33,32") is moneyCon;
+public test bool testMoney2() = p("0,01") is moneyCon;
+public test bool testMoney3() = p("1000,99") is moneyCon;
 // Tests for QuestionString
 //public test bool testQuestionString1() = p("How","are") is strQue;
