@@ -87,7 +87,7 @@ public class ANTLRParser implements IParse {
 	}
 	
 	@Override
-	public List<Element> parseBody(String src) throws ParseError{
+	public Body parseBody(String src) throws ParseError{
 		 try {
 			return parse(src).body();
 		} catch (RecognitionException e) {

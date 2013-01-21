@@ -39,10 +39,10 @@ form returns [Form result]
 
 	
 		
-	body returns [List<Element> result]
-  @init { List<Element> list = new ArrayList<Element>() ; }
-  :(element  { list.add($element.result) ; } )*
-  {$result=list;}
+	body returns [Body result]
+  @init { Body body= new Body(); ; }
+  :(element  { body.addElement($element.result) ; } )*
+  {$result=body;}
   ;
 	
 element returns [Element result]

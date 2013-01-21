@@ -76,9 +76,18 @@ public class TestForm {
 	
 	@Test
 	public void testIfBlock() throws ParseError {
-		
+		System.out.println(Form.class);
 		assertEquals( IfBlock.class, parser.parseIfBlock("if (a>b) {id1 :\"label\"int   id2 :\"label\" int (a-b)}").getClass());
 		assertEquals( IfBlock.class, parser.parseIfBlock("if (a>b) {id3 :\"label\" money  	if (a>b) {id4 :\"label\" int   id :\"label\" int (a-b) } id :\"label\" int (a-b)}").getClass());
+	
+	}
+	
+	
+	@Test
+	public void testBody() throws ParseError {
+	
+		assertEquals( Body.class, parser.parseBody("id1 :\"label\"int   id2 :\"label\" int (a-b)").getClass());
+		//assertEquals( IfBlock.class, parser.parseIfBlock("if (a>b) {id3 :\"label\" money  	if (a>b) {id4 :\"label\" int   id :\"label\" int (a-b) } id :\"label\" int (a-b)}").getClass());
 	
 	}
 }
