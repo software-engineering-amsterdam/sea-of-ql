@@ -1,7 +1,10 @@
 package org.uva.sea.ql.ast;
 
+import org.uva.sea.ql.ast.type.Numeric;
+import org.uva.sea.ql.ast.type.Type;
+import org.uva.sea.ql.interpreter.Env;
+import org.uva.sea.ql.interpreter.IntVal;
 import org.uva.sea.ql.interpreter.Value;
-import org.uva.sea.ql.interpreter.Int;
 
 public class Pos extends Expr {
 
@@ -11,13 +14,18 @@ public class Pos extends Expr {
 		this.expr = expr;
 	}
 
-	@Override
-	public Value interpret() {
-		return (Int) getExpr().interpret();
-	}
-
 	public Expr getExpr() {
 		return expr;
 	}
+	
+	@Override
+	public Value interpret() {
+		return (IntVal) getExpr().interpret();
+	}
 
+	@Override
+	public Type typeOf(Env env) {
+		return new Numeric();
+	}
+	
 }

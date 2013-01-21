@@ -12,9 +12,9 @@ public class Form extends ASTNode{
 	private final Ident id;
 	private final List<Element> body= new ArrayList<Element>();
 
-	public Form(Ident id, List<Element> body) {
+	public Form(Ident id, Body body) {
 			this.id=id;
-			this.body.addAll(body);
+			this.body.addAll(body.getBody());
 			
 	}
 

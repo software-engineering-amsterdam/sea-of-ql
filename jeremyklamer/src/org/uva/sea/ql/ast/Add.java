@@ -1,7 +1,10 @@
 package org.uva.sea.ql.ast;
 
+import org.uva.sea.ql.ast.type.Numeric;
+import org.uva.sea.ql.ast.type.Type;
+import org.uva.sea.ql.interpreter.Env;
+import org.uva.sea.ql.interpreter.IntVal;
 import org.uva.sea.ql.interpreter.Value;
-import org.uva.sea.ql.interpreter.Int;
 
 public class Add extends Binary{
 
@@ -9,10 +12,16 @@ public class Add extends Binary{
 		super(left,right);
 	}
 	
+	@Override
 	public Value interpret(){
-		Int li = (Int)(getLeft().interpret());
-		Int ri = (Int)(getRight().interpret());
-		return new Int(li.getVal() + ri.getVal());	
+		IntVal li = (IntVal)(getLeft().interpret());
+		IntVal ri = (IntVal)(getRight().interpret());
+		return new IntVal(li.getVal() + ri.getVal());	
+	}
+
+	@Override
+	public Type typeOf(Env env) {
+		return new Numeric();
 	}
 	
 }

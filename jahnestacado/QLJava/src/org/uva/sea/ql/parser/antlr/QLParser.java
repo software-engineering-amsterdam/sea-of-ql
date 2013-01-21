@@ -1,4 +1,4 @@
-// $ANTLR 3.4 /home/jahn/workspace1/jahnestacado/jahnestacado/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g 2013-01-21 04:52:09
+// $ANTLR 3.4 /home/jahn/workspace1/jahnestacado/jahnestacado/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g 2013-01-21 14:24:38
 
 package org.uva.sea.ql.parser.antlr;
 import org.uva.sea.ql.ast.*;
@@ -133,7 +133,7 @@ public class QLParser extends Parser {
         int form_StartIndex = input.index();
 
         Token Ident2=null;
-        List<Element> body3 =null;
+        Body body3 =null;
 
 
         try {
@@ -178,16 +178,16 @@ public class QLParser extends Parser {
 
 
     // $ANTLR start "body"
-    // /home/jahn/workspace1/jahnestacado/jahnestacado/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:42:2: body returns [List<Element> result] : ( element )* ;
-    public final List<Element> body() throws RecognitionException {
-        List<Element> result = null;
+    // /home/jahn/workspace1/jahnestacado/jahnestacado/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:42:2: body returns [Body result] : ( element )* ;
+    public final Body body() throws RecognitionException {
+        Body result = null;
 
         int body_StartIndex = input.index();
 
         Element element4 =null;
 
 
-         List<Element> list = new ArrayList<Element>() ; 
+         Body body= new Body(); ; 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 3) ) { return result; }
 
@@ -215,7 +215,7 @@ public class QLParser extends Parser {
             	    state._fsp--;
             	    if (state.failed) return result;
 
-            	    if ( state.backtracking==0 ) { list.add(element4) ; }
+            	    if ( state.backtracking==0 ) { body.addElement(element4) ; }
 
             	    }
             	    break;
@@ -226,7 +226,7 @@ public class QLParser extends Parser {
             } while (true);
 
 
-            if ( state.backtracking==0 ) {result =list;}
+            if ( state.backtracking==0 ) {result =body;}
 
             }
 
@@ -515,7 +515,7 @@ public class QLParser extends Parser {
 
         Expr expr =null;
 
-        List<Element> body14 =null;
+        Body body14 =null;
 
 
         try {

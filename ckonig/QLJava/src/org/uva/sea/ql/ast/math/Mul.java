@@ -5,6 +5,7 @@ import org.uva.sea.ql.ast.BinaryExpr;
 import org.uva.sea.ql.ast.Expr;
 import org.uva.sea.ql.ast.ReturnsMathOperands;
 import org.uva.sea.ql.visitor.ASTVisitor;
+import org.uva.sea.ql.visitor.VisitorException;
 
 public class Mul extends BinaryExpr implements AcceptsMathOperands,
 		ReturnsMathOperands {
@@ -15,7 +16,12 @@ public class Mul extends BinaryExpr implements AcceptsMathOperands,
 	}
 
 	@Override
-	public void accept(ASTVisitor visitor) {
+	public void accept(ASTVisitor visitor) throws VisitorException {
 		visitor.visit(this);
+	}
+
+	@Override
+	public String toString() {
+		return str;
 	}
 }

@@ -10,10 +10,6 @@ public  class Body extends ASTNode {
     
 	private final List<Element> body = new ArrayList<Element>();
 	
-	public Body(List<Element> body){
-		this.body.addAll(body);
-	}
-	
 	
 	public List<Element> getBody(){
 		return body;
