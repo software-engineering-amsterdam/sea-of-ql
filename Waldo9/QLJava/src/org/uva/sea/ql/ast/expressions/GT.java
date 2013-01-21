@@ -2,7 +2,7 @@ package org.uva.sea.ql.ast.expressions;
 
 import org.uva.sea.ql.ast.ASTNodeVisitor;
 
-public class GT extends BinaryTree {
+public class GT extends Binary {
 
 	public GT(Expr result, Expr rhs) {
 		super(result, rhs);

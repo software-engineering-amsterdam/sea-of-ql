@@ -2,7 +2,7 @@ package org.uva.sea.ql.ast.expressions;
 
 import org.uva.sea.ql.ast.ASTNodeVisitor;
 
-public class Mul extends BinaryTree {
+public class Mul extends Binary {
 
 	public Mul(Expr result, Expr rhs) {
 		super(result, rhs);

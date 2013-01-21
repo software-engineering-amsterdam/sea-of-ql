@@ -2,7 +2,7 @@ package org.uva.sea.ql.ast.expressions;
 
 import org.uva.sea.ql.ast.ASTNodeVisitor;
 
-public class GEq extends BinaryTree {
+public class GEq extends Binary {
 
 	public GEq(Expr result, Expr rhs) {
 		super(result, rhs);

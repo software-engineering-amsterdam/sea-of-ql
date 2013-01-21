@@ -1,5 +1,7 @@
 package org.uva.sea.ql.ast;
 
+import java.util.Map;
+
 import org.uva.sea.ql.ast.expressions.Add;
 import org.uva.sea.ql.ast.expressions.And;
 import org.uva.sea.ql.ast.expressions.Div;
@@ -26,8 +28,11 @@ import org.uva.sea.ql.ast.statements.Question;
 import org.uva.sea.ql.ast.types.BoolType;
 import org.uva.sea.ql.ast.types.IntType;
 import org.uva.sea.ql.ast.types.StringType;
+import org.uva.sea.ql.ast.types.Type;
 
 public class ASTNodeTypeCheckingVisitor implements ASTNodeVisitor {
+	
+	private Map<Ident, Type> typeEnvironment;
 
 	@Override
 	public void visit(Form form) {
@@ -79,7 +84,7 @@ public class ASTNodeTypeCheckingVisitor implements ASTNodeVisitor {
 
 	@Override
 	public void visit(Add add) {
-		// TODO Auto-generated method stub
+		
 		
 	}
 

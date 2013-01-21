@@ -2,7 +2,7 @@ package org.uva.sea.ql.ast.expressions;
 
 import org.uva.sea.ql.ast.ASTNodeVisitor;
 
-public class Eq extends BinaryTree {
+public class Eq extends Binary {
 
 	public Eq(Expr result, Expr rhs) {
 		super(result, rhs);
