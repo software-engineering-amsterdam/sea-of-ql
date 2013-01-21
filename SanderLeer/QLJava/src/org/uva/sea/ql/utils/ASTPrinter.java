@@ -2,7 +2,6 @@ package org.uva.sea.ql.utils;
 
 import org.uva.sea.ql.ast.*;
 
-// Argghhhh, Java only seems to accept static (early-binding) method overloading. This language sucks!
 public class ASTPrinter implements ASTNodeVisitor {
 	private StringBuilder sb = new StringBuilder();
 	private int ident;
@@ -26,7 +25,7 @@ public class ASTPrinter implements ASTNodeVisitor {
 	public void visit(Pos node) {
 		print("+ (pos)");
 		ident++;
-		node.getExpr().accept(this);
+		node.getOperand().accept(this);
 		ident--;
 	}
 
@@ -34,7 +33,7 @@ public class ASTPrinter implements ASTNodeVisitor {
 	public void visit(Neg node) {
 		print("- (neg)");
 		ident++;
-		node.getExpr().accept(this);
+		node.getOperand().accept(this);
 		ident--;
 	}
 
@@ -42,7 +41,7 @@ public class ASTPrinter implements ASTNodeVisitor {
 	public void visit(Not node) {
 		print("! (not)");
 		ident++;
-		node.getExpr().accept(this);
+		node.getOperand().accept(this);
 		ident--;
 	}
 
@@ -84,7 +83,7 @@ public class ASTPrinter implements ASTNodeVisitor {
 
 	@Override
 	public void visit(Eq node) {
-		print("= (eq)");
+		print("== (eq)");
 		ident++;
 		node.getLhs().accept(this);
 		node.getRhs().accept(this);
@@ -155,17 +154,87 @@ public class ASTPrinter implements ASTNodeVisitor {
 	}
 
 	@Override
-	public void visit(Ident node) {
-		print(node.getName() + " (ident)");
+	public void visit(Identifier node) {
+		print(node.getName() + " (identifier)");
 	}
 
 	@Override
-	public void visit(Int node) {
-		print(Integer.toString(node.getValue()) + " (int)");
+	public void visit(IntegerLiteral node) {
+		print(Integer.toString(node.getValue()) + " (integer literal)");
 	}
 
 	@Override
-	public void visit(Bool node) {
-		print((node.getValue() ? "true" : "false") + " (bool)");
+	public void visit(BooleanLiteral node) {
+		print((node.getValue() ? "true" : "false") + " (boolean literal)");
+	}
+
+	@Override
+	public void visit(StringLiteral node) {
+		print("\"" + node.getValue() + "\" (string literal)");
+	}
+
+	@Override
+	public void visit(IntegerType node) {
+		print("(integer type)");
+	}
+
+	@Override
+	public void visit(StringType node) {
+		print("(string type)");
+	}
+
+	@Override
+	public void visit(BooleanType node) {
+		print("(boolean type)");
+	}
+
+	@Override
+	public void visit(Form node) {
+		print("(form)");
+		ident++;
+		node.getIdentifier().accept(this);
+		node.getStatements().accept(this);
+		ident--;
+	}
+
+	@Override
+	public void visit(StatementList node) {
+		print("(statementlist)");
+		ident++;
+		print(node.getList().size() + " statements in list");
+		for (ASTNode e : node.getList()) {
+			e.accept(this);
+		}
+		ident--;
+	}
+
+	@Override
+	public void visit(Question node) {
+		print("(question)");
+		ident++;
+		node.getIdentifier().accept(this);
+		node.getLabel().accept(this);
+		node.getDatatype().accept(this);
+		ident--;
+	}
+
+	@Override
+	public void visit(ComputedQuestion node) {
+		print("(computed question)");
+		ident++;
+		node.getIdentifier().accept(this);
+		node.getLabel().accept(this);
+		node.getDatatype().accept(this);
+		node.getExpression().accept(this);
+		ident--;
+	}
+
+	@Override
+	public void visit(IfStatement node) {
+		print("(if)");
+		ident++;
+		node.getExpression().accept(this);
+		node.getStatements().accept(this);
+		ident--;
 	}
 }

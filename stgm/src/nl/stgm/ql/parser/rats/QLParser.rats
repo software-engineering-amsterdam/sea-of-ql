@@ -7,31 +7,45 @@ import java.util.List;
 import java.util.ArrayList;
 import xtc.util.Action;
 import nl.stgm.ql.ast.*;
+import nl.stgm.ql.ast.types.*;
+import nl.stgm.ql.ast.expr.*;
+import nl.stgm.ql.ast.form.*;
 }
 
-public Expr ParseExpr    = yyValue:Expr;
-public Form ParseForm    = yyValue:Form;
-public Document ParseDoc = yyValue:Document;
+public Expr ParseExpr = yyValue:Expr;
+public Form ParseForm = yyValue:Form;
+public Document Parse = yyValue:Document;
 
 Document Document = Spacing
-	Form*
-	{ yyValue = new Document(); };
+	forms:Form*
+	{ yyValue = new Document(forms.list()); };
 
 Form Form =
-	"form" Spacing id:Ident Spacing '{' Spacing FormItem* '}' Spacing
-	{ yyValue = new Form(id); };
+	"form" Spacing id:Ident Spacing '{' Spacing items:FormItem* '}' Spacing
+	{ yyValue = new Form(id, items.list()); };
 
 FormItem FormItem =
 	Question / Conditional;
 
-FormItem Question =
+Question Question =
+	CalcQuestion /
 	id:Ident ':' Spacing question:StringLit Spacing type:Ident Spacing
 	{ yyValue = new Question(id, question, type); };
 
-FormItem Conditional =
-	"if" Spacing Condition Spacing '{' Question* '}' Spacing
-	{ yyValue = new Conditional(); };
+// this is quite unDRY
+CalcQuestion CalcQuestion =
+	id:Ident ':' Spacing question:StringLit Spacing type:Ident Spacing '(' Spacing calculation:Expr ')' Spacing
+	{ yyValue = new CalcQuestion(id, question, type, calculation); };
 
-Expr Condition =
-	'(' Spacing Expr ')' Spacing
-	{ yyValue = new Condition(); };
+//
+// nesting of conditionals is currently forbidden, so only Question* in here
+// this could be allowed, but a nesting limit should probably be agreed on
+//
+Conditional Conditional =
+	"if" Spacing '(' Spacing condition:Expr ')' Spacing '{' Spacing ifQuestions:Question* '}' Spacing
+	"else" '{' Spacing elseQuestions:Question* '}' Spacing
+	{ yyValue = new Conditional(condition, ifQuestions.list(), elseQuestions.list()); }
+	/
+	"if" Spacing '(' Spacing condition:Expr ')' Spacing '{' Spacing ifQuestions:Question* '}' Spacing
+	{ yyValue = new Conditional(condition, ifQuestions.list(), null); }
+	;

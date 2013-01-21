@@ -8,7 +8,7 @@ public class Sub extends Binary {
 	public Sub(Expr left, Expr right) {
 		super(left,right);
 	}
-
+	
 	@Override
 	public Value interpret(){
 		Int li = (Int)(getLeft().interpret());

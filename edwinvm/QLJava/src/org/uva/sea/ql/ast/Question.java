@@ -1,7 +1,7 @@
 package org.uva.sea.ql.ast;
 
 import org.uva.sea.ql.ast.expressions.Ident;
-import org.uva.sea.ql.ast.expressions.Str;
+import org.uva.sea.ql.ast.values.Str;
 
 public class Question {
 	private final Str _label;

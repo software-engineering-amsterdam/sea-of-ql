@@ -1,8 +1,8 @@
 package org.uva.sea.ql.ast;
 
-public class Neg extends ExprUnary {
-	public Neg(Expr expr) {
-		super(expr);
+public class Neg extends UnaryExpression {
+	public Neg(Expression operand) {
+		super(operand);
 	}
 
 	@Override

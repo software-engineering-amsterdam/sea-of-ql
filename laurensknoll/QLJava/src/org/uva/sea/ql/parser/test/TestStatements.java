@@ -9,8 +9,10 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
-
-import org.uva.sea.ql.ast.*;
+import org.uva.sea.ql.ast.statement.Block;
+import org.uva.sea.ql.ast.statement.ComputedQuestion;
+import org.uva.sea.ql.ast.statement.IfStatement;
+import org.uva.sea.ql.ast.statement.Question;
 import org.uva.sea.ql.parser.antlr.StatementParser;
 
 @RunWith(Parameterized.class)
@@ -21,7 +23,7 @@ public class TestStatements {
 	@Parameters
 	public static List<Object[]> theParsers() {
 		List<Object[]> parserList = new ArrayList<Object[]>();
-		parserList.add(new Object[] {new StatementParser()});
+		parserList.add(new Object[] { new StatementParser() });
 		return parserList;
 	}
 
@@ -30,23 +32,47 @@ public class TestStatements {
 	}
 
 	@Test
+	public void testBlockStatements() throws ParseError {
+		assertEquals(Block.class, parser.parse("{ }").getClass());
+		assertEquals(
+				Block.class,
+				parser.parse(
+						"{ if (a < b) { hasSoldHouse: \"Did you sell a house in 2010\" boolean } }")
+						.getClass());
+		assertEquals(
+				Block.class,
+				parser.parse(
+						"{ if (a < b) { } hasSoldHouse: \"Did you sell a house in 2010\" boolean }")
+						.getClass());
+
+	}
+
+	@Test
+	public void testComputedQuestionStatements() throws ParseError {
+		final String remainder = "remainder: \"Subtotal:\" money (priceOfHouse - debtOfHouse)";
+		assertEquals(ComputedQuestion.class, parser.parse(remainder).getClass());
+	}
+
+	@Test
 	public void testIfStatements() throws ParseError {
-		final String questionString = "hasSoldHouse: \"Did you sell a house?\" money";
-		
-		assertEquals(parser.parse("if (a < b) " + questionString).getClass(), IfStatement.class);
-		assertEquals(parser.parse("if (a > b || b < c) " + questionString).getClass(), IfStatement.class);
+		assertEquals(IfStatement.class, parser.parse("if (a < b) { }")
+				.getClass());
+		assertEquals(IfStatement.class, parser.parse("if (a > b || b < c) { }")
+				.getClass());
 	}
 
 	@Test
 	public void testQuestionStatements() throws ParseError {
-		/*assertEquals(parser.parse("hasSoldHouse: \"Did you sell a house in 2010\" boolean").getClass(), Question.class);
-		assertEquals(parser.parse("hasBoughtHouse: \"Did you by a house in 2010?\" boolean").getClass(), Question.class);
-		assertEquals(parser.parse("hasMaintLoan: \"Did you enter a loan for maintenance/reconstruction?\" boolean").getClass(), Question.class);
-		
-		assertEquals(parser.parse("priceOfHouse: \"What is the price of your house?\" money").getClass(), Question.class);
-		*/
-		
-		ASTNode parseValue = parser.parse("remainder: \"Subtotal:\" money (priceOfHouse - debtOfHouse)");
-		assertEquals(parseValue.getClass(), Summary.class);
+		final String hasSoldHouse = "hasSoldHouse: \"Did you sell a house in 2010\" boolean";
+		assertEquals(Question.class, parser.parse(hasSoldHouse).getClass());
+
+		final String hasBoughtHouse = "hasBoughtHouse: \"Did you by a house in 2010?\" boolean";
+		assertEquals(Question.class, parser.parse(hasBoughtHouse).getClass());
+
+		final String hasMaintLoan = "hasMaintLoan: \"Did you enter a loan for maintenance/reconstruction?\" boolean";
+		assertEquals(Question.class, parser.parse(hasMaintLoan).getClass());
+
+		final String priceOfHouse = "priceOfHouse: \"What is the price of your house?\" money";
+		assertEquals(Question.class, parser.parse(priceOfHouse).getClass());
 	}
 }

@@ -1,7 +1,7 @@
 package org.uva.sea.ql.ast;
 
-public class NEq extends ExprBinary {
-	public NEq(Expr lhs, Expr rhs) {
+public class NEq extends BinaryExpression {
+	public NEq(Expression lhs, Expression rhs) {
 		super(lhs, rhs);
 	}
 

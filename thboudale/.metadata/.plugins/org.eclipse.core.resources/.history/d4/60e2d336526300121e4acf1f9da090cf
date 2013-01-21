@@ -1,0 +1,29 @@
+package org.uva.sea.ql.ast;
+
+public class Question extends Statement {
+
+	public Question(String string) {
+		// TODO Auto-generated constructor stub
+	}
+	/*private final Ident ident;
+	private final String strLit;
+	private final String type;
+
+	public Question(Ident ident, String strLit, String type) {
+		this.ident = ident;
+		this.strLit = strLit;
+		this.type = type;
+	}
+	
+	public Ident getIdentifier() {
+		return ident;
+	}
+	
+	public String getStrLit() {
+		return strLit;
+	}
+	
+	public String getType() {
+		return type;
+	}*/
+}

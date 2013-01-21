@@ -8,6 +8,8 @@ form Box1HouseOwning2 {
    	else {
    		soldPlaaning: "Are you thinking of selling this?" boolean
    		/*dadawdadaw*/
+   		//dadawdaw
+   		
    	}
 }
    

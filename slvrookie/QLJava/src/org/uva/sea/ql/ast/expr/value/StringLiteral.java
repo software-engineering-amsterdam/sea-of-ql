@@ -1,5 +1,8 @@
 package org.uva.sea.ql.ast.expr.value;
 
+import org.uva.sea.ql.visitor.Context;
+import org.uva.sea.ql.visitor.Visitor;
+
 public class StringLiteral extends Value {
 
 	private final String value;
@@ -11,5 +14,10 @@ public class StringLiteral extends Value {
 	public String getValue() {
 		return value;
 	}
-	
+
+	@Override
+	public void accept(Visitor visitor, Context context) {
+		visitor.visit(this, context);
+	}
+
 }

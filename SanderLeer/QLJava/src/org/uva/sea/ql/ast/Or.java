@@ -1,7 +1,7 @@
 package org.uva.sea.ql.ast;
 
-public class Or extends ExprBinary {
-	public Or(Expr lhs, Expr rhs) {
+public class Or extends BinaryExpression {
+	public Or(Expression lhs, Expression rhs) {
 		super(lhs, rhs);
 	}
 

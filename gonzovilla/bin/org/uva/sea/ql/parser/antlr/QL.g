@@ -19,18 +19,18 @@ program
   ;
 
 question
-  : 'question' Ident ':' returnType ':=' expression '?'
+  : 'question' Ident ':' type ':=' expression '?'
   ;
 
-returnType
-  : 'Integer'
-  | 'Float'
+type
+  : 'Boolean'
+  | 'Integer'
   | 'String'
   ;
 
 expression
   : (Ident | WS)+
-  ;
+  ; 
 
 primary returns [Expr result]
   : Int   { $result = new Int(Integer.parseInt($Int.text)); }
@@ -51,7 +51,7 @@ mulExpr returns [Expr result]
       if ($op.text.equals("*")) {
         $result = new Mul($result, rhs);
       }
-      if ($op.text.equals("<=")) {
+      if ($op.text.equals("/")) {
         $result = new Div($result, rhs);      
       }
     })*
@@ -108,10 +108,11 @@ orExpr returns [Expr result]
 WS  :	(' ' | '\t' | '\n' | '\r')+ { $channel=HIDDEN; }
     ;
 
-COMMENT 
-     : '/*' .* '*/' {$channel=HIDDEN;}
-    ;
+SINGLECOMMENT : '//' .* ('\n' | '\r') {$channel=HIDDEN;} ;
 
+COMMENT 
+    : '/*' .* '*/' {$channel=HIDDEN;} ;
+    
 Ident:   ('a'..'z'|'A'..'Z')('a'..'z'|'A'..'Z'|'0'..'9'|'_')*;
 
 Int: ('0'..'9')+;

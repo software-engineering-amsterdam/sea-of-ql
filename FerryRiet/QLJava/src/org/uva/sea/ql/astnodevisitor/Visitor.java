@@ -3,12 +3,12 @@ package org.uva.sea.ql.astnodevisitor;
 import org.uva.sea.ql.ast.*;
 
 public interface Visitor {
-	void visit(Expr expr) ;
-	void visit(BinExpr expr) ;
-	void visit(UnExpr expr) ;
-	void visit(QLProgram qlProgram) ;
-	void visit(CompoundStatement compoundBlock) ;
-	void visit(LineStatement lineStatement) ;
-	void visit(ConditionalStatement conditionalStatement) ;
-	void visit(TypeDescription typeDescription) ;
+	VisitorResult visit(Expr expr) ;
+	VisitorResult visit(BinExpr expr) ;
+	VisitorResult visit(UnExpr expr) ;
+	VisitorResult visit(QLProgram qlProgram) ;
+	VisitorResult visit(CompoundStatement compoundBlock) ;
+	VisitorResult visit(LineStatement lineStatement) ;
+	VisitorResult visit(ConditionalStatement conditionalStatement) ;
+	VisitorResult visit(TypeDescription typeDescription) ;
 }

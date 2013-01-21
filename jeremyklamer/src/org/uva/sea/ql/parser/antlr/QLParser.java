@@ -1,4 +1,4 @@
-// $ANTLR 3.4 C:\\Users\\Jeremy\\Documents\\GitHub\\sea-of-ql\\jeremyklamer\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g 2013-01-17 15:00:52
+// $ANTLR 3.4 C:\\Users\\Jeremy\\Documents\\GitHub\\sea-of-ql\\jeremyklamer\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g 2013-01-21 14:12:46
 
 package org.uva.sea.ql.parser.antlr;
 import org.uva.sea.ql.ast.*;
@@ -89,7 +89,7 @@ public class QLParser extends Parser {
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 1) ) { return result; }
 
-            // C:\\Users\\Jeremy\\Documents\\GitHub\\sea-of-ql\\jeremyklamer\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:18:3: ( Int | Ident | '(' x= orExpr ')' )
+            // C:\\Users\\Jeremy\\Documents\\GitHub\\sea-of-ql\\jeremyklamer\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:18:5: ( Int | Ident | '(' x= orExpr ')' )
             int alt1=3;
             switch ( input.LA(1) ) {
             case Int:
@@ -118,35 +118,35 @@ public class QLParser extends Parser {
 
             switch (alt1) {
                 case 1 :
-                    // C:\\Users\\Jeremy\\Documents\\GitHub\\sea-of-ql\\jeremyklamer\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:18:5: Int
+                    // C:\\Users\\Jeremy\\Documents\\GitHub\\sea-of-ql\\jeremyklamer\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:18:7: Int
                     {
-                    Int1=(Token)match(input,Int,FOLLOW_Int_in_primary47); if (state.failed) return result;
+                    Int1=(Token)match(input,Int,FOLLOW_Int_in_primary49); if (state.failed) return result;
 
                     if ( state.backtracking==0 ) { result = new Int(Integer.parseInt((Int1!=null?Int1.getText():null))); }
 
                     }
                     break;
                 case 2 :
-                    // C:\\Users\\Jeremy\\Documents\\GitHub\\sea-of-ql\\jeremyklamer\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:19:5: Ident
+                    // C:\\Users\\Jeremy\\Documents\\GitHub\\sea-of-ql\\jeremyklamer\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:19:7: Ident
                     {
-                    Ident2=(Token)match(input,Ident,FOLLOW_Ident_in_primary57); if (state.failed) return result;
+                    Ident2=(Token)match(input,Ident,FOLLOW_Ident_in_primary61); if (state.failed) return result;
 
                     if ( state.backtracking==0 ) { result = new Ident((Ident2!=null?Ident2.getText():null)); }
 
                     }
                     break;
                 case 3 :
-                    // C:\\Users\\Jeremy\\Documents\\GitHub\\sea-of-ql\\jeremyklamer\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:20:5: '(' x= orExpr ')'
+                    // C:\\Users\\Jeremy\\Documents\\GitHub\\sea-of-ql\\jeremyklamer\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:20:7: '(' x= orExpr ')'
                     {
-                    match(input,13,FOLLOW_13_in_primary65); if (state.failed) return result;
+                    match(input,13,FOLLOW_13_in_primary71); if (state.failed) return result;
 
-                    pushFollow(FOLLOW_orExpr_in_primary69);
+                    pushFollow(FOLLOW_orExpr_in_primary75);
                     x=orExpr();
 
                     state._fsp--;
                     if (state.failed) return result;
 
-                    match(input,14,FOLLOW_14_in_primary71); if (state.failed) return result;
+                    match(input,14,FOLLOW_14_in_primary77); if (state.failed) return result;
 
                     if ( state.backtracking==0 ) { result = x; }
 
@@ -222,9 +222,9 @@ public class QLParser extends Parser {
                 case 1 :
                     // C:\\Users\\Jeremy\\Documents\\GitHub\\sea-of-ql\\jeremyklamer\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:24:7: '+' x= unExpr
                     {
-                    match(input,16,FOLLOW_16_in_unExpr96); if (state.failed) return result;
+                    match(input,16,FOLLOW_16_in_unExpr104); if (state.failed) return result;
 
-                    pushFollow(FOLLOW_unExpr_in_unExpr100);
+                    pushFollow(FOLLOW_unExpr_in_unExpr108);
                     x=unExpr();
 
                     state._fsp--;
@@ -237,9 +237,9 @@ public class QLParser extends Parser {
                 case 2 :
                     // C:\\Users\\Jeremy\\Documents\\GitHub\\sea-of-ql\\jeremyklamer\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:25:7: '-' x= unExpr
                     {
-                    match(input,17,FOLLOW_17_in_unExpr110); if (state.failed) return result;
+                    match(input,17,FOLLOW_17_in_unExpr118); if (state.failed) return result;
 
-                    pushFollow(FOLLOW_unExpr_in_unExpr114);
+                    pushFollow(FOLLOW_unExpr_in_unExpr122);
                     x=unExpr();
 
                     state._fsp--;
@@ -252,9 +252,9 @@ public class QLParser extends Parser {
                 case 3 :
                     // C:\\Users\\Jeremy\\Documents\\GitHub\\sea-of-ql\\jeremyklamer\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:26:7: '!' x= unExpr
                     {
-                    match(input,10,FOLLOW_10_in_unExpr124); if (state.failed) return result;
+                    match(input,10,FOLLOW_10_in_unExpr132); if (state.failed) return result;
 
-                    pushFollow(FOLLOW_unExpr_in_unExpr128);
+                    pushFollow(FOLLOW_unExpr_in_unExpr136);
                     x=unExpr();
 
                     state._fsp--;
@@ -267,7 +267,7 @@ public class QLParser extends Parser {
                 case 4 :
                     // C:\\Users\\Jeremy\\Documents\\GitHub\\sea-of-ql\\jeremyklamer\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:27:7: x= primary
                     {
-                    pushFollow(FOLLOW_primary_in_unExpr140);
+                    pushFollow(FOLLOW_primary_in_unExpr148);
                     x=primary();
 
                     state._fsp--;
@@ -315,7 +315,7 @@ public class QLParser extends Parser {
             // C:\\Users\\Jeremy\\Documents\\GitHub\\sea-of-ql\\jeremyklamer\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:31:5: (lhs= unExpr (op= ( '*' | '/' ) rhs= unExpr )* )
             // C:\\Users\\Jeremy\\Documents\\GitHub\\sea-of-ql\\jeremyklamer\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:31:7: lhs= unExpr (op= ( '*' | '/' ) rhs= unExpr )*
             {
-            pushFollow(FOLLOW_unExpr_in_mulExpr177);
+            pushFollow(FOLLOW_unExpr_in_mulExpr185);
             lhs=unExpr();
 
             state._fsp--;
@@ -352,7 +352,7 @@ public class QLParser extends Parser {
             	    }
 
 
-            	    pushFollow(FOLLOW_unExpr_in_mulExpr197);
+            	    pushFollow(FOLLOW_unExpr_in_mulExpr205);
             	    rhs=unExpr();
 
             	    state._fsp--;
@@ -414,7 +414,7 @@ public class QLParser extends Parser {
             // C:\\Users\\Jeremy\\Documents\\GitHub\\sea-of-ql\\jeremyklamer\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:44:5: (lhs= mulExpr (op= ( '+' | '-' ) rhs= mulExpr )* )
             // C:\\Users\\Jeremy\\Documents\\GitHub\\sea-of-ql\\jeremyklamer\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:44:7: lhs= mulExpr (op= ( '+' | '-' ) rhs= mulExpr )*
             {
-            pushFollow(FOLLOW_mulExpr_in_addExpr237);
+            pushFollow(FOLLOW_mulExpr_in_addExpr245);
             lhs=mulExpr();
 
             state._fsp--;
@@ -451,7 +451,7 @@ public class QLParser extends Parser {
             	    }
 
 
-            	    pushFollow(FOLLOW_mulExpr_in_addExpr255);
+            	    pushFollow(FOLLOW_mulExpr_in_addExpr263);
             	    rhs=mulExpr();
 
             	    state._fsp--;
@@ -513,7 +513,7 @@ public class QLParser extends Parser {
             // C:\\Users\\Jeremy\\Documents\\GitHub\\sea-of-ql\\jeremyklamer\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:56:5: (lhs= addExpr (op= ( '<' | '<=' | '>' | '>=' | '==' | '!=' ) rhs= addExpr )* )
             // C:\\Users\\Jeremy\\Documents\\GitHub\\sea-of-ql\\jeremyklamer\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:56:7: lhs= addExpr (op= ( '<' | '<=' | '>' | '>=' | '==' | '!=' ) rhs= addExpr )*
             {
-            pushFollow(FOLLOW_addExpr_in_relExpr289);
+            pushFollow(FOLLOW_addExpr_in_relExpr297);
             lhs=addExpr();
 
             state._fsp--;
@@ -550,7 +550,7 @@ public class QLParser extends Parser {
             	    }
 
 
-            	    pushFollow(FOLLOW_addExpr_in_relExpr313);
+            	    pushFollow(FOLLOW_addExpr_in_relExpr321);
             	    rhs=addExpr();
 
             	    state._fsp--;
@@ -623,7 +623,7 @@ public class QLParser extends Parser {
             // C:\\Users\\Jeremy\\Documents\\GitHub\\sea-of-ql\\jeremyklamer\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:80:5: (lhs= relExpr ( '&&' rhs= relExpr )* )
             // C:\\Users\\Jeremy\\Documents\\GitHub\\sea-of-ql\\jeremyklamer\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:80:7: lhs= relExpr ( '&&' rhs= relExpr )*
             {
-            pushFollow(FOLLOW_relExpr_in_andExpr350);
+            pushFollow(FOLLOW_relExpr_in_andExpr358);
             lhs=relExpr();
 
             state._fsp--;
@@ -646,9 +646,9 @@ public class QLParser extends Parser {
             	case 1 :
             	    // C:\\Users\\Jeremy\\Documents\\GitHub\\sea-of-ql\\jeremyklamer\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:80:46: '&&' rhs= relExpr
             	    {
-            	    match(input,12,FOLLOW_12_in_andExpr356); if (state.failed) return result;
+            	    match(input,12,FOLLOW_12_in_andExpr364); if (state.failed) return result;
 
-            	    pushFollow(FOLLOW_relExpr_in_andExpr360);
+            	    pushFollow(FOLLOW_relExpr_in_andExpr368);
             	    rhs=relExpr();
 
             	    state._fsp--;
@@ -702,7 +702,7 @@ public class QLParser extends Parser {
             // C:\\Users\\Jeremy\\Documents\\GitHub\\sea-of-ql\\jeremyklamer\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:85:5: (lhs= andExpr ( '||' rhs= andExpr )* )
             // C:\\Users\\Jeremy\\Documents\\GitHub\\sea-of-ql\\jeremyklamer\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:85:7: lhs= andExpr ( '||' rhs= andExpr )*
             {
-            pushFollow(FOLLOW_andExpr_in_orExpr394);
+            pushFollow(FOLLOW_andExpr_in_orExpr402);
             lhs=andExpr();
 
             state._fsp--;
@@ -725,9 +725,9 @@ public class QLParser extends Parser {
             	case 1 :
             	    // C:\\Users\\Jeremy\\Documents\\GitHub\\sea-of-ql\\jeremyklamer\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:85:48: '||' rhs= andExpr
             	    {
-            	    match(input,32,FOLLOW_32_in_orExpr400); if (state.failed) return result;
+            	    match(input,32,FOLLOW_32_in_orExpr408); if (state.failed) return result;
 
-            	    pushFollow(FOLLOW_andExpr_in_orExpr404);
+            	    pushFollow(FOLLOW_andExpr_in_orExpr412);
             	    rhs=andExpr();
 
             	    state._fsp--;
@@ -781,11 +781,11 @@ public class QLParser extends Parser {
             // C:\\Users\\Jeremy\\Documents\\GitHub\\sea-of-ql\\jeremyklamer\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:90:5: ( 'form' Ident '{' ( formPart )+ '}' )
             // C:\\Users\\Jeremy\\Documents\\GitHub\\sea-of-ql\\jeremyklamer\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:90:7: 'form' Ident '{' ( formPart )+ '}'
             {
-            match(input,27,FOLLOW_27_in_form442); if (state.failed) return result;
+            match(input,27,FOLLOW_27_in_form450); if (state.failed) return result;
 
-            Ident4=(Token)match(input,Ident,FOLLOW_Ident_in_form444); if (state.failed) return result;
+            Ident4=(Token)match(input,Ident,FOLLOW_Ident_in_form452); if (state.failed) return result;
 
-            match(input,31,FOLLOW_31_in_form446); if (state.failed) return result;
+            match(input,31,FOLLOW_31_in_form454); if (state.failed) return result;
 
             // C:\\Users\\Jeremy\\Documents\\GitHub\\sea-of-ql\\jeremyklamer\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:90:24: ( formPart )+
             int cnt8=0;
@@ -803,7 +803,7 @@ public class QLParser extends Parser {
             	case 1 :
             	    // C:\\Users\\Jeremy\\Documents\\GitHub\\sea-of-ql\\jeremyklamer\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:90:25: formPart
             	    {
-            	    pushFollow(FOLLOW_formPart_in_form449);
+            	    pushFollow(FOLLOW_formPart_in_form457);
             	    formPart3=formPart();
 
             	    state._fsp--;
@@ -825,7 +825,7 @@ public class QLParser extends Parser {
             } while (true);
 
 
-            match(input,33,FOLLOW_33_in_form455); if (state.failed) return result;
+            match(input,33,FOLLOW_33_in_form463); if (state.failed) return result;
 
             if ( state.backtracking==0 ) { result = new Form(new Ident((Ident4!=null?Ident4.getText():null)), formParts);}
 
@@ -902,7 +902,7 @@ public class QLParser extends Parser {
                 case 1 :
                     // C:\\Users\\Jeremy\\Documents\\GitHub\\sea-of-ql\\jeremyklamer\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:94:7: question
                     {
-                    pushFollow(FOLLOW_question_in_formPart482);
+                    pushFollow(FOLLOW_question_in_formPart490);
                     question5=question();
 
                     state._fsp--;
@@ -915,7 +915,7 @@ public class QLParser extends Parser {
                 case 2 :
                     // C:\\Users\\Jeremy\\Documents\\GitHub\\sea-of-ql\\jeremyklamer\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:95:7: ifThenStatement
                     {
-                    pushFollow(FOLLOW_ifThenStatement_in_formPart492);
+                    pushFollow(FOLLOW_ifThenStatement_in_formPart500);
                     ifThenStatement6=ifThenStatement();
 
                     state._fsp--;
@@ -928,7 +928,7 @@ public class QLParser extends Parser {
                 case 3 :
                     // C:\\Users\\Jeremy\\Documents\\GitHub\\sea-of-ql\\jeremyklamer\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:96:7: ifStatement
                     {
-                    pushFollow(FOLLOW_ifStatement_in_formPart502);
+                    pushFollow(FOLLOW_ifStatement_in_formPart510);
                     ifStatement7=ifStatement();
 
                     state._fsp--;
@@ -975,15 +975,15 @@ public class QLParser extends Parser {
             // C:\\Users\\Jeremy\\Documents\\GitHub\\sea-of-ql\\jeremyklamer\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:101:5: ( 'if' '(' Ident ')' '{' ( formPart )+ '}' )
             // C:\\Users\\Jeremy\\Documents\\GitHub\\sea-of-ql\\jeremyklamer\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:101:7: 'if' '(' Ident ')' '{' ( formPart )+ '}'
             {
-            match(input,28,FOLLOW_28_in_ifStatement539); if (state.failed) return result;
+            match(input,28,FOLLOW_28_in_ifStatement547); if (state.failed) return result;
 
-            match(input,13,FOLLOW_13_in_ifStatement541); if (state.failed) return result;
+            match(input,13,FOLLOW_13_in_ifStatement549); if (state.failed) return result;
 
-            Ident9=(Token)match(input,Ident,FOLLOW_Ident_in_ifStatement543); if (state.failed) return result;
+            Ident9=(Token)match(input,Ident,FOLLOW_Ident_in_ifStatement551); if (state.failed) return result;
 
-            match(input,14,FOLLOW_14_in_ifStatement545); if (state.failed) return result;
+            match(input,14,FOLLOW_14_in_ifStatement553); if (state.failed) return result;
 
-            match(input,31,FOLLOW_31_in_ifStatement547); if (state.failed) return result;
+            match(input,31,FOLLOW_31_in_ifStatement555); if (state.failed) return result;
 
             // C:\\Users\\Jeremy\\Documents\\GitHub\\sea-of-ql\\jeremyklamer\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:101:30: ( formPart )+
             int cnt10=0;
@@ -1001,7 +1001,7 @@ public class QLParser extends Parser {
             	case 1 :
             	    // C:\\Users\\Jeremy\\Documents\\GitHub\\sea-of-ql\\jeremyklamer\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:101:31: formPart
             	    {
-            	    pushFollow(FOLLOW_formPart_in_ifStatement550);
+            	    pushFollow(FOLLOW_formPart_in_ifStatement558);
             	    formPart8=formPart();
 
             	    state._fsp--;
@@ -1023,7 +1023,7 @@ public class QLParser extends Parser {
             } while (true);
 
 
-            match(input,33,FOLLOW_33_in_ifStatement556); if (state.failed) return result;
+            match(input,33,FOLLOW_33_in_ifStatement564); if (state.failed) return result;
 
             if ( state.backtracking==0 ) {result = new If(new Ident((Ident9!=null?Ident9.getText():null)), formParts);}
 
@@ -1067,15 +1067,15 @@ public class QLParser extends Parser {
             // C:\\Users\\Jeremy\\Documents\\GitHub\\sea-of-ql\\jeremyklamer\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:107:5: ( 'if' '(' Ident ')' '{' (f1= formPart )+ '}' 'else' '{' (f2= formPart )+ '}' )
             // C:\\Users\\Jeremy\\Documents\\GitHub\\sea-of-ql\\jeremyklamer\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:107:7: 'if' '(' Ident ')' '{' (f1= formPart )+ '}' 'else' '{' (f2= formPart )+ '}'
             {
-            match(input,28,FOLLOW_28_in_ifThenStatement594); if (state.failed) return result;
+            match(input,28,FOLLOW_28_in_ifThenStatement602); if (state.failed) return result;
 
-            match(input,13,FOLLOW_13_in_ifThenStatement596); if (state.failed) return result;
+            match(input,13,FOLLOW_13_in_ifThenStatement604); if (state.failed) return result;
 
-            Ident10=(Token)match(input,Ident,FOLLOW_Ident_in_ifThenStatement598); if (state.failed) return result;
+            Ident10=(Token)match(input,Ident,FOLLOW_Ident_in_ifThenStatement606); if (state.failed) return result;
 
-            match(input,14,FOLLOW_14_in_ifThenStatement600); if (state.failed) return result;
+            match(input,14,FOLLOW_14_in_ifThenStatement608); if (state.failed) return result;
 
-            match(input,31,FOLLOW_31_in_ifThenStatement602); if (state.failed) return result;
+            match(input,31,FOLLOW_31_in_ifThenStatement610); if (state.failed) return result;
 
             // C:\\Users\\Jeremy\\Documents\\GitHub\\sea-of-ql\\jeremyklamer\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:107:30: (f1= formPart )+
             int cnt11=0;
@@ -1093,7 +1093,7 @@ public class QLParser extends Parser {
             	case 1 :
             	    // C:\\Users\\Jeremy\\Documents\\GitHub\\sea-of-ql\\jeremyklamer\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:107:31: f1= formPart
             	    {
-            	    pushFollow(FOLLOW_formPart_in_ifThenStatement607);
+            	    pushFollow(FOLLOW_formPart_in_ifThenStatement615);
             	    f1=formPart();
 
             	    state._fsp--;
@@ -1115,11 +1115,11 @@ public class QLParser extends Parser {
             } while (true);
 
 
-            match(input,33,FOLLOW_33_in_ifThenStatement613); if (state.failed) return result;
+            match(input,33,FOLLOW_33_in_ifThenStatement621); if (state.failed) return result;
 
-            match(input,26,FOLLOW_26_in_ifThenStatement615); if (state.failed) return result;
+            match(input,26,FOLLOW_26_in_ifThenStatement623); if (state.failed) return result;
 
-            match(input,31,FOLLOW_31_in_ifThenStatement617); if (state.failed) return result;
+            match(input,31,FOLLOW_31_in_ifThenStatement625); if (state.failed) return result;
 
             // C:\\Users\\Jeremy\\Documents\\GitHub\\sea-of-ql\\jeremyklamer\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:107:91: (f2= formPart )+
             int cnt12=0;
@@ -1137,7 +1137,7 @@ public class QLParser extends Parser {
             	case 1 :
             	    // C:\\Users\\Jeremy\\Documents\\GitHub\\sea-of-ql\\jeremyklamer\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:107:92: f2= formPart
             	    {
-            	    pushFollow(FOLLOW_formPart_in_ifThenStatement622);
+            	    pushFollow(FOLLOW_formPart_in_ifThenStatement630);
             	    f2=formPart();
 
             	    state._fsp--;
@@ -1159,7 +1159,7 @@ public class QLParser extends Parser {
             } while (true);
 
 
-            match(input,33,FOLLOW_33_in_ifThenStatement628); if (state.failed) return result;
+            match(input,33,FOLLOW_33_in_ifThenStatement636); if (state.failed) return result;
 
             if ( state.backtracking==0 ) {result = new IfThenElse(new Ident((Ident10!=null?Ident10.getText():null)), ifFormParts, elseFormParts);}
 
@@ -1199,13 +1199,13 @@ public class QLParser extends Parser {
             // C:\\Users\\Jeremy\\Documents\\GitHub\\sea-of-ql\\jeremyklamer\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:112:5: ( Ident ':' String returnType )
             // C:\\Users\\Jeremy\\Documents\\GitHub\\sea-of-ql\\jeremyklamer\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:112:7: Ident ':' String returnType
             {
-            match(input,Ident,FOLLOW_Ident_in_question662); if (state.failed) return result;
+            match(input,Ident,FOLLOW_Ident_in_question670); if (state.failed) return result;
 
-            match(input,19,FOLLOW_19_in_question664); if (state.failed) return result;
+            match(input,19,FOLLOW_19_in_question672); if (state.failed) return result;
 
-            String11=(Token)match(input,String,FOLLOW_String_in_question666); if (state.failed) return result;
+            String11=(Token)match(input,String,FOLLOW_String_in_question674); if (state.failed) return result;
 
-            pushFollow(FOLLOW_returnType_in_question668);
+            pushFollow(FOLLOW_returnType_in_question676);
             returnType12=returnType();
 
             state._fsp--;
@@ -1276,7 +1276,7 @@ public class QLParser extends Parser {
                 case 1 :
                     // C:\\Users\\Jeremy\\Documents\\GitHub\\sea-of-ql\\jeremyklamer\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:116:7: 'boolean'
                     {
-                    match(input,25,FOLLOW_25_in_returnType696); if (state.failed) return result;
+                    match(input,25,FOLLOW_25_in_returnType704); if (state.failed) return result;
 
                     if ( state.backtracking==0 ) { result = new BoolType(false); }
 
@@ -1285,15 +1285,15 @@ public class QLParser extends Parser {
                 case 2 :
                     // C:\\Users\\Jeremy\\Documents\\GitHub\\sea-of-ql\\jeremyklamer\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:117:7: 'money(' orExpr ')'
                     {
-                    match(input,30,FOLLOW_30_in_returnType706); if (state.failed) return result;
+                    match(input,30,FOLLOW_30_in_returnType714); if (state.failed) return result;
 
-                    pushFollow(FOLLOW_orExpr_in_returnType708);
+                    pushFollow(FOLLOW_orExpr_in_returnType716);
                     orExpr13=orExpr();
 
                     state._fsp--;
                     if (state.failed) return result;
 
-                    match(input,14,FOLLOW_14_in_returnType710); if (state.failed) return result;
+                    match(input,14,FOLLOW_14_in_returnType718); if (state.failed) return result;
 
                     if ( state.backtracking==0 ) {result = new Money(orExpr13);}
 
@@ -1302,7 +1302,7 @@ public class QLParser extends Parser {
                 case 3 :
                     // C:\\Users\\Jeremy\\Documents\\GitHub\\sea-of-ql\\jeremyklamer\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:118:7: 'money'
                     {
-                    match(input,29,FOLLOW_29_in_returnType721); if (state.failed) return result;
+                    match(input,29,FOLLOW_29_in_returnType729); if (state.failed) return result;
 
                     if ( state.backtracking==0 ) {result = new Money();}
 
@@ -1330,7 +1330,7 @@ public class QLParser extends Parser {
         // C:\\Users\\Jeremy\\Documents\\GitHub\\sea-of-ql\\jeremyklamer\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:95:7: ( ifThenStatement )
         // C:\\Users\\Jeremy\\Documents\\GitHub\\sea-of-ql\\jeremyklamer\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:95:7: ifThenStatement
         {
-        pushFollow(FOLLOW_ifThenStatement_in_synpred20_QL492);
+        pushFollow(FOLLOW_ifThenStatement_in_synpred20_QL500);
         ifThenStatement();
 
         state._fsp--;
@@ -1361,68 +1361,68 @@ public class QLParser extends Parser {
 
  
 
-    public static final BitSet FOLLOW_Int_in_primary47 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_Ident_in_primary57 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_13_in_primary65 = new BitSet(new long[]{0x00000000000324C0L});
-    public static final BitSet FOLLOW_orExpr_in_primary69 = new BitSet(new long[]{0x0000000000004000L});
-    public static final BitSet FOLLOW_14_in_primary71 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_16_in_unExpr96 = new BitSet(new long[]{0x00000000000324C0L});
-    public static final BitSet FOLLOW_unExpr_in_unExpr100 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_17_in_unExpr110 = new BitSet(new long[]{0x00000000000324C0L});
-    public static final BitSet FOLLOW_unExpr_in_unExpr114 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_10_in_unExpr124 = new BitSet(new long[]{0x00000000000324C0L});
-    public static final BitSet FOLLOW_unExpr_in_unExpr128 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_primary_in_unExpr140 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_unExpr_in_mulExpr177 = new BitSet(new long[]{0x0000000000048002L});
-    public static final BitSet FOLLOW_set_in_mulExpr185 = new BitSet(new long[]{0x00000000000324C0L});
-    public static final BitSet FOLLOW_unExpr_in_mulExpr197 = new BitSet(new long[]{0x0000000000048002L});
-    public static final BitSet FOLLOW_mulExpr_in_addExpr237 = new BitSet(new long[]{0x0000000000030002L});
-    public static final BitSet FOLLOW_set_in_addExpr245 = new BitSet(new long[]{0x00000000000324C0L});
-    public static final BitSet FOLLOW_mulExpr_in_addExpr255 = new BitSet(new long[]{0x0000000000030002L});
-    public static final BitSet FOLLOW_addExpr_in_relExpr289 = new BitSet(new long[]{0x0000000001F00802L});
-    public static final BitSet FOLLOW_set_in_relExpr297 = new BitSet(new long[]{0x00000000000324C0L});
-    public static final BitSet FOLLOW_addExpr_in_relExpr313 = new BitSet(new long[]{0x0000000001F00802L});
-    public static final BitSet FOLLOW_relExpr_in_andExpr350 = new BitSet(new long[]{0x0000000000001002L});
-    public static final BitSet FOLLOW_12_in_andExpr356 = new BitSet(new long[]{0x00000000000324C0L});
-    public static final BitSet FOLLOW_relExpr_in_andExpr360 = new BitSet(new long[]{0x0000000000001002L});
-    public static final BitSet FOLLOW_andExpr_in_orExpr394 = new BitSet(new long[]{0x0000000100000002L});
-    public static final BitSet FOLLOW_32_in_orExpr400 = new BitSet(new long[]{0x00000000000324C0L});
-    public static final BitSet FOLLOW_andExpr_in_orExpr404 = new BitSet(new long[]{0x0000000100000002L});
-    public static final BitSet FOLLOW_27_in_form442 = new BitSet(new long[]{0x0000000000000040L});
-    public static final BitSet FOLLOW_Ident_in_form444 = new BitSet(new long[]{0x0000000080000000L});
-    public static final BitSet FOLLOW_31_in_form446 = new BitSet(new long[]{0x0000000010000040L});
-    public static final BitSet FOLLOW_formPart_in_form449 = new BitSet(new long[]{0x0000000210000040L});
-    public static final BitSet FOLLOW_33_in_form455 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_question_in_formPart482 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ifThenStatement_in_formPart492 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ifStatement_in_formPart502 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_28_in_ifStatement539 = new BitSet(new long[]{0x0000000000002000L});
-    public static final BitSet FOLLOW_13_in_ifStatement541 = new BitSet(new long[]{0x0000000000000040L});
-    public static final BitSet FOLLOW_Ident_in_ifStatement543 = new BitSet(new long[]{0x0000000000004000L});
-    public static final BitSet FOLLOW_14_in_ifStatement545 = new BitSet(new long[]{0x0000000080000000L});
-    public static final BitSet FOLLOW_31_in_ifStatement547 = new BitSet(new long[]{0x0000000010000040L});
-    public static final BitSet FOLLOW_formPart_in_ifStatement550 = new BitSet(new long[]{0x0000000210000040L});
-    public static final BitSet FOLLOW_33_in_ifStatement556 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_28_in_ifThenStatement594 = new BitSet(new long[]{0x0000000000002000L});
-    public static final BitSet FOLLOW_13_in_ifThenStatement596 = new BitSet(new long[]{0x0000000000000040L});
-    public static final BitSet FOLLOW_Ident_in_ifThenStatement598 = new BitSet(new long[]{0x0000000000004000L});
-    public static final BitSet FOLLOW_14_in_ifThenStatement600 = new BitSet(new long[]{0x0000000080000000L});
-    public static final BitSet FOLLOW_31_in_ifThenStatement602 = new BitSet(new long[]{0x0000000010000040L});
-    public static final BitSet FOLLOW_formPart_in_ifThenStatement607 = new BitSet(new long[]{0x0000000210000040L});
-    public static final BitSet FOLLOW_33_in_ifThenStatement613 = new BitSet(new long[]{0x0000000004000000L});
-    public static final BitSet FOLLOW_26_in_ifThenStatement615 = new BitSet(new long[]{0x0000000080000000L});
-    public static final BitSet FOLLOW_31_in_ifThenStatement617 = new BitSet(new long[]{0x0000000010000040L});
-    public static final BitSet FOLLOW_formPart_in_ifThenStatement622 = new BitSet(new long[]{0x0000000210000040L});
-    public static final BitSet FOLLOW_33_in_ifThenStatement628 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_Ident_in_question662 = new BitSet(new long[]{0x0000000000080000L});
-    public static final BitSet FOLLOW_19_in_question664 = new BitSet(new long[]{0x0000000000000100L});
-    public static final BitSet FOLLOW_String_in_question666 = new BitSet(new long[]{0x0000000062000000L});
-    public static final BitSet FOLLOW_returnType_in_question668 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_25_in_returnType696 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_30_in_returnType706 = new BitSet(new long[]{0x00000000000324C0L});
-    public static final BitSet FOLLOW_orExpr_in_returnType708 = new BitSet(new long[]{0x0000000000004000L});
-    public static final BitSet FOLLOW_14_in_returnType710 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_29_in_returnType721 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ifThenStatement_in_synpred20_QL492 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_Int_in_primary49 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_Ident_in_primary61 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_13_in_primary71 = new BitSet(new long[]{0x00000000000324C0L});
+    public static final BitSet FOLLOW_orExpr_in_primary75 = new BitSet(new long[]{0x0000000000004000L});
+    public static final BitSet FOLLOW_14_in_primary77 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_16_in_unExpr104 = new BitSet(new long[]{0x00000000000324C0L});
+    public static final BitSet FOLLOW_unExpr_in_unExpr108 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_17_in_unExpr118 = new BitSet(new long[]{0x00000000000324C0L});
+    public static final BitSet FOLLOW_unExpr_in_unExpr122 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_10_in_unExpr132 = new BitSet(new long[]{0x00000000000324C0L});
+    public static final BitSet FOLLOW_unExpr_in_unExpr136 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_primary_in_unExpr148 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_unExpr_in_mulExpr185 = new BitSet(new long[]{0x0000000000048002L});
+    public static final BitSet FOLLOW_set_in_mulExpr193 = new BitSet(new long[]{0x00000000000324C0L});
+    public static final BitSet FOLLOW_unExpr_in_mulExpr205 = new BitSet(new long[]{0x0000000000048002L});
+    public static final BitSet FOLLOW_mulExpr_in_addExpr245 = new BitSet(new long[]{0x0000000000030002L});
+    public static final BitSet FOLLOW_set_in_addExpr253 = new BitSet(new long[]{0x00000000000324C0L});
+    public static final BitSet FOLLOW_mulExpr_in_addExpr263 = new BitSet(new long[]{0x0000000000030002L});
+    public static final BitSet FOLLOW_addExpr_in_relExpr297 = new BitSet(new long[]{0x0000000001F00802L});
+    public static final BitSet FOLLOW_set_in_relExpr305 = new BitSet(new long[]{0x00000000000324C0L});
+    public static final BitSet FOLLOW_addExpr_in_relExpr321 = new BitSet(new long[]{0x0000000001F00802L});
+    public static final BitSet FOLLOW_relExpr_in_andExpr358 = new BitSet(new long[]{0x0000000000001002L});
+    public static final BitSet FOLLOW_12_in_andExpr364 = new BitSet(new long[]{0x00000000000324C0L});
+    public static final BitSet FOLLOW_relExpr_in_andExpr368 = new BitSet(new long[]{0x0000000000001002L});
+    public static final BitSet FOLLOW_andExpr_in_orExpr402 = new BitSet(new long[]{0x0000000100000002L});
+    public static final BitSet FOLLOW_32_in_orExpr408 = new BitSet(new long[]{0x00000000000324C0L});
+    public static final BitSet FOLLOW_andExpr_in_orExpr412 = new BitSet(new long[]{0x0000000100000002L});
+    public static final BitSet FOLLOW_27_in_form450 = new BitSet(new long[]{0x0000000000000040L});
+    public static final BitSet FOLLOW_Ident_in_form452 = new BitSet(new long[]{0x0000000080000000L});
+    public static final BitSet FOLLOW_31_in_form454 = new BitSet(new long[]{0x0000000010000040L});
+    public static final BitSet FOLLOW_formPart_in_form457 = new BitSet(new long[]{0x0000000210000040L});
+    public static final BitSet FOLLOW_33_in_form463 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_question_in_formPart490 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ifThenStatement_in_formPart500 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ifStatement_in_formPart510 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_28_in_ifStatement547 = new BitSet(new long[]{0x0000000000002000L});
+    public static final BitSet FOLLOW_13_in_ifStatement549 = new BitSet(new long[]{0x0000000000000040L});
+    public static final BitSet FOLLOW_Ident_in_ifStatement551 = new BitSet(new long[]{0x0000000000004000L});
+    public static final BitSet FOLLOW_14_in_ifStatement553 = new BitSet(new long[]{0x0000000080000000L});
+    public static final BitSet FOLLOW_31_in_ifStatement555 = new BitSet(new long[]{0x0000000010000040L});
+    public static final BitSet FOLLOW_formPart_in_ifStatement558 = new BitSet(new long[]{0x0000000210000040L});
+    public static final BitSet FOLLOW_33_in_ifStatement564 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_28_in_ifThenStatement602 = new BitSet(new long[]{0x0000000000002000L});
+    public static final BitSet FOLLOW_13_in_ifThenStatement604 = new BitSet(new long[]{0x0000000000000040L});
+    public static final BitSet FOLLOW_Ident_in_ifThenStatement606 = new BitSet(new long[]{0x0000000000004000L});
+    public static final BitSet FOLLOW_14_in_ifThenStatement608 = new BitSet(new long[]{0x0000000080000000L});
+    public static final BitSet FOLLOW_31_in_ifThenStatement610 = new BitSet(new long[]{0x0000000010000040L});
+    public static final BitSet FOLLOW_formPart_in_ifThenStatement615 = new BitSet(new long[]{0x0000000210000040L});
+    public static final BitSet FOLLOW_33_in_ifThenStatement621 = new BitSet(new long[]{0x0000000004000000L});
+    public static final BitSet FOLLOW_26_in_ifThenStatement623 = new BitSet(new long[]{0x0000000080000000L});
+    public static final BitSet FOLLOW_31_in_ifThenStatement625 = new BitSet(new long[]{0x0000000010000040L});
+    public static final BitSet FOLLOW_formPart_in_ifThenStatement630 = new BitSet(new long[]{0x0000000210000040L});
+    public static final BitSet FOLLOW_33_in_ifThenStatement636 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_Ident_in_question670 = new BitSet(new long[]{0x0000000000080000L});
+    public static final BitSet FOLLOW_19_in_question672 = new BitSet(new long[]{0x0000000000000100L});
+    public static final BitSet FOLLOW_String_in_question674 = new BitSet(new long[]{0x0000000062000000L});
+    public static final BitSet FOLLOW_returnType_in_question676 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_25_in_returnType704 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_30_in_returnType714 = new BitSet(new long[]{0x00000000000324C0L});
+    public static final BitSet FOLLOW_orExpr_in_returnType716 = new BitSet(new long[]{0x0000000000004000L});
+    public static final BitSet FOLLOW_14_in_returnType718 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_29_in_returnType729 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ifThenStatement_in_synpred20_QL500 = new BitSet(new long[]{0x0000000000000002L});
 
 }

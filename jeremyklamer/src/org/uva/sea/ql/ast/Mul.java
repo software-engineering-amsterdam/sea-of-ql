@@ -9,6 +9,7 @@ public class Mul extends Binary {
 		super(left,right);
 	}
 
+	@Override
 	public Value interpret(){
 		Int li = (Int)(getLeft().interpret());
 		Int ri = (Int)(getRight().interpret());

@@ -1,7 +1,7 @@
 package org.uva.sea.ql.ast;
 
-public class Add extends ExprBinary {
-	public Add(Expr lhs, Expr rhs) {
+public class Add extends BinaryExpression {
+	public Add(Expression lhs, Expression rhs) {
 		super(lhs, rhs);
 	}
 
