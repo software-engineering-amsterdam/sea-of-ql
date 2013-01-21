@@ -1,10 +1,11 @@
-package org.uva.sea.ql.ast.expr;
+package org.uva.sea.ql.ast.expr.unary;
 
 import org.uva.sea.ql.ast.ASTNode;
+import org.uva.sea.ql.ast.expr.Expr;
 import org.uva.sea.ql.visitor.Context;
 import org.uva.sea.ql.visitor.Visitor;
 
-public class UnaryExpr extends Expr implements ASTNode{
+public class UnaryExpr extends Expr implements ASTNode {
 
 	private final Expr arg;
 
@@ -16,12 +17,9 @@ public class UnaryExpr extends Expr implements ASTNode{
 		return arg;
 	}
 
-
-
 	@Override
 	public void accept(Visitor visitor, Context context) {
 		visitor.visit(this, context);
-		
 	}
-	
+
 }

@@ -1,18 +1,13 @@
-package org.uva.sea.ql.ast.expr;
+package org.uva.sea.ql.ast.expr.unary;
 
+import org.uva.sea.ql.ast.expr.Expr;
 import org.uva.sea.ql.visitor.Context;
 import org.uva.sea.ql.visitor.Visitor;
 
-public class Ident extends Expr {
+public final class Pos extends UnaryExpr {
 
-	private final String name;
-
-	public Ident(String name) {
-		this.name = name;
-	}
-
-	public String getName() {
-		return name;
+	public Pos(Expr arg) {
+		super(arg);
 	}
 
 	@Override

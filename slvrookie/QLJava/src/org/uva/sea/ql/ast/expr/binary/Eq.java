@@ -1,18 +1,13 @@
-package org.uva.sea.ql.ast.expr;
+package org.uva.sea.ql.ast.expr.binary;
 
+import org.uva.sea.ql.ast.expr.Expr;
 import org.uva.sea.ql.visitor.Context;
 import org.uva.sea.ql.visitor.Visitor;
 
-public class Ident extends Expr {
+public class Eq extends BinaryExpr {
 
-	private final String name;
-
-	public Ident(String name) {
-		this.name = name;
-	}
-
-	public String getName() {
-		return name;
+	public Eq(Expr lhs, Expr rhs) {
+		super(lhs, rhs);
 	}
 
 	@Override

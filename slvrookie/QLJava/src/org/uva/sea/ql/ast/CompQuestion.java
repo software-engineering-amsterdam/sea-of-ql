@@ -8,40 +8,38 @@ import org.uva.sea.ql.visitor.Context;
 import org.uva.sea.ql.visitor.Visitor;
 
 public class CompQuestion extends FormElement {
-	
-	private final Ident qID;
-	private final StringLiteral qlabel;
-	private final Type qtype;
-	private Expr qexpr;
 
-	public CompQuestion(Ident qID, StringLiteral qlabel, Type qtype, Expr qexpr) {
+	private final Ident qID;
+	private final StringLiteral qString;
+	private final Type qType;
+	private Expr qExpr;
+
+	public CompQuestion(Ident qID, StringLiteral qString, Type qType, Expr qExpr) {
 		this.qID = qID;
-		this.qlabel = qlabel;
-		this.qtype = qtype;
-		this.qexpr = qexpr;
+		this.qString = qString;
+		this.qType = qType;
+		this.qExpr = qExpr;
 	}
 
 	public Ident getQuestionID() {
 		return qID;
 	}
 
-	public StringLiteral getQuestionLabel() {
-		return qlabel;
+	public StringLiteral getQuestionString() {
+		return qString;
 	}
 
 	public Type getQuestionType() {
-		return qtype;
+		return qType;
 	}
 
 	public Expr getQuestionExpr() {
-		return qexpr;
+		return qExpr;
 	}
-
-
 
 	@Override
 	public void accept(Visitor visitor, Context context) {
 		visitor.visit(this, context);
-		
 	}
+
 }

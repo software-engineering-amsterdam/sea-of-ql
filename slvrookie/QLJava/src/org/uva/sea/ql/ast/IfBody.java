@@ -9,11 +9,11 @@ import org.uva.sea.ql.visitor.Visitor;
 public class IfBody extends FormElement {
 
 	private final Expr expression;
-	private final List<FormElement> ifbody;
+	private final List<FormElement> ifBody;
 
-	public IfBody(Expr expression, List<FormElement> ifbody) {
+	public IfBody(Expr expression, List<FormElement> ifBody) {
 		this.expression = expression;
-		this.ifbody = ifbody;
+		this.ifBody = ifBody;
 	}
 
 	public Expr getExpression() {
@@ -21,13 +21,12 @@ public class IfBody extends FormElement {
 	}
 
 	public List<FormElement> getIfElements() {
-		return ifbody;
+		return ifBody;
 	}
 
 	@Override
 	public void accept(Visitor visitor, Context context) {
-		 visitor.visit(this, context);
-		
+		visitor.visit(this, context);
 	}
 
 }

@@ -18,8 +18,6 @@ public class BoolLiteral extends Value {
 	@Override
 	public void accept(Visitor visitor, Context context) {
 		visitor.visit(this, context);
-		
 	}
-
 
 }

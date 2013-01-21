@@ -1,9 +1,10 @@
-package org.uva.sea.ql.ast.expr;
+package org.uva.sea.ql.ast.expr.binary;
 
+import org.uva.sea.ql.ast.expr.Expr;
 import org.uva.sea.ql.visitor.Context;
 import org.uva.sea.ql.visitor.Visitor;
 
-public class BinaryExpr extends Expr {
+public abstract class BinaryExpr extends Expr {
 
 	private final Expr lhs;
 	private final Expr rhs;
@@ -24,6 +25,6 @@ public class BinaryExpr extends Expr {
 	@Override
 	public void accept(Visitor visitor, Context context) {
 		visitor.visit(this, context);
-	}	
-	
+	}
+
 }

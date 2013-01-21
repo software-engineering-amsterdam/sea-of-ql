@@ -22,7 +22,11 @@ public class TestTypeChecker {
 				+ "   if (hasSoldHouse) {\n"
 				+ "   	privateDebt: \"Price the house was sold for:\" int \n"
 				+ "     privateDebt: \"Private debts for the sold house:\" int \n"
-				+ "     hasSoldHouse: \"Value residue:\" boolean(sellingPrice - priateDebt)}}";
+				+ "     private: \"Value residue:\" int(sellingPrice - privateDebt)}}";
+		
 		parser.parseForm(form1).accept(checker, context);
+		parser.parseExpr("5 +5").accept(checker, context);
+		parser.parseExpr("true || true").accept(checker, context);
 	}
+	
 }
