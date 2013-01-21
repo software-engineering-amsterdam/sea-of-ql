@@ -11,5 +11,11 @@ if(hasMaintLoan){
 sellingPrice2: "Price the house was sold for:" money
 privateDebt2: "Private debts for the sold house:" money
 valueResidue2: "Value residue:" money(sellingPrice - privateDebt)
+}else{
+sellingPrice3: "Price the house was sold for:" money
+if(sellingPrice2 > privateDebt2){
+privateDebt3: "Private debts for the sold house:" money
+}
+hasYouDada: "Are you dada?" boolean
 }
 }

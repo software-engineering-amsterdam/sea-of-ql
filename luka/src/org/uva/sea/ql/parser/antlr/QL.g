@@ -1,5 +1,5 @@
 grammar QL;
-
+//TODO: var_scope, var_declaration, 
 options {
 backtrack=true; 
 memoize=true;  
@@ -14,6 +14,7 @@ QUESTION_LABEL;
 IF_BLOCK;
 IF_CONDITION;
 IF_CONDITION_TRUE;
+IF_CONDITION_FALSE;
 VAR_TYPE;
 VAR_NAME;
 VALUE_CALC;
@@ -46,11 +47,8 @@ parse
 //Start of questionnaire
 qStartExp 
 
-	: FormId Lbr qStartQExpr Rbr ->^(FormId qStartQExpr); 
+	: FormId Lbr qContentItemExpr Rbr ->^(FormId qContentItemExpr); 
 
-//Start of sum of questions	
-qStartQExpr 
-	: (qDeclaration | ifStatementExpr)*;
 
 //question with child elements
 qDeclaration 
@@ -60,10 +58,12 @@ qDeclaration
 
 // if(x<y) / verschachtelt TODO
 ifStatementExpr 
-	:	 IF  '(' orExpr ')'   Lbr ifBlockContentExpr Rbr ->^(IF_BLOCK ^(IF_CONDITION orExpr) ^(IF_CONDITION_TRUE ifBlockContentExpr));
+	:	 IF  '(' orExpr ')'   Lbr qContentItemExpr Rbr elseStatementExpr? ->^(IF_BLOCK ^(IF_CONDITION orExpr) ^(IF_CONDITION_TRUE qContentItemExpr)  ^(IF_CONDITION_FALSE elseStatementExpr)?);
 
-
-ifBlockContentExpr
+elseStatementExpr
+	:	'else' Lbr qContentItemExpr* Rbr -> qContentItemExpr;
+	
+qContentItemExpr
 	:	( qDeclaration  | ifStatementExpr )+;
 	
 	
