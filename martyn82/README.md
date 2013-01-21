@@ -37,5 +37,18 @@ Note: don't be seduced by the provided example code and start copy-pasting gramm
 
 TODO
 ----
-- Add column and linenumber to TypeErrors
+- AST:
+    - Separate Type nodes (no enum)
+    - Add Error type node
+    - Separate IfThen and IfThenElse nodes
+- Visitors:
+    - Return generic type
+    - TypeCheck return Boolean on visit, prevent cascading errors!
+    - Keep Context as field
+    - Rename Context to Environment
+- Envionment/Context:
+    - More semantic in error messages
+    - Keep INode in error
+    - Add column and linenumber to TypeErrors
+
 - Interpreter visitor: evaluate to values instead of just types.
