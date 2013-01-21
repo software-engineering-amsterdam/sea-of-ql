@@ -1,6 +1,5 @@
 module lang::ql::analysis::FlowGraph
 
-import ParseTree;
 import lang::ql::ast::AST;
 import lang::ql::ast::Graph;
 
@@ -28,9 +27,8 @@ private set[CG] flowGraph(GraphNode parent, Conditional cond:
 private set[CG] flowGraph(GraphNode parent, Statement item: question(Question question)) = flowGraph(parent, question);
 
 private set[CG] flowGraph(GraphNode parent, Question q:
-  question(questionText, answerDataType, answerIdentifier)) {
-  return {<parent, question(q, q@location)>};
-}
+  question(questionText, answerDataType, answerIdentifier)) =
+  {<parent, question(q, q@location)>};
 
 private set[CG] flowGraph(GraphNode parent, Question q:
   question(questionText, answerDataType, answerIdentifier, calculatedField)) {
@@ -38,6 +36,5 @@ private set[CG] flowGraph(GraphNode parent, Question q:
   return {<parent, cur>} + flowGraph(cur, calculatedField);
 }
 
-private set[CG] flowGraph(GraphNode parent, Expr e) {
-  return {<parent, expr(e, e@location)>};
-}
+private set[CG] flowGraph(GraphNode parent, Expr e) =
+  {<parent, expr(e, e@location)>};
