@@ -27,8 +27,8 @@ import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 public class HTMLVisitor implements ASTVisitor {
 	private Registry registry;
-	private static final String head = "<!DOCTYPE html><html><head><style>.question {padding-left:20px; height:30px; width:600px;}.q_text{float:left;} .q_input{float:right;clear: right;} .content_below{clear:both;}</style></head><body>";
-	private static final String jquery = "<script src=\"http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js\" type=\"text/javascript\"></script>";
+	private static final String head = "<!DOCTYPE html><html><head><style>.question {padding-left:20px; height:30px; width:600px;}.q_text{float:left;} .q_input{float:right;clear: right;} .content_below{clear:both;}</style></head><body>\n";
+	private static final String jquery = "<script src=\"http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js\" type=\"text/javascript\"></script>\n";
 
 	public HTMLVisitor() {
 		this.registry = new Registry();
@@ -51,13 +51,13 @@ public class HTMLVisitor implements ASTVisitor {
 				IfStatement i = (IfStatement) e;
 				registry.appendToOutput("<div>");
 				i.accept(this);
-				registry.appendToOutput("</div>");
+				registry.appendToOutput("</div>\n");
 			}
 			if (e.getClass().equals(Question.class)) {
 				Question q = (Question) e;
 				registry.appendToOutput("<div>");
 				q.accept(this);
-				registry.appendToOutput("</div>");
+				registry.appendToOutput("</div>\n");
 			}
 		}
 	}
@@ -82,7 +82,7 @@ public class HTMLVisitor implements ASTVisitor {
 			registry.appendToOutput("<input type=\"text\" id=\"question_"
 					+ name + "\" name=\"" + name + "\"></input>");
 		}
-		registry.appendToOutput("</div></div><div class=\"content_below\">&nbsp;</div>");
+		registry.appendToOutput("</div></div>\n<div class=\"content_below\">&nbsp;</div>\n");
 	}
 
 	@Override
@@ -91,7 +91,7 @@ public class HTMLVisitor implements ASTVisitor {
 		registry.appendToOutput("<div style=\"display:none;\" id=\"if_"
 				+ ifStatement.hashCode() + "\" class=\"question\">");
 		ifStatement.getContent().accept(this);
-		registry.appendToOutput("</div>");
+		registry.appendToOutput("</div>\n");
 	}
 
 	@Override

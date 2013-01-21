@@ -144,7 +144,6 @@ orExpr returns [Expr result]
 boolType:	'boolean';
 strType :	'string';
 intType :	'integer';
-
     
 // Tokens
 
