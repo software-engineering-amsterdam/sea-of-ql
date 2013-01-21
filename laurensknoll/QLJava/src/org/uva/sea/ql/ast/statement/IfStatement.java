@@ -1,6 +1,7 @@
 package org.uva.sea.ql.ast.statement;
 
 import org.uva.sea.ql.ast.expr.AbstractExpr;
+import org.uva.sea.ql.visitor.StatementVisitor;
 
 public class IfStatement extends AbstractStatement {
 
@@ -19,4 +20,10 @@ public class IfStatement extends AbstractStatement {
 	public AbstractExpr getCondition() {
 		return this.condition;
 	}
+
+	@Override
+	public void accept(StatementVisitor visitor) {
+		visitor.visit(this);
+	}
+
 }

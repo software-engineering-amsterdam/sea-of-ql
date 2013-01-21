@@ -1,6 +1,6 @@
 package nl.stgm.ql.ast.expr;
 
-import nl.stgm.ql.ast.Expr;
+import nl.stgm.ql.ast.*;
 import nl.stgm.ql.inspector.CodeInspector;
 
 public class UnaryExpr extends Expr

@@ -15,6 +15,6 @@ public class Question extends FormItem
 	
 	public String toString()
 	{
-		return("Question " + question);
+		return("Question: " + question);
 	}
 }

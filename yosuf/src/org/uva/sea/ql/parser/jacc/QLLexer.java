@@ -22,7 +22,7 @@ public class QLLexer implements QLTokens {
 	private ASTNode yylval;
 	private final Reader input;
 
-	public QLLexer(Reader input) {
+	public QLLexer(final Reader input) {
 		this.input = input;
 		nextChar();
 	}
@@ -125,6 +125,7 @@ public class QLLexer implements QLTokens {
 			case '=': {
 				nextChar();
 				if (c == '=') {
+					nextChar();
 					return token = EQ;
 				}
 				throw new RuntimeException("Unexpected character: " + (char) c);

@@ -12,6 +12,7 @@ import org.uva.sea.ql.ast.*;
 import org.uva.sea.ql.ast.expressions.binary.*;
 import org.uva.sea.ql.ast.expressions.unary.*;
 import org.uva.sea.ql.ast.types.*;
+import org.uva.sea.ql.ast.form.*;
 }
 
 @lexer::header
@@ -22,6 +23,9 @@ package org.uva.sea.ql.parser.antlr;
 primary returns [Expr result]
   : Int   { $result = new Int(Integer.parseInt($Int.text)); }
   | Ident { $result = new Ident($Ident.text); }
+  | Bool { $result = new Bool($Bool.text);}
+  | Str { $result = new Str($Str.text);}
+  | Money { $result = new Money($Money.text); }
   | '(' x=orExpr ')'{ $result = $x.result; }
   ;
     
@@ -90,21 +94,57 @@ orExpr returns [Expr result]
     :   lhs=andExpr { $result = $lhs.result; } ( '||' rhs=andExpr { $result = new Or($result, rhs); } )*
     ;
 
-    
+form returns [Form result]
+    : Form Ident LeftBrace formElements RightBrace { $result = new Form(new Ident($Ident.text), $formElements.result); };
+
+formElement returns [FormElement result] 
+    : question {$result = $question.result;}
+    | condition {$result = $condition.result;}
+    | computation {$result = $computation.result;}
+    ;
+
+formElements returns [ArrayList<FormElement> result]
+    @init { result = new ArrayList<FormElement>(); }
+    : (element = formElement { $result.add(element);})*
+    ;
+computation returns [Computation result]
+    : Ident ':' Str Vars '(' orExpr ')' { $result = new Computation(new Ident($Ident.text), $Str.text, $orExpr.result, $Vars.text); }
+    ;
+question returns [Question result] 
+    : Ident ':' Str Vars { $result = new Question(new Ident($Ident.text), $Str.text, $Vars.text); }
+    ;
+condition returns [Condition result]
+    : If '(' orExpr ')' LeftBrace (question | condition | computation)* RightBrace { $result = new Condition($orExpr.result); }
+    // Else needs to be implemented
+    ;
 // Tokens
-NEWLINE: ('\n' | '\r');
+Newline: ('\n' | '\r');
 
-WS:	(' ' | '\t' | NEWLINE) { $channel=HIDDEN; };
+WS:	(' ' | '\t' | Newline) { $channel=HIDDEN; };
 
-COMMENT: '/*' .* '*/' {$channel=HIDDEN;} 
-       | '//' ~(NEWLINE)* '\r'? '\n' {$channel=HIDDEN;} ;
+Comment: '/*' .* '*/' {$channel=HIDDEN;} 
+       | '//' ~(Newline)* {$channel=HIDDEN;};
 
-SpecialChars: ('!' | '?' | ',' | '.' | '(' | ')' | '{' | '}' | '<' | '>' | '~' | '=' | '+' | '-' | '[' | ']' | '|');
+SpecialChars: ('!' | '?' | ',' | '.' | '<' | '>' | '=' | '+' | '-' | '[' | ']' | '|' | ':' | '/' | '\\');
+
+Vars: ('int' | 'boolean' | 'string' | 'money');
+
+LeftBrace: '{';
+
+RightBrace: '}';
 
 Bool: ('true' | 'false');
 
-String: '"' (Ident | WS | Int | SpecialChars)* '"';
+If: ('if');
+
+Else: ('else');
+
+Form: 'form';
+
+Str: '"' (Ident | WS | Int | SpecialChars)* '"';
 
 Ident:   ('a'..'z'|'A'..'Z')('a'..'z'|'A'..'Z'|'0'..'9'|'_')*;
+
+Money: ('0'..'9') ',' ('0'..'9')('0'..'9');
 
 Int: ('0'..'9')+;

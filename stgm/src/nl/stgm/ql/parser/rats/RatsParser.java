@@ -5,7 +5,7 @@ import java.io.StringReader;
 
 import nl.stgm.ql.ast.form.Document;
 import nl.stgm.ql.ast.form.Form;
-import nl.stgm.ql.ast.Expr;
+import nl.stgm.ql.ast.expr.Expr;
 
 import nl.stgm.ql.parser.IParse;
 import nl.stgm.ql.parser.ParseError;

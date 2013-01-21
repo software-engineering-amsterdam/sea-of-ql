@@ -1,8 +1,5 @@
 package org.uva.sea.ql.ast;
 
-import java.util.List;
-
-import org.uva.sea.ql.ASTNodeVisitor;
 import org.uva.sea.ql.ast.expr.Expr;
 
 public class If implements FormElement {

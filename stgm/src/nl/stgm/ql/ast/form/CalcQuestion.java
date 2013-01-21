@@ -1,6 +1,6 @@
 package nl.stgm.ql.ast.form;
 
-import nl.stgm.ql.ast.Expr;
+import nl.stgm.ql.ast.expr.*;
 import nl.stgm.ql.inspector.CodeInspector;
 
 public class CalcQuestion extends Question
@@ -15,7 +15,7 @@ public class CalcQuestion extends Question
 
 	public String toString()
 	{
-		return("Calculated question: " + question);
+		return("Calculated Question: " + question);
 	}
 
 	public void accept(CodeInspector inspector)

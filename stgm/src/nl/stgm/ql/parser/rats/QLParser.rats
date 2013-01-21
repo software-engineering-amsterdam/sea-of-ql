@@ -32,6 +32,7 @@ Question Question =
 	id:Ident ':' Spacing question:StringLit Spacing type:Ident Spacing
 	{ yyValue = new Question(id, question, type); };
 
+// this is quite unDRY
 CalcQuestion CalcQuestion =
 	id:Ident ':' Spacing question:StringLit Spacing type:Ident Spacing '(' Spacing calculation:Expr ')' Spacing
 	{ yyValue = new CalcQuestion(id, question, type, calculation); };
@@ -41,5 +42,10 @@ CalcQuestion CalcQuestion =
 // this could be allowed, but a nesting limit should probably be agreed on
 //
 Conditional Conditional =
-	"if" Spacing '(' Spacing condition:Expr ')' Spacing '{' Spacing questions:Question* '}' Spacing
-	{ yyValue = new Conditional(condition, questions.list()); };
+	"if" Spacing '(' Spacing condition:Expr ')' Spacing '{' Spacing ifQuestions:Question* '}' Spacing
+	"else" '{' Spacing elseQuestions:Question* '}' Spacing
+	{ yyValue = new Conditional(condition, ifQuestions.list(), elseQuestions.list()); }
+	/
+	"if" Spacing '(' Spacing condition:Expr ')' Spacing '{' Spacing ifQuestions:Question* '}' Spacing
+	{ yyValue = new Conditional(condition, ifQuestions.list(), null); }
+	;
