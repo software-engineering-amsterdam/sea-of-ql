@@ -1,4 +1,4 @@
-// $ANTLR 3.5 /Users/luc0/Desktop/Software_Creation/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g 2013-01-21 00:30:34
+// $ANTLR 3.5 /Users/luc0/Desktop/Software_Creation/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g 2013-01-21 01:03:40
 
 package org.uva.sea.ql.parser.antlr;
 import org.uva.sea.ql.ast.*;
@@ -74,9 +74,9 @@ public class QLParser extends DebugParser {
 
 
 	public static final String[] ruleNames = new String[] {
-		"invalidRule", "ifBlockContentExpr", "qType", "unExpr", "qStartExp", "qStartQExpr", 
-		"andExpr", "orExpr", "primary", "mulExpr", "parse", "qDeclaration", "addExpr", 
-		"relExpr", "ifStatementExpr", "qLabel"
+		"invalidRule", "orExpr", "qType", "qStartExp", "ifBlockContentExpr", "qStartQExpr", 
+		"andExpr", "relExpr", "unExpr", "parse", "addExpr", "ifStatementExpr", 
+		"primary", "qLabel", "mulExpr", "qDeclaration"
 	};
 
 	public static final boolean[] decisionCanBacktrack = new boolean[] {
@@ -142,7 +142,7 @@ public class QLParser extends DebugParser {
 
 
 	// $ANTLR start "parse"
-	// /Users/luc0/Desktop/Software_Creation/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:47:1: parse : FormStart qStartExp EOF -> ^( QUESTIONNAIRE qStartExp ) ;
+	// /Users/luc0/Desktop/Software_Creation/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:48:1: parse : FormStart qStartExp EOF -> ^( QUESTIONNAIRE qStartExp ) ;
 	public final QLParser.parse_return parse() throws RecognitionException {
 		QLParser.parse_return retval = new QLParser.parse_return();
 		retval.start = input.LT(1);
@@ -162,24 +162,24 @@ public class QLParser extends DebugParser {
 		try { dbg.enterRule(getGrammarFileName(), "parse");
 		if ( getRuleLevel()==0 ) {dbg.commence();}
 		incRuleLevel();
-		dbg.location(47, 0);
+		dbg.location(48, 0);
 
 		try {
-			// /Users/luc0/Desktop/Software_Creation/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:48:2: ( FormStart qStartExp EOF -> ^( QUESTIONNAIRE qStartExp ) )
+			// /Users/luc0/Desktop/Software_Creation/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:49:2: ( FormStart qStartExp EOF -> ^( QUESTIONNAIRE qStartExp ) )
 			dbg.enterAlt(1);
 
-			// /Users/luc0/Desktop/Software_Creation/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:48:4: FormStart qStartExp EOF
+			// /Users/luc0/Desktop/Software_Creation/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:49:4: FormStart qStartExp EOF
 			{
-			dbg.location(48,4);
-			FormStart1=(Token)match(input,FormStart,FOLLOW_FormStart_in_parse99);  
+			dbg.location(49,4);
+			FormStart1=(Token)match(input,FormStart,FOLLOW_FormStart_in_parse100);  
 			stream_FormStart.add(FormStart1);
-			dbg.location(48,14);
-			pushFollow(FOLLOW_qStartExp_in_parse101);
+			dbg.location(49,14);
+			pushFollow(FOLLOW_qStartExp_in_parse102);
 			qStartExp2=qStartExp();
 			state._fsp--;
 
-			stream_qStartExp.add(qStartExp2.getTree());dbg.location(48,24);
-			EOF3=(Token)match(input,EOF,FOLLOW_EOF_in_parse103);  
+			stream_qStartExp.add(qStartExp2.getTree());dbg.location(49,24);
+			EOF3=(Token)match(input,EOF,FOLLOW_EOF_in_parse104);  
 			stream_EOF.add(EOF3);
 
 			// AST REWRITE
@@ -193,15 +193,15 @@ public class QLParser extends DebugParser {
 			RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.getTree():null);
 
 			root_0 = (CommonTree)adaptor.nil();
-			// 48:28: -> ^( QUESTIONNAIRE qStartExp )
+			// 49:28: -> ^( QUESTIONNAIRE qStartExp )
 			{
-				dbg.location(48,31);
-				// /Users/luc0/Desktop/Software_Creation/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:48:31: ^( QUESTIONNAIRE qStartExp )
+				dbg.location(49,31);
+				// /Users/luc0/Desktop/Software_Creation/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:49:31: ^( QUESTIONNAIRE qStartExp )
 				{
 				CommonTree root_1 = (CommonTree)adaptor.nil();
-				dbg.location(48,33);
+				dbg.location(49,33);
 				root_1 = (CommonTree)adaptor.becomeRoot((CommonTree)adaptor.create(QUESTIONNAIRE, "QUESTIONNAIRE"), root_1);
-				dbg.location(48,47);
+				dbg.location(49,47);
 				adaptor.addChild(root_1, stream_qStartExp.nextTree());
 				adaptor.addChild(root_0, root_1);
 				}
@@ -227,7 +227,7 @@ public class QLParser extends DebugParser {
 		finally {
 			// do for sure before leaving
 		}
-		dbg.location(48, 56);
+		dbg.location(49, 56);
 
 		}
 		finally {
@@ -249,7 +249,7 @@ public class QLParser extends DebugParser {
 
 
 	// $ANTLR start "qStartExp"
-	// /Users/luc0/Desktop/Software_Creation/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:52:1: qStartExp : FormId Lbr qStartQExpr Rbr -> ^( FormId qStartQExpr ) ;
+	// /Users/luc0/Desktop/Software_Creation/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:53:1: qStartExp : FormId Lbr qStartQExpr Rbr -> ^( FormId qStartQExpr ) ;
 	public final QLParser.qStartExp_return qStartExp() throws RecognitionException {
 		QLParser.qStartExp_return retval = new QLParser.qStartExp_return();
 		retval.start = input.LT(1);
@@ -272,27 +272,27 @@ public class QLParser extends DebugParser {
 		try { dbg.enterRule(getGrammarFileName(), "qStartExp");
 		if ( getRuleLevel()==0 ) {dbg.commence();}
 		incRuleLevel();
-		dbg.location(52, 0);
+		dbg.location(53, 0);
 
 		try {
-			// /Users/luc0/Desktop/Software_Creation/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:54:2: ( FormId Lbr qStartQExpr Rbr -> ^( FormId qStartQExpr ) )
+			// /Users/luc0/Desktop/Software_Creation/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:55:2: ( FormId Lbr qStartQExpr Rbr -> ^( FormId qStartQExpr ) )
 			dbg.enterAlt(1);
 
-			// /Users/luc0/Desktop/Software_Creation/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:54:4: FormId Lbr qStartQExpr Rbr
+			// /Users/luc0/Desktop/Software_Creation/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:55:4: FormId Lbr qStartQExpr Rbr
 			{
-			dbg.location(54,4);
-			FormId4=(Token)match(input,FormId,FOLLOW_FormId_in_qStartExp127);  
+			dbg.location(55,4);
+			FormId4=(Token)match(input,FormId,FOLLOW_FormId_in_qStartExp128);  
 			stream_FormId.add(FormId4);
-			dbg.location(54,11);
-			Lbr5=(Token)match(input,Lbr,FOLLOW_Lbr_in_qStartExp129);  
+			dbg.location(55,11);
+			Lbr5=(Token)match(input,Lbr,FOLLOW_Lbr_in_qStartExp130);  
 			stream_Lbr.add(Lbr5);
-			dbg.location(54,15);
-			pushFollow(FOLLOW_qStartQExpr_in_qStartExp131);
+			dbg.location(55,15);
+			pushFollow(FOLLOW_qStartQExpr_in_qStartExp132);
 			qStartQExpr6=qStartQExpr();
 			state._fsp--;
 
-			stream_qStartQExpr.add(qStartQExpr6.getTree());dbg.location(54,27);
-			Rbr7=(Token)match(input,Rbr,FOLLOW_Rbr_in_qStartExp133);  
+			stream_qStartQExpr.add(qStartQExpr6.getTree());dbg.location(55,27);
+			Rbr7=(Token)match(input,Rbr,FOLLOW_Rbr_in_qStartExp134);  
 			stream_Rbr.add(Rbr7);
 
 			// AST REWRITE
@@ -306,15 +306,15 @@ public class QLParser extends DebugParser {
 			RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.getTree():null);
 
 			root_0 = (CommonTree)adaptor.nil();
-			// 54:31: -> ^( FormId qStartQExpr )
+			// 55:31: -> ^( FormId qStartQExpr )
 			{
-				dbg.location(54,33);
-				// /Users/luc0/Desktop/Software_Creation/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:54:33: ^( FormId qStartQExpr )
+				dbg.location(55,33);
+				// /Users/luc0/Desktop/Software_Creation/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:55:33: ^( FormId qStartQExpr )
 				{
 				CommonTree root_1 = (CommonTree)adaptor.nil();
-				dbg.location(54,35);
+				dbg.location(55,35);
 				root_1 = (CommonTree)adaptor.becomeRoot(stream_FormId.nextNode(), root_1);
-				dbg.location(54,42);
+				dbg.location(55,42);
 				adaptor.addChild(root_1, stream_qStartQExpr.nextTree());
 				adaptor.addChild(root_0, root_1);
 				}
@@ -340,7 +340,7 @@ public class QLParser extends DebugParser {
 		finally {
 			// do for sure before leaving
 		}
-		dbg.location(54, 53);
+		dbg.location(55, 53);
 
 		}
 		finally {
@@ -362,7 +362,7 @@ public class QLParser extends DebugParser {
 
 
 	// $ANTLR start "qStartQExpr"
-	// /Users/luc0/Desktop/Software_Creation/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:57:1: qStartQExpr : ( qDeclaration | ifStatementExpr )* ;
+	// /Users/luc0/Desktop/Software_Creation/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:58:1: qStartQExpr : ( qDeclaration | ifStatementExpr )* ;
 	public final QLParser.qStartQExpr_return qStartQExpr() throws RecognitionException {
 		QLParser.qStartQExpr_return retval = new QLParser.qStartQExpr_return();
 		retval.start = input.LT(1);
@@ -376,19 +376,19 @@ public class QLParser extends DebugParser {
 		try { dbg.enterRule(getGrammarFileName(), "qStartQExpr");
 		if ( getRuleLevel()==0 ) {dbg.commence();}
 		incRuleLevel();
-		dbg.location(57, 0);
+		dbg.location(58, 0);
 
 		try {
-			// /Users/luc0/Desktop/Software_Creation/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:58:2: ( ( qDeclaration | ifStatementExpr )* )
+			// /Users/luc0/Desktop/Software_Creation/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:59:2: ( ( qDeclaration | ifStatementExpr )* )
 			dbg.enterAlt(1);
 
-			// /Users/luc0/Desktop/Software_Creation/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:58:4: ( qDeclaration | ifStatementExpr )*
+			// /Users/luc0/Desktop/Software_Creation/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:59:4: ( qDeclaration | ifStatementExpr )*
 			{
 			root_0 = (CommonTree)adaptor.nil();
 
 
-			dbg.location(58,4);
-			// /Users/luc0/Desktop/Software_Creation/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:58:4: ( qDeclaration | ifStatementExpr )*
+			dbg.location(59,4);
+			// /Users/luc0/Desktop/Software_Creation/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:59:4: ( qDeclaration | ifStatementExpr )*
 			try { dbg.enterSubRule(1);
 
 			loop1:
@@ -410,10 +410,10 @@ public class QLParser extends DebugParser {
 				case 1 :
 					dbg.enterAlt(1);
 
-					// /Users/luc0/Desktop/Software_Creation/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:58:5: qDeclaration
+					// /Users/luc0/Desktop/Software_Creation/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:59:5: qDeclaration
 					{
-					dbg.location(58,5);
-					pushFollow(FOLLOW_qDeclaration_in_qStartQExpr152);
+					dbg.location(59,5);
+					pushFollow(FOLLOW_qDeclaration_in_qStartQExpr153);
 					qDeclaration8=qDeclaration();
 					state._fsp--;
 
@@ -424,10 +424,10 @@ public class QLParser extends DebugParser {
 				case 2 :
 					dbg.enterAlt(2);
 
-					// /Users/luc0/Desktop/Software_Creation/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:58:20: ifStatementExpr
+					// /Users/luc0/Desktop/Software_Creation/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:59:20: ifStatementExpr
 					{
-					dbg.location(58,20);
-					pushFollow(FOLLOW_ifStatementExpr_in_qStartQExpr156);
+					dbg.location(59,20);
+					pushFollow(FOLLOW_ifStatementExpr_in_qStartQExpr157);
 					ifStatementExpr9=ifStatementExpr();
 					state._fsp--;
 
@@ -458,7 +458,7 @@ public class QLParser extends DebugParser {
 		finally {
 			// do for sure before leaving
 		}
-		dbg.location(58, 36);
+		dbg.location(59, 36);
 
 		}
 		finally {
@@ -480,7 +480,7 @@ public class QLParser extends DebugParser {
 
 
 	// $ANTLR start "qDeclaration"
-	// /Users/luc0/Desktop/Software_Creation/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:61:1: qDeclaration : ( QuestionVariable ':' qLabel qType -> ^( QUESTION_BLOCK ^( QUESTION_VAR ^( VAR_NAME QuestionVariable ) ^( VAR_TYPE qType ) ) ^( QUESTION_LABEL qLabel ) ) | QuestionVariable ':' qLabel qType '(' orExpr ')' -> ^( QUESTION_BLOCK ^( QUESTION_VAR ^( VAR_NAME QuestionVariable ) ^( VAR_TYPE qType ) ^( VALUE_CALC orExpr ) ) ^( QUESTION_LABEL qLabel ) ) );
+	// /Users/luc0/Desktop/Software_Creation/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:62:1: qDeclaration : ( QuestionVariable ':' qLabel qType -> ^( QUESTION_BLOCK ^( QUESTION_VAR ^( VAR_NAME QuestionVariable ) ^( VAR_TYPE qType ) ) ^( QUESTION_LABEL qLabel ) ) | QuestionVariable ':' qLabel qType '(' orExpr ')' -> ^( QUESTION_BLOCK ^( QUESTION_VAR ^( VAR_NAME QuestionVariable ) ^( VAR_TYPE qType ) ^( VALUE_CALC orExpr ) ) ^( QUESTION_LABEL qLabel ) ) );
 	public final QLParser.qDeclaration_return qDeclaration() throws RecognitionException {
 		QLParser.qDeclaration_return retval = new QLParser.qDeclaration_return();
 		retval.start = input.LT(1);
@@ -516,10 +516,10 @@ public class QLParser extends DebugParser {
 		try { dbg.enterRule(getGrammarFileName(), "qDeclaration");
 		if ( getRuleLevel()==0 ) {dbg.commence();}
 		incRuleLevel();
-		dbg.location(61, 0);
+		dbg.location(62, 0);
 
 		try {
-			// /Users/luc0/Desktop/Software_Creation/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:62:2: ( QuestionVariable ':' qLabel qType -> ^( QUESTION_BLOCK ^( QUESTION_VAR ^( VAR_NAME QuestionVariable ) ^( VAR_TYPE qType ) ) ^( QUESTION_LABEL qLabel ) ) | QuestionVariable ':' qLabel qType '(' orExpr ')' -> ^( QUESTION_BLOCK ^( QUESTION_VAR ^( VAR_NAME QuestionVariable ) ^( VAR_TYPE qType ) ^( VALUE_CALC orExpr ) ) ^( QUESTION_LABEL qLabel ) ) )
+			// /Users/luc0/Desktop/Software_Creation/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:63:2: ( QuestionVariable ':' qLabel qType -> ^( QUESTION_BLOCK ^( QUESTION_VAR ^( VAR_NAME QuestionVariable ) ^( VAR_TYPE qType ) ) ^( QUESTION_LABEL qLabel ) ) | QuestionVariable ':' qLabel qType '(' orExpr ')' -> ^( QUESTION_BLOCK ^( QUESTION_VAR ^( VAR_NAME QuestionVariable ) ^( VAR_TYPE qType ) ^( VALUE_CALC orExpr ) ) ^( QUESTION_LABEL qLabel ) ) )
 			int alt2=2;
 			try { dbg.enterDecision(2, decisionCanBacktrack[2]);
 
@@ -618,27 +618,27 @@ public class QLParser extends DebugParser {
 				case 1 :
 					dbg.enterAlt(1);
 
-					// /Users/luc0/Desktop/Software_Creation/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:62:4: QuestionVariable ':' qLabel qType
+					// /Users/luc0/Desktop/Software_Creation/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:63:4: QuestionVariable ':' qLabel qType
 					{
-					dbg.location(62,4);
-					QuestionVariable10=(Token)match(input,QuestionVariable,FOLLOW_QuestionVariable_in_qDeclaration169);  
+					dbg.location(63,4);
+					QuestionVariable10=(Token)match(input,QuestionVariable,FOLLOW_QuestionVariable_in_qDeclaration170);  
 					stream_QuestionVariable.add(QuestionVariable10);
-					dbg.location(62,22);
-					char_literal11=(Token)match(input,36,FOLLOW_36_in_qDeclaration172);  
+					dbg.location(63,22);
+					char_literal11=(Token)match(input,36,FOLLOW_36_in_qDeclaration173);  
 					stream_36.add(char_literal11);
-					dbg.location(62,26);
-					pushFollow(FOLLOW_qLabel_in_qDeclaration174);
+					dbg.location(63,26);
+					pushFollow(FOLLOW_qLabel_in_qDeclaration175);
 					qLabel12=qLabel();
 					state._fsp--;
 
-					stream_qLabel.add(qLabel12.getTree());dbg.location(62,33);
-					pushFollow(FOLLOW_qType_in_qDeclaration176);
+					stream_qLabel.add(qLabel12.getTree());dbg.location(63,33);
+					pushFollow(FOLLOW_qType_in_qDeclaration177);
 					qType13=qType();
 					state._fsp--;
 
 					stream_qType.add(qType13.getTree());
 					// AST REWRITE
-					// elements: qLabel, qType, QuestionVariable
+					// elements: qLabel, QuestionVariable, qType
 					// token labels: 
 					// rule labels: retval
 					// token list labels: 
@@ -648,50 +648,50 @@ public class QLParser extends DebugParser {
 					RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.getTree():null);
 
 					root_0 = (CommonTree)adaptor.nil();
-					// 62:39: -> ^( QUESTION_BLOCK ^( QUESTION_VAR ^( VAR_NAME QuestionVariable ) ^( VAR_TYPE qType ) ) ^( QUESTION_LABEL qLabel ) )
+					// 63:39: -> ^( QUESTION_BLOCK ^( QUESTION_VAR ^( VAR_NAME QuestionVariable ) ^( VAR_TYPE qType ) ) ^( QUESTION_LABEL qLabel ) )
 					{
-						dbg.location(62,41);
-						// /Users/luc0/Desktop/Software_Creation/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:62:41: ^( QUESTION_BLOCK ^( QUESTION_VAR ^( VAR_NAME QuestionVariable ) ^( VAR_TYPE qType ) ) ^( QUESTION_LABEL qLabel ) )
+						dbg.location(63,41);
+						// /Users/luc0/Desktop/Software_Creation/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:63:41: ^( QUESTION_BLOCK ^( QUESTION_VAR ^( VAR_NAME QuestionVariable ) ^( VAR_TYPE qType ) ) ^( QUESTION_LABEL qLabel ) )
 						{
 						CommonTree root_1 = (CommonTree)adaptor.nil();
-						dbg.location(62,43);
+						dbg.location(63,43);
 						root_1 = (CommonTree)adaptor.becomeRoot((CommonTree)adaptor.create(QUESTION_BLOCK, "QUESTION_BLOCK"), root_1);
-						dbg.location(62,58);
-						// /Users/luc0/Desktop/Software_Creation/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:62:58: ^( QUESTION_VAR ^( VAR_NAME QuestionVariable ) ^( VAR_TYPE qType ) )
+						dbg.location(63,58);
+						// /Users/luc0/Desktop/Software_Creation/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:63:58: ^( QUESTION_VAR ^( VAR_NAME QuestionVariable ) ^( VAR_TYPE qType ) )
 						{
 						CommonTree root_2 = (CommonTree)adaptor.nil();
-						dbg.location(62,60);
+						dbg.location(63,60);
 						root_2 = (CommonTree)adaptor.becomeRoot((CommonTree)adaptor.create(QUESTION_VAR, "QUESTION_VAR"), root_2);
-						dbg.location(62,73);
-						// /Users/luc0/Desktop/Software_Creation/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:62:73: ^( VAR_NAME QuestionVariable )
+						dbg.location(63,73);
+						// /Users/luc0/Desktop/Software_Creation/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:63:73: ^( VAR_NAME QuestionVariable )
 						{
 						CommonTree root_3 = (CommonTree)adaptor.nil();
-						dbg.location(62,75);
+						dbg.location(63,75);
 						root_3 = (CommonTree)adaptor.becomeRoot((CommonTree)adaptor.create(VAR_NAME, "VAR_NAME"), root_3);
-						dbg.location(62,84);
+						dbg.location(63,84);
 						adaptor.addChild(root_3, stream_QuestionVariable.nextNode());
 						adaptor.addChild(root_2, root_3);
 						}
-						dbg.location(62,102);
-						// /Users/luc0/Desktop/Software_Creation/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:62:102: ^( VAR_TYPE qType )
+						dbg.location(63,102);
+						// /Users/luc0/Desktop/Software_Creation/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:63:102: ^( VAR_TYPE qType )
 						{
 						CommonTree root_3 = (CommonTree)adaptor.nil();
-						dbg.location(62,104);
+						dbg.location(63,104);
 						root_3 = (CommonTree)adaptor.becomeRoot((CommonTree)adaptor.create(VAR_TYPE, "VAR_TYPE"), root_3);
-						dbg.location(62,113);
+						dbg.location(63,113);
 						adaptor.addChild(root_3, stream_qType.nextTree());
 						adaptor.addChild(root_2, root_3);
 						}
 
 						adaptor.addChild(root_1, root_2);
 						}
-						dbg.location(62,122);
-						// /Users/luc0/Desktop/Software_Creation/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:62:122: ^( QUESTION_LABEL qLabel )
+						dbg.location(63,122);
+						// /Users/luc0/Desktop/Software_Creation/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:63:122: ^( QUESTION_LABEL qLabel )
 						{
 						CommonTree root_2 = (CommonTree)adaptor.nil();
-						dbg.location(62,124);
+						dbg.location(63,124);
 						root_2 = (CommonTree)adaptor.becomeRoot((CommonTree)adaptor.create(QUESTION_LABEL, "QUESTION_LABEL"), root_2);
-						dbg.location(62,139);
+						dbg.location(63,139);
 						adaptor.addChild(root_2, stream_qLabel.nextTree());
 						adaptor.addChild(root_1, root_2);
 						}
@@ -709,34 +709,34 @@ public class QLParser extends DebugParser {
 				case 2 :
 					dbg.enterAlt(2);
 
-					// /Users/luc0/Desktop/Software_Creation/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:63:4: QuestionVariable ':' qLabel qType '(' orExpr ')'
+					// /Users/luc0/Desktop/Software_Creation/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:64:4: QuestionVariable ':' qLabel qType '(' orExpr ')'
 					{
-					dbg.location(63,4);
-					QuestionVariable14=(Token)match(input,QuestionVariable,FOLLOW_QuestionVariable_in_qDeclaration210);  
+					dbg.location(64,4);
+					QuestionVariable14=(Token)match(input,QuestionVariable,FOLLOW_QuestionVariable_in_qDeclaration211);  
 					stream_QuestionVariable.add(QuestionVariable14);
-					dbg.location(63,22);
-					char_literal15=(Token)match(input,36,FOLLOW_36_in_qDeclaration213);  
+					dbg.location(64,22);
+					char_literal15=(Token)match(input,36,FOLLOW_36_in_qDeclaration214);  
 					stream_36.add(char_literal15);
-					dbg.location(63,26);
-					pushFollow(FOLLOW_qLabel_in_qDeclaration215);
+					dbg.location(64,26);
+					pushFollow(FOLLOW_qLabel_in_qDeclaration216);
 					qLabel16=qLabel();
 					state._fsp--;
 
-					stream_qLabel.add(qLabel16.getTree());dbg.location(63,33);
-					pushFollow(FOLLOW_qType_in_qDeclaration217);
+					stream_qLabel.add(qLabel16.getTree());dbg.location(64,33);
+					pushFollow(FOLLOW_qType_in_qDeclaration218);
 					qType17=qType();
 					state._fsp--;
 
-					stream_qType.add(qType17.getTree());dbg.location(63,39);
-					char_literal18=(Token)match(input,30,FOLLOW_30_in_qDeclaration219);  
+					stream_qType.add(qType17.getTree());dbg.location(64,39);
+					char_literal18=(Token)match(input,30,FOLLOW_30_in_qDeclaration220);  
 					stream_30.add(char_literal18);
-					dbg.location(63,43);
-					pushFollow(FOLLOW_orExpr_in_qDeclaration221);
+					dbg.location(64,43);
+					pushFollow(FOLLOW_orExpr_in_qDeclaration222);
 					orExpr19=orExpr();
 					state._fsp--;
 
-					stream_orExpr.add(orExpr19.getTree());dbg.location(63,50);
-					char_literal20=(Token)match(input,31,FOLLOW_31_in_qDeclaration223);  
+					stream_orExpr.add(orExpr19.getTree());dbg.location(64,50);
+					char_literal20=(Token)match(input,31,FOLLOW_31_in_qDeclaration224);  
 					stream_31.add(char_literal20);
 
 					// AST REWRITE
@@ -750,60 +750,60 @@ public class QLParser extends DebugParser {
 					RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.getTree():null);
 
 					root_0 = (CommonTree)adaptor.nil();
-					// 63:55: -> ^( QUESTION_BLOCK ^( QUESTION_VAR ^( VAR_NAME QuestionVariable ) ^( VAR_TYPE qType ) ^( VALUE_CALC orExpr ) ) ^( QUESTION_LABEL qLabel ) )
+					// 64:55: -> ^( QUESTION_BLOCK ^( QUESTION_VAR ^( VAR_NAME QuestionVariable ) ^( VAR_TYPE qType ) ^( VALUE_CALC orExpr ) ) ^( QUESTION_LABEL qLabel ) )
 					{
-						dbg.location(63,57);
-						// /Users/luc0/Desktop/Software_Creation/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:63:57: ^( QUESTION_BLOCK ^( QUESTION_VAR ^( VAR_NAME QuestionVariable ) ^( VAR_TYPE qType ) ^( VALUE_CALC orExpr ) ) ^( QUESTION_LABEL qLabel ) )
+						dbg.location(64,57);
+						// /Users/luc0/Desktop/Software_Creation/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:64:57: ^( QUESTION_BLOCK ^( QUESTION_VAR ^( VAR_NAME QuestionVariable ) ^( VAR_TYPE qType ) ^( VALUE_CALC orExpr ) ) ^( QUESTION_LABEL qLabel ) )
 						{
 						CommonTree root_1 = (CommonTree)adaptor.nil();
-						dbg.location(63,59);
+						dbg.location(64,59);
 						root_1 = (CommonTree)adaptor.becomeRoot((CommonTree)adaptor.create(QUESTION_BLOCK, "QUESTION_BLOCK"), root_1);
-						dbg.location(63,74);
-						// /Users/luc0/Desktop/Software_Creation/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:63:74: ^( QUESTION_VAR ^( VAR_NAME QuestionVariable ) ^( VAR_TYPE qType ) ^( VALUE_CALC orExpr ) )
+						dbg.location(64,74);
+						// /Users/luc0/Desktop/Software_Creation/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:64:74: ^( QUESTION_VAR ^( VAR_NAME QuestionVariable ) ^( VAR_TYPE qType ) ^( VALUE_CALC orExpr ) )
 						{
 						CommonTree root_2 = (CommonTree)adaptor.nil();
-						dbg.location(63,76);
+						dbg.location(64,76);
 						root_2 = (CommonTree)adaptor.becomeRoot((CommonTree)adaptor.create(QUESTION_VAR, "QUESTION_VAR"), root_2);
-						dbg.location(63,89);
-						// /Users/luc0/Desktop/Software_Creation/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:63:89: ^( VAR_NAME QuestionVariable )
+						dbg.location(64,89);
+						// /Users/luc0/Desktop/Software_Creation/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:64:89: ^( VAR_NAME QuestionVariable )
 						{
 						CommonTree root_3 = (CommonTree)adaptor.nil();
-						dbg.location(63,91);
+						dbg.location(64,91);
 						root_3 = (CommonTree)adaptor.becomeRoot((CommonTree)adaptor.create(VAR_NAME, "VAR_NAME"), root_3);
-						dbg.location(63,100);
+						dbg.location(64,100);
 						adaptor.addChild(root_3, stream_QuestionVariable.nextNode());
 						adaptor.addChild(root_2, root_3);
 						}
-						dbg.location(63,118);
-						// /Users/luc0/Desktop/Software_Creation/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:63:118: ^( VAR_TYPE qType )
+						dbg.location(64,118);
+						// /Users/luc0/Desktop/Software_Creation/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:64:118: ^( VAR_TYPE qType )
 						{
 						CommonTree root_3 = (CommonTree)adaptor.nil();
-						dbg.location(63,120);
+						dbg.location(64,120);
 						root_3 = (CommonTree)adaptor.becomeRoot((CommonTree)adaptor.create(VAR_TYPE, "VAR_TYPE"), root_3);
-						dbg.location(63,129);
+						dbg.location(64,129);
 						adaptor.addChild(root_3, stream_qType.nextTree());
 						adaptor.addChild(root_2, root_3);
 						}
-						dbg.location(63,136);
-						// /Users/luc0/Desktop/Software_Creation/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:63:136: ^( VALUE_CALC orExpr )
+						dbg.location(64,136);
+						// /Users/luc0/Desktop/Software_Creation/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:64:136: ^( VALUE_CALC orExpr )
 						{
 						CommonTree root_3 = (CommonTree)adaptor.nil();
-						dbg.location(63,138);
+						dbg.location(64,138);
 						root_3 = (CommonTree)adaptor.becomeRoot((CommonTree)adaptor.create(VALUE_CALC, "VALUE_CALC"), root_3);
-						dbg.location(63,149);
+						dbg.location(64,149);
 						adaptor.addChild(root_3, stream_orExpr.nextTree());
 						adaptor.addChild(root_2, root_3);
 						}
 
 						adaptor.addChild(root_1, root_2);
 						}
-						dbg.location(63,159);
-						// /Users/luc0/Desktop/Software_Creation/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:63:159: ^( QUESTION_LABEL qLabel )
+						dbg.location(64,159);
+						// /Users/luc0/Desktop/Software_Creation/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:64:159: ^( QUESTION_LABEL qLabel )
 						{
 						CommonTree root_2 = (CommonTree)adaptor.nil();
-						dbg.location(63,161);
+						dbg.location(64,161);
 						root_2 = (CommonTree)adaptor.becomeRoot((CommonTree)adaptor.create(QUESTION_LABEL, "QUESTION_LABEL"), root_2);
-						dbg.location(63,176);
+						dbg.location(64,176);
 						adaptor.addChild(root_2, stream_qLabel.nextTree());
 						adaptor.addChild(root_1, root_2);
 						}
@@ -834,7 +834,7 @@ public class QLParser extends DebugParser {
 		finally {
 			// do for sure before leaving
 		}
-		dbg.location(63, 184);
+		dbg.location(64, 184);
 
 		}
 		finally {
@@ -856,7 +856,7 @@ public class QLParser extends DebugParser {
 
 
 	// $ANTLR start "ifStatementExpr"
-	// /Users/luc0/Desktop/Software_Creation/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:70:1: ifStatementExpr : IF '(' orExpr ')' Lbr ifBlockContentExpr Rbr -> ^( IF_BLOCK ^( IF_CONDITION orExpr ) ^( IF_CONDITION_TRUE ifBlockContentExpr ) ) ;
+	// /Users/luc0/Desktop/Software_Creation/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:71:1: ifStatementExpr : IF '(' orExpr ')' Lbr ifBlockContentExpr Rbr -> ^( IF_BLOCK ^( IF_CONDITION orExpr ) ^( IF_CONDITION_TRUE ifBlockContentExpr ) ) ;
 	public final QLParser.ifStatementExpr_return ifStatementExpr() throws RecognitionException {
 		QLParser.ifStatementExpr_return retval = new QLParser.ifStatementExpr_return();
 		retval.start = input.LT(1);
@@ -887,38 +887,38 @@ public class QLParser extends DebugParser {
 		try { dbg.enterRule(getGrammarFileName(), "ifStatementExpr");
 		if ( getRuleLevel()==0 ) {dbg.commence();}
 		incRuleLevel();
-		dbg.location(70, 0);
+		dbg.location(71, 0);
 
 		try {
-			// /Users/luc0/Desktop/Software_Creation/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:71:2: ( IF '(' orExpr ')' Lbr ifBlockContentExpr Rbr -> ^( IF_BLOCK ^( IF_CONDITION orExpr ) ^( IF_CONDITION_TRUE ifBlockContentExpr ) ) )
+			// /Users/luc0/Desktop/Software_Creation/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:72:2: ( IF '(' orExpr ')' Lbr ifBlockContentExpr Rbr -> ^( IF_BLOCK ^( IF_CONDITION orExpr ) ^( IF_CONDITION_TRUE ifBlockContentExpr ) ) )
 			dbg.enterAlt(1);
 
-			// /Users/luc0/Desktop/Software_Creation/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:71:5: IF '(' orExpr ')' Lbr ifBlockContentExpr Rbr
+			// /Users/luc0/Desktop/Software_Creation/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:72:5: IF '(' orExpr ')' Lbr ifBlockContentExpr Rbr
 			{
-			dbg.location(71,5);
-			IF21=(Token)match(input,IF,FOLLOW_IF_in_ifStatementExpr276);  
+			dbg.location(72,5);
+			IF21=(Token)match(input,IF,FOLLOW_IF_in_ifStatementExpr277);  
 			stream_IF.add(IF21);
-			dbg.location(71,9);
-			char_literal22=(Token)match(input,30,FOLLOW_30_in_ifStatementExpr279);  
+			dbg.location(72,9);
+			char_literal22=(Token)match(input,30,FOLLOW_30_in_ifStatementExpr280);  
 			stream_30.add(char_literal22);
-			dbg.location(71,13);
-			pushFollow(FOLLOW_orExpr_in_ifStatementExpr281);
+			dbg.location(72,13);
+			pushFollow(FOLLOW_orExpr_in_ifStatementExpr282);
 			orExpr23=orExpr();
 			state._fsp--;
 
-			stream_orExpr.add(orExpr23.getTree());dbg.location(71,20);
-			char_literal24=(Token)match(input,31,FOLLOW_31_in_ifStatementExpr283);  
+			stream_orExpr.add(orExpr23.getTree());dbg.location(72,20);
+			char_literal24=(Token)match(input,31,FOLLOW_31_in_ifStatementExpr284);  
 			stream_31.add(char_literal24);
-			dbg.location(71,26);
-			Lbr25=(Token)match(input,Lbr,FOLLOW_Lbr_in_ifStatementExpr287);  
+			dbg.location(72,26);
+			Lbr25=(Token)match(input,Lbr,FOLLOW_Lbr_in_ifStatementExpr288);  
 			stream_Lbr.add(Lbr25);
-			dbg.location(71,30);
-			pushFollow(FOLLOW_ifBlockContentExpr_in_ifStatementExpr289);
+			dbg.location(72,30);
+			pushFollow(FOLLOW_ifBlockContentExpr_in_ifStatementExpr290);
 			ifBlockContentExpr26=ifBlockContentExpr();
 			state._fsp--;
 
-			stream_ifBlockContentExpr.add(ifBlockContentExpr26.getTree());dbg.location(71,49);
-			Rbr27=(Token)match(input,Rbr,FOLLOW_Rbr_in_ifStatementExpr291);  
+			stream_ifBlockContentExpr.add(ifBlockContentExpr26.getTree());dbg.location(72,49);
+			Rbr27=(Token)match(input,Rbr,FOLLOW_Rbr_in_ifStatementExpr292);  
 			stream_Rbr.add(Rbr27);
 
 			// AST REWRITE
@@ -932,31 +932,31 @@ public class QLParser extends DebugParser {
 			RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.getTree():null);
 
 			root_0 = (CommonTree)adaptor.nil();
-			// 71:53: -> ^( IF_BLOCK ^( IF_CONDITION orExpr ) ^( IF_CONDITION_TRUE ifBlockContentExpr ) )
+			// 72:53: -> ^( IF_BLOCK ^( IF_CONDITION orExpr ) ^( IF_CONDITION_TRUE ifBlockContentExpr ) )
 			{
-				dbg.location(71,55);
-				// /Users/luc0/Desktop/Software_Creation/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:71:55: ^( IF_BLOCK ^( IF_CONDITION orExpr ) ^( IF_CONDITION_TRUE ifBlockContentExpr ) )
+				dbg.location(72,55);
+				// /Users/luc0/Desktop/Software_Creation/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:72:55: ^( IF_BLOCK ^( IF_CONDITION orExpr ) ^( IF_CONDITION_TRUE ifBlockContentExpr ) )
 				{
 				CommonTree root_1 = (CommonTree)adaptor.nil();
-				dbg.location(71,57);
+				dbg.location(72,57);
 				root_1 = (CommonTree)adaptor.becomeRoot((CommonTree)adaptor.create(IF_BLOCK, "IF_BLOCK"), root_1);
-				dbg.location(71,66);
-				// /Users/luc0/Desktop/Software_Creation/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:71:66: ^( IF_CONDITION orExpr )
+				dbg.location(72,66);
+				// /Users/luc0/Desktop/Software_Creation/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:72:66: ^( IF_CONDITION orExpr )
 				{
 				CommonTree root_2 = (CommonTree)adaptor.nil();
-				dbg.location(71,68);
+				dbg.location(72,68);
 				root_2 = (CommonTree)adaptor.becomeRoot((CommonTree)adaptor.create(IF_CONDITION, "IF_CONDITION"), root_2);
-				dbg.location(71,81);
+				dbg.location(72,81);
 				adaptor.addChild(root_2, stream_orExpr.nextTree());
 				adaptor.addChild(root_1, root_2);
 				}
-				dbg.location(71,89);
-				// /Users/luc0/Desktop/Software_Creation/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:71:89: ^( IF_CONDITION_TRUE ifBlockContentExpr )
+				dbg.location(72,89);
+				// /Users/luc0/Desktop/Software_Creation/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:72:89: ^( IF_CONDITION_TRUE ifBlockContentExpr )
 				{
 				CommonTree root_2 = (CommonTree)adaptor.nil();
-				dbg.location(71,91);
+				dbg.location(72,91);
 				root_2 = (CommonTree)adaptor.becomeRoot((CommonTree)adaptor.create(IF_CONDITION_TRUE, "IF_CONDITION_TRUE"), root_2);
-				dbg.location(71,109);
+				dbg.location(72,109);
 				adaptor.addChild(root_2, stream_ifBlockContentExpr.nextTree());
 				adaptor.addChild(root_1, root_2);
 				}
@@ -985,7 +985,7 @@ public class QLParser extends DebugParser {
 		finally {
 			// do for sure before leaving
 		}
-		dbg.location(71, 128);
+		dbg.location(72, 128);
 
 		}
 		finally {
@@ -1007,7 +1007,7 @@ public class QLParser extends DebugParser {
 
 
 	// $ANTLR start "ifBlockContentExpr"
-	// /Users/luc0/Desktop/Software_Creation/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:77:1: ifBlockContentExpr : ( qDeclaration | ifStatementExpr )+ ;
+	// /Users/luc0/Desktop/Software_Creation/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:78:1: ifBlockContentExpr : ( qDeclaration | ifStatementExpr )+ ;
 	public final QLParser.ifBlockContentExpr_return ifBlockContentExpr() throws RecognitionException {
 		QLParser.ifBlockContentExpr_return retval = new QLParser.ifBlockContentExpr_return();
 		retval.start = input.LT(1);
@@ -1021,19 +1021,19 @@ public class QLParser extends DebugParser {
 		try { dbg.enterRule(getGrammarFileName(), "ifBlockContentExpr");
 		if ( getRuleLevel()==0 ) {dbg.commence();}
 		incRuleLevel();
-		dbg.location(77, 0);
+		dbg.location(78, 0);
 
 		try {
-			// /Users/luc0/Desktop/Software_Creation/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:78:2: ( ( qDeclaration | ifStatementExpr )+ )
+			// /Users/luc0/Desktop/Software_Creation/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:79:2: ( ( qDeclaration | ifStatementExpr )+ )
 			dbg.enterAlt(1);
 
-			// /Users/luc0/Desktop/Software_Creation/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:78:4: ( qDeclaration | ifStatementExpr )+
+			// /Users/luc0/Desktop/Software_Creation/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:79:4: ( qDeclaration | ifStatementExpr )+
 			{
 			root_0 = (CommonTree)adaptor.nil();
 
 
-			dbg.location(78,4);
-			// /Users/luc0/Desktop/Software_Creation/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:78:4: ( qDeclaration | ifStatementExpr )+
+			dbg.location(79,4);
+			// /Users/luc0/Desktop/Software_Creation/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:79:4: ( qDeclaration | ifStatementExpr )+
 			int cnt3=0;
 			try { dbg.enterSubRule(3);
 
@@ -1056,10 +1056,10 @@ public class QLParser extends DebugParser {
 				case 1 :
 					dbg.enterAlt(1);
 
-					// /Users/luc0/Desktop/Software_Creation/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:78:6: qDeclaration
+					// /Users/luc0/Desktop/Software_Creation/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:79:6: qDeclaration
 					{
-					dbg.location(78,6);
-					pushFollow(FOLLOW_qDeclaration_in_ifBlockContentExpr324);
+					dbg.location(79,6);
+					pushFollow(FOLLOW_qDeclaration_in_ifBlockContentExpr325);
 					qDeclaration28=qDeclaration();
 					state._fsp--;
 
@@ -1070,10 +1070,10 @@ public class QLParser extends DebugParser {
 				case 2 :
 					dbg.enterAlt(2);
 
-					// /Users/luc0/Desktop/Software_Creation/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:78:22: ifStatementExpr
+					// /Users/luc0/Desktop/Software_Creation/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:79:22: ifStatementExpr
 					{
-					dbg.location(78,22);
-					pushFollow(FOLLOW_ifStatementExpr_in_ifBlockContentExpr329);
+					dbg.location(79,22);
+					pushFollow(FOLLOW_ifStatementExpr_in_ifBlockContentExpr330);
 					ifStatementExpr29=ifStatementExpr();
 					state._fsp--;
 
@@ -1109,7 +1109,7 @@ public class QLParser extends DebugParser {
 		finally {
 			// do for sure before leaving
 		}
-		dbg.location(78, 39);
+		dbg.location(79, 39);
 
 		}
 		finally {
@@ -1131,7 +1131,7 @@ public class QLParser extends DebugParser {
 
 
 	// $ANTLR start "qLabel"
-	// /Users/luc0/Desktop/Software_Creation/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:82:1: qLabel : Question ;
+	// /Users/luc0/Desktop/Software_Creation/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:83:1: qLabel : Question ;
 	public final QLParser.qLabel_return qLabel() throws RecognitionException {
 		QLParser.qLabel_return retval = new QLParser.qLabel_return();
 		retval.start = input.LT(1);
@@ -1145,19 +1145,19 @@ public class QLParser extends DebugParser {
 		try { dbg.enterRule(getGrammarFileName(), "qLabel");
 		if ( getRuleLevel()==0 ) {dbg.commence();}
 		incRuleLevel();
-		dbg.location(82, 0);
+		dbg.location(83, 0);
 
 		try {
-			// /Users/luc0/Desktop/Software_Creation/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:82:8: ( Question )
+			// /Users/luc0/Desktop/Software_Creation/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:83:8: ( Question )
 			dbg.enterAlt(1);
 
-			// /Users/luc0/Desktop/Software_Creation/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:82:10: Question
+			// /Users/luc0/Desktop/Software_Creation/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:83:10: Question
 			{
 			root_0 = (CommonTree)adaptor.nil();
 
 
-			dbg.location(82,10);
-			Question30=(Token)match(input,Question,FOLLOW_Question_in_qLabel344); 
+			dbg.location(83,10);
+			Question30=(Token)match(input,Question,FOLLOW_Question_in_qLabel345); 
 			Question30_tree = (CommonTree)adaptor.create(Question30);
 			adaptor.addChild(root_0, Question30_tree);
 
@@ -1177,7 +1177,7 @@ public class QLParser extends DebugParser {
 		finally {
 			// do for sure before leaving
 		}
-		dbg.location(82, 17);
+		dbg.location(83, 17);
 
 		}
 		finally {
@@ -1199,7 +1199,7 @@ public class QLParser extends DebugParser {
 
 
 	// $ANTLR start "qType"
-	// /Users/luc0/Desktop/Software_Creation/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:84:1: qType : ( Boolean | Money );
+	// /Users/luc0/Desktop/Software_Creation/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:85:1: qType : ( Boolean | Money );
 	public final QLParser.qType_return qType() throws RecognitionException {
 		QLParser.qType_return retval = new QLParser.qType_return();
 		retval.start = input.LT(1);
@@ -1213,10 +1213,10 @@ public class QLParser extends DebugParser {
 		try { dbg.enterRule(getGrammarFileName(), "qType");
 		if ( getRuleLevel()==0 ) {dbg.commence();}
 		incRuleLevel();
-		dbg.location(84, 0);
+		dbg.location(85, 0);
 
 		try {
-			// /Users/luc0/Desktop/Software_Creation/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:85:2: ( Boolean | Money )
+			// /Users/luc0/Desktop/Software_Creation/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:86:2: ( Boolean | Money )
 			dbg.enterAlt(1);
 
 			// /Users/luc0/Desktop/Software_Creation/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:
@@ -1224,7 +1224,7 @@ public class QLParser extends DebugParser {
 			root_0 = (CommonTree)adaptor.nil();
 
 
-			dbg.location(85,2);
+			dbg.location(86,2);
 			set31=input.LT(1);
 			if ( input.LA(1)==Boolean||input.LA(1)==Money ) {
 				input.consume();
@@ -1252,7 +1252,7 @@ public class QLParser extends DebugParser {
 		finally {
 			// do for sure before leaving
 		}
-		dbg.location(85, 19);
+		dbg.location(86, 19);
 
 		}
 		finally {
@@ -1275,7 +1275,7 @@ public class QLParser extends DebugParser {
 
 
 	// $ANTLR start "primary"
-	// /Users/luc0/Desktop/Software_Creation/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:88:1: primary returns [Expr result] : ( Int | Ident | Boolean | QuestionVariable -> ^( VAR_NAME QuestionVariable ) | Money | '(' !x= orExpr ')' !);
+	// /Users/luc0/Desktop/Software_Creation/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:89:1: primary returns [Expr result] : ( Int | Ident | Boolean | QuestionVariable -> ^( VAR_NAME QuestionVariable ) | Money | '(' !x= orExpr ')' !);
 	public final QLParser.primary_return primary() throws RecognitionException {
 		QLParser.primary_return retval = new QLParser.primary_return();
 		retval.start = input.LT(1);
@@ -1303,10 +1303,10 @@ public class QLParser extends DebugParser {
 		try { dbg.enterRule(getGrammarFileName(), "primary");
 		if ( getRuleLevel()==0 ) {dbg.commence();}
 		incRuleLevel();
-		dbg.location(88, 0);
+		dbg.location(89, 0);
 
 		try {
-			// /Users/luc0/Desktop/Software_Creation/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:89:3: ( Int | Ident | Boolean | QuestionVariable -> ^( VAR_NAME QuestionVariable ) | Money | '(' !x= orExpr ')' !)
+			// /Users/luc0/Desktop/Software_Creation/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:90:3: ( Int | Ident | Boolean | QuestionVariable -> ^( VAR_NAME QuestionVariable ) | Money | '(' !x= orExpr ')' !)
 			int alt4=6;
 			try { dbg.enterDecision(4, decisionCanBacktrack[4]);
 
@@ -1353,60 +1353,60 @@ public class QLParser extends DebugParser {
 				case 1 :
 					dbg.enterAlt(1);
 
-					// /Users/luc0/Desktop/Software_Creation/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:89:5: Int
+					// /Users/luc0/Desktop/Software_Creation/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:90:5: Int
 					{
 					root_0 = (CommonTree)adaptor.nil();
 
 
-					dbg.location(89,5);
-					Int32=(Token)match(input,Int,FOLLOW_Int_in_primary375); 
+					dbg.location(90,5);
+					Int32=(Token)match(input,Int,FOLLOW_Int_in_primary376); 
 					Int32_tree = (CommonTree)adaptor.create(Int32);
 					adaptor.addChild(root_0, Int32_tree);
-					dbg.location(89,11);
+					dbg.location(90,11);
 					 retval.result = new Int(Integer.parseInt((Int32!=null?Int32.getText():null))); 
 					}
 					break;
 				case 2 :
 					dbg.enterAlt(2);
 
-					// /Users/luc0/Desktop/Software_Creation/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:90:5: Ident
+					// /Users/luc0/Desktop/Software_Creation/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:91:5: Ident
 					{
 					root_0 = (CommonTree)adaptor.nil();
 
 
-					dbg.location(90,5);
-					Ident33=(Token)match(input,Ident,FOLLOW_Ident_in_primary385); 
+					dbg.location(91,5);
+					Ident33=(Token)match(input,Ident,FOLLOW_Ident_in_primary386); 
 					Ident33_tree = (CommonTree)adaptor.create(Ident33);
 					adaptor.addChild(root_0, Ident33_tree);
-					dbg.location(90,11);
+					dbg.location(91,11);
 					 retval.result = new Ident((Ident33!=null?Ident33.getText():null)); 
 					}
 					break;
 				case 3 :
 					dbg.enterAlt(3);
 
-					// /Users/luc0/Desktop/Software_Creation/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:92:5: Boolean
+					// /Users/luc0/Desktop/Software_Creation/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:93:5: Boolean
 					{
 					root_0 = (CommonTree)adaptor.nil();
 
 
-					dbg.location(92,5);
-					Boolean34=(Token)match(input,Boolean,FOLLOW_Boolean_in_primary396); 
+					dbg.location(93,5);
+					Boolean34=(Token)match(input,Boolean,FOLLOW_Boolean_in_primary397); 
 					Boolean34_tree = (CommonTree)adaptor.create(Boolean34);
 					adaptor.addChild(root_0, Boolean34_tree);
-					dbg.location(92,13);
+					dbg.location(93,13);
 					retval.result = new Bool((Boolean34!=null?Boolean34.getText():null));
 					}
 					break;
 				case 4 :
 					dbg.enterAlt(4);
 
-					// /Users/luc0/Desktop/Software_Creation/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:93:5: QuestionVariable
+					// /Users/luc0/Desktop/Software_Creation/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:94:5: QuestionVariable
 					{
-					dbg.location(93,5);
-					QuestionVariable35=(Token)match(input,QuestionVariable,FOLLOW_QuestionVariable_in_primary403);  
+					dbg.location(94,5);
+					QuestionVariable35=(Token)match(input,QuestionVariable,FOLLOW_QuestionVariable_in_primary404);  
 					stream_QuestionVariable.add(QuestionVariable35);
-					dbg.location(93,23);
+					dbg.location(94,23);
 					 retval.result = new Ident((QuestionVariable35!=null?QuestionVariable35.getText():null)); 
 					// AST REWRITE
 					// elements: QuestionVariable
@@ -1419,15 +1419,15 @@ public class QLParser extends DebugParser {
 					RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.getTree():null);
 
 					root_0 = (CommonTree)adaptor.nil();
-					// 93:72: -> ^( VAR_NAME QuestionVariable )
+					// 94:72: -> ^( VAR_NAME QuestionVariable )
 					{
-						dbg.location(93,75);
-						// /Users/luc0/Desktop/Software_Creation/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:93:75: ^( VAR_NAME QuestionVariable )
+						dbg.location(94,75);
+						// /Users/luc0/Desktop/Software_Creation/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:94:75: ^( VAR_NAME QuestionVariable )
 						{
 						CommonTree root_1 = (CommonTree)adaptor.nil();
-						dbg.location(93,77);
+						dbg.location(94,77);
 						root_1 = (CommonTree)adaptor.becomeRoot((CommonTree)adaptor.create(VAR_NAME, "VAR_NAME"), root_1);
-						dbg.location(93,86);
+						dbg.location(94,86);
 						adaptor.addChild(root_1, stream_QuestionVariable.nextNode());
 						adaptor.addChild(root_0, root_1);
 						}
@@ -1442,36 +1442,36 @@ public class QLParser extends DebugParser {
 				case 5 :
 					dbg.enterAlt(5);
 
-					// /Users/luc0/Desktop/Software_Creation/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:94:5: Money
+					// /Users/luc0/Desktop/Software_Creation/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:95:5: Money
 					{
 					root_0 = (CommonTree)adaptor.nil();
 
 
-					dbg.location(94,5);
-					Money36=(Token)match(input,Money,FOLLOW_Money_in_primary421); 
+					dbg.location(95,5);
+					Money36=(Token)match(input,Money,FOLLOW_Money_in_primary422); 
 					Money36_tree = (CommonTree)adaptor.create(Money36);
 					adaptor.addChild(root_0, Money36_tree);
-					dbg.location(94,11);
+					dbg.location(95,11);
 					 retval.result = new Int(Integer.parseInt((Money36!=null?Money36.getText():null)));
 					}
 					break;
 				case 6 :
 					dbg.enterAlt(6);
 
-					// /Users/luc0/Desktop/Software_Creation/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:96:6: '(' !x= orExpr ')' !
+					// /Users/luc0/Desktop/Software_Creation/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:97:6: '(' !x= orExpr ')' !
 					{
 					root_0 = (CommonTree)adaptor.nil();
 
 
-					dbg.location(96,9);
-					char_literal37=(Token)match(input,30,FOLLOW_30_in_primary433); dbg.location(96,13);
-					pushFollow(FOLLOW_orExpr_in_primary439);
+					dbg.location(97,9);
+					char_literal37=(Token)match(input,30,FOLLOW_30_in_primary434); dbg.location(97,13);
+					pushFollow(FOLLOW_orExpr_in_primary440);
 					x=orExpr();
 					state._fsp--;
 
 					adaptor.addChild(root_0, x.getTree());
-					dbg.location(96,24);
-					char_literal38=(Token)match(input,31,FOLLOW_31_in_primary441); dbg.location(96,26);
+					dbg.location(97,24);
+					char_literal38=(Token)match(input,31,FOLLOW_31_in_primary442); dbg.location(97,26);
 					 retval.result = (x!=null?((QLParser.orExpr_return)x).result:null); 
 					}
 					break;
@@ -1491,7 +1491,7 @@ public class QLParser extends DebugParser {
 		finally {
 			// do for sure before leaving
 		}
-		dbg.location(97, 2);
+		dbg.location(98, 2);
 
 		}
 		finally {
@@ -1514,7 +1514,7 @@ public class QLParser extends DebugParser {
 
 
 	// $ANTLR start "unExpr"
-	// /Users/luc0/Desktop/Software_Creation/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:100:1: unExpr returns [Expr result] : ( '+' ^x= unExpr | '-' ^x= unExpr | '!' ^x= unExpr |x= primary );
+	// /Users/luc0/Desktop/Software_Creation/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:101:1: unExpr returns [Expr result] : ( '+' ^x= unExpr | '-' ^x= unExpr | '!' ^x= unExpr |x= primary );
 	public final QLParser.unExpr_return unExpr() throws RecognitionException {
 		QLParser.unExpr_return retval = new QLParser.unExpr_return();
 		retval.start = input.LT(1);
@@ -1533,10 +1533,10 @@ public class QLParser extends DebugParser {
 		try { dbg.enterRule(getGrammarFileName(), "unExpr");
 		if ( getRuleLevel()==0 ) {dbg.commence();}
 		incRuleLevel();
-		dbg.location(100, 0);
+		dbg.location(101, 0);
 
 		try {
-			// /Users/luc0/Desktop/Software_Creation/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:101:5: ( '+' ^x= unExpr | '-' ^x= unExpr | '!' ^x= unExpr |x= primary )
+			// /Users/luc0/Desktop/Software_Creation/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:102:5: ( '+' ^x= unExpr | '-' ^x= unExpr | '!' ^x= unExpr |x= primary )
 			int alt5=4;
 			try { dbg.enterDecision(5, decisionCanBacktrack[5]);
 
@@ -1578,84 +1578,84 @@ public class QLParser extends DebugParser {
 				case 1 :
 					dbg.enterAlt(1);
 
-					// /Users/luc0/Desktop/Software_Creation/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:101:8: '+' ^x= unExpr
+					// /Users/luc0/Desktop/Software_Creation/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:102:8: '+' ^x= unExpr
 					{
 					root_0 = (CommonTree)adaptor.nil();
 
 
-					dbg.location(101,11);
-					char_literal39=(Token)match(input,33,FOLLOW_33_in_unExpr470); 
+					dbg.location(102,11);
+					char_literal39=(Token)match(input,33,FOLLOW_33_in_unExpr471); 
 					char_literal39_tree = (CommonTree)adaptor.create(char_literal39);
 					root_0 = (CommonTree)adaptor.becomeRoot(char_literal39_tree, root_0);
-					dbg.location(101,14);
-					pushFollow(FOLLOW_unExpr_in_unExpr475);
+					dbg.location(102,14);
+					pushFollow(FOLLOW_unExpr_in_unExpr476);
 					x=unExpr();
 					state._fsp--;
 
 					adaptor.addChild(root_0, x.getTree());
-					dbg.location(101,22);
+					dbg.location(102,22);
 					 retval.result = new Pos((x!=null?((QLParser.primary_return)x).result:null)); 
 					}
 					break;
 				case 2 :
 					dbg.enterAlt(2);
 
-					// /Users/luc0/Desktop/Software_Creation/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:102:8: '-' ^x= unExpr
+					// /Users/luc0/Desktop/Software_Creation/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:103:8: '-' ^x= unExpr
 					{
 					root_0 = (CommonTree)adaptor.nil();
 
 
-					dbg.location(102,11);
-					char_literal40=(Token)match(input,34,FOLLOW_34_in_unExpr486); 
+					dbg.location(103,11);
+					char_literal40=(Token)match(input,34,FOLLOW_34_in_unExpr487); 
 					char_literal40_tree = (CommonTree)adaptor.create(char_literal40);
 					root_0 = (CommonTree)adaptor.becomeRoot(char_literal40_tree, root_0);
-					dbg.location(102,14);
-					pushFollow(FOLLOW_unExpr_in_unExpr491);
+					dbg.location(103,14);
+					pushFollow(FOLLOW_unExpr_in_unExpr492);
 					x=unExpr();
 					state._fsp--;
 
 					adaptor.addChild(root_0, x.getTree());
-					dbg.location(102,22);
+					dbg.location(103,22);
 					 retval.result = new Neg((x!=null?((QLParser.primary_return)x).result:null)); 
 					}
 					break;
 				case 3 :
 					dbg.enterAlt(3);
 
-					// /Users/luc0/Desktop/Software_Creation/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:103:8: '!' ^x= unExpr
+					// /Users/luc0/Desktop/Software_Creation/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:104:8: '!' ^x= unExpr
 					{
 					root_0 = (CommonTree)adaptor.nil();
 
 
-					dbg.location(103,11);
-					char_literal41=(Token)match(input,27,FOLLOW_27_in_unExpr502); 
+					dbg.location(104,11);
+					char_literal41=(Token)match(input,27,FOLLOW_27_in_unExpr503); 
 					char_literal41_tree = (CommonTree)adaptor.create(char_literal41);
 					root_0 = (CommonTree)adaptor.becomeRoot(char_literal41_tree, root_0);
-					dbg.location(103,14);
-					pushFollow(FOLLOW_unExpr_in_unExpr507);
+					dbg.location(104,14);
+					pushFollow(FOLLOW_unExpr_in_unExpr508);
 					x=unExpr();
 					state._fsp--;
 
 					adaptor.addChild(root_0, x.getTree());
-					dbg.location(103,22);
+					dbg.location(104,22);
 					 retval.result = new Not((x!=null?((QLParser.primary_return)x).result:null)); 
 					}
 					break;
 				case 4 :
 					dbg.enterAlt(4);
 
-					// /Users/luc0/Desktop/Software_Creation/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:104:8: x= primary
+					// /Users/luc0/Desktop/Software_Creation/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:105:8: x= primary
 					{
 					root_0 = (CommonTree)adaptor.nil();
 
 
-					dbg.location(104,9);
-					pushFollow(FOLLOW_primary_in_unExpr520);
+					dbg.location(105,9);
+					pushFollow(FOLLOW_primary_in_unExpr521);
 					x=primary();
 					state._fsp--;
 
 					adaptor.addChild(root_0, x.getTree());
-					dbg.location(104,21);
+					dbg.location(105,21);
 					 retval.result = (x!=null?((QLParser.primary_return)x).result:null); 
 					}
 					break;
@@ -1675,7 +1675,7 @@ public class QLParser extends DebugParser {
 		finally {
 			// do for sure before leaving
 		}
-		dbg.location(105, 4);
+		dbg.location(106, 4);
 
 		}
 		finally {
@@ -1698,7 +1698,7 @@ public class QLParser extends DebugParser {
 
 
 	// $ANTLR start "mulExpr"
-	// /Users/luc0/Desktop/Software_Creation/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:107:1: mulExpr returns [Expr result] : lhs= unExpr (op= ( '*' ^| '/' ^) rhs= unExpr )* ;
+	// /Users/luc0/Desktop/Software_Creation/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:108:1: mulExpr returns [Expr result] : lhs= unExpr (op= ( '*' ^| '/' ^) rhs= unExpr )* ;
 	public final QLParser.mulExpr_return mulExpr() throws RecognitionException {
 		QLParser.mulExpr_return retval = new QLParser.mulExpr_return();
 		retval.start = input.LT(1);
@@ -1714,26 +1714,26 @@ public class QLParser extends DebugParser {
 		try { dbg.enterRule(getGrammarFileName(), "mulExpr");
 		if ( getRuleLevel()==0 ) {dbg.commence();}
 		incRuleLevel();
-		dbg.location(107, 0);
+		dbg.location(108, 0);
 
 		try {
-			// /Users/luc0/Desktop/Software_Creation/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:108:5: (lhs= unExpr (op= ( '*' ^| '/' ^) rhs= unExpr )* )
+			// /Users/luc0/Desktop/Software_Creation/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:109:5: (lhs= unExpr (op= ( '*' ^| '/' ^) rhs= unExpr )* )
 			dbg.enterAlt(1);
 
-			// /Users/luc0/Desktop/Software_Creation/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:108:9: lhs= unExpr (op= ( '*' ^| '/' ^) rhs= unExpr )*
+			// /Users/luc0/Desktop/Software_Creation/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:109:9: lhs= unExpr (op= ( '*' ^| '/' ^) rhs= unExpr )*
 			{
 			root_0 = (CommonTree)adaptor.nil();
 
 
-			dbg.location(108,12);
-			pushFollow(FOLLOW_unExpr_in_mulExpr558);
+			dbg.location(109,12);
+			pushFollow(FOLLOW_unExpr_in_mulExpr559);
 			lhs=unExpr();
 			state._fsp--;
 
 			adaptor.addChild(root_0, lhs.getTree());
-			dbg.location(108,20);
-			 retval.result =(lhs!=null?((QLParser.unExpr_return)lhs).result:null); dbg.location(108,45);
-			// /Users/luc0/Desktop/Software_Creation/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:108:45: (op= ( '*' ^| '/' ^) rhs= unExpr )*
+			dbg.location(109,20);
+			 retval.result =(lhs!=null?((QLParser.unExpr_return)lhs).result:null); dbg.location(109,45);
+			// /Users/luc0/Desktop/Software_Creation/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:109:45: (op= ( '*' ^| '/' ^) rhs= unExpr )*
 			try { dbg.enterSubRule(7);
 
 			loop7:
@@ -1752,10 +1752,10 @@ public class QLParser extends DebugParser {
 				case 1 :
 					dbg.enterAlt(1);
 
-					// /Users/luc0/Desktop/Software_Creation/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:108:47: op= ( '*' ^| '/' ^) rhs= unExpr
+					// /Users/luc0/Desktop/Software_Creation/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:109:47: op= ( '*' ^| '/' ^) rhs= unExpr
 					{
-					dbg.location(108,49);
-					// /Users/luc0/Desktop/Software_Creation/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:108:50: ( '*' ^| '/' ^)
+					dbg.location(109,49);
+					// /Users/luc0/Desktop/Software_Creation/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:109:50: ( '*' ^| '/' ^)
 					int alt6=2;
 					try { dbg.enterSubRule(6);
 					try { dbg.enterDecision(6, decisionCanBacktrack[6]);
@@ -1781,10 +1781,10 @@ public class QLParser extends DebugParser {
 						case 1 :
 							dbg.enterAlt(1);
 
-							// /Users/luc0/Desktop/Software_Creation/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:108:52: '*' ^
+							// /Users/luc0/Desktop/Software_Creation/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:109:52: '*' ^
 							{
-							dbg.location(108,55);
-							op=(Token)match(input,32,FOLLOW_32_in_mulExpr568); 
+							dbg.location(109,55);
+							op=(Token)match(input,32,FOLLOW_32_in_mulExpr569); 
 							op_tree = (CommonTree)adaptor.create(op);
 							root_0 = (CommonTree)adaptor.becomeRoot(op_tree, root_0);
 
@@ -1793,10 +1793,10 @@ public class QLParser extends DebugParser {
 						case 2 :
 							dbg.enterAlt(2);
 
-							// /Users/luc0/Desktop/Software_Creation/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:108:59: '/' ^
+							// /Users/luc0/Desktop/Software_Creation/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:109:59: '/' ^
 							{
-							dbg.location(108,62);
-							op=(Token)match(input,35,FOLLOW_35_in_mulExpr573); 
+							dbg.location(109,62);
+							op=(Token)match(input,35,FOLLOW_35_in_mulExpr574); 
 							op_tree = (CommonTree)adaptor.create(op);
 							root_0 = (CommonTree)adaptor.becomeRoot(op_tree, root_0);
 
@@ -1805,13 +1805,13 @@ public class QLParser extends DebugParser {
 
 					}
 					} finally {dbg.exitSubRule(6);}
-					dbg.location(108,69);
-					pushFollow(FOLLOW_unExpr_in_mulExpr580);
+					dbg.location(109,69);
+					pushFollow(FOLLOW_unExpr_in_mulExpr581);
 					rhs=unExpr();
 					state._fsp--;
 
 					adaptor.addChild(root_0, rhs.getTree());
-					dbg.location(109,5);
+					dbg.location(110,5);
 					 
 					      if ((op!=null?op.getText():null).equals("*")) {
 					        retval.result = new Mul(retval.result, (rhs!=null?((QLParser.unExpr_return)rhs).result:null));
@@ -1845,7 +1845,7 @@ public class QLParser extends DebugParser {
 		finally {
 			// do for sure before leaving
 		}
-		dbg.location(117, 4);
+		dbg.location(118, 4);
 
 		}
 		finally {
@@ -1868,7 +1868,7 @@ public class QLParser extends DebugParser {
 
 
 	// $ANTLR start "addExpr"
-	// /Users/luc0/Desktop/Software_Creation/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:120:1: addExpr returns [Expr result] : lhs= mulExpr (op= ( '+' ^| '-' ^) rhs= mulExpr )* ;
+	// /Users/luc0/Desktop/Software_Creation/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:121:1: addExpr returns [Expr result] : lhs= mulExpr (op= ( '+' ^| '-' ^) rhs= mulExpr )* ;
 	public final QLParser.addExpr_return addExpr() throws RecognitionException {
 		QLParser.addExpr_return retval = new QLParser.addExpr_return();
 		retval.start = input.LT(1);
@@ -1884,26 +1884,26 @@ public class QLParser extends DebugParser {
 		try { dbg.enterRule(getGrammarFileName(), "addExpr");
 		if ( getRuleLevel()==0 ) {dbg.commence();}
 		incRuleLevel();
-		dbg.location(120, 0);
+		dbg.location(121, 0);
 
 		try {
-			// /Users/luc0/Desktop/Software_Creation/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:121:5: (lhs= mulExpr (op= ( '+' ^| '-' ^) rhs= mulExpr )* )
+			// /Users/luc0/Desktop/Software_Creation/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:122:5: (lhs= mulExpr (op= ( '+' ^| '-' ^) rhs= mulExpr )* )
 			dbg.enterAlt(1);
 
-			// /Users/luc0/Desktop/Software_Creation/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:121:9: lhs= mulExpr (op= ( '+' ^| '-' ^) rhs= mulExpr )*
+			// /Users/luc0/Desktop/Software_Creation/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:122:9: lhs= mulExpr (op= ( '+' ^| '-' ^) rhs= mulExpr )*
 			{
 			root_0 = (CommonTree)adaptor.nil();
 
 
-			dbg.location(121,12);
-			pushFollow(FOLLOW_mulExpr_in_addExpr621);
+			dbg.location(122,12);
+			pushFollow(FOLLOW_mulExpr_in_addExpr622);
 			lhs=mulExpr();
 			state._fsp--;
 
 			adaptor.addChild(root_0, lhs.getTree());
-			dbg.location(121,21);
-			 retval.result =(lhs!=null?((QLParser.mulExpr_return)lhs).result:null); dbg.location(121,46);
-			// /Users/luc0/Desktop/Software_Creation/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:121:46: (op= ( '+' ^| '-' ^) rhs= mulExpr )*
+			dbg.location(122,21);
+			 retval.result =(lhs!=null?((QLParser.mulExpr_return)lhs).result:null); dbg.location(122,46);
+			// /Users/luc0/Desktop/Software_Creation/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:122:46: (op= ( '+' ^| '-' ^) rhs= mulExpr )*
 			try { dbg.enterSubRule(9);
 
 			loop9:
@@ -1922,10 +1922,10 @@ public class QLParser extends DebugParser {
 				case 1 :
 					dbg.enterAlt(1);
 
-					// /Users/luc0/Desktop/Software_Creation/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:121:48: op= ( '+' ^| '-' ^) rhs= mulExpr
+					// /Users/luc0/Desktop/Software_Creation/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:122:48: op= ( '+' ^| '-' ^) rhs= mulExpr
 					{
-					dbg.location(121,50);
-					// /Users/luc0/Desktop/Software_Creation/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:121:51: ( '+' ^| '-' ^)
+					dbg.location(122,50);
+					// /Users/luc0/Desktop/Software_Creation/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:122:51: ( '+' ^| '-' ^)
 					int alt8=2;
 					try { dbg.enterSubRule(8);
 					try { dbg.enterDecision(8, decisionCanBacktrack[8]);
@@ -1951,10 +1951,10 @@ public class QLParser extends DebugParser {
 						case 1 :
 							dbg.enterAlt(1);
 
-							// /Users/luc0/Desktop/Software_Creation/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:121:52: '+' ^
+							// /Users/luc0/Desktop/Software_Creation/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:122:52: '+' ^
 							{
-							dbg.location(121,55);
-							op=(Token)match(input,33,FOLLOW_33_in_addExpr630); 
+							dbg.location(122,55);
+							op=(Token)match(input,33,FOLLOW_33_in_addExpr631); 
 							op_tree = (CommonTree)adaptor.create(op);
 							root_0 = (CommonTree)adaptor.becomeRoot(op_tree, root_0);
 
@@ -1963,10 +1963,10 @@ public class QLParser extends DebugParser {
 						case 2 :
 							dbg.enterAlt(2);
 
-							// /Users/luc0/Desktop/Software_Creation/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:121:59: '-' ^
+							// /Users/luc0/Desktop/Software_Creation/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:122:59: '-' ^
 							{
-							dbg.location(121,62);
-							op=(Token)match(input,34,FOLLOW_34_in_addExpr635); 
+							dbg.location(122,62);
+							op=(Token)match(input,34,FOLLOW_34_in_addExpr636); 
 							op_tree = (CommonTree)adaptor.create(op);
 							root_0 = (CommonTree)adaptor.becomeRoot(op_tree, root_0);
 
@@ -1975,13 +1975,13 @@ public class QLParser extends DebugParser {
 
 					}
 					} finally {dbg.exitSubRule(8);}
-					dbg.location(121,68);
-					pushFollow(FOLLOW_mulExpr_in_addExpr641);
+					dbg.location(122,68);
+					pushFollow(FOLLOW_mulExpr_in_addExpr642);
 					rhs=mulExpr();
 					state._fsp--;
 
 					adaptor.addChild(root_0, rhs.getTree());
-					dbg.location(122,5);
+					dbg.location(123,5);
 					 
 					      if ((op!=null?op.getText():null).equals("+")) {
 					        retval.result = new Add(retval.result, (rhs!=null?((QLParser.mulExpr_return)rhs).result:null));
@@ -2015,7 +2015,7 @@ public class QLParser extends DebugParser {
 		finally {
 			// do for sure before leaving
 		}
-		dbg.location(130, 4);
+		dbg.location(131, 4);
 
 		}
 		finally {
@@ -2038,7 +2038,7 @@ public class QLParser extends DebugParser {
 
 
 	// $ANTLR start "relExpr"
-	// /Users/luc0/Desktop/Software_Creation/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:132:1: relExpr returns [Expr result] : lhs= addExpr (op= ( '<' ^| '<=' ^| '>' ^| '>=' ^| '==' ^| '!=' ^) rhs= addExpr )* ;
+	// /Users/luc0/Desktop/Software_Creation/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:133:1: relExpr returns [Expr result] : lhs= addExpr (op= ( '<' ^| '<=' ^| '>' ^| '>=' ^| '==' ^| '!=' ^) rhs= addExpr )* ;
 	public final QLParser.relExpr_return relExpr() throws RecognitionException {
 		QLParser.relExpr_return retval = new QLParser.relExpr_return();
 		retval.start = input.LT(1);
@@ -2054,26 +2054,26 @@ public class QLParser extends DebugParser {
 		try { dbg.enterRule(getGrammarFileName(), "relExpr");
 		if ( getRuleLevel()==0 ) {dbg.commence();}
 		incRuleLevel();
-		dbg.location(132, 0);
+		dbg.location(133, 0);
 
 		try {
-			// /Users/luc0/Desktop/Software_Creation/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:133:5: (lhs= addExpr (op= ( '<' ^| '<=' ^| '>' ^| '>=' ^| '==' ^| '!=' ^) rhs= addExpr )* )
+			// /Users/luc0/Desktop/Software_Creation/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:134:5: (lhs= addExpr (op= ( '<' ^| '<=' ^| '>' ^| '>=' ^| '==' ^| '!=' ^) rhs= addExpr )* )
 			dbg.enterAlt(1);
 
-			// /Users/luc0/Desktop/Software_Creation/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:133:9: lhs= addExpr (op= ( '<' ^| '<=' ^| '>' ^| '>=' ^| '==' ^| '!=' ^) rhs= addExpr )*
+			// /Users/luc0/Desktop/Software_Creation/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:134:9: lhs= addExpr (op= ( '<' ^| '<=' ^| '>' ^| '>=' ^| '==' ^| '!=' ^) rhs= addExpr )*
 			{
 			root_0 = (CommonTree)adaptor.nil();
 
 
-			dbg.location(133,12);
-			pushFollow(FOLLOW_addExpr_in_relExpr676);
+			dbg.location(134,12);
+			pushFollow(FOLLOW_addExpr_in_relExpr677);
 			lhs=addExpr();
 			state._fsp--;
 
 			adaptor.addChild(root_0, lhs.getTree());
-			dbg.location(133,21);
-			 retval.result =(lhs!=null?((QLParser.addExpr_return)lhs).result:null); dbg.location(133,46);
-			// /Users/luc0/Desktop/Software_Creation/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:133:46: (op= ( '<' ^| '<=' ^| '>' ^| '>=' ^| '==' ^| '!=' ^) rhs= addExpr )*
+			dbg.location(134,21);
+			 retval.result =(lhs!=null?((QLParser.addExpr_return)lhs).result:null); dbg.location(134,46);
+			// /Users/luc0/Desktop/Software_Creation/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:134:46: (op= ( '<' ^| '<=' ^| '>' ^| '>=' ^| '==' ^| '!=' ^) rhs= addExpr )*
 			try { dbg.enterSubRule(11);
 
 			loop11:
@@ -2092,10 +2092,10 @@ public class QLParser extends DebugParser {
 				case 1 :
 					dbg.enterAlt(1);
 
-					// /Users/luc0/Desktop/Software_Creation/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:133:48: op= ( '<' ^| '<=' ^| '>' ^| '>=' ^| '==' ^| '!=' ^) rhs= addExpr
+					// /Users/luc0/Desktop/Software_Creation/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:134:48: op= ( '<' ^| '<=' ^| '>' ^| '>=' ^| '==' ^| '!=' ^) rhs= addExpr
 					{
-					dbg.location(133,50);
-					// /Users/luc0/Desktop/Software_Creation/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:133:51: ( '<' ^| '<=' ^| '>' ^| '>=' ^| '==' ^| '!=' ^)
+					dbg.location(134,50);
+					// /Users/luc0/Desktop/Software_Creation/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:134:51: ( '<' ^| '<=' ^| '>' ^| '>=' ^| '==' ^| '!=' ^)
 					int alt10=6;
 					try { dbg.enterSubRule(10);
 					try { dbg.enterDecision(10, decisionCanBacktrack[10]);
@@ -2143,10 +2143,10 @@ public class QLParser extends DebugParser {
 						case 1 :
 							dbg.enterAlt(1);
 
-							// /Users/luc0/Desktop/Software_Creation/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:133:52: '<' ^
+							// /Users/luc0/Desktop/Software_Creation/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:134:52: '<' ^
 							{
-							dbg.location(133,55);
-							op=(Token)match(input,37,FOLLOW_37_in_relExpr685); 
+							dbg.location(134,55);
+							op=(Token)match(input,37,FOLLOW_37_in_relExpr686); 
 							op_tree = (CommonTree)adaptor.create(op);
 							root_0 = (CommonTree)adaptor.becomeRoot(op_tree, root_0);
 
@@ -2155,10 +2155,10 @@ public class QLParser extends DebugParser {
 						case 2 :
 							dbg.enterAlt(2);
 
-							// /Users/luc0/Desktop/Software_Creation/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:133:57: '<=' ^
+							// /Users/luc0/Desktop/Software_Creation/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:134:57: '<=' ^
 							{
-							dbg.location(133,61);
-							op=(Token)match(input,38,FOLLOW_38_in_relExpr688); 
+							dbg.location(134,61);
+							op=(Token)match(input,38,FOLLOW_38_in_relExpr689); 
 							op_tree = (CommonTree)adaptor.create(op);
 							root_0 = (CommonTree)adaptor.becomeRoot(op_tree, root_0);
 
@@ -2167,10 +2167,10 @@ public class QLParser extends DebugParser {
 						case 3 :
 							dbg.enterAlt(3);
 
-							// /Users/luc0/Desktop/Software_Creation/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:133:63: '>' ^
+							// /Users/luc0/Desktop/Software_Creation/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:134:63: '>' ^
 							{
-							dbg.location(133,66);
-							op=(Token)match(input,40,FOLLOW_40_in_relExpr691); 
+							dbg.location(134,66);
+							op=(Token)match(input,40,FOLLOW_40_in_relExpr692); 
 							op_tree = (CommonTree)adaptor.create(op);
 							root_0 = (CommonTree)adaptor.becomeRoot(op_tree, root_0);
 
@@ -2179,10 +2179,10 @@ public class QLParser extends DebugParser {
 						case 4 :
 							dbg.enterAlt(4);
 
-							// /Users/luc0/Desktop/Software_Creation/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:133:68: '>=' ^
+							// /Users/luc0/Desktop/Software_Creation/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:134:68: '>=' ^
 							{
-							dbg.location(133,72);
-							op=(Token)match(input,41,FOLLOW_41_in_relExpr694); 
+							dbg.location(134,72);
+							op=(Token)match(input,41,FOLLOW_41_in_relExpr695); 
 							op_tree = (CommonTree)adaptor.create(op);
 							root_0 = (CommonTree)adaptor.becomeRoot(op_tree, root_0);
 
@@ -2191,10 +2191,10 @@ public class QLParser extends DebugParser {
 						case 5 :
 							dbg.enterAlt(5);
 
-							// /Users/luc0/Desktop/Software_Creation/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:133:75: '==' ^
+							// /Users/luc0/Desktop/Software_Creation/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:134:75: '==' ^
 							{
-							dbg.location(133,79);
-							op=(Token)match(input,39,FOLLOW_39_in_relExpr698); 
+							dbg.location(134,79);
+							op=(Token)match(input,39,FOLLOW_39_in_relExpr699); 
 							op_tree = (CommonTree)adaptor.create(op);
 							root_0 = (CommonTree)adaptor.becomeRoot(op_tree, root_0);
 
@@ -2203,10 +2203,10 @@ public class QLParser extends DebugParser {
 						case 6 :
 							dbg.enterAlt(6);
 
-							// /Users/luc0/Desktop/Software_Creation/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:133:82: '!=' ^
+							// /Users/luc0/Desktop/Software_Creation/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:134:82: '!=' ^
 							{
-							dbg.location(133,86);
-							op=(Token)match(input,28,FOLLOW_28_in_relExpr702); 
+							dbg.location(134,86);
+							op=(Token)match(input,28,FOLLOW_28_in_relExpr703); 
 							op_tree = (CommonTree)adaptor.create(op);
 							root_0 = (CommonTree)adaptor.becomeRoot(op_tree, root_0);
 
@@ -2215,13 +2215,13 @@ public class QLParser extends DebugParser {
 
 					}
 					} finally {dbg.exitSubRule(10);}
-					dbg.location(133,92);
-					pushFollow(FOLLOW_addExpr_in_relExpr708);
+					dbg.location(134,92);
+					pushFollow(FOLLOW_addExpr_in_relExpr709);
 					rhs=addExpr();
 					state._fsp--;
 
 					adaptor.addChild(root_0, rhs.getTree());
-					dbg.location(134,5);
+					dbg.location(135,5);
 					 
 					      if ((op!=null?op.getText():null).equals("<")) {
 					        retval.result = new LT(retval.result, (rhs!=null?((QLParser.addExpr_return)rhs).result:null));
@@ -2267,7 +2267,7 @@ public class QLParser extends DebugParser {
 		finally {
 			// do for sure before leaving
 		}
-		dbg.location(154, 4);
+		dbg.location(155, 4);
 
 		}
 		finally {
@@ -2290,7 +2290,7 @@ public class QLParser extends DebugParser {
 
 
 	// $ANTLR start "andExpr"
-	// /Users/luc0/Desktop/Software_Creation/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:156:1: andExpr returns [Expr result] : lhs= relExpr ( '&&' ^rhs= relExpr )* ;
+	// /Users/luc0/Desktop/Software_Creation/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:157:1: andExpr returns [Expr result] : lhs= relExpr ( '&&' ^rhs= relExpr )* ;
 	public final QLParser.andExpr_return andExpr() throws RecognitionException {
 		QLParser.andExpr_return retval = new QLParser.andExpr_return();
 		retval.start = input.LT(1);
@@ -2306,26 +2306,26 @@ public class QLParser extends DebugParser {
 		try { dbg.enterRule(getGrammarFileName(), "andExpr");
 		if ( getRuleLevel()==0 ) {dbg.commence();}
 		incRuleLevel();
-		dbg.location(156, 0);
+		dbg.location(157, 0);
 
 		try {
-			// /Users/luc0/Desktop/Software_Creation/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:157:5: (lhs= relExpr ( '&&' ^rhs= relExpr )* )
+			// /Users/luc0/Desktop/Software_Creation/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:158:5: (lhs= relExpr ( '&&' ^rhs= relExpr )* )
 			dbg.enterAlt(1);
 
-			// /Users/luc0/Desktop/Software_Creation/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:157:9: lhs= relExpr ( '&&' ^rhs= relExpr )*
+			// /Users/luc0/Desktop/Software_Creation/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:158:9: lhs= relExpr ( '&&' ^rhs= relExpr )*
 			{
 			root_0 = (CommonTree)adaptor.nil();
 
 
-			dbg.location(157,12);
-			pushFollow(FOLLOW_relExpr_in_andExpr746);
+			dbg.location(158,12);
+			pushFollow(FOLLOW_relExpr_in_andExpr747);
 			lhs=relExpr();
 			state._fsp--;
 
 			adaptor.addChild(root_0, lhs.getTree());
-			dbg.location(157,21);
-			 retval.result =(lhs!=null?((QLParser.relExpr_return)lhs).result:null); dbg.location(157,46);
-			// /Users/luc0/Desktop/Software_Creation/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:157:46: ( '&&' ^rhs= relExpr )*
+			dbg.location(158,21);
+			 retval.result =(lhs!=null?((QLParser.relExpr_return)lhs).result:null); dbg.location(158,46);
+			// /Users/luc0/Desktop/Software_Creation/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:158:46: ( '&&' ^rhs= relExpr )*
 			try { dbg.enterSubRule(12);
 
 			loop12:
@@ -2344,19 +2344,19 @@ public class QLParser extends DebugParser {
 				case 1 :
 					dbg.enterAlt(1);
 
-					// /Users/luc0/Desktop/Software_Creation/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:157:48: '&&' ^rhs= relExpr
+					// /Users/luc0/Desktop/Software_Creation/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:158:48: '&&' ^rhs= relExpr
 					{
-					dbg.location(157,52);
-					string_literal42=(Token)match(input,29,FOLLOW_29_in_andExpr752); 
+					dbg.location(158,52);
+					string_literal42=(Token)match(input,29,FOLLOW_29_in_andExpr753); 
 					string_literal42_tree = (CommonTree)adaptor.create(string_literal42);
 					root_0 = (CommonTree)adaptor.becomeRoot(string_literal42_tree, root_0);
-					dbg.location(157,57);
-					pushFollow(FOLLOW_relExpr_in_andExpr757);
+					dbg.location(158,57);
+					pushFollow(FOLLOW_relExpr_in_andExpr758);
 					rhs=relExpr();
 					state._fsp--;
 
 					adaptor.addChild(root_0, rhs.getTree());
-					dbg.location(157,66);
+					dbg.location(158,66);
 					 retval.result = new And(retval.result, (rhs!=null?((QLParser.relExpr_return)rhs).result:null)); 
 					}
 					break;
@@ -2383,7 +2383,7 @@ public class QLParser extends DebugParser {
 		finally {
 			// do for sure before leaving
 		}
-		dbg.location(158, 4);
+		dbg.location(159, 4);
 
 		}
 		finally {
@@ -2406,7 +2406,7 @@ public class QLParser extends DebugParser {
 
 
 	// $ANTLR start "orExpr"
-	// /Users/luc0/Desktop/Software_Creation/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:161:1: orExpr returns [Expr result] : lhs= andExpr ( '||' ^rhs= andExpr )* ;
+	// /Users/luc0/Desktop/Software_Creation/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:162:1: orExpr returns [Expr result] : lhs= andExpr ( '||' ^rhs= andExpr )* ;
 	public final QLParser.orExpr_return orExpr() throws RecognitionException {
 		QLParser.orExpr_return retval = new QLParser.orExpr_return();
 		retval.start = input.LT(1);
@@ -2422,26 +2422,26 @@ public class QLParser extends DebugParser {
 		try { dbg.enterRule(getGrammarFileName(), "orExpr");
 		if ( getRuleLevel()==0 ) {dbg.commence();}
 		incRuleLevel();
-		dbg.location(161, 0);
+		dbg.location(162, 0);
 
 		try {
-			// /Users/luc0/Desktop/Software_Creation/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:162:5: (lhs= andExpr ( '||' ^rhs= andExpr )* )
+			// /Users/luc0/Desktop/Software_Creation/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:163:5: (lhs= andExpr ( '||' ^rhs= andExpr )* )
 			dbg.enterAlt(1);
 
-			// /Users/luc0/Desktop/Software_Creation/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:162:9: lhs= andExpr ( '||' ^rhs= andExpr )*
+			// /Users/luc0/Desktop/Software_Creation/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:163:9: lhs= andExpr ( '||' ^rhs= andExpr )*
 			{
 			root_0 = (CommonTree)adaptor.nil();
 
 
-			dbg.location(162,12);
-			pushFollow(FOLLOW_andExpr_in_orExpr792);
+			dbg.location(163,12);
+			pushFollow(FOLLOW_andExpr_in_orExpr793);
 			lhs=andExpr();
 			state._fsp--;
 
 			adaptor.addChild(root_0, lhs.getTree());
-			dbg.location(162,21);
-			 retval.result = (lhs!=null?((QLParser.andExpr_return)lhs).result:null); dbg.location(162,48);
-			// /Users/luc0/Desktop/Software_Creation/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:162:48: ( '||' ^rhs= andExpr )*
+			dbg.location(163,21);
+			 retval.result = (lhs!=null?((QLParser.andExpr_return)lhs).result:null); dbg.location(163,48);
+			// /Users/luc0/Desktop/Software_Creation/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:163:48: ( '||' ^rhs= andExpr )*
 			try { dbg.enterSubRule(13);
 
 			loop13:
@@ -2460,19 +2460,19 @@ public class QLParser extends DebugParser {
 				case 1 :
 					dbg.enterAlt(1);
 
-					// /Users/luc0/Desktop/Software_Creation/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:162:50: '||' ^rhs= andExpr
+					// /Users/luc0/Desktop/Software_Creation/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:163:50: '||' ^rhs= andExpr
 					{
-					dbg.location(162,54);
-					string_literal43=(Token)match(input,42,FOLLOW_42_in_orExpr798); 
+					dbg.location(163,54);
+					string_literal43=(Token)match(input,42,FOLLOW_42_in_orExpr799); 
 					string_literal43_tree = (CommonTree)adaptor.create(string_literal43);
 					root_0 = (CommonTree)adaptor.becomeRoot(string_literal43_tree, root_0);
-					dbg.location(162,59);
-					pushFollow(FOLLOW_andExpr_in_orExpr803);
+					dbg.location(163,59);
+					pushFollow(FOLLOW_andExpr_in_orExpr804);
 					rhs=andExpr();
 					state._fsp--;
 
 					adaptor.addChild(root_0, rhs.getTree());
-					dbg.location(162,68);
+					dbg.location(163,68);
 					 retval.result = new Or(retval.result, (rhs!=null?((QLParser.andExpr_return)rhs).result:null)); 
 					}
 					break;
@@ -2499,7 +2499,7 @@ public class QLParser extends DebugParser {
 		finally {
 			// do for sure before leaving
 		}
-		dbg.location(163, 4);
+		dbg.location(164, 4);
 
 		}
 		finally {
@@ -2516,71 +2516,71 @@ public class QLParser extends DebugParser {
 
 
 
-	public static final BitSet FOLLOW_FormStart_in_parse99 = new BitSet(new long[]{0x0000000000000040L});
-	public static final BitSet FOLLOW_qStartExp_in_parse101 = new BitSet(new long[]{0x0000000000000000L});
-	public static final BitSet FOLLOW_EOF_in_parse103 = new BitSet(new long[]{0x0000000000000002L});
-	public static final BitSet FOLLOW_FormId_in_qStartExp127 = new BitSet(new long[]{0x0000000000004000L});
-	public static final BitSet FOLLOW_Lbr_in_qStartExp129 = new BitSet(new long[]{0x0000000000600100L});
-	public static final BitSet FOLLOW_qStartQExpr_in_qStartExp131 = new BitSet(new long[]{0x0000000000400000L});
-	public static final BitSet FOLLOW_Rbr_in_qStartExp133 = new BitSet(new long[]{0x0000000000000002L});
-	public static final BitSet FOLLOW_qDeclaration_in_qStartQExpr152 = new BitSet(new long[]{0x0000000000200102L});
-	public static final BitSet FOLLOW_ifStatementExpr_in_qStartQExpr156 = new BitSet(new long[]{0x0000000000200102L});
-	public static final BitSet FOLLOW_QuestionVariable_in_qDeclaration169 = new BitSet(new long[]{0x0000001000000000L});
-	public static final BitSet FOLLOW_36_in_qDeclaration172 = new BitSet(new long[]{0x0000000000100000L});
-	public static final BitSet FOLLOW_qLabel_in_qDeclaration174 = new BitSet(new long[]{0x0000000000008010L});
-	public static final BitSet FOLLOW_qType_in_qDeclaration176 = new BitSet(new long[]{0x0000000000000002L});
-	public static final BitSet FOLLOW_QuestionVariable_in_qDeclaration210 = new BitSet(new long[]{0x0000001000000000L});
-	public static final BitSet FOLLOW_36_in_qDeclaration213 = new BitSet(new long[]{0x0000000000100000L});
-	public static final BitSet FOLLOW_qLabel_in_qDeclaration215 = new BitSet(new long[]{0x0000000000008010L});
-	public static final BitSet FOLLOW_qType_in_qDeclaration217 = new BitSet(new long[]{0x0000000040000000L});
-	public static final BitSet FOLLOW_30_in_qDeclaration219 = new BitSet(new long[]{0x000000064820B010L});
-	public static final BitSet FOLLOW_orExpr_in_qDeclaration221 = new BitSet(new long[]{0x0000000080000000L});
-	public static final BitSet FOLLOW_31_in_qDeclaration223 = new BitSet(new long[]{0x0000000000000002L});
-	public static final BitSet FOLLOW_IF_in_ifStatementExpr276 = new BitSet(new long[]{0x0000000040000000L});
-	public static final BitSet FOLLOW_30_in_ifStatementExpr279 = new BitSet(new long[]{0x000000064820B010L});
-	public static final BitSet FOLLOW_orExpr_in_ifStatementExpr281 = new BitSet(new long[]{0x0000000080000000L});
-	public static final BitSet FOLLOW_31_in_ifStatementExpr283 = new BitSet(new long[]{0x0000000000004000L});
-	public static final BitSet FOLLOW_Lbr_in_ifStatementExpr287 = new BitSet(new long[]{0x0000000000200100L});
-	public static final BitSet FOLLOW_ifBlockContentExpr_in_ifStatementExpr289 = new BitSet(new long[]{0x0000000000400000L});
-	public static final BitSet FOLLOW_Rbr_in_ifStatementExpr291 = new BitSet(new long[]{0x0000000000000002L});
-	public static final BitSet FOLLOW_qDeclaration_in_ifBlockContentExpr324 = new BitSet(new long[]{0x0000000000200102L});
-	public static final BitSet FOLLOW_ifStatementExpr_in_ifBlockContentExpr329 = new BitSet(new long[]{0x0000000000200102L});
-	public static final BitSet FOLLOW_Question_in_qLabel344 = new BitSet(new long[]{0x0000000000000002L});
-	public static final BitSet FOLLOW_Int_in_primary375 = new BitSet(new long[]{0x0000000000000002L});
-	public static final BitSet FOLLOW_Ident_in_primary385 = new BitSet(new long[]{0x0000000000000002L});
-	public static final BitSet FOLLOW_Boolean_in_primary396 = new BitSet(new long[]{0x0000000000000002L});
-	public static final BitSet FOLLOW_QuestionVariable_in_primary403 = new BitSet(new long[]{0x0000000000000002L});
-	public static final BitSet FOLLOW_Money_in_primary421 = new BitSet(new long[]{0x0000000000000002L});
-	public static final BitSet FOLLOW_30_in_primary433 = new BitSet(new long[]{0x000000064820B010L});
-	public static final BitSet FOLLOW_orExpr_in_primary439 = new BitSet(new long[]{0x0000000080000000L});
-	public static final BitSet FOLLOW_31_in_primary441 = new BitSet(new long[]{0x0000000000000002L});
-	public static final BitSet FOLLOW_33_in_unExpr470 = new BitSet(new long[]{0x000000064820B010L});
-	public static final BitSet FOLLOW_unExpr_in_unExpr475 = new BitSet(new long[]{0x0000000000000002L});
-	public static final BitSet FOLLOW_34_in_unExpr486 = new BitSet(new long[]{0x000000064820B010L});
-	public static final BitSet FOLLOW_unExpr_in_unExpr491 = new BitSet(new long[]{0x0000000000000002L});
-	public static final BitSet FOLLOW_27_in_unExpr502 = new BitSet(new long[]{0x000000064820B010L});
-	public static final BitSet FOLLOW_unExpr_in_unExpr507 = new BitSet(new long[]{0x0000000000000002L});
-	public static final BitSet FOLLOW_primary_in_unExpr520 = new BitSet(new long[]{0x0000000000000002L});
-	public static final BitSet FOLLOW_unExpr_in_mulExpr558 = new BitSet(new long[]{0x0000000900000002L});
-	public static final BitSet FOLLOW_32_in_mulExpr568 = new BitSet(new long[]{0x000000064820B010L});
-	public static final BitSet FOLLOW_35_in_mulExpr573 = new BitSet(new long[]{0x000000064820B010L});
-	public static final BitSet FOLLOW_unExpr_in_mulExpr580 = new BitSet(new long[]{0x0000000900000002L});
-	public static final BitSet FOLLOW_mulExpr_in_addExpr621 = new BitSet(new long[]{0x0000000600000002L});
-	public static final BitSet FOLLOW_33_in_addExpr630 = new BitSet(new long[]{0x000000064820B010L});
-	public static final BitSet FOLLOW_34_in_addExpr635 = new BitSet(new long[]{0x000000064820B010L});
-	public static final BitSet FOLLOW_mulExpr_in_addExpr641 = new BitSet(new long[]{0x0000000600000002L});
-	public static final BitSet FOLLOW_addExpr_in_relExpr676 = new BitSet(new long[]{0x000003E010000002L});
-	public static final BitSet FOLLOW_37_in_relExpr685 = new BitSet(new long[]{0x000000064820B010L});
-	public static final BitSet FOLLOW_38_in_relExpr688 = new BitSet(new long[]{0x000000064820B010L});
-	public static final BitSet FOLLOW_40_in_relExpr691 = new BitSet(new long[]{0x000000064820B010L});
-	public static final BitSet FOLLOW_41_in_relExpr694 = new BitSet(new long[]{0x000000064820B010L});
-	public static final BitSet FOLLOW_39_in_relExpr698 = new BitSet(new long[]{0x000000064820B010L});
-	public static final BitSet FOLLOW_28_in_relExpr702 = new BitSet(new long[]{0x000000064820B010L});
-	public static final BitSet FOLLOW_addExpr_in_relExpr708 = new BitSet(new long[]{0x000003E010000002L});
-	public static final BitSet FOLLOW_relExpr_in_andExpr746 = new BitSet(new long[]{0x0000000020000002L});
-	public static final BitSet FOLLOW_29_in_andExpr752 = new BitSet(new long[]{0x000000064820B010L});
-	public static final BitSet FOLLOW_relExpr_in_andExpr757 = new BitSet(new long[]{0x0000000020000002L});
-	public static final BitSet FOLLOW_andExpr_in_orExpr792 = new BitSet(new long[]{0x0000040000000002L});
-	public static final BitSet FOLLOW_42_in_orExpr798 = new BitSet(new long[]{0x000000064820B010L});
-	public static final BitSet FOLLOW_andExpr_in_orExpr803 = new BitSet(new long[]{0x0000040000000002L});
+	public static final BitSet FOLLOW_FormStart_in_parse100 = new BitSet(new long[]{0x0000000000000040L});
+	public static final BitSet FOLLOW_qStartExp_in_parse102 = new BitSet(new long[]{0x0000000000000000L});
+	public static final BitSet FOLLOW_EOF_in_parse104 = new BitSet(new long[]{0x0000000000000002L});
+	public static final BitSet FOLLOW_FormId_in_qStartExp128 = new BitSet(new long[]{0x0000000000004000L});
+	public static final BitSet FOLLOW_Lbr_in_qStartExp130 = new BitSet(new long[]{0x0000000000600100L});
+	public static final BitSet FOLLOW_qStartQExpr_in_qStartExp132 = new BitSet(new long[]{0x0000000000400000L});
+	public static final BitSet FOLLOW_Rbr_in_qStartExp134 = new BitSet(new long[]{0x0000000000000002L});
+	public static final BitSet FOLLOW_qDeclaration_in_qStartQExpr153 = new BitSet(new long[]{0x0000000000200102L});
+	public static final BitSet FOLLOW_ifStatementExpr_in_qStartQExpr157 = new BitSet(new long[]{0x0000000000200102L});
+	public static final BitSet FOLLOW_QuestionVariable_in_qDeclaration170 = new BitSet(new long[]{0x0000001000000000L});
+	public static final BitSet FOLLOW_36_in_qDeclaration173 = new BitSet(new long[]{0x0000000000100000L});
+	public static final BitSet FOLLOW_qLabel_in_qDeclaration175 = new BitSet(new long[]{0x0000000000008010L});
+	public static final BitSet FOLLOW_qType_in_qDeclaration177 = new BitSet(new long[]{0x0000000000000002L});
+	public static final BitSet FOLLOW_QuestionVariable_in_qDeclaration211 = new BitSet(new long[]{0x0000001000000000L});
+	public static final BitSet FOLLOW_36_in_qDeclaration214 = new BitSet(new long[]{0x0000000000100000L});
+	public static final BitSet FOLLOW_qLabel_in_qDeclaration216 = new BitSet(new long[]{0x0000000000008010L});
+	public static final BitSet FOLLOW_qType_in_qDeclaration218 = new BitSet(new long[]{0x0000000040000000L});
+	public static final BitSet FOLLOW_30_in_qDeclaration220 = new BitSet(new long[]{0x000000064820B010L});
+	public static final BitSet FOLLOW_orExpr_in_qDeclaration222 = new BitSet(new long[]{0x0000000080000000L});
+	public static final BitSet FOLLOW_31_in_qDeclaration224 = new BitSet(new long[]{0x0000000000000002L});
+	public static final BitSet FOLLOW_IF_in_ifStatementExpr277 = new BitSet(new long[]{0x0000000040000000L});
+	public static final BitSet FOLLOW_30_in_ifStatementExpr280 = new BitSet(new long[]{0x000000064820B010L});
+	public static final BitSet FOLLOW_orExpr_in_ifStatementExpr282 = new BitSet(new long[]{0x0000000080000000L});
+	public static final BitSet FOLLOW_31_in_ifStatementExpr284 = new BitSet(new long[]{0x0000000000004000L});
+	public static final BitSet FOLLOW_Lbr_in_ifStatementExpr288 = new BitSet(new long[]{0x0000000000200100L});
+	public static final BitSet FOLLOW_ifBlockContentExpr_in_ifStatementExpr290 = new BitSet(new long[]{0x0000000000400000L});
+	public static final BitSet FOLLOW_Rbr_in_ifStatementExpr292 = new BitSet(new long[]{0x0000000000000002L});
+	public static final BitSet FOLLOW_qDeclaration_in_ifBlockContentExpr325 = new BitSet(new long[]{0x0000000000200102L});
+	public static final BitSet FOLLOW_ifStatementExpr_in_ifBlockContentExpr330 = new BitSet(new long[]{0x0000000000200102L});
+	public static final BitSet FOLLOW_Question_in_qLabel345 = new BitSet(new long[]{0x0000000000000002L});
+	public static final BitSet FOLLOW_Int_in_primary376 = new BitSet(new long[]{0x0000000000000002L});
+	public static final BitSet FOLLOW_Ident_in_primary386 = new BitSet(new long[]{0x0000000000000002L});
+	public static final BitSet FOLLOW_Boolean_in_primary397 = new BitSet(new long[]{0x0000000000000002L});
+	public static final BitSet FOLLOW_QuestionVariable_in_primary404 = new BitSet(new long[]{0x0000000000000002L});
+	public static final BitSet FOLLOW_Money_in_primary422 = new BitSet(new long[]{0x0000000000000002L});
+	public static final BitSet FOLLOW_30_in_primary434 = new BitSet(new long[]{0x000000064820B010L});
+	public static final BitSet FOLLOW_orExpr_in_primary440 = new BitSet(new long[]{0x0000000080000000L});
+	public static final BitSet FOLLOW_31_in_primary442 = new BitSet(new long[]{0x0000000000000002L});
+	public static final BitSet FOLLOW_33_in_unExpr471 = new BitSet(new long[]{0x000000064820B010L});
+	public static final BitSet FOLLOW_unExpr_in_unExpr476 = new BitSet(new long[]{0x0000000000000002L});
+	public static final BitSet FOLLOW_34_in_unExpr487 = new BitSet(new long[]{0x000000064820B010L});
+	public static final BitSet FOLLOW_unExpr_in_unExpr492 = new BitSet(new long[]{0x0000000000000002L});
+	public static final BitSet FOLLOW_27_in_unExpr503 = new BitSet(new long[]{0x000000064820B010L});
+	public static final BitSet FOLLOW_unExpr_in_unExpr508 = new BitSet(new long[]{0x0000000000000002L});
+	public static final BitSet FOLLOW_primary_in_unExpr521 = new BitSet(new long[]{0x0000000000000002L});
+	public static final BitSet FOLLOW_unExpr_in_mulExpr559 = new BitSet(new long[]{0x0000000900000002L});
+	public static final BitSet FOLLOW_32_in_mulExpr569 = new BitSet(new long[]{0x000000064820B010L});
+	public static final BitSet FOLLOW_35_in_mulExpr574 = new BitSet(new long[]{0x000000064820B010L});
+	public static final BitSet FOLLOW_unExpr_in_mulExpr581 = new BitSet(new long[]{0x0000000900000002L});
+	public static final BitSet FOLLOW_mulExpr_in_addExpr622 = new BitSet(new long[]{0x0000000600000002L});
+	public static final BitSet FOLLOW_33_in_addExpr631 = new BitSet(new long[]{0x000000064820B010L});
+	public static final BitSet FOLLOW_34_in_addExpr636 = new BitSet(new long[]{0x000000064820B010L});
+	public static final BitSet FOLLOW_mulExpr_in_addExpr642 = new BitSet(new long[]{0x0000000600000002L});
+	public static final BitSet FOLLOW_addExpr_in_relExpr677 = new BitSet(new long[]{0x000003E010000002L});
+	public static final BitSet FOLLOW_37_in_relExpr686 = new BitSet(new long[]{0x000000064820B010L});
+	public static final BitSet FOLLOW_38_in_relExpr689 = new BitSet(new long[]{0x000000064820B010L});
+	public static final BitSet FOLLOW_40_in_relExpr692 = new BitSet(new long[]{0x000000064820B010L});
+	public static final BitSet FOLLOW_41_in_relExpr695 = new BitSet(new long[]{0x000000064820B010L});
+	public static final BitSet FOLLOW_39_in_relExpr699 = new BitSet(new long[]{0x000000064820B010L});
+	public static final BitSet FOLLOW_28_in_relExpr703 = new BitSet(new long[]{0x000000064820B010L});
+	public static final BitSet FOLLOW_addExpr_in_relExpr709 = new BitSet(new long[]{0x000003E010000002L});
+	public static final BitSet FOLLOW_relExpr_in_andExpr747 = new BitSet(new long[]{0x0000000020000002L});
+	public static final BitSet FOLLOW_29_in_andExpr753 = new BitSet(new long[]{0x000000064820B010L});
+	public static final BitSet FOLLOW_relExpr_in_andExpr758 = new BitSet(new long[]{0x0000000020000002L});
+	public static final BitSet FOLLOW_andExpr_in_orExpr793 = new BitSet(new long[]{0x0000040000000002L});
+	public static final BitSet FOLLOW_42_in_orExpr799 = new BitSet(new long[]{0x000000064820B010L});
+	public static final BitSet FOLLOW_andExpr_in_orExpr804 = new BitSet(new long[]{0x0000040000000002L});
 }
