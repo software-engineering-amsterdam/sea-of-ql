@@ -18,7 +18,7 @@ public class Registry implements ASTElement {
 	}
 
 	@Override
-	public void accept(ASTVisitor visitor) {
+	public void accept(ASTVisitor visitor) throws VisitorException {
 		visitor.visit(this);
 	}
 	

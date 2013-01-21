@@ -1,9 +1,9 @@
 form Box1HouseOwning {
    taxId: "Please enter your tax identification number" string
    hasSoldHouse: "Did you sell a house in 2010?" boolean
-   hasBoughtHouse: "Did you by a house in 2010?" boolean
+   hasBoughtHouse: "Did you by a house in 2010?" money
    hasMaintLoan: "Did you enter a loan for maintenance/reconstruction?" boolean
-   if (hasSoldHouse || (hasBoughtHouse == hasMaintLoan)) {
+   if (hasSoldHouse && (hasBoughtHouse || hasMaintLoan)) {
      sellingPrice: "Price the house was sold for:" money
      privateDebt: "Private debts for the sold house:" money
      valueResidue: "Value residue:" money(sellingPrice - privateDebt)

@@ -10,21 +10,21 @@ import org.uva.sea.ql.ast.elements.IfStatement;
 import org.uva.sea.ql.ast.elements.Question;
 
 public interface ASTVisitor {
-	void visit(Form form);
+	void visit(Form form) throws VisitorException;
 
-	void visit(Block block);
+	void visit(Block block) throws VisitorException;
 
-	void visit(Question question);
+	void visit(Question question) throws VisitorException;
 
-	void visit(IfStatement ifStatement);
+	void visit(IfStatement ifStatement) throws VisitorException;
 
-	void visit(Ident ident);
+	void visit(Ident ident) throws VisitorException;
 	
-	void visit(Registry registry);
+	void visit(Registry registry) throws VisitorException;
 	
-	void visit(AcceptsBoolOperands r);
+	void visit(AcceptsBoolOperands r) throws VisitorException;
 	
-	void visit(AcceptsMathOperands r);
+	void visit(AcceptsMathOperands r) throws VisitorException;
 	
-	void visit(AcceptsBothOperands r);
+	void visit(AcceptsBothOperands r) throws VisitorException;
 }

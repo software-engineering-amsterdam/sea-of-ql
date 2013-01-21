@@ -5,6 +5,7 @@ import org.uva.sea.ql.ast.BinaryExpr;
 import org.uva.sea.ql.ast.Expr;
 import org.uva.sea.ql.ast.ReturnsBoolOperands;
 import org.uva.sea.ql.visitor.ASTVisitor;
+import org.uva.sea.ql.visitor.VisitorException;
 
 public class GT extends BinaryExpr implements AcceptsMathOperands, ReturnsBoolOperands  {
 	public static final String str = ">";
@@ -13,7 +14,7 @@ public class GT extends BinaryExpr implements AcceptsMathOperands, ReturnsBoolOp
 		super(left, right);
 	}
 	@Override
-	public void accept(ASTVisitor visitor) {
+	public void accept(ASTVisitor visitor) throws VisitorException {
 		visitor.visit(this);		
 	}
 }
