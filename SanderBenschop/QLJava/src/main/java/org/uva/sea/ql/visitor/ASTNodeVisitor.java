@@ -1,4 +1,4 @@
-package org.uva.sea.ql.parser.visitor;
+package org.uva.sea.ql.visitor;
 
 import org.uva.sea.ql.ast.nodetypes.binary.BinaryOperation;
 import org.uva.sea.ql.ast.nodetypes.formelement.Computation;

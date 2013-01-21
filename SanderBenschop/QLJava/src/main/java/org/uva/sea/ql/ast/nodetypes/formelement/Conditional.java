@@ -2,7 +2,7 @@ package org.uva.sea.ql.ast.nodetypes.formelement;
 
 import org.uva.sea.ql.ast.ASTNode;
 import org.uva.sea.ql.ast.QLStatement;
-import org.uva.sea.ql.parser.visitor.ASTNodeVisitor;
+import org.uva.sea.ql.visitor.ASTNodeVisitor;
 
 import java.util.Collections;
 import java.util.List;

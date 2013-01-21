@@ -1,7 +1,7 @@
 package org.uva.sea.ql.ast.nodetypes.primary;
 
 import org.uva.sea.ql.ast.ASTNode;
-import org.uva.sea.ql.parser.visitor.ASTNodeVisitor;
+import org.uva.sea.ql.visitor.ASTNodeVisitor;
 
 public abstract class Datatype<T> implements ASTNode {
 

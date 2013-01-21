@@ -1,6 +1,6 @@
-package org.uva.sea.ql.parser.visitor.typechecking;
+package org.uva.sea.ql.visitor.typechecking.errors;
 
-import org.uva.sea.ql.parser.visitor.QLError;
+import org.uva.sea.ql.visitor.QLError;
 
 import java.util.List;
 

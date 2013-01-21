@@ -1,4 +1,4 @@
-package org.uva.sea.ql.parser.visitor.typechecking;
+package org.uva.sea.ql.visitor.typechecking;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -8,6 +8,7 @@ import org.uva.sea.ql.ast.nodetypes.formelement.Question;
 import org.uva.sea.ql.ast.nodetypes.primary.Ident;
 import org.uva.sea.ql.ast.nodetypes.primary.Int;
 import org.uva.sea.ql.ast.nodetypes.primary.Str;
+import org.uva.sea.ql.visitor.typechecking.TypeCheckingVisitor;
 
 import static junit.framework.Assert.assertTrue;
 

@@ -1,4 +1,4 @@
-package org.uva.sea.ql.parser.visitor.typechecking;
+package org.uva.sea.ql.visitor.typechecking;
 
 import org.uva.sea.ql.ast.ASTNode;
 

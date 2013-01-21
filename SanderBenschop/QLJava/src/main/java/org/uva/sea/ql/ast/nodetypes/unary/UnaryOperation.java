@@ -2,7 +2,7 @@ package org.uva.sea.ql.ast.nodetypes.unary;
 
 import org.uva.sea.ql.ast.ASTNode;
 import org.uva.sea.ql.ast.QLExpression;
-import org.uva.sea.ql.parser.visitor.ASTNodeVisitor;
+import org.uva.sea.ql.visitor.ASTNodeVisitor;
 
 public abstract class UnaryOperation implements QLExpression {
 

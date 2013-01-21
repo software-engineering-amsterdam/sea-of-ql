@@ -1,4 +1,4 @@
-package org.uva.sea.ql.parser.visitor.typechecking;
+package org.uva.sea.ql.visitor.typechecking;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -10,6 +10,9 @@ import org.uva.sea.ql.ast.nodetypes.primary.Bool;
 import org.uva.sea.ql.ast.nodetypes.primary.Datatype;
 import org.uva.sea.ql.ast.nodetypes.primary.Int;
 import org.uva.sea.ql.ast.nodetypes.primary.Str;
+import org.uva.sea.ql.visitor.typechecking.TypeCheckingVisitor;
+import org.uva.sea.ql.visitor.typechecking.errors.UnequalTypesError;
+import org.uva.sea.ql.visitor.typechecking.errors.UnsupportedTypeError;
 
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertTrue;

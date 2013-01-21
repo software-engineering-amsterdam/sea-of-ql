@@ -1,4 +1,4 @@
-package org.uva.sea.ql.parser.visitor.typechecking;
+package org.uva.sea.ql.visitor.typechecking;
 
 import org.uva.sea.ql.ast.ASTNode;
 import org.uva.sea.ql.ast.nodetypes.binary.BinaryOperation;
@@ -10,8 +10,11 @@ import org.uva.sea.ql.ast.nodetypes.primary.Datatype;
 import org.uva.sea.ql.ast.nodetypes.primary.Ident;
 import org.uva.sea.ql.ast.nodetypes.primary.Int;
 import org.uva.sea.ql.ast.nodetypes.unary.UnaryOperation;
-import org.uva.sea.ql.parser.visitor.ASTNodeVisitor;
-import org.uva.sea.ql.parser.visitor.QLError;
+import org.uva.sea.ql.visitor.ASTNodeVisitor;
+import org.uva.sea.ql.visitor.QLError;
+import org.uva.sea.ql.visitor.typechecking.errors.IdentifierRedeclarationError;
+import org.uva.sea.ql.visitor.typechecking.errors.UnequalTypesError;
+import org.uva.sea.ql.visitor.typechecking.errors.UnsupportedTypeError;
 
 import java.util.ArrayList;
 import java.util.Arrays;

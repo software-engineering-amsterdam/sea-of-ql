@@ -1,10 +1,10 @@
 package org.uva.sea.ql.ast.nodetypes.formelement;
 
+import java.util.List;
+
 import org.uva.sea.ql.ast.ASTNode;
 import org.uva.sea.ql.ast.QLStatement;
-import org.uva.sea.ql.parser.visitor.ASTNodeVisitor;
-
-import java.util.List;
+import org.uva.sea.ql.visitor.ASTNodeVisitor;
 
 public class Form implements ASTNode {
 
@@ -14,6 +14,10 @@ public class Form implements ASTNode {
     public Form(String formName, List<QLStatement> statements) {
         this.formName = formName;
         this.statements = statements;
+    }
+
+    public String getName() {
+        return formName;
     }
 
     public List<QLStatement> getStatements() {

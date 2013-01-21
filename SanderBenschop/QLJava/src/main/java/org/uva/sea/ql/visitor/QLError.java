@@ -1,4 +1,4 @@
-package org.uva.sea.ql.parser.visitor;
+package org.uva.sea.ql.visitor;
 
 public abstract class QLError {
 
