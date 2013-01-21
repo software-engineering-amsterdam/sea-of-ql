@@ -4,7 +4,7 @@ import org.uva.sea.ql.ast.expressions.Expr;
 
 public class Not extends UnaryExpr {
 
-	public Not(Expr value) {
-		super(value);
+	public Not(Expr unExpr) {
+		super(unExpr);
 	}
 }

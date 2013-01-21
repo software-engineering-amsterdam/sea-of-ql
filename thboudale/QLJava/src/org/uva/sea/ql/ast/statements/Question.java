@@ -1,27 +1,29 @@
 package org.uva.sea.ql.ast.statements;
 
+import org.uva.sea.ql.ast.StringLiteral;
 import org.uva.sea.ql.ast.expressions.Ident;
+import org.uva.sea.ql.types.Type;
 
 public class Question extends Statement {
 	private final Ident ident;
-	private final String strLit;
-	private final String type;
+	private final StringLiteral strLtr;
+	private final Type type;
 
-	public Question(Ident ident, String strLit, String type) {
+	public Question(Ident ident, StringLiteral strLtr, Type type) {
 		this.ident = ident;
-		this.strLit = strLit;
+		this.strLtr = strLtr;
 		this.type = type;
 	}
 	
-	public Ident getIdentifier() {
+	public Ident getIdent() {
 		return ident;
 	}
 	
-	public String getStrLit() {
-		return strLit;
+	public StringLiteral getStrLtr() {
+		return strLtr;
 	}
 	
-	public String getType() {
+	public Type getType() {
 		return type;
 	}
 }

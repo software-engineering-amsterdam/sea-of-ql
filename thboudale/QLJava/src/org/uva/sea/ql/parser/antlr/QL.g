@@ -9,6 +9,7 @@ import org.uva.sea.ql.ast.expressions.*;
 import org.uva.sea.ql.ast.expressions.binaryExpr.*;
 import org.uva.sea.ql.ast.expressions.unaryExpr.*;
 import org.uva.sea.ql.ast.statements.*;
+import org.uva.sea.ql.types.*;
 }
 
 @lexer::header
@@ -28,13 +29,20 @@ ifStatement
 	; */
 
 computedQuestion returns [ComputedQuestion result]
-	: IDENT ':' STRING_LITERAL TYPE '(' x=orExpr ')'
-	{ $result = new ComputedQuestion(new Ident($IDENT.text), $STRING_LITERAL.text, $TYPE.text, $x.result); }
+	: IDENT ':' STRING_LITERAL type '(' x=orExpr ')'
+	{ $result = new ComputedQuestion(new Ident($IDENT.text), new StringLiteral($STRING_LITERAL.text),  $type.result, $x.result); }
 	;
 
+
 question returns [Question result]
-    : IDENT ':' STRING_LITERAL TYPE
-    { $result = new Question(new Ident($IDENT.text), $STRING_LITERAL.text, $TYPE.text); }
+    : IDENT ':' STRING_LITERAL type
+    { $result = new Question(new Ident($IDENT.text), new StringLiteral($STRING_LITERAL.text), $type.result); }
+    ;
+
+type returns [Type result]
+    : 'int' { $result = new IntType("int"); }
+    | 'boolean' { $result = new IntType("boolean"); }
+    | 'string' { $result = new IntType("string"); }
     ;
 
 primary returns [Expr result]
@@ -127,10 +135,6 @@ INT
 BOOLEAN
 	  : ('true' | 'false')
 	  ;
-
-TYPE
-    : ('boolean' | 'money')
-    ;
 
 IDENT
 	  : ('a'..'z'|'A'..'Z')('a'..'z'|'A'..'Z'|'0'..'9'|'_')*

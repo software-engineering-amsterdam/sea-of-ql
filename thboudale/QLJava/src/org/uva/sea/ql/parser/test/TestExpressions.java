@@ -105,6 +105,5 @@ public class TestExpressions {
 	public void testQuestion() throws ParseError {
 	 	assertEquals(parser.parseForm("hasSoldHouse: \"Did you sell a house in 2010?\" boolean").getClass(), Question.class);
 	 	assertEquals(parser.parseForm("privateDebt: \"Private debts for the sold house:\" money").getClass(), Question.class);
-	 	assertEquals(parser.parseForm("privateDebt: \"Private debts for the sold house:\" money (a-b)").getClass(), ComputedQuestion.class);
 	}
 }
