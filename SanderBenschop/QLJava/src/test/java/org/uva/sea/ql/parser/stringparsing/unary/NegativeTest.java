@@ -7,7 +7,7 @@ import org.uva.sea.ql.parser.exception.ParseError;
 
 import static org.junit.Assert.assertEquals;
 
-public class TestNegative extends TestParser {
+public class NegativeTest extends TestParser {
 
     @Test
     public void shouldEvaluateToNegativeClass() throws ParseError {

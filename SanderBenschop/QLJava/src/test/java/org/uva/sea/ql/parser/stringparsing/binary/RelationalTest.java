@@ -9,7 +9,7 @@ import org.uva.sea.ql.parser.exception.ParseError;
 
 import static org.junit.Assert.assertEquals;
 
-public class TestRelationals extends TestParser {
+public class RelationalTest extends TestParser {
 
     @Test
     public void shouldEvaluateToRelationalClasses() throws ParseError {

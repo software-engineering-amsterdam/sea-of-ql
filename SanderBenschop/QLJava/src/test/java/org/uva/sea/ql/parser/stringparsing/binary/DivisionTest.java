@@ -7,7 +7,7 @@ import org.uva.sea.ql.parser.exception.ParseError;
 
 import static junit.framework.Assert.assertEquals;
 
-public class TestDivisions extends TestParser {
+public class DivisionTest extends TestParser {
 
     @Test
     public void shouldEvaluateToDivideClass() throws ParseError {

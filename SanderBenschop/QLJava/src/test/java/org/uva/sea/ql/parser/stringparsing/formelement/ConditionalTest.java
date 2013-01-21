@@ -11,7 +11,7 @@ import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 
-public class TestConditionals extends TestParser {
+public class ConditionalTest extends TestParser {
 
     @Test
     public void shouldEvaluateToConditionalClass() throws ParseError {

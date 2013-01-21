@@ -13,7 +13,7 @@ import java.util.List;
 
 import static junit.framework.Assert.assertEquals;
 
-public class TestCompleteForm extends TestParser {
+public class CompleteFormTest extends TestParser {
 
     @Test
     public void shouldParseCompleteForm() throws ParseError {

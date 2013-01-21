@@ -12,7 +12,7 @@ import org.uva.sea.ql.parser.exception.ParseError;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 
-public class TestQuestions extends TestParser {
+public class QuestionTest extends TestParser {
 
     @Test
     public void shouldEvaluateToQuestionClass() throws ParseError {

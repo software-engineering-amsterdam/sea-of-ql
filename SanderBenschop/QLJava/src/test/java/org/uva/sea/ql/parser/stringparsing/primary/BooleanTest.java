@@ -7,7 +7,7 @@ import org.uva.sea.ql.parser.exception.ParseError;
 
 import static org.junit.Assert.assertEquals;
 
-public class TestBooleans extends TestParser {
+public class BooleanTest extends TestParser {
 
     @Test
     public void shouldEvaluateToBoolClass() throws ParseError {

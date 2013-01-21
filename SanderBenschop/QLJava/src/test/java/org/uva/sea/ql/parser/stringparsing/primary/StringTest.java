@@ -8,7 +8,7 @@ import org.uva.sea.ql.parser.exception.ParseError;
 
 import static org.junit.Assert.assertEquals;
 
-public class TestStrings extends TestParser {
+public class StringTest extends TestParser {
 
     @Test
     public void shouldEvaluateToStringClass() throws ParseError {

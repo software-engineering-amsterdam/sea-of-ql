@@ -9,7 +9,7 @@ import static junit.framework.Assert.assertFalse;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-public class TestIdents extends TestParser {
+public class IdentTest extends TestParser {
 
     @Test
     public void shouldEvaluateToIdentClass() throws ParseError {
