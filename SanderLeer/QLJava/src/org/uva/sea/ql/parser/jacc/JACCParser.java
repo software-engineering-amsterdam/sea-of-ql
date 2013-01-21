@@ -13,22 +13,23 @@ public class JACCParser implements Parser {
 
 		QLParser parser = new QLParser(lexer);
 		if (!parser.parse()) {
-			throw new ParseException("error");
+			throw new ParseException("parse error: " + parser.getError());
 		}
-		ASTNode result = parser.getResult();
+		ASTNode astRoot = parser.getResult();
 
-		SymbolTable symbols = new SymbolTable();
-		SymbolTableBuilder stb = new SymbolTableBuilder(symbols);
-		result.accept(stb);
-		if (stb.hasErrors()) {
-			throw new ParseException(stb.getErrorsAsString());
-		}
+		SymbolTableBuilder symbolsBuilder = new SymbolTableBuilder(astRoot);
+		SymbolTable symbols = symbolsBuilder.build();
+		
+//		TypeChecker typeChecker = new TypeChecker(astRoot, symbols);
+//		if (!typeChecker.check()) {
+//			throw new ParseException("typecheck error: " + typeChecker.getError());
+//		}
 		
 		ASTPrinter astPrinter = new ASTPrinter();
-		result.accept(astPrinter);
+		astRoot.accept(astPrinter);
 		// TODO: remove before production
 		System.out.println(astPrinter.toString() + "\n");
-
-		return result;
+		
+		return astRoot;
 	}
 }

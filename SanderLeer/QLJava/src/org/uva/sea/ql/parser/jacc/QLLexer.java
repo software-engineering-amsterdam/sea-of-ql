@@ -42,7 +42,6 @@ public class QLLexer implements QLTokens {
 				c = -1;
 			}
 		}
-		
 	}
 	
 	public int nextToken() {
@@ -199,7 +198,6 @@ public class QLLexer implements QLTokens {
 			}
 		}
 	}
-
 	
 	public int getToken() {
 		if (!tokenRead)
@@ -210,6 +208,4 @@ public class QLLexer implements QLTokens {
 	public ASTNode getSemantic() {
 		return yylval;
 	}
-
-
 }

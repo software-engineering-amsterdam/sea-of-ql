@@ -64,7 +64,7 @@ public class TestForms {
 
 	@Test
 	public void testIfs() throws ParseException {
-		assertEquals(Form.class, parser.parse("form form1 { q1: \"Value?\" integer if (q1 == 3) { q2: \"Value 2?\" integer } }").getClass());
+		assertEquals(Form.class, parser.parse("form form1 { q1: \"Value?\" integer if (q4 == 3) { q1: \"Value 2?\" integer } }").getClass());
 	}
 
 	@Test

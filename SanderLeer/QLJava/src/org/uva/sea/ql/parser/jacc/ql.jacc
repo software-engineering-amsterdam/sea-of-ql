@@ -101,6 +101,7 @@ private void printNode(String item, ASTNode node) {
 
 private QLLexer lexer; 
 private ASTNode result;
+private String error;
 
 public ASTNode getResult() {
   return result;
@@ -111,5 +112,10 @@ public QLParser(QLLexer lexer) {
 }
 
 private void yyerror(String msg) { 
+  error = msg;
   System.err.println(msg); 
+}
+
+public String getError() {
+  return error;
 }
