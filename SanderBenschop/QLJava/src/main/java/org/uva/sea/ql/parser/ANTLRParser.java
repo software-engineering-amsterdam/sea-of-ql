@@ -1,10 +1,12 @@
-package org.uva.sea.ql.parser.antlr;
+package org.uva.sea.ql.parser;
 
 import org.antlr.runtime.ANTLRStringStream;
 import org.antlr.runtime.CommonTokenStream;
 import org.antlr.runtime.RecognitionException;
 import org.uva.sea.ql.ast.ASTNode;
 import org.uva.sea.ql.parser.Parser;
+import org.uva.sea.ql.parser.antlr.QLLexer;
+import org.uva.sea.ql.parser.antlr.QLParser;
 import org.uva.sea.ql.parser.exception.ParseError;
 
 public class ANTLRParser implements Parser {
