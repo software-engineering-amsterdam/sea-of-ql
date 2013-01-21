@@ -1,11 +1,11 @@
-package org.uva.sea.ql.ast;
+package org.uva.sea.ql.ast.expr;
 
-import org.uva.sea.ql.ast.Expr;
+import org.uva.sea.ql.ast.expr.Expr;
 import org.uva.sea.ql.visitor.ASTNodeVisitor;
 
-public class Eq extends Binary {
+public class LT extends Binary {
 
-	public Eq(Expr result, Expr rhs) {
+	public LT(Expr result, Expr rhs) {
 		super(result,rhs) ;
 	}
 

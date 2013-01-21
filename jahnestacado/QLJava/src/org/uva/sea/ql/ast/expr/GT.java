@@ -1,16 +1,12 @@
-package org.uva.sea.ql.ast.form;
-
-import java.util.List;
+package org.uva.sea.ql.ast.expr;
 
 import org.uva.sea.ql.ast.expr.Expr;
 import org.uva.sea.ql.visitor.ASTNodeVisitor;
 
-public class IfBlock extends Element{
+public class GT extends Binary {
 
-	
-
-	public IfBlock(Expr expr, List<Element> body14) {
-		// TODO Auto-generated constructor stub
+	public GT(Expr result, Expr rhs) {
+		super(result,rhs) ;
 	}
 
 	@Override

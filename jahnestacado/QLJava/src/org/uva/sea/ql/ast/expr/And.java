@@ -1,11 +1,11 @@
-package org.uva.sea.ql.ast;
+package org.uva.sea.ql.ast.expr;
 
-import org.uva.sea.ql.ast.Expr;
 import org.uva.sea.ql.visitor.ASTNodeVisitor;
 
-public class Not extends Expr {
 
-	public Not(Expr x) {
+public class And extends Expr {
+
+	public And(Expr result, Expr rhs) {
 		// TODO Auto-generated constructor stub
 	}
 

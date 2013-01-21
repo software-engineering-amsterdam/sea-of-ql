@@ -1,11 +1,11 @@
-package org.uva.sea.ql.ast;
+package org.uva.sea.ql.ast.expr;
 
-import org.uva.sea.ql.ast.Expr;
+import org.uva.sea.ql.ast.expr.Expr;
 import org.uva.sea.ql.visitor.ASTNodeVisitor;
 
-public class NEq extends Binary {
+public class GEq extends Binary {
 
-	public NEq(Expr result, Expr rhs) {
+	public GEq(Expr result, Expr rhs) {
 		super(result,rhs) ;
 	}
 
@@ -14,7 +14,5 @@ public class NEq extends Binary {
 		// TODO Auto-generated method stub
 		
 	}
-
-	
 
 }

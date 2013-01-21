@@ -1,20 +1,24 @@
 package org.uva.sea.ql.ast.values;
 
-import org.uva.sea.ql.ast.expr.Expr;
+
 import org.uva.sea.ql.visitor.ASTNodeVisitor;
 
-public class StringLit extends Expr  {
-    private final String value;
-	
-	public StringLit(String value) {
+public class Decimal extends Value {
+    private final float value;
+    
+	public Decimal(float value) {
 		this.value=value;
-		
 	}
+	
+	public float getValue(){
+		return value;
+	}
+	
 
 	@Override
 	public void accept(ASTNodeVisitor nodeVisitor) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 }
