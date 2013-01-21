@@ -18,23 +18,25 @@ public class FrontEndRunner {
 		if (args.length > 0) {
 
 			IParse parser = new ANTLRParser();
+			ErrorHandler handler = new ErrorHandler();
+			SymbolTable table = new SymbolTable();
 			Form form = null;
 			try {
 				form = (Form) parser.parseFile(args[0]);
 			} catch (ParseError e) {
-				ErrorHandler.getInstance().addError(new QLError(e.getMessage()));
+				handler.addError(new QLError(e.getMessage()));
 			}
 			if(form != null) {
-				ErrorHandler handler = new ErrorHandler(); // TODO pass errorhandler and symbol table as dependency
-				form.accept(new SymbolGenerator());
-				form.accept(new TypeChecker());
-				form.accept(new DereferenceChecker());
-				DependencyChecker.newInstance(SymbolTable.getInstance(), ErrorHandler.getInstance()).checkDependencies();
+				
+				form.accept(new SymbolGenerator(table, handler));
+				form.accept(new TypeChecker(table, handler));
+				form.accept(new DereferenceChecker(table, handler));
+				DependencyChecker.newInstance(table, handler).checkDependencies();
 			}
-			if(ErrorHandler.getInstance().getErrors().isEmpty()) {
+			if(handler.getErrors().isEmpty()) {
 				System.out.println("All checks passed, 0 errors");
 			} else {
-				ErrorHandler.printErrors();
+				handler.printErrors();
 			}
 
 		}

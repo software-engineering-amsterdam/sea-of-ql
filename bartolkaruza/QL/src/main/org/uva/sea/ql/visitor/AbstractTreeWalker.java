@@ -48,7 +48,7 @@ public abstract class AbstractTreeWalker implements NodeVisitor {
 	protected abstract void afterForm(Form node);
 
 	public void visit(Question node) {
-		node.getExpression().accept(this);
+//		node.getExpression().accept(this); // TODO add logic for ComputedQuestion
 		atQuestion(node);
 	};
 
@@ -235,13 +235,13 @@ public abstract class AbstractTreeWalker implements NodeVisitor {
 
 	protected abstract void afterSub(Sub node);
 
-	private void acceptTwoSidedExpressionChildren(Expr node) {
-		node.getLhs().accept(this);
-		node.getRhs().accept(this);
+	private void acceptTwoSidedExpressionChildren(Expr node) { // TODO Add logic for binary and unary expressions
+//		node.getLhs().accept(this);
+//		node.getRhs().accept(this);
 	}
 
 	private void acceptOneSidedExpressionChildren(Expr node) {
-		node.getLhs().accept(this);
+//		node.getLhs().accept(this);
 	}
 
 }
