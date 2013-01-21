@@ -1,8 +1,9 @@
-package org.uva.sea.ql.ast.expr;
+package org.uva.sea.ql.ast.expr.binary;
 
+import org.uva.sea.ql.ast.expr.AbstractExpr;
 import org.uva.sea.ql.visitor.ExpressionVisitor;
 
-public class GT extends Binary {
+public class GT extends AbstractBinaryExpr {
 
 	public GT(AbstractExpr lhsExpr, AbstractExpr rhsExpr) {
 		super(lhsExpr, rhsExpr);

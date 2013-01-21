@@ -1,8 +1,9 @@
-package org.uva.sea.ql.ast.expr;
+package org.uva.sea.ql.ast.expr.binary;
 
+import org.uva.sea.ql.ast.expr.AbstractExpr;
 import org.uva.sea.ql.visitor.ExpressionVisitor;
 
-public class Or extends Binary {
+public class Or extends AbstractBinaryExpr {
 
 	public Or(AbstractExpr lhsExpr, AbstractExpr rhsExpr) {
 		super(lhsExpr, rhsExpr);
