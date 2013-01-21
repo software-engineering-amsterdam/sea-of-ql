@@ -1,6 +1,10 @@
 package org.uva.sea.ql.ast.expressions;
 
+import java.util.Map;
+
 import org.uva.sea.ql.ast.ASTNodeVisitor;
+import org.uva.sea.ql.ast.types.IntType;
+import org.uva.sea.ql.ast.types.Type;
 
 public class Neg extends Binary {
 
@@ -13,5 +17,10 @@ public class Neg extends Binary {
 		super.accept(visitor);
 		return visitor.visit(this);
     }
+	
+	@Override
+	public Type typeOf(Map<Ident, Type> typeEnvironment) {
+		return new IntType();
+	}
 
 }

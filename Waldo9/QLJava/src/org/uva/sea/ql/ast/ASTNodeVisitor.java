@@ -26,6 +26,7 @@ import org.uva.sea.ql.ast.statements.Question;
 import org.uva.sea.ql.ast.types.BoolType;
 import org.uva.sea.ql.ast.types.IntType;
 import org.uva.sea.ql.ast.types.StringType;
+import org.uva.sea.ql.ast.types.ErrorType;
 
 public interface ASTNodeVisitor<T> {
 
@@ -82,5 +83,7 @@ public interface ASTNodeVisitor<T> {
 	public T visit(Expr expr);
 
 	public T visit(BooleanLiteral booleanLiteral);
+
+	public T visit(ErrorType error);
 
 }

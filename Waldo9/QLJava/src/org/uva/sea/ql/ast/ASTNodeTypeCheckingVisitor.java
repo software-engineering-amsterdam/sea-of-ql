@@ -26,6 +26,7 @@ import org.uva.sea.ql.ast.statements.Block;
 import org.uva.sea.ql.ast.statements.IfThenElse;
 import org.uva.sea.ql.ast.statements.Question;
 import org.uva.sea.ql.ast.types.BoolType;
+import org.uva.sea.ql.ast.types.ErrorType;
 import org.uva.sea.ql.ast.types.IntType;
 import org.uva.sea.ql.ast.types.StringType;
 import org.uva.sea.ql.ast.types.Type;
@@ -221,6 +222,12 @@ public class ASTNodeTypeCheckingVisitor implements ASTNodeVisitor<Boolean> {
 		return null;
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public Boolean visit(ErrorType error) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
