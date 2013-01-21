@@ -1,6 +1,7 @@
 package org.uva.sea.ql.ast;
 
 import org.uva.sea.ql.interpreter.BoolType;
+import org.uva.sea.ql.interpreter.Int;
 import org.uva.sea.ql.interpreter.Value;
 
 public class Eq extends Binary {
@@ -10,9 +11,10 @@ public class Eq extends Binary {
 	}
 
 	@Override
-	public Value interpret() {
-		// TODO How to see if int or bool? 
-		return new BoolType(getLeft().interpret() == getRight().interpret());
+	public Value interpret(){
+		Int li = (Int)(getLeft().interpret());
+		Int ri = (Int)(getRight().interpret());
+		return new BoolType(li == ri);
 	}
 
 }

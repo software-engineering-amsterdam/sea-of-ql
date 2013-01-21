@@ -40,3 +40,10 @@ myAwesomeFooBar(int myInt, bool myBoolean) {
 ```
 
 * Modules should start with a capital letter, and be camelcased (MyModule.rsc)
+
+* Comprehensions should be written in the following style regarding spaces:
+
+```javascript
+a = {<x, y> | <_, x, _> <- mySet, y <- {z*z | z <- anotherSet}}
+```
+

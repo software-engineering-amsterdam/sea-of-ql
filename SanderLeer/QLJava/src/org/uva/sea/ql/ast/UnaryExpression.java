@@ -1,13 +1,13 @@
 package org.uva.sea.ql.ast;
 
-public abstract class UnaryExpression implements ASTNode {
-	protected final ASTNode expr;
+public abstract class UnaryExpression extends Expression {
+	protected final Expression operand;
 	
-	public UnaryExpression(ASTNode expr) {
-		this.expr = expr;
+	public UnaryExpression(Expression operand) {
+		this.operand = operand;
 	}
 
-	public ASTNode getExpr() {
-		return expr;
+	public Expression getOperand() {
+		return operand;
 	}
 }

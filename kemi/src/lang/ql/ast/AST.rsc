@@ -1,6 +1,7 @@
 module lang::ql::ast::AST
 
-data Form = form(str formName, list[Statement] formElements);
+data Form = 
+  form(str formName, list[Statement] formElements);
 
 data Conditional
   = conditional(Expr condition, list[Statement] body)

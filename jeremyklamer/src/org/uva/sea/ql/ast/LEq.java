@@ -11,9 +11,9 @@ public class LEq extends Binary{
 	}
 
 	@Override
-	public Value interpret() {
-		Int li = (Int)getLeft().interpret();
-		Int ri = (Int)getRight().interpret();
+	public Value interpret(){
+		Int li = (Int)(getLeft().interpret());
+		Int ri = (Int)(getRight().interpret());
 		return new BoolType( li.getVal() <= ri.getVal());
 	}
 

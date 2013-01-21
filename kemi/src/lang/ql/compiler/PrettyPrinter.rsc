@@ -1,8 +1,6 @@
 module lang::ql::compiler::PrettyPrinter
 
 import lang::ql::ast::AST;
-import lang::ql::util::Parse;
-import lang::ql::util::Implode;
 
 public str prettyPrint(Form form) =
   "form <form.formName> { <for (e <- form.formElements) {>

@@ -1,20 +1,15 @@
 package org.uva.sea.ql.ast;
 
-public class Form implements ASTNode {
+public class Form extends BlockStatement {
 	private final Identifier identifier;
-	private final ASTNode statements;
 	
-	public Form(Identifier identifier, ASTNode statements) {
+	public Form(Identifier identifier, StatementList statements) {
+		super(statements);
 		this.identifier = identifier;
-		this.statements = statements;
 	}
 
 	public Identifier getIdentifier() {
 		return identifier;
-	}
-
-	public ASTNode getStatements() {
-		return statements;
 	}
 
 	@Override

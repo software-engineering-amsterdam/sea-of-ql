@@ -1,8 +1,9 @@
 package org.uva.sea.ql.ast;
 
+import org.uva.sea.ql.ast.expression.Ident;
 import org.uva.sea.ql.parser.ASTVisitor;
 
-public class Form extends Expr{
+public class Form implements ASTNode {
 
 	private final Ident identity;
 	private final CompoundStatement compoundStatement;
@@ -13,10 +14,16 @@ public class Form extends Expr{
 	}
 
 	@Override
-	public void accept(ASTVisitor v){
-		super.accept(v);
+	public void accept(ASTVisitor visitor) {
+		visitor.visit(this);
+	}
 
-		compoundStatement.accept(v);
+	public Ident getIdentity() {
+		return identity;
+	}
+
+	public CompoundStatement getCompoundStatement() {
+		return compoundStatement;
 	}
 	
 }

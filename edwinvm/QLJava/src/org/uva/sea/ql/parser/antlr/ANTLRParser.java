@@ -9,7 +9,6 @@ import org.antlr.runtime.CommonTokenStream;
 import org.antlr.runtime.ANTLRStringStream;
 
 public class ANTLRParser implements IParser {
-	
 	@Override
 	public Expr parse(String src) throws ParseError {
 		ANTLRStringStream stream = new ANTLRStringStream(src);
@@ -22,5 +21,4 @@ public class ANTLRParser implements IParser {
 			throw new ParseError(e.getMessage());
 		}
 	}
-	
 }

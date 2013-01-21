@@ -1,0 +1,13 @@
+package org.uva.sea.ql.ast;
+
+public class Question extends Statement {
+	private final Ident identifier;
+	private final String strLit;
+	private final String type;
+	
+	public Question(Ident identifier, String strLit, String type) {
+		this.identifier = identifier;
+		this.strLit = strLit;
+		this.type = type;
+	}
+}

@@ -2,6 +2,7 @@ package org.uva.sea.ql.ast;
 
 import org.antlr.runtime.Token;
 import org.uva.sea.ql.astnodevisitor.Visitor;
+import org.uva.sea.ql.astnodevisitor.VisitorResult;
 
 public class LineStatement extends Statement {
 
@@ -16,8 +17,8 @@ public class LineStatement extends Statement {
 	}
 
 	@Override
-	public void accept(Visitor visitor) {
-		visitor.visit(this);
+	public VisitorResult accept(Visitor visitor) {
+		return visitor.visit(this);
 	}
 
 	public String getLineName() {

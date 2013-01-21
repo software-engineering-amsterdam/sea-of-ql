@@ -4,13 +4,14 @@
 %semantic ast.ASTNode 
 %start top
 
-%token <ast.type.Int> INT
-%token <ast.type.Money> MONEY
-%token <ast.type.Bool> BOOL
-%token IDENT
+%token <ast.expression.value.Int> INT
+%token <ast.expression.value.Money> MONEY
+%token <ast.expression.value.Bool> BOOL
+%token <ast.expression.value.Str> STR
+%token <ast.expression.value.Ident> IDENT
 %token '*' '/' '+' '-' OR AND NEQ EQ '<' LEQ '>' GEQ '!'
-%token '(' ')'
-%token <ast.type.Str> STRING
+%token '(' ')' '{' '}'
+%token IF ELSE
 
 %left OR
 %left AND
@@ -23,9 +24,11 @@
 
 %{
 import ast.Expression;
-import ast.expressions.binary.*;
-import ast.expressions.eval.*;
-import ast.expressions.unary.*;
+import ast.expression.binary.*;
+import ast.expression.eval.*;
+import ast.expression.unary.*;
+import ast.expression.value.*;
+@SuppressWarnings("unused")
 %}
 
 %%
@@ -51,7 +54,7 @@ import ast.expressions.unary.*;
 		 | INT					{ $$ = $1; }
 		 | MONEY				{ $$ = $1; }
 		 | BOOL					{ $$ = $1; }
-		 | STRING				{ $$ = $1; }
+		 | STR					{ $$ = $1; }
 		 | IDENT         		{ $$ = $1; }
 		 | '(' expr ')'			{ $$ = $2; }
 		 ;

@@ -1,7 +1,7 @@
 package org.uva.sea.ql.ast;
 
-import org.uva.sea.ql.interpreter.Value;
 import org.uva.sea.ql.interpreter.Int;
+import org.uva.sea.ql.interpreter.Value;
 
 public class Pos extends Expr {
 
@@ -11,13 +11,13 @@ public class Pos extends Expr {
 		this.expr = expr;
 	}
 
+	public Expr getExpr() {
+		return expr;
+	}
+	
 	@Override
 	public Value interpret() {
 		return (Int) getExpr().interpret();
-	}
-
-	public Expr getExpr() {
-		return expr;
 	}
 
 }

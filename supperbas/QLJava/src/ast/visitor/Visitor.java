@@ -1,10 +1,9 @@
 package ast.visitor;
 
-import ast.Expression;
-import ast.type.Type;
+import ast.*;
 
 public interface Visitor {
-	void visit(Type type);
+	void visit(Statement statement);
 	void visit(Expression expr);
 	
 }

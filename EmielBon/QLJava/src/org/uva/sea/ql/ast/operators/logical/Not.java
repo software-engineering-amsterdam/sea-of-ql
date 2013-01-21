@@ -1,11 +1,11 @@
 package org.uva.sea.ql.ast.operators.logical;
 
-import org.uva.sea.ql.ast.Expr;
+import org.uva.sea.ql.ast.Expression;
 import org.uva.sea.ql.ast.operators.UnaryOperator;
 
 public class Not extends UnaryOperator {
 
-	public Not(Expr operand) {
+	public Not(Expression operand) {
 		super(operand);
 	}
 	

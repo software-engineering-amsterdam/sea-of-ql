@@ -1,14 +1,20 @@
+
+// Directives section
 %package org.uva.sea.ql.parser.jacc
-%class QLParser
-%interface QLTokens
+%class QLParser 	// Change the class name from XParser to QLParser
+%interface QLTokens // Change the class name from XTokens to QLTokens
 %semantic org.uva.sea.ql.ast.ASTNode 
 %start top
 
+// Terminal symbol definitions
 %token <Int> INT
-%token IDENT
+%token <Ident> IDENT
+%token <Str> STR
 %token '*' '/' '+' '-' OR AND NEQ EQ '<' LEQ '>' GEQ '!'
+%token ':'
 %token '(' ')'
 
+%left ':'
 %left OR
 %left AND
 %left '>' '<' GEQ LEQ NEQ EQ
@@ -16,17 +22,32 @@
 %left '*' '/'
 %left UMIN UPLUS UNOT
 
-%type <Expr> expr 
+// Nonterminal symbol definitions 
+%type <Node>       node
+%type <Question>   qstn
+%type <Expression> expr
 
+// Statements that get put after the package declaration in XParser.java
 %{
 import org.uva.sea.ql.ast.*;
+import org.uva.sea.ql.ast.data.*;
+import org.uva.sea.ql.ast.operators.logical.*;
+import org.uva.sea.ql.ast.operators.numeric.*;
+import org.uva.sea.ql.ast.operators.relational.*;
 %}
 
-%%
+%% // Rules section
 
- top : expr { result = $1; }
-     ;
+ top     : node { result = $1; }
+         ;
 
+ node    : qstn
+         | expr
+         ;
+		
+ qstn    : IDENT ':' STR { $$ = new Question($1, $3); }
+         ;
+		 
  expr	 : '+' expr	%prec UPLUS { $$ = new Pos($2); }
 		 | '-' expr	%prec UMIN  { $$ = new Neg($2); }
 		 | '!' expr %prec UNOT  { $$ = new Not($2); }
@@ -42,18 +63,19 @@ import org.uva.sea.ql.ast.*;
 		 | expr LEQ expr		{ $$ = new LEq($1, $3); }
 		 | expr AND expr	    { $$ = new And($1, $3); }
 	     | expr OR expr  		{ $$ = new Or($1, $3); }
-		 | INT					{ $$ = $1; }
 		 | IDENT         		{ $$ = $1; }
+		 | STR                  { $$ = $1; }
+		 | INT                  { $$ = $1; }
 		 | '(' expr ')'			{ $$ = $2; }
 		 ;
 		 
+%% // Additional code section
 
-%%
 private QLLexer lexer; 
 
-private Expr result;
+private Node result;
 
-public Expr getResult() {
+public Node getResult() {
   return result;
 }
 

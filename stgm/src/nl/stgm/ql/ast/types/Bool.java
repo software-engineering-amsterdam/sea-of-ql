@@ -1,6 +1,5 @@
 package nl.stgm.ql.ast.types;
-
-import nl.stgm.ql.ast.expr.Expr;
+import nl.stgm.ql.ast.expr.*;
 
 public class Bool extends Expr
 {
@@ -14,5 +13,10 @@ public class Bool extends Expr
 	public boolean getValue()
 	{
 		return value;
+	}
+	
+	public String toString()
+	{
+		return("bool: " + String.valueOf(value));
 	}
 }

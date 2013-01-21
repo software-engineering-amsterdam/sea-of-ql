@@ -1,0 +1,16 @@
+package org.uva.sea.ql.ast;
+
+public class Question1 extends Statement {
+	private final Ident identifier;
+	
+	
+	public Question1(Ident identifier) {
+		this.identifier = identifier;
+		
+	}
+	
+	public Ident getIdentifier() {
+		return identifier;
+	}
+	
+}

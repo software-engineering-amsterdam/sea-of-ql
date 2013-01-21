@@ -1,8 +1,8 @@
 package org.uva.sea.ql.ast;
 
 public class Not extends UnaryExpression {
-	public Not(ASTNode expr) {
-		super(expr);
+	public Not(Expression operand) {
+		super(operand);
 	}
 
 	@Override

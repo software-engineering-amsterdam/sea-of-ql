@@ -2,7 +2,6 @@ QL Interpreter
 ==============
 
 * Has a parser generator for QL.
-* Has a unoptimized and only partially functional AST.
 * Has separate test runners for forms and expressions.
 * Has a treewalker that should be able to show class names in the tree.
 
@@ -15,18 +14,18 @@ sources), or use the Eclipse build tools.
 Running.
 --------
 
-* Run the parser generator
+Run the parser generator
 
-		make run/rats
+	make run/rats
 
-* Run the parser tests
+Run the parser tests
 
-		make run/testexpr
-		make run/testform
+	make run/testexpr
+	make run/testform
 
-* Run the tree walker for a simple form
+Run the tree walker for a simple form
 
-		make run/treewalker
+	make run/treewalker
 
 References.
 -----------

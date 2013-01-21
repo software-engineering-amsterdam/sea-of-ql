@@ -4,9 +4,8 @@ import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 
 import nl.stgm.ql.parser.*;
-
-import nl.stgm.ql.ast.types.*;
 import nl.stgm.ql.ast.expr.*;
+import nl.stgm.ql.ast.types.*;
 
 public class TestExpressions extends QLTest
 {

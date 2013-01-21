@@ -1,6 +1,5 @@
 package nl.stgm.ql.ast.types;
-
-import nl.stgm.ql.ast.expr.Expr;
+import nl.stgm.ql.ast.expr.*;
 
 public class Int extends Expr
 {
@@ -15,4 +14,9 @@ public class Int extends Expr
 	{
 		return value;
 	}	
+	
+	public String toString()
+	{
+		return("Int: " + String.valueOf(value));
+	}
 }

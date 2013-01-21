@@ -11,13 +11,13 @@ public class Not extends Expr {
 		this.expr = expr;
 	}
 
+	public Expr getExpr() {
+		return expr;
+	}
+	
 	@Override
 	public Value interpret() {
 		return new BoolType(!((BoolType)getExpr().interpret()).getBool());
-	}
-
-	public Expr getExpr() {
-		return expr;
 	}
 
 }

@@ -1,4 +1,4 @@
-// $ANTLR 3.4 C:\\WINNT\\profiles\\6188583\\My Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g 2013-01-15 18:45:52
+// $ANTLR 3.4 C:\\WINNT\\profiles\\6188583\\My Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g 2013-01-21 15:13:20
 
 package org.uva.sea.ql.parser.antlr;
 
@@ -11,6 +11,9 @@ import java.util.ArrayList;
 @SuppressWarnings({"all", "warnings", "unchecked"})
 public class QLLexer extends Lexer {
     public static final int EOF=-1;
+    public static final int T__10=10;
+    public static final int T__11=11;
+    public static final int T__12=12;
     public static final int T__13=13;
     public static final int T__14=14;
     public static final int T__15=15;
@@ -27,15 +30,17 @@ public class QLLexer extends Lexer {
     public static final int T__26=26;
     public static final int T__27=27;
     public static final int T__28=28;
+    public static final int T__29=29;
+    public static final int T__30=30;
+    public static final int T__31=31;
+    public static final int T__32=32;
+    public static final int T__33=33;
     public static final int Bool=4;
-    public static final int BoolType=5;
-    public static final int COMMENT=6;
-    public static final int Ident=7;
-    public static final int Int=8;
-    public static final int IntType=9;
-    public static final int String=10;
-    public static final int StringType=11;
-    public static final int WS=12;
+    public static final int COMMENT=5;
+    public static final int Ident=6;
+    public static final int Int=7;
+    public static final int String=8;
+    public static final int WS=9;
 
     // delegates
     // delegators
@@ -52,10 +57,10 @@ public class QLLexer extends Lexer {
     }
     public String getGrammarFileName() { return "C:\\WINNT\\profiles\\6188583\\My Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g"; }
 
-    // $ANTLR start "T__13"
-    public final void mT__13() throws RecognitionException {
+    // $ANTLR start "T__10"
+    public final void mT__10() throws RecognitionException {
         try {
-            int _type = T__13;
+            int _type = T__10;
             int _channel = DEFAULT_TOKEN_CHANNEL;
             // C:\\WINNT\\profiles\\6188583\\My Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:6:7: ( '!' )
             // C:\\WINNT\\profiles\\6188583\\My Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:6:9: '!'
@@ -71,12 +76,12 @@ public class QLLexer extends Lexer {
         	// do for sure before leaving
         }
     }
-    // $ANTLR end "T__13"
+    // $ANTLR end "T__10"
 
-    // $ANTLR start "T__14"
-    public final void mT__14() throws RecognitionException {
+    // $ANTLR start "T__11"
+    public final void mT__11() throws RecognitionException {
         try {
-            int _type = T__14;
+            int _type = T__11;
             int _channel = DEFAULT_TOKEN_CHANNEL;
             // C:\\WINNT\\profiles\\6188583\\My Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:7:7: ( '!=' )
             // C:\\WINNT\\profiles\\6188583\\My Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:7:9: '!='
@@ -94,12 +99,12 @@ public class QLLexer extends Lexer {
         	// do for sure before leaving
         }
     }
-    // $ANTLR end "T__14"
+    // $ANTLR end "T__11"
 
-    // $ANTLR start "T__15"
-    public final void mT__15() throws RecognitionException {
+    // $ANTLR start "T__12"
+    public final void mT__12() throws RecognitionException {
         try {
-            int _type = T__15;
+            int _type = T__12;
             int _channel = DEFAULT_TOKEN_CHANNEL;
             // C:\\WINNT\\profiles\\6188583\\My Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:8:7: ( '&&' )
             // C:\\WINNT\\profiles\\6188583\\My Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:8:9: '&&'
@@ -117,6 +122,69 @@ public class QLLexer extends Lexer {
         	// do for sure before leaving
         }
     }
+    // $ANTLR end "T__12"
+
+    // $ANTLR start "T__13"
+    public final void mT__13() throws RecognitionException {
+        try {
+            int _type = T__13;
+            int _channel = DEFAULT_TOKEN_CHANNEL;
+            // C:\\WINNT\\profiles\\6188583\\My Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:9:7: ( '(' )
+            // C:\\WINNT\\profiles\\6188583\\My Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:9:9: '('
+            {
+            match('('); 
+
+            }
+
+            state.type = _type;
+            state.channel = _channel;
+        }
+        finally {
+        	// do for sure before leaving
+        }
+    }
+    // $ANTLR end "T__13"
+
+    // $ANTLR start "T__14"
+    public final void mT__14() throws RecognitionException {
+        try {
+            int _type = T__14;
+            int _channel = DEFAULT_TOKEN_CHANNEL;
+            // C:\\WINNT\\profiles\\6188583\\My Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:10:7: ( ')' )
+            // C:\\WINNT\\profiles\\6188583\\My Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:10:9: ')'
+            {
+            match(')'); 
+
+            }
+
+            state.type = _type;
+            state.channel = _channel;
+        }
+        finally {
+        	// do for sure before leaving
+        }
+    }
+    // $ANTLR end "T__14"
+
+    // $ANTLR start "T__15"
+    public final void mT__15() throws RecognitionException {
+        try {
+            int _type = T__15;
+            int _channel = DEFAULT_TOKEN_CHANNEL;
+            // C:\\WINNT\\profiles\\6188583\\My Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:11:7: ( '*' )
+            // C:\\WINNT\\profiles\\6188583\\My Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:11:9: '*'
+            {
+            match('*'); 
+
+            }
+
+            state.type = _type;
+            state.channel = _channel;
+        }
+        finally {
+        	// do for sure before leaving
+        }
+    }
     // $ANTLR end "T__15"
 
     // $ANTLR start "T__16"
@@ -124,10 +192,10 @@ public class QLLexer extends Lexer {
         try {
             int _type = T__16;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // C:\\WINNT\\profiles\\6188583\\My Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:9:7: ( '(' )
-            // C:\\WINNT\\profiles\\6188583\\My Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:9:9: '('
+            // C:\\WINNT\\profiles\\6188583\\My Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:12:7: ( '+' )
+            // C:\\WINNT\\profiles\\6188583\\My Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:12:9: '+'
             {
-            match('('); 
+            match('+'); 
 
             }
 
@@ -145,10 +213,10 @@ public class QLLexer extends Lexer {
         try {
             int _type = T__17;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // C:\\WINNT\\profiles\\6188583\\My Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:10:7: ( ')' )
-            // C:\\WINNT\\profiles\\6188583\\My Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:10:9: ')'
+            // C:\\WINNT\\profiles\\6188583\\My Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:13:7: ( '-' )
+            // C:\\WINNT\\profiles\\6188583\\My Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:13:9: '-'
             {
-            match(')'); 
+            match('-'); 
 
             }
 
@@ -166,10 +234,10 @@ public class QLLexer extends Lexer {
         try {
             int _type = T__18;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // C:\\WINNT\\profiles\\6188583\\My Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:11:7: ( '*' )
-            // C:\\WINNT\\profiles\\6188583\\My Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:11:9: '*'
+            // C:\\WINNT\\profiles\\6188583\\My Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:14:7: ( '/' )
+            // C:\\WINNT\\profiles\\6188583\\My Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:14:9: '/'
             {
-            match('*'); 
+            match('/'); 
 
             }
 
@@ -187,10 +255,10 @@ public class QLLexer extends Lexer {
         try {
             int _type = T__19;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // C:\\WINNT\\profiles\\6188583\\My Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:12:7: ( '+' )
-            // C:\\WINNT\\profiles\\6188583\\My Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:12:9: '+'
+            // C:\\WINNT\\profiles\\6188583\\My Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:15:7: ( ':' )
+            // C:\\WINNT\\profiles\\6188583\\My Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:15:9: ':'
             {
-            match('+'); 
+            match(':'); 
 
             }
 
@@ -208,10 +276,10 @@ public class QLLexer extends Lexer {
         try {
             int _type = T__20;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // C:\\WINNT\\profiles\\6188583\\My Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:13:7: ( '-' )
-            // C:\\WINNT\\profiles\\6188583\\My Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:13:9: '-'
+            // C:\\WINNT\\profiles\\6188583\\My Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:16:7: ( '<' )
+            // C:\\WINNT\\profiles\\6188583\\My Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:16:9: '<'
             {
-            match('-'); 
+            match('<'); 
 
             }
 
@@ -229,10 +297,12 @@ public class QLLexer extends Lexer {
         try {
             int _type = T__21;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // C:\\WINNT\\profiles\\6188583\\My Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:14:7: ( '/' )
-            // C:\\WINNT\\profiles\\6188583\\My Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:14:9: '/'
+            // C:\\WINNT\\profiles\\6188583\\My Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:17:7: ( '<=' )
+            // C:\\WINNT\\profiles\\6188583\\My Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:17:9: '<='
             {
-            match('/'); 
+            match("<="); 
+
+
 
             }
 
@@ -250,10 +320,10 @@ public class QLLexer extends Lexer {
         try {
             int _type = T__22;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // C:\\WINNT\\profiles\\6188583\\My Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:15:7: ( ':' )
-            // C:\\WINNT\\profiles\\6188583\\My Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:15:9: ':'
+            // C:\\WINNT\\profiles\\6188583\\My Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:18:7: ( '=' )
+            // C:\\WINNT\\profiles\\6188583\\My Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:18:9: '='
             {
-            match(':'); 
+            match('='); 
 
             }
 
@@ -271,10 +341,12 @@ public class QLLexer extends Lexer {
         try {
             int _type = T__23;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // C:\\WINNT\\profiles\\6188583\\My Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:16:7: ( '<' )
-            // C:\\WINNT\\profiles\\6188583\\My Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:16:9: '<'
+            // C:\\WINNT\\profiles\\6188583\\My Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:19:7: ( '==' )
+            // C:\\WINNT\\profiles\\6188583\\My Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:19:9: '=='
             {
-            match('<'); 
+            match("=="); 
+
+
 
             }
 
@@ -292,12 +364,10 @@ public class QLLexer extends Lexer {
         try {
             int _type = T__24;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // C:\\WINNT\\profiles\\6188583\\My Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:17:7: ( '<=' )
-            // C:\\WINNT\\profiles\\6188583\\My Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:17:9: '<='
+            // C:\\WINNT\\profiles\\6188583\\My Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:20:7: ( '>' )
+            // C:\\WINNT\\profiles\\6188583\\My Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:20:9: '>'
             {
-            match("<="); 
-
-
+            match('>'); 
 
             }
 
@@ -315,10 +385,10 @@ public class QLLexer extends Lexer {
         try {
             int _type = T__25;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // C:\\WINNT\\profiles\\6188583\\My Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:18:7: ( '==' )
-            // C:\\WINNT\\profiles\\6188583\\My Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:18:9: '=='
+            // C:\\WINNT\\profiles\\6188583\\My Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:21:7: ( '>=' )
+            // C:\\WINNT\\profiles\\6188583\\My Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:21:9: '>='
             {
-            match("=="); 
+            match(">="); 
 
 
 
@@ -338,10 +408,12 @@ public class QLLexer extends Lexer {
         try {
             int _type = T__26;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // C:\\WINNT\\profiles\\6188583\\My Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:19:7: ( '>' )
-            // C:\\WINNT\\profiles\\6188583\\My Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:19:9: '>'
+            // C:\\WINNT\\profiles\\6188583\\My Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:22:7: ( 'boolean' )
+            // C:\\WINNT\\profiles\\6188583\\My Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:22:9: 'boolean'
             {
-            match('>'); 
+            match("boolean"); 
+
+
 
             }
 
@@ -359,10 +431,10 @@ public class QLLexer extends Lexer {
         try {
             int _type = T__27;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // C:\\WINNT\\profiles\\6188583\\My Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:20:7: ( '>=' )
-            // C:\\WINNT\\profiles\\6188583\\My Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:20:9: '>='
+            // C:\\WINNT\\profiles\\6188583\\My Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:23:7: ( 'else' )
+            // C:\\WINNT\\profiles\\6188583\\My Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:23:9: 'else'
             {
-            match(">="); 
+            match("else"); 
 
 
 
@@ -382,10 +454,10 @@ public class QLLexer extends Lexer {
         try {
             int _type = T__28;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // C:\\WINNT\\profiles\\6188583\\My Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:21:7: ( '||' )
-            // C:\\WINNT\\profiles\\6188583\\My Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:21:9: '||'
+            // C:\\WINNT\\profiles\\6188583\\My Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:24:7: ( 'if' )
+            // C:\\WINNT\\profiles\\6188583\\My Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:24:9: 'if'
             {
-            match("||"); 
+            match("if"); 
 
 
 
@@ -400,13 +472,124 @@ public class QLLexer extends Lexer {
     }
     // $ANTLR end "T__28"
 
+    // $ANTLR start "T__29"
+    public final void mT__29() throws RecognitionException {
+        try {
+            int _type = T__29;
+            int _channel = DEFAULT_TOKEN_CHANNEL;
+            // C:\\WINNT\\profiles\\6188583\\My Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:25:7: ( 'integer' )
+            // C:\\WINNT\\profiles\\6188583\\My Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:25:9: 'integer'
+            {
+            match("integer"); 
+
+
+
+            }
+
+            state.type = _type;
+            state.channel = _channel;
+        }
+        finally {
+        	// do for sure before leaving
+        }
+    }
+    // $ANTLR end "T__29"
+
+    // $ANTLR start "T__30"
+    public final void mT__30() throws RecognitionException {
+        try {
+            int _type = T__30;
+            int _channel = DEFAULT_TOKEN_CHANNEL;
+            // C:\\WINNT\\profiles\\6188583\\My Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:26:7: ( 'string' )
+            // C:\\WINNT\\profiles\\6188583\\My Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:26:9: 'string'
+            {
+            match("string"); 
+
+
+
+            }
+
+            state.type = _type;
+            state.channel = _channel;
+        }
+        finally {
+        	// do for sure before leaving
+        }
+    }
+    // $ANTLR end "T__30"
+
+    // $ANTLR start "T__31"
+    public final void mT__31() throws RecognitionException {
+        try {
+            int _type = T__31;
+            int _channel = DEFAULT_TOKEN_CHANNEL;
+            // C:\\WINNT\\profiles\\6188583\\My Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:27:7: ( '{' )
+            // C:\\WINNT\\profiles\\6188583\\My Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:27:9: '{'
+            {
+            match('{'); 
+
+            }
+
+            state.type = _type;
+            state.channel = _channel;
+        }
+        finally {
+        	// do for sure before leaving
+        }
+    }
+    // $ANTLR end "T__31"
+
+    // $ANTLR start "T__32"
+    public final void mT__32() throws RecognitionException {
+        try {
+            int _type = T__32;
+            int _channel = DEFAULT_TOKEN_CHANNEL;
+            // C:\\WINNT\\profiles\\6188583\\My Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:28:7: ( '||' )
+            // C:\\WINNT\\profiles\\6188583\\My Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:28:9: '||'
+            {
+            match("||"); 
+
+
+
+            }
+
+            state.type = _type;
+            state.channel = _channel;
+        }
+        finally {
+        	// do for sure before leaving
+        }
+    }
+    // $ANTLR end "T__32"
+
+    // $ANTLR start "T__33"
+    public final void mT__33() throws RecognitionException {
+        try {
+            int _type = T__33;
+            int _channel = DEFAULT_TOKEN_CHANNEL;
+            // C:\\WINNT\\profiles\\6188583\\My Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:29:7: ( '}' )
+            // C:\\WINNT\\profiles\\6188583\\My Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:29:9: '}'
+            {
+            match('}'); 
+
+            }
+
+            state.type = _type;
+            state.channel = _channel;
+        }
+        finally {
+        	// do for sure before leaving
+        }
+    }
+    // $ANTLR end "T__33"
+
     // $ANTLR start "WS"
     public final void mWS() throws RecognitionException {
         try {
             int _type = WS;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // C:\\WINNT\\profiles\\6188583\\My Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:104:3: ( ( ' ' | '\\t' | '\\n' | '\\r' ) )
-            // C:\\WINNT\\profiles\\6188583\\My Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:104:17: ( ' ' | '\\t' | '\\n' | '\\r' )
+            // C:\\WINNT\\profiles\\6188583\\My Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:102:3: ( ( ' ' | '\\t' | '\\n' | '\\r' ) )
+            // C:\\WINNT\\profiles\\6188583\\My Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:102:10: ( ' ' | '\\t' | '\\n' | '\\r' )
             {
             if ( (input.LA(1) >= '\t' && input.LA(1) <= '\n')||input.LA(1)=='\r'||input.LA(1)==' ' ) {
                 input.consume();
@@ -436,10 +619,10 @@ public class QLLexer extends Lexer {
         try {
             int _type = COMMENT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // C:\\WINNT\\profiles\\6188583\\My Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:106:8: ( ( '/*' ( . )* '*/' | '//' ) )
-            // C:\\WINNT\\profiles\\6188583\\My Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:106:17: ( '/*' ( . )* '*/' | '//' )
+            // C:\\WINNT\\profiles\\6188583\\My Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:104:8: ( ( '/*' ( . )* '*/' | '//' ) )
+            // C:\\WINNT\\profiles\\6188583\\My Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:104:10: ( '/*' ( . )* '*/' | '//' )
             {
-            // C:\\WINNT\\profiles\\6188583\\My Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:106:17: ( '/*' ( . )* '*/' | '//' )
+            // C:\\WINNT\\profiles\\6188583\\My Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:104:10: ( '/*' ( . )* '*/' | '//' )
             int alt2=2;
             int LA2_0 = input.LA(1);
 
@@ -469,13 +652,13 @@ public class QLLexer extends Lexer {
             }
             switch (alt2) {
                 case 1 :
-                    // C:\\WINNT\\profiles\\6188583\\My Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:106:18: '/*' ( . )* '*/'
+                    // C:\\WINNT\\profiles\\6188583\\My Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:104:11: '/*' ( . )* '*/'
                     {
                     match("/*"); 
 
 
 
-                    // C:\\WINNT\\profiles\\6188583\\My Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:106:23: ( . )*
+                    // C:\\WINNT\\profiles\\6188583\\My Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:104:16: ( . )*
                     loop1:
                     do {
                         int alt1=2;
@@ -500,7 +683,7 @@ public class QLLexer extends Lexer {
 
                         switch (alt1) {
                     	case 1 :
-                    	    // C:\\WINNT\\profiles\\6188583\\My Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:106:23: .
+                    	    // C:\\WINNT\\profiles\\6188583\\My Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:104:16: .
                     	    {
                     	    matchAny(); 
 
@@ -520,7 +703,7 @@ public class QLLexer extends Lexer {
                     }
                     break;
                 case 2 :
-                    // C:\\WINNT\\profiles\\6188583\\My Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:106:33: '//'
+                    // C:\\WINNT\\profiles\\6188583\\My Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:104:26: '//'
                     {
                     match("//"); 
 
@@ -545,84 +728,15 @@ public class QLLexer extends Lexer {
     }
     // $ANTLR end "COMMENT"
 
-    // $ANTLR start "BoolType"
-    public final void mBoolType() throws RecognitionException {
-        try {
-            int _type = BoolType;
-            int _channel = DEFAULT_TOKEN_CHANNEL;
-            // C:\\WINNT\\profiles\\6188583\\My Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:108:9: ( 'boolean' )
-            // C:\\WINNT\\profiles\\6188583\\My Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:108:17: 'boolean'
-            {
-            match("boolean"); 
-
-
-
-            }
-
-            state.type = _type;
-            state.channel = _channel;
-        }
-        finally {
-        	// do for sure before leaving
-        }
-    }
-    // $ANTLR end "BoolType"
-
-    // $ANTLR start "IntType"
-    public final void mIntType() throws RecognitionException {
-        try {
-            int _type = IntType;
-            int _channel = DEFAULT_TOKEN_CHANNEL;
-            // C:\\WINNT\\profiles\\6188583\\My Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:110:8: ( 'integer' )
-            // C:\\WINNT\\profiles\\6188583\\My Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:110:17: 'integer'
-            {
-            match("integer"); 
-
-
-
-            }
-
-            state.type = _type;
-            state.channel = _channel;
-        }
-        finally {
-        	// do for sure before leaving
-        }
-    }
-    // $ANTLR end "IntType"
-
-    // $ANTLR start "StringType"
-    public final void mStringType() throws RecognitionException {
-        try {
-            int _type = StringType;
-            int _channel = DEFAULT_TOKEN_CHANNEL;
-            // C:\\WINNT\\profiles\\6188583\\My Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:112:11: ( 'string' )
-            // C:\\WINNT\\profiles\\6188583\\My Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:112:17: 'string'
-            {
-            match("string"); 
-
-
-
-            }
-
-            state.type = _type;
-            state.channel = _channel;
-        }
-        finally {
-        	// do for sure before leaving
-        }
-    }
-    // $ANTLR end "StringType"
-
     // $ANTLR start "Bool"
     public final void mBool() throws RecognitionException {
         try {
             int _type = Bool;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // C:\\WINNT\\profiles\\6188583\\My Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:114:5: ( ( 'true' | 'false' ) )
-            // C:\\WINNT\\profiles\\6188583\\My Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:114:17: ( 'true' | 'false' )
+            // C:\\WINNT\\profiles\\6188583\\My Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:106:5: ( ( 'true' | 'false' ) )
+            // C:\\WINNT\\profiles\\6188583\\My Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:106:10: ( 'true' | 'false' )
             {
-            // C:\\WINNT\\profiles\\6188583\\My Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:114:17: ( 'true' | 'false' )
+            // C:\\WINNT\\profiles\\6188583\\My Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:106:10: ( 'true' | 'false' )
             int alt3=2;
             int LA3_0 = input.LA(1);
 
@@ -641,7 +755,7 @@ public class QLLexer extends Lexer {
             }
             switch (alt3) {
                 case 1 :
-                    // C:\\WINNT\\profiles\\6188583\\My Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:114:18: 'true'
+                    // C:\\WINNT\\profiles\\6188583\\My Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:106:11: 'true'
                     {
                     match("true"); 
 
@@ -650,7 +764,7 @@ public class QLLexer extends Lexer {
                     }
                     break;
                 case 2 :
-                    // C:\\WINNT\\profiles\\6188583\\My Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:114:25: 'false'
+                    // C:\\WINNT\\profiles\\6188583\\My Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:106:18: 'false'
                     {
                     match("false"); 
 
@@ -678,8 +792,8 @@ public class QLLexer extends Lexer {
         try {
             int _type = Ident;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // C:\\WINNT\\profiles\\6188583\\My Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:116:6: ( ( 'a' .. 'z' | 'A' .. 'Z' ) ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )* )
-            // C:\\WINNT\\profiles\\6188583\\My Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:116:17: ( 'a' .. 'z' | 'A' .. 'Z' ) ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )*
+            // C:\\WINNT\\profiles\\6188583\\My Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:108:6: ( ( 'a' .. 'z' | 'A' .. 'Z' ) ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )* )
+            // C:\\WINNT\\profiles\\6188583\\My Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:108:10: ( 'a' .. 'z' | 'A' .. 'Z' ) ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )*
             {
             if ( (input.LA(1) >= 'A' && input.LA(1) <= 'Z')||(input.LA(1) >= 'a' && input.LA(1) <= 'z') ) {
                 input.consume();
@@ -691,7 +805,7 @@ public class QLLexer extends Lexer {
             }
 
 
-            // C:\\WINNT\\profiles\\6188583\\My Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:116:36: ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )*
+            // C:\\WINNT\\profiles\\6188583\\My Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:108:29: ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )*
             loop4:
             do {
                 int alt4=2;
@@ -741,15 +855,15 @@ public class QLLexer extends Lexer {
         try {
             int _type = String;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // C:\\WINNT\\profiles\\6188583\\My Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:118:7: ( ( '\"' ( . )* '\"' ) )
-            // C:\\WINNT\\profiles\\6188583\\My Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:118:17: ( '\"' ( . )* '\"' )
+            // C:\\WINNT\\profiles\\6188583\\My Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:110:7: ( ( '\"' ( . )* '\"' ) )
+            // C:\\WINNT\\profiles\\6188583\\My Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:110:10: ( '\"' ( . )* '\"' )
             {
-            // C:\\WINNT\\profiles\\6188583\\My Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:118:17: ( '\"' ( . )* '\"' )
-            // C:\\WINNT\\profiles\\6188583\\My Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:118:18: '\"' ( . )* '\"'
+            // C:\\WINNT\\profiles\\6188583\\My Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:110:10: ( '\"' ( . )* '\"' )
+            // C:\\WINNT\\profiles\\6188583\\My Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:110:11: '\"' ( . )* '\"'
             {
             match('\"'); 
 
-            // C:\\WINNT\\profiles\\6188583\\My Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:118:22: ( . )*
+            // C:\\WINNT\\profiles\\6188583\\My Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:110:15: ( . )*
             loop5:
             do {
                 int alt5=2;
@@ -765,7 +879,7 @@ public class QLLexer extends Lexer {
 
                 switch (alt5) {
             	case 1 :
-            	    // C:\\WINNT\\profiles\\6188583\\My Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:118:22: .
+            	    // C:\\WINNT\\profiles\\6188583\\My Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:110:15: .
             	    {
             	    matchAny(); 
 
@@ -799,10 +913,10 @@ public class QLLexer extends Lexer {
         try {
             int _type = Int;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // C:\\WINNT\\profiles\\6188583\\My Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:120:4: ( ( '0' .. '9' )+ )
-            // C:\\WINNT\\profiles\\6188583\\My Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:120:17: ( '0' .. '9' )+
+            // C:\\WINNT\\profiles\\6188583\\My Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:112:4: ( ( '0' .. '9' )+ )
+            // C:\\WINNT\\profiles\\6188583\\My Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:112:10: ( '0' .. '9' )+
             {
-            // C:\\WINNT\\profiles\\6188583\\My Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:120:17: ( '0' .. '9' )+
+            // C:\\WINNT\\profiles\\6188583\\My Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:112:10: ( '0' .. '9' )+
             int cnt6=0;
             loop6:
             do {
@@ -853,611 +967,244 @@ public class QLLexer extends Lexer {
     // $ANTLR end "Int"
 
     public void mTokens() throws RecognitionException {
-        // C:\\WINNT\\profiles\\6188583\\My Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:1:8: ( T__13 | T__14 | T__15 | T__16 | T__17 | T__18 | T__19 | T__20 | T__21 | T__22 | T__23 | T__24 | T__25 | T__26 | T__27 | T__28 | WS | COMMENT | BoolType | IntType | StringType | Bool | Ident | String | Int )
-        int alt7=25;
-        switch ( input.LA(1) ) {
-        case '!':
-            {
-            int LA7_1 = input.LA(2);
-
-            if ( (LA7_1=='=') ) {
-                alt7=2;
-            }
-            else {
-                alt7=1;
-            }
-            }
-            break;
-        case '&':
-            {
-            alt7=3;
-            }
-            break;
-        case '(':
-            {
-            alt7=4;
-            }
-            break;
-        case ')':
-            {
-            alt7=5;
-            }
-            break;
-        case '*':
-            {
-            alt7=6;
-            }
-            break;
-        case '+':
-            {
-            alt7=7;
-            }
-            break;
-        case '-':
-            {
-            alt7=8;
-            }
-            break;
-        case '/':
-            {
-            int LA7_8 = input.LA(2);
-
-            if ( (LA7_8=='*'||LA7_8=='/') ) {
-                alt7=18;
-            }
-            else {
-                alt7=9;
-            }
-            }
-            break;
-        case ':':
-            {
-            alt7=10;
-            }
-            break;
-        case '<':
-            {
-            int LA7_10 = input.LA(2);
-
-            if ( (LA7_10=='=') ) {
-                alt7=12;
-            }
-            else {
-                alt7=11;
-            }
-            }
-            break;
-        case '=':
-            {
-            alt7=13;
-            }
-            break;
-        case '>':
-            {
-            int LA7_12 = input.LA(2);
-
-            if ( (LA7_12=='=') ) {
-                alt7=15;
-            }
-            else {
-                alt7=14;
-            }
-            }
-            break;
-        case '|':
-            {
-            alt7=16;
-            }
-            break;
-        case '\t':
-        case '\n':
-        case '\r':
-        case ' ':
-            {
-            alt7=17;
-            }
-            break;
-        case 'b':
-            {
-            int LA7_15 = input.LA(2);
-
-            if ( (LA7_15=='o') ) {
-                int LA7_31 = input.LA(3);
-
-                if ( (LA7_31=='o') ) {
-                    int LA7_36 = input.LA(4);
-
-                    if ( (LA7_36=='l') ) {
-                        int LA7_41 = input.LA(5);
-
-                        if ( (LA7_41=='e') ) {
-                            int LA7_46 = input.LA(6);
-
-                            if ( (LA7_46=='a') ) {
-                                int LA7_51 = input.LA(7);
-
-                                if ( (LA7_51=='n') ) {
-                                    int LA7_54 = input.LA(8);
-
-                                    if ( ((LA7_54 >= '0' && LA7_54 <= '9')||(LA7_54 >= 'A' && LA7_54 <= 'Z')||LA7_54=='_'||(LA7_54 >= 'a' && LA7_54 <= 'z')) ) {
-                                        alt7=23;
-                                    }
-                                    else {
-                                        alt7=19;
-                                    }
-                                }
-                                else {
-                                    alt7=23;
-                                }
-                            }
-                            else {
-                                alt7=23;
-                            }
-                        }
-                        else {
-                            alt7=23;
-                        }
-                    }
-                    else {
-                        alt7=23;
-                    }
-                }
-                else {
-                    alt7=23;
-                }
-            }
-            else {
-                alt7=23;
-            }
-            }
-            break;
-        case 'i':
-            {
-            int LA7_16 = input.LA(2);
-
-            if ( (LA7_16=='n') ) {
-                int LA7_32 = input.LA(3);
-
-                if ( (LA7_32=='t') ) {
-                    int LA7_37 = input.LA(4);
-
-                    if ( (LA7_37=='e') ) {
-                        int LA7_42 = input.LA(5);
-
-                        if ( (LA7_42=='g') ) {
-                            int LA7_47 = input.LA(6);
-
-                            if ( (LA7_47=='e') ) {
-                                int LA7_52 = input.LA(7);
-
-                                if ( (LA7_52=='r') ) {
-                                    int LA7_55 = input.LA(8);
-
-                                    if ( ((LA7_55 >= '0' && LA7_55 <= '9')||(LA7_55 >= 'A' && LA7_55 <= 'Z')||LA7_55=='_'||(LA7_55 >= 'a' && LA7_55 <= 'z')) ) {
-                                        alt7=23;
-                                    }
-                                    else {
-                                        alt7=20;
-                                    }
-                                }
-                                else {
-                                    alt7=23;
-                                }
-                            }
-                            else {
-                                alt7=23;
-                            }
-                        }
-                        else {
-                            alt7=23;
-                        }
-                    }
-                    else {
-                        alt7=23;
-                    }
-                }
-                else {
-                    alt7=23;
-                }
-            }
-            else {
-                alt7=23;
-            }
-            }
-            break;
-        case 's':
-            {
-            int LA7_17 = input.LA(2);
-
-            if ( (LA7_17=='t') ) {
-                int LA7_33 = input.LA(3);
-
-                if ( (LA7_33=='r') ) {
-                    int LA7_38 = input.LA(4);
-
-                    if ( (LA7_38=='i') ) {
-                        int LA7_43 = input.LA(5);
-
-                        if ( (LA7_43=='n') ) {
-                            int LA7_48 = input.LA(6);
-
-                            if ( (LA7_48=='g') ) {
-                                int LA7_53 = input.LA(7);
-
-                                if ( ((LA7_53 >= '0' && LA7_53 <= '9')||(LA7_53 >= 'A' && LA7_53 <= 'Z')||LA7_53=='_'||(LA7_53 >= 'a' && LA7_53 <= 'z')) ) {
-                                    alt7=23;
-                                }
-                                else {
-                                    alt7=21;
-                                }
-                            }
-                            else {
-                                alt7=23;
-                            }
-                        }
-                        else {
-                            alt7=23;
-                        }
-                    }
-                    else {
-                        alt7=23;
-                    }
-                }
-                else {
-                    alt7=23;
-                }
-            }
-            else {
-                alt7=23;
-            }
-            }
-            break;
-        case 't':
-            {
-            int LA7_18 = input.LA(2);
-
-            if ( (LA7_18=='r') ) {
-                int LA7_34 = input.LA(3);
-
-                if ( (LA7_34=='u') ) {
-                    int LA7_39 = input.LA(4);
-
-                    if ( (LA7_39=='e') ) {
-                        int LA7_44 = input.LA(5);
-
-                        if ( ((LA7_44 >= '0' && LA7_44 <= '9')||(LA7_44 >= 'A' && LA7_44 <= 'Z')||LA7_44=='_'||(LA7_44 >= 'a' && LA7_44 <= 'z')) ) {
-                            alt7=23;
-                        }
-                        else {
-                            alt7=22;
-                        }
-                    }
-                    else {
-                        alt7=23;
-                    }
-                }
-                else {
-                    alt7=23;
-                }
-            }
-            else {
-                alt7=23;
-            }
-            }
-            break;
-        case 'f':
-            {
-            int LA7_19 = input.LA(2);
-
-            if ( (LA7_19=='a') ) {
-                int LA7_35 = input.LA(3);
-
-                if ( (LA7_35=='l') ) {
-                    int LA7_40 = input.LA(4);
-
-                    if ( (LA7_40=='s') ) {
-                        int LA7_45 = input.LA(5);
-
-                        if ( (LA7_45=='e') ) {
-                            int LA7_50 = input.LA(6);
-
-                            if ( ((LA7_50 >= '0' && LA7_50 <= '9')||(LA7_50 >= 'A' && LA7_50 <= 'Z')||LA7_50=='_'||(LA7_50 >= 'a' && LA7_50 <= 'z')) ) {
-                                alt7=23;
-                            }
-                            else {
-                                alt7=22;
-                            }
-                        }
-                        else {
-                            alt7=23;
-                        }
-                    }
-                    else {
-                        alt7=23;
-                    }
-                }
-                else {
-                    alt7=23;
-                }
-            }
-            else {
-                alt7=23;
-            }
-            }
-            break;
-        case 'A':
-        case 'B':
-        case 'C':
-        case 'D':
-        case 'E':
-        case 'F':
-        case 'G':
-        case 'H':
-        case 'I':
-        case 'J':
-        case 'K':
-        case 'L':
-        case 'M':
-        case 'N':
-        case 'O':
-        case 'P':
-        case 'Q':
-        case 'R':
-        case 'S':
-        case 'T':
-        case 'U':
-        case 'V':
-        case 'W':
-        case 'X':
-        case 'Y':
-        case 'Z':
-        case 'a':
-        case 'c':
-        case 'd':
-        case 'e':
-        case 'g':
-        case 'h':
-        case 'j':
-        case 'k':
-        case 'l':
-        case 'm':
-        case 'n':
-        case 'o':
-        case 'p':
-        case 'q':
-        case 'r':
-        case 'u':
-        case 'v':
-        case 'w':
-        case 'x':
-        case 'y':
-        case 'z':
-            {
-            alt7=23;
-            }
-            break;
-        case '\"':
-            {
-            alt7=24;
-            }
-            break;
-        case '0':
-        case '1':
-        case '2':
-        case '3':
-        case '4':
-        case '5':
-        case '6':
-        case '7':
-        case '8':
-        case '9':
-            {
-            alt7=25;
-            }
-            break;
-        default:
-            NoViableAltException nvae =
-                new NoViableAltException("", 7, 0, input);
-
-            throw nvae;
-
-        }
-
+        // C:\\WINNT\\profiles\\6188583\\My Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:1:8: ( T__10 | T__11 | T__12 | T__13 | T__14 | T__15 | T__16 | T__17 | T__18 | T__19 | T__20 | T__21 | T__22 | T__23 | T__24 | T__25 | T__26 | T__27 | T__28 | T__29 | T__30 | T__31 | T__32 | T__33 | WS | COMMENT | Bool | Ident | String | Int )
+        int alt7=30;
+        alt7 = dfa7.predict(input);
         switch (alt7) {
             case 1 :
-                // C:\\WINNT\\profiles\\6188583\\My Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:1:10: T__13
+                // C:\\WINNT\\profiles\\6188583\\My Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:1:10: T__10
+                {
+                mT__10(); 
+
+
+                }
+                break;
+            case 2 :
+                // C:\\WINNT\\profiles\\6188583\\My Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:1:16: T__11
+                {
+                mT__11(); 
+
+
+                }
+                break;
+            case 3 :
+                // C:\\WINNT\\profiles\\6188583\\My Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:1:22: T__12
+                {
+                mT__12(); 
+
+
+                }
+                break;
+            case 4 :
+                // C:\\WINNT\\profiles\\6188583\\My Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:1:28: T__13
                 {
                 mT__13(); 
 
 
                 }
                 break;
-            case 2 :
-                // C:\\WINNT\\profiles\\6188583\\My Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:1:16: T__14
+            case 5 :
+                // C:\\WINNT\\profiles\\6188583\\My Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:1:34: T__14
                 {
                 mT__14(); 
 
 
                 }
                 break;
-            case 3 :
-                // C:\\WINNT\\profiles\\6188583\\My Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:1:22: T__15
+            case 6 :
+                // C:\\WINNT\\profiles\\6188583\\My Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:1:40: T__15
                 {
                 mT__15(); 
 
 
                 }
                 break;
-            case 4 :
-                // C:\\WINNT\\profiles\\6188583\\My Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:1:28: T__16
+            case 7 :
+                // C:\\WINNT\\profiles\\6188583\\My Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:1:46: T__16
                 {
                 mT__16(); 
 
 
                 }
                 break;
-            case 5 :
-                // C:\\WINNT\\profiles\\6188583\\My Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:1:34: T__17
+            case 8 :
+                // C:\\WINNT\\profiles\\6188583\\My Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:1:52: T__17
                 {
                 mT__17(); 
 
 
                 }
                 break;
-            case 6 :
-                // C:\\WINNT\\profiles\\6188583\\My Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:1:40: T__18
+            case 9 :
+                // C:\\WINNT\\profiles\\6188583\\My Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:1:58: T__18
                 {
                 mT__18(); 
 
 
                 }
                 break;
-            case 7 :
-                // C:\\WINNT\\profiles\\6188583\\My Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:1:46: T__19
+            case 10 :
+                // C:\\WINNT\\profiles\\6188583\\My Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:1:64: T__19
                 {
                 mT__19(); 
 
 
                 }
                 break;
-            case 8 :
-                // C:\\WINNT\\profiles\\6188583\\My Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:1:52: T__20
+            case 11 :
+                // C:\\WINNT\\profiles\\6188583\\My Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:1:70: T__20
                 {
                 mT__20(); 
 
 
                 }
                 break;
-            case 9 :
-                // C:\\WINNT\\profiles\\6188583\\My Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:1:58: T__21
+            case 12 :
+                // C:\\WINNT\\profiles\\6188583\\My Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:1:76: T__21
                 {
                 mT__21(); 
 
 
                 }
                 break;
-            case 10 :
-                // C:\\WINNT\\profiles\\6188583\\My Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:1:64: T__22
+            case 13 :
+                // C:\\WINNT\\profiles\\6188583\\My Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:1:82: T__22
                 {
                 mT__22(); 
 
 
                 }
                 break;
-            case 11 :
-                // C:\\WINNT\\profiles\\6188583\\My Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:1:70: T__23
+            case 14 :
+                // C:\\WINNT\\profiles\\6188583\\My Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:1:88: T__23
                 {
                 mT__23(); 
 
 
                 }
                 break;
-            case 12 :
-                // C:\\WINNT\\profiles\\6188583\\My Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:1:76: T__24
+            case 15 :
+                // C:\\WINNT\\profiles\\6188583\\My Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:1:94: T__24
                 {
                 mT__24(); 
 
 
                 }
                 break;
-            case 13 :
-                // C:\\WINNT\\profiles\\6188583\\My Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:1:82: T__25
+            case 16 :
+                // C:\\WINNT\\profiles\\6188583\\My Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:1:100: T__25
                 {
                 mT__25(); 
 
 
                 }
                 break;
-            case 14 :
-                // C:\\WINNT\\profiles\\6188583\\My Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:1:88: T__26
+            case 17 :
+                // C:\\WINNT\\profiles\\6188583\\My Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:1:106: T__26
                 {
                 mT__26(); 
 
 
                 }
                 break;
-            case 15 :
-                // C:\\WINNT\\profiles\\6188583\\My Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:1:94: T__27
+            case 18 :
+                // C:\\WINNT\\profiles\\6188583\\My Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:1:112: T__27
                 {
                 mT__27(); 
 
 
                 }
                 break;
-            case 16 :
-                // C:\\WINNT\\profiles\\6188583\\My Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:1:100: T__28
+            case 19 :
+                // C:\\WINNT\\profiles\\6188583\\My Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:1:118: T__28
                 {
                 mT__28(); 
 
 
                 }
                 break;
-            case 17 :
-                // C:\\WINNT\\profiles\\6188583\\My Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:1:106: WS
+            case 20 :
+                // C:\\WINNT\\profiles\\6188583\\My Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:1:124: T__29
+                {
+                mT__29(); 
+
+
+                }
+                break;
+            case 21 :
+                // C:\\WINNT\\profiles\\6188583\\My Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:1:130: T__30
+                {
+                mT__30(); 
+
+
+                }
+                break;
+            case 22 :
+                // C:\\WINNT\\profiles\\6188583\\My Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:1:136: T__31
+                {
+                mT__31(); 
+
+
+                }
+                break;
+            case 23 :
+                // C:\\WINNT\\profiles\\6188583\\My Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:1:142: T__32
+                {
+                mT__32(); 
+
+
+                }
+                break;
+            case 24 :
+                // C:\\WINNT\\profiles\\6188583\\My Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:1:148: T__33
+                {
+                mT__33(); 
+
+
+                }
+                break;
+            case 25 :
+                // C:\\WINNT\\profiles\\6188583\\My Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:1:154: WS
                 {
                 mWS(); 
 
 
                 }
                 break;
-            case 18 :
-                // C:\\WINNT\\profiles\\6188583\\My Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:1:109: COMMENT
+            case 26 :
+                // C:\\WINNT\\profiles\\6188583\\My Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:1:157: COMMENT
                 {
                 mCOMMENT(); 
 
 
                 }
                 break;
-            case 19 :
-                // C:\\WINNT\\profiles\\6188583\\My Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:1:117: BoolType
-                {
-                mBoolType(); 
-
-
-                }
-                break;
-            case 20 :
-                // C:\\WINNT\\profiles\\6188583\\My Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:1:126: IntType
-                {
-                mIntType(); 
-
-
-                }
-                break;
-            case 21 :
-                // C:\\WINNT\\profiles\\6188583\\My Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:1:134: StringType
-                {
-                mStringType(); 
-
-
-                }
-                break;
-            case 22 :
-                // C:\\WINNT\\profiles\\6188583\\My Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:1:145: Bool
+            case 27 :
+                // C:\\WINNT\\profiles\\6188583\\My Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:1:165: Bool
                 {
                 mBool(); 
 
 
                 }
                 break;
-            case 23 :
-                // C:\\WINNT\\profiles\\6188583\\My Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:1:150: Ident
+            case 28 :
+                // C:\\WINNT\\profiles\\6188583\\My Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:1:170: Ident
                 {
                 mIdent(); 
 
 
                 }
                 break;
-            case 24 :
-                // C:\\WINNT\\profiles\\6188583\\My Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:1:156: String
+            case 29 :
+                // C:\\WINNT\\profiles\\6188583\\My Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:1:176: String
                 {
                 mString(); 
 
 
                 }
                 break;
-            case 25 :
-                // C:\\WINNT\\profiles\\6188583\\My Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:1:163: Int
+            case 30 :
+                // C:\\WINNT\\profiles\\6188583\\My Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:1:183: Int
                 {
                 mInt(); 
 
@@ -1470,6 +1217,141 @@ public class QLLexer extends Lexer {
     }
 
 
+    protected DFA7 dfa7 = new DFA7(this);
+    static final String DFA7_eotS =
+        "\1\uffff\1\33\6\uffff\1\35\1\uffff\1\37\1\41\1\43\4\27\4\uffff\2"+
+        "\27\15\uffff\2\27\1\55\6\27\1\uffff\5\27\1\71\2\27\1\74\2\27\1\uffff"+
+        "\2\27\1\uffff\1\74\2\27\1\103\1\104\1\105\3\uffff";
+    static final String DFA7_eofS =
+        "\106\uffff";
+    static final String DFA7_minS =
+        "\1\11\1\75\6\uffff\1\52\1\uffff\3\75\1\157\1\154\1\146\1\164\4\uffff"+
+        "\1\162\1\141\15\uffff\1\157\1\163\1\60\1\164\1\162\1\165\2\154\1"+
+        "\145\1\uffff\1\145\1\151\1\145\1\163\1\145\1\60\1\147\1\156\1\60"+
+        "\1\145\1\141\1\uffff\1\145\1\147\1\uffff\1\60\1\156\1\162\3\60\3"+
+        "\uffff";
+    static final String DFA7_maxS =
+        "\1\175\1\75\6\uffff\1\57\1\uffff\3\75\1\157\1\154\1\156\1\164\4"+
+        "\uffff\1\162\1\141\15\uffff\1\157\1\163\1\172\1\164\1\162\1\165"+
+        "\2\154\1\145\1\uffff\1\145\1\151\1\145\1\163\1\145\1\172\1\147\1"+
+        "\156\1\172\1\145\1\141\1\uffff\1\145\1\147\1\uffff\1\172\1\156\1"+
+        "\162\3\172\3\uffff";
+    static final String DFA7_acceptS =
+        "\2\uffff\1\3\1\4\1\5\1\6\1\7\1\10\1\uffff\1\12\7\uffff\1\26\1\27"+
+        "\1\30\1\31\2\uffff\1\34\1\35\1\36\1\2\1\1\1\32\1\11\1\14\1\13\1"+
+        "\16\1\15\1\20\1\17\11\uffff\1\23\13\uffff\1\22\2\uffff\1\33\6\uffff"+
+        "\1\25\1\21\1\24";
+    static final String DFA7_specialS =
+        "\106\uffff}>";
+    static final String[] DFA7_transitionS = {
+            "\2\24\2\uffff\1\24\22\uffff\1\24\1\1\1\30\3\uffff\1\2\1\uffff"+
+            "\1\3\1\4\1\5\1\6\1\uffff\1\7\1\uffff\1\10\12\31\1\11\1\uffff"+
+            "\1\12\1\13\1\14\2\uffff\32\27\6\uffff\1\27\1\15\2\27\1\16\1"+
+            "\26\2\27\1\17\11\27\1\20\1\25\6\27\1\21\1\22\1\23",
+            "\1\32",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "\1\34\4\uffff\1\34",
+            "",
+            "\1\36",
+            "\1\40",
+            "\1\42",
+            "\1\44",
+            "\1\45",
+            "\1\46\7\uffff\1\47",
+            "\1\50",
+            "",
+            "",
+            "",
+            "",
+            "\1\51",
+            "\1\52",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "\1\53",
+            "\1\54",
+            "\12\27\7\uffff\32\27\4\uffff\1\27\1\uffff\32\27",
+            "\1\56",
+            "\1\57",
+            "\1\60",
+            "\1\61",
+            "\1\62",
+            "\1\63",
+            "",
+            "\1\64",
+            "\1\65",
+            "\1\66",
+            "\1\67",
+            "\1\70",
+            "\12\27\7\uffff\32\27\4\uffff\1\27\1\uffff\32\27",
+            "\1\72",
+            "\1\73",
+            "\12\27\7\uffff\32\27\4\uffff\1\27\1\uffff\32\27",
+            "\1\75",
+            "\1\76",
+            "",
+            "\1\77",
+            "\1\100",
+            "",
+            "\12\27\7\uffff\32\27\4\uffff\1\27\1\uffff\32\27",
+            "\1\101",
+            "\1\102",
+            "\12\27\7\uffff\32\27\4\uffff\1\27\1\uffff\32\27",
+            "\12\27\7\uffff\32\27\4\uffff\1\27\1\uffff\32\27",
+            "\12\27\7\uffff\32\27\4\uffff\1\27\1\uffff\32\27",
+            "",
+            "",
+            ""
+    };
+
+    static final short[] DFA7_eot = DFA.unpackEncodedString(DFA7_eotS);
+    static final short[] DFA7_eof = DFA.unpackEncodedString(DFA7_eofS);
+    static final char[] DFA7_min = DFA.unpackEncodedStringToUnsignedChars(DFA7_minS);
+    static final char[] DFA7_max = DFA.unpackEncodedStringToUnsignedChars(DFA7_maxS);
+    static final short[] DFA7_accept = DFA.unpackEncodedString(DFA7_acceptS);
+    static final short[] DFA7_special = DFA.unpackEncodedString(DFA7_specialS);
+    static final short[][] DFA7_transition;
+
+    static {
+        int numStates = DFA7_transitionS.length;
+        DFA7_transition = new short[numStates][];
+        for (int i=0; i<numStates; i++) {
+            DFA7_transition[i] = DFA.unpackEncodedString(DFA7_transitionS[i]);
+        }
+    }
+
+    class DFA7 extends DFA {
+
+        public DFA7(BaseRecognizer recognizer) {
+            this.recognizer = recognizer;
+            this.decisionNumber = 7;
+            this.eot = DFA7_eot;
+            this.eof = DFA7_eof;
+            this.min = DFA7_min;
+            this.max = DFA7_max;
+            this.accept = DFA7_accept;
+            this.special = DFA7_special;
+            this.transition = DFA7_transition;
+        }
+        public String getDescription() {
+            return "1:1: Tokens : ( T__10 | T__11 | T__12 | T__13 | T__14 | T__15 | T__16 | T__17 | T__18 | T__19 | T__20 | T__21 | T__22 | T__23 | T__24 | T__25 | T__26 | T__27 | T__28 | T__29 | T__30 | T__31 | T__32 | T__33 | WS | COMMENT | Bool | Ident | String | Int );";
+        }
+    }
  
 
 }

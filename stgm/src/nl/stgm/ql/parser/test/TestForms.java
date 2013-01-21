@@ -3,7 +3,7 @@ package nl.stgm.ql.parser.test;
 import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 
-import nl.stgm.ql.parser.ParseError;
+import nl.stgm.ql.parser.*;
 import nl.stgm.ql.ast.form.*;
 
 public class TestForms extends QLTest

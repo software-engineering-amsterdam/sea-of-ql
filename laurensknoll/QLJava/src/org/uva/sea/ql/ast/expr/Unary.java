@@ -1,6 +1,6 @@
 package org.uva.sea.ql.ast.expr;
 
-public class Unary extends AbstractExpr {
+public abstract class Unary extends AbstractExpr {
 
 	private final AbstractExpr expr;
 
@@ -11,4 +11,5 @@ public class Unary extends AbstractExpr {
 	public AbstractExpr getExpression() {
 		return this.expr;
 	}
+
 }

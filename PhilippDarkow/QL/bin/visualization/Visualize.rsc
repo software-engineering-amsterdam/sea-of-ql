@@ -11,7 +11,7 @@ import visualization::ControlFlow;
 
 str make(natCon(int N)) = "<N>";
 str make(strCon(str S)) = S;
-str make(syntax::AbstractSyntax::id(PicoId Id)) = Id;
+str make(syntax::AbstractSyntax::id(QuestionId Id)) = Id;
 str make(add(EXP E1, EXP E2)) = "<make(E1)> + <make(E2)>";
 str make(sub(EXP E1, EXP E2)) = "<make(E1)> - <make(E2)>";
 str make(conc(EXP E1, EXP E2)) = "<make(E1)> || <make(E2)>";

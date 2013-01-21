@@ -1,6 +1,6 @@
 package org.uva.sea.ql.ast.values;
 
-import org.uva.sea.ql.ast.Expr;
+import org.uva.sea.ql.ast.expr.Expr;
 import org.uva.sea.ql.visitor.ASTNodeVisitor;
 
 public class StringLit extends Expr  {

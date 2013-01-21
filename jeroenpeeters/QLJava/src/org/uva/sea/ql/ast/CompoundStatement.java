@@ -1,31 +1,29 @@
 package org.uva.sea.ql.ast;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import org.uva.sea.ql.parser.ASTVisitor;
 
-public class CompoundStatement extends Expr {
+public class CompoundStatement extends Statement {
 
-	private final List<Expr> expressionList = new ArrayList<Expr>();
+	private final List<Statement> statementList = new ArrayList<Statement>();
 	
-	public CompoundStatement(final Expr expression){
-		this.expressionList.add(expression);
+	public CompoundStatement(final Statement statement){
+		this.statementList.add(statement);
 	}
 	
-	public void add(final Expr expression){
-		this.expressionList.add(expression);
+	public void add(final Statement statement){
+		this.statementList.add(statement);
 	}
 	
-	@Override
-	public void accept(final ASTVisitor v){
-		super.accept(v);
-		
-
-		for(final Expr expr : this.expressionList){
-			expr.accept(v);
-		}
-		
+	public void accept(ASTVisitor v){
+		v.visit(this);
+	}
+	
+	public Iterator<Statement> getStatementIterator(){
+		return statementList.iterator();
 	}
 	
 }

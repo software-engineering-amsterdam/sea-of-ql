@@ -1,8 +1,8 @@
 package org.uva.sea.ql.ast;
 
 public class Pos extends UnaryExpression {
-	public Pos(ASTNode expr) {
-		super(expr);
+	public Pos(Expression operand) {
+		super(operand);
 	}
 
 	@Override
