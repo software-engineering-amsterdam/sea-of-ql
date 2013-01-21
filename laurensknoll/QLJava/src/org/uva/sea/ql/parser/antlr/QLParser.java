@@ -1,4 +1,4 @@
-// $ANTLR 3.5 C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g 2013-01-21 14:22:47
+// $ANTLR 3.5 C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g 2013-01-21 14:30:46
 
 package org.uva.sea.ql.parser.antlr;
 
@@ -14,11 +14,6 @@ import org.antlr.runtime.RecognitionException;
 import org.antlr.runtime.RecognizerSharedState;
 import org.antlr.runtime.Token;
 import org.antlr.runtime.TokenStream;
-import org.uva.sea.ql.ast.answertype.AbstractAnswerType;
-import org.uva.sea.ql.ast.answertype.BoolAnswerType;
-import org.uva.sea.ql.ast.answertype.IntAnswerType;
-import org.uva.sea.ql.ast.answertype.MoneyAnswerType;
-import org.uva.sea.ql.ast.answertype.StringAnswerType;
 import org.uva.sea.ql.ast.expr.AbstractExpr;
 import org.uva.sea.ql.ast.expr.binary.Add;
 import org.uva.sea.ql.ast.expr.binary.And;
@@ -41,6 +36,7 @@ import org.uva.sea.ql.ast.statement.Block;
 import org.uva.sea.ql.ast.statement.ComputedQuestion;
 import org.uva.sea.ql.ast.statement.IfStatement;
 import org.uva.sea.ql.ast.statement.Question;
+import org.uva.sea.ql.ast.type.AbstractType;
 
 @SuppressWarnings("all")
 public class QLParser extends Parser {
@@ -111,7 +107,7 @@ public class QLParser extends Parser {
 	}
 
 	// $ANTLR start "identExpr"
-	// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:23:1:
+	// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:24:1:
 	// identExpr returns [org.uva.sea.ql.ast.expr.atom.Ident result] : IDENT ;
 	public final org.uva.sea.ql.ast.expr.atom.Ident identExpr()
 			throws RecognitionException {
@@ -126,9 +122,9 @@ public class QLParser extends Parser {
 				return result;
 			}
 
-			// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:24:2:
+			// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:25:2:
 			// ( IDENT )
-			// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:24:4:
+			// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:25:4:
 			// IDENT
 			{
 				IDENT1 = (Token) match(input, IDENT,
@@ -157,7 +153,7 @@ public class QLParser extends Parser {
 	// $ANTLR end "identExpr"
 
 	// $ANTLR start "primary"
-	// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:27:1:
+	// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:28:1:
 	// primary returns [AbstractExpr result] : ( INT | BOOLEAN | MONEY |x=
 	// identExpr |x= stringExpr |x= expr );
 	public final AbstractExpr primary() throws RecognitionException {
@@ -175,7 +171,7 @@ public class QLParser extends Parser {
 				return result;
 			}
 
-			// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:28:2:
+			// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:29:2:
 			// ( INT | BOOLEAN | MONEY |x= identExpr |x= stringExpr |x= expr )
 			int alt1 = 6;
 			switch (input.LA(1)) {
@@ -214,7 +210,7 @@ public class QLParser extends Parser {
 			}
 			switch (alt1) {
 			case 1:
-			// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:28:4:
+			// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:29:4:
 			// INT
 			{
 				INT2 = (Token) match(input, INT, FOLLOW_INT_in_primary63);
@@ -228,7 +224,7 @@ public class QLParser extends Parser {
 			}
 				break;
 			case 2:
-			// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:29:4:
+			// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:30:4:
 			// BOOLEAN
 			{
 				BOOLEAN3 = (Token) match(input, BOOLEAN,
@@ -243,7 +239,7 @@ public class QLParser extends Parser {
 			}
 				break;
 			case 3:
-			// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:30:4:
+			// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:31:4:
 			// MONEY
 			{
 				MONEY4 = (Token) match(input, MONEY, FOLLOW_MONEY_in_primary79);
@@ -257,7 +253,7 @@ public class QLParser extends Parser {
 			}
 				break;
 			case 4:
-			// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:31:4:
+			// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:32:4:
 			// x= identExpr
 			{
 				pushFollow(FOLLOW_identExpr_in_primary89);
@@ -271,7 +267,7 @@ public class QLParser extends Parser {
 			}
 				break;
 			case 5:
-			// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:32:4:
+			// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:33:4:
 			// x= stringExpr
 			{
 				pushFollow(FOLLOW_stringExpr_in_primary98);
@@ -285,7 +281,7 @@ public class QLParser extends Parser {
 			}
 				break;
 			case 6:
-			// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:33:4:
+			// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:34:4:
 			// x= expr
 			{
 				pushFollow(FOLLOW_expr_in_primary107);
@@ -316,7 +312,7 @@ public class QLParser extends Parser {
 	// $ANTLR end "primary"
 
 	// $ANTLR start "stringExpr"
-	// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:36:1:
+	// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:37:1:
 	// stringExpr returns [org.uva.sea.ql.ast.expr.atom.String result] : STRING
 	// ;
 	public final org.uva.sea.ql.ast.expr.atom.String stringExpr()
@@ -332,9 +328,9 @@ public class QLParser extends Parser {
 				return result;
 			}
 
-			// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:37:2:
+			// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:38:2:
 			// ( STRING )
-			// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:37:4:
+			// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:38:4:
 			// STRING
 			{
 				STRING5 = (Token) match(input, STRING,
@@ -363,7 +359,7 @@ public class QLParser extends Parser {
 	// $ANTLR end "stringExpr"
 
 	// $ANTLR start "expr"
-	// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:40:1: expr
+	// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:41:1: expr
 	// returns [AbstractExpr result] : '(' x= orExpr ')' ;
 	public final AbstractExpr expr() throws RecognitionException {
 		AbstractExpr result = null;
@@ -377,9 +373,9 @@ public class QLParser extends Parser {
 				return result;
 			}
 
-			// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:41:2:
+			// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:42:2:
 			// ( '(' x= orExpr ')' )
-			// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:41:4:
+			// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:42:4:
 			// '(' x= orExpr ')'
 			{
 				match(input, 14, FOLLOW_14_in_expr141);
@@ -414,7 +410,7 @@ public class QLParser extends Parser {
 	// $ANTLR end "expr"
 
 	// $ANTLR start "unExpr"
-	// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:44:1:
+	// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:45:1:
 	// unExpr returns [AbstractExpr result] : ( '+' x= unExpr | '-' x= unExpr |
 	// '!' x= unExpr |x= primary );
 	public final AbstractExpr unExpr() throws RecognitionException {
@@ -429,7 +425,7 @@ public class QLParser extends Parser {
 				return result;
 			}
 
-			// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:45:2:
+			// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:46:2:
 			// ( '+' x= unExpr | '-' x= unExpr | '!' x= unExpr |x= primary )
 			int alt2 = 4;
 			switch (input.LA(1)) {
@@ -465,7 +461,7 @@ public class QLParser extends Parser {
 			}
 			switch (alt2) {
 			case 1:
-			// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:45:4:
+			// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:46:4:
 			// '+' x= unExpr
 			{
 				match(input, 17, FOLLOW_17_in_unExpr164);
@@ -482,7 +478,7 @@ public class QLParser extends Parser {
 			}
 				break;
 			case 2:
-			// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:46:4:
+			// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:47:4:
 			// '-' x= unExpr
 			{
 				match(input, 18, FOLLOW_18_in_unExpr175);
@@ -499,7 +495,7 @@ public class QLParser extends Parser {
 			}
 				break;
 			case 3:
-			// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:47:4:
+			// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:48:4:
 			// '!' x= unExpr
 			{
 				match(input, 11, FOLLOW_11_in_unExpr186);
@@ -516,7 +512,7 @@ public class QLParser extends Parser {
 			}
 				break;
 			case 4:
-			// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:48:4:
+			// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:49:4:
 			// x= primary
 			{
 				pushFollow(FOLLOW_primary_in_unExpr199);
@@ -547,7 +543,7 @@ public class QLParser extends Parser {
 	// $ANTLR end "unExpr"
 
 	// $ANTLR start "mulExpr"
-	// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:51:1:
+	// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:52:1:
 	// mulExpr returns [AbstractExpr result] : lhs= unExpr (op= ( '*' | '/' )
 	// rhs= unExpr )* ;
 	public final AbstractExpr mulExpr() throws RecognitionException {
@@ -564,9 +560,9 @@ public class QLParser extends Parser {
 				return result;
 			}
 
-			// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:52:5:
+			// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:53:5:
 			// (lhs= unExpr (op= ( '*' | '/' ) rhs= unExpr )* )
-			// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:52:9:
+			// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:53:9:
 			// lhs= unExpr (op= ( '*' | '/' ) rhs= unExpr )*
 			{
 				pushFollow(FOLLOW_unExpr_in_mulExpr231);
@@ -577,7 +573,7 @@ public class QLParser extends Parser {
 				if (state.backtracking == 0) {
 					result = lhs;
 				}
-				// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:52:45:
+				// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:53:45:
 				// (op= ( '*' | '/' ) rhs= unExpr )*
 				loop3: while (true) {
 					int alt3 = 2;
@@ -588,7 +584,7 @@ public class QLParser extends Parser {
 
 					switch (alt3) {
 					case 1:
-					// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:52:47:
+					// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:53:47:
 					// op= ( '*' | '/' ) rhs= unExpr
 					{
 						op = input.LT(1);
@@ -644,7 +640,7 @@ public class QLParser extends Parser {
 	// $ANTLR end "mulExpr"
 
 	// $ANTLR start "addExpr"
-	// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:64:1:
+	// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:65:1:
 	// addExpr returns [AbstractExpr result] : lhs= mulExpr (op= ( '+' | '-' )
 	// rhs= mulExpr )* ;
 	public final AbstractExpr addExpr() throws RecognitionException {
@@ -661,9 +657,9 @@ public class QLParser extends Parser {
 				return result;
 			}
 
-			// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:65:5:
+			// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:66:5:
 			// (lhs= mulExpr (op= ( '+' | '-' ) rhs= mulExpr )* )
-			// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:65:9:
+			// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:66:9:
 			// lhs= mulExpr (op= ( '+' | '-' ) rhs= mulExpr )*
 			{
 				pushFollow(FOLLOW_mulExpr_in_addExpr292);
@@ -674,7 +670,7 @@ public class QLParser extends Parser {
 				if (state.backtracking == 0) {
 					result = lhs;
 				}
-				// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:65:46:
+				// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:66:46:
 				// (op= ( '+' | '-' ) rhs= mulExpr )*
 				loop4: while (true) {
 					int alt4 = 2;
@@ -685,7 +681,7 @@ public class QLParser extends Parser {
 
 					switch (alt4) {
 					case 1:
-					// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:65:48:
+					// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:66:48:
 					// op= ( '+' | '-' ) rhs= mulExpr
 					{
 						op = input.LT(1);
@@ -741,7 +737,7 @@ public class QLParser extends Parser {
 	// $ANTLR end "addExpr"
 
 	// $ANTLR start "relExpr"
-	// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:76:1:
+	// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:77:1:
 	// relExpr returns [AbstractExpr result] : lhs= addExpr (op= ( '<' | '<=' |
 	// '>' | '>=' | '==' | '!=' ) rhs= addExpr )* ;
 	public final AbstractExpr relExpr() throws RecognitionException {
@@ -758,10 +754,10 @@ public class QLParser extends Parser {
 				return result;
 			}
 
-			// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:77:5:
+			// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:78:5:
 			// (lhs= addExpr (op= ( '<' | '<=' | '>' | '>=' | '==' | '!=' ) rhs=
 			// addExpr )* )
-			// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:77:9:
+			// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:78:9:
 			// lhs= addExpr (op= ( '<' | '<=' | '>' | '>=' | '==' | '!=' ) rhs=
 			// addExpr )*
 			{
@@ -773,7 +769,7 @@ public class QLParser extends Parser {
 				if (state.backtracking == 0) {
 					result = lhs;
 				}
-				// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:77:46:
+				// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:78:46:
 				// (op= ( '<' | '<=' | '>' | '>=' | '==' | '!=' ) rhs= addExpr
 				// )*
 				loop5: while (true) {
@@ -785,7 +781,7 @@ public class QLParser extends Parser {
 
 					switch (alt5) {
 					case 1:
-					// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:77:48:
+					// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:78:48:
 					// op= ( '<' | '<=' | '>' | '>=' | '==' | '!=' ) rhs=
 					// addExpr
 					{
@@ -855,7 +851,7 @@ public class QLParser extends Parser {
 	// $ANTLR end "relExpr"
 
 	// $ANTLR start "andExpr"
-	// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:100:1:
+	// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:101:1:
 	// andExpr returns [AbstractExpr result] : lhs= relExpr ( '&&' rhs= relExpr
 	// )* ;
 	public final AbstractExpr andExpr() throws RecognitionException {
@@ -871,9 +867,9 @@ public class QLParser extends Parser {
 				return result;
 			}
 
-			// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:101:5:
+			// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:102:5:
 			// (lhs= relExpr ( '&&' rhs= relExpr )* )
-			// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:101:9:
+			// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:102:9:
 			// lhs= relExpr ( '&&' rhs= relExpr )*
 			{
 				pushFollow(FOLLOW_relExpr_in_andExpr407);
@@ -884,7 +880,7 @@ public class QLParser extends Parser {
 				if (state.backtracking == 0) {
 					result = lhs;
 				}
-				// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:101:46:
+				// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:102:46:
 				// ( '&&' rhs= relExpr )*
 				loop6: while (true) {
 					int alt6 = 2;
@@ -895,7 +891,7 @@ public class QLParser extends Parser {
 
 					switch (alt6) {
 					case 1:
-					// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:101:48:
+					// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:102:48:
 					// '&&' rhs= relExpr
 					{
 						match(input, 13, FOLLOW_13_in_andExpr413);
@@ -935,7 +931,7 @@ public class QLParser extends Parser {
 	// $ANTLR end "andExpr"
 
 	// $ANTLR start "orExpr"
-	// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:105:1:
+	// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:106:1:
 	// orExpr returns [AbstractExpr result] : lhs= andExpr ( '||' rhs= andExpr
 	// )* ;
 	public final AbstractExpr orExpr() throws RecognitionException {
@@ -951,9 +947,9 @@ public class QLParser extends Parser {
 				return result;
 			}
 
-			// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:106:5:
+			// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:107:5:
 			// (lhs= andExpr ( '||' rhs= andExpr )* )
-			// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:106:9:
+			// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:107:9:
 			// lhs= andExpr ( '||' rhs= andExpr )*
 			{
 				pushFollow(FOLLOW_andExpr_in_orExpr452);
@@ -964,7 +960,7 @@ public class QLParser extends Parser {
 				if (state.backtracking == 0) {
 					result = lhs;
 				}
-				// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:106:48:
+				// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:107:48:
 				// ( '||' rhs= andExpr )*
 				loop7: while (true) {
 					int alt7 = 2;
@@ -975,7 +971,7 @@ public class QLParser extends Parser {
 
 					switch (alt7) {
 					case 1:
-					// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:106:50:
+					// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:107:50:
 					// '||' rhs= andExpr
 					{
 						match(input, 33, FOLLOW_33_in_orExpr458);
@@ -1015,7 +1011,7 @@ public class QLParser extends Parser {
 	// $ANTLR end "orExpr"
 
 	// $ANTLR start "form"
-	// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:109:1:
+	// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:110:1:
 	// form returns [QuestionForm result] : 'form' id= identExpr s=
 	// blockStatement ;
 	public final QuestionForm form() throws RecognitionException {
@@ -1031,9 +1027,9 @@ public class QLParser extends Parser {
 				return result;
 			}
 
-			// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:110:2:
+			// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:111:2:
 			// ( 'form' id= identExpr s= blockStatement )
-			// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:110:4:
+			// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:111:4:
 			// 'form' id= identExpr s= blockStatement
 			{
 				match(input, 27, FOLLOW_27_in_form485);
@@ -1070,7 +1066,7 @@ public class QLParser extends Parser {
 	// $ANTLR end "form"
 
 	// $ANTLR start "statement"
-	// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:114:1:
+	// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:115:1:
 	// statement returns [AbstractStatement result] : (x= blockStatement |x=
 	// ifStatement |x= declStatement );
 	public final AbstractStatement statement() throws RecognitionException {
@@ -1085,7 +1081,7 @@ public class QLParser extends Parser {
 				return result;
 			}
 
-			// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:115:6:
+			// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:116:6:
 			// (x= blockStatement |x= ifStatement |x= declStatement )
 			int alt8 = 3;
 			switch (input.LA(1)) {
@@ -1112,7 +1108,7 @@ public class QLParser extends Parser {
 			}
 			switch (alt8) {
 			case 1:
-			// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:115:8:
+			// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:116:8:
 			// x= blockStatement
 			{
 				pushFollow(FOLLOW_blockStatement_in_statement518);
@@ -1126,7 +1122,7 @@ public class QLParser extends Parser {
 			}
 				break;
 			case 2:
-			// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:116:8:
+			// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:117:8:
 			// x= ifStatement
 			{
 				pushFollow(FOLLOW_ifStatement_in_statement531);
@@ -1140,7 +1136,7 @@ public class QLParser extends Parser {
 			}
 				break;
 			case 3:
-			// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:117:8:
+			// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:118:8:
 			// x= declStatement
 			{
 				pushFollow(FOLLOW_declStatement_in_statement544);
@@ -1171,7 +1167,7 @@ public class QLParser extends Parser {
 	// $ANTLR end "statement"
 
 	// $ANTLR start "blockStatement"
-	// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:120:1:
+	// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:121:1:
 	// blockStatement returns [Block result] : '{' (s= statement )* '}' ;
 	public final Block blockStatement() throws RecognitionException {
 		Block result = null;
@@ -1187,15 +1183,15 @@ public class QLParser extends Parser {
 				return result;
 			}
 
-			// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:129:2:
+			// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:130:2:
 			// ( '{' (s= statement )* '}' )
-			// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:129:4:
+			// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:130:4:
 			// '{' (s= statement )* '}'
 			{
 				match(input, 32, FOLLOW_32_in_blockStatement579);
 				if (state.failed)
 					return result;
-				// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:129:8:
+				// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:130:8:
 				// (s= statement )*
 				loop9: while (true) {
 					int alt9 = 2;
@@ -1206,7 +1202,7 @@ public class QLParser extends Parser {
 
 					switch (alt9) {
 					case 1:
-					// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:129:9:
+					// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:130:9:
 					// s= statement
 					{
 						pushFollow(FOLLOW_statement_in_blockStatement584);
@@ -1249,7 +1245,7 @@ public class QLParser extends Parser {
 	// $ANTLR end "blockStatement"
 
 	// $ANTLR start "ifStatement"
-	// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:132:1:
+	// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:133:1:
 	// ifStatement returns [IfStatement result] : 'if' condition= expr truePath=
 	// statement ;
 	public final IfStatement ifStatement() throws RecognitionException {
@@ -1265,9 +1261,9 @@ public class QLParser extends Parser {
 				return result;
 			}
 
-			// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:133:6:
+			// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:134:6:
 			// ( 'if' condition= expr truePath= statement )
-			// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:133:8:
+			// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:134:8:
 			// 'if' condition= expr truePath= statement
 			{
 				match(input, 28, FOLLOW_28_in_ifStatement609);
@@ -1304,7 +1300,7 @@ public class QLParser extends Parser {
 	// $ANTLR end "ifStatement"
 
 	// $ANTLR start "declStatement"
-	// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:137:1:
+	// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:138:1:
 	// declStatement returns [AbstractStatement result] : q= questionStatement ;
 	public final AbstractStatement declStatement() throws RecognitionException {
 		AbstractStatement result = null;
@@ -1318,9 +1314,9 @@ public class QLParser extends Parser {
 				return result;
 			}
 
-			// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:138:2:
+			// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:139:2:
 			// (q= questionStatement )
-			// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:138:4:
+			// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:139:4:
 			// q= questionStatement
 			{
 				pushFollow(FOLLOW_questionStatement_in_declStatement642);
@@ -1349,7 +1345,7 @@ public class QLParser extends Parser {
 	// $ANTLR end "declStatement"
 
 	// $ANTLR start "questionStatement"
-	// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:141:1:
+	// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:142:1:
 	// questionStatement returns [AbstractStatement result] : id= identExpr ':'
 	// descr= stringExpr at= answerTypedef (ex= expr )? ;
 	public final AbstractStatement questionStatement()
@@ -1360,7 +1356,7 @@ public class QLParser extends Parser {
 
 		org.uva.sea.ql.ast.expr.atom.Ident id = null;
 		org.uva.sea.ql.ast.expr.atom.String descr = null;
-		AbstractAnswerType at = null;
+		AbstractType at = null;
 		AbstractExpr ex = null;
 
 		try {
@@ -1368,10 +1364,10 @@ public class QLParser extends Parser {
 				return result;
 			}
 
-			// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:142:2:
+			// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:143:2:
 			// (id= identExpr ':' descr= stringExpr at= answerTypedef (ex= expr
 			// )? )
-			// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:142:4:
+			// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:143:4:
 			// id= identExpr ':' descr= stringExpr at= answerTypedef (ex= expr
 			// )?
 			{
@@ -1396,7 +1392,7 @@ public class QLParser extends Parser {
 				if (state.backtracking == 0) {
 					result = new Question(id, descr, at);
 				}
-				// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:146:3:
+				// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:147:3:
 				// (ex= expr )?
 				int alt10 = 2;
 				int LA10_0 = input.LA(1);
@@ -1405,7 +1401,7 @@ public class QLParser extends Parser {
 				}
 				switch (alt10) {
 				case 1:
-				// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:146:4:
+				// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:147:4:
 				// ex= expr
 				{
 					pushFollow(FOLLOW_expr_in_questionStatement682);
@@ -1439,11 +1435,11 @@ public class QLParser extends Parser {
 	// $ANTLR end "questionStatement"
 
 	// $ANTLR start "answerTypedef"
-	// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:152:1:
-	// answerTypedef returns [AbstractAnswerType result] : ( 'boolean' |
-	// 'integer' | 'money' | 'string' );
-	public final AbstractAnswerType answerTypedef() throws RecognitionException {
-		AbstractAnswerType result = null;
+	// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:153:1:
+	// answerTypedef returns [AbstractType result] : ( 'boolean' | 'integer' |
+	// 'money' | 'string' );
+	public final AbstractType answerTypedef() throws RecognitionException {
+		AbstractType result = null;
 
 		int answerTypedef_StartIndex = input.index();
 
@@ -1452,7 +1448,7 @@ public class QLParser extends Parser {
 				return result;
 			}
 
-			// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:153:2:
+			// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:154:2:
 			// ( 'boolean' | 'integer' | 'money' | 'string' )
 			int alt11 = 4;
 			switch (input.LA(1)) {
@@ -1483,50 +1479,50 @@ public class QLParser extends Parser {
 			}
 			switch (alt11) {
 			case 1:
-			// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:153:4:
+			// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:154:4:
 			// 'boolean'
 			{
 				match(input, 26, FOLLOW_26_in_answerTypedef703);
 				if (state.failed)
 					return result;
 				if (state.backtracking == 0) {
-					result = new BoolAnswerType();
+					result = new org.uva.sea.ql.ast.type.Bool();
 				}
 			}
 				break;
 			case 2:
-			// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:154:4:
+			// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:155:4:
 			// 'integer'
 			{
 				match(input, 29, FOLLOW_29_in_answerTypedef710);
 				if (state.failed)
 					return result;
 				if (state.backtracking == 0) {
-					result = new IntAnswerType();
+					result = new org.uva.sea.ql.ast.type.Int();
 				}
 			}
 				break;
 			case 3:
-			// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:155:4:
+			// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:156:4:
 			// 'money'
 			{
 				match(input, 30, FOLLOW_30_in_answerTypedef717);
 				if (state.failed)
 					return result;
 				if (state.backtracking == 0) {
-					result = new MoneyAnswerType();
+					result = new org.uva.sea.ql.ast.type.Money();
 				}
 			}
 				break;
 			case 4:
-			// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:156:4:
+			// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:157:4:
 			// 'string'
 			{
 				match(input, 31, FOLLOW_31_in_answerTypedef725);
 				if (state.failed)
 					return result;
 				if (state.backtracking == 0) {
-					result = new StringAnswerType();
+					result = new org.uva.sea.ql.ast.type.String();
 				}
 			}
 				break;

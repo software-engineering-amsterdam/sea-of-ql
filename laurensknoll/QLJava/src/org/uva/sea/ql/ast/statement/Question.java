@@ -1,18 +1,18 @@
 package org.uva.sea.ql.ast.statement;
 
-import org.uva.sea.ql.ast.answertype.AbstractAnswerType;
 import org.uva.sea.ql.ast.expr.atom.Ident;
 import org.uva.sea.ql.ast.expr.atom.String;
+import org.uva.sea.ql.ast.type.AbstractType;
 import org.uva.sea.ql.visitor.StatementVisitor;
 
 public class Question extends AbstractStatement {
 
 	private final Ident ident;
 	private final String question;
-	private final AbstractAnswerType type;
+	private final AbstractType type;
 
 	public Question(Ident ident, String question,
-			AbstractAnswerType type) {
+			AbstractType type) {
 		this.ident = ident;
 		this.question = question;
 		this.type = type;
@@ -26,7 +26,7 @@ public class Question extends AbstractStatement {
 		return this.ident;
 	}
 
-	public AbstractAnswerType getType() {
+	public AbstractType getType() {
 		return this.type;
 	}
 

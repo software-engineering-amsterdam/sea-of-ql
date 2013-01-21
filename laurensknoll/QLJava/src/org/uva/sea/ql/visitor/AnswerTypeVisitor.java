@@ -1,18 +1,18 @@
 package org.uva.sea.ql.visitor;
 
-import org.uva.sea.ql.ast.answertype.BoolAnswerType;
-import org.uva.sea.ql.ast.answertype.IntAnswerType;
-import org.uva.sea.ql.ast.answertype.MoneyAnswerType;
-import org.uva.sea.ql.ast.answertype.StringAnswerType;
+import org.uva.sea.ql.ast.type.Bool;
+import org.uva.sea.ql.ast.type.Int;
+import org.uva.sea.ql.ast.type.Money;
+import org.uva.sea.ql.ast.type.String;
 
 public interface AnswerTypeVisitor<T> {
 
-	public T visit(BoolAnswerType bool);
+	public T visit(Bool bool);
 
-	public T visit(IntAnswerType intType);
+	public T visit(Int intType);
 
-	public T visit(MoneyAnswerType money);
+	public T visit(Money money);
 
-	public T visit(StringAnswerType string);
+	public T visit(String string);
 
 }

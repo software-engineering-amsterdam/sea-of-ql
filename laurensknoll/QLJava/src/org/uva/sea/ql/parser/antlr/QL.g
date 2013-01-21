@@ -6,10 +6,13 @@ options {backtrack=true; memoize=true;}
 package org.uva.sea.ql.parser.antlr;
 
 import org.uva.sea.ql.ast.*;
-import org.uva.sea.ql.ast.answertype.*;
 import org.uva.sea.ql.ast.expr.*;
 import org.uva.sea.ql.ast.expr.atom.*;
+import org.uva.sea.ql.ast.expr.binary.*;
+import org.uva.sea.ql.ast.expr.unary.*;
 import org.uva.sea.ql.ast.statement.*;
+import org.uva.sea.ql.ast.type.*;
+
 }
 
 @lexer::header
@@ -18,7 +21,7 @@ package org.uva.sea.ql.parser.antlr;
 }
 
 
-identExpr returns [IdentExprType result]
+identExpr returns [org.uva.sea.ql.ast.expr.atom.Ident result]
 	:	IDENT { $result = new org.uva.sea.ql.ast.expr.atom.Ident($IDENT.text); }
 	;
 
@@ -31,8 +34,8 @@ primary returns [AbstractExpr result]
 	|	x=expr	{ $result = $x.result; }
 	;
 
-stringExpr returns [StringExprType result]
-	:	STRING { $result = new StringExprType($STRING.text); }
+stringExpr returns [org.uva.sea.ql.ast.expr.atom.String result]
+	:	STRING { $result = new org.uva.sea.ql.ast.expr.atom.String($STRING.text); }
 	;
 
 expr returns [AbstractExpr result]
@@ -147,11 +150,11 @@ questionStatement returns [AbstractStatement result]
 		})?
 	;
 
-answerTypedef returns [AbstractAnswerType result]
-	:	'boolean'	{ $result = new BoolAnswerType(); }
-	|	'integer'	{ $result = new IntAnswerType(); }
-	|	'money'		{ $result = new MoneyAnswerType(); }
-	|	'string'	{ $result = new StringAnswerType(); }
+answerTypedef returns [AbstractType result]
+	:	'boolean'	{ $result = new org.uva.sea.ql.ast.type.Bool(); }
+	|	'integer'	{ $result = new org.uva.sea.ql.ast.type.Int(); }
+	|	'money'		{ $result = new org.uva.sea.ql.ast.type.Money(); }
+	|	'string'	{ $result = new org.uva.sea.ql.ast.type.String(); }
 	;
 	
 // Tokens

@@ -1,10 +1,10 @@
-package org.uva.sea.ql.ast.answertype;
+package org.uva.sea.ql.ast.type;
 
 import org.uva.sea.ql.visitor.AnswerTypeVisitor;
 
-public class IntAnswerType extends NumericAnswerType {
+public class Int extends Numeric {
 
-	public String getType() {
+	public java.lang.String getType() {
 		return "Integer";
 	}
 

@@ -1,36 +1,36 @@
 package org.uva.sea.ql.visitor.print;
 
-import org.uva.sea.ql.ast.answertype.BoolAnswerType;
-import org.uva.sea.ql.ast.answertype.IntAnswerType;
-import org.uva.sea.ql.ast.answertype.MoneyAnswerType;
-import org.uva.sea.ql.ast.answertype.StringAnswerType;
+import org.uva.sea.ql.ast.type.Bool;
+import org.uva.sea.ql.ast.type.Int;
+import org.uva.sea.ql.ast.type.Money;
+import org.uva.sea.ql.ast.type.String;
 import org.uva.sea.ql.visitor.AnswerTypeVisitor;
 
 public class PrintAnswerTypeVisitor implements AnswerTypeVisitor<Boolean> {
 
 	@Override
-	public Boolean visit(BoolAnswerType bool) {
+	public Boolean visit(Bool bool) {
 		System.out.println("Visiting Bool AnswerType");
 
 		return true;
 	}
 
 	@Override
-	public Boolean visit(IntAnswerType intType) {
+	public Boolean visit(Int intType) {
 		System.out.println("Visiting Int AnswerType");
 
 		return true;
 	}
 
 	@Override
-	public Boolean visit(MoneyAnswerType money) {
+	public Boolean visit(Money money) {
 		System.out.println("Visiting Money AnswerType");
 
 		return true;
 	}
 
 	@Override
-	public Boolean visit(StringAnswerType string) {
+	public Boolean visit(String string) {
 		System.out.println("Visiting String AnswerType");
 
 		return true;

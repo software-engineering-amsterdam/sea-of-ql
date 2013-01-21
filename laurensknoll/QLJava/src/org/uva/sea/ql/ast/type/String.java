@@ -1,10 +1,10 @@
-package org.uva.sea.ql.ast.answertype;
+package org.uva.sea.ql.ast.type;
 
 import org.uva.sea.ql.visitor.AnswerTypeVisitor;
 
-public class StringAnswerType extends AbstractAnswerType {
+public class String extends AbstractType {
 
-	public String getType() {
+	public java.lang.String getType() {
 		return "String";
 	}
 
