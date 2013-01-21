@@ -2,7 +2,7 @@ package org.uva.sea.ql.ast.expr.type;
 
 import org.uva.sea.ql.visitor.ExpressionVisitor;
 
-public class MoneyExprType extends AbstractExprType {
+public class MoneyExprType extends NumericExprType {
 
 	private final float value;
 

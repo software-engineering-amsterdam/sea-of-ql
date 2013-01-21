@@ -2,7 +2,7 @@ package org.uva.sea.ql.ast.expr.type;
 
 import org.uva.sea.ql.visitor.ExpressionVisitor;
 
-public class IntExprType extends AbstractExprType {
+public class IntExprType extends NumericExprType {
 
 	private final int value;
 
