@@ -53,6 +53,12 @@ public class PrintVisitor implements Visitor {
 
 		pres.appendResult(lineStatement.getTypeDescription().accept(this));
 
+		if (lineStatement.getInitalizerExpr() != null) {
+			pres.appendResult(" ( ");
+			pres.appendResult(lineStatement.getInitalizerExpr().accept(this));
+			pres.appendResult(" ) ");
+		}
+
 		return pres;
 	}
 
@@ -67,7 +73,7 @@ public class PrintVisitor implements Visitor {
 		result.appendResult(conditionalStatement.getTrueCompound().accept(this));
 
 		if (conditionalStatement.getFalseCompound() != null) {
-			result.appendResult("\nelse ");
+			result.appendResult(" else ");
 			result.appendResult(conditionalStatement.getFalseCompound().accept(
 					this));
 		}
@@ -87,13 +93,6 @@ public class PrintVisitor implements Visitor {
 		if (typeDescription.getClass() == MoneyType.class) {
 			pres = new PrintVisitorResult(" money ");
 
-			MoneyType moneyType = (MoneyType) typeDescription;
-
-			if (moneyType.getExpr() != null) {
-				pres.appendResult(" ( ");
-				pres.appendResult(moneyType.getExpr().accept(this));
-				pres.appendResult(" ) ");
-			}
 		}
 		return pres;
 	}

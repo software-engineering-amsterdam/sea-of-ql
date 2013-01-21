@@ -7,7 +7,8 @@ public abstract class BinExpr extends Expr {
 	private final Expr exprLeftHand;
 	private final Expr exprRightHand;
 
-	public BinExpr(Expr result, Expr rhs) {
+	public BinExpr(Expr result, Expr rhs, TypeDescription xtype) {
+		super(xtype);
 		exprLeftHand = result;
 		exprRightHand = rhs;
 	}

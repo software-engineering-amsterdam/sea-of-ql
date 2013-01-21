@@ -5,6 +5,7 @@ public class IntLiteral extends Expr {
 	private final int value;
 
 	public IntLiteral(int n) {
+		super(new NumeralType());
 		this.value = n;
 	}
 

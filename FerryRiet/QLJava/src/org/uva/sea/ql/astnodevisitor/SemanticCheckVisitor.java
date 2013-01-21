@@ -8,7 +8,6 @@ import org.uva.sea.ql.ast.ConditionalStatement;
 import org.uva.sea.ql.ast.Expr;
 import org.uva.sea.ql.ast.Ident;
 import org.uva.sea.ql.ast.LineStatement;
-import org.uva.sea.ql.ast.MoneyType;
 import org.uva.sea.ql.ast.QLProgram;
 import org.uva.sea.ql.ast.Statement;
 import org.uva.sea.ql.ast.TypeDescription;
@@ -92,12 +91,6 @@ public class SemanticCheckVisitor implements Visitor {
 
 	@Override
 	public VisitorResult visit(TypeDescription typeDescription) {
-		if (typeDescription.getClass() == MoneyType.class) {
-			MoneyType moneyType = (MoneyType) typeDescription;
-			if (moneyType.getExpr() != null) {
-				moneyType.getExpr().accept(this);
-			}
-		}
 		return null;
 	}
 

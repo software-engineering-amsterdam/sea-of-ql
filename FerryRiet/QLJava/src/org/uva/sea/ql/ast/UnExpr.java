@@ -6,7 +6,8 @@ import org.uva.sea.ql.astnodevisitor.VisitorResult;
 public abstract class UnExpr extends Expr {
 	private final Expr exprRightHand;
 
-	public UnExpr(Expr rhs) {
+	public UnExpr(Expr rhs, TypeDescription xType) {
+		super(xType);
 		exprRightHand = rhs;
 	}
 

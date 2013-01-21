@@ -6,6 +6,7 @@ public class Ident extends Expr {
 	private final Token token;
 
 	public Ident(Token token) {
+		super(new LookUpType());
 		this.token = token;
 	}
 
