@@ -9,5 +9,3 @@ import ParseTree;
  * @param txt the program as a string
 */
 public PROGRAM load(str txt) = implode(#PROGRAM, parse(#Program, txt));
-
-public start[EXP] parse(str src, loc l) = parse(#start[EXP], src, l);

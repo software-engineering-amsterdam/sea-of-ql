@@ -45,8 +45,11 @@ layout Standard
 
 // START SYNTAX 
 // start Program
+//start syntax Program 
+//   = program: "form" Expression questionnaireName "{" Declarations decls {Statement  ";"}* body "}" ; // Statement stmt 
+
 start syntax Program 
-   = program: "form" Expression questionnaireName "{" Declarations decls {Statement  ";"}* body "}" ; // Statement stmt 
+   = program: "form" Expression questionnaireName "{" Declaration* decls {Statement  ";"}* body "}" ; // Statement stmt 
 // start syntax question Declarations   
 syntax Declarations
    = Declaration* decls;

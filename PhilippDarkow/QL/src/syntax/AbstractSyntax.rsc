@@ -6,7 +6,7 @@ public alias QuestionId = str;
 public alias QuestionString = str;
 
 // syntax to start a QL Program	
-public data Program =
+public data PROGRAM =
 	program(Expression exp, list[Declaration] decls, list[Statement] stats);
 // Syntax for a question declaration   
 public data Declaration = decl(QuestionId name, Question qName);
@@ -44,7 +44,7 @@ public data Statement =
      ;
 
 anno loc Type@location;                   
-anno loc Program@location;
+anno loc PROGRAM@location;
 anno loc Declaration@location;
 anno loc Expression@location;
 anno loc Statement@location;

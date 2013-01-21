@@ -58,6 +58,7 @@ public test bool testIdent5() = p("abc2323") is id;
 public test bool testIdent6() = p("a2bc232") is id;
 public test bool testIdent7() = p("a2bc232aa") is id;
 public test bool testIdent8() = p("BoxOne") is id;
+public test bool testIdent9() = p("hasSoldHouse") is id;
 // Tests for Int
 public test bool testInt1() = p("0") is \int;
 public test bool testInt2() = p("1223") is \int;
@@ -69,5 +70,7 @@ public test bool testBool2() = p("false") is boolCon;
 public test bool testMoney1() = p("33,32") is moneyCon;
 public test bool testMoney2() = p("0,01") is moneyCon;
 public test bool testMoney3() = p("1000,99") is moneyCon;
+// Test for keywords
+// public test bool testKeyword() = p("if") is id;
 // Tests for QuestionString
-//public test bool testQuestionString1() = p("How","are") is strQue;
+// public test bool testQuestionString1() = p("How","are") is strQue;
