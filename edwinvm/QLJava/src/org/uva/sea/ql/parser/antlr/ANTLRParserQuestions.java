@@ -1,15 +1,15 @@
 package org.uva.sea.ql.parser.antlr;
 
-import org.uva.sea.ql.ast.Question;
+import org.uva.sea.ql.ast.FormStatement;
 import org.uva.sea.ql.parser.ParseError;
 
 import org.antlr.runtime.RecognitionException;
 
 public class ANTLRParserQuestions extends ANTLRParser {
 	@Override
-	public Question parse(String src) throws ParseError {
+	public FormStatement parse(String src) throws ParseError {
 		try {
-			return getParser(src).question();
+			return getParser(src).formStatement();
 		} catch (RecognitionException e) {
 			throw new ParseError(e.getMessage());
 		}
