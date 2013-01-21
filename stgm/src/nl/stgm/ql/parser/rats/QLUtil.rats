@@ -1,0 +1,15 @@
+module nl.stgm.ql.parser.rats.QLUtil;
+
+String Int                    = [0-9]+;
+String Bool                   = "true" / "false";
+String Ident                  = [a-zA-Z_][A-Za-z0-9_]*;
+String StringLit              = ["] ( !["\\] _ )* ["];
+
+transient void LParen         = '(' Spacing;
+transient void RParen         = ')' Spacing;
+
+transient void Spacing        = (Space / SLComment / MLComment)*;
+transient void Space          = ' ' /  '\t' / '\f' / LineTerminator;
+transient void LineTerminator = '\r' '\n' / '\r' / '\n';
+transient void SLComment      = "//" (![\n\r] _)* LineTerminator;
+transient void MLComment      = "/*" (('*' !'/') / (!'*' _))* "*/";

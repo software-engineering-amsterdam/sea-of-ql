@@ -1,5 +1,6 @@
-kemi/bin/*
-vkomsiyski/bin/*
+~/Development/Workspace/sea-of-ql/yosuf/bin/*
+yosuf/bin/*
 *~ # Temporary files
 *.class # Compiled Java
 .DS_Store
+.metadata/*

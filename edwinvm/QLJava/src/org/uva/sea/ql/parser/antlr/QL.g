@@ -5,6 +5,8 @@ options {backtrack=true; memoize=true;}
 {
 package org.uva.sea.ql.parser.antlr;
 import org.uva.sea.ql.ast.*;
+import org.uva.sea.ql.ast.expressions.*;
+import org.uva.sea.ql.ast.types.*;
 }
 
 @lexer::header
@@ -12,9 +14,17 @@ import org.uva.sea.ql.ast.*;
 package org.uva.sea.ql.parser.antlr;
 }
 
+form: primary+;
+
+question returns [Question result]
+  : String Ident ':' t=type { $result = new Question(new Str($String.text), new Ident($Ident.text), t); }
+  ;
+
 primary returns [Expr result]
   : Int   { $result = new Int(Integer.parseInt($Int.text)); }
   | Ident { $result = new Ident($Ident.text); }
+  | Bool { $result = new Bool(Boolean.parseBoolean($Bool.text)); }
+  | String { $result = new Str($String.text); }
   | '(' x=orExpr ')'{ $result = $x.result; }
   ;
     
@@ -32,7 +42,7 @@ mulExpr returns [Expr result]
         $result = new Mul($result, rhs);
       }
       if ($op.text.equals("<=")) {
-        $result = new Div($result, rhs);      
+        $result = new Div($result, rhs);
       }
     })*
     ;
@@ -83,15 +93,22 @@ orExpr returns [Expr result]
     :   lhs=andExpr { $result = $lhs.result; } ( '||' rhs=andExpr { $result = new Or($result, rhs); } )*
     ;
 
+type returns [Type result]
+    :   'integer' { $result = new IntType();    }
+    |   'string'  { $result = new StringType(); }
+    |   'boolean' { $result = new BoolType();   }
+    ;
+
     
 // Tokens
-WS  :	(' ' | '\t' | '\n' | '\r') { $channel=HIDDEN; }
-    ;
+WS:	            (' ' | '\t' | '\n' | '\r') { $channel=HIDDEN; };
 
-COMMENT 
-     : '/*' .* '*/' {$channel=HIDDEN;}
-    ;
+COMMENT:        ('/*' .* '*/' | '//') { $channel=HIDDEN; };
 
-Ident:   ('a'..'z'|'A'..'Z')('a'..'z'|'A'..'Z'|'0'..'9'|'_')*;
+Bool:           ('true'|'false');
 
-Int: ('0'..'9')+;
+Ident:          ('a'..'z'|'A'..'Z')('a'..'z'|'A'..'Z'|'0'..'9'|'_')*;
+
+String:	        ('"' .* '"');
+
+Int:            ('0'..'9')+;

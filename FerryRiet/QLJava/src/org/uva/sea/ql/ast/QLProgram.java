@@ -1,24 +1,28 @@
 package org.uva.sea.ql.ast;
 
 import org.antlr.runtime.Token;
-import org.uva.sea.ql.astvisitor.ASTNodeVisitor;
+import org.uva.sea.ql.astnodevisitor.Visitor;
+import org.uva.sea.ql.astnodevisitor.VisitorResult;
 
 public class QLProgram implements ASTNode {
-	private String programName;
-	private CompoundStatement compound;
+	private Token token;
+	private CompoundStatement compoundStatement;
 
-	public QLProgram(Token tk, Statement c) {
-		programName = tk.getText();
-		compound = (CompoundStatement) c;
+	public QLProgram(Token token, Statement c) {
+		this.token = token;
+		compoundStatement = (CompoundStatement) c;
 	}
+
 	public String getProgramName() {
-		return programName;
+		return token.getText();
 	}
+
 	public CompoundStatement getCompound() {
-		return compound;
+		return compoundStatement;
 	}
+
 	@Override
-	public void accept(ASTNodeVisitor visitor) {
-		visitor.visit(this) ;
+	public VisitorResult accept(Visitor visitor) {
+		return visitor.visit(this);
 	}
 }

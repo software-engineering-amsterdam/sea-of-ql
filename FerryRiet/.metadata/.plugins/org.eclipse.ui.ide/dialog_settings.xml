@@ -6,4 +6,11 @@
 	</section>
 	<section name="NewWizardAction">
 	</section>
+	<section name="CleanDialogSettings">
+		<item value="500" key="DIALOG_WIDTH"/>
+		<item value="274" key="DIALOG_Y_ORIGIN"/>
+		<item value="590" key="DIALOG_X_ORIGIN"/>
+		<item value="377" key="DIALOG_HEIGHT"/>
+		<item value="false" key="TOGGLE_SELECTED"/>
+	</section>
 </section>

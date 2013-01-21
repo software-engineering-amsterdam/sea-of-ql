@@ -1,6 +1,7 @@
 package org.uva.sea.ql.ast;
 
-import org.uva.sea.ql.astvisitor.ASTNodeVisitor;
+import org.uva.sea.ql.astnodevisitor.Visitor;
+import org.uva.sea.ql.astnodevisitor.VisitorResult;
 
 public abstract class UnExpr extends Expr {
 	private final Expr exprRightHand;
@@ -14,7 +15,7 @@ public abstract class UnExpr extends Expr {
 	}
 
 	@Override
-	public void accept(ASTNodeVisitor visitor) {
-		visitor.visit(this);
+	public VisitorResult accept(Visitor visitor) {
+		return visitor.visit(this);
 	}
 }

@@ -1,11 +1,18 @@
 package org.uva.sea.ql.parser.test;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Arrays;
 
-import org.uva.sea.ql.ast.*;
-import org.uva.sea.ql.parser.jacc.JACCParser;
-import org.uva.sea.ql.parser.rats.RatsParser;
+import org.uva.sea.ql.ast.expressions.Add;
+import org.uva.sea.ql.ast.expressions.Bool;
+import org.uva.sea.ql.ast.expressions.GT;
+import org.uva.sea.ql.ast.expressions.Ident;
+import org.uva.sea.ql.ast.expressions.Int;
+import org.uva.sea.ql.ast.expressions.LEq;
+import org.uva.sea.ql.ast.expressions.LT;
+import org.uva.sea.ql.ast.expressions.Mul;
+import org.uva.sea.ql.ast.expressions.Str;
+
 import org.uva.sea.ql.parser.antlr.ANTLRParser;
 
 import static org.junit.Assert.assertEquals;
@@ -21,11 +28,9 @@ public class TestExpressions {
 
 	@Parameters
 	public static List<Object[]> theParsers() {
-		return Arrays.asList(
-			new Object[] {new JACCParser()}, 
-			new Object[] {new RatsParser()},
-			new Object[] {new ANTLRParser()}
-		);
+		List<Object[]> parserList = new ArrayList<Object[]>();
+	    parserList.add(new Object[] {new ANTLRParser()});
+	    return parserList;
 	}
 	
 	public TestExpressions(IParser parser) {
@@ -73,16 +78,28 @@ public class TestExpressions {
 		assertEquals(_parser.parse("a").getClass(), Ident.class);
 		assertEquals(_parser.parse("abc").getClass(), Ident.class);
 		assertEquals(_parser.parse("ABC").getClass(), Ident.class);
-		assertEquals(_parser.parse("ABCDEF").getClass(), Ident.class);
 		assertEquals(_parser.parse("abc2323").getClass(), Ident.class);
-		assertEquals(_parser.parse("a2bc232").getClass(), Ident.class);
-		assertEquals(_parser.parse("a2bc232aa").getClass(), Ident.class);
+		assertEquals(_parser.parse("a2bc232aBaC").getClass(), Ident.class);
 	}
-
+	
 	@Test
 	public void testNums() throws ParseError {
 		assertEquals(_parser.parse("0").getClass(), Int.class);
 		assertEquals(_parser.parse("1223").getClass(), Int.class);
-		assertEquals(_parser.parse("234234234").getClass(), Int.class);
+	}
+	
+	@Test
+	public void testBooleans() throws ParseError {
+		assertEquals(_parser.parse("true").getClass(), Bool.class);
+		assertEquals(_parser.parse("false").getClass(), Bool.class);
+	}
+	
+	@Test
+	public void testStrings() throws ParseError {
+		assertEquals(_parser.parse("\"a\"").getClass(), Str.class);
+		assertEquals(_parser.parse("\"abc\"").getClass(), Str.class);
+		assertEquals(_parser.parse("\"ABC\"").getClass(), Str.class);
+		assertEquals(_parser.parse("\"abc2323\"").getClass(), Str.class);
+		assertEquals(_parser.parse("\"a2bc232ABC\"").getClass(), Str.class);
 	}
 }

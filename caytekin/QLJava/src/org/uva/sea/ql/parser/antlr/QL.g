@@ -1,6 +1,7 @@
 grammar QL;
 options {backtrack=true; memoize=true;}
 
+
 @parser::header
 {
 package org.uva.sea.ql.parser.antlr;
@@ -12,18 +13,44 @@ import org.uva.sea.ql.ast.*;
 package org.uva.sea.ql.parser.antlr;
 }
 
+
+question returns [Question result] 
+  : Ident ':' StringLiteral t=type
+   { $result = new Question($Ident.text, $StringLiteral.text, $t.result); }
+   ;
+  
+  
+type returns [Type result]
+  	: BooleanType { $result = new BooleanType(); }
+  	| IntegerType { $result = new IntegerType(); }
+  	| StringType { $result = new StringType(); } 
+	;
+
+reservedWord returns [ReservedWord result]
+	: TrueRW { $result = new TrueRW(); }
+	| FalseRW { $result = new FalseRW(); }
+	| IfRW { $result = new IfRW(); }
+	| ThenRW { $result = new ThenRW(); }
+	| ElseRW { $result = new ElseRW(); }
+	; 
+
+
+	
 primary returns [Expr result]
   : Int   { $result = new Int(Integer.parseInt($Int.text)); }
   | Ident { $result = new Ident($Ident.text); }
+  | StringLiteral { $result = new StringLiteral($StringLiteral.text); }
   | '(' x=orExpr ')'{ $result = $x.result; }
   ;
     
+
 unExpr returns [Expr result]
-    :  '+' x=unExpr { $result = new Pos($x.result); }
-    |  '-' x=unExpr { $result = new Neg($x.result); }
-    |  '!' x=unExpr { $result = new Not($x.result); }
-    |  x=primary    { $result = $x.result; }
-    ;    
+    : '+' x=unExpr { $result = new Pos($x.result); }
+    | '-' x=unExpr { $result = new Neg($x.result); }
+    | '!' x=unExpr { $result = new Not($x.result); }
+    | x=primary { $result = $x.result; }
+    ;
+    
     
 mulExpr returns [Expr result]
     :   lhs=unExpr { $result=$lhs.result; } ( op=( '*' | '/' ) rhs=unExpr 
@@ -31,7 +58,7 @@ mulExpr returns [Expr result]
       if ($op.text.equals("*")) {
         $result = new Mul($result, rhs);
       }
-      if ($op.text.equals("<=")) {
+      if ($op.text.equals("/")) {
         $result = new Div($result, rhs);      
       }
     })*
@@ -96,7 +123,28 @@ SINGLE_LINE_COMMENT
      	:	'//' .* '\n'  {$channel=HIDDEN;}
      	;
      	    
+BooleanType 	:  'bool';
+
+IntegerType 	:  'int';
+
+StringType	:  'string';
+
+TrueRW 		:  'true';
+
+FalseRW 	:  'false'; 
+
+IfRW 		:  'if';
+
+ThenRW 		:  'then';
+
+ElseRW		:  'else';
 
 Ident:   ('a'..'z'|'A'..'Z')('a'..'z'|'A'..'Z'|'0'..'9'|'_')*;
 
 Int: ('0'..'9')+;
+
+StringLiteral	: '"' .* '"';
+
+
+
+

@@ -1,54 +1,29 @@
 module lang::ql::ast::AST
 
-data Form = form(str formName, list[Statement] formElements);
+data Form = 
+  form(str formName, list[Statement] formElements);
 
 data Conditional
   = conditional(Expr condition, list[Statement] body)
   ;
 
+data ElsePart
+  = elsePart(list[Statement] body)
+  ;
+
 data Statement 
   = question(Question question)
-  | ifCondition(Conditional ifPart, list[Conditional] elseIfs, list[Statement] elsePart)
+  | ifCondition(Conditional ifPart, list[Conditional] elseIfs, list[ElsePart] elsePart)
   ;
 
 data Question
-  // How standard implode returns it
-  = question(str, str, str)
-  | question(str, str, str, Expr e)
-  // How we want it
-  //| question(Expr questionText, Type answerDataType, Expr answerIdentifier)
-  //| question(Expr questionText, Type answerDataType, Expr answerIdentifier, Expr calculatedField)
+  = question(str questionText, str answerDataType, str answerIdentifier)
+  | question(str questionText, str answerDataType, str answerIdentifier, Expr calculatedField)
   ;
 
 data Type
   = \type(str typeName)
   ;
-
-/* Nevermind, thought this would help but probably won't
-data Ident
-  = ident(str name)
-  ;
-
-data String
-  = string(str stringValue)
-  ;
-
-data Int
-  = integer(int intValue)
-  ;
-
-data Boolean
-  = boolean(bool booleanValue)
-  ;
-
-data Money
-  = money(real moneyValue)
-  ;
-
-data Date
-  = date(str dateValue)
-  ;
-*/
 
 data Expr
   = ident(str name)
@@ -79,6 +54,9 @@ data Expr
   ;
   
 // Some annotation for language integration
+anno loc Conditional@location;
+anno loc ElsePart@location;
+anno loc Expr@location;
 anno loc Form@location;
-anno loc Statement@location;
 anno loc Question@location;
+anno loc Statement@location;

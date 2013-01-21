@@ -1,4 +1,4 @@
-// $ANTLR 3.5 QL.g 2013-01-14 16:42:32
+// $ANTLR 3.5 /Users/Ferry/sea-of-ql/FerryRiet/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g 2013-01-20 22:13:51
 
 package org.uva.sea.ql.parser.antlr;
 
@@ -55,15 +55,15 @@ public class QLLexer extends Lexer {
 	public QLLexer(CharStream input, RecognizerSharedState state) {
 		super(input,state);
 	}
-	@Override public String getGrammarFileName() { return "QL.g"; }
+	@Override public String getGrammarFileName() { return "/Users/Ferry/sea-of-ql/FerryRiet/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g"; }
 
 	// $ANTLR start "T__13"
 	public final void mT__13() throws RecognitionException {
 		try {
 			int _type = T__13;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// QL.g:6:7: ( '!' )
-			// QL.g:6:9: '!'
+			// /Users/Ferry/sea-of-ql/FerryRiet/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:6:7: ( '!' )
+			// /Users/Ferry/sea-of-ql/FerryRiet/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:6:9: '!'
 			{
 			match('!'); 
 			}
@@ -82,8 +82,8 @@ public class QLLexer extends Lexer {
 		try {
 			int _type = T__14;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// QL.g:7:7: ( '!=' )
-			// QL.g:7:9: '!='
+			// /Users/Ferry/sea-of-ql/FerryRiet/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:7:7: ( '!=' )
+			// /Users/Ferry/sea-of-ql/FerryRiet/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:7:9: '!='
 			{
 			match("!="); 
 
@@ -103,8 +103,8 @@ public class QLLexer extends Lexer {
 		try {
 			int _type = T__15;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// QL.g:8:7: ( '&&' )
-			// QL.g:8:9: '&&'
+			// /Users/Ferry/sea-of-ql/FerryRiet/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:8:7: ( '&&' )
+			// /Users/Ferry/sea-of-ql/FerryRiet/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:8:9: '&&'
 			{
 			match("&&"); 
 
@@ -124,8 +124,8 @@ public class QLLexer extends Lexer {
 		try {
 			int _type = T__16;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// QL.g:9:7: ( '(' )
-			// QL.g:9:9: '('
+			// /Users/Ferry/sea-of-ql/FerryRiet/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:9:7: ( '(' )
+			// /Users/Ferry/sea-of-ql/FerryRiet/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:9:9: '('
 			{
 			match('('); 
 			}
@@ -144,8 +144,8 @@ public class QLLexer extends Lexer {
 		try {
 			int _type = T__17;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// QL.g:10:7: ( ')' )
-			// QL.g:10:9: ')'
+			// /Users/Ferry/sea-of-ql/FerryRiet/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:10:7: ( ')' )
+			// /Users/Ferry/sea-of-ql/FerryRiet/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:10:9: ')'
 			{
 			match(')'); 
 			}
@@ -164,8 +164,8 @@ public class QLLexer extends Lexer {
 		try {
 			int _type = T__18;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// QL.g:11:7: ( '*' )
-			// QL.g:11:9: '*'
+			// /Users/Ferry/sea-of-ql/FerryRiet/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:11:7: ( '*' )
+			// /Users/Ferry/sea-of-ql/FerryRiet/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:11:9: '*'
 			{
 			match('*'); 
 			}
@@ -184,8 +184,8 @@ public class QLLexer extends Lexer {
 		try {
 			int _type = T__19;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// QL.g:12:7: ( '+' )
-			// QL.g:12:9: '+'
+			// /Users/Ferry/sea-of-ql/FerryRiet/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:12:7: ( '+' )
+			// /Users/Ferry/sea-of-ql/FerryRiet/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:12:9: '+'
 			{
 			match('+'); 
 			}
@@ -204,8 +204,8 @@ public class QLLexer extends Lexer {
 		try {
 			int _type = T__20;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// QL.g:13:7: ( '-' )
-			// QL.g:13:9: '-'
+			// /Users/Ferry/sea-of-ql/FerryRiet/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:13:7: ( '-' )
+			// /Users/Ferry/sea-of-ql/FerryRiet/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:13:9: '-'
 			{
 			match('-'); 
 			}
@@ -224,8 +224,8 @@ public class QLLexer extends Lexer {
 		try {
 			int _type = T__21;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// QL.g:14:7: ( '/' )
-			// QL.g:14:9: '/'
+			// /Users/Ferry/sea-of-ql/FerryRiet/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:14:7: ( '/' )
+			// /Users/Ferry/sea-of-ql/FerryRiet/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:14:9: '/'
 			{
 			match('/'); 
 			}
@@ -244,8 +244,8 @@ public class QLLexer extends Lexer {
 		try {
 			int _type = T__22;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// QL.g:15:7: ( '<' )
-			// QL.g:15:9: '<'
+			// /Users/Ferry/sea-of-ql/FerryRiet/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:15:7: ( '<' )
+			// /Users/Ferry/sea-of-ql/FerryRiet/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:15:9: '<'
 			{
 			match('<'); 
 			}
@@ -264,8 +264,8 @@ public class QLLexer extends Lexer {
 		try {
 			int _type = T__23;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// QL.g:16:7: ( '<=' )
-			// QL.g:16:9: '<='
+			// /Users/Ferry/sea-of-ql/FerryRiet/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:16:7: ( '<=' )
+			// /Users/Ferry/sea-of-ql/FerryRiet/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:16:9: '<='
 			{
 			match("<="); 
 
@@ -285,8 +285,8 @@ public class QLLexer extends Lexer {
 		try {
 			int _type = T__24;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// QL.g:17:7: ( '==' )
-			// QL.g:17:9: '=='
+			// /Users/Ferry/sea-of-ql/FerryRiet/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:17:7: ( '==' )
+			// /Users/Ferry/sea-of-ql/FerryRiet/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:17:9: '=='
 			{
 			match("=="); 
 
@@ -306,8 +306,8 @@ public class QLLexer extends Lexer {
 		try {
 			int _type = T__25;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// QL.g:18:7: ( '>' )
-			// QL.g:18:9: '>'
+			// /Users/Ferry/sea-of-ql/FerryRiet/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:18:7: ( '>' )
+			// /Users/Ferry/sea-of-ql/FerryRiet/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:18:9: '>'
 			{
 			match('>'); 
 			}
@@ -326,8 +326,8 @@ public class QLLexer extends Lexer {
 		try {
 			int _type = T__26;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// QL.g:19:7: ( '>=' )
-			// QL.g:19:9: '>='
+			// /Users/Ferry/sea-of-ql/FerryRiet/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:19:7: ( '>=' )
+			// /Users/Ferry/sea-of-ql/FerryRiet/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:19:9: '>='
 			{
 			match(">="); 
 
@@ -347,8 +347,8 @@ public class QLLexer extends Lexer {
 		try {
 			int _type = T__27;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// QL.g:20:7: ( 'boolean' )
-			// QL.g:20:9: 'boolean'
+			// /Users/Ferry/sea-of-ql/FerryRiet/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:20:7: ( 'boolean' )
+			// /Users/Ferry/sea-of-ql/FerryRiet/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:20:9: 'boolean'
 			{
 			match("boolean"); 
 
@@ -368,8 +368,8 @@ public class QLLexer extends Lexer {
 		try {
 			int _type = T__28;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// QL.g:21:7: ( 'else' )
-			// QL.g:21:9: 'else'
+			// /Users/Ferry/sea-of-ql/FerryRiet/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:21:7: ( 'else' )
+			// /Users/Ferry/sea-of-ql/FerryRiet/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:21:9: 'else'
 			{
 			match("else"); 
 
@@ -389,8 +389,8 @@ public class QLLexer extends Lexer {
 		try {
 			int _type = T__29;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// QL.g:22:7: ( 'form' )
-			// QL.g:22:9: 'form'
+			// /Users/Ferry/sea-of-ql/FerryRiet/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:22:7: ( 'form' )
+			// /Users/Ferry/sea-of-ql/FerryRiet/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:22:9: 'form'
 			{
 			match("form"); 
 
@@ -410,8 +410,8 @@ public class QLLexer extends Lexer {
 		try {
 			int _type = T__30;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// QL.g:23:7: ( 'if' )
-			// QL.g:23:9: 'if'
+			// /Users/Ferry/sea-of-ql/FerryRiet/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:23:7: ( 'if' )
+			// /Users/Ferry/sea-of-ql/FerryRiet/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:23:9: 'if'
 			{
 			match("if"); 
 
@@ -431,8 +431,8 @@ public class QLLexer extends Lexer {
 		try {
 			int _type = T__31;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// QL.g:24:7: ( 'money' )
-			// QL.g:24:9: 'money'
+			// /Users/Ferry/sea-of-ql/FerryRiet/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:24:7: ( 'money' )
+			// /Users/Ferry/sea-of-ql/FerryRiet/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:24:9: 'money'
 			{
 			match("money"); 
 
@@ -452,8 +452,8 @@ public class QLLexer extends Lexer {
 		try {
 			int _type = T__32;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// QL.g:25:7: ( 'string' )
-			// QL.g:25:9: 'string'
+			// /Users/Ferry/sea-of-ql/FerryRiet/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:25:7: ( 'string' )
+			// /Users/Ferry/sea-of-ql/FerryRiet/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:25:9: 'string'
 			{
 			match("string"); 
 
@@ -473,8 +473,8 @@ public class QLLexer extends Lexer {
 		try {
 			int _type = T__33;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// QL.g:26:7: ( '||' )
-			// QL.g:26:9: '||'
+			// /Users/Ferry/sea-of-ql/FerryRiet/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:26:7: ( '||' )
+			// /Users/Ferry/sea-of-ql/FerryRiet/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:26:9: '||'
 			{
 			match("||"); 
 
@@ -494,8 +494,8 @@ public class QLLexer extends Lexer {
 		try {
 			int _type = WS;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// QL.g:113:5: ( ( ' ' | '\\t' | '\\n' | '\\r' ) )
-			// QL.g:113:7: ( ' ' | '\\t' | '\\n' | '\\r' )
+			// /Users/Ferry/sea-of-ql/FerryRiet/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:110:5: ( ( ' ' | '\\t' | '\\n' | '\\r' ) )
+			// /Users/Ferry/sea-of-ql/FerryRiet/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:110:7: ( ' ' | '\\t' | '\\n' | '\\r' )
 			{
 			if ( (input.LA(1) >= '\t' && input.LA(1) <= '\n')||input.LA(1)=='\r'||input.LA(1)==' ' ) {
 				input.consume();
@@ -522,11 +522,11 @@ public class QLLexer extends Lexer {
 		try {
 			int _type = StringLiteral;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// QL.g:116:15: ( '\"' (~ ( '\\n' | '\\r' | '\\f' | '\"' ) )* '\"' )
-			// QL.g:116:17: '\"' (~ ( '\\n' | '\\r' | '\\f' | '\"' ) )* '\"'
+			// /Users/Ferry/sea-of-ql/FerryRiet/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:113:15: ( '\"' (~ ( '\\n' | '\\r' | '\\f' | '\"' ) )* '\"' )
+			// /Users/Ferry/sea-of-ql/FerryRiet/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:113:17: '\"' (~ ( '\\n' | '\\r' | '\\f' | '\"' ) )* '\"'
 			{
 			match('\"'); 
-			// QL.g:116:21: (~ ( '\\n' | '\\r' | '\\f' | '\"' ) )*
+			// /Users/Ferry/sea-of-ql/FerryRiet/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:113:21: (~ ( '\\n' | '\\r' | '\\f' | '\"' ) )*
 			loop1:
 			while (true) {
 				int alt1=2;
@@ -537,7 +537,7 @@ public class QLLexer extends Lexer {
 
 				switch (alt1) {
 				case 1 :
-					// QL.g:
+					// /Users/Ferry/sea-of-ql/FerryRiet/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:
 					{
 					if ( (input.LA(1) >= '\u0000' && input.LA(1) <= '\t')||input.LA(1)=='\u000B'||(input.LA(1) >= '\u000E' && input.LA(1) <= '!')||(input.LA(1) >= '#' && input.LA(1) <= '\uFFFF') ) {
 						input.consume();
@@ -572,8 +572,8 @@ public class QLLexer extends Lexer {
 		try {
 			int _type = COLON;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// QL.g:118:8: ( ':' )
-			// QL.g:118:10: ':'
+			// /Users/Ferry/sea-of-ql/FerryRiet/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:115:8: ( ':' )
+			// /Users/Ferry/sea-of-ql/FerryRiet/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:115:10: ':'
 			{
 			match(':'); 
 			}
@@ -592,8 +592,8 @@ public class QLLexer extends Lexer {
 		try {
 			int _type = LBRACE;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// QL.g:119:8: ( '{' )
-			// QL.g:119:10: '{'
+			// /Users/Ferry/sea-of-ql/FerryRiet/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:116:8: ( '{' )
+			// /Users/Ferry/sea-of-ql/FerryRiet/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:116:10: '{'
 			{
 			match('{'); 
 			}
@@ -612,8 +612,8 @@ public class QLLexer extends Lexer {
 		try {
 			int _type = RBRACE;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// QL.g:120:8: ( '}' )
-			// QL.g:120:10: '}'
+			// /Users/Ferry/sea-of-ql/FerryRiet/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:117:8: ( '}' )
+			// /Users/Ferry/sea-of-ql/FerryRiet/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:117:10: '}'
 			{
 			match('}'); 
 			}
@@ -632,7 +632,7 @@ public class QLLexer extends Lexer {
 		try {
 			int _type = COMMENT;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// QL.g:124:5: ( '/*' ( . )* '*/' | '//' (~ '\\n' )* )
+			// /Users/Ferry/sea-of-ql/FerryRiet/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:121:5: ( '/*' ( . )* '*/' | '//' (~ '\\n' )* )
 			int alt4=2;
 			int LA4_0 = input.LA(1);
 			if ( (LA4_0=='/') ) {
@@ -666,11 +666,11 @@ public class QLLexer extends Lexer {
 
 			switch (alt4) {
 				case 1 :
-					// QL.g:124:7: '/*' ( . )* '*/'
+					// /Users/Ferry/sea-of-ql/FerryRiet/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:121:7: '/*' ( . )* '*/'
 					{
 					match("/*"); 
 
-					// QL.g:124:12: ( . )*
+					// /Users/Ferry/sea-of-ql/FerryRiet/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:121:12: ( . )*
 					loop2:
 					while (true) {
 						int alt2=2;
@@ -691,7 +691,7 @@ public class QLLexer extends Lexer {
 
 						switch (alt2) {
 						case 1 :
-							// QL.g:124:12: .
+							// /Users/Ferry/sea-of-ql/FerryRiet/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:121:12: .
 							{
 							matchAny(); 
 							}
@@ -708,11 +708,11 @@ public class QLLexer extends Lexer {
 					}
 					break;
 				case 2 :
-					// QL.g:125:7: '//' (~ '\\n' )*
+					// /Users/Ferry/sea-of-ql/FerryRiet/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:122:7: '//' (~ '\\n' )*
 					{
 					match("//"); 
 
-					// QL.g:125:12: (~ '\\n' )*
+					// /Users/Ferry/sea-of-ql/FerryRiet/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:122:12: (~ '\\n' )*
 					loop3:
 					while (true) {
 						int alt3=2;
@@ -723,7 +723,7 @@ public class QLLexer extends Lexer {
 
 						switch (alt3) {
 						case 1 :
-							// QL.g:
+							// /Users/Ferry/sea-of-ql/FerryRiet/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:
 							{
 							if ( (input.LA(1) >= '\u0000' && input.LA(1) <= '\t')||(input.LA(1) >= '\u000B' && input.LA(1) <= '\uFFFF') ) {
 								input.consume();
@@ -760,7 +760,7 @@ public class QLLexer extends Lexer {
 		try {
 			int _type = BooleanLiteral;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// QL.g:129:5: ( 'true' | 'false' | 'TRUE' | 'FALSE' )
+			// /Users/Ferry/sea-of-ql/FerryRiet/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:126:5: ( 'true' | 'false' | 'TRUE' | 'FALSE' )
 			int alt5=4;
 			switch ( input.LA(1) ) {
 			case 't':
@@ -790,28 +790,28 @@ public class QLLexer extends Lexer {
 			}
 			switch (alt5) {
 				case 1 :
-					// QL.g:129:7: 'true'
+					// /Users/Ferry/sea-of-ql/FerryRiet/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:126:7: 'true'
 					{
 					match("true"); 
 
 					}
 					break;
 				case 2 :
-					// QL.g:129:15: 'false'
+					// /Users/Ferry/sea-of-ql/FerryRiet/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:126:15: 'false'
 					{
 					match("false"); 
 
 					}
 					break;
 				case 3 :
-					// QL.g:129:25: 'TRUE'
+					// /Users/Ferry/sea-of-ql/FerryRiet/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:126:25: 'TRUE'
 					{
 					match("TRUE"); 
 
 					}
 					break;
 				case 4 :
-					// QL.g:129:34: 'FALSE'
+					// /Users/Ferry/sea-of-ql/FerryRiet/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:126:34: 'FALSE'
 					{
 					match("FALSE"); 
 
@@ -833,8 +833,8 @@ public class QLLexer extends Lexer {
 		try {
 			int _type = Ident;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// QL.g:132:6: ( ( 'a' .. 'z' | 'A' .. 'Z' ) ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )* )
-			// QL.g:132:10: ( 'a' .. 'z' | 'A' .. 'Z' ) ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )*
+			// /Users/Ferry/sea-of-ql/FerryRiet/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:129:6: ( ( 'a' .. 'z' | 'A' .. 'Z' ) ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )* )
+			// /Users/Ferry/sea-of-ql/FerryRiet/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:129:10: ( 'a' .. 'z' | 'A' .. 'Z' ) ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )*
 			{
 			if ( (input.LA(1) >= 'A' && input.LA(1) <= 'Z')||(input.LA(1) >= 'a' && input.LA(1) <= 'z') ) {
 				input.consume();
@@ -844,7 +844,7 @@ public class QLLexer extends Lexer {
 				recover(mse);
 				throw mse;
 			}
-			// QL.g:132:29: ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )*
+			// /Users/Ferry/sea-of-ql/FerryRiet/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:129:29: ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )*
 			loop6:
 			while (true) {
 				int alt6=2;
@@ -855,7 +855,7 @@ public class QLLexer extends Lexer {
 
 				switch (alt6) {
 				case 1 :
-					// QL.g:
+					// /Users/Ferry/sea-of-ql/FerryRiet/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:
 					{
 					if ( (input.LA(1) >= '0' && input.LA(1) <= '9')||(input.LA(1) >= 'A' && input.LA(1) <= 'Z')||input.LA(1)=='_'||(input.LA(1) >= 'a' && input.LA(1) <= 'z') ) {
 						input.consume();
@@ -889,10 +889,10 @@ public class QLLexer extends Lexer {
 		try {
 			int _type = IntLiteral;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// QL.g:134:11: ( ( '0' .. '9' )+ )
-			// QL.g:134:13: ( '0' .. '9' )+
+			// /Users/Ferry/sea-of-ql/FerryRiet/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:131:11: ( ( '0' .. '9' )+ )
+			// /Users/Ferry/sea-of-ql/FerryRiet/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:131:13: ( '0' .. '9' )+
 			{
-			// QL.g:134:13: ( '0' .. '9' )+
+			// /Users/Ferry/sea-of-ql/FerryRiet/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:131:13: ( '0' .. '9' )+
 			int cnt7=0;
 			loop7:
 			while (true) {
@@ -904,7 +904,7 @@ public class QLLexer extends Lexer {
 
 				switch (alt7) {
 				case 1 :
-					// QL.g:
+					// /Users/Ferry/sea-of-ql/FerryRiet/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:
 					{
 					if ( (input.LA(1) >= '0' && input.LA(1) <= '9') ) {
 						input.consume();
@@ -938,215 +938,215 @@ public class QLLexer extends Lexer {
 
 	@Override
 	public void mTokens() throws RecognitionException {
-		// QL.g:1:8: ( T__13 | T__14 | T__15 | T__16 | T__17 | T__18 | T__19 | T__20 | T__21 | T__22 | T__23 | T__24 | T__25 | T__26 | T__27 | T__28 | T__29 | T__30 | T__31 | T__32 | T__33 | WS | StringLiteral | COLON | LBRACE | RBRACE | COMMENT | BooleanLiteral | Ident | IntLiteral )
+		// /Users/Ferry/sea-of-ql/FerryRiet/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:1:8: ( T__13 | T__14 | T__15 | T__16 | T__17 | T__18 | T__19 | T__20 | T__21 | T__22 | T__23 | T__24 | T__25 | T__26 | T__27 | T__28 | T__29 | T__30 | T__31 | T__32 | T__33 | WS | StringLiteral | COLON | LBRACE | RBRACE | COMMENT | BooleanLiteral | Ident | IntLiteral )
 		int alt8=30;
 		alt8 = dfa8.predict(input);
 		switch (alt8) {
 			case 1 :
-				// QL.g:1:10: T__13
+				// /Users/Ferry/sea-of-ql/FerryRiet/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:1:10: T__13
 				{
 				mT__13(); 
 
 				}
 				break;
 			case 2 :
-				// QL.g:1:16: T__14
+				// /Users/Ferry/sea-of-ql/FerryRiet/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:1:16: T__14
 				{
 				mT__14(); 
 
 				}
 				break;
 			case 3 :
-				// QL.g:1:22: T__15
+				// /Users/Ferry/sea-of-ql/FerryRiet/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:1:22: T__15
 				{
 				mT__15(); 
 
 				}
 				break;
 			case 4 :
-				// QL.g:1:28: T__16
+				// /Users/Ferry/sea-of-ql/FerryRiet/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:1:28: T__16
 				{
 				mT__16(); 
 
 				}
 				break;
 			case 5 :
-				// QL.g:1:34: T__17
+				// /Users/Ferry/sea-of-ql/FerryRiet/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:1:34: T__17
 				{
 				mT__17(); 
 
 				}
 				break;
 			case 6 :
-				// QL.g:1:40: T__18
+				// /Users/Ferry/sea-of-ql/FerryRiet/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:1:40: T__18
 				{
 				mT__18(); 
 
 				}
 				break;
 			case 7 :
-				// QL.g:1:46: T__19
+				// /Users/Ferry/sea-of-ql/FerryRiet/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:1:46: T__19
 				{
 				mT__19(); 
 
 				}
 				break;
 			case 8 :
-				// QL.g:1:52: T__20
+				// /Users/Ferry/sea-of-ql/FerryRiet/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:1:52: T__20
 				{
 				mT__20(); 
 
 				}
 				break;
 			case 9 :
-				// QL.g:1:58: T__21
+				// /Users/Ferry/sea-of-ql/FerryRiet/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:1:58: T__21
 				{
 				mT__21(); 
 
 				}
 				break;
 			case 10 :
-				// QL.g:1:64: T__22
+				// /Users/Ferry/sea-of-ql/FerryRiet/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:1:64: T__22
 				{
 				mT__22(); 
 
 				}
 				break;
 			case 11 :
-				// QL.g:1:70: T__23
+				// /Users/Ferry/sea-of-ql/FerryRiet/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:1:70: T__23
 				{
 				mT__23(); 
 
 				}
 				break;
 			case 12 :
-				// QL.g:1:76: T__24
+				// /Users/Ferry/sea-of-ql/FerryRiet/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:1:76: T__24
 				{
 				mT__24(); 
 
 				}
 				break;
 			case 13 :
-				// QL.g:1:82: T__25
+				// /Users/Ferry/sea-of-ql/FerryRiet/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:1:82: T__25
 				{
 				mT__25(); 
 
 				}
 				break;
 			case 14 :
-				// QL.g:1:88: T__26
+				// /Users/Ferry/sea-of-ql/FerryRiet/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:1:88: T__26
 				{
 				mT__26(); 
 
 				}
 				break;
 			case 15 :
-				// QL.g:1:94: T__27
+				// /Users/Ferry/sea-of-ql/FerryRiet/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:1:94: T__27
 				{
 				mT__27(); 
 
 				}
 				break;
 			case 16 :
-				// QL.g:1:100: T__28
+				// /Users/Ferry/sea-of-ql/FerryRiet/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:1:100: T__28
 				{
 				mT__28(); 
 
 				}
 				break;
 			case 17 :
-				// QL.g:1:106: T__29
+				// /Users/Ferry/sea-of-ql/FerryRiet/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:1:106: T__29
 				{
 				mT__29(); 
 
 				}
 				break;
 			case 18 :
-				// QL.g:1:112: T__30
+				// /Users/Ferry/sea-of-ql/FerryRiet/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:1:112: T__30
 				{
 				mT__30(); 
 
 				}
 				break;
 			case 19 :
-				// QL.g:1:118: T__31
+				// /Users/Ferry/sea-of-ql/FerryRiet/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:1:118: T__31
 				{
 				mT__31(); 
 
 				}
 				break;
 			case 20 :
-				// QL.g:1:124: T__32
+				// /Users/Ferry/sea-of-ql/FerryRiet/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:1:124: T__32
 				{
 				mT__32(); 
 
 				}
 				break;
 			case 21 :
-				// QL.g:1:130: T__33
+				// /Users/Ferry/sea-of-ql/FerryRiet/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:1:130: T__33
 				{
 				mT__33(); 
 
 				}
 				break;
 			case 22 :
-				// QL.g:1:136: WS
+				// /Users/Ferry/sea-of-ql/FerryRiet/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:1:136: WS
 				{
 				mWS(); 
 
 				}
 				break;
 			case 23 :
-				// QL.g:1:139: StringLiteral
+				// /Users/Ferry/sea-of-ql/FerryRiet/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:1:139: StringLiteral
 				{
 				mStringLiteral(); 
 
 				}
 				break;
 			case 24 :
-				// QL.g:1:153: COLON
+				// /Users/Ferry/sea-of-ql/FerryRiet/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:1:153: COLON
 				{
 				mCOLON(); 
 
 				}
 				break;
 			case 25 :
-				// QL.g:1:159: LBRACE
+				// /Users/Ferry/sea-of-ql/FerryRiet/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:1:159: LBRACE
 				{
 				mLBRACE(); 
 
 				}
 				break;
 			case 26 :
-				// QL.g:1:166: RBRACE
+				// /Users/Ferry/sea-of-ql/FerryRiet/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:1:166: RBRACE
 				{
 				mRBRACE(); 
 
 				}
 				break;
 			case 27 :
-				// QL.g:1:173: COMMENT
+				// /Users/Ferry/sea-of-ql/FerryRiet/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:1:173: COMMENT
 				{
 				mCOMMENT(); 
 
 				}
 				break;
 			case 28 :
-				// QL.g:1:181: BooleanLiteral
+				// /Users/Ferry/sea-of-ql/FerryRiet/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:1:181: BooleanLiteral
 				{
 				mBooleanLiteral(); 
 
 				}
 				break;
 			case 29 :
-				// QL.g:1:196: Ident
+				// /Users/Ferry/sea-of-ql/FerryRiet/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:1:196: Ident
 				{
 				mIdent(); 
 
 				}
 				break;
 			case 30 :
-				// QL.g:1:202: IntLiteral
+				// /Users/Ferry/sea-of-ql/FerryRiet/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:1:202: IntLiteral
 				{
 				mIntLiteral(); 
 

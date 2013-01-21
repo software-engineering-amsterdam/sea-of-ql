@@ -2,41 +2,31 @@ package org.uva.sea.ql.parser.test;
 
 import static org.junit.Assert.assertEquals;
 
-import java.util.Arrays;
-import java.util.List;
 
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
-import org.uva.sea.ql.ast.Add;
-import org.uva.sea.ql.ast.GT;
 import org.uva.sea.ql.ast.Ident;
-import org.uva.sea.ql.ast.Int;
-import org.uva.sea.ql.ast.LEq;
-import org.uva.sea.ql.ast.LT;
-import org.uva.sea.ql.ast.Mul;
+import org.uva.sea.ql.ast.expressions.binary.Add;
+import org.uva.sea.ql.ast.expressions.binary.GT;
+import org.uva.sea.ql.ast.expressions.binary.LEq;
+import org.uva.sea.ql.ast.expressions.binary.LT;
+import org.uva.sea.ql.ast.expressions.binary.Mul;
+import org.uva.sea.ql.ast.types.Int;
 import org.uva.sea.ql.parser.antlr.ANTLRParser;
-import org.uva.sea.ql.parser.jacc.JACCParser;
-import org.uva.sea.ql.parser.rats.RatsParser;
 
-@RunWith(Parameterized.class)
 public class TestExpressions {
 
 	private IParse parser;
 
 	@Parameters
-	public static List<Object[]> theParsers() {
-	  return Arrays.asList(
-			  new Object[] {new JACCParser()}, 
-			  new Object[] {new RatsParser()},
-			  new Object[] {new ANTLRParser()}
-			 );
+	public static ANTLRParser theParsers() {
+	  return new ANTLRParser();
 	}
 
 	
-	public TestExpressions(IParse parser) {
-		this.parser = parser;
+	public TestExpressions() {
+		//this.parser = parser;
+		this.parser = new ANTLRParser();
 	}
 
 	
