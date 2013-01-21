@@ -1,4 +1,4 @@
-package org.uva.sea.ql.parser.test;
+package org.uva.sea.ql.tests;
 
 import static org.junit.Assert.*;
 
@@ -62,6 +62,8 @@ public class TestDataTypes extends TestBase {
 		assertEquals(true, ((Bool)parseDataType("TRUE")).getValue());
 		assertEquals(false, ((Bool)parseDataType("false")).getValue());
 		assertEquals(false, ((Bool)parseDataType("false")).getValue());
+		
+		assertFalse(Bool.class.equals(parseDataType("tr00").getClass()));
 	}
 	
 	@Test
@@ -69,6 +71,15 @@ public class TestDataTypes extends TestBase {
 		final Node node = parseDataType("identlabel");
 		assertEquals(Ident.class, node.getClass());
 		assertEquals("identlabel", ((Ident)node).getName());
+		
+		assertEquals(Ident.class, parseDataType("a").getClass());
+		assertEquals(Ident.class, parseDataType("abc").getClass());
+		assertEquals(Ident.class, parseDataType("ABC").getClass());
+		assertEquals(Ident.class, parseDataType("ABCDEF").getClass());
+		assertEquals(Ident.class, parseDataType("abc2323").getClass());
+		assertEquals(Ident.class, parseDataType("a2bc232").getClass());
+		assertEquals(Ident.class, parseDataType("a2bc232aa").getClass());
+		
 	}
 
 	@Test
@@ -77,6 +88,7 @@ public class TestDataTypes extends TestBase {
 		assertEquals("Hello", ((StringLiteral)parseDataType("\"Hello\"")).getValue());
 		assertEquals("\\\"Hello\\\"", ((StringLiteral)parseDataType("\"\\\"Hello\\\"\"")).getValue());
 		
+		assertEquals(StringLiteral.class, parseDataType("\"H12323ello\"").getClass());
 		// Should be recognized as an ident, not a stringliteral
 		assertFalse(StringLiteral.class.equals(parseDataType("Hello").getClass()));
 	}

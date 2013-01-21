@@ -1,4 +1,4 @@
-package org.uva.sea.ql.parser.test;
+package org.uva.sea.ql.tests;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -33,8 +33,8 @@ public class TestConditionals extends TestBase {
 		final Question question = (Question)successElements.get(0);
 		assertEquals(StringLiteral.class, question.getExpectedType());
 		
-		assertEquals("Have you bought this house?", question.getQuestion());
-		assertEquals("boughtHouse", question.getLabel().getIdentifier());
+		assertEquals("Have you bought this house?", question.getText());
+		assertEquals("boughtHouse", question.getLabel().getText());
 	}
 	
 	@Test
@@ -54,8 +54,8 @@ public class TestConditionals extends TestBase {
 		final Question question = (Question)successElements.get(0);
 		assertEquals(StringLiteral.class, question.getExpectedType());
 		
-		assertEquals("Have you bought this house?", question.getQuestion());
-		assertEquals("boughtHouse", question.getLabel().getIdentifier());
+		assertEquals("Have you bought this house?", question.getText());
+		assertEquals("boughtHouse", question.getLabel().getText());
 		
 		final List<Element> elseElements = ((IfThenElse)result).getElseElements();
 		assertEquals(1, elseElements.size());
@@ -64,7 +64,7 @@ public class TestConditionals extends TestBase {
 		final Question elseQuestion = (Question)elseElements.get(0);
 		assertEquals(StringLiteral.class, elseQuestion.getExpectedType());
 		
-		assertEquals("whyNot", elseQuestion.getLabel().getIdentifier());
-		assertEquals("Why did you not buy this house?", elseQuestion.getQuestion());
+		assertEquals("whyNot", elseQuestion.getLabel().getText());
+		assertEquals("Why did you not buy this house?", elseQuestion.getText());
 	}
 }

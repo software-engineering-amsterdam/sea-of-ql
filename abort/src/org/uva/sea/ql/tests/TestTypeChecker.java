@@ -1,4 +1,4 @@
-package org.uva.sea.ql.parser.test;
+package org.uva.sea.ql.tests;
 
 import static org.junit.Assert.assertEquals;
 
@@ -35,7 +35,7 @@ public class TestTypeChecker extends TestBase {
 	@Test
 	public void testInvalidForm() throws RecognitionException, IOException {
 		invalidForm.accept(typeChecker);
-		assertEquals(16, typeChecker.getErrorLog().getLength());
+		assertEquals(31, typeChecker.getErrorLog().getLength());
 	}
 	
 	@After

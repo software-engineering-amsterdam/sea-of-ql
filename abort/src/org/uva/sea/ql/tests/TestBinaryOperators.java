@@ -1,4 +1,4 @@
-package org.uva.sea.ql.parser.test;
+package org.uva.sea.ql.tests;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -41,6 +41,15 @@ public class TestBinaryOperators extends TestBase {
 		
 		node = parse("+ 1 1").addExpression();
 		assertFalse(Add.class.equals(node));
+		
+		assertEquals(Add.class, parse("a + b").addExpression().getClass());
+		assertEquals(Add.class, parse("a + b + c").addExpression().getClass());
+		assertEquals(Add.class, parse("(a + b + c)").addExpression().getClass());
+		assertEquals(Add.class, parse("a + (b + c)").addExpression().getClass());
+		assertEquals(Add.class, parse("(a + b) + c").addExpression().getClass());
+		assertEquals(Add.class, parse("(a + b)").addExpression().getClass());
+		assertEquals(Add.class, parse("a + b * c").addExpression().getClass());
+		assertEquals(Add.class, parse("a * b + c").addExpression().getClass());
 	}
 	
 	@Test	
@@ -64,6 +73,8 @@ public class TestBinaryOperators extends TestBase {
 		
 		node = parse("&& 1 1").andExpression();
 		assertFalse(And.class.equals(node));
+		
+		
 	}
 	
 	@Test
@@ -159,9 +170,17 @@ public class TestBinaryOperators extends TestBase {
 		node = parse("20 * 10").mulExpression();
 		assertNotNull(node);
 		assertEquals(Mul.class, node.getClass());
-		
+
 		node = parse("* 20 20").mulExpression();
-		assertFalse(Mul.class.equals(node));				
+		assertFalse(Mul.class.equals(node));
+
+		assertEquals(Mul.class, parse("a * b").mulExpression().getClass());
+		assertEquals(Mul.class, parse("a * b * c").mulExpression().getClass());
+		assertEquals(Mul.class, parse("a * (b * c)").mulExpression().getClass());
+		assertEquals(Mul.class, parse("(a * b) * c").mulExpression().getClass());
+		assertEquals(Mul.class, parse("(a * b)").mulExpression().getClass());
+		assertEquals(Mul.class, parse("(a + b) * c").mulExpression().getClass());
+		assertEquals(Mul.class, parse("a * (b + c)").mulExpression().getClass());		
 	}
 	
 	@Test
@@ -175,7 +194,9 @@ public class TestBinaryOperators extends TestBase {
 		assertEquals(NEq.class, node.getClass());
 		
 		node = parse("!= 20 20").relExpression();
-		assertFalse(NEq.class.equals(node));				
+		assertFalse(NEq.class.equals(node));
+		
+		
 	}
 	
 	@Test

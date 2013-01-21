@@ -5,21 +5,42 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Represents a log.
+ * @author J. Dijkstra
+ */
 abstract class Log {
-	// Store the log in an array list to easily present it in a later stage
+	/**
+	 * Array to store the lines in, to easily present it in a later stage.
+	 */
 	protected final List<Line> log = new ArrayList<Line>();
 
-	// Used for date formatting the log
+	/**
+	 * Time format to use when displaying the log.
+	 */
 	private static final String TIME_FORMAT = "HH:mm:ss";
+	/**
+	 * Date format used when displaying the log.
+	 */
 	private final SimpleDateFormat dateFormat = new SimpleDateFormat(TIME_FORMAT);
 	
-	// Only usable in extended form
+	/**
+	 * Constructor that limits the scope to the this package.
+	 */
 	protected Log() { }
 	
+	/**
+	 * Add a log line.
+	 * @param line line to add
+	 */
 	public void add(final Line line) {
 		log.add(line);
 	}
 	
+	/**
+	 * Retrieve the length (in lines) of the log.
+	 * @return amount of lines of the log
+	 */
 	public int getLength() {
 		return log.size();
 	}
@@ -39,14 +60,21 @@ abstract class Log {
 		return buffer.toString();
 	}
 	
-	// Write the log to a stream
+	/**
+	 * Write the log to a stream.
+	 * @param stream stream to write the log to
+	 */
 	public void write(final PrintStream stream) {
 		for (final Line line : log) {
 			stream.print(getStringRepresentation(line));
 		}
 	}
 	
-	// Get the string representation of a line instance
+	/**
+	 * Retrieve the string representation of a line in the log.
+	 * @param line line to retrieve the string representation of
+	 * @return string representation of the line
+	 */
 	private String getStringRepresentation(final Line line) {
 		return String.format("[%s]: %s -> %s\n", dateFormat.format(line.getCalendar().getTime()),
 				line.getNode().toString(), line.getText());

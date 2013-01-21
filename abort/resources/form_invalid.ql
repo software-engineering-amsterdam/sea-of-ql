@@ -23,7 +23,7 @@ form Box1HouseOwning {
 	
 	if ("applepie" == "applepie") { }
 	
-	if (true && "applepie" || 1 + true || "haha" + 2.000) { }
+	if (true && "applepie" || 1 + true || "haha" + 2.000 || +true || -false || 1.2323 + (- bla) || 3==!8) { }
 
 	hasSoldHouse: "Just to redeclare and annoy the type checker" integer	
 }

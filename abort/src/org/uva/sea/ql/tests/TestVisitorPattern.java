@@ -1,4 +1,4 @@
-package org.uva.sea.ql.parser.test;
+package org.uva.sea.ql.tests;
 
 import static org.mockito.Mockito.*;
 

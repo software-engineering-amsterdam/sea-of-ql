@@ -14,14 +14,28 @@ import org.uva.sea.ql.ast.traversal.base.IVisitor;
 import org.uva.sea.ql.ast.traversal.logging.*;
 import org.uva.sea.ql.ast.types.*;
 
-
-// TODO: add scope support for forms and internal scopes
-// TODO: type dispatcher, binary, unary, form
+/**
+ * Visitor that type checks (semantics) of the abstract syntax tree.
+ * The tree it checks has been parsed by ANTLR.
+ * @author J. Dijkstra
+ */
 public class TypeChecker implements IVisitor {
+	/**
+	 * Error log.
+	 */
 	private final TypeErrorLog errorLog = new TypeErrorLog();
+	/**
+	 * Event log.
+	 */
 	private final TypeEventLog eventLog = new TypeEventLog();
 
-	private final ResultTypeTable resultTable = new ResultTypeTable(); 
+	/**
+	 * Stores result types after reduction.
+	 */
+	private final ResultTypeTable resultTable = new ResultTypeTable();
+	/**
+	 * Stores result types for defined labels.
+	 */
 	private final SymbolTable symbolTable = new SymbolTable();
 
 	// DataTypes

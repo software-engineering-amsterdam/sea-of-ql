@@ -3,24 +3,39 @@ package org.uva.sea.ql.ast.form;
 import org.uva.sea.ql.ast.base.Node;
 import org.uva.sea.ql.ast.traversal.base.IVisitor;
 
+/**
+ * Represents a label as defined in the QL language.
+ * @author J. Dijkstra
+ */
 public class Label extends Node {
-	private final String identifier;
+	/**
+	 * The identifying text of the label.
+	 */
+	private final String text;
 	
+	/**
+	 * Constructor.
+	 * @param text text to be used as identifier
+	 */
 	public Label(final String text) {
-		this.identifier = text;
+		this.text = text;
 	}
 	
-	public String getIdentifier() {
-		return identifier;
+	/**
+	 * Retrieve the identifying text.
+	 * @return identifying text
+	 */
+	public String getText() {
+		return text;
 	}
 
-	// Labels with the same identifier are the same (used for the symbol table and result type table)
+	// Labels with the same identifying text are the same (used for the symbol table and result type table)
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result
-				+ ((identifier == null) ? 0 : identifier.hashCode());
+				+ ((text == null) ? 0 : text.hashCode());
 		return result;
 	}
 
@@ -31,7 +46,7 @@ public class Label extends Node {
 		}
 	
 		final Label otherLabel = (Label)obj;
-		return identifier.equals(otherLabel.getIdentifier());
+		return text.equals(otherLabel.getText());
 	}
 
 	@Override

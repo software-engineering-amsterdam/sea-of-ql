@@ -1,6 +1,6 @@
-package org.uva.sea.ql.parser.test;
+package org.uva.sea.ql.tests;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 
 import java.io.IOException;
 import java.util.List;
@@ -48,7 +48,7 @@ public class TestForm extends TestBase {
 		
 		assertEquals(Question.class, question.getClass());
 		assertEquals(Bool.class, question.getExpectedType());
-		assertEquals("Did you sell a house in 2010?", question.getQuestion());
+		assertEquals("Did you sell a house in 2010?", question.getText());
 		assertEquals(new Label("hasSoldHouse"), question.getLabel());		
 	}
 
@@ -57,7 +57,7 @@ public class TestForm extends TestBase {
 		
 		assertEquals(Question.class, question.getClass());
 		assertEquals(Bool.class, question.getExpectedType());
-		assertEquals("Did you buy a house in 2010?", question.getQuestion());
+		assertEquals("Did you buy a house in 2010?", question.getText());
 		assertEquals(new Label("hasBoughtHouse"), question.getLabel());		
 	}
 
@@ -66,7 +66,7 @@ public class TestForm extends TestBase {
 
 		assertEquals(Question.class, question.getClass());
 		assertEquals(Int.class, question.getExpectedType());
-		assertEquals("What was the width of the house in meters?", question.getQuestion());
+		assertEquals("What was the width of the house in meters?", question.getText());
 		assertEquals(new Label("width"), question.getLabel());		
 	}
 
@@ -75,7 +75,7 @@ public class TestForm extends TestBase {
 
 		assertEquals(Question.class, question.getClass());
 		assertEquals(Int.class, question.getExpectedType());
-		assertEquals("What was the length of the house in meters?", question.getQuestion());
+		assertEquals("What was the length of the house in meters?", question.getText());
 		assertEquals(new Label("length"), question.getLabel());		
 	}
 	
@@ -91,14 +91,14 @@ public class TestForm extends TestBase {
 		assertEquals(Question.class, successElements.get(0).getClass());
 
 		final Question question1 = (Question)successElements.get(0);
-		assertEquals("Price was sold for:", question1.getQuestion());
+		assertEquals("Price was sold for:", question1.getText());
 		assertEquals(new Label("sellingPrice"), question1.getLabel());
 		assertEquals(Money.class, question1.getExpectedType());
 		
 		assertEquals(Question.class, successElements.get(1).getClass());
 		
 		final Question question2 = (Question)successElements.get(1);
-		assertEquals("Private debts for the sold house:", question2.getQuestion());
+		assertEquals("Private debts for the sold house:", question2.getText());
 		assertEquals(new Label("privateDebt"), question2.getLabel());
 		assertEquals(Money.class, question2.getExpectedType());
 		
@@ -122,6 +122,19 @@ public class TestForm extends TestBase {
 		final Question questionElse = (Question)ifThenElse.getElseElements().get(0);
 		assertEquals(StringLiteral.class, questionElse.getExpectedType());
 		assertEquals(new Label("reasonNotSelling"), questionElse.getLabel());
-		assertEquals("Why did you not sell the house?", questionElse.getQuestion());
+		assertEquals("Why did you not sell the house?", questionElse.getText());
+	}
+	
+	@Test
+	public void testLabel() {
+		// Test the equals and hashcode functionality of label
+		final Label labelA = new Label("identicaltag");
+		final Label labelB = new Label("identicaltag");
+		final Label labelC = new Label("uniquetag");
+		assertEquals(labelA, labelB);
+		assertEquals(labelA.hashCode(), labelB.hashCode());
+		assertFalse(labelA.equals(labelC));
+		assertFalse(labelA.hashCode() == labelC.hashCode());
+		assertFalse(new Label("").equals(labelA));
 	}
 }
