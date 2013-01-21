@@ -38,7 +38,6 @@ Note: don't be seduced by the provided example code and start copy-pasting gramm
 TODO
 ----
 - AST:
-    - Separate Type nodes (no enum)
     - Add Error type node
     - Separate IfThen and IfThenElse nodes
 - Visitors:
