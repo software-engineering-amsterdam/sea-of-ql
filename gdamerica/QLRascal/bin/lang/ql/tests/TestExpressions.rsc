@@ -1,16 +1,17 @@
-module lang::ql::tests::TestExpressions
-
 /**
- * This module define test functions for each Expr DataType   
+ * This module define test functions for each Expr variant   
  * @author  Gerson Delgado
  * @version 1.0, 20/01/2013
  */
  
-import lang::ql::util::Parse;
-import lang::ql::util::Implode;
-import lang::ql::ast::AST;
+module lang::ql::tests::TestExpressions
 
-private Expr p(str src) = implode(parse(src, |file:///-|));
+
+import lang::ql::ast::AST;
+import lang::ql::util::Parse;
+import ParseTree;
+
+private Expr p(str src) = implode(#Expr, parseExpression(src));
 
 public test bool testIdent1() = p("a") is ident;
 public test bool testIdent2() = p("abc") is ident;
@@ -121,10 +122,3 @@ public test bool testBoolOperator5() = p("a * b || c") is or;
 public test bool testBoolOperator6() = p("(a * b) || c") is or;
 public test bool testBoolOperator7() = p("(a || b)") is or;
 public test bool testBoolOperator8() = p("a || b") is or;
-
-
-
-
-
-
-
