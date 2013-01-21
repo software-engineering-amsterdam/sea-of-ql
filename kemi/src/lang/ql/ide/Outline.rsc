@@ -2,12 +2,8 @@ module lang::ql::ide::Outline
 
 import List;
 import Node;
-import ParseTree;
 import lang::ql::ast::AST;
 import lang::ql::compiler::PrettyPrinter;
-import lang::ql::ide::Outline;
-import lang::ql::util::Implode;
-import lang::ql::util::Parse;
 import util::IDE;
 
 public node outlineForm(Form form) =
@@ -15,8 +11,8 @@ public node outlineForm(Form form) =
   [@label="Form"]
   [@\loc=form@location];
 
-private node createNode(str name, str label, loc location, list[node] children)
-  = setAnnotations(makeNode(name, children), ("label": label, "loc": location));
+private node createNode(str name, str label, loc location, list[node] children) =
+  setAnnotations(makeNode(name, children), ("label": label, "loc": location));
 
 private node outlineBranch(str name, str label, loc location, list[Statement] items) =
   "<name>"([outline(i) | i <- items])

@@ -22,7 +22,7 @@ public class TestStatements extends TestCase {
 		String s6 = "if ( 10 ) { hasSoldHouse: \"Did you sell a house in 2010?\" boolean }";
 		String s7 = "if ( hasSoldHouse < 10 ) { hasSoldHouse: \"Did you sell a house < 10?\""
 				+ " money (hasSoldHouse * 120) } else { hasSoldHouse: \"Did you sell a house < 10?\""
-				+ " money (hasSoldHouse * 120) }";
+				+ " money (hasSoldHouse < 120) }";
 
 		assertEquals(parser.statement(s0).getClass(), LineStatement.class);
 		assertEquals(parser.statement(s1).getClass(), LineStatement.class);
@@ -37,5 +37,6 @@ public class TestStatements extends TestCase {
 				ConditionalStatement.class);
 		assertEquals(parser.statement(s7).getClass(),
 				ConditionalStatement.class);
+
 	}
 }

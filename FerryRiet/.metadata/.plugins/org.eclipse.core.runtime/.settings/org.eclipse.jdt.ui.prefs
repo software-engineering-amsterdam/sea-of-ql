@@ -1,7 +1,7 @@
 CustomFiltersActionGroup.org.eclipse.jdt.ui.PackageExplorer.TAG_DUMMY_TO_TEST_EXISTENCE=storedViewPreferences
 command=C\:\\Program Files\\Java\\jre7\\bin\\javadoc.exe
 content_assist_favorite_static_members=
-content_assist_lru_history=<?xml version\="1.0" encoding\="UTF-8" standalone\="no"?><history maxLHS\="100" maxRHS\="10"><lhs name\="org.uva.sea.ql.parser.test.IParse"><rhs name\="org.uva.sea.ql.parser.antlr.ANTLRParser"/></lhs><lhs name\="org.uva.sea.ql.astvisitor.ASTNodeVisitor"><rhs name\="org.uva.sea.ql.astvisitor.ASTNodePrintVisitor"/></lhs></history>
+content_assist_lru_history=<?xml version\="1.0" encoding\="UTF-8" standalone\="no"?><history maxLHS\="100" maxRHS\="10"><lhs name\="org.uva.sea.ql.parser.test.IParse"><rhs name\="org.uva.sea.ql.parser.antlr.ANTLRParser"/></lhs><lhs name\="org.uva.sea.ql.astvisitor.ASTNodeVisitor"><rhs name\="org.uva.sea.ql.astvisitor.ASTNodePrintVisitor"/></lhs><lhs name\="org.uva.sea.ql.astnodevisitor.VisitorResult"><rhs name\="org.uva.sea.ql.astnodevisitor.PrintVisitorResult"/></lhs><lhs name\="org.uva.sea.ql.astnodevisitor.PrintVisitorResult"><rhs name\="org.uva.sea.ql.astnodevisitor.PrintVisitorResult"/></lhs><lhs name\="org.uva.sea.ql.astnodevisitor.Visitor"><rhs name\="org.uva.sea.ql.astnodevisitor.PrintVisitor"/></lhs><lhs name\="org.uva.sea.ql.astnodevisitor.PrintVisitor"><rhs name\="org.uva.sea.ql.astnodevisitor.PrintVisitor"/></lhs><lhs name\="org.uva.sea.ql.ast.Expr"><rhs name\="org.uva.sea.ql.ast.IntLiteral"/><rhs name\="org.uva.sea.ql.ast.BooleanLiteral"/></lhs><lhs name\="org.uva.sea.ql.ast.ASTNode"><rhs name\="org.uva.sea.ql.ast.IntLiteral"/><rhs name\="org.uva.sea.ql.ast.BooleanLiteral"/></lhs><lhs name\="org.uva.sea.ql.ast.IntLiteral"><rhs name\="org.uva.sea.ql.ast.IntLiteral"/></lhs><lhs name\="org.uva.sea.ql.ast.BooleanLiteral"><rhs name\="org.uva.sea.ql.ast.BooleanLiteral"/></lhs></history>
 content_assist_number_of_computers=17
 content_assist_proposals_background=255,255,255
 content_assist_proposals_foreground=0,0,0
@@ -25,7 +25,7 @@ org.eclipse.jdt.ui.text.code_templates_migrated=true
 org.eclipse.jdt.ui.text.custom_code_templates=<?xml version\="1.0" encoding\="UTF-8" standalone\="no"?><templates/>
 org.eclipse.jdt.ui.text.custom_templates=<?xml version\="1.0" encoding\="UTF-8" standalone\="no"?><templates/>
 org.eclipse.jdt.ui.text.templates_migrated=true
-org.eclipse.jface.textfont=1|Consolas|10.0|0|WINDOWS|1|0|0|0|0|0|0|0|0|1|0|0|0|0|Consolas;
+org.eclipse.jface.textfont=1|Monaco|11.0|0|COCOA|1|;
 org.eclipse.pde.ui.ExternalPluginLibrariesFilter1=true
 proposalOrderMigrated=true
 sp_cleanup.add_default_serial_version_id=true
