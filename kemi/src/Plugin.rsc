@@ -1,11 +1,13 @@
 module Plugin
 
 import ParseTree;
+import IO;
 import util::IDE;
 
-import lang::ql::ast::AST;
-import lang::ql::ide::Outline;
 import lang::ql::analysis::SemanticChecker;
+import lang::ql::ast::AST;
+import lang::ql::compiler::PrettyPrinter;
+import lang::ql::ide::Outline;
 import lang::ql::syntax::QL;
 import lang::ql::util::Implode;
 import lang::ql::util::Parse;
@@ -34,6 +36,10 @@ private Stylesheet implodeStylesheet(Tree t) =
 private start[Stylesheet] parseStylesheet(str src, loc l) =
   lang::qls::util::Parse::parse(src, l);
 
+private void format(start[Form] f, loc l) {
+  writeFile(l, prettyPrint(implodeQL(f)));
+}
+
 private void setupQL() {
   registerLanguage(LANG_QL, EXT_QL, Tree(str src, loc l) {
     return parseQL(src, l);
@@ -46,7 +52,13 @@ private void setupQL() {
     
     annotator(Tree (Tree input) {
       return input[@messages=semanticChecker(implodeQL(input))];
-    })
+    }),
+    
+    popup(
+      menu("QL",[
+        action("Format (removes comments)", format)
+      ])
+    )
   };
   
   registerContributions(LANG_QL, contribs);
