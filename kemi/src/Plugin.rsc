@@ -13,6 +13,7 @@ import lang::ql::util::Implode;
 import lang::ql::util::Parse;
 
 import lang::qls::ast::AST;
+import lang::qls::compiler::PrettyPrinter;
 import lang::qls::ide::Outline;
 import lang::qls::syntax::QLS;
 import lang::qls::util::Implode;
@@ -30,15 +31,17 @@ private Form implodeQL(Tree t) =
 private start[Form] parseQL(str src, loc l) =
   lang::ql::util::Parse::parse(src, l);
 
-private Stylesheet implodeStylesheet(Tree t) =
+private void formatQL(start[Form] f, loc l) =
+  writeFile(l, lang::ql::compiler::PrettyPrinter::prettyPrint(implodeQL(f)));
+
+private Stylesheet implodeQLS(Tree t) =
   lang::qls::util::Implode::implode(t);
 
-private start[Stylesheet] parseStylesheet(str src, loc l) =
+private start[Stylesheet] parseQLS(str src, loc l) =
   lang::qls::util::Parse::parse(src, l);
 
-private void format(start[Form] f, loc l) {
-  writeFile(l, prettyPrint(implodeQL(f)));
-}
+private void formatQLS(start[Stylesheet] s, loc l) =
+  writeFile(l, lang::qls::compiler::PrettyPrinter::prettyPrint(implodeQLS(s)));
 
 private void setupQL() {
   registerLanguage(LANG_QL, EXT_QL, Tree(str src, loc l) {
@@ -56,7 +59,7 @@ private void setupQL() {
     
     popup(
       menu("QL",[
-        action("Format (removes comments)", format)
+        action("Format (removes comments)", formatQL)
       ])
     )
   };
@@ -66,13 +69,19 @@ private void setupQL() {
 
 private void setupQLS() {
   registerLanguage(LANG_QLS, EXT_QLS, Tree(str src, loc l) {
-    return parseStylesheet(src, l);
+    return parseQLS(src, l);
   });
   
   contribs = {
     outliner(node(Tree input) {
-      return outlineStylesheet(implodeStylesheet(input));
-    })
+      return outlineStylesheet(implodeQLS(input));
+    }),
+    
+    popup(
+      menu("QLS",[
+        action("Format (removes comments)", formatQLS)
+      ])
+    )
   };
   
   registerContributions(LANG_QLS, contribs);
