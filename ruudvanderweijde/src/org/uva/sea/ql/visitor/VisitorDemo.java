@@ -26,6 +26,6 @@ public class VisitorDemo {
 		
 		//form.accept(new PrintVisitor());
 		//System.out.println("----- Semantic check: ------");
-		form.accept(new SemanticVisitor());
+		form.accept(new SemanticChecker());
     }
 }
