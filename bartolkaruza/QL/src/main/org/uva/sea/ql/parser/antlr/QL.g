@@ -7,6 +7,7 @@ package org.uva.sea.ql.parser.antlr;
 import org.uva.sea.ql.ast.*;
 import org.uva.sea.ql.ast.expr.*;
 import org.uva.sea.ql.ast.expr.value.*;
+import org.uva.sea.ql.ast.expr.type.*;
 import org.uva.sea.ql.ast.expr.grouping.*;
 }
 
@@ -29,52 +30,52 @@ statement returns [Statement result]
     ;
 
 question returns [Question result]
-    : name=Ident':' label=STRING_VALUE qt=questionType {
-      $result = new Question($name.text, $label.text, $qt.result, $name.line); } 
-    | name=Ident':' '\"' label=Ident*    
+    : name=Ident':' label=STRING_VALUE qt=type 
+      { $result = new AnswerableQuestion($name.text, $label.text, $qt.result, $name.line ); }
+    | name=Ident':' label=STRING_VALUE ex=expr 
+      { $result = new ComputedQuestion($name.text, $label.text, $ex.result, $name.line ); }   
     ;
 
-questionType returns [Expr result]
-    : x=expr {$result = $x.result; }
-    | TYPE {
+type returns [Type result]
+    : TYPE {
       if ($TYPE.text.equals("boolean")) {
-        $result = new Bool();
+        $result = new BoolType();
       }
       if ($TYPE.text.equals("integer")) {
-        $result = new Int();
+        $result = new IntType();
       }
       if ($TYPE.text.equals("string")) {
-        $result = new TextString();
+        $result = new TextStringType();
       }
       if ($TYPE.text.equals("money")) {
-        $result = new Money();
+        $result = new MoneyType();
       }};
     
 
 primary returns [Expr result]
-	  : INT_VALUE   { $result = new Int($INT_VALUE.text); }
-	  | STRING_VALUE { $result = new TextString($STRING_VALUE.text.substring(1, $STRING_VALUE.text.length() - 1)); }
-	  | BOOLEAN_VALUE { $result = new Bool($BOOLEAN_VALUE.text); }
-	  | MONEY_VALUE { $result = new Money($MONEY_VALUE.text); }
-	  | Ident { $result = new Ident($Ident.text, $Ident.line); }
+	  : INT_VALUE   { $result = new Int($INT_VALUE.line, $INT_VALUE.text); }
+	  | STRING_VALUE { $result = new TextString($STRING_VALUE.line, $STRING_VALUE.text.substring(1, $STRING_VALUE.text.length() - 1)); }
+	  | BOOLEAN_VALUE { $result = new Bool($BOOLEAN_VALUE.line, $BOOLEAN_VALUE.text); }
+	  | MONEY_VALUE { $result = new Money($MONEY_VALUE.line, $MONEY_VALUE.text); }
+	  | Ident { $result = new Ident($Ident.line, $Ident.text); }
 	  | '(' x=orExpr ')'{ $result = $x.result; }
 	  ;
     
 unExpr returns [Expr result]
-    :  '+' x=unExpr { $result = new Pos($x.result); }
-    |  '-' x=unExpr { $result = new Neg($x.result); }
-    |  '!' x=unExpr { $result = new Not($x.result); }
+    :  op='+' x=unExpr { $result = new Pos($op.line, $x.result); }
+    |  op='-' x=unExpr { $result = new Neg($op.line, $x.result); }
+    |  op='!' x=unExpr { $result = new Not($op.line, $x.result); }
     |  x=primary    { $result = $x.result; }
     ;    
     
 mulExpr returns [Expr result]
-    :   lhs=unExpr { $result=$lhs.result; } ( op=( '*' | '/' ) rhs=unExpr 
+    :   lhs=unExpr { $result = $lhs.result; } ( op=( '*' | '/' ) rhs=unExpr 
     { 
       if ($op.text.equals("*")) {
-        $result = new Mul($result, rhs);
+        $result = new Mul($op.line, $result, rhs);
       }
       if ($op.text.equals("<=")) {
-        $result = new Div($result, rhs);      
+        $result = new Div($op.line, $result, rhs);      
       }
     })*
     ;
@@ -83,10 +84,10 @@ addExpr returns [Expr result]
     :   lhs=mulExpr { $result=$lhs.result; } ( op=('+' | '-') rhs=mulExpr
     { 
       if ($op.text.equals("+")) {
-        $result = new Add($result, rhs);
+        $result = new Add($op.line, $result, rhs);
       }
       if ($op.text.equals("-")) {
-        $result = new Sub($result, rhs);      
+        $result = new Sub($op.line, $result, rhs);      
       }
     })*
     ;
@@ -95,32 +96,32 @@ relExpr returns [Expr result]
     :   lhs=addExpr { $result=$lhs.result; } ( op=('<'|'<='|'>'|'>='|'=='|'!=') rhs=addExpr 
     { 
       if ($op.text.equals("<")) {
-        $result = new LT($result, rhs);
+        $result = new LT($op.line, $result, rhs);
       }
       if ($op.text.equals("<=")) {
-        $result = new LEq($result, rhs);      
+        $result = new LEq($op.line, $result, rhs);      
       }
       if ($op.text.equals(">")) {
-        $result = new GT($result, rhs);
+        $result = new GT($op.line, $result, rhs);
       }
       if ($op.text.equals(">=")) {
-        $result = new GEq($result, rhs);      
+        $result = new GEq($op.line, $result, rhs);      
       }
       if ($op.text.equals("==")) {
-        $result = new Eq($result, rhs);
+        $result = new Eq($op.line, $result, rhs);
       }
       if ($op.text.equals("!=")) {
-        $result = new NEq($result, rhs);
+        $result = new NEq($op.line, $result, rhs);
       }
     })*
     ;
     
 andExpr returns [Expr result]
-    :   lhs=relExpr { $result=$lhs.result; } ( '&&' rhs=relExpr { $result = new And($result, rhs); } )*
+    :   lhs=relExpr { $result = $lhs.result; } ( op='&&' rhs=relExpr { $result = new And($op.line, $result, rhs); } )*
     ;
 
 orExpr returns [Expr result]
-    :   lhs=andExpr { $result = $lhs.result; } ( '||' rhs=andExpr { $result = new Or($result, rhs); } )*
+    :   lhs=andExpr { $result = $lhs.result; } ( op='||' rhs=andExpr { $result = new Or($op.line, $result, rhs); } )*
     ;
     
 expr returns [Expr result]

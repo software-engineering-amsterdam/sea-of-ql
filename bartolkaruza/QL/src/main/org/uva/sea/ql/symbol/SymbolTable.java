@@ -4,15 +4,7 @@ import java.util.HashMap;
 
 public class SymbolTable {
 
-	private static SymbolTable instance;
 	private HashMap<String, Symbol> symbols = new HashMap<String, Symbol>();
-
-	public static SymbolTable getInstance() {
-		if (instance == null) {
-			instance = new SymbolTable();
-		}
-		return instance;
-	}
 
 	public void putSymbol(String string, Symbol expr) {
 		symbols.put(string, expr);

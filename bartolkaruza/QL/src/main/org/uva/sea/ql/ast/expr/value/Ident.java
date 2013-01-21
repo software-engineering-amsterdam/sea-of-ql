@@ -1,28 +1,17 @@
 package org.uva.sea.ql.ast.expr.value;
 
 import org.uva.sea.ql.ast.expr.grouping.ValueExpr;
-import org.uva.sea.ql.ast.expr.type.IntType;
 import org.uva.sea.ql.ast.expr.type.Type;
 import org.uva.sea.ql.symbol.SymbolTable;
 import org.uva.sea.ql.visitor.NodeVisitor;
 
-public class Int extends ValueExpr {
+public class Ident extends ValueExpr {
 
-	private final int value;
-	private Type type = new IntType();
+	private final String name;
 
-	public Int(int lineNumber) {
+	public Ident(int lineNumber, String name) {
 		super(lineNumber);
-		value = 0;
-	}
-
-	public Int(int lineNumber, String value) {
-		super(lineNumber);
-		this.value = Integer.parseInt(value);
-	}
-
-	public int getValue() {
-		return value;
+		this.name = name;
 	}
 
 	@Override
@@ -30,9 +19,13 @@ public class Int extends ValueExpr {
 		visitor.visit(this);
 	}
 
+	public String getName() {
+		return name;
+	}
+
 	@Override
 	public Type typeOf(SymbolTable symbolTable) {
-		return type;
+		return symbolTable.getSymbol(name).getVariable().typeOf(symbolTable);
 	}
 
 }

@@ -9,7 +9,6 @@ import org.uva.sea.ql.ast.expr.Div;
 import org.uva.sea.ql.ast.expr.Eq;
 import org.uva.sea.ql.ast.expr.GEq;
 import org.uva.sea.ql.ast.expr.GT;
-import org.uva.sea.ql.ast.expr.Ident;
 import org.uva.sea.ql.ast.expr.LEq;
 import org.uva.sea.ql.ast.expr.LT;
 import org.uva.sea.ql.ast.expr.Mul;
@@ -20,6 +19,7 @@ import org.uva.sea.ql.ast.expr.Or;
 import org.uva.sea.ql.ast.expr.Pos;
 import org.uva.sea.ql.ast.expr.Sub;
 import org.uva.sea.ql.ast.expr.value.Bool;
+import org.uva.sea.ql.ast.expr.value.Ident;
 import org.uva.sea.ql.ast.expr.value.Int;
 import org.uva.sea.ql.ast.expr.value.Money;
 import org.uva.sea.ql.ast.expr.value.TextString;
@@ -28,7 +28,15 @@ import org.uva.sea.ql.error.QLError;
 import org.uva.sea.ql.visitor.AbstractTreeWalker;
 
 public class SymbolGenerator extends AbstractTreeWalker {
+	
+	private SymbolTable table;
+	private ErrorHandler handler;
 
+	public SymbolGenerator(SymbolTable table, ErrorHandler handler) {
+		this.table = table;
+		this.handler = handler;
+	}
+	
 	@Override
 	public void visit(Ident node) {
 
@@ -40,10 +48,10 @@ public class SymbolGenerator extends AbstractTreeWalker {
 	}
 
 	protected void atQuestion(Question node) {
-		if (SymbolTable.getInstance().hasSymbol(node.getName())) {
-			ErrorHandler.getInstance().addError(new QLError("Duplicate entry with name: " + node.getName() + " at line: " + node.getLineNumber()));
+		if (table.hasSymbol(node.getName())) {
+			handler.addError(new QLError("Duplicate entry with name: " + node.getName() + " at line: " + node.getLineNumber()));
 		} else {
-			SymbolTable.getInstance().putSymbol(node.getName(), new Symbol(node, node.getExpression()));
+//			table.putSymbol(node.getName(), new Symbol(node, node.getExpression())); // TODO add logic for ComputedQuestion
 		}
 	};
 

@@ -1,10 +1,10 @@
 package org.uva.sea.ql.typeutil;
 
-import org.uva.sea.ql.ast.expr.Ident;
 import org.uva.sea.ql.ast.expr.grouping.BooleanExpr;
 import org.uva.sea.ql.ast.expr.grouping.EqualityExpr;
 import org.uva.sea.ql.ast.expr.grouping.Expr;
 import org.uva.sea.ql.ast.expr.value.Bool;
+import org.uva.sea.ql.ast.expr.value.Ident;
 import org.uva.sea.ql.symbol.SymbolTable;
 
 public class BooleanUtility {

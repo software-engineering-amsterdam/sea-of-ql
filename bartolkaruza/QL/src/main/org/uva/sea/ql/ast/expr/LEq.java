@@ -1,18 +1,28 @@
 package org.uva.sea.ql.ast.expr;
 
+import org.uva.sea.ql.ast.expr.grouping.BinaryExpr;
 import org.uva.sea.ql.ast.expr.grouping.Expr;
-import org.uva.sea.ql.ast.expr.grouping.EqualityExpr;
+import org.uva.sea.ql.ast.expr.type.NumericType;
+import org.uva.sea.ql.ast.expr.type.Type;
+import org.uva.sea.ql.symbol.SymbolTable;
 import org.uva.sea.ql.visitor.NodeVisitor;
 
-public class LEq extends EqualityExpr {
+public class LEq extends BinaryExpr {
 
-	public LEq(Expr lhs, Expr rhs) {
-		super(lhs, rhs);
+	private Type type = new NumericType();
+	
+	public LEq(int lineNumber, Expr lhs, Expr rhs) {
+		super(lineNumber, lhs, rhs);
 	}
 
 	@Override
 	public void accept(NodeVisitor visitor) {
 		visitor.visit(this);
+	}
+	
+	@Override
+	public Type typeOf(SymbolTable symbolTable) {
+		return type;
 	}
 
 }

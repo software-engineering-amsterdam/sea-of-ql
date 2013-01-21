@@ -7,8 +7,8 @@ import java.util.Map.Entry;
 
 import org.uva.sea.ql.ast.ConditionalStatement;
 import org.uva.sea.ql.ast.Statement;
-import org.uva.sea.ql.ast.expr.Ident;
 import org.uva.sea.ql.ast.expr.grouping.Expr;
+import org.uva.sea.ql.ast.expr.value.Ident;
 import org.uva.sea.ql.error.ErrorHandler;
 import org.uva.sea.ql.error.QLError;
 import org.uva.sea.ql.symbol.Symbol;
@@ -62,7 +62,7 @@ public class DependencyChecker {
 		List<Ident> dependencies = new ArrayList<Ident>();
 		VariableSeeker seeker = new VariableSeeker(dependencies);
 		for(Statement statement: node.getDependantOn()) {
-			if(statement instanceof ConditionalStatement) {
+			if(statement instanceof ConditionalStatement) { // TODO attempt clean-up, pass expressions
 				Expr expr = ((ConditionalStatement)statement).getExpression();
 				expr.accept(seeker);
 			}

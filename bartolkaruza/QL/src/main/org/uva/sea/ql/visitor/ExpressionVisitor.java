@@ -1,8 +1,5 @@
 package org.uva.sea.ql.visitor;
 
-import org.uva.sea.ql.ast.ConditionalStatement;
-import org.uva.sea.ql.ast.Form;
-import org.uva.sea.ql.ast.Question;
 import org.uva.sea.ql.ast.expr.Add;
 import org.uva.sea.ql.ast.expr.And;
 import org.uva.sea.ql.ast.expr.Div;
@@ -24,16 +21,10 @@ import org.uva.sea.ql.ast.expr.value.Int;
 import org.uva.sea.ql.ast.expr.value.Money;
 import org.uva.sea.ql.ast.expr.value.TextString;
 
-public interface NodeVisitor { // Expr visitor Statement visitor
-
-	public void visit(Form node);
-
-	public void visit(ConditionalStatement node);
-
+public interface ExpressionVisitor {
+	
 	public void visit(Ident node);
-
-	public void visit(Question node);
-
+	
 	public void visit(Add node);
 
 	public void visit(And node);

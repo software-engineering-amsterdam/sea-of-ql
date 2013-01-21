@@ -1,8 +1,8 @@
 package org.uva.sea.ql.typeutil;
 
-import org.uva.sea.ql.ast.expr.Ident;
 import org.uva.sea.ql.ast.expr.grouping.ArithmeticExpr;
 import org.uva.sea.ql.ast.expr.grouping.Expr;
+import org.uva.sea.ql.ast.expr.value.Ident;
 import org.uva.sea.ql.ast.expr.value.Int;
 import org.uva.sea.ql.ast.expr.value.Money;
 import org.uva.sea.ql.symbol.SymbolTable;

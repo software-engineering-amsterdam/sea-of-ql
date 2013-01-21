@@ -17,12 +17,12 @@ public class TestNodes {
 
 	@Test
 	public void testBaseForm() throws ParseError {
-		assertEquals(parser.parseNode("form somename {}").getClass(), Form.class);
+		assertEquals(Form.class, parser.parseNode("form somename {}").getClass());
 	}
 
 	@Test
 	public void testComplexForm() throws ParseError {
-		assertEquals(parser.parseNode("form somelabel { if(1+1) { question1: \" some text label\" boolean} }").getClass(), Form.class);
+		assertEquals(Form.class, parser.parseNode("form somelabel { if(1+1) { question1: \" some text label\" boolean} }").getClass());
 	}
 
 	@Test

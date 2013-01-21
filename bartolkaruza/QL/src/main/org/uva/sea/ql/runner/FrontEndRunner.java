@@ -25,6 +25,7 @@ public class FrontEndRunner {
 				ErrorHandler.getInstance().addError(new QLError(e.getMessage()));
 			}
 			if(form != null) {
+				ErrorHandler handler = new ErrorHandler(); // TODO pass errorhandler and symbol table as dependency
 				form.accept(new SymbolGenerator());
 				form.accept(new TypeChecker());
 				form.accept(new DereferenceChecker());

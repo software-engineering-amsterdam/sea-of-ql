@@ -1,28 +1,15 @@
 package org.uva.sea.ql.ast.expr.grouping;
 
 import org.uva.sea.ql.ast.ASTNode;
+import org.uva.sea.ql.ast.expr.type.Type;
+import org.uva.sea.ql.symbol.SymbolTable;
 
 public abstract class Expr implements ASTNode {
 
-	protected Expr lhs;
-	protected Expr rhs;
 	private int lineNumber;
-
-	public Expr() {
-
-	}
-
-	public Expr(Expr lhs, Expr rhs) {
-		this.lhs = lhs;
-		this.rhs = rhs;
-	}
-
-	public Expr getLhs() {
-		return lhs;
-	}
-
-	public Expr getRhs() {
-		return rhs;
+	
+	protected Expr(int lineNumber) {
+		this.lineNumber = lineNumber;
 	}
 
 	public int getLineNumber() {
@@ -32,5 +19,6 @@ public abstract class Expr implements ASTNode {
 	public void setLineNumber(int lineNumber) {
 		this.lineNumber = lineNumber;
 	}
-
+	
+	public abstract Type typeOf(SymbolTable symbolTable);
 }

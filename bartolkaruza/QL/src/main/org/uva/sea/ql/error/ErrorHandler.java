@@ -5,15 +5,7 @@ import java.util.List;
 
 public class ErrorHandler {
 
-	private static ErrorHandler instance;
 	private List<QLError> errors = new ArrayList<QLError>();
-
-	public static ErrorHandler getInstance() {
-		if (instance == null) {
-			instance = new ErrorHandler();
-		}
-		return instance;
-	}
 
 	public void addError(QLError error) {
 		errors.add(error);
@@ -23,8 +15,8 @@ public class ErrorHandler {
 		return errors;
 	}
 
-	public static void printErrors() {
-		for (QLError error : getInstance().errors) {
+	public void printErrors() {
+		for (QLError error : errors) {
 			System.out.println("E: " + error.getCause());
 		}
 	}
@@ -33,9 +25,9 @@ public class ErrorHandler {
 		return errors.size() > 0;
 	}
 
-	public static void reportOperationTypeError(String operation) {
+	public void reportOperationTypeError(String operation) {
 		QLError error = new QLError("Invalid type for operation: " + operation);
-		getInstance().addError(error);
+		errors.add(error);
 	}
 
 }
