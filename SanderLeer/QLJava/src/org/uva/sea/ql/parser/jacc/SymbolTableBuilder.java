@@ -1,6 +1,7 @@
 package org.uva.sea.ql.parser.jacc;
 
 import org.uva.sea.ql.ast.*;
+import org.uva.sea.ql.parser.ParseException;
 
 public class SymbolTableBuilder {
 	private final ASTNode astRoot;

@@ -11,4 +11,3 @@ write test cases for type checker
 ADD COMMENTS!!
 
 move 'ParseException.java' and 'Parser.java' to package 'org.uva.sea.ql.parser'
-make helper classes (such as 'QLLexer') package private; eg. don't add any acces specifier private, protected or public

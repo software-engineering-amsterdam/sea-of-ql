@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static com.googlecode.catchexception.CatchException.*;
 import org.junit.Test;
 import org.uva.sea.ql.ast.*;
+import org.uva.sea.ql.parser.*;
 import org.uva.sea.ql.parser.jacc.*;
 
 public class TestExpressions {

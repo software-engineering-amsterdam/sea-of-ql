@@ -2,6 +2,8 @@ package org.uva.sea.ql.parser.jacc;
 
 import java.io.StringReader;
 import org.uva.sea.ql.ast.ASTNode;
+import org.uva.sea.ql.parser.ParseException;
+import org.uva.sea.ql.parser.Parser;
 import org.uva.sea.ql.utils.ASTPrinter;
 
 public class JACCParser implements Parser {
