@@ -1,8 +1,5 @@
 package org.uva.sea.ql.parser.visitor.typechecking;
 
-import static junit.framework.Assert.assertEquals;
-import static junit.framework.Assert.assertTrue;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.uva.sea.ql.ast.nodetypes.binary.BinaryOperation;
@@ -13,6 +10,9 @@ import org.uva.sea.ql.ast.nodetypes.primary.Bool;
 import org.uva.sea.ql.ast.nodetypes.primary.Datatype;
 import org.uva.sea.ql.ast.nodetypes.primary.Int;
 import org.uva.sea.ql.ast.nodetypes.primary.Str;
+
+import static junit.framework.Assert.assertEquals;
+import static junit.framework.Assert.assertTrue;
 
 public class BinaryOperationTypeCheckingVisitorTest {
 

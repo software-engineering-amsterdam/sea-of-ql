@@ -1,7 +1,6 @@
 package org.uva.sea.ql.parser;
 
 import junit.framework.Assert;
-
 import org.junit.Before;
 import org.uva.sea.ql.ast.QLExpression;
 import org.uva.sea.ql.ast.QLStatement;

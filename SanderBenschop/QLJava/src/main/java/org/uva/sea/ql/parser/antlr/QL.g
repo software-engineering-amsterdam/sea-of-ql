@@ -26,7 +26,7 @@ package org.uva.sea.ql.parser.antlr;
 form returns [Form result]
   : FORM Ident BRACE_OPEN statementList BRACE_CLOSE
 	  {
-	    $result = new Form(new Ident($Ident.text), $statementList.result);
+	    $result = new Form($Ident.text, $statementList.result);
 	  }
   ;
     

@@ -1,19 +1,23 @@
-// $ANTLR 3.5 /home/sander/Documents/workspace/freshSeaOfQL/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g 2013-01-21 14:20:35
+// $ANTLR 3.5 /home/sander/Documents/workspace/freshSeaOfQL/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g 2013-01-21 15:03:12
 
 package org.uva.sea.ql.parser.antlr;
-import org.uva.sea.ql.ast.*;
-import org.uva.sea.ql.ast.nodetypes.primary.*;
-import org.uva.sea.ql.ast.nodetypes.unary.*;
-import org.uva.sea.ql.ast.nodetypes.binary.*;
-import org.uva.sea.ql.ast.nodetypes.formelement.*;
-
 
 import org.antlr.runtime.*;
-import java.util.Stack;
-import java.util.List;
+import org.uva.sea.ql.ast.ASTNode;
+import org.uva.sea.ql.ast.QLStatement;
+import org.uva.sea.ql.ast.nodetypes.binary.*;
+import org.uva.sea.ql.ast.nodetypes.formelement.Computation;
+import org.uva.sea.ql.ast.nodetypes.formelement.Conditional;
+import org.uva.sea.ql.ast.nodetypes.formelement.Form;
+import org.uva.sea.ql.ast.nodetypes.formelement.Question;
+import org.uva.sea.ql.ast.nodetypes.primary.*;
+import org.uva.sea.ql.ast.nodetypes.unary.Negative;
+import org.uva.sea.ql.ast.nodetypes.unary.Not;
+import org.uva.sea.ql.ast.nodetypes.unary.Positive;
+
 import java.util.ArrayList;
-import java.util.Map;
 import java.util.HashMap;
+import java.util.List;
 
 @SuppressWarnings("all")
 public class QLParser extends Parser {
@@ -110,7 +114,7 @@ public class QLParser extends Parser {
 			if (state.failed) return result;
 			match(input,BRACE_CLOSE,FOLLOW_BRACE_CLOSE_in_form64); if (state.failed) return result;
 			if ( state.backtracking==0 ) {
-				    result = new Form(new Ident((Ident1!=null?Ident1.getText():null)), statementList2);
+				    result = new Form((Ident1!=null?Ident1.getText():null), statementList2);
 				  }
 			}
 
