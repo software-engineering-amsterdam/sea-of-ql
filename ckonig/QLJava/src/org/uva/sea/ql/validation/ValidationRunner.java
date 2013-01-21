@@ -6,13 +6,12 @@ import org.uva.sea.ql.parser.ParseError;
 import org.uva.sea.ql.parser.antlr.ANTLRParser;
 
 public class ValidationRunner {
-	private static final String defaultSrc = "C:\\Users\\don\\workspace\\sea-of-ql-repo\\ckonig\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\example.ql";
-
+	
 	public static void main(String args[]) throws Exception {
 		Validator v = new Validator();
 		try {
 			IParse parser = new ANTLRParser();
-			Expr e = parser.parseFile(defaultSrc);
+			Expr e = parser.parseDefaultFile();
 			v.validate(e);
 		} catch (ParseError ex) {
 			ex.printStackTrace();
