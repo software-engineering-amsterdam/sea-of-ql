@@ -5,7 +5,7 @@ import org.uva.sea.ql.ast.type.Int;
 import org.uva.sea.ql.ast.type.Money;
 import org.uva.sea.ql.ast.type.String;
 
-public interface AnswerTypeVisitor<T> {
+public interface Type<T> {
 
 	public T visit(Bool bool);
 

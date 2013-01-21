@@ -19,18 +19,17 @@ import org.uva.sea.ql.ast.expr.binary.Sub;
 import org.uva.sea.ql.ast.expr.unary.Neg;
 import org.uva.sea.ql.ast.expr.unary.Not;
 import org.uva.sea.ql.ast.expr.unary.Pos;
-import org.uva.sea.ql.visitor.ExpressionVisitor;
 
-public class PrintExpressionVisitor implements ExpressionVisitor<Boolean> {
+public class Expression implements
+		org.uva.sea.ql.visitor.Expression<Boolean> {
 
 	@Override
 	public Boolean visit(Add add) {
 		System.out.println("Visiting Add Expression");
 
 		// Visit items
-		ExpressionVisitor<Boolean> expressionVisitor = new PrintExpressionVisitor();
-		add.getLeftHandSideExpression().accept(expressionVisitor);
-		add.getRightHandSideExpression().accept(expressionVisitor);
+		add.getLeftHandSideExpression().accept(this);
+		add.getRightHandSideExpression().accept(this);
 
 		System.out.println("Ended visiting Add Expression");
 		System.out.println();
@@ -43,9 +42,8 @@ public class PrintExpressionVisitor implements ExpressionVisitor<Boolean> {
 		System.out.println("Visiting And Expression");
 
 		// Visit items
-		ExpressionVisitor<Boolean> expressionVisitor = new PrintExpressionVisitor();
-		and.getLeftHandSideExpression().accept(expressionVisitor);
-		and.getRightHandSideExpression().accept(expressionVisitor);
+		and.getLeftHandSideExpression().accept(this);
+		and.getRightHandSideExpression().accept(this);
 
 		System.out.println("Ended visiting And Expression");
 		System.out.println();
@@ -58,9 +56,8 @@ public class PrintExpressionVisitor implements ExpressionVisitor<Boolean> {
 		System.out.println("Visiting Div Expression");
 
 		// Visit items
-		ExpressionVisitor<Boolean> expressionVisitor = new PrintExpressionVisitor();
-		div.getLeftHandSideExpression().accept(expressionVisitor);
-		div.getRightHandSideExpression().accept(expressionVisitor);
+		div.getLeftHandSideExpression().accept(this);
+		div.getRightHandSideExpression().accept(this);
 
 		System.out.println("Ended visiting Div Expression");
 		System.out.println();
@@ -73,9 +70,8 @@ public class PrintExpressionVisitor implements ExpressionVisitor<Boolean> {
 		System.out.println("Visiting Eq Expression");
 
 		// Visit items
-		ExpressionVisitor<Boolean> expressionVisitor = new PrintExpressionVisitor();
-		eq.getLeftHandSideExpression().accept(expressionVisitor);
-		eq.getRightHandSideExpression().accept(expressionVisitor);
+		eq.getLeftHandSideExpression().accept(this);
+		eq.getRightHandSideExpression().accept(this);
 
 		System.out.println("Ended visiting Eq Expression");
 		System.out.println();
@@ -88,9 +84,8 @@ public class PrintExpressionVisitor implements ExpressionVisitor<Boolean> {
 		System.out.println("Visiting GEq Expression");
 
 		// Visit items
-		ExpressionVisitor<Boolean> expressionVisitor = new PrintExpressionVisitor();
-		geq.getLeftHandSideExpression().accept(expressionVisitor);
-		geq.getRightHandSideExpression().accept(expressionVisitor);
+		geq.getLeftHandSideExpression().accept(this);
+		geq.getRightHandSideExpression().accept(this);
 
 		System.out.println("Ended visiting GEq Expression");
 		System.out.println();
@@ -103,9 +98,8 @@ public class PrintExpressionVisitor implements ExpressionVisitor<Boolean> {
 		System.out.println("Visiting GT Expression");
 
 		// Visit items
-		ExpressionVisitor<Boolean> expressionVisitor = new PrintExpressionVisitor();
-		gt.getLeftHandSideExpression().accept(expressionVisitor);
-		gt.getRightHandSideExpression().accept(expressionVisitor);
+		gt.getLeftHandSideExpression().accept(this);
+		gt.getRightHandSideExpression().accept(this);
 
 		System.out.println("Ended visiting GT Expression");
 		System.out.println();
@@ -118,9 +112,8 @@ public class PrintExpressionVisitor implements ExpressionVisitor<Boolean> {
 		System.out.println("Visiting LEq Expression");
 
 		// Visit items
-		ExpressionVisitor<Boolean> expressionVisitor = new PrintExpressionVisitor();
-		leq.getLeftHandSideExpression().accept(expressionVisitor);
-		leq.getRightHandSideExpression().accept(expressionVisitor);
+		leq.getLeftHandSideExpression().accept(this);
+		leq.getRightHandSideExpression().accept(this);
 
 		System.out.println("Ended visiting LEq Expression");
 		System.out.println();
@@ -133,9 +126,8 @@ public class PrintExpressionVisitor implements ExpressionVisitor<Boolean> {
 		System.out.println("Visiting LT Expression");
 
 		// Visit items
-		ExpressionVisitor<Boolean> expressionVisitor = new PrintExpressionVisitor();
-		lt.getLeftHandSideExpression().accept(expressionVisitor);
-		lt.getRightHandSideExpression().accept(expressionVisitor);
+		lt.getLeftHandSideExpression().accept(this);
+		lt.getRightHandSideExpression().accept(this);
 
 		System.out.println("Ended visiting LT Expression");
 		System.out.println();
@@ -148,9 +140,8 @@ public class PrintExpressionVisitor implements ExpressionVisitor<Boolean> {
 		System.out.println("Visiting Mul Expression");
 
 		// Visit items
-		ExpressionVisitor<Boolean> expressionVisitor = new PrintExpressionVisitor();
-		mul.getLeftHandSideExpression().accept(expressionVisitor);
-		mul.getRightHandSideExpression().accept(expressionVisitor);
+		mul.getLeftHandSideExpression().accept(this);
+		mul.getRightHandSideExpression().accept(this);
 
 		System.out.println("Ended visiting Mul Expression");
 		System.out.println();
@@ -163,8 +154,7 @@ public class PrintExpressionVisitor implements ExpressionVisitor<Boolean> {
 		System.out.println("Visiting Neg Expression");
 
 		// Visit items
-		ExpressionVisitor<Boolean> expressionVisitor = new PrintExpressionVisitor();
-		neg.getExpression().accept(expressionVisitor);
+		neg.getExpression().accept(this);
 
 		System.out.println("Ended visiting Neg Expression");
 		System.out.println();
@@ -177,9 +167,8 @@ public class PrintExpressionVisitor implements ExpressionVisitor<Boolean> {
 		System.out.println("Visiting NEq Expression");
 
 		// Visit items
-		ExpressionVisitor<Boolean> expressionVisitor = new PrintExpressionVisitor();
-		neq.getLeftHandSideExpression().accept(expressionVisitor);
-		neq.getRightHandSideExpression().accept(expressionVisitor);
+		neq.getLeftHandSideExpression().accept(this);
+		neq.getRightHandSideExpression().accept(this);
 
 		System.out.println("Ended visiting NEq Expression");
 		System.out.println();
@@ -192,8 +181,7 @@ public class PrintExpressionVisitor implements ExpressionVisitor<Boolean> {
 		System.out.println("Visiting Not Expression");
 
 		// Visit items
-		ExpressionVisitor<Boolean> expressionVisitor = new PrintExpressionVisitor();
-		not.getExpression().accept(expressionVisitor);
+		not.getExpression().accept(this);
 
 		System.out.println("Ended visiting Not Expression");
 		System.out.println();
@@ -206,9 +194,8 @@ public class PrintExpressionVisitor implements ExpressionVisitor<Boolean> {
 		System.out.println("Visiting Or Expression");
 
 		// Visit items
-		ExpressionVisitor<Boolean> expressionVisitor = new PrintExpressionVisitor();
-		or.getLeftHandSideExpression().accept(expressionVisitor);
-		or.getRightHandSideExpression().accept(expressionVisitor);
+		or.getLeftHandSideExpression().accept(this);
+		or.getRightHandSideExpression().accept(this);
 
 		System.out.println("Ended visiting Or Expression");
 		System.out.println();
@@ -221,8 +208,7 @@ public class PrintExpressionVisitor implements ExpressionVisitor<Boolean> {
 		System.out.println("Visiting Pos Expression");
 
 		// Visit items
-		ExpressionVisitor<Boolean> expressionVisitor = new PrintExpressionVisitor();
-		pos.getExpression().accept(expressionVisitor);
+		pos.getExpression().accept(this);
 
 		System.out.println("Ended visiting Pos Expression");
 		System.out.println();
@@ -235,9 +221,8 @@ public class PrintExpressionVisitor implements ExpressionVisitor<Boolean> {
 		System.out.println("Visiting Sub Expression");
 
 		// Visit items
-		ExpressionVisitor<Boolean> expressionVisitor = new PrintExpressionVisitor();
-		sub.getLeftHandSideExpression().accept(expressionVisitor);
-		sub.getRightHandSideExpression().accept(expressionVisitor);
+		sub.getLeftHandSideExpression().accept(this);
+		sub.getRightHandSideExpression().accept(this);
 
 		System.out.println("Ended visiting Sub Expression");
 		System.out.println();

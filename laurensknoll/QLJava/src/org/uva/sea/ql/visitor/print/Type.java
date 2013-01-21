@@ -4,9 +4,8 @@ import org.uva.sea.ql.ast.type.Bool;
 import org.uva.sea.ql.ast.type.Int;
 import org.uva.sea.ql.ast.type.Money;
 import org.uva.sea.ql.ast.type.String;
-import org.uva.sea.ql.visitor.AnswerTypeVisitor;
 
-public class PrintAnswerTypeVisitor implements AnswerTypeVisitor<Boolean> {
+public class Type implements org.uva.sea.ql.visitor.Type<Boolean> {
 
 	@Override
 	public Boolean visit(Bool bool) {

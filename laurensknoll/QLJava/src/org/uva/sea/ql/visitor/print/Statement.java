@@ -5,11 +5,8 @@ import org.uva.sea.ql.ast.statement.Block;
 import org.uva.sea.ql.ast.statement.ComputedQuestion;
 import org.uva.sea.ql.ast.statement.If;
 import org.uva.sea.ql.ast.statement.Question;
-import org.uva.sea.ql.visitor.AnswerTypeVisitor;
-import org.uva.sea.ql.visitor.ExpressionVisitor;
-import org.uva.sea.ql.visitor.StatementVisitor;
 
-public class PrintStatementVisitor implements StatementVisitor<Boolean> {
+public class Statement implements org.uva.sea.ql.visitor.Statement<Boolean> {
 
 	@Override
 	public Boolean visit(Block block) {
@@ -33,7 +30,7 @@ public class PrintStatementVisitor implements StatementVisitor<Boolean> {
 		// Visit items
 		computedQuestion.getQuestion().accept(this);
 
-		ExpressionVisitor<Boolean> expressionVisitor = new PrintExpressionVisitor();
+		Expression expressionVisitor = new Expression();
 		computedQuestion.getComputeExpression().accept(expressionVisitor);
 
 		System.out.println("Ended visiting ComputedQuestion Statement");
@@ -47,7 +44,7 @@ public class PrintStatementVisitor implements StatementVisitor<Boolean> {
 		System.out.println("Visiting If Statement");
 
 		// Visit items
-		ExpressionVisitor<Boolean> expressionVisitor = new PrintExpressionVisitor();
+		Expression expressionVisitor = new Expression();
 		ifStatement.getCondition().accept(expressionVisitor);
 
 		ifStatement.getTruePath().accept(this);
@@ -63,12 +60,12 @@ public class PrintStatementVisitor implements StatementVisitor<Boolean> {
 		System.out.println("Visiting Question Statement");
 
 		// Visit items
-		ExpressionVisitor<Boolean> expressionVisitor = new PrintExpressionVisitor();
+		Expression expressionVisitor = new Expression();
 		question.getIdent().accept(expressionVisitor);
 		question.getQuestion().accept(expressionVisitor);
 
-		AnswerTypeVisitor<Boolean> answerTypeVisitor = new PrintAnswerTypeVisitor();
-		question.getType().accept(answerTypeVisitor);
+		Type typeVisitor = new Type();
+		question.getType().accept(typeVisitor);
 
 		System.out.println("Ended visiting Question Statement");
 		System.out.println();

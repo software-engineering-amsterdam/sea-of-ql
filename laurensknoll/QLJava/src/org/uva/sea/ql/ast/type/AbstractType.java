@@ -1,10 +1,10 @@
 package org.uva.sea.ql.ast.type;
 
 import org.uva.sea.ql.ast.ASTNode;
-import org.uva.sea.ql.visitor.AnswerTypeVisitor;
+import org.uva.sea.ql.visitor.Type;
 
 public abstract class AbstractType implements ASTNode {
 
-	public abstract void accept(AnswerTypeVisitor<?> visitor);
+	public abstract void accept(Type<?> visitor);
 
 }

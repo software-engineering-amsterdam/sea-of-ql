@@ -8,7 +8,7 @@ import java.io.InputStreamReader;
 import org.uva.sea.ql.ast.form.Question;
 import org.uva.sea.ql.parser.antlr.FormParser;
 import org.uva.sea.ql.parser.test.ParseError;
-import org.uva.sea.ql.visitor.print.PrintFormVisitor;
+import org.uva.sea.ql.visitor.print.Form;
 
 public class Program {
 
@@ -25,7 +25,7 @@ public class Program {
 			e.printStackTrace();
 		}
 
-		PrintFormVisitor printFormVisitor = new PrintFormVisitor();
+		Form printFormVisitor = new Form();
 		questionForm.accept(printFormVisitor);
 	}
 

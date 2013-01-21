@@ -21,7 +21,7 @@ import org.uva.sea.ql.ast.expr.unary.Neg;
 import org.uva.sea.ql.ast.expr.unary.Not;
 import org.uva.sea.ql.ast.expr.unary.Pos;
 
-public interface ExpressionVisitor<T> {
+public interface Expression<T> {
 
 	/*
 	 * Binary Expressions

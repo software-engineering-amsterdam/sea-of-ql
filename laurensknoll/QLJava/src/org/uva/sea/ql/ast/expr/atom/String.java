@@ -1,6 +1,6 @@
 package org.uva.sea.ql.ast.expr.atom;
 
-import org.uva.sea.ql.visitor.ExpressionVisitor;
+import org.uva.sea.ql.visitor.Expression;
 
 public class String extends AbstractAtom {
 
@@ -15,7 +15,7 @@ public class String extends AbstractAtom {
 	}
 
 	@Override
-	public void accept(ExpressionVisitor<?> visitor) {
+	public void accept(Expression<?> visitor) {
 		visitor.visit(this);
 	}
 

@@ -1,7 +1,7 @@
 package org.uva.sea.ql.ast.expr.binary;
 
 import org.uva.sea.ql.ast.expr.AbstractExpr;
-import org.uva.sea.ql.visitor.ExpressionVisitor;
+import org.uva.sea.ql.visitor.Expression;
 
 public class GT extends AbstractBinary {
 
@@ -10,7 +10,7 @@ public class GT extends AbstractBinary {
 	}
 
 	@Override
-	public void accept(ExpressionVisitor<?> visitor) {
+	public void accept(Expression<?> visitor) {
 		visitor.visit(this);
 	}
 

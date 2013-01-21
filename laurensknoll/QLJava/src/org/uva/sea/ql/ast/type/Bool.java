@@ -1,6 +1,6 @@
 package org.uva.sea.ql.ast.type;
 
-import org.uva.sea.ql.visitor.AnswerTypeVisitor;
+import org.uva.sea.ql.visitor.Type;
 
 public class Bool extends AbstractType {
 
@@ -9,7 +9,7 @@ public class Bool extends AbstractType {
 	}
 
 	@Override
-	public void accept(AnswerTypeVisitor<?> visitor) {
+	public void accept(Type<?> visitor) {
 		visitor.visit(this);
 	}
 

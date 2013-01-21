@@ -1,21 +1,18 @@
 package org.uva.sea.ql.visitor.print;
 
 import org.uva.sea.ql.ast.form.Question;
-import org.uva.sea.ql.visitor.ExpressionVisitor;
-import org.uva.sea.ql.visitor.FormVisitor;
-import org.uva.sea.ql.visitor.StatementVisitor;
 
-public class PrintFormVisitor implements FormVisitor<Boolean> {
+public class Form implements org.uva.sea.ql.visitor.Form<Boolean> {
 
 	@Override
 	public Boolean visit(Question questionForm) {
 		System.out.println("Visiting QuestionForm");
 
 		// Visit items of question form
-		ExpressionVisitor<Boolean> expressionVisitor = new PrintExpressionVisitor();
+		Expression expressionVisitor = new Expression();
 		questionForm.getIdent().accept(expressionVisitor);
 
-		StatementVisitor<Boolean> statementVisitor = new PrintStatementVisitor();
+		Statement statementVisitor = new Statement();
 		questionForm.getStatements().accept(statementVisitor);
 
 		System.out.println("Ended visiting QuestionForm");

@@ -1,7 +1,7 @@
 package org.uva.sea.ql.ast.statement;
 
 import org.uva.sea.ql.ast.expr.AbstractExpr;
-import org.uva.sea.ql.visitor.StatementVisitor;
+import org.uva.sea.ql.visitor.Statement;
 
 public class If extends AbstractStatement {
 
@@ -22,7 +22,7 @@ public class If extends AbstractStatement {
 	}
 
 	@Override
-	public void accept(StatementVisitor<?> visitor) {
+	public void accept(Statement<?> visitor) {
 		visitor.visit(this);
 	}
 

@@ -2,7 +2,7 @@ package org.uva.sea.ql.ast.statement;
 
 import java.util.List;
 
-import org.uva.sea.ql.visitor.StatementVisitor;
+import org.uva.sea.ql.visitor.Statement;
 
 public class Block extends AbstractStatement {
 
@@ -17,7 +17,7 @@ public class Block extends AbstractStatement {
 	}
 
 	@Override
-	public void accept(StatementVisitor<?> visitor) {
+	public void accept(Statement<?> visitor) {
 		visitor.visit(this);
 	}
 

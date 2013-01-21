@@ -5,7 +5,7 @@ import org.uva.sea.ql.ast.statement.ComputedQuestion;
 import org.uva.sea.ql.ast.statement.If;
 import org.uva.sea.ql.ast.statement.Question;
 
-public interface StatementVisitor<T> {
+public interface Statement<T> {
 
 	public T visit(Block block);
 
