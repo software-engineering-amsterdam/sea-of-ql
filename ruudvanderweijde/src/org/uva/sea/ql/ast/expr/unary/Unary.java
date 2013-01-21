@@ -3,7 +3,7 @@ package org.uva.sea.ql.ast.expr.unary;
 import org.uva.sea.ql.ast.expr.Expr;
 import org.uva.sea.ql.visitor.Visitor;
 
-public class Unary extends Expr {
+public abstract class Unary extends Expr {
 
 	private final Expr arg;
 	
