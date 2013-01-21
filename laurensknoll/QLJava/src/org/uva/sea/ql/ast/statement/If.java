@@ -3,12 +3,12 @@ package org.uva.sea.ql.ast.statement;
 import org.uva.sea.ql.ast.expr.AbstractExpr;
 import org.uva.sea.ql.visitor.StatementVisitor;
 
-public class IfStatement extends AbstractStatement {
+public class If extends AbstractStatement {
 
 	private final AbstractExpr condition;
 	private final AbstractStatement truePath;
 
-	public IfStatement(AbstractExpr condition, AbstractStatement truePath) {
+	public If(AbstractExpr condition, AbstractStatement truePath) {
 		this.condition = condition;
 		this.truePath = truePath;
 	}

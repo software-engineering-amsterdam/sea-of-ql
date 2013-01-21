@@ -3,7 +3,7 @@ package org.uva.sea.ql.visitor.print;
 import org.uva.sea.ql.ast.statement.AbstractStatement;
 import org.uva.sea.ql.ast.statement.Block;
 import org.uva.sea.ql.ast.statement.ComputedQuestion;
-import org.uva.sea.ql.ast.statement.IfStatement;
+import org.uva.sea.ql.ast.statement.If;
 import org.uva.sea.ql.ast.statement.Question;
 import org.uva.sea.ql.visitor.AnswerTypeVisitor;
 import org.uva.sea.ql.visitor.ExpressionVisitor;
@@ -43,7 +43,7 @@ public class PrintStatementVisitor implements StatementVisitor<Boolean> {
 	}
 
 	@Override
-	public Boolean visit(IfStatement ifStatement) {
+	public Boolean visit(If ifStatement) {
 		System.out.println("Visiting If Statement");
 
 		// Visit items

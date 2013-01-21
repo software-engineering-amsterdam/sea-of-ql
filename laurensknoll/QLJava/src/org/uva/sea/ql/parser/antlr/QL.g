@@ -126,9 +126,9 @@ blockStatement returns [Block result]
 	:	'{' (s=statement { list.add(s); })* '}'
 	;
 
-ifStatement returns [IfStatement result]
+ifStatement returns [If result]
     	:	'if' condition=expr truePath=statement
-    		{ $result = new IfStatement($condition.result, $truePath.result); }
+    		{ $result = new If($condition.result, $truePath.result); }
 	;
 
 declStatement returns [AbstractStatement result]

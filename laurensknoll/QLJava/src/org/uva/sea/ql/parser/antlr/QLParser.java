@@ -1,4 +1,4 @@
-// $ANTLR 3.5 C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g 2013-01-21 14:43:31
+// $ANTLR 3.5 C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g 2013-01-21 14:47:59
 
 package org.uva.sea.ql.parser.antlr;
 
@@ -33,7 +33,7 @@ import org.uva.sea.ql.ast.expr.unary.Pos;
 import org.uva.sea.ql.ast.statement.AbstractStatement;
 import org.uva.sea.ql.ast.statement.Block;
 import org.uva.sea.ql.ast.statement.ComputedQuestion;
-import org.uva.sea.ql.ast.statement.IfStatement;
+import org.uva.sea.ql.ast.statement.If;
 import org.uva.sea.ql.ast.type.AbstractType;
 
 @SuppressWarnings("all")
@@ -1189,10 +1189,10 @@ public class QLParser extends Parser {
 
 	// $ANTLR start "ifStatement"
 	// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:129:1:
-	// ifStatement returns [IfStatement result] : 'if' condition= expr truePath=
+	// ifStatement returns [If result] : 'if' condition= expr truePath=
 	// statement ;
-	public final IfStatement ifStatement() throws RecognitionException {
-		IfStatement result = null;
+	public final If ifStatement() throws RecognitionException {
+		If result = null;
 
 		int ifStatement_StartIndex = input.index();
 
@@ -1223,7 +1223,7 @@ public class QLParser extends Parser {
 				if (state.failed)
 					return result;
 				if (state.backtracking == 0) {
-					result = new IfStatement(condition, truePath);
+					result = new If(condition, truePath);
 				}
 			}
 
