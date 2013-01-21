@@ -2,12 +2,12 @@ package org.uva.sea.ql.ast.expr.binary;
 
 import org.uva.sea.ql.ast.expr.AbstractExpr;
 
-public abstract class AbstractBinaryExpr extends AbstractExpr {
+public abstract class AbstractBinary extends AbstractExpr {
 
 	private final AbstractExpr lhsExpr;
 	private final AbstractExpr rhsExpr;
 
-	public AbstractBinaryExpr(AbstractExpr lhsExpr, AbstractExpr rhsExpr) {
+	public AbstractBinary(AbstractExpr lhsExpr, AbstractExpr rhsExpr) {
 		this.lhsExpr = lhsExpr;
 		this.rhsExpr = rhsExpr;
 	}

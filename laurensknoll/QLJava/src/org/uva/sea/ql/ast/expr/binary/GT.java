@@ -3,7 +3,7 @@ package org.uva.sea.ql.ast.expr.binary;
 import org.uva.sea.ql.ast.expr.AbstractExpr;
 import org.uva.sea.ql.visitor.ExpressionVisitor;
 
-public class GT extends AbstractBinaryExpr {
+public class GT extends AbstractBinary {
 
 	public GT(AbstractExpr lhsExpr, AbstractExpr rhsExpr) {
 		super(lhsExpr, rhsExpr);
