@@ -30,6 +30,7 @@ public data EXP =
 	//| moneyCon (Money mVal)
 	| add (EXP left, EXP right)
 	| mul (EXP left, EXP right)
+	| div (EXP left, EXP right)
 	| sub (EXP left, EXP right)
 	| and (EXP left, EXP right)
 	| or (EXP left, EXP right)
