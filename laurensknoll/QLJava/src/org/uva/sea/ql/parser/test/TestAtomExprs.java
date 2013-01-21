@@ -16,7 +16,7 @@ import org.uva.sea.ql.ast.expr.atom.Money;
 import org.uva.sea.ql.parser.antlr.ExprParser;
 
 @RunWith(Parameterized.class)
-public class TestAtoms {
+public class TestAtomExprs {
 
 	private IParse parser;
 
@@ -27,7 +27,7 @@ public class TestAtoms {
 		return parserList;
 	}
 
-	public TestAtoms(IParse parser) {
+	public TestAtomExprs(IParse parser) {
 		this.parser = parser;
 	}
 

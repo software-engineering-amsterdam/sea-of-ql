@@ -21,13 +21,10 @@ import org.uva.sea.ql.ast.expr.binary.Mul;
 import org.uva.sea.ql.ast.expr.binary.NEq;
 import org.uva.sea.ql.ast.expr.binary.Or;
 import org.uva.sea.ql.ast.expr.binary.Sub;
-import org.uva.sea.ql.ast.expr.unary.Neg;
-import org.uva.sea.ql.ast.expr.unary.Not;
-import org.uva.sea.ql.ast.expr.unary.Pos;
 import org.uva.sea.ql.parser.antlr.ExprParser;
 
 @RunWith(Parameterized.class)
-public class TestExpressions {
+public class TestBinaryExprs {
 
 	private IParse parser;
 
@@ -38,7 +35,7 @@ public class TestExpressions {
 		return parserList;
 	}
 
-	public TestExpressions(IParse parser) {
+	public TestBinaryExprs(IParse parser) {
 		this.parser = parser;
 	}
 
@@ -114,13 +111,6 @@ public class TestExpressions {
 	}
 
 	@Test
-	public void testNegatives() throws ParseError {
-		assertEquals(Neg.class, parser.parse("-a").getClass());
-		assertEquals(Neg.class, parser.parse("-123.50").getClass());
-		assertEquals(Neg.class, parser.parse("-10").getClass());
-	}
-
-	@Test
 	public void testOrs() throws ParseError {
 		assertEquals(Or.class, parser.parse("a || b").getClass());
 		assertEquals(Or.class, parser.parse("a || (b || c)").getClass());
@@ -129,21 +119,9 @@ public class TestExpressions {
 	}
 
 	@Test
-	public void testPositives() throws ParseError {
-		assertEquals(Pos.class, parser.parse("+a").getClass());
-		assertEquals(Pos.class, parser.parse("+123.50").getClass());
-		assertEquals(Pos.class, parser.parse("+10").getClass());
-	}
-
-	@Test
 	public void testNotEquals() throws ParseError {
 		assertEquals(NEq.class, parser.parse("a != b").getClass());
 		assertEquals(NEq.class, parser.parse("(a || b) != c").getClass());
-	}
-
-	@Test
-	public void testNots() throws ParseError {
-		assertEquals(Not.class, parser.parse("!a").getClass());
 	}
 
 	@Test
