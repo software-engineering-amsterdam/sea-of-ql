@@ -13,50 +13,54 @@ import org.uva.sea.ql.ast.literal.IntLiteral;
 import org.uva.sea.ql.ast.math.Neg;
 import org.uva.sea.ql.ast.math.Pos;
 import org.uva.sea.ql.parser.ParseError;
+import org.uva.sea.ql.test.common.BoolTestHelper;
 import org.uva.sea.ql.test.common.CurrentTest;
-import org.uva.sea.ql.test.common.MathOperation;
-import org.uva.sea.ql.test.common.Operation;
+import org.uva.sea.ql.test.common.MathTestHelper;
 
 public class TestLogical extends TestExpressions {
 	@Test
 	public void testAnd() throws ParseError {
-		new Operation(And.class).testBools(new Operation(LT.class));
+		new BoolTestHelper(And.class).testBools(new BoolTestHelper(LT.class));
 	}
 
 	@Test
 	public void TestAndWithOr() throws ParseError {
-		new Operation(And.class).testBools(new Operation(Or.class));
+		new BoolTestHelper(And.class).testBools(new BoolTestHelper(Or.class));
 	}
 
 	@Test
 	public void testOr() throws ParseError {
-		new Operation(Or.class).testBools(new Operation(LT.class));
+		new BoolTestHelper(Or.class).testBools(new BoolTestHelper(LT.class));
 	}
 
 	@Test
 	public void TestOrWithAnd() throws ParseError {
-		new Operation(Or.class).testBools(new Operation(And.class));
+		new BoolTestHelper(Or.class).testBools(new BoolTestHelper(And.class));
 	}
 
 	@Test
 	public void testComplexBooleans() throws ParseError {
-		new Operation(Or.class).testComplexBools(new Operation(And.class));
-		new Operation(And.class).testComplexBools(new Operation(Or.class));
-		new Operation(Or.class).testComplexBools(new Operation(Or.class));
-		new Operation(And.class).testComplexBools(new Operation(And.class));
+		new BoolTestHelper(Or.class).testComplexBools(new BoolTestHelper(
+				And.class));
+		new BoolTestHelper(And.class).testComplexBools(new BoolTestHelper(
+				Or.class));
+		new BoolTestHelper(Or.class).testComplexBools(new BoolTestHelper(
+				Or.class));
+		new BoolTestHelper(And.class).testComplexBools(new BoolTestHelper(
+				And.class));
 	}
 
 	@Test
 	public void testBooleanPrecedence() throws ParseError {
-		new MathOperation(Or.class).testMathOperations(new MathOperation(
+		new MathTestHelper(Or.class).testMathOperations(new MathTestHelper(
 				And.class));
-		new MathOperation(And.class).testMathOperations(new MathOperation(
+		new MathTestHelper(And.class).testMathOperations(new MathTestHelper(
 				Or.class));
 	}
 
 	@Test
 	public void testNeg() throws ParseError {
-		new Operation(Neg.class).testUnary();
+		new BoolTestHelper(Neg.class).testUnary();
 	}
 
 	@Test
@@ -78,7 +82,7 @@ public class TestLogical extends TestExpressions {
 
 	@Test
 	public void testNot() throws ParseError {
-		new Operation(Not.class).testUnary();
+		new BoolTestHelper(Not.class).testUnary();
 	}
 
 }

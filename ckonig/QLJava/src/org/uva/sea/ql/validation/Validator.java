@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import org.uva.sea.ql.ast.Expr;
 import org.uva.sea.ql.ast.elements.Form;
+import org.uva.sea.ql.parser.ParseError;
 import org.uva.sea.ql.visitor.ASTVisitor;
 import org.uva.sea.ql.visitor.VisitorException;
 
@@ -22,6 +23,10 @@ public class Validator {
 			} else {
 				throw new AstValidationError("result was null");
 			}
+		} catch (ParseError ex) {
+			System.out.println("ParseError: " + ex.getMessage());
+		} catch (AstValidationError ex) {
+			System.out.println("AST Validation Error: " + ex.getMessage());
 		} catch (VisitorException ex) {
 			System.out.println("Visitor Error: " + ex.getMessage());
 		}

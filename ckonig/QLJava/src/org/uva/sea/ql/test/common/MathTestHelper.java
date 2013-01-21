@@ -5,10 +5,10 @@ import static org.junit.Assert.assertEquals;
 import org.uva.sea.ql.ast.elements.Ident;
 import org.uva.sea.ql.parser.ParseError;
 
-public class MathOperation extends Operation {
+public class MathTestHelper extends TestHelper {
 	boolean processFirst;
 
-	public MathOperation(Class<?> c) {
+	public MathTestHelper(Class<?> c) {
 		super(c);
 		switch (this.asString) {
 		case "+":
@@ -32,7 +32,7 @@ public class MathOperation extends Operation {
 		}
 	}
 
-	public void testMathOperations(MathOperation opposite) throws ParseError {
+	public void testMathOperations(MathTestHelper opposite) throws ParseError {
 		testBinary(this.asClass, "a " + this.asString + " b", Ident.class,
 				Ident.class);
 		testBinary(this.asClass, "a " + this.asString + " (b " + this.asString
