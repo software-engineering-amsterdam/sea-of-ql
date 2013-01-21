@@ -60,7 +60,7 @@ syntax Question
 syntax QuestionType
    = result: Id id ":" Type tp;
 // syntax Statement
-syntax Statement 
+start syntax Statement 
    = asgStat: Id var ":" Type tp
    | ifStat: "if" Expression cond "{" Declarations decls "}"  // Question 
    | ifThenStat: "if" Expression cond "then" Statement*

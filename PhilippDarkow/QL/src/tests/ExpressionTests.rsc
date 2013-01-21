@@ -14,8 +14,8 @@ public test bool testAdd3() = p("(a + b + c)") is add;
 public test bool testAdd4() = p("a + (b + c)") is add; 
 public test bool testAdd5() = p("(a + b) + c") is add;
 public test bool testAdd6() = p("(a + b)") is add;
-public test bool testAdd7() = p("(a + b) * c") is add;
-public test bool testAdd8() = p("a * b + c") is add;
+// public test bool testAdd7() = p("(a + b) * c") is add;
+// public test bool testAdd8() = p("a * b + c") is add;
 // Tests for substraction
 public test bool testSub1() = p("a - b") is sub;
 public test bool testSub2() = p("a - b - c") is sub;
@@ -23,8 +23,8 @@ public test bool testSub3() = p("(a - b - c)") is sub;
 public test bool testSub4() = p("a - (b - c)") is sub; 
 public test bool testSub5() = p("(a - b) - c") is sub;
 public test bool testSub6() = p("(a - b)") is sub;
-public test bool testSub7() = p("a - b * c") is sub;
-public test bool testSub8() = p("a * b - c") is sub; 
+// public test bool testSub7() = p("a - b * c") is sub;
+// public test bool testSub8() = p("a * b - c") is sub; 
 // Tests for multiplication
 public test bool testMul1() = p("a * b") is mul;
 public test bool testMul2() = p("a * b * c") is mul;

@@ -7,9 +7,9 @@ import IO;
 import Prelude;
 
 
-public Expression implode(Tree t) {
- println("TREE : <t>");
- return implode(#Expression, t);
- }
+public Expression implode(Tree t) = implode(#Expression, t);
 
 public Expression load(loc l) = implode(parse(readFile(l), l));
+
+public Statement implode(Tree t) = implode(#Statement, t);
+public Statement load(loc l) = implode(parse(readFile(l), l));

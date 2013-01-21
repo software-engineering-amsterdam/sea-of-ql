@@ -1,28 +1,23 @@
 module syntax::AbstractSyntax
 
-public data TYPE = string() | boolean() | money() | money(Expression);
+public data Type = string() | boolean() | money() | money(Expression);
 
 public alias QuestionId = str;
 public alias QuestionString = str;
-//public alias Keywords = str;
 
 // syntax to start a QL Program	
-public data PROGRAM =
-	program(Expression exp, list[DECL] decls, list[STATEMENT] stats);   // KEY key, 
+public data Program =
+	program(Expression exp, list[Declaration] decls, list[Statement] stats);
 // Syntax for a question declaration   
-public data DECL =
-   decl(QuestionId name, QUE qName);
+public data Declaration = decl(QuestionId name, Question qName);
 // Syntax for the question   
-public data QUE = qName(list[QuestionString] questionString, TYPE tp);
+public data Question = qName(list[QuestionString] questionString, Type tp);
 // syntax to map the questionid with the type
-public data QUET = result(QuestionId id, TYPE tp);
-
-public data KEY = key (str name);
+public data QuestionType = result(QuestionId id, Type tp);
 // syntax for the expression   
 public data Expression =
-	  id (str name)  // QuestionId
+	  id (str name)
 	| \int(int ivalue)
-	//| bracket ( EXP arg )
 	| add (Expression left, Expression right)
 	| mul (Expression left, Expression right)
 	| div (Expression left, Expression right)
@@ -41,21 +36,21 @@ public data Expression =
 //| strCon (str sVal)
 	;
 // syntax for statements	
-public data STATEMENT =
-     asgStat(QuestionId name, TYPE tp ) //      asgStat(QuestionId name, QuestionString qDefinition, TYPE tp) // Expression exp
-     | ifStat(Expression exp, list[DECL] decls)  //, QUE
-     | ifThenStat(Expression exp, list[STATEMENT] thenpart)
-     | ifElseStat(Expression exp, list[STATEMENT] thenpart, list[STATEMENT] elsepart)
+public data Statement =
+     asgStat(QuestionId name, Type tp )
+     | ifStat(Expression exp, list[Declaration] decls)
+     | ifThenStat(Expression exp, list[Statement] thenpart)
+     | ifElseStat(Expression exp, list[Statement] thenpart, list[Statement] elsepart)
      ;
 
-anno loc TYPE@location;                   
-anno loc PROGRAM@location;
-anno loc DECL@location;
+anno loc Type@location;                   
+anno loc Program@location;
+anno loc Declaration@location;
 anno loc Expression@location;
-anno loc STATEMENT@location;
-anno loc QUE@location;
-anno loc QUET@location;
+anno loc Statement@location;
+anno loc Question@location;
+anno loc QuestionType@location;
 
-public alias Occurrence = tuple[loc location, QuestionId name, STATEMENT stat]; 
+public alias Occurrence = tuple[loc location, QuestionId name, Statement stat]; 
    
 

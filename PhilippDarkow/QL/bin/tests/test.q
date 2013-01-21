@@ -56,3 +56,5 @@ true
 false
 
 33,32
+
+if (a) { b }
