@@ -16,7 +16,7 @@ public test bool testAdd3() = p("(a + b + c)") is add;
 public test bool testAdd4() = p("a + (b + c)") is add; 
 public test bool testAdd5() = p("(a + b) + c") is add;
 public test bool testAdd6() = p("(a + b)") is add;
-public test bool testAdd7() = p("a + b * c") is add;
+public test bool testAdd7() = p("(a + b) * c") is add;
 public test bool testAdd8() = p("a * b + c") is add;
 
 public test bool testSub1() = p("a - b") is sub;
@@ -60,6 +60,9 @@ public test bool testIdent4() = p("ABCDEF") is id;
 public test bool testIdent5() = p("abc2323") is id;
 public test bool testIdent6() = p("a2bc232") is id;
 public test bool testIdent7() = p("a2bc232aa") is id;
+
 public test bool testInt1() = p("0") is \int;
 public test bool testInt2() = p("1223") is \int;
 public test bool testInt3() = p("234234234") is \int;
+
+public test bool testBool1() = p("true") is boolCon;

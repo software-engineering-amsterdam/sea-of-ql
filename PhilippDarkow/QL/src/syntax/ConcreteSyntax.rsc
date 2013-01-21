@@ -63,7 +63,6 @@ start syntax Expression
    | \int: Int
    //| strQue: String string
    //| strCon: String string
-   //| boolCon: Boolean boolean
    | bracket "(" Expression arg ")"
    | pos: "+" Expr
    | neg: "-" Expr
@@ -87,6 +86,7 @@ start syntax Expression
    )
    > left and: Expression "&&" Expression
    > left or: Expression "||" Expression
+   | boolCon: Boolean boolean
    ;
    
 //start syntax Expression = Expression;

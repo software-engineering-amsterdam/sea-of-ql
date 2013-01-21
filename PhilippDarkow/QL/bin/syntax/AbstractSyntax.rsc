@@ -26,7 +26,6 @@ public data EXP =
 	//| strQue (QuestionString questionString)
 	//| strCon (str sVal)
 	//| bracket ( EXP arg )
-	//| boolCon (bool bVal)
 	//| moneyCon (Money mVal)
 	| add (EXP left, EXP right)
 	| mul (EXP left, EXP right)
@@ -40,6 +39,7 @@ public data EXP =
     | geq (EXP left, EXP right)
     | eq (EXP left, EXP right)
     | neq (EXP left, EXP right)
+    //| boolCon (bool bVal)
 	;
 // syntax for statements	
 public data STATEMENT =
