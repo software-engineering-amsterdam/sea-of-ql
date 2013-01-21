@@ -1,5 +1,5 @@
 grammar QL;
-options {backtrack=true; memoize=true;}
+options {}//{backtrack=true; memoize=true;}
 
 @parser::header
 {
