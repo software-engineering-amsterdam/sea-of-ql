@@ -1,5 +1,7 @@
 package org.uva.sea.ql.ast;
 
+import java.util.HashMap;
+
 import org.antlr.runtime.Token;
 import org.uva.sea.ql.astnodevisitor.Visitor;
 import org.uva.sea.ql.astnodevisitor.VisitorResult;
@@ -8,7 +10,6 @@ public class Ident extends Expr {
 	private final Token token;
 
 	public Ident(Token token) {
-		super(new LookUpType());
 		this.token = token;
 	}
 
@@ -30,4 +31,9 @@ public class Ident extends Expr {
 		return null;
 	}
 
+	@Override
+	public TypeDescription typeOf(HashMap<Ident, Statement> typeEnv) {
+		LineStatement line = (LineStatement) typeEnv.get(this);
+		return line.getTypeDescription();
+	}
 }

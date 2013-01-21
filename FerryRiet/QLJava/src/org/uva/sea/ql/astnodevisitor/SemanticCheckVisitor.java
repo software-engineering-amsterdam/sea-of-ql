@@ -32,7 +32,8 @@ import org.uva.sea.ql.ast.UnExpr;
 
 public class SemanticCheckVisitor implements Visitor {
 	private String errorReport = new String();
-	private HashMap<String, Statement> symbolMap = new HashMap<String, Statement>();
+
+	private HashMap<Ident, Statement> symbolMap = new HashMap<Ident, Statement>();
 
 	public SemanticCheckVisitor() {
 
@@ -42,7 +43,7 @@ public class SemanticCheckVisitor implements Visitor {
 	public VisitorResult visit(Ident id) {
 		LineStatement lineStatement;
 
-		lineStatement = (LineStatement) symbolMap.get(id.getName());
+		lineStatement = (LineStatement) symbolMap.get(id);
 		if (lineStatement == null) {
 			/***
 			 * Ident not previous defined
@@ -50,11 +51,6 @@ public class SemanticCheckVisitor implements Visitor {
 			errorReport = errorReport.concat("\nLine(" + id.getLine() + ","
 					+ id.getCharPositionInLine() + ") Field :" + id.getName()
 					+ " is not defined.");
-		} else {
-			/***
-			 * Ident type not yet defined get type from statement.
-			 */
-			id.getExprType(lineStatement.getTypeDescription());
 		}
 		return null;
 	}
@@ -237,6 +233,12 @@ public class SemanticCheckVisitor implements Visitor {
 
 	@Override
 	public VisitorResult visit(BooleanLiteral expr) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public VisitorResult visit(Expr expr) {
 		// TODO Auto-generated method stub
 		return null;
 	}
