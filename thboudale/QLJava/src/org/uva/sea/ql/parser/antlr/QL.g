@@ -5,6 +5,10 @@ options {backtrack=true; memoize=true;}
 {
 package org.uva.sea.ql.parser.antlr;
 import org.uva.sea.ql.ast.*;
+import org.uva.sea.ql.ast.expressions.*;
+import org.uva.sea.ql.ast.expressions.binaryExpr.*;
+import org.uva.sea.ql.ast.expressions.unaryExpr.*;
+import org.uva.sea.ql.ast.statements.*;
 }
 
 @lexer::header
@@ -14,35 +18,29 @@ package org.uva.sea.ql.parser.antlr;
 /*
 form
 	: 'form' IDENT
-	  (question | computedQuestion | ifStatement)*
+	  '{' (question | computedQuestion | ifStatement)* '}'
 	;
 
 ifStatement
 	: 'if' '(' orExpr ')'
 	 '{' (question | computedQuestion)* '}'
 	 ('else'  '{' (question | computedQuestion)* '}')?
-	;
-
-computedQuestion
-	: question '(' orExpr ')'
-	;
-
-question
-	: IDENT ':' STRING_LITERAL x=type
-	;
-
-
-type
-	:
-	| 'boolean' 
-	| 'money'
 	; */
 
+computedQuestion returns [ComputedQuestion result]
+	: IDENT ':' STRING_LITERAL TYPE '(' x=orExpr ')'
+	{ $result = new ComputedQuestion(new Ident($IDENT.text), $STRING_LITERAL.text, $TYPE.text, $x.result); }
+	;
+
+question returns [Question result]
+    : IDENT ':' STRING_LITERAL TYPE
+    { $result = new Question(new Ident($IDENT.text), $STRING_LITERAL.text, $TYPE.text); }
+    ;
 
 primary returns [Expr result]
-  	: INT   { $result = new Int(Integer.parseInt($INT.text)); }
+    : INT   { $result = new Int(Integer.parseInt($INT.text)); }
   	| IDENT { $result = new Ident($IDENT.text); }
-  	| BOOLEAN { $result = new Bool($BOOLEAN.text); }
+  	| BOOLEAN { $result = new Bool(Boolean.parseBoolean($BOOLEAN.text)); }
   	| '(' x=orExpr ')'{ $result = $x.result; }
   	;
     
@@ -110,31 +108,34 @@ andExpr returns [Expr result]
 orExpr returns [Expr result]
     :   lhs=andExpr { $result = $lhs.result; } ( '||' rhs=andExpr { $result = new Or($result, rhs); } )*
     ;
-  
-    
+       
 // Tokens
 
 WS
-	: (' ' | '\t' | '\n' | '\r') { $channel=HIDDEN; }
-	;
+    : (' ' | '\t' | '\n' | '\r') { $channel=HIDDEN; }
+    ;
 	
 COMMENT
-	: '/*' .* '*/' {$channel=HIDDEN;}
-    | '//' .* ('\n'|'\r') {$channel = HIDDEN;}
+	  : '/*' .* '*/' {$channel=HIDDEN;}
+	  | '//' .* ('\n'|'\r') {$channel = HIDDEN;}
     ;
     
 INT
-	: ('0'..'9')+
-	;
-	
-STRING_LITERAL
-	: '"' .* '"'
-	;
-	
+	  : ('0'..'9')+
+	  ;
+
 BOOLEAN
-	: ('true' | 'false')
-	;
-	
+	  : ('true' | 'false')
+	  ;
+
+TYPE
+    : ('boolean' | 'money')
+    ;
+
 IDENT
-	: ('a'..'z'|'A'..'Z')('a'..'z'|'A'..'Z'|'0'..'9'|'_')*
-	;
+	  : ('a'..'z'|'A'..'Z')('a'..'z'|'A'..'Z'|'0'..'9'|'_')*
+	  ;
+	 
+STRING_LITERAL
+    : '"' .* '"'
+    ;

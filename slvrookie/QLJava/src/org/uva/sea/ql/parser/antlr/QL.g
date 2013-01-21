@@ -8,6 +8,8 @@ import org.uva.sea.ql.ast.*;
 import org.uva.sea.ql.ast.types.*;
 import org.uva.sea.ql.ast.expr.*;
 import org.uva.sea.ql.ast.expr.value.*;
+import org.uva.sea.ql.ast.expr.binary.*;
+import org.uva.sea.ql.ast.expr.unary.*;
 }
 
 @lexer::header
@@ -17,22 +19,22 @@ package org.uva.sea.ql.parser.antlr;
 
  
 primary returns [Expr result]
-  : IntLiteral           { $result = new IntLiteral(Integer.parseInt($IntLiteral.text)); }
-  | MoneyLiteral         { $result = new MoneyLiteral(Double.parseDouble($MoneyLiteral.text)) ;}
-  | BoolLiteral          { $result = new BoolLiteral(Boolean.parseBoolean($BoolLiteral.text)) ;}
-  | StringLiteral        { $result = new StringLiteral($StringLiteral.text);}
-  | Ident                { $result = new Ident($Ident.text); }
-  | '(' x=orExpr ')'     { $result = $x.result; }
-  ;
+   : IntLiteral           { $result = new IntLiteral(Integer.parseInt($IntLiteral.text)); }
+   | MoneyLiteral         { $result = new MoneyLiteral(Double.parseDouble($MoneyLiteral.text)) ;}
+   | BoolLiteral          { $result = new BoolLiteral(Boolean.parseBoolean($BoolLiteral.text)) ;}
+   | StringLiteral        { $result = new StringLiteral($StringLiteral.text);}
+   | Ident                { $result = new Ident($Ident.text); }
+   | '(' x=orExpr ')'     { $result = $x.result; }
+   ;
   
 type returns [Type result]
-  : Type {
-    if ($Type.text.equals("string")) $result = new StringType();
-    else if ($Type.text.equals("int")) $result = new IntType();
-    else if ($Type.text.equals("money")) $result = new MoneyType();
-    else if ($Type.text.equals("boolean")) $result = new BoolType();
-  }
-  ;
+   : Type {
+     if ($Type.text.equals("string")) $result = new StringType();
+     else if ($Type.text.equals("int")) $result = new IntType();
+     else if ($Type.text.equals("money")) $result = new MoneyType();
+     else if ($Type.text.equals("boolean")) $result = new BoolType();
+   }
+   ;
     
 unExpr returns [Expr result]
     :  '+' x=unExpr { $result = new Pos($x.result); }

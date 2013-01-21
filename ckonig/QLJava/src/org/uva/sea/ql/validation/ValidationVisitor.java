@@ -1,20 +1,19 @@
 package org.uva.sea.ql.validation;
 
+import org.uva.sea.ql.ast.AcceptsBoolOperands;
+import org.uva.sea.ql.ast.AcceptsBothOperands;
+import org.uva.sea.ql.ast.AcceptsMathOperands;
+import org.uva.sea.ql.ast.BinaryExpr;
 import org.uva.sea.ql.ast.Expr;
-import org.uva.sea.ql.ast.bool.BinaryBoolOperator;
-import org.uva.sea.ql.ast.bool.BoolOperand;
+import org.uva.sea.ql.ast.ReturnsBoolOperands;
+import org.uva.sea.ql.ast.ReturnsMathOperands;
 import org.uva.sea.ql.ast.elements.Block;
 import org.uva.sea.ql.ast.elements.Form;
 import org.uva.sea.ql.ast.elements.Ident;
 import org.uva.sea.ql.ast.elements.IfStatement;
 import org.uva.sea.ql.ast.elements.Question;
-import org.uva.sea.ql.ast.math.BinaryMathOperator;
-import org.uva.sea.ql.ast.math.MathOperand;
-import org.uva.sea.ql.ast.types.Bool;
 import org.uva.sea.ql.visitor.ASTVisitor;
 import org.uva.sea.ql.visitor.Registry;
-
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 public class ValidationVisitor implements ASTVisitor {
 	private Registry registry;
@@ -102,34 +101,26 @@ public class ValidationVisitor implements ASTVisitor {
 		try {
 			if (ifStatement.getCondition() != null
 					&& ifStatement.getContent() != null) {
-				if (ifStatement.getCondition().getClass().equals(Ident.class)) {
-					Ident i = (Ident) ifStatement.getCondition();
-					for (Question q : registry.getQuestions()) {
-						if (q.getIdent().getName().equals(i.getName())) {
-							if (q.getType().getClass().equals(Bool.class)) {
 
-							} else {
-								throw new AstValidationError(
-										"not a valid condition: "
-												+ q.getType().getClass()
-														.toString());
-							}
-						}
+				if (ifStatement.getCondition() instanceof ReturnsBoolOperands) {
+					if (ifStatement.getCondition() instanceof AcceptsBoolOperands) {
+						AcceptsBoolOperands r = (AcceptsBoolOperands) ifStatement
+								.getCondition();
+						r.accept(this);
+					}
+					if (ifStatement.getCondition() instanceof AcceptsMathOperands) {
+						AcceptsMathOperands r = (AcceptsMathOperands) ifStatement
+								.getCondition();
+						r.accept(this);
+					}
+					if (ifStatement.getCondition() instanceof AcceptsBothOperands) {
+						AcceptsBothOperands r = (AcceptsBothOperands) ifStatement
+								.getCondition();
+						r.accept(this);
 					}
 				} else {
-
-					if (ifStatement.getCondition() instanceof BinaryBoolOperator) {
-						BinaryBoolOperator op = (BinaryBoolOperator) ifStatement
-								.getCondition();
-						op.accept(this);
-					}
-					if (ifStatement.getCondition() instanceof BinaryMathOperator) {
-						BinaryMathOperator op = (BinaryMathOperator) ifStatement
-								.getCondition();
-						op.accept(this);
-					}
-					System.out.println("valid condition:"
-							+ ifStatement.getCondition().toString());
+					throw new AstValidationError("not a valid condition: "
+							+ ifStatement.getCondition().getClass().toString());
 				}
 
 				ifStatement.getContent().accept(this);
@@ -144,85 +135,160 @@ public class ValidationVisitor implements ASTVisitor {
 
 	@Override
 	public void visit(Ident ident) {
-		throw new NotImplementedException();
-	}
-
-	@Override
-	public void visit(BinaryBoolOperator op) {
-		try {
-			if (op.getLeft() instanceof BoolOperand
-					&& op.getRight() instanceof BoolOperand) {
-				if (op.getLeft() instanceof Ident) {
-					Ident i = (Ident) op.getLeft();
-					validateBool(i);
-				}
-				if (op.getRight() instanceof Ident) {
-					Ident i = (Ident) op.getRight();
-					validateBool(i);
-				}
-			} else {
-				throw new AstValidationError("both operands must be bool"
-						+ op.getLeft().toString() + " - "
-						+ op.getRight().toString());
-			}
-		} catch (AstValidationError ex) {
-			System.out.println("Validation error: " + ex.getMessage());
-		}
-
-	}
-
-	@Override
-	public void visit(BinaryMathOperator op) {
-		try {
-			if (op.getLeft() instanceof MathOperand
-					&& op.getRight() instanceof MathOperand) {
-				if (op.getLeft() instanceof Ident) {
-					Ident i = (Ident) op.getLeft();
-					validateMath(i);
-				}
-				if (op.getRight() instanceof Ident) {
-					Ident i = (Ident) op.getRight();
-					validateMath(i);
-				}
-			} else {
-				throw new AstValidationError("both operands must be math : "
-						+ op.getLeft().toString() + " - "
-						+ op.getRight().toString());
-			}
-		} catch (AstValidationError ex) {
-			System.out.println("Validation error: " + ex.getMessage());
-		}
-	}
-
-	private void validateMath(Ident i) throws AstValidationError {
-		for (Question q : registry.getQuestions()) {
-			if (q.getIdent().getName().equals(i.getName())) {
-				if (q.getType() instanceof MathOperand) {
-
-				} else {
-					throw new AstValidationError(
-							"ident operands must be bool: " + i.getName());
-				}
-			}
-		}
-	}
-
-	private void validateBool(Ident i) throws AstValidationError {
-		for (Question q : registry.getQuestions()) {
-			if (q.getIdent().getName().equals(i.getName())) {
-				if (q.getType() instanceof BoolOperand) {
-
-				} else {
-					throw new AstValidationError(
-							"ident operands must be math: " + i.getName());
-				}
-			}
-		}
+		// TODO Auto-generated method stub
 	}
 
 	@Override
 	public void visit(Registry registry) {
-		throw new NotImplementedException();
+		// TODO Auto-generated method stub
+	}
+
+	@Override
+	public void visit(AcceptsBoolOperands r) {
+		try {
+			if (r instanceof BinaryExpr) {
+				BinaryExpr b = (BinaryExpr) r;
+				Expr left = b.getLeft();
+				Expr right = b.getRight();
+				if (left instanceof Ident) {
+					left = getIdentType(left);
+				}
+				if (right instanceof Ident) {
+					right = getIdentType(right);
+				}
+				if (left instanceof AcceptsMathOperands) {
+					((AcceptsMathOperands) left).accept(this);
+				}
+				if (right instanceof AcceptsMathOperands) {
+					((AcceptsMathOperands) right).accept(this);
+				}
+				if (left instanceof AcceptsBoolOperands) {
+					((AcceptsBoolOperands) left).accept(this);
+				}
+				if (right instanceof AcceptsBoolOperands) {
+					((AcceptsBoolOperands) right).accept(this);
+				}
+				if (left instanceof AcceptsBothOperands) {
+					((AcceptsBothOperands) left).accept(this);
+				}
+				if (right instanceof AcceptsBothOperands) {
+					((AcceptsBothOperands) right).accept(this);
+				}
+				if (left instanceof ReturnsBoolOperands
+						&& b.getRight() instanceof ReturnsBoolOperands) {
+					
+					
+					
+				} else {
+					throw new AstValidationError("both childs of "
+							+ b.getClass() + " must be bool");
+				}
+			}
+		} catch (AstValidationError ex) {
+			System.out.println("Validation error: " + ex.getMessage());
+		}
+
+	}
+
+	@Override
+	public void visit(AcceptsMathOperands r) {
+		try {
+			if (r instanceof BinaryExpr) {
+				BinaryExpr b = (BinaryExpr) r;
+				Expr left = b.getLeft();
+				Expr right = b.getRight();
+				if (left instanceof Ident) {
+					left = getIdentType(left);
+				}
+				if (right instanceof Ident) {
+					right = getIdentType(right);
+				}
+				if (left instanceof AcceptsMathOperands) {
+					((AcceptsMathOperands) left).accept(this);
+				}
+				if (right instanceof AcceptsMathOperands) {
+					((AcceptsMathOperands) right).accept(this);
+				}
+				if (left instanceof AcceptsBoolOperands) {
+					((AcceptsBoolOperands) left).accept(this);
+				}
+				if (right instanceof AcceptsBoolOperands) {
+					((AcceptsBoolOperands) right).accept(this);
+				}
+				if (left instanceof AcceptsBothOperands) {
+					((AcceptsBothOperands) left).accept(this);
+				}
+				if (right instanceof AcceptsBothOperands) {
+					((AcceptsBothOperands) right).accept(this);
+				}
+				if (b.getLeft() instanceof ReturnsMathOperands
+						&& b.getRight() instanceof ReturnsMathOperands) {
+					
+				} else {
+					throw new AstValidationError("both childs of "
+							+ b.getClass() + " must be math");
+				}
+			}
+		} catch (AstValidationError ex) {
+			System.out.println("Validation error: " + ex.getMessage());
+		}
+
+	}
+
+	@Override
+	public void visit(AcceptsBothOperands r) {
+		try {
+			if (r instanceof BinaryExpr) {
+
+				BinaryExpr b = (BinaryExpr) r;
+				Expr left = b.getLeft();
+				Expr right = b.getRight();
+				if (left instanceof Ident) {
+					left = getIdentType(left);
+				}
+				if (right instanceof Ident) {
+					right = getIdentType(right);
+				}
+				if (left instanceof AcceptsMathOperands) {
+					((AcceptsMathOperands) left).accept(this);
+				}
+				if (right instanceof AcceptsMathOperands) {
+					((AcceptsMathOperands) right).accept(this);
+				}
+				if (left instanceof AcceptsBoolOperands) {
+					((AcceptsBoolOperands) left).accept(this);
+				}
+				if (right instanceof AcceptsBoolOperands) {
+					((AcceptsBoolOperands) right).accept(this);
+				}
+				if (left instanceof AcceptsBothOperands) {
+					((AcceptsBothOperands) left).accept(this);
+				}
+				if (right instanceof AcceptsBothOperands) {
+					((AcceptsBothOperands) right).accept(this);
+				}
+				if ((left instanceof ReturnsMathOperands && right instanceof ReturnsMathOperands)
+						|| (left instanceof ReturnsBoolOperands && right instanceof ReturnsBoolOperands)) {
+
+				} else {
+					throw new AstValidationError("BOTH childs of "
+							+ b.getClass() + " must be math OR bool");
+				}
+			}
+		} catch (AstValidationError ex) {
+			System.out.println("Validation error: " + ex.getMessage());
+		}
+
+	}
+
+	private Expr getIdentType(Expr ident) throws AstValidationError {
+		Ident i = (Ident) ident;
+		for (Question q : registry.getQuestions()) {
+			if (q.getIdent().getName().equals(i.getName())) {
+				return q.getType();
+			}
+		}
+		throw new AstValidationError("Ident not found:" + i.getName());
 	}
 
 }

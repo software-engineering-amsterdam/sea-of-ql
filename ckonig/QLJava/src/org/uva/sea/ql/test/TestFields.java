@@ -6,8 +6,8 @@ import static org.junit.Assert.assertNotNull;
 import org.junit.Test;
 import org.uva.sea.ql.ast.Expr;
 import org.uva.sea.ql.ast.elements.Ident;
-import org.uva.sea.ql.ast.literal.Int;
-import org.uva.sea.ql.ast.literal.Str;
+import org.uva.sea.ql.ast.literal.IntLiteral;
+import org.uva.sea.ql.ast.literal.StringLiteral;
 import org.uva.sea.ql.ast.types.Bool;
 import org.uva.sea.ql.ast.types.Money;
 import org.uva.sea.ql.parser.ParseError;
@@ -32,9 +32,9 @@ public class TestFields extends TestExpressions {
 
 	@Test
 	public void testNums() throws ParseError {
-		assertEquals(Int.class, CurrentTest.parse("0").getClass());
-		assertEquals(Int.class, CurrentTest.parse("1223").getClass());
-		assertEquals(Int.class, CurrentTest.parse("234234234").getClass());
+		assertEquals(IntLiteral.class, CurrentTest.parse("0").getClass());
+		assertEquals(IntLiteral.class, CurrentTest.parse("1223").getClass());
+		assertEquals(IntLiteral.class, CurrentTest.parse("234234234").getClass());
 	}
 
 	@Test
@@ -60,9 +60,9 @@ public class TestFields extends TestExpressions {
 
 	private void testString(String in, boolean testValue) throws ParseError {
 		Expr e = CurrentTest.parse(in);
-		assertEquals(Str.class, e.getClass());
+		assertEquals(StringLiteral.class, e.getClass());
 		if (testValue) {
-			Str s = (Str) e;
+			StringLiteral s = (StringLiteral) e;
 			assertEquals(in.replace("\"", ""), s.getValue());
 		}
 	}

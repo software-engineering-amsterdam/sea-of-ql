@@ -1,17 +1,21 @@
 package org.uva.sea.ql.interpreter;
 
+import org.uva.sea.ql.ast.AcceptsBoolOperands;
+import org.uva.sea.ql.ast.AcceptsBothOperands;
+import org.uva.sea.ql.ast.AcceptsMathOperands;
+import org.uva.sea.ql.ast.BinaryExpr;
 import org.uva.sea.ql.ast.Expr;
-import org.uva.sea.ql.ast.bool.BinaryBoolOperator;
+import org.uva.sea.ql.ast.ReturnsBoolOperands;
 import org.uva.sea.ql.ast.elements.Block;
 import org.uva.sea.ql.ast.elements.Form;
 import org.uva.sea.ql.ast.elements.Ident;
 import org.uva.sea.ql.ast.elements.IfStatement;
 import org.uva.sea.ql.ast.elements.Question;
-import org.uva.sea.ql.ast.math.BinaryMathOperator;
 import org.uva.sea.ql.ast.types.Bool;
 import org.uva.sea.ql.ast.types.Money;
 import org.uva.sea.ql.ast.types.StrType;
 import org.uva.sea.ql.ast.types.Type;
+import org.uva.sea.ql.validation.AstValidationError;
 import org.uva.sea.ql.visitor.ASTVisitor;
 import org.uva.sea.ql.visitor.Registry;
 
@@ -67,12 +71,12 @@ public class HTMLVisitor implements ASTVisitor {
 					+ "\"/>");
 		}
 		if (type instanceof Money) {
-			registry.appendToOutput("<input type=\"text\" id=\"question_" + name
-					+ "\"  class=\"qlinput\" name=\"" + name + "\"/>");
+			registry.appendToOutput("<input type=\"text\" id=\"question_"
+					+ name + "\"  class=\"qlinput\" name=\"" + name + "\"/>");
 		}
 		if (type instanceof StrType) {
-			registry.appendToOutput("<input type=\"text\" id=\"question_" + name
-					+ "\" name=\"" + name + "\"></input>");
+			registry.appendToOutput("<input type=\"text\" id=\"question_"
+					+ name + "\" name=\"" + name + "\"></input>");
 		}
 		registry.appendToOutput("</div></div><div id=\"content-below\">&nbsp;</div>");
 	}
@@ -88,16 +92,6 @@ public class HTMLVisitor implements ASTVisitor {
 
 	@Override
 	public void visit(Ident ident) {
-		throw new NotImplementedException();
-	}
-
-	@Override
-	public void visit(BinaryBoolOperator op) {
-		throw new NotImplementedException();
-	}
-
-	@Override
-	public void visit(BinaryMathOperator op) {
 		throw new NotImplementedException();
 	}
 
@@ -122,9 +116,31 @@ public class HTMLVisitor implements ASTVisitor {
 						}
 					}
 				}
+			} else {
+				
 			}
+
 		}
 		registry.appendToOutput("</script>");
+	}
+
+
+	@Override
+	public void visit(AcceptsBoolOperands r) {
+		
+		
+	}
+
+	@Override
+	public void visit(AcceptsMathOperands r) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void visit(AcceptsBothOperands r) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

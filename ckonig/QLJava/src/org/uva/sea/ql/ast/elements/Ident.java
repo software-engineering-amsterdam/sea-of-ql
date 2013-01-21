@@ -1,12 +1,12 @@
 package org.uva.sea.ql.ast.elements;
 
 import org.uva.sea.ql.ast.Expr;
-import org.uva.sea.ql.ast.bool.BoolOperand;
-import org.uva.sea.ql.ast.math.MathOperand;
+import org.uva.sea.ql.ast.ReturnsBoolOperands;
+import org.uva.sea.ql.ast.ReturnsMathOperands;
 import org.uva.sea.ql.visitor.ASTElement;
 import org.uva.sea.ql.visitor.ASTVisitor;
 
-public class Ident extends Expr implements MathOperand, BoolOperand, ASTElement {
+public class Ident extends Expr implements ReturnsMathOperands, ReturnsBoolOperands, ASTElement {
 
 	private final String name;
 

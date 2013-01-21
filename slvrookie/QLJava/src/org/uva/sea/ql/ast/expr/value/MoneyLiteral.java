@@ -17,7 +17,7 @@ public class MoneyLiteral extends Value {
 
 	@Override
 	public void accept(Visitor visitor, Context context) {
-		 visitor.visit(this, context);
+		visitor.visit(this, context);
 	}
 
 }

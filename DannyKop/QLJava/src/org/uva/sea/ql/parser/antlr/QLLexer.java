@@ -1,4 +1,4 @@
-// $ANTLR 3.5 /Users/toysoldier/Documents/School/UvA/Master Software Engineering/Software Construction/sea-of-ql/sea-of-ql/DannyKop/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g 2013-01-20 19:15:29
+// $ANTLR 3.5 /Users/toysoldier/Documents/School/UvA/Master Software Engineering/Software Construction/sea-of-ql/sea-of-ql/DannyKop/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g 2013-01-20 23:45:26
 
 package org.uva.sea.ql.parser.antlr;
 
@@ -389,7 +389,7 @@ public class QLLexer extends Lexer {
 		try {
 			int _type = Newline;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// /Users/toysoldier/Documents/School/UvA/Master Software Engineering/Software Construction/sea-of-ql/sea-of-ql/DannyKop/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:123:8: ( ( '\\n' | '\\r' ) )
+			// /Users/toysoldier/Documents/School/UvA/Master Software Engineering/Software Construction/sea-of-ql/sea-of-ql/DannyKop/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:121:8: ( ( '\\n' | '\\r' ) )
 			// /Users/toysoldier/Documents/School/UvA/Master Software Engineering/Software Construction/sea-of-ql/sea-of-ql/DannyKop/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:
 			{
 			if ( input.LA(1)=='\n'||input.LA(1)=='\r' ) {
@@ -416,8 +416,8 @@ public class QLLexer extends Lexer {
 		try {
 			int _type = WS;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// /Users/toysoldier/Documents/School/UvA/Master Software Engineering/Software Construction/sea-of-ql/sea-of-ql/DannyKop/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:125:3: ( ( ' ' | '\\t' | Newline ) )
-			// /Users/toysoldier/Documents/School/UvA/Master Software Engineering/Software Construction/sea-of-ql/sea-of-ql/DannyKop/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:125:5: ( ' ' | '\\t' | Newline )
+			// /Users/toysoldier/Documents/School/UvA/Master Software Engineering/Software Construction/sea-of-ql/sea-of-ql/DannyKop/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:123:3: ( ( ' ' | '\\t' | Newline ) )
+			// /Users/toysoldier/Documents/School/UvA/Master Software Engineering/Software Construction/sea-of-ql/sea-of-ql/DannyKop/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:123:5: ( ' ' | '\\t' | Newline )
 			{
 			if ( (input.LA(1) >= '\t' && input.LA(1) <= '\n')||input.LA(1)=='\r'||input.LA(1)==' ' ) {
 				input.consume();
@@ -444,7 +444,7 @@ public class QLLexer extends Lexer {
 		try {
 			int _type = Comment;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// /Users/toysoldier/Documents/School/UvA/Master Software Engineering/Software Construction/sea-of-ql/sea-of-ql/DannyKop/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:127:8: ( '/*' ( . )* '*/' | '//' (~ ( Newline ) )* )
+			// /Users/toysoldier/Documents/School/UvA/Master Software Engineering/Software Construction/sea-of-ql/sea-of-ql/DannyKop/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:125:8: ( '/*' ( . )* '*/' | '//' (~ ( Newline ) )* )
 			int alt3=2;
 			int LA3_0 = input.LA(1);
 			if ( (LA3_0=='/') ) {
@@ -478,11 +478,11 @@ public class QLLexer extends Lexer {
 
 			switch (alt3) {
 				case 1 :
-					// /Users/toysoldier/Documents/School/UvA/Master Software Engineering/Software Construction/sea-of-ql/sea-of-ql/DannyKop/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:127:10: '/*' ( . )* '*/'
+					// /Users/toysoldier/Documents/School/UvA/Master Software Engineering/Software Construction/sea-of-ql/sea-of-ql/DannyKop/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:125:10: '/*' ( . )* '*/'
 					{
 					match("/*"); 
 
-					// /Users/toysoldier/Documents/School/UvA/Master Software Engineering/Software Construction/sea-of-ql/sea-of-ql/DannyKop/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:127:15: ( . )*
+					// /Users/toysoldier/Documents/School/UvA/Master Software Engineering/Software Construction/sea-of-ql/sea-of-ql/DannyKop/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:125:15: ( . )*
 					loop1:
 					while (true) {
 						int alt1=2;
@@ -503,7 +503,7 @@ public class QLLexer extends Lexer {
 
 						switch (alt1) {
 						case 1 :
-							// /Users/toysoldier/Documents/School/UvA/Master Software Engineering/Software Construction/sea-of-ql/sea-of-ql/DannyKop/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:127:15: .
+							// /Users/toysoldier/Documents/School/UvA/Master Software Engineering/Software Construction/sea-of-ql/sea-of-ql/DannyKop/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:125:15: .
 							{
 							matchAny(); 
 							}
@@ -520,11 +520,11 @@ public class QLLexer extends Lexer {
 					}
 					break;
 				case 2 :
-					// /Users/toysoldier/Documents/School/UvA/Master Software Engineering/Software Construction/sea-of-ql/sea-of-ql/DannyKop/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:128:10: '//' (~ ( Newline ) )*
+					// /Users/toysoldier/Documents/School/UvA/Master Software Engineering/Software Construction/sea-of-ql/sea-of-ql/DannyKop/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:126:10: '//' (~ ( Newline ) )*
 					{
 					match("//"); 
 
-					// /Users/toysoldier/Documents/School/UvA/Master Software Engineering/Software Construction/sea-of-ql/sea-of-ql/DannyKop/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:128:15: (~ ( Newline ) )*
+					// /Users/toysoldier/Documents/School/UvA/Master Software Engineering/Software Construction/sea-of-ql/sea-of-ql/DannyKop/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:126:15: (~ ( Newline ) )*
 					loop2:
 					while (true) {
 						int alt2=2;
@@ -572,10 +572,10 @@ public class QLLexer extends Lexer {
 		try {
 			int _type = SpecialChars;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// /Users/toysoldier/Documents/School/UvA/Master Software Engineering/Software Construction/sea-of-ql/sea-of-ql/DannyKop/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:130:13: ( ( '!' | '?' | ',' | '.' | '<' | '>' | '=' | '+' | '-' | '[' | ']' | '|' ) )
+			// /Users/toysoldier/Documents/School/UvA/Master Software Engineering/Software Construction/sea-of-ql/sea-of-ql/DannyKop/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:128:13: ( ( '!' | '?' | ',' | '.' | '<' | '>' | '=' | '+' | '-' | '[' | ']' | '|' | ':' | '/' | '\\\\' ) )
 			// /Users/toysoldier/Documents/School/UvA/Master Software Engineering/Software Construction/sea-of-ql/sea-of-ql/DannyKop/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:
 			{
-			if ( input.LA(1)=='!'||(input.LA(1) >= '+' && input.LA(1) <= '.')||(input.LA(1) >= '<' && input.LA(1) <= '?')||input.LA(1)=='['||input.LA(1)==']'||input.LA(1)=='|' ) {
+			if ( input.LA(1)=='!'||(input.LA(1) >= '+' && input.LA(1) <= '/')||input.LA(1)==':'||(input.LA(1) >= '<' && input.LA(1) <= '?')||(input.LA(1) >= '[' && input.LA(1) <= ']')||input.LA(1)=='|' ) {
 				input.consume();
 			}
 			else {
@@ -599,10 +599,10 @@ public class QLLexer extends Lexer {
 		try {
 			int _type = Vars;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// /Users/toysoldier/Documents/School/UvA/Master Software Engineering/Software Construction/sea-of-ql/sea-of-ql/DannyKop/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:132:5: ( ( 'int' | 'boolean' | 'string' | 'money' ) )
-			// /Users/toysoldier/Documents/School/UvA/Master Software Engineering/Software Construction/sea-of-ql/sea-of-ql/DannyKop/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:132:7: ( 'int' | 'boolean' | 'string' | 'money' )
+			// /Users/toysoldier/Documents/School/UvA/Master Software Engineering/Software Construction/sea-of-ql/sea-of-ql/DannyKop/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:130:5: ( ( 'int' | 'boolean' | 'string' | 'money' ) )
+			// /Users/toysoldier/Documents/School/UvA/Master Software Engineering/Software Construction/sea-of-ql/sea-of-ql/DannyKop/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:130:7: ( 'int' | 'boolean' | 'string' | 'money' )
 			{
-			// /Users/toysoldier/Documents/School/UvA/Master Software Engineering/Software Construction/sea-of-ql/sea-of-ql/DannyKop/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:132:7: ( 'int' | 'boolean' | 'string' | 'money' )
+			// /Users/toysoldier/Documents/School/UvA/Master Software Engineering/Software Construction/sea-of-ql/sea-of-ql/DannyKop/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:130:7: ( 'int' | 'boolean' | 'string' | 'money' )
 			int alt4=4;
 			switch ( input.LA(1) ) {
 			case 'i':
@@ -632,28 +632,28 @@ public class QLLexer extends Lexer {
 			}
 			switch (alt4) {
 				case 1 :
-					// /Users/toysoldier/Documents/School/UvA/Master Software Engineering/Software Construction/sea-of-ql/sea-of-ql/DannyKop/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:132:8: 'int'
+					// /Users/toysoldier/Documents/School/UvA/Master Software Engineering/Software Construction/sea-of-ql/sea-of-ql/DannyKop/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:130:8: 'int'
 					{
 					match("int"); 
 
 					}
 					break;
 				case 2 :
-					// /Users/toysoldier/Documents/School/UvA/Master Software Engineering/Software Construction/sea-of-ql/sea-of-ql/DannyKop/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:132:16: 'boolean'
+					// /Users/toysoldier/Documents/School/UvA/Master Software Engineering/Software Construction/sea-of-ql/sea-of-ql/DannyKop/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:130:16: 'boolean'
 					{
 					match("boolean"); 
 
 					}
 					break;
 				case 3 :
-					// /Users/toysoldier/Documents/School/UvA/Master Software Engineering/Software Construction/sea-of-ql/sea-of-ql/DannyKop/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:132:28: 'string'
+					// /Users/toysoldier/Documents/School/UvA/Master Software Engineering/Software Construction/sea-of-ql/sea-of-ql/DannyKop/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:130:28: 'string'
 					{
 					match("string"); 
 
 					}
 					break;
 				case 4 :
-					// /Users/toysoldier/Documents/School/UvA/Master Software Engineering/Software Construction/sea-of-ql/sea-of-ql/DannyKop/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:132:39: 'money'
+					// /Users/toysoldier/Documents/School/UvA/Master Software Engineering/Software Construction/sea-of-ql/sea-of-ql/DannyKop/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:130:39: 'money'
 					{
 					match("money"); 
 
@@ -678,8 +678,8 @@ public class QLLexer extends Lexer {
 		try {
 			int _type = LeftBrace;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// /Users/toysoldier/Documents/School/UvA/Master Software Engineering/Software Construction/sea-of-ql/sea-of-ql/DannyKop/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:134:10: ( '{' )
-			// /Users/toysoldier/Documents/School/UvA/Master Software Engineering/Software Construction/sea-of-ql/sea-of-ql/DannyKop/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:134:12: '{'
+			// /Users/toysoldier/Documents/School/UvA/Master Software Engineering/Software Construction/sea-of-ql/sea-of-ql/DannyKop/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:132:10: ( '{' )
+			// /Users/toysoldier/Documents/School/UvA/Master Software Engineering/Software Construction/sea-of-ql/sea-of-ql/DannyKop/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:132:12: '{'
 			{
 			match('{'); 
 			}
@@ -698,8 +698,8 @@ public class QLLexer extends Lexer {
 		try {
 			int _type = RightBrace;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// /Users/toysoldier/Documents/School/UvA/Master Software Engineering/Software Construction/sea-of-ql/sea-of-ql/DannyKop/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:136:11: ( '}' )
-			// /Users/toysoldier/Documents/School/UvA/Master Software Engineering/Software Construction/sea-of-ql/sea-of-ql/DannyKop/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:136:13: '}'
+			// /Users/toysoldier/Documents/School/UvA/Master Software Engineering/Software Construction/sea-of-ql/sea-of-ql/DannyKop/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:134:11: ( '}' )
+			// /Users/toysoldier/Documents/School/UvA/Master Software Engineering/Software Construction/sea-of-ql/sea-of-ql/DannyKop/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:134:13: '}'
 			{
 			match('}'); 
 			}
@@ -718,10 +718,10 @@ public class QLLexer extends Lexer {
 		try {
 			int _type = Bool;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// /Users/toysoldier/Documents/School/UvA/Master Software Engineering/Software Construction/sea-of-ql/sea-of-ql/DannyKop/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:138:5: ( ( 'true' | 'false' ) )
-			// /Users/toysoldier/Documents/School/UvA/Master Software Engineering/Software Construction/sea-of-ql/sea-of-ql/DannyKop/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:138:7: ( 'true' | 'false' )
+			// /Users/toysoldier/Documents/School/UvA/Master Software Engineering/Software Construction/sea-of-ql/sea-of-ql/DannyKop/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:136:5: ( ( 'true' | 'false' ) )
+			// /Users/toysoldier/Documents/School/UvA/Master Software Engineering/Software Construction/sea-of-ql/sea-of-ql/DannyKop/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:136:7: ( 'true' | 'false' )
 			{
-			// /Users/toysoldier/Documents/School/UvA/Master Software Engineering/Software Construction/sea-of-ql/sea-of-ql/DannyKop/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:138:7: ( 'true' | 'false' )
+			// /Users/toysoldier/Documents/School/UvA/Master Software Engineering/Software Construction/sea-of-ql/sea-of-ql/DannyKop/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:136:7: ( 'true' | 'false' )
 			int alt5=2;
 			int LA5_0 = input.LA(1);
 			if ( (LA5_0=='t') ) {
@@ -739,14 +739,14 @@ public class QLLexer extends Lexer {
 
 			switch (alt5) {
 				case 1 :
-					// /Users/toysoldier/Documents/School/UvA/Master Software Engineering/Software Construction/sea-of-ql/sea-of-ql/DannyKop/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:138:8: 'true'
+					// /Users/toysoldier/Documents/School/UvA/Master Software Engineering/Software Construction/sea-of-ql/sea-of-ql/DannyKop/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:136:8: 'true'
 					{
 					match("true"); 
 
 					}
 					break;
 				case 2 :
-					// /Users/toysoldier/Documents/School/UvA/Master Software Engineering/Software Construction/sea-of-ql/sea-of-ql/DannyKop/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:138:17: 'false'
+					// /Users/toysoldier/Documents/School/UvA/Master Software Engineering/Software Construction/sea-of-ql/sea-of-ql/DannyKop/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:136:17: 'false'
 					{
 					match("false"); 
 
@@ -771,11 +771,11 @@ public class QLLexer extends Lexer {
 		try {
 			int _type = If;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// /Users/toysoldier/Documents/School/UvA/Master Software Engineering/Software Construction/sea-of-ql/sea-of-ql/DannyKop/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:140:3: ( ( 'if' ) )
-			// /Users/toysoldier/Documents/School/UvA/Master Software Engineering/Software Construction/sea-of-ql/sea-of-ql/DannyKop/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:140:5: ( 'if' )
+			// /Users/toysoldier/Documents/School/UvA/Master Software Engineering/Software Construction/sea-of-ql/sea-of-ql/DannyKop/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:138:3: ( ( 'if' ) )
+			// /Users/toysoldier/Documents/School/UvA/Master Software Engineering/Software Construction/sea-of-ql/sea-of-ql/DannyKop/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:138:5: ( 'if' )
 			{
-			// /Users/toysoldier/Documents/School/UvA/Master Software Engineering/Software Construction/sea-of-ql/sea-of-ql/DannyKop/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:140:5: ( 'if' )
-			// /Users/toysoldier/Documents/School/UvA/Master Software Engineering/Software Construction/sea-of-ql/sea-of-ql/DannyKop/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:140:6: 'if'
+			// /Users/toysoldier/Documents/School/UvA/Master Software Engineering/Software Construction/sea-of-ql/sea-of-ql/DannyKop/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:138:5: ( 'if' )
+			// /Users/toysoldier/Documents/School/UvA/Master Software Engineering/Software Construction/sea-of-ql/sea-of-ql/DannyKop/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:138:6: 'if'
 			{
 			match("if"); 
 
@@ -797,11 +797,11 @@ public class QLLexer extends Lexer {
 		try {
 			int _type = Else;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// /Users/toysoldier/Documents/School/UvA/Master Software Engineering/Software Construction/sea-of-ql/sea-of-ql/DannyKop/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:142:5: ( ( 'else' ) )
-			// /Users/toysoldier/Documents/School/UvA/Master Software Engineering/Software Construction/sea-of-ql/sea-of-ql/DannyKop/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:142:7: ( 'else' )
+			// /Users/toysoldier/Documents/School/UvA/Master Software Engineering/Software Construction/sea-of-ql/sea-of-ql/DannyKop/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:140:5: ( ( 'else' ) )
+			// /Users/toysoldier/Documents/School/UvA/Master Software Engineering/Software Construction/sea-of-ql/sea-of-ql/DannyKop/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:140:7: ( 'else' )
 			{
-			// /Users/toysoldier/Documents/School/UvA/Master Software Engineering/Software Construction/sea-of-ql/sea-of-ql/DannyKop/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:142:7: ( 'else' )
-			// /Users/toysoldier/Documents/School/UvA/Master Software Engineering/Software Construction/sea-of-ql/sea-of-ql/DannyKop/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:142:8: 'else'
+			// /Users/toysoldier/Documents/School/UvA/Master Software Engineering/Software Construction/sea-of-ql/sea-of-ql/DannyKop/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:140:7: ( 'else' )
+			// /Users/toysoldier/Documents/School/UvA/Master Software Engineering/Software Construction/sea-of-ql/sea-of-ql/DannyKop/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:140:8: 'else'
 			{
 			match("else"); 
 
@@ -823,8 +823,8 @@ public class QLLexer extends Lexer {
 		try {
 			int _type = Form;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// /Users/toysoldier/Documents/School/UvA/Master Software Engineering/Software Construction/sea-of-ql/sea-of-ql/DannyKop/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:144:5: ( 'form' )
-			// /Users/toysoldier/Documents/School/UvA/Master Software Engineering/Software Construction/sea-of-ql/sea-of-ql/DannyKop/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:144:7: 'form'
+			// /Users/toysoldier/Documents/School/UvA/Master Software Engineering/Software Construction/sea-of-ql/sea-of-ql/DannyKop/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:142:5: ( 'form' )
+			// /Users/toysoldier/Documents/School/UvA/Master Software Engineering/Software Construction/sea-of-ql/sea-of-ql/DannyKop/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:142:7: 'form'
 			{
 			match("form"); 
 
@@ -844,11 +844,11 @@ public class QLLexer extends Lexer {
 		try {
 			int _type = Str;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// /Users/toysoldier/Documents/School/UvA/Master Software Engineering/Software Construction/sea-of-ql/sea-of-ql/DannyKop/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:146:4: ( '\"' ( Ident | WS | Int | SpecialChars )* '\"' )
-			// /Users/toysoldier/Documents/School/UvA/Master Software Engineering/Software Construction/sea-of-ql/sea-of-ql/DannyKop/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:146:6: '\"' ( Ident | WS | Int | SpecialChars )* '\"'
+			// /Users/toysoldier/Documents/School/UvA/Master Software Engineering/Software Construction/sea-of-ql/sea-of-ql/DannyKop/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:144:4: ( '\"' ( Ident | WS | Int | SpecialChars )* '\"' )
+			// /Users/toysoldier/Documents/School/UvA/Master Software Engineering/Software Construction/sea-of-ql/sea-of-ql/DannyKop/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:144:6: '\"' ( Ident | WS | Int | SpecialChars )* '\"'
 			{
 			match('\"'); 
-			// /Users/toysoldier/Documents/School/UvA/Master Software Engineering/Software Construction/sea-of-ql/sea-of-ql/DannyKop/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:146:10: ( Ident | WS | Int | SpecialChars )*
+			// /Users/toysoldier/Documents/School/UvA/Master Software Engineering/Software Construction/sea-of-ql/sea-of-ql/DannyKop/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:144:10: ( Ident | WS | Int | SpecialChars )*
 			loop6:
 			while (true) {
 				int alt6=5;
@@ -936,11 +936,14 @@ public class QLLexer extends Lexer {
 				case ',':
 				case '-':
 				case '.':
+				case '/':
+				case ':':
 				case '<':
 				case '=':
 				case '>':
 				case '?':
 				case '[':
+				case '\\':
 				case ']':
 				case '|':
 					{
@@ -950,28 +953,28 @@ public class QLLexer extends Lexer {
 				}
 				switch (alt6) {
 				case 1 :
-					// /Users/toysoldier/Documents/School/UvA/Master Software Engineering/Software Construction/sea-of-ql/sea-of-ql/DannyKop/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:146:11: Ident
+					// /Users/toysoldier/Documents/School/UvA/Master Software Engineering/Software Construction/sea-of-ql/sea-of-ql/DannyKop/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:144:11: Ident
 					{
 					mIdent(); 
 
 					}
 					break;
 				case 2 :
-					// /Users/toysoldier/Documents/School/UvA/Master Software Engineering/Software Construction/sea-of-ql/sea-of-ql/DannyKop/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:146:19: WS
+					// /Users/toysoldier/Documents/School/UvA/Master Software Engineering/Software Construction/sea-of-ql/sea-of-ql/DannyKop/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:144:19: WS
 					{
 					mWS(); 
 
 					}
 					break;
 				case 3 :
-					// /Users/toysoldier/Documents/School/UvA/Master Software Engineering/Software Construction/sea-of-ql/sea-of-ql/DannyKop/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:146:24: Int
+					// /Users/toysoldier/Documents/School/UvA/Master Software Engineering/Software Construction/sea-of-ql/sea-of-ql/DannyKop/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:144:24: Int
 					{
 					mInt(); 
 
 					}
 					break;
 				case 4 :
-					// /Users/toysoldier/Documents/School/UvA/Master Software Engineering/Software Construction/sea-of-ql/sea-of-ql/DannyKop/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:146:30: SpecialChars
+					// /Users/toysoldier/Documents/School/UvA/Master Software Engineering/Software Construction/sea-of-ql/sea-of-ql/DannyKop/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:144:30: SpecialChars
 					{
 					mSpecialChars(); 
 
@@ -1000,8 +1003,8 @@ public class QLLexer extends Lexer {
 		try {
 			int _type = Ident;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// /Users/toysoldier/Documents/School/UvA/Master Software Engineering/Software Construction/sea-of-ql/sea-of-ql/DannyKop/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:148:6: ( ( 'a' .. 'z' | 'A' .. 'Z' ) ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )* )
-			// /Users/toysoldier/Documents/School/UvA/Master Software Engineering/Software Construction/sea-of-ql/sea-of-ql/DannyKop/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:148:10: ( 'a' .. 'z' | 'A' .. 'Z' ) ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )*
+			// /Users/toysoldier/Documents/School/UvA/Master Software Engineering/Software Construction/sea-of-ql/sea-of-ql/DannyKop/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:146:6: ( ( 'a' .. 'z' | 'A' .. 'Z' ) ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )* )
+			// /Users/toysoldier/Documents/School/UvA/Master Software Engineering/Software Construction/sea-of-ql/sea-of-ql/DannyKop/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:146:10: ( 'a' .. 'z' | 'A' .. 'Z' ) ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )*
 			{
 			if ( (input.LA(1) >= 'A' && input.LA(1) <= 'Z')||(input.LA(1) >= 'a' && input.LA(1) <= 'z') ) {
 				input.consume();
@@ -1011,7 +1014,7 @@ public class QLLexer extends Lexer {
 				recover(mse);
 				throw mse;
 			}
-			// /Users/toysoldier/Documents/School/UvA/Master Software Engineering/Software Construction/sea-of-ql/sea-of-ql/DannyKop/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:148:29: ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )*
+			// /Users/toysoldier/Documents/School/UvA/Master Software Engineering/Software Construction/sea-of-ql/sea-of-ql/DannyKop/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:146:29: ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )*
 			loop7:
 			while (true) {
 				int alt7=2;
@@ -1056,8 +1059,8 @@ public class QLLexer extends Lexer {
 		try {
 			int _type = Money;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// /Users/toysoldier/Documents/School/UvA/Master Software Engineering/Software Construction/sea-of-ql/sea-of-ql/DannyKop/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:150:6: ( ( '0' .. '9' ) ',' ( '0' .. '9' ) ( '0' .. '9' ) )
-			// /Users/toysoldier/Documents/School/UvA/Master Software Engineering/Software Construction/sea-of-ql/sea-of-ql/DannyKop/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:150:8: ( '0' .. '9' ) ',' ( '0' .. '9' ) ( '0' .. '9' )
+			// /Users/toysoldier/Documents/School/UvA/Master Software Engineering/Software Construction/sea-of-ql/sea-of-ql/DannyKop/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:148:6: ( ( '0' .. '9' ) ',' ( '0' .. '9' ) ( '0' .. '9' ) )
+			// /Users/toysoldier/Documents/School/UvA/Master Software Engineering/Software Construction/sea-of-ql/sea-of-ql/DannyKop/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:148:8: ( '0' .. '9' ) ',' ( '0' .. '9' ) ( '0' .. '9' )
 			{
 			if ( (input.LA(1) >= '0' && input.LA(1) <= '9') ) {
 				input.consume();
@@ -1100,10 +1103,10 @@ public class QLLexer extends Lexer {
 		try {
 			int _type = Int;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// /Users/toysoldier/Documents/School/UvA/Master Software Engineering/Software Construction/sea-of-ql/sea-of-ql/DannyKop/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:152:4: ( ( '0' .. '9' )+ )
-			// /Users/toysoldier/Documents/School/UvA/Master Software Engineering/Software Construction/sea-of-ql/sea-of-ql/DannyKop/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:152:6: ( '0' .. '9' )+
+			// /Users/toysoldier/Documents/School/UvA/Master Software Engineering/Software Construction/sea-of-ql/sea-of-ql/DannyKop/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:150:4: ( ( '0' .. '9' )+ )
+			// /Users/toysoldier/Documents/School/UvA/Master Software Engineering/Software Construction/sea-of-ql/sea-of-ql/DannyKop/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:150:6: ( '0' .. '9' )+
 			{
-			// /Users/toysoldier/Documents/School/UvA/Master Software Engineering/Software Construction/sea-of-ql/sea-of-ql/DannyKop/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:152:6: ( '0' .. '9' )+
+			// /Users/toysoldier/Documents/School/UvA/Master Software Engineering/Software Construction/sea-of-ql/sea-of-ql/DannyKop/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:150:6: ( '0' .. '9' )+
 			int cnt8=0;
 			loop8:
 			while (true) {
@@ -1377,36 +1380,36 @@ public class QLLexer extends Lexer {
 
 	protected DFA9 dfa9 = new DFA9(this);
 	static final String DFA9_eotS =
-		"\1\uffff\1\36\6\uffff\1\42\1\uffff\1\44\1\20\1\47\1\20\3\uffff\4\33\2"+
-		"\uffff\3\33\2\uffff\1\64\15\uffff\1\33\1\66\7\33\2\uffff\1\76\1\uffff"+
-		"\7\33\1\uffff\3\33\1\111\1\33\1\113\1\114\2\33\1\76\1\uffff\1\111\2\uffff"+
-		"\1\33\2\76";
+		"\1\uffff\1\36\6\uffff\1\42\1\uffff\1\45\1\20\1\50\1\20\3\uffff\4\33\2"+
+		"\uffff\3\33\2\uffff\1\65\16\uffff\1\33\1\67\7\33\2\uffff\1\77\1\uffff"+
+		"\7\33\1\uffff\3\33\1\112\1\33\1\114\1\115\2\33\1\77\1\uffff\1\112\2\uffff"+
+		"\1\33\2\77";
 	static final String DFA9_eofS =
-		"\120\uffff";
+		"\121\uffff";
 	static final String DFA9_minS =
 		"\1\11\1\75\6\uffff\1\52\1\uffff\3\75\1\174\3\uffff\1\146\1\157\1\164\1"+
-		"\157\2\uffff\1\162\1\141\1\154\2\uffff\1\54\15\uffff\1\164\1\60\1\157"+
+		"\157\2\uffff\1\162\1\141\1\154\2\uffff\1\54\16\uffff\1\164\1\60\1\157"+
 		"\1\162\1\156\1\165\1\154\1\162\1\163\2\uffff\1\60\1\uffff\1\154\1\151"+
 		"\2\145\1\163\1\155\1\145\1\uffff\1\145\1\156\1\171\1\60\1\145\2\60\1\141"+
 		"\1\147\1\60\1\uffff\1\60\2\uffff\1\156\2\60";
 	static final String DFA9_maxS =
 		"\1\175\1\75\6\uffff\1\57\1\uffff\3\75\1\174\3\uffff\1\156\1\157\1\164"+
-		"\1\157\2\uffff\1\162\1\157\1\154\2\uffff\1\54\15\uffff\1\164\1\172\1\157"+
+		"\1\157\2\uffff\1\162\1\157\1\154\2\uffff\1\54\16\uffff\1\164\1\172\1\157"+
 		"\1\162\1\156\1\165\1\154\1\162\1\163\2\uffff\1\172\1\uffff\1\154\1\151"+
 		"\2\145\1\163\1\155\1\145\1\uffff\1\145\1\156\1\171\1\172\1\145\2\172\1"+
 		"\141\1\147\1\172\1\uffff\1\172\2\uffff\1\156\2\172";
 	static final String DFA9_acceptS =
 		"\2\uffff\1\3\1\4\1\5\1\6\1\7\1\10\1\uffff\1\12\4\uffff\1\21\1\22\1\24"+
 		"\4\uffff\1\26\1\27\3\uffff\1\34\1\35\1\uffff\1\2\1\1\1\7\1\10\1\23\1\11"+
-		"\1\14\1\13\1\15\1\17\1\16\1\20\1\21\11\uffff\1\36\1\37\1\uffff\1\31\7"+
-		"\uffff\1\25\12\uffff\1\30\1\uffff\1\33\1\32\3\uffff";
+		"\1\12\1\14\1\13\1\15\1\17\1\16\1\20\1\21\11\uffff\1\36\1\37\1\uffff\1"+
+		"\31\7\uffff\1\25\12\uffff\1\30\1\uffff\1\33\1\32\3\uffff";
 	static final String DFA9_specialS =
-		"\120\uffff}>";
+		"\121\uffff}>";
 	static final String[] DFA9_transitionS = {
 			"\1\17\1\16\2\uffff\1\16\22\uffff\1\17\1\1\1\32\3\uffff\1\2\1\uffff\1"+
 			"\3\1\4\1\5\1\6\1\20\1\7\1\20\1\10\12\34\1\11\1\uffff\1\12\1\13\1\14\1"+
-			"\20\1\uffff\32\33\1\20\1\uffff\1\20\3\uffff\1\33\1\22\2\33\1\31\1\30"+
-			"\2\33\1\21\3\33\1\24\5\33\1\23\1\27\6\33\1\25\1\15\1\26",
+			"\20\1\uffff\32\33\3\20\3\uffff\1\33\1\22\2\33\1\31\1\30\2\33\1\21\3\33"+
+			"\1\24\5\33\1\23\1\27\6\33\1\25\1\15\1\26",
 			"\1\35",
 			"",
 			"",
@@ -1416,27 +1419,25 @@ public class QLLexer extends Lexer {
 			"",
 			"\1\41\4\uffff\1\41",
 			"",
-			"\1\43",
-			"\1\45",
+			"\1\44",
 			"\1\46",
-			"\1\50",
+			"\1\47",
+			"\1\51",
 			"",
 			"",
 			"",
-			"\1\53\7\uffff\1\52",
-			"\1\54",
+			"\1\54\7\uffff\1\53",
 			"\1\55",
 			"\1\56",
-			"",
-			"",
 			"\1\57",
-			"\1\60\15\uffff\1\61",
-			"\1\62",
 			"",
 			"",
+			"\1\60",
+			"\1\61\15\uffff\1\62",
 			"\1\63",
 			"",
 			"",
+			"\1\64",
 			"",
 			"",
 			"",
@@ -1448,42 +1449,45 @@ public class QLLexer extends Lexer {
 			"",
 			"",
 			"",
-			"\1\65",
+			"",
+			"",
+			"",
+			"\1\66",
 			"\12\33\7\uffff\32\33\4\uffff\1\33\1\uffff\32\33",
-			"\1\67",
 			"\1\70",
 			"\1\71",
 			"\1\72",
 			"\1\73",
 			"\1\74",
 			"\1\75",
+			"\1\76",
 			"",
 			"",
 			"\12\33\7\uffff\32\33\4\uffff\1\33\1\uffff\32\33",
 			"",
-			"\1\77",
 			"\1\100",
 			"\1\101",
 			"\1\102",
 			"\1\103",
 			"\1\104",
 			"\1\105",
-			"",
 			"\1\106",
+			"",
 			"\1\107",
 			"\1\110",
+			"\1\111",
 			"\12\33\7\uffff\32\33\4\uffff\1\33\1\uffff\32\33",
-			"\1\112",
+			"\1\113",
 			"\12\33\7\uffff\32\33\4\uffff\1\33\1\uffff\32\33",
 			"\12\33\7\uffff\32\33\4\uffff\1\33\1\uffff\32\33",
-			"\1\115",
 			"\1\116",
-			"\12\33\7\uffff\32\33\4\uffff\1\33\1\uffff\32\33",
-			"",
-			"\12\33\7\uffff\32\33\4\uffff\1\33\1\uffff\32\33",
-			"",
-			"",
 			"\1\117",
+			"\12\33\7\uffff\32\33\4\uffff\1\33\1\uffff\32\33",
+			"",
+			"\12\33\7\uffff\32\33\4\uffff\1\33\1\uffff\32\33",
+			"",
+			"",
+			"\1\120",
 			"\12\33\7\uffff\32\33\4\uffff\1\33\1\uffff\32\33",
 			"\12\33\7\uffff\32\33\4\uffff\1\33\1\uffff\32\33"
 	};

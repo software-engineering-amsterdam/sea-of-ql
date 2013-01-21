@@ -19,7 +19,7 @@ public class ANTLRParser implements IParse {
 		QLParser parser = new QLParser(tokens);
 		return parser;
 	}
-	
+
 	@Override
 	public Expr parseExpr(String src) throws ParseError {
 		try {
@@ -37,7 +37,7 @@ public class ANTLRParser implements IParse {
 			throw new ParseError(e.getMessage());
 		}
 	}
-	
+
 	@Override
 	public FormElement parseFormElement(String src) throws ParseError {
 		try {
@@ -55,6 +55,5 @@ public class ANTLRParser implements IParse {
 			throw new ParseError(e.getMessage());
 		}
 	}
-	
-	
+
 }

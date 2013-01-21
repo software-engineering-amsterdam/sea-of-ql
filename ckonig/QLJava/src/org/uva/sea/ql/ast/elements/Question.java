@@ -1,23 +1,23 @@
 package org.uva.sea.ql.ast.elements;
 
 import org.uva.sea.ql.ast.Expr;
-import org.uva.sea.ql.ast.literal.Str;
+import org.uva.sea.ql.ast.literal.StringLiteral;
 import org.uva.sea.ql.ast.types.Type;
 import org.uva.sea.ql.visitor.ASTElement;
 import org.uva.sea.ql.visitor.ASTVisitor;
 
 public class Question extends Expr implements ASTElement {
-	private Str content;
+	private StringLiteral content;
 	private Type type;
 	private Ident ident;
 
-	public Question(Ident ident, Str content, Type type) {
+	public Question(Ident ident, StringLiteral content, Type type) {
 		this.ident = ident;
 		this.content = content;
 		this.type = type;
 	}
 
-	public Str getContent() {
+	public StringLiteral getContent() {
 		return content;
 	}
 

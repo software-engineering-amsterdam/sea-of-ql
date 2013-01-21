@@ -21,28 +21,4 @@ public class ANTLRParser implements IParse {
 			throw new ParseError(e.getMessage());
 		}
 	}
-	
-	
-	// TESTING PURPOSES!
-    public static void main(String[] args) throws RecognitionException {
-    	ANTLRParser p = new ANTLRParser();
-    	try {
-    		/*
-    		ASTNode e = p.parse("form Box1HouseOwning {" +
-    							"hasSoldHouse: \"Did you sell a house in 2010?\" boolean" +
-    							"hasBoughtHouse: \"Did you by a house in 2010?\" boolean" +
-    							"hasMaintLoan: \"Did you enter a loan for maintenance/reconstruction?\" boolean" +
-    							"if (hasSoldHouse) { sellingPrice: \"Price the house was sold for:\" boolean" +
-    							"privateDebt: \"Private debts for the sold house:\" boolean" +
-    							"valueResidue: \"Value residue:\" boolean(sellingPrice - privateDebt)" +
-    							"}" +
-    						"}");*/
-    						
-    		ASTNode e = p.parse("form Box1HousOwning {checker: \"asdasd\" boolean}");
-    		System.out.println("Ok => value: "+ e.toString() + " class:" + e.getClass());
-    	}catch(ParseError pe){
-    		System.out.println("Error: " + pe.getMessage());
-    	}
-    }
-
 }

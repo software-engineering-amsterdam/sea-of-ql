@@ -1,5 +1,7 @@
 grammar QL;
-options {language=Java;}
+options  {output=Ast; } //{backtrack=true; memoize=true;}
+
+
 
 @lexer::header
 {
@@ -15,9 +17,56 @@ import org.uva.sea.ql.ast.types.*;
 import org.uva.sea.ql.ast.statements.*;
 }
 
-    
+//form  
+
+form returns[Form result] 
+    @init { List<Statement> formpart = new ArrayList<Statement>();}
+ :  'form' ident '{' (part {formpart.add($part.result);})+ '}'  {$result = new Form (new Ident($ident.text), formpart);}
+ ;
+
+//form end 
+
+part returns [Statement result]
+  : ifthen { $result = $ifthen.result; } 
+  | questions { $result = $questions.result; }
+//| ifthenelse { $result= $ifthenelse.result; } 
+  ; 
+
+//if-then statement
+  
+ifthen returns [Statement result]
+  @init { List<Statement> block = new ArrayList<Statement>();}
+  : 'if' expression '{' (part {block.add($part.result);})+ '}' {$result = new Ifthen($expression.result , block);}
+  ;
+                                      
+//if-then end
+                                          
+//if-then-else
+
+/*ifthenelse returns [Statement result]
+  @init { List<Statement> block1 = new ArrayList<Statement>(); List<Statement> block2 = new ArrayList<Statement>();}
+  : 'if' expression '{' (p1=part {block1.add($p1.result);})+ '}' 'else' '{' (p2=part {block2.add($p2.result);})+ '}' {$result = new Ifthenelse($expression.result , block1, block2);}
+  ;
+*/
+//if-then-else end  
+
+//questions 
+
+ questions returns [Question result]
+  : ident ':' string bool {$result = new Questions(new Ident($ident.text) , new String_lit($string.text) , new Bool(Boolean.parseBoolean($bool.text)));}
+  | ident ':' string type expression  {$result = new ComQuestions(new Ident($ident.text) , new String_lit($string.text) , $type.result , $expression.result);}
+  ; 
+
+/*questions returns [Question result]
+  : ident1=type ':' string1=type bool1=type {$result = new Questions(ident1 , string1 , bool1);} //simple question
+  | ident2=type ':' string2=type bool2=type expr=expression {$result = new ComQuestions(ident2 , string2 , bool2, expr);} // computed question
+  ;
+  */ 
+
+//end of questions 
+                                          
 expression returns [Expr result] 
-  : type
+  : type 
   | '(' x=orExpr ')' {$result = $x.result;}
   ; 
 
@@ -102,43 +151,6 @@ bool : Bool ;
 ident : Ident ;
 //end of types 
   
-//if-then statement
-  
-ifthen returns [Statement result]
-  @init { List<Statement> block = new ArrayList<Statement>();}
-  : 'if' expression '{' (part {block.add($part.result);})+ '}' {$result = new Ifthen($expression.result , block);}
-  ;
-//if-then end
-
-//questions 
-
- questions returns [Question result]
-  : ident ':' string bool {$result = new Questions(new Ident($ident.text) , new String_lit($string.text) , new Bool(Boolean.parseBoolean($bool.text)));}
-  | ident ':' string type expression  {$result = new ComQuestions(new Ident($ident.text) , new String_lit($string.text) , $type.result , $expression.result);}
-  ; 
-
-/*questions returns [Question result]
-  : ident1=type ':' string1=type bool1=type {$result = new Questions(ident1 , string1 , bool1);} //simple question
-  | ident2=type ':' string2=type bool2=type expr=expression {$result = new ComQuestions(ident2 , string2 , bool2, expr);} // computed question
-  ;
-  */ 
-//end of questions 
- 
-
-part returns [Statement result]
-  : ifthen { $result = $ifthen.result; }
-  | questions { $result = $questions.result; }
-  ; 
-
-//form  
-form returns[Form result]
-    @init { List<Statement> formpart = new ArrayList<Statement>();}
- :  'form' ident '{' (part {formpart.add($part.result);})+ '}' {$result = new Form (new Ident($ident.text), formpart);} 
- ;
-//form end 
-
-   
-
 // Tokens
 
 Comments : ('/*' .* '*/' | '//' .* ('\n' | '\r')) {$channel=HIDDEN;};

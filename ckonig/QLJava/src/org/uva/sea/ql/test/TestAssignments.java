@@ -13,7 +13,6 @@ import org.uva.sea.ql.ast.elements.Block;
 import org.uva.sea.ql.ast.elements.Form;
 import org.uva.sea.ql.ast.elements.IfStatement;
 import org.uva.sea.ql.ast.elements.Question;
-import org.uva.sea.ql.ast.math.MathOperand;
 import org.uva.sea.ql.ast.types.Bool;
 import org.uva.sea.ql.ast.types.Money;
 import org.uva.sea.ql.ast.types.StrType;
@@ -67,7 +66,6 @@ public class TestAssignments extends TestExpressions {
 					assertEquals(Money.class, q.getType().getClass());
 					Money m = (Money) q.getType();
 					Assert.assertNotNull(m.getExpr());
-					Assert.assertTrue(m.getExpr() instanceof MathOperand);
 				}
 			}
 			if (line.getClass().equals(IfStatement.class)) {

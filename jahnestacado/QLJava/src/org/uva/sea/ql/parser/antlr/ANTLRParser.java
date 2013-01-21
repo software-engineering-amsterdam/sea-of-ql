@@ -6,9 +6,10 @@ import org.antlr.runtime.ANTLRStringStream;
 import org.antlr.runtime.CommonTokenStream;
 import org.antlr.runtime.RecognitionException;
 import org.uva.sea.ql.ast.ASTNode;
-import org.uva.sea.ql.ast.Expr;
-import org.uva.sea.ql.ast.form.BodyElements;
+import org.uva.sea.ql.ast.expr.Expr;
+import org.uva.sea.ql.ast.form.Body;
 import org.uva.sea.ql.ast.form.ComputedQuestion;
+import org.uva.sea.ql.ast.form.Element;
 import org.uva.sea.ql.ast.form.Form;
 import org.uva.sea.ql.ast.form.IfBlock;
 import org.uva.sea.ql.ast.form.Question;
@@ -86,9 +87,9 @@ public class ANTLRParser implements IParse {
 	}
 	
 	@Override
-	public List<BodyElements> parseBodyElements(String src) throws ParseError{
+	public List<Element> parseBody(String src) throws ParseError{
 		 try {
-			return parse(src).bodyElements();
+			return parse(src).body();
 		} catch (RecognitionException e) {
 			throw new ParseError(e.getMessage());
 		}

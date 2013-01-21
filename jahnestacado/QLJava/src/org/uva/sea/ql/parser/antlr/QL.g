@@ -5,6 +5,7 @@ options {backtrack=true; memoize=true;}
 {
 package org.uva.sea.ql.parser.antlr;
 import org.uva.sea.ql.ast.*;
+import org.uva.sea.ql.ast.expr.*;
 import org.uva.sea.ql.ast.form.*;
 import org.uva.sea.ql.ast.types.*;
 import org.uva.sea.ql.ast.values.*;
@@ -21,44 +22,52 @@ package org.uva.sea.ql.parser.antlr;
 
 type returns [Type result]
 	: (Type {
-	 if ($Type.text.equals("int"))$result = new IntType($Type.text); 
-	 else if ($Type.text.equals("boolean"))$result = new BoolType($Type.text); 
-	  else if ($Type.text.equals("string"))$result = new StringType($Type.text);
+		 if ($Type.text.equals("int"))$result = new IntType($Type.text); 
+		 else if ($Type.text.equals("boolean"))$result = new BoolType($Type.text); 
+		 else if ($Type.text.equals("string"))$result = new StringType($Type.text);
+		 else if ($Type.text.equals("money"))$result = new MoneyType($Type.text);
 		}
 		);
 	
 	
 
 form returns [Form result]
-	: 'form' Ident  '{' bodyElements '}'  {$result = new Form(new Ident($Ident.text),$bodyElements.result);}
+	: 'form' Ident  '{' body '}'  {$result = new Form(new Ident($Ident.text),$body.result);}
 	;
 	
 	
+
 	
-bodyElements returns [List<BodyElements> result]
-@init { List<BodyElements> bodyElements = new ArrayList(); }
-	:( computedQuestion  {bodyElements.add($computedQuestion.result);}
-	| question  {bodyElements.add($question.result);}
-	|ifBlock {bodyElements.add($ifBlock.result);}
-	 )+
-	{$result=$bodyElements.result;}
+		
+	body returns [List<Element> result]
+  @init { List<Element> list = new ArrayList<Element>() ; }
+  :(element  { list.add($element.result) ; } )*
+  {$result=list;}
+  ;
+	
+element returns [Element result]
+		:computedQuestion {$result=$computedQuestion.result;}
+		|question {$result=$question.result;}
+		|ifBlock {$result=$ifBlock.result;}
 	;
+	
 	
 question returns [Question result]
-  : Ident ':' StringLit type {$result=new Question($Ident.text,$StringLit.text,$type.result);};
+  : Ident ':' StringLit type {$result=new Question(new Ident($Ident.text),$StringLit.text,$type.result);};
   
 computedQuestion returns [ComputedQuestion result]
   : Ident ':' StringLit type '(' expr=orExpr ')' {$result=new ComputedQuestion(new Ident($Ident.text),$StringLit.text,$type.result,expr);};
   
   
-  ifBlock returns [IfBlock result]
-  : 'if' '(' expr=orExpr ')' '{'  bodyElements'}' {$result=new IfBlock(expr,$bodyElements.result);};
+ifBlock returns [IfBlock result]
+	: 'if' '(' expr=orExpr ')' '{'  body'}' {$result=new IfBlock(expr,$body.result);};
   
 
 
 
 primary returns [Expr result]
-  : Int   { $result = new Int(Integer.parseInt($Int.text)); }
+  : Decimal { $result = new Decimal(Float.parseFloat($Decimal.text)); }
+  | Int { $result = new Int(Integer.parseInt($Int.text)); }
   | StringLit {$result = new StringLit($StringLit.text);}
   | BoolLit  {$result = new BoolLit($BoolLit.text);}
   | Ident { $result = new Ident($Ident.text); }
@@ -140,7 +149,7 @@ orExpr returns [Expr result]
 
 
 
-Type: ('int'|'string'|'boolean');
+Type: ('int'|'string'|'boolean'|'money');
 BoolLit	:	('true' | 'false');  
 
 
@@ -160,6 +169,7 @@ StringLit	:	'"' .* '"' ;
 
 Ident:   ('a'..'z'|'A'..'Z')('a'..'z'|'A'..'Z'|'0'..'9'|'_')*;
 
+Decimal : Int '.' Int ;
 Int: ('0'..'9')+;
 
 

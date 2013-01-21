@@ -18,9 +18,11 @@ public class Int extends Value {
 
 	@Override
 	public void accept(ASTNodeVisitor nodeVisitor) {
-		nodeVisitor.visit(this);
+		// TODO Auto-generated method stub
 		
 	}
+
+	
 
 	
 	

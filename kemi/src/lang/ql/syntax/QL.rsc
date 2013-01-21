@@ -1,6 +1,7 @@
 module lang::ql::syntax::QL
 
-start syntax Form = @Foldable form: "form" Ident formName "{" Statement+ formElements "}";
+start syntax Form = 
+  @Foldable form: "form" Ident formName "{" Statement+ formElements "}";
 
 syntax Statement 
   = question: Question question
@@ -11,11 +12,14 @@ syntax Conditional
   = conditional: Expr condition "{" Statement+ body "}"
   ;
 
-syntax IfPart = @Foldable "if" Conditional ifPart;
+syntax IfPart = 
+  @Foldable "if" Conditional ifPart;
 
-syntax ElsIfPart = @Foldable "else" "if" Conditional elsePart;
+syntax ElsIfPart = 
+  @Foldable "else" "if" Conditional elsePart;
 
-syntax ElsePart = @Foldable elsePart: "else" "{" Statement+ body "}";
+syntax ElsePart = 
+  @Foldable elsePart: "else" "{" Statement+ body "}";
 
 // What the ...?! Colons don't work, but equals signs do...
 start syntax Question 
@@ -23,7 +27,6 @@ start syntax Question
   | question: String questionText Type answerDataType Ident answerIdentifier "=" Expr calculatedField
   ;
 
-//start syntax Expr
 syntax Expr
   = ident: Ident name
   |  \int: Int number
@@ -60,7 +63,8 @@ syntax WhitespaceOrComment
   | comment: Comment comment
   ;   
 
-lexical Ident = @category="Variable" ([a-z A-Z 0-9 _] !<< [a-z A-Z][a-z A-Z 0-9 _]* !>> [a-z A-Z 0-9 _]) \ Keywords;
+lexical Ident = 
+  @category="Variable" ([a-z A-Z 0-9 _] !<< [a-z A-Z][a-z A-Z 0-9 _]* !>> [a-z A-Z 0-9 _]) \ Keywords;
 
 lexical Type
   = @category="Type" "boolean"
@@ -70,15 +74,16 @@ lexical Type
   | @category="Type" "string"
   ;
 
-lexical String = @category="Identifier" "\"" TextChar* "\"";
+lexical String = 
+  @category="Identifier" "\"" TextChar* "\"";
 
 lexical TextChar
   = [\\] << [\"]
   | ![\"]
   ;
 
-lexical Int 
-  = @category="Constant" [0-9]+ !>> [0-9]
+lexical Int =
+  @category="Constant" [0-9]+ !>> [0-9]
   ;
 
 lexical Boolean
@@ -86,19 +91,21 @@ lexical Boolean
   | "false"
   ;
 
-syntax Money = @category="Constant" LMoney;
+syntax Money = 
+  @category="Constant" LMoney;
 
-// Somhehow [0-9]+ "." [0-9]? [0-9]? does not work,[0-9]+ "." ([0-9]?[0-9])? does 
 lexical LMoney
   = [0-9]+ "."
   | [0-9]+ "." [0-9]
   | [0-9]+ "." [0-9][0-9]
   ;
 
-lexical Date = @category="Constant" "$" Year "-" Month "-" Day;
+lexical Date = 
+  @category="Constant" "$" Year "-" Month "-" Day;
 
 // Note: We assume that dates are valid in domain [1000 to 2999]
-lexical Year = [1-2][0-9][0-9][0-9];
+lexical Year =  
+  [1-2][0-9][0-9][0-9];
 
 lexical Month
   = [0][0-9]
@@ -120,9 +127,11 @@ lexical CommentChar
   | [*] !>> [/]
   ;
 
-lexical Whitespace = [\u0009-\u000D \u0020 \u0085 \u00A0 \u1680 \u180E \u2000-\u200A \u2028 \u2029 \u202F \u205F \u3000];
+lexical Whitespace = 
+  [\u0009-\u000D \u0020 \u0085 \u00A0 \u1680 \u180E \u2000-\u200A \u2028 \u2029 \u202F \u205F \u3000];
 
-layout Standard = WhitespaceOrComment* !>> [\ \t\n\f\r] !>> "//" !>> "/*";
+layout Standard = 
+  WhitespaceOrComment* !>> [\ \t\n\f\r] !>> "//" !>> "/*";
 
 keyword Keywords 
   = boolean: "boolean"

@@ -17,7 +17,7 @@ public class Ident extends Expr {
 
 	@Override
 	public void accept(Visitor visitor, Context context) {
-		visitor.visit( this, context );
+		visitor.visit(this, context);
 	}
 
 }

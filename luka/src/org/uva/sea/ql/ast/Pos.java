@@ -1,8 +1,10 @@
 package org.uva.sea.ql.ast;
 
+
+
 public class Pos extends Expr{
 
-	public Pos(Object x){
+	public Pos(Expr expr){
 		
 	}
 }

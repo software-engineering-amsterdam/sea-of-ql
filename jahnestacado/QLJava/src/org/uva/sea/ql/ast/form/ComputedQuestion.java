@@ -1,12 +1,12 @@
 package org.uva.sea.ql.ast.form;
 
-import org.uva.sea.ql.ast.ASTNode;
-import org.uva.sea.ql.ast.Expr;
+
+import org.uva.sea.ql.ast.expr.Expr;
 import org.uva.sea.ql.ast.types.Type;
 import org.uva.sea.ql.ast.values.Ident;
 import org.uva.sea.ql.visitor.ASTNodeVisitor;
 
-public class ComputedQuestion extends BodyElements {
+public class ComputedQuestion extends Element {
 	private final Ident id;
 	private final String label;
 	private final Type type;

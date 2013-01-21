@@ -9,6 +9,7 @@ import org.uva.sea.ql.ast.bool.*;
 import org.uva.sea.ql.ast.types.*;
 import org.uva.sea.ql.ast.math.*;
 import org.uva.sea.ql.ast.literal.*;
+import org.uva.sea.ql.ast.elements.*;
 }
 
 @lexer::header
@@ -40,7 +41,7 @@ blockLine returns [Expr result]
 ;
 
 question returns [Expr result]
-: Ident Assign String type {$result = new Question(new Ident($Ident.text), new Str($String.text), $type.result);}
+: Ident Assign String type {$result = new Question(new Ident($Ident.text), new StringLiteral($String.text), $type.result);}
 ;
 
 ifStatement returns [Expr result]
@@ -68,9 +69,9 @@ moneyCalc returns [Money result]
 	
 
 primary returns [Expr result]
-  : Int   { $result = new Int(Integer.parseInt($Int.text)); }
+  : Int   { $result = new IntLiteral(Integer.parseInt($Int.text)); }
   | Ident { $result = new Ident($Ident.text); }
-  | String { $result = new Str($String.text); }
+  | String { $result = new StringLiteral($String.text); }
   | type {$result = $type.result; }
   | '(' x=orExpr ')'{ $result = $x.result; }
   ;

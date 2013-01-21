@@ -44,26 +44,26 @@ public class ParserExecute {
 		QLParser parser = new QLParser(tokens);
 		
 		try {
-			
-			System.out.println("Parsing" );
-			QuestionnaireForm root = (QuestionnaireForm) parser.parse();
-			System.out.println("root: " + root.getFormName());
-			QuestionnaireContent content= root.getContent();
-			List<QuestionnaireItemInterface> items = content.getAllQuestionnaireItems();
-			System.out.println("QuestionnaireItems: " + items.size());
-			for (QuestionnaireItemInterface item : items) {
-				if(item.getClass() == Question.class){
-					System.out.println("Question: " + ((Question)item).getQuestionLabel());
-				}else{
-					IfBlock ifBlock = (IfBlock)item;
-					System.out.println("IfBlock items: "+ifBlock.getIfBlockItems().size());
-					System.out.println("IfBlock Condition: "+ifBlock.getcExprString());
-					for (QuestionnaireItemInterface ifBlockItem : ifBlock.getIfBlockItems()) {
-						System.out.println("If question label: "+((Question)ifBlockItem).getQuestionLabel());
-					}
-				}
-				
-			}
+			parser.parse();
+//			System.out.println("Parsing" );
+//			QuestionnaireForm root = (QuestionnaireForm) parser.parse();
+//			System.out.println("root: " + root.getFormName());
+//			QuestionnaireContent content= root.getContent();
+//			List<QuestionnaireItemInterface> items = content.getAllQuestionnaireItems();
+//			System.out.println("QuestionnaireItems: " + items.size());
+//			for (QuestionnaireItemInterface item : items) {
+//				if(item.getClass() == Question.class){
+//					System.out.println("Question: " + ((Question)item).getQuestionLabel());
+//				}else{
+//					IfBlock ifBlock = (IfBlock)item;
+//					System.out.println("IfBlock items: "+ifBlock.getIfBlockItems().size());
+//					System.out.println("IfBlock Condition: "+ifBlock.getcExprString());
+//					for (QuestionnaireItemInterface ifBlockItem : ifBlock.getIfBlockItems()) {
+//						System.out.println("If question label: "+((Question)ifBlockItem).getQuestionLabel());
+//					}
+//				}
+//				
+//			}
 		} 
 		catch (RecognitionException e) {
 			throw new ParseError(e.getMessage());
