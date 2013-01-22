@@ -3,8 +3,9 @@ package org.uva.sea.ql.astnodevisitor;
 import org.uva.sea.ql.ast.*;
 
 public interface Visitor {
-	VisitorResult visit(Expr expr) ;
-	VisitorResult visit(BinExpr expr) ;
+	VisitorResult visit(Expr expr);
+
+	VisitorResult visit(BinExpr expr);
 
 	VisitorResult visit(Ident expr);
 
@@ -35,6 +36,8 @@ public interface Visitor {
 	VisitorResult visit(LEq expr);
 
 	VisitorResult visit(NEq expr);
+
+	VisitorResult visit(GEq expr);
 
 	VisitorResult visit(UnExpr expr);
 

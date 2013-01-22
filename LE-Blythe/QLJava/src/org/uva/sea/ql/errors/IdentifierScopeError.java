@@ -2,10 +2,9 @@ package org.uva.sea.ql.errors;
 
 import org.uva.sea.ql.ast.Ident;
 
-public class IdentifierScopeError extends FormCheckerError{
-	private static final long serialVersionUID = 2L;
+public class IdentifierScopeError extends Error{
 	
 	public IdentifierScopeError(Ident i) {
-		super(String.format("Undeclared identifier: %s\n", i.getName()));
+		super(String.format("Undeclared identifier: %s\n", expressionToString(i)));
 	}
 }

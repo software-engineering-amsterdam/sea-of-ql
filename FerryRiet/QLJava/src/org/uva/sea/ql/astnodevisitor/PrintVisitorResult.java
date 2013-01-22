@@ -7,14 +7,16 @@ public class PrintVisitorResult implements VisitorResult {
 		printResult = result;
 	}
 
-	void appendResult(String string) {
+	public PrintVisitorResult appendResult(String string) {
 		printResult = printResult.concat(string);
+		return this;
 	}
 
-	void appendResult(VisitorResult printVisitorResult) {
+	public PrintVisitorResult appendResult(VisitorResult printVisitorResult) {
 		printResult = printResult
 				.concat(((PrintVisitorResult) printVisitorResult)
 						.getPrintResult());
+		return this;
 	}
 
 	public String getPrintResult() {

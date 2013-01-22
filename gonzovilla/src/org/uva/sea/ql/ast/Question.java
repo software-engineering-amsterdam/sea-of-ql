@@ -1,29 +1,29 @@
 package org.uva.sea.ql.ast;
 
-import org.uva.sea.ql.ast.types.ReturnType;
+import org.uva.sea.ql.ast.types.Type;
 
 public class Question extends FormUnit {
 
-	private String ident;
-	private String question;
-	private ReturnType returnType;
+	private String name;
+	private String body;
+	private Type type;
 	
-	public Question(String ident, String question, ReturnType returnType) {
-		this.ident = ident;
-		this.question = question;
-		this.returnType = returnType;
+	public Question(String name, String body, Type type) {
+		this.name = name;
+		this.body = body;
+		this.type = type;
 	}
 
-	public String getIdent() {
-		return ident;
+	public String getName() {
+		return name;
 	}
 
-	public String getQuestion() {
-		return question;
+	public String getBody() {
+		return body;
 	}
 
-	public ReturnType getReturnType() {
-		return returnType;
+	public Type getType() {
+		return type;
 	}
 
 }
