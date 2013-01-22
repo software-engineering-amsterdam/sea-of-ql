@@ -18,9 +18,9 @@ import org.uva.sea.ql.ast.expr.binary.LT;
 import org.uva.sea.ql.ast.expr.binary.Mul;
 import org.uva.sea.ql.ast.expr.primary.Ident;
 import org.uva.sea.ql.ast.expr.primary.Int;
-import org.uva.sea.ql.ast.stmt.ComputedQuestion;
 import org.uva.sea.ql.ast.stmt.IfThenElse;
-import org.uva.sea.ql.ast.stmt.NormalQuestion;
+import org.uva.sea.ql.ast.stmt.question.ComputedQuestion;
+import org.uva.sea.ql.ast.stmt.question.NormalQuestion;
 import org.uva.sea.ql.parser.ANTLRParser;
 import org.uva.sea.ql.parser.error.ParseError;
 

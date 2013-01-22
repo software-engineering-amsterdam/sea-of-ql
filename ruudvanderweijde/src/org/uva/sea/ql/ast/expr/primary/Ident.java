@@ -4,6 +4,7 @@ import java.util.Map;
 
 import org.uva.sea.ql.ast.expr.Expr;
 import org.uva.sea.ql.ast.type.Type;
+import org.uva.sea.ql.ast.type.Undefined;
 import org.uva.sea.ql.visitor.ExpressionVisitor;
 
 
@@ -26,7 +27,8 @@ public class Ident extends Expr {
 		}
 		// TODO return error;
 		//return new Error();
-		return null;
+		System.out.println("FIX THIS!!!! Error retreiving id...");
+		return new Undefined();
 	}
 
 	@Override

@@ -3,7 +3,6 @@ package org.uva.sea.ql.visitor;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import org.antlr.tool.Message;
 import org.uva.sea.ql.ast.Form;
 import org.uva.sea.ql.ast.expr.Expr;
 import org.uva.sea.ql.ast.expr.primary.Ident;
@@ -25,18 +24,8 @@ public class VisitorDemo {
     static public void main(String[] args) throws ParseError {
     	ANTLRParser parser = new ANTLRParser();
     	
-//    	String exprString = "1 && -1";
-    	String exprString = "true && true";
-    	Expr expr = parser.parseExpression(exprString);
-    	System.out.println("Visiting string: " + exprString);
-    	expr.accept(new ExpressionVisitorPrinter());
-    	
     	HashMap<Ident, Type> SymbolTable = new HashMap<Ident, Type>();
     	ArrayList<String> errors = new ArrayList<String>();
-    	
-    	Boolean result = expr.accept(new ExpressionChecker(SymbolTable, errors));
-    	System.out.println("ExpressionResult done, result: " + result);
-    	System.out.println("Errors: " + errors);
     	
     	// full form check
     	String testString = "";
@@ -64,6 +53,19 @@ public class VisitorDemo {
 		Form form = parser.parseForm(testString);
 		form.accept(new FormVisitorPrinter());
 		System.out.println("----- Now running FormChecker: ------");
-		form.accept(new FormChecker());
+		form.accept(new FormChecker(SymbolTable, errors));
+		System.out.println("----- Done! Errors found: ------");
+		for (String msg : errors) {
+			System.out.println(msg);
+		}
+		
+		String exprString = "sellingPrice1+1";
+    	Expr expr = parser.parseExpression(exprString);
+    	System.out.println("Visiting string: " + exprString);
+    	expr.accept(new ExpressionVisitorPrinter());
+    	
+    	Boolean result = expr.accept(new ExpressionChecker(SymbolTable, errors));
+    	System.out.println("ExpressionResult done, result: " + result);
+    	System.out.println("Errors: " + errors);
     }
 }

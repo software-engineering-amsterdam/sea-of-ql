@@ -16,6 +16,7 @@ options
   import org.uva.sea.ql.ast.expr.unary.*;
   import org.uva.sea.ql.ast.type.*;
   import org.uva.sea.ql.ast.stmt.*;
+  import org.uva.sea.ql.ast.stmt.question.*;
 }
 
 @lexer::header

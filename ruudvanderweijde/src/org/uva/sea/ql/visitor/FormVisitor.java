@@ -2,9 +2,9 @@ package org.uva.sea.ql.visitor;
 
 import org.uva.sea.ql.ast.Form;
 import org.uva.sea.ql.ast.expr.Expr;
-import org.uva.sea.ql.ast.stmt.ComputedQuestion;
 import org.uva.sea.ql.ast.stmt.IfThenElse;
-import org.uva.sea.ql.ast.stmt.NormalQuestion;
+import org.uva.sea.ql.ast.stmt.question.ComputedQuestion;
+import org.uva.sea.ql.ast.stmt.question.NormalQuestion;
 import org.uva.sea.ql.ast.type.Type;
 
 public interface FormVisitor {
