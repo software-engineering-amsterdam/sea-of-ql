@@ -33,9 +33,7 @@ private str createPHP(Question q:
 private str createPHP(Question q: 
   question(questionText, answerDataType, answerIdentifier, calculatedField)) {
   
-  cf = visit (calculatedField) {
-    case Expr e: ident(str name): insert ident("$" + name);
-  };
+  cf = prependIdent(calculatedField, "$");
   
   return 
     "<validator(answerDataType, answerIdentifier)>
@@ -54,7 +52,7 @@ private str createPHP(Statement item:
     '}";
 
 private str createPHP(Expr e) =
-  "COND: <e>";
+  "<prettyPrint(prependIdent(e, "$"))>";
   
 private str createQuery(str answerDataType, str ident) =
   "$<ident> = $_POST[\'<ident>\'];
@@ -103,3 +101,9 @@ private str validateDate(str ident) =
 
 private str validateString(str ident) =
   "die(S<ident>);";
+
+private Expr prependIdent(Expr expr, str prepend) {
+  return visit (expr) {
+    case Expr e: ident(str name): insert ident(prepend + name);
+  };
+}
