@@ -1,4 +1,4 @@
-// $ANTLR 3.4 C:\\Users\\caytekin\\Documents\\GitHub\\sea-of-ql\\caytekin\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g 2013-01-22 14:07:07
+// $ANTLR 3.4 C:\\Users\\caytekin\\Documents\\GitHub\\sea-of-ql\\caytekin\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g 2013-01-22 16:04:20
 
 package org.uva.sea.ql.parser.antlr;
 import org.uva.sea.ql.ast.*;
@@ -548,26 +548,23 @@ public class QLParser extends Parser {
         ArrayList<Statement> sb =null;
 
 
-         
-        		ArrayList<Statement> stmtList = new ArrayList<Statement>(); 
-        	
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 6) ) { return result; }
 
-            // C:\\Users\\caytekin\\Documents\\GitHub\\sea-of-ql\\caytekin\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:53:2: ( 'if' e= orExpr 'then' sb= statementBlock )
-            // C:\\Users\\caytekin\\Documents\\GitHub\\sea-of-ql\\caytekin\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:53:4: 'if' e= orExpr 'then' sb= statementBlock
+            // C:\\Users\\caytekin\\Documents\\GitHub\\sea-of-ql\\caytekin\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:50:2: ( 'if' e= orExpr 'then' sb= statementBlock )
+            // C:\\Users\\caytekin\\Documents\\GitHub\\sea-of-ql\\caytekin\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:50:4: 'if' e= orExpr 'then' sb= statementBlock
             {
-            match(input,IfRW,FOLLOW_IfRW_in_ifThenStatement238); if (state.failed) return result;
+            match(input,IfRW,FOLLOW_IfRW_in_ifThenStatement231); if (state.failed) return result;
 
-            pushFollow(FOLLOW_orExpr_in_ifThenStatement244);
+            pushFollow(FOLLOW_orExpr_in_ifThenStatement237);
             e=orExpr();
 
             state._fsp--;
             if (state.failed) return result;
 
-            match(input,ThenRW,FOLLOW_ThenRW_in_ifThenStatement246); if (state.failed) return result;
+            match(input,ThenRW,FOLLOW_ThenRW_in_ifThenStatement239); if (state.failed) return result;
 
-            pushFollow(FOLLOW_statementBlock_in_ifThenStatement252);
+            pushFollow(FOLLOW_statementBlock_in_ifThenStatement245);
             sb=statementBlock();
 
             state._fsp--;
@@ -595,7 +592,7 @@ public class QLParser extends Parser {
 
 
     // $ANTLR start "ifThenElseStatement"
-    // C:\\Users\\caytekin\\Documents\\GitHub\\sea-of-ql\\caytekin\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:58:1: ifThenElseStatement returns [IfThenElseStatement result] : 'if' e= orExpr 'then' thenSb= statementBlock 'else' elseSb= statementBlock ;
+    // C:\\Users\\caytekin\\Documents\\GitHub\\sea-of-ql\\caytekin\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:55:1: ifThenElseStatement returns [IfThenElseStatement result] : 'if' e= orExpr 'then' thenSb= statementBlock 'else' elseSb= statementBlock ;
     public final IfThenElseStatement ifThenElseStatement() throws RecognitionException {
         IfThenElseStatement result = null;
 
@@ -608,35 +605,31 @@ public class QLParser extends Parser {
         ArrayList<Statement> elseSb =null;
 
 
-
-        		ArrayList<Statement> thenStmtList = new ArrayList<Statement> ();
-        		ArrayList<Statement> elseStmtList = new ArrayList<Statement> ();
-        	
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 7) ) { return result; }
 
-            // C:\\Users\\caytekin\\Documents\\GitHub\\sea-of-ql\\caytekin\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:63:2: ( 'if' e= orExpr 'then' thenSb= statementBlock 'else' elseSb= statementBlock )
-            // C:\\Users\\caytekin\\Documents\\GitHub\\sea-of-ql\\caytekin\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:63:4: 'if' e= orExpr 'then' thenSb= statementBlock 'else' elseSb= statementBlock
+            // C:\\Users\\caytekin\\Documents\\GitHub\\sea-of-ql\\caytekin\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:56:2: ( 'if' e= orExpr 'then' thenSb= statementBlock 'else' elseSb= statementBlock )
+            // C:\\Users\\caytekin\\Documents\\GitHub\\sea-of-ql\\caytekin\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:56:4: 'if' e= orExpr 'then' thenSb= statementBlock 'else' elseSb= statementBlock
             {
-            match(input,IfRW,FOLLOW_IfRW_in_ifThenElseStatement278); if (state.failed) return result;
+            match(input,IfRW,FOLLOW_IfRW_in_ifThenElseStatement266); if (state.failed) return result;
 
-            pushFollow(FOLLOW_orExpr_in_ifThenElseStatement284);
+            pushFollow(FOLLOW_orExpr_in_ifThenElseStatement272);
             e=orExpr();
 
             state._fsp--;
             if (state.failed) return result;
 
-            match(input,ThenRW,FOLLOW_ThenRW_in_ifThenElseStatement287); if (state.failed) return result;
+            match(input,ThenRW,FOLLOW_ThenRW_in_ifThenElseStatement276); if (state.failed) return result;
 
-            pushFollow(FOLLOW_statementBlock_in_ifThenElseStatement293);
+            pushFollow(FOLLOW_statementBlock_in_ifThenElseStatement282);
             thenSb=statementBlock();
 
             state._fsp--;
             if (state.failed) return result;
 
-            match(input,ElseRW,FOLLOW_ElseRW_in_ifThenElseStatement296); if (state.failed) return result;
+            match(input,ElseRW,FOLLOW_ElseRW_in_ifThenElseStatement286); if (state.failed) return result;
 
-            pushFollow(FOLLOW_statementBlock_in_ifThenElseStatement302);
+            pushFollow(FOLLOW_statementBlock_in_ifThenElseStatement292);
             elseSb=statementBlock();
 
             state._fsp--;
@@ -664,7 +657,7 @@ public class QLParser extends Parser {
 
 
     // $ANTLR start "computedQuestion"
-    // C:\\Users\\caytekin\\Documents\\GitHub\\sea-of-ql\\caytekin\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:70:1: computedQuestion returns [ComputedQuestion result] : Ident ':' StringLiteral t= type '(' e= orExpr ')' ;
+    // C:\\Users\\caytekin\\Documents\\GitHub\\sea-of-ql\\caytekin\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:63:1: computedQuestion returns [ComputedQuestion result] : Ident ':' StringLiteral t= type '(' e= orExpr ')' ;
     public final ComputedQuestion computedQuestion() throws RecognitionException {
         ComputedQuestion result = null;
 
@@ -680,30 +673,30 @@ public class QLParser extends Parser {
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 8) ) { return result; }
 
-            // C:\\Users\\caytekin\\Documents\\GitHub\\sea-of-ql\\caytekin\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:71:2: ( Ident ':' StringLiteral t= type '(' e= orExpr ')' )
-            // C:\\Users\\caytekin\\Documents\\GitHub\\sea-of-ql\\caytekin\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:71:4: Ident ':' StringLiteral t= type '(' e= orExpr ')'
+            // C:\\Users\\caytekin\\Documents\\GitHub\\sea-of-ql\\caytekin\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:64:2: ( Ident ':' StringLiteral t= type '(' e= orExpr ')' )
+            // C:\\Users\\caytekin\\Documents\\GitHub\\sea-of-ql\\caytekin\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:64:4: Ident ':' StringLiteral t= type '(' e= orExpr ')'
             {
-            Ident1=(Token)match(input,Ident,FOLLOW_Ident_in_computedQuestion324); if (state.failed) return result;
+            Ident1=(Token)match(input,Ident,FOLLOW_Ident_in_computedQuestion315); if (state.failed) return result;
 
-            match(input,27,FOLLOW_27_in_computedQuestion326); if (state.failed) return result;
+            match(input,27,FOLLOW_27_in_computedQuestion317); if (state.failed) return result;
 
-            StringLiteral2=(Token)match(input,StringLiteral,FOLLOW_StringLiteral_in_computedQuestion328); if (state.failed) return result;
+            StringLiteral2=(Token)match(input,StringLiteral,FOLLOW_StringLiteral_in_computedQuestion319); if (state.failed) return result;
 
-            pushFollow(FOLLOW_type_in_computedQuestion332);
+            pushFollow(FOLLOW_type_in_computedQuestion323);
             t=type();
 
             state._fsp--;
             if (state.failed) return result;
 
-            match(input,21,FOLLOW_21_in_computedQuestion334); if (state.failed) return result;
+            match(input,21,FOLLOW_21_in_computedQuestion325); if (state.failed) return result;
 
-            pushFollow(FOLLOW_orExpr_in_computedQuestion338);
+            pushFollow(FOLLOW_orExpr_in_computedQuestion329);
             e=orExpr();
 
             state._fsp--;
             if (state.failed) return result;
 
-            match(input,22,FOLLOW_22_in_computedQuestion340); if (state.failed) return result;
+            match(input,22,FOLLOW_22_in_computedQuestion331); if (state.failed) return result;
 
             if ( state.backtracking==0 ) { result = new ComputedQuestion((Ident1!=null?Ident1.getText():null), (StringLiteral2!=null?StringLiteral2.getText():null), t, e); }
 
@@ -727,7 +720,7 @@ public class QLParser extends Parser {
 
 
     // $ANTLR start "question"
-    // C:\\Users\\caytekin\\Documents\\GitHub\\sea-of-ql\\caytekin\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:76:1: question returns [Question result] : Ident ':' StringLiteral t= type ;
+    // C:\\Users\\caytekin\\Documents\\GitHub\\sea-of-ql\\caytekin\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:69:1: question returns [Question result] : Ident ':' StringLiteral t= type ;
     public final Question question() throws RecognitionException {
         Question result = null;
 
@@ -741,16 +734,16 @@ public class QLParser extends Parser {
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 9) ) { return result; }
 
-            // C:\\Users\\caytekin\\Documents\\GitHub\\sea-of-ql\\caytekin\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:77:3: ( Ident ':' StringLiteral t= type )
-            // C:\\Users\\caytekin\\Documents\\GitHub\\sea-of-ql\\caytekin\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:77:5: Ident ':' StringLiteral t= type
+            // C:\\Users\\caytekin\\Documents\\GitHub\\sea-of-ql\\caytekin\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:70:3: ( Ident ':' StringLiteral t= type )
+            // C:\\Users\\caytekin\\Documents\\GitHub\\sea-of-ql\\caytekin\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:70:5: Ident ':' StringLiteral t= type
             {
-            Ident3=(Token)match(input,Ident,FOLLOW_Ident_in_question362); if (state.failed) return result;
+            Ident3=(Token)match(input,Ident,FOLLOW_Ident_in_question353); if (state.failed) return result;
 
-            match(input,27,FOLLOW_27_in_question364); if (state.failed) return result;
+            match(input,27,FOLLOW_27_in_question355); if (state.failed) return result;
 
-            StringLiteral4=(Token)match(input,StringLiteral,FOLLOW_StringLiteral_in_question366); if (state.failed) return result;
+            StringLiteral4=(Token)match(input,StringLiteral,FOLLOW_StringLiteral_in_question357); if (state.failed) return result;
 
-            pushFollow(FOLLOW_type_in_question370);
+            pushFollow(FOLLOW_type_in_question361);
             t=type();
 
             state._fsp--;
@@ -778,7 +771,7 @@ public class QLParser extends Parser {
 
 
     // $ANTLR start "type"
-    // C:\\Users\\caytekin\\Documents\\GitHub\\sea-of-ql\\caytekin\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:82:1: type returns [Type result] : ( BooleanType | IntegerType | StringType );
+    // C:\\Users\\caytekin\\Documents\\GitHub\\sea-of-ql\\caytekin\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:75:1: type returns [Type result] : ( BooleanType | IntegerType | StringType );
     public final Type type() throws RecognitionException {
         Type result = null;
 
@@ -787,7 +780,7 @@ public class QLParser extends Parser {
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 10) ) { return result; }
 
-            // C:\\Users\\caytekin\\Documents\\GitHub\\sea-of-ql\\caytekin\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:83:4: ( BooleanType | IntegerType | StringType )
+            // C:\\Users\\caytekin\\Documents\\GitHub\\sea-of-ql\\caytekin\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:76:4: ( BooleanType | IntegerType | StringType )
             int alt5=3;
             switch ( input.LA(1) ) {
             case BooleanType:
@@ -816,27 +809,27 @@ public class QLParser extends Parser {
 
             switch (alt5) {
                 case 1 :
-                    // C:\\Users\\caytekin\\Documents\\GitHub\\sea-of-ql\\caytekin\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:83:6: BooleanType
+                    // C:\\Users\\caytekin\\Documents\\GitHub\\sea-of-ql\\caytekin\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:76:6: BooleanType
                     {
-                    match(input,BooleanType,FOLLOW_BooleanType_in_type399); if (state.failed) return result;
+                    match(input,BooleanType,FOLLOW_BooleanType_in_type390); if (state.failed) return result;
 
                     if ( state.backtracking==0 ) { result = new BooleanType(); }
 
                     }
                     break;
                 case 2 :
-                    // C:\\Users\\caytekin\\Documents\\GitHub\\sea-of-ql\\caytekin\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:84:6: IntegerType
+                    // C:\\Users\\caytekin\\Documents\\GitHub\\sea-of-ql\\caytekin\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:77:6: IntegerType
                     {
-                    match(input,IntegerType,FOLLOW_IntegerType_in_type408); if (state.failed) return result;
+                    match(input,IntegerType,FOLLOW_IntegerType_in_type399); if (state.failed) return result;
 
                     if ( state.backtracking==0 ) { result = new IntegerType(); }
 
                     }
                     break;
                 case 3 :
-                    // C:\\Users\\caytekin\\Documents\\GitHub\\sea-of-ql\\caytekin\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:85:6: StringType
+                    // C:\\Users\\caytekin\\Documents\\GitHub\\sea-of-ql\\caytekin\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:78:6: StringType
                     {
-                    match(input,StringType,FOLLOW_StringType_in_type417); if (state.failed) return result;
+                    match(input,StringType,FOLLOW_StringType_in_type408); if (state.failed) return result;
 
                     if ( state.backtracking==0 ) { result = new StringType(); }
 
@@ -862,7 +855,7 @@ public class QLParser extends Parser {
 
 
     // $ANTLR start "reservedWord"
-    // C:\\Users\\caytekin\\Documents\\GitHub\\sea-of-ql\\caytekin\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:88:1: reservedWord returns [ReservedWord result] : ( TrueRW | FalseRW | IfRW | ThenRW | ElseRW );
+    // C:\\Users\\caytekin\\Documents\\GitHub\\sea-of-ql\\caytekin\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:81:1: reservedWord returns [ReservedWord result] : ( TrueRW | FalseRW | IfRW | ThenRW | ElseRW );
     public final ReservedWord reservedWord() throws RecognitionException {
         ReservedWord result = null;
 
@@ -871,7 +864,7 @@ public class QLParser extends Parser {
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 11) ) { return result; }
 
-            // C:\\Users\\caytekin\\Documents\\GitHub\\sea-of-ql\\caytekin\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:89:2: ( TrueRW | FalseRW | IfRW | ThenRW | ElseRW )
+            // C:\\Users\\caytekin\\Documents\\GitHub\\sea-of-ql\\caytekin\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:82:2: ( TrueRW | FalseRW | IfRW | ThenRW | ElseRW )
             int alt6=5;
             switch ( input.LA(1) ) {
             case TrueRW:
@@ -910,45 +903,45 @@ public class QLParser extends Parser {
 
             switch (alt6) {
                 case 1 :
-                    // C:\\Users\\caytekin\\Documents\\GitHub\\sea-of-ql\\caytekin\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:89:4: TrueRW
+                    // C:\\Users\\caytekin\\Documents\\GitHub\\sea-of-ql\\caytekin\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:82:4: TrueRW
                     {
-                    match(input,TrueRW,FOLLOW_TrueRW_in_reservedWord435); if (state.failed) return result;
+                    match(input,TrueRW,FOLLOW_TrueRW_in_reservedWord426); if (state.failed) return result;
 
                     if ( state.backtracking==0 ) { result = new TrueRW(); }
 
                     }
                     break;
                 case 2 :
-                    // C:\\Users\\caytekin\\Documents\\GitHub\\sea-of-ql\\caytekin\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:90:4: FalseRW
+                    // C:\\Users\\caytekin\\Documents\\GitHub\\sea-of-ql\\caytekin\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:83:4: FalseRW
                     {
-                    match(input,FalseRW,FOLLOW_FalseRW_in_reservedWord442); if (state.failed) return result;
+                    match(input,FalseRW,FOLLOW_FalseRW_in_reservedWord433); if (state.failed) return result;
 
                     if ( state.backtracking==0 ) { result = new FalseRW(); }
 
                     }
                     break;
                 case 3 :
-                    // C:\\Users\\caytekin\\Documents\\GitHub\\sea-of-ql\\caytekin\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:91:4: IfRW
+                    // C:\\Users\\caytekin\\Documents\\GitHub\\sea-of-ql\\caytekin\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:84:4: IfRW
                     {
-                    match(input,IfRW,FOLLOW_IfRW_in_reservedWord449); if (state.failed) return result;
+                    match(input,IfRW,FOLLOW_IfRW_in_reservedWord440); if (state.failed) return result;
 
                     if ( state.backtracking==0 ) { result = new IfRW(); }
 
                     }
                     break;
                 case 4 :
-                    // C:\\Users\\caytekin\\Documents\\GitHub\\sea-of-ql\\caytekin\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:92:4: ThenRW
+                    // C:\\Users\\caytekin\\Documents\\GitHub\\sea-of-ql\\caytekin\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:85:4: ThenRW
                     {
-                    match(input,ThenRW,FOLLOW_ThenRW_in_reservedWord456); if (state.failed) return result;
+                    match(input,ThenRW,FOLLOW_ThenRW_in_reservedWord447); if (state.failed) return result;
 
                     if ( state.backtracking==0 ) { result = new ThenRW(); }
 
                     }
                     break;
                 case 5 :
-                    // C:\\Users\\caytekin\\Documents\\GitHub\\sea-of-ql\\caytekin\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:93:4: ElseRW
+                    // C:\\Users\\caytekin\\Documents\\GitHub\\sea-of-ql\\caytekin\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:86:4: ElseRW
                     {
-                    match(input,ElseRW,FOLLOW_ElseRW_in_reservedWord463); if (state.failed) return result;
+                    match(input,ElseRW,FOLLOW_ElseRW_in_reservedWord454); if (state.failed) return result;
 
                     if ( state.backtracking==0 ) { result = new ElseRW(); }
 
@@ -974,7 +967,7 @@ public class QLParser extends Parser {
 
 
     // $ANTLR start "primary"
-    // C:\\Users\\caytekin\\Documents\\GitHub\\sea-of-ql\\caytekin\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:98:1: primary returns [Expr result] : ( Int | Ident | StringLiteral | '(' x= orExpr ')' );
+    // C:\\Users\\caytekin\\Documents\\GitHub\\sea-of-ql\\caytekin\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:91:1: primary returns [Expr result] : ( Int | Ident | StringLiteral | '(' x= orExpr ')' );
     public final Expr primary() throws RecognitionException {
         Expr result = null;
 
@@ -989,7 +982,7 @@ public class QLParser extends Parser {
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 12) ) { return result; }
 
-            // C:\\Users\\caytekin\\Documents\\GitHub\\sea-of-ql\\caytekin\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:99:3: ( Int | Ident | StringLiteral | '(' x= orExpr ')' )
+            // C:\\Users\\caytekin\\Documents\\GitHub\\sea-of-ql\\caytekin\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:92:3: ( Int | Ident | StringLiteral | '(' x= orExpr ')' )
             int alt7=4;
             switch ( input.LA(1) ) {
             case Int:
@@ -1023,44 +1016,44 @@ public class QLParser extends Parser {
 
             switch (alt7) {
                 case 1 :
-                    // C:\\Users\\caytekin\\Documents\\GitHub\\sea-of-ql\\caytekin\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:99:5: Int
+                    // C:\\Users\\caytekin\\Documents\\GitHub\\sea-of-ql\\caytekin\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:92:5: Int
                     {
-                    Int5=(Token)match(input,Int,FOLLOW_Int_in_primary485); if (state.failed) return result;
+                    Int5=(Token)match(input,Int,FOLLOW_Int_in_primary476); if (state.failed) return result;
 
                     if ( state.backtracking==0 ) { result = new Int(Integer.parseInt((Int5!=null?Int5.getText():null))); }
 
                     }
                     break;
                 case 2 :
-                    // C:\\Users\\caytekin\\Documents\\GitHub\\sea-of-ql\\caytekin\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:100:5: Ident
+                    // C:\\Users\\caytekin\\Documents\\GitHub\\sea-of-ql\\caytekin\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:93:5: Ident
                     {
-                    Ident6=(Token)match(input,Ident,FOLLOW_Ident_in_primary495); if (state.failed) return result;
+                    Ident6=(Token)match(input,Ident,FOLLOW_Ident_in_primary486); if (state.failed) return result;
 
                     if ( state.backtracking==0 ) { result = new Ident((Ident6!=null?Ident6.getText():null)); }
 
                     }
                     break;
                 case 3 :
-                    // C:\\Users\\caytekin\\Documents\\GitHub\\sea-of-ql\\caytekin\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:101:5: StringLiteral
+                    // C:\\Users\\caytekin\\Documents\\GitHub\\sea-of-ql\\caytekin\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:94:5: StringLiteral
                     {
-                    StringLiteral7=(Token)match(input,StringLiteral,FOLLOW_StringLiteral_in_primary503); if (state.failed) return result;
+                    StringLiteral7=(Token)match(input,StringLiteral,FOLLOW_StringLiteral_in_primary494); if (state.failed) return result;
 
                     if ( state.backtracking==0 ) { result = new StringLiteral((StringLiteral7!=null?StringLiteral7.getText():null)); }
 
                     }
                     break;
                 case 4 :
-                    // C:\\Users\\caytekin\\Documents\\GitHub\\sea-of-ql\\caytekin\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:102:5: '(' x= orExpr ')'
+                    // C:\\Users\\caytekin\\Documents\\GitHub\\sea-of-ql\\caytekin\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:95:5: '(' x= orExpr ')'
                     {
-                    match(input,21,FOLLOW_21_in_primary511); if (state.failed) return result;
+                    match(input,21,FOLLOW_21_in_primary502); if (state.failed) return result;
 
-                    pushFollow(FOLLOW_orExpr_in_primary515);
+                    pushFollow(FOLLOW_orExpr_in_primary506);
                     x=orExpr();
 
                     state._fsp--;
                     if (state.failed) return result;
 
-                    match(input,22,FOLLOW_22_in_primary517); if (state.failed) return result;
+                    match(input,22,FOLLOW_22_in_primary508); if (state.failed) return result;
 
                     if ( state.backtracking==0 ) { result = x; }
 
@@ -1086,7 +1079,7 @@ public class QLParser extends Parser {
 
 
     // $ANTLR start "unExpr"
-    // C:\\Users\\caytekin\\Documents\\GitHub\\sea-of-ql\\caytekin\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:106:1: unExpr returns [Expr result] : ( '+' x= unExpr | '-' x= unExpr | '!' x= unExpr |x= primary );
+    // C:\\Users\\caytekin\\Documents\\GitHub\\sea-of-ql\\caytekin\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:99:1: unExpr returns [Expr result] : ( '+' x= unExpr | '-' x= unExpr | '!' x= unExpr |x= primary );
     public final Expr unExpr() throws RecognitionException {
         Expr result = null;
 
@@ -1098,7 +1091,7 @@ public class QLParser extends Parser {
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 13) ) { return result; }
 
-            // C:\\Users\\caytekin\\Documents\\GitHub\\sea-of-ql\\caytekin\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:107:5: ( '+' x= unExpr | '-' x= unExpr | '!' x= unExpr |x= primary )
+            // C:\\Users\\caytekin\\Documents\\GitHub\\sea-of-ql\\caytekin\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:100:5: ( '+' x= unExpr | '-' x= unExpr | '!' x= unExpr |x= primary )
             int alt8=4;
             switch ( input.LA(1) ) {
             case 24:
@@ -1135,11 +1128,11 @@ public class QLParser extends Parser {
 
             switch (alt8) {
                 case 1 :
-                    // C:\\Users\\caytekin\\Documents\\GitHub\\sea-of-ql\\caytekin\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:107:7: '+' x= unExpr
+                    // C:\\Users\\caytekin\\Documents\\GitHub\\sea-of-ql\\caytekin\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:100:7: '+' x= unExpr
                     {
-                    match(input,24,FOLLOW_24_in_unExpr542); if (state.failed) return result;
+                    match(input,24,FOLLOW_24_in_unExpr533); if (state.failed) return result;
 
-                    pushFollow(FOLLOW_unExpr_in_unExpr546);
+                    pushFollow(FOLLOW_unExpr_in_unExpr537);
                     x=unExpr();
 
                     state._fsp--;
@@ -1150,11 +1143,11 @@ public class QLParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // C:\\Users\\caytekin\\Documents\\GitHub\\sea-of-ql\\caytekin\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:108:7: '-' x= unExpr
+                    // C:\\Users\\caytekin\\Documents\\GitHub\\sea-of-ql\\caytekin\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:101:7: '-' x= unExpr
                     {
-                    match(input,25,FOLLOW_25_in_unExpr556); if (state.failed) return result;
+                    match(input,25,FOLLOW_25_in_unExpr547); if (state.failed) return result;
 
-                    pushFollow(FOLLOW_unExpr_in_unExpr560);
+                    pushFollow(FOLLOW_unExpr_in_unExpr551);
                     x=unExpr();
 
                     state._fsp--;
@@ -1165,11 +1158,11 @@ public class QLParser extends Parser {
                     }
                     break;
                 case 3 :
-                    // C:\\Users\\caytekin\\Documents\\GitHub\\sea-of-ql\\caytekin\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:109:7: '!' x= unExpr
+                    // C:\\Users\\caytekin\\Documents\\GitHub\\sea-of-ql\\caytekin\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:102:7: '!' x= unExpr
                     {
-                    match(input,18,FOLLOW_18_in_unExpr570); if (state.failed) return result;
+                    match(input,18,FOLLOW_18_in_unExpr561); if (state.failed) return result;
 
-                    pushFollow(FOLLOW_unExpr_in_unExpr574);
+                    pushFollow(FOLLOW_unExpr_in_unExpr565);
                     x=unExpr();
 
                     state._fsp--;
@@ -1180,9 +1173,9 @@ public class QLParser extends Parser {
                     }
                     break;
                 case 4 :
-                    // C:\\Users\\caytekin\\Documents\\GitHub\\sea-of-ql\\caytekin\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:110:7: x= primary
+                    // C:\\Users\\caytekin\\Documents\\GitHub\\sea-of-ql\\caytekin\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:103:7: x= primary
                     {
-                    pushFollow(FOLLOW_primary_in_unExpr586);
+                    pushFollow(FOLLOW_primary_in_unExpr577);
                     x=primary();
 
                     state._fsp--;
@@ -1212,7 +1205,7 @@ public class QLParser extends Parser {
 
 
     // $ANTLR start "mulExpr"
-    // C:\\Users\\caytekin\\Documents\\GitHub\\sea-of-ql\\caytekin\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:114:1: mulExpr returns [Expr result] : lhs= unExpr (op= ( '*' | '/' ) rhs= unExpr )* ;
+    // C:\\Users\\caytekin\\Documents\\GitHub\\sea-of-ql\\caytekin\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:107:1: mulExpr returns [Expr result] : lhs= unExpr (op= ( '*' | '/' ) rhs= unExpr )* ;
     public final Expr mulExpr() throws RecognitionException {
         Expr result = null;
 
@@ -1227,10 +1220,10 @@ public class QLParser extends Parser {
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 14) ) { return result; }
 
-            // C:\\Users\\caytekin\\Documents\\GitHub\\sea-of-ql\\caytekin\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:115:5: (lhs= unExpr (op= ( '*' | '/' ) rhs= unExpr )* )
-            // C:\\Users\\caytekin\\Documents\\GitHub\\sea-of-ql\\caytekin\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:115:9: lhs= unExpr (op= ( '*' | '/' ) rhs= unExpr )*
+            // C:\\Users\\caytekin\\Documents\\GitHub\\sea-of-ql\\caytekin\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:108:5: (lhs= unExpr (op= ( '*' | '/' ) rhs= unExpr )* )
+            // C:\\Users\\caytekin\\Documents\\GitHub\\sea-of-ql\\caytekin\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:108:9: lhs= unExpr (op= ( '*' | '/' ) rhs= unExpr )*
             {
-            pushFollow(FOLLOW_unExpr_in_mulExpr622);
+            pushFollow(FOLLOW_unExpr_in_mulExpr613);
             lhs=unExpr();
 
             state._fsp--;
@@ -1238,7 +1231,7 @@ public class QLParser extends Parser {
 
             if ( state.backtracking==0 ) { result =lhs; }
 
-            // C:\\Users\\caytekin\\Documents\\GitHub\\sea-of-ql\\caytekin\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:115:45: (op= ( '*' | '/' ) rhs= unExpr )*
+            // C:\\Users\\caytekin\\Documents\\GitHub\\sea-of-ql\\caytekin\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:108:45: (op= ( '*' | '/' ) rhs= unExpr )*
             loop9:
             do {
                 int alt9=2;
@@ -1251,7 +1244,7 @@ public class QLParser extends Parser {
 
                 switch (alt9) {
             	case 1 :
-            	    // C:\\Users\\caytekin\\Documents\\GitHub\\sea-of-ql\\caytekin\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:115:47: op= ( '*' | '/' ) rhs= unExpr
+            	    // C:\\Users\\caytekin\\Documents\\GitHub\\sea-of-ql\\caytekin\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:108:47: op= ( '*' | '/' ) rhs= unExpr
             	    {
             	    op=(Token)input.LT(1);
 
@@ -1267,7 +1260,7 @@ public class QLParser extends Parser {
             	    }
 
 
-            	    pushFollow(FOLLOW_unExpr_in_mulExpr642);
+            	    pushFollow(FOLLOW_unExpr_in_mulExpr633);
             	    rhs=unExpr();
 
             	    state._fsp--;
@@ -1311,7 +1304,7 @@ public class QLParser extends Parser {
 
 
     // $ANTLR start "addExpr"
-    // C:\\Users\\caytekin\\Documents\\GitHub\\sea-of-ql\\caytekin\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:127:1: addExpr returns [Expr result] : lhs= mulExpr (op= ( '+' | '-' ) rhs= mulExpr )* ;
+    // C:\\Users\\caytekin\\Documents\\GitHub\\sea-of-ql\\caytekin\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:120:1: addExpr returns [Expr result] : lhs= mulExpr (op= ( '+' | '-' ) rhs= mulExpr )* ;
     public final Expr addExpr() throws RecognitionException {
         Expr result = null;
 
@@ -1326,10 +1319,10 @@ public class QLParser extends Parser {
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 15) ) { return result; }
 
-            // C:\\Users\\caytekin\\Documents\\GitHub\\sea-of-ql\\caytekin\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:128:5: (lhs= mulExpr (op= ( '+' | '-' ) rhs= mulExpr )* )
-            // C:\\Users\\caytekin\\Documents\\GitHub\\sea-of-ql\\caytekin\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:128:9: lhs= mulExpr (op= ( '+' | '-' ) rhs= mulExpr )*
+            // C:\\Users\\caytekin\\Documents\\GitHub\\sea-of-ql\\caytekin\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:121:5: (lhs= mulExpr (op= ( '+' | '-' ) rhs= mulExpr )* )
+            // C:\\Users\\caytekin\\Documents\\GitHub\\sea-of-ql\\caytekin\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:121:9: lhs= mulExpr (op= ( '+' | '-' ) rhs= mulExpr )*
             {
-            pushFollow(FOLLOW_mulExpr_in_addExpr683);
+            pushFollow(FOLLOW_mulExpr_in_addExpr674);
             lhs=mulExpr();
 
             state._fsp--;
@@ -1337,7 +1330,7 @@ public class QLParser extends Parser {
 
             if ( state.backtracking==0 ) { result =lhs; }
 
-            // C:\\Users\\caytekin\\Documents\\GitHub\\sea-of-ql\\caytekin\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:128:46: (op= ( '+' | '-' ) rhs= mulExpr )*
+            // C:\\Users\\caytekin\\Documents\\GitHub\\sea-of-ql\\caytekin\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:121:46: (op= ( '+' | '-' ) rhs= mulExpr )*
             loop10:
             do {
                 int alt10=2;
@@ -1350,7 +1343,7 @@ public class QLParser extends Parser {
 
                 switch (alt10) {
             	case 1 :
-            	    // C:\\Users\\caytekin\\Documents\\GitHub\\sea-of-ql\\caytekin\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:128:48: op= ( '+' | '-' ) rhs= mulExpr
+            	    // C:\\Users\\caytekin\\Documents\\GitHub\\sea-of-ql\\caytekin\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:121:48: op= ( '+' | '-' ) rhs= mulExpr
             	    {
             	    op=(Token)input.LT(1);
 
@@ -1366,7 +1359,7 @@ public class QLParser extends Parser {
             	    }
 
 
-            	    pushFollow(FOLLOW_mulExpr_in_addExpr701);
+            	    pushFollow(FOLLOW_mulExpr_in_addExpr692);
             	    rhs=mulExpr();
 
             	    state._fsp--;
@@ -1410,7 +1403,7 @@ public class QLParser extends Parser {
 
 
     // $ANTLR start "relExpr"
-    // C:\\Users\\caytekin\\Documents\\GitHub\\sea-of-ql\\caytekin\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:139:1: relExpr returns [Expr result] : lhs= addExpr (op= ( '<' | '<=' | '>' | '>=' | '==' | '!=' ) rhs= addExpr )* ;
+    // C:\\Users\\caytekin\\Documents\\GitHub\\sea-of-ql\\caytekin\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:132:1: relExpr returns [Expr result] : lhs= addExpr (op= ( '<' | '<=' | '>' | '>=' | '==' | '!=' ) rhs= addExpr )* ;
     public final Expr relExpr() throws RecognitionException {
         Expr result = null;
 
@@ -1425,10 +1418,10 @@ public class QLParser extends Parser {
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 16) ) { return result; }
 
-            // C:\\Users\\caytekin\\Documents\\GitHub\\sea-of-ql\\caytekin\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:140:5: (lhs= addExpr (op= ( '<' | '<=' | '>' | '>=' | '==' | '!=' ) rhs= addExpr )* )
-            // C:\\Users\\caytekin\\Documents\\GitHub\\sea-of-ql\\caytekin\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:140:9: lhs= addExpr (op= ( '<' | '<=' | '>' | '>=' | '==' | '!=' ) rhs= addExpr )*
+            // C:\\Users\\caytekin\\Documents\\GitHub\\sea-of-ql\\caytekin\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:133:5: (lhs= addExpr (op= ( '<' | '<=' | '>' | '>=' | '==' | '!=' ) rhs= addExpr )* )
+            // C:\\Users\\caytekin\\Documents\\GitHub\\sea-of-ql\\caytekin\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:133:9: lhs= addExpr (op= ( '<' | '<=' | '>' | '>=' | '==' | '!=' ) rhs= addExpr )*
             {
-            pushFollow(FOLLOW_addExpr_in_relExpr736);
+            pushFollow(FOLLOW_addExpr_in_relExpr727);
             lhs=addExpr();
 
             state._fsp--;
@@ -1436,7 +1429,7 @@ public class QLParser extends Parser {
 
             if ( state.backtracking==0 ) { result =lhs; }
 
-            // C:\\Users\\caytekin\\Documents\\GitHub\\sea-of-ql\\caytekin\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:140:46: (op= ( '<' | '<=' | '>' | '>=' | '==' | '!=' ) rhs= addExpr )*
+            // C:\\Users\\caytekin\\Documents\\GitHub\\sea-of-ql\\caytekin\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:133:46: (op= ( '<' | '<=' | '>' | '>=' | '==' | '!=' ) rhs= addExpr )*
             loop11:
             do {
                 int alt11=2;
@@ -1449,7 +1442,7 @@ public class QLParser extends Parser {
 
                 switch (alt11) {
             	case 1 :
-            	    // C:\\Users\\caytekin\\Documents\\GitHub\\sea-of-ql\\caytekin\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:140:48: op= ( '<' | '<=' | '>' | '>=' | '==' | '!=' ) rhs= addExpr
+            	    // C:\\Users\\caytekin\\Documents\\GitHub\\sea-of-ql\\caytekin\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:133:48: op= ( '<' | '<=' | '>' | '>=' | '==' | '!=' ) rhs= addExpr
             	    {
             	    op=(Token)input.LT(1);
 
@@ -1465,7 +1458,7 @@ public class QLParser extends Parser {
             	    }
 
 
-            	    pushFollow(FOLLOW_addExpr_in_relExpr760);
+            	    pushFollow(FOLLOW_addExpr_in_relExpr751);
             	    rhs=addExpr();
 
             	    state._fsp--;
@@ -1521,7 +1514,7 @@ public class QLParser extends Parser {
 
 
     // $ANTLR start "andExpr"
-    // C:\\Users\\caytekin\\Documents\\GitHub\\sea-of-ql\\caytekin\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:163:1: andExpr returns [Expr result] : lhs= relExpr ( '&&' rhs= relExpr )* ;
+    // C:\\Users\\caytekin\\Documents\\GitHub\\sea-of-ql\\caytekin\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:156:1: andExpr returns [Expr result] : lhs= relExpr ( '&&' rhs= relExpr )* ;
     public final Expr andExpr() throws RecognitionException {
         Expr result = null;
 
@@ -1535,10 +1528,10 @@ public class QLParser extends Parser {
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 17) ) { return result; }
 
-            // C:\\Users\\caytekin\\Documents\\GitHub\\sea-of-ql\\caytekin\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:164:5: (lhs= relExpr ( '&&' rhs= relExpr )* )
-            // C:\\Users\\caytekin\\Documents\\GitHub\\sea-of-ql\\caytekin\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:164:9: lhs= relExpr ( '&&' rhs= relExpr )*
+            // C:\\Users\\caytekin\\Documents\\GitHub\\sea-of-ql\\caytekin\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:157:5: (lhs= relExpr ( '&&' rhs= relExpr )* )
+            // C:\\Users\\caytekin\\Documents\\GitHub\\sea-of-ql\\caytekin\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:157:9: lhs= relExpr ( '&&' rhs= relExpr )*
             {
-            pushFollow(FOLLOW_relExpr_in_andExpr798);
+            pushFollow(FOLLOW_relExpr_in_andExpr789);
             lhs=relExpr();
 
             state._fsp--;
@@ -1546,7 +1539,7 @@ public class QLParser extends Parser {
 
             if ( state.backtracking==0 ) { result =lhs; }
 
-            // C:\\Users\\caytekin\\Documents\\GitHub\\sea-of-ql\\caytekin\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:164:46: ( '&&' rhs= relExpr )*
+            // C:\\Users\\caytekin\\Documents\\GitHub\\sea-of-ql\\caytekin\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:157:46: ( '&&' rhs= relExpr )*
             loop12:
             do {
                 int alt12=2;
@@ -1559,11 +1552,11 @@ public class QLParser extends Parser {
 
                 switch (alt12) {
             	case 1 :
-            	    // C:\\Users\\caytekin\\Documents\\GitHub\\sea-of-ql\\caytekin\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:164:48: '&&' rhs= relExpr
+            	    // C:\\Users\\caytekin\\Documents\\GitHub\\sea-of-ql\\caytekin\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:157:48: '&&' rhs= relExpr
             	    {
-            	    match(input,20,FOLLOW_20_in_andExpr804); if (state.failed) return result;
+            	    match(input,20,FOLLOW_20_in_andExpr795); if (state.failed) return result;
 
-            	    pushFollow(FOLLOW_relExpr_in_andExpr808);
+            	    pushFollow(FOLLOW_relExpr_in_andExpr799);
             	    rhs=relExpr();
 
             	    state._fsp--;
@@ -1600,7 +1593,7 @@ public class QLParser extends Parser {
 
 
     // $ANTLR start "orExpr"
-    // C:\\Users\\caytekin\\Documents\\GitHub\\sea-of-ql\\caytekin\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:168:1: orExpr returns [Expr result] : lhs= andExpr ( '||' rhs= andExpr )* ;
+    // C:\\Users\\caytekin\\Documents\\GitHub\\sea-of-ql\\caytekin\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:161:1: orExpr returns [Expr result] : lhs= andExpr ( '||' rhs= andExpr )* ;
     public final Expr orExpr() throws RecognitionException {
         Expr result = null;
 
@@ -1614,10 +1607,10 @@ public class QLParser extends Parser {
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 18) ) { return result; }
 
-            // C:\\Users\\caytekin\\Documents\\GitHub\\sea-of-ql\\caytekin\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:169:5: (lhs= andExpr ( '||' rhs= andExpr )* )
-            // C:\\Users\\caytekin\\Documents\\GitHub\\sea-of-ql\\caytekin\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:169:9: lhs= andExpr ( '||' rhs= andExpr )*
+            // C:\\Users\\caytekin\\Documents\\GitHub\\sea-of-ql\\caytekin\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:162:5: (lhs= andExpr ( '||' rhs= andExpr )* )
+            // C:\\Users\\caytekin\\Documents\\GitHub\\sea-of-ql\\caytekin\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:162:9: lhs= andExpr ( '||' rhs= andExpr )*
             {
-            pushFollow(FOLLOW_andExpr_in_orExpr843);
+            pushFollow(FOLLOW_andExpr_in_orExpr834);
             lhs=andExpr();
 
             state._fsp--;
@@ -1625,7 +1618,7 @@ public class QLParser extends Parser {
 
             if ( state.backtracking==0 ) { result = lhs; }
 
-            // C:\\Users\\caytekin\\Documents\\GitHub\\sea-of-ql\\caytekin\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:169:48: ( '||' rhs= andExpr )*
+            // C:\\Users\\caytekin\\Documents\\GitHub\\sea-of-ql\\caytekin\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:162:48: ( '||' rhs= andExpr )*
             loop13:
             do {
                 int alt13=2;
@@ -1638,11 +1631,11 @@ public class QLParser extends Parser {
 
                 switch (alt13) {
             	case 1 :
-            	    // C:\\Users\\caytekin\\Documents\\GitHub\\sea-of-ql\\caytekin\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:169:50: '||' rhs= andExpr
+            	    // C:\\Users\\caytekin\\Documents\\GitHub\\sea-of-ql\\caytekin\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:162:50: '||' rhs= andExpr
             	    {
-            	    match(input,35,FOLLOW_35_in_orExpr849); if (state.failed) return result;
+            	    match(input,35,FOLLOW_35_in_orExpr840); if (state.failed) return result;
 
-            	    pushFollow(FOLLOW_andExpr_in_orExpr853);
+            	    pushFollow(FOLLOW_andExpr_in_orExpr844);
             	    rhs=andExpr();
 
             	    state._fsp--;
@@ -1727,63 +1720,63 @@ public class QLParser extends Parser {
     public static final BitSet FOLLOW_computedQuestion_in_questionStatement174 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_ifThenElseStatement_in_conditionalStatement196 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_ifThenStatement_in_conditionalStatement208 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_IfRW_in_ifThenStatement238 = new BitSet(new long[]{0x0000000003242500L});
-    public static final BitSet FOLLOW_orExpr_in_ifThenStatement244 = new BitSet(new long[]{0x0000000000008000L});
-    public static final BitSet FOLLOW_ThenRW_in_ifThenStatement246 = new BitSet(new long[]{0x0000000400000000L});
-    public static final BitSet FOLLOW_statementBlock_in_ifThenStatement252 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_IfRW_in_ifThenElseStatement278 = new BitSet(new long[]{0x0000000003242500L});
-    public static final BitSet FOLLOW_orExpr_in_ifThenElseStatement284 = new BitSet(new long[]{0x0000000000008000L});
-    public static final BitSet FOLLOW_ThenRW_in_ifThenElseStatement287 = new BitSet(new long[]{0x0000000400000000L});
-    public static final BitSet FOLLOW_statementBlock_in_ifThenElseStatement293 = new BitSet(new long[]{0x0000000000000040L});
-    public static final BitSet FOLLOW_ElseRW_in_ifThenElseStatement296 = new BitSet(new long[]{0x0000000400000000L});
-    public static final BitSet FOLLOW_statementBlock_in_ifThenElseStatement302 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_Ident_in_computedQuestion324 = new BitSet(new long[]{0x0000000008000000L});
-    public static final BitSet FOLLOW_27_in_computedQuestion326 = new BitSet(new long[]{0x0000000000002000L});
-    public static final BitSet FOLLOW_StringLiteral_in_computedQuestion328 = new BitSet(new long[]{0x0000000000004810L});
-    public static final BitSet FOLLOW_type_in_computedQuestion332 = new BitSet(new long[]{0x0000000000200000L});
-    public static final BitSet FOLLOW_21_in_computedQuestion334 = new BitSet(new long[]{0x0000000003242500L});
-    public static final BitSet FOLLOW_orExpr_in_computedQuestion338 = new BitSet(new long[]{0x0000000000400000L});
-    public static final BitSet FOLLOW_22_in_computedQuestion340 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_Ident_in_question362 = new BitSet(new long[]{0x0000000008000000L});
-    public static final BitSet FOLLOW_27_in_question364 = new BitSet(new long[]{0x0000000000002000L});
-    public static final BitSet FOLLOW_StringLiteral_in_question366 = new BitSet(new long[]{0x0000000000004810L});
-    public static final BitSet FOLLOW_type_in_question370 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_BooleanType_in_type399 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_IntegerType_in_type408 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_StringType_in_type417 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_TrueRW_in_reservedWord435 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_FalseRW_in_reservedWord442 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_IfRW_in_reservedWord449 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ThenRW_in_reservedWord456 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ElseRW_in_reservedWord463 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_Int_in_primary485 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_Ident_in_primary495 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_StringLiteral_in_primary503 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_21_in_primary511 = new BitSet(new long[]{0x0000000003242500L});
-    public static final BitSet FOLLOW_orExpr_in_primary515 = new BitSet(new long[]{0x0000000000400000L});
-    public static final BitSet FOLLOW_22_in_primary517 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_24_in_unExpr542 = new BitSet(new long[]{0x0000000003242500L});
-    public static final BitSet FOLLOW_unExpr_in_unExpr546 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_25_in_unExpr556 = new BitSet(new long[]{0x0000000003242500L});
-    public static final BitSet FOLLOW_unExpr_in_unExpr560 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_18_in_unExpr570 = new BitSet(new long[]{0x0000000003242500L});
-    public static final BitSet FOLLOW_unExpr_in_unExpr574 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_primary_in_unExpr586 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_unExpr_in_mulExpr622 = new BitSet(new long[]{0x0000000004800002L});
-    public static final BitSet FOLLOW_set_in_mulExpr630 = new BitSet(new long[]{0x0000000003242500L});
-    public static final BitSet FOLLOW_unExpr_in_mulExpr642 = new BitSet(new long[]{0x0000000004800002L});
-    public static final BitSet FOLLOW_mulExpr_in_addExpr683 = new BitSet(new long[]{0x0000000003000002L});
-    public static final BitSet FOLLOW_set_in_addExpr691 = new BitSet(new long[]{0x0000000003242500L});
-    public static final BitSet FOLLOW_mulExpr_in_addExpr701 = new BitSet(new long[]{0x0000000003000002L});
-    public static final BitSet FOLLOW_addExpr_in_relExpr736 = new BitSet(new long[]{0x00000001F0080002L});
-    public static final BitSet FOLLOW_set_in_relExpr744 = new BitSet(new long[]{0x0000000003242500L});
-    public static final BitSet FOLLOW_addExpr_in_relExpr760 = new BitSet(new long[]{0x00000001F0080002L});
-    public static final BitSet FOLLOW_relExpr_in_andExpr798 = new BitSet(new long[]{0x0000000000100002L});
-    public static final BitSet FOLLOW_20_in_andExpr804 = new BitSet(new long[]{0x0000000003242500L});
-    public static final BitSet FOLLOW_relExpr_in_andExpr808 = new BitSet(new long[]{0x0000000000100002L});
-    public static final BitSet FOLLOW_andExpr_in_orExpr843 = new BitSet(new long[]{0x0000000800000002L});
-    public static final BitSet FOLLOW_35_in_orExpr849 = new BitSet(new long[]{0x0000000003242500L});
-    public static final BitSet FOLLOW_andExpr_in_orExpr853 = new BitSet(new long[]{0x0000000800000002L});
+    public static final BitSet FOLLOW_IfRW_in_ifThenStatement231 = new BitSet(new long[]{0x0000000003242500L});
+    public static final BitSet FOLLOW_orExpr_in_ifThenStatement237 = new BitSet(new long[]{0x0000000000008000L});
+    public static final BitSet FOLLOW_ThenRW_in_ifThenStatement239 = new BitSet(new long[]{0x0000000400000000L});
+    public static final BitSet FOLLOW_statementBlock_in_ifThenStatement245 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_IfRW_in_ifThenElseStatement266 = new BitSet(new long[]{0x0000000003242500L});
+    public static final BitSet FOLLOW_orExpr_in_ifThenElseStatement272 = new BitSet(new long[]{0x0000000000008000L});
+    public static final BitSet FOLLOW_ThenRW_in_ifThenElseStatement276 = new BitSet(new long[]{0x0000000400000000L});
+    public static final BitSet FOLLOW_statementBlock_in_ifThenElseStatement282 = new BitSet(new long[]{0x0000000000000040L});
+    public static final BitSet FOLLOW_ElseRW_in_ifThenElseStatement286 = new BitSet(new long[]{0x0000000400000000L});
+    public static final BitSet FOLLOW_statementBlock_in_ifThenElseStatement292 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_Ident_in_computedQuestion315 = new BitSet(new long[]{0x0000000008000000L});
+    public static final BitSet FOLLOW_27_in_computedQuestion317 = new BitSet(new long[]{0x0000000000002000L});
+    public static final BitSet FOLLOW_StringLiteral_in_computedQuestion319 = new BitSet(new long[]{0x0000000000004810L});
+    public static final BitSet FOLLOW_type_in_computedQuestion323 = new BitSet(new long[]{0x0000000000200000L});
+    public static final BitSet FOLLOW_21_in_computedQuestion325 = new BitSet(new long[]{0x0000000003242500L});
+    public static final BitSet FOLLOW_orExpr_in_computedQuestion329 = new BitSet(new long[]{0x0000000000400000L});
+    public static final BitSet FOLLOW_22_in_computedQuestion331 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_Ident_in_question353 = new BitSet(new long[]{0x0000000008000000L});
+    public static final BitSet FOLLOW_27_in_question355 = new BitSet(new long[]{0x0000000000002000L});
+    public static final BitSet FOLLOW_StringLiteral_in_question357 = new BitSet(new long[]{0x0000000000004810L});
+    public static final BitSet FOLLOW_type_in_question361 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_BooleanType_in_type390 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_IntegerType_in_type399 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_StringType_in_type408 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_TrueRW_in_reservedWord426 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_FalseRW_in_reservedWord433 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_IfRW_in_reservedWord440 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ThenRW_in_reservedWord447 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ElseRW_in_reservedWord454 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_Int_in_primary476 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_Ident_in_primary486 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_StringLiteral_in_primary494 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_21_in_primary502 = new BitSet(new long[]{0x0000000003242500L});
+    public static final BitSet FOLLOW_orExpr_in_primary506 = new BitSet(new long[]{0x0000000000400000L});
+    public static final BitSet FOLLOW_22_in_primary508 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_24_in_unExpr533 = new BitSet(new long[]{0x0000000003242500L});
+    public static final BitSet FOLLOW_unExpr_in_unExpr537 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_25_in_unExpr547 = new BitSet(new long[]{0x0000000003242500L});
+    public static final BitSet FOLLOW_unExpr_in_unExpr551 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_18_in_unExpr561 = new BitSet(new long[]{0x0000000003242500L});
+    public static final BitSet FOLLOW_unExpr_in_unExpr565 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_primary_in_unExpr577 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_unExpr_in_mulExpr613 = new BitSet(new long[]{0x0000000004800002L});
+    public static final BitSet FOLLOW_set_in_mulExpr621 = new BitSet(new long[]{0x0000000003242500L});
+    public static final BitSet FOLLOW_unExpr_in_mulExpr633 = new BitSet(new long[]{0x0000000004800002L});
+    public static final BitSet FOLLOW_mulExpr_in_addExpr674 = new BitSet(new long[]{0x0000000003000002L});
+    public static final BitSet FOLLOW_set_in_addExpr682 = new BitSet(new long[]{0x0000000003242500L});
+    public static final BitSet FOLLOW_mulExpr_in_addExpr692 = new BitSet(new long[]{0x0000000003000002L});
+    public static final BitSet FOLLOW_addExpr_in_relExpr727 = new BitSet(new long[]{0x00000001F0080002L});
+    public static final BitSet FOLLOW_set_in_relExpr735 = new BitSet(new long[]{0x0000000003242500L});
+    public static final BitSet FOLLOW_addExpr_in_relExpr751 = new BitSet(new long[]{0x00000001F0080002L});
+    public static final BitSet FOLLOW_relExpr_in_andExpr789 = new BitSet(new long[]{0x0000000000100002L});
+    public static final BitSet FOLLOW_20_in_andExpr795 = new BitSet(new long[]{0x0000000003242500L});
+    public static final BitSet FOLLOW_relExpr_in_andExpr799 = new BitSet(new long[]{0x0000000000100002L});
+    public static final BitSet FOLLOW_andExpr_in_orExpr834 = new BitSet(new long[]{0x0000000800000002L});
+    public static final BitSet FOLLOW_35_in_orExpr840 = new BitSet(new long[]{0x0000000003242500L});
+    public static final BitSet FOLLOW_andExpr_in_orExpr844 = new BitSet(new long[]{0x0000000800000002L});
     public static final BitSet FOLLOW_ifThenElseStatement_in_synpred4_QL196 = new BitSet(new long[]{0x0000000000000002L});
 
 }
