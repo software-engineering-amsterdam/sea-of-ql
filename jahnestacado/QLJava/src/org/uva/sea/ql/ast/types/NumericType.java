@@ -2,7 +2,7 @@ package org.uva.sea.ql.ast.types;
 
 import org.uva.sea.ql.visitor.ASTNodeVisitor;
 
-public  class Numeric extends Type{
+public  class NumericType extends Type{
 
 	
 

@@ -17,7 +17,7 @@ public class InputReader {
 		     
 		    File file = new File(src);
             FileReader fstream  = new FileReader(file);
-            BufferedReader  bufReader  = new BufferedReader(fstream);
+            BufferedReader  bufReader = new BufferedReader(fstream);
             String strLine;
             
 

@@ -2,7 +2,7 @@ package org.uva.sea.ql.ast.types;
 
 import org.uva.sea.ql.visitor.ASTNodeVisitor;
 
-public class MoneyType extends Numeric {
+public class MoneyType extends NumericType {
 
 	
 
