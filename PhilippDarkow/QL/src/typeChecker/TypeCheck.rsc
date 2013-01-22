@@ -6,9 +6,11 @@ import syntax::ConcreteSyntax;
 import util::Load;
 import typeChecker::Mapping;
 
-alias QTENV = tuple[ map[str, Type] symbols, list[tuple[loc l, str msg]] errors]; 
+alias QTENV = tuple[ map[str, Type] symbols, list[tuple[loc l, str msg]] errors];
+alias FTENV = tuple[ map[str, Question] symbols, list[tuple[loc l, str msg]] errors]; 
 
 QTENV addError(QTENV qEnv, loc l, str msg) = qEnv[errors = qEnv.errors + <l, msg>];
+FTENV addError(QTENV fEnv, loc l, str msg) = qEnv[errors = fEnv.errors + <l, msg>];
 
 str required(Type t, str got) = "Required <getName(t)>, got <got>";                 
 str required(Type t1, Type t2) = required(t1, getName(t2));
@@ -103,9 +105,9 @@ void checkQuestion(Question q){
 
 }
 
-QTENV visitQuestions(Question q, env){   //, QTENV env
+QTENV visitQuestions(Question q, env){
 	println("Q : <q>");
-	env = checkQuestion(q, env);  // , env
+	env = checkQuestion(q, env); 
 	return env;
 }
 
@@ -113,7 +115,6 @@ QTENV checkQuestion(question:easyQuestion(str id, str qLabel, Type tp) , QTENV e
 	println("check easy question");
 	env = (<( id : tp ), [] >);
 	println("ENV : <env>");
-	//print(id);
 	return env;	
 }
 
@@ -123,7 +124,8 @@ QTENV checkQuestion(question:computedQuestion(str id, str labelQuestion, Type tp
 	println("ENV : <env>");
 }
 
-//FTENV checkBody()
+FTENV checkBody(list[Body] Body) =
+	<( id : que  | question(Question question) <- Body), []>;
 
 // check a QL program
 public QTENV checkProgram(Program P){                                                
@@ -131,7 +133,7 @@ public QTENV checkProgram(Program P){
      println("EXP : <exp>");
      println("Body : <Body>");  
      QTENV env = (<( ), [] >);  // empty Question Type map
-   //  FTENV fEnv = checkBody(list[Body] Body)
+   //  FTENV fEnv = checkBody(list[Body] Body)  // !!!!! HERE WEITER
      println("ENV : <env>");
      visit(Body){
      	case Question q : { 
