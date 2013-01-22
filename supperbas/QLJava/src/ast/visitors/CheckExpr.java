@@ -7,13 +7,13 @@ import ast.Expr;
 import ast.exprs.Binary;
 import ast.exprs.binary.*;
 import ast.exprs.unary.*;
+import ast.exprs.value.Bool;
 import ast.exprs.value.Money;
 import ast.exprs.value.Str;
 import ast.types.*;
 import ast.types.Error;
 
 public class CheckExpr implements Visitor<Boolean> {
-	@SuppressWarnings("unused")
 	private final Map<Ident, Type> typeEnv;
 	@SuppressWarnings("unused")
 	private final List<Message> messages;
@@ -122,13 +122,6 @@ public class CheckExpr implements Visitor<Boolean> {
 			return false;
 		}
 		return true;
-	}
-
-	@Override
-	public Boolean visit(Int ast) {
-		if(ast.isCompatibleToNumeric())
-			return true;
-		return false;
 	}
 
 	@Override
@@ -249,5 +242,30 @@ public class CheckExpr implements Visitor<Boolean> {
 
 	public void addError(Error<?> err) {
 		this.errors.add(err);
+	}
+
+	@Override
+	public Boolean visit(Bool ast) {
+		return ast.typeOf(typeEnv).isCompatibleToBool();
+	}
+
+	@Override
+	public Boolean visit(Str ast) {
+		return ast.typeOf(typeEnv).isCompatibleToStr();
+	}
+
+	@Override
+	public Boolean visit(Money ast) {
+		return ast.typeOf(typeEnv).isCompatibleToNumeric();
+	}
+
+	@Override
+	public Boolean visit(ast.exprs.value.Int ast) {
+		return ast.typeOf(typeEnv).isCompatibleToNumeric();
+	}
+
+	@Override
+	public Boolean visit(ast.exprs.value.Ident ast) {
+		return ast instanceof ast.exprs.value.Ident;
 	}
 }
