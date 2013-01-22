@@ -1,5 +1,7 @@
-package org.uva.sea.ql.ast;
+package org.uva.sea.ql.ast.questions;
 
+import org.uva.sea.ql.ast.Question;
+import org.uva.sea.ql.ast.Type;
 import org.uva.sea.ql.ast.expressions.Ident;
 import org.uva.sea.ql.ast.values.Str;
 
