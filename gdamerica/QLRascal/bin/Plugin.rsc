@@ -10,7 +10,7 @@ import util::IDE;
 import lang::ql::util::Parse;
 import ParseTree;
 
-private str LANG = "QLRascal";
+private str LANG = "QL-R";
 private str EXT = "q";
 
 public void main() {	

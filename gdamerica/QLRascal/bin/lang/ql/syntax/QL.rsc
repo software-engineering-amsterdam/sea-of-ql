@@ -62,13 +62,13 @@ start syntax Question
   ;
    
 start syntax Condition
-  = @foldable singleIfCondition: "if" Expr evaluation "{" Element+ questions "}" 
-  | @foldable ifElseCondition: "if" Expr evaluation "{" Element+ questions "}" "else" "{" Element+ questions "}"
-  | @foldable ifElseIfCondition: "if" Expr evaluation "{" Element+ questions "}" ElseIf+ elseif "else" "{" Element+ questions "}"   
+  = singleIfCondition: "if" Expr evaluation "{" Element+ questions "}" 
+  | ifElseCondition: "if" Expr evaluation "{" Element+ questions "}" "else" "{" Element+ questions "}"
+  | ifElseIfCondition: "if" Expr evaluation "{" Element+ questions "}" ElseIf+ elseif "else" "{" Element+ questions "}"   
   ;
       
 start syntax ElseIf
-  = @foldable elseifCondition: "else if" Expr evaluation "{" Element+ questions "}" 
+  = elseifCondition: "else if" Expr evaluation "{" Element+ questions "}" 
   ; 
   
 syntax WhitespaceOrComment 
