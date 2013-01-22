@@ -6,11 +6,11 @@ import java.util.Map;
 import org.uva.sea.ql.ast.types.Type;
 import org.uva.sea.ql.ast.values.Value;
 
-public class StringNode extends Expr {
+public class Str extends Expr {
 
 	private final java.lang.String value;
 
-	public StringNode(java.lang.String value) {
+	public Str(java.lang.String value) {
 		this.value = value;
 	}
 

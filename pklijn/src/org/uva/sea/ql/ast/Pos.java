@@ -4,24 +4,23 @@ import java.util.List;
 import java.util.Map;
 
 import org.uva.sea.ql.ast.types.Type;
+import org.uva.sea.ql.ast.values.IntValue;
 import org.uva.sea.ql.ast.values.Value;
 
-public class Pos extends Expr {
+public class Pos extends Unary {
 
-	public Pos(Expr x) {
-		// TODO Auto-generated constructor stub
+	public Pos(Expr arg) {
+		super(arg);
 	}
 
 	@Override
 	public Value eval() {
-		// TODO Auto-generated method stub
-		return null;
+		return new IntValue(Math.abs(((IntValue)getArg().eval()).getValue()));
 	}
 
 	@Override
 	public Type typeOf(Map<Ident, Type> typeEnv) {
-		// TODO Auto-generated method stub
-		return null;
+		return new org.uva.sea.ql.ast.types.IntType();
 	}
 	
 	@Override

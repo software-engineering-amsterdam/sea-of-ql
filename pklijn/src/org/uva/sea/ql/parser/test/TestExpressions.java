@@ -4,13 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.assertFalse;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
-import org.junit.runners.Parameterized.Parameters;
 import org.uva.sea.ql.ast.Add;
 import org.uva.sea.ql.ast.GT;
 import org.uva.sea.ql.ast.Ident;
@@ -21,21 +15,12 @@ import org.uva.sea.ql.ast.Mul;
 import org.uva.sea.ql.ast.values.*;
 import org.uva.sea.ql.parser.antlr.ANTLRParser;
 
-@RunWith(Parameterized.class)
 public class TestExpressions {
 
 	private IParse parser;
-
-	@Parameters
-	public static List<Object[]> theParsers() {
-		List<Object[]> list = new ArrayList<Object[]>();
-		list.add(new Object[] {new ANTLRParser()});
-		return list;
-	}
-
 	
-	public TestExpressions(IParse parser) {
-		this.parser = parser;
+	public TestExpressions() {
+		this.parser = new ANTLRParser();
 	}
 	
 	@Test
@@ -114,7 +99,7 @@ public class TestExpressions {
 	}
 	
 	@Test
-	public void testEquation() throws ParseError {
+	public void testEquation() throws ParseError { // TODO: geen equation noemen..
 		assertTrue(((BoolValue)parser.parse("(1 < 2) && (3 < 4)").eval()).getValue());
 		assertTrue(((BoolValue)parser.parse("(1 <= 1) && (7 > 4)").eval()).getValue());
 		assertTrue(((BoolValue)parser.parse("(1 > 2) || (3 < 4)").eval()).getValue());
@@ -123,6 +108,7 @@ public class TestExpressions {
 		assertTrue(((BoolValue)parser.parse("10 == 10").eval()).getValue());
 		assertTrue(((BoolValue)parser.parse("099 == 99").eval()).getValue());
 		assertFalse(((BoolValue)parser.parse("23 == 25").eval()).getValue());
+		assertTrue(((BoolValue)parser.parse("-124 == -124").eval()).getValue());
 		
 		assertTrue(((BoolValue)parser.parse("1 != 2").eval()).getValue());
 		assertFalse(((BoolValue)parser.parse("245 != 245").eval()).getValue());
@@ -140,6 +126,6 @@ public class TestExpressions {
 		assertTrue(((BoolValue)parser.parse("\"peter\" == \"peter\"").eval()).getValue());
 		assertFalse(((BoolValue)parser.parse("\"peter\" == \"klijn\"").eval()).getValue());
 		assertTrue(((BoolValue)parser.parse("\"peter\" != \"klijn\"").eval()).getValue());
-		assertFalse(((BoolValue)parser.parse("\"peter\" != \"peter\"").eval()).getValue());
+		assertFalse(((BoolValue)parser.parse("\"peter\" != \"peter\"").eval()).getValue());		
 	}
 }
