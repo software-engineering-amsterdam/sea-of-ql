@@ -15,7 +15,7 @@ public class IntLiteral extends Expr {
 	}
 
 	@Override
-	public TypeDescription typeOf(HashMap<Ident, Statement> typeEnv) {
+	public TypeDescription typeOf(HashMap<String, Statement> typeEnv) {
 		return new NumeralType();
 	}
 }

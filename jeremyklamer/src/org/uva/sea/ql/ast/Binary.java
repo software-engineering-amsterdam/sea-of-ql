@@ -1,5 +1,6 @@
 package org.uva.sea.ql.ast;
 
+
 public abstract class Binary extends Expr {
 
 	private Expr left;

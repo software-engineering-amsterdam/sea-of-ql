@@ -6,7 +6,7 @@ lexical Ident
  	;
 
 lexical Money 
-	= ([0-9]+ "," !>> [0-9]?[0-9])
+	= ([0-9]+ "," [0-9][0-9]?)
 	;
 
 lexical Date

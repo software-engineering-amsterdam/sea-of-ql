@@ -7,8 +7,7 @@ public class ErrorType extends TypeDescription {
 	}
 
 	@Override
-	public boolean compatibleType(TypeDescription testType) {
+	public boolean isCompatibleTo(TypeDescription t) {
 		return true;
 	}
-
 }

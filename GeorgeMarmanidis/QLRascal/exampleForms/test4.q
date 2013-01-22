@@ -1,7 +1,7 @@
 form test  {
 	name: "Name:" string
 	surname: "Surname:" string
-	surname1: "Surname1:" string (surname+"dwadaw")
+	surname2: "Surname1:" string (surname+"dwadaw")
 	age: "Age:" integer
 	age2: "Age2:" integer
 	
@@ -17,11 +17,11 @@ form test  {
 		salary: "what salary you except?:" money
 		}
 	}
-	/*else if(!isEmpl)
+	else if(!isEmpl)
 	{
 		isEmpl: "Do you work?" boolean
 		interests: "What are you seeking in a job?" string  ("dawdawdawd")
-	}*/
+	}
 	else
 	{
 		interest: "How you get in here?" string

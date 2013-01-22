@@ -10,5 +10,6 @@ public abstract class Expr implements ASTNode {
 	public VisitorResult accept(Visitor visitor) {
 		return visitor.visit(this);
 	}
-	public abstract TypeDescription typeOf(HashMap<Ident, Statement> typeEnv);
+
+	public abstract TypeDescription typeOf(HashMap<String, Statement> symbolMap);
 }

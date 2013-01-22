@@ -80,7 +80,7 @@ public class PrintVisitor implements Visitor {
 		return pres;
 	}
 
-	@Override
+/*	@Override
 	public VisitorResult visit(BinExpr expr) {
 		PrintVisitorResult result = null;
 
@@ -111,7 +111,7 @@ public class PrintVisitor implements Visitor {
 
 		return result;
 	}
-
+*/
 	@Override
 	public VisitorResult visit(UnExpr expr) {
 		PrintVisitorResult result = null;
@@ -128,28 +128,19 @@ public class PrintVisitor implements Visitor {
 		return result;
 	}
 
-	@Override
-	public VisitorResult visit(Expr expr) {
-		PrintVisitorResult result = null;
-		if (expr.getClass() == IntLiteral.class) {
-			IntLiteral intLit = (IntLiteral) expr;
-			result = new PrintVisitorResult(Integer.toString(intLit.getValue()));
-		}
-		if (expr.getClass() == BooleanLiteral.class) {
-			BooleanLiteral boolLit = (BooleanLiteral) expr;
-			result = new PrintVisitorResult(boolLit.getValue());
-		}
-		if (expr.getClass() == StringLiteral.class) {
-			StringLiteral stringLit = (StringLiteral) expr;
-			result = new PrintVisitorResult(stringLit.getValue());
-		}
-		if (expr.getClass() == Ident.class) {
-			Ident id = (Ident) expr;
-			result = new PrintVisitorResult(id.getName());
-		}
-		return result;
-	}
-
+	/*
+	 * @Override public VisitorResult visit(Expr expr) { PrintVisitorResult
+	 * result = null; if (expr.getClass() == IntLiteral.class) { IntLiteral
+	 * intLit = (IntLiteral) expr; result = new
+	 * PrintVisitorResult(Integer.toString(intLit.getValue())); } if
+	 * (expr.getClass() == BooleanLiteral.class) { BooleanLiteral boolLit =
+	 * (BooleanLiteral) expr; result = new
+	 * PrintVisitorResult(boolLit.getValue()); } if (expr.getClass() ==
+	 * StringLiteral.class) { StringLiteral stringLit = (StringLiteral) expr;
+	 * result = new PrintVisitorResult(stringLit.getValue()); } if
+	 * (expr.getClass() == Ident.class) { Ident id = (Ident) expr; result = new
+	 * PrintVisitorResult(id.getName()); } return result; }
+	 */
 	@Override
 	public VisitorResult visit(Add expr) {
 		// TODO Auto-generated method stub
@@ -254,6 +245,18 @@ public class PrintVisitor implements Visitor {
 
 	@Override
 	public VisitorResult visit(BooleanLiteral expr) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public VisitorResult visit(Expr expr) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public VisitorResult visit(BinExpr expr) {
 		// TODO Auto-generated method stub
 		return null;
 	}

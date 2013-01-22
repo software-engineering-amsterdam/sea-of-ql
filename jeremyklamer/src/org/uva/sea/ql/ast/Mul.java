@@ -1,7 +1,10 @@
 package org.uva.sea.ql.ast;
 
+import java.util.ArrayList;
+import java.util.Map;
+
+import org.uva.sea.ql.ast.type.Numeric;
 import org.uva.sea.ql.ast.type.Type;
-import org.uva.sea.ql.interpreter.Env;
 import org.uva.sea.ql.interpreter.IntVal;
 import org.uva.sea.ql.interpreter.Value;
 
@@ -19,16 +22,23 @@ public class Mul extends Binary {
 	}
 	
 	@Override
-	public Type typeOf(Env env) {
+	public Type typeOf(Map<Ident, Type> typeEnv) {
+		return new Numeric();
+	}
+	
+	@Override
+	public ArrayList<String> checkType(Map<Ident, Type> typeEnv) {
+		ArrayList<String> retVal = new ArrayList<String>();
 		
-		Type lt = getLeft().typeOf(env);
-		Type rt = getRight().typeOf(env);
-		System.out.println("Type lt = " + lt.getClass() + " Type rt = " +rt.getClass());
-		if(lt.getClass() == rt.getClass())
-			return lt;
-		
-		else//TODO generate error. 
-			return null;
+		retVal.addAll(getLeft().checkType(typeEnv));
+		retVal.addAll(getRight().checkType(typeEnv));		
+			
+		Type leftType = getLeft().typeOf(typeEnv);  
+		Type rightType = getRight().typeOf(typeEnv);  
+		if(!(leftType.isCompatibleToNumeric() && rightType.isCompatibleToNumeric())){
+			retVal.add(leftType + " is not compatible with " + rightType + ". In " + this.getClass());
+		}
+		return retVal;
 	}
 	
 }
