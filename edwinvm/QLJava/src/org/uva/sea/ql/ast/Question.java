@@ -3,7 +3,7 @@ package org.uva.sea.ql.ast;
 import org.uva.sea.ql.ast.expressions.Ident;
 import org.uva.sea.ql.ast.values.Str;
 
-public class Question {
+public class Question extends FormStatement {
 	private final Str _label;
 	private final Ident _identifier;
 	private final Type _identifierType;

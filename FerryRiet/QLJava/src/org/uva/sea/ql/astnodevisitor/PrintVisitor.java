@@ -1,22 +1,5 @@
 package org.uva.sea.ql.astnodevisitor;
 
-import org.uva.sea.ql.ast.BinExpr;
-import org.uva.sea.ql.ast.UnExpr;
-import org.uva.sea.ql.ast.BooleanType;
-import org.uva.sea.ql.ast.CompoundStatement;
-import org.uva.sea.ql.ast.ConditionalStatement;
-import org.uva.sea.ql.ast.Expr;
-import org.uva.sea.ql.ast.Ident;
-import org.uva.sea.ql.ast.IntLiteral;
-import org.uva.sea.ql.ast.LineStatement;
-import org.uva.sea.ql.ast.MoneyType;
-import org.uva.sea.ql.ast.QLProgram;
-import org.uva.sea.ql.ast.Statement;
-import org.uva.sea.ql.ast.StringType;
-import org.uva.sea.ql.ast.TypeDescription;
-import org.uva.sea.ql.ast.Not;
-import org.uva.sea.ql.ast.Pos;
-import org.uva.sea.ql.ast.Neg;
 import org.uva.sea.ql.ast.*;
 
 public class PrintVisitor implements Visitor {
@@ -53,6 +36,12 @@ public class PrintVisitor implements Visitor {
 
 		pres.appendResult(lineStatement.getTypeDescription().accept(this));
 
+		if (lineStatement.getInitalizerExpr() != null) {
+			pres.appendResult(" ( ");
+			pres.appendResult(lineStatement.getInitalizerExpr().accept(this));
+			pres.appendResult(" ) ");
+		}
+
 		return pres;
 	}
 
@@ -67,7 +56,7 @@ public class PrintVisitor implements Visitor {
 		result.appendResult(conditionalStatement.getTrueCompound().accept(this));
 
 		if (conditionalStatement.getFalseCompound() != null) {
-			result.appendResult("\nelse ");
+			result.appendResult(" else ");
 			result.appendResult(conditionalStatement.getFalseCompound().accept(
 					this));
 		}
@@ -87,13 +76,6 @@ public class PrintVisitor implements Visitor {
 		if (typeDescription.getClass() == MoneyType.class) {
 			pres = new PrintVisitorResult(" money ");
 
-			MoneyType moneyType = (MoneyType) typeDescription;
-
-			if (moneyType.getExpr() != null) {
-				pres.appendResult(" ( ");
-				pres.appendResult(moneyType.getExpr().accept(this));
-				pres.appendResult(" ) ");
-			}
 		}
 		return pres;
 	}
@@ -166,5 +148,113 @@ public class PrintVisitor implements Visitor {
 			result = new PrintVisitorResult(id.getName());
 		}
 		return result;
+	}
+
+	@Override
+	public VisitorResult visit(Add expr) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public VisitorResult visit(Mul expr) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public VisitorResult visit(Div expr) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public VisitorResult visit(Sub expr) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public VisitorResult visit(And expr) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public VisitorResult visit(Or expr) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public VisitorResult visit(Eq expr) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public VisitorResult visit(GT expr) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public VisitorResult visit(LT expr) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public VisitorResult visit(LEq expr) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public VisitorResult visit(NEq expr) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public VisitorResult visit(Not expr) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public VisitorResult visit(Neg expr) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public VisitorResult visit(Pos expr) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public VisitorResult visit(Ident expr) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public VisitorResult visit(IntLiteral expr) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public VisitorResult visit(StringLiteral expr) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public VisitorResult visit(BooleanLiteral expr) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

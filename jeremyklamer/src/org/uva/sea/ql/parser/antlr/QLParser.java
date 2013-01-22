@@ -1,4 +1,4 @@
-// $ANTLR 3.4 C:\\Users\\Jeremy\\Documents\\GitHub\\sea-of-ql\\jeremyklamer\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g 2013-01-21 14:12:46
+// $ANTLR 3.4 C:\\Users\\Jeremy\\Documents\\GitHub\\sea-of-ql\\jeremyklamer\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g 2013-01-21 15:18:38
 
 package org.uva.sea.ql.parser.antlr;
 import org.uva.sea.ql.ast.*;
@@ -1278,7 +1278,7 @@ public class QLParser extends Parser {
                     {
                     match(input,25,FOLLOW_25_in_returnType704); if (state.failed) return result;
 
-                    if ( state.backtracking==0 ) { result = new BoolType(false); }
+                    if ( state.backtracking==0 ) { result = new BoolType(); }
 
                     }
                     break;

@@ -7,14 +7,21 @@ import org.uva.sea.ql.ast.UnaryExpr;
 import org.uva.sea.ql.visitor.ASTVisitor;
 import org.uva.sea.ql.visitor.VisitorException;
 
-public class Not extends UnaryExpr implements AcceptsBoolOperands, ReturnsBoolOperands {
+public class Not extends UnaryExpr implements AcceptsBoolOperands,
+		ReturnsBoolOperands {
 	public static final String str = "!";
 
 	public Not(Expr ex) {
 		super(ex);
 	}
+
 	@Override
 	public void accept(ASTVisitor visitor) throws VisitorException {
-		visitor.visit(this);		
+		visitor.visit(this);
+	}
+
+	@Override
+	public String toString() {
+		return str;
 	}
 }

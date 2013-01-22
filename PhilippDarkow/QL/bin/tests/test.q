@@ -4,7 +4,7 @@ a + b + c
 a + (b + c)
 (a + b) + c
 (a + b)
-a + b * c
+(a + b) * c
 a * b + c
 
 a - b
@@ -53,3 +53,10 @@ a2bc232aa
 234234234
 
 true
+false
+
+33,32
+
+if
+
+"How are"

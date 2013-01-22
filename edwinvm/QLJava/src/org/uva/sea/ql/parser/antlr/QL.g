@@ -17,12 +17,25 @@ package org.uva.sea.ql.parser.antlr;
 
 form: primary+;
 
+formStatement returns [FormStatement result]
+    :   question         { $result = $question.result; }
+    |   computedQuestion { $result = $computedQuestion.result; }
+    |   conditionBlock   { $result = $conditionBlock.result; }
+    ;
+
 question returns [Question result]
     :   String Ident ':' t=type { $result = new Question(new org.uva.sea.ql.ast.values.Str($String.text), new Ident($Ident.text), t); }
     ;
   
 computedQuestion returns [ComputedQuestion result]
     :   String Ident '=' e=orExpr { $result = new ComputedQuestion(new org.uva.sea.ql.ast.values.Str($String.text), new Ident($Ident.text), $e.result); }
+    ;
+
+conditionBlock returns [ConditionBlock result]
+    :   'if' '(' condition=orExpr ')' '{' ifBody=formStatement+ '}' 'else' ('{')? elseBody=formStatement+ ('}')?
+        { $result = new ConditionBlock(condition, $ifBody.result, $elseBody.result); }
+    |   'if' '(' x=orExpr ')' '{' formStatement+ '}'
+        { $result = new ConditionBlock(condition, ifBody); }
     ;
 
 primary returns [Expr result]
@@ -48,7 +61,6 @@ mulExpr returns [Expr result]
     })*
     ;
     
-  
 addExpr returns [Expr result]
     :   lhs=mulExpr { $result=$lhs.result; } ( op=('+' | '-') rhs=mulExpr
     { 

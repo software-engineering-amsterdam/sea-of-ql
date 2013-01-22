@@ -1,6 +1,6 @@
+@contributor{George Marmanidis -geo.marmani@gmail.com}
 module lang::ql::ast::SemanticCheck::TypeCheck
 
-//Basic type checking for integer, string and boolean expressions.
 import lang::ql::ast::SemanticCheck::utilities;
 import lang::ql::ast::AST;
 
@@ -10,7 +10,7 @@ public TENV checkFormBody(list[FormBodyItem] formBodyItem,TENV env){
 	}	
 	return env;	
 }
-//Check Form body Items..they can vary questions or Conditional statements
+
 TENV checkFormBodyItem(question(Question itemQuestion),TENV env){
 	env=checkQuestion(itemQuestion,env);
 	return(env);
@@ -20,7 +20,7 @@ TENV checkFormBodyItem(conditionalStatement(ConditionalStatement itemCondStateme
 	env=checkFormBodyItem(itemCondStatement,env);
 	return(env);
 }
-//Check conditional statements
+
 TENV checkFormBodyItem(ifCond(Expr ifCondition,list[FormBodyItem] ifQuestion,list[FormBodyItem] elseQuestion),TENV env){
 	env=checkExpression(ifCondition,boolean(),env);
 	env=checkFormBody(ifQuestion,env);
@@ -53,7 +53,7 @@ TENV checkFormBodyItem(list[ElseIf] elseIfStatements,TENV env){
 }
 
 TENV checkQuestion(simpleQuestion(str questionId,str questionLabel,Type questionType),TENV env){
-	return (env);
+	return env;
 }
 
 TENV checkQuestion(computedQuestion(str questionId, str questionLabel, Type questionType, Expr questionComputation),TENV env){
@@ -61,8 +61,6 @@ TENV checkQuestion(computedQuestion(str questionId, str questionLabel, Type ques
 	return(env);
 }
 
-//Check expresions for Type checking
-//Types
 TENV checkExpression(exp:\int(int ivalue),Type req,TENV env){
 	return req==integer() ? env : addError(env, exp@location, "Required <req> but got integer");
 }
@@ -76,34 +74,26 @@ TENV checkExpression(expr:"boolean"(str bValue),Type req,TENV env){
 }
 
 TENV checkExpression(exp:ident(str name),Type req,TENV env){
-	//needs better code
-	bool flag=false;
+	bool declaredIdent=false; // 
 	Type idType=integer();
+	
 	for(tup<-env.symbols){
 		if(tup.variableName==name){
-			flag=true;
+			declaredIdent=true;
 			idType=tup.variableType;
 		}
 	}
 	
-	if(!flag) return addError(env,exp@location,"Undeclared identifier <name>");
+	if(!declaredIdent) return addError(env,exp@location,"Undeclared identifier <name>");
 	
 	return req==idType ? env : addError(env,exp@location,"Required <req> but got <idType>");
 }
 
-/*ambiguityTENV checkExpression(exp:eq(Expr eqLeft, Expr eqRight),Type req,TENV env){
-	return req==boolean() ? checkExpression(eqLeft,integer(),checkExpression(eqRight,integer(),env)) : addError(env, exp@location, "Required <req> statement in condition");
-}*/
-
-
-
-/*ambiguity*/TENV checkExpression(exp:eq(Expr eqLeft, Expr eqRight),Type req,TENV env){
+TENV checkExpression(exp:eq(Expr eqLeft, Expr eqRight),Type req,TENV env){
 	return req==boolean()||req==string()||req==integer() ? checkExpression(eqLeft,req,checkExpression(eqRight,req,env)) : addError(env, exp@location, "Required <req> statement in condition");
 }
 
-
-
-/*ambiguity*/TENV checkExpression(exp:neq(Expr eqLeft, Expr eqRight),Type req,TENV env){
+TENV checkExpression(exp:neq(Expr eqLeft, Expr eqRight),Type req,TENV env){
 	return req==boolean() ? checkExpression(eqLeft,integer(),checkExpression(eqRight,integer(),env)) : addError(env, exp@location, "Required <req> statement in condition");
 }
 
@@ -143,8 +133,8 @@ TENV checkExpression(exp:pos(Expr posValue),Type req,TENV env){
 	return req==integer() ? checkExpression(posValue,req,env) : addError(env, exp@location,  "Required integer in arethmetic operations but got <req>.");
 }
 
-/*ambiguity*/TENV checkExpression(exp:add(Expr addLeft, Expr addRight),Type req,TENV env){
-	return req==integer() ? checkExpression(addLeft,req,checkExpression(addRight,req,env)) : addError(env, exp@location, "Required integer in arethmetic operations but got <req>.");
+TENV checkExpression(exp:add(Expr addLeft, Expr addRight),Type req,TENV env){
+	return req==integer() || req== string() ? checkExpression(addLeft,req,checkExpression(addRight,req,env)) : addError(env, exp@location, "Required <req>. Both should be the same type .");
 }
 
 TENV checkExpression(exp:mul(Expr multLeft, Expr multright),Type req,TENV env){

@@ -1,5 +1,5 @@
 grammar QL;
-options  {output=Ast; } //{backtrack=true; memoize=true;}
+options  {output=Ast;} //backtrack=true; memoize=true;}
 
 
 

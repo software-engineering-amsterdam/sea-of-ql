@@ -7,7 +7,8 @@ import org.uva.sea.ql.ast.ReturnsBoolOperands;
 import org.uva.sea.ql.visitor.ASTVisitor;
 import org.uva.sea.ql.visitor.VisitorException;
 
-public class NEq extends BinaryExpr implements AcceptsBothOperands, ReturnsBoolOperands {
+public class NEq extends BinaryExpr implements AcceptsBothOperands,
+		ReturnsBoolOperands {
 	public static final String str = "!=";
 
 	public NEq(Expr left, Expr right) {
@@ -18,5 +19,10 @@ public class NEq extends BinaryExpr implements AcceptsBothOperands, ReturnsBoolO
 	public void accept(ASTVisitor visitor) throws VisitorException {
 		visitor.visit(this);
 	}
-	
+
+	@Override
+	public String toString() {
+		return str;
+	}
+
 }
