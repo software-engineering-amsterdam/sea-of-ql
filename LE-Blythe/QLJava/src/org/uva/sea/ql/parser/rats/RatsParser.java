@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.io.StringReader;
 
 import org.uva.sea.ql.ast.Statement;
-import org.uva.sea.ql.errors.ParseError;
 import org.uva.sea.ql.interfaces.IParse;
 
 import xtc.parser.Result;

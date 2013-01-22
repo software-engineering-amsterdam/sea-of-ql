@@ -4,6 +4,6 @@ public class Bool extends Type {
 
 	@Override
 	public String toString(){
-		return "Bool";
+		return "boolean";
 	}
 }

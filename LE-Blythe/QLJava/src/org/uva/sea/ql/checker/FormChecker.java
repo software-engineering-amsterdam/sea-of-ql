@@ -6,8 +6,8 @@ import java.io.PrintStream;
 import java.util.Scanner;
 
 import org.uva.sea.ql.ast.ASTNode;
-import org.uva.sea.ql.errors.Error;
-import org.uva.sea.ql.errors.ParseError;
+import org.uva.sea.ql.checker.errors.Error;
+import org.uva.sea.ql.parser.rats.ParseError;
 import org.uva.sea.ql.parser.rats.RatsParser;
 
 public class FormChecker {
@@ -50,7 +50,7 @@ public class FormChecker {
 	
 	private void checkForm(ASTNode form) throws Exception{
 		
-		VisitorCheck visitor = new VisitorCheck();
+		VisitorChecker visitor = new VisitorChecker();
 		form.accept(visitor);
 		
 		if(visitor.getErrors().size() == 0){

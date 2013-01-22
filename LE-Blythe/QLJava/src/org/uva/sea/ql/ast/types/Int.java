@@ -4,6 +4,6 @@ public class Int extends Numeric{
 
 	@Override
 	public String toString(){
-		return "Int";
+		return "integer";
 	}
 }

@@ -6,11 +6,11 @@ import java.util.List;
 
 import org.junit.Test;
 import org.uva.sea.ql.ast.Statement;
-import org.uva.sea.ql.checker.VisitorCheck;
-import org.uva.sea.ql.errors.Error;
-import org.uva.sea.ql.errors.ExpressionTypeError;
-import org.uva.sea.ql.errors.IdentifierExistsError;
-import org.uva.sea.ql.errors.IdentifierScopeError;
+import org.uva.sea.ql.checker.VisitorChecker;
+import org.uva.sea.ql.checker.errors.Error;
+import org.uva.sea.ql.checker.errors.ExpressionTypeError;
+import org.uva.sea.ql.checker.errors.IdentifierExistsError;
+import org.uva.sea.ql.checker.errors.IdentifierScopeError;
 import org.uva.sea.ql.interfaces.IParse;
 import org.uva.sea.ql.parser.rats.RatsParser;
 import org.uva.sea.ql.util.FormStringBuilder;
@@ -55,7 +55,7 @@ public class TestForms {
 	 */
 	private boolean faulty(Class<?> expectedFailureType, String... args) throws Exception{
 		
-		VisitorCheck checker = new VisitorCheck();
+		VisitorChecker checker = new VisitorChecker();
 		
 		Statement form = execute(args);
 		form.accept(checker);
@@ -72,7 +72,7 @@ public class TestForms {
 	 *  no errors
 	 */
 	private boolean correct(String... args) throws Exception{
-		VisitorCheck checker = new VisitorCheck();
+		VisitorChecker checker = new VisitorChecker();
 		
 		Statement form = execute(args);
 		form.accept(checker);

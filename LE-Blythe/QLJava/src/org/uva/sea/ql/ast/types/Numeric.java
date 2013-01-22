@@ -4,6 +4,6 @@ public class Numeric extends Type{
 
 	@Override
 	public String toString(){
-		return "Numeric";
+		return "numeric";
 	}
 }
