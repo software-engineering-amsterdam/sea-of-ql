@@ -14,7 +14,7 @@ import org.uva.sea.ql.ast.values.Int;
 import org.uva.sea.ql.ast.values.Str;
 import org.uva.sea.ql.parser.IParser;
 import org.uva.sea.ql.parser.ParseError;
-import org.uva.sea.ql.parser.antlr.ANTLRParserExpressions;
+import org.uva.sea.ql.parser.antlr.check.ANTLRParserExpressions;
 
 public class TestExpressions {
 

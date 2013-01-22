@@ -6,7 +6,7 @@ import org.junit.Test;
 import org.uva.sea.ql.ast.ConditionBlock;
 import org.uva.sea.ql.parser.IParser;
 import org.uva.sea.ql.parser.ParseError;
-import org.uva.sea.ql.parser.antlr.ANTLRParserConditionBlocks;
+import org.uva.sea.ql.parser.antlr.check.ANTLRParserConditionBlocks;
 
 public class TestConditionBlocks {
 	private IParser _parser;

@@ -1,7 +1,8 @@
-package org.uva.sea.ql.parser.antlr;
+package org.uva.sea.ql.parser.antlr.check;
 
 import org.uva.sea.ql.ast.FormStatement;
 import org.uva.sea.ql.parser.ParseError;
+import org.uva.sea.ql.parser.antlr.ANTLRParser;
 
 public class ANTLRParserConditionBlocks extends ANTLRParser {
 	@Override
