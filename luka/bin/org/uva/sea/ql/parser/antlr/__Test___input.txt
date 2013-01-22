@@ -18,7 +18,7 @@ valueResidue2: "Value residue:" money(sellingPrice - privateDebt)
 }else{
 sellingPrice3: "Price the house was sold for:" money
 currentTax: 19
-currentTax: (19 * 15)
+currentTax: (currentTax * (sellingPrice3 +15))
 if(currentTax - privateDebt2){
 privateDebt3: "Private debts for the sold house:" money
 }

@@ -67,14 +67,14 @@ qContentBlockItem
 	
 //question with child elements
 questionDeclaration 
-	: QuestionVariable  ':' QuestionLabel qType ->^(QUESTION_BLOCK ^(QUESTION_VAR ^(VAR_NAME QuestionVariable) ^(VAR_TYPE qType))  ^(QUESTION_LABEL QuestionLabel)) 
-	| QuestionVariable  ':' QuestionLabel qType '(' orExpr ')'  ->^(QUESTION_BLOCK ^(QUESTION_VAR ^(VAR_NAME QuestionVariable) ^(VAR_TYPE qType) ^(VAR_VALUE  orExpr))  ^(QUESTION_LABEL QuestionLabel)) ;
+	: QuestionVariable  ':' QuestionLabel qType ('(' orExpr ')')?  ->^(QUESTION_BLOCK ^(QUESTION_VAR ^(VAR_NAME QuestionVariable) ^(VAR_TYPE qType) ^(VAR_VALUE ^(COMPUTED_STATEMENT orExpr))?)  ^(QUESTION_LABEL QuestionLabel))
+	 ;
+	//| QuestionVariable  ':' QuestionLabel qType ->^(QUESTION_BLOCK ^(QUESTION_VAR ^(VAR_NAME QuestionVariable) ^(VAR_TYPE qType))  ^(QUESTION_LABEL QuestionLabel)) 
+	
 
 
-// if(x<y) / verschachtelt TODO
 ifStatement 
 	:If  '(' orExpr  ')' Lbr qContentBlockItem Rbr  elseBlock?  ->^(IF_BLOCK ^(IF_EXPRESSION  orExpr) ^(IF_TRUE qContentBlockItem) ^(IF_FALSE elseBlock)?)
-	//|If  '(' atom ')'   Lbr qContentBlockItem Rbr  elseBlock? ->^(IF_BLOCK ^(IF_EXPRESSION  atom) ^(IF_TRUE qContentBlockItem) ^(IF_FALSE elseBlock)?) 
 	;
 	
 elseBlock
@@ -83,7 +83,6 @@ elseBlock
 	
 		
 constantValueDeclaration
-	//: QuestionVariable  '=' Int -> ^(CONST_VAR ^(CONST_NAME QuestionVariable) ^(CONST_TYPE CONST_TYPE_INT) ^(CONST_VALUE Int))
 	: QuestionVariable  ':' atom -> ^(CONST_VAR ^(CONST_NAME QuestionVariable) ^(CONST_TYPE CONST_TYPE_INT) ^(CONST_VALUE  atom))
 	;
 
