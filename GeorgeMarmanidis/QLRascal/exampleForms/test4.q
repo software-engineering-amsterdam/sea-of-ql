@@ -1,7 +1,7 @@
 form test  {
 	name: "Name:" string
 	surname: "Surname:" string
-	surname1: "Surname1:" string (surname+"dwadaw")
+	surname2: "Surname1:" string (surname+"dwadaw")
 	age: "Age:" integer
 	age2: "Age2:" integer
 	
