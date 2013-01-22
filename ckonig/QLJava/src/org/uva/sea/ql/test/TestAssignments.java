@@ -13,7 +13,7 @@ import org.uva.sea.ql.ast.elements.Block;
 import org.uva.sea.ql.ast.elements.Form;
 import org.uva.sea.ql.ast.elements.IfStatement;
 import org.uva.sea.ql.ast.elements.Question;
-import org.uva.sea.ql.ast.types.Bool;
+import org.uva.sea.ql.ast.types.BooleanType;
 import org.uva.sea.ql.ast.types.Money;
 import org.uva.sea.ql.ast.types.StrType;
 import org.uva.sea.ql.parser.ParseError;
@@ -41,13 +41,13 @@ public class TestAssignments extends TestExpressions {
 			if (line.getClass().equals(Question.class)) {
 				Question q = (Question) line;
 				if (q.getIdent().getName().equals("hasSoldHouse")) {
-					assertEquals(Bool.class, q.getType().getClass());
+					assertEquals(BooleanType.class, q.getType().getClass());
 				}
 				if (q.getIdent().getName().equals("hasBoughtHouse")) {
-					assertEquals(Bool.class, q.getType().getClass());
+					assertEquals(BooleanType.class, q.getType().getClass());
 				}
 				if (q.getIdent().getName().equals("hasBoughtHouse")) {
-					assertEquals(Bool.class, q.getType().getClass());
+					assertEquals(BooleanType.class, q.getType().getClass());
 				}
 				if (q.getIdent().getName().equals("taxId")) {
 					assertEquals(StrType.class, q.getType().getClass());

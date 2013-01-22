@@ -1,4 +1,4 @@
-// $ANTLR 3.5 C:\\Users\\don\\workspace\\sea-of-ql-repo\\ckonig\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g 2013-01-21 00:02:56
+// $ANTLR 3.5 C:\\Users\\don\\workspace\\sea-of-ql-repo\\ckonig\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g 2013-01-21 17:09:23
 
 package org.uva.sea.ql.parser.antlr;
 import org.uva.sea.ql.ast.*;
@@ -472,7 +472,7 @@ public class QLParser extends Parser {
 					boolType();
 					state._fsp--;
 					if (state.failed) return result;
-					if ( state.backtracking==0 ) { result = new Bool();}
+					if ( state.backtracking==0 ) { result = new BooleanType();}
 					}
 					break;
 				case 2 :

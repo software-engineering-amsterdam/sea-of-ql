@@ -5,6 +5,8 @@ options {language = Java;}
 {
 package org.uva.sea.ql.parser.antlr;
 import org.uva.sea.ql.ast.*;
+import org.uva.sea.ql.ast.types.*;
+import org.uva.sea.ql.ast.expr.*;
 }
 
 @lexer::header
@@ -12,24 +14,35 @@ import org.uva.sea.ql.ast.*;
 package org.uva.sea.ql.parser.antlr;
 }
 
-program
-  : 'start' Ident '='
-    question* 
-    'end' Ident '.'
+form returns [Form result]
+	@init { List<FormUnit> formUnits = new ArrayList<FormUnit>();}
+	: 'form' Ident ':' (formUnit {formUnits.add($formUnit.result);})* 'endform' { $result = new Form($Ident.text, formUnits); }
+	;
+	
+
+formUnit returns [FormUnit result]
+	: question    { $result = $question.result; }
+	| ifStatement { $result = $ifStatement.result; }
+	;
+
+question returns [Question result]
+	: Ident ':' sentence '(' returnType ')' { $result = new Question($Ident.text, $sentence.text, $returnType.result); }
+	; 
+		
+ifStatement returns [IfStatement result]
+	@init { List<FormUnit> formUnits = new ArrayList<FormUnit>();}
+	: 'if' '(' orExpr ')' (formUnit {formUnits.add($formUnit.result);})* 'endif' { $result = new IfStatement($orExpr.result, formUnits); }
+	; 
+	
+returnType returns [ReturnType result]
+  : 'Boolean' {$result = new TypeBool(1);}
+  | 'Integer' {$result = new TypeInt(2);}
+  | 'String'  {$result = new TypeString(3);}
+  | 'Money'		{$result = new TypeMoney(4);}
   ;
 
-question
-  : 'question' Ident ':' type ':=' expression '?'
-  ;
-
-type
-  : 'Boolean'
-  | 'Integer'
-  | 'String'
-  ;
-
-expression
-  : (Ident | WS)+
+sentence
+  : '"' .* '"'
   ; 
 
 primary returns [Expr result]
@@ -45,7 +58,7 @@ unExpr returns [Expr result]
     |  x=primary    { $result = $x.result; }
     ;    
     
-mulExpr returns [Expr result]
+mulExpr returns [Binary result]
     :   lhs=unExpr { $result=$lhs.result; } ( op=( '*' | '/' ) rhs=unExpr 
     { 
       if ($op.text.equals("*")) {

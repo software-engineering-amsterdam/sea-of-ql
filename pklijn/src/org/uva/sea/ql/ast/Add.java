@@ -1,20 +1,36 @@
 package org.uva.sea.ql.ast;
 
+import java.util.List;
+import java.util.Map;
+
+import org.uva.sea.ql.ast.types.Type;
 import org.uva.sea.ql.ast.values.Value;
-import org.uva.sea.ql.ast.values.Int;
+import org.uva.sea.ql.ast.values.IntValue;
 
 
 public class Add extends Binary {
 
-	public Add(Expr result, Expr rhs) {
-		super(result,rhs);
+	public Add(Expr left, Expr right) {
+		super(left, right);
 	}
 	
 	@Override
 	public Value eval() {
-		return new Int(
-				((Int)getLeft().eval()).getValue() + 
-				((Int)getRight().eval()).getValue()
-				); 
+		return new IntValue(
+				((IntValue)getLeft().eval()).getValue() +
+				((IntValue)getRight().eval()).getValue()
+				);
+	}
+	
+	@Override
+	public Type typeOf(Map<Ident, Type> typeEnv) {
+		return new org.uva.sea.ql.ast.types.IntType();
+	}
+	
+	@Override
+	public List<String> checkType(List<String> errors) {
+		errors = super.checkType(errors);
+		
+		return errors;
 	}
 }

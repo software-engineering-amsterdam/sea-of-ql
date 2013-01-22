@@ -9,6 +9,7 @@ import org.uva.sea.ql.visitor.VisitorException;
 
 public class Pos extends UnaryExpr implements AcceptsMathOperands,
 		ReturnsMathOperands {
+	public static final String str = "+";
 
 	public Pos(Expr ex) {
 		super(ex);
@@ -17,5 +18,10 @@ public class Pos extends UnaryExpr implements AcceptsMathOperands,
 	@Override
 	public void accept(ASTVisitor visitor) throws VisitorException {
 		visitor.visit(this);
+	}
+
+	@Override
+	public String toString() {
+		return str;
 	}
 }

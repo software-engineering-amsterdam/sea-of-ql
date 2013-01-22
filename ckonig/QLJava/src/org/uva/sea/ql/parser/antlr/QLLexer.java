@@ -1,4 +1,4 @@
-// $ANTLR 3.5 C:\\Users\\don\\workspace\\sea-of-ql-repo\\ckonig\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g 2013-01-21 00:02:56
+// $ANTLR 3.5 C:\\Users\\don\\workspace\\sea-of-ql-repo\\ckonig\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g 2013-01-21 17:09:23
 
 package org.uva.sea.ql.parser.antlr;
 
@@ -433,7 +433,7 @@ public class QLLexer extends Lexer {
 		try {
 			int _type = COMMENT;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// C:\\Users\\don\\workspace\\sea-of-ql-repo\\ckonig\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:152:6: ( '/*' ( . )* '*/' | '//' (~ '\\n' )* )
+			// C:\\Users\\don\\workspace\\sea-of-ql-repo\\ckonig\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:151:6: ( '/*' ( . )* '*/' | '//' (~ '\\n' )* )
 			int alt3=2;
 			int LA3_0 = input.LA(1);
 			if ( (LA3_0=='/') ) {
@@ -467,11 +467,11 @@ public class QLLexer extends Lexer {
 
 			switch (alt3) {
 				case 1 :
-					// C:\\Users\\don\\workspace\\sea-of-ql-repo\\ckonig\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:152:10: '/*' ( . )* '*/'
+					// C:\\Users\\don\\workspace\\sea-of-ql-repo\\ckonig\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:151:10: '/*' ( . )* '*/'
 					{
 					match("/*"); 
 
-					// C:\\Users\\don\\workspace\\sea-of-ql-repo\\ckonig\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:152:15: ( . )*
+					// C:\\Users\\don\\workspace\\sea-of-ql-repo\\ckonig\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:151:15: ( . )*
 					loop1:
 					while (true) {
 						int alt1=2;
@@ -492,7 +492,7 @@ public class QLLexer extends Lexer {
 
 						switch (alt1) {
 						case 1 :
-							// C:\\Users\\don\\workspace\\sea-of-ql-repo\\ckonig\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:152:15: .
+							// C:\\Users\\don\\workspace\\sea-of-ql-repo\\ckonig\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:151:15: .
 							{
 							matchAny(); 
 							}
@@ -509,11 +509,11 @@ public class QLLexer extends Lexer {
 					}
 					break;
 				case 2 :
-					// C:\\Users\\don\\workspace\\sea-of-ql-repo\\ckonig\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:153:10: '//' (~ '\\n' )*
+					// C:\\Users\\don\\workspace\\sea-of-ql-repo\\ckonig\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:152:10: '//' (~ '\\n' )*
 					{
 					match("//"); 
 
-					// C:\\Users\\don\\workspace\\sea-of-ql-repo\\ckonig\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:153:15: (~ '\\n' )*
+					// C:\\Users\\don\\workspace\\sea-of-ql-repo\\ckonig\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:152:15: (~ '\\n' )*
 					loop2:
 					while (true) {
 						int alt2=2;
@@ -561,8 +561,8 @@ public class QLLexer extends Lexer {
 		try {
 			int _type = WS;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// C:\\Users\\don\\workspace\\sea-of-ql-repo\\ckonig\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:156:5: ( ( ' ' | '\\t' | '\\n' | '\\r' ) )
-			// C:\\Users\\don\\workspace\\sea-of-ql-repo\\ckonig\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:156:8: ( ' ' | '\\t' | '\\n' | '\\r' )
+			// C:\\Users\\don\\workspace\\sea-of-ql-repo\\ckonig\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:155:5: ( ( ' ' | '\\t' | '\\n' | '\\r' ) )
+			// C:\\Users\\don\\workspace\\sea-of-ql-repo\\ckonig\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:155:8: ( ' ' | '\\t' | '\\n' | '\\r' )
 			{
 			if ( (input.LA(1) >= '\t' && input.LA(1) <= '\n')||input.LA(1)=='\r'||input.LA(1)==' ' ) {
 				input.consume();
@@ -589,8 +589,8 @@ public class QLLexer extends Lexer {
 		try {
 			int _type = Form;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// C:\\Users\\don\\workspace\\sea-of-ql-repo\\ckonig\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:158:7: ( 'form' )
-			// C:\\Users\\don\\workspace\\sea-of-ql-repo\\ckonig\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:158:9: 'form'
+			// C:\\Users\\don\\workspace\\sea-of-ql-repo\\ckonig\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:157:7: ( 'form' )
+			// C:\\Users\\don\\workspace\\sea-of-ql-repo\\ckonig\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:157:9: 'form'
 			{
 			match("form"); 
 
@@ -610,11 +610,11 @@ public class QLLexer extends Lexer {
 		try {
 			int _type = FormIdent;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// C:\\Users\\don\\workspace\\sea-of-ql-repo\\ckonig\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:159:10: ( 'A' .. 'Z' ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' )* )
-			// C:\\Users\\don\\workspace\\sea-of-ql-repo\\ckonig\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:159:12: 'A' .. 'Z' ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' )*
+			// C:\\Users\\don\\workspace\\sea-of-ql-repo\\ckonig\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:158:10: ( 'A' .. 'Z' ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' )* )
+			// C:\\Users\\don\\workspace\\sea-of-ql-repo\\ckonig\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:158:12: 'A' .. 'Z' ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' )*
 			{
 			matchRange('A','Z'); 
-			// C:\\Users\\don\\workspace\\sea-of-ql-repo\\ckonig\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:159:21: ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' )*
+			// C:\\Users\\don\\workspace\\sea-of-ql-repo\\ckonig\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:158:21: ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' )*
 			loop4:
 			while (true) {
 				int alt4=2;
@@ -659,8 +659,8 @@ public class QLLexer extends Lexer {
 		try {
 			int _type = Ident;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// C:\\Users\\don\\workspace\\sea-of-ql-repo\\ckonig\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:160:7: ( ( 'a' .. 'z' ) ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )* )
-			// C:\\Users\\don\\workspace\\sea-of-ql-repo\\ckonig\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:160:12: ( 'a' .. 'z' ) ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )*
+			// C:\\Users\\don\\workspace\\sea-of-ql-repo\\ckonig\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:159:7: ( ( 'a' .. 'z' ) ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )* )
+			// C:\\Users\\don\\workspace\\sea-of-ql-repo\\ckonig\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:159:12: ( 'a' .. 'z' ) ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )*
 			{
 			if ( (input.LA(1) >= 'a' && input.LA(1) <= 'z') ) {
 				input.consume();
@@ -670,7 +670,7 @@ public class QLLexer extends Lexer {
 				recover(mse);
 				throw mse;
 			}
-			// C:\\Users\\don\\workspace\\sea-of-ql-repo\\ckonig\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:160:22: ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )*
+			// C:\\Users\\don\\workspace\\sea-of-ql-repo\\ckonig\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:159:22: ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )*
 			loop5:
 			while (true) {
 				int alt5=2;
@@ -715,11 +715,11 @@ public class QLLexer extends Lexer {
 		try {
 			int _type = String;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// C:\\Users\\don\\workspace\\sea-of-ql-repo\\ckonig\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:161:8: ( '\"' ( . )* '\"' )
-			// C:\\Users\\don\\workspace\\sea-of-ql-repo\\ckonig\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:161:10: '\"' ( . )* '\"'
+			// C:\\Users\\don\\workspace\\sea-of-ql-repo\\ckonig\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:160:8: ( '\"' ( . )* '\"' )
+			// C:\\Users\\don\\workspace\\sea-of-ql-repo\\ckonig\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:160:10: '\"' ( . )* '\"'
 			{
 			match('\"'); 
-			// C:\\Users\\don\\workspace\\sea-of-ql-repo\\ckonig\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:161:14: ( . )*
+			// C:\\Users\\don\\workspace\\sea-of-ql-repo\\ckonig\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:160:14: ( . )*
 			loop6:
 			while (true) {
 				int alt6=2;
@@ -733,7 +733,7 @@ public class QLLexer extends Lexer {
 
 				switch (alt6) {
 				case 1 :
-					// C:\\Users\\don\\workspace\\sea-of-ql-repo\\ckonig\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:161:14: .
+					// C:\\Users\\don\\workspace\\sea-of-ql-repo\\ckonig\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:160:14: .
 					{
 					matchAny(); 
 					}
@@ -761,10 +761,10 @@ public class QLLexer extends Lexer {
 		try {
 			int _type = Int;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// C:\\Users\\don\\workspace\\sea-of-ql-repo\\ckonig\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:163:6: ( ( '0' .. '9' )+ )
-			// C:\\Users\\don\\workspace\\sea-of-ql-repo\\ckonig\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:163:9: ( '0' .. '9' )+
+			// C:\\Users\\don\\workspace\\sea-of-ql-repo\\ckonig\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:162:6: ( ( '0' .. '9' )+ )
+			// C:\\Users\\don\\workspace\\sea-of-ql-repo\\ckonig\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:162:9: ( '0' .. '9' )+
 			{
-			// C:\\Users\\don\\workspace\\sea-of-ql-repo\\ckonig\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:163:9: ( '0' .. '9' )+
+			// C:\\Users\\don\\workspace\\sea-of-ql-repo\\ckonig\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:162:9: ( '0' .. '9' )+
 			int cnt7=0;
 			loop7:
 			while (true) {
@@ -813,8 +813,8 @@ public class QLLexer extends Lexer {
 		try {
 			int _type = Assign;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// C:\\Users\\don\\workspace\\sea-of-ql-repo\\ckonig\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:164:9: ( ':' )
-			// C:\\Users\\don\\workspace\\sea-of-ql-repo\\ckonig\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:164:11: ':'
+			// C:\\Users\\don\\workspace\\sea-of-ql-repo\\ckonig\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:163:9: ( ':' )
+			// C:\\Users\\don\\workspace\\sea-of-ql-repo\\ckonig\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:163:11: ':'
 			{
 			match(':'); 
 			}
@@ -833,8 +833,8 @@ public class QLLexer extends Lexer {
 		try {
 			int _type = LEFTCBR;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// C:\\Users\\don\\workspace\\sea-of-ql-repo\\ckonig\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:166:9: ( '{' )
-			// C:\\Users\\don\\workspace\\sea-of-ql-repo\\ckonig\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:166:11: '{'
+			// C:\\Users\\don\\workspace\\sea-of-ql-repo\\ckonig\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:165:9: ( '{' )
+			// C:\\Users\\don\\workspace\\sea-of-ql-repo\\ckonig\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:165:11: '{'
 			{
 			match('{'); 
 			}
@@ -853,8 +853,8 @@ public class QLLexer extends Lexer {
 		try {
 			int _type = RIGHTCBR;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// C:\\Users\\don\\workspace\\sea-of-ql-repo\\ckonig\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:167:9: ( '}' )
-			// C:\\Users\\don\\workspace\\sea-of-ql-repo\\ckonig\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:167:11: '}'
+			// C:\\Users\\don\\workspace\\sea-of-ql-repo\\ckonig\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:166:9: ( '}' )
+			// C:\\Users\\don\\workspace\\sea-of-ql-repo\\ckonig\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:166:11: '}'
 			{
 			match('}'); 
 			}
@@ -873,8 +873,8 @@ public class QLLexer extends Lexer {
 		try {
 			int _type = LEFTBR;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// C:\\Users\\don\\workspace\\sea-of-ql-repo\\ckonig\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:168:9: ( '(' )
-			// C:\\Users\\don\\workspace\\sea-of-ql-repo\\ckonig\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:168:11: '('
+			// C:\\Users\\don\\workspace\\sea-of-ql-repo\\ckonig\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:167:9: ( '(' )
+			// C:\\Users\\don\\workspace\\sea-of-ql-repo\\ckonig\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:167:11: '('
 			{
 			match('('); 
 			}
@@ -893,8 +893,8 @@ public class QLLexer extends Lexer {
 		try {
 			int _type = RIGHTBR;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// C:\\Users\\don\\workspace\\sea-of-ql-repo\\ckonig\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:169:9: ( ')' )
-			// C:\\Users\\don\\workspace\\sea-of-ql-repo\\ckonig\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:169:11: ')'
+			// C:\\Users\\don\\workspace\\sea-of-ql-repo\\ckonig\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:168:9: ( ')' )
+			// C:\\Users\\don\\workspace\\sea-of-ql-repo\\ckonig\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:168:11: ')'
 			{
 			match(')'); 
 			}

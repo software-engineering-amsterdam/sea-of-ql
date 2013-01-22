@@ -1,7 +1,11 @@
 package org.uva.sea.ql.parser.test;
 
-import org.uva.sea.ql.ast.Expr;
+import org.uva.sea.ql.ast.Form;
+import org.uva.sea.ql.ast.expr.Expr;
+import org.uva.sea.ql.ast.stmt.Statement;
 
 public interface IParse {
-	Expr parse(String src) throws ParseError;
+	Expr parseExpression(String src) throws ParseError;
+	Form parseForm(String src) throws ParseError;
+	Statement parseStatement(String src) throws ParseError;
 }

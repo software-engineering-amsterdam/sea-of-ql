@@ -12,8 +12,8 @@ import org.uva.sea.ql.parser.IParse;
 import org.uva.sea.ql.parser.ParseError;
 
 public class ANTLRParser implements IParse {
-	private static final String DEFAULT_FILENAME = "C:\\Users\\don\\workspace\\sea-of-ql-repo\\ckonig\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\example.ql";
-
+	private static final String DEFAULT_FILENAME = "example.ql";
+	
 	@Override
 	public Expr parseForm(String src) throws ParseError {
 		return parse(new ANTLRStringStream(src));

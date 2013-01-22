@@ -1,5 +1,7 @@
 package org.uva.sea.ql.ast;
 
+import java.util.HashMap;
+
 public class IntLiteral extends Expr {
 
 	private final int value;
@@ -10,5 +12,10 @@ public class IntLiteral extends Expr {
 
 	public int getValue() {
 		return value;
+	}
+
+	@Override
+	public TypeDescription typeOf(HashMap<Ident, Statement> typeEnv) {
+		return new NumeralType();
 	}
 }

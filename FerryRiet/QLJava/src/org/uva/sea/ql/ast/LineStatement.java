@@ -9,11 +9,18 @@ public class LineStatement extends Statement {
 	private final Token lineId;
 	private final Token lineString;
 	private final TypeDescription typeDescription;
+	private final Expr initalizerExpr;
 
-	public LineStatement(Token lineId, Token lineString, TypeDescription ty) {
+	public Expr getInitalizerExpr() {
+		return initalizerExpr;
+	}
+
+	public LineStatement(Token lineId, Token lineString, TypeDescription ty,
+			Expr initExpr) {
 		this.lineId = lineId;
 		this.lineString = lineString;
 		typeDescription = ty;
+		initalizerExpr = initExpr;
 	}
 
 	@Override

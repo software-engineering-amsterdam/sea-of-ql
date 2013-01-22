@@ -14,9 +14,8 @@ import org.uva.sea.ql.ast.Ident;
 import org.uva.sea.ql.ast.Int;
 import org.uva.sea.ql.ast.LT;
 import org.uva.sea.ql.ast.Mul;
+import org.uva.sea.ql.interpreter.Env;
 import org.uva.sea.ql.parser.antlr.ANTLRParser;
-//import org.uva.sea.ql.parser.jacc.JACCParser;
-//import org.uva.sea.ql.parser.rats.RatsParser;
 
 @RunWith(Parameterized.class)
 public class TestExpressions {
