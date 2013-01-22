@@ -29,8 +29,9 @@
 <fullyQualifiedTypeName name="org.uva.sea.ql.ast.BinExpr"/>
 <fullyQualifiedTypeName name="org.uva.sea.ql.astnodevisitor.PrintVisitorResult"/>
 <fullyQualifiedTypeName name="org.uva.sea.ql.ast.GEq"/>
-<fullyQualifiedTypeName name="org.uva.sea.ql.astnodevisitor.Visitor"/>
 <fullyQualifiedTypeName name="org.uva.sea.ql.ast.Expr"/>
 <fullyQualifiedTypeName name="org.uva.sea.ql.interpreter.Interpreter"/>
 <fullyQualifiedTypeName name="org.uva.sea.ql.ast.IntLiteral"/>
+<fullyQualifiedTypeName name="org.uva.sea.ql.astnodevisitor.Visitor"/>
+<fullyQualifiedTypeName name="com.sun.org.apache.bcel.internal.classfile.Visitor"/>
 </qualifiedTypeNameHistroy>

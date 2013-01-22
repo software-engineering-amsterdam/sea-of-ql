@@ -1,10 +1,17 @@
 package org.uva.sea.ql.interpreter;
 
+import java.util.HashMap;
+
 import org.uva.sea.ql.ast.BinExpr;
 import org.uva.sea.ql.ast.BooleanLiteral;
+import org.uva.sea.ql.ast.CompoundStatement;
+import org.uva.sea.ql.ast.ConditionalStatement;
 import org.uva.sea.ql.ast.Expr;
 import org.uva.sea.ql.ast.Ident;
 import org.uva.sea.ql.ast.IntLiteral;
+import org.uva.sea.ql.ast.LineStatement;
+import org.uva.sea.ql.ast.QLProgram;
+import org.uva.sea.ql.ast.Statement;
 import org.uva.sea.ql.ast.StringLiteral;
 import org.uva.sea.ql.ast.UnExpr;
 import org.uva.sea.ql.ast.operators.Add;
@@ -22,136 +29,155 @@ import org.uva.sea.ql.ast.operators.Not;
 import org.uva.sea.ql.ast.operators.Or;
 import org.uva.sea.ql.ast.operators.Pos;
 import org.uva.sea.ql.ast.operators.Sub;
+import org.uva.sea.ql.ast.types.TypeDescription;
+import org.uva.sea.ql.astnodevisitor.Visitor;
+import org.uva.sea.ql.astnodevisitor.VisitorResult;
 
-public class Interpreter {
+public class Interpreter implements Visitor {
+	
+	private HashMap<String, Statement> symbolMap = new HashMap<String, Statement>();
 
-	public Expr eval(BinExpr expr) {
-		Expr result = null;
-		return result;
+	@Override
+	public VisitorResult visit(Expr expr) {
+
+		return null;
 	}
 
-	public Expr eval(Ident expr) {
+	@Override
+	public VisitorResult visit(BinExpr expr) {
 
-		Expr result = null;
-		return result;
+		return null;
 	}
 
-	public Expr eval(IntLiteral expr) {
-		return expr;
+	@Override
+	public VisitorResult visit(Ident expr) {
+
+		return null;
 	}
 
-	public Expr eval(StringLiteral expr) {
+	@Override
+	public VisitorResult visit(IntLiteral expr) {
 
-		Expr result = null;
-		return result;
+		return null;
 	}
 
-	public Expr eval(BooleanLiteral expr) {
-
-		Expr result = null;
-		return result;
+	@Override
+	public VisitorResult visit(StringLiteral expr) {
+		return null;
 	}
 
-	public Expr eval(Add expr) {
-		Expr leftExp = expr.getExprLeftHand() ;
-		Expr rightExp = expr.getExprRightHand() ;
-		
-		IntLiteral result = (IntLiteral) eval(leftExp);
-		IntLiteral r2 = (IntLiteral) eval(rightExp);
-
-		return new IntLiteral(((IntLiteral) result).getValue()
-				+ ((IntLiteral) r2).getValue());
+	@Override
+	public VisitorResult visit(BooleanLiteral expr) {
+		return null;
 	}
 
-	public Expr eval(Mul expr) {
-		IntLiteral result = (IntLiteral) eval(expr.getExprLeftHand());
-		IntLiteral r2 = (IntLiteral) eval(expr.getExprRightHand());
+	@Override
+	public VisitorResult visit(Add expr) {
 
-		return new IntLiteral(((IntLiteral) result).getValue()
-				* ((IntLiteral) r2).getValue());
+		return null;
 	}
 
-	public Expr eval(Div expr) {
-		IntLiteral result = (IntLiteral) eval(expr.getExprLeftHand());
-		IntLiteral r2 = (IntLiteral) eval(expr.getExprRightHand());
-
-		return new IntLiteral(((IntLiteral) result).getValue()
-				/ ((IntLiteral) r2).getValue());
+	@Override
+	public VisitorResult visit(Mul expr) {
+		return null;
 	}
 
-	public Expr eval(Sub expr) {
-		IntLiteral result = (IntLiteral) eval(expr.getExprLeftHand());
-		IntLiteral r2 = (IntLiteral) eval(expr.getExprRightHand());
-
-		return new IntLiteral(((IntLiteral) result).getValue()
-				- ((IntLiteral) r2).getValue());
+	@Override
+	public VisitorResult visit(Div expr) {
+		return null;
 	}
 
-	public Expr eval(And expr) {
-
-		Expr result = null;
-		return result;
+	@Override
+	public VisitorResult visit(Sub expr) {
+		return null;
 	}
 
-	public Expr eval(Or expr) {
-		Expr result = null;
-		return result;
+	@Override
+	public VisitorResult visit(And expr) {
+		return null;
 	}
 
-	public Expr eval(Eq expr) {
-
-		Expr result = null;
-		return result;
+	@Override
+	public VisitorResult visit(Or expr) {
+		return null;
 	}
 
-	public Expr eval(GT expr) {
-		Expr result = null;
-		return result;
+	@Override
+	public VisitorResult visit(Eq expr) {
+		return null;
 	}
 
-	public Expr eval(LT expr) {
-		Expr result = null;
-		return result;
+	@Override
+	public VisitorResult visit(GT expr) {
+
+		return null;
 	}
 
-	public Expr eval(LEq expr) {
-		Expr result = null;
-		return result;
+	@Override
+	public VisitorResult visit(LT expr) {
+		return null;
 	}
 
-	public Expr eval(NEq expr) {
-		Expr result = null;
-		return result;
+	@Override
+	public VisitorResult visit(LEq expr) {
+		return null;
 	}
 
-	public Expr eval(GEq expr) {
-		Expr result = null;
-		return result;
+	@Override
+	public VisitorResult visit(NEq expr) {
+		return null;
 	}
 
-	public Expr eval(UnExpr expr) {
-		Expr result = null;
-		return result;
+	@Override
+	public VisitorResult visit(GEq expr) {
+
+		return null;
 	}
 
-	public Expr eval(Not expr) {
-		Expr result = null;
-		return result;
+	@Override
+	public VisitorResult visit(UnExpr expr) {
+		return null;
 	}
 
-	public Expr eval(Neg expr) {
-		Expr result = null;
-		return result;
+	@Override
+	public VisitorResult visit(Not expr) {
+		return null;
 	}
 
-	public Expr eval(Pos expr) {
-		Expr result = null;
-		return result;
+	@Override
+	public VisitorResult visit(Neg expr) {
+		return null;
 	}
 
-	public Expr eval(Expr expr) {
-		Expr result = null;
-		return result;
+	@Override
+	public VisitorResult visit(Pos expr) {
+		return null;
 	}
 
+	@Override
+	public VisitorResult visit(QLProgram qlProgram) {
+		symbolMap.clear();
+		qlProgram.getCompound().accept(this);
+		return null;
+	}
+
+	@Override
+	public VisitorResult visit(CompoundStatement compoundBlock) {
+		return null;
+	}
+
+	@Override
+	public VisitorResult visit(LineStatement lineStatement) {
+		return null;
+	}
+
+	@Override
+	public VisitorResult visit(ConditionalStatement conditionalStatement) {
+		return null;
+	}
+
+	@Override
+	public VisitorResult visit(TypeDescription typeDescription) {
+		return null;
+	}
 }
