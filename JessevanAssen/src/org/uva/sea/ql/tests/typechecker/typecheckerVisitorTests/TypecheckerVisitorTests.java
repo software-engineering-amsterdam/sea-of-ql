@@ -16,9 +16,9 @@ public abstract class TypecheckerVisitorTests {
 
     private TypecheckerVisitor createTypecheckerVisitor() {
         try{
-            Constructor constructor = TypecheckerVisitor.class.getDeclaredConstructor();
+            Constructor<TypecheckerVisitor> constructor = TypecheckerVisitor.class.getDeclaredConstructor();
             constructor.setAccessible(true);
-            return (TypecheckerVisitor) constructor.newInstance();
+            return constructor.newInstance();
         } catch (Exception x) {
             throw new RuntimeException("Problems occurred while creating a new instance of the TypecheckerVisitor using reflection.", x);
         }

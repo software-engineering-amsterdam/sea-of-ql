@@ -2,7 +2,6 @@ package org.uva.sea.ql.tests.typechecker.typecheckerVisitorTests;
 
 import org.junit.Test;
 import org.uva.sea.ql.ast.FormElement;
-import org.uva.sea.ql.ast.IfElse;
 import org.uva.sea.ql.ast.NullFormElement;
 import org.uva.sea.ql.ast.expr.Expr;
 import org.uva.sea.ql.ast.If;
