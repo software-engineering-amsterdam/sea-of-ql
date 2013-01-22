@@ -13,7 +13,7 @@ public class HTMLVisitor implements ASTVisitor {
 	private Registry registry;
 	private DocumentBuilder document;
 
-	public HTMLVisitor()  throws VisitorException {
+	public HTMLVisitor() throws VisitorException {
 		this.registry = new Registry();
 		this.document = new DocumentBuilder();
 	}
@@ -47,7 +47,7 @@ public class HTMLVisitor implements ASTVisitor {
 
 	@Override
 	public void visit(IfStatement ifStatement) throws VisitorException {
-		registry.addIfStatement(ifStatement);		
+		registry.addIfStatement(ifStatement);
 		document.beginIf(ifStatement);
 		ifStatement.getContent().accept(this);
 		document.endIf();

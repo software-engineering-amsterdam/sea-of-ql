@@ -8,6 +8,8 @@ import java.io.PrintWriter;
 import java.nio.MappedByteBuffer;
 import java.nio.channels.FileChannel;
 import java.nio.charset.Charset;
+import java.util.HashMap;
+import java.util.Map;
 
 class IOHelper {
 
@@ -28,6 +30,20 @@ class IOHelper {
 		} finally {
 			stream.close();
 		}
+	}
+
+	public static Map<String, String> readFolder(String path)
+			throws IOException {
+		Map<String, String> m = new HashMap<String, String>();
+		File folder = new File(path);
+		for (final File fileEntry : folder.listFiles()) {
+			if (fileEntry.isFile()) {
+				m.put(fileEntry.getName().replace(".html", ""), read(path
+						+ fileEntry.getName()));
+			}
+		}
+
+		return m;
 	}
 
 }

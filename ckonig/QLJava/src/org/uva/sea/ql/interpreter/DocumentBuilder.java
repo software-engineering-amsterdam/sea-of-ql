@@ -16,8 +16,6 @@ import org.uva.sea.ql.ast.types.Type;
 
 class DocumentBuilder {
 
-	private final String CHECKBOX = "checkbox";
-	private final String TEXT = "text";
 	private String heading;
 	private StringBuilder body;
 	private StringBuilder script;
@@ -39,8 +37,7 @@ class DocumentBuilder {
 	}
 
 	public String getOutput() {
-		return templates.document(heading,
-				body.toString(), script.toString());
+		return templates.document(heading, body.toString(), script.toString());
 	}
 
 	public void setHeading(String content) {
@@ -50,19 +47,23 @@ class DocumentBuilder {
 	public void appendQuestion(Question question) {
 		Type type = question.getType();
 		String name = question.getIdent().getName();
-		String input = "";
+		String input = new String();
 		if (type instanceof BooleanType) {
-			input = templates.input(name, CHECKBOX);
+			input = templates.input(name, InputTypes.BOOLEAN);
 		}
-		if (type instanceof Money || type instanceof StrType) {
-			input = templates.input(name, TEXT);
+		if (type instanceof Money) {
+			input = templates.input(name, InputTypes.MONEY);
 		}
-		appendToBody(templates.question(question.getContent().toString(),
-				input));
+		if (type instanceof StrType) {
+			input = templates.input(name, InputTypes.STRING);
+		}
+		appendToBody(templates
+				.question(question.getContent().toString(), input));
 	}
 
 	public void beginIf(IfStatement ifStatement) {
-		appendToBody(templates.hiddenStart(String.valueOf(ifStatement.hashCode())));
+		appendToBody(templates.hiddenStart(String.valueOf(ifStatement
+				.hashCode())));
 	}
 
 	public void endIf() {
@@ -85,7 +86,7 @@ class DocumentBuilder {
 	}
 
 	private void addGetter(Question q) {
-		String getter = "";
+		String getter = new String();
 		if (q.getType().getClass().equals(BooleanType.class)) {
 			getter = templates.getterBool(q.getIdent().getName());
 		}
@@ -98,8 +99,8 @@ class DocumentBuilder {
 		this.appendToScript(getter);
 	}
 
-	private String getConditionString(Expr i) {
-		String ret = "";
+	private static String getConditionString(Expr i) {
+		String ret = new String();
 
 		if (i.getClass().equals(Ident.class)) {
 			ret = ((Ident) i).getName() + "()";
