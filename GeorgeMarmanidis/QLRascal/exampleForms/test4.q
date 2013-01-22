@@ -17,11 +17,11 @@ form test  {
 		salary: "what salary you except?:" money
 		}
 	}
-	/*else if(!isEmpl)
+	else if(!isEmpl)
 	{
 		isEmpl: "Do you work?" boolean
 		interests: "What are you seeking in a job?" string  ("dawdawdawd")
-	}*/
+	}
 	else
 	{
 		interest: "How you get in here?" string
