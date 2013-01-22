@@ -3,13 +3,15 @@ package org.uva.sea.ql.parser.test;
 import junit.framework.TestCase;
 
 import org.junit.Test;
-import org.uva.sea.ql.ast.Add;
-import org.uva.sea.ql.ast.GT;
+import org.uva.sea.ql.ast.Expr;
 import org.uva.sea.ql.ast.Ident;
 import org.uva.sea.ql.ast.IntLiteral;
-import org.uva.sea.ql.ast.LEq;
-import org.uva.sea.ql.ast.LT;
-import org.uva.sea.ql.ast.Mul;
+import org.uva.sea.ql.ast.operators.Add;
+import org.uva.sea.ql.ast.operators.GT;
+import org.uva.sea.ql.ast.operators.LEq;
+import org.uva.sea.ql.ast.operators.LT;
+import org.uva.sea.ql.ast.operators.Mul;
+import org.uva.sea.ql.interpreter.Interpreter;
 
 public class TestExpressions extends TestCase {
 
@@ -65,5 +67,17 @@ public class TestExpressions extends TestCase {
 		assertEquals(parser.expr("0").getClass(), IntLiteral.class);
 		assertEquals(parser.expr("1223").getClass(), IntLiteral.class);
 		assertEquals(parser.expr("234234234").getClass(), IntLiteral.class);
+	}
+
+	@Test
+	public void testEvalObject() throws ParseError {
+		Expr expr;
+		Interpreter intrp = new Interpreter();
+		IntLiteral result = null;
+
+		expr = parser.expr("10 * 10 + 1");
+		result = (IntLiteral) intrp.eval((Add) expr);
+
+		assertEquals(result.getValue(), 101);
 	}
 }

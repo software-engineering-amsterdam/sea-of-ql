@@ -15,9 +15,7 @@
 <fullyQualifiedTypeName name="junit.framework.TestCase"/>
 <fullyQualifiedTypeName name="org.uva.sea.ql.astnodevisitor.PrintVisitor"/>
 <fullyQualifiedTypeName name="org.uva.sea.ql.ast.QLProgram"/>
-<fullyQualifiedTypeName name="org.uva.sea.ql.ast.IntLiteral"/>
 <fullyQualifiedTypeName name="org.uva.sea.ql.ast.BooleanLiteral"/>
-<fullyQualifiedTypeName name="org.uva.sea.ql.ast.Expr"/>
 <fullyQualifiedTypeName name="org.uva.sea.ql.ast.MoneyType"/>
 <fullyQualifiedTypeName name="java.util.HashMap"/>
 <fullyQualifiedTypeName name="com.sun.org.apache.xpath.internal.operations.Bool"/>
@@ -32,4 +30,7 @@
 <fullyQualifiedTypeName name="org.uva.sea.ql.astnodevisitor.PrintVisitorResult"/>
 <fullyQualifiedTypeName name="org.uva.sea.ql.ast.GEq"/>
 <fullyQualifiedTypeName name="org.uva.sea.ql.astnodevisitor.Visitor"/>
+<fullyQualifiedTypeName name="org.uva.sea.ql.ast.Expr"/>
+<fullyQualifiedTypeName name="org.uva.sea.ql.interpreter.Interpreter"/>
+<fullyQualifiedTypeName name="org.uva.sea.ql.ast.IntLiteral"/>
 </qualifiedTypeNameHistroy>

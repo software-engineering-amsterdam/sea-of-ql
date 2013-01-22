@@ -1,6 +1,7 @@
 package org.uva.sea.ql.ast;
 
 import org.antlr.runtime.Token;
+import org.uva.sea.ql.ast.types.TypeDescription;
 import org.uva.sea.ql.astnodevisitor.Visitor;
 import org.uva.sea.ql.astnodevisitor.VisitorResult;
 

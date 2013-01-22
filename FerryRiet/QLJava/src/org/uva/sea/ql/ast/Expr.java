@@ -2,6 +2,7 @@ package org.uva.sea.ql.ast;
 
 import java.util.HashMap;
 
+import org.uva.sea.ql.ast.types.TypeDescription;
 import org.uva.sea.ql.astnodevisitor.Visitor;
 import org.uva.sea.ql.astnodevisitor.VisitorResult;
 

@@ -1,6 +1,22 @@
 package org.uva.sea.ql.astnodevisitor;
 
 import org.uva.sea.ql.ast.*;
+import org.uva.sea.ql.ast.operators.Add;
+import org.uva.sea.ql.ast.operators.And;
+import org.uva.sea.ql.ast.operators.Div;
+import org.uva.sea.ql.ast.operators.Eq;
+import org.uva.sea.ql.ast.operators.GEq;
+import org.uva.sea.ql.ast.operators.GT;
+import org.uva.sea.ql.ast.operators.LEq;
+import org.uva.sea.ql.ast.operators.LT;
+import org.uva.sea.ql.ast.operators.Mul;
+import org.uva.sea.ql.ast.operators.NEq;
+import org.uva.sea.ql.ast.operators.Neg;
+import org.uva.sea.ql.ast.operators.Not;
+import org.uva.sea.ql.ast.operators.Or;
+import org.uva.sea.ql.ast.operators.Pos;
+import org.uva.sea.ql.ast.operators.Sub;
+import org.uva.sea.ql.ast.types.TypeDescription;
 
 public interface Visitor {
 	VisitorResult visit(Expr expr);

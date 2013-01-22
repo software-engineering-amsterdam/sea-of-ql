@@ -1,6 +1,6 @@
 package org.uva.sea.ql.form;
 
-import org.uva.sea.ql.ast.Expr;
+import org.uva.sea.ql.ast.expressions.Expr;
 import org.uva.sea.ql.ast.values.Value;
 
 public class ComputedQuestion extends Question {
