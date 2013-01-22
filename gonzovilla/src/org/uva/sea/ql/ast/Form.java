@@ -4,21 +4,21 @@ import java.util.List;
 
 public class Form {
 	
-	private String ident;
-	private List<FormUnit> formUnits;
+	private String name;
+	private List<FormUnit> body;
 	
-	public Form(String string, List<FormUnit> formUnits) {
+	public Form(String name, List<FormUnit> body) {
 		
-			this.ident = string;
-			this.formUnits = formUnits;
+			this.name = name;
+			this.body = body;
 		}
 
-		public String getIdentity() {
-			return ident;
+		public String getName() {
+			return name;
 		}
 
-		public List<FormUnit> getFormUnits() {
-			return formUnits;
+		public List<FormUnit> getBody() {
+			return body;
 		}
 
 }
