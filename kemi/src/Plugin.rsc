@@ -41,9 +41,12 @@ private void formatQL(start[Form] f, loc l) =
   writeFile(l, lang::ql::compiler::PrettyPrinter::prettyPrint(implodeQL(f)));
 
 private void buildQL(start[Form] f, loc l) {
-  target = |project://QL-R-kemi/bin/|;
-  destination = buildForm(implodeQL(f), target);
-  alert("The form is built in <destination>.");
+  if(semanticCheckerQL(f) != {}) {
+    alert("The form cannot be built when it still contains errors.");
+    return;
+  }
+  target = buildForm(implodeQL(f), |project://QL-R-kemi/bin/|);
+  alert("The form is built in <target>.");
 }
 
 private Stylesheet implodeQLS(Tree t) =
