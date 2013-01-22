@@ -12,7 +12,6 @@ import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
 import org.uva.sea.ql.ast.form.Body;
 import org.uva.sea.ql.ast.form.ComputedQuestion;
-import org.uva.sea.ql.ast.form.Element;
 import org.uva.sea.ql.ast.form.Form;
 import org.uva.sea.ql.ast.form.IfBlock;
 import org.uva.sea.ql.ast.form.Question;

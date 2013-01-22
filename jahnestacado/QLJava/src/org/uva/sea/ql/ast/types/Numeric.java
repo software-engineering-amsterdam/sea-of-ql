@@ -2,7 +2,7 @@ package org.uva.sea.ql.ast.types;
 
 import org.uva.sea.ql.visitor.ASTNodeVisitor;
 
-public class StringType extends Type {
+public  class Numeric extends Type{
 
 	
 
@@ -11,5 +11,7 @@ public class StringType extends Type {
 		// TODO Auto-generated method stub
 		
 	}
+	
+	
 
 }
