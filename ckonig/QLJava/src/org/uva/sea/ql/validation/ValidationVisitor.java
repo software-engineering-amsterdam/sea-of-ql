@@ -16,8 +16,6 @@ import org.uva.sea.ql.visitor.ASTVisitor;
 import org.uva.sea.ql.visitor.Registry;
 import org.uva.sea.ql.visitor.VisitorException;
 
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
-
 public class ValidationVisitor implements ASTVisitor {
 	private Registry registry;
 

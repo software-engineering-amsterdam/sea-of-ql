@@ -1,7 +1,6 @@
 package org.uva.sea.ql.interpreter;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 
 import org.uva.sea.ql.ast.Expr;
 import org.uva.sea.ql.ast.elements.Form;
@@ -12,9 +11,9 @@ import org.uva.sea.ql.validation.AstValidationError;
 import org.uva.sea.ql.validation.Validator;
 import org.uva.sea.ql.visitor.VisitorException;
 
-public class HTMLGen {
+public class HTMLRunner {
 	private static final String OUT_PATH = "";
-	
+
 	public static void main(String[] args) {
 		try {
 
@@ -25,10 +24,8 @@ public class HTMLGen {
 			HTMLVisitor visitor = new HTMLVisitor();
 			f.accept(visitor);
 			String output = visitor.getOutput();
-			PrintWriter out = new PrintWriter(OUT_PATH + f.getName() + ".html");		
-			out.println(output);
-			out.close();
-			System.out.println(visitor.getOutput());
+			IOHelper.write(OUT_PATH + f.getName() + ".html", output);
+			System.out.println(output);
 
 		} catch (IOException ex) {
 			System.out.println("IO Exception: " + ex.getMessage());
