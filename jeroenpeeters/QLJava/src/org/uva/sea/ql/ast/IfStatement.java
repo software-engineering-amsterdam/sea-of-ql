@@ -5,16 +5,16 @@ import org.uva.sea.ql.parser.ASTVisitor;
 
 public class IfStatement extends Statement {
 
-	private final Expression expr;
+	private final Expression expression;
 	private final CompoundStatement compoundStatement;
 	
 	public IfStatement(Expression expr, CompoundStatement compoundStatement) {
-		this.expr = expr;
+		this.expression = expr;
 		this.compoundStatement = compoundStatement;
 	}
-
-	public Expression getExpr() {
-		return expr;
+	
+	public Expression getExpression() {
+		return expression;
 	}
 
 	public CompoundStatement getCompoundStatement() {

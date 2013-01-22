@@ -6,8 +6,20 @@ import org.uva.sea.ql.ast.expr.Expr;
 
 public class IfStatement extends FormUnit {
 
-	public IfStatement(Expr orExpr9, List<FormUnit> formUnits) {
-		// TODO Auto-generated constructor stub
+	private Expr expression;
+	private List<FormUnit> formUnits;
+	
+	public IfStatement(Expr expression, List<FormUnit> formUnits) {
+		this.expression = expression;
+		this.formUnits = formUnits;
+	}
+
+	public Expr getExpression() {
+		return expression;
+	}
+
+	public List<FormUnit> getFormUnits() {
+		return formUnits;
 	}
 
 }

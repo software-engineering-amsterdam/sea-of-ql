@@ -41,9 +41,9 @@ public class SemanticVisitor implements ASTVisitor {
 
 	@Override
 	public void visit(IfStatement statement) throws SemanticException {
-		statement.getExpr().accept(this);
+		statement.getExpression().accept(this);
 		
-		checkCast(DataType.BOOLEAN, expressionTypeMap.get(statement.getExpr()));
+		checkCast(DataType.BOOLEAN, expressionTypeMap.get(statement.getExpression()));
 		
 		statement.getCompoundStatement().accept(this);
 	}

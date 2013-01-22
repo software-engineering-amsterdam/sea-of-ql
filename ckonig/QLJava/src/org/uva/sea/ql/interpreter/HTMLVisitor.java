@@ -94,11 +94,6 @@ public class HTMLVisitor implements ASTVisitor {
 		registry.appendToOutput("</div>\n");
 	}
 
-	@Override
-	public void visit(Ident ident) {
-		throw new NotImplementedException();
-	}
-
 	public String getOutput() {
 		return registry.getOutput();
 	}

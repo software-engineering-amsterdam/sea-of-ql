@@ -20,7 +20,7 @@ public class QLLexer implements QLTokens {
 		// Structural keywords
 		KEYWORDS.put("form", FORM);
 		KEYWORDS.put("if", IF);
-		KEYWORDS.put("if", IF);
+		KEYWORDS.put("else", ELSE);
 		
 		// DataType keywords
 		KEYWORDS.put("boolean", DT_BOOLEAN);
