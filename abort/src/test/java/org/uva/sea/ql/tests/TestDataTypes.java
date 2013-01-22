@@ -6,6 +6,7 @@ import java.math.BigDecimal;
 
 import org.antlr.runtime.RecognitionException;
 import org.junit.Test;
+import org.uva.sea.ql.ast.base.Expression;
 import org.uva.sea.ql.ast.base.Node;
 import org.uva.sea.ql.ast.types.Bool;
 import org.uva.sea.ql.ast.types.Ident;
@@ -68,9 +69,9 @@ public class TestDataTypes extends TestBase {
 	
 	@Test
 	public void testIdent() throws RecognitionException {
-		final Node node = parseDataType("identlabel");
-		assertEquals(Ident.class, node.getClass());
-		assertEquals("identlabel", ((Ident)node).getName());
+		final Expression expression = parseDataType("identlabel");
+		assertEquals(Ident.class, expression.getClass());
+		assertEquals("identlabel", ((Ident)expression).getName());
 		
 		assertEquals(Ident.class, parseDataType("a").getClass());
 		assertEquals(Ident.class, parseDataType("abc").getClass());
@@ -93,7 +94,7 @@ public class TestDataTypes extends TestBase {
 		assertFalse(StringLiteral.class.equals(parseDataType("Hello").getClass()));
 	}
 	
-	private Node parseDataType(final String source) throws RecognitionException {
+	private Expression parseDataType(final String source) throws RecognitionException {
 		return parse(source).orExpression();
 	}
 }

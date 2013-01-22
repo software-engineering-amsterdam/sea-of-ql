@@ -1,4 +1,4 @@
-// $ANTLR 3.5 /Users/jdijkstra/Documents/UvA/Software Construction/git/abort/src/main/java/org/uva/sea/ql/parser/antlr/QL.g 2013-01-21 14:12:54
+// $ANTLR 3.5 /Users/jdijkstra/Documents/UvA/Software Construction/git/abort/src/main/java/org/uva/sea/ql/parser/antlr/QL.g 2013-01-21 17:25:00
 
 package org.uva.sea.ql.parser.antlr;
 import org.uva.sea.ql.ast.*;
@@ -195,7 +195,7 @@ public class QLParser extends Parser {
 
 
 	// $ANTLR start "element"
-	// /Users/jdijkstra/Documents/UvA/Software Construction/git/abort/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:37:1: element returns [Element result] : ( question | computation | ifExpression );
+	// /Users/jdijkstra/Documents/UvA/Software Construction/git/abort/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:37:1: element returns [Element result] : ( question | computation | ifStatement );
 	public final Element element() throws RecognitionException {
 		Element result = null;
 
@@ -203,12 +203,12 @@ public class QLParser extends Parser {
 
 		Question question3 =null;
 		Computation computation4 =null;
-		IfStatement ifExpression5 =null;
+		IfStatement ifStatement5 =null;
 
 		try {
 			if ( state.backtracking>0 && alreadyParsedRule(input, 3) ) { return result; }
 
-			// /Users/jdijkstra/Documents/UvA/Software Construction/git/abort/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:38:5: ( question | computation | ifExpression )
+			// /Users/jdijkstra/Documents/UvA/Software Construction/git/abort/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:38:5: ( question | computation | ifStatement )
 			int alt2=3;
 			int LA2_0 = input.LA(1);
 			if ( (LA2_0==Ident) ) {
@@ -324,13 +324,13 @@ public class QLParser extends Parser {
 					}
 					break;
 				case 3 :
-					// /Users/jdijkstra/Documents/UvA/Software Construction/git/abort/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:40:7: ifExpression
+					// /Users/jdijkstra/Documents/UvA/Software Construction/git/abort/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:40:7: ifStatement
 					{
-					pushFollow(FOLLOW_ifExpression_in_element138);
-					ifExpression5=ifExpression();
+					pushFollow(FOLLOW_ifStatement_in_element138);
+					ifStatement5=ifStatement();
 					state._fsp--;
 					if (state.failed) return result;
-					if ( state.backtracking==0 ) { result = ifExpression5; }
+					if ( state.backtracking==0 ) { result = ifStatement5; }
 					}
 					break;
 
@@ -351,14 +351,14 @@ public class QLParser extends Parser {
 
 
 
-	// $ANTLR start "ifExpression"
-	// /Users/jdijkstra/Documents/UvA/Software Construction/git/abort/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:42:1: ifExpression returns [IfStatement result] : ( IF PARENTHESES_OPEN condition= orExpression PARENTHESES_CLOSE BLOCK_START successStatements= elements BLOCK_END ELSE BLOCK_START elseStatements= elements BLOCK_END | IF PARENTHESES_OPEN condition= orExpression PARENTHESES_CLOSE BLOCK_START successStatements= elements BLOCK_END );
-	public final IfStatement ifExpression() throws RecognitionException {
+	// $ANTLR start "ifStatement"
+	// /Users/jdijkstra/Documents/UvA/Software Construction/git/abort/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:42:1: ifStatement returns [IfStatement result] : ( IF PARENTHESES_OPEN condition= orExpression PARENTHESES_CLOSE BLOCK_START successStatements= elements BLOCK_END ELSE BLOCK_START elseStatements= elements BLOCK_END | IF PARENTHESES_OPEN condition= orExpression PARENTHESES_CLOSE BLOCK_START successStatements= elements BLOCK_END );
+	public final IfStatement ifStatement() throws RecognitionException {
 		IfStatement result = null;
 
-		int ifExpression_StartIndex = input.index();
+		int ifStatement_StartIndex = input.index();
 
-		Node condition =null;
+		Expression condition =null;
 		List<Element> successStatements =null;
 		List<Element> elseStatements =null;
 
@@ -390,26 +390,26 @@ public class QLParser extends Parser {
 				case 1 :
 					// /Users/jdijkstra/Documents/UvA/Software Construction/git/abort/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:43:7: IF PARENTHESES_OPEN condition= orExpression PARENTHESES_CLOSE BLOCK_START successStatements= elements BLOCK_END ELSE BLOCK_START elseStatements= elements BLOCK_END
 					{
-					match(input,IF,FOLLOW_IF_in_ifExpression156); if (state.failed) return result;
-					match(input,PARENTHESES_OPEN,FOLLOW_PARENTHESES_OPEN_in_ifExpression158); if (state.failed) return result;
-					pushFollow(FOLLOW_orExpression_in_ifExpression162);
+					match(input,IF,FOLLOW_IF_in_ifStatement156); if (state.failed) return result;
+					match(input,PARENTHESES_OPEN,FOLLOW_PARENTHESES_OPEN_in_ifStatement158); if (state.failed) return result;
+					pushFollow(FOLLOW_orExpression_in_ifStatement162);
 					condition=orExpression();
 					state._fsp--;
 					if (state.failed) return result;
-					match(input,PARENTHESES_CLOSE,FOLLOW_PARENTHESES_CLOSE_in_ifExpression164); if (state.failed) return result;
-					match(input,BLOCK_START,FOLLOW_BLOCK_START_in_ifExpression166); if (state.failed) return result;
-					pushFollow(FOLLOW_elements_in_ifExpression170);
+					match(input,PARENTHESES_CLOSE,FOLLOW_PARENTHESES_CLOSE_in_ifStatement164); if (state.failed) return result;
+					match(input,BLOCK_START,FOLLOW_BLOCK_START_in_ifStatement166); if (state.failed) return result;
+					pushFollow(FOLLOW_elements_in_ifStatement170);
 					successStatements=elements();
 					state._fsp--;
 					if (state.failed) return result;
-					match(input,BLOCK_END,FOLLOW_BLOCK_END_in_ifExpression172); if (state.failed) return result;
-					match(input,ELSE,FOLLOW_ELSE_in_ifExpression174); if (state.failed) return result;
-					match(input,BLOCK_START,FOLLOW_BLOCK_START_in_ifExpression176); if (state.failed) return result;
-					pushFollow(FOLLOW_elements_in_ifExpression180);
+					match(input,BLOCK_END,FOLLOW_BLOCK_END_in_ifStatement172); if (state.failed) return result;
+					match(input,ELSE,FOLLOW_ELSE_in_ifStatement174); if (state.failed) return result;
+					match(input,BLOCK_START,FOLLOW_BLOCK_START_in_ifStatement176); if (state.failed) return result;
+					pushFollow(FOLLOW_elements_in_ifStatement180);
 					elseStatements=elements();
 					state._fsp--;
 					if (state.failed) return result;
-					match(input,BLOCK_END,FOLLOW_BLOCK_END_in_ifExpression182); if (state.failed) return result;
+					match(input,BLOCK_END,FOLLOW_BLOCK_END_in_ifStatement182); if (state.failed) return result;
 					if ( state.backtracking==0 ) {
 					      result = new IfThenElse(condition, successStatements, elseStatements);
 					    }
@@ -418,19 +418,19 @@ public class QLParser extends Parser {
 				case 2 :
 					// /Users/jdijkstra/Documents/UvA/Software Construction/git/abort/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:47:7: IF PARENTHESES_OPEN condition= orExpression PARENTHESES_CLOSE BLOCK_START successStatements= elements BLOCK_END
 					{
-					match(input,IF,FOLLOW_IF_in_ifExpression196); if (state.failed) return result;
-					match(input,PARENTHESES_OPEN,FOLLOW_PARENTHESES_OPEN_in_ifExpression198); if (state.failed) return result;
-					pushFollow(FOLLOW_orExpression_in_ifExpression202);
+					match(input,IF,FOLLOW_IF_in_ifStatement196); if (state.failed) return result;
+					match(input,PARENTHESES_OPEN,FOLLOW_PARENTHESES_OPEN_in_ifStatement198); if (state.failed) return result;
+					pushFollow(FOLLOW_orExpression_in_ifStatement202);
 					condition=orExpression();
 					state._fsp--;
 					if (state.failed) return result;
-					match(input,PARENTHESES_CLOSE,FOLLOW_PARENTHESES_CLOSE_in_ifExpression204); if (state.failed) return result;
-					match(input,BLOCK_START,FOLLOW_BLOCK_START_in_ifExpression206); if (state.failed) return result;
-					pushFollow(FOLLOW_elements_in_ifExpression210);
+					match(input,PARENTHESES_CLOSE,FOLLOW_PARENTHESES_CLOSE_in_ifStatement204); if (state.failed) return result;
+					match(input,BLOCK_START,FOLLOW_BLOCK_START_in_ifStatement206); if (state.failed) return result;
+					pushFollow(FOLLOW_elements_in_ifStatement210);
 					successStatements=elements();
 					state._fsp--;
 					if (state.failed) return result;
-					match(input,BLOCK_END,FOLLOW_BLOCK_END_in_ifExpression212); if (state.failed) return result;
+					match(input,BLOCK_END,FOLLOW_BLOCK_END_in_ifStatement212); if (state.failed) return result;
 					if ( state.backtracking==0 ) {
 					      result = new IfThen(condition, successStatements);
 					    }
@@ -445,12 +445,12 @@ public class QLParser extends Parser {
 		}
 		finally {
 			// do for sure before leaving
-			if ( state.backtracking>0 ) { memoize(input, 4, ifExpression_StartIndex); }
+			if ( state.backtracking>0 ) { memoize(input, 4, ifStatement_StartIndex); }
 
 		}
 		return result;
 	}
-	// $ANTLR end "ifExpression"
+	// $ANTLR end "ifStatement"
 
 
 
@@ -529,7 +529,7 @@ public class QLParser extends Parser {
 		Token label=null;
 		Token String7=null;
 		Class<? extends DataType> parameter =null;
-		Node operation =null;
+		Expression operation =null;
 
 		try {
 			if ( state.backtracking>0 && alreadyParsedRule(input, 6) ) { return result; }
@@ -633,6 +633,7 @@ public class QLParser extends Parser {
 			{
 			Type9=(Token)match(input,Type,FOLLOW_Type_in_dataType325); if (state.failed) return result;
 			if ( state.backtracking==0 ) {
+			    // TODO: instances
 			    if ((Type9!=null?Type9.getText():null).equals("string")) result = StringLiteral.class;
 			    else if ((Type9!=null?Type9.getText():null).equals("integer")) result = Int.class;
 			    else if ((Type9!=null?Type9.getText():null).equals("money")) result = Money.class;
@@ -657,9 +658,9 @@ public class QLParser extends Parser {
 
 
 	// $ANTLR start "primary"
-	// /Users/jdijkstra/Documents/UvA/Software Construction/git/abort/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:74:1: primary returns [Node result] : ( Int | Money | Bool | Ident | String | PARENTHESES_OPEN orExpression PARENTHESES_CLOSE );
-	public final Node primary() throws RecognitionException {
-		Node result = null;
+	// /Users/jdijkstra/Documents/UvA/Software Construction/git/abort/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:75:1: primary returns [Expression result] : ( Int | Money | Bool | Ident | String | PARENTHESES_OPEN orExpression PARENTHESES_CLOSE );
+	public final Expression primary() throws RecognitionException {
+		Expression result = null;
 
 		int primary_StartIndex = input.index();
 
@@ -668,12 +669,12 @@ public class QLParser extends Parser {
 		Token Bool12=null;
 		Token Ident13=null;
 		Token String14=null;
-		Node orExpression15 =null;
+		Expression orExpression15 =null;
 
 		try {
 			if ( state.backtracking>0 && alreadyParsedRule(input, 9) ) { return result; }
 
-			// /Users/jdijkstra/Documents/UvA/Software Construction/git/abort/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:75:3: ( Int | Money | Bool | Ident | String | PARENTHESES_OPEN orExpression PARENTHESES_CLOSE )
+			// /Users/jdijkstra/Documents/UvA/Software Construction/git/abort/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:76:3: ( Int | Money | Bool | Ident | String | PARENTHESES_OPEN orExpression PARENTHESES_CLOSE )
 			int alt5=6;
 			switch ( input.LA(1) ) {
 			case Int:
@@ -714,42 +715,42 @@ public class QLParser extends Parser {
 			}
 			switch (alt5) {
 				case 1 :
-					// /Users/jdijkstra/Documents/UvA/Software Construction/git/abort/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:75:5: Int
+					// /Users/jdijkstra/Documents/UvA/Software Construction/git/abort/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:76:5: Int
 					{
 					Int10=(Token)match(input,Int,FOLLOW_Int_in_primary342); if (state.failed) return result;
 					if ( state.backtracking==0 ) { result = new Int(Integer.parseInt((Int10!=null?Int10.getText():null))); }
 					}
 					break;
 				case 2 :
-					// /Users/jdijkstra/Documents/UvA/Software Construction/git/abort/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:76:5: Money
+					// /Users/jdijkstra/Documents/UvA/Software Construction/git/abort/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:77:5: Money
 					{
 					Money11=(Token)match(input,Money,FOLLOW_Money_in_primary352); if (state.failed) return result;
 					if ( state.backtracking==0 ) { result = new Money((Money11!=null?Money11.getText():null)); }
 					}
 					break;
 				case 3 :
-					// /Users/jdijkstra/Documents/UvA/Software Construction/git/abort/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:77:5: Bool
+					// /Users/jdijkstra/Documents/UvA/Software Construction/git/abort/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:78:5: Bool
 					{
 					Bool12=(Token)match(input,Bool,FOLLOW_Bool_in_primary360); if (state.failed) return result;
 					if ( state.backtracking==0 ) { result = new Bool(Boolean.parseBoolean((Bool12!=null?Bool12.getText():null))); }
 					}
 					break;
 				case 4 :
-					// /Users/jdijkstra/Documents/UvA/Software Construction/git/abort/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:78:5: Ident
+					// /Users/jdijkstra/Documents/UvA/Software Construction/git/abort/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:79:5: Ident
 					{
 					Ident13=(Token)match(input,Ident,FOLLOW_Ident_in_primary368); if (state.failed) return result;
 					if ( state.backtracking==0 ) { result = new Ident((Ident13!=null?Ident13.getText():null)); }
 					}
 					break;
 				case 5 :
-					// /Users/jdijkstra/Documents/UvA/Software Construction/git/abort/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:79:5: String
+					// /Users/jdijkstra/Documents/UvA/Software Construction/git/abort/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:80:5: String
 					{
 					String14=(Token)match(input,String,FOLLOW_String_in_primary376); if (state.failed) return result;
 					if ( state.backtracking==0 ) { result = new StringLiteral((String14!=null?String14.getText():null).substring(1, (String14!=null?String14.getText():null).length() - 1)); }
 					}
 					break;
 				case 6 :
-					// /Users/jdijkstra/Documents/UvA/Software Construction/git/abort/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:80:5: PARENTHESES_OPEN orExpression PARENTHESES_CLOSE
+					// /Users/jdijkstra/Documents/UvA/Software Construction/git/abort/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:81:5: PARENTHESES_OPEN orExpression PARENTHESES_CLOSE
 					{
 					match(input,PARENTHESES_OPEN,FOLLOW_PARENTHESES_OPEN_in_primary384); if (state.failed) return result;
 					pushFollow(FOLLOW_orExpression_in_primary386);
@@ -779,18 +780,18 @@ public class QLParser extends Parser {
 
 
 	// $ANTLR start "unExpression"
-	// /Users/jdijkstra/Documents/UvA/Software Construction/git/abort/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:82:1: unExpression returns [Node result] : ( '+' x= unExpression | '-' x= unExpression | '!' x= unExpression |x= primary );
-	public final Node unExpression() throws RecognitionException {
-		Node result = null;
+	// /Users/jdijkstra/Documents/UvA/Software Construction/git/abort/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:83:1: unExpression returns [Expression result] : ( '+' x= unExpression | '-' x= unExpression | '!' x= unExpression |x= primary );
+	public final Expression unExpression() throws RecognitionException {
+		Expression result = null;
 
 		int unExpression_StartIndex = input.index();
 
-		Node x =null;
+		Expression x =null;
 
 		try {
 			if ( state.backtracking>0 && alreadyParsedRule(input, 10) ) { return result; }
 
-			// /Users/jdijkstra/Documents/UvA/Software Construction/git/abort/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:83:5: ( '+' x= unExpression | '-' x= unExpression | '!' x= unExpression |x= primary )
+			// /Users/jdijkstra/Documents/UvA/Software Construction/git/abort/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:84:5: ( '+' x= unExpression | '-' x= unExpression | '!' x= unExpression |x= primary )
 			int alt6=4;
 			switch ( input.LA(1) ) {
 			case 24:
@@ -826,7 +827,7 @@ public class QLParser extends Parser {
 			}
 			switch (alt6) {
 				case 1 :
-					// /Users/jdijkstra/Documents/UvA/Software Construction/git/abort/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:83:8: '+' x= unExpression
+					// /Users/jdijkstra/Documents/UvA/Software Construction/git/abort/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:84:8: '+' x= unExpression
 					{
 					match(input,24,FOLLOW_24_in_unExpression407); if (state.failed) return result;
 					pushFollow(FOLLOW_unExpression_in_unExpression411);
@@ -837,7 +838,7 @@ public class QLParser extends Parser {
 					}
 					break;
 				case 2 :
-					// /Users/jdijkstra/Documents/UvA/Software Construction/git/abort/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:84:8: '-' x= unExpression
+					// /Users/jdijkstra/Documents/UvA/Software Construction/git/abort/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:85:8: '-' x= unExpression
 					{
 					match(input,25,FOLLOW_25_in_unExpression422); if (state.failed) return result;
 					pushFollow(FOLLOW_unExpression_in_unExpression426);
@@ -848,7 +849,7 @@ public class QLParser extends Parser {
 					}
 					break;
 				case 3 :
-					// /Users/jdijkstra/Documents/UvA/Software Construction/git/abort/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:85:8: '!' x= unExpression
+					// /Users/jdijkstra/Documents/UvA/Software Construction/git/abort/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:86:8: '!' x= unExpression
 					{
 					match(input,20,FOLLOW_20_in_unExpression437); if (state.failed) return result;
 					pushFollow(FOLLOW_unExpression_in_unExpression441);
@@ -859,7 +860,7 @@ public class QLParser extends Parser {
 					}
 					break;
 				case 4 :
-					// /Users/jdijkstra/Documents/UvA/Software Construction/git/abort/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:86:8: x= primary
+					// /Users/jdijkstra/Documents/UvA/Software Construction/git/abort/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:87:8: x= primary
 					{
 					pushFollow(FOLLOW_primary_in_unExpression454);
 					x=primary();
@@ -887,28 +888,28 @@ public class QLParser extends Parser {
 
 
 	// $ANTLR start "mulExpression"
-	// /Users/jdijkstra/Documents/UvA/Software Construction/git/abort/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:88:1: mulExpression returns [Node result] : lhs= unExpression (op= ( '*' | '/' ) rhs= unExpression )* ;
-	public final Node mulExpression() throws RecognitionException {
-		Node result = null;
+	// /Users/jdijkstra/Documents/UvA/Software Construction/git/abort/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:89:1: mulExpression returns [Expression result] : lhs= unExpression (op= ( '*' | '/' ) rhs= unExpression )* ;
+	public final Expression mulExpression() throws RecognitionException {
+		Expression result = null;
 
 		int mulExpression_StartIndex = input.index();
 
 		Token op=null;
-		Node lhs =null;
-		Node rhs =null;
+		Expression lhs =null;
+		Expression rhs =null;
 
 		try {
 			if ( state.backtracking>0 && alreadyParsedRule(input, 11) ) { return result; }
 
-			// /Users/jdijkstra/Documents/UvA/Software Construction/git/abort/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:89:5: (lhs= unExpression (op= ( '*' | '/' ) rhs= unExpression )* )
-			// /Users/jdijkstra/Documents/UvA/Software Construction/git/abort/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:89:9: lhs= unExpression (op= ( '*' | '/' ) rhs= unExpression )*
+			// /Users/jdijkstra/Documents/UvA/Software Construction/git/abort/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:90:5: (lhs= unExpression (op= ( '*' | '/' ) rhs= unExpression )* )
+			// /Users/jdijkstra/Documents/UvA/Software Construction/git/abort/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:90:9: lhs= unExpression (op= ( '*' | '/' ) rhs= unExpression )*
 			{
 			pushFollow(FOLLOW_unExpression_in_mulExpression487);
 			lhs=unExpression();
 			state._fsp--;
 			if (state.failed) return result;
 			if ( state.backtracking==0 ) { result =lhs; }
-			// /Users/jdijkstra/Documents/UvA/Software Construction/git/abort/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:89:51: (op= ( '*' | '/' ) rhs= unExpression )*
+			// /Users/jdijkstra/Documents/UvA/Software Construction/git/abort/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:90:51: (op= ( '*' | '/' ) rhs= unExpression )*
 			loop7:
 			while (true) {
 				int alt7=2;
@@ -919,7 +920,7 @@ public class QLParser extends Parser {
 
 				switch (alt7) {
 				case 1 :
-					// /Users/jdijkstra/Documents/UvA/Software Construction/git/abort/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:89:53: op= ( '*' | '/' ) rhs= unExpression
+					// /Users/jdijkstra/Documents/UvA/Software Construction/git/abort/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:90:53: op= ( '*' | '/' ) rhs= unExpression
 					{
 					op=input.LT(1);
 					if ( input.LA(1)==23||input.LA(1)==26 ) {
@@ -971,28 +972,28 @@ public class QLParser extends Parser {
 
 
 	// $ANTLR start "addExpression"
-	// /Users/jdijkstra/Documents/UvA/Software Construction/git/abort/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:99:1: addExpression returns [Node result] : lhs= mulExpression (op= ( '+' | '-' ) rhs= mulExpression )* ;
-	public final Node addExpression() throws RecognitionException {
-		Node result = null;
+	// /Users/jdijkstra/Documents/UvA/Software Construction/git/abort/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:100:1: addExpression returns [Expression result] : lhs= mulExpression (op= ( '+' | '-' ) rhs= mulExpression )* ;
+	public final Expression addExpression() throws RecognitionException {
+		Expression result = null;
 
 		int addExpression_StartIndex = input.index();
 
 		Token op=null;
-		Node lhs =null;
-		Node rhs =null;
+		Expression lhs =null;
+		Expression rhs =null;
 
 		try {
 			if ( state.backtracking>0 && alreadyParsedRule(input, 12) ) { return result; }
 
-			// /Users/jdijkstra/Documents/UvA/Software Construction/git/abort/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:100:5: (lhs= mulExpression (op= ( '+' | '-' ) rhs= mulExpression )* )
-			// /Users/jdijkstra/Documents/UvA/Software Construction/git/abort/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:100:9: lhs= mulExpression (op= ( '+' | '-' ) rhs= mulExpression )*
+			// /Users/jdijkstra/Documents/UvA/Software Construction/git/abort/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:101:5: (lhs= mulExpression (op= ( '+' | '-' ) rhs= mulExpression )* )
+			// /Users/jdijkstra/Documents/UvA/Software Construction/git/abort/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:101:9: lhs= mulExpression (op= ( '+' | '-' ) rhs= mulExpression )*
 			{
 			pushFollow(FOLLOW_mulExpression_in_addExpression536);
 			lhs=mulExpression();
 			state._fsp--;
 			if (state.failed) return result;
 			if ( state.backtracking==0 ) { result =lhs; }
-			// /Users/jdijkstra/Documents/UvA/Software Construction/git/abort/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:100:52: (op= ( '+' | '-' ) rhs= mulExpression )*
+			// /Users/jdijkstra/Documents/UvA/Software Construction/git/abort/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:101:52: (op= ( '+' | '-' ) rhs= mulExpression )*
 			loop8:
 			while (true) {
 				int alt8=2;
@@ -1003,7 +1004,7 @@ public class QLParser extends Parser {
 
 				switch (alt8) {
 				case 1 :
-					// /Users/jdijkstra/Documents/UvA/Software Construction/git/abort/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:100:54: op= ( '+' | '-' ) rhs= mulExpression
+					// /Users/jdijkstra/Documents/UvA/Software Construction/git/abort/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:101:54: op= ( '+' | '-' ) rhs= mulExpression
 					{
 					op=input.LT(1);
 					if ( (input.LA(1) >= 24 && input.LA(1) <= 25) ) {
@@ -1055,28 +1056,28 @@ public class QLParser extends Parser {
 
 
 	// $ANTLR start "relExpression"
-	// /Users/jdijkstra/Documents/UvA/Software Construction/git/abort/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:110:1: relExpression returns [Node result] : lhs= addExpression (op= ( '<' | '<=' | '>' | '>=' | '==' | '!=' ) rhs= addExpression )* ;
-	public final Node relExpression() throws RecognitionException {
-		Node result = null;
+	// /Users/jdijkstra/Documents/UvA/Software Construction/git/abort/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:111:1: relExpression returns [Expression result] : lhs= addExpression (op= ( '<' | '<=' | '>' | '>=' | '==' | '!=' ) rhs= addExpression )* ;
+	public final Expression relExpression() throws RecognitionException {
+		Expression result = null;
 
 		int relExpression_StartIndex = input.index();
 
 		Token op=null;
-		Node lhs =null;
-		Node rhs =null;
+		Expression lhs =null;
+		Expression rhs =null;
 
 		try {
 			if ( state.backtracking>0 && alreadyParsedRule(input, 13) ) { return result; }
 
-			// /Users/jdijkstra/Documents/UvA/Software Construction/git/abort/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:111:5: (lhs= addExpression (op= ( '<' | '<=' | '>' | '>=' | '==' | '!=' ) rhs= addExpression )* )
-			// /Users/jdijkstra/Documents/UvA/Software Construction/git/abort/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:111:9: lhs= addExpression (op= ( '<' | '<=' | '>' | '>=' | '==' | '!=' ) rhs= addExpression )*
+			// /Users/jdijkstra/Documents/UvA/Software Construction/git/abort/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:112:5: (lhs= addExpression (op= ( '<' | '<=' | '>' | '>=' | '==' | '!=' ) rhs= addExpression )* )
+			// /Users/jdijkstra/Documents/UvA/Software Construction/git/abort/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:112:9: lhs= addExpression (op= ( '<' | '<=' | '>' | '>=' | '==' | '!=' ) rhs= addExpression )*
 			{
 			pushFollow(FOLLOW_addExpression_in_relExpression584);
 			lhs=addExpression();
 			state._fsp--;
 			if (state.failed) return result;
 			if ( state.backtracking==0 ) { result =lhs; }
-			// /Users/jdijkstra/Documents/UvA/Software Construction/git/abort/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:111:52: (op= ( '<' | '<=' | '>' | '>=' | '==' | '!=' ) rhs= addExpression )*
+			// /Users/jdijkstra/Documents/UvA/Software Construction/git/abort/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:112:52: (op= ( '<' | '<=' | '>' | '>=' | '==' | '!=' ) rhs= addExpression )*
 			loop9:
 			while (true) {
 				int alt9=2;
@@ -1087,7 +1088,7 @@ public class QLParser extends Parser {
 
 				switch (alt9) {
 				case 1 :
-					// /Users/jdijkstra/Documents/UvA/Software Construction/git/abort/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:111:54: op= ( '<' | '<=' | '>' | '>=' | '==' | '!=' ) rhs= addExpression
+					// /Users/jdijkstra/Documents/UvA/Software Construction/git/abort/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:112:54: op= ( '<' | '<=' | '>' | '>=' | '==' | '!=' ) rhs= addExpression
 					{
 					op=input.LT(1);
 					if ( input.LA(1)==21||(input.LA(1) >= 28 && input.LA(1) <= 32) ) {
@@ -1151,27 +1152,27 @@ public class QLParser extends Parser {
 
 
 	// $ANTLR start "andExpression"
-	// /Users/jdijkstra/Documents/UvA/Software Construction/git/abort/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:133:1: andExpression returns [Node result] : lhs= relExpression ( '&&' rhs= relExpression )* ;
-	public final Node andExpression() throws RecognitionException {
-		Node result = null;
+	// /Users/jdijkstra/Documents/UvA/Software Construction/git/abort/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:134:1: andExpression returns [Expression result] : lhs= relExpression ( '&&' rhs= relExpression )* ;
+	public final Expression andExpression() throws RecognitionException {
+		Expression result = null;
 
 		int andExpression_StartIndex = input.index();
 
-		Node lhs =null;
-		Node rhs =null;
+		Expression lhs =null;
+		Expression rhs =null;
 
 		try {
 			if ( state.backtracking>0 && alreadyParsedRule(input, 14) ) { return result; }
 
-			// /Users/jdijkstra/Documents/UvA/Software Construction/git/abort/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:134:5: (lhs= relExpression ( '&&' rhs= relExpression )* )
-			// /Users/jdijkstra/Documents/UvA/Software Construction/git/abort/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:134:9: lhs= relExpression ( '&&' rhs= relExpression )*
+			// /Users/jdijkstra/Documents/UvA/Software Construction/git/abort/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:135:5: (lhs= relExpression ( '&&' rhs= relExpression )* )
+			// /Users/jdijkstra/Documents/UvA/Software Construction/git/abort/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:135:9: lhs= relExpression ( '&&' rhs= relExpression )*
 			{
 			pushFollow(FOLLOW_relExpression_in_andExpression641);
 			lhs=relExpression();
 			state._fsp--;
 			if (state.failed) return result;
 			if ( state.backtracking==0 ) { result =lhs; }
-			// /Users/jdijkstra/Documents/UvA/Software Construction/git/abort/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:134:52: ( '&&' rhs= relExpression )*
+			// /Users/jdijkstra/Documents/UvA/Software Construction/git/abort/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:135:52: ( '&&' rhs= relExpression )*
 			loop10:
 			while (true) {
 				int alt10=2;
@@ -1182,7 +1183,7 @@ public class QLParser extends Parser {
 
 				switch (alt10) {
 				case 1 :
-					// /Users/jdijkstra/Documents/UvA/Software Construction/git/abort/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:134:54: '&&' rhs= relExpression
+					// /Users/jdijkstra/Documents/UvA/Software Construction/git/abort/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:135:54: '&&' rhs= relExpression
 					{
 					match(input,22,FOLLOW_22_in_andExpression647); if (state.failed) return result;
 					pushFollow(FOLLOW_relExpression_in_andExpression651);
@@ -1217,27 +1218,27 @@ public class QLParser extends Parser {
 
 
 	// $ANTLR start "orExpression"
-	// /Users/jdijkstra/Documents/UvA/Software Construction/git/abort/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:137:1: orExpression returns [Node result] : lhs= andExpression ( '||' rhs= andExpression )* ;
-	public final Node orExpression() throws RecognitionException {
-		Node result = null;
+	// /Users/jdijkstra/Documents/UvA/Software Construction/git/abort/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:138:1: orExpression returns [Expression result] : lhs= andExpression ( '||' rhs= andExpression )* ;
+	public final Expression orExpression() throws RecognitionException {
+		Expression result = null;
 
 		int orExpression_StartIndex = input.index();
 
-		Node lhs =null;
-		Node rhs =null;
+		Expression lhs =null;
+		Expression rhs =null;
 
 		try {
 			if ( state.backtracking>0 && alreadyParsedRule(input, 15) ) { return result; }
 
-			// /Users/jdijkstra/Documents/UvA/Software Construction/git/abort/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:138:5: (lhs= andExpression ( '||' rhs= andExpression )* )
-			// /Users/jdijkstra/Documents/UvA/Software Construction/git/abort/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:138:9: lhs= andExpression ( '||' rhs= andExpression )*
+			// /Users/jdijkstra/Documents/UvA/Software Construction/git/abort/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:139:5: (lhs= andExpression ( '||' rhs= andExpression )* )
+			// /Users/jdijkstra/Documents/UvA/Software Construction/git/abort/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:139:9: lhs= andExpression ( '||' rhs= andExpression )*
 			{
 			pushFollow(FOLLOW_andExpression_in_orExpression681);
 			lhs=andExpression();
 			state._fsp--;
 			if (state.failed) return result;
 			if ( state.backtracking==0 ) { result = lhs; }
-			// /Users/jdijkstra/Documents/UvA/Software Construction/git/abort/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:138:54: ( '||' rhs= andExpression )*
+			// /Users/jdijkstra/Documents/UvA/Software Construction/git/abort/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:139:54: ( '||' rhs= andExpression )*
 			loop11:
 			while (true) {
 				int alt11=2;
@@ -1248,7 +1249,7 @@ public class QLParser extends Parser {
 
 				switch (alt11) {
 				case 1 :
-					// /Users/jdijkstra/Documents/UvA/Software Construction/git/abort/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:138:56: '||' rhs= andExpression
+					// /Users/jdijkstra/Documents/UvA/Software Construction/git/abort/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:139:56: '||' rhs= andExpression
 					{
 					match(input,33,FOLLOW_33_in_orExpression687); if (state.failed) return result;
 					pushFollow(FOLLOW_andExpression_in_orExpression691);
@@ -1282,7 +1283,7 @@ public class QLParser extends Parser {
 
 	// $ANTLR start synpred4_QL
 	public final void synpred4_QL_fragment() throws RecognitionException {
-		Node condition =null;
+		Expression condition =null;
 		List<Element> successStatements =null;
 		List<Element> elseStatements =null;
 
@@ -1341,25 +1342,25 @@ public class QLParser extends Parser {
 	public static final BitSet FOLLOW_element_in_elements98 = new BitSet(new long[]{0x0000000000001802L});
 	public static final BitSet FOLLOW_question_in_element118 = new BitSet(new long[]{0x0000000000000002L});
 	public static final BitSet FOLLOW_computation_in_element128 = new BitSet(new long[]{0x0000000000000002L});
-	public static final BitSet FOLLOW_ifExpression_in_element138 = new BitSet(new long[]{0x0000000000000002L});
-	public static final BitSet FOLLOW_IF_in_ifExpression156 = new BitSet(new long[]{0x0000000000010000L});
-	public static final BitSet FOLLOW_PARENTHESES_OPEN_in_ifExpression158 = new BitSet(new long[]{0x0000000003137040L});
-	public static final BitSet FOLLOW_orExpression_in_ifExpression162 = new BitSet(new long[]{0x0000000000008000L});
-	public static final BitSet FOLLOW_PARENTHESES_CLOSE_in_ifExpression164 = new BitSet(new long[]{0x0000000000000020L});
-	public static final BitSet FOLLOW_BLOCK_START_in_ifExpression166 = new BitSet(new long[]{0x0000000000001800L});
-	public static final BitSet FOLLOW_elements_in_ifExpression170 = new BitSet(new long[]{0x0000000000000010L});
-	public static final BitSet FOLLOW_BLOCK_END_in_ifExpression172 = new BitSet(new long[]{0x0000000000000100L});
-	public static final BitSet FOLLOW_ELSE_in_ifExpression174 = new BitSet(new long[]{0x0000000000000020L});
-	public static final BitSet FOLLOW_BLOCK_START_in_ifExpression176 = new BitSet(new long[]{0x0000000000001800L});
-	public static final BitSet FOLLOW_elements_in_ifExpression180 = new BitSet(new long[]{0x0000000000000010L});
-	public static final BitSet FOLLOW_BLOCK_END_in_ifExpression182 = new BitSet(new long[]{0x0000000000000002L});
-	public static final BitSet FOLLOW_IF_in_ifExpression196 = new BitSet(new long[]{0x0000000000010000L});
-	public static final BitSet FOLLOW_PARENTHESES_OPEN_in_ifExpression198 = new BitSet(new long[]{0x0000000003137040L});
-	public static final BitSet FOLLOW_orExpression_in_ifExpression202 = new BitSet(new long[]{0x0000000000008000L});
-	public static final BitSet FOLLOW_PARENTHESES_CLOSE_in_ifExpression204 = new BitSet(new long[]{0x0000000000000020L});
-	public static final BitSet FOLLOW_BLOCK_START_in_ifExpression206 = new BitSet(new long[]{0x0000000000001800L});
-	public static final BitSet FOLLOW_elements_in_ifExpression210 = new BitSet(new long[]{0x0000000000000010L});
-	public static final BitSet FOLLOW_BLOCK_END_in_ifExpression212 = new BitSet(new long[]{0x0000000000000002L});
+	public static final BitSet FOLLOW_ifStatement_in_element138 = new BitSet(new long[]{0x0000000000000002L});
+	public static final BitSet FOLLOW_IF_in_ifStatement156 = new BitSet(new long[]{0x0000000000010000L});
+	public static final BitSet FOLLOW_PARENTHESES_OPEN_in_ifStatement158 = new BitSet(new long[]{0x0000000003137040L});
+	public static final BitSet FOLLOW_orExpression_in_ifStatement162 = new BitSet(new long[]{0x0000000000008000L});
+	public static final BitSet FOLLOW_PARENTHESES_CLOSE_in_ifStatement164 = new BitSet(new long[]{0x0000000000000020L});
+	public static final BitSet FOLLOW_BLOCK_START_in_ifStatement166 = new BitSet(new long[]{0x0000000000001800L});
+	public static final BitSet FOLLOW_elements_in_ifStatement170 = new BitSet(new long[]{0x0000000000000010L});
+	public static final BitSet FOLLOW_BLOCK_END_in_ifStatement172 = new BitSet(new long[]{0x0000000000000100L});
+	public static final BitSet FOLLOW_ELSE_in_ifStatement174 = new BitSet(new long[]{0x0000000000000020L});
+	public static final BitSet FOLLOW_BLOCK_START_in_ifStatement176 = new BitSet(new long[]{0x0000000000001800L});
+	public static final BitSet FOLLOW_elements_in_ifStatement180 = new BitSet(new long[]{0x0000000000000010L});
+	public static final BitSet FOLLOW_BLOCK_END_in_ifStatement182 = new BitSet(new long[]{0x0000000000000002L});
+	public static final BitSet FOLLOW_IF_in_ifStatement196 = new BitSet(new long[]{0x0000000000010000L});
+	public static final BitSet FOLLOW_PARENTHESES_OPEN_in_ifStatement198 = new BitSet(new long[]{0x0000000003137040L});
+	public static final BitSet FOLLOW_orExpression_in_ifStatement202 = new BitSet(new long[]{0x0000000000008000L});
+	public static final BitSet FOLLOW_PARENTHESES_CLOSE_in_ifStatement204 = new BitSet(new long[]{0x0000000000000020L});
+	public static final BitSet FOLLOW_BLOCK_START_in_ifStatement206 = new BitSet(new long[]{0x0000000000001800L});
+	public static final BitSet FOLLOW_elements_in_ifStatement210 = new BitSet(new long[]{0x0000000000000010L});
+	public static final BitSet FOLLOW_BLOCK_END_in_ifStatement212 = new BitSet(new long[]{0x0000000000000002L});
 	public static final BitSet FOLLOW_question_in_questions246 = new BitSet(new long[]{0x0000000000001002L});
 	public static final BitSet FOLLOW_Ident_in_computation266 = new BitSet(new long[]{0x0000000008000000L});
 	public static final BitSet FOLLOW_27_in_computation268 = new BitSet(new long[]{0x0000000000020000L});

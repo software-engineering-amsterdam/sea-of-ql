@@ -8,7 +8,7 @@ import org.uva.sea.ql.ast.base.Node;
  * Represents a line in a log.
  * @author J. Dijkstra
  */
-public class Line {
+public class Message {
 	/**
 	 * Store the time the line was logged.
 	 */
@@ -29,7 +29,7 @@ public class Line {
 	 * @param node node to log about
 	 * @param text text to log about the node
 	 */
-	public Line(final Node node, final String text) {
+	public Message(final Node node, final String text) {
 		calendar = Calendar.getInstance();
 		
 		this.node = node;

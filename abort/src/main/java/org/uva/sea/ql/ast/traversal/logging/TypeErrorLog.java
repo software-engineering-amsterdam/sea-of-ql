@@ -18,7 +18,7 @@ public class TypeErrorLog extends Log {
 	 * @param node node that contains the empty flow
 	 */
 	public void addEmptyFlow(final Node node) {
-		add(new Line(node, "Empty flow"));
+		add(new Message(node, "Empty flow"));
 	}
 	
 	/**
@@ -27,7 +27,7 @@ public class TypeErrorLog extends Log {
 	 * @param reference the name of the invalid reference
 	 */
 	public void addInvalidReference(final Node node, final String reference) {
-		add(new Line(node, String.format("Invalid reference to \"%s\"", reference)));
+		add(new Message(node, String.format("Invalid reference to \"%s\"", reference)));
 	}
 	
 	/**
@@ -37,7 +37,7 @@ public class TypeErrorLog extends Log {
 	 */
 	public void addTypeIsNotIntegerOrMoney(final HandSide handSide, final Operator operator) {
 		final String text = String.format("The %s is not of the type Integer or Money", getHandSideString(handSide));
-		add(new Line(operator, text));
+		add(new Message(operator, text));
 	}
 	
 	/**
@@ -47,7 +47,7 @@ public class TypeErrorLog extends Log {
 	 */
 	public void addTypeIsNotBoolean(final HandSide handSide, final Operator operator) {
 		final String text = String.format("The %s is not of the type boolean", getHandSideString(handSide));
-		add(new Line(operator, text));
+		add(new Message(operator, text));
 	}
 	
 	/**
@@ -55,7 +55,7 @@ public class TypeErrorLog extends Log {
 	 * @param operator operator that causes the error
 	 */
 	public void addBothSidesAreDifferentTypes(final BinaryOperator operator) {
-		add(new Line(operator, "Both sides have to be of the same type"));
+		add(new Message(operator, "Both sides have to be of the same type"));
 	}
 	
 	/**
@@ -64,7 +64,7 @@ public class TypeErrorLog extends Log {
 	 * @param label label that gets redeclarated
 	 */
 	public void addLabelRedeclaration(final Node node, final Label label) {
-		add(new Line(node, String.format("Redeclaration of label \"%s\"", label.getText())));
+		add(new Message(node, String.format("Redeclaration of label \"%s\"", label.getText())));
 	}
 	
 	/**
@@ -82,7 +82,7 @@ public class TypeErrorLog extends Log {
 		// Remove the last divider of the expected type list
 		final String expectedTypesRepresentation = buffer.substring(0, buffer.length() - 2);
 		
-		add(new Line(node, String.format("Expected one of the following types: %s", expectedTypesRepresentation)));		
+		add(new Message(node, String.format("Expected one of the following types: %s", expectedTypesRepresentation)));		
 	}
 	
 	/**
@@ -92,7 +92,7 @@ public class TypeErrorLog extends Log {
 	 * @param expectedType expected type
 	 */
 	public void addExpectedDifferentType(final Node node, final Class<? extends Node> expectedType) {
-		add(new Line(node, String.format("Expected the following type: %s ", expectedType.getName())));
+		add(new Message(node, String.format("Expected the following type: %s ", expectedType.getName())));
 	}
 	
 	/**

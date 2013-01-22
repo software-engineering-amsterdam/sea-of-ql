@@ -12,9 +12,9 @@ import org.uva.sea.ql.ast.traversal.base.IVisitor;
  */
 public abstract class IfStatement extends Element {
 	/**
-	 * Conditions for the if statement.
+	 * Condition for the if statement.
 	 */
-	private final Node conditions;
+	private final Node condition;
 	/**
 	 * Form elements displayed on a successful condition.
 	 */
@@ -26,16 +26,16 @@ public abstract class IfStatement extends Element {
 	 * @param successElements form elements displayed on a successful condition
 	 */
 	protected IfStatement(final Node condition, final List<Element> successElements) {
-		this.conditions = condition;
+		this.condition = condition;
 		this.successElements = successElements;
 	}
-	
+
 	/**
-	 * Retrieve conditions.
-	 * @return conditions
+	 * Retrieve condition.
+	 * @return condition
 	 */
 	public final Node getConditions() {
-		return conditions;
+		return condition;
 	}
 
 	/**
@@ -48,6 +48,6 @@ public abstract class IfStatement extends Element {
 
 	@Override
 	public void accept(final IVisitor visitor) {
-		conditions.accept(visitor);
+		condition.accept(visitor);
 	}
 }

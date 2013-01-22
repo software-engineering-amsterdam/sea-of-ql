@@ -386,6 +386,7 @@ public class TypeChecker implements IVisitor {
 	
 	// Both sides have to be booleans
 	private boolean checkForBooleanBothSideErrors(final BinaryOperator operator) {
+		// TODO: operators typeof
 		final Class<? extends Node> leftHandSide = resultTable.getLeftHandSideResultType(operator);
 		final Class<? extends Node> rightHandSide = resultTable.getRightHandSideResultType(operator);
 		

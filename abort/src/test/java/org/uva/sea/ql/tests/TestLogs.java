@@ -20,7 +20,7 @@ public class TestLogs extends TestBase {
 	public void testEventLog() {
 		final TypeEventLog eventLog = new TypeEventLog();
 		assertEquals(0, eventLog.getLength());
-		eventLog.add(new Line(mock(Form.class), "Successful event"));
+		eventLog.add(new Message(mock(Form.class), "Successful event"));
 		assertTrue(eventLog.toString().contains("Successful event"));
 		eventLog.addCorrectSemantics(mock(Form.class));
 		assertEquals(2, eventLog.getLength());
@@ -32,7 +32,7 @@ public class TestLogs extends TestBase {
 	public void testErrorLog() {
 		final TypeErrorLog errorLog = new TypeErrorLog();
 		assertEquals(0, errorLog.getLength());
-		errorLog.add(new Line(mock(Form.class), "Error example"));
+		errorLog.add(new Message(mock(Form.class), "Error example"));
 		assertTrue(errorLog.toString().contains("Error example"));
 		assertEquals(1, errorLog.getLength());
 		errorLog.addBothSidesAreDifferentTypes(mock(BinaryOperator.class));

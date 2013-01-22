@@ -19,7 +19,7 @@ public class TestConditionals extends TestBase {
 	@Test
 	public void testIfThen() throws RecognitionException {
 		final String expression = "if (0 == 0) { boughtHouse: \"Have you bought this house?\" string }";
-		final Node result = parse(expression).ifExpression();
+		final Node result = parse(expression).ifStatement();
 		assertEquals(IfThen.class, result.getClass());
 		
 		final Node conditions = ((IfThen)result).getConditions();
@@ -40,7 +40,7 @@ public class TestConditionals extends TestBase {
 	@Test
 	public void testIfThenElse() throws RecognitionException {
 		final String expression = "if (0 == 0) { boughtHouse: \"Have you bought this house?\" string } else { whyNot: \"Why did you not buy this house?\" string }";
-		final Node result = parse(expression).ifExpression();
+		final Node result = parse(expression).ifStatement();
 		assertEquals(IfThenElse.class, result.getClass());
 		
 		final Node conditions = ((IfThenElse)result).getConditions();

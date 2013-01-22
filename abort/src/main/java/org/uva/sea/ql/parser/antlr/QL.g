@@ -37,9 +37,9 @@ elements returns [List<Element> results]
 element returns [Element result]
     : question { $result = $question.result; }
     | computation { $result = $computation.result; }
-    | ifExpression { $result = $ifExpression.result; };
+    | ifStatement { $result = $ifStatement.result; };
 
-ifExpression returns [IfStatement result]
+ifStatement returns [IfStatement result]
     : IF PARENTHESES_OPEN condition=orExpression PARENTHESES_CLOSE BLOCK_START successStatements=elements BLOCK_END ELSE BLOCK_START elseStatements=elements BLOCK_END
     {
       $result = new IfThenElse($condition.result, successStatements, elseStatements);
@@ -65,13 +65,14 @@ question returns [Question result]
   
 dataType returns [Class<? extends DataType> result]
  : Type {
+    // TODO: instances
     if ($Type.text.equals("string")) $result = StringLiteral.class;
     else if ($Type.text.equals("integer")) $result = Int.class;
     else if ($Type.text.equals("money")) $result = Money.class;
     else if ($Type.text.equals("boolean")) $result = Bool.class;
  };
  
-primary returns [Node result]
+primary returns [Expression result]
   : Int   { $result = new Int(Integer.parseInt($Int.text)); }
   | Money { $result = new Money($Money.text); }
   | Bool { $result = new Bool(Boolean.parseBoolean($Bool.text)); }
@@ -79,13 +80,13 @@ primary returns [Node result]
   | String { $result = new StringLiteral($String.text.substring(1, $String.text.length() - 1)); }
   | PARENTHESES_OPEN orExpression PARENTHESES_CLOSE { $result = $orExpression.result; };
 
-unExpression returns [Node result]
+unExpression returns [Expression result]
     :  '+' x=unExpression { $result = new Pos($x.result); }
     |  '-' x=unExpression { $result = new Neg($x.result); }
     |  '!' x=unExpression { $result = new Not($x.result); }
     |  x=primary    { $result = $x.result; };    
     
-mulExpression returns [Node result]
+mulExpression returns [Expression result]
     :   lhs=unExpression { $result=$lhs.result; } ( op=( '*' | '/' ) rhs=unExpression 
     { 
       if ($op.text.equals("*")) {
@@ -96,7 +97,7 @@ mulExpression returns [Node result]
       }
     })*;
 
-addExpression returns [Node result]
+addExpression returns [Expression result]
     :   lhs=mulExpression { $result=$lhs.result; } ( op=('+' | '-') rhs=mulExpression
     { 
       if ($op.text.equals("+")) {
@@ -107,7 +108,7 @@ addExpression returns [Node result]
       }
     })*;
   
-relExpression returns [Node result]
+relExpression returns [Expression result]
     :   lhs=addExpression { $result=$lhs.result; } ( op=('<'|'<='|'>'|'>='|'=='|'!=') rhs=addExpression 
     {
       if ($op.text.equals("<")) {
@@ -130,11 +131,11 @@ relExpression returns [Node result]
       }
     })*;
     
-andExpression returns [Node result]
+andExpression returns [Expression result]
     :   lhs=relExpression { $result=$lhs.result; } ( '&&' rhs=relExpression { $result = new And($result, rhs); } )*;
     
 
-orExpression returns [Node result]
+orExpression returns [Expression result]
     :   lhs=andExpression { $result = $lhs.result; } ( '||' rhs=andExpression { $result = new Or($result, rhs); } )*;
 
 

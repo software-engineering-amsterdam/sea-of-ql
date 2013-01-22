@@ -13,7 +13,7 @@ abstract class Log {
 	/**
 	 * Array to store the lines in, to easily present it in a later stage.
 	 */
-	private final List<Line> log = new ArrayList<Line>();
+	private final List<Message> log = new ArrayList<Message>();
 
 	/**
 	 * Time format to use when displaying the log.
@@ -33,7 +33,7 @@ abstract class Log {
 	 * Add a log line.
 	 * @param line line to add
 	 */
-	public void add(final Line line) {
+	public void add(final Message line) {
 		log.add(line);
 	}
 	
@@ -53,7 +53,7 @@ abstract class Log {
 
 		final StringBuffer buffer = new StringBuffer();
 		
-		for (final Line line : log) {
+		for (final Message line : log) {
 			buffer.append(getStringRepresentation(line));
 		}
 		
@@ -65,7 +65,7 @@ abstract class Log {
 	 * @param stream stream to write the log to
 	 */
 	public void write(final PrintStream stream) {
-		for (final Line line : log) {
+		for (final Message line : log) {
 			stream.print(getStringRepresentation(line));
 		}
 	}
@@ -75,7 +75,7 @@ abstract class Log {
 	 * @param line line to retrieve the string representation of
 	 * @return string representation of the line
 	 */
-	private String getStringRepresentation(final Line line) {
+	private String getStringRepresentation(final Message line) {
 		return String.format("[%s]: %s -> %s\n", dateFormat.format(line.getCalendar().getTime()),
 				line.getNode().toString(), line.getText());
 	}

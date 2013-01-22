@@ -12,6 +12,6 @@ public class TypeEventLog extends Log {
 	 * @param node node to add the correct semantics event about
 	 */
 	public void addCorrectSemantics(final Node node) {
-		add(new Line(node, "Correct semantics and types identified"));
+		add(new Message(node, "Correct semantics and types identified"));
 	}
 }
