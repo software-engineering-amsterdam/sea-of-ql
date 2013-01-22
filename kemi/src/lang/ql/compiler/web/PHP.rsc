@@ -5,7 +5,7 @@ import String;
 import lang::ql::ast::AST;
 import lang::ql::compiler::PrettyPrinter;
 
-private str title = ""; 
+private str title = "";
 
 public void PHP(Form f, loc dest) {
   dest += "form.php";
@@ -16,12 +16,12 @@ public void PHP(Form f, loc dest) {
 private str createPHP(Form form) =
   "\<?php 
   '
-  '  $__QARR = array();
+  '  $__RES = array();
   '
   '<for(e <- form.formElements) {>
   '  <createPHP(e)>
   '<}>
-  '  <createQuery()>
+  '  <createJSON()>
   '?\>
   '";
 
@@ -31,7 +31,7 @@ private str createPHP(Statement item: question(Question question)) =
 private str createPHP(Question q: 
   question(questionText, answerDataType, answerIdentifier)) =
     "<validator(answerDataType, answerIdentifier)>
-    '<addToQueryArray(answerDataType, answerIdentifier)>
+    '<addToArray(answerDataType, answerIdentifier)>
     ";
 
 private str createPHP(Question q: 
@@ -40,7 +40,7 @@ private str createPHP(Question q:
   cf = prependIdent(calculatedField, "$");
   
   return 
-    "<addToQueryArray(answerDataType, answerIdentifier, prettyPrint(cf))>";
+    "<addToArray(answerDataType, answerIdentifier, prettyPrint(cf))>";
 }
 
 private str createPHP(Statement item: 
@@ -56,42 +56,21 @@ private str createPHP(Statement item:
 private str createPHP(Expr e) =
   "<prettyPrint(prependIdent(e, "$"))>";
 
-private str addToQueryArray(str answerDataType, str ident) =
-  addToQueryArray(answerDataType, ident, "$_POST[\'<ident>\']");
+private str addToArray(str answerDataType, str ident) =
+  addToArray(answerDataType, ident, "$_POST[\'<ident>\']");
 
-private str addToQueryArray(str answerDataType, str ident, str expr) =
+private str addToArray(str answerDataType, str ident, str expr) =
   "
   '$<ident> = <expr>;
-  '$__QARR[] = [\"<ident>\", \"<preparedStatementShorthand(answerDataType)>\", $<ident>];
+  '$__RES[\"<ident>\"] = $<ident>;
   '
   ";
 
-private str createQuery() =
-  //" TODO: QUERY MET $__QARR[];";
-  /*
-  '$stmt = $mysqli-\>prepare(\"INSERT INTO <title> (`<ident>`) VALUES (?)\");
-  '$stmt-\>bind_param(\"<preparedStatementShorthand(answerDataType)>\", <val>);
-  '$stmt-\>execute();";
-  */
+private str createJSON() =
   "
-  '$__QCOL = array();
-  '$__QTYPE = array();
-  '$__QVAL = array();
+  '$__JSON = json_encode($__RES);
   '
-  'foreach($__QARR as $value) {
-  '  $__QCOL[] = $value[0];
-  '  $__QTYPE[] = $value[1];
-  '  $__QVAL[] = $value[2];
-  '  $__QS[] = \"?\";
-  '}
-  '
-  '$__query = \"INSERT INTO x_x (\" . implode(\",\",$__QCOL) . \") VALUES (\" . implode(\",\", $__QS) . \")\";
-  '
-  '$mysqli-\>prepare($__query);
-  '
-  'echo \"$stmt-\>bind_param(\'\" . implode(\"\", $__QTYPE) . \"\',\" . implode(\",\",$__QVAL) . \");\";
-  '
-  'echo \"\n\";
+  'print_r($__JSON);
   ";
 private str preparedStatementShorthand(str answerDataType) {      
   switch(answerDataType) {
