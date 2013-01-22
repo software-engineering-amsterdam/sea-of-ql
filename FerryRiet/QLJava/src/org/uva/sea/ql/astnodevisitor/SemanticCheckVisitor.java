@@ -13,6 +13,7 @@ import org.uva.sea.ql.ast.ConditionalStatement;
 import org.uva.sea.ql.ast.Div;
 import org.uva.sea.ql.ast.Eq;
 import org.uva.sea.ql.ast.Expr;
+import org.uva.sea.ql.ast.GEq;
 import org.uva.sea.ql.ast.GT;
 import org.uva.sea.ql.ast.Ident;
 import org.uva.sea.ql.ast.IntLiteral;
@@ -69,9 +70,7 @@ public class SemanticCheckVisitor implements Visitor {
 		errorList.clear();
 
 		qlProgram.getCompound().accept(this);
-		for (String errorSting : errorList) {
-			System.out.println(errorSting);
-		}
+
 		return null;
 	}
 
@@ -203,24 +202,19 @@ public class SemanticCheckVisitor implements Visitor {
 
 	@Override
 	public VisitorResult visit(GT expr) {
-		// TODO Auto-generated method stub
+		if (lhsRhsCompatible(expr, ">")) {
+			if (expr.typeOf(symbolMap).isCompatibleTo(
+					expr.getExprLeftHand().typeOf(symbolMap))) {
+				errorList
+						.add("Line(nan,nan) Expression: operator < on boolean operands.");
+			}
+		}
 		return null;
 	}
 
 	@Override
 	public VisitorResult visit(LT expr) {
-		expr.getExprLeftHand().accept(this);
-		expr.getExprRightHand().accept(this);
-
-		if (!(expr.getExprLeftHand().typeOf(symbolMap).isCompatibleTo(expr
-				.getExprRightHand().typeOf(symbolMap)))) {
-			/***
-			 * Due to empty AST expression node no availble line
-			 * numbers/positions. Annotation of AST?
-			 */
-			errorList
-					.add("Line(nan,nan) Expression: incompatible types on operator < .");
-		} else {
+		if (lhsRhsCompatible(expr, "<")) {
 			if (expr.typeOf(symbolMap).isCompatibleTo(
 					expr.getExprLeftHand().typeOf(symbolMap))) {
 				errorList
@@ -232,6 +226,25 @@ public class SemanticCheckVisitor implements Visitor {
 
 	@Override
 	public VisitorResult visit(LEq expr) {
+		if (lhsRhsCompatible(expr, "<=")) {
+			if (expr.typeOf(symbolMap).isCompatibleTo(
+					expr.getExprLeftHand().typeOf(symbolMap))) {
+				errorList
+						.add("Line(nan,nan) Expression: operator < on boolean operands.");
+			}
+		}
+		return null;
+	}
+
+	@Override
+	public VisitorResult visit(GEq expr) {
+		if (lhsRhsCompatible(expr, ">=")) {
+			if (expr.typeOf(symbolMap).isCompatibleTo(
+					expr.getExprLeftHand().typeOf(symbolMap))) {
+				errorList
+						.add("Line(nan,nan) Expression: operator > on boolean operands.");
+			}
+		}
 		return null;
 	}
 
@@ -286,5 +299,9 @@ public class SemanticCheckVisitor implements Visitor {
 	public VisitorResult visit(BinExpr expr) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	public List<String> getErrorList() {
+		return errorList;
 	}
 }

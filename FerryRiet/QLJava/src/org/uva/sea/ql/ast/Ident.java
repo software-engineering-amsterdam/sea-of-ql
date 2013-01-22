@@ -27,8 +27,7 @@ public class Ident extends Expr {
 
 	@Override
 	public VisitorResult accept(Visitor visitor) {
-		visitor.visit(this) ;
-		return null;
+		return visitor.visit(this) ;
 	}
 
 	@Override
