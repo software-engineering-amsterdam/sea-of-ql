@@ -7,7 +7,6 @@ import org.uva.sea.ql.ast.types.Type;
 
 
 
-public abstract class Expr extends ASTNode {
-	
-	
+public abstract class Expr extends ASTNode implements ExpressionType {
+
 }
