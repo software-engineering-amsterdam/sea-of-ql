@@ -1,4 +1,0 @@
-- Typechecker visitor
-- Get the type of expressions (static/dynamic)
-
-- Interpreter visitor

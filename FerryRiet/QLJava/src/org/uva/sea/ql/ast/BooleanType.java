@@ -1,8 +1,18 @@
 package org.uva.sea.ql.ast;
 
 public class BooleanType extends TypeDescription {
-	
+
 	public BooleanType() {
-		super("boolean") ;
+		super("boolean");
+	}
+
+	@Override
+	public boolean isCompatibleTo(TypeDescription t) {
+		return t.isCompatibleToBool();
+	}
+
+	@Override
+	public boolean isCompatibleToBool() {
+		return true;
 	}
 }

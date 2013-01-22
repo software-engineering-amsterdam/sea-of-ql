@@ -1,17 +1,42 @@
 package org.uva.sea.ql.ast;
 
 import org.uva.sea.ql.astnodevisitor.Visitor;
+import org.uva.sea.ql.astnodevisitor.VisitorResult;
 
 public abstract class TypeDescription implements ASTNode {
-	private String typeName ;
-	
+	private String typeName;
+
 	public TypeDescription(String typeName) {
-		this.typeName = typeName ;
+		this.typeName = typeName;
 	}
+
 	public String getTypeName() {
 		return typeName;
 	}
-	public void accept(Visitor visitor) {
-		visitor.visit(this) ;
+
+	public VisitorResult accept(Visitor visitor) {
+		return visitor.visit(this);
+	}
+
+	public abstract boolean isCompatibleTo(TypeDescription t);
+
+	public boolean isCompatibleToInt() {
+		return false;
+	}
+
+	public boolean isCompatibleToNumeric() {
+		return false;
+	}
+
+	public boolean isCompatibleToString() {
+		return false;
+	}
+
+	public boolean isCompatibleToBool() {
+		return false;
+	}
+
+	public boolean isCompatibleToMoney() {
+		return false;
 	}
 }

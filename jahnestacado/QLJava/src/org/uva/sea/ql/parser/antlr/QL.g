@@ -5,18 +5,77 @@ options {backtrack=true; memoize=true;}
 {
 package org.uva.sea.ql.parser.antlr;
 import org.uva.sea.ql.ast.*;
+import org.uva.sea.ql.ast.expr.*;
+import org.uva.sea.ql.ast.form.*;
+import org.uva.sea.ql.ast.types.*;
+import org.uva.sea.ql.ast.values.*;
+
 }
 
 @lexer::header
 {
 package org.uva.sea.ql.parser.antlr;
+
 }
 
+
+
+type returns [Type result]
+	: (Type {
+		 if ($Type.text.equals("int"))$result = new IntType(); 
+		 else if ($Type.text.equals("boolean"))$result = new BoolType(); 
+		 else if ($Type.text.equals("string"))$result = new StringType();
+		 else if ($Type.text.equals("money"))$result = new MoneyType();
+		}
+		);
+	
+	
+
+form returns [Form result]
+	:'form' Ident  '{' body '}' {$result = new Form(new Ident($Ident.text),$body.result);}
+	;
+	
+	
+
+	
+		
+	body returns [Body result]
+  @init { Body body= new Body(); ; }
+  :(element  { body.addElement($element.result) ; } )*
+  {$result=body;}
+  ;
+	
+element returns [Element result]
+		:computedQuestion {$result=$computedQuestion.result;}
+		|question {$result=$question.result;}
+		|ifBlock {$result=$ifBlock.result;}
+	;
+	
+	
+question returns [Question result]
+  : Ident ':' StringLit type {$result=new Question(new Ident($Ident.text),$StringLit.text,$type.result);};
+  
+computedQuestion returns [ComputedQuestion result]
+  : Ident ':' StringLit type '(' expr=orExpr ')' {$result=new ComputedQuestion(new Ident($Ident.text),$StringLit.text,$type.result,expr);};
+  
+  
+ifBlock returns [IfBlock result]
+	: 'if' '(' expr=orExpr ')' '{'  body'}' {$result=new IfBlock(expr,$body.result);};
+  
+
+
+
 primary returns [Expr result]
-  : Int   { $result = new Int(Integer.parseInt($Int.text)); }
+  : Decimal { $result = new Decimal(Float.parseFloat($Decimal.text)); }
+  | Int { $result = new Int(Integer.parseInt($Int.text)); }
+  | StringLit {$result = new StringLit($StringLit.text);}
+  | BoolLit  {$result = new BoolLit($BoolLit.text);}
   | Ident { $result = new Ident($Ident.text); }
   | '(' x=orExpr ')'{ $result = $x.result; }
   ;
+
+
+
     
 unExpr returns [Expr result]
     :  '+' x=unExpr { $result = new Pos($x.result); }
@@ -31,8 +90,8 @@ mulExpr returns [Expr result]
       if ($op.text.equals("*")) {
         $result = new Mul($result, rhs);
       }
-      if ($op.text.equals("<=")) {
-        $result = new Div($result, rhs);      
+      if ($op.text.equals("/")) {
+        $result = new Div($result, rhs);     
       }
     })*
     ;
@@ -83,15 +142,37 @@ orExpr returns [Expr result]
     :   lhs=andExpr { $result = $lhs.result; } ( '||' rhs=andExpr { $result = new Or($result, rhs); } )*
     ;
 
-    
+
+
+   
 // Tokens
+
+
+
+Type: ('int'|'string'|'boolean'|'money');
+BoolLit	:	('true' | 'false');  
+
+
+LB    :('\n'|'\r');
+
 WS  :	(' ' | '\t' | '\n' | '\r') { $channel=HIDDEN; }
     ;
 
 COMMENT 
-     : '/*' .* '*/' {$channel=HIDDEN;}
-    ;
+     : ('/*' .* '*/'|'//' ~(LB)* ){$channel=HIDDEN;}  
+     ;
+     
+  
+    
+StringLit	:	'"' .* '"' ;
+
 
 Ident:   ('a'..'z'|'A'..'Z')('a'..'z'|'A'..'Z'|'0'..'9'|'_')*;
 
+Decimal : Int '.' Int ;
 Int: ('0'..'9')+;
+
+
+
+
+

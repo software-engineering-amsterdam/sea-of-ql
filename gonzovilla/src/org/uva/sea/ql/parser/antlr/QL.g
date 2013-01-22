@@ -5,6 +5,9 @@ options {language = Java;}
 {
 package org.uva.sea.ql.parser.antlr;
 import org.uva.sea.ql.ast.*;
+import org.uva.sea.ql.ast.types.*;
+import org.uva.sea.ql.ast.expr.*;
+import org.uva.sea.ql.ast.values.*;
 }
 
 @lexer::header
@@ -12,25 +15,36 @@ import org.uva.sea.ql.ast.*;
 package org.uva.sea.ql.parser.antlr;
 }
 
-program
-  : 'start' Ident '='
-    question* 
-    'end' Ident '.'
+form returns [Form result]
+	@init { List<FormUnit> formUnits = new ArrayList<FormUnit>();}
+	: 'form' Ident ':' (formUnit {formUnits.add($formUnit.result);})* 'endform' { $result = new Form($Ident.text, formUnits); }
+	; 
+
+formUnit returns [FormUnit result]
+	: question    { $result = $question.result; }
+	| ifStatement { $result = $ifStatement.result; }
+	;
+
+question returns [Question result]
+	: Ident ':' sentence '(' type ')' { $result = new Question($Ident.text, $sentence.text, $type.result); }
+	;
+	 
+//computedQuestion
+
+ifStatement returns [IfStatement result]
+	@init { List<FormUnit> formUnits = new ArrayList<FormUnit>();}
+	: 'if' '(' orExpr ')' 'then' (formUnit {formUnits.add($formUnit.result);})* 'endif' { $result = new IfStatement($orExpr.result, formUnits); }
+	;  
+
+type returns [Type result]
+  : 'Boolean' {$result = new TypeBool();}
+  | 'Integer' {$result = new TypeInt();}
+  | 'String'  {$result = new TypeString();}
   ;
 
-question
-  : 'question' Ident ':' returnType ':=' expression '?'
-  ;
-
-returnType
-  : 'Integer'
-  | 'Float'
-  | 'String'
-  ;
-
-expression
-  : (Ident | WS)+
-  ;
+sentence
+  : '"' .* '"'
+  ; 
 
 primary returns [Expr result]
   : Int   { $result = new Int(Integer.parseInt($Int.text)); }
@@ -51,13 +65,13 @@ mulExpr returns [Expr result]
       if ($op.text.equals("*")) {
         $result = new Mul($result, rhs);
       }
-      if ($op.text.equals("<=")) {
+      if ($op.text.equals("/")) {
         $result = new Div($result, rhs);      
       }
     })*
     ;
     
-  
+
 addExpr returns [Expr result]
     :   lhs=mulExpr { $result=$lhs.result; } ( op=('+' | '-') rhs=mulExpr
     { 
@@ -69,7 +83,7 @@ addExpr returns [Expr result]
       }
     })*
     ;
-  
+
 relExpr returns [Expr result]
     :   lhs=addExpr { $result=$lhs.result; } ( op=('<'|'<='|'>'|'>='|'=='|'!=') rhs=addExpr 
     { 
@@ -108,10 +122,11 @@ orExpr returns [Expr result]
 WS  :	(' ' | '\t' | '\n' | '\r')+ { $channel=HIDDEN; }
     ;
 
-COMMENT 
-     : '/*' .* '*/' {$channel=HIDDEN;}
-    ;
+SINGLECOMMENT : '//' .* ('\n' | '\r') {$channel=HIDDEN;} ;
 
+COMMENT 
+    : '/*' .* '*/' {$channel=HIDDEN;} ;
+    
 Ident:   ('a'..'z'|'A'..'Z')('a'..'z'|'A'..'Z'|'0'..'9'|'_')*;
 
 Int: ('0'..'9')+;

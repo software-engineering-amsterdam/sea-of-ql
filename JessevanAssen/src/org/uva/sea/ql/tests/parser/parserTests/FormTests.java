@@ -6,7 +6,6 @@ import static org.junit.Assert.*;
 import org.uva.sea.ql.ast.*;
 import org.uva.sea.ql.parser.ParseError;
 
-import java.util.Arrays;
 import java.util.Iterator;
 
 public class FormTests extends ParserTests {

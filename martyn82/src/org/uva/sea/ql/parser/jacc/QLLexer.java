@@ -6,7 +6,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.regex.Pattern;
 
-import org.uva.sea.ql.ast.Node;
+import org.uva.sea.ql.ast.INode;
 import org.uva.sea.ql.ast.expression.Ident;
 
 /**
@@ -31,23 +31,24 @@ public class QLLexer implements QLTokens {
 		KEYWORDS.put( "integer", INTEGER );
 		KEYWORDS.put( "string", STRING );
 		KEYWORDS.put( "money", MONEY );
+		KEYWORDS.put( "form", FORM );
 	}
 
 	/**
 	 * Holds the current token.
 	 */
 	private int token;
-	
+
 	/**
 	 * Holds the current character code.
 	 */
 	private int c = ' ';
-	
+
 	/**
 	 * Holds current column number.
 	 */
 	private int column;
-	
+
 	/**
 	 * Holds current line number.
 	 */
@@ -56,18 +57,18 @@ public class QLLexer implements QLTokens {
 	/**
 	 * Holds the current AST node.
 	 */
-	private Node yylval;
-	
+	private INode yylval;
+
 	/**
 	 * Holds the input reader.
 	 */
 	private final Reader input;
-	
+
 	/**
 	 * Holds the regular expression pattern for decimals.
 	 */
 	private Pattern decimal;
-	
+
 	/**
 	 * Holds the regular expression pattern for integers.
 	 */
@@ -75,7 +76,7 @@ public class QLLexer implements QLTokens {
 
 	/**
 	 * Constructs a new lexer instance.
-	 * 
+	 *
 	 * @param input The input reader.
 	 */
 	public QLLexer( Reader input ) {
@@ -92,7 +93,7 @@ public class QLLexer implements QLTokens {
 		if ( c >= 0 ) {
 			try {
 				c = input.read();
-				
+
 				if ( c == '\n' ) {
 					line++;
 					column = 0;
@@ -109,21 +110,21 @@ public class QLLexer implements QLTokens {
 
 	/**
 	 * Retrieves the next token based on previously read character.
-	 * 
+	 *
 	 * @return The token.
 	 */
 	public int nextToken() {
 		boolean inComment = false;
-		
+
 		for ( ;; ) {
 			if ( inComment ) {
 				while ( c != '*' && c != -1 ) {
 					nextChar();
 				}
-				
+
 				if ( c == '*' ) {
 					nextChar();
-					
+
 					if ( c == '/' ) {
 						nextChar();
 						inComment = false;
@@ -143,7 +144,7 @@ public class QLLexer implements QLTokens {
 			switch ( c ) {
 				case '/': {
 					nextChar();
-					
+
 					if ( c == '*' ) {
 						inComment = true;
 						nextChar();
@@ -156,13 +157,13 @@ public class QLLexer implements QLTokens {
 						while ( c >= ENDINPUT && c != '\r' && c != '\n' ) {
 							nextChar();
 						}
-						
+
 						continue;
 					}
-					
+
 					return token = '/';
 				}
-				
+
 				case ')':
 				case '(':
 				case '{':
@@ -175,65 +176,65 @@ public class QLLexer implements QLTokens {
 					token = c;
 					nextChar();
 					return token;
-				
+
 				case '*': {
 					nextChar();
-					
+
 					if ( inComment && c == '/' ) {
 						inComment = false;
 						nextChar();
 						continue;
 					}
-					
+
 					return token = '*';
 				}
-				
+
 				case '&': {
 					nextChar();
-					
+
 					if ( c == '&' ) {
 						nextChar();
 						return token = AND;
 					}
-					
+
 					throw new RuntimeException( "Unexpected character: " + (char) c );
 				}
-				
+
 				case '|': {
 					nextChar();
-				
+
 					if ( c == '|' ) {
 						nextChar();
 						return token = OR;
 					}
-				
+
 					throw new RuntimeException( "Unexpected character: " + (char) c );
 				}
-				
+
 				case '!':
 					nextChar();
-				
+
 					if ( c == '=' ) {
 						nextChar();
 						return token = NEQ;
 					}
-				
+
 					return token = '!';
-				
+
 				case '<': {
 					nextChar();
-				
+
 					if ( c == '=' ) {
 						nextChar();
 						return token = LEQ;
 					}
-				
+
 					return '<';
 				}
-				
+
 				case '=': {
 					nextChar();
-				
+
 					if ( c == '=' ) {
 						nextChar();
 						return token = EQ;
@@ -243,50 +244,50 @@ public class QLLexer implements QLTokens {
 						return token = '=';
 					}
 				}
-				
+
 				case '>': {
 					nextChar();
-				
+
 					if ( c == '=' ) {
 						nextChar();
 						return token = GEQ;
 					}
-				
+
 					return token = '>';
 				}
-				
+
 				case '"': {
 					if ( this.matchString() ) {
 						return token;
 					}
 				}
-				
+
 				default: {
 					if ( this.matchNumber() ) {
 						return token;
 					}
-					
+
 					if ( this.matchWord() ) {
 						return token;
 					}
-				
+
 					throw new RuntimeException( "Unexpected character: " + (char) c );
 				}
 			}
 		}
 	}
-	
+
 	/**
 	 * Matches a string literal and updates the token field.
-	 * 
+	 *
 	 * @return True if string, false otherwise.
 	 */
 	private boolean matchString() {
 		StringBuilder sb = new StringBuilder();
 		boolean inString = true;
-		
+
 		nextChar(); // go around the string boundaries (")
-		
+
 		while ( inString ) {
 			if ( c < ENDINPUT ) {
 				throw new RuntimeException( "Unterminated string literal" );
@@ -301,23 +302,23 @@ public class QLLexer implements QLTokens {
 			else {
 				sb.append( (char) c );
 			}
-			
+
 			nextChar();
 		}
 
-		yylval = new org.uva.sea.ql.ast.expression.value.Str( sb.toString() );
+		yylval = new org.uva.sea.ql.ast.expression.literal.Str( sb.toString() );
 		token = STR;
-		
+
 		return true;
 	}
-	
+
 	/**
 	 * Retrieves an escaped character within a string literal.
-	 * 
+	 *
 	 * @param input The escaped character.
-	 * 
+	 *
 	 * @return The un-escaped character.
-	 * 
+	 *
 	 * @throws RuntimeException if escaped character is invalid.
 	 */
 	private char getEscapedChar( char input ) {
@@ -325,46 +326,46 @@ public class QLLexer implements QLTokens {
 			// whitespace
 			case 'n':
 				return '\n';
-				
+
 			case 'r':
 				return '\r';
-				
+
 			case 't':
 				return '\t';
-				
+
 			case 'b':
 				return '\b';
-				
+
 			case 'f':
 				return '\f';
-				
+
 			// others
 			case '\'':
 				return '\'';
-				
+
 			case '"':
 				return '"';
-				
+
 			case '\\':
 				return '\\';
 		}
-		
+
 		throw new RuntimeException( "Unrecognized escape sequence" );
 	}
-		
+
 	/**
 	 * Matches a number literal and updates the token field.
 	 * This matches any number of Integer or Money types.
-	 * 
+	 *
 	 * @return True if integer, false otherwise.
 	 */
 	private boolean matchNumber() {
 		if ( !Character.isDigit( c ) && c != '.' ) {
 			return false;
 		}
-		
+
 		StringBuilder sb = new StringBuilder();
-		
+
 		do {
 			sb.append( (char) c );
 			nextChar();
@@ -377,44 +378,44 @@ public class QLLexer implements QLTokens {
 			|| c == '-'
 			|| c == '+'
 		);
-		
+
 		String value = sb.toString();
-		
+
 		if ( this.decimal == null ) {
 			this.decimal = Pattern.compile( "[0-9]*\\.[0-9]+([E|e][\\+|\\-]?[0-9]+)?" );
 		}
-		
+
 		if ( decimal.matcher( value ).matches() ) {
-			yylval = new org.uva.sea.ql.ast.expression.value.Money( Double.parseDouble( value ) );
+			yylval = new org.uva.sea.ql.ast.expression.literal.Money( Double.parseDouble( value ) );
 			token = MON;
 			return true;
 		}
-		
+
 		if ( this.integer == null ) {
 			this.integer = Pattern.compile( "[0-9]+" );
 		}
-		
+
 		if ( integer.matcher( value ).matches() ) {
-			yylval = new org.uva.sea.ql.ast.expression.value.Int( Integer.parseInt( value ) );
+			yylval = new org.uva.sea.ql.ast.expression.literal.Int( Integer.parseInt( value ) );
 			token = INT;
 			return true;
 		}
-		
+
 		return false;
 	}
-	
+
 	/**
 	 * Matches a keyword or identifier token and updates the token field accordingly on success.
-	 * 
+	 *
 	 * @return True if successful, false otherwise.
 	 */
 	private boolean matchWord() {
 		if ( !Character.isLetter( c ) ) {
 			return false;
 		}
-		
+
 		StringBuilder sb = new StringBuilder();
-		
+
 		do {
 			sb.append( (char) c );
 			nextChar();
@@ -427,26 +428,10 @@ public class QLLexer implements QLTokens {
 			token = KEYWORDS.get( name );
 
 			switch ( token ) {
-				case BOOL: 
-					yylval = new org.uva.sea.ql.ast.expression.value.Bool(
+				case BOOL:
+					yylval = new org.uva.sea.ql.ast.expression.literal.Bool(
 						Boolean.parseBoolean( name )
 					);
-					break;
-					
-				case BOOLEAN:
-					yylval = new org.uva.sea.ql.ast.type.Bool();
-					break;
-					
-				case MONEY:
-					yylval = new org.uva.sea.ql.ast.type.Money();
-					break;
-					
-				case INTEGER:
-					yylval = new org.uva.sea.ql.ast.type.Int();
-					break;
-					
-				case STRING:
-					yylval = new org.uva.sea.ql.ast.type.Str();
 					break;
 			}
 
@@ -461,7 +446,7 @@ public class QLLexer implements QLTokens {
 
 	/**
 	 * Returns the most recent identified token.
-	 * 
+	 *
 	 * @return The current token.
 	 */
 	public int getToken() {
@@ -470,25 +455,25 @@ public class QLLexer implements QLTokens {
 
 	/**
 	 * Returns the current AST.
-	 * 
+	 *
 	 * @return The AST.
 	 */
-	public Node getSemantic() {
+	public INode getSemantic() {
 		return yylval;
 	}
-	
+
 	/**
 	 * Retrieves the current column number on the current line.
-	 * 
+	 *
 	 * @return Column number.
 	 */
 	public int getColumn() {
 		return column;
 	}
-	
+
 	/**
 	 * Retrieves the current line number.
-	 * 
+	 *
 	 * @return Line number.
 	 */
 	public int getLineNumber() {

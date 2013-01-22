@@ -1,29 +1,36 @@
-CLASSPATH = src:lib/*
-JFLAGS = -cp $(CLASSPATH)
+JAVAC=javac
+JAVA=java
+CLASSPATH=src:lib/*
+JFLAGS=-cp $(CLASSPATH)
 
 # Main targets
-all: RunRats TestExpressions
+all: parser tests inspectors
+parser: QLParser
+tests: TestExpressions TestForms
+inspectors: TreeWalker
 
-# Runnable classes (containing 'main' function)
+# Runnable classes
+TestExpressions: QLParser src/nl/stgm/ql/parser/test/TestExpressions.class
+TestForms: QLParser src/nl/stgm/ql/parser/test/TestForms.class
+TreeWalker: QLParser src/nl/stgm/ql/inspector/TreeWalker.class
+
+# Generating the parser class
 RunRats: src/nl/stgm/ql/parser/rats/RunRats.class
-TestExpressions: src/nl/stgm/ql/parser/rats/QLParser.class src/nl/stgm/ql/parser/test/TestExpressions.class
-TestForms: src/nl/stgm/ql/parser/rats/QLParser.class src/nl/stgm/ql/parser/test/TestForms.class
+QLParser: src/nl/stgm/ql/parser/rats/QLParser.class
+src/nl/stgm/ql/parser/rats/QLParser.java: RunRats src/nl/stgm/ql/parser/rats/*.rats
+	$(JAVA) $(JFLAGS) nl.stgm.ql.parser.rats.RunRats
 
-# Generated parser class
-src/nl/stgm/ql/parser/rats/QLParser.java: src/nl/stgm/ql/parser/rats/QLParser.rats RunRats
-	java -cp $(CLASSPATH) nl.stgm.ql.parser.rats.RunRats
+# Run helpers
+run/testexpr: TestExpressions
+	$(JAVA) $(JFLAGS) org.junit.runner.JUnitCore nl.stgm.ql.parser.test.TestExpressions
+run/testform: TestForms
+	$(JAVA) $(JFLAGS) org.junit.runner.JUnitCore nl.stgm.ql.parser.test.TestForms
+run/treewalker: TreeWalker
+	$(JAVA) $(JFLAGS) nl.stgm.ql.inspector.TreeWalker
 
 # Utilities
-run/rats: RunRats
-	java -cp $(CLASSPATH) nl.stgm.ql.parser.rats.RunRats
-run/testexpr: TestExpressions
-	java -cp $(CLASSPATH) org.junit.runner.JUnitCore nl.stgm.ql.parser.test.TestExpressions
-run/testform: TestForms
-	java -cp $(CLASSPATH) org.junit.runner.JUnitCore nl.stgm.ql.parser.test.TestForms
-
-# Helpers
 %.class: %.java
-	javac $(JFLAGS) $<
+	$(JAVAC) $(JFLAGS) $<
 clean:
 	find . -name "*.class" -delete
 	rm src/nl/stgm/ql/parser/rats/QLParser.java

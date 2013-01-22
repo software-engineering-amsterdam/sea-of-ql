@@ -4,61 +4,114 @@
 %semantic org.uva.sea.ql.ast.ASTNode 
 %start top
 
-%token <Int> INT
-%token IDENT
+%token FORM
+%token <IntLiteral> INT
+%token <TextLiteral> TEXT
+%token <BooleanLiteral> BOOL
+
+%token <Ident> IDENT
 %token '*' '/' '+' '-' OR AND NEQ EQ '<' LEQ '>' GEQ '!'
-%token '(' ')'
+%token '(' ')' '{' '}' ':' '"'
+%token IF ELSE
+%token <DataType> DT_BOOLEAN DT_INTEGER DT_MONEY DT_TEXT
 
 %left OR
 %left AND
-%left EQ NEW '>' '<' GEQ LEQ
+%left '>' '<' GEQ LEQ NEQ EQ
 %left '+' '-'
 %left '*' '/'
 %left UMIN UPLUS UNOT
 
-%type <Expr> expr comp
-
-%{
+%type <Form> frm
+%type <CompoundStatement> cmpnd_stmnt
+%type <Question> quest
+%type <Expression> expr
+%type <Statement> stmnt
+%type <IfStatement> if_stmnt 
+%type <DataType> data_type
+ 
+%{ 
 import org.uva.sea.ql.ast.*;
-%}
+import org.uva.sea.ql.ast.expression.*;
+import org.uva.sea.ql.ast.expression.binary.*;
+import org.uva.sea.ql.ast.expression.binary.bool.*;
+import org.uva.sea.ql.ast.expression.unary.*;
+import org.uva.sea.ql.ast.expression.unary.bool.*;
+import org.uva.sea.ql.ast.expression.literals.*;
+%} 
 
-%%
+%% 
 
- top : comp { result = $1; }
-     ;
+ top 			: frm	 					{ formResult = $1; }
+ 				| expr						{ exprResult = $1; }
+ 				| stmnt						{ stmntResult = $1; }
+     			; 
+ 
+ frm    		: FORM IDENT '{' cmpnd_stmnt '}'	{ $$ = new Form($2, $4); }
+ 				;
+ 				
+ cmpnd_stmnt 	: stmnt					{ $$ = new CompoundStatement($1); }
+ 				| cmpnd_stmnt stmnt		{ $1.add($2); $$ = $1; }
+ 				;
+ 				
+ stmnt			: if_stmnt				{ $$ = $1; }
+ 				| quest					{ $$ = $1; }
+ 				; 
 
- comp    : expr EQ expr		    { $$ = new Eq($1, $3); }
-		 | expr NEQ expr		{ $$ = new NEq($1, $3); }
-		 | expr '>' expr		{ $$ = new GT($1, $3); }
-		 | expr '<' expr		{ $$ = new LT($1, $3); }
-		 | expr GEQ expr		{ $$ = new GEq($1, $3); }
-		 | expr LEQ expr		{ $$ = new LEq($1, $3); }
-		 | expr					{ $$ = $1; }
-		 ;
-
-
- expr	 : '+' expr	%prec UPLUS { $$ = new Pos($2); }
-		 | '-' expr	%prec UMIN  { $$ = new Neg($2); }
-		 | '!' expr %prec UNOT  { $$ = new Not($2); }
-		 | expr '*' expr		{ $$ = new Mul($1, $3); }
-		 | expr '/' expr 		{ $$ = new Div($1, $3); }
-		 | expr '+' expr		{ $$ = new Add($1, $3); }
-		 | expr '-' expr		{ $$ = new Sub($1, $3); }
-		 | expr AND expr	    { $$ = new And($1, $3); }
-		 | expr OR expr			{ $$ = new Or($1, $3); }
-		 | INT					{ $$ = $1; }
-		 | IDENT         		{ $$ = $1; }
-		 | '(' comp ')'			{ $$ = $2; }
-		 ;
+ if_stmnt		: IF '(' expr ')' '{' cmpnd_stmnt '}' 							{ $$ = new IfStatement($3, $6); } 
+ 				| IF '(' expr ')' '{' cmpnd_stmnt '}' ELSE '{' cmpnd_stmnt '}'	{ $$ = new IfElseStatement($3, $6, $10); } 				
+				;
+				
+ expr	 		: '+' expr	%prec UPLUS { $$ = new Pos($2); } 
+				| '-' expr	%prec UMIN  { $$ = new Neg($2); }
+				| '!' expr %prec UNOT  	{ $$ = new Not($2); }
+				| expr '*' expr			{ $$ = new Mul($1, $3); }
+				| expr '/' expr 		{ $$ = new Div($1, $3); }
+				| expr '+' expr			{ $$ = new Add($1, $3); }
+				| expr '-' expr			{ $$ = new Sub($1, $3); }
+				| expr EQ expr		    { $$ = new Eq($1, $3); }
+				| expr NEQ expr			{ $$ = new NEq($1, $3); }
+				| expr '>' expr			{ $$ = new GT($1, $3); }
+				| expr '<' expr			{ $$ = new LT($1, $3); }
+				| expr GEQ expr			{ $$ = new GEq($1, $3); }
+				| expr LEQ expr			{ $$ = new LEq($1, $3); }
+				| expr AND expr	    	{ $$ = new And($1, $3); }
+			    | expr OR expr  		{ $$ = new Or($1, $3); }
+				| INT					{ $$ = $1; }
+				| BOOL					{ $$ = $1; }
+				| IDENT         		{ $$ = $1; }
+				| '(' expr ')'			{ $$ = $2; }
+				; 
+			 	
+ quest   		: IDENT ':' TEXT data_type 	{ $$ = new Question($1, $3, $4); }
+         		;
+         		
+ data_type		: DT_BOOLEAN 				{ $$ = DataType.BOOLEAN; }
+ 				| DT_INTEGER 				{ $$ = DataType.INTEGER; }
+ 				| DT_MONEY 					{ $$ = DataType.MONEY; }
+ 				| DT_TEXT					{ $$ = DataType.TEXT; }
+ 				;
 		 
-
 %%
+
 private QLLexer lexer; 
 
-private Expr result;
+private Form formResult;
 
-public Expr getResult() {
-  return result;
+private Expression exprResult;
+
+private Statement stmntResult;
+
+public Form getFormResult() {
+  return formResult;
+}
+
+public Expression getExpressionResult() {
+  return exprResult;
+}
+
+public Statement getStatementResult() {
+  return stmntResult;
 }
 
 public QLParser(QLLexer lexer) { 

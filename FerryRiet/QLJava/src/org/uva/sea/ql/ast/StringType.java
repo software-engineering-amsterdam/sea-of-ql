@@ -6,4 +6,13 @@ public class StringType extends TypeDescription {
 		super("string");
 	}
 
+	@Override
+	public boolean isCompatibleTo(TypeDescription t) {
+		return t.isCompatibleToString();
+	}
+
+	@Override
+	public boolean isCompatibleToString() {
+		return true;
+	}
 }

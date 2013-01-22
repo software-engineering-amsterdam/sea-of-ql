@@ -1,9 +1,5 @@
 package org.uva.sea.ql.ast;
-/**
- * Expression
- * @author ckonig
- *
- */
-public abstract class Expr implements ASTNode {
 
+public abstract class Expr implements ASTNode {
+	
 }

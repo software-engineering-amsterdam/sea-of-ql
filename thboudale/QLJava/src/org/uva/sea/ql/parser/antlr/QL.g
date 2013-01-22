@@ -5,6 +5,11 @@ options {backtrack=true; memoize=true;}
 {
 package org.uva.sea.ql.parser.antlr;
 import org.uva.sea.ql.ast.*;
+import org.uva.sea.ql.ast.expressions.*;
+import org.uva.sea.ql.ast.expressions.binaryExpr.*;
+import org.uva.sea.ql.ast.expressions.unaryExpr.*;
+import org.uva.sea.ql.ast.statements.*;
+import org.uva.sea.ql.ast.types.*;
 }
 
 @lexer::header
@@ -12,11 +17,54 @@ import org.uva.sea.ql.ast.*;
 package org.uva.sea.ql.parser.antlr;
 }
 
+form returns [Form result]
+	: 'form' IDENT b=blockOfStatements { $result = new Form(new Ident($IDENT.text), $b.result);}
+	;
+
+ifElseStatement returns [ifElseStatement result]
+    : 'if' '(' x=orExpr ')' bIf=blockOfStatements 'else' bElse=blockOfStatements
+      { $result = new ifElseStatement($x.result, $bIf.result, $bElse.result); }
+    ;
+
+ifStatement returns [ifStatement result]
+    : 'if' '(' x=orExpr ')' b=blockOfStatements { $result = new ifStatement($x.result, $b.result); }
+    ;
+	  
+blockOfStatements returns [BlockOfStatements result]
+    @init { BlockOfStatements block = new BlockOfStatements(); }
+    : '{' (s=statement { block.addStatement(s); } )* '}'
+    ;
+
+statement returns [Statement result]
+    : ifS=ifStatement { $result = $ifS.result; }
+    | ifES=ifElseStatement { $result = $ifES.result; }
+    | cQ=computedQuestion { $result = $cQ.result; }
+    | q=question { $result = $q.result; } 
+    ;
+
+computedQuestion returns [ComputedQuestion result]
+	  : IDENT ':' STRING_LITERAL type '(' x=orExpr ')'
+	  { $result = new ComputedQuestion(new Ident($IDENT.text), new StringLiteral($STRING_LITERAL.text),  $type.result, $x.result); }
+	  ;
+
+
+question returns [Question result]
+    : IDENT ':' STRING_LITERAL type
+    { $result = new Question(new Ident($IDENT.text), new StringLiteral($STRING_LITERAL.text), $type.result); }
+    ;
+
+type returns [Type result]
+    : 'int' { $result = new IntType("int"); }
+    | 'boolean' { $result = new IntType("boolean"); }
+    | 'string' { $result = new IntType("string"); }
+    ;
+
 primary returns [Expr result]
-  : Int   { $result = new Int(Integer.parseInt($Int.text)); }
-  | Ident { $result = new Ident($Ident.text); }
-  | '(' x=orExpr ')'{ $result = $x.result; }
-  ;
+    : INT   { $result = new Int(Integer.parseInt($INT.text)); }
+  	| IDENT { $result = new Ident($IDENT.text); }
+  	| BOOLEAN { $result = new Bool(Boolean.parseBoolean($BOOLEAN.text)); }
+  	| '(' x=orExpr ')'{ $result = $x.result; }
+  	;
     
 unExpr returns [Expr result]
     :  '+' x=unExpr { $result = new Pos($x.result); }
@@ -82,16 +130,30 @@ andExpr returns [Expr result]
 orExpr returns [Expr result]
     :   lhs=andExpr { $result = $lhs.result; } ( '||' rhs=andExpr { $result = new Or($result, rhs); } )*
     ;
-
-    
+       
 // Tokens
-WS  :	(' ' | '\t' | '\n' | '\r') { $channel=HIDDEN; }
+
+WS
+    : (' ' | '\t' | '\n' | '\r') { $channel=HIDDEN; }
     ;
-
-COMMENT 
-     : '/*' .* '*/' {$channel=HIDDEN;}
+	
+COMMENT
+	  : '/*' .* '*/' {$channel=HIDDEN;}
+	  | '//' .* ('\n'|'\r') {$channel = HIDDEN;}
     ;
+    
+INT
+	  : ('0'..'9')+
+	  ;
 
-Ident:   ('a'..'z'|'A'..'Z')('a'..'z'|'A'..'Z'|'0'..'9'|'_')*;
+BOOLEAN
+	  : ('true' | 'false')
+	  ;
 
-Int: ('0'..'9')+;
+IDENT
+	  : ('a'..'z'|'A'..'Z')('a'..'z'|'A'..'Z'|'0'..'9'|'_')*
+	  ;
+	 
+STRING_LITERAL
+    : '"' .* '"'
+    ;

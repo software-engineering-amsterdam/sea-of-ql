@@ -1,0 +1,1 @@
+form Box1 { hasSoldHouse : "Do you sold a house?" boolean }

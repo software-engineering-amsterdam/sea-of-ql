@@ -1,10 +1,16 @@
+@contributor{George Marmanidis -geo.marmani@gmail.com}
 module lang::ql::tests::ASTTests::TestExpressions
 
-import lang::ql::util::Parse;
-import lang::ql::util::Implode;
+import lang::ql::syntax::QL;
+import ParseTree;
+import IO;
 import lang::ql::ast::AST;
 
-private Expr p(str src) = implode(parse(src, |file:///-|));
+
+
+private start[Expr] parseExpr(str src, loc l) = parse(#start[Expr], src, l);
+private Expr implodeExpr(Tree t) = implode(#Expr, t);
+private Expr p(str src) = implodeExpr(parseExpr(src, |file:///-|));
 
 public test bool testAdd1() = p("a + b") is add;
 public test bool testAdd2() = p("a + b + c") is add;
@@ -58,8 +64,8 @@ public test bool testFloat3() = p("50000021312.01") is float;
 
 public test bool testDate1() = p("12/21/1999/") is date;
 
-public test bool testMoney1() = p("12.1") is money;
-public test bool testMoney2() = p("12.14") is money;
+public test bool testMoney1() = p("12,1") is money;
+public test bool testMoney2() = p("12,14") is money;
 
 public test bool testBoolean1() = p("true") is boolean;
 public test bool testBoolean2() = p("false") is boolean;
@@ -68,7 +74,7 @@ public test bool testString1() = p("\"Testing string?\"") is string;
 public test bool testString2() = p("\"Do you have any pets?\"") is string;
 public test bool testString3() = p("\"Name:\"") is string;
 public test bool testString4() = p("\"Grades: (A for [8-10],B for [5,5-8]):\"") is string;
-public test bool testString5() = p("\"Grades: (A for [8-10],B for [5,5-8])") is string;
+
 
 
 

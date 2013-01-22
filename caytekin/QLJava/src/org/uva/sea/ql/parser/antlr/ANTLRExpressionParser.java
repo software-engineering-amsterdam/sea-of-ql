@@ -6,9 +6,10 @@ import org.uva.sea.ql.parser.test.ParseError;
 
 public class ANTLRExpressionParser extends GeneralANTLRParser{
 	
-	public ASTNode parseANonTerminal(QLParser parser) throws ParseError {
+	public ASTNode parseANonTerminal (QLParser parser) throws ParseError {
+
 		try {
-			return parser.unExpr();
+			return parser.orExpr();
 		} catch (RecognitionException e) {
 			throw new ParseError(e.getMessage());
 		}

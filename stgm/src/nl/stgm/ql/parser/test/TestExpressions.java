@@ -1,100 +1,112 @@
 package nl.stgm.ql.parser.test;
 
-import static org.junit.Assert.assertEquals;
 import org.junit.Test;
+import static org.junit.Assert.assertEquals;
 
-import nl.stgm.ql.ast.Add;
-import nl.stgm.ql.ast.Sub;
-import nl.stgm.ql.ast.And;
-import nl.stgm.ql.ast.GT;
-import nl.stgm.ql.ast.Ident;
-import nl.stgm.ql.ast.Int;
-import nl.stgm.ql.ast.LEq;
-import nl.stgm.ql.ast.LT;
-import nl.stgm.ql.ast.Mul;
-import nl.stgm.ql.ast.Not;
+import nl.stgm.ql.parser.*;
+import nl.stgm.ql.ast.expr.*;
+import nl.stgm.ql.ast.types.*;
 
-import nl.stgm.ql.parser.rats.RatsParser;
-
-public class TestExpressions
+public class TestExpressions extends QLTest
 {
-	private IParse parser;
-
-	public TestExpressions()
+	private void assertExprClass(Class c, String s) throws ParseError
 	{
-		this.parser = new RatsParser();
+		assertClass(c, parser.parseExpr(s));
 	}
 
 	@Test public void testAdds() throws ParseError
 	{
-		assertEquals(parser.parse("a + b").getClass(), Add.class);
-		assertEquals(parser.parse("a + b + c").getClass(), Add.class);
-		assertEquals(parser.parse("(a + b + c)").getClass(), Add.class);
-		assertEquals(parser.parse("a + (b + c)").getClass(), Add.class);
-		assertEquals(parser.parse("(a + b) + c").getClass(), Add.class);
-		assertEquals(parser.parse("(a + b)").getClass(), Add.class);
-		assertEquals(parser.parse("a + b * c").getClass(), Add.class);
-		assertEquals(parser.parse("a * b + c").getClass(), Add.class);
+		assertExprClass(Add.class, "a + b");
+		assertExprClass(Add.class, "a + b + c");
+		assertExprClass(Add.class, "(a + b + c)");
+		assertExprClass(Add.class, "a + (b + c)");
+		assertExprClass(Add.class, "(a + b) + c");
+		assertExprClass(Add.class, "(a + b)");
+		assertExprClass(Add.class, "a + b * c");
+		assertExprClass(Add.class, "a * b + c");
 	}
 
 	@Test public void testSubs() throws ParseError
 	{
-		assertEquals(parser.parse("a - b").getClass(), Sub.class);
-		assertEquals(parser.parse("a - b - c").getClass(), Sub.class);
-		assertEquals(parser.parse("(a - b - c)").getClass(), Sub.class);
-		assertEquals(parser.parse("a - (b + c)").getClass(), Sub.class);
-		assertEquals(parser.parse("(a + b) - c").getClass(), Sub.class);
-		assertEquals(parser.parse("(a - b)").getClass(), Sub.class);
-		assertEquals(parser.parse("a - b * c").getClass(), Sub.class);
-		assertEquals(parser.parse("a * b - c").getClass(), Sub.class);
+		assertExprClass(Sub.class, "a - b");
+		assertExprClass(Sub.class, "a - b - c");
+		assertExprClass(Sub.class, "(a - b - c)");
+		assertExprClass(Sub.class, "a - (b + c)");
+		assertExprClass(Sub.class, "(a + b) - c");
+		assertExprClass(Sub.class, "(a - b)");
+		assertExprClass(Sub.class, "a - b * c");
+		assertExprClass(Sub.class, "a * b - c");
 	}
 
 	@Test public void testMuls() throws ParseError
 	{
-		assertEquals(parser.parse("a * b").getClass(), Mul.class);
-		assertEquals(parser.parse("a * b * c").getClass(), Mul.class);
-		assertEquals(parser.parse("a * (b * c)").getClass(), Mul.class);
-		assertEquals(parser.parse("(a * b) * c").getClass(), Mul.class);
-		assertEquals(parser.parse("(a * b)").getClass(), Mul.class);
-		assertEquals(parser.parse("(a + b) * c").getClass(), Mul.class);
-		assertEquals(parser.parse("a * (b + c)").getClass(), Mul.class);
+		assertExprClass(Mul.class, "a * b");
+		assertExprClass(Mul.class, "a * b * c");
+		assertExprClass(Mul.class, "a * (b * c)");
+		assertExprClass(Mul.class, "(a * b) * c");
+		assertExprClass(Mul.class, "(a * b)");
+		assertExprClass(Mul.class, "(a + b) * c");
+		assertExprClass(Mul.class, "a * (b + c)");
 	}
 
 	@Test public void testRels() throws ParseError
 	{
-		assertEquals(parser.parse("a < b").getClass(), LT.class);
-		assertEquals(parser.parse("a < b + c").getClass(), LT.class);
-		assertEquals(parser.parse("a < (b * c)").getClass(), LT.class);
-		assertEquals(parser.parse("(a * b) < c").getClass(), LT.class);
-		assertEquals(parser.parse("(a <= b)").getClass(), LEq.class);
-		assertEquals(parser.parse("a + b > c").getClass(), GT.class);
-		assertEquals(parser.parse("a > b + c").getClass(), GT.class);
+		assertExprClass(LT.class, "a < b");
+		assertExprClass(LT.class, "a < b + c");
+		assertExprClass(LT.class, "a < (b * c)");
+		assertExprClass(LT.class, "(a * b) < c");
+		assertExprClass(LEq.class, "(a <= b)");
+		assertExprClass(GT.class, "a + b > c");
+		assertExprClass(GT.class, "a > b + c");
 	}
 
 	@Test public void testBools() throws ParseError
 	{
-		assertEquals(parser.parse("!b").getClass(), Not.class);
-		assertEquals(parser.parse("a && b").getClass(), And.class);
-		assertEquals(parser.parse("a > b && b > c").getClass(), And.class);
-		assertEquals(parser.parse("(a > b) && (b > c)").getClass(), And.class);
+		assertExprClass(Bool.class, "(true)");
+		assertExprClass(Bool.class, "(false)");
+
+		assertEquals(true, ((Bool) parser.parseExpr("(true)")).getValue());
+		assertEquals(false, ((Bool) parser.parseExpr("(false)")).getValue());
+		
+		assertExprClass(Not.class, "!b");
+		assertExprClass(And.class, "a && b");
+		assertExprClass(And.class, "a > b && b > c");
+		assertExprClass(And.class, "(a > b) && (b > c)");
 	}
-
-
+	
+	@Test public void testComments() throws ParseError
+	{
+		assertExprClass(Ident.class, "a // asd");
+		assertExprClass(Add.class, "a // asd\n + a");
+		assertExprClass(Add.class, "a /* sasa*/ + a");
+	}
+	
 	@Test public void testIds() throws ParseError
 	{
-		assertEquals(parser.parse("a").getClass(), Ident.class);
-		assertEquals(parser.parse("abc").getClass(), Ident.class);
-		assertEquals(parser.parse("ABC").getClass(), Ident.class);
-		assertEquals(parser.parse("ABCDEF").getClass(), Ident.class);
-		assertEquals(parser.parse("abc2323").getClass(), Ident.class);
-		assertEquals(parser.parse("a2bc232").getClass(), Ident.class);
-		assertEquals(parser.parse("a2bc232aa").getClass(), Ident.class);
+		assertExprClass(Ident.class, "a");
+		assertExprClass(Ident.class, "abc");
+		assertExprClass(Ident.class, "ABC");
+		assertExprClass(Ident.class, "ABCDEF");
+		assertExprClass(Ident.class, "abc2323");
+		assertExprClass(Ident.class, "a2bc232");
+		assertExprClass(Ident.class, "a2bc232aa");
 	}
 
 	@Test public void testNums() throws ParseError
 	{
-		assertEquals(parser.parse("0").getClass(), Int.class);
-		assertEquals(parser.parse("1223").getClass(), Int.class);
-		assertEquals(parser.parse("234234234").getClass(), Int.class);
+		assertExprClass(Int.class, "0");
+		assertExprClass(Int.class, "1223");
+		assertExprClass(Int.class, "234234234");
 	}	
+
+	@Test(expected=ParseError.class) public void noEmptyExpr() throws ParseError
+	{
+		parser.parseExpr("");
+	}
+
+	@Test(expected=ParseError.class) public void noSpacing() throws ParseError
+	{
+		// spacing not allowed at the start of expressions, so no comments either
+		parser.parseExpr("// asdk saldk\n1");
+	}
 }

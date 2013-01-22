@@ -13,6 +13,48 @@ import org.uva.sea.ql.ast.*;
 package org.uva.sea.ql.parser.antlr;
 }
 
+
+form
+	: Ident '{' (allStatements)* '}' 
+	;
+
+
+allStatements 
+	: questionStatement
+	| conditionalStatement
+	;	
+	
+	
+questionStatement returns [ QuestionStatement result]
+	: q = question { $result = $q.result; } 
+	| cq = computedQuestion { $result = $cq.result; }
+	;
+
+	
+conditionalStatement returns [ConditionalStatement result]
+	: stmt1 = ifThenStatement { $result = $stmt1.result; }
+	| stmt2 = ifThenElseStatement { $result = $stmt2.result; }
+	;
+	
+	
+ifThenStatement returns [IfThenStatement result]
+	: 'if' e = orExpr 'then' '{' (qs=questionStatement)* '}' 
+			{ result = new IfThenStatement($e.result, $qs.result); }
+	;
+	
+ifThenElseStatement returns [IfThenElseStatement result]
+	: 'if' e = orExpr
+	'then' '{' (qsThen = questionStatement)* '}'
+	'else' '{' (qsElse = questionStatement)* '}'
+		{ result = new IfThenElseStatement($e.result, $qsThen.result, $qsElse.result); }		
+	;
+
+computedQuestion returns [ComputedQuestion result]
+	: Ident ':' StringLiteral t=type '(' e=orExpr ')' 
+	{ $result = new ComputedQuestion($Ident.text, $StringLiteral.text, $t.result, $e.result); }
+	;
+
+
 question returns [Question result] 
   : Ident ':' StringLiteral t=type
    { $result = new Question($Ident.text, $StringLiteral.text, $t.result); }
@@ -33,6 +75,7 @@ reservedWord returns [ReservedWord result]
 	| ElseRW { $result = new ElseRW(); }
 	; 
 
+
 	
 primary returns [Expr result]
   : Int   { $result = new Int(Integer.parseInt($Int.text)); }
@@ -41,12 +84,14 @@ primary returns [Expr result]
   | '(' x=orExpr ')'{ $result = $x.result; }
   ;
     
+
 unExpr returns [Expr result]
-    :  '+' x=unExpr { $result = new Pos($x.result); }
-    |  '-' x=unExpr { $result = new Neg($x.result); }
-    |  '!' x=unExpr { $result = new Not($x.result); }
-    |  x=primary    { $result = $x.result; }
-    ;    
+    : '+' x=unExpr { $result = new Pos($x.result); }
+    | '-' x=unExpr { $result = new Neg($x.result); }
+    | '!' x=unExpr { $result = new Not($x.result); }
+    | x=primary { $result = $x.result; }
+    ;
+    
     
 mulExpr returns [Expr result]
     :   lhs=unExpr { $result=$lhs.result; } ( op=( '*' | '/' ) rhs=unExpr 
@@ -144,4 +189,3 @@ StringLiteral	: '"' .* '"';
 
 
 
- 

@@ -1,6 +1,5 @@
 module lang::qls::ast::AST
 
-
 data Stylesheet
   = stylesheet(list[Statement] statements)
   ;

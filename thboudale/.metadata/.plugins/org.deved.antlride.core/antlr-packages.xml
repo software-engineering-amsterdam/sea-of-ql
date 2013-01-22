@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+<comment>ANTLR Packages</comment>
+<entry key="antlr.3.4.selected">true</entry>
+<entry key="antlr.3.4.home">C:\antlr\lib</entry>
+<entry key="antlr.3.4.desc">ANTLR Parser Generator  Version 3.4</entry>
+<entry key="antlr.packages">3.4</entry>
+<entry key="antlr.3.4.created">1358710636672</entry>
+<entry key="antlr.3.4.cp">C:\antlr\lib\antlr-3.4-complete.jar;C:\antlr\lib\antlr-3.5-complete.jar</entry>
+</properties>

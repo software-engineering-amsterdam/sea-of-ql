@@ -17,22 +17,28 @@ form returns [Form result]
 @init { List<FormItem> formItems = new ArrayList(); }
   : 'form' Ident '{'
     formItem { formItems.addAll($formItem.result); }
-    '}' { $result = new Form($Ident.text,formItems); }
+    '}' { $result = new Form($Ident.text, formItems); }
   ;
 
 
 formItem returns [List<FormItem> result]
 @init { List<FormItem> formItems = new ArrayList(); }
-  : (i=ifStatement { formItems.add($i.result); } 
+  : ( ie=ifElseStatement { formItems.add($ie.result); }
+    | i=ifStatement { formItems.add($i.result); } 
     | cq=computedQuestion { formItems.add($cq.result); } 
-    | q=question { formItems.add($q.result); })+ 
+    | q=question { formItems.add($q.result); } )+ 
       { $result = formItems; }
   ;
- 
+
+ifElseStatement returns [IfElseStatement result]
+  : 'if' '(' orExpr ')' '{' ifBody=formItem '}'
+    'else' '{' elseBody=formItem '}' 
+      { $result = new IfElseStatement($orExpr.result, $ifBody.result, $elseBody.result); }
+  ;
+
 ifStatement returns [IfStatement result]
-  : 'if' '(' Ident ')' '{' ifBody=formItem '}'
-    ('else' '{' elseBody=formItem '}')? 
-      { $result = new IfStatement($Ident.text,$ifBody.result,$elseBody.result); }
+  : 'if' '(' orExpr ')' '{' ifBody=formItem '}'
+      { $result = new IfStatement($orExpr.result, $ifBody.result); }
   ;
 
 computedQuestion returns [ComputedQuestion result]
@@ -52,6 +58,8 @@ questionType
 
 primary returns [Expr result]
   : Int   { $result = new Int(Integer.parseInt($Int.text)); }
+  | Bool { $result = new Bool(Boolean.parseBoolean($Bool.text)); }
+  | String { $result = new StringNode($String.text); }
   | Ident { $result = new Ident($Ident.text); }
   | '(' x=orExpr ')'{ $result = $x.result; }
   ;
@@ -135,5 +143,6 @@ IntType: 'int';
 StringType: 'string';
 
 String: '"' .* '"';
+Bool: 'true' | 'false';
 Int: ('0'..'9')+;
 Ident: ('a'..'z'|'A'..'Z')('a'..'z'|'A'..'Z'|'0'..'9'|'_')*;
