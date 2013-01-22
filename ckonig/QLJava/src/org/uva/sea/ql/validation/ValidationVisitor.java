@@ -121,11 +121,6 @@ public class ValidationVisitor implements ASTVisitor {
 
 	}
 
-	@Override
-	public void visit(Registry registry) {
-		throw new NotImplementedException();
-	}
-
 	private void visit(AcceptsBoolOperands r) throws VisitorException {
 		if (r instanceof BinaryExpr) {
 			BinaryExpr b = (BinaryExpr) r;

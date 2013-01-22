@@ -10,33 +10,26 @@ import org.uva.sea.ql.ast.elements.Form;
 import org.uva.sea.ql.ast.elements.Ident;
 import org.uva.sea.ql.ast.elements.IfStatement;
 import org.uva.sea.ql.ast.elements.Question;
-import org.uva.sea.ql.ast.literal.IntLiteral;
-import org.uva.sea.ql.ast.literal.StringLiteral;
-import org.uva.sea.ql.ast.types.BooleanType;
-import org.uva.sea.ql.ast.types.Money;
-import org.uva.sea.ql.ast.types.StrType;
-import org.uva.sea.ql.ast.types.Type;
 import org.uva.sea.ql.visitor.ASTVisitor;
 import org.uva.sea.ql.visitor.Registry;
 import org.uva.sea.ql.visitor.VisitorException;
 
 public class HTMLVisitor implements ASTVisitor {
 	private Registry registry;
-	private static final String head = "<!DOCTYPE html><html><head><style>.question {padding-left:20px; height:30px; width:600px;}.q_text{float:left;} .q_input{float:right;clear: right;} .content_below{clear:both;}</style></head><body>\n";
-	private static final String jquery = "<script src=\"http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js\" type=\"text/javascript\"></script>\n";
+	private HTML html;
 
 	public HTMLVisitor() {
 		this.registry = new Registry();
+		this.html = new HTML();
 	}
 
 	@Override
 	public void visit(Form form) throws VisitorException {
-		registry.appendToOutput(head);
-		registry.appendToOutput(jquery);
-		registry.appendToOutput("<h1>" + form.getName() + "</h1>");
+		html.startDocument();
+		html.addH1(form.getName());
 		form.getBlock().accept(this);
 		this.visit(registry);
-		registry.appendToOutput("</body></html>");
+		html.endDocument();
 	}
 
 	@Override
@@ -44,15 +37,15 @@ public class HTMLVisitor implements ASTVisitor {
 		for (Expr e : block.getContent()) {
 			if (e.getClass().equals(IfStatement.class)) {
 				IfStatement i = (IfStatement) e;
-				registry.appendToOutput("<div>");
+				html.startDiv();
 				i.accept(this);
-				registry.appendToOutput("</div>\n");
+				html.endDiv();
 			}
 			if (e.getClass().equals(Question.class)) {
 				Question q = (Question) e;
-				registry.appendToOutput("<div>");
+				html.startDiv();
 				q.accept(this);
-				registry.appendToOutput("</div>\n");
+				html.endDiv();
 			}
 		}
 	}
@@ -60,110 +53,43 @@ public class HTMLVisitor implements ASTVisitor {
 	@Override
 	public void visit(Question question) {
 		registry.addQuestion(question);
-		registry.appendToOutput("<div class=\"question\"><div class=\"q_text\">"
-				+ question.getContent() + "</div><div class=\"q_input\">");
-		Type type = question.getType();
-		String name = question.getIdent().getName();
-		if (type instanceof BooleanType) {
-			registry.appendToOutput("<input id=\"question_" + name
-					+ "\" type=\"checkbox\" class=\"qlinput\" name=\"" + name
-					+ "\"/>");
-		}
-		if (type instanceof Money) {
-			registry.appendToOutput("<input type=\"text\" id=\"question_"
-					+ name + "\"  class=\"qlinput\" name=\"" + name + "\"/>");
-		}
-		if (type instanceof StrType) {
-			registry.appendToOutput("<input type=\"text\" id=\"question_"
-					+ name + "\" name=\"" + name + "\"></input>");
-		}
-		registry.appendToOutput("</div></div>\n<div class=\"content_below\">&nbsp;</div>\n");
+		html.addQuestion(question);
 	}
 
 	@Override
 	public void visit(IfStatement ifStatement) throws VisitorException {
 		registry.addIfStatement(ifStatement);
-		registry.appendToOutput("<div style=\"display:none;\" id=\"if_"
-				+ ifStatement.hashCode() + "\" class=\"question\">");
+		html.startDiv("question", String.valueOf(ifStatement.hashCode()), false);
 		ifStatement.getContent().accept(this);
-		registry.appendToOutput("</div>\n");
+		html.endDiv();
 	}
 
 	public String getOutput() {
-		return registry.getOutput();
+		return html.getOutput();
 	}
 
 	private void visit(Registry reg) {
-		registry.appendToOutput("<script type=\"text/javascript\">");
-		registry.appendToOutput("//helper\n"
-				+ "function toggleContent(value, id){\n"
-				+ "  if( value == true){\n" + "      $('#if_' + id).show();\n"
-				+ "  }else{\n" + "      $('#if_' + id).hide();\n" + "  }\n"
-				+ " }\n");
-		registry.appendToOutput("//getters for " + reg.getQuestions().size()
-				+ " questions\n");
+		html.startScript("text/javascript");
+		html.addToggleFunction();
+		html.addJsComment("getters");
 		for (Question q : reg.getQuestions()) {
-			if (q.getType().getClass().equals(BooleanType.class)) {
-				registry.appendToOutput("function " + q.getIdent().getName()
-						+ "(){\n" + " return $('#question_"
-						+ q.getIdent().getName()
-						+ "').attr('checked') == 'checked';\n" + "}\n");
-			}
-			if (q.getType().getClass().equals(Money.class)) {
-				registry.appendToOutput("function " + q.getIdent().getName()
-						+ "(){\n" + " return parseFloat($('#question_"
-						+ q.getIdent().getName() + "').val());\n" + "}\n");
-			}
-			if (q.getType().getClass().equals(StrType.class)) {
-				registry.appendToOutput("function " + q.getIdent().getName()
-						+ "(){\n" + " return $('#question_"
-						+ q.getIdent().getName() + "').val();\n" + "}\n");
-			}
+			html.addGetter(q);
 		}
-		registry.appendToOutput("//listeners\n");
+
+		html.addJsComment("listeners");
 		for (IfStatement i : reg.getIfStatements()) {
 			List<Ident> idents = getIdents(i.getCondition());
 			for (Ident ident : idents) {
-				registry.appendToOutput("$('#question_" + ident.getName()
-						+ "').change(function(){\n" + "  eval" + i.hashCode()
-						+ "();\n" + "  });\n");
+				html.addListener(ident.getName(), String.valueOf(i.hashCode()));
 			}
 		}
-		registry.appendToOutput("//evaluators\n");
+		html.addJsComment("evaluators");
 		for (IfStatement i : reg.getIfStatements()) {
-			String eval = getEvaluator(i, reg);
-			registry.appendToOutput(eval);
+			html.addEvaluator(i, reg);
 		}
-		registry.appendToOutput("</script>");
-	}
-
-	private String getEvaluator(IfStatement i, Registry reg) {
-		String ret = "function eval" + i.hashCode() + "(){\n"
-				+ "   toggleContent(";
-		ret += getConditionString(i.getCondition());
-		ret += ", '" + i.hashCode() + "');\n" + " }\n";
-		return ret;
-	}
-
-	private String getConditionString(Expr i) {
-		String ret = "";
-
-		if (i.getClass().equals(Ident.class)) {
-			ret = ((Ident) i).getName() + "()";
-		}
-		if (i instanceof BinaryExpr) {
-			BinaryExpr b = (BinaryExpr) i;
-			ret += "(" + getConditionString(b.getLeft()) + " " + b.toString()
-					+ " " + getConditionString(b.getRight()) + ")";
-		}
-		if (i instanceof IntLiteral) {
-			ret += ((IntLiteral) i).getValue();
-		}
-		if (i instanceof StringLiteral) {
-			ret += ((StringLiteral) i).getValue();
-		}
-		return ret;
-	}
+		
+		html.endScript();
+	}	
 
 	private List<Ident> getIdents(Expr e) {
 		List<Ident> idents = new ArrayList<>();
