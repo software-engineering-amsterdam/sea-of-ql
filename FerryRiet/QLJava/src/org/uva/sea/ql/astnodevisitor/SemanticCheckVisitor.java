@@ -48,7 +48,7 @@ public class SemanticCheckVisitor implements Visitor {
 		lineStatement = (LineStatement) symbolMap.get(id.getName());
 		if (lineStatement == null) {
 			/***
-			 * Ident not previous defined
+			 * Ident is not previous defined
 			 */
 			errorList.add("Line(" + id.getLine() + ","
 					+ id.getCharPositionInLine() + ") Field :" + id.getName()
@@ -88,8 +88,6 @@ public class SemanticCheckVisitor implements Visitor {
 		// expression can test their existance/missing.
 		if (symbolMap.get(lineStatement.getLineId().getName()) == null) {
 			// New symbol in map
-			System.out
-					.println("adding :" + lineStatement.getLineId().getName());
 			symbolMap.put(lineStatement.getLineId().getName(), lineStatement);
 		} else {
 			errorList.add("Line(" + lineStatement.getLine() + ","
@@ -121,45 +119,85 @@ public class SemanticCheckVisitor implements Visitor {
 		return null;
 	}
 
+	private boolean lhsRhsCompatible(BinExpr expr, String operator) {
+		expr.getExprLeftHand().accept(this);
+		expr.getExprRightHand().accept(this);
+
+		if (!(expr.getExprLeftHand().typeOf(symbolMap).isCompatibleTo(expr
+				.getExprRightHand().typeOf(symbolMap)))) {
+			/***
+			 * Due to empty AST expression node no availble line
+			 * numbers/positions. Annotation of AST?
+			 */
+			errorList
+					.add("Line(nan,nan) Expression: incompatible types on operator: "
+							+ operator + ".");
+			return false;
+		}
+		return true;
+	}
+
+	private boolean rhsCompatible(Expr opExpr, Expr rhs, String operator) {
+		if (!opExpr.typeOf(symbolMap).isCompatibleTo(rhs.typeOf(symbolMap))) {
+			errorList
+					.add("Line(nan,nan) Expression: incompatible operands on operator:"
+							+ operator + ".");
+			return false;
+		}
+		return true;
+	}
+
 	@Override
 	public VisitorResult visit(Add expr) {
-		// TODO Auto-generated method stub
+		if (lhsRhsCompatible(expr, "+")) {
+			rhsCompatible(expr, expr.getExprRightHand(), "+");
+		}
 		return null;
 	}
 
 	@Override
 	public VisitorResult visit(Mul expr) {
-		// TODO Auto-generated method stub
+		if (lhsRhsCompatible(expr, "*")) {
+			rhsCompatible(expr, expr.getExprRightHand(), "*");
+		}
 		return null;
 	}
 
 	@Override
 	public VisitorResult visit(Div expr) {
-		// TODO Auto-generated method stub
+		if (lhsRhsCompatible(expr, "/")) {
+			rhsCompatible(expr, expr.getExprRightHand(), "/");
+		}
 		return null;
 	}
 
 	@Override
 	public VisitorResult visit(Sub expr) {
-		// TODO Auto-generated method stub
+		if (lhsRhsCompatible(expr, "-")) {
+			rhsCompatible(expr, expr.getExprRightHand(), "-");
+		}
 		return null;
 	}
 
 	@Override
 	public VisitorResult visit(And expr) {
-		// TODO Auto-generated method stub
+		if (lhsRhsCompatible(expr, "&&")) {
+			rhsCompatible(expr, expr.getExprRightHand(), "&&");
+		}
 		return null;
 	}
 
 	@Override
 	public VisitorResult visit(Or expr) {
-		// TODO Auto-generated method stub
+		if (lhsRhsCompatible(expr, "||")) {
+			rhsCompatible(expr, expr.getExprRightHand(), "||");
+		}
 		return null;
 	}
 
 	@Override
 	public VisitorResult visit(Eq expr) {
-		// TODO Auto-generated method stub
+		lhsRhsCompatible(expr, "==");
 		return null;
 	}
 
@@ -176,7 +214,18 @@ public class SemanticCheckVisitor implements Visitor {
 
 		if (!(expr.getExprLeftHand().typeOf(symbolMap).isCompatibleTo(expr
 				.getExprRightHand().typeOf(symbolMap)))) {
-			errorList.add("LT Type mismatch");
+			/***
+			 * Due to empty AST expression node no availble line
+			 * numbers/positions. Annotation of AST?
+			 */
+			errorList
+					.add("Line(nan,nan) Expression: incompatible types on operator < .");
+		} else {
+			if (expr.typeOf(symbolMap).isCompatibleTo(
+					expr.getExprLeftHand().typeOf(symbolMap))) {
+				errorList
+						.add("Line(nan,nan) Expression: operator < on boolean operands.");
+			}
 		}
 		return null;
 	}
@@ -188,25 +237,24 @@ public class SemanticCheckVisitor implements Visitor {
 
 	@Override
 	public VisitorResult visit(NEq expr) {
-		// TODO Auto-generated method stub
+		lhsRhsCompatible(expr, "!=");
 		return null;
 	}
 
-	@Override
 	public VisitorResult visit(Not expr) {
-		// TODO Auto-generated method stub
+		rhsCompatible(expr, expr.getExprRightHand(), "!");
 		return null;
 	}
 
 	@Override
 	public VisitorResult visit(Neg expr) {
-		// TODO Auto-generated method stub
+		rhsCompatible(expr, expr.getExprRightHand(), "-");
 		return null;
 	}
 
 	@Override
 	public VisitorResult visit(Pos expr) {
-		// TODO Auto-generated method stub
+		rhsCompatible(expr, expr.getExprRightHand(), "+");
 		return null;
 	}
 

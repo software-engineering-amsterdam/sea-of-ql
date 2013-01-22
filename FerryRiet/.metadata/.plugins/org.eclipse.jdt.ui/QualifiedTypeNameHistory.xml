@@ -30,4 +30,5 @@
 <fullyQualifiedTypeName name="org.uva.sea.ql.ast.ErrorType"/>
 <fullyQualifiedTypeName name="org.uva.sea.ql.astnodevisitor.SemanticCheckVisitor"/>
 <fullyQualifiedTypeName name="org.uva.sea.ql.ast.TypeDescription"/>
+<fullyQualifiedTypeName name="org.uva.sea.ql.ast.BinExpr"/>
 </qualifiedTypeNameHistroy>

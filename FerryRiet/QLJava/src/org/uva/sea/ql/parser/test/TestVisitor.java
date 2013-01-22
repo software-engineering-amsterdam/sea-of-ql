@@ -62,8 +62,20 @@ public class TestVisitor extends TestCase {
 		 * qlp = parser.qlprogram(a1); qlp.accept(svis);
 		 * assertEquals(svis.getErrorReport(), "");
 		 */
-		String a33 = "form DoIt { field: \"doit\" money if ( field0 < 10 ) { fieldTwo : \"hello world!\" money( 20 + 20 ) }}";
+		String a33 = "form DoIt { field: \"doit\" money if ( field < 10 ) { fieldTwo : \"hello world!\" money( 20 + 20 ) }}";
 		qlp = parser.qlprogram(a33);
+		qlp.accept(svis);
+		String a34 = "form DoIt { field: \"doit\" money if ( field < 100 ) { fieldTwo : \"hello world!\" money( 20 + 20 ) }}";
+		qlp = parser.qlprogram(a34);
+		qlp.accept(svis);
+		String a35 = "form DoIt { field: \"doit\" money if ( ( field < 100 )  == true ) { fieldTwo : \"hello world!\" money( 20 + 20 ) }}";
+		qlp = parser.qlprogram(a35);
+		qlp.accept(svis);
+		String a36 = "form DoIt { field: \"doit\" money if ( field < 100 ) { fieldTwo : \"hello world!\" money( 100 / 20 ) }}";
+		qlp = parser.qlprogram(a36);
+		qlp.accept(svis);
+		String a37 = "form DoIt { field: \"doit\" boolean if ( field == true && ! 100 ) { fieldTwo : \"hello world!\" money( 30 + 20 ) }}";
+		qlp = parser.qlprogram(a37);
 		qlp.accept(svis);
 	}
 
