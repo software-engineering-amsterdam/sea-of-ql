@@ -4,7 +4,10 @@ import static org.junit.Assert.assertEquals;
 import static com.googlecode.catchexception.CatchException.*;
 
 import org.junit.Test;
-import org.uva.sea.ql.ast.*;
+import org.uva.sea.ql.ast.expression.*;
+import org.uva.sea.ql.ast.expression.binary.*;
+import org.uva.sea.ql.ast.expression.literal.*;
+import org.uva.sea.ql.ast.expression.unary.*;
 import org.uva.sea.ql.parser.*;
 import org.uva.sea.ql.parser.jacc.*;
 

@@ -2,7 +2,7 @@ package org.uva.sea.ql.typechecker;
 
 import java.util.TreeMap;
 
-import org.uva.sea.ql.ast.Datatype;
+import org.uva.sea.ql.ast.datatype.Datatype;
 
 class SymbolTable {
 	private final TreeMap<String, Datatype> symbols;

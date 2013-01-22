@@ -2,6 +2,12 @@ package org.uva.sea.ql.typechecker;
 
 import java.util.ArrayList;
 import org.uva.sea.ql.ast.*;
+import org.uva.sea.ql.ast.datatype.*;
+import org.uva.sea.ql.ast.expression.*;
+import org.uva.sea.ql.ast.expression.binary.*;
+import org.uva.sea.ql.ast.expression.literal.*;
+import org.uva.sea.ql.ast.expression.unary.*;
+import org.uva.sea.ql.ast.statement.*;
 
 class TypeCheckerVisitor implements ASTNodeVisitor {
 	private final SymbolTable symbols;

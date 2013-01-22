@@ -6,5 +6,6 @@ don't throw exceptions during typecheck (return errors)
 validate expression test on complete 'form' (add helper method method to add pre and post string to expression)
 add helper method in test expression to search for correct node (eg. find(root, Add.class))
 write test cases for type checker
+is BlockStatement still needed?
 
 ADD COMMENTS!!
