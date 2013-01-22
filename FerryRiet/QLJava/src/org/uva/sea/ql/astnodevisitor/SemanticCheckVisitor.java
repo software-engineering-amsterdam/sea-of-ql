@@ -1,6 +1,8 @@
 package org.uva.sea.ql.astnodevisitor;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import org.uva.sea.ql.ast.Add;
 import org.uva.sea.ql.ast.And;
@@ -11,6 +13,7 @@ import org.uva.sea.ql.ast.ConditionalStatement;
 import org.uva.sea.ql.ast.Div;
 import org.uva.sea.ql.ast.Eq;
 import org.uva.sea.ql.ast.Expr;
+import org.uva.sea.ql.ast.GEq;
 import org.uva.sea.ql.ast.GT;
 import org.uva.sea.ql.ast.Ident;
 import org.uva.sea.ql.ast.IntLiteral;
@@ -31,43 +34,27 @@ import org.uva.sea.ql.ast.TypeDescription;
 import org.uva.sea.ql.ast.UnExpr;
 
 public class SemanticCheckVisitor implements Visitor {
-	private String errorReport = new String();
 
-	private HashMap<Ident, Statement> symbolMap = new HashMap<Ident, Statement>();
+	final List<String> errorList = new ArrayList<String>();
+
+	private HashMap<String, Statement> symbolMap = new HashMap<String, Statement>();
 
 	public SemanticCheckVisitor() {
-
 	}
 
 	@Override
 	public VisitorResult visit(Ident id) {
 		LineStatement lineStatement;
 
-		lineStatement = (LineStatement) symbolMap.get(id);
+		lineStatement = (LineStatement) symbolMap.get(id.getName());
 		if (lineStatement == null) {
 			/***
-			 * Ident not previous defined
+			 * Ident is not previous defined
 			 */
-			errorReport = errorReport.concat("\nLine(" + id.getLine() + ","
+			errorList.add("Line(" + id.getLine() + ","
 					+ id.getCharPositionInLine() + ") Field :" + id.getName()
 					+ " is not defined.");
 		}
-		return null;
-	}
-
-	@Override
-	public VisitorResult visit(BinExpr expr) {
-
-		expr.getExprLeftHand().accept(this);
-		expr.getExprRightHand().accept(this);
-
-		if (!((expr.getExprType().compatibleType(expr.getExprLeftHand()
-				.getExprType())) && ((expr.getExprType().compatibleType(expr
-				.getExprRightHand().getExprType()))))) {
-			errorReport = errorReport
-					.concat("\nType mismatch in line.(but where, get some scanner info)..??????");
-		}
-
 		return null;
 	}
 
@@ -79,10 +66,11 @@ public class SemanticCheckVisitor implements Visitor {
 
 	@Override
 	public VisitorResult visit(QLProgram qlProgram) {
-
 		symbolMap.clear();
+		errorList.clear();
+
 		qlProgram.getCompound().accept(this);
-		System.out.println(errorReport);
+
 		return null;
 	}
 
@@ -97,12 +85,11 @@ public class SemanticCheckVisitor implements Visitor {
 	public VisitorResult visit(LineStatement lineStatement) {
 		// Add symbols to the symbolmap so the visitor of the
 		// expression can test their existance/missing.
-		if (symbolMap.get(lineStatement.getLineName()) == null) {
+		if (symbolMap.get(lineStatement.getLineId().getName()) == null) {
 			// New symbol in map
-			symbolMap.put(lineStatement.getLineName(), lineStatement);
+			symbolMap.put(lineStatement.getLineId().getName(), lineStatement);
 		} else {
-			errorReport = errorReport.concat("\nLine("
-					+ lineStatement.getLine() + ","
+			errorList.add("Line(" + lineStatement.getLine() + ","
 					+ lineStatement.getCharPositionInLine() + ") Field :"
 					+ lineStatement.getLineName()
 					+ " has multiple definitions.");
@@ -131,91 +118,156 @@ public class SemanticCheckVisitor implements Visitor {
 		return null;
 	}
 
-	public String getErrorReport() {
-		return errorReport;
+	private boolean lhsRhsCompatible(BinExpr expr, String operator) {
+		expr.getExprLeftHand().accept(this);
+		expr.getExprRightHand().accept(this);
+
+		if (!(expr.getExprLeftHand().typeOf(symbolMap).isCompatibleTo(expr
+				.getExprRightHand().typeOf(symbolMap)))) {
+			/***
+			 * Due to empty AST expression node no availble line
+			 * numbers/positions. Annotation of AST?
+			 */
+			errorList
+					.add("Line(nan,nan) Expression: incompatible types on operator: "
+							+ operator + ".");
+			return false;
+		}
+		return true;
+	}
+
+	private boolean rhsCompatible(Expr opExpr, Expr rhs, String operator) {
+		if (!opExpr.typeOf(symbolMap).isCompatibleTo(rhs.typeOf(symbolMap))) {
+			errorList
+					.add("Line(nan,nan) Expression: incompatible operands on operator:"
+							+ operator + ".");
+			return false;
+		}
+		return true;
 	}
 
 	@Override
 	public VisitorResult visit(Add expr) {
-		// TODO Auto-generated method stub
+		if (lhsRhsCompatible(expr, "+")) {
+			rhsCompatible(expr, expr.getExprRightHand(), "+");
+		}
 		return null;
 	}
 
 	@Override
 	public VisitorResult visit(Mul expr) {
-		// TODO Auto-generated method stub
+		if (lhsRhsCompatible(expr, "*")) {
+			rhsCompatible(expr, expr.getExprRightHand(), "*");
+		}
 		return null;
 	}
 
 	@Override
 	public VisitorResult visit(Div expr) {
-		// TODO Auto-generated method stub
+		if (lhsRhsCompatible(expr, "/")) {
+			rhsCompatible(expr, expr.getExprRightHand(), "/");
+		}
 		return null;
 	}
 
 	@Override
 	public VisitorResult visit(Sub expr) {
-		// TODO Auto-generated method stub
+		if (lhsRhsCompatible(expr, "-")) {
+			rhsCompatible(expr, expr.getExprRightHand(), "-");
+		}
 		return null;
 	}
 
 	@Override
 	public VisitorResult visit(And expr) {
-		// TODO Auto-generated method stub
+		if (lhsRhsCompatible(expr, "&&")) {
+			rhsCompatible(expr, expr.getExprRightHand(), "&&");
+		}
 		return null;
 	}
 
 	@Override
 	public VisitorResult visit(Or expr) {
-		// TODO Auto-generated method stub
+		if (lhsRhsCompatible(expr, "||")) {
+			rhsCompatible(expr, expr.getExprRightHand(), "||");
+		}
 		return null;
 	}
 
 	@Override
 	public VisitorResult visit(Eq expr) {
-		// TODO Auto-generated method stub
+		lhsRhsCompatible(expr, "==");
 		return null;
 	}
 
 	@Override
 	public VisitorResult visit(GT expr) {
-		// TODO Auto-generated method stub
+		if (lhsRhsCompatible(expr, ">")) {
+			if (expr.typeOf(symbolMap).isCompatibleTo(
+					expr.getExprLeftHand().typeOf(symbolMap))) {
+				errorList
+						.add("Line(nan,nan) Expression: operator < on boolean operands.");
+			}
+		}
 		return null;
 	}
 
 	@Override
 	public VisitorResult visit(LT expr) {
-		// TODO Auto-generated method stub
+		if (lhsRhsCompatible(expr, "<")) {
+			if (expr.typeOf(symbolMap).isCompatibleTo(
+					expr.getExprLeftHand().typeOf(symbolMap))) {
+				errorList
+						.add("Line(nan,nan) Expression: operator < on boolean operands.");
+			}
+		}
 		return null;
 	}
 
 	@Override
 	public VisitorResult visit(LEq expr) {
-		// TODO Auto-generated method stub
+		if (lhsRhsCompatible(expr, "<=")) {
+			if (expr.typeOf(symbolMap).isCompatibleTo(
+					expr.getExprLeftHand().typeOf(symbolMap))) {
+				errorList
+						.add("Line(nan,nan) Expression: operator < on boolean operands.");
+			}
+		}
+		return null;
+	}
+
+	@Override
+	public VisitorResult visit(GEq expr) {
+		if (lhsRhsCompatible(expr, ">=")) {
+			if (expr.typeOf(symbolMap).isCompatibleTo(
+					expr.getExprLeftHand().typeOf(symbolMap))) {
+				errorList
+						.add("Line(nan,nan) Expression: operator > on boolean operands.");
+			}
+		}
 		return null;
 	}
 
 	@Override
 	public VisitorResult visit(NEq expr) {
-		// TODO Auto-generated method stub
+		lhsRhsCompatible(expr, "!=");
 		return null;
 	}
 
-	@Override
 	public VisitorResult visit(Not expr) {
-		// TODO Auto-generated method stub
+		rhsCompatible(expr, expr.getExprRightHand(), "!");
 		return null;
 	}
 
 	@Override
 	public VisitorResult visit(Neg expr) {
-		// TODO Auto-generated method stub
+		rhsCompatible(expr, expr.getExprRightHand(), "-");
 		return null;
 	}
 
 	@Override
 	public VisitorResult visit(Pos expr) {
-		// TODO Auto-generated method stub
+		rhsCompatible(expr, expr.getExprRightHand(), "+");
 		return null;
 	}
 
@@ -241,5 +293,15 @@ public class SemanticCheckVisitor implements Visitor {
 	public VisitorResult visit(Expr expr) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public VisitorResult visit(BinExpr expr) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public List<String> getErrorList() {
+		return errorList;
 	}
 }

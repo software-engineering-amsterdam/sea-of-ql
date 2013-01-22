@@ -25,7 +25,7 @@ public class Mul extends Binary {
 		return new org.uva.sea.ql.ast.types.IntType();
 	}
 	
-	@Override
+	@Override // TODO: String > message /error..
 	public List<String> checkType(List<String> errors) {
 		errors = super.checkType(errors);
 		

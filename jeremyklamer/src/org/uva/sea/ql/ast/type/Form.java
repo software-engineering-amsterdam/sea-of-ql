@@ -22,5 +22,11 @@ public class Form extends Type{
 	public List<Statement> getStatements() {
 		return statements;
 	}
+
+	@Override
+	public boolean isCompatibleTo(Type t) {
+		// TODO Check if this belongs here...
+		return false;
+	}
 	
 }

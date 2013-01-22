@@ -7,10 +7,12 @@ public class BooleanType extends TypeDescription {
 	}
 
 	@Override
-	public boolean compatibleType(TypeDescription testType) {
-		if (testType.getClass() == BooleanType.class) {
-			return true;
-		}
-		return false;
+	public boolean isCompatibleTo(TypeDescription t) {
+		return t.isCompatibleToBool();
+	}
+
+	@Override
+	public boolean isCompatibleToBool() {
+		return true;
 	}
 }

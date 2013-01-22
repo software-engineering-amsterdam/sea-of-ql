@@ -14,8 +14,7 @@ public class Eq extends Binary {
 
 	@Override
 	public Value eval() {
-		// TODO Auto-generated method stub
-		return null;
+		return new org.uva.sea.ql.ast.values.BoolValue(getLeft().eval().equals(getRight().eval()));
 	}
 
 	@Override

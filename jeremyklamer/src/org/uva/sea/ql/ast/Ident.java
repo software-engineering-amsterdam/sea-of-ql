@@ -1,7 +1,9 @@
 package org.uva.sea.ql.ast;
 
+import java.util.ArrayList;
+import java.util.Map;
+
 import org.uva.sea.ql.ast.type.Type;
-import org.uva.sea.ql.interpreter.Env;
 import org.uva.sea.ql.interpreter.Value;
 import org.uva.sea.ql.interpreter.StringVal;
 
@@ -23,15 +25,20 @@ public class Ident extends Expr {
 	}
 
 	@Override
-	public Type typeOf(Env env) {
-		if(env.getVars().containsKey(value)){
-			return env.getVars().get(value);
+	public Type typeOf(Map<Ident, Type> typeEnv) {
+		if(typeEnv.containsKey(this)){
+			return typeEnv.get(this);
 		}
 		else{
 			//TODO return error
 			return null;
 		}
 		
+	}
+
+	@Override
+	public ArrayList<String> checkType(Map<Ident, Type> typeEnv) {
+		return new ArrayList<String>();
 	}
 	
 }

@@ -26,14 +26,16 @@ public class Ident extends Expr {
 	}
 
 	@Override
-	public VisitorResult accept(Visitor astNodeVisitor) {
-		// TODO Auto-generated method stub
-		return null;
+	public VisitorResult accept(Visitor visitor) {
+		return visitor.visit(this) ;
 	}
 
 	@Override
-	public TypeDescription typeOf(HashMap<Ident, Statement> typeEnv) {
-		LineStatement line = (LineStatement) typeEnv.get(this);
-		return line.getTypeDescription();
+	public TypeDescription typeOf(HashMap<String, Statement> typeEnv) {
+		LineStatement line = (LineStatement) typeEnv.get(this.getName());
+		if (line != null) {
+			return line.getTypeDescription();
+		}
+		return new ErrorType();
 	}
 }

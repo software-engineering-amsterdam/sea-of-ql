@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.uva.sea.ql.ast.ASTNode;
-import org.uva.sea.ql.ast.values.Ident;
+import org.uva.sea.ql.ast.expr.Ident;
 import org.uva.sea.ql.visitor.ASTNodeVisitor;
 
 

@@ -3,31 +3,16 @@ package org.uva.sea.ql.parser.test;
 
 import static org.junit.Assert.assertEquals;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
-import org.junit.runners.Parameterized.Parameters;
 import org.uva.sea.ql.parser.antlr.ANTLRParser;
 import org.uva.sea.ql.form.Form;
 
-@RunWith(Parameterized.class)
 public class TestForms {
 
 	private IParse parser;
-
-	@Parameters
-	public static List<Object[]> theParsers() {
-		List<Object[]> list = new ArrayList<Object[]>();
-		list.add(new Object[] {new ANTLRParser()});
-		return list;
-	}
-
 	
-	public TestForms(IParse parser) {
-		this.parser = parser;
+	public TestForms() {
+		this.parser = new ANTLRParser();
 	}
 	
 	@Test 
@@ -38,7 +23,7 @@ public class TestForms {
 		assertEquals(parser.parseForm("form testForm2 {\n" +
 				"hasSoldHouse: \"Have you sold a house in 2012?\" boolean\n" +
 				"hasBoughtHouse: \"Have you bought a house in 2012?\" string\n" +
-				"}").getFormItems().size(),2);
+				"}").getBody().size(),2);
 		assertEquals(parser.parseForm("form testForm3 {\n" +
 				"demoQuestion: \"Is this really a question?\" boolean\n" +
 				"if (demoQuestion) { // WOOOOOOOOW, is this a comment? Yes it is! \n" +

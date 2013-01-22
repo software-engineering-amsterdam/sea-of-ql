@@ -3,19 +3,25 @@ package org.uva.sea.ql.parser.test;
 import static org.junit.Assert.assertEquals;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
 import org.uva.sea.ql.ast.Add;
+import org.uva.sea.ql.ast.Expr;
 import org.uva.sea.ql.ast.Ident;
 import org.uva.sea.ql.ast.Int;
 import org.uva.sea.ql.ast.LT;
 import org.uva.sea.ql.ast.Mul;
-import org.uva.sea.ql.interpreter.Env;
+import org.uva.sea.ql.ast.type.BoolType;
+import org.uva.sea.ql.ast.type.Type;
 import org.uva.sea.ql.parser.antlr.ANTLRParser;
+
+import com.sun.org.apache.bcel.internal.generic.NEW;
 
 @RunWith(Parameterized.class)
 public class TestExpressions {
@@ -84,6 +90,11 @@ public class TestExpressions {
 		assertEquals(Int.class, parser.parse("0").getClass());
 		assertEquals(Int.class, parser.parse("1223").getClass());
 		assertEquals(Int.class, parser.parse("234234234").getClass());
+	}
+	
+	@Test
+	public void testTypes() throws ParseError {
+
 	}
 	
 }

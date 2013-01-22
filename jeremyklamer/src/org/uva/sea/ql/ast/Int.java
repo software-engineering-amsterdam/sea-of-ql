@@ -1,8 +1,10 @@
 package org.uva.sea.ql.ast;
 
+import java.util.ArrayList;
+import java.util.Map;
+
 import org.uva.sea.ql.ast.type.IntType;
 import org.uva.sea.ql.ast.type.Type;
-import org.uva.sea.ql.interpreter.Env;
 import org.uva.sea.ql.interpreter.Value;
 
 public class Int extends Expr {
@@ -23,8 +25,13 @@ public class Int extends Expr {
 	}
 	
 	@Override
-	public Type typeOf(Env env) {
+	public Type typeOf(Map<Ident, Type> typeEnv) {
 		return new IntType();
+	}
+	
+	@Override
+	public ArrayList<String> checkType(Map<Ident, Type> typeEnv) {
+		return new ArrayList<String>();
 	}
 	
 }

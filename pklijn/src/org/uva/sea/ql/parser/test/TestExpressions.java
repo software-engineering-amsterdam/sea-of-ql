@@ -1,14 +1,10 @@
 package org.uva.sea.ql.parser.test;
 
 import static org.junit.Assert.assertEquals;
-
-import java.util.ArrayList;
-import java.util.List;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertFalse;
 
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
-import org.junit.runners.Parameterized.Parameters;
 import org.uva.sea.ql.ast.Add;
 import org.uva.sea.ql.ast.GT;
 import org.uva.sea.ql.ast.Ident;
@@ -16,23 +12,15 @@ import org.uva.sea.ql.ast.Int;
 import org.uva.sea.ql.ast.LEq;
 import org.uva.sea.ql.ast.LT;
 import org.uva.sea.ql.ast.Mul;
+import org.uva.sea.ql.ast.values.*;
 import org.uva.sea.ql.parser.antlr.ANTLRParser;
 
-@RunWith(Parameterized.class)
 public class TestExpressions {
 
 	private IParse parser;
-
-	@Parameters
-	public static List<Object[]> theParsers() {
-		List<Object[]> list = new ArrayList<Object[]>();
-		list.add(new Object[] {new ANTLRParser()});
-		return list;
-	}
-
 	
-	public TestExpressions(IParse parser) {
-		this.parser = parser;
+	public TestExpressions() {
+		this.parser = new ANTLRParser();
 	}
 	
 	@Test
@@ -92,38 +80,52 @@ public class TestExpressions {
 	public void testCalculation() throws ParseError {
 		assertEquals(
 				new Integer(3),
-				((org.uva.sea.ql.ast.values.IntValue)parser.parse("1 + 2").eval()).getValue());
+				((IntValue)parser.parse("1 + 2").eval()).getValue());
 		assertEquals(
 				new Integer(7),
-				((org.uva.sea.ql.ast.values.IntValue)parser.parse("1 + 2 * 3").eval()).getValue()); 
+				((IntValue)parser.parse("1 + 2 * 3").eval()).getValue()); 
 		assertEquals(
 				new Integer(9),
-				((org.uva.sea.ql.ast.values.IntValue)parser.parse("(1 + 2) * 3").eval()).getValue()); 
+				((IntValue)parser.parse("(1 + 2) * 3").eval()).getValue()); 
 		assertEquals(
 				new Integer(4),
-				((org.uva.sea.ql.ast.values.IntValue)parser.parse("(1 + 2) * 3 - (2 + 3)").eval()).getValue());
+				((IntValue)parser.parse("(1 + 2) * 3 - (2 + 3)").eval()).getValue());
 		assertEquals(
 				new Integer(3),
-				((org.uva.sea.ql.ast.values.IntValue)parser.parse("27 / 3 / 3").eval()).getValue());
+				((IntValue)parser.parse("27 / 3 / 3").eval()).getValue());
 		assertEquals(
 				new Integer(5),
-				((org.uva.sea.ql.ast.values.IntValue)parser.parse("(4 * 5) / 4").eval()).getValue());
+				((IntValue)parser.parse("(4 * 5) / 4").eval()).getValue());
 	}
 	
 	@Test
-	public void testEquation() throws ParseError {
-		assertEquals(
-				true,
-				((org.uva.sea.ql.ast.values.BoolValue)parser.parse("(1 < 2) && (3 < 4)").eval()).getValue());
-		assertEquals(
-				true,
-				((org.uva.sea.ql.ast.values.BoolValue)parser.parse("(1 <= 1) && (7 > 4)").eval()).getValue());
-		assertEquals(
-				true,
-				((org.uva.sea.ql.ast.values.BoolValue)parser.parse("(1 > 2) || (3 < 4)").eval()).getValue());
-		assertEquals(
-				false,
-				((org.uva.sea.ql.ast.values.BoolValue)parser.parse("(1 >= 2) || (3 >= 4)").eval()).getValue());
+	public void testEquation() throws ParseError { // TODO: geen equation noemen..
+		assertTrue(((BoolValue)parser.parse("(1 < 2) && (3 < 4)").eval()).getValue());
+		assertTrue(((BoolValue)parser.parse("(1 <= 1) && (7 > 4)").eval()).getValue());
+		assertTrue(((BoolValue)parser.parse("(1 > 2) || (3 < 4)").eval()).getValue());
+		assertFalse(((BoolValue)parser.parse("(1 >= 2) || (3 >= 4)").eval()).getValue());
 		
+		assertTrue(((BoolValue)parser.parse("10 == 10").eval()).getValue());
+		assertTrue(((BoolValue)parser.parse("099 == 99").eval()).getValue());
+		assertFalse(((BoolValue)parser.parse("23 == 25").eval()).getValue());
+		assertTrue(((BoolValue)parser.parse("-124 == -124").eval()).getValue());
+		
+		assertTrue(((BoolValue)parser.parse("1 != 2").eval()).getValue());
+		assertFalse(((BoolValue)parser.parse("245 != 245").eval()).getValue());
+		
+		assertTrue(((BoolValue)parser.parse("true == true").eval()).getValue());
+		assertTrue(((BoolValue)parser.parse("false == false").eval()).getValue());
+		assertFalse(((BoolValue)parser.parse("true == false").eval()).getValue());
+		assertFalse(((BoolValue)parser.parse("false == true").eval()).getValue());
+		
+		assertTrue(((BoolValue)parser.parse("true != false").eval()).getValue());
+		assertTrue(((BoolValue)parser.parse("false != true").eval()).getValue());
+		assertFalse(((BoolValue)parser.parse("true != true").eval()).getValue());
+		assertFalse(((BoolValue)parser.parse("false != false").eval()).getValue());
+		
+		assertTrue(((BoolValue)parser.parse("\"peter\" == \"peter\"").eval()).getValue());
+		assertFalse(((BoolValue)parser.parse("\"peter\" == \"klijn\"").eval()).getValue());
+		assertTrue(((BoolValue)parser.parse("\"peter\" != \"klijn\"").eval()).getValue());
+		assertFalse(((BoolValue)parser.parse("\"peter\" != \"peter\"").eval()).getValue());		
 	}
 }

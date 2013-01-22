@@ -1,8 +1,10 @@
 package org.uva.sea.ql.ast;
 
+import java.util.ArrayList;
+import java.util.Map;
+
 import org.uva.sea.ql.ast.type.Numeric;
 import org.uva.sea.ql.ast.type.Type;
-import org.uva.sea.ql.interpreter.Env;
 import org.uva.sea.ql.interpreter.IntVal;
 import org.uva.sea.ql.interpreter.Value;
 
@@ -20,8 +22,22 @@ public class Div extends Binary {
 	}
 
 	@Override
-	public Type typeOf(Env env) {
+	public Type typeOf(Map<Ident, Type> typeEnv) {
 		return new Numeric();
 	}
 
+	@Override
+	public ArrayList<String> checkType(Map<Ident, Type> typeEnv) {
+		ArrayList<String> retVal = new ArrayList<String>();
+		
+		retVal.addAll(getLeft().checkType(typeEnv));
+		retVal.addAll(getRight().checkType(typeEnv));		
+			
+		Type leftType = getLeft().typeOf(typeEnv);  
+		Type rightType = getRight().typeOf(typeEnv);  
+		if(!(leftType.isCompatibleToNumeric() && rightType.isCompatibleToNumeric())){
+			retVal.add(leftType + " is not compatible with " + rightType + ". In " + this.getClass());
+		}
+		return retVal;
+	}
 }

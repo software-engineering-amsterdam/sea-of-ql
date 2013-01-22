@@ -1,8 +1,11 @@
 package org.uva.sea.ql.ast;
 
+import java.util.ArrayList;
+import java.util.Map;
+
+import org.uva.sea.ql.ast.type.BoolType;
 import org.uva.sea.ql.ast.type.Type;
 import org.uva.sea.ql.interpreter.BoolVal;
-import org.uva.sea.ql.interpreter.Env;
 import org.uva.sea.ql.interpreter.Value;
 
 public class Not extends Expr {
@@ -23,9 +26,16 @@ public class Not extends Expr {
 	}
 
 	@Override
-	public Type typeOf(Env env) {
-		// TODO Auto-generated method stub
-		return null;
+	public Type typeOf(Map<Ident, Type> typeEnv) {
+		return new BoolType();
 	}
 	
+	@Override
+	public ArrayList<String> checkType(Map<Ident, Type> typeEnv) {
+		ArrayList<String> retVal = new ArrayList<String>();
+		Type type = typeOf(typeEnv);
+		if(!(type.isCompatibleToBool()))
+			retVal.add(type + " is not compatible. In " + this.getClass());
+		return retVal;	
+	}
 }

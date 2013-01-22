@@ -6,10 +6,10 @@ import java.util.Map;
 import org.uva.sea.ql.ast.types.Type;
 import org.uva.sea.ql.ast.values.Value;
 
-public class Not extends Expr {
+public class Not extends Unary {
 
-	public Not(Expr x) {
-		// TODO Auto-generated constructor stub
+	public Not(Expr arg) {
+		super(arg);
 	}
 
 	@Override
@@ -20,8 +20,7 @@ public class Not extends Expr {
 
 	@Override
 	public Type typeOf(Map<Ident, Type> typeEnv) {
-		// TODO Auto-generated method stub
-		return null;
+		return new org.uva.sea.ql.ast.types.BoolType();
 	}
 	
 	@Override

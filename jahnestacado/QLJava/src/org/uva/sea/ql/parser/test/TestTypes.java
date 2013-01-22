@@ -13,6 +13,7 @@ import org.uva.sea.ql.ast.expr.Add;
 import org.uva.sea.ql.ast.expr.Mul;
 import org.uva.sea.ql.ast.types.BoolType;
 import org.uva.sea.ql.ast.types.IntType;
+import org.uva.sea.ql.ast.types.MoneyType;
 import org.uva.sea.ql.ast.types.StringType;
 import org.uva.sea.ql.parser.antlr.ANTLRParser;
 
@@ -43,7 +44,7 @@ public class TestTypes {
 		assertEquals(IntType.class,parser.parseType("int").getClass());
 		assertEquals(BoolType.class,parser.parseType("boolean").getClass());
 		assertEquals(StringType.class,parser.parseType("string").getClass());
-		assertEquals(StringType.class,parser.parseType("money").getClass());
+		assertEquals(MoneyType.class,parser.parseType("money").getClass());
 		
 	}
 	

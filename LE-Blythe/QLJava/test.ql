@@ -1,12 +1,14 @@
 form a{
 	"question" q1:boolean
-	if(q2){ 
-		"question" q2:boolean 	
+	"question" q2:q1 || true
+	
+	if(q1){ 
+		"question" q3:boolean 	
 	}
 	else{
-		"question" q2:q2+q3
+		"question" q3:q1 && (1+1)
 	}
-	if(!q3){ 
-		"question" q3:string
+	if(q2){ 
+		"question" q4:string
 	}
 }

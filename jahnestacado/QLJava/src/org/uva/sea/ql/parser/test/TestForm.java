@@ -12,7 +12,6 @@ import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
 import org.uva.sea.ql.ast.form.Body;
 import org.uva.sea.ql.ast.form.ComputedQuestion;
-import org.uva.sea.ql.ast.form.Element;
 import org.uva.sea.ql.ast.form.Form;
 import org.uva.sea.ql.ast.form.IfBlock;
 import org.uva.sea.ql.ast.form.Question;
@@ -27,7 +26,7 @@ public class TestForm {
 	private final String path="/home/jahn/workspace1/jahnestacado/jahnestacado/QLJava/src/org/uva/sea/ql/qlreader/SampleCode.ql";
 	private final String question1 = "id : \"label\" int (a-b)";
 	private final String question2 = "id : \"label\" int ";
-	private final String ifBlock="if (cond){"+question1+""+question2+"}";
+	private final String ifBlock="if (cond){".concat(question1).concat("").concat(question2)+"}";
     private InputReader reader;
 	@Parameters
 	public static List<Object[]> theParser() {

@@ -31,7 +31,7 @@ data Expr
   | string(str strValue) 
   | boolean(str bValue) 
   | date(str dValue) 
-  | money (real monValue)
+  | money (str monValue)
   | float (real fValue) 
   
   | add(Expr addLeft, Expr addRight)
@@ -68,3 +68,4 @@ anno loc Question@location;
 anno loc Type@location;
 anno loc Form@location;
 anno loc ConditionalStatement@location;
+anno loc ElseIf@location;

@@ -5,7 +5,7 @@ import org.uva.sea.ql.ast.Expr;
 
 public class IfElseStatement extends IfStatement {
 
-	private List<FormItem> elseBody;
+	private final List<FormItem> elseBody;
 	
 	public IfElseStatement(Expr expression, List<FormItem> ifBody, List<FormItem> elseBody) {
 		super(expression, ifBody);

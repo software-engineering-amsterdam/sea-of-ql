@@ -5,6 +5,7 @@ options {backtrack=true; memoize=true;}
 {
 package org.uva.sea.ql.parser.antlr;
 import org.uva.sea.ql.ast.*;
+import org.uva.sea.ql.ast.values.*;
 import org.uva.sea.ql.form.*;
 }
 
@@ -14,14 +15,13 @@ package org.uva.sea.ql.parser.antlr;
 }
 
 form returns [Form result]
-@init { List<FormItem> formItems = new ArrayList(); }
   : 'form' Ident '{'
-    formItem { formItems.addAll($formItem.result); }
-    '}' { $result = new Form($Ident.text, formItems); }
+    formItems
+    '}' { $result = new Form($Ident.text, $formItems.result); }
   ;
 
 
-formItem returns [List<FormItem> result]
+formItems returns [List<FormItem> result]
 @init { List<FormItem> formItems = new ArrayList(); }
   : ( ie=ifElseStatement { formItems.add($ie.result); }
     | i=ifStatement { formItems.add($i.result); } 
@@ -31,33 +31,35 @@ formItem returns [List<FormItem> result]
   ;
 
 ifElseStatement returns [IfElseStatement result]
-  : 'if' '(' orExpr ')' '{' ifBody=formItem '}'
-    'else' '{' elseBody=formItem '}' 
+  : 'if' '(' orExpr ')' '{' ifBody=formItems '}'
+    'else' '{' elseBody=formItems '}' 
       { $result = new IfElseStatement($orExpr.result, $ifBody.result, $elseBody.result); }
   ;
 
 ifStatement returns [IfStatement result]
-  : 'if' '(' orExpr ')' '{' ifBody=formItem '}'
+  : 'if' '(' orExpr ')' '{' ifBody=formItems '}'
       { $result = new IfStatement($orExpr.result, $ifBody.result); }
   ;
 
 computedQuestion returns [ComputedQuestion result]
   : Ident ':' String questionType '(' orExpr ')' 
-      { $result = new ComputedQuestion($Ident.text, $String.text, $questionType.text, $orExpr.result); }
+      { $result = new ComputedQuestion($Ident.text, $String.text, $questionType.result, $orExpr.result); }
   ;
 
 question returns [Question result]
-  : Ident ':' String questionType { $result = new Question($Ident.text, $String.text, $questionType.text); }
+  : Ident ':' String questionType { $result = new Question($Ident.text, $String.text, $questionType.result); }
   ;
 
-questionType
-  : BooleanType
-  | IntType
-  | StringType
+questionType returns [Value result]
+  : 'boolean' { $result = new BoolValue(); }
+  | 'int' { $result = new IntValue(); }
+  | 'string' { $result = new StringValue(); }
   ;
 
 primary returns [Expr result]
   : Int   { $result = new Int(Integer.parseInt($Int.text)); }
+  | Bool { $result = new Bool(Boolean.parseBoolean($Bool.text)); }
+  | String { $result = new Str($String.text); }
   | Ident { $result = new Ident($Ident.text); }
   | '(' x=orExpr ')'{ $result = $x.result; }
   ;
@@ -136,10 +138,7 @@ COMMENT
     : ('/*' .* '*/' | '//'.* '\n') {$channel=HIDDEN;}
     ;
 
-BooleanType: 'boolean';
-IntType: 'int';
-StringType: 'string';
-
 String: '"' .* '"';
+Bool: 'true' | 'false';
 Int: ('0'..'9')+;
 Ident: ('a'..'z'|'A'..'Z')('a'..'z'|'A'..'Z'|'0'..'9'|'_')*;

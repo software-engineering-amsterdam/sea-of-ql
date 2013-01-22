@@ -1,12 +1,13 @@
 package org.uva.sea.ql.form;
 
 import org.uva.sea.ql.ast.Expr;
+import org.uva.sea.ql.ast.values.Value;
 
 public class ComputedQuestion extends Question {
 
-	private Expr expression;
+	private final Expr expression;
 	
-	public ComputedQuestion(String id, String question, String questionType, Expr expression) {
+	public ComputedQuestion(String id, String question, Value questionType, Expr expression) {
 		super(id,question,questionType);
 		this.expression = expression;
 	}
@@ -18,7 +19,7 @@ public class ComputedQuestion extends Question {
 	@Override
 	public void print(int level) {
 		printIndent(level);
-		System.out.println("Q:" + getQuestion() 
+		System.out.println("Q:" + getLabel() 
 				+ " (id: " + getId() 
 				+ ", type: " + getQuestionType ()
 				+ ", expression: " + expression + ")");

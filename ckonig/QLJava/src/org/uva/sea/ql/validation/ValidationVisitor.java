@@ -122,11 +122,6 @@ public class ValidationVisitor implements ASTVisitor {
 	}
 
 	@Override
-	public void visit(Ident ident) {
-		throw new NotImplementedException();
-	}
-
-	@Override
 	public void visit(Registry registry) {
 		throw new NotImplementedException();
 	}
