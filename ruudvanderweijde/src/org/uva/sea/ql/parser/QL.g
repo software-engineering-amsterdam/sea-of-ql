@@ -60,7 +60,7 @@ ifStatement returns [Statement result]
 question returns [Statement result]
   : Ident ':' String tp=type 
   { 
-    $result = new Question(new Ident($Ident.text), $String.text, $tp.result); 
+    $result = new NormalQuestion(new Ident($Ident.text), $String.text, $tp.result); 
   }
   | Ident ':' String tp=type cp=computation 
   { 

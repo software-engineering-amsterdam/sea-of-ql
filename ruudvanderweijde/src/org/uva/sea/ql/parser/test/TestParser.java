@@ -20,7 +20,7 @@ import org.uva.sea.ql.ast.expr.primary.Ident;
 import org.uva.sea.ql.ast.expr.primary.Int;
 import org.uva.sea.ql.ast.stmt.ComputedQuestion;
 import org.uva.sea.ql.ast.stmt.IfThenElse;
-import org.uva.sea.ql.ast.stmt.Question;
+import org.uva.sea.ql.ast.stmt.NormalQuestion;
 import org.uva.sea.ql.parser.ANTLRParser;
 import org.uva.sea.ql.parser.error.ParseError;
 
@@ -56,8 +56,8 @@ public class TestParser {
 		assertEquals(parser.parseStatement(strQL2).getClass(), IfThenElse.class);
 		assertEquals(parser.parseStatement(strQL3).getClass(), IfThenElse.class);
 		assertEquals(parser.parseStatement(strQL4).getClass(), IfThenElse.class);
-		assertEquals(parser.parseStatement(strQL5).getClass(), Question.class);
-		assertEquals(parser.parseStatement(strQL6).getClass(), Question.class);
+		assertEquals(parser.parseStatement(strQL5).getClass(), NormalQuestion.class);
+		assertEquals(parser.parseStatement(strQL6).getClass(), NormalQuestion.class);
 		assertEquals(parser.parseStatement(strQL7).getClass(), ComputedQuestion.class);
 		assertEquals(parser.parseStatement(strQL8).getClass(), ComputedQuestion.class);
 	}

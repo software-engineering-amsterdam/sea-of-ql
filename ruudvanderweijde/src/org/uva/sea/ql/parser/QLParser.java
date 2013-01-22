@@ -1,13 +1,13 @@
-// $ANTLR 3.5 C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g 2013-01-22 12:12:07
+// $ANTLR 3.5 C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g 2013-01-22 13:13:26
 
   package org.uva.sea.ql.parser;
   import org.uva.sea.ql.ast.*;
-import org.uva.sea.ql.ast.expr.*;
-import org.uva.sea.ql.ast.expr.binary.*;
-import org.uva.sea.ql.ast.expr.primary.*;
-import org.uva.sea.ql.ast.expr.unary.*;
-import org.uva.sea.ql.ast.type.*;
-import org.uva.sea.ql.ast.stmt.*;
+  import org.uva.sea.ql.ast.expr.*;
+  import org.uva.sea.ql.ast.expr.binary.*;
+  import org.uva.sea.ql.ast.expr.primary.*;
+  import org.uva.sea.ql.ast.expr.unary.*;
+  import org.uva.sea.ql.ast.type.*;
+  import org.uva.sea.ql.ast.stmt.*;
 
 
 import org.antlr.runtime.*;
@@ -554,7 +554,7 @@ public class QLParser extends Parser {
 					state._fsp--;
 					if (state.failed) return result;
 					if ( state.backtracking==0 ) { 
-					    result = new Question(new Ident((Ident2!=null?Ident2.getText():null)), (String3!=null?String3.getText():null), tp); 
+					    result = new NormalQuestion(new Ident((Ident2!=null?Ident2.getText():null)), (String3!=null?String3.getText():null), tp); 
 					  }
 					}
 					break;

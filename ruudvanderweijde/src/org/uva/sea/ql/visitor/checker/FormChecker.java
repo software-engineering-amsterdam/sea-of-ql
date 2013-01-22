@@ -6,7 +6,7 @@ import org.uva.sea.ql.ast.Form;
 import org.uva.sea.ql.ast.expr.Expr;
 import org.uva.sea.ql.ast.stmt.ComputedQuestion;
 import org.uva.sea.ql.ast.stmt.IfThenElse;
-import org.uva.sea.ql.ast.stmt.Question;
+import org.uva.sea.ql.ast.stmt.NormalQuestion;
 import org.uva.sea.ql.ast.type.Type;
 import org.uva.sea.ql.visitor.FormVisitor;
 
@@ -23,7 +23,7 @@ import org.uva.sea.ql.visitor.FormVisitor;
 public class FormChecker implements FormVisitor {
 	private String errorString;
 	private HashMap<String, Form> formTable = new HashMap<String, Form>();
-	private HashMap<String, Question> questionTable = new HashMap<String, Question>();
+	private HashMap<String, NormalQuestion> questionTable = new HashMap<String, NormalQuestion>();
 
 	public FormChecker() {
 
@@ -43,7 +43,7 @@ public class FormChecker implements FormVisitor {
 	}
 
 	@Override
-	public void visit(Question question) {
+	public void visit(NormalQuestion question) {
 		if (questionTable.containsKey(question.getId().getValue())) {
 			addError("Duplicate question id: " + question.getId().getValue());
 		}
