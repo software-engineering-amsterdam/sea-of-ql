@@ -31,10 +31,10 @@ public class VisitorDemo {
     	System.out.println("Visiting string: " + exprString);
     	expr.accept(new ExpressionVisitorPrinter());
     	
-    	HashMap<Ident, Type> ExprMap = new HashMap<Ident, Type>();
-    	ArrayList<Message> errors = new ArrayList<Message>();
+    	HashMap<Ident, Type> SymbolTable = new HashMap<Ident, Type>();
+    	ArrayList<String> errors = new ArrayList<String>();
     	
-    	Boolean result = expr.accept(new ExpressionChecker(ExprMap, errors));
+    	Boolean result = expr.accept(new ExpressionChecker(SymbolTable, errors));
     	System.out.println("ExpressionResult done, result: " + result);
     	System.out.println("Errors: " + errors);
     	

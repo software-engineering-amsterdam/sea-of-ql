@@ -3,7 +3,6 @@ package org.uva.sea.ql.visitor.checker;
 import java.util.List;
 import java.util.Map;
 
-import org.antlr.tool.Message;
 import org.uva.sea.ql.ast.expr.Expr;
 import org.uva.sea.ql.ast.expr.binary.Add;
 import org.uva.sea.ql.ast.expr.binary.And;
@@ -29,15 +28,15 @@ import org.uva.sea.ql.visitor.ExpressionVisitor;
 
 public class ExpressionChecker implements ExpressionVisitor<Boolean> {
 	private final Map<Ident, Type> typeEnv;
-	private final List<Message> messages;
+	private final List<String> messages;
 
-	public ExpressionChecker(Map<Ident, Type> tenv, List<Message> messages) {
+	public ExpressionChecker(Map<Ident, Type> tenv, List<String> messages) {
 		this.typeEnv = tenv;
 		this.messages = messages;
 	}
 
 	public static boolean check(Expr expr, Map<Ident, Type> typeEnv,
-			List<Message> errs) {
+			List<String> errs) {
 		ExpressionChecker check = new ExpressionChecker(typeEnv, errs);
 		return expr.accept(check);
 	}
@@ -57,7 +56,7 @@ public class ExpressionChecker implements ExpressionVisitor<Boolean> {
 		if (!(lhsType.isCompatibleToNumericType() && rhsType
 				.isCompatibleToNumericType())) {
 
-			System.out.println("invalid Numeric operater for + ");
+			addMessage("invalid Numeric operater for + ");
 			return false;
 		}
 		return true;
@@ -78,7 +77,7 @@ public class ExpressionChecker implements ExpressionVisitor<Boolean> {
 		if (!(lhsType.isCompatibleToBooleanType() && rhsType
 				.isCompatibleToBooleanType())) {
 
-			System.out.println("invalid boolean operator for &&.");
+			addMessage("invalid boolean operator for &&.");
 			return false;
 		}
 		return true;
@@ -99,7 +98,7 @@ public class ExpressionChecker implements ExpressionVisitor<Boolean> {
 		if (!(lhsType.isCompatibleToNumericType() && rhsType
 				.isCompatibleToNumericType())) {
 
-			System.out.println("invalid Numeric operator for /.");
+			addMessage("invalid Numeric operator for /.");
 			return false;
 		}
 		return true;
@@ -120,7 +119,7 @@ public class ExpressionChecker implements ExpressionVisitor<Boolean> {
 		if (!(lhsType.isCompatibleToBooleanType() && rhsType.isCompatibleToBooleanType()) 
 				&& !(lhsType.isCompatibleToNumericType() && rhsType.isCompatibleToNumericType())) {
 
-			System.out.println("invalid Boolean or Numeric operator for ==.");
+			addMessage("invalid Boolean or Numeric operator for ==.");
 			return false;
 		}
 		return true;
@@ -141,7 +140,7 @@ public class ExpressionChecker implements ExpressionVisitor<Boolean> {
 		if (!(lhsType.isCompatibleToNumericType() && rhsType
 				.isCompatibleToNumericType())) {
 
-			System.out.println("invalid Numeric operator for <=.");
+			addMessage("invalid Numeric operator for <=.");
 			return false;
 		}
 		return true;
@@ -162,7 +161,7 @@ public class ExpressionChecker implements ExpressionVisitor<Boolean> {
 		if (!(lhsType.isCompatibleToNumericType() && rhsType
 				.isCompatibleToNumericType())) {
 
-			System.out.println("invalid Numeric operator for >.");
+			addMessage("invalid Numeric operator for >.");
 			return false;
 		}
 		return true;
@@ -183,7 +182,7 @@ public class ExpressionChecker implements ExpressionVisitor<Boolean> {
 		if (!(lhsType.isCompatibleToNumericType() && rhsType
 				.isCompatibleToNumericType())) {
 
-			System.out.println("invalid Numeric operator for <=.");
+			addMessage("invalid Numeric operator for <=.");
 			return false;
 		}
 		return true;
@@ -204,7 +203,7 @@ public class ExpressionChecker implements ExpressionVisitor<Boolean> {
 		if (!(lhsType.isCompatibleToNumericType() && rhsType
 				.isCompatibleToNumericType())) {
 
-			System.out.println("invalid Numeric operator for <.");
+			addMessage("invalid Numeric operator for <.");
 			return false;
 		}
 		return true;
@@ -225,7 +224,7 @@ public class ExpressionChecker implements ExpressionVisitor<Boolean> {
 		if (!(lhsType.isCompatibleToNumericType() && rhsType
 				.isCompatibleToNumericType())) {
 
-			System.out.println("invalid Numeric operator for *.");
+			addMessage("invalid Numeric operator for *.");
 			return false;
 		}
 		return true;
@@ -246,7 +245,7 @@ public class ExpressionChecker implements ExpressionVisitor<Boolean> {
 		if (!(lhsType.isCompatibleToBooleanType() && rhsType.isCompatibleToBooleanType()) 
 			&& !(lhsType.isCompatibleToNumericType() && rhsType.isCompatibleToNumericType())) {
 
-			System.out.println("invalid Boolean or Numeric operator for !=.");
+			addMessage("invalid Boolean or Numeric operator for !=.");
 			return false;
 		}
 		return true;
@@ -267,7 +266,7 @@ public class ExpressionChecker implements ExpressionVisitor<Boolean> {
 		if (!(lhsType.isCompatibleToBooleanType() && rhsType
 				.isCompatibleToBooleanType())) {
 
-			System.out.println("invalid Boolean operator for ||.");
+			addMessage("invalid Boolean operator for ||.");
 			return false;
 		}
 		return true;
@@ -288,7 +287,7 @@ public class ExpressionChecker implements ExpressionVisitor<Boolean> {
 		if (!(lhsType.isCompatibleToNumericType() && rhsType
 				.isCompatibleToNumericType())) {
 
-			System.out.println("invalid Numeric operator for /.");
+			addMessage("invalid Numeric operator for /.");
 			return false;
 		}
 		return true;
@@ -304,7 +303,7 @@ public class ExpressionChecker implements ExpressionVisitor<Boolean> {
 
 		Type argType = ast.getArg().typeOf(typeEnv);
 		if (!argType.isCompatibleToNumericType()) {
-			System.out.println("invalid Numeric operator for -.");
+			addMessage("invalid Numeric operator for -.");
 			return false;
 		}
 		
@@ -321,7 +320,7 @@ public class ExpressionChecker implements ExpressionVisitor<Boolean> {
 
 		Type argType = ast.getArg().typeOf(typeEnv);
 		if (!argType.isCompatibleToBooleanType()) {
-			System.out.println("invalid Numeric operator for !.");
+			addMessage("invalid Numeric operator for !.");
 			return false;
 		}
 		
@@ -338,7 +337,7 @@ public class ExpressionChecker implements ExpressionVisitor<Boolean> {
 
 		Type argType = ast.getArg().typeOf(typeEnv);
 		if (!argType.isCompatibleToNumericType()) {
-			System.out.println("invalid Numeric operator for +.");
+			addMessage("invalid Numeric operator for +.");
 			return false;
 		}
 		
@@ -377,7 +376,11 @@ public class ExpressionChecker implements ExpressionVisitor<Boolean> {
 		return true;
 	}
 
-	public List<Message> getMessages() {
+	public void addMessage(String message) {
+		messages.add(message);
+	}
+	
+	public List<String> getMessages() {
 		return messages;
 	}
 }

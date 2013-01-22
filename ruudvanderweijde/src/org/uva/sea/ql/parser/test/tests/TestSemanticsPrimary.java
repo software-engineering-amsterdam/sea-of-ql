@@ -7,7 +7,6 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
-import org.antlr.tool.Message;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
@@ -30,7 +29,7 @@ public class TestSemanticsPrimary {
 		return Arrays.asList(data);
 	}
 	public static HashMap<Ident, Type> ExprMap = new HashMap<Ident, Type>();
-	public static ArrayList<Message> errors = new ArrayList<Message>();
+	public static ArrayList<String> errors = new ArrayList<String>();
 
 	
 	public TestSemanticsPrimary(IParse parser) {
