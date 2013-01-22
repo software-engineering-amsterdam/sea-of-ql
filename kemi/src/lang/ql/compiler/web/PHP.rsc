@@ -33,8 +33,9 @@ private str createPHP(Question q:
 private str createPHP(Question q: 
   question(questionText, answerDataType, answerIdentifier, calculatedField)) {
   
-  // TODO: Rewrite idents in calculatedField
-  cf = calculatedField;
+  cf = visit (calculatedField) {
+    case Expr e: ident(str name): insert ident("$" + name);
+  };
   
   return 
     "<validator(answerDataType, answerIdentifier)>
@@ -53,10 +54,32 @@ private str createPHP(Statement item:
     '}";
 
 private str createPHP(Expr e) =
-  "<e>";
-
+  "COND: <e>";
   
-private str validator(answerDataType, ident) {
+private str createQuery(str answerDataType, str ident) =
+  "$<ident> = $_POST[\'<ident>\'];
+  '<preparedStatement(answerDataType, "$<ident>")>";
+  
+private str createQuery(str answerDataType, str ident, str expr) =
+  "$<ident> = <expr>;
+  '<preparedStatement(answerDataType, "$<ident>")>";  
+  
+private str preparedStatement(str answerDataType, str val) =
+  "$stmt = $mysqli-\>prepare(\"INSERT INTO <title> (`ident`) VALUES (?)\");
+  '$stmt-\>bind_param(\"<preparedStatementShorthand(answerDataType)>\", <val>);
+  '$stmt-\>execute();";
+  
+private str preparedStatementShorthand(str answerDataType) {      
+  switch(answerDataType) {
+    case "boolean": return "b";
+    case "integer": return "i";
+    case "money": return "m";
+    case "date": return "d";
+    case "string": return "s";
+  };
+}
+
+private str validator(str answerDataType, str ident) {
   switch(answerDataType) {
     case "boolean": return validateBoolean(ident);
     case "integer": return validateInteger(ident);
@@ -66,51 +89,17 @@ private str validator(answerDataType, ident) {
   }
 }
 
-private str validateBoolean(ident) =
+private str validateBoolean(str ident) =
   "die(B<ident>);";
   
-private str validateInteger(ident) =
+private str validateInteger(str ident) =
   "die(I<ident>);";
   
-private str validateMoney(ident) =
+private str validateMoney(str ident) =
   "die(M<ident>);";
 
-private str validateDate(ident) =
+private str validateDate(str ident) =
   "die(D<ident>);";
 
-private str validateString(ident) =
+private str validateString(str ident) =
   "die(S<ident>);";
-  
-private str createQuery(answerDataType, ident) =
-  "$<ident> = $_POST[\'<ident>\'];
-  '<preparedStatement(answerDataType, "$<ident>")>";
-  
-private str createQuery(answerDataType, ident, expr) =
-  "$<ident> = <expr>;
-  '<preparedStatement(answerDataType, "$<ident>")>";  
-  
-private str preparedStatement(answerDataType, val) {
-  ret = "$stmt = $mysqli-\>prepare(\"INSERT INTO <title> (`ident`) VALUES (?)\");\n";
-  switch(answerDataType) {
-    case "boolean": ret += preparedStatementBoolean(val);
-    case "integer": ret += preparedStatementInteger(val);
-    case "money": ret += preparedStatementMoney(val);
-    case "date": ret += preparedStatementDate(val);
-    case "string": ret += preparedStatementString(val);
-  }
-  return ret + "\n$stmt-\>execute();";
-}
-private str preparedStatementBoolean(val) = 
-  "$stmt-\>bind_param(\"b\", <val>);";
-  
-private str preparedStatementInteger(val) = 
-  "$stmt-\>bind_param(\"i\", <val>);";
-
-private str preparedStatementMoney(val) = 
-  "$stmt-\>bind_param(\"m\", <val>);";
-
-private str preparedStatementDate(val) = 
-  "$stmt-\>bind_param(\"d\", <val>);";
-
-private str preparedStatementString(val) = 
-  "$stmt-\>bind_param(\"s\", <val>);";
