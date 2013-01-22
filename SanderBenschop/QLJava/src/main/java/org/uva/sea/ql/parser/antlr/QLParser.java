@@ -1,17 +1,18 @@
-// $ANTLR 3.5 /home/sander/Documents/workspace/freshSeaOfQL/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g 2013-01-21 15:40:14
+// $ANTLR 3.5 /home/sander/Documents/workspace/freshSeaOfQL/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g 2013-01-22 10:57:08
 
 package org.uva.sea.ql.parser.antlr;
 import org.uva.sea.ql.ast.*;
 import org.uva.sea.ql.ast.primary.*;
 import org.uva.sea.ql.ast.unary.*;
 import org.uva.sea.ql.ast.binary.*;
-import org.uva.sea.ql.ast.formelement.*;
+import org.uva.sea.ql.ast.statement.*;
 
 
 import org.antlr.runtime.*;
-
+import java.util.Stack;
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Map;
 import java.util.HashMap;
 
 @SuppressWarnings("all")
@@ -614,9 +615,9 @@ public class QLParser extends Parser {
 
 			if ( state.backtracking==0 ) {
 			      if (failure != null) {
-			        result = new Conditional(condition, success, failure);
+			        result = new IfElseStatement(condition, success, failure);
 			      } else {
-			        result = new Conditional(condition, success);
+			        result = new IfStatement(condition, success);
 			      }
 			    }
 			}

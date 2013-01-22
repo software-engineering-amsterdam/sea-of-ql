@@ -15,7 +15,6 @@ import org.uva.sea.ql.ast.primary.Int;
 import org.uva.sea.ql.ast.primary.Str;
 import org.uva.sea.ql.visitor.QLError;
 import org.uva.sea.ql.visitor.typechecking.errors.IdentifierRedeclarationError;
-import org.uva.sea.ql.visitor.typechecking.errors.UndeclaredIdentifierError;
 import org.uva.sea.ql.visitor.typechecking.errors.UnequalTypesError;
 import org.uva.sea.ql.visitor.typechecking.errors.UnsupportedTypeError;
 
@@ -65,12 +64,5 @@ public class TestQLErrors {
         String identifierName = "age";
         QLError error = new IdentifierRedeclarationError(LINE_NUMBER, identifierName);
         assertEquals("Error: attempt to declare identifier with name 'age' on line 42 failed, because it is already defined.", error.getErrorMessage());
-    }
-
-    @Test
-    public void shouldGetUndeclaredIdentifierError() {
-        String identifierName = "age";
-        QLError error = new UndeclaredIdentifierError(LINE_NUMBER, identifierName);
-        assertEquals("Error: unknown identifier with name 'age' on line 42.", error.getErrorMessage());
     }
 }

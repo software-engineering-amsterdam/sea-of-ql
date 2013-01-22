@@ -1,9 +1,11 @@
-package org.uva.sea.ql.parser.stringparsing.formelement;
+package org.uva.sea.ql.parser.stringparsing.statement;
 
 import org.junit.Test;
 import org.uva.sea.ql.ast.QLStatement;
-import org.uva.sea.ql.ast.formelement.Conditional;
-import org.uva.sea.ql.ast.formelement.Question;
+import org.uva.sea.ql.ast.statement.Conditional;
+import org.uva.sea.ql.ast.statement.IfElseStatement;
+import org.uva.sea.ql.ast.statement.IfStatement;
+import org.uva.sea.ql.ast.statement.Question;
 import org.uva.sea.ql.parser.TestParser;
 import org.uva.sea.ql.parser.exception.ParseError;
 
@@ -15,15 +17,15 @@ public class ConditionalTest extends TestParser {
 
     @Test
     public void shouldEvaluateToConditionalClass() throws ParseError {
-        assertEquals(Conditional.class, parseStatement("if(1==2){}").getClass());
-        assertEquals(Conditional.class, parseStatement("if(1==2){} else {}").getClass());
+        assertEquals(IfStatement.class, parseStatement("if(1==2){}").getClass());
+        assertEquals(IfElseStatement.class, parseStatement("if(1==2){} else {}").getClass());
     }
 
     @Test
     public void shouldHaveEmptyBlocks() throws ParseError {
-        Conditional ifStatement = (Conditional) parseStatement("if(1==2){}"), ifElseStatement = (Conditional) parseStatement("if(1==2){} else {}");
+        IfStatement ifStatement = (IfStatement) parseStatement("if(1==2){}");
+        IfElseStatement ifElseStatement = (IfElseStatement) parseStatement("if(1==2){} else {}");
         assertEquals(0, ifStatement.getSuccessBlock().size());
-        assertEquals(0, ifStatement.getFailureBlock().size());
         assertEquals(0, ifElseStatement.getSuccessBlock().size());
         assertEquals(0, ifElseStatement.getFailureBlock().size());
     }
@@ -44,20 +46,20 @@ public class ConditionalTest extends TestParser {
     }
 
     private void assertOuterConditional(String parseText) throws ParseError {
-        Conditional outerConditional = (Conditional) parseStatement(parseText);
+        IfElseStatement outerConditional = (IfElseStatement) parseStatement(parseText);
         List<QLStatement> outerSuccessBlock = outerConditional.getSuccessBlock(), outerFailureBlock = outerConditional.getFailureBlock();
         assertEquals(1, outerSuccessBlock.size());
         assertEquals(1, outerFailureBlock.size());
 
         //Outer successBlock contains inner conditional block.
-        assertInnerConditional((Conditional) outerSuccessBlock.get(0));
+        assertInnerConditional((IfElseStatement) outerSuccessBlock.get(0));
 
         //Outer failureBlock contains Question with identifier name q3.
         Question outerFailureQuestion = (Question) outerFailureBlock.get(0);
         assertEquals("q3", outerFailureQuestion.getIdentifier().getName());
     }
 
-    private void assertInnerConditional(Conditional innerConditional) {
+    private void assertInnerConditional(IfElseStatement innerConditional) {
         List<QLStatement> innerSuccessBlock = innerConditional.getSuccessBlock(), innerFailureBlock = innerConditional.getFailureBlock();
         assertEquals(1, innerSuccessBlock.size());
         assertEquals(1, innerFailureBlock.size());

@@ -4,7 +4,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.uva.sea.ql.ast.binary.BinaryOperation;
 import org.uva.sea.ql.ast.binary.Multiply;
-import org.uva.sea.ql.ast.formelement.Computation;
+import org.uva.sea.ql.ast.statement.Computation;
 import org.uva.sea.ql.ast.primary.*;
 import org.uva.sea.ql.visitor.typechecking.errors.UnsupportedTypeError;
 

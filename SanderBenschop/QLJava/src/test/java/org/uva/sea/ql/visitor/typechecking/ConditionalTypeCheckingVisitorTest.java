@@ -3,9 +3,10 @@ package org.uva.sea.ql.visitor.typechecking;
 import org.junit.Before;
 import org.junit.Test;
 import org.uva.sea.ql.ast.QLStatement;
-import org.uva.sea.ql.ast.formelement.Conditional;
+import org.uva.sea.ql.ast.statement.Conditional;
 import org.uva.sea.ql.ast.primary.Bool;
 import org.uva.sea.ql.ast.primary.Int;
+import org.uva.sea.ql.ast.statement.IfStatement;
 import org.uva.sea.ql.visitor.typechecking.errors.UnsupportedTypeError;
 
 import java.util.Collections;
@@ -27,7 +28,7 @@ public class ConditionalTypeCheckingVisitorTest {
     public void shouldReduceProperly() {
         Bool expression = new Bool(true);
         List<QLStatement> emptyStatementList = Collections.emptyList();
-        Conditional conditional = new Conditional(expression, emptyStatementList);
+        IfStatement conditional = new IfStatement(expression, emptyStatementList);
         typeCheckingVisitor.visitDatatype(expression);
         typeCheckingVisitor.visitConditional(conditional);
 
@@ -38,7 +39,7 @@ public class ConditionalTypeCheckingVisitorTest {
     public void shouldDetectTypeError() {
         Int expression = new Int(0);
         List<QLStatement> emptyStatementList = Collections.emptyList();
-        Conditional conditional = new Conditional(expression, emptyStatementList);
+        IfStatement conditional = new IfStatement(expression, emptyStatementList);
         typeCheckingVisitor.visitDatatype(expression);
         typeCheckingVisitor.visitConditional(conditional);
 

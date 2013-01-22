@@ -1,8 +1,8 @@
-package org.uva.sea.ql.parser.stringparsing.formelement;
+package org.uva.sea.ql.parser.stringparsing.statement;
 
 import org.junit.Test;
 import org.uva.sea.ql.ast.QLStatement;
-import org.uva.sea.ql.ast.formelement.Question;
+import org.uva.sea.ql.ast.statement.Question;
 import org.uva.sea.ql.ast.primary.Bool;
 import org.uva.sea.ql.ast.primary.Int;
 import org.uva.sea.ql.ast.primary.Str;

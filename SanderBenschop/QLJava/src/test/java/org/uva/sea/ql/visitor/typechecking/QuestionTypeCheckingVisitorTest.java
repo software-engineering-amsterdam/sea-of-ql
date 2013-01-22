@@ -4,7 +4,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.uva.sea.ql.ast.binary.BinaryOperation;
 import org.uva.sea.ql.ast.binary.EqualTo;
-import org.uva.sea.ql.ast.formelement.Question;
+import org.uva.sea.ql.ast.statement.Question;
 import org.uva.sea.ql.ast.primary.Ident;
 import org.uva.sea.ql.ast.primary.Int;
 import org.uva.sea.ql.ast.primary.Str;

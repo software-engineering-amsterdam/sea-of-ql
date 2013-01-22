@@ -1,11 +1,12 @@
-package org.uva.sea.ql.parser.stringparsing.formelement;
+package org.uva.sea.ql.parser.stringparsing;
 
 import org.junit.Test;
 import org.uva.sea.ql.ast.QLStatement;
-import org.uva.sea.ql.ast.formelement.Computation;
-import org.uva.sea.ql.ast.formelement.Conditional;
-import org.uva.sea.ql.ast.formelement.Form;
-import org.uva.sea.ql.ast.formelement.Question;
+import org.uva.sea.ql.ast.statement.Computation;
+import org.uva.sea.ql.ast.statement.Conditional;
+import org.uva.sea.ql.ast.Form;
+import org.uva.sea.ql.ast.statement.IfStatement;
+import org.uva.sea.ql.ast.statement.Question;
 import org.uva.sea.ql.parser.TestParser;
 import org.uva.sea.ql.parser.exception.ParseError;
 
@@ -34,7 +35,7 @@ public class CompleteFormTest extends TestParser {
         assertEquals(Question.class, statements.get(0).getClass());
         assertEquals(Question.class, statements.get(1).getClass());
         assertEquals(Question.class, statements.get(2).getClass());
-        assertEquals(Conditional.class, statements.get(3).getClass());
+        assertEquals(IfStatement.class, statements.get(3).getClass());
 
         Conditional conditional = (Conditional) statements.get(3);
         List<QLStatement> conditonalSuccessStatements = conditional.getSuccessBlock();
