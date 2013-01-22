@@ -24,7 +24,6 @@ import org.uva.sea.ql.ast.statement.Branch;
 import org.uva.sea.ql.ast.statement.Form;
 import org.uva.sea.ql.ast.statement.Question;
 
-
 public interface IVisitor<T> {
 
 	//T visit(Primitive ast);

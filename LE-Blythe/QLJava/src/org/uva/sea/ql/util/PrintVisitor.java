@@ -1,5 +1,7 @@
 package org.uva.sea.ql.util;
 
+import java.util.List;
+
 import org.uva.sea.ql.ast.Ident;
 import org.uva.sea.ql.ast.OperatorBinary;
 import org.uva.sea.ql.ast.OperatorUnary;
@@ -25,6 +27,7 @@ import org.uva.sea.ql.ast.statement.Block;
 import org.uva.sea.ql.ast.statement.Branch;
 import org.uva.sea.ql.ast.statement.Form;
 import org.uva.sea.ql.ast.statement.Question;
+import org.uva.sea.ql.errors.Error;
 import org.uva.sea.ql.interfaces.IVisitor;
 
 public class PrintVisitor implements IVisitor<String>{
@@ -168,37 +171,5 @@ public class PrintVisitor implements IVisitor<String>{
 		
 		return UNDEFINED;
 	}
-
-	
-	/*@Override
-	public String visit(OperatorBinaryBoolean operator) {
-		return printOperatorBinary(operator, "boolean ");
-	}
-
-	@Override
-	public String visit(OperatorBinaryNumeric operator) {
-		return printOperatorBinary(operator, "numeric ");
-	}
-
-	@Override
-	public String visit(OperatorBinaryComparative operator) {
-		return printOperatorBinary(operator, "comparative ");
-	}
-
-	@Override
-	public String visit(OperatorUnaryBoolean operator) {
-		return printOperatorUnary(operator, "boolean ");
-	}
-
-	@Override
-	public String visit(OperatorUnaryNumeric operator) {
-		return printOperatorUnary(operator, "numeric ");
-	}
-
-	@Override
-	public String visit(Primitive ast) {
-		return "primitive ";
-	}*/
-
 	
 }
