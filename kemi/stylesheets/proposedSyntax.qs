@@ -11,7 +11,7 @@ boolean {
   type radio
 }
 
-#fieldThree {
+#fieldTwo {
   width 200
 }
 

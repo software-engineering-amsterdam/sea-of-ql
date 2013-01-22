@@ -33,32 +33,3 @@ anno loc Stylesheet@location;
 anno loc Statement@location;
 anno loc ClassRule@location;
 anno loc StyleRule@location;
-
-
-public Statement getClassDefinition(str className, Stylesheet s) {
-  visit(s) {
-    case d:classDefinition(className, _): return d;
-  }
-  //TODO: not found
-}
-
-public Statement getStyleDefinition(StyleIdent ident, Stylesheet s) {
-  visit(s) {
-    case d:styleDefinition(ident, _): return d;
-  }
-  //TODO: not found
-}
-
-public set[StyleRule] getStyleRules(StyleIdent ident, Stylesheet s) =
-  getTypeStyleRules(ident, s) +
-  getClassStyleRules(ident, s) +
-  getQuestionStyleRules(ident, s);
-
-private set[StyleRule] getTypeStyleRules(StyleIdent ident, Stylesheet s) =
-  {};
-
-private set[StyleRule] getClassStyleRules(StyleIdent ident, Stylesheet s) =
-  getStyleDefinition(ident, s).styleRules;
-
-private set[StyleRule] getQuestionStyleRules(StyleIdent ident, Stylesheet s) =
-  getStyleDefinition(ident, s).styleRules;
