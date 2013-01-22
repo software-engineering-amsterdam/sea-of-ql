@@ -1,6 +1,9 @@
 grammar QL;
 //TODO: var_scope, var_declaration, 
 // easy & computed question
+//if(VAR > CONST)
+//if(VAR > 100)
+// IF STATEMENT wie ?!
 options {
 backtrack=true; 
 memoize=true;  
@@ -13,9 +16,9 @@ QUESTION_BLOCK;
 QUESTION_VAR;
 QUESTION_LABEL;
 IF_BLOCK;
-IF_CONDITION;
-IF_CONDITION_TRUE;
-IF_CONDITION_FALSE;
+IF_STATEMENT;
+IF_TRUE;
+IF_FALSE;
 VAR_TYPE;
 VAR_NAME;
 CONST_VAR;
@@ -64,7 +67,7 @@ qDeclaration
 
 // if(x<y) / verschachtelt TODO
 ifStatementExpr 
-	:	 IF  '(' orExpr ')'   Lbr qBodyItemExpr Rbr elseStatementExpr? ->^(IF_BLOCK ^(IF_CONDITION orExpr) ^(IF_CONDITION_TRUE qBodyItemExpr)  ^(IF_CONDITION_FALSE elseStatementExpr)?);
+	:	 IF  '(' orExpr ')'   Lbr qBodyItemExpr Rbr elseStatementExpr? ->^(IF_BLOCK ^(IF_STATEMENT orExpr) ^(IF_TRUE qBodyItemExpr)  ^(IF_FALSE elseStatementExpr)?);
 
 elseStatementExpr
 	:	'else' Lbr qBodyItemExpr Rbr -> qBodyItemExpr;
@@ -79,23 +82,22 @@ constantDeclarationExpr
 qType	
 	: Boolean | Money ;	
 
-
-primary returns [Expr result]
+atom returns [Expr result]
   : Int   { $result = new Int(Integer.parseInt($Int.text)); }
-  | Ident { $result = new Ident($Ident.text); }
+  | Ident { $result = new Ident($Ident.text); } //
   | Boolean {$result = new Bool($Boolean.text);}
-  | QuestionVariable  { $result = new Ident($QuestionVariable.text); } -> ^(VAR_NAME QuestionVariable) //{$result = $QuestionId.result;}
+  | QuestionVariable  { $result = new Ident($QuestionVariable.text);}// $QuestionVariable.text-> ^(VAR_NAME QuestionVariable) //{$result = $QuestionId.result;}
   | Money { $result = new Int(Integer.parseInt($Money.text));}
-  |  '('!  x=orExpr ')'! { $result = $x.result; }  
+  |  '('!  x=orExpr ')'! { $result = $x.result; } 
   ;
   
   //Unary  UNARY_MIN TODO
 unExpr returns [Expr result]
-    :  '+'^ x=unExpr { $result = new Pos($x.result); }
-    |  '-'^ x=unExpr { $result = new Neg($x.result); }
-    |  '!'^ x=unExpr { $result = new Not($x.result); }
-    |  x=primary    { $result = $x.result; }
-    ;    
+    :  '+' x=atom { $result = new Pos($x.result); }
+    |  '-' x=atom { $result = new Neg($x.result); }
+    |  '!' x=atom { $result = new Not($x.result); }
+    |  x=atom    { $result = $x.result; }
+    ;  
     
 mulExpr returns [Expr result]
     :   lhs=unExpr { $result=$lhs.result; } ( op=( '*'^ | '/'^ ) rhs=unExpr 
