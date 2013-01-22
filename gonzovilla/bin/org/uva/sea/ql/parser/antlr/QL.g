@@ -26,7 +26,7 @@ formUnit returns [FormUnit result]
 	;
 
 question returns [Question result]
-	: Ident ':' sentence '(' returnType ')' { $result = new Question($Ident.text, $sentence.text, $returnType.result); }
+	: Ident ':' sentence '(' type ')' { $result = new Question($Ident.text, $sentence.text, $type.result); }
 	;
 	 
 //computedQuestion
@@ -36,7 +36,7 @@ ifStatement returns [IfStatement result]
 	: 'if' '(' orExpr ')' 'then' (formUnit {formUnits.add($formUnit.result);})* 'endif' { $result = new IfStatement($orExpr.result, formUnits); }
 	;  
 
-returnType returns [ReturnType result]
+type returns [Type result]
   : 'Boolean' {$result = new TypeBool();}
   | 'Integer' {$result = new TypeInt();}
   | 'String'  {$result = new TypeString();}
