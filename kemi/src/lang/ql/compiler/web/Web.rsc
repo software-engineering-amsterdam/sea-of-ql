@@ -8,9 +8,11 @@ import lang::ql::compiler::web::SQL;
 
 public loc buildForm(Form form, loc destFolder) {
   destFolder += "<form.formName>/";
+  
   HTML(form, destFolder);
   JS(form, destFolder);
   PHP(form, destFolder);
   SQL(form, destFolder);
+  
   return destFolder;
 }
