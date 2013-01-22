@@ -20,7 +20,7 @@ public Element parseStatement(str src) = parse(#Statement, src);
 
 public Question parseQuestion(str src) = parse(#Question, src);
 
-public Condition parseCondition(str src) = parse(#Condition, src);
+public start[Condition] parseCondition(str src) = parse(#start[Condition], src);
 
 public ElseIf parseElseIf(str src) = parse(#ElseIf, src);
 
