@@ -1,4 +1,4 @@
-package org.uva.sea.ql.astnodevisitor;
+package org.uva.sea.ql.ast.nodevisitor;
 
 public class PrintVisitorResult implements VisitorResult {
 	private String printResult;

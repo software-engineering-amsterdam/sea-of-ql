@@ -1,8 +1,8 @@
 package org.uva.sea.ql.ast.types;
 
 import org.uva.sea.ql.ast.ASTNode;
-import org.uva.sea.ql.astnodevisitor.Visitor;
-import org.uva.sea.ql.astnodevisitor.VisitorResult;
+import org.uva.sea.ql.ast.nodevisitor.Visitor;
+import org.uva.sea.ql.ast.nodevisitor.VisitorResult;
 
 public abstract class TypeDescription implements ASTNode {
 	private String typeName;

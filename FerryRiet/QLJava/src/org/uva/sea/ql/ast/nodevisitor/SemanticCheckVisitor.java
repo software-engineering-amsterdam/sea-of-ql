@@ -1,4 +1,4 @@
-package org.uva.sea.ql.astnodevisitor;
+package org.uva.sea.ql.ast.nodevisitor;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -273,31 +273,26 @@ public class SemanticCheckVisitor implements Visitor {
 
 	@Override
 	public VisitorResult visit(IntLiteral expr) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public VisitorResult visit(StringLiteral expr) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public VisitorResult visit(BooleanLiteral expr) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public VisitorResult visit(Expr expr) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public VisitorResult visit(BinExpr expr) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
