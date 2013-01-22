@@ -39,6 +39,9 @@ NEG_EXPR;
 {
 package org.uva.sea.ql.parser.antlr;
 import org.uva.sea.ql.ast.*;
+import org.uva.sea.ql.ast.nodes.literals.*;
+import org.uva.sea.ql.ast.nodes.*;
+import org.uva.sea.ql.ast.type.*;
 }
 
 @lexer::header
@@ -81,7 +84,7 @@ elseBlock
 	:Else Lbr qContentBlockItem Rbr -> qContentBlockItem
 	;
 	
-		
+		 
 constantValueDeclaration
 	: QuestionVariable  ':' atom -> ^(CONST_VAR ^(CONST_NAME QuestionVariable) ^(CONST_TYPE CONST_TYPE_INT) ^(CONST_VALUE  atom))
 	;
@@ -91,11 +94,11 @@ qType
 	: Boolean | Money ;	
 
 atom returns [Expr result]
-  : Int   { $result = new Int(Integer.parseInt($Int.text)); } -> ^(SINGLE_STATEMENT Int)
+  : Int   { $result = new IntNode(Integer.parseInt($Int.text)); } -> ^(SINGLE_STATEMENT Int)
   | Ident { $result = new Ident($Ident.text); } -> ^(SINGLE_STATEMENT Ident)
-  | Boolean {$result = new Bool($Boolean.text);} -> ^(SINGLE_STATEMENT Boolean)
+  | Boolean {$result = new BoolNode($Boolean.text);} -> ^(SINGLE_STATEMENT Boolean)
   | QuestionVariable  { $result = new Ident($QuestionVariable.text);} -> ^(SINGLE_STATEMENT QuestionVariable)
-  | Money { $result = new Int(Integer.parseInt($Money.text));} -> ^(SINGLE_STATEMENT Money)
+  | Money { $result = new MoneyNode(Integer.parseInt($Money.text));} -> ^(SINGLE_STATEMENT Money)
   |  '('  x=orExpr ')' { $result = $x.result; } -> ^(COMPUTED_STATEMENT orExpr)
   ; 
   

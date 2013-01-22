@@ -1,7 +1,10 @@
-// $ANTLR 3.5 /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g 2013-01-22 07:19:51
+// $ANTLR 3.5 /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g 2013-01-22 08:40:50
 
 package org.uva.sea.ql.parser.antlr;
 import org.uva.sea.ql.ast.*;
+import org.uva.sea.ql.ast.nodes.literals.*;
+import org.uva.sea.ql.ast.nodes.*;
+import org.uva.sea.ql.ast.type.*;
 
 
 import org.antlr.runtime.*;
@@ -89,15 +92,15 @@ public class QLParser extends DebugParser {
 
 
 	public static final String[] ruleNames = new String[] {
-		"invalidRule", "elseBlock", "synpred7_QL", "synpred24_QL", "synpred23_QL", 
-		"synpred3_QL", "qContentBlockItem", "atom", "constantValueDeclaration", 
-		"andExpr", "synpred17_QL", "synpred15_QL", "synpred19_QL", "synpred13_QL", 
-		"synpred8_QL", "synpred25_QL", "mulExpr", "synpred20_QL", "synpred6_QL", 
-		"relExpr", "synpred16_QL", "qType", "qContentBlock", "orExpr", "synpred21_QL", 
-		"synpred26_QL", "synpred14_QL", "unExpr", "ifStatement", "synpred9_QL", 
-		"addExpr", "synpred12_QL", "synpred2_QL", "synpred22_QL", "synpred18_QL", 
-		"synpred5_QL", "questionDeclaration", "parse", "synpred1_QL", "synpred11_QL", 
-		"synpred4_QL", "synpred10_QL"
+		"invalidRule", "andExpr", "synpred12_QL", "synpred20_QL", "synpred23_QL", 
+		"synpred21_QL", "constantValueDeclaration", "qContentBlock", "synpred10_QL", 
+		"relExpr", "orExpr", "synpred8_QL", "elseBlock", "synpred6_QL", "qContentBlockItem", 
+		"parse", "ifStatement", "synpred25_QL", "synpred4_QL", "synpred18_QL", 
+		"synpred7_QL", "synpred22_QL", "synpred13_QL", "atom", "synpred14_QL", 
+		"questionDeclaration", "synpred17_QL", "synpred24_QL", "synpred19_QL", 
+		"unExpr", "qType", "synpred5_QL", "synpred11_QL", "synpred26_QL", "synpred2_QL", 
+		"synpred16_QL", "synpred1_QL", "mulExpr", "synpred3_QL", "synpred15_QL", 
+		"addExpr", "synpred9_QL"
 	};
 
 	public static final boolean[] decisionCanBacktrack = new boolean[] {
@@ -169,7 +172,7 @@ public class QLParser extends DebugParser {
 
 
 	// $ANTLR start "parse"
-	// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:56:1: parse : FormStart FormId qContentBlock EOF -> ^( FormStart qContentBlock ) ;
+	// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:59:1: parse : FormStart FormId qContentBlock EOF -> ^( FormStart qContentBlock ) ;
 	public final QLParser.parse_return parse() throws RecognitionException {
 		QLParser.parse_return retval = new QLParser.parse_return();
 		retval.start = input.LT(1);
@@ -193,28 +196,28 @@ public class QLParser extends DebugParser {
 		try { dbg.enterRule(getGrammarFileName(), "parse");
 		if ( getRuleLevel()==0 ) {dbg.commence();}
 		incRuleLevel();
-		dbg.location(56, 0);
+		dbg.location(59, 0);
 
 		try {
 			if ( state.backtracking>0 && alreadyParsedRule(input, 1) ) { return retval; }
 
-			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:57:2: ( FormStart FormId qContentBlock EOF -> ^( FormStart qContentBlock ) )
+			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:60:2: ( FormStart FormId qContentBlock EOF -> ^( FormStart qContentBlock ) )
 			dbg.enterAlt(1);
 
-			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:57:4: FormStart FormId qContentBlock EOF
+			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:60:4: FormStart FormId qContentBlock EOF
 			{
-			dbg.location(57,4);
+			dbg.location(60,4);
 			FormStart1=(Token)match(input,FormStart,FOLLOW_FormStart_in_parse131); if (state.failed) return retval; 
 			if ( state.backtracking==0 ) stream_FormStart.add(FormStart1);
-			dbg.location(57,14);
+			dbg.location(60,14);
 			FormId2=(Token)match(input,FormId,FOLLOW_FormId_in_parse133); if (state.failed) return retval; 
 			if ( state.backtracking==0 ) stream_FormId.add(FormId2);
-			dbg.location(57,21);
+			dbg.location(60,21);
 			pushFollow(FOLLOW_qContentBlock_in_parse135);
 			qContentBlock3=qContentBlock();
 			state._fsp--;
 			if (state.failed) return retval;
-			if ( state.backtracking==0 ) stream_qContentBlock.add(qContentBlock3.getTree());dbg.location(57,35);
+			if ( state.backtracking==0 ) stream_qContentBlock.add(qContentBlock3.getTree());dbg.location(60,35);
 			EOF4=(Token)match(input,EOF,FOLLOW_EOF_in_parse137); if (state.failed) return retval; 
 			if ( state.backtracking==0 ) stream_EOF.add(EOF4);
 
@@ -230,15 +233,15 @@ public class QLParser extends DebugParser {
 			RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.getTree():null);
 
 			root_0 = (Object)adaptor.nil();
-			// 57:39: -> ^( FormStart qContentBlock )
+			// 60:39: -> ^( FormStart qContentBlock )
 			{
-				dbg.location(57,42);
-				// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:57:42: ^( FormStart qContentBlock )
+				dbg.location(60,42);
+				// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:60:42: ^( FormStart qContentBlock )
 				{
 				Object root_1 = (Object)adaptor.nil();
-				dbg.location(57,44);
+				dbg.location(60,44);
 				root_1 = (Object)adaptor.becomeRoot(stream_FormStart.nextNode(), root_1);
-				dbg.location(57,54);
+				dbg.location(60,54);
 				adaptor.addChild(root_1, stream_qContentBlock.nextTree());
 				adaptor.addChild(root_0, root_1);
 				}
@@ -268,7 +271,7 @@ public class QLParser extends DebugParser {
 			if ( state.backtracking>0 ) { memoize(input, 1, parse_StartIndex); }
 
 		}
-		dbg.location(57, 67);
+		dbg.location(60, 67);
 
 		}
 		finally {
@@ -290,7 +293,7 @@ public class QLParser extends DebugParser {
 
 
 	// $ANTLR start "qContentBlock"
-	// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:61:1: qContentBlock : Lbr qContentBlockItem Rbr -> ^( FormId qContentBlockItem ) ;
+	// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:64:1: qContentBlock : Lbr qContentBlockItem Rbr -> ^( FormId qContentBlockItem ) ;
 	public final QLParser.qContentBlock_return qContentBlock() throws RecognitionException {
 		QLParser.qContentBlock_return retval = new QLParser.qContentBlock_return();
 		retval.start = input.LT(1);
@@ -311,25 +314,25 @@ public class QLParser extends DebugParser {
 		try { dbg.enterRule(getGrammarFileName(), "qContentBlock");
 		if ( getRuleLevel()==0 ) {dbg.commence();}
 		incRuleLevel();
-		dbg.location(61, 0);
+		dbg.location(64, 0);
 
 		try {
 			if ( state.backtracking>0 && alreadyParsedRule(input, 2) ) { return retval; }
 
-			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:63:2: ( Lbr qContentBlockItem Rbr -> ^( FormId qContentBlockItem ) )
+			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:66:2: ( Lbr qContentBlockItem Rbr -> ^( FormId qContentBlockItem ) )
 			dbg.enterAlt(1);
 
-			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:63:5: Lbr qContentBlockItem Rbr
+			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:66:5: Lbr qContentBlockItem Rbr
 			{
-			dbg.location(63,5);
+			dbg.location(66,5);
 			Lbr5=(Token)match(input,Lbr,FOLLOW_Lbr_in_qContentBlock162); if (state.failed) return retval; 
 			if ( state.backtracking==0 ) stream_Lbr.add(Lbr5);
-			dbg.location(63,9);
+			dbg.location(66,9);
 			pushFollow(FOLLOW_qContentBlockItem_in_qContentBlock164);
 			qContentBlockItem6=qContentBlockItem();
 			state._fsp--;
 			if (state.failed) return retval;
-			if ( state.backtracking==0 ) stream_qContentBlockItem.add(qContentBlockItem6.getTree());dbg.location(63,27);
+			if ( state.backtracking==0 ) stream_qContentBlockItem.add(qContentBlockItem6.getTree());dbg.location(66,27);
 			Rbr7=(Token)match(input,Rbr,FOLLOW_Rbr_in_qContentBlock166); if (state.failed) return retval; 
 			if ( state.backtracking==0 ) stream_Rbr.add(Rbr7);
 
@@ -345,15 +348,15 @@ public class QLParser extends DebugParser {
 			RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.getTree():null);
 
 			root_0 = (Object)adaptor.nil();
-			// 63:31: -> ^( FormId qContentBlockItem )
+			// 66:31: -> ^( FormId qContentBlockItem )
 			{
-				dbg.location(63,33);
-				// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:63:33: ^( FormId qContentBlockItem )
+				dbg.location(66,33);
+				// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:66:33: ^( FormId qContentBlockItem )
 				{
 				Object root_1 = (Object)adaptor.nil();
-				dbg.location(63,35);
+				dbg.location(66,35);
 				root_1 = (Object)adaptor.becomeRoot((Object)adaptor.create(FormId, "FormId"), root_1);
-				dbg.location(63,42);
+				dbg.location(66,42);
 				adaptor.addChild(root_1, stream_qContentBlockItem.nextTree());
 				adaptor.addChild(root_0, root_1);
 				}
@@ -383,7 +386,7 @@ public class QLParser extends DebugParser {
 			if ( state.backtracking>0 ) { memoize(input, 2, qContentBlock_StartIndex); }
 
 		}
-		dbg.location(63, 59);
+		dbg.location(66, 59);
 
 		}
 		finally {
@@ -405,7 +408,7 @@ public class QLParser extends DebugParser {
 
 
 	// $ANTLR start "qContentBlockItem"
-	// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:65:1: qContentBlockItem : ( constantValueDeclaration | questionDeclaration | ifStatement )* ;
+	// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:68:1: qContentBlockItem : ( constantValueDeclaration | questionDeclaration | ifStatement )* ;
 	public final QLParser.qContentBlockItem_return qContentBlockItem() throws RecognitionException {
 		QLParser.qContentBlockItem_return retval = new QLParser.qContentBlockItem_return();
 		retval.start = input.LT(1);
@@ -421,21 +424,21 @@ public class QLParser extends DebugParser {
 		try { dbg.enterRule(getGrammarFileName(), "qContentBlockItem");
 		if ( getRuleLevel()==0 ) {dbg.commence();}
 		incRuleLevel();
-		dbg.location(65, 0);
+		dbg.location(68, 0);
 
 		try {
 			if ( state.backtracking>0 && alreadyParsedRule(input, 3) ) { return retval; }
 
-			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:66:2: ( ( constantValueDeclaration | questionDeclaration | ifStatement )* )
+			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:69:2: ( ( constantValueDeclaration | questionDeclaration | ifStatement )* )
 			dbg.enterAlt(1);
 
-			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:66:4: ( constantValueDeclaration | questionDeclaration | ifStatement )*
+			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:69:4: ( constantValueDeclaration | questionDeclaration | ifStatement )*
 			{
 			root_0 = (Object)adaptor.nil();
 
 
-			dbg.location(66,4);
-			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:66:4: ( constantValueDeclaration | questionDeclaration | ifStatement )*
+			dbg.location(69,4);
+			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:69:4: ( constantValueDeclaration | questionDeclaration | ifStatement )*
 			try { dbg.enterSubRule(1);
 
 			loop1:
@@ -468,9 +471,9 @@ public class QLParser extends DebugParser {
 				case 1 :
 					dbg.enterAlt(1);
 
-					// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:66:5: constantValueDeclaration
+					// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:69:5: constantValueDeclaration
 					{
-					dbg.location(66,5);
+					dbg.location(69,5);
 					pushFollow(FOLLOW_constantValueDeclaration_in_qContentBlockItem184);
 					constantValueDeclaration8=constantValueDeclaration();
 					state._fsp--;
@@ -482,9 +485,9 @@ public class QLParser extends DebugParser {
 				case 2 :
 					dbg.enterAlt(2);
 
-					// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:66:32: questionDeclaration
+					// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:69:32: questionDeclaration
 					{
-					dbg.location(66,32);
+					dbg.location(69,32);
 					pushFollow(FOLLOW_questionDeclaration_in_qContentBlockItem188);
 					questionDeclaration9=questionDeclaration();
 					state._fsp--;
@@ -496,9 +499,9 @@ public class QLParser extends DebugParser {
 				case 3 :
 					dbg.enterAlt(3);
 
-					// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:66:55: ifStatement
+					// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:69:55: ifStatement
 					{
-					dbg.location(66,55);
+					dbg.location(69,55);
 					pushFollow(FOLLOW_ifStatement_in_qContentBlockItem193);
 					ifStatement10=ifStatement();
 					state._fsp--;
@@ -533,7 +536,7 @@ public class QLParser extends DebugParser {
 			if ( state.backtracking>0 ) { memoize(input, 3, qContentBlockItem_StartIndex); }
 
 		}
-		dbg.location(66, 68);
+		dbg.location(69, 68);
 
 		}
 		finally {
@@ -555,7 +558,7 @@ public class QLParser extends DebugParser {
 
 
 	// $ANTLR start "questionDeclaration"
-	// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:69:1: questionDeclaration : QuestionVariable ':' QuestionLabel qType ( '(' orExpr ')' )? -> ^( QUESTION_BLOCK ^( QUESTION_VAR ^( VAR_NAME QuestionVariable ) ^( VAR_TYPE qType ) ( ^( VAR_VALUE ^( COMPUTED_STATEMENT orExpr ) ) )? ) ^( QUESTION_LABEL QuestionLabel ) ) ;
+	// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:72:1: questionDeclaration : QuestionVariable ':' QuestionLabel qType ( '(' orExpr ')' )? -> ^( QUESTION_BLOCK ^( QUESTION_VAR ^( VAR_NAME QuestionVariable ) ^( VAR_TYPE qType ) ( ^( VAR_VALUE ^( COMPUTED_STATEMENT orExpr ) ) )? ) ^( QUESTION_LABEL QuestionLabel ) ) ;
 	public final QLParser.questionDeclaration_return questionDeclaration() throws RecognitionException {
 		QLParser.questionDeclaration_return retval = new QLParser.questionDeclaration_return();
 		retval.start = input.LT(1);
@@ -587,32 +590,32 @@ public class QLParser extends DebugParser {
 		try { dbg.enterRule(getGrammarFileName(), "questionDeclaration");
 		if ( getRuleLevel()==0 ) {dbg.commence();}
 		incRuleLevel();
-		dbg.location(69, 0);
+		dbg.location(72, 0);
 
 		try {
 			if ( state.backtracking>0 && alreadyParsedRule(input, 4) ) { return retval; }
 
-			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:70:2: ( QuestionVariable ':' QuestionLabel qType ( '(' orExpr ')' )? -> ^( QUESTION_BLOCK ^( QUESTION_VAR ^( VAR_NAME QuestionVariable ) ^( VAR_TYPE qType ) ( ^( VAR_VALUE ^( COMPUTED_STATEMENT orExpr ) ) )? ) ^( QUESTION_LABEL QuestionLabel ) ) )
+			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:73:2: ( QuestionVariable ':' QuestionLabel qType ( '(' orExpr ')' )? -> ^( QUESTION_BLOCK ^( QUESTION_VAR ^( VAR_NAME QuestionVariable ) ^( VAR_TYPE qType ) ( ^( VAR_VALUE ^( COMPUTED_STATEMENT orExpr ) ) )? ) ^( QUESTION_LABEL QuestionLabel ) ) )
 			dbg.enterAlt(1);
 
-			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:70:4: QuestionVariable ':' QuestionLabel qType ( '(' orExpr ')' )?
+			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:73:4: QuestionVariable ':' QuestionLabel qType ( '(' orExpr ')' )?
 			{
-			dbg.location(70,4);
+			dbg.location(73,4);
 			QuestionVariable11=(Token)match(input,QuestionVariable,FOLLOW_QuestionVariable_in_questionDeclaration208); if (state.failed) return retval; 
 			if ( state.backtracking==0 ) stream_QuestionVariable.add(QuestionVariable11);
-			dbg.location(70,22);
+			dbg.location(73,22);
 			char_literal12=(Token)match(input,47,FOLLOW_47_in_questionDeclaration211); if (state.failed) return retval; 
 			if ( state.backtracking==0 ) stream_47.add(char_literal12);
-			dbg.location(70,26);
+			dbg.location(73,26);
 			QuestionLabel13=(Token)match(input,QuestionLabel,FOLLOW_QuestionLabel_in_questionDeclaration213); if (state.failed) return retval; 
 			if ( state.backtracking==0 ) stream_QuestionLabel.add(QuestionLabel13);
-			dbg.location(70,40);
+			dbg.location(73,40);
 			pushFollow(FOLLOW_qType_in_questionDeclaration215);
 			qType14=qType();
 			state._fsp--;
 			if (state.failed) return retval;
-			if ( state.backtracking==0 ) stream_qType.add(qType14.getTree());dbg.location(70,46);
-			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:70:46: ( '(' orExpr ')' )?
+			if ( state.backtracking==0 ) stream_qType.add(qType14.getTree());dbg.location(73,46);
+			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:73:46: ( '(' orExpr ')' )?
 			int alt2=2;
 			try { dbg.enterSubRule(2);
 			try { dbg.enterDecision(2, decisionCanBacktrack[2]);
@@ -627,17 +630,17 @@ public class QLParser extends DebugParser {
 				case 1 :
 					dbg.enterAlt(1);
 
-					// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:70:47: '(' orExpr ')'
+					// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:73:47: '(' orExpr ')'
 					{
-					dbg.location(70,47);
+					dbg.location(73,47);
 					char_literal15=(Token)match(input,41,FOLLOW_41_in_questionDeclaration218); if (state.failed) return retval; 
 					if ( state.backtracking==0 ) stream_41.add(char_literal15);
-					dbg.location(70,51);
+					dbg.location(73,51);
 					pushFollow(FOLLOW_orExpr_in_questionDeclaration220);
 					orExpr16=orExpr();
 					state._fsp--;
 					if (state.failed) return retval;
-					if ( state.backtracking==0 ) stream_orExpr.add(orExpr16.getTree());dbg.location(70,58);
+					if ( state.backtracking==0 ) stream_orExpr.add(orExpr16.getTree());dbg.location(73,58);
 					char_literal17=(Token)match(input,42,FOLLOW_42_in_questionDeclaration222); if (state.failed) return retval; 
 					if ( state.backtracking==0 ) stream_42.add(char_literal17);
 
@@ -648,7 +651,7 @@ public class QLParser extends DebugParser {
 			} finally {dbg.exitSubRule(2);}
 
 			// AST REWRITE
-			// elements: QuestionLabel, orExpr, QuestionVariable, qType
+			// elements: orExpr, QuestionLabel, QuestionVariable, qType
 			// token labels: 
 			// rule labels: retval
 			// token list labels: 
@@ -659,56 +662,56 @@ public class QLParser extends DebugParser {
 			RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.getTree():null);
 
 			root_0 = (Object)adaptor.nil();
-			// 70:65: -> ^( QUESTION_BLOCK ^( QUESTION_VAR ^( VAR_NAME QuestionVariable ) ^( VAR_TYPE qType ) ( ^( VAR_VALUE ^( COMPUTED_STATEMENT orExpr ) ) )? ) ^( QUESTION_LABEL QuestionLabel ) )
+			// 73:65: -> ^( QUESTION_BLOCK ^( QUESTION_VAR ^( VAR_NAME QuestionVariable ) ^( VAR_TYPE qType ) ( ^( VAR_VALUE ^( COMPUTED_STATEMENT orExpr ) ) )? ) ^( QUESTION_LABEL QuestionLabel ) )
 			{
-				dbg.location(70,67);
-				// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:70:67: ^( QUESTION_BLOCK ^( QUESTION_VAR ^( VAR_NAME QuestionVariable ) ^( VAR_TYPE qType ) ( ^( VAR_VALUE ^( COMPUTED_STATEMENT orExpr ) ) )? ) ^( QUESTION_LABEL QuestionLabel ) )
+				dbg.location(73,67);
+				// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:73:67: ^( QUESTION_BLOCK ^( QUESTION_VAR ^( VAR_NAME QuestionVariable ) ^( VAR_TYPE qType ) ( ^( VAR_VALUE ^( COMPUTED_STATEMENT orExpr ) ) )? ) ^( QUESTION_LABEL QuestionLabel ) )
 				{
 				Object root_1 = (Object)adaptor.nil();
-				dbg.location(70,69);
+				dbg.location(73,69);
 				root_1 = (Object)adaptor.becomeRoot((Object)adaptor.create(QUESTION_BLOCK, "QUESTION_BLOCK"), root_1);
-				dbg.location(70,84);
-				// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:70:84: ^( QUESTION_VAR ^( VAR_NAME QuestionVariable ) ^( VAR_TYPE qType ) ( ^( VAR_VALUE ^( COMPUTED_STATEMENT orExpr ) ) )? )
+				dbg.location(73,84);
+				// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:73:84: ^( QUESTION_VAR ^( VAR_NAME QuestionVariable ) ^( VAR_TYPE qType ) ( ^( VAR_VALUE ^( COMPUTED_STATEMENT orExpr ) ) )? )
 				{
 				Object root_2 = (Object)adaptor.nil();
-				dbg.location(70,86);
+				dbg.location(73,86);
 				root_2 = (Object)adaptor.becomeRoot((Object)adaptor.create(QUESTION_VAR, "QUESTION_VAR"), root_2);
-				dbg.location(70,99);
-				// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:70:99: ^( VAR_NAME QuestionVariable )
+				dbg.location(73,99);
+				// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:73:99: ^( VAR_NAME QuestionVariable )
 				{
 				Object root_3 = (Object)adaptor.nil();
-				dbg.location(70,101);
+				dbg.location(73,101);
 				root_3 = (Object)adaptor.becomeRoot((Object)adaptor.create(VAR_NAME, "VAR_NAME"), root_3);
-				dbg.location(70,110);
+				dbg.location(73,110);
 				adaptor.addChild(root_3, stream_QuestionVariable.nextNode());
 				adaptor.addChild(root_2, root_3);
 				}
-				dbg.location(70,128);
-				// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:70:128: ^( VAR_TYPE qType )
+				dbg.location(73,128);
+				// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:73:128: ^( VAR_TYPE qType )
 				{
 				Object root_3 = (Object)adaptor.nil();
-				dbg.location(70,130);
+				dbg.location(73,130);
 				root_3 = (Object)adaptor.becomeRoot((Object)adaptor.create(VAR_TYPE, "VAR_TYPE"), root_3);
-				dbg.location(70,139);
+				dbg.location(73,139);
 				adaptor.addChild(root_3, stream_qType.nextTree());
 				adaptor.addChild(root_2, root_3);
 				}
-				dbg.location(70,146);
-				// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:70:146: ( ^( VAR_VALUE ^( COMPUTED_STATEMENT orExpr ) ) )?
+				dbg.location(73,146);
+				// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:73:146: ( ^( VAR_VALUE ^( COMPUTED_STATEMENT orExpr ) ) )?
 				if ( stream_orExpr.hasNext() ) {
-					dbg.location(70,146);
-					// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:70:146: ^( VAR_VALUE ^( COMPUTED_STATEMENT orExpr ) )
+					dbg.location(73,146);
+					// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:73:146: ^( VAR_VALUE ^( COMPUTED_STATEMENT orExpr ) )
 					{
 					Object root_3 = (Object)adaptor.nil();
-					dbg.location(70,148);
+					dbg.location(73,148);
 					root_3 = (Object)adaptor.becomeRoot((Object)adaptor.create(VAR_VALUE, "VAR_VALUE"), root_3);
-					dbg.location(70,158);
-					// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:70:158: ^( COMPUTED_STATEMENT orExpr )
+					dbg.location(73,158);
+					// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:73:158: ^( COMPUTED_STATEMENT orExpr )
 					{
 					Object root_4 = (Object)adaptor.nil();
-					dbg.location(70,160);
+					dbg.location(73,160);
 					root_4 = (Object)adaptor.becomeRoot((Object)adaptor.create(COMPUTED_STATEMENT, "COMPUTED_STATEMENT"), root_4);
-					dbg.location(70,179);
+					dbg.location(73,179);
 					adaptor.addChild(root_4, stream_orExpr.nextTree());
 					adaptor.addChild(root_3, root_4);
 					}
@@ -721,13 +724,13 @@ public class QLParser extends DebugParser {
 
 				adaptor.addChild(root_1, root_2);
 				}
-				dbg.location(70,191);
-				// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:70:191: ^( QUESTION_LABEL QuestionLabel )
+				dbg.location(73,191);
+				// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:73:191: ^( QUESTION_LABEL QuestionLabel )
 				{
 				Object root_2 = (Object)adaptor.nil();
-				dbg.location(70,193);
+				dbg.location(73,193);
 				root_2 = (Object)adaptor.becomeRoot((Object)adaptor.create(QUESTION_LABEL, "QUESTION_LABEL"), root_2);
-				dbg.location(70,208);
+				dbg.location(73,208);
 				adaptor.addChild(root_2, stream_QuestionLabel.nextNode());
 				adaptor.addChild(root_1, root_2);
 				}
@@ -760,7 +763,7 @@ public class QLParser extends DebugParser {
 			if ( state.backtracking>0 ) { memoize(input, 4, questionDeclaration_StartIndex); }
 
 		}
-		dbg.location(71, 2);
+		dbg.location(74, 2);
 
 		}
 		finally {
@@ -782,7 +785,7 @@ public class QLParser extends DebugParser {
 
 
 	// $ANTLR start "ifStatement"
-	// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:76:1: ifStatement : If '(' orExpr ')' Lbr qContentBlockItem Rbr ( elseBlock )? -> ^( IF_BLOCK ^( IF_EXPRESSION orExpr ) ^( IF_TRUE qContentBlockItem ) ( ^( IF_FALSE elseBlock ) )? ) ;
+	// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:79:1: ifStatement : If '(' orExpr ')' Lbr qContentBlockItem Rbr ( elseBlock )? -> ^( IF_BLOCK ^( IF_EXPRESSION orExpr ) ^( IF_TRUE qContentBlockItem ) ( ^( IF_FALSE elseBlock ) )? ) ;
 	public final QLParser.ifStatement_return ifStatement() throws RecognitionException {
 		QLParser.ifStatement_return retval = new QLParser.ifStatement_return();
 		retval.start = input.LT(1);
@@ -816,43 +819,43 @@ public class QLParser extends DebugParser {
 		try { dbg.enterRule(getGrammarFileName(), "ifStatement");
 		if ( getRuleLevel()==0 ) {dbg.commence();}
 		incRuleLevel();
-		dbg.location(76, 0);
+		dbg.location(79, 0);
 
 		try {
 			if ( state.backtracking>0 && alreadyParsedRule(input, 5) ) { return retval; }
 
-			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:77:2: ( If '(' orExpr ')' Lbr qContentBlockItem Rbr ( elseBlock )? -> ^( IF_BLOCK ^( IF_EXPRESSION orExpr ) ^( IF_TRUE qContentBlockItem ) ( ^( IF_FALSE elseBlock ) )? ) )
+			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:80:2: ( If '(' orExpr ')' Lbr qContentBlockItem Rbr ( elseBlock )? -> ^( IF_BLOCK ^( IF_EXPRESSION orExpr ) ^( IF_TRUE qContentBlockItem ) ( ^( IF_FALSE elseBlock ) )? ) )
 			dbg.enterAlt(1);
 
-			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:77:3: If '(' orExpr ')' Lbr qContentBlockItem Rbr ( elseBlock )?
+			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:80:3: If '(' orExpr ')' Lbr qContentBlockItem Rbr ( elseBlock )?
 			{
-			dbg.location(77,3);
+			dbg.location(80,3);
 			If18=(Token)match(input,If,FOLLOW_If_in_ifStatement281); if (state.failed) return retval; 
 			if ( state.backtracking==0 ) stream_If.add(If18);
-			dbg.location(77,7);
+			dbg.location(80,7);
 			char_literal19=(Token)match(input,41,FOLLOW_41_in_ifStatement284); if (state.failed) return retval; 
 			if ( state.backtracking==0 ) stream_41.add(char_literal19);
-			dbg.location(77,11);
+			dbg.location(80,11);
 			pushFollow(FOLLOW_orExpr_in_ifStatement286);
 			orExpr20=orExpr();
 			state._fsp--;
 			if (state.failed) return retval;
-			if ( state.backtracking==0 ) stream_orExpr.add(orExpr20.getTree());dbg.location(77,19);
+			if ( state.backtracking==0 ) stream_orExpr.add(orExpr20.getTree());dbg.location(80,19);
 			char_literal21=(Token)match(input,42,FOLLOW_42_in_ifStatement289); if (state.failed) return retval; 
 			if ( state.backtracking==0 ) stream_42.add(char_literal21);
-			dbg.location(77,23);
+			dbg.location(80,23);
 			Lbr22=(Token)match(input,Lbr,FOLLOW_Lbr_in_ifStatement291); if (state.failed) return retval; 
 			if ( state.backtracking==0 ) stream_Lbr.add(Lbr22);
-			dbg.location(77,27);
+			dbg.location(80,27);
 			pushFollow(FOLLOW_qContentBlockItem_in_ifStatement293);
 			qContentBlockItem23=qContentBlockItem();
 			state._fsp--;
 			if (state.failed) return retval;
-			if ( state.backtracking==0 ) stream_qContentBlockItem.add(qContentBlockItem23.getTree());dbg.location(77,45);
+			if ( state.backtracking==0 ) stream_qContentBlockItem.add(qContentBlockItem23.getTree());dbg.location(80,45);
 			Rbr24=(Token)match(input,Rbr,FOLLOW_Rbr_in_ifStatement295); if (state.failed) return retval; 
 			if ( state.backtracking==0 ) stream_Rbr.add(Rbr24);
-			dbg.location(77,50);
-			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:77:50: ( elseBlock )?
+			dbg.location(80,50);
+			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:80:50: ( elseBlock )?
 			int alt3=2;
 			try { dbg.enterSubRule(3);
 			try { dbg.enterDecision(3, decisionCanBacktrack[3]);
@@ -867,9 +870,9 @@ public class QLParser extends DebugParser {
 				case 1 :
 					dbg.enterAlt(1);
 
-					// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:77:50: elseBlock
+					// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:80:50: elseBlock
 					{
-					dbg.location(77,50);
+					dbg.location(80,50);
 					pushFollow(FOLLOW_elseBlock_in_ifStatement298);
 					elseBlock25=elseBlock();
 					state._fsp--;
@@ -882,7 +885,7 @@ public class QLParser extends DebugParser {
 			} finally {dbg.exitSubRule(3);}
 
 			// AST REWRITE
-			// elements: orExpr, qContentBlockItem, elseBlock
+			// elements: qContentBlockItem, elseBlock, orExpr
 			// token labels: 
 			// rule labels: retval
 			// token list labels: 
@@ -893,44 +896,44 @@ public class QLParser extends DebugParser {
 			RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.getTree():null);
 
 			root_0 = (Object)adaptor.nil();
-			// 77:62: -> ^( IF_BLOCK ^( IF_EXPRESSION orExpr ) ^( IF_TRUE qContentBlockItem ) ( ^( IF_FALSE elseBlock ) )? )
+			// 80:62: -> ^( IF_BLOCK ^( IF_EXPRESSION orExpr ) ^( IF_TRUE qContentBlockItem ) ( ^( IF_FALSE elseBlock ) )? )
 			{
-				dbg.location(77,64);
-				// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:77:64: ^( IF_BLOCK ^( IF_EXPRESSION orExpr ) ^( IF_TRUE qContentBlockItem ) ( ^( IF_FALSE elseBlock ) )? )
+				dbg.location(80,64);
+				// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:80:64: ^( IF_BLOCK ^( IF_EXPRESSION orExpr ) ^( IF_TRUE qContentBlockItem ) ( ^( IF_FALSE elseBlock ) )? )
 				{
 				Object root_1 = (Object)adaptor.nil();
-				dbg.location(77,66);
+				dbg.location(80,66);
 				root_1 = (Object)adaptor.becomeRoot((Object)adaptor.create(IF_BLOCK, "IF_BLOCK"), root_1);
-				dbg.location(77,75);
-				// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:77:75: ^( IF_EXPRESSION orExpr )
+				dbg.location(80,75);
+				// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:80:75: ^( IF_EXPRESSION orExpr )
 				{
 				Object root_2 = (Object)adaptor.nil();
-				dbg.location(77,77);
+				dbg.location(80,77);
 				root_2 = (Object)adaptor.becomeRoot((Object)adaptor.create(IF_EXPRESSION, "IF_EXPRESSION"), root_2);
-				dbg.location(77,92);
+				dbg.location(80,92);
 				adaptor.addChild(root_2, stream_orExpr.nextTree());
 				adaptor.addChild(root_1, root_2);
 				}
-				dbg.location(77,100);
-				// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:77:100: ^( IF_TRUE qContentBlockItem )
+				dbg.location(80,100);
+				// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:80:100: ^( IF_TRUE qContentBlockItem )
 				{
 				Object root_2 = (Object)adaptor.nil();
-				dbg.location(77,102);
+				dbg.location(80,102);
 				root_2 = (Object)adaptor.becomeRoot((Object)adaptor.create(IF_TRUE, "IF_TRUE"), root_2);
-				dbg.location(77,110);
+				dbg.location(80,110);
 				adaptor.addChild(root_2, stream_qContentBlockItem.nextTree());
 				adaptor.addChild(root_1, root_2);
 				}
-				dbg.location(77,129);
-				// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:77:129: ( ^( IF_FALSE elseBlock ) )?
+				dbg.location(80,129);
+				// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:80:129: ( ^( IF_FALSE elseBlock ) )?
 				if ( stream_elseBlock.hasNext() ) {
-					dbg.location(77,129);
-					// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:77:129: ^( IF_FALSE elseBlock )
+					dbg.location(80,129);
+					// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:80:129: ^( IF_FALSE elseBlock )
 					{
 					Object root_2 = (Object)adaptor.nil();
-					dbg.location(77,131);
+					dbg.location(80,131);
 					root_2 = (Object)adaptor.becomeRoot((Object)adaptor.create(IF_FALSE, "IF_FALSE"), root_2);
-					dbg.location(77,140);
+					dbg.location(80,140);
 					adaptor.addChild(root_2, stream_elseBlock.nextTree());
 					adaptor.addChild(root_1, root_2);
 					}
@@ -966,7 +969,7 @@ public class QLParser extends DebugParser {
 			if ( state.backtracking>0 ) { memoize(input, 5, ifStatement_StartIndex); }
 
 		}
-		dbg.location(78, 1);
+		dbg.location(81, 1);
 
 		}
 		finally {
@@ -988,7 +991,7 @@ public class QLParser extends DebugParser {
 
 
 	// $ANTLR start "elseBlock"
-	// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:80:1: elseBlock : Else Lbr qContentBlockItem Rbr -> qContentBlockItem ;
+	// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:83:1: elseBlock : Else Lbr qContentBlockItem Rbr -> qContentBlockItem ;
 	public final QLParser.elseBlock_return elseBlock() throws RecognitionException {
 		QLParser.elseBlock_return retval = new QLParser.elseBlock_return();
 		retval.start = input.LT(1);
@@ -1012,28 +1015,28 @@ public class QLParser extends DebugParser {
 		try { dbg.enterRule(getGrammarFileName(), "elseBlock");
 		if ( getRuleLevel()==0 ) {dbg.commence();}
 		incRuleLevel();
-		dbg.location(80, 0);
+		dbg.location(83, 0);
 
 		try {
 			if ( state.backtracking>0 && alreadyParsedRule(input, 6) ) { return retval; }
 
-			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:81:2: ( Else Lbr qContentBlockItem Rbr -> qContentBlockItem )
+			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:84:2: ( Else Lbr qContentBlockItem Rbr -> qContentBlockItem )
 			dbg.enterAlt(1);
 
-			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:81:3: Else Lbr qContentBlockItem Rbr
+			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:84:3: Else Lbr qContentBlockItem Rbr
 			{
-			dbg.location(81,3);
+			dbg.location(84,3);
 			Else26=(Token)match(input,Else,FOLLOW_Else_in_elseBlock336); if (state.failed) return retval; 
 			if ( state.backtracking==0 ) stream_Else.add(Else26);
-			dbg.location(81,8);
+			dbg.location(84,8);
 			Lbr27=(Token)match(input,Lbr,FOLLOW_Lbr_in_elseBlock338); if (state.failed) return retval; 
 			if ( state.backtracking==0 ) stream_Lbr.add(Lbr27);
-			dbg.location(81,12);
+			dbg.location(84,12);
 			pushFollow(FOLLOW_qContentBlockItem_in_elseBlock340);
 			qContentBlockItem28=qContentBlockItem();
 			state._fsp--;
 			if (state.failed) return retval;
-			if ( state.backtracking==0 ) stream_qContentBlockItem.add(qContentBlockItem28.getTree());dbg.location(81,30);
+			if ( state.backtracking==0 ) stream_qContentBlockItem.add(qContentBlockItem28.getTree());dbg.location(84,30);
 			Rbr29=(Token)match(input,Rbr,FOLLOW_Rbr_in_elseBlock342); if (state.failed) return retval; 
 			if ( state.backtracking==0 ) stream_Rbr.add(Rbr29);
 
@@ -1049,9 +1052,9 @@ public class QLParser extends DebugParser {
 			RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.getTree():null);
 
 			root_0 = (Object)adaptor.nil();
-			// 81:34: -> qContentBlockItem
+			// 84:34: -> qContentBlockItem
 			{
-				dbg.location(81,37);
+				dbg.location(84,37);
 				adaptor.addChild(root_0, stream_qContentBlockItem.nextTree());
 			}
 
@@ -1078,7 +1081,7 @@ public class QLParser extends DebugParser {
 			if ( state.backtracking>0 ) { memoize(input, 6, elseBlock_StartIndex); }
 
 		}
-		dbg.location(82, 1);
+		dbg.location(85, 1);
 
 		}
 		finally {
@@ -1100,7 +1103,7 @@ public class QLParser extends DebugParser {
 
 
 	// $ANTLR start "constantValueDeclaration"
-	// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:85:1: constantValueDeclaration : QuestionVariable ':' atom -> ^( CONST_VAR ^( CONST_NAME QuestionVariable ) ^( CONST_TYPE CONST_TYPE_INT ) ^( CONST_VALUE atom ) ) ;
+	// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:88:1: constantValueDeclaration : QuestionVariable ':' atom -> ^( CONST_VAR ^( CONST_NAME QuestionVariable ) ^( CONST_TYPE CONST_TYPE_INT ) ^( CONST_VALUE atom ) ) ;
 	public final QLParser.constantValueDeclaration_return constantValueDeclaration() throws RecognitionException {
 		QLParser.constantValueDeclaration_return retval = new QLParser.constantValueDeclaration_return();
 		retval.start = input.LT(1);
@@ -1121,24 +1124,24 @@ public class QLParser extends DebugParser {
 		try { dbg.enterRule(getGrammarFileName(), "constantValueDeclaration");
 		if ( getRuleLevel()==0 ) {dbg.commence();}
 		incRuleLevel();
-		dbg.location(85, 0);
+		dbg.location(88, 0);
 
 		try {
 			if ( state.backtracking>0 && alreadyParsedRule(input, 7) ) { return retval; }
 
-			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:86:2: ( QuestionVariable ':' atom -> ^( CONST_VAR ^( CONST_NAME QuestionVariable ) ^( CONST_TYPE CONST_TYPE_INT ) ^( CONST_VALUE atom ) ) )
+			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:89:2: ( QuestionVariable ':' atom -> ^( CONST_VAR ^( CONST_NAME QuestionVariable ) ^( CONST_TYPE CONST_TYPE_INT ) ^( CONST_VALUE atom ) ) )
 			dbg.enterAlt(1);
 
-			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:86:4: QuestionVariable ':' atom
+			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:89:4: QuestionVariable ':' atom
 			{
-			dbg.location(86,4);
-			QuestionVariable30=(Token)match(input,QuestionVariable,FOLLOW_QuestionVariable_in_constantValueDeclaration361); if (state.failed) return retval; 
+			dbg.location(89,4);
+			QuestionVariable30=(Token)match(input,QuestionVariable,FOLLOW_QuestionVariable_in_constantValueDeclaration362); if (state.failed) return retval; 
 			if ( state.backtracking==0 ) stream_QuestionVariable.add(QuestionVariable30);
-			dbg.location(86,22);
-			char_literal31=(Token)match(input,47,FOLLOW_47_in_constantValueDeclaration364); if (state.failed) return retval; 
+			dbg.location(89,22);
+			char_literal31=(Token)match(input,47,FOLLOW_47_in_constantValueDeclaration365); if (state.failed) return retval; 
 			if ( state.backtracking==0 ) stream_47.add(char_literal31);
-			dbg.location(86,26);
-			pushFollow(FOLLOW_atom_in_constantValueDeclaration366);
+			dbg.location(89,26);
+			pushFollow(FOLLOW_atom_in_constantValueDeclaration367);
 			atom32=atom();
 			state._fsp--;
 			if (state.failed) return retval;
@@ -1155,41 +1158,41 @@ public class QLParser extends DebugParser {
 			RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.getTree():null);
 
 			root_0 = (Object)adaptor.nil();
-			// 86:31: -> ^( CONST_VAR ^( CONST_NAME QuestionVariable ) ^( CONST_TYPE CONST_TYPE_INT ) ^( CONST_VALUE atom ) )
+			// 89:31: -> ^( CONST_VAR ^( CONST_NAME QuestionVariable ) ^( CONST_TYPE CONST_TYPE_INT ) ^( CONST_VALUE atom ) )
 			{
-				dbg.location(86,34);
-				// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:86:34: ^( CONST_VAR ^( CONST_NAME QuestionVariable ) ^( CONST_TYPE CONST_TYPE_INT ) ^( CONST_VALUE atom ) )
+				dbg.location(89,34);
+				// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:89:34: ^( CONST_VAR ^( CONST_NAME QuestionVariable ) ^( CONST_TYPE CONST_TYPE_INT ) ^( CONST_VALUE atom ) )
 				{
 				Object root_1 = (Object)adaptor.nil();
-				dbg.location(86,36);
+				dbg.location(89,36);
 				root_1 = (Object)adaptor.becomeRoot((Object)adaptor.create(CONST_VAR, "CONST_VAR"), root_1);
-				dbg.location(86,46);
-				// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:86:46: ^( CONST_NAME QuestionVariable )
+				dbg.location(89,46);
+				// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:89:46: ^( CONST_NAME QuestionVariable )
 				{
 				Object root_2 = (Object)adaptor.nil();
-				dbg.location(86,48);
+				dbg.location(89,48);
 				root_2 = (Object)adaptor.becomeRoot((Object)adaptor.create(CONST_NAME, "CONST_NAME"), root_2);
-				dbg.location(86,59);
+				dbg.location(89,59);
 				adaptor.addChild(root_2, stream_QuestionVariable.nextNode());
 				adaptor.addChild(root_1, root_2);
 				}
-				dbg.location(86,77);
-				// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:86:77: ^( CONST_TYPE CONST_TYPE_INT )
+				dbg.location(89,77);
+				// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:89:77: ^( CONST_TYPE CONST_TYPE_INT )
 				{
 				Object root_2 = (Object)adaptor.nil();
-				dbg.location(86,79);
+				dbg.location(89,79);
 				root_2 = (Object)adaptor.becomeRoot((Object)adaptor.create(CONST_TYPE, "CONST_TYPE"), root_2);
-				dbg.location(86,90);
+				dbg.location(89,90);
 				adaptor.addChild(root_2, (Object)adaptor.create(CONST_TYPE_INT, "CONST_TYPE_INT"));
 				adaptor.addChild(root_1, root_2);
 				}
-				dbg.location(86,106);
-				// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:86:106: ^( CONST_VALUE atom )
+				dbg.location(89,106);
+				// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:89:106: ^( CONST_VALUE atom )
 				{
 				Object root_2 = (Object)adaptor.nil();
-				dbg.location(86,108);
+				dbg.location(89,108);
 				root_2 = (Object)adaptor.becomeRoot((Object)adaptor.create(CONST_VALUE, "CONST_VALUE"), root_2);
-				dbg.location(86,121);
+				dbg.location(89,121);
 				adaptor.addChild(root_2, stream_atom.nextTree());
 				adaptor.addChild(root_1, root_2);
 				}
@@ -1222,7 +1225,7 @@ public class QLParser extends DebugParser {
 			if ( state.backtracking>0 ) { memoize(input, 7, constantValueDeclaration_StartIndex); }
 
 		}
-		dbg.location(87, 1);
+		dbg.location(90, 1);
 
 		}
 		finally {
@@ -1244,7 +1247,7 @@ public class QLParser extends DebugParser {
 
 
 	// $ANTLR start "qType"
-	// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:90:1: qType : ( Boolean | Money );
+	// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:93:1: qType : ( Boolean | Money );
 	public final QLParser.qType_return qType() throws RecognitionException {
 		QLParser.qType_return retval = new QLParser.qType_return();
 		retval.start = input.LT(1);
@@ -1259,12 +1262,12 @@ public class QLParser extends DebugParser {
 		try { dbg.enterRule(getGrammarFileName(), "qType");
 		if ( getRuleLevel()==0 ) {dbg.commence();}
 		incRuleLevel();
-		dbg.location(90, 0);
+		dbg.location(93, 0);
 
 		try {
 			if ( state.backtracking>0 && alreadyParsedRule(input, 8) ) { return retval; }
 
-			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:91:2: ( Boolean | Money )
+			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:94:2: ( Boolean | Money )
 			dbg.enterAlt(1);
 
 			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:
@@ -1272,7 +1275,7 @@ public class QLParser extends DebugParser {
 			root_0 = (Object)adaptor.nil();
 
 
-			dbg.location(91,2);
+			dbg.location(94,2);
 			set33=input.LT(1);
 			if ( input.LA(1)==Boolean||input.LA(1)==Money ) {
 				input.consume();
@@ -1305,7 +1308,7 @@ public class QLParser extends DebugParser {
 			if ( state.backtracking>0 ) { memoize(input, 8, qType_StartIndex); }
 
 		}
-		dbg.location(91, 19);
+		dbg.location(94, 19);
 
 		}
 		finally {
@@ -1328,7 +1331,7 @@ public class QLParser extends DebugParser {
 
 
 	// $ANTLR start "atom"
-	// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:93:1: atom returns [Expr result] : ( Int -> ^( SINGLE_STATEMENT Int ) | Ident -> ^( SINGLE_STATEMENT Ident ) | Boolean -> ^( SINGLE_STATEMENT Boolean ) | QuestionVariable -> ^( SINGLE_STATEMENT QuestionVariable ) | Money -> ^( SINGLE_STATEMENT Money ) | '(' x= orExpr ')' -> ^( COMPUTED_STATEMENT orExpr ) );
+	// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:96:1: atom returns [Expr result] : ( Int -> ^( SINGLE_STATEMENT Int ) | Ident -> ^( SINGLE_STATEMENT Ident ) | Boolean -> ^( SINGLE_STATEMENT Boolean ) | QuestionVariable -> ^( SINGLE_STATEMENT QuestionVariable ) | Money -> ^( SINGLE_STATEMENT Money ) | '(' x= orExpr ')' -> ^( COMPUTED_STATEMENT orExpr ) );
 	public final QLParser.atom_return atom() throws RecognitionException {
 		QLParser.atom_return retval = new QLParser.atom_return();
 		retval.start = input.LT(1);
@@ -1364,12 +1367,12 @@ public class QLParser extends DebugParser {
 		try { dbg.enterRule(getGrammarFileName(), "atom");
 		if ( getRuleLevel()==0 ) {dbg.commence();}
 		incRuleLevel();
-		dbg.location(93, 0);
+		dbg.location(96, 0);
 
 		try {
 			if ( state.backtracking>0 && alreadyParsedRule(input, 9) ) { return retval; }
 
-			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:94:3: ( Int -> ^( SINGLE_STATEMENT Int ) | Ident -> ^( SINGLE_STATEMENT Ident ) | Boolean -> ^( SINGLE_STATEMENT Boolean ) | QuestionVariable -> ^( SINGLE_STATEMENT QuestionVariable ) | Money -> ^( SINGLE_STATEMENT Money ) | '(' x= orExpr ')' -> ^( COMPUTED_STATEMENT orExpr ) )
+			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:97:3: ( Int -> ^( SINGLE_STATEMENT Int ) | Ident -> ^( SINGLE_STATEMENT Ident ) | Boolean -> ^( SINGLE_STATEMENT Boolean ) | QuestionVariable -> ^( SINGLE_STATEMENT QuestionVariable ) | Money -> ^( SINGLE_STATEMENT Money ) | '(' x= orExpr ')' -> ^( COMPUTED_STATEMENT orExpr ) )
 			int alt4=6;
 			try { dbg.enterDecision(4, decisionCanBacktrack[4]);
 
@@ -1417,13 +1420,13 @@ public class QLParser extends DebugParser {
 				case 1 :
 					dbg.enterAlt(1);
 
-					// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:94:5: Int
+					// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:97:5: Int
 					{
-					dbg.location(94,5);
-					Int34=(Token)match(input,Int,FOLLOW_Int_in_atom424); if (state.failed) return retval; 
+					dbg.location(97,5);
+					Int34=(Token)match(input,Int,FOLLOW_Int_in_atom425); if (state.failed) return retval; 
 					if ( state.backtracking==0 ) stream_Int.add(Int34);
-					dbg.location(94,11);
-					if ( state.backtracking==0 ) { retval.result = new Int(Integer.parseInt((Int34!=null?Int34.getText():null))); }
+					dbg.location(97,11);
+					if ( state.backtracking==0 ) { retval.result = new IntNode(Integer.parseInt((Int34!=null?Int34.getText():null))); }
 					// AST REWRITE
 					// elements: Int
 					// token labels: 
@@ -1436,15 +1439,15 @@ public class QLParser extends DebugParser {
 					RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.getTree():null);
 
 					root_0 = (Object)adaptor.nil();
-					// 94:63: -> ^( SINGLE_STATEMENT Int )
+					// 97:67: -> ^( SINGLE_STATEMENT Int )
 					{
-						dbg.location(94,66);
-						// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:94:66: ^( SINGLE_STATEMENT Int )
+						dbg.location(97,70);
+						// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:97:70: ^( SINGLE_STATEMENT Int )
 						{
 						Object root_1 = (Object)adaptor.nil();
-						dbg.location(94,68);
+						dbg.location(97,72);
 						root_1 = (Object)adaptor.becomeRoot((Object)adaptor.create(SINGLE_STATEMENT, "SINGLE_STATEMENT"), root_1);
-						dbg.location(94,85);
+						dbg.location(97,89);
 						adaptor.addChild(root_1, stream_Int.nextNode());
 						adaptor.addChild(root_0, root_1);
 						}
@@ -1460,12 +1463,12 @@ public class QLParser extends DebugParser {
 				case 2 :
 					dbg.enterAlt(2);
 
-					// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:95:5: Ident
+					// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:98:5: Ident
 					{
-					dbg.location(95,5);
-					Ident35=(Token)match(input,Ident,FOLLOW_Ident_in_atom442); if (state.failed) return retval; 
+					dbg.location(98,5);
+					Ident35=(Token)match(input,Ident,FOLLOW_Ident_in_atom443); if (state.failed) return retval; 
 					if ( state.backtracking==0 ) stream_Ident.add(Ident35);
-					dbg.location(95,11);
+					dbg.location(98,11);
 					if ( state.backtracking==0 ) { retval.result = new Ident((Ident35!=null?Ident35.getText():null)); }
 					// AST REWRITE
 					// elements: Ident
@@ -1479,15 +1482,15 @@ public class QLParser extends DebugParser {
 					RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.getTree():null);
 
 					root_0 = (Object)adaptor.nil();
-					// 95:49: -> ^( SINGLE_STATEMENT Ident )
+					// 98:49: -> ^( SINGLE_STATEMENT Ident )
 					{
-						dbg.location(95,52);
-						// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:95:52: ^( SINGLE_STATEMENT Ident )
+						dbg.location(98,52);
+						// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:98:52: ^( SINGLE_STATEMENT Ident )
 						{
 						Object root_1 = (Object)adaptor.nil();
-						dbg.location(95,54);
+						dbg.location(98,54);
 						root_1 = (Object)adaptor.becomeRoot((Object)adaptor.create(SINGLE_STATEMENT, "SINGLE_STATEMENT"), root_1);
-						dbg.location(95,71);
+						dbg.location(98,71);
 						adaptor.addChild(root_1, stream_Ident.nextNode());
 						adaptor.addChild(root_0, root_1);
 						}
@@ -1503,13 +1506,13 @@ public class QLParser extends DebugParser {
 				case 3 :
 					dbg.enterAlt(3);
 
-					// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:96:5: Boolean
+					// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:99:5: Boolean
 					{
-					dbg.location(96,5);
-					Boolean36=(Token)match(input,Boolean,FOLLOW_Boolean_in_atom458); if (state.failed) return retval; 
+					dbg.location(99,5);
+					Boolean36=(Token)match(input,Boolean,FOLLOW_Boolean_in_atom459); if (state.failed) return retval; 
 					if ( state.backtracking==0 ) stream_Boolean.add(Boolean36);
-					dbg.location(96,13);
-					if ( state.backtracking==0 ) {retval.result = new Bool((Boolean36!=null?Boolean36.getText():null));}
+					dbg.location(99,13);
+					if ( state.backtracking==0 ) {retval.result = new BoolNode((Boolean36!=null?Boolean36.getText():null));}
 					// AST REWRITE
 					// elements: Boolean
 					// token labels: 
@@ -1522,15 +1525,15 @@ public class QLParser extends DebugParser {
 					RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.getTree():null);
 
 					root_0 = (Object)adaptor.nil();
-					// 96:50: -> ^( SINGLE_STATEMENT Boolean )
+					// 99:54: -> ^( SINGLE_STATEMENT Boolean )
 					{
-						dbg.location(96,53);
-						// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:96:53: ^( SINGLE_STATEMENT Boolean )
+						dbg.location(99,57);
+						// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:99:57: ^( SINGLE_STATEMENT Boolean )
 						{
 						Object root_1 = (Object)adaptor.nil();
-						dbg.location(96,55);
+						dbg.location(99,59);
 						root_1 = (Object)adaptor.becomeRoot((Object)adaptor.create(SINGLE_STATEMENT, "SINGLE_STATEMENT"), root_1);
-						dbg.location(96,72);
+						dbg.location(99,76);
 						adaptor.addChild(root_1, stream_Boolean.nextNode());
 						adaptor.addChild(root_0, root_1);
 						}
@@ -1546,12 +1549,12 @@ public class QLParser extends DebugParser {
 				case 4 :
 					dbg.enterAlt(4);
 
-					// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:97:5: QuestionVariable
+					// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:100:5: QuestionVariable
 					{
-					dbg.location(97,5);
-					QuestionVariable37=(Token)match(input,QuestionVariable,FOLLOW_QuestionVariable_in_atom474); if (state.failed) return retval; 
+					dbg.location(100,5);
+					QuestionVariable37=(Token)match(input,QuestionVariable,FOLLOW_QuestionVariable_in_atom475); if (state.failed) return retval; 
 					if ( state.backtracking==0 ) stream_QuestionVariable.add(QuestionVariable37);
-					dbg.location(97,23);
+					dbg.location(100,23);
 					if ( state.backtracking==0 ) { retval.result = new Ident((QuestionVariable37!=null?QuestionVariable37.getText():null));}
 					// AST REWRITE
 					// elements: QuestionVariable
@@ -1565,15 +1568,15 @@ public class QLParser extends DebugParser {
 					RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.getTree():null);
 
 					root_0 = (Object)adaptor.nil();
-					// 97:71: -> ^( SINGLE_STATEMENT QuestionVariable )
+					// 100:71: -> ^( SINGLE_STATEMENT QuestionVariable )
 					{
-						dbg.location(97,74);
-						// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:97:74: ^( SINGLE_STATEMENT QuestionVariable )
+						dbg.location(100,74);
+						// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:100:74: ^( SINGLE_STATEMENT QuestionVariable )
 						{
 						Object root_1 = (Object)adaptor.nil();
-						dbg.location(97,76);
+						dbg.location(100,76);
 						root_1 = (Object)adaptor.becomeRoot((Object)adaptor.create(SINGLE_STATEMENT, "SINGLE_STATEMENT"), root_1);
-						dbg.location(97,93);
+						dbg.location(100,93);
 						adaptor.addChild(root_1, stream_QuestionVariable.nextNode());
 						adaptor.addChild(root_0, root_1);
 						}
@@ -1589,13 +1592,13 @@ public class QLParser extends DebugParser {
 				case 5 :
 					dbg.enterAlt(5);
 
-					// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:98:5: Money
+					// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:101:5: Money
 					{
-					dbg.location(98,5);
-					Money38=(Token)match(input,Money,FOLLOW_Money_in_atom491); if (state.failed) return retval; 
+					dbg.location(101,5);
+					Money38=(Token)match(input,Money,FOLLOW_Money_in_atom492); if (state.failed) return retval; 
 					if ( state.backtracking==0 ) stream_Money.add(Money38);
-					dbg.location(98,11);
-					if ( state.backtracking==0 ) { retval.result = new Int(Integer.parseInt((Money38!=null?Money38.getText():null)));}
+					dbg.location(101,11);
+					if ( state.backtracking==0 ) { retval.result = new MoneyNode(Integer.parseInt((Money38!=null?Money38.getText():null)));}
 					// AST REWRITE
 					// elements: Money
 					// token labels: 
@@ -1608,15 +1611,15 @@ public class QLParser extends DebugParser {
 					RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.getTree():null);
 
 					root_0 = (Object)adaptor.nil();
-					// 98:64: -> ^( SINGLE_STATEMENT Money )
+					// 101:70: -> ^( SINGLE_STATEMENT Money )
 					{
-						dbg.location(98,67);
-						// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:98:67: ^( SINGLE_STATEMENT Money )
+						dbg.location(101,73);
+						// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:101:73: ^( SINGLE_STATEMENT Money )
 						{
 						Object root_1 = (Object)adaptor.nil();
-						dbg.location(98,69);
+						dbg.location(101,75);
 						root_1 = (Object)adaptor.becomeRoot((Object)adaptor.create(SINGLE_STATEMENT, "SINGLE_STATEMENT"), root_1);
-						dbg.location(98,86);
+						dbg.location(101,92);
 						adaptor.addChild(root_1, stream_Money.nextNode());
 						adaptor.addChild(root_0, root_1);
 						}
@@ -1632,20 +1635,20 @@ public class QLParser extends DebugParser {
 				case 6 :
 					dbg.enterAlt(6);
 
-					// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:99:6: '(' x= orExpr ')'
+					// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:102:6: '(' x= orExpr ')'
 					{
-					dbg.location(99,6);
-					char_literal39=(Token)match(input,41,FOLLOW_41_in_atom508); if (state.failed) return retval; 
+					dbg.location(102,6);
+					char_literal39=(Token)match(input,41,FOLLOW_41_in_atom509); if (state.failed) return retval; 
 					if ( state.backtracking==0 ) stream_41.add(char_literal39);
-					dbg.location(99,12);
-					pushFollow(FOLLOW_orExpr_in_atom513);
+					dbg.location(102,12);
+					pushFollow(FOLLOW_orExpr_in_atom514);
 					x=orExpr();
 					state._fsp--;
 					if (state.failed) return retval;
-					if ( state.backtracking==0 ) stream_orExpr.add(x.getTree());dbg.location(99,20);
-					char_literal40=(Token)match(input,42,FOLLOW_42_in_atom515); if (state.failed) return retval; 
+					if ( state.backtracking==0 ) stream_orExpr.add(x.getTree());dbg.location(102,20);
+					char_literal40=(Token)match(input,42,FOLLOW_42_in_atom516); if (state.failed) return retval; 
 					if ( state.backtracking==0 ) stream_42.add(char_literal40);
-					dbg.location(99,24);
+					dbg.location(102,24);
 					if ( state.backtracking==0 ) { retval.result = (x!=null?((QLParser.orExpr_return)x).result:null); }
 					// AST REWRITE
 					// elements: orExpr
@@ -1659,15 +1662,15 @@ public class QLParser extends DebugParser {
 					RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.getTree():null);
 
 					root_0 = (Object)adaptor.nil();
-					// 99:49: -> ^( COMPUTED_STATEMENT orExpr )
+					// 102:49: -> ^( COMPUTED_STATEMENT orExpr )
 					{
-						dbg.location(99,52);
-						// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:99:52: ^( COMPUTED_STATEMENT orExpr )
+						dbg.location(102,52);
+						// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:102:52: ^( COMPUTED_STATEMENT orExpr )
 						{
 						Object root_1 = (Object)adaptor.nil();
-						dbg.location(99,54);
+						dbg.location(102,54);
 						root_1 = (Object)adaptor.becomeRoot((Object)adaptor.create(COMPUTED_STATEMENT, "COMPUTED_STATEMENT"), root_1);
-						dbg.location(99,73);
+						dbg.location(102,73);
 						adaptor.addChild(root_1, stream_orExpr.nextTree());
 						adaptor.addChild(root_0, root_1);
 						}
@@ -1699,7 +1702,7 @@ public class QLParser extends DebugParser {
 			if ( state.backtracking>0 ) { memoize(input, 9, atom_StartIndex); }
 
 		}
-		dbg.location(100, 2);
+		dbg.location(103, 2);
 
 		}
 		finally {
@@ -1722,7 +1725,7 @@ public class QLParser extends DebugParser {
 
 
 	// $ANTLR start "unExpr"
-	// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:103:1: unExpr returns [Expr result] : ( '+' ^x= atom | '-' ^x= atom | '!' ^x= atom |x= atom );
+	// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:106:1: unExpr returns [Expr result] : ( '+' ^x= atom | '-' ^x= atom | '!' ^x= atom |x= atom );
 	public final QLParser.unExpr_return unExpr() throws RecognitionException {
 		QLParser.unExpr_return retval = new QLParser.unExpr_return();
 		retval.start = input.LT(1);
@@ -1742,12 +1745,12 @@ public class QLParser extends DebugParser {
 		try { dbg.enterRule(getGrammarFileName(), "unExpr");
 		if ( getRuleLevel()==0 ) {dbg.commence();}
 		incRuleLevel();
-		dbg.location(103, 0);
+		dbg.location(106, 0);
 
 		try {
 			if ( state.backtracking>0 && alreadyParsedRule(input, 10) ) { return retval; }
 
-			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:104:5: ( '+' ^x= atom | '-' ^x= atom | '!' ^x= atom |x= atom )
+			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:107:5: ( '+' ^x= atom | '-' ^x= atom | '!' ^x= atom |x= atom )
 			int alt5=4;
 			try { dbg.enterDecision(5, decisionCanBacktrack[5]);
 
@@ -1790,90 +1793,90 @@ public class QLParser extends DebugParser {
 				case 1 :
 					dbg.enterAlt(1);
 
-					// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:104:8: '+' ^x= atom
+					// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:107:8: '+' ^x= atom
 					{
 					root_0 = (Object)adaptor.nil();
 
 
-					dbg.location(104,11);
-					char_literal41=(Token)match(input,44,FOLLOW_44_in_unExpr551); if (state.failed) return retval;
+					dbg.location(107,11);
+					char_literal41=(Token)match(input,44,FOLLOW_44_in_unExpr552); if (state.failed) return retval;
 					if ( state.backtracking==0 ) {
 					char_literal41_tree = (Object)adaptor.create(char_literal41);
 					root_0 = (Object)adaptor.becomeRoot(char_literal41_tree, root_0);
 					}
-					dbg.location(104,14);
-					pushFollow(FOLLOW_atom_in_unExpr556);
+					dbg.location(107,14);
+					pushFollow(FOLLOW_atom_in_unExpr557);
 					x=atom();
 					state._fsp--;
 					if (state.failed) return retval;
 					if ( state.backtracking==0 ) adaptor.addChild(root_0, x.getTree());
-					dbg.location(104,20);
+					dbg.location(107,20);
 					if ( state.backtracking==0 ) { retval.result = new Pos((x!=null?((QLParser.atom_return)x).result:null)); }
 					}
 					break;
 				case 2 :
 					dbg.enterAlt(2);
 
-					// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:105:8: '-' ^x= atom
+					// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:108:8: '-' ^x= atom
 					{
 					root_0 = (Object)adaptor.nil();
 
 
-					dbg.location(105,11);
-					char_literal42=(Token)match(input,45,FOLLOW_45_in_unExpr568); if (state.failed) return retval;
+					dbg.location(108,11);
+					char_literal42=(Token)match(input,45,FOLLOW_45_in_unExpr569); if (state.failed) return retval;
 					if ( state.backtracking==0 ) {
 					char_literal42_tree = (Object)adaptor.create(char_literal42);
 					root_0 = (Object)adaptor.becomeRoot(char_literal42_tree, root_0);
 					}
-					dbg.location(105,14);
-					pushFollow(FOLLOW_atom_in_unExpr573);
+					dbg.location(108,14);
+					pushFollow(FOLLOW_atom_in_unExpr574);
 					x=atom();
 					state._fsp--;
 					if (state.failed) return retval;
 					if ( state.backtracking==0 ) adaptor.addChild(root_0, x.getTree());
-					dbg.location(105,20);
+					dbg.location(108,20);
 					if ( state.backtracking==0 ) { retval.result = new Neg((x!=null?((QLParser.atom_return)x).result:null)); }
 					}
 					break;
 				case 3 :
 					dbg.enterAlt(3);
 
-					// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:106:8: '!' ^x= atom
+					// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:109:8: '!' ^x= atom
 					{
 					root_0 = (Object)adaptor.nil();
 
 
-					dbg.location(106,11);
-					char_literal43=(Token)match(input,38,FOLLOW_38_in_unExpr584); if (state.failed) return retval;
+					dbg.location(109,11);
+					char_literal43=(Token)match(input,38,FOLLOW_38_in_unExpr585); if (state.failed) return retval;
 					if ( state.backtracking==0 ) {
 					char_literal43_tree = (Object)adaptor.create(char_literal43);
 					root_0 = (Object)adaptor.becomeRoot(char_literal43_tree, root_0);
 					}
-					dbg.location(106,14);
-					pushFollow(FOLLOW_atom_in_unExpr589);
+					dbg.location(109,14);
+					pushFollow(FOLLOW_atom_in_unExpr590);
 					x=atom();
 					state._fsp--;
 					if (state.failed) return retval;
 					if ( state.backtracking==0 ) adaptor.addChild(root_0, x.getTree());
-					dbg.location(106,20);
+					dbg.location(109,20);
 					if ( state.backtracking==0 ) { retval.result = new Not((x!=null?((QLParser.atom_return)x).result:null)); }
 					}
 					break;
 				case 4 :
 					dbg.enterAlt(4);
 
-					// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:107:8: x= atom
+					// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:110:8: x= atom
 					{
 					root_0 = (Object)adaptor.nil();
 
 
-					dbg.location(107,9);
-					pushFollow(FOLLOW_atom_in_unExpr602);
+					dbg.location(110,9);
+					pushFollow(FOLLOW_atom_in_unExpr603);
 					x=atom();
 					state._fsp--;
 					if (state.failed) return retval;
 					if ( state.backtracking==0 ) adaptor.addChild(root_0, x.getTree());
-					dbg.location(107,18);
+					dbg.location(110,18);
 					if ( state.backtracking==0 ) { retval.result = (x!=null?((QLParser.atom_return)x).result:null); }
 					}
 					break;
@@ -1896,7 +1899,7 @@ public class QLParser extends DebugParser {
 			if ( state.backtracking>0 ) { memoize(input, 10, unExpr_StartIndex); }
 
 		}
-		dbg.location(108, 4);
+		dbg.location(111, 4);
 
 		}
 		finally {
@@ -1919,7 +1922,7 @@ public class QLParser extends DebugParser {
 
 
 	// $ANTLR start "mulExpr"
-	// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:110:1: mulExpr returns [Expr result] : lhs= unExpr (op= ( '*' ^| '/' ^) rhs= unExpr )* ;
+	// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:113:1: mulExpr returns [Expr result] : lhs= unExpr (op= ( '*' ^| '/' ^) rhs= unExpr )* ;
 	public final QLParser.mulExpr_return mulExpr() throws RecognitionException {
 		QLParser.mulExpr_return retval = new QLParser.mulExpr_return();
 		retval.start = input.LT(1);
@@ -1936,28 +1939,28 @@ public class QLParser extends DebugParser {
 		try { dbg.enterRule(getGrammarFileName(), "mulExpr");
 		if ( getRuleLevel()==0 ) {dbg.commence();}
 		incRuleLevel();
-		dbg.location(110, 0);
+		dbg.location(113, 0);
 
 		try {
 			if ( state.backtracking>0 && alreadyParsedRule(input, 11) ) { return retval; }
 
-			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:111:5: (lhs= unExpr (op= ( '*' ^| '/' ^) rhs= unExpr )* )
+			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:114:5: (lhs= unExpr (op= ( '*' ^| '/' ^) rhs= unExpr )* )
 			dbg.enterAlt(1);
 
-			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:111:9: lhs= unExpr (op= ( '*' ^| '/' ^) rhs= unExpr )*
+			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:114:9: lhs= unExpr (op= ( '*' ^| '/' ^) rhs= unExpr )*
 			{
 			root_0 = (Object)adaptor.nil();
 
 
-			dbg.location(111,12);
-			pushFollow(FOLLOW_unExpr_in_mulExpr638);
+			dbg.location(114,12);
+			pushFollow(FOLLOW_unExpr_in_mulExpr639);
 			lhs=unExpr();
 			state._fsp--;
 			if (state.failed) return retval;
 			if ( state.backtracking==0 ) adaptor.addChild(root_0, lhs.getTree());
-			dbg.location(111,20);
-			if ( state.backtracking==0 ) { retval.result =(lhs!=null?((QLParser.unExpr_return)lhs).result:null); }dbg.location(111,45);
-			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:111:45: (op= ( '*' ^| '/' ^) rhs= unExpr )*
+			dbg.location(114,20);
+			if ( state.backtracking==0 ) { retval.result =(lhs!=null?((QLParser.unExpr_return)lhs).result:null); }dbg.location(114,45);
+			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:114:45: (op= ( '*' ^| '/' ^) rhs= unExpr )*
 			try { dbg.enterSubRule(7);
 
 			loop7:
@@ -1976,10 +1979,10 @@ public class QLParser extends DebugParser {
 				case 1 :
 					dbg.enterAlt(1);
 
-					// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:111:47: op= ( '*' ^| '/' ^) rhs= unExpr
+					// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:114:47: op= ( '*' ^| '/' ^) rhs= unExpr
 					{
-					dbg.location(111,49);
-					// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:111:50: ( '*' ^| '/' ^)
+					dbg.location(114,49);
+					// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:114:50: ( '*' ^| '/' ^)
 					int alt6=2;
 					try { dbg.enterSubRule(6);
 					try { dbg.enterDecision(6, decisionCanBacktrack[6]);
@@ -2006,10 +2009,10 @@ public class QLParser extends DebugParser {
 						case 1 :
 							dbg.enterAlt(1);
 
-							// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:111:52: '*' ^
+							// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:114:52: '*' ^
 							{
-							dbg.location(111,55);
-							op=(Token)match(input,43,FOLLOW_43_in_mulExpr648); if (state.failed) return retval;
+							dbg.location(114,55);
+							op=(Token)match(input,43,FOLLOW_43_in_mulExpr649); if (state.failed) return retval;
 							if ( state.backtracking==0 ) {
 							op_tree = (Object)adaptor.create(op);
 							root_0 = (Object)adaptor.becomeRoot(op_tree, root_0);
@@ -2020,10 +2023,10 @@ public class QLParser extends DebugParser {
 						case 2 :
 							dbg.enterAlt(2);
 
-							// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:111:59: '/' ^
+							// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:114:59: '/' ^
 							{
-							dbg.location(111,62);
-							op=(Token)match(input,46,FOLLOW_46_in_mulExpr653); if (state.failed) return retval;
+							dbg.location(114,62);
+							op=(Token)match(input,46,FOLLOW_46_in_mulExpr654); if (state.failed) return retval;
 							if ( state.backtracking==0 ) {
 							op_tree = (Object)adaptor.create(op);
 							root_0 = (Object)adaptor.becomeRoot(op_tree, root_0);
@@ -2034,13 +2037,13 @@ public class QLParser extends DebugParser {
 
 					}
 					} finally {dbg.exitSubRule(6);}
-					dbg.location(111,69);
-					pushFollow(FOLLOW_unExpr_in_mulExpr660);
+					dbg.location(114,69);
+					pushFollow(FOLLOW_unExpr_in_mulExpr661);
 					rhs=unExpr();
 					state._fsp--;
 					if (state.failed) return retval;
 					if ( state.backtracking==0 ) adaptor.addChild(root_0, rhs.getTree());
-					dbg.location(112,5);
+					dbg.location(115,5);
 					if ( state.backtracking==0 ) { 
 					      if ((op!=null?op.getText():null).equals("*")) {
 					        retval.result = new Mul(retval.result, (rhs!=null?((QLParser.unExpr_return)rhs).result:null));
@@ -2077,7 +2080,7 @@ public class QLParser extends DebugParser {
 			if ( state.backtracking>0 ) { memoize(input, 11, mulExpr_StartIndex); }
 
 		}
-		dbg.location(120, 4);
+		dbg.location(123, 4);
 
 		}
 		finally {
@@ -2100,7 +2103,7 @@ public class QLParser extends DebugParser {
 
 
 	// $ANTLR start "addExpr"
-	// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:123:1: addExpr returns [Expr result] : lhs= mulExpr (op= ( '+' ^| '-' ^) rhs= mulExpr )* ;
+	// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:126:1: addExpr returns [Expr result] : lhs= mulExpr (op= ( '+' ^| '-' ^) rhs= mulExpr )* ;
 	public final QLParser.addExpr_return addExpr() throws RecognitionException {
 		QLParser.addExpr_return retval = new QLParser.addExpr_return();
 		retval.start = input.LT(1);
@@ -2117,28 +2120,28 @@ public class QLParser extends DebugParser {
 		try { dbg.enterRule(getGrammarFileName(), "addExpr");
 		if ( getRuleLevel()==0 ) {dbg.commence();}
 		incRuleLevel();
-		dbg.location(123, 0);
+		dbg.location(126, 0);
 
 		try {
 			if ( state.backtracking>0 && alreadyParsedRule(input, 12) ) { return retval; }
 
-			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:124:5: (lhs= mulExpr (op= ( '+' ^| '-' ^) rhs= mulExpr )* )
+			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:127:5: (lhs= mulExpr (op= ( '+' ^| '-' ^) rhs= mulExpr )* )
 			dbg.enterAlt(1);
 
-			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:124:9: lhs= mulExpr (op= ( '+' ^| '-' ^) rhs= mulExpr )*
+			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:127:9: lhs= mulExpr (op= ( '+' ^| '-' ^) rhs= mulExpr )*
 			{
 			root_0 = (Object)adaptor.nil();
 
 
-			dbg.location(124,12);
-			pushFollow(FOLLOW_mulExpr_in_addExpr701);
+			dbg.location(127,12);
+			pushFollow(FOLLOW_mulExpr_in_addExpr702);
 			lhs=mulExpr();
 			state._fsp--;
 			if (state.failed) return retval;
 			if ( state.backtracking==0 ) adaptor.addChild(root_0, lhs.getTree());
-			dbg.location(124,21);
-			if ( state.backtracking==0 ) { retval.result =(lhs!=null?((QLParser.mulExpr_return)lhs).result:null); }dbg.location(124,46);
-			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:124:46: (op= ( '+' ^| '-' ^) rhs= mulExpr )*
+			dbg.location(127,21);
+			if ( state.backtracking==0 ) { retval.result =(lhs!=null?((QLParser.mulExpr_return)lhs).result:null); }dbg.location(127,46);
+			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:127:46: (op= ( '+' ^| '-' ^) rhs= mulExpr )*
 			try { dbg.enterSubRule(9);
 
 			loop9:
@@ -2157,10 +2160,10 @@ public class QLParser extends DebugParser {
 				case 1 :
 					dbg.enterAlt(1);
 
-					// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:124:48: op= ( '+' ^| '-' ^) rhs= mulExpr
+					// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:127:48: op= ( '+' ^| '-' ^) rhs= mulExpr
 					{
-					dbg.location(124,50);
-					// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:124:51: ( '+' ^| '-' ^)
+					dbg.location(127,50);
+					// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:127:51: ( '+' ^| '-' ^)
 					int alt8=2;
 					try { dbg.enterSubRule(8);
 					try { dbg.enterDecision(8, decisionCanBacktrack[8]);
@@ -2187,10 +2190,10 @@ public class QLParser extends DebugParser {
 						case 1 :
 							dbg.enterAlt(1);
 
-							// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:124:52: '+' ^
+							// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:127:52: '+' ^
 							{
-							dbg.location(124,55);
-							op=(Token)match(input,44,FOLLOW_44_in_addExpr710); if (state.failed) return retval;
+							dbg.location(127,55);
+							op=(Token)match(input,44,FOLLOW_44_in_addExpr711); if (state.failed) return retval;
 							if ( state.backtracking==0 ) {
 							op_tree = (Object)adaptor.create(op);
 							root_0 = (Object)adaptor.becomeRoot(op_tree, root_0);
@@ -2201,10 +2204,10 @@ public class QLParser extends DebugParser {
 						case 2 :
 							dbg.enterAlt(2);
 
-							// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:124:59: '-' ^
+							// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:127:59: '-' ^
 							{
-							dbg.location(124,62);
-							op=(Token)match(input,45,FOLLOW_45_in_addExpr715); if (state.failed) return retval;
+							dbg.location(127,62);
+							op=(Token)match(input,45,FOLLOW_45_in_addExpr716); if (state.failed) return retval;
 							if ( state.backtracking==0 ) {
 							op_tree = (Object)adaptor.create(op);
 							root_0 = (Object)adaptor.becomeRoot(op_tree, root_0);
@@ -2215,13 +2218,13 @@ public class QLParser extends DebugParser {
 
 					}
 					} finally {dbg.exitSubRule(8);}
-					dbg.location(124,68);
-					pushFollow(FOLLOW_mulExpr_in_addExpr721);
+					dbg.location(127,68);
+					pushFollow(FOLLOW_mulExpr_in_addExpr722);
 					rhs=mulExpr();
 					state._fsp--;
 					if (state.failed) return retval;
 					if ( state.backtracking==0 ) adaptor.addChild(root_0, rhs.getTree());
-					dbg.location(125,5);
+					dbg.location(128,5);
 					if ( state.backtracking==0 ) { 
 					      if ((op!=null?op.getText():null).equals("+")) {
 					        retval.result = new Add(retval.result, (rhs!=null?((QLParser.mulExpr_return)rhs).result:null));
@@ -2258,7 +2261,7 @@ public class QLParser extends DebugParser {
 			if ( state.backtracking>0 ) { memoize(input, 12, addExpr_StartIndex); }
 
 		}
-		dbg.location(133, 4);
+		dbg.location(136, 4);
 
 		}
 		finally {
@@ -2281,7 +2284,7 @@ public class QLParser extends DebugParser {
 
 
 	// $ANTLR start "relExpr"
-	// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:135:1: relExpr returns [Expr result] : lhs= addExpr (op= ( '<' ^| '<=' ^| '>' ^| '>=' ^| '==' ^| '!=' ^) rhs= addExpr )* ;
+	// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:138:1: relExpr returns [Expr result] : lhs= addExpr (op= ( '<' ^| '<=' ^| '>' ^| '>=' ^| '==' ^| '!=' ^) rhs= addExpr )* ;
 	public final QLParser.relExpr_return relExpr() throws RecognitionException {
 		QLParser.relExpr_return retval = new QLParser.relExpr_return();
 		retval.start = input.LT(1);
@@ -2298,28 +2301,28 @@ public class QLParser extends DebugParser {
 		try { dbg.enterRule(getGrammarFileName(), "relExpr");
 		if ( getRuleLevel()==0 ) {dbg.commence();}
 		incRuleLevel();
-		dbg.location(135, 0);
+		dbg.location(138, 0);
 
 		try {
 			if ( state.backtracking>0 && alreadyParsedRule(input, 13) ) { return retval; }
 
-			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:136:5: (lhs= addExpr (op= ( '<' ^| '<=' ^| '>' ^| '>=' ^| '==' ^| '!=' ^) rhs= addExpr )* )
+			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:139:5: (lhs= addExpr (op= ( '<' ^| '<=' ^| '>' ^| '>=' ^| '==' ^| '!=' ^) rhs= addExpr )* )
 			dbg.enterAlt(1);
 
-			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:136:9: lhs= addExpr (op= ( '<' ^| '<=' ^| '>' ^| '>=' ^| '==' ^| '!=' ^) rhs= addExpr )*
+			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:139:9: lhs= addExpr (op= ( '<' ^| '<=' ^| '>' ^| '>=' ^| '==' ^| '!=' ^) rhs= addExpr )*
 			{
 			root_0 = (Object)adaptor.nil();
 
 
-			dbg.location(136,12);
-			pushFollow(FOLLOW_addExpr_in_relExpr756);
+			dbg.location(139,12);
+			pushFollow(FOLLOW_addExpr_in_relExpr757);
 			lhs=addExpr();
 			state._fsp--;
 			if (state.failed) return retval;
 			if ( state.backtracking==0 ) adaptor.addChild(root_0, lhs.getTree());
-			dbg.location(136,21);
-			if ( state.backtracking==0 ) { retval.result =(lhs!=null?((QLParser.addExpr_return)lhs).result:null); }dbg.location(136,46);
-			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:136:46: (op= ( '<' ^| '<=' ^| '>' ^| '>=' ^| '==' ^| '!=' ^) rhs= addExpr )*
+			dbg.location(139,21);
+			if ( state.backtracking==0 ) { retval.result =(lhs!=null?((QLParser.addExpr_return)lhs).result:null); }dbg.location(139,46);
+			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:139:46: (op= ( '<' ^| '<=' ^| '>' ^| '>=' ^| '==' ^| '!=' ^) rhs= addExpr )*
 			try { dbg.enterSubRule(11);
 
 			loop11:
@@ -2338,10 +2341,10 @@ public class QLParser extends DebugParser {
 				case 1 :
 					dbg.enterAlt(1);
 
-					// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:136:48: op= ( '<' ^| '<=' ^| '>' ^| '>=' ^| '==' ^| '!=' ^) rhs= addExpr
+					// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:139:48: op= ( '<' ^| '<=' ^| '>' ^| '>=' ^| '==' ^| '!=' ^) rhs= addExpr
 					{
-					dbg.location(136,50);
-					// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:136:51: ( '<' ^| '<=' ^| '>' ^| '>=' ^| '==' ^| '!=' ^)
+					dbg.location(139,50);
+					// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:139:51: ( '<' ^| '<=' ^| '>' ^| '>=' ^| '==' ^| '!=' ^)
 					int alt10=6;
 					try { dbg.enterSubRule(10);
 					try { dbg.enterDecision(10, decisionCanBacktrack[10]);
@@ -2390,10 +2393,10 @@ public class QLParser extends DebugParser {
 						case 1 :
 							dbg.enterAlt(1);
 
-							// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:136:52: '<' ^
+							// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:139:52: '<' ^
 							{
-							dbg.location(136,55);
-							op=(Token)match(input,48,FOLLOW_48_in_relExpr765); if (state.failed) return retval;
+							dbg.location(139,55);
+							op=(Token)match(input,48,FOLLOW_48_in_relExpr766); if (state.failed) return retval;
 							if ( state.backtracking==0 ) {
 							op_tree = (Object)adaptor.create(op);
 							root_0 = (Object)adaptor.becomeRoot(op_tree, root_0);
@@ -2404,10 +2407,10 @@ public class QLParser extends DebugParser {
 						case 2 :
 							dbg.enterAlt(2);
 
-							// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:136:57: '<=' ^
+							// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:139:57: '<=' ^
 							{
-							dbg.location(136,61);
-							op=(Token)match(input,49,FOLLOW_49_in_relExpr768); if (state.failed) return retval;
+							dbg.location(139,61);
+							op=(Token)match(input,49,FOLLOW_49_in_relExpr769); if (state.failed) return retval;
 							if ( state.backtracking==0 ) {
 							op_tree = (Object)adaptor.create(op);
 							root_0 = (Object)adaptor.becomeRoot(op_tree, root_0);
@@ -2418,10 +2421,10 @@ public class QLParser extends DebugParser {
 						case 3 :
 							dbg.enterAlt(3);
 
-							// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:136:63: '>' ^
+							// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:139:63: '>' ^
 							{
-							dbg.location(136,66);
-							op=(Token)match(input,51,FOLLOW_51_in_relExpr771); if (state.failed) return retval;
+							dbg.location(139,66);
+							op=(Token)match(input,51,FOLLOW_51_in_relExpr772); if (state.failed) return retval;
 							if ( state.backtracking==0 ) {
 							op_tree = (Object)adaptor.create(op);
 							root_0 = (Object)adaptor.becomeRoot(op_tree, root_0);
@@ -2432,10 +2435,10 @@ public class QLParser extends DebugParser {
 						case 4 :
 							dbg.enterAlt(4);
 
-							// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:136:68: '>=' ^
+							// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:139:68: '>=' ^
 							{
-							dbg.location(136,72);
-							op=(Token)match(input,52,FOLLOW_52_in_relExpr774); if (state.failed) return retval;
+							dbg.location(139,72);
+							op=(Token)match(input,52,FOLLOW_52_in_relExpr775); if (state.failed) return retval;
 							if ( state.backtracking==0 ) {
 							op_tree = (Object)adaptor.create(op);
 							root_0 = (Object)adaptor.becomeRoot(op_tree, root_0);
@@ -2446,10 +2449,10 @@ public class QLParser extends DebugParser {
 						case 5 :
 							dbg.enterAlt(5);
 
-							// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:136:75: '==' ^
+							// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:139:75: '==' ^
 							{
-							dbg.location(136,79);
-							op=(Token)match(input,50,FOLLOW_50_in_relExpr778); if (state.failed) return retval;
+							dbg.location(139,79);
+							op=(Token)match(input,50,FOLLOW_50_in_relExpr779); if (state.failed) return retval;
 							if ( state.backtracking==0 ) {
 							op_tree = (Object)adaptor.create(op);
 							root_0 = (Object)adaptor.becomeRoot(op_tree, root_0);
@@ -2460,10 +2463,10 @@ public class QLParser extends DebugParser {
 						case 6 :
 							dbg.enterAlt(6);
 
-							// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:136:82: '!=' ^
+							// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:139:82: '!=' ^
 							{
-							dbg.location(136,86);
-							op=(Token)match(input,39,FOLLOW_39_in_relExpr782); if (state.failed) return retval;
+							dbg.location(139,86);
+							op=(Token)match(input,39,FOLLOW_39_in_relExpr783); if (state.failed) return retval;
 							if ( state.backtracking==0 ) {
 							op_tree = (Object)adaptor.create(op);
 							root_0 = (Object)adaptor.becomeRoot(op_tree, root_0);
@@ -2474,13 +2477,13 @@ public class QLParser extends DebugParser {
 
 					}
 					} finally {dbg.exitSubRule(10);}
-					dbg.location(136,92);
-					pushFollow(FOLLOW_addExpr_in_relExpr788);
+					dbg.location(139,92);
+					pushFollow(FOLLOW_addExpr_in_relExpr789);
 					rhs=addExpr();
 					state._fsp--;
 					if (state.failed) return retval;
 					if ( state.backtracking==0 ) adaptor.addChild(root_0, rhs.getTree());
-					dbg.location(137,5);
+					dbg.location(140,5);
 					if ( state.backtracking==0 ) { 
 					      if ((op!=null?op.getText():null).equals("<")) {
 					        retval.result = new LT(retval.result, (rhs!=null?((QLParser.addExpr_return)rhs).result:null));
@@ -2529,7 +2532,7 @@ public class QLParser extends DebugParser {
 			if ( state.backtracking>0 ) { memoize(input, 13, relExpr_StartIndex); }
 
 		}
-		dbg.location(157, 4);
+		dbg.location(160, 4);
 
 		}
 		finally {
@@ -2552,7 +2555,7 @@ public class QLParser extends DebugParser {
 
 
 	// $ANTLR start "andExpr"
-	// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:159:1: andExpr returns [Expr result] : lhs= relExpr ( '&&' ^rhs= relExpr )* ;
+	// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:162:1: andExpr returns [Expr result] : lhs= relExpr ( '&&' ^rhs= relExpr )* ;
 	public final QLParser.andExpr_return andExpr() throws RecognitionException {
 		QLParser.andExpr_return retval = new QLParser.andExpr_return();
 		retval.start = input.LT(1);
@@ -2569,28 +2572,28 @@ public class QLParser extends DebugParser {
 		try { dbg.enterRule(getGrammarFileName(), "andExpr");
 		if ( getRuleLevel()==0 ) {dbg.commence();}
 		incRuleLevel();
-		dbg.location(159, 0);
+		dbg.location(162, 0);
 
 		try {
 			if ( state.backtracking>0 && alreadyParsedRule(input, 14) ) { return retval; }
 
-			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:160:5: (lhs= relExpr ( '&&' ^rhs= relExpr )* )
+			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:163:5: (lhs= relExpr ( '&&' ^rhs= relExpr )* )
 			dbg.enterAlt(1);
 
-			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:160:9: lhs= relExpr ( '&&' ^rhs= relExpr )*
+			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:163:9: lhs= relExpr ( '&&' ^rhs= relExpr )*
 			{
 			root_0 = (Object)adaptor.nil();
 
 
-			dbg.location(160,12);
-			pushFollow(FOLLOW_relExpr_in_andExpr827);
+			dbg.location(163,12);
+			pushFollow(FOLLOW_relExpr_in_andExpr828);
 			lhs=relExpr();
 			state._fsp--;
 			if (state.failed) return retval;
 			if ( state.backtracking==0 ) adaptor.addChild(root_0, lhs.getTree());
-			dbg.location(160,21);
-			if ( state.backtracking==0 ) { retval.result =(lhs!=null?((QLParser.relExpr_return)lhs).result:null); }dbg.location(160,46);
-			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:160:46: ( '&&' ^rhs= relExpr )*
+			dbg.location(163,21);
+			if ( state.backtracking==0 ) { retval.result =(lhs!=null?((QLParser.relExpr_return)lhs).result:null); }dbg.location(163,46);
+			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:163:46: ( '&&' ^rhs= relExpr )*
 			try { dbg.enterSubRule(12);
 
 			loop12:
@@ -2609,21 +2612,21 @@ public class QLParser extends DebugParser {
 				case 1 :
 					dbg.enterAlt(1);
 
-					// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:160:48: '&&' ^rhs= relExpr
+					// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:163:48: '&&' ^rhs= relExpr
 					{
-					dbg.location(160,52);
-					string_literal44=(Token)match(input,40,FOLLOW_40_in_andExpr833); if (state.failed) return retval;
+					dbg.location(163,52);
+					string_literal44=(Token)match(input,40,FOLLOW_40_in_andExpr834); if (state.failed) return retval;
 					if ( state.backtracking==0 ) {
 					string_literal44_tree = (Object)adaptor.create(string_literal44);
 					root_0 = (Object)adaptor.becomeRoot(string_literal44_tree, root_0);
 					}
-					dbg.location(160,57);
-					pushFollow(FOLLOW_relExpr_in_andExpr838);
+					dbg.location(163,57);
+					pushFollow(FOLLOW_relExpr_in_andExpr839);
 					rhs=relExpr();
 					state._fsp--;
 					if (state.failed) return retval;
 					if ( state.backtracking==0 ) adaptor.addChild(root_0, rhs.getTree());
-					dbg.location(160,66);
+					dbg.location(163,66);
 					if ( state.backtracking==0 ) { retval.result = new And(retval.result, (rhs!=null?((QLParser.relExpr_return)rhs).result:null)); }
 					}
 					break;
@@ -2653,7 +2656,7 @@ public class QLParser extends DebugParser {
 			if ( state.backtracking>0 ) { memoize(input, 14, andExpr_StartIndex); }
 
 		}
-		dbg.location(161, 4);
+		dbg.location(164, 4);
 
 		}
 		finally {
@@ -2676,7 +2679,7 @@ public class QLParser extends DebugParser {
 
 
 	// $ANTLR start "orExpr"
-	// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:164:1: orExpr returns [Expr result] : lhs= andExpr ( '||' ^rhs= andExpr )* ;
+	// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:167:1: orExpr returns [Expr result] : lhs= andExpr ( '||' ^rhs= andExpr )* ;
 	public final QLParser.orExpr_return orExpr() throws RecognitionException {
 		QLParser.orExpr_return retval = new QLParser.orExpr_return();
 		retval.start = input.LT(1);
@@ -2693,28 +2696,28 @@ public class QLParser extends DebugParser {
 		try { dbg.enterRule(getGrammarFileName(), "orExpr");
 		if ( getRuleLevel()==0 ) {dbg.commence();}
 		incRuleLevel();
-		dbg.location(164, 0);
+		dbg.location(167, 0);
 
 		try {
 			if ( state.backtracking>0 && alreadyParsedRule(input, 15) ) { return retval; }
 
-			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:165:5: (lhs= andExpr ( '||' ^rhs= andExpr )* )
+			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:168:5: (lhs= andExpr ( '||' ^rhs= andExpr )* )
 			dbg.enterAlt(1);
 
-			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:165:9: lhs= andExpr ( '||' ^rhs= andExpr )*
+			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:168:9: lhs= andExpr ( '||' ^rhs= andExpr )*
 			{
 			root_0 = (Object)adaptor.nil();
 
 
-			dbg.location(165,12);
-			pushFollow(FOLLOW_andExpr_in_orExpr873);
+			dbg.location(168,12);
+			pushFollow(FOLLOW_andExpr_in_orExpr874);
 			lhs=andExpr();
 			state._fsp--;
 			if (state.failed) return retval;
 			if ( state.backtracking==0 ) adaptor.addChild(root_0, lhs.getTree());
-			dbg.location(165,21);
-			if ( state.backtracking==0 ) { retval.result = (lhs!=null?((QLParser.andExpr_return)lhs).result:null); }dbg.location(165,48);
-			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:165:48: ( '||' ^rhs= andExpr )*
+			dbg.location(168,21);
+			if ( state.backtracking==0 ) { retval.result = (lhs!=null?((QLParser.andExpr_return)lhs).result:null); }dbg.location(168,48);
+			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:168:48: ( '||' ^rhs= andExpr )*
 			try { dbg.enterSubRule(13);
 
 			loop13:
@@ -2733,21 +2736,21 @@ public class QLParser extends DebugParser {
 				case 1 :
 					dbg.enterAlt(1);
 
-					// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:165:50: '||' ^rhs= andExpr
+					// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:168:50: '||' ^rhs= andExpr
 					{
-					dbg.location(165,54);
-					string_literal45=(Token)match(input,53,FOLLOW_53_in_orExpr879); if (state.failed) return retval;
+					dbg.location(168,54);
+					string_literal45=(Token)match(input,53,FOLLOW_53_in_orExpr880); if (state.failed) return retval;
 					if ( state.backtracking==0 ) {
 					string_literal45_tree = (Object)adaptor.create(string_literal45);
 					root_0 = (Object)adaptor.becomeRoot(string_literal45_tree, root_0);
 					}
-					dbg.location(165,59);
-					pushFollow(FOLLOW_andExpr_in_orExpr884);
+					dbg.location(168,59);
+					pushFollow(FOLLOW_andExpr_in_orExpr885);
 					rhs=andExpr();
 					state._fsp--;
 					if (state.failed) return retval;
 					if ( state.backtracking==0 ) adaptor.addChild(root_0, rhs.getTree());
-					dbg.location(165,68);
+					dbg.location(168,68);
 					if ( state.backtracking==0 ) { retval.result = new Or(retval.result, (rhs!=null?((QLParser.andExpr_return)rhs).result:null)); }
 					}
 					break;
@@ -2777,7 +2780,7 @@ public class QLParser extends DebugParser {
 			if ( state.backtracking>0 ) { memoize(input, 15, orExpr_StartIndex); }
 
 		}
-		dbg.location(166, 4);
+		dbg.location(169, 4);
 
 		}
 		finally {
@@ -2823,44 +2826,44 @@ public class QLParser extends DebugParser {
 	public static final BitSet FOLLOW_Lbr_in_elseBlock338 = new BitSet(new long[]{0x0000000060100000L});
 	public static final BitSet FOLLOW_qContentBlockItem_in_elseBlock340 = new BitSet(new long[]{0x0000000040000000L});
 	public static final BitSet FOLLOW_Rbr_in_elseBlock342 = new BitSet(new long[]{0x0000000000000002L});
-	public static final BitSet FOLLOW_QuestionVariable_in_constantValueDeclaration361 = new BitSet(new long[]{0x0000800000000000L});
-	public static final BitSet FOLLOW_47_in_constantValueDeclaration364 = new BitSet(new long[]{0x0000020020A80010L});
-	public static final BitSet FOLLOW_atom_in_constantValueDeclaration366 = new BitSet(new long[]{0x0000000000000002L});
-	public static final BitSet FOLLOW_Int_in_atom424 = new BitSet(new long[]{0x0000000000000002L});
-	public static final BitSet FOLLOW_Ident_in_atom442 = new BitSet(new long[]{0x0000000000000002L});
-	public static final BitSet FOLLOW_Boolean_in_atom458 = new BitSet(new long[]{0x0000000000000002L});
-	public static final BitSet FOLLOW_QuestionVariable_in_atom474 = new BitSet(new long[]{0x0000000000000002L});
-	public static final BitSet FOLLOW_Money_in_atom491 = new BitSet(new long[]{0x0000000000000002L});
-	public static final BitSet FOLLOW_41_in_atom508 = new BitSet(new long[]{0x0000324020A80010L});
-	public static final BitSet FOLLOW_orExpr_in_atom513 = new BitSet(new long[]{0x0000040000000000L});
-	public static final BitSet FOLLOW_42_in_atom515 = new BitSet(new long[]{0x0000000000000002L});
-	public static final BitSet FOLLOW_44_in_unExpr551 = new BitSet(new long[]{0x0000020020A80010L});
-	public static final BitSet FOLLOW_atom_in_unExpr556 = new BitSet(new long[]{0x0000000000000002L});
-	public static final BitSet FOLLOW_45_in_unExpr568 = new BitSet(new long[]{0x0000020020A80010L});
-	public static final BitSet FOLLOW_atom_in_unExpr573 = new BitSet(new long[]{0x0000000000000002L});
-	public static final BitSet FOLLOW_38_in_unExpr584 = new BitSet(new long[]{0x0000020020A80010L});
-	public static final BitSet FOLLOW_atom_in_unExpr589 = new BitSet(new long[]{0x0000000000000002L});
-	public static final BitSet FOLLOW_atom_in_unExpr602 = new BitSet(new long[]{0x0000000000000002L});
-	public static final BitSet FOLLOW_unExpr_in_mulExpr638 = new BitSet(new long[]{0x0000480000000002L});
-	public static final BitSet FOLLOW_43_in_mulExpr648 = new BitSet(new long[]{0x0000324020A80010L});
-	public static final BitSet FOLLOW_46_in_mulExpr653 = new BitSet(new long[]{0x0000324020A80010L});
-	public static final BitSet FOLLOW_unExpr_in_mulExpr660 = new BitSet(new long[]{0x0000480000000002L});
-	public static final BitSet FOLLOW_mulExpr_in_addExpr701 = new BitSet(new long[]{0x0000300000000002L});
-	public static final BitSet FOLLOW_44_in_addExpr710 = new BitSet(new long[]{0x0000324020A80010L});
-	public static final BitSet FOLLOW_45_in_addExpr715 = new BitSet(new long[]{0x0000324020A80010L});
-	public static final BitSet FOLLOW_mulExpr_in_addExpr721 = new BitSet(new long[]{0x0000300000000002L});
-	public static final BitSet FOLLOW_addExpr_in_relExpr756 = new BitSet(new long[]{0x001F008000000002L});
-	public static final BitSet FOLLOW_48_in_relExpr765 = new BitSet(new long[]{0x0000324020A80010L});
-	public static final BitSet FOLLOW_49_in_relExpr768 = new BitSet(new long[]{0x0000324020A80010L});
-	public static final BitSet FOLLOW_51_in_relExpr771 = new BitSet(new long[]{0x0000324020A80010L});
-	public static final BitSet FOLLOW_52_in_relExpr774 = new BitSet(new long[]{0x0000324020A80010L});
-	public static final BitSet FOLLOW_50_in_relExpr778 = new BitSet(new long[]{0x0000324020A80010L});
-	public static final BitSet FOLLOW_39_in_relExpr782 = new BitSet(new long[]{0x0000324020A80010L});
-	public static final BitSet FOLLOW_addExpr_in_relExpr788 = new BitSet(new long[]{0x001F008000000002L});
-	public static final BitSet FOLLOW_relExpr_in_andExpr827 = new BitSet(new long[]{0x0000010000000002L});
-	public static final BitSet FOLLOW_40_in_andExpr833 = new BitSet(new long[]{0x0000324020A80010L});
-	public static final BitSet FOLLOW_relExpr_in_andExpr838 = new BitSet(new long[]{0x0000010000000002L});
-	public static final BitSet FOLLOW_andExpr_in_orExpr873 = new BitSet(new long[]{0x0020000000000002L});
-	public static final BitSet FOLLOW_53_in_orExpr879 = new BitSet(new long[]{0x0000324020A80010L});
-	public static final BitSet FOLLOW_andExpr_in_orExpr884 = new BitSet(new long[]{0x0020000000000002L});
+	public static final BitSet FOLLOW_QuestionVariable_in_constantValueDeclaration362 = new BitSet(new long[]{0x0000800000000000L});
+	public static final BitSet FOLLOW_47_in_constantValueDeclaration365 = new BitSet(new long[]{0x0000020020A80010L});
+	public static final BitSet FOLLOW_atom_in_constantValueDeclaration367 = new BitSet(new long[]{0x0000000000000002L});
+	public static final BitSet FOLLOW_Int_in_atom425 = new BitSet(new long[]{0x0000000000000002L});
+	public static final BitSet FOLLOW_Ident_in_atom443 = new BitSet(new long[]{0x0000000000000002L});
+	public static final BitSet FOLLOW_Boolean_in_atom459 = new BitSet(new long[]{0x0000000000000002L});
+	public static final BitSet FOLLOW_QuestionVariable_in_atom475 = new BitSet(new long[]{0x0000000000000002L});
+	public static final BitSet FOLLOW_Money_in_atom492 = new BitSet(new long[]{0x0000000000000002L});
+	public static final BitSet FOLLOW_41_in_atom509 = new BitSet(new long[]{0x0000324020A80010L});
+	public static final BitSet FOLLOW_orExpr_in_atom514 = new BitSet(new long[]{0x0000040000000000L});
+	public static final BitSet FOLLOW_42_in_atom516 = new BitSet(new long[]{0x0000000000000002L});
+	public static final BitSet FOLLOW_44_in_unExpr552 = new BitSet(new long[]{0x0000020020A80010L});
+	public static final BitSet FOLLOW_atom_in_unExpr557 = new BitSet(new long[]{0x0000000000000002L});
+	public static final BitSet FOLLOW_45_in_unExpr569 = new BitSet(new long[]{0x0000020020A80010L});
+	public static final BitSet FOLLOW_atom_in_unExpr574 = new BitSet(new long[]{0x0000000000000002L});
+	public static final BitSet FOLLOW_38_in_unExpr585 = new BitSet(new long[]{0x0000020020A80010L});
+	public static final BitSet FOLLOW_atom_in_unExpr590 = new BitSet(new long[]{0x0000000000000002L});
+	public static final BitSet FOLLOW_atom_in_unExpr603 = new BitSet(new long[]{0x0000000000000002L});
+	public static final BitSet FOLLOW_unExpr_in_mulExpr639 = new BitSet(new long[]{0x0000480000000002L});
+	public static final BitSet FOLLOW_43_in_mulExpr649 = new BitSet(new long[]{0x0000324020A80010L});
+	public static final BitSet FOLLOW_46_in_mulExpr654 = new BitSet(new long[]{0x0000324020A80010L});
+	public static final BitSet FOLLOW_unExpr_in_mulExpr661 = new BitSet(new long[]{0x0000480000000002L});
+	public static final BitSet FOLLOW_mulExpr_in_addExpr702 = new BitSet(new long[]{0x0000300000000002L});
+	public static final BitSet FOLLOW_44_in_addExpr711 = new BitSet(new long[]{0x0000324020A80010L});
+	public static final BitSet FOLLOW_45_in_addExpr716 = new BitSet(new long[]{0x0000324020A80010L});
+	public static final BitSet FOLLOW_mulExpr_in_addExpr722 = new BitSet(new long[]{0x0000300000000002L});
+	public static final BitSet FOLLOW_addExpr_in_relExpr757 = new BitSet(new long[]{0x001F008000000002L});
+	public static final BitSet FOLLOW_48_in_relExpr766 = new BitSet(new long[]{0x0000324020A80010L});
+	public static final BitSet FOLLOW_49_in_relExpr769 = new BitSet(new long[]{0x0000324020A80010L});
+	public static final BitSet FOLLOW_51_in_relExpr772 = new BitSet(new long[]{0x0000324020A80010L});
+	public static final BitSet FOLLOW_52_in_relExpr775 = new BitSet(new long[]{0x0000324020A80010L});
+	public static final BitSet FOLLOW_50_in_relExpr779 = new BitSet(new long[]{0x0000324020A80010L});
+	public static final BitSet FOLLOW_39_in_relExpr783 = new BitSet(new long[]{0x0000324020A80010L});
+	public static final BitSet FOLLOW_addExpr_in_relExpr789 = new BitSet(new long[]{0x001F008000000002L});
+	public static final BitSet FOLLOW_relExpr_in_andExpr828 = new BitSet(new long[]{0x0000010000000002L});
+	public static final BitSet FOLLOW_40_in_andExpr834 = new BitSet(new long[]{0x0000324020A80010L});
+	public static final BitSet FOLLOW_relExpr_in_andExpr839 = new BitSet(new long[]{0x0000010000000002L});
+	public static final BitSet FOLLOW_andExpr_in_orExpr874 = new BitSet(new long[]{0x0020000000000002L});
+	public static final BitSet FOLLOW_53_in_orExpr880 = new BitSet(new long[]{0x0000324020A80010L});
+	public static final BitSet FOLLOW_andExpr_in_orExpr885 = new BitSet(new long[]{0x0020000000000002L});
 }
