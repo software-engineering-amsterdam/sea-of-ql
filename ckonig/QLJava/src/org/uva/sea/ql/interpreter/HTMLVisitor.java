@@ -143,21 +143,6 @@ public class HTMLVisitor implements ASTVisitor {
 		registry.appendToOutput("</script>");
 	}
 
-	@Override
-	public void visit(AcceptsBoolOperands r) {
-		throw new NotImplementedException();
-	}
-
-	@Override
-	public void visit(AcceptsMathOperands r) {
-		throw new NotImplementedException();
-	}
-
-	@Override
-	public void visit(AcceptsBothOperands r) {
-		throw new NotImplementedException();
-	}
-
 	private String getEvaluator(IfStatement i, Registry reg) {
 		String ret = "function eval" + i.hashCode() + "(){\n"
 				+ "   toggleContent(";

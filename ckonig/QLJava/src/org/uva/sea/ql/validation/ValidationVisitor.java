@@ -96,17 +96,17 @@ public class ValidationVisitor implements ASTVisitor {
 				if (ifStatement.getCondition() instanceof AcceptsBoolOperands) {
 					AcceptsBoolOperands r = (AcceptsBoolOperands) ifStatement
 							.getCondition();
-					r.accept(this);
+					this.visit(r);
 				}
 				if (ifStatement.getCondition() instanceof AcceptsMathOperands) {
 					AcceptsMathOperands r = (AcceptsMathOperands) ifStatement
 							.getCondition();
-					r.accept(this);
+					this.visit(r);
 				}
 				if (ifStatement.getCondition() instanceof AcceptsBothOperands) {
 					AcceptsBothOperands r = (AcceptsBothOperands) ifStatement
 							.getCondition();
-					r.accept(this);
+					this.visit(r);
 				}
 			} else {
 				throw new AstValidationError("not a valid condition: "
@@ -126,8 +126,7 @@ public class ValidationVisitor implements ASTVisitor {
 		throw new NotImplementedException();
 	}
 
-	@Override
-	public void visit(AcceptsBoolOperands r) throws VisitorException {
+	private void visit(AcceptsBoolOperands r) throws VisitorException {
 		if (r instanceof BinaryExpr) {
 			BinaryExpr b = (BinaryExpr) r;
 			Expr left = getLeft(b);
@@ -143,8 +142,7 @@ public class ValidationVisitor implements ASTVisitor {
 
 	}
 
-	@Override
-	public void visit(AcceptsMathOperands r) throws VisitorException {
+	private void visit(AcceptsMathOperands r) throws VisitorException {
 		if (r instanceof BinaryExpr) {
 			BinaryExpr b = (BinaryExpr) r;
 			Expr left = getLeft(b);
@@ -160,8 +158,7 @@ public class ValidationVisitor implements ASTVisitor {
 
 	}
 
-	@Override
-	public void visit(AcceptsBothOperands r) throws VisitorException {
+	private void visit(AcceptsBothOperands r) throws VisitorException {
 		if (r instanceof BinaryExpr) {
 
 			BinaryExpr b = (BinaryExpr) r;
@@ -208,13 +205,13 @@ public class ValidationVisitor implements ASTVisitor {
 
 	private void acceptOperands(Expr e) throws VisitorException {
 		if (e instanceof AcceptsMathOperands) {
-			((AcceptsMathOperands) e).accept(this);
+			this.visit((AcceptsMathOperands) e);
 		}
 		if (e instanceof AcceptsBoolOperands) {
-			((AcceptsBoolOperands) e).accept(this);
+			this.visit((AcceptsBoolOperands) e);
 		}
 		if (e instanceof AcceptsBothOperands) {
-			((AcceptsBothOperands) e).accept(this);
+			this.visit((AcceptsBothOperands) e);
 		}
 	}
 

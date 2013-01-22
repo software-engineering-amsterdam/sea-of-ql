@@ -12,7 +12,7 @@
 <div><div class="question"><div class="q_text">Did you enter a loan for maintenance/reconstruction?</div><div class="q_input"><input id="question_hasMaintLoan" type="checkbox" class="qlinput" name="hasMaintLoan"/></div></div>
 <div class="content_below">&nbsp;</div>
 </div>
-<div><div style="display:none;" id="if_24417480" class="question"><div><div class="question"><div class="q_text">Price the house was sold for:</div><div class="q_input"><input type="text" id="question_sellingPrice"  class="qlinput" name="sellingPrice"/></div></div>
+<div><div style="display:none;" id="if_28678543" class="question"><div><div class="question"><div class="q_text">Price the house was sold for:</div><div class="q_input"><input type="text" id="question_sellingPrice"  class="qlinput" name="sellingPrice"/></div></div>
 <div class="content_below">&nbsp;</div>
 </div>
 <div><div class="question"><div class="q_text">Private debts for the sold house:</div><div class="q_input"><input type="text" id="question_privateDebt"  class="qlinput" name="privateDebt"/></div></div>
@@ -21,15 +21,15 @@
 <div><div class="question"><div class="q_text">Value residue:</div><div class="q_input"><input type="text" id="question_valueResidue"  class="qlinput" name="valueResidue"/></div></div>
 <div class="content_below">&nbsp;</div>
 </div>
-<div><div style="display:none;" id="if_13884241" class="question"><div><div class="question"><div class="q_text">Did you ask for permission to have a value residue larger than 20000?</div><div class="q_input"><input id="question_askedForPermissionValRes20" type="checkbox" class="qlinput" name="askedForPermissionValRes20"/></div></div>
+<div><div style="display:none;" id="if_24417480" class="question"><div><div class="question"><div class="q_text">Did you ask for permission to have a value residue larger than 20000?</div><div class="q_input"><input id="question_askedForPermissionValRes20" type="checkbox" class="qlinput" name="askedForPermissionValRes20"/></div></div>
 <div class="content_below">&nbsp;</div>
 </div>
 </div>
 </div>
-<div><div style="display:none;" id="if_14927396" class="question"><div><div class="question"><div class="q_text">Did you ask for permission to sell a house for less than 80000?</div><div class="q_input"><input id="question_askedForPermissionSelPri80" type="checkbox" class="qlinput" name="askedForPermissionSelPri80"/></div></div>
+<div><div style="display:none;" id="if_13884241" class="question"><div><div class="question"><div class="q_text">Did you ask for permission to sell a house for less than 80000?</div><div class="q_input"><input id="question_askedForPermissionSelPri80" type="checkbox" class="qlinput" name="askedForPermissionSelPri80"/></div></div>
 <div class="content_below">&nbsp;</div>
 </div>
-<div><div style="display:none;" id="if_31817359" class="question"><div><div class="question"><div class="q_text">Who did you ask for permission to sell a house for less than 80000?</div><div class="q_input"><input id="question_askedForPermissionSelPri80Who" type="checkbox" class="qlinput" name="askedForPermissionSelPri80Who"/></div></div>
+<div><div style="display:none;" id="if_14927396" class="question"><div><div class="question"><div class="q_text">Who did you ask for permission to sell a house for less than 80000?</div><div class="q_input"><input id="question_askedForPermissionSelPri80Who" type="checkbox" class="qlinput" name="askedForPermissionSelPri80Who"/></div></div>
 <div class="content_below">&nbsp;</div>
 </div>
 </div>
@@ -79,34 +79,34 @@ function askedForPermissionSelPri80Who(){
 }
 //listeners
 $('#question_hasSoldHouse').change(function(){
-  eval24417480();
+  eval28678543();
   });
 $('#question_hasBoughtHouse').change(function(){
-  eval24417480();
+  eval28678543();
   });
 $('#question_hasMaintLoan').change(function(){
-  eval24417480();
+  eval28678543();
   });
 $('#question_valueResidue').change(function(){
-  eval13884241();
+  eval24417480();
   });
 $('#question_sellingPrice').change(function(){
-  eval14927396();
+  eval13884241();
   });
 $('#question_askedForPermissionSelPri80').change(function(){
-  eval31817359();
+  eval14927396();
   });
 //evaluators
+function eval28678543(){
+   toggleContent((hasSoldHouse() && (hasBoughtHouse() || hasMaintLoan())), '28678543');
+ }
 function eval24417480(){
-   toggleContent((hasSoldHouse() && (hasBoughtHouse() || hasMaintLoan())), '24417480');
+   toggleContent((valueResidue() > 20000), '24417480');
  }
 function eval13884241(){
-   toggleContent((valueResidue() > 20000), '13884241');
+   toggleContent((sellingPrice() < 80000), '13884241');
  }
 function eval14927396(){
-   toggleContent((sellingPrice() < 80000), '14927396');
- }
-function eval31817359(){
-   toggleContent(askedForPermissionSelPri80(), '31817359');
+   toggleContent(askedForPermissionSelPri80(), '14927396');
  }
 </script></body></html>
