@@ -1,4 +1,4 @@
-// $ANTLR 3.5 C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g 2013-01-21 20:04:59
+// $ANTLR 3.5 C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g 2013-01-22 10:26:03
 
   package org.uva.sea.ql.parser;
 
@@ -604,36 +604,20 @@ public class QLLexer extends Lexer {
 		try {
 			int _type = Int;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:159:9: ( ( '-' )? ( Digit )+ )
-			// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:159:11: ( '-' )? ( Digit )+
+			// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:159:9: ( ( Digit )+ )
+			// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:159:11: ( Digit )+
 			{
-			// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:159:11: ( '-' )?
-			int alt2=2;
-			int LA2_0 = input.LA(1);
-			if ( (LA2_0=='-') ) {
-				alt2=1;
-			}
-			switch (alt2) {
-				case 1 :
-					// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:159:11: '-'
-					{
-					match('-'); 
-					}
-					break;
-
-			}
-
-			// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:159:16: ( Digit )+
-			int cnt3=0;
-			loop3:
+			// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:159:11: ( Digit )+
+			int cnt2=0;
+			loop2:
 			while (true) {
-				int alt3=2;
-				int LA3_0 = input.LA(1);
-				if ( ((LA3_0 >= '0' && LA3_0 <= '9')) ) {
-					alt3=1;
+				int alt2=2;
+				int LA2_0 = input.LA(1);
+				if ( ((LA2_0 >= '0' && LA2_0 <= '9')) ) {
+					alt2=1;
 				}
 
-				switch (alt3) {
+				switch (alt2) {
 				case 1 :
 					// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:
 					{
@@ -649,11 +633,11 @@ public class QLLexer extends Lexer {
 					break;
 
 				default :
-					if ( cnt3 >= 1 ) break loop3;
-					EarlyExitException eee = new EarlyExitException(3, input);
+					if ( cnt2 >= 1 ) break loop2;
+					EarlyExitException eee = new EarlyExitException(2, input);
 					throw eee;
 				}
-				cnt3++;
+				cnt2++;
 			}
 
 			}
@@ -684,15 +668,15 @@ public class QLLexer extends Lexer {
 				throw mse;
 			}
 			// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:160:26: ( Letter | Digit | '_' )*
-			loop4:
+			loop3:
 			while (true) {
-				int alt4=2;
-				int LA4_0 = input.LA(1);
-				if ( ((LA4_0 >= '0' && LA4_0 <= '9')||(LA4_0 >= 'A' && LA4_0 <= 'Z')||LA4_0=='_'||(LA4_0 >= 'a' && LA4_0 <= 'z')) ) {
-					alt4=1;
+				int alt3=2;
+				int LA3_0 = input.LA(1);
+				if ( ((LA3_0 >= '0' && LA3_0 <= '9')||(LA3_0 >= 'A' && LA3_0 <= 'Z')||LA3_0=='_'||(LA3_0 >= 'a' && LA3_0 <= 'z')) ) {
+					alt3=1;
 				}
 
-				switch (alt4) {
+				switch (alt3) {
 				case 1 :
 					// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:
 					{
@@ -708,7 +692,7 @@ public class QLLexer extends Lexer {
 					break;
 
 				default :
-					break loop4;
+					break loop3;
 				}
 			}
 
@@ -729,39 +713,39 @@ public class QLLexer extends Lexer {
 			int _type = String;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
 			// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:165:9: ( '\"' (~ ( '\"' | '\\\\' ) | '\\\\' . )* '\"' | '\\'' (~ ( '\\'' | '\\\\' ) | '\\\\' . )* '\\'' )
-			int alt7=2;
-			int LA7_0 = input.LA(1);
-			if ( (LA7_0=='\"') ) {
-				alt7=1;
+			int alt6=2;
+			int LA6_0 = input.LA(1);
+			if ( (LA6_0=='\"') ) {
+				alt6=1;
 			}
-			else if ( (LA7_0=='\'') ) {
-				alt7=2;
+			else if ( (LA6_0=='\'') ) {
+				alt6=2;
 			}
 
 			else {
 				NoViableAltException nvae =
-					new NoViableAltException("", 7, 0, input);
+					new NoViableAltException("", 6, 0, input);
 				throw nvae;
 			}
 
-			switch (alt7) {
+			switch (alt6) {
 				case 1 :
 					// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:165:12: '\"' (~ ( '\"' | '\\\\' ) | '\\\\' . )* '\"'
 					{
 					match('\"'); 
 					// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:165:17: (~ ( '\"' | '\\\\' ) | '\\\\' . )*
-					loop5:
+					loop4:
 					while (true) {
-						int alt5=3;
-						int LA5_0 = input.LA(1);
-						if ( ((LA5_0 >= '\u0000' && LA5_0 <= '!')||(LA5_0 >= '#' && LA5_0 <= '[')||(LA5_0 >= ']' && LA5_0 <= '\uFFFF')) ) {
-							alt5=1;
+						int alt4=3;
+						int LA4_0 = input.LA(1);
+						if ( ((LA4_0 >= '\u0000' && LA4_0 <= '!')||(LA4_0 >= '#' && LA4_0 <= '[')||(LA4_0 >= ']' && LA4_0 <= '\uFFFF')) ) {
+							alt4=1;
 						}
-						else if ( (LA5_0=='\\') ) {
-							alt5=2;
+						else if ( (LA4_0=='\\') ) {
+							alt4=2;
 						}
 
-						switch (alt5) {
+						switch (alt4) {
 						case 1 :
 							// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:165:18: ~ ( '\"' | '\\\\' )
 							{
@@ -784,7 +768,7 @@ public class QLLexer extends Lexer {
 							break;
 
 						default :
-							break loop5;
+							break loop4;
 						}
 					}
 
@@ -796,18 +780,18 @@ public class QLLexer extends Lexer {
 					{
 					match('\''); 
 					// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:166:17: (~ ( '\\'' | '\\\\' ) | '\\\\' . )*
-					loop6:
+					loop5:
 					while (true) {
-						int alt6=3;
-						int LA6_0 = input.LA(1);
-						if ( ((LA6_0 >= '\u0000' && LA6_0 <= '&')||(LA6_0 >= '(' && LA6_0 <= '[')||(LA6_0 >= ']' && LA6_0 <= '\uFFFF')) ) {
-							alt6=1;
+						int alt5=3;
+						int LA5_0 = input.LA(1);
+						if ( ((LA5_0 >= '\u0000' && LA5_0 <= '&')||(LA5_0 >= '(' && LA5_0 <= '[')||(LA5_0 >= ']' && LA5_0 <= '\uFFFF')) ) {
+							alt5=1;
 						}
-						else if ( (LA6_0=='\\') ) {
-							alt6=2;
+						else if ( (LA5_0=='\\') ) {
+							alt5=2;
 						}
 
-						switch (alt6) {
+						switch (alt5) {
 						case 1 :
 							// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:166:18: ~ ( '\\'' | '\\\\' )
 							{
@@ -830,7 +814,7 @@ public class QLLexer extends Lexer {
 							break;
 
 						default :
-							break loop6;
+							break loop5;
 						}
 					}
 
@@ -890,15 +874,15 @@ public class QLLexer extends Lexer {
 			match("//"); 
 
 			// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:170:16: (~ ( '\\r' | '\\n' ) )*
-			loop8:
+			loop7:
 			while (true) {
-				int alt8=2;
-				int LA8_0 = input.LA(1);
-				if ( ((LA8_0 >= '\u0000' && LA8_0 <= '\t')||(LA8_0 >= '\u000B' && LA8_0 <= '\f')||(LA8_0 >= '\u000E' && LA8_0 <= '\uFFFF')) ) {
-					alt8=1;
+				int alt7=2;
+				int LA7_0 = input.LA(1);
+				if ( ((LA7_0 >= '\u0000' && LA7_0 <= '\t')||(LA7_0 >= '\u000B' && LA7_0 <= '\f')||(LA7_0 >= '\u000E' && LA7_0 <= '\uFFFF')) ) {
+					alt7=1;
 				}
 
-				switch (alt8) {
+				switch (alt7) {
 				case 1 :
 					// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:
 					{
@@ -914,7 +898,7 @@ public class QLLexer extends Lexer {
 					break;
 
 				default :
-					break loop8;
+					break loop7;
 				}
 			}
 
@@ -941,25 +925,25 @@ public class QLLexer extends Lexer {
 			match("/*"); 
 
 			// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:171:16: ( . )*
-			loop9:
+			loop8:
 			while (true) {
-				int alt9=2;
-				int LA9_0 = input.LA(1);
-				if ( (LA9_0=='*') ) {
-					int LA9_1 = input.LA(2);
-					if ( (LA9_1=='/') ) {
-						alt9=2;
+				int alt8=2;
+				int LA8_0 = input.LA(1);
+				if ( (LA8_0=='*') ) {
+					int LA8_1 = input.LA(2);
+					if ( (LA8_1=='/') ) {
+						alt8=2;
 					}
-					else if ( ((LA9_1 >= '\u0000' && LA9_1 <= '.')||(LA9_1 >= '0' && LA9_1 <= '\uFFFF')) ) {
-						alt9=1;
+					else if ( ((LA8_1 >= '\u0000' && LA8_1 <= '.')||(LA8_1 >= '0' && LA8_1 <= '\uFFFF')) ) {
+						alt8=1;
 					}
 
 				}
-				else if ( ((LA9_0 >= '\u0000' && LA9_0 <= ')')||(LA9_0 >= '+' && LA9_0 <= '\uFFFF')) ) {
-					alt9=1;
+				else if ( ((LA8_0 >= '\u0000' && LA8_0 <= ')')||(LA8_0 >= '+' && LA8_0 <= '\uFFFF')) ) {
+					alt8=1;
 				}
 
-				switch (alt9) {
+				switch (alt8) {
 				case 1 :
 					// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:171:16: .
 					{
@@ -968,7 +952,7 @@ public class QLLexer extends Lexer {
 					break;
 
 				default :
-					break loop9;
+					break loop8;
 				}
 			}
 
@@ -1035,9 +1019,9 @@ public class QLLexer extends Lexer {
 	@Override
 	public void mTokens() throws RecognitionException {
 		// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:1:8: ( T__20 | T__21 | T__22 | T__23 | T__24 | T__25 | T__26 | T__27 | T__28 | T__29 | T__30 | T__31 | T__32 | T__33 | T__34 | T__35 | T__36 | If | Else | OBrace | CBrace | OParen | CParen | Colon | Bool | Int | Ident | String | WS | SComment | MComment )
-		int alt10=31;
-		alt10 = dfa10.predict(input);
-		switch (alt10) {
+		int alt9=31;
+		alt9 = dfa9.predict(input);
+		switch (alt9) {
 			case 1 :
 				// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:1:10: T__20
 				{
@@ -1260,33 +1244,32 @@ public class QLLexer extends Lexer {
 	}
 
 
-	protected DFA10 dfa10 = new DFA10(this);
-	static final String DFA10_eotS =
-		"\1\uffff\1\33\3\uffff\1\34\1\37\1\41\1\uffff\1\43\4\27\1\uffff\1\27\5"+
-		"\uffff\1\27\16\uffff\4\27\1\60\7\27\1\uffff\4\27\1\74\3\27\1\100\1\101"+
-		"\1\27\1\uffff\1\101\2\27\2\uffff\2\27\1\107\1\110\1\111\3\uffff";
-	static final String DFA10_eofS =
-		"\112\uffff";
-	static final String DFA10_minS =
-		"\1\11\1\75\3\uffff\1\60\1\52\1\75\1\uffff\1\75\1\157\1\141\1\146\1\164"+
-		"\1\uffff\1\154\5\uffff\1\162\16\uffff\1\157\1\162\1\154\1\164\1\60\1\162"+
-		"\1\163\1\165\1\154\1\155\1\163\1\145\1\uffff\1\151\3\145\1\60\1\145\1"+
-		"\147\1\156\2\60\1\141\1\uffff\1\60\1\145\1\147\2\uffff\1\156\1\162\3\60"+
-		"\3\uffff";
-	static final String DFA10_maxS =
-		"\1\175\1\75\3\uffff\1\71\1\57\1\75\1\uffff\1\75\2\157\1\156\1\164\1\uffff"+
-		"\1\154\5\uffff\1\162\16\uffff\1\157\1\162\1\154\1\164\1\172\1\162\1\163"+
+	protected DFA9 dfa9 = new DFA9(this);
+	static final String DFA9_eotS =
+		"\1\uffff\1\33\4\uffff\1\36\1\40\1\uffff\1\42\4\27\1\uffff\1\27\5\uffff"+
+		"\1\27\15\uffff\4\27\1\57\7\27\1\uffff\4\27\1\73\3\27\1\77\1\100\1\27\1"+
+		"\uffff\1\100\2\27\2\uffff\2\27\1\106\1\107\1\110\3\uffff";
+	static final String DFA9_eofS =
+		"\111\uffff";
+	static final String DFA9_minS =
+		"\1\11\1\75\4\uffff\1\52\1\75\1\uffff\1\75\1\157\1\141\1\146\1\164\1\uffff"+
+		"\1\154\5\uffff\1\162\15\uffff\1\157\1\162\1\154\1\164\1\60\1\162\1\163"+
+		"\1\165\1\154\1\155\1\163\1\145\1\uffff\1\151\3\145\1\60\1\145\1\147\1"+
+		"\156\2\60\1\141\1\uffff\1\60\1\145\1\147\2\uffff\1\156\1\162\3\60\3\uffff";
+	static final String DFA9_maxS =
+		"\1\175\1\75\4\uffff\1\57\1\75\1\uffff\1\75\2\157\1\156\1\164\1\uffff\1"+
+		"\154\5\uffff\1\162\15\uffff\1\157\1\162\1\154\1\164\1\172\1\162\1\163"+
 		"\1\165\1\154\1\155\1\163\1\145\1\uffff\1\151\3\145\1\172\1\145\1\147\1"+
 		"\156\2\172\1\141\1\uffff\1\172\1\145\1\147\2\uffff\1\156\1\162\3\172\3"+
 		"\uffff";
-	static final String DFA10_acceptS =
-		"\2\uffff\1\3\1\4\1\5\3\uffff\1\12\5\uffff\1\21\1\uffff\1\24\1\25\1\26"+
-		"\1\27\1\30\1\uffff\1\32\1\33\1\34\1\35\1\2\1\1\1\6\1\36\1\37\1\7\1\11"+
-		"\1\10\1\14\1\13\14\uffff\1\22\13\uffff\1\16\3\uffff\1\23\1\31\5\uffff"+
-		"\1\20\1\15\1\17";
-	static final String DFA10_specialS =
-		"\112\uffff}>";
-	static final String[] DFA10_transitionS = {
+	static final String DFA9_acceptS =
+		"\2\uffff\1\3\1\4\1\5\1\6\2\uffff\1\12\5\uffff\1\21\1\uffff\1\24\1\25\1"+
+		"\26\1\27\1\30\1\uffff\1\32\1\33\1\34\1\35\1\2\1\1\1\36\1\37\1\7\1\11\1"+
+		"\10\1\14\1\13\14\uffff\1\22\13\uffff\1\16\3\uffff\1\23\1\31\5\uffff\1"+
+		"\20\1\15\1\17";
+	static final String DFA9_specialS =
+		"\111\uffff}>";
+	static final String[] DFA9_transitionS = {
 			"\2\31\2\uffff\1\31\22\uffff\1\31\1\1\1\30\3\uffff\1\2\1\30\1\22\1\23"+
 			"\1\3\1\4\1\uffff\1\5\1\uffff\1\6\12\26\1\24\1\uffff\1\7\1\10\1\11\2\uffff"+
 			"\32\27\4\uffff\1\27\1\uffff\1\27\1\12\2\27\1\17\1\13\2\27\1\14\11\27"+
@@ -1295,15 +1278,21 @@ public class QLLexer extends Lexer {
 			"",
 			"",
 			"",
-			"\12\26",
-			"\1\36\4\uffff\1\35",
-			"\1\40",
 			"",
-			"\1\42",
-			"\1\44",
-			"\1\46\15\uffff\1\45",
-			"\1\50\7\uffff\1\47",
+			"\1\35\4\uffff\1\34",
+			"\1\37",
+			"",
+			"\1\41",
+			"\1\43",
+			"\1\45\15\uffff\1\44",
+			"\1\47\7\uffff\1\46",
+			"\1\50",
+			"",
 			"\1\51",
+			"",
+			"",
+			"",
+			"",
 			"",
 			"\1\52",
 			"",
@@ -1311,53 +1300,46 @@ public class QLLexer extends Lexer {
 			"",
 			"",
 			"",
+			"",
+			"",
+			"",
+			"",
+			"",
+			"",
+			"",
+			"",
 			"\1\53",
-			"",
-			"",
-			"",
-			"",
-			"",
-			"",
-			"",
-			"",
-			"",
-			"",
-			"",
-			"",
-			"",
-			"",
 			"\1\54",
 			"\1\55",
 			"\1\56",
-			"\1\57",
 			"\12\27\7\uffff\32\27\4\uffff\1\27\1\uffff\32\27",
+			"\1\60",
 			"\1\61",
 			"\1\62",
 			"\1\63",
 			"\1\64",
 			"\1\65",
 			"\1\66",
-			"\1\67",
 			"",
+			"\1\67",
 			"\1\70",
 			"\1\71",
 			"\1\72",
-			"\1\73",
 			"\12\27\7\uffff\32\27\4\uffff\1\27\1\uffff\32\27",
+			"\1\74",
 			"\1\75",
 			"\1\76",
-			"\1\77",
 			"\12\27\7\uffff\32\27\4\uffff\1\27\1\uffff\32\27",
+			"\12\27\7\uffff\32\27\4\uffff\1\27\1\uffff\32\27",
+			"\1\101",
+			"",
 			"\12\27\7\uffff\32\27\4\uffff\1\27\1\uffff\32\27",
 			"\1\102",
-			"",
-			"\12\27\7\uffff\32\27\4\uffff\1\27\1\uffff\32\27",
 			"\1\103",
+			"",
+			"",
 			"\1\104",
-			"",
-			"",
 			"\1\105",
-			"\1\106",
 			"\12\27\7\uffff\32\27\4\uffff\1\27\1\uffff\32\27",
 			"\12\27\7\uffff\32\27\4\uffff\1\27\1\uffff\32\27",
 			"\12\27\7\uffff\32\27\4\uffff\1\27\1\uffff\32\27",
@@ -1366,34 +1348,34 @@ public class QLLexer extends Lexer {
 			""
 	};
 
-	static final short[] DFA10_eot = DFA.unpackEncodedString(DFA10_eotS);
-	static final short[] DFA10_eof = DFA.unpackEncodedString(DFA10_eofS);
-	static final char[] DFA10_min = DFA.unpackEncodedStringToUnsignedChars(DFA10_minS);
-	static final char[] DFA10_max = DFA.unpackEncodedStringToUnsignedChars(DFA10_maxS);
-	static final short[] DFA10_accept = DFA.unpackEncodedString(DFA10_acceptS);
-	static final short[] DFA10_special = DFA.unpackEncodedString(DFA10_specialS);
-	static final short[][] DFA10_transition;
+	static final short[] DFA9_eot = DFA.unpackEncodedString(DFA9_eotS);
+	static final short[] DFA9_eof = DFA.unpackEncodedString(DFA9_eofS);
+	static final char[] DFA9_min = DFA.unpackEncodedStringToUnsignedChars(DFA9_minS);
+	static final char[] DFA9_max = DFA.unpackEncodedStringToUnsignedChars(DFA9_maxS);
+	static final short[] DFA9_accept = DFA.unpackEncodedString(DFA9_acceptS);
+	static final short[] DFA9_special = DFA.unpackEncodedString(DFA9_specialS);
+	static final short[][] DFA9_transition;
 
 	static {
-		int numStates = DFA10_transitionS.length;
-		DFA10_transition = new short[numStates][];
+		int numStates = DFA9_transitionS.length;
+		DFA9_transition = new short[numStates][];
 		for (int i=0; i<numStates; i++) {
-			DFA10_transition[i] = DFA.unpackEncodedString(DFA10_transitionS[i]);
+			DFA9_transition[i] = DFA.unpackEncodedString(DFA9_transitionS[i]);
 		}
 	}
 
-	protected class DFA10 extends DFA {
+	protected class DFA9 extends DFA {
 
-		public DFA10(BaseRecognizer recognizer) {
+		public DFA9(BaseRecognizer recognizer) {
 			this.recognizer = recognizer;
-			this.decisionNumber = 10;
-			this.eot = DFA10_eot;
-			this.eof = DFA10_eof;
-			this.min = DFA10_min;
-			this.max = DFA10_max;
-			this.accept = DFA10_accept;
-			this.special = DFA10_special;
-			this.transition = DFA10_transition;
+			this.decisionNumber = 9;
+			this.eot = DFA9_eot;
+			this.eof = DFA9_eof;
+			this.min = DFA9_min;
+			this.max = DFA9_max;
+			this.accept = DFA9_accept;
+			this.special = DFA9_special;
+			this.transition = DFA9_transition;
 		}
 		@Override
 		public String getDescription() {

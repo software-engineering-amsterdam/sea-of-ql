@@ -156,7 +156,7 @@ CParen  : ')' ;
 Colon   : ':' ;
 
 Bool    : 'true' | 'false' ;
-Int     : '-'? Digit+ ;    
+Int     : Digit+ ;    
 Ident   : (Letter | '_') (Letter | Digit | '_')* ;  
 String
 @after { 
