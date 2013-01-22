@@ -2,14 +2,12 @@ module typeChecker::TypeCheck
 
 import Prelude;
 import syntax::AbstractSyntax;
+import syntax::ConcreteSyntax;
 import util::Load;
 import typeChecker::Mapping;
 
-// We will use TENV (type environment) as an alias for a tuple that contains all relevant type information:
-alias TENV = tuple[ map[str, list[Question]] symbols, list[tuple[loc l, str msg]] errors];
 alias QTENV = tuple[ map[str, Type] symbols, list[tuple[loc l, str msg]] errors]; 
 
-TENV addError(TENV env, loc l, str msg) = env[errors = env.errors + <l, msg>]; 
 QTENV addError(QTENV qEnv, loc l, str msg) = qEnv[errors = qEnv.errors + <l, msg>];
 
 str required(Type t, str got) = "Required <getName(t)>, got <got>";                 
@@ -18,9 +16,6 @@ str required(Type t1, Type t2) = required(t1, getName(t2));
 // compile Expressions.
 QTENV checkExp(exp:boolCon(bool B), Type req, QTENV env) =                              
   req == boolean() ? env : addError(env, exp@location, required(req, "boolean"));
-
-//QTENV checkExp(exp:strCon(str S), TYPE req, QTENV env) =
-// req == string() ? env : addError(env, exp@location, required(req, "string"));
  
 QTENV checkExp(exp:moneyCon(int I), Type req, QTENV env) =
  req == money() ? env : addError(env, exp@location, required(req, "money"));
@@ -103,12 +98,24 @@ TENV checkBody(list[Body] Body) =
 QTENV checkQuestionType(map[str, Type] results) =   
    <results,[]>;
 
+/* 
+*/
+void checkQuestion(Question q){
+
+}
+
 void visitQuestions(Question q){   //QTENV
-println("Q : <q>");
-	visit(q){
-		case Type tp: println("Type : <tp>");
-		//case computedQuestions cQ: println("cQ : <cQ>");
-	};
+	println("Q : <q>");
+	checkQuestion(q);
+}
+
+void checkQuestion(question:easyQuestion(str id,str qLabel, Type tp)){
+	println("check easy question");
+	print(id);	
+}
+
+void checkQuestion(question:computedQuestion(str id, str labelQuestion, Type tp, Expression exp)){
+	println("check computed question");
 }
 
 // check a QL program
@@ -117,10 +124,10 @@ public QTENV checkProgram(Program P){
      println("EXP : <exp>");
      println("Body : <Body>");  // need to visit the body node to check the questions
      visit(Body){
-     	case Question q: visitQuestions(q);
+     	case Question q: visitQuestions(q);    // pattern matching  maybe not visitor
         case Statement s: println("Statement is : <S>");
      };
-     TENV env = checkBody(Body);
+     QTENV env = checkBody(Body);
      println("ENV : <env>"); 
      QTENV qEnv = mapQuestionIdToType2(env.symbols);  // Mapping.rsc is doing that
      println("QTENV : <qEnv>");
