@@ -1,10 +1,12 @@
 package org.uva.sea.ql.ast.expressions;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 import org.uva.sea.ql.ast.types.Type;
 import org.uva.sea.ql.ast.values.Value;
+import org.uva.sea.ql.messages.Message;
 
 public class Ident extends Expr {
 
@@ -31,7 +33,8 @@ public class Ident extends Expr {
 	}
 	
 	@Override
-	public List<String> checkType(List<String> errors) {
+	public List<Message> checkType(Map<Ident, Type> typeEnv) {
+		List<Message> errors = new ArrayList<Message>();
 		return errors;
 	}
 
