@@ -1,4 +1,9 @@
-package org.uva.sea.ql.visitor;
+package org.uva.sea.ql;
+
+import static org.junit.Assert.assertEquals;
+
+import java.util.Arrays;
+import java.util.List;
 
 import org.junit.Test;
 import org.uva.sea.ql.ast.ASTNode;
@@ -8,14 +13,11 @@ import org.uva.sea.ql.ast.nodetypes.primary.Bool;
 import org.uva.sea.ql.ast.nodetypes.primary.Datatype;
 import org.uva.sea.ql.ast.nodetypes.primary.Int;
 import org.uva.sea.ql.ast.nodetypes.primary.Str;
+import org.uva.sea.ql.visitor.QLError;
 import org.uva.sea.ql.visitor.typechecking.errors.IdentifierRedeclarationError;
+import org.uva.sea.ql.visitor.typechecking.errors.UndeclaredIdentifierError;
 import org.uva.sea.ql.visitor.typechecking.errors.UnequalTypesError;
 import org.uva.sea.ql.visitor.typechecking.errors.UnsupportedTypeError;
-
-import java.util.Arrays;
-import java.util.List;
-
-import static org.junit.Assert.assertEquals;
 
 public class TestQLErrors {
 
@@ -25,7 +27,7 @@ public class TestQLErrors {
     public void shouldGetUnsupportedTypeErrorMessageForSingleAllowedType() {
         ASTNode actualType = new Bool(false);
 
-        List<Class<?>> allowedTypes = Arrays.asList(new Class<?>[]{Int.class});
+        List<Class<?>> allowedTypes = Arrays.asList(new Class<?>[] { Int.class });
         QLError error = new UnsupportedTypeError(LINE_NUMBER, actualType.getClass().getSimpleName(), allowedTypes);
         assertEquals("Error: variable on line 42 of type Bool was expected to be reduceable to Int.", error.getErrorMessage());
     }
@@ -34,7 +36,7 @@ public class TestQLErrors {
     public void shouldGetUnsupportedTypeErrorMessageForDoubleAllowedType() {
         ASTNode actualType = new Bool(false);
 
-        List<Class<?>> allowedTypes = Arrays.asList(new Class<?>[]{Int.class, Bool.class});
+        List<Class<?>> allowedTypes = Arrays.asList(new Class<?>[] { Int.class, Bool.class });
         QLError error = new UnsupportedTypeError(LINE_NUMBER, actualType.getClass().getSimpleName(), allowedTypes);
         assertEquals("Error: variable on line 42 of type Bool was expected to be reduceable to Int or Bool.", error.getErrorMessage());
     }
@@ -43,7 +45,7 @@ public class TestQLErrors {
     public void shouldGetUnsupportedTypeErrorMessageForTripleAllowedType() {
         ASTNode actualType = new Bool(false);
 
-        List<Class<?>> allowedTypes = Arrays.asList(new Class<?>[]{Int.class, Bool.class, Str.class});
+        List<Class<?>> allowedTypes = Arrays.asList(new Class<?>[] { Int.class, Bool.class, Str.class });
         QLError error = new UnsupportedTypeError(LINE_NUMBER, actualType.getClass().getSimpleName(), allowedTypes);
         assertEquals("Error: variable on line 42 of type Bool was expected to be reduceable to Int, Bool or Str.", error.getErrorMessage());
     }
@@ -63,5 +65,12 @@ public class TestQLErrors {
         String identifierName = "age";
         QLError error = new IdentifierRedeclarationError(LINE_NUMBER, identifierName);
         assertEquals("Error: attempt to declare identifier with name 'age' on line 42 failed, because it is already defined.", error.getErrorMessage());
+    }
+
+    @Test
+    public void shouldGetUndeclaredIdentifierError() {
+        String identifierName = "age";
+        QLError error = new UndeclaredIdentifierError(LINE_NUMBER, identifierName);
+        assertEquals("Error: unknown identifier with name 'age' on line 42.", error.getErrorMessage());
     }
 }
