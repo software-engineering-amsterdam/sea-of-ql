@@ -24,14 +24,14 @@ package org.uva.sea.ql.parser.antlr;
 }
 
 form returns [Form result]
-  : FORM Ident BRACE_OPEN statementList BRACE_CLOSE
+  : 'form' Ident '{' statementList '}'
 	  {
 	    $result = new Form($Ident.text, $statementList.result);
 	  }
   ;
     
 block returns [List<QLStatement> result]
-  : BRACE_OPEN statementList BRACE_CLOSE
+  : '{' statementList '}'
 	  {
 	    $result = $statementList.result;
 	  }
@@ -68,7 +68,7 @@ datatype returns [Class<? extends Datatype<?>> result]
   ;
   
 computation returns [Computation result]
-  : Ident ':' Str PAREN_OPEN orExpr PAREN_CLOSE
+  : Ident ':' Str '(' orExpr ')'
     {
       Ident ident = new Ident($Ident.text);
       Str label = new Str(removeOuterQuotes($Str.text));
@@ -165,14 +165,6 @@ orExpr returns [ASTNode result]
     ;
     
 // Tokens
-
-FORM : 'form';
-
-BRACE_OPEN : '{';
-BRACE_CLOSE : '}';
-PAREN_OPEN : '(';
-PAREN_CLOSE : ')';
-
 WS  :	(' ' | '\t' | '\n' | '\r') { $channel=HIDDEN; }
     ;
 
