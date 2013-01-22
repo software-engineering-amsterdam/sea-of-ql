@@ -20,12 +20,11 @@ public class Ident extends Expr {
 	
 	@Override
 	public <T> T accept(ASTNodeVisitor<T> visitor) {
-		super.accept(visitor);
 		return visitor.visit(this);
     }
 	
 	@Override
-	public Type typeOf(Map<Ident, Type> typeEnvironment) {
+	public Type typeOf(Map<String, Type> typeEnvironment) {
 		if (typeEnvironment.containsKey(this)) {
 			return typeEnvironment.get(this);
 			}

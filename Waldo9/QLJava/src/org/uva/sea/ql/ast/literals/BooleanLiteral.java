@@ -4,7 +4,6 @@ import java.util.Map;
 
 import org.uva.sea.ql.ast.ASTNodeVisitor;
 import org.uva.sea.ql.ast.expressions.Expr;
-import org.uva.sea.ql.ast.expressions.Ident;
 import org.uva.sea.ql.ast.types.BoolType;
 import org.uva.sea.ql.ast.types.Type;
 
@@ -29,7 +28,7 @@ public class BooleanLiteral extends Expr {
     }
 	
 	@Override
-	public Type typeOf(Map<Ident, Type> typeEnvironment) {
+	public Type typeOf(Map<String, Type> typeEnvironment) {
 		return new BoolType();
 	}
 

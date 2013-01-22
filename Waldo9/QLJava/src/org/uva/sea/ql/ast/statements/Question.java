@@ -30,9 +30,6 @@ public class Question extends Statement {
 	}
 	
 	public <T> T accept(ASTNodeVisitor<T> visitor) {
-        identifier.accept(visitor);
-        stringLiteral.accept(visitor);
-        type.accept(visitor);
 		return visitor.visit(this);
     }
 	

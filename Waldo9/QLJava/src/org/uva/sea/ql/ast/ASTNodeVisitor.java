@@ -21,6 +21,7 @@ import org.uva.sea.ql.ast.expressions.Sub;
 import org.uva.sea.ql.ast.literals.BooleanLiteral;
 import org.uva.sea.ql.ast.literals.StringLiteral;
 import org.uva.sea.ql.ast.statements.Block;
+import org.uva.sea.ql.ast.statements.ComputedQuestion;
 import org.uva.sea.ql.ast.statements.IfThenElse;
 import org.uva.sea.ql.ast.statements.Question;
 import org.uva.sea.ql.ast.types.BoolType;
@@ -45,6 +46,8 @@ public interface ASTNodeVisitor<T> {
 	public T visit(IfThenElse ifThenElse);
 
 	public T visit(Question question);
+	
+	public T visit(ComputedQuestion computedQuestion);
 
 	public T visit(Add add);
 

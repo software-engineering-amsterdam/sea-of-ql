@@ -13,10 +13,16 @@ public class Form implements ASTNode {
 		this.block = block;
 	}
 	
+	public Ident getIdentifier() {
+		return identifier;
+	}
+	
+	public Block getBlock() {
+		return block;
+	}
+	
 	@Override
 	public <T> T accept(ASTNodeVisitor<T> visitor) {
-		identifier.accept(visitor);
-        block.accept(visitor);
 		return visitor.visit(this);
     }
 }

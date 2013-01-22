@@ -15,9 +15,13 @@ public class ComputedQuestion extends Question {
 		this.expression = expression;
 	}
 	
+	public Expr getExpression() {
+		return expression;
+	}
+	
 	public <T> T accept(ASTNodeVisitor<T> visitor) {
-        expression.accept(visitor);
-		return super.accept(visitor);
+		//return super.accept(visitor);
+		return visitor.visit(this);
     }
 
 }

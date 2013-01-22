@@ -13,6 +13,6 @@ public abstract class Expr implements ASTNode {
         return visitor.visit(this);
     }
 	
-	public abstract Type typeOf(Map<Ident, Type> typeEnvironment);
+	public abstract Type typeOf(Map<String, Type> typeEnvironment);
 
 }

@@ -24,7 +24,7 @@ public class Int extends Expr {
     }
 	
 	@Override
-	public Type typeOf(Map<Ident, Type> typeEnvironment) {
+	public Type typeOf(Map<String, Type> typeEnvironment) {
 		return new IntType();
 	}
 	

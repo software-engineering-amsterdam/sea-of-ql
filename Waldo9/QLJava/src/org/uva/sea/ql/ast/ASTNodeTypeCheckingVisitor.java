@@ -26,8 +26,10 @@ import org.uva.sea.ql.ast.expressions.Sub;
 import org.uva.sea.ql.ast.literals.BooleanLiteral;
 import org.uva.sea.ql.ast.literals.StringLiteral;
 import org.uva.sea.ql.ast.statements.Block;
+import org.uva.sea.ql.ast.statements.ComputedQuestion;
 import org.uva.sea.ql.ast.statements.IfThenElse;
 import org.uva.sea.ql.ast.statements.Question;
+import org.uva.sea.ql.ast.statements.Statement;
 import org.uva.sea.ql.ast.types.BoolType;
 import org.uva.sea.ql.ast.types.ErrorType;
 import org.uva.sea.ql.ast.types.IntType;
@@ -36,11 +38,11 @@ import org.uva.sea.ql.ast.types.Type;
 
 public class ASTNodeTypeCheckingVisitor implements ASTNodeVisitor<Boolean> {
 	
-	private Map<Ident, Type> typeEnvironment;
+	private Map<String, Type> typeEnvironment;
 	private List<String> errorMessages;
 	
 	public ASTNodeTypeCheckingVisitor() {
-		typeEnvironment = new HashMap<Ident, Type>();
+		typeEnvironment = new HashMap<String, Type>();
 		errorMessages = new ArrayList<String>();
 	}
 	
@@ -50,64 +52,80 @@ public class ASTNodeTypeCheckingVisitor implements ASTNodeVisitor<Boolean> {
 
 	@Override
 	public Boolean visit(Form form) {
-		return true;
-		// TODO Auto-generated method stub
-		
+		boolean checkBlock = form.getBlock().accept(this);
+		if (!checkBlock)
+			return false;
+		return true;		
 	}
 
 	@Override
 	public Boolean visit(StringLiteral stringLiteral) {
-		return true;
-		// TODO Auto-generated method stub
-		
+		return true;		
 	}
 
 	@Override
 	public Boolean visit(BoolType boolType) {
 		return true;
-		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
 	public Boolean visit(IntType intType) {
 		return true;
-		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
 	public Boolean visit(StringType stringType) {
 		return true;
-		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
 	public Boolean visit(Block block) {
-		return true;
-		// TODO Auto-generated method stub
-		
+		for (Statement statement : block.getStatements()) {
+			boolean checkStatement = statement.accept(this);
+			if (!checkStatement)
+				return false;
+		}
+		return true;	
 	}
 
 	@Override
 	public Boolean visit(IfThenElse ifThenElse) {
-		return true;
-		// TODO Auto-generated method stub
-		
+		boolean checkBody = ifThenElse.getBody().accept(this);
+		boolean checkCondition = ifThenElse.getCondition().accept(this);
+		if (!(checkBody && checkCondition))
+			return false;
+		Block elseBody = ifThenElse.getElseBody();
+		if (elseBody != null)
+			if (!elseBody.accept(this))
+				return false;				
+		return true;		
 	}
 
 	@Override
 	public Boolean visit(Question question) {
 		Ident identifier = question.getIdentifier();
-		boolean checkIdentifier = identifier.accept(this);
-		if (checkIdentifier) {
-			typeEnvironment.put(identifier, question.getType());
-			return true;
+		if (typeEnvironment.get(identifier.getName()) != null) {
+			errorMessages.add("Identifier " + identifier.getName() + " can only be used once.");
+			return false;
 		}
 		else
-			errorMessages.add("Identifier " + identifier + "can only be used once.");
-		return false;
+			typeEnvironment.put(identifier.getName(), question.getType());
+		return true;
+	}
+	
+	@Override
+	public Boolean visit(ComputedQuestion computedQuestion) {	
+		Ident identifier = computedQuestion.getIdentifier();
+		if (typeEnvironment.get(identifier.getName()) != null) {
+			errorMessages.add("Identifier " + identifier.getName() + " can only be used once.");
+			return false;
+		}
+		else
+			typeEnvironment.put(identifier.getName(), computedQuestion.getType());
+		boolean checkExpression = computedQuestion.getExpression().accept(this);
+		if (!checkExpression)
+			return false;
+		return true;
 	}
 
 	@Override
@@ -128,9 +146,18 @@ public class ASTNodeTypeCheckingVisitor implements ASTNodeVisitor<Boolean> {
 
 	@Override
 	public Boolean visit(And and) {
+		boolean checkLhs = and.getLhs().accept(this);
+		boolean checkRhs = and.getRhs().accept(this);
+		if (!(checkLhs && checkRhs)) {
+			return false;
+		}
+		Type lhsType = and.getLhs().typeOf(typeEnvironment);
+		Type rhsType = and.getRhs().typeOf(typeEnvironment);
+		if (!(lhsType.isCompatibleToBool() && rhsType.isCompatibleToBool())) {
+			errorMessages.add("Type error: The && sign is used incorrectly.");
+			return false;
+		}
 		return true;
-		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
@@ -162,10 +189,8 @@ public class ASTNodeTypeCheckingVisitor implements ASTNodeVisitor<Boolean> {
 	}
 
 	@Override
-	public Boolean visit(Ident ident) {
-		return true;
-		// TODO Auto-generated method stub
-		
+	public Boolean visit(Ident ident) {		
+		return true;		
 	}
 
 	@Override
@@ -240,22 +265,17 @@ public class ASTNodeTypeCheckingVisitor implements ASTNodeVisitor<Boolean> {
 
 	@Override
 	public Boolean visit(Expr expr) {
-		return true;
-		// TODO Auto-generated method stub
-		
+		return true;		
 	}
 
 	@Override
 	public Boolean visit(BooleanLiteral booleanLiteral) {
-		return true;
-		// TODO Auto-generated method stub
-		
+		return true;		
 	}
 
 	@Override
 	public Boolean visit(ErrorType error) {		
 		return true;
-		// TODO Auto-generated method stub
 	}
 
 }

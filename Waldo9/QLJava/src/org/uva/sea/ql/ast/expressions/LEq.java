@@ -19,7 +19,7 @@ public class LEq extends Binary {
     }
 	
 	@Override
-	public Type typeOf(Map<Ident, Type> typeEnvironment) {
+	public Type typeOf(Map<String, Type> typeEnvironment) {
 		return new IntType();
 	}
 

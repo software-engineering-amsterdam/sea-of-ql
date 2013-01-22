@@ -13,9 +13,11 @@ public class Block extends Statement {
 		this.statements = statements;
 	}
 	
+	public List<Statement> getStatements() {
+		return statements;
+	}
+	
 	public <T> T accept(ASTNodeVisitor<T> visitor) {
-        for (Statement statement : statements)
-        	statement.accept(visitor);
 		return visitor.visit(this);
     }
 

@@ -15,11 +15,19 @@ public class IfThenElse extends Statement {
 		this.condition = condition;
 	}
 	
+	public Block getBody() {
+		return body;
+	}
+	
+	public Block getElseBody() {
+		return elseBody;
+	}
+	
+	public Expr getCondition() {
+		return condition;
+	}
+	
 	public <T> T accept(ASTNodeVisitor<T> visitor) {
-		body.accept(visitor);
-		if (elseBody != null)
-			elseBody.accept(visitor);
-		condition.accept(visitor);
         return visitor.visit(this);
     }
 	
