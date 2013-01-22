@@ -59,7 +59,7 @@ public class FormVisitorPrinter implements FormVisitor {
 
 	@Override
 	public void visit(ComputedQuestion computedQuestion) {
-		printString("Question " + "\t id: "
+		printString("ComputedQuestion " + "\t id: "
 				+ computedQuestion.getId().getName() + "\t label: "
 				+ computedQuestion.getLabel() + "\t type: "
 				+ computedQuestion.getType().getClass()
