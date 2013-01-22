@@ -5,7 +5,7 @@ import String;
 import lang::ql::ast::AST;
 import lang::ql::compiler::PrettyPrinter;
 
-private str title = ""; 
+private str title = "";
 
 public void PHP(Form f, loc dest) {
   dest += "form.php";
@@ -15,9 +15,13 @@ public void PHP(Form f, loc dest) {
 
 private str createPHP(Form form) =
   "\<?php 
+  '
+  '  $__RES = array();
+  '
   '<for(e <- form.formElements) {>
   '  <createPHP(e)>
   '<}>
+  '  <createJSON()>
   '?\>
   '";
 
@@ -27,7 +31,7 @@ private str createPHP(Statement item: question(Question question)) =
 private str createPHP(Question q: 
   question(questionText, answerDataType, answerIdentifier)) =
     "<validator(answerDataType, answerIdentifier)>
-    '<createQuery(answerDataType, answerIdentifier)>
+    '<addToArray(answerDataType, answerIdentifier)>
     ";
 
 private str createPHP(Question q: 
@@ -36,9 +40,7 @@ private str createPHP(Question q:
   cf = prependIdent(calculatedField, "$");
   
   return 
-    "<validator(answerDataType, answerIdentifier)>
-    '<createQuery(answerDataType, answerIdentifier, prettyPrint(cf))>
-    ";
+    "<addToArray(answerDataType, answerIdentifier, prettyPrint(cf))>";
 }
 
 private str createPHP(Statement item: 
@@ -53,20 +55,23 @@ private str createPHP(Statement item:
 
 private str createPHP(Expr e) =
   "<prettyPrint(prependIdent(e, "$"))>";
-  
-private str createQuery(str answerDataType, str ident) =
-  "$<ident> = $_POST[\'<ident>\'];
-  '<preparedStatement(answerDataType, "$<ident>")>";
-  
-private str createQuery(str answerDataType, str ident, str expr) =
-  "$<ident> = <expr>;
-  '<preparedStatement(answerDataType, "$<ident>")>";  
-  
-private str preparedStatement(str answerDataType, str val) =
-  "$stmt = $mysqli-\>prepare(\"INSERT INTO <title> (`ident`) VALUES (?)\");
-  '$stmt-\>bind_param(\"<preparedStatementShorthand(answerDataType)>\", <val>);
-  '$stmt-\>execute();";
-  
+
+private str addToArray(str answerDataType, str ident) =
+  addToArray(answerDataType, ident, "$_POST[\'<ident>\']");
+
+private str addToArray(str answerDataType, str ident, str expr) =
+  "
+  '$<ident> = <expr>;
+  '$__RES[\"<ident>\"] = $<ident>;
+  '
+  ";
+
+private str createJSON() =
+  "
+  '$__JSON = json_encode($__RES);
+  '
+  'print_r($__JSON);
+  ";
 private str preparedStatementShorthand(str answerDataType) {      
   switch(answerDataType) {
     case "boolean": return "b";
@@ -88,19 +93,37 @@ private str validator(str answerDataType, str ident) {
 }
 
 private str validateBoolean(str ident) =
-  "if(!(is_bool(<ident>)) die(\"<ident> is not a boolean!\");";
+  "if(!(is_bool($_POST[\'<ident>\']))) {
+  '  die(\"<ident> is not a boolean!\");
+  '}";
   
 private str validateInteger(str ident) =
-  "if(!(is_int(<ident>)) die(\"<ident> is not an integer!\");";
+  "if(!(is_int($_POST[\'<ident>\']))) {
+  '  die(\"<ident> is not an integer!\");
+  '}";
 
 private str validateMoney(str ident) =
-  "die(M<ident>);";
+  "<ident> = floatval(<ident>);
+  '_s<ident> = sprintf(\"%.2f\", <ident>);
+  'ident = floatval($_s<ident>);";
 
 private str validateDate(str ident) =
-  "die(D<ident>);";
+  "$<ident> = $_POST[\'<ident>\'];
+  '$<ident>_arr = explode(\"-\", $<ident>);
+  '
+  '$__year = $<ident>_arr[0];
+  '$__month = $<ident>_arr[1];
+  '$__day = $<ident>_arr[2];
+  '
+  'if(!(checkDate($__month, $__day, $__year))) {
+  '  die(\"<ident> is not a valid date!\");
+  '}
+  ";
 
 private str validateString(str ident) =
-  "if(!(is_string(<ident>)) die(\"<ident> is not a string!\");";
+  "if(!(is_string($_POST[\'<ident>\']))) {
+  '  die(\"<ident> is not a string!\");
+  '}";
 
 private Expr prependIdent(Expr expr, str prepend) {
   return visit (expr) {
