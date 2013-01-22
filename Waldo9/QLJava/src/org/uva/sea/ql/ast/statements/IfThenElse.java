@@ -5,9 +5,9 @@ import org.uva.sea.ql.ast.expressions.Expr;
 
 public class IfThenElse extends Statement {
 
-	private Block body;
-	private Block elseBody;
-	private Expr condition;
+	private final Block body;
+	private final Block elseBody;
+	private final Expr condition;
 
 	public IfThenElse(Expr condition, Block body, Block elseBody) {
 		this.body = body;

@@ -56,27 +56,7 @@ public class ASTNodeTypeCheckingVisitor implements ASTNodeVisitor<Boolean> {
 		if (!checkBlock)
 			return false;
 		return true;		
-	}
-
-	@Override
-	public Boolean visit(StringLiteral stringLiteral) {
-		return true;		
-	}
-
-	@Override
-	public Boolean visit(BoolType boolType) {
-		return true;
-	}
-
-	@Override
-	public Boolean visit(IntType intType) {
-		return true;
-	}
-
-	@Override
-	public Boolean visit(StringType stringType) {
-		return true;
-	}
+	}	
 
 	@Override
 	public Boolean visit(Block block) {
@@ -103,7 +83,7 @@ public class ASTNodeTypeCheckingVisitor implements ASTNodeVisitor<Boolean> {
 
 	@Override
 	public Boolean visit(Question question) {
-		Ident identifier = question.getIdentifier();
+		Ident identifier = question.getVariable();
 		if (typeEnvironment.get(identifier.getName()) != null) {
 			errorMessages.add("Identifier " + identifier.getName() + " can only be used once.");
 			return false;
@@ -115,7 +95,7 @@ public class ASTNodeTypeCheckingVisitor implements ASTNodeVisitor<Boolean> {
 	
 	@Override
 	public Boolean visit(ComputedQuestion computedQuestion) {	
-		Ident identifier = computedQuestion.getIdentifier();
+		Ident identifier = computedQuestion.getVariable();
 		if (typeEnvironment.get(identifier.getName()) != null) {
 			errorMessages.add("Identifier " + identifier.getName() + " can only be used once.");
 			return false;
@@ -223,17 +203,7 @@ public class ASTNodeTypeCheckingVisitor implements ASTNodeVisitor<Boolean> {
 			return false;
 		}
 		return true;
-	}
-
-	@Override
-	public Boolean visit(Ident ident) {		
-		return true;		
-	}
-
-	@Override
-	public Boolean visit(Int int1) {
-		return true;
-	}
+	}	
 
 	@Override
 	public Boolean visit(LEq lEq) {
@@ -360,6 +330,26 @@ public class ASTNodeTypeCheckingVisitor implements ASTNodeVisitor<Boolean> {
 		}
 		return true;
 	}
+	
+	@Override
+	public Boolean visit(StringLiteral stringLiteral) {
+		return true;		
+	}
+
+	@Override
+	public Boolean visit(BoolType boolType) {
+		return true;
+	}
+
+	@Override
+	public Boolean visit(IntType intType) {
+		return true;
+	}
+
+	@Override
+	public Boolean visit(StringType stringType) {
+		return true;
+	}
 
 	@Override
 	public Boolean visit(Expr expr) {
@@ -373,6 +363,16 @@ public class ASTNodeTypeCheckingVisitor implements ASTNodeVisitor<Boolean> {
 
 	@Override
 	public Boolean visit(ErrorType error) {		
+		return true;
+	}
+	
+	@Override
+	public Boolean visit(Ident ident) {		
+		return true;		
+	}
+
+	@Override
+	public Boolean visit(Int int1) {
 		return true;
 	}
 

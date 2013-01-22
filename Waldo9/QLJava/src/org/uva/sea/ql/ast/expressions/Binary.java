@@ -4,8 +4,8 @@ import org.uva.sea.ql.ast.ASTNodeVisitor;
 
 public abstract class Binary extends Expr {
 	
-	private Expr lhs;
-	private Expr rhs;
+	private final Expr lhs;
+	private final Expr rhs;
 	
 	protected Binary(Expr lhs, Expr rhs) {
 		this.lhs = lhs;
@@ -14,6 +14,7 @@ public abstract class Binary extends Expr {
 	
 	protected Binary(Expr lhs) {
 		this.lhs = lhs;
+		this.rhs = null;
 	}
 	
 	public Expr getLhs() {

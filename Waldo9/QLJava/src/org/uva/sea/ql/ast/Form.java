@@ -5,8 +5,8 @@ import org.uva.sea.ql.ast.statements.Block;
 
 public class Form implements ASTNode {
 	
-	private Ident identifier;
-	private Block block;
+	private final Ident identifier;
+	private final Block block;
 	
 	public Form(Ident identifier, Block block) {
 		this.identifier = identifier;

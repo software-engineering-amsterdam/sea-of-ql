@@ -9,7 +9,7 @@ import org.uva.sea.ql.ast.types.Type;
 
 public class BooleanLiteral extends Expr {
 	
-	private boolean value;
+	private final boolean value;
 	
 	public BooleanLiteral(String value) {
 		if (value.equals("true"))

@@ -5,7 +5,7 @@ import org.uva.sea.ql.ast.ASTNodeVisitor;
 
 public class StringLiteral implements ASTNode {
 	
-	private String value;
+	private final String value;
 	
 	public StringLiteral(String value) {
 		this.value = value;

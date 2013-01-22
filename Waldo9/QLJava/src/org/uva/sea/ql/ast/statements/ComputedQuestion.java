@@ -8,7 +8,7 @@ import org.uva.sea.ql.ast.types.Type;
 
 public class ComputedQuestion extends Question {
 	
-	private Expr expression;
+	private final Expr expression;
 	
 	public ComputedQuestion(Ident identifier, StringLiteral label, Type type, Expr expression) {
 		super(identifier, label, type);
@@ -20,7 +20,6 @@ public class ComputedQuestion extends Question {
 	}
 	
 	public <T> T accept(ASTNodeVisitor<T> visitor) {
-		//return super.accept(visitor);
 		return visitor.visit(this);
     }
 

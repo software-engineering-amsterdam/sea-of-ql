@@ -7,7 +7,7 @@ import org.uva.sea.ql.ast.ASTNodeVisitor;
 
 public class Block extends Statement {
 	
-	private List<Statement> statements;
+	private final List<Statement> statements;
 	
 	public Block(List<Statement> statements) {
 		this.statements = statements;
