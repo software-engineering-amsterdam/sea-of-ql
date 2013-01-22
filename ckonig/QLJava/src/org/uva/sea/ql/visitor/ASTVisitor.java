@@ -13,6 +13,4 @@ public interface ASTVisitor {
 	void visit(Question question) throws VisitorException;
 
 	void visit(IfStatement ifStatement) throws VisitorException;
-	
-	void visit(Registry registry) throws VisitorException;
 }

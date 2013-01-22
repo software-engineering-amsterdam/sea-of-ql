@@ -3,9 +3,6 @@ package org.uva.sea.ql.interpreter;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.uva.sea.ql.ast.AcceptsBoolOperands;
-import org.uva.sea.ql.ast.AcceptsBothOperands;
-import org.uva.sea.ql.ast.AcceptsMathOperands;
 import org.uva.sea.ql.ast.BinaryExpr;
 import org.uva.sea.ql.ast.Expr;
 import org.uva.sea.ql.ast.elements.Block;
@@ -23,8 +20,6 @@ import org.uva.sea.ql.visitor.ASTVisitor;
 import org.uva.sea.ql.visitor.Registry;
 import org.uva.sea.ql.visitor.VisitorException;
 
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
-
 public class HTMLVisitor implements ASTVisitor {
 	private Registry registry;
 	private static final String head = "<!DOCTYPE html><html><head><style>.question {padding-left:20px; height:30px; width:600px;}.q_text{float:left;} .q_input{float:right;clear: right;} .content_below{clear:both;}</style></head><body>\n";
@@ -40,7 +35,7 @@ public class HTMLVisitor implements ASTVisitor {
 		registry.appendToOutput(jquery);
 		registry.appendToOutput("<h1>" + form.getName() + "</h1>");
 		form.getBlock().accept(this);
-		registry.accept(this);
+		this.visit(registry);
 		registry.appendToOutput("</body></html>");
 	}
 
@@ -98,8 +93,7 @@ public class HTMLVisitor implements ASTVisitor {
 		return registry.getOutput();
 	}
 
-	@Override
-	public void visit(Registry reg) {
+	private void visit(Registry reg) {
 		registry.appendToOutput("<script type=\"text/javascript\">");
 		registry.appendToOutput("//helper\n"
 				+ "function toggleContent(value, id){\n"
@@ -159,8 +153,8 @@ public class HTMLVisitor implements ASTVisitor {
 		}
 		if (i instanceof BinaryExpr) {
 			BinaryExpr b = (BinaryExpr) i;
-			ret += "(" + getConditionString(b.getLeft()) + " " + b.toString() + " "
-					+ getConditionString(b.getRight()) + ")";
+			ret += "(" + getConditionString(b.getLeft()) + " " + b.toString()
+					+ " " + getConditionString(b.getRight()) + ")";
 		}
 		if (i instanceof IntLiteral) {
 			ret += ((IntLiteral) i).getValue();

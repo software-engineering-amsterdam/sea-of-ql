@@ -6,7 +6,7 @@ import java.util.List;
 import org.uva.sea.ql.ast.elements.IfStatement;
 import org.uva.sea.ql.ast.elements.Question;
 
-public class Registry implements ASTElement {
+public class Registry {
 	private List<Question> questions;
 	private List<IfStatement> ifStatements;
 	private StringBuilder sb;
@@ -15,11 +15,6 @@ public class Registry implements ASTElement {
 		this.questions = new ArrayList<Question>();
 		this.ifStatements = new ArrayList<IfStatement>();
 		this.sb = new StringBuilder();
-	}
-
-	@Override
-	public void accept(ASTVisitor visitor) throws VisitorException {
-		visitor.visit(this);
 	}
 	
 	public void appendToOutput(String s){
