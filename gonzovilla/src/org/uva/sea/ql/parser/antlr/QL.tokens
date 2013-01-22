@@ -46,10 +46,10 @@ WS=8
 '>='=24
 'Boolean'=25
 'Integer'=26
-'Money'=27
-'String'=28
-'endform'=29
-'endif'=30
-'form'=31
-'if'=32
+'String'=27
+'endform'=28
+'endif'=29
+'form'=30
+'if'=31
+'then'=32
 '||'=33

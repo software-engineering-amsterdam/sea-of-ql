@@ -1,14 +1,16 @@
 package org.uva.sea.ql.form;
 
+import org.uva.sea.ql.ast.values.Value;
+
 public class Question extends FormItem {
 
-	private String id;
-	private String question;
-	private String questionType;
+	private final String id;
+	private final String label;
+	private final Value questionType;
 	
-	public Question(String id, String question, String questionType) {
+	public Question(String id, String question, Value questionType) {
 		this.id = id;
-		this.question = question;
+		this.label = question;
 		this.questionType = questionType;
 	}
 	
@@ -16,18 +18,18 @@ public class Question extends FormItem {
 		return id;
 	}
 	
-	public String getQuestion() {
-		return question;
+	public String getLabel() {
+		return label;
 	}
 	
-	public String getQuestionType() {
+	public Value getQuestionType() {
 		return questionType;
 	}
 
 	@Override
 	public void print(int level) {
 		printIndent(level);
-		System.out.println("Q:" + question 
+		System.out.println("Q:" + label 
 				+ " (id: " + id 
 				+ ", type: " + questionType + ")");
 	}

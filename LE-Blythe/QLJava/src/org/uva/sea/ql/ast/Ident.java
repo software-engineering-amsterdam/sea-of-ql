@@ -1,7 +1,9 @@
 package org.uva.sea.ql.ast;
 
+import org.uva.sea.ql.ast.types.Type;
+import org.uva.sea.ql.ast.types.Undefined;
 import org.uva.sea.ql.interfaces.IVisitor;
-import org.uva.sea.ql.util.Stack;
+import org.uva.sea.ql.util.Environment;
 
 public class Ident extends Expr implements Comparable<Ident>{
 
@@ -28,12 +30,38 @@ public class Ident extends Expr implements Comparable<Ident>{
 	}
 	
 	
+	@Override
 	public int compareTo(Ident other){
 		return name.compareTo(other.getName());
 	}
 	
 	
-	public void accept(IVisitor visitor, Stack stack) throws Exception {
-		visitor.visit(this, stack);
+	@Override
+	public Type typeOf(Environment env){
+		
+		if(env.contains(this)){
+			return env.getValue(this).typeOf(env);
+		}
+		
+		return new Undefined(); //undefined type
 	}
+	
+	
+	@Override
+	public Primitive interpret(Environment env) throws Exception{
+		
+		if(env.contains(this)){
+			return env.getValue(this).interpret(env);
+		}
+		
+		//this should not happen, if it does execution must be interrupted
+		throw new Exception("identifier not found\n");
+	}
+	
+	
+	@Override
+	public <T> T accept(IVisitor<T> visitor) {
+		return visitor.visit(this);
+	}
+	
 }

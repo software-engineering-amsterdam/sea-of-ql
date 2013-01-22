@@ -7,14 +7,12 @@ import org.uva.sea.ql.ast.types.BoolType;
 import org.uva.sea.ql.ast.types.Type;
 import org.uva.sea.ql.visitor.ASTNodeVisitor;
 
-public class Or extends Expr {
+public class Or extends Binary {
 
-	public Or() {
-		// TODO Auto-generated constructor stub
-	}
+	
 
-	public Or(Expr result, Expr rhs) {
-		// TODO Auto-generated constructor stub
+	public Or(Expr leftExpr, Expr rightExpr) {
+		super(leftExpr,rightExpr);
 	}
 
 	@Override

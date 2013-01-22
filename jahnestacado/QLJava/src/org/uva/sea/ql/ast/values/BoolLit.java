@@ -13,8 +13,6 @@ public class BoolLit extends Expr{
 
 	public BoolLit(String value) {
 		this.value = value;
-		
-
 	}
 	
 	public String getValue() {

@@ -23,7 +23,7 @@ public class Ident extends Value {
 		if (typeEnv.containsKey(this)) {
 			return typeEnv.get(this);
 		}
-		return new ast.types.Error();
+		return new ast.types.Error(this);
 	}
 
 	@Override

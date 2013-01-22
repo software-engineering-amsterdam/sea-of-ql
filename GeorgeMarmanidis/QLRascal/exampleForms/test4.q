@@ -6,15 +6,15 @@ form test  {
 	age2: "Age2:" integer
 	
 	isEmpl: "Do you work?" boolean
-	completeage: "Complete name:" integer (age +age2)
+	completeage: "Complete name:" integer (age+age2)
 	
 	if (isEmpl)
 	{
 		if(isEmpl==false){
-		salary: "Annual income:" money
+		salary: "Annual income:" money 
 		}
 		else{
-		salary: "what salary you except?:" money
+		salary: "what salary you except?:" money 
 		}
 	}
 	else if(!isEmpl)
@@ -25,6 +25,6 @@ form test  {
 	else
 	{
 		interest: "How you get in here?" string
-		interest: "How you get in here?" string
+		interest: "How you get in here?" string 
 	}
 }

@@ -8,12 +8,16 @@ import org.uva.sea.ql.ast.types.StringType;
 import org.uva.sea.ql.ast.types.Type;
 import org.uva.sea.ql.visitor.ASTNodeVisitor;
 
-public class StringLit extends Expr  {
+public class StringLit extends Value  {
     private final String value;
 	
 	public StringLit(String value) {
 		this.value=value;
 		
+	}
+	
+	public String getValue(){
+		return value;
 	}
 
 	@Override

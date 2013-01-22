@@ -9,8 +9,8 @@ import org.uva.sea.ql.visitor.ASTNodeVisitor;
 
 public class LT extends Binary {
 
-	public LT(Expr result, Expr rhs) {
-		super(result,rhs) ;
+	public LT(Expr leftExpr, Expr rightExpr) {
+		super(leftExpr,rightExpr) ;
 	}
 
 	@Override

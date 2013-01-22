@@ -4,33 +4,34 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import org.uva.sea.ql.ast.Add;
-import org.uva.sea.ql.ast.And;
 import org.uva.sea.ql.ast.BinExpr;
 import org.uva.sea.ql.ast.BooleanLiteral;
 import org.uva.sea.ql.ast.CompoundStatement;
 import org.uva.sea.ql.ast.ConditionalStatement;
-import org.uva.sea.ql.ast.Div;
-import org.uva.sea.ql.ast.Eq;
 import org.uva.sea.ql.ast.Expr;
-import org.uva.sea.ql.ast.GT;
 import org.uva.sea.ql.ast.Ident;
 import org.uva.sea.ql.ast.IntLiteral;
-import org.uva.sea.ql.ast.LEq;
-import org.uva.sea.ql.ast.LT;
 import org.uva.sea.ql.ast.LineStatement;
-import org.uva.sea.ql.ast.Mul;
-import org.uva.sea.ql.ast.NEq;
-import org.uva.sea.ql.ast.Neg;
-import org.uva.sea.ql.ast.Not;
-import org.uva.sea.ql.ast.Or;
-import org.uva.sea.ql.ast.Pos;
 import org.uva.sea.ql.ast.QLProgram;
 import org.uva.sea.ql.ast.Statement;
 import org.uva.sea.ql.ast.StringLiteral;
-import org.uva.sea.ql.ast.Sub;
-import org.uva.sea.ql.ast.TypeDescription;
 import org.uva.sea.ql.ast.UnExpr;
+import org.uva.sea.ql.ast.operators.Add;
+import org.uva.sea.ql.ast.operators.And;
+import org.uva.sea.ql.ast.operators.Div;
+import org.uva.sea.ql.ast.operators.Eq;
+import org.uva.sea.ql.ast.operators.GEq;
+import org.uva.sea.ql.ast.operators.GT;
+import org.uva.sea.ql.ast.operators.LEq;
+import org.uva.sea.ql.ast.operators.LT;
+import org.uva.sea.ql.ast.operators.Mul;
+import org.uva.sea.ql.ast.operators.NEq;
+import org.uva.sea.ql.ast.operators.Neg;
+import org.uva.sea.ql.ast.operators.Not;
+import org.uva.sea.ql.ast.operators.Or;
+import org.uva.sea.ql.ast.operators.Pos;
+import org.uva.sea.ql.ast.operators.Sub;
+import org.uva.sea.ql.ast.types.TypeDescription;
 
 public class SemanticCheckVisitor implements Visitor {
 
@@ -69,9 +70,7 @@ public class SemanticCheckVisitor implements Visitor {
 		errorList.clear();
 
 		qlProgram.getCompound().accept(this);
-		for (String errorSting : errorList) {
-			System.out.println(errorSting);
-		}
+
 		return null;
 	}
 
@@ -203,24 +202,19 @@ public class SemanticCheckVisitor implements Visitor {
 
 	@Override
 	public VisitorResult visit(GT expr) {
-		// TODO Auto-generated method stub
+		if (lhsRhsCompatible(expr, ">")) {
+			if (expr.typeOf(symbolMap).isCompatibleTo(
+					expr.getExprLeftHand().typeOf(symbolMap))) {
+				errorList
+						.add("Line(nan,nan) Expression: operator < on boolean operands.");
+			}
+		}
 		return null;
 	}
 
 	@Override
 	public VisitorResult visit(LT expr) {
-		expr.getExprLeftHand().accept(this);
-		expr.getExprRightHand().accept(this);
-
-		if (!(expr.getExprLeftHand().typeOf(symbolMap).isCompatibleTo(expr
-				.getExprRightHand().typeOf(symbolMap)))) {
-			/***
-			 * Due to empty AST expression node no availble line
-			 * numbers/positions. Annotation of AST?
-			 */
-			errorList
-					.add("Line(nan,nan) Expression: incompatible types on operator < .");
-		} else {
+		if (lhsRhsCompatible(expr, "<")) {
 			if (expr.typeOf(symbolMap).isCompatibleTo(
 					expr.getExprLeftHand().typeOf(symbolMap))) {
 				errorList
@@ -232,6 +226,25 @@ public class SemanticCheckVisitor implements Visitor {
 
 	@Override
 	public VisitorResult visit(LEq expr) {
+		if (lhsRhsCompatible(expr, "<=")) {
+			if (expr.typeOf(symbolMap).isCompatibleTo(
+					expr.getExprLeftHand().typeOf(symbolMap))) {
+				errorList
+						.add("Line(nan,nan) Expression: operator < on boolean operands.");
+			}
+		}
+		return null;
+	}
+
+	@Override
+	public VisitorResult visit(GEq expr) {
+		if (lhsRhsCompatible(expr, ">=")) {
+			if (expr.typeOf(symbolMap).isCompatibleTo(
+					expr.getExprLeftHand().typeOf(symbolMap))) {
+				errorList
+						.add("Line(nan,nan) Expression: operator > on boolean operands.");
+			}
+		}
 		return null;
 	}
 
@@ -286,5 +299,9 @@ public class SemanticCheckVisitor implements Visitor {
 	public VisitorResult visit(BinExpr expr) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	public List<String> getErrorList() {
+		return errorList;
 	}
 }

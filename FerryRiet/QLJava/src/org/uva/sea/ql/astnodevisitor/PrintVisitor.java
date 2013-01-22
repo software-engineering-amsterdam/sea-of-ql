@@ -1,6 +1,25 @@
 package org.uva.sea.ql.astnodevisitor;
 
 import org.uva.sea.ql.ast.*;
+import org.uva.sea.ql.ast.operators.Add;
+import org.uva.sea.ql.ast.operators.And;
+import org.uva.sea.ql.ast.operators.Div;
+import org.uva.sea.ql.ast.operators.Eq;
+import org.uva.sea.ql.ast.operators.GEq;
+import org.uva.sea.ql.ast.operators.GT;
+import org.uva.sea.ql.ast.operators.LEq;
+import org.uva.sea.ql.ast.operators.LT;
+import org.uva.sea.ql.ast.operators.Mul;
+import org.uva.sea.ql.ast.operators.NEq;
+import org.uva.sea.ql.ast.operators.Neg;
+import org.uva.sea.ql.ast.operators.Not;
+import org.uva.sea.ql.ast.operators.Or;
+import org.uva.sea.ql.ast.operators.Pos;
+import org.uva.sea.ql.ast.operators.Sub;
+import org.uva.sea.ql.ast.types.BooleanType;
+import org.uva.sea.ql.ast.types.MoneyType;
+import org.uva.sea.ql.ast.types.StringType;
+import org.uva.sea.ql.ast.types.TypeDescription;
 
 public class PrintVisitor implements Visitor {
 
@@ -80,38 +99,11 @@ public class PrintVisitor implements Visitor {
 		return pres;
 	}
 
-/*	@Override
+	@Override
 	public VisitorResult visit(BinExpr expr) {
-		PrintVisitorResult result = null;
-
-		result = (PrintVisitorResult) expr.getExprLeftHand().accept(this);
-
-		if (expr.getClass() == Add.class)
-			result.appendResult(" + ");
-		else if (expr.getClass() == Sub.class)
-			result.appendResult(" - ");
-		else if (expr.getClass() == Div.class)
-			result.appendResult(" / ");
-		else if (expr.getClass() == Mul.class)
-			result.appendResult(" * ");
-		else if (expr.getClass() == And.class)
-			result.appendResult(" && ");
-		else if (expr.getClass() == Or.class)
-			result.appendResult(" || ");
-		else if (expr.getClass() == Eq.class)
-			result.appendResult(" == ");
-		else if (expr.getClass() == NEq.class)
-			result.appendResult(" != ");
-		else if (expr.getClass() == GT.class)
-			result.appendResult(" > ");
-		else if (expr.getClass() == LT.class)
-			result.appendResult(" < ");
-
-		result.appendResult(expr.getExprRightHand().accept(this));
-
-		return result;
+		return null;
 	}
-*/
+
 	@Override
 	public VisitorResult visit(UnExpr expr) {
 		PrintVisitorResult result = null;
@@ -128,136 +120,179 @@ public class PrintVisitor implements Visitor {
 		return result;
 	}
 
-	/*
-	 * @Override public VisitorResult visit(Expr expr) { PrintVisitorResult
-	 * result = null; if (expr.getClass() == IntLiteral.class) { IntLiteral
-	 * intLit = (IntLiteral) expr; result = new
-	 * PrintVisitorResult(Integer.toString(intLit.getValue())); } if
-	 * (expr.getClass() == BooleanLiteral.class) { BooleanLiteral boolLit =
-	 * (BooleanLiteral) expr; result = new
-	 * PrintVisitorResult(boolLit.getValue()); } if (expr.getClass() ==
-	 * StringLiteral.class) { StringLiteral stringLit = (StringLiteral) expr;
-	 * result = new PrintVisitorResult(stringLit.getValue()); } if
-	 * (expr.getClass() == Ident.class) { Ident id = (Ident) expr; result = new
-	 * PrintVisitorResult(id.getName()); } return result; }
-	 */
+	@Override
+	public VisitorResult visit(Expr expr) {
+		return null;
+	}
+
 	@Override
 	public VisitorResult visit(Add expr) {
-		// TODO Auto-generated method stub
-		return null;
+		PrintVisitorResult result = null;
+
+		result = (PrintVisitorResult) expr.getExprLeftHand().accept(this);
+		result.appendResult(" + ");
+		result.appendResult(expr.getExprRightHand().accept(this));
+
+		return result;
 	}
 
 	@Override
 	public VisitorResult visit(Mul expr) {
-		// TODO Auto-generated method stub
-		return null;
+		PrintVisitorResult result = null;
+
+		result = (PrintVisitorResult) expr.getExprLeftHand().accept(this);
+		result.appendResult(" * ");
+		result.appendResult(expr.getExprRightHand().accept(this));
+
+		return result;
 	}
 
 	@Override
 	public VisitorResult visit(Div expr) {
-		// TODO Auto-generated method stub
-		return null;
+		PrintVisitorResult result = null;
+
+		result = (PrintVisitorResult) expr.getExprLeftHand().accept(this);
+		result.appendResult(" / ");
+		result.appendResult(expr.getExprRightHand().accept(this));
+
+		return result;
 	}
 
 	@Override
 	public VisitorResult visit(Sub expr) {
-		// TODO Auto-generated method stub
-		return null;
+		PrintVisitorResult result = null;
+
+		result = (PrintVisitorResult) expr.getExprLeftHand().accept(this);
+		result.appendResult(" - ");
+		result.appendResult(expr.getExprRightHand().accept(this));
+
+		return result;
 	}
 
 	@Override
 	public VisitorResult visit(And expr) {
-		// TODO Auto-generated method stub
-		return null;
+		PrintVisitorResult result = null;
+
+		result = (PrintVisitorResult) expr.getExprLeftHand().accept(this);
+		result.appendResult(" && ");
+		result.appendResult(expr.getExprRightHand().accept(this));
+
+		return result;
 	}
 
 	@Override
 	public VisitorResult visit(Or expr) {
-		// TODO Auto-generated method stub
-		return null;
+		PrintVisitorResult result = null;
+
+		result = (PrintVisitorResult) expr.getExprLeftHand().accept(this);
+		result.appendResult(" || ");
+		result.appendResult(expr.getExprRightHand().accept(this));
+
+		return result;
 	}
 
 	@Override
 	public VisitorResult visit(Eq expr) {
-		// TODO Auto-generated method stub
-		return null;
+		PrintVisitorResult result = null;
+
+		result = (PrintVisitorResult) expr.getExprLeftHand().accept(this);
+		result.appendResult(" == ");
+		result.appendResult(expr.getExprRightHand().accept(this));
+
+		return result;
 	}
 
 	@Override
 	public VisitorResult visit(GT expr) {
-		// TODO Auto-generated method stub
-		return null;
+		PrintVisitorResult result = null;
+
+		result = (PrintVisitorResult) expr.getExprLeftHand().accept(this);
+		result.appendResult(" > ");
+		result.appendResult(expr.getExprRightHand().accept(this));
+
+		return result;
 	}
 
 	@Override
 	public VisitorResult visit(LT expr) {
-		// TODO Auto-generated method stub
-		return null;
+		PrintVisitorResult result = null;
+
+		result = (PrintVisitorResult) expr.getExprLeftHand().accept(this);
+		result.appendResult(" < ");
+		result.appendResult(expr.getExprRightHand().accept(this));
+
+		return result;
 	}
 
 	@Override
 	public VisitorResult visit(LEq expr) {
-		// TODO Auto-generated method stub
-		return null;
+		PrintVisitorResult result = null;
+
+		result = (PrintVisitorResult) expr.getExprLeftHand().accept(this);
+		result.appendResult(" <= ");
+		result.appendResult(expr.getExprRightHand().accept(this));
+
+		return result;
 	}
 
 	@Override
 	public VisitorResult visit(NEq expr) {
-		// TODO Auto-generated method stub
-		return null;
+		PrintVisitorResult result = null;
+
+		result = (PrintVisitorResult) expr.getExprLeftHand().accept(this);
+		result.appendResult(" != ");
+		result.appendResult(expr.getExprRightHand().accept(this));
+
+		return result;
+	}
+
+	@Override
+	public VisitorResult visit(GEq expr) {
+		PrintVisitorResult result = null;
+
+		result = (PrintVisitorResult) expr.getExprLeftHand().accept(this);
+		result.appendResult(" >= ");
+		result.appendResult(expr.getExprRightHand().accept(this));
+
+		return result;
 	}
 
 	@Override
 	public VisitorResult visit(Not expr) {
-		// TODO Auto-generated method stub
-		return null;
+		PrintVisitorResult result = new PrintVisitorResult(" ! ");
+		return result.appendResult(expr.getExprRightHand().accept(this));
 	}
 
 	@Override
 	public VisitorResult visit(Neg expr) {
-		// TODO Auto-generated method stub
-		return null;
+		PrintVisitorResult result = new PrintVisitorResult(" - ");
+		return result.appendResult(expr.getExprRightHand().accept(this));
 	}
 
 	@Override
 	public VisitorResult visit(Pos expr) {
-		// TODO Auto-generated method stub
-		return null;
+		PrintVisitorResult result = new PrintVisitorResult(" + ");
+		return result.appendResult(expr.getExprRightHand().accept(this));
 	}
 
 	@Override
 	public VisitorResult visit(Ident expr) {
-		// TODO Auto-generated method stub
-		return null;
+		return new PrintVisitorResult(expr.getName());
 	}
 
 	@Override
 	public VisitorResult visit(IntLiteral expr) {
-		// TODO Auto-generated method stub
-		return null;
+		return new PrintVisitorResult(Integer.toString(expr.getValue()));
 	}
 
 	@Override
 	public VisitorResult visit(StringLiteral expr) {
-		// TODO Auto-generated method stub
-		return null;
+		return new PrintVisitorResult(expr.getValue());
 	}
 
 	@Override
 	public VisitorResult visit(BooleanLiteral expr) {
-		// TODO Auto-generated method stub
-		return null;
+		return new PrintVisitorResult(expr.getValue());
 	}
 
-	@Override
-	public VisitorResult visit(Expr expr) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public VisitorResult visit(BinExpr expr) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 }

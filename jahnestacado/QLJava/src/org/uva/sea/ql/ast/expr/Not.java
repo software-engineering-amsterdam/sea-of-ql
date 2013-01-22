@@ -7,10 +7,10 @@ import org.uva.sea.ql.ast.types.BoolType;
 import org.uva.sea.ql.ast.types.Type;
 import org.uva.sea.ql.visitor.ASTNodeVisitor;
 
-public class Not extends Expr {
+public class Not extends Unary {
 
-	public Not(Expr x) {
-		// TODO Auto-generated constructor stub
+	public Not(Expr leftExpr) {
+		super(leftExpr);
 	}
 
 	@Override

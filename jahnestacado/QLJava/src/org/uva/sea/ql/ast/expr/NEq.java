@@ -9,8 +9,8 @@ import org.uva.sea.ql.visitor.ASTNodeVisitor;
 
 public class NEq extends Binary {
 
-	public NEq(Expr result, Expr rhs) {
-		super(result,rhs) ;
+	public NEq(Expr leftExpr, Expr rightExpr) {
+		super(leftExpr,rightExpr);
 	}
 
 	@Override

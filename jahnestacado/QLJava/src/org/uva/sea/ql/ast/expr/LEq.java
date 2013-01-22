@@ -9,8 +9,8 @@ import org.uva.sea.ql.visitor.ASTNodeVisitor;
 
 public class LEq extends Binary {
 
-	public LEq(Expr result, Expr rhs) {
-		super(result,rhs) ;
+	public LEq(Expr leftExpr, Expr rightExpr) {
+		super(leftExpr,rightExpr) ;
 	}
 
 	@Override
