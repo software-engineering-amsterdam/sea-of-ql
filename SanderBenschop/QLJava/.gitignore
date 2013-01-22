@@ -1,10 +1,10 @@
 .DS_Store
 QL.iml
-sea.ql.iml
 target
 .idea
+.sonar
 .settings
 /.classpath~
 /.gitignore~
 /.project~
-/sea.ql.iml
+/.QLJava/sea.ql.iml
