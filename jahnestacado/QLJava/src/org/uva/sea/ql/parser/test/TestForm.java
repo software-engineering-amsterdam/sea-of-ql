@@ -28,7 +28,8 @@ public class TestForm {
 	private final String question2 = "id : \"label\" int ";
 	private final String ifBlock="if (cond){".concat(question1).concat("").concat(question2)+"}";
     private InputReader reader;
-	@Parameters
+	
+    @Parameters
 	public static List<Object[]> theParser() {
         List<Object[]> listANTLR=  new ArrayList<Object[]>();
 		listANTLR.add(new Object[] {new ANTLRParser()});
