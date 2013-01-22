@@ -14,23 +14,15 @@ import org.uva.sea.ql.ast.*;
 import org.uva.sea.ql.parser.antlr.ANTLRParser;
 import org.uva.sea.ql.parser.antlr.ANTLRQuestionParser;
 
-@RunWith(Parameterized.class)
+
 public class TestQuestions {
 
 
 	private IParse parser;
 
-	@Parameters
-	public static List<Object[]> theParsers() {
-	  List<Object[]> retList = new ArrayList<Object[]>();
-	  Object[] oArray = {new ANTLRQuestionParser() } ;
-	  retList.add(oArray);
-	  return retList;
-	}
-
 	
-	public TestQuestions(IParse parser) {
-		this.parser = parser;
+	public TestQuestions() {
+		this.parser = new ANTLRQuestionParser();
 	}
 
 	

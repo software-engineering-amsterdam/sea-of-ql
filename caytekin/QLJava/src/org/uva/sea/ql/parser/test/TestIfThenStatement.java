@@ -16,23 +16,13 @@ import org.uva.sea.ql.parser.antlr.ANTLRIfThenStatementParser;
 import org.uva.sea.ql.parser.antlr.ANTLRParser;
 import org.uva.sea.ql.parser.antlr.ANTLRQuestionParser;
 
-@RunWith(Parameterized.class)
 public class TestIfThenStatement {
 
 
 	private IParse parser;
 
-	@Parameters
-	public static List<Object[]> theParsers() {
-	  List<Object[]> retList = new ArrayList<Object[]>();
-	  Object[] oArray = {new ANTLRIfThenStatementParser() } ;
-	  retList.add(oArray);
-	  return retList;
-	}
-
-	
-	public TestIfThenStatement(IParse parser) {
-		this.parser = parser;
+	public TestIfThenStatement() {
+		this.parser = new ANTLRIfThenStatementParser();
 	}
 
 	

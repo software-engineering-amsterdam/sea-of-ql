@@ -15,11 +15,11 @@ package org.uva.sea.ql.parser.antlr;
 
 
 form returns [QLForm result]
-	: 'form' id = Ident '{' (stmt=allStatements)* '}' { $result = new QLForm($id.text, $stmt.result ); }  
+	: 'form' id = Ident '{' (stmt=statement)* '}' { $result = new QLForm($id.text, $stmt.result ); }  
 	;
 
 
-allStatements returns [Statement result]
+statement returns [Statement result]
 	: qst = questionStatement { $result = $qst.result; } 
 	| cstmt = conditionalStatement { $result = $cstmt.result; }
 	;	
@@ -41,6 +41,7 @@ ifThenStatement returns [IfThenStatement result]
 	: 'if' e = orExpr 'then' '{' (qs=questionStatement)* '}' 
 			{ result = new IfThenStatement($e.result, $qs.result); }
 	;
+
 	
 ifThenElseStatement returns [IfThenElseStatement result]
 	: 'if' e = orExpr
@@ -48,6 +49,7 @@ ifThenElseStatement returns [IfThenElseStatement result]
 	'else' '{' (qsElse = questionStatement)* '}'
 		{ result = new IfThenElseStatement($e.result, $qsThen.result, $qsElse.result); }		
 	;
+
 
 computedQuestion returns [ComputedQuestion result]
 	: Ident ':' StringLiteral t=type '(' e=orExpr ')' 

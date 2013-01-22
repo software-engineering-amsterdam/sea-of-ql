@@ -18,23 +18,15 @@ import org.uva.sea.ql.parser.antlr.ANTLRIfThenStatementParser;
 import org.uva.sea.ql.parser.antlr.ANTLRParser;
 import org.uva.sea.ql.parser.antlr.ANTLRQuestionParser;
 
-@RunWith(Parameterized.class)
+
 public class TestForm {
 
 
 	private IParse parser;
 
-	@Parameters
-	public static List<Object[]> theParsers() {
-	  List<Object[]> retList = new ArrayList<Object[]>();
-	  Object[] oArray = {new ANTLRFormParser() } ;
-	  retList.add(oArray);
-	  return retList;
-	}
-
 	
-	public TestForm(IParse parser) {
-		this.parser = parser;
+	public TestForm() {
+		this.parser = new ANTLRFormParser();
 	}
 
 	
