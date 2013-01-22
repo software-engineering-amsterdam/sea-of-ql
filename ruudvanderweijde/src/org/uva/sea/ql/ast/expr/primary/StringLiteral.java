@@ -6,7 +6,6 @@ import org.uva.sea.ql.ast.expr.Expr;
 import org.uva.sea.ql.ast.type.StringType;
 import org.uva.sea.ql.ast.type.Type;
 import org.uva.sea.ql.visitor.ExpressionVisitor;
-import org.uva.sea.ql.visitor.FormVisitor;
 
 
 public class StringLiteral extends Expr {
@@ -19,10 +18,6 @@ public class StringLiteral extends Expr {
 	
 	public String getValue() {
 		return value;
-	}
-	
-	@Override
-	public void accept(FormVisitor visitor) {		
 	}
 
 	@Override

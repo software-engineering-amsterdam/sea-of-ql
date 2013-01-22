@@ -5,7 +5,6 @@ import java.util.Map;
 import org.uva.sea.ql.ast.expr.Expr;
 import org.uva.sea.ql.ast.type.Type;
 import org.uva.sea.ql.visitor.ExpressionVisitor;
-import org.uva.sea.ql.visitor.FormVisitor;
 
 
 public class Ident extends Expr {
@@ -18,10 +17,6 @@ public class Ident extends Expr {
 	
 	public String getName() {
 		return name;
-	}
-	
-	@Override
-	public void accept(FormVisitor visitor) {	
 	}
 
 	@Override

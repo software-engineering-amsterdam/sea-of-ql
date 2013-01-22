@@ -1,6 +1,7 @@
 package org.uva.sea.ql.visitor.printer;
 
 import org.uva.sea.ql.ast.Form;
+import org.uva.sea.ql.ast.expr.Expr;
 import org.uva.sea.ql.ast.stmt.ComputedQuestion;
 import org.uva.sea.ql.ast.stmt.IfThenElse;
 import org.uva.sea.ql.ast.stmt.Question;
@@ -72,6 +73,11 @@ public class FormVisitorPrinter implements FormVisitor {
 	@Override
 	public void visit(Type type) {
 		printString("Type: " + type.getClass());
+	}
+	
+	@Override
+	public void visit(Expr expr) {
+		printString(" -EXPRESSION- ");
 	}
 	
 	// pretty print helper methods
