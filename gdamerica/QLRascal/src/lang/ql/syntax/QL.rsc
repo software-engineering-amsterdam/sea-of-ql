@@ -48,7 +48,7 @@ start syntax DataType
   ;  
         
 start syntax Form
-  = @foldable form: "form" Ident identification "{" Element* formElement "}" 
+  = form: "form" Ident identification "{" Element* formElement "}" // A form can contain several elements
   ;
 
 start syntax Element
@@ -62,13 +62,12 @@ start syntax Question
   ;
    
 start syntax Condition
-  = singleIfCondition: "if" Expr evaluation "{" Element+ questions "}" 
-  | ifElseCondition: "if" Expr evaluation "{" Element+ questions "}" "else" "{" Element+ questions "}"
-  | ifElseIfCondition: "if" Expr evaluation "{" Element+ questions "}" ElseIf+ elseif "else" "{" Element+ questions "}"   
+  = singleIfCondition: "if" Expr evaluation "{" Element+ questions "}"// An iF condition should contain at least one or several elements  
+  | ifElseIfCondition: "if" Expr evaluation "{" Element+ questions "}" ElseIf* elseif "else" "{" Element+ questions "}" // An if else if else condition may contain severeal Elseifs  
   ;
       
 start syntax ElseIf
-  = elseifCondition: "else if" Expr evaluation "{" Element+ questions "}" 
+  = elseifCondition: "else if" Expr evaluation "{" Element+ questions "}" // An ElseIF condition should contain at least one or several elements 
   ; 
   
 syntax WhitespaceOrComment 

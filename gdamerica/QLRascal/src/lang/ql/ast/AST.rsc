@@ -48,7 +48,6 @@ data Question
 
 data Condition
   = singleIfCondition(Expr ifEval, list[Element] ifQstns)
-  | ifElseCondition(Expr ifEval, list[Element] ifQstns, list[Element] elseQstns)
   | ifElseIfCondition(Expr ifEval, list[Element] ifQstns, list[ElseIf] elseifs, list[Element] elseQstns)
   ;
   
