@@ -25,7 +25,8 @@ public class VisitorDemo {
     static public void main(String[] args) throws ParseError {
     	ANTLRParser parser = new ANTLRParser();
     	
-    	String exprString = "1 && -1";
+//    	String exprString = "1 && -1";
+    	String exprString = "true && true";
     	Expr expr = parser.parseExpression(exprString);
     	System.out.println("Visiting string: " + exprString);
     	expr.accept(new ExpressionVisitorPrinter());

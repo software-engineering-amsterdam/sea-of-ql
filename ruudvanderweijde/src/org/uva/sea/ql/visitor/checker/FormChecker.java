@@ -10,6 +10,9 @@ import org.uva.sea.ql.visitor.FormVisitor;
 
 /*
  * This SemanticVisitor check for:
+ * 	- THIS WHOLE FILE NEEDS TE BE REVIEWED
+ * 	- THIS WAS ONLY A TEST FILE
+ * 
  * 	- duplicate form ids
  * 	- duplicate question ids
  * 	- expressions (TODO)

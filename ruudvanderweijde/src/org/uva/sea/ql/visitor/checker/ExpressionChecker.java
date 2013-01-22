@@ -64,87 +64,102 @@ public class ExpressionChecker implements ExpressionVisitor<Boolean> {
 	}
 
 	@Override
-	public Boolean visit(And and) {
-		// TODO Auto-generated method stub
+	public Boolean visit(And ast) {
+		boolean checkLhs = ast.getLhs().accept(this);
+		boolean checkRhs = ast.getRhs().accept(this);
+		
+		if (!(checkLhs && checkRhs)) {
+			return false;
+		}
+		
+		Type lhsType = ast.getLhs().typeOf(typeEnv);
+		Type rhsType = ast.getRhs().typeOf(typeEnv);
+		
+		if (!(lhsType.isCompatibleToBooleanType() && rhsType
+				.isCompatibleToBooleanType())) {
+
+			System.out.println("invalid boolean operator for &&.");
+			return false;
+		}
 		return true;
 	}
 
 	@Override
 	public Boolean visit(Div div) {
 		// TODO Auto-generated method stub
-		return true;
+		return false;
 	}
 
 	@Override
 	public Boolean visit(Eq eq) {
 		// TODO Auto-generated method stub
-		return true;
+		return false;
 	}
 
 	@Override
 	public Boolean visit(GEq geq) {
 		// TODO Auto-generated method stub
-		return true;
+		return false;
 	}
 
 	@Override
 	public Boolean visit(GT gt) {
 		// TODO Auto-generated method stub
-		return true;
+		return false;
 	}
 
 	@Override
 	public Boolean visit(LEq leq) {
 		// TODO Auto-generated method stub
-		return true;
+		return false;
 	}
 
 	@Override
 	public Boolean visit(LT lt) {
 		// TODO Auto-generated method stub
-		return true;
+		return false;
 	}
 
 	@Override
 	public Boolean visit(Mul mul) {
 		// TODO Auto-generated method stub
-		return true;
+		return false;
 	}
 
 	@Override
 	public Boolean visit(NEq neq) {
 		// TODO Auto-generated method stub
-		return true;
+		return false;
 	}
 
 	@Override
 	public Boolean visit(Or or) {
 		// TODO Auto-generated method stub
-		return true;
+		return false;
 	}
 
 	@Override
 	public Boolean visit(Sub sub) {
 		// TODO Auto-generated method stub
-		return true;
+		return false;
 	}
 
 	@Override
 	public Boolean visit(Neg neg) {
 		// TODO Auto-generated method stub
-		return true;
+		return false;
 	}
 
 	@Override
 	public Boolean visit(Not not) {
 		// TODO Auto-generated method stub
-		return true;
+		return false;
 	}
 
 	@Override
 	public Boolean visit(Pos pos) {
 		// TODO Auto-generated method stub
-		return true;
+		return false;
 	}
 
 	@Override
@@ -154,19 +169,19 @@ public class ExpressionChecker implements ExpressionVisitor<Boolean> {
 	}
 
 	@Override
-	public Boolean visit(Ident ident) {
+	public Boolean visit(Ident ast) {
 		// TODO Auto-generated method stub
 		return true;
 	}
 
 	@Override
-	public Boolean visit(Int integer) {
+	public Boolean visit(Int ast) {
 		// TODO Auto-generated method stub
 		return true;
 	}
 
 	@Override
-	public Boolean visit(StringLiteral stringLiteral) {
+	public Boolean visit(StringLiteral ast) {
 		// TODO Auto-generated method stub
 		return true;
 	}
