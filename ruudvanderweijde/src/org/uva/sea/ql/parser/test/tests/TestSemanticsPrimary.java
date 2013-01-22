@@ -46,12 +46,12 @@ public class TestSemanticsPrimary {
 	@Test
 	public void testIdent() throws ParseError {
 		assertEquals(parser.parseExpression("ident1").accept(new ExpressionChecker(ExprMap, errors)), true);
-    	assertEquals(parser.parseExpression("true").accept(new ExpressionChecker(ExprMap, errors)), false);	
+    	assertEquals(parser.parseExpression("validident").accept(new ExpressionChecker(ExprMap, errors)), true);	
 	}
 	
 	@Test
 	public void testInt() throws ParseError {
 		assertEquals(parser.parseExpression("1").accept(new ExpressionChecker(ExprMap, errors)), true);
-    	assertEquals(parser.parseExpression("true").accept(new ExpressionChecker(ExprMap, errors)), false);	
+    	assertEquals(parser.parseExpression("100").accept(new ExpressionChecker(ExprMap, errors)), true);	
 	}	
 }

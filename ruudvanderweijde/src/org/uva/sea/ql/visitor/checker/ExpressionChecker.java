@@ -57,7 +57,7 @@ public class ExpressionChecker implements ExpressionVisitor<Boolean> {
 		if (!(lhsType.isCompatibleToNumericType() && rhsType
 				.isCompatibleToNumericType())) {
 
-			System.out.println("invalid type for + ");
+			System.out.println("invalid Numeric operater for + ");
 			return false;
 		}
 		return true;
@@ -85,104 +85,303 @@ public class ExpressionChecker implements ExpressionVisitor<Boolean> {
 	}
 
 	@Override
-	public Boolean visit(Div div) {
-		// TODO Auto-generated method stub
-		return false;
+	public Boolean visit(Div ast) {
+		boolean checkLhs = ast.getLhs().accept(this);
+		boolean checkRhs = ast.getRhs().accept(this);
+		
+		if (!(checkLhs && checkRhs)) {
+			return false;
+		}
+		
+		Type lhsType = ast.getLhs().typeOf(typeEnv);
+		Type rhsType = ast.getRhs().typeOf(typeEnv);
+		
+		if (!(lhsType.isCompatibleToNumericType() && rhsType
+				.isCompatibleToNumericType())) {
+
+			System.out.println("invalid integer operator for /.");
+			return false;
+		}
+		return true;
 	}
 
 	@Override
-	public Boolean visit(Eq eq) {
-		// TODO Auto-generated method stub
-		return false;
+	public Boolean visit(Eq ast) {
+		boolean checkLhs = ast.getLhs().accept(this);
+		boolean checkRhs = ast.getRhs().accept(this);
+		
+		if (!(checkLhs && checkRhs)) {
+			return false;
+		}
+		
+		Type lhsType = ast.getLhs().typeOf(typeEnv);
+		Type rhsType = ast.getRhs().typeOf(typeEnv);
+		
+		if (!(lhsType.isCompatibleToBooleanType() && rhsType
+				.isCompatibleToBooleanType())) {
+
+			System.out.println("invalid boolean operator for ==.");
+			return false;
+		}
+		return true;
 	}
 
 	@Override
-	public Boolean visit(GEq geq) {
-		// TODO Auto-generated method stub
-		return false;
+	public Boolean visit(GEq ast) {
+		boolean checkLhs = ast.getLhs().accept(this);
+		boolean checkRhs = ast.getRhs().accept(this);
+		
+		if (!(checkLhs && checkRhs)) {
+			return false;
+		}
+		
+		Type lhsType = ast.getLhs().typeOf(typeEnv);
+		Type rhsType = ast.getRhs().typeOf(typeEnv);
+		
+		if (!(lhsType.isCompatibleToNumericType() && rhsType
+				.isCompatibleToNumericType())) {
+
+			System.out.println("invalid Numeric operator for <=.");
+			return false;
+		}
+		return true;
 	}
 
 	@Override
-	public Boolean visit(GT gt) {
-		// TODO Auto-generated method stub
-		return false;
+	public Boolean visit(GT ast) {
+		boolean checkLhs = ast.getLhs().accept(this);
+		boolean checkRhs = ast.getRhs().accept(this);
+		
+		if (!(checkLhs && checkRhs)) {
+			return false;
+		}
+		
+		Type lhsType = ast.getLhs().typeOf(typeEnv);
+		Type rhsType = ast.getRhs().typeOf(typeEnv);
+		
+		if (!(lhsType.isCompatibleToNumericType() && rhsType
+				.isCompatibleToNumericType())) {
+
+			System.out.println("invalid Numeric operator for >.");
+			return false;
+		}
+		return true;
 	}
 
 	@Override
-	public Boolean visit(LEq leq) {
-		// TODO Auto-generated method stub
-		return false;
+	public Boolean visit(LEq ast) {
+		boolean checkLhs = ast.getLhs().accept(this);
+		boolean checkRhs = ast.getRhs().accept(this);
+		
+		if (!(checkLhs && checkRhs)) {
+			return false;
+		}
+		
+		Type lhsType = ast.getLhs().typeOf(typeEnv);
+		Type rhsType = ast.getRhs().typeOf(typeEnv);
+		
+		if (!(lhsType.isCompatibleToNumericType() && rhsType
+				.isCompatibleToNumericType())) {
+
+			System.out.println("invalid Numeric operator for <=.");
+			return false;
+		}
+		return true;
 	}
 
 	@Override
-	public Boolean visit(LT lt) {
-		// TODO Auto-generated method stub
-		return false;
+	public Boolean visit(LT ast) {
+		boolean checkLhs = ast.getLhs().accept(this);
+		boolean checkRhs = ast.getRhs().accept(this);
+		
+		if (!(checkLhs && checkRhs)) {
+			return false;
+		}
+		
+		Type lhsType = ast.getLhs().typeOf(typeEnv);
+		Type rhsType = ast.getRhs().typeOf(typeEnv);
+		
+		if (!(lhsType.isCompatibleToNumericType() && rhsType
+				.isCompatibleToNumericType())) {
+
+			System.out.println("invalid Numeric operator for <.");
+			return false;
+		}
+		return true;
 	}
 
 	@Override
-	public Boolean visit(Mul mul) {
-		// TODO Auto-generated method stub
-		return false;
+	public Boolean visit(Mul ast) {
+		boolean checkLhs = ast.getLhs().accept(this);
+		boolean checkRhs = ast.getRhs().accept(this);
+		
+		if (!(checkLhs && checkRhs)) {
+			return false;
+		}
+		
+		Type lhsType = ast.getLhs().typeOf(typeEnv);
+		Type rhsType = ast.getRhs().typeOf(typeEnv);
+		
+		if (!(lhsType.isCompatibleToNumericType() && rhsType
+				.isCompatibleToNumericType())) {
+
+			System.out.println("invalid Numeric operator for *.");
+			return false;
+		}
+		return true;
 	}
 
 	@Override
-	public Boolean visit(NEq neq) {
-		// TODO Auto-generated method stub
-		return false;
+	public Boolean visit(NEq ast) {
+		boolean checkLhs = ast.getLhs().accept(this);
+		boolean checkRhs = ast.getRhs().accept(this);
+		
+		if (!(checkLhs && checkRhs)) {
+			return false;
+		}
+		
+		Type lhsType = ast.getLhs().typeOf(typeEnv);
+		Type rhsType = ast.getRhs().typeOf(typeEnv);
+		
+		if (!(lhsType.isCompatibleToBooleanType() && rhsType
+				.isCompatibleToBooleanType())) {
+
+			System.out.println("invalid Boolean operator for !=.");
+			return false;
+		}
+		return true;
 	}
 
 	@Override
-	public Boolean visit(Or or) {
-		// TODO Auto-generated method stub
-		return false;
+	public Boolean visit(Or ast) {
+		boolean checkLhs = ast.getLhs().accept(this);
+		boolean checkRhs = ast.getRhs().accept(this);
+		
+		if (!(checkLhs && checkRhs)) {
+			return false;
+		}
+		
+		Type lhsType = ast.getLhs().typeOf(typeEnv);
+		Type rhsType = ast.getRhs().typeOf(typeEnv);
+		
+		if (!(lhsType.isCompatibleToBooleanType() && rhsType
+				.isCompatibleToBooleanType())) {
+
+			System.out.println("invalid Boolean operator for ||.");
+			return false;
+		}
+		return true;
 	}
 
 	@Override
-	public Boolean visit(Sub sub) {
-		// TODO Auto-generated method stub
-		return false;
+	public Boolean visit(Sub ast) {
+		boolean checkLhs = ast.getLhs().accept(this);
+		boolean checkRhs = ast.getRhs().accept(this);
+		
+		if (!(checkLhs && checkRhs)) {
+			return false;
+		}
+		
+		Type lhsType = ast.getLhs().typeOf(typeEnv);
+		Type rhsType = ast.getRhs().typeOf(typeEnv);
+		
+		if (!(lhsType.isCompatibleToNumericType() && rhsType
+				.isCompatibleToNumericType())) {
+
+			System.out.println("invalid Numeric operator for /.");
+			return false;
+		}
+		return true;
 	}
 
 	@Override
-	public Boolean visit(Neg neg) {
-		// TODO Auto-generated method stub
-		return false;
+	public Boolean visit(Neg ast) {
+		boolean checkArg = ast.getArg().accept(this);
+		
+		if (!checkArg) {
+			return false;
+		}
+
+		Type argType = ast.getArg().typeOf(typeEnv);
+		if (!argType.isCompatibleToNumericType()) {
+			System.out.println("invalid Numeric operator for -.");
+			return false;
+		}
+		
+		return true;
 	}
 
 	@Override
-	public Boolean visit(Not not) {
-		// TODO Auto-generated method stub
-		return false;
+	public Boolean visit(Not ast) {
+		boolean checkArg = ast.getArg().accept(this);
+		
+		if (!checkArg) {
+			return false;
+		}
+
+		Type argType = ast.getArg().typeOf(typeEnv);
+		if (!argType.isCompatibleToBooleanType()) {
+			System.out.println("invalid Numeric operator for !.");
+			return false;
+		}
+		
+		return true;
 	}
 
 	@Override
-	public Boolean visit(Pos pos) {
-		// TODO Auto-generated method stub
-		return false;
+	public Boolean visit(Pos ast) {
+		boolean checkArg = ast.getArg().accept(this);
+		
+		if (!checkArg) {
+			return false;
+		}
+
+		Type argType = ast.getArg().typeOf(typeEnv);
+		if (!argType.isCompatibleToNumericType()) {
+			System.out.println("invalid Numeric operator for +.");
+			return false;
+		}
+		
+		return true;
 	}
 
 	@Override
-	public Boolean visit(Bool bool) {
-		// TODO Auto-generated method stub
+	public Boolean visit(Bool ast) {
+//		boolean checkString = ast.accept(this);
+//		
+//		if (!checkString) {
+//			return false;
+//		}
 		return true;
 	}
 
 	@Override
 	public Boolean visit(Ident ast) {
-		// TODO Auto-generated method stub
+//		boolean checkString = ast.accept(this);
+//		
+//		if (!checkString) {
+//			return false;
+//		}
 		return true;
 	}
 
 	@Override
 	public Boolean visit(Int ast) {
-		// TODO Auto-generated method stub
+//		boolean checkString = ast.accept(this);
+//		
+//		if (!checkString) {
+//			return false;
+//		}
 		return true;
 	}
 
 	@Override
 	public Boolean visit(StringLiteral ast) {
-		// TODO Auto-generated method stub
+//		boolean checkString = ast.accept(this);
+//		
+//		if (!checkString) {
+//			return false;
+//		}
 		return true;
 	}
 

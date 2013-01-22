@@ -40,7 +40,7 @@ public class TestSemanticsUnary {
 	@Test
 	public void testNeg() throws ParseError {
 		assertEquals(parser.parseExpression("-1").accept(new ExpressionChecker(ExprMap, errors)), true);
-    	assertEquals(parser.parseExpression("+1").accept(new ExpressionChecker(ExprMap, errors)), true);	
+    	assertEquals(parser.parseExpression("+true").accept(new ExpressionChecker(ExprMap, errors)), false);	
 	}
 
 	@Test
@@ -52,6 +52,6 @@ public class TestSemanticsUnary {
 	@Test
 	public void testPos() throws ParseError {
 		assertEquals(parser.parseExpression("+1").accept(new ExpressionChecker(ExprMap, errors)), true);
-    	assertEquals(parser.parseExpression("-1").accept(new ExpressionChecker(ExprMap, errors)), false);	
+    	assertEquals(parser.parseExpression("+true").accept(new ExpressionChecker(ExprMap, errors)), false);	
 	}
 }
