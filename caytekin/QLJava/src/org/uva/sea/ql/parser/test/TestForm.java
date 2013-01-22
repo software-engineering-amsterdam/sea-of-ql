@@ -42,16 +42,16 @@ public class TestForm {
 	public void testForm() throws ParseError {
 		assertEquals(parser.parse
 				(		"form Box1HouseOwning {"
-						+ "hasSoldHouse : \"Did you sell a house in 2010?\" bool"
-						+ "hasBoughtHouse : \"Did you buy a house in 2010?\" bool"	
+						+ "hasSoldHouse : \"Did you sell a house in 2010?\" bool "
+						+ "hasBoughtHouse : \"Did you buy a house in 2010?\" bool "	
 						/*
-				        + "if (hasSoldHouse) then {"  
-						+ 	"valueResidue : \"Value residue\" int(sellingPrice - privateDebt)"
-						+ 	"}"
-						+ " else {"
+				        + "if (hasSoldHouse) then { "  
+						+ 	"valueResidue : \"Value residue\" int(sellingPrice - privateDebt) "
+						+ 	"} "
+						+ " else { "
 						+ 	"valueResidueMin : \"Value residue min\" int(privateDebt - sellingPrice) "	
-						+ 	"hasMaintLoan: \"Did you enter a loan for maintenance or reconstruction\" bool"
-						+ "}"
+						+ 	"hasMaintLoan: \"Did you enter a loan for maintenance or reconstruction\" bool "
+						+ "} "
 						*/
 						+ "}").getClass(), QLForm.class);
 	}

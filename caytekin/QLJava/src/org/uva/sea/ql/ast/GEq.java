@@ -1,9 +1,9 @@
 package org.uva.sea.ql.ast;
 
-public class GEq extends LogOprtn {
+public class GEq extends BinaryLogOptn {
 
 	public GEq(Expr expr1, Expr expr2){
-		// Greater than or equal to  - to be implemented
+		super (expr1, expr2);
 	}
 	
 }
