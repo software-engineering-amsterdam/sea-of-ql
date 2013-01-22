@@ -63,7 +63,7 @@ qContentBlock
 	:  Lbr qContentBlockItem Rbr ->^(FormId qContentBlockItem); 
 
 qContentBlockItem
-	:	( questionDeclaration  | ifStatement | constantValueDeclaration )*;
+	:	(constantValueDeclaration | questionDeclaration  | ifStatement )*;
 	
 //question with child elements
 questionDeclaration 
@@ -84,7 +84,7 @@ elseBlock
 		
 constantValueDeclaration
 	//: QuestionVariable  '=' Int -> ^(CONST_VAR ^(CONST_NAME QuestionVariable) ^(CONST_TYPE CONST_TYPE_INT) ^(CONST_VALUE Int))
-	: QuestionVariable  '=' atom -> ^(CONST_VAR ^(CONST_NAME QuestionVariable) ^(CONST_TYPE CONST_TYPE_INT) ^(CONST_VALUE  atom))
+	: QuestionVariable  ':' atom -> ^(CONST_VAR ^(CONST_NAME QuestionVariable) ^(CONST_TYPE CONST_TYPE_INT) ^(CONST_VALUE  atom))
 	;
 
 //Question type

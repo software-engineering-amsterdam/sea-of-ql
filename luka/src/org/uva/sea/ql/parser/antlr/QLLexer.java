@@ -1,4 +1,4 @@
-// $ANTLR 3.5 /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g 2013-01-22 07:06:05
+// $ANTLR 3.5 /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g 2013-01-22 07:10:29
 
 package org.uva.sea.ql.parser.antlr;
 import org.uva.sea.ql.ast.*;
@@ -28,7 +28,6 @@ public class QLLexer extends Lexer {
 	public static final int T__51=51;
 	public static final int T__52=52;
 	public static final int T__53=53;
-	public static final int T__54=54;
 	public static final int Boolean=4;
 	public static final int COMMENT=5;
 	public static final int COMPUTED_STATEMENT=6;
@@ -327,10 +326,11 @@ public class QLLexer extends Lexer {
 		try {
 			int _type = T__50;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:19:7: ( '=' )
-			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:19:9: '='
+			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:19:7: ( '==' )
+			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:19:9: '=='
 			{
-			match('='); 
+			match("=="); 
+
 			}
 
 			state.type = _type;
@@ -347,11 +347,10 @@ public class QLLexer extends Lexer {
 		try {
 			int _type = T__51;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:20:7: ( '==' )
-			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:20:9: '=='
+			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:20:7: ( '>' )
+			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:20:9: '>'
 			{
-			match("=="); 
-
+			match('>'); 
 			}
 
 			state.type = _type;
@@ -368,10 +367,11 @@ public class QLLexer extends Lexer {
 		try {
 			int _type = T__52;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:21:7: ( '>' )
-			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:21:9: '>'
+			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:21:7: ( '>=' )
+			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:21:9: '>='
 			{
-			match('>'); 
+			match(">="); 
+
 			}
 
 			state.type = _type;
@@ -388,29 +388,8 @@ public class QLLexer extends Lexer {
 		try {
 			int _type = T__53;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:22:7: ( '>=' )
-			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:22:9: '>='
-			{
-			match(">="); 
-
-			}
-
-			state.type = _type;
-			state.channel = _channel;
-		}
-		finally {
-			// do for sure before leaving
-		}
-	}
-	// $ANTLR end "T__53"
-
-	// $ANTLR start "T__54"
-	public final void mT__54() throws RecognitionException {
-		try {
-			int _type = T__54;
-			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:23:7: ( '||' )
-			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:23:9: '||'
+			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:22:7: ( '||' )
+			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:22:9: '||'
 			{
 			match("||"); 
 
@@ -423,7 +402,7 @@ public class QLLexer extends Lexer {
 			// do for sure before leaving
 		}
 	}
-	// $ANTLR end "T__54"
+	// $ANTLR end "T__53"
 
 	// $ANTLR start "WS"
 	public final void mWS() throws RecognitionException {
@@ -1034,8 +1013,8 @@ public class QLLexer extends Lexer {
 
 	@Override
 	public void mTokens() throws RecognitionException {
-		// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:1:8: ( T__38 | T__39 | T__40 | T__41 | T__42 | T__43 | T__44 | T__45 | T__46 | T__47 | T__48 | T__49 | T__50 | T__51 | T__52 | T__53 | T__54 | WS | COMMENT | FormStart | Boolean | Money | If | Else | FormId | QuestionVariable | QuestionLabel | Ident | Int | Lbr | Rbr )
-		int alt10=31;
+		// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:1:8: ( T__38 | T__39 | T__40 | T__41 | T__42 | T__43 | T__44 | T__45 | T__46 | T__47 | T__48 | T__49 | T__50 | T__51 | T__52 | T__53 | WS | COMMENT | FormStart | Boolean | Money | If | Else | FormId | QuestionVariable | QuestionLabel | Ident | Int | Lbr | Rbr )
+		int alt10=30;
 		alt10 = dfa10.predict(input);
 		switch (alt10) {
 			case 1 :
@@ -1151,105 +1130,98 @@ public class QLLexer extends Lexer {
 				}
 				break;
 			case 17 :
-				// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:1:106: T__54
-				{
-				mT__54(); 
-
-				}
-				break;
-			case 18 :
-				// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:1:112: WS
+				// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:1:106: WS
 				{
 				mWS(); 
 
 				}
 				break;
-			case 19 :
-				// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:1:115: COMMENT
+			case 18 :
+				// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:1:109: COMMENT
 				{
 				mCOMMENT(); 
 
 				}
 				break;
-			case 20 :
-				// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:1:123: FormStart
+			case 19 :
+				// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:1:117: FormStart
 				{
 				mFormStart(); 
 
 				}
 				break;
-			case 21 :
-				// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:1:133: Boolean
+			case 20 :
+				// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:1:127: Boolean
 				{
 				mBoolean(); 
 
 				}
 				break;
-			case 22 :
-				// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:1:141: Money
+			case 21 :
+				// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:1:135: Money
 				{
 				mMoney(); 
 
 				}
 				break;
-			case 23 :
-				// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:1:147: If
+			case 22 :
+				// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:1:141: If
 				{
 				mIf(); 
 
 				}
 				break;
-			case 24 :
-				// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:1:150: Else
+			case 23 :
+				// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:1:144: Else
 				{
 				mElse(); 
 
 				}
 				break;
-			case 25 :
-				// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:1:155: FormId
+			case 24 :
+				// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:1:149: FormId
 				{
 				mFormId(); 
 
 				}
 				break;
-			case 26 :
-				// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:1:162: QuestionVariable
+			case 25 :
+				// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:1:156: QuestionVariable
 				{
 				mQuestionVariable(); 
 
 				}
 				break;
-			case 27 :
-				// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:1:179: QuestionLabel
+			case 26 :
+				// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:1:173: QuestionLabel
 				{
 				mQuestionLabel(); 
 
 				}
 				break;
-			case 28 :
-				// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:1:193: Ident
+			case 27 :
+				// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:1:187: Ident
 				{
 				mIdent(); 
 
 				}
 				break;
-			case 29 :
-				// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:1:199: Int
+			case 28 :
+				// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:1:193: Int
 				{
 				mInt(); 
 
 				}
 				break;
-			case 30 :
-				// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:1:203: Lbr
+			case 29 :
+				// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:1:197: Lbr
 				{
 				mLbr(); 
 
 				}
 				break;
-			case 31 :
-				// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:1:207: Rbr
+			case 30 :
+				// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:1:201: Rbr
 				{
 				mRbr(); 
 
@@ -1262,26 +1234,26 @@ public class QLLexer extends Lexer {
 
 	protected DFA10 dfa10 = new DFA10(this);
 	static final String DFA10_eotS =
-		"\1\uffff\1\33\6\uffff\1\35\1\uffff\1\37\1\41\1\43\27\uffff\2\55\1\uffff"+
-		"\2\55\1\60\1\55\1\62\1\55\1\uffff\2\55\1\uffff\1\55\1\uffff\1\67\2\55"+
-		"\1\72\1\uffff\1\55\1\74\1\uffff\1\55\1\uffff\1\76\1\uffff";
+		"\1\uffff\1\33\6\uffff\1\35\1\uffff\1\37\1\uffff\1\41\25\uffff\2\53\1\uffff"+
+		"\2\53\1\56\1\53\1\60\1\53\1\uffff\2\53\1\uffff\1\53\1\uffff\1\65\2\53"+
+		"\1\70\1\uffff\1\53\1\72\1\uffff\1\53\1\uffff\1\74\1\uffff";
 	static final String DFA10_eofS =
-		"\77\uffff";
+		"\75\uffff";
 	static final String DFA10_minS =
-		"\1\11\1\75\6\uffff\1\52\1\uffff\3\75\2\uffff\7\60\16\uffff\2\60\1\uffff"+
-		"\6\60\1\uffff\2\60\1\uffff\1\60\1\uffff\4\60\1\uffff\2\60\1\uffff\1\60"+
-		"\1\uffff\1\60\1\uffff";
+		"\1\11\1\75\6\uffff\1\52\1\uffff\1\75\1\uffff\1\75\2\uffff\7\60\14\uffff"+
+		"\2\60\1\uffff\6\60\1\uffff\2\60\1\uffff\1\60\1\uffff\4\60\1\uffff\2\60"+
+		"\1\uffff\1\60\1\uffff\1\60\1\uffff";
 	static final String DFA10_maxS =
-		"\1\175\1\75\6\uffff\1\57\1\uffff\3\75\2\uffff\7\172\16\uffff\2\172\1\uffff"+
-		"\6\172\1\uffff\2\172\1\uffff\1\172\1\uffff\4\172\1\uffff\2\172\1\uffff"+
-		"\1\172\1\uffff\1\172\1\uffff";
+		"\1\175\1\75\6\uffff\1\57\1\uffff\1\75\1\uffff\1\75\2\uffff\7\172\14\uffff"+
+		"\2\172\1\uffff\6\172\1\uffff\2\172\1\uffff\1\172\1\uffff\4\172\1\uffff"+
+		"\2\172\1\uffff\1\172\1\uffff\1\172\1\uffff";
 	static final String DFA10_acceptS =
-		"\2\uffff\1\3\1\4\1\5\1\6\1\7\1\10\1\uffff\1\12\3\uffff\1\21\1\22\7\uffff"+
-		"\1\33\1\35\1\36\1\37\1\2\1\1\1\23\1\11\1\14\1\13\1\16\1\15\1\20\1\17\2"+
-		"\uffff\1\34\6\uffff\1\32\2\uffff\1\27\1\uffff\1\31\4\uffff\1\24\2\uffff"+
-		"\1\30\1\uffff\1\26\1\uffff\1\25";
+		"\2\uffff\1\3\1\4\1\5\1\6\1\7\1\10\1\uffff\1\12\1\uffff\1\15\1\uffff\1"+
+		"\20\1\21\7\uffff\1\32\1\34\1\35\1\36\1\2\1\1\1\22\1\11\1\14\1\13\1\17"+
+		"\1\16\2\uffff\1\33\6\uffff\1\31\2\uffff\1\26\1\uffff\1\30\4\uffff\1\23"+
+		"\2\uffff\1\27\1\uffff\1\25\1\uffff\1\24";
 	static final String DFA10_specialS =
-		"\77\uffff}>";
+		"\75\uffff}>";
 	static final String[] DFA10_transitionS = {
 			"\2\16\1\uffff\2\16\22\uffff\1\16\1\1\1\26\3\uffff\1\2\1\uffff\1\3\1\4"+
 			"\1\5\1\6\1\uffff\1\7\1\uffff\1\10\12\27\1\11\1\uffff\1\12\1\13\1\14\2"+
@@ -1297,19 +1269,17 @@ public class QLLexer extends Lexer {
 			"\1\34\4\uffff\1\34",
 			"",
 			"\1\36",
+			"",
 			"\1\40",
-			"\1\42",
 			"",
 			"",
-			"\12\45\7\uffff\32\45\4\uffff\1\46\1\uffff\16\45\1\44\13\45",
-			"\12\45\7\uffff\32\45\4\uffff\1\46\1\uffff\16\45\1\47\13\45",
-			"\12\45\7\uffff\32\45\4\uffff\1\46\1\uffff\16\45\1\50\13\45",
-			"\12\45\7\uffff\32\45\4\uffff\1\46\1\uffff\5\45\1\51\24\45",
-			"\12\45\7\uffff\32\45\4\uffff\1\46\1\uffff\13\45\1\52\16\45",
-			"\12\53\7\uffff\32\53\4\uffff\1\46\1\uffff\32\53",
-			"\12\45\7\uffff\32\45\4\uffff\1\46\1\uffff\32\45",
-			"",
-			"",
+			"\12\43\7\uffff\32\43\4\uffff\1\44\1\uffff\16\43\1\42\13\43",
+			"\12\43\7\uffff\32\43\4\uffff\1\44\1\uffff\16\43\1\45\13\43",
+			"\12\43\7\uffff\32\43\4\uffff\1\44\1\uffff\16\43\1\46\13\43",
+			"\12\43\7\uffff\32\43\4\uffff\1\44\1\uffff\5\43\1\47\24\43",
+			"\12\43\7\uffff\32\43\4\uffff\1\44\1\uffff\13\43\1\50\16\43",
+			"\12\51\7\uffff\32\51\4\uffff\1\44\1\uffff\32\51",
+			"\12\43\7\uffff\32\43\4\uffff\1\44\1\uffff\32\43",
 			"",
 			"",
 			"",
@@ -1322,32 +1292,32 @@ public class QLLexer extends Lexer {
 			"",
 			"",
 			"",
-			"\12\45\7\uffff\32\45\4\uffff\1\46\1\uffff\21\45\1\54\10\45",
-			"\12\45\7\uffff\32\45\4\uffff\1\46\1\uffff\32\45",
+			"\12\43\7\uffff\32\43\4\uffff\1\44\1\uffff\21\43\1\52\10\43",
+			"\12\43\7\uffff\32\43\4\uffff\1\44\1\uffff\32\43",
 			"",
-			"\12\45\7\uffff\32\45\4\uffff\1\46\1\uffff\16\45\1\56\13\45",
-			"\12\45\7\uffff\32\45\4\uffff\1\46\1\uffff\15\45\1\57\14\45",
-			"\12\45\7\uffff\32\45\4\uffff\1\46\1\uffff\32\45",
-			"\12\45\7\uffff\32\45\4\uffff\1\46\1\uffff\22\45\1\61\7\45",
-			"\12\53\7\uffff\32\53\4\uffff\1\46\1\uffff\32\53",
-			"\12\45\7\uffff\32\45\4\uffff\1\46\1\uffff\14\45\1\63\15\45",
+			"\12\43\7\uffff\32\43\4\uffff\1\44\1\uffff\16\43\1\54\13\43",
+			"\12\43\7\uffff\32\43\4\uffff\1\44\1\uffff\15\43\1\55\14\43",
+			"\12\43\7\uffff\32\43\4\uffff\1\44\1\uffff\32\43",
+			"\12\43\7\uffff\32\43\4\uffff\1\44\1\uffff\22\43\1\57\7\43",
+			"\12\51\7\uffff\32\51\4\uffff\1\44\1\uffff\32\51",
+			"\12\43\7\uffff\32\43\4\uffff\1\44\1\uffff\14\43\1\61\15\43",
 			"",
-			"\12\45\7\uffff\32\45\4\uffff\1\46\1\uffff\13\45\1\64\16\45",
-			"\12\45\7\uffff\32\45\4\uffff\1\46\1\uffff\4\45\1\65\25\45",
+			"\12\43\7\uffff\32\43\4\uffff\1\44\1\uffff\13\43\1\62\16\43",
+			"\12\43\7\uffff\32\43\4\uffff\1\44\1\uffff\4\43\1\63\25\43",
 			"",
-			"\12\45\7\uffff\32\45\4\uffff\1\46\1\uffff\4\45\1\66\25\45",
+			"\12\43\7\uffff\32\43\4\uffff\1\44\1\uffff\4\43\1\64\25\43",
 			"",
-			"\12\45\7\uffff\32\45\4\uffff\1\46\1\uffff\32\45",
-			"\12\45\7\uffff\32\45\4\uffff\1\46\1\uffff\4\45\1\70\25\45",
-			"\12\45\7\uffff\32\45\4\uffff\1\46\1\uffff\30\45\1\71\1\45",
-			"\12\45\7\uffff\32\45\4\uffff\1\46\1\uffff\32\45",
+			"\12\43\7\uffff\32\43\4\uffff\1\44\1\uffff\32\43",
+			"\12\43\7\uffff\32\43\4\uffff\1\44\1\uffff\4\43\1\66\25\43",
+			"\12\43\7\uffff\32\43\4\uffff\1\44\1\uffff\30\43\1\67\1\43",
+			"\12\43\7\uffff\32\43\4\uffff\1\44\1\uffff\32\43",
 			"",
-			"\12\45\7\uffff\32\45\4\uffff\1\46\1\uffff\1\73\31\45",
-			"\12\45\7\uffff\32\45\4\uffff\1\46\1\uffff\32\45",
+			"\12\43\7\uffff\32\43\4\uffff\1\44\1\uffff\1\71\31\43",
+			"\12\43\7\uffff\32\43\4\uffff\1\44\1\uffff\32\43",
 			"",
-			"\12\45\7\uffff\32\45\4\uffff\1\46\1\uffff\15\45\1\75\14\45",
+			"\12\43\7\uffff\32\43\4\uffff\1\44\1\uffff\15\43\1\73\14\43",
 			"",
-			"\12\45\7\uffff\32\45\4\uffff\1\46\1\uffff\32\45",
+			"\12\43\7\uffff\32\43\4\uffff\1\44\1\uffff\32\43",
 			""
 	};
 
@@ -1382,7 +1352,7 @@ public class QLLexer extends Lexer {
 		}
 		@Override
 		public String getDescription() {
-			return "1:1: Tokens : ( T__38 | T__39 | T__40 | T__41 | T__42 | T__43 | T__44 | T__45 | T__46 | T__47 | T__48 | T__49 | T__50 | T__51 | T__52 | T__53 | T__54 | WS | COMMENT | FormStart | Boolean | Money | If | Else | FormId | QuestionVariable | QuestionLabel | Ident | Int | Lbr | Rbr );";
+			return "1:1: Tokens : ( T__38 | T__39 | T__40 | T__41 | T__42 | T__43 | T__44 | T__45 | T__46 | T__47 | T__48 | T__49 | T__50 | T__51 | T__52 | T__53 | WS | COMMENT | FormStart | Boolean | Money | If | Else | FormId | QuestionVariable | QuestionLabel | Ident | Int | Lbr | Rbr );";
 		}
 	}
 
