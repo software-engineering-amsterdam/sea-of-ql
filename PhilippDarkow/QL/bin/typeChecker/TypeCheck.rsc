@@ -103,13 +103,21 @@ TENV checkBody(list[Body] Body) =
 QTENV checkQuestionType(map[str, Type] results) =   
    <results,[]>;
 
+void visitQuestions(Question q){   //QTENV
+println("Q : <q>");
+	visit(q){
+		case Type tp: println("Type : <tp>");
+		//case computedQuestions cQ: println("cQ : <cQ>");
+	};
+}
+
 // check a QL program
 public QTENV checkProgram(Program P){                                                
   if(program(Expression exp, list[Body] Body) := P){	 
      println("EXP : <exp>");
      println("Body : <Body>");  // need to visit the body node to check the questions
      visit(Body){
-     	case Question q: println("Question is : <q>");
+     	case Question q: visitQuestions(q);
         case Statement s: println("Statement is : <S>");
      };
      TENV env = checkBody(Body);
