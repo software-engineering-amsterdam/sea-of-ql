@@ -19,4 +19,12 @@ public class StringType extends Datatype {
 		visitor.visit(this);
 	}
 
+	@Override
+	public boolean isCompatibleTo(Datatype type) {
+		return type.isCompatibleToString();
+	}
+
+	public boolean isCompatibleToString() {
+		return true;
+	}
 }

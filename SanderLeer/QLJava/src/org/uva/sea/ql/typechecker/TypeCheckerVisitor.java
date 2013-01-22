@@ -22,21 +22,6 @@ class TypeCheckerVisitor implements Visitor {
 		errors.add(s);
 	}
 
-	public String getErrors() {
-		StringBuilder sb = new StringBuilder();
-		for (String error : errors) {
-			if (sb.length() > 0) {
-				sb.append("\n");
-			}
-			sb.append(error);
-		}
-		return sb.toString();
-	}
-
-	public boolean hasErrors() {
-		return !errors.isEmpty();
-	}
-
 	@Override
 	public void visit(Pos node) {
 		node.getOperand().accept(this);

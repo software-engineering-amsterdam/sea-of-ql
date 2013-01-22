@@ -18,4 +18,13 @@ public class IntegerType extends Datatype {
 	public void accept(Visitor visitor) {
 		visitor.visit(this);
 	}
+
+	@Override
+	public boolean isCompatibleTo(Datatype type) {
+		return type.isCompatibleToInteger();
+	}
+
+	public boolean isCompatibleToInteger() {
+		return true;
+	}
 }

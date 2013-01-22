@@ -1,7 +1,10 @@
 package org.uva.sea.ql.ast.expression.binary;
 
 import org.uva.sea.ql.ast.Visitor;
+import org.uva.sea.ql.ast.datatype.BooleanType;
+import org.uva.sea.ql.ast.datatype.Datatype;
 import org.uva.sea.ql.ast.expression.Expression;
+import org.uva.sea.ql.typechecker.SymbolTable;
 
 public class Eq extends BinaryExpression {
 	public Eq(Expression lhs, Expression rhs) {
@@ -11,5 +14,10 @@ public class Eq extends BinaryExpression {
 	@Override
 	public void accept(Visitor visitor) {
 		visitor.visit(this);
+	}
+
+	@Override
+	public Datatype typeOf(SymbolTable symbols) {
+		return new BooleanType();
 	}
 }

@@ -4,7 +4,7 @@ import java.util.TreeMap;
 
 import org.uva.sea.ql.ast.datatype.Datatype;
 
-class SymbolTable {
+public class SymbolTable {
 	private final TreeMap<String, Datatype> symbols;
 	
 	public SymbolTable() {
@@ -13,6 +13,10 @@ class SymbolTable {
 
 	public void put(String symbol, Datatype datatype) {
 		symbols.put(symbol, datatype);
+	}
+	
+	public Datatype get(String symbol) {
+		return symbols.get(symbol);
 	}
 	
 	public void remove(String symbol) {

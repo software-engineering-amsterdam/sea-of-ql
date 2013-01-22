@@ -1,7 +1,10 @@
 package org.uva.sea.ql.ast.expression.binary;
 
 import org.uva.sea.ql.ast.Visitor;
+import org.uva.sea.ql.ast.datatype.Datatype;
+import org.uva.sea.ql.ast.datatype.IntegerType;
 import org.uva.sea.ql.ast.expression.Expression;
+import org.uva.sea.ql.typechecker.SymbolTable;
 
 public class Add extends BinaryExpression {
 	public Add(Expression lhs, Expression rhs) {
@@ -11,5 +14,10 @@ public class Add extends BinaryExpression {
 	@Override
 	public void accept(Visitor visitor) {
 		visitor.visit(this);
+	}
+
+	@Override
+	public Datatype typeOf(SymbolTable symbols) {
+		return new IntegerType();
 	}
 }

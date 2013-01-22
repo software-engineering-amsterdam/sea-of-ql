@@ -18,4 +18,13 @@ public class BooleanType extends Datatype {
 	public void accept(Visitor visitor) {
 		visitor.visit(this);
 	}
+
+	@Override
+	public boolean isCompatibleTo(Datatype type) {
+		return type.isCompatibleToBoolean();
+	}
+
+	public boolean isCompatibleToBoolean() {
+		return true;
+	}
 }
