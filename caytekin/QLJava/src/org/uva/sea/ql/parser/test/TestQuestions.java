@@ -28,7 +28,7 @@ public class TestQuestions {
 	
 	@Test
 	public void testQuestion() throws ParseError {
-		assertEquals(parser.parse("hasSoldHouse : \"Did you sell a house in 2012?\" bool").getClass(), Question.class);
+		assertEquals(parser.parse("hasSoldHouse : \"Did you sell a house in 2012?\" bool ").getClass(), Question.class);
 	}
 	
 	

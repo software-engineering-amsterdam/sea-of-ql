@@ -15,7 +15,15 @@ package org.uva.sea.ql.parser.antlr;
 
 
 form returns [QLForm result]
-	: 'form' id = Ident '{' (stmt=statement)* '}' { $result = new QLForm($id.text, $stmt.result ); }  
+	: 'form' id = Ident   sb = statementBlock 
+		{ $result = new QLForm($id.text, $sb.result); }  
+	;
+
+statementBlock returns [ ArrayList<Statement> result] 
+	@init {
+		result = new ArrayList<Statement> ();
+	}
+	: '{' (stmt = statement { result.add(stmt); } )* '}' 
 	;
 
 
@@ -32,22 +40,23 @@ questionStatement returns [QuestionStatement result]
 
 	
 conditionalStatement returns [ConditionalStatement result]
-	: ifths = ifThenStatement { $result = $ifths.result; }
-	| ifthels = ifThenElseStatement { $result = $ifthels.result; }
+	:ifthels = ifThenElseStatement { $result = $ifthels.result; } 
+	| ifths = ifThenStatement { $result = $ifths.result; }
+	 
 	;
 	
 	
 ifThenStatement returns [IfThenStatement result]
-	: 'if' e = orExpr 'then' '{' (qs=questionStatement)* '}' 
-			{ result = new IfThenStatement($e.result, $qs.result); }
+	: 'if' e = orExpr 'then' sb = statementBlock
+		{ result = new IfThenStatement($e.result, $sb.result); }
 	;
 
 	
 ifThenElseStatement returns [IfThenElseStatement result]
 	: 'if' e = orExpr
-	'then' '{' (qsThen = questionStatement)* '}'
-	'else' '{' (qsElse = questionStatement)* '}'
-		{ result = new IfThenElseStatement($e.result, $qsThen.result, $qsElse.result); }		
+		'then' thenSb = statementBlock
+		'else' elseSb = statementBlock
+	  { result = new IfThenElseStatement($e.result, $thenSb.result, $elseSb.result); }		
 	;
 
 

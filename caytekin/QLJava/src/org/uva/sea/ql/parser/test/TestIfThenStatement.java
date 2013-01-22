@@ -30,9 +30,12 @@ public class TestIfThenStatement {
 	public void testIfThenStatement() throws ParseError {
 		assertEquals(parser.parse
 				("if (hasSoldHouse) then {"  
-						+ "valueResidue : \"Value residue\" int(sellingPrice - privateDebt)"
-						+ "valueResidue2 : \"value residue 2 \" int"
-						+ "}").getClass(), IfThenStatement.class);
+						+ "valueResidue : \"Value residue\" int(sellingPrice - privateDebt) "
+						+ "valueResidue2 : \"value residue 2 \" int "
+						+ "if (a < b) then { "
+						+ " valueResidue3: \"Value residue 3\" bool(xyz && abc) "
+						+ "} "
+						+ "} ").getClass(), IfThenStatement.class);
 	}
 	
 	

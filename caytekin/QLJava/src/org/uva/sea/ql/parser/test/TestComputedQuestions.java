@@ -30,7 +30,7 @@ public class TestComputedQuestions {
 	@Test
 	public void testComputedQuestion() throws ParseError {
 		assertEquals(parser.parse
-				("valueResidue : \"Value residue\" int(sellingPrice - privateDebt)").getClass(), ComputedQuestion.class);
+				("valueResidue : \"Value residue\" int(sellingPrice - privateDebt) ").getClass(), ComputedQuestion.class);
 	}
 	
 	

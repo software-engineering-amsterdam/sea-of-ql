@@ -31,12 +31,15 @@ public class TestIfThenElseStatement {
 	public void testIfThenElseStatement() throws ParseError {
 		assertEquals(parser.parse
 				("if (hasSoldHouse) then {"  
-						+ "valueResidue : \"Value residue\" int(sellingPrice - privateDebt)"
-						+ "valueResidue2 : \" Value residue 2 \" bool(x && y)"
-						+ "}"
-						+ " else {"
+						+ "valueResidue : \"Value residue\" int(sellingPrice - privateDebt) "
+						+ "valueResidue2 : \" Value residue 2 \" bool(x && y) "
+						+ "} "
+						+ " else { "
 						+ "valueResidueMin : \"Value residue min\" int(privateDebt - sellingPrice) "	
-						+ "hasMaintLoan: \"Did you enter a loan for maintenance or reconstruction\" bool"
+						+ "hasMaintLoan: \"Did you enter a loan for maintenance or reconstruction\" bool "
+						+ "    if (a < b) then { "
+						+ "       valueResidue3: \"Value residue 3\" bool(xyz && abc) "
+						+ "    } "
 						+ "}").getClass(), IfThenElseStatement.class);
 	}
 	
