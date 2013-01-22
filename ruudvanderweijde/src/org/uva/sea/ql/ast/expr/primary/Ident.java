@@ -9,14 +9,14 @@ import org.uva.sea.ql.visitor.ExpressionVisitor;
 
 public class Ident extends Expr {
 
-	private final String name;
+	private final String value;
 
-	public Ident(String name) {
-		this.name = name;
+	public Ident(String value) {
+		this.value = value;
 	}
 	
-	public String getName() {
-		return name;
+	public String getValue() {
+		return value;
 	}
 
 	@Override

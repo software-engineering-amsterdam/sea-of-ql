@@ -7,7 +7,6 @@ import org.uva.sea.ql.ast.type.StringType;
 import org.uva.sea.ql.ast.type.Type;
 import org.uva.sea.ql.visitor.ExpressionVisitor;
 
-
 public class StringLiteral extends Expr {
 
 	private final String value;

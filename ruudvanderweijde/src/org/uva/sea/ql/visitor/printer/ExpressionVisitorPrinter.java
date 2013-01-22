@@ -148,7 +148,7 @@ public class ExpressionVisitorPrinter  implements ExpressionVisitor<Boolean> {
 
 	@Override
 	public Boolean visit(Ident ast) {
-		System.out.println("Ident: " + ast.getName());
+		System.out.println("Ident: " + ast.getValue());
 		return true;
 	}
 

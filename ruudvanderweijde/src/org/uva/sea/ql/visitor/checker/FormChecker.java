@@ -31,10 +31,10 @@ public class FormChecker implements FormVisitor {
 
 	@Override
 	public void visit(Form form) {
-		if (formTable.containsKey(form.getId().getName())) {
-			addError("Duplicate form id: " + form.getId().getName());
+		if (formTable.containsKey(form.getId().getValue())) {
+			addError("Duplicate form id: " + form.getId().getValue());
 		}
-		formTable.put(form.getId().getName(), form);
+		formTable.put(form.getId().getValue(), form);
 	}
 
 	@Override
@@ -44,16 +44,18 @@ public class FormChecker implements FormVisitor {
 
 	@Override
 	public void visit(Question question) {
-		if (questionTable.containsKey(question.getId().getName())) {
-			addError("Duplicate question id: " + question.getId().getName());
+		if (questionTable.containsKey(question.getId().getValue())) {
+			addError("Duplicate question id: " + question.getId().getValue());
 		}
-		questionTable.put(question.getId().getName(), question);
+		questionTable.put(question.getId().getValue(), question);
 	}
 
 	@Override
-	public void visit(ComputedQuestion computedQuestion) {
-		// TODO Auto-generated method stub
-		
+	public void visit(ComputedQuestion question) {
+		if (questionTable.containsKey(question.getId().getValue())) {
+			addError("Duplicate question id: " + question.getId().getValue());
+		}
+		//questionTable.put(question.getId().getValue(), question);
 	}
 	
 	@Override
