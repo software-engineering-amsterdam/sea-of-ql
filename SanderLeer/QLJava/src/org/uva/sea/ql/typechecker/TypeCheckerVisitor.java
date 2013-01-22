@@ -9,7 +9,7 @@ import org.uva.sea.ql.ast.expression.literal.*;
 import org.uva.sea.ql.ast.expression.unary.*;
 import org.uva.sea.ql.ast.statement.*;
 
-class TypeCheckerVisitor implements Visitor {
+class TypeCheckerVisitor implements Visitor<Boolean> {
 	private final SymbolTable symbols;
 	private final ArrayList<String> errors;
 
@@ -23,133 +23,157 @@ class TypeCheckerVisitor implements Visitor {
 	}
 
 	@Override
-	public void visit(Pos node) {
+	public Boolean visit(Pos node) {
 		node.getOperand().accept(this);
+		return true;
 	}
 
 	@Override
-	public void visit(Neg node) {
+	public Boolean visit(Neg node) {
 		node.getOperand().accept(this);
+		return true;
 	}
 
 	@Override
-	public void visit(Not node) {
+	public Boolean visit(Not node) {
 		node.getOperand().accept(this);
+		return true;
 	}
 
 	@Override
-	public void visit(Mul node) {
+	public Boolean visit(Mul node) {
 		node.getLhs().accept(this);
 		node.getRhs().accept(this);
+		return true;
 	}
 
 	@Override
-	public void visit(Div node) {
+	public Boolean visit(Div node) {
 		node.getLhs().accept(this);
 		node.getRhs().accept(this);
+		return true;
 	}
 
 	@Override
-	public void visit(Add node) {
+	public Boolean visit(Add node) {
 		node.getLhs().accept(this);
 		node.getRhs().accept(this);
+		return true;
 	}
 
 	@Override
-	public void visit(Sub node) {
+	public Boolean visit(Sub node) {
 		node.getLhs().accept(this);
 		node.getRhs().accept(this);
+		return true;
 	}
 
 	@Override
-	public void visit(Eq node) {
+	public Boolean visit(Eq node) {
 		node.getLhs().accept(this);
 		node.getRhs().accept(this);
+		return true;
 	}
 
 	@Override
-	public void visit(NEq node) {
+	public Boolean visit(NEq node) {
 		node.getLhs().accept(this);
 		node.getRhs().accept(this);
+		return true;
 	}
 
 	@Override
-	public void visit(GT node) {
+	public Boolean visit(GT node) {
 		node.getLhs().accept(this);
 		node.getRhs().accept(this);
+		return true;
 	}
 
 	@Override
-	public void visit(LT node) {
+	public Boolean visit(LT node) {
 		node.getLhs().accept(this);
 		node.getRhs().accept(this);
+		return true;
 	}
 
 	@Override
-	public void visit(GEq node) {
+	public Boolean visit(GEq node) {
 		node.getLhs().accept(this);
 		node.getRhs().accept(this);
+		return true;
 	}
 
 	@Override
-	public void visit(LEq node) {
+	public Boolean visit(LEq node) {
 		node.getLhs().accept(this);
 		node.getRhs().accept(this);
+		return true;
 	}
 
 	@Override
-	public void visit(And node) {
+	public Boolean visit(And node) {
 		node.getLhs().accept(this);
 		node.getRhs().accept(this);
+		return true;
 	}
 
 	@Override
-	public void visit(Or node) {
+	public Boolean visit(Or node) {
 		node.getLhs().accept(this);
 		node.getRhs().accept(this);
+		return true;
 	}
 
 	@Override
-	public void visit(Identifier node) {
+	public Boolean visit(Identifier node) {
 		if (!symbols.contains(node.getName())) {
 			addError("Variable '" + node.getName() + "' not defined");
 		}
+		return true;
 	}
 
 	@Override
-	public void visit(IntegerLiteral node) {
+	public Boolean visit(IntegerLiteral node) {
+		return true;
 	}
 
 	@Override
-	public void visit(BooleanLiteral node) {
+	public Boolean visit(BooleanLiteral node) {
+		return true;
 	}
 
 	@Override
-	public void visit(StringLiteral node) {
+	public Boolean visit(StringLiteral node) {
+		return true;
 	}
 
 	@Override
-	public void visit(IntegerType node) {
+	public Boolean visit(IntegerType node) {
+		return true;
 	}
 
 	@Override
-	public void visit(StringType node) {
+	public Boolean visit(StringType node) {
+		return true;
 	}
 
 	@Override
-	public void visit(BooleanType node) {
+	public Boolean visit(BooleanType node) {
+		return true;
 	}
 
 	@Override
-	public void visit(Form node) {
+	public Boolean visit(Form node) {
 		node.getStatements().accept(this);
+		return true;
 	}
 
 	@Override
-	public void visit(StatementList node) {
+	public Boolean visit(StatementList node) {
 		for (Statement e : node.getList()) {
 			e.accept(this);
 		}
+		return true;
 	}
 
 	private void addQuestionSymbol(Identifier identifier, Datatype datatype) {
@@ -161,19 +185,22 @@ class TypeCheckerVisitor implements Visitor {
 	}
 	
 	@Override
-	public void visit(Question node) {
+	public Boolean visit(Question node) {
 		addQuestionSymbol(node.getIdentifier(), node.getDatatype());
+		return true;
 	}
 
 	@Override
-	public void visit(ComputedQuestion node) {
+	public Boolean visit(ComputedQuestion node) {
 		addQuestionSymbol(node.getIdentifier(), node.getDatatype());
 		node.getExpression().accept(this);
+		return true;
 	}
 
 	@Override
-	public void visit(IfStatement node) {
+	public Boolean visit(IfStatement node) {
 		node.getExpression().accept(this);
 		node.getStatements().accept(this);
+		return true;
 	}
 }
