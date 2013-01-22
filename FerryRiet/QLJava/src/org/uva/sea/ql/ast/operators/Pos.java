@@ -1,14 +1,19 @@
-package org.uva.sea.ql.ast;
+package org.uva.sea.ql.ast.operators;
 
 import java.util.HashMap;
 
+import org.uva.sea.ql.ast.Expr;
+import org.uva.sea.ql.ast.Statement;
+import org.uva.sea.ql.ast.UnExpr;
+import org.uva.sea.ql.ast.types.NumeralType;
+import org.uva.sea.ql.ast.types.TypeDescription;
 import org.uva.sea.ql.astnodevisitor.Visitor;
 import org.uva.sea.ql.astnodevisitor.VisitorResult;
 
-public class Div extends BinExpr {
+public class Pos extends UnExpr {
 
-	public Div(Expr lhs, Expr rhs) {
-		super(lhs, rhs);
+	public Pos(Expr x) {
+		super(x);
 	}
 
 	@Override

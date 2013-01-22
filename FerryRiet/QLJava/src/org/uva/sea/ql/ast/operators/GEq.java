@@ -1,13 +1,18 @@
-package org.uva.sea.ql.ast;
+package org.uva.sea.ql.ast.operators;
 
 import java.util.HashMap;
 
+import org.uva.sea.ql.ast.BinExpr;
+import org.uva.sea.ql.ast.Expr;
+import org.uva.sea.ql.ast.Statement;
+import org.uva.sea.ql.ast.types.BooleanType;
+import org.uva.sea.ql.ast.types.TypeDescription;
 import org.uva.sea.ql.astnodevisitor.Visitor;
 import org.uva.sea.ql.astnodevisitor.VisitorResult;
 
-public class Eq extends BinExpr {
+public class GEq extends BinExpr {
 
-	public Eq(Expr result, Expr rhs) {
+	public GEq(Expr result, Expr rhs) {
 		super(result, rhs);
 	}
 

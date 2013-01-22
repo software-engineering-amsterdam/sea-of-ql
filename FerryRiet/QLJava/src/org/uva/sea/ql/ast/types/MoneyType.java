@@ -1,4 +1,5 @@
-package org.uva.sea.ql.ast;
+package org.uva.sea.ql.ast.types;
+
 
 public class MoneyType extends TypeDescription {
 
