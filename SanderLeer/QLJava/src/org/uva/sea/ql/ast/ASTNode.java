@@ -1,5 +1,5 @@
 package org.uva.sea.ql.ast;
 
 public interface ASTNode {
-	void accept(ASTNodeVisitor visitor);
+	void accept(Visitor visitor);
 }

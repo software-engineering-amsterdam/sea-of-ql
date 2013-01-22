@@ -1,6 +1,6 @@
 package org.uva.sea.ql.ast.expression.unary;
 
-import org.uva.sea.ql.ast.ASTNodeVisitor;
+import org.uva.sea.ql.ast.Visitor;
 import org.uva.sea.ql.ast.expression.Expression;
 
 public class Neg extends UnaryExpression {
@@ -9,7 +9,7 @@ public class Neg extends UnaryExpression {
 	}
 
 	@Override
-	public void accept(ASTNodeVisitor visitor) {
+	public void accept(Visitor visitor) {
 		visitor.visit(this);
 	}
 }

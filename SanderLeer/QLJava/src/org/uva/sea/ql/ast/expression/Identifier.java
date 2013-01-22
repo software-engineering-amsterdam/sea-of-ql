@@ -1,6 +1,6 @@
 package org.uva.sea.ql.ast.expression;
 
-import org.uva.sea.ql.ast.ASTNodeVisitor;
+import org.uva.sea.ql.ast.Visitor;
 
 public class Identifier extends Expression {
 	private final String name;
@@ -14,7 +14,7 @@ public class Identifier extends Expression {
 	}
 
 	@Override
-	public void accept(ASTNodeVisitor visitor) {
+	public void accept(Visitor visitor) {
 		visitor.visit(this);
 	}
 }

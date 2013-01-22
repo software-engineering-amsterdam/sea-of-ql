@@ -1,6 +1,6 @@
 package org.uva.sea.ql.ast.expression.binary;
 
-import org.uva.sea.ql.ast.ASTNodeVisitor;
+import org.uva.sea.ql.ast.Visitor;
 import org.uva.sea.ql.ast.expression.Expression;
 
 public class Add extends BinaryExpression {
@@ -9,7 +9,7 @@ public class Add extends BinaryExpression {
 	}
 
 	@Override
-	public void accept(ASTNodeVisitor visitor) {
+	public void accept(Visitor visitor) {
 		visitor.visit(this);
 	}
 }

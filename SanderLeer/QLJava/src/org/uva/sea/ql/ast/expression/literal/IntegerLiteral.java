@@ -1,6 +1,6 @@
 package org.uva.sea.ql.ast.expression.literal;
 
-import org.uva.sea.ql.ast.ASTNodeVisitor;
+import org.uva.sea.ql.ast.Visitor;
 
 public class IntegerLiteral extends Literals {
 	private final int value;
@@ -14,7 +14,7 @@ public class IntegerLiteral extends Literals {
 	}
 
 	@Override
-	public void accept(ASTNodeVisitor visitor) {
+	public void accept(Visitor visitor) {
 		visitor.visit(this);
 	}
 }

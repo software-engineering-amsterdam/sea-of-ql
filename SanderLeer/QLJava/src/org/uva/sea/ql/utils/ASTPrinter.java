@@ -8,7 +8,7 @@ import org.uva.sea.ql.ast.expression.literal.*;
 import org.uva.sea.ql.ast.expression.unary.*;
 import org.uva.sea.ql.ast.statement.*;
 
-public class ASTPrinter implements ASTNodeVisitor {
+public class ASTPrinter implements Visitor {
 	private StringBuilder sb = new StringBuilder();
 	private int ident;
 

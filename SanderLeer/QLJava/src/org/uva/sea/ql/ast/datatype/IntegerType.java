@@ -1,6 +1,6 @@
 package org.uva.sea.ql.ast.datatype;
 
-import org.uva.sea.ql.ast.ASTNodeVisitor;
+import org.uva.sea.ql.ast.Visitor;
 
 public class IntegerType extends Datatype {
 	private int value;
@@ -15,7 +15,7 @@ public class IntegerType extends Datatype {
 	}
 
 	@Override
-	public void accept(ASTNodeVisitor visitor) {
+	public void accept(Visitor visitor) {
 		visitor.visit(this);
 	}
 }

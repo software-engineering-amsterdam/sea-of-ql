@@ -1,6 +1,6 @@
 package org.uva.sea.ql.ast.statement;
 
-import org.uva.sea.ql.ast.ASTNodeVisitor;
+import org.uva.sea.ql.ast.Visitor;
 import org.uva.sea.ql.ast.expression.Expression;
 
 public class IfStatement extends BlockStatement {
@@ -16,7 +16,7 @@ public class IfStatement extends BlockStatement {
 	}
 
 	@Override
-	public void accept(ASTNodeVisitor visitor) {
+	public void accept(Visitor visitor) {
 		visitor.visit(this);
 	}
 }

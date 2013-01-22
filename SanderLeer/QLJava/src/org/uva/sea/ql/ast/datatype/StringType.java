@@ -1,6 +1,6 @@
 package org.uva.sea.ql.ast.datatype;
 
-import org.uva.sea.ql.ast.ASTNodeVisitor;
+import org.uva.sea.ql.ast.Visitor;
 
 public class StringType extends Datatype {
 	private String value;
@@ -15,7 +15,7 @@ public class StringType extends Datatype {
 	}
 
 	@Override
-	public void accept(ASTNodeVisitor visitor) {
+	public void accept(Visitor visitor) {
 		visitor.visit(this);
 	}
 

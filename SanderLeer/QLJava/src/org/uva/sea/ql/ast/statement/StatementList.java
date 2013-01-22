@@ -3,7 +3,7 @@ package org.uva.sea.ql.ast.statement;
 import java.util.ArrayList;
 
 import org.uva.sea.ql.ast.ASTNode;
-import org.uva.sea.ql.ast.ASTNodeVisitor;
+import org.uva.sea.ql.ast.Visitor;
 
 public class StatementList implements ASTNode {
 	private final ArrayList<Statement> list;
@@ -21,7 +21,7 @@ public class StatementList implements ASTNode {
 	}
 
 	@Override
-	public void accept(ASTNodeVisitor visitor) {
+	public void accept(Visitor visitor) {
 		visitor.visit(this);
 	}
 

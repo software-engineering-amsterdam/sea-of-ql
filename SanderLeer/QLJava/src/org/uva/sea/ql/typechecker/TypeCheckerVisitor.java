@@ -9,7 +9,7 @@ import org.uva.sea.ql.ast.expression.literal.*;
 import org.uva.sea.ql.ast.expression.unary.*;
 import org.uva.sea.ql.ast.statement.*;
 
-class TypeCheckerVisitor implements ASTNodeVisitor {
+class TypeCheckerVisitor implements Visitor {
 	private final SymbolTable symbols;
 	private final ArrayList<String> errors;
 
