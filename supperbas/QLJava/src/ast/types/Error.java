@@ -1,8 +1,8 @@
 package ast.types;
 
-public class Int extends Numeric {
+public class Error extends Type {
 	@Override
 	public boolean isCompatibleTo(Type t) {
-		return t.isCompatibleToInt();
+		return false;
 	}
 }

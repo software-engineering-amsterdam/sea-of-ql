@@ -12,10 +12,10 @@ import org.junit.runners.Parameterized.Parameters;
 
 import parser.jacc.JACCParser;
 
-import ast.expressions.binary.*;
-import ast.expressions.eval.*;
-import ast.expressions.unary.*;
-import ast.expressions.value.*;
+import ast.exprs.binary.*;
+import ast.exprs.eval.*;
+import ast.exprs.unary.*;
+import ast.exprs.value.*;
 
 
 @RunWith(Parameterized.class)
