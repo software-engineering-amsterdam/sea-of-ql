@@ -15,7 +15,7 @@
 <div  class="q_text">
 Please enter your tax identification number</div>
 <div  class="q_input">
-    <input id="question_taxId" type="text" class="qlinput" name="sellingPrice"/>
+    <input id="question_taxId" type="text" class="qlinput" name="taxId"/>
 </div>
 
 </div>
@@ -24,7 +24,7 @@ Please enter your tax identification number</div>
 <div  class="q_text">
 Did you sell a house in 2010?</div>
 <div  class="q_input">
-    <input id="question_hasSoldHouse" type="checkbox" class="qlinput" name="sellingPrice"/>
+    <input id="question_hasSoldHouse" type="checkbox" class="qlinput" name="hasSoldHouse"/>
 </div>
 
 </div>
@@ -33,7 +33,7 @@ Did you sell a house in 2010?</div>
 <div  class="q_text">
 Did you by a house in 2010?</div>
 <div  class="q_input">
-    <input id="question_hasBoughtHouse" type="checkbox" class="qlinput" name="sellingPrice"/>
+    <input id="question_hasBoughtHouse" type="checkbox" class="qlinput" name="hasBoughtHouse"/>
 </div>
 
 </div>
@@ -42,12 +42,12 @@ Did you by a house in 2010?</div>
 <div  class="q_text">
 Did you enter a loan for maintenance/reconstruction?</div>
 <div  class="q_input">
-    <input id="question_hasMaintLoan" type="checkbox" class="qlinput" name="sellingPrice"/>
+    <input id="question_hasMaintLoan" type="checkbox" class="qlinput" name="hasMaintLoan"/>
 </div>
 
 </div>
 <div  class="content_below">
-</div><div style="display:none;" id="if_32820206" class="question">
+</div><div style="display:none;" id="if_7896426" class="question">
 <div  class="question">
 <div  class="q_text">
 Price the house was sold for:</div>
@@ -61,7 +61,7 @@ Price the house was sold for:</div>
 <div  class="q_text">
 Private debts for the sold house:</div>
 <div  class="q_input">
-    <input id="question_privateDebt" type="text" class="qlinput" name="sellingPrice"/>
+    <input id="question_privateDebt" type="text" class="qlinput" name="privateDebt"/>
 </div>
 
 </div>
@@ -70,38 +70,38 @@ Private debts for the sold house:</div>
 <div  class="q_text">
 Value residue:</div>
 <div  class="q_input">
-    <input id="question_valueResidue" type="text" class="qlinput" name="sellingPrice"/>
+    <input id="question_valueResidue" type="text" class="qlinput" name="valueResidue"/>
 </div>
 
 </div>
 <div  class="content_below">
-</div><div style="display:none;" id="if_7896426" class="question">
+</div><div style="display:none;" id="if_7461949" class="question">
 <div  class="question">
 <div  class="q_text">
 Did you ask for permission to have a value residue larger than 20000?</div>
 <div  class="q_input">
-    <input id="question_askedForPermissionValRes20" type="checkbox" class="qlinput" name="sellingPrice"/>
+    <input id="question_askedForPermissionValRes20" type="checkbox" class="qlinput" name="askedForPermissionValRes20"/>
 </div>
 
 </div>
 <div  class="content_below">
 </div></div>
-<div style="display:none;" id="if_7461949" class="question">
+<div style="display:none;" id="if_20079748" class="question">
 <div  class="question">
 <div  class="q_text">
 Did you ask for permission to sell a house for less than 80000?</div>
 <div  class="q_input">
-    <input id="question_askedForPermissionSelPri80" type="checkbox" class="qlinput" name="sellingPrice"/>
+    <input id="question_askedForPermissionSelPri80" type="checkbox" class="qlinput" name="askedForPermissionSelPri80"/>
 </div>
 
 </div>
 <div  class="content_below">
-</div><div style="display:none;" id="if_20079748" class="question">
+</div><div style="display:none;" id="if_23414511" class="question">
 <div  class="question">
 <div  class="q_text">
 Who did you ask for permission to sell a house for less than 80000?</div>
 <div  class="q_input">
-    <input id="question_askedForPermissionSelPri80Who" type="checkbox" class="qlinput" name="sellingPrice"/>
+    <input id="question_askedForPermissionSelPri80Who" type="checkbox" class="qlinput" name="askedForPermissionSelPri80Who"/>
 </div>
 
 </div>
@@ -146,25 +146,25 @@ Who did you ask for permission to sell a house for less than 80000?</div>
 }function askedForPermissionSelPri80Who(){
  return $('#question_askedForPermissionSelPri80Who').attr('checked') == 'checked';
 }$('#question_hasSoldHouse').change(function(){
-  eval32820206();
-  });$('#question_hasBoughtHouse').change(function(){
-  eval32820206();
-  });$('#question_hasMaintLoan').change(function(){
-  eval32820206();
-  });$('#question_valueResidue').change(function(){
   eval7896426();
-  });$('#question_sellingPrice').change(function(){
+  });$('#question_hasBoughtHouse').change(function(){
+  eval7896426();
+  });$('#question_hasMaintLoan').change(function(){
+  eval7896426();
+  });$('#question_valueResidue').change(function(){
   eval7461949();
-  });$('#question_askedForPermissionSelPri80').change(function(){
+  });$('#question_sellingPrice').change(function(){
   eval20079748();
-  });function eval32820206(){
-   toggleContent((hasSoldHouse() && (hasBoughtHouse() || hasMaintLoan())), '32820206');
- }function eval7896426(){
-   toggleContent((valueResidue() > 20000), '7896426');
+  });$('#question_askedForPermissionSelPri80').change(function(){
+  eval23414511();
+  });function eval7896426(){
+   toggleContent((hasSoldHouse() && (hasBoughtHouse() || hasMaintLoan())), '7896426');
  }function eval7461949(){
-   toggleContent((sellingPrice() < 80000), '7461949');
+   toggleContent((valueResidue() > 20000), '7461949');
  }function eval20079748(){
-   toggleContent(askedForPermissionSelPri80(), '20079748');
+   toggleContent((sellingPrice() < 80000), '20079748');
+ }function eval23414511(){
+   toggleContent(askedForPermissionSelPri80(), '23414511');
  }
         </script>
     </body></html>

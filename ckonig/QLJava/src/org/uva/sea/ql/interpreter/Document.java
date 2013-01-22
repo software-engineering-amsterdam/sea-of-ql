@@ -72,7 +72,6 @@ class Document {
 	public void create(List<IfStatement> ifStatements,
 			List<Question> questions) {
 		for (Question q : questions) {
-			this.appendQuestion(q);
 			this.addGetter(q);
 		}
 		for (IfStatement i : ifStatements) {
