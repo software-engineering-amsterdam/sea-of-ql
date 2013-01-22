@@ -8,8 +8,17 @@ public class MoneyType extends Numeric {
 
 	@Override
 	public void accept(ASTNodeVisitor nodeVisitor) {
-		// TODO Auto-generated method stub
-
+		// TODO Auto-generated method 
+	}
+	
+	@Override
+	public boolean isCompatibleToType(Type type) {
+		return type.isCompatibleToMoneyType(); 
+	}
+	
+	@Override
+	public boolean isCompatibleToMoneyType() {
+		return true;
 	}
 
 }

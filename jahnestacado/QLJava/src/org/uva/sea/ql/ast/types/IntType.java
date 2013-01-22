@@ -12,7 +12,15 @@ public class IntType extends Numeric{
 		
 	}
    
-    
+	@Override
+	public boolean isCompatibleToType(Type type) {
+		return type.isCompatibleToIntType(); 
+	}
+	
+	@Override
+	public boolean isCompatibleToIntType() {
+		return true;
+	} 
 	
 	
 	
