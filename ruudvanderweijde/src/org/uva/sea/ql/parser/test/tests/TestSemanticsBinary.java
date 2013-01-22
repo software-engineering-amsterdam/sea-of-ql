@@ -58,7 +58,10 @@ public class TestSemanticsBinary {
 	@Test
 	public void testEq() throws ParseError {
 		assertEquals(parser.parseExpression("true == true").accept(new ExpressionChecker(ExprMap, errors)), true);
-    	assertEquals(parser.parseExpression("true == 1").accept(new ExpressionChecker(ExprMap, errors)), false);	
+    	assertEquals(parser.parseExpression("true == 1").accept(new ExpressionChecker(ExprMap, errors)), false);
+    	
+    	assertEquals(parser.parseExpression("1 == 10").accept(new ExpressionChecker(ExprMap, errors)), true);
+    	assertEquals(parser.parseExpression("true == 1").accept(new ExpressionChecker(ExprMap, errors)), false);
 	}
 	
 	@Test
@@ -94,7 +97,10 @@ public class TestSemanticsBinary {
 	@Test
 	public void testNEq() throws ParseError {
 		assertEquals(parser.parseExpression("true != true").accept(new ExpressionChecker(ExprMap, errors)), true);
-    	assertEquals(parser.parseExpression("true != 1").accept(new ExpressionChecker(ExprMap, errors)), false);	
+		assertEquals(parser.parseExpression("true != 1").accept(new ExpressionChecker(ExprMap, errors)), false);
+		
+		assertEquals(parser.parseExpression("10 != 1").accept(new ExpressionChecker(ExprMap, errors)), true);
+		assertEquals(parser.parseExpression("true != 1").accept(new ExpressionChecker(ExprMap, errors)), false);
 	}
 	
 	@Test

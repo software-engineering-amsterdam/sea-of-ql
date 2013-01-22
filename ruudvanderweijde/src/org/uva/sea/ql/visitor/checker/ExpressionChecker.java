@@ -117,8 +117,8 @@ public class ExpressionChecker implements ExpressionVisitor<Boolean> {
 		Type lhsType = ast.getLhs().typeOf(typeEnv);
 		Type rhsType = ast.getRhs().typeOf(typeEnv);
 		
-		if (!(lhsType.isCompatibleToBooleanType() && rhsType
-				.isCompatibleToBooleanType())) {
+		if (!(lhsType.isCompatibleToBooleanType() && rhsType.isCompatibleToBooleanType()) 
+				&& !(lhsType.isCompatibleToNumericType() && rhsType.isCompatibleToNumericType())) {
 
 			System.out.println("invalid boolean operator for ==.");
 			return false;
@@ -243,8 +243,8 @@ public class ExpressionChecker implements ExpressionVisitor<Boolean> {
 		Type lhsType = ast.getLhs().typeOf(typeEnv);
 		Type rhsType = ast.getRhs().typeOf(typeEnv);
 		
-		if (!(lhsType.isCompatibleToBooleanType() && rhsType
-				.isCompatibleToBooleanType())) {
+		if (!(lhsType.isCompatibleToBooleanType() && rhsType.isCompatibleToBooleanType()) 
+			&& !(lhsType.isCompatibleToNumericType() && rhsType.isCompatibleToNumericType())) {
 
 			System.out.println("invalid Boolean operator for !=.");
 			return false;
