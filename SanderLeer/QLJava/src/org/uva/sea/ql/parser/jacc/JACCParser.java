@@ -17,21 +17,13 @@ public class JACCParser implements Parser {
 		if (!parser.parse()) {
 			throw new ParseException("parse error: " + parser.getError());
 		}
-		ASTNode astRoot = parser.getResult();
+		ASTNode ast = parser.getResult();
 
-//		SymbolTableBuilder symbolsBuilder = new SymbolTableBuilder(astRoot);
-//		SymbolTable symbols = symbolsBuilder.build();
-		
-//		TypeChecker typeChecker = new TypeChecker(astRoot, symbols);
-//		if (!typeChecker.check()) {
-//			throw new ParseException("typecheck error: " + typeChecker.getError());
-//		}
-		
 		ASTPrinter astPrinter = new ASTPrinter();
-		astRoot.accept(astPrinter);
+		ast.accept(astPrinter);
 		// TODO: remove before production
 		System.out.println(astPrinter.toString() + "\n");
 		
-		return astRoot;
+		return ast;
 	}
 }

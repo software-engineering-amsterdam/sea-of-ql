@@ -1,10 +1,10 @@
-package org.uva.sea.ql.parser.jacc;
+package org.uva.sea.ql.typechecker;
 
 import java.util.TreeMap;
 
 import org.uva.sea.ql.ast.Datatype;
 
-public class SymbolTable {
+class SymbolTable {
 	private final TreeMap<String, Datatype> symbols;
 	
 	public SymbolTable() {
@@ -21,5 +21,9 @@ public class SymbolTable {
 	
 	public boolean contains(String symbol) {
 		return symbols.containsKey(symbol);
+	}
+
+	public void clear() {
+		symbols.clear();
 	}
 }

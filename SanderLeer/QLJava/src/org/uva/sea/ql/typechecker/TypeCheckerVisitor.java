@@ -1,15 +1,15 @@
-package org.uva.sea.ql.parser.jacc;
+package org.uva.sea.ql.typechecker;
 
 import java.util.ArrayList;
 import org.uva.sea.ql.ast.*;
 
-public class SymbolTableVisitor implements ASTNodeVisitor {
+class TypeCheckerVisitor implements ASTNodeVisitor {
 	private final SymbolTable symbols;
 	private final ArrayList<String> errors;
 
-	public SymbolTableVisitor(SymbolTable symboltable) {
-		this.errors = new ArrayList<>();
+	public TypeCheckerVisitor(SymbolTable symboltable, ArrayList<String> errors) {
 		this.symbols = symboltable;
+		this.errors = errors;
 	}
 
 	protected void addError(String s) {
