@@ -88,11 +88,11 @@ private str validator(str answerDataType, str ident) {
 }
 
 private str validateBoolean(str ident) =
-  "die(B<ident>);";
+  "if(!(is_bool(<ident>)) die(\"<ident> is not a boolean!\");";
   
 private str validateInteger(str ident) =
-  "die(I<ident>);";
-  
+  "if(!(is_int(<ident>)) die(\"<ident> is not an integer!\");";
+
 private str validateMoney(str ident) =
   "die(M<ident>);";
 
@@ -100,7 +100,7 @@ private str validateDate(str ident) =
   "die(D<ident>);";
 
 private str validateString(str ident) =
-  "die(S<ident>);";
+  "if(!(is_string(<ident>)) die(\"<ident> is not a string!\");";
 
 private Expr prependIdent(Expr expr, str prepend) {
   return visit (expr) {
