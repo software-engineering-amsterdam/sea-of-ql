@@ -1,6 +1,7 @@
 package org.uva.sea.ql.visitor.printer;
 
 import org.uva.sea.ql.ast.Form;
+import org.uva.sea.ql.ast.stmt.ComputedQuestion;
 import org.uva.sea.ql.ast.stmt.IfThenElse;
 import org.uva.sea.ql.ast.stmt.Question;
 import org.uva.sea.ql.ast.stmt.Statement;
@@ -51,19 +52,26 @@ public class FormVisitorPrinter implements FormVisitor {
 				+ question.getId().getName() + "\t label: "
 				+ question.getLabel() + "\t type: "
 				+ question.getType().getClass());
-		increaseDepth();
-		question.getType().accept(this);
-		decreaseDepth();
+//		increaseDepth();
+//		question.getType().accept(this);
+//		decreaseDepth();
 	}
 
 	@Override
+	public void visit(ComputedQuestion computedQuestion) {
+		printString("Question " + "\t id: "
+				+ computedQuestion.getId().getName() + "\t label: "
+				+ computedQuestion.getLabel() + "\t type: "
+				+ computedQuestion.getType().getClass()
+				+ computedQuestion.getComputation().toString());
+		increaseDepth();
+		computedQuestion.getComputation().accept(this);
+		decreaseDepth();
+		
+	}
+	@Override
 	public void visit(Type type) {
 		printString("Type: " + type.getClass());
-		increaseDepth();
-		if (type.isComputated()) {
-			type.getExpr().accept(this);
-		}
-		decreaseDepth();
 	}
 	
 	// pretty print helper methods

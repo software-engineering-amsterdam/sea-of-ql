@@ -99,7 +99,7 @@ public class ExpressionChecker implements ExpressionVisitor<Boolean> {
 		if (!(lhsType.isCompatibleToNumericType() && rhsType
 				.isCompatibleToNumericType())) {
 
-			System.out.println("invalid integer operator for /.");
+			System.out.println("invalid Numeric operator for /.");
 			return false;
 		}
 		return true;
@@ -120,7 +120,7 @@ public class ExpressionChecker implements ExpressionVisitor<Boolean> {
 		if (!(lhsType.isCompatibleToBooleanType() && rhsType.isCompatibleToBooleanType()) 
 				&& !(lhsType.isCompatibleToNumericType() && rhsType.isCompatibleToNumericType())) {
 
-			System.out.println("invalid boolean operator for ==.");
+			System.out.println("invalid Boolean or Numeric operator for ==.");
 			return false;
 		}
 		return true;
@@ -246,7 +246,7 @@ public class ExpressionChecker implements ExpressionVisitor<Boolean> {
 		if (!(lhsType.isCompatibleToBooleanType() && rhsType.isCompatibleToBooleanType()) 
 			&& !(lhsType.isCompatibleToNumericType() && rhsType.isCompatibleToNumericType())) {
 
-			System.out.println("invalid Boolean operator for !=.");
+			System.out.println("invalid Boolean or Numeric operator for !=.");
 			return false;
 		}
 		return true;
@@ -347,41 +347,33 @@ public class ExpressionChecker implements ExpressionVisitor<Boolean> {
 
 	@Override
 	public Boolean visit(Bool ast) {
-//		boolean checkString = ast.accept(this);
-//		
-//		if (!checkString) {
-//			return false;
-//		}
+		Type astType = ast.typeOf(typeEnv);
+		if (!astType.isCompatibleToBooleanType()) {
+			return false;
+		}
 		return true;
 	}
 
 	@Override
 	public Boolean visit(Ident ast) {
-//		boolean checkString = ast.accept(this);
-//		
-//		if (!checkString) {
-//			return false;
-//		}
 		return true;
 	}
 
 	@Override
 	public Boolean visit(Int ast) {
-//		boolean checkString = ast.accept(this);
-//		
-//		if (!checkString) {
-//			return false;
-//		}
+		Type astType = ast.typeOf(typeEnv);
+		if (!astType.isCompatibleToNumericType()) {
+			return false;
+		}
 		return true;
 	}
 
 	@Override
 	public Boolean visit(StringLiteral ast) {
-//		boolean checkString = ast.accept(this);
-//		
-//		if (!checkString) {
-//			return false;
-//		}
+		Type astType = ast.typeOf(typeEnv);
+		if (!astType.isCompatibleToStringType()) {
+			return false;
+		}
 		return true;
 	}
 

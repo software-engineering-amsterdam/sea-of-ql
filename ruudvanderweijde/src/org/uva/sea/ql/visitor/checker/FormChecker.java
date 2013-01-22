@@ -3,6 +3,7 @@ package org.uva.sea.ql.visitor.checker;
 import java.util.HashMap;
 
 import org.uva.sea.ql.ast.Form;
+import org.uva.sea.ql.ast.stmt.ComputedQuestion;
 import org.uva.sea.ql.ast.stmt.IfThenElse;
 import org.uva.sea.ql.ast.stmt.Question;
 import org.uva.sea.ql.ast.type.Type;
@@ -49,6 +50,12 @@ public class FormChecker implements FormVisitor {
 	}
 
 	@Override
+	public void visit(ComputedQuestion computedQuestion) {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	@Override
 	public void visit(Type type) {
 		// TODO Auto-generated method stub
 
@@ -67,5 +74,4 @@ public class FormChecker implements FormVisitor {
 	public void setErrorString(String errorString) {
 		this.errorString = errorString;
 	}
-
 }

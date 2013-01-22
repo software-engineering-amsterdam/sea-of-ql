@@ -18,6 +18,7 @@ import org.uva.sea.ql.ast.expr.binary.LT;
 import org.uva.sea.ql.ast.expr.binary.Mul;
 import org.uva.sea.ql.ast.expr.primary.Ident;
 import org.uva.sea.ql.ast.expr.primary.Int;
+import org.uva.sea.ql.ast.stmt.ComputedQuestion;
 import org.uva.sea.ql.ast.stmt.IfThenElse;
 import org.uva.sea.ql.ast.stmt.Question;
 import org.uva.sea.ql.parser.ANTLRParser;
@@ -46,7 +47,9 @@ public class TestParser {
 		String strQL3 = "if (true) { b: \"lege string\" boolean } else { b: \"lege string\" boolean }";
 		String strQL4 = "if (a) { } else { b: \"lege string\" boolean }";
 		String strQL5 = "s: \"string\" string";
-		String strQL6 = "b: \"lege string\" integer (ident > 1)";
+		String strQL6 = "b: \"boolean test\" boolean";
+		String strQL7 = "i1: \"integer test12\" integer (10+100)";
+		String strQL8 = "i2: \"integer test\" integer (10-1)";
 		
 		
 		assertEquals(parser.parseStatement(strQL1).getClass(), IfThenElse.class);
@@ -55,6 +58,8 @@ public class TestParser {
 		assertEquals(parser.parseStatement(strQL4).getClass(), IfThenElse.class);
 		assertEquals(parser.parseStatement(strQL5).getClass(), Question.class);
 		assertEquals(parser.parseStatement(strQL6).getClass(), Question.class);
+		assertEquals(parser.parseStatement(strQL7).getClass(), ComputedQuestion.class);
+		assertEquals(parser.parseStatement(strQL8).getClass(), ComputedQuestion.class);
 	}
 
 	@Test

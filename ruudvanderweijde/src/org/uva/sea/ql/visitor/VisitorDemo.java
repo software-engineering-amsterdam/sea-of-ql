@@ -63,7 +63,7 @@ public class VisitorDemo {
     	    	
 		Form form = parser.parseForm(testString);
 		form.accept(new FormVisitorPrinter());
-		System.out.println("----- Semantic check: ------");
+		System.out.println("----- Now running FormChecker: ------");
 		form.accept(new FormChecker());
     }
 }
