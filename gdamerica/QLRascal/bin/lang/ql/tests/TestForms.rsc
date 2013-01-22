@@ -11,7 +11,7 @@ import lang::ql::util::Implode;
 import lang::ql::util::Parse;
 import lang::ql::ast::AST;
 
-private Form p(str src) = implode(parse(src));
+private Form p(str src) = implode(parseForm(src));
 
 public test bool testForm1() = p("form Box1HouseOwning{  }") is form;
 
