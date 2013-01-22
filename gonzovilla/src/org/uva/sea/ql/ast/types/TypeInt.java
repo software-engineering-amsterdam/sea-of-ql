@@ -1,15 +1,5 @@
 package org.uva.sea.ql.ast.types;
 
-public class TypeInt extends ReturnType {
+public class TypeInt extends Type {
 
-	private final Integer value;
-
-	public TypeInt(int value) {
-		this.value = value;
-	}
-
-	public Integer getValue() {
-		return value;
-	}
-	
 }

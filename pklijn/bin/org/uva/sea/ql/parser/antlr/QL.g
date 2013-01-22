@@ -58,6 +58,8 @@ questionType
 
 primary returns [Expr result]
   : Int   { $result = new Int(Integer.parseInt($Int.text)); }
+  | Bool { $result = new Bool(Boolean.parseBoolean($Bool.text)); }
+  | String { $result = new StringNode($String.text); }
   | Ident { $result = new Ident($Ident.text); }
   | '(' x=orExpr ')'{ $result = $x.result; }
   ;
@@ -141,5 +143,6 @@ IntType: 'int';
 StringType: 'string';
 
 String: '"' .* '"';
+Bool: 'true' | 'false';
 Int: ('0'..'9')+;
 Ident: ('a'..'z'|'A'..'Z')('a'..'z'|'A'..'Z'|'0'..'9'|'_')*;

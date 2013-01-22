@@ -1,30 +1,30 @@
 form test  {
 	name: "Name:" string
 	surname: "Surname:" string
-	surname1: "Surname1:" string (surname+"dwadaw")
+	surname2: "Surname1:" string (surname+"dwadaw")
 	age: "Age:" integer
 	age2: "Age2:" integer
 	
 	isEmpl: "Do you work?" boolean
-	completeage: "Complete name:" integer (age +age2)
+	completeage: "Complete name:" integer (age+age2)
 	
 	if (isEmpl)
 	{
 		if(isEmpl==false){
-		salary: "Annual income:" money
+		salary: "Annual income:" money 
 		}
 		else{
-		salary: "what salary you except?:" money
+		salary: "what salary you except?:" money 
 		}
 	}
-	/*else if(!isEmpl)
+	else if(!isEmpl)
 	{
 		isEmpl: "Do you work?" boolean
 		interests: "What are you seeking in a job?" string  ("dawdawdawd")
-	}*/
+	}
 	else
 	{
 		interest: "How you get in here?" string
-		interest: "How you get in here?" string
+		interest: "How you get in here?" string 
 	}
 }

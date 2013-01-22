@@ -2,7 +2,7 @@ package org.uva.sea.ql.ast.expr;
 
 public abstract class Unary extends Expr {
 	
-	private Expr arg;
+	private final Expr arg;
 
 	public Unary(Expr arg) {
 		this.arg = arg;

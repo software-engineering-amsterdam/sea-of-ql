@@ -7,6 +7,7 @@ package org.uva.sea.ql.parser.antlr;
 import org.uva.sea.ql.ast.*;
 import org.uva.sea.ql.ast.types.*;
 import org.uva.sea.ql.ast.expr.*;
+import org.uva.sea.ql.ast.values.*;
 }
 
 @lexer::header
@@ -18,7 +19,6 @@ form returns [Form result]
 	@init { List<FormUnit> formUnits = new ArrayList<FormUnit>();}
 	: 'form' Ident ':' (formUnit {formUnits.add($formUnit.result);})* 'endform' { $result = new Form($Ident.text, formUnits); }
 	; 
-	
 
 formUnit returns [FormUnit result]
 	: question    { $result = $question.result; }
@@ -26,19 +26,20 @@ formUnit returns [FormUnit result]
 	;
 
 question returns [Question result]
-	: Ident ':' sentence '(' returnType ')' { $result = new Question($Ident.text, $sentence.text, $returnType.result); }
-	; 
-		
+	: Ident ':' sentence '(' type ')' { $result = new Question($Ident.text, $sentence.text, $type.result); }
+	;
+	 
+//computedQuestion
+
 ifStatement returns [IfStatement result]
 	@init { List<FormUnit> formUnits = new ArrayList<FormUnit>();}
-	: 'if' '(' orExpr ')' (formUnit {formUnits.add($formUnit.result);})* 'endif' { $result = new IfStatement($orExpr.result, formUnits); }
-	; 
+	: 'if' '(' orExpr ')' 'then' (formUnit {formUnits.add($formUnit.result);})* 'endif' { $result = new IfStatement($orExpr.result, formUnits); }
+	;  
 
-returnType returns [ReturnType result]
-  : 'Boolean' {$result = new TypeBool(1);}
-  | 'Integer' {$result = new TypeInt(2);}
-  | 'String'  {$result = new TypeString(3);}
-  | 'Money'		{$result = new TypeMoney(4);}
+type returns [Type result]
+  : 'Boolean' {$result = new TypeBool();}
+  | 'Integer' {$result = new TypeInt();}
+  | 'String'  {$result = new TypeString();}
   ;
 
 sentence
@@ -82,7 +83,7 @@ addExpr returns [Expr result]
       }
     })*
     ;
-  
+
 relExpr returns [Expr result]
     :   lhs=addExpr { $result=$lhs.result; } ( op=('<'|'<='|'>'|'>='|'=='|'!=') rhs=addExpr 
     { 

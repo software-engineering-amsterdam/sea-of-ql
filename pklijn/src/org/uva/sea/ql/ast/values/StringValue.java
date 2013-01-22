@@ -11,4 +11,16 @@ public class StringValue extends Value {
 	public String getValue() {
 		return value;
 	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		if (obj == null)
+			return false;
+		if (obj.getClass() != getClass())
+			return false;
+		if (obj == this)
+			return true;
+		
+		return ((StringValue)obj).getValue().equals(getValue());
+	}
 }

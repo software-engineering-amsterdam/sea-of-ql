@@ -6,20 +6,20 @@ import org.uva.sea.ql.ast.expr.Expr;
 
 public class IfStatement extends FormUnit {
 
-	private Expr expression;
-	private List<FormUnit> formUnits;
+	private Expr condition;
+	private List<FormUnit> body;
 	
-	public IfStatement(Expr expression, List<FormUnit> formUnits) {
-		this.expression = expression;
-		this.formUnits = formUnits;
+	public IfStatement(Expr condition, List<FormUnit> body) {
+		this.condition = condition;
+		this.body = body;
 	}
 
-	public Expr getExpression() {
-		return expression;
+	public Expr getCondition() {
+		return condition;
 	}
 
-	public List<FormUnit> getFormUnits() {
-		return formUnits;
+	public List<FormUnit> getBody() {
+		return body;
 	}
 
 }

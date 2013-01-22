@@ -1,22 +1,25 @@
-QL-Rascal 21/01/2012
-======================
+========================
+||QL-Rascal 21/01/2012||
+========================
 
 GENERAL USAGE NOTES
 ======================
-Using only a sentence or 2, include a brief description of the program. An example might be: "This application determines the user's mood by logging their actions online, then alters the desktop environment to suit this mood."
+ - Use QL-Rascal to write questionnaires in QL-Language and export them to JavaScript/Java.
+ - Supported variable types integer,string,boolean,money,date,float
 
 ----------------------
 
 INSTALLATION
 ======================
-
+ - You need Eclipse IDE and Rascal plugin installed to run QL Rascal
+ - More info on Rascal at http://www.rascal-mpl.org/
 
 ----------------------
 
 CONTACT
 ======================
-Author : Georgios Marmanidis
-mail:geo.marmani@gmail.com
+ - Author : Georgios Marmanidis
+ - Email  : geo.marmani@gmail.com
 
 ----------------------
 
@@ -24,7 +27,3 @@ KNOWN BUGS
 ======================
 
 
-References
-http://www.eyrie.org/~eagle/notes/style/doc.html
-http://www.wikihow.com/Write-a-Read-Me
-http://en.wikipedia.org/wiki/Readme

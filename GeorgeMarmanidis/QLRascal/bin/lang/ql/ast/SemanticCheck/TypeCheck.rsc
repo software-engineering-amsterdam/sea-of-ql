@@ -114,11 +114,11 @@ TENV checkExpression(exp:geq(Expr ltLeft, Expr ltRight),Type req,TENV env){
 }
 
 TENV checkExpression(exp:and(Expr andLeft, Expr andRight),Type req,TENV env){
-	return req==boolean() ? checkExpression(eqLeft,req,checkExpression(eqRight,req,env)) : addError(env, exp@location, "Required boolean statement in condition but got <req>");
+	return req==boolean() ? checkExpression(andLeft,req,checkExpression(andRight,req,env)) : addError(env, exp@location, "Required boolean statement in condition but got <req>");
 }
 
 TENV checkExpression(exp:or(Expr orLeft, Expr orRight),Type req,TENV env){
-	return req==boolean() ? checkExpression(eqLeft,req,checkExpression(eqRight,req,env)) : addError(env, exp@location, "Required boolean statement in condition but got <req>");
+	return req==boolean() ? checkExpression(orLeft,req,checkExpression(orRight,req,env)) : addError(env, exp@location, "Required boolean statement in condition but got <req>");
 }
 
 TENV checkExpression(exp:not(Expr notValue),Type req,TENV env){
@@ -137,7 +137,7 @@ TENV checkExpression(exp:add(Expr addLeft, Expr addRight),Type req,TENV env){
 	return req==integer() || req== string() ? checkExpression(addLeft,req,checkExpression(addRight,req,env)) : addError(env, exp@location, "Required <req>. Both should be the same type .");
 }
 
-TENV checkExpression(exp:mul(Expr multLeft, Expr multright),Type req,TENV env){
+TENV checkExpression(exp:mul(Expr multLeft, Expr multRight),Type req,TENV env){
 	return req==integer() ? checkExpression(multLeft,req,checkExpression(multRight,req,env)) : addError(env, exp@location,  "Required integer in arethmetic operations but got <req>.");
 }
 
