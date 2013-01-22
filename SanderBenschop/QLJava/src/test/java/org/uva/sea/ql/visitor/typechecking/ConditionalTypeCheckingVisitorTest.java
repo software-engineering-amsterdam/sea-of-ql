@@ -3,7 +3,6 @@ package org.uva.sea.ql.visitor.typechecking;
 import org.junit.Before;
 import org.junit.Test;
 import org.uva.sea.ql.ast.QLStatement;
-import org.uva.sea.ql.ast.statement.Conditional;
 import org.uva.sea.ql.ast.primary.Bool;
 import org.uva.sea.ql.ast.primary.Int;
 import org.uva.sea.ql.ast.statement.IfStatement;

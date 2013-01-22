@@ -1,10 +1,8 @@
 package org.uva.sea.ql.ast;
 
-import java.util.List;
-
-import org.uva.sea.ql.ast.ASTNode;
-import org.uva.sea.ql.ast.QLStatement;
 import org.uva.sea.ql.visitor.ASTNodeVisitor;
+
+import java.util.List;
 
 public class Form implements ASTNode {
 

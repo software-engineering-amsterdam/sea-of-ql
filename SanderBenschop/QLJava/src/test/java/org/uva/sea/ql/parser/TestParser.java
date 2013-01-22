@@ -2,12 +2,12 @@ package org.uva.sea.ql.parser;
 
 import junit.framework.Assert;
 import org.junit.Before;
+import org.uva.sea.ql.ast.Form;
 import org.uva.sea.ql.ast.QLExpression;
 import org.uva.sea.ql.ast.QLStatement;
-import org.uva.sea.ql.ast.statement.Conditional;
-import org.uva.sea.ql.ast.Form;
 import org.uva.sea.ql.ast.primary.Datatype;
 import org.uva.sea.ql.ast.primary.Ident;
+import org.uva.sea.ql.ast.statement.Conditional;
 import org.uva.sea.ql.parser.exception.ParseError;
 
 public abstract class TestParser {

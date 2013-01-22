@@ -1,10 +1,5 @@
 package org.uva.sea.ql;
 
-import static org.junit.Assert.assertEquals;
-
-import java.util.Arrays;
-import java.util.List;
-
 import org.junit.Test;
 import org.uva.sea.ql.ast.ASTNode;
 import org.uva.sea.ql.ast.binary.Add;
@@ -17,6 +12,11 @@ import org.uva.sea.ql.visitor.QLError;
 import org.uva.sea.ql.visitor.typechecking.errors.IdentifierRedeclarationError;
 import org.uva.sea.ql.visitor.typechecking.errors.UnequalTypesError;
 import org.uva.sea.ql.visitor.typechecking.errors.UnsupportedTypeError;
+
+import java.util.Arrays;
+import java.util.List;
+
+import static org.junit.Assert.assertEquals;
 
 public class TestQLErrors {
 

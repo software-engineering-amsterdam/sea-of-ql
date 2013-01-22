@@ -1,10 +1,10 @@
 package org.uva.sea.ql.parser.stringparsing;
 
 import org.junit.Test;
+import org.uva.sea.ql.ast.Form;
 import org.uva.sea.ql.ast.QLStatement;
 import org.uva.sea.ql.ast.statement.Computation;
 import org.uva.sea.ql.ast.statement.Conditional;
-import org.uva.sea.ql.ast.Form;
 import org.uva.sea.ql.ast.statement.IfStatement;
 import org.uva.sea.ql.ast.statement.Question;
 import org.uva.sea.ql.parser.TestParser;
