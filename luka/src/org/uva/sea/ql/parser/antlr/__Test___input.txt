@@ -6,7 +6,7 @@ if(!hasCustomerLove){
 lovePrice: "How much would you pay for love?" money
 }
 hasMaintLoan: "Did you enter a loan for maintenance/reconstruction?" boolean
-if(hasSoldHouse < hasBoughtHouse){
+if(hasSoldHouse<hasBoughtHouse){
 sellingPrice: "Price the house was sold for:" money
 privateDebt: "Private debts for the sold house:" money
 valueResidue: "Value residue:" money(sellingPrice - privateDebt)
@@ -17,8 +17,9 @@ privateDebt2: "Private debts for the sold house:" money
 valueResidue2: "Value residue:" money(sellingPrice - privateDebt)
 }else{
 sellingPrice3: "Price the house was sold for:" money
-currentTax: 19
-if(currentTax * privateDebt2){
+currentTax = 19
+currentTax = (19 * 15)
+if(currentTax - privateDebt2){
 privateDebt3: "Private debts for the sold house:" money
 }
 hasYouDada: "Are you dada?" boolean
