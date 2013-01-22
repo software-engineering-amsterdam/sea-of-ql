@@ -1,6 +1,6 @@
-// Output created by jacc on Tue Jan 22 14:00:12 CET 2013
+// Output created by jacc on Tue Jan 22 15:48:27 CET 2013
 
-package parser.jacc;
+package parser;
 
 interface QLTokens {
     int ENDINPUT = 0;

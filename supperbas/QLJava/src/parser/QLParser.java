@@ -1,12 +1,11 @@
-// Output created by jacc on Tue Jan 22 14:00:12 CET 2013
+// Output created by jacc on Tue Jan 22 15:48:27 CET 2013
 
-package parser.jacc;
+package parser;
 
-import ast.Expression;
-import ast.expression.binary.*;
-import ast.expression.eval.*;
-import ast.expression.unary.*;
-import ast.expression.value.*;
+import ast.Expr;
+import ast.exprs.binary.*;
+import ast.exprs.unary.*;
+import ast.exprs.value.*;
 @SuppressWarnings("unused")
 
 class QLParser implements QLTokens {
@@ -1477,133 +1476,133 @@ class QLParser implements QLTokens {
     }
 
     private int yyr1() { // top : expr
-        { result = ((ast.Expression)yysv[yysp-1]); }
+        { result = ((ast.Expr)yysv[yysp-1]); }
         yysv[yysp-=1] = yyrv;
         return 1;
     }
 
     private int yyr2() { // expr : '+' expr
-        { yyrv = new Pos(((ast.Expression)yysv[yysp-1])); }
+        { yyrv = new Pos(((ast.Expr)yysv[yysp-1])); }
         yysv[yysp-=2] = yyrv;
         return yypexpr();
     }
 
     private int yyr3() { // expr : '-' expr
-        { yyrv = new Neg(((ast.Expression)yysv[yysp-1])); }
+        { yyrv = new Neg(((ast.Expr)yysv[yysp-1])); }
         yysv[yysp-=2] = yyrv;
         return yypexpr();
     }
 
     private int yyr4() { // expr : '!' expr
-        { yyrv = new Not(((ast.Expression)yysv[yysp-1])); }
+        { yyrv = new Not(((ast.Expr)yysv[yysp-1])); }
         yysv[yysp-=2] = yyrv;
         return yypexpr();
     }
 
     private int yyr5() { // expr : expr '*' expr
-        { yyrv = new Mul(((ast.Expression)yysv[yysp-3]), ((ast.Expression)yysv[yysp-1])); }
+        { yyrv = new Mul(((ast.Expr)yysv[yysp-3]), ((ast.Expr)yysv[yysp-1])); }
         yysv[yysp-=3] = yyrv;
         return yypexpr();
     }
 
     private int yyr6() { // expr : expr '/' expr
-        { yyrv = new Div(((ast.Expression)yysv[yysp-3]), ((ast.Expression)yysv[yysp-1])); }
+        { yyrv = new Div(((ast.Expr)yysv[yysp-3]), ((ast.Expr)yysv[yysp-1])); }
         yysv[yysp-=3] = yyrv;
         return yypexpr();
     }
 
     private int yyr7() { // expr : expr '+' expr
-        { yyrv = new Add(((ast.Expression)yysv[yysp-3]), ((ast.Expression)yysv[yysp-1])); }
+        { yyrv = new Add(((ast.Expr)yysv[yysp-3]), ((ast.Expr)yysv[yysp-1])); }
         yysv[yysp-=3] = yyrv;
         return yypexpr();
     }
 
     private int yyr8() { // expr : expr '-' expr
-        { yyrv = new Sub(((ast.Expression)yysv[yysp-3]), ((ast.Expression)yysv[yysp-1])); }
+        { yyrv = new Sub(((ast.Expr)yysv[yysp-3]), ((ast.Expr)yysv[yysp-1])); }
         yysv[yysp-=3] = yyrv;
         return yypexpr();
     }
 
     private int yyr9() { // expr : expr EQ expr
-        { yyrv = new Eq(((ast.Expression)yysv[yysp-3]), ((ast.Expression)yysv[yysp-1])); }
+        { yyrv = new Eq(((ast.Expr)yysv[yysp-3]), ((ast.Expr)yysv[yysp-1])); }
         yysv[yysp-=3] = yyrv;
         return yypexpr();
     }
 
     private int yyr10() { // expr : expr NEQ expr
-        { yyrv = new NEq(((ast.Expression)yysv[yysp-3]), ((ast.Expression)yysv[yysp-1])); }
+        { yyrv = new NEq(((ast.Expr)yysv[yysp-3]), ((ast.Expr)yysv[yysp-1])); }
         yysv[yysp-=3] = yyrv;
         return yypexpr();
     }
 
     private int yyr11() { // expr : expr '>' expr
-        { yyrv = new GT(((ast.Expression)yysv[yysp-3]), ((ast.Expression)yysv[yysp-1])); }
+        { yyrv = new GT(((ast.Expr)yysv[yysp-3]), ((ast.Expr)yysv[yysp-1])); }
         yysv[yysp-=3] = yyrv;
         return yypexpr();
     }
 
     private int yyr12() { // expr : expr '<' expr
-        { yyrv = new LT(((ast.Expression)yysv[yysp-3]), ((ast.Expression)yysv[yysp-1])); }
+        { yyrv = new LT(((ast.Expr)yysv[yysp-3]), ((ast.Expr)yysv[yysp-1])); }
         yysv[yysp-=3] = yyrv;
         return yypexpr();
     }
 
     private int yyr13() { // expr : expr GEQ expr
-        { yyrv = new GEq(((ast.Expression)yysv[yysp-3]), ((ast.Expression)yysv[yysp-1])); }
+        { yyrv = new GEq(((ast.Expr)yysv[yysp-3]), ((ast.Expr)yysv[yysp-1])); }
         yysv[yysp-=3] = yyrv;
         return yypexpr();
     }
 
     private int yyr14() { // expr : expr LEQ expr
-        { yyrv = new LEq(((ast.Expression)yysv[yysp-3]), ((ast.Expression)yysv[yysp-1])); }
+        { yyrv = new LEq(((ast.Expr)yysv[yysp-3]), ((ast.Expr)yysv[yysp-1])); }
         yysv[yysp-=3] = yyrv;
         return yypexpr();
     }
 
     private int yyr15() { // expr : expr AND expr
-        { yyrv = new And(((ast.Expression)yysv[yysp-3]), ((ast.Expression)yysv[yysp-1])); }
+        { yyrv = new And(((ast.Expr)yysv[yysp-3]), ((ast.Expr)yysv[yysp-1])); }
         yysv[yysp-=3] = yyrv;
         return yypexpr();
     }
 
     private int yyr16() { // expr : expr OR expr
-        { yyrv = new Or(((ast.Expression)yysv[yysp-3]), ((ast.Expression)yysv[yysp-1])); }
+        { yyrv = new Or(((ast.Expr)yysv[yysp-3]), ((ast.Expr)yysv[yysp-1])); }
         yysv[yysp-=3] = yyrv;
         return yypexpr();
     }
 
     private int yyr17() { // expr : INT
-        { yyrv = ((ast.expression.value.Int)yysv[yysp-1]); }
+        { yyrv = ((ast.exprs.value.Int)yysv[yysp-1]); }
         yysv[yysp-=1] = yyrv;
         return yypexpr();
     }
 
     private int yyr18() { // expr : MONEY
-        { yyrv = ((ast.expression.value.Money)yysv[yysp-1]); }
+        { yyrv = ((ast.exprs.value.Money)yysv[yysp-1]); }
         yysv[yysp-=1] = yyrv;
         return yypexpr();
     }
 
     private int yyr19() { // expr : BOOL
-        { yyrv = ((ast.expression.value.Bool)yysv[yysp-1]); }
+        { yyrv = ((ast.exprs.value.Bool)yysv[yysp-1]); }
         yysv[yysp-=1] = yyrv;
         return yypexpr();
     }
 
     private int yyr20() { // expr : STR
-        { yyrv = New Str(((ast.expression.value.Str)yysv[yysp-1])); }
+        { yyrv = ((ast.exprs.value.Str)yysv[yysp-1]); }
         yysv[yysp-=1] = yyrv;
         return yypexpr();
     }
 
     private int yyr21() { // expr : IDENT
-        { yyrv = ((ast.expression.value.Ident)yysv[yysp-1]); }
+        { yyrv = ((ast.exprs.value.Ident)yysv[yysp-1]); }
         yysv[yysp-=1] = yyrv;
         return yypexpr();
     }
 
     private int yyr22() { // expr : '(' expr ')'
-        { yyrv = ((ast.Expression)yysv[yysp-2]); }
+        { yyrv = ((ast.Expr)yysv[yysp-2]); }
         yysv[yysp-=3] = yyrv;
         return yypexpr();
     }
@@ -1635,9 +1634,9 @@ class QLParser implements QLTokens {
 
 private QLLexer lexer; 
 
-private Expression result;
+private Expr result;
 
-public Expression getResult() {
+public Expr getResult() {
   return result;
 }
 

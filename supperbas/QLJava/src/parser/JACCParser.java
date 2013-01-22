@@ -1,4 +1,4 @@
-package parser.jacc;
+package parser;
 
 import java.io.StringReader;
 

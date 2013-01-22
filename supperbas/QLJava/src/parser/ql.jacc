@@ -1,14 +1,14 @@
-%package parser.jacc
+%package parser
 %class QLParser
 %interface QLTokens
 %semantic ast.ASTNode 
 %start top
 
-%token <ast.expression.value.Int> INT
-%token <ast.expression.value.Money> MONEY
-%token <ast.expression.value.Bool> BOOL
-%token <ast.expression.value.Str> STR
-%token <ast.expression.value.Ident> IDENT
+%token <ast.exprs.value.Int> INT
+%token <ast.exprs.value.Money> MONEY
+%token <ast.exprs.value.Bool> BOOL
+%token <ast.exprs.value.Str> STR
+%token <ast.exprs.value.Ident> IDENT
 %token '*' '/' '+' '-' OR AND NEQ EQ '<' LEQ '>' GEQ '!'
 %token '(' ')' '{' '}'
 %token IF ELSE
@@ -20,14 +20,13 @@
 %left '*' '/'
 %left UMIN UPLUS UNOT
 
-%type <ast.Expression> expr
+%type <ast.Expr> expr
 
 %{
-import ast.Expression;
-import ast.expression.binary.*;
-import ast.expression.eval.*;
-import ast.expression.unary.*;
-import ast.expression.value.*;
+import ast.Expr;
+import ast.exprs.binary.*;
+import ast.exprs.unary.*;
+import ast.exprs.value.*;
 @SuppressWarnings("unused")
 %}
 
@@ -54,7 +53,7 @@ import ast.expression.value.*;
 		 | INT					{ $$ = $1; }
 		 | MONEY				{ $$ = $1; }
 		 | BOOL					{ $$ = $1; }
-		 | STR					{ $$ = New Str($1); }
+		 | STR					{ $$ = $1; }
 		 | IDENT         		{ $$ = $1; }
 		 | '(' expr ')'			{ $$ = $2; }
 		 ;
@@ -63,9 +62,9 @@ import ast.expression.value.*;
 %%
 private QLLexer lexer; 
 
-private Expression result;
+private Expr result;
 
-public Expression getResult() {
+public Expr getResult() {
   return result;
 }
 

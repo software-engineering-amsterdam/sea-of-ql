@@ -11,10 +11,19 @@ public class Error<T> extends Type {
 
 	public Error(T ast) {
 		this.ast = ast;
+		this.str = null;
 	}
 
 	@Override
 	public boolean isCompatibleTo(Type t) {
 		return false;
+	}
+
+	public T getAst() {
+		return ast;
+	}
+
+	public String getStr() {
+		return str;
 	}
 }
