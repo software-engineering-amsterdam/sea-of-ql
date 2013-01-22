@@ -5,13 +5,13 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.assertFalse;
 
 import org.junit.Test;
-import org.uva.sea.ql.ast.Add;
-import org.uva.sea.ql.ast.GT;
-import org.uva.sea.ql.ast.Ident;
-import org.uva.sea.ql.ast.Int;
-import org.uva.sea.ql.ast.LEq;
-import org.uva.sea.ql.ast.LT;
-import org.uva.sea.ql.ast.Mul;
+import org.uva.sea.ql.ast.expressions.Ident;
+import org.uva.sea.ql.ast.expressions.Int;
+import org.uva.sea.ql.ast.expressions.binary.Add;
+import org.uva.sea.ql.ast.expressions.binary.GT;
+import org.uva.sea.ql.ast.expressions.binary.LEq;
+import org.uva.sea.ql.ast.expressions.binary.LT;
+import org.uva.sea.ql.ast.expressions.binary.Mul;
 import org.uva.sea.ql.ast.values.*;
 import org.uva.sea.ql.parser.antlr.ANTLRParser;
 

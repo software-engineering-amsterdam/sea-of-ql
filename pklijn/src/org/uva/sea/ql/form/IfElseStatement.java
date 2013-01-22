@@ -1,7 +1,8 @@
 package org.uva.sea.ql.form;
 
 import java.util.List;
-import org.uva.sea.ql.ast.Expr;
+
+import org.uva.sea.ql.ast.expressions.Expr;
 
 public class IfElseStatement extends IfStatement {
 

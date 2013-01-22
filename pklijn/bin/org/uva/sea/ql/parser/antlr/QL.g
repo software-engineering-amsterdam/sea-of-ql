@@ -4,7 +4,9 @@ options {backtrack=true; memoize=true;}
 @parser::header
 {
 package org.uva.sea.ql.parser.antlr;
-import org.uva.sea.ql.ast.*;
+import org.uva.sea.ql.ast.expressions.*;
+import org.uva.sea.ql.ast.expressions.unary.*;
+import org.uva.sea.ql.ast.expressions.binary.*;
 import org.uva.sea.ql.ast.values.*;
 import org.uva.sea.ql.form.*;
 }
