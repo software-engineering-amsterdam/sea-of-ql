@@ -1,5 +1,8 @@
 package org.uva.sea.ql.ast;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.uva.sea.ql.ast.expressions.Add;
@@ -34,200 +37,225 @@ import org.uva.sea.ql.ast.types.Type;
 public class ASTNodeTypeCheckingVisitor implements ASTNodeVisitor<Boolean> {
 	
 	private Map<Ident, Type> typeEnvironment;
+	private List<String> errorMessages;
+	
+	public ASTNodeTypeCheckingVisitor() {
+		typeEnvironment = new HashMap<Ident, Type>();
+		errorMessages = new ArrayList<String>();
+	}
+	
+	public List<String> getErrorMessages() {
+		return errorMessages;
+	}
 
 	@Override
 	public Boolean visit(Form form) {
-		return null;
+		return true;
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public Boolean visit(StringLiteral stringLiteral) {
-		return null;
+		return true;
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public Boolean visit(BoolType boolType) {
-		return null;
+		return true;
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public Boolean visit(IntType intType) {
-		return null;
+		return true;
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public Boolean visit(StringType stringType) {
-		return null;
+		return true;
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public Boolean visit(Block block) {
-		return null;
+		return true;
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public Boolean visit(IfThenElse ifThenElse) {
-		return null;
+		return true;
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public Boolean visit(Question question) {
-		return null;
-		// TODO Auto-generated method stub
-		
+		Ident identifier = question.getIdentifier();
+		boolean checkIdentifier = identifier.accept(this);
+		if (checkIdentifier) {
+			typeEnvironment.put(identifier, question.getType());
+			return true;
+		}
+		else
+			errorMessages.add("Identifier " + identifier + "can only be used once.");
+		return false;
 	}
 
 	@Override
 	public Boolean visit(Add add) {
-		return null;
-		
-		
+		boolean checkLhs = add.getLhs().accept(this);
+		boolean checkRhs = add.getRhs().accept(this);
+		if (!(checkLhs && checkRhs)) {
+			return false;
+		}
+		Type lhsType = add.getLhs().typeOf(typeEnvironment);
+		Type rhsType = add.getRhs().typeOf(typeEnvironment);
+		if (!(lhsType.isCompatibleToInt() && rhsType.isCompatibleToInt())) {
+			errorMessages.add("Type error: The + sign is used incorrectly.");
+			return false;
+		}
+		return true;
 	}
 
 	@Override
 	public Boolean visit(And and) {
-		return null;
+		return true;
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public Boolean visit(Div div) {
-		return null;
+		return true;
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public Boolean visit(Eq eq) {
-		return null;
+		return true;
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public Boolean visit(GEq gEq) {
-		return null;
+		return true;
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public Boolean visit(GT gt) {
-		return null;
+		return true;
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public Boolean visit(Ident ident) {
-		return null;
+		return true;
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public Boolean visit(Int int1) {
-		return null;
+		return true;
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public Boolean visit(LEq lEq) {
-		return null;
+		return true;
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public Boolean visit(LT lt) {
-		return null;
+		return true;
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public Boolean visit(Mul mul) {
-		return null;
+		return true;
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public Boolean visit(Neg neg) {
-		return null;
+		return true;
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public Boolean visit(NEq nEq) {
-		return null;
+		return true;
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public Boolean visit(Not not) {
-		return null;
+		return true;
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public Boolean visit(Or or) {
-		return null;
+		return true;
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public Boolean visit(Pos pos) {
-		return null;
+		return true;
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public Boolean visit(Sub sub) {
-		return null;
+		return true;
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public Boolean visit(Expr expr) {
-		return null;
+		return true;
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public Boolean visit(BooleanLiteral booleanLiteral) {
-		return null;
+		return true;
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public Boolean visit(ErrorType error) {
+	public Boolean visit(ErrorType error) {		
+		return true;
 		// TODO Auto-generated method stub
-		return null;
 	}
 
 }

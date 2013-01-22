@@ -32,6 +32,8 @@ public class TestTypeChecking {
 		QLFileReader qlFileReader = new QLFileReader();
 		ASTNodeTypeCheckingVisitor typeChecker = new ASTNodeTypeCheckingVisitor();
 		parser.parseForm(qlFileReader.readQLFile("QLTestcase2.ql")).accept(typeChecker);
+		for (String errorMessage : typeChecker.getErrorMessages())
+			System.out.println(errorMessage);		
 	}
 
 }
