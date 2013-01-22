@@ -1,5 +1,5 @@
 package org.uva.sea.ql.ast.types;
 
-public class MoneyType extends Type {
+public class MoneyType extends Numeric {
 
 }

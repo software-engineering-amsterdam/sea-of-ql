@@ -2,12 +2,9 @@ package org.uva.sea.ql.ast.types;
 
 import org.uva.sea.ql.visitor.ASTNodeVisitor;
 
-public class IntType extends Type{
+public class IntType extends Numeric{
 
-	public IntType(String typeName) {
-		super(typeName);
-		
-	}
+	
 
 	@Override
 	public void accept(ASTNodeVisitor nodeVisitor) {
@@ -15,7 +12,15 @@ public class IntType extends Type{
 		
 	}
    
-    
+	@Override
+	public boolean isCompatibleToType(Type type) {
+		return type.isCompatibleToIntType(); 
+	}
+	
+	@Override
+	public boolean isCompatibleToIntType() {
+		return true;
+	} 
 	
 	
 	

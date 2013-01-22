@@ -1,7 +1,5 @@
 package org.uva.sea.ql.ast.form;
 
-
-
 import org.uva.sea.ql.ast.expr.Expr;
 import org.uva.sea.ql.visitor.ASTNodeVisitor;
 

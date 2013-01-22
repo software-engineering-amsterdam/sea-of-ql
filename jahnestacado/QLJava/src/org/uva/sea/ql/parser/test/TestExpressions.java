@@ -15,9 +15,9 @@ import org.uva.sea.ql.ast.expr.LEq;
 import org.uva.sea.ql.ast.expr.LT;
 import org.uva.sea.ql.ast.expr.Mul;
 import org.uva.sea.ql.ast.values.Int;
-import org.uva.sea.ql.ast.values.Ident;
+import org.uva.sea.ql.ast.expr.Ident;
 import org.uva.sea.ql.parser.antlr.ANTLRParser;
-import org.uva.sea.ql.visitor.ASTNodeVisitor;
+
 
 
 

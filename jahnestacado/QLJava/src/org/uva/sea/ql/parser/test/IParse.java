@@ -1,6 +1,5 @@
 package org.uva.sea.ql.parser.test;
 
-
 import org.uva.sea.ql.ast.expr.Expr;
 import org.uva.sea.ql.ast.form.Body;
 import org.uva.sea.ql.ast.form.ComputedQuestion;

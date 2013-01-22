@@ -28,15 +28,6 @@ public class TestForms {
 
 	private IParse parser;
 
-	//@Parameters
-	//public static List<Object[]> theParsers() {
-	  //return Arrays.asList(
-		//	  new Object[] {new JACCParser()}, 
-			//  new Object[] {new RatsParser()},
-			 // new Object[] {new ANTLRParser()}
-			 //);
-	//}*/
-	
 	@Parameters
 	public static List<Object[]> theParsers() {
 
