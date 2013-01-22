@@ -1,7 +1,5 @@
 package org.uva.sea.ql.interfaces;
 
-import org.uva.sea.ql.ast.Ident;
-import org.uva.sea.ql.ast.Primitive;
 import org.uva.sea.ql.ast.operative.Add;
 import org.uva.sea.ql.ast.operative.And;
 import org.uva.sea.ql.ast.operative.Div;
@@ -14,37 +12,15 @@ import org.uva.sea.ql.ast.operative.Mul;
 import org.uva.sea.ql.ast.operative.NEq;
 import org.uva.sea.ql.ast.operative.Neg;
 import org.uva.sea.ql.ast.operative.Not;
-import org.uva.sea.ql.ast.operative.OperatorBinaryBoolean;
-import org.uva.sea.ql.ast.operative.OperatorBinaryComparative;
-import org.uva.sea.ql.ast.operative.OperatorBinaryNumeric;
-import org.uva.sea.ql.ast.operative.OperatorUnaryBoolean;
-import org.uva.sea.ql.ast.operative.OperatorUnaryNumeric;
 import org.uva.sea.ql.ast.operative.Or;
 import org.uva.sea.ql.ast.operative.Pos;
 import org.uva.sea.ql.ast.operative.Sub;
 import org.uva.sea.ql.ast.primitive.Bool;
 import org.uva.sea.ql.ast.primitive.Int;
 import org.uva.sea.ql.ast.primitive.Str;
-import org.uva.sea.ql.ast.statement.Block;
-import org.uva.sea.ql.ast.statement.Branch;
-import org.uva.sea.ql.ast.statement.Form;
-import org.uva.sea.ql.ast.statement.Question;
 
+public interface IExtendedVisitor<T> extends IVisitor<T> {
 
-public interface IVisitor<T> {
-
-	//T visit(Primitive ast);
-	T visit(Int ast);
-	T visit(Bool ast);
-	T visit(Str ast);
-	T visit(Ident ast);
-
-	/*T visit(OperatorBinaryBoolean operator);
-	T visit(OperatorBinaryNumeric operator);
-	T visit(OperatorBinaryComparative operator);
-	T visit(OperatorUnaryBoolean operator);
-	T visit(OperatorUnaryNumeric operator);*/
-	
 	T visit(Add ast);
 	T visit(And ast);
 	T visit(Div ast);
@@ -61,9 +37,8 @@ public interface IVisitor<T> {
 	T visit(Pos ast);
 	T visit(Sub ast);
 	
-	T visit(Form form);
-	T visit(Block block);
-	T visit(Branch branch);
-	T visit(Question question);
-
+	T visit(Int ast);
+	T visit(Bool ast);
+	T visit(Str ast);
+	
 }

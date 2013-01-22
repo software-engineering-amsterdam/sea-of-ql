@@ -6,7 +6,7 @@ import org.junit.Test;
 import org.uva.sea.ql.ast.ASTNode;
 import org.uva.sea.ql.checker.VisitorFormChecking;
 import org.uva.sea.ql.util.FormStringBuilder;
-import org.uva.sea.ql.util.Stack;
+import org.uva.sea.ql.util.Environment;
 import org.uva.sea.ql.interfaces.*;
 import org.uva.sea.ql.parser.rats.RatsParser;
 import org.uva.sea.ql.errors.*;
@@ -31,8 +31,8 @@ public class TestForms {
 	 */
 	private Exception extractExpected(FormCheckerCompiledErrors ex, Class<?> type){
 		
-		List<FormCheckerError> errors = ex.getErrors();
-		FormCheckerError error = errors.get(0);
+		List<Error> errors = ex.getErrors();
+		Error error = errors.get(0);
 		Class<?> compiledErrorType = FormCheckerCompiledErrors.class;
 		
 		//there is more than one error, that should not happen
@@ -64,7 +64,7 @@ public class TestForms {
 		String sForm = FormStringBuilder.form("a", args);
 
 		ASTNode form = parser.parse(sForm);
-		form.accept(checker, new Stack() );
+		form.accept(checker);
 	}
 	
 	
