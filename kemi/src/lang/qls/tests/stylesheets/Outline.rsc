@@ -5,7 +5,11 @@ import lang::qls::ide::Outline;
 import lang::qls::tests::ParseHelper;
 import IO;
 
-private node outline(str s) = outlineStylesheet(parseStylesheet(s));
+private node outline(loc f) = 
+  outlineStylesheet(parseStylesheet(f));
 
-public node main() =
-  outline(readFile(|project://QL-R-kemi/stylesheets/proposedSyntax.qs|));
+private node outline(str s) =
+  outlineStylesheet(parseStylesheet(s));
+
+public test bool testOutline1() =
+  outline(|project://QL-R-kemi/stylesheets/proposedSyntax.qs|) > "outline"();

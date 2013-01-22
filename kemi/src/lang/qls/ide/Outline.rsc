@@ -36,47 +36,65 @@ private node outline(Statement s:
       [outline(cr) | cr <- classRules]
     );
 
-private node outline(ClassRule cr: 
+private node outline(ClassRule r: 
   classRule(str ident))
     = createNode(
       "ClassRule",
       ident,
-      cr@location,
+      r@location,
       []
     );
 
 private node outline(Statement s: 
-  typeStyleDefinition(str ident, list[StyleRule] styleRules)) = 
+  styleDefinition(Ident: typeIdent(ident), list[StyleRule] styleRules)) = 
   createNode(
     "TypeStyleDefinition",
     "<ident> (<size(styleRules)>)",
     s@location,
-    [outline(sr) | sr <- styleRules]
+    [outline(r) | r <- styleRules]
   );
 
 private node outline(Statement s: 
-  classStyleDefinition(str ident, list[StyleRule] styleRules)) = 
+  styleDefinition(Ident: classIdent(ident), list[StyleRule] styleRules)) = 
     createNode(
       "ClassStyleDefinition",
       "<ident> (<size(styleRules)>)",
       s@location,
-      [outline(sr) | sr <- styleRules]
+      [outline(r) | r <- styleRules]
     );
 
 private node outline(Statement s: 
-  identStyleDefinition(str ident, list[StyleRule] styleRules)) =
+  styleDefinition(Ident: questionIdent(ident), list[StyleRule] styleRules)) =
     createNode(
       "IdentStyleDefinition",
       "<ident> (<size(styleRules)>)",
       s@location,
-      [outline(sr) | sr <- styleRules]
+      [outline(r) | r <- styleRules]
     );
 
-private node outline(StyleRule sr: 
-  styleRule(str attr, StyleAttrValue \value)) =
+private node outline(StyleRule r: 
+  typeStyleRule(str attr, TypeStyleValue: radio())) =
     createNode(
       "StyleRule",
-      "<attr> <\value.\value>",
-      sr@location,
+      "<attr> radio",
+      r@location,
+      []
+    );
+
+private node outline(StyleRule r: 
+  typeStyleRule(str attr, TypeStyleValue: checkbox())) =
+    createNode(
+      "StyleRule",
+      "<attr> checkbox",
+      r@location,
+      []
+    );
+
+private node outline(StyleRule r: 
+  widthStyleRule(str attr, int \value)) =
+    createNode(
+      "StyleRule",
+      "<attr> <\value>",
+      r@location,
       []
     );

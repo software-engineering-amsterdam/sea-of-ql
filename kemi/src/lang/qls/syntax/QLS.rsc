@@ -1,50 +1,51 @@
 module lang::qls::syntax::QLS
 
-// TODO support trailing empty lines
 start syntax Stylesheet
   = stylesheet: Statement+ statements
   ;
 
 syntax Statement
   = @Foldable ClassDefinition
-  | @Foldable TypeStyleDefinition
-  | @Foldable ClassStyleDefinition
-  | @Foldable IdentStyleDefinition
+  | @Foldable StyleDefinition
   ;
 
 syntax ClassDefinition
-  = classDefinition: "class" Ident "{" ClassRule+ "}"
+  = classDefinition: "class" BaseIdent "{" ClassRule+ "}"
   ;
 
 syntax ClassRule
   = classRule: QuestionIdent
   ;
 
-syntax TypeStyleDefinition
-  = typeStyleDefinition: Type "{" StyleRule+ "}"
-  ;
-
-syntax ClassStyleDefinition
-  = classStyleDefinition: ClassIdent "{" StyleRule+ "}"
-  ;
-
-syntax IdentStyleDefinition
-  = identStyleDefinition: QuestionIdent "{" StyleRule+ "}"
+syntax StyleDefinition
+  = styleDefinition: Ident "{" StyleRule+ "}"
   ;
 
 syntax StyleRule
-  = styleRule: StyleAttr StyleAttrValue
+  = typeStyleRule: TypeStyleAttr TypeStyleValue
+  | widthStyleRule: WidthStyleAttr Int
   ; 
 
+syntax TypeStyleValue
+  = radio: "radio"
+  | checkbox: "checkbox"
+  ;
+
+syntax Ident
+  = typeIdent: Type
+  | classIdent: ClassIdent
+  | questionIdent: QuestionIdent
+  ;
+
 lexical ClassIdent
-  = @category="NonterminalLabel" [.]Ident
+  = @category="NonterminalLabel" [.]BaseIdent
   ; 
 
 lexical QuestionIdent
-  = @category="Variable" [#]Ident
+  = @category="Variable" [#]BaseIdent
   ;
 
-lexical Ident
+lexical BaseIdent
   = ([a-z A-Z 0-9 _] !<< [a-z A-Z][a-z A-Z 0-9 _]* !>> [a-z A-Z 0-9 _]) \ Keywords;
 
 lexical Type
@@ -55,19 +56,12 @@ lexical Type
   | @category="Type" "string"
   ; 
 
-lexical StyleAttr
+lexical TypeStyleAttr
   = @category="Identifier" "type"
-  | @category="Identifier" "width"
   ;
 
-syntax StyleAttrValue
-  = styleAttrValue: StyleTypeValue
-  | styleAttrValue: Int
-  ;
-
-lexical StyleTypeValue
-  = "radio"
-  | "checkbox"
+lexical WidthStyleAttr
+  = @category="Identifier" "width"
   ;
 
 lexical Int

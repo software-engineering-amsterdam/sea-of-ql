@@ -14,21 +14,21 @@ public str prettyPrint(Statement s:
     '";
 
 public str prettyPrint(Statement s: 
-  typeStyleDefinition(str ident, list[StyleRule] styleRules)) = 
+  styleDefinition(Ident: typeIdent(ident), list[StyleRule] styleRules)) = 
     "<ident> {<for(e <- styleRules) {>
     '  <prettyPrint(e)><}>
     '}
     '";
 
 public str prettyPrint(Statement s: 
-  classStyleDefinition(str ident, list[StyleRule] styleRules)) = 
+  styleDefinition(Ident: classIdent(ident), list[StyleRule] styleRules)) = 
     "<ident> {<for(e <- styleRules) {>
     '  <prettyPrint(e)><}>
     '}
     '";
 
 public str prettyPrint(Statement s: 
-  identStyleDefinition(str ident, list[StyleRule] styleRules)) = 
+  styleDefinition(Ident: questionIdent(ident), list[StyleRule] styleRules)) = 
     "<ident> {<for(e <- styleRules) {>
     '  <prettyPrint(e)><}>
     '}
@@ -39,9 +39,14 @@ public str prettyPrint(ClassRule r:
     "<ident>";
 
 public str prettyPrint(StyleRule r: 
-  styleRule(str attr, StyleAttrValue \value)) =
-    "<attr> <prettyPrint(\value)>";
+  typeStyleRule(str attr, TypeStyleValue \value: radio())) =
+    "<attr> radio";
 
-public str prettyPrint(StyleAttrValue v: 
-  styleAttrValue(str \value)) =
-    "<\value>";
+public str prettyPrint(StyleRule r: 
+  typeStyleRule(str attr, TypeStyleValue \value: checkbox())) =
+    "<attr> checkbox";
+
+public str prettyPrint(StyleRule r: 
+  widthStyleRule(str attr, int \value)) =
+    "<attr> <\value>";
+

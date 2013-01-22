@@ -5,10 +5,14 @@ data Stylesheet
   ;
 
 data Statement
-  = classDefinition(str ident, list[ClassRule] questionIdent)
-  | typeStyleDefinition(str \type, list[StyleRule] styleRules)
-  | classStyleDefinition(str ident, list[StyleRule] styleRules)
-  | identStyleDefinition(str ident, list[StyleRule] styleRules)
+  = classDefinition(str className, list[ClassRule] questionIdent)
+  | styleDefinition(Ident ident, list[StyleRule] styleRules)
+  ;
+
+data Ident
+  = typeIdent(str typeName)
+  | classIdent(str className)
+  | questionIdent(str questionName)
   ;
 
 data ClassRule
@@ -16,15 +20,19 @@ data ClassRule
   ;
 
 data StyleRule
-  = styleRule(str attr, StyleAttrValue \value)
+  = typeStyleRule(str attr, TypeStyleValue typeValue)
+  | widthStyleRule(str attr, int widthValue)
   ;
 
-data StyleAttrValue
-  = styleAttrValue(str \value)
+data TypeStyleValue
+  = radio()
+  | checkbox()
   ;
 
 anno loc Stylesheet@location;
 anno loc Statement@location;
 anno loc ClassRule@location;
 anno loc StyleRule@location;
-anno loc StyleAttrValue@location;
+
+
+//public list[StyleRule] getStyleRules(
