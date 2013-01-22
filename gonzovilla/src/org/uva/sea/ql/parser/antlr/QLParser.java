@@ -1,4 +1,4 @@
-// $ANTLR 3.5 /Users/gonzovilla89/Documents/workspace/sea-of-ql/gonzovilla/src/org/uva/sea/ql/parser/antlr/QL.g 2013-01-22 13:04:27
+// $ANTLR 3.5 /Users/gonzovilla89/Documents/workspace/sea-of-ql/gonzovilla/src/org/uva/sea/ql/parser/antlr/QL.g 2013-01-22 13:10:38
 
 package org.uva.sea.ql.parser.antlr;
 import org.uva.sea.ql.ast.*;
@@ -197,18 +197,18 @@ public class QLParser extends Parser {
 
 
 	// $ANTLR start "question"
-	// /Users/gonzovilla89/Documents/workspace/sea-of-ql/gonzovilla/src/org/uva/sea/ql/parser/antlr/QL.g:28:1: question returns [Question result] : Ident ':' sentence '(' returnType ')' ;
+	// /Users/gonzovilla89/Documents/workspace/sea-of-ql/gonzovilla/src/org/uva/sea/ql/parser/antlr/QL.g:28:1: question returns [Question result] : Ident ':' sentence '(' type ')' ;
 	public final Question question() throws RecognitionException {
 		Question result = null;
 
 
 		Token Ident5=null;
 		ParserRuleReturnScope sentence6 =null;
-		Type returnType7 =null;
+		Type type7 =null;
 
 		try {
-			// /Users/gonzovilla89/Documents/workspace/sea-of-ql/gonzovilla/src/org/uva/sea/ql/parser/antlr/QL.g:29:2: ( Ident ':' sentence '(' returnType ')' )
-			// /Users/gonzovilla89/Documents/workspace/sea-of-ql/gonzovilla/src/org/uva/sea/ql/parser/antlr/QL.g:29:4: Ident ':' sentence '(' returnType ')'
+			// /Users/gonzovilla89/Documents/workspace/sea-of-ql/gonzovilla/src/org/uva/sea/ql/parser/antlr/QL.g:29:2: ( Ident ':' sentence '(' type ')' )
+			// /Users/gonzovilla89/Documents/workspace/sea-of-ql/gonzovilla/src/org/uva/sea/ql/parser/antlr/QL.g:29:4: Ident ':' sentence '(' type ')'
 			{
 			Ident5=(Token)match(input,Ident,FOLLOW_Ident_in_question106); 
 			match(input,19,FOLLOW_19_in_question108); 
@@ -217,12 +217,12 @@ public class QLParser extends Parser {
 			state._fsp--;
 
 			match(input,13,FOLLOW_13_in_question112); 
-			pushFollow(FOLLOW_returnType_in_question114);
-			returnType7=returnType();
+			pushFollow(FOLLOW_type_in_question114);
+			type7=type();
 			state._fsp--;
 
 			match(input,14,FOLLOW_14_in_question116); 
-			 result = new Question((Ident5!=null?Ident5.getText():null), (sentence6!=null?input.toString(sentence6.start,sentence6.stop):null), returnType7); 
+			 result = new Question((Ident5!=null?Ident5.getText():null), (sentence6!=null?input.toString(sentence6.start,sentence6.stop):null), type7); 
 			}
 
 		}
@@ -305,9 +305,9 @@ public class QLParser extends Parser {
 
 
 
-	// $ANTLR start "returnType"
-	// /Users/gonzovilla89/Documents/workspace/sea-of-ql/gonzovilla/src/org/uva/sea/ql/parser/antlr/QL.g:39:1: returnType returns [ReturnType result] : ( 'Boolean' | 'Integer' | 'String' );
-	public final Type returnType() throws RecognitionException {
+	// $ANTLR start "type"
+	// /Users/gonzovilla89/Documents/workspace/sea-of-ql/gonzovilla/src/org/uva/sea/ql/parser/antlr/QL.g:39:1: type returns [Type result] : ( 'Boolean' | 'Integer' | 'String' );
+	public final Type type() throws RecognitionException {
 		Type result = null;
 
 
@@ -339,21 +339,21 @@ public class QLParser extends Parser {
 				case 1 :
 					// /Users/gonzovilla89/Documents/workspace/sea-of-ql/gonzovilla/src/org/uva/sea/ql/parser/antlr/QL.g:40:5: 'Boolean'
 					{
-					match(input,25,FOLLOW_25_in_returnType180); 
+					match(input,25,FOLLOW_25_in_type180); 
 					result = new TypeBool();
 					}
 					break;
 				case 2 :
 					// /Users/gonzovilla89/Documents/workspace/sea-of-ql/gonzovilla/src/org/uva/sea/ql/parser/antlr/QL.g:41:5: 'Integer'
 					{
-					match(input,26,FOLLOW_26_in_returnType188); 
+					match(input,26,FOLLOW_26_in_type188); 
 					result = new TypeInt();
 					}
 					break;
 				case 3 :
 					// /Users/gonzovilla89/Documents/workspace/sea-of-ql/gonzovilla/src/org/uva/sea/ql/parser/antlr/QL.g:42:5: 'String'
 					{
-					match(input,27,FOLLOW_27_in_returnType196); 
+					match(input,27,FOLLOW_27_in_type196); 
 					result = new TypeString();
 					}
 					break;
@@ -369,7 +369,7 @@ public class QLParser extends Parser {
 		}
 		return result;
 	}
-	// $ANTLR end "returnType"
+	// $ANTLR end "type"
 
 
 	public static class sentence_return extends ParserRuleReturnScope {
@@ -985,7 +985,7 @@ public class QLParser extends Parser {
 	public static final BitSet FOLLOW_19_in_question108 = new BitSet(new long[]{0x0000000000000800L});
 	public static final BitSet FOLLOW_sentence_in_question110 = new BitSet(new long[]{0x0000000000002000L});
 	public static final BitSet FOLLOW_13_in_question112 = new BitSet(new long[]{0x000000000E000000L});
-	public static final BitSet FOLLOW_returnType_in_question114 = new BitSet(new long[]{0x0000000000004000L});
+	public static final BitSet FOLLOW_type_in_question114 = new BitSet(new long[]{0x0000000000004000L});
 	public static final BitSet FOLLOW_14_in_question116 = new BitSet(new long[]{0x0000000000000002L});
 	public static final BitSet FOLLOW_31_in_ifStatement143 = new BitSet(new long[]{0x0000000000002000L});
 	public static final BitSet FOLLOW_13_in_ifStatement145 = new BitSet(new long[]{0x0000000000032260L});
@@ -994,9 +994,9 @@ public class QLParser extends Parser {
 	public static final BitSet FOLLOW_32_in_ifStatement151 = new BitSet(new long[]{0x00000000A0000020L});
 	public static final BitSet FOLLOW_formUnit_in_ifStatement154 = new BitSet(new long[]{0x00000000A0000020L});
 	public static final BitSet FOLLOW_29_in_ifStatement160 = new BitSet(new long[]{0x0000000000000002L});
-	public static final BitSet FOLLOW_25_in_returnType180 = new BitSet(new long[]{0x0000000000000002L});
-	public static final BitSet FOLLOW_26_in_returnType188 = new BitSet(new long[]{0x0000000000000002L});
-	public static final BitSet FOLLOW_27_in_returnType196 = new BitSet(new long[]{0x0000000000000002L});
+	public static final BitSet FOLLOW_25_in_type180 = new BitSet(new long[]{0x0000000000000002L});
+	public static final BitSet FOLLOW_26_in_type188 = new BitSet(new long[]{0x0000000000000002L});
+	public static final BitSet FOLLOW_27_in_type196 = new BitSet(new long[]{0x0000000000000002L});
 	public static final BitSet FOLLOW_11_in_sentence212 = new BitSet(new long[]{0x00000003FFFFFFF0L});
 	public static final BitSet FOLLOW_11_in_sentence217 = new BitSet(new long[]{0x0000000000000002L});
 	public static final BitSet FOLLOW_Int_in_primary235 = new BitSet(new long[]{0x0000000000000002L});
