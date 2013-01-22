@@ -12,16 +12,30 @@ import org.uva.sea.ql.ast.*;
 package org.uva.sea.ql.parser.antlr;
 }
 
-//ifStatement
-	//: 'if' '(' Ident ')' '{' body '}'
-	//;
+ifStatement returns [IfStatement result]
+	: 'if' '(' condition=orExpr ')' '{' body '}' {result = new IfStatement(condition, $body.result); }
+	;
 
 question returns [Question result]
-	: Ident { result = new Question(new Ident($Ident.text));  }
+	: ( normalQuestion { result = $normalQuestion.result; } | computedQuestion { result = $computedQuestion.result; } )  
 	;
 	
+normalQuestion returns [Question result]
+	: Ident ':' String questionType
+	{ result = new Question(new Ident($Ident.text), new StringLiteral($String.text), $questionType.result); }
+	;
+	
+computedQuestion returns [computedQuestion result]
+	: Ident ':' String questionType '(' orExpr ')' 
+	{ result = new computedQuestion(new Ident($Ident.text), new StringLiteral($String.text), $questionType.result, $orExpr.result); }
+	;
+	
+questionType returns [QuestionType result]
+	: 'int' | 'bool' | 'string' 
+	;
+
 statement returns [Statement result] 
-	: (question { result = $question.result; })
+	: (question { result = $question.result; } | ifStatement {result = $ifStatement.result;})
 	;
 
 body returns [Body result]
@@ -35,6 +49,8 @@ form returns [Form result]
 	
 primary returns [Expr result]
   : Int   { $result = new Int(Integer.parseInt($Int.text)); }
+  | Bool { $result = new BoolLiteral ($Bool.text); }
+  | String {result = new StringLiteral ($String.text); }
   | Ident { $result = new Ident($Ident.text); }
   | '(' x=orExpr ')'{ $result = $x.result; }
   ;
@@ -110,7 +126,7 @@ MLINE_COMMENT	: '/*' .* '*/' { $channel=HIDDEN; };
     
 SLINE_COMMENT	: '//' .* ('\n'|'\r') { $channel=HIDDEN; };
 
-Bool: ('true' | 'false' | 'TRUE' | 'FALSE');
+Bool: ('true' | 'false');
 
 String: ('"' .* '"');
 
