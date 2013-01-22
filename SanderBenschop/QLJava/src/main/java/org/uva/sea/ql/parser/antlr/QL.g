@@ -42,7 +42,7 @@ statementList returns [List<QLStatement> result]
   {
     $result = new ArrayList<QLStatement>();
   }
-  : (stmnt=statement {result.add(stmnt);})*
+  : (stmnt=statement { result.add(stmnt); })*
   ;
 
 statement returns [QLStatement result]
@@ -79,16 +79,9 @@ computation returns [Computation result]
   
 conditional returns [Conditional result]
   : 'if' '(' condition=orExpr ')' success=block
-    ( ('else') => 'else' failure=block
-    | ( ) //No else
-    ) 
-      {
-      if (failure != null) {
-        $result = new IfElseStatement(condition, success, failure);
-      } else {
-        $result = new IfStatement(condition, success);
-      }
-    }
+    ( ('else') => 'else' failure=block { $result = new IfElseStatement(condition, success, failure); }
+    | ( ) { $result = new IfStatement(condition, success); }
+    )
   ;
 
 primary returns [ASTNode result]
