@@ -14,7 +14,6 @@ public class LEq extends Binary {
 	
 	@Override
 	public <T> T accept(ASTNodeVisitor<T> visitor) {
-		super.accept(visitor);
 		return visitor.visit(this);
     }
 	

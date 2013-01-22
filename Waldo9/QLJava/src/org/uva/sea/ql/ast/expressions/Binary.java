@@ -26,9 +26,6 @@ public abstract class Binary extends Expr {
 	
 	@Override
 	public <T> T accept(ASTNodeVisitor<T> visitor) {
-		lhs.accept(visitor);
-		if (rhs != null)
-			rhs.accept(visitor);
 		return visitor.visit(this);
     }
 	

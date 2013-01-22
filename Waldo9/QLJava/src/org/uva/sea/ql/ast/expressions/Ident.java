@@ -25,8 +25,8 @@ public class Ident extends Expr {
 	
 	@Override
 	public Type typeOf(Map<String, Type> typeEnvironment) {
-		if (typeEnvironment.containsKey(this)) {
-			return typeEnvironment.get(this);
+		if (typeEnvironment.containsKey(name)) {
+			return typeEnvironment.get(name);
 			}
 		return new ErrorType();
 	}

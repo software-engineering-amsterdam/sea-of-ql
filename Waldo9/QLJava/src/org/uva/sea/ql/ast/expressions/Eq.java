@@ -13,7 +13,6 @@ public class Eq extends Binary {
 	}
 	
 	public <T> T accept(ASTNodeVisitor<T> visitor) {
-		super.accept(visitor);
 		return visitor.visit(this);
     }
 	
