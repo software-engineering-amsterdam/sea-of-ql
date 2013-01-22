@@ -2,10 +2,10 @@ package org.uva.sea.ql.parser.stringparsing.formelement;
 
 import org.junit.Test;
 import org.uva.sea.ql.ast.QLStatement;
-import org.uva.sea.ql.ast.nodetypes.formelement.Question;
-import org.uva.sea.ql.ast.nodetypes.primary.Bool;
-import org.uva.sea.ql.ast.nodetypes.primary.Int;
-import org.uva.sea.ql.ast.nodetypes.primary.Str;
+import org.uva.sea.ql.ast.formelement.Question;
+import org.uva.sea.ql.ast.primary.Bool;
+import org.uva.sea.ql.ast.primary.Int;
+import org.uva.sea.ql.ast.primary.Str;
 import org.uva.sea.ql.parser.TestParser;
 import org.uva.sea.ql.parser.exception.ParseError;
 

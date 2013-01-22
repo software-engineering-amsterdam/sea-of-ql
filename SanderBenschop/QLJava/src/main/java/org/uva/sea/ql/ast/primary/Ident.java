@@ -1,4 +1,4 @@
-package org.uva.sea.ql.ast.nodetypes.primary;
+package org.uva.sea.ql.ast.primary;
 
 import org.uva.sea.ql.ast.ASTNode;
 import org.uva.sea.ql.visitor.ASTNodeVisitor;

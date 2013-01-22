@@ -1,21 +1,21 @@
-package org.uva.sea.ql.ast.nodetypes.binary;
+package org.uva.sea.ql.ast.binary;
 
 import org.uva.sea.ql.ast.ASTNode;
-import org.uva.sea.ql.ast.nodetypes.primary.Bool;
+import org.uva.sea.ql.ast.primary.Int;
 
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-public class And extends BinaryOperation {
+public class Divide extends BinaryOperation {
 
-	public And(ASTNode leftHandSide, ASTNode rightHandSide) {
+	public Divide(ASTNode leftHandSide, ASTNode rightHandSide) {
 		super(leftHandSide, rightHandSide);
 	}
 
     @Override
     public List<Class<?>> getSupportedTypes() {
-        List<Class<?>> supportedTypes = Arrays.asList(new Class<?>[]{Bool.class});
+        List<Class<?>> supportedTypes = Arrays.asList(new Class<?>[]{Int.class});
         return Collections.unmodifiableList(supportedTypes);
     }
 }

@@ -1,9 +1,9 @@
-package org.uva.sea.ql.ast.nodetypes.formelement;
+package org.uva.sea.ql.ast.formelement;
 
 import org.uva.sea.ql.ast.ASTNode;
 import org.uva.sea.ql.ast.QLStatement;
-import org.uva.sea.ql.ast.nodetypes.primary.Ident;
-import org.uva.sea.ql.ast.nodetypes.primary.Str;
+import org.uva.sea.ql.ast.primary.Ident;
+import org.uva.sea.ql.ast.primary.Str;
 import org.uva.sea.ql.visitor.ASTNodeVisitor;
 
 public class Computation implements QLStatement {

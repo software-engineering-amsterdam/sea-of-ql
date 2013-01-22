@@ -2,15 +2,14 @@ package org.uva.sea.ql.visitor.typechecking;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.uva.sea.ql.ast.nodetypes.binary.BinaryOperation;
-import org.uva.sea.ql.ast.nodetypes.binary.Divide;
-import org.uva.sea.ql.ast.nodetypes.binary.EqualTo;
-import org.uva.sea.ql.ast.nodetypes.binary.Multiply;
-import org.uva.sea.ql.ast.nodetypes.primary.Bool;
-import org.uva.sea.ql.ast.nodetypes.primary.Datatype;
-import org.uva.sea.ql.ast.nodetypes.primary.Int;
-import org.uva.sea.ql.ast.nodetypes.primary.Str;
-import org.uva.sea.ql.visitor.typechecking.TypeCheckingVisitor;
+import org.uva.sea.ql.ast.binary.BinaryOperation;
+import org.uva.sea.ql.ast.binary.Divide;
+import org.uva.sea.ql.ast.binary.EqualTo;
+import org.uva.sea.ql.ast.binary.Multiply;
+import org.uva.sea.ql.ast.primary.Bool;
+import org.uva.sea.ql.ast.primary.Datatype;
+import org.uva.sea.ql.ast.primary.Int;
+import org.uva.sea.ql.ast.primary.Str;
 import org.uva.sea.ql.visitor.typechecking.errors.UnequalTypesError;
 import org.uva.sea.ql.visitor.typechecking.errors.UnsupportedTypeError;
 

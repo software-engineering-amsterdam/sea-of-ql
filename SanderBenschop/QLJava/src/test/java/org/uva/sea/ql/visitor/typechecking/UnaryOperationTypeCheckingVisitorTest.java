@@ -2,12 +2,11 @@ package org.uva.sea.ql.visitor.typechecking;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.uva.sea.ql.ast.nodetypes.primary.Bool;
-import org.uva.sea.ql.ast.nodetypes.primary.Ident;
-import org.uva.sea.ql.ast.nodetypes.primary.Int;
-import org.uva.sea.ql.ast.nodetypes.unary.Not;
-import org.uva.sea.ql.ast.nodetypes.unary.UnaryOperation;
-import org.uva.sea.ql.visitor.typechecking.TypeCheckingVisitor;
+import org.uva.sea.ql.ast.primary.Bool;
+import org.uva.sea.ql.ast.primary.Ident;
+import org.uva.sea.ql.ast.primary.Int;
+import org.uva.sea.ql.ast.unary.Not;
+import org.uva.sea.ql.ast.unary.UnaryOperation;
 import org.uva.sea.ql.visitor.typechecking.errors.UnsupportedTypeError;
 
 import static junit.framework.Assert.assertEquals;

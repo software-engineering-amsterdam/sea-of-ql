@@ -1,15 +1,15 @@
 package org.uva.sea.ql.visitor.typechecking;
 
 import org.uva.sea.ql.ast.ASTNode;
-import org.uva.sea.ql.ast.nodetypes.binary.BinaryOperation;
-import org.uva.sea.ql.ast.nodetypes.formelement.Computation;
-import org.uva.sea.ql.ast.nodetypes.formelement.Conditional;
-import org.uva.sea.ql.ast.nodetypes.formelement.Question;
-import org.uva.sea.ql.ast.nodetypes.primary.Bool;
-import org.uva.sea.ql.ast.nodetypes.primary.Datatype;
-import org.uva.sea.ql.ast.nodetypes.primary.Ident;
-import org.uva.sea.ql.ast.nodetypes.primary.Int;
-import org.uva.sea.ql.ast.nodetypes.unary.UnaryOperation;
+import org.uva.sea.ql.ast.binary.BinaryOperation;
+import org.uva.sea.ql.ast.formelement.Computation;
+import org.uva.sea.ql.ast.formelement.Conditional;
+import org.uva.sea.ql.ast.formelement.Question;
+import org.uva.sea.ql.ast.primary.Bool;
+import org.uva.sea.ql.ast.primary.Datatype;
+import org.uva.sea.ql.ast.primary.Ident;
+import org.uva.sea.ql.ast.primary.Int;
+import org.uva.sea.ql.ast.unary.UnaryOperation;
 import org.uva.sea.ql.visitor.ASTNodeVisitor;
 import org.uva.sea.ql.visitor.QLError;
 import org.uva.sea.ql.visitor.typechecking.errors.IdentifierRedeclarationError;

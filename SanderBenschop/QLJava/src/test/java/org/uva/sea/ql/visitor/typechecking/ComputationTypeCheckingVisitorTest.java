@@ -2,11 +2,10 @@ package org.uva.sea.ql.visitor.typechecking;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.uva.sea.ql.ast.nodetypes.binary.BinaryOperation;
-import org.uva.sea.ql.ast.nodetypes.binary.Multiply;
-import org.uva.sea.ql.ast.nodetypes.formelement.Computation;
-import org.uva.sea.ql.ast.nodetypes.primary.*;
-import org.uva.sea.ql.visitor.typechecking.TypeCheckingVisitor;
+import org.uva.sea.ql.ast.binary.BinaryOperation;
+import org.uva.sea.ql.ast.binary.Multiply;
+import org.uva.sea.ql.ast.formelement.Computation;
+import org.uva.sea.ql.ast.primary.*;
 import org.uva.sea.ql.visitor.typechecking.errors.UnsupportedTypeError;
 
 import static junit.framework.Assert.assertEquals;

@@ -1,6 +1,6 @@
 package org.uva.sea.ql.visitor.typechecking.errors;
 
-import org.uva.sea.ql.ast.nodetypes.binary.BinaryOperation;
+import org.uva.sea.ql.ast.binary.BinaryOperation;
 import org.uva.sea.ql.visitor.QLError;
 
 public class UnequalTypesError extends QLError {

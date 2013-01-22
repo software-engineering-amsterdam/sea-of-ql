@@ -4,10 +4,10 @@ import junit.framework.Assert;
 import org.junit.Before;
 import org.uva.sea.ql.ast.QLExpression;
 import org.uva.sea.ql.ast.QLStatement;
-import org.uva.sea.ql.ast.nodetypes.formelement.Conditional;
-import org.uva.sea.ql.ast.nodetypes.formelement.Form;
-import org.uva.sea.ql.ast.nodetypes.primary.Datatype;
-import org.uva.sea.ql.ast.nodetypes.primary.Ident;
+import org.uva.sea.ql.ast.formelement.Conditional;
+import org.uva.sea.ql.ast.formelement.Form;
+import org.uva.sea.ql.ast.primary.Datatype;
+import org.uva.sea.ql.ast.primary.Ident;
 import org.uva.sea.ql.parser.exception.ParseError;
 
 public abstract class TestParser {

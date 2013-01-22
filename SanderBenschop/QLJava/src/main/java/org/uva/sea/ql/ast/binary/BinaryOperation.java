@@ -1,4 +1,4 @@
-package org.uva.sea.ql.ast.nodetypes.binary;
+package org.uva.sea.ql.ast.binary;
 
 import org.uva.sea.ql.ast.ASTNode;
 import org.uva.sea.ql.ast.QLExpression;

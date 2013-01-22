@@ -1,7 +1,7 @@
 package org.uva.sea.ql.parser.stringparsing.formelement;
 
 import org.junit.Test;
-import org.uva.sea.ql.ast.nodetypes.formelement.Computation;
+import org.uva.sea.ql.ast.formelement.Computation;
 import org.uva.sea.ql.parser.TestParser;
 import org.uva.sea.ql.parser.exception.ParseError;
 

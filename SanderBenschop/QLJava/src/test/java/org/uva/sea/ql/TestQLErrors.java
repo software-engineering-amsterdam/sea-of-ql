@@ -7,12 +7,12 @@ import java.util.List;
 
 import org.junit.Test;
 import org.uva.sea.ql.ast.ASTNode;
-import org.uva.sea.ql.ast.nodetypes.binary.Add;
-import org.uva.sea.ql.ast.nodetypes.binary.BinaryOperation;
-import org.uva.sea.ql.ast.nodetypes.primary.Bool;
-import org.uva.sea.ql.ast.nodetypes.primary.Datatype;
-import org.uva.sea.ql.ast.nodetypes.primary.Int;
-import org.uva.sea.ql.ast.nodetypes.primary.Str;
+import org.uva.sea.ql.ast.binary.Add;
+import org.uva.sea.ql.ast.binary.BinaryOperation;
+import org.uva.sea.ql.ast.primary.Bool;
+import org.uva.sea.ql.ast.primary.Datatype;
+import org.uva.sea.ql.ast.primary.Int;
+import org.uva.sea.ql.ast.primary.Str;
 import org.uva.sea.ql.visitor.QLError;
 import org.uva.sea.ql.visitor.typechecking.errors.IdentifierRedeclarationError;
 import org.uva.sea.ql.visitor.typechecking.errors.UndeclaredIdentifierError;

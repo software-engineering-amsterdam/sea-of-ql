@@ -1,4 +1,4 @@
-package org.uva.sea.ql.ast.nodetypes.formelement;
+package org.uva.sea.ql.ast.formelement;
 
 import java.util.List;
 

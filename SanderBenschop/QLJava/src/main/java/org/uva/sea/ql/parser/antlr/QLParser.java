@@ -2,17 +2,16 @@
 
 package org.uva.sea.ql.parser.antlr;
 import org.uva.sea.ql.ast.*;
-import org.uva.sea.ql.ast.nodetypes.primary.*;
-import org.uva.sea.ql.ast.nodetypes.unary.*;
-import org.uva.sea.ql.ast.nodetypes.binary.*;
-import org.uva.sea.ql.ast.nodetypes.formelement.*;
+import org.uva.sea.ql.ast.primary.*;
+import org.uva.sea.ql.ast.unary.*;
+import org.uva.sea.ql.ast.binary.*;
+import org.uva.sea.ql.ast.formelement.*;
 
 
 import org.antlr.runtime.*;
-import java.util.Stack;
+
 import java.util.List;
 import java.util.ArrayList;
-import java.util.Map;
 import java.util.HashMap;
 
 @SuppressWarnings("all")

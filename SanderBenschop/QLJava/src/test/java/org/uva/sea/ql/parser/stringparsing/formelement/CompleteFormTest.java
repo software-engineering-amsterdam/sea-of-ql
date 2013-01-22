@@ -2,10 +2,10 @@ package org.uva.sea.ql.parser.stringparsing.formelement;
 
 import org.junit.Test;
 import org.uva.sea.ql.ast.QLStatement;
-import org.uva.sea.ql.ast.nodetypes.formelement.Computation;
-import org.uva.sea.ql.ast.nodetypes.formelement.Conditional;
-import org.uva.sea.ql.ast.nodetypes.formelement.Form;
-import org.uva.sea.ql.ast.nodetypes.formelement.Question;
+import org.uva.sea.ql.ast.formelement.Computation;
+import org.uva.sea.ql.ast.formelement.Conditional;
+import org.uva.sea.ql.ast.formelement.Form;
+import org.uva.sea.ql.ast.formelement.Question;
 import org.uva.sea.ql.parser.TestParser;
 import org.uva.sea.ql.parser.exception.ParseError;
 

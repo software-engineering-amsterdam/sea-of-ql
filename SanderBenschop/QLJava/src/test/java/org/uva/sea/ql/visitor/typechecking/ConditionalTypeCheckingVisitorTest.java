@@ -3,10 +3,9 @@ package org.uva.sea.ql.visitor.typechecking;
 import org.junit.Before;
 import org.junit.Test;
 import org.uva.sea.ql.ast.QLStatement;
-import org.uva.sea.ql.ast.nodetypes.formelement.Conditional;
-import org.uva.sea.ql.ast.nodetypes.primary.Bool;
-import org.uva.sea.ql.ast.nodetypes.primary.Int;
-import org.uva.sea.ql.visitor.typechecking.TypeCheckingVisitor;
+import org.uva.sea.ql.ast.formelement.Conditional;
+import org.uva.sea.ql.ast.primary.Bool;
+import org.uva.sea.ql.ast.primary.Int;
 import org.uva.sea.ql.visitor.typechecking.errors.UnsupportedTypeError;
 
 import java.util.Collections;

@@ -1,4 +1,4 @@
-package org.uva.sea.ql.ast.nodetypes.formelement;
+package org.uva.sea.ql.ast.formelement;
 
 import org.uva.sea.ql.ast.ASTNode;
 import org.uva.sea.ql.ast.QLStatement;

@@ -1,7 +1,7 @@
-package org.uva.sea.ql.ast.nodetypes.binary;
+package org.uva.sea.ql.ast.binary;
 
 import org.uva.sea.ql.ast.ASTNode;
-import org.uva.sea.ql.ast.nodetypes.primary.Int;
+import org.uva.sea.ql.ast.primary.Int;
 
 import java.util.Arrays;
 import java.util.Collections;

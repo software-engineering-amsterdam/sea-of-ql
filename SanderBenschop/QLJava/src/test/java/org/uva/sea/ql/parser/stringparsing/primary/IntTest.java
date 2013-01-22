@@ -1,7 +1,7 @@
 package org.uva.sea.ql.parser.stringparsing.primary;
 
 import org.junit.Test;
-import org.uva.sea.ql.ast.nodetypes.primary.Int;
+import org.uva.sea.ql.ast.primary.Int;
 import org.uva.sea.ql.parser.TestParser;
 import org.uva.sea.ql.parser.exception.ParseError;
 

@@ -1,7 +1,7 @@
-package org.uva.sea.ql.ast.nodetypes.unary;
+package org.uva.sea.ql.ast.unary;
 
 import org.uva.sea.ql.ast.ASTNode;
-import org.uva.sea.ql.ast.nodetypes.primary.Bool;
+import org.uva.sea.ql.ast.primary.Bool;
 
 public class Not extends UnaryOperation {
 
