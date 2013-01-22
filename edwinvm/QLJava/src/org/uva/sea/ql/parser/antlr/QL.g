@@ -29,10 +29,17 @@ question returns [Question result]
     ;
 
 conditionBlock returns [ConditionBlock result]
-    :   'if' '(' condition=orExpr ')' '{' ifBody=formStatement+ '}' 'else' ('{')? elseBody=formStatement+ ('}')?
+    :   'if' '(' condition=orExpr ')' ifBody=conditionBody 'else' elseBody=conditionBody
         { $result = new ConditionBlock(condition, $ifBody.result, $elseBody.result); }
-    |   'if' '(' x=orExpr ')' '{' formStatement+ '}'
-        { $result = new ConditionBlock(condition, ifBody); }
+    |   'if' '(' condition=orExpr ')' ifBody=conditionBody
+        { $result = new ConditionBlock(condition, $ifBody.result); }
+    ;
+
+conditionBody returns [FormStatement result]
+    :   '{' body=formStatement '}'  { $result = body; }
+    |   body=formStatement          { $result = body; }
+    |   '{' body=formStatement* '}' { $result = body; }
+    |   body=formStatement*         { $result = body; }
     ;
 
 primary returns [Expr result]
@@ -88,9 +95,9 @@ orExpr returns [Expr result]
     ;
 
 type returns [Type result]
-    :   'integer' { $result = new org.uva.sea.ql.ast.types.Int();    }
-    |   'string'  { $result = new org.uva.sea.ql.ast.types.Str(); }
-    |   'boolean' { $result = new org.uva.sea.ql.ast.types.Bool();   }
+    :   'integer' { $result = new org.uva.sea.ql.ast.types.Int();  }
+    |   'string'  { $result = new org.uva.sea.ql.ast.types.Str();  }
+    |   'boolean' { $result = new org.uva.sea.ql.ast.types.Bool(); }
     ;
 
     
