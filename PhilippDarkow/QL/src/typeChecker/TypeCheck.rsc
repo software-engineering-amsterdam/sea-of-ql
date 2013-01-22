@@ -89,9 +89,8 @@ QTENV checkQuestionStats(list[Body] Stats1, QTENV qEnv) {
 
 
 // check declarations
-TENV checkBody(list[Body] Body) =                                                 
+QTENV checkBody(list[Body] Body) =                                                 
     <( Id : question | question(QuestionId Id, Question question)  <- Body), []>
-  //  | <( Id : statement | statement(QuestionId Id, Statement statement)  <- Body), []>
     ;
 
 // check question
@@ -104,34 +103,45 @@ void checkQuestion(Question q){
 
 }
 
-void visitQuestions(Question q){   //QTENV
+QTENV visitQuestions(Question q, env){   //, QTENV env
 	println("Q : <q>");
-	checkQuestion(q);
+	env = checkQuestion(q, env);  // , env
+	return env;
 }
 
-void checkQuestion(question:easyQuestion(str id,str qLabel, Type tp)){
+QTENV checkQuestion(question:easyQuestion(str id, str qLabel, Type tp) , QTENV env){ // , QTENV env
 	println("check easy question");
-	print(id);	
+	env = (<( id : tp ), [] >);
+	println("ENV : <env>");
+	//print(id);
+	return env;	
 }
 
-void checkQuestion(question:computedQuestion(str id, str labelQuestion, Type tp, Expression exp)){
+QTENV checkQuestion(question:computedQuestion(str id, str labelQuestion, Type tp, Expression exp)){
 	println("check computed question");
+	QTENV env = (<( id : tp ), [] >);
+	println("ENV : <env>");
 }
+
+//FTENV checkBody()
 
 // check a QL program
 public QTENV checkProgram(Program P){                                                
   if(program(Expression exp, list[Body] Body) := P){	 
      println("EXP : <exp>");
-     println("Body : <Body>");  // need to visit the body node to check the questions
+     println("Body : <Body>");  
+     QTENV env = (<( ), [] >);  // empty Question Type map
+   //  FTENV fEnv = checkBody(list[Body] Body)
+     println("ENV : <env>");
      visit(Body){
-     	case Question q: visitQuestions(q);    // pattern matching  maybe not visitor
+     	case Question q : { 
+     			env = visitQuestions(q,env);   // , env
+     	    }
         case Statement s: println("Statement is : <S>");
      };
-     QTENV env = checkBody(Body);
      println("ENV : <env>"); 
      QTENV qEnv = mapQuestionIdToType2(env.symbols);  // Mapping.rsc is doing that
-     println("QTENV : <qEnv>");
-     QSTRING qString = checkQuestionString(env.symbols); 
+     println("QTENV : <qEnv>"); 
 	 return checkQuestionStats(Series, qEnv);
   } else
      throw "Cannot happen";
