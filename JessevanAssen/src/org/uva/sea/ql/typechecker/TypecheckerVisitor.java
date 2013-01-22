@@ -28,7 +28,9 @@ public class TypecheckerVisitor implements ASTNodeVisitor<Type, TypecheckerVisit
 
 	private static final Type BOOL_TYPE    = new org.uva.sea.ql.ast.type.Bool(),
 			                  INT_TYPE     = new org.uva.sea.ql.ast.type.Int(),
-			                  STRING_TYPE  = new org.uva.sea.ql.ast.type.Str();
+			                  STRING_TYPE  = new org.uva.sea.ql.ast.type.Str(),
+			                  VOID_TYPE    = new org.uva.sea.ql.ast.type.Void(),
+			                  UNKNOWN_TYPE = new org.uva.sea.ql.ast.type.Unknown();
 
     /**
      * Private constructor to indicate that no instance should be made of this class.
@@ -50,20 +52,20 @@ public class TypecheckerVisitor implements ASTNodeVisitor<Type, TypecheckerVisit
 	@Override
 	public Type visit(Computed astNode, Context context) {
         astNode.getExpression().accept(this, context);
-		return null;
+		return VOID_TYPE;
 	}
 
     @Override
     public Type visit(CompositeFormElement astNode, Context context) {
         for(FormElement formElement : astNode.getFormElements())
             formElement.accept(this, context);
-        return null;
+        return VOID_TYPE;
     }
 
 	@Override
 	public Type visit(Form astNode, Context context) {
 		astNode.getBody().accept(this, context);
-		return null;			
+		return VOID_TYPE;
 	}
 	
 	@Override
@@ -78,7 +80,7 @@ public class TypecheckerVisitor implements ASTNodeVisitor<Type, TypecheckerVisit
              * To avoid null checks everywhere where a type is used, return an 'null' implementation of the
              * Type interface.
              */
-            return new Unknown();
+            return UNKNOWN_TYPE;
         }
 	}
 
@@ -90,7 +92,7 @@ public class TypecheckerVisitor implements ASTNodeVisitor<Type, TypecheckerVisit
 
         astNode.getIfBody().accept(this, context);
 
-        return null;
+        return VOID_TYPE;
     }
 
     @Override
@@ -102,7 +104,7 @@ public class TypecheckerVisitor implements ASTNodeVisitor<Type, TypecheckerVisit
         astNode.getIfBody().accept(this, context);
         astNode.getElseBody().accept(this, context);
 
-        return null;
+        return VOID_TYPE;
     }
 	
 	@Override
@@ -112,7 +114,7 @@ public class TypecheckerVisitor implements ASTNodeVisitor<Type, TypecheckerVisit
         else
             context.getErrors().add(new Error(String.format("The identifier '%s' is already declared!", astNode.getIdentifier().getName())));
 
-		return null;
+		return VOID_TYPE;
 	}
 	
 	
