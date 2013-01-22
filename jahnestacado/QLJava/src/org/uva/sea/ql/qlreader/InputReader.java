@@ -2,7 +2,9 @@ package org.uva.sea.ql.qlreader;
 
 import java.io.BufferedReader;
 import java.io.DataInputStream;
+import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
@@ -12,17 +14,19 @@ public class InputReader {
 	
 	
 	public InputReader(String src) throws IOException{
-		
-            FileInputStream fstream  = new FileInputStream(src);
-            DataInputStream in       = new DataInputStream(fstream);
-            BufferedReader  br       = new BufferedReader(new InputStreamReader(in));
+		     
+		    File file = new File(src);
+            FileReader fstream  = new FileReader(file);
+            BufferedReader  bufReader  = new BufferedReader(fstream);
             String strLine;
             
 
-           while ((strLine = br.readLine()) != null) {
+           while ((strLine = bufReader.readLine()) != null) {
         	   fileContent+=strLine;
+        	  
            }
-		
+	
+           bufReader.close();
 		
 	}
 	
