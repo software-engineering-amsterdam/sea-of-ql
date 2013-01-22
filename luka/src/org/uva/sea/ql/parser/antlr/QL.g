@@ -4,11 +4,12 @@ grammar QL;
 //if(VAR > CONST)
 //if(VAR > 100)
 // IF STATEMENT wie ?!
+// SWITCH for QL ?
 options {
 backtrack=true; 
 memoize=true;  
 output=AST;
-ASTLabelType=CommonTree;
+//ASTLabelType=CommonTree;
 } 
 tokens{
 //QUESTIONNAIRE;
@@ -50,15 +51,17 @@ import org.uva.sea.ql.ast.*;
  *------------------------------------------------------------------*/
  
 parse 
-	: FormStart qStartExp EOF -> ^(FormStart qStartExp);
+	: FormStart FormId qContentBlock EOF -> ^(FormStart qContentBlock);
 	
  	
 //Start of questionnaire
-qStartExp 
+qContentBlock 
 
-	: FormId Lbr qBodyItemExpr Rbr ->^(FormId qBodyItemExpr); 
+	:  Lbr qContentBlockItem Rbr ->^(FormId qContentBlockItem); 
 
-
+qContentBlockItem
+	:	( qDeclaration  | ifStatement | constantDeclarationExpr )+;
+	
 //question with child elements
 qDeclaration 
 	: QuestionVariable  ':' QuestionLabel qType ->^(QUESTION_BLOCK ^(QUESTION_VAR ^(VAR_NAME QuestionVariable) ^(VAR_TYPE qType))  ^(QUESTION_LABEL QuestionLabel)) 
@@ -66,14 +69,10 @@ qDeclaration
 
 
 // if(x<y) / verschachtelt TODO
-ifStatementExpr 
-	:	 IF  '(' orExpr ')'   Lbr qBodyItemExpr Rbr elseStatementExpr? ->^(IF_BLOCK ^(IF_STATEMENT orExpr) ^(IF_TRUE qBodyItemExpr)  ^(IF_FALSE elseStatementExpr)?);
-
-elseStatementExpr
-	:	'else' Lbr qBodyItemExpr Rbr -> qBodyItemExpr;
-	
-qBodyItemExpr
-	:	( qDeclaration  | ifStatementExpr | constantDeclarationExpr )+;
+ifStatement 
+	: If  '(' orExpr ')'   Lbr ifTrue=qContentBlockItem Rbr Else Lbr ifFalse=qContentBlockItem Rbr  ->^(IF_BLOCK ^(IF_STATEMENT orExpr) ^(IF_TRUE $ifTrue) ^(IF_FALSE $ifFalse)) 
+	| If  '(' orExpr ')'   Lbr ifTrue=qContentBlockItem Rbr  ->^(IF_BLOCK ^(IF_STATEMENT orExpr) ^(IF_TRUE $ifTrue))
+	;
 	
 constantDeclarationExpr
 	:	QuestionVariable  ':' Int -> ^(CONST_VAR ^(CONST_NAME QuestionVariable) ^(CONST_TYPE CONST_TYPE_INT) ^(CONST_VALUE Int));
@@ -93,9 +92,9 @@ atom returns [Expr result]
   
   //Unary  UNARY_MIN TODO
 unExpr returns [Expr result]
-    :  '+' x=atom { $result = new Pos($x.result); }
-    |  '-' x=atom { $result = new Neg($x.result); }
-    |  '!' x=atom { $result = new Not($x.result); }
+    :  '+'^ x=atom { $result = new Pos($x.result); } 
+    |  '-'^ x=atom { $result = new Neg($x.result); }
+    |  '!'^ x=atom { $result = new Not($x.result); }
     |  x=atom    { $result = $x.result; }
     ;  
     
@@ -172,8 +171,8 @@ FormStart: 'form' { System.out.println("Lex Start: "+getText()); };
 Boolean : 'boolean' { System.out.println("Lex Boolean: "+getText()); };
 Money	: 'money' { System.out.println("Lex Money: "+getText()); };
 
-IF	: 'if' { System.out.println("Lex IF: "+getText()); };
-
+If	: 'if' { System.out.println("Lex IF: "+getText()); };
+Else	: 'else' { System.out.println("Lex ELSE: "+getText()); };
 FormId 	: 'A'..'Z' ('a'..'z'|'A'..'Z'|'0'..'9')+  { System.out.println("Lex FormId: "+getText()); };
 QuestionVariable : 'a'..'z'('a'..'z'|'A'..'Z'|'0'..'9')+  { System.out.println("Lex QuesionID: "+getText()); };
 QuestionLabel: '"' .*  '"' { System.out.println("Lex Question: "+getText()); };
