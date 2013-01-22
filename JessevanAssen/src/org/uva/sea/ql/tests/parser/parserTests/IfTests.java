@@ -26,37 +26,44 @@ public class IfTests extends ParserTests {
 			"}";
 	@Test
 	public void testLonelyIf() throws ParseError {
-		If i = parseIf(ifString);
-		
-        assertEquals(NullFormElement.class, i.getElseBody().getClass());
+        FormElement formElement = parseFormElement(ifString);
+        assertEquals(If.class, formElement.getClass());
 	}
 	
 	@Test
 	public void testIfElse() throws ParseError {
-		If i = parseIf(ifString + elseString);
-		parseElse(i.getElseBody());
+        FormElement formElement = parseFormElement(ifString + elseString);
+        assertEquals(IfElse.class, formElement.getClass());
+        assertEquals(Question.class, ((IfElse)formElement).getElseBody().getClass());
 	}
 	
 	@Test
 	public void testIfElseif() throws ParseError {
-		If i = parseIf(ifString + elseIfStrings);
-		FormElement elseBody = parseElseIf(i.getElseBody());
-		assertNotNull(elseBody);
-		assertEquals(NullFormElement.class, elseBody.getClass());
+        FormElement formElement = parseFormElement(ifString + elseIfStrings);
+        assertEquals(IfElse.class, formElement.getClass());
+        formElement = ((IfElse)formElement).getElseBody();
+        assertEquals(IfElse.class, formElement.getClass());
+        formElement = ((IfElse)formElement).getElseBody();
+        assertEquals(If.class, formElement.getClass());
 	}
 	
 	@Test
 	public void testIfElseifElse() throws ParseError {
-		If i = parseIf(ifString + elseIfStrings + elseString);
-		FormElement elseBody = parseElseIf(i.getElseBody());
-		parseElse(elseBody);
-	}
+        FormElement formElement = parseFormElement(ifString + elseIfStrings + elseString);
+        assertEquals(IfElse.class, formElement.getClass());
+        formElement = ((IfElse)formElement).getElseBody();
+        assertEquals(IfElse.class, formElement.getClass());
+        formElement = ((IfElse)formElement).getElseBody();
+        assertEquals(IfElse.class, formElement.getClass());
+        formElement = ((IfElse)formElement).getElseBody();
+        assertEquals(Question.class, formElement.getClass());
+    }
 	
 
-	private If parseIf(String input) throws ParseError {
+	private IfElse parseIfElse(String input) throws ParseError {
 		FormElement formElement = parseFormElement(input);
-		assertEquals(If.class, formElement.getClass());
-		If i = (If) formElement;
+		assertEquals(IfElse.class, formElement.getClass());
+        IfElse i = (IfElse) formElement;
 		assertEquals(Bool.class, i.getCondition().getClass());
 		assertEquals(Question.class, i.getIfBody().getClass());
 		assertEquals(new Ident("a"), ((Question)i.getIfBody()).getIdentifier());
@@ -78,8 +85,8 @@ public class IfTests extends ParserTests {
 
         for(int i = 0; i < 2; ++i) {
 			assertNotNull(formElement);
-			assertEquals(If.class, formElement.getClass());
-            If ifElement = (If) formElement;
+			assertEquals(IfElse.class, formElement.getClass());
+            IfElse ifElement = (IfElse) formElement;
             assertEquals(Question.class, ifElement.getIfBody().getClass());
             assertEquals(identities[i], ((Question)ifElement.getIfBody()).getIdentifier());
 			formElement = ifElement.getElseBody();

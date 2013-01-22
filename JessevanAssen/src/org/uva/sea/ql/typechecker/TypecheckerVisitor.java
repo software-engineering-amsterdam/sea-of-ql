@@ -74,18 +74,29 @@ public class TypecheckerVisitor implements ASTNodeVisitor<Type, TypecheckerVisit
             return new Unknown();
         }
 	}
-	
-	@Override
-	public Type visit(If astNode, Context context) {
-		Type type = astNode.getCondition().accept(this, context);
+
+    @Override
+    public Type visit(If astNode, Context context) {
+        Type type = astNode.getCondition().accept(this, context);
         if(!type.equals(BOOL_TYPE))
             context.getErrors().add("The condition of an if-statement should have type boolean.");
 
-		astNode.getIfBody().accept(this, context);
-		astNode.getElseBody().accept(this, context);
-		
-		return null;
-	}
+        astNode.getIfBody().accept(this, context);
+
+        return null;
+    }
+
+    @Override
+    public Type visit(IfElse astNode, Context context) {
+        Type type = astNode.getCondition().accept(this, context);
+        if(!type.equals(BOOL_TYPE))
+            context.getErrors().add("The condition of an if-statement should have type boolean.");
+
+        astNode.getIfBody().accept(this, context);
+        astNode.getElseBody().accept(this, context);
+
+        return null;
+    }
 	
 	@Override
 	public Type visit(Question astNode, Context context) {

@@ -140,13 +140,13 @@ computedFormElement returns [Computed result]
     : strExpr orExpr { $result = new Computed($strExpr.result.getValue(), $orExpr.result); }
     ;
    
-ifFormElement returns [If result]
-    : 'if' '(' orExpr ')' '{' ifElements = formElements '}' 'else' elseElement = ifFormElement 
-        { $result = new If($orExpr.result, $ifElements.result, $elseElement.result); }
+ifFormElement returns [FormElement result]
+    : 'if' '(' orExpr ')' '{' ifElements = formElements '}' 'else' elseElement = ifFormElement
+        { $result = new IfElse($orExpr.result, $ifElements.result, $elseElement.result); }
     | 'if' '(' orExpr ')' '{' ifElements = formElements '}' 'else' '{' elseElements = formElements'}' 
-        { $result = new If($orExpr.result, $ifElements.result, $elseElements.result); }
+        { $result = new IfElse($orExpr.result, $ifElements.result, $elseElements.result); }
     | 'if' '(' orExpr ')' '{' formElements '}' 
-        { $result = new If($orExpr.result, $formElements.result, new NullFormElement()); }
+        { $result = new If($orExpr.result, $formElements.result); }
     ;
     
 // Tokens

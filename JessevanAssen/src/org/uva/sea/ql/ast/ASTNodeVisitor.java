@@ -15,7 +15,8 @@ public interface ASTNodeVisitor<ReturnType, ParameterType> {
 	public ReturnType visit(GEq                  astNode, ParameterType param);
 	public ReturnType visit(GT                   astNode, ParameterType param);
 	public ReturnType visit(Ident                astNode, ParameterType param);
-	public ReturnType visit(If                   astNode, ParameterType param);
+    public ReturnType visit(If                   astNode, ParameterType param);
+    public ReturnType visit(IfElse               astNode, ParameterType param);
 	public ReturnType visit(Int                  astNode, ParameterType param);
 	public ReturnType visit(LEq                  astNode, ParameterType param);
 	public ReturnType visit(LT                   astNode, ParameterType param);
