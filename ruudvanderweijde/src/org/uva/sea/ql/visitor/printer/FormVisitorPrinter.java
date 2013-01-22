@@ -15,7 +15,7 @@ public class FormVisitorPrinter implements FormVisitor {
 
 	@Override
 	public void visit(Form form) {
-		printString("Form " + "\t id: " + form.getId().getName()
+		printString("Form " + "\t id: " + form.getId().getValue()
 				+ "\t Statement count: " + form.getStatements().size());
 		increaseDepth();
 		for (Statement stmt : form.getStatements()) {
@@ -50,7 +50,7 @@ public class FormVisitorPrinter implements FormVisitor {
 	@Override
 	public void visit(NormalQuestion question) {
 		printString("Question " + "\t id: "
-				+ question.getId().getName() + "\t label: "
+				+ question.getId().getValue() + "\t label: "
 				+ question.getLabel() + "\t type: "
 				+ question.getType().getClass());
 //		increaseDepth();
@@ -61,7 +61,7 @@ public class FormVisitorPrinter implements FormVisitor {
 	@Override
 	public void visit(ComputedQuestion computedQuestion) {
 		printString("ComputedQuestion " + "\t id: "
-				+ computedQuestion.getId().getName() + "\t label: "
+				+ computedQuestion.getId().getValue() + "\t label: "
 				+ computedQuestion.getLabel() + "\t type: "
 				+ computedQuestion.getType().getClass()
 				+ computedQuestion.getComputation().toString());
