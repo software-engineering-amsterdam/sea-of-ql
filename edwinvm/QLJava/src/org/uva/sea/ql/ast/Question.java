@@ -5,24 +5,24 @@ import org.uva.sea.ql.ast.values.Str;
 
 public class Question extends FormStatement {
 	private final Str _label;
-	private final Ident _identifier;
-	private final Type _identifierType;
+	private final Ident _variable;
+	private final Type _type;
 
-	public Question(Str questionLabel, Ident questionIdentifier, Type identifierType) {
-		_label = questionLabel;
-		_identifier = questionIdentifier;
-		_identifierType = identifierType;
+	public Question(Str label, Ident variable, Type type) {
+		_label = label;
+		_variable = variable;
+		_type = type;
 	}
 	
 	public Str getLabel() {
 		return _label;
 	}
 	
-	public Ident getIdentifier() {
-		return _identifier;
+	public Ident getVariable() {
+		return _variable;
 	}
 	
-	public Type getIdentifierType() {
-		return _identifierType;
+	public Type getType() {
+		return _type;
 	}
 }
