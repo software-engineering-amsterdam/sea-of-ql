@@ -2,7 +2,7 @@ package ast;
 
 import ast.visitors.Visitor;
 
-public abstract class Statement implements ASTNode {
+public abstract class Stat implements ASTNode {
 
 	@Override
 	public String toString() {

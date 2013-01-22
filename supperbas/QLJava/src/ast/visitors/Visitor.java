@@ -1,7 +1,6 @@
 package ast.visitors;
 
 import ast.exprs.binary.*;
-import ast.exprs.eval.*;
 import ast.exprs.unary.*;
 import ast.exprs.value.*;
 

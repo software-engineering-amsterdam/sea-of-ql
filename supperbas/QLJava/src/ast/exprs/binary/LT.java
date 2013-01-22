@@ -1,13 +1,13 @@
-package ast.exprs.eval;
+package ast.exprs.binary;
 
 import java.util.Map;
 
 import ast.Expr;
-import ast.exprs.Eval;
+import ast.exprs.Binary;
 import ast.types.Type;
 import ast.visitors.Visitor;
 
-public class LT extends Eval {
+public class LT extends Binary {
 	private final int level = 2;
 
 	public LT(Expr lhs, Expr rhs) {

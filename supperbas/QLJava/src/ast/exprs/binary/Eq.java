@@ -1,13 +1,13 @@
-package ast.exprs.eval;
+package ast.exprs.binary;
 
 import java.util.Map;
 
 import ast.Expr;
-import ast.exprs.Eval;
+import ast.exprs.Binary;
 import ast.types.Type;
 import ast.visitors.Visitor;
 
-public class Eq extends Eval {
+public class Eq extends Binary {
 	private final int level = 2;
 
 	public Eq(Expr lhs, Expr rhs) {
@@ -17,7 +17,7 @@ public class Eq extends Eval {
 	public int getLevel() {
 		return level;
 	}
-	
+
 	@Override
 	public Type typeOf(Map<ast.types.Ident, Type> typeEnv) {
 		return new ast.types.Numeric();

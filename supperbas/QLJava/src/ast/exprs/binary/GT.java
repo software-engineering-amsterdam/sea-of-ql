@@ -1,16 +1,16 @@
-package ast.exprs.eval;
+package ast.exprs.binary;
 
 import java.util.Map;
 
 import ast.Expr;
-import ast.exprs.Eval;
+import ast.exprs.Binary;
 import ast.types.Type;
 import ast.visitors.Visitor;
 
-public class GEq extends Eval {
+public class GT extends Binary {
 	private final int level = 2;
 
-	public GEq(Expr lhs, Expr rhs) {
+	public GT(Expr lhs, Expr rhs) {
 		super(lhs, rhs);
 	}
 
