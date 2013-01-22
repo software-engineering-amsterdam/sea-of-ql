@@ -4,7 +4,7 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 import org.uva.sea.ql.ast.ComputedQuestion;
-import org.uva.sea.ql.ast.Question;
+import org.uva.sea.ql.ast.AnswerableQuestion;
 import org.uva.sea.ql.parser.IParser;
 import org.uva.sea.ql.parser.ParseError;
 import org.uva.sea.ql.parser.antlr.ANTLRParserQuestions;
@@ -18,9 +18,9 @@ public class TestQuestions {
 	
 	@Test
 	public void testQuestions() throws ParseError {
-		assertEquals(_parser.parse("\"Did you sell a house in 2010?\" hasSoldHouse: boolean").getClass(), Question.class);
-		assertEquals(_parser.parse("\"Price the house was sold for:\" sellingPrice: integer").getClass(), Question.class);
-		assertEquals(_parser.parse("\"What is your name?\" userName: string").getClass(), Question.class);
+		assertEquals(_parser.parse("\"Did you sell a house in 2010?\" hasSoldHouse: boolean").getClass(), AnswerableQuestion.class);
+		assertEquals(_parser.parse("\"Price the house was sold for:\" sellingPrice: integer").getClass(), AnswerableQuestion.class);
+		assertEquals(_parser.parse("\"What is your name?\" userName: string").getClass(), AnswerableQuestion.class);
 	}
 	
 	@Test
