@@ -6,6 +6,7 @@ options {backtrack=true; memoize=true;}
 package org.uva.sea.ql.parser.antlr;
 import org.uva.sea.ql.ast.*;
 import org.uva.sea.ql.ast.expressions.*;
+import org.uva.sea.ql.ast.questions.*;
 import org.uva.sea.ql.ast.values.*;
 import org.uva.sea.ql.ast.types.*;
 }
@@ -19,16 +20,12 @@ form: primary+;
 
 formStatement returns [FormStatement result]
     :   question         { $result = $question.result; }
-    |   computedQuestion { $result = $computedQuestion.result; }
     |   conditionBlock   { $result = $conditionBlock.result; }
     ;
 
 question returns [Question result]
-    :   String Ident ':' t=type { $result = new Question(new org.uva.sea.ql.ast.values.Str($String.text), new Ident($Ident.text), t); }
-    ;
-  
-computedQuestion returns [ComputedQuestion result]
-    :   String Ident '=' e=orExpr { $result = new ComputedQuestion(new org.uva.sea.ql.ast.values.Str($String.text), new Ident($Ident.text), $e.result); }
+    :   String Ident ':' t=type { $result = new AnswerableQuestion(new org.uva.sea.ql.ast.values.Str($String.text), new Ident($Ident.text), t); }
+    |   String Ident '=' e=orExpr { $result = new ComputedQuestion(new org.uva.sea.ql.ast.values.Str($String.text), new Ident($Ident.text), $e.result); }
     ;
 
 conditionBlock returns [ConditionBlock result]
