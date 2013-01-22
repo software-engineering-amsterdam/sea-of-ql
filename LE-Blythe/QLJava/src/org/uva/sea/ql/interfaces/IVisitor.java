@@ -1,7 +1,6 @@
 package org.uva.sea.ql.interfaces;
 
 import org.uva.sea.ql.ast.Ident;
-import org.uva.sea.ql.ast.Primitive;
 import org.uva.sea.ql.ast.operative.Add;
 import org.uva.sea.ql.ast.operative.And;
 import org.uva.sea.ql.ast.operative.Div;
@@ -14,11 +13,6 @@ import org.uva.sea.ql.ast.operative.Mul;
 import org.uva.sea.ql.ast.operative.NEq;
 import org.uva.sea.ql.ast.operative.Neg;
 import org.uva.sea.ql.ast.operative.Not;
-import org.uva.sea.ql.ast.operative.OperatorBinaryBoolean;
-import org.uva.sea.ql.ast.operative.OperatorBinaryComparative;
-import org.uva.sea.ql.ast.operative.OperatorBinaryNumeric;
-import org.uva.sea.ql.ast.operative.OperatorUnaryBoolean;
-import org.uva.sea.ql.ast.operative.OperatorUnaryNumeric;
 import org.uva.sea.ql.ast.operative.Or;
 import org.uva.sea.ql.ast.operative.Pos;
 import org.uva.sea.ql.ast.operative.Sub;

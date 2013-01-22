@@ -1,6 +1,5 @@
 package org.uva.sea.ql.ast.primitive;
 
-import org.uva.sea.ql.ast.Expr;
 import org.uva.sea.ql.ast.Primitive;
 import org.uva.sea.ql.ast.types.Type;
 import org.uva.sea.ql.interfaces.IVisitor;
