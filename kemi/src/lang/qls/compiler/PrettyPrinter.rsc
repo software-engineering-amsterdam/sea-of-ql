@@ -7,28 +7,28 @@ public str prettyPrint(Stylesheet s) =
   '<}>";
 
 public str prettyPrint(Statement s: 
-  classDefinition(str ident, list[ClassRule] questionIdent)) = 
-    "class <ident> {<for(e <- questionIdent) {>
+  classDefinition(str ident, set[ClassRule] questionStyleIdent)) = 
+    "class <ident> {<for(e <- questionStyleIdent) {>
     '  <prettyPrint(e)><}>
     '}
     '";
 
 public str prettyPrint(Statement s: 
-  styleDefinition(Ident: typeIdent(ident), list[StyleRule] styleRules)) = 
+  styleDefinition(StyleIdent: typeStyleIdent(ident), set[StyleRule] styleRules)) = 
     "<ident> {<for(e <- styleRules) {>
     '  <prettyPrint(e)><}>
     '}
     '";
 
 public str prettyPrint(Statement s: 
-  styleDefinition(Ident: classIdent(ident), list[StyleRule] styleRules)) = 
+  styleDefinition(StyleIdent: classStyleIdent(ident), set[StyleRule] styleRules)) = 
     "<ident> {<for(e <- styleRules) {>
     '  <prettyPrint(e)><}>
     '}
     '";
 
 public str prettyPrint(Statement s: 
-  styleDefinition(Ident: questionIdent(ident), list[StyleRule] styleRules)) = 
+  styleDefinition(StyleIdent: questionStyleIdent(ident), set[StyleRule] styleRules)) = 
     "<ident> {<for(e <- styleRules) {>
     '  <prettyPrint(e)><}>
     '}

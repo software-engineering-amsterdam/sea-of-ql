@@ -1,6 +1,6 @@
 module lang::qls::ide::Outline
 
-import List;
+import Set;
 import Node;
 import ParseTree;
 import util::IDE;
@@ -28,7 +28,7 @@ private node outline(Stylesheet sh) =
   [@\loc=sh@location];
 
 private node outline(Statement s: 
-  classDefinition(str ident, list[ClassRule] classRules))
+  classDefinition(str ident, set[ClassRule] classRules))
     = createNode(
       "ClassDefinition",
       "class <ident> (<size(classRules)>)",
@@ -46,7 +46,7 @@ private node outline(ClassRule r:
     );
 
 private node outline(Statement s: 
-  styleDefinition(Ident: typeIdent(ident), list[StyleRule] styleRules)) = 
+  styleDefinition(StyleIdent: typeStyleIdent(ident), set[StyleRule] styleRules)) = 
   createNode(
     "TypeStyleDefinition",
     "<ident> (<size(styleRules)>)",
@@ -55,7 +55,7 @@ private node outline(Statement s:
   );
 
 private node outline(Statement s: 
-  styleDefinition(Ident: classIdent(ident), list[StyleRule] styleRules)) = 
+  styleDefinition(StyleIdent: classStyleIdent(ident), set[StyleRule] styleRules)) = 
     createNode(
       "ClassStyleDefinition",
       "<ident> (<size(styleRules)>)",
@@ -64,7 +64,7 @@ private node outline(Statement s:
     );
 
 private node outline(Statement s: 
-  styleDefinition(Ident: questionIdent(ident), list[StyleRule] styleRules)) =
+  styleDefinition(StyleIdent: questionStyleIdent(ident), set[StyleRule] styleRules)) =
     createNode(
       "IdentStyleDefinition",
       "<ident> (<size(styleRules)>)",

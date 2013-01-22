@@ -15,7 +15,7 @@ public set[Message] semanticChecker(Stylesheet s) =
 public set[Message] undefinedClassWarnings(Stylesheet s) {
   warnings = {};
   visit(s) {
-    case d:styleDefinition(Ident: classIdent(ident), _):
+    case d:styleDefinition(StyleIdent: classStyleIdent(ident), _):
       // Class definitions' identifiers start without a dot
       if(!isDefinedClass(substring(ident, 1, size(ident)), s))
         warnings += warning("Undefined class <ident>", d@location);
@@ -44,7 +44,7 @@ private bool isDefinedClass(str ident, Stylesheet s) {
 
 private bool isUsedClass(str ident, Stylesheet s) {
   visit(s) {
-    case styleDefinition(Ident: classIdent(ident), _):
+    case styleDefinition(StyleIdent: classStyleIdent(ident), _):
       return true;
   }
   return false;

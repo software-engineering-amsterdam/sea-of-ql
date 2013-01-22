@@ -14,11 +14,11 @@ syntax ClassDefinition
   ;
 
 syntax ClassRule
-  = classRule: QuestionIdent
+  = classRule: QuestionStyleIdent
   ;
 
 syntax StyleDefinition
-  = styleDefinition: Ident "{" StyleRule+ "}"
+  = styleDefinition: StyleIdent "{" StyleRule+ "}"
   ;
 
 syntax StyleRule
@@ -31,17 +31,17 @@ syntax TypeStyleValue
   | checkbox: "checkbox"
   ;
 
-syntax Ident
-  = typeIdent: Type
-  | classIdent: ClassIdent
-  | questionIdent: QuestionIdent
+syntax StyleIdent
+  = typeStyleIdent: Type
+  | classStyleIdent: ClassStyleIdent
+  | questionStyleIdent: QuestionStyleIdent
   ;
 
-lexical ClassIdent
+lexical ClassStyleIdent
   = @category="NonterminalLabel" [.]BaseIdent
   ; 
 
-lexical QuestionIdent
+lexical QuestionStyleIdent
   = @category="Variable" [#]BaseIdent
   ;
 
