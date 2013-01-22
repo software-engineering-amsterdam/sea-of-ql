@@ -3,10 +3,10 @@
 package parser.jacc;
 
 import ast.Expression;
-import ast.expression.binary.*;
-import ast.expression.eval.*;
-import ast.expression.unary.*;
-import ast.expression.value.*;
+import ast.expressions.binary.*;
+import ast.expressions.eval.*;
+import ast.expressions.unary.*;
+import ast.expressions.value.*;
 @SuppressWarnings("unused")
 
 class QLParser implements QLTokens {
@@ -1573,31 +1573,31 @@ class QLParser implements QLTokens {
     }
 
     private int yyr17() { // expr : INT
-        { yyrv = ((ast.expression.value.Int)yysv[yysp-1]); }
+        { yyrv = ((ast.expressions.value.Int)yysv[yysp-1]); }
         yysv[yysp-=1] = yyrv;
         return yypexpr();
     }
 
     private int yyr18() { // expr : MONEY
-        { yyrv = ((ast.expression.value.Money)yysv[yysp-1]); }
+        { yyrv = ((ast.expressions.value.Money)yysv[yysp-1]); }
         yysv[yysp-=1] = yyrv;
         return yypexpr();
     }
 
     private int yyr19() { // expr : BOOL
-        { yyrv = ((ast.expression.value.Bool)yysv[yysp-1]); }
+        { yyrv = ((ast.expressions.value.Bool)yysv[yysp-1]); }
         yysv[yysp-=1] = yyrv;
         return yypexpr();
     }
 
     private int yyr20() { // expr : STR
-        { yyrv = ((ast.expression.value.Str)yysv[yysp-1]); }
+        { yyrv = ((ast.expressions.value.Str)yysv[yysp-1]); }
         yysv[yysp-=1] = yyrv;
         return yypexpr();
     }
 
     private int yyr21() { // expr : IDENT
-        { yyrv = ((ast.expression.value.Ident)yysv[yysp-1]); }
+        { yyrv = ((ast.expressions.value.Ident)yysv[yysp-1]); }
         yysv[yysp-=1] = yyrv;
         return yypexpr();
     }
