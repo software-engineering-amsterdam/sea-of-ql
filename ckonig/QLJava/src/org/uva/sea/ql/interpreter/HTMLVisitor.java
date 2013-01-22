@@ -11,11 +11,11 @@ import org.uva.sea.ql.visitor.VisitorException;
 
 public class HTMLVisitor implements ASTVisitor {
 	private Registry registry;
-	private Document document;
+	private DocumentBuilder document;
 
 	public HTMLVisitor()  throws VisitorException {
 		this.registry = new Registry();
-		this.document = new Document();
+		this.document = new DocumentBuilder();
 	}
 
 	@Override
@@ -48,7 +48,7 @@ public class HTMLVisitor implements ASTVisitor {
 	@Override
 	public void visit(IfStatement ifStatement) throws VisitorException {
 		registry.addIfStatement(ifStatement);		
-		document.beginIf(String.valueOf(ifStatement.hashCode()));
+		document.beginIf(ifStatement);
 		ifStatement.getContent().accept(this);
 		document.endIf();
 	}

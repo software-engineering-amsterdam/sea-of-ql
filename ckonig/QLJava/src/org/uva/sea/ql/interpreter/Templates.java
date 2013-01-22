@@ -22,6 +22,8 @@ public class Templates {
 	private String evaluator;
 	private String listener;
 	private String document;
+	private String startHiddenContainer;
+	private String endHiddenContainer;
 	
 	private String path;
 	
@@ -43,47 +45,47 @@ public class Templates {
 		this.getter_string = IOHelper.read(path+"getter_string.html");
 		this.evaluator = IOHelper.read(path+"evaluator.html");
 		this.listener = IOHelper.read(path+"listener.html");
-
+		this.startHiddenContainer = IOHelper.read(path + "start_hidden.html");
+		this.endHiddenContainer = IOHelper.read(path + "end_hidden.html");
 	}
 
-	public String getQuestion(String content, String input) {
+	public String question(String content, String input) {
 		return question.replace(CONTENT, content).replace(INPUT, input);
 	}
 
-	public String getInput(String name, String type) {
+	public String input(String name, String type) {
 		return input.replace(NAME, name).replace(TYPE, type);
 	}
 
-	public String getGetterBool(String name) {
+	public String getterBool(String name) {
 		return getter_bool.replace(NAME, name);
 	}
 
-	public String getGetterMoney(String name) {
+	public String getterMoney(String name) {
 		return getter_money.replace(NAME, name);
 	}
 
-	public String getGetterString(String name) {
+	public String getterString(String name) {
 		return getter_string.replace(NAME, name);
 	}
 
-	public String getDocument(String heading, String body, String script) {
+	public String document(String heading, String body, String script) {
 		return document.replace(BODY, body).replace(SCRIPT, script)
 				.replace(HEADING, heading);
 	}
 
-	public String getListener(String name, String id) {
+	public String listener(String name, String id) {
 		return listener.replace(NAME, name).replace(ID, id);
 	}
 
-	public String getEvaluator(String id, String condition) {
+	public String evaluator(String id, String condition) {
 		return evaluator.replace(ID, id).replace(CONDITION, condition);
 	}
-	public String startDiv(String id) {
-		return "<div style=\"display:none;\"" 
-				+ (id != null ? " id=\"if_" + id + "\"" : "") + " class=\"question\">\n";
+	public String hiddenStart(String id) {
+		return startHiddenContainer.replace(ID, id);
 	}
 
-	public String endDiv() {
-		return "</div>\n";
+	public String hiddenEnd() {
+		return endHiddenContainer;
 	}
 }
