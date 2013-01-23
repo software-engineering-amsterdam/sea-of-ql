@@ -11,19 +11,19 @@ public class Main {
 
 	public static void main(String[] args) {
 
-		final String path = "/src/org/uva/sea/ql/launcher/SampleCode.ql";
+		final String path = "src/org/uva/sea/ql/launcher/SampleCode.ql";
 		File filePath = new File(path);
+
 		try {
 			ANTLRFileStream charStream = new ANTLRFileStream(filePath.getAbsolutePath());
 			ANTLRParser parser = new ANTLRParser();
 			parser.parseForm(charStream.toString());
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (ParseError e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
 
 	}
 

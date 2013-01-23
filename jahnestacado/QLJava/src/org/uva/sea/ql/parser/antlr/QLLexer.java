@@ -1,4 +1,4 @@
-// $ANTLR 3.4 /home/jahn/workspace1/jahnestacado/jahnestacado/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g 2013-01-23 03:13:05
+// $ANTLR 3.4 /home/jahn/workspace1/jahnestacado/jahnestacado/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g 2013-01-23 19:19:42
 
 package org.uva.sea.ql.parser.antlr;
 
@@ -32,6 +32,7 @@ public class QLLexer extends Lexer {
     public static final int T__32=32;
     public static final int T__33=33;
     public static final int T__34=34;
+    public static final int T__35=35;
     public static final int BOOLEAN=4;
     public static final int BoolLit=5;
     public static final int COMMENT=6;
@@ -389,10 +390,10 @@ public class QLLexer extends Lexer {
         try {
             int _type = T__30;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/jahn/workspace1/jahnestacado/jahnestacado/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:22:7: ( 'form' )
-            // /home/jahn/workspace1/jahnestacado/jahnestacado/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:22:9: 'form'
+            // /home/jahn/workspace1/jahnestacado/jahnestacado/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:22:7: ( 'else' )
+            // /home/jahn/workspace1/jahnestacado/jahnestacado/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:22:9: 'else'
             {
-            match("form"); 
+            match("else"); 
 
 
 
@@ -412,10 +413,10 @@ public class QLLexer extends Lexer {
         try {
             int _type = T__31;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/jahn/workspace1/jahnestacado/jahnestacado/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:23:7: ( 'if' )
-            // /home/jahn/workspace1/jahnestacado/jahnestacado/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:23:9: 'if'
+            // /home/jahn/workspace1/jahnestacado/jahnestacado/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:23:7: ( 'form' )
+            // /home/jahn/workspace1/jahnestacado/jahnestacado/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:23:9: 'form'
             {
-            match("if"); 
+            match("form"); 
 
 
 
@@ -435,10 +436,12 @@ public class QLLexer extends Lexer {
         try {
             int _type = T__32;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/jahn/workspace1/jahnestacado/jahnestacado/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:24:7: ( '{' )
-            // /home/jahn/workspace1/jahnestacado/jahnestacado/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:24:9: '{'
+            // /home/jahn/workspace1/jahnestacado/jahnestacado/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:24:7: ( 'if' )
+            // /home/jahn/workspace1/jahnestacado/jahnestacado/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:24:9: 'if'
             {
-            match('{'); 
+            match("if"); 
+
+
 
             }
 
@@ -456,12 +459,10 @@ public class QLLexer extends Lexer {
         try {
             int _type = T__33;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/jahn/workspace1/jahnestacado/jahnestacado/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:25:7: ( '||' )
-            // /home/jahn/workspace1/jahnestacado/jahnestacado/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:25:9: '||'
+            // /home/jahn/workspace1/jahnestacado/jahnestacado/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:25:7: ( '{' )
+            // /home/jahn/workspace1/jahnestacado/jahnestacado/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:25:9: '{'
             {
-            match("||"); 
-
-
+            match('{'); 
 
             }
 
@@ -479,10 +480,12 @@ public class QLLexer extends Lexer {
         try {
             int _type = T__34;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/jahn/workspace1/jahnestacado/jahnestacado/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:26:7: ( '}' )
-            // /home/jahn/workspace1/jahnestacado/jahnestacado/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:26:9: '}'
+            // /home/jahn/workspace1/jahnestacado/jahnestacado/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:26:7: ( '||' )
+            // /home/jahn/workspace1/jahnestacado/jahnestacado/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:26:9: '||'
             {
-            match('}'); 
+            match("||"); 
+
+
 
             }
 
@@ -495,13 +498,34 @@ public class QLLexer extends Lexer {
     }
     // $ANTLR end "T__34"
 
+    // $ANTLR start "T__35"
+    public final void mT__35() throws RecognitionException {
+        try {
+            int _type = T__35;
+            int _channel = DEFAULT_TOKEN_CHANNEL;
+            // /home/jahn/workspace1/jahnestacado/jahnestacado/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:27:7: ( '}' )
+            // /home/jahn/workspace1/jahnestacado/jahnestacado/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:27:9: '}'
+            {
+            match('}'); 
+
+            }
+
+            state.type = _type;
+            state.channel = _channel;
+        }
+        finally {
+        	// do for sure before leaving
+        }
+    }
+    // $ANTLR end "T__35"
+
     // $ANTLR start "INTEGER"
     public final void mINTEGER() throws RecognitionException {
         try {
             int _type = INTEGER;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/jahn/workspace1/jahnestacado/jahnestacado/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:151:8: ( 'int' )
-            // /home/jahn/workspace1/jahnestacado/jahnestacado/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:151:9: 'int'
+            // /home/jahn/workspace1/jahnestacado/jahnestacado/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:153:8: ( 'int' )
+            // /home/jahn/workspace1/jahnestacado/jahnestacado/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:153:9: 'int'
             {
             match("int"); 
 
@@ -523,8 +547,8 @@ public class QLLexer extends Lexer {
         try {
             int _type = STRING;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/jahn/workspace1/jahnestacado/jahnestacado/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:152:7: ( 'string' )
-            // /home/jahn/workspace1/jahnestacado/jahnestacado/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:152:8: 'string'
+            // /home/jahn/workspace1/jahnestacado/jahnestacado/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:154:7: ( 'string' )
+            // /home/jahn/workspace1/jahnestacado/jahnestacado/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:154:8: 'string'
             {
             match("string"); 
 
@@ -546,8 +570,8 @@ public class QLLexer extends Lexer {
         try {
             int _type = BOOLEAN;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/jahn/workspace1/jahnestacado/jahnestacado/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:153:8: ( 'boolean' )
-            // /home/jahn/workspace1/jahnestacado/jahnestacado/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:153:9: 'boolean'
+            // /home/jahn/workspace1/jahnestacado/jahnestacado/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:155:8: ( 'boolean' )
+            // /home/jahn/workspace1/jahnestacado/jahnestacado/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:155:9: 'boolean'
             {
             match("boolean"); 
 
@@ -569,8 +593,8 @@ public class QLLexer extends Lexer {
         try {
             int _type = MONEY;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/jahn/workspace1/jahnestacado/jahnestacado/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:154:6: ( 'money' )
-            // /home/jahn/workspace1/jahnestacado/jahnestacado/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:154:7: 'money'
+            // /home/jahn/workspace1/jahnestacado/jahnestacado/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:156:6: ( 'money' )
+            // /home/jahn/workspace1/jahnestacado/jahnestacado/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:156:7: 'money'
             {
             match("money"); 
 
@@ -592,10 +616,10 @@ public class QLLexer extends Lexer {
         try {
             int _type = BoolLit;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/jahn/workspace1/jahnestacado/jahnestacado/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:157:9: ( ( 'true' | 'false' ) )
-            // /home/jahn/workspace1/jahnestacado/jahnestacado/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:157:11: ( 'true' | 'false' )
+            // /home/jahn/workspace1/jahnestacado/jahnestacado/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:159:9: ( ( 'true' | 'false' ) )
+            // /home/jahn/workspace1/jahnestacado/jahnestacado/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:159:11: ( 'true' | 'false' )
             {
-            // /home/jahn/workspace1/jahnestacado/jahnestacado/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:157:11: ( 'true' | 'false' )
+            // /home/jahn/workspace1/jahnestacado/jahnestacado/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:159:11: ( 'true' | 'false' )
             int alt1=2;
             int LA1_0 = input.LA(1);
 
@@ -614,7 +638,7 @@ public class QLLexer extends Lexer {
             }
             switch (alt1) {
                 case 1 :
-                    // /home/jahn/workspace1/jahnestacado/jahnestacado/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:157:12: 'true'
+                    // /home/jahn/workspace1/jahnestacado/jahnestacado/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:159:12: 'true'
                     {
                     match("true"); 
 
@@ -623,7 +647,7 @@ public class QLLexer extends Lexer {
                     }
                     break;
                 case 2 :
-                    // /home/jahn/workspace1/jahnestacado/jahnestacado/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:157:21: 'false'
+                    // /home/jahn/workspace1/jahnestacado/jahnestacado/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:159:21: 'false'
                     {
                     match("false"); 
 
@@ -651,8 +675,8 @@ public class QLLexer extends Lexer {
         try {
             int _type = WS;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/jahn/workspace1/jahnestacado/jahnestacado/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:161:5: ( ( ' ' | '\\t' | '\\n' | '\\r' ) )
-            // /home/jahn/workspace1/jahnestacado/jahnestacado/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:161:7: ( ' ' | '\\t' | '\\n' | '\\r' )
+            // /home/jahn/workspace1/jahnestacado/jahnestacado/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:163:5: ( ( ' ' | '\\t' | '\\n' | '\\r' ) )
+            // /home/jahn/workspace1/jahnestacado/jahnestacado/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:163:7: ( ' ' | '\\t' | '\\n' | '\\r' )
             {
             if ( (input.LA(1) >= '\t' && input.LA(1) <= '\n')||input.LA(1)=='\r'||input.LA(1)==' ' ) {
                 input.consume();
@@ -682,10 +706,10 @@ public class QLLexer extends Lexer {
         try {
             int _type = COMMENT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/jahn/workspace1/jahnestacado/jahnestacado/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:165:6: ( ( '/*' ( . )* '*/' | '//' ) )
-            // /home/jahn/workspace1/jahnestacado/jahnestacado/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:165:8: ( '/*' ( . )* '*/' | '//' )
+            // /home/jahn/workspace1/jahnestacado/jahnestacado/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:167:6: ( ( '/*' ( . )* '*/' | '//' ) )
+            // /home/jahn/workspace1/jahnestacado/jahnestacado/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:167:8: ( '/*' ( . )* '*/' | '//' )
             {
-            // /home/jahn/workspace1/jahnestacado/jahnestacado/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:165:8: ( '/*' ( . )* '*/' | '//' )
+            // /home/jahn/workspace1/jahnestacado/jahnestacado/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:167:8: ( '/*' ( . )* '*/' | '//' )
             int alt3=2;
             int LA3_0 = input.LA(1);
 
@@ -715,13 +739,13 @@ public class QLLexer extends Lexer {
             }
             switch (alt3) {
                 case 1 :
-                    // /home/jahn/workspace1/jahnestacado/jahnestacado/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:165:9: '/*' ( . )* '*/'
+                    // /home/jahn/workspace1/jahnestacado/jahnestacado/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:167:9: '/*' ( . )* '*/'
                     {
                     match("/*"); 
 
 
 
-                    // /home/jahn/workspace1/jahnestacado/jahnestacado/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:165:14: ( . )*
+                    // /home/jahn/workspace1/jahnestacado/jahnestacado/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:167:14: ( . )*
                     loop2:
                     do {
                         int alt2=2;
@@ -746,7 +770,7 @@ public class QLLexer extends Lexer {
 
                         switch (alt2) {
                     	case 1 :
-                    	    // /home/jahn/workspace1/jahnestacado/jahnestacado/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:165:14: .
+                    	    // /home/jahn/workspace1/jahnestacado/jahnestacado/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:167:14: .
                     	    {
                     	    matchAny(); 
 
@@ -766,7 +790,7 @@ public class QLLexer extends Lexer {
                     }
                     break;
                 case 2 :
-                    // /home/jahn/workspace1/jahnestacado/jahnestacado/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:165:22: '//'
+                    // /home/jahn/workspace1/jahnestacado/jahnestacado/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:167:22: '//'
                     {
                     match("//"); 
 
@@ -796,12 +820,12 @@ public class QLLexer extends Lexer {
         try {
             int _type = StringLit;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/jahn/workspace1/jahnestacado/jahnestacado/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:170:11: ( '\"' ( . )* '\"' )
-            // /home/jahn/workspace1/jahnestacado/jahnestacado/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:170:13: '\"' ( . )* '\"'
+            // /home/jahn/workspace1/jahnestacado/jahnestacado/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:172:11: ( '\"' ( . )* '\"' )
+            // /home/jahn/workspace1/jahnestacado/jahnestacado/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:172:13: '\"' ( . )* '\"'
             {
             match('\"'); 
 
-            // /home/jahn/workspace1/jahnestacado/jahnestacado/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:170:17: ( . )*
+            // /home/jahn/workspace1/jahnestacado/jahnestacado/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:172:17: ( . )*
             loop4:
             do {
                 int alt4=2;
@@ -817,7 +841,7 @@ public class QLLexer extends Lexer {
 
                 switch (alt4) {
             	case 1 :
-            	    // /home/jahn/workspace1/jahnestacado/jahnestacado/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:170:17: .
+            	    // /home/jahn/workspace1/jahnestacado/jahnestacado/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:172:17: .
             	    {
             	    matchAny(); 
 
@@ -848,8 +872,8 @@ public class QLLexer extends Lexer {
         try {
             int _type = Ident;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/jahn/workspace1/jahnestacado/jahnestacado/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:173:6: ( ( 'a' .. 'z' | 'A' .. 'Z' ) ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )* )
-            // /home/jahn/workspace1/jahnestacado/jahnestacado/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:173:10: ( 'a' .. 'z' | 'A' .. 'Z' ) ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )*
+            // /home/jahn/workspace1/jahnestacado/jahnestacado/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:175:6: ( ( 'a' .. 'z' | 'A' .. 'Z' ) ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )* )
+            // /home/jahn/workspace1/jahnestacado/jahnestacado/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:175:10: ( 'a' .. 'z' | 'A' .. 'Z' ) ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )*
             {
             if ( (input.LA(1) >= 'A' && input.LA(1) <= 'Z')||(input.LA(1) >= 'a' && input.LA(1) <= 'z') ) {
                 input.consume();
@@ -861,7 +885,7 @@ public class QLLexer extends Lexer {
             }
 
 
-            // /home/jahn/workspace1/jahnestacado/jahnestacado/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:173:29: ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )*
+            // /home/jahn/workspace1/jahnestacado/jahnestacado/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:175:29: ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )*
             loop5:
             do {
                 int alt5=2;
@@ -911,8 +935,8 @@ public class QLLexer extends Lexer {
         try {
             int _type = Decimal;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/jahn/workspace1/jahnestacado/jahnestacado/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:175:9: ( Int '.' Int )
-            // /home/jahn/workspace1/jahnestacado/jahnestacado/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:175:11: Int '.' Int
+            // /home/jahn/workspace1/jahnestacado/jahnestacado/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:177:9: ( Int '.' Int )
+            // /home/jahn/workspace1/jahnestacado/jahnestacado/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:177:11: Int '.' Int
             {
             mInt(); 
 
@@ -938,10 +962,10 @@ public class QLLexer extends Lexer {
         try {
             int _type = Int;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/jahn/workspace1/jahnestacado/jahnestacado/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:176:4: ( ( '0' .. '9' )+ )
-            // /home/jahn/workspace1/jahnestacado/jahnestacado/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:176:6: ( '0' .. '9' )+
+            // /home/jahn/workspace1/jahnestacado/jahnestacado/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:178:4: ( ( '0' .. '9' )+ )
+            // /home/jahn/workspace1/jahnestacado/jahnestacado/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:178:6: ( '0' .. '9' )+
             {
-            // /home/jahn/workspace1/jahnestacado/jahnestacado/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:176:6: ( '0' .. '9' )+
+            // /home/jahn/workspace1/jahnestacado/jahnestacado/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:178:6: ( '0' .. '9' )+
             int cnt6=0;
             loop6:
             do {
@@ -992,8 +1016,8 @@ public class QLLexer extends Lexer {
     // $ANTLR end "Int"
 
     public void mTokens() throws RecognitionException {
-        // /home/jahn/workspace1/jahnestacado/jahnestacado/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:1:8: ( T__15 | T__16 | T__17 | T__18 | T__19 | T__20 | T__21 | T__22 | T__23 | T__24 | T__25 | T__26 | T__27 | T__28 | T__29 | T__30 | T__31 | T__32 | T__33 | T__34 | INTEGER | STRING | BOOLEAN | MONEY | BoolLit | WS | COMMENT | StringLit | Ident | Decimal | Int )
-        int alt7=31;
+        // /home/jahn/workspace1/jahnestacado/jahnestacado/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:1:8: ( T__15 | T__16 | T__17 | T__18 | T__19 | T__20 | T__21 | T__22 | T__23 | T__24 | T__25 | T__26 | T__27 | T__28 | T__29 | T__30 | T__31 | T__32 | T__33 | T__34 | T__35 | INTEGER | STRING | BOOLEAN | MONEY | BoolLit | WS | COMMENT | StringLit | Ident | Decimal | Int )
+        int alt7=32;
         alt7 = dfa7.predict(input);
         switch (alt7) {
             case 1 :
@@ -1157,87 +1181,95 @@ public class QLLexer extends Lexer {
                 }
                 break;
             case 21 :
-                // /home/jahn/workspace1/jahnestacado/jahnestacado/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:1:130: INTEGER
+                // /home/jahn/workspace1/jahnestacado/jahnestacado/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:1:130: T__35
+                {
+                mT__35(); 
+
+
+                }
+                break;
+            case 22 :
+                // /home/jahn/workspace1/jahnestacado/jahnestacado/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:1:136: INTEGER
                 {
                 mINTEGER(); 
 
 
                 }
                 break;
-            case 22 :
-                // /home/jahn/workspace1/jahnestacado/jahnestacado/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:1:138: STRING
+            case 23 :
+                // /home/jahn/workspace1/jahnestacado/jahnestacado/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:1:144: STRING
                 {
                 mSTRING(); 
 
 
                 }
                 break;
-            case 23 :
-                // /home/jahn/workspace1/jahnestacado/jahnestacado/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:1:145: BOOLEAN
+            case 24 :
+                // /home/jahn/workspace1/jahnestacado/jahnestacado/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:1:151: BOOLEAN
                 {
                 mBOOLEAN(); 
 
 
                 }
                 break;
-            case 24 :
-                // /home/jahn/workspace1/jahnestacado/jahnestacado/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:1:153: MONEY
+            case 25 :
+                // /home/jahn/workspace1/jahnestacado/jahnestacado/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:1:159: MONEY
                 {
                 mMONEY(); 
 
 
                 }
                 break;
-            case 25 :
-                // /home/jahn/workspace1/jahnestacado/jahnestacado/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:1:159: BoolLit
+            case 26 :
+                // /home/jahn/workspace1/jahnestacado/jahnestacado/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:1:165: BoolLit
                 {
                 mBoolLit(); 
 
 
                 }
                 break;
-            case 26 :
-                // /home/jahn/workspace1/jahnestacado/jahnestacado/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:1:167: WS
+            case 27 :
+                // /home/jahn/workspace1/jahnestacado/jahnestacado/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:1:173: WS
                 {
                 mWS(); 
 
 
                 }
                 break;
-            case 27 :
-                // /home/jahn/workspace1/jahnestacado/jahnestacado/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:1:170: COMMENT
+            case 28 :
+                // /home/jahn/workspace1/jahnestacado/jahnestacado/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:1:176: COMMENT
                 {
                 mCOMMENT(); 
 
 
                 }
                 break;
-            case 28 :
-                // /home/jahn/workspace1/jahnestacado/jahnestacado/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:1:178: StringLit
+            case 29 :
+                // /home/jahn/workspace1/jahnestacado/jahnestacado/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:1:184: StringLit
                 {
                 mStringLit(); 
 
 
                 }
                 break;
-            case 29 :
-                // /home/jahn/workspace1/jahnestacado/jahnestacado/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:1:188: Ident
+            case 30 :
+                // /home/jahn/workspace1/jahnestacado/jahnestacado/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:1:194: Ident
                 {
                 mIdent(); 
 
 
                 }
                 break;
-            case 30 :
-                // /home/jahn/workspace1/jahnestacado/jahnestacado/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:1:194: Decimal
+            case 31 :
+                // /home/jahn/workspace1/jahnestacado/jahnestacado/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:1:200: Decimal
                 {
                 mDecimal(); 
 
 
                 }
                 break;
-            case 31 :
-                // /home/jahn/workspace1/jahnestacado/jahnestacado/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:1:202: Int
+            case 32 :
+                // /home/jahn/workspace1/jahnestacado/jahnestacado/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:1:208: Int
                 {
                 mInt(); 
 
@@ -1252,62 +1284,64 @@ public class QLLexer extends Lexer {
 
     protected DFA7 dfa7 = new DFA7(this);
     static final String DFA7_eotS =
-        "\1\uffff\1\33\6\uffff\1\35\1\uffff\1\37\1\uffff\1\41\2\30\3\uffff"+
-        "\4\30\3\uffff\1\52\10\uffff\2\30\1\56\5\30\2\uffff\2\30\1\uffff"+
-        "\1\66\4\30\1\73\1\30\1\uffff\3\30\1\100\1\uffff\1\100\2\30\1\103"+
-        "\1\uffff\1\104\1\30\2\uffff\1\106\1\uffff";
+        "\1\uffff\1\34\6\uffff\1\36\1\uffff\1\40\1\uffff\1\42\3\31\3\uffff"+
+        "\4\31\3\uffff\1\54\10\uffff\3\31\1\61\5\31\2\uffff\3\31\1\uffff"+
+        "\1\72\4\31\1\77\1\100\1\31\1\uffff\3\31\1\105\2\uffff\1\105\2\31"+
+        "\1\110\1\uffff\1\111\1\31\2\uffff\1\113\1\uffff";
     static final String DFA7_eofS =
-        "\107\uffff";
+        "\114\uffff";
     static final String DFA7_minS =
-        "\1\11\1\75\6\uffff\1\52\1\uffff\1\75\1\uffff\1\75\1\141\1\146\3"+
-        "\uffff\1\164\2\157\1\162\3\uffff\1\56\10\uffff\1\162\1\154\1\60"+
-        "\1\164\1\162\1\157\1\156\1\165\2\uffff\1\155\1\163\1\uffff\1\60"+
-        "\1\151\1\154\2\145\1\60\1\145\1\uffff\1\156\1\145\1\171\1\60\1\uffff"+
-        "\1\60\1\147\1\141\1\60\1\uffff\1\60\1\156\2\uffff\1\60\1\uffff";
+        "\1\11\1\75\6\uffff\1\52\1\uffff\1\75\1\uffff\1\75\1\154\1\141\1"+
+        "\146\3\uffff\1\164\2\157\1\162\3\uffff\1\56\10\uffff\1\163\1\162"+
+        "\1\154\1\60\1\164\1\162\1\157\1\156\1\165\2\uffff\1\145\1\155\1"+
+        "\163\1\uffff\1\60\1\151\1\154\2\145\2\60\1\145\1\uffff\1\156\1\145"+
+        "\1\171\1\60\2\uffff\1\60\1\147\1\141\1\60\1\uffff\1\60\1\156\2\uffff"+
+        "\1\60\1\uffff";
     static final String DFA7_maxS =
-        "\1\175\1\75\6\uffff\1\57\1\uffff\1\75\1\uffff\1\75\1\157\1\156\3"+
-        "\uffff\1\164\2\157\1\162\3\uffff\1\71\10\uffff\1\162\1\154\1\172"+
-        "\1\164\1\162\1\157\1\156\1\165\2\uffff\1\155\1\163\1\uffff\1\172"+
-        "\1\151\1\154\2\145\1\172\1\145\1\uffff\1\156\1\145\1\171\1\172\1"+
-        "\uffff\1\172\1\147\1\141\1\172\1\uffff\1\172\1\156\2\uffff\1\172"+
-        "\1\uffff";
+        "\1\175\1\75\6\uffff\1\57\1\uffff\1\75\1\uffff\1\75\1\154\1\157\1"+
+        "\156\3\uffff\1\164\2\157\1\162\3\uffff\1\71\10\uffff\1\163\1\162"+
+        "\1\154\1\172\1\164\1\162\1\157\1\156\1\165\2\uffff\1\145\1\155\1"+
+        "\163\1\uffff\1\172\1\151\1\154\2\145\2\172\1\145\1\uffff\1\156\1"+
+        "\145\1\171\1\172\2\uffff\1\172\1\147\1\141\1\172\1\uffff\1\172\1"+
+        "\156\2\uffff\1\172\1\uffff";
     static final String DFA7_acceptS =
-        "\2\uffff\1\3\1\4\1\5\1\6\1\7\1\10\1\uffff\1\12\1\uffff\1\15\3\uffff"+
-        "\1\22\1\23\1\24\4\uffff\1\32\1\34\1\35\1\uffff\1\2\1\1\1\33\1\11"+
-        "\1\14\1\13\1\17\1\16\10\uffff\1\37\1\36\2\uffff\1\21\7\uffff\1\25"+
-        "\4\uffff\1\20\4\uffff\1\31\2\uffff\1\30\1\26\1\uffff\1\27";
+        "\2\uffff\1\3\1\4\1\5\1\6\1\7\1\10\1\uffff\1\12\1\uffff\1\15\4\uffff"+
+        "\1\23\1\24\1\25\4\uffff\1\33\1\35\1\36\1\uffff\1\2\1\1\1\34\1\11"+
+        "\1\14\1\13\1\17\1\16\11\uffff\1\40\1\37\3\uffff\1\22\10\uffff\1"+
+        "\26\4\uffff\1\20\1\21\4\uffff\1\32\2\uffff\1\31\1\27\1\uffff\1\30";
     static final String DFA7_specialS =
-        "\107\uffff}>";
+        "\114\uffff}>";
     static final String[] DFA7_transitionS = {
-            "\2\26\2\uffff\1\26\22\uffff\1\26\1\1\1\27\3\uffff\1\2\1\uffff"+
-            "\1\3\1\4\1\5\1\6\1\uffff\1\7\1\uffff\1\10\12\31\1\11\1\uffff"+
-            "\1\12\1\13\1\14\2\uffff\32\30\6\uffff\1\30\1\23\3\30\1\15\2"+
-            "\30\1\16\3\30\1\24\5\30\1\22\1\25\6\30\1\17\1\20\1\21",
-            "\1\32",
+            "\2\27\2\uffff\1\27\22\uffff\1\27\1\1\1\30\3\uffff\1\2\1\uffff"+
+            "\1\3\1\4\1\5\1\6\1\uffff\1\7\1\uffff\1\10\12\32\1\11\1\uffff"+
+            "\1\12\1\13\1\14\2\uffff\32\31\6\uffff\1\31\1\24\2\31\1\15\1"+
+            "\16\2\31\1\17\3\31\1\25\5\31\1\23\1\26\6\31\1\20\1\21\1\22",
+            "\1\33",
             "",
             "",
             "",
             "",
             "",
             "",
-            "\1\34\4\uffff\1\34",
+            "\1\35\4\uffff\1\35",
             "",
-            "\1\36",
+            "\1\37",
             "",
-            "\1\40",
-            "\1\43\15\uffff\1\42",
-            "\1\44\7\uffff\1\45",
+            "\1\41",
+            "\1\43",
+            "\1\45\15\uffff\1\44",
+            "\1\46\7\uffff\1\47",
             "",
             "",
             "",
-            "\1\46",
-            "\1\47",
             "\1\50",
             "\1\51",
+            "\1\52",
+            "\1\53",
             "",
             "",
             "",
-            "\1\53\1\uffff\12\31",
+            "\1\55\1\uffff\12\32",
             "",
             "",
             "",
@@ -1316,42 +1350,46 @@ public class QLLexer extends Lexer {
             "",
             "",
             "",
-            "\1\54",
-            "\1\55",
-            "\12\30\7\uffff\32\30\4\uffff\1\30\1\uffff\32\30",
+            "\1\56",
             "\1\57",
             "\1\60",
-            "\1\61",
+            "\12\31\7\uffff\32\31\4\uffff\1\31\1\uffff\32\31",
             "\1\62",
             "\1\63",
-            "",
-            "",
             "\1\64",
             "\1\65",
+            "\1\66",
             "",
-            "\12\30\7\uffff\32\30\4\uffff\1\30\1\uffff\32\30",
+            "",
             "\1\67",
             "\1\70",
             "\1\71",
-            "\1\72",
-            "\12\30\7\uffff\32\30\4\uffff\1\30\1\uffff\32\30",
-            "\1\74",
             "",
+            "\12\31\7\uffff\32\31\4\uffff\1\31\1\uffff\32\31",
+            "\1\73",
+            "\1\74",
             "\1\75",
             "\1\76",
-            "\1\77",
-            "\12\30\7\uffff\32\30\4\uffff\1\30\1\uffff\32\30",
-            "",
-            "\12\30\7\uffff\32\30\4\uffff\1\30\1\uffff\32\30",
+            "\12\31\7\uffff\32\31\4\uffff\1\31\1\uffff\32\31",
+            "\12\31\7\uffff\32\31\4\uffff\1\31\1\uffff\32\31",
             "\1\101",
+            "",
             "\1\102",
-            "\12\30\7\uffff\32\30\4\uffff\1\30\1\uffff\32\30",
+            "\1\103",
+            "\1\104",
+            "\12\31\7\uffff\32\31\4\uffff\1\31\1\uffff\32\31",
             "",
-            "\12\30\7\uffff\32\30\4\uffff\1\30\1\uffff\32\30",
-            "\1\105",
+            "",
+            "\12\31\7\uffff\32\31\4\uffff\1\31\1\uffff\32\31",
+            "\1\106",
+            "\1\107",
+            "\12\31\7\uffff\32\31\4\uffff\1\31\1\uffff\32\31",
+            "",
+            "\12\31\7\uffff\32\31\4\uffff\1\31\1\uffff\32\31",
+            "\1\112",
             "",
             "",
-            "\12\30\7\uffff\32\30\4\uffff\1\30\1\uffff\32\30",
+            "\12\31\7\uffff\32\31\4\uffff\1\31\1\uffff\32\31",
             ""
     };
 
@@ -1385,7 +1423,7 @@ public class QLLexer extends Lexer {
             this.transition = DFA7_transition;
         }
         public String getDescription() {
-            return "1:1: Tokens : ( T__15 | T__16 | T__17 | T__18 | T__19 | T__20 | T__21 | T__22 | T__23 | T__24 | T__25 | T__26 | T__27 | T__28 | T__29 | T__30 | T__31 | T__32 | T__33 | T__34 | INTEGER | STRING | BOOLEAN | MONEY | BoolLit | WS | COMMENT | StringLit | Ident | Decimal | Int );";
+            return "1:1: Tokens : ( T__15 | T__16 | T__17 | T__18 | T__19 | T__20 | T__21 | T__22 | T__23 | T__24 | T__25 | T__26 | T__27 | T__28 | T__29 | T__30 | T__31 | T__32 | T__33 | T__34 | T__35 | INTEGER | STRING | BOOLEAN | MONEY | BoolLit | WS | COMMENT | StringLit | Ident | Decimal | Int );";
         }
     }
  

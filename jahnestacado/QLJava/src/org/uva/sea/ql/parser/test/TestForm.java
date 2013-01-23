@@ -10,7 +10,8 @@ import org.junit.Test;
 import org.uva.sea.ql.ast.form.Body;
 import org.uva.sea.ql.ast.form.ComputedQuestion;
 import org.uva.sea.ql.ast.form.Form;
-import org.uva.sea.ql.ast.form.IfBlock;
+import org.uva.sea.ql.ast.form.IfThen;
+import org.uva.sea.ql.ast.form.IfThenElse;
 import org.uva.sea.ql.ast.form.Question;
 import org.uva.sea.ql.parser.antlr.ANTLRParser;
 
@@ -29,13 +30,12 @@ public class TestForm {
 	@Test
 	public void testForm() throws ParseError {
 		try {
-			final String path = "/src/org/uva/sea/ql/launcher/SampleCode.ql";
+			final String path = "src/org/uva/sea/ql/launcher/SampleCode.ql";
 			File filePath = new File(path);
 			ANTLRFileStream charStream = new ANTLRFileStream(filePath.getAbsolutePath());
 			assertEquals(Form.class, parser.parseForm(charStream.toString()).getClass());
 			
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -59,12 +59,16 @@ public class TestForm {
 	}
 
 	@Test
-	public void testIfBlock() throws ParseError {
+	public void testConditionalElement() throws ParseError {
 
-		assertEquals(IfBlock.class,parser.parseIfBlock("if (a>b) {id1 :\"label\"int   id2 :\"label\" int (a-b)}").getClass());
-		assertEquals(IfBlock.class,parser.parseIfBlock("if (a>b) {id3 :\"label\" money  	if (a>b) {id4 :\"label\" int   id :\"label\" int (a-b) } id :\"label\" int (a-b)}").getClass());
+		assertEquals(IfThen.class,parser.parseConditionalElement("if (a>b) {id1 :\"label\"int   id2 :\"label\" int (a-b)}").getClass());
+		assertEquals(IfThen.class,parser.parseConditionalElement("if (a>b) {id3 :\"label\" money  	if (a>b) {id4 :\"label\" int   id :\"label\" int (a-b) } id :\"label\" int (a-b)}").getClass());
+		assertEquals(IfThenElse.class,parser.parseConditionalElement("if (a>b) {" +question1+""+ question2+"} else {"+ question1 + " " + question2 + ifBlock+"}").getClass());
+		assertEquals(IfThenElse.class,parser.parseConditionalElement("if (a>b) {" + question2+"} else {"+ ifBlock+" "+ question1 + " " + question2 + ifBlock+"}").getClass());
 
 	}
+	
+	
 
 	@Test
 	public void testBody() throws ParseError {
@@ -73,6 +77,7 @@ public class TestForm {
 		assertEquals(Body.class,parser.parseBody("if (name) { " + question1 + "" + question2 + "}").getClass());
 		assertEquals(Body.class, parser.parseBody(ifBlock).getClass());
 		assertEquals(Body.class,parser.parseBody("if (name) { " + question1 + "" + question2 + ifBlock+ "}").getClass());
+		assertEquals(Body.class,parser.parseBody("if (a>b) {" + question2+"} else {"+ ifBlock+" "+ question1 + " " + question2 + ifBlock+"}").getClass());
 
 	}
 }
