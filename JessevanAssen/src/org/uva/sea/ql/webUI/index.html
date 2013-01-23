@@ -155,7 +155,7 @@
     <script type="text/javascript">
         var _viewModel = new (function(){
             var _self = this;
-            _self.identities = {
+            _self.identifiers = {
                 hasSoldHouse:ko.observable(true),
                 hasBoughtHouse:ko.observable(),
                 hasMaintLoan:ko.observable(true),
@@ -165,20 +165,20 @@
             _self.root = new Block(
                 function(){return true;},
                 [
-                    new Question("Did you sell a house in 2010?","hasSoldHouse",_self.identities.hasSoldHouse,DataType.BOOLEAN),
-                    new Question("Did you by a house in 2010?","hasBoughtHouse",_self.identities.hasBoughtHouse,DataType.BOOLEAN),
-                    new Question("Did you enter a loan for maintenance/reconstruction?","hasMaintLoan",_self.identities.hasMaintLoan,DataType.BOOLEAN),
+                    new Question("Did you sell a house in 2010?","hasSoldHouse",_self.identifiers.hasSoldHouse,DataType.BOOLEAN),
+                    new Question("Did you by a house in 2010?","hasBoughtHouse",_self.identifiers.hasBoughtHouse,DataType.BOOLEAN),
+                    new Question("Did you enter a loan for maintenance/reconstruction?","hasMaintLoan",_self.identifiers.hasMaintLoan,DataType.BOOLEAN),
                     new Block(
                         function(){
-                            return _self.identities.hasSoldHouse();
+                            return _self.identifiers.hasSoldHouse();
                         },
                         [
-                            new Question("Private debts for the sold house:","privateDebt",_self.identities.privateDebt,DataType.INTEGER, _self),
-                            new Question("Price the house was sold for:","sellingPrice",_self.identities.sellingPrice,DataType.INTEGER, _self),
-                            new Computed("Value residue:",function(){return (_self.identities.sellingPrice()-_self.identities.privateDebt());})
+                            new Question("Private debts for the sold house:","privateDebt",_self.identifiers.privateDebt,DataType.INTEGER, _self),
+                            new Question("Price the house was sold for:","sellingPrice",_self.identifiers.sellingPrice,DataType.INTEGER, _self),
+                            new Computed("Value residue:",function(){return (_self.identifiers.sellingPrice()-_self.identifiers.privateDebt());})
                         ]
                     ),
-                    new Block(function(){return !_self.identities.hasSoldHouse();},[])
+                    new Block(function(){return !_self.identifiers.hasSoldHouse();},[])
                 ]
             );
         })();

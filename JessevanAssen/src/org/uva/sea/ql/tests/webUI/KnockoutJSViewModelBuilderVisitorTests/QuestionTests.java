@@ -1,7 +1,6 @@
 package org.uva.sea.ql.tests.webUI.KnockoutJSViewModelBuilderVisitorTests;
 
 import org.junit.Test;
-import org.uva.sea.ql.ast.Declaration;
 import org.uva.sea.ql.ast.Question;
 import org.uva.sea.ql.ast.expr.Ident;
 import org.uva.sea.ql.ast.type.Bool;
@@ -12,13 +11,22 @@ import static org.junit.Assert.assertEquals;
 public class QuestionTests extends KnockoutJSViewModelBuilderVisitorTests {
 
     private static final String QUESTION_LABEL = "question label";
-    private static final String IDENTITY_NAME = "abcde";
+    private static final String IDENTIFIER_NAME = "abcde";
 
     @Test
     public void questionVisited_questionAddedToStringBuilder() {
         createQuestion(new Bool()).accept(visitor, context);
         assertEquals(
-                String.format("new Question(\"%s\",\"%s\",_self.identities.%s,DataType.BOOLEAN)", QUESTION_LABEL, IDENTITY_NAME, IDENTITY_NAME),
+                String.format("new Question(\"%s\",\"%s\",_self.identifiers.%s,DataType.BOOLEAN)", QUESTION_LABEL, IDENTIFIER_NAME, IDENTIFIER_NAME),
+                context.getObjectHierarchy().toString()
+        );
+    }
+
+    @Test
+    public void questionVisited_addVariableToIdentifierMap() {
+        createQuestion(new Bool()).accept(visitor, context);
+        assertEquals(
+                String.format("new Question(\"%s\",\"%s\",_self.identifiers.%s,DataType.BOOLEAN)", QUESTION_LABEL, IDENTIFIER_NAME, IDENTIFIER_NAME),
                 context.getObjectHierarchy().toString()
         );
     }
@@ -27,10 +35,8 @@ public class QuestionTests extends KnockoutJSViewModelBuilderVisitorTests {
     private Question createQuestion(Type type) {
         return new Question(
                 QUESTION_LABEL,
-                new Declaration(
-                        new Ident(IDENTITY_NAME),
-                        type
-                )
+                new Ident(IDENTIFIER_NAME),
+                type
         );
     }
 }

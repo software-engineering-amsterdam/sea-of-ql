@@ -6,7 +6,6 @@ import org.uva.sea.ql.ast.expr.value.Bool;
 import org.uva.sea.ql.ast.expr.value.Int;
 import org.uva.sea.ql.ast.expr.value.Str;
 import org.uva.sea.ql.ast.type.TypeVisitor;
-import org.uva.sea.ql.ast.type.Unknown;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -15,32 +14,32 @@ import java.util.List;
 public class KnockoutJSViewModelBuilderVisitor implements ASTNodeVisitor<Void, KnockoutJSViewModelBuilderVisitor.Context>, TypeVisitor<String, Void> {
 
     public static class Context {
-        private final List<String> identities;
+        private final List<String> identifiers;
         private final StringBuilder objectHierarchy;
 
         public Context() {
-            this.identities = new ArrayList<String>();
+            this.identifiers = new ArrayList<String>();
             this.objectHierarchy = new StringBuilder();
         }
 
-        public List<String> getIdentities() { return identities; }
+        public List<String> getIdentifiers() { return identifiers; }
         public StringBuilder getObjectHierarchy() { return objectHierarchy; }
     }
 
-    private static final String VIEWMODEL_TEMPLATE = "var _viewModel=new function(){var _self=this;_self.identities=%s;_self.root=%s;})();";
+    private static final String VIEWMODEL_TEMPLATE = "var _viewModel=new function(){var _self=this;_self.identifiers=%s;_self.root=%s;})();";
 
     public String createViewModel(Form form) {
         Context context = new Context();
         form.accept(this, context);
 
         return String.format(VIEWMODEL_TEMPLATE,
-                createIdentityObject(context.identities),
+                createIdentifierObject(context.identifiers),
                 context.getObjectHierarchy().toString());
     }
 
-    private String createIdentityObject(Iterable<String> identities) {
+    private String createIdentifierObject(Iterable<String> identifiers) {
         StringBuilder stringBuilder = new StringBuilder("{");
-        for(Iterator<String> iterator = identities.iterator(); iterator.hasNext(); ) {
+        for(Iterator<String> iterator = identifiers.iterator(); iterator.hasNext(); ) {
             stringBuilder
                     .append(iterator.next())
                     .append(":ko.observable()");
@@ -96,12 +95,6 @@ public class KnockoutJSViewModelBuilderVisitor implements ASTNodeVisitor<Void, K
     }
 
     @Override
-    public Void visit(Declaration astNode, Context param) {
-        param.getIdentities().add(astNode.getIdentity().getName());
-        return null;
-    }
-
-    @Override
     public Void visit(Div astNode, Context param) {
         visitBinaryExpression(astNode, param, "/");
         return null;
@@ -136,7 +129,7 @@ public class KnockoutJSViewModelBuilderVisitor implements ASTNodeVisitor<Void, K
     @Override
     public Void visit(Ident astNode, Context param) {
         param.getObjectHierarchy()
-                .append("_self.identities.")
+                .append("_self.identifiers.")
                 .append(astNode.getName())
                 .append("()");
         return null;
@@ -144,16 +137,24 @@ public class KnockoutJSViewModelBuilderVisitor implements ASTNodeVisitor<Void, K
 
     @Override
     public Void visit(If astNode, Context param) {
-        param.getObjectHierarchy().append("new Block(function(){return ");
-        astNode.getCondition().accept(this, param);
-        param.getObjectHierarchy().append(";},[");
-        astNode.getIfBody().accept(this, param);
-        param.getObjectHierarchy().append("]),new Block(function(){return !");
-        astNode.getCondition().accept(this, param);
-        param.getObjectHierarchy().append(";},[");
-        astNode.getElseBody().accept(this, param);
-        param.getObjectHierarchy().append("])");
+        createBlock(astNode.getCondition(), astNode.getIfBody(), param);
         return null;
+    }
+
+    @Override
+    public Void visit(IfElse astNode, Context param) {
+        createBlock(astNode.getCondition(), astNode.getIfBody(), param);
+        param.getObjectHierarchy().append(",");
+        createBlock(new Not(astNode.getCondition()), astNode.getIfBody(), param);
+        return null;
+    }
+
+    private void createBlock(Expr condition, FormElement body, Context context) {
+        context.getObjectHierarchy().append("new Block(function(){return ");
+        condition.accept(this, context);
+        context.getObjectHierarchy().append(";},[");
+        body.accept(this, context);
+        context.getObjectHierarchy().append("])");
     }
 
     @Override
@@ -212,17 +213,23 @@ public class KnockoutJSViewModelBuilderVisitor implements ASTNodeVisitor<Void, K
 
     @Override
     public Void visit(Question astNode, Context param) {
-        astNode.getDeclaration().accept(this, param);
+        param.getIdentifiers().add(astNode.getIdentifier().getName());
+
         param.getObjectHierarchy()
                 .append("new Question(\"")
                 .append(astNode.getQuestion())
                 .append("\",\"")
-                .append(astNode.getDeclaration().getIdentity().getName())
-                .append("\",_self.identities.")
-                .append(astNode.getDeclaration().getIdentity().getName())
+                .append(astNode.getIdentifier().getName())
+                .append("\",_self.identifiers.")
+                .append(astNode.getIdentifier().getName())
                 .append(",")
-                .append(astNode.getDeclaration().getType().accept(this, null))
+                .append(astNode.getType().accept(this, null))
                 .append(")");
+        return null;
+    }
+
+    @Override
+    public Void visit(StoredExpression astNode, Context param) {
         return null;
     }
 
@@ -269,7 +276,12 @@ public class KnockoutJSViewModelBuilderVisitor implements ASTNodeVisitor<Void, K
     }
 
     @Override
-    public String visit(Unknown type, Void param) {
+    public String visit(org.uva.sea.ql.ast.type.Unknown type, Void param) {
         throw new RuntimeException("Visit called on unknown type, no type should be unknown at this point!");
+    }
+
+    @Override
+    public String visit(org.uva.sea.ql.ast.type.Void type, Void param) {
+        throw new RuntimeException("Visit called on void type. There should be no need to access the type of an Void expression.");
     }
 }
