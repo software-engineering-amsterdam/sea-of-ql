@@ -8,7 +8,7 @@ import org.uva.sea.ql.ast.Expr;
 import org.uva.sea.ql.ast.elements.Ident;
 import org.uva.sea.ql.ast.literal.IntLiteral;
 import org.uva.sea.ql.ast.literal.StringLiteral;
-import org.uva.sea.ql.ast.types.Bool;
+import org.uva.sea.ql.ast.types.BooleanType;
 import org.uva.sea.ql.ast.types.Money;
 import org.uva.sea.ql.parser.ParseError;
 import org.uva.sea.ql.test.common.CurrentTest;
@@ -83,7 +83,7 @@ public class TestFields extends TestExpressions {
 	public void testBoolean() throws ParseError {
 		Expr e = CurrentTest.parse("boolean");
 		assertNotNull(e);
-		assertEquals(Bool.class, e.getClass());
+		assertEquals(BooleanType.class, e.getClass());
 	}
 
 	@Test

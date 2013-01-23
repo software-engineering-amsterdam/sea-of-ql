@@ -11,7 +11,7 @@ import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
 import org.uva.sea.ql.ast.statement.Block;
 import org.uva.sea.ql.ast.statement.ComputedQuestion;
-import org.uva.sea.ql.ast.statement.IfStatement;
+import org.uva.sea.ql.ast.statement.If;
 import org.uva.sea.ql.ast.statement.Question;
 import org.uva.sea.ql.parser.antlr.StatementParser;
 
@@ -55,9 +55,9 @@ public class TestStatements {
 
 	@Test
 	public void testIfStatements() throws ParseError {
-		assertEquals(IfStatement.class, parser.parse("if (a < b) { }")
+		assertEquals(If.class, parser.parse("if (a < b) { }")
 				.getClass());
-		assertEquals(IfStatement.class, parser.parse("if (a > b || b < c) { }")
+		assertEquals(If.class, parser.parse("if (a > b || b < c) { }")
 				.getClass());
 	}
 

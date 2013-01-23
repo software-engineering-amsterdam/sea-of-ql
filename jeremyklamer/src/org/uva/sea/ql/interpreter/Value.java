@@ -1,5 +1,5 @@
 package org.uva.sea.ql.interpreter;
 
-public class Value {
+public abstract class Value {
 
 }

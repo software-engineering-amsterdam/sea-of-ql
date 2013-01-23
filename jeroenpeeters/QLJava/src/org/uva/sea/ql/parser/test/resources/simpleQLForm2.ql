@@ -3,6 +3,7 @@ form DemoForm {
 	hasSoldHouse: "Did you sell a house?" boolean 
 	
 	if(hasSoldHouse){
+		
 		initialPrice: "Price you bough the house for?" 	money
 		sellPrice	: "Price you sold the house for?" 	money
 		

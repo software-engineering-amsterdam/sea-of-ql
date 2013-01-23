@@ -25,7 +25,7 @@ public class ASTPrinter implements ASTNodeVisitor {
 	public void visit(Pos node) {
 		print("+ (pos)");
 		ident++;
-		node.getExpr().accept(this);
+		node.getOperand().accept(this);
 		ident--;
 	}
 
@@ -33,7 +33,7 @@ public class ASTPrinter implements ASTNodeVisitor {
 	public void visit(Neg node) {
 		print("- (neg)");
 		ident++;
-		node.getExpr().accept(this);
+		node.getOperand().accept(this);
 		ident--;
 	}
 
@@ -41,7 +41,7 @@ public class ASTPrinter implements ASTNodeVisitor {
 	public void visit(Not node) {
 		print("! (not)");
 		ident++;
-		node.getExpr().accept(this);
+		node.getOperand().accept(this);
 		ident--;
 	}
 
@@ -159,18 +159,18 @@ public class ASTPrinter implements ASTNodeVisitor {
 	}
 
 	@Override
-	public void visit(IntegerValue node) {
-		print(Integer.toString(node.getValue()) + " (integer)");
+	public void visit(IntegerLiteral node) {
+		print(Integer.toString(node.getValue()) + " (integer literal)");
 	}
 
 	@Override
-	public void visit(BooleanValue node) {
-		print((node.getValue() ? "true" : "false") + " (boolean)");
+	public void visit(BooleanLiteral node) {
+		print((node.getValue() ? "true" : "false") + " (boolean literal)");
 	}
 
 	@Override
-	public void visit(StringValue node) {
-		print("\"" + node.getValue() + "\" (string)");
+	public void visit(StringLiteral node) {
+		print("\"" + node.getValue() + "\" (string literal)");
 	}
 
 	@Override
@@ -199,7 +199,7 @@ public class ASTPrinter implements ASTNodeVisitor {
 
 	@Override
 	public void visit(StatementList node) {
-		print("(statement list)");
+		print("(statementlist)");
 		ident++;
 		print(node.getList().size() + " statements in list");
 		for (ASTNode e : node.getList()) {
@@ -230,12 +230,11 @@ public class ASTPrinter implements ASTNodeVisitor {
 	}
 
 	@Override
-	public void visit(IfStmt node) {
+	public void visit(IfStatement node) {
 		print("(if)");
 		ident++;
 		node.getExpression().accept(this);
 		node.getStatements().accept(this);
 		ident--;
 	}
-
 }

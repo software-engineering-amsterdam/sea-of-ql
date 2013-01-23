@@ -2,58 +2,106 @@ module syntax::ConcreteSyntax
 
 import Prelude;
 
-lexical QuestionString  = [a-z][a-z0-9]* !>> [a-z0-9];
-lexical Id  = [a-z][a-z0-9]* !>> [a-z0-9]; 
-lexical Boolean = [true,false];
-lexical Money = [0-9]+ ;
+// START LEXICAN TOKENS
+lexical QuestionString  = [a-z A-Z 0-9 _] !<< [a-z A-Z][a-z A-Z 0-9 _]* !>> [a-z A-Z 0-9 _];
+lexical Boolean = "true" | "false";
+lexical Money = [0-9]*","[0-9] + [0-9];
 lexical String = "\"" ![\"]*  "\"";
-
-layout Layout = WhitespaceAndComment* !>> [\ \t\n\r%];   // copied from Pico
-
-lexical WhitespaceAndComment 
-   = [\ \t\n\r]
-   | @category="Comment" "%" ![%]+ "%"
-   | @category="Comment" "%%" ![\n]* $
-   ;
-
-start syntax Program 
-   = program: "form" Expression qName "{" Declarations decls {Statement  ";"}* body "}" ; // Statement stmt 
-   
-syntax Declarations
-   = Declaration* decls;
-   
-//syntax Declaration
-//   = decl: Id id ":" Question qName Type tp;
-   
-syntax Declaration
-   = decl: Id id ":" Question qName;
-
-syntax Question
-   = qName: QuestionString questionString Type tp;
-
-syntax Statement 
-   = asgStat: Id var ":" Expression qExp " " Type tp
-   | ifStat: "if" Expression cond "then" {Statement "\n"}* thenPart  // "else" {Statement ";"}* elsePart "fi"
+lexical Int = [0-9]+ !>> [0-9];
+keyword Keywords = "if" | "then" | "else" | "false" | "true";
+  
+lexical Id
+  = ([a-z A-Z 0-9 _] !<< [a-z A-Z][a-z A-Z 0-9 _]* !>> [a-z A-Z 0-9 _]) \ Keywords
   ;
 
-syntax Type 
-   = natural:"natural" 
+lexical Comment 
+  = @category="Comment" "/*" CommentChar* "*/"
+  ;
+
+lexical CommentChar
+  = ![*]
+  | [*] !>> [/]
+  ;
+
+syntax WhitespaceOrComment 
+  = whitespace: Whitespace
+  | comment: Comment
+  ;   
+
+lexical Whitespace 
+  = [\u0009-\u000D \u0020 \u0085 \u00A0 \u1680 \u180E \u2000-\u200A \u2028 \u2029 \u202F \u205F \u3000]
+  ; 
+  
+layout Standard 
+  = WhitespaceOrComment* !>> [\ \t\n\f\r] !>> "//" !>> "/*";
+
+// START SYNTAX 
+start syntax Program 
+   = program: "form" Expression questionnaireName "{" Body* body "}" ; 
+
+// start syntax Body
+start syntax Body =
+	  question: Question question
+	| statement: Statement statement
+	;
+
+// start syntax Question
+start syntax Question
+   = easyQuestion: Id id ":" String label Type tp
+   | computedQuestion: Id id ":" String label Type tp Expression exp
+   ;
+   
+// syntax question id and question type
+syntax QuestionType
+   = result: Id id ":" Type tp;
+   
+// start syntax Statement
+start syntax Statement 
+   = asgStat: Id var ":" Type tp
+   | ifStat: "if" Expression cond "{" Body* body "}"
+   | ifElseStat: "if" Expression cond "{" Body* body "}" "else" "{" Body* body "}"
+   ;
+   
+// start syntax Type
+start syntax Type 
+   = integer : "integer" 
    | string :"string"
    | boolean :"boolean"
-   | money :"money" 
+   | money :"money"  
    ;
-  
-syntax Expression 
+   
+// start syntax Expression  
+start syntax Expression
    = id: Id name
-   | strQue: String string
-   | strCon: String string
-   | boolCon: Boolean boolean
-   | moneyCon: Money money
-   > left ( add: Expression lhs "+" Expression rhs
-          | sub: Expression lhs "-" Expression rhs
-          )
-  ;
-
+   | \int: Int
+   | bracket "(" Expression arg ")"
+   | pos: "+" Expr
+   | neg: "-" Expr
+   | not: "!" Expr
+   > left (
+      add: Expression "+" Expression
+    | sub: Expression "-" Expression
+   )
+   > left (
+      mul: Expression "*" Expression
+    | div: Expression "/" Expression
+   )  
+   > non-assoc (
+      lt: Expression "\<" Expression
+    | leq: Expression "\<=" Expression
+    | gt: Expression "\>" Expression
+    | geq: Expression "\>=" Expression
+    | eq: Expression "==" Expression
+    | neq: Expression "!=" Expression
+   )
+   > left and: Expression "&&" Expression
+   > left or: Expression "||" Expression
+    | boolCon: Boolean bVal
+    | moneyCon: Money mVal
+    | string: String
+   ;
+   
+// METHODS
 public start[Program] program(str s) {
   return parse(#start[Program], s);
 }

@@ -1,5 +1,6 @@
 package org.uva.sea.ql.ast;
 
+
 public abstract class Binary extends Expr {
 
 	private Expr left;
@@ -8,7 +9,6 @@ public abstract class Binary extends Expr {
 	public Binary(Expr left, Expr right){
 		this.left = left; 
 		this.right = right;
-//		System.out.println(toString());
 	}
 	
 	protected Expr getLeft(){
@@ -18,8 +18,5 @@ public abstract class Binary extends Expr {
 	protected Expr getRight(){
 		return right;
 	}
-	
-	public String toString(){
-		return this.getClass().getSimpleName() + " " + getLeft() + " , " + getRight();
-	}
+
 }

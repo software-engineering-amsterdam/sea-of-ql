@@ -4,9 +4,9 @@ import org.uva.sea.ql.ast.AcceptsMathOperands;
 import org.uva.sea.ql.ast.BinaryExpr;
 import org.uva.sea.ql.ast.Expr;
 import org.uva.sea.ql.ast.ReturnsMathOperands;
-import org.uva.sea.ql.visitor.ASTVisitor;
 
-public class Div extends BinaryExpr implements AcceptsMathOperands, ReturnsMathOperands  {
+public class Div extends BinaryExpr implements AcceptsMathOperands,
+		ReturnsMathOperands {
 	public static final String str = "/";
 
 	public Div(Expr left, Expr right) {
@@ -14,7 +14,7 @@ public class Div extends BinaryExpr implements AcceptsMathOperands, ReturnsMathO
 	}
 
 	@Override
-	public void accept(ASTVisitor visitor) {
-		visitor.visit(this);
+	public String toString() {
+		return str;
 	}
 }

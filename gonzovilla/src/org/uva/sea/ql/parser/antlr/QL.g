@@ -5,6 +5,9 @@ options {language = Java;}
 {
 package org.uva.sea.ql.parser.antlr;
 import org.uva.sea.ql.ast.*;
+import org.uva.sea.ql.ast.types.*;
+import org.uva.sea.ql.ast.expr.*;
+import org.uva.sea.ql.ast.values.*;
 }
 
 @lexer::header
@@ -12,24 +15,35 @@ import org.uva.sea.ql.ast.*;
 package org.uva.sea.ql.parser.antlr;
 }
 
-program
-  : 'start' Ident '='
-    question* 
-    'end' Ident '.'
+form returns [Form result]
+	@init { List<FormUnit> formUnits = new ArrayList<FormUnit>();}
+	: 'form' Ident ':' (formUnit {formUnits.add($formUnit.result);})* 'endform' { $result = new Form($Ident.text, formUnits); }
+	; 
+
+formUnit returns [FormUnit result]
+	: question    { $result = $question.result; }
+	| ifStatement { $result = $ifStatement.result; }
+	;
+
+question returns [Question result]
+	: Ident ':' sentence '(' type ')' { $result = new Question($Ident.text, $sentence.text, $type.result); }
+	;
+	 
+//computedQuestion
+
+ifStatement returns [IfStatement result]
+	@init { List<FormUnit> formUnits = new ArrayList<FormUnit>();}
+	: 'if' '(' orExpr ')' 'then' (formUnit {formUnits.add($formUnit.result);})* 'endif' { $result = new IfStatement($orExpr.result, formUnits); }
+	;  
+
+type returns [Type result]
+  : 'Boolean' {$result = new TypeBool();}
+  | 'Integer' {$result = new TypeInt();}
+  | 'String'  {$result = new TypeString();}
   ;
 
-question
-  : 'question' Ident ':' type ':=' expression '?'
-  ;
-
-type
-  : 'Boolean'
-  | 'Integer'
-  | 'String'
-  ;
-
-expression
-  : (Ident | WS)+
+sentence
+  : '"' .* '"'
   ; 
 
 primary returns [Expr result]
@@ -57,7 +71,7 @@ mulExpr returns [Expr result]
     })*
     ;
     
-  
+
 addExpr returns [Expr result]
     :   lhs=mulExpr { $result=$lhs.result; } ( op=('+' | '-') rhs=mulExpr
     { 
@@ -69,7 +83,7 @@ addExpr returns [Expr result]
       }
     })*
     ;
-  
+
 relExpr returns [Expr result]
     :   lhs=addExpr { $result=$lhs.result; } ( op=('<'|'<='|'>'|'>='|'=='|'!=') rhs=addExpr 
     { 

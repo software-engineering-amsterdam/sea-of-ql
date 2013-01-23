@@ -1,7 +1,8 @@
 kemi/bin/*
 vkomsiyski/bin/*
-yosuf/bin/*
 *~ # Temporary files
 *.class # Compiled Java
 .DS_Store
-.metadata/*
+/PhilippDarkow/.metadata/*
+/PhilippDarkow/.metadata/.plugin
+/prototype/*

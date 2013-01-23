@@ -1,20 +1,19 @@
 package org.uva.sea.ql.ast;
 
-public abstract class BinaryExpression implements ASTNode {
-	private final ASTNode lhs;
-	private final ASTNode rhs;
+public abstract class BinaryExpression extends Expression {
+	private final Expression lhs;
+	private final Expression rhs;
 
-	public BinaryExpression(ASTNode lhs, ASTNode rhs) {
+	public BinaryExpression(Expression lhs, Expression rhs) {
 		this.lhs = lhs;
 		this.rhs = rhs;
 	}
 
-	public ASTNode getLhs() {
+	public Expression getLhs() {
 		return lhs;
 	}
 
-	public ASTNode getRhs() {
+	public Expression getRhs() {
 		return rhs;
 	}
-
 }

@@ -4,16 +4,17 @@ import org.uva.sea.ql.ast.AcceptsBoolOperands;
 import org.uva.sea.ql.ast.Expr;
 import org.uva.sea.ql.ast.ReturnsBoolOperands;
 import org.uva.sea.ql.ast.UnaryExpr;
-import org.uva.sea.ql.visitor.ASTVisitor;
 
-public class Not extends UnaryExpr implements AcceptsBoolOperands, ReturnsBoolOperands {
+public class Not extends UnaryExpr implements AcceptsBoolOperands,
+		ReturnsBoolOperands {
 	public static final String str = "!";
 
 	public Not(Expr ex) {
 		super(ex);
 	}
+
 	@Override
-	public void accept(ASTVisitor visitor) {
-		visitor.visit(this);		
+	public String toString() {
+		return str;
 	}
 }

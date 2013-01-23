@@ -17,9 +17,9 @@ public interface ASTNodeVisitor {
 	void visit(And node);
 	void visit(Or node);
 	void visit(Identifier node);
-	void visit(IntegerValue node);
-	void visit(BooleanValue node);
-	void visit(StringValue node);
+	void visit(IntegerLiteral node);
+	void visit(BooleanLiteral node);
+	void visit(StringLiteral node);
 	void visit(Form node);
 	void visit(Question node);
 	void visit(ComputedQuestion node);
@@ -27,5 +27,5 @@ public interface ASTNodeVisitor {
 	void visit(StatementList node);
 	void visit(BooleanType node);
 	void visit(IntegerType node);
-	void visit(IfStmt node);
+	void visit(IfStatement node);
 }

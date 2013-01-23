@@ -49,7 +49,7 @@ ifStatement returns [Expr result]
 ;
 
 type returns [Type result]
-	:  boolType { $result = new Bool();}
+	:  boolType { $result = new BooleanType();}
 	|  money   { $result = $money.result;} 
 	|  intType { $result = new IntType();}
 	|  strType { $result = new StrType();}	
@@ -144,7 +144,6 @@ orExpr returns [Expr result]
 boolType:	'boolean';
 strType :	'string';
 intType :	'integer';
-
     
 // Tokens
 

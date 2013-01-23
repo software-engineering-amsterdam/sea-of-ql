@@ -1,26 +1,21 @@
 package org.uva.sea.ql.parser.antlr;
 
-import java.util.List;
-
 import org.antlr.runtime.ANTLRStringStream;
 import org.antlr.runtime.CommonTokenStream;
 import org.antlr.runtime.RecognitionException;
-import org.uva.sea.ql.ast.ASTNode;
 import org.uva.sea.ql.ast.expr.Expr;
 import org.uva.sea.ql.ast.form.Body;
 import org.uva.sea.ql.ast.form.ComputedQuestion;
-import org.uva.sea.ql.ast.form.Element;
 import org.uva.sea.ql.ast.form.Form;
 import org.uva.sea.ql.ast.form.IfBlock;
 import org.uva.sea.ql.ast.form.Question;
 import org.uva.sea.ql.ast.types.Type;
-
 import org.uva.sea.ql.parser.test.IParse;
 import org.uva.sea.ql.parser.test.ParseError;
 
 public class ANTLRParser implements IParse {
 
-	
+
 	public QLParser parse(String src) throws ParseError {
 		ANTLRStringStream stream = new ANTLRStringStream(src);
 		CommonTokenStream tokens = new CommonTokenStream();
@@ -28,8 +23,8 @@ public class ANTLRParser implements IParse {
 		QLParser parser = new QLParser(tokens);
 		return parser;
 	}
-	
-	
+
+
 	@Override
 	public Expr parseExpr(String src) throws ParseError{
 		 try {
@@ -38,8 +33,8 @@ public class ANTLRParser implements IParse {
 			throw new ParseError(e.getMessage());
 		}
 	}
-	
-	
+
+
 	@Override
 	public Form parseForm(String src) throws ParseError{
 		 try {
@@ -48,8 +43,8 @@ public class ANTLRParser implements IParse {
 			throw new ParseError(e.getMessage());
 		}
 	}
-	
-	
+
+
 	@Override
 	public Type parseType(String src) throws ParseError{
 		 try {
@@ -58,7 +53,7 @@ public class ANTLRParser implements IParse {
 			throw new ParseError(e.getMessage());
 		}
 	}
-	
+
 	@Override
 	public Question parseQuestion(String src) throws ParseError{
 		 try {
@@ -67,7 +62,7 @@ public class ANTLRParser implements IParse {
 			throw new ParseError(e.getMessage());
 		}
 	}
-	
+
 	@Override
 	public ComputedQuestion parseComputedQuestion(String src) throws ParseError{
 		 try {
@@ -76,7 +71,7 @@ public class ANTLRParser implements IParse {
 			throw new ParseError(e.getMessage());
 		}
 	}
-	
+
 	@Override
 	public IfBlock parseIfBlock(String src) throws ParseError{
 		 try {
@@ -85,16 +80,16 @@ public class ANTLRParser implements IParse {
 			throw new ParseError(e.getMessage());
 		}
 	}
-	
+
 	@Override
-	public List<Element> parseBody(String src) throws ParseError{
+	public Body parseBody(String src) throws ParseError{
 		 try {
 			return parse(src).body();
 		} catch (RecognitionException e) {
 			throw new ParseError(e.getMessage());
 		}
 	}
-	
-	
+
+
 
 }

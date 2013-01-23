@@ -1,10 +1,12 @@
- grammar QL;
+grammar QL;
 options {backtrack=true; memoize=true;}
 
 @parser::header
 {
 package org.uva.sea.ql.parser.antlr;
 import org.uva.sea.ql.ast.*;
+import org.uva.sea.ql.ast.types.*;
+import org.uva.sea.ql.ast.operators.*;
 }
 
 @lexer::header
@@ -24,7 +26,7 @@ compoundStatement returns [Statement result]
     ;    
 
 statement returns [Statement result]     
-    : Ident COLON StringLiteral type { $result = new LineStatement($Ident,$StringLiteral,$type.result); }
+    : Ident COLON StringLiteral type ('(' x=orExpr ')')? { $result = new LineStatement(new Ident($Ident),$StringLiteral,$type.result,x); }
     | 'if' '(' ex=orExpr ')' ctrue=compoundStatement ('else' cfalse=compoundStatement)? { $result = new ConditionalStatement(ex,ctrue,cfalse) ; }
     |  cst=compoundStatement { $result = cst ;}  
     ;
@@ -32,7 +34,7 @@ statement returns [Statement result]
 type returns [TypeDescription result]
     : 'boolean' { $result = new BooleanType() ;}
     | 'string'  { $result = new StringType() ;}
-    | 'money' ('(' x=orExpr ')')? { $result = new MoneyType(x) ;}
+    | 'money'   { $result = new MoneyType() ;}
     ;
 
 primary returns [Expr result]

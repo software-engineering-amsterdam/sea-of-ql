@@ -1,14 +1,15 @@
 package org.uva.sea.ql.ast;
 
 public class ComputedQuestion extends Question {
-	private final ASTNode expression;
+	// the expression that computes the result of this question
+	private final Expression expression;
 	
-	public ComputedQuestion(Identifier identifier, StringValue label, Datatype datatype, ASTNode expression) {
+	public ComputedQuestion(Identifier identifier, StringLiteral label, Datatype datatype, Expression expression) {
 		super(identifier, label, datatype);
 		this.expression = expression;
 	}
 
-	public ASTNode getExpression() {
+	public Expression getExpression() {
 		return expression;
 	}
 
@@ -16,5 +17,4 @@ public class ComputedQuestion extends Question {
 	public void accept(ASTNodeVisitor visitor) {
 		visitor.visit(this);
 	}
-
 }
