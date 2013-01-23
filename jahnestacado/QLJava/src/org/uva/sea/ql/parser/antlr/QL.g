@@ -30,7 +30,7 @@ type returns [Type result]
 	
 
 form returns [Form result]
-	:'form' Ident  '{' body '}' {$result = new Form(new Ident($Ident.text),$body.result);}
+	:'form' Ident  '{' body '}' EOF {$result = new Form(new Ident($Ident.text),$body.result);}
 	;
 	
 	
@@ -157,13 +157,12 @@ MONEY:'money';
 BoolLit	:	('true' | 'false');  
 
 
-LB    :('\n'|'\r');
 
 WS  :	(' ' | '\t' | '\n' | '\r') { $channel=HIDDEN; }
     ;
 
 COMMENT 
-     : ('/*' .* '*/'|'//' ~(LB)* ){$channel=HIDDEN;}  
+     : ('/*' .* '*/'|'//'  ){$channel=HIDDEN;}  
      ;
      
   
