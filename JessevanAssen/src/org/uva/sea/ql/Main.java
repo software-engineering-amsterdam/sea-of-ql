@@ -31,10 +31,10 @@ public class Main {
         Parser parser = new ANTLRParser();
         try {
             Form parsedForm = (Form) parser.parse(SAMPLE_FORM);
-            List<String> errors = new TypecheckerVisitor().typecheck(parsedForm);
+            List<Message> errors = TypecheckerVisitor.typecheck(parsedForm);
             if(!errors.isEmpty()) {
                 StringBuilder stringBuilder = new StringBuilder("Errors occurred when type checking the form:\n");
-                for(Iterator<String> errorIterator = errors.iterator(); errorIterator.hasNext(); ) {
+                for(Iterator<Message> errorIterator = errors.iterator(); errorIterator.hasNext(); ) {
                     stringBuilder
                             .append(" - ")
                             .append(errorIterator.next());
