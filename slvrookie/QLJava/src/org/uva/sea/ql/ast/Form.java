@@ -3,8 +3,7 @@ package org.uva.sea.ql.ast;
 import java.util.List;
 
 import org.uva.sea.ql.ast.expr.Ident;
-import org.uva.sea.ql.visitor.Context;
-import org.uva.sea.ql.visitor.Visitor;
+
 
 public class Form implements ASTNode {
 
@@ -22,12 +21,6 @@ public class Form implements ASTNode {
 
 	public List<FormElement> getFormBody() {
 		return fBody;
-	}
-
-	@Override
-	public void accept(Visitor visitor, Context context) {
-		visitor.visit(this, context);
-
 	}
 
 }
