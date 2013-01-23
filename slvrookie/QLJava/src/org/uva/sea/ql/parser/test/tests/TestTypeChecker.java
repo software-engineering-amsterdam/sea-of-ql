@@ -29,8 +29,8 @@ public class TestTypeChecker {
 				+ "     private: \"Value residue:\" int(sellingPrice - privateDebt)}}";
 		
 	//	parser.parseForm(form1).accept(checker);
-		parser.parseExpr(" ((5 >3 ) && (10 < 11)) != (false || (3+2))").accept(checker);
-	//	parser.parseExpr("true || true").accept(checker, context);
+	//	parser.parseExpr(" ((true >3 ) && (10 < 11)) + (3 || (3>2))").accept(checker);
+		parser.parseExpr(" +(3+2) ").accept(checker);
 		
 		for (String errors : checker.getErrorList())
 			System.out.println(errors);
