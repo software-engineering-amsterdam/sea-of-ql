@@ -47,8 +47,9 @@ public class TypecheckerVisitor implements ASTNodeVisitor<Type, TypecheckerVisit
         form.accept(typecheckerVisitor, context);
         return context.getErrors();
     }
-	
-	// Form operations
+
+
+    // Form operations
 	@Override
 	public Type visit(Computed astNode, Context context) {
         astNode.getExpression().accept(this, context);
@@ -106,7 +107,12 @@ public class TypecheckerVisitor implements ASTNodeVisitor<Type, TypecheckerVisit
 
         return VOID_TYPE;
     }
-	
+
+    @Override
+    public Type visit(StoredExpression astNode, Context param) {
+        return VOID_TYPE;
+    }
+
 	@Override
 	public Type visit(Question astNode, Context context) {
         if(!context.getSymbolTable().containsKey(astNode.getIdentifier()))

@@ -27,6 +27,7 @@ public interface ASTNodeVisitor<ReturnType, ParameterType> {
 	public ReturnType visit(Or                   astNode, ParameterType param);
 	public ReturnType visit(Pos                  astNode, ParameterType param);
 	public ReturnType visit(Question             astNode, ParameterType param);
-	public ReturnType visit(Str                  astNode, ParameterType param);
+    public ReturnType visit(StoredExpression     astNode, ParameterType param);
+    public ReturnType visit(Str                  astNode, ParameterType param);
 	public ReturnType visit(Sub                  astNode, ParameterType param);
 }

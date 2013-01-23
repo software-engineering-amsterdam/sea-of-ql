@@ -117,6 +117,11 @@ formElement returns [FormElement result]
     : ifFormElement { $result = $ifFormElement.result; }
     | questionFormElement { $result = $questionFormElement.result; }
     | computedFormElement { $result = $computedFormElement.result; }
+    | storedExpressionFormElement { $result = $storedExpressionFormElement.result; }
+    ;
+    
+storedExpressionFormElement returns [StoredExpression result]
+    : Ident '=' orExpr { $result = new StoredExpression(new Ident($Ident.text), $orExpr.result); }
     ;
     
 questionFormElement returns [Question result]
