@@ -6,55 +6,48 @@ import syntax::ConcreteSyntax;
 import util::Load;
 import typeChecker::Mapping;
 
-alias QTENV = tuple[ map[str, Type] symbols, list[tuple[loc l, str msg]] errors];
-alias FTENV = tuple[ map[str, Question] symbols, list[tuple[loc l, str msg]] errors]; 
+alias QLTENV = tuple[ rel[str id, str questionLabel, Type tp] question, list[tuple[loc l, str msg]] errors];
 
-QTENV addError(QTENV qEnv, loc l, str msg) = qEnv[errors = qEnv.errors + <l, msg>];
-FTENV addError(QTENV fEnv, loc l, str msg) = qEnv[errors = fEnv.errors + <l, msg>];
+QLTENV addError(QLTENV qlTenv, loc l, str msg) = qlTenv[errors = qlTenv.errors + <l, msg>];
+// to add an instance of a qltenv item
+QLTENV addInstance(QLTENV qlTenv, str id, str questionLabel, Type tp) = qlTenv[question = qlTenv.question + {<id,questionLabel,tp>}]; //= qlTenv.errors + <l, msg> 
 
 str required(Type t, str got) = "Required <getName(t)>, got <got>";                 
 str required(Type t1, Type t2) = required(t1, getName(t2));
 
 // compile Expressions.
-QTENV checkExp(exp:boolCon(bool B), Type req, QTENV env) =                              
+QLTENV checkExp(exp:boolCon(bool B), Type req, QLTENV env) =                              
   req == boolean() ? env : addError(env, exp@location, required(req, "boolean"));
  
-QTENV checkExp(exp:moneyCon(int I), Type req, QTENV env) =
+QLTENV checkExp(exp:moneyCon(int I), Type req, QLTENV env) =
  req == money() ? env : addError(env, exp@location, required(req, "money"));
  
-QTENV checkExp(exp:id(QuestionId Id), Type req, QTENV env) {                              
+QLTENV checkExp(exp:id(QuestionId Id), Type req, QLTENV env) {                              
   if(!env.symbols[Id]?)
      return addError(env, exp@location, "Undeclared variable <Id>");
   tpid = env.symbols[Id];
   return req == tpid ? env : addError(env, exp@location, required(req, tpid));
 }
 
-QTENV checkExp(exp:add(EXP E1, EXP E2), Type req, QTENV env) =                        
+QLTENV checkExp(exp:add(EXP E1, EXP E2), Type req, QLTENV env) =                        
   req == money() ? checkExp(E1, money(), checkExp(E2, money(), env))
                    : addError(env, exp@location, required(req, "money"));
   
-QTENV checkExp(exp:sub(EXP E1, EXP E2), Type req, QTENV env) =                      
+QLTENV checkExp(exp:sub(EXP E1, EXP E2), Type req, QLTENV env) =                      
   req == money() ? checkExp(E1, money(), checkExp(E2, money(), env))
                    : addError(env, exp@location, required(req, "money"));
 
-QTENV checkExp(exp:or(EXP E1, EXP E2), Type req, QTENV env) =                    
+QLTENV checkExp(exp:or(EXP E1, EXP E2), Type req, QLTENV env) =                    
   req == string() ? checkExp(E1, string(), checkExp(E2, string(), env))
                    : addError(env, exp@location, required(req, "string"));
                    
-QTENV checkExp(exp:and(EXP E1, EXP E2), Type req, QTENV env) =                    
+QLTENV checkExp(exp:and(EXP E1, EXP E2), Type req, QLTENV env) =                    
   req == string() ? checkExp(E1, string(), checkExp(E2, string(), env))
                    : addError(env, exp@location, required(req, "string"));
 
-// check a statement
-//QTENV checkStat(stat:asgStat(str id, Type tp), QTENV qEnv) {                    
-//  if(!qEnv.symbols[id]?)
-//     return addError(qEnv, stat@location, "Undeclared variable <id>");
-//  tpid = qEnv.symbols[id];
-//  return checkExp(Exp, tpid, qEnv);
-//}
 
 // check statements for Questions 
-QTENV checkQuestionStats(list[Statement] Stats1, QTENV qEnv) {                                 
+QLTENV checkQuestionStats(list[Statement] Stats1, QLTENV qEnv) {                                 
   println("CHECK Question STATES : <Stats1>");
   for(S <- Stats1){
   	  println("S in LIST STATEMENT : <S>");
@@ -63,25 +56,9 @@ QTENV checkQuestionStats(list[Statement] Stats1, QTENV qEnv) {
   return qEnv;
 }
 
-QTENV checkQuestionStats(list[Body] Stats1, QTENV qEnv) {                                 
-  println("CHECK Question STATES : <Stats1>");
-  for(S <- Stats1){
-  	  TENV ff = checkDecls([S]);
-  	  if(size(ff.symbols) != 0){
-  	  	QTENV qEnv = mapQuestionIdToType2(ff.symbols);
-  	  	println("IN QENV : <qEnv>");
-  	  	//return checkExp(qEnv, money(), );
-  	  	return qEnv;    // I need to call a new method then with decls one parameter
-  	  }
-      qEnv = checkStat(S, qEnv);
-  }
-  return qEnv;
-}
-
- QTENV checkStat(stat:ifStat(EXP Exp,                                             
-                              list[DECL] Stats1),
-               QTENV env){
-               println("EXP : <Exp>"); 
+// Check if statement
+QLTENV checkStatement(statement:ifStat(Expression exp, list[Body] body), QLTENV env){
+    println("EXP : <Exp>"); 
     env0 = checkExp(Exp, boolean(), env);
     if(size(env0.errors) != 0)
     	return addError(env0, env0.errors[0].l, env0.errors[0].msg);
@@ -89,61 +66,49 @@ QTENV checkQuestionStats(list[Body] Stats1, QTENV qEnv) {
     return env;
 }
 
-
-// check declarations
-QTENV checkBody(list[Body] Body) =                                                 
-    <( Id : question | question(QuestionId Id, Question question)  <- Body), []>
-    ;
-
-// check question
-QTENV checkQuestionType(map[str, Type] results) =   
-   <results,[]>;
-
-/* 
-*/
-void checkQuestion(Question q){
-
+// check if else statement
+QLTENV checkStatement(statement:ifElseStat(Expression exp, list[Body] thenpart, list[Body] elsepart), QLTENV env){
+    println("EXP : <Exp>"); 
+    env0 = checkExp(Exp, boolean(), env);
+    if(size(env0.errors) != 0)
+    	return addError(env0, env0.errors[0].l, env0.errors[0].msg);
+    env1 = checkQuestionStats(Stats1, env0);
+    return env;
 }
 
-QTENV visitQuestions(Question q, env){
-	println("Q : <q>");
-	env = checkQuestion(q, env); 
+// check easy question and save it in the environment
+QLTENV checkQuestion(question:easyQuestion(str id, str labelQuestion, Type tp) , QLTENV env){
+	return addInstance(env, id , labelQuestion, tp );	
+}
+
+// check computed question and save it in the environment
+QLTENV checkQuestion(question:computedQuestion(str id, str labelQuestion, Type tp, Expression exp , QLTENV env)){
+	println("check computed question");
+	env = <{< id , labelQuestion, tp >} , []>;
+	println("ENV : <env>");
 	return env;
 }
 
-QTENV checkQuestion(question:easyQuestion(str id, str qLabel, Type tp) , QTENV env){ // , QTENV env
-	println("check easy question");
-	env = (<( id : tp ), [] >);
-	println("ENV : <env>");
-	return env;	
+// check the body of the QL program
+QLTENV checkBody(list[Body] Body, QLTENV env){
+	for(s <- Body){
+	visit(Body){
+     	case Question q : {
+    			env = checkQuestion(q,env);
+    	    }
+        case Statement s: println("Statement is : <S>");
+      };
+	}
+	return env;
 }
-
-QTENV checkQuestion(question:computedQuestion(str id, str labelQuestion, Type tp, Expression exp)){
-	println("check computed question");
-	QTENV env = (<( id : tp ), [] >);
-	println("ENV : <env>");
-}
-
-FTENV checkBody(list[Body] Body) =
-	<( id : que  | question(Question question) <- Body), []>;
 
 // check a QL program
-public QTENV checkProgram(Program P){                                                
-  if(program(Expression exp, list[Body] Body) := P){	 
-     println("EXP : <exp>");
-     println("Body : <Body>");  
-     QTENV env = (<( ), [] >);  // empty Question Type map
-   //  FTENV fEnv = checkBody(list[Body] Body)  // !!!!! HERE WEITER
-     println("ENV : <env>");
-     visit(Body){
-     	case Question q : { 
-     			env = visitQuestions(q,env);   // , env
-     	    }
-        case Statement s: println("Statement is : <S>");
-     };
+public QLTENV checkProgram(Program P){                                                
+  if(program(Expression id, list[Body] Body) := P){	 
+     QLTENV env = <{},[]>; 
+     env = checkBody(Body, env);
      println("ENV : <env>"); 
-     QTENV qEnv = mapQuestionIdToType2(env.symbols);  // Mapping.rsc is doing that
-     println("QTENV : <qEnv>"); 
+    // QTENV qEnv = mapQuestionIdToType2(env.symbols);  // Mapping.rsc is doing that 
 	 return checkQuestionStats(Series, qEnv);
   } else
      throw "Cannot happen";
