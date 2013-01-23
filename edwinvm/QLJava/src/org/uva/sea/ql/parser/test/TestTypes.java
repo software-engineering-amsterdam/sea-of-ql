@@ -8,7 +8,7 @@ import org.uva.sea.ql.ast.types.Int;
 import org.uva.sea.ql.ast.types.Str;
 import org.uva.sea.ql.parser.IParser;
 import org.uva.sea.ql.parser.ParseError;
-import org.uva.sea.ql.parser.antlr.ANTLRParserTypes;
+import org.uva.sea.ql.parser.antlr.check.ANTLRParserTypes;
 
 public class TestTypes {
 

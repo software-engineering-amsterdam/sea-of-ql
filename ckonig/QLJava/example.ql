@@ -16,7 +16,7 @@ form Box1HouseOwning {
      if(sellingPrice < 80000) {
      	askedForPermissionSelPri80 : "Did you ask for permission to sell a house for less than 80000?" boolean
      	if(askedForPermissionSelPri80) {
-     		askedForPermissionSelPri80Who : "Who did you ask for permission to sell a house for less than 80000?" boolean
+     		askedForPermissionSelPri80Who : "Who did you ask for permission to sell a house for less than 80000?" string
      	}
      }
    }

@@ -4,9 +4,9 @@ import junit.framework.TestCase;
 
 import org.junit.Test;
 import org.uva.sea.ql.ast.QLProgram;
-import org.uva.sea.ql.astnodevisitor.PrintVisitor;
-import org.uva.sea.ql.astnodevisitor.PrintVisitorResult;
-import org.uva.sea.ql.astnodevisitor.SemanticCheckVisitor;
+import org.uva.sea.ql.ast.nodevisitor.PrintVisitor;
+import org.uva.sea.ql.ast.nodevisitor.PrintVisitorResult;
+import org.uva.sea.ql.ast.nodevisitor.SemanticCheckVisitor;
 
 public class TestVisitor extends TestCase {
 	static final private IParse parser = new ANTLRParser();

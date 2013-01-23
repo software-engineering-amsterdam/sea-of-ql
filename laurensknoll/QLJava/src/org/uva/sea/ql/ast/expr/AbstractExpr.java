@@ -5,6 +5,6 @@ import org.uva.sea.ql.visitor.Expression;
 
 public abstract class AbstractExpr implements ASTNode {
 
-	public abstract void accept(Expression<?> visitor);
+	public abstract <T> T accept(Expression<T> visitor);
 
 }

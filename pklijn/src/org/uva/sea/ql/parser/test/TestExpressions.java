@@ -99,7 +99,7 @@ public class TestExpressions {
 	}
 	
 	@Test
-	public void testEquation() throws ParseError { // TODO: geen equation noemen..
+	public void testComparison() throws ParseError {
 		assertTrue(((BoolValue)parser.parse("(1 < 2) && (3 < 4)").eval()).getValue());
 		assertTrue(((BoolValue)parser.parse("(1 <= 1) && (7 > 4)").eval()).getValue());
 		assertTrue(((BoolValue)parser.parse("(1 > 2) || (3 < 4)").eval()).getValue());
@@ -126,6 +126,56 @@ public class TestExpressions {
 		assertTrue(((BoolValue)parser.parse("\"peter\" == \"peter\"").eval()).getValue());
 		assertFalse(((BoolValue)parser.parse("\"peter\" == \"klijn\"").eval()).getValue());
 		assertTrue(((BoolValue)parser.parse("\"peter\" != \"klijn\"").eval()).getValue());
-		assertFalse(((BoolValue)parser.parse("\"peter\" != \"peter\"").eval()).getValue());		
+		assertFalse(((BoolValue)parser.parse("\"peter\" != \"peter\"").eval()).getValue());
+	}
+	
+	@Test
+	public void testTypeChecking() throws ParseError {
+		assertEquals(0,parser.parse("1 + 5").checkType(null).size());
+		assertEquals(0,parser.parse("(3 < 5) && (true != false)").checkType(null).size());
+		assertEquals(0,parser.parse("\"peter\" != \"klijn\"").checkType(null).size());
+		
+		// Unary checks that should NOT give an error
+		assertEquals(0,parser.parse("-2").checkType(null).size());
+		assertEquals(0,parser.parse("!true").checkType(null).size());
+		assertEquals(0,parser.parse("+-8").checkType(null).size());
+		
+		// Unary checks that should give an error
+		assertEquals(1,parser.parse("-true").checkType(null).size());
+		assertEquals(1,parser.parse("!\"this is a string\"").checkType(null).size());
+		assertEquals(1,parser.parse("+true").checkType(null).size());
+
+		// Binary checks that should NOT give an error
+		assertEquals(0,parser.parse("1 == 1").checkType(null).size());
+		assertEquals(0,parser.parse("true == true").checkType(null).size());
+		assertEquals(0,parser.parse("\"s\" == \"s\"").checkType(null).size());
+		assertEquals(0,parser.parse("2 != 1").checkType(null).size());
+		assertEquals(0,parser.parse("false != true").checkType(null).size());
+		assertEquals(0,parser.parse("\"t\" != \"s\"").checkType(null).size());
+		assertEquals(0,parser.parse("1 + 1").checkType(null).size());
+		assertEquals(0,parser.parse("true && false").checkType(null).size());
+		assertEquals(0,parser.parse("4 / 2").checkType(null).size());
+		assertEquals(0,parser.parse("2 >= 1").checkType(null).size());
+		assertEquals(0,parser.parse("2 > 1").checkType(null).size());
+		assertEquals(0,parser.parse("1 <= 1").checkType(null).size());
+		assertEquals(0,parser.parse("1 < 2").checkType(null).size());
+		assertEquals(0,parser.parse("4 * 3").checkType(null).size());
+		assertEquals(0,parser.parse("true || false").checkType(null).size());
+		assertEquals(0,parser.parse("2 - 1").checkType(null).size());
+		
+		// Binary checks that should give an error
+		assertEquals(1,parser.parse("true == 1").checkType(null).size());
+		assertEquals(1,parser.parse("true != 1").checkType(null).size());
+		assertEquals(1,parser.parse("true + true").checkType(null).size());
+		assertEquals(1,parser.parse("1 && 1").checkType(null).size());
+		assertEquals(1,parser.parse("\"test\" / \"test\"").checkType(null).size());
+		assertEquals(1,parser.parse("true >= false").checkType(null).size());
+		assertEquals(1,parser.parse("true > false").checkType(null).size());
+		assertEquals(1,parser.parse("\"a\" <= \"b\"").checkType(null).size());
+		assertEquals(1,parser.parse("\"c\" < \"d\"").checkType(null).size());
+		assertEquals(1,parser.parse("true * true").checkType(null).size());
+		assertEquals(1,parser.parse("3 || 2").checkType(null).size());
+		assertEquals(1,parser.parse("\"aa\" - \"a\"").checkType(null).size());
 	}
 }
+

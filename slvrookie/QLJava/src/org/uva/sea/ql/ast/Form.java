@@ -3,10 +3,10 @@ package org.uva.sea.ql.ast;
 import java.util.List;
 
 import org.uva.sea.ql.ast.expr.Ident;
-import org.uva.sea.ql.visitor.Context;
-import org.uva.sea.ql.visitor.Visitor;
+import org.uva.sea.ql.visitor.TypeChecker;
 
-public class Form implements ASTNode {
+
+public class Form extends FormElement {
 
 	private final Ident fID;
 	private final List<FormElement> fBody;
@@ -25,9 +25,8 @@ public class Form implements ASTNode {
 	}
 
 	@Override
-	public void accept(Visitor visitor, Context context) {
-		visitor.visit(this, context);
-
+	public void accept(TypeChecker visitor) {
+		visitor.visit(this);
 	}
 
 }

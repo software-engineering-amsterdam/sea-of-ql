@@ -1,9 +1,12 @@
 package org.uva.sea.ql.ast.expressions.binary;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import org.uva.sea.ql.ast.eval.Env;
 import org.uva.sea.ql.ast.expressions.Expr;
-import org.uva.sea.ql.ast.types.Type;
+import org.uva.sea.ql.messages.Message;
+import org.uva.sea.ql.messages.Error;
 
 public abstract class Binary extends Expr {
 	private Expr left;
@@ -23,12 +26,17 @@ public abstract class Binary extends Expr {
 	}
 
 	@Override
-	public List<String> checkType(List<String> errors) {
-		Type leftType = getLeft().typeOf(null);
-		Type rightType = getRight().typeOf(null);
-		// TODO: niet dit maar getleft and getRight .checkType()
-		if (leftType != rightType) { // TODO: equals!
-			errors.add("The left and right value are not of the same type.");
+	public List<Message> checkType(Env environment) {
+		List<Message> errors = new ArrayList<Message>();
+		
+		errors.addAll(left.checkType(environment));
+		errors.addAll(right.checkType(environment));
+		
+		if (!left.typeOf(environment).equals(right.typeOf(environment))) {
+			errors.add(new Error("The type of the left and right expression of " + getName() + " should be of the same type"));
+		}
+		else if (!this.allowedTypes.contains(left.typeOf(environment))) {
+			errors.add(new Error("The type of the left and right arguments are not allowed in operation " + getName()));
 		}
 		
 		return errors;

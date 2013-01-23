@@ -9,8 +9,8 @@ public class Money extends Numeric {
 	}
 
 	@Override
-	public void accept(Type<?> visitor) {
-		visitor.visit(this);
+	public <T> T accept(Type<T> visitor) {
+		return visitor.visit(this);
 	}
 
 }

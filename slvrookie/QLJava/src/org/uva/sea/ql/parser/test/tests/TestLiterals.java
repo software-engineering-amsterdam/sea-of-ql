@@ -5,8 +5,7 @@ import org.junit.Test;
 import org.uva.sea.ql.ast.expr.*;
 import org.uva.sea.ql.ast.expr.value.*;
 import org.uva.sea.ql.parser.antlr.ANTLRParser;
-import org.uva.sea.ql.parser.test.IParse;
-import org.uva.sea.ql.parser.test.ParseError;
+import org.uva.sea.ql.parser.test.*;
 
 
 public class TestLiterals{

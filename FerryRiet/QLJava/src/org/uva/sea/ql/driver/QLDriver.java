@@ -8,10 +8,18 @@ import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JTextPane;
+import javax.swing.JButton;
 
-public class QLDriver extends JFrame {
+import com.sun.corba.se.impl.encoding.CodeSetConversion.BTCConverter;
+
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+
+public class QLDriver extends JFrame implements ActionListener {
 
 	private static final long serialVersionUID = 5869298083469486262L;
+	private JButton btnNewButton;
 
 	/**
 	 * Launch the application.
@@ -51,6 +59,30 @@ public class QLDriver extends JFrame {
 		});
 		mnNewMenu.add(mntmNewMenuItem);
 		getContentPane().setLayout(null);
+
+		JTextPane txtpnFormNameofForm = new JTextPane();
+		txtpnFormNameofForm
+				.setText("form Name_of_form { \r\n\r\n\tdoit: \"Do it to me baby....\" boolean\r\n\r\n}");
+		txtpnFormNameofForm.setBounds(0, 0, 371, 288);
+		getContentPane().add(txtpnFormNameofForm);
+
+		JTextPane textPane = new JTextPane();
+		textPane.setText("form Name_of_form { \r\n\r\n\tdoit: \"Do it to me baby....\" boolean\r\n\r\n}");
+		textPane.setBounds(0, 306, 371, 288);
+		getContentPane().add(textPane);
+
+		btnNewButton = new JButton("Compile");
+		btnNewButton.addActionListener(this);
+		btnNewButton.setBounds(10, 625, 89, 23);
+		getContentPane().add(btnNewButton);
 	}
 
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		if (e.equals(btnNewButton)) {
+			e.
+			btnNewButton.setText("pushed");
+		}
+		btnNewButton.setText("pushed");
+	}
 }

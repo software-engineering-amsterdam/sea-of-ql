@@ -22,8 +22,8 @@ public class If extends AbstractStatement {
 	}
 
 	@Override
-	public void accept(Statement<?> visitor) {
-		visitor.visit(this);
+	public <T> T accept(Statement<T> visitor) {
+		return visitor.visit(this);
 	}
 
 }

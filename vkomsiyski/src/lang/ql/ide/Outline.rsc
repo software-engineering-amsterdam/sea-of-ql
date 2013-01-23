@@ -7,7 +7,6 @@ import util::IDE;
 import ParseTree;
 import Node;
 import List;
-import Exception;
 
 
 public Contribution getOutliner() 
@@ -32,7 +31,6 @@ private node outline(Statement input:computed(\type, name, _, expr)) =
 private node outline(Statement input:conditional(_, _, _)) =
 	makeOutlineNode("con", "if (<unparse(input.\if.condition)>)", input@location, 
 				    getNodesFromStatements(flatten(input)));
-
 
 
 private list[node] getNodesFromStatements(list[Statement] s) 

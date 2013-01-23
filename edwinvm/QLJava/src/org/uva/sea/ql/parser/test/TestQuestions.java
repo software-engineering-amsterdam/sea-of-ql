@@ -7,7 +7,7 @@ import org.uva.sea.ql.ast.questions.AnswerableQuestion;
 import org.uva.sea.ql.ast.questions.ComputedQuestion;
 import org.uva.sea.ql.parser.IParser;
 import org.uva.sea.ql.parser.ParseError;
-import org.uva.sea.ql.parser.antlr.ANTLRParserQuestions;
+import org.uva.sea.ql.parser.antlr.check.ANTLRParserQuestions;
 
 public class TestQuestions {
 	private IParser _parser;

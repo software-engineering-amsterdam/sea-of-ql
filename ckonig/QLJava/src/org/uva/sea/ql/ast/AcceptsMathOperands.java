@@ -1,7 +1,5 @@
 package org.uva.sea.ql.ast;
 
-import org.uva.sea.ql.visitor.ASTElement;
+public interface AcceptsMathOperands {
 
-public interface AcceptsMathOperands extends ASTElement{
-	
 }

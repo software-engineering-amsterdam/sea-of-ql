@@ -6,13 +6,17 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.uva.sea.ql.ast.*;
-import org.uva.sea.ql.ast.data.*;
+import org.uva.sea.ql.ast.literal.*;
 
 public class QLLexer implements QLTokens {
 	private static final Map<String, Integer> KEYWORDS;
 	
 	static {
 		KEYWORDS = new HashMap<String, Integer>();
+		KEYWORDS.put("form", FORM);
+		KEYWORDS.put("boolean", BOOLEAN);
+		KEYWORDS.put("true", BOOLEANLITERAL);
+		KEYWORDS.put("false", BOOLEANLITERAL);
 	}
 	
 	
@@ -73,7 +77,7 @@ public class QLLexer implements QLTokens {
 			// Detect tokens
 			switch (c) {
 			    
-				// Start of a multiline comment (/*) token
+				// Start of a multiline comment (/*) token, or arithmetic division (/) token
 				case '/': {
 			    	nextChar();
 			    	if (c == '*') {
@@ -84,11 +88,15 @@ public class QLLexer implements QLTokens {
 			    	return token = '/'; 
 			    }
 				
+				// Block tokens
+				case '}': nextChar(); return token = '}';
+			    case '{': nextChar(); return token = '{';
+				
 				// Parenthesis
 			    case ')': nextChar(); return token = ')';
 			    case '(': nextChar(); return token = '(';
 			    
-			    // End of multiline comment (*/) token, or arithmetic multiplication token
+			    // End of multiline comment (*/) token, or arithmetic multiplication (*) token
 			    case '*': {
 			    	nextChar();
 			    	if (inComment && c == '/') {
@@ -170,8 +178,8 @@ public class QLLexer implements QLTokens {
 		    		}
 		    		nextChar();
 		    		String name = sb.toString();
-					yylval = new Str(name);
-		    		return token = STR;
+					yylval = new StringLiteral(name);
+		    		return token = STRINGLITERAL;
 		    	}
 			    
 			    default: {
@@ -183,8 +191,8 @@ public class QLLexer implements QLTokens {
 			    			n = 10 * n + (c - '0');
 			    			nextChar(); 
 			    		} while (Character.isDigit(c)); 
-			    		yylval = new Int(n);
-			    		return token = INT;
+			    		yylval = new IntegerLiteral(n);
+			    		return token = INTEGERLITERAL;
 			    	}
 			    	
 			    	// Identifier token [a-zA-Z]+
@@ -196,12 +204,16 @@ public class QLLexer implements QLTokens {
 			    		}
 			    		while (Character.isLetterOrDigit(c));
 			    		String name = sb.toString();
+			    		// Boolean literal [true|false] tokens
+			    		if (name.equals("true")) yylval = new BooleanLiteral(true);
+			    		if (name.equals("false")) yylval = new BooleanLiteral(false);
 			    		// Check for reserved words
 			    		if (KEYWORDS.containsKey(name)) {
+			    			System.out.println("!!!" + name);
 			    			return token = KEYWORDS.get(name);
 			    		}
-						yylval = new Ident(name);
-			    		return token = IDENT;
+						yylval = new Identifier(name);
+			    		return token = IDENTIFIER;
 			    	}
 			    	
 			    	throw new RuntimeException("Unexpected character: " + (char)c);

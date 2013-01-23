@@ -21,18 +21,16 @@ package org.uva.sea.ql.parser.antlr;
 
 
 type returns [Type result]
-	: (Type {
-		 if ($Type.text.equals("int"))$result = new IntType(); 
-		 else if ($Type.text.equals("boolean"))$result = new BoolType(); 
-		 else if ($Type.text.equals("string"))$result = new StringType();
-		 else if ($Type.text.equals("money"))$result = new MoneyType();
-		}
-		);
+	:INTEGER { $result = new IntType();} 
+	|BOOLEAN { $result = new BoolType();} 
+	|STRING { $result = new StringType();}
+	|MONEY {$result = new MoneyType();}
+	;
 	
 	
 
 form returns [Form result]
-	:'form' Ident  '{' body '}' {$result = new Form(new Ident($Ident.text),$body.result);}
+	:'form' Ident  '{' body '}' EOF {$result = new Form(new Ident($Ident.text),$body.result);}
 	;
 	
 	
@@ -53,10 +51,10 @@ element returns [Element result]
 	
 	
 question returns [Question result]
-  : Ident ':' StringLit type {$result=new Question(new Ident($Ident.text),$StringLit.text,$type.result);};
+  : Ident ':' StringLit type {$result=new Question(new Ident($Ident.text),new StringLit($StringLit.text),$type.result);};
   
 computedQuestion returns [ComputedQuestion result]
-  : Ident ':' StringLit type '(' expr=orExpr ')' {$result=new ComputedQuestion(new Ident($Ident.text),$StringLit.text,$type.result,expr);};
+  : Ident ':' StringLit type '(' expr=orExpr ')' {$result=new ComputedQuestion(new Ident($Ident.text),new StringLit($StringLit.text),$type.result,expr);};
   
   
 ifBlock returns [IfBlock result]
@@ -149,17 +147,22 @@ orExpr returns [Expr result]
 
 
 
-Type: ('int'|'string'|'boolean'|'money');
+
+INTEGER:'int';
+STRING:'string';
+BOOLEAN:'boolean';
+MONEY:'money';
+
+
 BoolLit	:	('true' | 'false');  
 
 
-LB    :('\n'|'\r');
 
 WS  :	(' ' | '\t' | '\n' | '\r') { $channel=HIDDEN; }
     ;
 
 COMMENT 
-     : ('/*' .* '*/'|'//' ~(LB)* ){$channel=HIDDEN;}  
+     : ('/*' .* '*/'|'//'  ){$channel=HIDDEN;}  
      ;
      
   
