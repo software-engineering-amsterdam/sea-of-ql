@@ -42,7 +42,7 @@ public class TestForm {
 
 	@Test
 	public void testQuestion() throws ParseError {
-		assertEquals(Question.class, parser.parseQuestion("id : \"label\" int").getClass());
+		assertEquals(Question.class,parser.parseQuestion("id : \"label\" int").getClass());
 		assertEquals(Question.class,parser.parseQuestion("id : \"label\" boolean").getClass());
 		assertEquals(Question.class,parser.parseQuestion("id : \"label\" string").getClass());
 		assertEquals(Question.class,parser.parseQuestion("id : \"label\" money").getClass());
