@@ -28,16 +28,22 @@ public class KnockoutJSViewModelBuilderVisitor implements ASTNodeVisitor<Void, K
 
     private static final String VIEWMODEL_TEMPLATE = "var _viewModel=new function(){var _self=this;_self.identifiers=%s;_self.root=%s;})();";
 
-    public String createViewModel(Form form) {
+    /**
+     * Private constructor to indicate that no instance should be made of this class.
+     */
+    private KnockoutJSViewModelBuilderVisitor() { }
+
+    public static String createViewModel(Form form) {
+        KnockoutJSViewModelBuilderVisitor visitor = new KnockoutJSViewModelBuilderVisitor();
         Context context = new Context();
-        form.accept(this, context);
+        form.accept(visitor, context);
 
         return String.format(VIEWMODEL_TEMPLATE,
                 createIdentifierObject(context.identifiers),
                 context.getObjectHierarchy().toString());
     }
 
-    private String createIdentifierObject(Iterable<String> identifiers) {
+    private static String createIdentifierObject(Iterable<String> identifiers) {
         StringBuilder stringBuilder = new StringBuilder("{");
         for(Iterator<String> iterator = identifiers.iterator(); iterator.hasNext(); ) {
             stringBuilder
