@@ -14,6 +14,8 @@ import org.uva.sea.ql.ast.QLProgram;
 import org.uva.sea.ql.ast.Statement;
 import org.uva.sea.ql.ast.StringLiteral;
 import org.uva.sea.ql.ast.UnExpr;
+import org.uva.sea.ql.ast.nodevisitor.Visitor;
+import org.uva.sea.ql.ast.nodevisitor.VisitorResult;
 import org.uva.sea.ql.ast.operators.Add;
 import org.uva.sea.ql.ast.operators.And;
 import org.uva.sea.ql.ast.operators.Div;
@@ -30,8 +32,6 @@ import org.uva.sea.ql.ast.operators.Or;
 import org.uva.sea.ql.ast.operators.Pos;
 import org.uva.sea.ql.ast.operators.Sub;
 import org.uva.sea.ql.ast.types.TypeDescription;
-import org.uva.sea.ql.astnodevisitor.Visitor;
-import org.uva.sea.ql.astnodevisitor.VisitorResult;
 
 public class Interpreter implements Visitor {
 	

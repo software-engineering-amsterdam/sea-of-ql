@@ -34,4 +34,5 @@
 <fullyQualifiedTypeName name="org.uva.sea.ql.ast.IntLiteral"/>
 <fullyQualifiedTypeName name="org.uva.sea.ql.astnodevisitor.Visitor"/>
 <fullyQualifiedTypeName name="com.sun.org.apache.bcel.internal.classfile.Visitor"/>
+<fullyQualifiedTypeName name="com.sun.corba.se.impl.encoding.CodeSetConversion.BTCConverter"/>
 </qualifiedTypeNameHistroy>

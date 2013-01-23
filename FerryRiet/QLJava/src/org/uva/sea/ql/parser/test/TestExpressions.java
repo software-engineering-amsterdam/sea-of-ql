@@ -71,13 +71,16 @@ public class TestExpressions extends TestCase {
 
 	@Test
 	public void testEvalObject() throws ParseError {
+		@SuppressWarnings("unused")
 		Expr expr;
+		@SuppressWarnings("unused")
 		Interpreter intrp = new Interpreter();
+		@SuppressWarnings("unused")
 		IntLiteral result = null;
 
 		expr = parser.expr("10 * 10 + 1");
-		//result = (IntLiteral) intrp.eval((Add) expr);
+		// result = (IntLiteral) intrp.eval((Add) expr);
 
-		//assertEquals(result.getValue(), 101);
+		// assertEquals(result.getValue(), 101);
 	}
 }

@@ -1,4 +1,4 @@
-package org.uva.sea.ql.astnodevisitor;
+package org.uva.sea.ql.ast.nodevisitor;
 
 import org.uva.sea.ql.ast.*;
 import org.uva.sea.ql.ast.operators.Add;
