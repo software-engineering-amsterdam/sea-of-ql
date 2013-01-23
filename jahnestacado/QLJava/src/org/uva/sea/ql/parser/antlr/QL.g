@@ -51,10 +51,10 @@ element returns [Element result]
 	
 	
 question returns [Question result]
-  : Ident ':' StringLit type {$result=new Question(new Ident($Ident.text),$StringLit.text,$type.result);};
+  : Ident ':' StringLit type {$result=new Question(new Ident($Ident.text),new StringLit($StringLit.text),$type.result);};
   
 computedQuestion returns [ComputedQuestion result]
-  : Ident ':' StringLit type '(' expr=orExpr ')' {$result=new ComputedQuestion(new Ident($Ident.text),$StringLit.text,$type.result,expr);};
+  : Ident ':' StringLit type '(' expr=orExpr ')' {$result=new ComputedQuestion(new Ident($Ident.text),new StringLit($StringLit.text),$type.result,expr);};
   
   
 ifBlock returns [IfBlock result]
