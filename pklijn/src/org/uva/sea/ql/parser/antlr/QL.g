@@ -7,7 +7,7 @@ package org.uva.sea.ql.parser.antlr;
 import org.uva.sea.ql.ast.expressions.*;
 import org.uva.sea.ql.ast.expressions.unary.*;
 import org.uva.sea.ql.ast.expressions.binary.*;
-import org.uva.sea.ql.ast.values.*;
+import org.uva.sea.ql.ast.types.*;
 import org.uva.sea.ql.form.*;
 }
 
@@ -19,7 +19,7 @@ package org.uva.sea.ql.parser.antlr;
 form returns [Form result]
   : 'form' Ident '{'
     formItems
-    '}' { $result = new Form($Ident.text, $formItems.result); }
+    '}' { $result = new Form(new Ident($Ident.text), $formItems.result); }
   ;
 
 
@@ -45,17 +45,17 @@ ifStatement returns [IfStatement result]
 
 computedQuestion returns [ComputedQuestion result]
   : Ident ':' String questionType '(' orExpr ')' 
-      { $result = new ComputedQuestion($Ident.text, $String.text, $questionType.result, $orExpr.result); }
+      { $result = new ComputedQuestion(new Ident($Ident.text), $String.text, $questionType.result, $orExpr.result); }
   ;
 
 question returns [Question result]
-  : Ident ':' String questionType { $result = new Question($Ident.text, $String.text, $questionType.result); }
+  : Ident ':' String questionType { $result = new Question(new Ident($Ident.text), $String.text, $questionType.result); }
   ;
 
-questionType returns [Value result]
-  : 'boolean' { $result = new BoolValue(); }
-  | 'int' { $result = new IntValue(); }
-  | 'string' { $result = new StringValue(); }
+questionType returns [Type result]
+  : 'boolean' { $result = new BoolType(); }
+  | 'int' { $result = new IntType(); }
+  | 'string' { $result = new StringType(); }
   ;
 
 primary returns [Expr result]

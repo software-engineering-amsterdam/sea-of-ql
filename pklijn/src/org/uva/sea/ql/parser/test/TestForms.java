@@ -2,6 +2,8 @@ package org.uva.sea.ql.parser.test;
 
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 import org.uva.sea.ql.parser.antlr.ANTLRParser;
@@ -16,7 +18,7 @@ public class TestForms {
 	}
 	
 	@Test 
-	public void testQuestionForm() throws ParseError {
+	public void testFormParser() throws ParseError {
 		assertEquals(parser.parseForm("form testForm1 {\n" +
 				"  demoQuestion: \"Is this really a question?\" boolean\n" +
 				"}").getClass(),Form.class);
@@ -41,5 +43,53 @@ public class TestForms {
 				"}\n" +
 				"demoQuestion6: \"Is it true?\" boolean" +
 				"}").getClass(),Form.class);
+	}
+	
+	@Test
+	public void testFormIdents() throws ParseError {
+		// Basic form with boolean
+		assertTrue(parser.parseForm("" +
+				"form testForm1 {\n" +
+				"	hasSoldHouse: \"Have you sold a house in 2012?\" boolean\n" +
+				"	if (hasSoldHouse) {\n" +
+				"		totalSoldHouseValue: \"How much money did you get for all houses in total?\" int\n" +
+				"	}\n" +
+				"}").checkFormValidity());
+		// Basic form with GT expression over integer
+		assertTrue(parser.parseForm("" +
+				"form testForm3 {\n" +
+				"	hasSoldHouse: \"Have you sold a house in 2012?\" int\n" +
+				"	if (hasSoldHouse > 10) {\n" +
+				"		totalSoldHouseValue: \"How much money did you get for all houses in total?\" int\n" +
+				"	}\n" +
+				"}").checkFormValidity());
+		// Form with computed questions
+		assertTrue(parser.parseForm("" +
+				"form testForm1 {\n" +
+				"	input1: \"Question irrelevant\" int\n" +
+				"	calc1: \"Question irrelevant\" int(10 - 4)\n" +
+				"	calc2: \"Question irrelevant\" int(10 - calc1 + input1)\n" +
+				"	calc3: \"Question irrelevant\" int(calc1 - calc2)\n" +
+				"	calc4: \"Question irrelevant\" int((calc3 + calc2) - (calc1 * 2))\n" +
+				"	bool1: \"Question irrelevant\" boolean\n" +
+				"	bool2: \"Question irrelevant\" boolean(bool1)\n" +
+				"	bool3: \"Question irrelevant\" boolean((10 - 4) < 7 && bool2)\n" +
+				"	str1: \"Question irrelevant\" string\n" +
+				"	str2: \"Question irrelevant\" string(str1)\n" +
+				"	str3: \"Question irrelevant\" string(str2)\n" +
+				"}").checkFormValidity());
+		// Form with error if (integer)
+		assertFalse(parser.parseForm("" +
+				"form testForm2 {\n" +
+				"	hasSoldHouse: \"Have you sold a house in 2012?\" boolean\n" +
+				"	if (hasSoldHouse) {\n" +
+				"		totalSoldHouseValue: \"How much money did you get for all houses in total?\" int\n" +
+				"		if (totalSoldHouseValue) {\n" +
+				"			yuRich: \"Do you consider yourself rich?\" boolean\n" +
+				"		}\n" +
+				"	}\n" +
+				"}").checkFormValidity());
+		
+		
 	}
 }

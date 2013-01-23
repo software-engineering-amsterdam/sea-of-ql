@@ -1,13 +1,16 @@
 package org.uva.sea.ql.form;
 
+import org.uva.sea.ql.ast.eval.Env;
 import org.uva.sea.ql.ast.expressions.Expr;
-import org.uva.sea.ql.ast.values.Value;
+import org.uva.sea.ql.ast.expressions.Ident;
+import org.uva.sea.ql.ast.types.Type;
+import org.uva.sea.ql.messages.Error;
 
 public class ComputedQuestion extends Question {
 
 	private final Expr expression;
 	
-	public ComputedQuestion(String id, String question, Value questionType, Expr expression) {
+	public ComputedQuestion(Ident id, String question, Type questionType, Expr expression) {
 		super(id,question,questionType);
 		this.expression = expression;
 	}
@@ -20,8 +23,21 @@ public class ComputedQuestion extends Question {
 	public void print(int level) {
 		printIndent(level);
 		System.out.println("Q:" + getLabel() 
-				+ " (id: " + getId() 
+				+ " (id: " + getId().getName()
 				+ ", type: " + getQuestionType ()
 				+ ", expression: " + expression + ")");
+	}
+	
+	@Override
+	public boolean validate(Env environment) {
+		boolean valid = super.validate(environment);
+		errors.addAll(expression.checkType(environment));
+		if (expression.typeOf(environment).getClass() != getQuestionType().getClass()) {
+			errors.add(new Error("" +
+					"ComputedQuestion " + getId() + 
+					" requires the expression to give a " + getQuestionType() + 
+					" result (" + expression.typeOf(environment) + " given)"));
+		}
+		return errors.size() == 0 && valid;
 	}
 }
