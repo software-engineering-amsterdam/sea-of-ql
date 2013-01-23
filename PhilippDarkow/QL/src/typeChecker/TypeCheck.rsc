@@ -96,7 +96,10 @@ QLTENV checkBody(list[Body] Body, QLTENV env){
      	case Question q : {
     			env = checkQuestion(q,env);
     	    }
-        case Statement s: println("Statement is : <S>");
+        case Statement s: {
+        		println("Statement is : <S>");
+        		env = checkStatement(s,env);
+        	}
       };
 	}
 	return env;
@@ -109,7 +112,7 @@ public QLTENV checkProgram(Program P){
      env = checkBody(Body, env);
      println("ENV : <env>"); 
     // QTENV qEnv = mapQuestionIdToType2(env.symbols);  // Mapping.rsc is doing that 
-	 return checkQuestionStats(Series, qEnv);
+	 return checkQuestionStats(Series, env);
   } else
      throw "Cannot happen";
 }
