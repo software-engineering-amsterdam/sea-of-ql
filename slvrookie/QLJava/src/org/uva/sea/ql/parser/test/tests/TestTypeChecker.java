@@ -1,10 +1,6 @@
 package org.uva.sea.ql.parser.test.tests;
 
-import java.util.Map;
-
 import org.junit.Test;
-import org.uva.sea.ql.ast.expr.Ident;
-import org.uva.sea.ql.ast.types.Type;
 import org.uva.sea.ql.parser.antlr.ANTLRParser;
 import org.uva.sea.ql.parser.test.IParse;
 import org.uva.sea.ql.parser.test.ParseError;

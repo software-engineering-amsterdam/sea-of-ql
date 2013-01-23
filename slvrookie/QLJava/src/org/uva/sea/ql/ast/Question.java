@@ -4,7 +4,6 @@ import org.uva.sea.ql.ast.expr.Ident;
 import org.uva.sea.ql.ast.expr.value.StringLiteral;
 import org.uva.sea.ql.ast.types.Type;
 
-
 public class Question extends FormElement {
 
 	private final Ident qID;
