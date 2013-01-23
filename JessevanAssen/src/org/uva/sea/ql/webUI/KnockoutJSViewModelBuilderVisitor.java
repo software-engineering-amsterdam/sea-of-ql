@@ -26,7 +26,7 @@ public class KnockoutJSViewModelBuilderVisitor implements ASTNodeVisitor<Void, K
         public StringBuilder getObjectHierarchy() { return objectHierarchy; }
     }
 
-    private static final String VIEWMODEL_TEMPLATE = "var _viewModel=new function(){var _self=this;_self.identifiers=%s;_self.root=%s;})();";
+    private static final String VIEWMODEL_TEMPLATE = "var _viewModel=new (function(){var _self=this;_self.identifiers=%s;_self.root=%s;})();";
 
     /**
      * Private constructor to indicate that no instance should be made of this class.

@@ -44,7 +44,7 @@ public class Main {
                 throw new RuntimeException(stringBuilder.toString());
             }
             String viewModel = KnockoutJSViewModelBuilderVisitor.createViewModel(parsedForm);
-            viewModel.toString();
+            System.out.println(viewModel);
         } catch(ParseError parseError) {
             throw new RuntimeException("Error while parsing.", parseError);
         }

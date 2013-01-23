@@ -1,4 +1,12 @@
-﻿<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+﻿<%@ page import="org.uva.sea.ql.webUI.KnockoutJSViewModelBuilderVisitor" %>
+<%@ page import="org.uva.sea.ql.Message" %>
+<%@ page import="java.util.Iterator" %>
+<%@ page import="org.uva.sea.ql.typechecker.TypecheckerVisitor" %>
+<%@ page import="java.util.List" %>
+<%@ page import="org.uva.sea.ql.ast.Form" %>
+<%@ page import="org.uva.sea.ql.parser.Parser" %>
+<%@ page import="org.uva.sea.ql.parser.antlr.ANTLRParser" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -140,10 +148,10 @@
         <label><input type="radio" value="false" data-bind="name: name, booleanValue: value" /> No</label>
     </script>
     <script type="text/html" id="integer-input-template">
-        <input type="text" data-bind="integerValue: value" />
+        <input type="text" data-bind="integerValue: value, valueUpdate: 'afterKeyDown'" />
     </script>
     <script type="text/html" id="string-input-template">
-        <input type="text" data-bind="value: value" />
+        <input type="text" data-bind="value: value, valueUpdate: 'afterKeyDown'" />
     </script>
 </head>
 <body>
@@ -154,35 +162,27 @@
     <input type="button" value="Send form" data-bind="enable: $root.root.valid(), click: function() {console.log($root.root.collectValues());}"/>
 
     <script type="text/javascript">
-        var _viewModel = new (function(){
-            var _self = this;
-            _self.identifiers = {
-                hasSoldHouse:ko.observable(true),
-                hasBoughtHouse:ko.observable(),
-                hasMaintLoan:ko.observable(true),
-                privateDebt:ko.observable(),
-                sellingPrice:ko.observable()
-            };
-            _self.root = new Block(
-                function(){return true;},
-                [
-                    new Question("Did you sell a house in 2010?","hasSoldHouse",_self.identifiers.hasSoldHouse,DataType.BOOLEAN),
-                    new Question("Did you by a house in 2010?","hasBoughtHouse",_self.identifiers.hasBoughtHouse,DataType.BOOLEAN),
-                    new Question("Did you enter a loan for maintenance/reconstruction?","hasMaintLoan",_self.identifiers.hasMaintLoan,DataType.BOOLEAN),
-                    new Block(
-                        function(){
-                            return _self.identifiers.hasSoldHouse();
-                        },
-                        [
-                            new Question("Private debts for the sold house:","privateDebt",_self.identifiers.privateDebt,DataType.INTEGER, _self),
-                            new Question("Price the house was sold for:","sellingPrice",_self.identifiers.sellingPrice,DataType.INTEGER, _self),
-                            new Computed("Value residue:",function(){return (_self.identifiers.sellingPrice()-_self.identifiers.privateDebt());})
-                        ]
-                    ),
-                    new Block(function(){return !_self.identifiers.hasSoldHouse();},[])
-                ]
-            );
-        })();
+        <%
+            final String SAMPLE_FORM =
+                    "form Box1HouseOwning {" +
+                    "    \"Did you sell a house in 2010?\" hasSoldHouse: boolean" +
+                    "    \"Did you by a house in 2010?\" hasBoughtHouse: boolean" +
+                    "    \"Did you enter a loan for maintenance/reconstruction?\" hasMaintLoan: boolean" +
+                    "    if (hasSoldHouse) {" +
+                    "        \"Private debts for the sold house:\" privateDebt: integer" +
+                    "        \"Price the house was sold for:\" sellingPrice: integer" +
+                    "        \"Value residue:\" sellingPrice - privateDebt" +
+                    "    }" +
+                    "}";
+            Parser parser = new ANTLRParser();
+            Form parsedForm = (Form) parser.parse(SAMPLE_FORM);
+            List<Message> errors = TypecheckerVisitor.typecheck(parsedForm);
+            if(errors.isEmpty()) {
+                String viewModel = KnockoutJSViewModelBuilderVisitor.createViewModel(parsedForm);
+                out.println(viewModel);
+            } else
+                out.println("<!-- Errors in script. -->");
+        %>
         ko.applyBindings(_viewModel);
     </script>
 </body>
