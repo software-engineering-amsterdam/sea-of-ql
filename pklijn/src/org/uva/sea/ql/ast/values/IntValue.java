@@ -4,6 +4,10 @@ public class IntValue extends Value {
 	
 	private final Integer value;
 	
+	public IntValue() {
+		this(0);
+	}
+	
 	public IntValue(int value) {
 		this.value = value;
 	}

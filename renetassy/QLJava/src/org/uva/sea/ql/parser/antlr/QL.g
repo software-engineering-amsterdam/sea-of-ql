@@ -5,6 +5,9 @@ options {backtrack=true; memoize=true;}
 {
 package org.uva.sea.ql.parser.antlr;
 import org.uva.sea.ql.ast.*;
+import org.uva.sea.ql.ast.expr.*;
+import org.uva.sea.ql.ast.stmnt.*;
+import org.uva.sea.ql.ast.qtype.*;
 }
 
 @lexer::header
@@ -13,7 +16,7 @@ package org.uva.sea.ql.parser.antlr;
 }
 
 ifStatement returns [IfStatement result]
-	: 'if' '(' condition=orExpr ')' '{' body '}' {result = new IfStatement(condition, $body.result); }
+	: 'if' '(' condition=orExpr ')' body {result = new IfStatement(condition, $body.result); }
 	;
 
 question returns [Question result]
@@ -31,11 +34,15 @@ computedQuestion returns [computedQuestion result]
 	;
 	
 questionType returns [QuestionType result]
-	: 'int' | 'bool' | 'string' 
+	: 'int' { $result = new IntType(); }
+	| 'bool' { $result = new BoolType(); }
+	| 'string' { $result = new StringType(); } 
 	;
 
 statement returns [Statement result] 
-	: (question { result = $question.result; } | ifStatement {result = $ifStatement.result;})
+	: (question { $result = $question.result; } 
+	| ifStatement { $result = $ifStatement.result; }
+	| body { $result = $body.result; } )
 	;
 
 body returns [Body result]
@@ -48,12 +55,12 @@ form returns [Form result]
     ;
 	
 primary returns [Expr result]
-  : Int   { $result = new Int(Integer.parseInt($Int.text)); }
-  | Bool { $result = new BoolLiteral ($Bool.text); }
-  | String {result = new StringLiteral ($String.text); }
-  | Ident { $result = new Ident($Ident.text); }
-  | '(' x=orExpr ')'{ $result = $x.result; }
-  ;
+  	: Int   { $result = new Int(Integer.parseInt($Int.text)); }
+  	| Bool { $result = new BoolLiteral ($Bool.text); }
+  	| String { $result = new StringLiteral ($String.text); }
+  	| Ident { $result = new Ident($Ident.text); }
+  	| '(' x=orExpr ')'{ $result = $x.result; }
+  	;
     
 unExpr returns [Expr result]
     :  '+' x=unExpr { $result = new Pos($x.result); }
@@ -128,7 +135,7 @@ SLINE_COMMENT	: '//' .* ('\n'|'\r') { $channel=HIDDEN; };
 
 Bool: ('true' | 'false');
 
-String: ('"' .* '"');
+String: ('"' ~('\n' | '\r' | '"')* '"');
 
 Int: ('0'..'9')+;
 

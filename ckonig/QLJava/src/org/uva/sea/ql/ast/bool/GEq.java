@@ -4,7 +4,6 @@ import org.uva.sea.ql.ast.AcceptsMathOperands;
 import org.uva.sea.ql.ast.BinaryExpr;
 import org.uva.sea.ql.ast.Expr;
 import org.uva.sea.ql.ast.ReturnsBoolOperands;
-import org.uva.sea.ql.visitor.ASTVisitor;
 
 public class GEq extends BinaryExpr implements AcceptsMathOperands,
 		ReturnsBoolOperands {
@@ -12,12 +11,6 @@ public class GEq extends BinaryExpr implements AcceptsMathOperands,
 
 	public GEq(Expr left, Expr right) {
 		super(left, right);
-	}
-
-	@Override
-	public void accept(ASTVisitor visitor) {
-		// TODO Auto-generated method stub
-
 	}
 
 	@Override

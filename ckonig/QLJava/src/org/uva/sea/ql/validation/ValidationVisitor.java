@@ -16,8 +16,6 @@ import org.uva.sea.ql.visitor.ASTVisitor;
 import org.uva.sea.ql.visitor.Registry;
 import org.uva.sea.ql.visitor.VisitorException;
 
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
-
 public class ValidationVisitor implements ASTVisitor {
 	private Registry registry;
 
@@ -43,16 +41,16 @@ public class ValidationVisitor implements ASTVisitor {
 	@Override
 	public void visit(Block block) throws VisitorException {
 		if (block.getClass() != null) {
-			for (Expr l : block.getContent()) {
-				if (l != null) {
-					if (l.getClass().equals(IfStatement.class)
-							|| l.getClass().equals(Question.class)) {
-						if (l.getClass().equals(IfStatement.class)) {
-							IfStatement i = (IfStatement) l;
+			for (Expr expr : block.getContent()) {
+				if (expr != null) {
+					if (expr.getClass().equals(IfStatement.class)
+							|| expr.getClass().equals(Question.class)) {
+						if (expr.getClass().equals(IfStatement.class)) {
+							IfStatement i = (IfStatement) expr;
 							i.accept(this);
 						}
-						if (l.getClass().equals(Question.class)) {
-							Question q = (Question) l;
+						if (expr.getClass().equals(Question.class)) {
+							Question q = (Question) expr;
 							q.accept(this);
 						}
 					} else {
@@ -94,19 +92,13 @@ public class ValidationVisitor implements ASTVisitor {
 
 			if (ifStatement.getCondition() instanceof ReturnsBoolOperands) {
 				if (ifStatement.getCondition() instanceof AcceptsBoolOperands) {
-					AcceptsBoolOperands r = (AcceptsBoolOperands) ifStatement
-							.getCondition();
-					r.accept(this);
+					this.visit((AcceptsBoolOperands) ifStatement.getCondition());
 				}
 				if (ifStatement.getCondition() instanceof AcceptsMathOperands) {
-					AcceptsMathOperands r = (AcceptsMathOperands) ifStatement
-							.getCondition();
-					r.accept(this);
+					this.visit((AcceptsMathOperands) ifStatement.getCondition());
 				}
 				if (ifStatement.getCondition() instanceof AcceptsBothOperands) {
-					AcceptsBothOperands r = (AcceptsBothOperands) ifStatement
-							.getCondition();
-					r.accept(this);
+					this.visit((AcceptsBothOperands) ifStatement.getCondition());
 				}
 			} else {
 				throw new AstValidationError("not a valid condition: "
@@ -120,22 +112,45 @@ public class ValidationVisitor implements ASTVisitor {
 		}
 
 	}
-
-	@Override
-	public void visit(Registry registry) {
-		throw new NotImplementedException();
+	
+	private Expr getLeftIdentTypeOrLeft(BinaryExpr b) throws VisitorException {
+		Expr left = b.getLeft();
+		if (left instanceof Ident) {
+			left = getIdentType(left);
+		}
+		visitOperands(left);
+		return left;
 	}
 
-	@Override
-	public void visit(AcceptsBoolOperands r) throws VisitorException {
+	private Expr getRightIdentTypeOrRight(BinaryExpr b) throws VisitorException {
+		Expr right = b.getRight();
+
+		if (right instanceof Ident) {
+			right = getIdentType(right);
+		}
+		visitOperands(right);
+		return right;
+	}
+	
+	private void visitOperands(Expr e) throws VisitorException {
+		if (e instanceof AcceptsMathOperands) {
+			this.visit((AcceptsMathOperands) e);
+		}
+		if (e instanceof AcceptsBoolOperands) {
+			this.visit((AcceptsBoolOperands) e);
+		}
+		if (e instanceof AcceptsBothOperands) {
+			this.visit((AcceptsBothOperands) e);
+		}
+	}
+
+	private void visit(AcceptsBoolOperands r) throws VisitorException {
 		if (r instanceof BinaryExpr) {
 			BinaryExpr b = (BinaryExpr) r;
-			Expr left = getLeft(b);
-			Expr right = getRight(b);
-			if (left instanceof ReturnsBoolOperands
-					&& right instanceof ReturnsBoolOperands) {
-
-			} else {
+			Expr left = getLeftIdentTypeOrLeft(b);
+			Expr right = getRightIdentTypeOrRight(b);
+			if (!(left instanceof ReturnsBoolOperands
+					&& right instanceof ReturnsBoolOperands)) {
 				throw new AstValidationError("both childs of " + b.getClass()
 						+ " must be bool");
 			}
@@ -143,36 +158,30 @@ public class ValidationVisitor implements ASTVisitor {
 
 	}
 
-	@Override
-	public void visit(AcceptsMathOperands r) throws VisitorException {
+	private void visit(AcceptsMathOperands r) throws VisitorException {
 		if (r instanceof BinaryExpr) {
 			BinaryExpr b = (BinaryExpr) r;
-			Expr left = getLeft(b);
-			Expr right = getRight(b);
-			if (left instanceof ReturnsMathOperands
-					&& right instanceof ReturnsMathOperands) {
-
-			} else {
+			Expr left = getLeftIdentTypeOrLeft(b);
+			Expr right = getRightIdentTypeOrRight(b);
+			if (!(left instanceof ReturnsMathOperands
+					&& right instanceof ReturnsMathOperands)) {
 				throw new AstValidationError("both childs of " + b.getClass()
-						+ " must be math");
+						+ " must return math operands!");
 			}
 		}
 
 	}
 
-	@Override
-	public void visit(AcceptsBothOperands r) throws VisitorException {
+	private void visit(AcceptsBothOperands r) throws VisitorException {
 		if (r instanceof BinaryExpr) {
 
 			BinaryExpr b = (BinaryExpr) r;
-			Expr left = getLeft(b);
-			Expr right = getRight(b);
-			if ((left instanceof ReturnsMathOperands && right instanceof ReturnsMathOperands)
-					|| (left instanceof ReturnsBoolOperands && right instanceof ReturnsBoolOperands)) {
-
-			} else {
+			Expr left = getLeftIdentTypeOrLeft(b);
+			Expr right = getRightIdentTypeOrRight(b);
+			if (!((left instanceof ReturnsMathOperands && right instanceof ReturnsMathOperands)
+					|| (left instanceof ReturnsBoolOperands && right instanceof ReturnsBoolOperands)))  {
 				throw new AstValidationError("BOTH childs of " + b.getClass()
-						+ " must be math OR bool");
+						+ " must return either math OR bool operands");
 			}
 		}
 	}
@@ -186,36 +195,4 @@ public class ValidationVisitor implements ASTVisitor {
 		}
 		throw new AstValidationError("Ident not found:" + i.getName());
 	}
-
-	private Expr getLeft(BinaryExpr b) throws VisitorException {
-		Expr left = b.getLeft();
-		if (left instanceof Ident) {
-			left = getIdentType(left);
-		}
-		acceptOperands(left);
-		return left;
-	}
-
-	private Expr getRight(BinaryExpr b) throws VisitorException {
-		Expr right = b.getRight();
-
-		if (right instanceof Ident) {
-			right = getIdentType(right);
-		}
-		acceptOperands(right);
-		return right;
-	}
-
-	private void acceptOperands(Expr e) throws VisitorException {
-		if (e instanceof AcceptsMathOperands) {
-			((AcceptsMathOperands) e).accept(this);
-		}
-		if (e instanceof AcceptsBoolOperands) {
-			((AcceptsBoolOperands) e).accept(this);
-		}
-		if (e instanceof AcceptsBothOperands) {
-			((AcceptsBothOperands) e).accept(this);
-		}
-	}
-
 }

@@ -4,6 +4,10 @@ public class StringValue extends Value {
 
 	private final String value;
 	
+	public StringValue() {
+		this("");
+	}
+	
 	public StringValue(String value) {
 		this.value = value;
 	}

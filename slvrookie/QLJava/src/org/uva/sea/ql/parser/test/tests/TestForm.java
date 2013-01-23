@@ -13,7 +13,7 @@ public class TestForm {
 
 	@Test
 	public void testForm() throws ParseError {
-		String form1 = "form bigBox1HouseOwning {"
+		String form1 = "form bigBox1HouseOwning { \n "
 				+ "   hasSoldHouse: \"Did you sell a house in 2010?\" boolean \n"
 				+ "   hasBoughtHouse: \"Did you by a house in 2010?\" boolean \n"
 				+ "   hasMaintLoan: \"Did you enter a loan for maintenance/reconstruction?\"boolean \n"

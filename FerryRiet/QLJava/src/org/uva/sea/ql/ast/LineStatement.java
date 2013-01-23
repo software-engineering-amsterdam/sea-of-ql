@@ -1,8 +1,9 @@
 package org.uva.sea.ql.ast;
 
 import org.antlr.runtime.Token;
-import org.uva.sea.ql.astnodevisitor.Visitor;
-import org.uva.sea.ql.astnodevisitor.VisitorResult;
+import org.uva.sea.ql.ast.nodevisitor.Visitor;
+import org.uva.sea.ql.ast.nodevisitor.VisitorResult;
+import org.uva.sea.ql.ast.types.TypeDescription;
 
 public class LineStatement extends Statement {
 

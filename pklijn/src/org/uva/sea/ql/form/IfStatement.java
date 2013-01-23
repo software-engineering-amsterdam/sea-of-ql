@@ -1,12 +1,13 @@
 package org.uva.sea.ql.form;
 
 import java.util.List;
-import org.uva.sea.ql.ast.Expr;
+
+import org.uva.sea.ql.ast.expressions.Expr;
 
 public class IfStatement extends FormItem {
 
-	private Expr expression;
-	private List<FormItem> ifBody;
+	private final Expr expression;
+	private final List<FormItem> ifBody;
 	
 	public IfStatement(Expr expression, List<FormItem> ifBody) {
 		this.expression = expression;

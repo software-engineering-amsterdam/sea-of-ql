@@ -5,6 +5,6 @@ import org.uva.sea.ql.visitor.Statement;
 
 public abstract class AbstractStatement implements ASTNode {
 
-	public abstract void accept(Statement<?> visitor);
+	public abstract <T> T accept(Statement<T> visitor);
 
 }
