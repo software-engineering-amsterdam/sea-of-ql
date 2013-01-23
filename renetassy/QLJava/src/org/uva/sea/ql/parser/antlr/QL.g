@@ -41,8 +41,7 @@ questionType returns [QuestionType result]
 
 statement returns [Statement result] 
 	: (question { $result = $question.result; } 
-	| ifStatement { $result = $ifStatement.result; }
-	| body { $result = $body.result; } )
+	| ifStatement { $result = $ifStatement.result; } )
 	;
 
 body returns [Body result]
