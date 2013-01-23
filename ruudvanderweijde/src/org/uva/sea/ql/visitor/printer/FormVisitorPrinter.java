@@ -1,10 +1,13 @@
-package org.uva.sea.ql.visitor;
+package org.uva.sea.ql.visitor.printer;
 
 import org.uva.sea.ql.ast.Form;
+import org.uva.sea.ql.ast.expr.Expr;
 import org.uva.sea.ql.ast.stmt.IfThenElse;
-import org.uva.sea.ql.ast.stmt.Question;
 import org.uva.sea.ql.ast.stmt.Statement;
+import org.uva.sea.ql.ast.stmt.question.ComputedQuestion;
+import org.uva.sea.ql.ast.stmt.question.NormalQuestion;
 import org.uva.sea.ql.ast.type.Type;
+import org.uva.sea.ql.visitor.FormVisitor;
 
 public class FormVisitorPrinter implements FormVisitor {
 
@@ -12,7 +15,7 @@ public class FormVisitorPrinter implements FormVisitor {
 
 	@Override
 	public void visit(Form form) {
-		printString("Form " + "\t id: " + form.getId().getName()
+		printString("Form " + "\t id: " + form.getId().getValue()
 				+ "\t Statement count: " + form.getStatements().size());
 		increaseDepth();
 		for (Statement stmt : form.getStatements()) {
@@ -45,24 +48,36 @@ public class FormVisitorPrinter implements FormVisitor {
 	}
 
 	@Override
-	public void visit(Question question) {
+	public void visit(NormalQuestion question) {
 		printString("Question " + "\t id: "
-				+ question.getId().getName() + "\t label: "
+				+ question.getId().getValue() + "\t label: "
 				+ question.getLabel() + "\t type: "
 				+ question.getType().getClass());
-		increaseDepth();
-		question.getType().accept(this);
-		decreaseDepth();
+//		increaseDepth();
+//		question.getType().accept(this);
+//		decreaseDepth();
 	}
 
 	@Override
+	public void visit(ComputedQuestion computedQuestion) {
+		printString("ComputedQuestion " + "\t id: "
+				+ computedQuestion.getId().getValue() + "\t label: "
+				+ computedQuestion.getLabel() + "\t type: "
+				+ computedQuestion.getType().getClass()
+				+ computedQuestion.getComputation().toString());
+		increaseDepth();
+		computedQuestion.getComputation().accept(this);
+		decreaseDepth();
+		
+	}
+	@Override
 	public void visit(Type type) {
 		printString("Type: " + type.getClass());
-		increaseDepth();
-		if (type.isComputated()) {
-			type.getExpr().accept(this);
-		}
-		decreaseDepth();
+	}
+	
+	@Override
+	public void visit(Expr expr) {
+		printString(" -EXPRESSION- ");
 	}
 	
 	// pretty print helper methods
