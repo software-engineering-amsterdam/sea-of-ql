@@ -3,7 +3,9 @@ package org.uva.sea.ql.interpreter;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
+import java.io.LineNumberReader;
 import java.io.PrintWriter;
 import java.nio.MappedByteBuffer;
 import java.nio.channels.FileChannel;
@@ -11,7 +13,7 @@ import java.nio.charset.Charset;
 import java.util.HashMap;
 import java.util.Map;
 
-class IOHelper {
+public class IOHelper {
 
 	public static void write(String path, String output)
 			throws FileNotFoundException {
@@ -21,16 +23,27 @@ class IOHelper {
 	}
 
 	public static String read(String path) throws IOException {
-		FileInputStream stream = new FileInputStream(new File(path));
-		try {
-			FileChannel fc = stream.getChannel();
-			MappedByteBuffer bb = fc.map(FileChannel.MapMode.READ_ONLY, 0,
-					fc.size());
-			return Charset.defaultCharset().decode(bb).toString();
-		} finally {
-			stream.close();
-		}
+		return read(new File(path));
 	}
+	public static String read(File file) throws IOException {
+		StringBuilder content = new StringBuilder();
+		LineNumberReader lnr = new LineNumberReader(new FileReader(file));
+		try {
+			String line = "";
+			while (line != null) {
+				line = lnr.readLine();
+				if (line == null) {
+					break;
+				}
+				content.append(line);
+				content.append("\n");
+			}
+		} finally {
+			lnr.close();
+		}
+		return content.toString();
+	}
+
 
 	public static Map<String, String> readFolder(String path)
 			throws IOException {

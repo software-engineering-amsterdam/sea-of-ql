@@ -1,7 +1,10 @@
-package org.uva.sea.ql.interpreter;
+package org.uva.sea.ql.interpreter.html;
 
 import java.io.IOException;
 import java.util.Map;
+
+import org.uva.sea.ql.interpreter.IOHelper;
+import org.uva.sea.ql.interpreter.InterpreterException;
 
 public class Templates {
 

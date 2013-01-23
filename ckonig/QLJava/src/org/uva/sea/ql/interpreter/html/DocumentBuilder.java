@@ -1,4 +1,4 @@
-package org.uva.sea.ql.interpreter;
+package org.uva.sea.ql.interpreter.html;
 
 import java.util.List;
 
@@ -13,6 +13,7 @@ import org.uva.sea.ql.ast.types.BooleanType;
 import org.uva.sea.ql.ast.types.Money;
 import org.uva.sea.ql.ast.types.StrType;
 import org.uva.sea.ql.ast.types.Type;
+import org.uva.sea.ql.interpreter.InterpreterException;
 
 class DocumentBuilder {
 
