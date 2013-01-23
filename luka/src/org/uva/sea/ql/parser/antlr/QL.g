@@ -33,6 +33,13 @@ CONST_TYPE_INT;
 VALUE_CALC;
 UNARY_EXPR;
 NEG_EXPR;
+INT_LITERAL;
+IDENT_LITERAL;
+BOOL_LITERAL;
+BOOL_TYPE;
+INT_TYPE;
+MONEY_TYPE;
+STR_TYPE;
 }
 
 @parser::header
@@ -57,27 +64,29 @@ import org.uva.sea.ql.ast.*;
  *------------------------------------------------------------------*/
  
 parse 
-	: FormStart FormId qContentBlock EOF -> ^(FormStart qContentBlock);
+	: FormStart Ident qContentBlock EOF -> ^(FormStart qContentBlock);
 	
  	
 //Start of questionnaire
 qContentBlock 
 
-	:  Lbr qContentBlockItem Rbr ->^(FormId qContentBlockItem); 
+	:  Lbr qContentBlockItem Rbr ->^(Ident qContentBlockItem); 
 
 qContentBlockItem
-	:	(constantValueDeclaration | questionDeclaration  | ifStatement )*;
+	:	(constantValueDeclaration | questionDeclaration  | ifStatement )* ;
 	
 //question with child elements
 questionDeclaration 
-	: QuestionVariable  ':' QuestionLabel qType ('(' orExpr ')')?  ->^(QUESTION_BLOCK ^(QUESTION_VAR ^(VAR_NAME QuestionVariable) ^(VAR_TYPE qType) ^(VAR_VALUE ^(COMPUTED_STATEMENT orExpr))?)  ^(QUESTION_LABEL QuestionLabel))
+	: varName=Ident  ':'  label=QuestionLabel qType ('(' orExpr ')')?  ->^(QUESTION_BLOCK ^(QUESTION_VAR ^(IDENT_LITERAL $varName) ^(qType) ^(VAR_VALUE ^(COMPUTED_STATEMENT orExpr))?)  ^(QUESTION_LABEL ^(STR_TYPE $label)))
 	 ;
 	//| QuestionVariable  ':' QuestionLabel qType ->^(QUESTION_BLOCK ^(QUESTION_VAR ^(VAR_NAME QuestionVariable) ^(VAR_TYPE qType))  ^(QUESTION_LABEL QuestionLabel)) 
 	
-
+//questionLabel
+//	:	'"' (Ident)+ .* '"'
+//	;
 
 ifStatement 
-	:If  '(' orExpr  ')' Lbr qContentBlockItem Rbr  elseBlock?  ->^(IF_BLOCK ^(IF_EXPRESSION  orExpr) ^(IF_TRUE qContentBlockItem) ^(IF_FALSE elseBlock)?)
+	:If  '(' orExpr  ')' Lbr qContentBlockItem Rbr  elseBlock?  ->^(IF_BLOCK  ^(IF_EXPRESSION orExpr) ^(IF_TRUE qContentBlockItem) ^(IF_FALSE elseBlock)?)
 	;
 	
 elseBlock
@@ -86,18 +95,18 @@ elseBlock
 	
 		 
 constantValueDeclaration
-	: QuestionVariable  ':' atom -> ^(CONST_VAR ^(CONST_NAME QuestionVariable) ^(CONST_TYPE CONST_TYPE_INT) ^(CONST_VALUE  atom))
+	: constName=Ident  ':' atom -> ^(CONST_VAR ^(CONST_NAME $constName) ^(CONST_TYPE CONST_TYPE_INT) ^(CONST_VALUE  atom))
 	;
 
 //Question type
 qType	
-	: Boolean | Money ;	
+	: Boolean -> ^(BOOL_TYPE) | Money -> ^(MONEY_TYPE) ;	
 
 atom //returns [Expr result]
-  : Int    -> ^(SINGLE_STATEMENT Int) //{ $result = new IntNode(Integer.parseInt($Int.text)); }
-  | Ident  -> ^(SINGLE_STATEMENT Ident) //{ $result = new Ident($Ident.text); }
-  | Boolean  -> ^(SINGLE_STATEMENT Boolean) //{$result = new BoolNode($Boolean.text);}
-  | QuestionVariable   -> ^(SINGLE_STATEMENT QuestionVariable) //{ $result = new Ident($QuestionVariable.text);}
+  : Int    -> ^(INT_LITERAL Int) //{ $result = new IntNode(Integer.parseInt($Int.text)); }
+  | Ident  -> ^(IDENT_LITERAL Ident) //{ $result = new Ident($Ident.text); }
+  | Boolean  -> ^(BOOL_LITERAL Boolean) //{$result = new BoolNode($Boolean.text);}
+ // | QuestionVariable   -> ^(SINGLE_STATEMENT QuestionVariable) //{ $result = new Ident($QuestionVariable.text);}
   | Money -> ^(SINGLE_STATEMENT Money) // { $result = new MoneyNode(Integer.parseInt($Money.text));}
   |  '('  x=orExpr ')'-> ^(COMPUTED_STATEMENT orExpr) // { $result = $x.result; } 
   ; 
@@ -125,7 +134,7 @@ mulExpr //returns [Expr result]
     
   
 addExpr //returns [Expr result]
-    :   lhs=mulExpr ( op=('+'^ | '-'^) rhs=mulExpr)* // lhs=mulExpr { $result=$lhs.result; } ( op=('+'^ | '-'^) rhs=mulExpr
+    :   lhs=mulExpr ( op=('+'^ | '-'^ ) rhs=mulExpr)* // lhs=mulExpr { $result=$lhs.result; } ( op=('+'^ | '-'^) rhs=mulExpr
    // { 
    //   if ($op.text.equals("+")) {
    //     $result = new Add($result, $rhs.result);
@@ -187,8 +196,8 @@ Money	: 'money' { System.out.println("Lex Money: "+getText()); };
 
 If	: 'if' { System.out.println("Lex IF: "+getText()); };
 Else	: 'else' { System.out.println("Lex ELSE: "+getText()); };
-FormId 	: 'A'..'Z' ('a'..'z'|'A'..'Z'|'0'..'9')+  { System.out.println("Lex FormId: "+getText()); };
-QuestionVariable : 'a'..'z'('a'..'z'|'A'..'Z'|'0'..'9')+  { System.out.println("Lex QuesionID: "+getText()); };
+//FormId 	: 'A'..'Z' ('a'..'z'|'A'..'Z'|'0'..'9')+  { System.out.println("Lex FormId: "+getText()); };
+//QuestionVariable : 'a'..'z'('a'..'z'|'A'..'Z'|'0'..'9')+  { System.out.println("Lex QuesionID: "+getText()); };
 QuestionLabel: '"' .*  '"' { System.out.println("Lex Question: "+getText()); };
 
 
