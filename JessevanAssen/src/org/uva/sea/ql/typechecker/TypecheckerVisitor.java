@@ -109,20 +109,29 @@ public class TypecheckerVisitor implements ASTNodeVisitor<Type, TypecheckerVisit
     }
 
     @Override
-    public Type visit(StoredExpression astNode, Context param) {
+    public Type visit(StoredExpression astNode, Context context) {
+        addTypeToSymbolTable(
+                astNode.getIdentifier(),
+                astNode.getExpression().accept(this, context),
+                context);
         return VOID_TYPE;
     }
 
 	@Override
 	public Type visit(Question astNode, Context context) {
-        if(!context.getSymbolTable().containsKey(astNode.getIdentifier()))
-            context.getSymbolTable().put(astNode.getIdentifier(), astNode.getType());
-        else
-            context.getErrors().add(new Error(String.format("The identifier '%s' is already declared!", astNode.getIdentifier().getName())));
-
+        addTypeToSymbolTable(
+                astNode.getIdentifier(),
+                astNode.getType(),
+                context);
 		return VOID_TYPE;
 	}
-	
+
+    private void addTypeToSymbolTable(Ident identifier, Type type, Context context) {
+        if(!context.getSymbolTable().containsKey(identifier))
+            context.getSymbolTable().put(identifier, type);
+        else
+            context.getErrors().add(new Error(String.format("The identifier '%s' is already declared!", identifier.getName())));
+    }
 	
 	// Value operations
 	@Override
