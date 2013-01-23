@@ -9,6 +9,7 @@ import lang::ql::compiler::PrettyPrinter;
 import lang::ql::analysis::FlowGraph;
 import lang::ql::analysis::IdentifierOccurrences;
 import lang::ql::analysis::TypeChecker;
+import lang::ql::analysis::TypeMap;
 import util::IDE;
 
 alias identInfo = 
@@ -23,6 +24,8 @@ public set[Message] semanticChecker(node form) {
   us = identifierUses(form);
   def = identifierDefinitions(form);
   fgraph = flowGraph(form);
+  
+  <typeMap, err> = createTypeMap(form);
 
   ret = duplicateIdentifierMessages(def);
   if(ret != {})
