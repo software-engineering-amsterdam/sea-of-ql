@@ -34,6 +34,7 @@ public class Question extends FormItem {
 		System.out.println("Q:" + label 
 				+ " (id: " + id.getName() 
 				+ ", type: " + questionType + ")");
+		printErrors();
 	}
 
 	@Override

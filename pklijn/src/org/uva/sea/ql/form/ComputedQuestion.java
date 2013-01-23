@@ -26,6 +26,7 @@ public class ComputedQuestion extends Question {
 				+ " (id: " + getId().getName()
 				+ ", type: " + getQuestionType ()
 				+ ", expression: " + expression + ")");
+		printErrors();
 	}
 	
 	@Override

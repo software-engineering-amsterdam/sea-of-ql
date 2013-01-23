@@ -5,7 +5,6 @@ import java.util.List;
 import org.uva.sea.ql.ast.eval.Env;
 import org.uva.sea.ql.ast.expressions.Expr;
 import org.uva.sea.ql.ast.types.BoolType;
-import org.uva.sea.ql.messages.Message;
 import org.uva.sea.ql.messages.Error;
 
 public class IfStatement extends FormItem {
@@ -30,9 +29,7 @@ public class IfStatement extends FormItem {
 	public void print(int level) {
 		printIndent(level);
 		System.out.println("IF expr: "+ expression);
-		for (Message e : errors) {
-			System.out.println("! -> " + e.getText());
-		}
+		printErrors();
 		for (FormItem f : ifBody) {
 			f.print(level + 1);
 		}

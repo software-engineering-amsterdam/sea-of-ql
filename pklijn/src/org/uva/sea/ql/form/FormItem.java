@@ -19,4 +19,10 @@ public abstract class FormItem {
 			System.out.print("  ");
 		}
 	}
+	
+	protected void printErrors() {
+		for (Message e : errors) {
+			System.out.println("!! -> " + e.getText());
+		}
+	}
 }

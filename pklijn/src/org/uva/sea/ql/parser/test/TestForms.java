@@ -89,7 +89,12 @@ public class TestForms {
 				"		}\n" +
 				"	}\n" +
 				"}").checkFormValidity());
-		
-		
+		// Demo form for error displaying
+		Form errorForm = parser.parseForm("" +
+				"form errorDemoFrom {\n" +
+				"	q1: \"error1\" int(true)\n" +
+				"}");
+		errorForm.checkFormValidity();
+		errorForm.print();
 	}
 }

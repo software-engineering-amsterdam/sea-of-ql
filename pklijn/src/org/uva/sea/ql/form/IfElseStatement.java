@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.uva.sea.ql.ast.eval.Env;
 import org.uva.sea.ql.ast.expressions.Expr;
-import org.uva.sea.ql.messages.Message;
 
 public class IfElseStatement extends IfStatement {
 
@@ -24,9 +23,7 @@ public class IfElseStatement extends IfStatement {
 	public void print(int level) {
 		printIndent(level);
 		System.out.println("IF expr: "+ getExpression());
-		for (Message e : errors) {
-			System.out.println("! -> " + e.getText());
-		}
+		printErrors();
 		for (FormItem f : getIfBody()) {
 			f.print(level + 1);
 		}
