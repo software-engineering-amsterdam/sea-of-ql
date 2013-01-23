@@ -93,79 +93,81 @@ constantValueDeclaration
 qType	
 	: Boolean | Money ;	
 
-atom returns [Expr result]
-  : Int   { $result = new IntNode(Integer.parseInt($Int.text)); } -> ^(SINGLE_STATEMENT Int)
-  | Ident { $result = new Ident($Ident.text); } -> ^(SINGLE_STATEMENT Ident)
-  | Boolean {$result = new BoolNode($Boolean.text);} -> ^(SINGLE_STATEMENT Boolean)
-  | QuestionVariable  { $result = new Ident($QuestionVariable.text);} -> ^(SINGLE_STATEMENT QuestionVariable)
-  | Money { $result = new MoneyNode(Integer.parseInt($Money.text));} -> ^(SINGLE_STATEMENT Money)
-  |  '('  x=orExpr ')' { $result = $x.result; } -> ^(COMPUTED_STATEMENT orExpr)
+atom //returns [Expr result]
+  : Int    -> ^(SINGLE_STATEMENT Int) //{ $result = new IntNode(Integer.parseInt($Int.text)); }
+  | Ident  -> ^(SINGLE_STATEMENT Ident) //{ $result = new Ident($Ident.text); }
+  | Boolean  -> ^(SINGLE_STATEMENT Boolean) //{$result = new BoolNode($Boolean.text);}
+  | QuestionVariable   -> ^(SINGLE_STATEMENT QuestionVariable) //{ $result = new Ident($QuestionVariable.text);}
+  | Money -> ^(SINGLE_STATEMENT Money) // { $result = new MoneyNode(Integer.parseInt($Money.text));}
+  |  '('  x=orExpr ')'-> ^(COMPUTED_STATEMENT orExpr) // { $result = $x.result; } 
   ; 
   
   //Unary  UNARY_MIN TODO
-unExpr returns [Expr result]
-    :  '+'^ x=atom { $result = new Pos($x.result); } 
-    |  '-'^ x=atom { $result = new Neg($x.result); }
-    |  '!'^ x=atom { $result = new Not($x.result); }
-    |  x=atom    { $result = $x.result; }
+unExpr //returns [Expr result]
+    :  '+'^ x=atom //{ $result = new Pos($x.result); } 
+    |  '-'^ x=atom //{ $result = new Neg($x.result); }
+    |  '!'^ x=atom //{ $result = new Not($x.result); }
+    |  x=atom    //{ $result = $x.result; }
     ;  
     
-mulExpr returns [Expr result]
-    :   lhs=unExpr { $result=$lhs.result; } ( op=( '*'^ | '/'^ ) rhs=unExpr 
-    { 
-      if ($op.text.equals("*")) {
-        $result = new Mul($result, $rhs.result);
-      }
-      if ($op.text.equals("<=")) {
-        $result = new Div($result, $rhs.result);      
-      }
-    })*
+mulExpr //returns [Expr result]
+    :   lhs=unExpr ( op=( '*'^ | '/'^ ) rhs=unExpr )* // lhs=unExpr { $result=$lhs.result; } ( op=( '*'^ | '/'^ ) rhs=unExpr 
+   //  { 
+   //    if ($op.text.equals("*")) {
+  //       $result = new Mul($result, $rhs.result);
+  //     }
+  //     if ($op.text.equals("<=")) {
+  //       $result = new Div($result, $rhs.result);      
+  //     }
+ //    }
+   // 
     ;
     
   
-addExpr returns [Expr result]
-    :   lhs=mulExpr { $result=$lhs.result; } ( op=('+'^ | '-'^) rhs=mulExpr
-    { 
-      if ($op.text.equals("+")) {
-        $result = new Add($result, $rhs.result);
-      }
-      if ($op.text.equals("-")) {
-        $result = new Sub($result, $rhs.result);      
-      }
-    })*
+addExpr //returns [Expr result]
+    :   lhs=mulExpr ( op=('+'^ | '-'^) rhs=mulExpr)* // lhs=mulExpr { $result=$lhs.result; } ( op=('+'^ | '-'^) rhs=mulExpr
+   // { 
+   //   if ($op.text.equals("+")) {
+   //     $result = new Add($result, $rhs.result);
+   //   }
+   //   if ($op.text.equals("-")) {
+   //     $result = new Sub($result, $rhs.result);      
+   //   }
+   // }
     ;
   
-relExpr returns [Expr result]
-    :   lhs=addExpr { $result=$lhs.result; } ( op=('<'^|'<='^|'>'^|'>='^ |'=='^ |'!='^) rhs=addExpr 
-    { 
-      if ($op.text.equals("<")) {
-        $result = new LT($result, $rhs.result);
-      }
-      if ($op.text.equals("<=")) {
-        $result = new LEq($result, $rhs.result);      
-      }
-      if ($op.text.equals(">")) {
-        $result = new GT($result, $rhs.result);
-      }
-      if ($op.text.equals(">=")) {
-        $result = new GEq($result, $rhs.result);      
-      }
-      if ($op.text.equals("==")) {
-        $result = new Eq($result, $rhs.result);
-      }
-      if ($op.text.equals("!=")) {
-        $result = new NEq($result, $rhs.result);
-      }
-    })* 
+relExpr //returns [Expr result]
+    :   lhs=addExpr  ( op=('<'^|'<='^|'>'^|'>='^ |'=='^ |'!='^) rhs=addExpr )* // lhs=addExpr { $result=$lhs.result; } ( op=('<'^|'<='^|'>'^|'>='^ |'=='^ |'!='^) rhs=addExpr
+ //   { 
+//      if ($op.text.equals("<")) {
+//        $result = new LT($result, $rhs.result);
+//      }
+//      if ($op.text.equals("<=")) {
+//        $result = new LEq($result, $rhs.result);      
+//      }
+//      if ($op.text.equals(">")) {
+//        $result = new GT($result, $rhs.result);
+//      }
+//      if ($op.text.equals(">=")) {
+//        $result = new GEq($result, $rhs.result);      
+//      }
+//      if ($op.text.equals("==")) {
+//        $result = new Eq($result, $rhs.result);
+//      }
+//      if ($op.text.equals("!=")) {
+//        $result = new NEq($result, $rhs.result);
+//      }
+//    }
+     
     ;
     
-andExpr returns [Expr result]
-    :   lhs=relExpr { $result=$lhs.result; } ( '&&'^ rhs=relExpr { $result = new And($result, $rhs.result); } )*
+andExpr //returns [Expr result]
+    :   lhs=relExpr ( '&&'^ rhs=relExpr  )* //lhs=relExpr { $result=$lhs.result; } ( '&&'^ rhs=relExpr { $result = new And($result, $rhs.result); } )*
     ;
     
 
-orExpr returns [Expr result]
-    :   lhs=andExpr { $result = $lhs.result; } ( '||'^ rhs=andExpr { $result = new Or($result, $rhs.result); } )*
+orExpr //returns [Expr result]
+    :   lhs=andExpr ( '||'^ rhs=andExpr )* //lhs=andExpr { $result = $lhs.result; } ( '||'^ rhs=andExpr { $result = new Or($result, $rhs.result); } )*
     ;
 
 
