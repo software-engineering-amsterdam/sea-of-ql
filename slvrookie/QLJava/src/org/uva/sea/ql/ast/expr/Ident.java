@@ -3,6 +3,7 @@ package org.uva.sea.ql.ast.expr;
 import java.util.Map;
 
 import org.uva.sea.ql.ast.types.Type;
+import org.uva.sea.ql.visitor.IVisitor;
 
 public class Ident extends Expr {
 
@@ -23,6 +24,11 @@ public class Ident extends Expr {
 			}
 			return null;
 			//should throw error
+	}
+
+	@Override
+	public <T> T accept(IVisitor<T> visitor) {
+		return visitor.visit(this);
 	}
 
 }

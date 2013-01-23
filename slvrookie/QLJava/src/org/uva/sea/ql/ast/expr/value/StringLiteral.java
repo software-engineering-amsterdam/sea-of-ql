@@ -6,6 +6,7 @@ import org.uva.sea.ql.ast.expr.Expr;
 import org.uva.sea.ql.ast.expr.Ident;
 import org.uva.sea.ql.ast.types.StringType;
 import org.uva.sea.ql.ast.types.Type;
+import org.uva.sea.ql.visitor.IVisitor;
 
 
 public class StringLiteral extends Expr {
@@ -26,5 +27,9 @@ public class StringLiteral extends Expr {
 		return new StringType();
 	}
 
+	@Override
+	public <T> T accept(IVisitor<T> visitor) {
+		return visitor.visit(this);
+	}
 
 }
