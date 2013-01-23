@@ -46,9 +46,7 @@ public class KnockoutJSViewModelBuilderVisitor implements ASTNodeVisitor<Void, K
     private static String createIdentifierObject(Iterable<String> identifiers) {
         StringBuilder stringBuilder = new StringBuilder("{");
         for(Iterator<String> iterator = identifiers.iterator(); iterator.hasNext(); ) {
-            stringBuilder
-                    .append(iterator.next())
-                    .append(":ko.observable()");
+            stringBuilder.append(iterator.next());
 
             if(iterator.hasNext())
                 stringBuilder.append(",");
@@ -219,7 +217,12 @@ public class KnockoutJSViewModelBuilderVisitor implements ASTNodeVisitor<Void, K
 
     @Override
     public Void visit(Question astNode, Context param) {
-        param.getIdentifiers().add(astNode.getIdentifier().getName());
+        param.getIdentifiers().add(
+                String.format(
+                        "%s:ko.observable()",
+                        astNode.getIdentifier().getName()
+                )
+        );
 
         param.getObjectHierarchy()
                 .append("new Question(\"")
@@ -236,6 +239,16 @@ public class KnockoutJSViewModelBuilderVisitor implements ASTNodeVisitor<Void, K
 
     @Override
     public Void visit(StoredExpression astNode, Context param) {
+        Context newContext = new Context();
+        astNode.getExpression().accept(this, newContext);
+        param.getIdentifiers().add(
+                String.format(
+                        "%s:ko.computed(function(){return %s;})",
+                        astNode.getIdentifier().getName(),
+                        newContext.getObjectHierarchy().toString()
+                )
+        );
+
         return null;
     }
 

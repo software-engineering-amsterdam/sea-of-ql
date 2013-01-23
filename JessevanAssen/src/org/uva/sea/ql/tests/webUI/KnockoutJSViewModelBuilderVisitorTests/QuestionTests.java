@@ -26,8 +26,8 @@ public class QuestionTests extends KnockoutJSViewModelBuilderVisitorTests {
     public void questionVisited_addVariableToIdentifierMap() {
         createQuestion(new Bool()).accept(visitor, context);
         assertEquals(
-                String.format("new Question(\"%s\",\"%s\",_self.identifiers.%s,DataType.BOOLEAN)", QUESTION_LABEL, IDENTIFIER_NAME, IDENTIFIER_NAME),
-                context.getObjectHierarchy().toString()
+                String.format("%s:ko.observable()", IDENTIFIER_NAME),
+                context.getIdentifiers().get(0)
         );
     }
 
