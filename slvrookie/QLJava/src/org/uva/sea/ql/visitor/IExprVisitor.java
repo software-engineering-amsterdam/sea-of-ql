@@ -5,7 +5,7 @@ import org.uva.sea.ql.ast.expr.*;
 import org.uva.sea.ql.ast.expr.unary.*;
 import org.uva.sea.ql.ast.expr.value.*;
 
-public interface IVisitor<T> {
+public interface IExprVisitor<T> {
 	T visit(Add node);
 	T visit(And node);
 	T visit(Div node);

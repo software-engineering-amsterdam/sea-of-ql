@@ -5,17 +5,30 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.uva.sea.ql.ast.expr.Expr;
 import org.uva.sea.ql.ast.expr.Ident;
 import org.uva.sea.ql.ast.expr.binary.*;
 import org.uva.sea.ql.ast.expr.unary.*;
 import org.uva.sea.ql.ast.expr.value.*;
 import org.uva.sea.ql.ast.types.Type;
 
-public class ExprVisitor implements IVisitor<Boolean> {
+public class ExprVisitor implements IExprVisitor<Boolean> {
 	
-	private Map<Ident, Type> typeEnv = new HashMap<Ident, Type>();
-	private final List<String> messages = new ArrayList<String>();
+//	private Map<Ident, Type> typeEnv = new HashMap<Ident, Type>();
+//	private final List<String> messages = new ArrayList<String>();
 
+	private final Map<Ident, Type> typeEnv;
+	private final List<String> messages;
+	
+	private ExprVisitor(Map<Ident, Type> tenv, List<String> messages) {
+		this.typeEnv = tenv;
+		this.messages = messages;
+	}
+	
+	public static boolean check(Expr expr, Map<Ident, Type> typeEnv, List<String> errs) {
+			ExprVisitor check = new ExprVisitor(typeEnv, errs);
+			return expr.accept(check);
+	}
 	
 	public void addError(String error) {
 		this.messages.add(error);
@@ -28,8 +41,7 @@ public class ExprVisitor implements IVisitor<Boolean> {
 
 	@Override
 	public Boolean visit(Ident node) {
-		// TODO Auto-generated method stub
-		return null;
+		return true;
 	}
 	
 	@Override

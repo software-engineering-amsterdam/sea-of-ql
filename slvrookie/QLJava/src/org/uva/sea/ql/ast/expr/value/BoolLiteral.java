@@ -5,7 +5,7 @@ import java.util.Map;
 import org.uva.sea.ql.ast.expr.*;
 import org.uva.sea.ql.ast.types.BoolType;
 import org.uva.sea.ql.ast.types.Type;
-import org.uva.sea.ql.visitor.IVisitor;
+import org.uva.sea.ql.visitor.IExprVisitor;
 
 public class BoolLiteral extends Expr {
 
@@ -25,7 +25,7 @@ public class BoolLiteral extends Expr {
 	}
 
 	@Override
-	public <T> T accept(IVisitor<T> visitor) {
+	public <T> T accept(IExprVisitor<T> visitor) {
 		return visitor.visit(this);
 	}
 

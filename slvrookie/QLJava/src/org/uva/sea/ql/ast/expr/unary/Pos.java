@@ -5,7 +5,7 @@ import java.util.Map;
 import org.uva.sea.ql.ast.expr.*;
 import org.uva.sea.ql.ast.types.Numeric;
 import org.uva.sea.ql.ast.types.Type;
-import org.uva.sea.ql.visitor.IVisitor;
+import org.uva.sea.ql.visitor.IExprVisitor;
 
 public class Pos extends UnaryExpr {
 
@@ -19,7 +19,7 @@ public class Pos extends UnaryExpr {
 	}
 
 	@Override
-	public <T> T accept(IVisitor<T> visitor) {
+	public <T> T accept(IExprVisitor<T> visitor) {
 		return visitor.visit(this);
 	}
 
