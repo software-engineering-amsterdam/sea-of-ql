@@ -11,5 +11,4 @@ public abstract class Expr implements ASTNode {
 	public abstract Type typeOf(Map<Ident, Type> typeEnv);
 	public abstract <T> T accept(IVisitor<T> visitor);
 		
-
 }
