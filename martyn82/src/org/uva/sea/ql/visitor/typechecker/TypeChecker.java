@@ -18,12 +18,12 @@ import org.uva.sea.ql.ast.type.Int;
 import org.uva.sea.ql.ast.type.Str;
 import org.uva.sea.ql.ast.type.Type;
 import org.uva.sea.ql.eval.Environment;
-import org.uva.sea.ql.visitor.INodeVisitor;
+import org.uva.sea.ql.visitor.NodeVisitor;
 
 /**
  * Represents a type checker visitor.
  */
-public class TypeChecker implements INodeVisitor<Boolean> {
+public class TypeChecker extends NodeVisitor<Boolean> {
 	private boolean checkBothNumber( Type one, Type two ) {
 		return (
 			one instanceof org.uva.sea.ql.ast.type.Number

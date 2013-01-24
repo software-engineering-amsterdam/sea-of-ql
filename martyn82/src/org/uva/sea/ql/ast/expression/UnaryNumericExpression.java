@@ -4,7 +4,7 @@ import java.util.Map;
 
 import org.uva.sea.ql.ast.type.Type;
 import org.uva.sea.ql.eval.Environment;
-import org.uva.sea.ql.visitor.INodeVisitor;
+import org.uva.sea.ql.visitor.NodeVisitor;
 
 /**
  * Represents a unary numerical expression.
@@ -20,7 +20,7 @@ abstract public class UnaryNumericExpression extends UnaryExpression {
 	}
 
 	@Override
-	public <T> T accept( INodeVisitor<T> visitor, Environment context ) {
+	public <T> T accept( NodeVisitor<T> visitor, Environment context ) {
 		return visitor.visit( this, context );
 	}
 

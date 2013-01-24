@@ -1,7 +1,7 @@
 package org.uva.sea.ql.ast.type;
 
 import org.uva.sea.ql.eval.Environment;
-import org.uva.sea.ql.visitor.INodeVisitor;
+import org.uva.sea.ql.visitor.NodeVisitor;
 
 /**
  * Represents a Boolean type.
@@ -9,7 +9,7 @@ import org.uva.sea.ql.visitor.INodeVisitor;
 public class Bool extends Type {
 
 	@Override
-	public <T> T accept( INodeVisitor<T> visitor, Environment context ) {
+	public <T> T accept( NodeVisitor<T> visitor, Environment context ) {
 		return visitor.visit( this, context );
 	}
 }

@@ -23,12 +23,12 @@ import org.uva.sea.ql.ast.statement.Statement;
 import org.uva.sea.ql.ast.statement.Statements;
 import org.uva.sea.ql.ast.statement.VarDeclaration;
 import org.uva.sea.ql.eval.Environment;
-import org.uva.sea.ql.visitor.INodeVisitor;
+import org.uva.sea.ql.visitor.NodeVisitor;
 
 /**
  * Visitor that prints the AST.
  */
-public class PrintVisitor implements INodeVisitor<Boolean> {
+public class PrintVisitor extends NodeVisitor<Boolean> {
 	/**
 	 * String used for indenting.
 	 */

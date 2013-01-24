@@ -4,7 +4,7 @@ import java.util.Map;
 
 import org.uva.sea.ql.ast.type.Type;
 import org.uva.sea.ql.eval.Environment;
-import org.uva.sea.ql.visitor.INodeVisitor;
+import org.uva.sea.ql.visitor.NodeVisitor;
 
 /**
  * Represents an identifier expression.
@@ -52,7 +52,7 @@ public class Ident extends Expression {
 	}
 
 	@Override
-	public <T> T accept( INodeVisitor<T> visitor, Environment context ) {
+	public <T> T accept( NodeVisitor<T> visitor, Environment context ) {
 		return visitor.visit( this, context );
 	}
 

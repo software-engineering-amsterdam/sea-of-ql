@@ -6,7 +6,7 @@ import java.util.List;
 
 import org.uva.sea.ql.ast.INode;
 import org.uva.sea.ql.eval.Environment;
-import org.uva.sea.ql.visitor.INodeVisitor;
+import org.uva.sea.ql.visitor.NodeVisitor;
 
 /**
  * Represents a collection of statements.
@@ -44,7 +44,7 @@ public class Statements implements INode, Iterable<Statement> {
 	}
 
 	@Override
-	public <T> T accept( INodeVisitor<T> visitor, Environment context ) {
+	public <T> T accept( NodeVisitor<T> visitor, Environment context ) {
 		return visitor.visit( this, context );
 	}
 }

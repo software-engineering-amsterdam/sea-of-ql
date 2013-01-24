@@ -2,7 +2,7 @@ package org.uva.sea.ql.visitor.test;
 
 import org.uva.sea.ql.parser.IParser;
 import org.uva.sea.ql.parser.jacc.JACCParser;
-import org.uva.sea.ql.visitor.INodeVisitor;
+import org.uva.sea.ql.visitor.NodeVisitor;
 
 /**
  * Implements basic functionality of visitor test classes.
@@ -17,7 +17,7 @@ abstract public class VisitorTest<T> {
 	/**
 	 * Holds the visitor to use.
 	 */
-	protected final INodeVisitor<T> visitor;
+	protected final NodeVisitor<T> visitor;
 
 	/**
 	 * Holds the program source to use.
@@ -29,7 +29,7 @@ abstract public class VisitorTest<T> {
 	 *
 	 * @param visitor
 	 */
-	protected VisitorTest( INodeVisitor<T> visitor ) {
+	protected VisitorTest( NodeVisitor<T> visitor ) {
 		this.parser = new JACCParser();
 		this.visitor = visitor;
 

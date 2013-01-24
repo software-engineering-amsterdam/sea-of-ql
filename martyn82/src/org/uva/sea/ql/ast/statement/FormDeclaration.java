@@ -2,7 +2,7 @@ package org.uva.sea.ql.ast.statement;
 
 import org.uva.sea.ql.ast.expression.Ident;
 import org.uva.sea.ql.eval.Environment;
-import org.uva.sea.ql.visitor.INodeVisitor;
+import org.uva.sea.ql.visitor.NodeVisitor;
 
 /**
  * Represents a form declaration node.
@@ -48,7 +48,7 @@ public class FormDeclaration extends Statement {
 	}
 
 	@Override
-	public <T> T accept( INodeVisitor<T> visitor, Environment context ) {
+	public <T> T accept( NodeVisitor<T> visitor, Environment context ) {
 		return visitor.visit( this, context );
 	}
 }
