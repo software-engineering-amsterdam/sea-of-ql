@@ -145,7 +145,7 @@ public class TestTypeChecker extends VisitorTest<java.lang.Boolean> {
 	@Test
 	public void testTypeMismatch() throws ParseError {
 		typeCheck( "if ( true ) { \"\" x: boolean \n x = 23 }" );
-		assertEquals( "Type mismatch: cannot convert from Boolean to Integer.", context.getErrors().get( 0 ) );
+		assertEquals( "Type mismatch: cannot convert from Bool to Int.", context.getErrors().get( 0 ) );
 	}
 
 	/**

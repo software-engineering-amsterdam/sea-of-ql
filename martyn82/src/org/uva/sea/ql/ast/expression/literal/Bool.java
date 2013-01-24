@@ -1,5 +1,9 @@
 package org.uva.sea.ql.ast.expression.literal;
 
+import java.util.Map;
+
+import org.uva.sea.ql.ast.expression.Ident;
+import org.uva.sea.ql.ast.type.Type;
 import org.uva.sea.ql.eval.Context;
 import org.uva.sea.ql.visitor.INodeVisitor;
 
@@ -38,5 +42,10 @@ public class Bool extends Literal {
 	@Override
 	public <T> T accept( INodeVisitor<T> visitor, Context context ) {
 		return visitor.visit( this, context );
+	}
+
+	@Override
+	public Type typeOf( Map<Ident, Type> types ) {
+		return new org.uva.sea.ql.ast.type.Bool();
 	}
 }

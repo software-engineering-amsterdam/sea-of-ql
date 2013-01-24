@@ -20,7 +20,7 @@ public class Context {
 	/**
 	 * Holds the declared variables.
 	 */
-	private final Map<String, Type> types;
+	private final Map<Ident, Type> types;
 
 	/**
 	 * Holds the error list.
@@ -34,7 +34,7 @@ public class Context {
 	 */
 	public Context( Context parent ) {
 		this.parent = parent;
-		this.types = new HashMap<String, Type>();
+		this.types = new HashMap<Ident, Type>();
 		this.errors = new LinkedList<String>();
 	}
 
@@ -64,6 +64,15 @@ public class Context {
 	}
 
 	/**
+	 * Retrieves the declared types.
+	 *
+	 * @return The declared types.
+	 */
+	public Map<Ident, Type> getTypes() {
+		return this.types;
+	}
+
+	/**
 	 * Retrieves the error list.
 	 *
 	 * @return Errors
@@ -89,7 +98,7 @@ public class Context {
 	 * @return True if it is defined, false otherwise.
 	 */
 	public boolean isDeclared( Ident ident ) {
-		if ( this.types.containsKey( ident.getName() ) ) {
+		if ( this.types.containsKey( ident ) ) {
 			return true;
 		}
 
@@ -110,8 +119,8 @@ public class Context {
 	 * @throws RuntimeException If the variable cannot be found.
 	 */
 	public Type find( Ident ident ) {
-		if ( this.types.containsKey( ident.getName() ) ) {
-			return this.types.get( ident.getName() );
+		if ( this.types.containsKey( ident ) ) {
+			return this.types.get( ident );
 		}
 
 		if ( !this.isRoot() ) {
@@ -128,6 +137,6 @@ public class Context {
 	 * @param value
 	 */
 	public void declareVariable( Ident ident, Type type ) {
-		this.types.put( ident.getName(), type );
+		this.types.put( ident, type );
 	}
 }

@@ -1,5 +1,8 @@
 package org.uva.sea.ql.ast.expression;
 
+import java.util.Map;
+
+import org.uva.sea.ql.ast.type.Type;
 import org.uva.sea.ql.eval.Context;
 import org.uva.sea.ql.visitor.INodeVisitor;
 
@@ -31,6 +34,19 @@ public class Ident extends Expression {
 	}
 
 	@Override
+	public int hashCode() {
+		return this.name.hashCode();
+	}
+
+	@Override
+	public boolean equals( Object object ) {
+		if ( !( object instanceof Ident ) ) {
+			return false;
+		}
+		return this.name.equals( ( (Ident) object ).name );
+	}
+
+	@Override
 	public String toString() {
 		return this.name;
 	}
@@ -38,5 +54,14 @@ public class Ident extends Expression {
 	@Override
 	public <T> T accept( INodeVisitor<T> visitor, Context context ) {
 		return visitor.visit( this, context );
+	}
+
+	@Override
+	public Type typeOf( Map<Ident, Type> types ) {
+		if ( types.containsKey( this ) ) {
+			return types.get( this );
+		}
+
+		return null;
 	}
 }

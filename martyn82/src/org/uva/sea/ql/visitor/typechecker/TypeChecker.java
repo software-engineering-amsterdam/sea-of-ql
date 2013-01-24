@@ -16,6 +16,7 @@ import org.uva.sea.ql.ast.statement.VarDeclaration;
 import org.uva.sea.ql.ast.type.Bool;
 import org.uva.sea.ql.ast.type.Int;
 import org.uva.sea.ql.ast.type.Str;
+import org.uva.sea.ql.ast.type.Type;
 import org.uva.sea.ql.eval.Context;
 import org.uva.sea.ql.visitor.INodeVisitor;
 
@@ -23,6 +24,23 @@ import org.uva.sea.ql.visitor.INodeVisitor;
  * Represents a type checker visitor.
  */
 public class TypeChecker implements INodeVisitor<Boolean> {
+	private boolean checkBothNumber( Type one, Type two ) {
+		return (
+			one instanceof org.uva.sea.ql.ast.type.Number
+			&& two instanceof org.uva.sea.ql.ast.type.Number
+		);
+	}
+
+	private boolean checkBothBoolean( Type one, Type two ) {
+		return (
+			one instanceof org.uva.sea.ql.ast.type.Bool
+			&& two instanceof org.uva.sea.ql.ast.type.Bool
+		);
+	}
+
+	private boolean checkBothSame( Type one, Type two ) {
+		return one.getClass() == two.getClass();
+	}
 
 	@Override
 	public Boolean visit( ArithmeticExpression node, Context context ) {
@@ -33,18 +51,18 @@ public class TypeChecker implements INodeVisitor<Boolean> {
 			return false;
 		}
 
-//		Type leftType = typeOf( node.getLhs() );
-//		Type rightType = typeOf( node.getRhs() );
-//
-//		if ( !checkBothNumber() ) {
-//			context.addError(
-//				String.format(
-//					"Both sides of the %s-expression must be a Number type.",
-//					node.getClass().getSimpleName().toUpperCase()
-//				)
-//			);
-//			return false;
-//		}
+		Type leftType = node.getLhs().typeOf( context.getTypes() );
+		Type rightType = node.getRhs().typeOf( context.getTypes() );
+
+		if ( !checkBothNumber( leftType, rightType ) ) {
+			context.addError(
+				String.format(
+					"Both sides of the %s-expression must be a Number type.",
+					node.getClass().getSimpleName().toUpperCase()
+				)
+			);
+			return false;
+		}
 
 		return true;
 	}
@@ -58,15 +76,18 @@ public class TypeChecker implements INodeVisitor<Boolean> {
 			return false;
 		}
 
-//		if ( !checkBothBoolean( left, right ) ) {
-//			context.addError(
-//				String.format(
-//					"Both sides of the %s-expression must be of type Boolean.",
-//					node.getClass().getSimpleName().toUpperCase()
-//				)
-//			);
-//			return false;
-//		}
+		Type leftType = node.getLhs().typeOf( context.getTypes() );
+		Type rightType = node.getRhs().typeOf( context.getTypes() );
+
+		if ( !checkBothBoolean( leftType, rightType ) ) {
+			context.addError(
+				String.format(
+					"Both sides of the %s-expression must be of type Boolean.",
+					node.getClass().getSimpleName().toUpperCase()
+				)
+			);
+			return false;
+		}
 
 		return true;
 	}
@@ -88,15 +109,18 @@ public class TypeChecker implements INodeVisitor<Boolean> {
 		 * - Left and right hand side of comparison are both of the same (sub)type.
 		 */
 
-//		if ( !checkBothNumber( left, right ) && !checkBothSame( left, right ) ) {
-//			context.addError(
-//				String.format(
-//					"Both sides of the comparison must be of the same (sub)type.",
-//					node.getClass().getSimpleName().toUpperCase()
-//				)
-//			);
-//			return false;
-//		}
+		 Type leftType = node.getLhs().typeOf( context.getTypes() );
+		 Type rightType = node.getRhs().typeOf( context.getTypes() );
+
+		if ( !checkBothNumber( leftType, rightType ) && !checkBothSame( leftType, rightType ) ) {
+			context.addError(
+				String.format(
+					"Both sides of the comparison must be of the same (sub)type.",
+					node.getClass().getSimpleName().toUpperCase()
+				)
+			);
+			return false;
+		}
 
 		return true;
 	}
@@ -107,10 +131,10 @@ public class TypeChecker implements INodeVisitor<Boolean> {
 			return false;
 		}
 
-//		if ( !checkIsBoolean( expression ) ) {
-//			context.addError( "Expression must be a Boolean type." );
-//			return null;
-//		}
+		if ( !( node.typeOf( context.getTypes() ) instanceof org.uva.sea.ql.ast.type.Bool ) ) {
+			context.addError( "Expression must be a Boolean type." );
+			return false;
+		}
 
 		return true;
 	}
@@ -121,16 +145,10 @@ public class TypeChecker implements INodeVisitor<Boolean> {
 			return false;
 		}
 
-//		if ( !checkIsNumber( expression ) ) {
-//			context.addError( "Expression must be a Number type." );
-//			return null;
-//		}
-//		else if ( checkIsInteger( expression ) ) {
-//			return initializeType( DataType.INTEGER );
-//		}
-//		else if ( checkIsMoney( expression ) ) {
-//			return initializeType( DataType.MONEY );
-//		}
+		if ( !( node.typeOf( context.getTypes() ) instanceof org.uva.sea.ql.ast.type.Number ) ) {
+			context.addError( "Expression must be a Number type." );
+			return false;
+		}
 
 		return true;
 	}
@@ -171,10 +189,10 @@ public class TypeChecker implements INodeVisitor<Boolean> {
 			return false;
 		}
 
-//		if ( !checkIsBoolean( condition ) ) {
-//			context.addError( "Condition of an IF block should evaluate to Boolean." );
-//			return null;
-//		}
+		if ( !( node.getCondition().typeOf( context.getTypes() ) instanceof org.uva.sea.ql.ast.type.Bool ) ) {
+			context.addError( "Condition of an IF block should evaluate to Boolean." );
+			return false;
+		}
 
 		if ( node.getIfThen() != null ) {
 			if ( !node.getIfThen().accept( this, context ) ) {
@@ -213,28 +231,27 @@ public class TypeChecker implements INodeVisitor<Boolean> {
 			return false;
 		}
 
-//		boolean value = node.getExpression().accept( this, context );
-//
-//		if ( context.isDeclared( node.getIdent() ) ) {
-//			Boolean ident = node.getIdent().accept( this, context );
-//
-//			if ( value == null ) {
-//				return null;
-//			}
-//			else if ( !checkBothSame( ident, value ) ) {
-//				context.addError(
-//					String.format(
-//						"Type mismatch: cannot convert from %s to %s.",
-//						ident.getClass().getSimpleName(),
-//						value.getClass().getSimpleName()
-//					)
-//				);
-//				return null;
-//			}
-//		}
-//
-//		context.declareVariable( node.getIdent(), value );
+		if ( context.isDeclared( node.getIdent() ) ) {
+			if ( !node.getIdent().accept( this, context ) ) {
+				return false;
+			}
 
+			Type leftType = node.getIdent().typeOf( context.getTypes() );
+			Type rightType = node.getExpression().typeOf( context.getTypes() );
+
+			if ( !checkBothSame( leftType, rightType ) ) {
+				context.addError(
+					String.format(
+						"Type mismatch: cannot convert from %s to %s.",
+						leftType.getClass().getSimpleName(),
+						rightType.getClass().getSimpleName()
+					)
+				);
+				return false;
+			}
+		}
+
+		context.declareVariable( node.getIdent(), node.getExpression().typeOf( context.getTypes() ) );
 		return true;
 	}
 
