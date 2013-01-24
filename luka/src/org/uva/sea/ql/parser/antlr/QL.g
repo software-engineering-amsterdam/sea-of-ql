@@ -12,12 +12,9 @@ output=AST;
 //ASTLabelType=CommonTree;
 } 
 tokens{
-//QUESTIONNAIRE;
 QUESTION_BLOCK;
 QUESTION_VAR;
 QUESTION_LABEL;
-SINGLE_STATEMENT;
-COMPUTED_STATEMENT;
 IF_BLOCK;
 IF_EXPRESSION;
 IF_TRUE;
@@ -36,6 +33,8 @@ NEG_EXPR;
 INT_LITERAL;
 IDENT_LITERAL;
 BOOL_LITERAL;
+STR_LITERAL;
+MONEY_LITERAL;
 BOOL_TYPE;
 INT_TYPE;
 MONEY_TYPE;
@@ -77,16 +76,11 @@ qContentBlockItem
 	
 //question with child elements
 questionDeclaration 
-	: varName=Ident  ':'  label=QuestionLabel qType ('(' orExpr ')')?  ->^(QUESTION_BLOCK ^(QUESTION_VAR ^(IDENT_LITERAL $varName) ^(qType) ^(VAR_VALUE ^(COMPUTED_STATEMENT orExpr))?)  ^(QUESTION_LABEL ^(STR_TYPE $label)))
+	: varName=Ident  ':'  label=QuestionLabel qType ('(' orExpr ')')?  ->^(QUESTION_BLOCK ^(QUESTION_VAR ^(IDENT_LITERAL $varName qType)  ^(VAR_VALUE orExpr)?)  ^(QUESTION_LABEL ^(STR_LITERAL $label)))
 	 ;
-	//| QuestionVariable  ':' QuestionLabel qType ->^(QUESTION_BLOCK ^(QUESTION_VAR ^(VAR_NAME QuestionVariable) ^(VAR_TYPE qType))  ^(QUESTION_LABEL QuestionLabel)) 
 	
-//questionLabel
-//	:	'"' (Ident)+ .* '"'
-//	;
-
 ifStatement 
-	:If  '(' orExpr  ')' Lbr qContentBlockItem Rbr  elseBlock?  ->^(IF_BLOCK  ^(IF_EXPRESSION orExpr) ^(IF_TRUE qContentBlockItem) ^(IF_FALSE elseBlock)?)
+	:If  '(' orExpr  ')' Lbr qContentBlockItem Rbr  elseBlock?  ->^(IF_BLOCK  ^(IF_EXPRESSION orExpr )  ^(IF_TRUE qContentBlockItem) ^(IF_FALSE elseBlock)?) //^(IF_EXPRESSION orExpr)
 	;
 	
 elseBlock
@@ -106,16 +100,15 @@ atom //returns [Expr result]
   : Int    -> ^(INT_LITERAL Int) //{ $result = new IntNode(Integer.parseInt($Int.text)); }
   | Ident  -> ^(IDENT_LITERAL Ident) //{ $result = new Ident($Ident.text); }
   | Boolean  -> ^(BOOL_LITERAL Boolean) //{$result = new BoolNode($Boolean.text);}
- // | QuestionVariable   -> ^(SINGLE_STATEMENT QuestionVariable) //{ $result = new Ident($QuestionVariable.text);}
-  | Money -> ^(SINGLE_STATEMENT Money) // { $result = new MoneyNode(Integer.parseInt($Money.text));}
-  |  '('  x=orExpr ')'-> ^(COMPUTED_STATEMENT orExpr) // { $result = $x.result; } 
+  | Money -> ^(MONEY_LITERAL Money) // { $result = new MoneyNode(Integer.parseInt($Money.text));}
+  |  '('!  x=orExpr^ ')'! //-> orExpr // { $result = $x.result; } 
   ; 
   
   //Unary  UNARY_MIN TODO
 unExpr //returns [Expr result]
-    :  '+'^ x=atom //{ $result = new Pos($x.result); } 
-    |  '-'^ x=atom //{ $result = new Neg($x.result); }
-    |  '!'^ x=atom //{ $result = new Not($x.result); }
+    :  '+' x=atom ->^('+' atom) //{ $result = new Pos($x.result); } 
+    |  '-' x=atom ->^('-' atom) //{ $result = new Neg($x.result); }
+    |  '!' x=atom ->^('!' atom)//{ $result = new Not($x.result); }
     |  x=atom    //{ $result = $x.result; }
     ;  
     
@@ -134,7 +127,7 @@ mulExpr //returns [Expr result]
     
   
 addExpr //returns [Expr result]
-    :   lhs=mulExpr ( op=('+'^ | '-'^ ) rhs=mulExpr)* // lhs=mulExpr { $result=$lhs.result; } ( op=('+'^ | '-'^) rhs=mulExpr
+    :   lhs=mulExpr ( op=('+'^ | '-'^ ) rhs=mulExpr )*  // lhs=mulExpr { $result=$lhs.result; } ( op=('+'^ | '-'^) rhs=mulExpr
    // { 
    //   if ($op.text.equals("+")) {
    //     $result = new Add($result, $rhs.result);
@@ -146,7 +139,7 @@ addExpr //returns [Expr result]
     ;
   
 relExpr //returns [Expr result]
-    :   lhs=addExpr  ( op=('<'^|'<='^|'>'^|'>='^ |'=='^ |'!='^) rhs=addExpr )* // lhs=addExpr { $result=$lhs.result; } ( op=('<'^|'<='^|'>'^|'>='^ |'=='^ |'!='^) rhs=addExpr
+    :   lhs=addExpr  ( op=('<'^ |'<='^ |'>'^ |'>='^ |'=='^ |'!='^) rhs=addExpr)* // lhs=addExpr { $result=$lhs.result; } ( op=('<'^|'<='^|'>'^|'>='^ |'=='^ |'!='^) rhs=addExpr
  //   { 
 //      if ($op.text.equals("<")) {
 //        $result = new LT($result, $rhs.result);
@@ -171,12 +164,12 @@ relExpr //returns [Expr result]
     ;
     
 andExpr //returns [Expr result]
-    :   lhs=relExpr ( '&&'^ rhs=relExpr  )* //lhs=relExpr { $result=$lhs.result; } ( '&&'^ rhs=relExpr { $result = new And($result, $rhs.result); } )*
+    :   lhs=relExpr  ( op='&&'^ rhs=relExpr )* //lhs=relExpr { $result=$lhs.result; } ( '&&'^ rhs=relExpr { $result = new And($result, $rhs.result); } )*
     ;
     
 
 orExpr //returns [Expr result]
-    :   lhs=andExpr ( '||'^ rhs=andExpr )* //lhs=andExpr { $result = $lhs.result; } ( '||'^ rhs=andExpr { $result = new Or($result, $rhs.result); } )*
+    :   lhs=andExpr ( op='||'^ rhs=andExpr )* //lhs=andExpr { $result = $lhs.result; } ( '||'^ rhs=andExpr { $result = new Or($result, $rhs.result); } )*
     ;
 
 

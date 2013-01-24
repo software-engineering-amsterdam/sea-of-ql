@@ -1,4 +1,4 @@
-// $ANTLR 3.5 /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g 2013-01-23 13:47:21
+// $ANTLR 3.5 /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g 2013-01-24 18:57:15
 
 package org.uva.sea.ql.parser.antlr;
 import org.uva.sea.ql.ast.*;
@@ -32,25 +32,25 @@ public class QLLexer extends Lexer {
 	public static final int BOOL_TYPE=5;
 	public static final int Boolean=6;
 	public static final int COMMENT=7;
-	public static final int COMPUTED_STATEMENT=8;
-	public static final int CONST_NAME=9;
-	public static final int CONST_TYPE=10;
-	public static final int CONST_TYPE_INT=11;
-	public static final int CONST_VALUE=12;
-	public static final int CONST_VAR=13;
-	public static final int Else=14;
-	public static final int FormStart=15;
-	public static final int IDENT_LITERAL=16;
-	public static final int IF_BLOCK=17;
-	public static final int IF_EXPRESSION=18;
-	public static final int IF_FALSE=19;
-	public static final int IF_TRUE=20;
-	public static final int INT_LITERAL=21;
-	public static final int INT_TYPE=22;
-	public static final int Ident=23;
-	public static final int If=24;
-	public static final int Int=25;
-	public static final int Lbr=26;
+	public static final int CONST_NAME=8;
+	public static final int CONST_TYPE=9;
+	public static final int CONST_TYPE_INT=10;
+	public static final int CONST_VALUE=11;
+	public static final int CONST_VAR=12;
+	public static final int Else=13;
+	public static final int FormStart=14;
+	public static final int IDENT_LITERAL=15;
+	public static final int IF_BLOCK=16;
+	public static final int IF_EXPRESSION=17;
+	public static final int IF_FALSE=18;
+	public static final int IF_TRUE=19;
+	public static final int INT_LITERAL=20;
+	public static final int INT_TYPE=21;
+	public static final int Ident=22;
+	public static final int If=23;
+	public static final int Int=24;
+	public static final int Lbr=25;
+	public static final int MONEY_LITERAL=26;
 	public static final int MONEY_TYPE=27;
 	public static final int Money=28;
 	public static final int NEG_EXPR=29;
@@ -59,7 +59,7 @@ public class QLLexer extends Lexer {
 	public static final int QUESTION_VAR=32;
 	public static final int QuestionLabel=33;
 	public static final int Rbr=34;
-	public static final int SINGLE_STATEMENT=35;
+	public static final int STR_LITERAL=35;
 	public static final int STR_TYPE=36;
 	public static final int UNARY_EXPR=37;
 	public static final int VALUE_CALC=38;
