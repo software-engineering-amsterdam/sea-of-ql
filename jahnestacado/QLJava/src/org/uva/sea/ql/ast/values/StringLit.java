@@ -5,7 +5,7 @@ import java.util.Map;
 import org.uva.sea.ql.ast.expr.Ident;
 import org.uva.sea.ql.ast.types.StringType;
 import org.uva.sea.ql.ast.types.Type;
-import org.uva.sea.ql.visitor.ASTNodeVisitor;
+import org.uva.sea.ql.visitor.checkers.ExpressionChecker;
 
 public class StringLit extends Value<String>  {
    
@@ -17,8 +17,8 @@ public class StringLit extends Value<String>  {
 
 
 	@Override
-	public void accept(ASTNodeVisitor nodeVisitor) {
-		// TODO Auto-generated method stub
+	public boolean accept(ExpressionChecker nodeVisitor) {
+		return nodeVisitor.visit(this);
 		
 	}
 

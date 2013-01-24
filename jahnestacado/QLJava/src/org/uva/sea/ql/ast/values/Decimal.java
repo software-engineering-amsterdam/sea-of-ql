@@ -5,7 +5,7 @@ import java.util.Map;
 import org.uva.sea.ql.ast.expr.Ident;
 import org.uva.sea.ql.ast.types.MoneyType;
 import org.uva.sea.ql.ast.types.Type;
-import org.uva.sea.ql.visitor.ASTNodeVisitor;
+import org.uva.sea.ql.visitor.checkers.ExpressionChecker;
 
 public class Decimal extends Value<Float> {
 
@@ -14,8 +14,8 @@ public class Decimal extends Value<Float> {
 	}
 
 	@Override
-	public void accept(ASTNodeVisitor nodeVisitor) {
-		// TODO Auto-generated method stub
+	public boolean accept(ExpressionChecker nodeVisitor) {
+		return nodeVisitor.visit(this);
 
 	}
 

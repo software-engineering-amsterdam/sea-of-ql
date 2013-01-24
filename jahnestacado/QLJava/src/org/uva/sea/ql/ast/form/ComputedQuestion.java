@@ -5,7 +5,6 @@ import org.uva.sea.ql.ast.expr.Expr;
 import org.uva.sea.ql.ast.expr.Ident;
 import org.uva.sea.ql.ast.types.Type;
 import org.uva.sea.ql.ast.values.StringLit;
-import org.uva.sea.ql.visitor.ASTNodeVisitor;
 
 public class ComputedQuestion extends Element {
 	private final Ident id;
@@ -36,10 +35,6 @@ public class ComputedQuestion extends Element {
 		return expr;
 	}
 
-	@Override
-	public void accept(ASTNodeVisitor nodeVisitor) {
-		// TODO Auto-generated method stub
-		
-	}
+	
 
 }

@@ -69,7 +69,7 @@ primary returns [Expr result]
   : Decimal { $result = new Decimal(Float.parseFloat($Decimal.text)); }
   | Int { $result = new Int(Integer.parseInt($Int.text)); }
   | StringLit {$result = new StringLit($StringLit.text);}
-  | BoolLit  {$result = new BoolLit($BoolLit.text);}
+  | BoolLit  {$result = new BoolLit(Boolean.parseBoolean($BoolLit.text));}
   | Ident { $result = new Ident($Ident.text); }
   | '(' x=orExpr ')'{ $result = $x.result; }
   ;

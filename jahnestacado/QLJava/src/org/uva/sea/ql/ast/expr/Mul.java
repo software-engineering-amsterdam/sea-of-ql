@@ -2,10 +2,9 @@ package org.uva.sea.ql.ast.expr;
 
 import java.util.Map;
 
-import org.uva.sea.ql.ast.expr.Expr;
 import org.uva.sea.ql.ast.types.NumericType;
 import org.uva.sea.ql.ast.types.Type;
-import org.uva.sea.ql.visitor.ASTNodeVisitor;
+import org.uva.sea.ql.visitor.checkers.ExpressionChecker;
 
 public class Mul extends Binary {
 
@@ -14,8 +13,8 @@ public class Mul extends Binary {
 	}
 
 	@Override
-	public void accept(ASTNodeVisitor nodeVisitor) {
-		nodeVisitor.visit(this);
+	public boolean accept(ExpressionChecker nodeVisitor) {
+		return nodeVisitor.visit(this);
 		
 	}
 	

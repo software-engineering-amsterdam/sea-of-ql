@@ -2,8 +2,8 @@ package org.uva.sea.ql.ast.form;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import org.uva.sea.ql.ast.ASTNode;
-import org.uva.sea.ql.visitor.ASTNodeVisitor;
 
 public  class Body extends ASTNode {
     
@@ -19,10 +19,6 @@ public  class Body extends ASTNode {
 	}
 
 
-	@Override
-	public void accept(ASTNodeVisitor nodeVisitor) {
-		nodeVisitor.visit(this);
-		
-	}
+	
 
 }
