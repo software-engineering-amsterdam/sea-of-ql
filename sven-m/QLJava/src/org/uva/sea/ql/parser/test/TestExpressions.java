@@ -9,15 +9,16 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
-import org.uva.sea.ql.ast.Add;
-import org.uva.sea.ql.ast.And;
-import org.uva.sea.ql.ast.GT;
-import org.uva.sea.ql.ast.Ident;
-import org.uva.sea.ql.ast.Int;
-import org.uva.sea.ql.ast.LEq;
-import org.uva.sea.ql.ast.LT;
-import org.uva.sea.ql.ast.Mul;
-import org.uva.sea.ql.ast.Not;
+import org.uva.sea.ql.ast.expression.Add;
+import org.uva.sea.ql.ast.expression.And;
+import org.uva.sea.ql.ast.expression.GT;
+import org.uva.sea.ql.ast.expression.Ident;
+import org.uva.sea.ql.ast.expression.Int;
+import org.uva.sea.ql.ast.expression.LEq;
+import org.uva.sea.ql.ast.expression.LT;
+import org.uva.sea.ql.ast.expression.Mul;
+import org.uva.sea.ql.ast.expression.Not;
+import org.uva.sea.ql.ast.form.Form;
 import org.uva.sea.ql.parser.antlr.ANTLRParser;
 
 @RunWith(Parameterized.class)
@@ -27,17 +28,19 @@ public class TestExpressions {
 
 	@Parameters
 	public static List<Object[]> theParsers() {
-	  return Arrays.asList(
-			  //new Object[] {new ANTLRParser()}
-			 );
+		Object[][] params = { { new ANTLRParser() } };
+		return Arrays.asList(params);
 	}
 
-	
 	public TestExpressions(IParse parser) {
 		this.parser = parser;
 	}
-
 	
+	@Test
+	public void TestForms() throws ParseError {
+		assertEquals(parser.parse("form dinges { }").getClass(), Form.class);
+	}
+
 	@Test
 	public void testAdds() throws ParseError {
 		assertEquals(parser.parse("a + b").getClass(), Add.class);
@@ -60,7 +63,7 @@ public class TestExpressions {
 		assertEquals(parser.parse("(a + b) * c").getClass(), Mul.class);
 		assertEquals(parser.parse("a * (b + c)").getClass(), Mul.class);
 	}
-	
+
 	@Test
 	public void testRels() throws ParseError {
 		assertEquals(parser.parse("a < b").getClass(), LT.class);
@@ -71,7 +74,7 @@ public class TestExpressions {
 		assertEquals(parser.parse("a + b > c").getClass(), GT.class);
 		assertEquals(parser.parse("a > b + c").getClass(), GT.class);
 	}
-	
+
 	@Test
 	public void testBools() throws ParseError {
 		assertEquals(parser.parse("!b").getClass(), Not.class);
@@ -79,7 +82,6 @@ public class TestExpressions {
 		assertEquals(parser.parse("a > b && b > c").getClass(), And.class);
 		assertEquals(parser.parse("(a > b) && (b > c)").getClass(), And.class);
 	}
-
 
 	@Test
 	public void testIds() throws ParseError {
@@ -98,5 +100,5 @@ public class TestExpressions {
 		assertEquals(parser.parse("1223").getClass(), Int.class);
 		assertEquals(parser.parse("234234234").getClass(), Int.class);
 	}
-	
+
 }
