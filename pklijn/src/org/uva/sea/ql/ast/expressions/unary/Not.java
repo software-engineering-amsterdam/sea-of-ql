@@ -1,11 +1,11 @@
 package org.uva.sea.ql.ast.expressions.unary;
 
-import java.util.Map;
 
+import org.uva.sea.ql.ast.eval.Env;
 import org.uva.sea.ql.ast.expressions.Expr;
-import org.uva.sea.ql.ast.expressions.Ident;
 import org.uva.sea.ql.ast.types.BoolType;
 import org.uva.sea.ql.ast.types.Type;
+import org.uva.sea.ql.ast.values.BoolValue;
 import org.uva.sea.ql.ast.values.Value;
 
 public class Not extends Unary {
@@ -17,12 +17,11 @@ public class Not extends Unary {
 
 	@Override
 	public Value eval() {
-		// TODO Auto-generated method stub
-		return null;
+		return new BoolValue(!((BoolValue)getArg().eval()).getValue());
 	}
 
 	@Override
-	public Type typeOf(Map<Ident, Type> typeEnv) {
+	public Type typeOf(Env environment) {
 		return new org.uva.sea.ql.ast.types.BoolType();
 	}
 }

@@ -1,10 +1,10 @@
-// $ANTLR 3.4 /Users/peter/Documents/school/UvA/Software Construction/Git/sea-of-ql/pklijn/src/org/uva/sea/ql/parser/antlr/QL.g 2013-01-22 16:41:18
+// $ANTLR 3.4 /Users/peter/Documents/school/UvA/Software Construction/Git/sea-of-ql/pklijn/src/org/uva/sea/ql/parser/antlr/QL.g 2013-01-23 14:00:02
 
 package org.uva.sea.ql.parser.antlr;
 import org.uva.sea.ql.ast.expressions.*;
 import org.uva.sea.ql.ast.expressions.unary.*;
 import org.uva.sea.ql.ast.expressions.binary.*;
-import org.uva.sea.ql.ast.values.*;
+import org.uva.sea.ql.ast.types.*;
 import org.uva.sea.ql.form.*;
 
 
@@ -107,7 +107,7 @@ public class QLParser extends Parser {
 
             match(input,33,FOLLOW_33_in_form62); if (state.failed) return result;
 
-            if ( state.backtracking==0 ) { result = new Form((Ident1!=null?Ident1.getText():null), formItems2); }
+            if ( state.backtracking==0 ) { result = new Form(new Ident((Ident1!=null?Ident1.getText():null)), formItems2); }
 
             }
 
@@ -415,7 +415,7 @@ public class QLParser extends Parser {
 
         Token Ident5=null;
         Token String6=null;
-        Value questionType7 =null;
+        Type questionType7 =null;
 
         Expr orExpr8 =null;
 
@@ -448,7 +448,7 @@ public class QLParser extends Parser {
 
             match(input,14,FOLLOW_14_in_computedQuestion265); if (state.failed) return result;
 
-            if ( state.backtracking==0 ) { result = new ComputedQuestion((Ident5!=null?Ident5.getText():null), (String6!=null?String6.getText():null), questionType7, orExpr8); }
+            if ( state.backtracking==0 ) { result = new ComputedQuestion(new Ident((Ident5!=null?Ident5.getText():null)), (String6!=null?String6.getText():null), questionType7, orExpr8); }
 
             }
 
@@ -478,7 +478,7 @@ public class QLParser extends Parser {
 
         Token Ident9=null;
         Token String10=null;
-        Value questionType11 =null;
+        Type questionType11 =null;
 
 
         try {
@@ -499,7 +499,7 @@ public class QLParser extends Parser {
             state._fsp--;
             if (state.failed) return result;
 
-            if ( state.backtracking==0 ) { result = new Question((Ident9!=null?Ident9.getText():null), (String10!=null?String10.getText():null), questionType11); }
+            if ( state.backtracking==0 ) { result = new Question(new Ident((Ident9!=null?Ident9.getText():null)), (String10!=null?String10.getText():null), questionType11); }
 
             }
 
@@ -521,9 +521,9 @@ public class QLParser extends Parser {
 
 
     // $ANTLR start "questionType"
-    // /Users/peter/Documents/school/UvA/Software Construction/Git/sea-of-ql/pklijn/src/org/uva/sea/ql/parser/antlr/QL.g:55:1: questionType returns [Value result] : ( 'boolean' | 'int' | 'string' );
-    public final Value questionType() throws RecognitionException {
-        Value result = null;
+    // /Users/peter/Documents/school/UvA/Software Construction/Git/sea-of-ql/pklijn/src/org/uva/sea/ql/parser/antlr/QL.g:55:1: questionType returns [Type result] : ( 'boolean' | 'int' | 'string' );
+    public final Type questionType() throws RecognitionException {
+        Type result = null;
 
         int questionType_StartIndex = input.index();
 
@@ -563,7 +563,7 @@ public class QLParser extends Parser {
                     {
                     match(input,25,FOLLOW_25_in_questionType316); if (state.failed) return result;
 
-                    if ( state.backtracking==0 ) { result = new BoolValue(); }
+                    if ( state.backtracking==0 ) { result = new BoolType(); }
 
                     }
                     break;
@@ -572,7 +572,7 @@ public class QLParser extends Parser {
                     {
                     match(input,29,FOLLOW_29_in_questionType324); if (state.failed) return result;
 
-                    if ( state.backtracking==0 ) { result = new IntValue(); }
+                    if ( state.backtracking==0 ) { result = new IntType(); }
 
                     }
                     break;
@@ -581,7 +581,7 @@ public class QLParser extends Parser {
                     {
                     match(input,30,FOLLOW_30_in_questionType332); if (state.failed) return result;
 
-                    if ( state.backtracking==0 ) { result = new StringValue(); }
+                    if ( state.backtracking==0 ) { result = new StringType(); }
 
                     }
                     break;

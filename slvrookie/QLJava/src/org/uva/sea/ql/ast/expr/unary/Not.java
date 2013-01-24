@@ -2,11 +2,10 @@ package org.uva.sea.ql.ast.expr.unary;
 
 import java.util.Map;
 
-import org.uva.sea.ql.ast.expr.Expr;
-import org.uva.sea.ql.ast.expr.Ident;
+import org.uva.sea.ql.ast.expr.*;
 import org.uva.sea.ql.ast.types.BoolType;
 import org.uva.sea.ql.ast.types.Type;
-import org.uva.sea.ql.visitor.IVisitor;
+import org.uva.sea.ql.visitor.IExprVisitor;
 
 public class Not extends UnaryExpr {
 
@@ -20,7 +19,7 @@ public class Not extends UnaryExpr {
 	}
 
 	@Override
-	public <T> T accept(IVisitor<T> visitor) {
+	public <T> T accept(IExprVisitor<T> visitor) {
 		return visitor.visit(this);
 	}
 	

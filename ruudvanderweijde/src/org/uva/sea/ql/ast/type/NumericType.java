@@ -8,13 +8,12 @@ public class NumericType extends Type {
 	}
 	
 	@Override
-	public boolean isCompatibleToIntegerType() {
+	public boolean isCompatibleToNumericType() {
 		return true;
 	}
 	
 	@Override
-	public boolean isCompatibleToNumericType() {
+	public boolean isCompatibleToIntegerType() {
 		return true;
 	}
-
 }

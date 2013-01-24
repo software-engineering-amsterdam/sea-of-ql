@@ -2,12 +2,9 @@ package org.uva.sea.ql.parser.test.tests;
 
 import static org.junit.Assert.*;
 import org.junit.Test;
-import org.uva.sea.ql.ast.CompQuestion;
-import org.uva.sea.ql.ast.IfBody;
-import org.uva.sea.ql.ast.Question;
+import org.uva.sea.ql.ast.*;
 import org.uva.sea.ql.parser.antlr.ANTLRParser;
-import org.uva.sea.ql.parser.test.IParse;
-import org.uva.sea.ql.parser.test.ParseError;
+import org.uva.sea.ql.parser.test.*;
 
 public class TestFormElements {
 
