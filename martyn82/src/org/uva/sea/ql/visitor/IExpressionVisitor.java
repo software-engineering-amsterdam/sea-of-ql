@@ -10,7 +10,6 @@ import org.uva.sea.ql.ast.expression.literal.Bool;
 import org.uva.sea.ql.ast.expression.literal.Int;
 import org.uva.sea.ql.ast.expression.literal.Money;
 import org.uva.sea.ql.ast.expression.literal.Str;
-import org.uva.sea.ql.eval.Environment;
 
 /**
  * Expression visitor.
@@ -20,79 +19,69 @@ public interface IExpressionVisitor<T> {
 	 * Visit arithmetic expression.
 	 *
 	 * @param node
-	 * @param context
 	 */
-	T visit( ArithmeticExpression node, Environment context );
+	T visit( ArithmeticExpression node );
 
 	/**
 	 * Visit logical expression.
 	 *
 	 * @param node
-	 * @param context
 	 */
-	T visit( LogicalExpression node, Environment context );
+	T visit( LogicalExpression node );
 
 	/**
 	 * Visit binary expression.
 	 *
 	 * @param node
-	 * @param context
 	 */
-	T visit( ComparisonExpression node, Environment context );
+	T visit( ComparisonExpression node );
 
 	/**
 	 * Visit unary expression.
 	 *
 	 * @param node
-	 * @param context
 	 */
-	T visit( UnaryExpression node, Environment context );
+	T visit( UnaryExpression node );
 
 	/**
 	 * Visit unary numeric expression.
 	 *
 	 * @param node
-	 * @param context
 	 */
-	T visit( UnaryNumericExpression node, Environment context );
+	T visit( UnaryNumericExpression node );
 
 	/**
 	 * Visit integer literal expression.
 	 *
 	 * @param node
-	 * @param context
 	 */
-	T visit( Int node, Environment context );
+	T visit( Int node );
 
 	/**
 	 * Visit boolean literal expression.
 	 *
 	 * @param node
-	 * @param context
 	 */
-	T visit( Bool node, Environment context );
+	T visit( Bool node );
 
 	/**
 	 * Visit money literal expression.
 	 *
 	 * @param node
-	 * @param context
 	 */
-	T visit( Money node, Environment context );
+	T visit( Money node );
 
 	/**
 	 * Visit string literal expression.
 	 *
 	 * @param node
-	 * @param context
 	 */
-	T visit( Str node, Environment context );
+	T visit( Str node );
 
 	/**
 	 * Visit identifier expression.
 	 *
 	 * @param node
-	 * @param context
 	 */
-	T visit( Ident node, Environment context );
+	T visit( Ident node );
 }

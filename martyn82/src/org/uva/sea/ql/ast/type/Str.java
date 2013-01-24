@@ -1,6 +1,5 @@
 package org.uva.sea.ql.ast.type;
 
-import org.uva.sea.ql.eval.Environment;
 import org.uva.sea.ql.visitor.NodeVisitor;
 
 /**
@@ -9,7 +8,7 @@ import org.uva.sea.ql.visitor.NodeVisitor;
 public class Str extends Type {
 
 	@Override
-	public <T> T accept( NodeVisitor<T> visitor, Environment context ) {
-		return visitor.visit( this, context );
+	public <T> T accept( NodeVisitor<T> visitor ) {
+		return visitor.visit( this );
 	}
 }

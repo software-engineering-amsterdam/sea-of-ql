@@ -6,7 +6,6 @@ import org.uva.sea.ql.ast.statement.IfThenElse;
 import org.uva.sea.ql.ast.statement.QuestionDeclaration;
 import org.uva.sea.ql.ast.statement.Statements;
 import org.uva.sea.ql.ast.statement.VarDeclaration;
-import org.uva.sea.ql.eval.Environment;
 
 /**
  * Statement visitor.
@@ -16,49 +15,41 @@ public interface IStatementVisitor<T> {
 	 * Visit IF-statement.
 	 *
 	 * @param node
-	 * @param context
 	 */
-	T visit( IfThenElse node, Environment context );
+	T visit( IfThenElse node );
 
 	/**
 	 * Visit a variable declaration.
 	 *
 	 * @param node
-	 * @param context
 	 */
-	T visit( VarDeclaration node, Environment context );
+	T visit( VarDeclaration node );
 
 	/**
 	 * Visit an assignment.
 	 *
 	 * @param node
-	 * @param context
 	 */
-	T visit( Assignment node, Environment context );
+	T visit( Assignment node );
 
 	/**
 	 * Visit form declaration node.
 	 *
 	 * @param node
-	 * @param context
-	 *
-	 * @return The value.
 	 */
-	T visit( FormDeclaration node, Environment context );
+	T visit( FormDeclaration node );
 
 	/**
 	 * Visit question declaration node.
 	 *
 	 * @param node
-	 * @param context
 	 */
-	T visit( QuestionDeclaration node, Environment context );
+	T visit( QuestionDeclaration node );
 
 	/**
 	 * Visit statements node.
 	 *
 	 * @param node
-	 * @param context
 	 */
-	T visit( Statements node, Environment context );
+	T visit( Statements node );
 }

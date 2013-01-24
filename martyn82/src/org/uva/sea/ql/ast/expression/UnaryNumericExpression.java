@@ -3,7 +3,6 @@ package org.uva.sea.ql.ast.expression;
 import java.util.Map;
 
 import org.uva.sea.ql.ast.type.Type;
-import org.uva.sea.ql.eval.Environment;
 import org.uva.sea.ql.visitor.NodeVisitor;
 
 /**
@@ -20,8 +19,8 @@ abstract public class UnaryNumericExpression extends UnaryExpression {
 	}
 
 	@Override
-	public <T> T accept( NodeVisitor<T> visitor, Environment context ) {
-		return visitor.visit( this, context );
+	public <T> T accept( NodeVisitor<T> visitor ) {
+		return visitor.visit( this );
 	}
 
 	@Override

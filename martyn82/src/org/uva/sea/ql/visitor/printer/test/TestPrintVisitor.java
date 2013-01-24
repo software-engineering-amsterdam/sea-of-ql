@@ -23,6 +23,6 @@ public class TestPrintVisitor extends VisitorTest<java.lang.Boolean> {
 	 */
 	@Test
 	public void test() throws ParseError {
-		this.parser.parse( program ).accept( visitor, null );
+		this.parser.parse( program ).accept( visitor );
 	}
 }

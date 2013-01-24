@@ -4,7 +4,6 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
-import org.uva.sea.ql.eval.Environment;
 import org.uva.sea.ql.parser.ParseError;
 import org.uva.sea.ql.visitor.test.VisitorTest;
 import org.uva.sea.ql.visitor.typechecker.TypeChecker;
@@ -13,11 +12,6 @@ import org.uva.sea.ql.visitor.typechecker.TypeChecker;
  * TypeChecker test.
  */
 public class TestTypeChecker extends VisitorTest<java.lang.Boolean> {
-	/**
-	 * Holds the context for the typechecker.
-	 */
-	private Environment context;
-
 	/**
 	 * Constructs a new TypeChecker test.
 	 */
@@ -35,8 +29,8 @@ public class TestTypeChecker extends VisitorTest<java.lang.Boolean> {
 	 * @throws ParseError
 	 */
 	private java.lang.Boolean typeCheck( java.lang.String source ) throws ParseError {
-		context = new Environment();
-		return parser.parse( source ).accept( visitor, context );
+		visitor.getEnvironment().getErrors().clear();
+		return parser.parse( source ).accept( visitor );
 	}
 
 	/**
@@ -117,13 +111,13 @@ public class TestTypeChecker extends VisitorTest<java.lang.Boolean> {
 	@Test
 	public void testVariableDefinitions() throws ParseError {
 		typeCheck( "x = y" );
-		assertEquals( "Undefined variable: y", context.getErrors().get( 0 ) );
+		assertEquals( "Undefined variable: y", visitor.getEnvironment().getErrors().get( 0 ) );
 
 		typeCheck( "x = 24 * .5 + y" );
-		assertEquals( "Undefined variable: y", context.getErrors().get( 0 ) );
+		assertEquals( "Undefined variable: y", visitor.getEnvironment().getErrors().get( 0 ) );
 
 		typeCheck( "if ( true ) { x = 24 \n \"\" x: boolean }" );
-		assertEquals( "The variable x is already declared elsewhere.", context.getErrors().get( 0 ) );
+		assertEquals( "The variable x is already declared elsewhere.", visitor.getEnvironment().getErrors().get( 0 ) );
 	}
 
 	/**
@@ -134,7 +128,10 @@ public class TestTypeChecker extends VisitorTest<java.lang.Boolean> {
 	@Test
 	public void testIfThenElse() throws ParseError {
 		typeCheck( "if ( 1 ) {}" );
-		assertEquals( "Condition of an IF block should evaluate to Boolean.", context.getErrors().get( 0 ) );
+		assertEquals(
+			"Condition of an IF block should evaluate to Boolean.",
+			visitor.getEnvironment().getErrors().get( 0 )
+		);
 	}
 
 	/**
@@ -145,7 +142,10 @@ public class TestTypeChecker extends VisitorTest<java.lang.Boolean> {
 	@Test
 	public void testTypeMismatch() throws ParseError {
 		typeCheck( "if ( true ) { \"\" x: boolean \n x = 23 }" );
-		assertEquals( "Type mismatch: cannot convert from Bool to Int.", context.getErrors().get( 0 ) );
+		assertEquals(
+			"Type mismatch: cannot convert from Bool to Int.",
+			visitor.getEnvironment().getErrors().get( 0 )
+		);
 	}
 
 	/**
@@ -157,22 +157,28 @@ public class TestTypeChecker extends VisitorTest<java.lang.Boolean> {
 	@Test
 	public void testComparison() throws ParseError {
 		typeCheck( "true == false" );
-		assertEquals( 0, context.getErrors().size() );
+		assertEquals( 0, visitor.getEnvironment().getErrors().size() );
 
 		typeCheck( "true != !false" );
-		assertEquals( 0, context.getErrors().size() );
+		assertEquals( 0, visitor.getEnvironment().getErrors().size() );
 
 		typeCheck( "12 >= .3" );
-		assertEquals( 0, context.getErrors().size() );
+		assertEquals( 0, visitor.getEnvironment().getErrors().size() );
 
 		typeCheck( "12 != true" );
-		assertEquals( "Both sides of the comparison must be of the same (sub)type.", context.getErrors().get( 0 ) );
+		assertEquals(
+			"Both sides of the comparison must be of the same (sub)type.",
+			visitor.getEnvironment().getErrors().get( 0 )
+		);
 
 		typeCheck( "\"\" != true" );
-		assertEquals( "Both sides of the comparison must be of the same (sub)type.", context.getErrors().get( 0 ) );
+		assertEquals(
+			"Both sides of the comparison must be of the same (sub)type.",
+			visitor.getEnvironment().getErrors().get( 0 )
+		);
 
 		typeCheck( "\"hello\" == \"world\"" );
-		assertEquals( 0, context.getErrors().size() );
+		assertEquals( 0, visitor.getEnvironment().getErrors().size() );
 	}
 
 	/**
@@ -184,8 +190,8 @@ public class TestTypeChecker extends VisitorTest<java.lang.Boolean> {
 	public void testExample() throws ParseError {
 		typeCheck( program );
 
-		if ( context.getErrors().size() > 0 ) {
-			for ( java.lang.String error : context.getErrors() ) {
+		if ( visitor.getEnvironment().getErrors().size() > 0 ) {
+			for ( java.lang.String error : visitor.getEnvironment().getErrors() ) {
 				System.err.println( error );
 			}
 		}

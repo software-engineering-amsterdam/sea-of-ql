@@ -1,7 +1,6 @@
 package org.uva.sea.ql.ast.statement;
 
 import org.uva.sea.ql.ast.expression.literal.Str;
-import org.uva.sea.ql.eval.Environment;
 import org.uva.sea.ql.visitor.NodeVisitor;
 
 /**
@@ -59,7 +58,7 @@ public class QuestionDeclaration extends Statement {
 	}
 
 	@Override
-	public <T> T accept( NodeVisitor<T> visitor, Environment context ) {
-		return visitor.visit( this, context );
+	public <T> T accept( NodeVisitor<T> visitor ) {
+		return visitor.visit( this );
 	}
 }

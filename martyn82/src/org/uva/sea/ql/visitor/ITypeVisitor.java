@@ -5,7 +5,6 @@ import org.uva.sea.ql.ast.type.Int;
 import org.uva.sea.ql.ast.type.Money;
 import org.uva.sea.ql.ast.type.Number;
 import org.uva.sea.ql.ast.type.Str;
-import org.uva.sea.ql.eval.Environment;
 
 /**
  * Represents Type visitor.
@@ -15,39 +14,34 @@ public interface ITypeVisitor<T> {
 	 * Visit a boolean type.
 	 *
 	 * @param node
-	 * @param context
 	 */
-	T visit( Bool node, Environment context );
+	T visit( Bool node );
 
 	/**
 	 * Visit an integer type.
 	 *
 	 * @param node
-	 * @param context
 	 */
-	T visit( Int node, Environment context );
+	T visit( Int node );
 
 	/**
 	 * Visit a string type.
 	 *
 	 * @param node
-	 * @param context
 	 */
-	T visit( Str node, Environment context );
+	T visit( Str node );
 
 	/**
 	 * Visit a money type.
 	 *
 	 * @param node
-	 * @param context
 	 */
-	T visit( Money node, Environment context );
+	T visit( Money node );
 
 	/**
 	 * Visit a number type.
 	 *
 	 * @param node
-	 * @param context
 	 */
-	T visit( Number node, Environment context );
+	T visit( Number node );
 }

@@ -22,7 +22,6 @@ import org.uva.sea.ql.ast.statement.QuestionDeclaration;
 import org.uva.sea.ql.ast.statement.Statement;
 import org.uva.sea.ql.ast.statement.Statements;
 import org.uva.sea.ql.ast.statement.VarDeclaration;
-import org.uva.sea.ql.eval.Environment;
 import org.uva.sea.ql.visitor.NodeVisitor;
 
 /**
@@ -146,16 +145,16 @@ public class PrintVisitor extends NodeVisitor<Boolean> {
 	}
 
 	@Override
-	public Boolean visit( LogicalExpression node, Environment context ) {
+	public Boolean visit( LogicalExpression node ) {
 		writeName( node );
 
 		level++;
 
 		indent();
-		node.getLhs().accept( this, context );
+		node.getLhs().accept( this );
 
 		indent();
-		node.getRhs().accept( this, context );
+		node.getRhs().accept( this );
 
 		level--;
 
@@ -163,16 +162,16 @@ public class PrintVisitor extends NodeVisitor<Boolean> {
 	}
 
 	@Override
-	public Boolean visit( ArithmeticExpression node, Environment context ) {
+	public Boolean visit( ArithmeticExpression node ) {
 		writeName( node );
 
 		level++;
 
 		indent();
-		node.getLhs().accept( this, context );
+		node.getLhs().accept( this );
 
 		indent();
-		node.getRhs().accept( this, context );
+		node.getRhs().accept( this );
 
 		level--;
 
@@ -180,13 +179,13 @@ public class PrintVisitor extends NodeVisitor<Boolean> {
 	}
 
 	@Override
-	public Boolean visit( UnaryExpression node, Environment context ) {
+	public Boolean visit( UnaryExpression node ) {
 		writeName( node );
 
 		level++;
 
 		indent();
-		node.getExpression().accept( this, context );
+		node.getExpression().accept( this );
 
 		level--;
 
@@ -194,13 +193,13 @@ public class PrintVisitor extends NodeVisitor<Boolean> {
 	}
 
 	@Override
-	public Boolean visit( UnaryNumericExpression node, Environment context ) {
+	public Boolean visit( UnaryNumericExpression node ) {
 		writeName( node );
 
 		level++;
 
 		indent();
-		node.getExpression().accept( this, context );
+		node.getExpression().accept( this );
 
 		level--;
 
@@ -208,44 +207,44 @@ public class PrintVisitor extends NodeVisitor<Boolean> {
 	}
 
 	@Override
-	public Boolean visit( Str node, Environment context ) {
+	public Boolean visit( Str node ) {
 		writeAtomic( node );
 		return true;
 	}
 
 	@Override
-	public Boolean visit( Money node, Environment context ) {
+	public Boolean visit( Money node ) {
 		writeAtomic( node );
 		return true;
 	}
 
 	@Override
-	public Boolean visit( Int node, Environment context ) {
+	public Boolean visit( Int node ) {
 		writeAtomic( node );
 		return true;
 	}
 
 	@Override
-	public Boolean visit( Bool node, Environment context ) {
+	public Boolean visit( Bool node ) {
 		writeAtomic( node );
 		return true;
 	}
 
 	@Override
-	public Boolean visit( Ident node, Environment context ) {
+	public Boolean visit( Ident node ) {
 		writeAtomic( node );
 		return true;
 	}
 
 	@Override
-	public Boolean visit( IfThenElse node, Environment context ) {
+	public Boolean visit( IfThenElse node ) {
 		indent();
 		write( "IF" );
 
 		level++;
 
 		indent();
-		node.getCondition().accept( this, context );
+		node.getCondition().accept( this );
 
 		level--;
 
@@ -256,7 +255,7 @@ public class PrintVisitor extends NodeVisitor<Boolean> {
 			level++;
 
 			indent();
-			node.getIfThen().accept( this, context );
+			node.getIfThen().accept( this );
 
 			level--;
 		}
@@ -268,7 +267,7 @@ public class PrintVisitor extends NodeVisitor<Boolean> {
 			level++;
 
 			indent();
-			node.getIfElse().accept( this, context );
+			node.getIfElse().accept( this );
 
 			level--;
 		}
@@ -277,13 +276,13 @@ public class PrintVisitor extends NodeVisitor<Boolean> {
 	}
 
 	@Override
-	public Boolean visit( VarDeclaration node, Environment context ) {
+	public Boolean visit( VarDeclaration node ) {
 		writeName( node );
 
 		level++;
 
 		indent();
-		node.getIdent().accept( this, context );
+		node.getIdent().accept( this );
 
 		indent();
 		write( node.getType().getClass().getSimpleName().toUpperCase() );
@@ -294,16 +293,16 @@ public class PrintVisitor extends NodeVisitor<Boolean> {
 	}
 
 	@Override
-	public Boolean visit( Assignment node, Environment context ) {
+	public Boolean visit( Assignment node ) {
 		writeName( node );
 
 		level++;
 
 		indent();
-		node.getIdent().accept( this, context );
+		node.getIdent().accept( this );
 
 		indent();
-		node.getExpression().accept( this, context );
+		node.getExpression().accept( this );
 
 		level--;
 
@@ -311,16 +310,16 @@ public class PrintVisitor extends NodeVisitor<Boolean> {
 	}
 
 	@Override
-	public Boolean visit( FormDeclaration node, Environment context ) {
+	public Boolean visit( FormDeclaration node ) {
 		writeName( node );
 
 		level++;
 
 		indent();
-		node.getIdent().accept( this, context );
+		node.getIdent().accept( this );
 
 		indent();
-		node.getStatements().accept( this, context );
+		node.getStatements().accept( this );
 
 		level--;
 
@@ -328,17 +327,17 @@ public class PrintVisitor extends NodeVisitor<Boolean> {
 	}
 
 	@Override
-	public Boolean visit( QuestionDeclaration node, Environment context ) {
+	public Boolean visit( QuestionDeclaration node ) {
 		indent();
 		writeName( node );
 
 		level++;
 
 		indent();
-		node.getName().accept( this, context );
+		node.getName().accept( this );
 
 		indent();
-		node.getDeclaration().accept( this, context );
+		node.getDeclaration().accept( this );
 
 		level--;
 
@@ -346,25 +345,25 @@ public class PrintVisitor extends NodeVisitor<Boolean> {
 	}
 
 	@Override
-	public Boolean visit( Statements node, Environment context ) {
+	public Boolean visit( Statements node ) {
 		for ( Statement statement : node ) {
-			statement.accept( this, context );
+			statement.accept( this );
 		}
 
 		return true;
 	}
 
 	@Override
-	public Boolean visit( ComparisonExpression node, Environment context ) {
+	public Boolean visit( ComparisonExpression node ) {
 		writeName( node );
 
 		level++;
 
 		indent();
-		node.getLhs().accept( this, context );
+		node.getLhs().accept( this );
 
 		indent();
-		node.getRhs().accept( this, context );
+		node.getRhs().accept( this );
 
 		level--;
 
@@ -372,31 +371,31 @@ public class PrintVisitor extends NodeVisitor<Boolean> {
 	}
 
 	@Override
-	public Boolean visit( org.uva.sea.ql.ast.type.Bool node, Environment context ) {
+	public Boolean visit( org.uva.sea.ql.ast.type.Bool node ) {
 		writeName( node );
 		return true;
 	}
 
 	@Override
-	public Boolean visit( org.uva.sea.ql.ast.type.Int node, Environment context ) {
+	public Boolean visit( org.uva.sea.ql.ast.type.Int node ) {
 		writeName( node );
 		return true;
 	}
 
 	@Override
-	public Boolean visit( org.uva.sea.ql.ast.type.Str node, Environment context ) {
+	public Boolean visit( org.uva.sea.ql.ast.type.Str node ) {
 		writeName( node );
 		return true;
 	}
 
 	@Override
-	public Boolean visit( org.uva.sea.ql.ast.type.Money node, Environment context ) {
+	public Boolean visit( org.uva.sea.ql.ast.type.Money node ) {
 		writeName( node );
 		return true;
 	}
 
 	@Override
-	public Boolean visit( org.uva.sea.ql.ast.type.Number node, Environment context ) {
+	public Boolean visit( org.uva.sea.ql.ast.type.Number node ) {
 		writeName( node );
 		return true;
 	}
