@@ -1,11 +1,9 @@
 package org.uva.sea.ql.ast.form;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.uva.sea.ql.ast.ASTNode;
 import org.uva.sea.ql.ast.expr.Ident;
-import org.uva.sea.ql.visitor.ASTNodeVisitor;
 
 public class Form extends ASTNode {
 	private final Ident id;
@@ -25,10 +23,6 @@ public class Form extends ASTNode {
 		return body;
 	}
 
-	@Override
-	public void accept(ASTNodeVisitor nodeVisitor) {
-		nodeVisitor.visit(this);
-
-	}
+	
 
 }

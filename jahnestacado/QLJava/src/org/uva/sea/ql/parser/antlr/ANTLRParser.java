@@ -6,8 +6,9 @@ import org.antlr.runtime.RecognitionException;
 import org.uva.sea.ql.ast.expr.Expr;
 import org.uva.sea.ql.ast.form.Body;
 import org.uva.sea.ql.ast.form.ComputedQuestion;
+import org.uva.sea.ql.ast.form.ConditionalElement;
 import org.uva.sea.ql.ast.form.Form;
-import org.uva.sea.ql.ast.form.IfBlock;
+import org.uva.sea.ql.ast.form.IfThen;
 import org.uva.sea.ql.ast.form.Question;
 import org.uva.sea.ql.ast.types.Type;
 import org.uva.sea.ql.parser.test.IParse;
@@ -73,9 +74,9 @@ public class ANTLRParser implements IParse {
 	}
 
 	@Override
-	public IfBlock parseIfBlock(String src) throws ParseError{
+	public ConditionalElement parseConditionalElement(String src) throws ParseError{
 		 try {
-			return parse(src).ifBlock();
+			return parse(src).conditionalElement();
 		} catch (RecognitionException e) {
 			throw new ParseError(e.getMessage());
 		}

@@ -1,11 +1,16 @@
 package org.uva.sea.ql.ast.values;
 
-
 import org.uva.sea.ql.ast.expr.Expr;
 
+public abstract class Value<T> extends Expr {
+	private final T value;
 
-public abstract class Value extends Expr{
-	
+	protected Value(T value) {
+		this.value = value;
+	}
 
-    
+	public T getValue() {
+		return value;
+	}
+
 }

@@ -4,7 +4,6 @@ package org.uva.sea.ql.ast.form;
 import org.uva.sea.ql.ast.expr.Ident;
 import org.uva.sea.ql.ast.types.Type;
 import org.uva.sea.ql.ast.values.StringLit;
-import org.uva.sea.ql.visitor.ASTNodeVisitor;
 
 public class Question extends Element {
 	private final Ident id;
@@ -30,11 +29,7 @@ public class Question extends Element {
 		return type;
 	}
 
-	@Override
-	public void accept(ASTNodeVisitor nodeVisitor) {
-		// TODO Auto-generated method stub
-		
-	}
+	
 	
 	
 

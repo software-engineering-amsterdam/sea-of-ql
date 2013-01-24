@@ -18,6 +18,18 @@ public abstract class Expr implements ASTNode {
 	
 	public abstract List<Message> checkType(Env environment);
 	
+	protected String getPrintableAllowedTypes() {
+		int i = 0;
+		String printableString = "";
+		for (Type t : allowedTypes) {
+			if (i > 0)
+				printableString += ", ";
+			printableString += t;
+			i++;
+		}
+		return printableString;
+	}
+	
 	public String getName() {
 		return getClass().toString();
 	}

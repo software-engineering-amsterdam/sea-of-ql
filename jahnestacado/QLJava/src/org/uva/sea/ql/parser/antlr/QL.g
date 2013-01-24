@@ -38,15 +38,15 @@ form returns [Form result]
 	
 		
 	body returns [Body result]
-  @init { Body body= new Body(); ; }
+  @init { Body body= new Body();  }
   :(element  { body.addElement($element.result) ; } )*
   {$result=body;}
   ;
 	
 element returns [Element result]
-		:computedQuestion {$result=$computedQuestion.result;}
+		:conditionalElement {$result=$conditionalElement.result;}
 		|question {$result=$question.result;}
-		|ifBlock {$result=$ifBlock.result;}
+		|computedQuestion {$result=$computedQuestion.result;}
 	;
 	
 	
@@ -57,8 +57,10 @@ computedQuestion returns [ComputedQuestion result]
   : Ident ':' StringLit type '(' expr=orExpr ')' {$result=new ComputedQuestion(new Ident($Ident.text),new StringLit($StringLit.text),$type.result,expr);};
   
   
-ifBlock returns [IfBlock result]
-	: 'if' '(' expr=orExpr ')' '{'  body'}' {$result=new IfBlock(expr,$body.result);};
+conditionalElement returns [ConditionalElement result]
+	:'if' '(' expr=orExpr ')' '{'b1=body'}' 'else' '{'b2= body'}'  {$result=new IfThenElse(expr,$b1.result,$b2.result);}
+	|'if' '(' expr=orExpr ')' '{' body'}' {$result=new IfThen(expr,$body.result);}
+	;
   
 
 
@@ -67,7 +69,7 @@ primary returns [Expr result]
   : Decimal { $result = new Decimal(Float.parseFloat($Decimal.text)); }
   | Int { $result = new Int(Integer.parseInt($Int.text)); }
   | StringLit {$result = new StringLit($StringLit.text);}
-  | BoolLit  {$result = new BoolLit($BoolLit.text);}
+  | BoolLit  {$result = new BoolLit(Boolean.parseBoolean($BoolLit.text));}
   | Ident { $result = new Ident($Ident.text); }
   | '(' x=orExpr ')'{ $result = $x.result; }
   ;
