@@ -1,18 +1,11 @@
-﻿<%@ page import="org.uva.sea.ql.webUI.KnockoutJSViewModelBuilderVisitor" %>
-<%@ page import="org.uva.sea.ql.Message" %>
-<%@ page import="java.util.Iterator" %>
-<%@ page import="org.uva.sea.ql.typechecker.TypecheckerVisitor" %>
-<%@ page import="java.util.List" %>
-<%@ page import="org.uva.sea.ql.ast.Form" %>
-<%@ page import="org.uva.sea.ql.parser.Parser" %>
-<%@ page import="org.uva.sea.ql.parser.antlr.ANTLRParser" %>
+﻿<%@ page import="org.uva.sea.ql.webUI.Controller" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8">
     <title></title>
-    <link href="style.css" rel="stylesheet" type="text/css">
+    <link href="style.css" rel="stylesheet" type="text/css"/>
     <script type="text/javascript" src="jquery-1.9.0.min.js"></script>
     <script type="text/javascript" src="knockout-2.2.1.js"></script>
     <script type="text/javascript" src="ko.bindingHandlers/booleanValue.js"></script>
@@ -162,27 +155,7 @@
     <input type="button" value="Send form" data-bind="enable: $root.root.valid(), click: function() {console.log($root.root.collectValues());}"/>
 
     <script type="text/javascript">
-        <%
-            final String SAMPLE_FORM =
-                    "form Box1HouseOwning {" +
-                    "    \"Did you sell a house in 2010?\" hasSoldHouse: boolean" +
-                    "    \"Did you by a house in 2010?\" hasBoughtHouse: boolean" +
-                    "    \"Did you enter a loan for maintenance/reconstruction?\" hasMaintLoan: boolean" +
-                    "    if (hasSoldHouse) {" +
-                    "        \"Private debts for the sold house:\" privateDebt: integer" +
-                    "        \"Price the house was sold for:\" sellingPrice: integer" +
-                    "        \"Value residue:\" sellingPrice - privateDebt" +
-                    "    }" +
-                    "}";
-            Parser parser = new ANTLRParser();
-            Form parsedForm = (Form) parser.parse(SAMPLE_FORM);
-            List<Message> errors = TypecheckerVisitor.typecheck(parsedForm);
-            if(errors.isEmpty()) {
-                String viewModel = KnockoutJSViewModelBuilderVisitor.createViewModel(parsedForm);
-                out.println(viewModel);
-            } else
-                out.println("<!-- Errors in script. -->");
-        %>
+        <%= request.getAttribute(Controller.VIEWMODEL_ATTRIBUTE) %>
         ko.applyBindings(_viewModel);
     </script>
 </body>
