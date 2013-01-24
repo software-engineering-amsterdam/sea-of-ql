@@ -25,7 +25,7 @@ public class Environment {
 	/**
 	 * Holds the error list.
 	 */
-	private final List<String> errors;
+	private final List<Error> errors;
 
 	/**
 	 * Constructs a new context.
@@ -35,7 +35,7 @@ public class Environment {
 	public Environment( Environment parent ) {
 		this.parent = parent;
 		this.types = new HashMap<Ident, Type>();
-		this.errors = new LinkedList<String>();
+		this.errors = new LinkedList<Error>();
 	}
 
 	/**
@@ -77,7 +77,7 @@ public class Environment {
 	 *
 	 * @return Errors
 	 */
-	public List<String> getErrors() {
+	public List<Error> getErrors() {
 		return this.errors;
 	}
 
@@ -86,8 +86,8 @@ public class Environment {
 	 *
 	 * @param message
 	 */
-	public void addError( String message ) {
-		this.errors.add( message );
+	public void addError( Error error ) {
+		this.errors.add( error );
 	}
 
 	/**

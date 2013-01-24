@@ -5,6 +5,7 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 import org.uva.sea.ql.parser.ParseError;
+import org.uva.sea.ql.eval.Error;
 import org.uva.sea.ql.visitor.test.VisitorTest;
 import org.uva.sea.ql.visitor.typechecker.TypeChecker;
 
@@ -111,13 +112,16 @@ public class TestTypeChecker extends VisitorTest<java.lang.Boolean> {
 	@Test
 	public void testVariableDefinitions() throws ParseError {
 		typeCheck( "x = y" );
-		assertEquals( "Undefined variable: y", visitor.getEnvironment().getErrors().get( 0 ) );
+		assertEquals( "Undefined variable: y", visitor.getEnvironment().getErrors().get( 0 ).getMessage() );
 
 		typeCheck( "x = 24 * .5 + y" );
-		assertEquals( "Undefined variable: y", visitor.getEnvironment().getErrors().get( 0 ) );
+		assertEquals( "Undefined variable: y", visitor.getEnvironment().getErrors().get( 0 ).getMessage() );
 
 		typeCheck( "if ( true ) { x = 24 \n \"\" x: boolean }" );
-		assertEquals( "The variable x is already declared elsewhere.", visitor.getEnvironment().getErrors().get( 0 ) );
+		assertEquals(
+			"The variable x is already declared elsewhere.",
+			visitor.getEnvironment().getErrors().get( 0 ).getMessage()
+		);
 	}
 
 	/**
@@ -130,7 +134,7 @@ public class TestTypeChecker extends VisitorTest<java.lang.Boolean> {
 		typeCheck( "if ( 1 ) {}" );
 		assertEquals(
 			"Condition of an IF block should evaluate to Boolean.",
-			visitor.getEnvironment().getErrors().get( 0 )
+			visitor.getEnvironment().getErrors().get( 0 ).getMessage()
 		);
 	}
 
@@ -144,7 +148,7 @@ public class TestTypeChecker extends VisitorTest<java.lang.Boolean> {
 		typeCheck( "if ( true ) { \"\" x: boolean \n x = 23 }" );
 		assertEquals(
 			"Type mismatch: cannot convert from Bool to Int.",
-			visitor.getEnvironment().getErrors().get( 0 )
+			visitor.getEnvironment().getErrors().get( 0 ).getMessage()
 		);
 	}
 
@@ -168,13 +172,13 @@ public class TestTypeChecker extends VisitorTest<java.lang.Boolean> {
 		typeCheck( "12 != true" );
 		assertEquals(
 			"Both sides of the comparison must be of the same (sub)type.",
-			visitor.getEnvironment().getErrors().get( 0 )
+			visitor.getEnvironment().getErrors().get( 0 ).getMessage()
 		);
 
 		typeCheck( "\"\" != true" );
 		assertEquals(
 			"Both sides of the comparison must be of the same (sub)type.",
-			visitor.getEnvironment().getErrors().get( 0 )
+			visitor.getEnvironment().getErrors().get( 0 ).getMessage()
 		);
 
 		typeCheck( "\"hello\" == \"world\"" );
@@ -191,7 +195,7 @@ public class TestTypeChecker extends VisitorTest<java.lang.Boolean> {
 		typeCheck( program );
 
 		if ( visitor.getEnvironment().getErrors().size() > 0 ) {
-			for ( java.lang.String error : visitor.getEnvironment().getErrors() ) {
+			for ( Error error : visitor.getEnvironment().getErrors() ) {
 				System.err.println( error );
 			}
 		}

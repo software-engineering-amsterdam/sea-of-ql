@@ -17,6 +17,7 @@ import org.uva.sea.ql.ast.type.Bool;
 import org.uva.sea.ql.ast.type.Int;
 import org.uva.sea.ql.ast.type.Str;
 import org.uva.sea.ql.ast.type.Type;
+import org.uva.sea.ql.eval.Error;
 import org.uva.sea.ql.visitor.NodeVisitor;
 
 /**
@@ -55,9 +56,12 @@ public class TypeChecker extends NodeVisitor<Boolean> {
 
 		if ( !checkBothNumber( leftType, rightType ) ) {
 			getEnvironment().addError(
-				String.format(
-					"Both sides of the %s-expression must be a Number type.",
-					node.getClass().getSimpleName().toUpperCase()
+				new Error(
+					String.format(
+						"Both sides of the %s-expression must be a Number type.",
+						node.getClass().getSimpleName().toUpperCase()
+					),
+					node
 				)
 			);
 			return false;
@@ -80,9 +84,12 @@ public class TypeChecker extends NodeVisitor<Boolean> {
 
 		if ( !checkBothBoolean( leftType, rightType ) ) {
 			getEnvironment().addError(
-				String.format(
-					"Both sides of the %s-expression must be of type Boolean.",
-					node.getClass().getSimpleName().toUpperCase()
+				new Error(
+					String.format(
+						"Both sides of the %s-expression must be of type Boolean.",
+						node.getClass().getSimpleName().toUpperCase()
+					),
+					node
 				)
 			);
 			return false;
@@ -113,9 +120,12 @@ public class TypeChecker extends NodeVisitor<Boolean> {
 
 		if ( !checkBothNumber( leftType, rightType ) && !checkBothSame( leftType, rightType ) ) {
 			getEnvironment().addError(
-				String.format(
-					"Both sides of the comparison must be of the same (sub)type.",
-					node.getClass().getSimpleName().toUpperCase()
+				new Error(
+					String.format(
+						"Both sides of the comparison must be of the same (sub)type.",
+						node.getClass().getSimpleName().toUpperCase()
+					),
+					node
 				)
 			);
 			return false;
@@ -131,7 +141,9 @@ public class TypeChecker extends NodeVisitor<Boolean> {
 		}
 
 		if ( !( node.typeOf( getEnvironment().getTypes() ) instanceof org.uva.sea.ql.ast.type.Bool ) ) {
-			getEnvironment().addError( "Expression must be a Boolean type." );
+			getEnvironment().addError(
+				new Error( "Expression must be a Boolean type.", node )
+			);
 			return false;
 		}
 
@@ -145,7 +157,9 @@ public class TypeChecker extends NodeVisitor<Boolean> {
 		}
 
 		if ( !( node.typeOf( getEnvironment().getTypes() ) instanceof org.uva.sea.ql.ast.type.Number ) ) {
-			getEnvironment().addError( "Expression must be a Number type." );
+			getEnvironment().addError(
+				new Error( "Expression must be a Number type.", node )
+			);
 			return false;
 		}
 
@@ -175,7 +189,9 @@ public class TypeChecker extends NodeVisitor<Boolean> {
 	@Override
 	public Boolean visit( Ident node ) {
 		if ( !getEnvironment().isDeclared( node ) ) {
-			getEnvironment().addError( "Undefined variable: " + node.getName() );
+			getEnvironment().addError(
+				new Error( "Undefined variable: " + node.getName(), node )
+			);
 			return false;
 		}
 
@@ -189,7 +205,9 @@ public class TypeChecker extends NodeVisitor<Boolean> {
 		}
 
 		if ( !( node.getCondition().typeOf( getEnvironment().getTypes() ) instanceof org.uva.sea.ql.ast.type.Bool ) ) {
-			getEnvironment().addError( "Condition of an IF block should evaluate to Boolean." );
+			getEnvironment().addError(
+				new Error( "Condition of an IF block should evaluate to Boolean.", node )
+			);
 			return false;
 		}
 
@@ -212,9 +230,12 @@ public class TypeChecker extends NodeVisitor<Boolean> {
 	public Boolean visit( VarDeclaration node ) {
 		if ( getEnvironment().isDeclared( node.getIdent() ) ) {
 			getEnvironment().addError(
-				String.format(
-					"The variable %s is already declared elsewhere.",
-					node.getIdent().getName()
+				new Error(
+					String.format(
+						"The variable %s is already declared elsewhere.",
+						node.getIdent().getName()
+					),
+					node
 				)
 			);
 			return false;
@@ -240,10 +261,13 @@ public class TypeChecker extends NodeVisitor<Boolean> {
 
 			if ( !checkBothSame( leftType, rightType ) ) {
 				getEnvironment().addError(
-					String.format(
-						"Type mismatch: cannot convert from %s to %s.",
-						leftType.getClass().getSimpleName(),
-						rightType.getClass().getSimpleName()
+					new Error(
+						String.format(
+							"Type mismatch: cannot convert from %s to %s.",
+							leftType.getClass().getSimpleName(),
+							rightType.getClass().getSimpleName()
+						),
+						node
 					)
 				);
 				return false;
