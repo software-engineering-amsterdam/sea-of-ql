@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.uva.sea.ql.ast.expressions.Ident;
+import org.uva.sea.ql.ast.types.NotDefinedType;
 import org.uva.sea.ql.ast.types.Type;
 //import org.uva.sea.ql.ast.values.Value;
 
@@ -33,7 +34,7 @@ public class Env {
 		else if (parent != null)
 			return parent.typeOf(ident);
 		else 
-			return null;
+			return new NotDefinedType();
 	}
 	
 	public void addIdent(Ident ident, Type type) {

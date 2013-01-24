@@ -26,7 +26,8 @@ public abstract class Unary extends Expr {
 		errors.addAll(arg.checkType(environment));
 		
 		if (!this.allowedTypes.contains(arg.typeOf(environment))) {
-			errors.add(new Error("The type of the argument are not allowed in operation " + getName()));
+			errors.add(new Error("The type of the argument are not allowed in operation " + getName() + 
+					" allowed types are: " + getPrintableAllowedTypes() + ". Gotten " + arg.typeOf(environment)));
 		}
 		
 		return errors;

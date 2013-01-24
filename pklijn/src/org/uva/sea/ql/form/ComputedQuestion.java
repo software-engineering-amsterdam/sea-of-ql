@@ -31,7 +31,6 @@ public class ComputedQuestion extends Question {
 	
 	@Override
 	public boolean validate(Env environment) {
-		boolean valid = super.validate(environment);
 		errors.addAll(expression.checkType(environment));
 		if (expression.typeOf(environment).getClass() != getQuestionType().getClass()) {
 			errors.add(new Error("" +
@@ -39,6 +38,7 @@ public class ComputedQuestion extends Question {
 					" requires the expression to give a " + getQuestionType() + 
 					" result (" + expression.typeOf(environment) + " given)"));
 		}
+		boolean valid = super.validate(environment);
 		return errors.size() == 0 && valid;
 	}
 }
