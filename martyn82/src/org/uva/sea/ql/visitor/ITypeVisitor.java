@@ -5,7 +5,7 @@ import org.uva.sea.ql.ast.type.Int;
 import org.uva.sea.ql.ast.type.Money;
 import org.uva.sea.ql.ast.type.Number;
 import org.uva.sea.ql.ast.type.Str;
-import org.uva.sea.ql.eval.Context;
+import org.uva.sea.ql.eval.Environment;
 
 /**
  * Represents Type visitor.
@@ -17,7 +17,7 @@ public interface ITypeVisitor<T> {
 	 * @param node
 	 * @param context
 	 */
-	T visit( Bool node, Context context );
+	T visit( Bool node, Environment context );
 
 	/**
 	 * Visit an integer type.
@@ -25,7 +25,7 @@ public interface ITypeVisitor<T> {
 	 * @param node
 	 * @param context
 	 */
-	T visit( Int node, Context context );
+	T visit( Int node, Environment context );
 
 	/**
 	 * Visit a string type.
@@ -33,7 +33,7 @@ public interface ITypeVisitor<T> {
 	 * @param node
 	 * @param context
 	 */
-	T visit( Str node, Context context );
+	T visit( Str node, Environment context );
 
 	/**
 	 * Visit a money type.
@@ -41,7 +41,7 @@ public interface ITypeVisitor<T> {
 	 * @param node
 	 * @param context
 	 */
-	T visit( Money node, Context context );
+	T visit( Money node, Environment context );
 
 	/**
 	 * Visit a number type.
@@ -49,5 +49,5 @@ public interface ITypeVisitor<T> {
 	 * @param node
 	 * @param context
 	 */
-	T visit( Number node, Context context );
+	T visit( Number node, Environment context );
 }

@@ -11,11 +11,11 @@ import org.uva.sea.ql.ast.type.Type;
 /**
  * Represents an evaluation context.
  */
-public class Context {
+public class Environment {
 	/**
 	 * Holds the parent context.
 	 */
-	private final Context parent;
+	private final Environment parent;
 
 	/**
 	 * Holds the declared variables.
@@ -32,7 +32,7 @@ public class Context {
 	 *
 	 * @param parent
 	 */
-	public Context( Context parent ) {
+	public Environment( Environment parent ) {
 		this.parent = parent;
 		this.types = new HashMap<Ident, Type>();
 		this.errors = new LinkedList<String>();
@@ -41,7 +41,7 @@ public class Context {
 	/**
 	 * Constructs a new root context.
 	 */
-	public Context() {
+	public Environment() {
 		this( null );
 	}
 
@@ -59,7 +59,7 @@ public class Context {
 	 *
 	 * @return The parent.
 	 */
-	public Context getParent() {
+	public Environment getParent() {
 		return this.parent;
 	}
 

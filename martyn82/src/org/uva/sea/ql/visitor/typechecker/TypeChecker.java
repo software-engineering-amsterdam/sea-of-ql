@@ -17,7 +17,7 @@ import org.uva.sea.ql.ast.type.Bool;
 import org.uva.sea.ql.ast.type.Int;
 import org.uva.sea.ql.ast.type.Str;
 import org.uva.sea.ql.ast.type.Type;
-import org.uva.sea.ql.eval.Context;
+import org.uva.sea.ql.eval.Environment;
 import org.uva.sea.ql.visitor.INodeVisitor;
 
 /**
@@ -43,7 +43,7 @@ public class TypeChecker implements INodeVisitor<Boolean> {
 	}
 
 	@Override
-	public Boolean visit( ArithmeticExpression node, Context context ) {
+	public Boolean visit( ArithmeticExpression node, Environment context ) {
 		boolean checkLeft = node.getLhs().accept( this, context );
 		boolean checkRight = node.getRhs().accept( this, context );
 
@@ -68,7 +68,7 @@ public class TypeChecker implements INodeVisitor<Boolean> {
 	}
 
 	@Override
-	public Boolean visit( LogicalExpression node, Context context ) {
+	public Boolean visit( LogicalExpression node, Environment context ) {
 		boolean checkLeft = node.getLhs().accept( this, context );
 		boolean checkRight = node.getRhs().accept( this, context );
 
@@ -93,7 +93,7 @@ public class TypeChecker implements INodeVisitor<Boolean> {
 	}
 
 	@Override
-	public Boolean visit( ComparisonExpression node, Context context ) {
+	public Boolean visit( ComparisonExpression node, Environment context ) {
 		boolean checkLeft = node.getLhs().accept( this, context );
 		boolean checkRight = node.getRhs().accept( this, context );
 
@@ -126,7 +126,7 @@ public class TypeChecker implements INodeVisitor<Boolean> {
 	}
 
 	@Override
-	public Boolean visit( UnaryExpression node, Context context ) {
+	public Boolean visit( UnaryExpression node, Environment context ) {
 		if ( !node.getExpression().accept( this, context ) ) {
 			return false;
 		}
@@ -140,7 +140,7 @@ public class TypeChecker implements INodeVisitor<Boolean> {
 	}
 
 	@Override
-	public Boolean visit( UnaryNumericExpression node, Context context ) {
+	public Boolean visit( UnaryNumericExpression node, Environment context ) {
 		if ( !node.getExpression().accept( this, context ) ) {
 			return false;
 		}
@@ -154,27 +154,27 @@ public class TypeChecker implements INodeVisitor<Boolean> {
 	}
 
 	@Override
-	public Boolean visit( org.uva.sea.ql.ast.expression.literal.Int node, Context context ) {
+	public Boolean visit( org.uva.sea.ql.ast.expression.literal.Int node, Environment context ) {
 		return true;
 	}
 
 	@Override
-	public Boolean visit( org.uva.sea.ql.ast.expression.literal.Bool node, Context context ) {
+	public Boolean visit( org.uva.sea.ql.ast.expression.literal.Bool node, Environment context ) {
 		return true;
 	}
 
 	@Override
-	public Boolean visit( org.uva.sea.ql.ast.expression.literal.Money node, Context context ) {
+	public Boolean visit( org.uva.sea.ql.ast.expression.literal.Money node, Environment context ) {
 		return true;
 	}
 
 	@Override
-	public Boolean visit( org.uva.sea.ql.ast.expression.literal.Str node, Context context ) {
+	public Boolean visit( org.uva.sea.ql.ast.expression.literal.Str node, Environment context ) {
 		return true;
 	}
 
 	@Override
-	public Boolean visit( Ident node, Context context ) {
+	public Boolean visit( Ident node, Environment context ) {
 		if ( !context.isDeclared( node ) ) {
 			context.addError( "Undefined variable: " + node.getName() );
 			return false;
@@ -184,7 +184,7 @@ public class TypeChecker implements INodeVisitor<Boolean> {
 	}
 
 	@Override
-	public Boolean visit( IfThenElse node, Context context ) {
+	public Boolean visit( IfThenElse node, Environment context ) {
 		if ( !node.getCondition().accept( this, context ) ) {
 			return false;
 		}
@@ -210,7 +210,7 @@ public class TypeChecker implements INodeVisitor<Boolean> {
 	}
 
 	@Override
-	public Boolean visit( VarDeclaration node, Context context ) {
+	public Boolean visit( VarDeclaration node, Environment context ) {
 		if ( context.isDeclared( node.getIdent() ) ) {
 			context.addError(
 				String.format(
@@ -226,7 +226,7 @@ public class TypeChecker implements INodeVisitor<Boolean> {
 	}
 
 	@Override
-	public Boolean visit( Assignment node, Context context ) {
+	public Boolean visit( Assignment node, Environment context ) {
 		if ( !node.getExpression().accept( this, context ) ) {
 			return false;
 		}
@@ -256,12 +256,12 @@ public class TypeChecker implements INodeVisitor<Boolean> {
 	}
 
 	@Override
-	public Boolean visit( FormDeclaration node, Context context ) {
+	public Boolean visit( FormDeclaration node, Environment context ) {
 		return node.getStatements().accept( this, context );
 	}
 
 	@Override
-	public Boolean visit( QuestionDeclaration node, Context context ) {
+	public Boolean visit( QuestionDeclaration node, Environment context ) {
 		if ( !node.getName().accept( this, context ) ) {
 			return false;
 		}
@@ -270,7 +270,7 @@ public class TypeChecker implements INodeVisitor<Boolean> {
 	}
 
 	@Override
-	public Boolean visit( Statements node, Context context ) {
+	public Boolean visit( Statements node, Environment context ) {
 		boolean valid = true;
 
 		for ( Statement statement : node ) {
@@ -285,27 +285,27 @@ public class TypeChecker implements INodeVisitor<Boolean> {
 	}
 
 	@Override
-	public Boolean visit( Bool node, Context context ) {
+	public Boolean visit( Bool node, Environment context ) {
 		return true;
 	}
 
 	@Override
-	public Boolean visit( Int node, Context context ) {
+	public Boolean visit( Int node, Environment context ) {
 		return true;
 	}
 
 	@Override
-	public Boolean visit( Str node, Context context ) {
+	public Boolean visit( Str node, Environment context ) {
 		return true;
 	}
 
 	@Override
-	public Boolean visit( org.uva.sea.ql.ast.type.Money node, Context context ) {
+	public Boolean visit( org.uva.sea.ql.ast.type.Money node, Environment context ) {
 		return true;
 	}
 
 	@Override
-	public Boolean visit( org.uva.sea.ql.ast.type.Number node, Context context ) {
+	public Boolean visit( org.uva.sea.ql.ast.type.Number node, Environment context ) {
 		return true;
 	}
 }

@@ -5,7 +5,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import org.uva.sea.ql.ast.INode;
-import org.uva.sea.ql.eval.Context;
+import org.uva.sea.ql.eval.Environment;
 import org.uva.sea.ql.visitor.INodeVisitor;
 
 /**
@@ -44,7 +44,7 @@ public class Statements implements INode, Iterable<Statement> {
 	}
 
 	@Override
-	public <T> T accept( INodeVisitor<T> visitor, Context context ) {
+	public <T> T accept( INodeVisitor<T> visitor, Environment context ) {
 		return visitor.visit( this, context );
 	}
 }

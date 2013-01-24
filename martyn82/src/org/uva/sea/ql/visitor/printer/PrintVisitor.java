@@ -22,7 +22,7 @@ import org.uva.sea.ql.ast.statement.QuestionDeclaration;
 import org.uva.sea.ql.ast.statement.Statement;
 import org.uva.sea.ql.ast.statement.Statements;
 import org.uva.sea.ql.ast.statement.VarDeclaration;
-import org.uva.sea.ql.eval.Context;
+import org.uva.sea.ql.eval.Environment;
 import org.uva.sea.ql.visitor.INodeVisitor;
 
 /**
@@ -146,7 +146,7 @@ public class PrintVisitor implements INodeVisitor<Boolean> {
 	}
 
 	@Override
-	public Boolean visit( LogicalExpression node, Context context ) {
+	public Boolean visit( LogicalExpression node, Environment context ) {
 		writeName( node );
 
 		level++;
@@ -163,7 +163,7 @@ public class PrintVisitor implements INodeVisitor<Boolean> {
 	}
 
 	@Override
-	public Boolean visit( ArithmeticExpression node, Context context ) {
+	public Boolean visit( ArithmeticExpression node, Environment context ) {
 		writeName( node );
 
 		level++;
@@ -180,7 +180,7 @@ public class PrintVisitor implements INodeVisitor<Boolean> {
 	}
 
 	@Override
-	public Boolean visit( UnaryExpression node, Context context ) {
+	public Boolean visit( UnaryExpression node, Environment context ) {
 		writeName( node );
 
 		level++;
@@ -194,7 +194,7 @@ public class PrintVisitor implements INodeVisitor<Boolean> {
 	}
 
 	@Override
-	public Boolean visit( UnaryNumericExpression node, Context context ) {
+	public Boolean visit( UnaryNumericExpression node, Environment context ) {
 		writeName( node );
 
 		level++;
@@ -208,37 +208,37 @@ public class PrintVisitor implements INodeVisitor<Boolean> {
 	}
 
 	@Override
-	public Boolean visit( Str node, Context context ) {
+	public Boolean visit( Str node, Environment context ) {
 		writeAtomic( node );
 		return true;
 	}
 
 	@Override
-	public Boolean visit( Money node, Context context ) {
+	public Boolean visit( Money node, Environment context ) {
 		writeAtomic( node );
 		return true;
 	}
 
 	@Override
-	public Boolean visit( Int node, Context context ) {
+	public Boolean visit( Int node, Environment context ) {
 		writeAtomic( node );
 		return true;
 	}
 
 	@Override
-	public Boolean visit( Bool node, Context context ) {
+	public Boolean visit( Bool node, Environment context ) {
 		writeAtomic( node );
 		return true;
 	}
 
 	@Override
-	public Boolean visit( Ident node, Context context ) {
+	public Boolean visit( Ident node, Environment context ) {
 		writeAtomic( node );
 		return true;
 	}
 
 	@Override
-	public Boolean visit( IfThenElse node, Context context ) {
+	public Boolean visit( IfThenElse node, Environment context ) {
 		indent();
 		write( "IF" );
 
@@ -277,7 +277,7 @@ public class PrintVisitor implements INodeVisitor<Boolean> {
 	}
 
 	@Override
-	public Boolean visit( VarDeclaration node, Context context ) {
+	public Boolean visit( VarDeclaration node, Environment context ) {
 		writeName( node );
 
 		level++;
@@ -294,7 +294,7 @@ public class PrintVisitor implements INodeVisitor<Boolean> {
 	}
 
 	@Override
-	public Boolean visit( Assignment node, Context context ) {
+	public Boolean visit( Assignment node, Environment context ) {
 		writeName( node );
 
 		level++;
@@ -311,7 +311,7 @@ public class PrintVisitor implements INodeVisitor<Boolean> {
 	}
 
 	@Override
-	public Boolean visit( FormDeclaration node, Context context ) {
+	public Boolean visit( FormDeclaration node, Environment context ) {
 		writeName( node );
 
 		level++;
@@ -328,7 +328,7 @@ public class PrintVisitor implements INodeVisitor<Boolean> {
 	}
 
 	@Override
-	public Boolean visit( QuestionDeclaration node, Context context ) {
+	public Boolean visit( QuestionDeclaration node, Environment context ) {
 		indent();
 		writeName( node );
 
@@ -346,7 +346,7 @@ public class PrintVisitor implements INodeVisitor<Boolean> {
 	}
 
 	@Override
-	public Boolean visit( Statements node, Context context ) {
+	public Boolean visit( Statements node, Environment context ) {
 		for ( Statement statement : node ) {
 			statement.accept( this, context );
 		}
@@ -355,7 +355,7 @@ public class PrintVisitor implements INodeVisitor<Boolean> {
 	}
 
 	@Override
-	public Boolean visit( ComparisonExpression node, Context context ) {
+	public Boolean visit( ComparisonExpression node, Environment context ) {
 		writeName( node );
 
 		level++;
@@ -372,31 +372,31 @@ public class PrintVisitor implements INodeVisitor<Boolean> {
 	}
 
 	@Override
-	public Boolean visit( org.uva.sea.ql.ast.type.Bool node, Context context ) {
+	public Boolean visit( org.uva.sea.ql.ast.type.Bool node, Environment context ) {
 		writeName( node );
 		return true;
 	}
 
 	@Override
-	public Boolean visit( org.uva.sea.ql.ast.type.Int node, Context context ) {
+	public Boolean visit( org.uva.sea.ql.ast.type.Int node, Environment context ) {
 		writeName( node );
 		return true;
 	}
 
 	@Override
-	public Boolean visit( org.uva.sea.ql.ast.type.Str node, Context context ) {
+	public Boolean visit( org.uva.sea.ql.ast.type.Str node, Environment context ) {
 		writeName( node );
 		return true;
 	}
 
 	@Override
-	public Boolean visit( org.uva.sea.ql.ast.type.Money node, Context context ) {
+	public Boolean visit( org.uva.sea.ql.ast.type.Money node, Environment context ) {
 		writeName( node );
 		return true;
 	}
 
 	@Override
-	public Boolean visit( org.uva.sea.ql.ast.type.Number node, Context context ) {
+	public Boolean visit( org.uva.sea.ql.ast.type.Number node, Environment context ) {
 		writeName( node );
 		return true;
 	}

@@ -10,7 +10,7 @@ import org.uva.sea.ql.ast.expression.literal.Bool;
 import org.uva.sea.ql.ast.expression.literal.Int;
 import org.uva.sea.ql.ast.expression.literal.Money;
 import org.uva.sea.ql.ast.expression.literal.Str;
-import org.uva.sea.ql.eval.Context;
+import org.uva.sea.ql.eval.Environment;
 
 /**
  * Expression visitor.
@@ -22,7 +22,7 @@ public interface IExpressionVisitor<T> {
 	 * @param node
 	 * @param context
 	 */
-	T visit( ArithmeticExpression node, Context context );
+	T visit( ArithmeticExpression node, Environment context );
 
 	/**
 	 * Visit logical expression.
@@ -30,7 +30,7 @@ public interface IExpressionVisitor<T> {
 	 * @param node
 	 * @param context
 	 */
-	T visit( LogicalExpression node, Context context );
+	T visit( LogicalExpression node, Environment context );
 
 	/**
 	 * Visit binary expression.
@@ -38,7 +38,7 @@ public interface IExpressionVisitor<T> {
 	 * @param node
 	 * @param context
 	 */
-	T visit( ComparisonExpression node, Context context );
+	T visit( ComparisonExpression node, Environment context );
 
 	/**
 	 * Visit unary expression.
@@ -46,7 +46,7 @@ public interface IExpressionVisitor<T> {
 	 * @param node
 	 * @param context
 	 */
-	T visit( UnaryExpression node, Context context );
+	T visit( UnaryExpression node, Environment context );
 
 	/**
 	 * Visit unary numeric expression.
@@ -54,7 +54,7 @@ public interface IExpressionVisitor<T> {
 	 * @param node
 	 * @param context
 	 */
-	T visit( UnaryNumericExpression node, Context context );
+	T visit( UnaryNumericExpression node, Environment context );
 
 	/**
 	 * Visit integer literal expression.
@@ -62,7 +62,7 @@ public interface IExpressionVisitor<T> {
 	 * @param node
 	 * @param context
 	 */
-	T visit( Int node, Context context );
+	T visit( Int node, Environment context );
 
 	/**
 	 * Visit boolean literal expression.
@@ -70,7 +70,7 @@ public interface IExpressionVisitor<T> {
 	 * @param node
 	 * @param context
 	 */
-	T visit( Bool node, Context context );
+	T visit( Bool node, Environment context );
 
 	/**
 	 * Visit money literal expression.
@@ -78,7 +78,7 @@ public interface IExpressionVisitor<T> {
 	 * @param node
 	 * @param context
 	 */
-	T visit( Money node, Context context );
+	T visit( Money node, Environment context );
 
 	/**
 	 * Visit string literal expression.
@@ -86,7 +86,7 @@ public interface IExpressionVisitor<T> {
 	 * @param node
 	 * @param context
 	 */
-	T visit( Str node, Context context );
+	T visit( Str node, Environment context );
 
 	/**
 	 * Visit identifier expression.
@@ -94,5 +94,5 @@ public interface IExpressionVisitor<T> {
 	 * @param node
 	 * @param context
 	 */
-	T visit( Ident node, Context context );
+	T visit( Ident node, Environment context );
 }

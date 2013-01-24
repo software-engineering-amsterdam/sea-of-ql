@@ -2,7 +2,7 @@ package org.uva.sea.ql.ast.statement;
 
 import org.uva.sea.ql.ast.expression.Expression;
 import org.uva.sea.ql.ast.expression.Ident;
-import org.uva.sea.ql.eval.Context;
+import org.uva.sea.ql.eval.Environment;
 import org.uva.sea.ql.visitor.INodeVisitor;
 
 /**
@@ -49,7 +49,7 @@ public class Assignment extends Statement {
 	}
 
 	@Override
-	public <T> T accept( INodeVisitor<T> visitor, Context context ) {
+	public <T> T accept( INodeVisitor<T> visitor, Environment context ) {
 		return visitor.visit( this, context );
 	}
 }

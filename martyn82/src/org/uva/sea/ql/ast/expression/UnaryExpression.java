@@ -3,7 +3,7 @@ package org.uva.sea.ql.ast.expression;
 import java.util.Map;
 
 import org.uva.sea.ql.ast.type.Type;
-import org.uva.sea.ql.eval.Context;
+import org.uva.sea.ql.eval.Environment;
 import org.uva.sea.ql.visitor.INodeVisitor;
 
 /**
@@ -34,7 +34,7 @@ abstract public class UnaryExpression extends Expression {
 	}
 
 	@Override
-	public <T> T accept( INodeVisitor<T> visitor, Context context ) {
+	public <T> T accept( INodeVisitor<T> visitor, Environment context ) {
 		return visitor.visit( this, context );
 	}
 

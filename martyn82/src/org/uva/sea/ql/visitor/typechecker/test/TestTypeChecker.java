@@ -4,7 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
-import org.uva.sea.ql.eval.Context;
+import org.uva.sea.ql.eval.Environment;
 import org.uva.sea.ql.parser.ParseError;
 import org.uva.sea.ql.visitor.test.VisitorTest;
 import org.uva.sea.ql.visitor.typechecker.TypeChecker;
@@ -16,7 +16,7 @@ public class TestTypeChecker extends VisitorTest<java.lang.Boolean> {
 	/**
 	 * Holds the context for the typechecker.
 	 */
-	private Context context;
+	private Environment context;
 
 	/**
 	 * Constructs a new TypeChecker test.
@@ -35,7 +35,7 @@ public class TestTypeChecker extends VisitorTest<java.lang.Boolean> {
 	 * @throws ParseError
 	 */
 	private java.lang.Boolean typeCheck( java.lang.String source ) throws ParseError {
-		context = new Context();
+		context = new Environment();
 		return parser.parse( source ).accept( visitor, context );
 	}
 
