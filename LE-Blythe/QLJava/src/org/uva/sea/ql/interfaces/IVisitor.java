@@ -24,21 +24,13 @@ import org.uva.sea.ql.ast.statement.Branch;
 import org.uva.sea.ql.ast.statement.Form;
 import org.uva.sea.ql.ast.statement.Question;
 
-
 public interface IVisitor<T> {
 
-	//T visit(Primitive ast);
 	T visit(Int ast);
 	T visit(Bool ast);
 	T visit(Str ast);
 	T visit(Ident ast);
 
-	/*T visit(OperatorBinaryBoolean operator);
-	T visit(OperatorBinaryNumeric operator);
-	T visit(OperatorBinaryComparative operator);
-	T visit(OperatorUnaryBoolean operator);
-	T visit(OperatorUnaryNumeric operator);*/
-	
 	T visit(Add ast);
 	T visit(And ast);
 	T visit(Div ast);

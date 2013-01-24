@@ -2,10 +2,9 @@ package org.uva.sea.ql.ast.expr;
 
 import java.util.Map;
 
-import org.uva.sea.ql.ast.expr.Expr;
 import org.uva.sea.ql.ast.types.BoolType;
 import org.uva.sea.ql.ast.types.Type;
-import org.uva.sea.ql.visitor.ASTNodeVisitor;
+import org.uva.sea.ql.visitor.checkers.ExpressionChecker;
 
 public class Or extends Binary {
 
@@ -16,8 +15,8 @@ public class Or extends Binary {
 	}
 
 	@Override
-	public void accept(ASTNodeVisitor nodeVisitor) {
-		// TODO Auto-generated method stub
+	public boolean accept(ExpressionChecker nodeVisitor) {
+		return nodeVisitor.visit(this);
 		
 	}
 	

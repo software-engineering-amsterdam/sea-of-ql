@@ -7,7 +7,7 @@ import org.uva.sea.ql.util.Environment;
 
 public class Bool extends Primitive {
 
-	private final Boolean value;
+	private Boolean value;
 	
 	public Bool(){
 		value = null;
@@ -17,18 +17,14 @@ public class Bool extends Primitive {
 	public Bool(boolean b){
 		value = b;
 	}
-	
 
-	public boolean isDefined() {
+
+	public boolean isDefined(){
 		return value != null;
 	}
-
 	
-	/**
-	 * @precondition: isDefined() has been called to confirm the value in this object was
-	 * initialized
-	 */
-	public boolean getValue(){
+	
+	public Boolean getValue(){
 		return value;
 	}
 	

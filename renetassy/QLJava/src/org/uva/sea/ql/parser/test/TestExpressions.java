@@ -10,15 +10,15 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
-import org.uva.sea.ql.ast.Add;
-import org.uva.sea.ql.ast.And;
-import org.uva.sea.ql.ast.GT;
-import org.uva.sea.ql.ast.Ident;
-import org.uva.sea.ql.ast.Int;
-import org.uva.sea.ql.ast.LEq;
-import org.uva.sea.ql.ast.LT;
-import org.uva.sea.ql.ast.Mul;
-import org.uva.sea.ql.ast.Not;
+import org.uva.sea.ql.ast.expr.Add;
+import org.uva.sea.ql.ast.expr.And;
+import org.uva.sea.ql.ast.expr.GT;
+import org.uva.sea.ql.ast.expr.Ident;
+import org.uva.sea.ql.ast.expr.Int;
+import org.uva.sea.ql.ast.expr.LEq;
+import org.uva.sea.ql.ast.expr.LT;
+import org.uva.sea.ql.ast.expr.Mul;
+import org.uva.sea.ql.ast.expr.Not;
 import org.uva.sea.ql.parser.antlr.ANTLRParser;
 
 

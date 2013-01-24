@@ -16,6 +16,7 @@ options
   import org.uva.sea.ql.ast.expr.unary.*;
   import org.uva.sea.ql.ast.type.*;
   import org.uva.sea.ql.ast.stmt.*;
+  import org.uva.sea.ql.ast.stmt.question.*;
 }
 
 @lexer::header
@@ -35,7 +36,7 @@ block returns [List<Statement> result]
     {
       $result = new ArrayList<Statement>();
     }
-  : OBrace ( stmt=statement { $result.add($stmt.result); } )* CBrace
+  : '{' ( stmt=statement { $result.add($stmt.result); } )* '}'
   ;
   
 statement returns [Statement result]
@@ -44,7 +45,7 @@ statement returns [Statement result]
   ;
   
 ifStatement returns [Statement result]
-  : If OParen condition=orExpr CParen ifBlock=block
+  : If '(' condition=orExpr ')' ifBlock=block
     ( (Else)=> Else elseBlock=block
     | ( ) // nothing
     )
@@ -58,13 +59,20 @@ ifStatement returns [Statement result]
   ;
   
 question returns [Statement result]
-  : Ident Colon String tp=type { $result = new Question(new Ident($Ident.text), $String.text, $tp.result); }
+  : Ident ':' String tp=type 
+  { 
+    $result = new NormalQuestion(new Ident($Ident.text), $String.text, $tp.result); 
+  }
+  | Ident ':' String tp=type cp=computation 
+  { 
+    $result = new ComputedQuestion(new Ident($Ident.text), $String.text, $tp.result, $cp.result); 
+  }
   ;
 
 type returns [Type result]
-  : 'string'  { $result = new StringType(); }  ( cp=computation { $result.add($cp.result); } )? 
-  | 'boolean' { $result = new BooleanType(); } ( cp=computation { $result.add($cp.result); } )? 
-  | 'integer' { $result = new IntegerType(); } ( cp=computation { $result.add($cp.result); } )? 
+  : 'string'  { $result = new StringType(); } 
+  | 'boolean' { $result = new BooleanType(); }
+  | 'integer' { $result = new IntegerType(); }
   ;
   
 computation returns [Expr result]
@@ -149,14 +157,8 @@ orExpr returns [Expr result]
 If      : 'if' ;
 Else    : 'else' ; 
 
-OBrace  : '{' ;
-CBrace  : '}' ;
-OParen  : '(' ;
-CParen  : ')' ;
-Colon   : ':' ;
-
 Bool    : 'true' | 'false' ;
-Int     : '-'? Digit+ ;    
+Int     : Digit+ ;    
 Ident   : (Letter | '_') (Letter | Digit | '_')* ;  
 String
 @after { 

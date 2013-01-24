@@ -3,8 +3,8 @@ package org.uva.sea.ql.ast;
 import java.util.List;
 
 import org.uva.sea.ql.ast.expr.Expr;
-import org.uva.sea.ql.visitor.Context;
-import org.uva.sea.ql.visitor.Visitor;
+import org.uva.sea.ql.visitor.TypeChecker;
+
 
 public class IfBody extends FormElement {
 
@@ -25,8 +25,8 @@ public class IfBody extends FormElement {
 	}
 
 	@Override
-	public void accept(Visitor visitor, Context context) {
-		visitor.visit(this, context);
+	public void accept(TypeChecker visitor) {
+		visitor.visit(this);
 	}
 
 }

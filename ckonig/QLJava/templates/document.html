@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <style>.question {padding-left:20px; height:30px; width:600px;}
+            .q_text{float:left;} 
+            .q_input{float:right;clear: right;} 
+            .content_below{clear:both;}
+        </style>
+    </head>
+    <body>
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js" type="text/javascript"></script>
+        <script type="text/javascript" src="http://jzaefferer.github.com/jquery-validation/jquery.validate.js"></script>
+        <h1><?HEADING?></h1>
+        <form id="ql_form">
+            <?BODY?>
+        </form>
+        <a class="button" onclick="serializeForm();"><span>Save Input</span></a>
+        <script type="text/javascript">
+            $(document).ready(function(){
+                $("#ql_form").validate();
+            });
+
+            //helper
+            function toggleContent(value, id){
+                if( value == true){
+                    $('#if_' + id).show();
+                }else{
+                    $('#if_' + id).hide();
+                }
+            }
+            function serializeForm(){
+                if($("#ql_form").valid()){
+                alert($('#ql_form').serialize());
+                }else{alert('invalid input');}
+            }
+                <?SCRIPT?>
+        </script>
+    </body></html>

@@ -4,24 +4,20 @@ import java.util.Map;
 
 import org.uva.sea.ql.ast.expr.Expr;
 import org.uva.sea.ql.ast.type.Type;
+import org.uva.sea.ql.ast.type.Undefined;
 import org.uva.sea.ql.visitor.ExpressionVisitor;
-import org.uva.sea.ql.visitor.FormVisitor;
 
 
 public class Ident extends Expr {
 
-	private final String name;
+	private final String value;
 
-	public Ident(String name) {
-		this.name = name;
+	public Ident(String value) {
+		this.value = value;
 	}
 	
-	public String getName() {
-		return name;
-	}
-	
-	@Override
-	public void accept(FormVisitor visitor) {	
+	public String getValue() {
+		return value;
 	}
 
 	@Override
@@ -31,7 +27,8 @@ public class Ident extends Expr {
 		}
 		// TODO return error;
 		//return new Error();
-		return null;
+		System.out.println("FIX THIS!!!! Error retreiving id...");
+		return new Undefined();
 	}
 
 	@Override

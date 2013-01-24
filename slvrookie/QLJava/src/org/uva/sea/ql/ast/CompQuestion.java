@@ -1,11 +1,10 @@
 package org.uva.sea.ql.ast;
 
-import org.uva.sea.ql.ast.expr.Expr;
-import org.uva.sea.ql.ast.expr.Ident;
+import org.uva.sea.ql.ast.expr.*;
 import org.uva.sea.ql.ast.expr.value.StringLiteral;
 import org.uva.sea.ql.ast.types.Type;
-import org.uva.sea.ql.visitor.Context;
-import org.uva.sea.ql.visitor.Visitor;
+import org.uva.sea.ql.visitor.TypeChecker;
+
 
 public class CompQuestion extends FormElement {
 
@@ -38,8 +37,9 @@ public class CompQuestion extends FormElement {
 	}
 
 	@Override
-	public void accept(Visitor visitor, Context context) {
-		visitor.visit(this, context);
+	public void accept(TypeChecker visitor) {
+		visitor.visit(this);
+		
 	}
 
 }

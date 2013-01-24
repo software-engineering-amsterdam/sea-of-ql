@@ -2,17 +2,17 @@ package org.uva.sea.ql.ast.form;
 
 
 import org.uva.sea.ql.ast.expr.Expr;
-import org.uva.sea.ql.ast.types.Type;
 import org.uva.sea.ql.ast.expr.Ident;
-import org.uva.sea.ql.visitor.ASTNodeVisitor;
+import org.uva.sea.ql.ast.types.Type;
+import org.uva.sea.ql.ast.values.StringLit;
 
 public class ComputedQuestion extends Element {
 	private final Ident id;
-	private final String label;
+	private final StringLit label;
 	private final Type type;
 	private final Expr expr;
 
-	public ComputedQuestion(Ident id, String label, Type type, Expr expr) {
+	public ComputedQuestion(Ident id, StringLit label, Type type, Expr expr) {
 			this.id=id;
 			this.label=label;
 			this.type=type;
@@ -23,7 +23,7 @@ public class ComputedQuestion extends Element {
 		return id;
 	}
 
-	public String getLabel() {
+	public StringLit getLabel() {
 		return label;
 	}
 
@@ -35,10 +35,6 @@ public class ComputedQuestion extends Element {
 		return expr;
 	}
 
-	@Override
-	public void accept(ASTNodeVisitor nodeVisitor) {
-		// TODO Auto-generated method stub
-		
-	}
+	
 
 }

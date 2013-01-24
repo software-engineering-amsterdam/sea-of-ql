@@ -5,6 +5,8 @@ options {backtrack=true; memoize=true;}
 {
 package org.uva.sea.ql.parser.antlr;
 import org.uva.sea.ql.ast.*;
+import org.uva.sea.ql.ast.types.*;
+import org.uva.sea.ql.ast.operators.*;
 }
 
 @lexer::header

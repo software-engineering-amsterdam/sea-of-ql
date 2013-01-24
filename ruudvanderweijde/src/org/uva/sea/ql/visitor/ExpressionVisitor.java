@@ -24,27 +24,27 @@ import org.uva.sea.ql.ast.expr.unary.Pos;
 public interface ExpressionVisitor<T> {
 	
 	// Binary
-	T visit(Add astNode);
-	T visit(And astNode);
-	T visit(Div astNode);
-	T visit(Eq  astNode);
-	T visit(GEq astNode);
-	T visit(GT  astNode);
-	T visit(LEq astNode);
-	T visit(LT  astNode);
-	T visit(Mul astNode);
-	T visit(NEq astNode);
-	T visit(Or  astNode);
-	T visit(Sub astNode);
+	T visit(Add ast);
+	T visit(And ast);
+	T visit(Div ast);
+	T visit(Eq  ast);
+	T visit(GEq ast);
+	T visit(GT  ast);
+	T visit(LEq ast);
+	T visit(LT  ast);
+	T visit(Mul ast);
+	T visit(NEq ast);
+	T visit(Or  ast);
+	T visit(Sub ast);
 	
 	// Unary
-	T visit(Neg astNode);
-	T visit(Not astNode);
-	T visit(Pos astNode);
+	T visit(Neg ast);
+	T visit(Not ast);
+	T visit(Pos ast);
 	
 	// Primary
-	T visit(Bool  astNode);
-	T visit(Ident astNode);
-	T visit(Int   astNode);
-	T visit(StringLiteral astNode);
+	T visit(Bool  ast);
+	T visit(Ident ast);
+	T visit(Int   ast);
+	T visit(StringLiteral ast);
 }

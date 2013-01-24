@@ -11,8 +11,7 @@ public class Question extends AbstractStatement {
 	private final String question;
 	private final AbstractType type;
 
-	public Question(Ident ident, String question,
-			AbstractType type) {
+	public Question(Ident ident, String question, AbstractType type) {
 		this.ident = ident;
 		this.question = question;
 		this.type = type;
@@ -31,8 +30,8 @@ public class Question extends AbstractStatement {
 	}
 
 	@Override
-	public void accept(Statement<?> visitor) {
-		visitor.visit(this);
+	public <T> T accept(Statement<T> visitor) {
+		return visitor.visit(this);
 	}
 
 }

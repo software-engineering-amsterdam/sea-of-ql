@@ -16,11 +16,11 @@ syntax Else = "else" "{" Statement+ body "}";
  
 syntax Expr
   = ident: Ident name
-  | \int: Int
-  | \bool: Bool
-  | string: String
-  | float: Float
-  | date: Date
+  | intConst: Int
+  | boolConst: Bool
+  | stringConst: String
+  | floatConst: Float
+  | dateConst: Date
   | bracket "(" Expr arg ")"
   | pos: "+" Expr
   | neg: "-" Expr
@@ -46,11 +46,11 @@ syntax WhitespaceOrComment
   | comment: Comment;     
    
 lexical Type 
-  = @category="Type" "bool" 
-  | @category="Type" "int" 
-  | @category="Type" "string"
-  | @category="Type" "float"
-  | @category="Type" "date";
+  = @category="Type"  "bool" 
+  | @category="Type"  "int" 
+  | @category="Type"  "string"
+  | @category="Type"  "float"
+  | @category="Type"  "date";
 
 lexical QuestionName = @category="Variable" Ident;
 

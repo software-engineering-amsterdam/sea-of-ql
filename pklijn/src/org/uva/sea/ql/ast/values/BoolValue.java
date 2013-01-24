@@ -4,6 +4,10 @@ public class BoolValue extends Value {
 	
 	private final boolean value;
 	
+	public BoolValue() {
+		this(false);
+	}
+	
 	public BoolValue(boolean value) {
 		this.value = value;
 	}

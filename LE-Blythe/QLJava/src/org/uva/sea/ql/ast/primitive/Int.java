@@ -7,30 +7,25 @@ import org.uva.sea.ql.util.Environment;
 
 public class Int extends Primitive {
 
-	private final Integer value;
-
+	private Integer value;
+	
 	public Int(){
-		// create uninitialized int object
-		this.value = null;
+		value = null;
 	}
 	
 	
-	public Int(int n) {
-		this.value = n;
+	public Int(int n){
+		value = n;
 	}
 
-	
-	/**
-	 * @precondition: isDefined() has been called to confirm the value in this object was
-	 * initialized
-	 */
-	public int getValue() {
-		return value;
-	}
-	
-	
+
 	public boolean isDefined(){
 		return value != null;
+	}
+	
+	
+	public Integer getValue(){
+		return value;
 	}
 	
 	

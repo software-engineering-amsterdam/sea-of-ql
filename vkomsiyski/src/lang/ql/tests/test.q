@@ -1,88 +1,54 @@
 form Box1Form {
-
-
+ 
+ bool boolQ = "Checkbox?"
+ int intQ = "Spinbox?" 
+ float floatQ = "doubleSpinbox?"
+ string stringQ = "lineEdit?"          
+ date dateQ = "dateEdit?" 
+ /*
    bool hasSoldHouse1 = "Did you sell a house in 200?" 
-   bool hasBoughtHouse="Did you buy a house in 2010?" 
+   int hasBoughtHouse="Did you buy a house in 2010?" 
    bool 
-   sd1=  
+   question_on_multiple_lines=  
    "Did you enter a loan for smaintenance/reconstruction?"
-//kfjgkh
-/*what?
-sd
-sd
-*/
- 
- 
- 	//fgkjdf //dfgk /*gggggggg*/
- 	//s//
-//sdfsdlfksdjghlkj
+//one line comment 
+  
+      
 
-	date hasSoldHouse2 = "dsfkdf" 23.11.1998
-	date d2 = "jgfgj" 11.11.2002
+// expected //
+
+	date date1 = "date1" 23.1.1998
+	date date2 = "date2" 1.9.2002
 	
-	string intq = "int" "shish"
-	string ja = "st" "sj"
+	string intString = "int" "this is a \"string\""  
+	string exclamation = "exclamation" "!"
 	
-	if (intq + ja == "hff") {
-	 	float fjd = "fjdfsj" 
+	if (intString + exclamation == "this is a \string\"!") {
+	 	float float1 = "float1" 78
 	 }
 
-	if (sd1) {	
-		bool name /*dfg*/= "label12" 
-		bool name = "labesl" name
+	if (question_on_multiple_lines) {	
+		bool name  = "label12" 
+		bool name = "label3" name
 		bool name3 = "label1" true
-	 } else if (true)  {
+	 } else if (false || true )  {
 	 	bool name4 = "label" 
-	 } else { int g = " dfa " }
+	 } else { int i = " i? " }
 
   //bool sellingPrice ="Price the house was sold for:"
 
 
-   if (name4) {
-     int sellingPrice = "Price the house was sold for:?" 
+   if (date1 > date2 && name4) {
+     int sellingPrice = "Price the house was sold for:" 
      int privateDebt= "Private debts for the sold houses:" 
-     int valueResidue =  "Value residues:"(sellingPrice - privateDebt)
-   } else {
-   	 bool bal ="Price the house was solds for:"
-    
-   }
- 	
-	if (hasSoldHouse1) {
-		int sellingPhjrice ="Price the housdsdse was sold for:"
-		if (bal) {
-			int dfj = "meh" 56
-		}
-	} else {
-		bool sellingPsrice ="Price the hosduse was sold for:" true && bal
-   }
-   
-     int privateDebt2= "Private debts for taaaaaahe sold house:" 
-     int valueResidue2 =  "Value residue:1"(sellingPrice - privateDebt)
- 
-		// just one if here
-
+     int valueResidue =  "Value residue:"(sellingPrice - privateDebt)
+     if (name) {
+     	float nested_conditional = "nested"   .5   
+     	float float2 = "float2" 2/3
+     	float float_from_int = "float from int" sellingPrice
+     }
      
-     // ifblock
-   if (hasSoldHouse1) {
-     int sellingPrice ="Price the housse was sold for:"
-     int privateDebt3= "Private debts sfor the sold house:" 
-     int valueResidue3 =  "Value residue:"(sellingPrice - privateDebt)
-   }
-   
-   // checking all the if else possibilities
-     
-   
-   if (5<5) // this is a single if
-     {int sellingPrice4 = "Price the hosdsduse was sold for:"
-    }else//with a single else
-     {string what = "what?" "huh"
-   
-   }
-   if (false) {
-     int privateDebt5= "Private debtss for the sold house:"787878
-     int sellingPrice5 ="Price the hous was sold for:"  
    } else {
-     int privateDebt6= "what?d" 
-     int sellingPrice6 ="Price the house was sold for:"  
-   }  
+   	 int sellingPrice ="Price the house was sold for:" 50000    
+   }*/
 }

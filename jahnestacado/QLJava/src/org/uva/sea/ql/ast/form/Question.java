@@ -1,16 +1,16 @@
 package org.uva.sea.ql.ast.form;
 
 
-import org.uva.sea.ql.ast.types.Type;
 import org.uva.sea.ql.ast.expr.Ident;
-import org.uva.sea.ql.visitor.ASTNodeVisitor;
+import org.uva.sea.ql.ast.types.Type;
+import org.uva.sea.ql.ast.values.StringLit;
 
 public class Question extends Element {
 	private final Ident id;
-	private final String label;
+	private final StringLit label;
 	private final Type type;
 
-	public Question(Ident id, String label, Type type) {
+	public Question(Ident id, StringLit label, Type type) {
 			this.id=id;
 			this.label=label;
 			this.type=type;
@@ -21,7 +21,7 @@ public class Question extends Element {
 		return id;
 	}
 
-	public String getLabel() {
+	public StringLit getLabel() {
 		return label;
 	}
 
@@ -29,11 +29,7 @@ public class Question extends Element {
 		return type;
 	}
 
-	@Override
-	public void accept(ASTNodeVisitor nodeVisitor) {
-		// TODO Auto-generated method stub
-		
-	}
+	
 	
 	
 

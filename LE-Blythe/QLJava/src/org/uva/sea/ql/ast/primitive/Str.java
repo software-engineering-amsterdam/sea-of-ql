@@ -7,7 +7,7 @@ import org.uva.sea.ql.util.Environment;
 
 public class Str extends Primitive {
 
-	private final String value;
+	private String value;
 	
 	public Str(){
 		value = null;
@@ -17,15 +17,15 @@ public class Str extends Primitive {
 	public Str(String s){
 		value = s;
 	}
+
+
+	public boolean isDefined(){
+		return value != null;
+	}
 	
 	
 	public String getValue(){
 		return value;
-	}
-	
-	
-	public boolean isDefined(){
-		return value != null;
 	}
 	
 	
