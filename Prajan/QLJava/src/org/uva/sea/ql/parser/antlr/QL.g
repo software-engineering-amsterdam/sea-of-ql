@@ -12,7 +12,12 @@ import org.uva.sea.ql.ast.*;
 package org.uva.sea.ql.parser.antlr;
 }
 
+form 
+    :
+      'form' Ident '{' question* '}'
+    ;
 
+/*
 form returns [Expr result]
     :
       'form' Ident '{' question* '}' { $result=$Ident.result; }
@@ -26,9 +31,10 @@ question returns [Expr result]
       
     ;
     
+    */
     
     
-/*
+
 question
     :
       '"' .* '"' (condition | calculation)  
@@ -36,8 +42,8 @@ question
 
 condition
     : 
-   //   Ident ':' Ident ('if (' Ident ')' '{' question* '}')*
-      Ident ':' Ident (cStatement Ident ')' '{' question* '}')*
+      Ident ':' Ident ('if (' Ident ')' '{' question* '}')*
+  //    Ident ':' Ident (cStatement Ident ')' '{' question* '}')*
     ;
 
 calculation
@@ -46,13 +52,7 @@ calculation
     ;
 
 
-cStatement
-    :
-      'if ('
-    ;
 
-
-*/
 primary returns [Expr result]
     :
         Int   { $result = new Int(Integer.parseInt($Int.text)); }
@@ -150,10 +150,4 @@ Int
     :
       ('0'..'9')+
     ;
-    
-    
-QuotedValue  
-  : 
-    '"' .* '"'
-  ;    
     
