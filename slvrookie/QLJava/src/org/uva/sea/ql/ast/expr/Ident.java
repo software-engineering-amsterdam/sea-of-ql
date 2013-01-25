@@ -2,6 +2,8 @@ package org.uva.sea.ql.ast.expr;
 
 import java.util.Map;
 
+import org.antlr.runtime.Token;
+import org.uva.sea.ql.ast.types.ErrorType;
 import org.uva.sea.ql.ast.types.Type;
 import org.uva.sea.ql.visitor.IExprVisitor;
 
@@ -18,11 +20,11 @@ public class Ident extends Expr {
 	}
 
 	@Override
-	public Type typeOf(Map<Ident, Type> typeEnv) {
-		if (typeEnv.containsKey(this)) {
-			return typeEnv.get(this);
+	public Type typeOf(Map<String, Type> typeEnv) {
+		if (typeEnv.containsKey(this.getName()) ) {
+			return typeEnv.get(this.getName()) ;
 			}
-			return null;
+			return new ErrorType();
 			//should throw error
 	}
 

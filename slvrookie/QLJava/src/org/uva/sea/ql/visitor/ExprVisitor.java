@@ -17,15 +17,16 @@ public class ExprVisitor implements IExprVisitor<Boolean> {
 //	private Map<Ident, Type> typeEnv = new HashMap<Ident, Type>();
 //	private final List<String> messages = new ArrayList<String>();
 
-	private final Map<Ident, Type> typeEnv;
+	private final Map<String, Type> typeEnv;
 	private final List<String> messages;
 	
-	private ExprVisitor(Map<Ident, Type> tenv, List<String> messages) {
+	private ExprVisitor(Map<String, Type> tenv, List<String> messages) {
 		this.typeEnv = tenv;
 		this.messages = messages;
+		System.out.println(typeEnv);
 	}
 	
-	public static boolean check(Expr expr, Map<Ident, Type> typeEnv, List<String> errs) {
+	public static boolean check(Expr expr, Map<String, Type> typeEnv, List<String> errs) {
 			ExprVisitor check = new ExprVisitor(typeEnv, errs);
 			return expr.accept(check);
 	}
@@ -41,7 +42,10 @@ public class ExprVisitor implements IExprVisitor<Boolean> {
 
 	@Override
 	public Boolean visit(Ident node) {
-		return true;
+		if(typeEnv.get(node.getName()) == null)	{
+			addError("Ident " + node.getName() + "is not declared");
+		}
+		return true;   //node.typeOf(typeEnv).isCompatibleTo(null);
 	}
 	
 	@Override
@@ -201,7 +205,7 @@ public class ExprVisitor implements IExprVisitor<Boolean> {
 	}
 	
 	private boolean areBothSidesCompatibleToNumeric(BinaryExpr node, String operator ) {
-		if (!(node.getLhs().typeOf(typeEnv).isCompatibleToNumeric() && node.getRhs().typeOf(typeEnv).isCompatibleToNumeric())){
+		if (!(node.typeOf(typeEnv).isCompatibleToNumeric() && node.getRhs().typeOf(typeEnv).isCompatibleToNumeric())){
 			addError("invalid type for " + operator);
 		}
 		return false;

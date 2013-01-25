@@ -20,9 +20,8 @@ public class StringLiteral extends Expr {
 		return value;
 	}
 
-	
 	@Override
-	public Type typeOf(Map<Ident, Type> typeEnv) {
+	public Type typeOf(Map<String, Type> typeEnv) {
 		return new StringType();
 	}
 

@@ -19,7 +19,7 @@ public class TestForm {
 				+ "   if (hasSoldHouse) {\n"
 				+ "     sellingPrice: \"Price the house was sold for:\" int \n"
 				+ "     privateDebt: \"Private debts for the sold house:\" int \n"
-				+ "     valueResidue: \"Value residue:\" int(sellingPrice - priateDebt)}}";
+				+ "     valueResidue: \"Value residue:\" int(sellingPrice - priateDebt)}";
 
 		assertEquals(Form.class, parser.parseForm("form Box1HouseOwning {hasSoldHouse: \"Did you sell a house in 2010?\" boolean}").getClass());
 		assertEquals(Form.class, parser.parseForm(form1).getClass());

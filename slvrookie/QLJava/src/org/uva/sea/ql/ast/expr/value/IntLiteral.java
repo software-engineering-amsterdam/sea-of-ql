@@ -20,7 +20,7 @@ public class IntLiteral extends Expr {
 	}
 
 	@Override
-	public Type typeOf(Map<Ident, Type> typeEnv) {
+	public Type typeOf(Map<String, Type> typeEnv) {
 		return new IntType() ;
 	}
 
