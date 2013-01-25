@@ -12,14 +12,24 @@ import org.antlr.runtime.RecognitionException;
 import org.antlr.runtime.RecognizerSharedState;
 import org.antlr.runtime.Token;
 import org.antlr.runtime.TokenStream;
+import org.uva.sea.ql.ast.And;
+import org.uva.sea.ql.ast.Add;
+import org.uva.sea.ql.ast.Div;
+import org.uva.sea.ql.ast.Eq;
 import org.uva.sea.ql.ast.Expr;
+import org.uva.sea.ql.ast.GEq;
+import org.uva.sea.ql.ast.GT;
 import org.uva.sea.ql.ast.Ident;
 import org.uva.sea.ql.ast.Int;
-
-import com.sun.org.apache.xpath.internal.operations.And;
-import com.sun.org.apache.xpath.internal.operations.Div;
-import com.sun.org.apache.xpath.internal.operations.Neg;
-import com.sun.org.apache.xpath.internal.operations.Or;
+import org.uva.sea.ql.ast.LEq;
+import org.uva.sea.ql.ast.LT;
+import org.uva.sea.ql.ast.Mul;
+import org.uva.sea.ql.ast.NEq;
+import org.uva.sea.ql.ast.Neg;
+import org.uva.sea.ql.ast.Not;
+import org.uva.sea.ql.ast.Or;
+import org.uva.sea.ql.ast.Pos;
+import org.uva.sea.ql.ast.Sub;
 
 @SuppressWarnings({ "all", "warnings", "unchecked" })
 public class QLParser extends Parser {
