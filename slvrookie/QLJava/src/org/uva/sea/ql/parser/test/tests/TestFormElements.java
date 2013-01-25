@@ -17,7 +17,7 @@ public class TestFormElements {
 
 	@Test
 	public void testCompQuestion() throws ParseError {
-		assertEquals(CompQuestion.class, parser.parseFormElement("dvdssd: \"fdhrdhfrrr\" int(432-4)").getClass());
+		assertEquals(CompQuestion.class, parser.parseFormElement("dvdssd: \"fdhrdhfrrr\" int(3-1)").getClass());
 	}
 
 	@Test

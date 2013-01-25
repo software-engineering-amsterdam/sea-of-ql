@@ -1,7 +1,5 @@
 package org.uva.sea.ql.visitor;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -14,21 +12,17 @@ import org.uva.sea.ql.ast.types.Type;
 
 public class ExprVisitor implements IExprVisitor<Boolean> {
 	
-//	private Map<Ident, Type> typeEnv = new HashMap<Ident, Type>();
-//	private final List<String> messages = new ArrayList<String>();
-
 	private final Map<String, Type> typeEnv;
 	private final List<String> messages;
 	
 	private ExprVisitor(Map<String, Type> tenv, List<String> messages) {
 		this.typeEnv = tenv;
 		this.messages = messages;
-		System.out.println(typeEnv);
 	}
 	
 	public static boolean check(Expr expr, Map<String, Type> typeEnv, List<String> errs) {
-			ExprVisitor check = new ExprVisitor(typeEnv, errs);
-			return expr.accept(check);
+		ExprVisitor check = new ExprVisitor(typeEnv, errs);
+		return expr.accept(check);
 	}
 	
 	public void addError(String error) {
@@ -43,9 +37,9 @@ public class ExprVisitor implements IExprVisitor<Boolean> {
 	@Override
 	public Boolean visit(Ident node) {
 		if(typeEnv.get(node.getName()) == null)	{
-			addError("Ident " + node.getName() + "is not declared");
+			addError("Ident " + node.getName() + " is not declared");
 		}
-		return true;   //node.typeOf(typeEnv).isCompatibleTo(null);
+		return true;
 	}
 	
 	@Override
