@@ -8,13 +8,13 @@ import org.uva.sea.ql.ast.types.Type;
 
 public class StringValue extends Expr {
 
-	private final Integer value;
+	private final String value;
 
-	public StringValue(int value) {
+	public StringValue(String value) {
 		this.value = value;
 	}
 
-	public Integer getValue() {
+	public String getValue() {
 		return value;
 	}
 	
@@ -22,5 +22,8 @@ public class StringValue extends Expr {
 	public Type typeOf(Map<Ident, Type> typeEnv) {
 		return new org.uva.sea.ql.ast.types.TypeString();
 	}
-
 }
+
+//*****************************************************************
+// TYPE CHECK TODAS LAS EXPRESIONES (ORG.UVA.SEA.QL.AST.EXPR)
+//*****************************************************************

@@ -8,13 +8,13 @@ import org.uva.sea.ql.ast.types.Type;
 
 public class Bool extends Expr {
 	
-	private final Integer value;
+	private final boolean value;
 
-	public Bool(int value) {
+	public Bool(boolean value) {
 		this.value = value;
 	}
 
-	public Integer getValue() {
+	public boolean getValue() {
 		return value;
 	}
 	
