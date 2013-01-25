@@ -152,10 +152,35 @@
     <table>
         <!-- ko template: { name : "formelement-template", foreach: $root.root.elements } --><!-- /ko -->
     </table>
-    <input type="button" value="Send form" data-bind="enable: $root.root.valid(), click: function() {console.log($root.root.collectValues());}"/>
+    <input type="button" value="Send form" data-bind="enable: $root.root.valid(), click: submit"/>
+    <!-- ko if: errors().length > 0 -->
+    <p class="error">
+        The following errors occurred while validating the form:
+        <ul data-bind="foreach: errors">
+            <li data-bind="text: $data"></li>
+        </ul>
+    </p>
+    <!-- /ko -->
 
     <script type="text/javascript">
         <%= request.getAttribute(Controller.VIEWMODEL_ATTRIBUTE) %>
+        _viewModel.errors = ko.observableArray();
+        _viewModel.submit = function() {
+            if(_viewModel.root.valid())
+                $.ajax({
+                    data : _viewModel.root.collectValues(),
+                    dataType : 'json',
+                    method : 'post',
+                    statusCode: {
+                        200 : function() {
+                            alert("Form sent sucessfully! You are win!");
+                        },
+                        400 : function(data) {
+                            _viewModel.errors($.parseJSON(data.responseText).errors);
+                        }
+                    }
+                });
+        }
         ko.applyBindings(_viewModel);
     </script>
 </body>

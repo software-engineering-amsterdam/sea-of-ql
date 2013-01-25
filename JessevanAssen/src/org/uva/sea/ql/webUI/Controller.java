@@ -12,14 +12,15 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.Iterator;
-import java.util.List;
+import java.io.PrintWriter;
+import java.util.*;
 
 public class Controller extends HttpServlet {
 
     public static String VIEWMODEL_ATTRIBUTE = "viewModel_attribute";
 
     private static final String VIEWPATH = "form.jsp";
+    private static final String JSON_CONTENTTYPE = "application/json";
     private static final String SAMPLE_FORM =
             "form Box1HouseOwning {" +
                     "    \"Did you sell a house in 2010?\" hasSoldHouse: boolean" +
@@ -34,6 +35,47 @@ public class Controller extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        showFormView(request, response);
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        Map<String, String> postValues = flatten(request.getParameterMap());
+
+        showErrors(
+            Arrays.asList(
+                "Someone moved my cheese",
+                "I like pie",
+                "Santa brought me chocolates this year"
+            ).iterator(),
+            response);
+    }
+
+    private void showErrors(Iterator<String> errors, HttpServletResponse response) throws IOException {
+        response.setStatus(400);
+        response.setContentType(JSON_CONTENTTYPE);
+        PrintWriter responseWriter = response.getWriter();
+        responseWriter.append("{\"errors\":[");
+        while(errors.hasNext()) {
+            responseWriter
+                    .append('"')
+                    .append(errors.next())
+                    .append('"');
+            if(errors.hasNext())
+                responseWriter.append(",");
+        }
+        responseWriter.append("]}");
+        responseWriter.close();
+    }
+
+    private Map<String, String> flatten(Map<String, String[]> input) {
+        Map<String, String> postValues = new HashMap<String, String>();
+        for(String key : input.keySet())
+            postValues.put(key, input.get(key)[0]);
+        return postValues;
+    }
+
+    private void showFormView(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Form parsedForm = parseForm();
 
         String viewModel = KnockoutJSViewModelBuilderVisitor.createViewModel(parsedForm);
@@ -41,11 +83,6 @@ public class Controller extends HttpServlet {
 
         RequestDispatcher view = request.getRequestDispatcher(VIEWPATH);
         view.forward(request, response);
-    }
-
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        super.doPost(request, response);
     }
 
     private Form parseForm() {

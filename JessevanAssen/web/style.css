@@ -12,3 +12,10 @@ input[type=text] {
     border-color: #f00;
     background-color: #fdd;
 }
+
+.error {
+    padding: 1em;
+    border: 1px solid #f00;
+    background-color: #fdd;
+    color: #f00;
+}
