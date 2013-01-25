@@ -7,4 +7,8 @@ public class MoneyType extends Numeric {
 		return t.isCompatibleToMoneyType();
 	}
 
+	@Override
+	public boolean isCompatibleToMoneyType() {
+		return true;
+	}
 }

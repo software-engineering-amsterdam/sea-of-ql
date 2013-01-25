@@ -6,5 +6,11 @@ public class IntType extends Numeric {
 	public boolean isCompatibleTo(Type t) {
 		return t.isCompatibleToIntType();
 	}
+	
+	@Override
+	public boolean isCompatibleToIntType() {
+		return true;
+	} 
+
 
 }

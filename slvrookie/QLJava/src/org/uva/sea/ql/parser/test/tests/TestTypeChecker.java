@@ -17,13 +17,13 @@ public class TestTypeChecker {
 	public void testDuplicateNames() throws ParseError {
 		TypeChecker checker = new TypeChecker();
 		String form1 = "form bigBox1HouseOwning {"
-				+ "   hasSoldHouse: \"Did you sell a house in 2010?\" boolean \n"
-				+ "   hasSoldHouse: \"Did you by a house in 2010?\" boolean \n"
+				+ "   hasSoldHouse: \"Did you sell a house in 2010?\" int \n"
+				+ "   asSoldHouse: \"Did you by a house in 2010?\" boolean \n"
 				+ "   hasMaintLoan: \"Did you enter a loan for maintenance/reconstruction?\"boolean \n"
-				+ "   if ((false && true)||petros){ \n"
-				+ "   	hasSoldHouse: \"Price the house was sold for:\" int \n"
+				+ "   if ( asSoldHouse== true){ \n"
+				+ "   	sSoldHouse: \"Price the house was sold for:\" int \n"
 				+ "     privateDebt:  \"Private debts for the sold house:\" boolean" 
-				+ "     privateDeb: \"Value residue:\" boolean((privateDebt&&(false||true))||(privateDebt&&hasSoldHouse))}}";
+				+ "     privateDeb: \"Value residue:\" int(7)}}";
 		
 		parser.parseForm(form1).accept(checker);
 		for (String errorString : checker.getErrorList())

@@ -56,6 +56,7 @@ public class TypeChecker {
 		if (!compQuestion.getQuestionExpr().typeOf(typeEnv).isCompatibleTo(compQuestion.getQuestionType())) {
 			addError("Incompatible question type and expression");
 		}
+		System.out.println(compQuestion.getQuestionExpr().typeOf(typeEnv));
 	}
 
 	public void isDeclared(Question question) {

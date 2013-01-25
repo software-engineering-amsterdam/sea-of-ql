@@ -192,7 +192,7 @@ public class ExprVisitor implements IExprVisitor<Boolean> {
 	}
 	
 	private boolean areBothSidesSameType(BinaryExpr node, String operator) {
-		if (!(node.getLhs().typeOf(typeEnv).isCompatibleTo(node.getRhs().typeOf(typeEnv)))){
+		if (!(node.getRhs().typeOf(typeEnv).isCompatibleTo(node.getLhs().typeOf(typeEnv)))){  //Needs fixing
 			addError("Both operators must have the same type for" + operator);
 		}
 		return false;
