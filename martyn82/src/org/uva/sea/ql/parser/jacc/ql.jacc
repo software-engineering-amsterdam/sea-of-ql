@@ -30,14 +30,17 @@
 %type <org.uva.sea.ql.ast.type.Str> STRING
 
 // AST nodes
-%type <Assignment> assignment
-%type <Expression> expression
+%type <Assignment>      assignment
+%type <Else>            else
+%type <ElseIf>          elseif
+%type <ElseIfs>         elseifs
+%type <Expression>      expression
 %type <FormDeclaration> form
-%type <IfThenElse> ifblock
-%type <Statement> statement
-%type <Statements> formbody ifbody ifelse statements
+%type <IfThenElse>      ifblock
+%type <Statement>       statement
+%type <Statements>      formbody ifbody statements
 %type <org.uva.sea.ql.ast.type.Type> datatype
-%type <VarDeclaration> vardeclaration
+%type <VarDeclaration>  vardeclaration
 
 %{
 import org.uva.sea.ql.ast.*;
@@ -78,18 +81,22 @@ import org.uva.sea.ql.ast.statement.*;
  blockstatement : ifblock
                 ;
 
- ifblock        : IF '(' expression ')' '{' ifbody '}' ifelse  { $$ = new IfThenElse( $3, $6, $8 ); }
-                | IF '(' expression ')' '{' ifbody '}'         { $$ = new IfThenElse( $3, $6 ); }
-                | IF '(' expression ')' '{' '}' ifelse         { $$ = new IfThenElse( $3, null, $7 ); }
-                | IF '(' expression ')' '{' '}'                { $$ = new IfThenElse( $3 ); }
+ ifblock        : IF '(' expression ')' '{' ifbody '}' elseifs else     { $$ = new IfThenElse( $3, $6, $8, $9 ); }
+                | IF '(' expression ')' '{' ifbody '}' elseifs          { $$ = new IfThenElse( $3, $6, $8 ); }
                 ;
 
- ifelse         : ELSE ifblock                     { $$ = new Statements( $2 ); }
-                | ELSE '{' ifbody '}'              { $$ = $3; }
-                | ELSE '{' '}'                     { $$ = null; }
+ elseifs        : elseifs elseif                                   { $$ = new ElseIfs( $2, $1 ); }
+                | /* empty */                                      { $$ = new ElseIfs(); }
+                ;
+
+ elseif         : ELSE IF '(' expression ')' '{' ifbody '}'        { $$ = new ElseIf( $4, $7 ); }
+                ;
+
+ else           : ELSE '{' ifbody '}'                              { $$ = new Else( $3 ); }
                 ;
 
  ifbody         : formbody
+                | /* empty */                      { $$ = new Statements(); }
                 ;
 
  vardeclaration : IDENT ':' datatype               { $$ = new VarDeclaration( $1, $3 ); }

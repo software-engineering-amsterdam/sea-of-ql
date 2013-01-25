@@ -33,8 +33,12 @@ public class Statements implements INode, Iterable<Statement> {
 	 * @param statement
 	 */
 	public Statements( Statement statement ) {
-		this.statements = new LinkedList<Statement>();
+		this();
 		this.statements.add( statement );
+	}
+
+	public Statements() {
+		this.statements = new LinkedList<Statement>();
 	}
 
 	@Override

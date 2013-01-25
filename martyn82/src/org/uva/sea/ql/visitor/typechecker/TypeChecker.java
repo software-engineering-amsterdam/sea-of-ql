@@ -7,6 +7,9 @@ import org.uva.sea.ql.ast.expression.LogicalExpression;
 import org.uva.sea.ql.ast.expression.UnaryExpression;
 import org.uva.sea.ql.ast.expression.UnaryNumericExpression;
 import org.uva.sea.ql.ast.statement.Assignment;
+import org.uva.sea.ql.ast.statement.Else;
+import org.uva.sea.ql.ast.statement.ElseIf;
+import org.uva.sea.ql.ast.statement.ElseIfs;
 import org.uva.sea.ql.ast.statement.FormDeclaration;
 import org.uva.sea.ql.ast.statement.IfThenElse;
 import org.uva.sea.ql.ast.statement.QuestionDeclaration;
@@ -199,6 +202,36 @@ public class TypeChecker extends NodeVisitor<Boolean> {
 	}
 
 	@Override
+	public Boolean visit( Else node ) {
+		return node.getBody().accept( this );
+	}
+
+	@Override
+	public Boolean visit( ElseIfs node ) {
+		for ( ElseIf elseIf : node ) {
+			elseIf.accept( this );
+		}
+
+		return true;
+	}
+
+	@Override
+	public Boolean visit( ElseIf node ) {
+		if ( !node.getCondition().accept( this ) ) {
+			return false;
+		}
+
+		if ( !( node.getCondition().typeOf( getEnvironment().getTypes() ) instanceof org.uva.sea.ql.ast.type.Bool ) ) {
+			getEnvironment().addError(
+				new Error( "Condition of an ELSE-IF block should evaluate to Boolean.", node )
+			);
+			return false;
+		}
+
+		return node.getBody().accept( this );
+	}
+
+	@Override
 	public Boolean visit( IfThenElse node ) {
 		if ( !node.getCondition().accept( this ) ) {
 			return false;
@@ -211,14 +244,20 @@ public class TypeChecker extends NodeVisitor<Boolean> {
 			return false;
 		}
 
-		if ( node.getIfThen() != null ) {
-			if ( !node.getIfThen().accept( this ) ) {
+		if ( node.hasIfBody() ) {
+			if ( !node.getIfBody().accept( this ) ) {
 				return false;
 			}
 		}
 
-		if ( node.getIfElse() != null ) {
-			if ( !node.getIfElse().accept( this ) ) {
+		if ( node.hasElseIfs() ) {
+			if ( !node.getElseIfs().accept( this ) ) {
+				return false;
+			}
+		}
+
+		if ( node.hasElse() ) {
+			if ( !node.getElse().accept( this ) ) {
 				return false;
 			}
 		}

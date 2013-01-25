@@ -16,6 +16,9 @@ import org.uva.sea.ql.ast.expression.literal.Literal;
 import org.uva.sea.ql.ast.expression.literal.Money;
 import org.uva.sea.ql.ast.expression.literal.Str;
 import org.uva.sea.ql.ast.statement.Assignment;
+import org.uva.sea.ql.ast.statement.Else;
+import org.uva.sea.ql.ast.statement.ElseIf;
+import org.uva.sea.ql.ast.statement.ElseIfs;
 import org.uva.sea.ql.ast.statement.FormDeclaration;
 import org.uva.sea.ql.ast.statement.IfThenElse;
 import org.uva.sea.ql.ast.statement.QuestionDeclaration;
@@ -237,6 +240,21 @@ public class PrintVisitor extends NodeVisitor<Boolean> {
 	}
 
 	@Override
+	public Boolean visit( Else node ) {
+		indent();
+		write( "ELSE" );
+
+		level++;
+
+		indent();
+		node.getBody().accept( this );
+
+		level--;
+
+		return true;
+	}
+
+	@Override
 	public Boolean visit( IfThenElse node ) {
 		indent();
 		write( "IF" );
@@ -248,29 +266,57 @@ public class PrintVisitor extends NodeVisitor<Boolean> {
 
 		level--;
 
-		if ( node.getIfThen() != null ) {
-			indent();
-			write( "THEN" );
+		indent();
+		write( "THEN" );
 
+		if ( node.hasIfBody() ) {
 			level++;
 
 			indent();
-			node.getIfThen().accept( this );
+			node.getIfBody().accept( this );
 
 			level--;
 		}
 
-		if ( node.getIfElse() != null ) {
-			indent();
-			write( "ELSE" );
-
-			level++;
-
-			indent();
-			node.getIfElse().accept( this );
-
-			level--;
+		if ( node.hasElseIfs() ) {
+			node.getElseIfs().accept( this );
 		}
+
+		if ( node.hasElse() ) {
+			node.getElse().accept( this );
+		}
+
+		return true;
+	}
+
+	@Override
+	public Boolean visit( ElseIfs node ) {
+		for ( ElseIf elseIf : node ) {
+			elseIf.accept( this );
+		}
+
+		return true;
+	}
+
+	@Override
+	public Boolean visit( ElseIf node ) {
+		indent();
+		write( "ELSEIF" );
+
+		level++;
+
+		node.getCondition().accept( this );
+
+		level--;
+
+		indent();
+		write( "THEN" );
+
+		level++;
+
+		node.getBody().accept( this );
+
+		level--;
 
 		return true;
 	}
