@@ -18,6 +18,10 @@ public class Str implements Value {
         return new Bool(getValue().equals(other.getValue()));
     }
 
+    public Bool isNotEqualTo(Str other) {
+        return isEqualTo(other).not();
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

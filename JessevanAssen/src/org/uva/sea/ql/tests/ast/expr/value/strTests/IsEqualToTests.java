@@ -9,7 +9,7 @@ import static junit.framework.Assert.assertEquals;
 public class IsEqualToTests {
 
     @Test
-    public void twoStringsAreEqual_equalsReturnsTrue() {
+    public void twoStringsAreEqual_isEqualToReturnsTrue() {
         assertEquals(
                 new Bool(true),
                 new Str("abcd").isEqualTo(new Str("abcd"))
@@ -17,7 +17,7 @@ public class IsEqualToTests {
     }
 
     @Test
-    public void twoStringsAreNotEqual_equalsReturnsFalse() {
+    public void twoStringsAreNotEqual_isEqualToReturnsFalse() {
         assertEquals(
                 new Bool(false),
                 new Str("abcd").isEqualTo(new Str("efgh"))

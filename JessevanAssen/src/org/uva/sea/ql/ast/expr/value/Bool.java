@@ -18,6 +18,22 @@ public class Bool implements Value {
         return new Bool(getValue() == other.getValue());
     }
 
+    public Bool isNotEqualTo(Bool other) {
+        return isEqualTo(other).not();
+    }
+
+    public Bool and(Bool other) {
+        return new Bool(getValue() && other.getValue());
+    }
+
+    public Bool or(Bool other) {
+        return new Bool(getValue() || other.getValue());
+    }
+
+    public Bool not() {
+        return new Bool(!getValue());
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

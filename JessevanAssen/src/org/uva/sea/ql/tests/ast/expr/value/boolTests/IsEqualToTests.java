@@ -8,7 +8,7 @@ import static junit.framework.Assert.assertEquals;
 public class IsEqualToTests {
 
     @Test
-    public void twoBoolsAreEqual_equalsReturnsTrue() {
+    public void twoBoolsAreEqual_isEqualToReturnsTrue() {
         assertEquals(
                 new Bool(true),
                 new Bool(true).isEqualTo(new Bool(true))
@@ -16,7 +16,7 @@ public class IsEqualToTests {
     }
 
     @Test
-    public void twoBoolsAreNotEqual_equalsReturnsFalse() {
+    public void twoBoolsAreNotEqual_isEqualToReturnsFalse() {
         assertEquals(
                 new Bool(false),
                 new Bool(true).isEqualTo(new Bool(false))
