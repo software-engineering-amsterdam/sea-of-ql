@@ -1,12 +1,12 @@
 package org.uva.sea.ql.ast.statement;
 
-import org.uva.sea.ql.ast.INode;
+import org.uva.sea.ql.ast.Node;
 import org.uva.sea.ql.visitor.NodeVisitor;
 
 /**
  * Represents If-Then statement.
  */
-public class Else implements INode {
+public class Else implements Node {
 	/**
 	 * Holds the body.
 	 */

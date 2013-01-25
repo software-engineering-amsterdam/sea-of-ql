@@ -1,13 +1,13 @@
 package org.uva.sea.ql.ast.statement;
 
-import org.uva.sea.ql.ast.INode;
+import org.uva.sea.ql.ast.Node;
 import org.uva.sea.ql.ast.expression.Expression;
 import org.uva.sea.ql.visitor.NodeVisitor;
 
 /**
  * Represents an ElseIf block.
  */
-public class ElseIf implements INode {
+public class ElseIf implements Node {
 	private final Expression condition;
 	private final Statements body;
 

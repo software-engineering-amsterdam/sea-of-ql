@@ -4,13 +4,13 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
-import org.uva.sea.ql.ast.INode;
+import org.uva.sea.ql.ast.Node;
 import org.uva.sea.ql.visitor.NodeVisitor;
 
 /**
  * Represents a list of ElseIfs.
  */
-public class ElseIfs implements INode, Iterable<ElseIf> {
+public class ElseIfs implements Node, Iterable<ElseIf> {
 	/**
 	 * Holds the elseifs this collection represents.
 	 */

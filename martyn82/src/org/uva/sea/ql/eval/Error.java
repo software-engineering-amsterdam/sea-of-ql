@@ -1,6 +1,6 @@
 package org.uva.sea.ql.eval;
 
-import org.uva.sea.ql.ast.INode;
+import org.uva.sea.ql.ast.Node;
 
 /**
  * Represents an error.
@@ -14,7 +14,7 @@ public class Error {
 	/**
 	 * Holds the node at which the error is attached.
 	 */
-	private final INode node;
+	private final Node node;
 
 	/**
 	 * Constructs a new error.
@@ -22,7 +22,7 @@ public class Error {
 	 * @param message
 	 * @param node
 	 */
-	public Error( String message, INode node ) {
+	public Error( String message, Node node ) {
 		this.message = message;
 		this.node = node;
 	}
@@ -41,7 +41,7 @@ public class Error {
 	 *
 	 * @return The node.
 	 */
-	public INode getNode() {
+	public Node getNode() {
 		return this.node;
 	}
 }

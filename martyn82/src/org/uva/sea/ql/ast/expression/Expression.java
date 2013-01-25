@@ -2,13 +2,13 @@ package org.uva.sea.ql.ast.expression;
 
 import java.util.Map;
 
-import org.uva.sea.ql.ast.INode;
+import org.uva.sea.ql.ast.Node;
 import org.uva.sea.ql.ast.type.Type;
 
 /**
  * Represents an expression.
  */
-abstract public class Expression implements INode {
+abstract public class Expression implements Node {
 	/**
 	 * Retrieves the data type of the node.
 	 *

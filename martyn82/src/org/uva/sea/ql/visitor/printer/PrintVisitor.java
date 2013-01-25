@@ -3,7 +3,7 @@ package org.uva.sea.ql.visitor.printer;
 import java.io.IOException;
 import java.io.OutputStream;
 
-import org.uva.sea.ql.ast.INode;
+import org.uva.sea.ql.ast.Node;
 import org.uva.sea.ql.ast.expression.ArithmeticExpression;
 import org.uva.sea.ql.ast.expression.ComparisonExpression;
 import org.uva.sea.ql.ast.expression.Ident;
@@ -113,7 +113,7 @@ public class PrintVisitor extends NodeVisitor<Boolean> {
 	 *
 	 * @param node
 	 */
-	private void writeName( INode node ) {
+	private void writeName( Node node ) {
 		write( node.getClass().getSimpleName().toUpperCase() );
 	}
 

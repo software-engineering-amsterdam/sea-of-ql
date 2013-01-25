@@ -1,6 +1,6 @@
 package org.uva.sea.ql.parser;
 
-import org.uva.sea.ql.ast.INode;
+import org.uva.sea.ql.ast.Node;
 
 /**
  * Parser interface.
@@ -15,5 +15,5 @@ public interface IParser {
 	 * 
 	 * @throws ParseError
 	 */
-	INode parse( String src ) throws ParseError;
+	Node parse( String src ) throws ParseError;
 }
