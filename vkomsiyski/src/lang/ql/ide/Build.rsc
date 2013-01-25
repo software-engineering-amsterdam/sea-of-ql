@@ -12,6 +12,7 @@ import IO;
 
 
 private loc prefix_file = |project://QL-R/src/form/prefix.javapart|;
+private loc internal_file = |project://QL-R/src/form/internal.javapart|;
 private loc suffix_file = |project://QL-R/src/form/suffix.javapart|;
 
 private loc generated_form = |project://QL-R/src/form/FormGUI.java|;
@@ -20,13 +21,15 @@ private loc generated_form = |project://QL-R/src/form/FormGUI.java|;
 public Contribution getBuilder() 
   = builder(set[Message] (Tree input) {
 	  writeFile(generated_form, readFile(prefix_file));
-	  appendToFile(generated_form, build(implode(input)));
+	  appendToFile(generated_form, declarations(implode(input)));
+	  appendToFile(generated_form, readFile(internal_file));
+	//  appendToFile(generated_form, build(implode(input)));
 	  appendToFile(generated_form, readFile(suffix_file));
 	  return {};
   });
     
 
-  
+public str declarations(Form f) = "";
   
   
 public str build(Form f) {
@@ -39,10 +42,6 @@ setToolTip(\"<f.name>\");";
 		ret += build(st, i);
 		i+=1;
 	}
-	
-	ret += 
-"layout.addWidget(submitButton, <i>, 0, 1, 2, Qt.AlignmentFlag.AlignCenter);";
-
 	return ret;
 }
 
