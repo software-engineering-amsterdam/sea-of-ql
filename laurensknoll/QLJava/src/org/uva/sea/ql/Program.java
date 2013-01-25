@@ -8,7 +8,7 @@ import java.io.InputStreamReader;
 import org.uva.sea.ql.ast.form.Question;
 import org.uva.sea.ql.parser.antlr.FormParser;
 import org.uva.sea.ql.parser.test.ParseError;
-import org.uva.sea.ql.visitor.print.Form;
+import org.uva.sea.ql.visitor.semantic.Form;
 
 public class Program {
 
@@ -26,7 +26,12 @@ public class Program {
 		}
 
 		Form printFormVisitor = new Form();
-		questionForm.accept(printFormVisitor);
+		Boolean b = questionForm.accept(printFormVisitor);
+		if (!b) {
+			for (String error : printFormVisitor.getErrors()) {
+				System.out.println(error);
+			}
+		}
 	}
 
 	private static String readResourceContent(String location) {
