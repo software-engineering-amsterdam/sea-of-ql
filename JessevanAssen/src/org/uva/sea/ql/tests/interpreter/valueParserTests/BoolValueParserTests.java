@@ -9,7 +9,7 @@ import org.uva.sea.ql.interpreter.valueParser.ValueParserException;
 
 import static junit.framework.Assert.assertEquals;
 
-public class boolValueParserTests {
+public class BoolValueParserTests {
 
     private final ValueParser valueParser = new BoolValueParser();
 
