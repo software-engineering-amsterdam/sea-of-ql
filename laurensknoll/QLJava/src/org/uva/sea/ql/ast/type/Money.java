@@ -4,6 +4,7 @@ import org.uva.sea.ql.visitor.Type;
 
 public class Money extends Numeric {
 
+	@Override
 	public java.lang.String getType() {
 		return "Money";
 	}

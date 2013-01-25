@@ -1,8 +1,9 @@
 package org.uva.sea.ql.ast.expression;
 
-import org.uva.sea.ql.eval.Context;
-import org.uva.sea.ql.eval.value.Value;
-import org.uva.sea.ql.visitor.INodeVisitor;
+import java.util.Map;
+
+import org.uva.sea.ql.ast.type.Type;
+import org.uva.sea.ql.visitor.NodeVisitor;
 
 /**
  * Represents a unary numerical expression.
@@ -18,7 +19,12 @@ abstract public class UnaryNumericExpression extends UnaryExpression {
 	}
 
 	@Override
-	public Value<?> accept( INodeVisitor visitor, Context context ) {
-		return visitor.visit( this, context );
+	public <T> T accept( NodeVisitor<T> visitor ) {
+		return visitor.visit( this );
+	}
+
+	@Override
+	public Type typeOf( Map<Ident, Type> types ) {
+		return new org.uva.sea.ql.ast.type.Number();
 	}
 }

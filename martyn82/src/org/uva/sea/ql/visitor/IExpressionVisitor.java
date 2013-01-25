@@ -10,110 +10,78 @@ import org.uva.sea.ql.ast.expression.literal.Bool;
 import org.uva.sea.ql.ast.expression.literal.Int;
 import org.uva.sea.ql.ast.expression.literal.Money;
 import org.uva.sea.ql.ast.expression.literal.Str;
-import org.uva.sea.ql.eval.Context;
-import org.uva.sea.ql.eval.value.Value;
 
 /**
  * Expression visitor.
  */
-public interface IExpressionVisitor {
+public interface IExpressionVisitor<T> {
 	/**
 	 * Visit arithmetic expression.
 	 *
 	 * @param node
-	 * @param context
-	 *
-	 * @return The value.
 	 */
-	Value<?> visit( ArithmeticExpression node, Context context );
+	T visit( ArithmeticExpression node );
 
 	/**
 	 * Visit logical expression.
 	 *
 	 * @param node
-	 * @param context
-	 *
-	 * @return The value.
 	 */
-	Value<?> visit( LogicalExpression node, Context context );
+	T visit( LogicalExpression node );
 
 	/**
 	 * Visit binary expression.
 	 *
 	 * @param node
-	 * @param context
-	 *
-	 * @return The value.
 	 */
-	Value<?> visit( ComparisonExpression node, Context context );
+	T visit( ComparisonExpression node );
 
 	/**
 	 * Visit unary expression.
 	 *
 	 * @param node
-	 * @param context
-	 *
-	 * @return The value.
 	 */
-	Value<?> visit( UnaryExpression node, Context context );
+	T visit( UnaryExpression node );
 
 	/**
 	 * Visit unary numeric expression.
 	 *
 	 * @param node
-	 * @param context
-	 *
-	 * @return The value.
 	 */
-	Value<?> visit( UnaryNumericExpression node, Context context );
+	T visit( UnaryNumericExpression node );
 
 	/**
 	 * Visit integer literal expression.
 	 *
 	 * @param node
-	 * @param context
-	 *
-	 * @return The value.
 	 */
-	Value<?> visit( Int node, Context context );
+	T visit( Int node );
 
 	/**
 	 * Visit boolean literal expression.
 	 *
 	 * @param node
-	 * @param context
-	 *
-	 * @return The value.
 	 */
-	Value<?> visit( Bool node, Context context );
+	T visit( Bool node );
 
 	/**
 	 * Visit money literal expression.
 	 *
 	 * @param node
-	 * @param context
-	 *
-	 * @return The value.
 	 */
-	Value<?> visit( Money node, Context context );
+	T visit( Money node );
 
 	/**
 	 * Visit string literal expression.
 	 *
 	 * @param node
-	 * @param context
-	 *
-	 * @return The value.
 	 */
-	Value<?> visit( Str node, Context context );
+	T visit( Str node );
 
 	/**
 	 * Visit identifier expression.
 	 *
 	 * @param node
-	 * @param context
-	 *
-	 * @return The value.
 	 */
-	Value<?> visit( Ident node, Context context );
+	T visit( Ident node );
 }

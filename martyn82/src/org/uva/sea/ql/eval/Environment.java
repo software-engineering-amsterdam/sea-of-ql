@@ -6,42 +6,42 @@ import java.util.List;
 import java.util.Map;
 
 import org.uva.sea.ql.ast.expression.Ident;
-import org.uva.sea.ql.eval.value.Value;
+import org.uva.sea.ql.ast.type.Type;
 
 /**
  * Represents an evaluation context.
  */
-public class Context {
+public class Environment {
 	/**
 	 * Holds the parent context.
 	 */
-	private final Context parent;
+	private final Environment parent;
 
 	/**
 	 * Holds the declared variables.
 	 */
-	private final Map<String, Value<?>> variables;
+	private final Map<Ident, Type> types;
 
 	/**
 	 * Holds the error list.
 	 */
-	private final List<String> errors;
+	private final List<Error> errors;
 
 	/**
 	 * Constructs a new context.
 	 *
 	 * @param parent
 	 */
-	public Context( Context parent ) {
+	public Environment( Environment parent ) {
 		this.parent = parent;
-		this.variables = new HashMap<String, Value<?>>();
-		this.errors = new LinkedList<String>();
+		this.types = new HashMap<Ident, Type>();
+		this.errors = new LinkedList<Error>();
 	}
 
 	/**
 	 * Constructs a new root context.
 	 */
-	public Context() {
+	public Environment() {
 		this( null );
 	}
 
@@ -59,8 +59,17 @@ public class Context {
 	 *
 	 * @return The parent.
 	 */
-	public Context getParent() {
+	public Environment getParent() {
 		return this.parent;
+	}
+
+	/**
+	 * Retrieves the declared types.
+	 *
+	 * @return The declared types.
+	 */
+	public Map<Ident, Type> getTypes() {
+		return this.types;
 	}
 
 	/**
@@ -68,7 +77,7 @@ public class Context {
 	 *
 	 * @return Errors
 	 */
-	public List<String> getErrors() {
+	public List<Error> getErrors() {
 		return this.errors;
 	}
 
@@ -77,8 +86,8 @@ public class Context {
 	 *
 	 * @param message
 	 */
-	public void addError( String message ) {
-		this.errors.add( message );
+	public void addError( Error error ) {
+		this.errors.add( error );
 	}
 
 	/**
@@ -89,7 +98,7 @@ public class Context {
 	 * @return True if it is defined, false otherwise.
 	 */
 	public boolean isDeclared( Ident ident ) {
-		if ( this.variables.containsKey( ident.getName() ) ) {
+		if ( this.types.containsKey( ident ) ) {
 			return true;
 		}
 
@@ -109,9 +118,9 @@ public class Context {
 	 *
 	 * @throws RuntimeException If the variable cannot be found.
 	 */
-	public Value<?> find( Ident ident ) {
-		if ( this.variables.containsKey( ident.getName() ) ) {
-			return this.variables.get( ident.getName() );
+	public Type find( Ident ident ) {
+		if ( this.types.containsKey( ident ) ) {
+			return this.types.get( ident );
 		}
 
 		if ( !this.isRoot() ) {
@@ -127,7 +136,7 @@ public class Context {
 	 * @param ident
 	 * @param value
 	 */
-	public void declareVariable( Ident ident, Value<?> value ) {
-		this.variables.put( ident.getName(), value );
+	public void declareVariable( Ident ident, Type type ) {
+		this.types.put( ident, type );
 	}
 }

@@ -8,7 +8,7 @@ import org.uva.sea.ql.visitor.test.VisitorTest;
 /**
  * Testing visitor.
  */
-public class TestPrintVisitor extends VisitorTest {
+public class TestPrintVisitor extends VisitorTest<java.lang.Boolean> {
 	/**
 	 * Constructs a new pretty printer test.
 	 */
@@ -23,6 +23,6 @@ public class TestPrintVisitor extends VisitorTest {
 	 */
 	@Test
 	public void test() throws ParseError {
-		this.parser.parse( program ).accept( visitor, null );
+		this.parser.parse( program ).accept( visitor );
 	}
 }
