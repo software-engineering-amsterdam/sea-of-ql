@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 package org.uva.sea.ql.ast.math;
 
 import org.uva.sea.ql.ast.AcceptsMathOperands;
@@ -25,3 +26,25 @@ public class Mul extends BinaryExpr implements AcceptsMathOperands,
 		return str;
 	}
 }
+=======
+package org.uva.sea.ql.ast.math;
+
+import org.uva.sea.ql.ast.AcceptsMathOperands;
+import org.uva.sea.ql.ast.BinaryExpr;
+import org.uva.sea.ql.ast.Expr;
+import org.uva.sea.ql.ast.ReturnsMathOperands;
+
+public class Mul extends BinaryExpr implements AcceptsMathOperands,
+		ReturnsMathOperands {
+	public static final String str = "*";
+
+	public Mul(Expr left, Expr right) {
+		super(left, right);
+	}
+
+	@Override
+	public String toString() {
+		return str;
+	}
+}
+>>>>>>> 483057f28359ecac2b999d94a928c0aaf01d2a6e

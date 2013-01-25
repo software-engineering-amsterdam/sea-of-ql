@@ -11,11 +11,11 @@ data Statement
    
 data Expr
   = ident(str name)
-  | \int(int ivalue)
-  | \bool(bool bvalue)
-  | string(str svalue)
-  | float (real fvalue)
-  | date(str dvalue)
+  | intConst(int ivalue)
+  | boolConst(bool bvalue)
+  | stringConst(str svalue)
+  | floatConst(real fvalue)
+  | dateConst(str dvalue)
   
   | pos(Expr expr)
   | neg(Expr expr)
@@ -36,7 +36,13 @@ data Expr
   | and(Expr expr1, Expr expr2)    
   | or(Expr expr1, Expr expr2);
  
- 
+
+  
+data StatementOrExpression
+  = statement(Statement s)
+  | expr(Expr e);
+  
+  
 alias If = tuple[Expr condition, list[Statement] body]; 
 
 alias SeparatedStatements 

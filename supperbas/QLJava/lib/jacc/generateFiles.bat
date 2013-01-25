@@ -1,3 +1,2 @@
 @echo off
-java -jar jacc.jar ./../../src/parser/jacc/ql.jacc
-pause
+java -jar jacc.jar ./../../src/parser/ql.jacc

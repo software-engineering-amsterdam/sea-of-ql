@@ -1,18 +1,25 @@
 package org.uva.sea.ql.ast.expr;
 
-import org.uva.sea.ql.ast.expr.Expr;
-import org.uva.sea.ql.visitor.ASTNodeVisitor;
+import java.util.Map;
+
+import org.uva.sea.ql.ast.types.BoolType;
+import org.uva.sea.ql.ast.types.Type;
+import org.uva.sea.ql.visitor.checkers.ExpressionChecker;
 
 public class GT extends Binary {
 
-	public GT(Expr result, Expr rhs) {
-		super(result,rhs) ;
+	public GT(Expr leftExpr, Expr rightExpr) {
+		super(leftExpr,rightExpr);
 	}
 
 	@Override
-	public void accept(ASTNodeVisitor nodeVisitor) {
-		// TODO Auto-generated method stub
+	public boolean accept(ExpressionChecker nodeVisitor) {
+		return nodeVisitor.visit(this);
 		
 	}
 
+	@Override
+	public Type isOfType(Map<String, Type> typeEnv) {
+		return new BoolType();
+	}
 }

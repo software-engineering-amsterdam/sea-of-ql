@@ -10,8 +10,8 @@ public class Sub extends AbstractBinary {
 	}
 
 	@Override
-	public void accept(Expression<?> visitor) {
-		visitor.visit(this);
+	public <T> T accept(Expression<T> visitor) {
+		return visitor.visit(this);
 	}
 
 }

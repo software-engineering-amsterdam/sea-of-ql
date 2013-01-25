@@ -4,6 +4,11 @@ import org.uva.sea.ql.ast.Expr;
 
 public class Money extends Numeric {
 	
+	@Override
+	public boolean isCompatibleTo(Type t) {
+		return t.isCompatibleToMoney();
+	}
+	
 	private Expr amount; 
 
 	public Money(){

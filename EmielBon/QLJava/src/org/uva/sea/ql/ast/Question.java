@@ -1,23 +1,23 @@
 package org.uva.sea.ql.ast;
 
-import org.uva.sea.ql.ast.Ident;
-import org.uva.sea.ql.ast.data.Str;
+import org.uva.sea.ql.ast.Identifier;
+import org.uva.sea.ql.ast.literal.StringLiteral;
 
 public class Question extends Node {
 
-	private final Ident id;
-	private final Str label;
+	private final Identifier id;
+	private final StringLiteral label;
 	
-	public Question(Ident id, Str label) {
+	public Question(Identifier id, StringLiteral label) {
 		this.id = id;
 		this.label = label;
 	}
 
-	public Ident getId() {
+	public Identifier getId() {
 		return id;
 	}
 	
-	public Str getLabel() {
+	public StringLiteral getLabel() {
 		return label;
 	}
 	

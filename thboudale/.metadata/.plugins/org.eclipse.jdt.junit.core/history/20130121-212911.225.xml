@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?><testrun name="TestExpressions" project="QLJava" tests="8" started="8" failures="0" errors="0" ignored="0">
+  <testsuite name="org.uva.sea.ql.parser.test.TestExpressions" time="0.002">
+    <testsuite name="[0]" time="0.002">
+      <testcase name="testAdds[0]" classname="org.uva.sea.ql.parser.test.TestExpressions" time="0.001"/>
+      <testcase name="testMuls[0]" classname="org.uva.sea.ql.parser.test.TestExpressions" time="0.001"/>
+      <testcase name="testRels[0]" classname="org.uva.sea.ql.parser.test.TestExpressions" time="0.0"/>
+      <testcase name="testBools[0]" classname="org.uva.sea.ql.parser.test.TestExpressions" time="0.0"/>
+      <testcase name="testIds[0]" classname="org.uva.sea.ql.parser.test.TestExpressions" time="0.0"/>
+      <testcase name="testNums[0]" classname="org.uva.sea.ql.parser.test.TestExpressions" time="0.0"/>
+      <testcase name="testBooleans[0]" classname="org.uva.sea.ql.parser.test.TestExpressions" time="0.0"/>
+      <testcase name="testQuestion[0]" classname="org.uva.sea.ql.parser.test.TestExpressions" time="0.0"/>
+    </testsuite>
+  </testsuite>
+</testrun>

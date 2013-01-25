@@ -25,8 +25,6 @@ public class Validator {
 			}
 		} catch (ParseError ex) {
 			System.out.println("ParseError: " + ex.getMessage());
-		} catch (AstValidationError ex) {
-			System.out.println("AST Validation Error: " + ex.getMessage());
 		} catch (VisitorException ex) {
 			System.out.println("Visitor Error: " + ex.getMessage());
 		}
