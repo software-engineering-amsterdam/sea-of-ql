@@ -1,6 +1,24 @@
 complete readme.txt with reference to LWB2013 link
+
 add helper method in test expression to search for correct node (eg. find(root, Add.class))
+
 is BlockStatement still needed?
+
 refactor: ArrayList<String> errors into seperate class
+
 refactor: symbol list<Identifier, Datatype> instead of <String, Datatype> (only if Form/Question contains Identifier and not String>
+
+refactor: TypeChecker class -> static method check() in TypeCheckerVisitor; rename TypeCheckerVisitor -> TypeChecker
+
+check for (simple) cyclic dependency in computed question: the computation expression can not use it's question identifier
+and add the following testcases
+	test(false, "form form1 { id1: \"Value?\" integer(id1) }");
+	test(false, "form form1 { id1: \"Value?\" boolean(id1) }");
+	test(false, "form form1 { id1: \"Value?\" string(id1) }");
+
+TODO: this code results in a 'syntax error' (because of double '}' at the end) which is not a very helpful message
+test(true, "form form1 { id1: \"Value?\" integer id2: \"Value 2?\" integer(+id1) } }");
+
+QUESTION: should '+' expression also work on strings? NO, see result of Add.typeOf() method
+
 ADD COMMENTS!!

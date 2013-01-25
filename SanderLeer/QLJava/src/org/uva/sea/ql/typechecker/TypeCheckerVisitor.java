@@ -27,7 +27,6 @@ class TypeCheckerVisitor implements Visitor<Boolean> {
 	}
 	
 	private String makeError(String token, String handSide) {
-		//TODO: make message: '<variable-name or datatype-name>' is an invalid datatype for '<token>'
 		return "Invalid datatype for " + (handSide != null ? handSide + " part of " : "") + "'" + token + "'";
 	}
 
@@ -40,15 +39,15 @@ class TypeCheckerVisitor implements Visitor<Boolean> {
 	}
 
 	private boolean isValidInteger(Expression lhs, Expression rhs, String token) {
-		return isValidInteger(lhs, token, "left") &&
-				isValidInteger(rhs, token, "right");
+		boolean validLhs = isValidInteger(lhs, token, "left"); 
+		boolean validRhs = isValidInteger(rhs, token, "right"); 
+		return validLhs && validRhs;
 	}
 
 	private boolean isValidInteger(Expression expression, String token, String handSide) {
 		// check if the expression is valid
 		if (isValidExpression(expression)) {
 			Datatype datatype = expression.typeOf(symbols);
-			//TODO: only an error message when datatype != null (otherwise invalid identifiers also generate an error?)
 			if ((datatype != null) && (datatype.isCompatibleToInteger())) {
 				return true;
 			}
@@ -62,15 +61,15 @@ class TypeCheckerVisitor implements Visitor<Boolean> {
 	}
 
 	private boolean isValidBoolean(Expression lhs, Expression rhs, String token) {
-		return isValidBoolean(lhs, token, "left") &&
-				isValidBoolean(rhs, token, "right");
+		boolean validLhs = isValidBoolean(lhs, token, "left"); 
+		boolean validRhs = isValidBoolean(rhs, token, "right"); 
+		return validLhs && validRhs;
 	}
 
 	private boolean isValidBoolean(Expression expression, String token, String handSide) {
 		// check if the expression is valid
 		if (isValidExpression(expression)) {
 			Datatype datatype = expression.typeOf(symbols);
-			//TODO: only an error message when datatype != null (otherwise invalid identifiers also generate an error?)
 			if ((datatype != null) && (datatype.isCompatibleToBoolean())) {
 				return true;
 			}
@@ -80,42 +79,39 @@ class TypeCheckerVisitor implements Visitor<Boolean> {
 	}
 
 	private boolean areEqualityDatatypes(Expression lhs, Expression rhs, String token) {
-		if (isValidExpression(lhs) && isValidExpression(rhs)) {
+		boolean validLhs = isValidExpression(lhs); 
+		boolean validRhs = isValidExpression(rhs); 
+
+		if (validLhs && validRhs) {
 			Datatype lhsDatatype = lhs.typeOf(symbols);
 			Datatype rhsDatatype = rhs.typeOf(symbols);
 			
-			//TODO: only an error message when datatype != null (otherwise invalid identifiers also generate an error?)
-			// check if lefthandside and righthandside are the same datatypes
-			if ((lhsDatatype != null) && (rhsDatatype != null) && (lhsDatatype.isCompatibleTo(rhsDatatype))) {
+			// check if LHS and RHS are the same datatypes for a equality expression
+			if ((lhsDatatype != null) && (rhsDatatype != null) &&
+				(lhsDatatype.isCompatibleTo(rhsDatatype))) {
 				return true;
 			}
-//			if ((lhsDatatype.isCompatibleToString() && rhsDatatype.isCompatibleToString())
-//					|| (lhsDatatype.isCompatibleToInteger() && rhsDatatype.isCompatibleToInteger())
-//					|| (lhsDatatype.isCompatibleToBoolean() && rhsDatatype.isCompatibleToBoolean())) {
-//				return true;
-//			}
-
-			//TODO: add specifi error eg. "datatypes are not the same type for '=='
 			addError(makeError(token));
 		}
 		return false;
 	}
 
 	private boolean areRelationalDatatypes(Expression lhs, Expression rhs, String token) {
-		if (isValidExpression(lhs) && isValidExpression(rhs)) {
+		boolean validLhs = isValidExpression(lhs); 
+		boolean validRhs = isValidExpression(rhs); 
+
+		if (validLhs && validRhs) {
 			Datatype lhsDatatype = lhs.typeOf(symbols);
 			Datatype rhsDatatype = rhs.typeOf(symbols);
 			
-			//TODO: only an error message when datatype != null (otherwise invalid identifiers also generate an error?)
-			// check if lefthandside and righthandside are the same datatypes for a relational expression
-			if ((lhsDatatype != null) && (rhsDatatype != null)) {
-				if ((lhsDatatype.isCompatibleToString() && rhsDatatype.isCompatibleToString()) ||
-					(lhsDatatype.isCompatibleToInteger() && rhsDatatype.isCompatibleToInteger())) {
+			// check if LHS and RHS are the same datatypes for a relational expression
+			// this excludes boolean types 
+			if (((lhsDatatype != null) && (rhsDatatype != null)) &&
+				((lhsDatatype.isCompatibleToString() && rhsDatatype.isCompatibleToString()) ||
+				 (lhsDatatype.isCompatibleToInteger() && rhsDatatype.isCompatibleToInteger()))) {
 					return true;
-				}
-				//TODO: add specifi error eg. "datatypes are not the same type for '=='
-				addError(makeError(token));
 			}
+			addError(makeError(token));
 		}
 		return false;
 	}
@@ -235,25 +231,24 @@ class TypeCheckerVisitor implements Visitor<Boolean> {
 	}
 
 	@Override
-	public Boolean visit(Form node) {
-		//TODO: check identifier?? add identifier?
-		return node.getStatements().accept(this);
-	}
-
-	@Override
 	public Boolean visit(StatementList node) {
-		//TODO: or quit as soon as 'false' is found
 		boolean result = true;
 		for (Statement e : node.getList()) {
-			result = result && e.accept(this);
+			if (!e.accept(this)) {
+				result = false;
+			}
 		}
 		return result;
 	}
 
-	//TODO: make this method return true/false
-	private boolean addQuestionIdentifier(Identifier identifier, Datatype datatype) {
+	@Override
+	public Boolean visit(Form node) {
+		return node.getStatements().accept(this);
+	}
+
+	private boolean addIdentifier(Identifier identifier, Datatype datatype) {
 		if (symbols.contains(identifier.getName())) {
-			addError("Question identifier '" + identifier.getName() + "' already defined");
+			addError("Identifier '" + identifier.getName() + "' already defined");
 			return false;
 		}
 		symbols.put(identifier.getName(), datatype);
@@ -262,31 +257,31 @@ class TypeCheckerVisitor implements Visitor<Boolean> {
 	
 	@Override
 	public Boolean visit(Question node) {
-		return addQuestionIdentifier(node.getIdentifier(), node.getDatatype());
+		return addIdentifier(node.getIdentifier(), node.getDatatype());
 	}
 
 	@Override
 	public Boolean visit(ComputedQuestion node) {
-		if (!addQuestionIdentifier(node.getIdentifier(), node.getDatatype())) {
-			return false;
-		}
-		if (!isValidExpression(node.getExpression())) {
-			return false;
-		}
-		// check if expression of computed question is same datatype as question identifier
+		boolean validIdentifier = addIdentifier(node.getIdentifier(), node.getDatatype());
+		boolean validExpression = isValidExpression(node.getExpression());
+
+		// check if expression of computed question is the same datatype as question identifier
+		boolean validDatatype;
 		Datatype exprDatatype = node.getExpression().typeOf(symbols);
-		if (!exprDatatype.isCompatibleTo(node.getDatatype())) {
+		if ((exprDatatype != null) && (!exprDatatype.isCompatibleTo(node.getDatatype()))) {
 			addError("Expression of computed question '" + node.getIdentifier().getName() + "' is not of correct datatype");
-			return false;
+			validDatatype = false;
+		} else {
+			validDatatype = true;
 		}
 
-		//TODO: check if expression uses question identifier (not allowed!)
-		return true;
+		return validIdentifier && validExpression && validDatatype; 
 	}
 
 	@Override
 	public Boolean visit(IfStatement node) {
-		return isValidBoolean(node.getExpression(), "if") &&
-				node.getStatements().accept(this);
+		boolean validCondition = isValidBoolean(node.getExpression(), "if");
+		boolean validStatements = node.getStatements().accept(this);
+		return validCondition && validStatements;
 	}
 }

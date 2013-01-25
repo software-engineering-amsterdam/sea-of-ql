@@ -32,6 +32,7 @@ public class TestForms {
 		System.out.println("\nSOURCE = \"" + s + "\"");
 		ASTNode ast = parser.parse(s);
 		ASTPrinter.print(ast, System.out);
+		System.out.flush();
 
 		assertEquals(Form.class, ast.getClass());
 	}
