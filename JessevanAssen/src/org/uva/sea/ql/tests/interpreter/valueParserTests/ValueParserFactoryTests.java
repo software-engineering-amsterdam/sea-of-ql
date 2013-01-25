@@ -8,13 +8,12 @@ import static junit.framework.Assert.assertEquals;
 
 public class ValueParserFactoryTests {
 
-    private final ValueParserFactory valueParserFactory = new ValueParserFactory();
 
     @Test
     public void boolTypeIsPassed_returnsBoolValueParser() {
         assertEquals(
                 BoolValueParser.class,
-                new Bool().accept(valueParserFactory, null).getClass()
+                ValueParserFactory.createValueParser(new Bool()).getClass()
         );
     }
 
@@ -22,7 +21,7 @@ public class ValueParserFactoryTests {
     public void intTypeIsPassed_returnsIntValueParser() {
         assertEquals(
                 IntValueParser.class,
-                new Int().accept(valueParserFactory, null).getClass()
+                ValueParserFactory.createValueParser(new Int()).getClass()
         );
     }
 
@@ -30,18 +29,18 @@ public class ValueParserFactoryTests {
     public void strTypeIsPassed_returnsStrValueParser() {
         assertEquals(
                 StrValueParser.class,
-                new Str().accept(valueParserFactory, null).getClass()
+                ValueParserFactory.createValueParser(new Str()).getClass()
         );
     }
 
     @Test(expected = RuntimeException.class)
     public void voidTypeIsPassed_throwsException() {
-         new org.uva.sea.ql.ast.type.Void().accept(valueParserFactory, null);
+        ValueParserFactory.createValueParser(new org.uva.sea.ql.ast.type.Void());
     }
 
     @Test(expected = RuntimeException.class)
     public void unknownTypeIsPassed_throwsException() {
-        new Unknown().accept(valueParserFactory, null);
+        ValueParserFactory.createValueParser(new Unknown());
     }
 
 }

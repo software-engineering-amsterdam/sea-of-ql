@@ -11,6 +11,12 @@ public class ValueParserFactory implements TypeVisitor<ValueParser, Void> {
         }
     }
 
+    private ValueParserFactory() { }
+
+    public static ValueParser createValueParser(Type type) {
+        return type.accept(new ValueParserFactory(), null);
+    }
+
     @Override
     public ValueParser visit(Bool type, Void param) {
         return new BoolValueParser();
