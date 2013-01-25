@@ -1,4 +1,4 @@
-package org.uva.sea.ql.ast.values;
+package org.uva.sea.ql.ast.expr.values;
 
 import java.util.Map;
 
@@ -20,7 +20,7 @@ public class Int extends Value<Integer> {
 	}
 
 	@Override
-	public Type isOfType(Map<Ident, Type> typeEnv) {
+	public Type isOfType(Map<String, Type> typeEnv) {
 		return new IntType();
 	}
 

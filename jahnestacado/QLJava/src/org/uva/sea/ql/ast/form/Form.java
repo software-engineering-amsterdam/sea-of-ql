@@ -1,17 +1,15 @@
 package org.uva.sea.ql.ast.form;
 
-import java.util.List;
-
-import org.uva.sea.ql.ast.ASTNode;
 import org.uva.sea.ql.ast.expr.Ident;
+import org.uva.sea.ql.visitor.checkers.ElementChecker;
 
-public class Form extends ASTNode {
+public class Form extends QLProgram{
 	private final Ident id;
-	private final List<Element> body;
+	private final Body body;
 
 	public Form(Ident id, Body body) {
 		this.id = id;
-		this.body = body.getBody();
+		this.body = body;
 
 	}
 
@@ -19,8 +17,13 @@ public class Form extends ASTNode {
 		return id;
 	}
 
-	public List<Element> getBody() {
+	public Body getBody() {
 		return body;
+	}
+
+	@Override
+	public void accept(ElementChecker qlElement) {
+			qlElement.visit(this);
 	}
 
 	

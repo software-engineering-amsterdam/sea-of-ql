@@ -20,27 +20,28 @@ import org.uva.sea.ql.ast.expr.Not;
 import org.uva.sea.ql.ast.expr.Or;
 import org.uva.sea.ql.ast.expr.Pos;
 import org.uva.sea.ql.ast.expr.Sub;
-import org.uva.sea.ql.ast.expr.values.BoolLit;
-import org.uva.sea.ql.ast.expr.values.Decimal;
-import org.uva.sea.ql.ast.expr.values.Int;
-import org.uva.sea.ql.ast.expr.values.StringLit;
 import org.uva.sea.ql.ast.types.Type;
-import org.uva.sea.ql.visitor.IExprVisitor;
+import org.uva.sea.ql.ast.values.BoolLit;
+import org.uva.sea.ql.ast.values.Decimal;
+import org.uva.sea.ql.ast.values.Int;
+import org.uva.sea.ql.ast.values.StringLit;
+import org.uva.sea.ql.visitor.Visitor;
 
 
 
-public class ExpressionChecker implements IExprVisitor {
-	private final Map<String, Type> declaredVar;
+public class ExpressionChecker implements Visitor {
+	private final Map<Ident, Type> declaredVar;
 	private final List<String> errorReport;
 	static int i = 0;
 
-	public ExpressionChecker(Map<String, Type> declaredVar, List<String> errorReport) {
+	public ExpressionChecker(Map<Ident, Type> declaredVar, List<String> errorReport) {
 		this.declaredVar = declaredVar;
 		this.errorReport = errorReport;
 	}
 
-	public static boolean check(Expr expr, Map<String, Type> declaredVar,List<String> errorReport) {
-		ExpressionChecker check = new ExpressionChecker(declaredVar, errorReport);
+	public static boolean check(Expr expr, Map<Ident, Type> typeEnv,
+			List<String> errs) {
+		ExpressionChecker check = new ExpressionChecker(typeEnv, errs);
 		return expr.accept(check);
 	}
 
@@ -58,7 +59,6 @@ public class ExpressionChecker implements IExprVisitor {
 		Type rightExprType = node.getRightExpr().isOfType(declaredVar);
 
 		if (!(leftExprType.isCompatibleToNumericType() && rightExprType.isCompatibleToNumericType())) {
-		System.out.println("Invalid type for '+'. Both operands must be of the Numeric type");
 		errorReport.add("Invalid type for '+'. Both operands must be of the Numeric type");
 			return false;
 		}
@@ -122,7 +122,7 @@ public class ExpressionChecker implements IExprVisitor {
 		Type leftExprType = node.getLeftExpr().isOfType(declaredVar);
 		Type rightExprType = node.getRightExpr().isOfType(declaredVar);
 
-		if (!(leftExprType.isCompatibleToType(rightExprType))) {
+		if (!(leftExprType.getClass() == rightExprType.getClass())) {
 			errorReport.add("Invalid type for '=='. Both operands must be of the same type");
 			return false;
 		}
@@ -360,7 +360,6 @@ public class ExpressionChecker implements IExprVisitor {
 
 		if (!(leftExprType.isCompatibleToNumericType() && rightExprType.isCompatibleToNumericType())) {
 			errorReport.add("Invalid type for '-'. Both operands must be of the Numeric type");
-			System.out.println("Invalid type for '-'. Both operands must be of the Numeric type");
 			return false;
 		}
 

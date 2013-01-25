@@ -1,11 +1,11 @@
-// $ANTLR 3.4 /home/jahn/workspace1/jahnestacado/jahnestacado/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g 2013-01-24 02:05:02
+// $ANTLR 3.4 /home/jahn/workspace1/jahnestacado/jahnestacado/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g 2013-01-24 22:06:21
 
 package org.uva.sea.ql.parser.antlr;
 import org.uva.sea.ql.ast.*;
 import org.uva.sea.ql.ast.expr.*;
 import org.uva.sea.ql.ast.form.*;
 import org.uva.sea.ql.ast.types.*;
-import org.uva.sea.ql.ast.values.*;
+import org.uva.sea.ql.ast.expr.values.*;
 
 
 
@@ -238,7 +238,7 @@ public class QLParser extends Parser {
 
         int body_StartIndex = input.index();
 
-        Element element3 =null;
+        BodyElement element3 =null;
 
 
          Body body= new Body();  
@@ -302,9 +302,9 @@ public class QLParser extends Parser {
 
 
     // $ANTLR start "element"
-    // /home/jahn/workspace1/jahnestacado/jahnestacado/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:46:1: element returns [Element result] : ( conditionalElement | question | computedQuestion );
-    public final Element element() throws RecognitionException {
-        Element result = null;
+    // /home/jahn/workspace1/jahnestacado/jahnestacado/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:46:1: element returns [BodyElement result] : ( conditionalElement | question | computedQuestion );
+    public final BodyElement element() throws RecognitionException {
+        BodyElement result = null;
 
         int element_StartIndex = input.index();
 

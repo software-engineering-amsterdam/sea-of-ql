@@ -1,40 +1,27 @@
 package org.uva.sea.ql.ast.form;
 
-
 import org.uva.sea.ql.ast.expr.Expr;
 import org.uva.sea.ql.ast.expr.Ident;
+import org.uva.sea.ql.ast.expr.values.StringLit;
 import org.uva.sea.ql.ast.types.Type;
-import org.uva.sea.ql.ast.values.StringLit;
+import org.uva.sea.ql.visitor.checkers.ElementChecker;
 
-public class ComputedQuestion extends Element {
-	private final Ident id;
-	private final StringLit label;
-	private final Type type;
+public class ComputedQuestion extends SingleLineElement {
+
 	private final Expr expr;
 
 	public ComputedQuestion(Ident id, StringLit label, Type type, Expr expr) {
-			this.id=id;
-			this.label=label;
-			this.type=type;
-			this.expr=expr;
-	}
-
-	public Ident getId() {
-		return id;
-	}
-
-	public StringLit getLabel() {
-		return label;
-	}
-
-	public Type getType() {
-		return type;
+		super(id, label, type);
+		this.expr = expr;
 	}
 
 	public Expr getExpr() {
 		return expr;
 	}
 
-	
+	@Override
+	public void accept(ElementChecker qlElement) {
+		qlElement.visit(this);
+	}
 
 }
