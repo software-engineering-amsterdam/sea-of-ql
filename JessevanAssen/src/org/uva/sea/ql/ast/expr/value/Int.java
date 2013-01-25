@@ -14,7 +14,23 @@ public class Int implements Value {
 		return value;
 	}
 
-	@Override
+    public Bool isEqualTo(Int other) {
+        return new Bool(getValue() == other.getValue());
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        return getValue() == ((Int)o).getValue();
+    }
+
+    @Override
+    public int hashCode() {
+        return value;
+    }
+
+    @Override
 	public <ReturnType, ParameterType> ReturnType accept(ASTNodeVisitor<ReturnType, ParameterType> visitor, ParameterType param) {
 		return visitor.visit(this, param);
 	}	
