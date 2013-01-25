@@ -9,6 +9,8 @@ import org.junit.runner.Description;
 import org.uva.sea.ql.ast.ASTNode;
 import org.uva.sea.ql.parser.*;
 import org.uva.sea.ql.parser.jacc.*;
+import org.uva.sea.ql.typechecker.ErrorList;
+import org.uva.sea.ql.typechecker.SymbolTable;
 import org.uva.sea.ql.typechecker.TypeChecker;
 import org.uva.sea.ql.utils.ASTPrinter;
 
@@ -22,11 +24,9 @@ public class TestTypechecker {
 	};
 	
 	private Parser parser;
-	private TypeChecker checker;
 
 	public TestTypechecker() {
 		this.parser = new JACCParser();
-		this.checker = new TypeChecker();
 	}
 	
 	// helper method to assert source 's' tests as 'expected'
@@ -36,9 +36,11 @@ public class TestTypechecker {
 		ASTPrinter.print(ast, System.out);
 		System.out.flush();
 		
-		boolean result = checker.Check(ast); 
+		SymbolTable symbols = new SymbolTable();
+		ErrorList errors = new ErrorList();
+		boolean result = TypeChecker.check(ast, symbols, errors); 
 		if (!result) {
-			System.err.println(checker.getErrors());
+			System.err.println(errors);
 			System.err.flush();
 		}
 		assertEquals(expected, result);
@@ -46,7 +48,7 @@ public class TestTypechecker {
 
 	@Test
 	public void testSymbols() throws ParseException {
-//		test(false, "form sameid { sameid: \"Value?\" integer }");
+		test(true, "form sameid { sameid: \"Value?\" integer }");
 		test(true, "form form1 { id1: \"Value?\" integer if (id1 == 3) { id2: \"Value 2?\" integer } }");
 		test(false, "form form1 { sameid: \"Value?\" integer if (sameid == 3) { sameid: \"Value 2?\" integer } }");
 		test(false, "form form1 { q1: \"Value?\" integer if (notusedyet == 3) { q2: \"Value 2?\" integer } }");
