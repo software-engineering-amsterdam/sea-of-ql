@@ -1,8 +1,13 @@
 package org.uva.sea.ql.ast.expr.value;
 
-import org.uva.sea.ql.visitor.Visitor;
+import java.util.Map;
 
-public class BoolLiteral extends Value {
+import org.uva.sea.ql.ast.expr.*;
+import org.uva.sea.ql.ast.types.BoolType;
+import org.uva.sea.ql.ast.types.Type;
+import org.uva.sea.ql.visitor.IExprVisitor;
+
+public class BoolLiteral extends Expr {
 
 	private final boolean value;
 
@@ -15,9 +20,13 @@ public class BoolLiteral extends Value {
 	}
 
 	@Override
-	public void accept(Visitor visitor) {
-		// TODO Auto-generated method stub
-		
+	public Type typeOf(Map<String, Type> typeEnv) {
+		return new BoolType();
 	}
-	
+
+	@Override
+	public <T> T accept(IExprVisitor<T> visitor) {
+		return visitor.visit(this);
+	}
+
 }

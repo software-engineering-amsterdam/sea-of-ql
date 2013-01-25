@@ -5,6 +5,10 @@ options {backtrack=true; memoize=true;}
 {
 	package org.uva.sea.ql.parser.antlr;
 	import org.uva.sea.ql.ast.*;
+	import org.uva.sea.ql.ast.expressions.*;
+	import org.uva.sea.ql.ast.literals.*;
+	import org.uva.sea.ql.ast.statements.*;
+	import org.uva.sea.ql.ast.types.*;
 }
 
 @lexer::header
@@ -15,7 +19,7 @@ options {backtrack=true; memoize=true;}
 primary returns [Expr result]
  	: Int   { $result = new Int(Integer.parseInt($Int.text)); }
  	| Ident { $result = new Ident($Ident.text); }
- 	| Bool
+ 	| Bool	{ $result = new BooleanLiteral($Bool.text); }
  	| '(' x=orExpr ')'{ $result = $x.result; };
     
 unExpr returns [Expr result]

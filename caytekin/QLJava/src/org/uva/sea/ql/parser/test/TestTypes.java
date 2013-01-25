@@ -15,23 +15,13 @@ import org.uva.sea.ql.parser.antlr.ANTLRExpressionParser;
 import org.uva.sea.ql.parser.antlr.ANTLRParser;
 import org.uva.sea.ql.parser.antlr.ANTLRTypeParser;
 
-@RunWith(Parameterized.class)
 public class TestTypes {
-
 
 	private IParse parser;
 
-	@Parameters
-	public static List<Object[]> theParsers() {
-	  List<Object[]> retList = new ArrayList<Object[]>();
-	  Object[] oArray = {new ANTLRTypeParser() } ;
-	  retList.add(oArray);
-	  return retList;
-	}
-
 	
-	public TestTypes(IParse parser) {
-		this.parser = parser;
+	public TestTypes() {
+		this.parser = new ANTLRTypeParser();
 	}
 
 		@Test 

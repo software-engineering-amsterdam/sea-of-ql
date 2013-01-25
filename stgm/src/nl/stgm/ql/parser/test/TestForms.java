@@ -4,60 +4,70 @@ import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 
 import nl.stgm.ql.parser.*;
-import nl.stgm.ql.parser.rats.RatsParser;
 import nl.stgm.ql.ast.form.*;
 
-public class TestForms
+public class TestForms extends QLTest
 {
-	private IParse parser;
-
-	public TestForms()
+	private void assertFormClass(Class c, String s) throws ParseError
 	{
-		this.parser = new RatsParser();
+		assertClass(c, parser.parseForm(s));
 	}
 
 	@Test public void testEmptyForms() throws ParseError
 	{
-		assertEquals(
-			Form.class,
-			parser.parseForm("form Box1HouseOwning { }").getClass()
-		);
-		assertEquals(
-			Form.class,
-			parser.parseForm("form Box1HouseOwning{}").getClass()
-		);
-		assertEquals(
-			Form.class,
-			parser.parseForm("form Box1HouseOwning{  } ").getClass()
-		);
+		assertFormClass(Form.class, "form Box1HouseOwning { }");
+		assertFormClass(Form.class, "form Box1HouseOwning{}");
+		assertFormClass(Form.class, "form Box1HouseOwning{  } ");
 	}
 
-	@Test(expected=ParseError.class) public void testBadEmptyForms() throws ParseError
+	@Test(expected=ParseError.class) public void testExtraSpacing() throws ParseError
 	{
-		// extra spacing before form is only allowed in full Document
+		// extra spacing before form is only allowed in full document
 		parser.parseForm(" form Box1HouseOwning{}");
+	}
+
+	@Test(expected=ParseError.class) public void testBadForm1() throws ParseError
+	{
 		parser.parseForm("form Box1HouseOwning");
+	}
+
+	@Test(expected=ParseError.class) public void testBadForm2() throws ParseError
+	{
 		parser.parseForm("form {}");
 	}
 
 	@Test public void testFormWithOneQuestion() throws ParseError
 	{
-		assertEquals(
-			Form.class,
-			parser.parseForm(
-				"form Box1HouseOwning { hasSoldHouse: \"Did?\" boolean }"
-			).getClass()
-		);
+		assertFormClass(Form.class, "form Box1HouseOwning { hasSoldHouse: \"Did?\" boolean }");
 	}
 
-	@Test(expected=ParseError.class) public void testBadFormsWithOneQuestion() throws ParseError
+	@Test(expected=ParseError.class) public void testBadFormQuestion1() throws ParseError
 	{
-		// hmm this testing may not work as expected, if first ParseError already validates test
 		parser.parseForm("form Box1HouseOwning { hasSoldHouse: '\"Did?\" boolean }");
+	}
+
+	@Test(expected=ParseError.class) public void testBadFormQuestion2() throws ParseError
+	{
 		parser.parseForm("form Box1HouseOwning { hasSoldHouse : \"Did?\" boolean }");
+	}
+
+	@Test(expected=ParseError.class) public void testBadFormQuestion3() throws ParseError
+	{
 		parser.parseForm("form Box1HouseOwning { hasSoldHouse '\"Did?\" boolean }");
+	}
+
+	@Test(expected=ParseError.class) public void testBadFormQuestion4() throws ParseError
+	{
 		parser.parseForm("form Box1HouseOwning { hasSoldHouse '\"Did?\" }");
+	}
+
+	@Test(expected=ParseError.class) public void testBadFormQuestion5() throws ParseError
+	{
 		parser.parseForm("form Box1HouseOwning { hasSoldHouse boolean }");
+	}
+
+	@Test(expected=ParseError.class) public void testBadFormQuestion6() throws ParseError
+	{
 		parser.parseForm("form Box1HouseOwning { hasSoldHouse: }");
 	}
 }

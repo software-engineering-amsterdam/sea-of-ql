@@ -1,5 +1,7 @@
 package org.uva.sea.ql.ast;
 
-public interface FormElement extends ASTNode {
+import org.uva.sea.ql.visitor.TypeChecker;
 
+public abstract class FormElement implements ASTNode {
+	public abstract void accept(TypeChecker visitor);
 }

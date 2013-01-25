@@ -1,9 +1,7 @@
 package nl.stgm.ql.ast.expr;
 
-public class Not extends Expr
+public class Not extends UnaryExpr
 {
-	private final Expr arg;
-
 	public Not(Expr arg)
 	{
 		this.arg = arg;

@@ -17,26 +17,14 @@ import org.uva.sea.ql.parser.antlr.ANTLRMulsParser;
 import org.uva.sea.ql.parser.antlr.ANTLRParser;
 import org.uva.sea.ql.parser.antlr.ANTLRRelsParser;
 
-@RunWith(Parameterized.class)
 public class TestRels {
 
-
 	private IParse parser;
-
-	@Parameters
-	public static List<Object[]> theParsers() {
-	  List<Object[]> retList = new ArrayList<Object[]>();
-	  Object[] oArray = {new ANTLRRelsParser() } ;
-	  retList.add(oArray);
-	  return retList;
+	
+	public TestRels() {
+		this.parser = new ANTLRRelsParser();
 	}
 
-	
-	public TestRels(IParse parser) {
-		this.parser = parser;
-	}
-
-	
 
 	@Test
 	public void testRels() throws ParseError {

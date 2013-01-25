@@ -9,18 +9,12 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
-import org.uva.sea.ql.ast.Ident;
-import org.uva.sea.ql.ast.Int;
-import org.uva.sea.ql.ast.operators.logical.And;
-import org.uva.sea.ql.ast.operators.logical.Not;
-import org.uva.sea.ql.ast.operators.numeric.Add;
-import org.uva.sea.ql.ast.operators.numeric.Mul;
-import org.uva.sea.ql.ast.operators.relational.GT;
-import org.uva.sea.ql.ast.operators.relational.LEq;
-import org.uva.sea.ql.ast.operators.relational.LT;
-import org.uva.sea.ql.parser.antlr.ANTLRParser;
+import org.uva.sea.ql.ast.*;
+import org.uva.sea.ql.ast.literal.*;
+import org.uva.sea.ql.ast.operators.logical.*;
+import org.uva.sea.ql.ast.operators.numeric.*;
+import org.uva.sea.ql.ast.operators.relational.*;
 import org.uva.sea.ql.parser.jacc.JACCParser;
-import org.uva.sea.ql.parser.rats.RatsParser;
 
 @RunWith(Parameterized.class)
 public class TestExpressions {
@@ -29,11 +23,8 @@ public class TestExpressions {
 
 	@Parameters
 	public static List<Object[]> theParsers() {
-	  return Arrays.asList(
-			  new Object[] {new JACCParser()}, 
-			  new Object[] {new RatsParser()},
-			  new Object[] {new ANTLRParser()}
-			 );
+		Object[][] parsers = { {new JACCParser()} };
+		return Arrays.asList(parsers);
 	}
 
 	
@@ -84,23 +75,48 @@ public class TestExpressions {
 		assertEquals(parser.parse("(a > b) && (b > c)").getClass(), And.class);
 	}
 
-
 	@Test
 	public void testIds() throws ParseError {
-		assertEquals(parser.parse("a").getClass(), Ident.class);
-		assertEquals(parser.parse("abc").getClass(), Ident.class);
-		assertEquals(parser.parse("ABC").getClass(), Ident.class);
-		assertEquals(parser.parse("ABCDEF").getClass(), Ident.class);
-		assertEquals(parser.parse("abc2323").getClass(), Ident.class);
-		assertEquals(parser.parse("a2bc232").getClass(), Ident.class);
-		assertEquals(parser.parse("a2bc232aa").getClass(), Ident.class);
+		assertEquals(parser.parse("a").getClass(), Identifier.class);
+		assertEquals(parser.parse("abc").getClass(), Identifier.class);
+		assertEquals(parser.parse("ABC").getClass(), Identifier.class);
+		assertEquals(parser.parse("ABCDEF").getClass(), Identifier.class);
+		assertEquals(parser.parse("abc2323").getClass(), Identifier.class);
+		assertEquals(parser.parse("a2bc232").getClass(), Identifier.class);
+		assertEquals(parser.parse("a2bc232aa").getClass(), Identifier.class);
 	}
 
 	@Test
 	public void testNums() throws ParseError {
-		assertEquals(parser.parse("0").getClass(), Int.class);
-		assertEquals(parser.parse("1223").getClass(), Int.class);
-		assertEquals(parser.parse("234234234").getClass(), Int.class);
+		assertEquals(parser.parse("0").getClass(), IntegerLiteral.class);
+		assertEquals(parser.parse("1223").getClass(), IntegerLiteral.class);
+		assertEquals(parser.parse("234234234").getClass(), IntegerLiteral.class);
+	}
+	
+	@Test
+	public void testStrings() throws ParseError {
+		assertEquals(parser.parse("\"abc\"").getClass(), StringLiteral.class);
+		assertEquals(parser.parse("\"s12f}+{a()\"").getClass(), StringLiteral.class);
+		assertEquals(parser.parse("\"(a > b) && (b > c)\"").getClass(), StringLiteral.class);
+	}
+	
+	@Test
+	public void testQuestions() throws ParseError {
+		assertEquals(parser.parse("x : \"abc\" boolean").getClass(), Question.class);
+		assertEquals(parser.parse("dasx : \"452abc\" boolean").getClass(), Question.class);
+		assertEquals(parser.parse("hasSoldHouse:\"Did you sell a house in 2010?\" boolean").getClass(), Question.class);
+	}
+	
+	@Test
+	public void testBoolLiterals() throws ParseError {
+		assertEquals(parser.parse("true").getClass(), BooleanLiteral.class);
+		assertEquals(parser.parse("false").getClass(), BooleanLiteral.class);
+	}
+	
+	@Test
+	public void testForms() throws ParseError {
+		assertEquals(parser.parse("form a { hasSoldHouse:\"Did you sell a house in 2010?\" boolean }").getClass(), Form.class);
+		assertEquals(parser.parse("form a { hasSoldHouse:\"Did you sell a house in 2010?\" boolean\n hasBoughtHouse: \"Did you by a house in 2010?\" boolean }").getClass(), Form.class);
 	}
 	
 }

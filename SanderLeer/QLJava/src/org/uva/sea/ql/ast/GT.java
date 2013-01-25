@@ -1,7 +1,7 @@
 package org.uva.sea.ql.ast;
 
 public class GT extends BinaryExpression {
-	public GT(ASTNode lhs, ASTNode rhs) {
+	public GT(Expression lhs, Expression rhs) {
 		super(lhs, rhs);
 	}
 

@@ -1,6 +1,9 @@
 package org.uva.sea.ql.ast;
 import java.util.List;
 
+import org.antlr.runtime.tree.CommonTree;
+import org.uva.sea.ql.ast.visitor.Visitorinterface;
+
 public class Form implements ASTNode { 
 	private Type name;
 	private List<Statement> block ;
@@ -17,4 +20,16 @@ public class Form implements ASTNode {
 	public List<Statement> getBlock() {
 		return block;
 	}
+ 
+	@Override
+	public void accept(Visitorinterface visitor) {
+		visitor.visit(this);
+		
 	}
+
+	public CommonTree getTree() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}

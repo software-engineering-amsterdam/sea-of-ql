@@ -1,13 +1,14 @@
 package org.uva.sea.ql.ast.types;
 
-import org.uva.sea.ql.visitor.Visitor;
-
-public class MoneyType extends Type {
-
+public class MoneyType extends Numeric {
+	
 	@Override
-	public void accept(Visitor visitor) {
-		// TODO Auto-generated method stub
-		
+	public boolean isCompatibleTo(Type t) {
+		return t.isCompatibleToMoneyType();
 	}
 
+	@Override
+	public boolean isCompatibleToMoneyType() {
+		return true;
+	}
 }

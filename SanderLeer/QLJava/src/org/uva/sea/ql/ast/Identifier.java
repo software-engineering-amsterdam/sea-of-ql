@@ -1,6 +1,6 @@
 package org.uva.sea.ql.ast;
 
-public class Identifier implements ASTNode {
+public class Identifier extends Expression {
 	private final String name;
 
 	public Identifier(String name) {

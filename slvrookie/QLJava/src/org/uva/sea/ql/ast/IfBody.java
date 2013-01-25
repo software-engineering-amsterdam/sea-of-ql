@@ -1,30 +1,32 @@
 package org.uva.sea.ql.ast;
 
-import org.uva.sea.ql.ast.expr.Expr;
-import org.uva.sea.ql.visitor.Visitor;
+import java.util.List;
 
-public class IfBody implements FormElement {
+import org.uva.sea.ql.ast.expr.Expr;
+import org.uva.sea.ql.visitor.TypeChecker;
+
+
+public class IfBody extends FormElement {
 
 	private final Expr expression;
-	private final FormBlock ifbody;
+	private final List<FormElement> ifBody;
 
-	public IfBody(Expr expression, FormBlock ifbody) {
+	public IfBody(Expr expression, List<FormElement> ifBody) {
 		this.expression = expression;
-		this.ifbody = ifbody;
+		this.ifBody = ifBody;
 	}
 
 	public Expr getExpression() {
 		return expression;
 	}
 
-	public FormBlock getIfElements() {
-		return ifbody;
+	public List<FormElement> getIfElements() {
+		return ifBody;
 	}
 
 	@Override
-	public void accept(Visitor visitor) {
-		// TODO Auto-generated method stub
-
+	public void accept(TypeChecker visitor) {
+		visitor.visit(this);
 	}
 
 }

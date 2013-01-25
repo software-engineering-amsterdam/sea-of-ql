@@ -18,6 +18,9 @@ public class Bool extends Expr implements Type<Boolean> {
 	public Bool(boolean v){
 		this.value = v;
 	}
+	public Bool(String v){
+		this.value = Boolean.parseBoolean(v);
+	}
 	/**
 	 * getValue()
 	 * @return Boolean - the boolean value
@@ -33,6 +36,6 @@ public class Bool extends Expr implements Type<Boolean> {
 	 */
 	@Override
 	public String getType(){
-		return "bool";
+		return "Bool";
 	}
 }

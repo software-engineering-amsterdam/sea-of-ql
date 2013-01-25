@@ -6,10 +6,9 @@ import java.io.PrintStream;
 import java.util.Scanner;
 
 import org.uva.sea.ql.ast.ASTNode;
-import org.uva.sea.ql.errors.FormCheckerError;
-import org.uva.sea.ql.errors.ParseError;
+import org.uva.sea.ql.checker.errors.Error;
+import org.uva.sea.ql.parser.rats.ParseError;
 import org.uva.sea.ql.parser.rats.RatsParser;
-import org.uva.sea.ql.util.Stack;
 
 public class FormChecker {
 
@@ -50,7 +49,20 @@ public class FormChecker {
 	
 	
 	private void checkForm(ASTNode form) throws Exception{
-		form.accept(new VisitorFormChecking(), new Stack() );
+		
+		VisitorChecker visitor = new VisitorChecker();
+		form.accept(visitor);
+		
+		if(visitor.getErrors().size() == 0){
+			out.printf("Form validation succeeded!\n");
+		}
+		else{
+			out.printf("Validation failed due to the following reasons:\n");
+			
+			for(Error e: visitor.getErrors())
+				out.printf("%s", e.getMessage());
+		}
+		
 	}
 	
 	
@@ -59,9 +71,6 @@ public class FormChecker {
 		ASTNode form = parse(input);
 		
 		checkForm(form);
-		
-		//no exceptions were thrown, so parsing and checking succeeded
-		out.printf("Form validation succeeded!\n");
 	}
 	
 	
@@ -87,9 +96,6 @@ public class FormChecker {
 		}
 		catch(ParseError e){
 			out.printf("Failed to correctly parse form:\n%s\n", e.getMessage());
-		}
-		catch(FormCheckerError e){
-			out.printf("Form validation failed due to the following:\n%s\n", e.getMessage());
 		}
 		catch(Exception e){
 			out.printf("A miscellaneous error occurred:\n%s\n", e.getMessage());

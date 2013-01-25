@@ -1,11 +1,10 @@
 package nl.stgm.ql.ast.form;
 
 import java.util.List;
-
 import nl.stgm.ql.ast.ASTNode;
 import nl.stgm.ql.inspector.CodeInspector;
 
-public class Form implements ASTNode
+public class Form extends ASTNode
 {
 	private String id;
 	private List<FormItem> formItems;
@@ -24,5 +23,10 @@ public class Form implements ASTNode
 		}
 		
 		inspector.visit(this);
+	}
+	
+	public String toString()
+	{
+		return("Form: " + id);
 	}
 }

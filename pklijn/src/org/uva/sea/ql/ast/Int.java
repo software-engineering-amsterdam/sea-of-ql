@@ -1,5 +1,8 @@
 package org.uva.sea.ql.ast;
 
+import java.util.Map;
+
+import org.uva.sea.ql.ast.types.Type;
 import org.uva.sea.ql.ast.values.Value;
 
 public class Int extends Expr {
@@ -16,9 +19,12 @@ public class Int extends Expr {
 
 	@Override
 	public Value eval() {
-		return new org.uva.sea.ql.ast.values.Int(value);
-		// TODO Auto-generated method stub
-		//return null;
+		return new org.uva.sea.ql.ast.values.IntValue(value);
+	}
+
+	@Override
+	public Type typeOf(Map<Ident, Type> typeEnv) {
+		return new org.uva.sea.ql.ast.types.IntType();
 	}
 	
 }

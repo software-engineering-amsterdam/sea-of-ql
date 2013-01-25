@@ -6,7 +6,6 @@ import ParseTree;
 import util::IDE;
 
 import lang::qls::ast::AST;
-//import lang::qls::compiler::PrettyPrinter;
 import lang::qls::util::Implode;
 import lang::qls::util::Parse;
 

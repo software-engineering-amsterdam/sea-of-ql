@@ -1,44 +1,29 @@
 package org.uva.sea.ql.ast;
 
-import org.uva.sea.ql.ast.expr.Expr;
-import org.uva.sea.ql.ast.expr.value.Ident;
+import org.uva.sea.ql.ast.expr.*;
 import org.uva.sea.ql.ast.expr.value.StringLiteral;
 import org.uva.sea.ql.ast.types.Type;
-import org.uva.sea.ql.visitor.Visitor;
+import org.uva.sea.ql.visitor.TypeChecker;
 
-public class CompQuestion implements FormElement {
+public class CompQuestion extends Question {
+
 	
-	private final Ident qID;
-	private final StringLiteral qlabel;
-	private final Type qtype;
-	private Expr qexpr;
+	private final Expr qExpr;
 
-	public CompQuestion(Ident qID, StringLiteral qlabel, Type qtype, Expr qexpr) {
-		this.qID = qID;
-		this.qlabel = qlabel;
-		this.qtype = qtype;
-		this.qexpr = qexpr;
-	}
-
-	public Ident getQuestionID() {
-		return qID;
-	}
-
-	public StringLiteral getQuestionLabel() {
-		return qlabel;
-	}
-
-	public Type getQuestionType() {
-		return qtype;
+	public CompQuestion(Ident qID, StringLiteral qString, Type qType, Expr qExpr) {
+		
+		super(qID, qString, qType);
+		this.qExpr = qExpr;
 	}
 
 	public Expr getQuestionExpr() {
-		return qexpr;
+		return qExpr;
 	}
 
 	@Override
-	public void accept(Visitor visitor) {
-		// TODO Auto-generated method stub
-
+	public void accept(TypeChecker visitor) {
+		visitor.visit(this);
+		
 	}
+
 }

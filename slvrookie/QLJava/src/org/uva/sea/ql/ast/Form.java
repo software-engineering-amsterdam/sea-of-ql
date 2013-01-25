@@ -1,14 +1,17 @@
 package org.uva.sea.ql.ast;
 
-import org.uva.sea.ql.ast.expr.value.Ident;
-import org.uva.sea.ql.visitor.Visitor;
+import java.util.List;
 
-public class Form implements ASTNode {
+import org.uva.sea.ql.ast.expr.Ident;
+import org.uva.sea.ql.visitor.TypeChecker;
+
+
+public class Form extends FormElement {
 
 	private final Ident fID;
-	private final FormBlock fBody;
+	private final List<FormElement> fBody;
 
-	public Form(Ident fID, FormBlock fBody) {
+	public Form(Ident fID, List<FormElement> fBody) {
 		this.fID = fID;
 		this.fBody = fBody;
 	}
@@ -17,14 +20,13 @@ public class Form implements ASTNode {
 		return fID;
 	}
 
-	public FormBlock getFormBody() {
+	public List<FormElement> getFormBody() {
 		return fBody;
 	}
 
 	@Override
-	public void accept(Visitor visitor) {
-		// TODO Auto-generated method stub
-
+	public void accept(TypeChecker visitor) {
+		visitor.visit(this);
 	}
 
 }

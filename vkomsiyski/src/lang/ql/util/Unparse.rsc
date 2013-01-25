@@ -7,15 +7,15 @@ import lang::ql::ast::AST;
 
 public str unparse(Expr e:ident(name)) = name;
 
-public str unparse(Expr e:\int(val)) = "<val>";
+public str unparse(Expr e:intConst(val)) = "<val>";
 
-public str unparse(Expr e:\bool(val)) = "<val>";
+public str unparse(Expr e:boolConst(val)) = "<val>";
 
-public str unparse(Expr e:string(val)) = val;
+public str unparse(Expr e:stringConst(val)) = val;
 
-public str unparse(Expr e:date(val)) = val;
+public str unparse(Expr e:dateConst(val)) = val;
 
-public str unparse(Expr e:\float(val)) = "<val>";
+public str unparse(Expr e:floatConst(val)) = "<val>";
 
 public str unparse(Expr e:pos(e)) = "+" + unparse(e);
 

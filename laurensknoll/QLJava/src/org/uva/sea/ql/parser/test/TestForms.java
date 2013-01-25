@@ -9,7 +9,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
-import org.uva.sea.ql.ast.statement.QuestionForm;
+import org.uva.sea.ql.ast.form.Question;
 import org.uva.sea.ql.parser.antlr.FormParser;
 
 @RunWith(Parameterized.class)
@@ -30,7 +30,7 @@ public class TestForms {
 
 	@Test
 	public void testQuestionFormStatements() throws ParseError {
-		assertEquals(QuestionForm.class, parser.parse("form Box1House { }")
+		assertEquals(Question.class, parser.parse("form Box1House { }")
 				.getClass());
 	}
 }

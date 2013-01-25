@@ -1,13 +1,16 @@
 package org.uva.sea.ql.ast.types;
 
-import org.uva.sea.ql.visitor.Visitor;
-
-public class IntType extends Type {
-
+public class IntType extends Numeric {
+	
 	@Override
-	public void accept(Visitor visitor) {
-		// TODO Auto-generated method stub
-		
+	public boolean isCompatibleTo(Type t) {
+		return t.isCompatibleToIntType();
 	}
+	
+	@Override
+	public boolean isCompatibleToIntType() {
+		return true;
+	} 
+
 
 }
