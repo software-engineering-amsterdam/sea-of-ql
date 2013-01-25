@@ -6,6 +6,7 @@ options {backtrack=true; memoize=true;}
 package org.uva.sea.ql.parser.antlr;
 import org.uva.sea.ql.ast.*;
 import org.uva.sea.ql.ast.expressions.*;
+import org.uva.sea.ql.ast.questions.*;
 import org.uva.sea.ql.ast.values.*;
 import org.uva.sea.ql.ast.types.*;
 }
@@ -17,12 +18,28 @@ package org.uva.sea.ql.parser.antlr;
 
 form: primary+;
 
-question returns [Question result]
-    :   String Ident ':' t=type { $result = new Question(new org.uva.sea.ql.ast.values.Str($String.text), new Ident($Ident.text), t); }
+formStatement returns [FormStatement result]
+    :   question         { $result = $question.result; }
+    |   conditionBlock   { $result = $conditionBlock.result; }
     ;
-  
-computedQuestion returns [ComputedQuestion result]
-    :   String Ident '=' e=orExpr { $result = new ComputedQuestion(new org.uva.sea.ql.ast.values.Str($String.text), new Ident($Ident.text), $e.result); }
+
+question returns [Question result]
+    :   String Ident ':' t=type { $result = new AnswerableQuestion(new org.uva.sea.ql.ast.values.Str($String.text), new Ident($Ident.text), t); }
+    |   String Ident '=' e=orExpr { $result = new ComputedQuestion(new org.uva.sea.ql.ast.values.Str($String.text), new Ident($Ident.text), $e.result); }
+    ;
+
+conditionBlock returns [ConditionBlock result]
+    :   'if' '(' condition=orExpr ')' ifBody=conditionBody 'else' elseBody=conditionBody
+        { $result = new ConditionBlock(condition, $ifBody.result, $elseBody.result); }
+    |   'if' '(' condition=orExpr ')' ifBody=conditionBody
+        { $result = new ConditionBlock(condition, $ifBody.result); }
+    ;
+
+conditionBody returns [FormStatement result]
+    :   '{' body=formStatement '}'  { $result = body; }
+    |   body=formStatement          { $result = body; }
+    |   '{' body=formStatement* '}' { $result = body; }
+    |   body=formStatement*         { $result = body; }
     ;
 
 primary returns [Expr result]
@@ -48,7 +65,6 @@ mulExpr returns [Expr result]
     })*
     ;
     
-  
 addExpr returns [Expr result]
     :   lhs=mulExpr { $result=$lhs.result; } ( op=('+' | '-') rhs=mulExpr
     { 
@@ -79,9 +95,9 @@ orExpr returns [Expr result]
     ;
 
 type returns [Type result]
-    :   'integer' { $result = new org.uva.sea.ql.ast.types.Int();    }
-    |   'string'  { $result = new org.uva.sea.ql.ast.types.Str(); }
-    |   'boolean' { $result = new org.uva.sea.ql.ast.types.Bool();   }
+    :   'integer' { $result = new org.uva.sea.ql.ast.types.Int();  }
+    |   'string'  { $result = new org.uva.sea.ql.ast.types.Str();  }
+    |   'boolean' { $result = new org.uva.sea.ql.ast.types.Bool(); }
     ;
 
     

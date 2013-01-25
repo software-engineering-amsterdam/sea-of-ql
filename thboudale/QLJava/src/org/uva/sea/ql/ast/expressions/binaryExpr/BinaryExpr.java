@@ -2,7 +2,7 @@ package org.uva.sea.ql.ast.expressions.binaryExpr;
 
 import org.uva.sea.ql.ast.expressions.Expr;
 
-public class BinaryExpr extends Expr {
+public abstract class BinaryExpr extends Expr {
 	private final Expr lhs;
 	private final Expr rhs;
 

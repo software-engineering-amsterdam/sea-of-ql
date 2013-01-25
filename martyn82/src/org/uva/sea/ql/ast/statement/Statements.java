@@ -5,9 +5,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import org.uva.sea.ql.ast.INode;
-import org.uva.sea.ql.eval.Context;
-import org.uva.sea.ql.eval.value.Value;
-import org.uva.sea.ql.visitor.INodeVisitor;
+import org.uva.sea.ql.visitor.NodeVisitor;
 
 /**
  * Represents a collection of statements.
@@ -35,8 +33,12 @@ public class Statements implements INode, Iterable<Statement> {
 	 * @param statement
 	 */
 	public Statements( Statement statement ) {
-		this.statements = new LinkedList<Statement>();
+		this();
 		this.statements.add( statement );
+	}
+
+	public Statements() {
+		this.statements = new LinkedList<Statement>();
 	}
 
 	@Override
@@ -45,11 +47,7 @@ public class Statements implements INode, Iterable<Statement> {
 	}
 
 	@Override
-	public Value<?> accept( INodeVisitor visitor, Context context ) {
-		for ( Statement statement : this.statements ) {
-			statement.accept( visitor, context );
-		}
-
-		return null;
+	public <T> T accept( NodeVisitor<T> visitor ) {
+		return visitor.visit( this );
 	}
 }

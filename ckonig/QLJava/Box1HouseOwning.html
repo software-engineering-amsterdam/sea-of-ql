@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <style>.question {padding-left:20px; height:30px; width:600px;}
+            .q_text{float:left;} 
+            .q_input{float:right;clear: right;} 
+            .content_below{clear:both;}
+        </style>
+    </head>
+    <body>
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js" type="text/javascript"></script>
+        <script type="text/javascript" src="http://jzaefferer.github.com/jquery-validation/jquery.validate.js"></script>
+        <h1>Box1HouseOwning</h1>
+        <form id="ql_form">
+            <div  class="question">
+<div  class="q_text">
+Please enter your tax identification number</div>
+<div  class="q_input">
+    <input id="question_taxId" type="text" class="required" name="taxId"/>
+</div>
+
+</div>
+<div  class="content_below">
+</div><div  class="question">
+<div  class="q_text">
+Did you sell a house in 2010?</div>
+<div  class="q_input">
+    <input id="question_hasSoldHouse" type="checkbox" class="input_boolean" name="hasSoldHouse"/>
+</div>
+
+</div>
+<div  class="content_below">
+</div><div  class="question">
+<div  class="q_text">
+Did you by a house in 2010?</div>
+<div  class="q_input">
+    <input id="question_hasBoughtHouse" type="checkbox" class="input_boolean" name="hasBoughtHouse"/>
+</div>
+
+</div>
+<div  class="content_below">
+</div><div  class="question">
+<div  class="q_text">
+Did you enter a loan for maintenance/reconstruction?</div>
+<div  class="q_input">
+    <input id="question_hasMaintLoan" type="checkbox" class="input_boolean" name="hasMaintLoan"/>
+</div>
+
+</div>
+<div  class="content_below">
+</div><div style="display:none;" id="if_11317592" class=\"question\"><div  class="question">
+<div  class="q_text">
+Price the house was sold for:</div>
+<div  class="q_input">
+    <input id="question_sellingPrice" type="text" class="number required" name="sellingPrice"/>
+</div>
+
+</div>
+<div  class="content_below">
+</div><div  class="question">
+<div  class="q_text">
+Private debts for the sold house:</div>
+<div  class="q_input">
+    <input id="question_privateDebt" type="text" class="number required" name="privateDebt"/>
+</div>
+
+</div>
+<div  class="content_below">
+</div><div  class="question">
+<div  class="q_text">
+Value residue:</div>
+<div  class="q_input">
+    <input id="question_valueResidue" type="text" class="number required" name="valueResidue"/>
+</div>
+
+</div>
+<div  class="content_below">
+</div><div style="display:none;" id="if_28259286" class=\"question\"><div  class="question">
+<div  class="q_text">
+Did you ask for permission to have a value residue larger than 20000?</div>
+<div  class="q_input">
+    <input id="question_askedForPermissionValRes20" type="checkbox" class="input_boolean" name="askedForPermissionValRes20"/>
+</div>
+
+</div>
+<div  class="content_below">
+</div></div><div style="display:none;" id="if_24392121" class=\"question\"><div  class="question">
+<div  class="q_text">
+Did you ask for permission to sell a house for less than 80000?</div>
+<div  class="q_input">
+    <input id="question_askedForPermissionSelPri80" type="checkbox" class="input_boolean" name="askedForPermissionSelPri80"/>
+</div>
+
+</div>
+<div  class="content_below">
+</div><div style="display:none;" id="if_23886295" class=\"question\"><div  class="question">
+<div  class="q_text">
+Who did you ask for permission to sell a house for less than 80000?</div>
+<div  class="q_input">
+    <input id="question_askedForPermissionSelPri80Who" type="text" class="required" name="askedForPermissionSelPri80Who"/>
+</div>
+
+</div>
+<div  class="content_below">
+</div></div></div></div>
+        </form>
+        <a class="button" onclick="serializeForm();"><span>Save Input</span></a>
+        <script type="text/javascript">
+            $(document).ready(function(){
+                $("#ql_form").validate();
+            });
+
+            //helper
+            function toggleContent(value, id){
+                if( value == true){
+                    $('#if_' + id).show();
+                }else{
+                    $('#if_' + id).hide();
+                }
+            }
+            function serializeForm(){
+                if($("#ql_form").valid()){
+                alert($('#ql_form').serialize());
+                }else{alert('invalid input');}
+            }
+                function taxId(){
+ return $('#question_taxId').val();
+}function hasSoldHouse(){
+ return $('#question_hasSoldHouse').attr('checked') == 'checked';
+}function hasBoughtHouse(){
+ return $('#question_hasBoughtHouse').attr('checked') == 'checked';
+}function hasMaintLoan(){
+ return $('#question_hasMaintLoan').attr('checked') == 'checked';
+}function sellingPrice(){
+ return parseFloat($('#question_sellingPrice').val());
+}function privateDebt(){
+ return parseFloat($('#question_privateDebt').val());
+}function valueResidue(){
+ return parseFloat($('#question_valueResidue').val());
+}function askedForPermissionValRes20(){
+ return $('#question_askedForPermissionValRes20').attr('checked') == 'checked';
+}function askedForPermissionSelPri80(){
+ return $('#question_askedForPermissionSelPri80').attr('checked') == 'checked';
+}function askedForPermissionSelPri80Who(){
+ return $('#question_askedForPermissionSelPri80Who').val();
+}function eval11317592(){
+   toggleContent((hasSoldHouse() && (hasBoughtHouse() || hasMaintLoan())), '11317592');
+ }$('#question_hasSoldHouse').change(function(){
+  eval11317592();
+  });$('#question_hasBoughtHouse').change(function(){
+  eval11317592();
+  });$('#question_hasMaintLoan').change(function(){
+  eval11317592();
+  });function eval28259286(){
+   toggleContent((valueResidue() > 20000), '28259286');
+ }$('#question_valueResidue').change(function(){
+  eval28259286();
+  });function eval24392121(){
+   toggleContent((sellingPrice() < 80000), '24392121');
+ }$('#question_sellingPrice').change(function(){
+  eval24392121();
+  });function eval23886295(){
+   toggleContent(askedForPermissionSelPri80(), '23886295');
+ }$('#question_askedForPermissionSelPri80').change(function(){
+  eval23886295();
+  });
+        </script>
+    </body></html>
+

@@ -17,28 +17,29 @@ import org.uva.sea.ql.ast.LEq;
 import org.uva.sea.ql.ast.LT;
 import org.uva.sea.ql.ast.Mul;
 import org.uva.sea.ql.parser.antlr.ANTLRParser;
-import org.uva.sea.ql.parser.jacc.JACCParser;
-import org.uva.sea.ql.parser.rats.RatsParser;
 
-@RunWith(Parameterized.class)
+//import org.uva.sea.ql.parser.jacc.JACCParser; since using ANTLR for grammar
+//import org.uva.sea.ql.parser.rats.RatsParser; since using ANTLR for grammar
+
+
 public class TestExpressions {
 
 	private IParse parser;
 
-	@Parameters
-	public static List<Object[]> theParsers() {
-	  return Arrays.asList(
-			  new Object[] {new JACCParser()}, 
-			  new Object[] {new RatsParser()},
-			  new Object[] {new ANTLRParser()}
-			 );
+	
+	public TestExpressions() {
+		this.parser = new ANTLRParser();
 	}
 
 	
-	public TestExpressions(IParse parser) {
-		this.parser = parser;
+
+	@Test
+	public void Testform() throws ParseError {
+		assertEquals(parser.parse("form test1 {}").getClass(), Add.class);
+		
 	}
 
+	
 	
 	@Test
 	public void testAdds() throws ParseError {

@@ -1,4 +1,4 @@
-// $ANTLR 3.5 C:\\Users\\SliverPente\\workspaceindigo\\QLJAVA\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g 2013-01-21 01:54:42
+// $ANTLR 3.5 C:\\Users\\SliverPente\\workspaceindigo\\QLJAVA\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g 2013-01-24 21:32:17
 
 package org.uva.sea.ql.parser.antlr;
 import org.uva.sea.ql.ast.*;
@@ -870,41 +870,41 @@ public class QLParser extends Parser {
 					state._fsp--;
 					if (state.failed) return result;
 					match(input,17,FOLLOW_17_in_formElement551); if (state.failed) return result;
-					match(input,30,FOLLOW_30_in_formElement553); if (state.failed) return result;
-					pushFollow(FOLLOW_formblock_in_formElement557);
+					match(input,30,FOLLOW_30_in_formElement554); if (state.failed) return result;
+					pushFollow(FOLLOW_formblock_in_formElement558);
 					body=formblock();
 					state._fsp--;
 					if (state.failed) return result;
-					match(input,32,FOLLOW_32_in_formElement559); if (state.failed) return result;
+					match(input,32,FOLLOW_32_in_formElement560); if (state.failed) return result;
 					if ( state.backtracking==0 ) { result = new IfBody(x, body); }
 					}
 					break;
 				case 2 :
 					// C:\\Users\\SliverPente\\workspaceindigo\\QLJAVA\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:104:7: Ident ':' StringLiteral type '(' orExpr ')'
 					{
-					Ident7=(Token)match(input,Ident,FOLLOW_Ident_in_formElement569); if (state.failed) return result;
-					match(input,22,FOLLOW_22_in_formElement571); if (state.failed) return result;
-					StringLiteral8=(Token)match(input,StringLiteral,FOLLOW_StringLiteral_in_formElement573); if (state.failed) return result;
-					pushFollow(FOLLOW_type_in_formElement575);
+					Ident7=(Token)match(input,Ident,FOLLOW_Ident_in_formElement571); if (state.failed) return result;
+					match(input,22,FOLLOW_22_in_formElement573); if (state.failed) return result;
+					StringLiteral8=(Token)match(input,StringLiteral,FOLLOW_StringLiteral_in_formElement575); if (state.failed) return result;
+					pushFollow(FOLLOW_type_in_formElement577);
 					type9=type();
 					state._fsp--;
 					if (state.failed) return result;
-					match(input,16,FOLLOW_16_in_formElement577); if (state.failed) return result;
-					pushFollow(FOLLOW_orExpr_in_formElement579);
+					match(input,16,FOLLOW_16_in_formElement579); if (state.failed) return result;
+					pushFollow(FOLLOW_orExpr_in_formElement581);
 					orExpr10=orExpr();
 					state._fsp--;
 					if (state.failed) return result;
-					match(input,17,FOLLOW_17_in_formElement581); if (state.failed) return result;
+					match(input,17,FOLLOW_17_in_formElement583); if (state.failed) return result;
 					if ( state.backtracking==0 ) { result = new CompQuestion(new Ident((Ident7!=null?Ident7.getText():null)) ,new StringLiteral((StringLiteral8!=null?StringLiteral8.getText():null)), type9, orExpr10); }
 					}
 					break;
 				case 3 :
 					// C:\\Users\\SliverPente\\workspaceindigo\\QLJAVA\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:105:7: Ident ':' StringLiteral type
 					{
-					Ident11=(Token)match(input,Ident,FOLLOW_Ident_in_formElement591); if (state.failed) return result;
-					match(input,22,FOLLOW_22_in_formElement593); if (state.failed) return result;
-					StringLiteral12=(Token)match(input,StringLiteral,FOLLOW_StringLiteral_in_formElement595); if (state.failed) return result;
-					pushFollow(FOLLOW_type_in_formElement597);
+					Ident11=(Token)match(input,Ident,FOLLOW_Ident_in_formElement593); if (state.failed) return result;
+					match(input,22,FOLLOW_22_in_formElement595); if (state.failed) return result;
+					StringLiteral12=(Token)match(input,StringLiteral,FOLLOW_StringLiteral_in_formElement597); if (state.failed) return result;
+					pushFollow(FOLLOW_type_in_formElement599);
 					type13=type();
 					state._fsp--;
 					if (state.failed) return result;
@@ -945,7 +945,7 @@ public class QLParser extends Parser {
 			// C:\\Users\\SliverPente\\workspaceindigo\\QLJAVA\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:109:8: (forme= formElement )*
 			{
 			if ( state.backtracking==0 ) { result = new ArrayList<FormElement>() ; }
-			// C:\\Users\\SliverPente\\workspaceindigo\\QLJAVA\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:109:52: (forme= formElement )*
+			// C:\\Users\\SliverPente\\workspaceindigo\\QLJAVA\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:109:54: (forme= formElement )*
 			loop9:
 			while (true) {
 				int alt9=2;
@@ -956,9 +956,9 @@ public class QLParser extends Parser {
 
 				switch (alt9) {
 				case 1 :
-					// C:\\Users\\SliverPente\\workspaceindigo\\QLJAVA\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:109:53: forme= formElement
+					// C:\\Users\\SliverPente\\workspaceindigo\\QLJAVA\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:109:55: forme= formElement
 					{
-					pushFollow(FOLLOW_formElement_in_formblock629);
+					pushFollow(FOLLOW_formElement_in_formblock633);
 					forme=formElement();
 					state._fsp--;
 					if (state.failed) return result;
@@ -990,7 +990,7 @@ public class QLParser extends Parser {
 
 
 	// $ANTLR start "form"
-	// C:\\Users\\SliverPente\\workspaceindigo\\QLJAVA\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:112:1: form returns [Form result] : 'form' Ident '{' fb= formblock '}' ;
+	// C:\\Users\\SliverPente\\workspaceindigo\\QLJAVA\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:112:1: form returns [Form result] : 'form' Ident '{' fb= formblock '}' EOF ;
 	public final Form form() throws RecognitionException {
 		Form result = null;
 
@@ -1002,17 +1002,18 @@ public class QLParser extends Parser {
 		try {
 			if ( state.backtracking>0 && alreadyParsedRule(input, 11) ) { return result; }
 
-			// C:\\Users\\SliverPente\\workspaceindigo\\QLJAVA\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:113:5: ( 'form' Ident '{' fb= formblock '}' )
-			// C:\\Users\\SliverPente\\workspaceindigo\\QLJAVA\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:113:7: 'form' Ident '{' fb= formblock '}'
+			// C:\\Users\\SliverPente\\workspaceindigo\\QLJAVA\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:113:5: ( 'form' Ident '{' fb= formblock '}' EOF )
+			// C:\\Users\\SliverPente\\workspaceindigo\\QLJAVA\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:113:7: 'form' Ident '{' fb= formblock '}' EOF
 			{
-			match(input,28,FOLLOW_28_in_form662); if (state.failed) return result;
-			Ident14=(Token)match(input,Ident,FOLLOW_Ident_in_form664); if (state.failed) return result;
-			match(input,30,FOLLOW_30_in_form666); if (state.failed) return result;
-			pushFollow(FOLLOW_formblock_in_form672);
+			match(input,28,FOLLOW_28_in_form666); if (state.failed) return result;
+			Ident14=(Token)match(input,Ident,FOLLOW_Ident_in_form668); if (state.failed) return result;
+			match(input,30,FOLLOW_30_in_form670); if (state.failed) return result;
+			pushFollow(FOLLOW_formblock_in_form676);
 			fb=formblock();
 			state._fsp--;
 			if (state.failed) return result;
-			match(input,32,FOLLOW_32_in_form674); if (state.failed) return result;
+			match(input,32,FOLLOW_32_in_form678); if (state.failed) return result;
+			match(input,EOF,FOLLOW_EOF_in_form680); if (state.failed) return result;
 			if ( state.backtracking==0 ) { result = new Form(new Ident((Ident14!=null?Ident14.getText():null)), fb); }
 			}
 
@@ -1069,24 +1070,25 @@ public class QLParser extends Parser {
 	public static final BitSet FOLLOW_16_in_formElement543 = new BitSet(new long[]{0x00000000001926D0L});
 	public static final BitSet FOLLOW_orExpr_in_formElement549 = new BitSet(new long[]{0x0000000000020000L});
 	public static final BitSet FOLLOW_17_in_formElement551 = new BitSet(new long[]{0x0000000040000000L});
-	public static final BitSet FOLLOW_30_in_formElement553 = new BitSet(new long[]{0x0000000120000040L});
-	public static final BitSet FOLLOW_formblock_in_formElement557 = new BitSet(new long[]{0x0000000100000000L});
-	public static final BitSet FOLLOW_32_in_formElement559 = new BitSet(new long[]{0x0000000000000002L});
-	public static final BitSet FOLLOW_Ident_in_formElement569 = new BitSet(new long[]{0x0000000000400000L});
-	public static final BitSet FOLLOW_22_in_formElement571 = new BitSet(new long[]{0x0000000000000400L});
-	public static final BitSet FOLLOW_StringLiteral_in_formElement573 = new BitSet(new long[]{0x0000000000000800L});
-	public static final BitSet FOLLOW_type_in_formElement575 = new BitSet(new long[]{0x0000000000010000L});
-	public static final BitSet FOLLOW_16_in_formElement577 = new BitSet(new long[]{0x00000000001926D0L});
-	public static final BitSet FOLLOW_orExpr_in_formElement579 = new BitSet(new long[]{0x0000000000020000L});
-	public static final BitSet FOLLOW_17_in_formElement581 = new BitSet(new long[]{0x0000000000000002L});
-	public static final BitSet FOLLOW_Ident_in_formElement591 = new BitSet(new long[]{0x0000000000400000L});
-	public static final BitSet FOLLOW_22_in_formElement593 = new BitSet(new long[]{0x0000000000000400L});
-	public static final BitSet FOLLOW_StringLiteral_in_formElement595 = new BitSet(new long[]{0x0000000000000800L});
-	public static final BitSet FOLLOW_type_in_formElement597 = new BitSet(new long[]{0x0000000000000002L});
-	public static final BitSet FOLLOW_formElement_in_formblock629 = new BitSet(new long[]{0x0000000020000042L});
-	public static final BitSet FOLLOW_28_in_form662 = new BitSet(new long[]{0x0000000000000040L});
-	public static final BitSet FOLLOW_Ident_in_form664 = new BitSet(new long[]{0x0000000040000000L});
-	public static final BitSet FOLLOW_30_in_form666 = new BitSet(new long[]{0x0000000120000040L});
-	public static final BitSet FOLLOW_formblock_in_form672 = new BitSet(new long[]{0x0000000100000000L});
-	public static final BitSet FOLLOW_32_in_form674 = new BitSet(new long[]{0x0000000000000002L});
+	public static final BitSet FOLLOW_30_in_formElement554 = new BitSet(new long[]{0x0000000120000040L});
+	public static final BitSet FOLLOW_formblock_in_formElement558 = new BitSet(new long[]{0x0000000100000000L});
+	public static final BitSet FOLLOW_32_in_formElement560 = new BitSet(new long[]{0x0000000000000002L});
+	public static final BitSet FOLLOW_Ident_in_formElement571 = new BitSet(new long[]{0x0000000000400000L});
+	public static final BitSet FOLLOW_22_in_formElement573 = new BitSet(new long[]{0x0000000000000400L});
+	public static final BitSet FOLLOW_StringLiteral_in_formElement575 = new BitSet(new long[]{0x0000000000000800L});
+	public static final BitSet FOLLOW_type_in_formElement577 = new BitSet(new long[]{0x0000000000010000L});
+	public static final BitSet FOLLOW_16_in_formElement579 = new BitSet(new long[]{0x00000000001926D0L});
+	public static final BitSet FOLLOW_orExpr_in_formElement581 = new BitSet(new long[]{0x0000000000020000L});
+	public static final BitSet FOLLOW_17_in_formElement583 = new BitSet(new long[]{0x0000000000000002L});
+	public static final BitSet FOLLOW_Ident_in_formElement593 = new BitSet(new long[]{0x0000000000400000L});
+	public static final BitSet FOLLOW_22_in_formElement595 = new BitSet(new long[]{0x0000000000000400L});
+	public static final BitSet FOLLOW_StringLiteral_in_formElement597 = new BitSet(new long[]{0x0000000000000800L});
+	public static final BitSet FOLLOW_type_in_formElement599 = new BitSet(new long[]{0x0000000000000002L});
+	public static final BitSet FOLLOW_formElement_in_formblock633 = new BitSet(new long[]{0x0000000020000042L});
+	public static final BitSet FOLLOW_28_in_form666 = new BitSet(new long[]{0x0000000000000040L});
+	public static final BitSet FOLLOW_Ident_in_form668 = new BitSet(new long[]{0x0000000040000000L});
+	public static final BitSet FOLLOW_30_in_form670 = new BitSet(new long[]{0x0000000120000040L});
+	public static final BitSet FOLLOW_formblock_in_form676 = new BitSet(new long[]{0x0000000100000000L});
+	public static final BitSet FOLLOW_32_in_form678 = new BitSet(new long[]{0x0000000000000000L});
+	public static final BitSet FOLLOW_EOF_in_form680 = new BitSet(new long[]{0x0000000000000002L});
 }

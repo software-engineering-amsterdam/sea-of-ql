@@ -1,5 +1,5 @@
 grammar QL;
-options {backtrack=true; memoize=true;}
+options {backtrack=true; memoize=true; }
 
 
 @parser::header
@@ -12,6 +12,58 @@ import org.uva.sea.ql.ast.*;
 {
 package org.uva.sea.ql.parser.antlr;
 }
+
+
+form returns [QLForm result]
+	: 'form' id = Ident   sb = statementBlock 
+		{ $result = new QLForm($id.text, $sb.result); }  
+	;
+
+statementBlock returns [ ArrayList<Statement> result] 
+	@init {
+		result = new ArrayList<Statement> ();
+	}
+	: '{' (stmt = statement { result.add(stmt); } )* '}' 
+	;
+
+
+statement returns [Statement result]
+	: qst = questionStatement { $result = $qst.result; } 
+	| cstmt = conditionalStatement { $result = $cstmt.result; }
+	;	
+	
+	
+questionStatement returns [QuestionStatement result]
+	: qst = question  { $result = $qst.result; }
+	| cq = computedQuestion { $result = $cq.result; }
+	;
+
+	
+conditionalStatement returns [ConditionalStatement result]
+	:ifthels = ifThenElseStatement { $result = $ifthels.result; } 
+	| ifths = ifThenStatement { $result = $ifths.result; }
+	 
+	;
+	
+	
+ifThenStatement returns [IfThenStatement result]
+	: 'if' e = orExpr 'then' sb = statementBlock
+		{ result = new IfThenStatement($e.result, $sb.result); }
+	;
+
+	
+ifThenElseStatement returns [IfThenElseStatement result]
+	: 'if' e = orExpr
+		'then' thenSb = statementBlock
+		'else' elseSb = statementBlock
+	  { result = new IfThenElseStatement($e.result, $thenSb.result, $elseSb.result); }		
+	;
+
+
+computedQuestion returns [ComputedQuestion result]
+	: Ident ':' StringLiteral t=type '(' e=orExpr ')' 
+	{ $result = new ComputedQuestion($Ident.text, $StringLiteral.text, $t.result, $e.result); }
+	;
 
 
 question returns [Question result] 
