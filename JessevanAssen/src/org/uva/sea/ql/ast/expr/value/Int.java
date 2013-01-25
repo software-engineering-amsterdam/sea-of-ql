@@ -14,6 +14,54 @@ public class Int implements Value {
 		return value;
 	}
 
+    public Int add(Int other) {
+        return new Int(getValue() + other.getValue());
+    }
+
+    public Int subtract(Int other) {
+        return new Int(getValue() - other.getValue());
+    }
+
+    public Int multiply(Int other) {
+        return new Int(getValue() * other.getValue());
+    }
+
+    public Int divide(Int other) {
+        return new Int(getValue() / other.getValue());
+    }
+
+    public Int positive() {
+        if(getValue() >= 0)
+            return new Int(getValue());
+        else
+            return new Int(getValue() * -1);
+    }
+
+    public Int negative() {
+        if(getValue() <= 0)
+            return new Int(getValue());
+        else
+            return new Int(getValue() * -1);
+    }
+
+    public Bool isGreaterThan(Int other) {
+        return new Bool(getValue() > other.getValue());
+    }
+
+    public Bool isLesserThan(Int other) {
+        return new Bool(getValue() < other.getValue());
+    }
+
+    public Bool isGreaterThanOrEqualTo(Int other) {
+        return isEqualTo(other)
+                .or(isGreaterThan(other));
+    }
+
+    public Bool isLesserThanOrEqualTo(Int other) {
+        return isEqualTo(other)
+                .or(isLesserThan(other));
+    }
+
     public Bool isEqualTo(Int other) {
         return new Bool(getValue() == other.getValue());
     }
