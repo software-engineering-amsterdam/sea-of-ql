@@ -8,7 +8,14 @@ import org.uva.sea.ql.visitor.NodeVisitor;
  * Represents an ElseIf block.
  */
 public class ElseIf extends Node {
+	/**
+	 * Holds the condition of the ELSE-IF.
+	 */
 	private final Expression condition;
+
+	/**
+	 * Holds the body of the ELSE-IF.
+	 */
 	private final Statements body;
 
 	/**
@@ -22,10 +29,20 @@ public class ElseIf extends Node {
 		this.body = body;
 	}
 
+	/**
+	 * Retrieves the condition of the ELSE-IF.
+	 *
+	 * @return The condition expression.
+	 */
 	public Expression getCondition() {
 		return this.condition;
 	}
 
+	/**
+	 * Retrieves the body of the ELSE-IF.
+	 *
+	 * @return The body statements.
+	 */
 	public Statements getBody() {
 		return this.body;
 	}
