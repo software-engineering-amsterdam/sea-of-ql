@@ -10,7 +10,7 @@ import org.uva.sea.ql.visitor.NodeVisitor;
 /**
  * Represents a list of ElseIfs.
  */
-public class ElseIfs implements Node, Iterable<ElseIf> {
+public class ElseIfs extends Node implements Iterable<ElseIf> {
 	/**
 	 * Holds the elseifs this collection represents.
 	 */

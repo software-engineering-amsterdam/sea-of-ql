@@ -5,5 +5,5 @@ import org.uva.sea.ql.ast.Node;
 /**
  * Represents a statement.
  */
-abstract public class Statement implements Node {
+abstract public class Statement extends Node {
 }

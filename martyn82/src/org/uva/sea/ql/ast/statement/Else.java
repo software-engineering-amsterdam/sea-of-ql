@@ -6,7 +6,7 @@ import org.uva.sea.ql.visitor.NodeVisitor;
 /**
  * Represents If-Then statement.
  */
-public class Else implements Node {
+public class Else extends Node {
 	/**
 	 * Holds the body.
 	 */

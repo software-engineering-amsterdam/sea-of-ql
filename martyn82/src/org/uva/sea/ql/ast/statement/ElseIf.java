@@ -7,7 +7,7 @@ import org.uva.sea.ql.visitor.NodeVisitor;
 /**
  * Represents an ElseIf block.
  */
-public class ElseIf implements Node {
+public class ElseIf extends Node {
 	private final Expression condition;
 	private final Statements body;
 

@@ -10,7 +10,7 @@ import org.uva.sea.ql.visitor.NodeVisitor;
 /**
  * Represents a collection of statements.
  */
-public class Statements implements Node, Iterable<Statement> {
+public class Statements extends Node implements Iterable<Statement> {
 	/**
 	 * Holds the list of statements.
 	 */

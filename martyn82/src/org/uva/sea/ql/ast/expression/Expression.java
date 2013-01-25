@@ -8,7 +8,7 @@ import org.uva.sea.ql.ast.type.Type;
 /**
  * Represents an expression.
  */
-abstract public class Expression implements Node {
+abstract public class Expression extends Node {
 	/**
 	 * Retrieves the data type of the node.
 	 *

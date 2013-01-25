@@ -5,11 +5,11 @@ import org.uva.sea.ql.visitor.NodeVisitor;
 /**
  * Represents a node in an AST.
  */
-public interface Node {
+abstract public class Node {
 	/**
-	 * Evaluates the node.
+	 * Visits the node.
 	 *
 	 * @param visitor
 	 */
-	<T> T accept( NodeVisitor<T> visitor );
+	abstract public <T> T accept( NodeVisitor<T> visitor );
 }
