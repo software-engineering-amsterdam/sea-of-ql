@@ -2,6 +2,7 @@ package org.uva.sea.ql.ast.expression;
 
 import java.util.Map;
 
+import org.uva.sea.ql.ast.type.Error;
 import org.uva.sea.ql.ast.type.Type;
 import org.uva.sea.ql.visitor.NodeVisitor;
 
@@ -61,6 +62,6 @@ public class Ident extends Expression {
 			return types.get( this );
 		}
 
-		return null;
+		return new Error();
 	}
 }
