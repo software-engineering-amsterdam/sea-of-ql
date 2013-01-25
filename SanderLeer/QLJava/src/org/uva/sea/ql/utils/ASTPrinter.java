@@ -1,5 +1,7 @@
 package org.uva.sea.ql.utils;
 
+import java.io.PrintStream;
+
 import org.uva.sea.ql.ast.*;
 import org.uva.sea.ql.ast.datatype.*;
 import org.uva.sea.ql.ast.expression.*;
@@ -12,6 +14,9 @@ public class ASTPrinter implements Visitor<Void> {
 	private StringBuilder sb = new StringBuilder();
 	private int ident;
 
+	private ASTPrinter() {
+	}
+
 	private void print(String s) {
 		if (sb.length() > 0) {
 			sb.append("\n");
@@ -20,6 +25,12 @@ public class ASTPrinter implements Visitor<Void> {
 			sb.append(" ");
 		}
 		sb.append(s);
+	}
+
+	public static void print(ASTNode ast, PrintStream out) {
+		ASTPrinter astPrinter = new ASTPrinter();
+		ast.accept(astPrinter);
+		out.println(astPrinter.toString());
 	}
 
 	@Override

@@ -24,6 +24,7 @@ public class BooleanType extends Datatype {
 		return type.isCompatibleToBoolean();
 	}
 
+	@Override
 	public boolean isCompatibleToBoolean() {
 		return true;
 	}

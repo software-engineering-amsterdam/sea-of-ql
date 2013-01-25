@@ -24,6 +24,7 @@ public class StringType extends Datatype {
 		return type.isCompatibleToString();
 	}
 
+	@Override
 	public boolean isCompatibleToString() {
 		return true;
 	}

@@ -1,38 +1,14 @@
-// Output created by jacc on Mon Jan 21 15:17:26 CET 2013
+// Output created by jacc on Fri Jan 25 22:23:19 CET 2013
 
 package org.uva.sea.ql.parser.jacc;
 
 import org.uva.sea.ql.ast.*;
-import org.uva.sea.ql.ast.datatype.BooleanType;
-import org.uva.sea.ql.ast.datatype.Datatype;
-import org.uva.sea.ql.ast.datatype.IntegerType;
-import org.uva.sea.ql.ast.datatype.StringType;
-import org.uva.sea.ql.ast.expression.Expression;
-import org.uva.sea.ql.ast.expression.Identifier;
-import org.uva.sea.ql.ast.expression.binary.Add;
-import org.uva.sea.ql.ast.expression.binary.And;
-import org.uva.sea.ql.ast.expression.binary.Div;
-import org.uva.sea.ql.ast.expression.binary.Eq;
-import org.uva.sea.ql.ast.expression.binary.GEq;
-import org.uva.sea.ql.ast.expression.binary.GT;
-import org.uva.sea.ql.ast.expression.binary.LEq;
-import org.uva.sea.ql.ast.expression.binary.LT;
-import org.uva.sea.ql.ast.expression.binary.Mul;
-import org.uva.sea.ql.ast.expression.binary.NEq;
-import org.uva.sea.ql.ast.expression.binary.Or;
-import org.uva.sea.ql.ast.expression.binary.Sub;
-import org.uva.sea.ql.ast.expression.literal.BooleanLiteral;
-import org.uva.sea.ql.ast.expression.literal.IntegerLiteral;
-import org.uva.sea.ql.ast.expression.literal.StringLiteral;
-import org.uva.sea.ql.ast.expression.unary.Neg;
-import org.uva.sea.ql.ast.expression.unary.Not;
-import org.uva.sea.ql.ast.expression.unary.Pos;
-import org.uva.sea.ql.ast.statement.ComputedQuestion;
-import org.uva.sea.ql.ast.statement.Form;
-import org.uva.sea.ql.ast.statement.IfStatement;
-import org.uva.sea.ql.ast.statement.Question;
-import org.uva.sea.ql.ast.statement.Statement;
-import org.uva.sea.ql.ast.statement.StatementList;
+import org.uva.sea.ql.ast.datatype.*;
+import org.uva.sea.ql.ast.expression.*;
+import org.uva.sea.ql.ast.expression.binary.*;
+import org.uva.sea.ql.ast.expression.literal.*;
+import org.uva.sea.ql.ast.expression.unary.*;
+import org.uva.sea.ql.ast.statement.*;
 
 class QLParser implements QLTokens {
     private int yyss = 100;
@@ -2230,21 +2206,6 @@ class QLParser implements QLTokens {
 
     protected String[] yyerrmsgs = {
     };
-
-//TODO: remove before production
-private void printNode(String item, ASTNode node) {
-        System.out.print("$" + item + " = " + node.getClass() + " (");
-
-        if (node.getClass() == Question.class) {
-          System.out.print(((Question)node).getIdentifier().getName());
-        } else if (node.getClass() == StatementList.class) {
-          System.out.print("StatementList");
-        } else {
-          System.out.print("something else : " + node.toString());
-        }
-        
-        System.out.println(")");
-}
 
 private QLLexer lexer; 
 private ASTNode result;

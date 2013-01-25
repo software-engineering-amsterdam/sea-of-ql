@@ -24,6 +24,7 @@ public class IntegerType extends Datatype {
 		return type.isCompatibleToInteger();
 	}
 
+	@Override
 	public boolean isCompatibleToInteger() {
 		return true;
 	}

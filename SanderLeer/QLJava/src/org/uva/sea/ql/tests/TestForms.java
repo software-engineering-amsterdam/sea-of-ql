@@ -2,13 +2,25 @@ package org.uva.sea.ql.tests;
 
 import static org.junit.Assert.assertEquals;
 
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.TestWatcher;
+import org.junit.runner.Description;
+import org.uva.sea.ql.ast.ASTNode;
 import org.uva.sea.ql.ast.statement.Form;
 import org.uva.sea.ql.parser.*;
 import org.uva.sea.ql.parser.jacc.*;
+import org.uva.sea.ql.utils.ASTPrinter;
 
 public class TestForms {
-
+	@Rule public TestWatcher watcher = new TestWatcher() {
+		protected void starting(Description description) {
+			System.out.println("===================================");
+			System.out.println("== " + description.getMethodName());
+			System.out.println("===================================");
+		};
+	};
+	
 	private Parser parser;
 
 	public TestForms() {
@@ -17,7 +29,11 @@ public class TestForms {
 	
 	// helper method to assert source 's' returns an AST node of type 'Form'
 	private void test(String s) throws ParseException {
-		assertEquals(Form.class, parser.parse(s).getClass());
+		System.out.println("\nSOURCE = \"" + s + "\"");
+		ASTNode ast = parser.parse(s);
+		ASTPrinter.print(ast, System.out);
+
+		assertEquals(Form.class, ast.getClass());
 	}
 	
 	@Test

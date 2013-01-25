@@ -3,16 +3,28 @@ package org.uva.sea.ql.tests;
 import static org.junit.Assert.assertEquals;
 import static com.googlecode.catchexception.CatchException.*;
 
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.TestWatcher;
+import org.junit.runner.Description;
+import org.uva.sea.ql.ast.ASTNode;
 import org.uva.sea.ql.ast.expression.*;
 import org.uva.sea.ql.ast.expression.binary.*;
 import org.uva.sea.ql.ast.expression.literal.*;
 import org.uva.sea.ql.ast.expression.unary.*;
 import org.uva.sea.ql.parser.*;
 import org.uva.sea.ql.parser.jacc.*;
+import org.uva.sea.ql.utils.ASTPrinter;
 
 public class TestExpressions {
-
+	@Rule public TestWatcher watcher = new TestWatcher() {
+		protected void starting(Description description) {
+			System.out.println("===================================");
+			System.out.println("== " + description.getMethodName());
+			System.out.println("===================================");
+		};
+	};
+	
 	private Parser parser;
 
 	public TestExpressions() {
@@ -21,11 +33,17 @@ public class TestExpressions {
 	
 	// helper method to assert source 's' returns an AST node of type 'expected'
 	private void test(Object expected, String s) throws ParseException {
-		assertEquals(expected, parser.parse(s).getClass());		
+		System.out.println("\nSOURCE = \"" + s + "\"");
+		ASTNode ast = parser.parse(s);
+		ASTPrinter.print(ast, System.out);
+
+		assertEquals(expected, ast.getClass());		
 	}
 	
-	// helper method to verify source 's' throws a RuntimeException
+	// helper method to verify source 's' throws a RuntimeException (thrown by QLLexer class)
     private void verify(String s) throws ParseException {
+		System.out.println("\nSOURCE = \"" + s + "\"");
+
 		verifyException(parser, RuntimeException.class).parse(s);
     }
 

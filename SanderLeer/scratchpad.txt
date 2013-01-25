@@ -1,7 +1,6 @@
 complete readme.txt with reference to LWB2013 link
-validate expression test on complete 'form' (add helper method method to add pre and post string to expression)
 add helper method in test expression to search for correct node (eg. find(root, Add.class))
 is BlockStatement still needed?
-refactor ArrayList<String> errors into seperate class
-
+refactor: ArrayList<String> errors into seperate class
+refactor: symbol list<Identifier, Datatype> instead of <String, Datatype> (only if Form/Question contains Identifier and not String>
 ADD COMMENTS!!
