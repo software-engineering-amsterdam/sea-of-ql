@@ -57,7 +57,7 @@ private Environment checkDeclaration(Environment env, str name, Type \type, str 
 private Environment checkExpression(Environment env, Expr expr, Type \type) {
 	messages = {};
 	
-	if (expr in env.references && env.references[expr].\type != \type) 
+	if (expr in env.references && env.references[expr] != \type) 
 		messages += {redeclaredError(expr@location)};
 	
 	visit(expr) {

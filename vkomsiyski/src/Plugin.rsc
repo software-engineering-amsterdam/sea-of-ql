@@ -14,7 +14,7 @@ private str EXT = "q";
 
 public void main() {
   registerLanguage(LANG, EXT, parser);
-  registerContributions(LANG, {getOutliner(), getAnnotator()/*, getBuilder()*/});
+  registerContributions(LANG, {getOutliner(), getAnnotator(), getBuilder()});
 }
 
 
