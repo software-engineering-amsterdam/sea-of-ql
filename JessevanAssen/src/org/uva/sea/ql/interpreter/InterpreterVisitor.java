@@ -128,7 +128,7 @@ public class InterpreterVisitor implements ASTNodeVisitor<Value, InterpreterVisi
 
     @Override
     public Value visit(Ident astNode, Context param) {
-        return null;
+        return param.getIdentifiers().get(astNode);
     }
 
     @Override
