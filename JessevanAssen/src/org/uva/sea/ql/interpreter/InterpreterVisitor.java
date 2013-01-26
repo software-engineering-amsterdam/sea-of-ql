@@ -213,6 +213,9 @@ public class InterpreterVisitor implements ASTNodeVisitor<Value, InterpreterVisi
 
     @Override
     public Value visit(StoredExpression astNode, Context param) {
+        param.getIdentifiers().put(
+                astNode.getIdentifier(),
+                astNode.getExpression().accept(this, param));
         return null;
     }
 
