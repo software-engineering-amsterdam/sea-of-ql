@@ -1,10 +1,9 @@
-package org.uva.sea.ql.visitor.printer.test;
+package org.uva.sea.ql.visitor.printer;
 
 import org.junit.Test;
 import org.uva.sea.ql.parser.ParseError;
-import org.uva.sea.ql.visitor.printer.ExpressionPrinter;
-import org.uva.sea.ql.visitor.printer.StatementPrinter;
-import org.uva.sea.ql.visitor.test.VisitorTest;
+import org.uva.sea.ql.visitor.VisitorTest;
+import org.uva.sea.ql.visitor.printer.Printer;
 
 /**
  * Testing visitor.
@@ -24,9 +23,6 @@ public class TestPrintVisitor extends VisitorTest<Boolean> {
 	 */
 	@Test
 	public void test() throws ParseError {
-		ExpressionPrinter expressionVisitor = new ExpressionPrinter( System.out );
-		StatementPrinter statementVisitor = new StatementPrinter( System.out, expressionVisitor );
-
-		this.parser.parse( program ).accept( statementVisitor );
+		this.parser.parse( program ).accept( new Printer( System.out ) );
 	}
 }

@@ -14,6 +14,9 @@ import org.uva.sea.ql.ast.statement.Statements;
 import org.uva.sea.ql.ast.statement.VarDeclaration;
 import org.uva.sea.ql.visitor.IStatementVisitor;
 
+/**
+ * Represents a pretty printer for statement nodes.
+ */
 public class StatementPrinter extends PrintVisitor implements IStatementVisitor<Boolean> {
 	/**
 	 * Holds the expression visitor.
@@ -36,12 +39,12 @@ public class StatementPrinter extends PrintVisitor implements IStatementVisitor<
 		indent();
 		write( "ELSE" );
 
-		level++;
+		increaseLevel();
 
 		indent();
 		node.getBody().accept( this );
 
-		level--;
+		decreaseLevel();
 
 		return true;
 	}
@@ -51,23 +54,23 @@ public class StatementPrinter extends PrintVisitor implements IStatementVisitor<
 		indent();
 		write( "IF" );
 
-		level++;
+		increaseLevel();
 
 		indent();
 		node.getCondition().accept( this.expressionVisitor );
 
-		level--;
+		decreaseLevel();
 
 		indent();
 		write( "THEN" );
 
 		if ( node.hasIfBody() ) {
-			level++;
+			increaseLevel();
 
 			indent();
 			node.getIfBody().accept( this );
 
-			level--;
+			decreaseLevel();
 		}
 
 		if ( node.hasElseIfs() ) {
@@ -95,21 +98,21 @@ public class StatementPrinter extends PrintVisitor implements IStatementVisitor<
 		indent();
 		write( "ELSEIF" );
 
-		level++;
+		increaseLevel();
 
 		indent();
 		node.getCondition().accept( this.expressionVisitor );
 
-		level--;
+		decreaseLevel();
 
 		indent();
 		write( "THEN" );
 
-		level++;
+		increaseLevel();
 
 		node.getBody().accept( this );
 
-		level--;
+		decreaseLevel();
 
 		return true;
 	}
@@ -118,7 +121,7 @@ public class StatementPrinter extends PrintVisitor implements IStatementVisitor<
 	public Boolean visit( VarDeclaration node ) {
 		writeName( node );
 
-		level++;
+		increaseLevel();
 
 		indent();
 		node.getIdent().accept( this.expressionVisitor );
@@ -126,7 +129,7 @@ public class StatementPrinter extends PrintVisitor implements IStatementVisitor<
 		indent();
 		write( node.getType().getClass().getSimpleName().toUpperCase() );
 
-		level--;
+		decreaseLevel();
 
 		return true;
 	}
@@ -135,7 +138,7 @@ public class StatementPrinter extends PrintVisitor implements IStatementVisitor<
 	public Boolean visit( Assignment node ) {
 		writeName( node );
 
-		level++;
+		increaseLevel();
 
 		indent();
 		node.getIdent().accept( this.expressionVisitor );
@@ -143,7 +146,7 @@ public class StatementPrinter extends PrintVisitor implements IStatementVisitor<
 		indent();
 		node.getExpression().accept( this.expressionVisitor );
 
-		level--;
+		decreaseLevel();
 
 		return true;
 	}
@@ -152,7 +155,7 @@ public class StatementPrinter extends PrintVisitor implements IStatementVisitor<
 	public Boolean visit( FormDeclaration node ) {
 		writeName( node );
 
-		level++;
+		increaseLevel();
 
 		indent();
 		node.getIdent().accept( this.expressionVisitor );
@@ -160,7 +163,7 @@ public class StatementPrinter extends PrintVisitor implements IStatementVisitor<
 		indent();
 		node.getStatements().accept( this );
 
-		level--;
+		decreaseLevel();
 
 		return true;
 	}
@@ -170,7 +173,7 @@ public class StatementPrinter extends PrintVisitor implements IStatementVisitor<
 		indent();
 		writeName( node );
 
-		level++;
+		increaseLevel();
 
 		indent();
 		node.getName().accept( this.expressionVisitor );
@@ -178,7 +181,7 @@ public class StatementPrinter extends PrintVisitor implements IStatementVisitor<
 		indent();
 		node.getDeclaration().accept( this );
 
-		level--;
+		decreaseLevel();
 
 		return true;
 	}

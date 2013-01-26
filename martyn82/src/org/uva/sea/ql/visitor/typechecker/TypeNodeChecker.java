@@ -1,54 +1,48 @@
-package org.uva.sea.ql.visitor.printer;
-
-import java.io.OutputStream;
+package org.uva.sea.ql.visitor.typechecker;
 
 import org.uva.sea.ql.ast.type.Bool;
 import org.uva.sea.ql.ast.type.Int;
 import org.uva.sea.ql.ast.type.Money;
 import org.uva.sea.ql.ast.type.Number;
 import org.uva.sea.ql.ast.type.Str;
+import org.uva.sea.ql.eval.Environment;
 import org.uva.sea.ql.visitor.ITypeVisitor;
 
 /**
- * Represents a pretty printer for type nodes.
+ * Represents a type checker for type nodes.
  */
-public class TypePrinter extends PrintVisitor implements ITypeVisitor<Boolean> {
+public class TypeNodeChecker extends TypeCheckVisitor implements ITypeVisitor<Boolean> {
 	/**
-	 * Constructs a new TypePrinter instance.
+	 * Constructs a new TypeChecker instance.
 	 *
-	 * @param out
+	 * @param environment
 	 */
-	public TypePrinter( OutputStream out ) {
-		super( out );
+	public TypeNodeChecker( Environment environment ) {
+		super( environment );
 	}
 
 	@Override
 	public Boolean visit( Bool node ) {
-		writeName( node );
 		return true;
 	}
 
 	@Override
 	public Boolean visit( Int node ) {
-		writeName( node );
 		return true;
 	}
 
 	@Override
 	public Boolean visit( Str node ) {
-		writeName( node );
 		return true;
 	}
 
 	@Override
 	public Boolean visit( Money node ) {
-		writeName( node );
 		return true;
 	}
 
 	@Override
 	public Boolean visit( Number node ) {
-		writeName( node );
 		return true;
 	}
 }

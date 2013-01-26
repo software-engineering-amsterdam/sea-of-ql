@@ -14,6 +14,9 @@ import org.uva.sea.ql.ast.expression.literal.Money;
 import org.uva.sea.ql.ast.expression.literal.Str;
 import org.uva.sea.ql.visitor.IExpressionVisitor;
 
+/**
+ * Represents a pretty printer for expression nodes.
+ */
 public class ExpressionPrinter extends PrintVisitor implements IExpressionVisitor<Boolean> {
 	/**
 	 * Constructs a new ExpressionPrinter instance.
@@ -28,7 +31,7 @@ public class ExpressionPrinter extends PrintVisitor implements IExpressionVisito
 	public Boolean visit( LogicalExpression node ) {
 		writeName( node );
 
-		level++;
+		increaseLevel();
 
 		indent();
 		node.getLhs().accept( this );
@@ -36,7 +39,7 @@ public class ExpressionPrinter extends PrintVisitor implements IExpressionVisito
 		indent();
 		node.getRhs().accept( this );
 
-		level--;
+		decreaseLevel();
 
 		return true;
 	}
@@ -45,7 +48,7 @@ public class ExpressionPrinter extends PrintVisitor implements IExpressionVisito
 	public Boolean visit( ArithmeticExpression node ) {
 		writeName( node );
 
-		level++;
+		increaseLevel();
 
 		indent();
 		node.getLhs().accept( this );
@@ -53,7 +56,7 @@ public class ExpressionPrinter extends PrintVisitor implements IExpressionVisito
 		indent();
 		node.getRhs().accept( this );
 
-		level--;
+		decreaseLevel();
 
 		return true;
 	}
@@ -62,12 +65,12 @@ public class ExpressionPrinter extends PrintVisitor implements IExpressionVisito
 	public Boolean visit( UnaryExpression node ) {
 		writeName( node );
 
-		level++;
+		increaseLevel();
 
 		indent();
 		node.getExpression().accept( this );
 
-		level--;
+		decreaseLevel();
 
 		return true;
 	}
@@ -76,12 +79,12 @@ public class ExpressionPrinter extends PrintVisitor implements IExpressionVisito
 	public Boolean visit( UnaryNumericExpression node ) {
 		writeName( node );
 
-		level++;
+		increaseLevel();
 
 		indent();
 		node.getExpression().accept( this );
 
-		level--;
+		decreaseLevel();
 
 		return true;
 	}
@@ -120,7 +123,7 @@ public class ExpressionPrinter extends PrintVisitor implements IExpressionVisito
 	public Boolean visit( ComparisonExpression node ) {
 		writeName( node );
 
-		level++;
+		increaseLevel();
 
 		indent();
 		node.getLhs().accept( this );
@@ -128,7 +131,7 @@ public class ExpressionPrinter extends PrintVisitor implements IExpressionVisito
 		indent();
 		node.getRhs().accept( this );
 
-		level--;
+		decreaseLevel();
 
 		return true;
 	}

@@ -11,23 +11,35 @@ import org.uva.sea.ql.ast.statement.Statement;
 import org.uva.sea.ql.ast.statement.Statements;
 import org.uva.sea.ql.ast.statement.VarDeclaration;
 import org.uva.sea.ql.ast.type.Type;
+import org.uva.sea.ql.eval.Environment;
 import org.uva.sea.ql.eval.Error;
+import org.uva.sea.ql.eval.ExpressionTypeResolver;
 import org.uva.sea.ql.visitor.IStatementVisitor;
 
-public class StatementChecker extends NodeTypeChecker implements IStatementVisitor<Boolean> {
+/**
+ * Represents a type checker for statement nodes.
+ */
+public class StatementChecker extends TypeCheckVisitor implements IStatementVisitor<Boolean> {
 	/**
 	 * Holds the expression checker.
 	 */
 	private final ExpressionChecker expressionVisitor;
 
 	/**
+	 * Holds the expression type resolver.
+	 */
+	private final ExpressionTypeResolver resolver;
+
+	/**
 	 * Constructs a new Statement checker.
 	 *
+	 * @param environment
 	 * @param expressionVisitor
 	 */
-	public StatementChecker( ExpressionChecker expressionVisitor ) {
-		super( expressionVisitor.getEnvironment() );
+	public StatementChecker( Environment environment, ExpressionChecker expressionVisitor ) {
+		super( environment );
 		this.expressionVisitor = expressionVisitor;
+		this.resolver = this.getResolver();
 	}
 
 	@Override
@@ -50,7 +62,7 @@ public class StatementChecker extends NodeTypeChecker implements IStatementVisit
 			return false;
 		}
 
-		if ( !( node.getCondition().typeOf( getEnvironment().getTypes() ) instanceof org.uva.sea.ql.ast.type.Bool ) ) {
+		if ( !( node.getCondition().accept( resolver ) instanceof org.uva.sea.ql.ast.type.Bool ) ) {
 			getEnvironment().addError(
 				new Error( "Condition of an ELSE-IF block should evaluate to Boolean.", node )
 			);
@@ -66,7 +78,7 @@ public class StatementChecker extends NodeTypeChecker implements IStatementVisit
 			return false;
 		}
 
-		if ( !( node.getCondition().typeOf( getEnvironment().getTypes() ) instanceof org.uva.sea.ql.ast.type.Bool ) ) {
+		if ( !( node.getCondition().accept( resolver ) instanceof org.uva.sea.ql.ast.type.Bool ) ) {
 			getEnvironment().addError(
 				new Error( "Condition of an IF block should evaluate to Boolean.", node )
 			);
@@ -124,8 +136,8 @@ public class StatementChecker extends NodeTypeChecker implements IStatementVisit
 				return false;
 			}
 
-			Type leftType = node.getIdent().typeOf( getEnvironment().getTypes() );
-			Type rightType = node.getExpression().typeOf( getEnvironment().getTypes() );
+			Type leftType = node.getIdent().accept( resolver );
+			Type rightType = node.getExpression().accept( resolver );
 
 			if ( !checkBothSame( leftType, rightType ) ) {
 				getEnvironment().addError(
@@ -142,7 +154,7 @@ public class StatementChecker extends NodeTypeChecker implements IStatementVisit
 			}
 		}
 
-		getEnvironment().declareVariable( node.getIdent(), node.getExpression().typeOf( getEnvironment().getTypes() ) );
+		getEnvironment().declareVariable( node.getIdent(), node.getExpression().accept( resolver ) );
 		return true;
 	}
 

@@ -1,4 +1,4 @@
-package org.uva.sea.ql.visitor.typechecker.test;
+package org.uva.sea.ql.visitor.typechecker;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -34,14 +34,15 @@ import org.uva.sea.ql.ast.statement.VarDeclaration;
 import org.uva.sea.ql.eval.Environment;
 import org.uva.sea.ql.eval.Error;
 import org.uva.sea.ql.parser.ParseError;
-import org.uva.sea.ql.visitor.test.VisitorTest;
+import org.uva.sea.ql.visitor.VisitorTest;
 import org.uva.sea.ql.visitor.typechecker.ExpressionChecker;
 import org.uva.sea.ql.visitor.typechecker.StatementChecker;
+import org.uva.sea.ql.visitor.typechecker.TypeChecker;
 
 /**
  * TypeChecker test.
  */
-public class TestNodeTypeChecker extends VisitorTest<Boolean> {
+public class TestTypeChecker extends VisitorTest<Boolean> {
 	/**
 	 * Holds the statement checker.
 	 */
@@ -60,12 +61,12 @@ public class TestNodeTypeChecker extends VisitorTest<Boolean> {
 	/**
 	 * Constructs a new TypeChecker test.
 	 */
-	public TestNodeTypeChecker() {
+	public TestTypeChecker() {
 		super();
 
-		this.expressionVisitor = new ExpressionChecker();
-		this.statementVisitor = new StatementChecker( this.expressionVisitor );
-		this.environment = this.statementVisitor.getEnvironment();
+		this.environment = new Environment();
+		this.expressionVisitor = new ExpressionChecker( this.environment );
+		this.statementVisitor = new StatementChecker( this.environment, this.expressionVisitor );
 	}
 
 	/**
@@ -297,7 +298,9 @@ public class TestNodeTypeChecker extends VisitorTest<Boolean> {
 	 */
 	@Test
 	public void testExample() throws ParseError {
-		typeCheck( program );
+		Environment environment = new Environment();
+		TypeChecker typeChecker = new TypeChecker( environment );
+		this.parser.parse( program ).accept( typeChecker );
 
 		if ( environment.getErrors().size() > 0 ) {
 			for ( Error error : environment.getErrors() ) {

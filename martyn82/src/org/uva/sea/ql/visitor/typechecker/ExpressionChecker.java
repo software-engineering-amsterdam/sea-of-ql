@@ -6,11 +6,35 @@ import org.uva.sea.ql.ast.expression.Ident;
 import org.uva.sea.ql.ast.expression.LogicalExpression;
 import org.uva.sea.ql.ast.expression.UnaryExpression;
 import org.uva.sea.ql.ast.expression.UnaryNumericExpression;
+import org.uva.sea.ql.ast.type.Bool;
+import org.uva.sea.ql.ast.type.Int;
+import org.uva.sea.ql.ast.type.Money;
+import org.uva.sea.ql.ast.type.Str;
 import org.uva.sea.ql.ast.type.Type;
+import org.uva.sea.ql.eval.Environment;
 import org.uva.sea.ql.eval.Error;
+import org.uva.sea.ql.eval.ExpressionTypeResolver;
 import org.uva.sea.ql.visitor.IExpressionVisitor;
 
-public class ExpressionChecker extends NodeTypeChecker implements IExpressionVisitor<Boolean> {
+/**
+ * Represents a type checker for Expression nodes.
+ */
+public class ExpressionChecker extends TypeCheckVisitor implements IExpressionVisitor<Boolean> {
+	/**
+	 * Holds the expression type resolver.
+	 */
+	private final ExpressionTypeResolver resolver;
+
+	/**
+	 * Constructs a new ExpressionChecker.
+	 *
+	 * @param environment
+	 */
+	public ExpressionChecker( Environment environment ) {
+		super( environment );
+		this.resolver = getResolver();
+	}
+
 	@Override
 	public Boolean visit( ArithmeticExpression node ) {
 		boolean checkLeft = node.getLhs().accept( this );
@@ -20,9 +44,8 @@ public class ExpressionChecker extends NodeTypeChecker implements IExpressionVis
 			return false;
 		}
 
-		// TODO replace them with visiting resolver
-		Type leftType = node.getLhs().typeOf( getEnvironment().getTypes() ); //node.getLhs().accept( resolver );
-		Type rightType = node.getRhs().typeOf( getEnvironment().getTypes() ); //node.getRhs().accept( resolver );
+		Type leftType = node.getLhs().accept( resolver );
+		Type rightType = node.getRhs().accept( resolver );
 
 		if ( !checkBothNumber( leftType, rightType ) ) {
 			getEnvironment().addError(
@@ -49,8 +72,8 @@ public class ExpressionChecker extends NodeTypeChecker implements IExpressionVis
 			return false;
 		}
 
-		Type leftType = node.getLhs().typeOf( getEnvironment().getTypes() );
-		Type rightType = node.getRhs().typeOf( getEnvironment().getTypes() );
+		Type leftType = node.getLhs().accept( resolver );
+		Type rightType = node.getRhs().accept( resolver );
 
 		if ( !checkBothBoolean( leftType, rightType ) ) {
 			getEnvironment().addError(
@@ -85,8 +108,8 @@ public class ExpressionChecker extends NodeTypeChecker implements IExpressionVis
 		 * - Left and right hand side of comparison are both of the same (sub)type.
 		 */
 
-		 Type leftType = node.getLhs().typeOf( getEnvironment().getTypes() );
-		 Type rightType = node.getRhs().typeOf( getEnvironment().getTypes() );
+		 Type leftType = node.getLhs().accept( resolver );
+		 Type rightType = node.getRhs().accept( resolver );
 
 		if ( !checkBothNumber( leftType, rightType ) && !checkBothSame( leftType, rightType ) ) {
 			getEnvironment().addError(
@@ -110,7 +133,7 @@ public class ExpressionChecker extends NodeTypeChecker implements IExpressionVis
 			return false;
 		}
 
-		if ( !( node.typeOf( getEnvironment().getTypes() ) instanceof org.uva.sea.ql.ast.type.Bool ) ) {
+		if ( !( node.accept( resolver ) instanceof org.uva.sea.ql.ast.type.Bool ) ) {
 			getEnvironment().addError(
 				new Error( "Expression must be a Boolean type.", node )
 			);
@@ -126,7 +149,7 @@ public class ExpressionChecker extends NodeTypeChecker implements IExpressionVis
 			return false;
 		}
 
-		if ( !( node.typeOf( getEnvironment().getTypes() ) instanceof org.uva.sea.ql.ast.type.Number ) ) {
+		if ( !( node.accept( resolver ) instanceof org.uva.sea.ql.ast.type.Number ) ) {
 			getEnvironment().addError(
 				new Error( "Expression must be a Number type.", node )
 			);
@@ -138,27 +161,27 @@ public class ExpressionChecker extends NodeTypeChecker implements IExpressionVis
 
 	@Override
 	public Boolean visit( org.uva.sea.ql.ast.expression.literal.Int node ) {
-		return true;
+		return node.accept( resolver ) instanceof Int;
 	}
 
 	@Override
 	public Boolean visit( org.uva.sea.ql.ast.expression.literal.Bool node ) {
-		return true;
+		return node.accept( resolver ) instanceof Bool;
 	}
 
 	@Override
 	public Boolean visit( org.uva.sea.ql.ast.expression.literal.Money node ) {
-		return true;
+		return node.accept( resolver ) instanceof Money;
 	}
 
 	@Override
 	public Boolean visit( org.uva.sea.ql.ast.expression.literal.Str node ) {
-		return true;
+		return node.accept( resolver ) instanceof Str;
 	}
 
 	@Override
 	public Boolean visit( Ident node ) {
-		if ( !getEnvironment().isDeclared( node ) ) {
+		if ( node.accept( resolver ) instanceof org.uva.sea.ql.ast.type.Error ) {
 			getEnvironment().addError(
 				new Error( "Undefined variable: " + node.getName(), node )
 			);

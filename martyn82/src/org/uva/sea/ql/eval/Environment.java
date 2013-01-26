@@ -13,11 +13,6 @@ import org.uva.sea.ql.ast.type.Type;
  */
 public class Environment {
 	/**
-	 * Holds the parent context.
-	 */
-	private final Environment parent;
-
-	/**
 	 * Holds the declared variables.
 	 */
 	private final Map<Ident, Type> types;
@@ -29,38 +24,10 @@ public class Environment {
 
 	/**
 	 * Constructs a new context.
-	 *
-	 * @param parent
-	 */
-	public Environment( Environment parent ) {
-		this.parent = parent;
-		this.types = new HashMap<Ident, Type>();
-		this.errors = new LinkedList<Error>();
-	}
-
-	/**
-	 * Constructs a new root context.
 	 */
 	public Environment() {
-		this( null );
-	}
-
-	/**
-	 * Determines whether this context is the root.
-	 *
-	 * @return True if it is root, false otherwise.
-	 */
-	public boolean isRoot() {
-		return this.parent == null;
-	}
-
-	/**
-	 * Retrieves the parent context.
-	 *
-	 * @return The parent.
-	 */
-	public Environment getParent() {
-		return this.parent;
+		this.types = new HashMap<Ident, Type>();
+		this.errors = new LinkedList<Error>();
 	}
 
 	/**
@@ -102,10 +69,6 @@ public class Environment {
 			return true;
 		}
 
-		if ( !this.isRoot() ) {
-			return this.parent.isDeclared( ident );
-		}
-
 		return false;
 	}
 
@@ -118,13 +81,9 @@ public class Environment {
 	 *
 	 * @throws RuntimeException If the variable cannot be found.
 	 */
-	public Type find( Ident ident ) {
+	public Type lookupType( Ident ident ) {
 		if ( this.types.containsKey( ident ) ) {
 			return this.types.get( ident );
-		}
-
-		if ( !this.isRoot() ) {
-			return this.parent.find( ident );
 		}
 
 		throw new RuntimeException( "Undefined variable: " + ident.getName() );

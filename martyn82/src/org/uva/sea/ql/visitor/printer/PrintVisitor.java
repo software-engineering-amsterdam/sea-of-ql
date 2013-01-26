@@ -35,7 +35,7 @@ abstract public class PrintVisitor extends NodeVisitor<Boolean> {
 	/**
 	 * Holds the current nesting level.
 	 */
-	protected int level;
+	private int level;
 
 	/**
 	 * Constructs a new print visitor.
@@ -46,6 +46,15 @@ abstract public class PrintVisitor extends NodeVisitor<Boolean> {
 		this.out = out;
 		this.level = 0;
 		this.empty = true;
+	}
+
+	/**
+	 * Retrieves the output stream.
+	 *
+	 * @return Output stream
+	 */
+	public OutputStream getOutput() {
+		return out;
 	}
 
 	/**
@@ -66,12 +75,17 @@ abstract public class PrintVisitor extends NodeVisitor<Boolean> {
 	}
 
 	/**
-	 * Retrieves the output stream.
-	 *
-	 * @return Output stream
+	 * Increases indentation level.
 	 */
-	public OutputStream getOutput() {
-		return out;
+	protected void increaseLevel() {
+		level++;
+	}
+
+	/**
+	 * Decreases indentation level.
+	 */
+	protected void decreaseLevel() {
+		level--;
 	}
 
 	/**

@@ -17,12 +17,5 @@ abstract public class Expression extends Node {
 	 */
 	abstract public <T> T accept( IExpressionVisitor<T> visitor );
 
-	/**
-	 * Retrieves the data type of the node.
-	 *
-	 * @param types
-	 *
-	 * @return The node type.
-	 */
 	abstract public Type typeOf( Map<Ident, Type> types );
 }
