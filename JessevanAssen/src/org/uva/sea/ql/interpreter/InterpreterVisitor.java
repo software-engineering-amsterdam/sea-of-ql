@@ -7,6 +7,7 @@ import org.uva.sea.ql.ast.expr.value.Bool;
 import org.uva.sea.ql.ast.expr.value.Int;
 import org.uva.sea.ql.ast.expr.value.Str;
 import org.uva.sea.ql.ast.expr.value.Value;
+import org.uva.sea.ql.ast.type.*;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -78,6 +79,8 @@ public class InterpreterVisitor implements ASTNodeVisitor<Value, InterpreterVisi
 
     @Override
     public Value visit(CompositeFormElement astNode, Context param) {
+        for(FormElement formElement : astNode.getFormElements())
+            formElement.accept(this, param);
         return null;
     }
 
@@ -105,6 +108,7 @@ public class InterpreterVisitor implements ASTNodeVisitor<Value, InterpreterVisi
 
     @Override
     public Value visit(Form astNode, Context param) {
+        astNode.getBody().accept(this, param);
         return null;
     }
 
@@ -129,11 +133,17 @@ public class InterpreterVisitor implements ASTNodeVisitor<Value, InterpreterVisi
 
     @Override
     public Value visit(If astNode, Context param) {
+        if(astNode.getCondition().accept(this, param).equals(new Bool(true)))
+            astNode.getIfBody().accept(this, param);
         return null;
     }
 
     @Override
     public Value visit(IfElse astNode, Context param) {
+        if(astNode.getCondition().accept(this, param).equals(new Bool(true)))
+            astNode.getIfBody().accept(this, param);
+        else
+            astNode.getElseBody().accept(this, param);
         return null;
     }
 
