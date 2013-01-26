@@ -7,11 +7,10 @@ import org.uva.sea.ql.visitor.TypeChecker;
 
 public class CompQuestion extends Question {
 
-	
 	private final Expr qExpr;
 
 	public CompQuestion(Ident qID, StringLiteral qString, Type qType, Expr qExpr) {
-		
+
 		super(qID, qString, qType);
 		this.qExpr = qExpr;
 	}
@@ -23,7 +22,7 @@ public class CompQuestion extends Question {
 	@Override
 	public void accept(TypeChecker visitor) {
 		visitor.visit(this);
-		
+
 	}
 
 }

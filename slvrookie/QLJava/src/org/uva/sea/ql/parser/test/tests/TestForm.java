@@ -16,7 +16,7 @@ public class TestForm {
 				+ "   hasSoldHouse: \"Did you sell a house in 2010?\" boolean \n"
 				+ "   hasBoughtHouse: \"Did you by a house in 2010?\" boolean \n"
 				+ "   hasMaintLoan: \"Did you enter a loan for maintenance/reconstruction?\"boolean \n"
-				+ "   if (hasSoldHouse) {\n"
+				+ "   if (hasSoldHouse){ \n"
 				+ "     sellingPrice: \"Price the house was sold for:\" int \n"
 				+ "     privateDebt: \"Private debts for the sold house:\" int \n"
 				+ "     valueResidue: \"Value residue:\" int(sellingPrice - priateDebt)}";

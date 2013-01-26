@@ -1,8 +1,10 @@
 package org.uva.sea.ql.visitor;
 
 import org.uva.sea.ql.ast.type.Bool;
+import org.uva.sea.ql.ast.type.Form;
 import org.uva.sea.ql.ast.type.Int;
 import org.uva.sea.ql.ast.type.Money;
+import org.uva.sea.ql.ast.type.Numeric;
 import org.uva.sea.ql.ast.type.String;
 
 public interface Type<T> {
@@ -14,5 +16,9 @@ public interface Type<T> {
 	public T visit(Money money);
 
 	public T visit(String string);
+
+	public T visit(Form form);
+
+	public T visit(Numeric numeric);
 
 }

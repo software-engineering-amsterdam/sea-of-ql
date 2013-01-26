@@ -1,19 +1,3 @@
-<<<<<<< HEAD
-package org.uva.sea.ql.ast.values;
-
-public class StringValue extends Value {
-
-	private final String value;
-	
-	public StringValue(String value) {
-		this.value = value;
-	}
-	
-	public String getValue() {
-		return value;
-	}
-}
-=======
 package org.uva.sea.ql.ast.values;
 
 public class StringValue extends Value {
@@ -44,4 +28,3 @@ public class StringValue extends Value {
 		return ((StringValue)obj).getValue().equals(getValue());
 	}
 }
->>>>>>> 483057f28359ecac2b999d94a928c0aaf01d2a6e

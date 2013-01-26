@@ -22,5 +22,5 @@ public class Neg extends UnaryExpr {
 	public <T> T accept(IExprVisitor<T> visitor) {
 		return visitor.visit(this);
 	}
-	
+
 }

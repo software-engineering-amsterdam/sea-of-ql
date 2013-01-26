@@ -46,11 +46,11 @@ syntax WhitespaceOrComment
   | comment: Comment;     
    
 lexical Type 
-  = @category="Type"  "bool" 
-  | @category="Type"  "int" 
-  | @category="Type"  "string"
-  | @category="Type"  "float"
-  | @category="Type"  "date";
+  = @category="Type" \bool: "bool" 
+  | @category="Type" \int: "int" 
+  | @category="Type" string: "string"
+  | @category="Type" float: "float"
+  | @category="Type" date: "date";
 
 lexical QuestionName = @category="Variable" Ident;
 

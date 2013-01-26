@@ -7,7 +7,6 @@ import org.uva.sea.ql.ast.types.StringType;
 import org.uva.sea.ql.ast.types.Type;
 import org.uva.sea.ql.visitor.IExprVisitor;
 
-
 public class StringLiteral extends Expr {
 
 	private final String value;

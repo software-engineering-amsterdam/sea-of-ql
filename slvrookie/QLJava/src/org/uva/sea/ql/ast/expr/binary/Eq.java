@@ -15,7 +15,7 @@ public class Eq extends BinaryExpr {
 
 	@Override
 	public Type typeOf(Map<String, Type> typeEnv) {
-		 return new BoolType();
+		return new BoolType();
 	}
 
 	@Override

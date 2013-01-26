@@ -21,7 +21,7 @@ public class MoneyLiteral extends Expr {
 
 	@Override
 	public Type typeOf(Map<String, Type> typeEnv) {
-		return new MoneyType() ;
+		return new MoneyType();
 	}
 
 	@Override

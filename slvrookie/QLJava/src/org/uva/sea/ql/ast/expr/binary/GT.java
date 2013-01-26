@@ -12,7 +12,7 @@ public class GT extends BinaryExpr {
 	public GT(Expr lhs, Expr rhs) {
 		super(lhs, rhs);
 	}
-	
+
 	@Override
 	public Type typeOf(Map<String, Type> typeEnv) {
 		return new BoolType();

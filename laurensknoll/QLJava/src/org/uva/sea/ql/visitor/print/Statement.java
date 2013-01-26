@@ -6,71 +6,79 @@ import org.uva.sea.ql.ast.statement.ComputedQuestion;
 import org.uva.sea.ql.ast.statement.If;
 import org.uva.sea.ql.ast.statement.Question;
 
-public class Statement implements org.uva.sea.ql.visitor.Statement<Boolean> {
+public class Statement implements org.uva.sea.ql.visitor.Statement<String> {
+
+	private final Environment environment;
+
+	public Statement(Environment env) {
+		this.environment = env;
+	}
 
 	@Override
-	public Boolean visit(Block block) {
-		System.out.println("Visiting BlockStatement");
+	public String visit(Block block) {
+		StringBuilder statements = new StringBuilder();
+		statements.append(this.environment.getIndent());
+		statements.append("{");
+		statements.append(System.getProperty("line.separator"));
 
-		// Visit items
+		Environment newBlockContext = new Environment(this.environment);
+		Statement statementVisitor = new Statement(newBlockContext);
+
 		for (AbstractStatement statement : block.getStatements()) {
-			statement.accept(this);
+			statements.append(statement.accept(statementVisitor));
+			statements.append(System.getProperty("line.separator"));
 		}
 
-		System.out.println("Ended visiting BlockStatement");
-		System.out.println();
+		statements.append(this.environment.getIndent());
+		statements.append("}");
 
-		return true;
+		return statements.toString();
 	}
 
 	@Override
-	public Boolean visit(ComputedQuestion computedQuestion) {
-		System.out.println("Visiting ComputedQuestion Statement");
-
-		// Visit items
-		computedQuestion.getQuestion().accept(this);
+	public String visit(ComputedQuestion computedQuestion) {
+		String question = computedQuestion.getQuestion().accept(this);
 
 		Expression expressionVisitor = new Expression();
-		computedQuestion.getComputeExpression().accept(expressionVisitor);
+		String expr = computedQuestion.getComputeExpression().accept(
+				expressionVisitor);
 
-		System.out.println("Ended visiting ComputedQuestion Statement");
-		System.out.println();
-
-		return true;
+		return String.format("%s %s", question, expr);
 	}
 
 	@Override
-	public Boolean visit(If ifStatement) {
-		System.out.println("Visiting If Statement");
+	public String visit(If ifStatement) {
+		StringBuilder sb = new StringBuilder();
+		sb.append(System.getProperty("line.separator"));
 
-		// Visit items
+		sb.append(this.environment.getIndent());
+
+		sb.append("if (");
+
 		Expression expressionVisitor = new Expression();
-		ifStatement.getCondition().accept(expressionVisitor);
+		String condition = ifStatement.getCondition().accept(expressionVisitor);
+		sb.append(condition);
 
-		ifStatement.getTruePath().accept(this);
+		sb.append(")");
 
-		System.out.println("Ended visiting If Statement");
-		System.out.println();
+		sb.append(System.getProperty("line.separator"));
 
-		return true;
+		String statement = ifStatement.getTruePath().accept(this);
+		sb.append(statement);
+
+		return sb.toString();
 	}
 
 	@Override
-	public Boolean visit(Question question) {
-		System.out.println("Visiting Question Statement");
-
-		// Visit items
+	public String visit(Question question) {
 		Expression expressionVisitor = new Expression();
-		question.getIdent().accept(expressionVisitor);
-		question.getQuestion().accept(expressionVisitor);
+		String ident = question.getIdent().accept(expressionVisitor);
+		String descr = question.getQuestion().accept(expressionVisitor);
 
 		Type typeVisitor = new Type();
-		question.getType().accept(typeVisitor);
+		String answerType = question.getType().accept(typeVisitor);
 
-		System.out.println("Ended visiting Question Statement");
-		System.out.println();
-
-		return true;
+		return String.format("%s%s: %s %s", this.environment.getIndent(),
+				ident, descr, answerType);
 	}
-
 }
