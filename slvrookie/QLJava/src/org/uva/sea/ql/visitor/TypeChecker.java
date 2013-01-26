@@ -10,6 +10,7 @@ import org.uva.sea.ql.ast.CompQuestion;
 import org.uva.sea.ql.ast.Form;
 import org.uva.sea.ql.ast.FormElement;
 import org.uva.sea.ql.ast.IfThen;
+import org.uva.sea.ql.ast.IfThenElse;
 import org.uva.sea.ql.ast.Question;
 import org.uva.sea.ql.ast.types.*;
 
@@ -39,30 +40,41 @@ public class TypeChecker {
 	}
 
 	public void visit(IfThen ifBody) {
-		ExprVisitor.check(ifBody.getExpression(), typeEnv, messages);
-		if (!ifBody.getExpression().typeOf(typeEnv).isCompatibleToBoolType()) {
-			addError("If expression must be boolean");
-		}
+		isExpressionBoolean(ifBody);
 		ifBody.getThenBody().accept(this);
+	}
+	
+	public void visit(IfThenElse ifBody) {
+		isExpressionBoolean(ifBody);
+		ifBody.getThenBody().accept(this);
+		ifBody.getElseBody().accept(this);
 	}
 
 	public void visit(Question question) {
-		isDeclared(question);
+		isIdentDeclared(question);
 	}
 
 	public void visit(CompQuestion compQuestion) {
-		isDeclared(compQuestion);
+		isIdentDeclared(compQuestion);
 		ExprVisitor.check(compQuestion.getQuestionExpr(), typeEnv, messages);
 		if (!compQuestion.getQuestionExpr().typeOf(typeEnv).isCompatibleTo(compQuestion.getQuestionType())) {
 			addError("Incompatible question type and expression");
 		}
 	}
 
-	public void isDeclared(Question question) {
+	public void isIdentDeclared(Question question) {
 		if (typeEnv.containsKey(question.getQuestionID().getName())) {
 			addError("Question Ident " + question.getQuestionID().getName() + " is already declared");
 		} else {
 			typeEnv.put(question.getQuestionID().getName(),question.getQuestionType());
 		}
 	}
+	
+	public void isExpressionBoolean(IfThen ifBody){
+		ExprVisitor.check(ifBody.getExpression(), typeEnv, messages);
+		if (!ifBody.getExpression().typeOf(typeEnv).isCompatibleToBoolType()) {
+			addError("If expression must be boolean");
+		}
+	}
+	
 }

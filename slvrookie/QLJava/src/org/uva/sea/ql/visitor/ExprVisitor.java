@@ -178,21 +178,21 @@ public class ExprVisitor implements IExprVisitor<Boolean> {
 	
 	private boolean isArgumentNumeric(UnaryExpr node, String operator){
 		if(!node.getArg().typeOf(typeEnv).isCompatibleToNumeric()) {
-			addError("Invalid type for unary" + operator);
+			addError("Invalid type for unary " + operator);
 		}
 		return false;
 	}
 	
 	private boolean isArgumentBoolean(UnaryExpr node, String operator){
 		if(!node.getArg().typeOf(typeEnv).isCompatibleToBoolType()) {
-			addError("Invalid type for unary" + operator);
+			addError("Invalid type for unary " + operator);
 		}
 		return false;
 	}
 	
 	private boolean areBothSidesSameType(BinaryExpr node, String operator) {
 		if (!(node.getRhs().typeOf(typeEnv).isCompatibleTo(node.getLhs().typeOf(typeEnv)))){ 
-			addError("Both operators must have the same type for" + operator);
+			addError("Both operators must have the same type for " + operator);
 		}
 		return false;
 	}

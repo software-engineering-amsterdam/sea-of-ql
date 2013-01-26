@@ -7,7 +7,6 @@ import org.uva.sea.ql.visitor.TypeChecker;
 
 public class CompQuestion extends Question {
 
-	
 	private final Expr qExpr;
 
 	public CompQuestion(Ident qID, StringLiteral qString, Type qType, Expr qExpr) {

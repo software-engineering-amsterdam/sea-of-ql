@@ -24,5 +24,10 @@ public class TestFormElements {
 	public void testIfBody() throws ParseError {
 		assertEquals(IfThen.class, parser.parseFormElement("if (hasSoldHouse) { sellingPrice: \"Price the house was sold for:\" int }").getClass());
 	}
+	
+	@Test
+	public void testIfElseBody() throws ParseError {
+		assertEquals(IfThenElse.class, parser.parseFormElement("if (hasSoldHouse) { sellingPrice: \"Price the house was sold for:\" int } ").getClass());
+	}
 
 }
