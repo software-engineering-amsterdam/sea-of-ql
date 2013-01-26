@@ -47,4 +47,4 @@ Using Interpreter:
 
 Conclusion:
 - Use Interpreter when your Type tree is more likely to change.
-- Use Visitor when your pool of Visitors is more likely to change.
+- Use Visitor when your pool of Visitors is more likely to change (in contrast to Interpreter).
