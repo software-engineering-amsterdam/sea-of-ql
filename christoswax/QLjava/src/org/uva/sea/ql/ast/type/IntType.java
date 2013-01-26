@@ -1,10 +1,10 @@
 package org.uva.sea.ql.ast.type;
 import org.uva.sea.ql.ast.*;
 
-public class Int extends Type {
+public class IntType extends Type {
 	private final String value;
 
-	public Int(String value) {
+	public IntType(String value) {
 		this.value = value;
 	}
 
