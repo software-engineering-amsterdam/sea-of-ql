@@ -54,17 +54,21 @@ public class InterpreterVisitor implements ASTNodeVisitor<Value, InterpreterVisi
 
     @Override
     public Value visit(Add astNode, Context param) {
-        return null;
+        final Int left = (Int)astNode.getLeftExpression().accept(this, param),
+                  right = (Int)astNode.getRightExpression().accept(this, param);
+        return left.add(right);
     }
 
     @Override
     public Value visit(And astNode, Context param) {
-        return null;
+        final Bool left = (Bool)astNode.getLeftExpression().accept(this, param),
+                   right = (Bool)astNode.getRightExpression().accept(this, param);
+        return left.and(right);
     }
 
     @Override
     public Value visit(Bool astNode, Context param) {
-        return null;
+        return astNode;
     }
 
     @Override
@@ -79,12 +83,24 @@ public class InterpreterVisitor implements ASTNodeVisitor<Value, InterpreterVisi
 
     @Override
     public Value visit(Div astNode, Context param) {
-        return null;
+        final Int left = (Int)astNode.getLeftExpression().accept(this, param),
+                  right = (Int)astNode.getRightExpression().accept(this, param);
+        return left.divide(right);
     }
 
     @Override
     public Value visit(Eq astNode, Context param) {
-        return null;
+        final Value left = astNode.getLeftExpression().accept(this, param),
+                    right = astNode.getRightExpression().accept(this, param);
+
+        if(left instanceof Bool && right instanceof Bool)
+            return ((Bool)left).isEqualTo((Bool)right);
+        else if(left instanceof Int && right instanceof Int)
+            return ((Int)left).isEqualTo((Int)right);
+        else if(left instanceof Str && right instanceof Str)
+            return ((Str)left).isEqualTo((Str)right);
+        else
+            return new Bool(false);
     }
 
     @Override
@@ -94,12 +110,16 @@ public class InterpreterVisitor implements ASTNodeVisitor<Value, InterpreterVisi
 
     @Override
     public Value visit(GEq astNode, Context param) {
-        return null;
+        final Int left = (Int)astNode.getLeftExpression().accept(this, param),
+                  right = (Int)astNode.getRightExpression().accept(this, param);
+        return left.isGreaterThanOrEqualTo(right);
     }
 
     @Override
     public Value visit(GT astNode, Context param) {
-        return null;
+        final Int left = (Int)astNode.getLeftExpression().accept(this, param),
+                  right = (Int)astNode.getRightExpression().accept(this, param);
+        return left.isGreaterThan(right);
     }
 
     @Override
@@ -119,47 +139,61 @@ public class InterpreterVisitor implements ASTNodeVisitor<Value, InterpreterVisi
 
     @Override
     public Value visit(Int astNode, Context param) {
-        return null;
+        return astNode;
     }
 
     @Override
     public Value visit(LEq astNode, Context param) {
-        return null;
+        final Int left = (Int)astNode.getLeftExpression().accept(this, param),
+                  right = (Int)astNode.getRightExpression().accept(this, param);
+        return left.isLesserThanOrEqualTo(right);
     }
 
     @Override
     public Value visit(LT astNode, Context param) {
-        return null;
+        final Int left = (Int)astNode.getLeftExpression().accept(this, param),
+                  right = (Int)astNode.getRightExpression().accept(this, param);
+        return left.isLesserThan(right);
     }
 
     @Override
     public Value visit(Mul astNode, Context param) {
-        return null;
+        final Int left = (Int)astNode.getLeftExpression().accept(this, param),
+                  right = (Int)astNode.getRightExpression().accept(this, param);
+        return left.multiply(right);
     }
 
     @Override
     public Value visit(Neg astNode, Context param) {
-        return null;
+        final Int expression = (Int)astNode.getExpression().accept(this, param);
+        return expression.negative();
     }
 
     @Override
     public Value visit(NEq astNode, Context param) {
-        return null;
+        // Piggyback on the Eq to avoid having to do the glorious instanceof twice
+        final Eq equals = new Eq(astNode.getLeftExpression(), astNode.getRightExpression());
+        final Bool equalsResult = (Bool) equals.accept(this, param);
+        return equalsResult.not();
     }
 
     @Override
     public Value visit(Not astNode, Context param) {
-        return null;
+        final Bool expression = (Bool)astNode.getExpression().accept(this, param);
+        return expression.not();
     }
 
     @Override
     public Value visit(Or astNode, Context param) {
-        return null;
+        final Bool left = (Bool)astNode.getLeftExpression().accept(this, param),
+                   right = (Bool)astNode.getRightExpression().accept(this, param);
+        return left.or(right);
     }
 
     @Override
     public Value visit(Pos astNode, Context param) {
-        return null;
+        final Int expression = (Int)astNode.getExpression().accept(this, param);
+        return expression.positive();
     }
 
     @Override
@@ -174,12 +208,14 @@ public class InterpreterVisitor implements ASTNodeVisitor<Value, InterpreterVisi
 
     @Override
     public Value visit(Str astNode, Context param) {
-        return null;
+        return astNode;
     }
 
     @Override
     public Value visit(Sub astNode, Context param) {
-        return null;
+        final Int left = (Int)astNode.getLeftExpression().accept(this, param),
+                  right = (Int)astNode.getRightExpression().accept(this, param);
+        return left.subtract(right);
     }
 
 }
