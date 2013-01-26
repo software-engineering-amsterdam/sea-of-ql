@@ -7,6 +7,7 @@ public class BoolValueParser implements ValueParser {
 
     private static String TRUE_STRING = "true",
                           FALSE_STRING = "false";
+    private static Bool DEFAULT = new Bool(false);
 
     @Override
     public Value parseValue(String value) {
@@ -21,5 +22,10 @@ public class BoolValueParser implements ValueParser {
             return new Bool(false);
         else
             throw new ValueParserException(String.format("The value '%s' can't be parsed as a boolean.", value));
+    }
+
+    @Override
+    public Value getDefault() {
+        return DEFAULT;
     }
 }

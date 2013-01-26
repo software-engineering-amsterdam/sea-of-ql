@@ -4,6 +4,8 @@ import org.uva.sea.ql.ast.expr.value.Int;
 import org.uva.sea.ql.ast.expr.value.Value;
 
 public class IntValueParser implements ValueParser {
+    private static final Int DEFAULT = new Int(-1);
+
     @Override
     public Value parseValue(String value) {
         try {
@@ -14,5 +16,10 @@ public class IntValueParser implements ValueParser {
                     ex
             );
         }
+    }
+
+    @Override
+    public Value getDefault() {
+        return DEFAULT;
     }
 }
