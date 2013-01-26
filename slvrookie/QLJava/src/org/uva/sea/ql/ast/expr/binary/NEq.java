@@ -14,7 +14,7 @@ public class NEq extends BinaryExpr {
 	}
 
 	@Override
-	public Type typeOf(Map<Ident, Type> typeEnv) {
+	public Type typeOf(Map<String, Type> typeEnv) {
 		return new BoolType();
 	}
 
@@ -22,5 +22,5 @@ public class NEq extends BinaryExpr {
 	public <T> T accept(IExprVisitor<T> visitor) {
 		return visitor.visit(this);
 	}
-	
+
 }

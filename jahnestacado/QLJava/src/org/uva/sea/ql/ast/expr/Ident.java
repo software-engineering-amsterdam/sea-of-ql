@@ -24,13 +24,13 @@ public class Ident extends Expr {
 	}
 	
 	@Override
-	public Type isOfType(Map<Ident, Type> typeEnv) {
-		if(typeEnv.containsKey(this)){
-			return typeEnv.get(this);
+	public Type isOfType(Map<String, Type> typeEnv) {
+		if(typeEnv.containsKey(this.getName())){
+			return typeEnv.get(this.getName());
+			
 		}
-		//* <TODO> Should throw an error if the variable is not declared
+		//* <TODO> Should throw an error if the variable is not declared****
 		else return null;
-		//* </TODO>
 	}
 	
 	

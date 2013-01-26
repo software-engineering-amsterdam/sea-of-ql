@@ -108,6 +108,24 @@ public class TestForms {
 				"		}\n" +
 				"	}\n" +
 				"}").checkFormValidity());
+		
+		// Demo of adding same ident with same types
+		assertTrue(parser.parseForm("" +
+				"form testform3 {\n" +
+				"	ident1: \"int question\" int\n" +
+				"	if (true) {\n" +
+				"		ident1: \"another int question\" int\n" +
+				"	}\n" +
+				"}").checkFormValidity());
+				
+		// Demo of adding same ident with other types
+		assertFalse(parser.parseForm("" +
+				"form testform3 {\n" +
+				"	ident1: \"int question\" int\n" +
+				"	if (true) {\n" +
+				"		ident1: \"bool question\" boolean\n" +
+				"	}\n" +
+				"}").checkFormValidity());
 				
 		// Demo form for error displaying
 		Form errorForm = parser.parseForm("" +

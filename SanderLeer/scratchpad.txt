@@ -1,10 +1,20 @@
 complete readme.txt with reference to LWB2013 link
-create multiple packages for AST
-move typechecker to seperate package
-build symbols during type checking
-don't throw exceptions during typecheck (return errors)
-validate expression test on complete 'form' (add helper method method to add pre and post string to expression)
+
 add helper method in test expression to search for correct node (eg. find(root, Add.class))
-write test cases for type checker
+
+is BlockStatement still needed?
+
+refactor: symbol list<Identifier, Datatype> instead of <String, Datatype> (only if Form/Question contains Identifier and not String>
+
+check for (simple) cyclic dependency in computed question: the computation expression can not use it's question identifier
+and add the following testcases
+	test(false, "form form1 { id1: \"Value?\" integer(id1) }");
+	test(false, "form form1 { id1: \"Value?\" boolean(id1) }");
+	test(false, "form form1 { id1: \"Value?\" string(id1) }");
+
+TODO: this code results in a 'syntax error' (because of double '}' at the end) which is not a very helpful message (solution: use YACC error definitions)
+test(true, "form form1 { id1: \"Value?\" integer id2: \"Value 2?\" integer(+id1) } }");
+
+QUESTION: should '+' expression also work on strings? NO, see result of Add.typeOf() method
 
 ADD COMMENTS!!

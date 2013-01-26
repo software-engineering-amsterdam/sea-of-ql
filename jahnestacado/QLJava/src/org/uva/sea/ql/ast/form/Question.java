@@ -1,36 +1,19 @@
 package org.uva.sea.ql.ast.form;
 
-
 import org.uva.sea.ql.ast.expr.Ident;
+import org.uva.sea.ql.ast.expr.values.StringLit;
 import org.uva.sea.ql.ast.types.Type;
-import org.uva.sea.ql.ast.values.StringLit;
+import org.uva.sea.ql.visitor.checkers.ElementChecker;
 
-public class Question extends Element {
-	private final Ident id;
-	private final StringLit label;
-	private final Type type;
+public class Question extends SingleLineElement {
 
 	public Question(Ident id, StringLit label, Type type) {
-			this.id=id;
-			this.label=label;
-			this.type=type;
-		
+		super(id, label, type);
 	}
 
-	public Ident getId() {
-		return id;
+	@Override
+	public void accept(ElementChecker qlElement) {
+		qlElement.visit(this);
 	}
-
-	public StringLit getLabel() {
-		return label;
-	}
-
-	public Type getType() {
-		return type;
-	}
-
-	
-	
-	
 
 }

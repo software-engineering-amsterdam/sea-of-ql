@@ -1,8 +1,10 @@
 package org.uva.sea.ql.form;
 
 import org.uva.sea.ql.ast.eval.Env;
+import org.uva.sea.ql.ast.eval.EnvAddIdentResults;
 import org.uva.sea.ql.ast.expressions.Ident;
 import org.uva.sea.ql.ast.types.Type;
+import org.uva.sea.ql.messages.Error;
 
 public class Question extends FormItem {
 
@@ -39,7 +41,9 @@ public class Question extends FormItem {
 
 	@Override
 	public boolean validate(Env environment) {
-		environment.addIdent(id, questionType);
-		return true;
+		if (environment.addIdent(id, questionType) == EnvAddIdentResults.DIFFERENT_TYPE_FOUND) {
+			errors.add(new Error("Ident " + id + " already defined with other type!"));
+		}
+		return errors.size() == 0;
 	}
 }

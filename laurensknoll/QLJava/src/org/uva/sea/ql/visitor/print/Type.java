@@ -3,6 +3,7 @@ package org.uva.sea.ql.visitor.print;
 import org.uva.sea.ql.ast.type.Bool;
 import org.uva.sea.ql.ast.type.Int;
 import org.uva.sea.ql.ast.type.Money;
+import org.uva.sea.ql.ast.type.Numeric;
 import org.uva.sea.ql.ast.type.String;
 
 public class Type implements org.uva.sea.ql.visitor.Type<Boolean> {
@@ -32,6 +33,18 @@ public class Type implements org.uva.sea.ql.visitor.Type<Boolean> {
 	public Boolean visit(String string) {
 		System.out.println("Visiting String AnswerType");
 
+		return true;
+	}
+
+	@Override
+	public Boolean visit(org.uva.sea.ql.ast.type.Form form) {
+		System.out.println("Visiting Form AnswerType");
+
+		return true;
+	}
+
+	@Override
+	public Boolean visit(Numeric numeric) {
 		return true;
 	}
 

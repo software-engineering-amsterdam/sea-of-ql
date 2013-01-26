@@ -7,7 +7,6 @@ import org.uva.sea.ql.ast.types.StringType;
 import org.uva.sea.ql.ast.types.Type;
 import org.uva.sea.ql.visitor.IExprVisitor;
 
-
 public class StringLiteral extends Expr {
 
 	private final String value;
@@ -20,9 +19,8 @@ public class StringLiteral extends Expr {
 		return value;
 	}
 
-	
 	@Override
-	public Type typeOf(Map<Ident, Type> typeEnv) {
+	public Type typeOf(Map<String, Type> typeEnv) {
 		return new StringType();
 	}
 
