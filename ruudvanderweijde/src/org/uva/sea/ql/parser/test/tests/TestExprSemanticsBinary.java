@@ -19,7 +19,7 @@ import org.uva.sea.ql.parser.test.IParse;
 import org.uva.sea.ql.visitor.checker.ExpressionChecker;
 
 @RunWith(Parameterized.class)
-public class TestSemanticsBinary {
+public class TestExprSemanticsBinary {
 
 	private IParse parser;
 
@@ -32,7 +32,7 @@ public class TestSemanticsBinary {
 	public static ArrayList<String> errors = new ArrayList<String>();
 
 	
-	public TestSemanticsBinary(IParse parser) {
+	public TestExprSemanticsBinary(IParse parser) {
 		this.parser = parser;
 	}
 

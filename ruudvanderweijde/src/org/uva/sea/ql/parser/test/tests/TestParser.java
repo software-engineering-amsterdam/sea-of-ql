@@ -1,4 +1,4 @@
-package org.uva.sea.ql.parser.test;
+package org.uva.sea.ql.parser.test.tests;
 
 import static org.junit.Assert.assertEquals;
 
@@ -23,6 +23,7 @@ import org.uva.sea.ql.ast.stmt.question.ComputedQuestion;
 import org.uva.sea.ql.ast.stmt.question.NormalQuestion;
 import org.uva.sea.ql.parser.ANTLRParser;
 import org.uva.sea.ql.parser.error.ParseError;
+import org.uva.sea.ql.parser.test.IParse;
 
 @RunWith(Parameterized.class)
 public class TestParser {

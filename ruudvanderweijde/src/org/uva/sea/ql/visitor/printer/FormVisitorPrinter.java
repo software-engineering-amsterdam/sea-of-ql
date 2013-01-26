@@ -1,12 +1,10 @@
 package org.uva.sea.ql.visitor.printer;
 
 import org.uva.sea.ql.ast.Form;
-import org.uva.sea.ql.ast.expr.Expr;
 import org.uva.sea.ql.ast.stmt.IfThenElse;
 import org.uva.sea.ql.ast.stmt.Statement;
 import org.uva.sea.ql.ast.stmt.question.ComputedQuestion;
 import org.uva.sea.ql.ast.stmt.question.NormalQuestion;
-import org.uva.sea.ql.ast.type.Type;
 import org.uva.sea.ql.visitor.FormVisitor;
 
 public class FormVisitorPrinter implements FormVisitor {
@@ -49,9 +47,8 @@ public class FormVisitorPrinter implements FormVisitor {
 
 	@Override
 	public void visit(NormalQuestion question) {
-		printString("Question " + "\t id: "
-				+ question.getId().getValue() + "\t label: "
-				+ question.getLabel() + "\t type: "
+		printString("Question " + "\t id: " + question.getId().getValue()
+				+ "\t label: " + question.getLabel() + "\t type: "
 				+ question.getType().getClass());
 //		increaseDepth();
 //		question.getType().accept(this);
@@ -64,23 +61,13 @@ public class FormVisitorPrinter implements FormVisitor {
 				+ computedQuestion.getId().getValue() + "\t label: "
 				+ computedQuestion.getLabel() + "\t type: "
 				+ computedQuestion.getType().getClass()
-				+ computedQuestion.getComputation().toString());
+				+ computedQuestion.getExpr().toString());
 		increaseDepth();
-		computedQuestion.getComputation().accept(this);
+		computedQuestion.getExpr().accept(this);
 		decreaseDepth();
-		
 	}
-	@Override
-	public void visit(Type type) {
-		printString("Type: " + type.getClass());
-	}
-	
-	@Override
-	public void visit(Expr expr) {
-		printString(" -EXPRESSION- ");
-	}
-	
-	// pretty print helper methods
+
+	// 'pretty' print helper methods
 	private int getDepth() {
 		return depth;
 	}
@@ -103,7 +90,6 @@ public class FormVisitorPrinter implements FormVisitor {
 		for (int i = 0; i < n; i++) {
 			sb.append(s);
 		}
-
 		return sb.toString();
 	}
 }

@@ -19,7 +19,7 @@ import org.uva.sea.ql.parser.test.IParse;
 import org.uva.sea.ql.visitor.checker.ExpressionChecker;
 
 @RunWith(Parameterized.class)
-public class TestSemanticsUnary {
+public class TestExprSemanticsPrimary {
 
 	private IParse parser;
 
@@ -32,25 +32,25 @@ public class TestSemanticsUnary {
 	public static ArrayList<String> errors = new ArrayList<String>();
 
 	
-	public TestSemanticsUnary(IParse parser) {
+	public TestExprSemanticsPrimary(IParse parser) {
 		this.parser = parser;
-	}
-	
-	@Test
-	public void testNeg() throws ParseError {
-		assertEquals(parser.parseExpression("-1").accept(new ExpressionChecker(ExprMap, errors)), true);
-    	assertEquals(parser.parseExpression("+true").accept(new ExpressionChecker(ExprMap, errors)), false);	
 	}
 
 	@Test
-	public void testNot() throws ParseError {
-		assertEquals(parser.parseExpression("!true").accept(new ExpressionChecker(ExprMap, errors)), true);
-    	assertEquals(parser.parseExpression("!1").accept(new ExpressionChecker(ExprMap, errors)), false);	
+	public void testBool() throws ParseError {
+		assertEquals(parser.parseExpression("true").accept(new ExpressionChecker(ExprMap, errors)), true);
+    	assertEquals(parser.parseExpression("false").accept(new ExpressionChecker(ExprMap, errors)), true);	
+	}
+
+	@Test
+	public void testIdent() throws ParseError {
+		assertEquals(parser.parseExpression("ident1").accept(new ExpressionChecker(ExprMap, errors)), true);
+    	assertEquals(parser.parseExpression("validident").accept(new ExpressionChecker(ExprMap, errors)), true);	
 	}
 	
 	@Test
-	public void testPos() throws ParseError {
-		assertEquals(parser.parseExpression("+1").accept(new ExpressionChecker(ExprMap, errors)), true);
-    	assertEquals(parser.parseExpression("+true").accept(new ExpressionChecker(ExprMap, errors)), false);	
-	}
+	public void testInt() throws ParseError {
+		assertEquals(parser.parseExpression("1").accept(new ExpressionChecker(ExprMap, errors)), true);
+    	assertEquals(parser.parseExpression("100").accept(new ExpressionChecker(ExprMap, errors)), true);	
+	}	
 }
