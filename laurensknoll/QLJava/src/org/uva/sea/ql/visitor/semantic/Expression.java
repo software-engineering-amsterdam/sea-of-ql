@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.uva.sea.ql.ast.expr.AbstractExpr;
-import org.uva.sea.ql.ast.expr.atom.Bool;
 import org.uva.sea.ql.ast.expr.atom.Ident;
 import org.uva.sea.ql.ast.expr.atom.Int;
 import org.uva.sea.ql.ast.expr.atom.Money;
@@ -23,16 +22,24 @@ import org.uva.sea.ql.ast.expr.binary.Sub;
 import org.uva.sea.ql.ast.expr.unary.Neg;
 import org.uva.sea.ql.ast.expr.unary.Not;
 import org.uva.sea.ql.ast.expr.unary.Pos;
+import org.uva.sea.ql.ast.type.AbstractType;
+import org.uva.sea.ql.ast.type.Bool;
+import org.uva.sea.ql.ast.type.Numeric;
 
 public class Expression implements org.uva.sea.ql.visitor.Expression<Boolean> {
 
 	private final Environment environment;
-
 	private final List<String> errors;
 
-	public Expression(Environment context) {
-		this.environment = context;
+	public Expression(Environment env) {
+		this.environment = env;
 		this.errors = new ArrayList<String>();
+	}
+
+	private <T extends AbstractType> Boolean isOfType(AbstractExpr expr,
+			Class<T> expected) {
+		AbstractType typeOfExpr = expr.typeOf(this.environment);
+		return expected.isInstance(typeOfExpr);
 	}
 
 	@Override
@@ -43,7 +50,7 @@ public class Expression implements org.uva.sea.ql.visitor.Expression<Boolean> {
 		AbstractExpr right = add.getRightHandSideExpression();
 		Boolean isRightValid = right.accept(this);
 
-		Boolean isLeftNumeric = left.typeOf(this.environment) instanceof org.uva.sea.ql.ast.type.Numeric;
+		Boolean isLeftNumeric = this.isOfType(left, Numeric.class);
 		if (!isLeftNumeric) {
 			String unexpectedType = String.format(
 					"Error in Add expression: %s is no Numeric.",
@@ -51,7 +58,7 @@ public class Expression implements org.uva.sea.ql.visitor.Expression<Boolean> {
 			this.errors.add(unexpectedType);
 		}
 
-		Boolean isRightNumeric = right.typeOf(this.environment) instanceof org.uva.sea.ql.ast.type.Numeric;
+		Boolean isRightNumeric = this.isOfType(right, Numeric.class);
 		if (!isRightNumeric) {
 			String unexpectedType = String.format(
 					"Error in Add expression: %s is no Numeric.",
@@ -70,7 +77,8 @@ public class Expression implements org.uva.sea.ql.visitor.Expression<Boolean> {
 		AbstractExpr right = and.getRightHandSideExpression();
 		Boolean isRightValid = right.accept(this);
 
-		Boolean isLeftBool = left.typeOf(this.environment) instanceof org.uva.sea.ql.ast.type.Bool;
+		Boolean isLeftBool = this.isOfType(left, Bool.class);
+		;
 		if (!isLeftBool) {
 			String unexpectedType = String.format(
 					"Error in And expression: %s is no Boolean.",
@@ -78,7 +86,7 @@ public class Expression implements org.uva.sea.ql.visitor.Expression<Boolean> {
 			this.errors.add(unexpectedType);
 		}
 
-		Boolean isRightBool = right.typeOf(this.environment) instanceof org.uva.sea.ql.ast.type.Bool;
+		Boolean isRightBool = this.isOfType(right, Bool.class);
 		if (!isRightBool) {
 			String unexpectedType = String.format(
 					"Error in And expression: %s is no Boolean.",
@@ -97,7 +105,7 @@ public class Expression implements org.uva.sea.ql.visitor.Expression<Boolean> {
 		AbstractExpr right = div.getRightHandSideExpression();
 		Boolean isRightValid = right.accept(this);
 
-		Boolean isLeftNumeric = left.typeOf(this.environment) instanceof org.uva.sea.ql.ast.type.Numeric;
+		Boolean isLeftNumeric = this.isOfType(left, Numeric.class);
 		if (!isLeftNumeric) {
 			String unexpectedType = String.format(
 					"Error in Div expression: %s is no Numeric.",
@@ -105,7 +113,7 @@ public class Expression implements org.uva.sea.ql.visitor.Expression<Boolean> {
 			this.errors.add(unexpectedType);
 		}
 
-		Boolean isRightNumeric = right.typeOf(this.environment) instanceof org.uva.sea.ql.ast.type.Numeric;
+		Boolean isRightNumeric = this.isOfType(right, Numeric.class);
 		if (!isRightNumeric) {
 			String unexpectedType = String.format(
 					"Error in Div expression: %s is no Numeric.",
@@ -124,7 +132,8 @@ public class Expression implements org.uva.sea.ql.visitor.Expression<Boolean> {
 		AbstractExpr right = eq.getRightHandSideExpression();
 		Boolean isRightValid = right.accept(this);
 
-		Boolean isLeftBool = left.typeOf(this.environment) instanceof org.uva.sea.ql.ast.type.Bool;
+		// TODO Links en rechts moeten gelijk zijn.
+		Boolean isLeftBool = this.isOfType(left, Bool.class);
 		if (!isLeftBool) {
 			String unexpectedType = String.format(
 					"Error in Eq expression: %s is no Boolean.",
@@ -132,7 +141,7 @@ public class Expression implements org.uva.sea.ql.visitor.Expression<Boolean> {
 			this.errors.add(unexpectedType);
 		}
 
-		Boolean isRightBool = right.typeOf(this.environment) instanceof org.uva.sea.ql.ast.type.Bool;
+		Boolean isRightBool = this.isOfType(right, Bool.class);
 		if (!isRightBool) {
 			String unexpectedType = String.format(
 					"Error in Eq expression: %s is no Boolean.",
@@ -151,23 +160,23 @@ public class Expression implements org.uva.sea.ql.visitor.Expression<Boolean> {
 		AbstractExpr right = geq.getRightHandSideExpression();
 		Boolean isRightValid = right.accept(this);
 
-		Boolean isLeftBool = left.typeOf(this.environment) instanceof org.uva.sea.ql.ast.type.Bool;
-		if (!isLeftBool) {
+		Boolean isLeftNumeric = this.isOfType(left, Numeric.class);
+		if (!isLeftNumeric) {
 			String unexpectedType = String.format(
-					"Error in GEq expression: %s is no Boolean.",
+					"Error in GEq expression: %s is no Numeric.",
 					left.toString());
 			this.errors.add(unexpectedType);
 		}
 
-		Boolean isRightBool = right.typeOf(this.environment) instanceof org.uva.sea.ql.ast.type.Bool;
-		if (!isRightBool) {
+		Boolean isRightNumeric = this.isOfType(right, Numeric.class);
+		if (!isRightNumeric) {
 			String unexpectedType = String.format(
-					"Error in GEq expression: %s is no Boolean.",
+					"Error in GEq expression: %s is no Numeric.",
 					right.toString());
 			this.errors.add(unexpectedType);
 		}
 
-		return isLeftValid && isRightValid && isLeftBool && isRightBool;
+		return isLeftValid && isRightValid && isLeftNumeric && isRightNumeric;
 	}
 
 	@Override
@@ -178,23 +187,23 @@ public class Expression implements org.uva.sea.ql.visitor.Expression<Boolean> {
 		AbstractExpr right = gt.getRightHandSideExpression();
 		Boolean isRightValid = right.accept(this);
 
-		Boolean isLeftBool = left.typeOf(this.environment) instanceof org.uva.sea.ql.ast.type.Bool;
-		if (!isLeftBool) {
+		Boolean isLeftNumeric = this.isOfType(left, Numeric.class);
+		if (!isLeftNumeric) {
 			String unexpectedType = String.format(
-					"Error in GT expression: %s is no Boolean.",
+					"Error in GT expression: %s is no Numeric.",
 					left.toString());
 			this.errors.add(unexpectedType);
 		}
 
-		Boolean isRightBool = right.typeOf(this.environment) instanceof org.uva.sea.ql.ast.type.Bool;
-		if (!isRightBool) {
+		Boolean isRightNumeric = this.isOfType(right, Numeric.class);
+		if (!isRightNumeric) {
 			String unexpectedType = String.format(
-					"Error in GT expression: %s is no Boolean.",
+					"Error in GT expression: %s is no Numeric.",
 					right.toString());
 			this.errors.add(unexpectedType);
 		}
 
-		return isLeftValid && isRightValid && isLeftBool && isRightBool;
+		return isLeftValid && isRightValid && isLeftNumeric && isRightNumeric;
 	}
 
 	@Override
@@ -205,23 +214,23 @@ public class Expression implements org.uva.sea.ql.visitor.Expression<Boolean> {
 		AbstractExpr right = leq.getRightHandSideExpression();
 		Boolean isRightValid = right.accept(this);
 
-		Boolean isLeftBool = left.typeOf(this.environment) instanceof org.uva.sea.ql.ast.type.Bool;
-		if (!isLeftBool) {
+		Boolean isLeftNumeric = this.isOfType(left, Numeric.class);
+		if (!isLeftNumeric) {
 			String unexpectedType = String.format(
-					"Error in LEq expression: %s is no Boolean.",
+					"Error in LEq expression: %s is no Numeric.",
 					left.toString());
 			this.errors.add(unexpectedType);
 		}
 
-		Boolean isRightBool = right.typeOf(this.environment) instanceof org.uva.sea.ql.ast.type.Bool;
-		if (!isRightBool) {
+		Boolean isRightNumeric = this.isOfType(right, Numeric.class);
+		if (!isRightNumeric) {
 			String unexpectedType = String.format(
-					"Error in LEq expression: %s is no Boolean.",
+					"Error in LEq expression: %s is no Numeric.",
 					right.toString());
 			this.errors.add(unexpectedType);
 		}
 
-		return isLeftValid && isRightValid && isLeftBool && isRightBool;
+		return isLeftValid && isRightValid && isLeftNumeric && isRightNumeric;
 	}
 
 	@Override
@@ -232,23 +241,23 @@ public class Expression implements org.uva.sea.ql.visitor.Expression<Boolean> {
 		AbstractExpr right = lt.getRightHandSideExpression();
 		Boolean isRightValid = right.accept(this);
 
-		Boolean isLeftBool = left.typeOf(this.environment) instanceof org.uva.sea.ql.ast.type.Bool;
-		if (!isLeftBool) {
+		Boolean isLeftNumeric = this.isOfType(left, Numeric.class);
+		if (!isLeftNumeric) {
 			String unexpectedType = String.format(
-					"Error in LT expression: %s is no Boolean.",
+					"Error in LT expression: %s is no Numeric.",
 					left.toString());
 			this.errors.add(unexpectedType);
 		}
 
-		Boolean isRightBool = right.typeOf(this.environment) instanceof org.uva.sea.ql.ast.type.Bool;
-		if (!isRightBool) {
+		Boolean isRightNumeric = this.isOfType(right, Numeric.class);
+		if (!isRightNumeric) {
 			String unexpectedType = String.format(
-					"Error in LT expression: %s is no Boolean.",
+					"Error in LT expression: %s is no Numeric.",
 					right.toString());
 			this.errors.add(unexpectedType);
 		}
 
-		return isLeftValid && isRightValid && isLeftBool && isRightBool;
+		return isLeftValid && isRightValid && isLeftNumeric && isRightNumeric;
 	}
 
 	@Override
@@ -259,7 +268,7 @@ public class Expression implements org.uva.sea.ql.visitor.Expression<Boolean> {
 		AbstractExpr right = mul.getRightHandSideExpression();
 		Boolean isRightValid = right.accept(this);
 
-		Boolean isLeftNumeric = left.typeOf(this.environment) instanceof org.uva.sea.ql.ast.type.Numeric;
+		Boolean isLeftNumeric = this.isOfType(left, Numeric.class);
 		if (!isLeftNumeric) {
 			String unexpectedType = String.format(
 					"Error in Mul expression: %s is no Numeric.",
@@ -267,7 +276,7 @@ public class Expression implements org.uva.sea.ql.visitor.Expression<Boolean> {
 			this.errors.add(unexpectedType);
 		}
 
-		Boolean isRightNumeric = right.typeOf(this.environment) instanceof org.uva.sea.ql.ast.type.Numeric;
+		Boolean isRightNumeric = this.isOfType(right, Numeric.class);
 		if (!isRightNumeric) {
 			String unexpectedType = String.format(
 					"Error in Mul expression: %s is no Numeric.",
@@ -283,7 +292,7 @@ public class Expression implements org.uva.sea.ql.visitor.Expression<Boolean> {
 		AbstractExpr expr = neg.getExpression();
 		Boolean isExprValid = expr.accept(this);
 
-		Boolean isExprNumeric = expr.typeOf(this.environment) instanceof org.uva.sea.ql.ast.type.Numeric;
+		Boolean isExprNumeric = this.isOfType(expr, Numeric.class);
 		if (!isExprNumeric) {
 			String unexpectedType = String.format(
 					"Error in Neg expression: %s is no Numeric.",
@@ -302,7 +311,8 @@ public class Expression implements org.uva.sea.ql.visitor.Expression<Boolean> {
 		AbstractExpr right = neq.getRightHandSideExpression();
 		Boolean isRightValid = right.accept(this);
 
-		Boolean isLeftBool = left.typeOf(this.environment) instanceof org.uva.sea.ql.ast.type.Bool;
+		// TODO Links en rechts moeten gelijk zijn.
+		Boolean isLeftBool = this.isOfType(left, Numeric.class);
 		if (!isLeftBool) {
 			String unexpectedType = String.format(
 					"Error in NEq expression: %s is no Boolean.",
@@ -310,7 +320,7 @@ public class Expression implements org.uva.sea.ql.visitor.Expression<Boolean> {
 			this.errors.add(unexpectedType);
 		}
 
-		Boolean isRightBool = right.typeOf(this.environment) instanceof org.uva.sea.ql.ast.type.Bool;
+		Boolean isRightBool = this.isOfType(right, Bool.class);
 		if (!isRightBool) {
 			String unexpectedType = String.format(
 					"Error in NEq expression: %s is no Boolean.",
@@ -326,7 +336,7 @@ public class Expression implements org.uva.sea.ql.visitor.Expression<Boolean> {
 		AbstractExpr expr = not.getExpression();
 		Boolean isExprValid = expr.accept(this);
 
-		Boolean isExprNumeric = expr.typeOf(this.environment) instanceof org.uva.sea.ql.ast.type.Bool;
+		Boolean isExprNumeric = this.isOfType(expr, Bool.class);
 		if (!isExprNumeric) {
 			String unexpectedType = String.format(
 					"Error in Not expression: %s is no Boolean.",
@@ -345,7 +355,7 @@ public class Expression implements org.uva.sea.ql.visitor.Expression<Boolean> {
 		AbstractExpr right = or.getRightHandSideExpression();
 		Boolean isRightValid = right.accept(this);
 
-		Boolean isLeftBool = left.typeOf(this.environment) instanceof org.uva.sea.ql.ast.type.Bool;
+		Boolean isLeftBool = this.isOfType(left, Bool.class);
 		if (!isLeftBool) {
 			String unexpectedType = String.format(
 					"Error in Or expression: %s is no Boolean.",
@@ -353,7 +363,7 @@ public class Expression implements org.uva.sea.ql.visitor.Expression<Boolean> {
 			this.errors.add(unexpectedType);
 		}
 
-		Boolean isRightBool = right.typeOf(this.environment) instanceof org.uva.sea.ql.ast.type.Bool;
+		Boolean isRightBool = this.isOfType(right, Bool.class);
 		if (!isRightBool) {
 			String unexpectedType = String.format(
 					"Error in Or expression: %s is no Boolean.",
@@ -369,7 +379,7 @@ public class Expression implements org.uva.sea.ql.visitor.Expression<Boolean> {
 		AbstractExpr expr = pos.getExpression();
 		Boolean isExprValid = expr.accept(this);
 
-		Boolean isExprNumeric = expr.typeOf(this.environment) instanceof org.uva.sea.ql.ast.type.Numeric;
+		Boolean isExprNumeric = this.isOfType(expr, Numeric.class);
 		if (!isExprNumeric) {
 			String unexpectedType = String.format(
 					"Error in Pos expression: %s is no Numeric.",
@@ -388,7 +398,7 @@ public class Expression implements org.uva.sea.ql.visitor.Expression<Boolean> {
 		AbstractExpr right = sub.getRightHandSideExpression();
 		Boolean isRightValid = right.accept(this);
 
-		Boolean isLeftNumeric = left.typeOf(this.environment) instanceof org.uva.sea.ql.ast.type.Numeric;
+		Boolean isLeftNumeric = this.isOfType(left, Numeric.class);
 		if (!isLeftNumeric) {
 			String unexpectedType = String.format(
 					"Error in Add expression: %s is no Numeric.",
@@ -396,7 +406,7 @@ public class Expression implements org.uva.sea.ql.visitor.Expression<Boolean> {
 			this.errors.add(unexpectedType);
 		}
 
-		Boolean isRightNumeric = right.typeOf(this.environment) instanceof org.uva.sea.ql.ast.type.Numeric;
+		Boolean isRightNumeric = this.isOfType(right, Numeric.class);
 		if (!isRightNumeric) {
 			String unexpectedType = String.format(
 					"Error in Add expression: %s is no Numeric.",
@@ -408,7 +418,7 @@ public class Expression implements org.uva.sea.ql.visitor.Expression<Boolean> {
 	}
 
 	@Override
-	public Boolean visit(Bool bool) {
+	public Boolean visit(org.uva.sea.ql.ast.expr.atom.Bool bool) {
 		return true;
 	}
 
