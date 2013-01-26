@@ -14,8 +14,8 @@ public class Environment {
 		this(null);
 	}
 
-	public Environment(Environment context) {
-		this.parent = context;
+	public Environment(Environment env) {
+		this.parent = env;
 		this.bindings = new HashMap<Ident, AbstractType>();
 	}
 
