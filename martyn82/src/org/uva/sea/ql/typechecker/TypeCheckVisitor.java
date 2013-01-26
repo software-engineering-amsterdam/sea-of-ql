@@ -1,8 +1,7 @@
-package org.uva.sea.ql.visitor.typechecker;
+package org.uva.sea.ql.typechecker;
 
 import org.uva.sea.ql.ast.type.Type;
 import org.uva.sea.ql.eval.Environment;
-import org.uva.sea.ql.eval.ExpressionTypeResolver;
 import org.uva.sea.ql.visitor.NodeVisitor;
 
 /**

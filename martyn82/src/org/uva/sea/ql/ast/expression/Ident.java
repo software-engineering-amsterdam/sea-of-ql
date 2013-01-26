@@ -1,9 +1,5 @@
 package org.uva.sea.ql.ast.expression;
 
-import java.util.Map;
-
-import org.uva.sea.ql.ast.type.Error;
-import org.uva.sea.ql.ast.type.Type;
 import org.uva.sea.ql.visitor.IExpressionVisitor;
 
 /**
@@ -54,14 +50,5 @@ public class Ident extends Expression {
 	@Override
 	public <T> T accept( IExpressionVisitor<T> visitor ) {
 		return visitor.visit( this );
-	}
-
-	@Override
-	public Type typeOf( Map<Ident, Type> types ) {
-		if ( types.containsKey( this ) ) {
-			return types.get( this );
-		}
-
-		return new Error();
 	}
 }

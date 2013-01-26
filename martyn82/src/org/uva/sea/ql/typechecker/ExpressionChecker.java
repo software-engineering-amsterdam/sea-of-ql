@@ -1,9 +1,24 @@
-package org.uva.sea.ql.visitor.typechecker;
+package org.uva.sea.ql.typechecker;
 
+import org.uva.sea.ql.ast.expression.Add;
+import org.uva.sea.ql.ast.expression.And;
 import org.uva.sea.ql.ast.expression.ArithmeticExpression;
 import org.uva.sea.ql.ast.expression.ComparisonExpression;
+import org.uva.sea.ql.ast.expression.Div;
+import org.uva.sea.ql.ast.expression.Eq;
+import org.uva.sea.ql.ast.expression.GEq;
+import org.uva.sea.ql.ast.expression.GT;
 import org.uva.sea.ql.ast.expression.Ident;
+import org.uva.sea.ql.ast.expression.LEq;
+import org.uva.sea.ql.ast.expression.LT;
 import org.uva.sea.ql.ast.expression.LogicalExpression;
+import org.uva.sea.ql.ast.expression.Mul;
+import org.uva.sea.ql.ast.expression.NEq;
+import org.uva.sea.ql.ast.expression.Neg;
+import org.uva.sea.ql.ast.expression.Not;
+import org.uva.sea.ql.ast.expression.Or;
+import org.uva.sea.ql.ast.expression.Pos;
+import org.uva.sea.ql.ast.expression.Sub;
 import org.uva.sea.ql.ast.expression.UnaryExpression;
 import org.uva.sea.ql.ast.expression.UnaryNumericExpression;
 import org.uva.sea.ql.ast.type.Bool;
@@ -13,7 +28,6 @@ import org.uva.sea.ql.ast.type.Str;
 import org.uva.sea.ql.ast.type.Type;
 import org.uva.sea.ql.eval.Environment;
 import org.uva.sea.ql.eval.Error;
-import org.uva.sea.ql.eval.ExpressionTypeResolver;
 import org.uva.sea.ql.visitor.IExpressionVisitor;
 
 /**
@@ -35,8 +49,14 @@ public class ExpressionChecker extends TypeCheckVisitor implements IExpressionVi
 		this.resolver = getResolver();
 	}
 
-	@Override
-	public Boolean visit( ArithmeticExpression node ) {
+	/**
+	 * Visit an arithmetic expression.
+	 *
+	 * @param node
+	 *
+	 * @return True if types are compliant.
+	 */
+	private Boolean visit( ArithmeticExpression node ) {
 		boolean checkLeft = node.getLhs().accept( this );
 		boolean checkRight = node.getRhs().accept( this );
 
@@ -63,7 +83,13 @@ public class ExpressionChecker extends TypeCheckVisitor implements IExpressionVi
 		return true;
 	}
 
-	@Override
+	/**
+	 * Visit a logical expression.
+	 *
+	 * @param node
+	 *
+	 * @return True if types are compliant.
+	 */
 	public Boolean visit( LogicalExpression node ) {
 		boolean checkLeft = node.getLhs().accept( this );
 		boolean checkRight = node.getRhs().accept( this );
@@ -91,7 +117,13 @@ public class ExpressionChecker extends TypeCheckVisitor implements IExpressionVi
 		return true;
 	}
 
-	@Override
+	/**
+	 * Visit a comparison expression.
+	 *
+	 * @param node
+	 *
+	 * @return True if types are compliant.
+	 */
 	public Boolean visit( ComparisonExpression node ) {
 		boolean checkLeft = node.getLhs().accept( this );
 		boolean checkRight = node.getRhs().accept( this );
@@ -127,7 +159,13 @@ public class ExpressionChecker extends TypeCheckVisitor implements IExpressionVi
 		return true;
 	}
 
-	@Override
+	/**
+	 * Visit a unary logical expression.
+	 *
+	 * @param node
+	 *
+	 * @return True if type is compliant.
+	 */
 	public Boolean visit( UnaryExpression node ) {
 		if ( !node.getExpression().accept( this ) ) {
 			return false;
@@ -143,7 +181,13 @@ public class ExpressionChecker extends TypeCheckVisitor implements IExpressionVi
 		return true;
 	}
 
-	@Override
+	/**
+	 * Visit a unary numeric expression.
+	 *
+	 * @param node
+	 *
+	 * @return True if type is compliant.
+	 */
 	public Boolean visit( UnaryNumericExpression node ) {
 		if ( !node.getExpression().accept( this ) ) {
 			return false;
@@ -189,5 +233,80 @@ public class ExpressionChecker extends TypeCheckVisitor implements IExpressionVi
 		}
 
 		return true;
+	}
+
+	@Override
+	public Boolean visit( Add node ) {
+		return this.visit( (ArithmeticExpression) node );
+	}
+
+	@Override
+	public Boolean visit( Sub node ) {
+		return this.visit( (ArithmeticExpression) node );
+	}
+
+	@Override
+	public Boolean visit( Div node ) {
+		return this.visit( (ArithmeticExpression) node );
+	}
+
+	@Override
+	public Boolean visit( Mul node ) {
+		return this.visit( (ArithmeticExpression) node );
+	}
+
+	@Override
+	public Boolean visit( And node ) {
+		return this.visit( (LogicalExpression) node );
+	}
+
+	@Override
+	public Boolean visit( Or node ) {
+		return this.visit( (LogicalExpression) node );
+	}
+
+	@Override
+	public Boolean visit( Eq node ) {
+		return this.visit( (ComparisonExpression) node );
+	}
+
+	@Override
+	public Boolean visit( GEq node ) {
+		return this.visit( (ComparisonExpression) node );
+	}
+
+	@Override
+	public Boolean visit( GT node ) {
+		return this.visit( (ComparisonExpression) node );
+	}
+
+	@Override
+	public Boolean visit( LEq node ) {
+		return this.visit( (ComparisonExpression) node );
+	}
+
+	@Override
+	public Boolean visit( LT node ) {
+		return this.visit( (ComparisonExpression) node );
+	}
+
+	@Override
+	public Boolean visit( NEq node ) {
+		return this.visit( (ComparisonExpression) node );
+	}
+
+	@Override
+	public Boolean visit( Not node ) {
+		return this.visit( (UnaryExpression) node );
+	}
+
+	@Override
+	public Boolean visit( Pos node ) {
+		return this.visit( (UnaryNumericExpression) node );
+	}
+
+	@Override
+	public Boolean visit( Neg node ) {
+		return this.visit( (UnaryNumericExpression) node );
 	}
 }

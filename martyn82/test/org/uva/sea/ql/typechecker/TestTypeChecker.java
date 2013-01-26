@@ -1,4 +1,4 @@
-package org.uva.sea.ql.visitor.typechecker;
+package org.uva.sea.ql.typechecker;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -34,6 +34,9 @@ import org.uva.sea.ql.ast.statement.VarDeclaration;
 import org.uva.sea.ql.eval.Environment;
 import org.uva.sea.ql.eval.Error;
 import org.uva.sea.ql.parser.ParseError;
+import org.uva.sea.ql.typechecker.ExpressionChecker;
+import org.uva.sea.ql.typechecker.StatementChecker;
+import org.uva.sea.ql.typechecker.TypeChecker;
 import org.uva.sea.ql.visitor.VisitorTest;
 
 /**

@@ -1,7 +1,9 @@
-package org.uva.sea.ql.visitor.printer;
+package org.uva.sea.ql.printer;
 
 import org.junit.Test;
 import org.uva.sea.ql.parser.ParseError;
+import org.uva.sea.ql.printer.PrintContext;
+import org.uva.sea.ql.printer.Printer;
 import org.uva.sea.ql.visitor.VisitorTest;
 
 /**

@@ -1,10 +1,5 @@
 package org.uva.sea.ql.ast.expression;
 
-import java.util.Map;
-
-import org.uva.sea.ql.ast.type.Type;
-import org.uva.sea.ql.visitor.IExpressionVisitor;
-
 /**
  * Represents a unary expression.
  */
@@ -30,15 +25,5 @@ abstract public class UnaryExpression extends Expression {
 	 */
 	public Expression getExpression() {
 		return this.expression;
-	}
-
-	@Override
-	public <T> T accept( IExpressionVisitor<T> visitor ) {
-		return visitor.visit( this );
-	}
-
-	@Override
-	public Type typeOf( Map<Ident, Type> types ) {
-		return new org.uva.sea.ql.ast.type.Bool();
 	}
 }

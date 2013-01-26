@@ -1,4 +1,4 @@
-package org.uva.sea.ql.visitor.typechecker;
+package org.uva.sea.ql.typechecker;
 
 import org.uva.sea.ql.ast.statement.Assignment;
 import org.uva.sea.ql.ast.statement.Else;
@@ -13,7 +13,6 @@ import org.uva.sea.ql.ast.statement.VarDeclaration;
 import org.uva.sea.ql.ast.type.Type;
 import org.uva.sea.ql.eval.Environment;
 import org.uva.sea.ql.eval.Error;
-import org.uva.sea.ql.eval.ExpressionTypeResolver;
 import org.uva.sea.ql.visitor.IStatementVisitor;
 
 /**

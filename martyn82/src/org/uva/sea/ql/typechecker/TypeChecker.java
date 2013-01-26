@@ -1,4 +1,4 @@
-package org.uva.sea.ql.visitor.typechecker;
+package org.uva.sea.ql.typechecker;
 
 import org.uva.sea.ql.eval.Environment;
 
