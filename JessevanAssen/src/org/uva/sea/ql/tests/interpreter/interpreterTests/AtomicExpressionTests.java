@@ -27,7 +27,7 @@ public class AtomicExpressionTests extends InterpreterVisitorTests {
         final Int left = new Int(3);
         final Int right = new Int(1);
         assertEquals(
-                left.subtract(right),
+                left.subtractWith(right),
                 new Sub(left, right).accept(visitor, context)
         );
     }
@@ -47,7 +47,7 @@ public class AtomicExpressionTests extends InterpreterVisitorTests {
         final Int left = new Int(10);
         final Int right = new Int(2);
         assertEquals(
-                left.divide(right),
+                left.divideBy(right),
                 new Div(left, right).accept(visitor, context)
         );
     }

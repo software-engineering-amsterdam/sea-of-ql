@@ -18,7 +18,7 @@ public class Int implements Value {
         return new Int(getValue() + other.getValue());
     }
 
-    public Int subtract(Int other) {
+    public Int subtractWith(Int other) {
         return new Int(getValue() - other.getValue());
     }
 
@@ -26,7 +26,7 @@ public class Int implements Value {
         return new Int(getValue() * other.getValue());
     }
 
-    public Int divide(Int other) {
+    public Int divideBy(Int other) {
         return new Int(getValue() / other.getValue());
     }
 

@@ -4,13 +4,13 @@ import junit.framework.Assert;
 import org.junit.Test;
 import org.uva.sea.ql.ast.expr.value.Int;
 
-public class DivideTests {
+public class SubtractWithTests {
 
     @Test
-    public void twoIntsAreDivided_resultIsFirstIntDividedBySecondInt() {
+    public void twoIntsAreSubstracted_resultIsSecondIntSubstractedFromFirstInt() {
         Assert.assertEquals(
-                new Int(2),
-                new Int(6).divide(new Int(3))
+                new Int(1),
+                new Int(3).subtractWith(new Int(2))
         );
     }
 

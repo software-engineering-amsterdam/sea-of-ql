@@ -85,7 +85,7 @@ public class InterpreterVisitor implements ASTNodeVisitor<Value, InterpreterVisi
     public Value visit(Div astNode, Context param) {
         final Int left = (Int)astNode.getLeftExpression().accept(this, param),
                   right = (Int)astNode.getRightExpression().accept(this, param);
-        return left.divide(right);
+        return left.divideBy(right);
     }
 
     @Override
@@ -215,7 +215,7 @@ public class InterpreterVisitor implements ASTNodeVisitor<Value, InterpreterVisi
     public Value visit(Sub astNode, Context param) {
         final Int left = (Int)astNode.getLeftExpression().accept(this, param),
                   right = (Int)astNode.getRightExpression().accept(this, param);
-        return left.subtract(right);
+        return left.subtractWith(right);
     }
 
 }
