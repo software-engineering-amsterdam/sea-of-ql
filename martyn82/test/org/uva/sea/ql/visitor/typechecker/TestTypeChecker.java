@@ -35,9 +35,6 @@ import org.uva.sea.ql.eval.Environment;
 import org.uva.sea.ql.eval.Error;
 import org.uva.sea.ql.parser.ParseError;
 import org.uva.sea.ql.visitor.VisitorTest;
-import org.uva.sea.ql.visitor.typechecker.ExpressionChecker;
-import org.uva.sea.ql.visitor.typechecker.StatementChecker;
-import org.uva.sea.ql.visitor.typechecker.TypeChecker;
 
 /**
  * TypeChecker test.
@@ -67,20 +64,6 @@ public class TestTypeChecker extends VisitorTest<Boolean> {
 		this.environment = new Environment();
 		this.expressionVisitor = new ExpressionChecker( this.environment );
 		this.statementVisitor = new StatementChecker( this.environment, this.expressionVisitor );
-	}
-
-	/**
-	 * Type checks the given source program.
-	 *
-	 * @param source
-	 *
-	 * @return True if typecheck OK, false otherwise.
-	 *
-	 * @throws ParseError
-	 */
-	private Boolean typeCheck( String source ) throws ParseError {
-		this.environment.getErrors().clear();
-		return this.parser.parse( source ).accept( this.statementVisitor );
 	}
 
 	/**
