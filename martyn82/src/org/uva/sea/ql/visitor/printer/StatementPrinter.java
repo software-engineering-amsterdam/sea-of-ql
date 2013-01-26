@@ -1,7 +1,5 @@
 package org.uva.sea.ql.visitor.printer;
 
-import java.io.OutputStream;
-
 import org.uva.sea.ql.ast.statement.Assignment;
 import org.uva.sea.ql.ast.statement.Else;
 import org.uva.sea.ql.ast.statement.ElseIf;
@@ -26,11 +24,11 @@ public class StatementPrinter extends PrintVisitor implements IStatementVisitor<
 	/**
 	 * Constructs a new StatementPrinter instance.
 	 *
-	 * @param out
+	 * @param context
 	 * @param expressionVisitor
 	 */
-	public StatementPrinter( OutputStream out, ExpressionPrinter expressionVisitor ) {
-		super( out );
+	public StatementPrinter( PrintContext context, ExpressionPrinter expressionVisitor ) {
+		super( context );
 		this.expressionVisitor = expressionVisitor;
 	}
 

@@ -1,7 +1,5 @@
 package org.uva.sea.ql.visitor.printer;
 
-import java.io.OutputStream;
-
 import org.uva.sea.ql.ast.expression.ArithmeticExpression;
 import org.uva.sea.ql.ast.expression.ComparisonExpression;
 import org.uva.sea.ql.ast.expression.Ident;
@@ -21,10 +19,10 @@ public class ExpressionPrinter extends PrintVisitor implements IExpressionVisito
 	/**
 	 * Constructs a new ExpressionPrinter instance.
 	 *
-	 * @param out
+	 * @param context
 	 */
-	public ExpressionPrinter( OutputStream out ) {
-		super( out );
+	public ExpressionPrinter( PrintContext context ) {
+		super( context );
 	}
 
 	@Override

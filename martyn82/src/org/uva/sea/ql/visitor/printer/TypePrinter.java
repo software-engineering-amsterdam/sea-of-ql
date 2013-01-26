@@ -1,7 +1,5 @@
 package org.uva.sea.ql.visitor.printer;
 
-import java.io.OutputStream;
-
 import org.uva.sea.ql.ast.type.Bool;
 import org.uva.sea.ql.ast.type.Int;
 import org.uva.sea.ql.ast.type.Money;
@@ -16,10 +14,10 @@ public class TypePrinter extends PrintVisitor implements ITypeVisitor<Boolean> {
 	/**
 	 * Constructs a new TypePrinter instance.
 	 *
-	 * @param out
+	 * @param context
 	 */
-	public TypePrinter( OutputStream out ) {
-		super( out );
+	public TypePrinter( PrintContext context ) {
+		super( context );
 	}
 
 	@Override

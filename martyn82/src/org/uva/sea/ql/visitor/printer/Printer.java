@@ -1,7 +1,5 @@
 package org.uva.sea.ql.visitor.printer;
 
-import java.io.OutputStream;
-
 /**
  * Represents a pretty printer visitor.
  */
@@ -9,9 +7,9 @@ public class Printer extends StatementPrinter {
 	/**
 	 * Constructs a new Printer visitor.
 	 *
-	 * @param out
+	 * @param context
 	 */
-	public Printer( OutputStream out ) {
-		super( out, new ExpressionPrinter( out ) );
+	public Printer( PrintContext context ) {
+		super( context, new ExpressionPrinter( context ) );
 	}
 }
