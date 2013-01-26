@@ -3,7 +3,6 @@ package org.uva.sea.ql.ast;
 import org.uva.sea.ql.ast.expr.Ident;
 import org.uva.sea.ql.visitor.TypeChecker;
 
-
 public class Form extends FormElement {
 
 	private final Ident fID;

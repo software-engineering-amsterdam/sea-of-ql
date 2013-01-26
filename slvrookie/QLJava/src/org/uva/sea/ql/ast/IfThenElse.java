@@ -4,7 +4,7 @@ import org.uva.sea.ql.ast.expr.Expr;
 import org.uva.sea.ql.visitor.TypeChecker;
 
 public class IfThenElse extends IfThen {
-	
+
 	private final Block elseBody;
 
 	public IfThenElse(Expr expression, Block thenBody, Block elseBody) {
@@ -19,6 +19,6 @@ public class IfThenElse extends IfThen {
 	@Override
 	public void accept(TypeChecker visitor) {
 		visitor.visit(this);
-		
 	}
+	
 }

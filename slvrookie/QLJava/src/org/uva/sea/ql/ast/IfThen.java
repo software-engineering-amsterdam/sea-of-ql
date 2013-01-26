@@ -3,7 +3,6 @@ package org.uva.sea.ql.ast;
 import org.uva.sea.ql.ast.expr.Expr;
 import org.uva.sea.ql.visitor.TypeChecker;
 
-
 public class IfThen extends FormElement {
 
 	private final Expr expression;

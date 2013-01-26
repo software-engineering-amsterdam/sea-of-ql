@@ -166,24 +166,24 @@ public class ExprVisitor implements IExprVisitor<Boolean> {
 		return true;
 	}
 	
-	private boolean checkSubtrees(BinaryExpr node){
+	private boolean checkSubtrees(BinaryExpr node) {
 		if (!(node.getLhs().accept(this) && node.getRhs().accept(this)));	
 		return false;	
 	}
 	
-	private boolean checkArgument(UnaryExpr node){
+	private boolean checkArgument(UnaryExpr node) {
 		if (!node.getArg().accept(this));
 		return false;
 	}
 	
-	private boolean isArgumentNumeric(UnaryExpr node, String operator){
+	private boolean isArgumentNumeric(UnaryExpr node, String operator) {
 		if(!node.getArg().typeOf(typeEnv).isCompatibleToNumeric()) {
 			addError("Invalid type for unary " + operator);
 		}
 		return false;
 	}
 	
-	private boolean isArgumentBoolean(UnaryExpr node, String operator){
+	private boolean isArgumentBoolean(UnaryExpr node, String operator) {
 		if(!node.getArg().typeOf(typeEnv).isCompatibleToBoolType()) {
 			addError("Invalid type for unary " + operator);
 		}
@@ -191,21 +191,21 @@ public class ExprVisitor implements IExprVisitor<Boolean> {
 	}
 	
 	private boolean areBothSidesSameType(BinaryExpr node, String operator) {
-		if (!(node.getRhs().typeOf(typeEnv).isCompatibleTo(node.getLhs().typeOf(typeEnv)))){ 
+		if (!(node.getRhs().typeOf(typeEnv).isCompatibleTo(node.getLhs().typeOf(typeEnv)))) { 
 			addError("Both operators must have the same type for " + operator);
 		}
 		return false;
 	}
 	
 	private boolean areBothSidesCompatibleToNumeric(BinaryExpr node, String operator ) {
-		if (!(node.typeOf(typeEnv).isCompatibleToNumeric() && node.getRhs().typeOf(typeEnv).isCompatibleToNumeric())){
+		if (!(node.typeOf(typeEnv).isCompatibleToNumeric() && node.getRhs().typeOf(typeEnv).isCompatibleToNumeric())) {
 			addError("invalid type for " + operator);
 		}
 		return false;
 	}
 	
 	private boolean areBothSidesCompatibleToBoolean(BinaryExpr node, String operator ) {
-		if (!(node.getLhs().typeOf(typeEnv).isCompatibleToBoolType() && node.getRhs().typeOf(typeEnv).isCompatibleToBoolType())){
+		if (!(node.getLhs().typeOf(typeEnv).isCompatibleToBoolType() && node.getRhs().typeOf(typeEnv).isCompatibleToBoolType())) {
 			addError("invalid type for " + operator);
 		}
 		return false;

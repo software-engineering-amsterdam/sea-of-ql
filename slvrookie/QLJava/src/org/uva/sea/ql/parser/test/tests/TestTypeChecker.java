@@ -15,7 +15,6 @@ public class TestTypeChecker {
 
 	final private IParse parser = new ANTLRParser();
 	
-
 	@Test
 	public void testTypeCheck() throws ParseError {
 		TypeChecker checker = new TypeChecker();
@@ -43,8 +42,10 @@ public class TestTypeChecker {
 				
 		assertEquals(Form.class, parser.parseForm(form1).getClass());
 		parser.parseForm(form1).accept(checker);
-		for (String errorString : checker.getErrorList())
+		
+		for (String errorString : checker.getErrorList()){
 			System.out.println(errorString);
+		}
 	}
 	
 }
