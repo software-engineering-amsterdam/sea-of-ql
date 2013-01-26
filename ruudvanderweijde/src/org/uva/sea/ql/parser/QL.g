@@ -59,11 +59,11 @@ ifStatement returns [Statement result]
   ;
   
 question returns [Statement result]
-  : Ident ':' String tp=type 
+  : Ident ':' String tp=type (';')?
   { 
     $result = new NormalQuestion(new Ident($Ident.text), $String.text, $tp.result); 
   }
-  | Ident ':' String tp=type cp=computation 
+  | Ident ':' String tp=type cp=computation (';')?
   { 
     $result = new ComputedQuestion(new Ident($Ident.text), $String.text, $tp.result, $cp.result); 
   }

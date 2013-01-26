@@ -8,15 +8,15 @@ import org.uva.sea.ql.visitor.FormVisitor;
 
 public class ComputedQuestion extends Question {
 
-	private final Expr computation;
+	private final Expr expression;
 	
-	public ComputedQuestion(Ident id, String label, Type type, Expr computation) {
-		super(id, label, type);
-		this.computation = computation;
+	public ComputedQuestion(Ident id, String label, Type tp, Expr expression) {
+		super(id, label, tp);
+		this.expression = expression;
 	}
 
-	public Expr getComputation() {
-		return computation;
+	public Expr getExpr() {
+		return expression;
 	}
 	
 	@Override

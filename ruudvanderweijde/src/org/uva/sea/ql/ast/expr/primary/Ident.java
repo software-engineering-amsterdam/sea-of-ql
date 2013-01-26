@@ -4,11 +4,11 @@ import java.util.Map;
 
 import org.uva.sea.ql.ast.expr.Expr;
 import org.uva.sea.ql.ast.type.Type;
-import org.uva.sea.ql.ast.type.Undefined;
+import org.uva.sea.ql.ast.type.UndefinedType;
 import org.uva.sea.ql.visitor.ExpressionVisitor;
 
 
-public class Ident extends Expr {
+public final class Ident extends Expr {
 
 	private final String value;
 
@@ -25,10 +25,22 @@ public class Ident extends Expr {
 		if (typeEnv.containsKey(this)) {
 			return typeEnv.get(this);
 		}
-		// TODO return error;
-		//return new Error();
-		System.out.println("FIX THIS!!!! Error retreiving id...");
-		return new Undefined();
+		return new UndefinedType();
+	}
+	
+	// Implemented "equals" and "hashCode" to be able to compare objects with the same string
+	// If object are they same, but have different references, they will not be found in the hashmap.
+	@Override
+	public boolean equals(Object obj) {
+		if (obj instanceof Ident) {
+			return value.equals(((Ident) obj).value);
+		}
+		return false;
+	}
+
+	@Override
+	public int hashCode() {
+		return value.hashCode();
 	}
 
 	@Override

@@ -27,7 +27,7 @@ public class ExpressionVisitorPrinter  implements ExpressionVisitor<Boolean> {
 	public Boolean visit(Add ast) {
 		System.out.println("Add");
 		ast.getLhs().accept(this);
-		ast.getLhs().accept(this);
+		ast.getRhs().accept(this);
 		return true;
 	}
 
@@ -35,7 +35,9 @@ public class ExpressionVisitorPrinter  implements ExpressionVisitor<Boolean> {
 	public Boolean visit(And ast) {
 		System.out.println("And");
 		ast.getLhs().accept(this);
-		ast.getLhs().accept(this);
+		System.out.println("Add LHS DONE!");
+		ast.getRhs().accept(this);
+		System.out.println("Add RHS DONE!");
 		return true;
 	}
 
@@ -43,7 +45,7 @@ public class ExpressionVisitorPrinter  implements ExpressionVisitor<Boolean> {
 	public Boolean visit(Div ast) {
 		System.out.println("Div");
 		ast.getLhs().accept(this);
-		ast.getLhs().accept(this);
+		ast.getRhs().accept(this);
 		return true;
 	}
 
@@ -51,7 +53,7 @@ public class ExpressionVisitorPrinter  implements ExpressionVisitor<Boolean> {
 	public Boolean visit(Eq ast) {
 		System.out.println("Eq");
 		ast.getLhs().accept(this);
-		ast.getLhs().accept(this);
+		ast.getRhs().accept(this);
 		return true;
 	}
 
@@ -59,7 +61,7 @@ public class ExpressionVisitorPrinter  implements ExpressionVisitor<Boolean> {
 	public Boolean visit(GEq ast) {
 		System.out.println("GEq");
 		ast.getLhs().accept(this);
-		ast.getLhs().accept(this);
+		ast.getRhs().accept(this);
 		return true;
 	}
 
@@ -67,7 +69,7 @@ public class ExpressionVisitorPrinter  implements ExpressionVisitor<Boolean> {
 	public Boolean visit(GT ast) {
 		System.out.println("GT");
 		ast.getLhs().accept(this);
-		ast.getLhs().accept(this);
+		ast.getRhs().accept(this);
 		return true;
 	}
 
@@ -75,7 +77,7 @@ public class ExpressionVisitorPrinter  implements ExpressionVisitor<Boolean> {
 	public Boolean visit(LEq ast) {
 		System.out.println("LEq");
 		ast.getLhs().accept(this);
-		ast.getLhs().accept(this);
+		ast.getRhs().accept(this);
 		return true;
 	}
 
@@ -83,7 +85,7 @@ public class ExpressionVisitorPrinter  implements ExpressionVisitor<Boolean> {
 	public Boolean visit(LT ast) {
 		System.out.println("LT");
 		ast.getLhs().accept(this);
-		ast.getLhs().accept(this);
+		ast.getRhs().accept(this);
 		return true;
 	}
 
@@ -91,7 +93,7 @@ public class ExpressionVisitorPrinter  implements ExpressionVisitor<Boolean> {
 	public Boolean visit(Mul ast) {
 		System.out.println("Mul");
 		ast.getLhs().accept(this);
-		ast.getLhs().accept(this);
+		ast.getRhs().accept(this);
 		return true;
 	}
 
@@ -99,7 +101,7 @@ public class ExpressionVisitorPrinter  implements ExpressionVisitor<Boolean> {
 	public Boolean visit(NEq ast) {
 		System.out.println("NEq");
 		ast.getLhs().accept(this);
-		ast.getLhs().accept(this);
+		ast.getRhs().accept(this);
 		return true;
 	}
 
@@ -107,7 +109,7 @@ public class ExpressionVisitorPrinter  implements ExpressionVisitor<Boolean> {
 	public Boolean visit(Or ast) {
 		System.out.println("Or");
 		ast.getLhs().accept(this);
-		ast.getLhs().accept(this);
+		ast.getRhs().accept(this);
 		return true;
 	}
 
@@ -115,7 +117,7 @@ public class ExpressionVisitorPrinter  implements ExpressionVisitor<Boolean> {
 	public Boolean visit(Sub ast) {
 		System.out.println("Sub");
 		ast.getLhs().accept(this);
-		ast.getLhs().accept(this);
+		ast.getRhs().accept(this);
 		return true;
 	}
 
