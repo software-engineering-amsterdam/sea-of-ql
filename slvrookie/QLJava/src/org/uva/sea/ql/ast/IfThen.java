@@ -1,27 +1,25 @@
 package org.uva.sea.ql.ast;
 
-import java.util.List;
-
 import org.uva.sea.ql.ast.expr.Expr;
 import org.uva.sea.ql.visitor.TypeChecker;
 
 
-public class IfBody extends FormElement {
+public class IfThen extends FormElement {
 
 	private final Expr expression;
-	private final List<FormElement> ifBody;
+	private final Block thenBody;
 
-	public IfBody(Expr expression, List<FormElement> ifBody) {
+	public IfThen(Expr expression, Block thenBody) {
 		this.expression = expression;
-		this.ifBody = ifBody;
+		this.thenBody = thenBody;
 	}
 
 	public Expr getExpression() {
 		return expression;
 	}
 
-	public List<FormElement> getIfElements() {
-		return ifBody;
+	public Block getThenBody() {
+		return thenBody;
 	}
 
 	@Override

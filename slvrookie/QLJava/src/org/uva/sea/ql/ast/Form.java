@@ -1,7 +1,5 @@
 package org.uva.sea.ql.ast;
 
-import java.util.List;
-
 import org.uva.sea.ql.ast.expr.Ident;
 import org.uva.sea.ql.visitor.TypeChecker;
 
@@ -9,9 +7,9 @@ import org.uva.sea.ql.visitor.TypeChecker;
 public class Form extends FormElement {
 
 	private final Ident fID;
-	private final List<FormElement> fBody;
+	private final Block fBody;
 
-	public Form(Ident fID, List<FormElement> fBody) {
+	public Form(Ident fID, Block fBody) {
 		this.fID = fID;
 		this.fBody = fBody;
 	}
@@ -20,7 +18,7 @@ public class Form extends FormElement {
 		return fID;
 	}
 
-	public List<FormElement> getFormBody() {
+	public Block getFormBody() {
 		return fBody;
 	}
 

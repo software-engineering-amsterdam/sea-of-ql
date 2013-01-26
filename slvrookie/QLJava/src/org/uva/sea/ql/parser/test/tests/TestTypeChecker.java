@@ -22,9 +22,9 @@ public class TestTypeChecker {
 				+ "   hasMaintLoan: \"Did you enter a loan for maintenance/reconstruction?\"boolean \n"
 				+ "   if ( asSoldHouse== true){ \n"
 				+ "   	sSoldHouse: \"Price the house was sold for:\" int \n"
-				+ "     privateDebt:  \"Private debts for the sold house:\" boolean" 
-				+ "     privateDeb: \"Value residue:\" int(7)}}";
-		
+				+ "     privateDebt:  \"Private debts for the sold house:\" int" 
+				+ "     privateDbt: \"Value residue:\" int(7-3)}"
+				+ "     privateDeb:  \"Private debts for the sold house:\" int}";
 		parser.parseForm(form1).accept(checker);
 		for (String errorString : checker.getErrorList())
 			System.out.println(errorString);

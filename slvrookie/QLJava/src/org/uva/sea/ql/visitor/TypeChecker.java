@@ -5,10 +5,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.uva.sea.ql.ast.Block;
 import org.uva.sea.ql.ast.CompQuestion;
 import org.uva.sea.ql.ast.Form;
 import org.uva.sea.ql.ast.FormElement;
-import org.uva.sea.ql.ast.IfBody;
+import org.uva.sea.ql.ast.IfThen;
 import org.uva.sea.ql.ast.Question;
 import org.uva.sea.ql.ast.types.*;
 
@@ -26,24 +27,23 @@ public class TypeChecker {
 	}
 
 	public void visit(Form form) {
-		for (FormElement element : form.getFormBody()) {
+		form.getFormBody().accept(this);
+	}
+	
+	public void visit(Block block) {
+		for (FormElement element : block.getBlock()) {
 			if (element != null) {
 				element.accept(this);
 			}
 		}
 	}
 
-	public void visit(IfBody ifBody) {
+	public void visit(IfThen ifBody) {
 		ExprVisitor.check(ifBody.getExpression(), typeEnv, messages);
 		if (!ifBody.getExpression().typeOf(typeEnv).isCompatibleToBoolType()) {
 			addError("If expression must be boolean");
 		}
-
-		for (FormElement element : ifBody.getIfElements()) {
-			if (element != null) {
-				element.accept(this);
-			}
-		}
+		ifBody.getThenBody().accept(this);
 	}
 
 	public void visit(Question question) {
@@ -56,7 +56,6 @@ public class TypeChecker {
 		if (!compQuestion.getQuestionExpr().typeOf(typeEnv).isCompatibleTo(compQuestion.getQuestionType())) {
 			addError("Incompatible question type and expression");
 		}
-		System.out.println(compQuestion.getQuestionExpr().typeOf(typeEnv));
 	}
 
 	public void isDeclared(Question question) {
@@ -66,5 +65,4 @@ public class TypeChecker {
 			typeEnv.put(question.getQuestionID().getName(),question.getQuestionType());
 		}
 	}
-
 }

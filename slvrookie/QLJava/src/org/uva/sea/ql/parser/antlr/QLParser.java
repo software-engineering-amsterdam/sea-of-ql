@@ -1,4 +1,4 @@
-// $ANTLR 3.5 C:\\Users\\SliverPente\\workspaceindigo\\QLJAVA\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g 2013-01-24 21:32:17
+// $ANTLR 3.5 C:\\Users\\SliverPente\\workspaceindigo\\QLJAVA\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g 2013-01-26 09:46:26
 
 package org.uva.sea.ql.parser.antlr;
 import org.uva.sea.ql.ast.*;
@@ -746,7 +746,7 @@ public class QLParser extends Parser {
 
 
 	// $ANTLR start "formElement"
-	// C:\\Users\\SliverPente\\workspaceindigo\\QLJAVA\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:102:1: formElement returns [FormElement result] : ( 'if' '(' x= orExpr ')' '{' body= formblock '}' | Ident ':' StringLiteral type '(' orExpr ')' | Ident ':' StringLiteral type );
+	// C:\\Users\\SliverPente\\workspaceindigo\\QLJAVA\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:102:1: formElement returns [FormElement result] : ( 'if' '(' x= orExpr ')' '{' thenbody= formblock '}' | Ident ':' StringLiteral type '(' orExpr ')' | Ident ':' StringLiteral type );
 	public final FormElement formElement() throws RecognitionException {
 		FormElement result = null;
 
@@ -757,7 +757,7 @@ public class QLParser extends Parser {
 		Token Ident11=null;
 		Token StringLiteral12=null;
 		Expr x =null;
-		List<FormElement> body =null;
+		Block thenbody =null;
 		Type type9 =null;
 		Expr orExpr10 =null;
 		Type type13 =null;
@@ -765,7 +765,7 @@ public class QLParser extends Parser {
 		try {
 			if ( state.backtracking>0 && alreadyParsedRule(input, 9) ) { return result; }
 
-			// C:\\Users\\SliverPente\\workspaceindigo\\QLJAVA\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:103:5: ( 'if' '(' x= orExpr ')' '{' body= formblock '}' | Ident ':' StringLiteral type '(' orExpr ')' | Ident ':' StringLiteral type )
+			// C:\\Users\\SliverPente\\workspaceindigo\\QLJAVA\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:103:5: ( 'if' '(' x= orExpr ')' '{' thenbody= formblock '}' | Ident ':' StringLiteral type '(' orExpr ')' | Ident ':' StringLiteral type )
 			int alt8=3;
 			int LA8_0 = input.LA(1);
 			if ( (LA8_0==29) ) {
@@ -861,7 +861,7 @@ public class QLParser extends Parser {
 
 			switch (alt8) {
 				case 1 :
-					// C:\\Users\\SliverPente\\workspaceindigo\\QLJAVA\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:103:7: 'if' '(' x= orExpr ')' '{' body= formblock '}'
+					// C:\\Users\\SliverPente\\workspaceindigo\\QLJAVA\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:103:7: 'if' '(' x= orExpr ')' '{' thenbody= formblock '}'
 					{
 					match(input,29,FOLLOW_29_in_formElement541); if (state.failed) return result;
 					match(input,16,FOLLOW_16_in_formElement543); if (state.failed) return result;
@@ -872,11 +872,11 @@ public class QLParser extends Parser {
 					match(input,17,FOLLOW_17_in_formElement551); if (state.failed) return result;
 					match(input,30,FOLLOW_30_in_formElement554); if (state.failed) return result;
 					pushFollow(FOLLOW_formblock_in_formElement558);
-					body=formblock();
+					thenbody=formblock();
 					state._fsp--;
 					if (state.failed) return result;
 					match(input,32,FOLLOW_32_in_formElement560); if (state.failed) return result;
-					if ( state.backtracking==0 ) { result = new IfBody(x, body); }
+					if ( state.backtracking==0 ) { result = new IfThen(x, thenbody); }
 					}
 					break;
 				case 2 :
@@ -930,22 +930,24 @@ public class QLParser extends Parser {
 
 
 	// $ANTLR start "formblock"
-	// C:\\Users\\SliverPente\\workspaceindigo\\QLJAVA\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:108:1: formblock returns [List<FormElement> result] : (forme= formElement )* ;
-	public final List<FormElement> formblock() throws RecognitionException {
-		List<FormElement> result = null;
+	// C:\\Users\\SliverPente\\workspaceindigo\\QLJAVA\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:108:2: formblock returns [Block result] : ( formElement )* ;
+	public final Block formblock() throws RecognitionException {
+		Block result = null;
 
 		int formblock_StartIndex = input.index();
 
-		FormElement forme =null;
+		FormElement formElement14 =null;
 
+
+		          Block formblock = new Block();
+		    
 		try {
 			if ( state.backtracking>0 && alreadyParsedRule(input, 10) ) { return result; }
 
-			// C:\\Users\\SliverPente\\workspaceindigo\\QLJAVA\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:109:5: ( (forme= formElement )* )
-			// C:\\Users\\SliverPente\\workspaceindigo\\QLJAVA\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:109:8: (forme= formElement )*
+			// C:\\Users\\SliverPente\\workspaceindigo\\QLJAVA\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:112:5: ( ( formElement )* )
+			// C:\\Users\\SliverPente\\workspaceindigo\\QLJAVA\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:112:7: ( formElement )*
 			{
-			if ( state.backtracking==0 ) { result = new ArrayList<FormElement>() ; }
-			// C:\\Users\\SliverPente\\workspaceindigo\\QLJAVA\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:109:54: (forme= formElement )*
+			// C:\\Users\\SliverPente\\workspaceindigo\\QLJAVA\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:112:7: ( formElement )*
 			loop9:
 			while (true) {
 				int alt9=2;
@@ -956,13 +958,13 @@ public class QLParser extends Parser {
 
 				switch (alt9) {
 				case 1 :
-					// C:\\Users\\SliverPente\\workspaceindigo\\QLJAVA\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:109:55: forme= formElement
+					// C:\\Users\\SliverPente\\workspaceindigo\\QLJAVA\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:112:8: formElement
 					{
-					pushFollow(FOLLOW_formElement_in_formblock633);
-					forme=formElement();
+					pushFollow(FOLLOW_formElement_in_formblock630);
+					formElement14=formElement();
 					state._fsp--;
 					if (state.failed) return result;
-					if ( state.backtracking==0 ) { result.add(forme) ; }
+					if ( state.backtracking==0 ) {formblock.addElement(formElement14);}
 					}
 					break;
 
@@ -971,6 +973,7 @@ public class QLParser extends Parser {
 				}
 			}
 
+			if ( state.backtracking==0 ) {result =formblock;}
 			}
 
 		}
@@ -990,31 +993,31 @@ public class QLParser extends Parser {
 
 
 	// $ANTLR start "form"
-	// C:\\Users\\SliverPente\\workspaceindigo\\QLJAVA\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:112:1: form returns [Form result] : 'form' Ident '{' fb= formblock '}' EOF ;
+	// C:\\Users\\SliverPente\\workspaceindigo\\QLJAVA\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:116:1: form returns [Form result] : 'form' Ident '{' fb= formblock '}' EOF ;
 	public final Form form() throws RecognitionException {
 		Form result = null;
 
 		int form_StartIndex = input.index();
 
-		Token Ident14=null;
-		List<FormElement> fb =null;
+		Token Ident15=null;
+		Block fb =null;
 
 		try {
 			if ( state.backtracking>0 && alreadyParsedRule(input, 11) ) { return result; }
 
-			// C:\\Users\\SliverPente\\workspaceindigo\\QLJAVA\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:113:5: ( 'form' Ident '{' fb= formblock '}' EOF )
-			// C:\\Users\\SliverPente\\workspaceindigo\\QLJAVA\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:113:7: 'form' Ident '{' fb= formblock '}' EOF
+			// C:\\Users\\SliverPente\\workspaceindigo\\QLJAVA\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:117:5: ( 'form' Ident '{' fb= formblock '}' EOF )
+			// C:\\Users\\SliverPente\\workspaceindigo\\QLJAVA\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:117:7: 'form' Ident '{' fb= formblock '}' EOF
 			{
-			match(input,28,FOLLOW_28_in_form666); if (state.failed) return result;
-			Ident14=(Token)match(input,Ident,FOLLOW_Ident_in_form668); if (state.failed) return result;
-			match(input,30,FOLLOW_30_in_form670); if (state.failed) return result;
-			pushFollow(FOLLOW_formblock_in_form676);
+			match(input,28,FOLLOW_28_in_form662); if (state.failed) return result;
+			Ident15=(Token)match(input,Ident,FOLLOW_Ident_in_form664); if (state.failed) return result;
+			match(input,30,FOLLOW_30_in_form666); if (state.failed) return result;
+			pushFollow(FOLLOW_formblock_in_form672);
 			fb=formblock();
 			state._fsp--;
 			if (state.failed) return result;
-			match(input,32,FOLLOW_32_in_form678); if (state.failed) return result;
-			match(input,EOF,FOLLOW_EOF_in_form680); if (state.failed) return result;
-			if ( state.backtracking==0 ) { result = new Form(new Ident((Ident14!=null?Ident14.getText():null)), fb); }
+			match(input,32,FOLLOW_32_in_form674); if (state.failed) return result;
+			match(input,EOF,FOLLOW_EOF_in_form676); if (state.failed) return result;
+			if ( state.backtracking==0 ) { result = new Form(new Ident((Ident15!=null?Ident15.getText():null)), fb); }
 			}
 
 		}
@@ -1084,11 +1087,11 @@ public class QLParser extends Parser {
 	public static final BitSet FOLLOW_22_in_formElement595 = new BitSet(new long[]{0x0000000000000400L});
 	public static final BitSet FOLLOW_StringLiteral_in_formElement597 = new BitSet(new long[]{0x0000000000000800L});
 	public static final BitSet FOLLOW_type_in_formElement599 = new BitSet(new long[]{0x0000000000000002L});
-	public static final BitSet FOLLOW_formElement_in_formblock633 = new BitSet(new long[]{0x0000000020000042L});
-	public static final BitSet FOLLOW_28_in_form666 = new BitSet(new long[]{0x0000000000000040L});
-	public static final BitSet FOLLOW_Ident_in_form668 = new BitSet(new long[]{0x0000000040000000L});
-	public static final BitSet FOLLOW_30_in_form670 = new BitSet(new long[]{0x0000000120000040L});
-	public static final BitSet FOLLOW_formblock_in_form676 = new BitSet(new long[]{0x0000000100000000L});
-	public static final BitSet FOLLOW_32_in_form678 = new BitSet(new long[]{0x0000000000000000L});
-	public static final BitSet FOLLOW_EOF_in_form680 = new BitSet(new long[]{0x0000000000000002L});
+	public static final BitSet FOLLOW_formElement_in_formblock630 = new BitSet(new long[]{0x0000000020000042L});
+	public static final BitSet FOLLOW_28_in_form662 = new BitSet(new long[]{0x0000000000000040L});
+	public static final BitSet FOLLOW_Ident_in_form664 = new BitSet(new long[]{0x0000000040000000L});
+	public static final BitSet FOLLOW_30_in_form666 = new BitSet(new long[]{0x0000000120000040L});
+	public static final BitSet FOLLOW_formblock_in_form672 = new BitSet(new long[]{0x0000000100000000L});
+	public static final BitSet FOLLOW_32_in_form674 = new BitSet(new long[]{0x0000000000000000L});
+	public static final BitSet FOLLOW_EOF_in_form676 = new BitSet(new long[]{0x0000000000000002L});
 }
