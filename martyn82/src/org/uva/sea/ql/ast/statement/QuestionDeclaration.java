@@ -1,7 +1,7 @@
 package org.uva.sea.ql.ast.statement;
 
 import org.uva.sea.ql.ast.expression.literal.Str;
-import org.uva.sea.ql.visitor.NodeVisitor;
+import org.uva.sea.ql.visitor.IStatementVisitor;
 
 /**
  * Represents a question declaration.
@@ -58,7 +58,7 @@ public class QuestionDeclaration extends Statement {
 	}
 
 	@Override
-	public <T> T accept( NodeVisitor<T> visitor ) {
+	public <T> T accept( IStatementVisitor<T> visitor ) {
 		return visitor.visit( this );
 	}
 }

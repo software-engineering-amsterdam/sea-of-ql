@@ -4,7 +4,7 @@ import java.util.Map;
 
 import org.uva.sea.ql.ast.expression.Ident;
 import org.uva.sea.ql.ast.type.Type;
-import org.uva.sea.ql.visitor.NodeVisitor;
+import org.uva.sea.ql.visitor.IExpressionVisitor;
 
 /**
  * Represents a decimal number.
@@ -39,7 +39,7 @@ public class Money extends Number {
 	}
 
 	@Override
-	public <T> T accept( NodeVisitor<T> visitor ) {
+	public <T> T accept( IExpressionVisitor<T> visitor ) {
 		return visitor.visit( this );
 	}
 

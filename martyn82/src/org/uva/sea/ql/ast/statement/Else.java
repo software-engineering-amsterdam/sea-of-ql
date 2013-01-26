@@ -1,7 +1,7 @@
 package org.uva.sea.ql.ast.statement;
 
 import org.uva.sea.ql.ast.Node;
-import org.uva.sea.ql.visitor.NodeVisitor;
+import org.uva.sea.ql.visitor.IStatementVisitor;
 
 /**
  * Represents If-Then statement.
@@ -22,16 +22,20 @@ public class Else extends Node {
 	}
 
 	/**
+	 * Accept a statement visitor.
+	 *
+	 * @param visitor
+	 */
+	public <T> T accept( IStatementVisitor<T> visitor ) {
+		return visitor.visit( this );
+	}
+
+	/**
 	 * Retrieves the body.
 	 *
 	 * @return The body of the ELSE.
 	 */
 	public Statements getBody() {
 		return this.body;
-	}
-
-	@Override
-	public <T> T accept( NodeVisitor<T> visitor ) {
-		return visitor.visit( this );
 	}
 }

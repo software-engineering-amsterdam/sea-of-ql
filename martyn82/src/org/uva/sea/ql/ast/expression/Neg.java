@@ -1,6 +1,5 @@
 package org.uva.sea.ql.ast.expression;
 
-
 /**
  * Represents a negative expression.
  */

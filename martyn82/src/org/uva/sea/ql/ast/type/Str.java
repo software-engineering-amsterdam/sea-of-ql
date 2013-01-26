@@ -1,6 +1,6 @@
 package org.uva.sea.ql.ast.type;
 
-import org.uva.sea.ql.visitor.NodeVisitor;
+import org.uva.sea.ql.visitor.ITypeVisitor;
 
 /**
  * Represents a String type.
@@ -8,7 +8,7 @@ import org.uva.sea.ql.visitor.NodeVisitor;
 public class Str extends Type {
 
 	@Override
-	public <T> T accept( NodeVisitor<T> visitor ) {
+	public <T> T accept( ITypeVisitor<T> visitor ) {
 		return visitor.visit( this );
 	}
 }

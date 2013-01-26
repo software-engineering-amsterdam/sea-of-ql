@@ -3,6 +3,7 @@ package org.uva.sea.ql.parser.test;
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
+import org.uva.sea.ql.ast.Node;
 import org.uva.sea.ql.ast.expression.Add;
 import org.uva.sea.ql.ast.expression.And;
 import org.uva.sea.ql.ast.expression.Div;
@@ -27,6 +28,8 @@ import org.uva.sea.ql.ast.statement.Assignment;
 import org.uva.sea.ql.ast.statement.FormDeclaration;
 import org.uva.sea.ql.ast.statement.IfThenElse;
 import org.uva.sea.ql.ast.statement.QuestionDeclaration;
+import org.uva.sea.ql.ast.statement.Statement;
+import org.uva.sea.ql.ast.statement.Statements;
 import org.uva.sea.ql.parser.IParser;
 import org.uva.sea.ql.parser.ParseError;
 import org.uva.sea.ql.parser.jacc.JACCParser;
@@ -36,15 +39,121 @@ import org.uva.sea.ql.parser.jacc.JACCParser;
  */
 public class TestParser {
 	/**
+	 * Enumeration of which side to pick in an expression or statement.
+	 */
+	private enum Side {
+		ALL,
+		LEFT,
+		RIGHT
+	};
+
+	/**
 	 * Holds working parser object.
 	 */
 	private IParser parser;
 
 	/**
-	 * Constructor.
+	 * Constructs a new instance of the parser test.
 	 */
 	public TestParser() {
 		this.parser = new JACCParser();
+	}
+
+	/**
+	 * Shorthand method for asserting an expression source.
+	 *
+	 * @param expected
+	 * @param source
+	 *
+	 * @throws ParseError
+	 */
+	private void assertExpression( Class<?> expected, String source ) throws ParseError {
+		// transform input expression to assignment statement, as atomic expressions do not exist in the language.
+		source = "x= " + source;
+		assertSide( expected, source, Side.RIGHT );
+	}
+
+	/**
+	 * Shorthand method for asserting a node type.
+	 *
+	 * @param expected
+	 * @param source
+	 *
+	 * @throws ParseError
+	 */
+	private void assertNode( Class<?> expected, String source ) throws ParseError {
+		Statements root = parser.parse( source );
+		assertEquals( expected, root.getFirst().getClass() );
+	}
+
+	/**
+	 * Assert a side of a Node is of a certain type.
+	 *
+	 * @param expected
+	 * @param source
+	 * @param side
+	 *
+	 * @throws ParseError
+	 */
+	private void assertSide( Class<?> expected, String source, Side side ) throws ParseError {
+		Statements root = parser.parse( source );
+		Node test = getPartOf( root, side );
+
+		assertEquals( expected, test.getClass() );
+	}
+
+	/**
+	 * Retrieves a part of a statement.
+	 *
+	 * @param node
+	 * @param which
+	 *
+	 * @return The node type it represents.
+	 */
+	private Node getPartOf( Statements node, Side which ) {
+		if ( node.size() == 1 ) {
+			return getPartOf( node.getFirst(), which );
+		}
+
+		return null;
+	}
+
+	/**
+	 * Retrieves a part of a statement.
+	 *
+	 * @param node
+	 * @param which
+	 *
+	 * @return The node type it represents.
+	 */
+	private Node getPartOf( Statement node, Side which ) {
+		if ( node instanceof Assignment ) {
+			return getPartOf( (Assignment) node, which );
+		}
+
+		return node;
+	}
+
+	/**
+	 * Retrieves a part of an assignment node.
+	 *
+	 * @param node
+	 * @param which
+	 *
+	 * @return The node at the given part.
+	 */
+	private Node getPartOf( Assignment node, Side which ) {
+		switch ( which ) {
+			case LEFT:
+				return node.getIdent();
+
+			case RIGHT:
+				return node.getExpression();
+
+			case ALL:
+			default:
+				return node;
+		}
 	}
 
 	/**
@@ -54,15 +163,15 @@ public class TestParser {
 	 */
 	@Test
 	public void testAdds() throws ParseError {
-		assertEquals( Add.class, parser.parse( "a + b" ).getClass() );
-		assertEquals( Add.class, parser.parse( "a + b + c" ).getClass() );
-		assertEquals( Add.class, parser.parse( "(a + b)" ).getClass() );
-		assertEquals( Add.class, parser.parse( "(a + b + c)" ).getClass() );
-		assertEquals( Add.class, parser.parse( "(a + b) + c" ).getClass() );
-		assertEquals( Add.class, parser.parse( "a + (b + c)" ).getClass() );
-		assertEquals( Add.class, parser.parse( "a + b * c" ).getClass() );
-		assertEquals( Add.class, parser.parse( "a * b + c" ).getClass() );
-		assertEquals( Add.class, parser.parse( "1+1" ).getClass() );
+		assertExpression( Add.class, "a + b" );
+		assertExpression( Add.class, "a + b + c" );
+		assertExpression( Add.class, "(a + b)" );
+		assertExpression( Add.class, "(a + b + c)" );
+		assertExpression( Add.class, "(a + b) + c" );
+		assertExpression( Add.class, "a + (b + c)" );
+		assertExpression( Add.class, "a + b * c" );
+		assertExpression( Add.class, "a * b + c" );
+		assertExpression( Add.class, "1+1" );
 	}
 
 	/**
@@ -72,15 +181,15 @@ public class TestParser {
 	 */
 	@Test
 	public void testSubs() throws ParseError {
-		assertEquals( Sub.class, parser.parse( "a - b" ).getClass() );
-		assertEquals( Sub.class, parser.parse( "a - b - c" ).getClass() );
-		assertEquals( Sub.class, parser.parse( "(a - b - c)" ).getClass() );
-		assertEquals( Sub.class, parser.parse( "a - (b - c)" ).getClass() );
-		assertEquals( Sub.class, parser.parse( "(a - b) - c" ).getClass() );
-		assertEquals( Sub.class, parser.parse( "(a - b)" ).getClass() );
-		assertEquals( Sub.class, parser.parse( "a - b * c" ).getClass() );
-		assertEquals( Sub.class, parser.parse( "a * b - c" ).getClass() );
-		assertEquals( Sub.class, parser.parse( "1-1" ).getClass() );
+		assertExpression( Sub.class, "a - b" );
+		assertExpression( Sub.class, "a - b - c" );
+		assertExpression( Sub.class, "(a - b - c)" );
+		assertExpression( Sub.class, "a - (b - c)" );
+		assertExpression( Sub.class, "(a - b) - c" );
+		assertExpression( Sub.class, "(a - b)" );
+		assertExpression( Sub.class, "a - b * c" );
+		assertExpression( Sub.class, "a * b - c" );
+		assertExpression( Sub.class, "1-1" );
 	}
 
 	/**
@@ -90,14 +199,14 @@ public class TestParser {
 	 */
 	@Test
 	public void testMuls() throws ParseError {
-		assertEquals( Mul.class, parser.parse( "a * b" ).getClass() );
-		assertEquals( Mul.class, parser.parse( "a * b * c" ).getClass() );
-		assertEquals( Mul.class, parser.parse( "a * (b * c)" ).getClass() );
-		assertEquals( Mul.class, parser.parse( "(a * b) * c" ).getClass() );
-		assertEquals( Mul.class, parser.parse( "(a * b)" ).getClass() );
-		assertEquals( Mul.class, parser.parse( "(a + b) * c" ).getClass() );
-		assertEquals( Mul.class, parser.parse( "a * (b + c)" ).getClass() );
-		assertEquals( Mul.class, parser.parse( "1*1" ).getClass() );
+		assertExpression( Mul.class, "a * b" );
+		assertExpression( Mul.class, "a * b * c" );
+		assertExpression( Mul.class, "a * (b * c)" );
+		assertExpression( Mul.class, "(a * b) * c" );
+		assertExpression( Mul.class, "(a * b)" );
+		assertExpression( Mul.class, "(a + b) * c" );
+		assertExpression( Mul.class, "a * (b + c)" );
+		assertExpression( Mul.class, "1*1" );
 	}
 
 	/**
@@ -107,14 +216,14 @@ public class TestParser {
 	 */
 	@Test
 	public void testDivs() throws ParseError {
-		assertEquals( Div.class, parser.parse( "a / b" ).getClass() );
-		assertEquals( Div.class, parser.parse( "a / b / c" ).getClass() );
-		assertEquals( Div.class, parser.parse( "a / (b / c)" ).getClass() );
-		assertEquals( Div.class, parser.parse( "(a / b) / c" ).getClass() );
-		assertEquals( Div.class, parser.parse( "(a / b)" ).getClass() );
-		assertEquals( Div.class, parser.parse( "(a + b) / c" ).getClass() );
-		assertEquals( Div.class, parser.parse( "a / (b + c)" ).getClass() );
-		assertEquals( Div.class, parser.parse( "1/1" ).getClass() );
+		assertExpression( Div.class, "a / b" );
+		assertExpression( Div.class, "a / b / c" );
+		assertExpression( Div.class, "a / (b / c)" );
+		assertExpression( Div.class, "(a / b) / c" );
+		assertExpression( Div.class, "(a / b)" );
+		assertExpression( Div.class, "(a + b) / c" );
+		assertExpression( Div.class, "a / (b + c)" );
+		assertExpression( Div.class, "1/1" );
 	}
 
 	/**
@@ -125,40 +234,40 @@ public class TestParser {
 	@Test
 	public void testRels() throws ParseError {
 		// lesser-than
-		assertEquals( LT.class, parser.parse( "a < b" ).getClass() );
-		assertEquals( LT.class, parser.parse( "a < b + c" ).getClass() );
-		assertEquals( LT.class, parser.parse( "a < (b * c)" ).getClass() );
-		assertEquals( LT.class, parser.parse( "(a * b) < c" ).getClass() );
+		assertExpression( LT.class, "a < b" );
+		assertExpression( LT.class, "a < b + c" );
+		assertExpression( LT.class, "a < (b * c)" );
+		assertExpression( LT.class, "(a * b) < c" );
 
 		// greater-than
-		assertEquals( GT.class, parser.parse( "a > b" ).getClass() );
-		assertEquals( GT.class, parser.parse( "a > b + c" ).getClass() );
-		assertEquals( GT.class, parser.parse( "a > (b * c)" ).getClass() );
-		assertEquals( GT.class, parser.parse( "(a * b) > c" ).getClass() );
+		assertExpression( GT.class, "a > b" );
+		assertExpression( GT.class, "a > b + c" );
+		assertExpression( GT.class, "a > (b * c)" );
+		assertExpression( GT.class, "(a * b) > c" );
 
 		// lesser-than-equals
-		assertEquals( LEq.class, parser.parse( "a <= b" ).getClass() );
-		assertEquals( LEq.class, parser.parse( "a <= b + c" ).getClass() );
-		assertEquals( LEq.class, parser.parse( "a <= (b * c)" ).getClass() );
-		assertEquals( LEq.class, parser.parse( "(a * b) <= c" ).getClass() );
+		assertExpression( LEq.class, "a <= b" );
+		assertExpression( LEq.class, "a <= b + c" );
+		assertExpression( LEq.class, "a <= (b * c)" );
+		assertExpression( LEq.class, "(a * b) <= c" );
 
 		// greater-than-equals
-		assertEquals( GEq.class, parser.parse( "a >= b" ).getClass() );
-		assertEquals( GEq.class, parser.parse( "a >= b + c" ).getClass() );
-		assertEquals( GEq.class, parser.parse( "a >= (b * c)" ).getClass() );
-		assertEquals( GEq.class, parser.parse( "(a * b ) >= c" ).getClass() );
+		assertExpression( GEq.class, "a >= b");
+		assertExpression( GEq.class, "a >= b + c" );
+		assertExpression( GEq.class, "a >= (b * c)" );
+		assertExpression( GEq.class, "(a * b ) >= c" );
 
 		// equals
-		assertEquals( Eq.class, parser.parse( "a == b" ).getClass() );
-		assertEquals( Eq.class, parser.parse( "(a == b)" ).getClass() );
-		assertEquals( Eq.class, parser.parse( "a == (b > c)" ).getClass() );
-		assertEquals( Eq.class, parser.parse( "a == b + c" ).getClass() );
+		assertExpression( Eq.class, "a == b" );
+		assertExpression( Eq.class, "(a == b)" );
+		assertExpression( Eq.class, "a == (b > c)" );
+		assertExpression( Eq.class, "a == b + c" );
 
 		// not-equals
-		assertEquals( NEq.class, parser.parse( "a != b" ).getClass() );
-		assertEquals( NEq.class, parser.parse( "(a != b)" ).getClass() );
-		assertEquals( NEq.class, parser.parse( "a != b + c" ).getClass() );
-		assertEquals( NEq.class, parser.parse( "a != (b < c)" ).getClass() );
+		assertExpression( NEq.class, "a != b" );
+		assertExpression( NEq.class, "(a != b)" );
+		assertExpression( NEq.class, "a != b + c" );
+		assertExpression( NEq.class, "a != (b < c)" );
 	}
 
 	/**
@@ -168,13 +277,13 @@ public class TestParser {
 	 */
 	@Test
 	public void testIds() throws ParseError {
-		assertEquals( Ident.class, parser.parse( "a" ).getClass() );
-		assertEquals( Ident.class, parser.parse( "abc" ).getClass() );
-		assertEquals( Ident.class, parser.parse( "ABC" ).getClass() );
-		assertEquals( Ident.class, parser.parse( "ABCDEF" ).getClass() );
-		assertEquals( Ident.class, parser.parse( "abc2323" ).getClass() );
-		assertEquals( Ident.class, parser.parse( "a2bc232" ).getClass() );
-		assertEquals( Ident.class, parser.parse( "a2bc232aa" ).getClass() );
+		assertExpression( Ident.class, "a" );
+		assertExpression( Ident.class, "abc" );
+		assertExpression( Ident.class, "ABC" );
+		assertExpression( Ident.class, "ABCdeF" );
+		assertExpression( Ident.class, "abc2323" );
+		assertExpression( Ident.class, "a2bc232" );
+		assertExpression( Ident.class, "a2bc232aa" );
 	}
 
 	/**
@@ -185,29 +294,29 @@ public class TestParser {
 	@Test
 	public void testNums() throws ParseError {
 		// integer
-		assertEquals( Int.class, parser.parse( "0" ).getClass() );
-		assertEquals( Int.class, parser.parse( "1223" ).getClass() );
-		assertEquals( Int.class, parser.parse( "234234234" ).getClass() );
+		assertExpression( Int.class, "0" );
+		assertExpression( Int.class, "1223" );
+		assertExpression( Int.class, "234234234" );
 
 		// money
-		assertEquals( Money.class, parser.parse( "0.0" ).getClass() );
-		assertEquals( Money.class, parser.parse( "0.034982390" ).getClass() );
-		assertEquals( Money.class, parser.parse( ".5" ).getClass() );
-		assertEquals( Money.class, parser.parse( ".121e-10" ).getClass() );
-		assertEquals( Money.class, parser.parse( "141232.12141E+04" ).getClass() );
-		assertEquals( Money.class, parser.parse( "1.9e4" ).getClass() );
+		assertExpression( Money.class, "0.0" );
+		assertExpression( Money.class, "0.034982390" );
+		assertExpression( Money.class, ".5" );
+		assertExpression( Money.class, ".121e-10" );
+		assertExpression( Money.class, "141232.12141E+04" );
+		assertExpression( Money.class, "1.9e4" );
 
 		// negative
-		assertEquals( Neg.class, parser.parse( "-1" ).getClass() );
-		assertEquals( Neg.class, parser.parse( "-44320" ).getClass() );
-		assertEquals( Neg.class, parser.parse( "-0" ).getClass() );
-		assertEquals( Neg.class, parser.parse( "-(a * b)" ).getClass() );
+		assertExpression( Neg.class, "-1" );
+		assertExpression( Neg.class, "-44320" );
+		assertExpression( Neg.class, "-0" );
+		assertExpression( Neg.class, "-(a * b)" );
 
 		// positive
-		assertEquals( Pos.class, parser.parse( "+1" ).getClass() );
-		assertEquals( Pos.class, parser.parse( "+0" ).getClass() );
-		assertEquals( Pos.class, parser.parse( "+991821" ).getClass() );
-		assertEquals( Pos.class, parser.parse( "+(-43 * (11 + -3))" ).getClass() );
+		assertExpression( Pos.class, "+1" );
+		assertExpression( Pos.class, "+0" );
+		assertExpression( Pos.class, "+991821" );
+		assertExpression( Pos.class, "+(-43 * (11 + -3))" );
 	}
 
 	/**
@@ -217,8 +326,8 @@ public class TestParser {
 	 */
 	@Test
 	public void testBools() throws ParseError {
-		assertEquals( Bool.class, parser.parse( "true" ).getClass() );
-		assertEquals( Bool.class, parser.parse( "false" ).getClass() );
+		assertExpression( Bool.class, "true" );
+		assertExpression( Bool.class, "false" );
 	}
 
 	/**
@@ -228,15 +337,15 @@ public class TestParser {
 	 */
 	@Test
 	public void testStrings() throws ParseError {
-		assertEquals( Str.class, parser.parse( "\"\"" ).getClass() );
-		assertEquals( Str.class, parser.parse( "\"abc\"" ).getClass() );
-		assertEquals( Str.class, parser.parse( "\"321\"" ).getClass() );
-		assertEquals( Str.class, parser.parse( "\"s1t2r3\"" ).getClass() );
-		assertEquals( Str.class, parser.parse( "\"-53\"" ).getClass() );
+		assertExpression( Str.class, "\"\"" );
+		assertExpression( Str.class, "\"abc\"" );
+		assertExpression( Str.class, "\"321\"" );
+		assertExpression( Str.class, "\"s1t2r3\"" );
+		assertExpression( Str.class, "\"-53\"" );
 
 		// escaped characters
-		assertEquals( Str.class, parser.parse( "\"\\'\"" ).getClass() );
-		assertEquals( Str.class, parser.parse( "\"\\n\"" ).getClass() );
+		assertExpression( Str.class, "\"\\'\"" );
+		assertExpression( Str.class, "\"\\n\"" );
 	}
 
 	/**
@@ -247,23 +356,23 @@ public class TestParser {
 	@Test
 	public void testLogicals() throws ParseError {
 		// logical AND
-		assertEquals( And.class, parser.parse( "a && b" ).getClass() );
-		assertEquals( And.class, parser.parse( "(a && b)" ).getClass() );
-		assertEquals( And.class, parser.parse( "a && (b || c)" ).getClass() );
-		assertEquals( And.class, parser.parse( "a && b && c" ).getClass() );
-		assertEquals( And.class, parser.parse( "a && !b" ).getClass() );
+		assertExpression( And.class, "a && b" );
+		assertExpression( And.class, "(a && b)" );
+		assertExpression( And.class, "a && (b || c)" );
+		assertExpression( And.class, "a && b && c" );
+		assertExpression( And.class, "a && !b" );
 
 		// logical OR
-		assertEquals( Or.class, parser.parse( "a || b" ).getClass() );
-		assertEquals( Or.class, parser.parse( "(a || b)" ).getClass() );
-		assertEquals( Or.class, parser.parse( "a || b && c" ).getClass() );
-		assertEquals( Or.class, parser.parse( "a || (b && c)" ).getClass() );
+		assertExpression( Or.class, "a || b" );
+		assertExpression( Or.class, "(a || b)" );
+		assertExpression( Or.class, "a || b && c" );
+		assertExpression( Or.class, "a || (b && c)" );
 
 		// logical NOT
-		assertEquals( Not.class, parser.parse( "!a" ).getClass() );
-		assertEquals( Not.class, parser.parse( "!(a && b)" ).getClass() );
-		assertEquals( Not.class, parser.parse( "!(a && !b)" ).getClass() );
-		assertEquals( Not.class, parser.parse( "!((a && !b) || !c)" ).getClass() );
+		assertExpression( Not.class, "!a" );
+		assertExpression( Not.class, "!(a && b)" );
+		assertExpression( Not.class, "!(a && !b)" );
+		assertExpression( Not.class, "!((a && !b) || !c)" );
 	}
 
 	/**
@@ -274,15 +383,15 @@ public class TestParser {
 	@Test
 	public void testComments() throws ParseError {
 		// multiline
-		assertEquals( Mul.class, parser.parse( "a /* some comments */ * c" ).getClass() );
-		assertEquals( Mul.class, parser.parse( "a */**/b" ).getClass() );
-		assertEquals( Mul.class, parser.parse( "a /** some\nlines\nof\ncomments\n*/\n*c" ).getClass() );
-		assertEquals( Div.class, parser.parse( "a / /**/ b" ).getClass() );
+		assertExpression( Mul.class, "a /* some comments */ * c" );
+		assertExpression( Mul.class, "a */**/b" );
+		assertExpression( Mul.class, "a /** some\nlines\nof\ncomments\n*/\n*c" );
+		assertExpression( Div.class, "a / /**/ b" );
 
 		// single line
-		assertEquals( Div.class, parser.parse( "a / b // something" ).getClass() );
-		assertEquals( Div.class, parser.parse( "a // blablabla\n/b" ).getClass() );
-		assertEquals( Mul.class, parser.parse( "a *// comments\rd" ).getClass() );
+		assertExpression( Div.class, "a / b // something" );
+		assertExpression( Div.class, "a // blablabla\n/b" );
+		assertExpression( Mul.class, "a *// comments\rd" );
 	}
 
 	/**
@@ -293,72 +402,60 @@ public class TestParser {
 	@Test
 	public void testIf() throws ParseError {
 		// literal conditions
-		assertEquals( IfThenElse.class, parser.parse( "if ( true ) { }" ).getClass() );
-		assertEquals( IfThenElse.class, parser.parse( "if ( false ) { }" ).getClass() );
-		assertEquals( IfThenElse.class, parser.parse( "if ( 1 ) { }" ).getClass() );
-		assertEquals( IfThenElse.class, parser.parse( "if ( \"str\" ) { }" ).getClass() );
-		assertEquals( IfThenElse.class, parser.parse( "if ( 131.5e-02 ) { }" ).getClass() );
+		assertNode( IfThenElse.class, "if ( true ) { }" );
+		assertNode( IfThenElse.class, "if ( false ) { }" );
+		assertNode( IfThenElse.class, "if ( 1 ) { }" );
+		assertNode( IfThenElse.class, "if ( \"str\" ) { }" );
+		assertNode( IfThenElse.class, "if ( 131.5e-02 ) { }" );
 
 		// comparison conditions
-		assertEquals( IfThenElse.class, parser.parse( "if ( a == b ) { }" ).getClass() );
-		assertEquals( IfThenElse.class, parser.parse( "if ( a != b ) { }" ).getClass() );
-		assertEquals( IfThenElse.class, parser.parse( "if ( a >= b ) { }" ).getClass() );
-		assertEquals( IfThenElse.class, parser.parse( "if ( a > b ) { }" ).getClass() );
-		assertEquals( IfThenElse.class, parser.parse( "if ( a < b ) { }" ).getClass() );
-		assertEquals( IfThenElse.class, parser.parse( "if ( a <= b && c ) { }" ).getClass() );
+		assertNode( IfThenElse.class, "if ( a == b ) { }" );
+		assertNode( IfThenElse.class, "if ( a != b ) { }" );
+		assertNode( IfThenElse.class, "if ( a >= b ) { }" );
+		assertNode( IfThenElse.class, "if ( a > b ) { }" );
+		assertNode( IfThenElse.class, "if ( a < b ) { }" );
+		assertNode( IfThenElse.class, "if ( a <= b && c ) { }" );
 
 		// arithmetic conditions
-		assertEquals( IfThenElse.class, parser.parse( "if ( 12 + 123 - 1 ) { }" ).getClass() );
-		assertEquals( IfThenElse.class, parser.parse( "if ( 0 - 121 + .5 ) { }" ).getClass() );
-		assertEquals( IfThenElse.class, parser.parse( "if ( 3 * 55 ) { }" ).getClass() );
-		assertEquals( IfThenElse.class, parser.parse( "if ( 100 / 2 ) { }" ).getClass() );
+		assertNode( IfThenElse.class, "if ( 12 + 123 - 1 ) { }" );
+		assertNode( IfThenElse.class, "if ( 0 - 121 + .5 ) { }" );
+		assertNode( IfThenElse.class, "if ( 3 * 55 ) { }" );
+		assertNode( IfThenElse.class, "if ( 100 / 2 ) { }" );
 
 		// logical conditions
-		assertEquals( IfThenElse.class, parser.parse( "if ( true && false ) { }" ).getClass() );
-		assertEquals( IfThenElse.class, parser.parse( "if ( a || b ) { }" ).getClass() );
-		assertEquals( IfThenElse.class, parser.parse( "if ( b && c ) { }" ).getClass() );
-		assertEquals( IfThenElse.class, parser.parse( "if ( a && b || c ) { }" ).getClass() );
+		assertNode( IfThenElse.class, "if ( true && false ) { }" );
+		assertNode( IfThenElse.class, "if ( a || b ) { }" );
+		assertNode( IfThenElse.class, "if ( b && c ) { }" );
+		assertNode( IfThenElse.class, "if ( a && b || c ) { }" );
 
 		// unary numerical conditions
-		assertEquals( IfThenElse.class, parser.parse( "if ( +22 ) { }" ).getClass() );
-		assertEquals( IfThenElse.class, parser.parse( "if ( -22 ) { }" ).getClass() );
-		assertEquals( IfThenElse.class, parser.parse( "if ( --9 ) { }" ).getClass() );
+		assertNode( IfThenElse.class, "if ( +22 ) { }" );
+		assertNode( IfThenElse.class, "if ( -22 ) { }" );
+		assertNode( IfThenElse.class, "if ( --9 ) { }" );
 
 		// unary logical conditions
-		assertEquals( IfThenElse.class, parser.parse( "if ( !a ) { }" ).getClass() );
-		assertEquals( IfThenElse.class, parser.parse( "if ( b && !a ) { }" ).getClass() );
+		assertNode( IfThenElse.class, "if ( !a ) { }" );
+		assertNode( IfThenElse.class, "if ( b && !a ) { }" );
 
 		// nested IFs
-		assertEquals( IfThenElse.class, parser.parse( "if ( true ) { if ( false ) { } }" ).getClass() );
-		assertEquals(
-			IfThenElse.class, parser.parse( "if ( true ) { } else if ( true ) { if ( false ) { } }" ).getClass()
-		);
+		assertNode( IfThenElse.class, "if ( true ) { if ( false ) { } }" );
+		assertNode( IfThenElse.class, "if ( true ) { } else if ( true ) { if ( false ) { } }" );
 
 		// else variant
-		assertEquals( IfThenElse.class, parser.parse( "if ( true ) { } else { }" ).getClass() );
-		assertEquals( IfThenElse.class, parser.parse( "if ( true ) { \"\" c: boolean } else { }" ).getClass() );
-		assertEquals( IfThenElse.class, parser.parse( "if ( true ) { } else { \"\" c: boolean }" ).getClass() );
-		assertEquals(
-			IfThenElse.class, parser.parse( "if ( true ) { \"\" c: boolean } else { \"\" c: boolean }" ).getClass()
-		);
+		assertNode( IfThenElse.class, "if ( true ) { } else { }" );
+		assertNode( IfThenElse.class, "if ( true ) { \"\" c: boolean } else { }" );
+		assertNode( IfThenElse.class, "if ( true ) { } else { \"\" c: boolean }" );
+		assertNode( IfThenElse.class, "if ( true ) { \"\" c: boolean } else { \"\" c: boolean }" );
 
 		// else-if variant
-		assertEquals( IfThenElse.class, parser.parse( "if ( true ) { } else if ( false ) { }" ).getClass() );
-		assertEquals(
-			IfThenElse.class, parser.parse( "if ( true ) { \"\" c: boolean } else if ( false ) { }" ).getClass()
-		);
-		assertEquals(
-			IfThenElse.class, parser.parse( "if ( true ) { } else if ( false ) { \"\" c: boolean }" ).getClass()
-		);
-		assertEquals(
-			IfThenElse.class,
-			parser.parse( "if ( true ) { \"\" c: boolean } else if ( false ) { \"\" c : boolean }" ).getClass()
-		);
+		assertNode( IfThenElse.class, "if ( true ) { } else if ( false ) { }" );
+		assertNode( IfThenElse.class, "if ( true ) { \"\" c: boolean } else if ( false ) { }" );
+		assertNode( IfThenElse.class, "if ( true ) { } else if ( false ) { \"\" c: boolean }" );
+		assertNode( IfThenElse.class, "if ( true ) { \"\" c: boolean } else if ( false ) { \"\" c : boolean }" );
 
 		// multiple else-if variant
-		assertEquals(
-			IfThenElse.class,
-			parser.parse( "if ( true ) { } else if ( false ) { } else if ( true && false ) { } else { }" ).getClass()
+		assertNode(
+			IfThenElse.class, "if ( true ) { } else if ( false ) { } else if ( true && false ) { } else { }"
 		);
 	}
 
@@ -369,11 +466,12 @@ public class TestParser {
 	 */
 	@Test
 	public void testFormDeclarations() throws ParseError {
-		assertEquals( FormDeclaration.class, parser.parse(
+		assertNode(
+			FormDeclaration.class,
 			"form ThisForm {" +
 			"\t\"What?\" answer : boolean" +
 			"}"
-		).getClass() );
+		);
 	}
 
 	/**
@@ -383,8 +481,8 @@ public class TestParser {
 	 */
 	@Test
 	public void testQuestionDeclarations() throws ParseError {
-		assertEquals( QuestionDeclaration.class, parser.parse( "\"What?\" answer: boolean" ).getClass() );
-		assertEquals( QuestionDeclaration.class, parser.parse( "\"What?\" answer = (a && !b)" ).getClass() );
+		assertNode( QuestionDeclaration.class, "\"What?\" answer: boolean" );
+		assertNode( QuestionDeclaration.class, "\"What?\" answer = (a && !b)" );
 	}
 
 	/**
@@ -394,9 +492,9 @@ public class TestParser {
 	 */
 	@Test
 	public void testStatements() throws ParseError {
-		assertEquals( Assignment.class, parser.parse( "var = true" ).getClass() );
-		assertEquals( Assignment.class, parser.parse( "var = 1 + 45" ).getClass() );
-		assertEquals( Assignment.class, parser.parse( "var = 102 * 45 + .5e+3" ).getClass() );
+		assertNode( Assignment.class, "var = true" );
+		assertNode( Assignment.class, "var = 1 + 45" );
+		assertNode( Assignment.class, "var = 102 * 45 + .5e+3" );
 	}
 }
 

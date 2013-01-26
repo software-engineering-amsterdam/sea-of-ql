@@ -3,7 +3,7 @@ package org.uva.sea.ql.ast.expression;
 import java.util.Map;
 
 import org.uva.sea.ql.ast.type.Type;
-import org.uva.sea.ql.visitor.NodeVisitor;
+import org.uva.sea.ql.visitor.IExpressionVisitor;
 
 /**
  * Represents a logical expression.
@@ -20,7 +20,7 @@ abstract public class LogicalExpression extends BinaryExpression {
 	}
 
 	@Override
-	public <T> T accept( NodeVisitor<T> visitor ) {
+	public <T> T accept( IExpressionVisitor<T> visitor ) {
 		return visitor.visit( this );
 	}
 

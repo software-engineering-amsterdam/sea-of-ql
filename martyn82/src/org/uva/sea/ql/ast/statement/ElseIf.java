@@ -2,7 +2,7 @@ package org.uva.sea.ql.ast.statement;
 
 import org.uva.sea.ql.ast.Node;
 import org.uva.sea.ql.ast.expression.Expression;
-import org.uva.sea.ql.visitor.NodeVisitor;
+import org.uva.sea.ql.visitor.IStatementVisitor;
 
 /**
  * Represents an ElseIf block.
@@ -39,16 +39,20 @@ public class ElseIf extends Node {
 	}
 
 	/**
+	 * Accept a statement visitor.
+	 *
+	 * @param visitor
+	 */
+	public <T> T accept( IStatementVisitor<T> visitor ) {
+		return visitor.visit( this );
+	}
+
+	/**
 	 * Retrieves the body of the ELSE-IF.
 	 *
 	 * @return The body statements.
 	 */
 	public Statements getBody() {
 		return this.body;
-	}
-
-	@Override
-	public <T> T accept( NodeVisitor<T> visitor ) {
-		return visitor.visit( this );
 	}
 }

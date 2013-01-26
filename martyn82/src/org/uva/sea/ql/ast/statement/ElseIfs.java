@@ -5,7 +5,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import org.uva.sea.ql.ast.Node;
-import org.uva.sea.ql.visitor.NodeVisitor;
+import org.uva.sea.ql.visitor.IStatementVisitor;
 
 /**
  * Represents a list of ElseIfs.
@@ -54,13 +54,17 @@ public class ElseIfs extends Node implements Iterable<ElseIf> {
 		return this.elseIfs.size();
 	}
 
-	@Override
-	public Iterator<ElseIf> iterator() {
-		return this.elseIfs.iterator();
+	/**
+	 * Accept a statement visitor.
+	 *
+	 * @param visitor
+	 */
+	public <T> T accept( IStatementVisitor<T> visitor ) {
+		return visitor.visit( this );
 	}
 
 	@Override
-	public <T> T accept( NodeVisitor<T> visitor ) {
-		return visitor.visit( this );
+	public Iterator<ElseIf> iterator() {
+		return this.elseIfs.iterator();
 	}
 }
