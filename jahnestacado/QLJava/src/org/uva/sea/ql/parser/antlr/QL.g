@@ -8,7 +8,7 @@ import org.uva.sea.ql.ast.*;
 import org.uva.sea.ql.ast.expr.*;
 import org.uva.sea.ql.ast.form.*;
 import org.uva.sea.ql.ast.types.*;
-import org.uva.sea.ql.ast.values.*;
+import org.uva.sea.ql.ast.expr.values.*;
 
 }
 
@@ -43,7 +43,7 @@ form returns [Form result]
   {$result=body;}
   ;
 	
-element returns [Element result]
+element returns [BodyElement result]
 		:conditionalElement {$result=$conditionalElement.result;}
 		|question {$result=$question.result;}
 		|computedQuestion {$result=$computedQuestion.result;}

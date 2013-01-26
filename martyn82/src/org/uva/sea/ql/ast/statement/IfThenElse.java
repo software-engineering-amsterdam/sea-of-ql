@@ -1,9 +1,7 @@
 package org.uva.sea.ql.ast.statement;
 
 import org.uva.sea.ql.ast.expression.Expression;
-import org.uva.sea.ql.eval.Context;
-import org.uva.sea.ql.eval.value.Value;
-import org.uva.sea.ql.visitor.INodeVisitor;
+import org.uva.sea.ql.visitor.IStatementVisitor;
 
 /**
  * Represents an IF-THEN statement block.
@@ -15,45 +13,55 @@ public class IfThenElse extends Statement {
 	private final Expression condition;
 
 	/**
-	 * Holds the if body.
+	 * Holds the body of the IF.
 	 */
-	private final Statements ifThen;
+	private final Statements ifBody;
 
 	/**
-	 * Holds the else body.
+	 * Holds the ELSE-IFS.
 	 */
-	private final Statements ifElse;
+	private final ElseIfs elseIfs;
+
+	/**
+	 * Holds the ELSE.
+	 */
+	private final Else elseBody;
 
 	/**
 	 * Constructs a new IF-statement.
 	 *
-	 * @param condition The expression condition.
-	 * @param ifThen The if-body.
-	 * @param ifElse The else-body.
+	 * @param condition
+	 * @param ifBody
+	 * @param elseIfs
+	 * @param elseBody
 	 */
-	public IfThenElse( Expression condition, Statements ifThen, Statements ifElse ) {
+	public IfThenElse( Expression condition, Statements ifBody, ElseIfs elseIfs, Else elseBody ) {
 		this.condition = condition;
-		this.ifThen = ifThen;
-		this.ifElse = ifElse;
+		this.ifBody = ifBody;
+		this.elseIfs = elseIfs;
+		this.elseBody = elseBody;
 	}
 
 	/**
-	 * Constructs new IF-statement.
+	 * Constructs a new IF-THEN-ELSE.
 	 *
-	 * @param condition The expression condition.
-	 * @param ifThen The if-body.
+	 * @param condition
+	 * @param ifBody
+	 * @param elseIfs
 	 */
-	public IfThenElse( Expression condition, Statements ifThen ) {
-		this( condition, ifThen, null );
+	public IfThenElse( Expression condition, Statements ifBody, ElseIfs elseIfs ) {
+		this( condition, ifBody, elseIfs, null );
 	}
 
 	/**
-	 * Constructs a new IF-statement without any body statements.
+	 * Constructs a new IF-THEN-ELSE.
 	 *
-	 * @param condition The expression condition.
+	 * @param condition
+	 * @param ifBody
+	 * @param elseBody
 	 */
-	public IfThenElse( Expression condition ) {
-		this( condition, null, null );
+	public IfThenElse( Expression condition, Statements ifBody, Else elseBody ) {
+		this( condition, ifBody, new ElseIfs(), elseBody );
 	}
 
 	/**
@@ -70,21 +78,57 @@ public class IfThenElse extends Statement {
 	 *
 	 * @return The body of the IF.
 	 */
-	public Statements getIfThen() {
-		return this.ifThen;
+	public Statements getIfBody() {
+		return this.ifBody;
 	}
 
 	/**
-	 * Retrieves the ELSE-body.
+	 * Retrieves the else-ifs.
 	 *
-	 * @return The body of the ELSE.
+	 * @return THe ELSE-IFs.
 	 */
-	public Statements getIfElse() {
-		return this.ifElse;
+	public ElseIfs getElseIfs() {
+		return this.elseIfs;
+	}
+
+	/**
+	 * Retrieves the ELSE.
+	 *
+	 * @return The ELSE.
+	 */
+	public Else getElse() {
+		return this.elseBody;
+	}
+
+	/**
+	 * Determines whether an IF-body is present.
+	 *
+	 * @return True if the IF-body is present, false otherwise.
+	 */
+	public boolean hasIfBody() {
+		return this.ifBody != null;
+	}
+
+	/**
+	 * Determines whether this statement has one or more ELSE-IF statements.
+	 *
+	 * @return True if there are one or more ELSE-IFs, false otherwise.
+	 */
+	public boolean hasElseIfs() {
+		return this.elseIfs.size() > 0;
+	}
+
+	/**
+	 * Determines whether this statement has a single ELSE-statement.
+	 *
+	 * @return True if there is an ELSE statement, false otherwise.
+	 */
+	public boolean hasElse() {
+		return this.elseBody != null;
 	}
 
 	@Override
-	public Value<?> accept( INodeVisitor visitor, Context context ) {
-		return visitor.visit( this, context );
+	public <T> T accept( IStatementVisitor<T> visitor ) {
+		return visitor.visit( this );
 	}
 }

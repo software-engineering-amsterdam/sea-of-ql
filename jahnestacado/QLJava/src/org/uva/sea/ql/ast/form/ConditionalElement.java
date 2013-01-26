@@ -1,5 +1,22 @@
 package org.uva.sea.ql.ast.form;
 
-public abstract class ConditionalElement extends Element{
+import org.uva.sea.ql.ast.expr.Expr;
+
+public abstract class ConditionalElement extends BodyElement{
+	private final Expr condition;
+	private final Body body;
+	
+	public ConditionalElement(Expr condition, Body body) {
+		this.condition=condition;
+		this.body=body;
+	}
+	
+	public Expr getCondition(){
+		return condition;
+	}
+	
+	public Body getIfBody(){
+		return body;
+	}
 
 }

@@ -13,5 +13,5 @@ public abstract class UnaryExpr extends Expr {
 	public Expr getArg() {
 		return arg;
 	}
-	
+
 }

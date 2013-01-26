@@ -20,14 +20,14 @@ import org.uva.sea.ql.visitor.checkers.ExpressionChecker;
 public class TestTypes {
 
 	private ANTLRParser parser;
-	private Map<Ident,Type> declaredVars;
+	private Map<String,Type> declaredVars;
 	private List<String> errorReport;
 	private ExpressionChecker checker;
 
 	public TestTypes() {
 		parser = new ANTLRParser();
 		errorReport=new ArrayList<String>();
-		declaredVars=new HashMap<Ident,Type>();
+		declaredVars=new HashMap<String,Type>();
 		checker=new ExpressionChecker(declaredVars,errorReport);
 
 	}
@@ -47,7 +47,6 @@ public class TestTypes {
 		assertEquals(true, ExpressionChecker.check(parser.parseExpr("(true && false) && true"),declaredVars, errorReport));
 		assertEquals(true, ExpressionChecker.check(parser.parseExpr("3==9"),declaredVars, errorReport));
 		assertEquals(true, ExpressionChecker.check(parser.parseExpr("(-9==+12) || !(true) && (true == !false) "),declaredVars, errorReport));
-		assertEquals(true, ExpressionChecker.check(parser.parseExpr("(!77*(56-12))>=(66/87)"),declaredVars, errorReport));
 	
 
 	}

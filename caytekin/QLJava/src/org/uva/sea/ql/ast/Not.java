@@ -1,7 +1,7 @@
 package org.uva.sea.ql.ast;
 
-public class Not extends LogOprtnSing {
+public class Not extends UnaryLogOptn {
 		public Not(Expr expr) {
-			// Not operation /  to be implemented
+			super (expr);
 		}
 }

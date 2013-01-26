@@ -8,7 +8,6 @@ import java.io.InputStreamReader;
 import org.uva.sea.ql.ast.form.Question;
 import org.uva.sea.ql.parser.antlr.FormParser;
 import org.uva.sea.ql.parser.test.ParseError;
-import org.uva.sea.ql.visitor.print.Form;
 
 public class Program {
 
@@ -25,8 +24,17 @@ public class Program {
 			e.printStackTrace();
 		}
 
-		Form printFormVisitor = new Form();
-		questionForm.accept(printFormVisitor);
+		org.uva.sea.ql.visitor.semantic.Form semanticFormVistor = new org.uva.sea.ql.visitor.semantic.Form();
+		Boolean isFormValid = questionForm.accept(semanticFormVistor);
+		if (!isFormValid) {
+			for (String error : semanticFormVistor.getErrors()) {
+				System.out.println(error);
+			}
+		} else {
+			org.uva.sea.ql.visitor.print.Form printFormVisitor = new org.uva.sea.ql.visitor.print.Form();
+			String prettyForm = questionForm.accept(printFormVisitor);
+			System.out.print(prettyForm);
+		}
 	}
 
 	private static String readResourceContent(String location) {

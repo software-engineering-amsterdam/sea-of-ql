@@ -19,7 +19,7 @@ public class Add extends Binary {
 	}
 
 	@Override
-	public Type isOfType(Map<Ident, Type> typeEnv) {
+	public Type isOfType(Map<String, Type> typeEnv) {
 		return new NumericType();
 	}
 

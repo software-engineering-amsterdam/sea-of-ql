@@ -2,6 +2,7 @@ package org.uva.sea.ql.ast.expr;
 
 import java.util.Map;
 
+import org.uva.sea.ql.ast.types.ErrorType;
 import org.uva.sea.ql.ast.types.Type;
 import org.uva.sea.ql.visitor.IExprVisitor;
 
@@ -18,13 +19,17 @@ public class Ident extends Expr {
 	}
 
 	@Override
-	public Type typeOf(Map<Ident, Type> typeEnv) {
-		if (typeEnv.containsKey(this)) {
-			return typeEnv.get(this);
-			}
-			return null;
-			//should throw error
+	public Type typeOf(Map<String, Type> typeEnv) {
+		if (typeEnv.containsKey(this.getName())) {
+			return typeEnv.get(this.getName());
+		}
+		return new ErrorType();
 	}
+
+	/*
+	 * ErrorType prevents null pointer exceptions by allowing the ExprVisitor
+	 * class to handle the case of an undeclared variable.
+	 */
 
 	@Override
 	public <T> T accept(IExprVisitor<T> visitor) {

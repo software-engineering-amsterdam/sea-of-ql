@@ -18,7 +18,7 @@ public class GEq extends Binary {
 	}
 	
 	@Override
-	public Type isOfType(Map<Ident, Type> typeEnv) {
+	public Type isOfType(Map<String, Type> typeEnv) {
 		return new BoolType();
 	}
 
