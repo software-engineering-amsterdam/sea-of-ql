@@ -37,10 +37,6 @@ Note: don't be seduced by the provided example code and start copy-pasting gramm
 
 TODO
 ----
-- AST:
-    - Add Error type node
-- TypeResolver
-    - To get the type of a node.
 - Envionment:
     - Add column and linenumber to TypeErrors
 
