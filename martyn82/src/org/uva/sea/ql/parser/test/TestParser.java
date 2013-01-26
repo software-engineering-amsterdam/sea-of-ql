@@ -29,7 +29,6 @@ import org.uva.sea.ql.ast.statement.FormDeclaration;
 import org.uva.sea.ql.ast.statement.IfThenElse;
 import org.uva.sea.ql.ast.statement.QuestionDeclaration;
 import org.uva.sea.ql.ast.statement.Statement;
-import org.uva.sea.ql.ast.statement.Statements;
 import org.uva.sea.ql.parser.IParser;
 import org.uva.sea.ql.parser.ParseError;
 import org.uva.sea.ql.parser.jacc.JACCParser;
@@ -82,8 +81,8 @@ public class TestParser {
 	 * @throws ParseError
 	 */
 	private void assertNode( Class<?> expected, String source ) throws ParseError {
-		Statements root = parser.parse( source );
-		assertEquals( expected, root.getFirst().getClass() );
+		Statement root = parser.parse( source );
+		assertEquals( expected, root.getClass() );
 	}
 
 	/**
@@ -96,26 +95,10 @@ public class TestParser {
 	 * @throws ParseError
 	 */
 	private void assertSide( Class<?> expected, String source, Side side ) throws ParseError {
-		Statements root = parser.parse( source );
+		Statement root = parser.parse( source );
 		Node test = getPartOf( root, side );
 
 		assertEquals( expected, test.getClass() );
-	}
-
-	/**
-	 * Retrieves a part of a statement.
-	 *
-	 * @param node
-	 * @param which
-	 *
-	 * @return The node type it represents.
-	 */
-	private Node getPartOf( Statements node, Side which ) {
-		if ( node.size() == 1 ) {
-			return getPartOf( node.getFirst(), which );
-		}
-
-		return null;
 	}
 
 	/**

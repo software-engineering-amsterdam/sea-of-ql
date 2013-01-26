@@ -1,6 +1,6 @@
 package org.uva.sea.ql.parser;
 
-import org.uva.sea.ql.ast.statement.Statements;
+import org.uva.sea.ql.ast.statement.Statement;
 
 /**
  * Parser interface.
@@ -15,5 +15,5 @@ public interface IParser {
 	 *
 	 * @throws ParseError
 	 */
-	Statements parse( String src ) throws ParseError;
+	Statement parse( String src ) throws ParseError;
 }
