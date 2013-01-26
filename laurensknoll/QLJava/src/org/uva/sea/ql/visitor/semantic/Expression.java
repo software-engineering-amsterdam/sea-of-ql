@@ -42,6 +42,12 @@ public class Expression implements org.uva.sea.ql.visitor.Expression<Boolean> {
 		return expected.isInstance(typeOfExpr);
 	}
 
+	private Boolean isOfSameType(AbstractExpr left, AbstractExpr right) {
+		AbstractType typeOfLeft = left.typeOf(this.environment);
+		AbstractType typeOfRight = right.typeOf(this.environment);
+		return typeOfLeft.getClass() == typeOfRight.getClass();
+	}
+
 	@Override
 	public Boolean visit(Add add) {
 		AbstractExpr left = add.getLeftHandSideExpression();
@@ -132,24 +138,15 @@ public class Expression implements org.uva.sea.ql.visitor.Expression<Boolean> {
 		AbstractExpr right = eq.getRightHandSideExpression();
 		Boolean isRightValid = right.accept(this);
 
-		// TODO Links en rechts moeten gelijk zijn.
-		Boolean isLeftBool = this.isOfType(left, Bool.class);
-		if (!isLeftBool) {
-			String unexpectedType = String.format(
-					"Error in Eq expression: %s is no Boolean.",
-					left.toString());
+		Boolean isOfSameType = this.isOfSameType(left, right);
+		if (!isOfSameType) {
+			String unexpectedType = String
+					.format("Error in Eq expression: %s and %s are of different types.",
+							left.toString(), right.toString());
 			this.errors.add(unexpectedType);
 		}
 
-		Boolean isRightBool = this.isOfType(right, Bool.class);
-		if (!isRightBool) {
-			String unexpectedType = String.format(
-					"Error in Eq expression: %s is no Boolean.",
-					right.toString());
-			this.errors.add(unexpectedType);
-		}
-
-		return isLeftValid && isRightValid && isLeftBool && isRightBool;
+		return isLeftValid && isRightValid && isOfSameType;
 	}
 
 	@Override
@@ -311,24 +308,15 @@ public class Expression implements org.uva.sea.ql.visitor.Expression<Boolean> {
 		AbstractExpr right = neq.getRightHandSideExpression();
 		Boolean isRightValid = right.accept(this);
 
-		// TODO Links en rechts moeten gelijk zijn.
-		Boolean isLeftBool = this.isOfType(left, Numeric.class);
-		if (!isLeftBool) {
-			String unexpectedType = String.format(
-					"Error in NEq expression: %s is no Boolean.",
-					left.toString());
+		Boolean isOfSameType = this.isOfSameType(left, right);
+		if (!isOfSameType) {
+			String unexpectedType = String
+					.format("Error in NEq expression: %s and %s are of different types.",
+							left.toString(), right.toString());
 			this.errors.add(unexpectedType);
 		}
 
-		Boolean isRightBool = this.isOfType(right, Bool.class);
-		if (!isRightBool) {
-			String unexpectedType = String.format(
-					"Error in NEq expression: %s is no Boolean.",
-					right.toString());
-			this.errors.add(unexpectedType);
-		}
-
-		return isLeftValid && isRightValid && isLeftBool && isRightBool;
+		return isLeftValid && isRightValid && isOfSameType;
 	}
 
 	@Override
