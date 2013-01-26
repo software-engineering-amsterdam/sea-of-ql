@@ -4,8 +4,8 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
-import org.uva.sea.ql.parser.ParseError;
 import org.uva.sea.ql.eval.Error;
+import org.uva.sea.ql.parser.ParseError;
 import org.uva.sea.ql.visitor.test.VisitorTest;
 import org.uva.sea.ql.visitor.typechecker.TypeChecker;
 
@@ -196,7 +196,11 @@ public class TestTypeChecker extends VisitorTest<java.lang.Boolean> {
 
 		if ( visitor.getEnvironment().getErrors().size() > 0 ) {
 			for ( Error error : visitor.getEnvironment().getErrors() ) {
-				System.err.println( error );
+				System.err.println(
+					error.getMessage()
+					+ " at "
+					+ error.getNode().getClass().getSimpleName()
+				);
 			}
 		}
 	}

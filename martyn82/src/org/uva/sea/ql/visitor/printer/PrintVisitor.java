@@ -305,6 +305,7 @@ public class PrintVisitor extends NodeVisitor<Boolean> {
 
 		level++;
 
+		indent();
 		node.getCondition().accept( this );
 
 		level--;
