@@ -6,6 +6,7 @@ import java.util.Map;
 import org.uva.sea.ql.ast.expr.Expr;
 import org.uva.sea.ql.ast.expr.binary.Add;
 import org.uva.sea.ql.ast.expr.binary.And;
+import org.uva.sea.ql.ast.expr.binary.Binary;
 import org.uva.sea.ql.ast.expr.binary.Div;
 import org.uva.sea.ql.ast.expr.binary.Eq;
 import org.uva.sea.ql.ast.expr.binary.GEq;
@@ -43,10 +44,7 @@ public class ExpressionChecker implements ExpressionVisitor<Boolean> {
 
 	@Override
 	public Boolean visit(Add ast) {
-		boolean checkLhs = ast.getLhs().accept(this);
-		boolean checkRhs = ast.getRhs().accept(this);
-
-		if (!(checkLhs && checkRhs)) {
+		if (!checkBinaryNode(ast)) {
 			return false;
 		}
 
@@ -64,10 +62,7 @@ public class ExpressionChecker implements ExpressionVisitor<Boolean> {
 
 	@Override
 	public Boolean visit(And ast) {
-		boolean checkLhs = ast.getLhs().accept(this);
-		boolean checkRhs = ast.getRhs().accept(this);
-		
-		if (!(checkLhs && checkRhs)) {
+		if (!checkBinaryNode(ast)) {
 			return false;
 		}
 		
@@ -85,10 +80,7 @@ public class ExpressionChecker implements ExpressionVisitor<Boolean> {
 
 	@Override
 	public Boolean visit(Div ast) {
-		boolean checkLhs = ast.getLhs().accept(this);
-		boolean checkRhs = ast.getRhs().accept(this);
-		
-		if (!(checkLhs && checkRhs)) {
+		if (!checkBinaryNode(ast)) {
 			return false;
 		}
 		
@@ -106,10 +98,7 @@ public class ExpressionChecker implements ExpressionVisitor<Boolean> {
 
 	@Override
 	public Boolean visit(Eq ast) {
-		boolean checkLhs = ast.getLhs().accept(this);
-		boolean checkRhs = ast.getRhs().accept(this);
-		
-		if (!(checkLhs && checkRhs)) {
+		if (!checkBinaryNode(ast)) {
 			return false;
 		}
 		
@@ -127,10 +116,7 @@ public class ExpressionChecker implements ExpressionVisitor<Boolean> {
 
 	@Override
 	public Boolean visit(GEq ast) {
-		boolean checkLhs = ast.getLhs().accept(this);
-		boolean checkRhs = ast.getRhs().accept(this);
-		
-		if (!(checkLhs && checkRhs)) {
+		if (!checkBinaryNode(ast)) {
 			return false;
 		}
 		
@@ -148,10 +134,7 @@ public class ExpressionChecker implements ExpressionVisitor<Boolean> {
 
 	@Override
 	public Boolean visit(GT ast) {
-		boolean checkLhs = ast.getLhs().accept(this);
-		boolean checkRhs = ast.getRhs().accept(this);
-		
-		if (!(checkLhs && checkRhs)) {
+		if (!checkBinaryNode(ast)) {
 			return false;
 		}
 		
@@ -169,10 +152,7 @@ public class ExpressionChecker implements ExpressionVisitor<Boolean> {
 
 	@Override
 	public Boolean visit(LEq ast) {
-		boolean checkLhs = ast.getLhs().accept(this);
-		boolean checkRhs = ast.getRhs().accept(this);
-		
-		if (!(checkLhs && checkRhs)) {
+		if (!checkBinaryNode(ast)) {
 			return false;
 		}
 		
@@ -190,10 +170,7 @@ public class ExpressionChecker implements ExpressionVisitor<Boolean> {
 
 	@Override
 	public Boolean visit(LT ast) {
-		boolean checkLhs = ast.getLhs().accept(this);
-		boolean checkRhs = ast.getRhs().accept(this);
-		
-		if (!(checkLhs && checkRhs)) {
+		if (!checkBinaryNode(ast)) {
 			return false;
 		}
 		
@@ -211,10 +188,7 @@ public class ExpressionChecker implements ExpressionVisitor<Boolean> {
 
 	@Override
 	public Boolean visit(Mul ast) {
-		boolean checkLhs = ast.getLhs().accept(this);
-		boolean checkRhs = ast.getRhs().accept(this);
-		
-		if (!(checkLhs && checkRhs)) {
+		if (!checkBinaryNode(ast)) {
 			return false;
 		}
 		
@@ -232,10 +206,7 @@ public class ExpressionChecker implements ExpressionVisitor<Boolean> {
 
 	@Override
 	public Boolean visit(NEq ast) {
-		boolean checkLhs = ast.getLhs().accept(this);
-		boolean checkRhs = ast.getRhs().accept(this);
-		
-		if (!(checkLhs && checkRhs)) {
+		if (!checkBinaryNode(ast)) {
 			return false;
 		}
 		
@@ -253,10 +224,7 @@ public class ExpressionChecker implements ExpressionVisitor<Boolean> {
 
 	@Override
 	public Boolean visit(Or ast) {
-		boolean checkLhs = ast.getLhs().accept(this);
-		boolean checkRhs = ast.getRhs().accept(this);
-		
-		if (!(checkLhs && checkRhs)) {
+		if (!checkBinaryNode(ast)) {
 			return false;
 		}
 		
@@ -274,10 +242,7 @@ public class ExpressionChecker implements ExpressionVisitor<Boolean> {
 
 	@Override
 	public Boolean visit(Sub ast) {
-		boolean checkLhs = ast.getLhs().accept(this);
-		boolean checkRhs = ast.getRhs().accept(this);
-		
-		if (!(checkLhs && checkRhs)) {
+		if (!checkBinaryNode(ast)) {
 			return false;
 		}
 		
@@ -294,10 +259,8 @@ public class ExpressionChecker implements ExpressionVisitor<Boolean> {
 	}
 
 	@Override
-	public Boolean visit(Neg ast) {
-		boolean checkArg = ast.getArg().accept(this);
-		
-		if (!checkArg) {
+	public Boolean visit(Neg ast) {		
+		if (! ast.getArg().accept(this) ) {
 			return false;
 		}
 
@@ -312,9 +275,7 @@ public class ExpressionChecker implements ExpressionVisitor<Boolean> {
 
 	@Override
 	public Boolean visit(Not ast) {
-		boolean checkArg = ast.getArg().accept(this);
-		
-		if (!checkArg) {
+		if (! ast.getArg().accept(this) ) {
 			return false;
 		}
 
@@ -329,9 +290,7 @@ public class ExpressionChecker implements ExpressionVisitor<Boolean> {
 
 	@Override
 	public Boolean visit(Pos ast) {
-		boolean checkArg = ast.getArg().accept(this);
-		
-		if (!checkArg) {
+		if (! ast.getArg().accept(this) ) {
 			return false;
 		}
 
@@ -374,6 +333,16 @@ public class ExpressionChecker implements ExpressionVisitor<Boolean> {
 		Type astType = ast.typeOf(typeEnv);
 		if (!astType.isCompatibleToStringType()) {
 			addErrorMessage("Not a valid String.");
+			return false;
+		}
+		return true;
+	}
+	
+	private boolean checkBinaryNode(Binary ast) {
+		boolean checkLhs = ast.getLhs().accept(this);
+		boolean checkRhs = ast.getRhs().accept(this);
+
+		if (!(checkLhs && checkRhs)) {
 			return false;
 		}
 		return true;
