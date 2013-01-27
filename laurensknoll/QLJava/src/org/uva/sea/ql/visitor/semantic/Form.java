@@ -5,8 +5,9 @@ import java.util.List;
 
 import org.uva.sea.ql.ast.expr.atom.Ident;
 import org.uva.sea.ql.ast.form.Question;
+import org.uva.sea.ql.visitor.IForm;
 
-public class Form implements org.uva.sea.ql.visitor.Form<Boolean> {
+public class Form implements IForm<Boolean> {
 
 	private final Environment environment;
 	private final List<String> errors;

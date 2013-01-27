@@ -25,8 +25,9 @@ import org.uva.sea.ql.ast.expr.unary.Pos;
 import org.uva.sea.ql.ast.type.AbstractType;
 import org.uva.sea.ql.ast.type.Bool;
 import org.uva.sea.ql.ast.type.Numeric;
+import org.uva.sea.ql.visitor.IExpression;
 
-public class Expression implements org.uva.sea.ql.visitor.Expression<Boolean> {
+public class Expression implements IExpression<Boolean> {
 
 	private final Environment environment;
 	private final List<String> errors;

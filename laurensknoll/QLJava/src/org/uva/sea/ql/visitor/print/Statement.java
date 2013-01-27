@@ -5,8 +5,9 @@ import org.uva.sea.ql.ast.statement.Block;
 import org.uva.sea.ql.ast.statement.ComputedQuestion;
 import org.uva.sea.ql.ast.statement.If;
 import org.uva.sea.ql.ast.statement.Question;
+import org.uva.sea.ql.visitor.IStatement;
 
-public class Statement implements org.uva.sea.ql.visitor.Statement<String> {
+public class Statement implements IStatement<String> {
 
 	private final Environment environment;
 

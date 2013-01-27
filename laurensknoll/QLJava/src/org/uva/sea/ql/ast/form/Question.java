@@ -2,7 +2,7 @@ package org.uva.sea.ql.ast.form;
 
 import org.uva.sea.ql.ast.expr.atom.Ident;
 import org.uva.sea.ql.ast.statement.Block;
-import org.uva.sea.ql.visitor.Form;
+import org.uva.sea.ql.visitor.IForm;
 
 public class Question extends AbstractForm {
 
@@ -23,7 +23,7 @@ public class Question extends AbstractForm {
 	}
 
 	@Override
-	public <T> T accept(Form<T> visitor) {
+	public <T> T accept(IForm<T> visitor) {
 		return visitor.visit(this);
 	}
 

@@ -5,8 +5,9 @@ import org.uva.sea.ql.ast.type.Int;
 import org.uva.sea.ql.ast.type.Money;
 import org.uva.sea.ql.ast.type.Numeric;
 import org.uva.sea.ql.ast.type.String;
+import org.uva.sea.ql.visitor.IType;
 
-public class Type implements org.uva.sea.ql.visitor.Type<Boolean> {
+public class Type implements IType<Boolean> {
 
 	@Override
 	public Boolean visit(Bool bool) {

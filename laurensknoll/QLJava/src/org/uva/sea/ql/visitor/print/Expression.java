@@ -19,8 +19,9 @@ import org.uva.sea.ql.ast.expr.binary.Sub;
 import org.uva.sea.ql.ast.expr.unary.Neg;
 import org.uva.sea.ql.ast.expr.unary.Not;
 import org.uva.sea.ql.ast.expr.unary.Pos;
+import org.uva.sea.ql.visitor.IExpression;
 
-public class Expression implements org.uva.sea.ql.visitor.Expression<String> {
+public class Expression implements IExpression<String> {
 
 	@Override
 	public String visit(Add add) {

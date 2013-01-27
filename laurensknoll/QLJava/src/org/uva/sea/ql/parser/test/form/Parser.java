@@ -3,7 +3,7 @@ package org.uva.sea.ql.parser.test.form;
 import org.antlr.runtime.ANTLRStringStream;
 import org.antlr.runtime.CommonTokenStream;
 import org.antlr.runtime.RecognitionException;
-import org.uva.sea.ql.ast.ASTNode;
+import org.uva.sea.ql.ast.IASTNode;
 import org.uva.sea.ql.ast.form.Question;
 import org.uva.sea.ql.parser.antlr.QLLexer;
 import org.uva.sea.ql.parser.antlr.QLParser;
@@ -13,7 +13,7 @@ import org.uva.sea.ql.parser.test.ParseError;
 public class Parser implements IParse {
 
 	@Override
-	public ASTNode parse(String src) throws ParseError {
+	public IASTNode parse(String src) throws ParseError {
 		return this.parseQuestionForm(src);
 	}
 

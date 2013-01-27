@@ -3,7 +3,7 @@ package org.uva.sea.ql.ast.expr.binary;
 import org.uva.sea.ql.ast.expr.AbstractExpr;
 import org.uva.sea.ql.ast.type.AbstractType;
 import org.uva.sea.ql.ast.type.Bool;
-import org.uva.sea.ql.visitor.Expression;
+import org.uva.sea.ql.visitor.IExpression;
 import org.uva.sea.ql.visitor.semantic.Environment;
 
 public class NEq extends AbstractBinary {
@@ -13,7 +13,7 @@ public class NEq extends AbstractBinary {
 	}
 
 	@Override
-	public <T> T accept(Expression<T> visitor) {
+	public <T> T accept(IExpression<T> visitor) {
 		return visitor.visit(this);
 	}
 
