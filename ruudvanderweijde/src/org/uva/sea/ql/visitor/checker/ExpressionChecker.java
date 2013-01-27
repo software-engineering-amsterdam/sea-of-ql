@@ -24,6 +24,7 @@ import org.uva.sea.ql.ast.expr.primary.StringLiteral;
 import org.uva.sea.ql.ast.expr.unary.Neg;
 import org.uva.sea.ql.ast.expr.unary.Not;
 import org.uva.sea.ql.ast.expr.unary.Pos;
+import org.uva.sea.ql.ast.expr.unary.Unary;
 import org.uva.sea.ql.ast.type.Type;
 import org.uva.sea.ql.visitor.ExpressionVisitor;
 
@@ -47,17 +48,7 @@ public class ExpressionChecker implements ExpressionVisitor<Boolean> {
 		if (!checkBinaryNode(ast)) {
 			return false;
 		}
-
-		Type lhsType = ast.getLhs().typeOf(typeEnv);
-		Type rhsType = ast.getRhs().typeOf(typeEnv);
-
-		if (!(lhsType.isCompatibleToNumericType() && rhsType
-				.isCompatibleToNumericType())) {
-
-			addErrorMessage("invalid Numeric operater for + ");
-			return false;
-		}
-		return true;
+		return bothSidesAreNumeric(ast);
 	}
 
 	@Override
@@ -65,17 +56,8 @@ public class ExpressionChecker implements ExpressionVisitor<Boolean> {
 		if (!checkBinaryNode(ast)) {
 			return false;
 		}
-		
-		Type lhsType = ast.getLhs().typeOf(typeEnv);
-		Type rhsType = ast.getRhs().typeOf(typeEnv);
-		
-		if (!(lhsType.isCompatibleToBooleanType() && rhsType
-				.isCompatibleToBooleanType())) {
 
-			addErrorMessage("invalid boolean operator for &&.");
-			return false;
-		}
-		return true;
+		return bothSidesAreBoolean(ast);
 	}
 
 	@Override
@@ -83,17 +65,8 @@ public class ExpressionChecker implements ExpressionVisitor<Boolean> {
 		if (!checkBinaryNode(ast)) {
 			return false;
 		}
-		
-		Type lhsType = ast.getLhs().typeOf(typeEnv);
-		Type rhsType = ast.getRhs().typeOf(typeEnv);
-		
-		if (!(lhsType.isCompatibleToNumericType() && rhsType
-				.isCompatibleToNumericType())) {
 
-			addErrorMessage("invalid Numeric operator for /.");
-			return false;
-		}
-		return true;
+		return bothSidesAreNumeric(ast);
 	}
 
 	@Override
@@ -101,17 +74,8 @@ public class ExpressionChecker implements ExpressionVisitor<Boolean> {
 		if (!checkBinaryNode(ast)) {
 			return false;
 		}
-		
-		Type lhsType = ast.getLhs().typeOf(typeEnv);
-		Type rhsType = ast.getRhs().typeOf(typeEnv);
-		
-		if (!(lhsType.isCompatibleToBooleanType() && rhsType.isCompatibleToBooleanType()) 
-				&& !(lhsType.isCompatibleToNumericType() && rhsType.isCompatibleToNumericType())) {
 
-			addErrorMessage("invalid Boolean or Numeric operator for ==.");
-			return false;
-		}
-		return true;
+		return bothSidesAreBooleanOrNumeric(ast);
 	}
 
 	@Override
@@ -119,17 +83,8 @@ public class ExpressionChecker implements ExpressionVisitor<Boolean> {
 		if (!checkBinaryNode(ast)) {
 			return false;
 		}
-		
-		Type lhsType = ast.getLhs().typeOf(typeEnv);
-		Type rhsType = ast.getRhs().typeOf(typeEnv);
-		
-		if (!(lhsType.isCompatibleToNumericType() && rhsType
-				.isCompatibleToNumericType())) {
 
-			addErrorMessage("invalid Numeric operator for <=.");
-			return false;
-		}
-		return true;
+		return bothSidesAreNumeric(ast);
 	}
 
 	@Override
@@ -137,17 +92,8 @@ public class ExpressionChecker implements ExpressionVisitor<Boolean> {
 		if (!checkBinaryNode(ast)) {
 			return false;
 		}
-		
-		Type lhsType = ast.getLhs().typeOf(typeEnv);
-		Type rhsType = ast.getRhs().typeOf(typeEnv);
-		
-		if (!(lhsType.isCompatibleToNumericType() && rhsType
-				.isCompatibleToNumericType())) {
 
-			addErrorMessage("invalid Numeric operator for >.");
-			return false;
-		}
-		return true;
+		return bothSidesAreNumeric(ast);
 	}
 
 	@Override
@@ -155,17 +101,8 @@ public class ExpressionChecker implements ExpressionVisitor<Boolean> {
 		if (!checkBinaryNode(ast)) {
 			return false;
 		}
-		
-		Type lhsType = ast.getLhs().typeOf(typeEnv);
-		Type rhsType = ast.getRhs().typeOf(typeEnv);
-		
-		if (!(lhsType.isCompatibleToNumericType() && rhsType
-				.isCompatibleToNumericType())) {
 
-			addErrorMessage("invalid Numeric operator for <=.");
-			return false;
-		}
-		return true;
+		return bothSidesAreNumeric(ast);
 	}
 
 	@Override
@@ -173,17 +110,8 @@ public class ExpressionChecker implements ExpressionVisitor<Boolean> {
 		if (!checkBinaryNode(ast)) {
 			return false;
 		}
-		
-		Type lhsType = ast.getLhs().typeOf(typeEnv);
-		Type rhsType = ast.getRhs().typeOf(typeEnv);
-		
-		if (!(lhsType.isCompatibleToNumericType() && rhsType
-				.isCompatibleToNumericType())) {
 
-			addErrorMessage("invalid Numeric operator for <.");
-			return false;
-		}
-		return true;
+		return bothSidesAreNumeric(ast);
 	}
 
 	@Override
@@ -191,17 +119,8 @@ public class ExpressionChecker implements ExpressionVisitor<Boolean> {
 		if (!checkBinaryNode(ast)) {
 			return false;
 		}
-		
-		Type lhsType = ast.getLhs().typeOf(typeEnv);
-		Type rhsType = ast.getRhs().typeOf(typeEnv);
-		
-		if (!(lhsType.isCompatibleToNumericType() && rhsType
-				.isCompatibleToNumericType())) {
 
-			addErrorMessage("invalid Numeric operator for *.");
-			return false;
-		}
-		return true;
+		return bothSidesAreNumeric(ast);
 	}
 
 	@Override
@@ -209,17 +128,8 @@ public class ExpressionChecker implements ExpressionVisitor<Boolean> {
 		if (!checkBinaryNode(ast)) {
 			return false;
 		}
-		
-		Type lhsType = ast.getLhs().typeOf(typeEnv);
-		Type rhsType = ast.getRhs().typeOf(typeEnv);
-		
-		if (!(lhsType.isCompatibleToBooleanType() && rhsType.isCompatibleToBooleanType()) 
-			&& !(lhsType.isCompatibleToNumericType() && rhsType.isCompatibleToNumericType())) {
 
-			addErrorMessage("invalid Boolean or Numeric operator for !=.");
-			return false;
-		}
-		return true;
+		return bothSidesAreBooleanOrNumeric(ast);
 	}
 
 	@Override
@@ -227,17 +137,8 @@ public class ExpressionChecker implements ExpressionVisitor<Boolean> {
 		if (!checkBinaryNode(ast)) {
 			return false;
 		}
-		
-		Type lhsType = ast.getLhs().typeOf(typeEnv);
-		Type rhsType = ast.getRhs().typeOf(typeEnv);
-		
-		if (!(lhsType.isCompatibleToBooleanType() && rhsType
-				.isCompatibleToBooleanType())) {
 
-			addErrorMessage("invalid Boolean operator for ||.");
-			return false;
-		}
-		return true;
+		return bothSidesAreBoolean(ast);
 	}
 
 	@Override
@@ -245,62 +146,35 @@ public class ExpressionChecker implements ExpressionVisitor<Boolean> {
 		if (!checkBinaryNode(ast)) {
 			return false;
 		}
-		
-		Type lhsType = ast.getLhs().typeOf(typeEnv);
-		Type rhsType = ast.getRhs().typeOf(typeEnv);
-		
-		if (!(lhsType.isCompatibleToNumericType() && rhsType
-				.isCompatibleToNumericType())) {
 
-			addErrorMessage("invalid Numeric operator for /.");
-			return false;
-		}
-		return true;
+		return bothSidesAreNumeric(ast);
 	}
 
 	@Override
-	public Boolean visit(Neg ast) {		
-		if (! ast.getArg().accept(this) ) {
+	public Boolean visit(Neg ast) {
+		if (!ast.getArg().accept(this)) {
 			return false;
 		}
 
-		Type argType = ast.getArg().typeOf(typeEnv);
-		if (!argType.isCompatibleToNumericType()) {
-			addErrorMessage("invalid Numeric operator for -.");
-			return false;
-		}
-		
-		return true;
+		return isCompatibleToNumeric(ast);
 	}
 
 	@Override
 	public Boolean visit(Not ast) {
-		if (! ast.getArg().accept(this) ) {
+		if (!ast.getArg().accept(this)) {
 			return false;
 		}
 
-		Type argType = ast.getArg().typeOf(typeEnv);
-		if (!argType.isCompatibleToBooleanType()) {
-			addErrorMessage("invalid Numeric operator for !.");
-			return false;
-		}
-		
-		return true;
+		return isCompatibleToBoolean(ast);
 	}
 
 	@Override
 	public Boolean visit(Pos ast) {
-		if (! ast.getArg().accept(this) ) {
+		if (!ast.getArg().accept(this)) {
 			return false;
 		}
 
-		Type argType = ast.getArg().typeOf(typeEnv);
-		if (!argType.isCompatibleToNumericType()) {
-			addErrorMessage("invalid Numeric operator for +.");
-			return false;
-		}
-		
-		return true;
+		return isCompatibleToNumeric(ast);
 	}
 
 	@Override
@@ -337,7 +211,7 @@ public class ExpressionChecker implements ExpressionVisitor<Boolean> {
 		}
 		return true;
 	}
-	
+
 	private boolean checkBinaryNode(Binary ast) {
 		boolean checkLhs = ast.getLhs().accept(this);
 		boolean checkRhs = ast.getRhs().accept(this);
@@ -348,10 +222,72 @@ public class ExpressionChecker implements ExpressionVisitor<Boolean> {
 		return true;
 	}
 
+	private boolean bothSidesAreNumeric(Binary ast) {
+		Type lhsType = ast.getLhs().typeOf(typeEnv);
+		Type rhsType = ast.getRhs().typeOf(typeEnv);
+
+		if (!(lhsType.isCompatibleToNumericType() && rhsType
+				.isCompatibleToNumericType())) {
+
+			addErrorMessage(String.format("Invalid Numeric operater for %s.",
+					ast.toString()));
+			return false;
+		}
+		return true;
+	}
+
+	private boolean bothSidesAreBoolean(Binary ast) {
+		Type lhsType = ast.getLhs().typeOf(typeEnv);
+		Type rhsType = ast.getRhs().typeOf(typeEnv);
+
+		if (!(lhsType.isCompatibleToBooleanType() && rhsType
+				.isCompatibleToBooleanType())) {
+
+			addErrorMessage(String.format("Invalid Boolean operater for %s.",
+					ast.toString()));
+			return false;
+		}
+		return true;
+	}
+	
+	private boolean bothSidesAreBooleanOrNumeric(Binary ast) {
+		Type lhsType = ast.getLhs().typeOf(typeEnv);
+		Type rhsType = ast.getRhs().typeOf(typeEnv);
+		if (!(lhsType.isCompatibleToBooleanType() && rhsType.isCompatibleToBooleanType()) 
+				&& !(lhsType.isCompatibleToNumericType() && rhsType.isCompatibleToNumericType())) {
+
+			addErrorMessage(String.format("Invalid Boolean operater for %s.",
+					ast.toString()));
+			return false;
+		}
+		return true;
+	}
+	
+	private boolean isCompatibleToNumeric(Unary ast) {
+		Type argType = ast.getArg().typeOf(typeEnv);
+		if (!argType.isCompatibleToNumericType()) {
+			addErrorMessage(String.format("Invalid Numeric operator for %s.", 
+					ast.toString()));
+			return false;
+		}
+		return true;
+	}
+	
+	private boolean isCompatibleToBoolean(Unary ast) {
+		Type argType = ast.getArg().typeOf(typeEnv);
+		if (!argType.isCompatibleToBooleanType()) {
+			addErrorMessage(String.format("Invalid Boolean operator for %s.", 
+					ast.toString()));
+			return false;
+		}
+		return true;
+	}
+
+
 	public void addErrorMessage(String message) {
 		errors.add(message);
 	}
-	
+
 	public List<String> getMessages() {
 		return errors;
 	}
