@@ -15,14 +15,10 @@ import org.uva.sea.ql.ast.type.Type;
 import org.uva.sea.ql.visitor.FormVisitor;
 
 /*
- * This SemanticVisitor check for:
- * 	- THIS WHOLE FILE NEEDS TE BE REVIEWED
- * 	- THIS WAS ONLY A TEST FILE
- * 
+ * This SemanticVisitor checks for:
  * 	- duplicate form ids
  * 	- duplicate question ids
- * 	- expressions (TODO)
- * 	- computed questions (TODO)
+ *  - validity of expressions
  */
 public class FormChecker implements FormVisitor {
 	private final Map<Ident, Type> typeEnv;
@@ -89,7 +85,6 @@ public class FormChecker implements FormVisitor {
     }
 	
 	private void addErrorMessage(String message) {
-		System.out.println("Debugging message (addErrorMessage); " + message);
 		errors.add(message);
 	}
 
