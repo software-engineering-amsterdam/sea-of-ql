@@ -1,4 +1,4 @@
-package org.uva.sea.ql.parser.test;
+package org.uva.sea.ql.parser.test.form;
 
 import static org.junit.Assert.assertEquals;
 
@@ -10,7 +10,8 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
 import org.uva.sea.ql.ast.form.Question;
-import org.uva.sea.ql.parser.antlr.FormParser;
+import org.uva.sea.ql.parser.test.IParse;
+import org.uva.sea.ql.parser.test.ParseError;
 
 @RunWith(Parameterized.class)
 public class TestForms {
@@ -20,7 +21,7 @@ public class TestForms {
 	@Parameters
 	public static List<Object[]> theParsers() {
 		List<Object[]> parserList = new ArrayList<Object[]>();
-		parserList.add(new Object[] { new FormParser() });
+		parserList.add(new Object[] { new Parser() });
 		return parserList;
 	}
 

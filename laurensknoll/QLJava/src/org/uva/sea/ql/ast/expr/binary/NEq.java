@@ -24,8 +24,8 @@ public class NEq extends AbstractBinary {
 
 	@Override
 	public String toString() {
-		return String.format("%s != %s", this.getLeftHandSideExpression()
-				.toString(), this.getRightHandSideExpression().toString());
+		return String.format("%s != %s", this.getLeftHandSide().toString(),
+				this.getRightHandSide().toString());
 	}
 
 }

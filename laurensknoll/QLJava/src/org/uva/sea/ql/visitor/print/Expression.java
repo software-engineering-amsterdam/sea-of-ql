@@ -24,72 +24,72 @@ public class Expression implements org.uva.sea.ql.visitor.Expression<String> {
 
 	@Override
 	public String visit(Add add) {
-		String left = add.getLeftHandSideExpression().accept(this);
-		String right = add.getRightHandSideExpression().accept(this);
+		String left = add.getLeftHandSide().accept(this);
+		String right = add.getRightHandSide().accept(this);
 
 		return String.format("(%s + %s)", left, right);
 	}
 
 	@Override
 	public String visit(And and) {
-		String left = and.getLeftHandSideExpression().accept(this);
-		String right = and.getRightHandSideExpression().accept(this);
+		String left = and.getLeftHandSide().accept(this);
+		String right = and.getRightHandSide().accept(this);
 
 		return String.format("(%s && %s)", left, right);
 	}
 
 	@Override
 	public String visit(Div div) {
-		String left = div.getLeftHandSideExpression().accept(this);
-		String right = div.getRightHandSideExpression().accept(this);
+		String left = div.getLeftHandSide().accept(this);
+		String right = div.getRightHandSide().accept(this);
 
 		return String.format("(%s / %s)", left, right);
 	}
 
 	@Override
 	public String visit(Eq eq) {
-		String left = eq.getLeftHandSideExpression().accept(this);
-		String right = eq.getRightHandSideExpression().accept(this);
+		String left = eq.getLeftHandSide().accept(this);
+		String right = eq.getRightHandSide().accept(this);
 
 		return String.format("(%s == %s)", left, right);
 	}
 
 	@Override
 	public String visit(GEq geq) {
-		String left = geq.getLeftHandSideExpression().accept(this);
-		String right = geq.getRightHandSideExpression().accept(this);
+		String left = geq.getLeftHandSide().accept(this);
+		String right = geq.getRightHandSide().accept(this);
 
 		return String.format("(%s >= %s)", left, right);
 	}
 
 	@Override
 	public String visit(GT gt) {
-		String left = gt.getLeftHandSideExpression().accept(this);
-		String right = gt.getRightHandSideExpression().accept(this);
+		String left = gt.getLeftHandSide().accept(this);
+		String right = gt.getRightHandSide().accept(this);
 
 		return String.format("(%s > %s)", left, right);
 	}
 
 	@Override
 	public String visit(LEq leq) {
-		String left = leq.getLeftHandSideExpression().accept(this);
-		String right = leq.getRightHandSideExpression().accept(this);
+		String left = leq.getLeftHandSide().accept(this);
+		String right = leq.getRightHandSide().accept(this);
 
 		return String.format("(%s <= %s)", left, right);
 	}
 
 	@Override
 	public String visit(LT lt) {
-		String left = lt.getLeftHandSideExpression().accept(this);
-		String right = lt.getRightHandSideExpression().accept(this);
+		String left = lt.getLeftHandSide().accept(this);
+		String right = lt.getRightHandSide().accept(this);
 
 		return String.format("(%s < %s)", left, right);
 	}
 
 	@Override
 	public String visit(Mul mul) {
-		String left = mul.getLeftHandSideExpression().accept(this);
-		String right = mul.getRightHandSideExpression().accept(this);
+		String left = mul.getLeftHandSide().accept(this);
+		String right = mul.getRightHandSide().accept(this);
 
 		return String.format("(%s * %s)", left, right);
 	}
@@ -103,8 +103,8 @@ public class Expression implements org.uva.sea.ql.visitor.Expression<String> {
 
 	@Override
 	public String visit(NEq neq) {
-		String left = neq.getLeftHandSideExpression().accept(this);
-		String right = neq.getRightHandSideExpression().accept(this);
+		String left = neq.getLeftHandSide().accept(this);
+		String right = neq.getRightHandSide().accept(this);
 
 		return String.format("(%s <> %s)", left, right);
 	}
@@ -118,8 +118,8 @@ public class Expression implements org.uva.sea.ql.visitor.Expression<String> {
 
 	@Override
 	public String visit(Or or) {
-		String left = or.getLeftHandSideExpression().accept(this);
-		String right = or.getRightHandSideExpression().accept(this);
+		String left = or.getLeftHandSide().accept(this);
+		String right = or.getRightHandSide().accept(this);
 
 		return String.format("(%s || %s)", left, right);
 	}
@@ -133,8 +133,8 @@ public class Expression implements org.uva.sea.ql.visitor.Expression<String> {
 
 	@Override
 	public String visit(Sub sub) {
-		String left = sub.getLeftHandSideExpression().accept(this);
-		String right = sub.getRightHandSideExpression().accept(this);
+		String left = sub.getLeftHandSide().accept(this);
+		String right = sub.getRightHandSide().accept(this);
 
 		return String.format("(%s - %s)", left, right);
 	}
