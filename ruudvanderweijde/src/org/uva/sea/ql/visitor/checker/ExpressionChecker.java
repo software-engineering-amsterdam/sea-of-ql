@@ -348,6 +348,7 @@ public class ExpressionChecker implements ExpressionVisitor<Boolean> {
 	public Boolean visit(Bool ast) {
 		Type astType = ast.typeOf(typeEnv);
 		if (!astType.isCompatibleToBooleanType()) {
+			addErrorMessage("Not a valid Boolean.");
 			return false;
 		}
 		return true;
@@ -362,6 +363,7 @@ public class ExpressionChecker implements ExpressionVisitor<Boolean> {
 	public Boolean visit(Int ast) {
 		Type astType = ast.typeOf(typeEnv);
 		if (!astType.isCompatibleToNumericType()) {
+			addErrorMessage("Not a valid Int.");
 			return false;
 		}
 		return true;
@@ -371,6 +373,7 @@ public class ExpressionChecker implements ExpressionVisitor<Boolean> {
 	public Boolean visit(StringLiteral ast) {
 		Type astType = ast.typeOf(typeEnv);
 		if (!astType.isCompatibleToStringType()) {
+			addErrorMessage("Not a valid String.");
 			return false;
 		}
 		return true;

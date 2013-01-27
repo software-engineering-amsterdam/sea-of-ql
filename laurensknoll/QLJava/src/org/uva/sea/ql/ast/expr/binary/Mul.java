@@ -22,4 +22,10 @@ public class Mul extends AbstractBinary {
 		return new Numeric();
 	}
 
+	@Override
+	public String toString() {
+		return String.format("%s * %s", this.getLeftHandSideExpression()
+				.toString(), this.getRightHandSideExpression().toString());
+	}
+
 }

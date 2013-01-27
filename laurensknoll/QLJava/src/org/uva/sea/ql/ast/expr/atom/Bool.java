@@ -26,4 +26,9 @@ public class Bool extends AbstractAtom {
 		return new org.uva.sea.ql.ast.type.Bool();
 	}
 
+	@Override
+	public java.lang.String toString() {
+		return java.lang.String.format("Boolean (%b)", this.getValue());
+	}
+
 }
