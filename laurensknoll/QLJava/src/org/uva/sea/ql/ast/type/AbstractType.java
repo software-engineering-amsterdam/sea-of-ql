@@ -5,9 +5,6 @@ import org.uva.sea.ql.visitor.Type;
 
 public abstract class AbstractType implements ASTNode {
 
-	public AbstractType() {
-	}
-
 	public abstract <T> T accept(Type<T> visitor);
 
 }
