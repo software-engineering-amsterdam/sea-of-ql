@@ -1,4 +1,4 @@
-package org.uva.sea.ql.ast;
+package org.uva.sea.ql.ast.exp;
 
 public class Or extends Binary {
 

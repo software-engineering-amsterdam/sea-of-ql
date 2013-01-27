@@ -1,4 +1,4 @@
-package org.uva.sea.ql.ast;
+package org.uva.sea.ql.ast.exp;
 
 public abstract class Binary extends Expression {
 
