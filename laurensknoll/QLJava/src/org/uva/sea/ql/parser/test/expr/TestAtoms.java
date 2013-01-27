@@ -1,4 +1,4 @@
-package org.uva.sea.ql.parser.test;
+package org.uva.sea.ql.parser.test.expr;
 
 import static org.junit.Assert.assertEquals;
 
@@ -13,21 +13,23 @@ import org.uva.sea.ql.ast.expr.atom.Bool;
 import org.uva.sea.ql.ast.expr.atom.Ident;
 import org.uva.sea.ql.ast.expr.atom.Int;
 import org.uva.sea.ql.ast.expr.atom.Money;
-import org.uva.sea.ql.parser.antlr.ExprParser;
+import org.uva.sea.ql.ast.expr.atom.String;
+import org.uva.sea.ql.parser.test.IParse;
+import org.uva.sea.ql.parser.test.ParseError;
 
 @RunWith(Parameterized.class)
-public class TestAtomExprs {
+public class TestAtoms {
 
 	private IParse parser;
 
 	@Parameters
 	public static List<Object[]> theParsers() {
 		List<Object[]> parserList = new ArrayList<Object[]>();
-		parserList.add(new Object[] { new ExprParser() });
+		parserList.add(new Object[] { new Parser() });
 		return parserList;
 	}
 
-	public TestAtomExprs(IParse parser) {
+	public TestAtoms(IParse parser) {
 		this.parser = parser;
 	}
 
@@ -64,9 +66,8 @@ public class TestAtomExprs {
 
 	@Test
 	public void testStrings() throws ParseError {
-		final String test1 = "\"A short string\"";
-		assertEquals(org.uva.sea.ql.ast.expr.atom.String.class,
-				parser.parse(test1).getClass());
+		final java.lang.String test1 = "\"A short string\"";
+		assertEquals(String.class, parser.parse(test1).getClass());
 	}
 
 }

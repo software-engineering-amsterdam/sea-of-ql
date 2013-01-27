@@ -14,6 +14,11 @@ public class Div extends Binary {
 	public Div(Expr lhs, Expr rhs) {
 		super(lhs, rhs);
 	}
+	
+	@Override
+	public String toString() {
+		return "/";
+	}
 
 	@Override
 	public Type typeOf(Map<Ident, Type> typeEnv) {

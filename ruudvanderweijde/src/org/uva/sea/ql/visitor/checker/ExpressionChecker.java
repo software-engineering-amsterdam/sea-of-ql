@@ -6,6 +6,7 @@ import java.util.Map;
 import org.uva.sea.ql.ast.expr.Expr;
 import org.uva.sea.ql.ast.expr.binary.Add;
 import org.uva.sea.ql.ast.expr.binary.And;
+import org.uva.sea.ql.ast.expr.binary.Binary;
 import org.uva.sea.ql.ast.expr.binary.Div;
 import org.uva.sea.ql.ast.expr.binary.Eq;
 import org.uva.sea.ql.ast.expr.binary.GEq;
@@ -23,6 +24,7 @@ import org.uva.sea.ql.ast.expr.primary.StringLiteral;
 import org.uva.sea.ql.ast.expr.unary.Neg;
 import org.uva.sea.ql.ast.expr.unary.Not;
 import org.uva.sea.ql.ast.expr.unary.Pos;
+import org.uva.sea.ql.ast.expr.unary.Unary;
 import org.uva.sea.ql.ast.type.Type;
 import org.uva.sea.ql.visitor.ExpressionVisitor;
 
@@ -43,305 +45,136 @@ public class ExpressionChecker implements ExpressionVisitor<Boolean> {
 
 	@Override
 	public Boolean visit(Add ast) {
-		boolean checkLhs = ast.getLhs().accept(this);
-		boolean checkRhs = ast.getRhs().accept(this);
-
-		if (!(checkLhs && checkRhs)) {
+		if (!checkBinaryNode(ast)) {
 			return false;
 		}
-
-		Type lhsType = ast.getLhs().typeOf(typeEnv);
-		Type rhsType = ast.getRhs().typeOf(typeEnv);
-
-		if (!(lhsType.isCompatibleToNumericType() && rhsType
-				.isCompatibleToNumericType())) {
-
-			addErrorMessage("invalid Numeric operater for + ");
-			return false;
-		}
-		return true;
+		return bothSidesAreNumeric(ast);
 	}
 
 	@Override
 	public Boolean visit(And ast) {
-		boolean checkLhs = ast.getLhs().accept(this);
-		boolean checkRhs = ast.getRhs().accept(this);
-		
-		if (!(checkLhs && checkRhs)) {
+		if (!checkBinaryNode(ast)) {
 			return false;
 		}
-		
-		Type lhsType = ast.getLhs().typeOf(typeEnv);
-		Type rhsType = ast.getRhs().typeOf(typeEnv);
-		
-		if (!(lhsType.isCompatibleToBooleanType() && rhsType
-				.isCompatibleToBooleanType())) {
 
-			addErrorMessage("invalid boolean operator for &&.");
-			return false;
-		}
-		return true;
+		return bothSidesAreBoolean(ast);
 	}
 
 	@Override
 	public Boolean visit(Div ast) {
-		boolean checkLhs = ast.getLhs().accept(this);
-		boolean checkRhs = ast.getRhs().accept(this);
-		
-		if (!(checkLhs && checkRhs)) {
+		if (!checkBinaryNode(ast)) {
 			return false;
 		}
-		
-		Type lhsType = ast.getLhs().typeOf(typeEnv);
-		Type rhsType = ast.getRhs().typeOf(typeEnv);
-		
-		if (!(lhsType.isCompatibleToNumericType() && rhsType
-				.isCompatibleToNumericType())) {
 
-			addErrorMessage("invalid Numeric operator for /.");
-			return false;
-		}
-		return true;
+		return bothSidesAreNumeric(ast);
 	}
 
 	@Override
 	public Boolean visit(Eq ast) {
-		boolean checkLhs = ast.getLhs().accept(this);
-		boolean checkRhs = ast.getRhs().accept(this);
-		
-		if (!(checkLhs && checkRhs)) {
+		if (!checkBinaryNode(ast)) {
 			return false;
 		}
-		
-		Type lhsType = ast.getLhs().typeOf(typeEnv);
-		Type rhsType = ast.getRhs().typeOf(typeEnv);
-		
-		if (!(lhsType.isCompatibleToBooleanType() && rhsType.isCompatibleToBooleanType()) 
-				&& !(lhsType.isCompatibleToNumericType() && rhsType.isCompatibleToNumericType())) {
 
-			addErrorMessage("invalid Boolean or Numeric operator for ==.");
-			return false;
-		}
-		return true;
+		return bothSidesAreBooleanOrNumeric(ast);
 	}
 
 	@Override
 	public Boolean visit(GEq ast) {
-		boolean checkLhs = ast.getLhs().accept(this);
-		boolean checkRhs = ast.getRhs().accept(this);
-		
-		if (!(checkLhs && checkRhs)) {
+		if (!checkBinaryNode(ast)) {
 			return false;
 		}
-		
-		Type lhsType = ast.getLhs().typeOf(typeEnv);
-		Type rhsType = ast.getRhs().typeOf(typeEnv);
-		
-		if (!(lhsType.isCompatibleToNumericType() && rhsType
-				.isCompatibleToNumericType())) {
 
-			addErrorMessage("invalid Numeric operator for <=.");
-			return false;
-		}
-		return true;
+		return bothSidesAreNumeric(ast);
 	}
 
 	@Override
 	public Boolean visit(GT ast) {
-		boolean checkLhs = ast.getLhs().accept(this);
-		boolean checkRhs = ast.getRhs().accept(this);
-		
-		if (!(checkLhs && checkRhs)) {
+		if (!checkBinaryNode(ast)) {
 			return false;
 		}
-		
-		Type lhsType = ast.getLhs().typeOf(typeEnv);
-		Type rhsType = ast.getRhs().typeOf(typeEnv);
-		
-		if (!(lhsType.isCompatibleToNumericType() && rhsType
-				.isCompatibleToNumericType())) {
 
-			addErrorMessage("invalid Numeric operator for >.");
-			return false;
-		}
-		return true;
+		return bothSidesAreNumeric(ast);
 	}
 
 	@Override
 	public Boolean visit(LEq ast) {
-		boolean checkLhs = ast.getLhs().accept(this);
-		boolean checkRhs = ast.getRhs().accept(this);
-		
-		if (!(checkLhs && checkRhs)) {
+		if (!checkBinaryNode(ast)) {
 			return false;
 		}
-		
-		Type lhsType = ast.getLhs().typeOf(typeEnv);
-		Type rhsType = ast.getRhs().typeOf(typeEnv);
-		
-		if (!(lhsType.isCompatibleToNumericType() && rhsType
-				.isCompatibleToNumericType())) {
 
-			addErrorMessage("invalid Numeric operator for <=.");
-			return false;
-		}
-		return true;
+		return bothSidesAreNumeric(ast);
 	}
 
 	@Override
 	public Boolean visit(LT ast) {
-		boolean checkLhs = ast.getLhs().accept(this);
-		boolean checkRhs = ast.getRhs().accept(this);
-		
-		if (!(checkLhs && checkRhs)) {
+		if (!checkBinaryNode(ast)) {
 			return false;
 		}
-		
-		Type lhsType = ast.getLhs().typeOf(typeEnv);
-		Type rhsType = ast.getRhs().typeOf(typeEnv);
-		
-		if (!(lhsType.isCompatibleToNumericType() && rhsType
-				.isCompatibleToNumericType())) {
 
-			addErrorMessage("invalid Numeric operator for <.");
-			return false;
-		}
-		return true;
+		return bothSidesAreNumeric(ast);
 	}
 
 	@Override
 	public Boolean visit(Mul ast) {
-		boolean checkLhs = ast.getLhs().accept(this);
-		boolean checkRhs = ast.getRhs().accept(this);
-		
-		if (!(checkLhs && checkRhs)) {
+		if (!checkBinaryNode(ast)) {
 			return false;
 		}
-		
-		Type lhsType = ast.getLhs().typeOf(typeEnv);
-		Type rhsType = ast.getRhs().typeOf(typeEnv);
-		
-		if (!(lhsType.isCompatibleToNumericType() && rhsType
-				.isCompatibleToNumericType())) {
 
-			addErrorMessage("invalid Numeric operator for *.");
-			return false;
-		}
-		return true;
+		return bothSidesAreNumeric(ast);
 	}
 
 	@Override
 	public Boolean visit(NEq ast) {
-		boolean checkLhs = ast.getLhs().accept(this);
-		boolean checkRhs = ast.getRhs().accept(this);
-		
-		if (!(checkLhs && checkRhs)) {
+		if (!checkBinaryNode(ast)) {
 			return false;
 		}
-		
-		Type lhsType = ast.getLhs().typeOf(typeEnv);
-		Type rhsType = ast.getRhs().typeOf(typeEnv);
-		
-		if (!(lhsType.isCompatibleToBooleanType() && rhsType.isCompatibleToBooleanType()) 
-			&& !(lhsType.isCompatibleToNumericType() && rhsType.isCompatibleToNumericType())) {
 
-			addErrorMessage("invalid Boolean or Numeric operator for !=.");
-			return false;
-		}
-		return true;
+		return bothSidesAreBooleanOrNumeric(ast);
 	}
 
 	@Override
 	public Boolean visit(Or ast) {
-		boolean checkLhs = ast.getLhs().accept(this);
-		boolean checkRhs = ast.getRhs().accept(this);
-		
-		if (!(checkLhs && checkRhs)) {
+		if (!checkBinaryNode(ast)) {
 			return false;
 		}
-		
-		Type lhsType = ast.getLhs().typeOf(typeEnv);
-		Type rhsType = ast.getRhs().typeOf(typeEnv);
-		
-		if (!(lhsType.isCompatibleToBooleanType() && rhsType
-				.isCompatibleToBooleanType())) {
 
-			addErrorMessage("invalid Boolean operator for ||.");
-			return false;
-		}
-		return true;
+		return bothSidesAreBoolean(ast);
 	}
 
 	@Override
 	public Boolean visit(Sub ast) {
-		boolean checkLhs = ast.getLhs().accept(this);
-		boolean checkRhs = ast.getRhs().accept(this);
-		
-		if (!(checkLhs && checkRhs)) {
+		if (!checkBinaryNode(ast)) {
 			return false;
 		}
-		
-		Type lhsType = ast.getLhs().typeOf(typeEnv);
-		Type rhsType = ast.getRhs().typeOf(typeEnv);
-		
-		if (!(lhsType.isCompatibleToNumericType() && rhsType
-				.isCompatibleToNumericType())) {
 
-			addErrorMessage("invalid Numeric operator for /.");
-			return false;
-		}
-		return true;
+		return bothSidesAreNumeric(ast);
 	}
 
 	@Override
 	public Boolean visit(Neg ast) {
-		boolean checkArg = ast.getArg().accept(this);
-		
-		if (!checkArg) {
+		if (!ast.getArg().accept(this)) {
 			return false;
 		}
 
-		Type argType = ast.getArg().typeOf(typeEnv);
-		if (!argType.isCompatibleToNumericType()) {
-			addErrorMessage("invalid Numeric operator for -.");
-			return false;
-		}
-		
-		return true;
+		return isCompatibleToNumeric(ast);
 	}
 
 	@Override
 	public Boolean visit(Not ast) {
-		boolean checkArg = ast.getArg().accept(this);
-		
-		if (!checkArg) {
+		if (!ast.getArg().accept(this)) {
 			return false;
 		}
 
-		Type argType = ast.getArg().typeOf(typeEnv);
-		if (!argType.isCompatibleToBooleanType()) {
-			addErrorMessage("invalid Numeric operator for !.");
-			return false;
-		}
-		
-		return true;
+		return isCompatibleToBoolean(ast);
 	}
 
 	@Override
 	public Boolean visit(Pos ast) {
-		boolean checkArg = ast.getArg().accept(this);
-		
-		if (!checkArg) {
+		if (!ast.getArg().accept(this)) {
 			return false;
 		}
 
-		Type argType = ast.getArg().typeOf(typeEnv);
-		if (!argType.isCompatibleToNumericType()) {
-			addErrorMessage("invalid Numeric operator for +.");
-			return false;
-		}
-		
-		return true;
+		return isCompatibleToNumeric(ast);
 	}
 
 	@Override
@@ -379,10 +212,82 @@ public class ExpressionChecker implements ExpressionVisitor<Boolean> {
 		return true;
 	}
 
+	private boolean checkBinaryNode(Binary ast) {
+		boolean checkLhs = ast.getLhs().accept(this);
+		boolean checkRhs = ast.getRhs().accept(this);
+
+		if (!(checkLhs && checkRhs)) {
+			return false;
+		}
+		return true;
+	}
+
+	private boolean bothSidesAreNumeric(Binary ast) {
+		Type lhsType = ast.getLhs().typeOf(typeEnv);
+		Type rhsType = ast.getRhs().typeOf(typeEnv);
+
+		if (!(lhsType.isCompatibleToNumericType() && rhsType
+				.isCompatibleToNumericType())) {
+
+			addErrorMessage(String.format("Invalid Numeric types for %s.",
+					ast.toString()));
+			return false;
+		}
+		return true;
+	}
+
+	private boolean bothSidesAreBoolean(Binary ast) {
+		Type lhsType = ast.getLhs().typeOf(typeEnv);
+		Type rhsType = ast.getRhs().typeOf(typeEnv);
+
+		if (!(lhsType.isCompatibleToBooleanType() && rhsType
+				.isCompatibleToBooleanType())) {
+
+			addErrorMessage(String.format("Invalid Boolean types for %s.",
+					ast.toString()));
+			return false;
+		}
+		return true;
+	}
+	
+	private boolean bothSidesAreBooleanOrNumeric(Binary ast) {
+		Type lhsType = ast.getLhs().typeOf(typeEnv);
+		Type rhsType = ast.getRhs().typeOf(typeEnv);
+		if (!(lhsType.isCompatibleToBooleanType() && rhsType.isCompatibleToBooleanType()) 
+				&& !(lhsType.isCompatibleToNumericType() && rhsType.isCompatibleToNumericType())) {
+
+			addErrorMessage(String.format("Invalid Boolean/Numeric types or %s.",
+					ast.toString()));
+			return false;
+		}
+		return true;
+	}
+	
+	private boolean isCompatibleToNumeric(Unary ast) {
+		Type argType = ast.getArg().typeOf(typeEnv);
+		if (!argType.isCompatibleToNumericType()) {
+			addErrorMessage(String.format("Invalid Numeric type for %s.", 
+					ast.toString()));
+			return false;
+		}
+		return true;
+	}
+	
+	private boolean isCompatibleToBoolean(Unary ast) {
+		Type argType = ast.getArg().typeOf(typeEnv);
+		if (!argType.isCompatibleToBooleanType()) {
+			addErrorMessage(String.format("Invalid Boolean type for %s.", 
+					ast.toString()));
+			return false;
+		}
+		return true;
+	}
+
+
 	public void addErrorMessage(String message) {
 		errors.add(message);
 	}
-	
+
 	public List<String> getMessages() {
 		return errors;
 	}

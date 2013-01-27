@@ -1,4 +1,4 @@
-package org.uva.sea.ql.parser.test;
+package org.uva.sea.ql.parser.test.statement;
 
 import static org.junit.Assert.assertEquals;
 
@@ -13,7 +13,8 @@ import org.uva.sea.ql.ast.statement.Block;
 import org.uva.sea.ql.ast.statement.ComputedQuestion;
 import org.uva.sea.ql.ast.statement.If;
 import org.uva.sea.ql.ast.statement.Question;
-import org.uva.sea.ql.parser.antlr.StatementParser;
+import org.uva.sea.ql.parser.test.IParse;
+import org.uva.sea.ql.parser.test.ParseError;
 
 @RunWith(Parameterized.class)
 public class TestStatements {
@@ -23,7 +24,7 @@ public class TestStatements {
 	@Parameters
 	public static List<Object[]> theParsers() {
 		List<Object[]> parserList = new ArrayList<Object[]>();
-		parserList.add(new Object[] { new StatementParser() });
+		parserList.add(new Object[] { new Parser() });
 		return parserList;
 	}
 

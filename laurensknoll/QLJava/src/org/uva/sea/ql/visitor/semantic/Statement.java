@@ -10,8 +10,9 @@ import org.uva.sea.ql.ast.statement.ComputedQuestion;
 import org.uva.sea.ql.ast.statement.If;
 import org.uva.sea.ql.ast.statement.Question;
 import org.uva.sea.ql.ast.type.AbstractType;
+import org.uva.sea.ql.visitor.IStatement;
 
-public class Statement implements org.uva.sea.ql.visitor.Statement<Boolean> {
+public class Statement implements IStatement<Boolean> {
 
 	private final Environment environment;
 

@@ -32,15 +32,13 @@ import org.uva.sea.ql.ast.operators.Or;
 import org.uva.sea.ql.ast.operators.Pos;
 import org.uva.sea.ql.ast.operators.Sub;
 import org.uva.sea.ql.ast.types.TypeDescription;
+import org.uva.sea.ql.ast.types.BooleanType;
 
 public class SemanticCheckVisitor implements Visitor {
 
-	final List<String> errorList = new ArrayList<String>();
+	private final List<String> errorList = new ArrayList<String>();
 
-	private HashMap<String, Statement> symbolMap = new HashMap<String, Statement>();
-
-	public SemanticCheckVisitor() {
-	}
+	private final HashMap<String, Statement> symbolMap = new HashMap<String, Statement>();
 
 	@Override
 	public VisitorResult visit(Ident id) {
@@ -84,11 +82,12 @@ public class SemanticCheckVisitor implements Visitor {
 	@Override
 	public VisitorResult visit(LineStatement lineStatement) {
 		// Add symbols to the symbolmap so the visitor of the
-		// expression can test their existance/missing.
+		// expression can test their existance.
 		if (symbolMap.get(lineStatement.getLineId().getName()) == null) {
 			// New symbol in map
 			symbolMap.put(lineStatement.getLineId().getName(), lineStatement);
 		} else {
+			// Error Symbol allready exists.
 			errorList.add("Line(" + lineStatement.getLine() + ","
 					+ lineStatement.getCharPositionInLine() + ") Field :"
 					+ lineStatement.getLineName()
@@ -106,6 +105,13 @@ public class SemanticCheckVisitor implements Visitor {
 	@Override
 	public VisitorResult visit(ConditionalStatement conditionalStatement) {
 		conditionalStatement.getExpression().accept(this);
+
+		if (!conditionalStatement.getExpressionType(symbolMap).isCompatibleTo(
+				new BooleanType())) {
+			// If expression not of type boolean
+			errorList
+					.add("Line(nan,nan) If (Expression) : not of type boolean.");
+		}
 		conditionalStatement.getTrueCompound().accept(this);
 		if (conditionalStatement.getFalseCompound() != null) {
 			conditionalStatement.getFalseCompound().accept(this);
@@ -125,8 +131,8 @@ public class SemanticCheckVisitor implements Visitor {
 		if (!(expr.getExprLeftHand().typeOf(symbolMap).isCompatibleTo(expr
 				.getExprRightHand().typeOf(symbolMap)))) {
 			/***
-			 * Due to empty AST expression node no availble line
-			 * numbers/positions. Annotation of AST?
+			 * TODO : Due to empty AST expression node no availble line
+			 * numbers/positions. (Annotation of AST would be nice?)
 			 */
 			errorList
 					.add("Line(nan,nan) Expression: incompatible types on operator: "

@@ -25,8 +25,9 @@ import org.uva.sea.ql.ast.expr.unary.Pos;
 import org.uva.sea.ql.ast.type.AbstractType;
 import org.uva.sea.ql.ast.type.Bool;
 import org.uva.sea.ql.ast.type.Numeric;
+import org.uva.sea.ql.visitor.IExpression;
 
-public class Expression implements org.uva.sea.ql.visitor.Expression<Boolean> {
+public class Expression implements IExpression<Boolean> {
 
 	private final Environment environment;
 	private final List<String> errors;
@@ -66,10 +67,10 @@ public class Expression implements org.uva.sea.ql.visitor.Expression<Boolean> {
 
 	@Override
 	public Boolean visit(Add add) {
-		AbstractExpr left = add.getLeftHandSideExpression();
+		AbstractExpr left = add.getLeftHandSide();
 		Boolean isLeftValid = left.accept(this);
 
-		AbstractExpr right = add.getRightHandSideExpression();
+		AbstractExpr right = add.getRightHandSide();
 		Boolean isRightValid = right.accept(this);
 
 		Boolean isLeftNumeric = this.isOfType(left, Numeric.class);
@@ -87,10 +88,10 @@ public class Expression implements org.uva.sea.ql.visitor.Expression<Boolean> {
 
 	@Override
 	public Boolean visit(And and) {
-		AbstractExpr left = and.getLeftHandSideExpression();
+		AbstractExpr left = and.getLeftHandSide();
 		Boolean isLeftValid = left.accept(this);
 
-		AbstractExpr right = and.getRightHandSideExpression();
+		AbstractExpr right = and.getRightHandSide();
 		Boolean isRightValid = right.accept(this);
 
 		Boolean isLeftBool = this.isOfType(left, Bool.class);
@@ -109,10 +110,10 @@ public class Expression implements org.uva.sea.ql.visitor.Expression<Boolean> {
 
 	@Override
 	public Boolean visit(Div div) {
-		AbstractExpr left = div.getLeftHandSideExpression();
+		AbstractExpr left = div.getLeftHandSide();
 		Boolean isLeftValid = left.accept(this);
 
-		AbstractExpr right = div.getRightHandSideExpression();
+		AbstractExpr right = div.getRightHandSide();
 		Boolean isRightValid = right.accept(this);
 
 		Boolean isLeftNumeric = this.isOfType(left, Numeric.class);
@@ -130,10 +131,10 @@ public class Expression implements org.uva.sea.ql.visitor.Expression<Boolean> {
 
 	@Override
 	public Boolean visit(Eq eq) {
-		AbstractExpr left = eq.getLeftHandSideExpression();
+		AbstractExpr left = eq.getLeftHandSide();
 		Boolean isLeftValid = left.accept(this);
 
-		AbstractExpr right = eq.getRightHandSideExpression();
+		AbstractExpr right = eq.getRightHandSide();
 		Boolean isRightValid = right.accept(this);
 
 		Boolean isOfSameType = this.isOfSameType(left, right);
@@ -146,10 +147,10 @@ public class Expression implements org.uva.sea.ql.visitor.Expression<Boolean> {
 
 	@Override
 	public Boolean visit(GEq geq) {
-		AbstractExpr left = geq.getLeftHandSideExpression();
+		AbstractExpr left = geq.getLeftHandSide();
 		Boolean isLeftValid = left.accept(this);
 
-		AbstractExpr right = geq.getRightHandSideExpression();
+		AbstractExpr right = geq.getRightHandSide();
 		Boolean isRightValid = right.accept(this);
 
 		Boolean isLeftNumeric = this.isOfType(left, Numeric.class);
@@ -167,10 +168,10 @@ public class Expression implements org.uva.sea.ql.visitor.Expression<Boolean> {
 
 	@Override
 	public Boolean visit(GT gt) {
-		AbstractExpr left = gt.getLeftHandSideExpression();
+		AbstractExpr left = gt.getLeftHandSide();
 		Boolean isLeftValid = left.accept(this);
 
-		AbstractExpr right = gt.getRightHandSideExpression();
+		AbstractExpr right = gt.getRightHandSide();
 		Boolean isRightValid = right.accept(this);
 
 		Boolean isLeftNumeric = this.isOfType(left, Numeric.class);
@@ -188,10 +189,10 @@ public class Expression implements org.uva.sea.ql.visitor.Expression<Boolean> {
 
 	@Override
 	public Boolean visit(LEq leq) {
-		AbstractExpr left = leq.getLeftHandSideExpression();
+		AbstractExpr left = leq.getLeftHandSide();
 		Boolean isLeftValid = left.accept(this);
 
-		AbstractExpr right = leq.getRightHandSideExpression();
+		AbstractExpr right = leq.getRightHandSide();
 		Boolean isRightValid = right.accept(this);
 
 		Boolean isLeftNumeric = this.isOfType(left, Numeric.class);
@@ -209,10 +210,10 @@ public class Expression implements org.uva.sea.ql.visitor.Expression<Boolean> {
 
 	@Override
 	public Boolean visit(LT lt) {
-		AbstractExpr left = lt.getLeftHandSideExpression();
+		AbstractExpr left = lt.getLeftHandSide();
 		Boolean isLeftValid = left.accept(this);
 
-		AbstractExpr right = lt.getRightHandSideExpression();
+		AbstractExpr right = lt.getRightHandSide();
 		Boolean isRightValid = right.accept(this);
 
 		Boolean isLeftNumeric = this.isOfType(left, Numeric.class);
@@ -230,10 +231,10 @@ public class Expression implements org.uva.sea.ql.visitor.Expression<Boolean> {
 
 	@Override
 	public Boolean visit(Mul mul) {
-		AbstractExpr left = mul.getLeftHandSideExpression();
+		AbstractExpr left = mul.getLeftHandSide();
 		Boolean isLeftValid = left.accept(this);
 
-		AbstractExpr right = mul.getRightHandSideExpression();
+		AbstractExpr right = mul.getRightHandSide();
 		Boolean isRightValid = right.accept(this);
 
 		Boolean isLeftNumeric = this.isOfType(left, Numeric.class);
@@ -264,10 +265,10 @@ public class Expression implements org.uva.sea.ql.visitor.Expression<Boolean> {
 
 	@Override
 	public Boolean visit(NEq neq) {
-		AbstractExpr left = neq.getLeftHandSideExpression();
+		AbstractExpr left = neq.getLeftHandSide();
 		Boolean isLeftValid = left.accept(this);
 
-		AbstractExpr right = neq.getRightHandSideExpression();
+		AbstractExpr right = neq.getRightHandSide();
 		Boolean isRightValid = right.accept(this);
 
 		Boolean isOfSameType = this.isOfSameType(left, right);
@@ -293,10 +294,10 @@ public class Expression implements org.uva.sea.ql.visitor.Expression<Boolean> {
 
 	@Override
 	public Boolean visit(Or or) {
-		AbstractExpr left = or.getLeftHandSideExpression();
+		AbstractExpr left = or.getLeftHandSide();
 		Boolean isLeftValid = left.accept(this);
 
-		AbstractExpr right = or.getRightHandSideExpression();
+		AbstractExpr right = or.getRightHandSide();
 		Boolean isRightValid = right.accept(this);
 
 		Boolean isLeftBool = this.isOfType(left, Bool.class);
@@ -327,10 +328,10 @@ public class Expression implements org.uva.sea.ql.visitor.Expression<Boolean> {
 
 	@Override
 	public Boolean visit(Sub sub) {
-		AbstractExpr left = sub.getLeftHandSideExpression();
+		AbstractExpr left = sub.getLeftHandSide();
 		Boolean isLeftValid = left.accept(this);
 
-		AbstractExpr right = sub.getRightHandSideExpression();
+		AbstractExpr right = sub.getRightHandSide();
 		Boolean isRightValid = right.accept(this);
 
 		Boolean isLeftNumeric = this.isOfType(left, Numeric.class);

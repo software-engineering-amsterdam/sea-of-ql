@@ -15,6 +15,11 @@ public class Sub extends Binary {
 	}
 
 	@Override
+	public String toString() {
+		return "/";
+	}
+	
+	@Override
 	public Type typeOf(Map<Ident, Type> typeEnv) {
 		return new NumericType();
 	}

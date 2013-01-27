@@ -3,7 +3,7 @@ package org.uva.sea.ql.ast.expr.unary;
 import org.uva.sea.ql.ast.expr.AbstractExpr;
 import org.uva.sea.ql.ast.type.AbstractType;
 import org.uva.sea.ql.ast.type.Numeric;
-import org.uva.sea.ql.visitor.Expression;
+import org.uva.sea.ql.visitor.IExpression;
 import org.uva.sea.ql.visitor.semantic.Environment;
 
 public class Pos extends AbstractUnary {
@@ -13,7 +13,7 @@ public class Pos extends AbstractUnary {
 	}
 
 	@Override
-	public <T> T accept(Expression<T> visitor) {
+	public <T> T accept(IExpression<T> visitor) {
 		return visitor.visit(this);
 	}
 
