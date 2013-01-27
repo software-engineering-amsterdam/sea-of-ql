@@ -6,7 +6,6 @@ public class IfStatement implements ASTNode {
 
 	public IfStatement(final Expression expression,
 			final CompoundStatement compoundStatement) {
-		// TODO Auto-generated constructor stub
 	}
 
 }

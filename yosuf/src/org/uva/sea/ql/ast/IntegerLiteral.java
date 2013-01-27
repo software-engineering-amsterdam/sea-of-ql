@@ -2,11 +2,11 @@ package org.uva.sea.ql.ast;
 
 import org.uva.sea.ql.ast.exp.Expression;
 
-public class Int extends Expression {
+public class IntegerLiteral extends Expression {
 
 	private final int value;
 
-	public Int(int value) {
+	public IntegerLiteral(int value) {
 		this.value = value;
 	}
 

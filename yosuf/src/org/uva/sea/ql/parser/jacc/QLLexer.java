@@ -7,13 +7,18 @@ import java.util.Map;
 
 import org.uva.sea.ql.ast.ASTNode;
 import org.uva.sea.ql.ast.Identifier;
-import org.uva.sea.ql.ast.Int;
+import org.uva.sea.ql.ast.IntegerLiteral;
+import org.uva.sea.ql.ast.StringLiteral;
 
 public class QLLexer implements QLTokens {
+	private static final int ERROR_CHAR = -1;
 	private static final Map<String, Integer> KEYWORDS;
 
 	static {
 		KEYWORDS = new HashMap<String, Integer>();
+		KEYWORDS.put("form", FORM);
+		KEYWORDS.put("if", IF);
+		KEYWORDS.put("Boolean", BOOL);
 	}
 
 	private int token;
@@ -32,7 +37,7 @@ public class QLLexer implements QLTokens {
 			try {
 				c = input.read();
 			} catch (IOException e) {
-				c = -1;
+				c = ERROR_CHAR;
 			}
 		}
 
@@ -42,7 +47,7 @@ public class QLLexer implements QLTokens {
 		boolean inComment = false;
 		for (;;) {
 			if (inComment) {
-				while (c != '*' && c != -1) {
+				while (c != '*' && c != ERROR_CHAR) {
 					nextChar();
 				}
 				if (c == '*') {
@@ -57,7 +62,6 @@ public class QLLexer implements QLTokens {
 
 			while (c == ' ' || c == '\t' || c == '\n' || c == '\r') {
 				nextChar();
-				System.out.println("WS");
 			}
 
 			if (c < 0) {
@@ -80,6 +84,13 @@ public class QLLexer implements QLTokens {
 			case '(':
 				nextChar();
 				return token = '(';
+			case '{':
+				nextChar();
+				return token = '{';
+			case '}':
+				nextChar();
+				return token = '}';
+
 			case '*': {
 				nextChar();
 				if (inComment && c == '/') {
@@ -128,7 +139,7 @@ public class QLLexer implements QLTokens {
 					nextChar();
 					return token = EQ;
 				}
-				throw new RuntimeException("Unexpected character: " + (char) c);
+				return token = '=';
 			}
 			case '>': {
 				nextChar();
@@ -138,6 +149,30 @@ public class QLLexer implements QLTokens {
 				}
 				return token = '>';
 			}
+			/*
+			 * String literal
+			 */
+			case '\"': {
+				nextChar();
+				StringBuilder sb = new StringBuilder();
+				do {
+					sb.append((char) c);
+					nextChar();
+
+					if (c == ERROR_CHAR) {
+						throw new RuntimeException(
+								"String literal ended unexpectedly: "
+										+ (char) c);
+					}
+
+				} while (c != '\"');
+
+				nextChar();
+
+				yylval = new StringLiteral(sb.toString());
+				return token = STRING_LIT;
+			}
+
 			default: {
 				if (Character.isDigit(c)) {
 					int n = 0;
@@ -145,8 +180,8 @@ public class QLLexer implements QLTokens {
 						n = 10 * n + (c - '0');
 						nextChar();
 					} while (Character.isDigit(c));
-					yylval = new Int(n);
-					return token = INT;
+					yylval = new IntegerLiteral(n);
+					return token = INT_LIT;
 				}
 				if (Character.isLetter(c)) {
 					StringBuilder sb = new StringBuilder();

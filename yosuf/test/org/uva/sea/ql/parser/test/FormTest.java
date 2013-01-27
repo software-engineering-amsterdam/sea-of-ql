@@ -18,7 +18,20 @@ public class FormTest {
 	}
 
 	@Test
-	public void testEmptyForm() throws ParseError {
-		assertEquals(parser.parse("form someForm{ }").getClass(), Form.class);
+	public void testForm() throws ParseError {
+		assertEquals(
+				Form.class,
+				parser.parse(
+						"form someForm { Boolean question1 = \"Are you married?\" }")
+						.getClass());
+	}
+
+	@Test(expected = RuntimeException.class)
+	public void testEndlessStringLiteral() throws ParseError {
+		assertEquals(
+				Form.class,
+				parser.parse(
+						"form someForm { Boolean question1 = \"Are you married? }")
+						.getClass());
 	}
 }

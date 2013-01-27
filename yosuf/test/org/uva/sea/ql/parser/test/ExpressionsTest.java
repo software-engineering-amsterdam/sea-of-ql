@@ -5,7 +5,7 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Before;
 import org.junit.Test;
 import org.uva.sea.ql.ast.Identifier;
-import org.uva.sea.ql.ast.Int;
+import org.uva.sea.ql.ast.IntegerLiteral;
 import org.uva.sea.ql.ast.exp.Add;
 import org.uva.sea.ql.ast.exp.And;
 import org.uva.sea.ql.ast.exp.Divide;
@@ -103,9 +103,9 @@ public class ExpressionsTest {
 
 	@Test
 	public void testNums() throws ParseError {
-		assertEquals(parser.parse("0").getClass(), Int.class);
-		assertEquals(parser.parse("1223").getClass(), Int.class);
-		assertEquals(parser.parse("234234234").getClass(), Int.class);
+		assertEquals(parser.parse("0").getClass(), IntegerLiteral.class);
+		assertEquals(parser.parse("1223").getClass(), IntegerLiteral.class);
+		assertEquals(parser.parse("234234234").getClass(), IntegerLiteral.class);
 	}
 
 	@Test
