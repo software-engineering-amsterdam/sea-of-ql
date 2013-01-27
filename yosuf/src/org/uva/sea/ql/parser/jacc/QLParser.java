@@ -1,10 +1,11 @@
-// Output created by jacc on Sun Jan 27 17:24:51 CET 2013
+// Output created by jacc on Sun Jan 27 20:33:31 CET 2013
 
 package org.uva.sea.ql.parser.jacc;
 
-import org.uva.sea.ql.ast.*;
-import org.uva.sea.ql.ast.exp.*;
-import org.uva.sea.ql.ast.data.*;
+        import org.uva.sea.ql.ast.*;
+        import org.uva.sea.ql.ast.exp.*;
+        import org.uva.sea.ql.ast.data.*;
+        import org.uva.sea.ql.ast.value.*;
 
 class QLParser implements QLTokens {
     private int yyss = 100;
@@ -814,7 +815,7 @@ class QLParser implements QLTokens {
                     }
                 case 127:
                     switch (yytok) {
-                        case STRING_LIT:
+                        case STRING_VAL:
                             yyn = 62;
                             continue;
                     }
@@ -1000,7 +1001,7 @@ class QLParser implements QLTokens {
                 return 4;
             case IDENT:
                 return 5;
-            case INT_LIT:
+            case INT_VAL:
                 return 6;
             case '!':
                 return 7;
@@ -1094,7 +1095,7 @@ class QLParser implements QLTokens {
         switch (yytok) {
             case IDENT:
                 return 5;
-            case INT_LIT:
+            case INT_VAL:
                 return 6;
             case '!':
                 return 7;
@@ -1112,7 +1113,7 @@ class QLParser implements QLTokens {
         switch (yytok) {
             case IDENT:
                 return 5;
-            case INT_LIT:
+            case INT_VAL:
                 return 6;
             case '!':
                 return 7;
@@ -1130,7 +1131,7 @@ class QLParser implements QLTokens {
         switch (yytok) {
             case IDENT:
                 return 5;
-            case INT_LIT:
+            case INT_VAL:
                 return 6;
             case '!':
                 return 7;
@@ -1148,7 +1149,7 @@ class QLParser implements QLTokens {
         switch (yytok) {
             case IDENT:
                 return 5;
-            case INT_LIT:
+            case INT_VAL:
                 return 6;
             case '!':
                 return 7;
@@ -1166,7 +1167,7 @@ class QLParser implements QLTokens {
         switch (yytok) {
             case IDENT:
                 return 5;
-            case INT_LIT:
+            case INT_VAL:
                 return 6;
             case '!':
                 return 7;
@@ -1184,7 +1185,7 @@ class QLParser implements QLTokens {
         switch (yytok) {
             case IDENT:
                 return 5;
-            case INT_LIT:
+            case INT_VAL:
                 return 6;
             case '!':
                 return 7;
@@ -1202,7 +1203,7 @@ class QLParser implements QLTokens {
         switch (yytok) {
             case IDENT:
                 return 5;
-            case INT_LIT:
+            case INT_VAL:
                 return 6;
             case '!':
                 return 7;
@@ -1220,7 +1221,7 @@ class QLParser implements QLTokens {
         switch (yytok) {
             case IDENT:
                 return 5;
-            case INT_LIT:
+            case INT_VAL:
                 return 6;
             case '!':
                 return 7;
@@ -1238,7 +1239,7 @@ class QLParser implements QLTokens {
         switch (yytok) {
             case IDENT:
                 return 5;
-            case INT_LIT:
+            case INT_VAL:
                 return 6;
             case '!':
                 return 7;
@@ -1256,7 +1257,7 @@ class QLParser implements QLTokens {
         switch (yytok) {
             case IDENT:
                 return 5;
-            case INT_LIT:
+            case INT_VAL:
                 return 6;
             case '!':
                 return 7;
@@ -1274,7 +1275,7 @@ class QLParser implements QLTokens {
         switch (yytok) {
             case IDENT:
                 return 5;
-            case INT_LIT:
+            case INT_VAL:
                 return 6;
             case '!':
                 return 7;
@@ -1292,7 +1293,7 @@ class QLParser implements QLTokens {
         switch (yytok) {
             case IDENT:
                 return 5;
-            case INT_LIT:
+            case INT_VAL:
                 return 6;
             case '!':
                 return 7;
@@ -1310,7 +1311,7 @@ class QLParser implements QLTokens {
         switch (yytok) {
             case IDENT:
                 return 5;
-            case INT_LIT:
+            case INT_VAL:
                 return 6;
             case '!':
                 return 7;
@@ -1328,7 +1329,7 @@ class QLParser implements QLTokens {
         switch (yytok) {
             case IDENT:
                 return 5;
-            case INT_LIT:
+            case INT_VAL:
                 return 6;
             case '!':
                 return 7;
@@ -1346,7 +1347,7 @@ class QLParser implements QLTokens {
         switch (yytok) {
             case IDENT:
                 return 5;
-            case INT_LIT:
+            case INT_VAL:
                 return 6;
             case '!':
                 return 7;
@@ -1364,7 +1365,7 @@ class QLParser implements QLTokens {
         switch (yytok) {
             case IDENT:
                 return 5;
-            case INT_LIT:
+            case INT_VAL:
                 return 6;
             case '!':
                 return 7;
@@ -1833,7 +1834,7 @@ class QLParser implements QLTokens {
         switch (yytok) {
             case IDENT:
                 return 5;
-            case INT_LIT:
+            case INT_VAL:
                 return 6;
             case '!':
                 return 7;
@@ -1851,7 +1852,7 @@ class QLParser implements QLTokens {
         switch (yytok) {
             case IDENT:
                 return 5;
-            case INT_LIT:
+            case INT_VAL:
                 return 6;
             case '!':
                 return 7;
@@ -2080,14 +2081,14 @@ class QLParser implements QLTokens {
         return yypexpr();
     }
 
-    private int yyr26() { // expr : INT_LIT
-        { yyrv = ((IntegerLiteral)yysv[yysp-1]); }
+    private int yyr26() { // expr : INT_VAL
+        { yyrv = ((IntegerValue)yysv[yysp-1]); }
         yysv[yysp-=1] = yyrv;
         return yypexpr();
     }
 
     private int yyr27() { // expr : IDENT
-        { yyrv = yysv[yysp-1]; }
+        { yyrv = ((Identifier)yysv[yysp-1]); }
         yysv[yysp-=1] = yyrv;
         return yypexpr();
     }
@@ -2134,8 +2135,8 @@ class QLParser implements QLTokens {
         return 44;
     }
 
-    private int yyr6() { // question : dType IDENT '=' STRING_LIT
-        { yyrv = new Question(yysv[yysp-4], yysv[yysp-3], ((StringLiteral)yysv[yysp-1]) ); }
+    private int yyr6() { // question : dType IDENT '=' STRING_VAL
+        { yyrv = new Question(((DataType)yysv[yysp-4]), ((Identifier)yysv[yysp-3]), ((StringValue)yysv[yysp-1]) ); }
         yysv[yysp-=4] = yyrv;
         switch (yyst[yysp-1]) {
             case 40: return 45;
@@ -2144,7 +2145,7 @@ class QLParser implements QLTokens {
     }
 
     private int yyr32() { // stm : IDENT '=' expr ';'
-        { yyrv = new Assignment(yysv[yysp-4], ((Expression)yysv[yysp-2])); }
+        { yyrv = new Assignment(((Identifier)yysv[yysp-4]), ((Expression)yysv[yysp-2])); }
         yysv[yysp-=4] = yyrv;
         return 46;
     }

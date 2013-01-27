@@ -1,4 +1,4 @@
-// Output created by jacc on Sun Jan 27 17:24:51 CET 2013
+// Output created by jacc on Sun Jan 27 20:33:31 CET 2013
 
 package org.uva.sea.ql.parser.jacc;
 
@@ -12,13 +12,13 @@ interface QLTokens {
     int IDENT = 6;
     int IF = 7;
     int INT = 8;
-    int INT_LIT = 9;
+    int INT_VAL = 9;
     int LEQ = 10;
     int MON = 11;
     int NEQ = 12;
     int OR = 13;
     int STR = 14;
-    int STRING_LIT = 15;
+    int STRING_VAL = 15;
     int UMIN = 16;
     int UNOT = 17;
     int UPLUS = 18;

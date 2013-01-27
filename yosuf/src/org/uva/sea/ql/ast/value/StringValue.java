@@ -1,8 +1,9 @@
-package org.uva.sea.ql.ast;
+package org.uva.sea.ql.ast.value;
 
 import static julius.validation.Assertions.state;
 
-public class StringLiteral implements ASTNode {
+public class StringValue extends Value {
+
 	private final String value;
 
 	/**
@@ -10,7 +11,7 @@ public class StringLiteral implements ASTNode {
 	 * @param value
 	 *            (not null)
 	 */
-	public StringLiteral(final String value) {
+	public StringValue(final String value) {
 		this.value = value;
 		state.assertNotNull(this.value, "StringLiteral.value");
 	}

@@ -8,9 +8,14 @@ public class Identifier extends Expression {
 
 	private final String name;
 
+	/**
+	 * 
+	 * @param name
+	 *            (not null)
+	 */
 	public Identifier(final String name) {
-		state.assertNotNull(name, "Identifier.name");
 		this.name = name;
+		state.assertNotNull(this.name, "Identifier.name");
 	}
 
 	public String getName() {

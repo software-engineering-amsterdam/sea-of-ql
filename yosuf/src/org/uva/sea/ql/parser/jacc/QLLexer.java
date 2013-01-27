@@ -7,8 +7,8 @@ import java.util.Map;
 
 import org.uva.sea.ql.ast.ASTNode;
 import org.uva.sea.ql.ast.Identifier;
-import org.uva.sea.ql.ast.IntegerLiteral;
-import org.uva.sea.ql.ast.StringLiteral;
+import org.uva.sea.ql.ast.value.IntegerValue;
+import org.uva.sea.ql.ast.value.StringValue;
 
 public class QLLexer implements QLTokens {
 	private static final int ERROR_CHAR = -1;
@@ -165,24 +165,26 @@ public class QLLexer implements QLTokens {
 										+ (char) c);
 					}
 
-				} while (c != '\"');
+				} while (c != '\"' && c != ERROR_CHAR);
 
 				nextChar();
 
-				yylval = new StringLiteral(sb.toString());
-				return token = STRING_LIT;
+				yylval = new StringValue(sb.toString());
+				return token = STRING_VAL;
 			}
 
 			default: {
+
 				if (Character.isDigit(c)) {
 					int n = 0;
 					do {
 						n = 10 * n + (c - '0');
 						nextChar();
 					} while (Character.isDigit(c));
-					yylval = new IntegerLiteral(n);
-					return token = INT_LIT;
+					yylval = new IntegerValue(n);
+					return token = INT_VAL;
 				}
+
 				if (Character.isLetter(c)) {
 					StringBuilder sb = new StringBuilder();
 					do {

@@ -1,14 +1,38 @@
 package org.uva.sea.ql.ast;
 
-public class Question implements ASTNode {
-	private final StringLiteral questionText;
+import static julius.validation.Assertions.state;
 
-	public Question(final ASTNode astNode, final ASTNode astNode2,
-			final StringLiteral questionText) {
+import org.uva.sea.ql.ast.data.DataType;
+import org.uva.sea.ql.ast.value.StringValue;
+
+public class Question implements ASTNode {
+	private final DataType dataType;
+	private final Identifier identifier;
+	private final StringValue questionText;
+
+	/**
+	 * 
+	 * @param dataType
+	 *            (not null)
+	 * @param identifier
+	 *            (not null)
+	 * @param questionText
+	 *            (not null)
+	 */
+	public Question(final DataType dataType, final Identifier identifier,
+			final StringValue questionText) {
+
+		this.dataType = dataType;
+		this.identifier = identifier;
 		this.questionText = questionText;
+
+		state.assertNotNull(this.dataType, "Question.dataType");
+		state.assertNotNull(this.identifier, "Question.identifier");
+		state.assertNotNull(this.questionText, "Question.questionText");
 	}
 
-	public StringLiteral getQuestionText() {
+	public StringValue getQuestionText() {
 		return questionText;
 	}
+
 }
