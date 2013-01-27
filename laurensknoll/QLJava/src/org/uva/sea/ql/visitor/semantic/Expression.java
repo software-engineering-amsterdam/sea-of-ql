@@ -95,7 +95,6 @@ public class Expression implements IExpression<Boolean> {
 		Boolean isRightValid = right.accept(this);
 
 		Boolean isLeftBool = this.isOfType(left, Bool.class);
-		;
 		if (!isLeftBool) {
 			this.addUnexpectedTypeError(and, left, Bool.class);
 		}

@@ -39,8 +39,8 @@ public class TestBinaries {
 		// Create an environment with some registered identifiers.
 		Environment env = new Environment();
 		env.declare(new Ident("bool"), new org.uva.sea.ql.ast.type.Bool());
-		env.declare(new Ident("int"), new org.uva.sea.ql.ast.type.Int());
-		env.declare(new Ident("money"), new org.uva.sea.ql.ast.type.Money());
+		env.declare(new Ident("int"), new org.uva.sea.ql.ast.type.Numeric());
+		env.declare(new Ident("money"), new org.uva.sea.ql.ast.type.Numeric());
 		env.declare(new Ident("string"), new org.uva.sea.ql.ast.type.String());
 
 		visitorList.add(new Object[] { new Expression(env) });
@@ -145,11 +145,12 @@ public class TestBinaries {
 		assertEquals(true, visitor.visit(new Eq(i, intIdent)));
 		assertEquals(true, visitor.visit(new Eq(m, moneyIdent)));
 
-		assertEquals(false, visitor.visit(new Eq(m, i)));
+		assertEquals(true, visitor.visit(new Eq(m, i)));
 		assertEquals(false, visitor.visit(new Eq(stringIdent, b)));
 
 		assertEquals(true, visitor.visit(new Eq(new NEq(b, b), b)));
 		assertEquals(true, visitor.visit(new Eq(new Sub(i, i), i)));
+		assertEquals(true, visitor.visit(new Eq(m, new Sub(i, i))));
 
 		assertEquals(false, visitor.visit(new Eq(new Sub(i, i), b)));
 	}
@@ -306,11 +307,12 @@ public class TestBinaries {
 		assertEquals(true, visitor.visit(new NEq(i, intIdent)));
 		assertEquals(true, visitor.visit(new NEq(m, moneyIdent)));
 
-		assertEquals(false, visitor.visit(new NEq(m, i)));
+		assertEquals(true, visitor.visit(new NEq(m, i)));
 		assertEquals(false, visitor.visit(new NEq(stringIdent, b)));
 
 		assertEquals(true, visitor.visit(new NEq(new Eq(b, b), b)));
 		assertEquals(true, visitor.visit(new NEq(new Sub(i, i), i)));
+		assertEquals(true, visitor.visit(new NEq(m, new Sub(i, i))));
 
 		assertEquals(false, visitor.visit(new NEq(new Sub(i, i), b)));
 	}

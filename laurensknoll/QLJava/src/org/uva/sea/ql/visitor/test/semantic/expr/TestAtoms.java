@@ -29,8 +29,8 @@ public class TestAtoms {
 		// Create an environment with some registered identifiers.
 		Environment env = new Environment();
 		env.declare(new Ident("bool"), new org.uva.sea.ql.ast.type.Bool());
-		env.declare(new Ident("int"), new org.uva.sea.ql.ast.type.Int());
-		env.declare(new Ident("money"), new org.uva.sea.ql.ast.type.Money());
+		env.declare(new Ident("int"), new org.uva.sea.ql.ast.type.Numeric());
+		env.declare(new Ident("money"), new org.uva.sea.ql.ast.type.Numeric());
 		env.declare(new Ident("string"), new org.uva.sea.ql.ast.type.String());
 
 		visitorList.add(new Object[] { new Expression(env) });
