@@ -85,7 +85,6 @@ public class FormChecker implements FormVisitor {
     }
 	
 	private void addErrorMessage(String message) {
-		System.out.println("Debugging message (addErrorMessage); " + message);
 		errors.add(message);
 	}
 
