@@ -28,6 +28,7 @@ public class Program {
 		org.uva.sea.ql.visitor.semantic.Form semanticFormVistor = new org.uva.sea.ql.visitor.semantic.Form();
 		Boolean isFormValid = questionForm.accept(semanticFormVistor);
 		if (!isFormValid) {
+			System.out.println("Form is invalid:");
 			for (String error : semanticFormVistor.getErrors()) {
 				System.out.println(error);
 			}
