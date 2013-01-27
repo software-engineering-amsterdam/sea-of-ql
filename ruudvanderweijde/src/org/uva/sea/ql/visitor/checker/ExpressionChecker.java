@@ -229,7 +229,7 @@ public class ExpressionChecker implements ExpressionVisitor<Boolean> {
 		if (!(lhsType.isCompatibleToNumericType() && rhsType
 				.isCompatibleToNumericType())) {
 
-			addErrorMessage(String.format("Invalid Numeric operater for %s.",
+			addErrorMessage(String.format("Invalid Numeric types for %s.",
 					ast.toString()));
 			return false;
 		}
@@ -243,7 +243,7 @@ public class ExpressionChecker implements ExpressionVisitor<Boolean> {
 		if (!(lhsType.isCompatibleToBooleanType() && rhsType
 				.isCompatibleToBooleanType())) {
 
-			addErrorMessage(String.format("Invalid Boolean operater for %s.",
+			addErrorMessage(String.format("Invalid Boolean types for %s.",
 					ast.toString()));
 			return false;
 		}
@@ -256,7 +256,7 @@ public class ExpressionChecker implements ExpressionVisitor<Boolean> {
 		if (!(lhsType.isCompatibleToBooleanType() && rhsType.isCompatibleToBooleanType()) 
 				&& !(lhsType.isCompatibleToNumericType() && rhsType.isCompatibleToNumericType())) {
 
-			addErrorMessage(String.format("Invalid Boolean operater for %s.",
+			addErrorMessage(String.format("Invalid Boolean/Numeric types or %s.",
 					ast.toString()));
 			return false;
 		}
@@ -266,7 +266,7 @@ public class ExpressionChecker implements ExpressionVisitor<Boolean> {
 	private boolean isCompatibleToNumeric(Unary ast) {
 		Type argType = ast.getArg().typeOf(typeEnv);
 		if (!argType.isCompatibleToNumericType()) {
-			addErrorMessage(String.format("Invalid Numeric operator for %s.", 
+			addErrorMessage(String.format("Invalid Numeric type for %s.", 
 					ast.toString()));
 			return false;
 		}
@@ -276,7 +276,7 @@ public class ExpressionChecker implements ExpressionVisitor<Boolean> {
 	private boolean isCompatibleToBoolean(Unary ast) {
 		Type argType = ast.getArg().typeOf(typeEnv);
 		if (!argType.isCompatibleToBooleanType()) {
-			addErrorMessage(String.format("Invalid Boolean operator for %s.", 
+			addErrorMessage(String.format("Invalid Boolean type for %s.", 
 					ast.toString()));
 			return false;
 		}
