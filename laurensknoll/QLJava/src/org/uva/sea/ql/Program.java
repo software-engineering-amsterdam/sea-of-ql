@@ -20,8 +20,9 @@ public class Program {
 			Parser formParser = new Parser();
 			questionForm = formParser.parseQuestionForm(formText);
 		} catch (ParseError e) {
-			// TODO Create meaningful error messages during parsing.
+			System.out.println("Parsing has failed:");
 			e.printStackTrace();
+			return;
 		}
 
 		org.uva.sea.ql.visitor.semantic.Form semanticFormVistor = new org.uva.sea.ql.visitor.semantic.Form();
