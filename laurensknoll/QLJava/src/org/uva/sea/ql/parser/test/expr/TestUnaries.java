@@ -1,4 +1,4 @@
-package org.uva.sea.ql.parser.test;
+package org.uva.sea.ql.parser.test.expr;
 
 import static org.junit.Assert.assertEquals;
 
@@ -12,21 +12,22 @@ import org.junit.runners.Parameterized.Parameters;
 import org.uva.sea.ql.ast.expr.unary.Neg;
 import org.uva.sea.ql.ast.expr.unary.Not;
 import org.uva.sea.ql.ast.expr.unary.Pos;
-import org.uva.sea.ql.parser.antlr.ExprParser;
+import org.uva.sea.ql.parser.test.IParse;
+import org.uva.sea.ql.parser.test.ParseError;
 
 @RunWith(Parameterized.class)
-public class TestUnaryExprs {
+public class TestUnaries {
 
 	private IParse parser;
 
 	@Parameters
 	public static List<Object[]> theParsers() {
 		List<Object[]> parserList = new ArrayList<Object[]>();
-		parserList.add(new Object[] { new ExprParser() });
+		parserList.add(new Object[] { new Parser() });
 		return parserList;
 	}
 
-	public TestUnaryExprs(IParse parser) {
+	public TestUnaries(IParse parser) {
 		this.parser = parser;
 	}
 

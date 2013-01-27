@@ -6,8 +6,8 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 
 import org.uva.sea.ql.ast.form.Question;
-import org.uva.sea.ql.parser.antlr.FormParser;
 import org.uva.sea.ql.parser.test.ParseError;
+import org.uva.sea.ql.parser.test.form.Parser;
 
 public class Program {
 
@@ -17,7 +17,7 @@ public class Program {
 		Question questionForm = null;
 
 		try {
-			FormParser formParser = new FormParser();
+			Parser formParser = new Parser();
 			questionForm = formParser.parseQuestionForm(formText);
 		} catch (ParseError e) {
 			// TODO Create meaningful error messages during parsing.

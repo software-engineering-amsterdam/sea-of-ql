@@ -1,4 +1,4 @@
-package org.uva.sea.ql.parser.test;
+package org.uva.sea.ql.parser.test.expr;
 
 import static org.junit.Assert.assertEquals;
 
@@ -21,21 +21,22 @@ import org.uva.sea.ql.ast.expr.binary.Mul;
 import org.uva.sea.ql.ast.expr.binary.NEq;
 import org.uva.sea.ql.ast.expr.binary.Or;
 import org.uva.sea.ql.ast.expr.binary.Sub;
-import org.uva.sea.ql.parser.antlr.ExprParser;
+import org.uva.sea.ql.parser.test.IParse;
+import org.uva.sea.ql.parser.test.ParseError;
 
 @RunWith(Parameterized.class)
-public class TestBinaryExprs {
+public class TestBinaries {
 
 	private IParse parser;
 
 	@Parameters
 	public static List<Object[]> theParsers() {
 		List<Object[]> parserList = new ArrayList<Object[]>();
-		parserList.add(new Object[] { new ExprParser() });
+		parserList.add(new Object[] { new Parser() });
 		return parserList;
 	}
 
-	public TestBinaryExprs(IParse parser) {
+	public TestBinaries(IParse parser) {
 		this.parser = parser;
 	}
 
