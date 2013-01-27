@@ -26,4 +26,9 @@ public class Int extends Numeric {
 		return new org.uva.sea.ql.ast.type.Int();
 	}
 
+	@Override
+	public java.lang.String toString() {
+		return java.lang.String.format("Integer (%d)", this.getValue());
+	}
+
 }

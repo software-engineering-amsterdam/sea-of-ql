@@ -26,4 +26,9 @@ public class Money extends Numeric {
 		return new org.uva.sea.ql.ast.type.Money();
 	}
 
+	@Override
+	public java.lang.String toString() {
+		return java.lang.String.format("Money (%.2f)", this.getValue());
+	}
+
 }

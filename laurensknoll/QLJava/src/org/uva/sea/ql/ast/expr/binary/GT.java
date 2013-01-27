@@ -22,4 +22,10 @@ public class GT extends AbstractBinary {
 		return new Bool();
 	}
 
+	@Override
+	public String toString() {
+		return String.format("%s > %s", this.getLeftHandSideExpression()
+				.toString(), this.getRightHandSideExpression().toString());
+	}
+
 }

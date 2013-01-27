@@ -26,4 +26,9 @@ public class String extends AbstractAtom {
 		return new org.uva.sea.ql.ast.type.String();
 	}
 
+	@Override
+	public java.lang.String toString() {
+		return java.lang.String.format("String (%s)", this.getValue());
+	}
+
 }

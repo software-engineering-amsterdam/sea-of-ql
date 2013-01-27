@@ -44,4 +44,10 @@ public class Ident extends AbstractAtom {
 		Ident ident = (Ident) obj;
 		return this.name.equals(ident.getName());
 	}
+
+	@Override
+	public java.lang.String toString() {
+		return java.lang.String.format("Ident (%s)", this.getName());
+	}
+
 }
