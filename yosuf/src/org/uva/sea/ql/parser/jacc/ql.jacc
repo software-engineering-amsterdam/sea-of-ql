@@ -27,6 +27,7 @@
 %{
 import org.uva.sea.ql.ast.*;
 import org.uva.sea.ql.ast.exp.*;
+import org.uva.sea.ql.ast.data.*;
 %}
 
 %%
@@ -45,10 +46,10 @@ body	: question					{ $$ = $1; }
 question: dType IDENT '=' STRING_LIT { $$ = new Question($1, $2, $4 ); }
 		;
 
-dType	: BOOL 				{ $$ = DataType.BOOLEAN; }
-		| INT				{ $$ = DataType.INTEGER; }
-		| MON				{ $$ = DataType.MONEY; }
-		| STR				{ $$ = DataType.STRING; }
+dType	: BOOL 				{ $$ = new BooleanType();; }
+		| INT				{ $$ = new IntegerType(); }
+		| MON				{ $$ = new MoneyType(); }
+		| STR				{ $$ = new StringType(); }
 		;
 
 expr	: '+' expr	%prec UPLUS { $$ = new Positive($2); }

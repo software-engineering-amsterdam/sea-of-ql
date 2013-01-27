@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CompoundStatement implements ASTNode {
+
 	public CompoundStatement(final ASTNode astNode) {
 
 	}
