@@ -35,6 +35,11 @@ public class Str implements Value {
     }
 
     @Override
+    public String toString() {
+        return value;
+    }
+
+    @Override
 	public <ReturnType, ParameterType> ReturnType accept(ASTNodeVisitor<ReturnType, ParameterType> visitor, ParameterType param) {
 		return visitor.visit(this, param);
 	}	

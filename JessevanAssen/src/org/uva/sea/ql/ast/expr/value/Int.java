@@ -83,6 +83,11 @@ public class Int implements Value {
     }
 
     @Override
+    public String toString() {
+        return Integer.toString(value);
+    }
+
+    @Override
 	public <ReturnType, ParameterType> ReturnType accept(ASTNodeVisitor<ReturnType, ParameterType> visitor, ParameterType param) {
 		return visitor.visit(this, param);
 	}	

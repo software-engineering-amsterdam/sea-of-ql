@@ -46,7 +46,12 @@ public class Bool implements Value {
         return value ? 1 : 0;
     }
 
-	@Override
+    @Override
+    public String toString() {
+        return Boolean.toString(value);
+    }
+
+    @Override
 	public <ReturnType, ParameterType> ReturnType accept(ASTNodeVisitor<ReturnType, ParameterType> visitor, ParameterType param) {
 		return visitor.visit(this, param);
 	}

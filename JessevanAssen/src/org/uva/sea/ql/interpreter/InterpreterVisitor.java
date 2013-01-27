@@ -1,13 +1,11 @@
 package org.uva.sea.ql.interpreter;
 
 import org.uva.sea.ql.Message;
+import org.uva.sea.ql.Error;
 import org.uva.sea.ql.ast.*;
 import org.uva.sea.ql.ast.expr.*;
-import org.uva.sea.ql.ast.expr.value.Bool;
-import org.uva.sea.ql.ast.expr.value.Int;
-import org.uva.sea.ql.ast.expr.value.Str;
-import org.uva.sea.ql.ast.expr.value.Value;
-import org.uva.sea.ql.ast.type.*;
+import org.uva.sea.ql.ast.expr.value.*;
+import org.uva.sea.ql.interpreter.valueParser.*;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -208,6 +206,39 @@ public class InterpreterVisitor implements ASTNodeVisitor<Value, InterpreterVisi
 
     @Override
     public Value visit(Question astNode, Context param) {
+        final Ident identifier = astNode.getIdentifier();
+        final ValueParser valueParser = ValueParserFactory.createValueParser(astNode.getType());
+
+        if(!param.getValues().containsKey(identifier.getName())) {
+            final Value defaultValue = valueParser.getDefault();
+            param.errors.add(new Error(
+                    String.format(
+                            "No value for identifier '%s' in the values map! Using the default value '%s'.",
+                            identifier.getName(),
+                            defaultValue
+                    )
+            ));
+            param.getIdentifiers().put(astNode.getIdentifier(), defaultValue);
+        } else {
+            final String value = param.values.get(identifier.getName());
+            try {
+                final Value parsedValue = valueParser.parseValue(value);
+                param.getIdentifiers().put(astNode.getIdentifier(), parsedValue);
+            } catch(ValueParserException ex) {
+                final Value defaultValue = valueParser.getDefault();
+                param.errors.add(new Error(
+                        String.format(
+                                "The value of identifier '%s' ('%s') can't be parsed as type '%s'! Using the default value '%s'.",
+                                identifier.getName(),
+                                value,
+                                astNode.getType(),
+                                defaultValue
+                        )
+                ));
+                param.getIdentifiers().put(astNode.getIdentifier(), defaultValue);
+            }
+        }
+
         return null;
     }
 
