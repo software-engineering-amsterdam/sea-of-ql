@@ -13,7 +13,12 @@ public class GT extends Binary {
 	public GT(Expr lhs, Expr rhs) {
 		super(lhs, rhs);
 	}
-
+	
+	@Override
+	public String toString() {
+		return ">";
+	}
+	
 	@Override
 	public Type typeOf(Map<Ident, Type> typeEnv) {
 		return new BooleanType();
