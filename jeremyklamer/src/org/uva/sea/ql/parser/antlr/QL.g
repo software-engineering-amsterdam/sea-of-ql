@@ -17,6 +17,8 @@ package org.uva.sea.ql.parser.antlr;
 primary returns [Expr result] 
     : Int   { $result = new Int(Integer.parseInt($Int.text)); }
     | Ident { $result = new Ident($Ident.text); }
+    | BOOL  { $result = new Bool(Boolean.parseBoolean($BOOL.text)); }
+    | String{ $result = new StringNode($String.text); }
     | '(' x=orExpr ')'{ $result = $x.result; }
     ;
     
@@ -109,10 +111,10 @@ ifThenStatement returns [Statement result]
     ;
   
 question returns [Question result] 
-    : Ident ':' String returnType {$result = new Question($String.text, $returnType.result);}
+    : Ident ':' String returnType {$result = new Question(new Ident($Ident.text), $String.text, $returnType.result);}
     ;
     
-returnType returns [Type result] 
+returnType returns [Type result] //TODO String ,boolen met or expressie, orexpr hoort bij de question. 
     : 'boolean' { $result = new BoolType(); }
     | 'money(' orExpr ')' {$result = new Money($orExpr.result);} //Fill in actual numbers. 
     | 'money' {$result = new Money();} 
