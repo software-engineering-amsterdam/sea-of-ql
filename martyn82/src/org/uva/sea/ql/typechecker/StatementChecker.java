@@ -12,7 +12,6 @@ import org.uva.sea.ql.ast.statement.Statements;
 import org.uva.sea.ql.ast.statement.VarDeclaration;
 import org.uva.sea.ql.ast.type.Type;
 import org.uva.sea.ql.eval.Environment;
-import org.uva.sea.ql.eval.Error;
 import org.uva.sea.ql.visitor.IStatementVisitor;
 
 /**
@@ -61,10 +60,10 @@ public class StatementChecker extends TypeCheckVisitor implements IStatementVisi
 			return false;
 		}
 
-		if ( !( node.getCondition().accept( resolver ) instanceof org.uva.sea.ql.ast.type.Bool ) ) {
-			getEnvironment().addError(
-				new Error( "Condition of an ELSE-IF block should evaluate to Boolean.", node )
-			);
+		Type conditionType = node.getCondition().accept( resolver );
+
+		if ( !conditionType.isCompatibleToBool() ) {
+			addError( "Condition of an ELSE-IF block should evaluate to Boolean.", node );
 			return false;
 		}
 
@@ -77,10 +76,10 @@ public class StatementChecker extends TypeCheckVisitor implements IStatementVisi
 			return false;
 		}
 
-		if ( !( node.getCondition().accept( resolver ) instanceof org.uva.sea.ql.ast.type.Bool ) ) {
-			getEnvironment().addError(
-				new Error( "Condition of an IF block should evaluate to Boolean.", node )
-			);
+		Type conditionType = node.getCondition().accept( resolver );
+
+		if ( !conditionType.isCompatibleToBool() ) {
+			addError( "Condition of an IF block should evaluate to Boolean.", node );
 			return false;
 		}
 
@@ -108,15 +107,14 @@ public class StatementChecker extends TypeCheckVisitor implements IStatementVisi
 	@Override
 	public Boolean visit( VarDeclaration node ) {
 		if ( getEnvironment().isDeclared( node.getIdent() ) ) {
-			getEnvironment().addError(
-				new Error(
-					String.format(
-						"The variable %s is already declared elsewhere.",
-						node.getIdent().getName()
-					),
-					node
-				)
+			addError(
+				String.format(
+					"The variable %s is already declared elsewhere.",
+					node.getIdent().getName()
+				),
+				node
 			);
+
 			return false;
 		}
 
@@ -138,17 +136,16 @@ public class StatementChecker extends TypeCheckVisitor implements IStatementVisi
 			Type leftType = node.getIdent().accept( resolver );
 			Type rightType = node.getExpression().accept( resolver );
 
-			if ( !checkBothSame( leftType, rightType ) ) {
-				getEnvironment().addError(
-					new Error(
-						String.format(
-							"Type mismatch: cannot convert from %s to %s.",
-							leftType.getClass().getSimpleName(),
-							rightType.getClass().getSimpleName()
-						),
-						node
-					)
+			if ( !leftType.isCompatibleTo( rightType ) ) {
+				addError(
+					String.format(
+						"Type mismatch: cannot convert from %s to %s.",
+						leftType.getClass().getSimpleName(),
+						rightType.getClass().getSimpleName()
+					),
+					node
 				);
+
 				return false;
 			}
 		}
@@ -173,16 +170,12 @@ public class StatementChecker extends TypeCheckVisitor implements IStatementVisi
 
 	@Override
 	public Boolean visit( Statements node ) {
-		boolean valid = true;
-
 		for ( Statement statement : node ) {
-			valid = statement.accept( this );
-
-			if ( !valid ) {
+			if ( !statement.accept( this ) ) {
 				return false;
 			}
 		}
 
-		return valid;
+		return true;
 	}
 }

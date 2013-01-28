@@ -10,4 +10,24 @@ public class Number extends Type {
 	public <T> T accept( ITypeVisitor<T> visitor ) {
 		return visitor.visit( this );
 	}
+
+	@Override
+	public boolean isCompatibleTo( Type type ) {
+		return type.isCompatibleToNumber();
+	}
+
+	@Override
+	public boolean isCompatibleToNumber() {
+		return true;
+	}
+
+	@Override
+	public boolean isCompatibleToInt() {
+		return true;
+	}
+
+	@Override
+	public boolean isCompatibleToMoney() {
+		return true;
+	}
 }

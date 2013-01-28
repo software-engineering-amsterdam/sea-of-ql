@@ -1,6 +1,6 @@
 package org.uva.sea.ql.typechecker;
 
-import org.uva.sea.ql.ast.type.Type;
+import org.uva.sea.ql.ast.Node;
 import org.uva.sea.ql.eval.Environment;
 import org.uva.sea.ql.visitor.NodeVisitor;
 
@@ -38,53 +38,21 @@ abstract public class TypeCheckVisitor extends NodeVisitor<Boolean> {
 	}
 
 	/**
+	 * Adds an error.
+	 *
+	 * @param message
+	 * @param node
+	 */
+	protected void addError( String message, Node node ) {
+		this.environment.addError( new org.uva.sea.ql.eval.Error( message, node ) );
+	}
+
+	/**
 	 * Retrieves the type resolver.
 	 *
 	 * @return Type resolver.
 	 */
 	protected ExpressionTypeResolver getResolver() {
 		return this.resolver;
-	}
-
-	/**
-	 * Determines whether both types are numeric.
-	 *
-	 * @param one
-	 * @param two
-	 *
-	 * @return True if both are numeric, false otherwise.
-	 */
-	protected boolean checkBothNumber( Type one, Type two ) {
-		return (
-			one instanceof org.uva.sea.ql.ast.type.Number
-			&& two instanceof org.uva.sea.ql.ast.type.Number
-		);
-	}
-
-	/**
-	 * Determines whether both types are boolean.
-	 *
-	 * @param one
-	 * @param two
-	 *
-	 * @return True if both are boolean, false otherwise.
-	 */
-	protected boolean checkBothBoolean( Type one, Type two ) {
-		return (
-			one instanceof org.uva.sea.ql.ast.type.Bool
-			&& two instanceof org.uva.sea.ql.ast.type.Bool
-		);
-	}
-
-	/**
-	 * Determines whether both types are the same.
-	 *
-	 * @param one
-	 * @param two
-	 *
-	 * @return True if both are the same, false otherwise.
-	 */
-	protected boolean checkBothSame( Type one, Type two ) {
-		return one.getClass() == two.getClass();
 	}
 }

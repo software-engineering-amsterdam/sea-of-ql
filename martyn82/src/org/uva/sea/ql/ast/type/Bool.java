@@ -10,4 +10,14 @@ public class Bool extends Type {
 	public <T> T accept( ITypeVisitor<T> visitor ) {
 		return visitor.visit( this );
 	}
+
+	@Override
+	public boolean isCompatibleTo( Type type ) {
+		return type.isCompatibleToBool();
+	}
+
+	@Override
+	public boolean isCompatibleToBool() {
+		return true;
+	}
 }

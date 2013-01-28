@@ -21,13 +21,8 @@ import org.uva.sea.ql.ast.expression.Pos;
 import org.uva.sea.ql.ast.expression.Sub;
 import org.uva.sea.ql.ast.expression.UnaryExpression;
 import org.uva.sea.ql.ast.expression.UnaryNumericExpression;
-import org.uva.sea.ql.ast.type.Bool;
-import org.uva.sea.ql.ast.type.Int;
-import org.uva.sea.ql.ast.type.Money;
-import org.uva.sea.ql.ast.type.Str;
 import org.uva.sea.ql.ast.type.Type;
 import org.uva.sea.ql.eval.Environment;
-import org.uva.sea.ql.eval.Error;
 import org.uva.sea.ql.visitor.IExpressionVisitor;
 
 /**
@@ -67,16 +62,15 @@ public class ExpressionChecker extends TypeCheckVisitor implements IExpressionVi
 		Type leftType = node.getLhs().accept( resolver );
 		Type rightType = node.getRhs().accept( resolver );
 
-		if ( !checkBothNumber( leftType, rightType ) ) {
-			getEnvironment().addError(
-				new Error(
-					String.format(
-						"Both sides of the %s-expression must be a Number type.",
-						node.getClass().getSimpleName().toUpperCase()
-					),
-					node
-				)
+		if ( !( leftType.isCompatibleToNumber() && rightType.isCompatibleToNumber() ) ) {
+			addError(
+				String.format(
+					"Both sides of the %s-expression must be a Number type.",
+					node.getClass().getSimpleName().toUpperCase()
+				),
+				node
 			);
+
 			return false;
 		}
 
@@ -101,16 +95,15 @@ public class ExpressionChecker extends TypeCheckVisitor implements IExpressionVi
 		Type leftType = node.getLhs().accept( resolver );
 		Type rightType = node.getRhs().accept( resolver );
 
-		if ( !checkBothBoolean( leftType, rightType ) ) {
-			getEnvironment().addError(
-				new Error(
-					String.format(
-						"Both sides of the %s-expression must be of type Boolean.",
-						node.getClass().getSimpleName().toUpperCase()
-					),
-					node
-				)
+		if ( !( leftType.isCompatibleToBool() && rightType.isCompatibleToBool() ) ) {
+			addError(
+				String.format(
+					"Both sides of the %s-expression must be of type Boolean.",
+					node.getClass().getSimpleName().toUpperCase()
+				),
+				node
 			);
+
 			return false;
 		}
 
@@ -132,27 +125,18 @@ public class ExpressionChecker extends TypeCheckVisitor implements IExpressionVi
 			return false;
 		}
 
-		/*
-		 * This type is only valid if left and right hand side of comparison are both of the same (sub)type.
-		 * So, check for either:
-		 * - Left and right hand side of comparison are both a Number type (Integer or Money).
-		 *   or
-		 * - Left and right hand side of comparison are both of the same (sub)type.
-		 */
+		Type leftType = node.getLhs().accept( resolver );
+		Type rightType = node.getRhs().accept( resolver );
 
-		 Type leftType = node.getLhs().accept( resolver );
-		 Type rightType = node.getRhs().accept( resolver );
-
-		if ( !checkBothNumber( leftType, rightType ) && !checkBothSame( leftType, rightType ) ) {
-			getEnvironment().addError(
-				new Error(
-					String.format(
-						"Both sides of the comparison must be of the same (sub)type.",
-						node.getClass().getSimpleName().toUpperCase()
-					),
-					node
-				)
+		if ( !leftType.isCompatibleTo( rightType ) ) {
+			addError(
+				String.format(
+					"Both sides of the comparison must be of the same (sub)type.",
+					node.getClass().getSimpleName().toUpperCase()
+				),
+				node
 			);
+
 			return false;
 		}
 
@@ -171,10 +155,10 @@ public class ExpressionChecker extends TypeCheckVisitor implements IExpressionVi
 			return false;
 		}
 
-		if ( !( node.accept( resolver ) instanceof org.uva.sea.ql.ast.type.Bool ) ) {
-			getEnvironment().addError(
-				new Error( "Expression must be a Boolean type.", node )
-			);
+		Type nodeType = node.accept( resolver );
+
+		if ( !nodeType.isCompatibleToBool() ) {
+			addError( "Expression must be a Boolean type.", node );
 			return false;
 		}
 
@@ -193,10 +177,10 @@ public class ExpressionChecker extends TypeCheckVisitor implements IExpressionVi
 			return false;
 		}
 
-		if ( !( node.accept( resolver ) instanceof org.uva.sea.ql.ast.type.Number ) ) {
-			getEnvironment().addError(
-				new Error( "Expression must be a Number type.", node )
-			);
+		Type nodeType = node.accept( resolver );
+
+		if ( !nodeType.isCompatibleToNumber() ) {
+			addError( "Expression must be a Number type.", node );
 			return false;
 		}
 
@@ -205,30 +189,28 @@ public class ExpressionChecker extends TypeCheckVisitor implements IExpressionVi
 
 	@Override
 	public Boolean visit( org.uva.sea.ql.ast.expression.literal.Int node ) {
-		return node.accept( resolver ) instanceof Int;
+		return node.accept( resolver ).isCompatibleToInt();
 	}
 
 	@Override
 	public Boolean visit( org.uva.sea.ql.ast.expression.literal.Bool node ) {
-		return node.accept( resolver ) instanceof Bool;
+		return node.accept( resolver ).isCompatibleToBool();
 	}
 
 	@Override
 	public Boolean visit( org.uva.sea.ql.ast.expression.literal.Money node ) {
-		return node.accept( resolver ) instanceof Money;
+		return node.accept( resolver ).isCompatibleToMoney();
 	}
 
 	@Override
 	public Boolean visit( org.uva.sea.ql.ast.expression.literal.Str node ) {
-		return node.accept( resolver ) instanceof Str;
+		return node.accept( resolver ).isCompatibleToStr();
 	}
 
 	@Override
 	public Boolean visit( Ident node ) {
 		if ( node.accept( resolver ) instanceof org.uva.sea.ql.ast.type.Error ) {
-			getEnvironment().addError(
-				new Error( "Undefined variable: " + node.getName(), node )
-			);
+			addError( "Undefined variable: " + node.getName(), node );
 			return false;
 		}
 
