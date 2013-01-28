@@ -7,7 +7,7 @@ import org.uva.sea.ql.visitor.NodeVisitor;
 /**
  * Represents a type checker visitor.
  */
-public class TypeCheckVisitor extends NodeVisitor<Boolean> {
+abstract public class TypeCheckVisitor extends NodeVisitor<Boolean> {
 	/**
 	 * Holds the environment object.
 	 */
