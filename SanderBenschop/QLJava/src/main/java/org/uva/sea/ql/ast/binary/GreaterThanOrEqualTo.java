@@ -1,6 +1,6 @@
 package org.uva.sea.ql.ast.binary;
 
-import org.uva.sea.ql.ast.ASTNode;
+import org.uva.sea.ql.ast.QLExpression;
 import org.uva.sea.ql.ast.primary.Int;
 
 import java.util.Arrays;
@@ -9,7 +9,7 @@ import java.util.List;
 
 public class GreaterThanOrEqualTo extends BinaryOperation {
 
-	public GreaterThanOrEqualTo(ASTNode leftHandSide, ASTNode rightHandSide) {
+	public GreaterThanOrEqualTo(QLExpression leftHandSide, QLExpression rightHandSide) {
 		super(leftHandSide, rightHandSide);
 	}
 

@@ -1,27 +1,28 @@
 package org.uva.sea.ql.visitor.typechecking;
 
 import org.uva.sea.ql.ast.ASTNode;
+import org.uva.sea.ql.ast.QLExpression;
 
 import java.util.HashMap;
 import java.util.Map;
 
 public class ReductionTable {
 
-    private final Map<ASTNode, Class<?>> typeReductionMap;
+    private final Map<QLExpression, Class<?>> typeReductionMap;
 
     public ReductionTable() {
-        this.typeReductionMap = new HashMap<ASTNode, Class<?>>();
+        this.typeReductionMap = new HashMap<QLExpression, Class<?>>();
     }
 
-    public void setReducableToType(ASTNode astNode, Class<?> type) {
+    public void setReducableToType(QLExpression astNode, Class<?> type) {
         typeReductionMap.put(astNode, type);
     }
 
-    public Class<?> getReduceableType(ASTNode astNode) {
+    public Class<?> getReduceableType(QLExpression astNode) {
         return typeReductionMap.get(astNode);
     }
 
-    public boolean containsReductionFor(ASTNode node) {
+    public boolean containsReductionFor(QLExpression node) {
         return typeReductionMap.containsKey(node);
     }
 }

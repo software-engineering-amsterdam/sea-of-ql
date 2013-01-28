@@ -1,9 +1,9 @@
 package org.uva.sea.ql.ast.primary;
 
-import org.uva.sea.ql.ast.ASTNode;
+import org.uva.sea.ql.ast.QLExpression;
 import org.uva.sea.ql.visitor.ASTNodeVisitor;
 
-public final class Ident implements ASTNode {
+public final class Ident implements QLExpression {
 
     private final String name;
 

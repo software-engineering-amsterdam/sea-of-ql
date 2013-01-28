@@ -1,4 +1,4 @@
-// $ANTLR 3.5 /home/sander/Documents/workspace/freshSeaOfQL/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g 2013-01-22 11:18:39
+// $ANTLR 3.5 /home/sander/Documents/workspace/freshSeaOfQL/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g 2013-01-28 13:32:06
 
 package org.uva.sea.ql.parser.antlr;
 import org.uva.sea.ql.ast.*;
@@ -502,7 +502,7 @@ public class QLParser extends Parser {
 
 		Token Ident10=null;
 		Token Str11=null;
-		ASTNode orExpr12 =null;
+		QLExpression orExpr12 =null;
 
 		try {
 			if ( state.backtracking>0 && alreadyParsedRule(input, 7) ) { return result; }
@@ -522,8 +522,8 @@ public class QLParser extends Parser {
 			if ( state.backtracking==0 ) {
 			      Ident ident = new Ident((Ident10!=null?Ident10.getText():null));
 			      Str label = new Str(removeOuterQuotes((Str11!=null?Str11.getText():null)));
-			      ASTNode orExpression = orExpr12;
-			      result = new Computation(ident, label, orExpression);
+			      QLExpression expression = orExpr12;
+			      result = new Computation(ident, label, expression);
 			    }
 			}
 
@@ -550,7 +550,7 @@ public class QLParser extends Parser {
 
 		int conditional_StartIndex = input.index();
 
-		ASTNode condition =null;
+		QLExpression condition =null;
 		List<QLStatement> success =null;
 		List<QLStatement> failure =null;
 
@@ -633,9 +633,9 @@ public class QLParser extends Parser {
 
 
 	// $ANTLR start "primary"
-	// /home/sander/Documents/workspace/freshSeaOfQL/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:87:1: primary returns [ASTNode result] : ( Int | Bool | Str | Ident | '(' x= orExpr ')' );
-	public final ASTNode primary() throws RecognitionException {
-		ASTNode result = null;
+	// /home/sander/Documents/workspace/freshSeaOfQL/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:87:1: primary returns [QLExpression result] : ( Int | Bool | Str | Ident | '(' x= orExpr ')' );
+	public final QLExpression primary() throws RecognitionException {
+		QLExpression result = null;
 
 		int primary_StartIndex = input.index();
 
@@ -643,7 +643,7 @@ public class QLParser extends Parser {
 		Token Bool14=null;
 		Token Str15=null;
 		Token Ident16=null;
-		ASTNode x =null;
+		QLExpression x =null;
 
 		try {
 			if ( state.backtracking>0 && alreadyParsedRule(input, 9) ) { return result; }
@@ -742,13 +742,13 @@ public class QLParser extends Parser {
 
 
 	// $ANTLR start "unExpr"
-	// /home/sander/Documents/workspace/freshSeaOfQL/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:95:1: unExpr returns [ASTNode result] : ( '+' x= unExpr | '-' x= unExpr | '!' x= unExpr |x= primary );
-	public final ASTNode unExpr() throws RecognitionException {
-		ASTNode result = null;
+	// /home/sander/Documents/workspace/freshSeaOfQL/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:95:1: unExpr returns [QLExpression result] : ( '+' x= unExpr | '-' x= unExpr | '!' x= unExpr |x= primary );
+	public final QLExpression unExpr() throws RecognitionException {
+		QLExpression result = null;
 
 		int unExpr_StartIndex = input.index();
 
-		ASTNode x =null;
+		QLExpression x =null;
 
 		try {
 			if ( state.backtracking>0 && alreadyParsedRule(input, 10) ) { return result; }
@@ -849,15 +849,15 @@ public class QLParser extends Parser {
 
 
 	// $ANTLR start "mulExpr"
-	// /home/sander/Documents/workspace/freshSeaOfQL/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:102:1: mulExpr returns [ASTNode result] : lhs= unExpr (op= ( '*' | '/' ) rhs= unExpr )* ;
-	public final ASTNode mulExpr() throws RecognitionException {
-		ASTNode result = null;
+	// /home/sander/Documents/workspace/freshSeaOfQL/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:102:1: mulExpr returns [QLExpression result] : lhs= unExpr (op= ( '*' | '/' ) rhs= unExpr )* ;
+	public final QLExpression mulExpr() throws RecognitionException {
+		QLExpression result = null;
 
 		int mulExpr_StartIndex = input.index();
 
 		Token op=null;
-		ASTNode lhs =null;
-		ASTNode rhs =null;
+		QLExpression lhs =null;
+		QLExpression rhs =null;
 
 		try {
 			if ( state.backtracking>0 && alreadyParsedRule(input, 11) ) { return result; }
@@ -933,15 +933,15 @@ public class QLParser extends Parser {
 
 
 	// $ANTLR start "addExpr"
-	// /home/sander/Documents/workspace/freshSeaOfQL/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:115:1: addExpr returns [ASTNode result] : lhs= mulExpr (op= ( '+' | '-' ) rhs= mulExpr )* ;
-	public final ASTNode addExpr() throws RecognitionException {
-		ASTNode result = null;
+	// /home/sander/Documents/workspace/freshSeaOfQL/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:115:1: addExpr returns [QLExpression result] : lhs= mulExpr (op= ( '+' | '-' ) rhs= mulExpr )* ;
+	public final QLExpression addExpr() throws RecognitionException {
+		QLExpression result = null;
 
 		int addExpr_StartIndex = input.index();
 
 		Token op=null;
-		ASTNode lhs =null;
-		ASTNode rhs =null;
+		QLExpression lhs =null;
+		QLExpression rhs =null;
 
 		try {
 			if ( state.backtracking>0 && alreadyParsedRule(input, 12) ) { return result; }
@@ -1017,15 +1017,15 @@ public class QLParser extends Parser {
 
 
 	// $ANTLR start "relExpr"
-	// /home/sander/Documents/workspace/freshSeaOfQL/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:127:1: relExpr returns [ASTNode result] : lhs= addExpr (op= ( '<' | '<=' | '>' | '>=' | '==' | '!=' ) rhs= addExpr )* ;
-	public final ASTNode relExpr() throws RecognitionException {
-		ASTNode result = null;
+	// /home/sander/Documents/workspace/freshSeaOfQL/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:127:1: relExpr returns [QLExpression result] : lhs= addExpr (op= ( '<' | '<=' | '>' | '>=' | '==' | '!=' ) rhs= addExpr )* ;
+	public final QLExpression relExpr() throws RecognitionException {
+		QLExpression result = null;
 
 		int relExpr_StartIndex = input.index();
 
 		Token op=null;
-		ASTNode lhs =null;
-		ASTNode rhs =null;
+		QLExpression lhs =null;
+		QLExpression rhs =null;
 
 		try {
 			if ( state.backtracking>0 && alreadyParsedRule(input, 13) ) { return result; }
@@ -1113,14 +1113,14 @@ public class QLParser extends Parser {
 
 
 	// $ANTLR start "andExpr"
-	// /home/sander/Documents/workspace/freshSeaOfQL/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:151:1: andExpr returns [ASTNode result] : lhs= relExpr ( '&&' rhs= relExpr )* ;
-	public final ASTNode andExpr() throws RecognitionException {
-		ASTNode result = null;
+	// /home/sander/Documents/workspace/freshSeaOfQL/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:151:1: andExpr returns [QLExpression result] : lhs= relExpr ( '&&' rhs= relExpr )* ;
+	public final QLExpression andExpr() throws RecognitionException {
+		QLExpression result = null;
 
 		int andExpr_StartIndex = input.index();
 
-		ASTNode lhs =null;
-		ASTNode rhs =null;
+		QLExpression lhs =null;
+		QLExpression rhs =null;
 
 		try {
 			if ( state.backtracking>0 && alreadyParsedRule(input, 14) ) { return result; }
@@ -1179,14 +1179,14 @@ public class QLParser extends Parser {
 
 
 	// $ANTLR start "orExpr"
-	// /home/sander/Documents/workspace/freshSeaOfQL/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:156:1: orExpr returns [ASTNode result] : lhs= andExpr ( '||' rhs= andExpr )* ;
-	public final ASTNode orExpr() throws RecognitionException {
-		ASTNode result = null;
+	// /home/sander/Documents/workspace/freshSeaOfQL/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:156:1: orExpr returns [QLExpression result] : lhs= andExpr ( '||' rhs= andExpr )* ;
+	public final QLExpression orExpr() throws RecognitionException {
+		QLExpression result = null;
 
 		int orExpr_StartIndex = input.index();
 
-		ASTNode lhs =null;
-		ASTNode rhs =null;
+		QLExpression lhs =null;
+		QLExpression rhs =null;
 
 		try {
 			if ( state.backtracking>0 && alreadyParsedRule(input, 15) ) { return result; }

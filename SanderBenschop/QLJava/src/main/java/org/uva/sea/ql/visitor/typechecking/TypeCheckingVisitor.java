@@ -1,6 +1,6 @@
 package org.uva.sea.ql.visitor.typechecking;
 
-import org.uva.sea.ql.ast.ASTNode;
+import org.uva.sea.ql.ast.QLExpression;
 import org.uva.sea.ql.ast.binary.BinaryOperation;
 import org.uva.sea.ql.ast.primary.Bool;
 import org.uva.sea.ql.ast.primary.Datatype;
@@ -47,7 +47,8 @@ public class TypeCheckingVisitor implements ASTNodeVisitor {
         }
 
         Class<?> supportedExpressionType = Int.class;
-        ASTNode expression = computation.getExpression();
+        QLExpression expression = computation.getExpression();
+
         if (reductionTable.getReduceableType(expression) != supportedExpressionType) {
             addErrorForUnsupportedType(expression, supportedExpressionType);
         }
@@ -57,7 +58,7 @@ public class TypeCheckingVisitor implements ASTNodeVisitor {
     public void visitConditional(Conditional conditional) {
         Class<?> supportedType = Bool.class;
         if (reductionTable.getReduceableType(conditional.getCondition()) != supportedType) {
-            addErrorForUnsupportedType(conditional, supportedType);
+            addErrorForUnsupportedType(conditional.getCondition(), supportedType);
         }
     }
 
@@ -83,7 +84,7 @@ public class TypeCheckingVisitor implements ASTNodeVisitor {
     @Override
     public void visitBinaryOperation(BinaryOperation binaryOperation) {
         List<Class<?>> supportedTypes = binaryOperation.getSupportedTypes();
-        ASTNode leftHandSide = binaryOperation.getLeftHandSide(), rightHandSide = binaryOperation.getRightHandSide();
+        QLExpression leftHandSide = binaryOperation.getLeftHandSide(), rightHandSide = binaryOperation.getRightHandSide();
 
         Class<?> leftHandSideReduction = reductionTable.getReduceableType(leftHandSide), rightHandSideReduction = reductionTable
                 .getReduceableType(rightHandSide);
@@ -125,13 +126,13 @@ public class TypeCheckingVisitor implements ASTNodeVisitor {
         return semanticValidationErrors;
     }
 
-    private void addErrorForUnsupportedType(ASTNode astNode, Class<?> allowedType) {
+    private void addErrorForUnsupportedType(QLExpression expression, Class<?> allowedType) {
         List<Class<?>> allowedTypeList = Arrays.asList(new Class<?>[] { allowedType });
-        addErrorForUnsupportedType(astNode, allowedTypeList);
+        addErrorForUnsupportedType(expression, allowedTypeList);
     }
 
-    private void addErrorForUnsupportedType(ASTNode astNode, List<Class<?>> allowedTypes) {
-        QLError unsupportedTypeError = new UnsupportedTypeError(0, astNode.getClass().getSimpleName(), allowedTypes);
+    private void addErrorForUnsupportedType(QLExpression expression, List<Class<?>> allowedTypes) {
+        QLError unsupportedTypeError = new UnsupportedTypeError(0, expression.getClass().getSimpleName(), allowedTypes);
         semanticValidationErrors.add(unsupportedTypeError);
     }
 

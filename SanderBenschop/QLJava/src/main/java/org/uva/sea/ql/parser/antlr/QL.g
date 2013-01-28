@@ -72,8 +72,8 @@ computation returns [Computation result]
     {
       Ident ident = new Ident($Ident.text);
       Str label = new Str(removeOuterQuotes($Str.text));
-      ASTNode orExpression = $orExpr.result;
-      $result = new Computation(ident, label, orExpression);
+      QLExpression expression = $orExpr.result;
+      $result = new Computation(ident, label, expression);
     }
   ;
   
@@ -84,7 +84,7 @@ conditional returns [Conditional result]
     )
   ;
 
-primary returns [ASTNode result]
+primary returns [QLExpression result]
   : Int   { $result = new Int(Integer.parseInt($Int.text)); }
   | Bool  { $result = new Bool(Boolean.parseBoolean($Bool.text)); }
   | Str   { $result = new Str(removeOuterQuotes($Str.text)); }
@@ -92,14 +92,14 @@ primary returns [ASTNode result]
   | '(' x=orExpr ')'{ $result = $x.result; }
   ;
 
-unExpr returns [ASTNode result]
+unExpr returns [QLExpression result]
     :  '+' x=unExpr { $result = new Positive($x.result); }
     |  '-' x=unExpr { $result = new Negative($x.result); }
     |  '!' x=unExpr { $result = new Not($x.result); }
     |  x=primary    { $result = $x.result; }
     ;    
     
-mulExpr returns [ASTNode result]
+mulExpr returns [QLExpression result]
     :   lhs=unExpr { $result=$lhs.result; } ( op=( '*' | '/' ) rhs=unExpr 
 	    { 
 	      if ($op.text.equals("*")) {
@@ -112,7 +112,7 @@ mulExpr returns [ASTNode result]
     ;
     
   
-addExpr returns [ASTNode result]
+addExpr returns [QLExpression result]
     :   lhs=mulExpr { $result=$lhs.result; } ( op=('+' | '-') rhs=mulExpr
 	    { 
 	      if ($op.text.equals("+")) {
@@ -124,7 +124,7 @@ addExpr returns [ASTNode result]
 	    })*
     ;
   
-relExpr returns [ASTNode result]
+relExpr returns [QLExpression result]
     :   lhs=addExpr { $result=$lhs.result; } ( op=('<'|'<='|'>'|'>='|'=='|'!=') rhs=addExpr 
 	    { 
 	      if ($op.text.equals("<")) {
@@ -148,12 +148,12 @@ relExpr returns [ASTNode result]
 	    })*
     ;
     
-andExpr returns [ASTNode result]
+andExpr returns [QLExpression result]
     :   lhs=relExpr { $result=$lhs.result; } ( '&&' rhs=relExpr { $result = new And($result, rhs); } )*
     ;
     
 
-orExpr returns [ASTNode result]
+orExpr returns [QLExpression result]
     :   lhs=andExpr { $result = $lhs.result; } ( '||' rhs=andExpr { $result = new Or($result, rhs); } )*
     ;
     

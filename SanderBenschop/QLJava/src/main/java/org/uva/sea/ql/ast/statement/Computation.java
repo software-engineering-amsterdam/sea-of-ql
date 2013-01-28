@@ -1,6 +1,6 @@
 package org.uva.sea.ql.ast.statement;
 
-import org.uva.sea.ql.ast.ASTNode;
+import org.uva.sea.ql.ast.QLExpression;
 import org.uva.sea.ql.ast.QLStatement;
 import org.uva.sea.ql.ast.primary.Ident;
 import org.uva.sea.ql.ast.primary.Str;
@@ -10,9 +10,9 @@ public class Computation implements QLStatement {
 
 	private final Ident identifier;
     private final Str label;
-	private final ASTNode expression;
+	private final QLExpression expression;
 
-	public Computation(Ident identifier, Str label, ASTNode expression) {
+	public Computation(Ident identifier, Str label, QLExpression expression) {
 		this.identifier = identifier;
 		this.label = label;
 		this.expression = expression;
@@ -26,7 +26,7 @@ public class Computation implements QLStatement {
 		return label;
 	}
 
-	public ASTNode getExpression() {
+	public QLExpression getExpression() {
 		return expression;
 	}
 

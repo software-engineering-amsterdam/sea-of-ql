@@ -1,6 +1,6 @@
 package org.uva.sea.ql.ast.statement;
 
-import org.uva.sea.ql.ast.ASTNode;
+import org.uva.sea.ql.ast.QLExpression;
 import org.uva.sea.ql.ast.QLStatement;
 import org.uva.sea.ql.visitor.ASTNodeVisitor;
 
@@ -8,7 +8,7 @@ import java.util.List;
 
 public class IfStatement extends Conditional {
 
-    public IfStatement(ASTNode condition, List<QLStatement> successBlock) {
+    public IfStatement(QLExpression condition, List<QLStatement> successBlock) {
         super(condition, successBlock);
     }
 

@@ -1,6 +1,6 @@
 package org.uva.sea.ql.ast.binary;
 
-import org.uva.sea.ql.ast.ASTNode;
+import org.uva.sea.ql.ast.QLExpression;
 import org.uva.sea.ql.ast.primary.Int;
 
 import java.util.Arrays;
@@ -9,7 +9,7 @@ import java.util.List;
 
 public class Add extends BinaryOperation {
 
-	public Add(ASTNode leftHandSide, ASTNode rightHandSide) {
+	public Add(QLExpression leftHandSide, QLExpression rightHandSide) {
 		super(leftHandSide, rightHandSide);
 	}
 

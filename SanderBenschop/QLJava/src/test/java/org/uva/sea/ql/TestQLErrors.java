@@ -2,6 +2,7 @@ package org.uva.sea.ql;
 
 import org.junit.Test;
 import org.uva.sea.ql.ast.ASTNode;
+import org.uva.sea.ql.ast.QLExpression;
 import org.uva.sea.ql.ast.binary.Add;
 import org.uva.sea.ql.ast.binary.BinaryOperation;
 import org.uva.sea.ql.ast.primary.Bool;
@@ -24,7 +25,7 @@ public class TestQLErrors {
 
     @Test
     public void shouldGetUnsupportedTypeErrorMessageForSingleAllowedType() {
-        ASTNode actualType = new Bool(false);
+        QLExpression actualType = new Bool(false);
 
         List<Class<?>> allowedTypes = Arrays.asList(new Class<?>[] { Int.class });
         QLError error = new UnsupportedTypeError(LINE_NUMBER, actualType.getClass().getSimpleName(), allowedTypes);
@@ -33,7 +34,7 @@ public class TestQLErrors {
 
     @Test
     public void shouldGetUnsupportedTypeErrorMessageForDoubleAllowedType() {
-        ASTNode actualType = new Bool(false);
+        QLExpression actualType = new Bool(false);
 
         List<Class<?>> allowedTypes = Arrays.asList(new Class<?>[] { Int.class, Bool.class });
         QLError error = new UnsupportedTypeError(LINE_NUMBER, actualType.getClass().getSimpleName(), allowedTypes);
@@ -42,7 +43,7 @@ public class TestQLErrors {
 
     @Test
     public void shouldGetUnsupportedTypeErrorMessageForTripleAllowedType() {
-        ASTNode actualType = new Bool(false);
+        QLExpression actualType = new Bool(false);
 
         List<Class<?>> allowedTypes = Arrays.asList(new Class<?>[] { Int.class, Bool.class, Str.class });
         QLError error = new UnsupportedTypeError(LINE_NUMBER, actualType.getClass().getSimpleName(), allowedTypes);
