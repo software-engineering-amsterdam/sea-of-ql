@@ -14,11 +14,13 @@ public class QLLexer implements QLTokens {
 	private static final Map<String, Integer> KEYWORDS;
 	
 	static {
-		KEYWORDS = new HashMap<String, Integer>();
+		KEYWORDS = new HashMap<String, Integer>();		
+		KEYWORDS.put("if", IF);
 		KEYWORDS.put("boolean", BOOLEAN);
-		KEYWORDS.put("IF", IF);
-		KEYWORDS.put("INTEGER", INTEGER);
-		KEYWORDS.put("FORM", FORM);
+		KEYWORDS.put("integer", INTEGER);
+		KEYWORDS.put("money", MONEY);
+		KEYWORDS.put("string", STRING);
+		KEYWORDS.put("form", FORM);
 	}
 	
 	
@@ -123,7 +125,7 @@ public class QLLexer implements QLTokens {
 			    		nextChar();
 			    		return token = LEQ;
 			    	}
-			    	return '<';
+			    	return token = LT;
 			    }
 			    case '=': { 
 			    	nextChar(); 
@@ -138,8 +140,23 @@ public class QLLexer implements QLTokens {
 			    		nextChar();
 			    		return token = GEQ;
 			    	}
-			    	return token = '>';
+			    	return token = GT;
 			    }
+			    case '"': {
+			    	StringBuilder sb = new StringBuilder();
+			    	while(true){
+			    		nextChar();
+			    		if(c == -1)
+			    			throw new RuntimeException("Syntax error in string literal");
+			    		if( c== '"')
+			    			break;
+			    		sb.append((char)c);			    		
+			    	}
+			    	nextChar();
+			    	yylval = new StringLiteral(sb.toString());
+		    		return token = STRING_LITERAL;
+			    }
+			    	
 			    default: {
 			    	if (Character.isDigit(c)) {
 			    		int n = 0; 
@@ -158,17 +175,13 @@ public class QLLexer implements QLTokens {
 			    		}
 			    		while (Character.isLetterOrDigit(c));
 			    		String name = sb.toString();
-			    		if (name.startsWith("\"") && name.endsWith("\""))
-			    		{
-			    			yylval = new StringLiteral(name);
-				    		return token = STRING_LITERAL;
-			    		}
 			    		if (KEYWORDS.containsKey(name)) {
 			    			return token = KEYWORDS.get(name);
 			    		}
 						yylval = new Ident(name);
 			    		return token = IDENT;
 			    	}
+			    	char temp = (char) c;
 			    	throw new RuntimeException("Unexpected character: " + (char)c);
 			    }
 			}
