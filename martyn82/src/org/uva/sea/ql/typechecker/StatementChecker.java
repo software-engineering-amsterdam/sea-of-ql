@@ -140,8 +140,8 @@ public class StatementChecker extends TypeCheckVisitor implements IStatementVisi
 				addError(
 					String.format(
 						"Type mismatch: cannot convert from %s to %s.",
-						leftType.getClass().getSimpleName(),
-						rightType.getClass().getSimpleName()
+						leftType.toString(),
+						rightType.toString()
 					),
 					node
 				);

@@ -23,6 +23,9 @@ abstract public class Type extends Node {
 	 */
 	abstract public boolean isCompatibleTo( Type type );
 
+	@Override
+	abstract public String toString();
+
 	/**
 	 * Determines whether this type is compatible to integer.
 	 *

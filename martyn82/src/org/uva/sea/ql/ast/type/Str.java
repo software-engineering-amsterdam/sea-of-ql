@@ -20,4 +20,9 @@ public class Str extends Type {
 	public boolean isCompatibleTo( Type type ) {
 		return type.isCompatibleToStr();
 	}
+
+	@Override
+	public String toString() {
+		return "String";
+	}
 }

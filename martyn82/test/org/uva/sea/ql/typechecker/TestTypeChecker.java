@@ -236,7 +236,7 @@ public class TestTypeChecker extends VisitorTest<Boolean> {
 			)
 		);
 		assertEquals(
-			"Type mismatch: cannot convert from Bool to Int.",
+			"Type mismatch: cannot convert from Boolean to Integer.",
 			environment.getErrors().get( 0 ).getMessage()
 		);
 	}

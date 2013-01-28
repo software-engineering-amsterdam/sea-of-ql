@@ -20,4 +20,9 @@ public class Bool extends Type {
 	public boolean isCompatibleToBool() {
 		return true;
 	}
+
+	@Override
+	public String toString() {
+		return "Boolean";
+	}
 }

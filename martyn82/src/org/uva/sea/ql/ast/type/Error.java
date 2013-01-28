@@ -15,4 +15,9 @@ public class Error extends Type {
 	public boolean isCompatibleTo( Type type ) {
 		return false;
 	}
+
+	@Override
+	public String toString() {
+		return "Error";
+	}
 }

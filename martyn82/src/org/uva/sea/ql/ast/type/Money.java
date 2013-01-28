@@ -8,4 +8,9 @@ public class Money extends Number {
 	public boolean isCompatibleToMoney() {
 		return true;
 	}
+
+	@Override
+	public String toString() {
+		return "Money";
+	}
 }

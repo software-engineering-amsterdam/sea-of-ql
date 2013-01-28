@@ -30,4 +30,9 @@ public class Number extends Type {
 	public boolean isCompatibleToMoney() {
 		return true;
 	}
+
+	@Override
+	public String toString() {
+		return "Number";
+	}
 }

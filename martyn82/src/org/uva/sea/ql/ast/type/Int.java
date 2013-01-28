@@ -8,4 +8,9 @@ public class Int extends Number {
 	public boolean isCompatibleToInt() {
 		return true;
 	}
+
+	@Override
+	public String toString() {
+		return "Integer";
+	}
 }
