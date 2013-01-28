@@ -1,5 +1,13 @@
 package org.uva.sea.ql.form;
 
+import java.awt.Component;
+import java.awt.Container;
+import java.awt.Label;
+
+import javax.swing.JTextField;
+
+import net.miginfocom.swing.MigLayout;
+
 import org.uva.sea.ql.ast.eval.Env;
 import org.uva.sea.ql.ast.eval.EnvAddIdentResults;
 import org.uva.sea.ql.ast.expressions.Ident;
@@ -45,5 +53,16 @@ public class Question extends FormItem {
 			errors.add(new Error("Ident " + id + " already defined with other type!"));
 		}
 		return errors.size() == 0;
+	}
+
+	@Override
+	public Component getFormComponent() {
+		Container questionContainer = new Container();
+		questionContainer.setLayout(new MigLayout("fillx, right, debug", "", ""));
+		
+		questionContainer.add(new Label(label));
+		JTextField answerField = new JTextField(10);
+		questionContainer.add(answerField, "span, growx, right");
+		return questionContainer;
 	}
 }

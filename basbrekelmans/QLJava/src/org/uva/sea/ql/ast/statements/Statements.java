@@ -5,8 +5,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.uva.sea.ql.ICodeLocationInformation;
-
-import com.sun.org.apache.bcel.internal.generic.INSTANCEOF;
+import org.uva.sea.ql.ast.IStatementVisitor;
 
 public class Statements extends Statement {
 
@@ -17,9 +16,12 @@ public class Statements extends Statement {
 		children = new ArrayList<Statement>();
 	}
 	
-	public Statements(ICodeLocationInformation info, Statement... statements) {
+	public Statements(ICodeLocationInformation info, Iterable<Statement> statements) {
 		super(info);
-		children = Arrays.asList(statements);
+		children = new ArrayList<Statement>();
+		for (Statement s : statements) {
+			addChild(s);
+		}
 	}
 	
 	public Iterable<Statement> getChildren() {
@@ -28,5 +30,10 @@ public class Statements extends Statement {
 	
 	public void addChild(Statement child) {
 		children.add(child);
+	}
+	
+	@Override
+	public void accept(IStatementVisitor visitor)  {
+		visitor.visit(this);
 	}
 }

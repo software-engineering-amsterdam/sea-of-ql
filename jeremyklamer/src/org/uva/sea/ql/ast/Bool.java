@@ -6,8 +6,9 @@ import java.util.Map;
 
 import org.uva.sea.ql.ast.type.BoolType;
 import org.uva.sea.ql.ast.type.Type;
-import org.uva.sea.ql.interpreter.Value;
 import org.uva.sea.ql.interpreter.BoolVal;
+import org.uva.sea.ql.interpreter.Value;
+import org.uva.sea.ql.message.Message;
 
 public class Bool extends Expr {
 
@@ -32,7 +33,7 @@ public class Bool extends Expr {
 	}
 
 	@Override
-	public List<Error> checkType(Map<Ident, Type> typeEnv) {
-		return new ArrayList<Error>(); // Return an empty List. 
+	public List<Message> checkType(Map<Ident, Type> typeEnv) {
+		return new ArrayList<Message>(); // Return an empty List. 
 	}
 }

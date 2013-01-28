@@ -7,34 +7,36 @@
 //tokens
 %token <NumberLiteral> NUMBERLITERAL
 %token <StringLiteral> STRINGLITERAL
-%token <BooleanLiteral> BOOLEANLITERAL
-%token <TypeDeclaration> TYPE
+%token <BooleanLiteral> TRUE FALSE
 %token <Identifier> IDENTIFIER
 %token '*' '/' '+' '-' OR AND NEQ EQ '<' LEQ '>' GEQ '!' '^'
 %token '(' ')' '{' '}'
 %token ';' ':'
 %token FORM IF ELSE
+%token STRING BOOLEAN MONEY INTEGER
 
 //precedence
-%left OR
+%left OR '^'
 %left AND
-%left EQ NEW '>' '<' GEQ LEQ
+%left EQ '>' '<' GEQ LEQ NEQ
 %left '+' '-'
 %left '*' '/'
 %left UMIN UPLUS UNOT
 
 //Semantic types
-%type <Expression> expression 
+%type <Expression> expression simple logical comparison arithmetic
 %type <Question> question
-%type <Statement> statement
-%type <FormDefintion> form
-
+%type <Statement> statement simplestatement ifstatement
+%type <Statements> statements
+%type <Form> form
+%type <TypeNode> type
 
 %{
 import org.uva.sea.ql.ast.*;
 import org.uva.sea.ql.ast.expressions.*;
 import org.uva.sea.ql.ast.statements.*;
 import org.uva.sea.ql.ast.types.*;
+import java.util.ArrayList;
 %}
 
 %%
@@ -43,45 +45,45 @@ import org.uva.sea.ql.ast.types.*;
 top		  		: node { result = $1; }
 				;
 				
-node	    	: expression
-	 		    | form
-	 		    | statements
+node	    	: expression	 { $$ = $1; }
+	 		    | form			 { $$ = $1; }
+	 		    | statements	 { $$ = $1; }
 	 		    ; 
 
-form  	  		: FORM IDENTIFIER statements { result = new Form(lexer.location(), $2, $3);  } 
+form  	  		: FORM IDENTIFIER '{' statements '}' { $$ = new Form(lexer.location(), $2, $4);  } 
 		  		;  
 
-statements		: statements statement { $$ = chainStatements($1, $2); }
-				| statement
+statements		: statement statements 	{ $$ = chainStatements($1, $2); }
+				| statement 			{ $$ = chainStatements($1); }
 				;
 				
-statement 		: openstatement
-          		| closedstatement
+statement 		: simplestatement
+				| ifstatement
           		;
-          
-openstatement   : IF '(' expression ')' '{' statements '}'										{ $$ = new If(lexer.location(), $3, $6); }
-			    | IF '(' expression ')' '{' closedstatement '}' ELSE '{' openstatement '}' 		{ $$ = new If(lexer.location(), $3, $6, $10); }
-			    ;
-
-closedstatement : statements
-				| simplestatement
-				| IF expression '{' closedstatement '}' ELSE '{' closedstatement '}' 	{ $$ = new If(lexer.location(), $2, $4, $8); }
-          		;
+          		
+ifstatement		: IF '(' expression ')' '{' statements '}' 							{ $$ = new If(lexer.location(), $3, $6); }
+				| IF '(' expression ')' '{' statements '}' ELSE '{' statements '}' 	{ $$ = new If(lexer.location(), $3, $6, $10); }
+				;
           		
 simplestatement : question
                 ;
 
-question        : STRINGLITERAL IDENTIFIER ':'  TYPE 		{ $$ = new Question(lexer.location(), $1, $2, $4); }
-				| STRINGLITERAL IDENTIFIER '=' expression 	{ $$ = new Question(lexer.location(), $1, $2, $4); }
-				| /* empty */
+question        : STRINGLITERAL IDENTIFIER ':'  type 		{ $$ = new InputQuestion(lexer.location(), $1, $2, $4.getType()); }
+				| STRINGLITERAL IDENTIFIER '=' expression 	{ $$ = new ComputedQuestion(lexer.location(), $1, $2, $4); }
+				;
+
+type			: BOOLEAN { $$ = new TypeNode(lexer.location(), Type.BOOLEAN); }
+				| STRING { $$ = new TypeNode(lexer.location(), Type.STRING); }
+				| INTEGER { $$ = new TypeNode(lexer.location(), Type.INTEGER); }
+				| MONEY { $$ = new TypeNode(lexer.location(), Type.MONEY); }
 				;
 							 	
-expression		: unary
-			    | logical
-			    | arithmetic
-			    | simple
-			    | comparison
-			    | '(' expression ')'
+expression		: unary				 { $$ = $1; }
+			    | logical			 { $$ = $1; }
+			    | arithmetic		 { $$ = $1; }
+			    | simple			 { $$ = $1; }
+			    | comparison		 { $$ = $1; }
+			    | '(' expression ')' { $$ = $2; }
 			    ;
 
 comparison      : expression EQ expression		{ $$ = new Equals(lexer.location(), $1, $3); }
@@ -107,11 +109,16 @@ arithmetic	 	: expression '*' expression		{ $$ = new Multiplication(lexer.locati
 			 	| expression '-' expression		{ $$ = new Subtraction(lexer.location(), $1, $3);}
 			    ;
 			    
-simple			: NUMBERLITERAL					{ $$ = $1; }
-			 	| STRINGLITERAL					{ $$ = $1; }
-			 	| BOOLEANLITERAL			    { $$ = $1; }
-			 	| IDENTIFIER      				{ $$ = $1; }
+simple			: NUMBERLITERAL
+			 	| STRINGLITERAL
+			 	| booleanliteral						
+			 	| IDENTIFIER
 			 	;
+
+booleanliteral	: TRUE { $$ = new BooleanLiteral(lexer.location(), true); }
+				| FALSE { $$ = new BooleanLiteral(lexer.location(), false); }
+				;
+
 
 %%
 private Lexer lexer; 
@@ -131,21 +138,16 @@ private void yyerror(String msg) {
 }
 
 private static Statement chainStatements(Statement... statements) {
-		Statements block = null;
+		ArrayList<Statement> newStatements = new ArrayList<Statement>();	
 		for (Statement s : statements) {
 			if (s instanceof Statements) {
-				block = (Statements) s;
-				break;
-			}
-		}
-		if (block == null) {
-			block = new Statements(statements[0], statements);
-		} else {
-			for (Statement s : statements) {
-				if (s != block) {
-					block.addChild(s);
+				for (Statement inner : ((Statements) s).getChildren()) {
+					newStatements.add(inner);
 				}
 			}
+			else {
+				newStatements.add(s);
+			}
 		}
-		return block;
+		return new Statements(statements[0], newStatements);
 	}

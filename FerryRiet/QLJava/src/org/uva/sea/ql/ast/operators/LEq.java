@@ -25,4 +25,10 @@ public class LEq extends BinExpr {
 	public VisitorResult accept(Visitor visitor) {
 		return visitor.visit(this);
 	}
+
+	@Override
+	public ExpressionResult eval(HashMap<String, Statement> symbolMap) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

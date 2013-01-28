@@ -8,7 +8,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
-import org.uva.sea.ql.ast.ASTNodeTypeCheckingVisitor;
+import org.uva.sea.ql.ast.statements.StatementTypeCheckingVisitor;
 import org.uva.sea.ql.parser.antlr.ANTLRParser;
 
 @RunWith(Parameterized.class)
@@ -30,8 +30,10 @@ public class TestTypeChecking {
 	@Test
 	public void testTypeChecking() throws ParseError, IOException {		
 		QLFileReader qlFileReader = new QLFileReader();
-		ASTNodeTypeCheckingVisitor typeChecker = new ASTNodeTypeCheckingVisitor();
-		parser.parseForm(qlFileReader.readQLFile("QLTestcase2.ql")).accept(typeChecker);
+		StatementTypeCheckingVisitor typeChecker = new StatementTypeCheckingVisitor();
+		parser.parseForm(qlFileReader.readQLFile("QLTestcase2.ql")).getBlock().accept(typeChecker);
+		for (String errorMessage : typeChecker.getErrorMessages())
+			System.out.println(errorMessage);		
 	}
 
 }

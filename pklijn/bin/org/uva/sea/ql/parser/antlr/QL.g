@@ -11,6 +11,13 @@ import org.uva.sea.ql.ast.types.*;
 import org.uva.sea.ql.form.*;
 }
 
+@parser::members {
+  @Override
+  public void reportError(RecognitionException e) {
+    throw new RuntimeException(e);
+  }
+}
+
 @lexer::header
 {
 package org.uva.sea.ql.parser.antlr;

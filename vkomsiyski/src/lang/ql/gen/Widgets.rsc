@@ -80,7 +80,32 @@ public str setValue(Type t:date(_), str name, str val) = "\n\t\t<name>Widget.set
 
 public str setValue(Type t:\bool(_), str name, str val) = "\n\t\t<name>Widget.setChecked(<val>);";
 
-public str setValue(Type t, str name, str val) = "\n\t\t<name>Widget.setValue(<val>);";
+public str setValue(Type t:\int(_), str name, str val) = "\n\t\t<name>Widget.setValue(<val>);";
+
+public str setValue(Type t:float(_), str name, str val) = "\n\t\t<name>Widget.setValue(<val>);";
+
+public str submitWidget(Type t:string(_), str name) = "
+\t\tif (<name>Widget.isVisible())
+\t\t\tobj.put(\"<name>\", <name>Widget.text());"; 
+
+public str submitWidget(Type t:\bool(_), str name) = "
+\t\tif (<name>Widget.isVisible())
+\t\t\tobj.put(\"<name>\", <name>Widget.isChecked());"; 
+
+public str submitWidget(Type t:\int(_), str name) = "
+\t\tif (<name>Widget.isVisible())
+\t\t\tobj.put(\"<name>\", <name>Widget.value());"; 
+
+public str submitWidget(Type t:float(_), str name) = "
+\t\tif (<name>Widget.isVisible())
+\t\t\tobj.put(\"<name>\", <name>Widget.value());"; 
+
+public str submitWidget(Type t:date(_), str name) = "
+\t\tif (<name>Widget.isVisible())
+\t\t\tobj.put(\"<name>\", <name>Widget.date());"; 
 
 
-   
+
+
+
+

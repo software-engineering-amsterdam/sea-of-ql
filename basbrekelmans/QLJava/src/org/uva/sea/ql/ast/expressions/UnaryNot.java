@@ -1,7 +1,7 @@
 package org.uva.sea.ql.ast.expressions;
 
 import org.uva.sea.ql.ICodeLocationInformation;
-import org.uva.sea.ql.ast.types.QLType;
+import org.uva.sea.ql.ast.IExpressionVisitor;
 
 public class UnaryNot extends Unary {
 
@@ -9,8 +9,8 @@ public class UnaryNot extends Unary {
 		super(codeLocation, operand);
 	}
 
-	@Override
-	protected boolean isValidType(QLType type) {
-		return type == QLType.BOOLEAN;
+	public <T> T accept(IExpressionVisitor<T> visitor)
+	{
+		return visitor.visit(this);
 	}
 }

@@ -4,6 +4,8 @@ import java.util.HashMap;
 
 import org.uva.sea.ql.ast.nodevisitor.Visitor;
 import org.uva.sea.ql.ast.nodevisitor.VisitorResult;
+import org.uva.sea.ql.ast.operators.ExpressionResult;
+import org.uva.sea.ql.ast.operators.StringResult;
 import org.uva.sea.ql.ast.types.StringType;
 import org.uva.sea.ql.ast.types.TypeDescription;
 
@@ -27,5 +29,11 @@ public class StringLiteral extends Expr {
 	@Override
 	public TypeDescription typeOf(HashMap<String, Statement> typeEnv) {
 		return new StringType();
+	}
+
+	@Override
+	public ExpressionResult eval(HashMap<String, Statement> symbolMap) {
+		// TODO Auto-generated method stub
+		return new StringResult(value);
 	}
 }

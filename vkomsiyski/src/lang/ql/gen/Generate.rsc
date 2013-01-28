@@ -11,13 +11,15 @@ public str generate(node input) {
 	env = getEnvironment(input);
 	widgets = getWidgets(input, env.declarations);
 	
-	src = header;
+	src = addHeader();
 	src += addDeclarations(env);
-	src += body1;
+	src += addBody1();
 	src += addWidgets(widgets);
-	src += body2;
+	src += addBody2();
 	src += addVisibility(widgets);
-	src += body3;
+	src += addBody3();
+	src += addSubmit(widgets);
+	src += addBody4();
 
 	return src;
 }
@@ -47,4 +49,11 @@ private str addVisibility(list[Widget] widgets) {
 	return src;
 }
   
+  
+private str addSubmit(list[Widget] widgets) {
+	src = "";
+	for (widget:<name, \type, _, _, _> <- widgets) 
+		src += submitWidget(\type, name);
+	return src;
+}
  

@@ -8,8 +8,8 @@ form Box1HouseOwning {
      float privateDebt = "Private debts for the sold house:" 
      float valueResidue = "Value residue:" (sellingPrice - privateDebt)
    }
-   
+    
    date DateQ = "Enter your birthday:" 
-   bool over = "You are over 18 yo" (DateQ < 28.1.1994)
- 
-}
+   bool over = "You are at least 18 yo" (DateQ <=  28.1.1994)
+    
+}     
