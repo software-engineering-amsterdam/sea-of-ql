@@ -11,6 +11,7 @@ import org.uva.sea.ql.ast.expressions.Mul;
 import org.uva.sea.ql.ast.values.Bool;
 import org.uva.sea.ql.ast.values.Ident;
 import org.uva.sea.ql.ast.values.Int;
+import org.uva.sea.ql.ast.values.Money;
 import org.uva.sea.ql.ast.values.Str;
 import org.uva.sea.ql.parser.IParser;
 import org.uva.sea.ql.parser.ParseError;
@@ -73,6 +74,12 @@ public class TestExpressions {
 	public void testNums() throws ParseError {
 		assertEquals(_parser.parse("0").getClass(), Int.class);
 		assertEquals(_parser.parse("1223").getClass(), Int.class);
+	}
+	
+	@Test
+	public void testMoneys() throws ParseError {
+		assertEquals(_parser.parse("125.50").getClass(), Money.class);
+		assertEquals(_parser.parse("125,00").getClass(), Money.class);
 	}
 	
 	@Test
