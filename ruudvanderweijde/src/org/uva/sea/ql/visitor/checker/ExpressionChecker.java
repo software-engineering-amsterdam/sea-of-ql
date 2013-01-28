@@ -181,7 +181,7 @@ public class ExpressionChecker implements ExpressionVisitor<Boolean> {
 	public Boolean visit(Bool ast) {
 		Type astType = ast.typeOf(typeEnv);
 		if (!astType.isCompatibleToBooleanType()) {
-			addErrorMessage("Not a valid Boolean.");
+			addErrorMessage(String.format("%s is not a valid Boolean.", ast.toString()));
 			return false;
 		}
 		return true;
@@ -196,7 +196,7 @@ public class ExpressionChecker implements ExpressionVisitor<Boolean> {
 	public Boolean visit(Int ast) {
 		Type astType = ast.typeOf(typeEnv);
 		if (!astType.isCompatibleToNumericType()) {
-			addErrorMessage("Not a valid Int.");
+			addErrorMessage(String.format("%s is not a valid Int.", ast.toString()));
 			return false;
 		}
 		return true;
@@ -206,7 +206,7 @@ public class ExpressionChecker implements ExpressionVisitor<Boolean> {
 	public Boolean visit(StringLiteral ast) {
 		Type astType = ast.typeOf(typeEnv);
 		if (!astType.isCompatibleToStringType()) {
-			addErrorMessage("Not a valid String.");
+			addErrorMessage(String.format("%s is not a valid String.", ast.toString()));
 			return false;
 		}
 		return true;
@@ -229,8 +229,8 @@ public class ExpressionChecker implements ExpressionVisitor<Boolean> {
 		if (!(lhsType.isCompatibleToNumericType() && rhsType
 				.isCompatibleToNumericType())) {
 
-			addErrorMessage(String.format("Invalid Numeric types for %s.",
-					ast.toString()));
+			addErrorMessage(String.format("Invalid Numeric types (%s '%s' %s).",
+					lhsType.toString(), ast.toString(), rhsType.toString()));
 			return false;
 		}
 		return true;
@@ -243,8 +243,8 @@ public class ExpressionChecker implements ExpressionVisitor<Boolean> {
 		if (!(lhsType.isCompatibleToBooleanType() && rhsType
 				.isCompatibleToBooleanType())) {
 
-			addErrorMessage(String.format("Invalid Boolean types for %s.",
-					ast.toString()));
+			addErrorMessage(String.format("Invalid Boolean types (%s '%s' %s).",
+					lhsType.toString(), ast.toString(), rhsType.toString()));
 			return false;
 		}
 		return true;
@@ -256,8 +256,8 @@ public class ExpressionChecker implements ExpressionVisitor<Boolean> {
 		if (!(lhsType.isCompatibleToBooleanType() && rhsType.isCompatibleToBooleanType()) 
 				&& !(lhsType.isCompatibleToNumericType() && rhsType.isCompatibleToNumericType())) {
 
-			addErrorMessage(String.format("Invalid Boolean/Numeric types or %s.",
-					ast.toString()));
+			addErrorMessage(String.format("Invalid Boolean/Numeric types (%s '%s' %s).",
+					lhsType.toString(), ast.toString(), rhsType.toString()));
 			return false;
 		}
 		return true;
