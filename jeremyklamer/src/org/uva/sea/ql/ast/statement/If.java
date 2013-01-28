@@ -7,19 +7,19 @@ import org.uva.sea.ql.ast.Expr;
 public class If extends Statement{
 	
 	private final Expr condition; 
-	private final List<Statement> statements; 
+	private final List<Statement> body; 
 	
-	public If(Expr condition, List<Statement> statements){
+	public If(Expr condition, List<Statement> body){
 		this.condition = condition;
-		this.statements = statements;
+		this.body = body;
 	}
 
 	public Expr getCondition() {
 		return condition;
 	}
 
-	public List<Statement> getStatements() {
-		return statements;
+	public List<Statement> getBody() {
+		return body;
 	}
 	
 }

@@ -6,24 +6,23 @@ import org.uva.sea.ql.ast.Expr;
 
 public class IfThenElse extends Statement{
 	
-	private final Expr conditionIf;
-	private final List<Statement> ifStatements;
-	private final List<Statement> elseStatements;
+	private final Expr condition;
+	private final List<Statement> ifBody; 
+	private final List<Statement> elseBody;
 	
-	public IfThenElse(Expr conditionIf, List<Statement> ifStatements, List<Statement> elseStatements)
-	{
-		this.conditionIf = conditionIf;
-		this.ifStatements = ifStatements;
-		this.elseStatements = elseStatements;
+	public IfThenElse(Expr condition, List<Statement> ifBody, List<Statement> elseBody){
+		this.condition = condition;
+		this.ifBody = ifBody;
+		this.elseBody = elseBody;
 	}
 	
-	public Expr getConditionIf() {
-		return conditionIf;
+	public Expr getCondition() {
+		return condition;
 	}
-	public List<Statement> getElseStatements() {
-		return elseStatements;
+	public List<Statement> getElseBody() {
+		return elseBody;
 	}
-	public List<Statement> getIfStatements() {
-		return ifStatements;
+	public List<Statement> getIfBody() {
+		return ifBody;
 	}
 }

@@ -7,25 +7,25 @@ import org.uva.sea.ql.ast.statement.*;
 
 public class Form extends Type{
 	
-	private final List<Statement> statements; 
-	private final Ident ident; 
+	private final List<Statement> body; 
+	private final Ident name; 
 	
-	public Form(Ident ident, List<Statement> statements){
-		this.ident = ident;
-		this.statements = statements;
+	public Form(Ident name, List<Statement> body){
+		this.name = name;
+		this.body = body;
 	}
 
-	public Ident getIdent() {
-		return ident;
+	public Ident getName() {
+		return name;
 	}
 
-	public List<Statement> getStatements() {
-		return statements;
+	public List<Statement> getBody() {
+		return body;
 	}
 
 	@Override
 	public boolean isCompatibleTo(Type t) {
-		// TODO Check if this belongs here...
+		// TODO Check if FORM belongs here or somewhere else...
 		return false;
 	}
 	
