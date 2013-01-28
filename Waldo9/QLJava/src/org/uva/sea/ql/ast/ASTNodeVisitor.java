@@ -2,6 +2,7 @@ package org.uva.sea.ql.ast;
 
 import org.uva.sea.ql.ast.expressions.Add;
 import org.uva.sea.ql.ast.expressions.And;
+import org.uva.sea.ql.ast.expressions.BooleanLiteral;
 import org.uva.sea.ql.ast.expressions.Div;
 import org.uva.sea.ql.ast.expressions.Eq;
 import org.uva.sea.ql.ast.expressions.Expr;
@@ -17,9 +18,8 @@ import org.uva.sea.ql.ast.expressions.Neg;
 import org.uva.sea.ql.ast.expressions.Not;
 import org.uva.sea.ql.ast.expressions.Or;
 import org.uva.sea.ql.ast.expressions.Pos;
+import org.uva.sea.ql.ast.expressions.StringLiteral;
 import org.uva.sea.ql.ast.expressions.Sub;
-import org.uva.sea.ql.ast.literals.BooleanLiteral;
-import org.uva.sea.ql.ast.literals.StringLiteral;
 import org.uva.sea.ql.ast.statements.Block;
 import org.uva.sea.ql.ast.statements.ComputedQuestion;
 import org.uva.sea.ql.ast.statements.IfThenElse;

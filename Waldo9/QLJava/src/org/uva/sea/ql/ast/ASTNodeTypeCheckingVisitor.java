@@ -7,6 +7,7 @@ import java.util.Map;
 
 import org.uva.sea.ql.ast.expressions.Add;
 import org.uva.sea.ql.ast.expressions.And;
+import org.uva.sea.ql.ast.expressions.BooleanLiteral;
 import org.uva.sea.ql.ast.expressions.Div;
 import org.uva.sea.ql.ast.expressions.Eq;
 import org.uva.sea.ql.ast.expressions.Expr;
@@ -22,9 +23,8 @@ import org.uva.sea.ql.ast.expressions.Neg;
 import org.uva.sea.ql.ast.expressions.Not;
 import org.uva.sea.ql.ast.expressions.Or;
 import org.uva.sea.ql.ast.expressions.Pos;
+import org.uva.sea.ql.ast.expressions.StringLiteral;
 import org.uva.sea.ql.ast.expressions.Sub;
-import org.uva.sea.ql.ast.literals.BooleanLiteral;
-import org.uva.sea.ql.ast.literals.StringLiteral;
 import org.uva.sea.ql.ast.statements.Block;
 import org.uva.sea.ql.ast.statements.ComputedQuestion;
 import org.uva.sea.ql.ast.statements.IfThenElse;
@@ -60,25 +60,36 @@ public class ASTNodeTypeCheckingVisitor implements ASTNodeVisitor<Boolean> {
 
 	@Override
 	public Boolean visit(Block block) {
+		boolean isValid = true;
 		for (Statement statement : block.getStatements()) {
 			boolean checkStatement = statement.accept(this);
 			if (!checkStatement)
-				return false;
+				isValid = false;
 		}
-		return true;	
+		return isValid;	
 	}
 
 	@Override
 	public Boolean visit(IfThenElse ifThenElse) {
+		boolean isValid = true;
 		boolean checkBody = ifThenElse.getBody().accept(this);
-		boolean checkCondition = ifThenElse.getCondition().accept(this);
-		if (!(checkBody && checkCondition))
-			return false;
+		Expr condition = ifThenElse.getCondition();
+		boolean checkCondition = condition.accept(this);
+		if (!checkCondition)
+			isValid = false;
+		if (!condition.typeOf(typeEnvironment).isCompatibleToBool()) {
+			if (isValid) {
+				errorMessages.add("The condition of an if statement has to be a boolean.");
+				isValid = false;
+			}
+		}
+		if (!checkBody)
+			isValid = false;
 		Block elseBody = ifThenElse.getElseBody();
 		if (elseBody != null)
 			if (!elseBody.accept(this))
-				return false;				
-		return true;		
+				isValid = false;				
+		return isValid;		
 	}
 
 	@Override
@@ -94,18 +105,19 @@ public class ASTNodeTypeCheckingVisitor implements ASTNodeVisitor<Boolean> {
 	}
 	
 	@Override
-	public Boolean visit(ComputedQuestion computedQuestion) {	
+	public Boolean visit(ComputedQuestion computedQuestion) {
+		boolean isValid = true;
 		Ident identifier = computedQuestion.getVariable();
 		if (typeEnvironment.get(identifier.getName()) != null) {
 			errorMessages.add("Identifier " + identifier.getName() + " can only be used once.");
-			return false;
+			isValid = false;
 		}
 		else
 			typeEnvironment.put(identifier.getName(), computedQuestion.getType());
 		boolean checkExpression = computedQuestion.getExpression().accept(this);
 		if (!checkExpression)
-			return false;
-		return true;
+			isValid = false;
+		return isValid;
 	}
 
 	@Override
@@ -166,7 +178,8 @@ public class ASTNodeTypeCheckingVisitor implements ASTNodeVisitor<Boolean> {
 		Type lhsType = eq.getLhs().typeOf(typeEnvironment);
 		Type rhsType = eq.getRhs().typeOf(typeEnvironment);
 		if (!(lhsType.isCompatibleToInt() && rhsType.isCompatibleToInt()) &&
-				!(lhsType.isCompatibleToBool() && rhsType.isCompatibleToBool())) {
+			!(lhsType.isCompatibleToBool() && rhsType.isCompatibleToBool() &&
+			!(lhsType.isCompatibleToString() && rhsType.isCompatibleToString()))) {
 			errorMessages.add("Type error: The == sign is used incorrectly.");
 			return false;
 		}
@@ -272,8 +285,9 @@ public class ASTNodeTypeCheckingVisitor implements ASTNodeVisitor<Boolean> {
 		}
 		Type lhsType = nEq.getLhs().typeOf(typeEnvironment);
 		Type rhsType = nEq.getRhs().typeOf(typeEnvironment);
-		if (!(lhsType.isCompatibleToBool() && rhsType.isCompatibleToBool())) {
-			errorMessages.add("Type error: The != sign is used incorrectly.");
+		if (!(lhsType.isCompatibleToInt() && rhsType.isCompatibleToInt()) &&
+			!(lhsType.isCompatibleToBool() && rhsType.isCompatibleToBool() &&
+			!(lhsType.isCompatibleToString() && rhsType.isCompatibleToString()))) {
 			return false;
 		}
 		return true;

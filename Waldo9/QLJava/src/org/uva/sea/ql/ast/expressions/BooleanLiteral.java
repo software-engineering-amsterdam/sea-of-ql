@@ -1,9 +1,8 @@
-package org.uva.sea.ql.ast.literals;
+package org.uva.sea.ql.ast.expressions;
 
 import java.util.Map;
 
 import org.uva.sea.ql.ast.ASTNodeVisitor;
-import org.uva.sea.ql.ast.expressions.Expr;
 import org.uva.sea.ql.ast.types.BoolType;
 import org.uva.sea.ql.ast.types.Type;
 

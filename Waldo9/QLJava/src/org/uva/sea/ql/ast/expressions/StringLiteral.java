@@ -1,9 +1,12 @@
-package org.uva.sea.ql.ast.literals;
+package org.uva.sea.ql.ast.expressions;
 
-import org.uva.sea.ql.ast.ASTNode;
+import java.util.Map;
+
 import org.uva.sea.ql.ast.ASTNodeVisitor;
+import org.uva.sea.ql.ast.types.StringType;
+import org.uva.sea.ql.ast.types.Type;
 
-public class StringLiteral implements ASTNode {
+public class StringLiteral extends Expr {
 	
 	private final String value;
 	
@@ -19,5 +22,10 @@ public class StringLiteral implements ASTNode {
 	public <T> T accept(ASTNodeVisitor<T> visitor) {
         return visitor.visit(this);
     }
+
+	@Override
+	public Type typeOf(Map<String, Type> typeEnvironment) {
+		return new StringType();
+	}
 
 }

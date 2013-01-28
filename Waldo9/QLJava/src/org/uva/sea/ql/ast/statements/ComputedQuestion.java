@@ -3,7 +3,7 @@ package org.uva.sea.ql.ast.statements;
 import org.uva.sea.ql.ast.ASTNodeVisitor;
 import org.uva.sea.ql.ast.expressions.Expr;
 import org.uva.sea.ql.ast.expressions.Ident;
-import org.uva.sea.ql.ast.literals.StringLiteral;
+import org.uva.sea.ql.ast.expressions.StringLiteral;
 import org.uva.sea.ql.ast.types.Type;
 
 public class ComputedQuestion extends Question {
