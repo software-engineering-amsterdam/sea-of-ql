@@ -1,0 +1,112 @@
+%package org.uva.sea.ql.parser.jacc
+%class QLParser
+%interface QLTokens
+%semantic org.uva.sea.ql.ast.ASTNode 
+%start form
+
+%token FORM
+%token IF
+%token <IntegerType> INTEGER_TYPE
+%token <StringType> STRING_TYPE
+%token <BooleanType> BOOLEAN_TYPE
+%token <IntegerLiteral> INTEGER
+%token <BooleanLiteral> TRUE FALSE
+%token <StringLiteral> STRING
+%token <Identifier> IDENTIFIER
+%token '*' '/' '+' '-' OR AND NEQ EQ '<' LEQ '>' GEQ '!'
+%token '(' ')' '{' '}' ':' ';'
+
+%type <StatementList> statement_list
+%type <Statement> statement
+%type <Datatype> datatype
+%type <Expression> expr
+
+%left OR
+%left AND
+%left '>' '<' GEQ LEQ NEQ EQ
+%left '+' '-'
+%left '*' '/'
+%left UMIN UPLUS UNOT
+
+%{
+import org.uva.sea.ql.ast.*;
+import org.uva.sea.ql.ast.datatype.*;
+import org.uva.sea.ql.ast.expression.*;
+import org.uva.sea.ql.ast.expression.binary.*;
+import org.uva.sea.ql.ast.expression.literal.*;
+import org.uva.sea.ql.ast.expression.unary.*;
+import org.uva.sea.ql.ast.statement.*;
+%}
+
+%%
+form			: FORM IDENTIFIER '{' statement_list '}'		{ result = new Form($2, $4); }
+ 				;
+ 
+statement_list	: statement										{ $$ = new StatementList();
+																  ((StatementList)$$).addStatement($1);
+																}
+ 				| statement_list statement						{ $$ = $1;
+ 																  $1.addStatement($2);
+ 																}
+ 				;
+
+statement		: question										{ $$ = $1; }
+ 				| if											{ $$ = $1; }
+ 				;
+  			
+question		: IDENTIFIER ':' STRING datatype				{ $$ = new Question($1, $3, $4); }
+ 				| IDENTIFIER ':' STRING datatype '(' expr ')'	{ $$ = new ComputedQuestion($1, $3, $4, $6); }
+ 				; 
+
+datatype		: INTEGER_TYPE									{ $$ = new IntegerType(); }
+ 				| STRING_TYPE									{ $$ = new StringType(); }
+ 				| BOOLEAN_TYPE									{ $$ = new BooleanType(); }
+ 				;
+
+if				: IF '(' expr ')' '{' statement_list '}'		{ $$ = new IfStatement($3, $6); }
+ 				;
+ 			
+expr			: '+' expr %prec UPLUS							{ $$ = new Pos($2); }
+				| '-' expr %prec UMIN							{ $$ = new Neg($2); }
+				| '!' expr %prec UNOT							{ $$ = new Not($2); }
+				| expr '*' expr									{ $$ = new Mul($1, $3); }
+				| expr '/' expr									{ $$ = new Div($1, $3); }
+				| expr '+' expr									{ $$ = new Add($1, $3); }
+				| expr '-' expr									{ $$ = new Sub($1, $3); }
+				| expr EQ expr									{ $$ = new Eq($1, $3); }
+				| expr NEQ expr									{ $$ = new NEq($1, $3); }
+				| expr '>' expr									{ $$ = new GT($1, $3); }
+				| expr '<' expr									{ $$ = new LT($1, $3); }
+				| expr GEQ expr									{ $$ = new GEq($1, $3); }
+				| expr LEQ expr									{ $$ = new LEq($1, $3); }
+				| expr AND expr									{ $$ = new And($1, $3); }
+		    	| expr OR expr									{ $$ = new Or($1, $3); }
+				| TRUE											{ $$ = new BooleanLiteral(true); }
+				| FALSE											{ $$ = new BooleanLiteral(false); }
+				| INTEGER										{ $$ = $1; }
+				| STRING										{ $$ = $1; }
+				| IDENTIFIER									{ $$ = $1; }
+				| '(' expr ')'									{ $$ = $2; }
+				;
+				
+%%
+private QLLexer lexer; 
+private ASTNode result;
+private String error;
+
+public ASTNode getResult() {
+  return result;
+}
+
+public QLParser(QLLexer lexer) { 
+  this.lexer = lexer; 
+}
+
+private void yyerror(String msg) { 
+  error = msg;
+  System.err.println(msg); 
+}
+
+public String getError() {
+  return error;
+}

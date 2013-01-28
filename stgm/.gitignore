@@ -1,0 +1,11 @@
+bin/
+*.class
+
+# Package Files #
+*.war
+*.ear
+
+# Mac
+.DS_Store
+
+src/nl/stgm/ql/parser/rats/QLParser.java

@@ -1,0 +1,147 @@
+module org.uva.sea.ql.parser.rats.QLParser;
+
+header {
+import xtc.util.Action;
+import org.uva.sea.ql.ast.*;
+import org.uva.sea.ql.ast.statement.*;
+import org.uva.sea.ql.ast.operative.*;
+import org.uva.sea.ql.ast.primitive.*;
+}
+
+public Form RunParse = yyValue:Form;
+
+Statement Form = 
+	"form" Spacing f:Ident Spacing LBracket b:Block RBracket { yyValue = new Form(f, b); };
+	
+Block Block =
+	l:Statement* { yyValue= new Block(l.list()); }
+	;
+
+Statement Statement =
+	yyValue:Branch
+	/ yyValue:Question
+	;
+	
+Branch Branch =
+	"if" Spacing LParen c:Expr RParen LBracket b:Block RBracket e:Else { yyValue = new Branch(c,b,e); }
+	;		
+
+Block Else =
+	"else" Spacing LBracket yyValue:Block RBracket
+	/ { yyValue=null; }
+	;
+
+Question Question =
+	q:Literal Spacing x:Ident Spacing ":" Spacing t:Type Spacing { yyValue = new Question(q, new Ident(x), t); }
+	; 
+	
+Expr Type =
+	yyValue:TypeIn 
+	/ yyValue:Expr
+	;
+	
+Expr TypeIn =
+	"boolean" Spacing { yyValue = new Bool(); }
+	/ "integer" Spacing { yyValue = new Int(); }
+	/ "string" Spacing { yyValue = new Str(); }
+	;
+
+
+Expr Expr =
+    l:RelExpr "&&" Spacing r:RelExpr { yyValue = new And(l, r); }
+    / l:RelExpr "||" Spacing r:RelExpr { yyValue = new Or(l, r); }
+    / yyValue:RelExpr
+    ; 
+    
+Expr RelExpr =
+   l:AddExpr "<=" Spacing r:AddExpr { yyValue = new LEq(l, r); }
+   / l:AddExpr ">=" Spacing r:AddExpr { yyValue = new GEq(l, r); }
+   / l:AddExpr "<" Spacing r:AddExpr { yyValue = new LT(l, r); }
+   / l:AddExpr ">" Spacing r:AddExpr { yyValue = new GT(l, r); }
+   / l:AddExpr "==" Spacing r:AddExpr { yyValue = new Eq(l, r); }
+   / l:AddExpr "!=" Spacing r:AddExpr { yyValue = new NEq(l, r); }
+   / yyValue:AddExpr
+   ;
+ 
+Expr AddExpr =
+     seed:MulExpr actions:AddTail* { yyValue = apply(actions, seed); };
+
+constant Action<Expr> AddTail = 
+	"+" Spacing right:MulExpr { 
+		yyValue = new Action<Expr>() {
+			public Expr run(Expr left) {
+              return new Add(left, right);
+            }
+        };
+    }
+	/ "-" Spacing right:MulExpr { 
+		yyValue = new Action<Expr>() {
+			public Expr run(Expr left) {
+              return new Sub(left, right);
+            }
+        };
+    }; 
+	
+   
+Expr MulExpr =
+	seed:Unary actions:MulTail* { yyValue = apply(actions, seed); };
+
+constant Action<Expr> MulTail =
+	"*" Spacing right:Unary { 
+		yyValue = new Action<Expr>() {
+			public Expr run(Expr left) {
+              return new Mul(left, right);
+            }
+        };
+    }
+    / "/" Spacing right:Unary { 
+		yyValue = new Action<Expr>() {
+			public Expr run(Expr left) {
+              return new Div(left, right);
+            }
+        };
+    }; 
+
+Expr Unary = 
+    "+" Spacing un:Unary { yyValue = new Pos(un); }
+    / "-" Spacing un:Unary { yyValue = new Neg(un); }
+    / "!" Spacing un:Unary { yyValue = new Not(un); }
+	/ yyValue:Primary;
+	
+
+Expr Primary = 
+	s:Literal Spacing { yyValue = new Str(s); }
+	/ "true" Spacing { yyValue = new Bool(true); }
+	/ "false" Spacing { yyValue = new Bool(false); }
+	/ n:Int Spacing { yyValue = new Int(Integer.parseInt(n)); }
+	/ x:Ident Spacing { yyValue = new Ident(x); }
+	/ LParen yyValue:Expr RParen
+	;
+
+String Int
+  = [0-9]+ //![0-9a-zA-Z] 
+	;
+
+String Ident
+  = [a-zA-Z_][A-Za-z0-9_]* //![0-9a-zA-Z_]
+  ;
+
+String Literal 
+	= ["] [A-Za-z0-9_?!;:\t\f\n ]* ["]
+	;
+	
+transient void LParen = '(' Spacing;
+transient void RParen = ')' Spacing;
+
+transient void LBracket = '{' Spacing;
+transient void RBracket = '}' Spacing;
+
+transient void quotes = '\"' Spacing;
+
+
+transient void Spacing = (Space / Comment)*;
+transient void Space              = ' ' /  '\t' / '\f' / LineTerminator ;
+transient void LineTerminator     = '\r' '\n' / '\r' / '\n' ;
+transient void Comment  = "/*" (('*' !'/') / (!'*' _))* "*/" ;
+
+

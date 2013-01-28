@@ -1,0 +1,1859 @@
+// Output created by jacc on Sun Jan 20 19:06:27 GMT 2013
+
+0: shift/reduce conflict (shift 19 and red'n 18) on IF
+0: shift/reduce conflict (shift 21 and red'n 18) on STRINGLITERAL
+state 0 (entry on top)
+    $accept : _top $end
+    question : _    (18)
+
+    BOOLEANLITERAL shift 16
+    FORM shift 17
+    IDENTIFIER shift 18
+    IF shift 19
+    NUMBERLITERAL shift 20
+    STRINGLITERAL shift 21
+    '!' shift 22
+    '(' shift 23
+    '+' shift 24
+    '-' shift 25
+    $end reduce 18
+    . error
+
+    top goto 1
+    closedstatement goto 2
+    comparison goto 3
+    expression goto 4
+    form goto 5
+    logical goto 6
+    node goto 7
+    openstatement goto 8
+    question goto 9
+    simple goto 10
+    simplestatement goto 11
+    statement goto 12
+    statements goto 13
+    arithmetic goto 14
+    unary goto 15
+
+state 1 (entry on top)
+    $accept : top_$end
+
+    $end accept
+    . error
+
+state 2 (entry on closedstatement)
+    statement : closedstatement_    (9)
+
+    STRINGLITERAL reduce 9
+    $end reduce 9
+    '}' reduce 9
+    IF reduce 9
+    . error
+
+state 3 (entry on comparison)
+    expression : comparison_    (23)
+
+    GEQ error
+    error error
+    '=' error
+    ':' error
+    IDENTIFIER error
+    '!' error
+    UMIN error
+    TYPE error
+    FORM error
+    ';' error
+    ELSE error
+    NUMBERLITERAL error
+    NEW error
+    '(' error
+    UNOT error
+    BOOLEANLITERAL error
+    UPLUS error
+    . reduce 23
+
+state 4 (entry on expression)
+    comparison : expression_EQ expression    (25)
+    comparison : expression_NEQ expression    (26)
+    comparison : expression_'>' expression    (27)
+    comparison : expression_'<' expression    (28)
+    comparison : expression_LEQ expression    (29)
+    logical : expression_AND expression    (33)
+    logical : expression_OR expression    (34)
+    logical : expression_'^' expression    (35)
+    node : expression_    (2)
+    arithmetic : expression_'*' expression    (36)
+    arithmetic : expression_'/' expression    (37)
+    arithmetic : expression_'+' expression    (38)
+    arithmetic : expression_'-' expression    (39)
+
+    AND shift 26
+    EQ shift 27
+    LEQ shift 28
+    NEQ shift 29
+    OR shift 30
+    '*' shift 31
+    '+' shift 32
+    '-' shift 33
+    '/' shift 34
+    '<' shift 35
+    '>' shift 36
+    '^' shift 37
+    $end reduce 2
+    . error
+
+state 5 (entry on form)
+    node : form_    (3)
+
+    $end reduce 3
+    . error
+
+state 6 (entry on logical)
+    expression : logical_    (20)
+
+    GEQ error
+    error error
+    '=' error
+    ':' error
+    IDENTIFIER error
+    '!' error
+    UMIN error
+    TYPE error
+    FORM error
+    ';' error
+    ELSE error
+    NUMBERLITERAL error
+    NEW error
+    '(' error
+    UNOT error
+    BOOLEANLITERAL error
+    UPLUS error
+    . reduce 20
+
+state 7 (entry on node)
+    top : node_    (1)
+
+    $end reduce 1
+    . error
+
+state 8 (entry on openstatement)
+    statement : openstatement_    (8)
+
+    STRINGLITERAL reduce 8
+    $end reduce 8
+    '}' reduce 8
+    IF reduce 8
+    . error
+
+state 9 (entry on question)
+    simplestatement : question_    (15)
+
+    STRINGLITERAL reduce 15
+    $end reduce 15
+    '}' reduce 15
+    IF reduce 15
+    . error
+
+state 10 (entry on simple)
+    expression : simple_    (22)
+
+    GEQ error
+    error error
+    '=' error
+    ':' error
+    IDENTIFIER error
+    '!' error
+    UMIN error
+    TYPE error
+    FORM error
+    ';' error
+    ELSE error
+    NUMBERLITERAL error
+    NEW error
+    '(' error
+    UNOT error
+    BOOLEANLITERAL error
+    UPLUS error
+    . reduce 22
+
+state 11 (entry on simplestatement)
+    statement : simplestatement_    (10)
+
+    STRINGLITERAL reduce 10
+    $end reduce 10
+    '}' reduce 10
+    IF reduce 10
+    . error
+
+state 12 (entry on statement)
+    statements : statement_    (7)
+
+    STRINGLITERAL reduce 7
+    $end reduce 7
+    '}' reduce 7
+    IF reduce 7
+    . error
+
+13: shift/reduce conflict (shift 19 and red'n 13) on IF
+13: shift/reduce conflict (shift 40 and red'n 13) on STRINGLITERAL
+13: reduce/reduce conflict (red'ns 13 and 4) on $end
+13: shift/reduce conflict (shift 19 and red'n 18) on IF
+13: shift/reduce conflict (shift 40 and red'n 18) on STRINGLITERAL
+13: reduce/reduce conflict (red'ns 4 and 18) on $end
+state 13 (entry on statements)
+    closedstatement : statements_    (13)
+    node : statements_    (4)
+    question : _    (18)
+    statements : statements_statement    (6)
+
+    IF shift 19
+    STRINGLITERAL shift 40
+    $end reduce 4
+    . error
+
+    closedstatement goto 2
+    openstatement goto 8
+    question goto 9
+    simplestatement goto 11
+    statement goto 38
+    statements goto 39
+
+state 14 (entry on arithmetic)
+    expression : arithmetic_    (21)
+
+    GEQ error
+    error error
+    '=' error
+    ':' error
+    IDENTIFIER error
+    '!' error
+    UMIN error
+    TYPE error
+    FORM error
+    ';' error
+    ELSE error
+    NUMBERLITERAL error
+    NEW error
+    '(' error
+    UNOT error
+    BOOLEANLITERAL error
+    UPLUS error
+    . reduce 21
+
+state 15 (entry on unary)
+    expression : unary_    (19)
+
+    GEQ error
+    error error
+    '=' error
+    ':' error
+    IDENTIFIER error
+    '!' error
+    UMIN error
+    TYPE error
+    FORM error
+    ';' error
+    ELSE error
+    NUMBERLITERAL error
+    NEW error
+    '(' error
+    UNOT error
+    BOOLEANLITERAL error
+    UPLUS error
+    . reduce 19
+
+state 16 (entry on BOOLEANLITERAL)
+    simple : BOOLEANLITERAL_    (42)
+
+    GEQ error
+    error error
+    '=' error
+    ':' error
+    IDENTIFIER error
+    '!' error
+    UMIN error
+    TYPE error
+    FORM error
+    ';' error
+    ELSE error
+    NUMBERLITERAL error
+    NEW error
+    '(' error
+    UNOT error
+    BOOLEANLITERAL error
+    UPLUS error
+    . reduce 42
+
+state 17 (entry on FORM)
+    form : FORM_IDENTIFIER statements    (5)
+
+    IDENTIFIER shift 41
+    . error
+
+state 18 (entry on IDENTIFIER)
+    simple : IDENTIFIER_    (43)
+
+    GEQ error
+    error error
+    '=' error
+    ':' error
+    IDENTIFIER error
+    '!' error
+    UMIN error
+    TYPE error
+    FORM error
+    ';' error
+    ELSE error
+    NUMBERLITERAL error
+    NEW error
+    '(' error
+    UNOT error
+    BOOLEANLITERAL error
+    UPLUS error
+    . reduce 43
+
+state 19 (entry on IF)
+    closedstatement : IF_expression '{' closedstatement '}' ELSE '{' closedstatement '}'    (14)
+    openstatement : IF_'(' expression ')' '{' statements '}'    (11)
+    openstatement : IF_'(' expression ')' '{' closedstatement '}' ELSE '{' openstatement '}'    (12)
+
+    BOOLEANLITERAL shift 16
+    IDENTIFIER shift 18
+    NUMBERLITERAL shift 20
+    '!' shift 22
+    '+' shift 24
+    '-' shift 25
+    STRINGLITERAL shift 43
+    '(' shift 44
+    . error
+
+    comparison goto 3
+    expression goto 42
+    logical goto 6
+    simple goto 10
+    arithmetic goto 14
+    unary goto 15
+
+state 20 (entry on NUMBERLITERAL)
+    simple : NUMBERLITERAL_    (40)
+
+    GEQ error
+    error error
+    '=' error
+    ':' error
+    IDENTIFIER error
+    '!' error
+    UMIN error
+    TYPE error
+    FORM error
+    ';' error
+    ELSE error
+    NUMBERLITERAL error
+    NEW error
+    '(' error
+    UNOT error
+    BOOLEANLITERAL error
+    UPLUS error
+    . reduce 40
+
+state 21 (entry on STRINGLITERAL)
+    question : STRINGLITERAL_IDENTIFIER ':' TYPE    (16)
+    question : STRINGLITERAL_IDENTIFIER '=' expression    (17)
+    simple : STRINGLITERAL_    (41)
+
+    IDENTIFIER shift 45
+    '>' reduce 41
+    '<' reduce 41
+    '/' reduce 41
+    OR reduce 41
+    '-' reduce 41
+    '+' reduce 41
+    '*' reduce 41
+    NEQ reduce 41
+    LEQ reduce 41
+    $end reduce 41
+    '^' reduce 41
+    EQ reduce 41
+    AND reduce 41
+    . error
+
+state 22 (entry on '!')
+    unary : '!'_expression    (32)
+
+    BOOLEANLITERAL shift 16
+    IDENTIFIER shift 18
+    NUMBERLITERAL shift 20
+    '!' shift 22
+    '(' shift 23
+    '+' shift 24
+    '-' shift 25
+    STRINGLITERAL shift 43
+    . error
+
+    comparison goto 3
+    expression goto 46
+    logical goto 6
+    simple goto 10
+    arithmetic goto 14
+    unary goto 15
+
+state 23 (entry on '(')
+    expression : '('_expression ')'    (24)
+
+    BOOLEANLITERAL shift 16
+    IDENTIFIER shift 18
+    NUMBERLITERAL shift 20
+    '!' shift 22
+    '(' shift 23
+    '+' shift 24
+    '-' shift 25
+    STRINGLITERAL shift 43
+    . error
+
+    comparison goto 3
+    expression goto 47
+    logical goto 6
+    simple goto 10
+    arithmetic goto 14
+    unary goto 15
+
+state 24 (entry on '+')
+    unary : '+'_expression    (30)
+
+    BOOLEANLITERAL shift 16
+    IDENTIFIER shift 18
+    NUMBERLITERAL shift 20
+    '!' shift 22
+    '(' shift 23
+    '+' shift 24
+    '-' shift 25
+    STRINGLITERAL shift 43
+    . error
+
+    comparison goto 3
+    expression goto 48
+    logical goto 6
+    simple goto 10
+    arithmetic goto 14
+    unary goto 15
+
+state 25 (entry on '-')
+    unary : '-'_expression    (31)
+
+    BOOLEANLITERAL shift 16
+    IDENTIFIER shift 18
+    NUMBERLITERAL shift 20
+    '!' shift 22
+    '(' shift 23
+    '+' shift 24
+    '-' shift 25
+    STRINGLITERAL shift 43
+    . error
+
+    comparison goto 3
+    expression goto 49
+    logical goto 6
+    simple goto 10
+    arithmetic goto 14
+    unary goto 15
+
+state 26 (entry on AND)
+    logical : expression AND_expression    (33)
+
+    BOOLEANLITERAL shift 16
+    IDENTIFIER shift 18
+    NUMBERLITERAL shift 20
+    '!' shift 22
+    '(' shift 23
+    '+' shift 24
+    '-' shift 25
+    STRINGLITERAL shift 43
+    . error
+
+    comparison goto 3
+    expression goto 50
+    logical goto 6
+    simple goto 10
+    arithmetic goto 14
+    unary goto 15
+
+state 27 (entry on EQ)
+    comparison : expression EQ_expression    (25)
+
+    BOOLEANLITERAL shift 16
+    IDENTIFIER shift 18
+    NUMBERLITERAL shift 20
+    '!' shift 22
+    '(' shift 23
+    '+' shift 24
+    '-' shift 25
+    STRINGLITERAL shift 43
+    . error
+
+    comparison goto 3
+    expression goto 51
+    logical goto 6
+    simple goto 10
+    arithmetic goto 14
+    unary goto 15
+
+state 28 (entry on LEQ)
+    comparison : expression LEQ_expression    (29)
+
+    BOOLEANLITERAL shift 16
+    IDENTIFIER shift 18
+    NUMBERLITERAL shift 20
+    '!' shift 22
+    '(' shift 23
+    '+' shift 24
+    '-' shift 25
+    STRINGLITERAL shift 43
+    . error
+
+    comparison goto 3
+    expression goto 52
+    logical goto 6
+    simple goto 10
+    arithmetic goto 14
+    unary goto 15
+
+state 29 (entry on NEQ)
+    comparison : expression NEQ_expression    (26)
+
+    BOOLEANLITERAL shift 16
+    IDENTIFIER shift 18
+    NUMBERLITERAL shift 20
+    '!' shift 22
+    '(' shift 23
+    '+' shift 24
+    '-' shift 25
+    STRINGLITERAL shift 43
+    . error
+
+    comparison goto 3
+    expression goto 53
+    logical goto 6
+    simple goto 10
+    arithmetic goto 14
+    unary goto 15
+
+state 30 (entry on OR)
+    logical : expression OR_expression    (34)
+
+    BOOLEANLITERAL shift 16
+    IDENTIFIER shift 18
+    NUMBERLITERAL shift 20
+    '!' shift 22
+    '(' shift 23
+    '+' shift 24
+    '-' shift 25
+    STRINGLITERAL shift 43
+    . error
+
+    comparison goto 3
+    expression goto 54
+    logical goto 6
+    simple goto 10
+    arithmetic goto 14
+    unary goto 15
+
+state 31 (entry on '*')
+    arithmetic : expression '*'_expression    (36)
+
+    BOOLEANLITERAL shift 16
+    IDENTIFIER shift 18
+    NUMBERLITERAL shift 20
+    '!' shift 22
+    '(' shift 23
+    '+' shift 24
+    '-' shift 25
+    STRINGLITERAL shift 43
+    . error
+
+    comparison goto 3
+    expression goto 55
+    logical goto 6
+    simple goto 10
+    arithmetic goto 14
+    unary goto 15
+
+state 32 (entry on '+')
+    arithmetic : expression '+'_expression    (38)
+
+    BOOLEANLITERAL shift 16
+    IDENTIFIER shift 18
+    NUMBERLITERAL shift 20
+    '!' shift 22
+    '(' shift 23
+    '+' shift 24
+    '-' shift 25
+    STRINGLITERAL shift 43
+    . error
+
+    comparison goto 3
+    expression goto 56
+    logical goto 6
+    simple goto 10
+    arithmetic goto 14
+    unary goto 15
+
+state 33 (entry on '-')
+    arithmetic : expression '-'_expression    (39)
+
+    BOOLEANLITERAL shift 16
+    IDENTIFIER shift 18
+    NUMBERLITERAL shift 20
+    '!' shift 22
+    '(' shift 23
+    '+' shift 24
+    '-' shift 25
+    STRINGLITERAL shift 43
+    . error
+
+    comparison goto 3
+    expression goto 57
+    logical goto 6
+    simple goto 10
+    arithmetic goto 14
+    unary goto 15
+
+state 34 (entry on '/')
+    arithmetic : expression '/'_expression    (37)
+
+    BOOLEANLITERAL shift 16
+    IDENTIFIER shift 18
+    NUMBERLITERAL shift 20
+    '!' shift 22
+    '(' shift 23
+    '+' shift 24
+    '-' shift 25
+    STRINGLITERAL shift 43
+    . error
+
+    comparison goto 3
+    expression goto 58
+    logical goto 6
+    simple goto 10
+    arithmetic goto 14
+    unary goto 15
+
+state 35 (entry on '<')
+    comparison : expression '<'_expression    (28)
+
+    BOOLEANLITERAL shift 16
+    IDENTIFIER shift 18
+    NUMBERLITERAL shift 20
+    '!' shift 22
+    '(' shift 23
+    '+' shift 24
+    '-' shift 25
+    STRINGLITERAL shift 43
+    . error
+
+    comparison goto 3
+    expression goto 59
+    logical goto 6
+    simple goto 10
+    arithmetic goto 14
+    unary goto 15
+
+state 36 (entry on '>')
+    comparison : expression '>'_expression    (27)
+
+    BOOLEANLITERAL shift 16
+    IDENTIFIER shift 18
+    NUMBERLITERAL shift 20
+    '!' shift 22
+    '(' shift 23
+    '+' shift 24
+    '-' shift 25
+    STRINGLITERAL shift 43
+    . error
+
+    comparison goto 3
+    expression goto 60
+    logical goto 6
+    simple goto 10
+    arithmetic goto 14
+    unary goto 15
+
+state 37 (entry on '^')
+    logical : expression '^'_expression    (35)
+
+    BOOLEANLITERAL shift 16
+    IDENTIFIER shift 18
+    NUMBERLITERAL shift 20
+    '!' shift 22
+    '(' shift 23
+    '+' shift 24
+    '-' shift 25
+    STRINGLITERAL shift 43
+    . error
+
+    comparison goto 3
+    expression goto 61
+    logical goto 6
+    simple goto 10
+    arithmetic goto 14
+    unary goto 15
+
+38: reduce/reduce conflict (red'ns 6 and 7) on IF
+38: reduce/reduce conflict (red'ns 6 and 7) on STRINGLITERAL
+38: reduce/reduce conflict (red'ns 6 and 7) on '}'
+38: reduce/reduce conflict (red'ns 6 and 7) on $end
+state 38 (entry on statement)
+    statements : statements statement_    (6)
+    statements : statement_    (7)
+
+    STRINGLITERAL reduce 6
+    $end reduce 6
+    '}' reduce 6
+    IF reduce 6
+    . error
+
+39: shift/reduce conflict (shift 19 and red'n 13) on IF
+39: shift/reduce conflict (shift 40 and red'n 13) on STRINGLITERAL
+39: shift/reduce conflict (shift 19 and red'n 18) on IF
+39: shift/reduce conflict (shift 40 and red'n 18) on STRINGLITERAL
+39: reduce/reduce conflict (red'ns 13 and 18) on '}'
+39: reduce/reduce conflict (red'ns 13 and 18) on $end
+state 39 (entry on statements)
+    closedstatement : statements_    (13)
+    question : _    (18)
+    statements : statements_statement    (6)
+
+    IF shift 19
+    STRINGLITERAL shift 40
+    $end reduce 13
+    '}' reduce 13
+    . error
+
+    closedstatement goto 2
+    openstatement goto 8
+    question goto 9
+    simplestatement goto 11
+    statement goto 38
+    statements goto 39
+
+state 40 (entry on STRINGLITERAL)
+    question : STRINGLITERAL_IDENTIFIER ':' TYPE    (16)
+    question : STRINGLITERAL_IDENTIFIER '=' expression    (17)
+
+    IDENTIFIER shift 45
+    . error
+
+41: shift/reduce conflict (shift 19 and red'n 18) on IF
+41: shift/reduce conflict (shift 40 and red'n 18) on STRINGLITERAL
+state 41 (entry on IDENTIFIER)
+    form : FORM IDENTIFIER_statements    (5)
+    question : _    (18)
+
+    IF shift 19
+    STRINGLITERAL shift 40
+    $end reduce 18
+    . error
+
+    closedstatement goto 2
+    openstatement goto 8
+    question goto 9
+    simplestatement goto 11
+    statement goto 12
+    statements goto 62
+
+state 42 (entry on expression)
+    closedstatement : IF expression_'{' closedstatement '}' ELSE '{' closedstatement '}'    (14)
+    comparison : expression_EQ expression    (25)
+    comparison : expression_NEQ expression    (26)
+    comparison : expression_'>' expression    (27)
+    comparison : expression_'<' expression    (28)
+    comparison : expression_LEQ expression    (29)
+    logical : expression_AND expression    (33)
+    logical : expression_OR expression    (34)
+    logical : expression_'^' expression    (35)
+    arithmetic : expression_'*' expression    (36)
+    arithmetic : expression_'/' expression    (37)
+    arithmetic : expression_'+' expression    (38)
+    arithmetic : expression_'-' expression    (39)
+
+    AND shift 26
+    EQ shift 27
+    LEQ shift 28
+    NEQ shift 29
+    OR shift 30
+    '*' shift 31
+    '+' shift 32
+    '-' shift 33
+    '/' shift 34
+    '<' shift 35
+    '>' shift 36
+    '^' shift 37
+    '{' shift 63
+    . error
+
+state 43 (entry on STRINGLITERAL)
+    simple : STRINGLITERAL_    (41)
+
+    GEQ error
+    error error
+    '=' error
+    ':' error
+    IDENTIFIER error
+    '!' error
+    UMIN error
+    TYPE error
+    FORM error
+    ';' error
+    ELSE error
+    NUMBERLITERAL error
+    NEW error
+    '(' error
+    UNOT error
+    BOOLEANLITERAL error
+    UPLUS error
+    . reduce 41
+
+state 44 (entry on '(')
+    expression : '('_expression ')'    (24)
+    openstatement : IF '('_expression ')' '{' statements '}'    (11)
+    openstatement : IF '('_expression ')' '{' closedstatement '}' ELSE '{' openstatement '}'    (12)
+
+    BOOLEANLITERAL shift 16
+    IDENTIFIER shift 18
+    NUMBERLITERAL shift 20
+    '!' shift 22
+    '(' shift 23
+    '+' shift 24
+    '-' shift 25
+    STRINGLITERAL shift 43
+    . error
+
+    comparison goto 3
+    expression goto 64
+    logical goto 6
+    simple goto 10
+    arithmetic goto 14
+    unary goto 15
+
+state 45 (entry on IDENTIFIER)
+    question : STRINGLITERAL IDENTIFIER_':' TYPE    (16)
+    question : STRINGLITERAL IDENTIFIER_'=' expression    (17)
+
+    ':' shift 65
+    '=' shift 66
+    . error
+
+46: shift/reduce conflict (shift 29 and red'n 32) on NEQ
+46: shift/reduce conflict (shift 37 and red'n 32) on '^'
+state 46 (entry on expression)
+    comparison : expression_EQ expression    (25)
+    comparison : expression_NEQ expression    (26)
+    comparison : expression_'>' expression    (27)
+    comparison : expression_'<' expression    (28)
+    comparison : expression_LEQ expression    (29)
+    logical : expression_AND expression    (33)
+    logical : expression_OR expression    (34)
+    logical : expression_'^' expression    (35)
+    arithmetic : expression_'*' expression    (36)
+    arithmetic : expression_'/' expression    (37)
+    arithmetic : expression_'+' expression    (38)
+    arithmetic : expression_'-' expression    (39)
+    unary : '!' expression_    (32)
+
+    NEQ shift 29
+    '^' shift 37
+    '>' reduce 32
+    '<' reduce 32
+    STRINGLITERAL reduce 32
+    '/' reduce 32
+    OR reduce 32
+    '-' reduce 32
+    '+' reduce 32
+    '*' reduce 32
+    ')' reduce 32
+    LEQ reduce 32
+    '}' reduce 32
+    '{' reduce 32
+    IF reduce 32
+    EQ reduce 32
+    $end reduce 32
+    AND reduce 32
+    . error
+
+state 47 (entry on expression)
+    comparison : expression_EQ expression    (25)
+    comparison : expression_NEQ expression    (26)
+    comparison : expression_'>' expression    (27)
+    comparison : expression_'<' expression    (28)
+    comparison : expression_LEQ expression    (29)
+    expression : '(' expression_')'    (24)
+    logical : expression_AND expression    (33)
+    logical : expression_OR expression    (34)
+    logical : expression_'^' expression    (35)
+    arithmetic : expression_'*' expression    (36)
+    arithmetic : expression_'/' expression    (37)
+    arithmetic : expression_'+' expression    (38)
+    arithmetic : expression_'-' expression    (39)
+
+    AND shift 26
+    EQ shift 27
+    LEQ shift 28
+    NEQ shift 29
+    OR shift 30
+    '*' shift 31
+    '+' shift 32
+    '-' shift 33
+    '/' shift 34
+    '<' shift 35
+    '>' shift 36
+    '^' shift 37
+    ')' shift 67
+    . error
+
+48: shift/reduce conflict (shift 29 and red'n 30) on NEQ
+48: shift/reduce conflict (shift 37 and red'n 30) on '^'
+state 48 (entry on expression)
+    comparison : expression_EQ expression    (25)
+    comparison : expression_NEQ expression    (26)
+    comparison : expression_'>' expression    (27)
+    comparison : expression_'<' expression    (28)
+    comparison : expression_LEQ expression    (29)
+    logical : expression_AND expression    (33)
+    logical : expression_OR expression    (34)
+    logical : expression_'^' expression    (35)
+    arithmetic : expression_'*' expression    (36)
+    arithmetic : expression_'/' expression    (37)
+    arithmetic : expression_'+' expression    (38)
+    arithmetic : expression_'-' expression    (39)
+    unary : '+' expression_    (30)
+
+    NEQ shift 29
+    '^' shift 37
+    '>' reduce 30
+    '<' reduce 30
+    STRINGLITERAL reduce 30
+    '/' reduce 30
+    OR reduce 30
+    '-' reduce 30
+    '+' reduce 30
+    '*' reduce 30
+    ')' reduce 30
+    LEQ reduce 30
+    '}' reduce 30
+    '{' reduce 30
+    IF reduce 30
+    EQ reduce 30
+    $end reduce 30
+    AND reduce 30
+    . error
+
+49: shift/reduce conflict (shift 29 and red'n 31) on NEQ
+49: shift/reduce conflict (shift 37 and red'n 31) on '^'
+state 49 (entry on expression)
+    comparison : expression_EQ expression    (25)
+    comparison : expression_NEQ expression    (26)
+    comparison : expression_'>' expression    (27)
+    comparison : expression_'<' expression    (28)
+    comparison : expression_LEQ expression    (29)
+    logical : expression_AND expression    (33)
+    logical : expression_OR expression    (34)
+    logical : expression_'^' expression    (35)
+    arithmetic : expression_'*' expression    (36)
+    arithmetic : expression_'/' expression    (37)
+    arithmetic : expression_'+' expression    (38)
+    arithmetic : expression_'-' expression    (39)
+    unary : '-' expression_    (31)
+
+    NEQ shift 29
+    '^' shift 37
+    '>' reduce 31
+    '<' reduce 31
+    STRINGLITERAL reduce 31
+    '/' reduce 31
+    OR reduce 31
+    '-' reduce 31
+    '+' reduce 31
+    '*' reduce 31
+    ')' reduce 31
+    LEQ reduce 31
+    '}' reduce 31
+    '{' reduce 31
+    IF reduce 31
+    EQ reduce 31
+    $end reduce 31
+    AND reduce 31
+    . error
+
+50: shift/reduce conflict (shift 29 and red'n 33) on NEQ
+50: shift/reduce conflict (shift 37 and red'n 33) on '^'
+state 50 (entry on expression)
+    comparison : expression_EQ expression    (25)
+    comparison : expression_NEQ expression    (26)
+    comparison : expression_'>' expression    (27)
+    comparison : expression_'<' expression    (28)
+    comparison : expression_LEQ expression    (29)
+    logical : expression_AND expression    (33)
+    logical : expression AND expression_    (33)
+    logical : expression_OR expression    (34)
+    logical : expression_'^' expression    (35)
+    arithmetic : expression_'*' expression    (36)
+    arithmetic : expression_'/' expression    (37)
+    arithmetic : expression_'+' expression    (38)
+    arithmetic : expression_'-' expression    (39)
+
+    EQ shift 27
+    LEQ shift 28
+    NEQ shift 29
+    '*' shift 31
+    '+' shift 32
+    '-' shift 33
+    '/' shift 34
+    '<' shift 35
+    '>' shift 36
+    '^' shift 37
+    STRINGLITERAL reduce 33
+    OR reduce 33
+    ')' reduce 33
+    $end reduce 33
+    '}' reduce 33
+    '{' reduce 33
+    IF reduce 33
+    AND reduce 33
+    . error
+
+51: shift/reduce conflict (shift 29 and red'n 25) on NEQ
+51: shift/reduce conflict (shift 37 and red'n 25) on '^'
+state 51 (entry on expression)
+    comparison : expression_EQ expression    (25)
+    comparison : expression EQ expression_    (25)
+    comparison : expression_NEQ expression    (26)
+    comparison : expression_'>' expression    (27)
+    comparison : expression_'<' expression    (28)
+    comparison : expression_LEQ expression    (29)
+    logical : expression_AND expression    (33)
+    logical : expression_OR expression    (34)
+    logical : expression_'^' expression    (35)
+    arithmetic : expression_'*' expression    (36)
+    arithmetic : expression_'/' expression    (37)
+    arithmetic : expression_'+' expression    (38)
+    arithmetic : expression_'-' expression    (39)
+
+    NEQ shift 29
+    '*' shift 31
+    '+' shift 32
+    '-' shift 33
+    '/' shift 34
+    '^' shift 37
+    '>' reduce 25
+    '<' reduce 25
+    STRINGLITERAL reduce 25
+    OR reduce 25
+    ')' reduce 25
+    LEQ reduce 25
+    '}' reduce 25
+    '{' reduce 25
+    IF reduce 25
+    EQ reduce 25
+    $end reduce 25
+    AND reduce 25
+    . error
+
+52: shift/reduce conflict (shift 29 and red'n 29) on NEQ
+52: shift/reduce conflict (shift 37 and red'n 29) on '^'
+state 52 (entry on expression)
+    comparison : expression_EQ expression    (25)
+    comparison : expression_NEQ expression    (26)
+    comparison : expression_'>' expression    (27)
+    comparison : expression_'<' expression    (28)
+    comparison : expression_LEQ expression    (29)
+    comparison : expression LEQ expression_    (29)
+    logical : expression_AND expression    (33)
+    logical : expression_OR expression    (34)
+    logical : expression_'^' expression    (35)
+    arithmetic : expression_'*' expression    (36)
+    arithmetic : expression_'/' expression    (37)
+    arithmetic : expression_'+' expression    (38)
+    arithmetic : expression_'-' expression    (39)
+
+    NEQ shift 29
+    '*' shift 31
+    '+' shift 32
+    '-' shift 33
+    '/' shift 34
+    '^' shift 37
+    '>' reduce 29
+    '<' reduce 29
+    STRINGLITERAL reduce 29
+    OR reduce 29
+    ')' reduce 29
+    LEQ reduce 29
+    '}' reduce 29
+    '{' reduce 29
+    IF reduce 29
+    EQ reduce 29
+    $end reduce 29
+    AND reduce 29
+    . error
+
+53: shift/reduce conflict (shift 26 and red'n 26) on AND
+53: shift/reduce conflict (shift 27 and red'n 26) on EQ
+53: shift/reduce conflict (shift 28 and red'n 26) on LEQ
+53: shift/reduce conflict (shift 29 and red'n 26) on NEQ
+53: shift/reduce conflict (shift 30 and red'n 26) on OR
+53: shift/reduce conflict (shift 31 and red'n 26) on '*'
+53: shift/reduce conflict (shift 32 and red'n 26) on '+'
+53: shift/reduce conflict (shift 33 and red'n 26) on '-'
+53: shift/reduce conflict (shift 34 and red'n 26) on '/'
+53: shift/reduce conflict (shift 35 and red'n 26) on '<'
+53: shift/reduce conflict (shift 36 and red'n 26) on '>'
+53: shift/reduce conflict (shift 37 and red'n 26) on '^'
+state 53 (entry on expression)
+    comparison : expression_EQ expression    (25)
+    comparison : expression_NEQ expression    (26)
+    comparison : expression NEQ expression_    (26)
+    comparison : expression_'>' expression    (27)
+    comparison : expression_'<' expression    (28)
+    comparison : expression_LEQ expression    (29)
+    logical : expression_AND expression    (33)
+    logical : expression_OR expression    (34)
+    logical : expression_'^' expression    (35)
+    arithmetic : expression_'*' expression    (36)
+    arithmetic : expression_'/' expression    (37)
+    arithmetic : expression_'+' expression    (38)
+    arithmetic : expression_'-' expression    (39)
+
+    AND shift 26
+    EQ shift 27
+    LEQ shift 28
+    NEQ shift 29
+    OR shift 30
+    '*' shift 31
+    '+' shift 32
+    '-' shift 33
+    '/' shift 34
+    '<' shift 35
+    '>' shift 36
+    '^' shift 37
+    STRINGLITERAL reduce 26
+    ')' reduce 26
+    $end reduce 26
+    '}' reduce 26
+    '{' reduce 26
+    IF reduce 26
+    . error
+
+54: shift/reduce conflict (shift 29 and red'n 34) on NEQ
+54: shift/reduce conflict (shift 37 and red'n 34) on '^'
+state 54 (entry on expression)
+    comparison : expression_EQ expression    (25)
+    comparison : expression_NEQ expression    (26)
+    comparison : expression_'>' expression    (27)
+    comparison : expression_'<' expression    (28)
+    comparison : expression_LEQ expression    (29)
+    logical : expression_AND expression    (33)
+    logical : expression_OR expression    (34)
+    logical : expression OR expression_    (34)
+    logical : expression_'^' expression    (35)
+    arithmetic : expression_'*' expression    (36)
+    arithmetic : expression_'/' expression    (37)
+    arithmetic : expression_'+' expression    (38)
+    arithmetic : expression_'-' expression    (39)
+
+    AND shift 26
+    EQ shift 27
+    LEQ shift 28
+    NEQ shift 29
+    '*' shift 31
+    '+' shift 32
+    '-' shift 33
+    '/' shift 34
+    '<' shift 35
+    '>' shift 36
+    '^' shift 37
+    STRINGLITERAL reduce 34
+    OR reduce 34
+    ')' reduce 34
+    $end reduce 34
+    '}' reduce 34
+    '{' reduce 34
+    IF reduce 34
+    . error
+
+55: shift/reduce conflict (shift 29 and red'n 36) on NEQ
+55: shift/reduce conflict (shift 37 and red'n 36) on '^'
+state 55 (entry on expression)
+    comparison : expression_EQ expression    (25)
+    comparison : expression_NEQ expression    (26)
+    comparison : expression_'>' expression    (27)
+    comparison : expression_'<' expression    (28)
+    comparison : expression_LEQ expression    (29)
+    logical : expression_AND expression    (33)
+    logical : expression_OR expression    (34)
+    logical : expression_'^' expression    (35)
+    arithmetic : expression_'*' expression    (36)
+    arithmetic : expression '*' expression_    (36)
+    arithmetic : expression_'/' expression    (37)
+    arithmetic : expression_'+' expression    (38)
+    arithmetic : expression_'-' expression    (39)
+
+    NEQ shift 29
+    '^' shift 37
+    '>' reduce 36
+    '<' reduce 36
+    STRINGLITERAL reduce 36
+    '/' reduce 36
+    OR reduce 36
+    '-' reduce 36
+    '+' reduce 36
+    '*' reduce 36
+    ')' reduce 36
+    LEQ reduce 36
+    '}' reduce 36
+    '{' reduce 36
+    IF reduce 36
+    EQ reduce 36
+    $end reduce 36
+    AND reduce 36
+    . error
+
+56: shift/reduce conflict (shift 29 and red'n 38) on NEQ
+56: shift/reduce conflict (shift 37 and red'n 38) on '^'
+state 56 (entry on expression)
+    comparison : expression_EQ expression    (25)
+    comparison : expression_NEQ expression    (26)
+    comparison : expression_'>' expression    (27)
+    comparison : expression_'<' expression    (28)
+    comparison : expression_LEQ expression    (29)
+    logical : expression_AND expression    (33)
+    logical : expression_OR expression    (34)
+    logical : expression_'^' expression    (35)
+    arithmetic : expression_'*' expression    (36)
+    arithmetic : expression_'/' expression    (37)
+    arithmetic : expression_'+' expression    (38)
+    arithmetic : expression '+' expression_    (38)
+    arithmetic : expression_'-' expression    (39)
+
+    NEQ shift 29
+    '*' shift 31
+    '/' shift 34
+    '^' shift 37
+    '>' reduce 38
+    '<' reduce 38
+    STRINGLITERAL reduce 38
+    OR reduce 38
+    '-' reduce 38
+    '+' reduce 38
+    ')' reduce 38
+    LEQ reduce 38
+    '}' reduce 38
+    '{' reduce 38
+    IF reduce 38
+    EQ reduce 38
+    $end reduce 38
+    AND reduce 38
+    . error
+
+57: shift/reduce conflict (shift 29 and red'n 39) on NEQ
+57: shift/reduce conflict (shift 37 and red'n 39) on '^'
+state 57 (entry on expression)
+    comparison : expression_EQ expression    (25)
+    comparison : expression_NEQ expression    (26)
+    comparison : expression_'>' expression    (27)
+    comparison : expression_'<' expression    (28)
+    comparison : expression_LEQ expression    (29)
+    logical : expression_AND expression    (33)
+    logical : expression_OR expression    (34)
+    logical : expression_'^' expression    (35)
+    arithmetic : expression_'*' expression    (36)
+    arithmetic : expression_'/' expression    (37)
+    arithmetic : expression_'+' expression    (38)
+    arithmetic : expression_'-' expression    (39)
+    arithmetic : expression '-' expression_    (39)
+
+    NEQ shift 29
+    '*' shift 31
+    '/' shift 34
+    '^' shift 37
+    '>' reduce 39
+    '<' reduce 39
+    STRINGLITERAL reduce 39
+    OR reduce 39
+    '-' reduce 39
+    '+' reduce 39
+    ')' reduce 39
+    LEQ reduce 39
+    '}' reduce 39
+    '{' reduce 39
+    IF reduce 39
+    EQ reduce 39
+    $end reduce 39
+    AND reduce 39
+    . error
+
+58: shift/reduce conflict (shift 29 and red'n 37) on NEQ
+58: shift/reduce conflict (shift 37 and red'n 37) on '^'
+state 58 (entry on expression)
+    comparison : expression_EQ expression    (25)
+    comparison : expression_NEQ expression    (26)
+    comparison : expression_'>' expression    (27)
+    comparison : expression_'<' expression    (28)
+    comparison : expression_LEQ expression    (29)
+    logical : expression_AND expression    (33)
+    logical : expression_OR expression    (34)
+    logical : expression_'^' expression    (35)
+    arithmetic : expression_'*' expression    (36)
+    arithmetic : expression_'/' expression    (37)
+    arithmetic : expression '/' expression_    (37)
+    arithmetic : expression_'+' expression    (38)
+    arithmetic : expression_'-' expression    (39)
+
+    NEQ shift 29
+    '^' shift 37
+    '>' reduce 37
+    '<' reduce 37
+    STRINGLITERAL reduce 37
+    '/' reduce 37
+    OR reduce 37
+    '-' reduce 37
+    '+' reduce 37
+    '*' reduce 37
+    ')' reduce 37
+    LEQ reduce 37
+    '}' reduce 37
+    '{' reduce 37
+    IF reduce 37
+    EQ reduce 37
+    $end reduce 37
+    AND reduce 37
+    . error
+
+59: shift/reduce conflict (shift 29 and red'n 28) on NEQ
+59: shift/reduce conflict (shift 37 and red'n 28) on '^'
+state 59 (entry on expression)
+    comparison : expression_EQ expression    (25)
+    comparison : expression_NEQ expression    (26)
+    comparison : expression_'>' expression    (27)
+    comparison : expression_'<' expression    (28)
+    comparison : expression '<' expression_    (28)
+    comparison : expression_LEQ expression    (29)
+    logical : expression_AND expression    (33)
+    logical : expression_OR expression    (34)
+    logical : expression_'^' expression    (35)
+    arithmetic : expression_'*' expression    (36)
+    arithmetic : expression_'/' expression    (37)
+    arithmetic : expression_'+' expression    (38)
+    arithmetic : expression_'-' expression    (39)
+
+    NEQ shift 29
+    '*' shift 31
+    '+' shift 32
+    '-' shift 33
+    '/' shift 34
+    '^' shift 37
+    '>' reduce 28
+    '<' reduce 28
+    STRINGLITERAL reduce 28
+    OR reduce 28
+    ')' reduce 28
+    LEQ reduce 28
+    '}' reduce 28
+    '{' reduce 28
+    IF reduce 28
+    EQ reduce 28
+    $end reduce 28
+    AND reduce 28
+    . error
+
+60: shift/reduce conflict (shift 29 and red'n 27) on NEQ
+60: shift/reduce conflict (shift 37 and red'n 27) on '^'
+state 60 (entry on expression)
+    comparison : expression_EQ expression    (25)
+    comparison : expression_NEQ expression    (26)
+    comparison : expression_'>' expression    (27)
+    comparison : expression '>' expression_    (27)
+    comparison : expression_'<' expression    (28)
+    comparison : expression_LEQ expression    (29)
+    logical : expression_AND expression    (33)
+    logical : expression_OR expression    (34)
+    logical : expression_'^' expression    (35)
+    arithmetic : expression_'*' expression    (36)
+    arithmetic : expression_'/' expression    (37)
+    arithmetic : expression_'+' expression    (38)
+    arithmetic : expression_'-' expression    (39)
+
+    NEQ shift 29
+    '*' shift 31
+    '+' shift 32
+    '-' shift 33
+    '/' shift 34
+    '^' shift 37
+    '>' reduce 27
+    '<' reduce 27
+    STRINGLITERAL reduce 27
+    OR reduce 27
+    ')' reduce 27
+    LEQ reduce 27
+    '}' reduce 27
+    '{' reduce 27
+    IF reduce 27
+    EQ reduce 27
+    $end reduce 27
+    AND reduce 27
+    . error
+
+61: shift/reduce conflict (shift 26 and red'n 35) on AND
+61: shift/reduce conflict (shift 27 and red'n 35) on EQ
+61: shift/reduce conflict (shift 28 and red'n 35) on LEQ
+61: shift/reduce conflict (shift 29 and red'n 35) on NEQ
+61: shift/reduce conflict (shift 30 and red'n 35) on OR
+61: shift/reduce conflict (shift 31 and red'n 35) on '*'
+61: shift/reduce conflict (shift 32 and red'n 35) on '+'
+61: shift/reduce conflict (shift 33 and red'n 35) on '-'
+61: shift/reduce conflict (shift 34 and red'n 35) on '/'
+61: shift/reduce conflict (shift 35 and red'n 35) on '<'
+61: shift/reduce conflict (shift 36 and red'n 35) on '>'
+61: shift/reduce conflict (shift 37 and red'n 35) on '^'
+state 61 (entry on expression)
+    comparison : expression_EQ expression    (25)
+    comparison : expression_NEQ expression    (26)
+    comparison : expression_'>' expression    (27)
+    comparison : expression_'<' expression    (28)
+    comparison : expression_LEQ expression    (29)
+    logical : expression_AND expression    (33)
+    logical : expression_OR expression    (34)
+    logical : expression_'^' expression    (35)
+    logical : expression '^' expression_    (35)
+    arithmetic : expression_'*' expression    (36)
+    arithmetic : expression_'/' expression    (37)
+    arithmetic : expression_'+' expression    (38)
+    arithmetic : expression_'-' expression    (39)
+
+    AND shift 26
+    EQ shift 27
+    LEQ shift 28
+    NEQ shift 29
+    OR shift 30
+    '*' shift 31
+    '+' shift 32
+    '-' shift 33
+    '/' shift 34
+    '<' shift 35
+    '>' shift 36
+    '^' shift 37
+    STRINGLITERAL reduce 35
+    ')' reduce 35
+    $end reduce 35
+    '}' reduce 35
+    '{' reduce 35
+    IF reduce 35
+    . error
+
+62: shift/reduce conflict (shift 19 and red'n 13) on IF
+62: shift/reduce conflict (shift 40 and red'n 13) on STRINGLITERAL
+62: reduce/reduce conflict (red'ns 13 and 5) on $end
+62: shift/reduce conflict (shift 19 and red'n 18) on IF
+62: shift/reduce conflict (shift 40 and red'n 18) on STRINGLITERAL
+62: reduce/reduce conflict (red'ns 5 and 18) on $end
+state 62 (entry on statements)
+    closedstatement : statements_    (13)
+    form : FORM IDENTIFIER statements_    (5)
+    question : _    (18)
+    statements : statements_statement    (6)
+
+    IF shift 19
+    STRINGLITERAL shift 40
+    $end reduce 5
+    . error
+
+    closedstatement goto 2
+    openstatement goto 8
+    question goto 9
+    simplestatement goto 11
+    statement goto 38
+    statements goto 39
+
+63: shift/reduce conflict (shift 19 and red'n 18) on IF
+63: shift/reduce conflict (shift 40 and red'n 18) on STRINGLITERAL
+state 63 (entry on '{')
+    closedstatement : IF expression '{'_closedstatement '}' ELSE '{' closedstatement '}'    (14)
+    question : _    (18)
+
+    IF shift 19
+    STRINGLITERAL shift 40
+    '}' reduce 18
+    . error
+
+    closedstatement goto 68
+    openstatement goto 8
+    question goto 9
+    simplestatement goto 11
+    statement goto 12
+    statements goto 39
+
+state 64 (entry on expression)
+    comparison : expression_EQ expression    (25)
+    comparison : expression_NEQ expression    (26)
+    comparison : expression_'>' expression    (27)
+    comparison : expression_'<' expression    (28)
+    comparison : expression_LEQ expression    (29)
+    expression : '(' expression_')'    (24)
+    logical : expression_AND expression    (33)
+    logical : expression_OR expression    (34)
+    logical : expression_'^' expression    (35)
+    openstatement : IF '(' expression_')' '{' statements '}'    (11)
+    openstatement : IF '(' expression_')' '{' closedstatement '}' ELSE '{' openstatement '}'    (12)
+    arithmetic : expression_'*' expression    (36)
+    arithmetic : expression_'/' expression    (37)
+    arithmetic : expression_'+' expression    (38)
+    arithmetic : expression_'-' expression    (39)
+
+    AND shift 26
+    EQ shift 27
+    LEQ shift 28
+    NEQ shift 29
+    OR shift 30
+    '*' shift 31
+    '+' shift 32
+    '-' shift 33
+    '/' shift 34
+    '<' shift 35
+    '>' shift 36
+    '^' shift 37
+    ')' shift 69
+    . error
+
+state 65 (entry on ':')
+    question : STRINGLITERAL IDENTIFIER ':'_TYPE    (16)
+
+    TYPE shift 70
+    . error
+
+state 66 (entry on '=')
+    question : STRINGLITERAL IDENTIFIER '='_expression    (17)
+
+    BOOLEANLITERAL shift 16
+    IDENTIFIER shift 18
+    NUMBERLITERAL shift 20
+    '!' shift 22
+    '(' shift 23
+    '+' shift 24
+    '-' shift 25
+    STRINGLITERAL shift 43
+    . error
+
+    comparison goto 3
+    expression goto 71
+    logical goto 6
+    simple goto 10
+    arithmetic goto 14
+    unary goto 15
+
+state 67 (entry on ')')
+    expression : '(' expression ')'_    (24)
+
+    GEQ error
+    error error
+    '=' error
+    ':' error
+    IDENTIFIER error
+    '!' error
+    UMIN error
+    TYPE error
+    FORM error
+    ';' error
+    ELSE error
+    NUMBERLITERAL error
+    NEW error
+    '(' error
+    UNOT error
+    BOOLEANLITERAL error
+    UPLUS error
+    . reduce 24
+
+68: shift/reduce conflict (shift 72 and red'n 9) on '}'
+state 68 (entry on closedstatement)
+    closedstatement : IF expression '{' closedstatement_'}' ELSE '{' closedstatement '}'    (14)
+    statement : closedstatement_    (9)
+
+    '}' shift 72
+    STRINGLITERAL reduce 9
+    IF reduce 9
+    . error
+
+69: shift/reduce conflict (shift 73 and red'n 24) on '{'
+state 69 (entry on ')')
+    expression : '(' expression ')'_    (24)
+    openstatement : IF '(' expression ')'_'{' statements '}'    (11)
+    openstatement : IF '(' expression ')'_'{' closedstatement '}' ELSE '{' openstatement '}'    (12)
+
+    '{' shift 73
+    '>' reduce 24
+    '<' reduce 24
+    '/' reduce 24
+    OR reduce 24
+    '-' reduce 24
+    '+' reduce 24
+    '*' reduce 24
+    NEQ reduce 24
+    LEQ reduce 24
+    '^' reduce 24
+    EQ reduce 24
+    AND reduce 24
+    . error
+
+state 70 (entry on TYPE)
+    question : STRINGLITERAL IDENTIFIER ':' TYPE_    (16)
+
+    STRINGLITERAL reduce 16
+    $end reduce 16
+    '}' reduce 16
+    IF reduce 16
+    . error
+
+state 71 (entry on expression)
+    comparison : expression_EQ expression    (25)
+    comparison : expression_NEQ expression    (26)
+    comparison : expression_'>' expression    (27)
+    comparison : expression_'<' expression    (28)
+    comparison : expression_LEQ expression    (29)
+    logical : expression_AND expression    (33)
+    logical : expression_OR expression    (34)
+    logical : expression_'^' expression    (35)
+    question : STRINGLITERAL IDENTIFIER '=' expression_    (17)
+    arithmetic : expression_'*' expression    (36)
+    arithmetic : expression_'/' expression    (37)
+    arithmetic : expression_'+' expression    (38)
+    arithmetic : expression_'-' expression    (39)
+
+    AND shift 26
+    EQ shift 27
+    LEQ shift 28
+    NEQ shift 29
+    OR shift 30
+    '*' shift 31
+    '+' shift 32
+    '-' shift 33
+    '/' shift 34
+    '<' shift 35
+    '>' shift 36
+    '^' shift 37
+    STRINGLITERAL reduce 17
+    $end reduce 17
+    '}' reduce 17
+    IF reduce 17
+    . error
+
+state 72 (entry on '}')
+    closedstatement : IF expression '{' closedstatement '}'_ELSE '{' closedstatement '}'    (14)
+
+    ELSE shift 74
+    . error
+
+73: shift/reduce conflict (shift 19 and red'n 18) on IF
+73: shift/reduce conflict (shift 40 and red'n 18) on STRINGLITERAL
+state 73 (entry on '{')
+    openstatement : IF '(' expression ')' '{'_statements '}'    (11)
+    openstatement : IF '(' expression ')' '{'_closedstatement '}' ELSE '{' openstatement '}'    (12)
+    question : _    (18)
+
+    IF shift 19
+    STRINGLITERAL shift 40
+    '}' reduce 18
+    . error
+
+    closedstatement goto 75
+    openstatement goto 8
+    question goto 9
+    simplestatement goto 11
+    statement goto 12
+    statements goto 76
+
+state 74 (entry on ELSE)
+    closedstatement : IF expression '{' closedstatement '}' ELSE_'{' closedstatement '}'    (14)
+
+    '{' shift 77
+    . error
+
+75: shift/reduce conflict (shift 78 and red'n 9) on '}'
+state 75 (entry on closedstatement)
+    openstatement : IF '(' expression ')' '{' closedstatement_'}' ELSE '{' openstatement '}'    (12)
+    statement : closedstatement_    (9)
+
+    '}' shift 78
+    STRINGLITERAL reduce 9
+    IF reduce 9
+    . error
+
+76: shift/reduce conflict (shift 19 and red'n 13) on IF
+76: shift/reduce conflict (shift 40 and red'n 13) on STRINGLITERAL
+76: shift/reduce conflict (shift 79 and red'n 13) on '}'
+76: shift/reduce conflict (shift 19 and red'n 18) on IF
+76: shift/reduce conflict (shift 40 and red'n 18) on STRINGLITERAL
+76: shift/reduce conflict (shift 79 and red'n 18) on '}'
+state 76 (entry on statements)
+    closedstatement : statements_    (13)
+    openstatement : IF '(' expression ')' '{' statements_'}'    (11)
+    question : _    (18)
+    statements : statements_statement    (6)
+
+    IF shift 19
+    STRINGLITERAL shift 40
+    '}' shift 79
+    . error
+
+    closedstatement goto 2
+    openstatement goto 8
+    question goto 9
+    simplestatement goto 11
+    statement goto 38
+    statements goto 39
+
+77: shift/reduce conflict (shift 19 and red'n 18) on IF
+77: shift/reduce conflict (shift 40 and red'n 18) on STRINGLITERAL
+state 77 (entry on '{')
+    closedstatement : IF expression '{' closedstatement '}' ELSE '{'_closedstatement '}'    (14)
+    question : _    (18)
+
+    IF shift 19
+    STRINGLITERAL shift 40
+    '}' reduce 18
+    . error
+
+    closedstatement goto 80
+    openstatement goto 8
+    question goto 9
+    simplestatement goto 11
+    statement goto 12
+    statements goto 39
+
+state 78 (entry on '}')
+    openstatement : IF '(' expression ')' '{' closedstatement '}'_ELSE '{' openstatement '}'    (12)
+
+    ELSE shift 81
+    . error
+
+state 79 (entry on '}')
+    openstatement : IF '(' expression ')' '{' statements '}'_    (11)
+
+    STRINGLITERAL reduce 11
+    $end reduce 11
+    '}' reduce 11
+    IF reduce 11
+    . error
+
+80: shift/reduce conflict (shift 82 and red'n 9) on '}'
+state 80 (entry on closedstatement)
+    closedstatement : IF expression '{' closedstatement '}' ELSE '{' closedstatement_'}'    (14)
+    statement : closedstatement_    (9)
+
+    '}' shift 82
+    STRINGLITERAL reduce 9
+    IF reduce 9
+    . error
+
+state 81 (entry on ELSE)
+    openstatement : IF '(' expression ')' '{' closedstatement '}' ELSE_'{' openstatement '}'    (12)
+
+    '{' shift 83
+    . error
+
+state 82 (entry on '}')
+    closedstatement : IF expression '{' closedstatement '}' ELSE '{' closedstatement '}'_    (14)
+
+    STRINGLITERAL reduce 14
+    $end reduce 14
+    '}' reduce 14
+    IF reduce 14
+    . error
+
+state 83 (entry on '{')
+    openstatement : IF '(' expression ')' '{' closedstatement '}' ELSE '{'_openstatement '}'    (12)
+
+    IF shift 85
+    . error
+
+    openstatement goto 84
+
+state 84 (entry on openstatement)
+    openstatement : IF '(' expression ')' '{' closedstatement '}' ELSE '{' openstatement_'}'    (12)
+
+    '}' shift 86
+    . error
+
+state 85 (entry on IF)
+    openstatement : IF_'(' expression ')' '{' statements '}'    (11)
+    openstatement : IF_'(' expression ')' '{' closedstatement '}' ELSE '{' openstatement '}'    (12)
+
+    '(' shift 87
+    . error
+
+state 86 (entry on '}')
+    openstatement : IF '(' expression ')' '{' closedstatement '}' ELSE '{' openstatement '}'_    (12)
+
+    STRINGLITERAL reduce 12
+    $end reduce 12
+    '}' reduce 12
+    IF reduce 12
+    . error
+
+state 87 (entry on '(')
+    openstatement : IF '('_expression ')' '{' statements '}'    (11)
+    openstatement : IF '('_expression ')' '{' closedstatement '}' ELSE '{' openstatement '}'    (12)
+
+    BOOLEANLITERAL shift 16
+    IDENTIFIER shift 18
+    NUMBERLITERAL shift 20
+    '!' shift 22
+    '(' shift 23
+    '+' shift 24
+    '-' shift 25
+    STRINGLITERAL shift 43
+    . error
+
+    comparison goto 3
+    expression goto 88
+    logical goto 6
+    simple goto 10
+    arithmetic goto 14
+    unary goto 15
+
+state 88 (entry on expression)
+    comparison : expression_EQ expression    (25)
+    comparison : expression_NEQ expression    (26)
+    comparison : expression_'>' expression    (27)
+    comparison : expression_'<' expression    (28)
+    comparison : expression_LEQ expression    (29)
+    logical : expression_AND expression    (33)
+    logical : expression_OR expression    (34)
+    logical : expression_'^' expression    (35)
+    openstatement : IF '(' expression_')' '{' statements '}'    (11)
+    openstatement : IF '(' expression_')' '{' closedstatement '}' ELSE '{' openstatement '}'    (12)
+    arithmetic : expression_'*' expression    (36)
+    arithmetic : expression_'/' expression    (37)
+    arithmetic : expression_'+' expression    (38)
+    arithmetic : expression_'-' expression    (39)
+
+    AND shift 26
+    EQ shift 27
+    LEQ shift 28
+    NEQ shift 29
+    OR shift 30
+    '*' shift 31
+    '+' shift 32
+    '-' shift 33
+    '/' shift 34
+    '<' shift 35
+    '>' shift 36
+    '^' shift 37
+    ')' shift 89
+    . error
+
+state 89 (entry on ')')
+    openstatement : IF '(' expression ')'_'{' statements '}'    (11)
+    openstatement : IF '(' expression ')'_'{' closedstatement '}' ELSE '{' openstatement '}'    (12)
+
+    '{' shift 73
+    . error
+
+35 terminals, 15 nonterminals;
+43 grammar rules, 90 states;
+82 shift/reduce and 10 reduce/reduce conflicts reported.

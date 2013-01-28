@@ -1,0 +1,16 @@
+package org.uva.sea.ql.ast.types;
+
+import org.uva.sea.ql.ast.*;
+
+public class Bool extends Type{
+	private final boolean value;
+	
+	public Bool( boolean value){
+		this.value=value;
+	}
+	
+	public boolean isValue() {
+		return value;
+	}
+
+}

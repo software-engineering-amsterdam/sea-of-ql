@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="QL" default="run">
+
+    <property name="src" value="src"/>
+    <property name="test" value="test"/>
+	<property name="generated" value="generated"/>
+    <property name="build.classes.src" value="build/classes/src"/>
+    <property name="build.classes.test" value="build/classes/test"/>
+    <property name="build.reports" value="build/reports"/>
+
+    <path id="cp.src">
+        <pathelement location="${build.classes.src}/"/>
+        <fileset dir="lib">
+            <include name="*.jar"/>
+        </fileset>
+    </path>
+
+    <path id="cp.test">
+        <pathelement location="${build.classes.test}"/>
+        <fileset dir="lib-build">
+            <include name="*.jar"/>
+        </fileset>
+    </path>
+
+    <target name="clean">
+        <delete dir="${generated}"/>
+        <delete dir="${build.classes.src}"/>
+        <delete dir="${build.classes.test}"/>
+        <delete dir="${build.reports}"/>
+
+        <mkdir dir="${generated}"/>
+        <mkdir dir="${build.classes.src}"/>
+        <mkdir dir="${build.classes.test}"/>
+        <mkdir dir="${build.reports}"/>
+    </target>
+
+    <target name="generate" depends="clean">
+        <echo>Generating the Lexer and Parser...</echo>
+        <java classname="org.antlr.Tool" fork="true" failonerror="true">
+            <arg value="-fo"/>
+            <arg value="${generated}/org/uva/sea/ql/parser/antlr"/>
+            <arg value="${src}/org/uva/sea/ql/parser/antlr/QL.g"/>
+            <classpath refid="cp.src"/>
+        </java>
+    </target>
+
+    <target name="compile" depends="generate">
+        <javac destdir="${build.classes.src}" includeantruntime="false">
+            <src path="${src}"/>
+            <src path="${generated}"/>
+            <classpath refid="cp.src"/>
+        </javac>
+    </target>
+
+    <target name="run" depends="compile">
+        <echo>Running the main class...</echo>
+        <java classname="org.uva.sea.ql.parser.antlr.ANTLRParser">
+            <classpath refid="cp.src"/>
+        </java>
+    </target>
+
+    <target name="compile-test" depends="compile">
+        <javac destdir="${build.classes.test}" includeantruntime="false">
+            <src path="${test}"/>
+            <classpath refid="cp.src"/>
+            <classpath refid="cp.test"/>
+        </javac>
+    </target>
+
+    <target name="run-test" depends="compile-test">
+        <junit printsummary="yes" haltonfailure="no" fork="true">
+            <formatter type="brief"/>
+            <classpath refid="cp.src"/>
+            <classpath refid="cp.test"/>
+            <batchtest fork="yes" todir="${build.reports}">
+                <fileset dir="${test}">
+                    <include name="**/*Test*.java"/>
+                </fileset>
+            </batchtest>
+        </junit>
+    </target>
+
+</project>

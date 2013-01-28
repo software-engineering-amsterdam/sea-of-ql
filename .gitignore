@@ -2,4 +2,9 @@ kemi/bin/*
 vkomsiyski/bin/*
 *~ # Temporary files
 *.class # Compiled Java
-
+.DS_Store
+/PhilippDarkow/.metadata/*
+/PhilippDarkow/.metadata/.plugin
+/prototype/*
+~/Development/Workspace/sea-of-ql/yosuf/bin/*
+yosuf/bin/*

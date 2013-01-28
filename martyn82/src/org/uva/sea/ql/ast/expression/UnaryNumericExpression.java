@@ -1,0 +1,30 @@
+package org.uva.sea.ql.ast.expression;
+
+import java.util.Map;
+
+import org.uva.sea.ql.ast.type.Type;
+import org.uva.sea.ql.visitor.IExpressionVisitor;
+
+/**
+ * Represents a unary numerical expression.
+ */
+abstract public class UnaryNumericExpression extends UnaryExpression {
+	/**
+	 * Constructs a new unary numerical expression.
+	 *
+	 * @param expression The expression.
+	 */
+	protected UnaryNumericExpression( Expression expression ) {
+		super( expression );
+	}
+
+	@Override
+	public <T> T accept( IExpressionVisitor<T> visitor ) {
+		return visitor.visit( this );
+	}
+
+	@Override
+	public Type typeOf( Map<Ident, Type> types ) {
+		return new org.uva.sea.ql.ast.type.Number();
+	}
+}

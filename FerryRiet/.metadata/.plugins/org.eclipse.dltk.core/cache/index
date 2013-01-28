@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="ASCII"?>
+<cache:CacheIndex xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:cache="http://eclipse.org/dltk/cache_model" lastIndex="262" environment="org.eclipse.dltk.core.environment.localEnvironment">
+  <entries path="D:/Users/Ferry/Desktop/sea-of-ql/FerryRiet/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g" timestamp="1358868137454" lastAccessTime="1359288749559">
+    <attributes name="indexed" location="2838196607/1616698823/255.idx"/>
+  </entries>
+</cache:CacheIndex>
