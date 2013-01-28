@@ -25,7 +25,7 @@ public abstract class Unary extends Expr{
 		ArrayList<Message> errors = new ArrayList<Message>();
 		Type type = expr.typeOf(typeEnv);
 		if(!(permittedTypes.isCompatibleTo(type)))
-			errors.add(new Error(type.getClass().getSimpleName() + " is not compatible. In " + getName(this)));
+			errors.add(new Error(type.getClass().getSimpleName() + " is not compatible. In " + getSimpleName(this)));
 		return errors;			
 	}
 }

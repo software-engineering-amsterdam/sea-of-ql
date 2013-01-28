@@ -31,7 +31,6 @@ public class If extends Statement{
 	@Override
 	public List<Message> checkType(Map<Ident, Type> typeEnv) {
 		ArrayList<Message> errors = new ArrayList<Message>();
-		Type condType = condition.typeOf(typeEnv);
 		if(!(condition.typeOf(typeEnv).isCompatibleToBool())){
 			errors.add(new Error("Condition does not resolve to Bool"));
 		}

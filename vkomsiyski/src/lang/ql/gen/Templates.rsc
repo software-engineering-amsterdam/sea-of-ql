@@ -82,7 +82,7 @@ public str addBody3() = "
 	
 	
 public str addBody4() = "	
-
+		System.out.println(obj);
 		PrintWriter out = null;
 		try{
 			out = new PrintWriter(new FileWriter(\"form.answers\")); 
@@ -92,6 +92,7 @@ public str addBody4() = "
   		} finally {
 			out.close();
 		}
+		QApplication.quit();
 	}
 }
 ";

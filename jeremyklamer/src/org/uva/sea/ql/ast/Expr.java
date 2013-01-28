@@ -11,7 +11,7 @@ public abstract class Expr implements ASTNode {
 	
 	protected Type permittedTypes;
 	
-	protected static String getName(Object e) { 
+	protected static String getSimpleName(Object e) { 
 		return e.getClass().getSimpleName();
 	}
 

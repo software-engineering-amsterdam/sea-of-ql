@@ -1,4 +1,4 @@
-package org.uva.sea.ql.ast.typechecking;
+package org.uva.sea.ql.typechecking;
 
 import org.uva.sea.ql.ast.IStatementVisitor;
 import org.uva.sea.ql.ast.statements.ComputedQuestion;

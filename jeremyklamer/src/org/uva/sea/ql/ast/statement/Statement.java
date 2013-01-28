@@ -12,4 +12,7 @@ public abstract class Statement implements ASTNode{
 
 	public abstract List<Message> checkType (Map<Ident, Type> typeEnv);
 	
+	protected static String getSimpleName(Object e) { 
+		return e.getClass().getSimpleName();
+	}
 }

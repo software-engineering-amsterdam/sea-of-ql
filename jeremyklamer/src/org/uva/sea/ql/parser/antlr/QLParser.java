@@ -1,4 +1,4 @@
-// $ANTLR 3.4 C:\\Users\\Jeremy\\Documents\\GitHub\\sea-of-ql\\jeremyklamer\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g 2013-01-28 14:52:35
+// $ANTLR 3.4 C:\\Users\\Jeremy\\Documents\\GitHub\\sea-of-ql\\jeremyklamer\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g 2013-01-28 16:43:02
 
 package org.uva.sea.ql.parser.antlr;
 import org.uva.sea.ql.ast.*;
@@ -16,7 +16,7 @@ import java.util.HashMap;
 @SuppressWarnings({"all", "warnings", "unchecked"})
 public class QLParser extends Parser {
     public static final String[] tokenNames = new String[] {
-        "<invalid>", "<EOR>", "<DOWN>", "<UP>", "BOOL", "COMMENT", "Ident", "Int", "String", "WS", "'!'", "'!='", "'&&'", "'('", "')'", "'*'", "'+'", "'-'", "'/'", "':'", "'<'", "'<='", "'=='", "'>'", "'>='", "'boolean'", "'else'", "'form'", "'if'", "'money'", "'money('", "'{'", "'||'", "'}'"
+        "<invalid>", "<EOR>", "<DOWN>", "<UP>", "BOOL", "COMMENT", "Ident", "Int", "String", "WS", "'!'", "'!='", "'&&'", "'('", "')'", "'*'", "'+'", "'-'", "'/'", "':'", "'<'", "'<='", "'=='", "'>'", "'>='", "'boolean'", "'else'", "'form'", "'if'", "'money'", "'string'", "'{'", "'||'", "'}'"
     };
 
     public static final int EOF=-1;
@@ -64,7 +64,7 @@ public class QLParser extends Parser {
     }
     public QLParser(TokenStream input, RecognizerSharedState state) {
         super(input, state);
-        this.state.ruleMemo = new HashMap[40+1];
+        this.state.ruleMemo = new HashMap[41+1];
          
 
     }
@@ -1225,7 +1225,7 @@ public class QLParser extends Parser {
 
 
     // $ANTLR start "question"
-    // C:\\Users\\Jeremy\\Documents\\GitHub\\sea-of-ql\\jeremyklamer\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:113:1: question returns [Question result] : Ident ':' String returnType ;
+    // C:\\Users\\Jeremy\\Documents\\GitHub\\sea-of-ql\\jeremyklamer\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:113:1: question returns [Question result] : ( Ident ':' String returnType '(' orExpr ')' | Ident ':' String returnType );
     public final Question question() throws RecognitionException {
         Question result = null;
 
@@ -1233,31 +1233,177 @@ public class QLParser extends Parser {
 
         Token Ident13=null;
         Token String14=null;
+        Token Ident17=null;
+        Token String18=null;
         Type returnType15 =null;
+
+        Expr orExpr16 =null;
+
+        Type returnType19 =null;
 
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 12) ) { return result; }
 
-            // C:\\Users\\Jeremy\\Documents\\GitHub\\sea-of-ql\\jeremyklamer\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:114:5: ( Ident ':' String returnType )
-            // C:\\Users\\Jeremy\\Documents\\GitHub\\sea-of-ql\\jeremyklamer\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:114:7: Ident ':' String returnType
-            {
-            Ident13=(Token)match(input,Ident,FOLLOW_Ident_in_question690); if (state.failed) return result;
+            // C:\\Users\\Jeremy\\Documents\\GitHub\\sea-of-ql\\jeremyklamer\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:114:5: ( Ident ':' String returnType '(' orExpr ')' | Ident ':' String returnType )
+            int alt13=2;
+            int LA13_0 = input.LA(1);
 
-            match(input,19,FOLLOW_19_in_question692); if (state.failed) return result;
+            if ( (LA13_0==Ident) ) {
+                int LA13_1 = input.LA(2);
 
-            String14=(Token)match(input,String,FOLLOW_String_in_question694); if (state.failed) return result;
+                if ( (LA13_1==19) ) {
+                    int LA13_2 = input.LA(3);
 
-            pushFollow(FOLLOW_returnType_in_question696);
-            returnType15=returnType();
+                    if ( (LA13_2==String) ) {
+                        switch ( input.LA(4) ) {
+                        case 25:
+                            {
+                            int LA13_4 = input.LA(5);
 
-            state._fsp--;
-            if (state.failed) return result;
+                            if ( (LA13_4==13) ) {
+                                alt13=1;
+                            }
+                            else if ( (LA13_4==EOF||LA13_4==Ident||LA13_4==28||LA13_4==33) ) {
+                                alt13=2;
+                            }
+                            else {
+                                if (state.backtracking>0) {state.failed=true; return result;}
+                                NoViableAltException nvae =
+                                    new NoViableAltException("", 13, 4, input);
 
-            if ( state.backtracking==0 ) {result = new Question(new Ident((Ident13!=null?Ident13.getText():null)), (String14!=null?String14.getText():null), returnType15);}
+                                throw nvae;
+
+                            }
+                            }
+                            break;
+                        case 29:
+                            {
+                            int LA13_5 = input.LA(5);
+
+                            if ( (LA13_5==13) ) {
+                                alt13=1;
+                            }
+                            else if ( (LA13_5==EOF||LA13_5==Ident||LA13_5==28||LA13_5==33) ) {
+                                alt13=2;
+                            }
+                            else {
+                                if (state.backtracking>0) {state.failed=true; return result;}
+                                NoViableAltException nvae =
+                                    new NoViableAltException("", 13, 5, input);
+
+                                throw nvae;
+
+                            }
+                            }
+                            break;
+                        case 30:
+                            {
+                            int LA13_6 = input.LA(5);
+
+                            if ( (LA13_6==13) ) {
+                                alt13=1;
+                            }
+                            else if ( (LA13_6==EOF||LA13_6==Ident||LA13_6==28||LA13_6==33) ) {
+                                alt13=2;
+                            }
+                            else {
+                                if (state.backtracking>0) {state.failed=true; return result;}
+                                NoViableAltException nvae =
+                                    new NoViableAltException("", 13, 6, input);
+
+                                throw nvae;
+
+                            }
+                            }
+                            break;
+                        default:
+                            if (state.backtracking>0) {state.failed=true; return result;}
+                            NoViableAltException nvae =
+                                new NoViableAltException("", 13, 3, input);
+
+                            throw nvae;
+
+                        }
+
+                    }
+                    else {
+                        if (state.backtracking>0) {state.failed=true; return result;}
+                        NoViableAltException nvae =
+                            new NoViableAltException("", 13, 2, input);
+
+                        throw nvae;
+
+                    }
+                }
+                else {
+                    if (state.backtracking>0) {state.failed=true; return result;}
+                    NoViableAltException nvae =
+                        new NoViableAltException("", 13, 1, input);
+
+                    throw nvae;
+
+                }
+            }
+            else {
+                if (state.backtracking>0) {state.failed=true; return result;}
+                NoViableAltException nvae =
+                    new NoViableAltException("", 13, 0, input);
+
+                throw nvae;
 
             }
+            switch (alt13) {
+                case 1 :
+                    // C:\\Users\\Jeremy\\Documents\\GitHub\\sea-of-ql\\jeremyklamer\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:114:7: Ident ':' String returnType '(' orExpr ')'
+                    {
+                    Ident13=(Token)match(input,Ident,FOLLOW_Ident_in_question690); if (state.failed) return result;
 
+                    match(input,19,FOLLOW_19_in_question692); if (state.failed) return result;
+
+                    String14=(Token)match(input,String,FOLLOW_String_in_question694); if (state.failed) return result;
+
+                    pushFollow(FOLLOW_returnType_in_question696);
+                    returnType15=returnType();
+
+                    state._fsp--;
+                    if (state.failed) return result;
+
+                    match(input,13,FOLLOW_13_in_question698); if (state.failed) return result;
+
+                    pushFollow(FOLLOW_orExpr_in_question700);
+                    orExpr16=orExpr();
+
+                    state._fsp--;
+                    if (state.failed) return result;
+
+                    match(input,14,FOLLOW_14_in_question702); if (state.failed) return result;
+
+                    if ( state.backtracking==0 ) {result = new ComputedQuestion(new Ident((Ident13!=null?Ident13.getText():null)), (String14!=null?String14.getText():null), returnType15, orExpr16);}
+
+                    }
+                    break;
+                case 2 :
+                    // C:\\Users\\Jeremy\\Documents\\GitHub\\sea-of-ql\\jeremyklamer\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:115:7: Ident ':' String returnType
+                    {
+                    Ident17=(Token)match(input,Ident,FOLLOW_Ident_in_question712); if (state.failed) return result;
+
+                    match(input,19,FOLLOW_19_in_question714); if (state.failed) return result;
+
+                    String18=(Token)match(input,String,FOLLOW_String_in_question716); if (state.failed) return result;
+
+                    pushFollow(FOLLOW_returnType_in_question718);
+                    returnType19=returnType();
+
+                    state._fsp--;
+                    if (state.failed) return result;
+
+                    if ( state.backtracking==0 ) {result = new Question(new Ident((Ident17!=null?Ident17.getText():null)), (String18!=null?String18.getText():null), returnType19);}
+
+                    }
+                    break;
+
+            }
         }
         catch (RecognitionException re) {
             reportError(re);
@@ -1276,78 +1422,67 @@ public class QLParser extends Parser {
 
 
     // $ANTLR start "returnType"
-    // C:\\Users\\Jeremy\\Documents\\GitHub\\sea-of-ql\\jeremyklamer\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:117:1: returnType returns [Type result] : ( 'boolean' | 'money(' orExpr ')' | 'money' );
+    // C:\\Users\\Jeremy\\Documents\\GitHub\\sea-of-ql\\jeremyklamer\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:118:1: returnType returns [Type result] : ( 'boolean' | 'money' | 'string' );
     public final Type returnType() throws RecognitionException {
         Type result = null;
 
         int returnType_StartIndex = input.index();
 
-        Expr orExpr16 =null;
-
-
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 13) ) { return result; }
 
-            // C:\\Users\\Jeremy\\Documents\\GitHub\\sea-of-ql\\jeremyklamer\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:118:5: ( 'boolean' | 'money(' orExpr ')' | 'money' )
-            int alt13=3;
+            // C:\\Users\\Jeremy\\Documents\\GitHub\\sea-of-ql\\jeremyklamer\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:119:5: ( 'boolean' | 'money' | 'string' )
+            int alt14=3;
             switch ( input.LA(1) ) {
             case 25:
                 {
-                alt13=1;
-                }
-                break;
-            case 30:
-                {
-                alt13=2;
+                alt14=1;
                 }
                 break;
             case 29:
                 {
-                alt13=3;
+                alt14=2;
+                }
+                break;
+            case 30:
+                {
+                alt14=3;
                 }
                 break;
             default:
                 if (state.backtracking>0) {state.failed=true; return result;}
                 NoViableAltException nvae =
-                    new NoViableAltException("", 13, 0, input);
+                    new NoViableAltException("", 14, 0, input);
 
                 throw nvae;
 
             }
 
-            switch (alt13) {
+            switch (alt14) {
                 case 1 :
-                    // C:\\Users\\Jeremy\\Documents\\GitHub\\sea-of-ql\\jeremyklamer\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:118:7: 'boolean'
+                    // C:\\Users\\Jeremy\\Documents\\GitHub\\sea-of-ql\\jeremyklamer\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:119:7: 'boolean'
                     {
-                    match(input,25,FOLLOW_25_in_returnType724); if (state.failed) return result;
+                    match(input,25,FOLLOW_25_in_returnType746); if (state.failed) return result;
 
                     if ( state.backtracking==0 ) { result = new BoolType(); }
 
                     }
                     break;
                 case 2 :
-                    // C:\\Users\\Jeremy\\Documents\\GitHub\\sea-of-ql\\jeremyklamer\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:119:7: 'money(' orExpr ')'
+                    // C:\\Users\\Jeremy\\Documents\\GitHub\\sea-of-ql\\jeremyklamer\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:120:7: 'money'
                     {
-                    match(input,30,FOLLOW_30_in_returnType734); if (state.failed) return result;
+                    match(input,29,FOLLOW_29_in_returnType756); if (state.failed) return result;
 
-                    pushFollow(FOLLOW_orExpr_in_returnType736);
-                    orExpr16=orExpr();
-
-                    state._fsp--;
-                    if (state.failed) return result;
-
-                    match(input,14,FOLLOW_14_in_returnType738); if (state.failed) return result;
-
-                    if ( state.backtracking==0 ) {result = new Money(orExpr16);}
+                    if ( state.backtracking==0 ) {result = new Money();}
 
                     }
                     break;
                 case 3 :
-                    // C:\\Users\\Jeremy\\Documents\\GitHub\\sea-of-ql\\jeremyklamer\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:120:7: 'money'
+                    // C:\\Users\\Jeremy\\Documents\\GitHub\\sea-of-ql\\jeremyklamer\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:121:7: 'string'
                     {
-                    match(input,29,FOLLOW_29_in_returnType749); if (state.failed) return result;
+                    match(input,30,FOLLOW_30_in_returnType767); if (state.failed) return result;
 
-                    if ( state.backtracking==0 ) {result = new Money();}
+                    if ( state.backtracking==0 ) {result = new StringType();}
 
                     }
                     break;
@@ -1462,12 +1597,17 @@ public class QLParser extends Parser {
     public static final BitSet FOLLOW_Ident_in_question690 = new BitSet(new long[]{0x0000000000080000L});
     public static final BitSet FOLLOW_19_in_question692 = new BitSet(new long[]{0x0000000000000100L});
     public static final BitSet FOLLOW_String_in_question694 = new BitSet(new long[]{0x0000000062000000L});
-    public static final BitSet FOLLOW_returnType_in_question696 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_25_in_returnType724 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_30_in_returnType734 = new BitSet(new long[]{0x00000000000325D0L});
-    public static final BitSet FOLLOW_orExpr_in_returnType736 = new BitSet(new long[]{0x0000000000004000L});
-    public static final BitSet FOLLOW_14_in_returnType738 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_29_in_returnType749 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_returnType_in_question696 = new BitSet(new long[]{0x0000000000002000L});
+    public static final BitSet FOLLOW_13_in_question698 = new BitSet(new long[]{0x00000000000325D0L});
+    public static final BitSet FOLLOW_orExpr_in_question700 = new BitSet(new long[]{0x0000000000004000L});
+    public static final BitSet FOLLOW_14_in_question702 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_Ident_in_question712 = new BitSet(new long[]{0x0000000000080000L});
+    public static final BitSet FOLLOW_19_in_question714 = new BitSet(new long[]{0x0000000000000100L});
+    public static final BitSet FOLLOW_String_in_question716 = new BitSet(new long[]{0x0000000062000000L});
+    public static final BitSet FOLLOW_returnType_in_question718 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_25_in_returnType746 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_29_in_returnType756 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_30_in_returnType767 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_ifThenStatement_in_synpred22_QL520 = new BitSet(new long[]{0x0000000000000002L});
 
 }

@@ -116,8 +116,8 @@ question returns [Question result]
     
 returnType returns [Type result] //TODO String ,boolen met or expressie, orexpr hoort bij de question. 
     : 'boolean' { $result = new BoolType(); }
-    | 'money(' orExpr ')' {$result = new Money($orExpr.result);} //Fill in actual numbers. 
     | 'money' {$result = new Money();} 
+    | 'string'{$result = new StringType();}
     ;
     
 BOOL	
