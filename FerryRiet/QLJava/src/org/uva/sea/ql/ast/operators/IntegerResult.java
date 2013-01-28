@@ -31,13 +31,16 @@ public class IntegerResult implements ExpressionResult {
 
 	@Override
 	public BigDecimal getMoneyValue() {
-		// TODO Auto-generated method stub
-		return null;
+		return new BigDecimal(value);
 	}
 
 	@Override
 	public boolean getBooleanValue() {
-		// TODO Auto-generated method stub
-		return false;
+		return value == 0;
+	}
+
+	@Override
+	public String getStringValue() {
+		return value.toString();
 	}
 }

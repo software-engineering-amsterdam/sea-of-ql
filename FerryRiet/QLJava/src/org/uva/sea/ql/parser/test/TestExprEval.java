@@ -11,7 +11,8 @@ public class TestExprEval extends TestCase {
 	@Test
 	public void testExprEval() throws Exception {
 		try {
-			assertEquals(parser.expr("10 + 10").eval(null).getValue(), 10 + 10);
+			assertEquals(parser.expr("10 < 10").eval(null).getBooleanValue(), false);
+			assertEquals(parser.expr("10 < 11").eval(null).getBooleanValue(), true);
 			assertEquals(parser.expr("10 + 11").eval(null).getValue(), 10 + 11);
 			assertEquals(parser.expr("10 + 100").eval(null).getValue(),
 					10 + 100);

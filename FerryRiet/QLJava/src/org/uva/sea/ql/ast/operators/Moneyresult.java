@@ -40,4 +40,10 @@ public class Moneyresult implements ExpressionResult {
 	public boolean getBooleanValue() {
 		return false;
 	}
+
+	@Override
+	public String getStringValue() {
+		// TODO Auto-generated method stub
+		return value.toString();
+	}
 }

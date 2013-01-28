@@ -8,7 +8,9 @@ import org.uva.sea.ql.ast.Statement;
 import org.uva.sea.ql.ast.nodevisitor.Visitor;
 import org.uva.sea.ql.ast.nodevisitor.VisitorResult;
 import org.uva.sea.ql.ast.types.BooleanType;
+import org.uva.sea.ql.ast.types.MoneyType;
 import org.uva.sea.ql.ast.types.TypeDescription;
+
 
 public class LT extends BinExpr {
 
@@ -28,7 +30,13 @@ public class LT extends BinExpr {
 
 	@Override
 	public ExpressionResult eval(HashMap<String, Statement> symbolMap) {
-		// TODO Auto-generated method stub
-		return null;
+		// TODO and check type
+		ExpressionResult leftHandresult = getExprLeftHand().eval(symbolMap);
+		ExpressionResult rightHandResult = getExprRightHand().eval(symbolMap);
+
+		if ( leftHandresult.typeOf().isCompatibleTo(new MoneyType()) && leftHandresult.typeOf().isCompatibleTo(new MoneyType())  ) {
+			return new BooleanResult(leftHandresult.getMoneyValue().compareTo(rightHandResult.getMoneyValue()) == -1 ) ;
+		}
+		return new BooleanResult(leftHandresult.getValue() < rightHandResult.getValue());
 	}
 }

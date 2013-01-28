@@ -2,9 +2,8 @@ package org.uva.sea.ql.ast.operators;
 
 import java.math.BigDecimal;
 
-import org.uva.sea.ql.ast.types.TypeDescription;
-
 import org.uva.sea.ql.ast.types.BooleanType;
+import org.uva.sea.ql.ast.types.TypeDescription;
 
 public class BooleanResult implements ExpressionResult {
 	private boolean value;
@@ -31,6 +30,12 @@ public class BooleanResult implements ExpressionResult {
 	@Override
 	public boolean getBooleanValue() {
 		return value;
+	}
+
+	@Override
+	public String getStringValue() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
