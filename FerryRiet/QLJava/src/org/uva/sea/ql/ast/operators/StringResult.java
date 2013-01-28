@@ -1,5 +1,7 @@
 package org.uva.sea.ql.ast.operators;
 
+import java.math.BigDecimal;
+
 import org.uva.sea.ql.ast.types.TypeDescription;
 
 import org.uva.sea.ql.ast.types.StringType;
@@ -24,5 +26,23 @@ public class StringResult implements ExpressionResult {
 	@Override
 	public TypeDescription typeOf() {
 		return new StringType();
+	}
+
+	@Override
+	public BigDecimal getMoneyValue() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public boolean getBooleanValue() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public String getStringValue() {
+		// TODO Auto-generated method stub
+		return value;
 	}
 }

@@ -29,4 +29,15 @@ public class Moneyresult implements ExpressionResult {
 	public TypeDescription typeOf() {
 		return new MoneyType();
 	}
+
+	@Override
+	public BigDecimal getMoneyValue() {
+		// TODO Auto-generated method stub
+		return value;
+	}
+
+	@Override
+	public boolean getBooleanValue() {
+		return false;
+	}
 }

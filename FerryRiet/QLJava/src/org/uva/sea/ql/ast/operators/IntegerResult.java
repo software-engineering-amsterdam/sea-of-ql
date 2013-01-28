@@ -1,8 +1,9 @@
 package org.uva.sea.ql.ast.operators;
 
+import java.math.BigDecimal;
+
 import org.uva.sea.ql.ast.types.TypeDescription;
 import org.uva.sea.ql.ast.types.NumeralType;
-
 
 public class IntegerResult implements ExpressionResult {
 	private Integer value;
@@ -25,6 +26,18 @@ public class IntegerResult implements ExpressionResult {
 
 	@Override
 	public TypeDescription typeOf() {
-		return new NumeralType() ;
+		return new NumeralType();
+	}
+
+	@Override
+	public BigDecimal getMoneyValue() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public boolean getBooleanValue() {
+		// TODO Auto-generated method stub
+		return false;
 	}
 }
