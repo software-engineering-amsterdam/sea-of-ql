@@ -2,7 +2,7 @@
 %class QLParser
 %interface QLTokens
 %semantic khosrow.uva.sea.ql.ast.ASTNode 
-%start form
+%start top
 
 %token <IntLiteral> INT
 %token <StringLiteral> STRING_LITERAL
@@ -46,7 +46,7 @@ top		: form					{ formResult = $1; }
 		
 
 form	: FORM IDENT '{' stmts '}'
-								{ result = new Form($2, $4); }					
+								{ $$ = new Form($2, $4); }					
 		;
 
 stmts	: stmts stmt 		    { $$ = new Stmts($1, $2); }
@@ -87,7 +87,7 @@ expr	: '+' expr	%prec UPLUS { $$ = new Pos($2); }
 		| IDENT         		{ $$ = $1; }
 		| STRING_LITERAL		{ $$ = $1; }
 		| MONEY					{ $$ = $1; }
-		| '(' expr ')'		    { $$ = $1; }
+		| '(' expr ')'		    { $$ = $2; }
 		;				
 
 type	: INTEGER				{ $$ = new Int(); }	
@@ -100,10 +100,20 @@ type	: INTEGER				{ $$ = new Int(); }
 %%
 private QLLexer lexer; 
 
-private Form result;
+private Form formResult;
+private Stmt stmtResult;
+private Expr exprResult;
 
-public Form getResult() {
-  return result;
+public Form getFormResult() {
+  return formResult;
+}
+
+public Stmt getStatementResult(){
+	return stmtResult;
+}
+
+public Expr getExpressionResult(){
+	return exprResult;
 }
 
 public QLParser(QLLexer lexer) { 

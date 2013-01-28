@@ -123,7 +123,7 @@ public class QLLexer implements QLTokens {
 			    		nextChar();
 			    		return token = LEQ;
 			    	}
-			    	return '<';
+			    	return token = LT;
 			    }
 			    case '=': { 
 			    	nextChar(); 
@@ -138,7 +138,7 @@ public class QLLexer implements QLTokens {
 			    		nextChar();
 			    		return token = GEQ;
 			    	}
-			    	return token = '>';
+			    	return token = GT;
 			    }
 			    default: {
 			    	if (Character.isDigit(c)) {
