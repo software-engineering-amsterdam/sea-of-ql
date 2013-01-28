@@ -1,6 +1,7 @@
 package org.uva.sea.ql.ast;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import org.uva.sea.ql.ast.type.BoolType;
@@ -31,7 +32,7 @@ public class Bool extends Expr {
 	}
 
 	@Override
-	public ArrayList<String> checkType(Map<Ident, Type> typeEnv) {
-		return new ArrayList<String>(); // Return an empty List. 
+	public List<Error> checkType(Map<Ident, Type> typeEnv) {
+		return new ArrayList<Error>(); // Return an empty List. 
 	}
 }

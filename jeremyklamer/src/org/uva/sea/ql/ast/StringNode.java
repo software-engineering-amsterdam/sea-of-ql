@@ -1,6 +1,7 @@
 package org.uva.sea.ql.ast;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import org.uva.sea.ql.ast.type.StringType;
@@ -31,11 +32,11 @@ public class StringNode extends Expr {
 	}
 
 	@Override
-	public ArrayList<String> checkType(Map<Ident, Type> typeEnv) {
-		ArrayList<String> retVal = new ArrayList<String>();
+	public List<Error> checkType(Map<Ident, Type> typeEnv) {
+		ArrayList<Error> errors = new ArrayList<Error>();
 		Type type = typeOf(typeEnv);
 		if(!(type.isCompatibleToStr()))
-			retVal.add(type + " is not compatible. In " + this.getClass());
-		return retVal;	
+			errors.add(new Error(type + " is not compatible. In " + this.getClass()));
+		return errors;			
 	}
 }

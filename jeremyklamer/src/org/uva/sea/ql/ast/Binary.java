@@ -1,5 +1,11 @@
 package org.uva.sea.ql.ast;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
+import org.uva.sea.ql.ast.type.Type;
+
 
 public abstract class Binary extends Expr {
 
@@ -18,5 +24,26 @@ public abstract class Binary extends Expr {
 	protected Expr getRight(){
 		return right;
 	}
-
+	
+	@Override 
+	public List<Error> checkType(Map<Ident, Type> typeEnv) { // TODO check out double dispatch
+		ArrayList<Error> errors = new ArrayList<Error>();
+		
+		errors.addAll(getLeft().checkType(typeEnv));  
+		errors.addAll(getRight().checkType(typeEnv)); 		
+			
+		Type leftType = getLeft().typeOf(typeEnv);  
+		Type rightType = getRight().typeOf(typeEnv);  
+		
+		// Have to check both ways because int is not compatible to numeric but numeric is compatible to int. 
+		if(!(leftType.isCompatibleTo(rightType) || rightType.isCompatibleTo(leftType)) ){
+			errors.add(new Error(getName(leftType) + " is not compatible with " + getName(rightType) + ". In :" + getName(this)));
+		}
+		else if(!permittedTypes.isCompatibleTo(leftType)){
+			errors.add(new Error(getName(leftType) + " is permitted in :" + getName(this)));
+		}
+		
+		return errors;
+	}
+	
 }
