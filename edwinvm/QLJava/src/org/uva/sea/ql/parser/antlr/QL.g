@@ -6,6 +6,7 @@ options {backtrack=true; memoize=true;}
 package org.uva.sea.ql.parser.antlr;
 import org.uva.sea.ql.ast.*;
 import org.uva.sea.ql.ast.expressions.*;
+import org.uva.sea.ql.ast.questions.*;
 import org.uva.sea.ql.ast.values.*;
 import org.uva.sea.ql.ast.types.*;
 }
@@ -15,32 +16,38 @@ import org.uva.sea.ql.ast.types.*;
 package org.uva.sea.ql.parser.antlr;
 }
 
-form: primary+;
+form returns [Form result]
+    :   'form' Ident '{' body=formStatement* '}' { $result = new Form(new Ident($Ident.text), $body.result); }
+    ;
 
 formStatement returns [FormStatement result]
-    :   question         { $result = $question.result; }
-    |   computedQuestion { $result = $computedQuestion.result; }
-    |   conditionBlock   { $result = $conditionBlock.result; }
+    :   question       { $result = $question.result; }
+    |   conditionBlock { $result = $conditionBlock.result; }
     ;
 
 question returns [Question result]
-    :   String Ident ':' t=type { $result = new Question(new org.uva.sea.ql.ast.values.Str($String.text), new Ident($Ident.text), t); }
-    ;
-  
-computedQuestion returns [ComputedQuestion result]
-    :   String Ident '=' e=orExpr { $result = new ComputedQuestion(new org.uva.sea.ql.ast.values.Str($String.text), new Ident($Ident.text), $e.result); }
+    :   String Ident ':' t=type { $result = new AnswerableQuestion(new org.uva.sea.ql.ast.values.Str($String.text), new Ident($Ident.text), t); }
+    |   String Ident '=' e=orExpr { $result = new ComputedQuestion(new org.uva.sea.ql.ast.values.Str($String.text), new Ident($Ident.text), $e.result); }
     ;
 
 conditionBlock returns [ConditionBlock result]
-    :   'if' '(' condition=orExpr ')' '{' ifBody=formStatement '}' 'else' ('{')? elseBody=formStatement ('}')?
+    :   'if' '(' condition=orExpr ')' ifBody=conditionBody 'else' elseBody=conditionBody
         { $result = new ConditionBlock(condition, $ifBody.result, $elseBody.result); }
-    |   'if' '(' x=orExpr ')' '{' (formStatement)* '}'
-        { $result = new ConditionBlock(condition, ifBody); }
+    |   'if' '(' condition=orExpr ')' ifBody=conditionBody
+        { $result = new ConditionBlock(condition, $ifBody.result); }
+    ;
+
+conditionBody returns [FormStatement result]
+    :   '{' body=formStatement '}'  { $result = body; }
+    |   body=formStatement          { $result = body; }
+    |   '{' body=formStatement* '}' { $result = body; }
+    |   body=formStatement*         { $result = body; }
     ;
 
 primary returns [Expr result]
     :   Int    { $result = new org.uva.sea.ql.ast.values.Int(Integer.parseInt($Int.text)); }
     |   Bool   { $result = new org.uva.sea.ql.ast.values.Bool(Boolean.parseBoolean($Bool.text)); }
+    |   Money  { $result = new org.uva.sea.ql.ast.values.Money(Double.parseDouble($Money.text.replace(',', '.'))); }
     |   String { $result = new org.uva.sea.ql.ast.values.Str($String.text); }
     |   Ident  { $result = new Ident($Ident.text); }
     |   '(' x=orExpr ')'{ $result = $x.result; }
@@ -61,7 +68,6 @@ mulExpr returns [Expr result]
     })*
     ;
     
-  
 addExpr returns [Expr result]
     :   lhs=mulExpr { $result=$lhs.result; } ( op=('+' | '-') rhs=mulExpr
     { 
@@ -92,9 +98,10 @@ orExpr returns [Expr result]
     ;
 
 type returns [Type result]
-    :   'integer' { $result = new org.uva.sea.ql.ast.types.Int();    }
-    |   'string'  { $result = new org.uva.sea.ql.ast.types.Str(); }
-    |   'boolean' { $result = new org.uva.sea.ql.ast.types.Bool();   }
+    :   'integer' { $result = new org.uva.sea.ql.ast.types.Int();   }
+    |   'string'  { $result = new org.uva.sea.ql.ast.types.Str();   }
+    |   'boolean' { $result = new org.uva.sea.ql.ast.types.Bool();  }
+    |   'money'   { $result = new org.uva.sea.ql.ast.types.Money(); }
     ;
 
     
@@ -106,6 +113,8 @@ COMMENT: ('/*' .* '*/' | '//') { $channel=HIDDEN; };
 Bool:    ('true'|'false');
 
 Ident:   ('a'..'z'|'A'..'Z')('a'..'z'|'A'..'Z'|'0'..'9'|'_')*;
+
+Money:   (('0'..'9')+ ('.' | ',') ('0'..'9')+);
 
 String:	 ('"' .* '"');
 

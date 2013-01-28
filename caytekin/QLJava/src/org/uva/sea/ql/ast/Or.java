@@ -1,9 +1,9 @@
 package org.uva.sea.ql.ast;
 
-public class Or extends LogOprtn {
+public class Or extends BinaryLogOptn {
 
 	public Or(Expr expr1, Expr expr2){
-		// Or - to be implemented
+		super (expr1, expr2);
 	}
 	
 }

@@ -1,4 +1,4 @@
-// $ANTLR 3.5 C:\\Users\\SliverPente\\workspaceindigo\\QLJAVA\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g 2013-01-21 01:54:42
+// $ANTLR 3.5 C:\\Users\\SliverPente\\workspaceindigo\\QLJAVA\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g 2013-01-26 12:25:59
 
 package org.uva.sea.ql.parser.antlr;
 
@@ -31,6 +31,7 @@ public class QLLexer extends Lexer {
 	public static final int T__30=30;
 	public static final int T__31=31;
 	public static final int T__32=32;
+	public static final int T__33=33;
 	public static final int BoolLiteral=4;
 	public static final int Comment=5;
 	public static final int Ident=6;
@@ -366,10 +367,10 @@ public class QLLexer extends Lexer {
 		try {
 			int _type = T__28;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// C:\\Users\\SliverPente\\workspaceindigo\\QLJAVA\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:21:7: ( 'form' )
-			// C:\\Users\\SliverPente\\workspaceindigo\\QLJAVA\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:21:9: 'form'
+			// C:\\Users\\SliverPente\\workspaceindigo\\QLJAVA\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:21:7: ( 'else' )
+			// C:\\Users\\SliverPente\\workspaceindigo\\QLJAVA\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:21:9: 'else'
 			{
-			match("form"); 
+			match("else"); 
 
 			}
 
@@ -387,10 +388,10 @@ public class QLLexer extends Lexer {
 		try {
 			int _type = T__29;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// C:\\Users\\SliverPente\\workspaceindigo\\QLJAVA\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:22:7: ( 'if' )
-			// C:\\Users\\SliverPente\\workspaceindigo\\QLJAVA\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:22:9: 'if'
+			// C:\\Users\\SliverPente\\workspaceindigo\\QLJAVA\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:22:7: ( 'form' )
+			// C:\\Users\\SliverPente\\workspaceindigo\\QLJAVA\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:22:9: 'form'
 			{
-			match("if"); 
+			match("form"); 
 
 			}
 
@@ -408,10 +409,11 @@ public class QLLexer extends Lexer {
 		try {
 			int _type = T__30;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// C:\\Users\\SliverPente\\workspaceindigo\\QLJAVA\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:23:7: ( '{' )
-			// C:\\Users\\SliverPente\\workspaceindigo\\QLJAVA\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:23:9: '{'
+			// C:\\Users\\SliverPente\\workspaceindigo\\QLJAVA\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:23:7: ( 'if' )
+			// C:\\Users\\SliverPente\\workspaceindigo\\QLJAVA\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:23:9: 'if'
 			{
-			match('{'); 
+			match("if"); 
+
 			}
 
 			state.type = _type;
@@ -428,11 +430,10 @@ public class QLLexer extends Lexer {
 		try {
 			int _type = T__31;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// C:\\Users\\SliverPente\\workspaceindigo\\QLJAVA\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:24:7: ( '||' )
-			// C:\\Users\\SliverPente\\workspaceindigo\\QLJAVA\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:24:9: '||'
+			// C:\\Users\\SliverPente\\workspaceindigo\\QLJAVA\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:24:7: ( '{' )
+			// C:\\Users\\SliverPente\\workspaceindigo\\QLJAVA\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:24:9: '{'
 			{
-			match("||"); 
-
+			match('{'); 
 			}
 
 			state.type = _type;
@@ -449,10 +450,11 @@ public class QLLexer extends Lexer {
 		try {
 			int _type = T__32;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// C:\\Users\\SliverPente\\workspaceindigo\\QLJAVA\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:25:7: ( '}' )
-			// C:\\Users\\SliverPente\\workspaceindigo\\QLJAVA\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:25:9: '}'
+			// C:\\Users\\SliverPente\\workspaceindigo\\QLJAVA\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:25:7: ( '||' )
+			// C:\\Users\\SliverPente\\workspaceindigo\\QLJAVA\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:25:9: '||'
 			{
-			match('}'); 
+			match("||"); 
+
 			}
 
 			state.type = _type;
@@ -464,13 +466,33 @@ public class QLLexer extends Lexer {
 	}
 	// $ANTLR end "T__32"
 
+	// $ANTLR start "T__33"
+	public final void mT__33() throws RecognitionException {
+		try {
+			int _type = T__33;
+			int _channel = DEFAULT_TOKEN_CHANNEL;
+			// C:\\Users\\SliverPente\\workspaceindigo\\QLJAVA\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:26:7: ( '}' )
+			// C:\\Users\\SliverPente\\workspaceindigo\\QLJAVA\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:26:9: '}'
+			{
+			match('}'); 
+			}
+
+			state.type = _type;
+			state.channel = _channel;
+		}
+		finally {
+			// do for sure before leaving
+		}
+	}
+	// $ANTLR end "T__33"
+
 	// $ANTLR start "Ws"
 	public final void mWs() throws RecognitionException {
 		try {
 			int _type = Ws;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// C:\\Users\\SliverPente\\workspaceindigo\\QLJAVA\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:118:5: ( ( ' ' | '\\t' | '\\n' | '\\r' ) )
-			// C:\\Users\\SliverPente\\workspaceindigo\\QLJAVA\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:118:7: ( ' ' | '\\t' | '\\n' | '\\r' )
+			// C:\\Users\\SliverPente\\workspaceindigo\\QLJAVA\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:123:5: ( ( ' ' | '\\t' | '\\n' | '\\r' ) )
+			// C:\\Users\\SliverPente\\workspaceindigo\\QLJAVA\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:123:7: ( ' ' | '\\t' | '\\n' | '\\r' )
 			{
 			if ( (input.LA(1) >= '\t' && input.LA(1) <= '\n')||input.LA(1)=='\r'||input.LA(1)==' ' ) {
 				input.consume();
@@ -497,12 +519,12 @@ public class QLLexer extends Lexer {
 		try {
 			int _type = Comment;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// C:\\Users\\SliverPente\\workspaceindigo\\QLJAVA\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:120:9: ( '/*' ( . )* '*/' )
-			// C:\\Users\\SliverPente\\workspaceindigo\\QLJAVA\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:120:11: '/*' ( . )* '*/'
+			// C:\\Users\\SliverPente\\workspaceindigo\\QLJAVA\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:125:9: ( '/*' ( . )* '*/' )
+			// C:\\Users\\SliverPente\\workspaceindigo\\QLJAVA\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:125:11: '/*' ( . )* '*/'
 			{
 			match("/*"); 
 
-			// C:\\Users\\SliverPente\\workspaceindigo\\QLJAVA\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:120:16: ( . )*
+			// C:\\Users\\SliverPente\\workspaceindigo\\QLJAVA\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:125:16: ( . )*
 			loop1:
 			while (true) {
 				int alt1=2;
@@ -523,7 +545,7 @@ public class QLLexer extends Lexer {
 
 				switch (alt1) {
 				case 1 :
-					// C:\\Users\\SliverPente\\workspaceindigo\\QLJAVA\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:120:16: .
+					// C:\\Users\\SliverPente\\workspaceindigo\\QLJAVA\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:125:16: .
 					{
 					matchAny(); 
 					}
@@ -553,12 +575,12 @@ public class QLLexer extends Lexer {
 		try {
 			int _type = LineComment;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// C:\\Users\\SliverPente\\workspaceindigo\\QLJAVA\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:122:13: ( '//' (~ ( '\\n' | '\\r' ) )* ( '\\r' )? '\\n' )
-			// C:\\Users\\SliverPente\\workspaceindigo\\QLJAVA\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:122:15: '//' (~ ( '\\n' | '\\r' ) )* ( '\\r' )? '\\n'
+			// C:\\Users\\SliverPente\\workspaceindigo\\QLJAVA\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:127:13: ( '//' (~ ( '\\n' | '\\r' ) )* ( '\\r' )? '\\n' )
+			// C:\\Users\\SliverPente\\workspaceindigo\\QLJAVA\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:127:15: '//' (~ ( '\\n' | '\\r' ) )* ( '\\r' )? '\\n'
 			{
 			match("//"); 
 
-			// C:\\Users\\SliverPente\\workspaceindigo\\QLJAVA\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:122:20: (~ ( '\\n' | '\\r' ) )*
+			// C:\\Users\\SliverPente\\workspaceindigo\\QLJAVA\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:127:20: (~ ( '\\n' | '\\r' ) )*
 			loop2:
 			while (true) {
 				int alt2=2;
@@ -587,7 +609,7 @@ public class QLLexer extends Lexer {
 				}
 			}
 
-			// C:\\Users\\SliverPente\\workspaceindigo\\QLJAVA\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:122:34: ( '\\r' )?
+			// C:\\Users\\SliverPente\\workspaceindigo\\QLJAVA\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:127:34: ( '\\r' )?
 			int alt3=2;
 			int LA3_0 = input.LA(1);
 			if ( (LA3_0=='\r') ) {
@@ -595,7 +617,7 @@ public class QLLexer extends Lexer {
 			}
 			switch (alt3) {
 				case 1 :
-					// C:\\Users\\SliverPente\\workspaceindigo\\QLJAVA\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:122:34: '\\r'
+					// C:\\Users\\SliverPente\\workspaceindigo\\QLJAVA\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:127:34: '\\r'
 					{
 					match('\r'); 
 					}
@@ -621,7 +643,7 @@ public class QLLexer extends Lexer {
 		try {
 			int _type = Type;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// C:\\Users\\SliverPente\\workspaceindigo\\QLJAVA\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:124:5: ( 'string' | 'int' | 'money' | 'boolean' )
+			// C:\\Users\\SliverPente\\workspaceindigo\\QLJAVA\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:129:5: ( 'string' | 'int' | 'money' | 'boolean' )
 			int alt4=4;
 			switch ( input.LA(1) ) {
 			case 's':
@@ -651,28 +673,28 @@ public class QLLexer extends Lexer {
 			}
 			switch (alt4) {
 				case 1 :
-					// C:\\Users\\SliverPente\\workspaceindigo\\QLJAVA\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:124:7: 'string'
+					// C:\\Users\\SliverPente\\workspaceindigo\\QLJAVA\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:129:7: 'string'
 					{
 					match("string"); 
 
 					}
 					break;
 				case 2 :
-					// C:\\Users\\SliverPente\\workspaceindigo\\QLJAVA\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:124:18: 'int'
+					// C:\\Users\\SliverPente\\workspaceindigo\\QLJAVA\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:129:18: 'int'
 					{
 					match("int"); 
 
 					}
 					break;
 				case 3 :
-					// C:\\Users\\SliverPente\\workspaceindigo\\QLJAVA\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:124:26: 'money'
+					// C:\\Users\\SliverPente\\workspaceindigo\\QLJAVA\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:129:26: 'money'
 					{
 					match("money"); 
 
 					}
 					break;
 				case 4 :
-					// C:\\Users\\SliverPente\\workspaceindigo\\QLJAVA\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:124:36: 'boolean'
+					// C:\\Users\\SliverPente\\workspaceindigo\\QLJAVA\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:129:36: 'boolean'
 					{
 					match("boolean"); 
 
@@ -694,7 +716,7 @@ public class QLLexer extends Lexer {
 		try {
 			int _type = BoolLiteral;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// C:\\Users\\SliverPente\\workspaceindigo\\QLJAVA\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:126:12: ( 'true' | 'false' )
+			// C:\\Users\\SliverPente\\workspaceindigo\\QLJAVA\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:131:12: ( 'true' | 'false' )
 			int alt5=2;
 			int LA5_0 = input.LA(1);
 			if ( (LA5_0=='t') ) {
@@ -712,14 +734,14 @@ public class QLLexer extends Lexer {
 
 			switch (alt5) {
 				case 1 :
-					// C:\\Users\\SliverPente\\workspaceindigo\\QLJAVA\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:126:14: 'true'
+					// C:\\Users\\SliverPente\\workspaceindigo\\QLJAVA\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:131:14: 'true'
 					{
 					match("true"); 
 
 					}
 					break;
 				case 2 :
-					// C:\\Users\\SliverPente\\workspaceindigo\\QLJAVA\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:126:21: 'false'
+					// C:\\Users\\SliverPente\\workspaceindigo\\QLJAVA\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:131:21: 'false'
 					{
 					match("false"); 
 
@@ -741,8 +763,8 @@ public class QLLexer extends Lexer {
 		try {
 			int _type = Ident;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// C:\\Users\\SliverPente\\workspaceindigo\\QLJAVA\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:128:7: ( ( 'a' .. 'z' | 'A' .. 'Z' ) ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )* )
-			// C:\\Users\\SliverPente\\workspaceindigo\\QLJAVA\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:128:11: ( 'a' .. 'z' | 'A' .. 'Z' ) ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )*
+			// C:\\Users\\SliverPente\\workspaceindigo\\QLJAVA\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:133:7: ( ( 'a' .. 'z' | 'A' .. 'Z' ) ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )* )
+			// C:\\Users\\SliverPente\\workspaceindigo\\QLJAVA\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:133:11: ( 'a' .. 'z' | 'A' .. 'Z' ) ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )*
 			{
 			if ( (input.LA(1) >= 'A' && input.LA(1) <= 'Z')||(input.LA(1) >= 'a' && input.LA(1) <= 'z') ) {
 				input.consume();
@@ -752,7 +774,7 @@ public class QLLexer extends Lexer {
 				recover(mse);
 				throw mse;
 			}
-			// C:\\Users\\SliverPente\\workspaceindigo\\QLJAVA\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:128:30: ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )*
+			// C:\\Users\\SliverPente\\workspaceindigo\\QLJAVA\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:133:30: ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )*
 			loop6:
 			while (true) {
 				int alt6=2;
@@ -797,11 +819,11 @@ public class QLLexer extends Lexer {
 		try {
 			int _type = StringLiteral;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// C:\\Users\\SliverPente\\workspaceindigo\\QLJAVA\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:130:15: ( '\"' (~ ( '\\n' | '\\r' | '\\f' | '\"' ) )* '\"' )
-			// C:\\Users\\SliverPente\\workspaceindigo\\QLJAVA\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:130:17: '\"' (~ ( '\\n' | '\\r' | '\\f' | '\"' ) )* '\"'
+			// C:\\Users\\SliverPente\\workspaceindigo\\QLJAVA\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:135:15: ( '\"' (~ ( '\\n' | '\\r' | '\\f' | '\"' ) )* '\"' )
+			// C:\\Users\\SliverPente\\workspaceindigo\\QLJAVA\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:135:17: '\"' (~ ( '\\n' | '\\r' | '\\f' | '\"' ) )* '\"'
 			{
 			match('\"'); 
-			// C:\\Users\\SliverPente\\workspaceindigo\\QLJAVA\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:130:21: (~ ( '\\n' | '\\r' | '\\f' | '\"' ) )*
+			// C:\\Users\\SliverPente\\workspaceindigo\\QLJAVA\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:135:21: (~ ( '\\n' | '\\r' | '\\f' | '\"' ) )*
 			loop7:
 			while (true) {
 				int alt7=2;
@@ -847,10 +869,10 @@ public class QLLexer extends Lexer {
 		try {
 			int _type = MoneyLiteral;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// C:\\Users\\SliverPente\\workspaceindigo\\QLJAVA\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:132:14: ( ( '0' .. '9' )+ '\\.' ( '0' .. '9' ) ( '0' .. '9' ) )
-			// C:\\Users\\SliverPente\\workspaceindigo\\QLJAVA\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:132:16: ( '0' .. '9' )+ '\\.' ( '0' .. '9' ) ( '0' .. '9' )
+			// C:\\Users\\SliverPente\\workspaceindigo\\QLJAVA\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:137:14: ( ( '0' .. '9' )+ '\\.' ( '0' .. '9' ) ( '0' .. '9' ) )
+			// C:\\Users\\SliverPente\\workspaceindigo\\QLJAVA\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:137:16: ( '0' .. '9' )+ '\\.' ( '0' .. '9' ) ( '0' .. '9' )
 			{
-			// C:\\Users\\SliverPente\\workspaceindigo\\QLJAVA\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:132:16: ( '0' .. '9' )+
+			// C:\\Users\\SliverPente\\workspaceindigo\\QLJAVA\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:137:16: ( '0' .. '9' )+
 			int cnt8=0;
 			loop8:
 			while (true) {
@@ -916,10 +938,10 @@ public class QLLexer extends Lexer {
 		try {
 			int _type = IntLiteral;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// C:\\Users\\SliverPente\\workspaceindigo\\QLJAVA\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:134:12: ( ( '0' .. '9' )+ )
-			// C:\\Users\\SliverPente\\workspaceindigo\\QLJAVA\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:134:14: ( '0' .. '9' )+
+			// C:\\Users\\SliverPente\\workspaceindigo\\QLJAVA\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:139:12: ( ( '0' .. '9' )+ )
+			// C:\\Users\\SliverPente\\workspaceindigo\\QLJAVA\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:139:14: ( '0' .. '9' )+
 			{
-			// C:\\Users\\SliverPente\\workspaceindigo\\QLJAVA\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:134:14: ( '0' .. '9' )+
+			// C:\\Users\\SliverPente\\workspaceindigo\\QLJAVA\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:139:14: ( '0' .. '9' )+
 			int cnt9=0;
 			loop9:
 			while (true) {
@@ -965,8 +987,8 @@ public class QLLexer extends Lexer {
 
 	@Override
 	public void mTokens() throws RecognitionException {
-		// C:\\Users\\SliverPente\\workspaceindigo\\QLJAVA\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:1:8: ( T__13 | T__14 | T__15 | T__16 | T__17 | T__18 | T__19 | T__20 | T__21 | T__22 | T__23 | T__24 | T__25 | T__26 | T__27 | T__28 | T__29 | T__30 | T__31 | T__32 | Ws | Comment | LineComment | Type | BoolLiteral | Ident | StringLiteral | MoneyLiteral | IntLiteral )
-		int alt10=29;
+		// C:\\Users\\SliverPente\\workspaceindigo\\QLJAVA\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:1:8: ( T__13 | T__14 | T__15 | T__16 | T__17 | T__18 | T__19 | T__20 | T__21 | T__22 | T__23 | T__24 | T__25 | T__26 | T__27 | T__28 | T__29 | T__30 | T__31 | T__32 | T__33 | Ws | Comment | LineComment | Type | BoolLiteral | Ident | StringLiteral | MoneyLiteral | IntLiteral )
+		int alt10=30;
 		alt10 = dfa10.predict(input);
 		switch (alt10) {
 			case 1 :
@@ -1110,63 +1132,70 @@ public class QLLexer extends Lexer {
 				}
 				break;
 			case 21 :
-				// C:\\Users\\SliverPente\\workspaceindigo\\QLJAVA\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:1:130: Ws
+				// C:\\Users\\SliverPente\\workspaceindigo\\QLJAVA\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:1:130: T__33
+				{
+				mT__33(); 
+
+				}
+				break;
+			case 22 :
+				// C:\\Users\\SliverPente\\workspaceindigo\\QLJAVA\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:1:136: Ws
 				{
 				mWs(); 
 
 				}
 				break;
-			case 22 :
-				// C:\\Users\\SliverPente\\workspaceindigo\\QLJAVA\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:1:133: Comment
+			case 23 :
+				// C:\\Users\\SliverPente\\workspaceindigo\\QLJAVA\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:1:139: Comment
 				{
 				mComment(); 
 
 				}
 				break;
-			case 23 :
-				// C:\\Users\\SliverPente\\workspaceindigo\\QLJAVA\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:1:141: LineComment
+			case 24 :
+				// C:\\Users\\SliverPente\\workspaceindigo\\QLJAVA\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:1:147: LineComment
 				{
 				mLineComment(); 
 
 				}
 				break;
-			case 24 :
-				// C:\\Users\\SliverPente\\workspaceindigo\\QLJAVA\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:1:153: Type
+			case 25 :
+				// C:\\Users\\SliverPente\\workspaceindigo\\QLJAVA\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:1:159: Type
 				{
 				mType(); 
 
 				}
 				break;
-			case 25 :
-				// C:\\Users\\SliverPente\\workspaceindigo\\QLJAVA\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:1:158: BoolLiteral
+			case 26 :
+				// C:\\Users\\SliverPente\\workspaceindigo\\QLJAVA\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:1:164: BoolLiteral
 				{
 				mBoolLiteral(); 
 
 				}
 				break;
-			case 26 :
-				// C:\\Users\\SliverPente\\workspaceindigo\\QLJAVA\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:1:170: Ident
+			case 27 :
+				// C:\\Users\\SliverPente\\workspaceindigo\\QLJAVA\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:1:176: Ident
 				{
 				mIdent(); 
 
 				}
 				break;
-			case 27 :
-				// C:\\Users\\SliverPente\\workspaceindigo\\QLJAVA\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:1:176: StringLiteral
+			case 28 :
+				// C:\\Users\\SliverPente\\workspaceindigo\\QLJAVA\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:1:182: StringLiteral
 				{
 				mStringLiteral(); 
 
 				}
 				break;
-			case 28 :
-				// C:\\Users\\SliverPente\\workspaceindigo\\QLJAVA\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:1:190: MoneyLiteral
+			case 29 :
+				// C:\\Users\\SliverPente\\workspaceindigo\\QLJAVA\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:1:196: MoneyLiteral
 				{
 				mMoneyLiteral(); 
 
 				}
 				break;
-			case 29 :
-				// C:\\Users\\SliverPente\\workspaceindigo\\QLJAVA\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:1:203: IntLiteral
+			case 30 :
+				// C:\\Users\\SliverPente\\workspaceindigo\\QLJAVA\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:1:209: IntLiteral
 				{
 				mIntLiteral(); 
 
@@ -1179,104 +1208,109 @@ public class QLLexer extends Lexer {
 
 	protected DFA10 dfa10 = new DFA10(this);
 	static final String DFA10_eotS =
-		"\1\uffff\1\33\6\uffff\1\36\1\uffff\1\40\1\uffff\1\42\2\27\4\uffff\4\27"+
-		"\2\uffff\1\54\11\uffff\2\27\1\57\5\27\2\uffff\2\27\1\uffff\1\67\4\27\1"+
-		"\74\1\27\1\uffff\3\27\1\101\1\uffff\1\101\1\27\1\67\1\27\1\uffff\1\67"+
-		"\1\27\1\67";
+		"\1\uffff\1\34\6\uffff\1\37\1\uffff\1\41\1\uffff\1\43\3\30\4\uffff\4\30"+
+		"\2\uffff\1\56\11\uffff\3\30\1\62\5\30\2\uffff\3\30\1\uffff\1\73\4\30\1"+
+		"\100\1\101\1\30\1\uffff\3\30\1\106\2\uffff\1\106\1\30\1\73\1\30\1\uffff"+
+		"\1\73\1\30\1\73";
 	static final String DFA10_eofS =
-		"\105\uffff";
+		"\112\uffff";
 	static final String DFA10_minS =
-		"\1\11\1\75\6\uffff\1\52\1\uffff\1\75\1\uffff\1\75\1\141\1\146\4\uffff"+
-		"\1\164\2\157\1\162\2\uffff\1\56\11\uffff\1\162\1\154\1\60\1\164\1\162"+
-		"\1\156\1\157\1\165\2\uffff\1\155\1\163\1\uffff\1\60\1\151\1\145\1\154"+
-		"\1\145\1\60\1\145\1\uffff\1\156\1\171\1\145\1\60\1\uffff\1\60\1\147\1"+
-		"\60\1\141\1\uffff\1\60\1\156\1\60";
+		"\1\11\1\75\6\uffff\1\52\1\uffff\1\75\1\uffff\1\75\1\154\1\141\1\146\4"+
+		"\uffff\1\164\2\157\1\162\2\uffff\1\56\11\uffff\1\163\1\162\1\154\1\60"+
+		"\1\164\1\162\1\156\1\157\1\165\2\uffff\1\145\1\155\1\163\1\uffff\1\60"+
+		"\1\151\1\145\1\154\1\145\2\60\1\145\1\uffff\1\156\1\171\1\145\1\60\2\uffff"+
+		"\1\60\1\147\1\60\1\141\1\uffff\1\60\1\156\1\60";
 	static final String DFA10_maxS =
-		"\1\175\1\75\6\uffff\1\57\1\uffff\1\75\1\uffff\1\75\1\157\1\156\4\uffff"+
-		"\1\164\2\157\1\162\2\uffff\1\71\11\uffff\1\162\1\154\1\172\1\164\1\162"+
-		"\1\156\1\157\1\165\2\uffff\1\155\1\163\1\uffff\1\172\1\151\1\145\1\154"+
-		"\1\145\1\172\1\145\1\uffff\1\156\1\171\1\145\1\172\1\uffff\1\172\1\147"+
-		"\1\172\1\141\1\uffff\1\172\1\156\1\172";
+		"\1\175\1\75\6\uffff\1\57\1\uffff\1\75\1\uffff\1\75\1\154\1\157\1\156\4"+
+		"\uffff\1\164\2\157\1\162\2\uffff\1\71\11\uffff\1\163\1\162\1\154\1\172"+
+		"\1\164\1\162\1\156\1\157\1\165\2\uffff\1\145\1\155\1\163\1\uffff\1\172"+
+		"\1\151\1\145\1\154\1\145\2\172\1\145\1\uffff\1\156\1\171\1\145\1\172\2"+
+		"\uffff\1\172\1\147\1\172\1\141\1\uffff\1\172\1\156\1\172";
 	static final String DFA10_acceptS =
-		"\2\uffff\1\3\1\4\1\5\1\6\1\7\1\10\1\uffff\1\12\1\uffff\1\15\3\uffff\1"+
-		"\22\1\23\1\24\1\25\4\uffff\1\32\1\33\1\uffff\1\2\1\1\1\26\1\27\1\11\1"+
-		"\14\1\13\1\17\1\16\10\uffff\1\34\1\35\2\uffff\1\21\7\uffff\1\30\4\uffff"+
-		"\1\20\4\uffff\1\31\3\uffff";
+		"\2\uffff\1\3\1\4\1\5\1\6\1\7\1\10\1\uffff\1\12\1\uffff\1\15\4\uffff\1"+
+		"\23\1\24\1\25\1\26\4\uffff\1\33\1\34\1\uffff\1\2\1\1\1\27\1\30\1\11\1"+
+		"\14\1\13\1\17\1\16\11\uffff\1\35\1\36\3\uffff\1\22\10\uffff\1\31\4\uffff"+
+		"\1\20\1\21\4\uffff\1\32\3\uffff";
 	static final String DFA10_specialS =
-		"\105\uffff}>";
+		"\112\uffff}>";
 	static final String[] DFA10_transitionS = {
-			"\2\22\2\uffff\1\22\22\uffff\1\22\1\1\1\30\3\uffff\1\2\1\uffff\1\3\1\4"+
-			"\1\5\1\6\1\uffff\1\7\1\uffff\1\10\12\31\1\11\1\uffff\1\12\1\13\1\14\2"+
-			"\uffff\32\27\6\uffff\1\27\1\25\3\27\1\15\2\27\1\16\3\27\1\24\5\27\1\23"+
-			"\1\26\6\27\1\17\1\20\1\21",
-			"\1\32",
+			"\2\23\2\uffff\1\23\22\uffff\1\23\1\1\1\31\3\uffff\1\2\1\uffff\1\3\1\4"+
+			"\1\5\1\6\1\uffff\1\7\1\uffff\1\10\12\32\1\11\1\uffff\1\12\1\13\1\14\2"+
+			"\uffff\32\30\6\uffff\1\30\1\26\2\30\1\15\1\16\2\30\1\17\3\30\1\25\5\30"+
+			"\1\24\1\27\6\30\1\20\1\21\1\22",
+			"\1\33",
 			"",
 			"",
 			"",
 			"",
 			"",
 			"",
-			"\1\34\4\uffff\1\35",
+			"\1\35\4\uffff\1\36",
 			"",
-			"\1\37",
+			"\1\40",
 			"",
-			"\1\41",
-			"\1\44\15\uffff\1\43",
-			"\1\45\7\uffff\1\46",
+			"\1\42",
+			"\1\44",
+			"\1\46\15\uffff\1\45",
+			"\1\47\7\uffff\1\50",
 			"",
 			"",
 			"",
 			"",
-			"\1\47",
-			"\1\50",
 			"\1\51",
 			"\1\52",
+			"\1\53",
+			"\1\54",
 			"",
 			"",
-			"\1\53\1\uffff\12\31",
-			"",
-			"",
-			"",
-			"",
-			"",
+			"\1\55\1\uffff\12\32",
 			"",
 			"",
 			"",
 			"",
-			"\1\55",
-			"\1\56",
-			"\12\27\7\uffff\32\27\4\uffff\1\27\1\uffff\32\27",
+			"",
+			"",
+			"",
+			"",
+			"",
+			"\1\57",
 			"\1\60",
 			"\1\61",
-			"\1\62",
+			"\12\30\7\uffff\32\30\4\uffff\1\30\1\uffff\32\30",
 			"\1\63",
 			"\1\64",
-			"",
-			"",
 			"\1\65",
 			"\1\66",
+			"\1\67",
 			"",
-			"\12\27\7\uffff\32\27\4\uffff\1\27\1\uffff\32\27",
+			"",
 			"\1\70",
 			"\1\71",
 			"\1\72",
-			"\1\73",
-			"\12\27\7\uffff\32\27\4\uffff\1\27\1\uffff\32\27",
-			"\1\75",
 			"",
+			"\12\30\7\uffff\32\30\4\uffff\1\30\1\uffff\32\30",
+			"\1\74",
+			"\1\75",
 			"\1\76",
 			"\1\77",
-			"\1\100",
-			"\12\27\7\uffff\32\27\4\uffff\1\27\1\uffff\32\27",
-			"",
-			"\12\27\7\uffff\32\27\4\uffff\1\27\1\uffff\32\27",
+			"\12\30\7\uffff\32\30\4\uffff\1\30\1\uffff\32\30",
+			"\12\30\7\uffff\32\30\4\uffff\1\30\1\uffff\32\30",
 			"\1\102",
-			"\12\27\7\uffff\32\27\4\uffff\1\27\1\uffff\32\27",
-			"\1\103",
 			"",
-			"\12\27\7\uffff\32\27\4\uffff\1\27\1\uffff\32\27",
+			"\1\103",
 			"\1\104",
-			"\12\27\7\uffff\32\27\4\uffff\1\27\1\uffff\32\27"
+			"\1\105",
+			"\12\30\7\uffff\32\30\4\uffff\1\30\1\uffff\32\30",
+			"",
+			"",
+			"\12\30\7\uffff\32\30\4\uffff\1\30\1\uffff\32\30",
+			"\1\107",
+			"\12\30\7\uffff\32\30\4\uffff\1\30\1\uffff\32\30",
+			"\1\110",
+			"",
+			"\12\30\7\uffff\32\30\4\uffff\1\30\1\uffff\32\30",
+			"\1\111",
+			"\12\30\7\uffff\32\30\4\uffff\1\30\1\uffff\32\30"
 	};
 
 	static final short[] DFA10_eot = DFA.unpackEncodedString(DFA10_eotS);
@@ -1310,7 +1344,7 @@ public class QLLexer extends Lexer {
 		}
 		@Override
 		public String getDescription() {
-			return "1:1: Tokens : ( T__13 | T__14 | T__15 | T__16 | T__17 | T__18 | T__19 | T__20 | T__21 | T__22 | T__23 | T__24 | T__25 | T__26 | T__27 | T__28 | T__29 | T__30 | T__31 | T__32 | Ws | Comment | LineComment | Type | BoolLiteral | Ident | StringLiteral | MoneyLiteral | IntLiteral );";
+			return "1:1: Tokens : ( T__13 | T__14 | T__15 | T__16 | T__17 | T__18 | T__19 | T__20 | T__21 | T__22 | T__23 | T__24 | T__25 | T__26 | T__27 | T__28 | T__29 | T__30 | T__31 | T__32 | T__33 | Ws | Comment | LineComment | Type | BoolLiteral | Ident | StringLiteral | MoneyLiteral | IntLiteral );";
 		}
 	}
 

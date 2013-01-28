@@ -1,17 +1,18 @@
 package org.uva.sea.ql.ast.type;
 
-import org.uva.sea.ql.interpreter.Value;
+public class StringType extends Type{
 
-public class StringType extends Value{
-
-	private final String value; 
-	
-	public StringType(String value)
-	{
-		this.value = value;
+	public StringType(){
+		
 	}
 
-	public String getValue() {
-		return value;
+	@Override
+	public boolean isCompatibleTo(Type t) {
+		return t.isCompatibleToStr();
+	}
+	
+	@Override
+	public boolean isCompatibleToStr(){
+		return true;
 	}
 }

@@ -3,5 +3,7 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="con" path="org.eclipse.pde.core.requiredPlugins"/>
 	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="lib" path="/home/vladokom/workspace/uva/construction/sea-of-ql/vkomsiyski/lib/json-simple-1.1.1.jar"/>
+	<classpathentry kind="lib" path="/home/vladokom/workspace/uva/construction/sea-of-ql/vkomsiyski/lib/qtjambi-4.6.3.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

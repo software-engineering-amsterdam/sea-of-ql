@@ -4,15 +4,13 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
-import org.uva.sea.ql.ast.INode;
-import org.uva.sea.ql.eval.Context;
-import org.uva.sea.ql.eval.value.Value;
-import org.uva.sea.ql.visitor.INodeVisitor;
+import org.uva.sea.ql.ast.Node;
+import org.uva.sea.ql.visitor.IStatementVisitor;
 
 /**
  * Represents a collection of statements.
  */
-public class Statements implements INode, Iterable<Statement> {
+public class Statements extends Node implements Iterable<Statement> {
 	/**
 	 * Holds the list of statements.
 	 */
@@ -35,21 +33,50 @@ public class Statements implements INode, Iterable<Statement> {
 	 * @param statement
 	 */
 	public Statements( Statement statement ) {
-		this.statements = new LinkedList<Statement>();
+		this();
 		this.statements.add( statement );
+	}
+
+	/**
+	 * Constructs an empty Statements instance.
+	 */
+	public Statements() {
+		this.statements = new LinkedList<Statement>();
+	}
+
+	/**
+	 * Retrieves the number of statements in this collection.
+	 *
+	 * @return The number of statements.
+	 */
+	public int size() {
+		return this.statements.size();
+	}
+
+	/**
+	 * Retrieves the first statement of the list.
+	 *
+	 * @return The first statement, or null if it does not exist.
+	 */
+	public Statement getFirst() {
+		if ( size() < 1 ) {
+			return null;
+		}
+
+		return this.statements.get( 0 );
+	}
+
+	/**
+	 * Accept a visitor.
+	 *
+	 * @param visitor
+	 */
+	public <T> T accept( IStatementVisitor<T> visitor ) {
+		return visitor.visit( this );
 	}
 
 	@Override
 	public Iterator<Statement> iterator() {
 		return this.statements.iterator();
-	}
-
-	@Override
-	public Value<?> accept( INodeVisitor visitor, Context context ) {
-		for ( Statement statement : this.statements ) {
-			statement.accept( visitor, context );
-		}
-
-		return null;
 	}
 }

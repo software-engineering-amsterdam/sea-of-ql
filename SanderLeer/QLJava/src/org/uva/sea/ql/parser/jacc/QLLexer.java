@@ -6,6 +6,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.uva.sea.ql.ast.*;
+import org.uva.sea.ql.ast.expression.Identifier;
+import org.uva.sea.ql.ast.expression.literal.IntegerLiteral;
+import org.uva.sea.ql.ast.expression.literal.StringLiteral;
 
 public class QLLexer implements QLTokens {
 	private static final Map<String, Integer> KEYWORDS;

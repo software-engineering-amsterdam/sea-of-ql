@@ -1,62 +1,57 @@
 module syntax::AbstractSyntax
 
-public data TYPE = string() | boolean() | money() | money(EXP);
+public data Type = string() | integer() | boolean() | money() | money(Expression);
 
-public alias QuestionId = str;
-public alias QuestionString = str;
-public alias Money = int;
-//public alias Keywords = str;
-
-// syntax to start a QL Program	
-public data PROGRAM =
-	program(EXP exp, list[DECL] decls, list[STATEMENT] stats);   // KEY key, 
-// Syntax for a question declaration   
-public data DECL =
-   decl(QuestionId name, QUE qName);
-// Syntax for the question   
-public data QUE = qName(list[QuestionString] questionString, TYPE tp);
-// syntax to map the questionid with the type
-public data QUET = result(QuestionId id, TYPE tp);
-
-public data KEY = key (str name);
-// syntax for the expression   
-public data EXP =
-	  id (str name)  // QuestionId
-	| \int(int ivalue)  
-	//| strQue (QuestionString questionString)
-	//| strCon (str sVal)
-	//| bracket ( EXP arg )
-	//| moneyCon (Money mVal)
-	| add (EXP left, EXP right)
-	| mul (EXP left, EXP right)
-	| div (EXP left, EXP right)
-	| sub (EXP left, EXP right)
-	| and (EXP left, EXP right)
-	| or (EXP left, EXP right)
-	| lt (EXP left, EXP right)
-    | leq (EXP left, EXP right)
-    | gt (EXP left, EXP right)
-    | geq (EXP left, EXP right)
-    | eq (EXP left, EXP right)
-    | neq (EXP left, EXP right)
-    //| boolCon (bool bVal)
+// Data of a QL Program	
+public data Program =
+	program(Expression exp, list[Body] body);
+	
+// Data of a Body Rule
+public data Body =
+	  question(Question question)
+	| statement(Statement statement)
 	;
-// syntax for statements	
-public data STATEMENT =
-     asgStat(QuestionId name, TYPE tp ) //      asgStat(QuestionId name, QuestionString qDefinition, TYPE tp) // EXP exp
-     | ifStat(EXP exp, list[DECL] decls)  //, QUE
-     | ifThenStat(EXP exp, list[STATEMENT] thenpart)
-     | ifElseStat(EXP exp, list[STATEMENT] thenpart, list[STATEMENT] elsepart)
+
+// Data of a Question   
+public data Question = 
+	   easyQuestion(str id, str labelQuestion, Type tp)
+	 | computedQuestion(str id, str labelQuestion, Type tp, Expression exp) 
+	 ;
+
+// Data of a Expression Rule   
+public data Expression =
+	  id (str name)
+	| \int(int ivalue)
+	| add (Expression left, Expression right)
+	| mul (Expression left, Expression right)
+	| div (Expression left, Expression right)
+	| sub (Expression left, Expression right)
+	| and (Expression left, Expression right)
+	| or (Expression left, Expression right)
+	| lt (Expression left, Expression right)
+	| leq (Expression left, Expression right)
+	| gt (Expression left, Expression right)
+	| geq (Expression left, Expression right)
+	| eq (Expression left, Expression right)
+	| neq (Expression left, Expression right)
+	| boolCon (bool bVal)
+	| moneyCon (str mVal)
+	| string (str sVal)
+	;
+
+// Data of a Statements Rule 	
+public data Statement =
+       ifStat(Expression exp, list[Body] body) 
+     | ifElseStat(Expression exp, list[Body] thenpart, list[Body] elsepart)
      ;
 
-anno loc TYPE@location;                   
-anno loc PROGRAM@location;
-anno loc DECL@location;
-anno loc EXP@location;
-anno loc STATEMENT@location;
-anno loc QUE@location;
-anno loc QUET@location;
+anno loc Type@location;                   
+anno loc Program@location;
+anno loc Body@location;
+anno loc Expression@location;
+anno loc Statement@location;
+anno loc Question@location;
 
-public alias Occurrence = tuple[loc location, QuestionId name, STATEMENT stat]; 
+public alias Occurrence = tuple[loc location, str name, Statement stat]; 
    
 

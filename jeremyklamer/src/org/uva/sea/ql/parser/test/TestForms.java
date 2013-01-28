@@ -3,13 +3,18 @@ package org.uva.sea.ql.parser.test;
 import static org.junit.Assert.assertEquals;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
-import org.uva.sea.ql.ast.type.Form;
+import org.uva.sea.ql.ast.Ident;
+import org.uva.sea.ql.ast.statement.Form;
+import org.uva.sea.ql.ast.type.Type;
+import org.uva.sea.ql.message.Message;
 import org.uva.sea.ql.parser.antlr.ANTLRParser;
 
 
@@ -61,7 +66,7 @@ public class TestForms {
 					"}").getClass());
 	}
 	
-//	/@Test
+	//@Test
 	public void testIfThenForms() throws ParseError {
 		assertEquals(Form.class, parser.parseForm(
 				"form Box1HouseOwning {" +
@@ -79,7 +84,7 @@ public class TestForms {
 					"}").getClass());
 	}
 	
-	@Test
+	//@Test
 	public void testNestedIfForms() throws ParseError {
 		assertEquals(Form.class, parser.parseForm(
 				"form Box1HouseOwning {" +
@@ -100,6 +105,37 @@ public class TestForms {
 					"else { sellingPrice: \"lastquestion:\" money " +
 						"} " +
 					"}").getClass());
+	}
+	
+	@Test
+	public void testFormTypes() throws ParseError {
+		Map<Ident, Type> testMap = new HashMap<Ident, Type>();
+//		List<Message> errors =  parser.parseForm("" +
+//				"form testForm1 { question1 : \"How are you? \" boolean " +
+//				"question2 : \"Good? \" money " +
+//				"question3 : \"Better? \" money(8 * 7) " + 
+//				"question4 : \"Best? \" boolean }").checkType(testMap);
+		
+		List<Message> errors2 = parser.parseForm(
+				"form Box1HouseOwning {" +
+					"hasSoldHouse: \"Did you sell a house in 2010?\" boolean " +
+					"hasBoughtHouse: \"Did you by a house in 2010?\" boolean " +
+					"hasMaintLoan: \"Did you enter a loan for maintenance/reconstruction?\"" +
+					"boolean " +
+					"if (hasSoldHouse) {" +
+						"sellingPrice: \"Price the house was sold for:\" money " +
+						"privateDebt: \"Private debts for the sold house:\" money " +
+						"valueResidue: \"Value residue:\" money(13 - 5) " +
+						"} " +
+					"else { sellingPrice: \"lastquestion:\" money " +
+						"} " +
+					"}").checkType(testMap);
+		
+		assertEquals(Form.class, parser.parseForm("" +
+				"form testForm1 { question1 : \"How are you? \" boolean " +
+				"question2 : \"Good? \" money " +
+				"question3 : \"Better? \" money(8 * 7) " + 
+				"question4 : \"Best? \" boolean }").getClass());
 	}
 
 }

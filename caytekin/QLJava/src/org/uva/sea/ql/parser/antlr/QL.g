@@ -1,5 +1,5 @@
 grammar QL;
-options {backtrack=true; memoize=true;}
+options {backtrack=true; memoize=true; }
 
 
 @parser::header
@@ -14,40 +14,51 @@ package org.uva.sea.ql.parser.antlr;
 }
 
 
-form
-	: Ident '{' (allStatements)* '}' 
+form returns [QLForm result]
+	: 'form' id = Ident   sb = statementBlock 
+		{ $result = new QLForm($id.text, $sb.result); }  
+	;
+
+statementBlock returns [ ArrayList<Statement> result] 
+	@init {
+		result = new ArrayList<Statement> ();
+	}
+	: '{' (stmt = statement { result.add(stmt); } )* '}' 
 	;
 
 
-allStatements 
-	: questionStatement
-	| conditionalStatement
+statement returns [Statement result]
+	: qst = questionStatement { $result = $qst.result; } 
+	| cstmt = conditionalStatement { $result = $cstmt.result; }
 	;	
 	
 	
-questionStatement returns [ QuestionStatement result]
-	: q = question { $result = $q.result; } 
+questionStatement returns [QuestionStatement result]
+	: qst = question  { $result = $qst.result; }
 	| cq = computedQuestion { $result = $cq.result; }
 	;
 
 	
 conditionalStatement returns [ConditionalStatement result]
-	: stmt1 = ifThenStatement { $result = $stmt1.result; }
-	| stmt2 = ifThenElseStatement { $result = $stmt2.result; }
+	:ifthels = ifThenElseStatement { $result = $ifthels.result; } 
+	| ifths = ifThenStatement { $result = $ifths.result; }
+	 
 	;
 	
 	
 ifThenStatement returns [IfThenStatement result]
-	: 'if' e = orExpr 'then' '{' (qs=questionStatement)* '}' 
-			{ result = new IfThenStatement($e.result, $qs.result); }
+	: 'if' e = orExpr 'then' sb = statementBlock
+		{ result = new IfThenStatement($e.result, $sb.result); }
 	;
+
 	
 ifThenElseStatement returns [IfThenElseStatement result]
 	: 'if' e = orExpr
-	'then' '{' (qsThen = questionStatement)* '}'
-	'else' '{' (qsElse = questionStatement)* '}'
-		{ result = new IfThenElseStatement($e.result, $qsThen.result, $qsElse.result); }		
+		'then' thenSb = statementBlock
+		'else' elseSb = statementBlock
+	  { result = new IfThenElseStatement($e.result, $thenSb.result, $elseSb.result); }		
 	;
+
 
 computedQuestion returns [ComputedQuestion result]
 	: Ident ':' StringLiteral t=type '(' e=orExpr ')' 
