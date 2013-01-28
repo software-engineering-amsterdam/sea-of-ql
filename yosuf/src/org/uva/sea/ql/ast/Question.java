@@ -2,7 +2,7 @@ package org.uva.sea.ql.ast;
 
 import static julius.validation.Assertions.state;
 
-import org.uva.sea.ql.ast.data.DataType;
+import org.uva.sea.ql.ast.type.DataType;
 import org.uva.sea.ql.ast.value.StringValue;
 
 public class Question implements ASTNode {

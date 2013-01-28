@@ -1,4 +1,4 @@
-package org.uva.sea.ql.ast.data;
+package org.uva.sea.ql.ast.type;
 
 public class StringType extends DataType {
 

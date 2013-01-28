@@ -23,19 +23,24 @@
 
 %type <Expression> expr
 %type <CompoundStatement> compound
-%type <DataType> dType
+%type <DataType> dataType
+%type <Question> question
 
 %{
 	import org.uva.sea.ql.ast.*;
 	import org.uva.sea.ql.ast.exp.*;
-	import org.uva.sea.ql.ast.data.*;
+	import org.uva.sea.ql.ast.type.*;
 	import org.uva.sea.ql.ast.value.*;
 %}
 
 %%
 
+//In order to enable testing, top returns differnt types.
+
 top		: form						{ result = $1; }
 		| expr						{ result = $1; }
+		| question					{ result = $1; }
+		| dataType					{ result = $1; }
 		;
 		
 form 	: FORM IDENT '{' body '}'	{ $$ = new Form($4); }
@@ -45,14 +50,25 @@ body	: question					{ $$ = $1; }
 		| compound 					{ $$ = $1; }
 		;
 
-question: dType IDENT '=' STRING_VAL 	{ $$ = new Question($1, $2, $4 ); }
+question: dataType IDENT '=' STRING_VAL ';'	{ $$ = new Question($1, $2, $4); }
 		;
 
-dType	: BOOL 				{ $$ = new BooleanType();; }
-		| INT				{ $$ = new IntegerType(); }
-		| MON				{ $$ = new MoneyType(); }
-		| STR				{ $$ = new StringType(); }
+dataType: BOOL 					{ $$ = new BooleanType();; }
+		| INT					{ $$ = new IntegerType(); }
+		| MON					{ $$ = new MoneyType(); }
+		| STR					{ $$ = new StringType(); }
 		;
+
+compound: ifStm					{ $$ = new CompoundStatement($1); }
+		| stm					{ $$ = $1; }
+		| compound question		{ $$ = $1; }
+		;
+
+stm		: IDENT '=' expr ';'	{ $$ = new Assignment($1, $3); }
+		;
+
+ifStm	: IF '(' expr ')' '{' compound '}'		{ $$ = new IfStatement($3, $6); }
+		;						
 
 expr	: '+' expr	%prec UPLUS { $$ = new Positive($2); }
 		| '-' expr	%prec UMIN  { $$ = new Negative($2); }
@@ -73,18 +89,6 @@ expr	: '+' expr	%prec UPLUS { $$ = new Positive($2); }
 		| IDENT         		{ $$ = $1; }
 		| '(' expr ')'			{ $$ = $2; }
 		;
-
-compound: ifStm					{ $$ = new CompoundStatement($1); }
-		| stm					{ $$ = $1; }
-		| compound question		{ $$ = $1; }
-		;
-
-stm		: IDENT '=' expr ';'	{ $$ = new Assignment($1, $3); }
-		;
-
-ifStm	: IF '(' expr ')' '{' compound '}'		{ $$ = new IfStatement($3, $6); }
-		;						
-
 %%
 
 private QLLexer lexer; 

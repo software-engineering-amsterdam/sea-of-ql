@@ -11,7 +11,7 @@ public class ParseError extends RuntimeException {
 	private final int lineNumber;
 	private final int column;
 	private final String sourceFile;
-	private static final String messageFormat = "Parse error: '{0}' on line {1}, column {2} in '{3}'"; 
+	private static final String messageFormat = "Parse error: '%s' on line %d, column %d in '%s'"; 
 	
 	/**
 	 * @return Line number in the source file.

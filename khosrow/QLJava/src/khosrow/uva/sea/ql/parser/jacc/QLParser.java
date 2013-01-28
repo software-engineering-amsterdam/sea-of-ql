@@ -1,4 +1,4 @@
-// Output created by jacc on Thu Jan 24 00:57:15 CET 2013
+// Output created by jacc on Mon Jan 28 13:44:21 CET 2013
 
 package khosrow.uva.sea.ql.parser.jacc;
 
@@ -106,7 +106,7 @@ class QLParser implements QLTokens {
                         case IF:
                         case IDENT:
                         case '}':
-                            yyn = yyr3();
+                            yyn = yyr6();
                             continue;
                     }
                     yyn = 149;
@@ -146,7 +146,7 @@ class QLParser implements QLTokens {
                         case IF:
                         case IDENT:
                         case '}':
-                            yyn = yyr6();
+                            yyn = yyr9();
                             continue;
                     }
                     yyn = 149;
@@ -163,7 +163,7 @@ class QLParser implements QLTokens {
                         case IF:
                         case IDENT:
                         case '}':
-                            yyn = yyr2();
+                            yyn = yyr5();
                             continue;
                     }
                     yyn = 149;
@@ -238,7 +238,7 @@ class QLParser implements QLTokens {
                 case 84:
                     switch (yytok) {
                         case ENDINPUT:
-                            yyn = yyr1();
+                            yyn = yyr4();
                             continue;
                     }
                     yyn = 149;
@@ -693,7 +693,7 @@ class QLParser implements QLTokens {
                         case IF:
                         case IDENT:
                         case '}':
-                            yyn = yyr7();
+                            yyn = yyr10();
                             continue;
                     }
                     yyn = 149;
@@ -714,7 +714,7 @@ class QLParser implements QLTokens {
                         case IF:
                         case IDENT:
                         case '}':
-                            yyn = yyr31();
+                            yyn = yyr34();
                             continue;
                     }
                     yyn = 149;
@@ -735,7 +735,7 @@ class QLParser implements QLTokens {
                         case IF:
                         case IDENT:
                         case '}':
-                            yyn = yyr30();
+                            yyn = yyr33();
                             continue;
                     }
                     yyn = 149;
@@ -756,7 +756,7 @@ class QLParser implements QLTokens {
                         case IF:
                         case IDENT:
                         case '}':
-                            yyn = yyr33();
+                            yyn = yyr36();
                             continue;
                     }
                     yyn = 149;
@@ -777,7 +777,7 @@ class QLParser implements QLTokens {
                         case IF:
                         case IDENT:
                         case '}':
-                            yyn = yyr32();
+                            yyn = yyr35();
                             continue;
                     }
                     yyn = 149;
@@ -816,7 +816,7 @@ class QLParser implements QLTokens {
                         case IF:
                         case IDENT:
                         case '}':
-                            yyn = yyr5();
+                            yyn = yyr8();
                             continue;
                     }
                     yyn = 149;
@@ -985,7 +985,7 @@ class QLParser implements QLTokens {
                         case IF:
                         case IDENT:
                         case '}':
-                            yyn = yyr3();
+                            yyn = yyr6();
                             continue;
                     }
                     yyn = 149;
@@ -1052,7 +1052,7 @@ class QLParser implements QLTokens {
                         case IF:
                         case IDENT:
                         case '}':
-                            yyn = yyr8();
+                            yyn = yyr11();
                             continue;
                     }
                     yyn = 149;
@@ -1073,7 +1073,7 @@ class QLParser implements QLTokens {
                         case IF:
                         case IDENT:
                         case '}':
-                            yyn = yyr4();
+                            yyn = yyr7();
                             continue;
                     }
                     yyn = 149;
@@ -1219,7 +1219,7 @@ class QLParser implements QLTokens {
             case DIV:
             case AND:
             case ADD:
-                return yyr26();
+                return yyr29();
         }
         return 149;
     }
@@ -1240,7 +1240,7 @@ class QLParser implements QLTokens {
             case DIV:
             case AND:
             case ADD:
-                return yyr25();
+                return yyr28();
         }
         return 149;
     }
@@ -1261,7 +1261,7 @@ class QLParser implements QLTokens {
             case DIV:
             case AND:
             case ADD:
-                return yyr28();
+                return yyr31();
         }
         return 149;
     }
@@ -1282,7 +1282,7 @@ class QLParser implements QLTokens {
             case DIV:
             case AND:
             case ADD:
-                return yyr27();
+                return yyr30();
         }
         return 149;
     }
@@ -1745,7 +1745,7 @@ class QLParser implements QLTokens {
             case DIV:
             case AND:
             case ADD:
-                return yyr11();
+                return yyr14();
         }
         return 149;
     }
@@ -1800,7 +1800,7 @@ class QLParser implements QLTokens {
             case DIV:
             case AND:
             case ADD:
-                return yyr9();
+                return yyr12();
         }
         return 149;
     }
@@ -1821,7 +1821,7 @@ class QLParser implements QLTokens {
             case DIV:
             case AND:
             case ADD:
-                return yyr10();
+                return yyr13();
         }
         return 149;
     }
@@ -1845,7 +1845,7 @@ class QLParser implements QLTokens {
             case GT:
             case AND:
             case ADD:
-                return yyr15();
+                return yyr18();
         }
         return 149;
     }
@@ -1877,7 +1877,7 @@ class QLParser implements QLTokens {
             case ')':
             case OR:
             case AND:
-                return yyr23();
+                return yyr26();
         }
         return 149;
     }
@@ -1898,7 +1898,7 @@ class QLParser implements QLTokens {
             case DIV:
             case AND:
             case ADD:
-                return yyr13();
+                return yyr16();
         }
         return 149;
     }
@@ -1924,7 +1924,7 @@ class QLParser implements QLTokens {
             case NEQ:
             case GT:
             case AND:
-                return yyr17();
+                return yyr20();
         }
         return 149;
     }
@@ -1950,7 +1950,7 @@ class QLParser implements QLTokens {
             case NEQ:
             case GT:
             case AND:
-                return yyr21();
+                return yyr24();
         }
         return 149;
     }
@@ -1976,7 +1976,7 @@ class QLParser implements QLTokens {
             case NEQ:
             case GT:
             case AND:
-                return yyr19();
+                return yyr22();
         }
         return 149;
     }
@@ -2002,7 +2002,7 @@ class QLParser implements QLTokens {
             case NEQ:
             case GT:
             case AND:
-                return yyr22();
+                return yyr25();
         }
         return 149;
     }
@@ -2028,7 +2028,7 @@ class QLParser implements QLTokens {
             case NEQ:
             case GT:
             case AND:
-                return yyr20();
+                return yyr23();
         }
         return 149;
     }
@@ -2049,7 +2049,7 @@ class QLParser implements QLTokens {
             case DIV:
             case AND:
             case ADD:
-                return yyr14();
+                return yyr17();
         }
         return 149;
     }
@@ -2070,7 +2070,7 @@ class QLParser implements QLTokens {
             case DIV:
             case AND:
             case ADD:
-                return yyr12();
+                return yyr15();
         }
         return 149;
     }
@@ -2096,7 +2096,7 @@ class QLParser implements QLTokens {
             case NEQ:
             case GT:
             case AND:
-                return yyr18();
+                return yyr21();
         }
         return 149;
     }
@@ -2129,7 +2129,7 @@ class QLParser implements QLTokens {
                 return 40;
             case ')':
             case OR:
-                return yyr24();
+                return yyr27();
         }
         return 149;
     }
@@ -2153,7 +2153,7 @@ class QLParser implements QLTokens {
             case GT:
             case AND:
             case ADD:
-                return yyr16();
+                return yyr19();
         }
         return 149;
     }
@@ -2174,138 +2174,138 @@ class QLParser implements QLTokens {
             case DIV:
             case AND:
             case ADD:
-                return yyr29();
+                return yyr32();
         }
         return 149;
     }
 
-    private int yyr1() { // form : FORM IDENT '{' stmts '}'
+    private int yyr4() { // form : FORM IDENT '{' stmts '}'
         { result = new Form(((Ident)yysv[yysp-4]), ((Stmts)yysv[yysp-2])); }
         yysv[yysp-=5] = yyrv;
         return 1;
     }
 
-    private int yyr9() { // expr : '+' expr
+    private int yyr12() { // expr : '+' expr
         { yyrv = new Pos(((Expr)yysv[yysp-1])); }
         yysv[yysp-=2] = yyrv;
         return yypexpr();
     }
 
-    private int yyr10() { // expr : '-' expr
+    private int yyr13() { // expr : '-' expr
         { yyrv = new Neg(((Expr)yysv[yysp-1])); }
         yysv[yysp-=2] = yyrv;
         return yypexpr();
     }
 
-    private int yyr11() { // expr : '!' expr
+    private int yyr14() { // expr : '!' expr
         { yyrv = new Not(((Expr)yysv[yysp-1])); }
         yysv[yysp-=2] = yyrv;
         return yypexpr();
     }
 
-    private int yyr12() { // expr : expr MUL expr
+    private int yyr15() { // expr : expr MUL expr
         { yyrv = new Mul(((Expr)yysv[yysp-3]), ((Expr)yysv[yysp-1])); }
         yysv[yysp-=3] = yyrv;
         return yypexpr();
     }
 
-    private int yyr13() { // expr : expr DIV expr
+    private int yyr16() { // expr : expr DIV expr
         { yyrv = new Div(((Expr)yysv[yysp-3]), ((Expr)yysv[yysp-1])); }
         yysv[yysp-=3] = yyrv;
         return yypexpr();
     }
 
-    private int yyr14() { // expr : expr MOD expr
+    private int yyr17() { // expr : expr MOD expr
         { yyrv = new Mod(((Expr)yysv[yysp-3]), ((Expr)yysv[yysp-1])); }
         yysv[yysp-=3] = yyrv;
         return yypexpr();
     }
 
-    private int yyr15() { // expr : expr ADD expr
+    private int yyr18() { // expr : expr ADD expr
         { yyrv = new Add(((Expr)yysv[yysp-3]), ((Expr)yysv[yysp-1])); }
         yysv[yysp-=3] = yyrv;
         return yypexpr();
     }
 
-    private int yyr16() { // expr : expr SUB expr
+    private int yyr19() { // expr : expr SUB expr
         { yyrv = new Sub(((Expr)yysv[yysp-3]), ((Expr)yysv[yysp-1])); }
         yysv[yysp-=3] = yyrv;
         return yypexpr();
     }
 
-    private int yyr17() { // expr : expr EQ expr
+    private int yyr20() { // expr : expr EQ expr
         { yyrv = new Eq(((Expr)yysv[yysp-3]), ((Expr)yysv[yysp-1])); }
         yysv[yysp-=3] = yyrv;
         return yypexpr();
     }
 
-    private int yyr18() { // expr : expr NEQ expr
+    private int yyr21() { // expr : expr NEQ expr
         { yyrv = new NEq(((Expr)yysv[yysp-3]), ((Expr)yysv[yysp-1])); }
         yysv[yysp-=3] = yyrv;
         return yypexpr();
     }
 
-    private int yyr19() { // expr : expr GT expr
+    private int yyr22() { // expr : expr GT expr
         { yyrv = new GT(((Expr)yysv[yysp-3]), ((Expr)yysv[yysp-1])); }
         yysv[yysp-=3] = yyrv;
         return yypexpr();
     }
 
-    private int yyr20() { // expr : expr LT expr
+    private int yyr23() { // expr : expr LT expr
         { yyrv = new LT(((Expr)yysv[yysp-3]), ((Expr)yysv[yysp-1])); }
         yysv[yysp-=3] = yyrv;
         return yypexpr();
     }
 
-    private int yyr21() { // expr : expr GEQ expr
+    private int yyr24() { // expr : expr GEQ expr
         { yyrv = new GEq(((Expr)yysv[yysp-3]), ((Expr)yysv[yysp-1])); }
         yysv[yysp-=3] = yyrv;
         return yypexpr();
     }
 
-    private int yyr22() { // expr : expr LEQ expr
+    private int yyr25() { // expr : expr LEQ expr
         { yyrv = new LEq(((Expr)yysv[yysp-3]), ((Expr)yysv[yysp-1])); }
         yysv[yysp-=3] = yyrv;
         return yypexpr();
     }
 
-    private int yyr23() { // expr : expr AND expr
+    private int yyr26() { // expr : expr AND expr
         { yyrv = new And(((Expr)yysv[yysp-3]), ((Expr)yysv[yysp-1])); }
         yysv[yysp-=3] = yyrv;
         return yypexpr();
     }
 
-    private int yyr24() { // expr : expr OR expr
+    private int yyr27() { // expr : expr OR expr
         { yyrv = new Or(((Expr)yysv[yysp-3]), ((Expr)yysv[yysp-1])); }
         yysv[yysp-=3] = yyrv;
         return yypexpr();
     }
 
-    private int yyr25() { // expr : INT
+    private int yyr28() { // expr : INT
         { yyrv = ((IntLiteral)yysv[yysp-1]); }
         yysv[yysp-=1] = yyrv;
         return yypexpr();
     }
 
-    private int yyr26() { // expr : IDENT
+    private int yyr29() { // expr : IDENT
         { yyrv = ((Ident)yysv[yysp-1]); }
         yysv[yysp-=1] = yyrv;
         return yypexpr();
     }
 
-    private int yyr27() { // expr : STRING_LITERAL
+    private int yyr30() { // expr : STRING_LITERAL
         { yyrv = ((StringLiteral)yysv[yysp-1]); }
         yysv[yysp-=1] = yyrv;
         return yypexpr();
     }
 
-    private int yyr28() { // expr : MONEY
+    private int yyr31() { // expr : MONEY
         { yyrv = ((MoneyLiteral)yysv[yysp-1]); }
         yysv[yysp-=1] = yyrv;
         return yypexpr();
     }
 
-    private int yyr29() { // expr : '(' expr ')'
+    private int yyr32() { // expr : '(' expr ')'
         { yyrv = yysv[yysp-3]; }
         yysv[yysp-=3] = yyrv;
         return yypexpr();
@@ -2336,43 +2336,43 @@ class QLParser implements QLTokens {
         }
     }
 
-    private int yyr7() { // question : IDENT ':' STRING_LITERAL type
+    private int yyr10() { // question : IDENT ':' STRING_LITERAL type
         { yyrv = new SimpleQuestion(((Ident)yysv[yysp-4]), ((StringLiteral)yysv[yysp-2]), ((Type)yysv[yysp-1])); }
         yysv[yysp-=4] = yyrv;
         return 6;
     }
 
-    private int yyr8() { // question : IDENT '(' expr ')' ':' STRING_LITERAL type
+    private int yyr11() { // question : IDENT '(' expr ')' ':' STRING_LITERAL type
         { yyrv = new ExpressionQuestion(((Ident)yysv[yysp-7]), ((Expr)yysv[yysp-5]), ((StringLiteral)yysv[yysp-2]), ((Type)yysv[yysp-1])); }
         yysv[yysp-=7] = yyrv;
         return 6;
     }
 
-    private int yyr4() { // stmt : IF '(' expr ')' '{' stmts '}'
+    private int yyr7() { // stmt : IF '(' expr ')' '{' stmts '}'
         { yyrv = new If(((Expr)yysv[yysp-5]), ((Stmts)yysv[yysp-2])); }
         yysv[yysp-=7] = yyrv;
         return 7;
     }
 
-    private int yyr5() { // stmt : STRING_LITERAL '(' expr ')'
+    private int yyr8() { // stmt : STRING_LITERAL '(' expr ')'
         { yyrv = new Label(((StringLiteral)yysv[yysp-4]), ((Expr)yysv[yysp-2])); }
         yysv[yysp-=4] = yyrv;
         return 7;
     }
 
-    private int yyr6() { // stmt : question
+    private int yyr9() { // stmt : question
         { yyrv = ((Question)yysv[yysp-1]); }
         yysv[yysp-=1] = yyrv;
         return 7;
     }
 
-    private int yyr2() { // stmts : stmts stmt
+    private int yyr5() { // stmts : stmts stmt
         { yyrv = new Stmts(((Stmts)yysv[yysp-2]), ((Stmt)yysv[yysp-1])); }
         yysv[yysp-=2] = yyrv;
         return yypstmts();
     }
 
-    private int yyr3() { // stmts : /* empty */
+    private int yyr6() { // stmts : /* empty */
         { yyrv = new Stmts(); }
         yysv[yysp-=0] = yyrv;
         return yypstmts();
@@ -2385,25 +2385,25 @@ class QLParser implements QLTokens {
         }
     }
 
-    private int yyr30() { // type : INTEGER
+    private int yyr33() { // type : INTEGER
         { yyrv = new Int(); }
         yysv[yysp-=1] = yyrv;
         return yyptype();
     }
 
-    private int yyr31() { // type : BOOLEAN
+    private int yyr34() { // type : BOOLEAN
         { yyrv = new Bool(); }
         yysv[yysp-=1] = yyrv;
         return yyptype();
     }
 
-    private int yyr32() { // type : STRING
+    private int yyr35() { // type : STRING
         { yyrv = new Str(); }
         yysv[yysp-=1] = yyrv;
         return yyptype();
     }
 
-    private int yyr33() { // type : MONEY
+    private int yyr36() { // type : MONEY
         { yyrv = new Money(); }
         yysv[yysp-=1] = yyrv;
         return yyptype();

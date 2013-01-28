@@ -2,6 +2,7 @@ package org.uva.sea.ql.ast;
 
 import java.util.Map;
 
+import org.uva.sea.ql.ast.type.BoolType;
 import org.uva.sea.ql.ast.type.Numeric;
 import org.uva.sea.ql.ast.type.Type;
 import org.uva.sea.ql.interpreter.BoolVal;
@@ -24,7 +25,7 @@ public class NEq extends Binary {
 
 	@Override
 	public Type typeOf(Map<Ident, Type> typeEnv) {
-		return new Numeric();
+		return new BoolType();
 	}
 
 }

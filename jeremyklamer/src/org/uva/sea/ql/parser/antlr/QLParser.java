@@ -1,4 +1,4 @@
-// $ANTLR 3.4 C:\\Users\\Jeremy\\Documents\\GitHub\\sea-of-ql\\jeremyklamer\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g 2013-01-23 13:47:21
+// $ANTLR 3.4 C:\\Users\\Jeremy\\Documents\\GitHub\\sea-of-ql\\jeremyklamer\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g 2013-01-28 14:52:35
 
 package org.uva.sea.ql.parser.antlr;
 import org.uva.sea.ql.ast.*;
@@ -796,9 +796,9 @@ public class QLParser extends Parser {
 
 
     // $ANTLR start "form"
-    // C:\\Users\\Jeremy\\Documents\\GitHub\\sea-of-ql\\jeremyklamer\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:90:1: form returns [Type result] : 'form' Ident '{' ( formPart )+ '}' ;
-    public final Type form() throws RecognitionException {
-        Type result = null;
+    // C:\\Users\\Jeremy\\Documents\\GitHub\\sea-of-ql\\jeremyklamer\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:90:1: form returns [Statement result] : 'form' Ident '{' ( formPart )+ '}' ;
+    public final Statement form() throws RecognitionException {
+        Statement result = null;
 
         int form_StartIndex = input.index();
 
@@ -990,34 +990,39 @@ public class QLParser extends Parser {
 
 
     // $ANTLR start "ifStatement"
-    // C:\\Users\\Jeremy\\Documents\\GitHub\\sea-of-ql\\jeremyklamer\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:101:1: ifStatement returns [Statement result] : 'if' '(' Ident ')' '{' ( formPart )+ '}' ;
+    // C:\\Users\\Jeremy\\Documents\\GitHub\\sea-of-ql\\jeremyklamer\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:101:1: ifStatement returns [Statement result] : 'if' '(' orExpr ')' '{' ( formPart )+ '}' ;
     public final Statement ifStatement() throws RecognitionException {
         Statement result = null;
 
         int ifStatement_StartIndex = input.index();
 
-        Token Ident11=null;
         Statement formPart10 =null;
+
+        Expr orExpr11 =null;
 
 
          List<Statement> formParts = new ArrayList<Statement>();
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 10) ) { return result; }
 
-            // C:\\Users\\Jeremy\\Documents\\GitHub\\sea-of-ql\\jeremyklamer\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:103:5: ( 'if' '(' Ident ')' '{' ( formPart )+ '}' )
-            // C:\\Users\\Jeremy\\Documents\\GitHub\\sea-of-ql\\jeremyklamer\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:103:7: 'if' '(' Ident ')' '{' ( formPart )+ '}'
+            // C:\\Users\\Jeremy\\Documents\\GitHub\\sea-of-ql\\jeremyklamer\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:103:5: ( 'if' '(' orExpr ')' '{' ( formPart )+ '}' )
+            // C:\\Users\\Jeremy\\Documents\\GitHub\\sea-of-ql\\jeremyklamer\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:103:7: 'if' '(' orExpr ')' '{' ( formPart )+ '}'
             {
             match(input,28,FOLLOW_28_in_ifStatement567); if (state.failed) return result;
 
             match(input,13,FOLLOW_13_in_ifStatement569); if (state.failed) return result;
 
-            Ident11=(Token)match(input,Ident,FOLLOW_Ident_in_ifStatement571); if (state.failed) return result;
+            pushFollow(FOLLOW_orExpr_in_ifStatement571);
+            orExpr11=orExpr();
+
+            state._fsp--;
+            if (state.failed) return result;
 
             match(input,14,FOLLOW_14_in_ifStatement573); if (state.failed) return result;
 
             match(input,31,FOLLOW_31_in_ifStatement575); if (state.failed) return result;
 
-            // C:\\Users\\Jeremy\\Documents\\GitHub\\sea-of-ql\\jeremyklamer\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:103:30: ( formPart )+
+            // C:\\Users\\Jeremy\\Documents\\GitHub\\sea-of-ql\\jeremyklamer\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:103:31: ( formPart )+
             int cnt10=0;
             loop10:
             do {
@@ -1031,7 +1036,7 @@ public class QLParser extends Parser {
 
                 switch (alt10) {
             	case 1 :
-            	    // C:\\Users\\Jeremy\\Documents\\GitHub\\sea-of-ql\\jeremyklamer\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:103:31: formPart
+            	    // C:\\Users\\Jeremy\\Documents\\GitHub\\sea-of-ql\\jeremyklamer\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:103:32: formPart
             	    {
             	    pushFollow(FOLLOW_formPart_in_ifStatement578);
             	    formPart10=formPart();
@@ -1057,7 +1062,7 @@ public class QLParser extends Parser {
 
             match(input,33,FOLLOW_33_in_ifStatement584); if (state.failed) return result;
 
-            if ( state.backtracking==0 ) {result = new If(new Ident((Ident11!=null?Ident11.getText():null)), formParts);}
+            if ( state.backtracking==0 ) {result = new If(orExpr11, formParts);}
 
             }
 
@@ -1079,16 +1084,17 @@ public class QLParser extends Parser {
 
 
     // $ANTLR start "ifThenStatement"
-    // C:\\Users\\Jeremy\\Documents\\GitHub\\sea-of-ql\\jeremyklamer\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:106:1: ifThenStatement returns [Statement result] : 'if' '(' Ident ')' '{' (f1= formPart )+ '}' 'else' '{' (f2= formPart )+ '}' ;
+    // C:\\Users\\Jeremy\\Documents\\GitHub\\sea-of-ql\\jeremyklamer\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:106:1: ifThenStatement returns [Statement result] : 'if' '(' orExpr ')' '{' (f1= formPart )+ '}' 'else' '{' (f2= formPart )+ '}' ;
     public final Statement ifThenStatement() throws RecognitionException {
         Statement result = null;
 
         int ifThenStatement_StartIndex = input.index();
 
-        Token Ident12=null;
         Statement f1 =null;
 
         Statement f2 =null;
+
+        Expr orExpr12 =null;
 
 
          List<Statement> ifFormParts = new ArrayList<Statement>();
@@ -1096,20 +1102,24 @@ public class QLParser extends Parser {
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 11) ) { return result; }
 
-            // C:\\Users\\Jeremy\\Documents\\GitHub\\sea-of-ql\\jeremyklamer\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:109:5: ( 'if' '(' Ident ')' '{' (f1= formPart )+ '}' 'else' '{' (f2= formPart )+ '}' )
-            // C:\\Users\\Jeremy\\Documents\\GitHub\\sea-of-ql\\jeremyklamer\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:109:7: 'if' '(' Ident ')' '{' (f1= formPart )+ '}' 'else' '{' (f2= formPart )+ '}'
+            // C:\\Users\\Jeremy\\Documents\\GitHub\\sea-of-ql\\jeremyklamer\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:109:5: ( 'if' '(' orExpr ')' '{' (f1= formPart )+ '}' 'else' '{' (f2= formPart )+ '}' )
+            // C:\\Users\\Jeremy\\Documents\\GitHub\\sea-of-ql\\jeremyklamer\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:109:7: 'if' '(' orExpr ')' '{' (f1= formPart )+ '}' 'else' '{' (f2= formPart )+ '}'
             {
             match(input,28,FOLLOW_28_in_ifThenStatement622); if (state.failed) return result;
 
             match(input,13,FOLLOW_13_in_ifThenStatement624); if (state.failed) return result;
 
-            Ident12=(Token)match(input,Ident,FOLLOW_Ident_in_ifThenStatement626); if (state.failed) return result;
+            pushFollow(FOLLOW_orExpr_in_ifThenStatement626);
+            orExpr12=orExpr();
+
+            state._fsp--;
+            if (state.failed) return result;
 
             match(input,14,FOLLOW_14_in_ifThenStatement628); if (state.failed) return result;
 
             match(input,31,FOLLOW_31_in_ifThenStatement630); if (state.failed) return result;
 
-            // C:\\Users\\Jeremy\\Documents\\GitHub\\sea-of-ql\\jeremyklamer\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:109:30: (f1= formPart )+
+            // C:\\Users\\Jeremy\\Documents\\GitHub\\sea-of-ql\\jeremyklamer\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:109:31: (f1= formPart )+
             int cnt11=0;
             loop11:
             do {
@@ -1123,7 +1133,7 @@ public class QLParser extends Parser {
 
                 switch (alt11) {
             	case 1 :
-            	    // C:\\Users\\Jeremy\\Documents\\GitHub\\sea-of-ql\\jeremyklamer\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:109:31: f1= formPart
+            	    // C:\\Users\\Jeremy\\Documents\\GitHub\\sea-of-ql\\jeremyklamer\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:109:32: f1= formPart
             	    {
             	    pushFollow(FOLLOW_formPart_in_ifThenStatement635);
             	    f1=formPart();
@@ -1153,7 +1163,7 @@ public class QLParser extends Parser {
 
             match(input,31,FOLLOW_31_in_ifThenStatement645); if (state.failed) return result;
 
-            // C:\\Users\\Jeremy\\Documents\\GitHub\\sea-of-ql\\jeremyklamer\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:109:91: (f2= formPart )+
+            // C:\\Users\\Jeremy\\Documents\\GitHub\\sea-of-ql\\jeremyklamer\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:109:92: (f2= formPart )+
             int cnt12=0;
             loop12:
             do {
@@ -1167,7 +1177,7 @@ public class QLParser extends Parser {
 
                 switch (alt12) {
             	case 1 :
-            	    // C:\\Users\\Jeremy\\Documents\\GitHub\\sea-of-ql\\jeremyklamer\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:109:92: f2= formPart
+            	    // C:\\Users\\Jeremy\\Documents\\GitHub\\sea-of-ql\\jeremyklamer\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:109:93: f2= formPart
             	    {
             	    pushFollow(FOLLOW_formPart_in_ifThenStatement650);
             	    f2=formPart();
@@ -1193,7 +1203,7 @@ public class QLParser extends Parser {
 
             match(input,33,FOLLOW_33_in_ifThenStatement656); if (state.failed) return result;
 
-            if ( state.backtracking==0 ) {result = new IfThenElse(new Ident((Ident12!=null?Ident12.getText():null)), ifFormParts, elseFormParts);}
+            if ( state.backtracking==0 ) {result = new IfThenElse(orExpr12, ifFormParts, elseFormParts);}
 
             }
 
@@ -1432,15 +1442,15 @@ public class QLParser extends Parser {
     public static final BitSet FOLLOW_ifThenStatement_in_formPart520 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_ifStatement_in_formPart530 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_28_in_ifStatement567 = new BitSet(new long[]{0x0000000000002000L});
-    public static final BitSet FOLLOW_13_in_ifStatement569 = new BitSet(new long[]{0x0000000000000040L});
-    public static final BitSet FOLLOW_Ident_in_ifStatement571 = new BitSet(new long[]{0x0000000000004000L});
+    public static final BitSet FOLLOW_13_in_ifStatement569 = new BitSet(new long[]{0x00000000000325D0L});
+    public static final BitSet FOLLOW_orExpr_in_ifStatement571 = new BitSet(new long[]{0x0000000000004000L});
     public static final BitSet FOLLOW_14_in_ifStatement573 = new BitSet(new long[]{0x0000000080000000L});
     public static final BitSet FOLLOW_31_in_ifStatement575 = new BitSet(new long[]{0x0000000010000040L});
     public static final BitSet FOLLOW_formPart_in_ifStatement578 = new BitSet(new long[]{0x0000000210000040L});
     public static final BitSet FOLLOW_33_in_ifStatement584 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_28_in_ifThenStatement622 = new BitSet(new long[]{0x0000000000002000L});
-    public static final BitSet FOLLOW_13_in_ifThenStatement624 = new BitSet(new long[]{0x0000000000000040L});
-    public static final BitSet FOLLOW_Ident_in_ifThenStatement626 = new BitSet(new long[]{0x0000000000004000L});
+    public static final BitSet FOLLOW_13_in_ifThenStatement624 = new BitSet(new long[]{0x00000000000325D0L});
+    public static final BitSet FOLLOW_orExpr_in_ifThenStatement626 = new BitSet(new long[]{0x0000000000004000L});
     public static final BitSet FOLLOW_14_in_ifThenStatement628 = new BitSet(new long[]{0x0000000080000000L});
     public static final BitSet FOLLOW_31_in_ifThenStatement630 = new BitSet(new long[]{0x0000000010000040L});
     public static final BitSet FOLLOW_formPart_in_ifThenStatement635 = new BitSet(new long[]{0x0000000210000040L});

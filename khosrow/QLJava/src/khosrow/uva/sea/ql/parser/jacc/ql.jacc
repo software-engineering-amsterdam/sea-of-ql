@@ -39,6 +39,11 @@ import khosrow.uva.sea.ql.ast.type.*;
 
 %%
 
+top		: form					{ formResult = $1; }
+		| stmt					{ stmtResult = $1; }
+		| expr					{ exprResult = $1; }
+		;
+		
 
 form	: FORM IDENT '{' stmts '}'
 								{ result = new Form($2, $4); }					

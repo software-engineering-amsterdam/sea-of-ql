@@ -7,5 +7,4 @@ public abstract class NumberLiteral extends Literal {
 	public NumberLiteral(ICodeLocationInformation codeLocation) {
 		super(codeLocation);
 	}
-
 }

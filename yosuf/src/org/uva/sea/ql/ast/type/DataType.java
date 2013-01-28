@@ -1,4 +1,4 @@
-package org.uva.sea.ql.ast.data;
+package org.uva.sea.ql.ast.type;
 
 import org.uva.sea.ql.ast.ASTNode;
 
