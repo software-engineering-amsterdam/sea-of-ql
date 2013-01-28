@@ -1,4 +1,4 @@
-// $ANTLR 3.4 src/main/org/uva/sea/ql/parser/QL.g 2013-01-28 12:18:13
+// $ANTLR 3.4 src/main/org/uva/sea/ql/parser/QL.g 2013-01-28 13:45:26
 
 	package org.uva.sea.ql.parser;
 	import org.uva.sea.ql.parser.exception.ParserException;
@@ -530,7 +530,7 @@ public TreeAdaptor getTreeAdaptor() {
 
 
             // AST REWRITE
-            // elements: elseIfStat, ifStat, elseStat
+            // elements: ifStat, elseIfStat, elseStat
             // token labels: 
             // rule labels: retval
             // token list labels: 
@@ -1065,7 +1065,7 @@ public TreeAdaptor getTreeAdaptor() {
             if ( state.backtracking==0 ) stream_type.add(type30.getTree());
 
             // AST REWRITE
-            // elements: type, Identifier
+            // elements: Identifier, type
             // token labels: 
             // rule labels: retval
             // token list labels: 

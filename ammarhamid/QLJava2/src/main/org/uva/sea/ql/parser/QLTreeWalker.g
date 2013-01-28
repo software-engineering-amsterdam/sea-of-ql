@@ -11,6 +11,10 @@ options
 {
 	package org.uva.sea.ql.parser;
 	import org.uva.sea.ql.ast.Node;
+	import org.uva.sea.ql.ast.IfNode;
+	import org.uva.sea.ql.ast.BlockNode;
+	import org.uva.sea.ql.ast.AssignmentNode;
+	import org.uva.sea.ql.ast.VariableScope;
 	import org.uva.sea.ql.ast.expression.ExprNode;
 	import org.uva.sea.ql.ast.expression.impl.AddNode;
 	import org.uva.sea.ql.ast.expression.impl.AndNode;
@@ -34,6 +38,11 @@ options
 	import org.uva.sea.ql.ast.value.impl.StringNode;
 }
 
+@members
+{
+    VariableScope currentScope = new VariableScope();
+}
+
 walk
     :   form
     ;   
@@ -42,31 +51,48 @@ form
 	:	^(FORM Identifier ^(BLOCK block))
 	;
 
-block
-    :   statement*
+block returns [Node node]
+@init
+{
+    final BlockNode blockNode = new BlockNode();
+    $node = blockNode;
+    final VariableScope scope = new VariableScope(this.currentScope);
+    currentScope = scope;
+}
+@after
+{
+    currentScope = currentScope.getParent();
+}
+    :   (statement { blockNode.addStatement($statement.node); })*
     ;
 
-statement
+statement returns [Node node]
 	:	ifStatement
 		| assignmentStatement
 	;
 
-ifStatement
+ifStatement returns [Node node]
+@init
+{
+    final IfNode ifNode = new IfNode();
+    $node = ifNode;
+}
 	:   ^(IF
-	        (^(EXPRESSION expression ^(BLOCK block)))+
-	        (^(EXPRESSION ^(BLOCK block)))
+	        (^(EXPRESSION expression ^(BLOCK b1=block)) { ifNode.addBranch($expression.node, $b1.node); })+
+	        (^(EXPRESSION ^(BLOCK b2=block)) { ifNode.addBranch(new BooleanNode("true"), $b2.node); })?
 	     )
 	;
 
-assignmentStatement
-	:	^(ASSIGNMENT Identifier type)
+assignmentStatement returns [Node node]
+	:	^(ASSIGNMENT Identifier type) { $node = new AssignmentNode($Identifier.text, $type.node, currentScope); }
 	;
 
-type
-	:	'boolean'
-		| 'integer'
-		| 'string'
-		| 'money'
+type returns [Node node]
+// TODO check with immutable value object
+	:	'boolean' {$node = new BooleanNode("false"); }
+		| 'integer' {$node = new IntegerNode(0); }
+		| 'string' {$node = new StringNode("");}
+		| 'money' {$node = new MoneyNode("0");}
 	;
 
 expression returns [ExprNode node]

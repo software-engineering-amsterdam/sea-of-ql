@@ -5,11 +5,11 @@ import org.uva.sea.ql.ast.value.ValueNode;
 import java.util.ArrayList;
 import java.util.List;
 
-public class StatementBlockNode implements Node
+public class BlockNode implements Node
 {
     private final List<Node> statements;
 
-    public StatementBlockNode()
+    public BlockNode()
     {
         this.statements = new ArrayList<>();
     }
