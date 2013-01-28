@@ -83,7 +83,7 @@ public class QLLexer implements QLTokens {
 			    		nextChar();
 			    		continue;
 			    	}
-			    	return token = DIV; 
+			    	return token = '/'; 
 			    }
 			    case '{': nextChar(); return token = '{';
 			    case '}': nextChar(); return token = '}';
@@ -96,10 +96,10 @@ public class QLLexer implements QLTokens {
 			    		nextChar();
 			    		continue;
 			    	}
-			    	return token = MUL;
+			    	return token = '*';
 			    }
-			    case '+': nextChar(); return token = ADD;
-			    case '-': nextChar(); return token = SUB;
+			    case '+': nextChar(); return token = '+';
+			    case '-': nextChar(); return token = '-';			    
 			    case ';': nextChar(); return token = ';';
 			    case ':': nextChar(); return token = ':';			    
 			    case '&': {
@@ -125,7 +125,7 @@ public class QLLexer implements QLTokens {
 			    		nextChar();
 			    		return token = LEQ;
 			    	}
-			    	return token = LT;
+			    	return token = '<';
 			    }
 			    case '=': { 
 			    	nextChar(); 
@@ -140,7 +140,7 @@ public class QLLexer implements QLTokens {
 			    		nextChar();
 			    		return token = GEQ;
 			    	}
-			    	return token = GT;
+			    	return token = '>';
 			    }
 			    case '"': {
 			    	StringBuilder sb = new StringBuilder();
