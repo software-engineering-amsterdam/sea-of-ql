@@ -1,7 +1,8 @@
 @contributor{George Marmanidis -geo.marmani@gmail.com}
-module lang::ql::ast::SemanticCheck::IdentDeclarationsCheck
 
-import lang::ql::ast::SemanticCheck::utilities;
+module lang::ql::ast::semanticcheck::IdentDeclarationsCheck
+
+import lang::ql::ast::semanticcheck::TypeEnvUtils;
 import lang::ql::ast::AST;
 
 //Retrieves all the identifiers and keeps type,location,label and if is computed.
@@ -48,7 +49,7 @@ TENV getIdentDeclarations(list[Question] questionItem,TENV env){
 	}
 	return env;
 }
-
+//TENV dadaw()=3 when dawdaw;
 TENV getIdentDeclarations(question:simpleQuestion(str questionId,str questionLabel,Type questionType),TENV env){
 	
 	//we search for duplicating identifiers in this part of the code
