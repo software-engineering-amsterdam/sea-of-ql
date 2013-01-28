@@ -10,11 +10,8 @@ public class BooleanLiteral extends Expr {
 	
 	private final boolean value;
 	
-	public BooleanLiteral(String value) {
-		if (value.equals("true"))
-			this.value = true;
-		else
-			this.value = false;
+	public BooleanLiteral(boolean value) {
+		this.value = value;
 	}
 	
 	public boolean getValue() {

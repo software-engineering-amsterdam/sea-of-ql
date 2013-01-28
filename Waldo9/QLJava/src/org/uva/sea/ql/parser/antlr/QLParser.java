@@ -1,4 +1,4 @@
-// $ANTLR 3.4 C:\\Users\\Wouter Kwakernaak\\sea-of-ql\\Waldo9\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g 2013-01-28 12:14:22
+// $ANTLR 3.4 C:\\Users\\Wouter Kwakernaak\\sea-of-ql\\Waldo9\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g 2013-01-28 14:18:11
 
 	package org.uva.sea.ql.parser.antlr;
 	import org.uva.sea.ql.ast.*;
@@ -154,7 +154,7 @@ public class QLParser extends Parser {
                     {
                     Bool3=(Token)match(input,Bool,FOLLOW_Bool_in_primary64); if (state.failed) return result;
 
-                    if ( state.backtracking==0 ) { result = new BooleanLiteral((Bool3!=null?Bool3.getText():null)); }
+                    if ( state.backtracking==0 ) { result = new BooleanLiteral(Boolean.parseBoolean((Bool3!=null?Bool3.getText():null))); }
 
                     }
                     break;

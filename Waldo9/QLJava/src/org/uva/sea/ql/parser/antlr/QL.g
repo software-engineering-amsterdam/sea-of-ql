@@ -18,7 +18,7 @@ options {backtrack=true; memoize=true;}
 primary returns [Expr result]
  	: Int   { $result = new Int(Integer.parseInt($Int.text)); }
  	| Ident { $result = new Ident($Ident.text); }
- 	| Bool	{ $result = new BooleanLiteral($Bool.text); }
+ 	| Bool	{ $result = new BooleanLiteral(Boolean.parseBoolean($Bool.text)); }
  	| String { $result = new StringLiteral($String.text); }
  	| '(' x=orExpr ')'{ $result = $x.result; };
     
