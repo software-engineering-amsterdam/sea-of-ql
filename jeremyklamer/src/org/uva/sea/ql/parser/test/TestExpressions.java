@@ -139,7 +139,6 @@ public class TestExpressions {
 		assertEquals(1 , parser.parse("3 != true").checkType(testMap).size());
 		assertEquals(1 , parser.parse("3 && true").checkType(testMap).size());
 		assertEquals(1 , parser.parse("3 || true").checkType(testMap).size());
-		
 		assertEquals(2 , parser.parse("3 + true * 8 - true + 3").checkType(testMap).size());
 	}
 	

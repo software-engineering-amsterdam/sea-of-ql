@@ -1,6 +1,6 @@
 package org.uva.sea.ql.message;
 
-public abstract class Message {
+public class Message {
 	
 	private final String message;
 	

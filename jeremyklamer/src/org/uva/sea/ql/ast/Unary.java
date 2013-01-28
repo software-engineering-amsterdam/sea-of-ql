@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.Map;
 
 import org.uva.sea.ql.ast.type.Type;
+import org.uva.sea.ql.message.Message;
+import org.uva.sea.ql.message.Error;
 
 public abstract class Unary extends Expr{
 
@@ -19,8 +21,8 @@ public abstract class Unary extends Expr{
 	}
 	
 	@Override
-	public List<Error> checkType(Map<Ident, Type> typeEnv) {
-		ArrayList<Error> errors = new ArrayList<Error>();
+	public List<Message> checkType(Map<Ident, Type> typeEnv) {
+		ArrayList<Message> errors = new ArrayList<Message>();
 		Type type = expr.typeOf(typeEnv);
 		if(!(permittedTypes.isCompatibleTo(type)))
 			errors.add(new Error(type.getClass().getSimpleName() + " is not compatible. In " + getName(this)));
