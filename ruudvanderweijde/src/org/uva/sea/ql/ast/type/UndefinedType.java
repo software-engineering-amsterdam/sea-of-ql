@@ -7,5 +7,10 @@ public class UndefinedType extends Type {
 	public boolean isCompatibleTo(Type t) {
 		return false;
 	}
+	
+	@Override
+	public String toString() {
+		return "UndefinedType";
+	}
 
 }
