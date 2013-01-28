@@ -1,5 +1,6 @@
 module lang::ql::syntax::QL
 
+
 start syntax Expr
   = ident: Ident name
   | \int: Int
@@ -37,10 +38,6 @@ lexical Int
   = [0-9]+ !>> [0-9]
   ;
 
-  
-layout Standard 
-  = WhitespaceOrComment* !>> [\ \t\n\f\r] !>> "//" !>> "/*";
-  
 lexical Comment 
   = @category="Comment" "/*" CommentChar* "*/"
   ;
