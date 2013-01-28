@@ -1,5 +1,7 @@
 package org.uva.sea.ql.ast.expr;
 
+import org.uva.sea.ql.ast.ASTVisitor;
+
 
 public class BoolLiteral extends Expr {
 	
@@ -11,6 +13,10 @@ public class BoolLiteral extends Expr {
 	
 	public String getValue() {
 		return value;
+	}
+	
+	public void accept(ASTVisitor visitor) {
+		visitor.visit(this);
 	}
 
 }

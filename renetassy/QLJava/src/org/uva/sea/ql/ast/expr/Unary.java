@@ -1,6 +1,6 @@
 package org.uva.sea.ql.ast.expr;
 
-public class Unary extends Expr {
+public abstract class Unary extends Expr {
 
 	private Expr arg;
 
