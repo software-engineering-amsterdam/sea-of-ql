@@ -1,7 +1,7 @@
 eclipse.preferences.version=1
 editor_bg_color=255,255,255
 show.dfa=true
-sourceHoverBackgroundColor=255,255,225
+sourceHoverBackgroundColor=250,251,197
 sourceHoverBackgroundColor.SystemDefault=true
 useAnnotationsPrefPage=true
 useQuickDiffPrefPage=true
