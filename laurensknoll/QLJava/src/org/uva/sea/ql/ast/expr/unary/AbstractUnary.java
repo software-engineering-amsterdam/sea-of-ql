@@ -4,14 +4,14 @@ import org.uva.sea.ql.ast.expr.AbstractExpr;
 
 public abstract class AbstractUnary extends AbstractExpr {
 
-	private final AbstractExpr expr;
+	private final AbstractExpr expression;
 
-	public AbstractUnary(AbstractExpr expr) {
-		this.expr = expr;
+	public AbstractUnary(AbstractExpr expression) {
+		this.expression = expression;
 	}
 
 	public AbstractExpr getExpression() {
-		return this.expr;
+		return this.expression;
 	}
 
 }

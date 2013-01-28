@@ -38,7 +38,7 @@ public class IfElseStatement extends IfStatement {
 	public boolean validate(Env environment) {
 		boolean valid = super.validate(environment);
 		for (FormItem f : elseBody) {
-			if (!f.validate(environment))
+			if (!f.validate(new Env(environment)))
 				valid = false;
 		}
 		return errors.size() == 0 && valid;

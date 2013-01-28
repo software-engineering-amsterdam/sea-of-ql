@@ -17,12 +17,17 @@ public class TestFormElements {
 
 	@Test
 	public void testCompQuestion() throws ParseError {
-		assertEquals(CompQuestion.class, parser.parseFormElement("dvdssd: \"fdhrdhfrrr\" int(432-4)").getClass());
+		assertEquals(CompQuestion.class, parser.parseFormElement("dvdssd: \"fdhrdhfrrr\" int(3-1)").getClass());
 	}
 
 	@Test
 	public void testIfBody() throws ParseError {
-		assertEquals(IfBody.class, parser.parseFormElement("if (hasSoldHouse) { sellingPrice: \"Price the house was sold for:\" int }").getClass());
+		assertEquals(IfThen.class, parser.parseFormElement("if (hasSoldHouse) { sellingPrice: \"Price the house was sold for:\" int }").getClass());
+	}
+	
+	@Test
+	public void testIfElseBody() throws ParseError {
+		assertEquals(IfThenElse.class, parser.parseFormElement("if (hasSoldHouse) { sellingPrice: \"Price the house was sold for:\" int } ").getClass());
 	}
 
 }

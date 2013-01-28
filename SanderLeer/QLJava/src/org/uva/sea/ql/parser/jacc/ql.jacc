@@ -30,6 +30,12 @@
 
 %{
 import org.uva.sea.ql.ast.*;
+import org.uva.sea.ql.ast.datatype.*;
+import org.uva.sea.ql.ast.expression.*;
+import org.uva.sea.ql.ast.expression.binary.*;
+import org.uva.sea.ql.ast.expression.literal.*;
+import org.uva.sea.ql.ast.expression.unary.*;
+import org.uva.sea.ql.ast.statement.*;
 %}
 
 %%
@@ -84,21 +90,6 @@ expr			: '+' expr %prec UPLUS							{ $$ = new Pos($2); }
 				;
 				
 %%
-//TODO: remove before production
-private void printNode(String item, ASTNode node) {
-	System.out.print("$" + item + " = " + node.getClass() + " (");
-
-	if (node.getClass() == Question.class) {
-	  System.out.print(((Question)node).getIdentifier().getName());
-	} else if (node.getClass() == StatementList.class) {
-	  System.out.print("StatementList");
-	} else {
-	  System.out.print("something else : " + node.toString());
-	}
-	
-	System.out.println(")");
-}
-
 private QLLexer lexer; 
 private ASTNode result;
 private String error;

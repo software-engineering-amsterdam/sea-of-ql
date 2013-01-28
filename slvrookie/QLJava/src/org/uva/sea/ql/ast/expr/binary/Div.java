@@ -5,22 +5,22 @@ import java.util.Map;
 import org.uva.sea.ql.ast.expr.*;
 import org.uva.sea.ql.ast.types.Numeric;
 import org.uva.sea.ql.ast.types.Type;
-import org.uva.sea.ql.visitor.IVisitor;
+import org.uva.sea.ql.visitor.IExprVisitor;
 
 public class Div extends BinaryExpr {
 
 	public Div(Expr lhs, Expr rhs) {
 		super(lhs, rhs);
 	}
-	
+
 	@Override
-	public Type typeOf(Map<Ident, Type> typeEnv) {
+	public Type typeOf(Map<String, Type> typeEnv) {
 		return new Numeric();
 	}
 
 	@Override
-	public <T> T accept(IVisitor<T> visitor) {
+	public <T> T accept(IExprVisitor<T> visitor) {
 		return visitor.visit(this);
 	}
-	
+
 }

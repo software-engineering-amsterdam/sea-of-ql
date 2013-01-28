@@ -30,42 +30,34 @@ public class VisitorDemo {
     	// full form check
     	String testString = "";
     	testString += "form Box1HouseOwning {\n";
-    	testString += "   hasSoldHouse: \"Did you sell a house in 2010?\" boolean\n";
-    	testString += "   hasSoldHouse: \"Did you sell a house in 2010?\" boolean\n";
-    	testString += "   hasBoughtHouse: \"Did you by a house in 2010?\" boolean\n";
-    	testString += "   hasMaintLoan: \"Did you enter a loan for maintenance/reconstruction?\" boolean\n";
+    	testString += "   hasSoldHouse: \"Did you sell a house in 2010?\" boolean;\n";
+//    	testString += "   hasSoldHouse: \"Did you sell a house in 2010?\" boolean\n";
+//    	testString += "   hasBoughtHouse: \"Did you by a house in 2010?\" boolean\n";
+//    	testString += "   hasMaintLoan: \"Did you enter a loan for maintenance/reconstruction?\" boolean\n";
     	testString += "   if (hasSoldHouse == true) {\n";
     	testString += "     sellingPrice1: \"Price the house was sold for:\" integer\n";
-    	testString += "   	if (anotherIf) {\n";
-    	testString += "     	sellingPrice1: \"Price the house was sold for:\" integer\n";
-    	testString += "   	}\n";
+//    	testString += "   	if (anotherIf) {\n";
+//    	testString += "     	sellingPrice4: \"Price the house was sold for:\" integer\n";
+//    	testString += "   	}\n";
     	testString += "     privateDebt1: \"Private debts for the sold house:\" integer\n";
-    	testString += "     valueResidue1: \"Value residue:\" integer(sellingPrice - privateDebt)\n";
-    	testString += "	  } else {\n";
-    	testString += "     sellingPrice2: \"Price the house was sold for:\" integer\n";
-    	testString += "     privateDebt2: \"Private debts for the sold house:\" integer\n";
-    	testString += "     valueResidue2: \"Value residue:\" integer(sellingPrice - privateDebt)\n";
+    	testString += "     valueResidue1: \"Value residue:\" integer(sellingPrice1 - privateDebt1)\n";
+//    	testString += "	  } else {\n";
+//    	testString += "     sellingPrice2: \"Price the house was sold for:\" integer\n";
+//    	testString += "     privateDebt2: \"Private debts for the sold house:\" integer\n";
+//    	testString += "     valueResidue2: \"Value residue:\" integer(sellingPrice2 - privateDebt2)\n";
     	testString += "   }\n";
-    	testString += "   finalQuestion: \"Please confirm that you have filled in everything correctly?\" boolean\n";
-    	testString += "   terms: \"I accept the terms... etc\" boolean\n";
+//    	testString += "   finalQuestion: \"Please confirm that you have filled in everything correctly?\" boolean\n";
+//    	testString += "   terms: \"I accept the terms... etc\" boolean\n";
     	testString += "}\n";
     	    	
 		Form form = parser.parseForm(testString);
-		form.accept(new FormVisitorPrinter());
+		//form.accept(new FormVisitorPrinter());
 		System.out.println("----- Now running FormChecker: ------");
 		form.accept(new FormChecker(SymbolTable, errors));
-		System.out.println("----- Done! Errors found: ------");
+		System.out.println("----- Done! ------");
 		for (String msg : errors) {
-			System.out.println(msg);
+			System.out.println("Error found:");
+			System.out.println("\t"+msg);
 		}
-		
-		String exprString = "sellingPrice1+1";
-    	Expr expr = parser.parseExpression(exprString);
-    	System.out.println("Visiting string: " + exprString);
-    	expr.accept(new ExpressionVisitorPrinter());
-    	
-    	Boolean result = expr.accept(new ExpressionChecker(SymbolTable, errors));
-    	System.out.println("ExpressionResult done, result: " + result);
-    	System.out.println("Errors: " + errors);
     }
 }

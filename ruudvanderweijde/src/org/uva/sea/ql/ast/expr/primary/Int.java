@@ -3,6 +3,7 @@ package org.uva.sea.ql.ast.expr.primary;
 import java.util.Map;
 
 import org.uva.sea.ql.ast.expr.Expr;
+import org.uva.sea.ql.ast.type.IntegerType;
 import org.uva.sea.ql.ast.type.Type;
 import org.uva.sea.ql.visitor.ExpressionVisitor;
 
@@ -21,7 +22,7 @@ public class Int extends Expr {
 
 	@Override
 	public Type typeOf(Map<Ident, Type> typeEnv) {
-		return new org.uva.sea.ql.ast.type.IntegerType();
+		return new IntegerType();
 	}
 
 	@Override

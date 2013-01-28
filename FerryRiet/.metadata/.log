@@ -4756,3 +4756,21 @@ java.lang.NullPointerException
 	at org.eclipse.equinox.launcher.Main.basicRun(Main.java:577)
 	at org.eclipse.equinox.launcher.Main.run(Main.java:1410)
 	at org.eclipse.equinox.launcher.Main.main(Main.java:1386)
+!SESSION 2013-01-27 13:11:53.403 -----------------------------------------------
+eclipse.buildId=M20120208-0800
+java.version=1.7.0_09
+java.vendor=Oracle Corporation
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=en_US
+Framework arguments:  -product org.eclipse.epp.package.java.product
+Command-line arguments:  -os win32 -ws win32 -arch x86_64 -product org.eclipse.epp.package.java.product
+
+!ENTRY org.eclipse.ui.workbench 2 0 2013-01-27 13:52:43.249
+!MESSAGE A handler conflict occurred.  This may disable some commands.
+!SUBENTRY 1 org.eclipse.ui.workbench 2 0 2013-01-27 13:52:43.249
+!MESSAGE Conflict for 'org.eclipse.jdt.ui.edit.text.java.correction.assist.proposals':
+HandlerActivation(commandId=org.eclipse.jdt.ui.edit.text.java.correction.assist.proposals,
+	handler=ActionHandler(org.eclipse.egit.ui.internal.dialogs.SpellcheckableMessageArea$9@51297bf3),
+	expression=ActiveShellExpression(Shell {Git Repository Exploring - Commit f017640e692ad22a0a163858d0ce50ff90654b05 in repository sea-of-ql - Eclipse}),sourcePriority=17408)
+HandlerActivation(commandId=org.eclipse.jdt.ui.edit.text.java.correction.assist.proposals,
+	handler=ActionHandler(org.eclipse.egit.ui.internal.dialogs.SpellcheckableMessageArea$9@7a88b825),
+	expression=ActiveShellExpression(Shell {Git Repository Exploring - Commit f017640e692ad22a0a163858d0ce50ff90654b05 in repository sea-of-ql - Eclipse}),sourcePriority=17408)

@@ -43,7 +43,7 @@ public class IfStatement extends FormItem {
 			errors.add(new Error("Ifstatement requires the expression to give a boolean result"));
 		}
 		for (FormItem f : ifBody) {
-			if (!f.validate(environment))
+			if (!f.validate(new Env(environment)))
 				valid = false;
 		}
 		return errors.size() == 0 && valid;

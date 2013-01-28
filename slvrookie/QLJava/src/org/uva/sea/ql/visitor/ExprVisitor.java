@@ -1,21 +1,29 @@
 package org.uva.sea.ql.visitor;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.uva.sea.ql.ast.expr.Expr;
 import org.uva.sea.ql.ast.expr.Ident;
 import org.uva.sea.ql.ast.expr.binary.*;
 import org.uva.sea.ql.ast.expr.unary.*;
 import org.uva.sea.ql.ast.expr.value.*;
 import org.uva.sea.ql.ast.types.Type;
 
-public class ExprVisitor implements IVisitor<Boolean> {
+public class ExprVisitor implements IExprVisitor<Boolean> {
 	
-	private Map<Ident, Type> typeEnv = new HashMap<Ident, Type>();
-	private final List<String> messages = new ArrayList<String>();
-
+	private final Map<String, Type> typeEnv;
+	private final List<String> messages;
+	
+	private ExprVisitor(Map<String, Type> tenv, List<String> messages) {
+		this.typeEnv = tenv;
+		this.messages = messages;
+	}
+	
+	public static boolean check(Expr expr, Map<String, Type> typeEnv, List<String> errs) {
+		ExprVisitor check = new ExprVisitor(typeEnv, errs);
+		return expr.accept(check);
+	}
 	
 	public void addError(String error) {
 		this.messages.add(error);
@@ -25,11 +33,12 @@ public class ExprVisitor implements IVisitor<Boolean> {
 		return messages;
 	}
 
-
 	@Override
 	public Boolean visit(Ident node) {
-		// TODO Auto-generated method stub
-		return null;
+		if(typeEnv.get(node.getName()) == null)	{
+			addError("Ident " + node.getName() + " is not declared");
+		}
+		return true;
 	}
 	
 	@Override
@@ -157,46 +166,46 @@ public class ExprVisitor implements IVisitor<Boolean> {
 		return true;
 	}
 	
-	private boolean checkSubtrees(BinaryExpr node){
+	private boolean checkSubtrees(BinaryExpr node) {
 		if (!(node.getLhs().accept(this) && node.getRhs().accept(this)));	
 		return false;	
 	}
 	
-	private boolean checkArgument(UnaryExpr node){
+	private boolean checkArgument(UnaryExpr node) {
 		if (!node.getArg().accept(this));
 		return false;
 	}
 	
-	private boolean isArgumentNumeric(UnaryExpr node, String operator){
+	private boolean isArgumentNumeric(UnaryExpr node, String operator) {
 		if(!node.getArg().typeOf(typeEnv).isCompatibleToNumeric()) {
-			addError("Invalid type for unary" + operator);
+			addError("Invalid type for unary " + operator);
 		}
 		return false;
 	}
 	
-	private boolean isArgumentBoolean(UnaryExpr node, String operator){
+	private boolean isArgumentBoolean(UnaryExpr node, String operator) {
 		if(!node.getArg().typeOf(typeEnv).isCompatibleToBoolType()) {
-			addError("Invalid type for unary" + operator);
+			addError("Invalid type for unary " + operator);
 		}
 		return false;
 	}
 	
 	private boolean areBothSidesSameType(BinaryExpr node, String operator) {
-		if (!(node.getLhs().typeOf(typeEnv).isCompatibleTo(node.getRhs().typeOf(typeEnv)))){
-			addError("Both operators must have the same type for" + operator);
+		if (!(node.getRhs().typeOf(typeEnv).isCompatibleTo(node.getLhs().typeOf(typeEnv)))) { 
+			addError("Both operators must have the same type for " + operator);
 		}
 		return false;
 	}
 	
 	private boolean areBothSidesCompatibleToNumeric(BinaryExpr node, String operator ) {
-		if (!(node.getLhs().typeOf(typeEnv).isCompatibleToNumeric() && node.getRhs().typeOf(typeEnv).isCompatibleToNumeric())){
+		if (!(node.typeOf(typeEnv).isCompatibleToNumeric() && node.getRhs().typeOf(typeEnv).isCompatibleToNumeric())) {
 			addError("invalid type for " + operator);
 		}
 		return false;
 	}
 	
 	private boolean areBothSidesCompatibleToBoolean(BinaryExpr node, String operator ) {
-		if (!(node.getLhs().typeOf(typeEnv).isCompatibleToBoolType() && node.getRhs().typeOf(typeEnv).isCompatibleToBoolType())){
+		if (!(node.getLhs().typeOf(typeEnv).isCompatibleToBoolType() && node.getRhs().typeOf(typeEnv).isCompatibleToBoolType())) {
 			addError("invalid type for " + operator);
 		}
 		return false;

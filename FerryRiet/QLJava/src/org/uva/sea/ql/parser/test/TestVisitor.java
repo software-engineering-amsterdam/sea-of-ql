@@ -78,7 +78,7 @@ public class TestVisitor extends TestCase {
 		String a38 = "form DoIt { field: \"doit\" boolean if ( 100 == 200 && 10 < 100 ) { fieldTwo : \"hello world!\" money( 30 + 20 )  fieldThree : \"third field\" money }}";
 		qlp = parser.qlprogram(a38);
 		qlp.accept(svis);
-		String a39 = "form DoIt { fieldOne: \"hello world!\" boolean fieldOne1: \"hello world!\" boolean if ( fieldOne1 ) { two: \"is here\" boolean } }";
+		String a39 = "form DoIt { fieldOne: \"hello world!\" money fieldOne1: \"hello world!\" money if ( fieldOne1 ) { two: \"is here\" boolean } }";
 		qlp = parser.qlprogram(a39);
 		qlp.accept(svis);
 

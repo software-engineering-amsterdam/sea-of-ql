@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.uva.sea.ql.ast.expressions.Ident;
+import org.uva.sea.ql.ast.types.NotDefinedType;
 import org.uva.sea.ql.ast.types.Type;
 //import org.uva.sea.ql.ast.values.Value;
 
@@ -33,17 +34,21 @@ public class Env {
 		else if (parent != null)
 			return parent.typeOf(ident);
 		else 
-			return null;
+			return new NotDefinedType();
 	}
 	
-	public void addIdent(Ident ident, Type type) {
-		if (!types.containsKey(ident)) {
+	// TODO: Met Tijs overleggen over betere aanpak!
+	public EnvAddIdentResults addIdent(Ident ident, Type type) {
+		Type typeOfExistingIdent = typeOf(ident);
+		if (typeOfExistingIdent instanceof NotDefinedType) {
 			types.put(ident, type);
+			return EnvAddIdentResults.NEW_ADDED;
 		}
-		else if (types.containsKey(ident)) {
-			if (types.get(ident) != type) {
-				throw new RuntimeException("Ident " + ident.getName() + " already exists but has different type");
-			}
+		else if (!(typeOfExistingIdent.equals(type))) {
+			return EnvAddIdentResults.DIFFERENT_TYPE_FOUND;
+		}
+		else {
+			return EnvAddIdentResults.SAME_TYPE_FOUND;
 		}
 	}
 }

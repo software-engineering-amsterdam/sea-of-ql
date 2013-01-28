@@ -19,265 +19,150 @@ import org.uva.sea.ql.ast.expr.binary.Sub;
 import org.uva.sea.ql.ast.expr.unary.Neg;
 import org.uva.sea.ql.ast.expr.unary.Not;
 import org.uva.sea.ql.ast.expr.unary.Pos;
+import org.uva.sea.ql.visitor.IExpression;
 
-public class Expression implements
-		org.uva.sea.ql.visitor.Expression<Boolean> {
+public class Expression implements IExpression<String> {
 
 	@Override
-	public Boolean visit(Add add) {
-		System.out.println("Visiting Add Expression");
+	public String visit(Add add) {
+		String left = add.getLeftHandSide().accept(this);
+		String right = add.getRightHandSide().accept(this);
 
-		// Visit items
-		add.getLeftHandSideExpression().accept(this);
-		add.getRightHandSideExpression().accept(this);
-
-		System.out.println("Ended visiting Add Expression");
-		System.out.println();
-
-		return true;
+		return String.format("(%s + %s)", left, right);
 	}
 
 	@Override
-	public Boolean visit(And and) {
-		System.out.println("Visiting And Expression");
+	public String visit(And and) {
+		String left = and.getLeftHandSide().accept(this);
+		String right = and.getRightHandSide().accept(this);
 
-		// Visit items
-		and.getLeftHandSideExpression().accept(this);
-		and.getRightHandSideExpression().accept(this);
-
-		System.out.println("Ended visiting And Expression");
-		System.out.println();
-
-		return true;
+		return String.format("(%s && %s)", left, right);
 	}
 
 	@Override
-	public Boolean visit(Div div) {
-		System.out.println("Visiting Div Expression");
+	public String visit(Div div) {
+		String left = div.getLeftHandSide().accept(this);
+		String right = div.getRightHandSide().accept(this);
 
-		// Visit items
-		div.getLeftHandSideExpression().accept(this);
-		div.getRightHandSideExpression().accept(this);
-
-		System.out.println("Ended visiting Div Expression");
-		System.out.println();
-
-		return true;
+		return String.format("(%s / %s)", left, right);
 	}
 
 	@Override
-	public Boolean visit(Eq eq) {
-		System.out.println("Visiting Eq Expression");
+	public String visit(Eq eq) {
+		String left = eq.getLeftHandSide().accept(this);
+		String right = eq.getRightHandSide().accept(this);
 
-		// Visit items
-		eq.getLeftHandSideExpression().accept(this);
-		eq.getRightHandSideExpression().accept(this);
-
-		System.out.println("Ended visiting Eq Expression");
-		System.out.println();
-
-		return true;
+		return String.format("(%s == %s)", left, right);
 	}
 
 	@Override
-	public Boolean visit(GEq geq) {
-		System.out.println("Visiting GEq Expression");
+	public String visit(GEq geq) {
+		String left = geq.getLeftHandSide().accept(this);
+		String right = geq.getRightHandSide().accept(this);
 
-		// Visit items
-		geq.getLeftHandSideExpression().accept(this);
-		geq.getRightHandSideExpression().accept(this);
-
-		System.out.println("Ended visiting GEq Expression");
-		System.out.println();
-
-		return true;
+		return String.format("(%s >= %s)", left, right);
 	}
 
 	@Override
-	public Boolean visit(GT gt) {
-		System.out.println("Visiting GT Expression");
+	public String visit(GT gt) {
+		String left = gt.getLeftHandSide().accept(this);
+		String right = gt.getRightHandSide().accept(this);
 
-		// Visit items
-		gt.getLeftHandSideExpression().accept(this);
-		gt.getRightHandSideExpression().accept(this);
-
-		System.out.println("Ended visiting GT Expression");
-		System.out.println();
-
-		return true;
+		return String.format("(%s > %s)", left, right);
 	}
 
 	@Override
-	public Boolean visit(LEq leq) {
-		System.out.println("Visiting LEq Expression");
+	public String visit(LEq leq) {
+		String left = leq.getLeftHandSide().accept(this);
+		String right = leq.getRightHandSide().accept(this);
 
-		// Visit items
-		leq.getLeftHandSideExpression().accept(this);
-		leq.getRightHandSideExpression().accept(this);
-
-		System.out.println("Ended visiting LEq Expression");
-		System.out.println();
-
-		return true;
+		return String.format("(%s <= %s)", left, right);
 	}
 
 	@Override
-	public Boolean visit(LT lt) {
-		System.out.println("Visiting LT Expression");
+	public String visit(LT lt) {
+		String left = lt.getLeftHandSide().accept(this);
+		String right = lt.getRightHandSide().accept(this);
 
-		// Visit items
-		lt.getLeftHandSideExpression().accept(this);
-		lt.getRightHandSideExpression().accept(this);
-
-		System.out.println("Ended visiting LT Expression");
-		System.out.println();
-
-		return true;
+		return String.format("(%s < %s)", left, right);
 	}
 
 	@Override
-	public Boolean visit(Mul mul) {
-		System.out.println("Visiting Mul Expression");
+	public String visit(Mul mul) {
+		String left = mul.getLeftHandSide().accept(this);
+		String right = mul.getRightHandSide().accept(this);
 
-		// Visit items
-		mul.getLeftHandSideExpression().accept(this);
-		mul.getRightHandSideExpression().accept(this);
-
-		System.out.println("Ended visiting Mul Expression");
-		System.out.println();
-
-		return true;
+		return String.format("(%s * %s)", left, right);
 	}
 
 	@Override
-	public Boolean visit(Neg neg) {
-		System.out.println("Visiting Neg Expression");
+	public String visit(Neg neg) {
+		String expr = neg.getExpression().accept(this);
 
-		// Visit items
-		neg.getExpression().accept(this);
-
-		System.out.println("Ended visiting Neg Expression");
-		System.out.println();
-
-		return true;
+		return String.format("(-%s)", expr);
 	}
 
 	@Override
-	public Boolean visit(NEq neq) {
-		System.out.println("Visiting NEq Expression");
+	public String visit(NEq neq) {
+		String left = neq.getLeftHandSide().accept(this);
+		String right = neq.getRightHandSide().accept(this);
 
-		// Visit items
-		neq.getLeftHandSideExpression().accept(this);
-		neq.getRightHandSideExpression().accept(this);
-
-		System.out.println("Ended visiting NEq Expression");
-		System.out.println();
-
-		return true;
+		return String.format("(%s <> %s)", left, right);
 	}
 
 	@Override
-	public Boolean visit(Not not) {
-		System.out.println("Visiting Not Expression");
+	public String visit(Not not) {
+		String expr = not.getExpression().accept(this);
 
-		// Visit items
-		not.getExpression().accept(this);
-
-		System.out.println("Ended visiting Not Expression");
-		System.out.println();
-
-		return true;
+		return String.format("(!%s)", expr);
 	}
 
 	@Override
-	public Boolean visit(Or or) {
-		System.out.println("Visiting Or Expression");
+	public String visit(Or or) {
+		String left = or.getLeftHandSide().accept(this);
+		String right = or.getRightHandSide().accept(this);
 
-		// Visit items
-		or.getLeftHandSideExpression().accept(this);
-		or.getRightHandSideExpression().accept(this);
-
-		System.out.println("Ended visiting Or Expression");
-		System.out.println();
-
-		return true;
+		return String.format("(%s || %s)", left, right);
 	}
 
 	@Override
-	public Boolean visit(Pos pos) {
-		System.out.println("Visiting Pos Expression");
+	public String visit(Pos pos) {
+		String expr = pos.getExpression().accept(this);
 
-		// Visit items
-		pos.getExpression().accept(this);
-
-		System.out.println("Ended visiting Pos Expression");
-		System.out.println();
-
-		return true;
+		return String.format("(+%s)", expr);
 	}
 
 	@Override
-	public Boolean visit(Sub sub) {
-		System.out.println("Visiting Sub Expression");
+	public String visit(Sub sub) {
+		String left = sub.getLeftHandSide().accept(this);
+		String right = sub.getRightHandSide().accept(this);
 
-		// Visit items
-		sub.getLeftHandSideExpression().accept(this);
-		sub.getRightHandSideExpression().accept(this);
-
-		System.out.println("Ended visiting Sub Expression");
-		System.out.println();
-
-		return true;
+		return String.format("(%s - %s)", left, right);
 	}
 
 	@Override
-	public Boolean visit(Bool bool) {
-		String boolVisitMessage = String.format(
-				"Visiting Bool Expression Type: %b", bool.getValue());
-
-		System.out.println(boolVisitMessage);
-
-		return true;
+	public String visit(Bool bool) {
+		return String.format("%b", bool.getValue());
 	}
 
 	@Override
-	public Boolean visit(Ident ident) {
-		String identVisitMessage = String.format(
-				"Visiting Ident Expression Type: %s", ident.getName());
-
-		System.out.println(identVisitMessage);
-
-		return true;
+	public String visit(Ident ident) {
+		return String.format("%s", ident.getName());
 	}
 
 	@Override
-	public Boolean visit(Int intType) {
-		String intVisitMessage = String.format(
-				"Visiting Int Expression Type: %d", intType.getValue());
-
-		System.out.println(intVisitMessage);
-
-		return true;
+	public String visit(Int intType) {
+		return String.format("%d", intType.getValue());
 	}
 
 	@Override
-	public Boolean visit(Money money) {
-		String moneyVisitMessage = String.format(
-				"Visiting Money Expression Type: %.2f", money.getValue());
-
-		System.out.println(moneyVisitMessage);
-
-		return true;
+	public String visit(Money money) {
+		return String.format("%.2f", money.getValue());
 	}
 
 	@Override
-	public Boolean visit(org.uva.sea.ql.ast.expr.atom.String string) {
-		String stringVisitMessage = String.format(
-				"Visiting String Expression Type: %s", string.getValue());
-
-		System.out.println(stringVisitMessage);
-
-		return true;
+	public String visit(org.uva.sea.ql.ast.expr.atom.String string) {
+		return String.format("%s", string.getValue());
 	}
 
 }

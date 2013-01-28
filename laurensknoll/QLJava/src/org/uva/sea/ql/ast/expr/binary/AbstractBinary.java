@@ -4,20 +4,20 @@ import org.uva.sea.ql.ast.expr.AbstractExpr;
 
 public abstract class AbstractBinary extends AbstractExpr {
 
-	private final AbstractExpr lhsExpr;
-	private final AbstractExpr rhsExpr;
+	private final AbstractExpr leftHandSide;
+	private final AbstractExpr rightHandSide;
 
-	public AbstractBinary(AbstractExpr lhsExpr, AbstractExpr rhsExpr) {
-		this.lhsExpr = lhsExpr;
-		this.rhsExpr = rhsExpr;
+	public AbstractBinary(AbstractExpr leftHandSide, AbstractExpr rightHandSide) {
+		this.leftHandSide = leftHandSide;
+		this.rightHandSide = rightHandSide;
 	}
 
-	public AbstractExpr getLeftHandSideExpression() {
-		return this.lhsExpr;
+	public AbstractExpr getLeftHandSide() {
+		return this.leftHandSide;
 	}
 
-	public AbstractExpr getRightHandSideExpression() {
-		return this.rhsExpr;
+	public AbstractExpr getRightHandSide() {
+		return this.rightHandSide;
 	}
 
 }

@@ -15,6 +15,11 @@ public class Not extends Unary {
 	}
 
 	@Override
+	public String toString() {
+		return "!";
+	}
+	
+	@Override
 	public Type typeOf(Map<Ident, Type> typeEnv) {
 		return new BooleanType();
 	}

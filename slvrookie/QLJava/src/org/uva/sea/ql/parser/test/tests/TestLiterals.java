@@ -12,7 +12,6 @@ public class TestLiterals{
 
 		final private IParse parser = new ANTLRParser();
 
-
 		@Test
 		public void testIds() throws ParseError {
 			assertEquals(Ident.class, parser.parseExpr("a").getClass());
