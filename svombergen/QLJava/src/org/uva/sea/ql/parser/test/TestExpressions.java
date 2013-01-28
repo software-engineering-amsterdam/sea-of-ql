@@ -26,9 +26,10 @@ public class TestExpressions {
 	private IParse parser;
 
 	@Parameters
-	public static List<Object> theParsers() {
+	public static List<Object[]> theParsers() {
 	  return Arrays.asList(
-			  new Object[] {new ANTLRParser()}
+			  new Object[] {new ANTLRParser()},
+			  new Object[] {}
 			 );
 	}
 

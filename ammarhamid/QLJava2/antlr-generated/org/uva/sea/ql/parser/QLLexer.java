@@ -1,4 +1,4 @@
-// $ANTLR 3.4 src/main/org/uva/sea/ql/parser/QL.g 2013-01-21 02:02:09
+// $ANTLR 3.4 src/main/org/uva/sea/ql/parser/QL.g 2013-01-28 12:18:13
 
 	package org.uva.sea.ql.parser;
 
@@ -11,7 +11,6 @@ import java.util.ArrayList;
 @SuppressWarnings({"all", "warnings", "unchecked"})
 public class QLLexer extends Lexer {
     public static final int EOF=-1;
-    public static final int T__21=21;
     public static final int T__22=22;
     public static final int T__23=23;
     public static final int T__24=24;
@@ -36,23 +35,25 @@ public class QLLexer extends Lexer {
     public static final int T__43=43;
     public static final int T__44=44;
     public static final int T__45=45;
+    public static final int T__46=46;
     public static final int ASSIGNMENT=4;
-    public static final int Boolean=5;
-    public static final int Comment=6;
-    public static final int Digit=7;
-    public static final int EXPRESSION=8;
-    public static final int FORM=9;
-    public static final int IF=10;
-    public static final int Identifier=11;
-    public static final int Integer=12;
-    public static final int Letter=13;
-    public static final int Money=14;
-    public static final int MultilineComment=15;
-    public static final int NEGATION=16;
-    public static final int NOT=17;
-    public static final int STATEMENTS=18;
-    public static final int StringLiteral=19;
-    public static final int Whitespace=20;
+    public static final int BLOCK=5;
+    public static final int Boolean=6;
+    public static final int Comment=7;
+    public static final int Digit=8;
+    public static final int EXPRESSION=9;
+    public static final int FORM=10;
+    public static final int IF=11;
+    public static final int Identifier=12;
+    public static final int Integer=13;
+    public static final int Letter=14;
+    public static final int Money=15;
+    public static final int MultilineComment=16;
+    public static final int NEGATION=17;
+    public static final int NOT=18;
+    public static final int STATEMENT=19;
+    public static final int StringLiteral=20;
+    public static final int Whitespace=21;
 
     // delegates
     // delegators
@@ -69,38 +70,15 @@ public class QLLexer extends Lexer {
     }
     public String getGrammarFileName() { return "src/main/org/uva/sea/ql/parser/QL.g"; }
 
-    // $ANTLR start "T__21"
-    public final void mT__21() throws RecognitionException {
-        try {
-            int _type = T__21;
-            int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/main/org/uva/sea/ql/parser/QL.g:11:7: ( '!' )
-            // src/main/org/uva/sea/ql/parser/QL.g:11:9: '!'
-            {
-            match('!'); 
-
-            }
-
-            state.type = _type;
-            state.channel = _channel;
-        }
-        finally {
-        	// do for sure before leaving
-        }
-    }
-    // $ANTLR end "T__21"
-
     // $ANTLR start "T__22"
     public final void mT__22() throws RecognitionException {
         try {
             int _type = T__22;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/main/org/uva/sea/ql/parser/QL.g:12:7: ( '!=' )
-            // src/main/org/uva/sea/ql/parser/QL.g:12:9: '!='
+            // src/main/org/uva/sea/ql/parser/QL.g:11:7: ( '!' )
+            // src/main/org/uva/sea/ql/parser/QL.g:11:9: '!'
             {
-            match("!="); 
-
-
+            match('!'); 
 
             }
 
@@ -118,10 +96,10 @@ public class QLLexer extends Lexer {
         try {
             int _type = T__23;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/main/org/uva/sea/ql/parser/QL.g:13:7: ( '&&' )
-            // src/main/org/uva/sea/ql/parser/QL.g:13:9: '&&'
+            // src/main/org/uva/sea/ql/parser/QL.g:12:7: ( '!=' )
+            // src/main/org/uva/sea/ql/parser/QL.g:12:9: '!='
             {
-            match("&&"); 
+            match("!="); 
 
 
 
@@ -141,10 +119,12 @@ public class QLLexer extends Lexer {
         try {
             int _type = T__24;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/main/org/uva/sea/ql/parser/QL.g:14:7: ( '(' )
-            // src/main/org/uva/sea/ql/parser/QL.g:14:9: '('
+            // src/main/org/uva/sea/ql/parser/QL.g:13:7: ( '&&' )
+            // src/main/org/uva/sea/ql/parser/QL.g:13:9: '&&'
             {
-            match('('); 
+            match("&&"); 
+
+
 
             }
 
@@ -162,10 +142,10 @@ public class QLLexer extends Lexer {
         try {
             int _type = T__25;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/main/org/uva/sea/ql/parser/QL.g:15:7: ( ')' )
-            // src/main/org/uva/sea/ql/parser/QL.g:15:9: ')'
+            // src/main/org/uva/sea/ql/parser/QL.g:14:7: ( '(' )
+            // src/main/org/uva/sea/ql/parser/QL.g:14:9: '('
             {
-            match(')'); 
+            match('('); 
 
             }
 
@@ -183,10 +163,10 @@ public class QLLexer extends Lexer {
         try {
             int _type = T__26;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/main/org/uva/sea/ql/parser/QL.g:16:7: ( '*' )
-            // src/main/org/uva/sea/ql/parser/QL.g:16:9: '*'
+            // src/main/org/uva/sea/ql/parser/QL.g:15:7: ( ')' )
+            // src/main/org/uva/sea/ql/parser/QL.g:15:9: ')'
             {
-            match('*'); 
+            match(')'); 
 
             }
 
@@ -204,10 +184,10 @@ public class QLLexer extends Lexer {
         try {
             int _type = T__27;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/main/org/uva/sea/ql/parser/QL.g:17:7: ( '+' )
-            // src/main/org/uva/sea/ql/parser/QL.g:17:9: '+'
+            // src/main/org/uva/sea/ql/parser/QL.g:16:7: ( '*' )
+            // src/main/org/uva/sea/ql/parser/QL.g:16:9: '*'
             {
-            match('+'); 
+            match('*'); 
 
             }
 
@@ -225,10 +205,10 @@ public class QLLexer extends Lexer {
         try {
             int _type = T__28;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/main/org/uva/sea/ql/parser/QL.g:18:7: ( '-' )
-            // src/main/org/uva/sea/ql/parser/QL.g:18:9: '-'
+            // src/main/org/uva/sea/ql/parser/QL.g:17:7: ( '+' )
+            // src/main/org/uva/sea/ql/parser/QL.g:17:9: '+'
             {
-            match('-'); 
+            match('+'); 
 
             }
 
@@ -246,10 +226,10 @@ public class QLLexer extends Lexer {
         try {
             int _type = T__29;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/main/org/uva/sea/ql/parser/QL.g:19:7: ( '/' )
-            // src/main/org/uva/sea/ql/parser/QL.g:19:9: '/'
+            // src/main/org/uva/sea/ql/parser/QL.g:18:7: ( '-' )
+            // src/main/org/uva/sea/ql/parser/QL.g:18:9: '-'
             {
-            match('/'); 
+            match('-'); 
 
             }
 
@@ -267,10 +247,10 @@ public class QLLexer extends Lexer {
         try {
             int _type = T__30;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/main/org/uva/sea/ql/parser/QL.g:20:7: ( ':' )
-            // src/main/org/uva/sea/ql/parser/QL.g:20:9: ':'
+            // src/main/org/uva/sea/ql/parser/QL.g:19:7: ( '/' )
+            // src/main/org/uva/sea/ql/parser/QL.g:19:9: '/'
             {
-            match(':'); 
+            match('/'); 
 
             }
 
@@ -288,10 +268,10 @@ public class QLLexer extends Lexer {
         try {
             int _type = T__31;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/main/org/uva/sea/ql/parser/QL.g:21:7: ( '<' )
-            // src/main/org/uva/sea/ql/parser/QL.g:21:9: '<'
+            // src/main/org/uva/sea/ql/parser/QL.g:20:7: ( ':' )
+            // src/main/org/uva/sea/ql/parser/QL.g:20:9: ':'
             {
-            match('<'); 
+            match(':'); 
 
             }
 
@@ -309,12 +289,10 @@ public class QLLexer extends Lexer {
         try {
             int _type = T__32;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/main/org/uva/sea/ql/parser/QL.g:22:7: ( '<=' )
-            // src/main/org/uva/sea/ql/parser/QL.g:22:9: '<='
+            // src/main/org/uva/sea/ql/parser/QL.g:21:7: ( '<' )
+            // src/main/org/uva/sea/ql/parser/QL.g:21:9: '<'
             {
-            match("<="); 
-
-
+            match('<'); 
 
             }
 
@@ -332,10 +310,10 @@ public class QLLexer extends Lexer {
         try {
             int _type = T__33;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/main/org/uva/sea/ql/parser/QL.g:23:7: ( '==' )
-            // src/main/org/uva/sea/ql/parser/QL.g:23:9: '=='
+            // src/main/org/uva/sea/ql/parser/QL.g:22:7: ( '<=' )
+            // src/main/org/uva/sea/ql/parser/QL.g:22:9: '<='
             {
-            match("=="); 
+            match("<="); 
 
 
 
@@ -355,10 +333,12 @@ public class QLLexer extends Lexer {
         try {
             int _type = T__34;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/main/org/uva/sea/ql/parser/QL.g:24:7: ( '>' )
-            // src/main/org/uva/sea/ql/parser/QL.g:24:9: '>'
+            // src/main/org/uva/sea/ql/parser/QL.g:23:7: ( '==' )
+            // src/main/org/uva/sea/ql/parser/QL.g:23:9: '=='
             {
-            match('>'); 
+            match("=="); 
+
+
 
             }
 
@@ -376,12 +356,10 @@ public class QLLexer extends Lexer {
         try {
             int _type = T__35;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/main/org/uva/sea/ql/parser/QL.g:25:7: ( '>=' )
-            // src/main/org/uva/sea/ql/parser/QL.g:25:9: '>='
+            // src/main/org/uva/sea/ql/parser/QL.g:24:7: ( '>' )
+            // src/main/org/uva/sea/ql/parser/QL.g:24:9: '>'
             {
-            match(">="); 
-
-
+            match('>'); 
 
             }
 
@@ -399,10 +377,10 @@ public class QLLexer extends Lexer {
         try {
             int _type = T__36;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/main/org/uva/sea/ql/parser/QL.g:26:7: ( 'boolean' )
-            // src/main/org/uva/sea/ql/parser/QL.g:26:9: 'boolean'
+            // src/main/org/uva/sea/ql/parser/QL.g:25:7: ( '>=' )
+            // src/main/org/uva/sea/ql/parser/QL.g:25:9: '>='
             {
-            match("boolean"); 
+            match(">="); 
 
 
 
@@ -422,10 +400,10 @@ public class QLLexer extends Lexer {
         try {
             int _type = T__37;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/main/org/uva/sea/ql/parser/QL.g:27:7: ( 'else' )
-            // src/main/org/uva/sea/ql/parser/QL.g:27:9: 'else'
+            // src/main/org/uva/sea/ql/parser/QL.g:26:7: ( 'boolean' )
+            // src/main/org/uva/sea/ql/parser/QL.g:26:9: 'boolean'
             {
-            match("else"); 
+            match("boolean"); 
 
 
 
@@ -445,10 +423,10 @@ public class QLLexer extends Lexer {
         try {
             int _type = T__38;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/main/org/uva/sea/ql/parser/QL.g:28:7: ( 'form' )
-            // src/main/org/uva/sea/ql/parser/QL.g:28:9: 'form'
+            // src/main/org/uva/sea/ql/parser/QL.g:27:7: ( 'else' )
+            // src/main/org/uva/sea/ql/parser/QL.g:27:9: 'else'
             {
-            match("form"); 
+            match("else"); 
 
 
 
@@ -468,10 +446,10 @@ public class QLLexer extends Lexer {
         try {
             int _type = T__39;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/main/org/uva/sea/ql/parser/QL.g:29:7: ( 'if' )
-            // src/main/org/uva/sea/ql/parser/QL.g:29:9: 'if'
+            // src/main/org/uva/sea/ql/parser/QL.g:28:7: ( 'form' )
+            // src/main/org/uva/sea/ql/parser/QL.g:28:9: 'form'
             {
-            match("if"); 
+            match("form"); 
 
 
 
@@ -491,10 +469,10 @@ public class QLLexer extends Lexer {
         try {
             int _type = T__40;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/main/org/uva/sea/ql/parser/QL.g:30:7: ( 'integer' )
-            // src/main/org/uva/sea/ql/parser/QL.g:30:9: 'integer'
+            // src/main/org/uva/sea/ql/parser/QL.g:29:7: ( 'if' )
+            // src/main/org/uva/sea/ql/parser/QL.g:29:9: 'if'
             {
-            match("integer"); 
+            match("if"); 
 
 
 
@@ -514,10 +492,10 @@ public class QLLexer extends Lexer {
         try {
             int _type = T__41;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/main/org/uva/sea/ql/parser/QL.g:31:7: ( 'money' )
-            // src/main/org/uva/sea/ql/parser/QL.g:31:9: 'money'
+            // src/main/org/uva/sea/ql/parser/QL.g:30:7: ( 'integer' )
+            // src/main/org/uva/sea/ql/parser/QL.g:30:9: 'integer'
             {
-            match("money"); 
+            match("integer"); 
 
 
 
@@ -537,10 +515,10 @@ public class QLLexer extends Lexer {
         try {
             int _type = T__42;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/main/org/uva/sea/ql/parser/QL.g:32:7: ( 'string' )
-            // src/main/org/uva/sea/ql/parser/QL.g:32:9: 'string'
+            // src/main/org/uva/sea/ql/parser/QL.g:31:7: ( 'money' )
+            // src/main/org/uva/sea/ql/parser/QL.g:31:9: 'money'
             {
-            match("string"); 
+            match("money"); 
 
 
 
@@ -560,10 +538,12 @@ public class QLLexer extends Lexer {
         try {
             int _type = T__43;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/main/org/uva/sea/ql/parser/QL.g:33:7: ( '{' )
-            // src/main/org/uva/sea/ql/parser/QL.g:33:9: '{'
+            // src/main/org/uva/sea/ql/parser/QL.g:32:7: ( 'string' )
+            // src/main/org/uva/sea/ql/parser/QL.g:32:9: 'string'
             {
-            match('{'); 
+            match("string"); 
+
+
 
             }
 
@@ -581,12 +561,10 @@ public class QLLexer extends Lexer {
         try {
             int _type = T__44;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/main/org/uva/sea/ql/parser/QL.g:34:7: ( '||' )
-            // src/main/org/uva/sea/ql/parser/QL.g:34:9: '||'
+            // src/main/org/uva/sea/ql/parser/QL.g:33:7: ( '{' )
+            // src/main/org/uva/sea/ql/parser/QL.g:33:9: '{'
             {
-            match("||"); 
-
-
+            match('{'); 
 
             }
 
@@ -604,6 +582,29 @@ public class QLLexer extends Lexer {
         try {
             int _type = T__45;
             int _channel = DEFAULT_TOKEN_CHANNEL;
+            // src/main/org/uva/sea/ql/parser/QL.g:34:7: ( '||' )
+            // src/main/org/uva/sea/ql/parser/QL.g:34:9: '||'
+            {
+            match("||"); 
+
+
+
+            }
+
+            state.type = _type;
+            state.channel = _channel;
+        }
+        finally {
+        	// do for sure before leaving
+        }
+    }
+    // $ANTLR end "T__45"
+
+    // $ANTLR start "T__46"
+    public final void mT__46() throws RecognitionException {
+        try {
+            int _type = T__46;
+            int _channel = DEFAULT_TOKEN_CHANNEL;
             // src/main/org/uva/sea/ql/parser/QL.g:35:7: ( '}' )
             // src/main/org/uva/sea/ql/parser/QL.g:35:9: '}'
             {
@@ -618,7 +619,7 @@ public class QLLexer extends Lexer {
         	// do for sure before leaving
         }
     }
-    // $ANTLR end "T__45"
+    // $ANTLR end "T__46"
 
     // $ANTLR start "StringLiteral"
     public final void mStringLiteral() throws RecognitionException {
@@ -627,14 +628,14 @@ public class QLLexer extends Lexer {
             int _channel = DEFAULT_TOKEN_CHANNEL;
             int c;
 
-            // src/main/org/uva/sea/ql/parser/QL.g:113:2: ( '\"' ( '\\\\' '\"' |c=~ ( '\"' | '\\r' | '\\n' ) )* '\"' )
-            // src/main/org/uva/sea/ql/parser/QL.g:113:4: '\"' ( '\\\\' '\"' |c=~ ( '\"' | '\\r' | '\\n' ) )* '\"'
+            // src/main/org/uva/sea/ql/parser/QL.g:118:2: ( '\"' ( '\\\\' '\"' |c=~ ( '\"' | '\\r' | '\\n' ) )* '\"' )
+            // src/main/org/uva/sea/ql/parser/QL.g:118:4: '\"' ( '\\\\' '\"' |c=~ ( '\"' | '\\r' | '\\n' ) )* '\"'
             {
             match('\"'); 
 
              StringBuilder b = new StringBuilder(); 
 
-            // src/main/org/uva/sea/ql/parser/QL.g:115:3: ( '\\\\' '\"' |c=~ ( '\"' | '\\r' | '\\n' ) )*
+            // src/main/org/uva/sea/ql/parser/QL.g:120:3: ( '\\\\' '\"' |c=~ ( '\"' | '\\r' | '\\n' ) )*
             loop1:
             do {
                 int alt1=3;
@@ -669,7 +670,7 @@ public class QLLexer extends Lexer {
 
                 switch (alt1) {
             	case 1 :
-            	    // src/main/org/uva/sea/ql/parser/QL.g:115:5: '\\\\' '\"'
+            	    // src/main/org/uva/sea/ql/parser/QL.g:120:5: '\\\\' '\"'
             	    {
             	    match('\\'); 
 
@@ -680,7 +681,7 @@ public class QLLexer extends Lexer {
             	    }
             	    break;
             	case 2 :
-            	    // src/main/org/uva/sea/ql/parser/QL.g:116:5: c=~ ( '\"' | '\\r' | '\\n' )
+            	    // src/main/org/uva/sea/ql/parser/QL.g:121:5: c=~ ( '\"' | '\\r' | '\\n' )
             	    {
             	    c= input.LA(1);
 
@@ -725,7 +726,7 @@ public class QLLexer extends Lexer {
         try {
             int _type = Boolean;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/main/org/uva/sea/ql/parser/QL.g:123:5: ( 'true' | 'false' )
+            // src/main/org/uva/sea/ql/parser/QL.g:128:5: ( 'true' | 'false' )
             int alt2=2;
             int LA2_0 = input.LA(1);
 
@@ -744,7 +745,7 @@ public class QLLexer extends Lexer {
             }
             switch (alt2) {
                 case 1 :
-                    // src/main/org/uva/sea/ql/parser/QL.g:123:9: 'true'
+                    // src/main/org/uva/sea/ql/parser/QL.g:128:9: 'true'
                     {
                     match("true"); 
 
@@ -753,7 +754,7 @@ public class QLLexer extends Lexer {
                     }
                     break;
                 case 2 :
-                    // src/main/org/uva/sea/ql/parser/QL.g:124:9: 'false'
+                    // src/main/org/uva/sea/ql/parser/QL.g:129:9: 'false'
                     {
                     match("false"); 
 
@@ -777,10 +778,10 @@ public class QLLexer extends Lexer {
         try {
             int _type = Money;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/main/org/uva/sea/ql/parser/QL.g:128:5: ( ( Digit )+ '.' ( Digit )+ )
-            // src/main/org/uva/sea/ql/parser/QL.g:128:9: ( Digit )+ '.' ( Digit )+
+            // src/main/org/uva/sea/ql/parser/QL.g:133:5: ( ( Digit )+ '.' ( Digit )+ )
+            // src/main/org/uva/sea/ql/parser/QL.g:133:9: ( Digit )+ '.' ( Digit )+
             {
-            // src/main/org/uva/sea/ql/parser/QL.g:128:9: ( Digit )+
+            // src/main/org/uva/sea/ql/parser/QL.g:133:9: ( Digit )+
             int cnt3=0;
             loop3:
             do {
@@ -821,7 +822,7 @@ public class QLLexer extends Lexer {
 
             match('.'); 
 
-            // src/main/org/uva/sea/ql/parser/QL.g:128:20: ( Digit )+
+            // src/main/org/uva/sea/ql/parser/QL.g:133:20: ( Digit )+
             int cnt4=0;
             loop4:
             do {
@@ -876,10 +877,10 @@ public class QLLexer extends Lexer {
         try {
             int _type = Integer;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/main/org/uva/sea/ql/parser/QL.g:132:5: ( ( Digit )+ )
-            // src/main/org/uva/sea/ql/parser/QL.g:132:9: ( Digit )+
+            // src/main/org/uva/sea/ql/parser/QL.g:137:5: ( ( Digit )+ )
+            // src/main/org/uva/sea/ql/parser/QL.g:137:9: ( Digit )+
             {
-            // src/main/org/uva/sea/ql/parser/QL.g:132:9: ( Digit )+
+            // src/main/org/uva/sea/ql/parser/QL.g:137:9: ( Digit )+
             int cnt5=0;
             loop5:
             do {
@@ -934,13 +935,13 @@ public class QLLexer extends Lexer {
         try {
             int _type = Identifier;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/main/org/uva/sea/ql/parser/QL.g:136:5: ( Letter ( Letter | Digit | '_' )* )
-            // src/main/org/uva/sea/ql/parser/QL.g:136:9: Letter ( Letter | Digit | '_' )*
+            // src/main/org/uva/sea/ql/parser/QL.g:141:5: ( Letter ( Letter | Digit | '_' )* )
+            // src/main/org/uva/sea/ql/parser/QL.g:141:9: Letter ( Letter | Digit | '_' )*
             {
             mLetter(); 
 
 
-            // src/main/org/uva/sea/ql/parser/QL.g:136:16: ( Letter | Digit | '_' )*
+            // src/main/org/uva/sea/ql/parser/QL.g:141:16: ( Letter | Digit | '_' )*
             loop6:
             do {
                 int alt6=2;
@@ -990,10 +991,10 @@ public class QLLexer extends Lexer {
         try {
             int _type = Whitespace;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/main/org/uva/sea/ql/parser/QL.g:140:5: ( ( ' ' | '\\t' | '\\n' | '\\r' | '\\f' )+ )
-            // src/main/org/uva/sea/ql/parser/QL.g:140:9: ( ' ' | '\\t' | '\\n' | '\\r' | '\\f' )+
+            // src/main/org/uva/sea/ql/parser/QL.g:145:5: ( ( ' ' | '\\t' | '\\n' | '\\r' | '\\f' )+ )
+            // src/main/org/uva/sea/ql/parser/QL.g:145:9: ( ' ' | '\\t' | '\\n' | '\\r' | '\\f' )+
             {
-            // src/main/org/uva/sea/ql/parser/QL.g:140:9: ( ' ' | '\\t' | '\\n' | '\\r' | '\\f' )+
+            // src/main/org/uva/sea/ql/parser/QL.g:145:9: ( ' ' | '\\t' | '\\n' | '\\r' | '\\f' )+
             int cnt7=0;
             loop7:
             do {
@@ -1050,14 +1051,14 @@ public class QLLexer extends Lexer {
         try {
             int _type = Comment;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/main/org/uva/sea/ql/parser/QL.g:144:5: ( '//' ( . )* ( '\\n' | '\\r' ) )
-            // src/main/org/uva/sea/ql/parser/QL.g:144:9: '//' ( . )* ( '\\n' | '\\r' )
+            // src/main/org/uva/sea/ql/parser/QL.g:149:5: ( '//' ( . )* ( '\\n' | '\\r' ) )
+            // src/main/org/uva/sea/ql/parser/QL.g:149:9: '//' ( . )* ( '\\n' | '\\r' )
             {
             match("//"); 
 
 
 
-            // src/main/org/uva/sea/ql/parser/QL.g:144:14: ( . )*
+            // src/main/org/uva/sea/ql/parser/QL.g:149:14: ( . )*
             loop8:
             do {
                 int alt8=2;
@@ -1073,7 +1074,7 @@ public class QLLexer extends Lexer {
 
                 switch (alt8) {
             	case 1 :
-            	    // src/main/org/uva/sea/ql/parser/QL.g:144:14: .
+            	    // src/main/org/uva/sea/ql/parser/QL.g:149:14: .
             	    {
             	    matchAny(); 
 
@@ -1114,14 +1115,14 @@ public class QLLexer extends Lexer {
         try {
             int _type = MultilineComment;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // src/main/org/uva/sea/ql/parser/QL.g:148:5: ( '/*' ( . )* '*/' )
-            // src/main/org/uva/sea/ql/parser/QL.g:148:9: '/*' ( . )* '*/'
+            // src/main/org/uva/sea/ql/parser/QL.g:153:5: ( '/*' ( . )* '*/' )
+            // src/main/org/uva/sea/ql/parser/QL.g:153:9: '/*' ( . )* '*/'
             {
             match("/*"); 
 
 
 
-            // src/main/org/uva/sea/ql/parser/QL.g:148:14: ( . )*
+            // src/main/org/uva/sea/ql/parser/QL.g:153:14: ( . )*
             loop9:
             do {
                 int alt9=2;
@@ -1146,7 +1147,7 @@ public class QLLexer extends Lexer {
 
                 switch (alt9) {
             	case 1 :
-            	    // src/main/org/uva/sea/ql/parser/QL.g:148:14: .
+            	    // src/main/org/uva/sea/ql/parser/QL.g:153:14: .
             	    {
             	    matchAny(); 
 
@@ -1179,7 +1180,7 @@ public class QLLexer extends Lexer {
     // $ANTLR start "Letter"
     public final void mLetter() throws RecognitionException {
         try {
-            // src/main/org/uva/sea/ql/parser/QL.g:152:5: ( ( 'a' .. 'z' | 'A' .. 'Z' ) )
+            // src/main/org/uva/sea/ql/parser/QL.g:157:5: ( ( 'a' .. 'z' | 'A' .. 'Z' ) )
             // src/main/org/uva/sea/ql/parser/QL.g:
             {
             if ( (input.LA(1) >= 'A' && input.LA(1) <= 'Z')||(input.LA(1) >= 'a' && input.LA(1) <= 'z') ) {
@@ -1205,7 +1206,7 @@ public class QLLexer extends Lexer {
     // $ANTLR start "Digit"
     public final void mDigit() throws RecognitionException {
         try {
-            // src/main/org/uva/sea/ql/parser/QL.g:156:5: ( '0' .. '9' )
+            // src/main/org/uva/sea/ql/parser/QL.g:161:5: ( '0' .. '9' )
             // src/main/org/uva/sea/ql/parser/QL.g:
             {
             if ( (input.LA(1) >= '0' && input.LA(1) <= '9') ) {
@@ -1229,206 +1230,206 @@ public class QLLexer extends Lexer {
     // $ANTLR end "Digit"
 
     public void mTokens() throws RecognitionException {
-        // src/main/org/uva/sea/ql/parser/QL.g:1:8: ( T__21 | T__22 | T__23 | T__24 | T__25 | T__26 | T__27 | T__28 | T__29 | T__30 | T__31 | T__32 | T__33 | T__34 | T__35 | T__36 | T__37 | T__38 | T__39 | T__40 | T__41 | T__42 | T__43 | T__44 | T__45 | StringLiteral | Boolean | Money | Integer | Identifier | Whitespace | Comment | MultilineComment )
+        // src/main/org/uva/sea/ql/parser/QL.g:1:8: ( T__22 | T__23 | T__24 | T__25 | T__26 | T__27 | T__28 | T__29 | T__30 | T__31 | T__32 | T__33 | T__34 | T__35 | T__36 | T__37 | T__38 | T__39 | T__40 | T__41 | T__42 | T__43 | T__44 | T__45 | T__46 | StringLiteral | Boolean | Money | Integer | Identifier | Whitespace | Comment | MultilineComment )
         int alt10=33;
         alt10 = dfa10.predict(input);
         switch (alt10) {
             case 1 :
-                // src/main/org/uva/sea/ql/parser/QL.g:1:10: T__21
-                {
-                mT__21(); 
-
-
-                }
-                break;
-            case 2 :
-                // src/main/org/uva/sea/ql/parser/QL.g:1:16: T__22
+                // src/main/org/uva/sea/ql/parser/QL.g:1:10: T__22
                 {
                 mT__22(); 
 
 
                 }
                 break;
-            case 3 :
-                // src/main/org/uva/sea/ql/parser/QL.g:1:22: T__23
+            case 2 :
+                // src/main/org/uva/sea/ql/parser/QL.g:1:16: T__23
                 {
                 mT__23(); 
 
 
                 }
                 break;
-            case 4 :
-                // src/main/org/uva/sea/ql/parser/QL.g:1:28: T__24
+            case 3 :
+                // src/main/org/uva/sea/ql/parser/QL.g:1:22: T__24
                 {
                 mT__24(); 
 
 
                 }
                 break;
-            case 5 :
-                // src/main/org/uva/sea/ql/parser/QL.g:1:34: T__25
+            case 4 :
+                // src/main/org/uva/sea/ql/parser/QL.g:1:28: T__25
                 {
                 mT__25(); 
 
 
                 }
                 break;
-            case 6 :
-                // src/main/org/uva/sea/ql/parser/QL.g:1:40: T__26
+            case 5 :
+                // src/main/org/uva/sea/ql/parser/QL.g:1:34: T__26
                 {
                 mT__26(); 
 
 
                 }
                 break;
-            case 7 :
-                // src/main/org/uva/sea/ql/parser/QL.g:1:46: T__27
+            case 6 :
+                // src/main/org/uva/sea/ql/parser/QL.g:1:40: T__27
                 {
                 mT__27(); 
 
 
                 }
                 break;
-            case 8 :
-                // src/main/org/uva/sea/ql/parser/QL.g:1:52: T__28
+            case 7 :
+                // src/main/org/uva/sea/ql/parser/QL.g:1:46: T__28
                 {
                 mT__28(); 
 
 
                 }
                 break;
-            case 9 :
-                // src/main/org/uva/sea/ql/parser/QL.g:1:58: T__29
+            case 8 :
+                // src/main/org/uva/sea/ql/parser/QL.g:1:52: T__29
                 {
                 mT__29(); 
 
 
                 }
                 break;
-            case 10 :
-                // src/main/org/uva/sea/ql/parser/QL.g:1:64: T__30
+            case 9 :
+                // src/main/org/uva/sea/ql/parser/QL.g:1:58: T__30
                 {
                 mT__30(); 
 
 
                 }
                 break;
-            case 11 :
-                // src/main/org/uva/sea/ql/parser/QL.g:1:70: T__31
+            case 10 :
+                // src/main/org/uva/sea/ql/parser/QL.g:1:64: T__31
                 {
                 mT__31(); 
 
 
                 }
                 break;
-            case 12 :
-                // src/main/org/uva/sea/ql/parser/QL.g:1:76: T__32
+            case 11 :
+                // src/main/org/uva/sea/ql/parser/QL.g:1:70: T__32
                 {
                 mT__32(); 
 
 
                 }
                 break;
-            case 13 :
-                // src/main/org/uva/sea/ql/parser/QL.g:1:82: T__33
+            case 12 :
+                // src/main/org/uva/sea/ql/parser/QL.g:1:76: T__33
                 {
                 mT__33(); 
 
 
                 }
                 break;
-            case 14 :
-                // src/main/org/uva/sea/ql/parser/QL.g:1:88: T__34
+            case 13 :
+                // src/main/org/uva/sea/ql/parser/QL.g:1:82: T__34
                 {
                 mT__34(); 
 
 
                 }
                 break;
-            case 15 :
-                // src/main/org/uva/sea/ql/parser/QL.g:1:94: T__35
+            case 14 :
+                // src/main/org/uva/sea/ql/parser/QL.g:1:88: T__35
                 {
                 mT__35(); 
 
 
                 }
                 break;
-            case 16 :
-                // src/main/org/uva/sea/ql/parser/QL.g:1:100: T__36
+            case 15 :
+                // src/main/org/uva/sea/ql/parser/QL.g:1:94: T__36
                 {
                 mT__36(); 
 
 
                 }
                 break;
-            case 17 :
-                // src/main/org/uva/sea/ql/parser/QL.g:1:106: T__37
+            case 16 :
+                // src/main/org/uva/sea/ql/parser/QL.g:1:100: T__37
                 {
                 mT__37(); 
 
 
                 }
                 break;
-            case 18 :
-                // src/main/org/uva/sea/ql/parser/QL.g:1:112: T__38
+            case 17 :
+                // src/main/org/uva/sea/ql/parser/QL.g:1:106: T__38
                 {
                 mT__38(); 
 
 
                 }
                 break;
-            case 19 :
-                // src/main/org/uva/sea/ql/parser/QL.g:1:118: T__39
+            case 18 :
+                // src/main/org/uva/sea/ql/parser/QL.g:1:112: T__39
                 {
                 mT__39(); 
 
 
                 }
                 break;
-            case 20 :
-                // src/main/org/uva/sea/ql/parser/QL.g:1:124: T__40
+            case 19 :
+                // src/main/org/uva/sea/ql/parser/QL.g:1:118: T__40
                 {
                 mT__40(); 
 
 
                 }
                 break;
-            case 21 :
-                // src/main/org/uva/sea/ql/parser/QL.g:1:130: T__41
+            case 20 :
+                // src/main/org/uva/sea/ql/parser/QL.g:1:124: T__41
                 {
                 mT__41(); 
 
 
                 }
                 break;
-            case 22 :
-                // src/main/org/uva/sea/ql/parser/QL.g:1:136: T__42
+            case 21 :
+                // src/main/org/uva/sea/ql/parser/QL.g:1:130: T__42
                 {
                 mT__42(); 
 
 
                 }
                 break;
-            case 23 :
-                // src/main/org/uva/sea/ql/parser/QL.g:1:142: T__43
+            case 22 :
+                // src/main/org/uva/sea/ql/parser/QL.g:1:136: T__43
                 {
                 mT__43(); 
 
 
                 }
                 break;
-            case 24 :
-                // src/main/org/uva/sea/ql/parser/QL.g:1:148: T__44
+            case 23 :
+                // src/main/org/uva/sea/ql/parser/QL.g:1:142: T__44
                 {
                 mT__44(); 
 
 
                 }
                 break;
-            case 25 :
-                // src/main/org/uva/sea/ql/parser/QL.g:1:154: T__45
+            case 24 :
+                // src/main/org/uva/sea/ql/parser/QL.g:1:148: T__45
                 {
                 mT__45(); 
+
+
+                }
+                break;
+            case 25 :
+                // src/main/org/uva/sea/ql/parser/QL.g:1:154: T__46
+                {
+                mT__46(); 
 
 
                 }
@@ -1649,7 +1650,7 @@ public class QLLexer extends Lexer {
             this.transition = DFA10_transition;
         }
         public String getDescription() {
-            return "1:1: Tokens : ( T__21 | T__22 | T__23 | T__24 | T__25 | T__26 | T__27 | T__28 | T__29 | T__30 | T__31 | T__32 | T__33 | T__34 | T__35 | T__36 | T__37 | T__38 | T__39 | T__40 | T__41 | T__42 | T__43 | T__44 | T__45 | StringLiteral | Boolean | Money | Integer | Identifier | Whitespace | Comment | MultilineComment );";
+            return "1:1: Tokens : ( T__22 | T__23 | T__24 | T__25 | T__26 | T__27 | T__28 | T__29 | T__30 | T__31 | T__32 | T__33 | T__34 | T__35 | T__36 | T__37 | T__38 | T__39 | T__40 | T__41 | T__42 | T__43 | T__44 | T__45 | T__46 | StringLiteral | Boolean | Money | Integer | Identifier | Whitespace | Comment | MultilineComment );";
         }
     }
  

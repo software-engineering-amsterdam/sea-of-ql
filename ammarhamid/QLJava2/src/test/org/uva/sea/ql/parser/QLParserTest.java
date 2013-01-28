@@ -68,13 +68,13 @@ public class QLParserTest
         QLParser qlParser2 = this.parser.createQLParser("if(1+2) { hasSoldIt: \"Really?\" boolean }");
         String actualIfBlock = qlParser2.ifStatement().tree.toStringTree();
         System.out.println(actualIfBlock);
-        final String expectedIfBlock = "(IF (EXPRESSION (+ 1 2) (STATEMENTS (ASSIGNMENT hasSoldIt boolean))))";
+        final String expectedIfBlock = "(IF (EXPRESSION (+ 1 2) (BLOCK (ASSIGNMENT hasSoldIt boolean))))";
         Assert.assertEquals("Result should be the same", expectedIfBlock, actualIfBlock);
 
         QLParser qlParser3 = this.parser.createQLParser(validSrc);
         String actualForm = qlParser3.form().tree.toStringTree();
         System.out.println(actualForm);
-        final String expectedForm = "(FORM test (STATEMENTS (ASSIGNMENT hasSoldHouse boolean) (ASSIGNMENT hasSoldCar integer) (IF (EXPRESSION (== (+ 1 1) 2) (STATEMENTS (ASSIGNMENT hasNothing boolean) (ASSIGNMENT hasNothing2 boolean))) (EXPRESSION (STATEMENTS (ASSIGNMENT hasNothing boolean))))))";
+        final String expectedForm = "(FORM test (BLOCK (ASSIGNMENT hasSoldHouse boolean) (ASSIGNMENT hasSoldCar integer) (IF (EXPRESSION (== (+ 1 1) 2) (BLOCK (ASSIGNMENT hasNothing boolean) (ASSIGNMENT hasNothing2 boolean))) (EXPRESSION (BLOCK (ASSIGNMENT hasNothing boolean))))))";
         Assert.assertEquals("Result should be the same", expectedForm, actualForm);
 
         final QLParser qlParser4 = this.parser.createQLParser(validSrc);

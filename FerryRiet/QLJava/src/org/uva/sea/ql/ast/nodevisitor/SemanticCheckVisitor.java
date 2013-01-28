@@ -32,18 +32,16 @@ import org.uva.sea.ql.ast.operators.Or;
 import org.uva.sea.ql.ast.operators.Pos;
 import org.uva.sea.ql.ast.operators.Sub;
 import org.uva.sea.ql.ast.types.TypeDescription;
+import org.uva.sea.ql.ast.types.BooleanType;
 
 public class SemanticCheckVisitor implements Visitor {
 
-	final List<String> errorList = new ArrayList<String>();
+	private final List<String> errorList = new ArrayList<String>();
 
-	private HashMap<String, Statement> symbolMap = new HashMap<String, Statement>();
-
-	public SemanticCheckVisitor() {
-	}
+	private final HashMap<String, Statement> symbolMap = new HashMap<String, Statement>();
 
 	@Override
-	public VisitorResult visit(Ident id) {
+	public VisitorResult visit(final Ident id) {
 		LineStatement lineStatement;
 
 		lineStatement = (LineStatement) symbolMap.get(id.getName());
@@ -59,13 +57,13 @@ public class SemanticCheckVisitor implements Visitor {
 	}
 
 	@Override
-	public VisitorResult visit(UnExpr expr) {
+	public VisitorResult visit(final UnExpr expr) {
 		expr.getExprRightHand().accept(this);
 		return null;
 	}
 
 	@Override
-	public VisitorResult visit(QLProgram qlProgram) {
+	public VisitorResult visit(final QLProgram qlProgram) {
 		symbolMap.clear();
 		errorList.clear();
 
@@ -75,20 +73,21 @@ public class SemanticCheckVisitor implements Visitor {
 	}
 
 	@Override
-	public VisitorResult visit(CompoundStatement compoundBlock) {
+	public VisitorResult visit(final CompoundStatement compoundBlock) {
 		for (Statement statement : compoundBlock.getStatementList())
 			statement.accept(this);
 		return null;
 	}
 
 	@Override
-	public VisitorResult visit(LineStatement lineStatement) {
+	public VisitorResult visit(final LineStatement lineStatement) {
 		// Add symbols to the symbolmap so the visitor of the
-		// expression can test their existance/missing.
+		// expression can test their existance.
 		if (symbolMap.get(lineStatement.getLineId().getName()) == null) {
 			// New symbol in map
 			symbolMap.put(lineStatement.getLineId().getName(), lineStatement);
 		} else {
+			// Error Symbol allready exists.
 			errorList.add("Line(" + lineStatement.getLine() + ","
 					+ lineStatement.getCharPositionInLine() + ") Field :"
 					+ lineStatement.getLineName()
@@ -104,8 +103,15 @@ public class SemanticCheckVisitor implements Visitor {
 	}
 
 	@Override
-	public VisitorResult visit(ConditionalStatement conditionalStatement) {
+	public VisitorResult visit(final ConditionalStatement conditionalStatement) {
 		conditionalStatement.getExpression().accept(this);
+
+		if (!conditionalStatement.getExpressionType(symbolMap).isCompatibleTo(
+				new BooleanType())) {
+			// If expression not of type boolean
+			errorList
+					.add("Line(nan,nan) If (Expression) : not of type boolean.");
+		}
 		conditionalStatement.getTrueCompound().accept(this);
 		if (conditionalStatement.getFalseCompound() != null) {
 			conditionalStatement.getFalseCompound().accept(this);
@@ -114,7 +120,7 @@ public class SemanticCheckVisitor implements Visitor {
 	}
 
 	@Override
-	public VisitorResult visit(TypeDescription typeDescription) {
+	public VisitorResult visit(final TypeDescription typeDescription) {
 		return null;
 	}
 
@@ -125,8 +131,8 @@ public class SemanticCheckVisitor implements Visitor {
 		if (!(expr.getExprLeftHand().typeOf(symbolMap).isCompatibleTo(expr
 				.getExprRightHand().typeOf(symbolMap)))) {
 			/***
-			 * Due to empty AST expression node no availble line
-			 * numbers/positions. Annotation of AST?
+			 * TODO : Due to empty AST expression node no availble line
+			 * numbers/positions. (Annotation of AST would be nice?)
 			 */
 			errorList
 					.add("Line(nan,nan) Expression: incompatible types on operator: "
@@ -136,7 +142,7 @@ public class SemanticCheckVisitor implements Visitor {
 		return true;
 	}
 
-	private boolean rhsCompatible(Expr opExpr, Expr rhs, String operator) {
+	private boolean rhsCompatible(final Expr opExpr, final Expr rhs, final String operator) {
 		if (!opExpr.typeOf(symbolMap).isCompatibleTo(rhs.typeOf(symbolMap))) {
 			errorList
 					.add("Line(nan,nan) Expression: incompatible operands on operator:"
@@ -147,7 +153,7 @@ public class SemanticCheckVisitor implements Visitor {
 	}
 
 	@Override
-	public VisitorResult visit(Add expr) {
+	public VisitorResult visit(final Add expr) {
 		if (lhsRhsCompatible(expr, "+")) {
 			rhsCompatible(expr, expr.getExprRightHand(), "+");
 		}
@@ -155,7 +161,7 @@ public class SemanticCheckVisitor implements Visitor {
 	}
 
 	@Override
-	public VisitorResult visit(Mul expr) {
+	public VisitorResult visit(final Mul expr) {
 		if (lhsRhsCompatible(expr, "*")) {
 			rhsCompatible(expr, expr.getExprRightHand(), "*");
 		}
@@ -163,7 +169,7 @@ public class SemanticCheckVisitor implements Visitor {
 	}
 
 	@Override
-	public VisitorResult visit(Div expr) {
+	public VisitorResult visit(final Div expr) {
 		if (lhsRhsCompatible(expr, "/")) {
 			rhsCompatible(expr, expr.getExprRightHand(), "/");
 		}
@@ -171,7 +177,7 @@ public class SemanticCheckVisitor implements Visitor {
 	}
 
 	@Override
-	public VisitorResult visit(Sub expr) {
+	public VisitorResult visit(final Sub expr) {
 		if (lhsRhsCompatible(expr, "-")) {
 			rhsCompatible(expr, expr.getExprRightHand(), "-");
 		}
@@ -179,7 +185,7 @@ public class SemanticCheckVisitor implements Visitor {
 	}
 
 	@Override
-	public VisitorResult visit(And expr) {
+	public VisitorResult visit(final And expr) {
 		if (lhsRhsCompatible(expr, "&&")) {
 			rhsCompatible(expr, expr.getExprRightHand(), "&&");
 		}
@@ -187,7 +193,7 @@ public class SemanticCheckVisitor implements Visitor {
 	}
 
 	@Override
-	public VisitorResult visit(Or expr) {
+	public VisitorResult visit(final Or expr) {
 		if (lhsRhsCompatible(expr, "||")) {
 			rhsCompatible(expr, expr.getExprRightHand(), "||");
 		}
@@ -195,13 +201,13 @@ public class SemanticCheckVisitor implements Visitor {
 	}
 
 	@Override
-	public VisitorResult visit(Eq expr) {
+	public VisitorResult visit(final Eq expr) {
 		lhsRhsCompatible(expr, "==");
 		return null;
 	}
 
 	@Override
-	public VisitorResult visit(GT expr) {
+	public VisitorResult visit(final GT expr) {
 		if (lhsRhsCompatible(expr, ">")) {
 			if (expr.typeOf(symbolMap).isCompatibleTo(
 					expr.getExprLeftHand().typeOf(symbolMap))) {
@@ -213,7 +219,7 @@ public class SemanticCheckVisitor implements Visitor {
 	}
 
 	@Override
-	public VisitorResult visit(LT expr) {
+	public VisitorResult visit(final LT expr) {
 		if (lhsRhsCompatible(expr, "<")) {
 			if (expr.typeOf(symbolMap).isCompatibleTo(
 					expr.getExprLeftHand().typeOf(symbolMap))) {
@@ -225,7 +231,7 @@ public class SemanticCheckVisitor implements Visitor {
 	}
 
 	@Override
-	public VisitorResult visit(LEq expr) {
+	public VisitorResult visit(final LEq expr) {
 		if (lhsRhsCompatible(expr, "<=")) {
 			if (expr.typeOf(symbolMap).isCompatibleTo(
 					expr.getExprLeftHand().typeOf(symbolMap))) {
@@ -237,7 +243,7 @@ public class SemanticCheckVisitor implements Visitor {
 	}
 
 	@Override
-	public VisitorResult visit(GEq expr) {
+	public VisitorResult visit(final GEq expr) {
 		if (lhsRhsCompatible(expr, ">=")) {
 			if (expr.typeOf(symbolMap).isCompatibleTo(
 					expr.getExprLeftHand().typeOf(symbolMap))) {
@@ -249,50 +255,50 @@ public class SemanticCheckVisitor implements Visitor {
 	}
 
 	@Override
-	public VisitorResult visit(NEq expr) {
+	public VisitorResult visit(final NEq expr) {
 		lhsRhsCompatible(expr, "!=");
 		return null;
 	}
 
-	public VisitorResult visit(Not expr) {
+	public VisitorResult visit(final Not expr) {
 		rhsCompatible(expr, expr.getExprRightHand(), "!");
 		return null;
 	}
 
 	@Override
-	public VisitorResult visit(Neg expr) {
+	public VisitorResult visit(final Neg expr) {
 		rhsCompatible(expr, expr.getExprRightHand(), "-");
 		return null;
 	}
 
 	@Override
-	public VisitorResult visit(Pos expr) {
+	public VisitorResult visit(final Pos expr) {
 		rhsCompatible(expr, expr.getExprRightHand(), "+");
 		return null;
 	}
 
 	@Override
-	public VisitorResult visit(IntLiteral expr) {
+	public VisitorResult visit(final IntLiteral expr) {
 		return null;
 	}
 
 	@Override
-	public VisitorResult visit(StringLiteral expr) {
+	public VisitorResult visit(final StringLiteral expr) {
 		return null;
 	}
 
 	@Override
-	public VisitorResult visit(BooleanLiteral expr) {
+	public VisitorResult visit(final BooleanLiteral expr) {
 		return null;
 	}
 
 	@Override
-	public VisitorResult visit(Expr expr) {
+	public VisitorResult visit(final Expr expr) {
 		return null;
 	}
 
 	@Override
-	public VisitorResult visit(BinExpr expr) {
+	public VisitorResult visit(final BinExpr expr) {
 		return null;
 	}
 

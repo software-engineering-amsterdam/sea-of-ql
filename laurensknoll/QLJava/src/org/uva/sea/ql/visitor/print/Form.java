@@ -1,8 +1,9 @@
 package org.uva.sea.ql.visitor.print;
 
 import org.uva.sea.ql.ast.form.Question;
+import org.uva.sea.ql.visitor.IForm;
 
-public class Form implements org.uva.sea.ql.visitor.Form<String> {
+public class Form implements IForm<String> {
 
 	private final Environment environment;
 

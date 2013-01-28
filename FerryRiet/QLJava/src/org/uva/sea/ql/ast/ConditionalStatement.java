@@ -1,7 +1,10 @@
 package org.uva.sea.ql.ast;
 
+import java.util.HashMap;
+
 import org.uva.sea.ql.ast.nodevisitor.Visitor;
 import org.uva.sea.ql.ast.nodevisitor.VisitorResult;
+import org.uva.sea.ql.ast.types.TypeDescription;
 
 public class ConditionalStatement extends Statement {
 
@@ -17,6 +20,11 @@ public class ConditionalStatement extends Statement {
 
 	public Expr getExpression() {
 		return expression;
+	}
+
+	public TypeDescription getExpressionType(
+			HashMap<String, Statement> symbolMap) {
+		return expression.typeOf(symbolMap);
 	}
 
 	public Statement getFalseCompound() {

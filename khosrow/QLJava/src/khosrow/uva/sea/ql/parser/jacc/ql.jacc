@@ -1,0 +1,125 @@
+%package khosrow.uva.sea.ql.parser.jacc
+%class QLParser
+%interface QLTokens
+%semantic khosrow.uva.sea.ql.ast.ASTNode 
+%start top
+
+%token <IntLiteral> INT
+%token <StringLiteral> STRING_LITERAL
+%token <Ident> IDENT
+%token <MoneyLiteral> MONEY
+%token INTEGER BOOLEAN STRING MONEY 
+%token MUL DIV MOD ADD SUB 
+%token '!' '+' '-'
+%token '{' '(' ':' ')' '}'
+%token EQ NEQ GT LT GEQ LEQ AND OR
+%token FORM IDENT STRING_LITERAL IF
+
+%left OR
+%left AND
+%left GT LT GEQ LEQ NEQ EQ
+%left ADD SUB
+%left MUL DIV MOD
+%left UMIN UPLUS UNOT
+
+%type<Form> form
+%type<Stmts> stmts
+%type<Stmt> stmt
+%type<Question> question
+%type<Expr> expr
+%type<Type> type
+
+%{
+import khosrow.uva.sea.ql.ast.*;
+import khosrow.uva.sea.ql.ast.decl.*;
+import khosrow.uva.sea.ql.ast.expr.*;
+import khosrow.uva.sea.ql.ast.stmt.*;
+import khosrow.uva.sea.ql.ast.type.*;
+%}
+
+%%
+
+top		: form					{ formResult = $1; }
+		| stmt					{ stmtResult = $1; }
+		| expr					{ exprResult = $1; }
+		;
+		
+
+form	: FORM IDENT '{' stmts '}'
+								{ $$ = new Form($2, $4); }					
+		;
+
+stmts	: stmts stmt 		    { $$ = new Stmts($1, $2); }
+        | /* empty */		 	{ $$ = new Stmts(); }
+        ;
+
+stmt	: IF '(' expr ')' '{' stmts '}'
+								{ $$ = new If($3, $6); }		
+		| STRING_LITERAL '(' expr ')'
+								{ $$ = new Label($1, $3); }		
+		| question				{ $$ = $1; }			
+		;
+		
+question
+		: IDENT ':' STRING_LITERAL type 
+								{ $$ = new SimpleQuestion($1, $3, $4); }
+		| IDENT '(' expr ')' ':' STRING_LITERAL type
+								{ $$ = new ExpressionQuestion($1, $3, $6, $7); }
+		;
+
+expr	: '+' expr	%prec UPLUS { $$ = new Pos($2); }
+		| '-' expr	%prec UMIN  { $$ = new Neg($2); }
+		| '!' expr %prec UNOT  	{ $$ = new Not($2); }
+		| expr MUL expr			{ $$ = new Mul($1, $3); }
+		| expr DIV expr 		{ $$ = new Div($1, $3); }
+		| expr MOD expr			{ $$ = new Mod($1, $3); }
+		| expr ADD expr			{ $$ = new Add($1, $3); }
+		| expr SUB expr			{ $$ = new Sub($1, $3); }
+		| expr EQ  expr			{ $$ = new Eq($1, $3); }
+		| expr NEQ expr			{ $$ = new NEq($1, $3); }
+		| expr GT  expr			{ $$ = new GT($1, $3); }
+		| expr LT  expr			{ $$ = new LT($1, $3); }
+		| expr GEQ expr			{ $$ = new GEq($1, $3); }
+		| expr LEQ expr			{ $$ = new LEq($1, $3); }
+		| expr AND expr	    	{ $$ = new And($1, $3); }
+	    | expr OR expr  		{ $$ = new Or($1, $3); }
+		| INT					{ $$ = $1; }
+		| IDENT         		{ $$ = $1; }
+		| STRING_LITERAL		{ $$ = $1; }
+		| MONEY					{ $$ = $1; }
+		| '(' expr ')'		    { $$ = $2; }
+		;				
+
+type	: INTEGER				{ $$ = new Int(); }	
+		| BOOLEAN				{ $$ = new Bool(); }	
+		| STRING				{ $$ = new Str(); }
+		| MONEY 				{ $$ = new Money(); }
+		;		     
+
+ 
+%%
+private QLLexer lexer; 
+
+private Form formResult;
+private Stmt stmtResult;
+private Expr exprResult;
+
+public Form getFormResult() {
+  return formResult;
+}
+
+public Stmt getStatementResult(){
+	return stmtResult;
+}
+
+public Expr getExpressionResult(){
+	return exprResult;
+}
+
+public QLParser(QLLexer lexer) { 
+  this.lexer = lexer; 
+}
+
+private void yyerror(String msg) { 
+  System.err.println(msg); 
+}

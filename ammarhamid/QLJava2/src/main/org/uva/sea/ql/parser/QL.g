@@ -11,12 +11,13 @@ options
 
 tokens
 {
-    NEGATION;
     NOT;
+    NEGATION;
     EXPRESSION;
-    STATEMENTS;
     ASSIGNMENT;
     IF;
+    STATEMENT;
+    BLOCK;
     FORM;
 }
 
@@ -42,10 +43,14 @@ tokens
 }
 
 form
-	:	'form' Identifier '{' statementBlock* '}' -> ^(FORM Identifier ^(STATEMENTS statementBlock*))
+	:	'form' Identifier '{' block '}' -> ^(FORM Identifier ^(BLOCK block))
 	;
 
-statementBlock
+block
+    :   statement*
+    ;
+
+statement
 	:	ifStatement
 		| assignmentStatement
 	;
@@ -55,15 +60,15 @@ ifStatement
 	;
 
 ifStat
-    :   'if' expression '{' statementBlock+ '}' -> ^(EXPRESSION expression ^(STATEMENTS statementBlock+))
+    :   'if' expression '{' block '}' -> ^(EXPRESSION expression ^(BLOCK block))
     ;
 
 elseIfStat
-    :   'else' 'if' expression '{' statementBlock+ '}' -> ^(EXPRESSION expression ^(STATEMENTS statementBlock+))
+    :   'else' 'if' expression '{' block '}' -> ^(EXPRESSION expression ^(BLOCK block))
     ;
 
 elseStat
-    :   'else' '{' statementBlock+ '}' -> ^(EXPRESSION ^(STATEMENTS statementBlock+))
+    :   'else' '{' block '}' -> ^(EXPRESSION ^(BLOCK block))
     ;
 
 assignmentStatement

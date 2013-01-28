@@ -1,24 +1,15 @@
-form Box1Form {
- 
-bool boolQ = "Checkbox?"  true
-
-
- 
- int intQ = "Spinbox?" 
- float floatQ = "doubleSpinbox?"  
- string stringQ = "lineEdit?"  "hey"
- date Box1Form = "dateEdit?"
-if (Box1Form < 5.5.1998 ) {
-	int sh = "jf?" 4 
-	date djssf = "dateEdiddt" Box1Form
-}  
-
-date djf = "dateEdit" Box1Form
-
-string hh = "dfjdf" stringQ + " you"
-bool bosolQ = "Checkbox?"  boolQ
-if (hh == "hey you") {
-	int shfdf = "Dgjflgkf" intQ*45+18/2
+form test {
+   bool hasSoldHouse =  "Did you sell a house in 2010?" 
+   bool hasBoughtHouse = "Did you by a house in 2010?"
+   bool hasMaintLoan = "Did you enter a loan for maintenance/reconstruction?"
+    
+   if (hasSoldHouse) {
+     float sellingPrice = "Price the house was sold for:" 
+     float privateDebt = "Private debts for the sold house:" 
+     float valueResidue = "Value residue:" (sellingPrice - privateDebt)  
    }
     
-}    
+   date DateQ = "Enter your birthday:" 
+   bool over = "You are at least 18 yo" (DateQ <=  28.1.1994)
+    
+}              

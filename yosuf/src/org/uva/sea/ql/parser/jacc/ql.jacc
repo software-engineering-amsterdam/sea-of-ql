@@ -4,10 +4,15 @@
 %semantic org.uva.sea.ql.ast.ASTNode 
 %start top
 
-%token <Int> INT
-%token IDENT
+
+%token <StringValue> STRING_VAL
+%token <IntegerValue> INT_VAL
+%token <DataType> BOOL INT MON STR
+%token <Identifier> IDENT
 %token '*' '/' '+' '-' OR AND NEQ EQ '<' LEQ '>' GEQ '!'
 %token '(' ')'
+%token IF
+%token FORM
 
 %left OR
 %left AND
@@ -16,46 +21,83 @@
 %left '*' '/'
 %left UMIN UPLUS UNOT
 
-%type <Expression> expr 
+%type <Expression> expr
+%type <CompoundStatement> compound
+%type <DataType> dataType
+%type <Question> question
 
 %{
-import org.uva.sea.ql.ast.*;
+	import org.uva.sea.ql.ast.*;
+	import org.uva.sea.ql.ast.exp.*;
+	import org.uva.sea.ql.ast.type.*;
+	import org.uva.sea.ql.ast.value.*;
 %}
 
 %%
 
- top : expr { result = $1; }
-     ;
+//In order to enable testing, top returns differnt types.
 
- expr	 : '+' expr	%prec UPLUS { $$ = new Positive($2); }
-		 | '-' expr	%prec UMIN  { $$ = new Negative($2); }
-		 | '!' expr %prec UNOT  { $$ = new Not($2); }
-		 | expr '*' expr		{ $$ = new Multiply($1, $3); }
-		 | expr '/' expr 		{ $$ = new Divide($1, $3); }
-		 | expr '+' expr		{ $$ = new Add($1, $3); }
-		 | expr '-' expr		{ $$ = new Substitute($1, $3); }
-		 | expr EQ expr		    { $$ = new Equals($1, $3); }
-		 | expr NEQ expr		{ $$ = new NotEquals($1, $3); }
-		 | expr '>' expr		{ $$ = new GreaterThan($1, $3); }
-		 | expr '<' expr		{ $$ = new SmallerThan($1, $3); }
-		 | expr GEQ expr		{ $$ = new GreaterOrEquals($1, $3); }
-		 | expr LEQ expr		{ $$ = new SmallerOrEquals($1, $3); }
-		 | expr AND expr	    { $$ = new And($1, $3); }
-	     | expr OR expr  		{ $$ = new Or($1, $3); }
-		 | INT					{ $$ = $1; }
-		 | IDENT         		{ $$ = $1; }
-		 | '(' expr ')'			{ $$ = $2; }
-		 ;
-		 
+top		: form						{ result = $1; }
+		| expr						{ result = $1; }
+		| question					{ result = $1; }
+		| dataType					{ result = $1; }
+		;
+		
+form 	: FORM IDENT '{' body '}'	{ $$ = new Form($4); }
+		;
 
+body	: question					{ $$ = $1; }
+		| compound 					{ $$ = $1; }
+		;
+
+question: dataType IDENT '=' STRING_VAL ';'	{ $$ = new Question($1, $2, $4); }
+		;
+
+dataType: BOOL 					{ $$ = new BooleanType();; }
+		| INT					{ $$ = new IntegerType(); }
+		| MON					{ $$ = new MoneyType(); }
+		| STR					{ $$ = new StringType(); }
+		;
+
+compound: ifStm					{ $$ = new CompoundStatement($1); }
+		| stm					{ $$ = $1; }
+		| compound question		{ $$ = $1; }
+		;
+
+stm		: IDENT '=' expr ';'	{ $$ = new Assignment($1, $3); }
+		;
+
+ifStm	: IF '(' expr ')' '{' compound '}'		{ $$ = new IfStatement($3, $6); }
+		;						
+
+expr	: '+' expr	%prec UPLUS { $$ = new Positive($2); }
+		| '-' expr	%prec UMIN  { $$ = new Negative($2); }
+		| '!' expr %prec UNOT  	{ $$ = new Not($2); }
+		| expr '*' expr			{ $$ = new Multiply($1, $3); }
+		| expr '/' expr 		{ $$ = new Divide($1, $3); }
+		| expr '+' expr			{ $$ = new Add($1, $3); }
+		| expr '-' expr			{ $$ = new Substitute($1, $3); }
+		| expr EQ expr		    { $$ = new Equals($1, $3); }
+		| expr NEQ expr			{ $$ = new NotEquals($1, $3); }
+		| expr '>' expr			{ $$ = new GreaterThan($1, $3); }
+		| expr '<' expr			{ $$ = new SmallerThan($1, $3); }
+		| expr GEQ expr			{ $$ = new GreaterOrEquals($1, $3); }
+		| expr LEQ expr			{ $$ = new SmallerOrEquals($1, $3); }
+		| expr AND expr	   		{ $$ = new And($1, $3); }
+	    | expr OR expr  		{ $$ = new Or($1, $3); }
+	    | INT_VAL				{ $$ = $1; }
+		| IDENT         		{ $$ = $1; }
+		| '(' expr ')'			{ $$ = $2; }
+		;
 %%
+
 private QLLexer lexer; 
+private ASTNode result;
 
-private Expression result;
-
-public Expression getResult() {
-  return result;
+public ASTNode getResult(){
+	return result;
 }
+
 
 public QLParser(QLLexer lexer) { 
   this.lexer = lexer; 
