@@ -100,6 +100,7 @@ type returns [Type result]
     :   'integer' { $result = new org.uva.sea.ql.ast.types.Int();  }
     |   'string'  { $result = new org.uva.sea.ql.ast.types.Str();  }
     |   'boolean' { $result = new org.uva.sea.ql.ast.types.Bool(); }
+    |   'money'   { $result = new org.uva.sea.ql.ast.types.Int();  }
     ;
 
     
