@@ -14,7 +14,7 @@ public void HTML(Form f, loc dest) {
   writeFile(dest, "");
   
   top-down visit(f) {
-    case form(name, _): title = name;
+    case form(def, _): title = def.ident;
     case q: question(_, _, _): questions += [q];
     case q: question(_, _, _, _): questions += [q];
   }
@@ -49,7 +49,7 @@ private void createPage(str title, list[Question] questions, loc dest) {
 private str createQuestion(Question q: 
   question(questionText, answerDataType, answerIdentifier)) =
     "\<div id=\"<answerIdentifier>Block\"\>
-    '  \<label for=\"<answerIdentifier>\"\><substring(questionText, 1, size(questionText) - 1)>\</label\>
+    '  \<label for=\"<answerIdentifier>\"\><substring(questionText.text, 1, size(questionText.text) - 1)>\</label\>
     '  \<input type=\"<answerDataType>\" id=\"<answerIdentifier>\" name=\"<answerIdentifier>\" /\>
     '\</div\>
     '";
@@ -57,7 +57,7 @@ private str createQuestion(Question q:
 private str createQuestion(Question q: 
   question(questionText, answerDataType, answerIdentifier, calculatedField)) =
     "\<div id=\"<answerIdentifier>Block\"\>
-    '  \<label for=\"<answerIdentifier>\"\><substring(questionText, 1, size(questionText) - 1)>\</label\>
+    '  \<label for=\"<answerIdentifier>\"\><substring(questionText.text, 1, size(questionText.text) - 1)>\</label\>
     '  \<input type=\"<answerDataType>\" id=\"<answerIdentifier>\" name=\"<answerIdentifier>\" disabled=\"disabled\"/\>
     '\</div\>
     '";
