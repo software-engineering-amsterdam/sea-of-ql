@@ -20,15 +20,7 @@ public class QuestionPanel extends JPanel {
 	public QuestionPanel(Question question) {
 		this.question = question;
 		this.add(new JLabel(question.getContent().getValue()));
-		if (question.getType() instanceof BooleanType) {
-			input = new JCheckBox();
-			this.add(input);
-		}
-		if (question.getType() instanceof Money
-				|| question.getType() instanceof StrType) {
-			input = new JTextField(10);
-			this.add(input);
-		}
+		createInputElement();
 	}
 
 	public String getIdentName() {
@@ -51,5 +43,24 @@ public class QuestionPanel extends JPanel {
 	public String getStringValue() {
 		JTextField t = (JTextField) input;
 		return t.getText();
+	}
+
+	private void createInputElement() {
+		if (question.getType() instanceof BooleanType) {
+			input = new JCheckBox();
+			this.add(input);
+		}
+		if (question.getType() instanceof StrType) {
+			input = new JTextField(10);
+			this.add(input);
+		}
+		if (question.getType() instanceof Money) {
+			input = new JTextField(10);
+			Money m = (Money) question.getType();
+			if (m.getExpr() == null) {
+				((JTextField) input).setEditable(false);
+			}
+			this.add(input);
+		}
 	}
 }

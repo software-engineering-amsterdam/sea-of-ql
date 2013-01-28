@@ -30,4 +30,16 @@ public class SwingRegistry {
 	public List<IfStatementPanel> getIfStatements() {
 		return ifStatements;
 	}
+	
+	public void evaluateFunctions() {
+
+		for (IfStatementPanel isp : ifStatements) {
+			try {
+				isp.eval(this);
+			} catch (EvaluationException ex) {
+				isp.setVisible(false);
+			}
+			isp.repaint();
+		}
+	}
 }

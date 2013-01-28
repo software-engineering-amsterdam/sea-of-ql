@@ -36,7 +36,8 @@ public class Templates {
 
 	public String input(String name, InputTypes type) {
 		return values.get("input").replace(NAME, name)
-				.replace(TYPE, getInputType(type)).replace(CLASS, getInputClass(type));
+				.replace(TYPE, getInputType(type))
+				.replace(CLASS, getInputClass(type));
 	}
 
 	public String getterBool(String name) {
@@ -82,7 +83,8 @@ public class Templates {
 			return "text";
 		return null;
 	}
-	private static String getInputClass(InputTypes t){
+
+	private static String getInputClass(InputTypes t) {
 		if (t == InputTypes.BOOLEAN)
 			return "input_boolean";
 		if (t == InputTypes.STRING)

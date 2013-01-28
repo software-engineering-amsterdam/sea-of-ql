@@ -92,4 +92,17 @@ public class TestFields extends TestExpressions {
 		assertNotNull(e);
 		assertEquals(Money.class, e.getClass());
 	}
+	
+	@Test
+	public void testMoneyWithValue() throws ParseError {
+		Expr e = CurrentTest.parse("money(50)");
+		assertNotNull(e);
+		assertEquals(Money.class, e.getClass());
+	}
+	@Test
+	public void testMoneyWithAdd() throws ParseError {
+		Expr e = CurrentTest.parse("money(50 + 50)");
+		assertNotNull(e);
+		assertEquals(Money.class, e.getClass());
+	}
 }

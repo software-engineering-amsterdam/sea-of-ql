@@ -6,7 +6,7 @@ import javax.swing.JPanel;
 import org.uva.sea.ql.ast.ReturnsBoolOperands;
 import org.uva.sea.ql.ast.elements.IfStatement;
 import org.uva.sea.ql.interpreter.swing.EvaluationException;
-import org.uva.sea.ql.interpreter.swing.Evaluator;
+import org.uva.sea.ql.interpreter.swing.BoolEvaluator;
 import org.uva.sea.ql.interpreter.swing.SwingRegistry;
 
 public class IfStatementPanel extends JPanel {
@@ -24,8 +24,7 @@ public class IfStatementPanel extends JPanel {
 
 	public void eval(SwingRegistry sr) throws EvaluationException {
 		if (this.ifStatement.getCondition() instanceof ReturnsBoolOperands) {
-			boolean result = Evaluator.evalBool(this.ifStatement.getCondition(),
-					sr.getQuestions());
+			boolean result = new BoolEvaluator(sr.getQuestions()).eval((this.ifStatement.getCondition()));
 			this.setVisible(result);
 		} else {
 			throw new RuntimeException("conditions for if statements must be boolean");

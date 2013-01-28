@@ -1,6 +1,5 @@
 package org.uva.sea.ql.interpreter.swing;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
 
@@ -23,8 +22,6 @@ public class SwingVisitor implements ASTVisitor {
 	private final JPanel panel;
 	private Stack<JPanel> history;
 	private SwingRegistry registry;
-	private List<InputValidator> inputValidators;
-	private List<Evaluator> evaluators;
 
 	public SwingVisitor() {
 		this.panel = new JPanel();
@@ -32,15 +29,13 @@ public class SwingVisitor implements ASTVisitor {
 		history.push(panel);
 		panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
 		registry = new SwingRegistry();
-		inputValidators = new ArrayList<InputValidator>();
-		evaluators = new ArrayList<Evaluator>();
 	}
 
 	@Override
 	public void visit(Form form) throws VisitorException {
 		history.peek().add(new JPanel());
 		form.getBlock().accept(this);
-		createFunctions();
+		addListeners();
 	}
 
 	@Override
@@ -78,19 +73,18 @@ public class SwingVisitor implements ASTVisitor {
 		return panel;
 	}
 
-	private void createFunctions() {
+	private void addListeners() {
 		for (QuestionPanel questionPanel : registry.getQuestions()) {
-			inputValidators.add(new InputValidator(registry, questionPanel));
+			System.out.println("consider to add "
+					+ questionPanel.getIdentName());
+			new AutoValueSetter(registry, questionPanel).createListeners();
 		}
+		QuestionListener questionListener = new QuestionListener(registry);
 		for (IfStatementPanel ifPanel : registry.getIfStatements()) {
 			IfStatement ifStatement = ifPanel.getIfStatement();
 			List<Ident> idents = ifStatement.getIdents();
 			for (Ident ident : idents) {
-				for (QuestionPanel questionPanel : registry.getQuestions()) {
-					if (questionPanel.getIdentName().equals(ident.getName())) {
-						evaluators.add(new Evaluator(registry, questionPanel));
-					}
-				}
+				questionListener.addIdentListener(ident);
 			}
 		}
 	}

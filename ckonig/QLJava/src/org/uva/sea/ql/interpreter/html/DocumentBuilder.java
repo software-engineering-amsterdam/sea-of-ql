@@ -100,23 +100,39 @@ class DocumentBuilder {
 		this.appendToScript(getter);
 	}
 
-	private static String getConditionString(Expr i) {
-		String ret = new String();
+	/**
+	 * Returns a string representing the given Expression, eg. "((1 + 5) > 1)".
+	 * Accepts any BinaryExpr using toString() as tree nodes (recursive).
+	 * Supports Ident, IntLiteral and StringLiteral as leaves. Ident will be
+	 * represented by a function call, eg.
+	 * "(hasBoughtHouse() && valueResidue() < 4000)"
+	 * 
+	 * @param expression
+	 * @return a string representing the expression
+	 */
+	private static String getConditionString(Expr expression) {
+		StringBuilder ret = new StringBuilder();
 
-		if (i.getClass().equals(Ident.class)) {
-			ret = ((Ident) i).getName() + "()";
+		if (expression.getClass().equals(Ident.class)) {
+			ret.append(((Ident) expression).getName());
+			ret.append("()");
 		}
-		if (i instanceof BinaryExpr) {
-			BinaryExpr b = (BinaryExpr) i;
-			ret += "(" + getConditionString(b.getLeft()) + " " + b.toString()
-					+ " " + getConditionString(b.getRight()) + ")";
+		if (expression instanceof BinaryExpr) {
+			BinaryExpr b = (BinaryExpr) expression;
+			ret.append("(");
+			ret.append(getConditionString(b.getLeft()));
+			ret.append(" ");
+			ret.append(b.toString());
+			ret.append(" ");
+			ret.append(getConditionString(b.getRight()));
+			ret.append(")");
 		}
-		if (i instanceof IntLiteral) {
-			ret += ((IntLiteral) i).getValue();
+		if (expression instanceof IntLiteral) {
+			ret.append(((IntLiteral) expression).getValue());
 		}
-		if (i instanceof StringLiteral) {
-			ret += ((StringLiteral) i).getValue();
+		if (expression instanceof StringLiteral) {
+			ret.append(((StringLiteral) expression).getValue());
 		}
-		return ret;
+		return ret.toString();
 	}
 }
