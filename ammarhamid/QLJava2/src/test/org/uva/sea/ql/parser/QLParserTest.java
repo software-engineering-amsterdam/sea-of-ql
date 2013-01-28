@@ -92,6 +92,29 @@ public class QLParserTest
     }
 
     @Test
+    public void ifStatementTest() throws RecognitionException
+    {
+        // TODO continue this test !!
+        final String validSrc = "" +
+                "	if (1+1==2) " +
+                "	{ " +
+                "		hasNothing: \"nothing?\" boolean " +
+                "		hasNothing2: \"nothing?\" boolean " +
+                "	}" +
+                "	else" +
+                "	{" +
+                "		hasNothing: \"nothing?\" boolean " +
+                "	}";
+
+        final QLParser qlParser = this.parser.createQLParser(validSrc);
+        final CommonTree commonTree = (CommonTree) qlParser.ifStatement().getTree();
+        final CommonTreeNodeStream commonTreeNodeStream = new CommonTreeNodeStream(commonTree);
+        final QLTreeWalker qlTreeWalker = new QLTreeWalker(commonTreeNodeStream);
+        QLTreeWalker.ifStatement_return expression = qlTreeWalker.ifStatement();
+        System.out.println("Test " +expression.node.evaluate());
+    }
+
+    @Test
     public void simpleInvalidFormTest()
     {
         try

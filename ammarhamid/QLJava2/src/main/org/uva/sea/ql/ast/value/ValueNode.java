@@ -20,6 +20,12 @@ public abstract class ValueNode<T> extends ExprNode
         {
             return this;
         }
+
+        @Override
+        public String toString()
+        {
+            return "VOID";
+        }
     };
 
 	public abstract T getValue();

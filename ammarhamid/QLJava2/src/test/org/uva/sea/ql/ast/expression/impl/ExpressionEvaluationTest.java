@@ -1,6 +1,10 @@
 package org.uva.sea.ql.ast.expression.impl;
 
 import org.junit.Test;
+import org.uva.sea.ql.ast.AssignmentNode;
+import org.uva.sea.ql.ast.IfNode;
+import org.uva.sea.ql.ast.Node;
+import org.uva.sea.ql.ast.VariableScope;
 import org.uva.sea.ql.ast.exception.InvalidTypeException;
 import org.uva.sea.ql.ast.expression.ExprNode;
 import org.uva.sea.ql.ast.value.impl.BooleanNode;
@@ -17,7 +21,7 @@ public class ExpressionEvaluationTest
 {
 
 	@Test
-	public void testEvaluateOnNumber()
+	public void evaluateOnNumberTest()
 	{
         ExprNode exprNode;
         final IntegerNode intValueNode1 = new IntegerNode(6);
@@ -58,7 +62,7 @@ public class ExpressionEvaluationTest
     }
 
     @Test
-    public void testEvaluateOnMoney()
+    public void evaluateOnMoneyTest()
     {
         ExprNode exprNode;
         final MoneyNode moneyValue1 = new MoneyNode("10000.00");
@@ -99,7 +103,7 @@ public class ExpressionEvaluationTest
     }
 	
 	@Test
-	public void testEvaluateOnString()
+	public void evaluateOnStringTest()
 	{
         ExprNode exprNode;
 		final ExprNode stringValueNode = new StringNode("No.");
@@ -116,7 +120,7 @@ public class ExpressionEvaluationTest
 	}
 
     @Test
-    public void testEvaluateOnBoolean()
+    public void evaluateOnBooleanTest()
     {
         ExprNode exprNode;
         final ExprNode booleanValueNode1 = new BooleanNode(Boolean.FALSE);
@@ -133,50 +137,50 @@ public class ExpressionEvaluationTest
     }
 
     @Test
-    public void testEvaluateOnInvalidType()
+    public void evaluateOnInvalidTypeTest()
     {
         ExprNode exprNode;
         final ExprNode booleanValueNode = new BooleanNode("true");
         final ExprNode integerValueNode = new IntegerNode("123");
 
         exprNode = new AddNode(booleanValueNode, integerValueNode);
-        testInvalidType(exprNode);
+        invalidTypeTest(exprNode);
 
         exprNode = new SubtractNode(booleanValueNode, integerValueNode);
-        testInvalidType(exprNode);
+        invalidTypeTest(exprNode);
 
         exprNode = new MultiplyNode(booleanValueNode, integerValueNode);
-        testInvalidType(exprNode);
+        invalidTypeTest(exprNode);
 
         exprNode = new DivideNode(booleanValueNode, integerValueNode);
-        testInvalidType(exprNode);
+        invalidTypeTest(exprNode);
 
         exprNode = new GreaterEqualNode(booleanValueNode, integerValueNode);
-        testInvalidType(exprNode);
+        invalidTypeTest(exprNode);
 
         exprNode = new GreaterThanNode(booleanValueNode, integerValueNode);
-        testInvalidType(exprNode);
+        invalidTypeTest(exprNode);
 
         exprNode = new LessEqualNode(booleanValueNode, integerValueNode);
-        testInvalidType(exprNode);
+        invalidTypeTest(exprNode);
 
         exprNode = new LessThanNode(booleanValueNode, integerValueNode);
-        testInvalidType(exprNode);
+        invalidTypeTest(exprNode);
 
         exprNode = new NotNode(integerValueNode);
-        testInvalidType(exprNode);
+        invalidTypeTest(exprNode);
 
         exprNode = new NegateNode(booleanValueNode);
-        testInvalidType(exprNode);
+        invalidTypeTest(exprNode);
 
         exprNode = new AndNode(integerValueNode, booleanValueNode);
-        testInvalidType(exprNode);
+        invalidTypeTest(exprNode);
 
         exprNode = new OrNode(integerValueNode, booleanValueNode);
-        testInvalidType(exprNode);
+        invalidTypeTest(exprNode);
     }
 
-    private void testInvalidType(final ExprNode exprNode)
+    private void invalidTypeTest(final ExprNode exprNode)
     {
         try
         {
@@ -187,6 +191,28 @@ public class ExpressionEvaluationTest
         {
             // expected
         }
+    }
+
+    @Test
+    public void ifStatementTest()
+    {
+        // TODO continue test !!
+        final ExprNode intValueNode = new IntegerNode(5);
+        final ExprNode intValueNode2 = new IntegerNode(15);
+        final ExprNode expectedNode = new IntegerNode(18);
+        final ExprNode addNode = new AddNode(intValueNode, intValueNode2);
+        final VariableScope variableScope = new VariableScope();
+        String variableName = "foo";
+
+        final IfNode ifNode = new IfNode();
+        final ExprNode equalNode = new EqualNode(expectedNode, addNode);
+        final Node assignmentNode = new AssignmentNode(variableName, intValueNode, variableScope);
+        final Node assignmentNode2 = new AssignmentNode(variableName, intValueNode2, variableScope);
+        ifNode.addBranch(equalNode, assignmentNode);
+        ifNode.addBranch(new BooleanNode("true"), assignmentNode2);
+        ifNode.evaluate();
+
+        assertEquals("Result should be the same", intValueNode2, variableScope.resolve(variableName));
     }
 
 }

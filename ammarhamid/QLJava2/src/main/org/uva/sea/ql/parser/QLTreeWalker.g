@@ -67,8 +67,8 @@ block returns [Node node]
     ;
 
 statement returns [Node node]
-	:	ifStatement
-		| assignmentStatement
+	:	ifStatement { $node = $ifStatement.node; }
+		| assignmentStatement { $node = $assignmentStatement.node; }
 	;
 
 ifStatement returns [Node node]

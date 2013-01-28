@@ -1,4 +1,4 @@
-// $ANTLR 3.4 src/main/org/uva/sea/ql/parser/QLTreeWalker.g 2013-01-28 13:45:28
+// $ANTLR 3.4 src/main/org/uva/sea/ql/parser/QLTreeWalker.g 2013-01-28 14:59:06
 
 	package org.uva.sea.ql.parser;
 	import org.uva.sea.ql.ast.Node;
@@ -436,6 +436,8 @@ public TreeAdaptor getTreeAdaptor() {
                     adaptor.addChild(root_0, ifStatement7.getTree());
 
 
+                     retval.node = (ifStatement7!=null?ifStatement7.node:null); 
+
                     }
                     break;
                 case 2 :
@@ -445,13 +447,15 @@ public TreeAdaptor getTreeAdaptor() {
 
 
                     _last = (CommonTree)input.LT(1);
-                    pushFollow(FOLLOW_assignmentStatement_in_statement153);
+                    pushFollow(FOLLOW_assignmentStatement_in_statement155);
                     assignmentStatement8=assignmentStatement();
 
                     state._fsp--;
 
                     adaptor.addChild(root_0, assignmentStatement8.getTree());
 
+
+                     retval.node = (assignmentStatement8!=null?assignmentStatement8.node:null); 
 
                     }
                     break;
@@ -527,7 +531,7 @@ public TreeAdaptor getTreeAdaptor() {
             CommonTree _first_1 = null;
             CommonTree root_1 = (CommonTree)adaptor.nil();
             _last = (CommonTree)input.LT(1);
-            IF9=(CommonTree)match(input,IF,FOLLOW_IF_in_ifStatement176); 
+            IF9=(CommonTree)match(input,IF,FOLLOW_IF_in_ifStatement180); 
             IF9_tree = (CommonTree)adaptor.dupNode(IF9);
 
 
@@ -569,7 +573,7 @@ public TreeAdaptor getTreeAdaptor() {
             	    CommonTree _first_2 = null;
             	    CommonTree root_2 = (CommonTree)adaptor.nil();
             	    _last = (CommonTree)input.LT(1);
-            	    EXPRESSION10=(CommonTree)match(input,EXPRESSION,FOLLOW_EXPRESSION_in_ifStatement189); 
+            	    EXPRESSION10=(CommonTree)match(input,EXPRESSION,FOLLOW_EXPRESSION_in_ifStatement193); 
             	    EXPRESSION10_tree = (CommonTree)adaptor.dupNode(EXPRESSION10);
 
 
@@ -578,7 +582,7 @@ public TreeAdaptor getTreeAdaptor() {
 
             	    match(input, Token.DOWN, null); 
             	    _last = (CommonTree)input.LT(1);
-            	    pushFollow(FOLLOW_expression_in_ifStatement191);
+            	    pushFollow(FOLLOW_expression_in_ifStatement195);
             	    expression11=expression();
 
             	    state._fsp--;
@@ -592,7 +596,7 @@ public TreeAdaptor getTreeAdaptor() {
             	    CommonTree _first_3 = null;
             	    CommonTree root_3 = (CommonTree)adaptor.nil();
             	    _last = (CommonTree)input.LT(1);
-            	    BLOCK12=(CommonTree)match(input,BLOCK,FOLLOW_BLOCK_in_ifStatement194); 
+            	    BLOCK12=(CommonTree)match(input,BLOCK,FOLLOW_BLOCK_in_ifStatement198); 
             	    BLOCK12_tree = (CommonTree)adaptor.dupNode(BLOCK12);
 
 
@@ -602,7 +606,7 @@ public TreeAdaptor getTreeAdaptor() {
             	    if ( input.LA(1)==Token.DOWN ) {
             	        match(input, Token.DOWN, null); 
             	        _last = (CommonTree)input.LT(1);
-            	        pushFollow(FOLLOW_block_in_ifStatement198);
+            	        pushFollow(FOLLOW_block_in_ifStatement202);
             	        b1=block();
 
             	        state._fsp--;
@@ -655,7 +659,7 @@ public TreeAdaptor getTreeAdaptor() {
                     CommonTree _first_2 = null;
                     CommonTree root_2 = (CommonTree)adaptor.nil();
                     _last = (CommonTree)input.LT(1);
-                    EXPRESSION13=(CommonTree)match(input,EXPRESSION,FOLLOW_EXPRESSION_in_ifStatement217); 
+                    EXPRESSION13=(CommonTree)match(input,EXPRESSION,FOLLOW_EXPRESSION_in_ifStatement221); 
                     EXPRESSION13_tree = (CommonTree)adaptor.dupNode(EXPRESSION13);
 
 
@@ -669,7 +673,7 @@ public TreeAdaptor getTreeAdaptor() {
                     CommonTree _first_3 = null;
                     CommonTree root_3 = (CommonTree)adaptor.nil();
                     _last = (CommonTree)input.LT(1);
-                    BLOCK14=(CommonTree)match(input,BLOCK,FOLLOW_BLOCK_in_ifStatement220); 
+                    BLOCK14=(CommonTree)match(input,BLOCK,FOLLOW_BLOCK_in_ifStatement224); 
                     BLOCK14_tree = (CommonTree)adaptor.dupNode(BLOCK14);
 
 
@@ -679,7 +683,7 @@ public TreeAdaptor getTreeAdaptor() {
                     if ( input.LA(1)==Token.DOWN ) {
                         match(input, Token.DOWN, null); 
                         _last = (CommonTree)input.LT(1);
-                        pushFollow(FOLLOW_block_in_ifStatement224);
+                        pushFollow(FOLLOW_block_in_ifStatement228);
                         b2=block();
 
                         state._fsp--;
@@ -772,7 +776,7 @@ public TreeAdaptor getTreeAdaptor() {
             CommonTree _first_1 = null;
             CommonTree root_1 = (CommonTree)adaptor.nil();
             _last = (CommonTree)input.LT(1);
-            ASSIGNMENT15=(CommonTree)match(input,ASSIGNMENT,FOLLOW_ASSIGNMENT_in_assignmentStatement254); 
+            ASSIGNMENT15=(CommonTree)match(input,ASSIGNMENT,FOLLOW_ASSIGNMENT_in_assignmentStatement258); 
             ASSIGNMENT15_tree = (CommonTree)adaptor.dupNode(ASSIGNMENT15);
 
 
@@ -781,7 +785,7 @@ public TreeAdaptor getTreeAdaptor() {
 
             match(input, Token.DOWN, null); 
             _last = (CommonTree)input.LT(1);
-            Identifier16=(CommonTree)match(input,Identifier,FOLLOW_Identifier_in_assignmentStatement256); 
+            Identifier16=(CommonTree)match(input,Identifier,FOLLOW_Identifier_in_assignmentStatement260); 
             Identifier16_tree = (CommonTree)adaptor.dupNode(Identifier16);
 
 
@@ -789,7 +793,7 @@ public TreeAdaptor getTreeAdaptor() {
 
 
             _last = (CommonTree)input.LT(1);
-            pushFollow(FOLLOW_type_in_assignmentStatement258);
+            pushFollow(FOLLOW_type_in_assignmentStatement262);
             type17=type();
 
             state._fsp--;
@@ -892,7 +896,7 @@ public TreeAdaptor getTreeAdaptor() {
 
 
                     _last = (CommonTree)input.LT(1);
-                    string_literal18=(CommonTree)match(input,37,FOLLOW_37_in_type277); 
+                    string_literal18=(CommonTree)match(input,37,FOLLOW_37_in_type281); 
                     string_literal18_tree = (CommonTree)adaptor.dupNode(string_literal18);
 
 
@@ -910,7 +914,7 @@ public TreeAdaptor getTreeAdaptor() {
 
 
                     _last = (CommonTree)input.LT(1);
-                    string_literal19=(CommonTree)match(input,41,FOLLOW_41_in_type285); 
+                    string_literal19=(CommonTree)match(input,41,FOLLOW_41_in_type289); 
                     string_literal19_tree = (CommonTree)adaptor.dupNode(string_literal19);
 
 
@@ -928,7 +932,7 @@ public TreeAdaptor getTreeAdaptor() {
 
 
                     _last = (CommonTree)input.LT(1);
-                    string_literal20=(CommonTree)match(input,43,FOLLOW_43_in_type293); 
+                    string_literal20=(CommonTree)match(input,43,FOLLOW_43_in_type297); 
                     string_literal20_tree = (CommonTree)adaptor.dupNode(string_literal20);
 
 
@@ -946,7 +950,7 @@ public TreeAdaptor getTreeAdaptor() {
 
 
                     _last = (CommonTree)input.LT(1);
-                    string_literal21=(CommonTree)match(input,42,FOLLOW_42_in_type301); 
+                    string_literal21=(CommonTree)match(input,42,FOLLOW_42_in_type305); 
                     string_literal21_tree = (CommonTree)adaptor.dupNode(string_literal21);
 
 
@@ -1160,7 +1164,7 @@ public TreeAdaptor getTreeAdaptor() {
                     CommonTree _first_1 = null;
                     CommonTree root_1 = (CommonTree)adaptor.nil();
                     _last = (CommonTree)input.LT(1);
-                    string_literal22=(CommonTree)match(input,24,FOLLOW_24_in_expression324); 
+                    string_literal22=(CommonTree)match(input,24,FOLLOW_24_in_expression328); 
                     string_literal22_tree = (CommonTree)adaptor.dupNode(string_literal22);
 
 
@@ -1169,7 +1173,7 @@ public TreeAdaptor getTreeAdaptor() {
 
                     match(input, Token.DOWN, null); 
                     _last = (CommonTree)input.LT(1);
-                    pushFollow(FOLLOW_expression_in_expression328);
+                    pushFollow(FOLLOW_expression_in_expression332);
                     lhs=expression();
 
                     state._fsp--;
@@ -1178,7 +1182,7 @@ public TreeAdaptor getTreeAdaptor() {
 
 
                     _last = (CommonTree)input.LT(1);
-                    pushFollow(FOLLOW_expression_in_expression332);
+                    pushFollow(FOLLOW_expression_in_expression336);
                     rhs=expression();
 
                     state._fsp--;
@@ -1208,7 +1212,7 @@ public TreeAdaptor getTreeAdaptor() {
                     CommonTree _first_1 = null;
                     CommonTree root_1 = (CommonTree)adaptor.nil();
                     _last = (CommonTree)input.LT(1);
-                    string_literal23=(CommonTree)match(input,45,FOLLOW_45_in_expression346); 
+                    string_literal23=(CommonTree)match(input,45,FOLLOW_45_in_expression350); 
                     string_literal23_tree = (CommonTree)adaptor.dupNode(string_literal23);
 
 
@@ -1217,7 +1221,7 @@ public TreeAdaptor getTreeAdaptor() {
 
                     match(input, Token.DOWN, null); 
                     _last = (CommonTree)input.LT(1);
-                    pushFollow(FOLLOW_expression_in_expression350);
+                    pushFollow(FOLLOW_expression_in_expression354);
                     lhs=expression();
 
                     state._fsp--;
@@ -1226,7 +1230,7 @@ public TreeAdaptor getTreeAdaptor() {
 
 
                     _last = (CommonTree)input.LT(1);
-                    pushFollow(FOLLOW_expression_in_expression354);
+                    pushFollow(FOLLOW_expression_in_expression358);
                     rhs=expression();
 
                     state._fsp--;
@@ -1256,7 +1260,7 @@ public TreeAdaptor getTreeAdaptor() {
                     CommonTree _first_1 = null;
                     CommonTree root_1 = (CommonTree)adaptor.nil();
                     _last = (CommonTree)input.LT(1);
-                    string_literal24=(CommonTree)match(input,34,FOLLOW_34_in_expression368); 
+                    string_literal24=(CommonTree)match(input,34,FOLLOW_34_in_expression372); 
                     string_literal24_tree = (CommonTree)adaptor.dupNode(string_literal24);
 
 
@@ -1265,7 +1269,7 @@ public TreeAdaptor getTreeAdaptor() {
 
                     match(input, Token.DOWN, null); 
                     _last = (CommonTree)input.LT(1);
-                    pushFollow(FOLLOW_expression_in_expression372);
+                    pushFollow(FOLLOW_expression_in_expression376);
                     lhs=expression();
 
                     state._fsp--;
@@ -1274,7 +1278,7 @@ public TreeAdaptor getTreeAdaptor() {
 
 
                     _last = (CommonTree)input.LT(1);
-                    pushFollow(FOLLOW_expression_in_expression376);
+                    pushFollow(FOLLOW_expression_in_expression380);
                     rhs=expression();
 
                     state._fsp--;
@@ -1304,7 +1308,7 @@ public TreeAdaptor getTreeAdaptor() {
                     CommonTree _first_1 = null;
                     CommonTree root_1 = (CommonTree)adaptor.nil();
                     _last = (CommonTree)input.LT(1);
-                    string_literal25=(CommonTree)match(input,23,FOLLOW_23_in_expression390); 
+                    string_literal25=(CommonTree)match(input,23,FOLLOW_23_in_expression394); 
                     string_literal25_tree = (CommonTree)adaptor.dupNode(string_literal25);
 
 
@@ -1313,7 +1317,7 @@ public TreeAdaptor getTreeAdaptor() {
 
                     match(input, Token.DOWN, null); 
                     _last = (CommonTree)input.LT(1);
-                    pushFollow(FOLLOW_expression_in_expression394);
+                    pushFollow(FOLLOW_expression_in_expression398);
                     lhs=expression();
 
                     state._fsp--;
@@ -1322,7 +1326,7 @@ public TreeAdaptor getTreeAdaptor() {
 
 
                     _last = (CommonTree)input.LT(1);
-                    pushFollow(FOLLOW_expression_in_expression398);
+                    pushFollow(FOLLOW_expression_in_expression402);
                     rhs=expression();
 
                     state._fsp--;
@@ -1352,7 +1356,7 @@ public TreeAdaptor getTreeAdaptor() {
                     CommonTree _first_1 = null;
                     CommonTree root_1 = (CommonTree)adaptor.nil();
                     _last = (CommonTree)input.LT(1);
-                    char_literal26=(CommonTree)match(input,32,FOLLOW_32_in_expression412); 
+                    char_literal26=(CommonTree)match(input,32,FOLLOW_32_in_expression416); 
                     char_literal26_tree = (CommonTree)adaptor.dupNode(char_literal26);
 
 
@@ -1361,7 +1365,7 @@ public TreeAdaptor getTreeAdaptor() {
 
                     match(input, Token.DOWN, null); 
                     _last = (CommonTree)input.LT(1);
-                    pushFollow(FOLLOW_expression_in_expression416);
+                    pushFollow(FOLLOW_expression_in_expression420);
                     lhs=expression();
 
                     state._fsp--;
@@ -1370,7 +1374,7 @@ public TreeAdaptor getTreeAdaptor() {
 
 
                     _last = (CommonTree)input.LT(1);
-                    pushFollow(FOLLOW_expression_in_expression420);
+                    pushFollow(FOLLOW_expression_in_expression424);
                     rhs=expression();
 
                     state._fsp--;
@@ -1400,7 +1404,7 @@ public TreeAdaptor getTreeAdaptor() {
                     CommonTree _first_1 = null;
                     CommonTree root_1 = (CommonTree)adaptor.nil();
                     _last = (CommonTree)input.LT(1);
-                    string_literal27=(CommonTree)match(input,33,FOLLOW_33_in_expression434); 
+                    string_literal27=(CommonTree)match(input,33,FOLLOW_33_in_expression438); 
                     string_literal27_tree = (CommonTree)adaptor.dupNode(string_literal27);
 
 
@@ -1409,7 +1413,7 @@ public TreeAdaptor getTreeAdaptor() {
 
                     match(input, Token.DOWN, null); 
                     _last = (CommonTree)input.LT(1);
-                    pushFollow(FOLLOW_expression_in_expression438);
+                    pushFollow(FOLLOW_expression_in_expression442);
                     lhs=expression();
 
                     state._fsp--;
@@ -1418,7 +1422,7 @@ public TreeAdaptor getTreeAdaptor() {
 
 
                     _last = (CommonTree)input.LT(1);
-                    pushFollow(FOLLOW_expression_in_expression442);
+                    pushFollow(FOLLOW_expression_in_expression446);
                     rhs=expression();
 
                     state._fsp--;
@@ -1448,7 +1452,7 @@ public TreeAdaptor getTreeAdaptor() {
                     CommonTree _first_1 = null;
                     CommonTree root_1 = (CommonTree)adaptor.nil();
                     _last = (CommonTree)input.LT(1);
-                    string_literal28=(CommonTree)match(input,36,FOLLOW_36_in_expression456); 
+                    string_literal28=(CommonTree)match(input,36,FOLLOW_36_in_expression460); 
                     string_literal28_tree = (CommonTree)adaptor.dupNode(string_literal28);
 
 
@@ -1457,7 +1461,7 @@ public TreeAdaptor getTreeAdaptor() {
 
                     match(input, Token.DOWN, null); 
                     _last = (CommonTree)input.LT(1);
-                    pushFollow(FOLLOW_expression_in_expression460);
+                    pushFollow(FOLLOW_expression_in_expression464);
                     lhs=expression();
 
                     state._fsp--;
@@ -1466,7 +1470,7 @@ public TreeAdaptor getTreeAdaptor() {
 
 
                     _last = (CommonTree)input.LT(1);
-                    pushFollow(FOLLOW_expression_in_expression464);
+                    pushFollow(FOLLOW_expression_in_expression468);
                     rhs=expression();
 
                     state._fsp--;
@@ -1496,7 +1500,7 @@ public TreeAdaptor getTreeAdaptor() {
                     CommonTree _first_1 = null;
                     CommonTree root_1 = (CommonTree)adaptor.nil();
                     _last = (CommonTree)input.LT(1);
-                    char_literal29=(CommonTree)match(input,35,FOLLOW_35_in_expression478); 
+                    char_literal29=(CommonTree)match(input,35,FOLLOW_35_in_expression482); 
                     char_literal29_tree = (CommonTree)adaptor.dupNode(char_literal29);
 
 
@@ -1505,7 +1509,7 @@ public TreeAdaptor getTreeAdaptor() {
 
                     match(input, Token.DOWN, null); 
                     _last = (CommonTree)input.LT(1);
-                    pushFollow(FOLLOW_expression_in_expression482);
+                    pushFollow(FOLLOW_expression_in_expression486);
                     lhs=expression();
 
                     state._fsp--;
@@ -1514,7 +1518,7 @@ public TreeAdaptor getTreeAdaptor() {
 
 
                     _last = (CommonTree)input.LT(1);
-                    pushFollow(FOLLOW_expression_in_expression486);
+                    pushFollow(FOLLOW_expression_in_expression490);
                     rhs=expression();
 
                     state._fsp--;
@@ -1544,7 +1548,7 @@ public TreeAdaptor getTreeAdaptor() {
                     CommonTree _first_1 = null;
                     CommonTree root_1 = (CommonTree)adaptor.nil();
                     _last = (CommonTree)input.LT(1);
-                    char_literal30=(CommonTree)match(input,28,FOLLOW_28_in_expression500); 
+                    char_literal30=(CommonTree)match(input,28,FOLLOW_28_in_expression504); 
                     char_literal30_tree = (CommonTree)adaptor.dupNode(char_literal30);
 
 
@@ -1553,7 +1557,7 @@ public TreeAdaptor getTreeAdaptor() {
 
                     match(input, Token.DOWN, null); 
                     _last = (CommonTree)input.LT(1);
-                    pushFollow(FOLLOW_expression_in_expression504);
+                    pushFollow(FOLLOW_expression_in_expression508);
                     lhs=expression();
 
                     state._fsp--;
@@ -1562,7 +1566,7 @@ public TreeAdaptor getTreeAdaptor() {
 
 
                     _last = (CommonTree)input.LT(1);
-                    pushFollow(FOLLOW_expression_in_expression508);
+                    pushFollow(FOLLOW_expression_in_expression512);
                     rhs=expression();
 
                     state._fsp--;
@@ -1592,7 +1596,7 @@ public TreeAdaptor getTreeAdaptor() {
                     CommonTree _first_1 = null;
                     CommonTree root_1 = (CommonTree)adaptor.nil();
                     _last = (CommonTree)input.LT(1);
-                    char_literal31=(CommonTree)match(input,29,FOLLOW_29_in_expression522); 
+                    char_literal31=(CommonTree)match(input,29,FOLLOW_29_in_expression526); 
                     char_literal31_tree = (CommonTree)adaptor.dupNode(char_literal31);
 
 
@@ -1601,7 +1605,7 @@ public TreeAdaptor getTreeAdaptor() {
 
                     match(input, Token.DOWN, null); 
                     _last = (CommonTree)input.LT(1);
-                    pushFollow(FOLLOW_expression_in_expression526);
+                    pushFollow(FOLLOW_expression_in_expression530);
                     lhs=expression();
 
                     state._fsp--;
@@ -1610,7 +1614,7 @@ public TreeAdaptor getTreeAdaptor() {
 
 
                     _last = (CommonTree)input.LT(1);
-                    pushFollow(FOLLOW_expression_in_expression530);
+                    pushFollow(FOLLOW_expression_in_expression534);
                     rhs=expression();
 
                     state._fsp--;
@@ -1640,7 +1644,7 @@ public TreeAdaptor getTreeAdaptor() {
                     CommonTree _first_1 = null;
                     CommonTree root_1 = (CommonTree)adaptor.nil();
                     _last = (CommonTree)input.LT(1);
-                    char_literal32=(CommonTree)match(input,27,FOLLOW_27_in_expression544); 
+                    char_literal32=(CommonTree)match(input,27,FOLLOW_27_in_expression548); 
                     char_literal32_tree = (CommonTree)adaptor.dupNode(char_literal32);
 
 
@@ -1649,7 +1653,7 @@ public TreeAdaptor getTreeAdaptor() {
 
                     match(input, Token.DOWN, null); 
                     _last = (CommonTree)input.LT(1);
-                    pushFollow(FOLLOW_expression_in_expression548);
+                    pushFollow(FOLLOW_expression_in_expression552);
                     lhs=expression();
 
                     state._fsp--;
@@ -1658,7 +1662,7 @@ public TreeAdaptor getTreeAdaptor() {
 
 
                     _last = (CommonTree)input.LT(1);
-                    pushFollow(FOLLOW_expression_in_expression552);
+                    pushFollow(FOLLOW_expression_in_expression556);
                     rhs=expression();
 
                     state._fsp--;
@@ -1688,7 +1692,7 @@ public TreeAdaptor getTreeAdaptor() {
                     CommonTree _first_1 = null;
                     CommonTree root_1 = (CommonTree)adaptor.nil();
                     _last = (CommonTree)input.LT(1);
-                    char_literal33=(CommonTree)match(input,30,FOLLOW_30_in_expression566); 
+                    char_literal33=(CommonTree)match(input,30,FOLLOW_30_in_expression570); 
                     char_literal33_tree = (CommonTree)adaptor.dupNode(char_literal33);
 
 
@@ -1697,7 +1701,7 @@ public TreeAdaptor getTreeAdaptor() {
 
                     match(input, Token.DOWN, null); 
                     _last = (CommonTree)input.LT(1);
-                    pushFollow(FOLLOW_expression_in_expression570);
+                    pushFollow(FOLLOW_expression_in_expression574);
                     lhs=expression();
 
                     state._fsp--;
@@ -1706,7 +1710,7 @@ public TreeAdaptor getTreeAdaptor() {
 
 
                     _last = (CommonTree)input.LT(1);
-                    pushFollow(FOLLOW_expression_in_expression574);
+                    pushFollow(FOLLOW_expression_in_expression578);
                     rhs=expression();
 
                     state._fsp--;
@@ -1736,7 +1740,7 @@ public TreeAdaptor getTreeAdaptor() {
                     CommonTree _first_1 = null;
                     CommonTree root_1 = (CommonTree)adaptor.nil();
                     _last = (CommonTree)input.LT(1);
-                    NOT34=(CommonTree)match(input,NOT,FOLLOW_NOT_in_expression588); 
+                    NOT34=(CommonTree)match(input,NOT,FOLLOW_NOT_in_expression592); 
                     NOT34_tree = (CommonTree)adaptor.dupNode(NOT34);
 
 
@@ -1745,7 +1749,7 @@ public TreeAdaptor getTreeAdaptor() {
 
                     match(input, Token.DOWN, null); 
                     _last = (CommonTree)input.LT(1);
-                    pushFollow(FOLLOW_expression_in_expression592);
+                    pushFollow(FOLLOW_expression_in_expression596);
                     op=expression();
 
                     state._fsp--;
@@ -1775,7 +1779,7 @@ public TreeAdaptor getTreeAdaptor() {
                     CommonTree _first_1 = null;
                     CommonTree root_1 = (CommonTree)adaptor.nil();
                     _last = (CommonTree)input.LT(1);
-                    NEGATION35=(CommonTree)match(input,NEGATION,FOLLOW_NEGATION_in_expression606); 
+                    NEGATION35=(CommonTree)match(input,NEGATION,FOLLOW_NEGATION_in_expression610); 
                     NEGATION35_tree = (CommonTree)adaptor.dupNode(NEGATION35);
 
 
@@ -1784,7 +1788,7 @@ public TreeAdaptor getTreeAdaptor() {
 
                     match(input, Token.DOWN, null); 
                     _last = (CommonTree)input.LT(1);
-                    pushFollow(FOLLOW_expression_in_expression610);
+                    pushFollow(FOLLOW_expression_in_expression614);
                     op=expression();
 
                     state._fsp--;
@@ -1809,7 +1813,7 @@ public TreeAdaptor getTreeAdaptor() {
 
 
                     _last = (CommonTree)input.LT(1);
-                    Boolean36=(CommonTree)match(input,Boolean,FOLLOW_Boolean_in_expression623); 
+                    Boolean36=(CommonTree)match(input,Boolean,FOLLOW_Boolean_in_expression627); 
                     Boolean36_tree = (CommonTree)adaptor.dupNode(Boolean36);
 
 
@@ -1827,7 +1831,7 @@ public TreeAdaptor getTreeAdaptor() {
 
 
                     _last = (CommonTree)input.LT(1);
-                    Integer37=(CommonTree)match(input,Integer,FOLLOW_Integer_in_expression636); 
+                    Integer37=(CommonTree)match(input,Integer,FOLLOW_Integer_in_expression640); 
                     Integer37_tree = (CommonTree)adaptor.dupNode(Integer37);
 
 
@@ -1845,7 +1849,7 @@ public TreeAdaptor getTreeAdaptor() {
 
 
                     _last = (CommonTree)input.LT(1);
-                    Money38=(CommonTree)match(input,Money,FOLLOW_Money_in_expression648); 
+                    Money38=(CommonTree)match(input,Money,FOLLOW_Money_in_expression652); 
                     Money38_tree = (CommonTree)adaptor.dupNode(Money38);
 
 
@@ -1863,7 +1867,7 @@ public TreeAdaptor getTreeAdaptor() {
 
 
                     _last = (CommonTree)input.LT(1);
-                    StringLiteral39=(CommonTree)match(input,StringLiteral,FOLLOW_StringLiteral_in_expression660); 
+                    StringLiteral39=(CommonTree)match(input,StringLiteral,FOLLOW_StringLiteral_in_expression664); 
                     StringLiteral39_tree = (CommonTree)adaptor.dupNode(StringLiteral39);
 
 
@@ -1881,7 +1885,7 @@ public TreeAdaptor getTreeAdaptor() {
 
 
                     _last = (CommonTree)input.LT(1);
-                    Identifier40=(CommonTree)match(input,Identifier,FOLLOW_Identifier_in_expression672); 
+                    Identifier40=(CommonTree)match(input,Identifier,FOLLOW_Identifier_in_expression676); 
                     Identifier40_tree = (CommonTree)adaptor.dupNode(Identifier40);
 
 
@@ -1921,66 +1925,66 @@ public TreeAdaptor getTreeAdaptor() {
     public static final BitSet FOLLOW_block_in_form92 = new BitSet(new long[]{0x0000000000000008L});
     public static final BitSet FOLLOW_statement_in_block125 = new BitSet(new long[]{0x0000000000000812L});
     public static final BitSet FOLLOW_ifStatement_in_statement147 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_assignmentStatement_in_statement153 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_IF_in_ifStatement176 = new BitSet(new long[]{0x0000000000000004L});
-    public static final BitSet FOLLOW_EXPRESSION_in_ifStatement189 = new BitSet(new long[]{0x0000000000000004L});
-    public static final BitSet FOLLOW_expression_in_ifStatement191 = new BitSet(new long[]{0x0000000000000020L});
-    public static final BitSet FOLLOW_BLOCK_in_ifStatement194 = new BitSet(new long[]{0x0000000000000004L});
-    public static final BitSet FOLLOW_block_in_ifStatement198 = new BitSet(new long[]{0x0000000000000008L});
-    public static final BitSet FOLLOW_EXPRESSION_in_ifStatement217 = new BitSet(new long[]{0x0000000000000004L});
-    public static final BitSet FOLLOW_BLOCK_in_ifStatement220 = new BitSet(new long[]{0x0000000000000004L});
-    public static final BitSet FOLLOW_block_in_ifStatement224 = new BitSet(new long[]{0x0000000000000008L});
-    public static final BitSet FOLLOW_ASSIGNMENT_in_assignmentStatement254 = new BitSet(new long[]{0x0000000000000004L});
-    public static final BitSet FOLLOW_Identifier_in_assignmentStatement256 = new BitSet(new long[]{0x00000E2000000000L});
-    public static final BitSet FOLLOW_type_in_assignmentStatement258 = new BitSet(new long[]{0x0000000000000008L});
-    public static final BitSet FOLLOW_37_in_type277 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_41_in_type285 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_43_in_type293 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_42_in_type301 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_24_in_expression324 = new BitSet(new long[]{0x0000000000000004L});
-    public static final BitSet FOLLOW_expression_in_expression328 = new BitSet(new long[]{0x0000201F7996B040L});
-    public static final BitSet FOLLOW_expression_in_expression332 = new BitSet(new long[]{0x0000000000000008L});
-    public static final BitSet FOLLOW_45_in_expression346 = new BitSet(new long[]{0x0000000000000004L});
-    public static final BitSet FOLLOW_expression_in_expression350 = new BitSet(new long[]{0x0000201F7996B040L});
-    public static final BitSet FOLLOW_expression_in_expression354 = new BitSet(new long[]{0x0000000000000008L});
-    public static final BitSet FOLLOW_34_in_expression368 = new BitSet(new long[]{0x0000000000000004L});
-    public static final BitSet FOLLOW_expression_in_expression372 = new BitSet(new long[]{0x0000201F7996B040L});
-    public static final BitSet FOLLOW_expression_in_expression376 = new BitSet(new long[]{0x0000000000000008L});
-    public static final BitSet FOLLOW_23_in_expression390 = new BitSet(new long[]{0x0000000000000004L});
-    public static final BitSet FOLLOW_expression_in_expression394 = new BitSet(new long[]{0x0000201F7996B040L});
-    public static final BitSet FOLLOW_expression_in_expression398 = new BitSet(new long[]{0x0000000000000008L});
-    public static final BitSet FOLLOW_32_in_expression412 = new BitSet(new long[]{0x0000000000000004L});
-    public static final BitSet FOLLOW_expression_in_expression416 = new BitSet(new long[]{0x0000201F7996B040L});
-    public static final BitSet FOLLOW_expression_in_expression420 = new BitSet(new long[]{0x0000000000000008L});
-    public static final BitSet FOLLOW_33_in_expression434 = new BitSet(new long[]{0x0000000000000004L});
-    public static final BitSet FOLLOW_expression_in_expression438 = new BitSet(new long[]{0x0000201F7996B040L});
-    public static final BitSet FOLLOW_expression_in_expression442 = new BitSet(new long[]{0x0000000000000008L});
-    public static final BitSet FOLLOW_36_in_expression456 = new BitSet(new long[]{0x0000000000000004L});
-    public static final BitSet FOLLOW_expression_in_expression460 = new BitSet(new long[]{0x0000201F7996B040L});
-    public static final BitSet FOLLOW_expression_in_expression464 = new BitSet(new long[]{0x0000000000000008L});
-    public static final BitSet FOLLOW_35_in_expression478 = new BitSet(new long[]{0x0000000000000004L});
-    public static final BitSet FOLLOW_expression_in_expression482 = new BitSet(new long[]{0x0000201F7996B040L});
-    public static final BitSet FOLLOW_expression_in_expression486 = new BitSet(new long[]{0x0000000000000008L});
-    public static final BitSet FOLLOW_28_in_expression500 = new BitSet(new long[]{0x0000000000000004L});
-    public static final BitSet FOLLOW_expression_in_expression504 = new BitSet(new long[]{0x0000201F7996B040L});
-    public static final BitSet FOLLOW_expression_in_expression508 = new BitSet(new long[]{0x0000000000000008L});
-    public static final BitSet FOLLOW_29_in_expression522 = new BitSet(new long[]{0x0000000000000004L});
-    public static final BitSet FOLLOW_expression_in_expression526 = new BitSet(new long[]{0x0000201F7996B040L});
-    public static final BitSet FOLLOW_expression_in_expression530 = new BitSet(new long[]{0x0000000000000008L});
-    public static final BitSet FOLLOW_27_in_expression544 = new BitSet(new long[]{0x0000000000000004L});
-    public static final BitSet FOLLOW_expression_in_expression548 = new BitSet(new long[]{0x0000201F7996B040L});
-    public static final BitSet FOLLOW_expression_in_expression552 = new BitSet(new long[]{0x0000000000000008L});
-    public static final BitSet FOLLOW_30_in_expression566 = new BitSet(new long[]{0x0000000000000004L});
-    public static final BitSet FOLLOW_expression_in_expression570 = new BitSet(new long[]{0x0000201F7996B040L});
-    public static final BitSet FOLLOW_expression_in_expression574 = new BitSet(new long[]{0x0000000000000008L});
-    public static final BitSet FOLLOW_NOT_in_expression588 = new BitSet(new long[]{0x0000000000000004L});
-    public static final BitSet FOLLOW_expression_in_expression592 = new BitSet(new long[]{0x0000000000000008L});
-    public static final BitSet FOLLOW_NEGATION_in_expression606 = new BitSet(new long[]{0x0000000000000004L});
-    public static final BitSet FOLLOW_expression_in_expression610 = new BitSet(new long[]{0x0000000000000008L});
-    public static final BitSet FOLLOW_Boolean_in_expression623 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_Integer_in_expression636 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_Money_in_expression648 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_StringLiteral_in_expression660 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_Identifier_in_expression672 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_assignmentStatement_in_statement155 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_IF_in_ifStatement180 = new BitSet(new long[]{0x0000000000000004L});
+    public static final BitSet FOLLOW_EXPRESSION_in_ifStatement193 = new BitSet(new long[]{0x0000000000000004L});
+    public static final BitSet FOLLOW_expression_in_ifStatement195 = new BitSet(new long[]{0x0000000000000020L});
+    public static final BitSet FOLLOW_BLOCK_in_ifStatement198 = new BitSet(new long[]{0x0000000000000004L});
+    public static final BitSet FOLLOW_block_in_ifStatement202 = new BitSet(new long[]{0x0000000000000008L});
+    public static final BitSet FOLLOW_EXPRESSION_in_ifStatement221 = new BitSet(new long[]{0x0000000000000004L});
+    public static final BitSet FOLLOW_BLOCK_in_ifStatement224 = new BitSet(new long[]{0x0000000000000004L});
+    public static final BitSet FOLLOW_block_in_ifStatement228 = new BitSet(new long[]{0x0000000000000008L});
+    public static final BitSet FOLLOW_ASSIGNMENT_in_assignmentStatement258 = new BitSet(new long[]{0x0000000000000004L});
+    public static final BitSet FOLLOW_Identifier_in_assignmentStatement260 = new BitSet(new long[]{0x00000E2000000000L});
+    public static final BitSet FOLLOW_type_in_assignmentStatement262 = new BitSet(new long[]{0x0000000000000008L});
+    public static final BitSet FOLLOW_37_in_type281 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_41_in_type289 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_43_in_type297 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_42_in_type305 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_24_in_expression328 = new BitSet(new long[]{0x0000000000000004L});
+    public static final BitSet FOLLOW_expression_in_expression332 = new BitSet(new long[]{0x0000201F7996B040L});
+    public static final BitSet FOLLOW_expression_in_expression336 = new BitSet(new long[]{0x0000000000000008L});
+    public static final BitSet FOLLOW_45_in_expression350 = new BitSet(new long[]{0x0000000000000004L});
+    public static final BitSet FOLLOW_expression_in_expression354 = new BitSet(new long[]{0x0000201F7996B040L});
+    public static final BitSet FOLLOW_expression_in_expression358 = new BitSet(new long[]{0x0000000000000008L});
+    public static final BitSet FOLLOW_34_in_expression372 = new BitSet(new long[]{0x0000000000000004L});
+    public static final BitSet FOLLOW_expression_in_expression376 = new BitSet(new long[]{0x0000201F7996B040L});
+    public static final BitSet FOLLOW_expression_in_expression380 = new BitSet(new long[]{0x0000000000000008L});
+    public static final BitSet FOLLOW_23_in_expression394 = new BitSet(new long[]{0x0000000000000004L});
+    public static final BitSet FOLLOW_expression_in_expression398 = new BitSet(new long[]{0x0000201F7996B040L});
+    public static final BitSet FOLLOW_expression_in_expression402 = new BitSet(new long[]{0x0000000000000008L});
+    public static final BitSet FOLLOW_32_in_expression416 = new BitSet(new long[]{0x0000000000000004L});
+    public static final BitSet FOLLOW_expression_in_expression420 = new BitSet(new long[]{0x0000201F7996B040L});
+    public static final BitSet FOLLOW_expression_in_expression424 = new BitSet(new long[]{0x0000000000000008L});
+    public static final BitSet FOLLOW_33_in_expression438 = new BitSet(new long[]{0x0000000000000004L});
+    public static final BitSet FOLLOW_expression_in_expression442 = new BitSet(new long[]{0x0000201F7996B040L});
+    public static final BitSet FOLLOW_expression_in_expression446 = new BitSet(new long[]{0x0000000000000008L});
+    public static final BitSet FOLLOW_36_in_expression460 = new BitSet(new long[]{0x0000000000000004L});
+    public static final BitSet FOLLOW_expression_in_expression464 = new BitSet(new long[]{0x0000201F7996B040L});
+    public static final BitSet FOLLOW_expression_in_expression468 = new BitSet(new long[]{0x0000000000000008L});
+    public static final BitSet FOLLOW_35_in_expression482 = new BitSet(new long[]{0x0000000000000004L});
+    public static final BitSet FOLLOW_expression_in_expression486 = new BitSet(new long[]{0x0000201F7996B040L});
+    public static final BitSet FOLLOW_expression_in_expression490 = new BitSet(new long[]{0x0000000000000008L});
+    public static final BitSet FOLLOW_28_in_expression504 = new BitSet(new long[]{0x0000000000000004L});
+    public static final BitSet FOLLOW_expression_in_expression508 = new BitSet(new long[]{0x0000201F7996B040L});
+    public static final BitSet FOLLOW_expression_in_expression512 = new BitSet(new long[]{0x0000000000000008L});
+    public static final BitSet FOLLOW_29_in_expression526 = new BitSet(new long[]{0x0000000000000004L});
+    public static final BitSet FOLLOW_expression_in_expression530 = new BitSet(new long[]{0x0000201F7996B040L});
+    public static final BitSet FOLLOW_expression_in_expression534 = new BitSet(new long[]{0x0000000000000008L});
+    public static final BitSet FOLLOW_27_in_expression548 = new BitSet(new long[]{0x0000000000000004L});
+    public static final BitSet FOLLOW_expression_in_expression552 = new BitSet(new long[]{0x0000201F7996B040L});
+    public static final BitSet FOLLOW_expression_in_expression556 = new BitSet(new long[]{0x0000000000000008L});
+    public static final BitSet FOLLOW_30_in_expression570 = new BitSet(new long[]{0x0000000000000004L});
+    public static final BitSet FOLLOW_expression_in_expression574 = new BitSet(new long[]{0x0000201F7996B040L});
+    public static final BitSet FOLLOW_expression_in_expression578 = new BitSet(new long[]{0x0000000000000008L});
+    public static final BitSet FOLLOW_NOT_in_expression592 = new BitSet(new long[]{0x0000000000000004L});
+    public static final BitSet FOLLOW_expression_in_expression596 = new BitSet(new long[]{0x0000000000000008L});
+    public static final BitSet FOLLOW_NEGATION_in_expression610 = new BitSet(new long[]{0x0000000000000004L});
+    public static final BitSet FOLLOW_expression_in_expression614 = new BitSet(new long[]{0x0000000000000008L});
+    public static final BitSet FOLLOW_Boolean_in_expression627 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_Integer_in_expression640 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_Money_in_expression652 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_StringLiteral_in_expression664 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_Identifier_in_expression676 = new BitSet(new long[]{0x0000000000000002L});
 
 }
