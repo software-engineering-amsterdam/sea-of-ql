@@ -6,13 +6,11 @@ import java.util.Map;
 
 import org.uva.sea.ql.ast.expr.Add;
 import org.uva.sea.ql.ast.expr.And;
-import org.uva.sea.ql.ast.expr.Binary;
 import org.uva.sea.ql.ast.expr.Div;
 import org.uva.sea.ql.ast.expr.Eq;
 import org.uva.sea.ql.ast.expr.Expr;
 import org.uva.sea.ql.ast.expr.GEq;
 import org.uva.sea.ql.ast.expr.GT;
-import org.uva.sea.ql.ast.expr.IExprVisitor;
 import org.uva.sea.ql.ast.expr.Ident;
 import org.uva.sea.ql.ast.expr.LEq;
 import org.uva.sea.ql.ast.expr.LT;
@@ -28,6 +26,7 @@ import org.uva.sea.ql.ast.expr.values.Decimal;
 import org.uva.sea.ql.ast.expr.values.Int;
 import org.uva.sea.ql.ast.expr.values.StringLit;
 import org.uva.sea.ql.ast.types.Type;
+import org.uva.sea.ql.visitor.IExprVisitor;
 
 
 
