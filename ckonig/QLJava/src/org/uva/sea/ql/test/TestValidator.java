@@ -3,8 +3,8 @@ package org.uva.sea.ql.test;
 import junit.framework.Assert;
 
 import org.junit.Test;
-import org.uva.sea.ql.ast.Expr;
 import org.uva.sea.ql.ast.elements.Form;
+import org.uva.sea.ql.ast.expressions.Expr;
 import org.uva.sea.ql.parser.ParseError;
 import org.uva.sea.ql.test.common.CurrentTest;
 import org.uva.sea.ql.validation.AstValidationError;

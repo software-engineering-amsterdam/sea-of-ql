@@ -2,7 +2,7 @@ package org.uva.sea.ql.ast.elements;
 
 import java.util.List;
 
-import org.uva.sea.ql.ast.Expr;
+import org.uva.sea.ql.ast.expressions.Expr;
 import org.uva.sea.ql.visitor.ASTElement;
 import org.uva.sea.ql.visitor.ASTVisitor;
 import org.uva.sea.ql.visitor.VisitorException;

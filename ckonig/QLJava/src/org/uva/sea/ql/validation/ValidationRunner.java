@@ -1,6 +1,6 @@
 package org.uva.sea.ql.validation;
 
-import org.uva.sea.ql.ast.Expr;
+import org.uva.sea.ql.ast.expressions.Expr;
 import org.uva.sea.ql.parser.IParse;
 import org.uva.sea.ql.parser.antlr.ANTLRParser;
 import org.uva.sea.ql.visitor.VisitorException;

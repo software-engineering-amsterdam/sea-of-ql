@@ -3,12 +3,12 @@ package org.uva.sea.ql.test;
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
-import org.uva.sea.ql.ast.Expr;
-import org.uva.sea.ql.ast.UnaryExpr;
 import org.uva.sea.ql.ast.bool.And;
 import org.uva.sea.ql.ast.bool.LT;
 import org.uva.sea.ql.ast.bool.Not;
 import org.uva.sea.ql.ast.bool.Or;
+import org.uva.sea.ql.ast.expressions.Expr;
+import org.uva.sea.ql.ast.expressions.UnaryExpr;
 import org.uva.sea.ql.ast.literal.IntLiteral;
 import org.uva.sea.ql.ast.math.Neg;
 import org.uva.sea.ql.ast.math.Pos;

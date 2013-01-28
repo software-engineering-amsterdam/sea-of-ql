@@ -3,10 +3,10 @@ package org.uva.sea.ql.ast.elements;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.uva.sea.ql.ast.BinaryExpr;
-import org.uva.sea.ql.ast.Expr;
-import org.uva.sea.ql.ast.ReturnsBoolOperands;
-import org.uva.sea.ql.ast.ReturnsMathOperands;
+import org.uva.sea.ql.ast.expressions.BinaryExpr;
+import org.uva.sea.ql.ast.expressions.Expr;
+import org.uva.sea.ql.ast.interfaces.ReturnsBoolOperands;
+import org.uva.sea.ql.ast.interfaces.ReturnsMathOperands;
 
 public class Ident extends Expr implements ReturnsMathOperands,
 		ReturnsBoolOperands {

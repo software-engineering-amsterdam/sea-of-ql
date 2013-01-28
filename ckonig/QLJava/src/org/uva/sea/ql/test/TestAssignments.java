@@ -8,11 +8,11 @@ import java.io.IOException;
 import junit.framework.Assert;
 
 import org.junit.Test;
-import org.uva.sea.ql.ast.Expr;
 import org.uva.sea.ql.ast.elements.Block;
 import org.uva.sea.ql.ast.elements.Form;
 import org.uva.sea.ql.ast.elements.IfStatement;
 import org.uva.sea.ql.ast.elements.Question;
+import org.uva.sea.ql.ast.expressions.Expr;
 import org.uva.sea.ql.ast.types.BooleanType;
 import org.uva.sea.ql.ast.types.Money;
 import org.uva.sea.ql.ast.types.StrType;

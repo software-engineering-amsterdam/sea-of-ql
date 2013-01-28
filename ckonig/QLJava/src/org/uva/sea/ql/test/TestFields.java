@@ -4,8 +4,8 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 import org.junit.Test;
-import org.uva.sea.ql.ast.Expr;
 import org.uva.sea.ql.ast.elements.Ident;
+import org.uva.sea.ql.ast.expressions.Expr;
 import org.uva.sea.ql.ast.literal.IntLiteral;
 import org.uva.sea.ql.ast.literal.StringLiteral;
 import org.uva.sea.ql.ast.types.BooleanType;

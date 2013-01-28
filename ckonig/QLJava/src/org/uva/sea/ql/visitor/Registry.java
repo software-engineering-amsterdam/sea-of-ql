@@ -6,6 +6,7 @@ import java.util.List;
 import org.uva.sea.ql.ast.elements.Ident;
 import org.uva.sea.ql.ast.elements.IfStatement;
 import org.uva.sea.ql.ast.elements.Question;
+import org.uva.sea.ql.ast.types.Type;
 
 public class Registry {
 	private List<Question> questions;
@@ -32,10 +33,10 @@ public class Registry {
 		return this.ifStatements;
 	}
 
-	public Question getQuestionByIdent(Ident i) {
+	public Type getQuestionTypeByIdent(Ident i) {
 		for (Question q : questions) {
 			if (q.getIdentName().equals(i.getName())) {
-				return q;
+				return q.getType();
 			}
 		}
 		return null;

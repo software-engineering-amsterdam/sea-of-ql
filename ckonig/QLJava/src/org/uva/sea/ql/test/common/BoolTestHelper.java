@@ -3,9 +3,9 @@ package org.uva.sea.ql.test.common;
 import static org.junit.Assert.assertEquals;
 import junit.framework.Assert;
 
-import org.uva.sea.ql.ast.BinaryExpr;
-import org.uva.sea.ql.ast.Expr;
 import org.uva.sea.ql.ast.elements.Ident;
+import org.uva.sea.ql.ast.expressions.BinaryExpr;
+import org.uva.sea.ql.ast.expressions.Expr;
 import org.uva.sea.ql.parser.ParseError;
 
 public class BoolTestHelper extends TestHelper {

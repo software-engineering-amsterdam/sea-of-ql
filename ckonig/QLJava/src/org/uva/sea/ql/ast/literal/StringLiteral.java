@@ -1,6 +1,6 @@
 package org.uva.sea.ql.ast.literal;
 
-import org.uva.sea.ql.ast.Expr;
+import org.uva.sea.ql.ast.expressions.Expr;
 
 public class StringLiteral extends Expr {
 	private final String value;
