@@ -33,8 +33,15 @@ public class FormChecker implements FormVisitor {
 
 	@Override
 	public void visit(ComputedQuestion question) {
-		checkIdentName(question.getId(), question.getType());
+		Type computedType = question.getExpr().typeOf(typeEnv);
+		checkIdentName(question.getId(), computedType);
 		checkExpr(question.getExpr());
+		
+		// check if computed type is the same as question type
+		if (!question.getType().isCompatibleTo(computedType)) {
+			addErrorMessage(String.format("%s returns invalid expression: %s type expected, %s type given.", 
+					question.getId().getValue(), question.getType(), question.getExpr().typeOf(typeEnv)));
+		}
 	}
 
 	@Override

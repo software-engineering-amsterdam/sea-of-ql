@@ -125,12 +125,25 @@ public class TestFormSemantics {
 	}
 
 	@Test
-	public void testComputedQuestionError() throws ParseError {	
+	public void testComputedQuestionErrorDifferentType() throws ParseError {	
     	String formString = "";
     	formString += "form Box1HouseOwning {\n";
     	formString += "     sellingPrice: \"Price the house was sold for:\" boolean\n";
     	formString += "     privateDebt: \"Private debts for the sold house:\" integer\n";
     	formString += "		valueResidue: \"Value residue:\" integer(sellingPrice - privateDebt)\n";
+    	formString += "}\n";
+    	
+    	parser.parseForm(formString).accept(new FormChecker(ExprMap, errors));
+    	assertEquals(errors.size(), 1);
+	}
+	
+	@Test
+	public void testComputedQuestionErrorInvalidType() throws ParseError {	
+    	String formString = "";
+    	formString += "form Box1HouseOwning {\n";
+    	formString += "     sellingPrice: \"Price the house was sold for:\" integer\n";
+    	formString += "     privateDebt: \"Private debts for the sold house:\" integer\n";
+    	formString += "		valueResidue: \"Value residue:\" boolean(sellingPrice - privateDebt)\n";
     	formString += "}\n";
     	
     	parser.parseForm(formString).accept(new FormChecker(ExprMap, errors));
