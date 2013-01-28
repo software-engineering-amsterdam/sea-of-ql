@@ -1,6 +1,7 @@
 package org.uva.sea.ql.tests;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 
 import java.io.IOException;
 import java.util.List;
@@ -8,7 +9,7 @@ import java.util.List;
 import org.antlr.runtime.RecognitionException;
 import org.junit.Before;
 import org.junit.Test;
-import org.uva.sea.ql.ast.base.Node;
+import org.uva.sea.ql.ast.base.Expression;
 import org.uva.sea.ql.ast.conditionals.IfThenElse;
 import org.uva.sea.ql.ast.form.Computation;
 import org.uva.sea.ql.ast.form.Element;
@@ -81,7 +82,7 @@ public class TestForm extends TestBase {
 	
 	private void testIfThenElse() {
 		final IfThenElse ifThenElse = (IfThenElse)form.getElements().get(4);
-		final Node conditions = ifThenElse.getConditions();
+		final Expression conditions = ifThenElse.getCondition();
 		final List<Element> successElements = ifThenElse.getSuccessElements();
 		
 		assertEquals(Ident.class, conditions.getClass());

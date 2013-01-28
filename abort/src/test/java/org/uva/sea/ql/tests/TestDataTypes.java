@@ -1,13 +1,15 @@
 package org.uva.sea.ql.tests;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 
 import java.math.BigDecimal;
 
 import org.antlr.runtime.RecognitionException;
 import org.junit.Test;
 import org.uva.sea.ql.ast.base.Expression;
-import org.uva.sea.ql.ast.base.Node;
 import org.uva.sea.ql.ast.types.Bool;
 import org.uva.sea.ql.ast.types.Ident;
 import org.uva.sea.ql.ast.types.Int;

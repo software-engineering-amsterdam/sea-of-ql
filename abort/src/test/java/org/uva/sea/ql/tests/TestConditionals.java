@@ -22,7 +22,7 @@ public class TestConditionals extends TestBase {
 		final Node result = parse(expression).ifStatement();
 		assertEquals(IfThen.class, result.getClass());
 		
-		final Node conditions = ((IfThen)result).getConditions();
+		final Node conditions = ((IfThen)result).getCondition();
 		assertNotNull(conditions);
 		assertEquals(Eq.class, conditions.getClass());
 		
@@ -43,7 +43,7 @@ public class TestConditionals extends TestBase {
 		final Node result = parse(expression).ifStatement();
 		assertEquals(IfThenElse.class, result.getClass());
 		
-		final Node conditions = ((IfThenElse)result).getConditions();
+		final Node conditions = ((IfThenElse)result).getCondition();
 		assertNotNull(conditions);
 		assertEquals(Eq.class, conditions.getClass());
 		

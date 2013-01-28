@@ -2,7 +2,7 @@ package org.uva.sea.ql.ast.conditionals;
 
 import java.util.List;
 
-import org.uva.sea.ql.ast.base.Node;
+import org.uva.sea.ql.ast.base.Expression;
 import org.uva.sea.ql.ast.form.Element;
 import org.uva.sea.ql.ast.traversal.base.IVisitor;
 
@@ -14,7 +14,7 @@ public abstract class IfStatement extends Element {
 	/**
 	 * Condition for the if statement.
 	 */
-	private final Node condition;
+	private final Expression condition;
 	/**
 	 * Form elements displayed on a successful condition.
 	 */
@@ -25,7 +25,7 @@ public abstract class IfStatement extends Element {
 	 * @param condition condition for the if statement
 	 * @param successElements form elements displayed on a successful condition
 	 */
-	protected IfStatement(final Node condition, final List<Element> successElements) {
+	protected IfStatement(final Expression condition, final List<Element> successElements) {
 		this.condition = condition;
 		this.successElements = successElements;
 	}
@@ -34,7 +34,7 @@ public abstract class IfStatement extends Element {
 	 * Retrieve condition.
 	 * @return condition
 	 */
-	public final Node getConditions() {
+	public final Expression getCondition() {
 		return condition;
 	}
 

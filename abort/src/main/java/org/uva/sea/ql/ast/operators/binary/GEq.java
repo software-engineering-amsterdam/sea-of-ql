@@ -1,6 +1,6 @@
 package org.uva.sea.ql.ast.operators.binary;
 
-import org.uva.sea.ql.ast.base.Node;
+import org.uva.sea.ql.ast.base.Expression;
 import org.uva.sea.ql.ast.operators.base.BinaryOperator;
 import org.uva.sea.ql.ast.traversal.base.IVisitor;
 
@@ -14,7 +14,7 @@ public class GEq extends BinaryOperator {
 	 * @param leftHandSide left hand side of the operator
 	 * @param rightHandSide right hand side of the operator
 	 */
-	public GEq(final Node leftHandSide, final Node rightHandSide) {
+	public GEq(final Expression leftHandSide, final Expression rightHandSide) {
 		super(leftHandSide, rightHandSide);
 	}
 	

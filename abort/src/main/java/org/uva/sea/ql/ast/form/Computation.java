@@ -1,6 +1,6 @@
 package org.uva.sea.ql.ast.form;
 
-import org.uva.sea.ql.ast.base.Node;
+import org.uva.sea.ql.ast.base.Expression;
 import org.uva.sea.ql.ast.traversal.base.IVisitor;
 import org.uva.sea.ql.ast.types.DataType;
 
@@ -24,7 +24,7 @@ public class Computation extends Element {
 	/**
 	 * Calculation that the computation should do before displaying it.
 	 */
-	private final Node calculationOperation;
+	private final Expression calculationOperation;
 	
 	/**
 	 * Constructor.
@@ -33,7 +33,7 @@ public class Computation extends Element {
 	 * @param expectedType expected data type of the computation
 	 * @param calculationOperation calculation that should be done
 	 */
-	public Computation(final Label label, final String description, final Class<? extends DataType> expectedType, final Node calculationOperation) {
+	public Computation(final Label label, final String description, final Class<? extends DataType> expectedType, final Expression calculationOperation) {
 		this.label = label;
 		this.description = description;
 		this.expectedType = expectedType;
@@ -68,7 +68,7 @@ public class Computation extends Element {
 	 * Retrieve the calculation operation.
 	 * @return calculation
 	 */
-	public Node getCalculationOperation() {
+	public Expression getCalculationOperation() {
 		return calculationOperation;
 	}
 

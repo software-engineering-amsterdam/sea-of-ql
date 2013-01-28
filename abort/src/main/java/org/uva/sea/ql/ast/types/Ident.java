@@ -1,7 +1,6 @@
 package org.uva.sea.ql.ast.types;
 
 import org.uva.sea.ql.ast.base.Expression;
-import org.uva.sea.ql.ast.base.Node;
 import org.uva.sea.ql.ast.traversal.base.IVisitor;
 
 /**

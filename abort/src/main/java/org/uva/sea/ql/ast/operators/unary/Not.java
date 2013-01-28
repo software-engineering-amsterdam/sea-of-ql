@@ -1,6 +1,6 @@
 package org.uva.sea.ql.ast.operators.unary;
 
-import org.uva.sea.ql.ast.base.Node;
+import org.uva.sea.ql.ast.base.Expression;
 import org.uva.sea.ql.ast.operators.base.UnaryOperator;
 import org.uva.sea.ql.ast.traversal.base.IVisitor;
 
@@ -11,10 +11,10 @@ import org.uva.sea.ql.ast.traversal.base.IVisitor;
 public class Not extends UnaryOperator {
 	/**
 	 * Constructor.
-	 * @param node node or operation the not operation affects
+	 * @param expression expression or operation the not operation affects
 	 */
-	public Not(final Node node) {
-		super(node);
+	public Not(final Expression expression) {
+		super(expression);
 	}
 	
 	@Override

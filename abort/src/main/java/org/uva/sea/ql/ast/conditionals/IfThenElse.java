@@ -2,7 +2,7 @@ package org.uva.sea.ql.ast.conditionals;
 
 import java.util.List;
 
-import org.uva.sea.ql.ast.base.Node;
+import org.uva.sea.ql.ast.base.Expression;
 import org.uva.sea.ql.ast.form.Element;
 import org.uva.sea.ql.ast.traversal.base.IVisitor;
 
@@ -22,7 +22,7 @@ public class IfThenElse extends IfStatement {
 	 * @param successElements form elements to display on a successful condition
 	 * @param elseElements form elements to display on an unsuccessful condition
 	 */
-	public IfThenElse(final Node conditions, final List<Element> successElements, final List<Element> elseElements) {
+	public IfThenElse(final Expression conditions, final List<Element> successElements, final List<Element> elseElements) {
 		super(conditions, successElements);		
 		this.elseElements = elseElements;
 	}

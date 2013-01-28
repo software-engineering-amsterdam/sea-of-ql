@@ -131,7 +131,7 @@ public class TypeChecker implements IVisitor {
 	// Conditionals
 	@Override
 	public void visit(final IfThen ifThen) {
-		final Node conditions = ifThen.getConditions();
+		final Node conditions = ifThen.getCondition();
 		if (!Bool.class.equals(resultTable.getTypeOfNode(conditions))) {
 			errorLog.addExpectedDifferentType(ifThen, Bool.class);
 		}
@@ -145,7 +145,7 @@ public class TypeChecker implements IVisitor {
 	
 	@Override
 	public void visit(final IfThenElse ifThenElse) {
-		final Node conditions = ifThenElse.getConditions();
+		final Node conditions = ifThenElse.getCondition();
 		if (!Bool.class.equals(resultTable.getTypeOfNode(conditions))) {
 			errorLog.addExpectedDifferentType(ifThenElse, Bool.class);
 		}

@@ -8,7 +8,7 @@ import static org.mockito.Mockito.when;
 
 import org.antlr.runtime.RecognitionException;
 import org.junit.Test;
-import org.uva.sea.ql.ast.base.Node;
+import org.uva.sea.ql.ast.base.Expression;
 import org.uva.sea.ql.ast.operators.base.UnaryOperator;
 import org.uva.sea.ql.ast.operators.unary.Neg;
 import org.uva.sea.ql.ast.operators.unary.Not;
@@ -38,7 +38,7 @@ public class TestUnaryOperators extends TestBase {
 	
 	@Test
 	public void testBaseClass() {
-		final Node node = mock(Node.class);
+		final Expression node = mock(Expression.class);
 		final UnaryOperator operator = mock(UnaryOperator.class);
 		when(operator.getNode()).thenReturn(node);		
 		

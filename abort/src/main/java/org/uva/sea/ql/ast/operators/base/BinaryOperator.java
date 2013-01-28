@@ -1,6 +1,6 @@
 package org.uva.sea.ql.ast.operators.base;
 
-import org.uva.sea.ql.ast.base.Node;
+import org.uva.sea.ql.ast.base.Expression;
 import org.uva.sea.ql.ast.traversal.base.IVisitor;
 
 /**
@@ -11,18 +11,18 @@ public abstract class BinaryOperator extends Operator {
 	/**
 	 * Left hand side of the operator.
 	 */
-	private final Node leftHandSide;
+	private final Expression leftHandSide;
 	/**
 	 * Right hand side of the operator.
 	 */
-	private final Node rightHandSide;
+	private final Expression rightHandSide;
 	
 	/**
 	 * Constructor.
 	 * @param leftHandSide left hand side of the operator.
 	 * @param rightHandSide right hand side of the operator.
 	 */
-	protected BinaryOperator(final Node leftHandSide, final Node rightHandSide) {
+	protected BinaryOperator(final Expression leftHandSide, final Expression rightHandSide) {
 		this.leftHandSide = leftHandSide;
 		this.rightHandSide = rightHandSide;
 	}
@@ -31,7 +31,7 @@ public abstract class BinaryOperator extends Operator {
 	 * Retrieve left hand side of the operator.
 	 * @return left hand side
 	 */
-	public Node getLeftHandSide() {
+	public Expression getLeftHandSide() {
 		return leftHandSide;
 	}
 	
@@ -39,7 +39,7 @@ public abstract class BinaryOperator extends Operator {
 	 * Retrieve the right hand side of the operator.
 	 * @return right hand side
 	 */
-	public Node getRightHandSide() {
+	public Expression getRightHandSide() {
 		return rightHandSide;
 	}
 	

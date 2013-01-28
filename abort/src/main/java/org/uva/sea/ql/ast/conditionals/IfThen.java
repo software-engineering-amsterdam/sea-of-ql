@@ -2,7 +2,7 @@ package org.uva.sea.ql.ast.conditionals;
 
 import java.util.List;
 
-import org.uva.sea.ql.ast.base.Node;
+import org.uva.sea.ql.ast.base.Expression;
 import org.uva.sea.ql.ast.form.Element;
 import org.uva.sea.ql.ast.traversal.base.IVisitor;
 
@@ -16,7 +16,7 @@ public class IfThen extends IfStatement {
 	 * @param conditions conditions
 	 * @param successElements form elements to display on success
 	 */
-	public IfThen(final Node conditions, final List<Element> successElements) {
+	public IfThen(final Expression conditions, final List<Element> successElements) {
 		super(conditions, successElements);		
 	}
 

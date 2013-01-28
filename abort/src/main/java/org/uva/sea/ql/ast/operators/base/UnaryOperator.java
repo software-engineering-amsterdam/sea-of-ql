@@ -1,6 +1,6 @@
 package org.uva.sea.ql.ast.operators.base;
 
-import org.uva.sea.ql.ast.base.Node;
+import org.uva.sea.ql.ast.base.Expression;
 import org.uva.sea.ql.ast.traversal.base.IVisitor;
 
 /**
@@ -9,29 +9,29 @@ import org.uva.sea.ql.ast.traversal.base.IVisitor;
  */
 public abstract class UnaryOperator extends Operator {
 	/**
-	 * The node or operation that the unary operator affects.
+	 * The expression or operation that the unary operator affects.
 	 */
-	private final Node node;
+	private final Expression expression;
 
 	/**
 	 * Constructor.
-	 * @param node the node or operation that the unary operator affects.
+	 * @param expression the expression or operation that the unary operator affects.
 	 */
-	protected UnaryOperator(final Node node) {
-		this.node = node;
+	protected UnaryOperator(final Expression expression) {
+		this.expression = expression;
 	}
 	
 	/**
-	 * Retrieve the node or operation the unary operator affects.
-	 * @return node/operation
+	 * Retrieve the expression or operation the unary operator affects.
+	 * @return expression/operation
 	 */
-	public Node getNode() {
-		return node;
+	public Expression getNode() {
+		return expression;
 	}
 	
 	// Override in subclasses for stronger typing
 	@Override
 	public void accept(final IVisitor visitor) {
-		node.accept(visitor);
+		expression.accept(visitor);
 	}
 }

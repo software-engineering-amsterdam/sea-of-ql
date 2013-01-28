@@ -9,6 +9,7 @@ import static org.mockito.Mockito.when;
 
 import org.antlr.runtime.RecognitionException;
 import org.junit.Test;
+import org.uva.sea.ql.ast.base.Expression;
 import org.uva.sea.ql.ast.base.Node;
 import org.uva.sea.ql.ast.operators.base.BinaryOperator;
 import org.uva.sea.ql.ast.operators.binary.Add;
@@ -235,8 +236,8 @@ public class TestBinaryOperators extends TestBase {
 	
 	@Test
 	public void testBaseClass() {
-		final Node leftHandSide = mock(Node.class);
-		final Node rightHandSide = mock(Node.class);
+		final Expression leftHandSide = mock(Expression.class);
+		final Expression rightHandSide = mock(Expression.class);
 		final BinaryOperator operator = mock(BinaryOperator.class);
 		when(operator.getLeftHandSide()).thenReturn(leftHandSide);
 		when(operator.getRightHandSide()).thenReturn(rightHandSide);

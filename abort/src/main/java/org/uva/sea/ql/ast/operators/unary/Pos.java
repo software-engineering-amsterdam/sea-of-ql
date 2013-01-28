@@ -1,6 +1,6 @@
 package org.uva.sea.ql.ast.operators.unary;
 
-import org.uva.sea.ql.ast.base.Node;
+import org.uva.sea.ql.ast.base.Expression;
 import org.uva.sea.ql.ast.operators.base.UnaryOperator;
 import org.uva.sea.ql.ast.traversal.base.IVisitor;
 
@@ -11,10 +11,10 @@ import org.uva.sea.ql.ast.traversal.base.IVisitor;
 public class Pos extends UnaryOperator {
 	/**
 	 * Constructor.
-	 * @param node node or operation pos operation affects
+	 * @param expression expression or operation pos operation affects
 	 */
-	public Pos(final Node node) {
-		super(node);
+	public Pos(final Expression expression) {
+		super(expression);
 	}
 	
 	@Override
