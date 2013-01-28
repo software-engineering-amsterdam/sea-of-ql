@@ -9,8 +9,7 @@ public class ComputedQuestion extends Question {
 	private final Expr _expression;
 
 	public ComputedQuestion(Str label, Ident variable, Expr expression) {
-		setLabel(label);
-		setVariable(variable);
+		super(label, variable);
 		_expression = expression;
 	}
 	

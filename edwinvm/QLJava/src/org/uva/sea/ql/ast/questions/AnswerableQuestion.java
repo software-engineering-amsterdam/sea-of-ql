@@ -9,8 +9,7 @@ public class AnswerableQuestion extends Question {
 	private final Type _type;
 
 	public AnswerableQuestion(Str label, Ident variable, Type type) {
-		setLabel(label);
-		setVariable(variable);
+		super(label, variable);
 		_type = type;
 	}
 	
