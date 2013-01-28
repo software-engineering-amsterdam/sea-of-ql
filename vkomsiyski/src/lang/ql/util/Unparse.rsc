@@ -75,14 +75,14 @@ public str unparse(Expr e:gt(e1, e2)) = unparse(e1) + "\>" + unparse(e2);
 
 public str unparse(Expr e:gt(e1, e2), Declarations d) = 
 	(expected(\date("date"), e1, d) && expected(\date("date"), e2, d)) ?
-	"(" + unparse(e1, d) + ".daysTo" + unparse(e2, d) + "\<=0)" :
+	"(" + unparse(e1, d) + ".daysTo" + unparse(e2, d) + "\>0)" :
 	"(" + unparse(e1, d) + "\>" + unparse(e2, d) + ")";
 
 public str unparse(Expr e:geq(e1, e2)) = unparse(e1) + "\>=" + unparse(e2);
 
 public str unparse(Expr e:geq(e1, e2), Declarations d) = 
 	(expected(\date("date"), e1, d) && expected(\date("date"), e2, d)) ?
-	"(" + unparse(e1, d) + ".daysTo" + unparse(e2, d) + "\<=0)" :
+	"(" + unparse(e1, d) + ".daysTo" + unparse(e2, d) + "\>=0)" :
 	"(" + unparse(e1, d) + "\>=" + unparse(e2, d) + ")";
 
 public str unparse(Expr e:eq(e1, e2)) = unparse(e1) + "==" + unparse(e2);
