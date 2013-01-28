@@ -5,18 +5,26 @@ data Stylesheet
   ;
 
 data Statement
-  = classDefinition(str className, set[ClassRule] classRules)
+  = pageDefinition(str pageName, set[PageRule] pageRules)
+  | sectionDefinition(str sectionName, set[SectionRule] sectionRules)
   | styleDefinition(StyleIdent ident, set[StyleRule] styleRules)
   ;
 
-data StyleIdent
-  = typeStyleIdent(str typeName)
-  | classStyleIdent(str className)
-  | questionStyleIdent(str questionName)
+data PageRule
+  = pageRule(str ident)
   ;
 
-data ClassRule
-  = classRule(str ident)
+data SectionRule
+  = sectionRule(str ident)
+  | sectionRule(str ident, set[SectionRule] sectionRules)
+  // TODO: does not work... | sectionRule(Statement sectionDefinition)
+  ;
+
+data StyleIdent
+  = typeIdent(str typeName)
+  | pageIdent(str pageName)
+  | sectionIdent(str sectionName)
+  | questionIdent(str questionName)
   ;
 
 data StyleRule
@@ -31,5 +39,6 @@ data TypeStyleValue
 
 anno loc Stylesheet@location;
 anno loc Statement@location;
-anno loc ClassRule@location;
+anno loc PageRule@location;
+anno loc SectionRule@location;
 anno loc StyleRule@location;

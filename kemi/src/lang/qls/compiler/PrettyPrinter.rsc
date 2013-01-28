@@ -28,6 +28,13 @@ public str prettyPrint(Statement s:
     '";
 
 public str prettyPrint(Statement s: 
+  styleDefinition(StyleIdent: sectionStyleIdent(ident), set[StyleRule] styleRules)) = 
+    "<ident> {<for(e <- styleRules) {>
+    '  <prettyPrint(e)><}>
+    '}
+    '";
+
+public str prettyPrint(Statement s: 
   styleDefinition(StyleIdent: questionStyleIdent(ident), set[StyleRule] styleRules)) = 
     "<ident> {<for(e <- styleRules) {>
     '  <prettyPrint(e)><}>

@@ -5,16 +5,27 @@ start syntax Stylesheet
   ;
 
 syntax Statement
-  = @Foldable ClassDefinition
+  = @Foldable PageDefinition
+  | @Foldable SectionDefinition
   | @Foldable StyleDefinition
   ;
 
-syntax ClassDefinition
-  = classDefinition: "class" BaseIdent "{" ClassRule+ "}"
+syntax PageDefinition
+  = pageDefinition: "page" PageIdent "{" PageRule+ "}"
   ;
 
-syntax ClassRule
-  = classRule: QuestionStyleIdent
+syntax PageRule
+  = pageRule: SectionIdent
+  | pageRule: QuestionIdent
+  ;
+
+syntax SectionDefinition
+  = sectionDefinition: "section" SectionIdent "{" SectionRule+ "}"
+  ;
+
+syntax SectionRule
+  = sectionRule: "section" SectionIdent "{" SectionRule+ "}"
+  | sectionRule: QuestionIdent
   ;
 
 syntax StyleDefinition
@@ -24,7 +35,7 @@ syntax StyleDefinition
 syntax StyleRule
   = typeStyleRule: TypeStyleAttr TypeStyleValue
   | widthStyleRule: WidthStyleAttr Int
-  ; 
+  ;
 
 syntax TypeStyleValue
   = radio: "radio"
@@ -32,23 +43,28 @@ syntax TypeStyleValue
   ;
 
 syntax StyleIdent
-  = typeStyleIdent: Type
-  | classStyleIdent: ClassStyleIdent
-  | questionStyleIdent: QuestionStyleIdent
+  = typeIdent: TypeIdent
+  | pageIdent: PageIdent
+  | sectionIdent: SectionIdent
+  | questionIdent: QuestionIdent
   ;
 
-lexical ClassStyleIdent
+lexical PageIdent
   = @category="NonterminalLabel" [.]BaseIdent
   ; 
 
-lexical QuestionStyleIdent
+lexical SectionIdent
+  = @category="MetaVariable" [$]BaseIdent
+  ;
+
+lexical QuestionIdent
   = @category="Variable" [#]BaseIdent
   ;
 
 lexical BaseIdent
   = ([a-z A-Z 0-9 _] !<< [a-z A-Z][a-z A-Z 0-9 _]* !>> [a-z A-Z 0-9 _]) \ Keywords;
 
-lexical Type
+lexical TypeIdent
   = @category="Type" "boolean"
   | @category="Type" "integer"
   | @category="Type" "money"
@@ -57,11 +73,11 @@ lexical Type
   ; 
 
 lexical TypeStyleAttr
-  = @category="Identifier" "type"
+  = @category="Constant" "type"
   ;
 
 lexical WidthStyleAttr
-  = @category="Identifier" "width"
+  = @category="Constant" "width"
   ;
 
 lexical Int
@@ -93,7 +109,8 @@ keyword Keywords
   | money: "money"
   | date: "date"
   | string: "string"
-  | form: "class"
+  | page: "page"
+  | section: "section"
   | \type: "type"
   | width: "width"
   | radio: "radio"

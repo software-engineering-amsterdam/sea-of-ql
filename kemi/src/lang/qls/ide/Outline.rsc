@@ -64,6 +64,15 @@ private node outline(Statement s:
     );
 
 private node outline(Statement s: 
+  styleDefinition(StyleIdent: sectionStyleIdent(ident), set[StyleRule] styleRules)) = 
+    createNode(
+      "SectionStyleDefinition",
+      "<ident> (<size(styleRules)>)",
+      s@location,
+      [outline(r) | r <- styleRules]
+    );
+
+private node outline(Statement s: 
   styleDefinition(StyleIdent: questionStyleIdent(ident), set[StyleRule] styleRules)) =
     createNode(
       "IdentStyleDefinition",

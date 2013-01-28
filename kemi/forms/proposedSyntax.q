@@ -8,6 +8,5 @@ form calculatedField {
   fieldset other "Other things" {
     "Other question"
       list["A", "B", "C"] enumQuestion
-      .styleClass
   }
 }
