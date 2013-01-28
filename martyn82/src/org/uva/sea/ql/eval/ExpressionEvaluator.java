@@ -23,106 +23,110 @@ import org.uva.sea.ql.eval.value.String;
 import org.uva.sea.ql.eval.value.Value;
 import org.uva.sea.ql.visitor.IExpressionVisitor;
 
+/**
+ * Evaluator for expression nodes.
+ */
 public class ExpressionEvaluator implements IExpressionVisitor<Value> {
-
 	@Override
 	public Value visit( Add node ) {
-		// TODO money has precedence!
-		Integer left = (Integer) node.getLhs().accept( this );
-		Integer right = (Integer) node.getRhs().accept( this );
-		return new Integer( left.getValue() + right.getValue() );
+		Value left = node.getLhs().accept( this );
+		Value right = node.getRhs().accept( this );
+		return left.add( right );
 	}
 
 	@Override
 	public Value visit( Sub node ) {
-		// TODO money has precedence!
-		Integer left = (Integer) node.getLhs().accept( this );
-		Integer right = (Integer) node.getRhs().accept( this );
-		return new Integer( left.getValue() - right.getValue() );
+		Value left = node.getLhs().accept( this );
+		Value right = node.getRhs().accept( this );
+		return left.sub( right );
 	}
 
 	@Override
 	public Value visit( Div node ) {
-		// TODO money has precedence!
-		Integer left = (Integer) node.getLhs().accept( this );
-		Integer right = (Integer) node.getRhs().accept( this );
-		return new Integer( left.getValue() / right.getValue() );
+		Value left = node.getLhs().accept( this );
+		Value right = node.getRhs().accept( this );
+		return left.div( right );
 	}
 
 	@Override
 	public Value visit( Mul node ) {
-		// TODO money has precedence!
-		Integer left = (Integer) node.getLhs().accept( this );
-		Integer right = (Integer) node.getRhs().accept( this );
-		return new Integer( left.getValue() * right.getValue() );
+		Value left = node.getLhs().accept( this );
+		Value right = node.getRhs().accept( this );
+		return left.mul( right );
 	}
 
 	@Override
 	public Value visit( And node ) {
-		Boolean left = (Boolean) node.getLhs().accept( this );
-		Boolean right = (Boolean) node.getRhs().accept( this );
-		return new Boolean( left.getValue() && right.getValue() );
+		Value left = node.getLhs().accept( this );
+		Value right = node.getRhs().accept( this );
+		return left.and( right );
 	}
 
 	@Override
 	public Value visit( Or node ) {
-		Boolean left = (Boolean) node.getLhs().accept( this );
-		Boolean right = (Boolean) node.getRhs().accept( this );
-		return new Boolean( left.getValue() || right.getValue() );
+		Value left = node.getLhs().accept( this );
+		Value right = node.getRhs().accept( this );
+		return left.or( right );
 	}
 
 	@Override
 	public Value visit( Eq node ) {
-		// TODO Auto-generated method stub
-		return null;
+		Value left = node.getLhs().accept( this );
+		Value right = node.getRhs().accept( this );
+		return left.eq( right );
 	}
 
 	@Override
 	public Value visit( GEq node ) {
-		// TODO Auto-generated method stub
-		return null;
+		Value left = node.getLhs().accept( this );
+		Value right = node.getRhs().accept( this );
+		return left.geq( right );
 	}
 
 	@Override
 	public Value visit( GT node ) {
-		// TODO Auto-generated method stub
-		return null;
+		Value left = node.getLhs().accept( this );
+		Value right = node.getRhs().accept( this );
+		return left.gt( right );
 	}
 
 	@Override
 	public Value visit( LEq node ) {
-		// TODO Auto-generated method stub
-		return null;
+		Value left = node.getLhs().accept( this );
+		Value right = node.getRhs().accept( this );
+		return left.leq( right );
 	}
 
 	@Override
 	public Value visit( LT node ) {
-		// TODO Auto-generated method stub
-		return null;
+		Value left = node.getLhs().accept( this );
+		Value right = node.getRhs().accept( this );
+		return left.lt( right );
 	}
 
 	@Override
 	public Value visit( NEq node ) {
-		// TODO Auto-generated method stub
-		return null;
+		Value left = node.getLhs().accept( this );
+		Value right = node.getRhs().accept( this );
+		return left.neq( right );
 	}
 
 	@Override
 	public Value visit( Not node ) {
-		// TODO Auto-generated method stub
-		return null;
+		Value value = node.getExpression().accept( this );
+		return value.not();
 	}
 
 	@Override
 	public Value visit( Pos node ) {
-		// TODO Auto-generated method stub
-		return null;
+		Value value = node.getExpression().accept( this );
+		return value.pos();
 	}
 
 	@Override
 	public Value visit( Neg node ) {
-		// TODO Auto-generated method stub
-		return null;
+		Value value = node.getExpression().accept( this );
+		return value.neg();
 	}
 
 	@Override

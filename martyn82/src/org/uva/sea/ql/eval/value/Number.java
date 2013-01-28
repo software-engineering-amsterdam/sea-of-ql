@@ -3,7 +3,7 @@ package org.uva.sea.ql.eval.value;
 /**
  * Represents a numeric value.
  */
-public class Number extends Value {
+abstract public class Number extends Value {
 	/**
 	 * Holds the inner value.
 	 */
