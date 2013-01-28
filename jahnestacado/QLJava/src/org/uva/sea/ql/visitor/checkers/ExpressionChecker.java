@@ -1,15 +1,18 @@
 package org.uva.sea.ql.visitor.checkers;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
 import org.uva.sea.ql.ast.expr.Add;
 import org.uva.sea.ql.ast.expr.And;
+import org.uva.sea.ql.ast.expr.Binary;
 import org.uva.sea.ql.ast.expr.Div;
 import org.uva.sea.ql.ast.expr.Eq;
 import org.uva.sea.ql.ast.expr.Expr;
 import org.uva.sea.ql.ast.expr.GEq;
 import org.uva.sea.ql.ast.expr.GT;
+import org.uva.sea.ql.ast.expr.IExprVisitor;
 import org.uva.sea.ql.ast.expr.Ident;
 import org.uva.sea.ql.ast.expr.LEq;
 import org.uva.sea.ql.ast.expr.LT;
@@ -25,14 +28,13 @@ import org.uva.sea.ql.ast.expr.values.Decimal;
 import org.uva.sea.ql.ast.expr.values.Int;
 import org.uva.sea.ql.ast.expr.values.StringLit;
 import org.uva.sea.ql.ast.types.Type;
-import org.uva.sea.ql.visitor.IExprVisitor;
 
 
 
 public class ExpressionChecker implements IExprVisitor {
 	private final Map<String, Type> declaredVar;
 	private final List<String> errorReport;
-	static int i = 0;
+	
 
 	public ExpressionChecker(Map<String, Type> declaredVar, List<String> errorReport) {
 		this.declaredVar = declaredVar;
@@ -44,9 +46,18 @@ public class ExpressionChecker implements IExprVisitor {
 		return expr.accept(check);
 	}
 
+	
+	private boolean isUndefined(Type ident,Expr node){
+		if(ident.isCompatibleToUndefinedType()) {
+			Ident id=(Ident) node;
+			addError("Variable '"+id.getName()+"' is undefined.");
+			return true;
+		}
+		return false;
+	}
+	
 	@Override
-	public boolean visit(Add node) {
-
+	public boolean visit(Sub node) {
 		boolean leftExpr = node.getLeftExpr().accept(this);
 		boolean rightExpr = node.getRightExpr().accept(this);
 
@@ -58,8 +69,38 @@ public class ExpressionChecker implements IExprVisitor {
 		Type rightExprType = node.getRightExpr().isOfType(declaredVar);
 
 		if (!(leftExprType.isCompatibleToNumericType() && rightExprType.isCompatibleToNumericType())) {
-		System.out.println("Invalid type for '+'. Both operands must be of the Numeric type");
-		errorReport.add("Invalid type for '+'. Both operands must be of the Numeric type");
+			addError("Invalid type for '-'. Both operands must be of the Numeric type");
+			return false;
+		}
+
+		return true;
+
+	}
+	
+	@Override
+	public boolean visit(Add node) {
+		Expr leftExpr = node.getLeftExpr();
+		Expr rightExpr = node.getRightExpr();
+		
+		boolean visitLeft = leftExpr.accept(this);
+		boolean visitRight =rightExpr.accept(this);
+
+		if (!(visitLeft && visitRight)) {
+			return false;
+		}
+
+		Type leftExprType = leftExpr.isOfType(declaredVar);
+		Type rightExprType = rightExpr.isOfType(declaredVar);
+		
+		if(isUndefined(leftExprType,leftExpr) || isUndefined(rightExprType,rightExpr)){
+			return false;
+		}
+          
+		Type declaredType=getQuestionsType();
+          
+          
+		if (!(leftExprType.isCompatibleToType(rightExprType) && rightExprType.isCompatibleToType(declaredType))) {
+		addError("Invalid type for '+'. Both operands must be of the same Numeric type("+declaredType.getClass().getSimpleName()+")");
 			return false;
 		}
 
@@ -177,7 +218,6 @@ public class ExpressionChecker implements IExprVisitor {
 
 	@Override
 	public boolean visit(Ident node) {
-
 		return true;
 	}
 
@@ -346,27 +386,7 @@ public class ExpressionChecker implements IExprVisitor {
 
 	}
 
-	@Override
-	public boolean visit(Sub node) {
-		boolean leftExpr = node.getLeftExpr().accept(this);
-		boolean rightExpr = node.getRightExpr().accept(this);
-
-		if (!(leftExpr && rightExpr)) {
-			return false;
-		}
-
-		Type leftExprType = node.getLeftExpr().isOfType(declaredVar);
-		Type rightExprType = node.getRightExpr().isOfType(declaredVar);
-
-		if (!(leftExprType.isCompatibleToNumericType() && rightExprType.isCompatibleToNumericType())) {
-			errorReport.add("Invalid type for '-'. Both operands must be of the Numeric type");
-			System.out.println("Invalid type for '-'. Both operands must be of the Numeric type");
-			return false;
-		}
-
-		return true;
-
-	}
+	
 
 	@Override
 	public boolean visit(Int node) {
@@ -391,10 +411,18 @@ public class ExpressionChecker implements IExprVisitor {
 
 	}
 
+	private void addError(String message){
+	    	errorReport.add(message);
+	    }
+
+	private Type getQuestionsType(){
+		 int mapSize=declaredVar.size();
+        Collection<Type> typeList=declaredVar.values();
+        Type declaredType=(Type) typeList.toArray()[mapSize-1];
+        return declaredType;
+	}
 	
 
-	public List<String> getErrors() {
-		return errorReport;
-	}
-
+	
+	
 }

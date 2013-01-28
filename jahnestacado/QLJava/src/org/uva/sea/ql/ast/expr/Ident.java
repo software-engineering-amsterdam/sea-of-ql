@@ -3,6 +3,7 @@ package org.uva.sea.ql.ast.expr;
 import java.util.Map;
 
 import org.uva.sea.ql.ast.types.Type;
+import org.uva.sea.ql.ast.types.UndefinedType;
 import org.uva.sea.ql.visitor.checkers.ExpressionChecker;
 
 public class Ident extends Expr {
@@ -29,8 +30,8 @@ public class Ident extends Expr {
 			return typeEnv.get(this.getName());
 			
 		}
-		//* <TODO> Should throw an error if the variable is not declared****
-		else return null;
+		//* Throws an error if the variable is not declared****
+		return new UndefinedType();
 	}
 	
 	

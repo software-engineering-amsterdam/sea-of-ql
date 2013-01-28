@@ -26,5 +26,9 @@ public abstract class Type extends ASTNode {
 	public boolean isCompatibleToStringType(){
 		return false;
 	}
+	
+	public boolean isCompatibleToUndefinedType(){
+		return false;
+	}
 
 }

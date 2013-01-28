@@ -3,12 +3,11 @@ package org.uva.sea.ql.parser.test;
 import static org.junit.Assert.assertEquals;
 
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.junit.Test;
-import org.uva.sea.ql.ast.expr.Ident;
 import org.uva.sea.ql.ast.types.BoolType;
 import org.uva.sea.ql.ast.types.IntType;
 import org.uva.sea.ql.ast.types.MoneyType;
@@ -27,7 +26,7 @@ public class TestTypes {
 	public TestTypes() {
 		parser = new ANTLRParser();
 		errorReport=new ArrayList<String>();
-		declaredVars=new HashMap<String,Type>();
+		declaredVars=new LinkedHashMap<String,Type>();
 		checker=new ExpressionChecker(declaredVars,errorReport);
 
 	}

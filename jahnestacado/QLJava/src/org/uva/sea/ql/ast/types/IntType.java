@@ -17,6 +17,10 @@ public class IntType extends NumericType{
 		return true;
 	} 
 	
+	@Override
+	public boolean isCompatibleToMoneyType() {
+		return false;
+	}
 	
 	
 

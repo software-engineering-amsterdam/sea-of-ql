@@ -1,11 +1,13 @@
 package org.uva.sea.ql.visitor.checkers;
 
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.uva.sea.ql.ast.expr.Expr;
+import org.uva.sea.ql.ast.expr.Ident;
+
 import org.uva.sea.ql.ast.form.Body;
 import org.uva.sea.ql.ast.form.BodyElement;
 import org.uva.sea.ql.ast.form.ComputedQuestion;
@@ -22,6 +24,7 @@ public class ElementChecker implements IElementVisitor {
 	
 	private final Map<String,Type> declaredVar;
 	private final List<String> errorReport;
+	 
 	
 	public ElementChecker(Map<String,Type> declaredVar,List<String> errorReport){
 			this.declaredVar=declaredVar;
@@ -29,10 +32,14 @@ public class ElementChecker implements IElementVisitor {
 	}
 	
 	public static void checkQL(Form form){
-		Map<String,Type> declaredVar= new HashMap<String,Type>();
+		Map<String,Type> declaredVar= new LinkedHashMap<String,Type>();
 		List<String> errorReport= new ArrayList<String>();
 		ElementChecker checker=new ElementChecker(declaredVar,errorReport);
 		form.accept(checker);
+		for(String error:errorReport){
+    		System.out.println(error);
+    	}
+		
 	}
 	
 	private void checkVarName(SingleLineElement qlElement){
@@ -40,24 +47,23 @@ public class ElementChecker implements IElementVisitor {
 		Type type=qlElement.getType();
 		
 		if(declaredVar.containsKey(id)){
-			System.out.println("Invalid variable name. Variable '"+id+"' is already declared");
-			errorReport.add("Invalid variable name.Variable"+id+" is already declared");
+			addError("Invalid variable name.Variable"+id+" is already declared");
 			return;
 		}
 		
 		declaredVar.put(id,type);
-	
+       
+
 	}
 	
 	private void checkComputedExpr(ComputedQuestion qlElement){
+		Expr computedExpr=qlElement.getExpr();
 		Type questionType=qlElement.getType();
-		Type exprType=qlElement.getExpr().isOfType(declaredVar);
-        
-		ExpressionChecker.check(qlElement.getExpr(),declaredVar, errorReport);
+		Type exprType=computedExpr.isOfType(declaredVar);
+		ExpressionChecker.check(computedExpr,declaredVar, errorReport);
 
 		if(!(questionType.isCompatibleToType(exprType))){
-			System.out.println("Invalid expression type. Expression must be of '"+classToString(questionType)+"'.");
-			errorReport.add("Invalid expression type. Expression must be of '"+classToString(questionType)+"'.");
+			addError("Invalid expression type. Expression must be of '"+classToString(questionType)+"'.");
 			return;
 		}
 		
@@ -65,18 +71,23 @@ public class ElementChecker implements IElementVisitor {
 	}
 	
 	
-	private String classToString(Type type){
+	private static String classToString(Type type){
 		String typeToString=type.getClass().getSimpleName();
 		return typeToString;
 	}
 	
 	
-	private void checkCondition(ConditionalElement qlElement){
-		Expr condition=qlElement.getCondition();
-		if(!condition.isOfType(declaredVar).isCompatibleToBoolType()){
-			System.out.println("Invalid conditional expression. Expression can only be of 'Boolean' type.");
-			errorReport.add("Invalid conditional expression. Expression can only be of 'Boolean' type.");
+	private void checkCondition(ConditionalElement qlElement){    
+		Expr condition=qlElement.getCondition(); 
+		Type conditionType=condition.isOfType(declaredVar);
+		if(conditionType.isCompatibleToUndefinedType()){
+			 Ident conditionID=(Ident) condition;
+			 addError("Variable '"+conditionID.getName()+"' is undefined.");
 		}
+		else if(!conditionType.isCompatibleToBoolType()){ 
+			addError("Invalid conditional expression. Expression can only be of 'Boolean' type.");
+		}
+		
 	}
 	
 	private void acceptIfBodyElement(Body body){
@@ -131,6 +142,14 @@ public class ElementChecker implements IElementVisitor {
 			
 	}
 	
+    private  void printErrors(){
+    	for(String error:errorReport){
+    		System.out.println(error);
+    	}
+    }
     
+    private void addError(String message){
+    	errorReport.add(message);
+    }
 	
 }
