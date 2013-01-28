@@ -4,14 +4,19 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 import org.uva.sea.ql.ast.*;
-import org.uva.sea.ql.ast.comparative.*;
-import org.uva.sea.ql.ast.form.Body;
-import org.uva.sea.ql.ast.form.Form;
-import org.uva.sea.ql.ast.form.Question;
-import org.uva.sea.ql.ast.numeric.*;
-import org.uva.sea.ql.ast.propositional.*;
-import org.uva.sea.ql.errors.ParseError;
+import org.uva.sea.ql.ast.operative.Add;
+import org.uva.sea.ql.ast.operative.And;
+import org.uva.sea.ql.ast.operative.GT;
+import org.uva.sea.ql.ast.operative.LEq;
+import org.uva.sea.ql.ast.operative.LT;
+import org.uva.sea.ql.ast.operative.Mul;
+import org.uva.sea.ql.ast.operative.Not;
+import org.uva.sea.ql.ast.primitive.Int;
+import org.uva.sea.ql.ast.statement.Block;
+import org.uva.sea.ql.ast.statement.Form;
+import org.uva.sea.ql.ast.statement.Question;
 import org.uva.sea.ql.interfaces.IParse;
+import org.uva.sea.ql.parser.rats.ParseError;
 import org.uva.sea.ql.parser.rats.RatsParser;
 import org.uva.sea.ql.util.FormStringBuilder;
 
@@ -38,8 +43,8 @@ public class TestExpressions {
 	private ASTNode extract(ASTNode node){
 		
 		Form form = (Form)node; 
-		Body body = (Body)form.getBody();
-		Question question = (Question)body.getNodes().get(0);
+		Block body = (Block)form.getBlock();
+		Question question = (Question)body.getStatements().get(0);
 		
 		//return the only node in the body 
 		return question.getValue();

@@ -38,8 +38,8 @@ public test bool testIdent4() = loadExpr("ABCDEF") is ident;
 public test bool testIdent5() = loadExpr("abc2323") is ident;
 public test bool testIdent6() = loadExpr("a2bc232") is ident;
 public test bool testIdent7() = loadExpr("a2bc232aa") is ident;
-public test bool testInt1() = loadExpr("0") is \int;
-public test bool testInt2() = loadExpr("1223") is \int;
-public test bool testInt3() = loadExpr("234234234") is \int;
+public test bool testInt1() = loadExpr("0") is \intConst;
+public test bool testInt2() = loadExpr("1223") is \intConst;
+public test bool testInt3() = loadExpr("234234234") is \intConst;
 
 

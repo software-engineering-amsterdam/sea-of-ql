@@ -3,9 +3,12 @@ module lang::ql::tests::TestExpressions
 import lang::ql::util::Parse;
 import lang::ql::util::Implode;
 import lang::ql::ast::AST;
+import Prelude;
 
-private Expr p(str src) = implode(parse(src, |file:///-|));
-
+private Expr p(str src) {
+ println(src);
+ return implode(parse(src, |file:///test.q|));  // |file:///-|
+}
 public test bool testAdd1() = p("a + b") is add;
 public test bool testAdd2() = p("a + b + c") is add;
 public test bool testAdd3() = p("(a + b + c)") is add;

@@ -16,23 +16,14 @@ import org.uva.sea.ql.parser.antlr.ANTLRParser;
 import org.uva.sea.ql.parser.antlr.ANTLRReservedWordParser;
 import org.uva.sea.ql.parser.antlr.ANTLRTypeParser;
 
-@RunWith(Parameterized.class)
 public class TestReservedWords {
 
 
 	private IParse parser;
 
-	@Parameters
-	public static List<Object[]> theParsers() {
-	  List<Object[]> retList = new ArrayList<Object[]>();
-	  Object[] oArray = {new ANTLRReservedWordParser() } ;
-	  retList.add(oArray);
-	  return retList;
-	}
-
 	
-	public TestReservedWords(IParse parser) {
-		this.parser = parser;
+	public TestReservedWords() {
+		this.parser = new ANTLRReservedWordParser();
 	}
 
 	@Test 

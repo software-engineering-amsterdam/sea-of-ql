@@ -7,7 +7,7 @@ import typeChecker::Load;
 import visualization::UseDef;
 import visualization::ControlFlow;
 
-public set[CFNode] defNodes(PicoId Id, set[Occurrence] Defs) =
+public set[CFNode] defNodes(QuestionId Id, set[Occurrence] Defs) =
    {statement(occ.stat@location, occ.stat) | Occurrence occ <- Defs, occ.name == Id};
 
 public set[Occurrence] uninitProgram(PROGRAM P) {

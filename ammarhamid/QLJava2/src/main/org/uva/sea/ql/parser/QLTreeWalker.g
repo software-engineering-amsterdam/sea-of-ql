@@ -39,18 +39,22 @@ walk
     ;   
    
 form
-	:	^(FORM Identifier ^(STATEMENTS statementBlock*))
+	:	^(FORM Identifier ^(BLOCK block))
 	;
 
-statementBlock
+block
+    :   statement*
+    ;
+
+statement
 	:	ifStatement
 		| assignmentStatement
 	;
 
 ifStatement
 	:   ^(IF
-	        (^(EXPRESSION expression ^(STATEMENTS statementBlock+)))+
-	        (^(EXPRESSION ^(STATEMENTS statementBlock+)))
+	        (^(EXPRESSION expression ^(BLOCK block)))+
+	        (^(EXPRESSION ^(BLOCK block)))
 	     )
 	;
 

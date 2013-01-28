@@ -5,4 +5,7 @@
 <fullyQualifiedTypeName name="org.uva.sea.ql.ast.Ident"/>
 <fullyQualifiedTypeName name="org.uva.sea.ql.ast.Expr"/>
 <fullyQualifiedTypeName name="org.uva.sea.ql.ast.ComputedQuestion"/>
+<fullyQualifiedTypeName name="org.uva.sea.ql.ast.ASTNode"/>
+<fullyQualifiedTypeName name="org.uva.sea.ql.ast.expressions.Ident"/>
+<fullyQualifiedTypeName name="org.uva.sea.ql.ast.expressions.Expr"/>
 </qualifiedTypeNameHistroy>

@@ -15,29 +15,18 @@ import org.uva.sea.ql.parser.antlr.ANTLRAddsParser;
 import org.uva.sea.ql.parser.antlr.ANTLRExpressionParser;
 import org.uva.sea.ql.parser.antlr.ANTLRParser;
 
-@RunWith(Parameterized.class)
 public class TestAdds {
 
 
 	private IParse parser;
-
-	@Parameters
-	public static List<Object[]> theParsers() {
-	  List<Object[]> retList = new ArrayList<Object[]>();
-	  Object[] oArray = {new ANTLRAddsParser() } ;
-	  retList.add(oArray);
-	  return retList;
-	}
-
 	
-	public TestAdds(IParse parser) {
-		this.parser = parser;
+	public TestAdds() {
+		this.parser = new ANTLRAddsParser();
 	}
 
 	
 	@Test
 	public void testAdds() throws ParseError {
-		System.out.println("Here I am");
 		assertEquals(parser.parse("a + b").getClass(), Add.class);
 		assertEquals(parser.parse("a + b + c").getClass(), Add.class);
 		assertEquals(parser.parse("(a + b + c)").getClass(), Add.class);

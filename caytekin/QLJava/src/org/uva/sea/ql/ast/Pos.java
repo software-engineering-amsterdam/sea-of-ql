@@ -1,7 +1,7 @@
 package org.uva.sea.ql.ast;
 
-public class Pos extends MathOprtnSing {
+public class Pos extends UnaryMathOptn {
 	public Pos(Expr expr){
-		// Positive(expr) to be implemented
+		super (expr);
 	}
 }
