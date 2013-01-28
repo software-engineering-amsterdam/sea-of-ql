@@ -22,10 +22,16 @@ QLTENV checkExp(exp:boolCon(bool B), Type req, QLTENV env) =
 QLTENV checkExp(exp:moneyCon(int I), Type req, QLTENV env) =
  req == money() ? env : addError(env, exp@location, required(req, "money"));
  
-QLTENV checkExp(exp:id(QuestionId Id), Type req, QLTENV env) {                              
-  if(!env.symbols[Id]?)
-     return addError(env, exp@location, "Undeclared variable <Id>");
-  tpid = env.symbols[Id];
+QLTENV checkExp(exp:id(str id), Type req, QLTENV env) {                              
+  //println("env.question : <env.question> ID : <id>");
+ // println("!env.question[id]? : <!env.question[id]?>");
+  //println("env.question[id] : <env.question[id]>");
+  if(env.question[id] == {}){
+  	return addError(env, exp@location, "Undeclared variable <id>");
+  }
+  //if(!env.question[id]?)
+  //   return addError(env, exp@location, "Undeclared variable <Id>");
+  tpid = env.question[id];
   return req == tpid ? env : addError(env, exp@location, required(req, tpid));
 }
 
@@ -58,8 +64,8 @@ QLTENV checkQuestionStats(list[Statement] Stats1, QLTENV qEnv) {
 
 // Check if statement
 QLTENV checkStatement(statement:ifStat(Expression exp, list[Body] body), QLTENV env){
-    println("EXP : <Exp>"); 
-    env0 = checkExp(Exp, boolean(), env);
+    println("EXP : <exp>"); 
+    env0 = checkExp(exp, boolean(), env);
     if(size(env0.errors) != 0)
     	return addError(env0, env0.errors[0].l, env0.errors[0].msg);
     env1 = checkQuestionStats(Stats1, env0);
@@ -89,15 +95,30 @@ QLTENV checkQuestion(question:computedQuestion(str id, str labelQuestion, Type t
 	return env;
 }
 
+/** Method to check for double Identifiers
+* @param env the QL Type environment
+* @return true if no double Idenfiers
+* @author Philipp
+*/
+bool checkIdentifiers(QLTENV env){
+	if(size(env.question) == size(env.question.id)){
+		return true;
+	}else{
+		println("in add error");
+		return false;
+	}
+}
+
 // check the body of the QL program
 QLTENV checkBody(list[Body] Body, QLTENV env){
 	for(s <- Body){
 	visit(Body){
      	case Question q : {
     			env = checkQuestion(q,env);
+    			if(checkIdentifiers(env) == false) return addError(env, q@location, "Identifier double declared");
     	    }
         case Statement s: {
-        		println("Statement is : <S>");
+        		println("Statement is : <s>");
         		env = checkStatement(s,env);
         	}
       };
@@ -111,8 +132,7 @@ public QLTENV checkProgram(Program P){
      QLTENV env = <{},[]>; 
      env = checkBody(Body, env);
      println("ENV : <env>"); 
-    // QTENV qEnv = mapQuestionIdToType2(env.symbols);  // Mapping.rsc is doing that 
-	 return checkQuestionStats(Series, env);
+	 return env;
   } else
      throw "Cannot happen";
 }
