@@ -25,19 +25,11 @@ public class AutoValueSetter {
 		if (questionPanel.getQuestion().getType() instanceof Money) {
 			Money m = (Money) questionPanel.getQuestion().getType();
 			if (m.getExpr() != null) {
-				System.out.println(questionPanel + " brought an expression");
 				List<Ident> idents = Ident.getIdents(m.getExpr());
 				for (Ident i : idents) {
-					for (QuestionPanel qp : registry.getQuestions()) {
-						if (qp.getIdentName().equals(i.getName())
-							) {
-							if(qp.getQuestion().getType() instanceof Money){
-								System.out.println("try to add listener " + qp.getIdentName());
-								addMoneyEvaluationListener(qp);
-							}else{
-								System.out.println("was not money: " + qp.getIdentName());
-							}							
-						}
+					QuestionPanel qp = registry.getQuestionPanelByIdent(i);
+					if (qp.getQuestion().getType() instanceof Money) {
+						addMoneyEvaluationListener(qp);
 					}
 				}
 			}
@@ -73,8 +65,6 @@ public class AutoValueSetter {
 
 			}
 		});
-		System.out.println("listeners added to " + questionPanel.getIdentName());
-
 	}
 
 	private void evaluateMoneyValue(QuestionPanel questionPanel) {
@@ -82,19 +72,17 @@ public class AutoValueSetter {
 			JTextField t = (JTextField) questionPanel.getInput();
 			Money m = (Money) questionPanel.getQuestion().getType();
 			if (m.getExpr() != null) {
-
 				t.setEditable(false);
 				try {
-					float result = new MathEvaluator(registry.getQuestions(),
+					float result = new MathEvaluator(registry,
 							true).eval(m.getExpr());
 					t.setText(Float.toString(result));
-
+				} catch (EmptyInputException ex) {
+					// no input? no evaluation!
 				} catch (EvaluationException ex) {
 					System.out.println("error: " + ex.getMessage());
 				}
 			}
-		}else{
-			System.out.println("Input " + questionPanel.getIdentName() + " was not of type money");
 		}
 	}
 }

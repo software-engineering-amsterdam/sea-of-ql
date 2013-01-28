@@ -5,7 +5,7 @@ import junit.framework.Assert;
 import org.junit.Test;
 import org.uva.sea.ql.ast.Expr;
 import org.uva.sea.ql.ast.elements.Form;
-import org.uva.sea.ql.interpreter.html.HTMLVisitor;
+import org.uva.sea.ql.generator.html.HTMLVisitor;
 import org.uva.sea.ql.test.common.CurrentTest;
 import org.uva.sea.ql.visitor.ASTVisitor;
 

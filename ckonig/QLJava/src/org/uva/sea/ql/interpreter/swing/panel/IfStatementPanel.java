@@ -22,16 +22,14 @@ public class IfStatementPanel extends JPanel {
 		return ifStatement;
 	}
 
-	public void eval(SwingRegistry sr) throws EvaluationException {
+	public void eval(SwingRegistry registry) throws EvaluationException {
 		if (this.ifStatement.getCondition() instanceof ReturnsBoolOperands) {
-			boolean result = new BoolEvaluator(sr.getQuestions()).eval((this.ifStatement.getCondition()));
+			boolean result = new BoolEvaluator(registry).eval((this.ifStatement
+					.getCondition()));
 			this.setVisible(result);
 		} else {
-			throw new RuntimeException("conditions for if statements must be boolean");
+			throw new RuntimeException(
+					"conditions for if statements must be boolean");
 		}
 	}
-
-	
-
-	
 }

@@ -57,7 +57,7 @@ public class QuestionPanel extends JPanel {
 		if (question.getType() instanceof Money) {
 			input = new JTextField(10);
 			Money m = (Money) question.getType();
-			if (m.getExpr() == null) {
+			if (m.getExpr() != null) {
 				((JTextField) input).setEditable(false);
 			}
 			this.add(input);

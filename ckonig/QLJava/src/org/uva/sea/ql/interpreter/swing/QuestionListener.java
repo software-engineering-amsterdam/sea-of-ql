@@ -22,11 +22,8 @@ public class QuestionListener {
 	}
 
 	public void addIdentListener(Ident ident) {
-		for (QuestionPanel questionPanel : registry.getQuestions()) {
-			if (questionPanel.getIdentName().equals(ident.getName())) {
-				addListeners(questionPanel);
-			}
-		}
+		QuestionPanel qp = registry.getQuestionPanelByIdent(ident);
+		addListeners(qp);
 	}
 
 	private void addListeners(QuestionPanel questionPanel) {

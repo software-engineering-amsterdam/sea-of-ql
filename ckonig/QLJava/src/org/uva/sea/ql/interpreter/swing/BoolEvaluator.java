@@ -1,7 +1,5 @@
 package org.uva.sea.ql.interpreter.swing;
 
-import java.util.List;
-
 import org.uva.sea.ql.ast.BinaryExpr;
 import org.uva.sea.ql.ast.Expr;
 import org.uva.sea.ql.ast.ReturnsBoolOperands;
@@ -21,14 +19,14 @@ import org.uva.sea.ql.interpreter.swing.panel.QuestionPanel;
 
 public class BoolEvaluator {
 
-	private List<QuestionPanel> questions;
+	private SwingRegistry registry;
 
-	public BoolEvaluator(List<QuestionPanel> questions) {
-		this.questions = questions;
+	public BoolEvaluator(SwingRegistry registry) {
+		this.registry = registry;
 	}
 
 	public boolean eval(Expr e) throws EvaluationException {
-		MathEvaluator math = new MathEvaluator(questions);
+		MathEvaluator math = new MathEvaluator(registry);
 		if (e instanceof UnaryExpr) {
 			UnaryExpr u = (UnaryExpr) e;
 			if (u instanceof Not) {
@@ -78,12 +76,10 @@ public class BoolEvaluator {
 		}
 		if (e instanceof Ident) {
 			Ident i = (Ident) e;
-			for (QuestionPanel q : questions) {
-				if (q.getQuestion().getIdentName().equals(i.getName())) {
-					if (q.getQuestion().getType() instanceof ReturnsBoolOperands) {
-						return q.getBoolValue();
-					}
-				}
+			QuestionPanel q = registry.getQuestionPanelByIdent(i);
+
+			if (q.getQuestion().getType() instanceof ReturnsBoolOperands) {
+				return q.getBoolValue();
 			}
 		}
 		throw new EvaluationException("bool evaluation failed");

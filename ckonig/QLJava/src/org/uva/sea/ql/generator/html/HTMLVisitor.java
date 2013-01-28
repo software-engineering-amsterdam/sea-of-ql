@@ -1,4 +1,4 @@
-package org.uva.sea.ql.interpreter.html;
+package org.uva.sea.ql.generator.html;
 
 import org.uva.sea.ql.ast.Expr;
 import org.uva.sea.ql.ast.elements.Block;

@@ -1,7 +1,5 @@
 package org.uva.sea.ql.interpreter.swing;
 
-import java.util.List;
-
 import org.uva.sea.ql.ast.BinaryExpr;
 import org.uva.sea.ql.ast.Expr;
 import org.uva.sea.ql.ast.ReturnsMathOperands;
@@ -17,17 +15,16 @@ import org.uva.sea.ql.ast.math.Sub;
 import org.uva.sea.ql.interpreter.swing.panel.QuestionPanel;
 
 public class MathEvaluator {
-	private List<QuestionPanel> questions;
 	private boolean replaceEmtyWithZero;
+	private SwingRegistry registry;
 
-	public MathEvaluator(List<QuestionPanel> questions) {
-		this.questions = questions;
+	public MathEvaluator(SwingRegistry registry) {
+		this.registry = registry;
 		this.replaceEmtyWithZero = false;
 	}
 
-	public MathEvaluator(List<QuestionPanel> questions,
-			boolean replaceEmptyWithZero) {
-		this(questions);
+	public MathEvaluator(SwingRegistry registry, boolean replaceEmptyWithZero) {
+		this(registry);
 		this.replaceEmtyWithZero = replaceEmptyWithZero;
 	}
 
@@ -61,28 +58,25 @@ public class MathEvaluator {
 		}
 		if (e instanceof Ident) {
 			Ident i = (Ident) e;
-			for (QuestionPanel q : questions) {
-				if (q.getQuestion().getIdentName().equals(i.getName())) {
+			QuestionPanel q = registry.getQuestionPanelByIdent(i);
 
-					if (q.getQuestion().getType() instanceof ReturnsMathOperands) {
-						String val = q.getStringValue();
-						if (val.trim().equals("")) {
-							if (replaceEmtyWithZero) {
-								return 0;
-							} else {
-								throw new EvaluationException(
-										"waiting for input");
-							}
-						}
-						try {
-							return Float.parseFloat(q.getStringValue().replace(
-									',', '.'));
-						} catch (NumberFormatException ex) {
-							throw new EvaluationException("invalid user input");
-						}
+			if (q.getQuestion().getType() instanceof ReturnsMathOperands) {
+				String val = q.getStringValue();
+				if (val.trim().equals("")) {
+					if (replaceEmtyWithZero) {
+						return 0;
+					} else {
+						throw new EmptyInputException();
 					}
 				}
+				try {
+					return Float.parseFloat(q.getStringValue()
+							.replace(',', '.'));
+				} catch (NumberFormatException ex) {
+					throw new EvaluationException("invalid user input");
+				}
 			}
+
 		}
 		throw new EvaluationException("math evaluation failed");
 	}

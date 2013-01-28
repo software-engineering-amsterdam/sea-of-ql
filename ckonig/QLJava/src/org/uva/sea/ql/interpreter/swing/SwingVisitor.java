@@ -12,7 +12,6 @@ import org.uva.sea.ql.ast.elements.Form;
 import org.uva.sea.ql.ast.elements.Ident;
 import org.uva.sea.ql.ast.elements.IfStatement;
 import org.uva.sea.ql.ast.elements.Question;
-import org.uva.sea.ql.interpreter.swing.panel.BlockPanel;
 import org.uva.sea.ql.interpreter.swing.panel.IfStatementPanel;
 import org.uva.sea.ql.interpreter.swing.panel.QuestionPanel;
 import org.uva.sea.ql.visitor.ASTVisitor;
@@ -40,7 +39,6 @@ public class SwingVisitor implements ASTVisitor {
 
 	@Override
 	public void visit(Block block) throws VisitorException {
-		history.peek().add(new BlockPanel(block));
 		for (Expr e : block.getContent()) {
 			if (e instanceof Question) {
 				((Question) e).accept(this);
@@ -75,8 +73,6 @@ public class SwingVisitor implements ASTVisitor {
 
 	private void addListeners() {
 		for (QuestionPanel questionPanel : registry.getQuestions()) {
-			System.out.println("consider to add "
-					+ questionPanel.getIdentName());
 			new AutoValueSetter(registry, questionPanel).createListeners();
 		}
 		QuestionListener questionListener = new QuestionListener(registry);
