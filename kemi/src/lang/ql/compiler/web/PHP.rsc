@@ -9,7 +9,7 @@ private str title = "";
 
 public void PHP(Form f, loc dest) {
   dest += "form.php";
-  title = f.formName;
+  title = f.formName.ident;
   writeFile(dest, createPHP(f));
 }
 
@@ -30,8 +30,8 @@ private str createPHP(Statement item: question(Question question)) =
 
 private str createPHP(Question q: 
   question(questionText, answerDataType, answerIdentifier)) =
-    "<validator(answerDataType, answerIdentifier)>
-    '<addToArray(answerDataType, answerIdentifier)>
+    "<validator(answerDataType.name, answerIdentifier.ident)>
+    '<addToArray(answerDataType.name, answerIdentifier.ident)>
     ";
 
 private str createPHP(Question q: 
@@ -40,7 +40,7 @@ private str createPHP(Question q:
   cf = prependIdent(calculatedField, "$");
   
   return 
-    "<addToArray(answerDataType, answerIdentifier, prettyPrint(cf))>";
+    "<addToArray(answerDataType.name, answerIdentifier.ident, prettyPrint(cf))>";
 }
 
 private str createPHP(Statement item: 
