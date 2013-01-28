@@ -2,6 +2,10 @@ package org.uva.sea.ql.form;
 
 import java.util.List;
 
+import javax.swing.JPanel;
+
+import net.miginfocom.swing.MigLayout;
+
 import org.uva.sea.ql.ast.eval.Env;
 import org.uva.sea.ql.ast.expressions.Ident;
 
@@ -17,6 +21,10 @@ public class Form {
 
 	public Ident getIdentity() {
 		return id;
+	}
+	
+	public String getName() {
+		return id.getName();
 	}
 	
 	public List<FormItem> getBody() {
@@ -38,5 +46,14 @@ public class Form {
 				valid = false;
 		}
 		return valid;
+	}
+	
+	public JPanel buildForm() {
+		JPanel formPanel = new JPanel();
+//		formPanel.setLayout(new MigLayout("fillx"));
+		for (FormItem f : body) {
+			formPanel.add(f.getFormComponent());
+		}
+		return formPanel;
 	}
 }

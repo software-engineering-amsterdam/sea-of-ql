@@ -24,7 +24,6 @@ public class QLLexer implements QLTokens {
 		KEYWORDS.put("true", BOOL);
 		KEYWORDS.put("false", BOOL);
 		KEYWORDS.put("if", IF);
-		KEYWORDS.put("else", ELSE);
 		KEYWORDS.put("boolean", BOOL);
 		KEYWORDS.put("integer", INT);
 		KEYWORDS.put("string", STRING);

@@ -31,35 +31,54 @@ import org.uva.sea.ql.ast.operators.unary.*;
 
 %%
 
- top 	: form 						{ result = $1; }
-     	;
- 		
- form	: FORM IDENT '{' stmt '}'   { $$ = new Form($2, $4); }
- 		;
+ top 			: form 								{ result = $1; }
+     			;
+
+ form			: FORM IDENT '{' statement '}'   	{ $$ = new Form($2, $4); }
+ 				;
+  		
+ statement		: IF '(' expr ')' '{' statement '}' { $$ = new If($3, $6); }
+	 			| question
+	 			| assignment
+	 			| expr
+	 			;
  
- stmts	: stmt stmts				{ $$ = new Statement($1, $2); }
- 		| stmt						{ $$ = new Statement($1); }
- 		;
-     
- expr	: '+' expr %prec UPLUS 		{ $$ = new Pos($2); }
-		| '-' expr %prec UMIN 		{ $$ = new Neg($2); }
-		| '!' expr %prec UNOT 		{ $$ = new Not($2); }
-		| expr '*' expr 			{ $$ = new Mul($1, $3); }
-		| expr '/' expr 			{ $$ = new Div($1, $3); }
-		| expr '+' expr 			{ $$ = new Add($1, $3); }
-		| expr '-' expr 			{ $$ = new Sub($1, $3); }
- 		| expr EQ expr 				{ $$ = new Eq($1, $3); }
-		| expr NEQ expr 			{ $$ = new NEq($1, $3); }
-		| expr '>' expr 			{ $$ = new GT($1, $3); }
-		| expr '<' expr 			{ $$ = new LT($1, $3); }
-		| expr GEQ expr 			{ $$ = new GEq($1, $3); }
-		| expr LEQ expr 			{ $$ = new LEq($1, $3); }
- 		| expr AND expr 			{ $$ = new And($1, $3); }
-		| expr OR expr 				{ $$ = new Or($1, $3); }
-		| INT 						{ $$ = $1; }
-		| IDENT 					{ $$ = $1; }
-		| '(' expr ')' 				{ $$ = $2; }
-		; 
+ question		: STRING declaration				{ $$ = new Question($1, $2); }
+	 			| STRING assignment					{ $$ = new Question($1, $2); }
+	 			;
+ 			
+ declaration	: IDENT ':' datatype				{ $$ = new Declaration($1, $2); }
+ 				;
+ 		
+ assignment 	: IDENT '=' expr ';'				{ $$ = new Assignment($1, $3); }
+ 				;
+ 
+ datatype		: BOOL								{ $$ = $1 }
+ 				| INT								{ $$ = $1 }
+ 				| STRING							{ $$ = $1 }
+ 				;		
+      
+ expr			: '+' expr %prec UPLUS 				{ $$ = new Pos($2); }
+				| '-' expr %prec UMIN 				{ $$ = new Neg($2); }
+				| '!' expr %prec UNOT 				{ $$ = new Not($2); }
+				| expr '*' expr 					{ $$ = new Mul($1, $3); }
+				| expr '/' expr 					{ $$ = new Div($1, $3); }
+				| expr '+' expr 					{ $$ = new Add($1, $3); }
+				| expr '-' expr 					{ $$ = new Sub($1, $3); }
+		 		| expr EQ expr 						{ $$ = new Eq($1, $3); }
+				| expr NEQ expr 					{ $$ = new NEq($1, $3); }
+				| expr '>' expr 					{ $$ = new GT($1, $3); }
+				| expr '<' expr 					{ $$ = new LT($1, $3); }
+				| expr GEQ expr 					{ $$ = new GEq($1, $3); }
+				| expr LEQ expr 					{ $$ = new LEq($1, $3); }
+		 		| expr AND expr 					{ $$ = new And($1, $3); }
+				| expr OR expr 						{ $$ = new Or($1, $3); }
+				| INT 								{ $$ = $1; }
+				| IDENT 							{ $$ = $1; }
+				| '(' expr ')' 						{ $$ = $2; }
+				; 
+
+
 
 %%
 private QLLexer lexer; 

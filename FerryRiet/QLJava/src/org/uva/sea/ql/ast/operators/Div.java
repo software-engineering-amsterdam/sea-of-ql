@@ -25,4 +25,13 @@ public class Div extends BinExpr {
 	public VisitorResult accept(Visitor visitor) {
 		return visitor.visit(this);
 	}
+
+	@Override
+	public ExpressionResult eval(HashMap<String, Statement> symbolMap) {
+		// TODO
+		ExpressionResult b = getExprLeftHand().eval(symbolMap);
+		ExpressionResult c = getExprRightHand().eval(symbolMap);
+
+		return new IntegerResult(b.getValue() / c.getValue());
+	}
 }

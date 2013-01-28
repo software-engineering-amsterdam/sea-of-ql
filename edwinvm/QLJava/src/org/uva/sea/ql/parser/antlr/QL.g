@@ -21,8 +21,8 @@ form returns [Form result]
     ;
 
 formStatement returns [FormStatement result]
-    :   question         { $result = $question.result; }
-    |   conditionBlock   { $result = $conditionBlock.result; }
+    :   question       { $result = $question.result; }
+    |   conditionBlock { $result = $conditionBlock.result; }
     ;
 
 question returns [Question result]
@@ -47,6 +47,7 @@ conditionBody returns [FormStatement result]
 primary returns [Expr result]
     :   Int    { $result = new org.uva.sea.ql.ast.values.Int(Integer.parseInt($Int.text)); }
     |   Bool   { $result = new org.uva.sea.ql.ast.values.Bool(Boolean.parseBoolean($Bool.text)); }
+    |   Money  { $result = new org.uva.sea.ql.ast.values.Money(Double.parseDouble($Money.text.replace(',', '.'))); }
     |   String { $result = new org.uva.sea.ql.ast.values.Str($String.text); }
     |   Ident  { $result = new Ident($Ident.text); }
     |   '(' x=orExpr ')'{ $result = $x.result; }
@@ -97,10 +98,10 @@ orExpr returns [Expr result]
     ;
 
 type returns [Type result]
-    :   'integer' { $result = new org.uva.sea.ql.ast.types.Int();  }
-    |   'string'  { $result = new org.uva.sea.ql.ast.types.Str();  }
-    |   'boolean' { $result = new org.uva.sea.ql.ast.types.Bool(); }
-    |   'money'   { $result = new org.uva.sea.ql.ast.types.Int();  }
+    :   'integer' { $result = new org.uva.sea.ql.ast.types.Int();   }
+    |   'string'  { $result = new org.uva.sea.ql.ast.types.Str();   }
+    |   'boolean' { $result = new org.uva.sea.ql.ast.types.Bool();  }
+    |   'money'   { $result = new org.uva.sea.ql.ast.types.Money(); }
     ;
 
     
@@ -112,6 +113,8 @@ COMMENT: ('/*' .* '*/' | '//') { $channel=HIDDEN; };
 Bool:    ('true'|'false');
 
 Ident:   ('a'..'z'|'A'..'Z')('a'..'z'|'A'..'Z'|'0'..'9'|'_')*;
+
+Money:   (('0'..'9')+ ('.' | ',') ('0'..'9')+);
 
 String:	 ('"' .* '"');
 

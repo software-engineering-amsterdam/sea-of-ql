@@ -87,7 +87,7 @@ orExpr returns [Expr result]
     : lhs=andExpr { $result = $lhs.result; } ( '||' rhs=andExpr { $result = new Or($result, rhs); } )*
     ;
 
-form returns [Type result] 
+form returns [Statement result] 
       @init { List<Statement> formParts = new ArrayList<Statement>();}
     : 'form' Ident '{' (formPart {formParts.add($formPart.result);})+ '}' { $result = new Form(new Ident($Ident.text), formParts);}
     ;
@@ -100,14 +100,14 @@ formPart returns [Statement result]
     
 ifStatement returns[Statement result]
       @init { List<Statement> formParts = new ArrayList<Statement>();}
-    : 'if' '(' Ident ')' '{' (formPart {formParts.add($formPart.result);})+ '}' {$result = new If(new Ident($Ident.text), formParts);}
+    : 'if' '(' orExpr ')' '{' (formPart {formParts.add($formPart.result);})+ '}' {$result = new If($orExpr.result, formParts);}
     ;
     
 ifThenStatement returns [Statement result]
       @init { List<Statement> ifFormParts = new ArrayList<Statement>();
               List<Statement> elseFormParts = new ArrayList<Statement>();}
-    : 'if' '(' Ident ')' '{' (f1=formPart {ifFormParts.add($f1.result);})+ '}' 'else' '{' (f2=formPart {elseFormParts.add($f2.result);})+ '}'
-      {$result = new IfThenElse(new Ident($Ident.text), ifFormParts, elseFormParts);}  
+    : 'if' '(' orExpr ')' '{' (f1=formPart {ifFormParts.add($f1.result);})+ '}' 'else' '{' (f2=formPart {elseFormParts.add($f2.result);})+ '}'
+      {$result = new IfThenElse($orExpr.result, ifFormParts, elseFormParts);}  
     ;
   
 question returns [Question result] 
@@ -116,8 +116,8 @@ question returns [Question result]
     
 returnType returns [Type result] //TODO String ,boolen met or expressie, orexpr hoort bij de question. 
     : 'boolean' { $result = new BoolType(); }
-    | 'money(' orExpr ')' {$result = new Money($orExpr.result);} //Fill in actual numbers. 
     | 'money' {$result = new Money();} 
+    | 'string'{$result = new StringType();}
     ;
     
 BOOL	

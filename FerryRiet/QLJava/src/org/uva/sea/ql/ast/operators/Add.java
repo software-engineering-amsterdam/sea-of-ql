@@ -20,8 +20,18 @@ public class Add extends BinExpr {
 	public TypeDescription typeOf(HashMap<String, Statement> typeEnv) {
 		return new NumeralType();
 	}
+
 	@Override
 	public VisitorResult accept(Visitor visitor) {
 		return visitor.visit(this);
+	}
+
+	@Override
+	public ExpressionResult eval(HashMap<String, Statement> symbolMap) {
+		// TODO and check type
+		ExpressionResult leftHandresult = getExprLeftHand().eval(symbolMap);
+		ExpressionResult rightHandResult = getExprRightHand().eval(symbolMap);
+
+		return new IntegerResult(leftHandresult.getValue() + rightHandResult.getValue());
 	}
 }

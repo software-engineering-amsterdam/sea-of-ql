@@ -5,8 +5,9 @@ import java.util.List;
 import java.util.Map;
 
 import org.uva.sea.ql.ast.type.Type;
-import org.uva.sea.ql.interpreter.Value;
 import org.uva.sea.ql.interpreter.StringVal;
+import org.uva.sea.ql.interpreter.Value;
+import org.uva.sea.ql.message.Message;
 
 public class Ident extends Expr {
 
@@ -38,8 +39,8 @@ public class Ident extends Expr {
 	}
 
 	@Override
-	public List<Error> checkType(Map<Ident, Type> typeEnv) {
-		return new ArrayList<Error>();
+	public List<Message> checkType(Map<Ident, Type> typeEnv) {
+		return new ArrayList<Message>();
 	}
 	
 	@Override

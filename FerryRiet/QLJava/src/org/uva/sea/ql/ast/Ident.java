@@ -5,6 +5,7 @@ import java.util.HashMap;
 import org.antlr.runtime.Token;
 import org.uva.sea.ql.ast.nodevisitor.Visitor;
 import org.uva.sea.ql.ast.nodevisitor.VisitorResult;
+import org.uva.sea.ql.ast.operators.ExpressionResult;
 import org.uva.sea.ql.ast.types.ErrorType;
 import org.uva.sea.ql.ast.types.TypeDescription;
 
@@ -29,7 +30,7 @@ public class Ident extends Expr {
 
 	@Override
 	public VisitorResult accept(Visitor visitor) {
-		return visitor.visit(this) ;
+		return visitor.visit(this);
 	}
 
 	@Override
@@ -39,5 +40,11 @@ public class Ident extends Expr {
 			return line.getTypeDescription();
 		}
 		return new ErrorType();
+	}
+
+	@Override
+	public ExpressionResult eval(HashMap<String, Statement> symbolMap) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }
