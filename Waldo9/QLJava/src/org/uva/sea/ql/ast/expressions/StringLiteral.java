@@ -2,7 +2,6 @@ package org.uva.sea.ql.ast.expressions;
 
 import java.util.Map;
 
-import org.uva.sea.ql.ast.ASTNodeVisitor;
 import org.uva.sea.ql.ast.types.StringType;
 import org.uva.sea.ql.ast.types.Type;
 
@@ -19,7 +18,7 @@ public class StringLiteral extends Expr {
 	}
 	
 	@Override
-	public <T> T accept(ASTNodeVisitor<T> visitor) {
+	public <T> T accept(ExprVisitor<T> visitor) {
         return visitor.visit(this);
     }
 

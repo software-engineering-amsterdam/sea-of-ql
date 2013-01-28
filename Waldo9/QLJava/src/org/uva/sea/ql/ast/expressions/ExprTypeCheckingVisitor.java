@@ -1,125 +1,25 @@
-package org.uva.sea.ql.ast;
+package org.uva.sea.ql.ast.expressions;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.uva.sea.ql.ast.expressions.Add;
-import org.uva.sea.ql.ast.expressions.And;
-import org.uva.sea.ql.ast.expressions.BooleanLiteral;
-import org.uva.sea.ql.ast.expressions.Div;
-import org.uva.sea.ql.ast.expressions.Eq;
-import org.uva.sea.ql.ast.expressions.Expr;
-import org.uva.sea.ql.ast.expressions.GEq;
-import org.uva.sea.ql.ast.expressions.GT;
-import org.uva.sea.ql.ast.expressions.Ident;
-import org.uva.sea.ql.ast.expressions.Int;
-import org.uva.sea.ql.ast.expressions.LEq;
-import org.uva.sea.ql.ast.expressions.LT;
-import org.uva.sea.ql.ast.expressions.Mul;
-import org.uva.sea.ql.ast.expressions.NEq;
-import org.uva.sea.ql.ast.expressions.Neg;
-import org.uva.sea.ql.ast.expressions.Not;
-import org.uva.sea.ql.ast.expressions.Or;
-import org.uva.sea.ql.ast.expressions.Pos;
-import org.uva.sea.ql.ast.expressions.StringLiteral;
-import org.uva.sea.ql.ast.expressions.Sub;
-import org.uva.sea.ql.ast.statements.Block;
-import org.uva.sea.ql.ast.statements.ComputedQuestion;
-import org.uva.sea.ql.ast.statements.IfThenElse;
-import org.uva.sea.ql.ast.statements.Question;
-import org.uva.sea.ql.ast.statements.Statement;
-import org.uva.sea.ql.ast.types.BoolType;
-import org.uva.sea.ql.ast.types.ErrorType;
-import org.uva.sea.ql.ast.types.IntType;
-import org.uva.sea.ql.ast.types.StringType;
 import org.uva.sea.ql.ast.types.Type;
 
-public class ASTNodeTypeCheckingVisitor implements ASTNodeVisitor<Boolean> {
+
+public class ExprTypeCheckingVisitor implements ExprVisitor<Boolean> {
 	
 	private Map<String, Type> typeEnvironment;
 	private List<String> errorMessages;
 	
-	public ASTNodeTypeCheckingVisitor() {
-		typeEnvironment = new HashMap<String, Type>();
-		errorMessages = new ArrayList<String>();
+	public ExprTypeCheckingVisitor(Map<String, Type> typeEnvironment, List<String> errorMessages) {
+		this.typeEnvironment = typeEnvironment;
+		this.errorMessages = errorMessages;
 	}
 	
 	public List<String> getErrorMessages() {
 		return errorMessages;
 	}
-
-	@Override
-	public Boolean visit(Form form) {
-		boolean checkBlock = form.getBlock().accept(this);
-		if (!checkBlock)
-			return false;
-		return true;		
-	}	
-
-	@Override
-	public Boolean visit(Block block) {
-		boolean isValid = true;
-		for (Statement statement : block.getStatements()) {
-			boolean checkStatement = statement.accept(this);
-			if (!checkStatement)
-				isValid = false;
-		}
-		return isValid;	
-	}
-
-	@Override
-	public Boolean visit(IfThenElse ifThenElse) {
-		boolean isValid = true;
-		boolean checkBody = ifThenElse.getBody().accept(this);
-		Expr condition = ifThenElse.getCondition();
-		boolean checkCondition = condition.accept(this);
-		if (!checkCondition)
-			isValid = false;
-		if (!condition.typeOf(typeEnvironment).isCompatibleToBool()) {
-			if (isValid) {
-				errorMessages.add("The condition of an if statement has to be a boolean.");
-				isValid = false;
-			}
-		}
-		if (!checkBody)
-			isValid = false;
-		Block elseBody = ifThenElse.getElseBody();
-		if (elseBody != null)
-			if (!elseBody.accept(this))
-				isValid = false;				
-		return isValid;		
-	}
-
-	@Override
-	public Boolean visit(Question question) {
-		Ident identifier = question.getVariable();
-		if (typeEnvironment.get(identifier.getName()) != null) {
-			errorMessages.add("Identifier " + identifier.getName() + " can only be used once.");
-			return false;
-		}
-		else
-			typeEnvironment.put(identifier.getName(), question.getType());
-		return true;
-	}
 	
-	@Override
-	public Boolean visit(ComputedQuestion computedQuestion) {
-		boolean isValid = true;
-		Ident identifier = computedQuestion.getVariable();
-		if (typeEnvironment.get(identifier.getName()) != null) {
-			errorMessages.add("Identifier " + identifier.getName() + " can only be used once.");
-			isValid = false;
-		}
-		else
-			typeEnvironment.put(identifier.getName(), computedQuestion.getType());
-		boolean checkExpression = computedQuestion.getExpression().accept(this);
-		if (!checkExpression)
-			isValid = false;
-		return isValid;
-	}
-
 	@Override
 	public Boolean visit(Add add) {
 		boolean checkLhs = add.getLhs().accept(this);
@@ -349,42 +249,17 @@ public class ASTNodeTypeCheckingVisitor implements ASTNodeVisitor<Boolean> {
 	public Boolean visit(StringLiteral stringLiteral) {
 		return true;		
 	}
-
-	@Override
-	public Boolean visit(BoolType boolType) {
-		return true;
-	}
-
-	@Override
-	public Boolean visit(IntType intType) {
-		return true;
-	}
-
-	@Override
-	public Boolean visit(StringType stringType) {
-		return true;
-	}
-
-	@Override
-	public Boolean visit(Expr expr) {
-		return true;		
-	}
-
+	
 	@Override
 	public Boolean visit(BooleanLiteral booleanLiteral) {
 		return true;		
-	}
-
-	@Override
-	public Boolean visit(ErrorType error) {		
-		return true;
 	}
 	
 	@Override
 	public Boolean visit(Ident ident) {		
 		return true;		
 	}
-
+	
 	@Override
 	public Boolean visit(Int int1) {
 		return true;

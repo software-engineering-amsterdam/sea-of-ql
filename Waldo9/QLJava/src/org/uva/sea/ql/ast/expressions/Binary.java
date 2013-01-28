@@ -1,6 +1,5 @@
 package org.uva.sea.ql.ast.expressions;
 
-import org.uva.sea.ql.ast.ASTNodeVisitor;
 
 public abstract class Binary extends Expr {
 	
@@ -26,8 +25,6 @@ public abstract class Binary extends Expr {
 	}
 	
 	@Override
-	public <T> T accept(ASTNodeVisitor<T> visitor) {
-		return visitor.visit(this);
-    }
+	public abstract <T> T accept(ExprVisitor<T> visitor);
 	
 }

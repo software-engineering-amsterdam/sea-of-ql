@@ -1,6 +1,5 @@
 package org.uva.sea.ql.ast.statements;
 
-import org.uva.sea.ql.ast.ASTNodeVisitor;
 import org.uva.sea.ql.ast.expressions.Expr;
 import org.uva.sea.ql.ast.expressions.Ident;
 import org.uva.sea.ql.ast.expressions.StringLiteral;
@@ -19,7 +18,8 @@ public class ComputedQuestion extends Question {
 		return expression;
 	}
 	
-	public <T> T accept(ASTNodeVisitor<T> visitor) {
+	@Override
+	public <T> T accept(StatementVisitor<T> visitor) {
 		return visitor.visit(this);
     }
 

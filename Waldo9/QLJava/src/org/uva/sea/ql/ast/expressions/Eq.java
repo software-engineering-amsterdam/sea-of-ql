@@ -2,7 +2,6 @@ package org.uva.sea.ql.ast.expressions;
 
 import java.util.Map;
 
-import org.uva.sea.ql.ast.ASTNodeVisitor;
 import org.uva.sea.ql.ast.types.BoolType;
 import org.uva.sea.ql.ast.types.Type;
 
@@ -12,7 +11,7 @@ public class Eq extends Binary {
 		super(result, rhs);
 	}
 	
-	public <T> T accept(ASTNodeVisitor<T> visitor) {
+	public <T> T accept(ExprVisitor<T> visitor) {
 		return visitor.visit(this);
     }
 	

@@ -2,8 +2,6 @@ package org.uva.sea.ql.ast.statements;
 
 import java.util.List;
 
-import org.uva.sea.ql.ast.ASTNodeVisitor;
-
 
 public class Block extends Statement {
 	
@@ -17,7 +15,8 @@ public class Block extends Statement {
 		return statements;
 	}
 	
-	public <T> T accept(ASTNodeVisitor<T> visitor) {
+	@Override
+	public <T> T accept(StatementVisitor<T> visitor) {
 		return visitor.visit(this);
     }
 

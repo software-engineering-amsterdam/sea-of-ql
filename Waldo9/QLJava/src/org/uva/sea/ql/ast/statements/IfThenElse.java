@@ -1,6 +1,5 @@
 package org.uva.sea.ql.ast.statements;
 
-import org.uva.sea.ql.ast.ASTNodeVisitor;
 import org.uva.sea.ql.ast.expressions.Expr;
 
 public class IfThenElse extends Statement {
@@ -27,7 +26,8 @@ public class IfThenElse extends Statement {
 		return condition;
 	}
 	
-	public <T> T accept(ASTNodeVisitor<T> visitor) {
+	@Override
+	public <T> T accept(StatementVisitor<T> visitor) {
         return visitor.visit(this);
     }
 	

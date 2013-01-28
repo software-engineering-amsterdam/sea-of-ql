@@ -13,7 +13,7 @@ form Box1HouseOwning {
 	testQuestion1: "This is a test question" string
 	if (5) {
 		testQuestion2: "This is an additional test question" int
-		if ("aah" != "b") {
+		if ("aah" >= 5) {
 			testQuestion3: "This is an additional test question" string
 		}
 	}
