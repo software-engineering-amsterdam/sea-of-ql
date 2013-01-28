@@ -5,12 +5,13 @@ import java.io.IOException;
 import org.uva.sea.ql.ast.elements.Form;
 import org.uva.sea.ql.ast.expressions.Expr;
 import org.uva.sea.ql.common.IOHelper;
-import org.uva.sea.ql.generation.html.HTMLDocumentBuilder;
+import org.uva.sea.ql.generation.html.HTMLDocument;
 import org.uva.sea.ql.parser.IParse;
 import org.uva.sea.ql.parser.ParseError;
 import org.uva.sea.ql.parser.antlr.ANTLRParser;
 import org.uva.sea.ql.validation.AstValidationError;
 import org.uva.sea.ql.validation.Validator;
+import org.uva.sea.ql.visitor.VisitorDocumentBuilder;
 import org.uva.sea.ql.visitor.VisitorException;
 
 public class GenerationRunner {
@@ -23,9 +24,9 @@ public class GenerationRunner {
 			Expr e = parser.parseDefaultFile();
 			new Validator().validate(e);
 			Form f = (Form) e;
-			GenerationVisitor visitor = new GenerationVisitor(new HTMLDocumentBuilder());
+			VisitorDocumentBuilder visitor = new VisitorDocumentBuilder(new HTMLDocument());
 			f.accept(visitor);
-			String output = visitor.getOutput();
+			String output = (String) visitor.getOutput();
 			IOHelper.write(OUT_PATH + f.getName() + ".html", output);
 			System.out.println(output);
 

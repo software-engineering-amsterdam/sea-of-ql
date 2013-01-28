@@ -1,12 +1,10 @@
-package org.uva.sea.ql.interpreter.panel;
+package org.uva.sea.ql.interpreter.swing;
 
 import javax.swing.BoxLayout;
 import javax.swing.JPanel;
 
 import org.uva.sea.ql.ast.elements.IfStatement;
 import org.uva.sea.ql.ast.interfaces.ReturnsBoolOperands;
-import org.uva.sea.ql.interpreter.BoolEvaluator;
-import org.uva.sea.ql.interpreter.SwingRegistry;
 import org.uva.sea.ql.interpreter.exception.EvaluationException;
 
 public class IfStatementPanel extends JPanel {

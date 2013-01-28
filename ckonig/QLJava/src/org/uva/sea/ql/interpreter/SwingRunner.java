@@ -15,11 +15,14 @@ import javax.swing.JPanel;
 import org.uva.sea.ql.ast.elements.Form;
 import org.uva.sea.ql.ast.expressions.Expr;
 import org.uva.sea.ql.common.IOHelper;
+import org.uva.sea.ql.interpreter.swing.QLFileFilter;
+import org.uva.sea.ql.interpreter.swing.SwingDocument;
 import org.uva.sea.ql.parser.IParse;
 import org.uva.sea.ql.parser.ParseError;
 import org.uva.sea.ql.parser.antlr.ANTLRParser;
 import org.uva.sea.ql.validation.AstValidationError;
 import org.uva.sea.ql.validation.Validator;
+import org.uva.sea.ql.visitor.VisitorDocumentBuilder;
 import org.uva.sea.ql.visitor.VisitorException;
 
 public class SwingRunner extends JFrame {
@@ -124,11 +127,11 @@ public class SwingRunner extends JFrame {
 
 	private void interpretAst() {
 		error.setText("");
-		SwingVisitor visitor = new SwingVisitor();
+		VisitorDocumentBuilder visitor = new VisitorDocumentBuilder(new SwingDocument());
 		if (ast != null && ast instanceof Form) {
 			try {
 				((Form) ast).accept(visitor);
-				JPanel result = visitor.getPanel();
+				JPanel result = (JPanel) visitor.getOutput();
 				centerPanel.add(result);
 				result.setVisible(true);
 				centerPanel.repaint();

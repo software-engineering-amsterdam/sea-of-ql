@@ -1,13 +1,11 @@
-package org.uva.sea.ql.generation;
-
-import java.util.List;
+package org.uva.sea.ql.visitor;
 
 import org.uva.sea.ql.ast.elements.IfStatement;
 import org.uva.sea.ql.ast.elements.Question;
 
-public interface DocumentBuilder {
+public interface QLDocument {
 
-	public abstract String getOutput();
+	public abstract Object getOutput();
 
 	public abstract void setHeading(String content);
 
@@ -17,7 +15,6 @@ public interface DocumentBuilder {
 
 	public abstract void endIf();
 
-	public abstract void create(List<IfStatement> ifStatements,
-			List<Question> questions);
+	public abstract void create();
 
 }

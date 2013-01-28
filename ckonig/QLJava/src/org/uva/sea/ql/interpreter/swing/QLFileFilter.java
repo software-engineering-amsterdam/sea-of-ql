@@ -1,4 +1,4 @@
-package org.uva.sea.ql.interpreter;
+package org.uva.sea.ql.interpreter.swing;
 
 import java.io.File;
 

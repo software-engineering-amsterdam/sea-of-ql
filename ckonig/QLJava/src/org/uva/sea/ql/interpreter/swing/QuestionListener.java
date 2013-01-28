@@ -1,4 +1,4 @@
-package org.uva.sea.ql.interpreter;
+package org.uva.sea.ql.interpreter.swing;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -12,7 +12,7 @@ import org.uva.sea.ql.ast.elements.Ident;
 import org.uva.sea.ql.ast.types.BooleanType;
 import org.uva.sea.ql.ast.types.Money;
 import org.uva.sea.ql.ast.types.StrType;
-import org.uva.sea.ql.interpreter.panel.QuestionPanel;
+
 
 public class QuestionListener {
 	private final SwingRegistry registry;

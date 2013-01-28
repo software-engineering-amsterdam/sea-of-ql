@@ -1,4 +1,4 @@
-package org.uva.sea.ql.interpreter.panel;
+package org.uva.sea.ql.interpreter.swing;
 
 import javax.swing.AbstractButton;
 import javax.swing.JCheckBox;

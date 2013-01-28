@@ -1,12 +1,11 @@
-package org.uva.sea.ql.interpreter;
+package org.uva.sea.ql.interpreter.swing;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import org.uva.sea.ql.ast.elements.Ident;
 import org.uva.sea.ql.interpreter.exception.EvaluationException;
-import org.uva.sea.ql.interpreter.panel.IfStatementPanel;
-import org.uva.sea.ql.interpreter.panel.QuestionPanel;
+
 
 public class SwingRegistry {
 	private List<QuestionPanel> questions;

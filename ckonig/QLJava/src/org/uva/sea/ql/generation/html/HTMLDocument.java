@@ -13,21 +13,23 @@ import org.uva.sea.ql.ast.types.BooleanType;
 import org.uva.sea.ql.ast.types.Money;
 import org.uva.sea.ql.ast.types.StrType;
 import org.uva.sea.ql.ast.types.Type;
-import org.uva.sea.ql.generation.DocumentBuilder;
 import org.uva.sea.ql.generation.GeneratorException;
+import org.uva.sea.ql.visitor.QLDocument;
+import org.uva.sea.ql.visitor.Registry;
 
-public class HTMLDocumentBuilder implements DocumentBuilder {
-
+public class HTMLDocument implements QLDocument {
+	private Registry registry;
 	private String heading;
 	private StringBuilder body;
 	private StringBuilder script;
 
 	private Templates templates;
 
-	public HTMLDocumentBuilder() throws GeneratorException {
+	public HTMLDocument() throws GeneratorException {
 		this.body = new StringBuilder();
 		this.script = new StringBuilder();
 		this.templates = new Templates("templates/");
+		this.registry = new Registry();
 	}
 
 	private void appendToBody(String s) {
@@ -38,7 +40,9 @@ public class HTMLDocumentBuilder implements DocumentBuilder {
 		script.append(s);
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.uva.sea.ql.generation.IDocumentBuilder#getOutput()
 	 */
 	@Override
@@ -46,19 +50,27 @@ public class HTMLDocumentBuilder implements DocumentBuilder {
 		return templates.document(heading, body.toString(), script.toString());
 	}
 
-	/* (non-Javadoc)
-	 * @see org.uva.sea.ql.generation.IDocumentBuilder#setHeading(java.lang.String)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.uva.sea.ql.generation.IDocumentBuilder#setHeading(java.lang.String)
 	 */
 	@Override
 	public void setHeading(String content) {
 		heading = content;
 	}
 
-	/* (non-Javadoc)
-	 * @see org.uva.sea.ql.generation.IDocumentBuilder#appendQuestion(org.uva.sea.ql.ast.elements.Question)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.uva.sea.ql.generation.IDocumentBuilder#appendQuestion(org.uva.sea
+	 * .ql.ast.elements.Question)
 	 */
 	@Override
 	public void appendQuestion(Question question) {
+		registry.addQuestion(question);
 		Type type = question.getType();
 		String name = question.getIdentName();
 		String input = new String();
@@ -75,16 +87,23 @@ public class HTMLDocumentBuilder implements DocumentBuilder {
 				.question(question.getContent().toString(), input));
 	}
 
-	/* (non-Javadoc)
-	 * @see org.uva.sea.ql.generation.IDocumentBuilder#beginIf(org.uva.sea.ql.ast.elements.IfStatement)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.uva.sea.ql.generation.IDocumentBuilder#beginIf(org.uva.sea.ql.ast
+	 * .elements.IfStatement)
 	 */
 	@Override
 	public void beginIf(IfStatement ifStatement) {
+		registry.addIfStatement(ifStatement);
 		appendToBody(templates.hiddenStart(String.valueOf(ifStatement
 				.hashCode())));
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.uva.sea.ql.generation.IDocumentBuilder#endIf()
 	 */
 	@Override
@@ -92,15 +111,18 @@ public class HTMLDocumentBuilder implements DocumentBuilder {
 		appendToBody(templates.hiddenEnd());
 	}
 
-	/* (non-Javadoc)
-	 * @see org.uva.sea.ql.generation.IDocumentBuilder#create(java.util.List, java.util.List)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.uva.sea.ql.generation.IDocumentBuilder#create(java.util.List,
+	 * java.util.List)
 	 */
 	@Override
-	public void create(List<IfStatement> ifStatements, List<Question> questions) {
-		for (Question q : questions) {
+	public void create() {
+		for (Question q : registry.getQuestions()) {
 			this.addGetter(q);
 		}
-		for (IfStatement i : ifStatements) {
+		for (IfStatement i : registry.getIfStatements()) {
 			appendToScript(templates.evaluator(String.valueOf(i.hashCode()),
 					getConditionString(i.getCondition())));
 			List<Ident> idents = i.getIdents();

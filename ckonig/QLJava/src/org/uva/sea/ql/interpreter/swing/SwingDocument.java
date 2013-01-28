@@ -1,4 +1,4 @@
-package org.uva.sea.ql.interpreter;
+package org.uva.sea.ql.interpreter.swing;
 
 import java.util.List;
 import java.util.Stack;
@@ -6,23 +6,18 @@ import java.util.Stack;
 import javax.swing.BoxLayout;
 import javax.swing.JPanel;
 
-import org.uva.sea.ql.ast.elements.Block;
-import org.uva.sea.ql.ast.elements.Form;
 import org.uva.sea.ql.ast.elements.Ident;
 import org.uva.sea.ql.ast.elements.IfStatement;
 import org.uva.sea.ql.ast.elements.Question;
-import org.uva.sea.ql.ast.expressions.Expr;
-import org.uva.sea.ql.interpreter.panel.IfStatementPanel;
-import org.uva.sea.ql.interpreter.panel.QuestionPanel;
-import org.uva.sea.ql.visitor.ASTVisitor;
-import org.uva.sea.ql.visitor.VisitorException;
+import org.uva.sea.ql.visitor.QLDocument;
 
-public class SwingVisitor implements ASTVisitor {
+
+public class SwingDocument implements QLDocument {
 	private final JPanel panel;
 	private Stack<JPanel> history;
 	private SwingRegistry registry;
 
-	public SwingVisitor() {
+	public SwingDocument() {
 		this.panel = new JPanel();
 		history = new Stack<>();
 		history.push(panel);
@@ -31,47 +26,40 @@ public class SwingVisitor implements ASTVisitor {
 	}
 
 	@Override
-	public void visit(Form form) throws VisitorException {
-		history.peek().add(new JPanel());
-		form.getBlock().accept(this);
-		addListeners();
+	public Object getOutput() {
+		return panel;
 	}
 
 	@Override
-	public void visit(Block block) throws VisitorException {
-		for (Expr e : block.getContent()) {
-			if (e instanceof Question) {
-				((Question) e).accept(this);
-			}
-			if (e instanceof IfStatement) {
-				((IfStatement) e).accept(this);
-			}
-		}
+	public void setHeading(String content) {
+		// TODO Auto-generated method stub
+
 	}
 
 	@Override
-	public void visit(Question question) throws VisitorException {
+	public void appendQuestion(Question question) {
 		QuestionPanel p = new QuestionPanel(question);
 		history.peek().add(p);
 		registry.addQuestion(p);
 	}
 
 	@Override
-	public void visit(IfStatement ifStatement) throws VisitorException {
+	public void beginIf(IfStatement ifStatement) {
 		IfStatementPanel p = new IfStatementPanel(ifStatement);
 		p.setVisible(false);
 		history.peek().add(p);
 		history.push(p);
 		registry.addIfStatement(p);
-		ifStatement.getContent().accept(this);
+
+	}
+
+	@Override
+	public void endIf() {
 		history.pop();
 	}
 
-	public JPanel getPanel() {
-		return panel;
-	}
-
-	private void addListeners() {
+	@Override
+	public void create() {
 		for (QuestionPanel questionPanel : registry.getQuestions()) {
 			new AutoValueSetter(registry, questionPanel).createListeners();
 		}
@@ -84,4 +72,5 @@ public class SwingVisitor implements ASTVisitor {
 			}
 		}
 	}
+
 }
