@@ -1,9 +1,6 @@
 package org.uva.sea.ql.ast.expression;
 
-import java.util.Map;
-
 import org.uva.sea.ql.ast.Node;
-import org.uva.sea.ql.ast.type.Type;
 import org.uva.sea.ql.visitor.IExpressionVisitor;
 
 /**
@@ -16,6 +13,4 @@ abstract public class Expression extends Node {
 	 * @param visitor
 	 */
 	abstract public <T> T accept( IExpressionVisitor<T> visitor );
-
-	abstract public Type typeOf( Map<Ident, Type> types );
 }

@@ -1,4 +1,4 @@
-package org.uva.sea.ql.visitor.printer;
+package org.uva.sea.ql.printer;
 
 import java.io.IOException;
 import java.io.OutputStream;

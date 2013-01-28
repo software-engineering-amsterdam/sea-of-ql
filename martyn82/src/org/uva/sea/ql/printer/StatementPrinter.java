@@ -1,4 +1,4 @@
-package org.uva.sea.ql.visitor.printer;
+package org.uva.sea.ql.printer;
 
 import org.uva.sea.ql.ast.statement.Assignment;
 import org.uva.sea.ql.ast.statement.Else;
