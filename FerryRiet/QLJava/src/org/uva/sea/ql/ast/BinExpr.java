@@ -12,11 +12,11 @@ public abstract class BinExpr extends Expr {
 		exprRightHand = rhs;
 	}
 
-	public Expr getExprLeftHand() {
+	public final Expr getExprLeftHand() {
 		return exprLeftHand;
 	}
 
-	public Expr getExprRightHand() {
+	public final Expr getExprRightHand() {
 		return exprRightHand;
 	}
 
