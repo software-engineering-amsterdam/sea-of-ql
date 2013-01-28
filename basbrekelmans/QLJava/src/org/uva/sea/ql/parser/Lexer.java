@@ -163,6 +163,7 @@ public class Lexer implements Tokens {
 			case '&': {
 				nextChar();
 				if (c == '&') {
+					nextChar();
 					return token = AND;
 				}
 				error("Unexpected character: " + (char)c);
@@ -170,6 +171,7 @@ public class Lexer implements Tokens {
 			case '|': {
 				nextChar();
 				if (c == '|') {
+					nextChar();
 					return token = OR;
 				}
 				error("Unexpected character: " + (char) c);

@@ -8,14 +8,14 @@ import org.junit.Test;
 import org.uva.sea.ql.ast.Node;
 import org.uva.sea.ql.ast.expressions.Expression;
 import org.uva.sea.ql.ast.statements.*;
-import org.uva.sea.ql.ast.typechecking.ITypeChecker;
-import org.uva.sea.ql.ast.typechecking.ITypeResolver;
-import org.uva.sea.ql.ast.typechecking.TypeCheckerFactory;
-import org.uva.sea.ql.ast.typechecking.TypeContext;
 import org.uva.sea.ql.ast.types.Type;
 import org.uva.sea.ql.parser.IParser;
 import org.uva.sea.ql.parser.JACCParser;
 import org.uva.sea.ql.parser.ParseError;
+import org.uva.sea.ql.typechecking.ITypeChecker;
+import org.uva.sea.ql.typechecking.ITypeResolver;
+import org.uva.sea.ql.typechecking.TypeCheckerFactory;
+import org.uva.sea.ql.typechecking.TypeContext;
 
 
 public class TestStatements {
@@ -49,7 +49,7 @@ public class TestStatements {
 		
 		final String ifStatement1Code = "if (a == b) { \"Question 1?\" myVar : bool }";
 		final String ifStatement2Code = "\"Q1?\" a : money " +
-										"\"Q2?\" b : money " +
+										"\"Q2?\" b : string " +
 										"if (a > b) { " +
 											"\"Q3?\" myVar : money " +
 										"}";

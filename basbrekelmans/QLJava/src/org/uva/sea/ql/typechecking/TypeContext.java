@@ -1,4 +1,4 @@
-package org.uva.sea.ql.ast.typechecking;
+package org.uva.sea.ql.typechecking;
 
 import java.util.HashMap;
 import java.util.Map;
