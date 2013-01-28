@@ -15,6 +15,7 @@ QLTENV addInstance(QLTENV qlTenv, str id, str questionLabel, Type tp) = qlTenv[q
 str required(Type t, str got) = "Required <getName(t)>, got <got>";                 
 str required(Type t1, Type t2) = required(t1, getName(t2));
 
+
 // compile Expressions.
 QLTENV checkExp(exp:boolCon(bool B), Type req, QLTENV env) =                              
   req == boolean() ? env : addError(env, exp@location, required(req, "boolean"));
@@ -22,17 +23,14 @@ QLTENV checkExp(exp:boolCon(bool B), Type req, QLTENV env) =
 QLTENV checkExp(exp:moneyCon(int I), Type req, QLTENV env) =
  req == money() ? env : addError(env, exp@location, required(req, "money"));
  
-QLTENV checkExp(exp:id(str id), Type req, QLTENV env) {                              
-  //println("env.question : <env.question> ID : <id>");
- // println("!env.question[id]? : <!env.question[id]?>");
-  //println("env.question[id] : <env.question[id]>");
+QLTENV checkExp(exp:id(str id), Type req, QLTENV env) {
   if(env.question[id] == {}){
   	return addError(env, exp@location, "Undeclared variable <id>");
-  }
-  //if(!env.question[id]?)
-  //   return addError(env, exp@location, "Undeclared variable <Id>");
+  }else{
   tpid = env.question[id];
-  return req == tpid ? env : addError(env, exp@location, required(req, tpid));
+  return env;
+  } 
+  //return req == tpid ? env : addError(env, exp@location, required(req, tpid));
 }
 
 QLTENV checkExp(exp:add(EXP E1, EXP E2), Type req, QLTENV env) =                        
@@ -53,22 +51,19 @@ QLTENV checkExp(exp:and(EXP E1, EXP E2), Type req, QLTENV env) =
 
 
 // check statements for Questions 
-QLTENV checkQuestionStats(list[Statement] Stats1, QLTENV qEnv) {                                 
-  println("CHECK Question STATES : <Stats1>");
-  for(S <- Stats1){
-  	  println("S in LIST STATEMENT : <S>");
-      qEnv = checkStat(S, qEnv);
-  }
-  return qEnv;
-}
 
-// Check if statement
+/** Method to check if statement  --> NOT WORKING because accept if(money)
+* @param statement the if statement
+* @param env the QL Type environment
+* @return env the enviroment
+* @author Philipp
+*/
 QLTENV checkStatement(statement:ifStat(Expression exp, list[Body] body), QLTENV env){
     println("EXP : <exp>"); 
     env0 = checkExp(exp, boolean(), env);
+    println();
     if(size(env0.errors) != 0)
     	return addError(env0, env0.errors[0].l, env0.errors[0].msg);
-    env1 = checkQuestionStats(Stats1, env0);
     return env;
 }
 
@@ -82,13 +77,23 @@ QLTENV checkStatement(statement:ifElseStat(Expression exp, list[Body] thenpart, 
     return env;
 }
 
-// check easy question and save it in the environment
+/** Method to check easy question and save it in the environment
+* @param question the easy question
+* @param env the QL Type environment
+* @return env the enviroment
+* @author Philipp
+*/
 QLTENV checkQuestion(question:easyQuestion(str id, str labelQuestion, Type tp) , QLTENV env){
 	return addInstance(env, id , labelQuestion, tp );	
 }
 
-// check computed question and save it in the environment
-QLTENV checkQuestion(question:computedQuestion(str id, str labelQuestion, Type tp, Expression exp , QLTENV env)){
+/** Method to check computed question and save it in the environment
+* @param question the computed question
+* @param env the QL Type environment
+* @return env the enviroment
+* @author Philipp
+*/
+QLTENV checkQuestion(question:computedQuestion(str id, str labelQuestion, Type tp, Expression exp) , QLTENV env){
 	println("check computed question");
 	env = <{< id , labelQuestion, tp >} , []>;
 	println("ENV : <env>");
@@ -109,7 +114,12 @@ bool checkIdentifiers(QLTENV env){
 	}
 }
 
-// check the body of the QL program
+/** Method to check the body of the QL program
+* @param Body the body of the QL program
+* @param env the QL Type enviroment
+* @return QLTENV the enviroment
+* @author Philipp
+*/
 QLTENV checkBody(list[Body] Body, QLTENV env){
 	for(s <- Body){
 	visit(Body){
@@ -118,7 +128,6 @@ QLTENV checkBody(list[Body] Body, QLTENV env){
     			if(checkIdentifiers(env) == false) return addError(env, q@location, "Identifier double declared");
     	    }
         case Statement s: {
-        		println("Statement is : <s>");
         		env = checkStatement(s,env);
         	}
       };
