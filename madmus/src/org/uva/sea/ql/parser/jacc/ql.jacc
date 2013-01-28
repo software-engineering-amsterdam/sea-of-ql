@@ -34,19 +34,12 @@ import org.uva.sea.ql.ast.operators.unary.*;
  top 	: form 						{ result = $1; }
      	;
  		
- form	: FORM IDENT '{' stmts '}'   { $$ = new Form($2, $4); }
+ form	: FORM IDENT '{' stmt '}'   { $$ = new Form($2, $4); }
  		;
  
  stmts	: stmt stmts				{ $$ = new Statement($1, $2); }
  		| stmt						{ $$ = new Statement($1); }
  		;
- 		
- stmt	: quest
- 		| block						
- 		;
- 		
- quest	: STRING declr				{ $$ = new Question($1, $2); }
- 		; 
      
  expr	: '+' expr %prec UPLUS 		{ $$ = new Pos($2); }
 		| '-' expr %prec UMIN 		{ $$ = new Neg($2); }
