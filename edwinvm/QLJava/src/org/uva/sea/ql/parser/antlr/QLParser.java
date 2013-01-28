@@ -1,4 +1,4 @@
-// $ANTLR 3.4 C:\\WINNT\\profiles\\6188583\\My Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g 2013-01-28 15:34:40
+// $ANTLR 3.4 C:\\WINNT\\profiles\\6188583\\My Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g 2013-01-28 15:51:39
 
 package org.uva.sea.ql.parser.antlr;
 import org.uva.sea.ql.ast.*;
@@ -797,7 +797,7 @@ public class QLParser extends Parser {
                     {
                     Money10=(Token)match(input,Money,FOLLOW_Money_in_primary395); if (state.failed) return result;
 
-                    if ( state.backtracking==0 ) { result = new org.uva.sea.ql.ast.values.Money(Double.parseDouble((Money10!=null?Money10.getText():null))); }
+                    if ( state.backtracking==0 ) { result = new org.uva.sea.ql.ast.values.Money(Double.parseDouble((Money10!=null?Money10.getText():null).replace(',', '.'))); }
 
                     }
                     break;
@@ -1478,7 +1478,7 @@ public class QLParser extends Parser {
                     {
                     match(input,31,FOLLOW_31_in_type811); if (state.failed) return result;
 
-                    if ( state.backtracking==0 ) { result = new org.uva.sea.ql.ast.types.Int();  }
+                    if ( state.backtracking==0 ) { result = new org.uva.sea.ql.ast.types.Int();   }
 
                     }
                     break;
@@ -1487,7 +1487,7 @@ public class QLParser extends Parser {
                     {
                     match(input,33,FOLLOW_33_in_type823); if (state.failed) return result;
 
-                    if ( state.backtracking==0 ) { result = new org.uva.sea.ql.ast.types.Str();  }
+                    if ( state.backtracking==0 ) { result = new org.uva.sea.ql.ast.types.Str();   }
 
                     }
                     break;
@@ -1496,7 +1496,7 @@ public class QLParser extends Parser {
                     {
                     match(input,27,FOLLOW_27_in_type836); if (state.failed) return result;
 
-                    if ( state.backtracking==0 ) { result = new org.uva.sea.ql.ast.types.Bool(); }
+                    if ( state.backtracking==0 ) { result = new org.uva.sea.ql.ast.types.Bool();  }
 
                     }
                     break;
@@ -1505,7 +1505,7 @@ public class QLParser extends Parser {
                     {
                     match(input,32,FOLLOW_32_in_type848); if (state.failed) return result;
 
-                    if ( state.backtracking==0 ) { result = new org.uva.sea.ql.ast.types.Money();  }
+                    if ( state.backtracking==0 ) { result = new org.uva.sea.ql.ast.types.Money(); }
 
                     }
                     break;
