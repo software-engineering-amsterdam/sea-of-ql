@@ -3,7 +3,7 @@ module lang::ql::analysis::TypeMap
 import lang::ql::ast::AST;
 import util::IDE;
 
-public alias typeMap = map[str ident, str \type];
+public alias typeMap = map[IdentDefinition ident, Type \type];
 public alias typeMapMessages = tuple[typeMap \map, set[Message] messages];
 
 public typeMapMessages createTypeMap(Form form) {
@@ -21,11 +21,11 @@ private typeMapMessages createTypeMap(typeMap tm, Statement item: question(Quest
   createTypeMap(tm, question);
 
 private typeMapMessages createTypeMap(typeMap tm, Question q: 
-  question(questionText, answerDataType, answerIdentifier)) =
+  question(_, answerDataType, answerIdentifier)) =
     processIdentifier(answerIdentifier, answerDataType, q@location, tm);
 
 private typeMapMessages createTypeMap(typeMap tm, Question q: 
-  question(questionText, answerDataType, answerIdentifier, calculatedField)) =
+  question(_, answerDataType, answerIdentifier, calculatedField)) =
     processIdentifier(answerIdentifier, answerDataType, q@location, tm);
 
 
@@ -47,18 +47,14 @@ private typeMapMessages createTypeMap(typeMap tm, Statement item:
   return <tm, messages>;
 }
 
-private Message typeError(name, \loc) 
-  = error("Identifier <name> is already declared", \loc);
+private Message typeError(str name, loc \loc) 
+  = error("Identifier \"<name>\" is already declared", \loc);
 
-private typeMapMessages processIdentifier(str ident, str \type, loc \loc, typeMap tm) {
+private typeMapMessages processIdentifier(IdentDefinition ident, Type \type, loc \loc, typeMap tm) {
   if(ident notin tm) {
     t = tm[ident] = \type;
     return <t, {}>;
   }    
 
-  if(tm[ident] != \type) {
-    return <tm, {typeError(ident, \loc)}>;
-  }
-  
-  return <tm, {}>;
+  return <tm, {typeError(ident.ident, \loc)}>;
 } 
