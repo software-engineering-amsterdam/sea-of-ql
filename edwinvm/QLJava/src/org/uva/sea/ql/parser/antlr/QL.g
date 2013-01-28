@@ -21,8 +21,8 @@ form returns [Form result]
     ;
 
 formStatement returns [FormStatement result]
-    :   question         { $result = $question.result; }
-    |   conditionBlock   { $result = $conditionBlock.result; }
+    :   question       { $result = $question.result; }
+    |   conditionBlock { $result = $conditionBlock.result; }
     ;
 
 question returns [Question result]
