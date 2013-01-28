@@ -1,5 +1,5 @@
 @contributor{George Marmanidis -geo.marmani@gmail.com}
-module lang::ql::ast::SemanticCheck::utilities
+module lang::ql::ast::semanticcheck::TypeEnvUtils
 
 import IO;
 import lang::ql::ast::AST;

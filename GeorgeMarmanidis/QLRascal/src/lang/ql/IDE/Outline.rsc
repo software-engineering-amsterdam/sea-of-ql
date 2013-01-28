@@ -1,5 +1,5 @@
 @contributor{George Marmanidis -geo.marmani@gmail.com}
-module lang::ql::IDE::Outline
+module lang::ql::ide::Outline
 
 import lang::ql::ast::AST;
 import Node;
