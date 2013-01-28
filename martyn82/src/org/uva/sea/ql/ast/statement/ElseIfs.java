@@ -4,13 +4,12 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
-import org.uva.sea.ql.ast.Node;
 import org.uva.sea.ql.visitor.IStatementVisitor;
 
 /**
  * Represents a list of ElseIfs.
  */
-public class ElseIfs extends Node implements Iterable<ElseIf> {
+public class ElseIfs extends Statement implements Iterable<ElseIf> {
 	/**
 	 * Holds the elseifs this collection represents.
 	 */
@@ -59,6 +58,7 @@ public class ElseIfs extends Node implements Iterable<ElseIf> {
 	 *
 	 * @param visitor
 	 */
+	@Override
 	public <T> T accept( IStatementVisitor<T> visitor ) {
 		return visitor.visit( this );
 	}
