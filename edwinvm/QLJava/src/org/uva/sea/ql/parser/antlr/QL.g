@@ -16,7 +16,9 @@ import org.uva.sea.ql.ast.types.*;
 package org.uva.sea.ql.parser.antlr;
 }
 
-form: primary+;
+form returns [Form result]
+    :   'form' Ident '{' body=formStatement* '}' { $result = new Form(new Ident($Ident.text), $body.result); }
+    ;
 
 formStatement returns [FormStatement result]
     :   question         { $result = $question.result; }
