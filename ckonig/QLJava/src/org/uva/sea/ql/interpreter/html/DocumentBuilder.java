@@ -47,7 +47,7 @@ class DocumentBuilder {
 
 	public void appendQuestion(Question question) {
 		Type type = question.getType();
-		String name = question.getIdent().getName();
+		String name = question.getIdentName();
 		String input = new String();
 		if (type instanceof BooleanType) {
 			input = templates.input(name, InputTypes.BOOLEAN);
@@ -89,13 +89,13 @@ class DocumentBuilder {
 	private void addGetter(Question q) {
 		String getter = new String();
 		if (q.getType().getClass().equals(BooleanType.class)) {
-			getter = templates.getterBool(q.getIdent().getName());
+			getter = templates.getterBool(q.getIdentName());
 		}
 		if (q.getType().getClass().equals(Money.class)) {
-			getter = templates.getterMoney(q.getIdent().getName());
+			getter = templates.getterMoney(q.getIdentName());
 		}
 		if (q.getType().getClass().equals(StrType.class)) {
-			getter = templates.getterString(q.getIdent().getName());
+			getter = templates.getterString(q.getIdentName());
 		}
 		this.appendToScript(getter);
 	}

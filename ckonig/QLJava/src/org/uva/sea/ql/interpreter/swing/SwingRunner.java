@@ -22,7 +22,7 @@ import org.uva.sea.ql.validation.AstValidationError;
 import org.uva.sea.ql.validation.Validator;
 import org.uva.sea.ql.visitor.VisitorException;
 
-public class Main extends JFrame {
+public class SwingRunner extends JFrame {
 	private static final long serialVersionUID = -1942492887122279651L;
 	private JButton buttonFile;
 	private JLabel display;
@@ -35,10 +35,10 @@ public class Main extends JFrame {
 	private Expr ast;
 
 	public static void main(String[] args) {
-		new Main();
+		new SwingRunner();
 	}
 
-	public Main() {
+	public SwingRunner() {
 		super("QL Interpreter");
 		createComponents();
 		setLayout();
@@ -81,7 +81,7 @@ public class Main extends JFrame {
 
 	private void openFile() {
 		error.setText("");
-		int returnVal = fileChooser.showOpenDialog(Main.this);
+		int returnVal = fileChooser.showOpenDialog(SwingRunner.this);
 		if (returnVal == JFileChooser.APPROVE_OPTION) {
 			File file = fileChooser.getSelectedFile();
 			try {

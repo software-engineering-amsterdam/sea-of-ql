@@ -25,6 +25,10 @@ public class Question extends Expr implements ASTElement {
 	public Ident getIdent() {
 		return ident;
 	}
+	
+	public String getIdentName(){
+		return ident.getName();
+	}
 
 	public Type getType() {
 		return type;

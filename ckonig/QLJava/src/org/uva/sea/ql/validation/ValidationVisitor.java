@@ -76,9 +76,9 @@ public class ValidationVisitor implements ASTVisitor {
 		if (question.getType() == null)
 			throw new AstValidationError("question type may not be null");
 		for (Question q : registry.getQuestions()) {
-			if (q.getIdent().getName().equals(question.getIdent().getName())) {
+			if (q.getIdentName().equals(question.getIdentName())) {
 				throw new AstValidationError("duplicate question Identifier:"
-						+ question.getIdent().getName());
+						+ question.getIdentName());
 			}
 		}
 		registry.addQuestion(question);
@@ -189,7 +189,7 @@ public class ValidationVisitor implements ASTVisitor {
 	private Expr getIdentType(Expr ident) throws AstValidationError {
 		Ident i = (Ident) ident;
 		for (Question q : registry.getQuestions()) {
-			if (q.getIdent().getName().equals(i.getName())) {
+			if (q.getIdentName().equals(i.getName())) {
 				return q.getType();
 			}
 		}

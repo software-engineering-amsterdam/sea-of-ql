@@ -40,29 +40,29 @@ public class TestAssignments extends TestExpressions {
 					|| line.getClass().equals(Question.class));
 			if (line.getClass().equals(Question.class)) {
 				Question q = (Question) line;
-				if (q.getIdent().getName().equals("hasSoldHouse")) {
+				if (q.getIdentName().equals("hasSoldHouse")) {
 					assertEquals(BooleanType.class, q.getType().getClass());
 				}
-				if (q.getIdent().getName().equals("hasBoughtHouse")) {
+				if (q.getIdentName().equals("hasBoughtHouse")) {
 					assertEquals(BooleanType.class, q.getType().getClass());
 				}
-				if (q.getIdent().getName().equals("hasBoughtHouse")) {
+				if (q.getIdentName().equals("hasBoughtHouse")) {
 					assertEquals(BooleanType.class, q.getType().getClass());
 				}
-				if (q.getIdent().getName().equals("taxId")) {
+				if (q.getIdentName().equals("taxId")) {
 					assertEquals(StrType.class, q.getType().getClass());
 				}
-				if (q.getIdent().getName().equals("sellingPrice")) {
+				if (q.getIdentName().equals("sellingPrice")) {
 					assertEquals(Money.class, q.getType().getClass());
 					Money m = (Money) q.getType();
 					Assert.assertNull(m.getExpr());
 				}
-				if (q.getIdent().getName().equals("privateDebt")) {
+				if (q.getIdentName().equals("privateDebt")) {
 					assertEquals(Money.class, q.getType().getClass());
 					Money m = (Money) q.getType();
 					Assert.assertNull(m.getExpr());
 				}
-				if (q.getIdent().getName().equals("valueResidue")) {
+				if (q.getIdentName().equals("valueResidue")) {
 					assertEquals(Money.class, q.getType().getClass());
 					Money m = (Money) q.getType();
 					Assert.assertNotNull(m.getExpr());

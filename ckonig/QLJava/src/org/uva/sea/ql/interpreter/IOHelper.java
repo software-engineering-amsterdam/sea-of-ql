@@ -26,14 +26,11 @@ public class IOHelper {
 		StringBuilder content = new StringBuilder();
 		LineNumberReader lnr = new LineNumberReader(new FileReader(file));
 		try {
-			String line = "";
+			String line = lnr.readLine();
 			while (line != null) {
-				line = lnr.readLine();
-				if (line == null) {
-					break;
-				}
 				content.append(line);
 				content.append("\n");
+				line = lnr.readLine();
 			}
 		} finally {
 			lnr.close();
