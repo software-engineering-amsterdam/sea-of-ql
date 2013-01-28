@@ -1,39 +1,44 @@
 package org.uva.sea.ql.ast.statements;
 
 import org.uva.sea.ql.ICodeLocationInformation;
+import org.uva.sea.ql.ast.IStatementVisitor;
 import org.uva.sea.ql.ast.expressions.Expression;
-import org.uva.sea.ql.ast.types.QLType;
 
 public class If extends Statement {
 
-	private final Statement ifTrue;
-	private final Statement ifFalse;
+	private final Statement ifStatement;
+	private final Statement elseStatement;
 	private final Expression expression;
 	
-	public If(ICodeLocationInformation info, Expression expression, Statement ifTrue, Statement ifFalse) {
+	public If(ICodeLocationInformation info, Expression expression, Statement ifStatement, Statement elseStatement) {
 		super(info);
 		this.expression = expression;
-		this.ifTrue = ifTrue;
-		this.ifFalse = ifFalse;
+		this.ifStatement = ifStatement;
+		this.elseStatement = elseStatement;
 	}
 	
-	public If(ICodeLocationInformation info, Expression expression, Statement ifTrue) {
+	public If(ICodeLocationInformation info, Expression expression, Statement ifStatement) {
 		super(info);
 		this.expression = expression;
-		this.ifTrue = ifTrue;
-		this.ifFalse = null;
+		this.ifStatement = ifStatement;
+		this.elseStatement = null;
 	}
 
 	public Expression getExpression() {
 		return expression;
 	}
 	
-	public Statement getIfTrue() {
-		return ifTrue;
+	public Statement getIfStatement() {
+		return ifStatement;
 	}
 	
-	public Statement getIfFalse() {
-		return ifFalse;
+	public Statement getElseStatement() {
+		return elseStatement;
+	}
+	
+	@Override
+	public void accept(IStatementVisitor visitor)  {
+		visitor.visit(this);
 	}
 	
 }

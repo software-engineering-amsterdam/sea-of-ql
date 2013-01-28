@@ -1,10 +1,10 @@
 package org.uva.sea.ql.ast.types;
 
-public class BooleanType extends QLType {
+public class BooleanType extends Type {
 
 	@Override
-	public boolean isNumber() {
-		return false;
+	public boolean isBoolean() {
+		return true;
 	}
 
 }

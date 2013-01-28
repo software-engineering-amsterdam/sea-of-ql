@@ -1,7 +1,7 @@
 package org.uva.sea.ql.ast.expressions;
 
 import org.uva.sea.ql.ICodeLocationInformation;
-import org.uva.sea.ql.ast.types.QLType;
+import org.uva.sea.ql.ast.IExpressionVisitor;
 
 public class MoneyLiteral extends NumberLiteral {
 
@@ -12,9 +12,13 @@ public class MoneyLiteral extends NumberLiteral {
 		this.value = value;
 	}
 
-	@Override
-	public QLType getType() {
-		return QLType.MONEY;
+	public double getValue() {
+		return value;
+	}
+	
+	public <T> T accept(IExpressionVisitor<T> visitor)
+	{
+		return visitor.visit(this);
 	}
 
 }
