@@ -1,4 +1,4 @@
-package org.uva.sea.ql.visitor;
+package org.uva.sea.ql.ast.form;
 
 import org.uva.sea.ql.visitor.checkers.ElementChecker;
 
