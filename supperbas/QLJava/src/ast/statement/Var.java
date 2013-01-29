@@ -17,7 +17,7 @@ public class Var extends Statement {
 
 	@Override
 	public <T> T accept(Visitor<T> visitor) {
-		return null; //visitor.visit(this);
+		return visitor.visit(this);
 	}
 
 	public Ident getIdent() {

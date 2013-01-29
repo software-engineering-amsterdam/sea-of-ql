@@ -15,7 +15,7 @@ public class If extends Statement {
 
 	@Override
 	public <T> T accept(Visitor<T> visitor) {
-		return null; // visitor.visit(this);
+		return visitor.visit(this);
 	}
 
 	public Expression getCondition() {
