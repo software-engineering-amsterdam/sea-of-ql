@@ -78,6 +78,8 @@ private State analyzeSemantics(SAS sas, Statement item:
     set[Message] messages = {};
     
     // If branch
+    messages += analyzeExpression(sas, ifPart.condition);
+    
     for(e <- ifPart.body) {
       <s, m> = analyzeSemantics(sas, e);
       messages += m;
@@ -86,6 +88,8 @@ private State analyzeSemantics(SAS sas, Statement item:
     
     // ElseIf branche(s)
     for(ei <- elseIfs) {
+      messages += analyzeExpression(sas, ei.condition);
+      
       for(e <- ei.body) {
         <s, m> = analyzeSemantics(sas, e);
         messages += m;

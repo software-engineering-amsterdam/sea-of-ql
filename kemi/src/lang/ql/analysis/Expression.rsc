@@ -16,17 +16,6 @@ private Type d() = dateType("date");
 private Type s() = stringType("string");
 private Type err() = invalidType("invalid");
 
-private alias Types = map[str, set[Type]];
-
-public set[Message] analyzeAssignmentExpression(SAS sas, Type \type, Expr expression) {
-  types = (key.ident : {sas.definitions[key]} | key <- sas.definitions) + typesByOperator;
-  <t, messages> = analyze(types, expression);
-  if(t != \type) {
-    return messages += {invalidAssignmentMessage(\type, t, expression@location)};
-  }
-  return messages;
-}
-
 private map[str, set[Type]] typesByOperator = (
   "int": {i()}, 
   "money": {m()},
@@ -53,7 +42,24 @@ private map[str, set[Type]] typesByOperator = (
   "and": {b()},
   "or": {b()}
 );
-  
+
+private alias Types = map[str, set[Type]];
+
+public set[Message] analyzeExpression(SAS sas, Expr expression) {
+  types = (key.ident : {sas.definitions[key]} | key <- sas.definitions) + typesByOperator;
+  <t, messages> = analyze(types, expression);
+  return messages;
+}
+
+public set[Message] analyzeAssignmentExpression(SAS sas, Type \type, Expr expression) {
+  types = (key.ident : {sas.definitions[key]} | key <- sas.definitions) + typesByOperator;
+  <t, messages> = analyze(types, expression);
+  if(t != \type) {
+    return messages += {invalidAssignmentMessage(\type, t, expression@location)};
+  }
+  return messages;
+}
+
 private Message invalidAssignmentMessage(Type decl, Type eval, \loc) 
   = error("Declared type is <decl.name>, evaluates to <eval.name>.", \loc);
 
@@ -63,68 +69,110 @@ private Message invalidTypeMessage(loc \loc)
 private Message undeclaredIdentifierMessage(loc \loc) 
   = error("Identifier undeclared.", \loc);
 
-private tuple[Type, set[Message]] analyze(Types types, Expr e: pos(Expr posValue)) {
-  throw "pos() not yet implemented!";
-}
 
-private tuple[Type, set[Message]] analyze(Types types, Expr e: neg(Expr negValue)) {
-  throw "neg() not yet implemented!";
-}
 
-private tuple[Type, set[Message]] analyze(Types types, Expr e: not(Expr notValue)) {
-  throw "not() not yet implemented!";
-}
+private tuple[Type, set[Message]] analyze(Types types, Expr e: pos(Expr posValue)) =
+  analyzeUnaryOp(types, e, posValue);
 
-private tuple[Type, set[Message]] analyze(Types types, Expr e: lt(Expr left, Expr right)) {
-  throw "lt() not yet implemented!";
-}
+private tuple[Type, set[Message]] analyze(Types types, Expr e: neg(Expr negValue)) =
+  analyzeUnaryOp(types, e, negValue);
 
-private tuple[Type, set[Message]] analyze(Types types, Expr e: leq(Expr left, Expr right)) {
-  throw "leq() not yet implemented!";
-}
+private tuple[Type, set[Message]] analyze(Types types, Expr e: not(Expr notValue)) =
+  analyzeUnaryOp(types, e, notValue);
 
-private tuple[Type, set[Message]] analyze(Types types, Expr e: gt(Expr left, Expr right)) {
-  throw "gt() not yet implemented!";
-}
+private tuple[Type, set[Message]] analyzeUnaryOp(Types types, Expr parent, Expr val) {
+  <ltype, lm> = analyze(types, val);
 
-private tuple[Type, set[Message]] analyze(Types types, Expr e: geq(Expr left, Expr right)) {
-  throw "geq() not yet implemented!";
-}
-
-private tuple[Type, set[Message]] analyze(Types types, Expr e: eq(Expr left, Expr right)) {
-  throw "eq() not yet implemented!";
-}
-
-private tuple[Type, set[Message]] analyze(Types types, Expr e: neq(Expr left, Expr right)) {
-  throw "neq() not yet implemented!";
-}
-
-private tuple[Type, set[Message]] analyze(Types types, Expr e: and(Expr left, Expr right)) {
-  throw "and() not yet implemented!";
-}
-
-private tuple[Type, set[Message]] analyze(Types types, Expr e: or(Expr left, Expr right)) {
-  throw "or() not yet implemented!";
-}
-
-private tuple[Type, set[Message]] analyze(Types types, Expr e: mul(Expr multiplicand, Expr multiplier)) =
-  analyze(types, e, multiplicand, multiplier);
+  if(ltype notin types[getName(parent)]) {
+    return <err(), lm + {invalidTypeMessage(parent@location)}>;
+  }
   
-private tuple[Type, set[Message]] analyze(Types types, Expr e: div(Expr numerator, Expr denominator)) =
-  analyze(types, e, numerator, denominator);
+  return <ltype, lm>;
+}
 
-private tuple[Type, set[Message]] analyze(Types types, Expr e: add(Expr leftAddend, Expr rightAddend)) =
-  analyze(types, e, leftAddend, rightAddend);
 
-private tuple[Type, set[Message]] analyze(Types types, Expr e: sub(Expr minuend, Expr subtrahend)) =
-  analyze(types, e, minuend, subtrahend);
 
-private tuple[Type, set[Message]] analyze(Types types, Expr parent, Expr lhs, Expr rhs) {
+private tuple[Type, set[Message]] analyze(Types types, Expr e: lt(Expr left, Expr right)) =
+  analyzeComparison(types, e, left, right);
+
+private tuple[Type, set[Message]] analyze(Types types, Expr e: leq(Expr left, Expr right)) =
+  analyzeComparison(types, e, left, right);
+
+private tuple[Type, set[Message]] analyze(Types types, Expr e: gt(Expr left, Expr right)) =
+  analyzeComparison(types, e, left, right);
+
+private tuple[Type, set[Message]] analyze(Types types, Expr e: geq(Expr left, Expr right)) =
+  analyzeComparison(types, e, left, right);
+
+private tuple[Type, set[Message]] analyze(Types types, Expr e: eq(Expr left, Expr right)) =
+  analyzeComparison(types, e, left, right);
+
+private tuple[Type, set[Message]] analyze(Types types, Expr e: neq(Expr left, Expr right)) =
+  analyzeComparison(types, e, left, right);
+
+private tuple[Type, set[Message]] analyzeComparison(Types types, Expr parent, Expr lhs, Expr rhs) {
   <ltype, lm> = analyze(types, lhs);
   <rtype, rm> = analyze(types, rhs);
 
   if(ltype notin types[getName(parent)] && rtype notin types[getName(parent)]) {
-    return <i(), {invalidTypeMessage(parent@location)}>;
+    return <err(), lm + rm + {invalidTypeMessage(parent@location)}>;
+  }
+  
+  if(ltype == rtype)
+    return <b(), lm + rm>;
+    
+  if(ltype in {m(), i()} &&
+    rtype in {m(), i()}) 
+    return <b(), lm + rm>;
+
+  iprintln(ltype);    
+  return <err(), lm + rm>;
+}
+
+
+
+
+private tuple[Type, set[Message]] analyze(Types types, Expr e: and(Expr left, Expr right)) =
+  analyzeAndOr(types, e, left, right);
+
+private tuple[Type, set[Message]] analyze(Types types, Expr e: or(Expr left, Expr right)) =
+  analyzeAndOr(types, e, lef, right);
+
+private tuple[Type, set[Message]] analyzeAndOr(Types types, Expr parent, Expr lhs, Expr rhs) {
+  <ltype, lm> = analyze(types, lhs);
+  <rtype, rm> = analyze(types, rhs);
+
+  if(ltype notin types[getName(parent)] || rtype notin types[getName(parent)]) {
+    return <err(), lm + rm + {invalidTypeMessage(parent@location)}>;
+  } 
+  
+  if(ltype == b() && rtype == b())
+    return <b(), lm + rm>;
+  
+  return <err(), lm + rm>;
+}
+
+
+
+
+private tuple[Type, set[Message]] analyze(Types types, Expr e: mul(Expr multiplicand, Expr multiplier)) =
+  analyzeBinaryCalculation(types, e, multiplicand, multiplier);
+  
+private tuple[Type, set[Message]] analyze(Types types, Expr e: div(Expr numerator, Expr denominator)) =
+  analyzeBinaryCalculation(types, e, numerator, denominator);
+
+private tuple[Type, set[Message]] analyze(Types types, Expr e: add(Expr leftAddend, Expr rightAddend)) =
+  analyzeBinaryCalculation(types, e, leftAddend, rightAddend);
+
+private tuple[Type, set[Message]] analyze(Types types, Expr e: sub(Expr minuend, Expr subtrahend)) =
+  analyzeBinaryCalculation(types, e, minuend, subtrahend);
+
+private tuple[Type, set[Message]] analyzeBinaryCalculation(Types types, Expr parent, Expr lhs, Expr rhs) {
+  <ltype, lm> = analyze(types, lhs);
+  <rtype, rm> = analyze(types, rhs);
+
+  if(ltype notin types[getName(parent)] || rtype notin types[getName(parent)]) {
+    return <err(), lm + rm + {invalidTypeMessage(parent@location)}>;
   } 
   
   if(ltype == i() && rtype == i())
@@ -136,15 +184,16 @@ private tuple[Type, set[Message]] analyze(Types types, Expr parent, Expr lhs, Ex
   return <err(), lm + rm>;
 }
 
-// Base cases:
+
+
 private tuple[Type, set[Message]] analyze(Types types, Expr e: ident(str name)) {
   if(name notin types) {
     return <err(), {undeclaredIdentifierMessage(e@location)}>;
   } else {
+    println("IN");
     return <getOneFrom(types[name]), {}>;
   }
 }
 
-private tuple[Type, set[Message]] analyze(Types types, Expr e) {
-  return <getOneFrom(types[getName(e)]), {}>;
-}
+private tuple[Type, set[Message]] analyze(Types types, Expr e) =
+  <getOneFrom(types[getName(e)]), {}>;
