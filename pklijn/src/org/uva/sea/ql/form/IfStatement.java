@@ -64,13 +64,19 @@ public class IfStatement extends FormItem {
 	
 	protected Container getBodyFormContainer(List<FormItem> body) {
 		Container bodyContainer = new Container();
-		bodyContainer.setLayout(new MigLayout("ins 0, debug", "[para]15[][100lp, fill][60lp][95lp, fill]", ""));
+		bodyContainer.setLayout(new MigLayout("ins 0", "[para]15[][100lp, fill][60lp][95lp, fill]", ""));
 		for (FormItem f : body) {
 			for (FormElement fe : f.getFormComponents()) {
 				bodyContainer.add(fe.getFormComponent(), fe.getProperties());
 			}
 		}
 		return bodyContainer;
+		
+	}
+
+	@Override
+	public void eval(Env environment, Form form) {
+		// TODO Auto-generated method stub
 		
 	}
 }
