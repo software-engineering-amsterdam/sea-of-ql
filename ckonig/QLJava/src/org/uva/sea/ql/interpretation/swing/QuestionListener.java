@@ -1,4 +1,4 @@
-package org.uva.sea.ql.interpreter.swing;
+package org.uva.sea.ql.interpretation.swing;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;

@@ -1,4 +1,4 @@
-package org.uva.sea.ql.interpreter.swing;
+package org.uva.sea.ql.interpretation.swing;
 
 import org.uva.sea.ql.ast.bool.And;
 import org.uva.sea.ql.ast.bool.Eq;
@@ -15,7 +15,7 @@ import org.uva.sea.ql.ast.expressions.Expr;
 import org.uva.sea.ql.ast.expressions.UnaryExpr;
 import org.uva.sea.ql.ast.interfaces.ReturnsBoolOperands;
 import org.uva.sea.ql.ast.interfaces.ReturnsMathOperands;
-import org.uva.sea.ql.interpreter.exception.EvaluationException;
+import org.uva.sea.ql.interpretation.exception.EvaluationException;
 
 
 public class BoolEvaluator {

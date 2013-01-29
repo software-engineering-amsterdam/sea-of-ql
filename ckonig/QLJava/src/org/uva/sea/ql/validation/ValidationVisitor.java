@@ -12,9 +12,8 @@ import org.uva.sea.ql.ast.interfaces.AcceptsBothOperands;
 import org.uva.sea.ql.ast.interfaces.AcceptsMathOperands;
 import org.uva.sea.ql.ast.interfaces.ReturnsBoolOperands;
 import org.uva.sea.ql.ast.interfaces.ReturnsMathOperands;
-import org.uva.sea.ql.visitor.ASTVisitor;
-import org.uva.sea.ql.visitor.Registry;
-import org.uva.sea.ql.visitor.VisitorException;
+import org.uva.sea.ql.common.ASTVisitor;
+import org.uva.sea.ql.common.VisitorException;
 
 public class ValidationVisitor implements ASTVisitor {
 	private Registry registry;

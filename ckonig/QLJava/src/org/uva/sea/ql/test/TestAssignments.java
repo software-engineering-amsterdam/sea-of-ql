@@ -17,13 +17,12 @@ import org.uva.sea.ql.ast.types.BooleanType;
 import org.uva.sea.ql.ast.types.Money;
 import org.uva.sea.ql.ast.types.StrType;
 import org.uva.sea.ql.parser.ParseError;
-import org.uva.sea.ql.test.common.CurrentTest;
 
 public class TestAssignments extends TestExpressions {
 
 	@Test
 	public void testExampleFile() throws ParseError, IOException {
-		Expr e = CurrentTest.parseFile();
+		Expr e = parser.parseFile();
 		assertNotNull("result was null", e);
 		assertEquals(Form.class, e.getClass());
 		Form f = (Form) e;

@@ -5,14 +5,14 @@ import java.io.IOException;
 import org.uva.sea.ql.ast.elements.Form;
 import org.uva.sea.ql.ast.expressions.Expr;
 import org.uva.sea.ql.common.IOHelper;
+import org.uva.sea.ql.common.VisitorDocumentBuilder;
+import org.uva.sea.ql.common.VisitorException;
 import org.uva.sea.ql.generation.html.HTMLDocument;
 import org.uva.sea.ql.parser.IParse;
 import org.uva.sea.ql.parser.ParseError;
 import org.uva.sea.ql.parser.antlr.ANTLRParser;
 import org.uva.sea.ql.validation.AstValidationError;
 import org.uva.sea.ql.validation.Validator;
-import org.uva.sea.ql.visitor.VisitorDocumentBuilder;
-import org.uva.sea.ql.visitor.VisitorException;
 
 public class GenerationRunner {
 	private static final String OUT_PATH = "";

@@ -1,4 +1,4 @@
-package org.uva.sea.ql.interpreter.swing;
+package org.uva.sea.ql.interpretation.swing;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -10,8 +10,8 @@ import javax.swing.JTextField;
 
 import org.uva.sea.ql.ast.elements.Ident;
 import org.uva.sea.ql.ast.types.Money;
-import org.uva.sea.ql.interpreter.exception.EmptyInputException;
-import org.uva.sea.ql.interpreter.exception.EvaluationException;
+import org.uva.sea.ql.interpretation.exception.EmptyInputException;
+import org.uva.sea.ql.interpretation.exception.EvaluationException;
 
 
 public class AutoValueSetter {

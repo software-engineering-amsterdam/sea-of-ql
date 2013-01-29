@@ -13,9 +13,9 @@ import org.uva.sea.ql.ast.types.BooleanType;
 import org.uva.sea.ql.ast.types.Money;
 import org.uva.sea.ql.ast.types.StrType;
 import org.uva.sea.ql.ast.types.Type;
+import org.uva.sea.ql.common.QLDocument;
 import org.uva.sea.ql.generation.GeneratorException;
-import org.uva.sea.ql.visitor.QLDocument;
-import org.uva.sea.ql.visitor.Registry;
+import org.uva.sea.ql.validation.Registry;
 
 public class HTMLDocument implements QLDocument {
 	private Registry registry;

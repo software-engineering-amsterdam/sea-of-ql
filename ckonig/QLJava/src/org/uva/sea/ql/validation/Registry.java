@@ -1,4 +1,4 @@
-package org.uva.sea.ql.visitor;
+package org.uva.sea.ql.validation;
 
 import java.util.ArrayList;
 import java.util.List;

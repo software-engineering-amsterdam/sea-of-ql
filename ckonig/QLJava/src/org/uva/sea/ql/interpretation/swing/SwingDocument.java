@@ -1,4 +1,4 @@
-package org.uva.sea.ql.interpreter.swing;
+package org.uva.sea.ql.interpretation.swing;
 
 import java.util.List;
 import java.util.Stack;
@@ -9,7 +9,7 @@ import javax.swing.JPanel;
 import org.uva.sea.ql.ast.elements.Ident;
 import org.uva.sea.ql.ast.elements.IfStatement;
 import org.uva.sea.ql.ast.elements.Question;
-import org.uva.sea.ql.visitor.QLDocument;
+import org.uva.sea.ql.common.QLDocument;
 
 
 public class SwingDocument implements QLDocument {

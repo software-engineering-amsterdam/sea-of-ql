@@ -1,4 +1,4 @@
-package org.uva.sea.ql.interpreter.swing;
+package org.uva.sea.ql.interpretation.swing;
 
 import org.uva.sea.ql.ast.elements.Ident;
 import org.uva.sea.ql.ast.expressions.BinaryExpr;
@@ -12,8 +12,8 @@ import org.uva.sea.ql.ast.math.Mul;
 import org.uva.sea.ql.ast.math.Neg;
 import org.uva.sea.ql.ast.math.Pos;
 import org.uva.sea.ql.ast.math.Sub;
-import org.uva.sea.ql.interpreter.exception.EmptyInputException;
-import org.uva.sea.ql.interpreter.exception.EvaluationException;
+import org.uva.sea.ql.interpretation.exception.EmptyInputException;
+import org.uva.sea.ql.interpretation.exception.EvaluationException;
 
 
 public class MathEvaluator {

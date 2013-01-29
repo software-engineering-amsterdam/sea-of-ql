@@ -1,4 +1,4 @@
-package org.uva.sea.ql.visitor;
+package org.uva.sea.ql.common;
 
 public class VisitorException extends Exception {
 

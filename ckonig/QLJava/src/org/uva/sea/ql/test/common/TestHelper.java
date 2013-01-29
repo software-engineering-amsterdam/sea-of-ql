@@ -1,8 +1,6 @@
 package org.uva.sea.ql.test.common;
 
-import static org.junit.Assert.assertEquals;
-import junit.framework.Assert;
-
+import org.junit.Assert;
 import org.uva.sea.ql.ast.bool.And;
 import org.uva.sea.ql.ast.bool.Eq;
 import org.uva.sea.ql.ast.bool.GEq;
@@ -21,10 +19,18 @@ import org.uva.sea.ql.ast.math.Neg;
 import org.uva.sea.ql.ast.math.Sub;
 import org.uva.sea.ql.parser.ParseError;
 
-public class TestHelper {
+public abstract class TestHelper<T> {
 	protected Class<?> asClass;
 	protected String asString;
-	public TestHelper(Class<?> c){
+	protected TestParser parser;
+
+	public TestHelper(TestParser parser) {
+		this.parser = parser;
+	}
+
+	public abstract T setClass(Class<?> c);
+	
+	public void setClassAndString(Class<?> c) {
 		this.asClass = c;
 		if (c == Add.class) {
 			this.asString = Add.str;
@@ -72,18 +78,19 @@ public class TestHelper {
 			throw new RuntimeException("class not recognized");
 		}
 	}
+
 	protected void testBinary(Class<?> c, String in, Class<?> left,
 			Class<?> right) throws ParseError {
-		Expr e = CurrentTest.parse(in);
+		Expr e = parser.parse(in);
 		Assert.assertNotNull("result was null", e);
-		assertEquals(c, e.getClass());
+		Assert.assertEquals(c, e.getClass());
 		BinaryExpr b = (BinaryExpr) e;
 		Expr leftChild = b.getLeft();
 		Assert.assertNotNull("left child of binary expr was null", leftChild);
-		assertEquals(left,leftChild.getClass());
+		Assert.assertEquals(left, leftChild.getClass());
 		Expr rightChild = b.getRight();
 		Assert.assertNotNull("right child of binary expr was null", rightChild);
-		assertEquals(right, rightChild.getClass());
+		Assert.assertEquals(right, rightChild.getClass());
 	}
 
 }

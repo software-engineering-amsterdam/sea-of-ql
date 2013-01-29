@@ -1,4 +1,4 @@
-package org.uva.sea.ql.interpreter.exception;
+package org.uva.sea.ql.interpretation.exception;
 
 public class EmptyInputException extends EvaluationException {
 

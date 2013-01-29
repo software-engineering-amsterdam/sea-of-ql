@@ -1,4 +1,4 @@
-package org.uva.sea.ql.interpreter;
+package org.uva.sea.ql.interpretation;
 
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
@@ -15,17 +15,17 @@ import javax.swing.JPanel;
 import org.uva.sea.ql.ast.elements.Form;
 import org.uva.sea.ql.ast.expressions.Expr;
 import org.uva.sea.ql.common.IOHelper;
-import org.uva.sea.ql.interpreter.swing.QLFileFilter;
-import org.uva.sea.ql.interpreter.swing.SwingDocument;
+import org.uva.sea.ql.common.VisitorDocumentBuilder;
+import org.uva.sea.ql.common.VisitorException;
+import org.uva.sea.ql.interpretation.swing.QLFileFilter;
+import org.uva.sea.ql.interpretation.swing.SwingDocument;
 import org.uva.sea.ql.parser.IParse;
 import org.uva.sea.ql.parser.ParseError;
 import org.uva.sea.ql.parser.antlr.ANTLRParser;
 import org.uva.sea.ql.validation.AstValidationError;
 import org.uva.sea.ql.validation.Validator;
-import org.uva.sea.ql.visitor.VisitorDocumentBuilder;
-import org.uva.sea.ql.visitor.VisitorException;
 
-public class SwingRunner extends JFrame {
+public class InterpretationRunner extends JFrame {
 	private static final long serialVersionUID = -1942492887122279651L;
 	private JButton buttonFile;
 	private JLabel display;
@@ -38,10 +38,10 @@ public class SwingRunner extends JFrame {
 	private Expr ast;
 
 	public static void main(String[] args) {
-		new SwingRunner();
+		new InterpretationRunner();
 	}
 
-	public SwingRunner() {
+	public InterpretationRunner() {
 		super("QL Interpreter");
 		createComponents();
 		setLayout();
@@ -84,7 +84,7 @@ public class SwingRunner extends JFrame {
 
 	private void openFile() {
 		error.setText("");
-		int returnVal = fileChooser.showOpenDialog(SwingRunner.this);
+		int returnVal = fileChooser.showOpenDialog(InterpretationRunner.this);
 		if (returnVal == JFileChooser.APPROVE_OPTION) {
 			File file = fileChooser.getSelectedFile();
 			try {
