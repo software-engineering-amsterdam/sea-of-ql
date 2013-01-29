@@ -6,8 +6,6 @@ import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
 
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
@@ -15,19 +13,9 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 
-import org.uva.sea.ql.ast.elements.Form;
 import org.uva.sea.ql.ast.expressions.Expr;
-import org.uva.sea.ql.common.IOHelper;
-import org.uva.sea.ql.common.VisitorDocumentBuilder;
-import org.uva.sea.ql.common.VisitorException;
-import org.uva.sea.ql.generation.html.HTMLDocument;
 import org.uva.sea.ql.interpretation.swing.QLFileFilter;
-import org.uva.sea.ql.interpretation.swing.SwingDocument;
-import org.uva.sea.ql.parser.IParse;
-import org.uva.sea.ql.parser.ParseError;
-import org.uva.sea.ql.parser.antlr.ANTLRParser;
-import org.uva.sea.ql.validation.AstValidationError;
-import org.uva.sea.ql.validation.Validator;
+import org.uva.sea.ql.interpretation.swing.SwingHelper;
 
 public class InterpretationRunner extends JFrame {
 	private static final long serialVersionUID = -1942492887122279651L;
@@ -39,8 +27,8 @@ public class InterpretationRunner extends JFrame {
 	private JPanel bottomPanel;
 	private JPanel centerPanel;
 	private JTextArea log;
-	private String fileContent;
 	private Expr ast;
+	private SwingHelper helper;
 
 	public static void main(String[] args) {
 		new InterpretationRunner();
@@ -102,6 +90,7 @@ public class InterpretationRunner extends JFrame {
 	}
 
 	private void addOpenFileListener(JButton b) {
+		
 		b.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent ae) {
 				openFile();
@@ -114,97 +103,20 @@ public class InterpretationRunner extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				generateHtml();
+				generate();
 			}
 		});
 	}
-
+	private void generate(){
+		helper.generateHtml();
+	}
 	private void openFile() {
 		int returnVal = fileChooser.showOpenDialog(InterpretationRunner.this);
 		if (returnVal == JFileChooser.APPROVE_OPTION) {
 			File file = fileChooser.getSelectedFile();
-			try {
-				fileContent = IOHelper.read(file);
-				log.append("file opened\n");
-				parseFile();
-			} catch (IOException ex) {
-				log.setCaretColor(Color.red);
-				log.append("error reading file");
-			}
+			helper = new SwingHelper(ast, log, buttonGenerate, centerPanel);
+			helper.openFile(file);
 
 		}
-	}
-
-	private void parseFile() {
-		if (fileContent != null) {
-			IParse p = new ANTLRParser();
-			try {
-				ast = p.parseDefaultFile();
-				log.append("File parsed\n");
-				validateAst();
-			} catch (ParseError e) {
-				log.append(e.getMessage());
-			}
-		}
-	}
-
-	private void validateAst() {
-		Validator v = new Validator();
-		try {
-			v.validate(ast);
-			log.append("AST validated\n");
-			interpretAst();
-			buttonGenerate.setEnabled(true);
-		} catch (AstValidationError ex) {
-			log.setCaretColor(Color.red);
-			log.append(ex.getMessage() + "\n");
-		} catch (IOException e1) {
-			log.setCaretColor(Color.red);
-			log.append(e1.getMessage() + "\n");
-		}
-	}
-
-	private void interpretAst() {
-		VisitorDocumentBuilder visitor = new VisitorDocumentBuilder(
-				new SwingDocument());
-		if (ast != null && ast instanceof Form) {
-			try {
-				((Form) ast).accept(visitor);
-				JPanel result = (JPanel) visitor.getOutput();
-				centerPanel.add(result);
-				result.setVisible(true);
-				centerPanel.repaint();
-				log.append("interpretation finished\n");
-			} catch (VisitorException ex) {
-				log.setCaretColor(Color.red);
-				log.append(ex.getMessage() + "\n");
-			}
-
-		} else {
-			log.append("AST INVALID\n");
-		}
-	}
-
-	private void generateHtml() {
-
-		if (ast != null && ast instanceof Form) {
-			try {
-				VisitorDocumentBuilder visitor = new VisitorDocumentBuilder(
-						new HTMLDocument());
-				Form f = (Form) ast;
-				f.accept(visitor);
-				String output = (String) visitor.getOutput();
-				IOHelper.write(IOHelper.OUT_PATH + f.getName() + ".html",
-						output);
-				log.append(IOHelper.OUT_PATH + f.getName() + " created\n");
-			} catch (VisitorException ex) {
-				log.append(ex.getMessage());
-			} catch (FileNotFoundException ex) {
-				log.append(ex.getMessage());
-			}
-		} else {
-			log.append("invalid AST\n");
-		}
-
-	}
+	}	
 }
