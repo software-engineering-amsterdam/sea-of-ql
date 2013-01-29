@@ -1,10 +1,8 @@
 module lang::ql::analysis::TypeMap
 
+import lang::ql::analysis::State;
 import lang::ql::ast::AST;
 import util::IDE;
-
-public alias TypeMap = map[IdentDefinition ident, Type \type];
-public alias TypeMapMessages = tuple[TypeMap \map, set[Message] messages];
 
 private Message alreadyDeclaredMessage(loc \loc) 
   = error("Identifier is already declared.", \loc);

@@ -31,6 +31,7 @@ data Type
   | moneyType(str name)
   | dateType(str name)
   | stringType(str name)
+  | invalidType(str name)
   ;
 
 data IdentDefinition
