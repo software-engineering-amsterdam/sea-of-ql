@@ -1,4 +1,4 @@
-// $ANTLR 3.5 C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g 2013-01-26 22:33:40
+// $ANTLR 3.5 C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g 2013-01-29 14:21:24
 
   package org.uva.sea.ql.parser;
   import org.uva.sea.ql.ast.*;
@@ -87,7 +87,7 @@ public class QLParser extends Parser {
 
 
 	// $ANTLR start "form"
-	// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:27:1: form returns [Form result] : ( 'form' Ident statements= block )+ ;
+	// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:27:1: form returns [Form result] : ( 'form' Ident statements= block )+ EOF ;
 	public final Form form() throws RecognitionException {
 		Form result = null;
 
@@ -99,8 +99,8 @@ public class QLParser extends Parser {
 		try {
 			if ( state.backtracking>0 && alreadyParsedRule(input, 1) ) { return result; }
 
-			// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:28:3: ( ( 'form' Ident statements= block )+ )
-			// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:28:5: ( 'form' Ident statements= block )+
+			// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:28:3: ( ( 'form' Ident statements= block )+ EOF )
+			// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:28:5: ( 'form' Ident statements= block )+ EOF
 			{
 			// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:28:5: ( 'form' Ident statements= block )+
 			int cnt1=0;
@@ -137,6 +137,7 @@ public class QLParser extends Parser {
 				cnt1++;
 			}
 
+			match(input,EOF,FOLLOW_EOF_in_form72); if (state.failed) return result;
 			}
 
 		}
@@ -173,7 +174,7 @@ public class QLParser extends Parser {
 			// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:39:3: ( '{' (stmt= statement )* '}' )
 			// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:39:5: '{' (stmt= statement )* '}'
 			{
-			match(input,35,FOLLOW_35_in_block98); if (state.failed) return result;
+			match(input,35,FOLLOW_35_in_block100); if (state.failed) return result;
 			// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:39:9: (stmt= statement )*
 			loop2:
 			while (true) {
@@ -187,7 +188,7 @@ public class QLParser extends Parser {
 				case 1 :
 					// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:39:11: stmt= statement
 					{
-					pushFollow(FOLLOW_statement_in_block104);
+					pushFollow(FOLLOW_statement_in_block106);
 					stmt=statement();
 					state._fsp--;
 					if (state.failed) return result;
@@ -200,7 +201,7 @@ public class QLParser extends Parser {
 				}
 			}
 
-			match(input,37,FOLLOW_37_in_block111); if (state.failed) return result;
+			match(input,37,FOLLOW_37_in_block113); if (state.failed) return result;
 			}
 
 		}
@@ -253,7 +254,7 @@ public class QLParser extends Parser {
 				case 1 :
 					// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:43:5: q= question
 					{
-					pushFollow(FOLLOW_question_in_statement132);
+					pushFollow(FOLLOW_question_in_statement134);
 					q=question();
 					state._fsp--;
 					if (state.failed) return result;
@@ -263,7 +264,7 @@ public class QLParser extends Parser {
 				case 2 :
 					// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:44:5: i= ifStatement
 					{
-					pushFollow(FOLLOW_ifStatement_in_statement145);
+					pushFollow(FOLLOW_ifStatement_in_statement147);
 					i=ifStatement();
 					state._fsp--;
 					if (state.failed) return result;
@@ -305,14 +306,14 @@ public class QLParser extends Parser {
 			// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:48:3: ( If '(' condition= orExpr ')' ifBlock= block ( ( Else )=> Else elseBlock= block | () ) )
 			// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:48:5: If '(' condition= orExpr ')' ifBlock= block ( ( Else )=> Else elseBlock= block | () )
 			{
-			match(input,If,FOLLOW_If_in_ifStatement166); if (state.failed) return result;
-			match(input,18,FOLLOW_18_in_ifStatement168); if (state.failed) return result;
-			pushFollow(FOLLOW_orExpr_in_ifStatement172);
+			match(input,If,FOLLOW_If_in_ifStatement168); if (state.failed) return result;
+			match(input,18,FOLLOW_18_in_ifStatement170); if (state.failed) return result;
+			pushFollow(FOLLOW_orExpr_in_ifStatement174);
 			condition=orExpr();
 			state._fsp--;
 			if (state.failed) return result;
-			match(input,19,FOLLOW_19_in_ifStatement174); if (state.failed) return result;
-			pushFollow(FOLLOW_block_in_ifStatement178);
+			match(input,19,FOLLOW_19_in_ifStatement176); if (state.failed) return result;
+			pushFollow(FOLLOW_block_in_ifStatement180);
 			ifBlock=block();
 			state._fsp--;
 			if (state.failed) return result;
@@ -337,8 +338,8 @@ public class QLParser extends Parser {
 				case 1 :
 					// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:49:7: ( Else )=> Else elseBlock= block
 					{
-					match(input,Else,FOLLOW_Else_in_ifStatement191); if (state.failed) return result;
-					pushFollow(FOLLOW_block_in_ifStatement195);
+					match(input,Else,FOLLOW_Else_in_ifStatement193); if (state.failed) return result;
+					pushFollow(FOLLOW_block_in_ifStatement197);
 					elseBlock=block();
 					state._fsp--;
 					if (state.failed) return result;
@@ -548,10 +549,10 @@ public class QLParser extends Parser {
 				case 1 :
 					// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:62:5: Ident ':' String tp= type ( ';' )?
 					{
-					Ident2=(Token)match(input,Ident,FOLLOW_Ident_in_question237); if (state.failed) return result;
-					match(input,24,FOLLOW_24_in_question239); if (state.failed) return result;
-					String3=(Token)match(input,String,FOLLOW_String_in_question241); if (state.failed) return result;
-					pushFollow(FOLLOW_type_in_question245);
+					Ident2=(Token)match(input,Ident,FOLLOW_Ident_in_question239); if (state.failed) return result;
+					match(input,24,FOLLOW_24_in_question241); if (state.failed) return result;
+					String3=(Token)match(input,String,FOLLOW_String_in_question243); if (state.failed) return result;
+					pushFollow(FOLLOW_type_in_question247);
 					tp=type();
 					state._fsp--;
 					if (state.failed) return result;
@@ -565,7 +566,7 @@ public class QLParser extends Parser {
 						case 1 :
 							// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:62:31: ';'
 							{
-							match(input,25,FOLLOW_25_in_question248); if (state.failed) return result;
+							match(input,25,FOLLOW_25_in_question250); if (state.failed) return result;
 							}
 							break;
 
@@ -579,14 +580,14 @@ public class QLParser extends Parser {
 				case 2 :
 					// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:66:5: Ident ':' String tp= type cp= computation ( ';' )?
 					{
-					Ident4=(Token)match(input,Ident,FOLLOW_Ident_in_question260); if (state.failed) return result;
-					match(input,24,FOLLOW_24_in_question262); if (state.failed) return result;
-					String5=(Token)match(input,String,FOLLOW_String_in_question264); if (state.failed) return result;
-					pushFollow(FOLLOW_type_in_question268);
+					Ident4=(Token)match(input,Ident,FOLLOW_Ident_in_question262); if (state.failed) return result;
+					match(input,24,FOLLOW_24_in_question264); if (state.failed) return result;
+					String5=(Token)match(input,String,FOLLOW_String_in_question266); if (state.failed) return result;
+					pushFollow(FOLLOW_type_in_question270);
 					tp=type();
 					state._fsp--;
 					if (state.failed) return result;
-					pushFollow(FOLLOW_computation_in_question272);
+					pushFollow(FOLLOW_computation_in_question274);
 					cp=computation();
 					state._fsp--;
 					if (state.failed) return result;
@@ -600,7 +601,7 @@ public class QLParser extends Parser {
 						case 1 :
 							// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:66:46: ';'
 							{
-							match(input,25,FOLLOW_25_in_question275); if (state.failed) return result;
+							match(input,25,FOLLOW_25_in_question277); if (state.failed) return result;
 							}
 							break;
 
@@ -667,21 +668,21 @@ public class QLParser extends Parser {
 				case 1 :
 					// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:73:5: 'string'
 					{
-					match(input,34,FOLLOW_34_in_type298); if (state.failed) return result;
+					match(input,34,FOLLOW_34_in_type300); if (state.failed) return result;
 					if ( state.backtracking==0 ) { result = new StringType(); }
 					}
 					break;
 				case 2 :
 					// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:74:5: 'boolean'
 					{
-					match(input,31,FOLLOW_31_in_type308); if (state.failed) return result;
+					match(input,31,FOLLOW_31_in_type310); if (state.failed) return result;
 					if ( state.backtracking==0 ) { result = new BooleanType(); }
 					}
 					break;
 				case 3 :
 					// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:75:5: 'integer'
 					{
-					match(input,33,FOLLOW_33_in_type316); if (state.failed) return result;
+					match(input,33,FOLLOW_33_in_type318); if (state.failed) return result;
 					if ( state.backtracking==0 ) { result = new IntegerType(); }
 					}
 					break;
@@ -718,12 +719,12 @@ public class QLParser extends Parser {
 			// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:79:3: ( '(' expr= orExpr ')' )
 			// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:79:5: '(' expr= orExpr ')'
 			{
-			match(input,18,FOLLOW_18_in_computation337); if (state.failed) return result;
-			pushFollow(FOLLOW_orExpr_in_computation341);
+			match(input,18,FOLLOW_18_in_computation339); if (state.failed) return result;
+			pushFollow(FOLLOW_orExpr_in_computation343);
 			expr=orExpr();
 			state._fsp--;
 			if (state.failed) return result;
-			match(input,19,FOLLOW_19_in_computation343); if (state.failed) return result;
+			match(input,19,FOLLOW_19_in_computation345); if (state.failed) return result;
 			if ( state.backtracking==0 ) { result = expr; }
 			}
 
@@ -797,40 +798,40 @@ public class QLParser extends Parser {
 				case 1 :
 					// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:83:5: Int
 					{
-					Int6=(Token)match(input,Int,FOLLOW_Int_in_primary362); if (state.failed) return result;
+					Int6=(Token)match(input,Int,FOLLOW_Int_in_primary364); if (state.failed) return result;
 					if ( state.backtracking==0 ) { result = new Int(Integer.parseInt((Int6!=null?Int6.getText():null))); }
 					}
 					break;
 				case 2 :
 					// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:84:5: Ident
 					{
-					Ident7=(Token)match(input,Ident,FOLLOW_Ident_in_primary374); if (state.failed) return result;
+					Ident7=(Token)match(input,Ident,FOLLOW_Ident_in_primary376); if (state.failed) return result;
 					if ( state.backtracking==0 ) { result = new Ident((Ident7!=null?Ident7.getText():null)); }
 					}
 					break;
 				case 3 :
 					// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:85:5: Bool
 					{
-					Bool8=(Token)match(input,Bool,FOLLOW_Bool_in_primary384); if (state.failed) return result;
+					Bool8=(Token)match(input,Bool,FOLLOW_Bool_in_primary386); if (state.failed) return result;
 					if ( state.backtracking==0 ) { result = new Bool(Boolean.parseBoolean((Bool8!=null?Bool8.getText():null))); }
 					}
 					break;
 				case 4 :
 					// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:86:5: String
 					{
-					String9=(Token)match(input,String,FOLLOW_String_in_primary395); if (state.failed) return result;
+					String9=(Token)match(input,String,FOLLOW_String_in_primary397); if (state.failed) return result;
 					if ( state.backtracking==0 ) { result = new StringLiteral((String9!=null?String9.getText():null)); }
 					}
 					break;
 				case 5 :
 					// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:87:5: '(' x= orExpr ')'
 					{
-					match(input,18,FOLLOW_18_in_primary404); if (state.failed) return result;
-					pushFollow(FOLLOW_orExpr_in_primary408);
+					match(input,18,FOLLOW_18_in_primary406); if (state.failed) return result;
+					pushFollow(FOLLOW_orExpr_in_primary410);
 					x=orExpr();
 					state._fsp--;
 					if (state.failed) return result;
-					match(input,19,FOLLOW_19_in_primary410); if (state.failed) return result;
+					match(input,19,FOLLOW_19_in_primary412); if (state.failed) return result;
 					if ( state.backtracking==0 ) { result = x; }
 					}
 					break;
@@ -901,8 +902,8 @@ public class QLParser extends Parser {
 				case 1 :
 					// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:91:6: '+' x= unExpr
 					{
-					match(input,21,FOLLOW_21_in_unExpr434); if (state.failed) return result;
-					pushFollow(FOLLOW_unExpr_in_unExpr438);
+					match(input,21,FOLLOW_21_in_unExpr436); if (state.failed) return result;
+					pushFollow(FOLLOW_unExpr_in_unExpr440);
 					x=unExpr();
 					state._fsp--;
 					if (state.failed) return result;
@@ -912,8 +913,8 @@ public class QLParser extends Parser {
 				case 2 :
 					// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:92:6: '-' x= unExpr
 					{
-					match(input,22,FOLLOW_22_in_unExpr447); if (state.failed) return result;
-					pushFollow(FOLLOW_unExpr_in_unExpr451);
+					match(input,22,FOLLOW_22_in_unExpr449); if (state.failed) return result;
+					pushFollow(FOLLOW_unExpr_in_unExpr453);
 					x=unExpr();
 					state._fsp--;
 					if (state.failed) return result;
@@ -923,8 +924,8 @@ public class QLParser extends Parser {
 				case 3 :
 					// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:93:6: '!' x= unExpr
 					{
-					match(input,15,FOLLOW_15_in_unExpr460); if (state.failed) return result;
-					pushFollow(FOLLOW_unExpr_in_unExpr464);
+					match(input,15,FOLLOW_15_in_unExpr462); if (state.failed) return result;
+					pushFollow(FOLLOW_unExpr_in_unExpr466);
 					x=unExpr();
 					state._fsp--;
 					if (state.failed) return result;
@@ -934,7 +935,7 @@ public class QLParser extends Parser {
 				case 4 :
 					// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:94:6: x= primary
 					{
-					pushFollow(FOLLOW_primary_in_unExpr475);
+					pushFollow(FOLLOW_primary_in_unExpr477);
 					x=primary();
 					state._fsp--;
 					if (state.failed) return result;
@@ -976,7 +977,7 @@ public class QLParser extends Parser {
 			// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:98:3: (lhs= unExpr (op= ( '*' | '/' ) rhs= unExpr )* )
 			// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:98:7: lhs= unExpr (op= ( '*' | '/' ) rhs= unExpr )*
 			{
-			pushFollow(FOLLOW_unExpr_in_mulExpr509);
+			pushFollow(FOLLOW_unExpr_in_mulExpr511);
 			lhs=unExpr();
 			state._fsp--;
 			if (state.failed) return result;
@@ -1005,7 +1006,7 @@ public class QLParser extends Parser {
 						MismatchedSetException mse = new MismatchedSetException(null,input);
 						throw mse;
 					}
-					pushFollow(FOLLOW_unExpr_in_mulExpr529);
+					pushFollow(FOLLOW_unExpr_in_mulExpr531);
 					rhs=unExpr();
 					state._fsp--;
 					if (state.failed) return result;
@@ -1060,7 +1061,7 @@ public class QLParser extends Parser {
 			// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:111:3: (lhs= mulExpr (op= ( '+' | '-' ) rhs= mulExpr )* )
 			// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:111:7: lhs= mulExpr (op= ( '+' | '-' ) rhs= mulExpr )*
 			{
-			pushFollow(FOLLOW_mulExpr_in_addExpr564);
+			pushFollow(FOLLOW_mulExpr_in_addExpr566);
 			lhs=mulExpr();
 			state._fsp--;
 			if (state.failed) return result;
@@ -1089,7 +1090,7 @@ public class QLParser extends Parser {
 						MismatchedSetException mse = new MismatchedSetException(null,input);
 						throw mse;
 					}
-					pushFollow(FOLLOW_mulExpr_in_addExpr582);
+					pushFollow(FOLLOW_mulExpr_in_addExpr584);
 					rhs=mulExpr();
 					state._fsp--;
 					if (state.failed) return result;
@@ -1144,7 +1145,7 @@ public class QLParser extends Parser {
 			// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:123:3: (lhs= addExpr (op= ( '<' | '<=' | '>' | '>=' | '==' | '!=' ) rhs= addExpr )* )
 			// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:123:7: lhs= addExpr (op= ( '<' | '<=' | '>' | '>=' | '==' | '!=' ) rhs= addExpr )*
 			{
-			pushFollow(FOLLOW_addExpr_in_relExpr612);
+			pushFollow(FOLLOW_addExpr_in_relExpr614);
 			lhs=addExpr();
 			state._fsp--;
 			if (state.failed) return result;
@@ -1173,7 +1174,7 @@ public class QLParser extends Parser {
 						MismatchedSetException mse = new MismatchedSetException(null,input);
 						throw mse;
 					}
-					pushFollow(FOLLOW_addExpr_in_relExpr636);
+					pushFollow(FOLLOW_addExpr_in_relExpr638);
 					rhs=addExpr();
 					state._fsp--;
 					if (state.failed) return result;
@@ -1239,7 +1240,7 @@ public class QLParser extends Parser {
 			// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:147:3: (lhs= relExpr ( '&&' rhs= relExpr )* )
 			// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:147:7: lhs= relExpr ( '&&' rhs= relExpr )*
 			{
-			pushFollow(FOLLOW_relExpr_in_andExpr668);
+			pushFollow(FOLLOW_relExpr_in_andExpr670);
 			lhs=relExpr();
 			state._fsp--;
 			if (state.failed) return result;
@@ -1257,8 +1258,8 @@ public class QLParser extends Parser {
 				case 1 :
 					// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:147:46: '&&' rhs= relExpr
 					{
-					match(input,17,FOLLOW_17_in_andExpr674); if (state.failed) return result;
-					pushFollow(FOLLOW_relExpr_in_andExpr678);
+					match(input,17,FOLLOW_17_in_andExpr676); if (state.failed) return result;
+					pushFollow(FOLLOW_relExpr_in_andExpr680);
 					rhs=relExpr();
 					state._fsp--;
 					if (state.failed) return result;
@@ -1305,7 +1306,7 @@ public class QLParser extends Parser {
 			// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:152:3: (lhs= andExpr ( '||' rhs= andExpr )* )
 			// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:152:7: lhs= andExpr ( '||' rhs= andExpr )*
 			{
-			pushFollow(FOLLOW_andExpr_in_orExpr709);
+			pushFollow(FOLLOW_andExpr_in_orExpr711);
 			lhs=andExpr();
 			state._fsp--;
 			if (state.failed) return result;
@@ -1323,8 +1324,8 @@ public class QLParser extends Parser {
 				case 1 :
 					// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:152:48: '||' rhs= andExpr
 					{
-					match(input,36,FOLLOW_36_in_orExpr715); if (state.failed) return result;
-					pushFollow(FOLLOW_andExpr_in_orExpr719);
+					match(input,36,FOLLOW_36_in_orExpr717); if (state.failed) return result;
+					pushFollow(FOLLOW_andExpr_in_orExpr721);
 					rhs=andExpr();
 					state._fsp--;
 					if (state.failed) return result;
@@ -1358,7 +1359,7 @@ public class QLParser extends Parser {
 		// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:49:7: ( Else )
 		// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:49:8: Else
 		{
-		match(input,Else,FOLLOW_Else_in_synpred4_QL187); if (state.failed) return;
+		match(input,Else,FOLLOW_Else_in_synpred4_QL189); if (state.failed) return;
 		}
 
 	}
@@ -1385,64 +1386,65 @@ public class QLParser extends Parser {
 
 	public static final BitSet FOLLOW_32_in_form57 = new BitSet(new long[]{0x0000000000000080L});
 	public static final BitSet FOLLOW_Ident_in_form59 = new BitSet(new long[]{0x0000000800000000L});
-	public static final BitSet FOLLOW_block_in_form63 = new BitSet(new long[]{0x0000000100000002L});
-	public static final BitSet FOLLOW_35_in_block98 = new BitSet(new long[]{0x0000002000000180L});
-	public static final BitSet FOLLOW_statement_in_block104 = new BitSet(new long[]{0x0000002000000180L});
-	public static final BitSet FOLLOW_37_in_block111 = new BitSet(new long[]{0x0000000000000002L});
-	public static final BitSet FOLLOW_question_in_statement132 = new BitSet(new long[]{0x0000000000000002L});
-	public static final BitSet FOLLOW_ifStatement_in_statement145 = new BitSet(new long[]{0x0000000000000002L});
-	public static final BitSet FOLLOW_If_in_ifStatement166 = new BitSet(new long[]{0x0000000000040000L});
-	public static final BitSet FOLLOW_18_in_ifStatement168 = new BitSet(new long[]{0x000000000064A290L});
-	public static final BitSet FOLLOW_orExpr_in_ifStatement172 = new BitSet(new long[]{0x0000000000080000L});
-	public static final BitSet FOLLOW_19_in_ifStatement174 = new BitSet(new long[]{0x0000000800000000L});
-	public static final BitSet FOLLOW_block_in_ifStatement178 = new BitSet(new long[]{0x0000000000000042L});
-	public static final BitSet FOLLOW_Else_in_ifStatement191 = new BitSet(new long[]{0x0000000800000000L});
-	public static final BitSet FOLLOW_block_in_ifStatement195 = new BitSet(new long[]{0x0000000000000002L});
-	public static final BitSet FOLLOW_Ident_in_question237 = new BitSet(new long[]{0x0000000001000000L});
-	public static final BitSet FOLLOW_24_in_question239 = new BitSet(new long[]{0x0000000000002000L});
-	public static final BitSet FOLLOW_String_in_question241 = new BitSet(new long[]{0x0000000680000000L});
-	public static final BitSet FOLLOW_type_in_question245 = new BitSet(new long[]{0x0000000002000002L});
-	public static final BitSet FOLLOW_25_in_question248 = new BitSet(new long[]{0x0000000000000002L});
-	public static final BitSet FOLLOW_Ident_in_question260 = new BitSet(new long[]{0x0000000001000000L});
-	public static final BitSet FOLLOW_24_in_question262 = new BitSet(new long[]{0x0000000000002000L});
-	public static final BitSet FOLLOW_String_in_question264 = new BitSet(new long[]{0x0000000680000000L});
-	public static final BitSet FOLLOW_type_in_question268 = new BitSet(new long[]{0x0000000000040000L});
-	public static final BitSet FOLLOW_computation_in_question272 = new BitSet(new long[]{0x0000000002000002L});
-	public static final BitSet FOLLOW_25_in_question275 = new BitSet(new long[]{0x0000000000000002L});
-	public static final BitSet FOLLOW_34_in_type298 = new BitSet(new long[]{0x0000000000000002L});
-	public static final BitSet FOLLOW_31_in_type308 = new BitSet(new long[]{0x0000000000000002L});
-	public static final BitSet FOLLOW_33_in_type316 = new BitSet(new long[]{0x0000000000000002L});
-	public static final BitSet FOLLOW_18_in_computation337 = new BitSet(new long[]{0x000000000064A290L});
-	public static final BitSet FOLLOW_orExpr_in_computation341 = new BitSet(new long[]{0x0000000000080000L});
-	public static final BitSet FOLLOW_19_in_computation343 = new BitSet(new long[]{0x0000000000000002L});
-	public static final BitSet FOLLOW_Int_in_primary362 = new BitSet(new long[]{0x0000000000000002L});
-	public static final BitSet FOLLOW_Ident_in_primary374 = new BitSet(new long[]{0x0000000000000002L});
-	public static final BitSet FOLLOW_Bool_in_primary384 = new BitSet(new long[]{0x0000000000000002L});
-	public static final BitSet FOLLOW_String_in_primary395 = new BitSet(new long[]{0x0000000000000002L});
-	public static final BitSet FOLLOW_18_in_primary404 = new BitSet(new long[]{0x000000000064A290L});
-	public static final BitSet FOLLOW_orExpr_in_primary408 = new BitSet(new long[]{0x0000000000080000L});
-	public static final BitSet FOLLOW_19_in_primary410 = new BitSet(new long[]{0x0000000000000002L});
-	public static final BitSet FOLLOW_21_in_unExpr434 = new BitSet(new long[]{0x000000000064A290L});
-	public static final BitSet FOLLOW_unExpr_in_unExpr438 = new BitSet(new long[]{0x0000000000000002L});
-	public static final BitSet FOLLOW_22_in_unExpr447 = new BitSet(new long[]{0x000000000064A290L});
-	public static final BitSet FOLLOW_unExpr_in_unExpr451 = new BitSet(new long[]{0x0000000000000002L});
-	public static final BitSet FOLLOW_15_in_unExpr460 = new BitSet(new long[]{0x000000000064A290L});
-	public static final BitSet FOLLOW_unExpr_in_unExpr464 = new BitSet(new long[]{0x0000000000000002L});
-	public static final BitSet FOLLOW_primary_in_unExpr475 = new BitSet(new long[]{0x0000000000000002L});
-	public static final BitSet FOLLOW_unExpr_in_mulExpr509 = new BitSet(new long[]{0x0000000000900002L});
-	public static final BitSet FOLLOW_set_in_mulExpr517 = new BitSet(new long[]{0x000000000064A290L});
-	public static final BitSet FOLLOW_unExpr_in_mulExpr529 = new BitSet(new long[]{0x0000000000900002L});
-	public static final BitSet FOLLOW_mulExpr_in_addExpr564 = new BitSet(new long[]{0x0000000000600002L});
-	public static final BitSet FOLLOW_set_in_addExpr572 = new BitSet(new long[]{0x000000000064A290L});
-	public static final BitSet FOLLOW_mulExpr_in_addExpr582 = new BitSet(new long[]{0x0000000000600002L});
-	public static final BitSet FOLLOW_addExpr_in_relExpr612 = new BitSet(new long[]{0x000000007C010002L});
-	public static final BitSet FOLLOW_set_in_relExpr620 = new BitSet(new long[]{0x000000000064A290L});
-	public static final BitSet FOLLOW_addExpr_in_relExpr636 = new BitSet(new long[]{0x000000007C010002L});
-	public static final BitSet FOLLOW_relExpr_in_andExpr668 = new BitSet(new long[]{0x0000000000020002L});
-	public static final BitSet FOLLOW_17_in_andExpr674 = new BitSet(new long[]{0x000000000064A290L});
-	public static final BitSet FOLLOW_relExpr_in_andExpr678 = new BitSet(new long[]{0x0000000000020002L});
-	public static final BitSet FOLLOW_andExpr_in_orExpr709 = new BitSet(new long[]{0x0000001000000002L});
-	public static final BitSet FOLLOW_36_in_orExpr715 = new BitSet(new long[]{0x000000000064A290L});
-	public static final BitSet FOLLOW_andExpr_in_orExpr719 = new BitSet(new long[]{0x0000001000000002L});
-	public static final BitSet FOLLOW_Else_in_synpred4_QL187 = new BitSet(new long[]{0x0000000000000002L});
+	public static final BitSet FOLLOW_block_in_form63 = new BitSet(new long[]{0x0000000100000000L});
+	public static final BitSet FOLLOW_EOF_in_form72 = new BitSet(new long[]{0x0000000000000002L});
+	public static final BitSet FOLLOW_35_in_block100 = new BitSet(new long[]{0x0000002000000180L});
+	public static final BitSet FOLLOW_statement_in_block106 = new BitSet(new long[]{0x0000002000000180L});
+	public static final BitSet FOLLOW_37_in_block113 = new BitSet(new long[]{0x0000000000000002L});
+	public static final BitSet FOLLOW_question_in_statement134 = new BitSet(new long[]{0x0000000000000002L});
+	public static final BitSet FOLLOW_ifStatement_in_statement147 = new BitSet(new long[]{0x0000000000000002L});
+	public static final BitSet FOLLOW_If_in_ifStatement168 = new BitSet(new long[]{0x0000000000040000L});
+	public static final BitSet FOLLOW_18_in_ifStatement170 = new BitSet(new long[]{0x000000000064A290L});
+	public static final BitSet FOLLOW_orExpr_in_ifStatement174 = new BitSet(new long[]{0x0000000000080000L});
+	public static final BitSet FOLLOW_19_in_ifStatement176 = new BitSet(new long[]{0x0000000800000000L});
+	public static final BitSet FOLLOW_block_in_ifStatement180 = new BitSet(new long[]{0x0000000000000042L});
+	public static final BitSet FOLLOW_Else_in_ifStatement193 = new BitSet(new long[]{0x0000000800000000L});
+	public static final BitSet FOLLOW_block_in_ifStatement197 = new BitSet(new long[]{0x0000000000000002L});
+	public static final BitSet FOLLOW_Ident_in_question239 = new BitSet(new long[]{0x0000000001000000L});
+	public static final BitSet FOLLOW_24_in_question241 = new BitSet(new long[]{0x0000000000002000L});
+	public static final BitSet FOLLOW_String_in_question243 = new BitSet(new long[]{0x0000000680000000L});
+	public static final BitSet FOLLOW_type_in_question247 = new BitSet(new long[]{0x0000000002000002L});
+	public static final BitSet FOLLOW_25_in_question250 = new BitSet(new long[]{0x0000000000000002L});
+	public static final BitSet FOLLOW_Ident_in_question262 = new BitSet(new long[]{0x0000000001000000L});
+	public static final BitSet FOLLOW_24_in_question264 = new BitSet(new long[]{0x0000000000002000L});
+	public static final BitSet FOLLOW_String_in_question266 = new BitSet(new long[]{0x0000000680000000L});
+	public static final BitSet FOLLOW_type_in_question270 = new BitSet(new long[]{0x0000000000040000L});
+	public static final BitSet FOLLOW_computation_in_question274 = new BitSet(new long[]{0x0000000002000002L});
+	public static final BitSet FOLLOW_25_in_question277 = new BitSet(new long[]{0x0000000000000002L});
+	public static final BitSet FOLLOW_34_in_type300 = new BitSet(new long[]{0x0000000000000002L});
+	public static final BitSet FOLLOW_31_in_type310 = new BitSet(new long[]{0x0000000000000002L});
+	public static final BitSet FOLLOW_33_in_type318 = new BitSet(new long[]{0x0000000000000002L});
+	public static final BitSet FOLLOW_18_in_computation339 = new BitSet(new long[]{0x000000000064A290L});
+	public static final BitSet FOLLOW_orExpr_in_computation343 = new BitSet(new long[]{0x0000000000080000L});
+	public static final BitSet FOLLOW_19_in_computation345 = new BitSet(new long[]{0x0000000000000002L});
+	public static final BitSet FOLLOW_Int_in_primary364 = new BitSet(new long[]{0x0000000000000002L});
+	public static final BitSet FOLLOW_Ident_in_primary376 = new BitSet(new long[]{0x0000000000000002L});
+	public static final BitSet FOLLOW_Bool_in_primary386 = new BitSet(new long[]{0x0000000000000002L});
+	public static final BitSet FOLLOW_String_in_primary397 = new BitSet(new long[]{0x0000000000000002L});
+	public static final BitSet FOLLOW_18_in_primary406 = new BitSet(new long[]{0x000000000064A290L});
+	public static final BitSet FOLLOW_orExpr_in_primary410 = new BitSet(new long[]{0x0000000000080000L});
+	public static final BitSet FOLLOW_19_in_primary412 = new BitSet(new long[]{0x0000000000000002L});
+	public static final BitSet FOLLOW_21_in_unExpr436 = new BitSet(new long[]{0x000000000064A290L});
+	public static final BitSet FOLLOW_unExpr_in_unExpr440 = new BitSet(new long[]{0x0000000000000002L});
+	public static final BitSet FOLLOW_22_in_unExpr449 = new BitSet(new long[]{0x000000000064A290L});
+	public static final BitSet FOLLOW_unExpr_in_unExpr453 = new BitSet(new long[]{0x0000000000000002L});
+	public static final BitSet FOLLOW_15_in_unExpr462 = new BitSet(new long[]{0x000000000064A290L});
+	public static final BitSet FOLLOW_unExpr_in_unExpr466 = new BitSet(new long[]{0x0000000000000002L});
+	public static final BitSet FOLLOW_primary_in_unExpr477 = new BitSet(new long[]{0x0000000000000002L});
+	public static final BitSet FOLLOW_unExpr_in_mulExpr511 = new BitSet(new long[]{0x0000000000900002L});
+	public static final BitSet FOLLOW_set_in_mulExpr519 = new BitSet(new long[]{0x000000000064A290L});
+	public static final BitSet FOLLOW_unExpr_in_mulExpr531 = new BitSet(new long[]{0x0000000000900002L});
+	public static final BitSet FOLLOW_mulExpr_in_addExpr566 = new BitSet(new long[]{0x0000000000600002L});
+	public static final BitSet FOLLOW_set_in_addExpr574 = new BitSet(new long[]{0x000000000064A290L});
+	public static final BitSet FOLLOW_mulExpr_in_addExpr584 = new BitSet(new long[]{0x0000000000600002L});
+	public static final BitSet FOLLOW_addExpr_in_relExpr614 = new BitSet(new long[]{0x000000007C010002L});
+	public static final BitSet FOLLOW_set_in_relExpr622 = new BitSet(new long[]{0x000000000064A290L});
+	public static final BitSet FOLLOW_addExpr_in_relExpr638 = new BitSet(new long[]{0x000000007C010002L});
+	public static final BitSet FOLLOW_relExpr_in_andExpr670 = new BitSet(new long[]{0x0000000000020002L});
+	public static final BitSet FOLLOW_17_in_andExpr676 = new BitSet(new long[]{0x000000000064A290L});
+	public static final BitSet FOLLOW_relExpr_in_andExpr680 = new BitSet(new long[]{0x0000000000020002L});
+	public static final BitSet FOLLOW_andExpr_in_orExpr711 = new BitSet(new long[]{0x0000001000000002L});
+	public static final BitSet FOLLOW_36_in_orExpr717 = new BitSet(new long[]{0x000000000064A290L});
+	public static final BitSet FOLLOW_andExpr_in_orExpr721 = new BitSet(new long[]{0x0000001000000002L});
+	public static final BitSet FOLLOW_Else_in_synpred4_QL189 = new BitSet(new long[]{0x0000000000000002L});
 }

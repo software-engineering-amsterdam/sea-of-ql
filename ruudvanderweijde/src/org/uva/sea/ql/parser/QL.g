@@ -28,7 +28,7 @@ form returns [Form result]
   : ('form' Ident statements=block
 	  { 
 	    $result = new Form(new Ident($Ident.text), $statements.result); 
-	  })+
+	  })+ EOF
   ;
 
 block returns [List<Statement> result]
