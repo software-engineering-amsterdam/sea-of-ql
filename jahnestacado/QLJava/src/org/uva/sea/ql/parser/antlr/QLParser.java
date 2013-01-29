@@ -5,6 +5,21 @@ import org.uva.sea.ql.ast.*;
 import org.uva.sea.ql.ast.expr.*;
 import org.uva.sea.ql.ast.form.*;
 import org.uva.sea.ql.ast.types.*;
+import org.uva.sea.ql.ast.expr.binary.algebraic.Add;
+import org.uva.sea.ql.ast.expr.binary.algebraic.Div;
+import org.uva.sea.ql.ast.expr.binary.algebraic.Mul;
+import org.uva.sea.ql.ast.expr.binary.algebraic.Sub;
+import org.uva.sea.ql.ast.expr.binary.bool.And;
+import org.uva.sea.ql.ast.expr.binary.bool.Eq;
+import org.uva.sea.ql.ast.expr.binary.bool.GEq;
+import org.uva.sea.ql.ast.expr.binary.bool.GT;
+import org.uva.sea.ql.ast.expr.binary.bool.LEq;
+import org.uva.sea.ql.ast.expr.binary.bool.LT;
+import org.uva.sea.ql.ast.expr.binary.bool.NEq;
+import org.uva.sea.ql.ast.expr.binary.bool.Or;
+import org.uva.sea.ql.ast.expr.unary.Neg;
+import org.uva.sea.ql.ast.expr.unary.Not;
+import org.uva.sea.ql.ast.expr.unary.Pos;
 import org.uva.sea.ql.ast.expr.values.*;
 
 

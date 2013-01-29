@@ -1,14 +1,15 @@
-package org.uva.sea.ql.ast.expr;
+package org.uva.sea.ql.ast.expr.binary.algebraic;
 
 import java.util.Map;
 
+import org.uva.sea.ql.ast.expr.Expr;
 import org.uva.sea.ql.ast.types.NumericType;
 import org.uva.sea.ql.ast.types.Type;
 import org.uva.sea.ql.visitor.checkers.ExpressionChecker;
 
-public class Sub extends Binary {
+public class Mul extends Algebraic{
 
-	public Sub(Expr leftExpr, Expr rightExpr) {
+	public Mul(Expr leftExpr, Expr rightExpr) {
 		super(leftExpr,rightExpr) ;
 	}
 

@@ -1,16 +1,16 @@
-package org.uva.sea.ql.ast.expr;
+package org.uva.sea.ql.ast.expr.unary;
 
 import java.util.Map;
 
-import org.uva.sea.ql.ast.types.BoolType;
+import org.uva.sea.ql.ast.expr.Expr;
+import org.uva.sea.ql.ast.types.NumericType;
 import org.uva.sea.ql.ast.types.Type;
 import org.uva.sea.ql.visitor.checkers.ExpressionChecker;
 
+public class Neg extends Unary {
 
-public class And extends Binary {
-
-	public And(Expr leftExpr, Expr rightExpr) {
-		super(leftExpr,rightExpr);
+	public Neg(Expr leftExpr) {
+		super(leftExpr);
 	}
 
 	@Override
@@ -21,7 +21,7 @@ public class And extends Binary {
 	
 	@Override
 	public Type isOfType(Map<String, Type> typeEnv) {
-		return new BoolType();
+		return new NumericType();
 	}
 
 }

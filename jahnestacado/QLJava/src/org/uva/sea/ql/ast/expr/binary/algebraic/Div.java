@@ -1,12 +1,13 @@
-package org.uva.sea.ql.ast.expr;
+package org.uva.sea.ql.ast.expr.binary.algebraic;
 
 import java.util.Map;
 
+import org.uva.sea.ql.ast.expr.Expr;
 import org.uva.sea.ql.ast.types.NumericType;
 import org.uva.sea.ql.ast.types.Type;
 import org.uva.sea.ql.visitor.checkers.ExpressionChecker;
 
-public class Div extends Binary {
+public class Div extends Algebraic{
 
 	public Div(Expr leftExpr, Expr rightExpr) {
 		super(leftExpr,rightExpr);

@@ -1,14 +1,15 @@
-package org.uva.sea.ql.ast.expr;
+package org.uva.sea.ql.ast.expr.binary.bool;
 
 import java.util.Map;
 
+import org.uva.sea.ql.ast.expr.Expr;
 import org.uva.sea.ql.ast.types.BoolType;
 import org.uva.sea.ql.ast.types.Type;
 import org.uva.sea.ql.visitor.checkers.ExpressionChecker;
 
-public class GT extends Binary {
+public class NEq extends Bool{
 
-	public GT(Expr leftExpr, Expr rightExpr) {
+	public NEq(Expr leftExpr, Expr rightExpr) {
 		super(leftExpr,rightExpr);
 	}
 
@@ -17,9 +18,12 @@ public class GT extends Binary {
 		return nodeVisitor.visit(this);
 		
 	}
-
+	
 	@Override
 	public Type isOfType(Map<String, Type> typeEnv) {
 		return new BoolType();
 	}
+
+	
+
 }

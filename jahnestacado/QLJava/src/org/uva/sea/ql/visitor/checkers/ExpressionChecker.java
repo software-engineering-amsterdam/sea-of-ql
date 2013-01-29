@@ -4,25 +4,25 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
-import org.uva.sea.ql.ast.expr.Add;
-import org.uva.sea.ql.ast.expr.And;
-import org.uva.sea.ql.ast.expr.Binary;
-import org.uva.sea.ql.ast.expr.Div;
-import org.uva.sea.ql.ast.expr.Eq;
 import org.uva.sea.ql.ast.expr.Expr;
-import org.uva.sea.ql.ast.expr.GEq;
-import org.uva.sea.ql.ast.expr.GT;
 import org.uva.sea.ql.ast.expr.Ident;
-import org.uva.sea.ql.ast.expr.LEq;
-import org.uva.sea.ql.ast.expr.LT;
-import org.uva.sea.ql.ast.expr.Mul;
-import org.uva.sea.ql.ast.expr.NEq;
-import org.uva.sea.ql.ast.expr.Neg;
-import org.uva.sea.ql.ast.expr.Not;
-import org.uva.sea.ql.ast.expr.Or;
-import org.uva.sea.ql.ast.expr.Pos;
-import org.uva.sea.ql.ast.expr.Sub;
-import org.uva.sea.ql.ast.expr.Unary;
+import org.uva.sea.ql.ast.expr.binary.Binary;
+import org.uva.sea.ql.ast.expr.binary.algebraic.Add;
+import org.uva.sea.ql.ast.expr.binary.algebraic.Div;
+import org.uva.sea.ql.ast.expr.binary.algebraic.Mul;
+import org.uva.sea.ql.ast.expr.binary.algebraic.Sub;
+import org.uva.sea.ql.ast.expr.binary.bool.And;
+import org.uva.sea.ql.ast.expr.binary.bool.Eq;
+import org.uva.sea.ql.ast.expr.binary.bool.GEq;
+import org.uva.sea.ql.ast.expr.binary.bool.GT;
+import org.uva.sea.ql.ast.expr.binary.bool.LEq;
+import org.uva.sea.ql.ast.expr.binary.bool.LT;
+import org.uva.sea.ql.ast.expr.binary.bool.NEq;
+import org.uva.sea.ql.ast.expr.binary.bool.Or;
+import org.uva.sea.ql.ast.expr.unary.Neg;
+import org.uva.sea.ql.ast.expr.unary.Not;
+import org.uva.sea.ql.ast.expr.unary.Pos;
+import org.uva.sea.ql.ast.expr.unary.Unary;
 import org.uva.sea.ql.ast.expr.values.BoolLit;
 import org.uva.sea.ql.ast.expr.values.Decimal;
 import org.uva.sea.ql.ast.expr.values.Int;
@@ -63,7 +63,7 @@ public class ExpressionChecker implements IExprVisitor {
 	public boolean visit(Mul node) {
 		if(!checkBranches(node)) return false;
 		if(!checkVarNames(node)) return false;
-		if(!checkBinaryExpr(node, "*")) return false;
+		if(!checkAlgebraicExpr(node, "*")) return false;
 		return true;
 
 	}
@@ -72,7 +72,7 @@ public class ExpressionChecker implements IExprVisitor {
 	public boolean visit(Sub node) {
 		if(!checkBranches(node)) return false;
 		if(!checkVarNames(node)) return false;
-		if(!checkBinaryExpr(node, "-")) return false;
+		if(!checkAlgebraicExpr(node, "-")) return false;
 		return true;
 
 	}
@@ -81,7 +81,7 @@ public class ExpressionChecker implements IExprVisitor {
 	public boolean visit(Add node) {
 		if(!checkBranches(node)) return false;
 		if(!checkVarNames(node)) return false;
-		if(!checkBinaryExpr(node, "+")) return false;
+		if(!checkAlgebraicExpr(node, "+")) return false;
 		return true;
 	}
 
@@ -90,7 +90,7 @@ public class ExpressionChecker implements IExprVisitor {
 	public boolean visit(Div node) {
 		if(!checkBranches(node)) return false;
 		if(!checkVarNames(node)) return false;
-		if(!checkBinaryExpr(node, "/")) return false;
+		if(!checkAlgebraicExpr(node, "/")) return false;
 		return true;
 
 	}
@@ -282,7 +282,7 @@ public class ExpressionChecker implements IExprVisitor {
 	}
 	
 	
-	private boolean checkBinaryExpr(Binary node,String symbol){
+	private boolean checkAlgebraicExpr(Binary node,String symbol){
 		Type leftExprType = node.getLeftExpr().isOfType(declaredVar);
 		Type rightExprType = node.getRightExpr().isOfType(declaredVar);
 		Type declaredType=getQuestionsType();
