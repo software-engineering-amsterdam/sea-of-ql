@@ -4,11 +4,11 @@
 %semantic ast.ASTNode 
 %start top
 
-%token <ast.exprs.value.Int> INT
-%token <ast.exprs.value.Money> MONEY
-%token <ast.exprs.value.Bool> BOOL
-%token <ast.exprs.value.Str> STR
-%token <ast.exprs.value.Ident> IDENT
+%token <ast.expression.value.Int> INT
+%token <ast.expression.value.Money> MONEY
+%token <ast.expression.value.Bool> BOOL
+%token <ast.expression.value.Str> STR
+%token <ast.expression.value.Ident> IDENT
 %token '*' '/' '+' '-' OR AND NEQ EQ '<' LEQ '>' GEQ '!'
 %token '(' ')' '{' '}'
 %token IF ELSE
@@ -20,13 +20,13 @@
 %left '*' '/'
 %left UMIN UPLUS UNOT
 
-%type <ast.Expr> expr
+%type <ast.Expression> expr
 
 %{
-import ast.Expr;
-import ast.exprs.binary.*;
-import ast.exprs.unary.*;
-import ast.exprs.value.*;
+import ast.Expression;
+import ast.expression.binary.*;
+import ast.expression.unary.*;
+import ast.expression.value.*;
 @SuppressWarnings("unused")
 %}
 
@@ -62,9 +62,9 @@ import ast.exprs.value.*;
 %%
 private QLLexer lexer; 
 
-private Expr result;
+private Expression result;
 
-public Expr getResult() {
+public Expression getResult() {
   return result;
 }
 

@@ -3,13 +3,13 @@ package ast.visitors;
 import java.util.List;
 import java.util.Map;
 
-import ast.Expr;
-import ast.exprs.Binary;
-import ast.exprs.binary.*;
-import ast.exprs.unary.*;
-import ast.exprs.value.Bool;
-import ast.exprs.value.Money;
-import ast.exprs.value.Str;
+import ast.Expression;
+import ast.expression.Binary;
+import ast.expression.binary.*;
+import ast.expression.unary.*;
+import ast.expression.value.Bool;
+import ast.expression.value.Money;
+import ast.expression.value.Str;
 import ast.types.*;
 import ast.types.Error;
 
@@ -24,7 +24,7 @@ public class CheckExpr implements Visitor<Boolean> {
 		this.messages = messages;
 	}
 
-	public static boolean check(Expr expr, Map<Ident, Type> typeEnv,
+	public static boolean check(Expression expr, Map<Ident, Type> typeEnv,
 			List<Message> errs) {
 		CheckExpr check = new CheckExpr(typeEnv, errs);
 		return expr.accept(check);
@@ -260,12 +260,12 @@ public class CheckExpr implements Visitor<Boolean> {
 	}
 
 	@Override
-	public Boolean visit(ast.exprs.value.Int ast) {
+	public Boolean visit(ast.expression.value.Int ast) {
 		return ast.typeOf(typeEnv).isCompatibleToNumeric();
 	}
 
 	@Override
-	public Boolean visit(ast.exprs.value.Ident ast) {
-		return ast instanceof ast.exprs.value.Ident;
+	public Boolean visit(ast.expression.value.Ident ast) {
+		return ast instanceof ast.expression.value.Ident;
 	}
 }

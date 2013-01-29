@@ -1,11 +1,19 @@
 package ast.visitors.test;
 
+import parser.JACCParser;
+
+import ast.visitors.*;
+
 public class VisitorTest {
 	
 	@SuppressWarnings("unused")
 	private String str;
+	private final JACCParser parser;
+	private final CheckExpr visitor;
 
-	public VisitorTest() {
+	public VisitorTest(CheckExpr visitor) {
+		this.parser = new JACCParser();
+		this.visitor = visitor;
 		init();
 	}
 	
