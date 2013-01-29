@@ -51,6 +51,5 @@ public class Mul extends BinExpr {
 		}
 		// Case 4 Integer - Integer
 		return new IntegerResult(leftHandResult.getValue() * rightHandResult.getValue());
-
 	}
 }

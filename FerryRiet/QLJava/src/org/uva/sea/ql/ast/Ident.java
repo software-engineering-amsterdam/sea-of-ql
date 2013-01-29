@@ -44,7 +44,6 @@ public class Ident extends Expr {
 
 	@Override
 	public ExpressionResult eval(HashMap<String, ExpressionResult> symbolMap) {
-		// TODO Auto-generated method stub
 		return symbolMap.get(this.getName());
 	}
 }

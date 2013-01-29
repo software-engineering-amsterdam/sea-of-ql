@@ -34,8 +34,7 @@ public class BooleanResult implements ExpressionResult {
 
 	@Override
 	public String getStringValue() {
-		// TODO Auto-generated method stub
-		return null;
+		return value == true ? new String("true") : new String("false");
 	}
 
 }

@@ -30,25 +30,23 @@ public class LT extends BinExpr {
 
 	@Override
 	public ExpressionResult eval(HashMap<String, ExpressionResult> symbolMap) {
-		// TODO and check type
-		ExpressionResult leftHandResult ;
-		ExpressionResult rightHandResult ;
-
-		leftHandResult = getExprLeftHand().eval(symbolMap);
-		rightHandResult = getExprRightHand().eval(symbolMap);
+		ExpressionResult leftHandResult = getExprLeftHand().eval(symbolMap);
+		ExpressionResult rightHandResult = getExprRightHand().eval(symbolMap);
 
 		// Both op type money
 		if ((new MoneyType()).isCompatibleTo(leftHandResult.typeOf())
 				&& (new MoneyType()).isCompatibleTo(rightHandResult.typeOf())) {
 			return new BooleanResult(leftHandResult.getMoneyValue().compareTo(rightHandResult.getMoneyValue()) == -1);
 		}
-		// Case 2 MoneyType  Integer
+		// Case 2 MoneyType Integer
 		if ((new MoneyType()).isCompatibleTo(leftHandResult.typeOf())) {
-			return new BooleanResult(leftHandResult.getMoneyValue().compareTo(new BigDecimal(rightHandResult.getValue())) == -1);
+			return new BooleanResult(leftHandResult.getMoneyValue().compareTo(
+					new BigDecimal(rightHandResult.getValue())) == -1);
 		}
 		// Case 3 Integer MoneyType
 		if ((new MoneyType()).isCompatibleTo(rightHandResult.typeOf())) {
-			return new BooleanResult((new BigDecimal(leftHandResult.getValue()).compareTo(rightHandResult.getMoneyValue())) == -1);
+			return new BooleanResult((new BigDecimal(leftHandResult.getValue()).compareTo(rightHandResult
+					.getMoneyValue())) == -1);
 		}
 		// Case 4 Integer Integer
 		return new BooleanResult(leftHandResult.getValue() < rightHandResult.getValue());

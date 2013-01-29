@@ -12,6 +12,7 @@ public class MoneyResult implements ExpressionResult {
 	public MoneyResult(BigDecimal val) {
 		value = val;
 	}
+
 	public MoneyResult(Integer val) {
 		value = new BigDecimal(val);
 	}
@@ -35,7 +36,6 @@ public class MoneyResult implements ExpressionResult {
 
 	@Override
 	public BigDecimal getMoneyValue() {
-		// TODO Auto-generated method stub
 		return value;
 	}
 
@@ -46,7 +46,6 @@ public class MoneyResult implements ExpressionResult {
 
 	@Override
 	public String getStringValue() {
-		// TODO Auto-generated method stub
 		return value.toString();
 	}
 }

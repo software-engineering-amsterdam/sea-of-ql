@@ -9,7 +9,8 @@ public interface ExpressionResult {
 
 	int getValue();
 
-	String getStringValue() ;
+	String getStringValue();
+
 	BigDecimal getMoneyValue();
 
 	boolean getBooleanValue();
