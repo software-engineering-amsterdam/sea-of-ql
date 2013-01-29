@@ -23,4 +23,3 @@ public alias SAS =
 public alias State = 
   tuple[SAS sas,
   set[Message] messages];
-

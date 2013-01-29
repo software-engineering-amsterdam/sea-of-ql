@@ -32,6 +32,7 @@ data Type
   | dateType(str name)
   | stringType(str name)
   | invalidType(str name)
+  | undefinedType(str name)
   ;
 
 data IdentDefinition
