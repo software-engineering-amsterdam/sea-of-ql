@@ -2,6 +2,7 @@ module lang::ql::analysis::SemanticChecker
 
 import List;
 import Set;
+import lang::ql::analysis::LabelMap;
 import lang::ql::analysis::TypeMap;
 import lang::ql::ast::AST;
 import lang::ql::compiler::PrettyPrinter;
@@ -16,7 +17,7 @@ public set[Message] semanticChecker(node form) {
 private alias SAS = tuple[
   TypeMap definitions, 
   map[Expr ident, Type \type] uses,
-  map[QuestionText ident, Type \type] labels];
+  LabelMap labels];
   
 private alias State = tuple[
   SAS sas,
@@ -55,10 +56,17 @@ private State analyzeSemantics(SAS sas,
     
 private State analyzeSemantics(SAS sas, Question q: 
   question(text, \type, ident)) {
-    <tm, message> = typeMapper(ident, \type, sas.definitions);
+    set[Message] messages = {};
     
-    sas.definitions += tm;    
-    return <sas, message>;
+    <tm, m> = typeMapper(ident, \type, sas.definitions);
+    messages += m;
+    sas.definitions += tm;
+    
+    <lm, m> = labelMapper(text, ident, sas.labels);
+    messages += m;
+    sas.labels += lm;
+            
+    return <sas, messages>;
 }
 
 private State analyzeSemantics(SAS sas, Question q: 

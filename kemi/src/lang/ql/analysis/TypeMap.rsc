@@ -3,8 +3,6 @@ module lang::ql::analysis::TypeMap
 import lang::ql::ast::AST;
 import util::IDE;
 
-import IO;
-
 public alias TypeMap = map[IdentDefinition ident, Type \type];
 public alias TypeMapMessages = tuple[TypeMap \map, set[Message] messages];
 
