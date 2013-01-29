@@ -14,9 +14,8 @@ Ruud van der Weijde<br />
 10453857<br />
 
 > ###### Road Map:
+> - ~~More unittests~~
+> - ~~Refactor visitor~~
 > - Update error handling
 > - Split up IfThenElse
-> - Refactor visitor
 > - Generate output (a form)
-> - Refactor visitor
-> - Create output

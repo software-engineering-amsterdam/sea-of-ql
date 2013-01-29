@@ -16,7 +16,7 @@ import org.uva.sea.ql.ast.type.Type;
 import org.uva.sea.ql.parser.ANTLRParser;
 import org.uva.sea.ql.parser.error.ParseError;
 import org.uva.sea.ql.parser.test.IParse;
-import org.uva.sea.ql.visitor.checker.ExpressionChecker;
+import org.uva.sea.ql.visitor.ExpressionVisitor;
 
 @RunWith(Parameterized.class)
 public class TestUnary {
@@ -38,19 +38,19 @@ public class TestUnary {
 	
 	@Test
 	public void testNeg() throws ParseError {
-		assertEquals(parser.parseExpression("-1").accept(new ExpressionChecker(ExprMap, errors)), true);
-    	assertEquals(parser.parseExpression("+true").accept(new ExpressionChecker(ExprMap, errors)), false);	
+		assertEquals(parser.parseExpression("-1").accept(new ExpressionVisitor(ExprMap, errors)), true);
+    	assertEquals(parser.parseExpression("+true").accept(new ExpressionVisitor(ExprMap, errors)), false);	
 	}
 
 	@Test
 	public void testNot() throws ParseError {
-		assertEquals(parser.parseExpression("!true").accept(new ExpressionChecker(ExprMap, errors)), true);
-    	assertEquals(parser.parseExpression("!1").accept(new ExpressionChecker(ExprMap, errors)), false);	
+		assertEquals(parser.parseExpression("!true").accept(new ExpressionVisitor(ExprMap, errors)), true);
+    	assertEquals(parser.parseExpression("!1").accept(new ExpressionVisitor(ExprMap, errors)), false);	
 	}
 	
 	@Test
 	public void testPos() throws ParseError {
-		assertEquals(parser.parseExpression("+1").accept(new ExpressionChecker(ExprMap, errors)), true);
-    	assertEquals(parser.parseExpression("+true").accept(new ExpressionChecker(ExprMap, errors)), false);	
+		assertEquals(parser.parseExpression("+1").accept(new ExpressionVisitor(ExprMap, errors)), true);
+    	assertEquals(parser.parseExpression("+true").accept(new ExpressionVisitor(ExprMap, errors)), false);	
 	}
 }

@@ -5,12 +5,18 @@ public class UndefinedType extends Type {
 
 	@Override
 	public boolean isCompatibleTo(Type t) {
-		return false;
+		return isCompatibleToBooleanType();
 	}
 	
 	@Override
 	public String toString() {
 		return "UndefinedType";
 	}
+	
+	
+	@Override
+	public boolean isCompatibleToBooleanType() {
+		return true;
+	}	
 
 }
