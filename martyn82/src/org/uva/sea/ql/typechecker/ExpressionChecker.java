@@ -64,7 +64,7 @@ public class ExpressionChecker extends TypeCheckVisitor implements IExpressionVi
 		Type rightType = node.getRhs().accept( resolver );
 
 		if ( !( leftType.isCompatibleToNumber() && rightType.isCompatibleToNumber() ) ) {
-			addError(
+			this.addError(
 				String.format(
 					"Both sides of the %s-expression must be a Number type.",
 					node.getClass().getSimpleName().toUpperCase()
@@ -97,7 +97,7 @@ public class ExpressionChecker extends TypeCheckVisitor implements IExpressionVi
 		Type rightType = node.getRhs().accept( resolver );
 
 		if ( !( leftType.isCompatibleToBool() && rightType.isCompatibleToBool() ) ) {
-			addError(
+			this.addError(
 				String.format(
 					"Both sides of the %s-expression must be of type Boolean.",
 					node.getClass().getSimpleName().toUpperCase()
@@ -130,7 +130,7 @@ public class ExpressionChecker extends TypeCheckVisitor implements IExpressionVi
 		Type rightType = node.getRhs().accept( resolver );
 
 		if ( !( leftType.isCompatibleToNumber() && rightType.isCompatibleToNumber() ) ) {
-			addError(
+			this.addError(
 				String.format(
 					"Both sides of the comparison must be a Number.",
 					node.getClass().getSimpleName().toUpperCase()
@@ -159,7 +159,7 @@ public class ExpressionChecker extends TypeCheckVisitor implements IExpressionVi
 		Type expressionType = node.getExpression().accept( resolver );
 
 		if ( !expressionType.isCompatibleToBool() ) {
-			addError( "Expression must be a Boolean type.", node );
+			this.addError( "Expression must be a Boolean type.", node );
 			return false;
 		}
 
@@ -181,7 +181,7 @@ public class ExpressionChecker extends TypeCheckVisitor implements IExpressionVi
 		Type expressionType = node.getExpression().accept( resolver );
 
 		if ( !expressionType.isCompatibleToNumber() ) {
-			addError( "Expression must be a Number type.", node );
+			this.addError( "Expression must be a Number type.", node );
 			return false;
 		}
 
@@ -207,7 +207,7 @@ public class ExpressionChecker extends TypeCheckVisitor implements IExpressionVi
 		Type rightType = node.getRhs().accept( resolver );
 
 		if ( !leftType.isCompatibleTo( rightType ) ) {
-			addError(
+			this.addError(
 				String.format(
 					"Both sides of the comparison must be of the same type.",
 					node.getClass().getSimpleName().toUpperCase()
@@ -244,7 +244,7 @@ public class ExpressionChecker extends TypeCheckVisitor implements IExpressionVi
 	@Override
 	public Boolean visit( Ident node ) {
 		if ( node.accept( resolver ) instanceof Undefined ) {
-			addError( "Undefined variable: " + node.getName(), node );
+			this.addError( "Undefined variable: " + node.getName(), node );
 			return false;
 		}
 

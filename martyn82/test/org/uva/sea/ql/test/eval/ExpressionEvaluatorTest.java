@@ -90,7 +90,6 @@ public class ExpressionEvaluatorTest implements IExpressionTest {
 	public void testDiv() {
 		assertEquals( 3, eval( new Div( new Int( 9 ), new Int( 3 ) ) ) );
 		assertEquals( 1/3, eval( new Div( new Int( 1 ), new Int( 3 ) ) ) );
-		// TODO assertEquals( 0, eval( new Div( new Int( 10 ), new Int( 0 ) ) ) );
 	}
 
 	@Override
