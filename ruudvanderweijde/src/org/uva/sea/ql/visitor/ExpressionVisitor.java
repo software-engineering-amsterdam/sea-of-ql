@@ -1,4 +1,4 @@
-package org.uva.sea.ql.visitor.checker;
+package org.uva.sea.ql.visitor;
 
 import java.util.List;
 import java.util.Map;
@@ -17,16 +17,15 @@ import org.uva.sea.ql.ast.expr.binary.Mul;
 import org.uva.sea.ql.ast.expr.binary.NEq;
 import org.uva.sea.ql.ast.expr.binary.Or;
 import org.uva.sea.ql.ast.expr.binary.Sub;
-import org.uva.sea.ql.ast.expr.primary.Bool;
-import org.uva.sea.ql.ast.expr.primary.Ident;
-import org.uva.sea.ql.ast.expr.primary.Int;
-import org.uva.sea.ql.ast.expr.primary.StringLiteral;
 import org.uva.sea.ql.ast.expr.unary.Neg;
 import org.uva.sea.ql.ast.expr.unary.Not;
 import org.uva.sea.ql.ast.expr.unary.Pos;
 import org.uva.sea.ql.ast.expr.unary.Unary;
+import org.uva.sea.ql.ast.expr.value.Bool;
+import org.uva.sea.ql.ast.expr.value.Ident;
+import org.uva.sea.ql.ast.expr.value.Int;
+import org.uva.sea.ql.ast.expr.value.StringLiteral;
 import org.uva.sea.ql.ast.type.Type;
-import org.uva.sea.ql.visitor.IExpressionVisitor;
 
 public class ExpressionVisitor implements IExpressionVisitor<Boolean> {
 	private final Map<Ident, Type> typeEnv;
