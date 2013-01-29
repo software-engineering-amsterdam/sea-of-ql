@@ -125,6 +125,9 @@ public class SemanticCheckVisitor implements Visitor {
 	}
 
 	private boolean lhsRhsCompatible(BinExpr expr, String operator) {
+		//
+		// TODO type checking fails on money == integer
+		//
 		expr.getExprLeftHand().accept(this);
 		expr.getExprRightHand().accept(this);
 

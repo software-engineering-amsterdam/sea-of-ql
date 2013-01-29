@@ -1,4 +1,4 @@
-// $ANTLR 3.5 /Users/Ferry/sea-of-ql/FerryRiet/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g 2013-01-28 16:21:40
+// $ANTLR 3.5 D:\\Users\\Ferry\\Desktop\\sea-of-ql\\FerryRiet\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g 2013-01-29 13:59:25
 
 package org.uva.sea.ql.parser.antlr;
 import org.uva.sea.ql.ast.*;
@@ -74,12 +74,12 @@ public class QLParser extends Parser {
 	}
 
 	@Override public String[] getTokenNames() { return QLParser.tokenNames; }
-	@Override public String getGrammarFileName() { return "/Users/Ferry/sea-of-ql/FerryRiet/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g"; }
+	@Override public String getGrammarFileName() { return "D:\\Users\\Ferry\\Desktop\\sea-of-ql\\FerryRiet\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g"; }
 
 
 
 	// $ANTLR start "qlprogram"
-	// /Users/Ferry/sea-of-ql/FerryRiet/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:17:1: qlprogram returns [QLProgram result] : 'form' Ident cb= compoundStatement ;
+	// D:\\Users\\Ferry\\Desktop\\sea-of-ql\\FerryRiet\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:17:1: qlprogram returns [QLProgram result] : 'form' Ident cb= compoundStatement ;
 	public final QLProgram qlprogram() throws RecognitionException {
 		QLProgram result = null;
 
@@ -91,8 +91,8 @@ public class QLParser extends Parser {
 		try {
 			if ( state.backtracking>0 && alreadyParsedRule(input, 1) ) { return result; }
 
-			// /Users/Ferry/sea-of-ql/FerryRiet/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:18:5: ( 'form' Ident cb= compoundStatement )
-			// /Users/Ferry/sea-of-ql/FerryRiet/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:18:7: 'form' Ident cb= compoundStatement
+			// D:\\Users\\Ferry\\Desktop\\sea-of-ql\\FerryRiet\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:18:5: ( 'form' Ident cb= compoundStatement )
+			// D:\\Users\\Ferry\\Desktop\\sea-of-ql\\FerryRiet\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:18:7: 'form' Ident cb= compoundStatement
 			{
 			match(input,30,FOLLOW_30_in_qlprogram48); if (state.failed) return result;
 			Ident1=(Token)match(input,Ident,FOLLOW_Ident_in_qlprogram50); if (state.failed) return result;
@@ -120,7 +120,7 @@ public class QLParser extends Parser {
 
 
 	// $ANTLR start "compoundStatement"
-	// /Users/Ferry/sea-of-ql/FerryRiet/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:21:1: compoundStatement returns [Statement result] : LBRACE (st= statement )* RBRACE ;
+	// D:\\Users\\Ferry\\Desktop\\sea-of-ql\\FerryRiet\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:21:1: compoundStatement returns [Statement result] : LBRACE (st= statement )* RBRACE ;
 	public final Statement compoundStatement() throws RecognitionException {
 		Statement result = null;
 
@@ -132,11 +132,11 @@ public class QLParser extends Parser {
 		try {
 			if ( state.backtracking>0 && alreadyParsedRule(input, 2) ) { return result; }
 
-			// /Users/Ferry/sea-of-ql/FerryRiet/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:23:5: ( LBRACE (st= statement )* RBRACE )
-			// /Users/Ferry/sea-of-ql/FerryRiet/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:23:7: LBRACE (st= statement )* RBRACE
+			// D:\\Users\\Ferry\\Desktop\\sea-of-ql\\FerryRiet\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:23:5: ( LBRACE (st= statement )* RBRACE )
+			// D:\\Users\\Ferry\\Desktop\\sea-of-ql\\FerryRiet\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:23:7: LBRACE (st= statement )* RBRACE
 			{
 			match(input,LBRACE,FOLLOW_LBRACE_in_compoundStatement86); if (state.failed) return result;
-			// /Users/Ferry/sea-of-ql/FerryRiet/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:24:7: (st= statement )*
+			// D:\\Users\\Ferry\\Desktop\\sea-of-ql\\FerryRiet\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:24:7: (st= statement )*
 			loop1:
 			while (true) {
 				int alt1=2;
@@ -147,7 +147,7 @@ public class QLParser extends Parser {
 
 				switch (alt1) {
 				case 1 :
-					// /Users/Ferry/sea-of-ql/FerryRiet/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:24:8: st= statement
+					// D:\\Users\\Ferry\\Desktop\\sea-of-ql\\FerryRiet\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:24:8: st= statement
 					{
 					pushFollow(FOLLOW_statement_in_compoundStatement98);
 					st=statement();
@@ -183,7 +183,7 @@ public class QLParser extends Parser {
 
 
 	// $ANTLR start "statement"
-	// /Users/Ferry/sea-of-ql/FerryRiet/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:28:1: statement returns [Statement result] : ( Ident COLON StringLiteral type ( '(' x= orExpr ')' )? | 'if' '(' ex= orExpr ')' ctrue= compoundStatement ( 'else' cfalse= compoundStatement )? |cst= compoundStatement );
+	// D:\\Users\\Ferry\\Desktop\\sea-of-ql\\FerryRiet\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:28:1: statement returns [Statement result] : ( Ident COLON StringLiteral type ( '(' x= orExpr ')' )? | 'if' '(' ex= orExpr ')' ctrue= compoundStatement ( 'else' cfalse= compoundStatement )? |cst= compoundStatement );
 	public final Statement statement() throws RecognitionException {
 		Statement result = null;
 
@@ -201,7 +201,7 @@ public class QLParser extends Parser {
 		try {
 			if ( state.backtracking>0 && alreadyParsedRule(input, 3) ) { return result; }
 
-			// /Users/Ferry/sea-of-ql/FerryRiet/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:29:5: ( Ident COLON StringLiteral type ( '(' x= orExpr ')' )? | 'if' '(' ex= orExpr ')' ctrue= compoundStatement ( 'else' cfalse= compoundStatement )? |cst= compoundStatement )
+			// D:\\Users\\Ferry\\Desktop\\sea-of-ql\\FerryRiet\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:29:5: ( Ident COLON StringLiteral type ( '(' x= orExpr ')' )? | 'if' '(' ex= orExpr ')' ctrue= compoundStatement ( 'else' cfalse= compoundStatement )? |cst= compoundStatement )
 			int alt4=3;
 			switch ( input.LA(1) ) {
 			case Ident:
@@ -227,7 +227,7 @@ public class QLParser extends Parser {
 			}
 			switch (alt4) {
 				case 1 :
-					// /Users/Ferry/sea-of-ql/FerryRiet/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:29:7: Ident COLON StringLiteral type ( '(' x= orExpr ')' )?
+					// D:\\Users\\Ferry\\Desktop\\sea-of-ql\\FerryRiet\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:29:7: Ident COLON StringLiteral type ( '(' x= orExpr ')' )?
 					{
 					Ident2=(Token)match(input,Ident,FOLLOW_Ident_in_statement148); if (state.failed) return result;
 					match(input,COLON,FOLLOW_COLON_in_statement150); if (state.failed) return result;
@@ -236,7 +236,7 @@ public class QLParser extends Parser {
 					type4=type();
 					state._fsp--;
 					if (state.failed) return result;
-					// /Users/Ferry/sea-of-ql/FerryRiet/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:29:38: ( '(' x= orExpr ')' )?
+					// D:\\Users\\Ferry\\Desktop\\sea-of-ql\\FerryRiet\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:29:38: ( '(' x= orExpr ')' )?
 					int alt2=2;
 					int LA2_0 = input.LA(1);
 					if ( (LA2_0==17) ) {
@@ -244,7 +244,7 @@ public class QLParser extends Parser {
 					}
 					switch (alt2) {
 						case 1 :
-							// /Users/Ferry/sea-of-ql/FerryRiet/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:29:39: '(' x= orExpr ')'
+							// D:\\Users\\Ferry\\Desktop\\sea-of-ql\\FerryRiet\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:29:39: '(' x= orExpr ')'
 							{
 							match(input,17,FOLLOW_17_in_statement157); if (state.failed) return result;
 							pushFollow(FOLLOW_orExpr_in_statement161);
@@ -261,7 +261,7 @@ public class QLParser extends Parser {
 					}
 					break;
 				case 2 :
-					// /Users/Ferry/sea-of-ql/FerryRiet/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:30:7: 'if' '(' ex= orExpr ')' ctrue= compoundStatement ( 'else' cfalse= compoundStatement )?
+					// D:\\Users\\Ferry\\Desktop\\sea-of-ql\\FerryRiet\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:30:7: 'if' '(' ex= orExpr ')' ctrue= compoundStatement ( 'else' cfalse= compoundStatement )?
 					{
 					match(input,31,FOLLOW_31_in_statement175); if (state.failed) return result;
 					match(input,17,FOLLOW_17_in_statement177); if (state.failed) return result;
@@ -274,7 +274,7 @@ public class QLParser extends Parser {
 					ctrue=compoundStatement();
 					state._fsp--;
 					if (state.failed) return result;
-					// /Users/Ferry/sea-of-ql/FerryRiet/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:30:54: ( 'else' cfalse= compoundStatement )?
+					// D:\\Users\\Ferry\\Desktop\\sea-of-ql\\FerryRiet\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:30:54: ( 'else' cfalse= compoundStatement )?
 					int alt3=2;
 					int LA3_0 = input.LA(1);
 					if ( (LA3_0==29) ) {
@@ -282,7 +282,7 @@ public class QLParser extends Parser {
 					}
 					switch (alt3) {
 						case 1 :
-							// /Users/Ferry/sea-of-ql/FerryRiet/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:30:55: 'else' cfalse= compoundStatement
+							// D:\\Users\\Ferry\\Desktop\\sea-of-ql\\FerryRiet\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:30:55: 'else' cfalse= compoundStatement
 							{
 							match(input,29,FOLLOW_29_in_statement190); if (state.failed) return result;
 							pushFollow(FOLLOW_compoundStatement_in_statement194);
@@ -298,7 +298,7 @@ public class QLParser extends Parser {
 					}
 					break;
 				case 3 :
-					// /Users/Ferry/sea-of-ql/FerryRiet/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:31:8: cst= compoundStatement
+					// D:\\Users\\Ferry\\Desktop\\sea-of-ql\\FerryRiet\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:31:8: cst= compoundStatement
 					{
 					pushFollow(FOLLOW_compoundStatement_in_statement209);
 					cst=compoundStatement();
@@ -326,7 +326,7 @@ public class QLParser extends Parser {
 
 
 	// $ANTLR start "type"
-	// /Users/Ferry/sea-of-ql/FerryRiet/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:34:1: type returns [TypeDescription result] : ( 'boolean' | 'string' | 'money' );
+	// D:\\Users\\Ferry\\Desktop\\sea-of-ql\\FerryRiet\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:34:1: type returns [TypeDescription result] : ( 'boolean' | 'string' | 'money' );
 	public final TypeDescription type() throws RecognitionException {
 		TypeDescription result = null;
 
@@ -335,7 +335,7 @@ public class QLParser extends Parser {
 		try {
 			if ( state.backtracking>0 && alreadyParsedRule(input, 4) ) { return result; }
 
-			// /Users/Ferry/sea-of-ql/FerryRiet/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:35:5: ( 'boolean' | 'string' | 'money' )
+			// D:\\Users\\Ferry\\Desktop\\sea-of-ql\\FerryRiet\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:35:5: ( 'boolean' | 'string' | 'money' )
 			int alt5=3;
 			switch ( input.LA(1) ) {
 			case 28:
@@ -361,21 +361,21 @@ public class QLParser extends Parser {
 			}
 			switch (alt5) {
 				case 1 :
-					// /Users/Ferry/sea-of-ql/FerryRiet/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:35:7: 'boolean'
+					// D:\\Users\\Ferry\\Desktop\\sea-of-ql\\FerryRiet\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:35:7: 'boolean'
 					{
 					match(input,28,FOLLOW_28_in_type234); if (state.failed) return result;
 					if ( state.backtracking==0 ) { result = new BooleanType() ;}
 					}
 					break;
 				case 2 :
-					// /Users/Ferry/sea-of-ql/FerryRiet/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:36:7: 'string'
+					// D:\\Users\\Ferry\\Desktop\\sea-of-ql\\FerryRiet\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:36:7: 'string'
 					{
 					match(input,33,FOLLOW_33_in_type244); if (state.failed) return result;
 					if ( state.backtracking==0 ) { result = new StringType() ;}
 					}
 					break;
 				case 3 :
-					// /Users/Ferry/sea-of-ql/FerryRiet/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:37:7: 'money'
+					// D:\\Users\\Ferry\\Desktop\\sea-of-ql\\FerryRiet\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:37:7: 'money'
 					{
 					match(input,32,FOLLOW_32_in_type255); if (state.failed) return result;
 					if ( state.backtracking==0 ) { result = new MoneyType() ;}
@@ -400,7 +400,7 @@ public class QLParser extends Parser {
 
 
 	// $ANTLR start "primary"
-	// /Users/Ferry/sea-of-ql/FerryRiet/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:40:1: primary returns [Expr result] : ( IntLiteral | BigLiteral | Ident | BooleanLiteral | StringLiteral | '(' x= orExpr ')' );
+	// D:\\Users\\Ferry\\Desktop\\sea-of-ql\\FerryRiet\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:40:1: primary returns [Expr result] : ( IntLiteral | BigLiteral | Ident | BooleanLiteral | StringLiteral | '(' x= orExpr ')' );
 	public final Expr primary() throws RecognitionException {
 		Expr result = null;
 
@@ -416,7 +416,7 @@ public class QLParser extends Parser {
 		try {
 			if ( state.backtracking>0 && alreadyParsedRule(input, 5) ) { return result; }
 
-			// /Users/Ferry/sea-of-ql/FerryRiet/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:41:3: ( IntLiteral | BigLiteral | Ident | BooleanLiteral | StringLiteral | '(' x= orExpr ')' )
+			// D:\\Users\\Ferry\\Desktop\\sea-of-ql\\FerryRiet\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:41:3: ( IntLiteral | BigLiteral | Ident | BooleanLiteral | StringLiteral | '(' x= orExpr ')' )
 			int alt6=6;
 			switch ( input.LA(1) ) {
 			case IntLiteral:
@@ -457,42 +457,42 @@ public class QLParser extends Parser {
 			}
 			switch (alt6) {
 				case 1 :
-					// /Users/Ferry/sea-of-ql/FerryRiet/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:41:5: IntLiteral
+					// D:\\Users\\Ferry\\Desktop\\sea-of-ql\\FerryRiet\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:41:5: IntLiteral
 					{
 					IntLiteral5=(Token)match(input,IntLiteral,FOLLOW_IntLiteral_in_primary278); if (state.failed) return result;
 					if ( state.backtracking==0 ) { result = new IntLiteral((IntLiteral5!=null?IntLiteral5.getText():null)); }
 					}
 					break;
 				case 2 :
-					// /Users/Ferry/sea-of-ql/FerryRiet/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:42:5: BigLiteral
+					// D:\\Users\\Ferry\\Desktop\\sea-of-ql\\FerryRiet\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:42:5: BigLiteral
 					{
 					BigLiteral6=(Token)match(input,BigLiteral,FOLLOW_BigLiteral_in_primary291); if (state.failed) return result;
 					if ( state.backtracking==0 ) { result = new BigLiteral((BigLiteral6!=null?BigLiteral6.getText():null)); }
 					}
 					break;
 				case 3 :
-					// /Users/Ferry/sea-of-ql/FerryRiet/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:43:5: Ident
+					// D:\\Users\\Ferry\\Desktop\\sea-of-ql\\FerryRiet\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:43:5: Ident
 					{
 					Ident7=(Token)match(input,Ident,FOLLOW_Ident_in_primary304); if (state.failed) return result;
 					if ( state.backtracking==0 ) { result = new Ident(Ident7); }
 					}
 					break;
 				case 4 :
-					// /Users/Ferry/sea-of-ql/FerryRiet/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:44:5: BooleanLiteral
+					// D:\\Users\\Ferry\\Desktop\\sea-of-ql\\FerryRiet\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:44:5: BooleanLiteral
 					{
 					BooleanLiteral8=(Token)match(input,BooleanLiteral,FOLLOW_BooleanLiteral_in_primary322); if (state.failed) return result;
 					if ( state.backtracking==0 ) { result = new BooleanLiteral((BooleanLiteral8!=null?BooleanLiteral8.getText():null)) ;}
 					}
 					break;
 				case 5 :
-					// /Users/Ferry/sea-of-ql/FerryRiet/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:45:5: StringLiteral
+					// D:\\Users\\Ferry\\Desktop\\sea-of-ql\\FerryRiet\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:45:5: StringLiteral
 					{
 					StringLiteral9=(Token)match(input,StringLiteral,FOLLOW_StringLiteral_in_primary331); if (state.failed) return result;
 					if ( state.backtracking==0 ) { result = new StringLiteral((StringLiteral9!=null?StringLiteral9.getText():null)) ;}
 					}
 					break;
 				case 6 :
-					// /Users/Ferry/sea-of-ql/FerryRiet/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:46:5: '(' x= orExpr ')'
+					// D:\\Users\\Ferry\\Desktop\\sea-of-ql\\FerryRiet\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:46:5: '(' x= orExpr ')'
 					{
 					match(input,17,FOLLOW_17_in_primary341); if (state.failed) return result;
 					pushFollow(FOLLOW_orExpr_in_primary345);
@@ -522,7 +522,7 @@ public class QLParser extends Parser {
 
 
 	// $ANTLR start "unExpr"
-	// /Users/Ferry/sea-of-ql/FerryRiet/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:49:1: unExpr returns [Expr result] : ( '+' x= unExpr | '-' x= unExpr | '!' x= unExpr |x= primary );
+	// D:\\Users\\Ferry\\Desktop\\sea-of-ql\\FerryRiet\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:49:1: unExpr returns [Expr result] : ( '+' x= unExpr | '-' x= unExpr | '!' x= unExpr |x= primary );
 	public final Expr unExpr() throws RecognitionException {
 		Expr result = null;
 
@@ -533,7 +533,7 @@ public class QLParser extends Parser {
 		try {
 			if ( state.backtracking>0 && alreadyParsedRule(input, 6) ) { return result; }
 
-			// /Users/Ferry/sea-of-ql/FerryRiet/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:50:5: ( '+' x= unExpr | '-' x= unExpr | '!' x= unExpr |x= primary )
+			// D:\\Users\\Ferry\\Desktop\\sea-of-ql\\FerryRiet\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:50:5: ( '+' x= unExpr | '-' x= unExpr | '!' x= unExpr |x= primary )
 			int alt7=4;
 			switch ( input.LA(1) ) {
 			case 20:
@@ -569,7 +569,7 @@ public class QLParser extends Parser {
 			}
 			switch (alt7) {
 				case 1 :
-					// /Users/Ferry/sea-of-ql/FerryRiet/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:50:8: '+' x= unExpr
+					// D:\\Users\\Ferry\\Desktop\\sea-of-ql\\FerryRiet\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:50:8: '+' x= unExpr
 					{
 					match(input,20,FOLLOW_20_in_unExpr372); if (state.failed) return result;
 					pushFollow(FOLLOW_unExpr_in_unExpr376);
@@ -580,7 +580,7 @@ public class QLParser extends Parser {
 					}
 					break;
 				case 2 :
-					// /Users/Ferry/sea-of-ql/FerryRiet/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:51:8: '-' x= unExpr
+					// D:\\Users\\Ferry\\Desktop\\sea-of-ql\\FerryRiet\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:51:8: '-' x= unExpr
 					{
 					match(input,21,FOLLOW_21_in_unExpr387); if (state.failed) return result;
 					pushFollow(FOLLOW_unExpr_in_unExpr391);
@@ -591,7 +591,7 @@ public class QLParser extends Parser {
 					}
 					break;
 				case 3 :
-					// /Users/Ferry/sea-of-ql/FerryRiet/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:52:8: '!' x= unExpr
+					// D:\\Users\\Ferry\\Desktop\\sea-of-ql\\FerryRiet\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:52:8: '!' x= unExpr
 					{
 					match(input,14,FOLLOW_14_in_unExpr402); if (state.failed) return result;
 					pushFollow(FOLLOW_unExpr_in_unExpr406);
@@ -602,7 +602,7 @@ public class QLParser extends Parser {
 					}
 					break;
 				case 4 :
-					// /Users/Ferry/sea-of-ql/FerryRiet/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:53:8: x= primary
+					// D:\\Users\\Ferry\\Desktop\\sea-of-ql\\FerryRiet\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:53:8: x= primary
 					{
 					pushFollow(FOLLOW_primary_in_unExpr419);
 					x=primary();
@@ -630,7 +630,7 @@ public class QLParser extends Parser {
 
 
 	// $ANTLR start "mulExpr"
-	// /Users/Ferry/sea-of-ql/FerryRiet/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:56:1: mulExpr returns [Expr result] : lhs= unExpr (op= ( '*' | '/' ) rhs= unExpr )* ;
+	// D:\\Users\\Ferry\\Desktop\\sea-of-ql\\FerryRiet\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:56:1: mulExpr returns [Expr result] : lhs= unExpr (op= ( '*' | '/' ) rhs= unExpr )* ;
 	public final Expr mulExpr() throws RecognitionException {
 		Expr result = null;
 
@@ -643,15 +643,15 @@ public class QLParser extends Parser {
 		try {
 			if ( state.backtracking>0 && alreadyParsedRule(input, 7) ) { return result; }
 
-			// /Users/Ferry/sea-of-ql/FerryRiet/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:57:5: (lhs= unExpr (op= ( '*' | '/' ) rhs= unExpr )* )
-			// /Users/Ferry/sea-of-ql/FerryRiet/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:57:9: lhs= unExpr (op= ( '*' | '/' ) rhs= unExpr )*
+			// D:\\Users\\Ferry\\Desktop\\sea-of-ql\\FerryRiet\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:57:5: (lhs= unExpr (op= ( '*' | '/' ) rhs= unExpr )* )
+			// D:\\Users\\Ferry\\Desktop\\sea-of-ql\\FerryRiet\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:57:9: lhs= unExpr (op= ( '*' | '/' ) rhs= unExpr )*
 			{
 			pushFollow(FOLLOW_unExpr_in_mulExpr457);
 			lhs=unExpr();
 			state._fsp--;
 			if (state.failed) return result;
 			if ( state.backtracking==0 ) { result =lhs; }
-			// /Users/Ferry/sea-of-ql/FerryRiet/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:57:45: (op= ( '*' | '/' ) rhs= unExpr )*
+			// D:\\Users\\Ferry\\Desktop\\sea-of-ql\\FerryRiet\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:57:45: (op= ( '*' | '/' ) rhs= unExpr )*
 			loop8:
 			while (true) {
 				int alt8=2;
@@ -662,7 +662,7 @@ public class QLParser extends Parser {
 
 				switch (alt8) {
 				case 1 :
-					// /Users/Ferry/sea-of-ql/FerryRiet/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:57:47: op= ( '*' | '/' ) rhs= unExpr
+					// D:\\Users\\Ferry\\Desktop\\sea-of-ql\\FerryRiet\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:57:47: op= ( '*' | '/' ) rhs= unExpr
 					{
 					op=input.LT(1);
 					if ( input.LA(1)==19||input.LA(1)==22 ) {
@@ -714,7 +714,7 @@ public class QLParser extends Parser {
 
 
 	// $ANTLR start "addExpr"
-	// /Users/Ferry/sea-of-ql/FerryRiet/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:68:1: addExpr returns [Expr result] : lhs= mulExpr (op= ( '+' | '-' ) rhs= mulExpr )* ;
+	// D:\\Users\\Ferry\\Desktop\\sea-of-ql\\FerryRiet\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:68:1: addExpr returns [Expr result] : lhs= mulExpr (op= ( '+' | '-' ) rhs= mulExpr )* ;
 	public final Expr addExpr() throws RecognitionException {
 		Expr result = null;
 
@@ -727,15 +727,15 @@ public class QLParser extends Parser {
 		try {
 			if ( state.backtracking>0 && alreadyParsedRule(input, 8) ) { return result; }
 
-			// /Users/Ferry/sea-of-ql/FerryRiet/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:69:5: (lhs= mulExpr (op= ( '+' | '-' ) rhs= mulExpr )* )
-			// /Users/Ferry/sea-of-ql/FerryRiet/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:69:9: lhs= mulExpr (op= ( '+' | '-' ) rhs= mulExpr )*
+			// D:\\Users\\Ferry\\Desktop\\sea-of-ql\\FerryRiet\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:69:5: (lhs= mulExpr (op= ( '+' | '-' ) rhs= mulExpr )* )
+			// D:\\Users\\Ferry\\Desktop\\sea-of-ql\\FerryRiet\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:69:9: lhs= mulExpr (op= ( '+' | '-' ) rhs= mulExpr )*
 			{
 			pushFollow(FOLLOW_mulExpr_in_addExpr515);
 			lhs=mulExpr();
 			state._fsp--;
 			if (state.failed) return result;
 			if ( state.backtracking==0 ) { result =lhs; }
-			// /Users/Ferry/sea-of-ql/FerryRiet/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:69:46: (op= ( '+' | '-' ) rhs= mulExpr )*
+			// D:\\Users\\Ferry\\Desktop\\sea-of-ql\\FerryRiet\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:69:46: (op= ( '+' | '-' ) rhs= mulExpr )*
 			loop9:
 			while (true) {
 				int alt9=2;
@@ -746,7 +746,7 @@ public class QLParser extends Parser {
 
 				switch (alt9) {
 				case 1 :
-					// /Users/Ferry/sea-of-ql/FerryRiet/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:69:48: op= ( '+' | '-' ) rhs= mulExpr
+					// D:\\Users\\Ferry\\Desktop\\sea-of-ql\\FerryRiet\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:69:48: op= ( '+' | '-' ) rhs= mulExpr
 					{
 					op=input.LT(1);
 					if ( (input.LA(1) >= 20 && input.LA(1) <= 21) ) {
@@ -798,7 +798,7 @@ public class QLParser extends Parser {
 
 
 	// $ANTLR start "relExpr"
-	// /Users/Ferry/sea-of-ql/FerryRiet/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:80:1: relExpr returns [Expr result] : lhs= addExpr (op= ( '<' | '<=' | '>' | '>=' | '==' | '!=' ) rhs= addExpr )* ;
+	// D:\\Users\\Ferry\\Desktop\\sea-of-ql\\FerryRiet\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:80:1: relExpr returns [Expr result] : lhs= addExpr (op= ( '<' | '<=' | '>' | '>=' | '==' | '!=' ) rhs= addExpr )* ;
 	public final Expr relExpr() throws RecognitionException {
 		Expr result = null;
 
@@ -811,15 +811,15 @@ public class QLParser extends Parser {
 		try {
 			if ( state.backtracking>0 && alreadyParsedRule(input, 9) ) { return result; }
 
-			// /Users/Ferry/sea-of-ql/FerryRiet/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:81:5: (lhs= addExpr (op= ( '<' | '<=' | '>' | '>=' | '==' | '!=' ) rhs= addExpr )* )
-			// /Users/Ferry/sea-of-ql/FerryRiet/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:81:9: lhs= addExpr (op= ( '<' | '<=' | '>' | '>=' | '==' | '!=' ) rhs= addExpr )*
+			// D:\\Users\\Ferry\\Desktop\\sea-of-ql\\FerryRiet\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:81:5: (lhs= addExpr (op= ( '<' | '<=' | '>' | '>=' | '==' | '!=' ) rhs= addExpr )* )
+			// D:\\Users\\Ferry\\Desktop\\sea-of-ql\\FerryRiet\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:81:9: lhs= addExpr (op= ( '<' | '<=' | '>' | '>=' | '==' | '!=' ) rhs= addExpr )*
 			{
 			pushFollow(FOLLOW_addExpr_in_relExpr568);
 			lhs=addExpr();
 			state._fsp--;
 			if (state.failed) return result;
 			if ( state.backtracking==0 ) { result =lhs; }
-			// /Users/Ferry/sea-of-ql/FerryRiet/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:81:46: (op= ( '<' | '<=' | '>' | '>=' | '==' | '!=' ) rhs= addExpr )*
+			// D:\\Users\\Ferry\\Desktop\\sea-of-ql\\FerryRiet\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:81:46: (op= ( '<' | '<=' | '>' | '>=' | '==' | '!=' ) rhs= addExpr )*
 			loop10:
 			while (true) {
 				int alt10=2;
@@ -830,7 +830,7 @@ public class QLParser extends Parser {
 
 				switch (alt10) {
 				case 1 :
-					// /Users/Ferry/sea-of-ql/FerryRiet/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:81:48: op= ( '<' | '<=' | '>' | '>=' | '==' | '!=' ) rhs= addExpr
+					// D:\\Users\\Ferry\\Desktop\\sea-of-ql\\FerryRiet\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:81:48: op= ( '<' | '<=' | '>' | '>=' | '==' | '!=' ) rhs= addExpr
 					{
 					op=input.LT(1);
 					if ( input.LA(1)==15||(input.LA(1) >= 23 && input.LA(1) <= 27) ) {
@@ -894,7 +894,7 @@ public class QLParser extends Parser {
 
 
 	// $ANTLR start "andExpr"
-	// /Users/Ferry/sea-of-ql/FerryRiet/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:104:1: andExpr returns [Expr result] : lhs= relExpr ( '&&' rhs= relExpr )* ;
+	// D:\\Users\\Ferry\\Desktop\\sea-of-ql\\FerryRiet\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:104:1: andExpr returns [Expr result] : lhs= relExpr ( '&&' rhs= relExpr )* ;
 	public final Expr andExpr() throws RecognitionException {
 		Expr result = null;
 
@@ -906,15 +906,15 @@ public class QLParser extends Parser {
 		try {
 			if ( state.backtracking>0 && alreadyParsedRule(input, 10) ) { return result; }
 
-			// /Users/Ferry/sea-of-ql/FerryRiet/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:105:5: (lhs= relExpr ( '&&' rhs= relExpr )* )
-			// /Users/Ferry/sea-of-ql/FerryRiet/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:105:9: lhs= relExpr ( '&&' rhs= relExpr )*
+			// D:\\Users\\Ferry\\Desktop\\sea-of-ql\\FerryRiet\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:105:5: (lhs= relExpr ( '&&' rhs= relExpr )* )
+			// D:\\Users\\Ferry\\Desktop\\sea-of-ql\\FerryRiet\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:105:9: lhs= relExpr ( '&&' rhs= relExpr )*
 			{
 			pushFollow(FOLLOW_relExpr_in_andExpr630);
 			lhs=relExpr();
 			state._fsp--;
 			if (state.failed) return result;
 			if ( state.backtracking==0 ) { result =lhs; }
-			// /Users/Ferry/sea-of-ql/FerryRiet/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:105:46: ( '&&' rhs= relExpr )*
+			// D:\\Users\\Ferry\\Desktop\\sea-of-ql\\FerryRiet\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:105:46: ( '&&' rhs= relExpr )*
 			loop11:
 			while (true) {
 				int alt11=2;
@@ -925,7 +925,7 @@ public class QLParser extends Parser {
 
 				switch (alt11) {
 				case 1 :
-					// /Users/Ferry/sea-of-ql/FerryRiet/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:105:48: '&&' rhs= relExpr
+					// D:\\Users\\Ferry\\Desktop\\sea-of-ql\\FerryRiet\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:105:48: '&&' rhs= relExpr
 					{
 					match(input,16,FOLLOW_16_in_andExpr636); if (state.failed) return result;
 					pushFollow(FOLLOW_relExpr_in_andExpr640);
@@ -960,7 +960,7 @@ public class QLParser extends Parser {
 
 
 	// $ANTLR start "orExpr"
-	// /Users/Ferry/sea-of-ql/FerryRiet/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:108:1: orExpr returns [Expr result] : lhs= andExpr ( '||' rhs= andExpr )* ;
+	// D:\\Users\\Ferry\\Desktop\\sea-of-ql\\FerryRiet\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:108:1: orExpr returns [Expr result] : lhs= andExpr ( '||' rhs= andExpr )* ;
 	public final Expr orExpr() throws RecognitionException {
 		Expr result = null;
 
@@ -972,15 +972,15 @@ public class QLParser extends Parser {
 		try {
 			if ( state.backtracking>0 && alreadyParsedRule(input, 11) ) { return result; }
 
-			// /Users/Ferry/sea-of-ql/FerryRiet/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:109:5: (lhs= andExpr ( '||' rhs= andExpr )* )
-			// /Users/Ferry/sea-of-ql/FerryRiet/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:109:9: lhs= andExpr ( '||' rhs= andExpr )*
+			// D:\\Users\\Ferry\\Desktop\\sea-of-ql\\FerryRiet\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:109:5: (lhs= andExpr ( '||' rhs= andExpr )* )
+			// D:\\Users\\Ferry\\Desktop\\sea-of-ql\\FerryRiet\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:109:9: lhs= andExpr ( '||' rhs= andExpr )*
 			{
 			pushFollow(FOLLOW_andExpr_in_orExpr674);
 			lhs=andExpr();
 			state._fsp--;
 			if (state.failed) return result;
 			if ( state.backtracking==0 ) { result = lhs; }
-			// /Users/Ferry/sea-of-ql/FerryRiet/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:109:48: ( '||' rhs= andExpr )*
+			// D:\\Users\\Ferry\\Desktop\\sea-of-ql\\FerryRiet\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:109:48: ( '||' rhs= andExpr )*
 			loop12:
 			while (true) {
 				int alt12=2;
@@ -991,7 +991,7 @@ public class QLParser extends Parser {
 
 				switch (alt12) {
 				case 1 :
-					// /Users/Ferry/sea-of-ql/FerryRiet/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:109:50: '||' rhs= andExpr
+					// D:\\Users\\Ferry\\Desktop\\sea-of-ql\\FerryRiet\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:109:50: '||' rhs= andExpr
 					{
 					match(input,34,FOLLOW_34_in_orExpr680); if (state.failed) return result;
 					pushFollow(FOLLOW_andExpr_in_orExpr684);

@@ -19,7 +19,7 @@ public class NumeralType extends TypeDescription {
 
 	@Override
 	public boolean isCompatibleToMoney() {
-		return true;
+		return false;
 	}
 
 	@Override

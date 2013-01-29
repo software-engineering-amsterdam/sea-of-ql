@@ -1,11 +1,10 @@
 package org.uva.sea.ql.parser.antlr;
 
-import org.antlr.runtime.ANTLRStringStream;
-import org.antlr.runtime.CommonTokenStream;
-import org.antlr.runtime.RecognitionException;
-import org.uva.sea.ql.ast.ASTNode;
-import org.uva.sea.ql.parser.test.IParse;
-import org.uva.sea.ql.parser.test.ParseError;
+import org.antlr.runtime.*;
+import org.uva.sea.ql.ast.*;
+import org.uva.sea.ql.ast.form.*;
+import org.uva.sea.ql.parser.test.*;
+
 
 public class ANTLRParser implements IParse {
 
@@ -16,9 +15,14 @@ public class ANTLRParser implements IParse {
 		tokens.setTokenSource(new QLLexer(stream));
 		QLParser parser = new QLParser(tokens);
 		try {
-			return parser.form();
+			Form f = parser.form();
+			if(parser.isErrorFound()){
+				throw new ParseError(parser.getErrors().toString());
+			}
+			return f;
+			
 		} catch (RecognitionException e) {
 			throw new ParseError(e.getMessage());
-		}
+		} 
 	}
 }

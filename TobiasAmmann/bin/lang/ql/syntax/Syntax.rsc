@@ -3,7 +3,9 @@ module lang::ql::syntax::Syntax
 import lang::ql::syntax::Currencies;
 import Prelude;
 
-lexical Id  	= [a-z][a-zA-Z0-9]* !>> [a-z0-9];
+keyword Keywords = "form" | "int" | "bool" | "string" | "if" | "elseif" | "else" | "true" | "false";
+
+lexical Id  	= [a-z][a-zA-Z0-9]* !>> [a-z0-9]\ Keywords;
 lexical Natural = [0-9]+ ;
 lexical String 	= "\"" ![\"]*  "\"";
 lexical Boolean = "false" | "true";
@@ -22,17 +24,25 @@ lexical WhitespaceAndComment
 start syntax Form 
 	= @foldable form: "form" Id formName "{" Statement+ statement "}"
 	;
-	
+
 syntax Statement 
 	= statement: Question question
-	| ifStat:		"if" 	  "(" Expr condition ")" "{" Statement+ statement "}"
-	| elseIfStat:	"elseif"  "(" Expr condition ")" "{" Statement+ statement "}"
-	| elseStat:		"else"  		 				 "{" Statement+ statement "}"
+	| @foldable conditional1: If ifStatement ElseIf* elseIfStatement Else elseStatement
+	| @foldable conditional2: If ifStatement ElseIf* elseIfStatement
 ;  
+syntax If
+	= @foldable ifStat:		"if" 	  "(" Expr condition ")" "{" Statement+ statement "}"//Id id ":"String x Type t"}"// 
+;
+syntax ElseIf
+	= @foldable elseIfStat:	"elseif"  "(" Expr condition ")" "{" Statement+ statement "}"
+;
+syntax Else
+	= @foldable elseStat:	"else"  		 				 "{" Statement+ statement "}"
+;
 
 syntax Question
-	= question: Id identifier ":" String qst Type type
-	| exprQuestion: Id identifier ":" String qst Type type Expr condition
+	= exprQuestion: Id identifier ":" String qst Type t Expr condition
+	| question: 	Id identifier ":" String qst Type t
 ;
 
 syntax Type

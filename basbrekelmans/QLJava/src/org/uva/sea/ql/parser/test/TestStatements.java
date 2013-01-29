@@ -8,14 +8,14 @@ import org.junit.Test;
 import org.uva.sea.ql.ast.Node;
 import org.uva.sea.ql.ast.expressions.Expression;
 import org.uva.sea.ql.ast.statements.*;
-import org.uva.sea.ql.ast.typechecking.ITypeChecker;
-import org.uva.sea.ql.ast.typechecking.ITypeResolver;
-import org.uva.sea.ql.ast.typechecking.TypeCheckerFactory;
-import org.uva.sea.ql.ast.typechecking.TypeContext;
 import org.uva.sea.ql.ast.types.Type;
 import org.uva.sea.ql.parser.IParser;
 import org.uva.sea.ql.parser.JACCParser;
 import org.uva.sea.ql.parser.ParseError;
+import org.uva.sea.ql.typechecking.ITypeChecker;
+import org.uva.sea.ql.typechecking.ITypeResolver;
+import org.uva.sea.ql.typechecking.TypeCheckerFactory;
+import org.uva.sea.ql.typechecking.TypeContext;
 
 
 public class TestStatements {
@@ -97,7 +97,7 @@ public class TestStatements {
 	private static Statement firstChild(Node input) {
 		if (input instanceof Statements) {
 			Statements statements = (Statements)input;
-			return statements.getChildren().iterator().next();
+			return statements.iterator().next();
 		} else {
 			return (Statement)input;
 		}

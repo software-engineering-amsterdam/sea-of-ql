@@ -31,7 +31,6 @@ public class If extends Statement{
 	@Override
 	public List<Message> checkType(Map<Ident, Type> typeEnv) {
 		ArrayList<Message> errors = new ArrayList<Message>();
-		Type condType = condition.typeOf(typeEnv);
 		if(!(condition.typeOf(typeEnv).isCompatibleToBool())){
 			errors.add(new Error("Condition does not resolve to Bool"));
 		}
@@ -41,6 +40,16 @@ public class If extends Statement{
 			errors.addAll(statement.checkType(typeEnv));
 		}
 		return errors;
+	}
+	
+	@Override
+	public void printSelf(int indentation){
+		printIndentation(indentation);
+		System.out.println(getSimpleName(this) + ", Condition : " + getSimpleName(this.condition));
+		
+		for(Statement statement : ifBody){
+			statement.printSelf(indentation + 1);
+		}
 	}
 	
 }

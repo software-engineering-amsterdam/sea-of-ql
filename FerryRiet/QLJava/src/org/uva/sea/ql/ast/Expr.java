@@ -15,5 +15,6 @@ public abstract class Expr implements ASTNode {
 
 	public abstract TypeDescription typeOf(HashMap<String, Statement> symbolMap);
 
-	public abstract ExpressionResult eval(HashMap<String, Statement> symbolMap);
+	public abstract ExpressionResult eval(
+			HashMap<String, ExpressionResult> symbolMap);
 }

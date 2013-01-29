@@ -12,4 +12,15 @@ public abstract class Statement implements ASTNode{
 
 	public abstract List<Message> checkType (Map<Ident, Type> typeEnv);
 	
+	protected static String getSimpleName(Object e) { 
+		return e.getClass().getSimpleName();
+	}
+	
+	public abstract void printSelf(int indentation);
+	
+	public void printIndentation(int indentation){
+		for(int i = 0; i < indentation; i++){
+			System.out.print("  ");
+		}	
+	}
 }

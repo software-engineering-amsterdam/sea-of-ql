@@ -15,4 +15,9 @@ public class Bool implements Type {
     public int hashCode() {
         return Bool.class.hashCode();
     }
+
+    @Override
+    public String toString() {
+        return "boolean";
+    }
 }

@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.uva.sea.ql.ast.eval.Env;
 import org.uva.sea.ql.ast.expressions.Expr;
+import org.uva.sea.ql.interpreter.FormElement;
 
 public class IfElseStatement extends IfStatement {
 
@@ -37,10 +38,18 @@ public class IfElseStatement extends IfStatement {
 	@Override
 	public boolean validate(Env environment) {
 		boolean valid = super.validate(environment);
+		Env elseBodyEnvironment = new Env(environment);
 		for (FormItem f : elseBody) {
-			if (!f.validate(new Env(environment)))
+			if (!f.validate(elseBodyEnvironment))
 				valid = false;
 		}
 		return errors.size() == 0 && valid;
+	}
+	
+	@Override
+	public List<FormElement> getFormComponents() {
+		List<FormElement> components = super.getFormComponents();
+		components.add(new FormElement(getBodyFormContainer(elseBody), "span, growx"));
+		return components;
 	}
 }

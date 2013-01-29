@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.uva.sea.ql.ast.eval.Env;
+import org.uva.sea.ql.interpreter.FormElement;
 import org.uva.sea.ql.messages.Message;
 
 public abstract class FormItem {
@@ -12,7 +13,11 @@ public abstract class FormItem {
 
 	public abstract void print(int level);
 	
+	public abstract List<FormElement> getFormComponents();
+	
 	public abstract boolean validate(Env environment);
+	
+	public abstract void eval(Env environment, Form form);
 	
 	protected void printIndent(int level) {
 		for (int i = 0; i <= level; i++) {

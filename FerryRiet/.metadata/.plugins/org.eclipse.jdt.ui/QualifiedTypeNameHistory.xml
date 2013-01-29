@@ -16,7 +16,6 @@
 <fullyQualifiedTypeName name="org.uva.sea.ql.ast.QLProgram"/>
 <fullyQualifiedTypeName name="org.uva.sea.ql.ast.BooleanLiteral"/>
 <fullyQualifiedTypeName name="org.uva.sea.ql.ast.MoneyType"/>
-<fullyQualifiedTypeName name="java.util.HashMap"/>
 <fullyQualifiedTypeName name="com.sun.org.apache.xpath.internal.operations.Bool"/>
 <fullyQualifiedTypeName name="org.uva.sea.ql.ast.LineStatement"/>
 <fullyQualifiedTypeName name="org.uva.sea.ql.ast.BooleanType"/>
@@ -40,5 +39,6 @@
 <fullyQualifiedTypeName name="sun.tools.jstat.ExpressionResolver"/>
 <fullyQualifiedTypeName name="org.uva.sea.ql.ast.ExpressionResult"/>
 <fullyQualifiedTypeName name="java.lang.Exception"/>
+<fullyQualifiedTypeName name="java.util.HashMap"/>
 <fullyQualifiedTypeName name="java.math.BigDecimal"/>
 </qualifiedTypeNameHistroy>

@@ -60,28 +60,45 @@ public class TestVisitor extends TestCase {
 		SemanticCheckVisitor svis = new SemanticCheckVisitor();
 		QLProgram qlp;
 
-		String a33 = "form DoIt { field: \"doit\" money if ( field < true ) { fieldTwo : \"hello world!\" money( 20 && 20 ) }}";
+		String a33 = "form DoIt { field: \"doit\" money if ( field == 100  ) { fieldTwo : \"hello world!\" money( 20 < 20 ) }}";
 		qlp = parser.qlprogram(a33);
 		qlp.accept(svis);
+		for (String errorSting : svis.getErrorList())
+			System.out.println(errorSting);
+		
 		String a34 = "form DoIt { field: \"doit\" money if ( field < 100 ) { fieldTwo : \"hello world!\" money( 20 + 20 ) }}";
 		qlp = parser.qlprogram(a34);
 		qlp.accept(svis);
+		for (String errorSting : svis.getErrorList())
+			System.out.println(errorSting);
+		
 		String a35 = "form DoIt { field: \"doit\" money if ( ( field < 100 )  == true ) { fieldTwo : \"hello world!\" money( 20 + 20 ) }}";
 		qlp = parser.qlprogram(a35);
 		qlp.accept(svis);
+		for (String errorSting : svis.getErrorList())
+			System.out.println(errorSting);
+		
 		String a36 = "form DoIt { field: \"doit\" money if ( field < 100 ) { fieldTwo : \"hello world!\" money( 100 / 20 ) }}";
 		qlp = parser.qlprogram(a36);
 		qlp.accept(svis);
+		for (String errorSting : svis.getErrorList())
+			System.out.println(errorSting);
+		
 		String a37 = "form DoIt { field: \"doit\" boolean if ( field == true && ! false ) { fieldTwo : \"hello world!\" money( 30 + 20 ) }}";
 		qlp = parser.qlprogram(a37);
 		qlp.accept(svis);
+		for (String errorSting : svis.getErrorList())
+			System.out.println(errorSting);
+		
 		String a38 = "form DoIt { field: \"doit\" boolean if ( 100 == 200 && 10 < 100 ) { fieldTwo : \"hello world!\" money( 30 + 20 )  fieldThree : \"third field\" money }}";
 		qlp = parser.qlprogram(a38);
 		qlp.accept(svis);
-		String a39 = "form DoIt { fieldOne: \"hello world!\" money fieldOne1: \"hello world!\" money if ( fieldOne1 ) { two: \"is here\" boolean } }";
+		for (String errorSting : svis.getErrorList())
+			System.out.println(errorSting);
+		
+		String a39 = "form DoIt { fieldOne: \"hello world!\" money fieldOne1: \"hello world!\" money if ( true ) { two: \"is here\" boolean } }";
 		qlp = parser.qlprogram(a39);
 		qlp.accept(svis);
-
 		for (String errorSting : svis.getErrorList())
 			System.out.println(errorSting);
 	}

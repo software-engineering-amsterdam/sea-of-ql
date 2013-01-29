@@ -7,6 +7,7 @@ import org.uva.sea.ql.ast.types.*;
 import org.uva.sea.ql.ast.math.*;
 import org.uva.sea.ql.ast.literal.*;
 import org.uva.sea.ql.ast.elements.*;
+import org.uva.sea.ql.ast.expressions.Expr;
 
 
 import org.antlr.runtime.*;

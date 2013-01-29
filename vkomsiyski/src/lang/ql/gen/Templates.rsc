@@ -36,6 +36,9 @@ public str addBody1() = "
 	 	submitButton.clicked.connect(this, \"onClicked()\");
 ";
 
+public str addTitle(str name) = "
+		setWindowTitle(\"<name>\");";
+
 public str addBody2() = "	 
 	 	for (int i = 0; i \< labels.size(); i++) {
 	 		layout.addWidget(labels.get(i), i, 0,  Qt.AlignmentFlag.AlignRight);
@@ -82,7 +85,7 @@ public str addBody3() = "
 	
 	
 public str addBody4() = "	
-
+		System.out.println(obj);
 		PrintWriter out = null;
 		try{
 			out = new PrintWriter(new FileWriter(\"form.answers\")); 
@@ -92,6 +95,7 @@ public str addBody4() = "
   		} finally {
 			out.close();
 		}
+		QApplication.quit();
 	}
 }
 ";

@@ -4,7 +4,7 @@ import lang::ql::ast::AST;
 import lang::ql::util::Environment;
 
 public str declareLabel(str name, str label) 
-  = "\tQLabel <name>Label = new QLabel(<label>);\n";
+  = "\tQLabel <name>Label = new QLabel(\"\<font color=\\\"red\\\"\>\"+<label>+\"\</font\>\");\n";
 
 public str declareWidget(str name, Type t:\bool(_)) 
   = "\tQCheckBox <name>Widget = new QCheckBox();\n";

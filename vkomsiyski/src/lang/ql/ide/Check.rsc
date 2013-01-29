@@ -8,11 +8,8 @@ import lang::ql::util::Message;
 import util::IDE;
 import ParseTree;
 import Message;
-import Set;
-import List;
 
-
-public Contribution getAnnotator() 
+public Contribution getQLAnnotator() 
   = annotator(Tree (Tree input) {
 	  return input[@messages=annotate(implode(input))];
     });

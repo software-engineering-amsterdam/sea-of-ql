@@ -10,4 +10,14 @@ public class Error extends Type {
 	public <T> T accept( ITypeVisitor<T> visitor ) {
 		return null;
 	}
+
+	@Override
+	public boolean isCompatibleTo( Type type ) {
+		return false;
+	}
+
+	@Override
+	public String toString() {
+		return "Error";
+	}
 }

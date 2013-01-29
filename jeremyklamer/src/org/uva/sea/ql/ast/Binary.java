@@ -39,13 +39,15 @@ public abstract class Binary extends Expr {
 		
 		// Have to check both ways because int is not compatible to numeric but numeric is compatible to int. 
 		if(!(leftType.isCompatibleTo(rightType) || rightType.isCompatibleTo(leftType)) ){
-			errors.add(new Error(getName(leftType) + " is not compatible with " + getName(rightType) + ". In :" + getName(this)));
+			errors.add(new Error(getSimpleName(leftType) + " is not compatible with " + getSimpleName(rightType) + ". In :" + getSimpleName(this)));
 		}
 		else if(!permittedTypes.isCompatibleTo(leftType)){
-			errors.add(new Error(getName(leftType) + " is permitted in :" + getName(this)));
+			errors.add(new Error(getSimpleName(leftType) + " is permitted in :" + getSimpleName(this)));
 		}
 		
 		return errors;
 	}
+	
+	
 	
 }
