@@ -5,7 +5,7 @@ import java.util.Map;
 
 import org.uva.sea.ql.ast.Form;
 import org.uva.sea.ql.ast.expr.Expr;
-import org.uva.sea.ql.ast.expr.value.Ident;
+import org.uva.sea.ql.ast.expr.primary.Ident;
 import org.uva.sea.ql.ast.stmt.IfThenElse;
 import org.uva.sea.ql.ast.stmt.Statement;
 import org.uva.sea.ql.ast.stmt.question.ComputedQuestion;

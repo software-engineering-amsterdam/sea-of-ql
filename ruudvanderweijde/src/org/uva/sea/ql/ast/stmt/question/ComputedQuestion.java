@@ -1,7 +1,7 @@
 package org.uva.sea.ql.ast.stmt.question;
 
 import org.uva.sea.ql.ast.expr.Expr;
-import org.uva.sea.ql.ast.expr.value.Ident;
+import org.uva.sea.ql.ast.expr.primary.Ident;
 import org.uva.sea.ql.ast.type.Type;
 import org.uva.sea.ql.visitor.IFormVisitor;
 

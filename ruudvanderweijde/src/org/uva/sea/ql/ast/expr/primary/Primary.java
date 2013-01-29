@@ -1,4 +1,4 @@
-package org.uva.sea.ql.ast.expr.value;
+package org.uva.sea.ql.ast.expr.primary;
 
 import org.uva.sea.ql.ast.expr.Expr;
 

@@ -1,33 +1,33 @@
-package org.uva.sea.ql.ast.expr.value;
+package org.uva.sea.ql.ast.expr.primary;
 
 import java.util.Map;
 
-import org.uva.sea.ql.ast.type.BooleanType;
+import org.uva.sea.ql.ast.type.IntegerType;
 import org.uva.sea.ql.ast.type.Type;
 import org.uva.sea.ql.visitor.IExpressionVisitor;
 
 
-public class Bool extends Primary<Boolean> {
-	private final boolean value;
+public class Int extends Primary<Integer> {
 
-	public Bool(boolean value) {
+	private final int value;
+
+	public Int(int value) {
 		this.value = value;
 	}
-	
-	public Boolean getValue() {
+
+	public Integer getValue() {
 		return value;
 	}
 	
 	@Override
 	public String toString() {
-		return "Bool";
+		return "Int";
 	}
 
 	@Override
 	public Type typeOf(Map<Ident, Type> typeEnv) {
-		return new BooleanType();
+		return new IntegerType();
 	}
-
 
 	@Override
 	public <T> T accept(IExpressionVisitor<T> visitor) {

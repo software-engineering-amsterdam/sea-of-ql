@@ -1,31 +1,31 @@
-package org.uva.sea.ql.ast.expr.value;
+package org.uva.sea.ql.ast.expr.primary;
 
 import java.util.Map;
 
-import org.uva.sea.ql.ast.type.StringType;
+import org.uva.sea.ql.ast.type.BooleanType;
 import org.uva.sea.ql.ast.type.Type;
 import org.uva.sea.ql.visitor.IExpressionVisitor;
 
-public class StringLiteral extends Primary<String> {
 
-	private final String value;
+public class Bool extends Primary<Boolean> {
+	private final boolean value;
 
-	public StringLiteral(String value) {
+	public Bool(boolean value) {
 		this.value = value;
 	}
 	
-	public String getValue() {
+	public Boolean getValue() {
 		return value;
 	}
 	
 	@Override
 	public String toString() {
-		return "StringLiteral";
+		return "Bool";
 	}
 
 	@Override
 	public Type typeOf(Map<Ident, Type> typeEnv) {
-		return new StringType();
+		return new BooleanType();
 	}
 
 
