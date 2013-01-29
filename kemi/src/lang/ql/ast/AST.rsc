@@ -73,3 +73,4 @@ anno loc Form@location;
 anno loc IdentDefinition@location;
 anno loc Question@location;
 anno loc Statement@location;
+anno loc Type@location;
