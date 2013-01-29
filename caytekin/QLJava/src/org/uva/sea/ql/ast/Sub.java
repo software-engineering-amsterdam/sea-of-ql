@@ -1,9 +1,9 @@
 package org.uva.sea.ql.ast;
 
-public class Sub extends MathOprtn {
+public class Sub extends BinaryMathOptn {
 
 	public Sub(Expr expr1, Expr expr2){
-		// Addition to be implemented
+		super (expr1, expr2);
 	}
 	
 }

@@ -1,7 +1,7 @@
 %package org.uva.sea.ql.parser.jacc
 %class QLParser
 %interface QLTokens
-%semantic org.uva.sea.ql.ast.INode 
+%semantic org.uva.sea.ql.ast.Node 
 %start start
 
 %token BOOLEAN INTEGER MONEY STRING
@@ -12,7 +12,8 @@
 %token <Ident> IDENT
 %token '^' '*' '/' '+' '-' OR AND NEQ EQ '<' LEQ '>' GEQ '!'
 %token '(' ')' '{' '}'
-%token ';' ':'
+%token ':'
+%token TRUE FALSE
 %token IF ELSE FORM
 
 %left OR
@@ -20,55 +21,53 @@
 %left '>' '<' GEQ LEQ NEQ EQ
 %left '+' '-'
 %left '*' '/'
-%left '^'
 %left UMIN UPLUS UNOT
 
 // data types
-%type <DataType.BOOLEAN> BOOLEAN
-%type <DataType.INTEGER> INTEGER
-%type <DataType.MONEY> MONEY
-%type <DataType.STRING> STRING
+%type <org.uva.sea.ql.ast.type.Bool> BOOLEAN
+%type <org.uva.sea.ql.ast.type.Int> INTEGER
+%type <org.uva.sea.ql.ast.type.Money> MONEY
+%type <org.uva.sea.ql.ast.type.Str> STRING
 
 // AST nodes
-%type <Assignment> assignment
-%type <Expression> expression
+%type <Assignment>      assignment
+%type <Else>            else
+%type <ElseIf>          elseif
+%type <ElseIfs>         elseifs
+%type <Expression>      expression
 %type <FormDeclaration> form
-%type <IfThenElse> ifblock
-%type <Statement> statement
-%type <Statements> formbody ifbody ifelse statements
-%type <VarDeclaration> vardeclaration
+%type <IfThenElse>      ifblock
+%type <Statement>       statement
+%type <Statements>      formbody ifbody statements
+%type <org.uva.sea.ql.ast.type.Type> datatype
+%type <VarDeclaration>  vardeclaration
 
 %{
 import org.uva.sea.ql.ast.*;
 import org.uva.sea.ql.ast.expression.*;
-import org.uva.sea.ql.ast.expression.value.*;
+import org.uva.sea.ql.ast.expression.literal.*;
 import org.uva.sea.ql.ast.statement.*;
 %}
 
 %%
 
- start          : node  { result = $1; }
-                ;
-
- node           : form
-                | statement
-                | expression
-                ;
-
- form           : FORM IDENT '{' formbody '}'      { $$ = new FormDeclaration( $2, $4 ); }
-                ;
-
- formbody       : statements
+ start          : statement                       { result = $1; }
                 ;
 
  statements     : statement statements             { $$ = new Statements( $1, $2 ); }
                 | statement                        { $$ = new Statements( $1 ); }
                 ;
 
- statement      : question
+ statement      : form
+                | question
                 | blockstatement
-                | vardeclaration
                 | assignment
+                ;
+
+ form           : FORM IDENT '{' formbody '}'      { $$ = new FormDeclaration( $2, $4 ); }
+                ;
+
+ formbody       : statements
                 ;
 
  question       : STR vardeclaration               { $$ = new QuestionDeclaration( $1, $2 ); }
@@ -78,24 +77,25 @@ import org.uva.sea.ql.ast.statement.*;
  blockstatement : ifblock
                 ;
 
- ifblock        : IF '(' expression ')' '{' ifbody '}' ifelse  { $$ = new IfThenElse( $3, $6, $8 ); }
-                | IF '(' expression ')' '{' ifbody '}'         { $$ = new IfThenElse( $3, $6 ); }
-                | IF '(' expression ')' '{' '}' ifelse         { $$ = new IfThenElse( $3, null, $7 ); }
-                | IF '(' expression ')' '{' '}'                { $$ = new IfThenElse( $3 ); }
-                ;
-                
- ifelse         : ELSE ifblock                     { $$ = new Statements( $2 ); }
-                | ELSE '{' ifbody '}'              { $$ = $3; }
-                | ELSE '{' '}'                     { $$ = null; }
-                ;
-
  ifbody         : formbody
+                | /* empty */                      { $$ = new Statements(); }
                 ;
 
- vardeclaration : IDENT ':' BOOLEAN                { $$ = new VarDeclaration( $1, DataType.BOOLEAN ); }
-                | IDENT ':' MONEY                  { $$ = new VarDeclaration( $1, DataType.MONEY ); }
-                | IDENT ':' INTEGER                { $$ = new VarDeclaration( $1, DataType.INTEGER ); }
-                | IDENT ':' STRING                 { $$ = new VarDeclaration( $1, DataType.STRING ); }
+ ifblock        : IF '(' expression ')' '{' ifbody '}' elseifs else     { $$ = new IfThenElse( $3, $6, $8, $9 ); }
+                | IF '(' expression ')' '{' ifbody '}' elseifs          { $$ = new IfThenElse( $3, $6, $8 ); }
+                ;
+
+ elseifs        : elseifs elseif                                        { $$ = new ElseIfs( $2, $1 ); }
+                | /* empty */                                           { $$ = new ElseIfs(); }
+                ;
+
+ elseif         : ELSE IF '(' expression ')' '{' ifbody '}'             { $$ = new ElseIf( $4, $7 ); }
+                ;
+
+ else           : ELSE '{' ifbody '}'                                   { $$ = new Else( $3 ); }
+                ;
+
+ vardeclaration : IDENT ':' datatype               { $$ = new VarDeclaration( $1, $3 ); }
                 ;
 
  assignment     : IDENT '=' expression             { $$ = new Assignment( $1, $3 ); }
@@ -113,7 +113,6 @@ import org.uva.sea.ql.ast.statement.*;
                 | expression '/' expression        { $$ = new Div( $1, $3 ); }
                 | expression '+' expression        { $$ = new Add( $1, $3 ); }
                 | expression '-' expression        { $$ = new Sub( $1, $3 ); }
-                | expression '^' expression        { $$ = new Pow( $1, $3 ); }
                 ;
 
  logical        : expression AND expression        { $$ = new And( $1, $3 ); }
@@ -135,6 +134,17 @@ import org.uva.sea.ql.ast.statement.*;
                 | INT                              { $$ = $1; }
                 | STR                              { $$ = $1; }
                 | IDENT                            { $$ = $1; }
+                | boolliteral                      { $$ = $1; }
+                ;
+                
+ boolliteral    : TRUE                             { $$ = new org.uva.sea.ql.ast.expression.literal.Bool( true ); }
+                | FALSE                            { $$ = new org.uva.sea.ql.ast.expression.literal.Bool( false ); }
+                ;
+
+ datatype       : BOOLEAN                          { $$ = new org.uva.sea.ql.ast.type.Bool(); }
+                | MONEY                            { $$ = new org.uva.sea.ql.ast.type.Money(); }
+                | INTEGER                          { $$ = new org.uva.sea.ql.ast.type.Int(); }
+                | STRING                           { $$ = new org.uva.sea.ql.ast.type.Str(); }
                 ;
 
 %%
@@ -146,14 +156,14 @@ import org.uva.sea.ql.ast.statement.*;
     /**
      * Holds the parsing result (AST)
      */
-    private INode result;
+    private Statement result;
     
     /**
      * Retrieves the generated AST.
      *
      * @return The AST.
      */
-    public INode getResult() {
+    public Statement getResult() {
         return result;
     }
     

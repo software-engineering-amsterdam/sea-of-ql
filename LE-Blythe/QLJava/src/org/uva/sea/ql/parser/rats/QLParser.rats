@@ -3,36 +3,35 @@ module org.uva.sea.ql.parser.rats.QLParser;
 header {
 import xtc.util.Action;
 import org.uva.sea.ql.ast.*;
-import org.uva.sea.ql.ast.form.*;
-import org.uva.sea.ql.ast.propositional.*;
-import org.uva.sea.ql.ast.numeric.*;
-import org.uva.sea.ql.ast.comparative.*;
+import org.uva.sea.ql.ast.statement.*;
+import org.uva.sea.ql.ast.operative.*;
+import org.uva.sea.ql.ast.primitive.*;
 }
 
 public Form RunParse = yyValue:Form;
 
-FormElement Form = 
-	"form" Spacing f:Ident Spacing LBracket b:Body RBracket { yyValue = new Form(f, b); };
+Statement Form = 
+	"form" Spacing f:Ident Spacing LBracket b:Block RBracket { yyValue = new Form(f, b); };
 	
-Expr Body =
-	l:BodyNode* { yyValue= new Body(l.list()); }
+Block Block =
+	l:Statement* { yyValue= new Block(l.list()); }
 	;
 
-Expr BodyNode =
+Statement Statement =
 	yyValue:Branch
 	/ yyValue:Question
 	;
 	
-Expr Branch =
-	"if" Spacing LParen c:Expr RParen LBracket b:Body RBracket e:Else { yyValue = new Branch(c,b,e); }
+Branch Branch =
+	"if" Spacing LParen c:Expr RParen LBracket b:Block RBracket e:Else { yyValue = new Branch(c,b,e); }
 	;		
 
-Expr Else =
-	"else" Spacing LBracket yyValue:Body RBracket
+Block Else =
+	"else" Spacing LBracket yyValue:Block RBracket
 	/ { yyValue=null; }
 	;
 
-Expr Question =
+Question Question =
 	q:Literal Spacing x:Ident Spacing ":" Spacing t:Type Spacing { yyValue = new Question(q, new Ident(x), t); }
 	; 
 	
@@ -111,7 +110,8 @@ Expr Unary =
 	
 
 Expr Primary = 
-	"true" Spacing { yyValue = new Bool(true); }
+	s:Literal Spacing { yyValue = new Str(s); }
+	/ "true" Spacing { yyValue = new Bool(true); }
 	/ "false" Spacing { yyValue = new Bool(false); }
 	/ n:Int Spacing { yyValue = new Int(Integer.parseInt(n)); }
 	/ x:Ident Spacing { yyValue = new Ident(x); }
@@ -125,8 +125,6 @@ String Int
 String Ident
   = [a-zA-Z_][A-Za-z0-9_]* //![0-9a-zA-Z_]
   ;
-
-
 
 String Literal 
 	= ["] [A-Za-z0-9_?!;:\t\f\n ]* ["]

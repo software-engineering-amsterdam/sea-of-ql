@@ -19,23 +19,13 @@ import org.uva.sea.ql.parser.antlr.ANTLROrParser;
 import org.uva.sea.ql.parser.antlr.ANTLRParser;
 import org.uva.sea.ql.parser.antlr.ANTLRRelsParser;
 
-@RunWith(Parameterized.class)
 public class TestAnds {
 
 
 	private IParse parser;
-
-	@Parameters
-	public static List<Object[]> theParsers() {
-	  List<Object[]> retList = new ArrayList<Object[]>();
-	  Object[] oArray = {new ANTLRAndParser() } ;
-	  retList.add(oArray);
-	  return retList;
-	}
-
 	
-	public TestAnds(IParse parser) {
-		this.parser = parser;
+	public TestAnds() {
+		this.parser = new ANTLRAndParser();
 	}
 
 	

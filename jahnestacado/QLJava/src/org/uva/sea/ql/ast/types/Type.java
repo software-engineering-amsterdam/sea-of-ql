@@ -5,14 +5,26 @@ import org.uva.sea.ql.ast.ASTNode;
 
 public abstract class Type extends ASTNode {
 	
-	private String type ;
-
-	public Type(String type) {
-		this.type = type ;
+	public abstract boolean isCompatibleToType(Type type);
+	
+	public boolean isCompatibleToNumericType(){
+		return false;
 	}
 	
-	public String getType() {
-		return type;
+	public boolean isCompatibleToIntType(){
+		return false;
+	}
+	
+	public boolean isCompatibleToMoneyType(){
+		return false;
+	}
+	
+	public boolean isCompatibleToBoolType(){
+		return false;
+	}
+	
+	public boolean isCompatibleToStringType(){
+		return false;
 	}
 
 }

@@ -1,7 +1,7 @@
 package org.uva.sea.ql.ast.expressions;
 
 import org.uva.sea.ql.ICodeLocationInformation;
-import org.uva.sea.ql.ast.types.QLType;
+import org.uva.sea.ql.ast.IExpressionVisitor;
 
 public class StringLiteral extends Literal {
 
@@ -12,13 +12,13 @@ public class StringLiteral extends Literal {
 		this.value = value;
 	}
 
-	@Override
-	public QLType getType() {
-		return QLType.STRING;
-	}
-	
 	public String getValue()
 	{
 		return value;
+	}
+	
+	public <T> T accept(IExpressionVisitor<T> visitor)
+	{
+		return visitor.visit(this);
 	}
 }

@@ -1,39 +1,19 @@
 package org.uva.sea.ql.ast.form;
 
-import org.uva.sea.ql.ast.ASTNode;
+import org.uva.sea.ql.ast.expr.Ident;
+import org.uva.sea.ql.ast.expr.values.StringLit;
 import org.uva.sea.ql.ast.types.Type;
-import org.uva.sea.ql.visitor.ASTNodeVisitor;
+import org.uva.sea.ql.visitor.checkers.ElementChecker;
 
-public class Question extends BodyElements  {
-	private final String id;
-	private final String label;
-	private final Type type;
+public class Question extends SingleLineElement {
 
-	public Question(String id, String label, Type type) {
-			this.id=id;
-			this.label=label;
-			this.type=type;
-		
-	}
-
-	public String getId() {
-		return id;
-	}
-
-	public String getLabel() {
-		return label;
-	}
-
-	public Type getType() {
-		return type;
+	public Question(Ident id, StringLit label, Type type) {
+		super(id, label, type);
 	}
 
 	@Override
-	public void accept(ASTNodeVisitor nodeVisitor) {
-		// TODO Auto-generated method stub
-		
+	public void accept(ElementChecker qlElement) {
+		qlElement.visit(this);
 	}
-	
-	
 
 }

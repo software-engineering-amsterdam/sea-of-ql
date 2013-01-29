@@ -1,34 +1,31 @@
 package org.uva.sea.ql.ast.form;
 
-import java.util.List;
+import org.uva.sea.ql.ast.expr.Ident;
+import org.uva.sea.ql.visitor.checkers.ElementChecker;
 
-import org.uva.sea.ql.ast.ASTNode;
-import org.uva.sea.ql.ast.values.Ident;
-import org.uva.sea.ql.visitor.ASTNodeVisitor;
-
-
-public class Form extends ASTNode{
+public class Form extends QLProgram{
 	private final Ident id;
-	private final List<BodyElements> body;
+	private final Body body;
 
-	public Form(Ident id, List<BodyElements> body) {
-			this.id=id;
-			this.body=body;
-			System.out.println("test form constructor");
+	public Form(Ident id, Body body) {
+		this.id = id;
+		this.body = body;
+
 	}
 
 	public Ident getId() {
 		return id;
 	}
 
-	public List<BodyElements> getBody() {
+	public Body getBody() {
 		return body;
 	}
 
 	@Override
-	public void accept(ASTNodeVisitor nodeVisitor) {
-		// TODO Auto-generated method stub
-		
+	public void accept(ElementChecker qlElement) {
+			qlElement.visit(this);
 	}
+
+	
 
 }

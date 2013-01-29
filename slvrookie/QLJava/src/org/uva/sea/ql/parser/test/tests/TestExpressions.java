@@ -3,13 +3,13 @@ package org.uva.sea.ql.parser.test.tests;
 import static org.junit.Assert.*;
 import org.junit.Test;
 import org.uva.sea.ql.ast.expr.*;
+import org.uva.sea.ql.ast.expr.binary.*;
+import org.uva.sea.ql.ast.expr.unary.*;
 import org.uva.sea.ql.ast.expr.value.*;
 import org.uva.sea.ql.parser.antlr.ANTLRParser;
-import org.uva.sea.ql.parser.test.IParse;
-import org.uva.sea.ql.parser.test.ParseError;
+import org.uva.sea.ql.parser.test.*;
 
-
-public class TestExpressions{
+public class TestExpressions {
 
 	final private IParse parser = new ANTLRParser();
 
@@ -24,7 +24,7 @@ public class TestExpressions{
 		assertEquals(Add.class, parser.parseExpr("a + b * c").getClass());
 		assertEquals(Add.class, parser.parseExpr("a * b + c").getClass());
 	}
-	
+
 	@Test
 	public void testSubs() throws ParseError {
 		assertEquals(Sub.class, parser.parseExpr("a - b").getClass());
@@ -36,7 +36,7 @@ public class TestExpressions{
 		assertEquals(Sub.class, parser.parseExpr("a - b * c").getClass());
 		assertEquals(Sub.class, parser.parseExpr("a * b - c").getClass());
 	}
-	
+
 	@Test
 	public void testUnary() throws ParseError {
 		assertEquals(Neg.class, parser.parseExpr("- b").getClass());
@@ -59,7 +59,7 @@ public class TestExpressions{
 		assertEquals(Mul.class, parser.parseExpr("(a + b) * c").getClass());
 		assertEquals(Mul.class, parser.parseExpr("a * (b + c)").getClass());
 	}
-	
+
 	@Test
 	public void testDivs() throws ParseError {
 		assertEquals(Div.class, parser.parseExpr("a / b").getClass());
@@ -114,21 +114,21 @@ public class TestExpressions{
 		assertEquals(IntLiteral.class, parser.parseExpr("1223").getClass());
 		assertEquals(IntLiteral.class, parser.parseExpr("234234234").getClass());
 	}
-	
+
 	@Test
 	public void testMoneyLiteral() throws ParseError {
 		assertEquals(MoneyLiteral.class, parser.parseExpr("120.00").getClass());
 		assertEquals(MoneyLiteral.class, parser.parseExpr("1231121.11").getClass());
 		assertEquals(MoneyLiteral.class, parser.parseExpr("00.00").getClass());
-		assertEquals(MoneyLiteral.class, parser.parseExpr("00.0021312").getClass());  
+		assertEquals(MoneyLiteral.class, parser.parseExpr("00.0021312").getClass());
 	}
-	
+
 	@Test
 	public void testBooleanLiteral() throws ParseError {
 		assertEquals(BoolLiteral.class, parser.parseExpr("true").getClass());
 		assertEquals(BoolLiteral.class, parser.parseExpr("false").getClass());
 	}
-	
+
 	@Test
 	public void testStringLiteral() throws ParseError {
 		assertEquals(StringLiteral.class, parser.parseExpr("\"trues  dat\"").getClass());
@@ -137,11 +137,5 @@ public class TestExpressions{
 		assertEquals(StringLiteral.class, parser.parseExpr("\"True dat\" \n \t \" nice to SEE ya\"").getClass());
 		assertEquals(StringLiteral.class, parser.parseExpr("\"tr<ue **dat\" \" nice) to SEE ya\"").getClass());
 	}
-	
-//	@Test
-//	public void testComments() throws ParseError {
-//	assertNull(parser.parseExpr("// \"trues dat\"\n"));
-//	assertNull(parser.parseExpr("/* true \r \"Dat\" \n 123 */"));
-//	} 
-		
+
 }

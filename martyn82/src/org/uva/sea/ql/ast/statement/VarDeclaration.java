@@ -1,10 +1,8 @@
 package org.uva.sea.ql.ast.statement;
 
-import org.uva.sea.ql.ast.DataType;
 import org.uva.sea.ql.ast.expression.Ident;
-import org.uva.sea.ql.eval.Context;
-import org.uva.sea.ql.eval.value.Value;
-import org.uva.sea.ql.visitor.INodeVisitor;
+import org.uva.sea.ql.ast.type.Type;
+import org.uva.sea.ql.visitor.IStatementVisitor;
 
 /**
  * Represents a variable declaration.
@@ -18,7 +16,7 @@ public class VarDeclaration extends Statement {
 	/**
 	 * Holds the type the identifier will take.
 	 */
-	private final DataType type;
+	private final Type type;
 
 	/**
 	 * Constructs a new variable declaration.
@@ -26,7 +24,7 @@ public class VarDeclaration extends Statement {
 	 * @param ident
 	 * @param type
 	 */
-	public VarDeclaration( Ident ident, DataType type ) {
+	public VarDeclaration( Ident ident, Type type ) {
 		this.ident = ident;
 		this.type = type;
 	}
@@ -45,12 +43,12 @@ public class VarDeclaration extends Statement {
 	 *
 	 * @return The type.
 	 */
-	public DataType getType() {
+	public Type getType() {
 		return this.type;
 	}
 
 	@Override
-	public Value<?> accept( INodeVisitor visitor, Context context ) {
-		return visitor.visit( this, context );
+	public <T> T accept( IStatementVisitor<T> visitor ) {
+		return visitor.visit( this );
 	}
 }

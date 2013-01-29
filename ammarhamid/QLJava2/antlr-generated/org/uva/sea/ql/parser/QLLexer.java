@@ -1,4 +1,4 @@
-// $ANTLR 3.4 /Users/ammarhamidbasymeleh/sea-of-ql/ammarhamid/QLJava2/src/main/org/uva/sea/ql/parser/QL.g 2013-01-13 16:17:08
+// $ANTLR 3.4 src/main/org/uva/sea/ql/parser/QL.g 2013-01-28 12:18:13
 
 	package org.uva.sea.ql.parser;
 
@@ -11,16 +11,6 @@ import java.util.ArrayList;
 @SuppressWarnings({"all", "warnings", "unchecked"})
 public class QLLexer extends Lexer {
     public static final int EOF=-1;
-    public static final int T__12=12;
-    public static final int T__13=13;
-    public static final int T__14=14;
-    public static final int T__15=15;
-    public static final int T__16=16;
-    public static final int T__17=17;
-    public static final int T__18=18;
-    public static final int T__19=19;
-    public static final int T__20=20;
-    public static final int T__21=21;
     public static final int T__22=22;
     public static final int T__23=23;
     public static final int T__24=24;
@@ -34,14 +24,36 @@ public class QLLexer extends Lexer {
     public static final int T__32=32;
     public static final int T__33=33;
     public static final int T__34=34;
-    public static final int COMMENT=4;
-    public static final int DIGIT=5;
-    public static final int IDENTIFIER=6;
-    public static final int INTEGER=7;
-    public static final int LETTER=8;
-    public static final int MULTILINE_COMMENT=9;
-    public static final int STRING_LITERAL=10;
-    public static final int WHITESPACE=11;
+    public static final int T__35=35;
+    public static final int T__36=36;
+    public static final int T__37=37;
+    public static final int T__38=38;
+    public static final int T__39=39;
+    public static final int T__40=40;
+    public static final int T__41=41;
+    public static final int T__42=42;
+    public static final int T__43=43;
+    public static final int T__44=44;
+    public static final int T__45=45;
+    public static final int T__46=46;
+    public static final int ASSIGNMENT=4;
+    public static final int BLOCK=5;
+    public static final int Boolean=6;
+    public static final int Comment=7;
+    public static final int Digit=8;
+    public static final int EXPRESSION=9;
+    public static final int FORM=10;
+    public static final int IF=11;
+    public static final int Identifier=12;
+    public static final int Integer=13;
+    public static final int Letter=14;
+    public static final int Money=15;
+    public static final int MultilineComment=16;
+    public static final int NEGATION=17;
+    public static final int NOT=18;
+    public static final int STATEMENT=19;
+    public static final int StringLiteral=20;
+    public static final int Whitespace=21;
 
     // delegates
     // delegators
@@ -56,231 +68,17 @@ public class QLLexer extends Lexer {
     public QLLexer(CharStream input, RecognizerSharedState state) {
         super(input,state);
     }
-    public String getGrammarFileName() { return "/Users/ammarhamidbasymeleh/sea-of-ql/ammarhamid/QLJava2/src/main/org/uva/sea/ql/parser/QL.g"; }
-
-    // $ANTLR start "T__12"
-    public final void mT__12() throws RecognitionException {
-        try {
-            int _type = T__12;
-            int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /Users/ammarhamidbasymeleh/sea-of-ql/ammarhamid/QLJava2/src/main/org/uva/sea/ql/parser/QL.g:11:7: ( '!' )
-            // /Users/ammarhamidbasymeleh/sea-of-ql/ammarhamid/QLJava2/src/main/org/uva/sea/ql/parser/QL.g:11:9: '!'
-            {
-            match('!'); 
-
-            }
-
-            state.type = _type;
-            state.channel = _channel;
-        }
-        finally {
-        	// do for sure before leaving
-        }
-    }
-    // $ANTLR end "T__12"
-
-    // $ANTLR start "T__13"
-    public final void mT__13() throws RecognitionException {
-        try {
-            int _type = T__13;
-            int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /Users/ammarhamidbasymeleh/sea-of-ql/ammarhamid/QLJava2/src/main/org/uva/sea/ql/parser/QL.g:12:7: ( '!=' )
-            // /Users/ammarhamidbasymeleh/sea-of-ql/ammarhamid/QLJava2/src/main/org/uva/sea/ql/parser/QL.g:12:9: '!='
-            {
-            match("!="); 
-
-
-
-            }
-
-            state.type = _type;
-            state.channel = _channel;
-        }
-        finally {
-        	// do for sure before leaving
-        }
-    }
-    // $ANTLR end "T__13"
-
-    // $ANTLR start "T__14"
-    public final void mT__14() throws RecognitionException {
-        try {
-            int _type = T__14;
-            int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /Users/ammarhamidbasymeleh/sea-of-ql/ammarhamid/QLJava2/src/main/org/uva/sea/ql/parser/QL.g:13:7: ( '&&' )
-            // /Users/ammarhamidbasymeleh/sea-of-ql/ammarhamid/QLJava2/src/main/org/uva/sea/ql/parser/QL.g:13:9: '&&'
-            {
-            match("&&"); 
-
-
-
-            }
-
-            state.type = _type;
-            state.channel = _channel;
-        }
-        finally {
-        	// do for sure before leaving
-        }
-    }
-    // $ANTLR end "T__14"
-
-    // $ANTLR start "T__15"
-    public final void mT__15() throws RecognitionException {
-        try {
-            int _type = T__15;
-            int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /Users/ammarhamidbasymeleh/sea-of-ql/ammarhamid/QLJava2/src/main/org/uva/sea/ql/parser/QL.g:14:7: ( '(' )
-            // /Users/ammarhamidbasymeleh/sea-of-ql/ammarhamid/QLJava2/src/main/org/uva/sea/ql/parser/QL.g:14:9: '('
-            {
-            match('('); 
-
-            }
-
-            state.type = _type;
-            state.channel = _channel;
-        }
-        finally {
-        	// do for sure before leaving
-        }
-    }
-    // $ANTLR end "T__15"
-
-    // $ANTLR start "T__16"
-    public final void mT__16() throws RecognitionException {
-        try {
-            int _type = T__16;
-            int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /Users/ammarhamidbasymeleh/sea-of-ql/ammarhamid/QLJava2/src/main/org/uva/sea/ql/parser/QL.g:15:7: ( ')' )
-            // /Users/ammarhamidbasymeleh/sea-of-ql/ammarhamid/QLJava2/src/main/org/uva/sea/ql/parser/QL.g:15:9: ')'
-            {
-            match(')'); 
-
-            }
-
-            state.type = _type;
-            state.channel = _channel;
-        }
-        finally {
-        	// do for sure before leaving
-        }
-    }
-    // $ANTLR end "T__16"
-
-    // $ANTLR start "T__17"
-    public final void mT__17() throws RecognitionException {
-        try {
-            int _type = T__17;
-            int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /Users/ammarhamidbasymeleh/sea-of-ql/ammarhamid/QLJava2/src/main/org/uva/sea/ql/parser/QL.g:16:7: ( '*' )
-            // /Users/ammarhamidbasymeleh/sea-of-ql/ammarhamid/QLJava2/src/main/org/uva/sea/ql/parser/QL.g:16:9: '*'
-            {
-            match('*'); 
-
-            }
-
-            state.type = _type;
-            state.channel = _channel;
-        }
-        finally {
-        	// do for sure before leaving
-        }
-    }
-    // $ANTLR end "T__17"
-
-    // $ANTLR start "T__18"
-    public final void mT__18() throws RecognitionException {
-        try {
-            int _type = T__18;
-            int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /Users/ammarhamidbasymeleh/sea-of-ql/ammarhamid/QLJava2/src/main/org/uva/sea/ql/parser/QL.g:17:7: ( '+' )
-            // /Users/ammarhamidbasymeleh/sea-of-ql/ammarhamid/QLJava2/src/main/org/uva/sea/ql/parser/QL.g:17:9: '+'
-            {
-            match('+'); 
-
-            }
-
-            state.type = _type;
-            state.channel = _channel;
-        }
-        finally {
-        	// do for sure before leaving
-        }
-    }
-    // $ANTLR end "T__18"
-
-    // $ANTLR start "T__19"
-    public final void mT__19() throws RecognitionException {
-        try {
-            int _type = T__19;
-            int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /Users/ammarhamidbasymeleh/sea-of-ql/ammarhamid/QLJava2/src/main/org/uva/sea/ql/parser/QL.g:18:7: ( '-' )
-            // /Users/ammarhamidbasymeleh/sea-of-ql/ammarhamid/QLJava2/src/main/org/uva/sea/ql/parser/QL.g:18:9: '-'
-            {
-            match('-'); 
-
-            }
-
-            state.type = _type;
-            state.channel = _channel;
-        }
-        finally {
-        	// do for sure before leaving
-        }
-    }
-    // $ANTLR end "T__19"
-
-    // $ANTLR start "T__20"
-    public final void mT__20() throws RecognitionException {
-        try {
-            int _type = T__20;
-            int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /Users/ammarhamidbasymeleh/sea-of-ql/ammarhamid/QLJava2/src/main/org/uva/sea/ql/parser/QL.g:19:7: ( '/' )
-            // /Users/ammarhamidbasymeleh/sea-of-ql/ammarhamid/QLJava2/src/main/org/uva/sea/ql/parser/QL.g:19:9: '/'
-            {
-            match('/'); 
-
-            }
-
-            state.type = _type;
-            state.channel = _channel;
-        }
-        finally {
-        	// do for sure before leaving
-        }
-    }
-    // $ANTLR end "T__20"
-
-    // $ANTLR start "T__21"
-    public final void mT__21() throws RecognitionException {
-        try {
-            int _type = T__21;
-            int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /Users/ammarhamidbasymeleh/sea-of-ql/ammarhamid/QLJava2/src/main/org/uva/sea/ql/parser/QL.g:20:7: ( ':' )
-            // /Users/ammarhamidbasymeleh/sea-of-ql/ammarhamid/QLJava2/src/main/org/uva/sea/ql/parser/QL.g:20:9: ':'
-            {
-            match(':'); 
-
-            }
-
-            state.type = _type;
-            state.channel = _channel;
-        }
-        finally {
-        	// do for sure before leaving
-        }
-    }
-    // $ANTLR end "T__21"
+    public String getGrammarFileName() { return "src/main/org/uva/sea/ql/parser/QL.g"; }
 
     // $ANTLR start "T__22"
     public final void mT__22() throws RecognitionException {
         try {
             int _type = T__22;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /Users/ammarhamidbasymeleh/sea-of-ql/ammarhamid/QLJava2/src/main/org/uva/sea/ql/parser/QL.g:21:7: ( '<' )
-            // /Users/ammarhamidbasymeleh/sea-of-ql/ammarhamid/QLJava2/src/main/org/uva/sea/ql/parser/QL.g:21:9: '<'
+            // src/main/org/uva/sea/ql/parser/QL.g:11:7: ( '!' )
+            // src/main/org/uva/sea/ql/parser/QL.g:11:9: '!'
             {
-            match('<'); 
+            match('!'); 
 
             }
 
@@ -298,10 +96,10 @@ public class QLLexer extends Lexer {
         try {
             int _type = T__23;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /Users/ammarhamidbasymeleh/sea-of-ql/ammarhamid/QLJava2/src/main/org/uva/sea/ql/parser/QL.g:22:7: ( '<=' )
-            // /Users/ammarhamidbasymeleh/sea-of-ql/ammarhamid/QLJava2/src/main/org/uva/sea/ql/parser/QL.g:22:9: '<='
+            // src/main/org/uva/sea/ql/parser/QL.g:12:7: ( '!=' )
+            // src/main/org/uva/sea/ql/parser/QL.g:12:9: '!='
             {
-            match("<="); 
+            match("!="); 
 
 
 
@@ -321,10 +119,10 @@ public class QLLexer extends Lexer {
         try {
             int _type = T__24;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /Users/ammarhamidbasymeleh/sea-of-ql/ammarhamid/QLJava2/src/main/org/uva/sea/ql/parser/QL.g:23:7: ( '==' )
-            // /Users/ammarhamidbasymeleh/sea-of-ql/ammarhamid/QLJava2/src/main/org/uva/sea/ql/parser/QL.g:23:9: '=='
+            // src/main/org/uva/sea/ql/parser/QL.g:13:7: ( '&&' )
+            // src/main/org/uva/sea/ql/parser/QL.g:13:9: '&&'
             {
-            match("=="); 
+            match("&&"); 
 
 
 
@@ -344,10 +142,10 @@ public class QLLexer extends Lexer {
         try {
             int _type = T__25;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /Users/ammarhamidbasymeleh/sea-of-ql/ammarhamid/QLJava2/src/main/org/uva/sea/ql/parser/QL.g:24:7: ( '>' )
-            // /Users/ammarhamidbasymeleh/sea-of-ql/ammarhamid/QLJava2/src/main/org/uva/sea/ql/parser/QL.g:24:9: '>'
+            // src/main/org/uva/sea/ql/parser/QL.g:14:7: ( '(' )
+            // src/main/org/uva/sea/ql/parser/QL.g:14:9: '('
             {
-            match('>'); 
+            match('('); 
 
             }
 
@@ -365,12 +163,10 @@ public class QLLexer extends Lexer {
         try {
             int _type = T__26;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /Users/ammarhamidbasymeleh/sea-of-ql/ammarhamid/QLJava2/src/main/org/uva/sea/ql/parser/QL.g:25:7: ( '>=' )
-            // /Users/ammarhamidbasymeleh/sea-of-ql/ammarhamid/QLJava2/src/main/org/uva/sea/ql/parser/QL.g:25:9: '>='
+            // src/main/org/uva/sea/ql/parser/QL.g:15:7: ( ')' )
+            // src/main/org/uva/sea/ql/parser/QL.g:15:9: ')'
             {
-            match(">="); 
-
-
+            match(')'); 
 
             }
 
@@ -388,12 +184,10 @@ public class QLLexer extends Lexer {
         try {
             int _type = T__27;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /Users/ammarhamidbasymeleh/sea-of-ql/ammarhamid/QLJava2/src/main/org/uva/sea/ql/parser/QL.g:26:7: ( 'boolean' )
-            // /Users/ammarhamidbasymeleh/sea-of-ql/ammarhamid/QLJava2/src/main/org/uva/sea/ql/parser/QL.g:26:9: 'boolean'
+            // src/main/org/uva/sea/ql/parser/QL.g:16:7: ( '*' )
+            // src/main/org/uva/sea/ql/parser/QL.g:16:9: '*'
             {
-            match("boolean"); 
-
-
+            match('*'); 
 
             }
 
@@ -411,12 +205,10 @@ public class QLLexer extends Lexer {
         try {
             int _type = T__28;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /Users/ammarhamidbasymeleh/sea-of-ql/ammarhamid/QLJava2/src/main/org/uva/sea/ql/parser/QL.g:27:7: ( 'else' )
-            // /Users/ammarhamidbasymeleh/sea-of-ql/ammarhamid/QLJava2/src/main/org/uva/sea/ql/parser/QL.g:27:9: 'else'
+            // src/main/org/uva/sea/ql/parser/QL.g:17:7: ( '+' )
+            // src/main/org/uva/sea/ql/parser/QL.g:17:9: '+'
             {
-            match("else"); 
-
-
+            match('+'); 
 
             }
 
@@ -434,12 +226,10 @@ public class QLLexer extends Lexer {
         try {
             int _type = T__29;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /Users/ammarhamidbasymeleh/sea-of-ql/ammarhamid/QLJava2/src/main/org/uva/sea/ql/parser/QL.g:28:7: ( 'form' )
-            // /Users/ammarhamidbasymeleh/sea-of-ql/ammarhamid/QLJava2/src/main/org/uva/sea/ql/parser/QL.g:28:9: 'form'
+            // src/main/org/uva/sea/ql/parser/QL.g:18:7: ( '-' )
+            // src/main/org/uva/sea/ql/parser/QL.g:18:9: '-'
             {
-            match("form"); 
-
-
+            match('-'); 
 
             }
 
@@ -457,12 +247,10 @@ public class QLLexer extends Lexer {
         try {
             int _type = T__30;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /Users/ammarhamidbasymeleh/sea-of-ql/ammarhamid/QLJava2/src/main/org/uva/sea/ql/parser/QL.g:29:7: ( 'if' )
-            // /Users/ammarhamidbasymeleh/sea-of-ql/ammarhamid/QLJava2/src/main/org/uva/sea/ql/parser/QL.g:29:9: 'if'
+            // src/main/org/uva/sea/ql/parser/QL.g:19:7: ( '/' )
+            // src/main/org/uva/sea/ql/parser/QL.g:19:9: '/'
             {
-            match("if"); 
-
-
+            match('/'); 
 
             }
 
@@ -480,12 +268,10 @@ public class QLLexer extends Lexer {
         try {
             int _type = T__31;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /Users/ammarhamidbasymeleh/sea-of-ql/ammarhamid/QLJava2/src/main/org/uva/sea/ql/parser/QL.g:30:7: ( 'integer' )
-            // /Users/ammarhamidbasymeleh/sea-of-ql/ammarhamid/QLJava2/src/main/org/uva/sea/ql/parser/QL.g:30:9: 'integer'
+            // src/main/org/uva/sea/ql/parser/QL.g:20:7: ( ':' )
+            // src/main/org/uva/sea/ql/parser/QL.g:20:9: ':'
             {
-            match("integer"); 
-
-
+            match(':'); 
 
             }
 
@@ -503,10 +289,10 @@ public class QLLexer extends Lexer {
         try {
             int _type = T__32;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /Users/ammarhamidbasymeleh/sea-of-ql/ammarhamid/QLJava2/src/main/org/uva/sea/ql/parser/QL.g:31:7: ( '{' )
-            // /Users/ammarhamidbasymeleh/sea-of-ql/ammarhamid/QLJava2/src/main/org/uva/sea/ql/parser/QL.g:31:9: '{'
+            // src/main/org/uva/sea/ql/parser/QL.g:21:7: ( '<' )
+            // src/main/org/uva/sea/ql/parser/QL.g:21:9: '<'
             {
-            match('{'); 
+            match('<'); 
 
             }
 
@@ -524,10 +310,10 @@ public class QLLexer extends Lexer {
         try {
             int _type = T__33;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /Users/ammarhamidbasymeleh/sea-of-ql/ammarhamid/QLJava2/src/main/org/uva/sea/ql/parser/QL.g:32:7: ( '||' )
-            // /Users/ammarhamidbasymeleh/sea-of-ql/ammarhamid/QLJava2/src/main/org/uva/sea/ql/parser/QL.g:32:9: '||'
+            // src/main/org/uva/sea/ql/parser/QL.g:22:7: ( '<=' )
+            // src/main/org/uva/sea/ql/parser/QL.g:22:9: '<='
             {
-            match("||"); 
+            match("<="); 
 
 
 
@@ -547,10 +333,12 @@ public class QLLexer extends Lexer {
         try {
             int _type = T__34;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /Users/ammarhamidbasymeleh/sea-of-ql/ammarhamid/QLJava2/src/main/org/uva/sea/ql/parser/QL.g:33:7: ( '}' )
-            // /Users/ammarhamidbasymeleh/sea-of-ql/ammarhamid/QLJava2/src/main/org/uva/sea/ql/parser/QL.g:33:9: '}'
+            // src/main/org/uva/sea/ql/parser/QL.g:23:7: ( '==' )
+            // src/main/org/uva/sea/ql/parser/QL.g:23:9: '=='
             {
-            match('}'); 
+            match("=="); 
+
+
 
             }
 
@@ -563,21 +351,291 @@ public class QLLexer extends Lexer {
     }
     // $ANTLR end "T__34"
 
-    // $ANTLR start "STRING_LITERAL"
-    public final void mSTRING_LITERAL() throws RecognitionException {
+    // $ANTLR start "T__35"
+    public final void mT__35() throws RecognitionException {
         try {
-            int _type = STRING_LITERAL;
+            int _type = T__35;
+            int _channel = DEFAULT_TOKEN_CHANNEL;
+            // src/main/org/uva/sea/ql/parser/QL.g:24:7: ( '>' )
+            // src/main/org/uva/sea/ql/parser/QL.g:24:9: '>'
+            {
+            match('>'); 
+
+            }
+
+            state.type = _type;
+            state.channel = _channel;
+        }
+        finally {
+        	// do for sure before leaving
+        }
+    }
+    // $ANTLR end "T__35"
+
+    // $ANTLR start "T__36"
+    public final void mT__36() throws RecognitionException {
+        try {
+            int _type = T__36;
+            int _channel = DEFAULT_TOKEN_CHANNEL;
+            // src/main/org/uva/sea/ql/parser/QL.g:25:7: ( '>=' )
+            // src/main/org/uva/sea/ql/parser/QL.g:25:9: '>='
+            {
+            match(">="); 
+
+
+
+            }
+
+            state.type = _type;
+            state.channel = _channel;
+        }
+        finally {
+        	// do for sure before leaving
+        }
+    }
+    // $ANTLR end "T__36"
+
+    // $ANTLR start "T__37"
+    public final void mT__37() throws RecognitionException {
+        try {
+            int _type = T__37;
+            int _channel = DEFAULT_TOKEN_CHANNEL;
+            // src/main/org/uva/sea/ql/parser/QL.g:26:7: ( 'boolean' )
+            // src/main/org/uva/sea/ql/parser/QL.g:26:9: 'boolean'
+            {
+            match("boolean"); 
+
+
+
+            }
+
+            state.type = _type;
+            state.channel = _channel;
+        }
+        finally {
+        	// do for sure before leaving
+        }
+    }
+    // $ANTLR end "T__37"
+
+    // $ANTLR start "T__38"
+    public final void mT__38() throws RecognitionException {
+        try {
+            int _type = T__38;
+            int _channel = DEFAULT_TOKEN_CHANNEL;
+            // src/main/org/uva/sea/ql/parser/QL.g:27:7: ( 'else' )
+            // src/main/org/uva/sea/ql/parser/QL.g:27:9: 'else'
+            {
+            match("else"); 
+
+
+
+            }
+
+            state.type = _type;
+            state.channel = _channel;
+        }
+        finally {
+        	// do for sure before leaving
+        }
+    }
+    // $ANTLR end "T__38"
+
+    // $ANTLR start "T__39"
+    public final void mT__39() throws RecognitionException {
+        try {
+            int _type = T__39;
+            int _channel = DEFAULT_TOKEN_CHANNEL;
+            // src/main/org/uva/sea/ql/parser/QL.g:28:7: ( 'form' )
+            // src/main/org/uva/sea/ql/parser/QL.g:28:9: 'form'
+            {
+            match("form"); 
+
+
+
+            }
+
+            state.type = _type;
+            state.channel = _channel;
+        }
+        finally {
+        	// do for sure before leaving
+        }
+    }
+    // $ANTLR end "T__39"
+
+    // $ANTLR start "T__40"
+    public final void mT__40() throws RecognitionException {
+        try {
+            int _type = T__40;
+            int _channel = DEFAULT_TOKEN_CHANNEL;
+            // src/main/org/uva/sea/ql/parser/QL.g:29:7: ( 'if' )
+            // src/main/org/uva/sea/ql/parser/QL.g:29:9: 'if'
+            {
+            match("if"); 
+
+
+
+            }
+
+            state.type = _type;
+            state.channel = _channel;
+        }
+        finally {
+        	// do for sure before leaving
+        }
+    }
+    // $ANTLR end "T__40"
+
+    // $ANTLR start "T__41"
+    public final void mT__41() throws RecognitionException {
+        try {
+            int _type = T__41;
+            int _channel = DEFAULT_TOKEN_CHANNEL;
+            // src/main/org/uva/sea/ql/parser/QL.g:30:7: ( 'integer' )
+            // src/main/org/uva/sea/ql/parser/QL.g:30:9: 'integer'
+            {
+            match("integer"); 
+
+
+
+            }
+
+            state.type = _type;
+            state.channel = _channel;
+        }
+        finally {
+        	// do for sure before leaving
+        }
+    }
+    // $ANTLR end "T__41"
+
+    // $ANTLR start "T__42"
+    public final void mT__42() throws RecognitionException {
+        try {
+            int _type = T__42;
+            int _channel = DEFAULT_TOKEN_CHANNEL;
+            // src/main/org/uva/sea/ql/parser/QL.g:31:7: ( 'money' )
+            // src/main/org/uva/sea/ql/parser/QL.g:31:9: 'money'
+            {
+            match("money"); 
+
+
+
+            }
+
+            state.type = _type;
+            state.channel = _channel;
+        }
+        finally {
+        	// do for sure before leaving
+        }
+    }
+    // $ANTLR end "T__42"
+
+    // $ANTLR start "T__43"
+    public final void mT__43() throws RecognitionException {
+        try {
+            int _type = T__43;
+            int _channel = DEFAULT_TOKEN_CHANNEL;
+            // src/main/org/uva/sea/ql/parser/QL.g:32:7: ( 'string' )
+            // src/main/org/uva/sea/ql/parser/QL.g:32:9: 'string'
+            {
+            match("string"); 
+
+
+
+            }
+
+            state.type = _type;
+            state.channel = _channel;
+        }
+        finally {
+        	// do for sure before leaving
+        }
+    }
+    // $ANTLR end "T__43"
+
+    // $ANTLR start "T__44"
+    public final void mT__44() throws RecognitionException {
+        try {
+            int _type = T__44;
+            int _channel = DEFAULT_TOKEN_CHANNEL;
+            // src/main/org/uva/sea/ql/parser/QL.g:33:7: ( '{' )
+            // src/main/org/uva/sea/ql/parser/QL.g:33:9: '{'
+            {
+            match('{'); 
+
+            }
+
+            state.type = _type;
+            state.channel = _channel;
+        }
+        finally {
+        	// do for sure before leaving
+        }
+    }
+    // $ANTLR end "T__44"
+
+    // $ANTLR start "T__45"
+    public final void mT__45() throws RecognitionException {
+        try {
+            int _type = T__45;
+            int _channel = DEFAULT_TOKEN_CHANNEL;
+            // src/main/org/uva/sea/ql/parser/QL.g:34:7: ( '||' )
+            // src/main/org/uva/sea/ql/parser/QL.g:34:9: '||'
+            {
+            match("||"); 
+
+
+
+            }
+
+            state.type = _type;
+            state.channel = _channel;
+        }
+        finally {
+        	// do for sure before leaving
+        }
+    }
+    // $ANTLR end "T__45"
+
+    // $ANTLR start "T__46"
+    public final void mT__46() throws RecognitionException {
+        try {
+            int _type = T__46;
+            int _channel = DEFAULT_TOKEN_CHANNEL;
+            // src/main/org/uva/sea/ql/parser/QL.g:35:7: ( '}' )
+            // src/main/org/uva/sea/ql/parser/QL.g:35:9: '}'
+            {
+            match('}'); 
+
+            }
+
+            state.type = _type;
+            state.channel = _channel;
+        }
+        finally {
+        	// do for sure before leaving
+        }
+    }
+    // $ANTLR end "T__46"
+
+    // $ANTLR start "StringLiteral"
+    public final void mStringLiteral() throws RecognitionException {
+        try {
+            int _type = StringLiteral;
             int _channel = DEFAULT_TOKEN_CHANNEL;
             int c;
 
-            // /Users/ammarhamidbasymeleh/sea-of-ql/ammarhamid/QLJava2/src/main/org/uva/sea/ql/parser/QL.g:156:2: ( '\"' ( '\\\\' '\"' |c=~ ( '\"' | '\\r' | '\\n' ) )* '\"' )
-            // /Users/ammarhamidbasymeleh/sea-of-ql/ammarhamid/QLJava2/src/main/org/uva/sea/ql/parser/QL.g:156:4: '\"' ( '\\\\' '\"' |c=~ ( '\"' | '\\r' | '\\n' ) )* '\"'
+            // src/main/org/uva/sea/ql/parser/QL.g:118:2: ( '\"' ( '\\\\' '\"' |c=~ ( '\"' | '\\r' | '\\n' ) )* '\"' )
+            // src/main/org/uva/sea/ql/parser/QL.g:118:4: '\"' ( '\\\\' '\"' |c=~ ( '\"' | '\\r' | '\\n' ) )* '\"'
             {
             match('\"'); 
 
              StringBuilder b = new StringBuilder(); 
 
-            // /Users/ammarhamidbasymeleh/sea-of-ql/ammarhamid/QLJava2/src/main/org/uva/sea/ql/parser/QL.g:158:3: ( '\\\\' '\"' |c=~ ( '\"' | '\\r' | '\\n' ) )*
+            // src/main/org/uva/sea/ql/parser/QL.g:120:3: ( '\\\\' '\"' |c=~ ( '\"' | '\\r' | '\\n' ) )*
             loop1:
             do {
                 int alt1=3;
@@ -612,7 +670,7 @@ public class QLLexer extends Lexer {
 
                 switch (alt1) {
             	case 1 :
-            	    // /Users/ammarhamidbasymeleh/sea-of-ql/ammarhamid/QLJava2/src/main/org/uva/sea/ql/parser/QL.g:158:5: '\\\\' '\"'
+            	    // src/main/org/uva/sea/ql/parser/QL.g:120:5: '\\\\' '\"'
             	    {
             	    match('\\'); 
 
@@ -623,7 +681,7 @@ public class QLLexer extends Lexer {
             	    }
             	    break;
             	case 2 :
-            	    // /Users/ammarhamidbasymeleh/sea-of-ql/ammarhamid/QLJava2/src/main/org/uva/sea/ql/parser/QL.g:159:5: c=~ ( '\"' | '\\r' | '\\n' )
+            	    // src/main/org/uva/sea/ql/parser/QL.g:121:5: c=~ ( '\"' | '\\r' | '\\n' )
             	    {
             	    c= input.LA(1);
 
@@ -661,83 +719,83 @@ public class QLLexer extends Lexer {
         	// do for sure before leaving
         }
     }
-    // $ANTLR end "STRING_LITERAL"
+    // $ANTLR end "StringLiteral"
 
-    // $ANTLR start "LETTER"
-    public final void mLETTER() throws RecognitionException {
+    // $ANTLR start "Boolean"
+    public final void mBoolean() throws RecognitionException {
         try {
-            // /Users/ammarhamidbasymeleh/sea-of-ql/ammarhamid/QLJava2/src/main/org/uva/sea/ql/parser/QL.g:166:17: ( ( 'a' .. 'z' | 'A' .. 'Z' ) )
-            // /Users/ammarhamidbasymeleh/sea-of-ql/ammarhamid/QLJava2/src/main/org/uva/sea/ql/parser/QL.g:
-            {
-            if ( (input.LA(1) >= 'A' && input.LA(1) <= 'Z')||(input.LA(1) >= 'a' && input.LA(1) <= 'z') ) {
-                input.consume();
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;
-            }
-
-
-            }
-
-
-        }
-        finally {
-        	// do for sure before leaving
-        }
-    }
-    // $ANTLR end "LETTER"
-
-    // $ANTLR start "DIGIT"
-    public final void mDIGIT() throws RecognitionException {
-        try {
-            // /Users/ammarhamidbasymeleh/sea-of-ql/ammarhamid/QLJava2/src/main/org/uva/sea/ql/parser/QL.g:167:16: ( '0' .. '9' )
-            // /Users/ammarhamidbasymeleh/sea-of-ql/ammarhamid/QLJava2/src/main/org/uva/sea/ql/parser/QL.g:
-            {
-            if ( (input.LA(1) >= '0' && input.LA(1) <= '9') ) {
-                input.consume();
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;
-            }
-
-
-            }
-
-
-        }
-        finally {
-        	// do for sure before leaving
-        }
-    }
-    // $ANTLR end "DIGIT"
-
-    // $ANTLR start "INTEGER"
-    public final void mINTEGER() throws RecognitionException {
-        try {
-            int _type = INTEGER;
+            int _type = Boolean;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /Users/ammarhamidbasymeleh/sea-of-ql/ammarhamid/QLJava2/src/main/org/uva/sea/ql/parser/QL.g:168:9: ( ( DIGIT )+ )
-            // /Users/ammarhamidbasymeleh/sea-of-ql/ammarhamid/QLJava2/src/main/org/uva/sea/ql/parser/QL.g:168:11: ( DIGIT )+
-            {
-            // /Users/ammarhamidbasymeleh/sea-of-ql/ammarhamid/QLJava2/src/main/org/uva/sea/ql/parser/QL.g:168:11: ( DIGIT )+
-            int cnt2=0;
-            loop2:
-            do {
-                int alt2=2;
-                int LA2_0 = input.LA(1);
+            // src/main/org/uva/sea/ql/parser/QL.g:128:5: ( 'true' | 'false' )
+            int alt2=2;
+            int LA2_0 = input.LA(1);
 
-                if ( ((LA2_0 >= '0' && LA2_0 <= '9')) ) {
-                    alt2=1;
+            if ( (LA2_0=='t') ) {
+                alt2=1;
+            }
+            else if ( (LA2_0=='f') ) {
+                alt2=2;
+            }
+            else {
+                NoViableAltException nvae =
+                    new NoViableAltException("", 2, 0, input);
+
+                throw nvae;
+
+            }
+            switch (alt2) {
+                case 1 :
+                    // src/main/org/uva/sea/ql/parser/QL.g:128:9: 'true'
+                    {
+                    match("true"); 
+
+
+
+                    }
+                    break;
+                case 2 :
+                    // src/main/org/uva/sea/ql/parser/QL.g:129:9: 'false'
+                    {
+                    match("false"); 
+
+
+
+                    }
+                    break;
+
+            }
+            state.type = _type;
+            state.channel = _channel;
+        }
+        finally {
+        	// do for sure before leaving
+        }
+    }
+    // $ANTLR end "Boolean"
+
+    // $ANTLR start "Money"
+    public final void mMoney() throws RecognitionException {
+        try {
+            int _type = Money;
+            int _channel = DEFAULT_TOKEN_CHANNEL;
+            // src/main/org/uva/sea/ql/parser/QL.g:133:5: ( ( Digit )+ '.' ( Digit )+ )
+            // src/main/org/uva/sea/ql/parser/QL.g:133:9: ( Digit )+ '.' ( Digit )+
+            {
+            // src/main/org/uva/sea/ql/parser/QL.g:133:9: ( Digit )+
+            int cnt3=0;
+            loop3:
+            do {
+                int alt3=2;
+                int LA3_0 = input.LA(1);
+
+                if ( ((LA3_0 >= '0' && LA3_0 <= '9')) ) {
+                    alt3=1;
                 }
 
 
-                switch (alt2) {
+                switch (alt3) {
             	case 1 :
-            	    // /Users/ammarhamidbasymeleh/sea-of-ql/ammarhamid/QLJava2/src/main/org/uva/sea/ql/parser/QL.g:
+            	    // src/main/org/uva/sea/ql/parser/QL.g:
             	    {
             	    if ( (input.LA(1) >= '0' && input.LA(1) <= '9') ) {
             	        input.consume();
@@ -753,107 +811,34 @@ public class QLLexer extends Lexer {
             	    break;
 
             	default :
-            	    if ( cnt2 >= 1 ) break loop2;
+            	    if ( cnt3 >= 1 ) break loop3;
                         EarlyExitException eee =
-                            new EarlyExitException(2, input);
+                            new EarlyExitException(3, input);
                         throw eee;
                 }
-                cnt2++;
+                cnt3++;
             } while (true);
 
 
-            }
+            match('.'); 
 
-            state.type = _type;
-            state.channel = _channel;
-        }
-        finally {
-        	// do for sure before leaving
-        }
-    }
-    // $ANTLR end "INTEGER"
-
-    // $ANTLR start "IDENTIFIER"
-    public final void mIDENTIFIER() throws RecognitionException {
-        try {
-            int _type = IDENTIFIER;
-            int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /Users/ammarhamidbasymeleh/sea-of-ql/ammarhamid/QLJava2/src/main/org/uva/sea/ql/parser/QL.g:169:12: ( LETTER ( LETTER | DIGIT | '_' )* )
-            // /Users/ammarhamidbasymeleh/sea-of-ql/ammarhamid/QLJava2/src/main/org/uva/sea/ql/parser/QL.g:169:14: LETTER ( LETTER | DIGIT | '_' )*
-            {
-            mLETTER(); 
-
-
-            // /Users/ammarhamidbasymeleh/sea-of-ql/ammarhamid/QLJava2/src/main/org/uva/sea/ql/parser/QL.g:169:21: ( LETTER | DIGIT | '_' )*
-            loop3:
-            do {
-                int alt3=2;
-                int LA3_0 = input.LA(1);
-
-                if ( ((LA3_0 >= '0' && LA3_0 <= '9')||(LA3_0 >= 'A' && LA3_0 <= 'Z')||LA3_0=='_'||(LA3_0 >= 'a' && LA3_0 <= 'z')) ) {
-                    alt3=1;
-                }
-
-
-                switch (alt3) {
-            	case 1 :
-            	    // /Users/ammarhamidbasymeleh/sea-of-ql/ammarhamid/QLJava2/src/main/org/uva/sea/ql/parser/QL.g:
-            	    {
-            	    if ( (input.LA(1) >= '0' && input.LA(1) <= '9')||(input.LA(1) >= 'A' && input.LA(1) <= 'Z')||input.LA(1)=='_'||(input.LA(1) >= 'a' && input.LA(1) <= 'z') ) {
-            	        input.consume();
-            	    }
-            	    else {
-            	        MismatchedSetException mse = new MismatchedSetException(null,input);
-            	        recover(mse);
-            	        throw mse;
-            	    }
-
-
-            	    }
-            	    break;
-
-            	default :
-            	    break loop3;
-                }
-            } while (true);
-
-
-            }
-
-            state.type = _type;
-            state.channel = _channel;
-        }
-        finally {
-        	// do for sure before leaving
-        }
-    }
-    // $ANTLR end "IDENTIFIER"
-
-    // $ANTLR start "WHITESPACE"
-    public final void mWHITESPACE() throws RecognitionException {
-        try {
-            int _type = WHITESPACE;
-            int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /Users/ammarhamidbasymeleh/sea-of-ql/ammarhamid/QLJava2/src/main/org/uva/sea/ql/parser/QL.g:170:12: ( ( ' ' | '\\t' | '\\n' | '\\r' | '\\f' )+ )
-            // /Users/ammarhamidbasymeleh/sea-of-ql/ammarhamid/QLJava2/src/main/org/uva/sea/ql/parser/QL.g:170:14: ( ' ' | '\\t' | '\\n' | '\\r' | '\\f' )+
-            {
-            // /Users/ammarhamidbasymeleh/sea-of-ql/ammarhamid/QLJava2/src/main/org/uva/sea/ql/parser/QL.g:170:14: ( ' ' | '\\t' | '\\n' | '\\r' | '\\f' )+
+            // src/main/org/uva/sea/ql/parser/QL.g:133:20: ( Digit )+
             int cnt4=0;
             loop4:
             do {
                 int alt4=2;
                 int LA4_0 = input.LA(1);
 
-                if ( ((LA4_0 >= '\t' && LA4_0 <= '\n')||(LA4_0 >= '\f' && LA4_0 <= '\r')||LA4_0==' ') ) {
+                if ( ((LA4_0 >= '0' && LA4_0 <= '9')) ) {
                     alt4=1;
                 }
 
 
                 switch (alt4) {
             	case 1 :
-            	    // /Users/ammarhamidbasymeleh/sea-of-ql/ammarhamid/QLJava2/src/main/org/uva/sea/ql/parser/QL.g:
+            	    // src/main/org/uva/sea/ql/parser/QL.g:
             	    {
-            	    if ( (input.LA(1) >= '\t' && input.LA(1) <= '\n')||(input.LA(1) >= '\f' && input.LA(1) <= '\r')||input.LA(1)==' ' ) {
+            	    if ( (input.LA(1) >= '0' && input.LA(1) <= '9') ) {
             	        input.consume();
             	    }
             	    else {
@@ -876,6 +861,178 @@ public class QLLexer extends Lexer {
             } while (true);
 
 
+            }
+
+            state.type = _type;
+            state.channel = _channel;
+        }
+        finally {
+        	// do for sure before leaving
+        }
+    }
+    // $ANTLR end "Money"
+
+    // $ANTLR start "Integer"
+    public final void mInteger() throws RecognitionException {
+        try {
+            int _type = Integer;
+            int _channel = DEFAULT_TOKEN_CHANNEL;
+            // src/main/org/uva/sea/ql/parser/QL.g:137:5: ( ( Digit )+ )
+            // src/main/org/uva/sea/ql/parser/QL.g:137:9: ( Digit )+
+            {
+            // src/main/org/uva/sea/ql/parser/QL.g:137:9: ( Digit )+
+            int cnt5=0;
+            loop5:
+            do {
+                int alt5=2;
+                int LA5_0 = input.LA(1);
+
+                if ( ((LA5_0 >= '0' && LA5_0 <= '9')) ) {
+                    alt5=1;
+                }
+
+
+                switch (alt5) {
+            	case 1 :
+            	    // src/main/org/uva/sea/ql/parser/QL.g:
+            	    {
+            	    if ( (input.LA(1) >= '0' && input.LA(1) <= '9') ) {
+            	        input.consume();
+            	    }
+            	    else {
+            	        MismatchedSetException mse = new MismatchedSetException(null,input);
+            	        recover(mse);
+            	        throw mse;
+            	    }
+
+
+            	    }
+            	    break;
+
+            	default :
+            	    if ( cnt5 >= 1 ) break loop5;
+                        EarlyExitException eee =
+                            new EarlyExitException(5, input);
+                        throw eee;
+                }
+                cnt5++;
+            } while (true);
+
+
+            }
+
+            state.type = _type;
+            state.channel = _channel;
+        }
+        finally {
+        	// do for sure before leaving
+        }
+    }
+    // $ANTLR end "Integer"
+
+    // $ANTLR start "Identifier"
+    public final void mIdentifier() throws RecognitionException {
+        try {
+            int _type = Identifier;
+            int _channel = DEFAULT_TOKEN_CHANNEL;
+            // src/main/org/uva/sea/ql/parser/QL.g:141:5: ( Letter ( Letter | Digit | '_' )* )
+            // src/main/org/uva/sea/ql/parser/QL.g:141:9: Letter ( Letter | Digit | '_' )*
+            {
+            mLetter(); 
+
+
+            // src/main/org/uva/sea/ql/parser/QL.g:141:16: ( Letter | Digit | '_' )*
+            loop6:
+            do {
+                int alt6=2;
+                int LA6_0 = input.LA(1);
+
+                if ( ((LA6_0 >= '0' && LA6_0 <= '9')||(LA6_0 >= 'A' && LA6_0 <= 'Z')||LA6_0=='_'||(LA6_0 >= 'a' && LA6_0 <= 'z')) ) {
+                    alt6=1;
+                }
+
+
+                switch (alt6) {
+            	case 1 :
+            	    // src/main/org/uva/sea/ql/parser/QL.g:
+            	    {
+            	    if ( (input.LA(1) >= '0' && input.LA(1) <= '9')||(input.LA(1) >= 'A' && input.LA(1) <= 'Z')||input.LA(1)=='_'||(input.LA(1) >= 'a' && input.LA(1) <= 'z') ) {
+            	        input.consume();
+            	    }
+            	    else {
+            	        MismatchedSetException mse = new MismatchedSetException(null,input);
+            	        recover(mse);
+            	        throw mse;
+            	    }
+
+
+            	    }
+            	    break;
+
+            	default :
+            	    break loop6;
+                }
+            } while (true);
+
+
+            }
+
+            state.type = _type;
+            state.channel = _channel;
+        }
+        finally {
+        	// do for sure before leaving
+        }
+    }
+    // $ANTLR end "Identifier"
+
+    // $ANTLR start "Whitespace"
+    public final void mWhitespace() throws RecognitionException {
+        try {
+            int _type = Whitespace;
+            int _channel = DEFAULT_TOKEN_CHANNEL;
+            // src/main/org/uva/sea/ql/parser/QL.g:145:5: ( ( ' ' | '\\t' | '\\n' | '\\r' | '\\f' )+ )
+            // src/main/org/uva/sea/ql/parser/QL.g:145:9: ( ' ' | '\\t' | '\\n' | '\\r' | '\\f' )+
+            {
+            // src/main/org/uva/sea/ql/parser/QL.g:145:9: ( ' ' | '\\t' | '\\n' | '\\r' | '\\f' )+
+            int cnt7=0;
+            loop7:
+            do {
+                int alt7=2;
+                int LA7_0 = input.LA(1);
+
+                if ( ((LA7_0 >= '\t' && LA7_0 <= '\n')||(LA7_0 >= '\f' && LA7_0 <= '\r')||LA7_0==' ') ) {
+                    alt7=1;
+                }
+
+
+                switch (alt7) {
+            	case 1 :
+            	    // src/main/org/uva/sea/ql/parser/QL.g:
+            	    {
+            	    if ( (input.LA(1) >= '\t' && input.LA(1) <= '\n')||(input.LA(1) >= '\f' && input.LA(1) <= '\r')||input.LA(1)==' ' ) {
+            	        input.consume();
+            	    }
+            	    else {
+            	        MismatchedSetException mse = new MismatchedSetException(null,input);
+            	        recover(mse);
+            	        throw mse;
+            	    }
+
+
+            	    }
+            	    break;
+
+            	default :
+            	    if ( cnt7 >= 1 ) break loop7;
+                        EarlyExitException eee =
+                            new EarlyExitException(7, input);
+                        throw eee;
+                }
+                cnt7++;
+            } while (true);
+
+
             _channel = HIDDEN;
 
             }
@@ -887,37 +1044,37 @@ public class QLLexer extends Lexer {
         	// do for sure before leaving
         }
     }
-    // $ANTLR end "WHITESPACE"
+    // $ANTLR end "Whitespace"
 
-    // $ANTLR start "COMMENT"
-    public final void mCOMMENT() throws RecognitionException {
+    // $ANTLR start "Comment"
+    public final void mComment() throws RecognitionException {
         try {
-            int _type = COMMENT;
+            int _type = Comment;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /Users/ammarhamidbasymeleh/sea-of-ql/ammarhamid/QLJava2/src/main/org/uva/sea/ql/parser/QL.g:171:9: ( '//' ( . )* ( '\\n' | '\\r' ) )
-            // /Users/ammarhamidbasymeleh/sea-of-ql/ammarhamid/QLJava2/src/main/org/uva/sea/ql/parser/QL.g:171:11: '//' ( . )* ( '\\n' | '\\r' )
+            // src/main/org/uva/sea/ql/parser/QL.g:149:5: ( '//' ( . )* ( '\\n' | '\\r' ) )
+            // src/main/org/uva/sea/ql/parser/QL.g:149:9: '//' ( . )* ( '\\n' | '\\r' )
             {
             match("//"); 
 
 
 
-            // /Users/ammarhamidbasymeleh/sea-of-ql/ammarhamid/QLJava2/src/main/org/uva/sea/ql/parser/QL.g:171:16: ( . )*
-            loop5:
+            // src/main/org/uva/sea/ql/parser/QL.g:149:14: ( . )*
+            loop8:
             do {
-                int alt5=2;
-                int LA5_0 = input.LA(1);
+                int alt8=2;
+                int LA8_0 = input.LA(1);
 
-                if ( (LA5_0=='\n'||LA5_0=='\r') ) {
-                    alt5=2;
+                if ( (LA8_0=='\n'||LA8_0=='\r') ) {
+                    alt8=2;
                 }
-                else if ( ((LA5_0 >= '\u0000' && LA5_0 <= '\t')||(LA5_0 >= '\u000B' && LA5_0 <= '\f')||(LA5_0 >= '\u000E' && LA5_0 <= '\uFFFF')) ) {
-                    alt5=1;
+                else if ( ((LA8_0 >= '\u0000' && LA8_0 <= '\t')||(LA8_0 >= '\u000B' && LA8_0 <= '\f')||(LA8_0 >= '\u000E' && LA8_0 <= '\uFFFF')) ) {
+                    alt8=1;
                 }
 
 
-                switch (alt5) {
+                switch (alt8) {
             	case 1 :
-            	    // /Users/ammarhamidbasymeleh/sea-of-ql/ammarhamid/QLJava2/src/main/org/uva/sea/ql/parser/QL.g:171:16: .
+            	    // src/main/org/uva/sea/ql/parser/QL.g:149:14: .
             	    {
             	    matchAny(); 
 
@@ -925,7 +1082,7 @@ public class QLLexer extends Lexer {
             	    break;
 
             	default :
-            	    break loop5;
+            	    break loop8;
                 }
             } while (true);
 
@@ -951,46 +1108,46 @@ public class QLLexer extends Lexer {
         	// do for sure before leaving
         }
     }
-    // $ANTLR end "COMMENT"
+    // $ANTLR end "Comment"
 
-    // $ANTLR start "MULTILINE_COMMENT"
-    public final void mMULTILINE_COMMENT() throws RecognitionException {
+    // $ANTLR start "MultilineComment"
+    public final void mMultilineComment() throws RecognitionException {
         try {
-            int _type = MULTILINE_COMMENT;
+            int _type = MultilineComment;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /Users/ammarhamidbasymeleh/sea-of-ql/ammarhamid/QLJava2/src/main/org/uva/sea/ql/parser/QL.g:172:19: ( '/*' ( . )* '*/' )
-            // /Users/ammarhamidbasymeleh/sea-of-ql/ammarhamid/QLJava2/src/main/org/uva/sea/ql/parser/QL.g:172:21: '/*' ( . )* '*/'
+            // src/main/org/uva/sea/ql/parser/QL.g:153:5: ( '/*' ( . )* '*/' )
+            // src/main/org/uva/sea/ql/parser/QL.g:153:9: '/*' ( . )* '*/'
             {
             match("/*"); 
 
 
 
-            // /Users/ammarhamidbasymeleh/sea-of-ql/ammarhamid/QLJava2/src/main/org/uva/sea/ql/parser/QL.g:172:26: ( . )*
-            loop6:
+            // src/main/org/uva/sea/ql/parser/QL.g:153:14: ( . )*
+            loop9:
             do {
-                int alt6=2;
-                int LA6_0 = input.LA(1);
+                int alt9=2;
+                int LA9_0 = input.LA(1);
 
-                if ( (LA6_0=='*') ) {
-                    int LA6_1 = input.LA(2);
+                if ( (LA9_0=='*') ) {
+                    int LA9_1 = input.LA(2);
 
-                    if ( (LA6_1=='/') ) {
-                        alt6=2;
+                    if ( (LA9_1=='/') ) {
+                        alt9=2;
                     }
-                    else if ( ((LA6_1 >= '\u0000' && LA6_1 <= '.')||(LA6_1 >= '0' && LA6_1 <= '\uFFFF')) ) {
-                        alt6=1;
+                    else if ( ((LA9_1 >= '\u0000' && LA9_1 <= '.')||(LA9_1 >= '0' && LA9_1 <= '\uFFFF')) ) {
+                        alt9=1;
                     }
 
 
                 }
-                else if ( ((LA6_0 >= '\u0000' && LA6_0 <= ')')||(LA6_0 >= '+' && LA6_0 <= '\uFFFF')) ) {
-                    alt6=1;
+                else if ( ((LA9_0 >= '\u0000' && LA9_0 <= ')')||(LA9_0 >= '+' && LA9_0 <= '\uFFFF')) ) {
+                    alt9=1;
                 }
 
 
-                switch (alt6) {
+                switch (alt9) {
             	case 1 :
-            	    // /Users/ammarhamidbasymeleh/sea-of-ql/ammarhamid/QLJava2/src/main/org/uva/sea/ql/parser/QL.g:172:26: .
+            	    // src/main/org/uva/sea/ql/parser/QL.g:153:14: .
             	    {
             	    matchAny(); 
 
@@ -998,7 +1155,7 @@ public class QLLexer extends Lexer {
             	    break;
 
             	default :
-            	    break loop6;
+            	    break loop9;
                 }
             } while (true);
 
@@ -1018,627 +1175,325 @@ public class QLLexer extends Lexer {
         	// do for sure before leaving
         }
     }
-    // $ANTLR end "MULTILINE_COMMENT"
+    // $ANTLR end "MultilineComment"
 
-    public void mTokens() throws RecognitionException {
-        // /Users/ammarhamidbasymeleh/sea-of-ql/ammarhamid/QLJava2/src/main/org/uva/sea/ql/parser/QL.g:1:8: ( T__12 | T__13 | T__14 | T__15 | T__16 | T__17 | T__18 | T__19 | T__20 | T__21 | T__22 | T__23 | T__24 | T__25 | T__26 | T__27 | T__28 | T__29 | T__30 | T__31 | T__32 | T__33 | T__34 | STRING_LITERAL | INTEGER | IDENTIFIER | WHITESPACE | COMMENT | MULTILINE_COMMENT )
-        int alt7=29;
-        switch ( input.LA(1) ) {
-        case '!':
+    // $ANTLR start "Letter"
+    public final void mLetter() throws RecognitionException {
+        try {
+            // src/main/org/uva/sea/ql/parser/QL.g:157:5: ( ( 'a' .. 'z' | 'A' .. 'Z' ) )
+            // src/main/org/uva/sea/ql/parser/QL.g:
             {
-            int LA7_1 = input.LA(2);
-
-            if ( (LA7_1=='=') ) {
-                alt7=2;
+            if ( (input.LA(1) >= 'A' && input.LA(1) <= 'Z')||(input.LA(1) >= 'a' && input.LA(1) <= 'z') ) {
+                input.consume();
             }
             else {
-                alt7=1;
-            }
-            }
-            break;
-        case '&':
-            {
-            alt7=3;
-            }
-            break;
-        case '(':
-            {
-            alt7=4;
-            }
-            break;
-        case ')':
-            {
-            alt7=5;
-            }
-            break;
-        case '*':
-            {
-            alt7=6;
-            }
-            break;
-        case '+':
-            {
-            alt7=7;
-            }
-            break;
-        case '-':
-            {
-            alt7=8;
-            }
-            break;
-        case '/':
-            {
-            switch ( input.LA(2) ) {
-            case '/':
-                {
-                alt7=28;
-                }
-                break;
-            case '*':
-                {
-                alt7=29;
-                }
-                break;
-            default:
-                alt7=9;
+                MismatchedSetException mse = new MismatchedSetException(null,input);
+                recover(mse);
+                throw mse;
             }
 
-            }
-            break;
-        case ':':
-            {
-            alt7=10;
-            }
-            break;
-        case '<':
-            {
-            int LA7_10 = input.LA(2);
-
-            if ( (LA7_10=='=') ) {
-                alt7=12;
-            }
-            else {
-                alt7=11;
-            }
-            }
-            break;
-        case '=':
-            {
-            alt7=13;
-            }
-            break;
-        case '>':
-            {
-            int LA7_12 = input.LA(2);
-
-            if ( (LA7_12=='=') ) {
-                alt7=15;
-            }
-            else {
-                alt7=14;
-            }
-            }
-            break;
-        case 'b':
-            {
-            int LA7_13 = input.LA(2);
-
-            if ( (LA7_13=='o') ) {
-                int LA7_33 = input.LA(3);
-
-                if ( (LA7_33=='o') ) {
-                    int LA7_38 = input.LA(4);
-
-                    if ( (LA7_38=='l') ) {
-                        int LA7_43 = input.LA(5);
-
-                        if ( (LA7_43=='e') ) {
-                            int LA7_47 = input.LA(6);
-
-                            if ( (LA7_47=='a') ) {
-                                int LA7_51 = input.LA(7);
-
-                                if ( (LA7_51=='n') ) {
-                                    int LA7_53 = input.LA(8);
-
-                                    if ( ((LA7_53 >= '0' && LA7_53 <= '9')||(LA7_53 >= 'A' && LA7_53 <= 'Z')||LA7_53=='_'||(LA7_53 >= 'a' && LA7_53 <= 'z')) ) {
-                                        alt7=26;
-                                    }
-                                    else {
-                                        alt7=16;
-                                    }
-                                }
-                                else {
-                                    alt7=26;
-                                }
-                            }
-                            else {
-                                alt7=26;
-                            }
-                        }
-                        else {
-                            alt7=26;
-                        }
-                    }
-                    else {
-                        alt7=26;
-                    }
-                }
-                else {
-                    alt7=26;
-                }
-            }
-            else {
-                alt7=26;
-            }
-            }
-            break;
-        case 'e':
-            {
-            int LA7_14 = input.LA(2);
-
-            if ( (LA7_14=='l') ) {
-                int LA7_34 = input.LA(3);
-
-                if ( (LA7_34=='s') ) {
-                    int LA7_39 = input.LA(4);
-
-                    if ( (LA7_39=='e') ) {
-                        int LA7_44 = input.LA(5);
-
-                        if ( ((LA7_44 >= '0' && LA7_44 <= '9')||(LA7_44 >= 'A' && LA7_44 <= 'Z')||LA7_44=='_'||(LA7_44 >= 'a' && LA7_44 <= 'z')) ) {
-                            alt7=26;
-                        }
-                        else {
-                            alt7=17;
-                        }
-                    }
-                    else {
-                        alt7=26;
-                    }
-                }
-                else {
-                    alt7=26;
-                }
-            }
-            else {
-                alt7=26;
-            }
-            }
-            break;
-        case 'f':
-            {
-            int LA7_15 = input.LA(2);
-
-            if ( (LA7_15=='o') ) {
-                int LA7_35 = input.LA(3);
-
-                if ( (LA7_35=='r') ) {
-                    int LA7_40 = input.LA(4);
-
-                    if ( (LA7_40=='m') ) {
-                        int LA7_45 = input.LA(5);
-
-                        if ( ((LA7_45 >= '0' && LA7_45 <= '9')||(LA7_45 >= 'A' && LA7_45 <= 'Z')||LA7_45=='_'||(LA7_45 >= 'a' && LA7_45 <= 'z')) ) {
-                            alt7=26;
-                        }
-                        else {
-                            alt7=18;
-                        }
-                    }
-                    else {
-                        alt7=26;
-                    }
-                }
-                else {
-                    alt7=26;
-                }
-            }
-            else {
-                alt7=26;
-            }
-            }
-            break;
-        case 'i':
-            {
-            switch ( input.LA(2) ) {
-            case 'f':
-                {
-                int LA7_36 = input.LA(3);
-
-                if ( ((LA7_36 >= '0' && LA7_36 <= '9')||(LA7_36 >= 'A' && LA7_36 <= 'Z')||LA7_36=='_'||(LA7_36 >= 'a' && LA7_36 <= 'z')) ) {
-                    alt7=26;
-                }
-                else {
-                    alt7=19;
-                }
-                }
-                break;
-            case 'n':
-                {
-                int LA7_37 = input.LA(3);
-
-                if ( (LA7_37=='t') ) {
-                    int LA7_42 = input.LA(4);
-
-                    if ( (LA7_42=='e') ) {
-                        int LA7_46 = input.LA(5);
-
-                        if ( (LA7_46=='g') ) {
-                            int LA7_50 = input.LA(6);
-
-                            if ( (LA7_50=='e') ) {
-                                int LA7_52 = input.LA(7);
-
-                                if ( (LA7_52=='r') ) {
-                                    int LA7_54 = input.LA(8);
-
-                                    if ( ((LA7_54 >= '0' && LA7_54 <= '9')||(LA7_54 >= 'A' && LA7_54 <= 'Z')||LA7_54=='_'||(LA7_54 >= 'a' && LA7_54 <= 'z')) ) {
-                                        alt7=26;
-                                    }
-                                    else {
-                                        alt7=20;
-                                    }
-                                }
-                                else {
-                                    alt7=26;
-                                }
-                            }
-                            else {
-                                alt7=26;
-                            }
-                        }
-                        else {
-                            alt7=26;
-                        }
-                    }
-                    else {
-                        alt7=26;
-                    }
-                }
-                else {
-                    alt7=26;
-                }
-                }
-                break;
-            default:
-                alt7=26;
-            }
 
             }
-            break;
-        case '{':
-            {
-            alt7=21;
-            }
-            break;
-        case '|':
-            {
-            alt7=22;
-            }
-            break;
-        case '}':
-            {
-            alt7=23;
-            }
-            break;
-        case '\"':
-            {
-            alt7=24;
-            }
-            break;
-        case '0':
-        case '1':
-        case '2':
-        case '3':
-        case '4':
-        case '5':
-        case '6':
-        case '7':
-        case '8':
-        case '9':
-            {
-            alt7=25;
-            }
-            break;
-        case 'A':
-        case 'B':
-        case 'C':
-        case 'D':
-        case 'E':
-        case 'F':
-        case 'G':
-        case 'H':
-        case 'I':
-        case 'J':
-        case 'K':
-        case 'L':
-        case 'M':
-        case 'N':
-        case 'O':
-        case 'P':
-        case 'Q':
-        case 'R':
-        case 'S':
-        case 'T':
-        case 'U':
-        case 'V':
-        case 'W':
-        case 'X':
-        case 'Y':
-        case 'Z':
-        case 'a':
-        case 'c':
-        case 'd':
-        case 'g':
-        case 'h':
-        case 'j':
-        case 'k':
-        case 'l':
-        case 'm':
-        case 'n':
-        case 'o':
-        case 'p':
-        case 'q':
-        case 'r':
-        case 's':
-        case 't':
-        case 'u':
-        case 'v':
-        case 'w':
-        case 'x':
-        case 'y':
-        case 'z':
-            {
-            alt7=26;
-            }
-            break;
-        case '\t':
-        case '\n':
-        case '\f':
-        case '\r':
-        case ' ':
-            {
-            alt7=27;
-            }
-            break;
-        default:
-            NoViableAltException nvae =
-                new NoViableAltException("", 7, 0, input);
 
-            throw nvae;
 
         }
+        finally {
+        	// do for sure before leaving
+        }
+    }
+    // $ANTLR end "Letter"
 
-        switch (alt7) {
+    // $ANTLR start "Digit"
+    public final void mDigit() throws RecognitionException {
+        try {
+            // src/main/org/uva/sea/ql/parser/QL.g:161:5: ( '0' .. '9' )
+            // src/main/org/uva/sea/ql/parser/QL.g:
+            {
+            if ( (input.LA(1) >= '0' && input.LA(1) <= '9') ) {
+                input.consume();
+            }
+            else {
+                MismatchedSetException mse = new MismatchedSetException(null,input);
+                recover(mse);
+                throw mse;
+            }
+
+
+            }
+
+
+        }
+        finally {
+        	// do for sure before leaving
+        }
+    }
+    // $ANTLR end "Digit"
+
+    public void mTokens() throws RecognitionException {
+        // src/main/org/uva/sea/ql/parser/QL.g:1:8: ( T__22 | T__23 | T__24 | T__25 | T__26 | T__27 | T__28 | T__29 | T__30 | T__31 | T__32 | T__33 | T__34 | T__35 | T__36 | T__37 | T__38 | T__39 | T__40 | T__41 | T__42 | T__43 | T__44 | T__45 | T__46 | StringLiteral | Boolean | Money | Integer | Identifier | Whitespace | Comment | MultilineComment )
+        int alt10=33;
+        alt10 = dfa10.predict(input);
+        switch (alt10) {
             case 1 :
-                // /Users/ammarhamidbasymeleh/sea-of-ql/ammarhamid/QLJava2/src/main/org/uva/sea/ql/parser/QL.g:1:10: T__12
-                {
-                mT__12(); 
-
-
-                }
-                break;
-            case 2 :
-                // /Users/ammarhamidbasymeleh/sea-of-ql/ammarhamid/QLJava2/src/main/org/uva/sea/ql/parser/QL.g:1:16: T__13
-                {
-                mT__13(); 
-
-
-                }
-                break;
-            case 3 :
-                // /Users/ammarhamidbasymeleh/sea-of-ql/ammarhamid/QLJava2/src/main/org/uva/sea/ql/parser/QL.g:1:22: T__14
-                {
-                mT__14(); 
-
-
-                }
-                break;
-            case 4 :
-                // /Users/ammarhamidbasymeleh/sea-of-ql/ammarhamid/QLJava2/src/main/org/uva/sea/ql/parser/QL.g:1:28: T__15
-                {
-                mT__15(); 
-
-
-                }
-                break;
-            case 5 :
-                // /Users/ammarhamidbasymeleh/sea-of-ql/ammarhamid/QLJava2/src/main/org/uva/sea/ql/parser/QL.g:1:34: T__16
-                {
-                mT__16(); 
-
-
-                }
-                break;
-            case 6 :
-                // /Users/ammarhamidbasymeleh/sea-of-ql/ammarhamid/QLJava2/src/main/org/uva/sea/ql/parser/QL.g:1:40: T__17
-                {
-                mT__17(); 
-
-
-                }
-                break;
-            case 7 :
-                // /Users/ammarhamidbasymeleh/sea-of-ql/ammarhamid/QLJava2/src/main/org/uva/sea/ql/parser/QL.g:1:46: T__18
-                {
-                mT__18(); 
-
-
-                }
-                break;
-            case 8 :
-                // /Users/ammarhamidbasymeleh/sea-of-ql/ammarhamid/QLJava2/src/main/org/uva/sea/ql/parser/QL.g:1:52: T__19
-                {
-                mT__19(); 
-
-
-                }
-                break;
-            case 9 :
-                // /Users/ammarhamidbasymeleh/sea-of-ql/ammarhamid/QLJava2/src/main/org/uva/sea/ql/parser/QL.g:1:58: T__20
-                {
-                mT__20(); 
-
-
-                }
-                break;
-            case 10 :
-                // /Users/ammarhamidbasymeleh/sea-of-ql/ammarhamid/QLJava2/src/main/org/uva/sea/ql/parser/QL.g:1:64: T__21
-                {
-                mT__21(); 
-
-
-                }
-                break;
-            case 11 :
-                // /Users/ammarhamidbasymeleh/sea-of-ql/ammarhamid/QLJava2/src/main/org/uva/sea/ql/parser/QL.g:1:70: T__22
+                // src/main/org/uva/sea/ql/parser/QL.g:1:10: T__22
                 {
                 mT__22(); 
 
 
                 }
                 break;
-            case 12 :
-                // /Users/ammarhamidbasymeleh/sea-of-ql/ammarhamid/QLJava2/src/main/org/uva/sea/ql/parser/QL.g:1:76: T__23
+            case 2 :
+                // src/main/org/uva/sea/ql/parser/QL.g:1:16: T__23
                 {
                 mT__23(); 
 
 
                 }
                 break;
-            case 13 :
-                // /Users/ammarhamidbasymeleh/sea-of-ql/ammarhamid/QLJava2/src/main/org/uva/sea/ql/parser/QL.g:1:82: T__24
+            case 3 :
+                // src/main/org/uva/sea/ql/parser/QL.g:1:22: T__24
                 {
                 mT__24(); 
 
 
                 }
                 break;
-            case 14 :
-                // /Users/ammarhamidbasymeleh/sea-of-ql/ammarhamid/QLJava2/src/main/org/uva/sea/ql/parser/QL.g:1:88: T__25
+            case 4 :
+                // src/main/org/uva/sea/ql/parser/QL.g:1:28: T__25
                 {
                 mT__25(); 
 
 
                 }
                 break;
-            case 15 :
-                // /Users/ammarhamidbasymeleh/sea-of-ql/ammarhamid/QLJava2/src/main/org/uva/sea/ql/parser/QL.g:1:94: T__26
+            case 5 :
+                // src/main/org/uva/sea/ql/parser/QL.g:1:34: T__26
                 {
                 mT__26(); 
 
 
                 }
                 break;
-            case 16 :
-                // /Users/ammarhamidbasymeleh/sea-of-ql/ammarhamid/QLJava2/src/main/org/uva/sea/ql/parser/QL.g:1:100: T__27
+            case 6 :
+                // src/main/org/uva/sea/ql/parser/QL.g:1:40: T__27
                 {
                 mT__27(); 
 
 
                 }
                 break;
-            case 17 :
-                // /Users/ammarhamidbasymeleh/sea-of-ql/ammarhamid/QLJava2/src/main/org/uva/sea/ql/parser/QL.g:1:106: T__28
+            case 7 :
+                // src/main/org/uva/sea/ql/parser/QL.g:1:46: T__28
                 {
                 mT__28(); 
 
 
                 }
                 break;
-            case 18 :
-                // /Users/ammarhamidbasymeleh/sea-of-ql/ammarhamid/QLJava2/src/main/org/uva/sea/ql/parser/QL.g:1:112: T__29
+            case 8 :
+                // src/main/org/uva/sea/ql/parser/QL.g:1:52: T__29
                 {
                 mT__29(); 
 
 
                 }
                 break;
-            case 19 :
-                // /Users/ammarhamidbasymeleh/sea-of-ql/ammarhamid/QLJava2/src/main/org/uva/sea/ql/parser/QL.g:1:118: T__30
+            case 9 :
+                // src/main/org/uva/sea/ql/parser/QL.g:1:58: T__30
                 {
                 mT__30(); 
 
 
                 }
                 break;
-            case 20 :
-                // /Users/ammarhamidbasymeleh/sea-of-ql/ammarhamid/QLJava2/src/main/org/uva/sea/ql/parser/QL.g:1:124: T__31
+            case 10 :
+                // src/main/org/uva/sea/ql/parser/QL.g:1:64: T__31
                 {
                 mT__31(); 
 
 
                 }
                 break;
-            case 21 :
-                // /Users/ammarhamidbasymeleh/sea-of-ql/ammarhamid/QLJava2/src/main/org/uva/sea/ql/parser/QL.g:1:130: T__32
+            case 11 :
+                // src/main/org/uva/sea/ql/parser/QL.g:1:70: T__32
                 {
                 mT__32(); 
 
 
                 }
                 break;
-            case 22 :
-                // /Users/ammarhamidbasymeleh/sea-of-ql/ammarhamid/QLJava2/src/main/org/uva/sea/ql/parser/QL.g:1:136: T__33
+            case 12 :
+                // src/main/org/uva/sea/ql/parser/QL.g:1:76: T__33
                 {
                 mT__33(); 
 
 
                 }
                 break;
-            case 23 :
-                // /Users/ammarhamidbasymeleh/sea-of-ql/ammarhamid/QLJava2/src/main/org/uva/sea/ql/parser/QL.g:1:142: T__34
+            case 13 :
+                // src/main/org/uva/sea/ql/parser/QL.g:1:82: T__34
                 {
                 mT__34(); 
 
 
                 }
                 break;
-            case 24 :
-                // /Users/ammarhamidbasymeleh/sea-of-ql/ammarhamid/QLJava2/src/main/org/uva/sea/ql/parser/QL.g:1:148: STRING_LITERAL
+            case 14 :
+                // src/main/org/uva/sea/ql/parser/QL.g:1:88: T__35
                 {
-                mSTRING_LITERAL(); 
+                mT__35(); 
+
+
+                }
+                break;
+            case 15 :
+                // src/main/org/uva/sea/ql/parser/QL.g:1:94: T__36
+                {
+                mT__36(); 
+
+
+                }
+                break;
+            case 16 :
+                // src/main/org/uva/sea/ql/parser/QL.g:1:100: T__37
+                {
+                mT__37(); 
+
+
+                }
+                break;
+            case 17 :
+                // src/main/org/uva/sea/ql/parser/QL.g:1:106: T__38
+                {
+                mT__38(); 
+
+
+                }
+                break;
+            case 18 :
+                // src/main/org/uva/sea/ql/parser/QL.g:1:112: T__39
+                {
+                mT__39(); 
+
+
+                }
+                break;
+            case 19 :
+                // src/main/org/uva/sea/ql/parser/QL.g:1:118: T__40
+                {
+                mT__40(); 
+
+
+                }
+                break;
+            case 20 :
+                // src/main/org/uva/sea/ql/parser/QL.g:1:124: T__41
+                {
+                mT__41(); 
+
+
+                }
+                break;
+            case 21 :
+                // src/main/org/uva/sea/ql/parser/QL.g:1:130: T__42
+                {
+                mT__42(); 
+
+
+                }
+                break;
+            case 22 :
+                // src/main/org/uva/sea/ql/parser/QL.g:1:136: T__43
+                {
+                mT__43(); 
+
+
+                }
+                break;
+            case 23 :
+                // src/main/org/uva/sea/ql/parser/QL.g:1:142: T__44
+                {
+                mT__44(); 
+
+
+                }
+                break;
+            case 24 :
+                // src/main/org/uva/sea/ql/parser/QL.g:1:148: T__45
+                {
+                mT__45(); 
 
 
                 }
                 break;
             case 25 :
-                // /Users/ammarhamidbasymeleh/sea-of-ql/ammarhamid/QLJava2/src/main/org/uva/sea/ql/parser/QL.g:1:163: INTEGER
+                // src/main/org/uva/sea/ql/parser/QL.g:1:154: T__46
                 {
-                mINTEGER(); 
+                mT__46(); 
 
 
                 }
                 break;
             case 26 :
-                // /Users/ammarhamidbasymeleh/sea-of-ql/ammarhamid/QLJava2/src/main/org/uva/sea/ql/parser/QL.g:1:171: IDENTIFIER
+                // src/main/org/uva/sea/ql/parser/QL.g:1:160: StringLiteral
                 {
-                mIDENTIFIER(); 
+                mStringLiteral(); 
 
 
                 }
                 break;
             case 27 :
-                // /Users/ammarhamidbasymeleh/sea-of-ql/ammarhamid/QLJava2/src/main/org/uva/sea/ql/parser/QL.g:1:182: WHITESPACE
+                // src/main/org/uva/sea/ql/parser/QL.g:1:174: Boolean
                 {
-                mWHITESPACE(); 
+                mBoolean(); 
 
 
                 }
                 break;
             case 28 :
-                // /Users/ammarhamidbasymeleh/sea-of-ql/ammarhamid/QLJava2/src/main/org/uva/sea/ql/parser/QL.g:1:193: COMMENT
+                // src/main/org/uva/sea/ql/parser/QL.g:1:182: Money
                 {
-                mCOMMENT(); 
+                mMoney(); 
 
 
                 }
                 break;
             case 29 :
-                // /Users/ammarhamidbasymeleh/sea-of-ql/ammarhamid/QLJava2/src/main/org/uva/sea/ql/parser/QL.g:1:201: MULTILINE_COMMENT
+                // src/main/org/uva/sea/ql/parser/QL.g:1:188: Integer
                 {
-                mMULTILINE_COMMENT(); 
+                mInteger(); 
+
+
+                }
+                break;
+            case 30 :
+                // src/main/org/uva/sea/ql/parser/QL.g:1:196: Identifier
+                {
+                mIdentifier(); 
+
+
+                }
+                break;
+            case 31 :
+                // src/main/org/uva/sea/ql/parser/QL.g:1:207: Whitespace
+                {
+                mWhitespace(); 
+
+
+                }
+                break;
+            case 32 :
+                // src/main/org/uva/sea/ql/parser/QL.g:1:218: Comment
+                {
+                mComment(); 
+
+
+                }
+                break;
+            case 33 :
+                // src/main/org/uva/sea/ql/parser/QL.g:1:226: MultilineComment
+                {
+                mMultilineComment(); 
 
 
                 }
@@ -1649,6 +1504,155 @@ public class QLLexer extends Lexer {
     }
 
 
+    protected DFA10 dfa10 = new DFA10(this);
+    static final String DFA10_eotS =
+        "\1\uffff\1\34\6\uffff\1\37\1\uffff\1\41\1\uffff\1\43\6\31\4\uffff"+
+        "\1\31\1\56\13\uffff\4\31\1\63\4\31\2\uffff\4\31\1\uffff\5\31\1\101"+
+        "\1\102\4\31\1\107\1\31\2\uffff\1\107\1\31\1\112\1\31\1\uffff\2\31"+
+        "\1\uffff\1\116\1\117\1\120\3\uffff";
+    static final String DFA10_eofS =
+        "\121\uffff";
+    static final String DFA10_minS =
+        "\1\11\1\75\6\uffff\1\52\1\uffff\1\75\1\uffff\1\75\1\157\1\154\1"+
+        "\141\1\146\1\157\1\164\4\uffff\1\162\1\56\13\uffff\1\157\1\163\1"+
+        "\162\1\154\1\60\1\164\1\156\1\162\1\165\2\uffff\1\154\1\145\1\155"+
+        "\1\163\1\uffff\2\145\1\151\2\145\2\60\1\145\1\147\1\171\1\156\1"+
+        "\60\1\141\2\uffff\1\60\1\145\1\60\1\147\1\uffff\1\156\1\162\1\uffff"+
+        "\3\60\3\uffff";
+    static final String DFA10_maxS =
+        "\1\175\1\75\6\uffff\1\57\1\uffff\1\75\1\uffff\1\75\1\157\1\154\1"+
+        "\157\1\156\1\157\1\164\4\uffff\1\162\1\71\13\uffff\1\157\1\163\1"+
+        "\162\1\154\1\172\1\164\1\156\1\162\1\165\2\uffff\1\154\1\145\1\155"+
+        "\1\163\1\uffff\2\145\1\151\2\145\2\172\1\145\1\147\1\171\1\156\1"+
+        "\172\1\141\2\uffff\1\172\1\145\1\172\1\147\1\uffff\1\156\1\162\1"+
+        "\uffff\3\172\3\uffff";
+    static final String DFA10_acceptS =
+        "\2\uffff\1\3\1\4\1\5\1\6\1\7\1\10\1\uffff\1\12\1\uffff\1\15\7\uffff"+
+        "\1\27\1\30\1\31\1\32\2\uffff\1\36\1\37\1\2\1\1\1\40\1\41\1\11\1"+
+        "\14\1\13\1\17\1\16\11\uffff\1\34\1\35\4\uffff\1\23\15\uffff\1\21"+
+        "\1\22\4\uffff\1\33\2\uffff\1\25\3\uffff\1\26\1\20\1\24";
+    static final String DFA10_specialS =
+        "\121\uffff}>";
+    static final String[] DFA10_transitionS = {
+            "\2\32\1\uffff\2\32\22\uffff\1\32\1\1\1\26\3\uffff\1\2\1\uffff"+
+            "\1\3\1\4\1\5\1\6\1\uffff\1\7\1\uffff\1\10\12\30\1\11\1\uffff"+
+            "\1\12\1\13\1\14\2\uffff\32\31\6\uffff\1\31\1\15\2\31\1\16\1"+
+            "\17\2\31\1\20\3\31\1\21\5\31\1\22\1\27\6\31\1\23\1\24\1\25",
+            "\1\33",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "\1\36\4\uffff\1\35",
+            "",
+            "\1\40",
+            "",
+            "\1\42",
+            "\1\44",
+            "\1\45",
+            "\1\47\15\uffff\1\46",
+            "\1\50\7\uffff\1\51",
+            "\1\52",
+            "\1\53",
+            "",
+            "",
+            "",
+            "",
+            "\1\54",
+            "\1\55\1\uffff\12\30",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "\1\57",
+            "\1\60",
+            "\1\61",
+            "\1\62",
+            "\12\31\7\uffff\32\31\4\uffff\1\31\1\uffff\32\31",
+            "\1\64",
+            "\1\65",
+            "\1\66",
+            "\1\67",
+            "",
+            "",
+            "\1\70",
+            "\1\71",
+            "\1\72",
+            "\1\73",
+            "",
+            "\1\74",
+            "\1\75",
+            "\1\76",
+            "\1\77",
+            "\1\100",
+            "\12\31\7\uffff\32\31\4\uffff\1\31\1\uffff\32\31",
+            "\12\31\7\uffff\32\31\4\uffff\1\31\1\uffff\32\31",
+            "\1\103",
+            "\1\104",
+            "\1\105",
+            "\1\106",
+            "\12\31\7\uffff\32\31\4\uffff\1\31\1\uffff\32\31",
+            "\1\110",
+            "",
+            "",
+            "\12\31\7\uffff\32\31\4\uffff\1\31\1\uffff\32\31",
+            "\1\111",
+            "\12\31\7\uffff\32\31\4\uffff\1\31\1\uffff\32\31",
+            "\1\113",
+            "",
+            "\1\114",
+            "\1\115",
+            "",
+            "\12\31\7\uffff\32\31\4\uffff\1\31\1\uffff\32\31",
+            "\12\31\7\uffff\32\31\4\uffff\1\31\1\uffff\32\31",
+            "\12\31\7\uffff\32\31\4\uffff\1\31\1\uffff\32\31",
+            "",
+            "",
+            ""
+    };
+
+    static final short[] DFA10_eot = DFA.unpackEncodedString(DFA10_eotS);
+    static final short[] DFA10_eof = DFA.unpackEncodedString(DFA10_eofS);
+    static final char[] DFA10_min = DFA.unpackEncodedStringToUnsignedChars(DFA10_minS);
+    static final char[] DFA10_max = DFA.unpackEncodedStringToUnsignedChars(DFA10_maxS);
+    static final short[] DFA10_accept = DFA.unpackEncodedString(DFA10_acceptS);
+    static final short[] DFA10_special = DFA.unpackEncodedString(DFA10_specialS);
+    static final short[][] DFA10_transition;
+
+    static {
+        int numStates = DFA10_transitionS.length;
+        DFA10_transition = new short[numStates][];
+        for (int i=0; i<numStates; i++) {
+            DFA10_transition[i] = DFA.unpackEncodedString(DFA10_transitionS[i]);
+        }
+    }
+
+    class DFA10 extends DFA {
+
+        public DFA10(BaseRecognizer recognizer) {
+            this.recognizer = recognizer;
+            this.decisionNumber = 10;
+            this.eot = DFA10_eot;
+            this.eof = DFA10_eof;
+            this.min = DFA10_min;
+            this.max = DFA10_max;
+            this.accept = DFA10_accept;
+            this.special = DFA10_special;
+            this.transition = DFA10_transition;
+        }
+        public String getDescription() {
+            return "1:1: Tokens : ( T__22 | T__23 | T__24 | T__25 | T__26 | T__27 | T__28 | T__29 | T__30 | T__31 | T__32 | T__33 | T__34 | T__35 | T__36 | T__37 | T__38 | T__39 | T__40 | T__41 | T__42 | T__43 | T__44 | T__45 | T__46 | StringLiteral | Boolean | Money | Integer | Identifier | Whitespace | Comment | MultilineComment );";
+        }
+    }
  
 
 }

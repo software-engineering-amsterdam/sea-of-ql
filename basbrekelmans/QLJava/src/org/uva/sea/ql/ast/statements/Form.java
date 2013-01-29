@@ -1,25 +1,33 @@
 package org.uva.sea.ql.ast.statements;
 
 import org.uva.sea.ql.ICodeLocationInformation;
-import org.uva.sea.ql.ast.expressions.StringLiteral;
+import org.uva.sea.ql.ast.IStatementVisitor;
+import org.uva.sea.ql.ast.expressions.Identifier;
 
+/**
+ *	Defines a form (questionnaire). This is the root of a QL program.
+ */
 public class Form extends Statement {
 
-	private Statement body;
-	private String name;
+	private Statements body;
+	private Identifier name;
 
-	public Form(ICodeLocationInformation info, StringLiteral name, Statement body) {
+	public Form(ICodeLocationInformation info, Identifier name, Statements body) {
 		super(info);
-		this.name = name.getValue();
+		this.name = name;
 		this.body = body;
 	}
 
-	public String getName() {
+	public Identifier getName() {
 		return name;
 	}
 
-	public Statement getBody() {
+	public Statements getBody() {
 		return body;
+	}
+	@Override
+	public void accept(IStatementVisitor visitor)  {
+		visitor.visit(this);
 	}
 
 }

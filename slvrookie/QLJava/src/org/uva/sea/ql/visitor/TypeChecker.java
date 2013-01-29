@@ -1,99 +1,80 @@
 package org.uva.sea.ql.visitor;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
+import org.uva.sea.ql.ast.Block;
 import org.uva.sea.ql.ast.CompQuestion;
 import org.uva.sea.ql.ast.Form;
 import org.uva.sea.ql.ast.FormElement;
-import org.uva.sea.ql.ast.IfBody;
+import org.uva.sea.ql.ast.IfThen;
+import org.uva.sea.ql.ast.IfThenElse;
 import org.uva.sea.ql.ast.Question;
-import org.uva.sea.ql.ast.expr.BinaryExpr;
-import org.uva.sea.ql.ast.expr.Ident;
-import org.uva.sea.ql.ast.expr.UnaryExpr;
-import org.uva.sea.ql.ast.expr.value.BoolLiteral;
-import org.uva.sea.ql.ast.expr.value.IntLiteral;
-import org.uva.sea.ql.ast.expr.value.MoneyLiteral;
-import org.uva.sea.ql.ast.expr.value.StringLiteral;
+import org.uva.sea.ql.ast.types.*;
 
+public class TypeChecker {
 
-public class TypeChecker implements Visitor {
+	private Map<String, Type> typeEnv = new HashMap<String, Type>();
+	private final List<String> messages = new ArrayList<String>();
+
+	public void addError(String error) {
+		this.messages.add(error);
+	}
+
+	public List<String> getErrorList() {
+		return messages;
+	}
+
+	public void visit(Form form) {
+		form.getFormBody().accept(this);
+	}
 	
-	
-	@Override
-	public void visit(Form node, Context con) {
-		for (FormElement element : node.getFormBody()) {
+	public void visit(Block block) {
+		for (FormElement element : block.getBlock()) {
 			if (element != null) {
-				element.accept(this, con);
-			}	
+				element.accept(this);
+			}
+		}
+	}
+
+	public void visit(IfThen ifBody) {
+		isExpressionBoolean(ifBody);
+		ifBody.getThenBody().accept(this);
+	}
+	
+	public void visit(IfThenElse ifBody) {
+		isExpressionBoolean(ifBody);
+		ifBody.getThenBody().accept(this);
+		ifBody.getElseBody().accept(this);
+	}
+
+	public void visit(Question question) {
+		isIdentDeclared(question);
+	}
+
+	public void visit(CompQuestion compQuestion) {
+		isIdentDeclared(compQuestion);
+		ExprVisitor.check(compQuestion.getQuestionExpr(), typeEnv, messages);
+		if (!compQuestion.getQuestionExpr().typeOf(typeEnv).isCompatibleTo(compQuestion.getQuestionType())) {
+			addError("Incompatible question type and expression");
+		}
+	}
+
+	public void isIdentDeclared(Question question) {
+		if (typeEnv.containsKey(question.getQuestionID().getName())) {
+			addError("Question Ident " + question.getQuestionID().getName() + " is already declared");
+		} else {
+			typeEnv.put(question.getQuestionID().getName(),question.getQuestionType());
 		}
 	}
 	
-	@Override
-	public void visit(IfBody node, Context con) {
-		node.getExpression().accept(this, con);
-		for (FormElement element : node.getIfElements()) {
-			if (element != null) {
-				element.accept(this, con);
-			}	
+	public void isExpressionBoolean(IfThen ifBody){
+		ExprVisitor.check(ifBody.getExpression(), typeEnv, messages);
+		if (!ifBody.getExpression().typeOf(typeEnv).isCompatibleToBoolType()) {
+			addError("If expression must be boolean");
 		}
 	}
 	
-	@Override
-	public void visit(Question node, Context con) {
-		if (con.isDeclared(node.getQuestionID().getName())){
-			con.addError("\n Duplicate ID:"+ node.getQuestionID().getName());
-			System.out.println("\n Duplicate ID:"+ node.getQuestionID().getName());
-			System.out.println(con.getErrors());
-		}
-		else {
-			con.setIdent(node.getQuestionID().getName(), node.getQuestionType());
-		}
-	}
-	
-	@Override
-	public void visit(CompQuestion node, Context con) {
-		if (con.isDeclared(node.getQuestionID().getName())){
-			con.addError("\n Duplicate ID:"+ node.getQuestionID().getName());
-			System.out.println("\n Duplicate ID:"+ node.getQuestionID().getName());
-		}
-		else {
-			con.setIdent(node.getQuestionID().getName(), node.getQuestionType());
-		}
-		node.getQuestionExpr().accept(this, con);
-	}
-	
-	@Override
-	public void visit(UnaryExpr node, Context con) {
-		node.getArg().accept(this, con);
-
-	}
-	
-	@Override
-	public void visit(BinaryExpr node, Context con) {
-		node.getLhs().accept(this, con);
-		node.getRhs().accept(this, con);
-	}
-	
-	@Override
-	public void visit(Ident node, Context con) {
-		if(con.isDeclared(node.getName())){
-			con.getSymbols().get(node.getName());
-		}	
-	}
-
-	@Override
-	public void visit(BoolLiteral node, Context context) {
-	}
-
-	@Override
-	public void visit(IntLiteral node, Context context) {
-	}
-
-	@Override
-	public void visit(MoneyLiteral node, Context context) {
-	}
-
-	@Override
-	public void visit(StringLiteral node, Context context) {
-	}
-
 }

@@ -1,12 +1,16 @@
 package org.uva.sea.ql.ast.types;
 
-import org.uva.sea.ql.ast.ASTNodeVisitor;
-
 
 public class IntType extends Type {
+
+	@Override
+	public boolean isCompatibleTo(Type type) {
+		return type.isCompatibleToInt();
+	}
 	
-	public void accept(ASTNodeVisitor visitor) {
-        visitor.visit(this);
-    }
+	@Override
+	public boolean isCompatibleToInt() {
+		return true;
+	}
 
 }

@@ -1,23 +1,27 @@
 package org.uva.sea.ql.ast;
 
+import java.util.Map;
+
+import org.uva.sea.ql.ast.type.Numeric;
+import org.uva.sea.ql.ast.type.Type;
+import org.uva.sea.ql.interpreter.IntVal;
 import org.uva.sea.ql.interpreter.Value;
-import org.uva.sea.ql.interpreter.Int;
 
-public class Pos extends Expr {
-
-	private final Expr expr;
+public class Pos extends Unary {
 	
 	public Pos(Expr expr) {
-		this.expr = expr;
+		super(expr);
+		permittedTypes = new Numeric();
+	}
+	
+	@Override
+	public Value interpret() {
+		return (IntVal) getExpr().interpret();
 	}
 
 	@Override
-	public Value interpret() {
-		return (Int) getExpr().interpret();
+	public Type typeOf(Map<Ident, Type> typeEnv) {
+		return new Numeric();
 	}
-
-	public Expr getExpr() {
-		return expr;
-	}
-
+	
 }

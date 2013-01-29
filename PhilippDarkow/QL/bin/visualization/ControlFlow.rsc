@@ -13,7 +13,7 @@ public data CFNode
 
 alias CFGraph = tuple[set[CFNode] entry, Graph[CFNode] graph, set[CFNode] exit];  
 
-CFGraph cflowStat(s:asgStat(PicoId Id, EXP Exp)) {                                
+CFGraph cflowStat(s:asgStat(QuestionId Id, EXP Exp)) {                                
    S = statement(s@location, s);
    return <{S}, {}, {S}>;
 }
@@ -36,7 +36,7 @@ CFGraph cflowStats(list[STATEMENT] Stats){
 }
 
 public CFGraph cflowProgram(PROGRAM P){                                           
-  if(program(list[DECL] Decls, list[STATEMENT] Series) := P){
+  if(program(EXT ext, list[DECL] Decls, list[STATEMENT] Series) := P){
      CF = cflowStats(Series);
      Entry = entry(P@location);
      Exit  = exit();

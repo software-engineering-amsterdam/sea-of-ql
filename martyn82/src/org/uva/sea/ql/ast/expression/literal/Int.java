@@ -1,8 +1,6 @@
 package org.uva.sea.ql.ast.expression.literal;
 
-import org.uva.sea.ql.eval.Context;
-import org.uva.sea.ql.eval.value.Value;
-import org.uva.sea.ql.visitor.INodeVisitor;
+import org.uva.sea.ql.visitor.IExpressionVisitor;
 
 /**
  * Represents an integer expression.
@@ -37,7 +35,7 @@ public class Int extends Number {
 	}
 
 	@Override
-	public Value<?> accept( INodeVisitor visitor, Context context ) {
-		return visitor.visit( this, context );
+	public <T> T accept( IExpressionVisitor<T> visitor ) {
+		return visitor.visit( this );
 	}
 }

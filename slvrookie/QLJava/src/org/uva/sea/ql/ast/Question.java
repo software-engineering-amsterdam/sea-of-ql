@@ -3,38 +3,35 @@ package org.uva.sea.ql.ast;
 import org.uva.sea.ql.ast.expr.Ident;
 import org.uva.sea.ql.ast.expr.value.StringLiteral;
 import org.uva.sea.ql.ast.types.Type;
-import org.uva.sea.ql.visitor.Context;
-import org.uva.sea.ql.visitor.Visitor;
+import org.uva.sea.ql.visitor.TypeChecker;
 
 public class Question extends FormElement {
 
 	private final Ident qID;
-	private final StringLiteral qlabel;
-	private final Type qtype;
+	private final StringLiteral qString;
+	private final Type qType;
 
-	public Question(Ident qID, StringLiteral qlabel, Type qtype) {
+	public Question(Ident qID, StringLiteral qString, Type qType) {
 		this.qID = qID;
-		this.qlabel = qlabel;
-		this.qtype = qtype;
+		this.qString = qString;
+		this.qType = qType;
 	}
 
 	public Ident getQuestionID() {
 		return qID;
 	}
 
-	public StringLiteral getQuestionLabel() {
-		return qlabel;
+	public StringLiteral getQuestionString() {
+		return qString;
 	}
 
 	public Type getQuestionType() {
-		return qtype;
+		return qType;
 	}
 
-
 	@Override
-	public void accept(Visitor visitor, Context context) {
-		visitor.visit(this, context);
-		
+	public void accept(TypeChecker visitor) {
+		visitor.visit(this);
 	}
 
 }

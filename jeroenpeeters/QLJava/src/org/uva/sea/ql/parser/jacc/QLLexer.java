@@ -6,10 +6,10 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.uva.sea.ql.ast.ASTNode;
-import org.uva.sea.ql.ast.DataType;
-import org.uva.sea.ql.ast.Ident;
-import org.uva.sea.ql.ast.literals.Int;
-import org.uva.sea.ql.ast.literals.Text;
+import org.uva.sea.ql.ast.expression.Ident;
+import org.uva.sea.ql.ast.expression.literals.BooleanLiteral;
+import org.uva.sea.ql.ast.expression.literals.IntLiteral;
+import org.uva.sea.ql.ast.expression.literals.TextLiteral;
 
 public class QLLexer implements QLTokens {
 	private static final Map<String, Integer> KEYWORDS;
@@ -20,12 +20,16 @@ public class QLLexer implements QLTokens {
 		// Structural keywords
 		KEYWORDS.put("form", FORM);
 		KEYWORDS.put("if", IF);
+		KEYWORDS.put("else", ELSE);
 		
 		// DataType keywords
-		KEYWORDS.put("boolean", BOOLEAN);
-		KEYWORDS.put("int", INTEGER);
-		KEYWORDS.put("money", MONEY);
-		KEYWORDS.put("text", TEXT);
+		KEYWORDS.put("boolean", DT_BOOLEAN);
+		KEYWORDS.put("int", DT_INTEGER);
+		KEYWORDS.put("money", DT_MONEY);
+		KEYWORDS.put("text", DT_TEXT);
+		
+		KEYWORDS.put("true", BOOL);
+		KEYWORDS.put("false", BOOL);
 	}
 	
 	
@@ -122,6 +126,7 @@ public class QLLexer implements QLTokens {
 			    case '&': {
 			    	nextChar(); 
 			    	if  (c == '&') {
+			    		nextChar(); 
 			    		return token = AND;
 			    	}
 			    	this.throwLexicalException("Unexpected character: " + (char)c);
@@ -129,6 +134,7 @@ public class QLLexer implements QLTokens {
 			    case '|': {
 			    	nextChar(); 
 			    	if  (c == '|') {
+			    		nextChar(); 
 			    		return token = OR;
 			    	}
 			    	this.throwLexicalException("Unexpected character: " + (char)c);
@@ -145,6 +151,7 @@ public class QLLexer implements QLTokens {
 			    case '=': { 
 			    	nextChar(); 
 			    	if  (c == '=') {
+			    		nextChar(); 
 			    		return token = EQ;
 			    	}
 			    	this.throwLexicalException("Unexpected character: " + (char)c);
@@ -169,7 +176,7 @@ public class QLLexer implements QLTokens {
 			    		}
 			    	}while( c != '"');
 			    	nextChar();
-			    	yylval = new Text(sb.toString());
+			    	yylval = new TextLiteral(sb.toString());
 			    	return token = TEXT;
 			    }
 			    default: {
@@ -179,7 +186,7 @@ public class QLLexer implements QLTokens {
 			    			n = 10 * n + (c - '0');
 			    			nextChar(); 
 			    		} while (Character.isDigit(c)); 
-			    		yylval = new Int(n);
+			    		yylval = new IntLiteral(n);
 			    		return token = INT;
 			    	}
 			    	if (Character.isLetter((char)c)) {
@@ -191,7 +198,11 @@ public class QLLexer implements QLTokens {
 			    		while (Character.isLetterOrDigit(c));
 			    		String name = sb.toString();
 			    		if (KEYWORDS.containsKey(name)) {
-			    			return token = KEYWORDS.get(name);
+			    			token = KEYWORDS.get(name);
+			    			if(token == BOOL){
+			    				yylval = new BooleanLiteral(name.equals("true"));
+			    			}
+			    			return token;
 			    		}
 						yylval = new Ident(name);
 			    		return token = IDENT;

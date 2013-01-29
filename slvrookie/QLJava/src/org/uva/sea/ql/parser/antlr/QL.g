@@ -8,6 +8,8 @@ import org.uva.sea.ql.ast.*;
 import org.uva.sea.ql.ast.types.*;
 import org.uva.sea.ql.ast.expr.*;
 import org.uva.sea.ql.ast.expr.value.*;
+import org.uva.sea.ql.ast.expr.binary.*;
+import org.uva.sea.ql.ast.expr.unary.*;
 }
 
 @lexer::header
@@ -17,22 +19,22 @@ package org.uva.sea.ql.parser.antlr;
 
  
 primary returns [Expr result]
-  : IntLiteral           { $result = new IntLiteral(Integer.parseInt($IntLiteral.text)); }
-  | MoneyLiteral         { $result = new MoneyLiteral(Double.parseDouble($MoneyLiteral.text)) ;}
-  | BoolLiteral          { $result = new BoolLiteral(Boolean.parseBoolean($BoolLiteral.text)) ;}
-  | StringLiteral        { $result = new StringLiteral($StringLiteral.text);}
-  | Ident                { $result = new Ident($Ident.text); }
-  | '(' x=orExpr ')'     { $result = $x.result; }
-  ;
+   : IntLiteral           { $result = new IntLiteral(Integer.parseInt($IntLiteral.text)); }
+   | MoneyLiteral         { $result = new MoneyLiteral(Double.parseDouble($MoneyLiteral.text)) ;}
+   | BoolLiteral          { $result = new BoolLiteral(Boolean.parseBoolean($BoolLiteral.text)) ;}
+   | StringLiteral        { $result = new StringLiteral($StringLiteral.text);}
+   | Ident                { $result = new Ident($Ident.text); }
+   | '(' x=orExpr ')'     { $result = $x.result; }
+   ;
   
 type returns [Type result]
-  : Type {
-    if ($Type.text.equals("string")) $result = new StringType();
-    else if ($Type.text.equals("int")) $result = new IntType();
-    else if ($Type.text.equals("money")) $result = new MoneyType();
-    else if ($Type.text.equals("boolean")) $result = new BoolType();
-  }
-  ;
+   : Type {
+     if ($Type.text.equals("string")) $result = new StringType();
+     else if ($Type.text.equals("int")) $result = new IntType();
+     else if ($Type.text.equals("money")) $result = new MoneyType();
+     else if ($Type.text.equals("boolean")) $result = new BoolType();
+   }
+   ;
     
 unExpr returns [Expr result]
     :  '+' x=unExpr { $result = new Pos($x.result); }
@@ -98,17 +100,22 @@ orExpr returns [Expr result]
     ;
 
 formElement returns [FormElement result]
-    : 'if' '(' x = orExpr ')' '{' body=formblock '}' { $result = new IfBody($x.result, $body.result); }
+    : 'if' '(' x = orExpr ')'  '{' thenbody=formblock '}' 'else' '{' elsebody = formblock '}' { $result = new IfThenElse($x.result, $thenbody.result, $elsebody.result); }
+    | 'if' '(' x = orExpr ')'  '{' thbody=formblock '}'  { $result = new IfThen($x.result, $thbody.result); }
     | Ident ':' StringLiteral type '(' orExpr ')' { $result = new CompQuestion(new Ident($Ident.text) ,new StringLiteral($StringLiteral.text), $type.result, $orExpr.result); }
     | Ident ':' StringLiteral type { $result = new Question(new Ident($Ident.text) ,new StringLiteral($StringLiteral.text), $type.result); }
     ;
-    
-formblock returns [List<FormElement> result]
-    :  { $result = new ArrayList<FormElement>() ; }(forme=formElement  { $result.add($forme.result) ; } )*  
+ 
+ formblock returns [Block result]
+ @init{
+          Block formblock = new Block();
+    }
+    : (formElement {formblock.addElement($formElement.result);})* {$result=formblock;}
     ;
+
     
 form returns [Form result]
-    : 'form' Ident '{' fb = formblock '}'  { $result = new Form(new Ident($Ident.text), $fb.result); }
+    : 'form' Ident '{' fb = formblock '}' EOF { $result = new Form(new Ident($Ident.text), $fb.result); }
     ;
     
 // Tokens

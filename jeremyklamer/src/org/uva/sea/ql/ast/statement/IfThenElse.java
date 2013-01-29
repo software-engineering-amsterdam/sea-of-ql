@@ -1,29 +1,37 @@
 package org.uva.sea.ql.ast.statement;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.uva.sea.ql.ast.Expr;
+import org.uva.sea.ql.ast.Ident;
+import org.uva.sea.ql.ast.type.Type;
+import org.uva.sea.ql.message.Message;
 
-public class IfThenElse extends Statement{
+public class IfThenElse extends If{
 	
-	private final Expr conditionIf;
-	private final List<Statement> ifStatements;
-	private final List<Statement> elseStatements;
+	private final List<Statement> elseBody;
 	
-	public IfThenElse(Expr conditionIf, List<Statement> ifStatements, List<Statement> elseStatements)
-	{
-		this.conditionIf = conditionIf;
-		this.ifStatements = ifStatements;
-		this.elseStatements = elseStatements;
+	public IfThenElse(Expr condition, List<Statement> ifBody, List<Statement> elseBody){
+		super(condition,ifBody);
+		this.elseBody = elseBody;
 	}
 	
-	public Expr getConditionIf() {
-		return conditionIf;
+	public List<Statement> getElseBody() {
+		return elseBody;
 	}
-	public List<Statement> getElseStatements() {
-		return elseStatements;
-	}
-	public List<Statement> getIfStatements() {
-		return ifStatements;
+
+	@Override
+	public List<Message> checkType(Map<Ident, Type> typeEnv) {
+		ArrayList<Message> errors = new ArrayList<Message>();
+		
+		errors.addAll(super.checkType(typeEnv));
+		
+		for(Statement statement : elseBody){
+			errors.addAll(statement.checkType(typeEnv));
+		}		
+		
+		return errors;
 	}
 }

@@ -16,7 +16,7 @@ public test bool testRegular2()
 
 public test bool testRegular3() 
   = loadStatement(
-      "money Money=\"debts=\""
+      "float Float=\"debts=\""
     ) is regular;
 
 public test bool testComputed1() 
@@ -48,11 +48,11 @@ public test bool testConditional2()
 public test bool testConditional3() 
   = loadStatement(
       "if (j \> k) { 
-         money rate = \"rate?\" 
-         int hours = \"hours?\"
-         money salary = \"salary=\" rate*hours 
+         float rate = \"rate?\" 
+         date hours = \"hours?\"
+         string salary = \"salary=\" rate*hours 
 	   } else {
-	     money salary = \"salary=\" old_salary 
+	     float salary = \"salary=\" old_salary 
 	   }"
 	) is conditional;
 	   

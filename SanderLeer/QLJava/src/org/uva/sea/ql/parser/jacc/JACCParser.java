@@ -2,30 +2,20 @@ package org.uva.sea.ql.parser.jacc;
 
 import java.io.StringReader;
 import org.uva.sea.ql.ast.ASTNode;
-import org.uva.sea.ql.utils.ASTPrinter;
+import org.uva.sea.ql.parser.ParseException;
+import org.uva.sea.ql.parser.Parser;
 
 public class JACCParser implements Parser {
-	
-	
 	@Override
 	public ASTNode parse(String src) throws ParseException {
-		//TODO: remove before production
-		System.out.println("SOURCE = \"" + src + "\"");
 		QLLexer lexer = new QLLexer(new StringReader(src));
 
-		SymbolTable symbols = new SymbolTable();
-		
-		QLParser parser = new QLParser(lexer, symbols);
+		QLParser parser = new QLParser(lexer);
 		if (!parser.parse()) {
-			throw new ParseException("error");
+			throw new ParseException("parse error: " + parser.getError());
 		}
-		ASTNode result = parser.getResult();
-		
-		ASTPrinter astPrinter = new ASTPrinter();
-		result.accept(astPrinter);
-		//TODO: remove before production
-		System.out.println(astPrinter.toString() + "\n");
-		
-		return result;
+		ASTNode ast = parser.getResult();
+
+		return ast;
 	}
 }

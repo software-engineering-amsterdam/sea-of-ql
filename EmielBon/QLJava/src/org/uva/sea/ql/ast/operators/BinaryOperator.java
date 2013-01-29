@@ -1,13 +1,13 @@
 package org.uva.sea.ql.ast.operators;
 
-import org.uva.sea.ql.ast.Expr;
+import org.uva.sea.ql.ast.Expression;
 
-public class BinaryOperator extends Expr {
+public class BinaryOperator extends Expression {
 
-	protected final Expr leftOperand;
-	protected final Expr rightOperand;
+	protected final Expression leftOperand;
+	protected final Expression rightOperand;
 	
-	public BinaryOperator(Expr leftOperand, Expr rightOperand) {
+	public BinaryOperator(Expression leftOperand, Expression rightOperand) {
 		this.leftOperand = leftOperand;
 		this.rightOperand = rightOperand;
 	}

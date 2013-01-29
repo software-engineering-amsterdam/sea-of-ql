@@ -20,5 +20,4 @@ public class And extends Expr{
 		return rhs;
 	}
 
-	
 }

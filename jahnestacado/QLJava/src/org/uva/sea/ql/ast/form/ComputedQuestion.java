@@ -1,34 +1,18 @@
 package org.uva.sea.ql.ast.form;
 
-import org.uva.sea.ql.ast.ASTNode;
-import org.uva.sea.ql.ast.Expr;
+import org.uva.sea.ql.ast.expr.Expr;
+import org.uva.sea.ql.ast.expr.Ident;
+import org.uva.sea.ql.ast.expr.values.StringLit;
 import org.uva.sea.ql.ast.types.Type;
-import org.uva.sea.ql.ast.values.Ident;
-import org.uva.sea.ql.visitor.ASTNodeVisitor;
+import org.uva.sea.ql.visitor.checkers.ElementChecker;
 
-public class ComputedQuestion extends BodyElements {
-	private final Ident id;
-	private final String label;
-	private final Type type;
+public class ComputedQuestion extends SingleLineElement {
+
 	private final Expr expr;
 
-	public ComputedQuestion(Ident id, String label, Type type, Expr expr) {
-			this.id=id;
-			this.label=label;
-			this.type=type;
-			this.expr=expr;
-	}
-
-	public Ident getId() {
-		return id;
-	}
-
-	public String getLabel() {
-		return label;
-	}
-
-	public Type getType() {
-		return type;
+	public ComputedQuestion(Ident id, StringLit label, Type type, Expr expr) {
+		super(id, label, type);
+		this.expr = expr;
 	}
 
 	public Expr getExpr() {
@@ -36,9 +20,8 @@ public class ComputedQuestion extends BodyElements {
 	}
 
 	@Override
-	public void accept(ASTNodeVisitor nodeVisitor) {
-		// TODO Auto-generated method stub
-		
+	public void accept(ElementChecker qlElement) {
+		qlElement.visit(this);
 	}
 
 }

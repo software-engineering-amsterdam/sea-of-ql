@@ -1,26 +1,27 @@
-module lang::ql::ast::SemanticCheck::SemanticCheck
+@contributor{George Marmanidis -geo.marmani@gmail.com}
+module lang::ql::ast::semanticcheck::SemanticCheck
 
 import lang::ql::ast::AST;
 import lang::ql::util::Implode;
-import lang::ql::ast::SemanticCheck::IdentDeclarations;
 import IO;
-import lang::ql::ast::SemanticCheck::utilities;
-import lang::ql::ast::SemanticCheck::IdentDeclarations;
-import lang::ql::ast::SemanticCheck::TypeCheck;
+import util::IDE;
+import lang::ql::ast::semanticcheck::TypeEnvUtils;
+import lang::ql::ast::semanticcheck::IdentDeclarationsCheck;
+import lang::ql::ast::semanticcheck::TypeCheck;
+import lang::ql::ast::semanticcheck::DuplicateLabelsCheck;
+import ParseTree;
 
-//
-public rel[str, str ,Type,bool] checkForm(loc l) = checkForm(load(l)).symbols;
-public list[tuple[loc l, str msg]] checkForm1(loc l) = checkForm(load(l)).errors;
-public list[tuple[loc l, str msg]] checkForm(str src) = checkForm(load(src)).errors;
-//
-public TENV checkForm(Form P){                                                
+public set[Message] semanticCheck(Form form) = getErrors(checkForm(form));
+
+//we check a form here for undeclared variables, 
+//declaration errors(duplicate idents,duplicate labels)
+//and for type errors.
+TENV checkForm(Form P){                                                
   if(form(str ident,list[FormBodyItem] formBody) := P){
-  	 TENV env=<{},[]>;
-  	 //find indentifiers
+  	 TENV env=<{},[],[]>;
   	 env=getIdentDeclarations(formBody,env);
-   	 //and then check FormBody
+   	 env=duplicateLabelsCheck(env);
      return checkFormBody(formBody,env);
-     //return env;
   } else
     throw "Syntax error.";
 }

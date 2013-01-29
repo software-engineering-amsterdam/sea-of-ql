@@ -1,9 +1,5 @@
 package org.uva.sea.ql.ast.expression;
 
-import org.uva.sea.ql.eval.Context;
-import org.uva.sea.ql.eval.value.Value;
-import org.uva.sea.ql.visitor.INodeVisitor;
-
 /**
  * Represents a unary expression.
  */
@@ -29,10 +25,5 @@ abstract public class UnaryExpression extends Expression {
 	 */
 	public Expression getExpression() {
 		return this.expression;
-	}
-
-	@Override
-	public Value<?> accept( INodeVisitor visitor, Context context ) {
-		return visitor.visit( this, context );
 	}
 }

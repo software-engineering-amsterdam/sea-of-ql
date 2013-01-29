@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<qualifiedTypeNameHistroy>
+<fullyQualifiedTypeName name="org.uva.sea.ql.ast.Question1"/>
+<fullyQualifiedTypeName name="org.uva.sea.ql.ast.Question"/>
+<fullyQualifiedTypeName name="org.uva.sea.ql.ast.Ident"/>
+<fullyQualifiedTypeName name="org.uva.sea.ql.ast.Expr"/>
+<fullyQualifiedTypeName name="org.uva.sea.ql.ast.ComputedQuestion"/>
+<fullyQualifiedTypeName name="org.uva.sea.ql.ast.ASTNode"/>
+<fullyQualifiedTypeName name="org.uva.sea.ql.ast.StringLiteral"/>
+<fullyQualifiedTypeName name="org.uva.sea.ql.types.Type"/>
+<fullyQualifiedTypeName name="org.uva.sea.ql.ast.expressions.Expr"/>
+<fullyQualifiedTypeName name="org.uva.sea.ql.ast.expressions.Ident"/>
+<fullyQualifiedTypeName name="org.uva.sea.ql.ast.statements.ComputedQuestion"/>
+<fullyQualifiedTypeName name="com.sun.xml.internal.bind.v2.schemagen.xmlschema.List"/>
+<fullyQualifiedTypeName name="java.util.List"/>
+<fullyQualifiedTypeName name="java.util.ArrayList"/>
+<fullyQualifiedTypeName name="org.uva.sea.ql.ast.statements.ifStatement"/>
+<fullyQualifiedTypeName name="org.uva.sea.ql.ast.statements.ifElseStatement"/>
+<fullyQualifiedTypeName name="org.uva.sea.ql.ast.statements.BlockOfStatements"/>
+<fullyQualifiedTypeName name="org.uva.sea.ql.ast.Form"/>
+</qualifiedTypeNameHistroy>

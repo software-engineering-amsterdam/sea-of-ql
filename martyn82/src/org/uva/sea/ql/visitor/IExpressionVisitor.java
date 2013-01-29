@@ -1,119 +1,180 @@
 package org.uva.sea.ql.visitor;
 
-import org.uva.sea.ql.ast.expression.ArithmeticExpression;
-import org.uva.sea.ql.ast.expression.ComparisonExpression;
+import org.uva.sea.ql.ast.expression.Add;
+import org.uva.sea.ql.ast.expression.And;
+import org.uva.sea.ql.ast.expression.Div;
+import org.uva.sea.ql.ast.expression.Eq;
+import org.uva.sea.ql.ast.expression.GEq;
+import org.uva.sea.ql.ast.expression.GT;
 import org.uva.sea.ql.ast.expression.Ident;
-import org.uva.sea.ql.ast.expression.LogicalExpression;
-import org.uva.sea.ql.ast.expression.UnaryExpression;
-import org.uva.sea.ql.ast.expression.UnaryNumericExpression;
+import org.uva.sea.ql.ast.expression.LEq;
+import org.uva.sea.ql.ast.expression.LT;
+import org.uva.sea.ql.ast.expression.Mul;
+import org.uva.sea.ql.ast.expression.NEq;
+import org.uva.sea.ql.ast.expression.Neg;
+import org.uva.sea.ql.ast.expression.Not;
+import org.uva.sea.ql.ast.expression.Or;
+import org.uva.sea.ql.ast.expression.Pos;
+import org.uva.sea.ql.ast.expression.Sub;
 import org.uva.sea.ql.ast.expression.literal.Bool;
 import org.uva.sea.ql.ast.expression.literal.Int;
 import org.uva.sea.ql.ast.expression.literal.Money;
 import org.uva.sea.ql.ast.expression.literal.Str;
-import org.uva.sea.ql.eval.Context;
-import org.uva.sea.ql.eval.value.Value;
 
 /**
  * Expression visitor.
  */
-public interface IExpressionVisitor {
-	/**
-	 * Visit arithmetic expression.
-	 *
-	 * @param node
-	 * @param context
-	 *
-	 * @return The value.
-	 */
-	Value<?> visit( ArithmeticExpression node, Context context );
+public interface IExpressionVisitor<T> {
+
+	// Arithmetic expressions
 
 	/**
-	 * Visit logical expression.
+	 * Visit addition expression.
 	 *
 	 * @param node
-	 * @param context
-	 *
-	 * @return The value.
 	 */
-	Value<?> visit( LogicalExpression node, Context context );
+	T visit( Add node );
 
 	/**
-	 * Visit binary expression.
+	 * Visit subtraction expression.
 	 *
 	 * @param node
-	 * @param context
-	 *
-	 * @return The value.
 	 */
-	Value<?> visit( ComparisonExpression node, Context context );
+	T visit( Sub node );
 
 	/**
-	 * Visit unary expression.
+	 * Visit division expression.
 	 *
 	 * @param node
-	 * @param context
-	 *
-	 * @return The value.
 	 */
-	Value<?> visit( UnaryExpression node, Context context );
+	T visit( Div node );
 
 	/**
-	 * Visit unary numeric expression.
+	 * Visit multiplication expression.
 	 *
 	 * @param node
-	 * @param context
-	 *
-	 * @return The value.
 	 */
-	Value<?> visit( UnaryNumericExpression node, Context context );
+	T visit( Mul node );
+
+	// Binary Logical expressions
+
+	/**
+	 * Visit logical and expression.
+	 *
+	 * @param node
+	 */
+	T visit( And node );
+
+	/**
+	 * Visit logical or expression.
+	 *
+	 * @param node
+	 */
+	T visit( Or node );
+
+	// Comparison expressions
+
+	/**
+	 * Visit equals expression.
+	 *
+	 * @param node
+	 */
+	T visit( Eq node );
+
+	/**
+	 * Visit greater-than-equals expression.
+	 *
+	 * @param node
+	 */
+	T visit( GEq node );
+
+	/**
+	 * Visit greater-than expression.
+	 *
+	 * @param node
+	 */
+	T visit( GT node );
+
+	/**
+	 * Visit lesser-than-equals expression.
+	 *
+	 * @param node
+	 */
+	T visit( LEq node );
+
+	/**
+	 * Visit lesser-than expression.
+	 *
+	 * @param node
+	 */
+	T visit( LT node );
+
+	/**
+	 * Visit not equals expression.
+	 *
+	 * @param node
+	 */
+	T visit( NEq node );
+
+	// Unary logical expressions
+
+	/**
+	 * Visit logical not expression.
+	 *
+	 * @param node
+	 */
+	T visit( Not node );
+
+	// Unary numeric expressions
+
+	/**
+	 * Visit unary plus expression.
+	 *
+	 * @param node
+	 */
+	T visit( Pos node );
+
+	/**
+	 * Visit unary minus expression.
+	 *
+	 * @param node
+	 */
+	T visit( Neg node );
+
+	// Literal expressions
 
 	/**
 	 * Visit integer literal expression.
 	 *
 	 * @param node
-	 * @param context
-	 *
-	 * @return The value.
 	 */
-	Value<?> visit( Int node, Context context );
+	T visit( Int node );
 
 	/**
 	 * Visit boolean literal expression.
 	 *
 	 * @param node
-	 * @param context
-	 *
-	 * @return The value.
 	 */
-	Value<?> visit( Bool node, Context context );
+	T visit( Bool node );
 
 	/**
 	 * Visit money literal expression.
 	 *
 	 * @param node
-	 * @param context
-	 *
-	 * @return The value.
 	 */
-	Value<?> visit( Money node, Context context );
+	T visit( Money node );
 
 	/**
 	 * Visit string literal expression.
 	 *
 	 * @param node
-	 * @param context
-	 *
-	 * @return The value.
 	 */
-	Value<?> visit( Str node, Context context );
+	T visit( Str node );
 
 	/**
 	 * Visit identifier expression.
 	 *
 	 * @param node
-	 * @param context
-	 *
-	 * @return The value.
 	 */
-	Value<?> visit( Ident node, Context context );
+	T visit( Ident node );
 }

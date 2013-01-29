@@ -6,7 +6,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.regex.Pattern;
 
-import org.uva.sea.ql.ast.INode;
+import org.uva.sea.ql.ast.Node;
 import org.uva.sea.ql.ast.expression.Ident;
 
 /**
@@ -23,8 +23,8 @@ public class QLLexer implements QLTokens {
 	 */
 	static {
 		KEYWORDS = new HashMap<String, Integer>();
-		KEYWORDS.put( "true", BOOL );
-		KEYWORDS.put( "false", BOOL );
+		KEYWORDS.put( "true", TRUE );
+		KEYWORDS.put( "false", FALSE );
 		KEYWORDS.put( "if", IF );
 		KEYWORDS.put( "else", ELSE );
 		KEYWORDS.put( "boolean", BOOLEAN  );
@@ -57,7 +57,7 @@ public class QLLexer implements QLTokens {
 	/**
 	 * Holds the current AST node.
 	 */
-	private INode yylval;
+	private Node yylval;
 
 	/**
 	 * Holds the input reader.
@@ -67,12 +67,12 @@ public class QLLexer implements QLTokens {
 	/**
 	 * Holds the regular expression pattern for decimals.
 	 */
-	private Pattern decimal;
+	private final Pattern decimal = Pattern.compile( "[0-9]*\\.[0-9]+([E|e][\\+|\\-]?[0-9]+)?" );
 
 	/**
 	 * Holds the regular expression pattern for integers.
 	 */
-	private Pattern integer;
+	private final Pattern integer = Pattern.compile( "[0-9]+" );
 
 	/**
 	 * Constructs a new lexer instance.
@@ -354,19 +354,75 @@ public class QLLexer implements QLTokens {
 	}
 
 	/**
-	 * Matches a number literal and updates the token field.
-	 * This matches any number of Integer or Money types.
+	 * Matches an integer literal and updates the token field.
 	 *
 	 * @return True if integer, false otherwise.
 	 */
-	private boolean matchNumber() {
-		if ( !Character.isDigit( c ) && c != '.' ) {
+	private boolean matchInteger() {
+		if ( !Character.isDigit( c ) ) {
 			return false;
 		}
 
 		StringBuilder sb = new StringBuilder();
 
 		do {
+			sb.append( (char) c  );
+			nextChar();
+		}
+		while ( Character.isDigit( (char) c ) );
+
+		String value = sb.toString();
+
+		if ( integer.matcher( value ).matches() ) {
+			yylval = new org.uva.sea.ql.ast.expression.literal.Int( Integer.parseInt( value ) );
+			token = INT;
+			return true;
+		}
+
+		return false;
+	}
+
+	/**
+	 * Matches a money (decimal) literal and updates the token field.
+	 * Fall back on Integer literals if decimal do not match.
+	 *
+	 * @return True if money or integer, false otherwise.
+	 */
+	private boolean matchNumber() {
+		if ( !Character.isDigit( c ) && c != '.' ) {
+			return matchInteger();
+		}
+
+		StringBuilder sb = new StringBuilder();
+
+		boolean separator = false;
+		boolean exponent = false;
+		boolean sign = false;
+		boolean isDecimal = false;
+
+		do {
+			if ( c == '.' && !separator ) {
+				isDecimal = true;
+				separator = true;
+			}
+			else if ( c == '.' && separator ) {
+				break;
+			}
+
+			if ( ( c == 'e' || c == 'E' ) && !exponent ) {
+				exponent = true;
+			}
+			else if ( ( c == 'e' || c == 'E' ) && exponent ) {
+				break;
+			}
+
+			if ( ( c == '+' || c == '-' ) && exponent && !sign ) {
+				sign = true;
+			}
+			else if ( ( c == '+' || c == '-' ) && ( sign || !exponent ) ) {
+				break;
+			}
+
 			sb.append( (char) c );
 			nextChar();
 		}
@@ -381,18 +437,10 @@ public class QLLexer implements QLTokens {
 
 		String value = sb.toString();
 
-		if ( this.decimal == null ) {
-			this.decimal = Pattern.compile( "[0-9]*\\.[0-9]+([E|e][\\+|\\-]?[0-9]+)?" );
-		}
-
-		if ( decimal.matcher( value ).matches() ) {
+		if ( isDecimal && decimal.matcher( value ).matches() ) {
 			yylval = new org.uva.sea.ql.ast.expression.literal.Money( Double.parseDouble( value ) );
 			token = MON;
 			return true;
-		}
-
-		if ( this.integer == null ) {
-			this.integer = Pattern.compile( "[0-9]+" );
 		}
 
 		if ( integer.matcher( value ).matches() ) {
@@ -426,15 +474,6 @@ public class QLLexer implements QLTokens {
 
 		if ( KEYWORDS.containsKey( name ) ) {
 			token = KEYWORDS.get( name );
-
-			switch ( token ) {
-				case BOOL:
-					yylval = new org.uva.sea.ql.ast.expression.literal.Bool(
-						Boolean.parseBoolean( name )
-					);
-					break;
-			}
-
 			return true;
 		}
 
@@ -458,7 +497,7 @@ public class QLLexer implements QLTokens {
 	 *
 	 * @return The AST.
 	 */
-	public INode getSemantic() {
+	public Node getSemantic() {
 		return yylval;
 	}
 

@@ -1,5 +1,6 @@
 package org.uva.sea.ql.ast.expression;
 
+import org.uva.sea.ql.visitor.IExpressionVisitor;
 
 /**
  * Represents a greater-than-equals expression.
@@ -13,5 +14,10 @@ public class GEq extends ComparisonExpression {
 	 */
 	public GEq( Expression lhs, Expression rhs ) {
 		super( lhs, rhs );
+	}
+
+	@Override
+	public <T> T accept( IExpressionVisitor<T> visitor ) {
+		return visitor.visit( this );
 	}
 }

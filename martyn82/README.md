@@ -37,5 +37,8 @@ Note: don't be seduced by the provided example code and start copy-pasting gramm
 
 TODO
 ----
-- Add column and linenumber to TypeErrors
-- Interpreter visitor: evaluate to values instead of just types.
+- Envionment:
+    - Add column and linenumber to TypeErrors.
+- Evaluator:
+    - Evaluate to values instead of just types.
+- Compatibility checks in Types

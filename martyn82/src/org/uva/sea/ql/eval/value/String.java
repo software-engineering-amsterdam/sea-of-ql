@@ -3,12 +3,23 @@ package org.uva.sea.ql.eval.value;
 /**
  * Represents a string value.
  */
-public class String extends Value<java.lang.String> {
+public class String extends Value {
+	/**
+	 * Holds the inner value.
+	 */
+	private final java.lang.String value;
+
+	/**
+	 * Constructs a new String value.
+	 *
+	 * @param value
+	 */
 	public String( java.lang.String value ) {
-		super( value );
+		this.value = value;
 	}
 
-	public String() {
-		this( null );
+	@Override
+	public java.lang.String getValue() {
+		return this.value;
 	}
 }
