@@ -2,6 +2,7 @@ package org.uva.sea.ql.webUI;
 
 import org.uva.sea.ql.Message;
 import org.uva.sea.ql.ast.Form;
+import org.uva.sea.ql.interpreter.InterpreterVisitor;
 import org.uva.sea.ql.parser.ParseError;
 import org.uva.sea.ql.parser.Parser;
 import org.uva.sea.ql.typechecker.TypecheckerVisitor;
@@ -41,25 +42,24 @@ public class Controller extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Map<String, String> postValues = flatten(request.getParameterMap());
+        Form form = parseForm();
+        InterpreterVisitor.Result result = InterpreterVisitor.interpret(form, postValues);
 
-        showErrors(
-            Arrays.asList(
-                "Someone moved my cheese",
-                "I like pie",
-                "Santa brought me chocolates this year"
-            ).iterator(),
-            response);
+        if(result.getErrors().isEmpty())
+            response.setStatus(HttpServletResponse.SC_OK);
+        else
+            showErrors(result.getErrors().iterator(), response);
     }
 
-    private void showErrors(Iterator<String> errors, HttpServletResponse response) throws IOException {
-        response.setStatus(400);
+    private void showErrors(Iterator<Message> errors, HttpServletResponse response) throws IOException {
+        response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
         response.setContentType(JSON_CONTENTTYPE);
         PrintWriter responseWriter = response.getWriter();
         responseWriter.append("{\"errors\":[");
         while(errors.hasNext()) {
             responseWriter
                     .append('"')
-                    .append(errors.next())
+                    .append(errors.next().toString())
                     .append('"');
             if(errors.hasNext())
                 responseWriter.append(",");
