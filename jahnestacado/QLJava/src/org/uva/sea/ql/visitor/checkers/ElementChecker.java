@@ -36,10 +36,7 @@ public class ElementChecker implements IElementVisitor {
 		List<String> errorReport= new ArrayList<String>();
 		ElementChecker checker=new ElementChecker(declaredVar,errorReport);
 		form.accept(checker);
-		for(String error:errorReport){
-    		System.out.println(error);
-    	}
-		
+		printErrors(errorReport);
 	}
 	
 	private void checkVarName(SingleLineElement qlElement){
@@ -142,7 +139,7 @@ public class ElementChecker implements IElementVisitor {
 			
 	}
 	
-    private  void printErrors(){
+    private static void printErrors(List<String> errorReport){
     	for(String error:errorReport){
     		System.out.println(error);
     	}

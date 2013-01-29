@@ -23,6 +23,8 @@ public class TestForm {
 	private final String question1 = "id : \"label\" int (a-b)";
 	private final String question2 = "id : \"label\" int ";
 	private final String ifBlock = "if (cond){".concat(question1).concat("").concat(question2)+ "}";
+	final String path = "src/org/uva/sea/ql/launcher/SampleCode.ql";
+
 
 	public TestForm() {
 		parser = new ANTLRParser();
@@ -31,7 +33,6 @@ public class TestForm {
 	@Test
 	public void testForm() throws ParseError {
 		try {
-			final String path = "src/org/uva/sea/ql/launcher/SampleCode.ql";
 			File filePath = new File(path);
 			ANTLRFileStream charStream = new ANTLRFileStream(filePath.getAbsolutePath());
 			assertEquals(Form.class, parser.parseForm(charStream.toString()).getClass());
