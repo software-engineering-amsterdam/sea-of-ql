@@ -43,7 +43,6 @@
 %type <VarDeclaration>  vardeclaration
 
 %{
-import org.uva.sea.ql.ast.*;
 import org.uva.sea.ql.ast.expression.*;
 import org.uva.sea.ql.ast.expression.literal.*;
 import org.uva.sea.ql.ast.statement.*;
