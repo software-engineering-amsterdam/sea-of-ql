@@ -1,14 +1,13 @@
-package org.uva.sea.ql.ast.expr.primary;
+package org.uva.sea.ql.ast.expr.value;
 
 import java.util.Map;
 
-import org.uva.sea.ql.ast.expr.Expr;
 import org.uva.sea.ql.ast.type.IntegerType;
 import org.uva.sea.ql.ast.type.Type;
 import org.uva.sea.ql.visitor.IExpressionVisitor;
 
 
-public class Int extends Expr {
+public class Int extends Primary<Integer> {
 
 	private final int value;
 
@@ -16,8 +15,13 @@ public class Int extends Expr {
 		this.value = value;
 	}
 
-	public int getValue() {
+	public Integer getValue() {
 		return value;
+	}
+	
+	@Override
+	public String toString() {
+		return "Int";
 	}
 
 	@Override

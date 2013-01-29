@@ -1,22 +1,26 @@
-package org.uva.sea.ql.ast.expr.primary;
+package org.uva.sea.ql.ast.expr.value;
 
 import java.util.Map;
 
-import org.uva.sea.ql.ast.expr.Expr;
 import org.uva.sea.ql.ast.type.BooleanType;
 import org.uva.sea.ql.ast.type.Type;
 import org.uva.sea.ql.visitor.IExpressionVisitor;
 
 
-public class Bool extends Expr {
+public class Bool extends Primary<Boolean> {
 	private final boolean value;
 
 	public Bool(boolean value) {
 		this.value = value;
 	}
 	
-	public boolean getValue() {
+	public Boolean getValue() {
 		return value;
+	}
+	
+	@Override
+	public String toString() {
+		return "Bool";
 	}
 
 	@Override

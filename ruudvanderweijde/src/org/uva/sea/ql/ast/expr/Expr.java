@@ -3,7 +3,7 @@ package org.uva.sea.ql.ast.expr;
 import java.util.Map;
 
 import org.uva.sea.ql.ast.ASTNode;
-import org.uva.sea.ql.ast.expr.primary.Ident;
+import org.uva.sea.ql.ast.expr.value.Ident;
 import org.uva.sea.ql.ast.type.Type;
 import org.uva.sea.ql.visitor.IExpressionVisitor;
 import org.uva.sea.ql.visitor.IFormVisitor;

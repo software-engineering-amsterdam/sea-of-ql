@@ -1,13 +1,12 @@
-package org.uva.sea.ql.ast.expr.primary;
+package org.uva.sea.ql.ast.expr.value;
 
 import java.util.Map;
 
-import org.uva.sea.ql.ast.expr.Expr;
 import org.uva.sea.ql.ast.type.StringType;
 import org.uva.sea.ql.ast.type.Type;
 import org.uva.sea.ql.visitor.IExpressionVisitor;
 
-public class StringLiteral extends Expr {
+public class StringLiteral extends Primary<String> {
 
 	private final String value;
 
@@ -17,6 +16,11 @@ public class StringLiteral extends Expr {
 	
 	public String getValue() {
 		return value;
+	}
+	
+	@Override
+	public String toString() {
+		return "StringLiteral";
 	}
 
 	@Override

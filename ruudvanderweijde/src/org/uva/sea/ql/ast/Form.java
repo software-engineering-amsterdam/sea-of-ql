@@ -2,7 +2,7 @@ package org.uva.sea.ql.ast;
 
 import java.util.List;
 
-import org.uva.sea.ql.ast.expr.primary.Ident;
+import org.uva.sea.ql.ast.expr.value.Ident;
 import org.uva.sea.ql.ast.stmt.Statement;
 import org.uva.sea.ql.visitor.IFormVisitor;
 
