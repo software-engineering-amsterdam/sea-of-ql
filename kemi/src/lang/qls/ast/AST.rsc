@@ -1,30 +1,43 @@
 module lang::qls::ast::AST
 
 data Stylesheet
-  = stylesheet(set[Statement] statements)
+  = stylesheet(str ident, list[Statement] statements)
   ;
 
 data Statement
-  = pageDefinition(str pageName, set[PageRule] pageRules)
-  | sectionDefinition(str sectionName, set[SectionRule] sectionRules)
-  | styleDefinition(StyleIdent ident, set[StyleRule] styleRules)
+  = statement(PageDefinition pageDefinition)
+  | statement(SectionDefinition sectionDefinition)
+  | statement(QuestionDefinition questionDefinition)
+  | statement(DefaultDefinition defaultDefinition)
+  ;
+
+data PageDefinition
+  = pageDefinition(str ident, list[PageRule] pageRules)
+  ;
+
+data SectionDefinition
+  = sectionDefinition(str ident, list[SectionRule] sectionRules)
   ;
 
 data PageRule
-  = pageRule(str ident)
+  = pageRule(SectionDefinition sectionDefinition)
+  | pageRule(QuestionDefinition questionDefinition)
+  | pageRule(DefaultDefinition defaultDefinition)
   ;
 
 data SectionRule
-  = sectionRule(str ident)
-  | sectionRule(str ident, set[SectionRule] sectionRules)
-  // TODO: does not work... | sectionRule(Statement sectionDefinition)
+  = sectionRule(SectionDefinition sectionDefinition)
+  | sectionRule(QuestionDefinition questionDefinition)
+  | sectionRule(DefaultDefinition defaultDefinition)
   ;
 
-data StyleIdent
-  = typeIdent(str typeName)
-  | pageIdent(str pageName)
-  | sectionIdent(str sectionName)
-  | questionIdent(str questionName)
+data QuestionDefinition
+  = questionDefinition(str ident)
+  | questionDefinition(str ident, list[StyleRule] styleRules)
+  ;
+
+data DefaultDefinition
+  = defaultDefinition(str ident, list[StyleRule] styleRules)
   ;
 
 data StyleRule
@@ -42,3 +55,4 @@ anno loc Statement@location;
 anno loc PageRule@location;
 anno loc SectionRule@location;
 anno loc StyleRule@location;
+

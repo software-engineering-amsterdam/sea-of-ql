@@ -2,9 +2,9 @@ module lang::qls::compiler::PrettyPrinter
 
 import lang::qls::ast::AST;
 
-public str prettyPrint(Stylesheet s) =
+public str prettyPrint(Stylesheet s) = "";/*
   "<for(e <- s.statements) {><prettyPrint(e)>
-  '<}>";
+  '<}>";*/
 
 public str prettyPrint(Statement s: 
   classDefinition(str ident, set[ClassRule] questionStyleIdent)) = 

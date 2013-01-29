@@ -10,10 +10,10 @@ import lang::qls::util::Implode;
 import lang::qls::util::Parse;
 
 // The root note of the stylesheet
-public node outlineStylesheet(Stylesheet sh) =
+public node outlineStylesheet(Stylesheet sh) = ""();/*
   "outline"(outline(sh))
   [@label="Stylesheet"]
-  [@\loc=sh@location];
+  [@\loc=sh@location];*/
 
 // Helper function to create nodes with appropriate annotations and members.
 private node createNode(str name, str label, loc location, list[node] children)
