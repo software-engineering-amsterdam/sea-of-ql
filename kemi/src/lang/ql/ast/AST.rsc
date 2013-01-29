@@ -1,7 +1,7 @@
 module lang::ql::ast::AST
 
-data Form = 
-  form(str formName, list[Statement] formElements);
+data Form
+  = form(IdentDefinition formName, list[Statement] formElements);
 
 data Conditional
   = conditional(Expr condition, list[Statement] body)
@@ -17,12 +17,26 @@ data Statement
   ;
 
 data Question
-  = question(str questionText, str answerDataType, str answerIdentifier)
-  | question(str questionText, str answerDataType, str answerIdentifier, Expr calculatedField)
+  = question(QuestionText questionText, Type answerDataType, IdentDefinition answerIdentifier)
+  | question(QuestionText questionText, Type answerDataType, IdentDefinition answerIdentifier, Expr calculatedField)
+  ;
+
+data QuestionText
+  = questionText(str text)
   ;
 
 data Type
-  = \type(str typeName)
+  = booleanType(str name)
+  | integerType(str name)
+  | moneyType(str name)
+  | dateType(str name)
+  | stringType(str name)
+  | invalidType(str name)
+  | undefinedType(str name)
+  ;
+
+data IdentDefinition
+  = identDefinition(str ident)
   ;
 
 data Expr
@@ -58,5 +72,8 @@ anno loc Conditional@location;
 anno loc ElsePart@location;
 anno loc Expr@location;
 anno loc Form@location;
+anno loc IdentDefinition@location;
 anno loc Question@location;
+anno loc QuestionText@location;
 anno loc Statement@location;
+anno loc Type@location;

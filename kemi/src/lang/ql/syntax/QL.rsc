@@ -1,7 +1,7 @@
 module lang::ql::syntax::QL
 
 start syntax Form = 
-  @Foldable form: "form" Ident formName "{" Statement+ formElements "}";
+  @Foldable form: "form" IdentDefinition formName "{" Statement+ formElements "}";
 
 syntax Statement 
   = question: Question question
@@ -23,8 +23,8 @@ syntax ElsePart =
 
 // What the ...?! Colons don't work, but equals signs do...
 start syntax Question 
-  = question: String questionText Type answerDataType Ident answerIdentifier
-  | question: String questionText Type answerDataType Ident answerIdentifier "=" Expr calculatedField
+  = question: QuestionText questionText Type answerDataType IdentDefinition answerIdentifier
+  | question: QuestionText questionText Type answerDataType IdentDefinition answerIdentifier "=" Expr calculatedField
   ;
 
 syntax Expr
@@ -63,19 +63,27 @@ syntax WhitespaceOrComment
   | comment: Comment comment
   ;   
 
-lexical Ident = 
-  @category="Variable" ([a-z A-Z 0-9 _] !<< [a-z A-Z][a-z A-Z 0-9 _]* !>> [a-z A-Z 0-9 _]) \ Keywords;
-
-lexical Type
-  = @category="Type" "boolean"
-  | @category="Type" "integer"
-  | @category="Type" "money"
-  | @category="Type" "date"
-  | @category="Type" "string"
+lexical IdentDefinition
+  = identDefinition: Ident ident
   ;
 
-lexical String = 
-  @category="Identifier" "\"" TextChar* "\"";
+lexical Ident
+  = @category="Variable" ([a-z A-Z 0-9 _] !<< [a-z A-Z][a-z A-Z 0-9 _]* !>> [a-z A-Z 0-9 _]) \ Keywords;
+
+lexical QuestionText
+  = @category="Identifier" questionText: String questionText
+  ;
+
+lexical Type
+  = @category="Type" booleanType: "boolean"
+  | @category="Type" integerType: "integer"
+  | @category="Type" moneyType: "money"
+  | @category="Type" dateType: "date"
+  | @category="Type" stringType: "string"
+  ;
+
+lexical String
+  = @category="Constant" "\"" TextChar* "\"";
 
 lexical TextChar
   = [\\] << [\"]
