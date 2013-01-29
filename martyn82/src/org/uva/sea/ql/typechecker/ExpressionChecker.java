@@ -22,6 +22,7 @@ import org.uva.sea.ql.ast.expression.Sub;
 import org.uva.sea.ql.ast.expression.UnaryExpression;
 import org.uva.sea.ql.ast.expression.UnaryNumericExpression;
 import org.uva.sea.ql.ast.type.Type;
+import org.uva.sea.ql.ast.type.Undefined;
 import org.uva.sea.ql.eval.Environment;
 import org.uva.sea.ql.visitor.IExpressionVisitor;
 
@@ -209,7 +210,7 @@ public class ExpressionChecker extends TypeCheckVisitor implements IExpressionVi
 
 	@Override
 	public Boolean visit( Ident node ) {
-		if ( node.accept( resolver ) instanceof org.uva.sea.ql.ast.type.Error ) {
+		if ( node.accept( resolver ) instanceof Undefined ) {
 			addError( "Undefined variable: " + node.getName(), node );
 			return false;
 		}

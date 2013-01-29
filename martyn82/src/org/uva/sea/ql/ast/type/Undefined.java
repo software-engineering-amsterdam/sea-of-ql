@@ -5,7 +5,7 @@ import org.uva.sea.ql.visitor.ITypeVisitor;
 /**
  * Represents an Error type.
  */
-public class Error extends Type {
+public class Undefined extends Type {
 	@Override
 	public <T> T accept( ITypeVisitor<T> visitor ) {
 		return null;
@@ -18,6 +18,6 @@ public class Error extends Type {
 
 	@Override
 	public String toString() {
-		return "Error";
+		return "Undefined";
 	}
 }

@@ -2,6 +2,7 @@ package org.uva.sea.ql.typechecker;
 
 import org.uva.sea.ql.ast.Node;
 import org.uva.sea.ql.eval.Environment;
+import org.uva.sea.ql.eval.Error;
 import org.uva.sea.ql.visitor.NodeVisitor;
 
 /**
@@ -44,7 +45,7 @@ abstract public class TypeCheckVisitor extends NodeVisitor<Boolean> {
 	 * @param node
 	 */
 	protected void addError( String message, Node node ) {
-		this.environment.addError( new org.uva.sea.ql.eval.Error( message, node ) );
+		this.environment.addError( new Error( message, node ) );
 	}
 
 	/**

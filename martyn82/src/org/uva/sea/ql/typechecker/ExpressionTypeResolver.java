@@ -26,6 +26,7 @@ import org.uva.sea.ql.ast.expression.literal.Int;
 import org.uva.sea.ql.ast.expression.literal.Money;
 import org.uva.sea.ql.ast.expression.literal.Str;
 import org.uva.sea.ql.ast.type.Type;
+import org.uva.sea.ql.ast.type.Undefined;
 import org.uva.sea.ql.eval.Environment;
 import org.uva.sea.ql.visitor.IExpressionVisitor;
 
@@ -54,7 +55,7 @@ public class ExpressionTypeResolver extends TypeResolver implements IExpressionV
 	 *
 	 * @return The type of the expression.
 	 */
-	public Type visit( ArithmeticExpression node ) {
+	private Type visitArithmetic( ArithmeticExpression node ) {
 		return new org.uva.sea.ql.ast.type.Number();
 	}
 
@@ -65,7 +66,7 @@ public class ExpressionTypeResolver extends TypeResolver implements IExpressionV
 	 *
 	 * @return The type of the expression.
 	 */
-	public Type visit( LogicalExpression node ) {
+	private Type visitLogical( LogicalExpression node ) {
 		return new org.uva.sea.ql.ast.type.Bool();
 	}
 
@@ -76,7 +77,7 @@ public class ExpressionTypeResolver extends TypeResolver implements IExpressionV
 	 *
 	 * @return The type of the expression.
 	 */
-	public Type visit( ComparisonExpression node ) {
+	private Type visitComparison( ComparisonExpression node ) {
 		return new org.uva.sea.ql.ast.type.Bool();
 	}
 
@@ -87,7 +88,7 @@ public class ExpressionTypeResolver extends TypeResolver implements IExpressionV
 	 *
 	 * @return The type of the expression.
 	 */
-	public Type visit( UnaryExpression node ) {
+	private Type visitUnary( UnaryExpression node ) {
 		return new org.uva.sea.ql.ast.type.Bool();
 	}
 
@@ -98,7 +99,7 @@ public class ExpressionTypeResolver extends TypeResolver implements IExpressionV
 	 *
 	 * @return The type of the expression.
 	 */
-	public Type visit( UnaryNumericExpression node ) {
+	private Type visitUnaryNumeric( UnaryNumericExpression node ) {
 		return new org.uva.sea.ql.ast.type.Number();
 	}
 
@@ -128,81 +129,81 @@ public class ExpressionTypeResolver extends TypeResolver implements IExpressionV
 			return environment.lookupType( node );
 		}
 
-		return new org.uva.sea.ql.ast.type.Error();
+		return new Undefined();
 	}
 
 	@Override
 	public Type visit( Add node ) {
-		return this.visit( (ArithmeticExpression) node );
+		return this.visitArithmetic( node );
 	}
 
 	@Override
 	public Type visit( Sub node ) {
-		return this.visit( (ArithmeticExpression) node );
+		return this.visitArithmetic( node );
 	}
 
 	@Override
 	public Type visit( Div node ) {
-		return this.visit( (ArithmeticExpression) node );
+		return this.visitArithmetic( node );
 	}
 
 	@Override
 	public Type visit( Mul node ) {
-		return this.visit( (ArithmeticExpression) node );
+		return this.visitArithmetic( node );
 	}
 
 	@Override
 	public Type visit( And node ) {
-		return this.visit( (LogicalExpression) node );
+		return this.visitLogical( node );
 	}
 
 	@Override
 	public Type visit( Or node ) {
-		return this.visit( (LogicalExpression) node );
+		return this.visitLogical( node );
 	}
 
 	@Override
 	public Type visit( Eq node ) {
-		return this.visit( (ComparisonExpression) node );
+		return this.visitComparison( node );
 	}
 
 	@Override
 	public Type visit( GEq node ) {
-		return this.visit( (ComparisonExpression) node );
+		return this.visitComparison( node );
 	}
 
 	@Override
 	public Type visit( GT node ) {
-		return this.visit( (ComparisonExpression) node );
+		return this.visitComparison( node );
 	}
 
 	@Override
 	public Type visit( LEq node ) {
-		return this.visit( (ComparisonExpression) node );
+		return this.visitComparison( node );
 	}
 
 	@Override
 	public Type visit( LT node ) {
-		return this.visit( (ComparisonExpression) node );
+		return this.visitComparison( node );
 	}
 
 	@Override
 	public Type visit( NEq node ) {
-		return this.visit( (ComparisonExpression) node );
+		return this.visitComparison( node );
 	}
 
 	@Override
 	public Type visit( Not node ) {
-		return this.visit( (UnaryExpression) node );
+		return this.visitUnary( node );
 	}
 
 	@Override
 	public Type visit( Pos node ) {
-		return this.visit( (UnaryNumericExpression) node );
+		return this.visitUnaryNumeric( node );
 	}
 
 	@Override
 	public Type visit( Neg node ) {
-		return this.visit( (UnaryNumericExpression) node );
+		return this.visitUnaryNumeric( node );
 	}
 }
