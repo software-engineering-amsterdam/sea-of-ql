@@ -3,6 +3,8 @@ package org.uva.sea.ql.form;
 import java.awt.Component;
 import java.awt.Container;
 import java.awt.Label;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.JTextField;
 
@@ -12,6 +14,7 @@ import org.uva.sea.ql.ast.eval.Env;
 import org.uva.sea.ql.ast.eval.EnvAddIdentResults;
 import org.uva.sea.ql.ast.expressions.Ident;
 import org.uva.sea.ql.ast.types.Type;
+import org.uva.sea.ql.interpreter.FormElement;
 import org.uva.sea.ql.messages.Error;
 
 public class Question extends FormItem {
@@ -56,13 +59,12 @@ public class Question extends FormItem {
 	}
 
 	@Override
-	public Component getFormComponent() {
-		Container questionContainer = new Container();
-		questionContainer.setLayout(new MigLayout("fillx, right, debug", "", ""));
+	public List<FormElement> getFormComponents() {
+		List<FormElement> components = new ArrayList<FormElement>();
 		
-		questionContainer.add(new Label(label));
-		JTextField answerField = new JTextField(10);
-		questionContainer.add(answerField, "span, growx, right");
-		return questionContainer;
+		components.add(new FormElement(new Label(label), "skip"));
+		components.add(new FormElement(questionType.getAnswerField(true), "span, growx"));
+
+		return components;
 	}
 }

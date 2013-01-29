@@ -42,23 +42,24 @@ public class IfElseStatement extends IfStatement {
 	@Override
 	public boolean validate(Env environment) {
 		boolean valid = super.validate(environment);
+		Env elseBodyEnvironment = new Env(environment);
 		for (FormItem f : elseBody) {
-			if (!f.validate(new Env(environment)))
+			if (!f.validate(elseBodyEnvironment))
 				valid = false;
 		}
 		return errors.size() == 0 && valid;
 	}
 	
-	@Override
-	public Component getFormComponent() {
-		Container ifContainer = (Container)super.getFormComponent();
-		Container elseBodyContainer = new Container();
-		elseBodyContainer.setLayout(new MigLayout("wrap 1, debug"));
-		for (FormItem f : elseBody) {
-			elseBodyContainer.add(f.getFormComponent());
-		}
-		ifContainer.add(new Label("ELSE"), "wrap");
-		ifContainer.add(elseBodyContainer, "wrap");
-		return ifContainer;
-	}
+//	@Override
+//	public Component getFormComponent() {
+//		Container ifContainer = (Container)super.getFormComponent();
+//		Container elseBodyContainer = new Container();
+//		elseBodyContainer.setLayout(new MigLayout("wrap 1, debug"));
+//		for (FormItem f : elseBody) {
+//			elseBodyContainer.add(f.getFormComponent());
+//		}
+//		ifContainer.add(new Label("ELSE"), "wrap");
+//		ifContainer.add(elseBodyContainer, "wrap");
+//		return ifContainer;
+//	}
 }

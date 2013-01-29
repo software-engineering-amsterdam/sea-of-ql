@@ -1,5 +1,6 @@
 package org.uva.sea.ql.form;
 
+import java.awt.Component;
 import java.util.List;
 
 import javax.swing.JPanel;
@@ -8,6 +9,7 @@ import net.miginfocom.swing.MigLayout;
 
 import org.uva.sea.ql.ast.eval.Env;
 import org.uva.sea.ql.ast.expressions.Ident;
+import org.uva.sea.ql.interpreter.FormElement;
 
 public class Form {
 
@@ -49,10 +51,16 @@ public class Form {
 	}
 	
 	public JPanel buildForm() {
-		JPanel formPanel = new JPanel();
+		MigLayout ml = new MigLayout("ins 20, debug", "[para]0[][100lp, fill][60lp][95lp, fill]", "");
+		JPanel formPanel = new JPanel(ml);
+		
 //		formPanel.setLayout(new MigLayout("fillx"));
 		for (FormItem f : body) {
-			formPanel.add(f.getFormComponent());
+			List<FormElement> components = f.getFormComponents();
+			for (FormElement fe : components) {
+				formPanel.add(fe.getFormComponent(), fe.getProperties());
+			}
+//			formPanel.add(f.getFormComponent());
 		}
 		return formPanel;
 	}

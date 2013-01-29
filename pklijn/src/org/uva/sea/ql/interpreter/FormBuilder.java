@@ -43,9 +43,7 @@ public class FormBuilder {
 	private void displayForm(JPanel formPanel, String formTitle) {
 		JFrame mainWindow = new JFrame(formTitle);
 
-		MigLayout ml = new MigLayout("fillx, wrap 1, debug", "", "");
 		mainWindow.setContentPane(formPanel);
-		mainWindow.getContentPane().setLayout(ml);
 		mainWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		mainWindow.setLocationRelativeTo(null); // Put in center of the screen
 		mainWindow.pack(); //Automatically resize
