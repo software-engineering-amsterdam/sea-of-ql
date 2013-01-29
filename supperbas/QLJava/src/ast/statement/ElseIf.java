@@ -6,12 +6,12 @@ import ast.*;
 import ast.type.*;
 import ast.visitor.Visitor;
 
-public class If extends Statement {
+public class ElseIf extends Statement {
 
 	private final Expression condition;
 	private final Statement consequent;
 
-	public If(Expression condition, Statement consequent) {
+	public ElseIf(Expression condition, Statement consequent) {
 		this.condition = condition;
 		this.consequent = consequent;
 	}

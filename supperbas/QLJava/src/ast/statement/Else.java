@@ -3,8 +3,7 @@ package ast.statement;
 import java.util.Map;
 
 import ast.Statement;
-import ast.type.Ident;
-import ast.type.Type;
+import ast.type.*;
 import ast.visitor.Visitor;
 
 public class Else extends Statement {
@@ -19,15 +18,15 @@ public class Else extends Statement {
 	public <T> T accept(Visitor<T> visitor) {
 		return null; //visitor.visit(this);
 	}
-
-	@Override
-	public Type typeOf(Map<Ident, Type> typeEnv) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 	
 	public Statement getConsequence(){
 		return this.consequence;
+	}
+
+	@Override
+	public Type typeOf(Map<ast.type.Ident, Type> typeEnv) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

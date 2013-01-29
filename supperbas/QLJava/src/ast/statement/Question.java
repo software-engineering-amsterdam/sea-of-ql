@@ -3,17 +3,17 @@ package ast.statement;
 import java.util.Map;
 
 import ast.Statement;
-import ast.type.Ident;
-import ast.type.Type;
+import ast.type.*;
+import ast.expression.value.Str;
 import ast.visitor.Visitor;
 
 public class Question extends Statement {
 	
-	private final String question;
+	private final Str question;
 	private final Var var;
 	
-	public Question(String question, Var var){
-		this.question = question;
+	public Question(Str yysv, Var var){
+		this.question = yysv;
 		this.var = var;
 	}
 
@@ -28,7 +28,7 @@ public class Question extends Statement {
 		return null;
 	}
 
-	public String getQuestion() {
+	public Str getQuestion() {
 		return question;
 	}
 
