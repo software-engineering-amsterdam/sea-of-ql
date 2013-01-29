@@ -86,13 +86,6 @@ public class TestExpressions {
 		assertEquals(parser.ParseExpression("a2bc232").getClass(), Ident.class);
 		assertEquals(parser.ParseExpression("a2bc232aa").getClass(), Ident.class);
 	}
-
-	@Test
-	public void testNums() throws ParseError {
-		assertEquals(parser.ParseExpression("0").getClass(), IntLiteral.class);
-		assertEquals(parser.ParseExpression("1223").getClass(), IntLiteral.class);
-		assertEquals(parser.ParseExpression("234234234").getClass(), IntLiteral.class);
-	}
 	
 	@Test
 	public void testUnary() throws ParseError{
@@ -109,6 +102,9 @@ public class TestExpressions {
 		assertEquals(parser.ParseExpression("\"A text\"").getClass(), StringLiteral.class);
 		assertEquals(parser.ParseExpression("true").getClass(), BoolLiteral.class);
 		assertEquals(parser.ParseExpression("false").getClass(), BoolLiteral.class);
+		assertEquals(parser.ParseExpression("0").getClass(), IntLiteral.class);
+		assertEquals(parser.ParseExpression("1223").getClass(), IntLiteral.class);
+		assertEquals(parser.ParseExpression("234234234").getClass(), IntLiteral.class);
 		assertEquals(parser.ParseExpression("2333.12332").getClass(), MoneyLiteral.class);
 	}
 }
