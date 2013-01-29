@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="QLCodeGenerator" default="all" basedir="." xmlns:sonar="antlib:org.sonar.ant" xmlns:jacoco="antlib:org.jacoco.ant"> 
+		<!-- ========= Define the main properties of this project ========= -->
+		<property name="src.dir" value="./src/main/java" />
+		<property name="test.dir" value="./src/test/java" />
+		<property name="build.dir" value="./target" />
+		<property name="lib.dir" value="./lib" />
+		<property name="testresources.dir" value="./resources" />
+		<property name="classes.dir" value="${build.dir}/classes" />
+		<property name="reports.dir" value="${build.dir}/reports" />
+		<property name="reports.junit.xml.dir" value="${reports.dir}/junit" />
+
+		<!-- Define the Sonar properties -->
+		<property name="sonar.projectKey" value="org.uva.qllang:QLLang" />
+		<property name="sonar.projectName" value="QL Code Generator" />
+		<property name="sonar.projectVersion" value="1.0" />
+		<property name="sonar.language" value="java" />
+		<property name="sonar.sources" value="${src.dir}" />
+		<property name="sonar.tests" value="${test.dir}" />
+		<property name="sonar.binaries" value="${classes.dir}" />
+	
+		<!-- Generated ANTLR stuff that has to be ignored -->
+		<property name="sonar.exclusions" value="**/QLParser.java,**/QLLexer.java,**/QL.g,**/QL.tokens" />
+		<property name="sonar.sourceEncoding" value="UTF-8" />
+		<property name="sonar.surefire.reportsPath" value="${reports.junit.xml.dir}" />   
+	
+		<!-- The following properties are required to use JaCoCo: -->
+		<property name="sonar.dynamicAnalysis" value="reuseReports" />
+		<property name="sonar.java.coveragePlugin" value="jacoco" />
+		<property name="sonar.jacoco.reportPath" value="target/jacoco.exec" />
+
+		<!-- Sonar settings for home network -->
+		<property name="sonar.jdbc.url" value="jdbc:h2:tcp://192.168.1.197:9092/sonar" />
+		<property name="sonar.jdbc.username" value="sonar" />
+		<property name="sonar.jdbc.password" value="sonar" />
+		<property name="sonar.host.url" value="http://192.168.1.197:9000" />
+	
+		<!-- ========= Define "regular" targets: clean, compile, test, ... ========= -->
+		<target name="clean">
+			<delete dir=".sonar" />
+			<delete dir="${build.dir}" />
+			<delete dir="${reports.dir}" />
+		</target>
+
+		<target name="init">
+			<mkdir dir="${build.dir}" />
+			<mkdir dir="${classes.dir}" />
+			<mkdir dir="${reports.dir}" />
+			<mkdir dir="${reports.junit.xml.dir}" />
+		</target>
+
+		<target name="compile" depends="init">
+			<javac srcdir="${src.dir}" destdir="${classes.dir}" classpathref="classpath" fork="true" debug="true" includeAntRuntime="false" />
+			<javac srcdir="${test.dir}" destdir="${classes.dir}" classpathref="classpath" fork="true" debug="true" includeAntRuntime="false" />
+		</target>
+	
+		<path id="classpath">
+			<fileset dir="${lib.dir}" includes="*.jar"/>
+		</path>
+	
+		<target name="test" depends="compile">
+			<taskdef name="junit" classname="org.apache.tools.ant.taskdefs.optional.junit.JUnitTask">
+				<classpath path="${lib.dir}/junit-4.11.jar" />
+			</taskdef>
+
+			<!-- Import the JaCoCo Ant Task -->
+			<taskdef uri="antlib:org.jacoco.ant" resource="org/jacoco/ant/antlib.xml">
+				<classpath path="${lib.dir}/jacocoant.jar" />
+			</taskdef>
+
+			<!-- Run your unit tests, adding the JaCoCo agent -->
+			<jacoco:coverage destfile="target/jacoco.exec">
+			  <junit fork="yes" includeantruntime="true">
+			    <classpath>
+			        <pathelement path="${classes.dir}"/>
+			    	<pathelement path="${reports.dir}"/>
+			    	<pathelement path="${testresources.dir}"/>
+			    </classpath>
+				<classpath refid="classpath" />
+
+				<formatter type="xml" />
+				<batchtest todir="${reports.junit.xml.dir}">
+				  <fileset dir="${test.dir}">
+					<include name="**/Test*.java" />
+				  	<exclude name="**/TestBase.java" />
+				  </fileset>
+				</batchtest>
+			  </junit>
+			</jacoco:coverage>
+		</target>
+
+		<target name="sonar" depends="compile">
+			<taskdef uri="antlib:org.sonar.ant" resource="org/sonar/ant/antlib.xml">
+				<classpath path="${lib.dir}/sonar-ant-task-2.0.jar" />
+			</taskdef>
+
+			<!-- Execute Sonar -->
+			<sonar:sonar />
+		</target>
+
+		<target name="all" depends="clean,compile,test,sonar" />
+</project>

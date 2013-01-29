@@ -9,15 +9,19 @@ import org.uva.sea.ql.ast.types.datatypes.DataType;
 
 /**
  * Represents an equal operation in the QL language.
+ * 
  * @author J. Dijkstra
  */
 public class Eq extends BinaryOperator {
 	private static final DataType type = new BoolType();
-	
+
 	/**
 	 * Constructor.
-	 * @param leftHandSide left hand side of the operator
-	 * @param rightHandSide right hand side of the operator
+	 * 
+	 * @param leftHandSide
+	 *            left hand side of the operator
+	 * @param rightHandSide
+	 *            right hand side of the operator
 	 */
 	public Eq(final Expression leftHandSide, final Expression rightHandSide) {
 		super(leftHandSide, rightHandSide);
@@ -27,9 +31,9 @@ public class Eq extends BinaryOperator {
 	public DataType typeOf(final SymbolTable symbolTable) {
 		return type;
 	}
-	
+
 	@Override
-	public <T> T accept(IVisitor<T> visitor) {
+	public <T> T accept(final IVisitor<T> visitor) {
 		return visitor.visit(this);
 	}
 }

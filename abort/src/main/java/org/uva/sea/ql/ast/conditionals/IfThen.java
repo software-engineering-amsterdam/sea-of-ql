@@ -8,18 +8,23 @@ import org.uva.sea.ql.ast.traversal.base.IVisitor;
 
 /**
  * Represents an If Then statement in QL.
+ * 
  * @author J. Dijkstra
  */
 public class IfThen extends IfStatement {
 	/**
 	 * Constructor.
-	 * @param conditions conditions
-	 * @param successElements form elements to display on success
+	 * 
+	 * @param conditions
+	 *            conditions
+	 * @param successElements
+	 *            form elements to display on success
 	 */
-	public IfThen(final Expression conditions, final List<Element> successElements) {
-		super(conditions, successElements);		
+	public IfThen(final Expression conditions,
+			final List<Element> successElements) {
+		super(conditions, successElements);
 	}
-	
+
 	@Override
 	public <T> T accept(final IVisitor<T> visitor) {
 		// TODO: visit parent and elements

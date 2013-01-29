@@ -6,31 +6,32 @@ import org.uva.sea.ql.ast.traversal.SymbolTable;
 import org.uva.sea.ql.ast.traversal.base.IVisitor;
 import org.uva.sea.ql.ast.types.datatypes.DataType;
 import org.uva.sea.ql.ast.types.datatypes.NumericType;
-import org.uva.sea.ql.ast.types.literals.LiteralType;
-import org.uva.sea.ql.ast.types.literals.NumericLiteral;
 
 /**
  * Represents the positive operation in the QL language.
+ * 
  * @author J. Dijkstra
  */
 public class Pos extends UnaryOperator {
 	private static final DataType type = new NumericType();
-	
+
 	/**
 	 * Constructor.
-	 * @param expression expression or operation pos operation affects
+	 * 
+	 * @param expression
+	 *            expression or operation pos operation affects
 	 */
 	public Pos(final Expression expression) {
 		super(expression);
 	}
-	
+
 	@Override
 	public DataType typeOf(final SymbolTable symbolTable) {
 		return type;
 	}
-	
+
 	@Override
-	public <T> T accept(IVisitor<T> visitor) {
+	public <T> T accept(final IVisitor<T> visitor) {
 		return visitor.visit(this);
 	}
 }

@@ -7,6 +7,7 @@ import org.uva.sea.ql.ast.form.Element;
 
 /**
  * Represents a base type of If statement in QL.
+ * 
  * @author J. Dijkstra
  */
 public abstract class IfStatement extends Element {
@@ -18,19 +19,24 @@ public abstract class IfStatement extends Element {
 	 * Form elements displayed on a successful condition.
 	 */
 	private final List<Element> successElements;
-	
+
 	/**
 	 * Constructor.
-	 * @param condition condition for the if statement
-	 * @param successElements form elements displayed on a successful condition
+	 * 
+	 * @param condition
+	 *            condition for the if statement
+	 * @param successElements
+	 *            form elements displayed on a successful condition
 	 */
-	protected IfStatement(final Expression condition, final List<Element> successElements) {
+	protected IfStatement(final Expression condition,
+			final List<Element> successElements) {
 		this.condition = condition;
 		this.successElements = successElements;
 	}
 
 	/**
 	 * Retrieve condition.
+	 * 
 	 * @return condition
 	 */
 	public final Expression getCondition() {
@@ -39,11 +45,11 @@ public abstract class IfStatement extends Element {
 
 	/**
 	 * Retrieves form elements displayed on a successful condition.
+	 * 
 	 * @return form elements
 	 */
 	public final List<Element> getSuccessElements() {
 		return successElements;
 	}
 
-	
 }

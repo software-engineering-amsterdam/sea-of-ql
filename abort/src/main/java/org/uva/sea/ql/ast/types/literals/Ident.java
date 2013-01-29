@@ -6,9 +6,9 @@ import org.uva.sea.ql.ast.traversal.base.IVisitor;
 import org.uva.sea.ql.ast.types.datatypes.DataType;
 
 /**
- * Identifier in the QL language.
- * Not instantiated unless a type could not be identified
- * as another type in the grammar.
+ * Identifier in the QL language. Not instantiated unless a type could not be
+ * identified as another type in the grammar.
+ * 
  * @author J. Dijkstra
  */
 public class Ident extends Expression {
@@ -19,14 +19,17 @@ public class Ident extends Expression {
 
 	/**
 	 * Constructor.
-	 * @param name name tag
+	 * 
+	 * @param name
+	 *            name tag
 	 */
 	public Ident(final String name) {
 		this.name = name;
 	}
-	
+
 	/**
 	 * Retrieve the name tag of the ident.
+	 * 
 	 * @return name tag
 	 */
 	public String getName() {
@@ -37,7 +40,7 @@ public class Ident extends Expression {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((name == null) ? 0 : name.hashCode());
+		result = (prime * result) + ((name == null) ? 0 : name.hashCode());
 		return result;
 	}
 
@@ -49,7 +52,7 @@ public class Ident extends Expression {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Ident other = (Ident) obj;
+		final Ident other = (Ident) obj;
 		if (name == null) {
 			if (other.name != null)
 				return false;
@@ -62,7 +65,7 @@ public class Ident extends Expression {
 	public <T> T accept(final IVisitor<T> visitor) {
 		return visitor.visit(this);
 	}
-	
+
 	@Override
 	public DataType typeOf(final SymbolTable symbolTable) {
 		return symbolTable.get(this);

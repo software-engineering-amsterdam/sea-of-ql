@@ -30,8 +30,10 @@ public class TestLogs extends TestBase {
 		assertEquals(2, eventLog.getLength());
 		assertTrue(eventLog.toString().length() > 0);
 		eventLog.write(System.out);
+		
+		assertEquals("", new TypeEventLog().toString());
 	}
-	
+
 	@Test
 	public void testErrorLog() {
 		final TypeErrorLog errorLog = new TypeErrorLog();
@@ -42,8 +44,8 @@ public class TestLogs extends TestBase {
 		errorLog.addBothSidesAreDifferentTypes(mock(BinaryOperator.class));
 		errorLog.addEmptyFlow(mock(Node.class));
 		errorLog.addExpectedDifferentType(mock(Node.class), IntLiteral.class);
-		
-		final List<Class<? extends Node>> typeList = new ArrayList<Class<? extends Node>>(); 
+
+		final List<Class<? extends Node>> typeList = new ArrayList<Class<? extends Node>>();
 		typeList.add(BoolLiteral.class);
 		typeList.add(IntLiteral.class);
 		errorLog.addExpectedDifferentTypes(mock(Node.class), typeList);
@@ -52,9 +54,12 @@ public class TestLogs extends TestBase {
 		errorLog.addExpectedDifferentType(mock(Node.class), IntLiteral.class);
 		errorLog.addLabelRedeclaration(mock(Node.class), new Ident("identName"));
 		errorLog.addTypeIsNotBoolean(HandSide.LEFT, mock(BinaryOperator.class));
-		errorLog.addTypeIsNotIntegerOrMoney(HandSide.BOTH, mock(BinaryOperator.class));
+		errorLog.addTypeIsNotIntegerOrMoney(HandSide.BOTH,
+				mock(BinaryOperator.class));
 		assertEquals(11, errorLog.getLength());
 		assertTrue(errorLog.toString().length() > 0);
-		errorLog.write(System.err);		
+		errorLog.write(System.err);
+		
+		assertEquals("", new TypeErrorLog().toString());
 	}
 }

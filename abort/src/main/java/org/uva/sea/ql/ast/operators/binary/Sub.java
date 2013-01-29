@@ -9,27 +9,31 @@ import org.uva.sea.ql.ast.types.datatypes.NumericType;
 
 /**
  * Represents a subtraction operation in the QL language.
+ * 
  * @author J. Dijkstra
  */
 public class Sub extends BinaryOperator {
 	private static final DataType type = new NumericType();
-	
+
 	/**
 	 * Constructor.
-	 * @param leftHandSide left hand side of the operator
-	 * @param rightHandSide right hand side of the operator
+	 * 
+	 * @param leftHandSide
+	 *            left hand side of the operator
+	 * @param rightHandSide
+	 *            right hand side of the operator
 	 */
 	public Sub(final Expression leftHandSide, final Expression rightHandSide) {
 		super(leftHandSide, rightHandSide);
 	}
-	
+
 	@Override
-	public DataType typeOf(SymbolTable symbolTable) {
+	public DataType typeOf(final SymbolTable symbolTable) {
 		return type;
 	}
-	
+
 	@Override
-	public <T> T accept(IVisitor<T> visitor) {
+	public <T> T accept(final IVisitor<T> visitor) {
 		return visitor.visit(this);
 	}
 }

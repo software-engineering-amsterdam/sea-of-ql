@@ -3,15 +3,10 @@ package org.uva.sea.ql.tests;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-
 import org.junit.Test;
 import org.uva.sea.ql.ast.conditionals.IfThen;
 import org.uva.sea.ql.ast.conditionals.IfThenElse;
 import org.uva.sea.ql.ast.form.Computation;
-import org.uva.sea.ql.ast.form.Element;
 import org.uva.sea.ql.ast.form.Form;
 import org.uva.sea.ql.ast.form.Question;
 import org.uva.sea.ql.ast.operators.binary.Add;
@@ -31,8 +26,6 @@ import org.uva.sea.ql.ast.operators.unary.Not;
 import org.uva.sea.ql.ast.operators.unary.Pos;
 import org.uva.sea.ql.ast.traversal.base.IVisitable;
 import org.uva.sea.ql.ast.traversal.base.IVisitor;
-import org.uva.sea.ql.ast.types.datatypes.BoolType;
-import org.uva.sea.ql.ast.types.datatypes.IntType;
 import org.uva.sea.ql.ast.types.literals.BoolLiteral;
 import org.uva.sea.ql.ast.types.literals.Ident;
 import org.uva.sea.ql.ast.types.literals.IntLiteral;
@@ -41,14 +34,14 @@ import org.uva.sea.ql.ast.types.literals.StringLiteral;
 
 public class TestVisitorPattern extends TestBase {
 	@SuppressWarnings("unchecked")
-	private final IVisitor<Void> visitor = (IVisitor<Void>)mock(IVisitor.class);
-	
+	private final IVisitor<Void> visitor = mock(IVisitor.class);
+
 	@Test
 	public void testConditionals() {
 		mockAndVerifyVisit(IfThen.class);
 		mockAndVerifyVisit(IfThenElse.class);
 	}
-	
+
 	@Test
 	public void testBinaryOperatorVisits() {
 		mockAndVerifyVisit(Add.class);
@@ -64,14 +57,14 @@ public class TestVisitorPattern extends TestBase {
 		mockAndVerifyVisit(Or.class);
 		mockAndVerifyVisit(Sub.class);
 	}
-	
+
 	@Test
 	public void testUnaryOperatorVisits() {
 		mockAndVerifyVisit(Neg.class);
 		mockAndVerifyVisit(Pos.class);
 		mockAndVerifyVisit(Not.class);
 	}
-	
+
 	@Test
 	public void testDataTypeVisits() {
 		mockAndVerifyVisit(BoolLiteral.class);
@@ -109,7 +102,7 @@ public class TestVisitorPattern extends TestBase {
 		final StringLiteral stringMock = mock(StringLiteral.class);
 		final Ident identMock2 = mock(Ident.class);
 		final MoneyLiteral moneyMock = mock(MoneyLiteral.class);
-		
+
 		visitor.visit(addMock);
 		visitor.visit(andMock);
 		visitor.visit(divMock);
@@ -136,7 +129,7 @@ public class TestVisitorPattern extends TestBase {
 		visitor.visit(stringMock);
 		visitor.visit(identMock2);
 		visitor.visit(moneyMock);
-		
+
 		verify(visitor).visit(andMock);
 		verify(visitor).visit(divMock);
 		verify(visitor).visit(eqMock);
@@ -163,7 +156,7 @@ public class TestVisitorPattern extends TestBase {
 		verify(visitor).visit(identMock2);
 		verify(visitor).visit(moneyMock);
 	}
-	
+
 	private void mockAndVerifyVisit(final Class<? extends IVisitable> visitable) {
 		final IVisitable mockedVisitable = mock(visitable);
 		mockedVisitable.accept(visitor);

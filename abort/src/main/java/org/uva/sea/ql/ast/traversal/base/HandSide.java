@@ -2,6 +2,7 @@ package org.uva.sea.ql.ast.traversal.base;
 
 /**
  * Represents a hand hide used for error logging.
+ * 
  * @author J. Dijkstra
  */
 public enum HandSide {
@@ -25,7 +26,9 @@ public enum HandSide {
 
 	/**
 	 * Constructor.
-	 * @param name name to be displayed for the hand side
+	 * 
+	 * @param name
+	 *            name to be displayed for the hand side
 	 */
 	private HandSide(final String name) {
 		this.name = name;

@@ -7,8 +7,9 @@ import org.uva.sea.ql.ast.traversal.base.IVisitor;
 
 /**
  * Represents a form (as defined in the QL language).
+ * 
  * @author J. Dijkstra
- *
+ * 
  */
 public class Form extends Node {
 	/**
@@ -19,11 +20,14 @@ public class Form extends Node {
 	 * The elements the form consists of.
 	 */
 	private final List<Element> elements;
-	
+
 	/**
 	 * Constructor.
-	 * @param name form name
-	 * @param elements elements that are part of the form
+	 * 
+	 * @param name
+	 *            form name
+	 * @param elements
+	 *            elements that are part of the form
 	 */
 	public Form(final String name, final List<Element> elements) {
 		this.name = name;
@@ -38,14 +42,16 @@ public class Form extends Node {
 
 	/**
 	 * Retrieve the elements the form consists of.
+	 * 
 	 * @return form elements
 	 */
 	public final List<Element> getElements() {
 		return elements;
 	}
-	
+
 	/**
 	 * Retrieve the form name.
+	 * 
 	 * @return form name
 	 */
 	public String getName() {
