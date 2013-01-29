@@ -26,20 +26,20 @@ import org.uva.sea.ql.ast.expr.unary.Not;
 import org.uva.sea.ql.ast.expr.unary.Pos;
 import org.uva.sea.ql.ast.expr.unary.Unary;
 import org.uva.sea.ql.ast.type.Type;
-import org.uva.sea.ql.visitor.ExpressionVisitor;
+import org.uva.sea.ql.visitor.IExpressionVisitor;
 
-public class ExpressionChecker implements ExpressionVisitor<Boolean> {
+public class ExpressionVisitor implements IExpressionVisitor<Boolean> {
 	private final Map<Ident, Type> typeEnv;
 	private final List<String> errors;
 
-	public ExpressionChecker(Map<Ident, Type> tenv, List<String> errors) {
+	public ExpressionVisitor(Map<Ident, Type> tenv, List<String> errors) {
 		this.typeEnv = tenv;
 		this.errors = errors;
 	}
 
 	public static boolean check(Expr expr, Map<Ident, Type> typeEnv,
 			List<String> errs) {
-		ExpressionChecker check = new ExpressionChecker(typeEnv, errs);
+		ExpressionVisitor check = new ExpressionVisitor(typeEnv, errs);
 		return expr.accept(check);
 	}
 

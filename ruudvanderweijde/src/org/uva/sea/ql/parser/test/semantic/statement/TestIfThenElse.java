@@ -16,7 +16,7 @@ import org.uva.sea.ql.ast.type.Type;
 import org.uva.sea.ql.parser.ANTLRParser;
 import org.uva.sea.ql.parser.error.ParseError;
 import org.uva.sea.ql.parser.test.IParse;
-import org.uva.sea.ql.visitor.checker.FormChecker;
+import org.uva.sea.ql.visitor.checker.FormVisitor;
 
 @RunWith(Parameterized.class)
 public class TestIfThenElse {
@@ -52,7 +52,7 @@ public class TestIfThenElse {
     	formString += "   }\n";
     	formString += "}\n";
     	
-    	parser.parseForm(formString).accept(new FormChecker(ExprMap, errors));
+    	parser.parseForm(formString).accept(new FormVisitor(ExprMap, errors));
     	assertEquals(errors.size(), 0);
 	}
 	@Test
@@ -67,7 +67,7 @@ public class TestIfThenElse {
 		formString += "             if (true) {\n";
     	formString += "               sellingPrice: \"Price the house was sold for:\" integer\n";
     	formString += "             } else {\n";
-    	formString += "               sellingPrice: \"Price the house was sold for:\" integer\n";
+    	formString += "               sellingPriceB: \"Price the house was sold for:\" integer\n";
     	formString += "             }\n";
     	formString += "           }\n";
     	formString += "         }\n";
@@ -77,7 +77,7 @@ public class TestIfThenElse {
     	formString += "   }\n";
     	formString += "}\n";
     	
-    	parser.parseForm(formString).accept(new FormChecker(ExprMap, errors));
+    	parser.parseForm(formString).accept(new FormVisitor(ExprMap, errors));
     	assertEquals(errors.size(), 0);
 	}
 }

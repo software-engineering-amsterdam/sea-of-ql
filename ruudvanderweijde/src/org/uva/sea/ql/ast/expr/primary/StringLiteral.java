@@ -5,7 +5,7 @@ import java.util.Map;
 import org.uva.sea.ql.ast.expr.Expr;
 import org.uva.sea.ql.ast.type.StringType;
 import org.uva.sea.ql.ast.type.Type;
-import org.uva.sea.ql.visitor.ExpressionVisitor;
+import org.uva.sea.ql.visitor.IExpressionVisitor;
 
 public class StringLiteral extends Expr {
 
@@ -26,7 +26,7 @@ public class StringLiteral extends Expr {
 
 
 	@Override
-	public <T> T accept(ExpressionVisitor<T> visitor) {
+	public <T> T accept(IExpressionVisitor<T> visitor) {
 		return visitor.visit(this);
 	}
 

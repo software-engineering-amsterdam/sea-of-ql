@@ -16,7 +16,7 @@ import org.uva.sea.ql.ast.type.Type;
 import org.uva.sea.ql.parser.ANTLRParser;
 import org.uva.sea.ql.parser.error.ParseError;
 import org.uva.sea.ql.parser.test.IParse;
-import org.uva.sea.ql.visitor.checker.FormChecker;
+import org.uva.sea.ql.visitor.checker.FormVisitor;
 
 @RunWith(Parameterized.class)
 public class TestForm {
@@ -30,6 +30,15 @@ public class TestForm {
 	}
 	public static HashMap<Ident, Type> ExprMap = new HashMap<Ident, Type>();
 	public static ArrayList<String> errors = new ArrayList<String>();
+	private String formString = "form Box1HouseOwning {\n"
+			+ "   hasSoldHouse: \"Did you sell a house in 2010?\" boolean\n"
+			+ "   hasBoughtHouse: \"Did you by a house in 2010?\" boolean\n"
+			+ "   hasMaintLoan: \"Did you enter a loan for maintenance/reconstruction?\" boolean\n"
+			+ "   if (hasSoldHouse) {\n"
+			+ "     sellingPrice: \"Price the house was sold for:\" integer\n"
+			+ "     privateDebt: \"Private debts for the sold house:\" integer\n"
+			+ "     valueResidue: \"Value residue:\" integer(sellingPrice - privateDebt)\n"
+			+ "   }\n" + "}\n";
 
 	
 	public TestForm(IParse parser) {
@@ -40,32 +49,7 @@ public class TestForm {
 
 	@Test
 	public void testProvidedForm() throws ParseError {
-		String formString = "";
-		formString += "form Box1HouseOwning {\n";
-    	formString += "   hasSoldHouse: \"Did you sell a house in 2010?\" boolean\n";
-    	formString += "   hasBoughtHouse: \"Did you by a house in 2010?\" boolean\n";
-    	formString += "   hasMaintLoan: \"Did you enter a loan for maintenance/reconstruction?\" boolean\n";
-    	formString += "   if (hasSoldHouse) {\n";
-    	formString += "     sellingPrice: \"Price the house was sold for:\" integer\n";
-    	formString += "     privateDebt: \"Private debts for the sold house:\" integer\n";
-    	formString += "     valueResidue: \"Value residue:\" integer(sellingPrice - privateDebt)\n";
-    	formString += "   }\n";
-    	formString += "}\n";
-    	
-    	parser.parseForm(formString).accept(new FormChecker(ExprMap, errors));
+		parser.parseForm(formString).accept(new FormVisitor(ExprMap, errors));
     	assertEquals(errors.size(), 0);
 	}
-	
-	@Test
-	public void testDuplicateId() throws ParseError {
-		String formString = "";
-    	formString += "form Box1HouseOwning {\n";
-    	formString += "   hasSoldHouse: \"Did you sell a house in 2010?\" boolean;\n";
-    	formString += "   hasSoldHouse: \"Did you sell a house in 2010?\" boolean\n";
-    	formString += "}\n";
-    	
-    	parser.parseForm(formString).accept(new FormChecker(ExprMap, errors));
-    	assertEquals(errors.size(), 1);
-		
-	} 
 }

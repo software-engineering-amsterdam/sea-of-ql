@@ -6,7 +6,7 @@ import org.uva.sea.ql.ast.expr.Expr;
 import org.uva.sea.ql.ast.expr.primary.Ident;
 import org.uva.sea.ql.ast.type.NumericType;
 import org.uva.sea.ql.ast.type.Type;
-import org.uva.sea.ql.visitor.ExpressionVisitor;
+import org.uva.sea.ql.visitor.IExpressionVisitor;
 
 
 public class Div extends Binary {
@@ -26,7 +26,7 @@ public class Div extends Binary {
 	}
 
 	@Override
-	public <T> T accept(ExpressionVisitor<T> visitor) {
+	public <T> T accept(IExpressionVisitor<T> visitor) {
 		return visitor.visit(this);
 	}
 

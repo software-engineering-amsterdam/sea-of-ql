@@ -21,7 +21,7 @@ import org.uva.sea.ql.ast.expr.unary.Not;
 import org.uva.sea.ql.ast.expr.unary.Pos;
 
 
-public interface ExpressionVisitor<T> {
+public interface IExpressionVisitor<T> {
 	
 	// Binary
 	T visit(Add ast);

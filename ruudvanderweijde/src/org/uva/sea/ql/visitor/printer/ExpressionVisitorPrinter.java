@@ -19,9 +19,9 @@ import org.uva.sea.ql.ast.expr.primary.StringLiteral;
 import org.uva.sea.ql.ast.expr.unary.Neg;
 import org.uva.sea.ql.ast.expr.unary.Not;
 import org.uva.sea.ql.ast.expr.unary.Pos;
-import org.uva.sea.ql.visitor.ExpressionVisitor;
+import org.uva.sea.ql.visitor.IExpressionVisitor;
 
-public class ExpressionVisitorPrinter  implements ExpressionVisitor<Boolean> {
+public class ExpressionVisitorPrinter  implements IExpressionVisitor<Boolean> {
 
 	@Override
 	public Boolean visit(Add ast) {

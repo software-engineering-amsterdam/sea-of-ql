@@ -5,7 +5,7 @@ import org.uva.sea.ql.ast.stmt.IfThenElse;
 import org.uva.sea.ql.ast.stmt.question.ComputedQuestion;
 import org.uva.sea.ql.ast.stmt.question.NormalQuestion;
 
-public interface FormVisitor {
+public interface IFormVisitor {
 	void visit(ComputedQuestion computedQuestion);
 	void visit(NormalQuestion question);
 	void visit(IfThenElse ifThenElse);

@@ -5,7 +5,7 @@ import java.util.Map;
 import org.uva.sea.ql.ast.expr.Expr;
 import org.uva.sea.ql.ast.type.IntegerType;
 import org.uva.sea.ql.ast.type.Type;
-import org.uva.sea.ql.visitor.ExpressionVisitor;
+import org.uva.sea.ql.visitor.IExpressionVisitor;
 
 
 public class Int extends Expr {
@@ -26,7 +26,7 @@ public class Int extends Expr {
 	}
 
 	@Override
-	public <T> T accept(ExpressionVisitor<T> visitor) {
+	public <T> T accept(IExpressionVisitor<T> visitor) {
 		return visitor.visit(this);
 	}
 
