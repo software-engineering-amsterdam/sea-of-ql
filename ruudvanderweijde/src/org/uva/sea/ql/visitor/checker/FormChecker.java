@@ -1,6 +1,5 @@
 package org.uva.sea.ql.visitor.checker;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -22,18 +21,16 @@ import org.uva.sea.ql.visitor.FormVisitor;
  */
 public class FormChecker implements FormVisitor {
 	private final Map<Ident, Type> typeEnv;
-	private final List<String> formIds;
 	private final List<String> errors;
 
 	public FormChecker(Map<Ident, Type> tenv, List<String> errors) {
 		this.typeEnv = tenv;
 		this.errors = errors;
-		this.formIds = new ArrayList<String>();
 	}
 
 	@Override
 	public void visit(ComputedQuestion question) {
-		checkIdentName(question.getId(), question.getType());
+		checkName(question.getId(), question.getType());
 		checkExpr(question.getExpr());
 
 		checkIfComputationIsCompatible(question);
@@ -42,7 +39,7 @@ public class FormChecker implements FormVisitor {
 
 	@Override
 	public void visit(NormalQuestion question) {
-		checkIdentName(question.getId(), question.getType());
+		checkName(question.getId(), question.getType());
 	}
 
 	@Override
@@ -61,28 +58,17 @@ public class FormChecker implements FormVisitor {
 
 	@Override
 	public void visit(Form form) {
-		checkFormName(form.getId());
-
 		for (Statement stmt : form.getStatements()) {
 			stmt.accept(this);
 		}
 	}
 
-	private void checkIdentName(Ident id, Type type) {
+	private void checkName(Ident id, Type type) {
 		if (typeEnv.containsKey(id)) {
 			addErrorMessage(String.format("Duplicate question id, '%s'",
 					id.getValue()));
 		} else {
 			typeEnv.put(id, type);
-		}
-	}
-
-	private void checkFormName(Ident id) {
-		if (formIds.contains(id.getValue())) {
-			addErrorMessage(String.format("Duplicate form id, '%s'",
-					id.getValue()));
-		} else {
-			formIds.add(id.getValue());
 		}
 	}
 
