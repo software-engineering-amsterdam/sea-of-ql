@@ -70,5 +70,6 @@ anno loc Conditional@location;
 anno loc ElsePart@location;
 anno loc Expr@location;
 anno loc Form@location;
+anno loc IdentDefinition@location;
 anno loc Question@location;
 anno loc Statement@location;
