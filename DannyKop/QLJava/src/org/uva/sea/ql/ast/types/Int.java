@@ -1,13 +1,14 @@
 package org.uva.sea.ql.ast.types;
 
 import org.uva.sea.ql.ast.Expr;
+import org.uva.sea.ql.ast.visitor.SymbolTable;
 
 /**
  * Class: Int
  * @author Danny
  *
  */
-public class Int extends Expr implements Type<Integer>  {
+public class Int extends Expr {
 
 	private final int value;
 
@@ -19,19 +20,42 @@ public class Int extends Expr implements Type<Integer>  {
 		this.value = v;
 	}
 	/**
-	 * getValue()
-	 * @return Integer - the int value
+	 * Constructor
+	 * Used for typing
 	 */
-	@Override
-	public Integer getValue() {
-		return value;
+	public Int(){
+		this(-1);
 	}
 	/**
-	 * getType()
-	 * @return String - the type description of the implemented type
+	 * getValue()
+	 * @return String - the int value
+	 */
+	public String getValue() {
+		return Integer.toString(this.value);
+	}
+	/**
+	 * isCompatibleWithInt
+	 */
+	public boolean isCompatibleWithInt(){
+		return true;
+	}
+	/**
+	 * isCompatibleTo
+	 * @param t type
+	 * @return boolean - true if compatible false otherwise
 	 */
 	@Override
-	public String getType() {
-		return "Int";
-	}	
+	public boolean isCompatibleTo(Expr t) {
+		// TODO Auto-generated method stub
+		return (t.isCompatibleWithInt() || t.isCompatibleWithMoney());
+	}
+	/**
+	 * getType
+	 * @param st - the table to check for the type
+	 * @return Expr - type
+	 */
+	@Override
+	public Expr getType(SymbolTable st) {
+		return this;
+	}
 }

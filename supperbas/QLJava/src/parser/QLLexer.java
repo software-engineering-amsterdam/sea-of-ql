@@ -8,7 +8,6 @@ import java.util.Map;
 import ast.ASTNode;
 import ast.expression.value.*;
 
-
 public class QLLexer implements QLTokens {
 	private static final Map<String, Integer> KEYWORDS;
 

@@ -2,8 +2,8 @@ package ast.expression.value;
 
 import java.util.Map;
 
+import ast.Type;
 import ast.expression.Value;
-import ast.type.Type;
 import ast.visitor.Visitor;
 
 

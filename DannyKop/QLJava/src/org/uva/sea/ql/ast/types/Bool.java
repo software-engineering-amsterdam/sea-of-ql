@@ -1,41 +1,71 @@
 package org.uva.sea.ql.ast.types;
 
 import org.uva.sea.ql.ast.Expr;
+import org.uva.sea.ql.ast.visitor.SymbolTable;
+
 
 /**
  * class: Bool
  * @author Danny
  *
  */
-public class Bool extends Expr implements Type<Boolean> {
+public class Bool extends Expr {
 	
 	private final boolean value;
 	
 	/**
-	 * Bool
+	 * Constructor
 	 * @param v 
 	 */
 	public Bool(boolean v){
 		this.value = v;
 	}
+	/**
+	 * Constructor
+	 * @param v
+	 */
 	public Bool(String v){
-		this.value = Boolean.parseBoolean(v);
+		this(Boolean.parseBoolean(v));
+	}
+	/**
+	 * Constructor
+	 * Used for typing
+	 */
+	public Bool(){
+		this(false);
 	}
 	/**
 	 * getValue()
-	 * @return Boolean - the boolean value
+	 * @return String - the boolean value
 	 */
-	@Override	
-	public Boolean getValue(){
-		return value;
+	//@Override	
+	public String getValue(){
+		return Boolean.toString(this.value);
 	}
-	
 	/**
-	 * getType
-	 * @return String - the type description of the implemented type
+	 * isCompatibleWithBool
+	 * @return 
 	 */
 	@Override
-	public String getType(){
-		return "Bool";
+	public boolean isCompatibleWithBool(){
+		return true;
+	}
+	/**
+	 * isCompatibleTo
+	 * @param t type
+	 * @return boolean - true if compatible false otherwise
+	 */
+	@Override
+	public boolean isCompatibleTo(Expr t) {
+		return t.isCompatibleWithBool();
+	}
+	/**
+	 * getType
+	 * @param st - the table to check for the type
+	 * @return Expr - type
+	 */
+	@Override
+	public Expr getType(SymbolTable st) {
+		return this;
 	}
 }

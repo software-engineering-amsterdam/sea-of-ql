@@ -1,9 +1,6 @@
 package ast.statement;
 
-import java.util.Map;
-
 import ast.*;
-import ast.type.*;
 import ast.visitor.Visitor;
 
 public class If extends Statement {
@@ -27,12 +24,6 @@ public class If extends Statement {
 
 	public Statement getConsequent() {
 		return consequent;
-	}
-
-	@Override
-	public Type typeOf(Map<ast.type.Ident, Type> typeEnv) {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 }

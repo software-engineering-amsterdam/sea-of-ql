@@ -1,6 +1,6 @@
 module lang::ql::syntax::Currencies
 
-/*All currencies used 24-1-2013*/
+/*All currencies 24-1-2013*/
 lexical Currencies 
 =AED	United Arab Emirates Dirham
 |AFN	Afghanistan Afghani
