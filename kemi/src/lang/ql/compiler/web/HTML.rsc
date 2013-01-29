@@ -47,17 +47,17 @@ private void createPage(str title, list[Question] questions, loc dest) {
 }
 
 private str createQuestion(Question q: 
-  question(questionText, answerDataType, answerIdentifier)) =
-    "\<div id=\"<answerIdentifier>Block\"\>
-    '  \<label for=\"<answerIdentifier>\"\><substring(questionText.text, 1, size(questionText.text) - 1)>\</label\>
-    '  \<input type=\"<answerDataType>\" id=\"<answerIdentifier>\" name=\"<answerIdentifier>\" /\>
+  question(QuestionText text, Type \type, IdentDefinition ident)) =
+    "\<div id=\"<ident.ident>Block\"\>
+    '  \<label for=\"<ident.ident>\"\><substring(text.text, 1, size(text.text) - 1)>\</label\>
+    '  \<input type=\"<\type.name>\" id=\"<ident.ident>\" name=\"<ident.ident>\" /\>
     '\</div\>
     '";
 
 private str createQuestion(Question q: 
-  question(questionText, answerDataType, answerIdentifier, calculatedField)) =
-    "\<div id=\"<answerIdentifier>Block\"\>
-    '  \<label for=\"<answerIdentifier>\"\><substring(questionText.text, 1, size(questionText.text) - 1)>\</label\>
-    '  \<input type=\"<answerDataType>\" id=\"<answerIdentifier>\" name=\"<answerIdentifier>\" disabled=\"disabled\"/\>
+  question(QuestionText text, Type \type, IdentDefinition ident, calculatedField)) =
+    "\<div id=\"<ident.ident>Block\"\>
+    '  \<label for=\"<ident.ident>\"\><substring(text.text, 1, size(text.text) - 1)>\</label\>
+    '  \<input type=\"<\type.name>\" id=\"<ident.ident>\" name=\"<ident.ident>\" disabled=\"disabled\"/\>
     '\</div\>
     '";

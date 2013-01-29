@@ -71,6 +71,7 @@ private str createJSON() =
   '$__JSON = json_encode($__RES);
   '
   'print_r($__JSON);
+  'echo \"\n\";
   ";
 private str preparedStatementShorthand(str answerDataType) {      
   switch(answerDataType) {
@@ -103,9 +104,9 @@ private str validateInteger(str ident) =
   '}";
 
 private str validateMoney(str ident) =
-  "<ident> = floatval(<ident>);
-  '_s<ident> = sprintf(\"%.2f\", <ident>);
-  'ident = floatval($_s<ident>);";
+  "$<ident> = floatval($_POST[\'<ident>\']);
+  '$_s<ident> = sprintf(\"%.2f\", $<ident>);
+  '$<ident> = floatval($_s<ident>);";
 
 private str validateDate(str ident) =
   "$<ident> = $_POST[\'<ident>\'];
