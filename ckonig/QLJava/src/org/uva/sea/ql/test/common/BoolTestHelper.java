@@ -3,15 +3,14 @@ package org.uva.sea.ql.test.common;
 import static org.junit.Assert.assertEquals;
 import junit.framework.Assert;
 
-import org.uva.sea.ql.ast.BinaryExpr;
-import org.uva.sea.ql.ast.Expr;
 import org.uva.sea.ql.ast.elements.Ident;
+import org.uva.sea.ql.ast.expressions.BinaryExpr;
+import org.uva.sea.ql.ast.expressions.Expr;
 import org.uva.sea.ql.parser.ParseError;
 
-public class BoolTestHelper extends TestHelper {
-
-	public BoolTestHelper(Class<?> c) {
-		super(c);
+public class BoolTestHelper extends TestHelper<BoolTestHelper> {
+	public BoolTestHelper(TestParser parser) {
+		super(parser);
 	}
 
 	public void testRels(BoolTestHelper opposite) throws ParseError {
@@ -51,7 +50,7 @@ public class BoolTestHelper extends TestHelper {
 				+ " ) " + "" + this.asString + " " + "(" + "(a "
 				+ opposite.asString + " c)" + " " + opposite.asString + " "
 				+ "(b " + this.asString + " c)" + ") ";
-		Expr e = CurrentTest.parse(complex);
+		Expr e = parser.parse(complex);
 		Assert.assertNotNull(e);
 		assertEquals(this.asClass, e.getClass());
 		BinaryExpr b = (BinaryExpr) e;
@@ -82,9 +81,16 @@ public class BoolTestHelper extends TestHelper {
 	}
 
 	public void testUnary() throws ParseError {
-		Expr e = CurrentTest.parse(this.asString + "b");
+		Expr e = parser.parse(this.asString + "b");
 		Assert.assertNotNull(e);
 		assertEquals(this.asClass, e.getClass());
+	}
+
+	@Override
+	public BoolTestHelper setClass(Class<?> c) {
+		setClassAndString(c);
+		this.asClass = c;	
+		return this;
 	}
 
 }

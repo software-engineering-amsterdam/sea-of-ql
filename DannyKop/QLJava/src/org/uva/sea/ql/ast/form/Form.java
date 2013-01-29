@@ -38,14 +38,13 @@ public class Form implements ASTNode {
 	 */
 	public List<FormElement> getElements(){
 		return this.elements;
-	}
-	
+	}	
 	/**
 	 * accept()
 	 * @param visitor
+	 * @return type
 	 */
-	@Override
-	public void accept(Visitor visitor) {
+	public void accept(Visitor visitor){
 		visitor.visit(this);
 	}
 

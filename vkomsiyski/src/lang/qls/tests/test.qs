@@ -1,12 +1,32 @@
+stylesheet test;
+
 bool {
 color: "red"
 }
 
 int {
 minimum: 4
+widget:spinbox
+widget: spinbox // TODO: duplicate rules
 }
 
+sellingPrice {
+stepSize: -19.3
+}
+
+
+
 group "hi" {
-	meh1df
-	meg2df
+	over
+	DateQ
+}
+
+group "hdi" {
+hasMaintLoan
+	
+	
+}
+
+over {
+	widget: combobox
 }

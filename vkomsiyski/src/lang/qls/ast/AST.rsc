@@ -1,6 +1,6 @@
 module lang::qls::ast::AST
 
-data FormStyle = style(list[StyleRule] rules); 
+data FormStyle = style(str name, list[StyleRule] rules); 
 
 data StyleRule
   = typed(Type \type, list[Rule] rules)
@@ -12,14 +12,23 @@ data Rule
   = color(str name)
   | widget(Widget \type)
   | font(str name)
-  | width(int size)
-  | min(real val)
-  | max(real val)
-  | step(real val);
+  | minInt(int ival)
+  | maxInt(int ival)
+  | stepInt(int ival)
+  | minFloat(real rval)
+  | maxFloat(real rval)
+  | stepFloat(real rval)
+  | minDate(str dval)
+  | maxDate(str dval);
  
 data Widget
   = checkbox(str name)
-  | radio(str name);
+  | combobox(str name)
+  | radio(str name)
+  | slider(str name)
+  | dial(str name)
+  | spinbox(str name);
+  
 
 data Type
   = \bool(str name)

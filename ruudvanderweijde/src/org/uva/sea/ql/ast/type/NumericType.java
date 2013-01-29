@@ -16,4 +16,9 @@ public class NumericType extends Type {
 	public boolean isCompatibleToIntegerType() {
 		return true;
 	}
+	
+	@Override
+	public String toString() {
+		return "NumericType";
+	}
 }

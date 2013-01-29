@@ -18,8 +18,7 @@ public class StringResult implements ExpressionResult {
 	}
 
 	@Override
-	public int getValue() {
-		// TODO Auto-generated method stub
+	public int getIntegerValue() {
 		return 0;
 	}
 
@@ -30,19 +29,16 @@ public class StringResult implements ExpressionResult {
 
 	@Override
 	public BigDecimal getMoneyValue() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public boolean getBooleanValue() {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
 	public String getStringValue() {
-		// TODO Auto-generated method stub
 		return value;
 	}
 }

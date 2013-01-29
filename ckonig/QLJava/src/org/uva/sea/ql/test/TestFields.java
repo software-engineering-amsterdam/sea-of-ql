@@ -4,14 +4,13 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 import org.junit.Test;
-import org.uva.sea.ql.ast.Expr;
 import org.uva.sea.ql.ast.elements.Ident;
+import org.uva.sea.ql.ast.expressions.Expr;
 import org.uva.sea.ql.ast.literal.IntLiteral;
 import org.uva.sea.ql.ast.literal.StringLiteral;
 import org.uva.sea.ql.ast.types.BooleanType;
 import org.uva.sea.ql.ast.types.Money;
 import org.uva.sea.ql.parser.ParseError;
-import org.uva.sea.ql.test.common.CurrentTest;
 
 public class TestFields extends TestExpressions {
 	@Test
@@ -25,16 +24,16 @@ public class TestFields extends TestExpressions {
 	}
 
 	private void testId(String id, Class<?> c) throws ParseError {
-		Expr e = CurrentTest.parse(id);
+		Expr e = parser.parse(id);
 		assertNotNull("result was null", e);
 		assertEquals(c, e.getClass());
 	}
 
 	@Test
 	public void testNums() throws ParseError {
-		assertEquals(IntLiteral.class, CurrentTest.parse("0").getClass());
-		assertEquals(IntLiteral.class, CurrentTest.parse("1223").getClass());
-		assertEquals(IntLiteral.class, CurrentTest.parse("234234234").getClass());
+		assertEquals(IntLiteral.class, parser.parse("0").getClass());
+		assertEquals(IntLiteral.class, parser.parse("1223").getClass());
+		assertEquals(IntLiteral.class, parser.parse("234234234").getClass());
 	}
 
 	@Test
@@ -59,7 +58,7 @@ public class TestFields extends TestExpressions {
 	}
 
 	private void testString(String in, boolean testValue) throws ParseError {
-		Expr e = CurrentTest.parse(in);
+		Expr e = parser.parse(in);
 		assertEquals(StringLiteral.class, e.getClass());
 		if (testValue) {
 			StringLiteral s = (StringLiteral) e;
@@ -69,39 +68,40 @@ public class TestFields extends TestExpressions {
 
 	@Test
 	public void testInlineComment() throws ParseError {
-		Expr e = CurrentTest.parse("//this is a comment\n");
+		Expr e = parser.parse("//this is a comment\n");
 		assertEquals(null, e);
 	}
 
 	@Test
 	public void testComment() throws ParseError {
-		Expr e = CurrentTest.parse("/* this is a comment /*");
+		Expr e = parser.parse("/* this is a comment /*");
 		assertEquals(null, e);
 	}
 
 	@Test
 	public void testBoolean() throws ParseError {
-		Expr e = CurrentTest.parse("boolean");
+		Expr e = parser.parse("boolean");
 		assertNotNull(e);
 		assertEquals(BooleanType.class, e.getClass());
 	}
 
 	@Test
 	public void testMoney() throws ParseError {
-		Expr e = CurrentTest.parse("money");
+		Expr e = parser.parse("money");
 		assertNotNull(e);
 		assertEquals(Money.class, e.getClass());
 	}
-	
+
 	@Test
 	public void testMoneyWithValue() throws ParseError {
-		Expr e = CurrentTest.parse("money(50)");
+		Expr e = parser.parse("money(50)");
 		assertNotNull(e);
 		assertEquals(Money.class, e.getClass());
 	}
+
 	@Test
 	public void testMoneyWithAdd() throws ParseError {
-		Expr e = CurrentTest.parse("money(50 + 50)");
+		Expr e = parser.parse("money(50 + 50)");
 		assertNotNull(e);
 		assertEquals(Money.class, e.getClass());
 	}

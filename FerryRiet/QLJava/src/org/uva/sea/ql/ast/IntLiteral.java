@@ -32,7 +32,7 @@ public class IntLiteral extends Expr {
 	}
 
 	@Override
-	public ExpressionResult eval(HashMap<String, Statement> symbolMap) {
+	public ExpressionResult eval(HashMap<String, ExpressionResult> symbolMap) {
 		return new IntegerResult(value);
 	}
 }

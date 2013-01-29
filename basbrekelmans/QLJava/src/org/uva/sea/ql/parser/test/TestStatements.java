@@ -49,7 +49,7 @@ public class TestStatements {
 		
 		final String ifStatement1Code = "if (a == b) { \"Question 1?\" myVar : bool }";
 		final String ifStatement2Code = "\"Q1?\" a : money " +
-										"\"Q2?\" b : string " +
+										"\"Q2?\" b : money " +
 										"if (a > b) { " +
 											"\"Q3?\" myVar : money " +
 										"}";
@@ -97,7 +97,7 @@ public class TestStatements {
 	private static Statement firstChild(Node input) {
 		if (input instanceof Statements) {
 			Statements statements = (Statements)input;
-			return statements.getChildren().iterator().next();
+			return statements.iterator().next();
 		} else {
 			return (Statement)input;
 		}

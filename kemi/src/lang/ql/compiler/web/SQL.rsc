@@ -13,7 +13,7 @@ public void SQL(Form f, loc dest) {
   list[Question] questions = [];
   
   top-down visit(f) {
-    case form(name, _): title = name;
+    case form(def, _): title = def.ident;
     case q: question(_, _, _): questions += [q];
     case q: question(_, _, _, _): questions += [q];
   }

@@ -10,7 +10,7 @@ public Message redeclaredError(str name, loc location)
   = error("Variable <name> redeclared with different type", location);
     
 public Message redeclaredError(loc location) 
-  = error("Expression occures with different type", location);    
+  = error("Expression occurs with different type", location);    
     
 public Message typeError(str typename, loc location) 
   = error("Type mismatch: <typename> required", location);

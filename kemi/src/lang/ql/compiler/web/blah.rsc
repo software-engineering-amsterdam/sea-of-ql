@@ -14,6 +14,8 @@ import util::ValueUI;
 private Form p(loc f) = implode(parse(readFile(f), |file:///-|));
 
 public void main() {
+  //f = p(|project://QL-R-kemi/forms/nestedIfElseIfElseCondition.q|);
   f = p(|project://QL-R-kemi/forms/calculatedField.q|);
-  generate(f, |tmp:///web/|);
+  //f = p(|project://QL-R-kemi/forms/ifCondition.q|);
+  buildForm(f, |tmp:///web/|);
 }

@@ -74,17 +74,17 @@ public class QLDriver extends JFrame implements ActionListener {
 		getContentPane().add(textPane);
 
 		btnNewButton = new JButton("Compile");
-		btnNewButton.setBounds(16, 513, 96, 29);
+		btnNewButton.setBounds(16, 501, 96, 29);
 		btnNewButton.addActionListener(this);
 		getContentPane().add(btnNewButton);
 
-		chckbxNewCheckBox = new JCheckBox("New check box");
-		chckbxNewCheckBox.setBounds(142, 513, 128, 23);
+		chckbxNewCheckBox = new JCheckBox("");
+		chckbxNewCheckBox.setBounds(118, 504, 26, 23);
 		chckbxNewCheckBox.addActionListener(this);
 		getContentPane().add(chckbxNewCheckBox);
 
 		textField = new JTextField();
-		textField.setBounds(303, 480, 103, 28);
+		textField.setBounds(275, 501, 103, 28);
 		getContentPane().add(textField);
 		textField.setColumns(10);
 
