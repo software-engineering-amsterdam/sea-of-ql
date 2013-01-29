@@ -1,8 +1,6 @@
 package org.uva.sea.ql.form;
 
-import java.awt.Component;
 import java.awt.Container;
-import java.awt.Label;
 import java.util.ArrayList;
 import java.util.List;
 

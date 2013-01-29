@@ -1,11 +1,6 @@
 package org.uva.sea.ql.form;
 
-import java.awt.Component;
-import java.awt.Container;
-import java.awt.Label;
 import java.util.List;
-
-import net.miginfocom.swing.MigLayout;
 
 import org.uva.sea.ql.ast.eval.Env;
 import org.uva.sea.ql.ast.expressions.Expr;

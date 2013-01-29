@@ -1,14 +1,8 @@
 package org.uva.sea.ql.form;
 
-import java.awt.Component;
-import java.awt.Container;
 import java.awt.Label;
 import java.util.ArrayList;
 import java.util.List;
-
-import javax.swing.JTextField;
-
-import net.miginfocom.swing.MigLayout;
 
 import org.uva.sea.ql.ast.eval.Env;
 import org.uva.sea.ql.ast.eval.EnvAddIdentResults;

@@ -8,8 +8,6 @@ import java.io.IOException;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-import net.miginfocom.swing.MigLayout;
-
 import org.uva.sea.ql.form.Form;
 import org.uva.sea.ql.parser.antlr.ANTLRParser;
 import org.uva.sea.ql.parser.test.IParse;

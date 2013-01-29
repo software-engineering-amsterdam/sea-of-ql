@@ -1,6 +1,5 @@
 package org.uva.sea.ql.form;
 
-import java.awt.Component;
 import java.util.List;
 
 import javax.swing.JPanel;
