@@ -33,15 +33,11 @@ public class FormChecker implements FormVisitor {
 
 	@Override
 	public void visit(ComputedQuestion question) {
-		Type computedType = question.getExpr().typeOf(typeEnv);
-		checkIdentName(question.getId(), computedType);
+		checkIdentName(question.getId(), question.getType());
 		checkExpr(question.getExpr());
-		
-		// check if computed type is the same as question type
-		if (!question.getType().isCompatibleTo(computedType)) {
-			addErrorMessage(String.format("%s returns invalid expression: %s type expected, %s type given.", 
-					question.getId().getValue(), question.getType(), question.getExpr().typeOf(typeEnv)));
-		}
+
+		checkIfComputationIsCompatible(question);
+		checkIfComputationIsNumeric(question);
 	}
 
 	@Override
@@ -49,11 +45,10 @@ public class FormChecker implements FormVisitor {
 		checkIdentName(question.getId(), question.getType());
 	}
 
-	
 	@Override
 	public void visit(IfThenElse ifThenElse) {
-		
-		checkExpr(ifThenElse.getCondition());
+
+		checkIfConditionIsOfBooleanType(ifThenElse.getCondition());
 
 		for (Statement stmt : ifThenElse.getIfBlock()) {
 			stmt.accept(this);
@@ -63,39 +58,71 @@ public class FormChecker implements FormVisitor {
 			stmt.accept(this);
 		}
 	}
-	
 
 	@Override
 	public void visit(Form form) {
-		
 		checkFormName(form.getId());
-		
+
 		for (Statement stmt : form.getStatements()) {
 			stmt.accept(this);
 		}
 	}
-	
-	
+
 	private void checkIdentName(Ident id, Type type) {
 		if (typeEnv.containsKey(id)) {
-			addErrorMessage("Duplicate question id: " + id.getValue());
+			addErrorMessage(String.format("Duplicate question id, '%s'",
+					id.getValue()));
 		} else {
 			typeEnv.put(id, type);
 		}
 	}
-	
+
 	private void checkFormName(Ident id) {
 		if (formIds.contains(id.getValue())) {
-			addErrorMessage("Duplicate form id: " + id.getValue());
+			addErrorMessage(String.format("Duplicate form id, '%s'",
+					id.getValue()));
 		} else {
 			formIds.add(id.getValue());
 		}
 	}
-	
+
 	private void checkExpr(Expr expr) {
 		expr.accept(new ExpressionChecker(typeEnv, errors));
-    }
-	
+	}
+
+	private void checkIfConditionIsOfBooleanType(Expr expr) {
+		checkExpr(expr);
+
+		Type exprType = expr.typeOf(typeEnv);
+		if (!exprType.isCompatibleToBooleanType()) {
+			addErrorMessage(String
+					.format("Condition is not an boolean expression. %s type given.",
+							exprType.toString()));
+		}
+	}
+
+	private void checkIfComputationIsCompatible(ComputedQuestion question) {
+		if (!question.getType().isCompatibleTo(
+				question.getExpr().typeOf(typeEnv))) {
+
+			addErrorMessage(String
+					.format("Question '%s' returns invalid expression: %s type expected, %s type given.",
+							question.getId().getValue(),
+							question.getType(),
+							question.getExpr().typeOf(typeEnv)));
+		}
+	}
+
+	private void checkIfComputationIsNumeric(ComputedQuestion question) {
+		if (!question.getExpr().typeOf(typeEnv).isCompatibleToNumericType()) {
+
+			addErrorMessage(String
+					.format("Invalid type for computed question '%s'. Only numeric expressions are allowed in computed questions, %s type given.",
+							question.getId().getValue(),
+							question.getExpr().typeOf(typeEnv)));
+		}
+	}
+
 	private void addErrorMessage(String message) {
 		errors.add(message);
 	}
