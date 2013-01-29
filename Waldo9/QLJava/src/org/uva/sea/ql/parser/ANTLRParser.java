@@ -1,12 +1,12 @@
-package org.uva.sea.ql.parser.antlr;
+package org.uva.sea.ql.parser;
 
 import org.antlr.runtime.ANTLRStringStream;
 import org.antlr.runtime.CommonTokenStream;
 import org.antlr.runtime.RecognitionException;
 import org.uva.sea.ql.ast.*;
 import org.uva.sea.ql.ast.expressions.Expr;
-import org.uva.sea.ql.parser.test.IParse;
-import org.uva.sea.ql.parser.test.ParseError;
+import org.uva.sea.ql.test.IParse;
+import org.uva.sea.ql.test.ParseError;
 
 public class ANTLRParser implements IParse {
 

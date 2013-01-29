@@ -1,4 +1,4 @@
-package org.uva.sea.ql.parser.test;
+package org.uva.sea.ql.test;
 
 import static org.junit.Assert.assertEquals;
 
@@ -11,7 +11,7 @@ import org.uva.sea.ql.ast.expressions.Int;
 import org.uva.sea.ql.ast.expressions.LEq;
 import org.uva.sea.ql.ast.expressions.LT;
 import org.uva.sea.ql.ast.expressions.Mul;
-import org.uva.sea.ql.parser.antlr.ANTLRParser;
+import org.uva.sea.ql.parser.ANTLRParser;
 
 public class TestExpressions {
 

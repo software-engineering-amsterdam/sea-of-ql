@@ -1,4 +1,4 @@
-package org.uva.sea.ql.parser.test;
+package org.uva.sea.ql.test;
 
 import static org.junit.Assert.assertEquals;
 
@@ -6,8 +6,8 @@ import java.io.IOException;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.uva.sea.ql.ast.statements.StatementTypeCheckingVisitor;
-import org.uva.sea.ql.parser.antlr.ANTLRParser;
+import org.uva.sea.ql.parser.ANTLRParser;
+import org.uva.sea.ql.typechecking.StatementTypeCheckingVisitor;
 
 public class TestTypeChecking {
 
