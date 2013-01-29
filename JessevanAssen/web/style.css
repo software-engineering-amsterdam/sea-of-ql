@@ -13,9 +13,22 @@ input[type=text] {
     background-color: #fdd;
 }
 
+.error, .success {
+    border-width: 1px;
+    border-style: solid;
+}
+
 .error {
+    margin: 1em 0;
     padding: 1em;
-    border: 1px solid #f00;
+    border-color: #f00;
     background-color: #fdd;
     color: #f00;
+}
+
+.success {
+    padding: 0 1em;
+    border-color: #0a0;
+    background-color: #afa;
+    color: #050;
 }

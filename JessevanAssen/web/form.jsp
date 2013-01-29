@@ -149,39 +149,56 @@
 </head>
 <body>
 
-    <table>
-        <!-- ko template: { name : "formelement-template", foreach: $root.root.elements } --><!-- /ko -->
-    </table>
-    <input type="button" value="Send form" data-bind="enable: $root.root.valid(), click: submit"/>
-    <!-- ko if: errors().length > 0 -->
-    <p class="error">
-        The following errors occurred while validating the form:
-        <ul data-bind="foreach: errors">
-            <li data-bind="text: $data"></li>
-        </ul>
-    </p>
-    <!-- /ko -->
+    <section id="form">
+        <table>
+            <!-- ko template: { name : "formelement-template", foreach: $root.root.elements } --><!-- /ko -->
+        </table>
+        <div style="margin-top:1em;">
+            <input type="button" value="Send form" data-bind="enable: $root.sendingData() == false && $root.root.valid(), click: submit" style="vertical-align: middle;" />
+            <img src="loading.gif" alt="loading..." data-bind="visible: $root.sendingData" style="vertical-align: middle;" />
+        </div>
+        <section class="error" data-bind="visible: errors().length > 0">
+            The following errors occurred while validating the form:
+            <ul data-bind="foreach: errors" style="margin-bottom: 0;">
+                <li data-bind="text: $data"></li>
+            </ul>
+        </section>
+    </section>
+
+    <section id="success" class="success" style="display: none">
+        <p>Thank you for filling in this form! We will consider this information top secret, and will definitely <i>not</i> sell it to advertisers or foreign governments.</p>
+        <p>Have a nice day!</p>
+    </section>
 
     <script type="text/javascript">
-        <%= request.getAttribute(Controller.VIEWMODEL_ATTRIBUTE) %>
-        _viewModel.errors = ko.observableArray();
-        _viewModel.submit = function() {
-            if(_viewModel.root.valid())
-                $.ajax({
-                    data : _viewModel.root.collectValues(),
-                    dataType : 'json',
-                    method : 'post',
-                    statusCode: {
-                        200 : function() {
-                            alert("Form sent sucessfully! You are win!");
-                        },
-                        400 : function(data) {
-                            _viewModel.errors($.parseJSON(data.responseText).errors);
+        (function() {
+            _viewModel = <%= request.getAttribute(Controller.VIEWMODEL_ATTRIBUTE) %>;
+            _viewModel.errors = ko.observableArray();
+            _viewModel.sendingData = ko.observable(false);
+            _viewModel.submit = function() {
+                if(_viewModel.sendingData() == false && _viewModel.root.valid()) {
+                    _viewModel.sendingData(true);
+                    $.ajax({
+                        data : _viewModel.root.collectValues(),
+                        dataType : 'json',
+                        method : 'post',
+                        statusCode: {
+                            200 : function() {
+                                $("#form").fadeOut(
+                                    500,
+                                    function() { $("#success").fadeIn(500); }
+                                );
+                            },
+                            400 : function(data) {
+                                _viewModel.errors($.parseJSON(data.responseText).errors);
+                                _viewModel.sendingData(false);
+                            }
                         }
-                    }
-                });
-        }
-        ko.applyBindings(_viewModel);
+                    });
+                }
+            }
+            ko.applyBindings(_viewModel);
+        })();
     </script>
 </body>
 </html>
