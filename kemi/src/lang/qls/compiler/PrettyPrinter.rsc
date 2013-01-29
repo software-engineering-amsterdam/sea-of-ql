@@ -40,10 +40,11 @@ public str prettyPrint(Statement s:
     '  <prettyPrint(e)><}>
     '}
     '";
-
+/*
 public str prettyPrint(ClassRule r: 
   classRule(str ident)) =
     "<ident>";
+*/
 
 public str prettyPrint(StyleRule r: 
   typeStyleRule(str attr, TypeStyleValue \value: radio())) =
