@@ -19,8 +19,12 @@ public class BoolType extends Type {
 		Container c = new Container();
 		c.setLayout(new MigLayout("ins 1"));
 		CheckboxGroup group = new CheckboxGroup();
-		c.add(new Checkbox("Yes", group, false));
-		c.add(new Checkbox("No", group, false));
+		Checkbox yes = new Checkbox("Yes", group, false);
+		Checkbox no = new Checkbox("No", group, false);
+		yes.setEnabled(enabled);
+		no.setEnabled(enabled);
+		c.add(yes);
+		c.add(no);
 		return c;
 	}
 }
