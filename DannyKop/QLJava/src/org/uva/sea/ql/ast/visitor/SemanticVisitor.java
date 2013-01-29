@@ -1,21 +1,26 @@
 package org.uva.sea.ql.ast.visitor;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.uva.sea.ql.ast.*;
 import org.uva.sea.ql.ast.expressions.binary.*;
 import org.uva.sea.ql.ast.expressions.unary.*;
 import org.uva.sea.ql.ast.form.*;
+import org.uva.sea.ql.ast.visitor.messages.*;
+import org.uva.sea.ql.ast.visitor.messages.Error;
 
 public class SemanticVisitor implements Visitor {
 	
 	private SymbolTable st = new SymbolTable();
-	private StringBuilder result = new StringBuilder();
+	private List<Message> errors = new ArrayList<Message>();
 
 	/**
 	 * getResult
 	 * @return result
 	 */
-	public StringBuilder getResult(){
-		return this.result;
+	public List<Message> getErrors(){
+		return this.errors;
 	}
 	/**
 	 * Elements, nodes
@@ -32,15 +37,15 @@ public class SemanticVisitor implements Visitor {
 	@Override
 	public void visit(Question q) {
 		if(!st.addToTable(q.getIdent(), q.getType(st))){
-			result.append("Error in question: identifier of the question already exists (id:"
+			errors.add(new Error("identifier of the question already exists"
 							+ q.getIdent().getName()+" && question:"
-							+ q.getQuestion().getValue() + ")\n");
+							+ q.getQuestion().getValue() + ")"));
 		}
 	}
 	@Override
 	public void visit(Computation c) {
 		if(st.hasIdentifier(c.getIdent())){
-			result.append("Error in computation: identifier (" + c.getIdent().getName() + ") does already exists\n");
+			errors.add(new Error("Error in computation: identifier (" + c.getIdent().getName() + ") does already exists"));
 		}
 		st.addToTable(c.getIdent(),	c.getType(st));
 		
@@ -48,18 +53,18 @@ public class SemanticVisitor implements Visitor {
 		
 		Expr type = c.getType(st);
 		if(!type.isCompatibleWithInt() || !type.isCompatibleWithMoney()){
-			result.append("Error in computation: computation is only for numerics\n");
+			errors.add(new Error("computation is only for numerics"));
 		}
 		type = c.getArgument();
 		if(!type.isCompatibleWithInt() || !type.isCompatibleWithMoney()){
-			result.append("Error in computation: computation is only for numerics\n");
+			errors.add(new Error("computation is only for numerics"));
 		}
 	}
 	@Override
 	public void visit(Condition c) {		
 		c.getIf().accept(this);
 		if(c.getIfElements().isEmpty()){
-			result.append("Warning in if/else: if statement has no elements\n");
+			errors.add(new Warning("if statement has no elements"));
 		}
 		for(FormElement fe : c.getIfElements()){
 			fe.accept(this);
@@ -68,7 +73,7 @@ public class SemanticVisitor implements Visitor {
 	@Override
 	public void visit(Ident i) {
 		if(!st.hasIdentifier(i)){
-			result.append("Error with identifier: identifier does not exist\n") ;
+			errors.add(new Error("identifier does not exist (" + i.getName() + ")"));
 		} 
 	}
 	@Override
@@ -77,16 +82,16 @@ public class SemanticVisitor implements Visitor {
 		b.getRight().accept(this);
 		
 		if(!b.getLeft().getType(st).isCompatibleTo(b.getRight().getType(st))){
-			result.append("Error with binexpr: incompatible types used\n");
+			errors.add(new Error("incompatible types used in binExpr"));
 		} 
 		if(!b.getType(st).isCompatibleTo(b.getLeft().getType(st))){
-			result.append("Error with binexpr: incompatible types used for this operator\n");
+			errors.add(new Error("incompatible types used for this operator in the binExpr"));
 		}
 	}
 	@Override
 	public void visit(UnaryExpr u) {			
 		if(!u.getArgument().getType(st).isCompatibleTo(u.getType(st))){
-			result.append("Error with unaryexpr: type of argument not compatible with unary expression\n");
+			errors.add(new Error("argument for unaryexpr does not belong to the expression type"));
 		}
 	}
 	@Override
