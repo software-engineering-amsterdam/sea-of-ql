@@ -15,7 +15,7 @@ public class Question extends Statement {
 	private final String sentence; 
 	private final Type returnType; 
 	
-	//TODO Kan twee keer in tavbel voorkomen als zelfde type. 
+	//TODO Kan twee keer in tabel voorkomen als zelfde type. 
 	
 	public Question(Ident ident, String sentence , Type returnType){
 		this.name = ident; 

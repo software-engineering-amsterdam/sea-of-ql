@@ -32,23 +32,24 @@ public class TestForms {
 	}
 
 	
-	//@Test
+	@Test
 	public void testBasicForms() throws ParseError {
 		assertEquals(Form.class,parser.parseForm("form basicForm1 { question1 : \"Is everything ok? \" boolean }").getClass());
 		assertEquals(Form.class,parser.parseForm("form basicForm2 { question1 : \"How much does a burge cost? \" money }").getClass());
 		assertEquals(Form.class,parser.parseForm("form basicForm2 { question1 : \"Total money spent: \" money( 5 * 18) }").getClass());
 	}
 	
-	//@Test
+	@Test
 	public void testComplForms() throws ParseError {
 		assertEquals(Form.class, parser.parseForm("" +
 				"form testForm1 { question1 : \"How are you? \" boolean " +
-				"question2 : \"Good? \" money " +
-				"question3 : \"Better? \" money(8 * 7) " + 
-				"question4 : \"Best? \" boolean }").getClass());
+					"question2 : \"Good? \" money " +
+					"question3 : \"Better? \" money(8 * 7) " + 
+					"question4 : \"Best? \" boolean " +
+					"}").getClass());
 	}
 	
-	//@Test
+	@Test
 	public void testIfForms() throws ParseError {
 		assertEquals(Form.class, parser.parseForm(
 				"form Box1HouseOwning {" +
@@ -64,7 +65,7 @@ public class TestForms {
 					"}").getClass());
 	}
 	
-	//@Test
+	@Test
 	public void testIfThenForms() throws ParseError {
 		assertEquals(Form.class, parser.parseForm(
 				"form Box1HouseOwning {" +
@@ -82,7 +83,7 @@ public class TestForms {
 					"}").getClass());
 	}
 	
-	//@Test
+	@Test
 	public void testNestedIfForms() throws ParseError {
 		assertEquals(Form.class, parser.parseForm(
 				"form Box1HouseOwning {" +
@@ -105,7 +106,7 @@ public class TestForms {
 					"}").getClass());
 	}
 	
-	//@Test
+	@Test
 	public void testFormTypes() throws ParseError {
 		assertEquals(0, parser.parseForm(
 				"form Box1HouseOwning {" +
@@ -142,11 +143,22 @@ public class TestForms {
 						"} " +
 					"}").checkType(new HashMap<Ident, Type>()).size());
 		
-		assertEquals(0, parser.parseForm(
+		assertEquals(2, parser.parseForm(
 				"form Box1HouseOwning {" +
-					"hasSoldHouse: \"For how much did you sell your house?\" money " +
+					"hasSoldHouse: \"For how much did you sell your house?\" boolean " +
 					"if (hasSoldHouse > 10000) {" +
 						"hasSoldHouse: \"Price the house was sold for:\" money " +
+						"} " +
+					"else { sellingPrice: \"lastquestion:\" money " +
+						"} " +
+					"}").checkType(new HashMap<Ident, Type>()).size());
+		
+		assertEquals(2, parser.parseForm(
+				"form Box1HouseOwning {" +
+					"hasSoldHouse: \"For how much did you sell your house?\" money(5+10) " +
+					"hasSoldHouse2: \"Price the house was sold for:\" boolean " +
+					"if (hasSoldHouse3 > true) {" +
+						"hasSoldHouse: \"Price the house was sold for:\" boolean " +
 						"} " +
 					"else { sellingPrice: \"lastquestion:\" money " +
 						"} " +
@@ -154,20 +166,4 @@ public class TestForms {
 
 	}
 	
-	@Test
-	public void testFormTypes2() throws ParseError {
-		assertEquals(2, parser.parseForm(
-				"form Box1HouseOwning {" +
-					"hasSoldHousr: \"For how much did you sell your house?\" money(5+10) " +
-					"hasSoldHouse2: \"Price the house was sold for:\" boolean " +
-//					"if (hasSoldHouse > 10000) {" +
-//						"hasSoldHouse: \"Price the house was sold for:\" boolean " +
-//						"} " +
-//					"else { sellingPrice: \"lastquestion:\" money " +
-//						"} " +
-					"}").checkType(new HashMap<Ident, Type>()).size());
-		
-	}
-	
-
 }

@@ -5,25 +5,26 @@ import java.util.List;
 import java.util.Map;
 
 import org.uva.sea.ql.ast.type.Type;
+import org.uva.sea.ql.ast.type.UndefinedType;
 import org.uva.sea.ql.interpreter.StringVal;
 import org.uva.sea.ql.interpreter.Value;
 import org.uva.sea.ql.message.Message;
 
 public class Ident extends Expr {
 
-	private final String value;//TODO change to name
+	private final String name;//TODO change to name
 
-	public Ident(String value) {
-		this.value = value;
+	public Ident(String name) {
+		this.name = name;
 	}
 	
-	public String getValue() {
-		return value;
+	public String getName() {
+		return name;
 	}
 
 	@Override
 	public Value interpret() {
-		return new StringVal(getValue());
+		return new StringVal(this.name);
 	}
 
 	@Override
@@ -32,33 +33,35 @@ public class Ident extends Expr {
 			return typeEnv.get(this);
 		}
 		else{
-			//TODO return error
-			return null;
+			return new UndefinedType();
 		}
 		
 	}
 
 	@Override
 	public List<Message> checkType(Map<Ident, Type> typeEnv) {
-		return new ArrayList<Message>();
+		List<Message> errors = new ArrayList<Message>(); 
+		
+			if(typeEnv.containsKey(this.name)){
+				
+			}
+		
+		return errors; 
 	}
 	
 	@Override
 	public void fillIdents(Map<Ident, Type> input) {
-		// TODO Auto-generated method stub
 		super.fillIdents(input);
 	}
 	
 	@Override
 	public boolean equals(Object obj) {
-		// TODO Auto-generated method stub
-		return ((Ident)obj).getValue().equals(this.value);
+		return ((Ident)obj).getName().equals(this.name);
 	}
 	
 	@Override
-	public int hashCode() { //TODO WIKI hashtables en hoe dit werkt. 
-		// TODO Auto-generated method stub
-		return value.hashCode();
+	public int hashCode() { 
+		return name.hashCode();
 	}
 	
 }
