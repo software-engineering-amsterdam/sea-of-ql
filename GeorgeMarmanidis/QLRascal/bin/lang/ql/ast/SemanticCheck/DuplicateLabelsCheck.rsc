@@ -1,7 +1,7 @@
 @contributor{George Marmanidis -geo.marmani@gmail.com}
-module lang::ql::ast::SemanticCheck::DuplicateLabelsCheck
+module lang::ql::ast::semanticcheck::DuplicateLabelsCheck
 
-import lang::ql::ast::SemanticCheck::utilities;
+import lang::ql::ast::semanticcheck::TypeEnvUtils;
 
 //For each symbol in Type Enviroment (env)
 //we check if the labels are the same. In this case, if the ident is also the same

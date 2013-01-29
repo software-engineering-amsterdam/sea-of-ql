@@ -2,11 +2,11 @@ package org.uva.sea.ql.validation;
 
 import java.io.IOException;
 
-import org.uva.sea.ql.ast.Expr;
 import org.uva.sea.ql.ast.elements.Form;
+import org.uva.sea.ql.ast.expressions.Expr;
+import org.uva.sea.ql.common.ASTVisitor;
+import org.uva.sea.ql.common.VisitorException;
 import org.uva.sea.ql.parser.ParseError;
-import org.uva.sea.ql.visitor.ASTVisitor;
-import org.uva.sea.ql.visitor.VisitorException;
 
 public class Validator {
 	public void validate(Expr e) throws IOException, AstValidationError {

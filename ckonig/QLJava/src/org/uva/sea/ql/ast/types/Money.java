@@ -1,7 +1,7 @@
 package org.uva.sea.ql.ast.types;
 
-import org.uva.sea.ql.ast.Expr;
-import org.uva.sea.ql.ast.ReturnsMathOperands;
+import org.uva.sea.ql.ast.expressions.Expr;
+import org.uva.sea.ql.ast.interfaces.ReturnsMathOperands;
 
 public class Money extends Type implements ReturnsMathOperands {
 	private Expr expr;
