@@ -1,8 +1,8 @@
 package ast.visitors;
 
-import ast.exprs.binary.*;
-import ast.exprs.unary.*;
-import ast.exprs.value.*;
+import ast.expression.binary.*;
+import ast.expression.unary.*;
+import ast.expression.value.*;
 
 public interface Visitor<T> {
 	T visit(Add add);

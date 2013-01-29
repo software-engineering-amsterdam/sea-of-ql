@@ -1,7 +1,7 @@
 package parser.tests;
 
-import ast.Expr;
+import ast.Expression;
 
 public interface IParse {
-	Expr parse(String src) throws ParseError;
+	Expression parse(String src) throws ParseError;
 }

@@ -1,6 +1,6 @@
 package org.uva.sea.ql.parser;
 
-import org.uva.sea.ql.visitor.VisitorException;
+import org.uva.sea.ql.common.VisitorException;
 
 public class ParseError extends VisitorException {
 	private static final long serialVersionUID = 1L;

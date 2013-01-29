@@ -1,9 +1,9 @@
 package org.uva.sea.ql.validation;
 
-import org.uva.sea.ql.ast.Expr;
+import org.uva.sea.ql.ast.expressions.Expr;
+import org.uva.sea.ql.common.VisitorException;
 import org.uva.sea.ql.parser.IParse;
 import org.uva.sea.ql.parser.antlr.ANTLRParser;
-import org.uva.sea.ql.visitor.VisitorException;
 
 public class ValidationRunner {
 

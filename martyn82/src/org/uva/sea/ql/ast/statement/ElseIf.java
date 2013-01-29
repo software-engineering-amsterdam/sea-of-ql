@@ -1,13 +1,12 @@
 package org.uva.sea.ql.ast.statement;
 
-import org.uva.sea.ql.ast.Node;
 import org.uva.sea.ql.ast.expression.Expression;
 import org.uva.sea.ql.visitor.IStatementVisitor;
 
 /**
  * Represents an ElseIf block.
  */
-public class ElseIf extends Node {
+public class ElseIf extends Statement {
 	/**
 	 * Holds the condition of the ELSE-IF.
 	 */
@@ -43,6 +42,7 @@ public class ElseIf extends Node {
 	 *
 	 * @param visitor
 	 */
+	@Override
 	public <T> T accept( IStatementVisitor<T> visitor ) {
 		return visitor.visit( this );
 	}

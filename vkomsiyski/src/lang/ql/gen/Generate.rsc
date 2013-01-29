@@ -18,7 +18,7 @@ public str generate(node input) {
 	src += addBody2();
 	src += addVisibility(widgets);
 	src += addBody3();
-	src += addSubmit(widgets);
+	src += addSubmit(widgets, env.declarations);
 	src += addBody4();
 
 	return src;
@@ -50,10 +50,10 @@ private str addVisibility(list[Widget] widgets) {
 }
   
   
-private str addSubmit(list[Widget] widgets) {
+private str addSubmit(list[Widget] widgets, Declarations d) {
 	src = "";
-	for (widget:<name, \type, _, _, _> <- widgets) 
-		src += submitWidget(\type, name);
+	for (widget <- widgets) 
+		src += submitWidget(widget.name, d);
 	return src;
 }
  

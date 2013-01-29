@@ -28,7 +28,10 @@ public class And extends BinExpr {
 
 	@Override
 	public ExpressionResult eval(HashMap<String, Statement> symbolMap) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+		// TODO and check type
+		ExpressionResult leftHandresult = getExprLeftHand().eval(symbolMap);
+		ExpressionResult rightHandResult = getExprRightHand().eval(symbolMap);
+
+		return new BooleanResult(leftHandresult.getBooleanValue() && rightHandResult.getBooleanValue());
+}
 }

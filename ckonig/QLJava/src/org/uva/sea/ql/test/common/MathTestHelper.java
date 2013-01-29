@@ -5,11 +5,15 @@ import static org.junit.Assert.assertEquals;
 import org.uva.sea.ql.ast.elements.Ident;
 import org.uva.sea.ql.parser.ParseError;
 
-public class MathTestHelper extends TestHelper {
+public class MathTestHelper extends TestHelper<MathTestHelper> {
 	boolean processFirst;
 
-	public MathTestHelper(Class<?> c) {
-		super(c);
+	public MathTestHelper(TestParser parser) {
+		super(parser);		
+	}
+	
+	public MathTestHelper setClass(Class<?> c){
+		setClassAndString(c);
 		switch (this.asString) {
 		case "+":
 			this.processFirst = false;
@@ -30,6 +34,7 @@ public class MathTestHelper extends TestHelper {
 			this.processFirst = false;
 			break;
 		}
+		return this;
 	}
 
 	public void testMathOperations(MathTestHelper opposite) throws ParseError {
@@ -60,29 +65,29 @@ public class MathTestHelper extends TestHelper {
 		if (this.processFirst && !opposite.processFirst) {
 			assertEquals(
 					opposite.asClass,
-					CurrentTest.parse(
+					parser.parse(
 							"a " + this.asString + " b " + opposite.asString
 									+ " c").getClass());
 			assertEquals(
 					opposite.asClass,
-					CurrentTest.parse(
+					parser.parse(
 							"a " + this.asString + " b " + opposite.asString
 									+ " c").getClass());
 			assertEquals(
 					opposite.asClass,
-					CurrentTest.parse(
+					parser.parse(
 							"a " + this.asString + " b " + opposite.asString
 									+ " c " + opposite.asString + " d")
 							.getClass());
 			assertEquals(
 					opposite.asClass,
-					CurrentTest.parse(
+					parser.parse(
 							"a " + opposite.asString + " d " + this.asString
 									+ " b " + opposite.asString + " c")
 							.getClass());
 			assertEquals(
 					opposite.asClass,
-					CurrentTest.parse(
+					parser.parse(
 							"a " + opposite.asString + " b "
 									+ opposite.asString + " c " + this.asString
 									+ " e").getClass());
@@ -90,12 +95,12 @@ public class MathTestHelper extends TestHelper {
 		if (opposite.processFirst && !this.processFirst) {
 			assertEquals(
 					this.asClass,
-					CurrentTest.parse(
+					parser.parse(
 							"a " + this.asString + " b " + opposite.asString
 									+ " c").getClass());
 			assertEquals(
 					this.asClass,
-					CurrentTest.parse(
+					parser.parse(
 							"a " + this.asString + " b " + opposite.asString
 									+ " c").getClass());
 		}

@@ -18,16 +18,6 @@ import org.uva.sea.ql.ast.type.*;
 package org.uva.sea.ql.parser.antlr;
 }
 
-/*
-form mia klasi pou einai olo to form Box1{}
-xwrizw to paradeigmatiko se kommatia
-question 
-computed question: px 
-
-*/
-
-//http://www.antlr.org/wiki/display/ANTLR3/Interfacing+AST+with+Java
-
 primary returns [Expr result]
   : Int   { $result = new Int(Integer.parseInt($Int.text)); }
   | Ident { $result = new Ident($Ident.text); }
@@ -101,11 +91,6 @@ orExpr returns [Expr result]
     ;
 
 
-
-// types definitions here
-
-
-
 NEWLINE : ('\n' | '\r')
     ;
 
@@ -116,7 +101,7 @@ COMMENT
      : '/*' .* '*/' {$channel=HIDDEN;}
     ;
 Bool: ('true' | 'false'); 
-//prosoxi me to ident, xreiazetai?
+
 Ident:   ('a'..'z'|'A'..'Z')('a'..'z'|'A'..'Z'|'0'..'9'|'_')*;
 
 Int: ('0'..'9')+;
