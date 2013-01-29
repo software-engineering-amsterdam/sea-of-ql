@@ -6,7 +6,7 @@ import org.junit.Test;
 import org.uva.sea.ql.ast.QLProgram;
 import org.uva.sea.ql.ast.nodevisitor.PrintVisitor;
 import org.uva.sea.ql.ast.nodevisitor.PrintVisitorResult;
-import org.uva.sea.ql.ast.nodevisitor.SemanticCheckVisitor;
+import org.uva.sea.ql.ast.nodevisitor.TypeCheckVisitor;
 
 public class TestVisitor extends TestCase {
 	static final private IParse parser = new ANTLRParser();
@@ -57,16 +57,16 @@ public class TestVisitor extends TestCase {
 
 	@Test
 	public void testSemanticVisitor() throws ParseError {
-		SemanticCheckVisitor svis = new SemanticCheckVisitor();
+		TypeCheckVisitor svis = new TypeCheckVisitor();
 		QLProgram qlp;
 
-		String a33 = "form DoIt { field: \"doit\" money if ( field == 100  ) { fieldTwo : \"hello world!\" money( 20 < 20 ) }}";
+		String a33 = "form DoIt { field: \"doit\" money if ( field == 100.0  ) { fieldTwo : \"hello world!\" money( 20 < 20 ) }}";
 		qlp = parser.qlprogram(a33);
 		qlp.accept(svis);
 		for (String errorSting : svis.getErrorList())
 			System.out.println(errorSting);
 		
-		String a34 = "form DoIt { field: \"doit\" money if ( field < 100 ) { fieldTwo : \"hello world!\" money( 20 + 20 ) }}";
+		String a34 = "form Do { f1: \"a\" money if ( f1 < 100.0 ) { f2 : \"a\" money( f1 + 20 * 1.0 + f2 + 20.0 + 20 * 20 * 20.0 * f1) }}";
 		qlp = parser.qlprogram(a34);
 		qlp.accept(svis);
 		for (String errorSting : svis.getErrorList())

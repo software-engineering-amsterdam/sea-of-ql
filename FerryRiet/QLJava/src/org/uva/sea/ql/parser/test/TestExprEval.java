@@ -39,7 +39,7 @@ public class TestExprEval extends TestCase {
 		assertEquals(parser.expr("int1 + int1").eval(symbols).getValue(), 200);
 		assertEquals(parser.expr("10 + 100").eval(symbols).getValue(), 10 + 100);
 		assertEquals(parser.expr("10 + 100").eval(symbols).getValue(), 10 + 100);
-		assertEquals(parser.expr("10 + 100 * 100 + 10 ").eval(null).getValue(), 10020);
+		assertEquals(parser.expr("10 + 100 * 100 + 10 / 10  ").eval(null).getValue(), 10011);
 		assertEquals(parser.expr("money1 < money2").eval(symbols).getBooleanValue(), true);
 		assertEquals(parser.expr("money2 < money1").eval(symbols).getBooleanValue(), false);
 		assertEquals(parser.expr("money1 < 100").eval(symbols).getBooleanValue(), true);

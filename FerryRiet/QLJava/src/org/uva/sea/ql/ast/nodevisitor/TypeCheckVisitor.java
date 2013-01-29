@@ -34,7 +34,7 @@ import org.uva.sea.ql.ast.operators.Sub;
 import org.uva.sea.ql.ast.types.TypeDescription;
 import org.uva.sea.ql.ast.types.BooleanType;
 
-public class SemanticCheckVisitor implements Visitor {
+public class TypeCheckVisitor implements Visitor {
 
 	private final List<String> errorList = new ArrayList<String>();
 
@@ -49,8 +49,7 @@ public class SemanticCheckVisitor implements Visitor {
 			/***
 			 * Ident is not previous defined
 			 */
-			errorList.add("Line(" + id.getLine() + ","
-					+ id.getCharPositionInLine() + ") Field :" + id.getName()
+			errorList.add("Line(" + id.getLine() + "," + id.getCharPositionInLine() + ") Field :" + id.getName()
 					+ " is not defined.");
 		}
 		return null;
@@ -84,14 +83,12 @@ public class SemanticCheckVisitor implements Visitor {
 		// Add symbols to the symbolmap so the visitor of the
 		// expression can test their existance.
 		if (symbolMap.get(lineStatement.getLineId().getName()) == null) {
-			// New symbol in map
+			// New symbol in map .get returned null
 			symbolMap.put(lineStatement.getLineId().getName(), lineStatement);
 		} else {
 			// Error Symbol allready exists.
-			errorList.add("Line(" + lineStatement.getLine() + ","
-					+ lineStatement.getCharPositionInLine() + ") Field :"
-					+ lineStatement.getLineName()
-					+ " has multiple definitions.");
+			errorList.add("Line(" + lineStatement.getLine() + "," + lineStatement.getCharPositionInLine() + ") Field :"
+					+ lineStatement.getLineName() + " has multiple definitions.");
 		}
 		lineStatement.getTypeDescription().accept(this);
 
@@ -106,11 +103,9 @@ public class SemanticCheckVisitor implements Visitor {
 	public VisitorResult visit(final ConditionalStatement conditionalStatement) {
 		conditionalStatement.getExpression().accept(this);
 
-		if (!conditionalStatement.getExpressionType(symbolMap).isCompatibleTo(
-				new BooleanType())) {
+		if (!conditionalStatement.getExpressionType(symbolMap).isCompatibleTo(new BooleanType())) {
 			// If expression not of type boolean
-			errorList
-					.add("Line(nan,nan) If (Expression) : not of type boolean.");
+			errorList.add("Line(nan,nan) If (Expression) : not of type boolean.");
 		}
 		conditionalStatement.getTrueCompound().accept(this);
 		if (conditionalStatement.getFalseCompound() != null) {
@@ -125,31 +120,30 @@ public class SemanticCheckVisitor implements Visitor {
 	}
 
 	private boolean lhsRhsCompatible(BinExpr expr, String operator) {
-		//
-		// TODO type checking fails on money == integer
-		//
 		expr.getExprLeftHand().accept(this);
 		expr.getExprRightHand().accept(this);
 
-		if (!(expr.getExprLeftHand().typeOf(symbolMap).isCompatibleTo(expr
-				.getExprRightHand().typeOf(symbolMap)))) {
-			/***
-			 * TODO : Due to empty AST expression node no availble line
-			 * numbers/positions. (Annotation of AST would be nice?)
-			 */
-			errorList
-					.add("Line(nan,nan) Expression: incompatible types on operator: "
-							+ operator + ".");
-			return false;
+		// Do two checks on compatability because Money is compatible to Integer
+		// but not the other way around. The order in the expression is unknown
+		//
+		if ((expr.getExprLeftHand().typeOf(symbolMap).isCompatibleTo(expr.getExprRightHand().typeOf(symbolMap)))) {
+			return true;
 		}
-		return true;
+		if ((expr.getExprRightHand().typeOf(symbolMap).isCompatibleTo(expr.getExprLeftHand().typeOf(symbolMap)))) {
+			return true;
+		}
+		
+		/***
+		 * Due to empty AST expression nodes no availble line
+		 * numbers/positions. (Annotation of AST would be nice?)
+		 */
+		errorList.add("Line(nan,nan) Expression: incompatible types on operator: " + operator + ".");
+		return false;
 	}
 
 	private boolean rhsCompatible(final Expr opExpr, final Expr rhs, final String operator) {
 		if (!opExpr.typeOf(symbolMap).isCompatibleTo(rhs.typeOf(symbolMap))) {
-			errorList
-					.add("Line(nan,nan) Expression: incompatible operands on operator:"
-							+ operator + ".");
+			errorList.add("Line(nan,nan) Expression: incompatible operands on operator:" + operator + ".");
 			return false;
 		}
 		return true;
@@ -212,10 +206,8 @@ public class SemanticCheckVisitor implements Visitor {
 	@Override
 	public VisitorResult visit(final GT expr) {
 		if (lhsRhsCompatible(expr, ">")) {
-			if (expr.typeOf(symbolMap).isCompatibleTo(
-					expr.getExprLeftHand().typeOf(symbolMap))) {
-				errorList
-						.add("Line(nan,nan) Expression: operator < on boolean operands.");
+			if (expr.typeOf(symbolMap).isCompatibleTo(expr.getExprLeftHand().typeOf(symbolMap))) {
+				errorList.add("Line(nan,nan) Expression: operator < on boolean operands.");
 			}
 		}
 		return null;
@@ -224,10 +216,8 @@ public class SemanticCheckVisitor implements Visitor {
 	@Override
 	public VisitorResult visit(final LT expr) {
 		if (lhsRhsCompatible(expr, "<")) {
-			if (expr.typeOf(symbolMap).isCompatibleTo(
-					expr.getExprLeftHand().typeOf(symbolMap))) {
-				errorList
-						.add("Line(nan,nan) Expression: operator < on boolean operands.");
+			if (expr.typeOf(symbolMap).isCompatibleTo(expr.getExprLeftHand().typeOf(symbolMap))) {
+				errorList.add("Line(nan,nan) Expression: operator < on boolean operands.");
 			}
 		}
 		return null;
@@ -236,10 +226,8 @@ public class SemanticCheckVisitor implements Visitor {
 	@Override
 	public VisitorResult visit(final LEq expr) {
 		if (lhsRhsCompatible(expr, "<=")) {
-			if (expr.typeOf(symbolMap).isCompatibleTo(
-					expr.getExprLeftHand().typeOf(symbolMap))) {
-				errorList
-						.add("Line(nan,nan) Expression: operator < on boolean operands.");
+			if (expr.typeOf(symbolMap).isCompatibleTo(expr.getExprLeftHand().typeOf(symbolMap))) {
+				errorList.add("Line(nan,nan) Expression: operator < on boolean operands.");
 			}
 		}
 		return null;
@@ -248,10 +236,8 @@ public class SemanticCheckVisitor implements Visitor {
 	@Override
 	public VisitorResult visit(final GEq expr) {
 		if (lhsRhsCompatible(expr, ">=")) {
-			if (expr.typeOf(symbolMap).isCompatibleTo(
-					expr.getExprLeftHand().typeOf(symbolMap))) {
-				errorList
-						.add("Line(nan,nan) Expression: operator > on boolean operands.");
+			if (expr.typeOf(symbolMap).isCompatibleTo(expr.getExprLeftHand().typeOf(symbolMap))) {
+				errorList.add("Line(nan,nan) Expression: operator > on boolean operands.");
 			}
 		}
 		return null;
