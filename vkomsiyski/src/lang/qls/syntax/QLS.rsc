@@ -1,6 +1,7 @@
 module lang::qls::syntax::QLS
 
-start syntax FormStyle = @Foldable style: StyleRule* rules;
+start syntax FormStyle 
+   = @Foldable style: "stylesheet" Ident name ";" StyleRule* rules;
 
 syntax StyleRule
   = @Foldable typed: Type type "{" Rule+ "}"
@@ -29,7 +30,8 @@ lexical Type
 
 lexical Widget
   = @category="Variable" checkbox: "checkbox"
-  | @category="Variable" radio: "radio";
+  | @category="Variable" radio: "radio"
+  ;
 
 lexical Ident = ([a-z A-Z 0-9 _] !<< [a-z A-Z][a-z A-Z 0-9 _]* !>> [a-z A-Z 0-9 _]) \ Keywords;
 
@@ -41,7 +43,13 @@ lexical Font = @category="Variable" String;
 
 lexical Numeric 
   = @category="Variable" Int 
-  | @category="Variable" Float;
+  | @category="Variable" Float
+  | @category="Variable" NegativeInt
+  | @category="Variable" NegativeFloat;
+
+lexical NegativeInt = "-" Int;
+
+lexical NegativeFloat = "-" Float;
 
 lexical Int = [0-9]+ !>> [0-9];
 
@@ -64,7 +72,7 @@ lexical Whitespace
      \u2000-\u200A \u2028 \u2029 \u202F \u205F \u3000]; 
 
 
-keyword Keywords = "group" | "page" | 
+keyword Keywords = "group" | "page" | "stylesheet" |
 					"bool" | "int" | "string" | "float" | "date" |
 					"true" | "false" |
 					"color" | "widget" | "font" | "minimum" | "maximum" | "width" | "stepSize" |

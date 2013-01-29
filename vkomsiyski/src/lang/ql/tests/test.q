@@ -7,7 +7,7 @@ form test {
      float sellingPrice = "Price the house was sold for:" 
      float privateDebt = "Private debts for the sold house:" 
      float valueResidue = "Value residue:" (sellingPrice - privateDebt)  
-   }
+   }  
     
    date DateQ = "Enter your birthday:" 
    bool over = "You are at least 18 yo" (DateQ <=  28.1.1994)
