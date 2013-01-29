@@ -6,11 +6,9 @@ import org.uva.sea.ql.ast.primary.Bool;
 import org.uva.sea.ql.ast.primary.Ident;
 import org.uva.sea.ql.ast.primary.Int;
 import org.uva.sea.ql.ast.unary.Not;
-import org.uva.sea.ql.ast.unary.UnaryOperation;
 import org.uva.sea.ql.visitor.typechecking.errors.UnsupportedTypeError;
 
-import static junit.framework.Assert.assertEquals;
-import static junit.framework.Assert.assertTrue;
+import static junit.framework.Assert.*;
 
 public class UnaryOperationTypeCheckingVisitorTest {
 
@@ -24,45 +22,44 @@ public class UnaryOperationTypeCheckingVisitorTest {
     @Test
     public void shouldReduceProperly() {
         Bool expression = new Bool(true);
-        UnaryOperation unaryOperation = new Not(expression);
-        typeCheckingVisitor.visitDatatype(expression);
-        typeCheckingVisitor.visitUnaryOperation(unaryOperation);
+        Not unaryOperation = new Not(expression);
 
+        boolean notCorrect = typeCheckingVisitor.visitNot(unaryOperation);
         assertEquals(0, typeCheckingVisitor.getErrors().size());
+        assertTrue(notCorrect);
     }
 
     @Test
     public void shouldNotReduceProperlyForUnknownIdentifier() {
         Ident unknownIdent = new Ident("identifier");
-        UnaryOperation unaryOperation = new Not(unknownIdent);
-        typeCheckingVisitor.visitUnaryOperation(unaryOperation);
+        Not unaryOperation = new Not(unknownIdent);
 
+        boolean notCorrect = typeCheckingVisitor.visitNot(unaryOperation);
         assertEquals(1, typeCheckingVisitor.getErrors().size());
         assertTrue(typeCheckingVisitor.getErrors().get(0) instanceof UnsupportedTypeError);
+        assertFalse(notCorrect);
     }
 
     @Test
     public void shouldDetectTypeError() {
         Int expression = new Int(0);
-        UnaryOperation unaryOperation = new Not(expression);
-        typeCheckingVisitor.visitDatatype(expression);
-        typeCheckingVisitor.visitUnaryOperation(unaryOperation);
+        Not unaryOperation = new Not(expression);
 
+        boolean notCorrect = typeCheckingVisitor.visitNot(unaryOperation);
         assertEquals(1, typeCheckingVisitor.getErrors().size());
         assertTrue(typeCheckingVisitor.getErrors().get(0) instanceof UnsupportedTypeError);
+        assertFalse(notCorrect);
     }
 
     @Test
-    public void shouldCascadeErrorForNestedOperation() {
+    public void shouldNotCascadeErrorForNestedOperation() {
         Int expression = new Int(0);
-        UnaryOperation unaryOperation = new Not(expression);
-        UnaryOperation unaryOperation2 = new Not(unaryOperation);
-        typeCheckingVisitor.visitDatatype(expression);
-        typeCheckingVisitor.visitUnaryOperation(unaryOperation);
-        typeCheckingVisitor.visitUnaryOperation(unaryOperation2);
+        Not unaryOperation = new Not(expression);
+        Not unaryOperation2 = new Not(unaryOperation);
 
-        assertEquals(2, typeCheckingVisitor.getErrors().size());
+        boolean notCorrect = typeCheckingVisitor.visitNot(unaryOperation2);
+        assertEquals(1, typeCheckingVisitor.getErrors().size());
         assertTrue(typeCheckingVisitor.getErrors().get(0) instanceof UnsupportedTypeError);
-        assertTrue(typeCheckingVisitor.getErrors().get(1) instanceof UnsupportedTypeError);
+        assertFalse(notCorrect);
     }
 }

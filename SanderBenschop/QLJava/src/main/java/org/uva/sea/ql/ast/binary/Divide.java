@@ -1,21 +1,27 @@
 package org.uva.sea.ql.ast.binary;
 
 import org.uva.sea.ql.ast.QLExpression;
-import org.uva.sea.ql.ast.primary.Int;
-
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+import org.uva.sea.ql.ast.primary.typeClasses.IntegerType;
+import org.uva.sea.ql.ast.primary.typeClasses.Type;
+import org.uva.sea.ql.visitor.ASTNodeVisitor;
+import org.uva.sea.ql.visitor.typechecking.SymbolTable;
 
 public class Divide extends BinaryOperation {
 
-	public Divide(QLExpression leftHandSide, QLExpression rightHandSide) {
+    private final Type returningType;
+
+    public Divide(QLExpression leftHandSide, QLExpression rightHandSide) {
 		super(leftHandSide, rightHandSide);
+        this.returningType = new IntegerType();
 	}
 
     @Override
-    public List<Class<?>> getSupportedTypes() {
-        List<Class<?>> supportedTypes = Arrays.asList(new Class<?>[]{Int.class});
-        return Collections.unmodifiableList(supportedTypes);
+    public Type getType(SymbolTable symbolTable) {
+        return returningType;
+    }
+
+    @Override
+    public <T> T accept(ASTNodeVisitor<T> visitor) {
+        return visitor.visitDivide(this);
     }
 }

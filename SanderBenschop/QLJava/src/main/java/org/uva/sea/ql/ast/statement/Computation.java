@@ -31,9 +31,7 @@ public class Computation implements QLStatement {
 	}
 
     @Override
-    public void accept(ASTNodeVisitor visitor) {
-        identifier.accept(visitor);
-        expression.accept(visitor);
-        visitor.visitComputation(this);
+    public <T> T accept(ASTNodeVisitor<T> visitor) {
+        return visitor.visitComputation(this);
     }
 }

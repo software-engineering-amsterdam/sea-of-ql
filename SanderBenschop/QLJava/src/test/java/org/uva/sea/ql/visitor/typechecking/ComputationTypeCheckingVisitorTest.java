@@ -2,14 +2,15 @@ package org.uva.sea.ql.visitor.typechecking;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.uva.sea.ql.ast.binary.BinaryOperation;
 import org.uva.sea.ql.ast.binary.Multiply;
-import org.uva.sea.ql.ast.primary.*;
+import org.uva.sea.ql.ast.primary.Bool;
+import org.uva.sea.ql.ast.primary.Ident;
+import org.uva.sea.ql.ast.primary.Int;
+import org.uva.sea.ql.ast.primary.Str;
 import org.uva.sea.ql.ast.statement.Computation;
 import org.uva.sea.ql.visitor.typechecking.errors.UnsupportedTypeError;
 
-import static junit.framework.Assert.assertEquals;
-import static junit.framework.Assert.assertTrue;
+import static junit.framework.Assert.*;
 
 public class ComputationTypeCheckingVisitorTest {
 
@@ -25,9 +26,9 @@ public class ComputationTypeCheckingVisitorTest {
         Int number = new Int(0);
         Computation computation = new Computation(new Ident("test"), new Str("\"Label\""), number);
 
-        typeCheckingVisitor.visitDatatype(number);
-        typeCheckingVisitor.visitComputation(computation);
+        boolean computationCorrect = typeCheckingVisitor.visitComputation(computation);
         assertTrue(typeCheckingVisitor.getErrors().isEmpty());
+        assertTrue(computationCorrect);
     }
 
     @Test
@@ -35,49 +36,26 @@ public class ComputationTypeCheckingVisitorTest {
         Bool bool = new Bool(true);
         Computation computation = new Computation(new Ident("test"), new Str("\"Label\""), bool);
 
-        typeCheckingVisitor.visitDatatype(bool);
-        typeCheckingVisitor.visitComputation(computation);
-
+        boolean computationCorrect = typeCheckingVisitor.visitComputation(computation);
         assertEquals(1, typeCheckingVisitor.getErrors().size());
         assertTrue(typeCheckingVisitor.getErrors().get(0) instanceof UnsupportedTypeError);
+        assertFalse(computationCorrect);
     }
 
     @Test
     public void shouldMakeIdentifierReduceableIfExpressionIsReduceable() {
-        Datatype<?> leftHandSide = new Int(1);
-        Datatype<?> rightHandSide = new Int(3);
-        Datatype<?> rightHandSide2 = new Int(5);
-        BinaryOperation multiply = new Multiply(leftHandSide, rightHandSide);
+        Int leftHandSide = new Int(1);
+        Int rightHandSide = new Int(3);
+        Int rightHandSide2 = new Int(5);
+        Multiply multiply = new Multiply(leftHandSide, rightHandSide);
         Computation computation = new Computation(new Ident("test"), new Str("\"Label\""), multiply);
-        BinaryOperation divide = new Multiply(new Ident("test"), rightHandSide2);
+        Multiply multiply2 = new Multiply(new Ident("test"), rightHandSide2);
 
-        typeCheckingVisitor.visitDatatype(leftHandSide);
-        typeCheckingVisitor.visitDatatype(rightHandSide);
-        typeCheckingVisitor.visitDatatype(rightHandSide2);
-        typeCheckingVisitor.visitBinaryOperation(multiply);
-        typeCheckingVisitor.visitComputation(computation);
-        typeCheckingVisitor.visitBinaryOperation(divide);
+        boolean computationCorrect = typeCheckingVisitor.visitComputation(computation);
+        boolean multiplyCorrect = typeCheckingVisitor.visitMultiply(multiply2);
 
         assertTrue(typeCheckingVisitor.getErrors().isEmpty());
-    }
-
-    @Test
-    public void shouldNotMakeIdentifierReduceableIfExpressionIsNotReduceable() {
-        Datatype<?> leftHandSide = new Int(1);
-        Datatype<?> rightHandSide = new Int(3);
-        Datatype<?> rightHandSide2 = new Int(5);
-        BinaryOperation multiply = new Multiply(leftHandSide, rightHandSide);
-        Computation computation = new Computation(new Ident("test"), new Str("\"Label\""), multiply);
-        BinaryOperation divide = new Multiply(new Ident("test"), rightHandSide2);
-
-        typeCheckingVisitor.visitDatatype(leftHandSide);
-        typeCheckingVisitor.visitDatatype(rightHandSide);
-        typeCheckingVisitor.visitDatatype(rightHandSide2);
-        typeCheckingVisitor.visitComputation(computation);
-        typeCheckingVisitor.visitBinaryOperation(divide);
-
-        assertEquals(2, typeCheckingVisitor.getErrors().size());
-        assertTrue(typeCheckingVisitor.getErrors().get(0) instanceof UnsupportedTypeError);
-        assertTrue(typeCheckingVisitor.getErrors().get(1) instanceof UnsupportedTypeError);
+        assertTrue(computationCorrect);
+        assertTrue(multiplyCorrect);
     }
 }

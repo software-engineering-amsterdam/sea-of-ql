@@ -1,14 +1,20 @@
 package org.uva.sea.ql.visitor.typechecking;
 
+import org.uva.sea.ql.ast.Form;
 import org.uva.sea.ql.ast.QLExpression;
-import org.uva.sea.ql.ast.binary.BinaryOperation;
+import org.uva.sea.ql.ast.QLStatement;
+import org.uva.sea.ql.ast.binary.*;
 import org.uva.sea.ql.ast.primary.Bool;
-import org.uva.sea.ql.ast.primary.Datatype;
 import org.uva.sea.ql.ast.primary.Ident;
 import org.uva.sea.ql.ast.primary.Int;
-import org.uva.sea.ql.ast.statement.Computation;
-import org.uva.sea.ql.ast.statement.Conditional;
-import org.uva.sea.ql.ast.statement.Question;
+import org.uva.sea.ql.ast.primary.Str;
+import org.uva.sea.ql.ast.primary.typeClasses.BooleanType;
+import org.uva.sea.ql.ast.primary.typeClasses.IntegerType;
+import org.uva.sea.ql.ast.primary.typeClasses.Type;
+import org.uva.sea.ql.ast.statement.*;
+import org.uva.sea.ql.ast.unary.Negative;
+import org.uva.sea.ql.ast.unary.Not;
+import org.uva.sea.ql.ast.unary.Positive;
 import org.uva.sea.ql.ast.unary.UnaryOperation;
 import org.uva.sea.ql.visitor.ASTNodeVisitor;
 import org.uva.sea.ql.visitor.QLError;
@@ -17,122 +23,266 @@ import org.uva.sea.ql.visitor.typechecking.errors.UnequalTypesError;
 import org.uva.sea.ql.visitor.typechecking.errors.UnsupportedTypeError;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 /**
  * Visitor that's responsible for checking if the variables that are used in the QL program are of the proper types.
  */
-public class TypeCheckingVisitor implements ASTNodeVisitor {
+public class TypeCheckingVisitor implements ASTNodeVisitor<Boolean> {
 
-    private final ReductionTable reductionTable;
+    private final SymbolTable symbolTable;
     private final List<QLError> semanticValidationErrors;
 
     public TypeCheckingVisitor() {
-        this(new ReductionTable());
+        this(new SymbolTable());
     }
 
-    protected TypeCheckingVisitor(ReductionTable reductionTable) {
-        this.reductionTable = reductionTable;
+    protected TypeCheckingVisitor(SymbolTable symbolTable) {
+        this.symbolTable = symbolTable;
         this.semanticValidationErrors = new ArrayList<QLError>();
     }
 
     @Override
-    public void visitComputation(Computation computation) {
-        Class<?> expressionReduction = reductionTable.getReduceableType(computation.getExpression());
-
-        Ident identifier = computation.getIdentifier();
-        if (expressionReduction != null && !reductionTable.containsReductionFor(identifier)) {
-            reductionTable.setReducableToType(identifier, expressionReduction);
+    public Boolean visitForm(Form form) {
+        for (QLStatement formStatement : form.getStatements()) {
+            formStatement.accept(this);
         }
-
-        Class<?> supportedExpressionType = Int.class;
-        QLExpression expression = computation.getExpression();
-
-        if (reductionTable.getReduceableType(expression) != supportedExpressionType) {
-            addErrorForUnsupportedType(expression, supportedExpressionType);
-        }
+        return true;
     }
 
     @Override
-    public void visitConditional(Conditional conditional) {
-        Class<?> supportedType = Bool.class;
-        if (reductionTable.getReduceableType(conditional.getCondition()) != supportedType) {
-            addErrorForUnsupportedType(conditional.getCondition(), supportedType);
+    public Boolean visitComputation(Computation computation) {
+        Type expectedType = new IntegerType();
+
+        boolean identifierPreviouslyUndeclared = (!symbolTable.containsReductionFor(computation.getIdentifier()));
+        boolean expressionCorrect = computation.getExpression().accept(this);
+
+        if (!(identifierPreviouslyUndeclared && expressionCorrect)) {
+            return false;
         }
-    }
 
-    @Override
-    public void visitQuestion(Question question) {
-        Ident identifier = question.getIdentifier();
-        if (!reductionTable.containsReductionFor(identifier)) {
-            reductionTable.setReducableToType(identifier, question.getDatatype());
-        }
-    }
-
-    @Override
-    public void visitUnaryOperation(UnaryOperation unaryOperation) {
-        Class<?> supportedType = unaryOperation.getSupportedType(), reduction = reductionTable.getReduceableType(unaryOperation.getExpression());
-
-        if (reduction == supportedType) {
-            reductionTable.setReducableToType(unaryOperation, reduction);
+        Type expressionType = computation.getExpression().getType(symbolTable);
+        if (expressionType.isCompatibleTo(expectedType)){
+            symbolTable.setReducableToType(computation.getIdentifier(), expectedType);
+            return true;
         } else {
-            addErrorForUnsupportedType(unaryOperation.getExpression(), supportedType);
+            addErrorForUnsupportedType(expectedType, expressionType);
         }
+
+        return false;
     }
 
     @Override
-    public void visitBinaryOperation(BinaryOperation binaryOperation) {
-        List<Class<?>> supportedTypes = binaryOperation.getSupportedTypes();
-        QLExpression leftHandSide = binaryOperation.getLeftHandSide(), rightHandSide = binaryOperation.getRightHandSide();
-
-        Class<?> leftHandSideReduction = reductionTable.getReduceableType(leftHandSide), rightHandSideReduction = reductionTable
-                .getReduceableType(rightHandSide);
-        boolean leftHandSideReduceable = supportedTypes.contains(leftHandSideReduction), rightHandSideReduceable = supportedTypes
-                .contains(rightHandSideReduction);
-
-        if (leftHandSideReduction == rightHandSideReduction) {
-            if (leftHandSideReduceable) {
-                //Reduce this expression to the neededClass in the map.
-                reductionTable.setReducableToType(binaryOperation, leftHandSideReduction);
-                return;
-            }
-        } else if (supportedTypes.size() > 1) {
-            addErrorForUnequalTypes(binaryOperation);
+    public Boolean visitIfStatement(IfStatement ifStatement) {
+        for (QLStatement successBlockStatement : ifStatement.getSuccessBlock()) {
+            successBlockStatement.accept(this);
         }
 
-        if (!leftHandSideReduceable) {
-            addErrorForUnsupportedType(leftHandSide, supportedTypes);
-        }
-
-        if (!rightHandSideReduceable) {
-            addErrorForUnsupportedType(leftHandSide, supportedTypes);
-        }
+        return typeCheckConditional(ifStatement);
     }
 
     @Override
-    public void visitIdent(Ident ident) {
-        if (reductionTable.containsReductionFor(ident)) {
+    public Boolean visitIfElseStatement(IfElseStatement ifElseStatement) {
+        for (QLStatement successBlockStatement : ifElseStatement.getSuccessBlock()) {
+            successBlockStatement.accept(this);
+        }
+
+        for (QLStatement failureBlockStatement : ifElseStatement.getFailureBlock()) {
+            failureBlockStatement.accept(this);
+        }
+
+        return typeCheckConditional(ifElseStatement);
+    }
+
+    private boolean typeCheckConditional(Conditional conditional) {
+        Type expectedType = new BooleanType();
+        boolean condition = conditional.getCondition().accept(this);
+        if (!condition) {
+            return false;
+        }
+
+        Type conditionType = conditional.getCondition().getType(symbolTable);
+        if (!conditionType.isCompatibleTo(expectedType)) {
+            addErrorForUnsupportedType(expectedType, conditionType);
+            return false;
+        }
+
+        return true;
+    }
+
+    @Override
+    public Boolean visitQuestion(Question question) {
+        Ident ident = question.getIdentifier();
+        if (!symbolTable.containsReductionFor(ident)) {
+            symbolTable.setReducableToType(ident, question.getDatatype());
+            return true;
+        } else {
             addErrorForIdentifierRedeclaration(ident);
         }
+        return false;
     }
 
     @Override
-    public void visitDatatype(Datatype<?> datatype) {
-        reductionTable.setReducableToType(datatype, datatype.getClass());
+    public Boolean visitPositive(Positive positive) {
+        return typeCheckUnaryOperation(positive);
+    }
+
+    @Override
+    public Boolean visitNegative(Negative negative) {
+        return typeCheckUnaryOperation(negative);
+    }
+
+    @Override
+    public Boolean visitNot(Not not) {
+        return typeCheckUnaryOperation(not);
+    }
+
+    private boolean typeCheckUnaryOperation(UnaryOperation unaryOperation) {
+        Type expectedType = unaryOperation.getType(symbolTable);
+
+        boolean innerExpressionCorrect = unaryOperation.getExpression().accept(this);
+        if (!innerExpressionCorrect) {
+            return false;
+        }
+
+        Type innerExpressionType = unaryOperation.getExpression().getType(symbolTable);
+        if (!innerExpressionType.isCompatibleTo(expectedType)) {
+            addErrorForUnsupportedType(expectedType, innerExpressionType);
+            return false;
+        }
+
+        return true;
+    }
+
+    @Override
+    public Boolean visitMultiply(Multiply multiply) {
+        return typeCheckBinaryOperation(multiply);
+    }
+
+    @Override
+    public Boolean visitDivide(Divide divide) {
+        return typeCheckBinaryOperation(divide);
+    }
+
+    @Override
+    public Boolean visitSubtract(Subtract subtract) {
+        return typeCheckBinaryOperation(subtract);
+    }
+
+    @Override
+    public Boolean visitAdd(Add add) {
+        return typeCheckBinaryOperation(add);
+    }
+
+    @Override
+    public Boolean visitAnd(And and) {
+        return typeCheckBinaryOperation(and);
+    }
+
+    @Override
+    public Boolean visitOr(Or or) {
+        return typeCheckBinaryOperation(or);
+    }
+
+    @Override
+    public Boolean visitEqualTo(EqualTo equalTo) {
+        return equalityCheckBinaryOperation(equalTo);
+    }
+
+    @Override
+    public Boolean visitNotEqualTo(NotEqualTo notEqualTo) {
+        return equalityCheckBinaryOperation(notEqualTo);
+    }
+
+    @Override
+    public Boolean visitGreaterThan(GreaterThan greaterThan) {
+        return typeCheckBinaryOperation(greaterThan);
+    }
+
+    @Override
+    public Boolean visitGreaterThanOrEqualTo(GreaterThanOrEqualTo greaterThanOrEqualTo) {
+        return typeCheckBinaryOperation(greaterThanOrEqualTo);
+    }
+
+    @Override
+    public Boolean visitLessThan(LessThan lessThan) {
+        return typeCheckBinaryOperation(lessThan);
+    }
+
+    @Override
+    public Boolean visitLessThanOrEqualTo(LessThanOrEqualTo lessThanOrEqualTo) {
+        return typeCheckBinaryOperation(lessThanOrEqualTo);
+    }
+
+    private boolean typeCheckBinaryOperation(BinaryOperation binaryOperation) {
+        Type expectedType = binaryOperation.getType(symbolTable);
+
+        QLExpression leftHandSide = binaryOperation.getLeftHandSide(), rightHandSide = binaryOperation.getRightHandSide();
+
+        boolean leftHandSideCorrect = leftHandSide.accept(this), rightHandSideCorrect = rightHandSide.accept(this);
+        if (! (leftHandSideCorrect && rightHandSideCorrect) ) {
+            return false;
+        }
+
+        Type leftHandSideType = leftHandSide.getType(symbolTable), rightHandSideType = rightHandSide.getType(symbolTable);
+
+        boolean leftHandSideCompatible = leftHandSideType.isCompatibleTo(expectedType), rightHandSideCompatible = rightHandSideType.isCompatibleTo(expectedType);
+
+        if(!leftHandSideCompatible) {
+            addErrorForUnsupportedType(expectedType, leftHandSideType);
+        }
+
+        if(!rightHandSideCompatible) {
+            addErrorForUnsupportedType(expectedType, rightHandSideType);
+        }
+
+        return leftHandSideCompatible && rightHandSideCompatible;
+    }
+
+    private boolean equalityCheckBinaryOperation(BinaryOperation binaryOperation) {
+        QLExpression leftHandSide = binaryOperation.getLeftHandSide(), rightHandSide = binaryOperation.getRightHandSide();
+
+        boolean leftHandSideCorrect = leftHandSide.accept(this), rightHandSideCorrect = rightHandSide.accept(this);
+        if (! (leftHandSideCorrect && rightHandSideCorrect) ) {
+            return false;
+        }
+
+        Type leftHandSideType = leftHandSide.getType(symbolTable), rightHandSideType = rightHandSide.getType(symbolTable);
+
+        if (leftHandSideType.getClass() != rightHandSideType.getClass()) {
+            addErrorForUnequalTypes(binaryOperation);
+            return false;
+        }
+
+        return true;
+    }
+
+    @Override
+    public Boolean visitIdent(Ident ident) {
+        return true;
+    }
+
+    @Override
+    public Boolean visitBool(Bool boolLiteral) {
+        return true;
+    }
+
+    @Override
+    public Boolean visitInt(Int intLiteral) {
+        return true;
+    }
+
+    @Override
+    public Boolean visitStr(Str str) {
+        return true;
     }
 
     public List<QLError> getErrors() {
         return semanticValidationErrors;
     }
 
-    private void addErrorForUnsupportedType(QLExpression expression, Class<?> allowedType) {
-        List<Class<?>> allowedTypeList = Arrays.asList(new Class<?>[] { allowedType });
-        addErrorForUnsupportedType(expression, allowedTypeList);
-    }
-
-    private void addErrorForUnsupportedType(QLExpression expression, List<Class<?>> allowedTypes) {
-        QLError unsupportedTypeError = new UnsupportedTypeError(0, expression.getClass().getSimpleName(), allowedTypes);
+    private void addErrorForUnsupportedType(Type expectedType, Type actualType) {
+        QLError unsupportedTypeError = new UnsupportedTypeError(0, expectedType, actualType);
         semanticValidationErrors.add(unsupportedTypeError);
     }
 

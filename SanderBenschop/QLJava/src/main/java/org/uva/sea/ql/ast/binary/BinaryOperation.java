@@ -1,9 +1,6 @@
 package org.uva.sea.ql.ast.binary;
 
 import org.uva.sea.ql.ast.QLExpression;
-import org.uva.sea.ql.visitor.ASTNodeVisitor;
-
-import java.util.List;
 
 public abstract class BinaryOperation implements QLExpression {
 
@@ -22,13 +19,4 @@ public abstract class BinaryOperation implements QLExpression {
 	public QLExpression getRightHandSide() {
 		return rightHandSide;
 	}
-
-    @Override
-    public void accept(ASTNodeVisitor visitor) {
-        getLeftHandSide().accept(visitor);
-        getRightHandSide().accept(visitor);
-        visitor.visitBinaryOperation(this);
-    }
-
-    public abstract List<Class<?>> getSupportedTypes();
 }

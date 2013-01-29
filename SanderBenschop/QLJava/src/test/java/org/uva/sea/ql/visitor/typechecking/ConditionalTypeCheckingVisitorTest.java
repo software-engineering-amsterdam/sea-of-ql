@@ -11,8 +11,7 @@ import org.uva.sea.ql.visitor.typechecking.errors.UnsupportedTypeError;
 import java.util.Collections;
 import java.util.List;
 
-import static junit.framework.Assert.assertEquals;
-import static junit.framework.Assert.assertTrue;
+import static junit.framework.Assert.*;
 
 public class ConditionalTypeCheckingVisitorTest {
 
@@ -28,10 +27,10 @@ public class ConditionalTypeCheckingVisitorTest {
         Bool expression = new Bool(true);
         List<QLStatement> emptyStatementList = Collections.emptyList();
         IfStatement conditional = new IfStatement(expression, emptyStatementList);
-        typeCheckingVisitor.visitDatatype(expression);
-        typeCheckingVisitor.visitConditional(conditional);
 
+        boolean ifStatementCorrect = typeCheckingVisitor.visitIfStatement(conditional);
         assertEquals(0, typeCheckingVisitor.getErrors().size());
+        assertTrue(ifStatementCorrect);
     }
 
     @Test
@@ -39,10 +38,10 @@ public class ConditionalTypeCheckingVisitorTest {
         Int expression = new Int(0);
         List<QLStatement> emptyStatementList = Collections.emptyList();
         IfStatement conditional = new IfStatement(expression, emptyStatementList);
-        typeCheckingVisitor.visitDatatype(expression);
-        typeCheckingVisitor.visitConditional(conditional);
 
+        boolean ifStatementCorrect = typeCheckingVisitor.visitIfStatement(conditional);
         assertEquals(1, typeCheckingVisitor.getErrors().size());
         assertTrue(typeCheckingVisitor.getErrors().get(0) instanceof UnsupportedTypeError);
+        assertFalse(ifStatementCorrect);
     }
 }

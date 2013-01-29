@@ -2,7 +2,6 @@ package org.uva.sea.ql.ast.statement;
 
 import org.uva.sea.ql.ast.QLExpression;
 import org.uva.sea.ql.ast.QLStatement;
-import org.uva.sea.ql.visitor.ASTNodeVisitor;
 
 import java.util.Collections;
 import java.util.List;
@@ -23,14 +22,5 @@ public abstract class Conditional implements QLStatement {
 
     public List<QLStatement> getSuccessBlock() {
         return successBlock;
-    }
-
-    @Override
-    public void accept(ASTNodeVisitor visitor) {
-        condition.accept(visitor);
-
-        for (QLStatement qlStatement : successBlock) {
-            qlStatement.accept(visitor);
-        }
     }
 }

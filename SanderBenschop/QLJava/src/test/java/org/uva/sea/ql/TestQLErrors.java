@@ -1,21 +1,18 @@
 package org.uva.sea.ql;
 
 import org.junit.Test;
-import org.uva.sea.ql.ast.ASTNode;
-import org.uva.sea.ql.ast.QLExpression;
 import org.uva.sea.ql.ast.binary.Add;
 import org.uva.sea.ql.ast.binary.BinaryOperation;
 import org.uva.sea.ql.ast.primary.Bool;
 import org.uva.sea.ql.ast.primary.Datatype;
 import org.uva.sea.ql.ast.primary.Int;
-import org.uva.sea.ql.ast.primary.Str;
+import org.uva.sea.ql.ast.primary.typeClasses.BooleanType;
+import org.uva.sea.ql.ast.primary.typeClasses.IntegerType;
+import org.uva.sea.ql.ast.primary.typeClasses.Type;
 import org.uva.sea.ql.visitor.QLError;
 import org.uva.sea.ql.visitor.typechecking.errors.IdentifierRedeclarationError;
 import org.uva.sea.ql.visitor.typechecking.errors.UnequalTypesError;
 import org.uva.sea.ql.visitor.typechecking.errors.UnsupportedTypeError;
-
-import java.util.Arrays;
-import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 
@@ -25,29 +22,9 @@ public class TestQLErrors {
 
     @Test
     public void shouldGetUnsupportedTypeErrorMessageForSingleAllowedType() {
-        QLExpression actualType = new Bool(false);
-
-        List<Class<?>> allowedTypes = Arrays.asList(new Class<?>[] { Int.class });
-        QLError error = new UnsupportedTypeError(LINE_NUMBER, actualType.getClass().getSimpleName(), allowedTypes);
-        assertEquals("Error: variable on line 42 of type Bool was expected to be reduceable to Int.", error.getErrorMessage());
-    }
-
-    @Test
-    public void shouldGetUnsupportedTypeErrorMessageForDoubleAllowedType() {
-        QLExpression actualType = new Bool(false);
-
-        List<Class<?>> allowedTypes = Arrays.asList(new Class<?>[] { Int.class, Bool.class });
-        QLError error = new UnsupportedTypeError(LINE_NUMBER, actualType.getClass().getSimpleName(), allowedTypes);
-        assertEquals("Error: variable on line 42 of type Bool was expected to be reduceable to Int or Bool.", error.getErrorMessage());
-    }
-
-    @Test
-    public void shouldGetUnsupportedTypeErrorMessageForTripleAllowedType() {
-        QLExpression actualType = new Bool(false);
-
-        List<Class<?>> allowedTypes = Arrays.asList(new Class<?>[] { Int.class, Bool.class, Str.class });
-        QLError error = new UnsupportedTypeError(LINE_NUMBER, actualType.getClass().getSimpleName(), allowedTypes);
-        assertEquals("Error: variable on line 42 of type Bool was expected to be reduceable to Int, Bool or Str.", error.getErrorMessage());
+        Type expectedType = new IntegerType(), actualType = new BooleanType();
+        QLError error = new UnsupportedTypeError(LINE_NUMBER, actualType, expectedType);
+        assertEquals("Error: variable on line 42 of type BooleanType was expected to be of type IntegerType.", error.getErrorMessage());
     }
 
     @Test

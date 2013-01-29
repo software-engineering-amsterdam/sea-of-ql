@@ -13,8 +13,7 @@ public class IfStatement extends Conditional {
     }
 
     @Override
-    public void accept(ASTNodeVisitor visitor) {
-        super.accept(visitor);
-        visitor.visitConditional(this);
+    public <T> T accept(ASTNodeVisitor<T> visitor) {
+        return visitor.visitIfStatement(this);
     }
 }

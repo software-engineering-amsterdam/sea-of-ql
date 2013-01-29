@@ -23,9 +23,7 @@ public class Form implements ASTNode {
     }
 
     @Override
-    public void accept(ASTNodeVisitor visitor) {
-        for (QLStatement statement : statements) {
-            statement.accept(visitor);
-        }
+    public <T> T accept(ASTNodeVisitor<T> visitor) {
+        return visitor.visitForm(this);
     }
 }

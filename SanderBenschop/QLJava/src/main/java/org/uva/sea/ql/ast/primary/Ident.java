@@ -1,7 +1,10 @@
 package org.uva.sea.ql.ast.primary;
 
 import org.uva.sea.ql.ast.QLExpression;
+import org.uva.sea.ql.ast.primary.typeClasses.Type;
+import org.uva.sea.ql.ast.primary.typeClasses.UndefinedType;
 import org.uva.sea.ql.visitor.ASTNodeVisitor;
+import org.uva.sea.ql.visitor.typechecking.SymbolTable;
 
 public final class Ident implements QLExpression {
 
@@ -13,11 +16,6 @@ public final class Ident implements QLExpression {
 
     public String getName() {
         return name;
-    }
-
-    @Override
-    public void accept(ASTNodeVisitor visitor) {
-        visitor.visitIdent(this);
     }
 
     @Override
@@ -33,5 +31,18 @@ public final class Ident implements QLExpression {
             Ident otherIdent = (Ident) other;
             return hashCode() == otherIdent.hashCode();
         }
+    }
+
+    @Override
+    public Type getType(SymbolTable symbolTable) {
+        if (symbolTable.containsReductionFor(this)) {
+            return symbolTable.getReduceableType(this);
+        }
+        return new UndefinedType();
+    }
+
+    @Override
+    public <T> T accept(ASTNodeVisitor<T> visitor) {
+        return visitor.visitIdent(this);
     }
 }

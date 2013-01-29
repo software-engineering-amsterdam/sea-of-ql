@@ -2,19 +2,16 @@ package org.uva.sea.ql.visitor.typechecking;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.uva.sea.ql.ast.binary.BinaryOperation;
 import org.uva.sea.ql.ast.binary.Divide;
 import org.uva.sea.ql.ast.binary.EqualTo;
 import org.uva.sea.ql.ast.binary.Multiply;
 import org.uva.sea.ql.ast.primary.Bool;
-import org.uva.sea.ql.ast.primary.Datatype;
 import org.uva.sea.ql.ast.primary.Int;
 import org.uva.sea.ql.ast.primary.Str;
 import org.uva.sea.ql.visitor.typechecking.errors.UnequalTypesError;
 import org.uva.sea.ql.visitor.typechecking.errors.UnsupportedTypeError;
 
-import static junit.framework.Assert.assertEquals;
-import static junit.framework.Assert.assertTrue;
+import static junit.framework.Assert.*;
 
 public class BinaryOperationTypeCheckingVisitorTest {
 
@@ -27,80 +24,64 @@ public class BinaryOperationTypeCheckingVisitorTest {
 
     @Test
     public void shouldReduceProperlyForSingleType() {
-        Datatype<?> leftHandSide = new Int(1);
-        Datatype<?> leftHandSide2 = new Int(2);
-        Datatype<?> rightHandSide = new Int(3);
-        BinaryOperation multiply = new Multiply(leftHandSide, rightHandSide);
-        BinaryOperation divide = new Divide(leftHandSide2, multiply);
+        Int leftHandSide = new Int(1);
+        Int leftHandSide2 = new Int(2);
+        Int rightHandSide = new Int(3);
+        Multiply multiply = new Multiply(leftHandSide, rightHandSide);
+        Divide divide = new Divide(leftHandSide2, multiply);
 
-        typeCheckingVisitor.visitDatatype(leftHandSide);
-        typeCheckingVisitor.visitDatatype(leftHandSide2);
-        typeCheckingVisitor.visitDatatype(rightHandSide);
-        typeCheckingVisitor.visitBinaryOperation(multiply);
-        typeCheckingVisitor.visitBinaryOperation(divide);
-
+        boolean divideCorrect = typeCheckingVisitor.visitDivide(divide);
         assertEquals(0, typeCheckingVisitor.getErrors().size());
+        assertTrue(divideCorrect);
     }
 
     @Test
     public void shouldDetectTypeErrorForSingleType() {
-        Datatype<?> leftHandSide = new Int(1);
-        Datatype<?> rightHandSide = new Bool(false);
-        BinaryOperation multiply = new Multiply(leftHandSide, rightHandSide);
+        Int leftHandSide = new Int(1);
+        Bool rightHandSide = new Bool(false);
+        Multiply multiply = new Multiply(leftHandSide, rightHandSide);
 
-        typeCheckingVisitor.visitDatatype(leftHandSide);
-        typeCheckingVisitor.visitDatatype(rightHandSide);
-        typeCheckingVisitor.visitBinaryOperation(multiply);
-
+        boolean multiplyCorrect = typeCheckingVisitor.visitMultiply(multiply);
         assertEquals(1, typeCheckingVisitor.getErrors().size());
         assertTrue(typeCheckingVisitor.getErrors().get(0) instanceof UnsupportedTypeError);
+        assertFalse(multiplyCorrect);
     }
 
     @Test
-    public void shouldCascadeErrorForNestedSingleType() {
-        Datatype<?> leftHandSide = new Bool(true);
-        Datatype<?> leftHandSide2 = new Int(2);
-        Datatype<?> rightHandSide = new Int(3);
-        BinaryOperation multiply = new Multiply(leftHandSide, rightHandSide);
-        BinaryOperation divide = new Divide(leftHandSide2, multiply);
+    public void shouldNotCascadeErrorForNestedSingleType() {
+        Bool leftHandSide = new Bool(true);
+        Int leftHandSide2 = new Int(2);
+        Int rightHandSide = new Int(3);
+        Multiply multiply = new Multiply(leftHandSide, rightHandSide);
+        Divide divide = new Divide(leftHandSide2, multiply);
 
-        typeCheckingVisitor.visitDatatype(leftHandSide);
-        typeCheckingVisitor.visitDatatype(leftHandSide2);
-        typeCheckingVisitor.visitDatatype(rightHandSide);
-        typeCheckingVisitor.visitBinaryOperation(multiply);
-        typeCheckingVisitor.visitBinaryOperation(divide);
-
-        assertEquals(2, typeCheckingVisitor.getErrors().size());
+        boolean divideCorrect = typeCheckingVisitor.visitDivide(divide);
+        assertEquals(1, typeCheckingVisitor.getErrors().size());
         assertTrue(typeCheckingVisitor.getErrors().get(0) instanceof UnsupportedTypeError);
-        assertTrue(typeCheckingVisitor.getErrors().get(1) instanceof UnsupportedTypeError);
+        assertFalse(divideCorrect);
     }
 
     @Test
     public void shouldThrowErrorIfTypesAreUnequalInMultipleType() {
-        Datatype<?> leftHandSide = new Int(1);
-        Datatype<?> rightHandSide = new Bool(false);
-        BinaryOperation equalTo = new EqualTo(leftHandSide, rightHandSide);
+        Int leftHandSide = new Int(1);
+        Bool rightHandSide = new Bool(false);
+        EqualTo equalTo = new EqualTo(leftHandSide, rightHandSide);
 
-        typeCheckingVisitor.visitDatatype(leftHandSide);
-        typeCheckingVisitor.visitDatatype(rightHandSide);
-        typeCheckingVisitor.visitBinaryOperation(equalTo);
-
+        boolean equalToCorrect = typeCheckingVisitor.visitEqualTo(equalTo);
         assertEquals(1, typeCheckingVisitor.getErrors().size());
         assertTrue(typeCheckingVisitor.getErrors().get(0) instanceof UnequalTypesError);
+        assertFalse(equalToCorrect);
     }
 
     @Test
     public void shouldThrowErrorsIfTypesAreUnequalAndDisallowedInMultipleType() {
-        Datatype<?> leftHandSide = new Int(1);
-        Datatype<?> rightHandSide = new Str("");
-        BinaryOperation equalTo = new EqualTo(leftHandSide, rightHandSide);
+        Int leftHandSide = new Int(1);
+        Str rightHandSide = new Str("");
+        EqualTo equalTo = new EqualTo(leftHandSide, rightHandSide);
 
-        typeCheckingVisitor.visitDatatype(leftHandSide);
-        typeCheckingVisitor.visitDatatype(rightHandSide);
-        typeCheckingVisitor.visitBinaryOperation(equalTo);
-
-        assertEquals(2, typeCheckingVisitor.getErrors().size());
+        boolean equalToValid = typeCheckingVisitor.visitEqualTo(equalTo);
+        assertEquals(1, typeCheckingVisitor.getErrors().size());
         assertTrue(typeCheckingVisitor.getErrors().get(0) instanceof UnequalTypesError);
-        assertTrue(typeCheckingVisitor.getErrors().get(1) instanceof UnsupportedTypeError);
+        assertFalse(equalToValid);
     }
 }

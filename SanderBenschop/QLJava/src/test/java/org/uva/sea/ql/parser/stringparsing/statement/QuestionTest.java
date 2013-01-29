@@ -2,9 +2,9 @@ package org.uva.sea.ql.parser.stringparsing.statement;
 
 import org.junit.Test;
 import org.uva.sea.ql.ast.QLStatement;
-import org.uva.sea.ql.ast.primary.Bool;
-import org.uva.sea.ql.ast.primary.Int;
-import org.uva.sea.ql.ast.primary.Str;
+import org.uva.sea.ql.ast.primary.typeClasses.BooleanType;
+import org.uva.sea.ql.ast.primary.typeClasses.IntegerType;
+import org.uva.sea.ql.ast.primary.typeClasses.StringType;
 import org.uva.sea.ql.ast.statement.Question;
 import org.uva.sea.ql.parser.TestParser;
 import org.uva.sea.ql.parser.exception.ParseError;
@@ -18,25 +18,25 @@ public class QuestionTest extends TestParser {
     public void shouldEvaluateToQuestionClass() throws ParseError {
     	QLStatement question = parseStatement("overEighteen : \"Are you 18 years or older?\" boolean");
         assertEquals(Question.class, question.getClass());
-        assertEquals(Bool.class, ((Question) question).getDatatype());
+        assertEquals(BooleanType.class, ((Question) question).getDatatype().getClass());
     }
 
     @Test
     public void shouldHaveDatatypeBool() throws ParseError {
     	Question question = (Question) parseStatement("overEighteen : \"Are you 18 years or older?\" boolean");
-        assertEquals(Bool.class, question.getDatatype());
+        assertEquals(BooleanType.class, question.getDatatype().getClass());
     }
 
     @Test
     public void shouldHaveDatatypeInt() throws ParseError {
     	Question question = (Question) parseStatement("age : \"How old are you?\" integer");
-        assertEquals(Int.class, question.getDatatype());
+        assertEquals(IntegerType.class, question.getDatatype().getClass());
     }
 
     @Test
     public void shouldHaveDatatypeStr() throws ParseError {
         Question question = (Question) parseStatement("birthPlace : \"What is your place of birth?\" string");
-        assertEquals(Str.class, question.getDatatype());
+        assertEquals(StringType.class, question.getDatatype().getClass());
     }
 
     @Test

@@ -21,13 +21,7 @@ public class IfElseStatement extends Conditional {
     }
 
     @Override
-    public void accept(ASTNodeVisitor visitor) {
-        super.accept(visitor);
-
-        for(QLStatement qlStatement : failureBlock) {
-            qlStatement.accept(visitor);
-        }
-
-        visitor.visitConditional(this);
+    public <T> T accept(ASTNodeVisitor<T> visitor) {
+        return visitor.visitIfElseStatement(this);
     }
 }

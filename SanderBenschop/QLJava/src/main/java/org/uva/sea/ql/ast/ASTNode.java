@@ -4,5 +4,5 @@ import org.uva.sea.ql.visitor.ASTNodeVisitor;
 
 public interface ASTNode {
 
-    void accept(ASTNodeVisitor visitor);
+    <T> T accept(ASTNodeVisitor<T> visitor);
 }

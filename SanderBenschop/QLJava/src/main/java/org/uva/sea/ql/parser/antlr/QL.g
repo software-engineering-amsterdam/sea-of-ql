@@ -6,6 +6,7 @@ options {backtrack=true; memoize=true;}
 package org.uva.sea.ql.parser.antlr;
 import org.uva.sea.ql.ast.*;
 import org.uva.sea.ql.ast.primary.*;
+import org.uva.sea.ql.ast.primary.typeClasses.*;
 import org.uva.sea.ql.ast.unary.*;
 import org.uva.sea.ql.ast.binary.*;
 import org.uva.sea.ql.ast.statement.*;
@@ -56,15 +57,15 @@ question returns [Question result]
     {
 	    Ident ident = new Ident($Ident.text);
 	    Str label = new Str(removeOuterQuotes($Str.text));
-	    Class<? extends Datatype<?>> datatype = $datatype.result;
+	    Type datatype = $datatype.result;
 	    $result = new Question(ident, label, datatype);
     }
   ;
   
-datatype returns [Class<? extends Datatype<?>> result]
-  : 'boolean' { $result = Bool.class; }
-  | 'string' { $result = Str.class; }
-  | 'integer' { $result = Int.class; }
+datatype returns [Type result]
+  : 'boolean' { $result = new BooleanType(); }
+  | 'string' { $result = new StringType(); }
+  | 'integer' { $result = new IntegerType(); }
   ;
   
 computation returns [Computation result]

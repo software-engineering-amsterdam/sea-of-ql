@@ -1,18 +1,18 @@
 package org.uva.sea.ql.ast.statement;
 
 import org.uva.sea.ql.ast.QLStatement;
-import org.uva.sea.ql.ast.primary.Datatype;
 import org.uva.sea.ql.ast.primary.Ident;
 import org.uva.sea.ql.ast.primary.Str;
+import org.uva.sea.ql.ast.primary.typeClasses.Type;
 import org.uva.sea.ql.visitor.ASTNodeVisitor;
 
 public class Question implements QLStatement {
 
     private final Ident identifier;
     private final Str label;
-    private final Class<? extends Datatype<?>> datatype;
+    private final Type datatype;
 
-    public Question(Ident identifier, Str label, Class<? extends Datatype<?>> datatype) {
+    public Question(Ident identifier, Str label, Type datatype) {
     	this.identifier = identifier;
         this.label = label;
         this.datatype = datatype;
@@ -26,13 +26,12 @@ public class Question implements QLStatement {
 		return label;
 	}
 
-	public Class<? extends Datatype<?>> getDatatype() {
+	public Type getDatatype() {
 		return datatype;
 	}
 
     @Override
-    public void accept(ASTNodeVisitor visitor) {
-        identifier.accept(visitor);
-        visitor.visitQuestion(this);
+    public <T> T accept(ASTNodeVisitor<T> visitor) {
+        return visitor.visitQuestion(this);
     }
 }

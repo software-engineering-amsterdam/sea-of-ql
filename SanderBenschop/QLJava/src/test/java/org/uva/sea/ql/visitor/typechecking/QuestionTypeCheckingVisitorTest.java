@@ -2,11 +2,11 @@ package org.uva.sea.ql.visitor.typechecking;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.uva.sea.ql.ast.binary.BinaryOperation;
 import org.uva.sea.ql.ast.binary.EqualTo;
 import org.uva.sea.ql.ast.primary.Ident;
 import org.uva.sea.ql.ast.primary.Int;
 import org.uva.sea.ql.ast.primary.Str;
+import org.uva.sea.ql.ast.primary.typeClasses.IntegerType;
 import org.uva.sea.ql.ast.statement.Question;
 
 import static junit.framework.Assert.assertTrue;
@@ -22,14 +22,15 @@ public class QuestionTypeCheckingVisitorTest {
 
     @Test
     public void shouldMakeIdentifierReducableToOwnType() {
-        Question question = new Question(new Ident("age"), new Str("\"How old are you?\""), Int.class);
+        Question question = new Question(new Ident("age"), new Str("\"How old are you?\""), new IntegerType());
         Int otherNumber = new Int(20);
-        BinaryOperation twentyYearsOld = new EqualTo(new Ident("age"), otherNumber);
+        EqualTo twentyYearsOld = new EqualTo(new Ident("age"), otherNumber);
 
-        typeCheckingVisitor.visitQuestion(question);
-        typeCheckingVisitor.visitDatatype(otherNumber);
-        typeCheckingVisitor.visitBinaryOperation(twentyYearsOld);
+        boolean questionCorrect = typeCheckingVisitor.visitQuestion(question);
+        boolean equalToCorrect = typeCheckingVisitor.visitEqualTo(twentyYearsOld);
 
         assertTrue(typeCheckingVisitor.getErrors().isEmpty());
+        assertTrue(questionCorrect);
+        assertTrue(equalToCorrect);
     }
 }

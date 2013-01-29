@@ -1,16 +1,27 @@
 package org.uva.sea.ql.ast.unary;
 
 import org.uva.sea.ql.ast.QLExpression;
-import org.uva.sea.ql.ast.primary.Int;
+import org.uva.sea.ql.ast.primary.typeClasses.IntegerType;
+import org.uva.sea.ql.ast.primary.typeClasses.Type;
+import org.uva.sea.ql.visitor.ASTNodeVisitor;
+import org.uva.sea.ql.visitor.typechecking.SymbolTable;
 
 public class Positive extends UnaryOperation {
 
+    private final Type returningType;
+
 	public Positive(QLExpression expression) {
 		super(expression);
+        this.returningType = new IntegerType();
 	}
 
     @Override
-    public Class<?> getSupportedType() {
-        return Int.class;
+    public Type getType(SymbolTable symbolTable) {
+        return returningType;
+    }
+
+    @Override
+    public <T> T accept(ASTNodeVisitor<T> visitor) {
+        return visitor.visitPositive(this);
     }
 }
