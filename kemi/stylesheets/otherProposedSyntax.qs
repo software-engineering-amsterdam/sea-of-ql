@@ -1,7 +1,7 @@
 stylesheet testStylesheet {
-  page pageOne {
-    section sectionOne {
-      section sectionTwo {
+  page "Page one" {
+    section "section one" {
+      section "section two" {
         question questionTen
         default boolean {
           width 200
@@ -15,7 +15,7 @@ stylesheet testStylesheet {
       
     }
     
-    section sectionThree {
+    section "section three!" {
       question questionFour
       question questionSix
       question questionSeven
@@ -31,7 +31,7 @@ stylesheet testStylesheet {
     
   }
   
-  page pageTwo {
+  page "page 2" {
     question questionTwo
   }
   

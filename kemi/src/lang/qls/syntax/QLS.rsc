@@ -19,7 +19,7 @@ syntax Statement
 
 
 syntax PageDefinition
-  = pageDefinition: "page" Ident "{" PageRule* "}"
+  = pageDefinition: "page" String "{" PageRule* "}"
   ;
 
 
@@ -30,7 +30,7 @@ syntax PageRule
   ;
 
 syntax SectionDefinition
-  = sectionDefinition: "section" Ident "{" SectionRule* "}"
+  = sectionDefinition: "section" String "{" SectionRule* "}"
   ;
 
 syntax SectionRule
@@ -76,6 +76,14 @@ lexical WidthStyleAttr
 
 lexical Int
   = [0-9]+ !>> [0-9]
+  ;
+
+lexical String
+  = @category="Variable" "\"" TextChar* "\"";
+
+lexical TextChar
+  = [\\] << [\"]
+  | ![\"]
   ;
 
 syntax WhitespaceOrComment 
