@@ -5,6 +5,7 @@ import org.uva.sea.ql.parser.ParseError;
 import org.uva.sea.ql.parser.Parser;
 import org.uva.sea.ql.parser.antlr.ANTLRParser;
 import org.uva.sea.ql.typechecker.TypecheckerVisitor;
+import org.uva.sea.ql.webUI.KnockoutJSViewModelBuilderVisitor;
 
 import java.util.Iterator;
 import java.util.List;
@@ -30,10 +31,10 @@ public class Main {
         Parser parser = new ANTLRParser();
         try {
             Form parsedForm = (Form) parser.parse(SAMPLE_FORM);
-            List<String> errors = new TypecheckerVisitor().typecheck(parsedForm);
+            List<Message> errors = TypecheckerVisitor.typecheck(parsedForm);
             if(!errors.isEmpty()) {
                 StringBuilder stringBuilder = new StringBuilder("Errors occurred when type checking the form:\n");
-                for(Iterator<String> errorIterator = errors.iterator(); errorIterator.hasNext(); ) {
+                for(Iterator<Message> errorIterator = errors.iterator(); errorIterator.hasNext(); ) {
                     stringBuilder
                             .append(" - ")
                             .append(errorIterator.next());
@@ -42,6 +43,8 @@ public class Main {
                 }
                 throw new RuntimeException(stringBuilder.toString());
             }
+            String viewModel = KnockoutJSViewModelBuilderVisitor.createViewModel(parsedForm);
+            System.out.println(viewModel);
         } catch(ParseError parseError) {
             throw new RuntimeException("Error while parsing.", parseError);
         }
