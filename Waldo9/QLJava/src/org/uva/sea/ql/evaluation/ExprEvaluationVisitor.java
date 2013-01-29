@@ -9,7 +9,6 @@ import org.uva.sea.ql.ast.expressions.ExprVisitor;
 import org.uva.sea.ql.ast.expressions.GEq;
 import org.uva.sea.ql.ast.expressions.GT;
 import org.uva.sea.ql.ast.expressions.Ident;
-import org.uva.sea.ql.ast.expressions.Int;
 import org.uva.sea.ql.ast.expressions.LEq;
 import org.uva.sea.ql.ast.expressions.LT;
 import org.uva.sea.ql.ast.expressions.Mul;
@@ -21,49 +20,57 @@ import org.uva.sea.ql.ast.expressions.Pos;
 import org.uva.sea.ql.ast.expressions.StringLiteral;
 import org.uva.sea.ql.ast.expressions.Sub;
 import org.uva.sea.ql.evaluation.values.Value;
+import org.uva.sea.ql.evaluation.values.Int;
+import org.uva.sea.ql.evaluation.values.Bool;
+import org.uva.sea.ql.evaluation.values.String;
 
 public class ExprEvaluationVisitor implements ExprVisitor<Value> {
 
 	@Override
 	public Value visit(StringLiteral stringLiteral) {
-		// TODO Auto-generated method stub
-		return null;
+		return new String(stringLiteral.getValue());
 	}
 
 	@Override
 	public Value visit(Add add) {
-		// TODO Auto-generated method stub
-		return null;
+		Value lhs = add.getLhs().accept(this);
+		Value rhs = add.getRhs().accept(this);
+		return new Int(((Int)lhs).getValue() + ((Int)rhs).getValue());
 	}
 
 	@Override
 	public Value visit(And and) {
-		// TODO Auto-generated method stub
-		return null;
+		Value lhs = and.getLhs().accept(this);
+		Value rhs = and.getRhs().accept(this);
+		return new Bool(((Bool)lhs).getValue() && ((Bool)rhs).getValue());
 	}
 
 	@Override
 	public Value visit(Div div) {
-		// TODO Auto-generated method stub
-		return null;
+		Value lhs = div.getLhs().accept(this);
+		Value rhs = div.getRhs().accept(this);
+		return new Int(((Int)lhs).getValue() / ((Int)rhs).getValue());
 	}
 
 	@Override
 	public Value visit(Eq eq) {
-		// TODO Auto-generated method stub
-		return null;
+		Value lhs = eq.getLhs().accept(this);
+		Value rhs = eq.getRhs().accept(this);		
+		return new Bool(((Value)lhs).getValue().equals(((Value)rhs).getValue()));
 	}
 
 	@Override
 	public Value visit(GEq gEq) {
-		// TODO Auto-generated method stub
-		return null;
+		Value lhs = gEq.getLhs().accept(this);
+		Value rhs = gEq.getRhs().accept(this);
+		return new Bool(((Int)lhs).getValue() >= ((Int)rhs).getValue());
 	}
 
 	@Override
 	public Value visit(GT gt) {
-		// TODO Auto-generated method stub
-		return null;
+		Value lhs = gt.getLhs().accept(this);
+		Value rhs = gt.getRhs().accept(this);
+		return new Bool(((Int)lhs).getValue() >= ((Int)rhs).getValue());
 	}
 
 	@Override
@@ -73,69 +80,73 @@ public class ExprEvaluationVisitor implements ExprVisitor<Value> {
 	}
 
 	@Override
-	public Value visit(Int int1) {
-		// TODO Auto-generated method stub
-		return null;
+	public Value visit(org.uva.sea.ql.ast.expressions.Int int1) {
+		return new Int(int1.getValue());
 	}
 
 	@Override
 	public Value visit(LEq lEq) {
-		// TODO Auto-generated method stub
-		return null;
+		Value lhs = lEq.getLhs().accept(this);
+		Value rhs = lEq.getRhs().accept(this);
+		return new Bool(((Int)lhs).getValue() <= ((Int)rhs).getValue());
 	}
 
 	@Override
 	public Value visit(LT lt) {
-		// TODO Auto-generated method stub
-		return null;
+		Value lhs = lt.getLhs().accept(this);
+		Value rhs = lt.getRhs().accept(this);
+		return new Bool(((Int)lhs).getValue() < ((Int)rhs).getValue());
 	}
 
 	@Override
 	public Value visit(Mul mul) {
-		// TODO Auto-generated method stub
-		return null;
+		Value lhs = mul.getLhs().accept(this);
+		Value rhs = mul.getRhs().accept(this);
+		return new Int(((Int)lhs).getValue() * ((Int)rhs).getValue());
 	}
 
 	@Override
 	public Value visit(Neg neg) {
-		// TODO Auto-generated method stub
-		return null;
+		Value value = neg.getLhs().accept(this);
+		return new Int(-((Int)value).getValue());
 	}
 
 	@Override
 	public Value visit(NEq nEq) {
-		// TODO Auto-generated method stub
-		return null;
+		Value lhs = nEq.getLhs().accept(this);
+		Value rhs = nEq.getRhs().accept(this);		
+		return new Bool(!((Value)lhs).getValue().equals(((Value)rhs).getValue()));
 	}
 
 	@Override
 	public Value visit(Not not) {
-		// TODO Auto-generated method stub
-		return null;
+		Value value = not.getLhs().accept(this);
+		return new Bool(!((Bool)value).getValue());
 	}
 
 	@Override
 	public Value visit(Or or) {
-		// TODO Auto-generated method stub
-		return null;
+		Value lhs = or.getLhs().accept(this);
+		Value rhs = or.getRhs().accept(this);
+		return new Bool(((Bool)lhs).getValue() || ((Bool)rhs).getValue());
 	}
 
 	@Override
 	public Value visit(Pos pos) {
-		// TODO Auto-generated method stub
-		return null;
+		Value value = pos.getLhs().accept(this);
+		return new Int(((Int)value).getValue());
 	}
 
 	@Override
 	public Value visit(Sub sub) {
-		// TODO Auto-generated method stub
-		return null;
+		Value lhs = sub.getLhs().accept(this);
+		Value rhs = sub.getRhs().accept(this);
+		return new Int(((Int)lhs).getValue() - ((Int)rhs).getValue());
 	}
 
 	@Override
 	public Value visit(BooleanLiteral booleanLiteral) {
-		// TODO Auto-generated method stub
-		return null;
+		return new Bool(booleanLiteral.getValue());
 	}
 
 }
