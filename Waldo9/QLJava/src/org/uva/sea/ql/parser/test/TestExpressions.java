@@ -2,13 +2,8 @@ package org.uva.sea.ql.parser.test;
 
 import static org.junit.Assert.assertEquals;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
-import org.junit.runners.Parameterized.Parameters;
 import org.uva.sea.ql.ast.expressions.Add;
 import org.uva.sea.ql.ast.expressions.GT;
 import org.uva.sea.ql.ast.expressions.Ident;
@@ -18,20 +13,13 @@ import org.uva.sea.ql.ast.expressions.LT;
 import org.uva.sea.ql.ast.expressions.Mul;
 import org.uva.sea.ql.parser.antlr.ANTLRParser;
 
-@RunWith(Parameterized.class)
 public class TestExpressions {
 
 	private IParse parser;
 
-	@Parameters
-	public static List<Object[]> theParser() {
-	  List<Object[]> parserList = new ArrayList<Object[]>();
-	  parserList.add(new Object[] {new ANTLRParser()});
-	  return parserList;
-	}
-	
-	public TestExpressions(IParse parser) {
-		this.parser = parser;
+	@Before
+	public void setUp() {
+		parser = new ANTLRParser();
 	}
 	
 	@Test
