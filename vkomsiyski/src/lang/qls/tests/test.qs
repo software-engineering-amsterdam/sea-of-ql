@@ -6,11 +6,14 @@ color: "red"
 
 int {
 minimum: 4
+widget:spinbox
+widget: spinbox // TODO: duplicate rules
 }
 
 sellingPrice {
-stepSize: 19
+stepSize: -19.3
 }
+
 
 
 group "hi" {
@@ -18,7 +21,12 @@ group "hi" {
 	over
 }
 
+group "hdi" {
+	hasMaintLoan
+	over
+	hasMaintLoan // TODO: duplicate variables
+}
 
 over {
-	maximum: 4
+	widget: combobox
 }

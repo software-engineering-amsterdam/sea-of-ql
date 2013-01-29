@@ -9,13 +9,17 @@ syntax StyleRule
   | @Foldable group: "group" Label name "{" Ident+ questions "}";
 
 syntax Rule 
-  = color: "color:"  Color color
+  = color: "color:"  Color color // color of the label text
+  | font: "font:" Font font // font of the label text
   | widget: "widget:" Widget widget 
-  | font: "font:" Font font
-  | width: "width:" Width val
-  | min: "minimum:" Numeric val
-  | max: "maximum:" Numeric val
-  | step: "stepSize:" Numeric val;
+  | minInt: "minimum:" Int val 
+  | maxInt: "maximum:" Int val 
+  | stepInt: "stepSize:" Int val
+  | minFloat: "minimum:" Float val 
+  | maxFloat: "maximum:" Float val 
+  | stepFloat: "stepSize:" Float val
+  | minDate: "minimum:" Date val 
+  | maxDate: "maximum:" Date val; 
   
 syntax WhitespaceOrComment 
   = whitespace: Whitespace
@@ -29,9 +33,13 @@ lexical Type
   | @category="Type" date: "date";
 
 lexical Widget
-  = @category="Variable" checkbox: "checkbox"
-  | @category="Variable" radio: "radio"
-  ;
+  = @category="Variable" checkbox: "checkbox" // bool
+  | @category="Variable" combobox: "combobox" // bool
+  | @category="Variable" radio: "radio" // bool
+  | @category="Variable" slider: "slider" // numeric
+  | @category="Variable" dial: "dial" // numeric
+  | @category="Variable" spinbox: "spinbox"; // numeric
+  
 
 lexical Ident = ([a-z A-Z 0-9 _] !<< [a-z A-Z][a-z A-Z 0-9 _]* !>> [a-z A-Z 0-9 _]) \ Keywords;
 
@@ -41,19 +49,21 @@ lexical Color = @category="Variable" String;
 
 lexical Font = @category="Variable" String;
 
-lexical Numeric 
-  = @category="Variable" Int 
-  | @category="Variable" Float
-  | @category="Variable" NegativeInt
-  | @category="Variable" NegativeFloat;
+lexical Int = IntNumber | "-" IntNumber;
 
-lexical NegativeInt = "-" Int;
+lexical IntNumber = [0-9]+ !>> [0-9];
 
-lexical NegativeFloat = "-" Float;
+lexical Float = FloatNumber | "-" FloatNumber;
 
-lexical Int = [0-9]+ !>> [0-9];
+lexical FloatNumber = [0-9]* "." [0-9]+ !>> [0-9];
 
-lexical Float = [0-9]* "." [0-9]+ !>> [0-9];
+lexical Date = Day "." Month "." Year;
+
+lexical Day = "0"?[1-9] | [12][0-9] | "3" [01];
+
+lexical Month = "0"?[1-9] | "1"[0-2];
+
+lexical Year = IntNumber; 
 
 lexical String = "\"" StringChar* [\\] !<< "\"" ; 
   

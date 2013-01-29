@@ -63,6 +63,7 @@ public str addWidget(Widget w:<name, string(_), vis, val, e>) ="
 public str addWidget(Widget w:<name, date(_), vis, val, e>) ="
 \t\t<name>Widget.setDate(<val>);
 \t\t<name>Widget.setDisplayFormat(\"d MMMM yyyy\"); 
+\t\t<name>Widget.setCalendarPopup(true); 
 \t\t<name>Widget.dateChanged.connect(this, \"onChanged(QDate)\");"
 + genericWidget(name, vis, e);
 
