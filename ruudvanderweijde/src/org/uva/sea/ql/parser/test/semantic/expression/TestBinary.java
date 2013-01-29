@@ -1,4 +1,4 @@
-package org.uva.sea.ql.parser.test.tests;
+package org.uva.sea.ql.parser.test.semantic.expression;
 
 import static org.junit.Assert.assertEquals;
 
@@ -19,7 +19,7 @@ import org.uva.sea.ql.parser.test.IParse;
 import org.uva.sea.ql.visitor.checker.ExpressionChecker;
 
 @RunWith(Parameterized.class)
-public class TestExprSemanticsBinary {
+public class TestBinary {
 
 	private IParse parser;
 
@@ -32,7 +32,7 @@ public class TestExprSemanticsBinary {
 	public static ArrayList<String> errors = new ArrayList<String>();
 
 	
-	public TestExprSemanticsBinary(IParse parser) {
+	public TestBinary(IParse parser) {
 		this.parser = parser;
 	}
 
@@ -113,5 +113,4 @@ public class TestExprSemanticsBinary {
 		assertEquals(parser.parseExpression("10 / 1").accept(new ExpressionChecker(ExprMap, errors)), true);
     	assertEquals(parser.parseExpression("10 / true").accept(new ExpressionChecker(ExprMap, errors)), false);	
 	}
-
 }

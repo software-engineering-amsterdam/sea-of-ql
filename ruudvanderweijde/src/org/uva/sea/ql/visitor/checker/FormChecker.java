@@ -33,21 +33,26 @@ public class FormChecker implements FormVisitor {
 
 	@Override
 	public void visit(ComputedQuestion question) {
-		checkName(question.getId(), question.getExpr().typeOf(typeEnv));
+		Type computedType = question.getExpr().typeOf(typeEnv);
+		checkIdentName(question.getId(), computedType);
 		checkExpr(question.getExpr());
+		
+		// check if computed type is the same as question type
+		if (!question.getType().isCompatibleTo(computedType)) {
+			addErrorMessage(String.format("%s returns invalid expression: %s type expected, %s type given.", 
+					question.getId().getValue(), question.getType(), question.getExpr().typeOf(typeEnv)));
+		}
 	}
 
 	@Override
 	public void visit(NormalQuestion question) {
-		checkName(question.getId(), question.getType());
+		checkIdentName(question.getId(), question.getType());
 	}
 
 	
-
+	@Override
 	public void visit(IfThenElse ifThenElse) {
-		/*
-		 * First check the condition Then check if loop Then check else loop
-		 */
+		
 		checkExpr(ifThenElse.getCondition());
 
 		for (Statement stmt : ifThenElse.getIfBlock()) {
@@ -62,24 +67,31 @@ public class FormChecker implements FormVisitor {
 
 	@Override
 	public void visit(Form form) {
-		// check for duplicate form ids
-		if (formIds.contains(form.getId().getValue())) {
-			addErrorMessage("Duplicate form id: " + form.getId().getValue());
-		} else {
-			formIds.add(form.getId().getValue());
-		}
+		
+		checkFormName(form.getId());
+		
 		for (Statement stmt : form.getStatements()) {
 			stmt.accept(this);
 		}
 	}
 	
-	private void checkName(Ident id, Type type) {
+	
+	private void checkIdentName(Ident id, Type type) {
 		if (typeEnv.containsKey(id)) {
 			addErrorMessage("Duplicate question id: " + id.getValue());
 		} else {
 			typeEnv.put(id, type);
 		}
 	}
+	
+	private void checkFormName(Ident id) {
+		if (formIds.contains(id.getValue())) {
+			addErrorMessage("Duplicate form id: " + id.getValue());
+		} else {
+			formIds.add(id.getValue());
+		}
+	}
+	
 	private void checkExpr(Expr expr) {
 		expr.accept(new ExpressionChecker(typeEnv, errors));
     }

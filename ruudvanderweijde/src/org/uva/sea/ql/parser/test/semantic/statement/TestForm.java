@@ -1,4 +1,4 @@
-package org.uva.sea.ql.parser.test.tests;
+package org.uva.sea.ql.parser.test.semantic.statement;
 
 import static org.junit.Assert.assertEquals;
 
@@ -19,7 +19,7 @@ import org.uva.sea.ql.parser.test.IParse;
 import org.uva.sea.ql.visitor.checker.FormChecker;
 
 @RunWith(Parameterized.class)
-public class TestFormSemantics {
+public class TestForm {
 
 	private IParse parser;
 
@@ -32,7 +32,7 @@ public class TestFormSemantics {
 	public static ArrayList<String> errors = new ArrayList<String>();
 
 	
-	public TestFormSemantics(IParse parser) {
+	public TestForm(IParse parser) {
 		this.parser = parser;
 		ExprMap = new HashMap<Ident, Type>();
 		errors = new ArrayList<String>();
@@ -111,29 +111,5 @@ public class TestFormSemantics {
     	assertEquals(errors.size(), 1);
 	}
 
-	@Test
-	public void testComputedQuestion() throws ParseError {	
-    	String formString = "";
-    	formString += "form Box1HouseOwning {\n";
-    	formString += "     sellingPrice: \"Price the house was sold for:\" integer\n";
-    	formString += "     privateDebt: \"Private debts for the sold house:\" integer\n";
-    	formString += "		valueResidue: \"Value residue:\" integer(sellingPrice - privateDebt)\n";
-    	formString += "}\n";
-    	
-    	parser.parseForm(formString).accept(new FormChecker(ExprMap, errors));
-    	assertEquals(errors.size(), 0);
-	}
 
-	@Test
-	public void testComputedQuestionError() throws ParseError {	
-    	String formString = "";
-    	formString += "form Box1HouseOwning {\n";
-    	formString += "     sellingPrice: \"Price the house was sold for:\" boolean\n";
-    	formString += "     privateDebt: \"Private debts for the sold house:\" integer\n";
-    	formString += "		valueResidue: \"Value residue:\" integer(sellingPrice - privateDebt)\n";
-    	formString += "}\n";
-    	
-    	parser.parseForm(formString).accept(new FormChecker(ExprMap, errors));
-    	assertEquals(errors.size(), 1);
-	}
 }
