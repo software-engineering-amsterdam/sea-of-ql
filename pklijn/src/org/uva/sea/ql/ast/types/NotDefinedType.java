@@ -11,6 +11,11 @@ public class NotDefinedType extends Type {
 	}
 
 	@Override
+	public boolean isDefined() {
+		return false;
+	};
+	
+	@Override
 	public Component getAnswerField(boolean enabled) {
 		return new Label("<UNDEFINED VALUE>");
 	}

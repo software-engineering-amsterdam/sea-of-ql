@@ -44,7 +44,7 @@ public class IfStatement extends FormItem {
 	public boolean validate(Env environment) {
 		boolean valid = true;
 		errors.addAll(expression.checkType(environment));
-		if (!(expression.typeOf(environment) instanceof BoolType)) {
+		if (!(expression.typeOf(environment).equals(new BoolType()))) {
 			errors.add(new Error("Ifstatement requires the expression to give a boolean result"));
 		}
 		Env ifBodyEnvironment = new Env(environment);

@@ -6,13 +6,11 @@ import java.util.Map;
 import org.uva.sea.ql.ast.expressions.Ident;
 import org.uva.sea.ql.ast.types.NotDefinedType;
 import org.uva.sea.ql.ast.types.Type;
-//import org.uva.sea.ql.ast.values.Value;
 
 public class Env {
 	
 	private final Env parent;
 	private Map<Ident, Type> types;
-//	private Map<Ident, Value> values; //TODO: add values here!
 	
 	public Env() {
 		this(null);
@@ -21,7 +19,6 @@ public class Env {
 	public Env(Env parent) {
 		this.parent = parent;
 		types = new HashMap<Ident, Type>();
-//		values = new HashMap<Ident, Value>();
 	}
 	
 	public Env getParent() {
@@ -37,18 +34,15 @@ public class Env {
 			return new NotDefinedType();
 	}
 	
-	// TODO: Met Tijs overleggen over betere aanpak!
-	public EnvAddIdentResults addIdent(Ident ident, Type type) {
-		Type typeOfExistingIdent = typeOf(ident);
-		if (typeOfExistingIdent instanceof NotDefinedType) {
-			types.put(ident, type);
-			return EnvAddIdentResults.NEW_ADDED;
-		}
-		else if (!(typeOfExistingIdent.equals(type))) {
-			return EnvAddIdentResults.DIFFERENT_TYPE_FOUND;
-		}
-		else {
-			return EnvAddIdentResults.SAME_TYPE_FOUND;
-		}
+	public boolean hasIdent(Ident ident) {
+		if (types.containsKey(ident))
+			return true;
+		else if (parent != null)
+			return parent.hasIdent(ident);
+		return false;
+	}
+	
+	public void addIdent(Ident ident, Type type) {
+		types.put(ident, type);
 	}
 }

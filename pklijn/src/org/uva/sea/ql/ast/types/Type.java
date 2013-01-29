@@ -8,7 +8,14 @@ public abstract class Type implements ASTNode {
 	
 	@Override
 	public boolean equals(Object obj) {
-		return (obj.getClass() == this.getClass());
+		if (obj == null) {
+			return false;
+		}
+		return (obj.getClass().equals(this.getClass()));
+	}
+	
+	public boolean isDefined() {
+		return true;
 	}
 	
 	public abstract Component getAnswerField(boolean enabled);

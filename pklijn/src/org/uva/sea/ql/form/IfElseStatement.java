@@ -1,6 +1,5 @@
 package org.uva.sea.ql.form;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.uva.sea.ql.ast.eval.Env;

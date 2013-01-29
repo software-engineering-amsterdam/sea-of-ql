@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.uva.sea.ql.ast.eval.Env;
-import org.uva.sea.ql.ast.eval.EnvAddIdentResults;
 import org.uva.sea.ql.ast.expressions.Ident;
 import org.uva.sea.ql.ast.types.Type;
 import org.uva.sea.ql.interpreter.FormElement;
@@ -46,8 +45,13 @@ public class Question extends FormItem {
 
 	@Override
 	public boolean validate(Env environment) {
-		if (environment.addIdent(id, questionType) == EnvAddIdentResults.DIFFERENT_TYPE_FOUND) {
-			errors.add(new Error("Ident " + id + " already defined with other type!"));
+		if (environment.hasIdent(id)) {
+			if (!(environment.typeOf(id).equals(questionType))) {
+				errors.add(new Error("Ident " + id + " already defined with other type!"));
+			}
+		}
+		else {
+			environment.addIdent(id, questionType);
 		}
 		return errors.size() == 0;
 	}
