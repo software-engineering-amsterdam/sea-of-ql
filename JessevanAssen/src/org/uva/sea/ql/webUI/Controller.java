@@ -2,6 +2,8 @@ package org.uva.sea.ql.webUI;
 
 import org.uva.sea.ql.Message;
 import org.uva.sea.ql.ast.Form;
+import org.uva.sea.ql.formLoader.FormLoader;
+import org.uva.sea.ql.formLoader.FormLoaderFactory;
 import org.uva.sea.ql.interpreter.InterpreterVisitor;
 import org.uva.sea.ql.parser.ParseError;
 import org.uva.sea.ql.parser.Parser;
@@ -23,27 +25,25 @@ public class Controller extends HttpServlet {
 
     private static final String VIEWPATH = "form.jsp";
     private static final String JSON_CONTENTTYPE = "application/json";
-    private static final String SAMPLE_FORM =
-            "form Box1HouseOwning {" +
-                    "    \"Did you sell a house in 2010?\" hasSoldHouse: boolean" +
-                    "    \"Did you by a house in 2010?\" hasBoughtHouse: boolean" +
-                    "    \"Did you enter a loan for maintenance/reconstruction?\" hasMaintLoan: boolean" +
-                    "    if (hasSoldHouse) {" +
-                    "        \"Private debts for the sold house:\" privateDebt: integer" +
-                    "        \"Price the house was sold for:\" sellingPrice: integer" +
-                    "        \"Value residue:\" sellingPrice - privateDebt" +
-                    "    }" +
-                    "}";
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        showFormView(request, response);
+        // This could throw an exception if the form isn't in the correct format.
+        // However, there is nothing the application can do to repair this, so
+        // go for the 'organized panic'-strategy and notify the caller that the
+        // form is broken via the default server exception handling mechanism.
+        Form form = FormLoaderFactory.createFormLoader().loadForm();
+        String viewModel = KnockoutJSViewModelBuilderVisitor.createViewModel(form);
+        request.setAttribute(VIEWMODEL_ATTRIBUTE, viewModel);
+
+        RequestDispatcher view = request.getRequestDispatcher(VIEWPATH);
+        view.forward(request, response);
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Map<String, String> postValues = flatten(request.getParameterMap());
-        Form form = parseForm();
+        Form form = FormLoaderFactory.createFormLoader().loadForm();
         InterpreterVisitor.Result result = InterpreterVisitor.interpret(form, postValues);
 
         if(result.getErrors().isEmpty())
@@ -75,42 +75,4 @@ public class Controller extends HttpServlet {
             postValues.put(key, input.get(key)[0]);
         return postValues;
     }
-
-    private void showFormView(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        Form parsedForm = parseForm();
-
-        String viewModel = KnockoutJSViewModelBuilderVisitor.createViewModel(parsedForm);
-        request.setAttribute(VIEWMODEL_ATTRIBUTE, viewModel);
-
-        RequestDispatcher view = request.getRequestDispatcher(VIEWPATH);
-        view.forward(request, response);
-    }
-
-    private Form parseForm() {
-        try {
-            Parser parser = ParserFactory.createParser();
-            Form form = parser.parse(SAMPLE_FORM);
-
-            List<Message> errors = TypecheckerVisitor.typecheck(form);
-
-            if(errors.isEmpty())
-                return form;
-            else
-                throw new RuntimeException(buildMessageString(errors));
-        } catch(ParseError parseError) {
-            throw new RuntimeException("Parsing the form failed.", parseError);
-        }
-    }
-
-    private String buildMessageString(Iterable<Message> messages) {
-        StringBuilder stringBuilder = new StringBuilder("The following errors occurred while doing a semantic check of the QL form:\n");
-        for(Iterator<Message> iterator = messages.iterator(); iterator.hasNext() ; )
-            stringBuilder
-                    .append(" - ")
-                    .append(iterator.next())
-                    .append("\n");
-
-        return stringBuilder.toString();
-    }
-
 }
