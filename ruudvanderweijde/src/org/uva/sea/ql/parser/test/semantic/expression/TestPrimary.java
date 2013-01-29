@@ -1,4 +1,4 @@
-package org.uva.sea.ql.parser.test.tests;
+package org.uva.sea.ql.parser.test.semantic.expression;
 
 import static org.junit.Assert.assertEquals;
 
@@ -19,7 +19,7 @@ import org.uva.sea.ql.parser.test.IParse;
 import org.uva.sea.ql.visitor.checker.ExpressionChecker;
 
 @RunWith(Parameterized.class)
-public class TestExprSemanticsPrimary {
+public class TestPrimary {
 
 	private IParse parser;
 
@@ -32,7 +32,7 @@ public class TestExprSemanticsPrimary {
 	public static ArrayList<String> errors = new ArrayList<String>();
 
 	
-	public TestExprSemanticsPrimary(IParse parser) {
+	public TestPrimary(IParse parser) {
 		this.parser = parser;
 	}
 

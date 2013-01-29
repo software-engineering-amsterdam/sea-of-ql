@@ -3,16 +3,19 @@ package org.uva.sea.ql.parser.test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
-import org.uva.sea.ql.parser.test.tests.TestExprSemanticsBinary;
-import org.uva.sea.ql.parser.test.tests.TestExprSemanticsPrimary;
-import org.uva.sea.ql.parser.test.tests.TestExprSemanticsUnary;
-import org.uva.sea.ql.parser.test.tests.TestFormSemantics;
-import org.uva.sea.ql.parser.test.tests.TestParser;
+import org.uva.sea.ql.parser.test.parser.TestParser;
+import org.uva.sea.ql.parser.test.semantic.expression.TestBinary;
+import org.uva.sea.ql.parser.test.semantic.expression.TestCombinations;
+import org.uva.sea.ql.parser.test.semantic.expression.TestPrimary;
+import org.uva.sea.ql.parser.test.semantic.expression.TestUnary;
+import org.uva.sea.ql.parser.test.semantic.statement.TestForm;
+import org.uva.sea.ql.parser.test.semantic.statement.TestQuestion;
 
 @RunWith(Suite.class)
-@SuiteClasses({ TestParser.class, TestExprSemanticsBinary.class,
-		TestExprSemanticsPrimary.class, TestExprSemanticsUnary.class, 
-		TestFormSemantics.class })
+@SuiteClasses({ TestParser.class, TestBinary.class,
+		TestPrimary.class, TestUnary.class,
+		TestCombinations.class,	TestForm.class,
+		TestForm.class, TestQuestion.class })
 public class AllTests {
 
 }
