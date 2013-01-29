@@ -1,6 +1,6 @@
 module lang::qls::ide::Outline
 
-import Set;
+import List;
 import Node;
 import ParseTree;
 import util::IDE;
@@ -10,76 +10,79 @@ import lang::qls::util::Implode;
 import lang::qls::util::Parse;
 
 // The root note of the stylesheet
-public node outlineStylesheet(Stylesheet sh) = ""();/*
+public node outlineStylesheet(Stylesheet sh) = 
   "outline"(outline(sh))
   [@label="Stylesheet"]
-  [@\loc=sh@location];*/
+  [@\loc=sh@location];
 
 // Helper function to create nodes with appropriate annotations and members.
-private node createNode(str name, str label, loc location, list[node] children)
-  = setAnnotations(makeNode(name, children), ("label": label, "loc": location));
+private node createNode(str name, str label, loc location, list[node] children) =
+  setAnnotations(makeNode(name, children), ("label": label, "loc": location));
 
 
 // Below this are functions to rewrite the Tree to a tree of Nodes for the outliner
 
-private node outline(Stylesheet sh) =
-  "stylesheet"([outline(e) | e <- sh.statements])
-  [@label="Stylesheet (<size(sh.statements)>)"]
-  [@\loc=sh@location];
-
-private node outline(Statement s: 
-  classDefinition(str ident, set[ClassRule] classRules))
-    = createNode(
-      "ClassDefinition",
-      "class <ident> (<size(classRules)>)",
-      s@location,
-      [outline(cr) | cr <- classRules]
-    );
-/*
-private node outline(ClassRule r: 
-  classRule(str ident))
-    = createNode(
-      "ClassRule",
-      ident,
-      r@location,
-      []
-    );
-*/
-private node outline(Statement s: 
-  styleDefinition(StyleIdent: typeStyleIdent(ident), set[StyleRule] styleRules)) = 
+private node outline(Stylesheet s) =
   createNode(
-    "TypeStyleDefinition",
-    "<ident> (<size(styleRules)>)",
+    "Stylesheet",
+    "stylesheet <s.ident>",
     s@location,
-    [outline(r) | r <- styleRules]
+    [outline(st) | st <- s.statements]
   );
 
-private node outline(Statement s: 
-  styleDefinition(StyleIdent: classStyleIdent(ident), set[StyleRule] styleRules)) = 
+private node outline(Statement s:
+  statement(definition)) =
+    outline(definition);
+
+private node outline(PageDefinition d) =
     createNode(
-      "ClassStyleDefinition",
-      "<ident> (<size(styleRules)>)",
-      s@location,
+      "PageDefinition",
+      "page <d.ident> (<size(d.pageRules)>)",
+      d@location,
+      [outline(r) | r <- d.pageRules]
+    );
+
+private node outline(SectionDefinition d) = 
+  createNode(
+    "SectionDefinition",
+    "section <d.ident> (<size(d.sectionRules)>)",
+    d@location,
+    [outline(r) | r <- d.sectionRules]
+  );
+
+private node outline(QuestionDefinition d:
+  questionDefinition(ident)) =
+    createNode(
+      "QuestionDefinition",
+      "question <ident>",
+      d@location,
+      []
+    );
+
+private node outline(QuestionDefinition d:
+  questionDefinition(ident, styleRules)) = 
+    createNode(
+      "QuestionDefinition",
+      "question <ident> (<size(styleRules)>)",
+      d@location,
       [outline(r) | r <- styleRules]
     );
 
-private node outline(Statement s: 
-  styleDefinition(StyleIdent: sectionStyleIdent(ident), set[StyleRule] styleRules)) = 
+private node outline(DefaultDefinition d) =
     createNode(
-      "SectionStyleDefinition",
-      "<ident> (<size(styleRules)>)",
-      s@location,
-      [outline(r) | r <- styleRules]
+      "DefaultDefinition",
+      "default <d.ident> (<size(d.styleRules)>)",
+      d@location,
+      [outline(r) | r <- d.styleRules]
     );
 
-private node outline(Statement s: 
-  styleDefinition(StyleIdent: questionStyleIdent(ident), set[StyleRule] styleRules)) =
-    createNode(
-      "IdentStyleDefinition",
-      "<ident> (<size(styleRules)>)",
-      s@location,
-      [outline(r) | r <- styleRules]
-    );
+private node outline(PageRule r:
+  pageRule(definition)) =
+    outline(definition);
+
+private node outline(SectionRule r:
+  sectionRule(definition)) =
+    outline(definition);
 
 private node outline(StyleRule r: 
   typeStyleRule(str attr, TypeStyleValue: radio())) =

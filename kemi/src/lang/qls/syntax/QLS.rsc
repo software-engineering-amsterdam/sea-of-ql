@@ -24,9 +24,9 @@ syntax PageDefinition
 
 
 syntax PageRule
-  = pageRule: SectionDefinition
-  | pageRule: QuestionDefinition
-  | pageRule: DefaultDefinition
+  = @Foldable pageRule: SectionDefinition
+  | @Foldable pageRule: QuestionDefinition
+  | @Foldable pageRule: DefaultDefinition
   ;
 
 syntax SectionDefinition
@@ -34,9 +34,9 @@ syntax SectionDefinition
   ;
 
 syntax SectionRule
-  = sectionRule: SectionDefinition
-  | sectionRule: QuestionDefinition
-  | sectionRule: DefaultDefinition
+  = @Foldable sectionRule: SectionDefinition
+  | @Foldable sectionRule: QuestionDefinition
+  | @Foldable sectionRule: DefaultDefinition
   ;
 
 syntax QuestionDefinition

@@ -15,14 +15,14 @@ data PageDefinition
   = pageDefinition(str ident, list[PageRule] pageRules)
   ;
 
-data SectionDefinition
-  = sectionDefinition(str ident, list[SectionRule] sectionRules)
-  ;
-
 data PageRule
   = pageRule(SectionDefinition sectionDefinition)
   | pageRule(QuestionDefinition questionDefinition)
   | pageRule(DefaultDefinition defaultDefinition)
+  ;
+
+data SectionDefinition
+  = sectionDefinition(str ident, list[SectionRule] sectionRules)
   ;
 
 data SectionRule
@@ -52,7 +52,11 @@ data TypeStyleValue
 
 anno loc Stylesheet@location;
 anno loc Statement@location;
+anno loc PageDefinition@location;
 anno loc PageRule@location;
+anno loc SectionDefinition@location;
 anno loc SectionRule@location;
+anno loc QuestionDefinition@location;
+anno loc DefaultDefinition@location;
 anno loc StyleRule@location;
 
