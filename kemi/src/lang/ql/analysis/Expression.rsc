@@ -125,12 +125,6 @@ private tuple[Type, set[Message]] analyze(Types types,
   Expr e: sub(Expr minuend, Expr subtrahend)) =
     analyzeBinaryCalculation(types, e, minuend, subtrahend);
     
-// This function catches the default Expression type. If this there is an expression 
-// which does not have a type checker, this exception is thrown.
-private tuple[Type, set[Message]] analyze(Types types, Expr e) {
-  throw "Expression type <getName(e)> is not implemented yet.";
-}
-
 // In this block are the analysis functions for each of the Expr categories 
 private tuple[Type, set[Message]] analyze(Types types, Expr e: ident(str name)) {
   if(name notin types) {
