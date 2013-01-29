@@ -3,7 +3,7 @@ module compiler::Compile
 import Prelude;
 import syntax::AbstractSyntax;
 import compiler::Assembly;
-import typeChecker::Load;
+import util::Load;
 
 alias Instrs = list[Instr];     // We introduce Instrs as an alias for a list of assembly language instructions                  
 
@@ -12,11 +12,9 @@ alias Instrs = list[Instr];     // We introduce Instrs as an alias for a list of
 // They all have a program fragment as argument and return the corresponding list of instructions
 Instrs compileExp(moneyCon(Money M)) = [pushMon(N)];  
 
-Instrs compileExp(strCon(str S)) = [pushStr(substring(S,1,size(S)-1))];
+//Instrs compileExp(string(str S)) = [pushStr(substring(S,1,size(S)-1))];
 
 Instrs compileExp(id(QuestionId Id)) = [rvalue(Id)];
-
-Instrs compileExp(strQue(QuestionString qName)) = [rvalue(qName)];
 
 public Instrs compileExp(add(EXP E1, EXP E2)) =    
   [*compileExp(E1), *compileExp(E2), add2()];
@@ -40,8 +38,8 @@ private str nextLabel() {
 
 // Compile a statement
 
-Instrs compileStat(asgStat(QuestionId Id, QUE qName)) =
-	[lvalue(Id), *compileExp(qName), assign()];
+//Instrs compileStat(asgStat(str Id, QUE qName)) =
+//	[lvalue(Id), *compileExp(qName), assign()];
 	
 Instrs compileStat(ifElseStat(EXP Exp,              
                               list[STATEMENT] Stats1,
@@ -59,25 +57,24 @@ Instrs compileStat(ifElseStat(EXP Exp,
 }
 
 // Compile a list of statements  Compiling a list of statements conveniently uses a list comprehension and list splicing.
-Instrs compileStats(list[STATEMENT] Stats1) =      
+Instrs compileStats(list[Statement] Stats1) =      
   [ *compileStat(S) | S <- Stats1 ];
   
 // Compile declarations
 // Compiling declarations allocates memory locations of the appropriate type for each declared variable.
-Instrs compileDecls(list[DECL] Decls) =
+Instrs compileDecls(list[Body] Body) =
   [ ((tp == natural()) ? dclNat(Id) : dclStr(Id))  |       
-    decl(QuestionId Id, QUE tp) <- Decls
+    decl(str Id, QUE tp) <- Body
   ];
 
 // Compile a Pico program
 
-public Instrs compileProgram(PROGRAM P){
+public Instrs compileProgram(Program P){
   nLabel = 0;
-  if(program(EXP exp, list[DECL] Decls, list[STATEMENT] Series) := P){
-     println("EXP in COMPILE : <exp>");
-     println("DECL in COMPILE : <Decls>");
-     println("STATEMENT in COMPILE : <Series>");
-     return [*compileDecls(Decls), *compileStats(Series)];
+  if(program(Expression exp, list[Body] Body) := P){
+     //println("EXP in COMPILE : <exp>");
+     println("Body in COMPILE : <Body>");
+     return [*compileDecls(Body), *compileStats(Series)];
   } else
     throw "Cannot happen";
 }

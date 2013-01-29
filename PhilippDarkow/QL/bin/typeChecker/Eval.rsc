@@ -7,11 +7,11 @@ import typeChecker::TypeCheck;
 import typeChecker::Mapping;
 
 // First we introduce a data type QuestionValue that wraps all possible values that can occur at run-time.
-data QuestionValue = boolVal(bool b) | strVal(str s) | moneyVal (real m) | errorval(loc l, str msg);  
+data QuestionValue = boolVal(bool b) | strVal(str s) | moneyVal (real m) | intVal(int i) | errorval(loc l, str msg);  
 data QuestionName = strVal(str s) | errorval(loc l, str msg);
 
-alias VENV = map[str , QuestionValue];   // QuestionName
-alias QTENV = tuple[ map[str, Type] symbols, list[tuple[loc l, str msg]] errors];                                     
+alias VENV = map[str , QuestionValue];   
+//alias QTENV = tuple[ map[str, Type] symbols, list[tuple[loc l, str msg]] errors];                                     
 
 // Evaluate Expressions.
 
@@ -78,18 +78,11 @@ VENV evalDecls (list[Question] results) =
 // Evaluate a Pico program
 
 public VENV evalProgram(Program P){
-  if(program(EXP exp,list[DECL] Decls, list[STATEMENT] Series) := P){
+  if(program(EXP exp,list[Body] Body) := P){
      println("EVAL DECLS : <Decls>");     
      TENV tenv = checkDecls(Decls);
      println("TENV : <tenv>");  
-     //VENV env = checkDecls(Decls);
-     //list[QUET] results = mapQuestionIdToType3(tenv.symbols);
-     QTENV results = mapQuestionIdToType2(tenv.symbols);
      println("QTENV RESULTS IN EVAL : <results.symbols>");
-     list[tuple[QuestionId Id, TYPE tp]] hhh = toList(results.symbols);
-     println("HHHHH : <hhh>");
-     //VENV gg = results.symbols;  // QuestionValue
-     //println("gg : <gg>");
      VENV env = evalDecls(hhh);
      
      println(env);
