@@ -4,8 +4,8 @@ import java.util.Map;
 
 import ast.Expression;
 import ast.expression.Binary;
-import ast.types.Type;
-import ast.visitors.Visitor;
+import ast.type.Type;
+import ast.visitor.Visitor;
 
 public class Or extends Binary {
 	private final int level = 1;
@@ -19,8 +19,8 @@ public class Or extends Binary {
 	}
 
 	@Override
-	public Type typeOf(Map<ast.types.Ident, Type> typeEnv) {
-		return new ast.types.Bool();
+	public Type typeOf(Map<ast.type.Ident, Type> typeEnv) {
+		return new ast.type.Bool();
 	}
 
 	@Override

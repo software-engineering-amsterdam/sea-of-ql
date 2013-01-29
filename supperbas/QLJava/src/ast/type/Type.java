@@ -1,4 +1,4 @@
-package ast.types;
+package ast.type;
 
 public abstract class Type {
 	public abstract boolean isCompatibleTo(Type t);

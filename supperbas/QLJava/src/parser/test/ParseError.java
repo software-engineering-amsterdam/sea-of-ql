@@ -1,4 +1,4 @@
-package parser.tests;
+package parser.test;
 
 public class ParseError extends Exception {
 	private static final long serialVersionUID = 1L;

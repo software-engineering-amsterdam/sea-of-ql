@@ -3,11 +3,11 @@ package ast.statement;
 import java.util.Map;
 
 import ast.Statement;
-import ast.types.Ident;
-import ast.types.Type;
-import ast.visitors.Visitor;
+import ast.type.Ident;
+import ast.type.Type;
+import ast.visitor.Visitor;
 
-public class IfThenElse extends Statement {
+public class Var extends Statement {
 
 	@Override
 	public <T> T accept(Visitor<T> visitor) {

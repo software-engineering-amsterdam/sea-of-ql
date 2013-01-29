@@ -1,4 +1,4 @@
-// Output created by jacc on Tue Jan 22 15:48:27 CET 2013
+// Output created by jacc on Tue Jan 29 07:44:27 CET 2013
 
 package parser;
 
@@ -573,15 +573,15 @@ class QLParser implements QLTokens {
         switch (yytok) {
             case ENDINPUT:
             case '>':
-            case '<':
-            case '/':
             case OR:
-            case '-':
             case '+':
             case NEQ:
+            case GEQ:
+            case '-':
+            case '/':
+            case '<':
             case '*':
             case ')':
-            case GEQ:
             case LEQ:
             case EQ:
             case AND:
@@ -594,15 +594,15 @@ class QLParser implements QLTokens {
         switch (yytok) {
             case ENDINPUT:
             case '>':
-            case '<':
-            case '/':
             case OR:
-            case '-':
             case '+':
             case NEQ:
+            case GEQ:
+            case '-':
+            case '/':
+            case '<':
             case '*':
             case ')':
-            case GEQ:
             case LEQ:
             case EQ:
             case AND:
@@ -615,15 +615,15 @@ class QLParser implements QLTokens {
         switch (yytok) {
             case ENDINPUT:
             case '>':
-            case '<':
-            case '/':
             case OR:
-            case '-':
             case '+':
             case NEQ:
+            case GEQ:
+            case '-':
+            case '/':
+            case '<':
             case '*':
             case ')':
-            case GEQ:
             case LEQ:
             case EQ:
             case AND:
@@ -636,15 +636,15 @@ class QLParser implements QLTokens {
         switch (yytok) {
             case ENDINPUT:
             case '>':
-            case '<':
-            case '/':
             case OR:
-            case '-':
             case '+':
             case NEQ:
+            case GEQ:
+            case '-':
+            case '/':
+            case '<':
             case '*':
             case ')':
-            case GEQ:
             case LEQ:
             case EQ:
             case AND:
@@ -657,15 +657,15 @@ class QLParser implements QLTokens {
         switch (yytok) {
             case ENDINPUT:
             case '>':
-            case '<':
-            case '/':
             case OR:
-            case '-':
             case '+':
             case NEQ:
+            case GEQ:
+            case '-':
+            case '/':
+            case '<':
             case '*':
             case ')':
-            case GEQ:
             case LEQ:
             case EQ:
             case AND:
@@ -1062,15 +1062,15 @@ class QLParser implements QLTokens {
         switch (yytok) {
             case ENDINPUT:
             case '>':
-            case '<':
-            case '/':
             case OR:
-            case '-':
             case '+':
             case NEQ:
+            case GEQ:
+            case '-':
+            case '/':
+            case '<':
             case '*':
             case ')':
-            case GEQ:
             case LEQ:
             case EQ:
             case AND:
@@ -1115,15 +1115,15 @@ class QLParser implements QLTokens {
         switch (yytok) {
             case ENDINPUT:
             case '>':
-            case '<':
-            case '/':
             case OR:
-            case '-':
             case '+':
             case NEQ:
+            case GEQ:
+            case '-':
+            case '/':
+            case '<':
             case '*':
             case ')':
-            case GEQ:
             case LEQ:
             case EQ:
             case AND:
@@ -1136,15 +1136,15 @@ class QLParser implements QLTokens {
         switch (yytok) {
             case ENDINPUT:
             case '>':
-            case '<':
-            case '/':
             case OR:
-            case '-':
             case '+':
             case NEQ:
+            case GEQ:
+            case '-':
+            case '/':
+            case '<':
             case '*':
             case ')':
-            case GEQ:
             case LEQ:
             case EQ:
             case AND:
@@ -1199,8 +1199,8 @@ class QLParser implements QLTokens {
             case '<':
             case OR:
             case NEQ:
-            case ')':
             case GEQ:
+            case ')':
             case LEQ:
             case EQ:
             case AND:
@@ -1224,8 +1224,8 @@ class QLParser implements QLTokens {
             case '<':
             case OR:
             case NEQ:
-            case ')':
             case GEQ:
+            case ')':
             case LEQ:
             case EQ:
             case AND:
@@ -1249,8 +1249,8 @@ class QLParser implements QLTokens {
             case '<':
             case OR:
             case NEQ:
-            case ')':
             case GEQ:
+            case ')':
             case LEQ:
             case EQ:
             case AND:
@@ -1274,8 +1274,8 @@ class QLParser implements QLTokens {
             case '<':
             case OR:
             case NEQ:
-            case ')':
             case GEQ:
+            case ')':
             case LEQ:
             case EQ:
             case AND:
@@ -1320,15 +1320,15 @@ class QLParser implements QLTokens {
         switch (yytok) {
             case ENDINPUT:
             case '>':
-            case '<':
-            case '/':
             case OR:
-            case '-':
             case '+':
             case NEQ:
+            case GEQ:
+            case '-':
+            case '/':
+            case '<':
             case '*':
             case ')':
-            case GEQ:
             case LEQ:
             case EQ:
             case AND:
@@ -1345,13 +1345,13 @@ class QLParser implements QLTokens {
                 return 21;
             case ENDINPUT:
             case '>':
-            case '<':
             case OR:
             case '-':
             case '+':
             case NEQ:
-            case ')':
+            case '<':
             case GEQ:
+            case ')':
             case LEQ:
             case EQ:
             case AND:
@@ -1368,13 +1368,13 @@ class QLParser implements QLTokens {
                 return 21;
             case ENDINPUT:
             case '>':
-            case '<':
             case OR:
             case '-':
             case '+':
             case NEQ:
-            case ')':
+            case '<':
             case GEQ:
+            case ')':
             case LEQ:
             case EQ:
             case AND:
@@ -1387,15 +1387,15 @@ class QLParser implements QLTokens {
         switch (yytok) {
             case ENDINPUT:
             case '>':
-            case '<':
-            case '/':
             case OR:
-            case '-':
             case '+':
             case NEQ:
+            case GEQ:
+            case '-':
+            case '/':
+            case '<':
             case '*':
             case ')':
-            case GEQ:
             case LEQ:
             case EQ:
             case AND:
@@ -1419,8 +1419,8 @@ class QLParser implements QLTokens {
             case '<':
             case OR:
             case NEQ:
-            case ')':
             case GEQ:
+            case ')':
             case LEQ:
             case EQ:
             case AND:
@@ -1444,8 +1444,8 @@ class QLParser implements QLTokens {
             case '<':
             case OR:
             case NEQ:
-            case ')':
             case GEQ:
+            case ')':
             case LEQ:
             case EQ:
             case AND:
@@ -1458,15 +1458,15 @@ class QLParser implements QLTokens {
         switch (yytok) {
             case ENDINPUT:
             case '>':
-            case '<':
-            case '/':
             case OR:
-            case '-':
             case '+':
             case NEQ:
+            case GEQ:
+            case '-':
+            case '/':
+            case '<':
             case '*':
             case ')':
-            case GEQ:
             case LEQ:
             case EQ:
             case AND:
@@ -1475,139 +1475,139 @@ class QLParser implements QLTokens {
         return 85;
     }
 
-    private int yyr1() { // top : expr
+    private int yyr1() { // top : expression
         { result = ((ast.Expression)yysv[yysp-1]); }
         yysv[yysp-=1] = yyrv;
         return 1;
     }
 
-    private int yyr2() { // expr : '+' expr
+    private int yyr2() { // expression : '+' expression
         { yyrv = new Pos(((ast.Expression)yysv[yysp-1])); }
         yysv[yysp-=2] = yyrv;
-        return yypexpr();
+        return yypexpression();
     }
 
-    private int yyr3() { // expr : '-' expr
+    private int yyr3() { // expression : '-' expression
         { yyrv = new Neg(((ast.Expression)yysv[yysp-1])); }
         yysv[yysp-=2] = yyrv;
-        return yypexpr();
+        return yypexpression();
     }
 
-    private int yyr4() { // expr : '!' expr
+    private int yyr4() { // expression : '!' expression
         { yyrv = new Not(((ast.Expression)yysv[yysp-1])); }
         yysv[yysp-=2] = yyrv;
-        return yypexpr();
+        return yypexpression();
     }
 
-    private int yyr5() { // expr : expr '*' expr
+    private int yyr5() { // expression : expression '*' expression
         { yyrv = new Mul(((ast.Expression)yysv[yysp-3]), ((ast.Expression)yysv[yysp-1])); }
         yysv[yysp-=3] = yyrv;
-        return yypexpr();
+        return yypexpression();
     }
 
-    private int yyr6() { // expr : expr '/' expr
+    private int yyr6() { // expression : expression '/' expression
         { yyrv = new Div(((ast.Expression)yysv[yysp-3]), ((ast.Expression)yysv[yysp-1])); }
         yysv[yysp-=3] = yyrv;
-        return yypexpr();
+        return yypexpression();
     }
 
-    private int yyr7() { // expr : expr '+' expr
+    private int yyr7() { // expression : expression '+' expression
         { yyrv = new Add(((ast.Expression)yysv[yysp-3]), ((ast.Expression)yysv[yysp-1])); }
         yysv[yysp-=3] = yyrv;
-        return yypexpr();
+        return yypexpression();
     }
 
-    private int yyr8() { // expr : expr '-' expr
+    private int yyr8() { // expression : expression '-' expression
         { yyrv = new Sub(((ast.Expression)yysv[yysp-3]), ((ast.Expression)yysv[yysp-1])); }
         yysv[yysp-=3] = yyrv;
-        return yypexpr();
+        return yypexpression();
     }
 
-    private int yyr9() { // expr : expr EQ expr
+    private int yyr9() { // expression : expression EQ expression
         { yyrv = new Eq(((ast.Expression)yysv[yysp-3]), ((ast.Expression)yysv[yysp-1])); }
         yysv[yysp-=3] = yyrv;
-        return yypexpr();
+        return yypexpression();
     }
 
-    private int yyr10() { // expr : expr NEQ expr
+    private int yyr10() { // expression : expression NEQ expression
         { yyrv = new NEq(((ast.Expression)yysv[yysp-3]), ((ast.Expression)yysv[yysp-1])); }
         yysv[yysp-=3] = yyrv;
-        return yypexpr();
+        return yypexpression();
     }
 
-    private int yyr11() { // expr : expr '>' expr
+    private int yyr11() { // expression : expression '>' expression
         { yyrv = new GT(((ast.Expression)yysv[yysp-3]), ((ast.Expression)yysv[yysp-1])); }
         yysv[yysp-=3] = yyrv;
-        return yypexpr();
+        return yypexpression();
     }
 
-    private int yyr12() { // expr : expr '<' expr
+    private int yyr12() { // expression : expression '<' expression
         { yyrv = new LT(((ast.Expression)yysv[yysp-3]), ((ast.Expression)yysv[yysp-1])); }
         yysv[yysp-=3] = yyrv;
-        return yypexpr();
+        return yypexpression();
     }
 
-    private int yyr13() { // expr : expr GEQ expr
+    private int yyr13() { // expression : expression GEQ expression
         { yyrv = new GEq(((ast.Expression)yysv[yysp-3]), ((ast.Expression)yysv[yysp-1])); }
         yysv[yysp-=3] = yyrv;
-        return yypexpr();
+        return yypexpression();
     }
 
-    private int yyr14() { // expr : expr LEQ expr
+    private int yyr14() { // expression : expression LEQ expression
         { yyrv = new LEq(((ast.Expression)yysv[yysp-3]), ((ast.Expression)yysv[yysp-1])); }
         yysv[yysp-=3] = yyrv;
-        return yypexpr();
+        return yypexpression();
     }
 
-    private int yyr15() { // expr : expr AND expr
+    private int yyr15() { // expression : expression AND expression
         { yyrv = new And(((ast.Expression)yysv[yysp-3]), ((ast.Expression)yysv[yysp-1])); }
         yysv[yysp-=3] = yyrv;
-        return yypexpr();
+        return yypexpression();
     }
 
-    private int yyr16() { // expr : expr OR expr
+    private int yyr16() { // expression : expression OR expression
         { yyrv = new Or(((ast.Expression)yysv[yysp-3]), ((ast.Expression)yysv[yysp-1])); }
         yysv[yysp-=3] = yyrv;
-        return yypexpr();
+        return yypexpression();
     }
 
-    private int yyr17() { // expr : INT
+    private int yyr17() { // expression : INT
         { yyrv = ((ast.expression.value.Int)yysv[yysp-1]); }
         yysv[yysp-=1] = yyrv;
-        return yypexpr();
+        return yypexpression();
     }
 
-    private int yyr18() { // expr : MONEY
+    private int yyr18() { // expression : MONEY
         { yyrv = ((ast.expression.value.Money)yysv[yysp-1]); }
         yysv[yysp-=1] = yyrv;
-        return yypexpr();
+        return yypexpression();
     }
 
-    private int yyr19() { // expr : BOOL
+    private int yyr19() { // expression : BOOL
         { yyrv = ((ast.expression.value.Bool)yysv[yysp-1]); }
         yysv[yysp-=1] = yyrv;
-        return yypexpr();
+        return yypexpression();
     }
 
-    private int yyr20() { // expr : STR
+    private int yyr20() { // expression : STR
         { yyrv = ((ast.expression.value.Str)yysv[yysp-1]); }
         yysv[yysp-=1] = yyrv;
-        return yypexpr();
+        return yypexpression();
     }
 
-    private int yyr21() { // expr : IDENT
+    private int yyr21() { // expression : IDENT
         { yyrv = ((ast.expression.value.Ident)yysv[yysp-1]); }
         yysv[yysp-=1] = yyrv;
-        return yypexpr();
+        return yypexpression();
     }
 
-    private int yyr22() { // expr : '(' expr ')'
+    private int yyr22() { // expression : '(' expression ')'
         { yyrv = ((ast.Expression)yysv[yysp-2]); }
         yysv[yysp-=3] = yyrv;
-        return yypexpr();
+        return yypexpression();
     }
 
-    private int yypexpr() {
+    private int yypexpression() {
         switch (yyst[yysp-1]) {
             case 22: return 38;
             case 21: return 37;

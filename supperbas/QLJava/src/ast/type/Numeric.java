@@ -1,4 +1,4 @@
-package ast.types;
+package ast.type;
 
 public class Numeric extends Type {
 	public boolean isCompatibleTo(Type t) {

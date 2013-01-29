@@ -3,24 +3,29 @@ package ast.expression.value;
 import java.util.Map;
 
 import ast.expression.Value;
-import ast.types.Type;
-import ast.visitors.Visitor;
+import ast.type.Type;
+import ast.visitor.Visitor;
 
 
 public class Bool extends Value {
-	private final String name;
+	private final boolean value;
 
-	public Bool(String name) {
-		this.name = name;
+	public Bool(boolean value) {
+		this.value = value;
 	}
 
-	public String getName() {
-		return name;
+	public <T> boolean getValue() {
+		return value;
 	}
 	
 	@Override
-	public Type typeOf(Map<ast.types.Ident, Type> typeEnv) {
-		return new ast.types.Bool();
+	public String toString(){
+		return String.valueOf(this.value);
+	}
+	
+	@Override
+	public Type typeOf(Map<ast.type.Ident, Type> typeEnv) {
+		return new ast.type.Bool();
 	}
 
 	@Override

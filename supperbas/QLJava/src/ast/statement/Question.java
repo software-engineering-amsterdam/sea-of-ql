@@ -7,12 +7,14 @@ import ast.type.Ident;
 import ast.type.Type;
 import ast.visitor.Visitor;
 
-public class Else extends Statement {
+public class Question extends Statement {
 	
-	private final Statement consequence;
+	private final String question;
+	private final Var var;
 	
-	public Else(Statement consequence){
-		this.consequence = consequence;
+	public Question(String question, Var var){
+		this.question = question;
+		this.var = var;
 	}
 
 	@Override
@@ -25,9 +27,13 @@ public class Else extends Statement {
 		// TODO Auto-generated method stub
 		return null;
 	}
-	
-	public Statement getConsequence(){
-		return this.consequence;
+
+	public String getQuestion() {
+		return question;
+	}
+
+	public Var getVar() {
+		return var;
 	}
 
 }

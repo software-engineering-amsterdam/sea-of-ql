@@ -1,20 +1,21 @@
-package ast.visitors.test;
+package ast.visitor.test;
+
+import org.junit.Test;
 
 import parser.JACCParser;
+import parser.test.ParseError;
 
-import ast.visitors.*;
+import ast.visitor.*;
 
 public class VisitorTest {
 	
 	@SuppressWarnings("unused")
 	private String str;
 	private final JACCParser parser;
-	private final CheckExpr visitor;
-
-	public VisitorTest(CheckExpr visitor) {
+	public VisitorTest() {
 		this.parser = new JACCParser();
-		this.visitor = visitor;
-		init();
+		//this.visitor = visitor;
+		//init();
 	}
 	
 	public void init(){
@@ -29,6 +30,14 @@ public class VisitorTest {
 						"\"Value residue:\" valueResidue = sellingPrice - privateDebt "+
 					"}"+
 				"}";
+	}
+	
+	@Test
+	public void test() throws ParseError {
+		String program = "A * ( B + C ) + D / F";
+		this.parser.parse( program ).accept(
+			new PrintExpressionVisitor()
+		);
 	}
 
 }

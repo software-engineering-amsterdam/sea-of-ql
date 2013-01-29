@@ -1,4 +1,4 @@
-package parser.tests;
+package parser.test;
 
 import ast.Expression;
 

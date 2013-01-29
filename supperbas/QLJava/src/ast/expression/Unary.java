@@ -5,14 +5,14 @@ import ast.Expression;
 
 public abstract class Unary extends Expression {
 	
-	private final Expression expr;
+	private final Expression expression;
 
-	public Unary(Expression expr) {
-		this.expr = expr;
+	public Unary(Expression expression) {
+		this.expression = expression;
 	}
 
-	public Expression getExpr() {
-		return expr;
+	public Expression getExpression() {
+		return expression;
 	}
 
 }

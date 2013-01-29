@@ -1,4 +1,4 @@
-package parser.tests;
+package parser.test;
 
 import static org.junit.Assert.assertEquals;
 
@@ -91,6 +91,7 @@ public class TestExpressions {
 		assertEquals(parser.parse("0").getClass(), Int.class);
 		assertEquals(parser.parse("1223").getClass(), Int.class);
 		assertEquals(parser.parse("234234234").getClass(), Int.class);
+		System.out.println("xx "+parser.parse("(a > b) && (b > c)").toString());
 	}
 
 }

@@ -1,4 +1,4 @@
-package ast.types;
+package ast.type;
 
 public class Str extends Type {
 	@Override

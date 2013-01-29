@@ -3,24 +3,29 @@ package ast.expression.value;
 import java.util.Map;
 
 import ast.expression.Value;
-import ast.types.Type;
-import ast.visitors.Visitor;
+import ast.type.Type;
+import ast.visitor.Visitor;
 
 public class Str extends Value {
 
-	private final String name;
+	private final String value;
 
-	public Str(String name) {
-		this.name = name;
+	public Str(String value) {
+		this.value = value;
 	}
 
-	public String getName() {
-		return name;
+	public <T> String getValue() {
+		return value;
 	}
 	
 	@Override
-	public Type typeOf(Map<ast.types.Ident, Type> typeEnv) {
-		return new ast.types.Str();
+	public String toString(){
+		return this.value;
+	}
+	
+	@Override
+	public Type typeOf(Map<ast.type.Ident, Type> typeEnv) {
+		return new ast.type.Str();
 	}
 
 	@Override

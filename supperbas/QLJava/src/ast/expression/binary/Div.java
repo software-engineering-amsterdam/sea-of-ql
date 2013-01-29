@@ -4,8 +4,8 @@ import java.util.Map;
 
 import ast.Expression;
 import ast.expression.Binary;
-import ast.types.Type;
-import ast.visitors.Visitor;
+import ast.type.Type;
+import ast.visitor.Visitor;
 
 public class Div extends Binary {
 	private final int level = 4;
@@ -19,8 +19,8 @@ public class Div extends Binary {
 	}
 
 	@Override
-	public Type typeOf(Map<ast.types.Ident, Type> typeEnv) {
-		return new ast.types.Numeric();
+	public Type typeOf(Map<ast.type.Ident, Type> typeEnv) {
+		return new ast.type.Numeric();
 	}
 
 	@Override

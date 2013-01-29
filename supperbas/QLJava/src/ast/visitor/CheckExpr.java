@@ -1,4 +1,4 @@
-package ast.visitors;
+package ast.visitor;
 
 import java.util.List;
 import java.util.Map;
@@ -10,8 +10,8 @@ import ast.expression.unary.*;
 import ast.expression.value.Bool;
 import ast.expression.value.Money;
 import ast.expression.value.Str;
-import ast.types.*;
-import ast.types.Error;
+import ast.type.*;
+import ast.type.Error;
 
 public class CheckExpr implements Visitor<Boolean> {
 	private final Map<Ident, Type> typeEnv;
@@ -168,7 +168,7 @@ public class CheckExpr implements Visitor<Boolean> {
 
 	@Override
 	public Boolean visit(Neg ast) {
-		Type exprType = ast.getExpr().typeOf(typeEnv);
+		Type exprType = ast.getExpression().typeOf(typeEnv);
 		if (!exprType.isCompatibleToNumeric()) {
 			addError(new Error<Neg>(ast, "invalid type for (-)"));
 			return false;
@@ -191,7 +191,7 @@ public class CheckExpr implements Visitor<Boolean> {
 
 	@Override
 	public Boolean visit(Not ast) {
-		Type exprType = ast.getExpr().typeOf(typeEnv);
+		Type exprType = ast.getExpression().typeOf(typeEnv);
 		if (!exprType.isCompatibleToBool()) {
 			addError(new Error<Not>(ast, "invalid type for (-)"));
 			return false;
@@ -214,7 +214,7 @@ public class CheckExpr implements Visitor<Boolean> {
 
 	@Override
 	public Boolean visit(Pos ast) {
-		Type exprType = ast.getExpr().typeOf(typeEnv);
+		Type exprType = ast.getExpression().typeOf(typeEnv);
 		if (!exprType.isCompatibleToNumeric()) {
 			addError(new Error<Pos>(ast, "invalid type for (-)"));
 			return false;

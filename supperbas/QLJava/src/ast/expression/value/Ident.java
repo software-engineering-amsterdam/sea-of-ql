@@ -3,27 +3,36 @@ package ast.expression.value;
 import java.util.Map;
 
 import ast.expression.Value;
-import ast.types.Type;
-import ast.visitors.Visitor;
+import ast.type.Type;
+import ast.visitor.Visitor;
 
 public class Ident extends Value {
 
-	private final String name;
+	private final String value;
 
-	public Ident(String name) {
-		this.name = name;
+	public Ident(String value) {
+		this.value = value;
 	}
 
-	public String getName() {
-		return name;
+	public String getvalue() {
+		return value;
+	}
+
+	public String getValue() {
+		return value;
 	}
 	
 	@Override
-	public Type typeOf(Map<ast.types.Ident, Type> typeEnv) {
+	public String toString(){
+		return this.value;
+	}
+	
+	@Override
+	public Type typeOf(Map<ast.type.Ident, Type> typeEnv) {
 		if (typeEnv.containsKey(this)) {
 			return typeEnv.get(this);
 		}
-		return new ast.types.Error(this);
+		return new ast.type.Error(this);
 	}
 
 	@Override

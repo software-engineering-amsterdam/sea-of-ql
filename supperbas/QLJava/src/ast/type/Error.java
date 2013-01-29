@@ -1,4 +1,4 @@
-package ast.types;
+package ast.type;
 
 public class Error<T> extends Type {
 	private final T ast;

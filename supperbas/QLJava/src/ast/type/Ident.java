@@ -1,4 +1,4 @@
-package ast.types;
+package ast.type;
 
 public class Ident extends Type {
 

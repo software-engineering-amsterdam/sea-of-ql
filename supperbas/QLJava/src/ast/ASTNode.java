@@ -2,9 +2,9 @@ package ast;
 
 import java.util.Map;
 
-import ast.types.Ident;
-import ast.types.Type;
-import ast.visitors.Visitor;
+import ast.type.Ident;
+import ast.type.Type;
+import ast.visitor.Visitor;
 
 public interface ASTNode {
 

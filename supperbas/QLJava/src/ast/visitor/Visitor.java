@@ -1,11 +1,11 @@
-package ast.visitors;
+package ast.visitor;
 
 import ast.expression.binary.*;
 import ast.expression.unary.*;
 import ast.expression.value.*;
 
 public interface Visitor<T> {
-	T visit(Add add);
+	T visit(Add ast);
 	T visit(And ast);
 	T visit(Div ast);
 	T visit(Eq ast);

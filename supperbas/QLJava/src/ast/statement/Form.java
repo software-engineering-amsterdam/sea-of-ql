@@ -7,12 +7,14 @@ import ast.type.Ident;
 import ast.type.Type;
 import ast.visitor.Visitor;
 
-public class Else extends Statement {
+public class Form extends Statement {
 	
-	private final Statement consequence;
+	private final Ident ident;
+	private final Statement content;
 	
-	public Else(Statement consequence){
-		this.consequence = consequence;
+	public Form(Ident ident, Statement content){
+		this.ident = ident;
+		this.content = content;
 	}
 
 	@Override
@@ -25,9 +27,13 @@ public class Else extends Statement {
 		// TODO Auto-generated method stub
 		return null;
 	}
-	
-	public Statement getConsequence(){
-		return this.consequence;
+
+	public Ident getIdent() {
+		return ident;
+	}
+
+	public Statement getContent() {
+		return content;
 	}
 
 }
