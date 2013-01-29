@@ -5,6 +5,7 @@ import org.uva.sea.ql.ast.Form;
 import org.uva.sea.ql.interpreter.InterpreterVisitor;
 import org.uva.sea.ql.parser.ParseError;
 import org.uva.sea.ql.parser.Parser;
+import org.uva.sea.ql.parser.ParserFactory;
 import org.uva.sea.ql.typechecker.TypecheckerVisitor;
 
 import javax.servlet.RequestDispatcher;
@@ -87,7 +88,7 @@ public class Controller extends HttpServlet {
 
     private Form parseForm() {
         try {
-            Parser parser = new org.uva.sea.ql.parser.antlr.ANTLRParser();
+            Parser parser = ParserFactory.createParser();
             Form form = parser.parse(SAMPLE_FORM);
 
             List<Message> errors = TypecheckerVisitor.typecheck(form);
