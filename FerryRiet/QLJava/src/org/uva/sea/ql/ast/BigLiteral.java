@@ -1,11 +1,13 @@
 package org.uva.sea.ql.ast;
 
 import java.math.BigDecimal;
+
 import java.util.HashMap;
 
 import org.uva.sea.ql.ast.operators.ExpressionResult;
-import org.uva.sea.ql.ast.types.TypeDescription;
 import org.uva.sea.ql.ast.types.MoneyType;
+import org.uva.sea.ql.ast.types.TypeDescription;
+import org.uva.sea.ql.ast.operators.MoneyResult;
 
 public class BigLiteral extends Expr {
 	private final BigDecimal value;
@@ -28,9 +30,8 @@ public class BigLiteral extends Expr {
 	}
 
 	@Override
-	public ExpressionResult eval(HashMap<String, Statement> symbolMap) {
-		// TODO Auto-generated method stub
-		return null;
+	public ExpressionResult eval(HashMap<String, ExpressionResult> symbolMap) {
+		return new MoneyResult(value);
 	}
 
 }

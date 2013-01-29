@@ -6,11 +6,14 @@ import org.uva.sea.ql.ast.types.TypeDescription;
 
 import org.uva.sea.ql.ast.types.MoneyType;
 
-public class Moneyresult implements ExpressionResult {
+public class MoneyResult implements ExpressionResult {
 	private BigDecimal value;
 
-	public Moneyresult(BigDecimal val) {
+	public MoneyResult(BigDecimal val) {
 		value = val;
+	}
+	public MoneyResult(Integer val) {
+		value = new BigDecimal(val);
 	}
 
 	public int getValue() {

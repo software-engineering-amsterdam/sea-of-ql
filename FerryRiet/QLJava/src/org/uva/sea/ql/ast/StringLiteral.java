@@ -32,7 +32,7 @@ public class StringLiteral extends Expr {
 	}
 
 	@Override
-	public ExpressionResult eval(HashMap<String, Statement> symbolMap) {
+	public ExpressionResult eval(HashMap<String, ExpressionResult> symbolMap) {
 		// TODO Auto-generated method stub
 		return new StringResult(value);
 	}
