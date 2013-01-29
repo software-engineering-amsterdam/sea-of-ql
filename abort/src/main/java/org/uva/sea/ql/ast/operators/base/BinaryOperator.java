@@ -42,11 +42,4 @@ public abstract class BinaryOperator extends Operator {
 	public Expression getRightHandSide() {
 		return rightHandSide;
 	}
-	
-	// Override in subclasses for stronger typing
-	@Override
-	public void accept(final IVisitor visitor) {
-		leftHandSide.accept(visitor);
-		rightHandSide.accept(visitor);
-	}
 }

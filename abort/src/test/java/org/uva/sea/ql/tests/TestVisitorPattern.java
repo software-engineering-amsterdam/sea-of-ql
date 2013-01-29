@@ -1,70 +1,52 @@
 package org.uva.sea.ql.tests;
 
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import org.junit.Test;
-import org.uva.sea.ql.ast.form.*;
-import org.uva.sea.ql.ast.conditionals.*;
-import org.uva.sea.ql.ast.operators.binary.*;
-import org.uva.sea.ql.ast.operators.unary.*;
+import org.uva.sea.ql.ast.conditionals.IfThen;
+import org.uva.sea.ql.ast.conditionals.IfThenElse;
+import org.uva.sea.ql.ast.form.Computation;
+import org.uva.sea.ql.ast.form.Element;
+import org.uva.sea.ql.ast.form.Form;
+import org.uva.sea.ql.ast.form.Question;
+import org.uva.sea.ql.ast.operators.binary.Add;
+import org.uva.sea.ql.ast.operators.binary.And;
+import org.uva.sea.ql.ast.operators.binary.Div;
+import org.uva.sea.ql.ast.operators.binary.Eq;
+import org.uva.sea.ql.ast.operators.binary.GEq;
+import org.uva.sea.ql.ast.operators.binary.GT;
+import org.uva.sea.ql.ast.operators.binary.LEq;
+import org.uva.sea.ql.ast.operators.binary.LT;
+import org.uva.sea.ql.ast.operators.binary.Mul;
+import org.uva.sea.ql.ast.operators.binary.NEq;
+import org.uva.sea.ql.ast.operators.binary.Or;
+import org.uva.sea.ql.ast.operators.binary.Sub;
+import org.uva.sea.ql.ast.operators.unary.Neg;
+import org.uva.sea.ql.ast.operators.unary.Not;
+import org.uva.sea.ql.ast.operators.unary.Pos;
 import org.uva.sea.ql.ast.traversal.base.IVisitable;
 import org.uva.sea.ql.ast.traversal.base.IVisitor;
-import org.uva.sea.ql.ast.types.*;
+import org.uva.sea.ql.ast.types.datatypes.BoolType;
+import org.uva.sea.ql.ast.types.datatypes.IntType;
+import org.uva.sea.ql.ast.types.literals.BoolLiteral;
+import org.uva.sea.ql.ast.types.literals.Ident;
+import org.uva.sea.ql.ast.types.literals.IntLiteral;
+import org.uva.sea.ql.ast.types.literals.MoneyLiteral;
+import org.uva.sea.ql.ast.types.literals.StringLiteral;
 
 public class TestVisitorPattern extends TestBase {
-	private final IVisitor visitor = mock(IVisitor.class);
+	@SuppressWarnings("unchecked")
+	private final IVisitor<Void> visitor = (IVisitor<Void>)mock(IVisitor.class);
 	
 	@Test
 	public void testConditionals() {
 		mockAndVerifyVisit(IfThen.class);
 		mockAndVerifyVisit(IfThenElse.class);
-	}
-	
-	@Test
-	public void testFormPackageVisits() {
-		// Nodes that are not in the if then else scope
-		final Question question = mock(Question.class);
-		final Computation computation = mock(Computation.class);
-		
-		// then statements
-		final Label ifQuestionLabel = mock(Label.class);
-		final Question ifQuestion = new Question(ifQuestionLabel, "does not matter", Bool.class);
-		
-		// else statements
-		final Int leftAdditionInt = mock(Int.class);
-		final Int rightAdditionInt = mock(Int.class);
-		final Add addition = new Add(leftAdditionInt, rightAdditionInt);
-
-		final Label computationLabel = mock(Label.class);
-		final Computation elseComputation = new Computation(computationLabel, "does not matter", Int.class, addition);
-
-		// Use an Eq of stringliteral and money as a condition (this will not be semantically checked anyway) 
-		final StringLiteral leftEqStringLiteral = mock(StringLiteral.class);
-		final Money rightEqMoney = mock(Money.class);
-		final Eq condition = new Eq(leftEqStringLiteral, rightEqMoney);
-		final IfThenElse ifThenElse = new IfThenElse(condition, elementToArray(ifQuestion), elementToArray(elseComputation));
-		
-		// Create the form
-		final List<Element> formElements = new ArrayList<Element>();
-		formElements.add(question);
-		formElements.add(computation);
-		formElements.add(ifThenElse);
-		final Form form = new Form("name", formElements);
-		
-		// Accept should traverse all visits in the tree of mocked objects
-		form.accept(visitor);
-	
-		// Verify the correct implementation of the pattern
-		verify(computation).accept(visitor);
-		verify(leftAdditionInt).accept(visitor);
-		verify(rightAdditionInt).accept(visitor);
-		verify(computationLabel).accept(visitor);
-		verify(ifQuestionLabel).accept(visitor);
-		verify(leftEqStringLiteral).accept(visitor);
-		verify(rightEqMoney).accept(visitor);
 	}
 	
 	@Test
@@ -92,10 +74,10 @@ public class TestVisitorPattern extends TestBase {
 	
 	@Test
 	public void testDataTypeVisits() {
-		mockAndVerifyVisit(Bool.class);
+		mockAndVerifyVisit(BoolLiteral.class);
 		mockAndVerifyVisit(Ident.class);
-		mockAndVerifyVisit(Int.class);
-		mockAndVerifyVisit(Money.class);
+		mockAndVerifyVisit(IntLiteral.class);
+		mockAndVerifyVisit(MoneyLiteral.class);
 		mockAndVerifyVisit(StringLiteral.class);
 	}
 
@@ -119,14 +101,14 @@ public class TestVisitorPattern extends TestBase {
 		final Computation computationMock = mock(Computation.class);
 		final Form formMock = mock(Form.class);
 		final Question questionMock = mock(Question.class);
-		final Label labelMock = mock(Label.class);
+		final Ident identMock1 = mock(Ident.class);
 		final IfThenElse ifThenElseMock = mock(IfThenElse.class);
 		final IfThen ifThenMock = mock(IfThen.class);
-		final Bool boolMock = mock(Bool.class);
-		final Int intMock = mock(Int.class);
+		final BoolLiteral boolMock = mock(BoolLiteral.class);
+		final IntLiteral intMock = mock(IntLiteral.class);
 		final StringLiteral stringMock = mock(StringLiteral.class);
-		final Ident identMock = mock(Ident.class);
-		final Money moneyMock = mock(Money.class);
+		final Ident identMock2 = mock(Ident.class);
+		final MoneyLiteral moneyMock = mock(MoneyLiteral.class);
 		
 		visitor.visit(addMock);
 		visitor.visit(andMock);
@@ -146,13 +128,13 @@ public class TestVisitorPattern extends TestBase {
 		visitor.visit(computationMock);
 		visitor.visit(formMock);
 		visitor.visit(questionMock);
-		visitor.visit(labelMock);
+		visitor.visit(identMock1);
 		visitor.visit(ifThenElseMock);
 		visitor.visit(ifThenMock);
 		visitor.visit(boolMock);
 		visitor.visit(intMock);
 		visitor.visit(stringMock);
-		visitor.visit(identMock);
+		visitor.visit(identMock2);
 		visitor.visit(moneyMock);
 		
 		verify(visitor).visit(andMock);
@@ -172,13 +154,13 @@ public class TestVisitorPattern extends TestBase {
 		verify(visitor).visit(computationMock);
 		verify(visitor).visit(formMock);
 		verify(visitor).visit(questionMock);
-		verify(visitor).visit(labelMock);
+		verify(visitor).visit(identMock1);
 		verify(visitor).visit(ifThenElseMock);
 		verify(visitor).visit(ifThenMock);
 		verify(visitor).visit(boolMock);
 		verify(visitor).visit(intMock);
 		verify(visitor).visit(stringMock);
-		verify(visitor).visit(identMock);
+		verify(visitor).visit(identMock2);
 		verify(visitor).visit(moneyMock);
 	}
 	
@@ -186,11 +168,5 @@ public class TestVisitorPattern extends TestBase {
 		final IVisitable mockedVisitable = mock(visitable);
 		mockedVisitable.accept(visitor);
 		verify(mockedVisitable).accept(visitor);
-	}
-	
-	private List<Element> elementToArray(final Element element) {
-		final List<Element> elements = new ArrayList<Element>();
-		elements.add(element);
-		return elements;
 	}
 }

@@ -6,8 +6,8 @@ package org.uva.sea.ql.ast.traversal.base;
  */
 public interface IVisitable {
 	/**
-	 * Accepts a visitor.
 	 * @param visitor visitor that wants to visit the visitable
+	 * @return return return value predefined in the accept method
 	 */
-	void accept(final IVisitor visitor);
+	<T> T accept(final IVisitor<T> visitor);
 }

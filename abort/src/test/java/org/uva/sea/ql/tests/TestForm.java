@@ -14,14 +14,17 @@ import org.uva.sea.ql.ast.conditionals.IfThenElse;
 import org.uva.sea.ql.ast.form.Computation;
 import org.uva.sea.ql.ast.form.Element;
 import org.uva.sea.ql.ast.form.Form;
-import org.uva.sea.ql.ast.form.Label;
 import org.uva.sea.ql.ast.form.Question;
 import org.uva.sea.ql.ast.operators.binary.Sub;
-import org.uva.sea.ql.ast.types.Bool;
-import org.uva.sea.ql.ast.types.Ident;
-import org.uva.sea.ql.ast.types.Int;
-import org.uva.sea.ql.ast.types.Money;
-import org.uva.sea.ql.ast.types.StringLiteral;
+import org.uva.sea.ql.ast.types.datatypes.BoolType;
+import org.uva.sea.ql.ast.types.datatypes.IntType;
+import org.uva.sea.ql.ast.types.datatypes.MoneyType;
+import org.uva.sea.ql.ast.types.datatypes.StringType;
+import org.uva.sea.ql.ast.types.literals.BoolLiteral;
+import org.uva.sea.ql.ast.types.literals.Ident;
+import org.uva.sea.ql.ast.types.literals.IntLiteral;
+import org.uva.sea.ql.ast.types.literals.MoneyLiteral;
+import org.uva.sea.ql.ast.types.literals.StringLiteral;
 
 public class TestForm extends TestBase {
 	private static final String RESOURCE_FORM = "form.ql";
@@ -48,36 +51,36 @@ public class TestForm extends TestBase {
 		final Question question = (Question)form.getElements().get(0);
 		
 		assertEquals(Question.class, question.getClass());
-		assertEquals(Bool.class, question.getExpectedType());
+		assertEquals(BoolType.class, question.getExpectedType().getClass());
 		assertEquals("Did you sell a house in 2010?", question.getText());
-		assertEquals(new Label("hasSoldHouse"), question.getLabel());		
+		assertEquals(new Ident("hasSoldHouse"), question.getIdent());		
 	}
 
 	private void testQuestion2() {
 		final Question question = (Question)form.getElements().get(1);
 		
 		assertEquals(Question.class, question.getClass());
-		assertEquals(Bool.class, question.getExpectedType());
+		assertEquals(BoolType.class, question.getExpectedType().getClass());
 		assertEquals("Did you buy a house in 2010?", question.getText());
-		assertEquals(new Label("hasBoughtHouse"), question.getLabel());		
+		assertEquals(new Ident("hasBoughtHouse"), question.getIdent());		
 	}
 
 	private void testQuestion3() {
 		final Question question = (Question)form.getElements().get(2);
 
 		assertEquals(Question.class, question.getClass());
-		assertEquals(Int.class, question.getExpectedType());
+		assertEquals(IntType.class, question.getExpectedType().getClass());
 		assertEquals("What was the width of the house in meters?", question.getText());
-		assertEquals(new Label("width"), question.getLabel());		
+		assertEquals(new Ident("width"), question.getIdent());		
 	}
 
 	private void testQuestion4() {
 		final Question question = (Question)form.getElements().get(3);
 
 		assertEquals(Question.class, question.getClass());
-		assertEquals(Int.class, question.getExpectedType());
+		assertEquals(IntType.class, question.getExpectedType().getClass());
 		assertEquals("What was the length of the house in meters?", question.getText());
-		assertEquals(new Label("length"), question.getLabel());		
+		assertEquals(new Ident("length"), question.getIdent());		
 	}
 	
 	private void testIfThenElse() {
@@ -93,26 +96,26 @@ public class TestForm extends TestBase {
 
 		final Question question1 = (Question)successElements.get(0);
 		assertEquals("Price was sold for:", question1.getText());
-		assertEquals(new Label("sellingPrice"), question1.getLabel());
-		assertEquals(Money.class, question1.getExpectedType());
+		assertEquals(new Ident("sellingPrice"), question1.getIdent());
+		assertEquals(MoneyType.class, question1.getExpectedType().getClass());
 		
 		assertEquals(Question.class, successElements.get(1).getClass());
 		
 		final Question question2 = (Question)successElements.get(1);
 		assertEquals("Private debts for the sold house:", question2.getText());
-		assertEquals(new Label("privateDebt"), question2.getLabel());
-		assertEquals(Money.class, question2.getExpectedType());
+		assertEquals(new Ident("privateDebt"), question2.getIdent());
+		assertEquals(MoneyType.class, question2.getExpectedType().getClass());
 		
 		assertEquals(Computation.class, successElements.get(2).getClass());
 
 		// validate the computation which is a subtraction of two idents
 		final Computation computation = (Computation)successElements.get(2);
 		assertEquals("Value residue:", computation.getDescription());
-		assertEquals(new Label("valueResidue"), computation.getLabel());
-		assertEquals(Money.class, computation.getExpectedType());
-		assertEquals(Sub.class, computation.getCalculationOperation().getClass());
+		assertEquals(new Ident("valueResidue"), computation.getIdent());
+		assertEquals(MoneyType.class, computation.getExpectedType().getClass());
+		assertEquals(Sub.class, computation.getExpression().getClass());
 
-		final Sub sub = (Sub)computation.getCalculationOperation();
+		final Sub sub = (Sub)computation.getExpression();
 		assertEquals(Ident.class, sub.getLeftHandSide().getClass());
 		assertEquals(Ident.class, sub.getRightHandSide().getClass());
 		assertEquals("sellingPrice", ((Ident)sub.getLeftHandSide()).getName());
@@ -121,21 +124,21 @@ public class TestForm extends TestBase {
 		// test the else flow
 		assertEquals(1, ifThenElse.getElseElements().size());
 		final Question questionElse = (Question)ifThenElse.getElseElements().get(0);
-		assertEquals(StringLiteral.class, questionElse.getExpectedType());
-		assertEquals(new Label("reasonNotSelling"), questionElse.getLabel());
+		assertEquals(StringType.class, questionElse.getExpectedType().getClass());
+		assertEquals(new Ident("reasonNotSelling"), questionElse.getIdent());
 		assertEquals("Why did you not sell the house?", questionElse.getText());
 	}
 	
 	@Test
 	public void testLabel() {
 		// Test the equals and hashcode functionality of label
-		final Label labelA = new Label("identicaltag");
-		final Label labelB = new Label("identicaltag");
-		final Label labelC = new Label("uniquetag");
-		assertEquals(labelA, labelB);
-		assertEquals(labelA.hashCode(), labelB.hashCode());
-		assertFalse(labelA.equals(labelC));
-		assertFalse(labelA.hashCode() == labelC.hashCode());
-		assertFalse(new Label("").equals(labelA));
+		final Ident identA = new Ident("identicaltag");
+		final Ident identB = new Ident("identicaltag");
+		final Ident identC = new Ident("uniquetag");
+		assertEquals(identA, identB);
+		assertEquals(identA.hashCode(), identB.hashCode());
+		assertFalse(identA.equals(identC));
+		assertFalse(identA.hashCode() == identC.hashCode());
+		assertFalse(new Ident("").equals(identA));
 	}
 }

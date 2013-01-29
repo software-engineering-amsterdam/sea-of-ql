@@ -7,7 +7,8 @@ package org.uva.sea.ql.parser.antlr;
 import org.uva.sea.ql.ast.*;
 import org.uva.sea.ql.ast.base.*;
 import org.uva.sea.ql.ast.form.*;
-import org.uva.sea.ql.ast.types.*;
+import org.uva.sea.ql.ast.types.literals.*;
+import org.uva.sea.ql.ast.types.datatypes.*;
 import org.uva.sea.ql.ast.operators.base.*;
 import org.uva.sea.ql.ast.operators.unary.*;
 import org.uva.sea.ql.ast.operators.binary.*;
@@ -32,7 +33,7 @@ form returns [Form result]
 
 elements returns [List<Element> results]
   @init { $results = new ArrayList<Element>(); }
-  : (element { $results.add($element.result); })+;
+  : (element { $results.add($element.result); })*;
 
 element returns [Element result]
     : question { $result = $question.result; }
@@ -55,27 +56,27 @@ questions returns [List<Question> results]
 
 computation returns [Computation result]
   : label=Ident ':' String parameter=dataType PARENTHESES_OPEN operation=orExpression PARENTHESES_CLOSE {
-    $result = new Computation(new Label($label.text), $String.text.substring(1, $String.text.length() - 1), $parameter.result, $operation.result);
+    $result = new Computation(new Ident($label.text), $String.text.substring(1, $String.text.length() - 1), $parameter.result, $operation.result);
   };
 
 question returns [Question result]
   : label=Ident ':' String parameter=dataType {
-    $result = new Question(new Label($label.text), $String.text.substring(1, $String.text.length() - 1), $parameter.result);
+    $result = new Question(new Ident($label.text), $String.text.substring(1, $String.text.length() - 1), $parameter.result);
   };
   
-dataType returns [Class<? extends DataType> result]
+dataType returns [DataType result]
  : Type {
     // TODO: instances
-    if ($Type.text.equals("string")) $result = StringLiteral.class;
-    else if ($Type.text.equals("integer")) $result = Int.class;
-    else if ($Type.text.equals("money")) $result = Money.class;
-    else if ($Type.text.equals("boolean")) $result = Bool.class;
+    if ($Type.text.equals("string")) $result = new StringType();
+    else if ($Type.text.equals("integer")) $result = new IntType();
+    else if ($Type.text.equals("money")) $result = new MoneyType();
+    else if ($Type.text.equals("boolean")) $result = new BoolType();
  };
  
 primary returns [Expression result]
-  : Int   { $result = new Int(Integer.parseInt($Int.text)); }
-  | Money { $result = new Money($Money.text); }
-  | Bool { $result = new Bool(Boolean.parseBoolean($Bool.text)); }
+  : Int   { $result = new IntLiteral(Integer.parseInt($Int.text)); }
+  | Money { $result = new MoneyLiteral($Money.text); }
+  | Bool { $result = new BoolLiteral(Boolean.parseBoolean($Bool.text)); }
   | Ident { $result = new Ident($Ident.text); }
   | String { $result = new StringLiteral($String.text.substring(1, $String.text.length() - 1)); }
   | PARENTHESES_OPEN orExpression PARENTHESES_CLOSE { $result = $orExpression.result; };
@@ -146,6 +147,7 @@ COMMENT
 ;
 
 WS  :	(' ' | '\t' | '\n' | '\r') { $channel=HIDDEN; };
+ENDOFFILE: EOF { $channel=HIDDEN; };
 
 IF: 'if';
 PARENTHESES_OPEN: '(';

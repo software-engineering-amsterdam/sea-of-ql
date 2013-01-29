@@ -28,18 +28,9 @@ public class IfThenElse extends IfStatement {
 	}
 
 	@Override
-	public void accept(final IVisitor visitor) {
-		for (final Element nodeToVisit : getSuccessElements()) {
-			nodeToVisit.accept(visitor);
-		}
-		
-		for (final Element nodeToVisit : elseElements) {
-			nodeToVisit.accept(visitor);
-		}
-		
-		super.accept(visitor);
-
-		visitor.visit(this);		
+	public <T> T accept(final IVisitor<T> visitor) {
+		// TODO: visit parent and elements
+		return visitor.visit(this);
 	}
 	
 	/**

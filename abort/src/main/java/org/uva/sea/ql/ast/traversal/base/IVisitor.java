@@ -2,152 +2,175 @@ package org.uva.sea.ql.ast.traversal.base;
 
 import org.uva.sea.ql.ast.conditionals.*;
 import org.uva.sea.ql.ast.form.*;
+import org.uva.sea.ql.ast.operators.base.BinaryOperator;
+import org.uva.sea.ql.ast.operators.base.UnaryOperator;
 import org.uva.sea.ql.ast.operators.binary.*;
 import org.uva.sea.ql.ast.operators.unary.*;
-import org.uva.sea.ql.ast.types.*;
+import org.uva.sea.ql.ast.types.literals.*;
 
 /**
  * Interface for the visitor that traverses all nodes in the abstract syntax tree.
  * @author J. Dijkstra
  */
-public interface IVisitor {
+public interface IVisitor<T> {
 	// Binary operators
 	/**
-	 * Visits add.
-	 * @param add add to visit
+	 * Visits add add.
+	 * @param operator operator to visit
+	 * @return predefined return type
 	 */
-	void visit(Add add);
+	T visit(Add add);
+	
 	/**
 	 * Visits and.
 	 * @param and and to visit
+	 * @return predefined return type
 	 */
-	void visit(And and);
+	T visit(And and);
 	/**
 	 * Visits division.
 	 * @param div div to visit
+	 * @return predefined return type 
 	 */
-	void visit(Div div);
+	T visit(Div div);
 	/**
 	 * Visits equals.
 	 * @param eq eq to visit
+	 * @return predefined return type
 	 */
-	void visit(Eq eq);
+	T visit(Eq eq);
 	/**
 	 * Visits greater than or equal to.
 	 * @param geq geq to visit
+	 * @return predefined return type
 	 */
-	void visit(GEq geq);
+	T visit(GEq geq);
 	/**
 	 * Visits greater than.
 	 * @param gt gt to visit
+	 * @return predefined return type
 	 */
-	void visit(GT gt);
+	T visit(GT gt);
 	/**
 	 * Visits less than or equal to.
 	 * @param leq leq to visit
+	 * @return predefined return type
 	 */
-	void visit(LEq leq);
+	T visit(LEq leq);
 	/**
 	 * Visits less than.
 	 * @param lt lt to visit
+	 * @return predefined return type
 	 */
-	void visit(LT lt);
+	T visit(LT lt);
 	/**
 	 * Visits multiplication.
 	 * @param mul mul to visit
+	 * @return predefined return type
 	 */
-	void visit(Mul mul);
+	T visit(Mul mul);
 	/**
 	 * Visits not equal to.
 	 * @param neq neq to visit
+	 * @return predefined return type
 	 */
-	void visit(NEq neq);
+	T visit(NEq neq);
 	/**
 	 * Visits or.
 	 * @param or or to visit
+	 * @return predefined return type
 	 */
-	void visit(Or or);
+	T visit(Or or);
 	/**
 	 * Visits subtraction.
 	 * @param sub sub to visit
+	 * @return predefined return type
 	 */
-	void visit(Sub sub);
-	
+	T visit(Sub sub);
+
 	// Unary operators
 	/**
 	 * Visits negative.
 	 * @param neg neg to visit
+	 * @return predefined return type
 	 */
-	void visit(Neg neg);
+	T visit(Neg neg);
 	/**
 	 * Visits not.
 	 * @param not not to visit
+	 * @return predefined return type
 	 */
-	void visit(Not not);
+	T visit(Not not);
 	/**
 	 * Visits positive.
 	 * @param pos pos to visit
+	 * @return predefined return type
 	 */
-	void visit(Pos pos);
-	
+	T visit(Pos pos);
+
 	// Form
 	/**
 	 * Visits computation.
 	 * @param computation computation to visit
+	 * @return predefined return type
 	 */
-	void visit(Computation computation);
+	T visit(Computation computation);
 	/**
 	 * Visits form.
 	 * @param form form to visit
+	 * @return predefined return type
 	 */
-	void visit(Form form);
+	T visit(Form form);
 	/**
 	 * Visits question.
 	 * @param question question to visit
+	 * @return predefined return type
 	 */
-	void visit(Question question);
-	/**
-	 * Visits label.
-	 * @param label label to visit
-	 */
-	void visit(Label label);
+	T visit(Question question);
 	
 	// Conditionals
 	/**
 	 * Visit if then.
 	 * @param ifThen if then to visit
+	 * @return predefined return type
 	 */
-	void visit(IfThen ifThen);
+	T visit(IfThen ifThen);
 	/**
 	 * Visit if then else.
 	 * @param ifThenElse if then else to visit
+	 * @return predefined return type
 	 */
-	void visit(IfThenElse ifThenElse);
+	T visit(IfThenElse ifThenElse);
 
 	// Types
 	/**
 	 * Visit bool.
 	 * @param bool visit bool
+	 * @return predefined return type
 	 */
-	void visit(Bool bool);
+	T visit(BoolLiteral bool);
 	/**
 	 * Visit int.
 	 * @param i int to visit
+	 * @return predefined return type
 	 */
-	void visit(Int i);
+	T visit(IntLiteral i);
 	/**
 	 * Visit money.
 	 * @param money money to visit
+	 * @return predefined return type
 	 */
-	void visit(Money money);
+	T visit(MoneyLiteral money);
 	/**
 	 * Visit string literal.
 	 * @param literal string literal to visit
+	 * @return predefined return type
 	 */
-	void visit(StringLiteral literal);
+	T visit(StringLiteral literal);
 	/**
 	 * Visit ident.
 	 * @param ident ident to visit
+	 * @return predefined return type
 	 */
-	void visit(Ident ident);
+	T visit(Ident ident);
 }

@@ -1,7 +1,8 @@
 package org.uva.sea.ql.tests;
 
-import static org.junit.Assert.*;
-import static org.mockito.Mockito.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+import static org.mockito.Mockito.mock;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,11 +10,14 @@ import java.util.List;
 import org.junit.Test;
 import org.uva.sea.ql.ast.base.Node;
 import org.uva.sea.ql.ast.form.Form;
-import org.uva.sea.ql.ast.form.Label;
 import org.uva.sea.ql.ast.operators.base.BinaryOperator;
 import org.uva.sea.ql.ast.traversal.base.HandSide;
-import org.uva.sea.ql.ast.traversal.logging.*;
-import org.uva.sea.ql.ast.types.*;
+import org.uva.sea.ql.ast.traversal.logging.Message;
+import org.uva.sea.ql.ast.traversal.logging.TypeErrorLog;
+import org.uva.sea.ql.ast.traversal.logging.TypeEventLog;
+import org.uva.sea.ql.ast.types.literals.BoolLiteral;
+import org.uva.sea.ql.ast.types.literals.Ident;
+import org.uva.sea.ql.ast.types.literals.IntLiteral;
 
 public class TestLogs extends TestBase {
 	@Test
@@ -37,16 +41,16 @@ public class TestLogs extends TestBase {
 		assertEquals(1, errorLog.getLength());
 		errorLog.addBothSidesAreDifferentTypes(mock(BinaryOperator.class));
 		errorLog.addEmptyFlow(mock(Node.class));
-		errorLog.addExpectedDifferentType(mock(Node.class), Int.class);
+		errorLog.addExpectedDifferentType(mock(Node.class), IntLiteral.class);
 		
 		final List<Class<? extends Node>> typeList = new ArrayList<Class<? extends Node>>(); 
-		typeList.add(Bool.class);
-		typeList.add(Int.class);
+		typeList.add(BoolLiteral.class);
+		typeList.add(IntLiteral.class);
 		errorLog.addExpectedDifferentTypes(mock(Node.class), typeList);
 		errorLog.addInvalidReference(mock(Form.class), "reference");
 		errorLog.addEmptyFlow(mock(Node.class));
-		errorLog.addExpectedDifferentType(mock(Node.class), Int.class);
-		errorLog.addLabelRedeclaration(mock(Node.class), new Label("labelName"));
+		errorLog.addExpectedDifferentType(mock(Node.class), IntLiteral.class);
+		errorLog.addLabelRedeclaration(mock(Node.class), new Ident("identName"));
 		errorLog.addTypeIsNotBoolean(HandSide.LEFT, mock(BinaryOperator.class));
 		errorLog.addTypeIsNotIntegerOrMoney(HandSide.BOTH, mock(BinaryOperator.class));
 		assertEquals(11, errorLog.getLength());

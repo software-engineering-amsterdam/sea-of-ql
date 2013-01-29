@@ -2,7 +2,9 @@ package org.uva.sea.ql.ast.form;
 
 import org.uva.sea.ql.ast.base.Expression;
 import org.uva.sea.ql.ast.traversal.base.IVisitor;
-import org.uva.sea.ql.ast.types.DataType;
+import org.uva.sea.ql.ast.types.datatypes.DataType;
+import org.uva.sea.ql.ast.types.literals.LiteralType;
+import org.uva.sea.ql.ast.types.literals.Ident;
 
 /**
  * QL Computation to display in a form.
@@ -10,9 +12,9 @@ import org.uva.sea.ql.ast.types.DataType;
  */
 public class Computation extends Element {
 	/**
-	 * Label tag.
+	 * Identity.
 	 */
-	private final Label label;
+	private final Ident ident;
 	/**
 	 * Description.
 	 */
@@ -20,32 +22,32 @@ public class Computation extends Element {
 	/**
 	 * Expected data type of the computation.
 	 */
-	private final Class<? extends DataType> expectedType;
+	private final DataType expectedType;
 	/**
-	 * Calculation that the computation should do before displaying it.
+	 * Calculation (expression) that the computation should do before displaying it.
 	 */
-	private final Expression calculationOperation;
+	private final Expression expression;
 	
 	/**
 	 * Constructor.
-	 * @param label label tag
+	 * @param ident ident
 	 * @param description description
 	 * @param expectedType expected data type of the computation
 	 * @param calculationOperation calculation that should be done
 	 */
-	public Computation(final Label label, final String description, final Class<? extends DataType> expectedType, final Expression calculationOperation) {
-		this.label = label;
+	public Computation(final Ident ident, final String description, final DataType expectedType, final Expression calculationOperation) {
+		this.ident = ident;
 		this.description = description;
 		this.expectedType = expectedType;
-		this.calculationOperation = calculationOperation;
+		this.expression = calculationOperation;
 	}
 	
 	/**
-	 * Retrieve the label tag.
-	 * @return label
+	 * Retrieve the ident.
+	 * @return ident
 	 */
-	public Label getLabel() {
-		return label;
+	public Ident getIdent() {
+		return ident;
 	}
 	
 	/**
@@ -60,22 +62,21 @@ public class Computation extends Element {
 	 * Retrieve the expected data type of the calculation.
 	 * @return expected data type
 	 */
-	public Class<? extends DataType> getExpectedType() {
+	public DataType getExpectedType() {
 		return expectedType;
 	}
 
 	/**
-	 * Retrieve the calculation operation.
-	 * @return calculation
+	 * Retrieve the computation expression that has to be evaluated before displayed.
+	 * @return computation expression
 	 */
-	public Expression getCalculationOperation() {
-		return calculationOperation;
+	public Expression getExpression() {
+		return expression;
 	}
 
 	@Override
-	public void accept(final IVisitor visitor) {
-		label.accept(visitor);
-		calculationOperation.accept(visitor);
-		visitor.visit(this);		
+	public <T> T accept(final IVisitor<T> visitor) {
+		// TODO: visit parent and elements
+		return visitor.visit(this);
 	}
 }

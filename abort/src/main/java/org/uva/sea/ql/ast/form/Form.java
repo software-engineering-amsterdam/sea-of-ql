@@ -31,12 +31,9 @@ public class Form extends Node {
 	}
 
 	@Override
-	public void accept(final IVisitor visitor) {
-		for (final Node elementToVisit : elements) {
-			elementToVisit.accept(visitor);
-		}
-		
-		visitor.visit(this);
+	public <T> T accept(final IVisitor<T> visitor) {
+		// TODO: visit parent and elements
+		return visitor.visit(this);
 	}
 
 	/**

@@ -40,9 +40,9 @@ public class TestUnaryOperators extends TestBase {
 	public void testBaseClass() {
 		final Expression node = mock(Expression.class);
 		final UnaryOperator operator = mock(UnaryOperator.class);
-		when(operator.getNode()).thenReturn(node);		
+		when(operator.getExpression()).thenReturn(node);		
 		
-		assertEquals(operator.getNode(), node);
-		verify(operator).getNode();
+		assertEquals(operator.getExpression(), node);
+		verify(operator).getExpression();
 	}
 }

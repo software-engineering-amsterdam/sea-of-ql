@@ -1,4 +1,4 @@
-package org.uva.sea.ql.ast.types;
+package org.uva.sea.ql.ast.types.literals;
 
 import org.uva.sea.ql.ast.base.Expression;
 
@@ -6,6 +6,5 @@ import org.uva.sea.ql.ast.base.Expression;
  * Representation of primitive data types in the QL language.
  * @author J. Dijkstra
  */
-public abstract class DataType extends Expression {
-
+public abstract class LiteralType extends Expression {
 }

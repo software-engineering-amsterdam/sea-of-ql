@@ -19,15 +19,10 @@ public class IfThen extends IfStatement {
 	public IfThen(final Expression conditions, final List<Element> successElements) {
 		super(conditions, successElements);		
 	}
-
+	
 	@Override
-	public void accept(final IVisitor visitor) {		
-		for (final Element nodeToVisit : getSuccessElements()) {
-			nodeToVisit.accept(visitor);
-		}
-		
-		super.accept(visitor);
-		
-		visitor.visit(this);
+	public <T> T accept(final IVisitor<T> visitor) {
+		// TODO: visit parent and elements
+		return visitor.visit(this);
 	}
 }

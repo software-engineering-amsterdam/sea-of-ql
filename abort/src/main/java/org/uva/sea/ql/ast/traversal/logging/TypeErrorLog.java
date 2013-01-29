@@ -3,10 +3,10 @@ package org.uva.sea.ql.ast.traversal.logging;
 import java.util.List;
 
 import org.uva.sea.ql.ast.base.Node;
-import org.uva.sea.ql.ast.form.Label;
 import org.uva.sea.ql.ast.operators.base.BinaryOperator;
 import org.uva.sea.ql.ast.operators.base.Operator;
 import org.uva.sea.ql.ast.traversal.base.HandSide;
+import org.uva.sea.ql.ast.types.literals.Ident;
 
 /**
  * Type checking error logger, which contains common errors.
@@ -59,12 +59,12 @@ public class TypeErrorLog extends Log {
 	}
 	
 	/**
-	 * Add label redeclaration error.
-	 * @param node node that redeclares a label
+	 * Add ident redeclaration error.
+	 * @param node node that redeclares an ident
 	 * @param label label that gets redeclarated
 	 */
-	public void addLabelRedeclaration(final Node node, final Label label) {
-		add(new Message(node, String.format("Redeclaration of label \"%s\"", label.getText())));
+	public void addLabelRedeclaration(final Node node, final Ident ident) {
+		add(new Message(node, String.format("Redeclaration of label \"%s\"", ident.getName())));
 	}
 	
 	/**

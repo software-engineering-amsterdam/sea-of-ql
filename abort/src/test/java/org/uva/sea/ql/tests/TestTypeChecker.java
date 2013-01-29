@@ -21,7 +21,7 @@ public class TestTypeChecker extends TestBase {
 	
 	// A parsed form is a precondition for this test
 	@Before
-	public void beforeTypeCheckingTests() throws RecognitionException,IOException {
+	public void beforeTypeCheckingTests() throws IOException,RecognitionException {
 		validForm = parseFormFromResource(RESOURCE_FORM_VALID);
 		invalidForm = parseFormFromResource(RESOURCE_FORM_INVALID);
 	}
@@ -35,7 +35,7 @@ public class TestTypeChecker extends TestBase {
 	@Test
 	public void testInvalidForm() throws RecognitionException, IOException {
 		invalidForm.accept(typeChecker);
-		assertEquals(31, typeChecker.getErrorLog().getLength());
+		assertEquals(10, typeChecker.getErrorLog().getLength());
 	}
 	
 	@After

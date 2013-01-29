@@ -13,7 +13,7 @@ import org.uva.sea.ql.ast.conditionals.IfThenElse;
 import org.uva.sea.ql.ast.form.Element;
 import org.uva.sea.ql.ast.form.Question;
 import org.uva.sea.ql.ast.operators.binary.Eq;
-import org.uva.sea.ql.ast.types.StringLiteral;
+import org.uva.sea.ql.ast.types.datatypes.StringType;
 
 public class TestConditionals extends TestBase {
 	@Test
@@ -31,10 +31,10 @@ public class TestConditionals extends TestBase {
 		assertEquals(Question.class, successElements.get(0).getClass());
 		
 		final Question question = (Question)successElements.get(0);
-		assertEquals(StringLiteral.class, question.getExpectedType());
+		assertEquals(StringType.class, question.getExpectedType().getClass());
 		
 		assertEquals("Have you bought this house?", question.getText());
-		assertEquals("boughtHouse", question.getLabel().getText());
+		assertEquals("boughtHouse", question.getIdent().getName());
 	}
 	
 	@Test
@@ -52,19 +52,19 @@ public class TestConditionals extends TestBase {
 		assertEquals(Question.class, successElements.get(0).getClass());
 		
 		final Question question = (Question)successElements.get(0);
-		assertEquals(StringLiteral.class, question.getExpectedType());
+		assertEquals(StringType.class, question.getExpectedType().getClass());
 		
 		assertEquals("Have you bought this house?", question.getText());
-		assertEquals("boughtHouse", question.getLabel().getText());
+		assertEquals("boughtHouse", question.getIdent().getName());
 		
 		final List<Element> elseElements = ((IfThenElse)result).getElseElements();
 		assertEquals(1, elseElements.size());
 		assertEquals(Question.class, elseElements.get(0).getClass());
 		
 		final Question elseQuestion = (Question)elseElements.get(0);
-		assertEquals(StringLiteral.class, elseQuestion.getExpectedType());
+		assertEquals(StringType.class, elseQuestion.getExpectedType().getClass());
 		
-		assertEquals("whyNot", elseQuestion.getLabel().getText());
+		assertEquals("whyNot", elseQuestion.getIdent().getName());
 		assertEquals("Why did you not buy this house?", elseQuestion.getText());
 	}
 }

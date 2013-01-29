@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.uva.sea.ql.ast.base.Expression;
 import org.uva.sea.ql.ast.form.Element;
-import org.uva.sea.ql.ast.traversal.base.IVisitor;
 
 /**
  * Represents a base type of If statement in QL.
@@ -46,8 +45,5 @@ public abstract class IfStatement extends Element {
 		return successElements;
 	}
 
-	@Override
-	public void accept(final IVisitor visitor) {
-		condition.accept(visitor);
-	}
+	
 }

@@ -25,13 +25,7 @@ public abstract class UnaryOperator extends Operator {
 	 * Retrieve the expression or operation the unary operator affects.
 	 * @return expression/operation
 	 */
-	public Expression getNode() {
+	public Expression getExpression() {
 		return expression;
-	}
-	
-	// Override in subclasses for stronger typing
-	@Override
-	public void accept(final IVisitor visitor) {
-		expression.accept(visitor);
 	}
 }

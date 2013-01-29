@@ -1,39 +1,42 @@
 package org.uva.sea.ql.ast.traversal;
 
-import org.uva.sea.ql.ast.base.Node;
-import org.uva.sea.ql.ast.form.Label;
+import java.util.HashMap;
+import java.util.Map;
+
+import org.uva.sea.ql.ast.types.datatypes.DataType;
+import org.uva.sea.ql.ast.types.literals.LiteralType;
+import org.uva.sea.ql.ast.types.literals.Ident;
 
 /**
  * Stores labels from the grammar with their result types.
  * References to these labels their value could be used (e.g. in a computation)
  * @author J. Dijkstra
  */
-class SymbolTable extends TypeTable {
+public class SymbolTable {
+	/**
+	 * Map that stores idents and the type they should result to
+	 */
+	private Map<Ident, DataType> types = new HashMap<Ident, DataType>();
+	
 	/**
 	 * Constructor that limits scope to the current package.
 	 */
 	protected SymbolTable() { }
 	
 	/**
-	 * Check if the label is declared in the symbol table.
-	 * @param label label
-	 * @return whether the label is declared in the symbol table or not
+	 * Check if the ident is declared in the symbol table.
+	 * @param ident ident
+	 * @return whether the ident is declared in the symbol table or not
 	 */
-	public boolean isLabelDeclared(final Label label) {
-		return getTypes().containsKey(label);
+	public boolean isDeclared(final Ident ident) {
+		return types.containsKey(ident);
 	}
 	
-	/**
-	 * Check if the label is declared in the symbol table.
-	 * @param labelText label text
-	 * @return whether the label is declared in the symbol table or not
-	 */
-	public boolean isLabelDeclared(final String labelText) {
-		return isLabelDeclared(new Label(labelText));
+	public DataType get(final Ident ident) {
+		return types.get(ident);
 	}
 	
-	@Override
-	public void addTypeForNode(final Node node, final Class<? extends Node> type) {
-		super.addTypeForNode(node, type);
+	public void add(final Ident ident, final DataType dataType) {
+		types.put(ident, dataType);
 	}
 }

@@ -3,9 +3,9 @@ package org.uva.sea.ql.ast.traversal;
 import org.uva.sea.ql.ast.base.Node;
 import org.uva.sea.ql.ast.operators.base.BinaryOperator;
 import org.uva.sea.ql.ast.operators.base.UnaryOperator;
-import org.uva.sea.ql.ast.types.Bool;
-import org.uva.sea.ql.ast.types.Int;
-import org.uva.sea.ql.ast.types.Money;
+import org.uva.sea.ql.ast.types.literals.BoolLiteral;
+import org.uva.sea.ql.ast.types.literals.IntLiteral;
+import org.uva.sea.ql.ast.types.literals.MoneyLiteral;
 
 /**
  * Stores result types in a table/map of nodes while traversing the tree.
@@ -42,7 +42,7 @@ class ResultTypeTable extends TypeTable {
 	 * @return whether the node or operation is of the boolean type
 	 */
 	public boolean isBooleanType(final Class<? extends Node> nodeType) {
-		return (Bool.class.equals(nodeType));
+		return (BoolLiteral.class.equals(nodeType));
 	}
 
 	/**
@@ -51,7 +51,7 @@ class ResultTypeTable extends TypeTable {
 	 * @return whether the node is of a numeric value or not
 	 */
 	public boolean isMoneyOrIntegerType(final Class<? extends Node> nodeType) {
-		return (Int.class.equals(nodeType) || Money.class.equals(nodeType));
+		return (IntLiteral.class.equals(nodeType) || MoneyLiteral.class.equals(nodeType));
 	}
 
 	/**
@@ -63,7 +63,7 @@ class ResultTypeTable extends TypeTable {
 		final Class<? extends Node> leftHandSide = getLeftHandSideResultType(operator);
 		final Class<? extends Node> rightHandSide = getRightHandSideResultType(operator);		
 		
-		return (leftHandSide.equals(Money.class) || rightHandSide.equals(Money.class));
+		return (leftHandSide.equals(MoneyLiteral.class) || rightHandSide.equals(MoneyLiteral.class));
 	}
 
 	/**
@@ -90,6 +90,6 @@ class ResultTypeTable extends TypeTable {
 	 * @return result type
 	 */
 	public final Class<? extends Node> getUnaryResultType(final UnaryOperator operator) {
-		return getTypeOfNode(operator.getNode());
+		return getTypeOfNode(operator.getExpression());
 	}
 }

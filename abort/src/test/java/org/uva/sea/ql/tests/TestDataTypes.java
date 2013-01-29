@@ -10,11 +10,11 @@ import java.math.BigDecimal;
 import org.antlr.runtime.RecognitionException;
 import org.junit.Test;
 import org.uva.sea.ql.ast.base.Expression;
-import org.uva.sea.ql.ast.types.Bool;
-import org.uva.sea.ql.ast.types.Ident;
-import org.uva.sea.ql.ast.types.Int;
-import org.uva.sea.ql.ast.types.Money;
-import org.uva.sea.ql.ast.types.StringLiteral;
+import org.uva.sea.ql.ast.types.literals.BoolLiteral;
+import org.uva.sea.ql.ast.types.literals.Ident;
+import org.uva.sea.ql.ast.types.literals.IntLiteral;
+import org.uva.sea.ql.ast.types.literals.MoneyLiteral;
+import org.uva.sea.ql.ast.types.literals.StringLiteral;
 
 public class TestDataTypes extends TestBase {
 	@Test
@@ -33,40 +33,40 @@ public class TestDataTypes extends TestBase {
 	
 	@Test
 	public void testInt() throws RecognitionException {
-		assertEquals(Int.class, parseDataType("0").getClass());
-		assertEquals(Int.class, parseDataType("1223").getClass());
-		assertEquals(Int.class, parseDataType("234234234").getClass());
+		assertEquals(IntLiteral.class, parseDataType("0").getClass());
+		assertEquals(IntLiteral.class, parseDataType("1223").getClass());
+		assertEquals(IntLiteral.class, parseDataType("234234234").getClass());
 		
-		assertEquals(0, ((Int)parseDataType("0")).getValue());
-		assertEquals(1223, ((Int)parseDataType("1223")).getValue());
-		assertEquals(234234234, ((Int)parseDataType("234234234")).getValue());
+		assertEquals(0, ((IntLiteral)parseDataType("0")).getValue());
+		assertEquals(1223, ((IntLiteral)parseDataType("1223")).getValue());
+		assertEquals(234234234, ((IntLiteral)parseDataType("234234234")).getValue());
 		
 	}
 	
 	@Test
 	public void testMoney() throws RecognitionException {
-		assertEquals(Money.class, parseDataType("0.000").getClass());
-		assertEquals(Money.class, parseDataType("1.234").getClass());
-		assertEquals(Money.class, parseDataType("1932.123214141").getClass());
+		assertEquals(MoneyLiteral.class, parseDataType("0.000").getClass());
+		assertEquals(MoneyLiteral.class, parseDataType("1.234").getClass());
+		assertEquals(MoneyLiteral.class, parseDataType("1932.123214141").getClass());
 		
-		assertEquals(new BigDecimal("0.000"), ((Money)parseDataType("0.000")).getValue());
-		assertEquals(new BigDecimal("1.234"), ((Money)parseDataType("1.234")).getValue());
-		assertEquals(new BigDecimal("1932.123214141"), ((Money)parseDataType("1932.123214141")).getValue());
+		assertEquals(new BigDecimal("0.000"), ((MoneyLiteral)parseDataType("0.000")).getValue());
+		assertEquals(new BigDecimal("1.234"), ((MoneyLiteral)parseDataType("1.234")).getValue());
+		assertEquals(new BigDecimal("1932.123214141"), ((MoneyLiteral)parseDataType("1932.123214141")).getValue());
 	}
 	
 	@Test
 	public void testBool() throws RecognitionException {
-		assertEquals(Bool.class, parseDataType("true").getClass());
-		assertEquals(Bool.class, parseDataType("TRUE").getClass());
-		assertEquals(Bool.class, parseDataType("false").getClass());
-		assertEquals(Bool.class, parseDataType("FALSE").getClass());
+		assertEquals(BoolLiteral.class, parseDataType("true").getClass());
+		assertEquals(BoolLiteral.class, parseDataType("TRUE").getClass());
+		assertEquals(BoolLiteral.class, parseDataType("false").getClass());
+		assertEquals(BoolLiteral.class, parseDataType("FALSE").getClass());
 		
-		assertEquals(true, ((Bool)parseDataType("true")).getValue());
-		assertEquals(true, ((Bool)parseDataType("TRUE")).getValue());
-		assertEquals(false, ((Bool)parseDataType("false")).getValue());
-		assertEquals(false, ((Bool)parseDataType("false")).getValue());
+		assertEquals(true, ((BoolLiteral)parseDataType("true")).getValue());
+		assertEquals(true, ((BoolLiteral)parseDataType("TRUE")).getValue());
+		assertEquals(false, ((BoolLiteral)parseDataType("false")).getValue());
+		assertEquals(false, ((BoolLiteral)parseDataType("false")).getValue());
 		
-		assertFalse(Bool.class.equals(parseDataType("tr00").getClass()));
+		assertFalse(BoolLiteral.class.equals(parseDataType("tr00").getClass()));
 	}
 	
 	@Test

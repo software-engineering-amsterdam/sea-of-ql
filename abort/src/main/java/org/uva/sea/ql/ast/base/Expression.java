@@ -1,12 +1,13 @@
 package org.uva.sea.ql.ast.base;
 
-import org.uva.sea.ql.ast.traversal.base.IVisitor;
+import org.uva.sea.ql.ast.traversal.SymbolTable;
+import org.uva.sea.ql.ast.types.datatypes.DataType;
+
 
 /**
  * Represents an expression in the AST.
  * @author J. Dijkstra
  */
-public class Expression extends Node {
-	@Override
-	public void accept(final IVisitor visitor) { }
+public abstract class Expression extends Node {	
+	public abstract DataType typeOf(final SymbolTable symbolTable);
 }

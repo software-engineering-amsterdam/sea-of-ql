@@ -2,13 +2,20 @@ package org.uva.sea.ql.ast.operators.binary;
 
 import org.uva.sea.ql.ast.base.Expression;
 import org.uva.sea.ql.ast.operators.base.BinaryOperator;
+import org.uva.sea.ql.ast.traversal.SymbolTable;
 import org.uva.sea.ql.ast.traversal.base.IVisitor;
+import org.uva.sea.ql.ast.types.datatypes.DataType;
+import org.uva.sea.ql.ast.types.datatypes.NumericType;
+import org.uva.sea.ql.ast.types.literals.LiteralType;
+import org.uva.sea.ql.ast.types.literals.NumericLiteral;
 
 /**
  * Represents a multiplication operation in the QL language.
  * @author J. Dijkstra
  */
 public class Mul extends BinaryOperator {
+	private static final DataType type = new NumericType();
+	
 	/**
 	 * Constructor.
 	 * @param leftHandSide left hand side of the operator
@@ -19,8 +26,12 @@ public class Mul extends BinaryOperator {
 	}
 	
 	@Override
-	public void accept(final IVisitor visitor) {
-		super.accept(visitor);
-		visitor.visit(this);
+	public DataType typeOf(final SymbolTable symbolTable) {
+		return type;
+	}
+	
+	@Override
+	public <T> T accept(IVisitor<T> visitor) {
+		return visitor.visit(this);
 	}
 }
