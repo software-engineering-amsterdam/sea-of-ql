@@ -57,6 +57,19 @@ public class TestQuestion {
 		assertEquals(ExprMap.get(new Ident("hasSoldHouse")).getClass(), BooleanType.class);
 		assertEquals(ExprMap.get(new Ident("reasonSelling")).getClass(), StringType.class);
 	}
+	
+	@Test
+	public void testQuestionUndefinedType() throws ParseError {
+		String formString = "";
+		formString += "form Box1HouseOwning {\n";
+		formString += "		valueResidue: \"Value residue:\" integer(sellingPrice - privateDebt)\n";
+		formString += "}\n";
+
+		parser.parseForm(formString).accept(new FormChecker(ExprMap, errors));
+		
+		assertEquals(errors.size(), 1);
+		assertEquals(ExprMap.get(new Ident("valueResidue")).getClass(), IntegerType.class);
+	}
 
 	@Test
 	public void testComputedQuestion() throws ParseError {
@@ -68,8 +81,8 @@ public class TestQuestion {
 		formString += "}\n";
 
 		parser.parseForm(formString).accept(new FormChecker(ExprMap, errors));
+		
 		assertEquals(errors.size(), 0);
-
 		assertEquals(ExprMap.get(new Ident("sellingPrice")).getClass(), IntegerType.class);
 		assertEquals(ExprMap.get(new Ident("sellingPrice")).getClass(), IntegerType.class);
 		assertEquals(ExprMap.get(new Ident("sellingPrice")).getClass(),	IntegerType.class);
@@ -86,8 +99,8 @@ public class TestQuestion {
 		formString += "}\n";
 
 		parser.parseForm(formString).accept(new FormChecker(ExprMap, errors));
-		assertEquals(errors.size(), 1);
 		
+		assertEquals(errors.size(), 1);	
 		assertEquals(ExprMap.get(new Ident("sellingPrice")).getClass(), BooleanType.class);
 		assertEquals(ExprMap.get(new Ident("privateDebt")).getClass(), IntegerType.class);
 		assertEquals(ExprMap.get(new Ident("valueResidue")).getClass(),	IntegerType.class);
@@ -103,11 +116,11 @@ public class TestQuestion {
 		formString += "}\n";
 
 		parser.parseForm(formString).accept(new FormChecker(ExprMap, errors));
-		assertEquals(errors.size(), 1);
 		
+		assertEquals(errors.size(), 1);
 		assertEquals(ExprMap.get(new Ident("sellingPrice")).getClass(), IntegerType.class);
 		assertEquals(ExprMap.get(new Ident("privateDebt")).getClass(), IntegerType.class);
-		assertEquals(ExprMap.get(new Ident("valueResidue")).getClass(),	Boolean.class);
+		assertEquals(ExprMap.get(new Ident("valueResidue")).getClass(),	BooleanType.class);
 	}
 
 	@Test
@@ -121,5 +134,8 @@ public class TestQuestion {
 
 		parser.parseForm(formString).accept(new FormChecker(ExprMap, errors));
 		assertEquals(errors.size(), 1);
+		assertEquals(ExprMap.get(new Ident("sellingPrice")).getClass(), BooleanType.class);
+		assertEquals(ExprMap.get(new Ident("privateDebt")).getClass(), BooleanType.class);
+		assertEquals(ExprMap.get(new Ident("valueResidue")).getClass(), IntegerType.class);
 	}
 }

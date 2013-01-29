@@ -19,7 +19,7 @@ import org.uva.sea.ql.parser.test.IParse;
 import org.uva.sea.ql.visitor.checker.FormChecker;
 
 @RunWith(Parameterized.class)
-public class TestForm {
+public class TestIfThenElse {
 
 	private IParse parser;
 
@@ -32,14 +32,14 @@ public class TestForm {
 	public static ArrayList<String> errors = new ArrayList<String>();
 
 	
-	public TestForm(IParse parser) {
+	public TestIfThenElse(IParse parser) {
 		this.parser = parser;
 		ExprMap = new HashMap<Ident, Type>();
 		errors = new ArrayList<String>();
 	}
 
 	@Test
-	public void testProvidedForm() throws ParseError {
+	public void testValidCondition() throws ParseError {
 		String formString = "";
 		formString += "form Box1HouseOwning {\n";
     	formString += "   hasSoldHouse: \"Did you sell a house in 2010?\" boolean\n";
@@ -55,17 +55,29 @@ public class TestForm {
     	parser.parseForm(formString).accept(new FormChecker(ExprMap, errors));
     	assertEquals(errors.size(), 0);
 	}
-	
 	@Test
-	public void testDuplicateId() throws ParseError {
+	public void testNestedCondition() throws ParseError {
 		String formString = "";
-    	formString += "form Box1HouseOwning {\n";
-    	formString += "   hasSoldHouse: \"Did you sell a house in 2010?\" boolean;\n";
-    	formString += "   hasSoldHouse: \"Did you sell a house in 2010?\" boolean\n";
+		formString += "form Box1HouseOwning {\n";
+		formString += "   if (true) {\n";
+		formString += "   	if (true) {\n";
+		formString += "   	  if (true) {\n";
+		formString += "         if (true) {\n";
+		formString += "           if (true) {\n";
+		formString += "             if (true) {\n";
+    	formString += "               sellingPrice: \"Price the house was sold for:\" integer\n";
+    	formString += "             } else {\n";
+    	formString += "               sellingPrice: \"Price the house was sold for:\" integer\n";
+    	formString += "             }\n";
+    	formString += "           }\n";
+    	formString += "         }\n";
+    	formString += "       } else {\n";
+    	formString += "       }\n";
+    	formString += "     }\n";
+    	formString += "   }\n";
     	formString += "}\n";
     	
     	parser.parseForm(formString).accept(new FormChecker(ExprMap, errors));
-    	assertEquals(errors.size(), 1);
-		
-	} 
+    	assertEquals(errors.size(), 0);
+	}
 }
