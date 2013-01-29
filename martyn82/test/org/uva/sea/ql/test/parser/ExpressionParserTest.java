@@ -1,6 +1,7 @@
 package org.uva.sea.ql.test.parser;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
 import org.junit.Test;
 import org.uva.sea.ql.ast.Node;
@@ -25,19 +26,15 @@ import org.uva.sea.ql.ast.expression.literal.Int;
 import org.uva.sea.ql.ast.expression.literal.Money;
 import org.uva.sea.ql.ast.expression.literal.Str;
 import org.uva.sea.ql.ast.statement.Assignment;
-import org.uva.sea.ql.ast.statement.FormDeclaration;
-import org.uva.sea.ql.ast.statement.IfThenElse;
-import org.uva.sea.ql.ast.statement.QuestionDeclaration;
 import org.uva.sea.ql.ast.statement.Statement;
 import org.uva.sea.ql.parser.IParser;
 import org.uva.sea.ql.parser.ParseError;
-import org.uva.sea.ql.parser.jacc.JACCParser;
 import org.uva.sea.ql.test.IExpressionTest;
 
 /**
  * Testing expressions.
  */
-public class TestParser implements IExpressionTest {
+public class ExpressionParserTest extends ParserTest implements IExpressionTest {
 	/**
 	 * Enumeration of which side to pick in an expression or statement.
 	 */
@@ -48,15 +45,16 @@ public class TestParser implements IExpressionTest {
 	};
 
 	/**
-	 * Holds working parser object.
+	 * Holds the parser to use.
 	 */
-	private IParser parser;
+	private final IParser parser;
 
 	/**
-	 * Constructs a new instance of the parser test.
+	 * Constructs a new parser test.
 	 */
-	public TestParser() {
-		this.parser = new JACCParser();
+	public ExpressionParserTest() {
+		super();
+		this.parser = this.getParser();
 	}
 
 	/**
@@ -66,29 +64,9 @@ public class TestParser implements IExpressionTest {
 	 * @param source
 	 */
 	private void assertExpression( Class<?> expected, String source ) {
-		// transform input expression to assignment statement, as atomic expressions do not exist in the language.
+		// transform input expression to assignment statement, as atomic expressions do not exist in the QL language.
 		source = "x= " + source;
 		assertSide( expected, source, Side.RIGHT );
-	}
-
-	/**
-	 * Shorthand method for asserting a node type.
-	 *
-	 * @param expected
-	 * @param source
-	 */
-	private void assertNode( Class<?> expected, String source ) {
-		Statement root;
-
-		try {
-			root = parser.parse( source );
-		}
-		catch ( ParseError e ) {
-			e.printStackTrace();
-			return;
-		}
-
-		assertEquals( expected, root.getClass() );
 	}
 
 	/**
@@ -106,6 +84,7 @@ public class TestParser implements IExpressionTest {
 		}
 		catch ( ParseError e ) {
 			e.printStackTrace();
+			fail( e.getMessage() );
 			return;
 		}
 
@@ -163,6 +142,7 @@ public class TestParser implements IExpressionTest {
 		assertExpression( Add.class, "a + b * c" );
 		assertExpression( Add.class, "a * b + c" );
 		assertExpression( Add.class, "1+1" );
+		assertExpression( Add.class, "3+2+1" );
 	}
 
 	@Override
@@ -265,6 +245,7 @@ public class TestParser implements IExpressionTest {
 		assertExpression( NEq.class, "a != (b < c)" );
 	}
 
+	@Override
 	@Test
 	public void testId() {
 		assertExpression( Ident.class, "a" );
@@ -276,6 +257,7 @@ public class TestParser implements IExpressionTest {
 		assertExpression( Ident.class, "a2bc232aa" );
 	}
 
+	@Override
 	@Test
 	public void testInt() {
 		assertExpression( Int.class, "0" );
@@ -283,6 +265,7 @@ public class TestParser implements IExpressionTest {
 		assertExpression( Int.class, "234234234" );
 	}
 
+	@Override
 	@Test
 	public void testMoney() {
 		assertExpression( Money.class, "0.0" );
@@ -311,12 +294,14 @@ public class TestParser implements IExpressionTest {
 		assertExpression( Pos.class, "+(-43 * (11 + -3))" );
 	}
 
+	@Override
 	@Test
 	public void testBool() {
 		assertExpression( Bool.class, "true" );
 		assertExpression( Bool.class, "false" );
 	}
 
+	@Override
 	@Test
 	public void testStr() {
 		assertExpression( Str.class, "\"\"" );
@@ -374,100 +359,4 @@ public class TestParser implements IExpressionTest {
 		assertExpression( Div.class, "a // blablabla\n/b" );
 		assertExpression( Mul.class, "a *// comments\rd" );
 	}
-
-	/**
-	 * Tests IF-statements.
-	 */
-	@Test
-	public void testIf() {
-		// literal conditions
-		assertNode( IfThenElse.class, "if ( true ) { }" );
-		assertNode( IfThenElse.class, "if ( false ) { }" );
-		assertNode( IfThenElse.class, "if ( 1 ) { }" );
-		assertNode( IfThenElse.class, "if ( \"str\" ) { }" );
-		assertNode( IfThenElse.class, "if ( 131.5e-02 ) { }" );
-
-		// comparison conditions
-		assertNode( IfThenElse.class, "if ( a == b ) { }" );
-		assertNode( IfThenElse.class, "if ( a != b ) { }" );
-		assertNode( IfThenElse.class, "if ( a >= b ) { }" );
-		assertNode( IfThenElse.class, "if ( a > b ) { }" );
-		assertNode( IfThenElse.class, "if ( a < b ) { }" );
-		assertNode( IfThenElse.class, "if ( a <= b && c ) { }" );
-
-		// arithmetic conditions
-		assertNode( IfThenElse.class, "if ( 12 + 123 - 1 ) { }" );
-		assertNode( IfThenElse.class, "if ( 0 - 121 + .5 ) { }" );
-		assertNode( IfThenElse.class, "if ( 3 * 55 ) { }" );
-		assertNode( IfThenElse.class, "if ( 100 / 2 ) { }" );
-
-		// logical conditions
-		assertNode( IfThenElse.class, "if ( true && false ) { }" );
-		assertNode( IfThenElse.class, "if ( a || b ) { }" );
-		assertNode( IfThenElse.class, "if ( b && c ) { }" );
-		assertNode( IfThenElse.class, "if ( a && b || c ) { }" );
-
-		// unary numerical conditions
-		assertNode( IfThenElse.class, "if ( +22 ) { }" );
-		assertNode( IfThenElse.class, "if ( -22 ) { }" );
-		assertNode( IfThenElse.class, "if ( --9 ) { }" );
-
-		// unary logical conditions
-		assertNode( IfThenElse.class, "if ( !a ) { }" );
-		assertNode( IfThenElse.class, "if ( b && !a ) { }" );
-
-		// nested IFs
-		assertNode( IfThenElse.class, "if ( true ) { if ( false ) { } }" );
-		assertNode( IfThenElse.class, "if ( true ) { } else if ( true ) { if ( false ) { } }" );
-
-		// else variant
-		assertNode( IfThenElse.class, "if ( true ) { } else { }" );
-		assertNode( IfThenElse.class, "if ( true ) { \"\" c: boolean } else { }" );
-		assertNode( IfThenElse.class, "if ( true ) { } else { \"\" c: boolean }" );
-		assertNode( IfThenElse.class, "if ( true ) { \"\" c: boolean } else { \"\" c: boolean }" );
-
-		// else-if variant
-		assertNode( IfThenElse.class, "if ( true ) { } else if ( false ) { }" );
-		assertNode( IfThenElse.class, "if ( true ) { \"\" c: boolean } else if ( false ) { }" );
-		assertNode( IfThenElse.class, "if ( true ) { } else if ( false ) { \"\" c: boolean }" );
-		assertNode( IfThenElse.class, "if ( true ) { \"\" c: boolean } else if ( false ) { \"\" c : boolean }" );
-
-		// multiple else-if variant
-		assertNode(
-			IfThenElse.class, "if ( true ) { } else if ( false ) { } else if ( true && false ) { } else { }"
-		);
-	}
-
-	/**
-	 * Tests form declarations.
-	 */
-	@Test
-	public void testFormDeclarations() {
-		assertNode(
-			FormDeclaration.class,
-			"form ThisForm {" +
-			"\t\"What?\" answer : boolean" +
-			"}"
-		);
-	}
-
-	/**
-	 * Tests question declarations.
-	 */
-	@Test
-	public void testQuestionDeclarations() {
-		assertNode( QuestionDeclaration.class, "\"What?\" answer: boolean" );
-		assertNode( QuestionDeclaration.class, "\"What?\" answer = (a && !b)" );
-	}
-
-	/**
-	 * Tests assignments.
-	 */
-	@Test
-	public void testAssignments() {
-		assertNode( Assignment.class, "var = true" );
-		assertNode( Assignment.class, "var = 1 + 45" );
-		assertNode( Assignment.class, "var = 102 * 45 + .5e+3" );
-	}
 }
-

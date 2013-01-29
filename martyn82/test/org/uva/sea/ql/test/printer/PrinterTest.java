@@ -9,11 +9,11 @@ import org.uva.sea.ql.test.visitor.VisitorTest;
 /**
  * Testing visitor.
  */
-public class TestPrintVisitor extends VisitorTest<Boolean> {
+public class PrinterTest extends VisitorTest<Boolean> {
 	/**
 	 * Constructs a new pretty printer test.
 	 */
-	public TestPrintVisitor() {
+	public PrinterTest() {
 		super();
 	}
 

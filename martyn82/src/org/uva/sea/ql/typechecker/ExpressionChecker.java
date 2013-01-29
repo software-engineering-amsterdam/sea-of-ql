@@ -52,7 +52,7 @@ public class ExpressionChecker extends TypeCheckVisitor implements IExpressionVi
 	 *
 	 * @return True if types are compliant.
 	 */
-	private Boolean visit( ArithmeticExpression node ) {
+	private Boolean visitArithmetic( ArithmeticExpression node ) {
 		boolean checkLeft = node.getLhs().accept( this );
 		boolean checkRight = node.getRhs().accept( this );
 
@@ -85,7 +85,7 @@ public class ExpressionChecker extends TypeCheckVisitor implements IExpressionVi
 	 *
 	 * @return True if types are compliant.
 	 */
-	public Boolean visit( LogicalExpression node ) {
+	private Boolean visitLogical( LogicalExpression node ) {
 		boolean checkLeft = node.getLhs().accept( this );
 		boolean checkRight = node.getRhs().accept( this );
 
@@ -118,7 +118,7 @@ public class ExpressionChecker extends TypeCheckVisitor implements IExpressionVi
 	 *
 	 * @return True if types are compliant.
 	 */
-	public Boolean visit( ComparisonExpression node ) {
+	private Boolean visitComparison( ComparisonExpression node ) {
 		boolean checkLeft = node.getLhs().accept( this );
 		boolean checkRight = node.getRhs().accept( this );
 
@@ -129,10 +129,10 @@ public class ExpressionChecker extends TypeCheckVisitor implements IExpressionVi
 		Type leftType = node.getLhs().accept( resolver );
 		Type rightType = node.getRhs().accept( resolver );
 
-		if ( !leftType.isCompatibleTo( rightType ) ) {
+		if ( !( leftType.isCompatibleToNumber() && rightType.isCompatibleToNumber() ) ) {
 			addError(
 				String.format(
-					"Both sides of the comparison must be of the same (sub)type.",
+					"Both sides of the comparison must be a Number.",
 					node.getClass().getSimpleName().toUpperCase()
 				),
 				node
@@ -151,14 +151,14 @@ public class ExpressionChecker extends TypeCheckVisitor implements IExpressionVi
 	 *
 	 * @return True if type is compliant.
 	 */
-	public Boolean visit( UnaryExpression node ) {
+	private Boolean visitUnary( UnaryExpression node ) {
 		if ( !node.getExpression().accept( this ) ) {
 			return false;
 		}
 
-		Type nodeType = node.accept( resolver );
+		Type expressionType = node.getExpression().accept( resolver );
 
-		if ( !nodeType.isCompatibleToBool() ) {
+		if ( !expressionType.isCompatibleToBool() ) {
 			addError( "Expression must be a Boolean type.", node );
 			return false;
 		}
@@ -173,15 +173,48 @@ public class ExpressionChecker extends TypeCheckVisitor implements IExpressionVi
 	 *
 	 * @return True if type is compliant.
 	 */
-	public Boolean visit( UnaryNumericExpression node ) {
+	private Boolean visitUnaryNumeric( UnaryNumericExpression node ) {
 		if ( !node.getExpression().accept( this ) ) {
 			return false;
 		}
 
-		Type nodeType = node.accept( resolver );
+		Type expressionType = node.getExpression().accept( resolver );
 
-		if ( !nodeType.isCompatibleToNumber() ) {
+		if ( !expressionType.isCompatibleToNumber() ) {
 			addError( "Expression must be a Number type.", node );
+			return false;
+		}
+
+		return true;
+	}
+
+	/**
+	 * Visit an equals/not-equals expression.
+	 *
+	 * @param node
+	 *
+	 * @return True if types are compliant.
+	 */
+	private Boolean visitEqNEq( ComparisonExpression node ) {
+		boolean checkLeft = node.getLhs().accept( this );
+		boolean checkRight = node.getRhs().accept( this );
+
+		if ( !( checkLeft && checkRight ) ) {
+			return false;
+		}
+
+		Type leftType = node.getLhs().accept( resolver );
+		Type rightType = node.getRhs().accept( resolver );
+
+		if ( !leftType.isCompatibleTo( rightType ) ) {
+			addError(
+				String.format(
+					"Both sides of the comparison must be of the same type.",
+					node.getClass().getSimpleName().toUpperCase()
+				),
+				node
+			);
+
 			return false;
 		}
 
@@ -220,76 +253,76 @@ public class ExpressionChecker extends TypeCheckVisitor implements IExpressionVi
 
 	@Override
 	public Boolean visit( Add node ) {
-		return this.visit( (ArithmeticExpression) node );
+		return this.visitArithmetic( node );
 	}
 
 	@Override
 	public Boolean visit( Sub node ) {
-		return this.visit( (ArithmeticExpression) node );
+		return this.visitArithmetic( node );
 	}
 
 	@Override
 	public Boolean visit( Div node ) {
-		return this.visit( (ArithmeticExpression) node );
+		return this.visitArithmetic( node );
 	}
 
 	@Override
 	public Boolean visit( Mul node ) {
-		return this.visit( (ArithmeticExpression) node );
+		return this.visitArithmetic( node );
 	}
 
 	@Override
 	public Boolean visit( And node ) {
-		return this.visit( (LogicalExpression) node );
+		return this.visitLogical( node );
 	}
 
 	@Override
 	public Boolean visit( Or node ) {
-		return this.visit( (LogicalExpression) node );
+		return this.visitLogical( node );
 	}
 
 	@Override
 	public Boolean visit( Eq node ) {
-		return this.visit( (ComparisonExpression) node );
+		return this.visitEqNEq( node );
 	}
 
 	@Override
 	public Boolean visit( GEq node ) {
-		return this.visit( (ComparisonExpression) node );
+		return this.visitComparison( node );
 	}
 
 	@Override
 	public Boolean visit( GT node ) {
-		return this.visit( (ComparisonExpression) node );
+		return this.visitComparison( node );
 	}
 
 	@Override
 	public Boolean visit( LEq node ) {
-		return this.visit( (ComparisonExpression) node );
+		return this.visitComparison( node );
 	}
 
 	@Override
 	public Boolean visit( LT node ) {
-		return this.visit( (ComparisonExpression) node );
+		return this.visitComparison( node );
 	}
 
 	@Override
 	public Boolean visit( NEq node ) {
-		return this.visit( (ComparisonExpression) node );
+		return this.visitEqNEq( node );
 	}
 
 	@Override
 	public Boolean visit( Not node ) {
-		return this.visit( (UnaryExpression) node );
+		return this.visitUnary( node );
 	}
 
 	@Override
 	public Boolean visit( Pos node ) {
-		return this.visit( (UnaryNumericExpression) node );
+		return this.visitUnaryNumeric( node );
 	}
 
 	@Override
 	public Boolean visit( Neg node ) {
-		return this.visit( (UnaryNumericExpression) node );
+		return this.visitUnaryNumeric( node );
 	}
 }
