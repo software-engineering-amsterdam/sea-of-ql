@@ -85,25 +85,16 @@ private node outline(SectionRule r:
     outline(definition);
 
 private node outline(StyleRule r: 
-  typeStyleRule(str attr, TypeStyleValue: radio())) =
+  typeStyleRule(attr, \value)) =
     createNode(
       "StyleRule",
-      "<attr> radio",
+      "<attr> <\value.name>",
       r@location,
       []
     );
 
 private node outline(StyleRule r: 
-  typeStyleRule(str attr, TypeStyleValue: checkbox())) =
-    createNode(
-      "StyleRule",
-      "<attr> checkbox",
-      r@location,
-      []
-    );
-
-private node outline(StyleRule r: 
-  widthStyleRule(str attr, int \value)) =
+  widthStyleRule(attr, \value)) =
     createNode(
       "StyleRule",
       "<attr> <\value>",

@@ -61,7 +61,7 @@ syntax StyleRule
   | widthStyleRule: WidthStyleAttr Int
   ;
 
-syntax TypeStyleValue
+lexical TypeStyleValue
   = radio: "radio"
   | checkbox: "checkbox"
   ;

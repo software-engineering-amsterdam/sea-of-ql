@@ -46,8 +46,8 @@ data StyleRule
   ;
 
 data TypeStyleValue
-  = radio()
-  | checkbox()
+  = radio(str name)
+  | checkbox(str name)
   ;
 
 anno loc Stylesheet@location;
