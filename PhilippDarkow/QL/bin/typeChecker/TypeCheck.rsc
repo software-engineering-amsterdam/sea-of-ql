@@ -27,10 +27,11 @@ QLTENV checkExp(exp:id(str id), Type req, QLTENV env) {
   if(env.question[id] == {}){
   	return addError(env, exp@location, "Undeclared variable <id>");
   }else{
-  tpid = env.question[id];
-  return env;
+  tpid = range(env.question[id]);
+  println("TPID : <getOneFrom(tpid)>");
+  return req == getOneFrom(tpid) ? env : addError(env, exp@location, required(req, getOneFrom(tpid)));
   } 
-  //return req == tpid ? env : addError(env, exp@location, required(req, tpid));
+  
 }
 
 QLTENV checkExp(exp:add(EXP E1, EXP E2), Type req, QLTENV env) =                        
@@ -52,7 +53,7 @@ QLTENV checkExp(exp:and(EXP E1, EXP E2), Type req, QLTENV env) =
 
 // check statements for Questions 
 
-/** Method to check if statement  --> NOT WORKING because accept if(money)
+/** Method to check if statement 
 * @param statement the if statement
 * @param env the QL Type environment
 * @return env the enviroment
