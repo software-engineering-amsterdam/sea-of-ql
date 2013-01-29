@@ -1,5 +1,7 @@
-package org.uva.sea.ql.ast.expression;
+package org.uva.sea.ql.ast.expression.comparison;
 
+import org.uva.sea.ql.ast.expression.ComparisonExpression;
+import org.uva.sea.ql.ast.expression.Expression;
 import org.uva.sea.ql.visitor.IExpressionVisitor;
 
 /**

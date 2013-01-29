@@ -1,21 +1,21 @@
 package org.uva.sea.ql.eval;
 
-import org.uva.sea.ql.ast.expression.Add;
-import org.uva.sea.ql.ast.expression.And;
-import org.uva.sea.ql.ast.expression.Div;
-import org.uva.sea.ql.ast.expression.Eq;
-import org.uva.sea.ql.ast.expression.GEq;
-import org.uva.sea.ql.ast.expression.GT;
 import org.uva.sea.ql.ast.expression.Ident;
-import org.uva.sea.ql.ast.expression.LEq;
-import org.uva.sea.ql.ast.expression.LT;
-import org.uva.sea.ql.ast.expression.Mul;
-import org.uva.sea.ql.ast.expression.NEq;
-import org.uva.sea.ql.ast.expression.Neg;
-import org.uva.sea.ql.ast.expression.Not;
-import org.uva.sea.ql.ast.expression.Or;
-import org.uva.sea.ql.ast.expression.Pos;
-import org.uva.sea.ql.ast.expression.Sub;
+import org.uva.sea.ql.ast.expression.arithmetic.Add;
+import org.uva.sea.ql.ast.expression.arithmetic.Div;
+import org.uva.sea.ql.ast.expression.arithmetic.Mul;
+import org.uva.sea.ql.ast.expression.arithmetic.Sub;
+import org.uva.sea.ql.ast.expression.comparison.Eq;
+import org.uva.sea.ql.ast.expression.comparison.GEq;
+import org.uva.sea.ql.ast.expression.comparison.GT;
+import org.uva.sea.ql.ast.expression.comparison.LEq;
+import org.uva.sea.ql.ast.expression.comparison.LT;
+import org.uva.sea.ql.ast.expression.comparison.NEq;
+import org.uva.sea.ql.ast.expression.logical.And;
+import org.uva.sea.ql.ast.expression.logical.Or;
+import org.uva.sea.ql.ast.expression.unary.Neg;
+import org.uva.sea.ql.ast.expression.unary.Not;
+import org.uva.sea.ql.ast.expression.unary.Pos;
 import org.uva.sea.ql.eval.value.Boolean;
 import org.uva.sea.ql.eval.value.Integer;
 import org.uva.sea.ql.eval.value.Money;
@@ -27,6 +27,20 @@ import org.uva.sea.ql.visitor.IExpressionVisitor;
  * Evaluator for expression nodes.
  */
 public class ExpressionEvaluator implements IExpressionVisitor<Value> {
+	/**
+	 * Holds the environment.
+	 */
+	private final Environment environment;
+
+	/**
+	 * Constructs a new ExpressionEvaluator.
+	 *
+	 * @param environment
+	 */
+	public ExpressionEvaluator( Environment environment ) {
+		this.environment = environment;
+	}
+
 	@Override
 	public Value visit( Add node ) {
 		Value left = node.getLhs().accept( this );
@@ -151,7 +165,6 @@ public class ExpressionEvaluator implements IExpressionVisitor<Value> {
 
 	@Override
 	public Value visit( Ident node ) {
-		// TODO Auto-generated method stub
-		return null;
+		return this.environment.lookup( node );
 	}
 }

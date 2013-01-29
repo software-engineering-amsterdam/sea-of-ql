@@ -7,6 +7,7 @@ import java.util.Map;
 
 import org.uva.sea.ql.ast.expression.Ident;
 import org.uva.sea.ql.ast.type.Type;
+import org.uva.sea.ql.eval.value.Value;
 
 /**
  * Represents an evaluation context.
@@ -18,6 +19,11 @@ public class Environment {
 	private final Map<Ident, Type> types;
 
 	/**
+	 * Holds the bound variables.
+	 */
+	private final Map<Ident, Value> bindings;
+
+	/**
 	 * Holds the error list.
 	 */
 	private final List<Error> errors;
@@ -27,16 +33,8 @@ public class Environment {
 	 */
 	public Environment() {
 		this.types = new HashMap<Ident, Type>();
+		this.bindings = new HashMap<Ident, Value>();
 		this.errors = new LinkedList<Error>();
-	}
-
-	/**
-	 * Retrieves the declared types.
-	 *
-	 * @return The declared types.
-	 */
-	public Map<Ident, Type> getTypes() {
-		return this.types;
 	}
 
 	/**
@@ -73,11 +71,11 @@ public class Environment {
 	}
 
 	/**
-	 * Finds a declared variable for the given identifier and returns it.
+	 * Finds a declared variable for the given identifier and returns its type.
 	 *
 	 * @param ident
 	 *
-	 * @return The variable to find.
+	 * @return The type of the given identifier.
 	 *
 	 * @throws RuntimeException If the variable cannot be found.
 	 */
@@ -90,12 +88,39 @@ public class Environment {
 	}
 
 	/**
-	 * Declares a variable value for the given identifier and value.
+	 * Finds a declared variable for the given identifier and returns its value.
+	 *
+	 * @param ident
+	 *
+	 * @return The value of the given identifier.
+	 *
+	 * @throws RuntimeException If the variable cannot be found.
+	 */
+	public Value lookup( Ident ident ) {
+		if ( this.bindings.containsKey( ident ) ) {
+			return this.bindings.get( ident );
+		}
+
+		throw new RuntimeException( "Undefined variable: " + ident.getName() );
+	}
+
+	/**
+	 * Declares a variable for the given identifier and type.
+	 *
+	 * @param ident
+	 * @param type
+	 */
+	public void declareType( Ident ident, Type type ) {
+		this.types.put( ident, type );
+	}
+
+	/**
+	 * Declares a variable for the given identifier and value.
 	 *
 	 * @param ident
 	 * @param value
 	 */
-	public void declareVariable( Ident ident, Type type ) {
-		this.types.put( ident, type );
+	public void declareVariable( Ident ident, Value value ) {
+		this.bindings.put( ident, value );
 	}
 }

@@ -3,26 +3,28 @@ package org.uva.sea.ql.test.eval;
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
-import org.uva.sea.ql.ast.expression.Add;
-import org.uva.sea.ql.ast.expression.And;
-import org.uva.sea.ql.ast.expression.Div;
-import org.uva.sea.ql.ast.expression.Eq;
 import org.uva.sea.ql.ast.expression.Expression;
-import org.uva.sea.ql.ast.expression.GEq;
-import org.uva.sea.ql.ast.expression.GT;
-import org.uva.sea.ql.ast.expression.LEq;
-import org.uva.sea.ql.ast.expression.LT;
-import org.uva.sea.ql.ast.expression.Mul;
-import org.uva.sea.ql.ast.expression.NEq;
-import org.uva.sea.ql.ast.expression.Neg;
-import org.uva.sea.ql.ast.expression.Not;
-import org.uva.sea.ql.ast.expression.Or;
-import org.uva.sea.ql.ast.expression.Pos;
-import org.uva.sea.ql.ast.expression.Sub;
+import org.uva.sea.ql.ast.expression.Ident;
+import org.uva.sea.ql.ast.expression.arithmetic.Add;
+import org.uva.sea.ql.ast.expression.arithmetic.Div;
+import org.uva.sea.ql.ast.expression.arithmetic.Mul;
+import org.uva.sea.ql.ast.expression.arithmetic.Sub;
+import org.uva.sea.ql.ast.expression.comparison.Eq;
+import org.uva.sea.ql.ast.expression.comparison.GEq;
+import org.uva.sea.ql.ast.expression.comparison.GT;
+import org.uva.sea.ql.ast.expression.comparison.LEq;
+import org.uva.sea.ql.ast.expression.comparison.LT;
+import org.uva.sea.ql.ast.expression.comparison.NEq;
 import org.uva.sea.ql.ast.expression.literal.Bool;
 import org.uva.sea.ql.ast.expression.literal.Int;
 import org.uva.sea.ql.ast.expression.literal.Money;
 import org.uva.sea.ql.ast.expression.literal.Str;
+import org.uva.sea.ql.ast.expression.logical.And;
+import org.uva.sea.ql.ast.expression.logical.Or;
+import org.uva.sea.ql.ast.expression.unary.Neg;
+import org.uva.sea.ql.ast.expression.unary.Not;
+import org.uva.sea.ql.ast.expression.unary.Pos;
+import org.uva.sea.ql.eval.Environment;
 import org.uva.sea.ql.eval.ExpressionEvaluator;
 import org.uva.sea.ql.test.IExpressionTest;
 
@@ -36,10 +38,16 @@ public class ExpressionEvaluatorTest implements IExpressionTest {
 	private final ExpressionEvaluator evaluator;
 
 	/**
+	 * Holds the environment.
+	 */
+	private final Environment environment;
+
+	/**
 	 * Constructs a new expression evaluator test.
 	 */
 	public ExpressionEvaluatorTest() {
-		this.evaluator = new ExpressionEvaluator();
+		this.environment = new Environment();
+		this.evaluator = new ExpressionEvaluator( environment );
 	}
 
 	/**
@@ -183,7 +191,8 @@ public class ExpressionEvaluatorTest implements IExpressionTest {
 	@Override
 	@Test
 	public void testId() {
-		// TODO Auto-generated method stub
+		this.environment.declareVariable( new Ident( "x" ), new org.uva.sea.ql.eval.value.String( "value of x" ) );
+		assertEquals( "value of x", eval( new Ident( "x" ) ) );
 	}
 
 	@Override

@@ -29,6 +29,11 @@ public class StatementChecker extends TypeCheckVisitor implements IStatementVisi
 	private final ExpressionTypeResolver resolver;
 
 	/**
+	 * Holds the environment.
+	 */
+	private final Environment environment;
+
+	/**
 	 * Constructs a new Statement checker.
 	 *
 	 * @param environment
@@ -36,8 +41,10 @@ public class StatementChecker extends TypeCheckVisitor implements IStatementVisi
 	 */
 	public StatementChecker( Environment environment, ExpressionChecker expressionVisitor ) {
 		super( environment );
+
 		this.expressionVisitor = expressionVisitor;
 		this.resolver = this.getResolver();
+		this.environment = environment;
 	}
 
 	@Override
@@ -63,7 +70,7 @@ public class StatementChecker extends TypeCheckVisitor implements IStatementVisi
 		Type conditionType = node.getCondition().accept( resolver );
 
 		if ( !conditionType.isCompatibleToBool() ) {
-			addError( "Condition of an ELSE-IF block should evaluate to Boolean.", node );
+			this.addError( "Condition of an ELSE-IF block should evaluate to Boolean.", node );
 			return false;
 		}
 
@@ -79,7 +86,7 @@ public class StatementChecker extends TypeCheckVisitor implements IStatementVisi
 		Type conditionType = node.getCondition().accept( resolver );
 
 		if ( !conditionType.isCompatibleToBool() ) {
-			addError( "Condition of an IF block should evaluate to Boolean.", node );
+			this.addError( "Condition of an IF block should evaluate to Boolean.", node );
 			return false;
 		}
 
@@ -106,8 +113,8 @@ public class StatementChecker extends TypeCheckVisitor implements IStatementVisi
 
 	@Override
 	public Boolean visit( VarDeclaration node ) {
-		if ( getEnvironment().isDeclared( node.getIdent() ) ) {
-			addError(
+		if ( this.environment.isDeclared( node.getIdent() ) ) {
+			this.addError(
 				String.format(
 					"The variable %s is already declared elsewhere.",
 					node.getIdent().getName()
@@ -118,7 +125,8 @@ public class StatementChecker extends TypeCheckVisitor implements IStatementVisi
 			return false;
 		}
 
-		getEnvironment().declareVariable( node.getIdent(), node.getType() );
+		this.environment.declareType( node.getIdent(), node.getType() );
+
 		return true;
 	}
 
@@ -128,16 +136,16 @@ public class StatementChecker extends TypeCheckVisitor implements IStatementVisi
 			return false;
 		}
 
-		if ( getEnvironment().isDeclared( node.getIdent() ) ) {
+		if ( this.environment.isDeclared( node.getIdent() ) ) {
 			if ( !node.getIdent().accept( this.expressionVisitor ) ) {
 				return false;
 			}
 
-			Type leftType = node.getIdent().accept( resolver );
-			Type rightType = node.getExpression().accept( resolver );
+			Type leftType = node.getIdent().accept( this.resolver );
+			Type rightType = node.getExpression().accept( this.resolver );
 
 			if ( !leftType.isCompatibleTo( rightType ) ) {
-				addError(
+				this.addError(
 					String.format(
 						"Type mismatch: cannot convert from %s to %s.",
 						leftType.toString(),
@@ -150,7 +158,9 @@ public class StatementChecker extends TypeCheckVisitor implements IStatementVisi
 			}
 		}
 
-		getEnvironment().declareVariable( node.getIdent(), node.getExpression().accept( resolver ) );
+		Type expressionType = node.getExpression().accept( this.resolver );
+		this.environment.declareType( node.getIdent(), expressionType );
+
 		return true;
 	}
 
