@@ -15,7 +15,6 @@ import org.uva.sea.ql.validation.AstValidationError;
 import org.uva.sea.ql.validation.Validator;
 
 public class GenerationRunner {
-	private static final String OUT_PATH = "";
 
 	public static void main(String[] args) {
 		try {
@@ -24,10 +23,11 @@ public class GenerationRunner {
 			Expr e = parser.parseDefaultFile();
 			new Validator().validate(e);
 			Form f = (Form) e;
-			VisitorDocumentBuilder visitor = new VisitorDocumentBuilder(new HTMLDocument());
+			VisitorDocumentBuilder visitor = new VisitorDocumentBuilder(
+					new HTMLDocument());
 			f.accept(visitor);
 			String output = (String) visitor.getOutput();
-			IOHelper.write(OUT_PATH + f.getName() + ".html", output);
+			IOHelper.write(IOHelper.OUT_PATH + f.getName() + ".html", output);
 			System.out.println(output);
 
 		} catch (IOException ex) {

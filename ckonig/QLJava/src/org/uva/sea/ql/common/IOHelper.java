@@ -10,7 +10,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class IOHelper {
-
+	public static final String OUT_PATH = "";
 	public static void write(String path, String output)
 			throws FileNotFoundException {
 		PrintWriter out = new PrintWriter(path);
