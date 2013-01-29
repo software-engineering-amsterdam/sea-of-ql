@@ -17,14 +17,14 @@ stepSize: -19.3
 
 
 group "hi" {
-	hasMaintLoan
 	over
+	DateQ
 }
 
 group "hdi" {
-	hasMaintLoan
-	over
-	hasMaintLoan // TODO: duplicate variables
+hasMaintLoan
+	
+	
 }
 
 over {

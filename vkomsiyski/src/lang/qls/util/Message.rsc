@@ -11,7 +11,11 @@ public Message redeclaredError(str name, loc location)
     
 public Message duplicateGroupError(str name, loc location) 
   = error("Group <name> already exists", location);    
+
+public Message inGroupError(str name, loc location) 
+  = error("Variable <name> is already in a group", location);
     
 public Message typeError(str typename, loc location) 
   = error("This rule is undefined for variables of type <typename>", location);
+
   

@@ -60,20 +60,27 @@ private StyleEnvironment check(StyleEnvironment env, StyleRule r:typed(\type, ru
 
 private StyleEnvironment check(StyleEnvironment env, StyleRule r:group(name, questions), Declarations d) {
 	messages = {undeclaredError(q, r@location) | q <- questions, q notin d};
+	grouped_questions = [];
 	if (name in env.groups)
 		messages += {duplicateGroupError(name, r@location)};
-	return <(),(),(name : questions),messages>;
+	for (q <- questions)
+		if (q notin grouped_questions) 
+			grouped_questions += q;
+		else	
+			messages += {inGroupError(q, r@location)};
+	for (q1 <- questions, previous <- env.groups, q2 <- env.groups[previous], q1 == q2)
+		messages += {inGroupError(q1, r@location)};
+				
+	return <(),(),(name : grouped_questions),messages>;
 }
 
 
 private set[Message] checkRules(Type t, list[Rule] rules) {
 	messages = {};
-	for (r1 <- rules) {
-		if (!compatible(t, r1))
-			messages += {typeError(t.name, r1@location)};
-		for (r2 <- rules, r1 != r2, r1 := r2)
-			messages += {redeclaredRuleError(r1.name, r1@location),
-						 redeclaredRuleError(r2.name, r2@location)};
-	}
+	for (r1 <- rules, !compatible(t, r1))
+		messages += {typeError(t.name, r1@location)};
+	for (r1 <- rules, r2 <- rules, r1 != r2, r1 := r2)
+		messages += {redeclaredRuleError(r1.name, r1@location),
+					 redeclaredRuleError(r2.name, r2@location)};
 	return messages;
 }
