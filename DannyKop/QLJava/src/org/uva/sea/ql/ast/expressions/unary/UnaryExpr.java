@@ -1,6 +1,8 @@
 package org.uva.sea.ql.ast.expressions.unary;
 
 import org.uva.sea.ql.ast.Expr;
+import org.uva.sea.ql.ast.visitor.SymbolTable;
+import org.uva.sea.ql.ast.visitor.Visitor;
 
 /**
  * Class: UnaryExpr
@@ -13,7 +15,7 @@ public class UnaryExpr extends Expr {
 	protected final String op;
 	
 	// The expression
-	private final Expr expr;
+	private final Expr argument;
 	
 	/**
 	 * UnaryExpr
@@ -30,14 +32,40 @@ public class UnaryExpr extends Expr {
 	 */
 	public UnaryExpr(Expr expr, String op) {
 		this.op = op;
-		this.expr = expr;	
+		this.argument = expr;	
 	}
 	/**
-	 * getExpression
+	 * getArgument
 	 * @return expr 
 	 */
-	public Expr getExpression(){
-		return this.expr;
+	public Expr getArgument(){
+		return this.argument;
+	}
+	/**
+	 * accept()
+	 * @param visitor
+	 */
+	@Override
+	public void accept(Visitor visitor){
+		visitor.visit(this);
+	}
+	/**
+	 * getType
+	 * @param st - the table to check for the type
+	 * @return Expr - type
+	 */
+	@Override
+	public Expr getType(SymbolTable st) {
+		return this;
+	}
+	/**
+	 * isCompatibleTo
+	 * @param t type
+	 * @return boolean - true if compatible false otherwise
+	 */
+	@Override
+	public boolean isCompatibleTo(Expr t) {
+		return t.isCompatibleTo(this);
 	}
 
 }

@@ -3,12 +3,14 @@ package org.uva.sea.ql.ast.types;
 import java.math.BigDecimal;
 
 import org.uva.sea.ql.ast.Expr;
+import org.uva.sea.ql.ast.visitor.SymbolTable;
+
 /**
  * Class: Money
  * @author Danny
  *
  */
-public class Money extends Expr implements Type<BigDecimal> {
+public class Money extends Expr {
 
 	private final BigDecimal value;
 	/**
@@ -18,25 +20,58 @@ public class Money extends Expr implements Type<BigDecimal> {
 	public Money(BigDecimal v){
 		this.value = v;
 	}
+	/**
+	 * Constructor
+	 * @param v
+	 */
 	public Money(String v){
-		this.value = new BigDecimal(v);
+		this(new BigDecimal(v));
+	}
+	/**
+	 * Constructor
+	 * Used for typing
+	 */
+	public Money(){
+		this(new BigDecimal(0));
 	}
 	/**
 	 * getValue()
 	 * @return Double - the double value
 	 */
-	@Override	
-	public BigDecimal getValue(){
-		return this.value;
+	public String getValue(){
+		return value.toString();
 	}
-	
 	/**
-	 * getType()
-	 * @return String - the type description of the implemented type
-	 */	
+	 * isCompatibleWithInt
+	 * @return 
+	 */
+	public boolean isCompatibleWithInt(){
+		return true;
+	}	
+	/**
+	 * isCompatibleWithMoney
+	 * @return 
+	 */
+	public boolean isCompatibleWithMoney(){
+		return true;
+	}
+	/**
+	 * isCompatibleTo
+	 * @param t type
+	 * @return boolean - true if compatible false otherwise
+	 */
 	@Override
-	public String getType() {
-		return "Money";
+	public boolean isCompatibleTo(Expr t) {
+		return (t.isCompatibleWithInt() || t.isCompatibleWithMoney());
+	}
+	/**
+	 * getType
+	 * @param st - the table to check for the type
+	 * @return Expr - type
+	 */
+	@Override
+	public Expr getType(SymbolTable st) {
+		return this;
 	}
 
 }
