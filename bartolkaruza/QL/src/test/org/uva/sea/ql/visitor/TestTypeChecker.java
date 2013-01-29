@@ -11,7 +11,7 @@ import org.uva.sea.ql.parser.IParse;
 import org.uva.sea.ql.parser.antlr.ANTLRParser;
 import org.uva.sea.ql.semantic.ExpressionSemanticChecker;
 import org.uva.sea.ql.semantic.StatementSemanticChecker;
-import org.uva.sea.ql.symbol.SymbolGenerator;
+import org.uva.sea.ql.symbol.DefinitionCollector;
 import org.uva.sea.ql.symbol.SymbolTable;
 
 public class TestTypeChecker {
@@ -65,14 +65,14 @@ public class TestTypeChecker {
 		SymbolTable table = new SymbolTable();
 		Form form = (Form) parser.parseNode("form somelabel { if(1==question1) { question1: \" some text label\" boolean} }");
 		ExpressionSemanticChecker exprCheck = new ExpressionSemanticChecker(table, handler);
-		form.accept(new StatementSemanticChecker(table, handler, new SymbolGenerator(table, handler), exprCheck));
+		form.accept(new StatementSemanticChecker(table, handler, new DefinitionCollector(table, handler), exprCheck));
 		handler.printErrors();
 	}
 
 	private void runParserAndCheckType(ASTNode node, ErrorHandler handler) {
 		SymbolTable table = new SymbolTable();
 		Form form = (Form) node;
-		form.accept(new StatementSemanticChecker(table, handler, new SymbolGenerator(table, handler), new ExpressionSemanticChecker(table, handler)));
+		form.accept(new StatementSemanticChecker(table, handler, new DefinitionCollector(table, handler), new ExpressionSemanticChecker(table, handler)));
 	}
 
 }

@@ -9,11 +9,27 @@ import org.uva.sea.ql.ast.expr.*;
 import org.uva.sea.ql.ast.expr.value.*;
 import org.uva.sea.ql.ast.expr.type.*;
 import org.uva.sea.ql.ast.expr.grouping.*;
+import org.uva.sea.ql.error.*;
 }
 
 @lexer::header
 {
 package org.uva.sea.ql.parser.antlr;
+import org.uva.sea.ql.error.*;
+}
+
+@parser::members {
+  @Override
+  public void reportError(RecognitionException e) {
+    throw new RuntimeException(e); 
+  }
+}
+
+@lexer::members {
+  @Override
+  public void reportError(RecognitionException e) {
+    throw new RuntimeException(e); 
+  }
 }
 
 form returns [Form result] 

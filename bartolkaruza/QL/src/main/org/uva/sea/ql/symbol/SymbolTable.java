@@ -22,4 +22,8 @@ public class SymbolTable {
 		return symbols;
 	}
 
+	public void clear() {
+		symbols.clear();
+	}
+
 }

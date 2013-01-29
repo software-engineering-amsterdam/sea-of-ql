@@ -12,7 +12,7 @@ import org.uva.sea.ql.ast.Statement;
 import org.uva.sea.ql.error.ErrorHandler;
 import org.uva.sea.ql.error.QLError;
 import org.uva.sea.ql.symbol.Symbol;
-import org.uva.sea.ql.symbol.SymbolGenerator;
+import org.uva.sea.ql.symbol.DefinitionCollector;
 import org.uva.sea.ql.symbol.SymbolTable;
 import org.uva.sea.ql.visitor.StatementVisitor;
 
@@ -21,10 +21,10 @@ public class StatementSemanticChecker implements StatementVisitor {
 	private SymbolTable table;
 	private ErrorHandler handler;
 	private ExpressionSemanticChecker expressionChecker;
-	private SymbolGenerator generator;
+	private DefinitionCollector generator;
 	private Stack<List<Symbol>> dependentOnStack = new Stack<List<Symbol>>();
 
-	public StatementSemanticChecker(SymbolTable table, ErrorHandler handler, SymbolGenerator generator, ExpressionSemanticChecker expressionChecker) {
+	public StatementSemanticChecker(SymbolTable table, ErrorHandler handler, DefinitionCollector generator, ExpressionSemanticChecker expressionChecker) {
 		this.table = table;
 		this.handler = handler;
 		this.expressionChecker = expressionChecker;

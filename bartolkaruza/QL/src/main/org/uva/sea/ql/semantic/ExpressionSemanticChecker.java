@@ -71,7 +71,6 @@ public class ExpressionSemanticChecker implements ExpressionVisitor{
 		if(table.hasSymbol(node.getName())) {
 			Symbol symbol = table.getSymbol(node.getName());
 			symbols.add(symbol);
-			symbol.getVariable().accept(this);
 		} else {
 			handler.addError(new QLError("undefined variable: " + node.getName() + " at line: " + node.getLineNumber()));
 		}

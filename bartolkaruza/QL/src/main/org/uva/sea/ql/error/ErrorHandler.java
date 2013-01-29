@@ -30,4 +30,8 @@ public class ErrorHandler {
 		errors.add(error);
 	}
 
+	public void clear() {
+		errors.clear();
+	}
+
 }

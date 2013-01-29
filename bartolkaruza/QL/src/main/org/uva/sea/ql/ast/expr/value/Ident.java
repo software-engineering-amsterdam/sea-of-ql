@@ -25,7 +25,7 @@ public class Ident extends ValueExpr {
 
 	@Override
 	public Type typeOf(SymbolTable symbolTable) {
-		return symbolTable.getSymbol(name).getVariable().typeOf(symbolTable);
+		return symbolTable.getSymbol(name).getType();
 	}
 
 }

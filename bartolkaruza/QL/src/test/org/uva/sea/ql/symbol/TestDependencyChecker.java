@@ -19,12 +19,12 @@ public class TestDependencyChecker {
 		ErrorHandler handler = new ErrorHandler();
 		SymbolTable table = new SymbolTable();
 		Form form = (Form) parser.parseNode("form form1 { if(symbol1) { symbol2: \"label\" boolean } if (symbol2) { symbol1: \"label\" boolean} }");
-		form.accept(new StatementSemanticChecker(table, handler, new SymbolGenerator(table, handler), new ExpressionSemanticChecker(table, handler)));
+		form.accept(new StatementSemanticChecker(table, handler, new DefinitionCollector(table, handler), new ExpressionSemanticChecker(table, handler)));
 		Assert.assertEquals(2, handler.getErrors().size());
 		table = new SymbolTable();
 		handler = new ErrorHandler();
 		form = (Form) parser.parseNode("form form1 { if(symbol1) { symbol1: \"label\" boolean } if (symbol2) { symbol2: \"label\" boolean} }");
-		form.accept(new StatementSemanticChecker(table, handler, new SymbolGenerator(table, handler), new ExpressionSemanticChecker(table, handler)));
+		form.accept(new StatementSemanticChecker(table, handler, new DefinitionCollector(table, handler), new ExpressionSemanticChecker(table, handler)));
 		Assert.assertEquals(2, handler.getErrors().size());
 	}
 	
@@ -33,7 +33,7 @@ public class TestDependencyChecker {
 		ErrorHandler handler = new ErrorHandler();
 		SymbolTable table = new SymbolTable();
 		Form form = (Form) parser.parseNode("form form1 { symbol1: \"label\" boolean if(symbol1) { symbol2: \"label\" boolean } if (symbol2) { symbol3: \"label\" boolean} }");
-		form.accept(new StatementSemanticChecker(table, handler, new SymbolGenerator(table, handler), new ExpressionSemanticChecker(table, handler)));
+		form.accept(new StatementSemanticChecker(table, handler, new DefinitionCollector(table, handler), new ExpressionSemanticChecker(table, handler)));
 		handler.printErrors();
 		Assert.assertEquals(0, handler.getErrors().size());
 	}
