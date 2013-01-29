@@ -1,4 +1,4 @@
-package org.uva.sea.ql.typechecker;
+package org.uva.sea.ql.test.typechecker;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -34,12 +34,16 @@ import org.uva.sea.ql.ast.statement.VarDeclaration;
 import org.uva.sea.ql.eval.Environment;
 import org.uva.sea.ql.eval.Error;
 import org.uva.sea.ql.parser.ParseError;
-import org.uva.sea.ql.visitor.VisitorTest;
+import org.uva.sea.ql.test.IExpressionTest;
+import org.uva.sea.ql.test.visitor.VisitorTest;
+import org.uva.sea.ql.typechecker.ExpressionChecker;
+import org.uva.sea.ql.typechecker.StatementChecker;
+import org.uva.sea.ql.typechecker.TypeChecker;
 
 /**
  * TypeChecker test.
  */
-public class TestTypeChecker extends VisitorTest<Boolean> {
+public class TestTypeChecker extends VisitorTest<Boolean> implements IExpressionTest {
 	/**
 	 * Holds the statement checker.
 	 */
@@ -90,34 +94,64 @@ public class TestTypeChecker extends VisitorTest<Boolean> {
 		return expression.accept( this.expressionVisitor );
 	}
 
-	/**
-	 * Tests boolean types.
-	 *
-	 * @throws ParseError
-	 */
+	@Override
 	@Test
-	public void testBooleanTypes() throws ParseError {
+	public void testBool() {
 		assertTrue( typeCheck( new Bool( true ) ) );
 		assertTrue( typeCheck( new Bool( false ) ) );
-		assertTrue( typeCheck( new Not( new Bool( true ) ) ) );
-
-		assertTrue( typeCheck( new And( new Bool( true ), new Bool( false ) ) ) );
-		assertTrue( typeCheck( new Or( new Bool( true ), new Bool( false ) ) ) );
-
-		assertTrue( typeCheck( new LT( new Money( .5 ), new Money( .1 ) ) ) );
-		assertTrue( typeCheck( new LEq( new Int( 23 ), new Money( .10 ) ) ) );
-		assertTrue( typeCheck( new GEq( new Str( "a" ), new Str( "" ) ) ) );
-		assertTrue( typeCheck( new Eq( new Bool( true ), new Not( new Bool( false ) ) ) ) );
-		assertTrue( typeCheck( new NEq( new Bool( false ), new Bool( true ) ) ) );
 	}
 
-	/**
-	 * Tests integer types.
-	 *
-	 * @throws ParseError
-	 */
+	@Override
 	@Test
-	public void testIntegerTypes() throws ParseError {
+	public void testNot() {
+		assertTrue( typeCheck( new Not( new Bool( true ) ) ) );
+	}
+
+	@Override
+	@Test
+	public void testAnd() {
+		assertTrue( typeCheck( new And( new Bool( true ), new Bool( false ) ) ) );
+	}
+
+	@Override
+	@Test
+	public void testOr() {
+		assertTrue( typeCheck( new Or( new Bool( true ), new Bool( false ) ) ) );
+	}
+
+	@Override
+	@Test
+	public void testLT() {
+		assertTrue( typeCheck( new LT( new Money( .5 ), new Money( .1 ) ) ) );
+	}
+
+	@Override
+	@Test
+	public void testLEq() {
+		assertTrue( typeCheck( new LEq( new Int( 23 ), new Money( .10 ) ) ) );
+	}
+
+	@Override
+	@Test
+	public void testGEq() {
+		assertTrue( typeCheck( new GEq( new Str( "a" ), new Str( "" ) ) ) );
+
+		typeCheck( new GEq( new Int( 12 ), new Money( .3 ) ) );
+		assertEquals( 0, environment.getErrors().size() );
+	}
+
+	@Override
+	@Test
+	public void testEq() {
+		assertTrue( typeCheck( new Eq( new Bool( true ), new Not( new Bool( false ) ) ) ) );
+
+		typeCheck( new Eq( new Bool( true ), new Bool( false ) ) );
+		assertEquals( 0, environment.getErrors().size() );
+	}
+
+	@Override
+	@Test
+	public void testInt() {
 		assertTrue( typeCheck( new Int( 12 ) ) );
 		assertTrue( typeCheck( new Int( 0 ) ) );
 		assertTrue( typeCheck( new Neg( new Int( 3 ) ) ) );
@@ -129,13 +163,9 @@ public class TestTypeChecker extends VisitorTest<Boolean> {
 		assertTrue( typeCheck( new Sub( new Int( 10 ), new Neg( new Int( 2 ) ) ) ) );
 	}
 
-	/**
-	 * Tests money types.
-	 *
-	 * @throws ParseError
-	 */
+	@Override
 	@Test
-	public void testMoneyTypes() throws ParseError {
+	public void testMoney() {
 		assertTrue( typeCheck( new Money( .1 ) ) );
 		assertTrue( typeCheck( new Money( 13141.0 ) ) );
 		assertTrue( typeCheck( new Money( .1e+1 ) ) );
@@ -146,13 +176,9 @@ public class TestTypeChecker extends VisitorTest<Boolean> {
 		assertTrue( typeCheck( new Add( new Mul( new Money( .5 ), new Money( .25 ) ), new Money( .125 ) ) ) );
 	}
 
-	/**
-	 * Tests string types.
-	 *
-	 * @throws ParseError
-	 */
+	@Override
 	@Test
-	public void testStringTypes() throws ParseError {
+	public void testStr() {
 		assertTrue( typeCheck( new Str( "" ) ) );
 		assertTrue( typeCheck( new Str( "yes" ) )  );
 		assertTrue( typeCheck( new Str( "this is a string" ) ) );
@@ -164,7 +190,7 @@ public class TestTypeChecker extends VisitorTest<Boolean> {
 	 * @throws ParseError
 	 */
 	@Test
-	public void testVariableDefinitions() throws ParseError {
+	public void testVariableDefinitions() {
 		typeCheck( new Assignment( new Ident( "x" ), new Ident( "y" ) ) );
 		assertEquals( "Undefined variable: y", environment.getErrors().get( 0 ).getMessage() );
 
@@ -241,21 +267,10 @@ public class TestTypeChecker extends VisitorTest<Boolean> {
 		);
 	}
 
-	/**
-	 * Tests comparison operators.
-	 * They have to compare values of the same (sub)type.
-	 *
-	 * @throws ParseError
-	 */
+	@Override
 	@Test
-	public void testComparison() throws ParseError {
-		typeCheck( new Eq( new Bool( true ), new Bool( false ) ) );
-		assertEquals( 0, environment.getErrors().size() );
-
+	public void testNEq() {
 		typeCheck( new NEq( new Bool( true ), new Not( new Bool( false ) ) ) );
-		assertEquals( 0, environment.getErrors().size() );
-
-		typeCheck( new GEq( new Int( 12 ), new Money( .3 ) ) );
 		assertEquals( 0, environment.getErrors().size() );
 
 		typeCheck( new NEq( new Int( 12 ), new Bool( true ) ) );
@@ -272,6 +287,8 @@ public class TestTypeChecker extends VisitorTest<Boolean> {
 
 		typeCheck( new NEq( new Str( "hello" ), new Str( "world" ) ) );
 		assertEquals( 0, environment.getErrors().size() );
+
+		assertTrue( typeCheck( new NEq( new Bool( false ), new Bool( true ) ) ) );
 	}
 
 	/**
@@ -294,5 +311,60 @@ public class TestTypeChecker extends VisitorTest<Boolean> {
 				);
 			}
 		}
+	}
+
+	@Override
+	@Test
+	public void testAdd() {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	@Test
+	public void testSub() {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	@Test
+	public void testMul() {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	@Test
+	public void testDiv() {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	@Test
+	public void testNeg() {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	@Test
+	public void testPos() {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	@Test
+	public void testGT() {
+		// TODO Auto-generated method stub
+	}
+
+	@Override
+	@Test
+	public void testId() {
+		// TODO Auto-generated method stub
+
 	}
 }

@@ -1,4 +1,4 @@
-package org.uva.sea.ql.parser;
+package org.uva.sea.ql.test.parser;
 
 import static org.junit.Assert.assertEquals;
 
@@ -32,11 +32,12 @@ import org.uva.sea.ql.ast.statement.Statement;
 import org.uva.sea.ql.parser.IParser;
 import org.uva.sea.ql.parser.ParseError;
 import org.uva.sea.ql.parser.jacc.JACCParser;
+import org.uva.sea.ql.test.IExpressionTest;
 
 /**
  * Testing expressions.
  */
-public class TestParser {
+public class TestParser implements IExpressionTest {
 	/**
 	 * Enumeration of which side to pick in an expression or statement.
 	 */
@@ -63,10 +64,8 @@ public class TestParser {
 	 *
 	 * @param expected
 	 * @param source
-	 *
-	 * @throws ParseError
 	 */
-	private void assertExpression( Class<?> expected, String source ) throws ParseError {
+	private void assertExpression( Class<?> expected, String source ) {
 		// transform input expression to assignment statement, as atomic expressions do not exist in the language.
 		source = "x= " + source;
 		assertSide( expected, source, Side.RIGHT );
@@ -77,11 +76,18 @@ public class TestParser {
 	 *
 	 * @param expected
 	 * @param source
-	 *
-	 * @throws ParseError
 	 */
-	private void assertNode( Class<?> expected, String source ) throws ParseError {
-		Statement root = parser.parse( source );
+	private void assertNode( Class<?> expected, String source ) {
+		Statement root;
+
+		try {
+			root = parser.parse( source );
+		}
+		catch ( ParseError e ) {
+			e.printStackTrace();
+			return;
+		}
+
 		assertEquals( expected, root.getClass() );
 	}
 
@@ -91,13 +97,19 @@ public class TestParser {
 	 * @param expected
 	 * @param source
 	 * @param side
-	 *
-	 * @throws ParseError
 	 */
-	private void assertSide( Class<?> expected, String source, Side side ) throws ParseError {
-		Statement root = parser.parse( source );
-		Node test = getPartOf( root, side );
+	private void assertSide( Class<?> expected, String source, Side side ) {
+		Statement root;
 
+		try {
+			root = parser.parse( source );
+		}
+		catch ( ParseError e ) {
+			e.printStackTrace();
+			return;
+		}
+
+		Node test = getPartOf( root, side );
 		assertEquals( expected, test.getClass() );
 	}
 
@@ -139,13 +151,9 @@ public class TestParser {
 		}
 	}
 
-	/**
-	 * Tests addition expressions.
-	 *
-	 * @throws ParseError
-	 */
+	@Override
 	@Test
-	public void testAdds() throws ParseError {
+	public void testAdd() {
 		assertExpression( Add.class, "a + b" );
 		assertExpression( Add.class, "a + b + c" );
 		assertExpression( Add.class, "(a + b)" );
@@ -157,13 +165,9 @@ public class TestParser {
 		assertExpression( Add.class, "1+1" );
 	}
 
-	/**
-	 * Tests subtraction expressions.
-	 *
-	 * @throws ParseError
-	 */
+	@Override
 	@Test
-	public void testSubs() throws ParseError {
+	public void testSub() {
 		assertExpression( Sub.class, "a - b" );
 		assertExpression( Sub.class, "a - b - c" );
 		assertExpression( Sub.class, "(a - b - c)" );
@@ -175,13 +179,9 @@ public class TestParser {
 		assertExpression( Sub.class, "1-1" );
 	}
 
-	/**
-	 * Tests multiplication expressions.
-	 *
-	 * @throws ParseError
-	 */
+	@Override
 	@Test
-	public void testMuls() throws ParseError {
+	public void testMul() {
 		assertExpression( Mul.class, "a * b" );
 		assertExpression( Mul.class, "a * b * c" );
 		assertExpression( Mul.class, "a * (b * c)" );
@@ -192,13 +192,9 @@ public class TestParser {
 		assertExpression( Mul.class, "1*1" );
 	}
 
-	/**
-	 * Tests division expressions.
-	 *
-	 * @throws ParseError
-	 */
+	@Override
 	@Test
-	public void testDivs() throws ParseError {
+	public void testDiv() {
 		assertExpression( Div.class, "a / b" );
 		assertExpression( Div.class, "a / b / c" );
 		assertExpression( Div.class, "a / (b / c)" );
@@ -209,43 +205,59 @@ public class TestParser {
 		assertExpression( Div.class, "1/1" );
 	}
 
-	/**
-	 * Tests partial order relation expressions.
-	 *
-	 * @throws ParseError
-	 */
+	@Override
 	@Test
-	public void testRels() throws ParseError {
+	public void testLT() {
 		// lesser-than
 		assertExpression( LT.class, "a < b" );
 		assertExpression( LT.class, "a < b + c" );
 		assertExpression( LT.class, "a < (b * c)" );
 		assertExpression( LT.class, "(a * b) < c" );
+	}
 
+	@Override
+	@Test
+	public void testGT() {
 		// greater-than
 		assertExpression( GT.class, "a > b" );
 		assertExpression( GT.class, "a > b + c" );
 		assertExpression( GT.class, "a > (b * c)" );
 		assertExpression( GT.class, "(a * b) > c" );
+	}
 
+	@Override
+	@Test
+	public void testLEq() {
 		// lesser-than-equals
 		assertExpression( LEq.class, "a <= b" );
 		assertExpression( LEq.class, "a <= b + c" );
 		assertExpression( LEq.class, "a <= (b * c)" );
 		assertExpression( LEq.class, "(a * b) <= c" );
+	}
 
+	@Override
+	@Test
+	public void testGEq() {
 		// greater-than-equals
 		assertExpression( GEq.class, "a >= b");
 		assertExpression( GEq.class, "a >= b + c" );
 		assertExpression( GEq.class, "a >= (b * c)" );
 		assertExpression( GEq.class, "(a * b ) >= c" );
+	}
 
+	@Override
+	@Test
+	public void testEq() {
 		// equals
 		assertExpression( Eq.class, "a == b" );
 		assertExpression( Eq.class, "(a == b)" );
 		assertExpression( Eq.class, "a == (b > c)" );
 		assertExpression( Eq.class, "a == b + c" );
+	}
 
+	@Override
+	@Test
+	public void testNEq() {
 		// not-equals
 		assertExpression( NEq.class, "a != b" );
 		assertExpression( NEq.class, "(a != b)" );
@@ -253,13 +265,8 @@ public class TestParser {
 		assertExpression( NEq.class, "a != (b < c)" );
 	}
 
-	/**
-	 * Tests identifier expressions.
-	 *
-	 * @throws ParseError
-	 */
 	@Test
-	public void testIds() throws ParseError {
+	public void testId() {
 		assertExpression( Ident.class, "a" );
 		assertExpression( Ident.class, "abc" );
 		assertExpression( Ident.class, "ABC" );
@@ -269,57 +276,49 @@ public class TestParser {
 		assertExpression( Ident.class, "a2bc232aa" );
 	}
 
-	/**
-	 * Tests numerical literals.
-	 *
-	 * @throws ParseError
-	 */
 	@Test
-	public void testNums() throws ParseError {
-		// integer
+	public void testInt() {
 		assertExpression( Int.class, "0" );
 		assertExpression( Int.class, "1223" );
 		assertExpression( Int.class, "234234234" );
+	}
 
-		// money
+	@Test
+	public void testMoney() {
 		assertExpression( Money.class, "0.0" );
 		assertExpression( Money.class, "0.034982390" );
 		assertExpression( Money.class, ".5" );
 		assertExpression( Money.class, ".121e-10" );
 		assertExpression( Money.class, "141232.12141E+04" );
 		assertExpression( Money.class, "1.9e4" );
+	}
 
-		// negative
+	@Override
+	@Test
+	public void testNeg() {
 		assertExpression( Neg.class, "-1" );
 		assertExpression( Neg.class, "-44320" );
 		assertExpression( Neg.class, "-0" );
 		assertExpression( Neg.class, "-(a * b)" );
+	}
 
-		// positive
+	@Override
+	@Test
+	public void testPos() {
 		assertExpression( Pos.class, "+1" );
 		assertExpression( Pos.class, "+0" );
 		assertExpression( Pos.class, "+991821" );
 		assertExpression( Pos.class, "+(-43 * (11 + -3))" );
 	}
 
-	/**
-	 * Tests boolean literals.
-	 *
-	 * @throws ParseError
-	 */
 	@Test
-	public void testBools() throws ParseError {
+	public void testBool() {
 		assertExpression( Bool.class, "true" );
 		assertExpression( Bool.class, "false" );
 	}
 
-	/**
-	 * Tests string literals.
-	 *
-	 * @throws ParseError
-	 */
 	@Test
-	public void testStrings() throws ParseError {
+	public void testStr() {
 		assertExpression( Str.class, "\"\"" );
 		assertExpression( Str.class, "\"abc\"" );
 		assertExpression( Str.class, "\"321\"" );
@@ -331,27 +330,28 @@ public class TestParser {
 		assertExpression( Str.class, "\"\\n\"" );
 	}
 
-	/**
-	 * Tests logical expressions.
-	 *
-	 * @throws ParseError
-	 */
+	@Override
 	@Test
-	public void testLogicals() throws ParseError {
-		// logical AND
+	public void testAnd() {
 		assertExpression( And.class, "a && b" );
 		assertExpression( And.class, "(a && b)" );
 		assertExpression( And.class, "a && (b || c)" );
 		assertExpression( And.class, "a && b && c" );
 		assertExpression( And.class, "a && !b" );
+	}
 
-		// logical OR
+	@Override
+	@Test
+	public void testOr() {
 		assertExpression( Or.class, "a || b" );
 		assertExpression( Or.class, "(a || b)" );
 		assertExpression( Or.class, "a || b && c" );
 		assertExpression( Or.class, "a || (b && c)" );
+	}
 
-		// logical NOT
+	@Override
+	@Test
+	public void testNot() {
 		assertExpression( Not.class, "!a" );
 		assertExpression( Not.class, "!(a && b)" );
 		assertExpression( Not.class, "!(a && !b)" );
@@ -360,11 +360,9 @@ public class TestParser {
 
 	/**
 	 * Tests comment structures.
-	 *
-	 * @throws ParseError
 	 */
 	@Test
-	public void testComments() throws ParseError {
+	public void testComments() {
 		// multiline
 		assertExpression( Mul.class, "a /* some comments */ * c" );
 		assertExpression( Mul.class, "a */**/b" );
@@ -379,11 +377,9 @@ public class TestParser {
 
 	/**
 	 * Tests IF-statements.
-	 *
-	 * @throws ParseError
 	 */
 	@Test
-	public void testIf() throws ParseError {
+	public void testIf() {
 		// literal conditions
 		assertNode( IfThenElse.class, "if ( true ) { }" );
 		assertNode( IfThenElse.class, "if ( false ) { }" );
@@ -444,11 +440,9 @@ public class TestParser {
 
 	/**
 	 * Tests form declarations.
-	 *
-	 * @throws ParseError
 	 */
 	@Test
-	public void testFormDeclarations() throws ParseError {
+	public void testFormDeclarations() {
 		assertNode(
 			FormDeclaration.class,
 			"form ThisForm {" +
@@ -459,22 +453,18 @@ public class TestParser {
 
 	/**
 	 * Tests question declarations.
-	 *
-	 * @throws ParseError
 	 */
 	@Test
-	public void testQuestionDeclarations() throws ParseError {
+	public void testQuestionDeclarations() {
 		assertNode( QuestionDeclaration.class, "\"What?\" answer: boolean" );
 		assertNode( QuestionDeclaration.class, "\"What?\" answer = (a && !b)" );
 	}
 
 	/**
-	 * Tests statements.
-	 *
-	 * @throws ParseError
+	 * Tests assignments.
 	 */
 	@Test
-	public void testStatements() throws ParseError {
+	public void testAssignments() {
 		assertNode( Assignment.class, "var = true" );
 		assertNode( Assignment.class, "var = 1 + 45" );
 		assertNode( Assignment.class, "var = 102 * 45 + .5e+3" );
