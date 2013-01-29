@@ -9,6 +9,8 @@ import java.util.List;
 import org.uva.sea.ql.ast.operators.*;
 
 public class QLForm implements ActionListener {
+
+	private String formName;
 	private HashMap<String, ExpressionResult> identifiers = new HashMap<String, ExpressionResult>();
 	private List<QLFormLine> qLFormLines = new ArrayList<QLFormLine>();
 
@@ -31,5 +33,13 @@ public class QLForm implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
+	}
+
+	public String getFormName() {
+		return formName;
+	}
+
+	public void setFormName(String formName) {
+		this.formName = formName;
 	}
 }

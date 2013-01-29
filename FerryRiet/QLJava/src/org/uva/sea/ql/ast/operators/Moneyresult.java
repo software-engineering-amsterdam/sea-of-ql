@@ -17,7 +17,7 @@ public class MoneyResult implements ExpressionResult {
 		value = new BigDecimal(val);
 	}
 
-	public int getValue() {
+	public int getIntegerValue() {
 		return 1;
 	}
 

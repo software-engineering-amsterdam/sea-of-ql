@@ -36,6 +36,6 @@ public class Neg extends UnExpr {
 				&& (new MoneyType()).isCompatibleTo(rightHandResult.typeOf())) {
 			return new MoneyResult(rightHandResult.getMoneyValue().multiply(new BigDecimal(-1)));
 		}
-		return new IntegerResult(rightHandResult.getValue() * -1);
+		return new IntegerResult(rightHandResult.getIntegerValue() * -1);
 	}
 }

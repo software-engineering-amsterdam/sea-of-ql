@@ -43,13 +43,13 @@ public class Mul extends BinExpr {
 		}
 		// Case 2 MoneyType - Integer
 		if ((new MoneyType()).isCompatibleTo(leftHandResult.typeOf())) {
-			return new MoneyResult(leftHandResult.getMoneyValue().multiply(new BigDecimal(rightHandResult.getValue())));
+			return new MoneyResult(leftHandResult.getMoneyValue().multiply(new BigDecimal(rightHandResult.getIntegerValue())));
 		}
 		// Case 3 Integer - MoneyType
 		if ((new MoneyType()).isCompatibleTo(rightHandResult.typeOf())) {
-			return new MoneyResult((new BigDecimal(leftHandResult.getValue()).multiply(rightHandResult.getMoneyValue())));
+			return new MoneyResult((new BigDecimal(leftHandResult.getIntegerValue()).multiply(rightHandResult.getMoneyValue())));
 		}
 		// Case 4 Integer - Integer
-		return new IntegerResult(leftHandResult.getValue() * rightHandResult.getValue());
+		return new IntegerResult(leftHandResult.getIntegerValue() * rightHandResult.getIntegerValue());
 	}
 }

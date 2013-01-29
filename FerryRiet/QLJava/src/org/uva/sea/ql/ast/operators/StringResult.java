@@ -18,7 +18,7 @@ public class StringResult implements ExpressionResult {
 	}
 
 	@Override
-	public int getValue() {
+	public int getIntegerValue() {
 		return 0;
 	}
 

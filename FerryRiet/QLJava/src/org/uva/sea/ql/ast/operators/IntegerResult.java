@@ -12,7 +12,7 @@ public class IntegerResult implements ExpressionResult {
 		value = new Integer(val);
 	}
 
-	public int getValue() {
+	public int getIntegerValue() {
 		return value;
 	}
 

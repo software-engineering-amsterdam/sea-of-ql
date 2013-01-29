@@ -41,14 +41,14 @@ public class LEq extends BinExpr {
 		// Case 2 MoneyType Integer
 		if ((new MoneyType()).isCompatibleTo(leftHandResult.typeOf())) {
 			return new BooleanResult(leftHandResult.getMoneyValue().compareTo(
-					new BigDecimal(rightHandResult.getValue())) <= 0);
+					new BigDecimal(rightHandResult.getIntegerValue())) <= 0);
 		}
 		// Case 3 Integer MoneyType
 		if ((new MoneyType()).isCompatibleTo(rightHandResult.typeOf())) {
-			return new BooleanResult((new BigDecimal(leftHandResult.getValue()).compareTo(rightHandResult
+			return new BooleanResult((new BigDecimal(leftHandResult.getIntegerValue()).compareTo(rightHandResult
 					.getMoneyValue())) <= 0);
 		}
 		// Case 4 Integer Integer
-		return new BooleanResult(leftHandResult.getValue() <= rightHandResult.getValue());
+		return new BooleanResult(leftHandResult.getIntegerValue() <= rightHandResult.getIntegerValue());
 	}
 }

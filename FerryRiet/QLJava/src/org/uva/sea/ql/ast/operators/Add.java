@@ -33,23 +33,27 @@ public class Add extends BinExpr {
 		ExpressionResult leftHandResult = getExprLeftHand().eval(symbolMap);
 		ExpressionResult rightHandResult = getExprRightHand().eval(symbolMap);
 
-		// Check types and allow promotion from integer to money, there is no demotion
+		MoneyType moneyType = new MoneyType();
+
+		// Check types and allow promotion from integer to money, there is no
+		// demotion
 		// Money is compatible to Integer and Integer IS NOT compatible to Money
 		// The order of the test for compatibility is important.
 		// Case 1 MoneyType + MoneyType
-		if ((new MoneyType()).isCompatibleTo(leftHandResult.typeOf())
-				&& (new MoneyType()).isCompatibleTo(rightHandResult.typeOf())) {
+		if (moneyType.isCompatibleTo(leftHandResult.typeOf()) && moneyType.isCompatibleTo(rightHandResult.typeOf())) {
 			return new MoneyResult(leftHandResult.getMoneyValue().add(rightHandResult.getMoneyValue()));
 		}
 		// Case 2 MoneyType + Integer
-		if ((new MoneyType()).isCompatibleTo(leftHandResult.typeOf())) {
-			return new MoneyResult(leftHandResult.getMoneyValue().add(new BigDecimal(rightHandResult.getValue())));
+		if (moneyType.isCompatibleTo(leftHandResult.typeOf())) {
+			return new MoneyResult(leftHandResult.getMoneyValue()
+					.add(new BigDecimal(rightHandResult.getIntegerValue())));
 		}
 		// Case 3 Integer + MoneyType
-		if ((new MoneyType()).isCompatibleTo(rightHandResult.typeOf())) {
-			return new MoneyResult(rightHandResult.getMoneyValue().add(new BigDecimal(leftHandResult.getValue())));
+		if (moneyType.isCompatibleTo(rightHandResult.typeOf())) {
+			return new MoneyResult(rightHandResult.getMoneyValue()
+					.add(new BigDecimal(leftHandResult.getIntegerValue())));
 		}
 		// Case 4 Integer + Integer
-		return new IntegerResult(leftHandResult.getValue() + rightHandResult.getValue());
+		return new IntegerResult(leftHandResult.getIntegerValue() + rightHandResult.getIntegerValue());
 	}
 }

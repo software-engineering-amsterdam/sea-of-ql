@@ -44,13 +44,13 @@ public class Div extends BinExpr {
 		}
 		// Case 2 MoneyType - Integer
 		if ((new MoneyType()).isCompatibleTo(leftHandResult.typeOf())) {
-			return new MoneyResult(leftHandResult.getMoneyValue().divide(new BigDecimal(rightHandResult.getValue())));
+			return new MoneyResult(leftHandResult.getMoneyValue().divide(new BigDecimal(rightHandResult.getIntegerValue())));
 		}
 		// Case 3 Integer - MoneyType
 		if ((new MoneyType()).isCompatibleTo(rightHandResult.typeOf())) {
-			return new MoneyResult((new BigDecimal(leftHandResult.getValue()).divide(rightHandResult.getMoneyValue())));
+			return new MoneyResult((new BigDecimal(leftHandResult.getIntegerValue()).divide(rightHandResult.getMoneyValue())));
 		}
 		// Case 4 Integer - Integer
-		return new IntegerResult(leftHandResult.getValue() / rightHandResult.getValue());
+		return new IntegerResult(leftHandResult.getIntegerValue() / rightHandResult.getIntegerValue());
 	}
 }

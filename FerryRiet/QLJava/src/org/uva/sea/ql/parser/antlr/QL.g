@@ -35,7 +35,7 @@ type returns [TypeDescription result]
     : 'boolean' { $result = new BooleanType() ;}
     | 'string'  { $result = new StringType() ;}
     | 'money'   { $result = new MoneyType() ;}
-    ;
+    ; 
 
 primary returns [Expr result]
   : IntLiteral      { $result = new IntLiteral($IntLiteral.text); }

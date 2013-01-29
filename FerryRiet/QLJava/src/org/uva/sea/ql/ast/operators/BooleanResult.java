@@ -13,7 +13,7 @@ public class BooleanResult implements ExpressionResult {
 	}
 
 	@Override
-	public int getValue() {
+	public int getIntegerValue() {
 		return 0;
 	}
 
