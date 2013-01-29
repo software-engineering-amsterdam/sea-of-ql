@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import khosrow.uva.sea.ql.ast.ASTNode;
+import khosrow.uva.sea.ql.ast.expr.BoolLiteral;
 import khosrow.uva.sea.ql.ast.expr.Ident;
 import khosrow.uva.sea.ql.ast.expr.IntLiteral;
 import khosrow.uva.sea.ql.ast.expr.StringLiteral;
@@ -165,7 +166,7 @@ public class QLLexer implements QLTokens {
 			    			nextChar(); 
 			    		} while (Character.isDigit(c)); 
 			    		yylval = new IntLiteral(n);
-			    		return token = INT;
+			    		return token = INT_LITERAL;
 			    	}
 			    	if (Character.isLetter(c)) {
 			    		StringBuilder sb = new StringBuilder();
@@ -177,6 +178,11 @@ public class QLLexer implements QLTokens {
 			    		String name = sb.toString();
 			    		if (KEYWORDS.containsKey(name)) {
 			    			return token = KEYWORDS.get(name);
+			    		}
+			    		if(name.equals("true") || name.equals("false"))
+			    		{
+			    			yylval = new BoolLiteral(Boolean.getBoolean(name));
+			    			return token = BOOL_LITERAL;
 			    		}
 						yylval = new Ident(name);
 			    		return token = IDENT;

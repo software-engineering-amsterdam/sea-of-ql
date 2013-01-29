@@ -5,6 +5,7 @@ import static org.junit.Assert.assertEquals;
 
 import khosrow.uva.sea.ql.ast.expr.Add;
 import khosrow.uva.sea.ql.ast.expr.And;
+import khosrow.uva.sea.ql.ast.expr.BoolLiteral;
 import khosrow.uva.sea.ql.ast.expr.GT;
 import khosrow.uva.sea.ql.ast.expr.Ident;
 import khosrow.uva.sea.ql.ast.expr.IntLiteral;
@@ -14,6 +15,7 @@ import khosrow.uva.sea.ql.ast.expr.Mul;
 import khosrow.uva.sea.ql.ast.expr.Neg;
 import khosrow.uva.sea.ql.ast.expr.Not;
 import khosrow.uva.sea.ql.ast.expr.Pos;
+import khosrow.uva.sea.ql.ast.expr.StringLiteral;
 import khosrow.uva.sea.ql.parser.jacc.JACCParser;
 
 import org.junit.Before;
@@ -99,5 +101,12 @@ public class TestExpressions {
 		assertEquals(parser.ParseExpression("-(a * b)").getClass(), Neg.class);
 		assertEquals(parser.ParseExpression("+1").getClass(), Pos.class);
 		assertEquals(parser.ParseExpression("- (( 2 * (-a - b)) / 2)").getClass(), Neg.class);
+	}
+	
+	@Test
+	public void testLiterals() throws ParseError{
+		assertEquals(parser.ParseExpression("\"A text\"").getClass(), StringLiteral.class);
+		assertEquals(parser.ParseExpression("true").getClass(), BoolLiteral.class);
+		assertEquals(parser.ParseExpression("false").getClass(), BoolLiteral.class);
 	}
 }

@@ -1,4 +1,4 @@
-// Output created by jacc on Mon Jan 28 21:52:47 CET 2013
+// Output created by jacc on Tue Jan 29 22:42:41 CET 2013
 
 package khosrow.uva.sea.ql.parser.jacc;
 
@@ -6,23 +6,25 @@ interface QLTokens {
     int ENDINPUT = 0;
     int AND = 1;
     int BOOLEAN = 2;
-    int EQ = 3;
-    int FORM = 4;
-    int GEQ = 5;
-    int IDENT = 6;
-    int IF = 7;
-    int INT = 8;
+    int BOOL_LITERAL = 3;
+    int EQ = 4;
+    int FORM = 5;
+    int GEQ = 6;
+    int IDENT = 7;
+    int IF = 8;
     int INTEGER = 9;
-    int LEQ = 10;
-    int MONEY = 11;
-    int NEQ = 12;
-    int OR = 13;
-    int STRING = 14;
-    int STRING_LITERAL = 15;
-    int UMIN = 16;
-    int UNOT = 17;
-    int UPLUS = 18;
-    int error = 19;
+    int INT_LITERAL = 10;
+    int LEQ = 11;
+    int MONEY = 12;
+    int MONEY_LITERAL = 13;
+    int NEQ = 14;
+    int OR = 15;
+    int STRING = 16;
+    int STRING_LITERAL = 17;
+    int UMIN = 18;
+    int UNOT = 19;
+    int UPLUS = 20;
+    int error = 21;
     // '!' (code=33)
     // '%' (code=37)
     // '(' (code=40)
