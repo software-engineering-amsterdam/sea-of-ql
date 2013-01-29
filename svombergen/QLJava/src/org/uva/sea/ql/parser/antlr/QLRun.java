@@ -1,15 +1,12 @@
 package org.uva.sea.ql.parser.antlr;
 
-import org.antlr.runtime.*;
-
 public class QLRun {
 
 	public static void main(String[] args) throws Exception {
-		ANTLRStringStream in = new ANTLRStringStream("s sa jdbajskbd sa djkb ash");
-		QLLexer lexer = new QLLexer(in);
-		CommonTokenStream tokens = new CommonTokenStream(lexer);
-		QLParser parser = new QLParser(tokens);
-		System.out.println("tokennames: " + parser.getTokenNames());
+		ANTLRParser parser = new ANTLRParser();
+		//System.out.println("parse: " + parser.parse("3 * (2+3+4+5+6)"));
+		System.out.println("parse: " + parser.parseForm("form abc {ding1:\"ding\"}"));
+		//System.out.println("parse: " + parser.parseForm("form Box1HouseOwning {\n	hasSoldHouse: “Did you sell a house in 2010?” boolean\n   hasBoughtHouse: “Did you by a house in 2010?” boolean\n   hasMaintLoan: “Did you enter a loan for maintenance/reconstruction?”\nboolean\n   if (hasSoldHouse) {\n     sellingPrice: “Price the house was sold for:” money\n     privateDebt: “Private debts for the sold house:” money\n     valueResidue: “Value residue:” money(sellingPrice - privateDebt)\n   }\n}"));
 
 	}
 

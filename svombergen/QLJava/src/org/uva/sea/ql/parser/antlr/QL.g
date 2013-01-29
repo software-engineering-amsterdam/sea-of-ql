@@ -5,6 +5,17 @@ options {backtrack=true; memoize=true;}
 {
 package org.uva.sea.ql.parser.antlr;
 import org.uva.sea.ql.ast.*;
+import org.uva.sea.ql.ast.boolexpr.*;
+import org.uva.sea.ql.ast.relationalexpr.*;
+import org.uva.sea.ql.ast.unaryexpr.*;
+import org.uva.sea.ql.ast.binaryexpr.*;
+import org.uva.sea.ql.ast.types.*;
+}
+@parser::members {
+    @Override
+    public void reportError(RecognitionException e) {
+        throw new RuntimeException(e);
+    }
 }
 
 @lexer::header
@@ -12,9 +23,19 @@ import org.uva.sea.ql.ast.*;
 package org.uva.sea.ql.parser.antlr;
 }
 
+form returns [Form result]
+	@init { List<Ding> list = new ArrayList<Ding>(); }
+	: 'form' Ident '{' (d=ding {list.add($d.result);})* '}' EOF { $result = new Form(new Ident($Ident.text), list); }
+	;
+	
+ding returns [Ding result]
+	: Ident ':' Str { $result = new Ding(new Ident($Ident.text), $Str.text); }
+	;
+
 primary returns [Expr result]
   : Int   { $result = new Int(Integer.parseInt($Int.text)); }
   | Ident { $result = new Ident($Ident.text); }
+  | Str	  { $result = new Str($Str.text); }
   | '(' x=orExpr ')'{ $result = $x.result; }
   ;
     
@@ -31,7 +52,7 @@ mulExpr returns [Expr result]
       if ($op.text.equals("*")) {
         $result = new Mul($result, rhs);
       }
-      if ($op.text.equals("<=")) {
+      if ($op.text.equals("/")) {
         $result = new Div($result, rhs);      
       }
     })*
@@ -89,9 +110,12 @@ WS  :	(' ' | '\t' | '\n' | '\r') { $channel=HIDDEN; }
     ;
 
 COMMENT 
-     : '/*' .* '*/' {$channel=HIDDEN;}
+     : '/*' .* '*/' { $channel=HIDDEN; }
+     | '//' .* '\n' { $channel=HIDDEN; }
     ;
 
 Ident:   ('a'..'z'|'A'..'Z')('a'..'z'|'A'..'Z'|'0'..'9'|'_')*;
 
 Int: ('0'..'9')+;
+
+Str:   ('"' .* '"' | '“' .* '”');
