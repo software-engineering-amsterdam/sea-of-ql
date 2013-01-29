@@ -9,6 +9,7 @@ import khosrow.uva.sea.ql.ast.ASTNode;
 import khosrow.uva.sea.ql.ast.expr.BoolLiteral;
 import khosrow.uva.sea.ql.ast.expr.Ident;
 import khosrow.uva.sea.ql.ast.expr.IntLiteral;
+import khosrow.uva.sea.ql.ast.expr.MoneyLiteral;
 import khosrow.uva.sea.ql.ast.expr.StringLiteral;
 
 public class QLLexer implements QLTokens {
@@ -162,11 +163,23 @@ public class QLLexer implements QLTokens {
 			    	if (Character.isDigit(c)) {
 			    		int n = 0; 
 			    		do {
-			    			n = 10 * n + (c - '0');
+			    			n = 10 * n + Character.digit(c, 10);
 			    			nextChar(); 
-			    		} while (Character.isDigit(c)); 
-			    		yylval = new IntLiteral(n);
-			    		return token = INT_LITERAL;
+			    		} while (Character.isDigit(c));
+			    		if(c != '.') {
+			    			yylval = new IntLiteral(n);
+			    			return token = INT_LITERAL;
+			    			}
+			    		double v = n, d = 10; 
+			    		for(;;) {
+			    			nextChar();
+			    			if(!Character.isDigit(c))
+			    				break;
+			    			v = v + Character.digit(c, 10) / d;
+			    			d *= 10;
+			    		}
+			    		yylval = new MoneyLiteral(v);
+		    			return token = MONEY_LITERAL; 
 			    	}
 			    	if (Character.isLetter(c)) {
 			    		StringBuilder sb = new StringBuilder();

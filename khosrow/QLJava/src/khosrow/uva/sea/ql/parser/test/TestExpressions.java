@@ -11,6 +11,7 @@ import khosrow.uva.sea.ql.ast.expr.Ident;
 import khosrow.uva.sea.ql.ast.expr.IntLiteral;
 import khosrow.uva.sea.ql.ast.expr.LEq;
 import khosrow.uva.sea.ql.ast.expr.LT;
+import khosrow.uva.sea.ql.ast.expr.MoneyLiteral;
 import khosrow.uva.sea.ql.ast.expr.Mul;
 import khosrow.uva.sea.ql.ast.expr.Neg;
 import khosrow.uva.sea.ql.ast.expr.Not;
@@ -108,5 +109,6 @@ public class TestExpressions {
 		assertEquals(parser.ParseExpression("\"A text\"").getClass(), StringLiteral.class);
 		assertEquals(parser.ParseExpression("true").getClass(), BoolLiteral.class);
 		assertEquals(parser.ParseExpression("false").getClass(), BoolLiteral.class);
+		assertEquals(parser.ParseExpression("2333.12332").getClass(), MoneyLiteral.class);
 	}
 }
