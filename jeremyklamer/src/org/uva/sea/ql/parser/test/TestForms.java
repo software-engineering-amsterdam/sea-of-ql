@@ -13,6 +13,7 @@ import org.junit.runners.Parameterized.Parameters;
 import org.uva.sea.ql.ast.Ident;
 import org.uva.sea.ql.ast.statement.Form;
 import org.uva.sea.ql.ast.type.Type;
+import org.uva.sea.ql.message.Message;
 import org.uva.sea.ql.parser.antlr.ANTLRParser;
 
 
@@ -32,14 +33,14 @@ public class TestForms {
 	}
 
 	
-	@Test
+	//@Test
 	public void testBasicForms() throws ParseError {
 		assertEquals(Form.class,parser.parseForm("form basicForm1 { question1 : \"Is everything ok? \" boolean }").getClass());
 		assertEquals(Form.class,parser.parseForm("form basicForm2 { question1 : \"How much does a burge cost? \" money }").getClass());
 		assertEquals(Form.class,parser.parseForm("form basicForm2 { question1 : \"Total money spent: \" money( 5 * 18) }").getClass());
 	}
 	
-	@Test
+	//@Test
 	public void testComplForms() throws ParseError {
 		assertEquals(Form.class, parser.parseForm("" +
 				"form testForm1 { question1 : \"How are you? \" boolean " +
@@ -49,7 +50,7 @@ public class TestForms {
 					"}").getClass());
 	}
 	
-	@Test
+	//@Test
 	public void testIfForms() throws ParseError {
 		assertEquals(Form.class, parser.parseForm(
 				"form Box1HouseOwning {" +
@@ -65,7 +66,7 @@ public class TestForms {
 					"}").getClass());
 	}
 	
-	@Test
+	//@Test
 	public void testIfThenForms() throws ParseError {
 		assertEquals(Form.class, parser.parseForm(
 				"form Box1HouseOwning {" +
@@ -83,7 +84,7 @@ public class TestForms {
 					"}").getClass());
 	}
 	
-	@Test
+	//@Test
 	public void testNestedIfForms() throws ParseError {
 		assertEquals(Form.class, parser.parseForm(
 				"form Box1HouseOwning {" +
@@ -104,6 +105,29 @@ public class TestForms {
 					"else { sellingPrice: \"lastquestion:\" money " +
 						"} " +
 					"}").getClass());
+	}
+	
+	@Test
+	public void testFormTypes3() throws ParseError {
+		List<Message> es = parser.parseForm(
+				"form Box1HouseOwning {" +
+						"hasSoldHousess: \"Did you sell a house in 2010?\" boolean " +
+						"if (hasSoldHouse) {" +
+							"sellingPrice: \"Price the house was sold for:\" money " +
+							"} " +
+						"else { sellingPrices: \"lastquestion:\" money " +
+							"} " +
+						"}").checkType(new HashMap<Ident, Type>());
+		
+		assertEquals(0, parser.parseForm(
+				"form Box1HouseOwning {" +
+					"hasSoldHouse: \"Did you sell a house in 2010?\" boolean " +
+					"if (hasSoldHouse) {" +
+						"sellingPrice: \"Price the house was sold for:\" money " +
+						"} " +
+					"else { sellingPrice: \"lastquestion:\" money " +
+						"} " +
+					"}").checkType(new HashMap<Ident, Type>()).size());
 	}
 	
 	@Test

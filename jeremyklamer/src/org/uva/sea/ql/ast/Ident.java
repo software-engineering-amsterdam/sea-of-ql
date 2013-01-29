@@ -8,6 +8,7 @@ import org.uva.sea.ql.ast.type.Type;
 import org.uva.sea.ql.ast.type.UndefinedType;
 import org.uva.sea.ql.interpreter.StringVal;
 import org.uva.sea.ql.interpreter.Value;
+import org.uva.sea.ql.message.Error;
 import org.uva.sea.ql.message.Message;
 
 public class Ident extends Expr {
@@ -41,11 +42,10 @@ public class Ident extends Expr {
 	@Override
 	public List<Message> checkType(Map<Ident, Type> typeEnv) {
 		List<Message> errors = new ArrayList<Message>(); 
-		
-			if(typeEnv.containsKey(this.name)){
-				
+			if(!(typeEnv.containsKey(this))){
+				errors.add(new Error("Identity for : " + this.name + " has not been initialized."));
 			}
-		
+			
 		return errors; 
 	}
 	
@@ -61,7 +61,8 @@ public class Ident extends Expr {
 	
 	@Override
 	public int hashCode() { 
-		return name.hashCode();
+//		return this.name.hashCode();
+		return 1;
 	}
 	
 }

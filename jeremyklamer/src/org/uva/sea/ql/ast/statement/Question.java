@@ -43,10 +43,16 @@ public class Question extends Statement {
 			typeEnv.put(this.name, this.returnType);
 		}
 		else if(!(typeEnv.get(this.name).getClass().equals(this.returnType.getClass()))){
-			errors.add(new Error(getSimpleName(this.name) + " is already defined as type : " + getSimpleName(this.returnType)));
+			errors.add(new Error(this.name.getName() + " is already defined as type : " + getSimpleName(this.returnType)));
 		}
 		
 		return errors;
+	}
+	
+	@Override
+	public void printSelf(int indentation){
+		printIndentation(indentation);
+		System.out.println(getSimpleName(this) + ", Ident : " + this.name.getName() + " : " + this.sentence + " return value : " + getSimpleName(this.returnType));
 	}
 	
 }
