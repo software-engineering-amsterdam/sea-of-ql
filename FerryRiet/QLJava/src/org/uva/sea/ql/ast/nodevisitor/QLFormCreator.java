@@ -53,7 +53,7 @@ public class QLFormCreator implements Visitor {
 
 	@Override
 	public VisitorResult visit(LineStatement lineStatement) {
-		lineStatement.
+		
 		return null;
 	}
 
