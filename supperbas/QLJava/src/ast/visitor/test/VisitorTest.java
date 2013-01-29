@@ -34,7 +34,17 @@ public class VisitorTest {
 	
 	@Test
 	public void test() throws ParseError {
-		String program = "A * ( B + C ) + D / F";
+		String program = " form Box1HouseOwning { \"Did you\" hasMaintLoan: boolean }"; /*+
+				"\"Did you sell a house in 2010?\" hasSoldHouse: boolean }"; /* +
+				"\"Did you by a house in 2010?\" hasBoughtHouse: boolean "+
+				"\"Did you enter a loan for maintenance/reconstruction?\" "+
+				"hasMaintLoan: boolean "+
+				"if (hasSoldHouse) { "+
+					"\"Private debts for the sold house:\" privateDebt: money "+
+					"\"Price the house was sold for:\" sellingPrice: money "+
+					"\"Value residue:\" valueResidue = sellingPrice - privateDebt "+
+				"}"+
+			"}"; */
 		this.parser.parse( program ).accept(
 			new PrintExpressionVisitor()
 		);

@@ -19,8 +19,8 @@ public class QuestionTests extends ParserTests {
 		Question q = (Question) formElement;
 		
 		assertEquals(question, q.getQuestion());
-		assertEquals(value, q.getDeclaration().getIdentity().getName());
-		assertEquals(org.uva.sea.ql.ast.type.Bool.class, q.getDeclaration().getType().getClass());
+		assertEquals(value, q.getIdentifier().getName());
+		assertEquals(org.uva.sea.ql.ast.type.Bool.class, q.getType().getClass());
 	}
 	
 }

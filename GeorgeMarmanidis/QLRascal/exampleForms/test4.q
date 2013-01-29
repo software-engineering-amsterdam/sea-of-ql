@@ -6,7 +6,7 @@ form test  {
 	age2: "Age2:" integer
 	
 	isEmpl: "Do you work?" boolean
-	completeage: "Complete name:" integer (age+age2)
+	completeage: "Complete name:" integer (age+2)
 	
 	if (isEmpl)
 	{

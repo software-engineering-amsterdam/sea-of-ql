@@ -27,8 +27,9 @@ public class Not extends UnExpr {
 	}
 
 	@Override
-	public ExpressionResult eval(HashMap<String, Statement> symbolMap) {
-		// TODO Auto-generated method stub
-		return null;
+	public ExpressionResult eval(HashMap<String, ExpressionResult> symbolMap) {
+		ExpressionResult rightHandResult = getExprRightHand().eval(symbolMap);
+
+		return new BooleanResult(!rightHandResult.getBooleanValue());
 	}
 }

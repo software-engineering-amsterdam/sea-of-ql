@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.uva.sea.ql.ast.eval.Env;
-import org.uva.sea.ql.ast.types.NotDefinedType;
 import org.uva.sea.ql.ast.types.Type;
 import org.uva.sea.ql.ast.values.Value;
 import org.uva.sea.ql.messages.Message;
@@ -49,7 +48,7 @@ public class Ident extends Expr {
 	public List<Message> checkType(Env environment) {
 		List<Message> errors = new ArrayList<Message>();
 		
-		if (environment.typeOf(this) instanceof NotDefinedType) {
+		if (!environment.typeOf(this).isDefined()) {
 			errors.add(new Error("Ident " + name + " does not exist in current environment!"));
 		}
 		

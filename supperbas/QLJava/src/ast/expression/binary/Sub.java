@@ -3,8 +3,8 @@ package ast.expression.binary;
 import java.util.Map;
 
 import ast.Expression;
+import ast.Type;
 import ast.expression.Binary;
-import ast.type.Type;
 import ast.visitor.Visitor;
 
 public class Sub extends Binary {

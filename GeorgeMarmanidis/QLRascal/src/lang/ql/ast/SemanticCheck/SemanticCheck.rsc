@@ -17,7 +17,7 @@ public set[Message] semanticCheck(Form form) = getErrors(checkForm(form));
 //declaration errors(duplicate idents,duplicate labels)
 //and for type errors.
 TENV checkForm(Form P){                                                
-  if(form(str ident,list[FormBodyItem] formBody) := P){
+  if(form(ident,formBody) := P){
   	 TENV env=<{},[],[]>;
   	 env=getIdentDeclarations(formBody,env);
    	 env=duplicateLabelsCheck(env);

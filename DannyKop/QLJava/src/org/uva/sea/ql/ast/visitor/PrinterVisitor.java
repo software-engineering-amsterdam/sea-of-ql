@@ -5,30 +5,42 @@ import org.uva.sea.ql.ast.expressions.binary.BinExpr;
 import org.uva.sea.ql.ast.expressions.unary.UnaryExpr;
 import org.uva.sea.ql.ast.form.*;
 
-
 public class PrinterVisitor implements Visitor {
-
+	
+	private StringBuilder result = new StringBuilder();
+	private int depth = 0;
+	
 	/**
 	 * Constructor
 	 */
 	public PrinterVisitor() {
 	}
 	
+	public StringBuilder getResult(){ 
+		return this.result; 
+	}
 	/**
-	 * visit()
-	 * @param expr
+	 * generateTabs()
 	 */
-	@Override
-	public void visit(Expr expr) {
-	
-		// First testing
-		if(expr.getClass() == Ident.class){
-			System.out.println(((Ident)expr).getName());
-		} else {
-			System.out.println("Geen Ident (" + expr.getClass().getName() + ")");
+	private void generateTabs(){
+		for(int i = 0; i < this.depth + 1; i++){
+			result.append("\t");
 		}
 	}
 
+	@Override
+	public void visit(Form f) {
+		result.append("form: " + f.getIdent().getName() + "{ \n");
+		for(FormElement e : f.getElements()){
+			e.accept(this);
+		}	
+		result.append("}");
+	}
+
+	/**
+	 * Elements, nodes
+	 */
+	
 	@Override
 	public void visit(FormElement fe) {
 		// TODO Auto-generated method stub
@@ -54,6 +66,12 @@ public class PrinterVisitor implements Visitor {
 	}
 
 	@Override
+	public void visit(Ident i) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
 	public void visit(BinExpr b) {
 		// TODO Auto-generated method stub
 		
@@ -66,10 +84,9 @@ public class PrinterVisitor implements Visitor {
 	}
 
 	@Override
-	public void visit(Form f) {
+	public void visit(Expr e) {
 		// TODO Auto-generated method stub
 		
 	}
-	
 
-}
+	}

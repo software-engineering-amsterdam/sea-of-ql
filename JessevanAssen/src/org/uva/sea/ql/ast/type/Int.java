@@ -15,4 +15,9 @@ public class Int implements Type {
     public int hashCode() {
         return Int.class.hashCode();
     }
+
+    @Override
+    public String toString() {
+        return "integer";
+    }
 }

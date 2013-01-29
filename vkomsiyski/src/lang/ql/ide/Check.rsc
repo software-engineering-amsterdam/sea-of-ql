@@ -8,9 +8,6 @@ import lang::ql::util::Message;
 import util::IDE;
 import ParseTree;
 import Message;
-import Set;
-import List;
-
 
 public Contribution getQLAnnotator() 
   = annotator(Tree (Tree input) {

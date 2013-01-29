@@ -1,6 +1,6 @@
 module lang::qls::ast::AST
 
-data FormStyle = style(list[StyleRule] rules); 
+data FormStyle = style(str name, list[StyleRule] rules); 
 
 data StyleRule
   = typed(Type \type, list[Rule] rules)

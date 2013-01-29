@@ -1,3 +1,5 @@
+stylesheet test;
+
 bool {
 color: "red"
 }
@@ -6,7 +8,17 @@ int {
 minimum: 4
 }
 
+sellingPrice {
+stepSize: 19
+}
+
+
 group "hi" {
-	meh1df
-	meg2df
+	hasMaintLoan
+	over
+}
+
+
+over {
+	maximum: 4
 }

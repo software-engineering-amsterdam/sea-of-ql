@@ -3,8 +3,8 @@ package ast.expression.unary;
 import java.util.Map;
 
 import ast.Expression;
+import ast.Type;
 import ast.expression.Unary;
-import ast.type.Type;
 import ast.visitor.Visitor;
 
 public class Not extends Unary {

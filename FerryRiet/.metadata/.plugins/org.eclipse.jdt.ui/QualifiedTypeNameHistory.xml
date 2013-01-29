@@ -2,7 +2,6 @@
 <qualifiedTypeNameHistroy>
 <fullyQualifiedTypeName name="org.uva.sea.ql.parser.antlr.ANTLRParser"/>
 <fullyQualifiedTypeName name="org.uva.sea.ql.ast.Statement"/>
-<fullyQualifiedTypeName name="java.util.List"/>
 <fullyQualifiedTypeName name="org.antlr.runtime.Token"/>
 <fullyQualifiedTypeName name="org.uva.sea.ql.ast.ASTNode"/>
 <fullyQualifiedTypeName name="org.uva.sea.ql.ast.CompoundBlock"/>
@@ -16,7 +15,6 @@
 <fullyQualifiedTypeName name="org.uva.sea.ql.ast.QLProgram"/>
 <fullyQualifiedTypeName name="org.uva.sea.ql.ast.BooleanLiteral"/>
 <fullyQualifiedTypeName name="org.uva.sea.ql.ast.MoneyType"/>
-<fullyQualifiedTypeName name="java.util.HashMap"/>
 <fullyQualifiedTypeName name="com.sun.org.apache.xpath.internal.operations.Bool"/>
 <fullyQualifiedTypeName name="org.uva.sea.ql.ast.LineStatement"/>
 <fullyQualifiedTypeName name="org.uva.sea.ql.ast.BooleanType"/>
@@ -41,4 +39,8 @@
 <fullyQualifiedTypeName name="org.uva.sea.ql.ast.ExpressionResult"/>
 <fullyQualifiedTypeName name="java.lang.Exception"/>
 <fullyQualifiedTypeName name="java.math.BigDecimal"/>
+<fullyQualifiedTypeName name="java.util.HashMap"/>
+<fullyQualifiedTypeName name="java.awt.event.ActionListener"/>
+<fullyQualifiedTypeName name="java.util.List"/>
+<fullyQualifiedTypeName name="java.util.ArrayList"/>
 </qualifiedTypeNameHistroy>

@@ -4,17 +4,18 @@ import ast.expression.*;
 import ast.expression.binary.*;
 import ast.expression.unary.*;
 import ast.expression.value.*;
+import ast.statement.*;
 
 public class PrintExpressionVisitor implements Visitor<Boolean> {
-	
+
 	private int level = 0;
 
 	public PrintExpressionVisitor() {
 		super();
 		System.out.println("EXPR VISITOR");
 	}
-	
-	public PrintExpressionVisitor(int level){
+
+	public PrintExpressionVisitor(int level) {
 		super();
 		this.level = level;
 		print();
@@ -114,7 +115,7 @@ public class PrintExpressionVisitor implements Visitor<Boolean> {
 	@Override
 	public Boolean visit(Pos ast) {
 		System.out.println("EXPR POS");
-		
+
 		return true;
 	}
 
@@ -159,28 +160,69 @@ public class PrintExpressionVisitor implements Visitor<Boolean> {
 		this.valueVisit(ast);
 		return true;
 	}
-	
-	public void binaryVisit(Binary ast){
-		this.level++;
-		ast.getLhs().accept(new PrintExpressionVisitor(level));
-		ast.getRhs().accept(new PrintExpressionVisitor(level));
-		this.level--;
+
+	public void binaryVisit(Binary ast) {
+		ast.getLhs().accept(new PrintExpressionVisitor(level+1));
+		ast.getRhs().accept(new PrintExpressionVisitor(level+1));
 	}
-	
-	public void unaryVisit(Unary ast){
-		this.level++;
-		ast.getExpression().accept(new PrintExpressionVisitor(level));
-		this.level--;
+
+	public void unaryVisit(Unary ast) {
+		ast.getExpression().accept(new PrintExpressionVisitor(level+1));
 	}
-	
-	public void valueVisit(Value ast){
+
+	public void valueVisit(Value ast) {
 		System.out.println(ast.toString());
 	}
-	
-	public void print(){
-		for(int i = 0; i < (level-1); i++)
+
+	public void print() {
+		for (int i = 0; i < (level - 1); i++)
 			System.out.print('|');
 		System.out.print('-');
+	}
+
+	@Override
+	public Boolean visit(Assignment ast) {
+		System.out.print("STAT ASSIGNMENT ");
+		System.out.println(ast.getIdent() + " = ");
+		ast.getExpression().accept(new PrintExpressionVisitor(level+1));
+		return true;
+	}
+
+	@Override
+	public Boolean visit(Else ast) {
+		System.out.print("STAT ELSE ");
+		ast.getConsequence().accept(new PrintExpressionVisitor(level+1));
+		return true;
+	}
+
+	@Override
+	public Boolean visit(Form ast) {
+		System.out.print("STAT FORM ");
+		System.out.println(ast.getIdent() + " : ");
+		ast.getContent().accept(new PrintExpressionVisitor(level+1));
+		return true;
+	}
+
+	@Override
+	public Boolean visit(If ast) {
+		System.out.println("STAT IF ");
+		ast.getCondition().accept(new PrintExpressionVisitor(level+1));
+		return true;
+	}
+
+	@Override
+	public Boolean visit(Question ast) {
+		System.out.print("STAT QUESTION '");
+		System.out.println(ast.getQuestion() + "' : ");
+		ast.getVar().accept(new PrintExpressionVisitor(level+1));
+		return true;
+	}
+
+	@Override
+	public Boolean visit(Var ast) {
+		System.out.print("STAT VAR ");
+		System.out.println(ast.getIdent() + " : " + ast.getType());
+		return true;
 	}
 
 }

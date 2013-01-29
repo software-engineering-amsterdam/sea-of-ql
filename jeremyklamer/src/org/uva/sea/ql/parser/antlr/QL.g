@@ -111,13 +111,14 @@ ifThenStatement returns [Statement result]
     ;
   
 question returns [Question result] 
-    : Ident ':' String returnType {$result = new Question(new Ident($Ident.text), $String.text, $returnType.result);}
+    : Ident ':' String returnType '(' orExpr ')' {$result = new ComputedQuestion(new Ident($Ident.text), $String.text, $returnType.result, $orExpr.result);} 
+    | Ident ':' String returnType {$result = new Question(new Ident($Ident.text), $String.text, $returnType.result);}    
     ;
     
 returnType returns [Type result] //TODO String ,boolen met or expressie, orexpr hoort bij de question. 
-    : 'boolean' { $result = new BoolType(); }
+    : 'boolean' {$result = new BoolType(); }
     | 'money' {$result = new Money();} 
-    | 'string'{$result = new StringType();}
+    | 'string' {$result = new StringType();}
     ;
     
 BOOL	

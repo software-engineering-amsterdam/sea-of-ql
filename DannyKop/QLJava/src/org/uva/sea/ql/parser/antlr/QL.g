@@ -13,11 +13,31 @@ import org.uva.sea.ql.ast.expressions.binary.*;
 import org.uva.sea.ql.ast.expressions.unary.*;
 import org.uva.sea.ql.ast.types.*;
 import org.uva.sea.ql.ast.form.*;
+import org.uva.sea.ql.parser.test.*;
+import java.util.LinkedList;
 }
 
 @lexer::header
 {
 package org.uva.sea.ql.parser.antlr;
+}
+@members {
+	private List<String> errors = new LinkedList<String>();
+	
+	public void displayRecognitionError(String[] tokenNames, RecognitionException e) { 
+        String hdr = getErrorHeader(e);        
+        String msg = getErrorMessage(e, tokenNames);	      
+	    
+	    errors.add(hdr + " -- " + msg);
+	       
+	}
+	
+	public boolean isErrorFound(){
+		return this.errors.size() != 0;
+	}
+	public List<String> getErrors(){
+		return this.errors;
+	}
 }
 
 primary returns [Expr result]
@@ -48,7 +68,6 @@ mulExpr returns [Expr result]
     })*
     ;
     
-  
 addExpr returns [Expr result]
     :   lhs=mulExpr { $result=$lhs.result; } ( op=('+' | '-') rhs=mulExpr
     { 
@@ -89,13 +108,12 @@ andExpr returns [Expr result]
     :   lhs=relExpr { $result=$lhs.result; } ( '&&' rhs=relExpr { $result = new And($result, rhs); } )*
     ;
     
-
 orExpr returns [Expr result]
     :   lhs=andExpr { $result = $lhs.result; } ( '||' rhs=andExpr { $result = new Or($result, rhs); } )*
     ;
 
 form returns [Form result]
-    : Form Ident LeftBrace formElements RightBrace { $result = new Form(new Ident($Ident.text), $formElements.result); };
+    : Form Ident '{' formElements '}' { $result = new Form(new Ident($Ident.text), $formElements.result); };
 
 formElement returns [FormElement result] 
     : question {$result = $question.result;}
@@ -108,30 +126,30 @@ formElements returns [ArrayList<FormElement> result]
     : (element = formElement { $result.add(element);})*
     ;
 computation returns [Computation result]
-    : Ident ':' Str Vars '(' orExpr ')' { $result = new Computation(new Ident($Ident.text), $Str.text, $orExpr.result, $Vars.text); }
+    : Ident ':' Str type '(' orExpr ')' { $result = new Computation(new Ident($Ident.text), new Str($Str.text), $orExpr.result, $type.result); }
     ;
 question returns [Question result] 
-    : Ident ':' Str Vars { $result = new Question(new Ident($Ident.text), $Str.text, $Vars.text); }
+    : Ident ':' Str type { $result = new Question(new Ident($Ident.text), new Str($Str.text), $type.result); }
     ;
 condition returns [Condition result]
-    : If '(' orExpr ')' LeftBrace (question | condition | computation)* RightBrace { $result = new Condition($orExpr.result); }
-    // Else needs to be implemented
+    : If '(' orExpr ')' '{' formElements '}' { $result = new Condition($orExpr.result, $formElements.result); }
+    // Else needs to be implemented ->(question | condition | computation)*
+    ;
+
+type returns [Expr result]
+    : 'boolean' {$result = new Bool();}
+    | 'string'  {$result = new Str();}
+    | 'money'   {$result = new Money();}
+    | 'int'     {$result = new Int();}
     ;
 // Tokens
-Newline: ('\n' | '\r');
 
-WS:	(' ' | '\t' | Newline) { $channel=HIDDEN; };
+WS:	(' ' | '\t' | '\n' | '\r')+ { $channel=HIDDEN; };
 
-Comment: '/*' .* '*/' {$channel=HIDDEN;} 
-       | '//' ~(Newline)* {$channel=HIDDEN;};
+Comment: '/*' .* '*/' {$channel=HIDDEN;}
+        | '//'  ~ ('\n' | '\r')* {$channel=HIDDEN;};
 
-SpecialChars: ('!' | '?' | ',' | '.' | '<' | '>' | '=' | '+' | '-' | '[' | ']' | '|' | ':' | '/' | '\\');
-
-Vars: ('int' | 'boolean' | 'string' | 'money');
-
-LeftBrace: '{';
-
-RightBrace: '}';
+SpecialChars: ('!' | '?' | ',' | '.' | '<' | '>' | '=' | '+' | '-' | '[' | ']' | '|' | ':' | '/' | '\\' | '\'');
 
 Bool: ('true' | 'false');
 
