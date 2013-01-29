@@ -1,4 +1,4 @@
-form ifCondition {
+form ifElseIfElseCondition {
   "Question one?"
     integer numberOne
   if(numberOne == 10) {

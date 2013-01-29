@@ -1,9 +1,10 @@
 module lang::qls::util::Environment
 
 import lang::ql::ast::AST;
-import lang::ql::util::Message;
 import lang::ql::util::Environment;
 import lang::qls::ast::AST;
+import lang::qls::util::Compatible;
+import lang::qls::util::Message;
 import Message;
 
 alias TypeRules = map[Type, list[Rule]];
@@ -37,47 +38,49 @@ private StyleEnvironment add(StyleEnvironment current, StyleEnvironment addition
 	 current.messages + additional.messages>;
 	 
 private StyleEnvironment check(StyleEnvironment env, StyleRule r:id(name, rules), Declarations d) {
-	messages = checkRules(rules);;
+	messages = {};
 	if (name notin d) {
 		messages += undeclaredError(name, r@location);
 	} else {
-		messages += {*compatible(d[name].\type, rule) | rule <- rules};
+		messages += checkRules(d[name].\type, rules);
 		if (name in env.varRules)
-			messages += {redeclaredError(r@location)};
+			messages += {redeclaredError(name, r@location)};
 	}
 	return <(), (name : rules), (), messages>;
 }
 
 
 private StyleEnvironment check(StyleEnvironment env, StyleRule r:typed(\type, rules), Declarations d) {
-	messages = {*compatible(\type, rule) | rule <- rules} + checkRules(rules);
+	messages = checkRules(\type, rules);
 	if (\type in env.typeRules)
-		messages += {redeclaredError(r@location)};
+		messages += {redeclaredError(\type.name, r@location)};
 	
 	return <(\type : rules), (), (), messages>;
 }
 
 private StyleEnvironment check(StyleEnvironment env, StyleRule r:group(name, questions), Declarations d) {
 	messages = {undeclaredError(q, r@location) | q <- questions, q notin d};
+	grouped_questions = [];
 	if (name in env.groups)
-		messages += {redeclaredError(r@location)};
-	return <(),(),(name : questions),messages>;
+		messages += {duplicateGroupError(name, r@location)};
+	for (q <- questions)
+		if (q notin grouped_questions) 
+			grouped_questions += q;
+		else	
+			messages += {inGroupError(q, r@location)};
+	for (q1 <- questions, previous <- env.groups, q2 <- env.groups[previous], q1 == q2)
+		messages += {inGroupError(q1, r@location)};
+				
+	return <(),(),(name : grouped_questions),messages>;
 }
 
 
-
-
-private set[Message] checkRules(list[Rule] r) {
+private set[Message] checkRules(Type t, list[Rule] rules) {
 	messages = {};
-	for (r1 <- rule, r2 <- rule, r1 != r2) 
-		if (r1.name == r2.name)
-			messages += {redeclaredError(r1@location),
-						 redeclaredError(r2@location)};
+	for (r1 <- rules, !compatible(t, r1))
+		messages += {typeError(t.name, r1@location)};
+	for (r1 <- rules, r2 <- rules, r1 != r2, r1 := r2)
+		messages += {redeclaredRuleError(r1.name, r1@location),
+					 redeclaredRuleError(r2.name, r2@location)};
+	return messages;
 }
-
-
-
-
-private set[Message] compatible(Type t, Rule r) = {};
-
-

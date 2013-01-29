@@ -1,6 +1,6 @@
 module lang::qls::ide::Outline
 
-import List;
+import Set;
 import Node;
 import ParseTree;
 import util::IDE;
@@ -28,55 +28,82 @@ private node outline(Stylesheet sh) =
   [@\loc=sh@location];
 
 private node outline(Statement s: 
-  classDefinition(str ident, list[ClassRule] classRules))
+  classDefinition(str ident, set[ClassRule] classRules))
     = createNode(
       "ClassDefinition",
       "class <ident> (<size(classRules)>)",
       s@location,
       [outline(cr) | cr <- classRules]
     );
-
-private node outline(ClassRule cr: 
+/*
+private node outline(ClassRule r: 
   classRule(str ident))
     = createNode(
       "ClassRule",
       ident,
-      cr@location,
+      r@location,
       []
     );
-
+*/
 private node outline(Statement s: 
-  typeStyleDefinition(str ident, list[StyleRule] styleRules)) = 
+  styleDefinition(StyleIdent: typeStyleIdent(ident), set[StyleRule] styleRules)) = 
   createNode(
     "TypeStyleDefinition",
     "<ident> (<size(styleRules)>)",
     s@location,
-    [outline(sr) | sr <- styleRules]
+    [outline(r) | r <- styleRules]
   );
 
 private node outline(Statement s: 
-  classStyleDefinition(str ident, list[StyleRule] styleRules)) = 
+  styleDefinition(StyleIdent: classStyleIdent(ident), set[StyleRule] styleRules)) = 
     createNode(
       "ClassStyleDefinition",
       "<ident> (<size(styleRules)>)",
       s@location,
-      [outline(sr) | sr <- styleRules]
+      [outline(r) | r <- styleRules]
     );
 
 private node outline(Statement s: 
-  identStyleDefinition(str ident, list[StyleRule] styleRules)) =
+  styleDefinition(StyleIdent: sectionStyleIdent(ident), set[StyleRule] styleRules)) = 
+    createNode(
+      "SectionStyleDefinition",
+      "<ident> (<size(styleRules)>)",
+      s@location,
+      [outline(r) | r <- styleRules]
+    );
+
+private node outline(Statement s: 
+  styleDefinition(StyleIdent: questionStyleIdent(ident), set[StyleRule] styleRules)) =
     createNode(
       "IdentStyleDefinition",
       "<ident> (<size(styleRules)>)",
       s@location,
-      [outline(sr) | sr <- styleRules]
+      [outline(r) | r <- styleRules]
     );
 
-private node outline(StyleRule sr: 
-  styleRule(str attr, StyleAttrValue \value)) =
+private node outline(StyleRule r: 
+  typeStyleRule(str attr, TypeStyleValue: radio())) =
     createNode(
       "StyleRule",
-      "<attr> <\value.\value>",
-      sr@location,
+      "<attr> radio",
+      r@location,
+      []
+    );
+
+private node outline(StyleRule r: 
+  typeStyleRule(str attr, TypeStyleValue: checkbox())) =
+    createNode(
+      "StyleRule",
+      "<attr> checkbox",
+      r@location,
+      []
+    );
+
+private node outline(StyleRule r: 
+  widthStyleRule(str attr, int \value)) =
+    createNode(
+      "StyleRule",
+      "<attr> <\value>",
+      r@location,
       []
     );

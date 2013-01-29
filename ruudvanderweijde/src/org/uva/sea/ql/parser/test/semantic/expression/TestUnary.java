@@ -1,4 +1,4 @@
-package org.uva.sea.ql.parser.test.tests;
+package org.uva.sea.ql.parser.test.semantic.expression;
 
 import static org.junit.Assert.assertEquals;
 
@@ -16,10 +16,10 @@ import org.uva.sea.ql.ast.type.Type;
 import org.uva.sea.ql.parser.ANTLRParser;
 import org.uva.sea.ql.parser.error.ParseError;
 import org.uva.sea.ql.parser.test.IParse;
-import org.uva.sea.ql.visitor.checker.ExpressionChecker;
+import org.uva.sea.ql.visitor.ExpressionVisitor;
 
 @RunWith(Parameterized.class)
-public class TestExprSemanticsPrimary {
+public class TestUnary {
 
 	private IParse parser;
 
@@ -32,25 +32,25 @@ public class TestExprSemanticsPrimary {
 	public static ArrayList<String> errors = new ArrayList<String>();
 
 	
-	public TestExprSemanticsPrimary(IParse parser) {
+	public TestUnary(IParse parser) {
 		this.parser = parser;
-	}
-
-	@Test
-	public void testBool() throws ParseError {
-		assertEquals(parser.parseExpression("true").accept(new ExpressionChecker(ExprMap, errors)), true);
-    	assertEquals(parser.parseExpression("false").accept(new ExpressionChecker(ExprMap, errors)), true);	
-	}
-
-	@Test
-	public void testIdent() throws ParseError {
-		assertEquals(parser.parseExpression("ident1").accept(new ExpressionChecker(ExprMap, errors)), true);
-    	assertEquals(parser.parseExpression("validident").accept(new ExpressionChecker(ExprMap, errors)), true);	
 	}
 	
 	@Test
-	public void testInt() throws ParseError {
-		assertEquals(parser.parseExpression("1").accept(new ExpressionChecker(ExprMap, errors)), true);
-    	assertEquals(parser.parseExpression("100").accept(new ExpressionChecker(ExprMap, errors)), true);	
-	}	
+	public void testNeg() throws ParseError {
+		assertEquals(parser.parseExpression("-1").accept(new ExpressionVisitor(ExprMap, errors)), true);
+    	assertEquals(parser.parseExpression("+true").accept(new ExpressionVisitor(ExprMap, errors)), false);	
+	}
+
+	@Test
+	public void testNot() throws ParseError {
+		assertEquals(parser.parseExpression("!true").accept(new ExpressionVisitor(ExprMap, errors)), true);
+    	assertEquals(parser.parseExpression("!1").accept(new ExpressionVisitor(ExprMap, errors)), false);	
+	}
+	
+	@Test
+	public void testPos() throws ParseError {
+		assertEquals(parser.parseExpression("+1").accept(new ExpressionVisitor(ExprMap, errors)), true);
+    	assertEquals(parser.parseExpression("+true").accept(new ExpressionVisitor(ExprMap, errors)), false);	
+	}
 }

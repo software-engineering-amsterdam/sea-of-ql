@@ -5,9 +5,9 @@ import org.uva.sea.ql.ast.stmt.IfThenElse;
 import org.uva.sea.ql.ast.stmt.Statement;
 import org.uva.sea.ql.ast.stmt.question.ComputedQuestion;
 import org.uva.sea.ql.ast.stmt.question.NormalQuestion;
-import org.uva.sea.ql.visitor.FormVisitor;
+import org.uva.sea.ql.visitor.IFormVisitor;
 
-public class FormVisitorPrinter implements FormVisitor {
+public class FormVisitorPrinter implements IFormVisitor {
 
 	private int depth = 0;
 
