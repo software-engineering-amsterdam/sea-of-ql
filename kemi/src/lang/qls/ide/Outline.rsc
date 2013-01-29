@@ -35,7 +35,7 @@ private node outline(Statement s:
       s@location,
       [outline(cr) | cr <- classRules]
     );
-
+/*
 private node outline(ClassRule r: 
   classRule(str ident))
     = createNode(
@@ -44,7 +44,7 @@ private node outline(ClassRule r:
       r@location,
       []
     );
-
+*/
 private node outline(Statement s: 
   styleDefinition(StyleIdent: typeStyleIdent(ident), set[StyleRule] styleRules)) = 
   createNode(
