@@ -11,6 +11,7 @@ import org.uva.sea.ql.ast.Ident;
 import org.uva.sea.ql.ast.IntLiteral;
 import org.uva.sea.ql.ast.LineStatement;
 import org.uva.sea.ql.ast.QLProgram;
+import org.uva.sea.ql.ast.Statement;
 import org.uva.sea.ql.ast.StringLiteral;
 import org.uva.sea.ql.ast.UnExpr;
 import org.uva.sea.ql.ast.operators.Add;
@@ -39,21 +40,36 @@ public class QLFormCreator implements Visitor {
 	@Override
 	public VisitorResult visit(QLProgram qlProgram) {
 		qlform.setFormName(qlProgram.getProgramName());
-
 		qlProgram.getCompound().accept(this);
-
 		return null;
 	}
 
 	@Override
-	public VisitorResult visit(Expr expr) {
+	public VisitorResult visit(CompoundStatement compoundBlock) {
+		for (Statement statement : compoundBlock.getStatementList())
+			statement.accept(this);
+		return null;
+	}
+
+	@Override
+	public VisitorResult visit(LineStatement lineStatement) {
+		lineStatement.
+		return null;
+	}
+
+	@Override
+	public VisitorResult visit(ConditionalStatement conditionalStatement) {
 		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	@Override
+	public VisitorResult visit(Expr expr) {
 		return null;
 	}
 
 	@Override
 	public VisitorResult visit(BinExpr expr) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
@@ -173,24 +189,6 @@ public class QLFormCreator implements Visitor {
 
 	@Override
 	public VisitorResult visit(Pos expr) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public VisitorResult visit(CompoundStatement compoundBlock) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public VisitorResult visit(LineStatement lineStatement) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public VisitorResult visit(ConditionalStatement conditionalStatement) {
 		// TODO Auto-generated method stub
 		return null;
 	}
