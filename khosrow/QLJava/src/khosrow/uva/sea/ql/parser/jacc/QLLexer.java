@@ -181,7 +181,6 @@ public class QLLexer implements QLTokens {
 						yylval = new Ident(name);
 			    		return token = IDENT;
 			    	}
-			    	char temp = (char) c;
 			    	throw new RuntimeException("Unexpected character: " + (char)c);
 			    }
 			}
