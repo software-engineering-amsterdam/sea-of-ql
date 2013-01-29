@@ -1,5 +1,7 @@
 package org.uva.sea.ql.interpretation.swing;
 
+import java.awt.BorderLayout;
+
 import javax.swing.AbstractButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComponent;
@@ -19,7 +21,9 @@ public class QuestionPanel extends JPanel {
 
 	public QuestionPanel(Question question) {
 		this.question = question;
-		this.add(new JLabel(question.getContent().getValue()));
+		this.setLayout(new BorderLayout());
+		this.add(new JLabel(question.getContent().getValue()),
+				BorderLayout.LINE_START);
 		createInputElement();
 	}
 
@@ -48,11 +52,11 @@ public class QuestionPanel extends JPanel {
 	private void createInputElement() {
 		if (question.getType() instanceof BooleanType) {
 			input = new JCheckBox();
-			this.add(input);
+			this.add(input, BorderLayout.LINE_END);
 		}
 		if (question.getType() instanceof StrType) {
 			input = new JTextField(10);
-			this.add(input);
+			this.add(input, BorderLayout.LINE_END);
 		}
 		if (question.getType() instanceof Money) {
 			input = new JTextField(10);
@@ -60,7 +64,7 @@ public class QuestionPanel extends JPanel {
 			if (m.getExpr() != null) {
 				((JTextField) input).setEditable(false);
 			}
-			this.add(input);
+			this.add(input, BorderLayout.LINE_END);
 		}
 	}
 }
