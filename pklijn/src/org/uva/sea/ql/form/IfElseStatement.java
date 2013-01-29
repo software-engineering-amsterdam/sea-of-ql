@@ -1,9 +1,11 @@
 package org.uva.sea.ql.form;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.uva.sea.ql.ast.eval.Env;
 import org.uva.sea.ql.ast.expressions.Expr;
+import org.uva.sea.ql.interpreter.FormElement;
 
 public class IfElseStatement extends IfStatement {
 
@@ -45,16 +47,10 @@ public class IfElseStatement extends IfStatement {
 		return errors.size() == 0 && valid;
 	}
 	
-//	@Override
-//	public Component getFormComponent() {
-//		Container ifContainer = (Container)super.getFormComponent();
-//		Container elseBodyContainer = new Container();
-//		elseBodyContainer.setLayout(new MigLayout("wrap 1, debug"));
-//		for (FormItem f : elseBody) {
-//			elseBodyContainer.add(f.getFormComponent());
-//		}
-//		ifContainer.add(new Label("ELSE"), "wrap");
-//		ifContainer.add(elseBodyContainer, "wrap");
-//		return ifContainer;
-//	}
+	@Override
+	public List<FormElement> getFormComponents() {
+		List<FormElement> components = super.getFormComponents();
+		components.add(new FormElement(getBodyFormContainer(elseBody), "span, growx"));
+		return components;
+	}
 }

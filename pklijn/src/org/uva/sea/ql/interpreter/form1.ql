@@ -5,6 +5,7 @@ form form1 {
 		whatItIsAllAbout: "Are you single?" boolean
 		if (whatItIsAllAbout) {
 			name: "What is your name?" string
+			name2: "So your name is:" string(name)
 		}
 	}
 	else {

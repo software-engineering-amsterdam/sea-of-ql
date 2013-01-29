@@ -54,11 +54,13 @@ public class Question extends FormItem {
 
 	@Override
 	public List<FormElement> getFormComponents() {
+		return getQuestionComponents(true);
+	}
+	
+	protected List<FormElement> getQuestionComponents(boolean enabled) {
 		List<FormElement> components = new ArrayList<FormElement>();
-		
 		components.add(new FormElement(new Label(label), "skip"));
-		components.add(new FormElement(questionType.getAnswerField(true), "span, growx"));
-
+		components.add(new FormElement(questionType.getAnswerField(enabled), "span, growx"));
 		return components;
 	}
 }

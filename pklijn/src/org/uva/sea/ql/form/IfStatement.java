@@ -58,16 +58,19 @@ public class IfStatement extends FormItem {
 	@Override
 	public List<FormElement> getFormComponents() {
 		List<FormElement> components = new ArrayList<FormElement>();
-		
-		Container ifBodyContainer = new Container();
-		ifBodyContainer.setLayout(new MigLayout("ins 0, debug", "[para]15[][100lp, fill][60lp][95lp, fill]", ""));
-		for (FormItem f : ifBody) {
+		components.add(new FormElement(getBodyFormContainer(ifBody), "span, growx"));
+		return components;
+	}
+	
+	protected Container getBodyFormContainer(List<FormItem> body) {
+		Container bodyContainer = new Container();
+		bodyContainer.setLayout(new MigLayout("ins 0, debug", "[para]15[][100lp, fill][60lp][95lp, fill]", ""));
+		for (FormItem f : body) {
 			for (FormElement fe : f.getFormComponents()) {
-				ifBodyContainer.add(fe.getFormComponent(), fe.getProperties());
+				bodyContainer.add(fe.getFormComponent(), fe.getProperties());
 			}
 		}
-		components.add(new FormElement(ifBodyContainer, "span, growx"));
-
-		return components;
+		return bodyContainer;
+		
 	}
 }
