@@ -1,4 +1,4 @@
-package org.uva.sea.ql.parser.test;
+package org.uva.sea.ql.test;
 
 import org.uva.sea.ql.ast.Form;
 import org.uva.sea.ql.ast.expressions.Expr;

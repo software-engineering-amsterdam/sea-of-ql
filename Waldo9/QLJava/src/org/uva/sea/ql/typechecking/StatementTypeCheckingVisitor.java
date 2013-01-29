@@ -1,4 +1,4 @@
-package org.uva.sea.ql.ast.statements;
+package org.uva.sea.ql.typechecking;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -6,8 +6,13 @@ import java.util.List;
 import java.util.Map;
 
 import org.uva.sea.ql.ast.expressions.Expr;
-import org.uva.sea.ql.ast.expressions.ExprTypeCheckingVisitor;
 import org.uva.sea.ql.ast.expressions.Ident;
+import org.uva.sea.ql.ast.statements.Block;
+import org.uva.sea.ql.ast.statements.ComputedQuestion;
+import org.uva.sea.ql.ast.statements.IfThenElse;
+import org.uva.sea.ql.ast.statements.Question;
+import org.uva.sea.ql.ast.statements.Statement;
+import org.uva.sea.ql.ast.statements.StatementVisitor;
 import org.uva.sea.ql.ast.types.Type;
 
 public class StatementTypeCheckingVisitor implements StatementVisitor<Boolean> {
@@ -39,8 +44,7 @@ public class StatementTypeCheckingVisitor implements StatementVisitor<Boolean> {
 
 	@Override
 	public Boolean visit(IfThenElse ifThenElse) {
-		boolean isValid = true;
-		boolean checkBody = ifThenElse.getBody().accept(this);
+		boolean isValid = true;		
 		Expr condition = ifThenElse.getCondition();
 		boolean checkCondition = condition.accept(exprTypeCheckingVisitor);
 		if (!checkCondition)
@@ -51,6 +55,7 @@ public class StatementTypeCheckingVisitor implements StatementVisitor<Boolean> {
 				isValid = false;
 			}
 		}
+		boolean checkBody = ifThenElse.getBody().accept(this);
 		if (!checkBody)
 			isValid = false;
 		Block elseBody = ifThenElse.getElseBody();
@@ -62,6 +67,20 @@ public class StatementTypeCheckingVisitor implements StatementVisitor<Boolean> {
 
 	@Override
 	public Boolean visit(Question question) {
+		return checkQuestion(question);
+	}
+	
+	@Override
+	public Boolean visit(ComputedQuestion computedQuestion) {
+		boolean isValid = checkQuestion(computedQuestion);
+		boolean checkExpression = computedQuestion.getExpression().accept(exprTypeCheckingVisitor);
+		if (!checkExpression)
+			isValid = false;
+		return isValid;
+	}
+	
+	// Adds identifiers to the type environment unless they are already in use.
+	private boolean checkQuestion(Question question) {
 		Ident identifier = question.getVariable();
 		if (typeEnvironment.get(identifier.getName()) != null) {
 			errorMessages.add("Identifier " + identifier.getName() + " can only be used once.");
@@ -70,22 +89,6 @@ public class StatementTypeCheckingVisitor implements StatementVisitor<Boolean> {
 		else
 			typeEnvironment.put(identifier.getName(), question.getType());
 		return true;
-	}
-	
-	@Override
-	public Boolean visit(ComputedQuestion computedQuestion) {
-		boolean isValid = true;
-		Ident identifier = computedQuestion.getVariable();
-		if (typeEnvironment.get(identifier.getName()) != null) {
-			errorMessages.add("Identifier " + identifier.getName() + " can only be used once.");
-			isValid = false;
-		}
-		else
-			typeEnvironment.put(identifier.getName(), computedQuestion.getType());
-		boolean checkExpression = computedQuestion.getExpression().accept(exprTypeCheckingVisitor);
-		if (!checkExpression)
-			isValid = false;
-		return isValid;
 	}
 
 }

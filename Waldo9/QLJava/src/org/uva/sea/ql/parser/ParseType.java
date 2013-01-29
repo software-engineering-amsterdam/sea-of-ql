@@ -1,4 +1,4 @@
-package org.uva.sea.ql.parser.antlr;
+package org.uva.sea.ql.parser;
 
 public enum ParseType {
 

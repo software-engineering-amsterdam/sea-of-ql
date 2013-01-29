@@ -6,11 +6,13 @@ import java.util.Map;
 import org.uva.sea.ql.ast.expressions.Ident;
 import org.uva.sea.ql.ast.types.NotDefinedType;
 import org.uva.sea.ql.ast.types.Type;
+import org.uva.sea.ql.ast.values.Value;
 
 public class Env {
 	
 	private final Env parent;
 	private Map<Ident, Type> types;
+	private Map<Ident, Value> values;
 	
 	public Env() {
 		this(null);
@@ -19,6 +21,7 @@ public class Env {
 	public Env(Env parent) {
 		this.parent = parent;
 		types = new HashMap<Ident, Type>();
+		values = new HashMap<Ident, Value>();
 	}
 	
 	public Env getParent() {
@@ -44,5 +47,22 @@ public class Env {
 	
 	public void addIdent(Ident ident, Type type) {
 		types.put(ident, type);
+	}
+	
+	public void addValue(Ident ident, Value value) {
+		if (types.containsKey(ident))
+			values.put(ident, value);
+		else if (parent != null)
+			parent.addValue(ident, value);
+		// TODO: Throw exception if not found 
+	}
+	
+	public Value getValue(Ident ident) {
+		if (values.containsKey(ident))
+			return values.get(ident);
+		else if (parent != null)
+			return parent.getValue(ident);
+		// TODO: Throw exception if not found!
+		return null;
 	}
 }

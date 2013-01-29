@@ -16,7 +16,7 @@ public class Assignment extends Statement {
 
 	@Override
 	public <T> T accept(Visitor<T> visitor) {
-		return null; //visitor.visit(this);
+		return visitor.visit(this);
 	}
 
 	public Ident getIdent() {

@@ -17,6 +17,8 @@ public abstract class FormItem {
 	
 	public abstract boolean validate(Env environment);
 	
+	public abstract void eval(Env environment, Form form);
+	
 	protected void printIndent(int level) {
 		for (int i = 0; i <= level; i++) {
 			System.out.print("  ");

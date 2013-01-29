@@ -1,6 +1,6 @@
 // $ANTLR 3.4 C:\\Users\\Wouter Kwakernaak\\sea-of-ql\\Waldo9\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g 2013-01-28 14:18:11
 
-	package org.uva.sea.ql.parser.antlr;
+	package org.uva.sea.ql.parser;
 
 
 import org.antlr.runtime.*;
