@@ -1,6 +1,7 @@
-package ast.type;
+package ast;
 
-public abstract class Type {
+
+public abstract class Type implements ASTNode {
 	public abstract boolean isCompatibleTo(Type t);
 
 	public boolean isCompatibleToInt() {

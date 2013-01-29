@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import ast.Expression;
+import ast.Type;
 import ast.expression.Binary;
 import ast.expression.binary.*;
 import ast.expression.unary.*;

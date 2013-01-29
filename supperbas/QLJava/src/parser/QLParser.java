@@ -1,4 +1,4 @@
-// Output created by jacc on Tue Jan 29 12:16:50 CET 2013
+// Output created by jacc on Tue Jan 29 14:09:32 CET 2013
 
 package parser;
 
@@ -33,13 +33,13 @@ class QLParser implements QLTokens {
                     if (++yysp>=yyst.length) {
                         yyexpand();
                     }
-                case 75:
+                case 76:
                     switch (yytok) {
                         case FORM:
                             yyn = 3;
                             continue;
                     }
-                    yyn = 153;
+                    yyn = 155;
                     continue;
 
                 case 1:
@@ -47,13 +47,13 @@ class QLParser implements QLTokens {
                     if (++yysp>=yyst.length) {
                         yyexpand();
                     }
-                case 76:
+                case 77:
                     switch (yytok) {
                         case ENDINPUT:
-                            yyn = 150;
+                            yyn = 152;
                             continue;
                     }
-                    yyn = 153;
+                    yyn = 155;
                     continue;
 
                 case 2:
@@ -61,13 +61,13 @@ class QLParser implements QLTokens {
                     if (++yysp>=yyst.length) {
                         yyexpand();
                     }
-                case 77:
+                case 78:
                     switch (yytok) {
                         case ENDINPUT:
                             yyn = yyr1();
                             continue;
                     }
-                    yyn = 153;
+                    yyn = 155;
                     continue;
 
                 case 3:
@@ -79,13 +79,13 @@ class QLParser implements QLTokens {
                     if (++yysp>=yyst.length) {
                         yyexpand();
                     }
-                case 78:
+                case 79:
                     switch (yytok) {
                         case IDENT:
                             yyn = 4;
                             continue;
                     }
-                    yyn = 153;
+                    yyn = 155;
                     continue;
 
                 case 4:
@@ -97,13 +97,13 @@ class QLParser implements QLTokens {
                     if (++yysp>=yyst.length) {
                         yyexpand();
                     }
-                case 79:
+                case 80:
                     switch (yytok) {
                         case '{':
                             yyn = 5;
                             continue;
                     }
-                    yyn = 153;
+                    yyn = 155;
                     continue;
 
                 case 5:
@@ -115,7 +115,7 @@ class QLParser implements QLTokens {
                     if (++yysp>=yyst.length) {
                         yyexpand();
                     }
-                case 80:
+                case 81:
                     switch (yytok) {
                         case IDENT:
                             yyn = 10;
@@ -127,25 +127,11 @@ class QLParser implements QLTokens {
                             yyn = 12;
                             continue;
                     }
-                    yyn = 153;
+                    yyn = 155;
                     continue;
 
                 case 6:
                     yyst[yysp] = 6;
-                    if (++yysp>=yyst.length) {
-                        yyexpand();
-                    }
-                case 81:
-                    switch (yytok) {
-                        case '}':
-                            yyn = yyr4();
-                            continue;
-                    }
-                    yyn = 153;
-                    continue;
-
-                case 7:
-                    yyst[yysp] = 7;
                     if (++yysp>=yyst.length) {
                         yyexpand();
                     }
@@ -155,7 +141,21 @@ class QLParser implements QLTokens {
                             yyn = yyr5();
                             continue;
                     }
-                    yyn = 153;
+                    yyn = 155;
+                    continue;
+
+                case 7:
+                    yyst[yysp] = 7;
+                    if (++yysp>=yyst.length) {
+                        yyexpand();
+                    }
+                case 83:
+                    switch (yytok) {
+                        case '}':
+                            yyn = yyr6();
+                            continue;
+                    }
+                    yyn = 155;
                     continue;
 
                 case 8:
@@ -163,7 +163,7 @@ class QLParser implements QLTokens {
                     if (++yysp>=yyst.length) {
                         yyexpand();
                     }
-                case 83:
+                case 84:
                     switch (yytok) {
                         case ELSE:
                             yyn = 14;
@@ -172,7 +172,7 @@ class QLParser implements QLTokens {
                             yyn = yyr10();
                             continue;
                     }
-                    yyn = 153;
+                    yyn = 155;
                     continue;
 
                 case 9:
@@ -180,13 +180,13 @@ class QLParser implements QLTokens {
                     if (++yysp>=yyst.length) {
                         yyexpand();
                     }
-                case 84:
+                case 85:
                     switch (yytok) {
                         case '}':
                             yyn = 15;
                             continue;
                     }
-                    yyn = 153;
+                    yyn = 155;
                     continue;
 
                 case 10:
@@ -198,7 +198,7 @@ class QLParser implements QLTokens {
                     if (++yysp>=yyst.length) {
                         yyexpand();
                     }
-                case 85:
+                case 86:
                     switch (yytok) {
                         case ':':
                             yyn = 16;
@@ -207,7 +207,7 @@ class QLParser implements QLTokens {
                             yyn = 17;
                             continue;
                     }
-                    yyn = 153;
+                    yyn = 155;
                     continue;
 
                 case 11:
@@ -219,13 +219,13 @@ class QLParser implements QLTokens {
                     if (++yysp>=yyst.length) {
                         yyexpand();
                     }
-                case 86:
+                case 87:
                     switch (yytok) {
                         case '(':
                             yyn = 18;
                             continue;
                     }
-                    yyn = 153;
+                    yyn = 155;
                     continue;
 
                 case 12:
@@ -237,13 +237,13 @@ class QLParser implements QLTokens {
                     if (++yysp>=yyst.length) {
                         yyexpand();
                     }
-                case 87:
+                case 88:
                     switch (yytok) {
                         case IDENT:
-                            yyn = 10;
+                            yyn = 20;
                             continue;
                     }
-                    yyn = 153;
+                    yyn = 155;
                     continue;
 
                 case 13:
@@ -251,13 +251,13 @@ class QLParser implements QLTokens {
                     if (++yysp>=yyst.length) {
                         yyexpand();
                     }
-                case 88:
+                case 89:
                     switch (yytok) {
                         case '}':
                             yyn = yyr9();
                             continue;
                     }
-                    yyn = 153;
+                    yyn = 155;
                     continue;
 
                 case 14:
@@ -269,16 +269,16 @@ class QLParser implements QLTokens {
                     if (++yysp>=yyst.length) {
                         yyexpand();
                     }
-                case 89:
+                case 90:
                     switch (yytok) {
                         case IF:
                             yyn = 11;
                             continue;
                         case '{':
-                            yyn = 21;
+                            yyn = 22;
                             continue;
                     }
-                    yyn = 153;
+                    yyn = 155;
                     continue;
 
                 case 15:
@@ -290,13 +290,13 @@ class QLParser implements QLTokens {
                     if (++yysp>=yyst.length) {
                         yyexpand();
                     }
-                case 90:
+                case 91:
                     switch (yytok) {
                         case ENDINPUT:
                             yyn = yyr2();
                             continue;
                     }
-                    yyn = 153;
+                    yyn = 155;
                     continue;
 
                 case 16:
@@ -308,22 +308,22 @@ class QLParser implements QLTokens {
                     if (++yysp>=yyst.length) {
                         yyexpand();
                     }
-                case 91:
+                case 92:
                     switch (yytok) {
                         case tBool:
-                            yyn = 23;
-                            continue;
-                        case tInt:
                             yyn = 24;
                             continue;
-                        case tMoney:
+                        case tInt:
                             yyn = 25;
                             continue;
-                        case tStr:
+                        case tMoney:
                             yyn = 26;
                             continue;
+                        case tStr:
+                            yyn = 27;
+                            continue;
                     }
-                    yyn = 153;
+                    yyn = 155;
                     continue;
 
                 case 17:
@@ -335,7 +335,7 @@ class QLParser implements QLTokens {
                     if (++yysp>=yyst.length) {
                         yyexpand();
                     }
-                case 92:
+                case 93:
                     yyn = yys17();
                     continue;
 
@@ -348,7 +348,7 @@ class QLParser implements QLTokens {
                     if (++yysp>=yyst.length) {
                         yyexpand();
                     }
-                case 93:
+                case 94:
                     yyn = yys18();
                     continue;
 
@@ -357,31 +357,17 @@ class QLParser implements QLTokens {
                     if (++yysp>=yyst.length) {
                         yyexpand();
                     }
-                case 94:
+                case 95:
                     switch (yytok) {
                         case '}':
                             yyn = yyr3();
                             continue;
                     }
-                    yyn = 153;
+                    yyn = 155;
                     continue;
 
                 case 20:
                     yyst[yysp] = 20;
-                    if (++yysp>=yyst.length) {
-                        yyexpand();
-                    }
-                case 95:
-                    switch (yytok) {
-                        case '}':
-                            yyn = yyr11();
-                            continue;
-                    }
-                    yyn = 153;
-                    continue;
-
-                case 21:
-                    yyst[yysp] = 21;
                     yysv[yysp] = (lexer.getSemantic()
                                  );
                     yytok = (lexer.nextToken()
@@ -390,6 +376,38 @@ class QLParser implements QLTokens {
                         yyexpand();
                     }
                 case 96:
+                    switch (yytok) {
+                        case ':':
+                            yyn = 16;
+                            continue;
+                    }
+                    yyn = 155;
+                    continue;
+
+                case 21:
+                    yyst[yysp] = 21;
+                    if (++yysp>=yyst.length) {
+                        yyexpand();
+                    }
+                case 97:
+                    switch (yytok) {
+                        case '}':
+                            yyn = yyr12();
+                            continue;
+                    }
+                    yyn = 155;
+                    continue;
+
+                case 22:
+                    yyst[yysp] = 22;
+                    yysv[yysp] = (lexer.getSemantic()
+                                 );
+                    yytok = (lexer.nextToken()
+                            );
+                    if (++yysp>=yyst.length) {
+                        yyexpand();
+                    }
+                case 98:
                     switch (yytok) {
                         case IDENT:
                             yyn = 10;
@@ -401,39 +419,21 @@ class QLParser implements QLTokens {
                             yyn = 12;
                             continue;
                     }
-                    yyn = 153;
+                    yyn = 155;
                     continue;
 
-                case 22:
-                    yyst[yysp] = 22;
+                case 23:
+                    yyst[yysp] = 23;
                     if (++yysp>=yyst.length) {
                         yyexpand();
                     }
-                case 97:
+                case 99:
                     switch (yytok) {
                         case '}':
                             yyn = yyr7();
                             continue;
                     }
-                    yyn = 153;
-                    continue;
-
-                case 23:
-                    yyst[yysp] = 23;
-                    yysv[yysp] = (lexer.getSemantic()
-                                 );
-                    yytok = (lexer.nextToken()
-                            );
-                    if (++yysp>=yyst.length) {
-                        yyexpand();
-                    }
-                case 98:
-                    switch (yytok) {
-                        case '}':
-                            yyn = yyr36();
-                            continue;
-                    }
-                    yyn = 153;
+                    yyn = 155;
                     continue;
 
                 case 24:
@@ -445,13 +445,13 @@ class QLParser implements QLTokens {
                     if (++yysp>=yyst.length) {
                         yyexpand();
                     }
-                case 99:
+                case 100:
                     switch (yytok) {
                         case '}':
-                            yyn = yyr38();
+                            yyn = yyr36();
                             continue;
                     }
-                    yyn = 153;
+                    yyn = 155;
                     continue;
 
                 case 25:
@@ -463,13 +463,13 @@ class QLParser implements QLTokens {
                     if (++yysp>=yyst.length) {
                         yyexpand();
                     }
-                case 100:
+                case 101:
                     switch (yytok) {
                         case '}':
-                            yyn = yyr37();
+                            yyn = yyr38();
                             continue;
                     }
-                    yyn = 153;
+                    yyn = 155;
                     continue;
 
                 case 26:
@@ -481,35 +481,17 @@ class QLParser implements QLTokens {
                     if (++yysp>=yyst.length) {
                         yyexpand();
                     }
-                case 101:
+                case 102:
                     switch (yytok) {
                         case '}':
-                            yyn = yyr39();
+                            yyn = yyr37();
                             continue;
                     }
-                    yyn = 153;
+                    yyn = 155;
                     continue;
 
                 case 27:
                     yyst[yysp] = 27;
-                    if (++yysp>=yyst.length) {
-                        yyexpand();
-                    }
-                case 102:
-                    yyn = yys27();
-                    continue;
-
-                case 28:
-                    yyst[yysp] = 28;
-                    if (++yysp>=yyst.length) {
-                        yyexpand();
-                    }
-                case 103:
-                    yyn = yys28();
-                    continue;
-
-                case 29:
-                    yyst[yysp] = 29;
                     yysv[yysp] = (lexer.getSemantic()
                                  );
                     yytok = (lexer.nextToken()
@@ -517,7 +499,30 @@ class QLParser implements QLTokens {
                     if (++yysp>=yyst.length) {
                         yyexpand();
                     }
+                case 103:
+                    switch (yytok) {
+                        case '}':
+                            yyn = yyr39();
+                            continue;
+                    }
+                    yyn = 155;
+                    continue;
+
+                case 28:
+                    yyst[yysp] = 28;
+                    if (++yysp>=yyst.length) {
+                        yyexpand();
+                    }
                 case 104:
+                    yyn = yys28();
+                    continue;
+
+                case 29:
+                    yyst[yysp] = 29;
+                    if (++yysp>=yyst.length) {
+                        yyexpand();
+                    }
+                case 105:
                     yyn = yys29();
                     continue;
 
@@ -530,7 +535,7 @@ class QLParser implements QLTokens {
                     if (++yysp>=yyst.length) {
                         yyexpand();
                     }
-                case 105:
+                case 106:
                     yyn = yys30();
                     continue;
 
@@ -543,7 +548,7 @@ class QLParser implements QLTokens {
                     if (++yysp>=yyst.length) {
                         yyexpand();
                     }
-                case 106:
+                case 107:
                     yyn = yys31();
                     continue;
 
@@ -556,7 +561,7 @@ class QLParser implements QLTokens {
                     if (++yysp>=yyst.length) {
                         yyexpand();
                     }
-                case 107:
+                case 108:
                     yyn = yys32();
                     continue;
 
@@ -569,7 +574,7 @@ class QLParser implements QLTokens {
                     if (++yysp>=yyst.length) {
                         yyexpand();
                     }
-                case 108:
+                case 109:
                     yyn = yys33();
                     continue;
 
@@ -582,7 +587,7 @@ class QLParser implements QLTokens {
                     if (++yysp>=yyst.length) {
                         yyexpand();
                     }
-                case 109:
+                case 110:
                     yyn = yys34();
                     continue;
 
@@ -595,7 +600,7 @@ class QLParser implements QLTokens {
                     if (++yysp>=yyst.length) {
                         yyexpand();
                     }
-                case 110:
+                case 111:
                     yyn = yys35();
                     continue;
 
@@ -608,7 +613,7 @@ class QLParser implements QLTokens {
                     if (++yysp>=yyst.length) {
                         yyexpand();
                     }
-                case 111:
+                case 112:
                     yyn = yys36();
                     continue;
 
@@ -621,7 +626,7 @@ class QLParser implements QLTokens {
                     if (++yysp>=yyst.length) {
                         yyexpand();
                     }
-                case 112:
+                case 113:
                     yyn = yys37();
                     continue;
 
@@ -634,16 +639,20 @@ class QLParser implements QLTokens {
                     if (++yysp>=yyst.length) {
                         yyexpand();
                     }
-                case 113:
+                case 114:
                     yyn = yys38();
                     continue;
 
                 case 39:
                     yyst[yysp] = 39;
+                    yysv[yysp] = (lexer.getSemantic()
+                                 );
+                    yytok = (lexer.nextToken()
+                            );
                     if (++yysp>=yyst.length) {
                         yyexpand();
                     }
-                case 114:
+                case 115:
                     yyn = yys39();
                     continue;
 
@@ -652,26 +661,22 @@ class QLParser implements QLTokens {
                     if (++yysp>=yyst.length) {
                         yyexpand();
                     }
-                case 115:
-                    switch (yytok) {
-                        case '}':
-                            yyn = 58;
-                            continue;
-                    }
-                    yyn = 153;
+                case 116:
+                    yyn = yys40();
                     continue;
 
                 case 41:
                     yyst[yysp] = 41;
-                    yysv[yysp] = (lexer.getSemantic()
-                                 );
-                    yytok = (lexer.nextToken()
-                            );
                     if (++yysp>=yyst.length) {
                         yyexpand();
                     }
-                case 116:
-                    yyn = yys41();
+                case 117:
+                    switch (yytok) {
+                        case '}':
+                            yyn = 59;
+                            continue;
+                    }
+                    yyn = 155;
                     continue;
 
                 case 42:
@@ -683,7 +688,7 @@ class QLParser implements QLTokens {
                     if (++yysp>=yyst.length) {
                         yyexpand();
                     }
-                case 117:
+                case 118:
                     yyn = yys42();
                     continue;
 
@@ -696,7 +701,7 @@ class QLParser implements QLTokens {
                     if (++yysp>=yyst.length) {
                         yyexpand();
                     }
-                case 118:
+                case 119:
                     yyn = yys43();
                     continue;
 
@@ -709,7 +714,7 @@ class QLParser implements QLTokens {
                     if (++yysp>=yyst.length) {
                         yyexpand();
                     }
-                case 119:
+                case 120:
                     yyn = yys44();
                     continue;
 
@@ -722,7 +727,7 @@ class QLParser implements QLTokens {
                     if (++yysp>=yyst.length) {
                         yyexpand();
                     }
-                case 120:
+                case 121:
                     yyn = yys45();
                     continue;
 
@@ -735,7 +740,7 @@ class QLParser implements QLTokens {
                     if (++yysp>=yyst.length) {
                         yyexpand();
                     }
-                case 121:
+                case 122:
                     yyn = yys46();
                     continue;
 
@@ -748,7 +753,7 @@ class QLParser implements QLTokens {
                     if (++yysp>=yyst.length) {
                         yyexpand();
                     }
-                case 122:
+                case 123:
                     yyn = yys47();
                     continue;
 
@@ -761,7 +766,7 @@ class QLParser implements QLTokens {
                     if (++yysp>=yyst.length) {
                         yyexpand();
                     }
-                case 123:
+                case 124:
                     yyn = yys48();
                     continue;
 
@@ -774,7 +779,7 @@ class QLParser implements QLTokens {
                     if (++yysp>=yyst.length) {
                         yyexpand();
                     }
-                case 124:
+                case 125:
                     yyn = yys49();
                     continue;
 
@@ -787,7 +792,7 @@ class QLParser implements QLTokens {
                     if (++yysp>=yyst.length) {
                         yyexpand();
                     }
-                case 125:
+                case 126:
                     yyn = yys50();
                     continue;
 
@@ -800,7 +805,7 @@ class QLParser implements QLTokens {
                     if (++yysp>=yyst.length) {
                         yyexpand();
                     }
-                case 126:
+                case 127:
                     yyn = yys51();
                     continue;
 
@@ -813,16 +818,20 @@ class QLParser implements QLTokens {
                     if (++yysp>=yyst.length) {
                         yyexpand();
                     }
-                case 127:
+                case 128:
                     yyn = yys52();
                     continue;
 
                 case 53:
                     yyst[yysp] = 53;
+                    yysv[yysp] = (lexer.getSemantic()
+                                 );
+                    yytok = (lexer.nextToken()
+                            );
                     if (++yysp>=yyst.length) {
                         yyexpand();
                     }
-                case 128:
+                case 129:
                     yyn = yys53();
                     continue;
 
@@ -831,7 +840,7 @@ class QLParser implements QLTokens {
                     if (++yysp>=yyst.length) {
                         yyexpand();
                     }
-                case 129:
+                case 130:
                     yyn = yys54();
                     continue;
 
@@ -840,7 +849,7 @@ class QLParser implements QLTokens {
                     if (++yysp>=yyst.length) {
                         yyexpand();
                     }
-                case 130:
+                case 131:
                     yyn = yys55();
                     continue;
 
@@ -849,26 +858,17 @@ class QLParser implements QLTokens {
                     if (++yysp>=yyst.length) {
                         yyexpand();
                     }
-                case 131:
+                case 132:
                     yyn = yys56();
                     continue;
 
                 case 57:
                     yyst[yysp] = 57;
-                    yysv[yysp] = (lexer.getSemantic()
-                                 );
-                    yytok = (lexer.nextToken()
-                            );
                     if (++yysp>=yyst.length) {
                         yyexpand();
                     }
-                case 132:
-                    switch (yytok) {
-                        case '{':
-                            yyn = 72;
-                            continue;
-                    }
-                    yyn = 153;
+                case 133:
+                    yyn = yys57();
                     continue;
 
                 case 58:
@@ -880,22 +880,31 @@ class QLParser implements QLTokens {
                     if (++yysp>=yyst.length) {
                         yyexpand();
                     }
-                case 133:
+                case 134:
                     switch (yytok) {
-                        case '}':
-                            yyn = yyr12();
+                        case '{':
+                            yyn = 73;
                             continue;
                     }
-                    yyn = 153;
+                    yyn = 155;
                     continue;
 
                 case 59:
                     yyst[yysp] = 59;
+                    yysv[yysp] = (lexer.getSemantic()
+                                 );
+                    yytok = (lexer.nextToken()
+                            );
                     if (++yysp>=yyst.length) {
                         yyexpand();
                     }
-                case 134:
-                    yyn = yys59();
+                case 135:
+                    switch (yytok) {
+                        case '}':
+                            yyn = yyr11();
+                            continue;
+                    }
+                    yyn = 155;
                     continue;
 
                 case 60:
@@ -903,7 +912,7 @@ class QLParser implements QLTokens {
                     if (++yysp>=yyst.length) {
                         yyexpand();
                     }
-                case 135:
+                case 136:
                     yyn = yys60();
                     continue;
 
@@ -912,7 +921,7 @@ class QLParser implements QLTokens {
                     if (++yysp>=yyst.length) {
                         yyexpand();
                     }
-                case 136:
+                case 137:
                     yyn = yys61();
                     continue;
 
@@ -921,7 +930,7 @@ class QLParser implements QLTokens {
                     if (++yysp>=yyst.length) {
                         yyexpand();
                     }
-                case 137:
+                case 138:
                     yyn = yys62();
                     continue;
 
@@ -930,7 +939,7 @@ class QLParser implements QLTokens {
                     if (++yysp>=yyst.length) {
                         yyexpand();
                     }
-                case 138:
+                case 139:
                     yyn = yys63();
                     continue;
 
@@ -939,7 +948,7 @@ class QLParser implements QLTokens {
                     if (++yysp>=yyst.length) {
                         yyexpand();
                     }
-                case 139:
+                case 140:
                     yyn = yys64();
                     continue;
 
@@ -948,7 +957,7 @@ class QLParser implements QLTokens {
                     if (++yysp>=yyst.length) {
                         yyexpand();
                     }
-                case 140:
+                case 141:
                     yyn = yys65();
                     continue;
 
@@ -957,7 +966,7 @@ class QLParser implements QLTokens {
                     if (++yysp>=yyst.length) {
                         yyexpand();
                     }
-                case 141:
+                case 142:
                     yyn = yys66();
                     continue;
 
@@ -966,7 +975,7 @@ class QLParser implements QLTokens {
                     if (++yysp>=yyst.length) {
                         yyexpand();
                     }
-                case 142:
+                case 143:
                     yyn = yys67();
                     continue;
 
@@ -975,7 +984,7 @@ class QLParser implements QLTokens {
                     if (++yysp>=yyst.length) {
                         yyexpand();
                     }
-                case 143:
+                case 144:
                     yyn = yys68();
                     continue;
 
@@ -984,7 +993,7 @@ class QLParser implements QLTokens {
                     if (++yysp>=yyst.length) {
                         yyexpand();
                     }
-                case 144:
+                case 145:
                     yyn = yys69();
                     continue;
 
@@ -993,20 +1002,16 @@ class QLParser implements QLTokens {
                     if (++yysp>=yyst.length) {
                         yyexpand();
                     }
-                case 145:
+                case 146:
                     yyn = yys70();
                     continue;
 
                 case 71:
                     yyst[yysp] = 71;
-                    yysv[yysp] = (lexer.getSemantic()
-                                 );
-                    yytok = (lexer.nextToken()
-                            );
                     if (++yysp>=yyst.length) {
                         yyexpand();
                     }
-                case 146:
+                case 147:
                     yyn = yys71();
                     continue;
 
@@ -1019,7 +1024,20 @@ class QLParser implements QLTokens {
                     if (++yysp>=yyst.length) {
                         yyexpand();
                     }
-                case 147:
+                case 148:
+                    yyn = yys72();
+                    continue;
+
+                case 73:
+                    yyst[yysp] = 73;
+                    yysv[yysp] = (lexer.getSemantic()
+                                 );
+                    yytok = (lexer.nextToken()
+                            );
+                    if (++yysp>=yyst.length) {
+                        yyexpand();
+                    }
+                case 149:
                     switch (yytok) {
                         case IDENT:
                             yyn = 10;
@@ -1031,25 +1049,25 @@ class QLParser implements QLTokens {
                             yyn = 12;
                             continue;
                     }
-                    yyn = 153;
-                    continue;
-
-                case 73:
-                    yyst[yysp] = 73;
-                    if (++yysp>=yyst.length) {
-                        yyexpand();
-                    }
-                case 148:
-                    switch (yytok) {
-                        case '}':
-                            yyn = 74;
-                            continue;
-                    }
-                    yyn = 153;
+                    yyn = 155;
                     continue;
 
                 case 74:
                     yyst[yysp] = 74;
+                    if (++yysp>=yyst.length) {
+                        yyexpand();
+                    }
+                case 150:
+                    switch (yytok) {
+                        case '}':
+                            yyn = 75;
+                            continue;
+                    }
+                    yyn = 155;
+                    continue;
+
+                case 75:
+                    yyst[yysp] = 75;
                     yysv[yysp] = (lexer.getSemantic()
                                  );
                     yytok = (lexer.nextToken()
@@ -1057,23 +1075,23 @@ class QLParser implements QLTokens {
                     if (++yysp>=yyst.length) {
                         yyexpand();
                     }
-                case 149:
+                case 151:
                     switch (yytok) {
                         case ELSE:
                         case '}':
                             yyn = yyr8();
                             continue;
                     }
-                    yyn = 153;
+                    yyn = 155;
                     continue;
 
-                case 150:
-                    return true;
-                case 151:
-                    yyerror("stack overflow");
                 case 152:
-                    return false;
+                    return true;
                 case 153:
+                    yyerror("stack overflow");
+                case 154:
+                    return false;
+                case 155:
                     yyerror("syntax error");
                     return false;
             }
@@ -1094,106 +1112,85 @@ class QLParser implements QLTokens {
     private int yys17() {
         switch (yytok) {
             case FALSE:
-                return 29;
-            case IDENT:
                 return 30;
-            case INT:
+            case IDENT:
                 return 31;
-            case MONEY:
+            case INT:
                 return 32;
-            case STR:
+            case MONEY:
                 return 33;
-            case TRUE:
+            case STR:
                 return 34;
-            case '!':
+            case TRUE:
                 return 35;
-            case '(':
+            case '!':
                 return 36;
-            case '+':
+            case '(':
                 return 37;
-            case '-':
+            case '+':
                 return 38;
+            case '-':
+                return 39;
         }
-        return 153;
+        return 155;
     }
 
     private int yys18() {
         switch (yytok) {
             case FALSE:
-                return 29;
-            case IDENT:
                 return 30;
-            case INT:
+            case IDENT:
                 return 31;
-            case MONEY:
+            case INT:
                 return 32;
-            case STR:
+            case MONEY:
                 return 33;
-            case TRUE:
+            case STR:
                 return 34;
-            case '!':
+            case TRUE:
                 return 35;
-            case '(':
+            case '!':
                 return 36;
-            case '+':
+            case '(':
                 return 37;
-            case '-':
-                return 38;
-        }
-        return 153;
-    }
-
-    private int yys27() {
-        switch (yytok) {
-            case AND:
-                return 41;
-            case EQ:
-                return 42;
-            case GEQ:
-                return 43;
-            case LEQ:
-                return 44;
-            case NEQ:
-                return 45;
-            case OR:
-                return 46;
-            case '*':
-                return 47;
             case '+':
-                return 48;
+                return 38;
             case '-':
-                return 49;
-            case '/':
-                return 50;
-            case '<':
-                return 51;
-            case '>':
-                return 52;
-            case '}':
-                return yyr6();
+                return 39;
         }
-        return 153;
+        return 155;
     }
 
     private int yys28() {
         switch (yytok) {
-            case '*':
-            case OR:
-            case ')':
-            case '+':
-            case NEQ:
-            case LEQ:
-            case EQ:
-            case '}':
-            case '>':
-            case '<':
-            case '/':
-            case '-':
-            case GEQ:
             case AND:
-                return yyr29();
+                return 42;
+            case EQ:
+                return 43;
+            case GEQ:
+                return 44;
+            case LEQ:
+                return 45;
+            case NEQ:
+                return 46;
+            case OR:
+                return 47;
+            case '*':
+                return 48;
+            case '+':
+                return 49;
+            case '-':
+                return 50;
+            case '/':
+                return 51;
+            case '<':
+                return 52;
+            case '>':
+                return 53;
+            case '}':
+                return yyr4();
         }
-        return 153;
+        return 155;
     }
 
     private int yys29() {
@@ -1212,9 +1209,9 @@ class QLParser implements QLTokens {
             case '-':
             case GEQ:
             case AND:
-                return yyr33();
+                return yyr29();
         }
-        return 153;
+        return 155;
     }
 
     private int yys30() {
@@ -1233,9 +1230,9 @@ class QLParser implements QLTokens {
             case '-':
             case GEQ:
             case AND:
-                return yyr35();
+                return yyr33();
         }
-        return 153;
+        return 155;
     }
 
     private int yys31() {
@@ -1254,9 +1251,9 @@ class QLParser implements QLTokens {
             case '-':
             case GEQ:
             case AND:
-                return yyr30();
+                return yyr35();
         }
-        return 153;
+        return 155;
     }
 
     private int yys32() {
@@ -1275,9 +1272,9 @@ class QLParser implements QLTokens {
             case '-':
             case GEQ:
             case AND:
-                return yyr31();
+                return yyr30();
         }
-        return 153;
+        return 155;
     }
 
     private int yys33() {
@@ -1296,9 +1293,9 @@ class QLParser implements QLTokens {
             case '-':
             case GEQ:
             case AND:
-                return yyr34();
+                return yyr31();
         }
-        return 153;
+        return 155;
     }
 
     private int yys34() {
@@ -1317,460 +1314,481 @@ class QLParser implements QLTokens {
             case '-':
             case GEQ:
             case AND:
-                return yyr32();
+                return yyr34();
         }
-        return 153;
+        return 155;
     }
 
     private int yys35() {
         switch (yytok) {
-            case FALSE:
-                return 29;
-            case IDENT:
-                return 30;
-            case INT:
-                return 31;
-            case MONEY:
-                return 32;
-            case STR:
-                return 33;
-            case TRUE:
-                return 34;
-            case '!':
-                return 35;
-            case '(':
-                return 36;
+            case '*':
+            case OR:
+            case ')':
             case '+':
-                return 37;
+            case NEQ:
+            case LEQ:
+            case EQ:
+            case '}':
+            case '>':
+            case '<':
+            case '/':
             case '-':
-                return 38;
+            case GEQ:
+            case AND:
+                return yyr32();
         }
-        return 153;
+        return 155;
     }
 
     private int yys36() {
         switch (yytok) {
             case FALSE:
-                return 29;
-            case IDENT:
                 return 30;
-            case INT:
+            case IDENT:
                 return 31;
-            case MONEY:
+            case INT:
                 return 32;
-            case STR:
+            case MONEY:
                 return 33;
-            case TRUE:
+            case STR:
                 return 34;
-            case '!':
+            case TRUE:
                 return 35;
-            case '(':
+            case '!':
                 return 36;
-            case '+':
+            case '(':
                 return 37;
-            case '-':
+            case '+':
                 return 38;
+            case '-':
+                return 39;
         }
-        return 153;
+        return 155;
     }
 
     private int yys37() {
         switch (yytok) {
             case FALSE:
-                return 29;
-            case IDENT:
                 return 30;
-            case INT:
+            case IDENT:
                 return 31;
-            case MONEY:
+            case INT:
                 return 32;
-            case STR:
+            case MONEY:
                 return 33;
-            case TRUE:
+            case STR:
                 return 34;
-            case '!':
+            case TRUE:
                 return 35;
-            case '(':
+            case '!':
                 return 36;
-            case '+':
+            case '(':
                 return 37;
-            case '-':
+            case '+':
                 return 38;
+            case '-':
+                return 39;
         }
-        return 153;
+        return 155;
     }
 
     private int yys38() {
         switch (yytok) {
             case FALSE:
-                return 29;
-            case IDENT:
                 return 30;
-            case INT:
+            case IDENT:
                 return 31;
-            case MONEY:
+            case INT:
                 return 32;
-            case STR:
+            case MONEY:
                 return 33;
-            case TRUE:
+            case STR:
                 return 34;
-            case '!':
+            case TRUE:
                 return 35;
-            case '(':
+            case '!':
                 return 36;
-            case '+':
+            case '(':
                 return 37;
-            case '-':
+            case '+':
                 return 38;
+            case '-':
+                return 39;
         }
-        return 153;
+        return 155;
     }
 
     private int yys39() {
         switch (yytok) {
-            case AND:
-                return 41;
-            case EQ:
-                return 42;
-            case GEQ:
-                return 43;
-            case LEQ:
-                return 44;
-            case NEQ:
-                return 45;
-            case OR:
-                return 46;
-            case '*':
-                return 47;
+            case FALSE:
+                return 30;
+            case IDENT:
+                return 31;
+            case INT:
+                return 32;
+            case MONEY:
+                return 33;
+            case STR:
+                return 34;
+            case TRUE:
+                return 35;
+            case '!':
+                return 36;
+            case '(':
+                return 37;
             case '+':
-                return 48;
+                return 38;
             case '-':
-                return 49;
-            case '/':
-                return 50;
-            case '<':
-                return 51;
-            case '>':
-                return 52;
-            case ')':
-                return 57;
+                return 39;
         }
-        return 153;
+        return 155;
     }
 
-    private int yys41() {
+    private int yys40() {
         switch (yytok) {
-            case FALSE:
-                return 29;
-            case IDENT:
-                return 30;
-            case INT:
-                return 31;
-            case MONEY:
-                return 32;
-            case STR:
-                return 33;
-            case TRUE:
-                return 34;
-            case '!':
-                return 35;
-            case '(':
-                return 36;
+            case AND:
+                return 42;
+            case EQ:
+                return 43;
+            case GEQ:
+                return 44;
+            case LEQ:
+                return 45;
+            case NEQ:
+                return 46;
+            case OR:
+                return 47;
+            case '*':
+                return 48;
             case '+':
-                return 37;
+                return 49;
             case '-':
-                return 38;
+                return 50;
+            case '/':
+                return 51;
+            case '<':
+                return 52;
+            case '>':
+                return 53;
+            case ')':
+                return 58;
         }
-        return 153;
+        return 155;
     }
 
     private int yys42() {
         switch (yytok) {
             case FALSE:
-                return 29;
-            case IDENT:
                 return 30;
-            case INT:
+            case IDENT:
                 return 31;
-            case MONEY:
+            case INT:
                 return 32;
-            case STR:
+            case MONEY:
                 return 33;
-            case TRUE:
+            case STR:
                 return 34;
-            case '!':
+            case TRUE:
                 return 35;
-            case '(':
+            case '!':
                 return 36;
-            case '+':
+            case '(':
                 return 37;
-            case '-':
+            case '+':
                 return 38;
+            case '-':
+                return 39;
         }
-        return 153;
+        return 155;
     }
 
     private int yys43() {
         switch (yytok) {
             case FALSE:
-                return 29;
-            case IDENT:
                 return 30;
-            case INT:
+            case IDENT:
                 return 31;
-            case MONEY:
+            case INT:
                 return 32;
-            case STR:
+            case MONEY:
                 return 33;
-            case TRUE:
+            case STR:
                 return 34;
-            case '!':
+            case TRUE:
                 return 35;
-            case '(':
+            case '!':
                 return 36;
-            case '+':
+            case '(':
                 return 37;
-            case '-':
+            case '+':
                 return 38;
+            case '-':
+                return 39;
         }
-        return 153;
+        return 155;
     }
 
     private int yys44() {
         switch (yytok) {
             case FALSE:
-                return 29;
-            case IDENT:
                 return 30;
-            case INT:
+            case IDENT:
                 return 31;
-            case MONEY:
+            case INT:
                 return 32;
-            case STR:
+            case MONEY:
                 return 33;
-            case TRUE:
+            case STR:
                 return 34;
-            case '!':
+            case TRUE:
                 return 35;
-            case '(':
+            case '!':
                 return 36;
-            case '+':
+            case '(':
                 return 37;
-            case '-':
+            case '+':
                 return 38;
+            case '-':
+                return 39;
         }
-        return 153;
+        return 155;
     }
 
     private int yys45() {
         switch (yytok) {
             case FALSE:
-                return 29;
-            case IDENT:
                 return 30;
-            case INT:
+            case IDENT:
                 return 31;
-            case MONEY:
+            case INT:
                 return 32;
-            case STR:
+            case MONEY:
                 return 33;
-            case TRUE:
+            case STR:
                 return 34;
-            case '!':
+            case TRUE:
                 return 35;
-            case '(':
+            case '!':
                 return 36;
-            case '+':
+            case '(':
                 return 37;
-            case '-':
+            case '+':
                 return 38;
+            case '-':
+                return 39;
         }
-        return 153;
+        return 155;
     }
 
     private int yys46() {
         switch (yytok) {
             case FALSE:
-                return 29;
-            case IDENT:
                 return 30;
-            case INT:
+            case IDENT:
                 return 31;
-            case MONEY:
+            case INT:
                 return 32;
-            case STR:
+            case MONEY:
                 return 33;
-            case TRUE:
+            case STR:
                 return 34;
-            case '!':
+            case TRUE:
                 return 35;
-            case '(':
+            case '!':
                 return 36;
-            case '+':
+            case '(':
                 return 37;
-            case '-':
+            case '+':
                 return 38;
+            case '-':
+                return 39;
         }
-        return 153;
+        return 155;
     }
 
     private int yys47() {
         switch (yytok) {
             case FALSE:
-                return 29;
-            case IDENT:
                 return 30;
-            case INT:
+            case IDENT:
                 return 31;
-            case MONEY:
+            case INT:
                 return 32;
-            case STR:
+            case MONEY:
                 return 33;
-            case TRUE:
+            case STR:
                 return 34;
-            case '!':
+            case TRUE:
                 return 35;
-            case '(':
+            case '!':
                 return 36;
-            case '+':
+            case '(':
                 return 37;
-            case '-':
+            case '+':
                 return 38;
+            case '-':
+                return 39;
         }
-        return 153;
+        return 155;
     }
 
     private int yys48() {
         switch (yytok) {
             case FALSE:
-                return 29;
-            case IDENT:
                 return 30;
-            case INT:
+            case IDENT:
                 return 31;
-            case MONEY:
+            case INT:
                 return 32;
-            case STR:
+            case MONEY:
                 return 33;
-            case TRUE:
+            case STR:
                 return 34;
-            case '!':
+            case TRUE:
                 return 35;
-            case '(':
+            case '!':
                 return 36;
-            case '+':
+            case '(':
                 return 37;
-            case '-':
+            case '+':
                 return 38;
+            case '-':
+                return 39;
         }
-        return 153;
+        return 155;
     }
 
     private int yys49() {
         switch (yytok) {
             case FALSE:
-                return 29;
-            case IDENT:
                 return 30;
-            case INT:
+            case IDENT:
                 return 31;
-            case MONEY:
+            case INT:
                 return 32;
-            case STR:
+            case MONEY:
                 return 33;
-            case TRUE:
+            case STR:
                 return 34;
-            case '!':
+            case TRUE:
                 return 35;
-            case '(':
+            case '!':
                 return 36;
-            case '+':
+            case '(':
                 return 37;
-            case '-':
+            case '+':
                 return 38;
+            case '-':
+                return 39;
         }
-        return 153;
+        return 155;
     }
 
     private int yys50() {
         switch (yytok) {
             case FALSE:
-                return 29;
-            case IDENT:
                 return 30;
-            case INT:
+            case IDENT:
                 return 31;
-            case MONEY:
+            case INT:
                 return 32;
-            case STR:
+            case MONEY:
                 return 33;
-            case TRUE:
+            case STR:
                 return 34;
-            case '!':
+            case TRUE:
                 return 35;
-            case '(':
+            case '!':
                 return 36;
-            case '+':
+            case '(':
                 return 37;
-            case '-':
+            case '+':
                 return 38;
+            case '-':
+                return 39;
         }
-        return 153;
+        return 155;
     }
 
     private int yys51() {
         switch (yytok) {
             case FALSE:
-                return 29;
-            case IDENT:
                 return 30;
-            case INT:
+            case IDENT:
                 return 31;
-            case MONEY:
+            case INT:
                 return 32;
-            case STR:
+            case MONEY:
                 return 33;
-            case TRUE:
+            case STR:
                 return 34;
-            case '!':
+            case TRUE:
                 return 35;
-            case '(':
+            case '!':
                 return 36;
-            case '+':
+            case '(':
                 return 37;
-            case '-':
+            case '+':
                 return 38;
+            case '-':
+                return 39;
         }
-        return 153;
+        return 155;
     }
 
     private int yys52() {
         switch (yytok) {
             case FALSE:
-                return 29;
-            case IDENT:
                 return 30;
-            case INT:
+            case IDENT:
                 return 31;
-            case MONEY:
+            case INT:
                 return 32;
-            case STR:
+            case MONEY:
                 return 33;
-            case TRUE:
+            case STR:
                 return 34;
-            case '!':
+            case TRUE:
                 return 35;
-            case '(':
+            case '!':
                 return 36;
-            case '+':
+            case '(':
                 return 37;
-            case '-':
+            case '+':
                 return 38;
+            case '-':
+                return 39;
         }
-        return 153;
+        return 155;
     }
 
     private int yys53() {
+        switch (yytok) {
+            case FALSE:
+                return 30;
+            case IDENT:
+                return 31;
+            case INT:
+                return 32;
+            case MONEY:
+                return 33;
+            case STR:
+                return 34;
+            case TRUE:
+                return 35;
+            case '!':
+                return 36;
+            case '(':
+                return 37;
+            case '+':
+                return 38;
+            case '-':
+                return 39;
+        }
+        return 155;
+    }
+
+    private int yys54() {
         switch (yytok) {
             case '*':
             case OR:
@@ -1788,60 +1806,39 @@ class QLParser implements QLTokens {
             case AND:
                 return yyr15();
         }
-        return 153;
-    }
-
-    private int yys54() {
-        switch (yytok) {
-            case AND:
-                return 41;
-            case EQ:
-                return 42;
-            case GEQ:
-                return 43;
-            case LEQ:
-                return 44;
-            case NEQ:
-                return 45;
-            case OR:
-                return 46;
-            case '*':
-                return 47;
-            case '+':
-                return 48;
-            case '-':
-                return 49;
-            case '/':
-                return 50;
-            case '<':
-                return 51;
-            case '>':
-                return 52;
-            case ')':
-                return 71;
-        }
-        return 153;
+        return 155;
     }
 
     private int yys55() {
         switch (yytok) {
-            case '*':
-            case OR:
-            case ')':
-            case '+':
-            case NEQ:
-            case LEQ:
-            case EQ:
-            case '}':
-            case '>':
-            case '<':
-            case '/':
-            case '-':
-            case GEQ:
             case AND:
-                return yyr13();
+                return 42;
+            case EQ:
+                return 43;
+            case GEQ:
+                return 44;
+            case LEQ:
+                return 45;
+            case NEQ:
+                return 46;
+            case OR:
+                return 47;
+            case '*':
+                return 48;
+            case '+':
+                return 49;
+            case '-':
+                return 50;
+            case '/':
+                return 51;
+            case '<':
+                return 52;
+            case '>':
+                return 53;
+            case ')':
+                return 72;
         }
-        return 153;
+        return 155;
     }
 
     private int yys56() {
@@ -1860,52 +1857,73 @@ class QLParser implements QLTokens {
             case '-':
             case GEQ:
             case AND:
-                return yyr14();
+                return yyr13();
         }
-        return 153;
+        return 155;
     }
 
-    private int yys59() {
+    private int yys57() {
+        switch (yytok) {
+            case '*':
+            case OR:
+            case ')':
+            case '+':
+            case NEQ:
+            case LEQ:
+            case EQ:
+            case '}':
+            case '>':
+            case '<':
+            case '/':
+            case '-':
+            case GEQ:
+            case AND:
+                return yyr14();
+        }
+        return 155;
+    }
+
+    private int yys60() {
         switch (yytok) {
             case EQ:
-                return 42;
-            case GEQ:
                 return 43;
-            case LEQ:
+            case GEQ:
                 return 44;
-            case NEQ:
+            case LEQ:
                 return 45;
+            case NEQ:
+                return 46;
             case '*':
-                return 47;
-            case '+':
                 return 48;
-            case '-':
+            case '+':
                 return 49;
-            case '/':
+            case '-':
                 return 50;
-            case '<':
+            case '/':
                 return 51;
-            case '>':
+            case '<':
                 return 52;
+            case '>':
+                return 53;
             case OR:
             case ')':
             case '}':
             case AND:
                 return yyr26();
         }
-        return 153;
+        return 155;
     }
 
-    private int yys60() {
+    private int yys61() {
         switch (yytok) {
             case '*':
-                return 47;
-            case '+':
                 return 48;
-            case '-':
+            case '+':
                 return 49;
-            case '/':
+            case '-':
                 return 50;
+            case '/':
+                return 51;
             case OR:
             case ')':
             case NEQ:
@@ -1918,19 +1936,19 @@ class QLParser implements QLTokens {
             case AND:
                 return yyr20();
         }
-        return 153;
+        return 155;
     }
 
-    private int yys61() {
+    private int yys62() {
         switch (yytok) {
             case '*':
-                return 47;
-            case '+':
                 return 48;
-            case '-':
+            case '+':
                 return 49;
-            case '/':
+            case '-':
                 return 50;
+            case '/':
+                return 51;
             case OR:
             case ')':
             case NEQ:
@@ -1943,19 +1961,19 @@ class QLParser implements QLTokens {
             case AND:
                 return yyr24();
         }
-        return 153;
+        return 155;
     }
 
-    private int yys62() {
+    private int yys63() {
         switch (yytok) {
             case '*':
-                return 47;
-            case '+':
                 return 48;
-            case '-':
+            case '+':
                 return 49;
-            case '/':
+            case '-':
                 return 50;
+            case '/':
+                return 51;
             case OR:
             case ')':
             case NEQ:
@@ -1968,19 +1986,19 @@ class QLParser implements QLTokens {
             case AND:
                 return yyr25();
         }
-        return 153;
+        return 155;
     }
 
-    private int yys63() {
+    private int yys64() {
         switch (yytok) {
             case '*':
-                return 47;
-            case '+':
                 return 48;
-            case '-':
+            case '+':
                 return 49;
-            case '/':
+            case '-':
                 return 50;
+            case '/':
+                return 51;
             case OR:
             case ')':
             case NEQ:
@@ -1993,42 +2011,42 @@ class QLParser implements QLTokens {
             case AND:
                 return yyr21();
         }
-        return 153;
+        return 155;
     }
 
-    private int yys64() {
+    private int yys65() {
         switch (yytok) {
             case AND:
-                return 41;
-            case EQ:
                 return 42;
-            case GEQ:
+            case EQ:
                 return 43;
-            case LEQ:
+            case GEQ:
                 return 44;
-            case NEQ:
+            case LEQ:
                 return 45;
+            case NEQ:
+                return 46;
             case '*':
-                return 47;
-            case '+':
                 return 48;
-            case '-':
+            case '+':
                 return 49;
-            case '/':
+            case '-':
                 return 50;
-            case '<':
+            case '/':
                 return 51;
-            case '>':
+            case '<':
                 return 52;
+            case '>':
+                return 53;
             case OR:
             case ')':
             case '}':
                 return yyr27();
         }
-        return 153;
+        return 155;
     }
 
-    private int yys65() {
+    private int yys66() {
         switch (yytok) {
             case '*':
             case OR:
@@ -2046,15 +2064,15 @@ class QLParser implements QLTokens {
             case AND:
                 return yyr16();
         }
-        return 153;
+        return 155;
     }
 
-    private int yys66() {
+    private int yys67() {
         switch (yytok) {
             case '*':
-                return 47;
+                return 48;
             case '/':
-                return 50;
+                return 51;
             case '+':
             case OR:
             case ')':
@@ -2069,15 +2087,15 @@ class QLParser implements QLTokens {
             case AND:
                 return yyr18();
         }
-        return 153;
+        return 155;
     }
 
-    private int yys67() {
+    private int yys68() {
         switch (yytok) {
             case '*':
-                return 47;
+                return 48;
             case '/':
-                return 50;
+                return 51;
             case '+':
             case OR:
             case ')':
@@ -2092,10 +2110,10 @@ class QLParser implements QLTokens {
             case AND:
                 return yyr19();
         }
-        return 153;
+        return 155;
     }
 
-    private int yys68() {
+    private int yys69() {
         switch (yytok) {
             case '*':
             case OR:
@@ -2113,19 +2131,19 @@ class QLParser implements QLTokens {
             case AND:
                 return yyr17();
         }
-        return 153;
+        return 155;
     }
 
-    private int yys69() {
+    private int yys70() {
         switch (yytok) {
             case '*':
-                return 47;
-            case '+':
                 return 48;
-            case '-':
+            case '+':
                 return 49;
-            case '/':
+            case '-':
                 return 50;
+            case '/':
+                return 51;
             case OR:
             case ')':
             case NEQ:
@@ -2138,19 +2156,19 @@ class QLParser implements QLTokens {
             case AND:
                 return yyr23();
         }
-        return 153;
+        return 155;
     }
 
-    private int yys70() {
+    private int yys71() {
         switch (yytok) {
             case '*':
-                return 47;
-            case '+':
                 return 48;
-            case '-':
+            case '+':
                 return 49;
-            case '/':
+            case '-':
                 return 50;
+            case '/':
+                return 51;
             case OR:
             case ')':
             case NEQ:
@@ -2163,10 +2181,10 @@ class QLParser implements QLTokens {
             case AND:
                 return yyr22();
         }
-        return 153;
+        return 155;
     }
 
-    private int yys71() {
+    private int yys72() {
         switch (yytok) {
             case '*':
             case OR:
@@ -2184,43 +2202,33 @@ class QLParser implements QLTokens {
             case AND:
                 return yyr28();
         }
-        return 153;
+        return 155;
     }
 
     private int yyr1() { // top : form
-        { result = yysv[yysp-1]; }
+        { result = ((ast.statement.Form)yysv[yysp-1]); }
         yysv[yysp-=1] = yyrv;
         return 1;
     }
 
-    private int yyr6() { // dec : IDENT '=' expression
-        { yyrv = new Assignment(((ast.expression.value.Ident)yysv[yysp-3]),((ast.Expression)yysv[yysp-1])); }
-        yysv[yysp-=3] = yyrv;
-        return yypdec();
-    }
-
     private int yyr7() { // dec : IDENT ':' dType
-        { yyrv = new Var(((ast.expression.value.Ident)yysv[yysp-3]),yysv[yysp-1]); }
+        { yyrv = new Var(((ast.expression.value.Ident)yysv[yysp-3]),((ast.Type)yysv[yysp-1])); }
         yysv[yysp-=3] = yyrv;
-        return yypdec();
-    }
-
-    private int yypdec() {
         switch (yyst[yysp-1]) {
             case 12: return 19;
             default: return 6;
         }
     }
 
-    private int yyr11() { // elseexpr : ELSE ifexpr
-        { yyrv = new Else(yysv[yysp-1]); }
-        yysv[yysp-=2] = yyrv;
+    private int yyr11() { // elseexpr : ELSE '{' statement '}'
+        { yyrv = new Else(((ast.Statement)yysv[yysp-2])); }
+        yysv[yysp-=4] = yyrv;
         return 13;
     }
 
-    private int yyr12() { // elseexpr : ELSE '{' statement '}'
-        { yyrv = new Else(((ast.Statement)yysv[yysp-2])); }
-        yysv[yysp-=4] = yyrv;
+    private int yyr12() { // elseexpr : ELSE ifexpr
+        { yyrv = new Else(((ast.Statement)yysv[yysp-1])); }
+        yysv[yysp-=2] = yyrv;
         return 13;
     }
 
@@ -2327,6 +2335,7 @@ class QLParser implements QLTokens {
 
     private int yypexpression() {
         switch (yyst[yysp-1]) {
+            case 52: return 70;
             case 51: return 69;
             case 50: return 68;
             case 49: return 67;
@@ -2337,14 +2346,13 @@ class QLParser implements QLTokens {
             case 44: return 62;
             case 43: return 61;
             case 42: return 60;
-            case 41: return 59;
+            case 39: return 57;
             case 38: return 56;
             case 37: return 55;
             case 36: return 54;
-            case 35: return 53;
-            case 18: return 39;
-            case 17: return 27;
-            default: return 70;
+            case 18: return 40;
+            case 17: return 28;
+            default: return 71;
         }
     }
 
@@ -2368,93 +2376,99 @@ class QLParser implements QLTokens {
         { yyrv = new If(((ast.Expression)yysv[yysp-5]),((ast.Statement)yysv[yysp-2])); }
         yysv[yysp-=7] = yyrv;
         switch (yyst[yysp-1]) {
-            case 14: return 20;
+            case 14: return 21;
             default: return 8;
         }
     }
 
     private int yyr3() { // statement : STR dec
-        { yyrv = new Question(((ast.expression.value.Str)yysv[yysp-2]),yysv[yysp-1]); }
+        { yyrv = new Question(((ast.expression.value.Str)yysv[yysp-2]),((ast.statement.Var)yysv[yysp-1])); }
         yysv[yysp-=2] = yyrv;
         return yypstatement();
     }
 
-    private int yyr4() { // statement : dec
+    private int yyr4() { // statement : IDENT '=' expression
+        { yyrv = new Assignment(((ast.expression.value.Ident)yysv[yysp-3]),((ast.Expression)yysv[yysp-1])); }
+        yysv[yysp-=3] = yyrv;
+        return yypstatement();
+    }
+
+    private int yyr5() { // statement : dec
         yysp -= 1;
         return yypstatement();
     }
 
-    private int yyr5() { // statement : ifcon
+    private int yyr6() { // statement : ifcon
         yysp -= 1;
         return yypstatement();
     }
 
     private int yypstatement() {
         switch (yyst[yysp-1]) {
-            case 21: return 40;
+            case 22: return 41;
             case 5: return 9;
-            default: return 73;
+            default: return 74;
         }
     }
 
     private int yyr36() { // dType : tBool
         { yyrv = new ast.type.Bool(); }
         yysv[yysp-=1] = yyrv;
-        return 22;
+        return 23;
     }
 
     private int yyr37() { // dType : tMoney
         { yyrv = new ast.type.Money(); }
         yysv[yysp-=1] = yyrv;
-        return 22;
+        return 23;
     }
 
     private int yyr38() { // dType : tInt
         { yyrv = new ast.type.Int(); }
         yysv[yysp-=1] = yyrv;
-        return 22;
+        return 23;
     }
 
     private int yyr39() { // dType : tStr
         { yyrv = new ast.type.Str(); }
         yysv[yysp-=1] = yyrv;
-        return 22;
+        return 23;
     }
 
     private int yyr30() { // type : INT
         { yyrv = ((ast.expression.value.Int)yysv[yysp-1]); }
         yysv[yysp-=1] = yyrv;
-        return 28;
+        return 29;
     }
 
     private int yyr31() { // type : MONEY
         { yyrv = ((ast.expression.value.Money)yysv[yysp-1]); }
         yysv[yysp-=1] = yyrv;
-        return 28;
+        return 29;
     }
 
     private int yyr32() { // type : TRUE
         { yyrv = new ast.expression.value.Bool(true); }
         yysv[yysp-=1] = yyrv;
-        return 28;
+        return 29;
     }
 
     private int yyr33() { // type : FALSE
         { yyrv = new ast.expression.value.Bool(false); }
         yysv[yysp-=1] = yyrv;
-        return 28;
+        return 29;
     }
 
     private int yyr34() { // type : STR
         { yyrv = ((ast.expression.value.Str)yysv[yysp-1]); }
         yysv[yysp-=1] = yyrv;
-        return 28;
+        return 29;
     }
 
     private int yyr35() { // type : IDENT
         { yyrv = ((ast.expression.value.Ident)yysv[yysp-1]); }
         yysv[yysp-=1] = yyrv;
-        return 28;
+        return 29;
     }
 
     protected String[] yyerrmsgs = {
@@ -2462,9 +2476,9 @@ class QLParser implements QLTokens {
 
 private QLLexer lexer; 
 
-private ASTNode result;
+private Statement result;
 
-public ASTNode getResult() {
+public Statement getResult() {
   return result;
 }
 
