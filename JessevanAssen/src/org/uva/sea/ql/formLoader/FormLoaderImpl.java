@@ -34,14 +34,14 @@ public class FormLoaderImpl implements FormLoader {
     }
 
     private FormLoaderException buildSemanticAnalysisErrorlistException(Iterable<Message> errors) {
-        StringBuilder exceptionStringBuilder = new StringBuilder("The following errors occurred during the semantic analysis of the form:\n");
+        StringBuilder exceptionStringBuilder = new StringBuilder("The following errors occurred during the semantic analysis of the form:").append(System.lineSeparator());
 
         for(Iterator<Message> iterator = errors.iterator(); iterator.hasNext(); ) {
             exceptionStringBuilder
                     .append(" - ")
                     .append(iterator.next().toString());
             if(iterator.hasNext())
-                exceptionStringBuilder.append("\n");
+                exceptionStringBuilder.append(System.lineSeparator());
         }
 
         return new FormLoaderException(exceptionStringBuilder.toString());
