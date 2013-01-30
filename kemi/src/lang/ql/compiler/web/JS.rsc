@@ -32,11 +32,11 @@ private str calculatedFields(Form f) {
   }
   
   return "<for(c <- cfs) {>
-  '  <individualCalculatedField(c)>
+  '  <individualCalculatedField(f.formName.ident, c)>
   '<}>";
 }
   
-private str individualCalculatedField(tuple[str ident, Expr expr] cf) {  
+private str individualCalculatedField(str form, tuple[str ident, Expr expr] cf) {  
   list[str] eidents = [];
   
   top-down visit(cf.expr) {
@@ -44,22 +44,26 @@ private str individualCalculatedField(tuple[str ident, Expr expr] cf) {
   }
 
   return "
-  '$(\"#calculatedField\").change(function(e)  {
-  '  var result;
-  '  <for(e <- eidents) {>
-  '    var <e> = $(\"#<e>\").val();
-  '    console.log(<e>);
-  '  <}>
+  '$(\"#<form>\").change(function(e)  {
+  '  var result; 
+  '<for(e <- eidents) {>
+  '  var <e> = $(\"#<e>\").val();
+  '<}>
+  '  result = <prettyPrint(cf.expr)>;
+  '  console.log(\"Result: \" + result);
+  '  $(\"#<cf.ident>\").val(result);  
   '});
   ";
 }  
 
 private str createValidationRules(Form f) {
   list[tuple[str ident, str \type]] rules = [];
+  
   top-down visit(f) {
     case q: question(_, t, i): rules += [<i.ident, t.name>];
     case q: question(_, t, i, _): rules += [<i.ident, t.name>];
   }
+  
   return "<for (r <- rules) {>
   '<r.ident>: {
   '  required: true,
@@ -74,20 +78,7 @@ private str getTypeRule(str t) {
     case "date": return "date";
     case "money": return "number";
     case "string": return "required";
+    case "boolean": return "required";
     default: return "Todo: <t>";
   }
 }
-
-public str prettyPrint(Statement item: question(Question question)) = 
-  prettyPrint(question);
-
-public str prettyPrint(Question q: 
-  question(questionText, answerDataType, answerIdentifier)) =
-    "<questionText.text>
-    '  <answerDataType.name> <answerIdentifier.ident>";
-
-public str prettyPrint(Question q: 
-  question(questionText, answerDataType, answerIdentifier, calculatedField)) =
-    "<questionText.text>
-    '  <answerDataType.name> <answerIdentifier.ident> = <prettyPrint(calculatedField)>";
-  
