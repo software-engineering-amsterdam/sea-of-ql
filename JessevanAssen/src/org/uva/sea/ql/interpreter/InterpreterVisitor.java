@@ -31,15 +31,15 @@ public class InterpreterVisitor implements ASTNodeVisitor<Value, InterpreterVisi
     }
 
     public static class Result {
-        private final Map<String, String> values;
+        private final Map<Ident, Value> identifiers;
         private final List<Message> errors;
 
-        private Result(Map<String, String> values, List<Message> errors) {
-            this.values = values;
+        private Result(Map<Ident, Value> identifiers, List<Message> errors) {
+            this.identifiers = identifiers;
             this.errors = errors;
         }
 
-        public Map<String, String> getValues() { return values; }
+        public Map<Ident, Value> getIdentifiers() { return identifiers; }
         public List<Message> getErrors() { return errors; }
     }
 
@@ -47,7 +47,7 @@ public class InterpreterVisitor implements ASTNodeVisitor<Value, InterpreterVisi
         Context context = new Context(values);
         InterpreterVisitor visitor = new InterpreterVisitor();
         form.accept(visitor, context);
-        return new Result(context.getValues(), context.getErrors());
+        return new Result(context.getIdentifiers(), context.getErrors());
     }
 
 

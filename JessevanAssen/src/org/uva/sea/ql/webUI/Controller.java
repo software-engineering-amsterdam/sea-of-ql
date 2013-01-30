@@ -2,8 +2,12 @@ package org.uva.sea.ql.webUI;
 
 import org.uva.sea.ql.Message;
 import org.uva.sea.ql.ast.Form;
+import org.uva.sea.ql.ast.expr.Ident;
+import org.uva.sea.ql.ast.expr.value.Value;
 import org.uva.sea.ql.formLoader.FormLoaderFactory;
 import org.uva.sea.ql.interpreter.InterpreterVisitor;
+import org.uva.sea.ql.valuePersister.ValuePersister;
+import org.uva.sea.ql.valuePersister.ValuePersisterFactory;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -41,10 +45,16 @@ public class Controller extends HttpServlet {
         Form form = FormLoaderFactory.createFormLoader().loadForm();
         InterpreterVisitor.Result result = InterpreterVisitor.interpret(form, postValues);
 
-        if(result.getErrors().isEmpty())
+        if(result.getErrors().isEmpty()) {
+            persistFormValues(result.getIdentifiers());
             response.setStatus(HttpServletResponse.SC_OK);
-        else
+        } else
             showErrors(result.getErrors().iterator(), response);
+    }
+
+    private void persistFormValues(Map<Ident, Value> values) {
+        ValuePersister persister = ValuePersisterFactory.createValuePersister();
+        persister.persist(values);
     }
 
     private void showErrors(Iterator<Message> errors, HttpServletResponse response) throws IOException {
