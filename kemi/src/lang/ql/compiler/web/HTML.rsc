@@ -56,12 +56,23 @@ private void createPage(str title, list[Question] questions, loc dest) {
 }
 
 private str createQuestion(Question q: 
-  question(QuestionText text, Type \type, IdentDefinition ident)) =
+  question(QuestionText text, Type \type, IdentDefinition ident)) {
+  if(\type.name == "boolean") {
+    return 
+    "\<div id=\"<ident.ident>Block\"\>
+    '  \<label for=\"<ident.ident>\"\><substring(text.text, 1, size(text.text) - 1)>\</label\>
+    '  \<input type=\"checkbox\" id=\"<ident.ident>\" class=\"required\" name=\"<ident.ident>\" \>
+    '\</div\>
+    '";
+  } else {
+    return 
     "\<div id=\"<ident.ident>Block\"\>
     '  \<label for=\"<ident.ident>\"\><substring(text.text, 1, size(text.text) - 1)>\</label\>
     '  \<input type=\"<\type.name>\" id=\"<ident.ident>\" class=\"required\" name=\"<ident.ident>\" /\>
     '\</div\>
     '";
+  }  
+}
 
 private str createQuestion(Question q: 
   question(QuestionText text, Type \type, IdentDefinition ident, calculatedField)) =
