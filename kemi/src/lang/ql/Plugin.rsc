@@ -16,6 +16,7 @@ import lang::ql::util::Parse;
 
 private str LANG_QL = "QL-R";
 private str EXT_QL = "q";
+private loc FORM_TARGET = |project://QL-R-kemi/bin/|;
 
 private Form implodeQL(Tree t) =
   lang::ql::util::Implode::implode(t);
@@ -57,7 +58,17 @@ public void setupQL() {
         action("Format (removes comments)", formatQL),
         action("Build", buildQL)
       ])
-    )
+    ),
+    
+    builder(set[Message] (Tree input) {
+      messages = semanticChecker(input); 
+      if(messages != {}) {
+        return messages;
+      }
+      
+      buildQL(input, FORM_TARGET);
+      return {};
+    })
   };
   
   registerContributions(LANG_QL, contribs);
