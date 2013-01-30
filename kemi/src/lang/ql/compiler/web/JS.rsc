@@ -28,76 +28,26 @@ private str assignVar(str ident) =
   '  <ident> = $(\"#<ident>\").val();;
   '}";
 
+private list[str] getDirectDescendingIdents(list[Statement] items) =
+  [q.answerIdentifier.ident | i <- items, question(Question q) := i];  
+
 private str JS(Form f) =
-  "function validate<f.formName.ident>() {
+  " \<!-- THIS IS AN AUTOMATICALLY GENERATED FILE. DO NOT EDIT!--\>
+  'function validate<f.formName.ident>() {
   '  $(\"#<f.formName.ident>\").validate({
   '    rules: {
   '      <createValidationRules(f)>
   '    }
   '  });
   '
+  '  \<!-- The code to automatically generate calculated fields --\>
   '  <calculatedFields(f)>
   '
+  '  \<!-- End with control flow functionality for branches etc. --\>
   '  <conditionalVisibility(f)>
   '}
   ";
   
-private str conditionalVisibility(Form f) {
-  list[Statement] conditionals = [];
-  
-  top-down visit(f) {
-    case c: ifCondition(_, _, _): 
-      conditionals += c;
-  }
-
-  return "
-  '\<!-- Hide all elements in a conditional branch on page load --\>
-  '<for(i <- [id | c <- conditionals, /u:identDefinition(str id) <- c]) {>
-  '  <hideElement(i)>
-  '<}>
-  '
-  ' \<!-- Declare callback function to do evaluation of conditionals --\>
-  '$(\"#<f.formName.ident>\").change(function(e)  {
-  '<for(e <- {name | /u:ident(str name) <- f}) {>
-  '  <assignVar(e)>
-  '<}>
-  '
-  ' \<!-- Hide all the conditionals on evaluation --\>
-  '<for(i <- [id | c <- conditionals, /u:identDefinition(str id) <- c]) {>
-  '  <hideElement(i)>
-  '<}>
-  '
-  ' \<!-- Generate the conditional branches vor visibility --\>
-  '<for(c <- conditionals) {>
-  '  <individualConditionalVisibility(c)>
-  '<}>
-  '});";
-}
-
-
-
-private str individualConditionalVisibility(Statement item: 
-  ifCondition(Conditional ifPart, list[Conditional] elseIfs, list[ElsePart] elsePart)) =
-    "if(<prettyPrint(ifPart.condition)>) { 
-    '<for(e <- [id | /u:identDefinition(str id) <- ifPart.body]) {>
-    '  <showElement(e)>
-    '<}>
-    '
-    '<for(ei <- elseIfs) { >
-    '} else if(<prettyPrint(ei.condition)>) { 
-    '  <for(e <- [id | /u:identDefinition(str id) <- ei.body]) {>
-    '    <showElement(e)>
-    '  <}>
-    '<}>
-    '
-    '<for(ep <- elsePart) { >
-    '} else { 
-    '  <for(e <- [id | /u:identDefinition(str id) <- ep.body]) {>
-    '    <showElement(e)>    
-    '  <}>
-    '<}>
-    '}";
-
 private str calculatedFields(Form f) {
   list[tuple[str ident, Expr expr]] cfs = [];
   
@@ -152,6 +102,66 @@ private str getTypeRule(str t) {
     case "money": return "number";
     case "string": return "required";
     case "boolean": return "required";
-    default: return "Todo: <t>";
   }
 }
+
+// TODO: Conditionals do not work correctly yet.
+  
+private str conditionalVisibility(Form f) {
+  list[Statement] conditionals = [];
+  
+  top-down visit(f) {
+    case c: ifCondition(_, _, _): 
+      conditionals += c;
+  }
+
+  return "
+  '\<!-- Hide all elements in a conditional branch on page load --\>
+  '<for(i <- [id | c <- conditionals, /u:identDefinition(str id) <- c]) {>
+  '  <hideElement(i)>
+  '<}>
+  '
+  ' \<!-- Declare callback function to do evaluation of conditionals --\>
+  '$(\"#<f.formName.ident>\").change(function(e)  {
+  '<for(e <- {name | /u:ident(str name) <- f}) {>
+  '  <assignVar(e)>
+  '<}>
+  '
+  ' \<!-- Hide all the conditionals on evaluation --\>
+  '<for(i <- [id | c <- conditionals, /u:identDefinition(str id) <- c]) {>
+  '  <hideElement(i)>
+  '<}>
+  '
+  ' \<!-- Generate the conditional branches vor visibility --\>
+  '<for(c <- conditionals) {>
+  '  <individualConditionalVisibility(c)>
+  '<}>
+  '});";
+}
+
+
+
+private str individualConditionalVisibility(Statement item: 
+  ifCondition(Conditional ifPart, list[Conditional] elseIfs, list[ElsePart] elsePart)) =
+    "if(<prettyPrint(ifPart.condition)>) { 
+    '<for(e <- [id | /u:identDefinition(str id) <- ifPart.body]) {>
+    '  <showElement(e)>
+    ' <getDirectDescendingIdents(ifPart.body)>
+    '<}>
+    '
+    '<for(ei <- elseIfs) { >
+    '} else if(<prettyPrint(ei.condition)>) { 
+    '  <for(e <- [id | /u:identDefinition(str id) <- ei.body]) {>
+    '    <showElement(e)>
+    '  <}>
+    '<}>
+    '
+    '<for(ep <- elsePart) { >
+    '} else { 
+    '  <for(e <- [id | /u:identDefinition(str id) <- ep.body]) {>
+    '    <showElement(e)>    
+    '  <}>
+    '<}>
+    '}";
+
+
