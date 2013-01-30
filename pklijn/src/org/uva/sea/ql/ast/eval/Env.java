@@ -50,19 +50,34 @@ public class Env {
 	}
 	
 	public void addValue(Ident ident, Value value) {
-		if (types.containsKey(ident))
+		if (hasValue(ident)) {
+			if (types.containsKey(ident))
+				values.put(ident, value);
+			else if (parent != null)
+				parent.addValue(ident, value);
+		}
+		else {
 			values.put(ident, value);
+		}
+	}
+	
+	public boolean hasValue(Ident ident) {
+		if (values.containsKey(ident))
+			return true;
 		else if (parent != null)
-			parent.addValue(ident, value);
-		// TODO: Throw exception if not found 
+			return parent.hasValue(ident);
+		return false;
 	}
 	
 	public Value getValue(Ident ident) {
-		if (values.containsKey(ident))
-			return values.get(ident);
-		else if (parent != null)
-			return parent.getValue(ident);
-		// TODO: Throw exception if not found!
-		return null;
+		if (hasValue(ident)) {
+			if (values.containsKey(ident))
+				return values.get(ident);
+			else if (parent != null)
+				return parent.getValue(ident);
+			throw new IllegalArgumentException("The ident " + ident.getName() + " does not exist in the values of this environment");
+		} else {
+			throw new IllegalArgumentException("The ident " + ident.getName() + " does not exist in the values of this environment");
+		}
 	}
 }

@@ -16,8 +16,8 @@ public class NEq extends Binary {
 	}
 
 	@Override
-	public Value eval() {
-		return new org.uva.sea.ql.ast.values.BoolValue(!(getLeft().eval().equals(getRight().eval())));
+	public Value eval(Env environment) {
+		return new org.uva.sea.ql.ast.values.BoolValue(!(getLeft().eval(environment).equals(getRight().eval(environment))));
 	}
 
 	@Override
