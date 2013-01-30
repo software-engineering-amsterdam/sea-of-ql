@@ -1,4 +1,4 @@
-// $ANTLR 3.5 C:\\Users\\SliverPente\\workspaceindigo\\QLJAVA\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g 2013-01-28 14:51:53
+// $ANTLR 3.5 C:\\Users\\SliverPente\\workspaceindigo\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g 2013-01-30 16:18:18
 
 package org.uva.sea.ql.parser.antlr;
 import org.uva.sea.ql.ast.*;
@@ -76,12 +76,12 @@ public class QLParser extends Parser {
 	}
 
 	@Override public String[] getTokenNames() { return QLParser.tokenNames; }
-	@Override public String getGrammarFileName() { return "C:\\Users\\SliverPente\\workspaceindigo\\QLJAVA\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g"; }
+	@Override public String getGrammarFileName() { return "C:\\Users\\SliverPente\\workspaceindigo\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g"; }
 
 
 
 	// $ANTLR start "primary"
-	// C:\\Users\\SliverPente\\workspaceindigo\\QLJAVA\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:21:1: primary returns [Expr result] : ( IntLiteral | MoneyLiteral | BoolLiteral | StringLiteral | Ident | '(' x= orExpr ')' );
+	// C:\\Users\\SliverPente\\workspaceindigo\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:21:1: primary returns [Expr result] : ( IntLiteral | MoneyLiteral | BoolLiteral | StringLiteral | Ident | '(' x= orExpr ')' );
 	public final Expr primary() throws RecognitionException {
 		Expr result = null;
 
@@ -97,7 +97,7 @@ public class QLParser extends Parser {
 		try {
 			if ( state.backtracking>0 && alreadyParsedRule(input, 1) ) { return result; }
 
-			// C:\\Users\\SliverPente\\workspaceindigo\\QLJAVA\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:22:4: ( IntLiteral | MoneyLiteral | BoolLiteral | StringLiteral | Ident | '(' x= orExpr ')' )
+			// C:\\Users\\SliverPente\\workspaceindigo\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:22:4: ( IntLiteral | MoneyLiteral | BoolLiteral | StringLiteral | Ident | '(' x= orExpr ')' )
 			int alt1=6;
 			switch ( input.LA(1) ) {
 			case IntLiteral:
@@ -138,42 +138,42 @@ public class QLParser extends Parser {
 			}
 			switch (alt1) {
 				case 1 :
-					// C:\\Users\\SliverPente\\workspaceindigo\\QLJAVA\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:22:6: IntLiteral
+					// C:\\Users\\SliverPente\\workspaceindigo\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:22:6: IntLiteral
 					{
 					IntLiteral1=(Token)match(input,IntLiteral,FOLLOW_IntLiteral_in_primary49); if (state.failed) return result;
 					if ( state.backtracking==0 ) { result = new IntLiteral(Integer.parseInt((IntLiteral1!=null?IntLiteral1.getText():null))); }
 					}
 					break;
 				case 2 :
-					// C:\\Users\\SliverPente\\workspaceindigo\\QLJAVA\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:23:6: MoneyLiteral
+					// C:\\Users\\SliverPente\\workspaceindigo\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:23:6: MoneyLiteral
 					{
 					MoneyLiteral2=(Token)match(input,MoneyLiteral,FOLLOW_MoneyLiteral_in_primary68); if (state.failed) return result;
 					if ( state.backtracking==0 ) { result = new MoneyLiteral(Double.parseDouble((MoneyLiteral2!=null?MoneyLiteral2.getText():null))) ;}
 					}
 					break;
 				case 3 :
-					// C:\\Users\\SliverPente\\workspaceindigo\\QLJAVA\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:24:6: BoolLiteral
+					// C:\\Users\\SliverPente\\workspaceindigo\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:24:6: BoolLiteral
 					{
 					BoolLiteral3=(Token)match(input,BoolLiteral,FOLLOW_BoolLiteral_in_primary85); if (state.failed) return result;
 					if ( state.backtracking==0 ) { result = new BoolLiteral(Boolean.parseBoolean((BoolLiteral3!=null?BoolLiteral3.getText():null))) ;}
 					}
 					break;
 				case 4 :
-					// C:\\Users\\SliverPente\\workspaceindigo\\QLJAVA\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:25:6: StringLiteral
+					// C:\\Users\\SliverPente\\workspaceindigo\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:25:6: StringLiteral
 					{
 					StringLiteral4=(Token)match(input,StringLiteral,FOLLOW_StringLiteral_in_primary103); if (state.failed) return result;
 					if ( state.backtracking==0 ) { result = new StringLiteral((StringLiteral4!=null?StringLiteral4.getText():null));}
 					}
 					break;
 				case 5 :
-					// C:\\Users\\SliverPente\\workspaceindigo\\QLJAVA\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:26:6: Ident
+					// C:\\Users\\SliverPente\\workspaceindigo\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:26:6: Ident
 					{
 					Ident5=(Token)match(input,Ident,FOLLOW_Ident_in_primary119); if (state.failed) return result;
 					if ( state.backtracking==0 ) { result = new Ident((Ident5!=null?Ident5.getText():null)); }
 					}
 					break;
 				case 6 :
-					// C:\\Users\\SliverPente\\workspaceindigo\\QLJAVA\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:27:6: '(' x= orExpr ')'
+					// C:\\Users\\SliverPente\\workspaceindigo\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:27:6: '(' x= orExpr ')'
 					{
 					match(input,16,FOLLOW_16_in_primary143); if (state.failed) return result;
 					pushFollow(FOLLOW_orExpr_in_primary147);
@@ -203,7 +203,7 @@ public class QLParser extends Parser {
 
 
 	// $ANTLR start "type"
-	// C:\\Users\\SliverPente\\workspaceindigo\\QLJAVA\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:30:1: type returns [Type result] : Type ;
+	// C:\\Users\\SliverPente\\workspaceindigo\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:30:1: type returns [Type result] : Type ;
 	public final Type type() throws RecognitionException {
 		Type result = null;
 
@@ -214,8 +214,8 @@ public class QLParser extends Parser {
 		try {
 			if ( state.backtracking>0 && alreadyParsedRule(input, 2) ) { return result; }
 
-			// C:\\Users\\SliverPente\\workspaceindigo\\QLJAVA\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:31:4: ( Type )
-			// C:\\Users\\SliverPente\\workspaceindigo\\QLJAVA\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:31:6: Type
+			// C:\\Users\\SliverPente\\workspaceindigo\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:31:4: ( Type )
+			// C:\\Users\\SliverPente\\workspaceindigo\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:31:6: Type
 			{
 			Type6=(Token)match(input,Type,FOLLOW_Type_in_type176); if (state.failed) return result;
 			if ( state.backtracking==0 ) {
@@ -243,7 +243,7 @@ public class QLParser extends Parser {
 
 
 	// $ANTLR start "unExpr"
-	// C:\\Users\\SliverPente\\workspaceindigo\\QLJAVA\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:39:1: unExpr returns [Expr result] : ( '+' x= unExpr | '-' x= unExpr | '!' x= unExpr |x= primary );
+	// C:\\Users\\SliverPente\\workspaceindigo\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:39:1: unExpr returns [Expr result] : ( '+' x= unExpr | '-' x= unExpr | '!' x= unExpr |x= primary );
 	public final Expr unExpr() throws RecognitionException {
 		Expr result = null;
 
@@ -254,7 +254,7 @@ public class QLParser extends Parser {
 		try {
 			if ( state.backtracking>0 && alreadyParsedRule(input, 3) ) { return result; }
 
-			// C:\\Users\\SliverPente\\workspaceindigo\\QLJAVA\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:40:5: ( '+' x= unExpr | '-' x= unExpr | '!' x= unExpr |x= primary )
+			// C:\\Users\\SliverPente\\workspaceindigo\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:40:5: ( '+' x= unExpr | '-' x= unExpr | '!' x= unExpr |x= primary )
 			int alt2=4;
 			switch ( input.LA(1) ) {
 			case 19:
@@ -290,7 +290,7 @@ public class QLParser extends Parser {
 			}
 			switch (alt2) {
 				case 1 :
-					// C:\\Users\\SliverPente\\workspaceindigo\\QLJAVA\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:40:8: '+' x= unExpr
+					// C:\\Users\\SliverPente\\workspaceindigo\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:40:8: '+' x= unExpr
 					{
 					match(input,19,FOLLOW_19_in_unExpr203); if (state.failed) return result;
 					pushFollow(FOLLOW_unExpr_in_unExpr207);
@@ -301,7 +301,7 @@ public class QLParser extends Parser {
 					}
 					break;
 				case 2 :
-					// C:\\Users\\SliverPente\\workspaceindigo\\QLJAVA\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:41:8: '-' x= unExpr
+					// C:\\Users\\SliverPente\\workspaceindigo\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:41:8: '-' x= unExpr
 					{
 					match(input,20,FOLLOW_20_in_unExpr218); if (state.failed) return result;
 					pushFollow(FOLLOW_unExpr_in_unExpr222);
@@ -312,7 +312,7 @@ public class QLParser extends Parser {
 					}
 					break;
 				case 3 :
-					// C:\\Users\\SliverPente\\workspaceindigo\\QLJAVA\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:42:8: '!' x= unExpr
+					// C:\\Users\\SliverPente\\workspaceindigo\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:42:8: '!' x= unExpr
 					{
 					match(input,13,FOLLOW_13_in_unExpr233); if (state.failed) return result;
 					pushFollow(FOLLOW_unExpr_in_unExpr237);
@@ -323,7 +323,7 @@ public class QLParser extends Parser {
 					}
 					break;
 				case 4 :
-					// C:\\Users\\SliverPente\\workspaceindigo\\QLJAVA\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:43:8: x= primary
+					// C:\\Users\\SliverPente\\workspaceindigo\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:43:8: x= primary
 					{
 					pushFollow(FOLLOW_primary_in_unExpr250);
 					x=primary();
@@ -351,7 +351,7 @@ public class QLParser extends Parser {
 
 
 	// $ANTLR start "mulExpr"
-	// C:\\Users\\SliverPente\\workspaceindigo\\QLJAVA\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:46:1: mulExpr returns [Expr result] : lhs= unExpr (op= ( '*' | '/' ) rhs= unExpr )* ;
+	// C:\\Users\\SliverPente\\workspaceindigo\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:46:1: mulExpr returns [Expr result] : lhs= unExpr (op= ( '*' | '/' ) rhs= unExpr )* ;
 	public final Expr mulExpr() throws RecognitionException {
 		Expr result = null;
 
@@ -364,15 +364,15 @@ public class QLParser extends Parser {
 		try {
 			if ( state.backtracking>0 && alreadyParsedRule(input, 4) ) { return result; }
 
-			// C:\\Users\\SliverPente\\workspaceindigo\\QLJAVA\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:47:5: (lhs= unExpr (op= ( '*' | '/' ) rhs= unExpr )* )
-			// C:\\Users\\SliverPente\\workspaceindigo\\QLJAVA\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:47:9: lhs= unExpr (op= ( '*' | '/' ) rhs= unExpr )*
+			// C:\\Users\\SliverPente\\workspaceindigo\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:47:5: (lhs= unExpr (op= ( '*' | '/' ) rhs= unExpr )* )
+			// C:\\Users\\SliverPente\\workspaceindigo\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:47:9: lhs= unExpr (op= ( '*' | '/' ) rhs= unExpr )*
 			{
 			pushFollow(FOLLOW_unExpr_in_mulExpr288);
 			lhs=unExpr();
 			state._fsp--;
 			if (state.failed) return result;
 			if ( state.backtracking==0 ) { result =lhs; }
-			// C:\\Users\\SliverPente\\workspaceindigo\\QLJAVA\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:47:45: (op= ( '*' | '/' ) rhs= unExpr )*
+			// C:\\Users\\SliverPente\\workspaceindigo\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:47:45: (op= ( '*' | '/' ) rhs= unExpr )*
 			loop3:
 			while (true) {
 				int alt3=2;
@@ -383,7 +383,7 @@ public class QLParser extends Parser {
 
 				switch (alt3) {
 				case 1 :
-					// C:\\Users\\SliverPente\\workspaceindigo\\QLJAVA\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:47:47: op= ( '*' | '/' ) rhs= unExpr
+					// C:\\Users\\SliverPente\\workspaceindigo\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:47:47: op= ( '*' | '/' ) rhs= unExpr
 					{
 					op=input.LT(1);
 					if ( input.LA(1)==18||input.LA(1)==21 ) {
@@ -435,7 +435,7 @@ public class QLParser extends Parser {
 
 
 	// $ANTLR start "addExpr"
-	// C:\\Users\\SliverPente\\workspaceindigo\\QLJAVA\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:58:1: addExpr returns [Expr result] : lhs= mulExpr (op= ( '+' | '-' ) rhs= mulExpr )* ;
+	// C:\\Users\\SliverPente\\workspaceindigo\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:58:1: addExpr returns [Expr result] : lhs= mulExpr (op= ( '+' | '-' ) rhs= mulExpr )* ;
 	public final Expr addExpr() throws RecognitionException {
 		Expr result = null;
 
@@ -448,15 +448,15 @@ public class QLParser extends Parser {
 		try {
 			if ( state.backtracking>0 && alreadyParsedRule(input, 5) ) { return result; }
 
-			// C:\\Users\\SliverPente\\workspaceindigo\\QLJAVA\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:59:5: (lhs= mulExpr (op= ( '+' | '-' ) rhs= mulExpr )* )
-			// C:\\Users\\SliverPente\\workspaceindigo\\QLJAVA\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:59:9: lhs= mulExpr (op= ( '+' | '-' ) rhs= mulExpr )*
+			// C:\\Users\\SliverPente\\workspaceindigo\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:59:5: (lhs= mulExpr (op= ( '+' | '-' ) rhs= mulExpr )* )
+			// C:\\Users\\SliverPente\\workspaceindigo\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:59:9: lhs= mulExpr (op= ( '+' | '-' ) rhs= mulExpr )*
 			{
 			pushFollow(FOLLOW_mulExpr_in_addExpr346);
 			lhs=mulExpr();
 			state._fsp--;
 			if (state.failed) return result;
 			if ( state.backtracking==0 ) { result =lhs; }
-			// C:\\Users\\SliverPente\\workspaceindigo\\QLJAVA\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:59:46: (op= ( '+' | '-' ) rhs= mulExpr )*
+			// C:\\Users\\SliverPente\\workspaceindigo\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:59:46: (op= ( '+' | '-' ) rhs= mulExpr )*
 			loop4:
 			while (true) {
 				int alt4=2;
@@ -467,7 +467,7 @@ public class QLParser extends Parser {
 
 				switch (alt4) {
 				case 1 :
-					// C:\\Users\\SliverPente\\workspaceindigo\\QLJAVA\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:59:48: op= ( '+' | '-' ) rhs= mulExpr
+					// C:\\Users\\SliverPente\\workspaceindigo\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:59:48: op= ( '+' | '-' ) rhs= mulExpr
 					{
 					op=input.LT(1);
 					if ( (input.LA(1) >= 19 && input.LA(1) <= 20) ) {
@@ -519,7 +519,7 @@ public class QLParser extends Parser {
 
 
 	// $ANTLR start "relExpr"
-	// C:\\Users\\SliverPente\\workspaceindigo\\QLJAVA\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:70:1: relExpr returns [Expr result] : lhs= addExpr (op= ( '<' | '<=' | '>' | '>=' | '==' | '!=' ) rhs= addExpr )* ;
+	// C:\\Users\\SliverPente\\workspaceindigo\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:70:1: relExpr returns [Expr result] : lhs= addExpr (op= ( '<' | '<=' | '>' | '>=' | '==' | '!=' ) rhs= addExpr )* ;
 	public final Expr relExpr() throws RecognitionException {
 		Expr result = null;
 
@@ -532,15 +532,15 @@ public class QLParser extends Parser {
 		try {
 			if ( state.backtracking>0 && alreadyParsedRule(input, 6) ) { return result; }
 
-			// C:\\Users\\SliverPente\\workspaceindigo\\QLJAVA\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:71:5: (lhs= addExpr (op= ( '<' | '<=' | '>' | '>=' | '==' | '!=' ) rhs= addExpr )* )
-			// C:\\Users\\SliverPente\\workspaceindigo\\QLJAVA\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:71:9: lhs= addExpr (op= ( '<' | '<=' | '>' | '>=' | '==' | '!=' ) rhs= addExpr )*
+			// C:\\Users\\SliverPente\\workspaceindigo\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:71:5: (lhs= addExpr (op= ( '<' | '<=' | '>' | '>=' | '==' | '!=' ) rhs= addExpr )* )
+			// C:\\Users\\SliverPente\\workspaceindigo\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:71:9: lhs= addExpr (op= ( '<' | '<=' | '>' | '>=' | '==' | '!=' ) rhs= addExpr )*
 			{
 			pushFollow(FOLLOW_addExpr_in_relExpr399);
 			lhs=addExpr();
 			state._fsp--;
 			if (state.failed) return result;
 			if ( state.backtracking==0 ) { result =lhs; }
-			// C:\\Users\\SliverPente\\workspaceindigo\\QLJAVA\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:71:46: (op= ( '<' | '<=' | '>' | '>=' | '==' | '!=' ) rhs= addExpr )*
+			// C:\\Users\\SliverPente\\workspaceindigo\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:71:46: (op= ( '<' | '<=' | '>' | '>=' | '==' | '!=' ) rhs= addExpr )*
 			loop5:
 			while (true) {
 				int alt5=2;
@@ -551,7 +551,7 @@ public class QLParser extends Parser {
 
 				switch (alt5) {
 				case 1 :
-					// C:\\Users\\SliverPente\\workspaceindigo\\QLJAVA\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:71:48: op= ( '<' | '<=' | '>' | '>=' | '==' | '!=' ) rhs= addExpr
+					// C:\\Users\\SliverPente\\workspaceindigo\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:71:48: op= ( '<' | '<=' | '>' | '>=' | '==' | '!=' ) rhs= addExpr
 					{
 					op=input.LT(1);
 					if ( input.LA(1)==14||(input.LA(1) >= 23 && input.LA(1) <= 27) ) {
@@ -615,7 +615,7 @@ public class QLParser extends Parser {
 
 
 	// $ANTLR start "andExpr"
-	// C:\\Users\\SliverPente\\workspaceindigo\\QLJAVA\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:94:1: andExpr returns [Expr result] : lhs= relExpr ( '&&' rhs= relExpr )* ;
+	// C:\\Users\\SliverPente\\workspaceindigo\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:94:1: andExpr returns [Expr result] : lhs= relExpr ( '&&' rhs= relExpr )* ;
 	public final Expr andExpr() throws RecognitionException {
 		Expr result = null;
 
@@ -627,15 +627,15 @@ public class QLParser extends Parser {
 		try {
 			if ( state.backtracking>0 && alreadyParsedRule(input, 7) ) { return result; }
 
-			// C:\\Users\\SliverPente\\workspaceindigo\\QLJAVA\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:95:5: (lhs= relExpr ( '&&' rhs= relExpr )* )
-			// C:\\Users\\SliverPente\\workspaceindigo\\QLJAVA\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:95:9: lhs= relExpr ( '&&' rhs= relExpr )*
+			// C:\\Users\\SliverPente\\workspaceindigo\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:95:5: (lhs= relExpr ( '&&' rhs= relExpr )* )
+			// C:\\Users\\SliverPente\\workspaceindigo\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:95:9: lhs= relExpr ( '&&' rhs= relExpr )*
 			{
 			pushFollow(FOLLOW_relExpr_in_andExpr461);
 			lhs=relExpr();
 			state._fsp--;
 			if (state.failed) return result;
 			if ( state.backtracking==0 ) { result =lhs; }
-			// C:\\Users\\SliverPente\\workspaceindigo\\QLJAVA\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:95:46: ( '&&' rhs= relExpr )*
+			// C:\\Users\\SliverPente\\workspaceindigo\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:95:46: ( '&&' rhs= relExpr )*
 			loop6:
 			while (true) {
 				int alt6=2;
@@ -646,7 +646,7 @@ public class QLParser extends Parser {
 
 				switch (alt6) {
 				case 1 :
-					// C:\\Users\\SliverPente\\workspaceindigo\\QLJAVA\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:95:48: '&&' rhs= relExpr
+					// C:\\Users\\SliverPente\\workspaceindigo\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:95:48: '&&' rhs= relExpr
 					{
 					match(input,15,FOLLOW_15_in_andExpr467); if (state.failed) return result;
 					pushFollow(FOLLOW_relExpr_in_andExpr471);
@@ -681,7 +681,7 @@ public class QLParser extends Parser {
 
 
 	// $ANTLR start "orExpr"
-	// C:\\Users\\SliverPente\\workspaceindigo\\QLJAVA\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:98:1: orExpr returns [Expr result] : lhs= andExpr ( '||' rhs= andExpr )* ;
+	// C:\\Users\\SliverPente\\workspaceindigo\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:98:1: orExpr returns [Expr result] : lhs= andExpr ( '||' rhs= andExpr )* ;
 	public final Expr orExpr() throws RecognitionException {
 		Expr result = null;
 
@@ -693,15 +693,15 @@ public class QLParser extends Parser {
 		try {
 			if ( state.backtracking>0 && alreadyParsedRule(input, 8) ) { return result; }
 
-			// C:\\Users\\SliverPente\\workspaceindigo\\QLJAVA\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:99:5: (lhs= andExpr ( '||' rhs= andExpr )* )
-			// C:\\Users\\SliverPente\\workspaceindigo\\QLJAVA\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:99:9: lhs= andExpr ( '||' rhs= andExpr )*
+			// C:\\Users\\SliverPente\\workspaceindigo\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:99:5: (lhs= andExpr ( '||' rhs= andExpr )* )
+			// C:\\Users\\SliverPente\\workspaceindigo\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:99:9: lhs= andExpr ( '||' rhs= andExpr )*
 			{
 			pushFollow(FOLLOW_andExpr_in_orExpr505);
 			lhs=andExpr();
 			state._fsp--;
 			if (state.failed) return result;
 			if ( state.backtracking==0 ) { result = lhs; }
-			// C:\\Users\\SliverPente\\workspaceindigo\\QLJAVA\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:99:48: ( '||' rhs= andExpr )*
+			// C:\\Users\\SliverPente\\workspaceindigo\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:99:48: ( '||' rhs= andExpr )*
 			loop7:
 			while (true) {
 				int alt7=2;
@@ -712,7 +712,7 @@ public class QLParser extends Parser {
 
 				switch (alt7) {
 				case 1 :
-					// C:\\Users\\SliverPente\\workspaceindigo\\QLJAVA\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:99:50: '||' rhs= andExpr
+					// C:\\Users\\SliverPente\\workspaceindigo\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:99:50: '||' rhs= andExpr
 					{
 					match(input,32,FOLLOW_32_in_orExpr511); if (state.failed) return result;
 					pushFollow(FOLLOW_andExpr_in_orExpr515);
@@ -747,7 +747,7 @@ public class QLParser extends Parser {
 
 
 	// $ANTLR start "formElement"
-	// C:\\Users\\SliverPente\\workspaceindigo\\QLJAVA\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:102:1: formElement returns [FormElement result] : ( 'if' '(' x= orExpr ')' '{' thenbody= formblock '}' 'else' '{' elsebody= formblock '}' | 'if' '(' x= orExpr ')' '{' thenbody= formblock '}' | Ident ':' StringLiteral type '(' orExpr ')' | Ident ':' StringLiteral type );
+	// C:\\Users\\SliverPente\\workspaceindigo\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:102:1: formElement returns [FormElement result] : ( 'if' '(' x= orExpr ')' '{' thenbody= formblock '}' 'else' '{' elsebody= formblock '}' | 'if' '(' x= orExpr ')' '{' thenbody= formblock '}' | Ident ':' StringLiteral type '(' orExpr ')' | Ident ':' StringLiteral type );
 	public final FormElement formElement() throws RecognitionException {
 		FormElement result = null;
 
@@ -767,7 +767,7 @@ public class QLParser extends Parser {
 		try {
 			if ( state.backtracking>0 && alreadyParsedRule(input, 9) ) { return result; }
 
-			// C:\\Users\\SliverPente\\workspaceindigo\\QLJAVA\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:103:5: ( 'if' '(' x= orExpr ')' '{' thenbody= formblock '}' 'else' '{' elsebody= formblock '}' | 'if' '(' x= orExpr ')' '{' thenbody= formblock '}' | Ident ':' StringLiteral type '(' orExpr ')' | Ident ':' StringLiteral type )
+			// C:\\Users\\SliverPente\\workspaceindigo\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:103:5: ( 'if' '(' x= orExpr ')' '{' thenbody= formblock '}' 'else' '{' elsebody= formblock '}' | 'if' '(' x= orExpr ')' '{' thenbody= formblock '}' | Ident ':' StringLiteral type '(' orExpr ')' | Ident ':' StringLiteral type )
 			int alt8=4;
 			int LA8_0 = input.LA(1);
 			if ( (LA8_0==30) ) {
@@ -813,7 +813,7 @@ public class QLParser extends Parser {
 
 			switch (alt8) {
 				case 1 :
-					// C:\\Users\\SliverPente\\workspaceindigo\\QLJAVA\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:103:7: 'if' '(' x= orExpr ')' '{' thenbody= formblock '}' 'else' '{' elsebody= formblock '}'
+					// C:\\Users\\SliverPente\\workspaceindigo\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:103:7: 'if' '(' x= orExpr ')' '{' thenbody= formblock '}' 'else' '{' elsebody= formblock '}'
 					{
 					match(input,30,FOLLOW_30_in_formElement541); if (state.failed) return result;
 					match(input,16,FOLLOW_16_in_formElement543); if (state.failed) return result;
@@ -839,7 +839,7 @@ public class QLParser extends Parser {
 					}
 					break;
 				case 2 :
-					// C:\\Users\\SliverPente\\workspaceindigo\\QLJAVA\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:104:7: 'if' '(' x= orExpr ')' '{' thenbody= formblock '}'
+					// C:\\Users\\SliverPente\\workspaceindigo\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:104:7: 'if' '(' x= orExpr ')' '{' thenbody= formblock '}'
 					{
 					match(input,30,FOLLOW_30_in_formElement582); if (state.failed) return result;
 					match(input,16,FOLLOW_16_in_formElement584); if (state.failed) return result;
@@ -858,7 +858,7 @@ public class QLParser extends Parser {
 					}
 					break;
 				case 3 :
-					// C:\\Users\\SliverPente\\workspaceindigo\\QLJAVA\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:105:7: Ident ':' StringLiteral type '(' orExpr ')'
+					// C:\\Users\\SliverPente\\workspaceindigo\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:105:7: Ident ':' StringLiteral type '(' orExpr ')'
 					{
 					Ident7=(Token)match(input,Ident,FOLLOW_Ident_in_formElement612); if (state.failed) return result;
 					match(input,22,FOLLOW_22_in_formElement614); if (state.failed) return result;
@@ -877,7 +877,7 @@ public class QLParser extends Parser {
 					}
 					break;
 				case 4 :
-					// C:\\Users\\SliverPente\\workspaceindigo\\QLJAVA\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:106:7: Ident ':' StringLiteral type
+					// C:\\Users\\SliverPente\\workspaceindigo\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:106:7: Ident ':' StringLiteral type
 					{
 					Ident11=(Token)match(input,Ident,FOLLOW_Ident_in_formElement634); if (state.failed) return result;
 					match(input,22,FOLLOW_22_in_formElement636); if (state.failed) return result;
@@ -908,7 +908,7 @@ public class QLParser extends Parser {
 
 
 	// $ANTLR start "formblock"
-	// C:\\Users\\SliverPente\\workspaceindigo\\QLJAVA\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:109:2: formblock returns [Block result] : ( formElement )* ;
+	// C:\\Users\\SliverPente\\workspaceindigo\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:109:2: formblock returns [Block result] : ( formElement )* ;
 	public final Block formblock() throws RecognitionException {
 		Block result = null;
 
@@ -922,10 +922,10 @@ public class QLParser extends Parser {
 		try {
 			if ( state.backtracking>0 && alreadyParsedRule(input, 10) ) { return result; }
 
-			// C:\\Users\\SliverPente\\workspaceindigo\\QLJAVA\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:113:5: ( ( formElement )* )
-			// C:\\Users\\SliverPente\\workspaceindigo\\QLJAVA\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:113:7: ( formElement )*
+			// C:\\Users\\SliverPente\\workspaceindigo\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:113:5: ( ( formElement )* )
+			// C:\\Users\\SliverPente\\workspaceindigo\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:113:7: ( formElement )*
 			{
-			// C:\\Users\\SliverPente\\workspaceindigo\\QLJAVA\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:113:7: ( formElement )*
+			// C:\\Users\\SliverPente\\workspaceindigo\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:113:7: ( formElement )*
 			loop9:
 			while (true) {
 				int alt9=2;
@@ -936,7 +936,7 @@ public class QLParser extends Parser {
 
 				switch (alt9) {
 				case 1 :
-					// C:\\Users\\SliverPente\\workspaceindigo\\QLJAVA\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:113:8: formElement
+					// C:\\Users\\SliverPente\\workspaceindigo\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:113:8: formElement
 					{
 					pushFollow(FOLLOW_formElement_in_formblock671);
 					formElement14=formElement();
@@ -971,7 +971,7 @@ public class QLParser extends Parser {
 
 
 	// $ANTLR start "form"
-	// C:\\Users\\SliverPente\\workspaceindigo\\QLJAVA\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:117:1: form returns [Form result] : 'form' Ident '{' fb= formblock '}' EOF ;
+	// C:\\Users\\SliverPente\\workspaceindigo\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:117:1: form returns [Form result] : 'form' Ident '{' fb= formblock '}' EOF ;
 	public final Form form() throws RecognitionException {
 		Form result = null;
 
@@ -983,8 +983,8 @@ public class QLParser extends Parser {
 		try {
 			if ( state.backtracking>0 && alreadyParsedRule(input, 11) ) { return result; }
 
-			// C:\\Users\\SliverPente\\workspaceindigo\\QLJAVA\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:118:5: ( 'form' Ident '{' fb= formblock '}' EOF )
-			// C:\\Users\\SliverPente\\workspaceindigo\\QLJAVA\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:118:7: 'form' Ident '{' fb= formblock '}' EOF
+			// C:\\Users\\SliverPente\\workspaceindigo\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:118:5: ( 'form' Ident '{' fb= formblock '}' EOF )
+			// C:\\Users\\SliverPente\\workspaceindigo\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:118:7: 'form' Ident '{' fb= formblock '}' EOF
 			{
 			match(input,29,FOLLOW_29_in_form703); if (state.failed) return result;
 			Ident15=(Token)match(input,Ident,FOLLOW_Ident_in_form705); if (state.failed) return result;
@@ -1018,8 +1018,8 @@ public class QLParser extends Parser {
 		Block thenbody =null;
 		Block elsebody =null;
 
-		// C:\\Users\\SliverPente\\workspaceindigo\\QLJAVA\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:103:7: ( 'if' '(' x= orExpr ')' '{' thenbody= formblock '}' 'else' '{' elsebody= formblock '}' )
-		// C:\\Users\\SliverPente\\workspaceindigo\\QLJAVA\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:103:7: 'if' '(' x= orExpr ')' '{' thenbody= formblock '}' 'else' '{' elsebody= formblock '}'
+		// C:\\Users\\SliverPente\\workspaceindigo\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:103:7: ( 'if' '(' x= orExpr ')' '{' thenbody= formblock '}' 'else' '{' elsebody= formblock '}' )
+		// C:\\Users\\SliverPente\\workspaceindigo\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:103:7: 'if' '(' x= orExpr ')' '{' thenbody= formblock '}' 'else' '{' elsebody= formblock '}'
 		{
 		match(input,30,FOLLOW_30_in_synpred21_QL541); if (state.failed) return;
 		match(input,16,FOLLOW_16_in_synpred21_QL543); if (state.failed) return;
@@ -1051,8 +1051,8 @@ public class QLParser extends Parser {
 		Expr x =null;
 		Block thenbody =null;
 
-		// C:\\Users\\SliverPente\\workspaceindigo\\QLJAVA\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:104:7: ( 'if' '(' x= orExpr ')' '{' thenbody= formblock '}' )
-		// C:\\Users\\SliverPente\\workspaceindigo\\QLJAVA\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:104:7: 'if' '(' x= orExpr ')' '{' thenbody= formblock '}'
+		// C:\\Users\\SliverPente\\workspaceindigo\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:104:7: ( 'if' '(' x= orExpr ')' '{' thenbody= formblock '}' )
+		// C:\\Users\\SliverPente\\workspaceindigo\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:104:7: 'if' '(' x= orExpr ')' '{' thenbody= formblock '}'
 		{
 		match(input,30,FOLLOW_30_in_synpred22_QL582); if (state.failed) return;
 		match(input,16,FOLLOW_16_in_synpred22_QL584); if (state.failed) return;
@@ -1074,8 +1074,8 @@ public class QLParser extends Parser {
 
 	// $ANTLR start synpred23_QL
 	public final void synpred23_QL_fragment() throws RecognitionException {
-		// C:\\Users\\SliverPente\\workspaceindigo\\QLJAVA\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:105:7: ( Ident ':' StringLiteral type '(' orExpr ')' )
-		// C:\\Users\\SliverPente\\workspaceindigo\\QLJAVA\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:105:7: Ident ':' StringLiteral type '(' orExpr ')'
+		// C:\\Users\\SliverPente\\workspaceindigo\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:105:7: ( Ident ':' StringLiteral type '(' orExpr ')' )
+		// C:\\Users\\SliverPente\\workspaceindigo\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:105:7: Ident ':' StringLiteral type '(' orExpr ')'
 		{
 		match(input,Ident,FOLLOW_Ident_in_synpred23_QL612); if (state.failed) return;
 		match(input,22,FOLLOW_22_in_synpred23_QL614); if (state.failed) return;
