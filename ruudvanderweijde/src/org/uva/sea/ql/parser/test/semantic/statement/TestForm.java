@@ -28,7 +28,7 @@ public class TestForm {
 		Object[][] data = new Object[][] { new Object[] {new ANTLRParser()} };
 		return Arrays.asList(data);
 	}
-	public static HashMap<Ident, Type> ExprMap = new HashMap<Ident, Type>();
+	public static HashMap<Ident, Type> exprMap = new HashMap<Ident, Type>();
 	public static ArrayList<String> errors = new ArrayList<String>();
 	private String formString = "form Box1HouseOwning {\n"
 			+ "   hasSoldHouse: \"Did you sell a house in 2010?\" boolean\n"
@@ -43,13 +43,13 @@ public class TestForm {
 	
 	public TestForm(IParse parser) {
 		this.parser = parser;
-		ExprMap = new HashMap<Ident, Type>();
+		exprMap = new HashMap<Ident, Type>();
 		errors = new ArrayList<String>();
 	}
 
 	@Test
 	public void testProvidedForm() throws ParseError {
-		parser.parseForm(formString).accept(new FormVisitor(ExprMap, errors));
+		parser.parseForm(formString).accept(new FormVisitor(exprMap, errors));
     	assertEquals(errors.size(), 0);
 	}
 }

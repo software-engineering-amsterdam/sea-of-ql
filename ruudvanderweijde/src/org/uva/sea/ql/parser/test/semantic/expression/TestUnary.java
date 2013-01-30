@@ -28,7 +28,7 @@ public class TestUnary {
 		Object[][] data = new Object[][] { new Object[] {new ANTLRParser()} };
 		return Arrays.asList(data);
 	}
-	public static HashMap<Ident, Type> ExprMap = new HashMap<Ident, Type>();
+	public static HashMap<Ident, Type> exprMap = new HashMap<Ident, Type>();
 	public static ArrayList<String> errors = new ArrayList<String>();
 
 	
@@ -38,19 +38,19 @@ public class TestUnary {
 	
 	@Test
 	public void testNeg() throws ParseError {
-		assertEquals(parser.parseExpression("-1").accept(new ExpressionVisitor(ExprMap, errors)), true);
-    	assertEquals(parser.parseExpression("+true").accept(new ExpressionVisitor(ExprMap, errors)), false);	
+		assertEquals(parser.parseExpression("-1").accept(new ExpressionVisitor(exprMap, errors)), true);
+    	assertEquals(parser.parseExpression("+true").accept(new ExpressionVisitor(exprMap, errors)), false);	
 	}
 
 	@Test
 	public void testNot() throws ParseError {
-		assertEquals(parser.parseExpression("!true").accept(new ExpressionVisitor(ExprMap, errors)), true);
-    	assertEquals(parser.parseExpression("!1").accept(new ExpressionVisitor(ExprMap, errors)), false);	
+		assertEquals(parser.parseExpression("!true").accept(new ExpressionVisitor(exprMap, errors)), true);
+    	assertEquals(parser.parseExpression("!1").accept(new ExpressionVisitor(exprMap, errors)), false);	
 	}
 	
 	@Test
 	public void testPos() throws ParseError {
-		assertEquals(parser.parseExpression("+1").accept(new ExpressionVisitor(ExprMap, errors)), true);
-    	assertEquals(parser.parseExpression("+true").accept(new ExpressionVisitor(ExprMap, errors)), false);	
+		assertEquals(parser.parseExpression("+1").accept(new ExpressionVisitor(exprMap, errors)), true);
+    	assertEquals(parser.parseExpression("+true").accept(new ExpressionVisitor(exprMap, errors)), false);	
 	}
 }

@@ -32,12 +32,12 @@ public class TestQuestion {
 		return Arrays.asList(data);
 	}
 
-	public static HashMap<Ident, Type> ExprMap = new HashMap<Ident, Type>();
+	public static HashMap<Ident, Type> exprMap = new HashMap<Ident, Type>();
 	public static ArrayList<String> errors = new ArrayList<String>();
 
 	public TestQuestion(IParse parser) {
 		this.parser = parser;
-		ExprMap = new HashMap<Ident, Type>();
+		exprMap = new HashMap<Ident, Type>();
 		errors = new ArrayList<String>();
 	}
 
@@ -50,12 +50,12 @@ public class TestQuestion {
 		formString += "   reasonSelling: \"Why did you sell a house in 2010?\" string\n";
 		formString += "}\n";
 
-		parser.parseForm(formString).accept(new FormVisitor(ExprMap, errors));
+		parser.parseForm(formString).accept(new FormVisitor(exprMap, errors));
 		
 		assertEquals(errors.size(), 0);
-		assertEquals(ExprMap.get(new Ident("sellingPrice")).getClass(), IntegerType.class);
-		assertEquals(ExprMap.get(new Ident("hasSoldHouse")).getClass(), BooleanType.class);
-		assertEquals(ExprMap.get(new Ident("reasonSelling")).getClass(), StringType.class);
+		assertEquals(exprMap.get(new Ident("sellingPrice")).getClass(), IntegerType.class);
+		assertEquals(exprMap.get(new Ident("hasSoldHouse")).getClass(), BooleanType.class);
+		assertEquals(exprMap.get(new Ident("reasonSelling")).getClass(), StringType.class);
 	}
 	
 	@Test
@@ -66,7 +66,7 @@ public class TestQuestion {
     	formString += "   hasSoldHouse: \"Did you sell a house in 2010?\" boolean\n";
     	formString += "}\n";
     	
-    	parser.parseForm(formString).accept(new FormVisitor(ExprMap, errors));
+    	parser.parseForm(formString).accept(new FormVisitor(exprMap, errors));
     	assertEquals(errors.size(), 1);
 	} 
 	
@@ -77,10 +77,10 @@ public class TestQuestion {
 		formString += "		valueResidue: \"Value residue:\" integer(sellingPrice - privateDebt)\n";
 		formString += "}\n";
 
-		parser.parseForm(formString).accept(new FormVisitor(ExprMap, errors));
+		parser.parseForm(formString).accept(new FormVisitor(exprMap, errors));
 		
 		assertEquals(errors.size(), 1);
-		assertEquals(ExprMap.get(new Ident("valueResidue")).getClass(), IntegerType.class);
+		assertEquals(exprMap.get(new Ident("valueResidue")).getClass(), IntegerType.class);
 	}
 
 	@Test
@@ -92,12 +92,12 @@ public class TestQuestion {
 		formString += "		valueResidue: \"Value residue:\" integer(sellingPrice - privateDebt)\n";
 		formString += "}\n";
 
-		parser.parseForm(formString).accept(new FormVisitor(ExprMap, errors));
+		parser.parseForm(formString).accept(new FormVisitor(exprMap, errors));
 		
 		assertEquals(errors.size(), 0);
-		assertEquals(ExprMap.get(new Ident("sellingPrice")).getClass(), IntegerType.class);
-		assertEquals(ExprMap.get(new Ident("sellingPrice")).getClass(), IntegerType.class);
-		assertEquals(ExprMap.get(new Ident("sellingPrice")).getClass(),	IntegerType.class);
+		assertEquals(exprMap.get(new Ident("sellingPrice")).getClass(), IntegerType.class);
+		assertEquals(exprMap.get(new Ident("sellingPrice")).getClass(), IntegerType.class);
+		assertEquals(exprMap.get(new Ident("sellingPrice")).getClass(),	IntegerType.class);
 
 	}
 
@@ -110,12 +110,12 @@ public class TestQuestion {
 		formString += "		valueResidue: \"Value residue:\" integer(sellingPrice - privateDebt)\n";
 		formString += "}\n";
 
-		parser.parseForm(formString).accept(new FormVisitor(ExprMap, errors));
+		parser.parseForm(formString).accept(new FormVisitor(exprMap, errors));
 		
 		assertEquals(errors.size(), 1);	
-		assertEquals(ExprMap.get(new Ident("sellingPrice")).getClass(), BooleanType.class);
-		assertEquals(ExprMap.get(new Ident("privateDebt")).getClass(), IntegerType.class);
-		assertEquals(ExprMap.get(new Ident("valueResidue")).getClass(),	IntegerType.class);
+		assertEquals(exprMap.get(new Ident("sellingPrice")).getClass(), BooleanType.class);
+		assertEquals(exprMap.get(new Ident("privateDebt")).getClass(), IntegerType.class);
+		assertEquals(exprMap.get(new Ident("valueResidue")).getClass(),	IntegerType.class);
 	}
 
 	@Test
@@ -127,12 +127,12 @@ public class TestQuestion {
 		formString += "		valueResidue: \"Value residue:\" boolean(sellingPrice - privateDebt)\n";
 		formString += "}\n";
 
-		parser.parseForm(formString).accept(new FormVisitor(ExprMap, errors));
+		parser.parseForm(formString).accept(new FormVisitor(exprMap, errors));
 		
 		assertEquals(errors.size(), 1);
-		assertEquals(ExprMap.get(new Ident("sellingPrice")).getClass(), IntegerType.class);
-		assertEquals(ExprMap.get(new Ident("privateDebt")).getClass(), IntegerType.class);
-		assertEquals(ExprMap.get(new Ident("valueResidue")).getClass(),	BooleanType.class);
+		assertEquals(exprMap.get(new Ident("sellingPrice")).getClass(), IntegerType.class);
+		assertEquals(exprMap.get(new Ident("privateDebt")).getClass(), IntegerType.class);
+		assertEquals(exprMap.get(new Ident("valueResidue")).getClass(),	BooleanType.class);
 	}
 
 	@Test
@@ -144,10 +144,10 @@ public class TestQuestion {
 		formString += "		valueResidue: \"Value residue:\" integer(sellingPrice - privateDebt)\n";
 		formString += "}\n";
 
-		parser.parseForm(formString).accept(new FormVisitor(ExprMap, errors));
+		parser.parseForm(formString).accept(new FormVisitor(exprMap, errors));
 		assertEquals(errors.size(), 1);
-		assertEquals(ExprMap.get(new Ident("sellingPrice")).getClass(), BooleanType.class);
-		assertEquals(ExprMap.get(new Ident("privateDebt")).getClass(), BooleanType.class);
-		assertEquals(ExprMap.get(new Ident("valueResidue")).getClass(), IntegerType.class);
+		assertEquals(exprMap.get(new Ident("sellingPrice")).getClass(), BooleanType.class);
+		assertEquals(exprMap.get(new Ident("privateDebt")).getClass(), BooleanType.class);
+		assertEquals(exprMap.get(new Ident("valueResidue")).getClass(), IntegerType.class);
 	}
 }

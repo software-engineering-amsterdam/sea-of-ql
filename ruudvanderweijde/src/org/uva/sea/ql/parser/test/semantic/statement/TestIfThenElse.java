@@ -28,13 +28,13 @@ public class TestIfThenElse {
 		Object[][] data = new Object[][] { new Object[] {new ANTLRParser()} };
 		return Arrays.asList(data);
 	}
-	public static HashMap<Ident, Type> ExprMap = new HashMap<Ident, Type>();
+	public static HashMap<Ident, Type> exprMap = new HashMap<Ident, Type>();
 	public static ArrayList<String> errors = new ArrayList<String>();
 
 	
 	public TestIfThenElse(IParse parser) {
 		this.parser = parser;
-		ExprMap = new HashMap<Ident, Type>();
+		exprMap = new HashMap<Ident, Type>();
 		errors = new ArrayList<String>();
 	}
 
@@ -52,7 +52,7 @@ public class TestIfThenElse {
     	formString += "   }\n";
     	formString += "}\n";
     	
-    	parser.parseForm(formString).accept(new FormVisitor(ExprMap, errors));
+    	parser.parseForm(formString).accept(new FormVisitor(exprMap, errors));
     	assertEquals(errors.size(), 0);
 	}
 	@Test
@@ -77,7 +77,7 @@ public class TestIfThenElse {
     	formString += "   }\n";
     	formString += "}\n";
     	
-    	parser.parseForm(formString).accept(new FormVisitor(ExprMap, errors));
+    	parser.parseForm(formString).accept(new FormVisitor(exprMap, errors));
     	assertEquals(errors.size(), 0);
 	}
 }

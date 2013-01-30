@@ -28,7 +28,7 @@ public class TestPrimary {
 		Object[][] data = new Object[][] { new Object[] {new ANTLRParser()} };
 		return Arrays.asList(data);
 	}
-	public static HashMap<Ident, Type> ExprMap = new HashMap<Ident, Type>();
+	public static HashMap<Ident, Type> exprMap = new HashMap<Ident, Type>();
 	public static ArrayList<String> errors = new ArrayList<String>();
 
 	
@@ -38,19 +38,19 @@ public class TestPrimary {
 
 	@Test
 	public void testBool() throws ParseError {
-		assertEquals(parser.parseExpression("true").accept(new ExpressionVisitor(ExprMap, errors)), true);
-    	assertEquals(parser.parseExpression("false").accept(new ExpressionVisitor(ExprMap, errors)), true);	
+		assertEquals(parser.parseExpression("true").accept(new ExpressionVisitor(exprMap, errors)), true);
+    	assertEquals(parser.parseExpression("false").accept(new ExpressionVisitor(exprMap, errors)), true);	
 	}
 
 	@Test
 	public void testIdent() throws ParseError {
-		assertEquals(parser.parseExpression("ident1").accept(new ExpressionVisitor(ExprMap, errors)), true);
-    	assertEquals(parser.parseExpression("validident").accept(new ExpressionVisitor(ExprMap, errors)), true);	
+		assertEquals(parser.parseExpression("ident1").accept(new ExpressionVisitor(exprMap, errors)), true);
+    	assertEquals(parser.parseExpression("validident").accept(new ExpressionVisitor(exprMap, errors)), true);	
 	}
 	
 	@Test
 	public void testInt() throws ParseError {
-		assertEquals(parser.parseExpression("1").accept(new ExpressionVisitor(ExprMap, errors)), true);
-    	assertEquals(parser.parseExpression("100").accept(new ExpressionVisitor(ExprMap, errors)), true);	
+		assertEquals(parser.parseExpression("1").accept(new ExpressionVisitor(exprMap, errors)), true);
+    	assertEquals(parser.parseExpression("100").accept(new ExpressionVisitor(exprMap, errors)), true);	
 	}	
 }

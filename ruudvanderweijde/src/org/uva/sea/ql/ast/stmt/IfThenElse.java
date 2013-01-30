@@ -12,8 +12,7 @@ public class IfThenElse extends Statement {
 	private final List<Statement> ifBlock;
 	private final List<Statement> elseBlock;
 	
-	public IfThenElse(Expr condition, List<Statement> ifBlock,
-			List<Statement> elseBlock) {
+	public IfThenElse(Expr condition, List<Statement> ifBlock, List<Statement> elseBlock) {
 		this.condition = condition;
 		this.ifBlock = ifBlock;
 		this.elseBlock = elseBlock;
