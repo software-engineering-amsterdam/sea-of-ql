@@ -132,8 +132,8 @@ question returns [Question result]
     : Ident ':' Str type { $result = new Question(new Ident($Ident.text), new Str($Str.text), $type.result); }
     ;
 condition returns [Condition result]
-    : If '(' orExpr ')' '{' formElements '}' { $result = new Condition($orExpr.result, $formElements.result); }
-    // Else needs to be implemented ->(question | condition | computation)*
+    : If '(' orExpr ')' '{' ifElems = formElements '}' Else '{' elseElems = formElements '}' { $result = new Condition($orExpr.result, $ifElems.result, $elseElems.result);}
+    | If '(' orExpr ')' '{' formElements '}' { $result = new Condition($orExpr.result, $formElements.result); }
     ;
 
 type returns [Expr result]

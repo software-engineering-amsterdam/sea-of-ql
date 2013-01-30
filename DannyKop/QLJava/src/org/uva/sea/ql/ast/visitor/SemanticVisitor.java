@@ -69,6 +69,11 @@ public class SemanticVisitor implements Visitor {
 		for(FormElement fe : c.getIfElements()){
 			fe.accept(this);
 		}
+		if(c.hasElse()){
+			for(FormElement fe : c.getElseElements()){
+				fe.accept(this);
+			}
+		}
 	}
 	@Override
 	public void visit(Ident i) {
