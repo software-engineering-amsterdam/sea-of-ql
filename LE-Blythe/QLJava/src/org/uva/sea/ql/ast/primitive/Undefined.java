@@ -5,22 +5,22 @@ import org.uva.sea.ql.ast.types.Type;
 import org.uva.sea.ql.interfaces.IVisitor;
 import org.uva.sea.ql.util.Environment;
 
-public class Bool extends Primitive {
+public class Undefined extends Primitive {
 
-	private boolean value;
+	private Type type;
 	
-	public Bool(boolean b){
-		value = b;
+	public Undefined(Type t){
+		this.type = t;
+	}
+
+
+	public boolean isDefined(){
+		return false;
 	}
 	
-	
-	public Boolean getValue(){
-		return value;
-	}
-	
-	
+
 	public Type typeOf(Environment env){
-		return new org.uva.sea.ql.ast.types.Bool();
+		return type;
 	}
 	
 	@Override

@@ -4,24 +4,16 @@ import org.uva.sea.ql.ast.Expr;
 import org.uva.sea.ql.ast.Statement;
 import org.uva.sea.ql.interfaces.IVisitor;
 
-public class Branch extends Statement{
+public class IfThen extends Statement{
 	
 	private Expr 	  	ifCondition;
-	private Block	 	ifBlock,
-						elseBlock;
+	
+	private Block	 	ifBlock;
 	
 	
-	public Branch(Expr ifCondition, Block ifBlock){
+	public IfThen(Expr ifCondition, Block ifBlock){
 		this.ifCondition = ifCondition;
 		this.ifBlock = ifBlock;
-		this.elseBlock = null;
-	}
-	
-	
-	public Branch(Expr ifCondition, Block ifBlock, Block elseBlock){
-		this.ifCondition = ifCondition;
-		this.ifBlock = ifBlock;
-		this.elseBlock= elseBlock;
 	}
 	
 	
@@ -32,11 +24,6 @@ public class Branch extends Statement{
 	
 	public Block getIfBlock(){
 		return ifBlock;
-	}
-	
-	
-	public Block getElseBlock(){
-		return elseBlock;
 	}
 	
 	

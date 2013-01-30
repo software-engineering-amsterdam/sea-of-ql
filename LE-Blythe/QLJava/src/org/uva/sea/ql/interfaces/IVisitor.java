@@ -19,16 +19,20 @@ import org.uva.sea.ql.ast.operative.Sub;
 import org.uva.sea.ql.ast.primitive.Bool;
 import org.uva.sea.ql.ast.primitive.Int;
 import org.uva.sea.ql.ast.primitive.Str;
+import org.uva.sea.ql.ast.primitive.Undefined;
 import org.uva.sea.ql.ast.statement.Block;
-import org.uva.sea.ql.ast.statement.Branch;
 import org.uva.sea.ql.ast.statement.Form;
-import org.uva.sea.ql.ast.statement.Question;
+import org.uva.sea.ql.ast.statement.IfThen;
+import org.uva.sea.ql.ast.statement.IfThenElse;
+import org.uva.sea.ql.ast.statement.QuestionAnswerable;
+import org.uva.sea.ql.ast.statement.QuestionComputed;
 
 public interface IVisitor<T> {
 
 	T visit(Int ast);
 	T visit(Bool ast);
 	T visit(Str ast);
+	T visit(Undefined ast);
 	T visit(Ident ast);
 
 	T visit(Add ast);
@@ -49,7 +53,9 @@ public interface IVisitor<T> {
 	
 	T visit(Form form);
 	T visit(Block block);
-	T visit(Branch branch);
-	T visit(Question question);
+	T visit(IfThen branch);
+	T visit(IfThenElse branch);
+	T visit(QuestionAnswerable question);
+	T visit(QuestionComputed question);
 
 }

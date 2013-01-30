@@ -21,10 +21,13 @@ import org.uva.sea.ql.ast.operative.Sub;
 import org.uva.sea.ql.ast.primitive.Bool;
 import org.uva.sea.ql.ast.primitive.Int;
 import org.uva.sea.ql.ast.primitive.Str;
+import org.uva.sea.ql.ast.primitive.Undefined;
 import org.uva.sea.ql.ast.statement.Block;
-import org.uva.sea.ql.ast.statement.Branch;
 import org.uva.sea.ql.ast.statement.Form;
-import org.uva.sea.ql.ast.statement.Question;
+import org.uva.sea.ql.ast.statement.IfThen;
+import org.uva.sea.ql.ast.statement.IfThenElse;
+import org.uva.sea.ql.ast.statement.QuestionAnswerable;
+import org.uva.sea.ql.ast.statement.QuestionComputed;
 import org.uva.sea.ql.interfaces.IVisitor;
 
 public class VisitorPrint implements IVisitor<String>{
@@ -133,12 +136,24 @@ public class VisitorPrint implements IVisitor<String>{
 	}
 
 	@Override
-	public String visit(Branch branch) {
+	public String visit(IfThen branch) {
 		return null;
 	}
-
+	
 	@Override
-	public String visit(Question question) {
+	public String visit(IfThenElse branch) {
+		return null;
+	}
+	
+	@Override
+	public String visit(QuestionAnswerable question) {
+		return null;
+	}
+	
+	
+	@Override
+	public String visit(QuestionComputed question) {
+		// TODO Auto-generated method stub
 		return null;
 	}
 	
@@ -168,5 +183,15 @@ public class VisitorPrint implements IVisitor<String>{
 		
 		return UNDEFINED;
 	}
+
+
+	@Override
+	public String visit(Undefined ast) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+	
 	
 }

@@ -9,18 +9,8 @@ public class Str extends Primitive {
 
 	private String value;
 	
-	public Str(){
-		value = null;
-	}
-	
-	
 	public Str(String s){
 		value = s;
-	}
-
-
-	public boolean isDefined(){
-		return value != null;
 	}
 	
 	
