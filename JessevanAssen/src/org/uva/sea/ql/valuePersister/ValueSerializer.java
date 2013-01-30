@@ -7,4 +7,5 @@ import java.util.Map;
 
 public interface ValueSerializer {
     public String serialize(Map<Ident, Value> values);
+    public <T> T accept(ValueSerializerVisitor<T> visitor);
 }

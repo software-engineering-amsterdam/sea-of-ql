@@ -21,4 +21,9 @@ public class CsvValueSerializer implements ValueSerializer {
 
         return csvBuilder.toString();
     }
+
+    @Override
+    public <T> T accept(ValueSerializerVisitor<T> visitor) {
+        return visitor.visit(this);
+    }
 }
