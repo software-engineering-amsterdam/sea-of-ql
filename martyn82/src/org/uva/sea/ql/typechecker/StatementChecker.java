@@ -21,7 +21,7 @@ public class StatementChecker extends TypeCheckVisitor implements IStatementVisi
 	/**
 	 * Holds the expression checker.
 	 */
-	private final ExpressionChecker expressionVisitor;
+	private final ExpressionChecker expressionChecker;
 
 	/**
 	 * Holds the expression type resolver.
@@ -37,12 +37,12 @@ public class StatementChecker extends TypeCheckVisitor implements IStatementVisi
 	 * Constructs a new Statement checker.
 	 *
 	 * @param environment
-	 * @param expressionVisitor
+	 * @param expressionChecker
 	 */
-	public StatementChecker( Environment environment, ExpressionChecker expressionVisitor ) {
+	public StatementChecker( Environment environment, ExpressionChecker expressionChecker ) {
 		super( environment );
 
-		this.expressionVisitor = expressionVisitor;
+		this.expressionChecker = expressionChecker;
 		this.resolver = this.getResolver();
 		this.environment = environment;
 	}
@@ -55,7 +55,9 @@ public class StatementChecker extends TypeCheckVisitor implements IStatementVisi
 	@Override
 	public Boolean visit( ElseIfs node ) {
 		for ( ElseIf elseIf : node ) {
-			elseIf.accept( this );
+			if ( !elseIf.accept( this ) ) {
+				return false;
+			}
 		}
 
 		return true;
@@ -63,11 +65,11 @@ public class StatementChecker extends TypeCheckVisitor implements IStatementVisi
 
 	@Override
 	public Boolean visit( ElseIf node ) {
-		if ( !node.getCondition().accept( this.expressionVisitor ) ) {
+		if ( !node.getCondition().accept( this.expressionChecker ) ) {
 			return false;
 		}
 
-		Type conditionType = node.getCondition().accept( resolver );
+		Type conditionType = node.getCondition().accept( this.resolver );
 
 		if ( !conditionType.isCompatibleToBool() ) {
 			this.addError( "Condition of an ELSE-IF block should evaluate to Boolean.", node );
@@ -79,11 +81,11 @@ public class StatementChecker extends TypeCheckVisitor implements IStatementVisi
 
 	@Override
 	public Boolean visit( IfThenElse node ) {
-		if ( !node.getCondition().accept( this.expressionVisitor ) ) {
+		if ( !node.getCondition().accept( this.expressionChecker ) ) {
 			return false;
 		}
 
-		Type conditionType = node.getCondition().accept( resolver );
+		Type conditionType = node.getCondition().accept( this.resolver );
 
 		if ( !conditionType.isCompatibleToBool() ) {
 			this.addError( "Condition of an IF block should evaluate to Boolean.", node );
@@ -132,12 +134,12 @@ public class StatementChecker extends TypeCheckVisitor implements IStatementVisi
 
 	@Override
 	public Boolean visit( Assignment node ) {
-		if ( !node.getExpression().accept( this.expressionVisitor ) ) {
+		if ( !node.getExpression().accept( this.expressionChecker ) ) {
 			return false;
 		}
 
 		if ( this.environment.isDeclared( node.getIdent() ) ) {
-			if ( !node.getIdent().accept( this.expressionVisitor ) ) {
+			if ( !node.getIdent().accept( this.expressionChecker ) ) {
 				return false;
 			}
 
@@ -171,7 +173,7 @@ public class StatementChecker extends TypeCheckVisitor implements IStatementVisi
 
 	@Override
 	public Boolean visit( QuestionDeclaration node ) {
-		if ( !node.getName().accept( this.expressionVisitor ) ) {
+		if ( !node.getName().accept( this.expressionChecker ) ) {
 			return false;
 		}
 

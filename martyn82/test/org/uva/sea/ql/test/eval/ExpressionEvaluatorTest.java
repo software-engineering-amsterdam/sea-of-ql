@@ -47,7 +47,7 @@ public class ExpressionEvaluatorTest implements IExpressionTest {
 	 */
 	public ExpressionEvaluatorTest() {
 		this.environment = new Environment();
-		this.evaluator = new ExpressionEvaluator( environment );
+		this.evaluator = new ExpressionEvaluator( this.environment );
 	}
 
 	/**
@@ -58,7 +58,7 @@ public class ExpressionEvaluatorTest implements IExpressionTest {
 	 * @return The evaluated value.
 	 */
 	private Object eval( Expression expression ) {
-		return expression.accept( evaluator ).getValue();
+		return expression.accept( this.evaluator ).getValue();
 	}
 
 	@Override
@@ -118,6 +118,7 @@ public class ExpressionEvaluatorTest implements IExpressionTest {
 		assertEquals( false, eval( new Eq( new Bool( true ), new Int( 23 ) ) ) );
 		assertEquals( false, eval( new Eq( new Str( "" ), new Int( 1 ) ) ) );
 		assertEquals( false, eval( new Eq( new Money( 3 ), new Int( 3 ) ) ) );
+		assertEquals( false, eval( new Eq( new Bool( true ), new Bool( false ) ) ) );
 	}
 
 	@Override

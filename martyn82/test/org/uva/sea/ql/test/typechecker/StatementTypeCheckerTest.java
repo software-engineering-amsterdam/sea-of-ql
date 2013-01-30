@@ -35,12 +35,12 @@ public class StatementTypeCheckerTest extends VisitorTest<Boolean> implements IS
 	/**
 	 * Holds the statement checker.
 	 */
-	private final StatementChecker statementVisitor;
+	private final StatementChecker statementChecker;
 
 	/**
 	 * Holds the expression checker.
 	 */
-	private final ExpressionChecker expressionVisitor;
+	private final ExpressionChecker expressionChecker;
 
 	/**
 	 * Holds the environment.
@@ -54,8 +54,8 @@ public class StatementTypeCheckerTest extends VisitorTest<Boolean> implements IS
 		super();
 
 		this.environment = new Environment();
-		this.expressionVisitor = new ExpressionChecker( this.environment );
-		this.statementVisitor = new StatementChecker( this.environment, this.expressionVisitor );
+		this.expressionChecker = new ExpressionChecker( this.environment );
+		this.statementChecker = new StatementChecker( this.environment, this.expressionChecker );
 	}
 
 	/**
@@ -67,7 +67,7 @@ public class StatementTypeCheckerTest extends VisitorTest<Boolean> implements IS
 	 */
 	private Boolean typeCheck( Statement statement ) {
 		this.environment.getErrors().clear();
-		return statement.accept( this.statementVisitor );
+		return statement.accept( this.statementChecker );
 	}
 
 	@Override
