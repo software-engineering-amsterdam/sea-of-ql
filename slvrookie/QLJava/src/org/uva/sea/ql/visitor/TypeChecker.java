@@ -40,12 +40,12 @@ public class TypeChecker {
 	}
 
 	public void visit(IfThen ifBody) {
-		isExpressionBoolean(ifBody);
+		isConditionBoolean(ifBody);
 		ifBody.getThenBody().accept(this);
 	}
 	
 	public void visit(IfThenElse ifBody) {
-		isExpressionBoolean(ifBody);
+		isConditionBoolean(ifBody);
 		ifBody.getThenBody().accept(this);
 		ifBody.getElseBody().accept(this);
 	}
@@ -63,17 +63,17 @@ public class TypeChecker {
 	}
 
 	public void isIdentDeclared(Question question) {
-		if (typeEnv.containsKey(question.getQuestionID().getName())) {
-			addError("Question Ident " + question.getQuestionID().getName() + " is already declared");
+		if (typeEnv.containsKey(question.getQuestionName().getName())) {
+			addError("Question Ident " + question.getQuestionName().getName() + " is already declared");
 		} else {
-			typeEnv.put(question.getQuestionID().getName(),question.getQuestionType());
+			typeEnv.put(question.getQuestionName().getName(),question.getQuestionType());
 		}
 	}
 	
-	public void isExpressionBoolean(IfThen ifBody){
-		ExprVisitor.check(ifBody.getExpression(), typeEnv, messages);
-		if (!ifBody.getExpression().typeOf(typeEnv).isCompatibleToBoolType()) {
-			addError("If expression must be boolean");
+	public void isConditionBoolean(IfThen ifBody){
+		ExprVisitor.check(ifBody.getCondition(), typeEnv, messages);
+		if (!ifBody.getCondition().typeOf(typeEnv).isCompatibleToBoolType()) {
+			addError("If condition must be boolean");
 		}
 	}
 	

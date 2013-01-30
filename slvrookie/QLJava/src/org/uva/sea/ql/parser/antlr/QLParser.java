@@ -1,4 +1,4 @@
-// $ANTLR 3.5 C:\\Users\\SliverPente\\workspaceindigo\\QLJAVA\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g 2013-01-26 12:25:59
+// $ANTLR 3.5 C:\\Users\\SliverPente\\workspaceindigo\\QLJAVA\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g 2013-01-28 14:51:53
 
 package org.uva.sea.ql.parser.antlr;
 import org.uva.sea.ql.ast.*;
@@ -747,7 +747,7 @@ public class QLParser extends Parser {
 
 
 	// $ANTLR start "formElement"
-	// C:\\Users\\SliverPente\\workspaceindigo\\QLJAVA\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:102:1: formElement returns [FormElement result] : ( 'if' '(' x= orExpr ')' '{' thenbody= formblock '}' 'else' '{' elsebody= formblock '}' | 'if' '(' x= orExpr ')' '{' thbody= formblock '}' | Ident ':' StringLiteral type '(' orExpr ')' | Ident ':' StringLiteral type );
+	// C:\\Users\\SliverPente\\workspaceindigo\\QLJAVA\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:102:1: formElement returns [FormElement result] : ( 'if' '(' x= orExpr ')' '{' thenbody= formblock '}' 'else' '{' elsebody= formblock '}' | 'if' '(' x= orExpr ')' '{' thenbody= formblock '}' | Ident ':' StringLiteral type '(' orExpr ')' | Ident ':' StringLiteral type );
 	public final FormElement formElement() throws RecognitionException {
 		FormElement result = null;
 
@@ -760,7 +760,6 @@ public class QLParser extends Parser {
 		Expr x =null;
 		Block thenbody =null;
 		Block elsebody =null;
-		Block thbody =null;
 		Type type9 =null;
 		Expr orExpr10 =null;
 		Type type13 =null;
@@ -768,7 +767,7 @@ public class QLParser extends Parser {
 		try {
 			if ( state.backtracking>0 && alreadyParsedRule(input, 9) ) { return result; }
 
-			// C:\\Users\\SliverPente\\workspaceindigo\\QLJAVA\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:103:5: ( 'if' '(' x= orExpr ')' '{' thenbody= formblock '}' 'else' '{' elsebody= formblock '}' | 'if' '(' x= orExpr ')' '{' thbody= formblock '}' | Ident ':' StringLiteral type '(' orExpr ')' | Ident ':' StringLiteral type )
+			// C:\\Users\\SliverPente\\workspaceindigo\\QLJAVA\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:103:5: ( 'if' '(' x= orExpr ')' '{' thenbody= formblock '}' 'else' '{' elsebody= formblock '}' | 'if' '(' x= orExpr ')' '{' thenbody= formblock '}' | Ident ':' StringLiteral type '(' orExpr ')' | Ident ':' StringLiteral type )
 			int alt8=4;
 			int LA8_0 = input.LA(1);
 			if ( (LA8_0==30) ) {
@@ -840,7 +839,7 @@ public class QLParser extends Parser {
 					}
 					break;
 				case 2 :
-					// C:\\Users\\SliverPente\\workspaceindigo\\QLJAVA\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:104:7: 'if' '(' x= orExpr ')' '{' thbody= formblock '}'
+					// C:\\Users\\SliverPente\\workspaceindigo\\QLJAVA\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:104:7: 'if' '(' x= orExpr ')' '{' thenbody= formblock '}'
 					{
 					match(input,30,FOLLOW_30_in_formElement582); if (state.failed) return result;
 					match(input,16,FOLLOW_16_in_formElement584); if (state.failed) return result;
@@ -851,11 +850,11 @@ public class QLParser extends Parser {
 					match(input,17,FOLLOW_17_in_formElement592); if (state.failed) return result;
 					match(input,31,FOLLOW_31_in_formElement595); if (state.failed) return result;
 					pushFollow(FOLLOW_formblock_in_formElement599);
-					thbody=formblock();
+					thenbody=formblock();
 					state._fsp--;
 					if (state.failed) return result;
 					match(input,33,FOLLOW_33_in_formElement601); if (state.failed) return result;
-					if ( state.backtracking==0 ) { result = new IfThen(x, thbody); }
+					if ( state.backtracking==0 ) { result = new IfThen(x, thenbody); }
 					}
 					break;
 				case 3 :
@@ -1050,10 +1049,10 @@ public class QLParser extends Parser {
 	// $ANTLR start synpred22_QL
 	public final void synpred22_QL_fragment() throws RecognitionException {
 		Expr x =null;
-		Block thbody =null;
+		Block thenbody =null;
 
-		// C:\\Users\\SliverPente\\workspaceindigo\\QLJAVA\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:104:7: ( 'if' '(' x= orExpr ')' '{' thbody= formblock '}' )
-		// C:\\Users\\SliverPente\\workspaceindigo\\QLJAVA\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:104:7: 'if' '(' x= orExpr ')' '{' thbody= formblock '}'
+		// C:\\Users\\SliverPente\\workspaceindigo\\QLJAVA\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:104:7: ( 'if' '(' x= orExpr ')' '{' thenbody= formblock '}' )
+		// C:\\Users\\SliverPente\\workspaceindigo\\QLJAVA\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:104:7: 'if' '(' x= orExpr ')' '{' thenbody= formblock '}'
 		{
 		match(input,30,FOLLOW_30_in_synpred22_QL582); if (state.failed) return;
 		match(input,16,FOLLOW_16_in_synpred22_QL584); if (state.failed) return;
@@ -1064,7 +1063,7 @@ public class QLParser extends Parser {
 		match(input,17,FOLLOW_17_in_synpred22_QL592); if (state.failed) return;
 		match(input,31,FOLLOW_31_in_synpred22_QL595); if (state.failed) return;
 		pushFollow(FOLLOW_formblock_in_synpred22_QL599);
-		thbody=formblock();
+		thenbody=formblock();
 		state._fsp--;
 		if (state.failed) return;
 		match(input,33,FOLLOW_33_in_synpred22_QL601); if (state.failed) return;

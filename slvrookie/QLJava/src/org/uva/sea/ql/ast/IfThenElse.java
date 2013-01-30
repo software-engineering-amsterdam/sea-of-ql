@@ -7,8 +7,8 @@ public class IfThenElse extends IfThen {
 
 	private final Block elseBody;
 
-	public IfThenElse(Expr expression, Block thenBody, Block elseBody) {
-		super(expression, thenBody);
+	public IfThenElse(Expr condition, Block thenBody, Block elseBody) {
+		super(condition, thenBody);
 		this.elseBody = elseBody;
 	}
 
