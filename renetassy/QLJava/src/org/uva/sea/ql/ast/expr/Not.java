@@ -2,7 +2,7 @@ package org.uva.sea.ql.ast.expr;
 
 import java.util.Map;
 
-import org.uva.sea.ql.ast.ASTVisitor;
+import org.uva.sea.ql.ast.ExprTypeChecker;
 import org.uva.sea.ql.ast.types.BoolType;
 import org.uva.sea.ql.ast.types.Type;
 
@@ -15,7 +15,7 @@ public class Not extends Unary {
 	}
 
 	@Override
-	public boolean accept(ASTVisitor visitor) {
+	public boolean accept(ExprTypeChecker visitor) {
 		return visitor.visit(this);
 	}
 

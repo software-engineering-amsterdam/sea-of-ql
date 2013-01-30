@@ -20,7 +20,7 @@ import org.uva.sea.ql.ast.expr.Pos;
 import org.uva.sea.ql.ast.expr.StringLiteral;
 import org.uva.sea.ql.ast.expr.Sub;
 
-public interface IASTVisitor {
+public interface IExprTypeChecker {
 	
 	boolean visit(Add node);
 	boolean visit(And node);

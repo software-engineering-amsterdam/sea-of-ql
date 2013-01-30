@@ -8,35 +8,34 @@ import java.util.List;
 import java.util.Map;
 
 import org.junit.Test;
-import org.uva.sea.ql.ast.ASTVisitor;
+import org.uva.sea.ql.ast.ExprTypeChecker;
 import org.uva.sea.ql.ast.Form;
 import org.uva.sea.ql.ast.types.Type;
 import org.uva.sea.ql.parser.antlr.ANTLRParser;
 
-public class TestTypeChecker {
+public class TestExprTypeChecker {
 
 	private ANTLRParser parser;
 	private Map<String,Type> typeEnvironment;
 	private List<String> errors;
-	private ASTVisitor typeChecker;
+	private ExprTypeChecker typeChecker;
 
-	public TestTypeChecker() {
+	public TestExprTypeChecker() {
 		
 		parser = new ANTLRParser();
 		errors = new ArrayList<String>();
 		typeEnvironment = new HashMap<String, Type> ();
-		typeChecker = new ASTVisitor(typeEnvironment,errors);
+		typeChecker = new ExprTypeChecker(typeEnvironment,errors);
 
 	}
 	
 	@Test
 	public void testExprTypeChecker() throws ParseError {
 		
-		assertEquals(Form.class, typeChecker.check(parser.parse("5 + 6 && 8"),typeEnvironment, errors));
+		assertEquals(true, typeChecker.check(parser.parse("5 + 6 - 2 * (-23) +34"),typeEnvironment, errors));
+		assertEquals(true, typeChecker.check(parser.parse("5<=9 || true"), typeEnvironment, errors));
+		assertEquals(true, typeChecker.check(parser.parse("(+5<=-9) && !false || true"), typeEnvironment, errors));
 		
-		for (String error : typeChecker.getErrors()){
-			System.out.println(error);
-		}
 	}
 	
 	

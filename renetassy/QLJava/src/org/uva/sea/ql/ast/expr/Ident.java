@@ -2,7 +2,7 @@ package org.uva.sea.ql.ast.expr;
 
 import java.util.Map;
 
-import org.uva.sea.ql.ast.ASTVisitor;
+import org.uva.sea.ql.ast.ExprTypeChecker;
 import org.uva.sea.ql.ast.types.Type;
 import org.uva.sea.ql.ast.types.UndefinedType;
 
@@ -19,7 +19,7 @@ public class Ident extends Expr {
 	}
 
 	@Override
-	public boolean accept(ASTVisitor visitor) {
+	public boolean accept(ExprTypeChecker visitor) {
 		return visitor.visit(this);
 	}
 
