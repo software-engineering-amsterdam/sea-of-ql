@@ -1,32 +1,34 @@
-stylesheet test;
+stylesheet test;  
 
 bool {
-color: "red"
+color: "rgba(255, 128, 128, 50%)"
 }
 
-int {
+int { 
 minimum: 4
-widget:spinbox
-widget: spinbox // TODO: duplicate rules
-}
-
-sellingPrice {
-stepSize: -19.3
-}
-
-
-
-group "hi" {
+//widget:SpinBox 
+} 
+ 
+sellingPrice {  
+stepSize: -19.3  
+} 
+ 
+ 
+ 
+group "hi" { 
 	over
 	DateQ
-}
+}    
 
-group "hdi" {
+group "hdi" { 
 hasMaintLoan
 	
-	
 }
 
+
+
 over {
-	widget: combobox
+//	widget: ComboBox
+	font: "italic bold 20px Times New Roman"
+	color: "blue" 
 }

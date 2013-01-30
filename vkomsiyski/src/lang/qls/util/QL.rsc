@@ -4,8 +4,10 @@ import lang::ql::ast::AST;
 import lang::ql::util::Implode;
 import util::Resources;
 
+private loc projectLoc = |project://QL-R|;
+
 //scan the current project and find a corresponding QL file
-public Form getForm(loc projectLoc, str name) {
+public Form getForm(str name) {
 	Resource resource = getProject(projectLoc);
 	visit (resource) {
 	case file(l): 
