@@ -4,7 +4,7 @@ import org.uva.sea.ql.Message;
 import org.uva.sea.ql.ast.Form;
 import org.uva.sea.ql.parser.ParseError;
 import org.uva.sea.ql.parser.Parser;
-import org.uva.sea.ql.typechecker.TypecheckerVisitor;
+import org.uva.sea.ql.semanticAnalyzer.SemanticAnalyzerVisitor;
 
 import java.util.Iterator;
 import java.util.List;
@@ -23,17 +23,17 @@ public class FormLoaderImpl implements FormLoader {
     public Form loadForm() {
         try {
             Form form = formParser.parse(formSource.loadFormData());
-            List<Message> errors = TypecheckerVisitor.typecheck(form);
+            List<Message> errors = SemanticAnalyzerVisitor.analyze(form);
             if(errors.isEmpty())
                 return form;
             else
-                throw buildTypecheckerErrorlistException(errors);
+                throw buildSemanticAnalysisErrorlistException(errors);
         } catch(ParseError parseError) {
             throw new FormLoaderException(parseError);
         }
     }
 
-    private FormLoaderException buildTypecheckerErrorlistException(Iterable<Message> errors) {
+    private FormLoaderException buildSemanticAnalysisErrorlistException(Iterable<Message> errors) {
         StringBuilder exceptionStringBuilder = new StringBuilder("The following errors occurred during the semantic analysis of the form:\n");
 
         for(Iterator<Message> iterator = errors.iterator(); iterator.hasNext(); ) {

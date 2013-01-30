@@ -1,4 +1,4 @@
-package org.uva.sea.ql.tests.typechecker.typecheckerVisitorTests;
+package org.uva.sea.ql.tests.semanticAnalyzer.semanticAnalyzerVisitorTests;
 
 import org.uva.sea.ql.ast.expr.BinaryExpr;
 import org.uva.sea.ql.ast.expr.Eq;

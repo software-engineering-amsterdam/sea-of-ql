@@ -1,4 +1,4 @@
-package org.uva.sea.ql.tests.typechecker.typecheckerVisitorTests;
+package org.uva.sea.ql.tests.semanticAnalyzer.semanticAnalyzerVisitorTests;
 
 import static org.junit.Assert.*;
 
@@ -10,7 +10,7 @@ import org.uva.sea.ql.ast.expr.value.Int;
 import org.uva.sea.ql.ast.expr.value.Str;
 import org.uva.sea.ql.ast.expr.value.Value;
 
-public class OperatorTests extends TypecheckerVisitorTests {
+public class OperatorTests extends SemanticAnalyzerVisitorTests {
 	
 	protected static final Value BOOLEAN = new Bool(true),
                                  INT     = new Int(10),

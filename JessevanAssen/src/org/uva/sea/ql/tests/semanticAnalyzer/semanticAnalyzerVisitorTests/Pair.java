@@ -1,4 +1,4 @@
-package org.uva.sea.ql.tests.typechecker.typecheckerVisitorTests;
+package org.uva.sea.ql.tests.semanticAnalyzer.semanticAnalyzerVisitorTests;
 
 class Pair<T> {
 	

@@ -1,4 +1,4 @@
-package org.uva.sea.ql.tests.typechecker.typecheckerVisitorTests;
+package org.uva.sea.ql.tests.semanticAnalyzer.semanticAnalyzerVisitorTests;
 
 import org.junit.Test;
 import org.uva.sea.ql.ast.FormElement;
@@ -13,7 +13,7 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-public class IfTests extends TypecheckerVisitorTests {
+public class IfTests extends SemanticAnalyzerVisitorTests {
 
     @Test
     public void expressionIsBoolean_noErrorsAreAdded() {

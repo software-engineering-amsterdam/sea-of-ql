@@ -1,4 +1,4 @@
-package org.uva.sea.ql.tests.typechecker.typecheckerVisitorTests;
+package org.uva.sea.ql.tests.semanticAnalyzer.semanticAnalyzerVisitorTests;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -8,7 +8,7 @@ import org.uva.sea.ql.ast.Question;
 import org.uva.sea.ql.ast.expr.Ident;
 import org.uva.sea.ql.ast.type.*;
 
-public class IdentTests extends TypecheckerVisitorTests {
+public class IdentTests extends SemanticAnalyzerVisitorTests {
 
 	@Test
 	public void visitsIdent_usesTypeFromSymbolTable() {

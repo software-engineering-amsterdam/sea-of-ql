@@ -1,4 +1,4 @@
-package org.uva.sea.ql.tests.typechecker.typecheckerVisitorTests;
+package org.uva.sea.ql.tests.semanticAnalyzer.semanticAnalyzerVisitorTests;
 
 import org.junit.Test;
 import org.uva.sea.ql.ast.Question;
@@ -11,10 +11,10 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-public class QuestionTests extends TypecheckerVisitorTests {
+public class QuestionTests extends SemanticAnalyzerVisitorTests {
 
     @Test
-    public void typecheckerIsCalledOnQuestion_IdentifierIsAddedToSymbolTable() {
+    public void acceptIsCalledOnQuestion_IdentifierIsAddedToSymbolTable() {
         final Ident identifier = new Ident("a");
         final Type type = new Bool();
         final Question question = new Question("a", identifier, type);

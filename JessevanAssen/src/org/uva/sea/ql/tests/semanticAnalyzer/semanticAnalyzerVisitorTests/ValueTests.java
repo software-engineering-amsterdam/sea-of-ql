@@ -1,10 +1,10 @@
-package org.uva.sea.ql.tests.typechecker.typecheckerVisitorTests;
+package org.uva.sea.ql.tests.semanticAnalyzer.semanticAnalyzerVisitorTests;
 
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
-public class ValueTests extends TypecheckerVisitorTests {
+public class ValueTests extends SemanticAnalyzerVisitorTests {
 
 	@Test
 	public void visitBoolValue_returnsBoolType() {

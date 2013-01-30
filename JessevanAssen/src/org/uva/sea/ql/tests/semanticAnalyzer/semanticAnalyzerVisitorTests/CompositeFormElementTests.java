@@ -1,4 +1,4 @@
-package org.uva.sea.ql.tests.typechecker.typecheckerVisitorTests;
+package org.uva.sea.ql.tests.semanticAnalyzer.semanticAnalyzerVisitorTests;
 
 import org.junit.Test;
 import org.uva.sea.ql.ast.CompositeFormElement;
@@ -9,7 +9,7 @@ import java.util.Arrays;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
-public class CompositeFormElementTests extends TypecheckerVisitorTests {
+public class CompositeFormElementTests extends SemanticAnalyzerVisitorTests {
 
     @Test
     public void acceptIsCalled_acceptIsCalledOnAllSubFormElements() {

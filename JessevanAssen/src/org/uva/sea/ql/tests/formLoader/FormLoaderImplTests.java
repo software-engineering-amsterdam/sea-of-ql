@@ -48,7 +48,7 @@ public class FormLoaderImplTests {
     }
 
     @Test(expected = FormLoaderException.class)
-    public void typecheckerFails_throwsFormLoaderException() throws ParseError {
+    public void semanticAnalyzerFails_throwsFormLoaderException() throws ParseError {
         Parser mockParser = mock(Parser.class);
         final Form inconsistentForm = new Form(
                 new Ident(""),

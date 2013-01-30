@@ -1,4 +1,4 @@
-package org.uva.sea.ql.tests.typechecker.typecheckerVisitorTests;
+package org.uva.sea.ql.tests.semanticAnalyzer.semanticAnalyzerVisitorTests;
 
 import org.junit.Test;
 import org.uva.sea.ql.ast.StoredExpression;
@@ -6,7 +6,7 @@ import org.uva.sea.ql.ast.expr.Ident;
 
 import static junit.framework.Assert.*;
 
-public class StoredExpressionTests extends TypecheckerVisitorTests {
+public class StoredExpressionTests extends SemanticAnalyzerVisitorTests {
 
     private final Ident identifier = new Ident("identifier");
     private final StoredExpression storedExpression = new StoredExpression(

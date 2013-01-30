@@ -1,4 +1,4 @@
-package org.uva.sea.ql.typechecker;
+package org.uva.sea.ql.semanticAnalyzer;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -11,7 +11,7 @@ import org.uva.sea.ql.ast.*;
 import org.uva.sea.ql.ast.expr.*;
 import org.uva.sea.ql.ast.type.*;
 
-public class TypecheckerVisitor implements ASTNodeVisitor<Type, TypecheckerVisitor.Context> {
+public class SemanticAnalyzerVisitor implements ASTNodeVisitor<Type, SemanticAnalyzerVisitor.Context> {
 
     public static class Context {
         private final Map<Ident, Type> symbolTable;
@@ -35,16 +35,16 @@ public class TypecheckerVisitor implements ASTNodeVisitor<Type, TypecheckerVisit
     /**
      * Private constructor to indicate that no instance should be made of this class.
      */
-    private TypecheckerVisitor() { }
+    private SemanticAnalyzerVisitor() { }
 
     /**
      * This method checks a form for errors.
      * @return A list of errors. When no errors are found, an empty list is returned.
      */
-	public static List<Message> typecheck(Form form) {
-        TypecheckerVisitor typecheckerVisitor = new TypecheckerVisitor();
+	public static List<Message> analyze(Form form) {
+        SemanticAnalyzerVisitor semanticAnalyzerVisitor = new SemanticAnalyzerVisitor();
 		Context context = new Context();
-        form.accept(typecheckerVisitor, context);
+        form.accept(semanticAnalyzerVisitor, context);
         return context.getErrors();
     }
 
