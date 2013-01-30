@@ -19,13 +19,13 @@ public class TestTypeChecker {
 	public void testTypeCheck() throws ParseError {
 		TypeChecker checker = new TypeChecker();
 		String form1 = "form bigBox1HouseOwning {"
-				+ "   		hasSoldHouse1: \"Did you sell a house in 2010?\" int \n"
+				+ "   		hasSoldHouse1: \"Did you sell a house in 2010?\" money \n"
 				+ "   		hasSoldHouse2: \"Did you by a house in 2010?\" boolean \n"
 				+ "   		hasSoldHouse3: \"Did you enter a loan for maintenance/reconstruction?\"boolean \n"
-				+ "   			if (hasSoldHouse1>3 == ((3+3)>2.00)){ \n"
+				+ "   			if ((hasSoldHouse1>2) != ((3+2)<2.00)){ \n"
 				+ "   				hasSoldHouse4: \"Price the house was sold for:\" int \n"
 				+ "     			hasSoldHouse5:  \"Private debts for the sold house:\" int \n" 
-				+ "     			hasSoldHouse6: \"Value residue:\" int(3.00+3) \n }" 
+				+ "     			hasSoldHouse6: \"Value residue:\" int((3.00+3.00)-2.00) \n }" 
 				+ "		 				else {"
 				+ "							hasSoldHouse7: \"Value residue:\" int(7-3) "
 				+ "							hasSoldHouse8: \"Value residue:\" int(7-6) "

@@ -14,16 +14,14 @@ public class ExprVisitor implements IExprVisitor<Boolean> {
 	
 	private final Map<String, Type> typeEnv;
 	private final List<String> messages;
-	private final Type lastType;
 	
-	private ExprVisitor(Map<String, Type> tenv, List<String> messages, Type lastType) {
+	private ExprVisitor(Map<String, Type> tenv, List<String> messages) {
 		this.typeEnv = tenv;
 		this.messages = messages;
-		this.lastType = lastType;
 	}
 	
-	public static boolean check(Expr expr, Map<String, Type> typeEnv, List<String> errs, Type lastType) {
-		ExprVisitor check = new ExprVisitor(typeEnv, errs, lastType);
+	public static boolean check(Expr expr, Map<String, Type> typeEnv, List<String> errs) {
+		ExprVisitor check = new ExprVisitor(typeEnv, errs);
 		return expr.accept(check);
 	}
 	
@@ -215,16 +213,10 @@ public class ExprVisitor implements IExprVisitor<Boolean> {
 	}
 	
 	private boolean areBothSidesCompatibleToNumeric(BinaryExpr node, String operator ) {
-		if (!(node.getLhs().typeOf(typeEnv).isCompatibleToNumeric() && node.getRhs().typeOf(typeEnv).isCompatibleToNumeric())) {   //&& node.getLhs().typeOf(typeEnv).isCompatibleTo(node.getRhs().typeOf(typeEnv)
-			addError("invalid types for " + operator);
+		if (!(node.getLhs().typeOf(typeEnv).isCompatibleToNumeric() && node.getRhs().typeOf(typeEnv).isCompatibleToNumeric())) { 
+			addError("invalid types for " + operator + "Booleans are not allowed for this expression");
 			return false;
 		}
-		if (!lastType.isCompatibleToErrorType()&&!lastType.isCompatibleToBoolType()){
-			if (!node.getRhs().typeOf(typeEnv).isCompatibleTo(lastType)||!node.getLhs().typeOf(typeEnv).isCompatibleTo(lastType)){
-				addError("Expression will be of a different type than the one declared");
-				return false;
-			}
-		}  
 		return true;
 	}
 	
