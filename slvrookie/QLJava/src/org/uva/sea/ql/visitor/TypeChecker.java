@@ -18,6 +18,7 @@ public class TypeChecker {
 
 	private Map<String, Type> typeEnv = new HashMap<String, Type>();
 	private final List<String> messages = new ArrayList<String>();
+	private static Type lastType ;
 
 	public void addError(String error) {
 		this.messages.add(error);
@@ -54,7 +55,7 @@ public class TypeChecker {
 
 	public void visit(CompQuestion compQuestion) {
 		isIdentDeclared(compQuestion);
-		ExprVisitor.check(compQuestion.getQuestionExpr(), typeEnv, messages);
+		ExprVisitor.check(compQuestion.getQuestionExpr(), typeEnv, messages, lastType);
 		if (!compQuestion.getQuestionExpr().typeOf(typeEnv).isCompatibleTo(compQuestion.getQuestionType())) {
 			addError("Incompatible question type and expression");
 		}
@@ -65,11 +66,13 @@ public class TypeChecker {
 			addError("Question Ident " + question.getQuestionName().getName() + " is already declared");
 		} else {
 			typeEnv.put(question.getQuestionName().getName(),question.getQuestionType());
+			lastType = question.getQuestionType();
 		}
 	}
 	
 	public void isConditionBoolean(IfThen ifBody){
-		ExprVisitor.check(ifBody.getCondition(), typeEnv, messages);
+		lastType = new ErrorType();	
+		ExprVisitor.check(ifBody.getCondition(), typeEnv, messages, lastType) ;
 		if (!ifBody.getCondition().typeOf(typeEnv).isCompatibleToBoolType()) {
 			addError("If condition must be boolean");
 		}

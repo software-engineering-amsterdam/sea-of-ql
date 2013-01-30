@@ -17,5 +17,5 @@ public class Numeric extends Type {
 	public boolean isCompatibleToNumeric() {
 		return true;
 	}
-
+	
 }
