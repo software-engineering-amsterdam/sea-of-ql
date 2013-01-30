@@ -33,9 +33,7 @@ public class TypeChecker {
 	
 	public void visit(Block block) {
 		for (FormElement element : block.getBlock()) {
-			if (element != null) {
 				element.accept(this);
-			}
 		}
 	}
 
