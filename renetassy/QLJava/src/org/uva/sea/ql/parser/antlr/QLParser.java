@@ -1,10 +1,10 @@
-// $ANTLR 3.5 /home/rene/workspace/sea-of-ql/renetassy/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g 2013-01-28 16:05:39
+// $ANTLR 3.5 /home/rene/workspace/sea-of-ql/renetassy/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g 2013-01-30 01:31:17
 
 package org.uva.sea.ql.parser.antlr;
 import org.uva.sea.ql.ast.*;
 import org.uva.sea.ql.ast.expr.*;
 import org.uva.sea.ql.ast.stmnt.*;
-import org.uva.sea.ql.ast.qtype.*;
+import org.uva.sea.ql.ast.types.*;
 
 
 import org.antlr.runtime.*;
@@ -327,7 +327,7 @@ public class QLParser extends Parser {
 
 
 	// $ANTLR start "normalQuestion"
-	// /home/rene/workspace/sea-of-ql/renetassy/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:26:1: normalQuestion returns [Question result] : Ident ':' String questionType ;
+	// /home/rene/workspace/sea-of-ql/renetassy/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:26:1: normalQuestion returns [Question result] : Ident ':' String type ;
 	public final Question normalQuestion() throws RecognitionException {
 		Question result = null;
 
@@ -335,22 +335,22 @@ public class QLParser extends Parser {
 
 		Token Ident4=null;
 		Token String5=null;
-		QuestionType questionType6 =null;
+		Type type6 =null;
 
 		try {
 			if ( state.backtracking>0 && alreadyParsedRule(input, 3) ) { return result; }
 
-			// /home/rene/workspace/sea-of-ql/renetassy/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:27:2: ( Ident ':' String questionType )
-			// /home/rene/workspace/sea-of-ql/renetassy/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:27:4: Ident ':' String questionType
+			// /home/rene/workspace/sea-of-ql/renetassy/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:27:2: ( Ident ':' String type )
+			// /home/rene/workspace/sea-of-ql/renetassy/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:27:4: Ident ':' String type
 			{
 			Ident4=(Token)match(input,Ident,FOLLOW_Ident_in_normalQuestion102); if (state.failed) return result;
 			match(input,20,FOLLOW_20_in_normalQuestion104); if (state.failed) return result;
 			String5=(Token)match(input,String,FOLLOW_String_in_normalQuestion106); if (state.failed) return result;
-			pushFollow(FOLLOW_questionType_in_normalQuestion108);
-			questionType6=questionType();
+			pushFollow(FOLLOW_type_in_normalQuestion108);
+			type6=type();
 			state._fsp--;
 			if (state.failed) return result;
-			if ( state.backtracking==0 ) { result = new Question(new Ident((Ident4!=null?Ident4.getText():null)), new StringLiteral((String5!=null?String5.getText():null)), questionType6); }
+			if ( state.backtracking==0 ) { result = new Question(new Ident((Ident4!=null?Ident4.getText():null)), new StringLiteral((String5!=null?String5.getText():null)), type6); }
 			}
 
 		}
@@ -370,7 +370,7 @@ public class QLParser extends Parser {
 
 
 	// $ANTLR start "computedQuestion"
-	// /home/rene/workspace/sea-of-ql/renetassy/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:31:1: computedQuestion returns [computedQuestion result] : Ident ':' String questionType '(' orExpr ')' ;
+	// /home/rene/workspace/sea-of-ql/renetassy/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:31:1: computedQuestion returns [computedQuestion result] : Ident ':' String type '(' orExpr ')' ;
 	public final computedQuestion computedQuestion() throws RecognitionException {
 		computedQuestion result = null;
 
@@ -378,20 +378,20 @@ public class QLParser extends Parser {
 
 		Token Ident7=null;
 		Token String8=null;
-		QuestionType questionType9 =null;
+		Type type9 =null;
 		Expr orExpr10 =null;
 
 		try {
 			if ( state.backtracking>0 && alreadyParsedRule(input, 4) ) { return result; }
 
-			// /home/rene/workspace/sea-of-ql/renetassy/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:32:2: ( Ident ':' String questionType '(' orExpr ')' )
-			// /home/rene/workspace/sea-of-ql/renetassy/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:32:4: Ident ':' String questionType '(' orExpr ')'
+			// /home/rene/workspace/sea-of-ql/renetassy/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:32:2: ( Ident ':' String type '(' orExpr ')' )
+			// /home/rene/workspace/sea-of-ql/renetassy/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:32:4: Ident ':' String type '(' orExpr ')'
 			{
 			Ident7=(Token)match(input,Ident,FOLLOW_Ident_in_computedQuestion127); if (state.failed) return result;
 			match(input,20,FOLLOW_20_in_computedQuestion129); if (state.failed) return result;
 			String8=(Token)match(input,String,FOLLOW_String_in_computedQuestion131); if (state.failed) return result;
-			pushFollow(FOLLOW_questionType_in_computedQuestion133);
-			questionType9=questionType();
+			pushFollow(FOLLOW_type_in_computedQuestion133);
+			type9=type();
 			state._fsp--;
 			if (state.failed) return result;
 			match(input,14,FOLLOW_14_in_computedQuestion135); if (state.failed) return result;
@@ -400,7 +400,7 @@ public class QLParser extends Parser {
 			state._fsp--;
 			if (state.failed) return result;
 			match(input,15,FOLLOW_15_in_computedQuestion139); if (state.failed) return result;
-			if ( state.backtracking==0 ) { result = new computedQuestion(new Ident((Ident7!=null?Ident7.getText():null)), new StringLiteral((String8!=null?String8.getText():null)), questionType9, orExpr10); }
+			if ( state.backtracking==0 ) { result = new computedQuestion(new Ident((Ident7!=null?Ident7.getText():null)), new StringLiteral((String8!=null?String8.getText():null)), type9, orExpr10); }
 			}
 
 		}
@@ -419,12 +419,12 @@ public class QLParser extends Parser {
 
 
 
-	// $ANTLR start "questionType"
-	// /home/rene/workspace/sea-of-ql/renetassy/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:36:1: questionType returns [QuestionType result] : ( 'int' | 'bool' | 'string' );
-	public final QuestionType questionType() throws RecognitionException {
-		QuestionType result = null;
+	// $ANTLR start "type"
+	// /home/rene/workspace/sea-of-ql/renetassy/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:36:1: type returns [Type result] : ( 'int' | 'bool' | 'string' );
+	public final Type type() throws RecognitionException {
+		Type result = null;
 
-		int questionType_StartIndex = input.index();
+		int type_StartIndex = input.index();
 
 		try {
 			if ( state.backtracking>0 && alreadyParsedRule(input, 5) ) { return result; }
@@ -457,21 +457,21 @@ public class QLParser extends Parser {
 				case 1 :
 					// /home/rene/workspace/sea-of-ql/renetassy/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:37:4: 'int'
 					{
-					match(input,29,FOLLOW_29_in_questionType159); if (state.failed) return result;
+					match(input,29,FOLLOW_29_in_type159); if (state.failed) return result;
 					if ( state.backtracking==0 ) { result = new IntType(); }
 					}
 					break;
 				case 2 :
 					// /home/rene/workspace/sea-of-ql/renetassy/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:38:4: 'bool'
 					{
-					match(input,26,FOLLOW_26_in_questionType166); if (state.failed) return result;
+					match(input,26,FOLLOW_26_in_type166); if (state.failed) return result;
 					if ( state.backtracking==0 ) { result = new BoolType(); }
 					}
 					break;
 				case 3 :
 					// /home/rene/workspace/sea-of-ql/renetassy/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:39:4: 'string'
 					{
-					match(input,30,FOLLOW_30_in_questionType173); if (state.failed) return result;
+					match(input,30,FOLLOW_30_in_type173); if (state.failed) return result;
 					if ( state.backtracking==0 ) { result = new StringType(); }
 					}
 					break;
@@ -484,12 +484,12 @@ public class QLParser extends Parser {
 		}
 		finally {
 			// do for sure before leaving
-			if ( state.backtracking>0 ) { memoize(input, 5, questionType_StartIndex); }
+			if ( state.backtracking>0 ) { memoize(input, 5, type_StartIndex); }
 
 		}
 		return result;
 	}
-	// $ANTLR end "questionType"
+	// $ANTLR end "type"
 
 
 
@@ -1296,17 +1296,17 @@ public class QLParser extends Parser {
 	public static final BitSet FOLLOW_Ident_in_normalQuestion102 = new BitSet(new long[]{0x0000000000100000L});
 	public static final BitSet FOLLOW_20_in_normalQuestion104 = new BitSet(new long[]{0x0000000000000200L});
 	public static final BitSet FOLLOW_String_in_normalQuestion106 = new BitSet(new long[]{0x0000000064000000L});
-	public static final BitSet FOLLOW_questionType_in_normalQuestion108 = new BitSet(new long[]{0x0000000000000002L});
+	public static final BitSet FOLLOW_type_in_normalQuestion108 = new BitSet(new long[]{0x0000000000000002L});
 	public static final BitSet FOLLOW_Ident_in_computedQuestion127 = new BitSet(new long[]{0x0000000000100000L});
 	public static final BitSet FOLLOW_20_in_computedQuestion129 = new BitSet(new long[]{0x0000000000000200L});
 	public static final BitSet FOLLOW_String_in_computedQuestion131 = new BitSet(new long[]{0x0000000064000000L});
-	public static final BitSet FOLLOW_questionType_in_computedQuestion133 = new BitSet(new long[]{0x0000000000004000L});
+	public static final BitSet FOLLOW_type_in_computedQuestion133 = new BitSet(new long[]{0x0000000000004000L});
 	public static final BitSet FOLLOW_14_in_computedQuestion135 = new BitSet(new long[]{0x0000000000064A70L});
 	public static final BitSet FOLLOW_orExpr_in_computedQuestion137 = new BitSet(new long[]{0x0000000000008000L});
 	public static final BitSet FOLLOW_15_in_computedQuestion139 = new BitSet(new long[]{0x0000000000000002L});
-	public static final BitSet FOLLOW_29_in_questionType159 = new BitSet(new long[]{0x0000000000000002L});
-	public static final BitSet FOLLOW_26_in_questionType166 = new BitSet(new long[]{0x0000000000000002L});
-	public static final BitSet FOLLOW_30_in_questionType173 = new BitSet(new long[]{0x0000000000000002L});
+	public static final BitSet FOLLOW_29_in_type159 = new BitSet(new long[]{0x0000000000000002L});
+	public static final BitSet FOLLOW_26_in_type166 = new BitSet(new long[]{0x0000000000000002L});
+	public static final BitSet FOLLOW_30_in_type173 = new BitSet(new long[]{0x0000000000000002L});
 	public static final BitSet FOLLOW_question_in_statement193 = new BitSet(new long[]{0x0000000000000002L});
 	public static final BitSet FOLLOW_ifStatement_in_statement201 = new BitSet(new long[]{0x0000000000000002L});
 	public static final BitSet FOLLOW_31_in_body226 = new BitSet(new long[]{0x0000000210000020L});

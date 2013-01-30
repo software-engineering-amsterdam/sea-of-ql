@@ -22,25 +22,24 @@ import org.uva.sea.ql.ast.expr.Sub;
 
 public interface IASTVisitor {
 	
-	void visit(Add node);
-	void visit(And node);
-	//void visit(Binary node);
-	void visit(Div node);
-	void visit(Eq node);
-	void visit(GEq node);
-	void visit(GT node);
-	void visit(Ident node);
-	void visit(Int node);
-	void visit(LEq node);
-	void visit(LT node);
-	void visit(Mul node);
-	void visit(Neg node);
-	void visit(NEq node);
-	void visit(Not node);
-	void visit(Or node);
-	void visit(Pos node);
-	void visit(Sub node);
-	void visit(BoolLiteral node);
-	void visit(StringLiteral node);
+	boolean visit(Add node);
+	boolean visit(And node);
+	boolean visit(Div node);
+	boolean visit(Eq node);
+	boolean visit(GEq node);
+	boolean visit(GT node);
+	boolean visit(Ident node);
+	boolean visit(Int node);
+	boolean visit(LEq node);
+	boolean visit(LT node);
+	boolean visit(Mul node);
+	boolean visit(Neg node);
+	boolean visit(NEq node);
+	boolean visit(Not node);
+	boolean visit(Or node);
+	boolean visit(Pos node);
+	boolean visit(Sub node);
+	boolean visit(BoolLiteral node);
+	boolean visit(StringLiteral node);
 	
 }

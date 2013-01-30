@@ -1,6 +1,10 @@
 package org.uva.sea.ql.ast.expr;
 
+import java.util.Map;
+
 import org.uva.sea.ql.ast.ASTVisitor;
+import org.uva.sea.ql.ast.types.IntType;
+import org.uva.sea.ql.ast.types.Type;
 
 public class Int extends Expr {
 
@@ -15,8 +19,12 @@ public class Int extends Expr {
 	}
 
 	@Override
-	public void accept(ASTVisitor visitor) {
-		// TODO Auto-generated method stub
-		
+	public boolean accept(ASTVisitor visitor) {
+		return visitor.visit(this);
+	}
+
+	@Override
+	public Type isOfType(Map<String, Type> typeEnv) {
+		return new IntType();
 	}
 }

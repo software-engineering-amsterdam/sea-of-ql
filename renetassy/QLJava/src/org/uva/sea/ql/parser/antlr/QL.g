@@ -7,7 +7,7 @@ package org.uva.sea.ql.parser.antlr;
 import org.uva.sea.ql.ast.*;
 import org.uva.sea.ql.ast.expr.*;
 import org.uva.sea.ql.ast.stmnt.*;
-import org.uva.sea.ql.ast.qtype.*;
+import org.uva.sea.ql.ast.types.*;
 }
 
 @lexer::header
@@ -24,16 +24,16 @@ question returns [Question result]
 	;
 	
 normalQuestion returns [Question result]
-	: Ident ':' String questionType
-	{ result = new Question(new Ident($Ident.text), new StringLiteral($String.text), $questionType.result); }
+	: Ident ':' String type
+	{ result = new Question(new Ident($Ident.text), new StringLiteral($String.text), $type.result); }
 	;
 	
 computedQuestion returns [computedQuestion result]
-	: Ident ':' String questionType '(' orExpr ')' 
-	{ result = new computedQuestion(new Ident($Ident.text), new StringLiteral($String.text), $questionType.result, $orExpr.result); }
+	: Ident ':' String type '(' orExpr ')' 
+	{ result = new computedQuestion(new Ident($Ident.text), new StringLiteral($String.text), $type.result, $orExpr.result); }
 	;
 	
-questionType returns [QuestionType result]
+type returns [Type result]
 	: 'int' { $result = new IntType(); }
 	| 'bool' { $result = new BoolType(); }
 	| 'string' { $result = new StringType(); } 

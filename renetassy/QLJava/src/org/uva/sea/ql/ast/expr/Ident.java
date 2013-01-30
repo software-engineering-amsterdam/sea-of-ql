@@ -1,6 +1,10 @@
 package org.uva.sea.ql.ast.expr;
 
+import java.util.Map;
+
 import org.uva.sea.ql.ast.ASTVisitor;
+import org.uva.sea.ql.ast.types.Type;
+import org.uva.sea.ql.ast.types.UndefinedType;
 
 public class Ident extends Expr {
 
@@ -15,9 +19,18 @@ public class Ident extends Expr {
 	}
 
 	@Override
-	public void accept(ASTVisitor visitor) {
-		// TODO Auto-generated method stub
+	public boolean accept(ASTVisitor visitor) {
+		return visitor.visit(this);
+	}
+
+	@Override
+	public Type isOfType(Map<String, Type> typeEnvironment) {
 		
+		if(typeEnvironment.containsKey(name)) {
+			return typeEnvironment.get(name);
+		}
+		
+		return new UndefinedType();
 	}
 
 }

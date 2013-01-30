@@ -1,6 +1,10 @@
 package org.uva.sea.ql.ast.expr;
 
+import java.util.Map;
+
 import org.uva.sea.ql.ast.ASTVisitor;
+import org.uva.sea.ql.ast.types.StringType;
+import org.uva.sea.ql.ast.types.Type;
 
 
 public class StringLiteral extends Expr {
@@ -16,9 +20,13 @@ public class StringLiteral extends Expr {
 	}
 
 	@Override
-	public void accept(ASTVisitor visitor) {
-		// TODO Auto-generated method stub
-		
+	public boolean accept(ASTVisitor visitor) {
+		return visitor.visit(this);
+	}
+
+	@Override
+	public Type isOfType(Map<String, Type> typeEnv) {
+		return new StringType();
 	}
 
 }
