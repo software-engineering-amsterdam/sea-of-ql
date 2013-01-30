@@ -4,8 +4,10 @@ import java.io.File;
 import java.io.IOException;
 
 import org.antlr.runtime.ANTLRFileStream;
+import org.uva.sea.ql.interpreter.SwingVisitor;
 import org.uva.sea.ql.parser.antlr.ANTLRParser;
 import org.uva.sea.ql.parser.test.ParseError;
+import org.uva.sea.ql.swing.Renderer;
 
 public class Main {
 
@@ -17,7 +19,8 @@ public class Main {
 		try {
 			ANTLRFileStream charStream = new ANTLRFileStream(filePath.getAbsolutePath());
 			ANTLRParser parser = new ANTLRParser();
-			parser.parseForm(charStream.toString());
+			SwingVisitor.generate(parser.parseForm(charStream.toString()));
+			Renderer render=new Renderer(SwingVisitor.getQL());
 		} catch (IOException e) {
 			e.printStackTrace();
 		} catch (ParseError e) {

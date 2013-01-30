@@ -6,7 +6,7 @@ import org.uva.sea.ql.ast.expr.Expr;
 import org.uva.sea.ql.ast.expr.binary.bool.Bool;
 import org.uva.sea.ql.ast.types.NumericType;
 import org.uva.sea.ql.ast.types.Type;
-import org.uva.sea.ql.visitor.checkers.ExpressionChecker;
+import org.uva.sea.ql.visitor.IExprVisitor;
 
 public class Add extends Bool {
 
@@ -15,7 +15,7 @@ public class Add extends Bool {
 	}
 
 	@Override
-	public boolean accept(ExpressionChecker nodeVisitor) {
+	public <T> T accept(IExprVisitor<T> nodeVisitor) {
 		return nodeVisitor.visit(this);
 		
 	}

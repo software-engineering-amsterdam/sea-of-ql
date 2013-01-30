@@ -33,7 +33,7 @@ import org.uva.sea.ql.visitor.IExprVisitor;
 
 
 
-public class ExpressionChecker implements IExprVisitor {
+public class ExpressionChecker implements IExprVisitor<Boolean> {
 	private final Map<String, Type> declaredVar;
 	private final List<String> errorReport;
 	
@@ -54,13 +54,13 @@ public class ExpressionChecker implements IExprVisitor {
 
 
 	@Override
-	public boolean visit(Ident node) {
+	public Boolean visit(Ident node) {
 		return true;
 	}
 	
 //** Binary Exprs	
 	@Override
-	public boolean visit(Mul node) {
+	public Boolean visit(Mul node) {
 		if(!checkBranches(node)) return false;
 		if(!checkVarNames(node)) return false;
 		if(!checkAlgebraicExpr(node, "*")) return false;
@@ -69,7 +69,7 @@ public class ExpressionChecker implements IExprVisitor {
 	}
 	
 	@Override
-	public boolean visit(Sub node) {
+	public Boolean visit(Sub node) {
 		if(!checkBranches(node)) return false;
 		if(!checkVarNames(node)) return false;
 		if(!checkAlgebraicExpr(node, "-")) return false;
@@ -78,7 +78,7 @@ public class ExpressionChecker implements IExprVisitor {
 	}
 	
 	@Override
-	public boolean visit(Add node) {
+	public Boolean visit(Add node) {
 		if(!checkBranches(node)) return false;
 		if(!checkVarNames(node)) return false;
 		if(!checkAlgebraicExpr(node, "+")) return false;
@@ -87,7 +87,7 @@ public class ExpressionChecker implements IExprVisitor {
 
 	
 	@Override
-	public boolean visit(Div node) {
+	public Boolean visit(Div node) {
 		if(!checkBranches(node)) return false;
 		if(!checkVarNames(node)) return false;
 		if(!checkAlgebraicExpr(node, "/")) return false;
@@ -97,7 +97,7 @@ public class ExpressionChecker implements IExprVisitor {
 	
 	//** Logical Exprs	
 	@Override
-	public boolean visit(And node) {
+	public Boolean visit(And node) {
 		if(!checkBranches(node)) return false;
 		if(!checkVarNames(node)) return false;
 		if(!checkLogicalExpr(node, "&&")) return false;
@@ -106,7 +106,7 @@ public class ExpressionChecker implements IExprVisitor {
 	}
 
 	@Override
-	public boolean visit(Or node) {
+	public Boolean visit(Or node) {
 		if(!checkBranches(node)) return false;
 		if(!checkVarNames(node)) return false;
 		if(!checkLogicalExpr(node, "||")) return false;
@@ -117,7 +117,7 @@ public class ExpressionChecker implements IExprVisitor {
 
 	//** Comparison Exprs
 	@Override
-	public boolean visit(Eq node) {
+	public Boolean visit(Eq node) {
 		if(!checkBranches(node)) return false;
 		if(!checkVarNames(node)) return false;
 		if(!checkComparisonExpr(node, "==")) return false;
@@ -126,7 +126,7 @@ public class ExpressionChecker implements IExprVisitor {
 	}
 
 	@Override
-	public boolean visit(GEq node) {
+	public Boolean visit(GEq node) {
 		if(!checkBranches(node)) return false;
 		if(!checkVarNames(node)) return false;
 		if(!checkComparisonExpr(node, ">=")) return false;
@@ -136,7 +136,7 @@ public class ExpressionChecker implements IExprVisitor {
 	}
 
 	@Override
-	public boolean visit(GT node) {
+	public Boolean visit(GT node) {
 		if(!checkBranches(node)) return false;
 		if(!checkVarNames(node)) return false;
 		if(!checkComparisonExpr(node, ">")) return false;
@@ -145,7 +145,7 @@ public class ExpressionChecker implements IExprVisitor {
 
 	
 	@Override
-	public boolean visit(LEq node) {
+	public Boolean visit(LEq node) {
 		if(!checkBranches(node)) return false;
 		if(!checkVarNames(node)) return false;
 		if(!checkComparisonExpr(node, "<=")) return false;
@@ -154,7 +154,7 @@ public class ExpressionChecker implements IExprVisitor {
 	}
 
 	@Override
-	public boolean visit(LT node) {
+	public Boolean visit(LT node) {
 		if(!checkBranches(node)) return false;
 		if(!checkVarNames(node)) return false;
 		if(!checkComparisonExpr(node, ">")) return false;
@@ -166,7 +166,7 @@ public class ExpressionChecker implements IExprVisitor {
 	
 	//** Unary Exprs
 	@Override
-	public boolean visit(Neg node) {
+	public Boolean visit(Neg node) {
 		if(!checkOperand(node)) return false;
 		if(!checkVarName(node)) return false;
 		if(!isNumericOperand(node,"-")) return false;
@@ -175,7 +175,7 @@ public class ExpressionChecker implements IExprVisitor {
 	}
 
 	@Override
-	public boolean visit(NEq node) {
+	public Boolean visit(NEq node) {
 		if(!checkBranches(node)) return false;
 		if(!checkVarNames(node)) return false;
 		if(!checkComparisonExpr(node, "!=")) return false;
@@ -185,7 +185,7 @@ public class ExpressionChecker implements IExprVisitor {
 	}
 
 	@Override
-	public boolean visit(Not node) {
+	public Boolean visit(Not node) {
 		if(!checkOperand(node)) return false;
 		if(!checkVarName(node)) return false;
 		if(!isBoolOperand(node,"!")) return false;
@@ -196,7 +196,7 @@ public class ExpressionChecker implements IExprVisitor {
 	
 
 	@Override
-	public boolean visit(Pos node) {
+	public Boolean visit(Pos node) {
 		if(!checkOperand(node)) return false;
 		if(!checkVarName(node)) return false;
 		if(!isNumericOperand(node,"+")) return false;
@@ -206,24 +206,24 @@ public class ExpressionChecker implements IExprVisitor {
 
     //** Literal Exprs
 	@Override
-	public boolean visit(Int node) {
+	public Boolean visit(Int node) {
 		return true;
 
 	}
 
 	@Override
-	public boolean visit(BoolLit node) {
+	public Boolean visit(BoolLit node) {
 		return true;
 	}
 
 	@Override
-	public boolean visit(Decimal node) {
+	public Boolean visit(Decimal node) {
 		return true;
 
 	}
 
 	@Override
-	public boolean visit(StringLit node) {
+	public Boolean visit(StringLit node) {
 		return true;
 
 	}
@@ -334,7 +334,8 @@ public class ExpressionChecker implements IExprVisitor {
 	private boolean checkComparisonExpr(Binary node,String symbol){
 		Type leftExprType = node.getLeftExpr().isOfType(declaredVar);
 		Type rightExprType = node.getRightExpr().isOfType(declaredVar);
-		if (!(leftExprType.isCompatibleToType(rightExprType))) {
+		Type declaredType=getQuestionsType();
+		if (!(leftExprType.isCompatibleToType(rightExprType) &&  rightExprType.isCompatibleToType(declaredType))) {
 			errorReport.add("Invalid type for '"+symbol+"'. Both operands must be of the same type");
 			return false;
 		}

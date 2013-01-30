@@ -1,7 +1,7 @@
 package org.uva.sea.ql.ast.form;
 
 import org.uva.sea.ql.ast.expr.Ident;
-import org.uva.sea.ql.visitor.checkers.ElementChecker;
+import org.uva.sea.ql.visitor.IElementVisitor;
 
 public class Form extends QLProgram{
 	private final Ident id;
@@ -22,7 +22,7 @@ public class Form extends QLProgram{
 	}
 
 	@Override
-	public void accept(ElementChecker qlElement) {
+	public void accept(IElementVisitor qlElement) {
 			qlElement.visit(this);
 	}
 

@@ -21,27 +21,27 @@ import org.uva.sea.ql.ast.expr.values.Decimal;
 import org.uva.sea.ql.ast.expr.values.Int;
 import org.uva.sea.ql.ast.expr.values.StringLit;
 
-public interface IExprVisitor {
+public interface IExprVisitor<T> {
 	
 	
-	 public boolean visit(Add node);
-	 public boolean visit(And node);
-	 public boolean visit(Div node);
-	 public boolean visit(Eq node);
-	 public boolean visit(GEq node);
-	 public boolean visit(GT node);
-	 public boolean visit(Ident node);
-	 public boolean visit(LEq node);
-	 public boolean visit(LT node);
-	 public boolean visit(Mul node);
-	 public boolean visit(Neg node);
-	 public boolean visit(NEq node);
-	 public boolean visit(Not node);
-	 public boolean visit(Or node);
-	 public boolean visit(Pos node);
-	 public boolean visit(Sub node);
-	 public boolean visit(Int node);
-	 public boolean visit(BoolLit node);
-	 public boolean visit(Decimal node);
-	 public boolean visit(StringLit node);
+	 public T visit(Add node);
+	 public T visit(And node);
+	 public T visit(Div node);
+	 public T visit(Eq node);
+	 public T visit(GEq node);
+	 public T visit(GT node);
+	 public T visit(Ident node);
+	 public T visit(LEq node);
+	 public T visit(LT node);
+	 public T visit(Mul node);
+	 public T visit(Neg node);
+	 public T visit(NEq node);
+	 public T visit(Not node);
+	 public T visit(Or node);
+	 public T visit(Pos node);
+	 public T visit(Sub node);
+	 public T visit(Int node);
+	 public T visit(BoolLit node);
+	 public T visit(Decimal node);
+	 public T visit(StringLit node);
 }

@@ -40,15 +40,7 @@ public class TestTypes {
 
 	}
 	
-	@Test
-	public void testExprTypes() throws ParseError {
-		assertEquals(true, ExpressionChecker.check(parser.parseExpr("(true && false)"),declaredVars, errorReport));
-		assertEquals(true, ExpressionChecker.check(parser.parseExpr("(true && false) && true"),declaredVars, errorReport));
-		assertEquals(true, ExpressionChecker.check(parser.parseExpr("3==9"),declaredVars, errorReport));
-		assertEquals(true, ExpressionChecker.check(parser.parseExpr("(-9==+12) || !(true) && (true == !false) "),declaredVars, errorReport));
 	
-
-	}
 	
 	
 

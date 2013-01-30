@@ -4,7 +4,7 @@ import java.util.Map;
 
 import org.uva.sea.ql.ast.types.Type;
 import org.uva.sea.ql.ast.types.UndefinedType;
-import org.uva.sea.ql.visitor.checkers.ExpressionChecker;
+import org.uva.sea.ql.visitor.IExprVisitor;
 
 public class Ident extends Expr {
 
@@ -19,7 +19,7 @@ public class Ident extends Expr {
 	}
 
 	@Override
-	public boolean accept(ExpressionChecker nodeVisitor) {
+	public <T> T accept(IExprVisitor<T> nodeVisitor) {
 		return nodeVisitor.visit(this);
 		
 	}

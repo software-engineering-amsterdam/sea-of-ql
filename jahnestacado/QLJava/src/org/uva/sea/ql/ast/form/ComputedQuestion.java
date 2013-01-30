@@ -4,7 +4,7 @@ import org.uva.sea.ql.ast.expr.Expr;
 import org.uva.sea.ql.ast.expr.Ident;
 import org.uva.sea.ql.ast.expr.values.StringLit;
 import org.uva.sea.ql.ast.types.Type;
-import org.uva.sea.ql.visitor.checkers.ElementChecker;
+import org.uva.sea.ql.visitor.IElementVisitor;
 
 public class ComputedQuestion extends SingleLineElement {
 
@@ -20,7 +20,7 @@ public class ComputedQuestion extends SingleLineElement {
 	}
 
 	@Override
-	public void accept(ElementChecker qlElement) {
+	public void accept(IElementVisitor qlElement) {
 		qlElement.visit(this);
 	}
 

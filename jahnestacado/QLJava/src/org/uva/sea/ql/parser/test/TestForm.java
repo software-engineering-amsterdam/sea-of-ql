@@ -13,6 +13,7 @@ import org.uva.sea.ql.ast.form.Form;
 import org.uva.sea.ql.ast.form.IfThen;
 import org.uva.sea.ql.ast.form.IfThenElse;
 import org.uva.sea.ql.ast.form.Question;
+import org.uva.sea.ql.interpreter.SwingVisitor;
 import org.uva.sea.ql.parser.antlr.ANTLRParser;
 import org.uva.sea.ql.visitor.checkers.ElementChecker;
 
@@ -37,6 +38,8 @@ public class TestForm {
 			ANTLRFileStream charStream = new ANTLRFileStream(filePath.getAbsolutePath());
 			assertEquals(Form.class, parser.parseForm(charStream.toString()).getClass());
 			ElementChecker.checkQL(parser.parseForm(charStream.toString()));
+			
+			//parser.parseForm(charStream.toString()).accept(sw);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

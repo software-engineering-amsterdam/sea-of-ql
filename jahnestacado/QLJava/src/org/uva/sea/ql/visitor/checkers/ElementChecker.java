@@ -37,6 +37,7 @@ public class ElementChecker implements IElementVisitor {
 		ElementChecker checker=new ElementChecker(declaredVar,errorReport);
 		form.accept(checker);
 		printErrors(errorReport);
+		
 	}
 	
 	private void checkVarName(SingleLineElement qlElement){
@@ -77,6 +78,7 @@ public class ElementChecker implements IElementVisitor {
 	private void checkCondition(ConditionalElement qlElement){    
 		Expr condition=qlElement.getCondition(); 
 		Type conditionType=condition.isOfType(declaredVar);
+		ExpressionChecker.check(condition,declaredVar, errorReport);
 		if(conditionType.isCompatibleToUndefinedType()){
 			 Ident conditionID=(Ident) condition;
 			 addError("Variable '"+conditionID.getName()+"' is undefined.");

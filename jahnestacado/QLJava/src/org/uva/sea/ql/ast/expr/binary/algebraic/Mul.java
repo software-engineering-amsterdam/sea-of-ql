@@ -5,7 +5,7 @@ import java.util.Map;
 import org.uva.sea.ql.ast.expr.Expr;
 import org.uva.sea.ql.ast.types.NumericType;
 import org.uva.sea.ql.ast.types.Type;
-import org.uva.sea.ql.visitor.checkers.ExpressionChecker;
+import org.uva.sea.ql.visitor.IExprVisitor;
 
 public class Mul extends Algebraic{
 
@@ -14,7 +14,7 @@ public class Mul extends Algebraic{
 	}
 
 	@Override
-	public boolean accept(ExpressionChecker nodeVisitor) {
+	public <T> T accept(IExprVisitor<T> nodeVisitor) {
 		return nodeVisitor.visit(this);
 		
 	}

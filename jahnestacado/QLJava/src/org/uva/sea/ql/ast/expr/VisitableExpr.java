@@ -1,7 +1,7 @@
 package org.uva.sea.ql.ast.expr;
 
-import org.uva.sea.ql.visitor.checkers.ExpressionChecker;
+import org.uva.sea.ql.visitor.IExprVisitor;
 
 public interface VisitableExpr {
-	  public boolean accept(ExpressionChecker nodeVisitor);
+	  public abstract <T> T accept(IExprVisitor<T> nodeVisitor);
 }

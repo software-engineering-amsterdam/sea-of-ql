@@ -1,25 +1,14 @@
-// $ANTLR 3.4 /home/jahn/workspace1/jahnestacado/jahnestacado/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g 2013-01-29 20:48:39
+// $ANTLR 3.4 /home/jahn/workspace1/jahnestacado/jahnestacado/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g 2013-01-30 21:26:33
 
 package org.uva.sea.ql.parser.antlr;
 import org.uva.sea.ql.ast.*;
 import org.uva.sea.ql.ast.expr.*;
+import org.uva.sea.ql.ast.expr.binary.*;
+import org.uva.sea.ql.ast.expr.binary.algebraic.*;
+import org.uva.sea.ql.ast.expr.binary.bool.*;
+import org.uva.sea.ql.ast.expr.unary.*;
 import org.uva.sea.ql.ast.form.*;
 import org.uva.sea.ql.ast.types.*;
-import org.uva.sea.ql.ast.expr.binary.algebraic.Add;
-import org.uva.sea.ql.ast.expr.binary.algebraic.Div;
-import org.uva.sea.ql.ast.expr.binary.algebraic.Mul;
-import org.uva.sea.ql.ast.expr.binary.algebraic.Sub;
-import org.uva.sea.ql.ast.expr.binary.bool.And;
-import org.uva.sea.ql.ast.expr.binary.bool.Eq;
-import org.uva.sea.ql.ast.expr.binary.bool.GEq;
-import org.uva.sea.ql.ast.expr.binary.bool.GT;
-import org.uva.sea.ql.ast.expr.binary.bool.LEq;
-import org.uva.sea.ql.ast.expr.binary.bool.LT;
-import org.uva.sea.ql.ast.expr.binary.bool.NEq;
-import org.uva.sea.ql.ast.expr.binary.bool.Or;
-import org.uva.sea.ql.ast.expr.unary.Neg;
-import org.uva.sea.ql.ast.expr.unary.Not;
-import org.uva.sea.ql.ast.expr.unary.Pos;
 import org.uva.sea.ql.ast.expr.values.*;
 
 
@@ -95,7 +84,7 @@ public class QLParser extends Parser {
 
 
     // $ANTLR start "type"
-    // /home/jahn/workspace1/jahnestacado/jahnestacado/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:23:1: type returns [Type result] : ( INTEGER | BOOLEAN | STRING | MONEY );
+    // /home/jahn/workspace1/jahnestacado/jahnestacado/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:27:1: type returns [Type result] : ( INTEGER | BOOLEAN | STRING | MONEY );
     public final Type type() throws RecognitionException {
         Type result = null;
 
@@ -104,7 +93,7 @@ public class QLParser extends Parser {
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 1) ) { return result; }
 
-            // /home/jahn/workspace1/jahnestacado/jahnestacado/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:24:2: ( INTEGER | BOOLEAN | STRING | MONEY )
+            // /home/jahn/workspace1/jahnestacado/jahnestacado/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:28:2: ( INTEGER | BOOLEAN | STRING | MONEY )
             int alt1=4;
             switch ( input.LA(1) ) {
             case INTEGER:
@@ -138,7 +127,7 @@ public class QLParser extends Parser {
 
             switch (alt1) {
                 case 1 :
-                    // /home/jahn/workspace1/jahnestacado/jahnestacado/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:24:3: INTEGER
+                    // /home/jahn/workspace1/jahnestacado/jahnestacado/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:28:3: INTEGER
                     {
                     match(input,INTEGER,FOLLOW_INTEGER_in_type46); if (state.failed) return result;
 
@@ -147,7 +136,7 @@ public class QLParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // /home/jahn/workspace1/jahnestacado/jahnestacado/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:25:3: BOOLEAN
+                    // /home/jahn/workspace1/jahnestacado/jahnestacado/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:29:3: BOOLEAN
                     {
                     match(input,BOOLEAN,FOLLOW_BOOLEAN_in_type53); if (state.failed) return result;
 
@@ -156,7 +145,7 @@ public class QLParser extends Parser {
                     }
                     break;
                 case 3 :
-                    // /home/jahn/workspace1/jahnestacado/jahnestacado/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:26:3: STRING
+                    // /home/jahn/workspace1/jahnestacado/jahnestacado/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:30:3: STRING
                     {
                     match(input,STRING,FOLLOW_STRING_in_type60); if (state.failed) return result;
 
@@ -165,7 +154,7 @@ public class QLParser extends Parser {
                     }
                     break;
                 case 4 :
-                    // /home/jahn/workspace1/jahnestacado/jahnestacado/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:27:3: MONEY
+                    // /home/jahn/workspace1/jahnestacado/jahnestacado/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:31:3: MONEY
                     {
                     match(input,MONEY,FOLLOW_MONEY_in_type66); if (state.failed) return result;
 
@@ -193,7 +182,7 @@ public class QLParser extends Parser {
 
 
     // $ANTLR start "form"
-    // /home/jahn/workspace1/jahnestacado/jahnestacado/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:32:1: form returns [Form result] : 'form' Ident '{' body '}' EOF ;
+    // /home/jahn/workspace1/jahnestacado/jahnestacado/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:36:1: form returns [Form result] : 'form' Ident '{' body '}' EOF ;
     public final Form form() throws RecognitionException {
         Form result = null;
 
@@ -206,8 +195,8 @@ public class QLParser extends Parser {
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 2) ) { return result; }
 
-            // /home/jahn/workspace1/jahnestacado/jahnestacado/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:33:2: ( 'form' Ident '{' body '}' EOF )
-            // /home/jahn/workspace1/jahnestacado/jahnestacado/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:33:3: 'form' Ident '{' body '}' EOF
+            // /home/jahn/workspace1/jahnestacado/jahnestacado/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:37:2: ( 'form' Ident '{' body '}' EOF )
+            // /home/jahn/workspace1/jahnestacado/jahnestacado/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:37:3: 'form' Ident '{' body '}' EOF
             {
             match(input,31,FOLLOW_31_in_form86); if (state.failed) return result;
 
@@ -247,7 +236,7 @@ public class QLParser extends Parser {
 
 
     // $ANTLR start "body"
-    // /home/jahn/workspace1/jahnestacado/jahnestacado/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:40:2: body returns [Body result] : ( element )* ;
+    // /home/jahn/workspace1/jahnestacado/jahnestacado/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:44:2: body returns [Body result] : ( element )* ;
     public final Body body() throws RecognitionException {
         Body result = null;
 
@@ -260,10 +249,10 @@ public class QLParser extends Parser {
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 3) ) { return result; }
 
-            // /home/jahn/workspace1/jahnestacado/jahnestacado/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:42:3: ( ( element )* )
-            // /home/jahn/workspace1/jahnestacado/jahnestacado/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:42:4: ( element )*
+            // /home/jahn/workspace1/jahnestacado/jahnestacado/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:46:3: ( ( element )* )
+            // /home/jahn/workspace1/jahnestacado/jahnestacado/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:46:4: ( element )*
             {
-            // /home/jahn/workspace1/jahnestacado/jahnestacado/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:42:4: ( element )*
+            // /home/jahn/workspace1/jahnestacado/jahnestacado/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:46:4: ( element )*
             loop2:
             do {
                 int alt2=2;
@@ -276,7 +265,7 @@ public class QLParser extends Parser {
 
                 switch (alt2) {
             	case 1 :
-            	    // /home/jahn/workspace1/jahnestacado/jahnestacado/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:42:5: element
+            	    // /home/jahn/workspace1/jahnestacado/jahnestacado/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:46:5: element
             	    {
             	    pushFollow(FOLLOW_element_in_body132);
             	    element3=element();
@@ -317,7 +306,7 @@ public class QLParser extends Parser {
 
 
     // $ANTLR start "element"
-    // /home/jahn/workspace1/jahnestacado/jahnestacado/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:46:1: element returns [BodyElement result] : ( conditionalElement | question | computedQuestion );
+    // /home/jahn/workspace1/jahnestacado/jahnestacado/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:50:1: element returns [BodyElement result] : ( conditionalElement | question | computedQuestion );
     public final BodyElement element() throws RecognitionException {
         BodyElement result = null;
 
@@ -333,7 +322,7 @@ public class QLParser extends Parser {
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 4) ) { return result; }
 
-            // /home/jahn/workspace1/jahnestacado/jahnestacado/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:47:3: ( conditionalElement | question | computedQuestion )
+            // /home/jahn/workspace1/jahnestacado/jahnestacado/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:51:3: ( conditionalElement | question | computedQuestion )
             int alt3=3;
             int LA3_0 = input.LA(1);
 
@@ -466,7 +455,7 @@ public class QLParser extends Parser {
             }
             switch (alt3) {
                 case 1 :
-                    // /home/jahn/workspace1/jahnestacado/jahnestacado/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:47:4: conditionalElement
+                    // /home/jahn/workspace1/jahnestacado/jahnestacado/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:51:4: conditionalElement
                     {
                     pushFollow(FOLLOW_conditionalElement_in_element159);
                     conditionalElement4=conditionalElement();
@@ -479,7 +468,7 @@ public class QLParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // /home/jahn/workspace1/jahnestacado/jahnestacado/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:48:4: question
+                    // /home/jahn/workspace1/jahnestacado/jahnestacado/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:52:4: question
                     {
                     pushFollow(FOLLOW_question_in_element166);
                     question5=question();
@@ -492,7 +481,7 @@ public class QLParser extends Parser {
                     }
                     break;
                 case 3 :
-                    // /home/jahn/workspace1/jahnestacado/jahnestacado/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:49:4: computedQuestion
+                    // /home/jahn/workspace1/jahnestacado/jahnestacado/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:53:4: computedQuestion
                     {
                     pushFollow(FOLLOW_computedQuestion_in_element173);
                     computedQuestion6=computedQuestion();
@@ -524,7 +513,7 @@ public class QLParser extends Parser {
 
 
     // $ANTLR start "question"
-    // /home/jahn/workspace1/jahnestacado/jahnestacado/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:53:1: question returns [Question result] : Ident ':' StringLit type ;
+    // /home/jahn/workspace1/jahnestacado/jahnestacado/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:57:1: question returns [Question result] : Ident ':' StringLit type ;
     public final Question question() throws RecognitionException {
         Question result = null;
 
@@ -538,8 +527,8 @@ public class QLParser extends Parser {
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 5) ) { return result; }
 
-            // /home/jahn/workspace1/jahnestacado/jahnestacado/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:54:3: ( Ident ':' StringLit type )
-            // /home/jahn/workspace1/jahnestacado/jahnestacado/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:54:5: Ident ':' StringLit type
+            // /home/jahn/workspace1/jahnestacado/jahnestacado/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:58:3: ( Ident ':' StringLit type )
+            // /home/jahn/workspace1/jahnestacado/jahnestacado/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:58:5: Ident ':' StringLit type
             {
             Ident7=(Token)match(input,Ident,FOLLOW_Ident_in_question194); if (state.failed) return result;
 
@@ -575,7 +564,7 @@ public class QLParser extends Parser {
 
 
     // $ANTLR start "computedQuestion"
-    // /home/jahn/workspace1/jahnestacado/jahnestacado/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:56:1: computedQuestion returns [ComputedQuestion result] : Ident ':' StringLit type '(' expr= orExpr ')' ;
+    // /home/jahn/workspace1/jahnestacado/jahnestacado/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:60:1: computedQuestion returns [ComputedQuestion result] : Ident ':' StringLit type '(' expr= orExpr ')' ;
     public final ComputedQuestion computedQuestion() throws RecognitionException {
         ComputedQuestion result = null;
 
@@ -591,8 +580,8 @@ public class QLParser extends Parser {
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 6) ) { return result; }
 
-            // /home/jahn/workspace1/jahnestacado/jahnestacado/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:57:3: ( Ident ':' StringLit type '(' expr= orExpr ')' )
-            // /home/jahn/workspace1/jahnestacado/jahnestacado/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:57:5: Ident ':' StringLit type '(' expr= orExpr ')'
+            // /home/jahn/workspace1/jahnestacado/jahnestacado/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:61:3: ( Ident ':' StringLit type '(' expr= orExpr ')' )
+            // /home/jahn/workspace1/jahnestacado/jahnestacado/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:61:5: Ident ':' StringLit type '(' expr= orExpr ')'
             {
             Ident10=(Token)match(input,Ident,FOLLOW_Ident_in_computedQuestion218); if (state.failed) return result;
 
@@ -638,7 +627,7 @@ public class QLParser extends Parser {
 
 
     // $ANTLR start "conditionalElement"
-    // /home/jahn/workspace1/jahnestacado/jahnestacado/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:60:1: conditionalElement returns [ConditionalElement result] : ( 'if' '(' expr= orExpr ')' '{' b1= body '}' 'else' '{' b2= body '}' | 'if' '(' expr= orExpr ')' '{' body '}' );
+    // /home/jahn/workspace1/jahnestacado/jahnestacado/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:64:1: conditionalElement returns [ConditionalElement result] : ( 'if' '(' expr= orExpr ')' '{' b1= body '}' 'else' '{' b2= body '}' | 'if' '(' expr= orExpr ')' '{' body '}' );
     public final ConditionalElement conditionalElement() throws RecognitionException {
         ConditionalElement result = null;
 
@@ -656,7 +645,7 @@ public class QLParser extends Parser {
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 7) ) { return result; }
 
-            // /home/jahn/workspace1/jahnestacado/jahnestacado/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:61:2: ( 'if' '(' expr= orExpr ')' '{' b1= body '}' 'else' '{' b2= body '}' | 'if' '(' expr= orExpr ')' '{' body '}' )
+            // /home/jahn/workspace1/jahnestacado/jahnestacado/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:65:2: ( 'if' '(' expr= orExpr ')' '{' b1= body '}' 'else' '{' b2= body '}' | 'if' '(' expr= orExpr ')' '{' body '}' )
             int alt4=2;
             int LA4_0 = input.LA(1);
 
@@ -688,7 +677,7 @@ public class QLParser extends Parser {
             }
             switch (alt4) {
                 case 1 :
-                    // /home/jahn/workspace1/jahnestacado/jahnestacado/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:61:3: 'if' '(' expr= orExpr ')' '{' b1= body '}' 'else' '{' b2= body '}'
+                    // /home/jahn/workspace1/jahnestacado/jahnestacado/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:65:3: 'if' '(' expr= orExpr ')' '{' b1= body '}' 'else' '{' b2= body '}'
                     {
                     match(input,32,FOLLOW_32_in_conditionalElement251); if (state.failed) return result;
 
@@ -729,7 +718,7 @@ public class QLParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // /home/jahn/workspace1/jahnestacado/jahnestacado/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:62:3: 'if' '(' expr= orExpr ')' '{' body '}'
+                    // /home/jahn/workspace1/jahnestacado/jahnestacado/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:66:3: 'if' '(' expr= orExpr ')' '{' body '}'
                     {
                     match(input,32,FOLLOW_32_in_conditionalElement281); if (state.failed) return result;
 
@@ -777,7 +766,7 @@ public class QLParser extends Parser {
 
 
     // $ANTLR start "primary"
-    // /home/jahn/workspace1/jahnestacado/jahnestacado/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:68:1: primary returns [Expr result] : ( Decimal | Int | StringLit | BoolLit | Ident | '(' x= orExpr ')' );
+    // /home/jahn/workspace1/jahnestacado/jahnestacado/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:72:1: primary returns [Expr result] : ( Decimal | Int | StringLit | BoolLit | Ident | '(' x= orExpr ')' );
     public final Expr primary() throws RecognitionException {
         Expr result = null;
 
@@ -794,7 +783,7 @@ public class QLParser extends Parser {
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 8) ) { return result; }
 
-            // /home/jahn/workspace1/jahnestacado/jahnestacado/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:69:3: ( Decimal | Int | StringLit | BoolLit | Ident | '(' x= orExpr ')' )
+            // /home/jahn/workspace1/jahnestacado/jahnestacado/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:73:3: ( Decimal | Int | StringLit | BoolLit | Ident | '(' x= orExpr ')' )
             int alt5=6;
             switch ( input.LA(1) ) {
             case Decimal:
@@ -838,7 +827,7 @@ public class QLParser extends Parser {
 
             switch (alt5) {
                 case 1 :
-                    // /home/jahn/workspace1/jahnestacado/jahnestacado/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:69:5: Decimal
+                    // /home/jahn/workspace1/jahnestacado/jahnestacado/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:73:5: Decimal
                     {
                     Decimal14=(Token)match(input,Decimal,FOLLOW_Decimal_in_primary317); if (state.failed) return result;
 
@@ -847,7 +836,7 @@ public class QLParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // /home/jahn/workspace1/jahnestacado/jahnestacado/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:70:5: Int
+                    // /home/jahn/workspace1/jahnestacado/jahnestacado/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:74:5: Int
                     {
                     Int15=(Token)match(input,Int,FOLLOW_Int_in_primary325); if (state.failed) return result;
 
@@ -856,7 +845,7 @@ public class QLParser extends Parser {
                     }
                     break;
                 case 3 :
-                    // /home/jahn/workspace1/jahnestacado/jahnestacado/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:71:5: StringLit
+                    // /home/jahn/workspace1/jahnestacado/jahnestacado/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:75:5: StringLit
                     {
                     StringLit16=(Token)match(input,StringLit,FOLLOW_StringLit_in_primary333); if (state.failed) return result;
 
@@ -865,7 +854,7 @@ public class QLParser extends Parser {
                     }
                     break;
                 case 4 :
-                    // /home/jahn/workspace1/jahnestacado/jahnestacado/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:72:5: BoolLit
+                    // /home/jahn/workspace1/jahnestacado/jahnestacado/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:76:5: BoolLit
                     {
                     BoolLit17=(Token)match(input,BoolLit,FOLLOW_BoolLit_in_primary341); if (state.failed) return result;
 
@@ -874,7 +863,7 @@ public class QLParser extends Parser {
                     }
                     break;
                 case 5 :
-                    // /home/jahn/workspace1/jahnestacado/jahnestacado/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:73:5: Ident
+                    // /home/jahn/workspace1/jahnestacado/jahnestacado/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:77:5: Ident
                     {
                     Ident18=(Token)match(input,Ident,FOLLOW_Ident_in_primary350); if (state.failed) return result;
 
@@ -883,7 +872,7 @@ public class QLParser extends Parser {
                     }
                     break;
                 case 6 :
-                    // /home/jahn/workspace1/jahnestacado/jahnestacado/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:74:5: '(' x= orExpr ')'
+                    // /home/jahn/workspace1/jahnestacado/jahnestacado/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:78:5: '(' x= orExpr ')'
                     {
                     match(input,18,FOLLOW_18_in_primary358); if (state.failed) return result;
 
@@ -919,7 +908,7 @@ public class QLParser extends Parser {
 
 
     // $ANTLR start "unExpr"
-    // /home/jahn/workspace1/jahnestacado/jahnestacado/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:80:1: unExpr returns [Expr result] : ( '+' x= unExpr | '-' x= unExpr | '!' x= unExpr |x= primary );
+    // /home/jahn/workspace1/jahnestacado/jahnestacado/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:84:1: unExpr returns [Expr result] : ( '+' x= unExpr | '-' x= unExpr | '!' x= unExpr |x= primary );
     public final Expr unExpr() throws RecognitionException {
         Expr result = null;
 
@@ -931,7 +920,7 @@ public class QLParser extends Parser {
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 9) ) { return result; }
 
-            // /home/jahn/workspace1/jahnestacado/jahnestacado/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:81:5: ( '+' x= unExpr | '-' x= unExpr | '!' x= unExpr |x= primary )
+            // /home/jahn/workspace1/jahnestacado/jahnestacado/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:85:5: ( '+' x= unExpr | '-' x= unExpr | '!' x= unExpr |x= primary )
             int alt6=4;
             switch ( input.LA(1) ) {
             case 21:
@@ -970,7 +959,7 @@ public class QLParser extends Parser {
 
             switch (alt6) {
                 case 1 :
-                    // /home/jahn/workspace1/jahnestacado/jahnestacado/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:81:8: '+' x= unExpr
+                    // /home/jahn/workspace1/jahnestacado/jahnestacado/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:85:8: '+' x= unExpr
                     {
                     match(input,21,FOLLOW_21_in_unExpr392); if (state.failed) return result;
 
@@ -985,7 +974,7 @@ public class QLParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // /home/jahn/workspace1/jahnestacado/jahnestacado/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:82:8: '-' x= unExpr
+                    // /home/jahn/workspace1/jahnestacado/jahnestacado/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:86:8: '-' x= unExpr
                     {
                     match(input,22,FOLLOW_22_in_unExpr407); if (state.failed) return result;
 
@@ -1000,7 +989,7 @@ public class QLParser extends Parser {
                     }
                     break;
                 case 3 :
-                    // /home/jahn/workspace1/jahnestacado/jahnestacado/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:83:8: '!' x= unExpr
+                    // /home/jahn/workspace1/jahnestacado/jahnestacado/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:87:8: '!' x= unExpr
                     {
                     match(input,15,FOLLOW_15_in_unExpr422); if (state.failed) return result;
 
@@ -1015,7 +1004,7 @@ public class QLParser extends Parser {
                     }
                     break;
                 case 4 :
-                    // /home/jahn/workspace1/jahnestacado/jahnestacado/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:84:8: x= primary
+                    // /home/jahn/workspace1/jahnestacado/jahnestacado/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:88:8: x= primary
                     {
                     pushFollow(FOLLOW_primary_in_unExpr439);
                     x=primary();
@@ -1047,7 +1036,7 @@ public class QLParser extends Parser {
 
 
     // $ANTLR start "mulExpr"
-    // /home/jahn/workspace1/jahnestacado/jahnestacado/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:87:1: mulExpr returns [Expr result] : lhs= unExpr (op= ( '*' | '/' ) rhs= unExpr )* ;
+    // /home/jahn/workspace1/jahnestacado/jahnestacado/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:91:1: mulExpr returns [Expr result] : lhs= unExpr (op= ( '*' | '/' ) rhs= unExpr )* ;
     public final Expr mulExpr() throws RecognitionException {
         Expr result = null;
 
@@ -1062,8 +1051,8 @@ public class QLParser extends Parser {
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 10) ) { return result; }
 
-            // /home/jahn/workspace1/jahnestacado/jahnestacado/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:88:5: (lhs= unExpr (op= ( '*' | '/' ) rhs= unExpr )* )
-            // /home/jahn/workspace1/jahnestacado/jahnestacado/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:88:9: lhs= unExpr (op= ( '*' | '/' ) rhs= unExpr )*
+            // /home/jahn/workspace1/jahnestacado/jahnestacado/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:92:5: (lhs= unExpr (op= ( '*' | '/' ) rhs= unExpr )* )
+            // /home/jahn/workspace1/jahnestacado/jahnestacado/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:92:9: lhs= unExpr (op= ( '*' | '/' ) rhs= unExpr )*
             {
             pushFollow(FOLLOW_unExpr_in_mulExpr477);
             lhs=unExpr();
@@ -1073,7 +1062,7 @@ public class QLParser extends Parser {
 
             if ( state.backtracking==0 ) { result =lhs; }
 
-            // /home/jahn/workspace1/jahnestacado/jahnestacado/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:88:45: (op= ( '*' | '/' ) rhs= unExpr )*
+            // /home/jahn/workspace1/jahnestacado/jahnestacado/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:92:45: (op= ( '*' | '/' ) rhs= unExpr )*
             loop7:
             do {
                 int alt7=2;
@@ -1086,7 +1075,7 @@ public class QLParser extends Parser {
 
                 switch (alt7) {
             	case 1 :
-            	    // /home/jahn/workspace1/jahnestacado/jahnestacado/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:88:47: op= ( '*' | '/' ) rhs= unExpr
+            	    // /home/jahn/workspace1/jahnestacado/jahnestacado/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:92:47: op= ( '*' | '/' ) rhs= unExpr
             	    {
             	    op=(Token)input.LT(1);
 
@@ -1146,7 +1135,7 @@ public class QLParser extends Parser {
 
 
     // $ANTLR start "addExpr"
-    // /home/jahn/workspace1/jahnestacado/jahnestacado/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:100:1: addExpr returns [Expr result] : lhs= mulExpr (op= ( '+' | '-' ) rhs= mulExpr )* ;
+    // /home/jahn/workspace1/jahnestacado/jahnestacado/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:104:1: addExpr returns [Expr result] : lhs= mulExpr (op= ( '+' | '-' ) rhs= mulExpr )* ;
     public final Expr addExpr() throws RecognitionException {
         Expr result = null;
 
@@ -1161,8 +1150,8 @@ public class QLParser extends Parser {
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 11) ) { return result; }
 
-            // /home/jahn/workspace1/jahnestacado/jahnestacado/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:101:5: (lhs= mulExpr (op= ( '+' | '-' ) rhs= mulExpr )* )
-            // /home/jahn/workspace1/jahnestacado/jahnestacado/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:101:9: lhs= mulExpr (op= ( '+' | '-' ) rhs= mulExpr )*
+            // /home/jahn/workspace1/jahnestacado/jahnestacado/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:105:5: (lhs= mulExpr (op= ( '+' | '-' ) rhs= mulExpr )* )
+            // /home/jahn/workspace1/jahnestacado/jahnestacado/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:105:9: lhs= mulExpr (op= ( '+' | '-' ) rhs= mulExpr )*
             {
             pushFollow(FOLLOW_mulExpr_in_addExpr538);
             lhs=mulExpr();
@@ -1172,7 +1161,7 @@ public class QLParser extends Parser {
 
             if ( state.backtracking==0 ) { result =lhs; }
 
-            // /home/jahn/workspace1/jahnestacado/jahnestacado/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:101:46: (op= ( '+' | '-' ) rhs= mulExpr )*
+            // /home/jahn/workspace1/jahnestacado/jahnestacado/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:105:46: (op= ( '+' | '-' ) rhs= mulExpr )*
             loop8:
             do {
                 int alt8=2;
@@ -1185,7 +1174,7 @@ public class QLParser extends Parser {
 
                 switch (alt8) {
             	case 1 :
-            	    // /home/jahn/workspace1/jahnestacado/jahnestacado/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:101:48: op= ( '+' | '-' ) rhs= mulExpr
+            	    // /home/jahn/workspace1/jahnestacado/jahnestacado/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:105:48: op= ( '+' | '-' ) rhs= mulExpr
             	    {
             	    op=(Token)input.LT(1);
 
@@ -1245,7 +1234,7 @@ public class QLParser extends Parser {
 
 
     // $ANTLR start "relExpr"
-    // /home/jahn/workspace1/jahnestacado/jahnestacado/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:112:1: relExpr returns [Expr result] : lhs= addExpr (op= ( '<' | '<=' | '>' | '>=' | '==' | '!=' ) rhs= addExpr )* ;
+    // /home/jahn/workspace1/jahnestacado/jahnestacado/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:116:1: relExpr returns [Expr result] : lhs= addExpr (op= ( '<' | '<=' | '>' | '>=' | '==' | '!=' ) rhs= addExpr )* ;
     public final Expr relExpr() throws RecognitionException {
         Expr result = null;
 
@@ -1260,8 +1249,8 @@ public class QLParser extends Parser {
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 12) ) { return result; }
 
-            // /home/jahn/workspace1/jahnestacado/jahnestacado/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:113:5: (lhs= addExpr (op= ( '<' | '<=' | '>' | '>=' | '==' | '!=' ) rhs= addExpr )* )
-            // /home/jahn/workspace1/jahnestacado/jahnestacado/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:113:9: lhs= addExpr (op= ( '<' | '<=' | '>' | '>=' | '==' | '!=' ) rhs= addExpr )*
+            // /home/jahn/workspace1/jahnestacado/jahnestacado/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:117:5: (lhs= addExpr (op= ( '<' | '<=' | '>' | '>=' | '==' | '!=' ) rhs= addExpr )* )
+            // /home/jahn/workspace1/jahnestacado/jahnestacado/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:117:9: lhs= addExpr (op= ( '<' | '<=' | '>' | '>=' | '==' | '!=' ) rhs= addExpr )*
             {
             pushFollow(FOLLOW_addExpr_in_relExpr591);
             lhs=addExpr();
@@ -1271,7 +1260,7 @@ public class QLParser extends Parser {
 
             if ( state.backtracking==0 ) { result =lhs; }
 
-            // /home/jahn/workspace1/jahnestacado/jahnestacado/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:113:46: (op= ( '<' | '<=' | '>' | '>=' | '==' | '!=' ) rhs= addExpr )*
+            // /home/jahn/workspace1/jahnestacado/jahnestacado/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:117:46: (op= ( '<' | '<=' | '>' | '>=' | '==' | '!=' ) rhs= addExpr )*
             loop9:
             do {
                 int alt9=2;
@@ -1284,7 +1273,7 @@ public class QLParser extends Parser {
 
                 switch (alt9) {
             	case 1 :
-            	    // /home/jahn/workspace1/jahnestacado/jahnestacado/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:113:48: op= ( '<' | '<=' | '>' | '>=' | '==' | '!=' ) rhs= addExpr
+            	    // /home/jahn/workspace1/jahnestacado/jahnestacado/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:117:48: op= ( '<' | '<=' | '>' | '>=' | '==' | '!=' ) rhs= addExpr
             	    {
             	    op=(Token)input.LT(1);
 
@@ -1356,7 +1345,7 @@ public class QLParser extends Parser {
 
 
     // $ANTLR start "andExpr"
-    // /home/jahn/workspace1/jahnestacado/jahnestacado/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:136:1: andExpr returns [Expr result] : lhs= relExpr ( '&&' rhs= relExpr )* ;
+    // /home/jahn/workspace1/jahnestacado/jahnestacado/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:140:1: andExpr returns [Expr result] : lhs= relExpr ( '&&' rhs= relExpr )* ;
     public final Expr andExpr() throws RecognitionException {
         Expr result = null;
 
@@ -1370,8 +1359,8 @@ public class QLParser extends Parser {
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 13) ) { return result; }
 
-            // /home/jahn/workspace1/jahnestacado/jahnestacado/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:137:5: (lhs= relExpr ( '&&' rhs= relExpr )* )
-            // /home/jahn/workspace1/jahnestacado/jahnestacado/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:137:9: lhs= relExpr ( '&&' rhs= relExpr )*
+            // /home/jahn/workspace1/jahnestacado/jahnestacado/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:141:5: (lhs= relExpr ( '&&' rhs= relExpr )* )
+            // /home/jahn/workspace1/jahnestacado/jahnestacado/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:141:9: lhs= relExpr ( '&&' rhs= relExpr )*
             {
             pushFollow(FOLLOW_relExpr_in_andExpr653);
             lhs=relExpr();
@@ -1381,7 +1370,7 @@ public class QLParser extends Parser {
 
             if ( state.backtracking==0 ) { result =lhs; }
 
-            // /home/jahn/workspace1/jahnestacado/jahnestacado/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:137:46: ( '&&' rhs= relExpr )*
+            // /home/jahn/workspace1/jahnestacado/jahnestacado/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:141:46: ( '&&' rhs= relExpr )*
             loop10:
             do {
                 int alt10=2;
@@ -1394,7 +1383,7 @@ public class QLParser extends Parser {
 
                 switch (alt10) {
             	case 1 :
-            	    // /home/jahn/workspace1/jahnestacado/jahnestacado/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:137:48: '&&' rhs= relExpr
+            	    // /home/jahn/workspace1/jahnestacado/jahnestacado/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:141:48: '&&' rhs= relExpr
             	    {
             	    match(input,17,FOLLOW_17_in_andExpr659); if (state.failed) return result;
 
@@ -1435,7 +1424,7 @@ public class QLParser extends Parser {
 
 
     // $ANTLR start "orExpr"
-    // /home/jahn/workspace1/jahnestacado/jahnestacado/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:141:1: orExpr returns [Expr result] : lhs= andExpr ( '||' rhs= andExpr )* ;
+    // /home/jahn/workspace1/jahnestacado/jahnestacado/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:145:1: orExpr returns [Expr result] : lhs= andExpr ( '||' rhs= andExpr )* ;
     public final Expr orExpr() throws RecognitionException {
         Expr result = null;
 
@@ -1449,8 +1438,8 @@ public class QLParser extends Parser {
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 14) ) { return result; }
 
-            // /home/jahn/workspace1/jahnestacado/jahnestacado/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:142:5: (lhs= andExpr ( '||' rhs= andExpr )* )
-            // /home/jahn/workspace1/jahnestacado/jahnestacado/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:142:9: lhs= andExpr ( '||' rhs= andExpr )*
+            // /home/jahn/workspace1/jahnestacado/jahnestacado/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:146:5: (lhs= andExpr ( '||' rhs= andExpr )* )
+            // /home/jahn/workspace1/jahnestacado/jahnestacado/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:146:9: lhs= andExpr ( '||' rhs= andExpr )*
             {
             pushFollow(FOLLOW_andExpr_in_orExpr698);
             lhs=andExpr();
@@ -1460,7 +1449,7 @@ public class QLParser extends Parser {
 
             if ( state.backtracking==0 ) { result = lhs; }
 
-            // /home/jahn/workspace1/jahnestacado/jahnestacado/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:142:48: ( '||' rhs= andExpr )*
+            // /home/jahn/workspace1/jahnestacado/jahnestacado/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:146:48: ( '||' rhs= andExpr )*
             loop11:
             do {
                 int alt11=2;
@@ -1473,7 +1462,7 @@ public class QLParser extends Parser {
 
                 switch (alt11) {
             	case 1 :
-            	    // /home/jahn/workspace1/jahnestacado/jahnestacado/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:142:50: '||' rhs= andExpr
+            	    // /home/jahn/workspace1/jahnestacado/jahnestacado/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:146:50: '||' rhs= andExpr
             	    {
             	    match(input,34,FOLLOW_34_in_orExpr704); if (state.failed) return result;
 
@@ -1520,8 +1509,8 @@ public class QLParser extends Parser {
         Body b2 =null;
 
 
-        // /home/jahn/workspace1/jahnestacado/jahnestacado/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:61:3: ( 'if' '(' expr= orExpr ')' '{' b1= body '}' 'else' '{' b2= body '}' )
-        // /home/jahn/workspace1/jahnestacado/jahnestacado/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:61:3: 'if' '(' expr= orExpr ')' '{' b1= body '}' 'else' '{' b2= body '}'
+        // /home/jahn/workspace1/jahnestacado/jahnestacado/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:65:3: ( 'if' '(' expr= orExpr ')' '{' b1= body '}' 'else' '{' b2= body '}' )
+        // /home/jahn/workspace1/jahnestacado/jahnestacado/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:65:3: 'if' '(' expr= orExpr ')' '{' b1= body '}' 'else' '{' b2= body '}'
         {
         match(input,32,FOLLOW_32_in_synpred7_QL251); if (state.failed) return ;
 

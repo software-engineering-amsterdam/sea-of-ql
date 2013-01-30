@@ -6,6 +6,10 @@ options {backtrack=true; memoize=true;}
 package org.uva.sea.ql.parser.antlr;
 import org.uva.sea.ql.ast.*;
 import org.uva.sea.ql.ast.expr.*;
+import org.uva.sea.ql.ast.expr.binary.*;
+import org.uva.sea.ql.ast.expr.binary.algebraic.*;
+import org.uva.sea.ql.ast.expr.binary.bool.*;
+import org.uva.sea.ql.ast.expr.unary.*;
 import org.uva.sea.ql.ast.form.*;
 import org.uva.sea.ql.ast.types.*;
 import org.uva.sea.ql.ast.expr.values.*;
