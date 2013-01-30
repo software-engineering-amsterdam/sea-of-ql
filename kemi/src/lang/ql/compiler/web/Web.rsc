@@ -11,7 +11,6 @@ public loc buildForm(Form form, loc destFolder) {
   HTML(form, destFolder);
   JS(form, destFolder);
   PHP(form, destFolder);
-  SQL(form, destFolder);
   
   return destFolder;
 }
