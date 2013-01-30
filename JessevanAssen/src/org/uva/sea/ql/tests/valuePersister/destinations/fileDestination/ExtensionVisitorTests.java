@@ -15,8 +15,8 @@ public class ExtensionVisitorTests {
 
     private ValueSerializerVisitor<String> createExtensionVisitor() {
         try {
-            Constructor constructor = FilePersister.class
-                    .getDeclaredClasses()[0]
+            Constructor<?> constructor = FilePersister.class
+                    .getDeclaredClasses()[1] // 0 is the class itself, 1 is the inner class
                     .getDeclaredConstructor();
             constructor.setAccessible(true);
             return (ValueSerializerVisitor<String>) constructor.newInstance();
