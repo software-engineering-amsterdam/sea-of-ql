@@ -6,5 +6,8 @@ form box1 {
 		sellingPrice: "Price the house was sold for:" money
 		privateDebt: "Private debts for the sold house:" money
 		valueResideu: "Value resideu:" money(sellingPrice -  privateDebt)
-	} 
+	} else{ 
+		naam: "Danny vraagt om uw naam!" string
+	}
+
 }			

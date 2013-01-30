@@ -72,11 +72,13 @@ public class Form implements ActionListener {
 		Button testButton = new Button("test");
 		testButton.addActionListener(this);
 		formPanel.add(testButton,"");
+		eval();
 		return formPanel;
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
+		eval();
 		System.out.println("BAM");
 	}
 }

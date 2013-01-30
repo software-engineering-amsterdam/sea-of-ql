@@ -7,26 +7,26 @@ import org.uva.sea.ql.visitor.TypeChecker;
 
 public class Question extends FormElement {
 
-	private final Ident qID;
-	private final StringLiteral qString;
-	private final Type qType;
+	private final Ident name;
+	private final StringLiteral label;
+	private final Type type;
 
-	public Question(Ident qID, StringLiteral qString, Type qType) {
-		this.qID = qID;
-		this.qString = qString;
-		this.qType = qType;
+	public Question(Ident name, StringLiteral label, Type type) {
+		this.name = name;
+		this.label = label;
+		this.type = type;
 	}
 
-	public Ident getQuestionID() {
-		return qID;
+	public Ident getQuestionName() {
+		return name;
 	}
 
-	public StringLiteral getQuestionString() {
-		return qString;
+	public StringLiteral getQuestionLabel() {
+		return label;
 	}
 
 	public Type getQuestionType() {
-		return qType;
+		return type;
 	}
 
 	@Override

@@ -9,34 +9,33 @@ public bool compatible(Type t, Rule r:font(_))
   = true;
 
 public bool compatible(Type t, Rule r:widget(_)) 
-  = (t == \bool("bool") && (r.\type == checkbox("checkbox") ||
-						    r.\type == combobox("combobox") ||
-						    r.\type == radio("radio"))) ||
-	((t == \int("int") || 
-	  t == float("float")) && (r.\type == slider("slider") ||
-						  	   r.\type == dial("dial") ||
-						  	   r.\type == spinbox("spinbox")));
+  = (\bool(_) := t && (checkbox(_) := r.\type ||
+					   combobox(_) := r.\type ||
+					   radio(_) := r.\type)) ||
+	(\int(_) := t && (slider(_) := r.\type ||
+					  dial(_) := r.\type ||
+					  spinbox(_) := r.\type));
 
 public bool compatible(Type t, Rule r:minInt(_)) 
-  = (t == \int("int"));
+  = (\int(_) := t);
 
 public bool compatible(Type t, Rule r:maxInt(_)) 
-  = (t == \int("int"));
+  = (\int(_) := t);
 
 public bool compatible(Type t, Rule r:stepInt(_)) 
-  = (t == \int("int"));
+  = (\int(_) := t);
 
 public bool compatible(Type t, Rule r:minFloat(_)) 
-  = (t == float("float"));
+  = (float(_) := t);
 
 public bool compatible(Type t, Rule r:maxFloat(_)) 
-  = (t == float("float"));
+  = (float(_) := t);
 
 public bool compatible(Type t, Rule r:stepFloat(_)) 
-  = (t == float("float"));
+  = (float(_) := t);
 
 public bool compatible(Type t, Rule r:minDate(_)) 
-  = (t == date("date"));
+  = (date(_) := t);
 
 public bool compatible(Type t, Rule r:maxDate(_)) 
-  = (t == date("date"));
+  = (date(_) := t);

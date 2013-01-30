@@ -17,10 +17,10 @@ public class Add extends Binary {
 	}
 	
 	@Override
-	public Value eval() {
+	public Value eval(Env environment) {
 		return new IntValue(
-				((IntValue)getLeft().eval()).getValue() +
-				((IntValue)getRight().eval()).getValue()
+				((IntValue)getLeft().eval(environment)).getValue() +
+				((IntValue)getRight().eval(environment)).getValue()
 				);
 	}
 	

@@ -34,9 +34,11 @@ public class Ident extends Expr {
 	}
 
 	@Override
-	public Value eval() {
-		// TODO Auto-generated method stub
-		return null;
+	public Value eval(Env environment) {
+		if (environment.hasValue(this)) {
+			return environment.getValue(this);
+		}
+		return typeOf(environment).getDefaultValue();
 	}
 
 	@Override

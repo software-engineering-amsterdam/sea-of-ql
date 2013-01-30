@@ -17,5 +17,8 @@ public Message inGroupError(str name, loc location)
     
 public Message typeError(str typename, loc location) 
   = error("This rule is undefined for variables of type <typename>", location);
+  
+public Message ruleError(loc location)
+  = error("This rule is already defined", location);
 
   

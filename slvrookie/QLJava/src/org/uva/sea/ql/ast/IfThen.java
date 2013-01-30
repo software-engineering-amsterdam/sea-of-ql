@@ -5,16 +5,16 @@ import org.uva.sea.ql.visitor.TypeChecker;
 
 public class IfThen extends FormElement {
 
-	private final Expr expression;
+	private final Expr condition;
 	private final Block thenBody;
 
-	public IfThen(Expr expression, Block thenBody) {
-		this.expression = expression;
+	public IfThen(Expr condition, Block thenBody) {
+		this.condition = condition;
 		this.thenBody = thenBody;
 	}
 
-	public Expr getExpression() {
-		return expression;
+	public Expr getCondition() {
+		return condition;
 	}
 
 	public Block getThenBody() {

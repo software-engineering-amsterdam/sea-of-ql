@@ -1,5 +1,6 @@
 package org.uva.sea.ql.form;
 
+import java.awt.Component;
 import java.awt.Label;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,12 +15,14 @@ public class Question extends FormItem {
 
 	private final Ident id;
 	private final String label;
-	private final Type questionType;
+	protected final Type questionType;
+	protected Component answerComponent;
 	
 	public Question(Ident id, String question, Type questionType) {
 		this.id = id;
 		this.label = question;
 		this.questionType = questionType;
+		this.answerComponent = questionType.getAnswerField(true);
 	}
 	
 	public Ident getId() {
@@ -58,19 +61,21 @@ public class Question extends FormItem {
 
 	@Override
 	public List<FormElement> getFormComponents() {
-		return getQuestionComponents(true);
+		return getQuestionComponents();
 	}
 	
-	protected List<FormElement> getQuestionComponents(boolean enabled) {
+	protected List<FormElement> getQuestionComponents() {
 		List<FormElement> components = new ArrayList<FormElement>();
 		components.add(new FormElement(new Label(label), "skip"));
-		components.add(new FormElement(questionType.getAnswerField(enabled), "span, growx"));
+		components.add(new FormElement(answerComponent, "span, growx"));
 		return components;
 	}
 
 	@Override
 	public void eval(Env environment, Form form) {
-		// TODO Auto-generated method stub
-		
+		questionType.setForm(form);
+		if (questionType.hasValue()) {
+			environment.addValue(id, questionType.getAnswerFieldValue(answerComponent));
+		}
 	}
 }

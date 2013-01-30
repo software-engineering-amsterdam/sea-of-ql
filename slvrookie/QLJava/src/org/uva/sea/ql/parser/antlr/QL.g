@@ -101,7 +101,7 @@ orExpr returns [Expr result]
 
 formElement returns [FormElement result]
     : 'if' '(' x = orExpr ')'  '{' thenbody=formblock '}' 'else' '{' elsebody = formblock '}' { $result = new IfThenElse($x.result, $thenbody.result, $elsebody.result); }
-    | 'if' '(' x = orExpr ')'  '{' thbody=formblock '}'  { $result = new IfThen($x.result, $thbody.result); }
+    | 'if' '(' x = orExpr ')'  '{' thenbody=formblock '}'  { $result = new IfThen($x.result, $thenbody.result); }
     | Ident ':' StringLiteral type '(' orExpr ')' { $result = new CompQuestion(new Ident($Ident.text) ,new StringLiteral($StringLiteral.text), $type.result, $orExpr.result); }
     | Ident ':' StringLiteral type { $result = new Question(new Ident($Ident.text) ,new StringLiteral($StringLiteral.text), $type.result); }
     ;

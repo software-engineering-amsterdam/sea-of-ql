@@ -10,7 +10,7 @@ data StyleRule
  
 data Rule
   = color(str name)
-  | widget(Widget \type)
+  | widget(WidgetType \type)
   | font(str name)
   | minInt(int ival)
   | maxInt(int ival)
@@ -21,7 +21,7 @@ data Rule
   | minDate(str dval)
   | maxDate(str dval);
  
-data Widget
+data WidgetType
   = checkbox(str name)
   | combobox(str name)
   | radio(str name)

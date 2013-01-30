@@ -19,6 +19,13 @@ alias StyleEnvironment = tuple[TypeRules typeRules,
 						 		 set[Message] messages];
 
 
+public VarRules getAllVarRules(StyleEnvironment env, Declarations d) {
+	varRules = env.varRules;
+	for (name <- d, name notin varRules, d[name].\type in env.typeRules)
+		varRules += (name : env.typeRules[d[name].\type]);
+	return varRules;
+}
+
 
 public StyleEnvironment getStyleEnvironment(FormStyle style, Form form) {
 	StyleEnvironment stylenv = <(),(),(),{}>;
@@ -77,6 +84,12 @@ private StyleEnvironment check(StyleEnvironment env, StyleRule r:group(name, que
 
 private set[Message] checkRules(Type t, list[Rule] rules) {
 	messages = {};
+	found_rules = [];
+	for (r <- rules) {
+		messages += checkRule(r, found_rules);
+		found_rules += r;
+	}
+	
 	for (r1 <- rules, !compatible(t, r1))
 		messages += {typeError(t.name, r1@location)};
 	for (r1 <- rules, r2 <- rules, r1 != r2, r1 := r2)
@@ -84,3 +97,39 @@ private set[Message] checkRules(Type t, list[Rule] rules) {
 					 redeclaredRuleError(r2.name, r2@location)};
 	return messages;
 }
+
+
+
+private set[Message] checkRule(Rule rule:color(_), list[Rule] rules) 
+  = {ruleError(rule@location) | r <- rules, color(_) := r};
+
+private set[Message] checkRule(Rule rule:font(_), list[Rule] rules) 
+  = {ruleError(rule@location) | r <- rules, font(_) := r};
+  
+private set[Message] checkRule(Rule rule:widget(_), list[Rule] rules) 
+  = {ruleError(rule@location) | r <- rules, widget(_) := r};
+
+private set[Message] checkRule(Rule rule:minInt(_), list[Rule] rules) 
+  = {ruleError(rule@location) | r <- rules, minInt(_) := r};
+  
+private set[Message] checkRule(Rule rule:maxInt(_), list[Rule] rules) 
+  = {ruleError(rule@location) | r <- rules, maxInt(_) := r};
+
+private set[Message] checkRule(Rule rule:stepInt(_), list[Rule] rules) 
+  = {ruleError(rule@location) | r <- rules, stepInt(_) := r};
+
+private set[Message] checkRule(Rule rule:minFloat(_), list[Rule] rules) 
+  = {ruleError(rule@location) | r <- rules, minFloat(_) := r};
+  
+private set[Message] checkRule(Rule rule:maxFloat(_), list[Rule] rules) 
+  = {ruleError(rule@location) | r <- rules, maxFloat(_) := r};
+
+private set[Message] checkRule(Rule rule:stepFloat(_), list[Rule] rules) 
+  = {ruleError(rule@location) | r <- rules, stepFloat(_) := r};
+  
+private set[Message] checkRule(Rule rule:minDate(_), list[Rule] rules) 
+  = {ruleError(rule@location) | r <- rules, minDate(_) := r};
+  
+private set[Message] checkRule(Rule rule:maxDate(_), list[Rule] rules) 
+  = {ruleError(rule@location) | r <- rules, maxDate(_) := r};
+

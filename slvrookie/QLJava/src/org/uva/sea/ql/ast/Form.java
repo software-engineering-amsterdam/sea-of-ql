@@ -5,20 +5,20 @@ import org.uva.sea.ql.visitor.TypeChecker;
 
 public class Form extends FormElement {
 
-	private final Ident fID;
-	private final Block fBody;
+	private final Ident name;
+	private final Block body;
 
-	public Form(Ident fID, Block fBody) {
-		this.fID = fID;
-		this.fBody = fBody;
+	public Form(Ident name, Block body) {
+		this.name = name;
+		this.body = body;
 	}
 
-	public Ident getFormID() {
-		return fID;
+	public Ident getFormName() {
+		return name;
 	}
 
 	public Block getFormBody() {
-		return fBody;
+		return body;
 	}
 
 	@Override

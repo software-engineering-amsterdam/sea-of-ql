@@ -5,13 +5,13 @@ start syntax FormStyle
 
 syntax StyleRule
   = @Foldable typed: Type type "{" Rule+ "}"
-  | @Foldable id: Ident name "{" Rule+ "}"
+  | @Foldable id: Variable name "{" Rule+ "}"
   | @Foldable group: "group" Label name "{" Ident+ questions "}";
 
 syntax Rule 
   = color: "color:"  Color color // color of the label text
   | font: "font:" Font font // font of the label text
-  | widget: "widget:" Widget widget 
+  | widget: "widget:" WidgetType widget 
   | minInt: "minimum:" Int val 
   | maxInt: "maximum:" Int val 
   | stepInt: "stepSize:" Int val
@@ -32,22 +32,23 @@ lexical Type
   | @category="Type" float: "float"
   | @category="Type" date: "date";
 
-lexical Widget
-  = @category="Variable" checkbox: "checkbox" // bool
-  | @category="Variable" combobox: "combobox" // bool
-  | @category="Variable" radio: "radio" // bool
-  | @category="Variable" slider: "slider" // numeric
-  | @category="Variable" dial: "dial" // numeric
-  | @category="Variable" spinbox: "spinbox"; // numeric
+lexical WidgetType
+  = @category="Variable" checkbox: "CheckBox" // bool
+  | @category="Variable" combobox: "ComboBox" // bool
+  | @category="Variable" radio: "RadioButton" // bool
+  | @category="Variable" slider: "Slider" // int
+  | @category="Variable" dial: "Dial" // int
+  | @category="Variable" spinbox: "SpinBox"; // int
   
+lexical Variable = @category="Type" Ident;
 
 lexical Ident = ([a-z A-Z 0-9 _] !<< [a-z A-Z][a-z A-Z 0-9 _]* !>> [a-z A-Z 0-9 _]) \ Keywords;
 
 lexical Label = @category="Variable" String;
 
-lexical Color = @category="Variable" String;
+lexical Color = @category="Variable" String; // see http://doc.qt.digia.com/stable/stylesheet-reference.html
 
-lexical Font = @category="Variable" String;
+lexical Font = @category="Variable" String; // see http://doc.qt.digia.com/stable/stylesheet-reference.html
 
 lexical Int = IntNumber | "-" IntNumber;
 
@@ -82,11 +83,8 @@ lexical Whitespace
      \u2000-\u200A \u2028 \u2029 \u202F \u205F \u3000]; 
 
 
-keyword Keywords = "group" | "page" | "stylesheet" |
-					"bool" | "int" | "string" | "float" | "date" |
-					"true" | "false" |
-					"color" | "widget" | "font" | "minimum" | "maximum" | "width" | "stepSize" |
-					"checkbox" | "radio";
+keyword Keywords = "group" | "stylesheet" |
+					"bool" | "int" | "string" | "float" | "date";
 
 
 layout Standard = WhitespaceOrComment* !>> [\ \t\n\f\r] !>> "//" !>> "/*";

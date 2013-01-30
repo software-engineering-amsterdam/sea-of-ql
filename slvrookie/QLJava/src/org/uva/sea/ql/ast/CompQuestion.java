@@ -7,16 +7,16 @@ import org.uva.sea.ql.visitor.TypeChecker;
 
 public class CompQuestion extends Question {
 
-	private final Expr qExpr;
+	private final Expr expression;
 
-	public CompQuestion(Ident qID, StringLiteral qString, Type qType, Expr qExpr) {
+	public CompQuestion(Ident name, StringLiteral label, Type type, Expr expression) {
 
-		super(qID, qString, qType);
-		this.qExpr = qExpr;
+		super(name, label, type);
+		this.expression = expression;
 	}
 
 	public Expr getQuestionExpr() {
-		return qExpr;
+		return expression;
 	}
 
 	@Override
