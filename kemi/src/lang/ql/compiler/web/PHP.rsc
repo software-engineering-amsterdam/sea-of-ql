@@ -94,12 +94,12 @@ private str validator(str answerDataType, str ident) {
 }
 
 private str validateBoolean(str ident) =
-  "if(!(is_bool($_POST[\'<ident>\']))) {
+  "if(!(is_bool((boolean) $_POST[\'<ident>\']))) {
   '  die(\"<ident> is not a boolean!\");
   '}";
   
 private str validateInteger(str ident) =
-  "if(!(is_int($_POST[\'<ident>\']))) {
+  "if(!(is_int((integer) $_POST[\'<ident>\']))) {
   '  die(\"<ident> is not an integer!\");
   '}";
 

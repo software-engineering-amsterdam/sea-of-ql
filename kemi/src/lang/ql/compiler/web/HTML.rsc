@@ -62,6 +62,7 @@ private str createQuestion(str title, Question q:
     "\<div id=\"<ident.ident>Block\"\>
     '  \<label for=\"<ident.ident>\"\><substring(text.text, 1, size(text.text) - 1)>\</label\>
     '  \<select id=\"<ident.ident>\" name=\"<ident.ident>\" form=\"<title>\"\>
+    '  \<option value=\"undefined\"\>Choose an answer\</option\>
     '  \<option value=\"true\"\>Yes\</option\>
     '  \<option value=\"false\"\>No\</option\>
     '  \</select\>

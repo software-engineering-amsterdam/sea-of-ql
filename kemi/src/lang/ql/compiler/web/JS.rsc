@@ -161,7 +161,7 @@ private str individualConditional(int suffix, Statement cond) {
   
   for(cb <- cbs) {
     ret += "
-    '$(\"#<cb>\").change(callback_<suffix>);
+    '$(\"#<cb>\").click(callback_<suffix>);
     ";
   }
   
