@@ -40,13 +40,9 @@ public class ExprTypeChecker implements IExprTypeChecker {
 		return errors;
 	}
 	
-	public boolean check(Expr expr, Map <String, Type> typeEnvironment, List<String> errors ) {
+	public static boolean check(Expr expr, Map <String, Type> typeEnvironment, List<String> errors ) {
 		
 		ExprTypeChecker typeChecker = new ExprTypeChecker(typeEnvironment, errors);
-		List<String> temp = typeChecker.getErrors();
-		for (String msg : temp) {
-			System.out.println(msg);
-		}
 		return expr.accept(typeChecker);
 		
 	}

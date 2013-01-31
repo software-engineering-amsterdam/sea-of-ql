@@ -1,4 +1,4 @@
-// $ANTLR 3.5 /home/rene/workspace/sea-of-ql/renetassy/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g 2013-01-30 01:31:17
+// $ANTLR 3.5 /home/rene/workspace/sea-of-ql/renetassy/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g 2013-01-31 22:36:48
 
 package org.uva.sea.ql.parser.antlr;
 import org.uva.sea.ql.ast.*;
@@ -131,7 +131,7 @@ public class QLParser extends Parser {
 		int question_StartIndex = input.index();
 
 		Question normalQuestion2 =null;
-		computedQuestion computedQuestion3 =null;
+		ComputedQuestion computedQuestion3 =null;
 
 		try {
 			if ( state.backtracking>0 && alreadyParsedRule(input, 2) ) { return result; }
@@ -370,9 +370,9 @@ public class QLParser extends Parser {
 
 
 	// $ANTLR start "computedQuestion"
-	// /home/rene/workspace/sea-of-ql/renetassy/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:31:1: computedQuestion returns [computedQuestion result] : Ident ':' String type '(' orExpr ')' ;
-	public final computedQuestion computedQuestion() throws RecognitionException {
-		computedQuestion result = null;
+	// /home/rene/workspace/sea-of-ql/renetassy/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:31:1: computedQuestion returns [ComputedQuestion result] : Ident ':' String type '(' orExpr ')' ;
+	public final ComputedQuestion computedQuestion() throws RecognitionException {
+		ComputedQuestion result = null;
 
 		int computedQuestion_StartIndex = input.index();
 
@@ -400,7 +400,7 @@ public class QLParser extends Parser {
 			state._fsp--;
 			if (state.failed) return result;
 			match(input,15,FOLLOW_15_in_computedQuestion139); if (state.failed) return result;
-			if ( state.backtracking==0 ) { result = new computedQuestion(new Ident((Ident7!=null?Ident7.getText():null)), new StringLiteral((String8!=null?String8.getText():null)), type9, orExpr10); }
+			if ( state.backtracking==0 ) { result = new ComputedQuestion(new Ident((Ident7!=null?Ident7.getText():null)), new StringLiteral((String8!=null?String8.getText():null)), type9, orExpr10); }
 			}
 
 		}

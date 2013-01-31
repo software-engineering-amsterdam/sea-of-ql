@@ -9,34 +9,32 @@ import java.util.Map;
 
 import org.junit.Test;
 import org.uva.sea.ql.ast.ExprTypeChecker;
+import org.uva.sea.ql.ast.StatementChecker;
 import org.uva.sea.ql.ast.types.Type;
 import org.uva.sea.ql.parser.antlr.ANTLRParser;
 
-public class TestExprTypeChecker {
-
+public class TestStatementChecker {
+	
 	private ANTLRParser parser;
 	private Map<String,Type> typeEnvironment;
 	private List<String> errors;
-	//private ExprTypeChecker typeChecker;
+	private StatementChecker stmntChecker;
 
-	public TestExprTypeChecker() {
+	public TestStatementChecker() {
 		
 		parser = new ANTLRParser();
 		errors = new ArrayList<String>();
 		typeEnvironment = new HashMap<String, Type> ();
-		//typeChecker = new ExprTypeChecker(typeEnvironment,errors);
+		stmntChecker = new StatementChecker(typeEnvironment,errors);
 
 	}
 	
 	@Test
 	public void testExprTypeChecker() throws ParseError {
 		
-		assertEquals(true, ExprTypeChecker.check(parser.parse("5 + 6 - 2 * (-23) +34"),typeEnvironment, errors));
-		assertEquals(true, ExprTypeChecker.check(parser.parse("5<=9 || true"), typeEnvironment, errors));
-		assertEquals(true, ExprTypeChecker.check(parser.parse("(+5<=-9) && !false || true"), typeEnvironment, errors));
-		
+		assertEquals(true, stmntChecker.check(parser.parseForm("form arxigos { question1 : \"pou ise milto?\" int " +
+				"question1 : \"omonoia arxige\" bool" +
+				"  }"),typeEnvironment, errors));
 	}
-	
-	
-	
+
 }

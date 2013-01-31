@@ -1,5 +1,6 @@
 package org.uva.sea.ql.ast.stmnt;
 
+import org.uva.sea.ql.ast.StatementChecker;
 import org.uva.sea.ql.ast.expr.Expr;
 
 public class IfStatement extends Statement {
@@ -10,6 +11,11 @@ public class IfStatement extends Statement {
 	public IfStatement (Expr condition, Body content) {
 		this.condition=condition;
 		this.content=content;
+	}
+
+	@Override
+	public boolean accept(StatementChecker visitor) {
+		return visitor.visit(this);
 	}
 
 }

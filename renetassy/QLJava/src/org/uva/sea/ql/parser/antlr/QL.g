@@ -28,9 +28,9 @@ normalQuestion returns [Question result]
 	{ result = new Question(new Ident($Ident.text), new StringLiteral($String.text), $type.result); }
 	;
 	
-computedQuestion returns [computedQuestion result]
+computedQuestion returns [ComputedQuestion result]
 	: Ident ':' String type '(' orExpr ')' 
-	{ result = new computedQuestion(new Ident($Ident.text), new StringLiteral($String.text), $type.result, $orExpr.result); }
+	{ result = new ComputedQuestion(new Ident($Ident.text), new StringLiteral($String.text), $type.result, $orExpr.result); }
 	;
 	
 type returns [Type result]

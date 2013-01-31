@@ -10,7 +10,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
-import org.uva.sea.ql.ast.Form;
+import org.uva.sea.ql.ast.stmnt.Form;
 import org.uva.sea.ql.parser.antlr.ANTLRParser;
 
 
