@@ -45,7 +45,7 @@ private void createPage(str title, list[Question] questions, loc dest) {
   '  \<body\>
   '    \<form id=\"<title>\" method=\"post\" action=\"form.php\"\>
   '<for(q <- questions) {>
-  '      <createQuestion(q)>
+  '      <createQuestion(title, q)>
   '<}>
   '      \<input type=\"submit\" value=\"Submit <title>\"\>
   '    \</form\>
@@ -55,29 +55,32 @@ private void createPage(str title, list[Question] questions, loc dest) {
   appendToFile(dest, html);
 }
 
-private str createQuestion(Question q: 
+private str createQuestion(str title, Question q: 
   question(QuestionText text, Type \type, IdentDefinition ident)) {
   if(\type.name == "boolean") {
     return 
     "\<div id=\"<ident.ident>Block\"\>
     '  \<label for=\"<ident.ident>\"\><substring(text.text, 1, size(text.text) - 1)>\</label\>
-    '  \<input type=\"checkbox\" id=\"<ident.ident>\" class=\"required\" name=\"<ident.ident>\" \>
+    '  \<select id=\"<ident.ident>\" name=\"<ident.ident>\" form=\"<title>\"\>
+    '  \<option value=\"true\"\>Yes\</option\>
+    '  \<option value=\"false\"\>No\</option\>
+    '  \</select\>
     '\</div\>
     '";
   } else {
     return 
     "\<div id=\"<ident.ident>Block\"\>
     '  \<label for=\"<ident.ident>\"\><substring(text.text, 1, size(text.text) - 1)>\</label\>
-    '  \<input type=\"<\type.name>\" id=\"<ident.ident>\" class=\"required\" name=\"<ident.ident>\" /\>
+    '  \<input type=\"<\type.name>\" id=\"<ident.ident>\" name=\"<ident.ident>\" /\>
     '\</div\>
     '";
   }  
 }
 
-private str createQuestion(Question q: 
+private str createQuestion(str title, Question q: 
   question(QuestionText text, Type \type, IdentDefinition ident, calculatedField)) =
     "\<div id=\"<ident.ident>Block\"\>
     '  \<label for=\"<ident.ident>\"\><substring(text.text, 1, size(text.text) - 1)>\</label\>
-    '  \<input type=\"<\type.name>\" id=\"<ident.ident>\" class=\"required\" name=\"<ident.ident>\" disabled=\"disabled\"/\>
+    '  \<input type=\"<\type.name>\" id=\"<ident.ident>\" name=\"<ident.ident>\" disabled=\"disabled\"/\>
     '\</div\>
     '";

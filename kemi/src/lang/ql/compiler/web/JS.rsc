@@ -24,8 +24,10 @@ private str hideElement(str name) =
 
 private str assignVar(str ident) =
   "var <ident>;
-  'if($(\"#<ident>\").attr(\"type\") == \"checkbox\") {
-  '  <ident> = $(\"#<ident>\").is(\":checked\");
+  'if($(\"#<ident>\").val() == \"true\") {
+  '  <ident> = true;
+  '} else if($(\"#<ident>\").val() == \"false\") {
+  '  <ident> = false;
   '} else {
   '  <ident> = $(\"#<ident>\").val();;
   '}";
