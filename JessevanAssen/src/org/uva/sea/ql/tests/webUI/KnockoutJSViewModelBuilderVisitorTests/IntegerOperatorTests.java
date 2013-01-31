@@ -12,8 +12,6 @@ public class IntegerOperatorTests extends OperatorTests {
     private static final int RIGHT_VALUE = 2;
     private static final Int RIGHT = new Int(RIGHT_VALUE);
 
-    private static final String UNARY_PATTERN  = "(%s%s)";
-
     @Override protected Object getLeftValue() { return LEFT_VALUE; }
     @Override protected Object getRightValue() { return RIGHT_VALUE; }
 

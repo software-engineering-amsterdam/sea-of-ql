@@ -16,8 +16,7 @@ import static junit.framework.Assert.assertEquals;
 
 public class CsvValueSerializerTests {
 
-    CsvValueSerializer serializer = new CsvValueSerializer();
-
+    private final CsvValueSerializer serializer = new CsvValueSerializer();
     private static final String HEADERS = String.format("\"Identifier\",\"Value\"%s", System.lineSeparator());
 
     @Test
