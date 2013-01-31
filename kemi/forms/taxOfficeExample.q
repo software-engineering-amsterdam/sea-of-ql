@@ -17,5 +17,5 @@ form taxOfficeExample {
     
     "Value residue:" money valueResidue = 
       sellingPrice - privateDebt
-  }    
+  }
 }
