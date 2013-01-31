@@ -56,13 +56,13 @@ public class TypeChecker implements ITypeChecker {
 		isIdentDeclared(compQuestion);
 		ExprVisitor.check(compQuestion.getQuestionExpr(), typeEnv, messages);
 		if (!compQuestion.getQuestionExpr().typeOf(typeEnv).isCompatibleTo(compQuestion.getQuestionType())) {
-			addError("Incompatible question type and expression");
+			addError("Incompatible type and expression at " + compQuestion.getQuestionName().getName() + ". Expected " + compQuestion.getQuestionType().getClass().getSimpleName() + " but got " + compQuestion.getQuestionExpr().typeOf(typeEnv).getClass().getSimpleName() + ".");
 		}
 	}
 
 	public void isIdentDeclared(Question question) {
 		if (typeEnv.containsKey(question.getQuestionName().getName())) {
-			addError("Question Ident " + question.getQuestionName().getName() + " is already declared");
+			addError("Question Ident: " + question.getQuestionName().getName() + " is already declared.");
 		} else {
 			typeEnv.put(question.getQuestionName().getName(),question.getQuestionType());
 		}
@@ -71,7 +71,7 @@ public class TypeChecker implements ITypeChecker {
 	public void isConditionBoolean(IfThen ifBody){	
 		ExprVisitor.check(ifBody.getCondition(), typeEnv, messages) ;
 		if (!ifBody.getCondition().typeOf(typeEnv).isCompatibleToBoolType()) {
-			addError("If condition must be boolean");
+			addError("If condition must be Boolean.");
 		}
 	}
 	
