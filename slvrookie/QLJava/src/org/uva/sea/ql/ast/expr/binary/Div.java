@@ -27,8 +27,8 @@ public class Div extends BinaryExpr {
 	}
 
 	@Override
-	public <T> T accept(IExprVisitor<T> visitor) {
-		return visitor.visit(this);
+	public <T> T accept(IExprVisitor<T> ExprVisitor) {
+		return ExprVisitor.visit(this);
 	}
 
 }

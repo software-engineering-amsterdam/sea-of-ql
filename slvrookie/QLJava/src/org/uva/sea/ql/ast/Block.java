@@ -3,7 +3,7 @@ package org.uva.sea.ql.ast;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.uva.sea.ql.visitor.TypeChecker;
+import org.uva.sea.ql.visitor.ITypeChecker;
 
 public class Block extends FormElement {
 
@@ -18,8 +18,8 @@ public class Block extends FormElement {
 	}
 
 	@Override
-	public void accept(TypeChecker visitor) {
-		visitor.visit(this);
+	public void accept(ITypeChecker TypeChecker) {
+		TypeChecker.visit(this);
 
 	}
 

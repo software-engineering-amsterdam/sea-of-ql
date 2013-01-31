@@ -44,7 +44,7 @@ public class ExprVisitor implements IExprVisitor<Boolean> {
 	@Override
 	public Boolean visit(Add node) {
 		checkSubtrees(node);
-		areBothSidesCompatable(node, "+");
+		areBothSidesCompatible(node, "+");
 		areBothSidesCompatibleToNumeric(node,"+");	
 		return true;
 	}
@@ -59,7 +59,7 @@ public class ExprVisitor implements IExprVisitor<Boolean> {
 	@Override
 	public Boolean visit(Div node) {
 		checkSubtrees(node);
-		areBothSidesCompatable(node, "/");
+		areBothSidesCompatible(node, "/");
 		areBothSidesCompatibleToNumeric(node,"/");
 		return true;
 	}
@@ -67,14 +67,14 @@ public class ExprVisitor implements IExprVisitor<Boolean> {
 	@Override
 	public Boolean visit(Eq node) {
 		checkSubtrees(node);
-		areBothSidesCompatable(node, "==");
+		areBothSidesCompatible(node, "==");
 		return true;
 	}
 
 	@Override
 	public Boolean visit(GEq node) {
 		checkSubtrees(node);
-		areBothSidesCompatable(node, ">=");
+		areBothSidesCompatible(node, ">=");
 		areBothSidesCompatibleToNumeric(node,">=");
 		return true;
 	}
@@ -82,7 +82,7 @@ public class ExprVisitor implements IExprVisitor<Boolean> {
 	@Override
 	public Boolean visit(GT node) {
 		checkSubtrees(node);
-		areBothSidesCompatable(node, ">");
+		areBothSidesCompatible(node, ">");
 		areBothSidesCompatibleToNumeric(node,">");
 		return true;
 	}
@@ -90,7 +90,7 @@ public class ExprVisitor implements IExprVisitor<Boolean> {
 	@Override
 	public Boolean visit(LEq node) {
 		checkSubtrees(node);
-		areBothSidesCompatable(node, "<=");
+		areBothSidesCompatible(node, "<=");
 		areBothSidesCompatibleToNumeric(node,"<=");
 		return true;
 	}
@@ -98,7 +98,7 @@ public class ExprVisitor implements IExprVisitor<Boolean> {
 	@Override
 	public Boolean visit(LT node) {
 		checkSubtrees(node);
-		areBothSidesCompatable(node, "<");
+		areBothSidesCompatible(node, "<");
 		areBothSidesCompatibleToNumeric(node,"<");
 		return true;
 	}
@@ -106,7 +106,7 @@ public class ExprVisitor implements IExprVisitor<Boolean> {
 	@Override
 	public Boolean visit(Mul node) {
 		checkSubtrees(node);
-		areBothSidesCompatable(node, "*");
+		areBothSidesCompatible(node, "*");
 		areBothSidesCompatibleToNumeric(node,"*");
 		return true;
 	}
@@ -121,7 +121,7 @@ public class ExprVisitor implements IExprVisitor<Boolean> {
 	@Override
 	public Boolean visit(NEq node) {
 		checkSubtrees(node);		
-		areBothSidesCompatable(node, "!=");
+		areBothSidesCompatible(node, "!=");
 		return true;
 	}
 
@@ -149,7 +149,7 @@ public class ExprVisitor implements IExprVisitor<Boolean> {
 	@Override
 	public Boolean visit(Sub node) {
 		checkSubtrees(node);
-		areBothSidesCompatable(node, "-");
+		areBothSidesCompatible(node, "-");
 		areBothSidesCompatibleToNumeric(node,"-");
 		return true;
 	}
@@ -204,7 +204,7 @@ public class ExprVisitor implements IExprVisitor<Boolean> {
 		return true;
 	}
 	
-	private boolean areBothSidesCompatable(BinaryExpr node, String operator) {
+	private boolean areBothSidesCompatible(BinaryExpr node, String operator) {
 		if (!(node.getLhs().typeOf(typeEnv).isCompatibleTo(node.getRhs().typeOf(typeEnv)))) { 
 			addError("Both operators must have the same type for " + operator);
 			return false;

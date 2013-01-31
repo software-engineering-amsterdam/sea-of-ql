@@ -14,7 +14,7 @@ import org.uva.sea.ql.ast.IfThenElse;
 import org.uva.sea.ql.ast.Question;
 import org.uva.sea.ql.ast.types.*;
 
-public class TypeChecker {
+public class TypeChecker implements ITypeChecker {
 
 	private Map<String, Type> typeEnv = new HashMap<String, Type>();
 	private final List<String> messages = new ArrayList<String>();
