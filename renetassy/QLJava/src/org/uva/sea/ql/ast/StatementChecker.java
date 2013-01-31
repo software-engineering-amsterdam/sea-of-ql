@@ -24,7 +24,7 @@ public class StatementChecker implements IStatementChecker {
 			this.errors = errors;
 	}
 	
-	public boolean check(Form form, Map <String, Type> typeEnvironment, List<String> errors) {
+	public static boolean check(Form form, Map <String, Type> typeEnvironment, List<String> errors) {
 		
 		StatementChecker stmntChecker = new StatementChecker(typeEnvironment, errors);
 		
