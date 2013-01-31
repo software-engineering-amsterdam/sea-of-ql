@@ -32,49 +32,49 @@ public str prettyPrint(Statement item:
     '}";
 
 public str prettyPrint(pos(Expr posValue)) = 
-  "+<prettyPrint(posValue)>";
+  "(+<prettyPrint(posValue)>)";
 
 public str prettyPrint(neg(Expr negValue)) =
-  "-<prettyPrint(negValue)>)";
+  "(-<prettyPrint(negValue)>))";
 
 public str prettyPrint(not(Expr notValue)) =
-  "!<prettyPrint(notValue)>";
+  "(!<prettyPrint(notValue)>)";
 
 public str prettyPrint(mul(multiplicand, multiplier)) =
-  "<prettyPrint(multiplicand)> * <prettyPrint(multiplier)>";
+  "(<prettyPrint(multiplicand)> * <prettyPrint(multiplier)>)";
 
 public str prettyPrint(div(numerator, denominator)) =
-  "<prettyPrint(numerator)> / <prettyPrint(denominator)>";
+  "(<prettyPrint(numerator)> / <prettyPrint(denominator)>)";
 
 public str prettyPrint(add(leftAddend, rightAddend)) =
-  "<prettyPrint(leftAddend)> + <prettyPrint(rightAddend)>";
+  "(<prettyPrint(leftAddend)> + <prettyPrint(rightAddend)>)";
 
 public str prettyPrint(sub(minuend, subtrahend)) =
-  "<prettyPrint(minuend)> - <prettyPrint(subtrahend)>";
+  "(<prettyPrint(minuend)> - <prettyPrint(subtrahend)>)";
 
 public str prettyPrint(lt(left, right)) =
-  "<prettyPrint(left)> \< <prettyPrint(right)>";
+  "(<prettyPrint(left)> \< <prettyPrint(right)>)";
 
 public str prettyPrint(leq(left, right)) =
-  "<prettyPrint(left)> \<= <prettyPrint(right)>";
+  "(<prettyPrint(left)> \<= <prettyPrint(right)>)";
 
 public str prettyPrint(gt(left, right)) =
-  "<prettyPrint(left)> \> <prettyPrint(right)>";
+  "(<prettyPrint(left)> \> <prettyPrint(right)>)";
 
 public str prettyPrint(geq(left, right)) =
-  "<prettyPrint(left)> \>= <prettyPrint(right)>";
+  "(<prettyPrint(left)> \>= <prettyPrint(right)>)";
 
 public str prettyPrint(eq(left, right)) =
-  "<prettyPrint(left)> == <prettyPrint(right)>";
+  "(<prettyPrint(left)> == <prettyPrint(right)>)";
 
 public str prettyPrint(neq(left, right)) =
-  "<prettyPrint(left)> != <prettyPrint(right)>";
+  "(<prettyPrint(left)> != <prettyPrint(right)>)";
 
 public str prettyPrint(and(left, right)) =
-  "<prettyPrint(left)> && <prettyPrint(right)>";
+  "(<prettyPrint(left)> && <prettyPrint(right)>)";
 
 public str prettyPrint(or(left, right)) =
-  "<prettyPrint(left)> || <prettyPrint(right)>";
+  "(<prettyPrint(left)> || <prettyPrint(right)>)";
 
 public str prettyPrint(ident(name)) =
   "<name>";
