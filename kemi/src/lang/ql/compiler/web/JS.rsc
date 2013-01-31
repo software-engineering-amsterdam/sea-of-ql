@@ -3,7 +3,9 @@ module lang::ql::compiler::web::JS
 import IO;
 import String;
 import lang::ql::ast::AST;
-import lang::ql::compiler::PrettyPrinter; 
+import lang::ql::compiler::PrettyPrinter;
+
+import util::ValueUI; 
 
 private str BLOCK = "Block";
 
@@ -27,9 +29,26 @@ private str assignVar(str ident) =
   '} else {
   '  <ident> = $(\"#<ident>\").val();;
   '}";
+  
+private list[str] getDirectDescendingIdents(Statement cond) {
+  list[Statement] items = cond.ifPart.body;
+  
+  for(ei <- cond.elseIfs) {
+    items += ei.body;
+  }
+
+  for(ep <- cond.elsePart) {
+    items += ep.body;
+  }
+  
+  return getDirectDescendingIdents(items);
+}
 
 private list[str] getDirectDescendingIdents(list[Statement] items) =
-  [q.answerIdentifier.ident | i <- items, question(Question q) := i];  
+  [q.answerIdentifier.ident | i <- items, question(Question q) := i];
+  
+private list[str] getConditionalVariableMembers(Statement cond) =
+  [name | /x:ident(name) <- [cond.ifPart.condition] + [x.condition | x <- cond.elseIfs]];
 
 private str JS(Form f) =
   " \<!-- THIS IS AN AUTOMATICALLY GENERATED FILE. DO NOT EDIT!--\>
@@ -56,7 +75,7 @@ private str calculatedFields(Form f) {
   }
   
   return "<for(c <- cfs) {>
-  '  <individualCalculatedField(f.formName.ident, c)>
+  '<individualCalculatedField(f.formName.ident, c)>
   '<}>";
 }
   
@@ -105,48 +124,65 @@ private str getTypeRule(str t) {
   }
 }
 
-// TODO: Conditionals do not work correctly yet.
-  
 private str conditionalVisibility(Form f) {
   list[Statement] conditionals = [];
+
+  int cbcounter = 0;
   
   top-down visit(f) {
-    case c: ifCondition(_, _, _): 
+    case c: ifCondition(_, _, _):
       conditionals += c;
   }
-
-  return "
+  
+  str ret = "
   '\<!-- Hide all elements in a conditional branch on page load --\>
   '<for(i <- [id | c <- conditionals, /u:identDefinition(str id) <- c]) {>
   '  <hideElement(i)>
   '<}>
-  '
-  ' \<!-- Declare callback function to do evaluation of conditionals --\>
-  '$(\"#<f.formName.ident>\").change(function(e)  {
-  '<for(e <- {name | /u:ident(str name) <- f}) {>
-  '  <assignVar(e)>
-  '<}>
-  '
-  ' \<!-- Hide all the conditionals on evaluation --\>
-  '<for(i <- [id | c <- conditionals, /u:identDefinition(str id) <- c]) {>
-  '  <hideElement(i)>
-  '<}>
-  '
-  ' \<!-- Generate the conditional branches vor visibility --\>
-  '<for(c <- conditionals) {>
-  '  <individualConditionalVisibility(c)>
-  '<}>
-  '});";
+  ";
+  
+  for(c <- conditionals) {
+    ret += "
+    '<individualConditional(cbcounter, c)>
+    '";
+    cbcounter += 1;
+  }
+  
+  return ret;
 }
 
+private str individualConditional(int suffix, Statement cond) {
+  str ret = "";
 
+  cbs = getConditionalVariableMembers(cond);
+  qs = getDirectDescendingIdents(cond);
+  
+  for(cb <- cbs) {
+    ret += "
+    '$(\"#<cb>\").change(callback_<suffix>);
+    ";
+  }
+  
+  ret += "
+  'function callback_<suffix>(e) {
+  '  <for(cb <- cbs) {>
+  '  <assignVar(cb)>
+  '  <}>
+  '  <for(q <- qs) {>
+  '  <hideElement(q)>
+  '  <}>
+  '  <individualConditionalVisibility(cond)>
+  '}
+  ";
+
+  return ret;
+}
 
 private str individualConditionalVisibility(Statement item: 
   ifCondition(Conditional ifPart, list[Conditional] elseIfs, list[ElsePart] elsePart)) =
     "if(<prettyPrint(ifPart.condition)>) { 
-    '<for(e <- [id | /u:identDefinition(str id) <- ifPart.body]) {>
+    '<for(e <- getDirectDescendingIdents(ifPart.body)) {>
     '  <showElement(e)>
-    ' <getDirectDescendingIdents(ifPart.body)>
     '<}>
     '
     '<for(ei <- elseIfs) { >
@@ -163,5 +199,3 @@ private str individualConditionalVisibility(Statement item:
     '  <}>
     '<}>
     '}";
-
-
