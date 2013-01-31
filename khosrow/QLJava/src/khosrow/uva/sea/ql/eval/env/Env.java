@@ -13,10 +13,14 @@ public class Env {
 		this.types = new HashMap<Ident, Type>();
 	}
 	
-	public Type LookUp(Ident name) {
+	public boolean Contains(Ident name) {
 		if (types.containsKey(name)) 
-			return types.get(name);		
-		throw new RuntimeException("undefined variable: " + name);
+			return true;		
+		return false;
+	}
+	
+	public Type TypeOf(Ident name) {
+		return types.get(name);
 	}
 	
 	public void DeclareType(Ident name, Type type) {
