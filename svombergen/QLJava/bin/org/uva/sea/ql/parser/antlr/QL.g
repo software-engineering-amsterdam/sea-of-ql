@@ -24,12 +24,12 @@ package org.uva.sea.ql.parser.antlr;
 }
 
 form returns [Form result]
-	@init { List<Ding> list = new ArrayList<Ding>(); }
-	: 'form' Ident '{' (d=ding {list.add($d.result);})* '}' EOF { $result = new Form(new Ident($Ident.text), list); }
+	@init { List<Question> list = new ArrayList<Question>(); }
+	: 'form' Ident '{' (q=question {list.add($q.result);})* '}' EOF { $result = new Form(new Ident($Ident.text), list); }
 	;
 	
-ding returns [Ding result]
-	: Ident ':' Str type { $result = new Ding(new Ident($Ident.text), new Str($Str.text), $type.result); }
+question returns [Question result]
+	: Ident ':' Str type { $result = new Question(new Ident($Ident.text), new Str($Str.text), $type.result); }
 	;
 
 type returns [Type result]

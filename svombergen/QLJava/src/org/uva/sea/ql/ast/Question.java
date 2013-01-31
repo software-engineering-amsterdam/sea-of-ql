@@ -2,13 +2,13 @@ package org.uva.sea.ql.ast;
 
 import org.uva.sea.ql.ast.types.*;
 
-public class Ding {
+public class Question {
 	
 	protected Ident name;
 	protected Str question;
 	protected Type type;
 
-	public Ding(Ident id, Str q, Type t) {
+	public Question(Ident id, Str q, Type t) {
 		name = id;
 		question = q;
 		type = t;

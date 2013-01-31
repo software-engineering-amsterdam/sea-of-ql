@@ -4,9 +4,9 @@ import java.util.List;
 
 public class Form {
 	protected Expr name;
-	protected List<Ding> result;
+	protected List<Question> result;
 
-	public Form(Expr x, List<Ding> r){
+	public Form(Expr x, List<Question> r){
 		name = x;
 		result = r;
 	}

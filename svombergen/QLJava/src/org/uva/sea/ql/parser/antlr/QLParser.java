@@ -86,10 +86,10 @@ public class QLParser extends Parser {
         int form_StartIndex = input.index();
 
         Token Ident1=null;
-        Ding d =null;
+        Question d =null;
 
 
-         List<Ding> list = new ArrayList<Ding>(); 
+         List<Question> list = new ArrayList<Question>(); 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 1) ) { return result; }
 
@@ -161,8 +161,8 @@ public class QLParser extends Parser {
 
     // $ANTLR start "ding"
     // QL.g:31:1: ding returns [Ding result] : Ident ':' Str type ;
-    public final Ding ding() throws RecognitionException {
-        Ding result = null;
+    public final Question ding() throws RecognitionException {
+        Question result = null;
 
         int ding_StartIndex = input.index();
 
@@ -189,7 +189,7 @@ public class QLParser extends Parser {
             state._fsp--;
             if (state.failed) return result;
 
-            if ( state.backtracking==0 ) { result = new Ding(new Ident((Ident2!=null?Ident2.getText():null)), new Str((Str3!=null?Str3.getText():null)), type4); }
+            if ( state.backtracking==0 ) { result = new Question(new Ident((Ident2!=null?Ident2.getText():null)), new Str((Str3!=null?Str3.getText():null)), type4); }
 
             }
 
