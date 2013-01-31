@@ -71,6 +71,7 @@ private str createJSON() =
   '$__JSON = json_encode($__RES);
   '
   'print_r($__JSON);
+  'echo \"\n\";
   ";
 private str preparedStatementShorthand(str answerDataType) {      
   switch(answerDataType) {
@@ -93,19 +94,19 @@ private str validator(str answerDataType, str ident) {
 }
 
 private str validateBoolean(str ident) =
-  "if(!(is_bool($_POST[\'<ident>\']))) {
+  "if(!(is_bool((boolean) $_POST[\'<ident>\']))) {
   '  die(\"<ident> is not a boolean!\");
   '}";
   
 private str validateInteger(str ident) =
-  "if(!(is_int($_POST[\'<ident>\']))) {
+  "if(!(is_int((integer) $_POST[\'<ident>\']))) {
   '  die(\"<ident> is not an integer!\");
   '}";
 
 private str validateMoney(str ident) =
-  "<ident> = floatval(<ident>);
-  '_s<ident> = sprintf(\"%.2f\", <ident>);
-  'ident = floatval($_s<ident>);";
+  "$<ident> = floatval($_POST[\'<ident>\']);
+  '$_s<ident> = sprintf(\"%.2f\", $<ident>);
+  '$<ident> = floatval($_s<ident>);";
 
 private str validateDate(str ident) =
   "$<ident> = $_POST[\'<ident>\'];
