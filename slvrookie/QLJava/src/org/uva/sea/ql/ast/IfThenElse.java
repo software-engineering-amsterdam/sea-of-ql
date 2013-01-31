@@ -1,7 +1,7 @@
 package org.uva.sea.ql.ast;
 
 import org.uva.sea.ql.ast.expr.Expr;
-import org.uva.sea.ql.visitor.TypeChecker;
+import org.uva.sea.ql.visitor.ITypeChecker;
 
 public class IfThenElse extends IfThen {
 
@@ -17,8 +17,8 @@ public class IfThenElse extends IfThen {
 	}
 
 	@Override
-	public void accept(TypeChecker visitor) {
-		visitor.visit(this);
+	public void accept(ITypeChecker TypeChecker) {
+		TypeChecker.visit(this);
 	}
 	
 }

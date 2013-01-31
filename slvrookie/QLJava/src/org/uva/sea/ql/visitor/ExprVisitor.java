@@ -28,15 +28,11 @@ public class ExprVisitor implements IExprVisitor<Boolean> {
 	public void addError(String error) {
 		this.messages.add(error);
 	}
-	
-	public List<String> getErrorList() {
-		return messages;
-	}
 
 	@Override
 	public Boolean visit(Ident node) {
 		if(typeEnv.get(node.getName()) == null)	{
-			addError("Ident " + node.getName() + " is not declared");
+			addError("Ident " + node.getName() + " is not declared.");
 		}
 		return true;
 	}
@@ -44,7 +40,7 @@ public class ExprVisitor implements IExprVisitor<Boolean> {
 	@Override
 	public Boolean visit(Add node) {
 		checkSubtrees(node);
-		areBothSidesCompatable(node, "+");
+		areBothSidesCompatible(node, "+");
 		areBothSidesCompatibleToNumeric(node,"+");	
 		return true;
 	}
@@ -59,7 +55,7 @@ public class ExprVisitor implements IExprVisitor<Boolean> {
 	@Override
 	public Boolean visit(Div node) {
 		checkSubtrees(node);
-		areBothSidesCompatable(node, "/");
+		areBothSidesCompatible(node, "/");
 		areBothSidesCompatibleToNumeric(node,"/");
 		return true;
 	}
@@ -67,14 +63,14 @@ public class ExprVisitor implements IExprVisitor<Boolean> {
 	@Override
 	public Boolean visit(Eq node) {
 		checkSubtrees(node);
-		areBothSidesCompatable(node, "==");
+		areBothSidesCompatible(node, "==");
 		return true;
 	}
 
 	@Override
 	public Boolean visit(GEq node) {
 		checkSubtrees(node);
-		areBothSidesCompatable(node, ">=");
+		areBothSidesCompatible(node, ">=");
 		areBothSidesCompatibleToNumeric(node,">=");
 		return true;
 	}
@@ -82,7 +78,7 @@ public class ExprVisitor implements IExprVisitor<Boolean> {
 	@Override
 	public Boolean visit(GT node) {
 		checkSubtrees(node);
-		areBothSidesCompatable(node, ">");
+		areBothSidesCompatible(node, ">");
 		areBothSidesCompatibleToNumeric(node,">");
 		return true;
 	}
@@ -90,7 +86,7 @@ public class ExprVisitor implements IExprVisitor<Boolean> {
 	@Override
 	public Boolean visit(LEq node) {
 		checkSubtrees(node);
-		areBothSidesCompatable(node, "<=");
+		areBothSidesCompatible(node, "<=");
 		areBothSidesCompatibleToNumeric(node,"<=");
 		return true;
 	}
@@ -98,7 +94,7 @@ public class ExprVisitor implements IExprVisitor<Boolean> {
 	@Override
 	public Boolean visit(LT node) {
 		checkSubtrees(node);
-		areBothSidesCompatable(node, "<");
+		areBothSidesCompatible(node, "<");
 		areBothSidesCompatibleToNumeric(node,"<");
 		return true;
 	}
@@ -106,7 +102,7 @@ public class ExprVisitor implements IExprVisitor<Boolean> {
 	@Override
 	public Boolean visit(Mul node) {
 		checkSubtrees(node);
-		areBothSidesCompatable(node, "*");
+		areBothSidesCompatible(node, "*");
 		areBothSidesCompatibleToNumeric(node,"*");
 		return true;
 	}
@@ -121,7 +117,7 @@ public class ExprVisitor implements IExprVisitor<Boolean> {
 	@Override
 	public Boolean visit(NEq node) {
 		checkSubtrees(node);		
-		areBothSidesCompatable(node, "!=");
+		areBothSidesCompatible(node, "!=");
 		return true;
 	}
 
@@ -149,7 +145,7 @@ public class ExprVisitor implements IExprVisitor<Boolean> {
 	@Override
 	public Boolean visit(Sub node) {
 		checkSubtrees(node);
-		areBothSidesCompatable(node, "-");
+		areBothSidesCompatible(node, "-");
 		areBothSidesCompatibleToNumeric(node,"-");
 		return true;
 	}
@@ -190,7 +186,7 @@ public class ExprVisitor implements IExprVisitor<Boolean> {
 	
 	private boolean isArgumentNumeric(UnaryExpr node, String operator) {
 		if(!node.getArg().typeOf(typeEnv).isCompatibleToNumeric()) {
-			addError("Invalid type for unary " + operator);
+			addError("Invalid type for unary " + operator + ". Expected NumericType but got " + node.getArg().typeOf(typeEnv).getClass().getSimpleName() + ".");
 			return false;
 		}
 		return true;
@@ -198,15 +194,15 @@ public class ExprVisitor implements IExprVisitor<Boolean> {
 	
 	private boolean isArgumentBoolean(UnaryExpr node, String operator) {
 		if(!node.getArg().typeOf(typeEnv).isCompatibleToBoolType()) {
-			addError("Invalid type for unary " + operator);
+			addError("Invalid type for unary " + operator + ". Expected BoolType but got " + node.getArg().typeOf(typeEnv).getClass().getSimpleName() + ".");
 			return false;
 		}
 		return true;
 	}
 	
-	private boolean areBothSidesCompatable(BinaryExpr node, String operator) {
+	private boolean areBothSidesCompatible(BinaryExpr node, String operator) {
 		if (!(node.getLhs().typeOf(typeEnv).isCompatibleTo(node.getRhs().typeOf(typeEnv)))) { 
-			addError("Both operators must have the same type for " + operator);
+			addError("Both arguments must have the same type for binary " + operator + ". Got " + node.getLhs().typeOf(typeEnv).getClass().getSimpleName() + " " + operator + " " + node.getRhs().typeOf(typeEnv).getClass().getSimpleName() + ".");
 			return false;
 		}
 		return true;
@@ -214,7 +210,7 @@ public class ExprVisitor implements IExprVisitor<Boolean> {
 	
 	private boolean areBothSidesCompatibleToNumeric(BinaryExpr node, String operator ) {
 		if (!(node.getLhs().typeOf(typeEnv).isCompatibleToNumeric() && node.getRhs().typeOf(typeEnv).isCompatibleToNumeric())) { 
-			addError("invalid types for " + operator + "Booleans are not allowed for this expression");
+			addError("Invalid types for binary " + operator + ". BoolTypes are not allowed for this operator.");
 			return false;
 		}
 		return true;
@@ -222,7 +218,7 @@ public class ExprVisitor implements IExprVisitor<Boolean> {
 	
 	private boolean areBothSidesCompatibleToBoolean(BinaryExpr node, String operator ) {
 		if (!(node.getLhs().typeOf(typeEnv).isCompatibleToBoolType() && node.getRhs().typeOf(typeEnv).isCompatibleToBoolType())) {
-			addError("invalid type for " + operator);
+			addError("Invalid types for binary " + operator + ". Numeric Types are not allowed for this operator.");
 			return false;
 		}
 		return true;
