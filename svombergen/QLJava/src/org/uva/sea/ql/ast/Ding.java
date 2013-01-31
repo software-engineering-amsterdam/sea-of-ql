@@ -1,12 +1,16 @@
 package org.uva.sea.ql.ast;
 
+import org.uva.sea.ql.ast.types.*;
+
 public class Ding {
 	
-	protected Expr name;
-	protected Expr rest;
+	protected Ident name;
+	protected Str question;
+	protected Type type;
 
-	public Ding(Expr x, Expr s){
-		name = x;
-		rest = s;
+	public Ding(Ident id, Str q, Type t) {
+		name = id;
+		question = q;
+		type = t;
 	}
 }

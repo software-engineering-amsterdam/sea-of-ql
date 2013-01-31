@@ -29,7 +29,11 @@ form returns [Form result]
 	;
 	
 ding returns [Ding result]
-	: Ident ':' Str { $result = new Ding(new Ident($Ident.text), $Str.text); }
+	: Ident ':' Str type { $result = new Ding(new Ident($Ident.text), new Str($Str.text), $type.result); }
+	;
+
+type returns [Type result]
+	: 'boolean' { $result = new BoolType(); }
 	;
 
 primary returns [Expr result]
