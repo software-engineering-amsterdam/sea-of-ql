@@ -53,7 +53,8 @@ private list[str] getConditionalVariableMembers(Statement cond) =
   [name | /x:ident(name) <- [cond.ifPart.condition] + [x.condition | x <- cond.elseIfs]];
 
 private str JS(Form f) =
-  " \<!-- THIS IS AN AUTOMATICALLY GENERATED FILE. DO NOT EDIT!--\>
+  "//THIS IS AN AUTOMATICALLY GENERATED FILE. DO NOT EDIT!
+  '
   'function validate<f.formName.ident>() {
   '  $(\"#<f.formName.ident>\").validate({
   '    rules: {
