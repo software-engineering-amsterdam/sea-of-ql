@@ -1,5 +1,6 @@
 package org.uva.sea.ql.ast.statement;
 
+import org.uva.sea.ql.ast.expression.Ident;
 import org.uva.sea.ql.ast.expression.literal.Str;
 import org.uva.sea.ql.visitor.IStatementVisitor;
 
@@ -18,6 +19,11 @@ public class QuestionDeclaration extends Statement {
 	private final Statement statement;
 
 	/**
+	 * Holds the identifier.
+	 */
+	private final Ident ident;
+
+	/**
 	 * Constructs a new question declaration node.
 	 *
 	 * @param name
@@ -26,6 +32,7 @@ public class QuestionDeclaration extends Statement {
 	public QuestionDeclaration( Str name, VarDeclaration declaration ) {
 		this.name = name;
 		this.statement = declaration;
+		this.ident = declaration.getIdent();
 	}
 
 	/**
@@ -37,6 +44,7 @@ public class QuestionDeclaration extends Statement {
 	public QuestionDeclaration( Str name, Assignment assignment ) {
 		this.name = name;
 		this.statement = assignment;
+		this.ident = assignment.getIdent();
 	}
 
 	/**
@@ -46,6 +54,15 @@ public class QuestionDeclaration extends Statement {
 	 */
 	public Str getName() {
 		return this.name;
+	}
+
+	/**
+	 * Retrieves the identifier.
+	 *
+	 * @return The identifier AST node.
+	 */
+	public Ident getIdent() {
+		return this.ident;
 	}
 
 	/**
