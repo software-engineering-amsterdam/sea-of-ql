@@ -25,7 +25,13 @@ package org.uva.sea.ql.parser.antlr;
 
 form returns [Form result]
 	@init { List<Question> list = new ArrayList<Question>(); }
-	: 'form' Ident '{' (q=question {list.add($q.result);})* '}' EOF { $result = new Form(new Ident($Ident.text), list); }
+	: 'form' Ident '{' (q=question {list.add($q.result);})* ifStatement '}' EOF { $result = new Form(new Ident($Ident.text), list, $ifStatement.result); }
+	;
+
+ifStatement returns [IfStatement result]
+	@init {List<Question> list = new ArrayList<Question>(); }
+	: 'if' '(' x=orExpr ')' '{' (q=question {list.add($q.result);})* '}' { $result = new IfStatement(x, list); }
+	| { $result = null; }
 	;
 	
 question returns [Question result]
@@ -34,6 +40,10 @@ question returns [Question result]
 
 type returns [Type result]
 	: 'boolean' { $result = new BoolType(); }
+	| 'int' { $result = new IntType(); }
+	| 'string' { $result = new StrType(); }
+	| 'money' { $result = new MoneyType(); }
+	| 'money(' x=addExpr ')' { $result = new MoneyExprType($x.result); }
 	;
 
 primary returns [Expr result]
