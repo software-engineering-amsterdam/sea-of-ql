@@ -12,8 +12,8 @@ import lang::ql::ide::Build;
 import lang::qls::util::Parse;
 import lang::qls::util::Implode;
 import lang::qls::ide::Outline;
-//import lang::qls::ide::Check;
-//import lang::qls::ide::Build;
+import lang::qls::ide::Check;
+import lang::qls::ide::Build;
 
 private str QL_LANG = "QL-R";
 private str QL_EXT = "q";
@@ -27,7 +27,7 @@ public void main() {
   registerContributions(QL_LANG, {getQLOutliner(), getQLAnnotator(), getQLBuilder()});
 
   registerLanguage(QLS_LANG, QLS_EXT, QLSparser);
-  registerContributions(QLS_LANG, {getQLSOutliner()/*, getQLSAnnotator(), getQLSBuilder()*/});
+  registerContributions(QLS_LANG, {getQLSOutliner(), getQLSAnnotator(), getQLSBuilder()});
 
 }
 

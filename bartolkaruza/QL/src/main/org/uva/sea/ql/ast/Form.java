@@ -2,7 +2,7 @@ package org.uva.sea.ql.ast;
 
 import java.util.List;
 
-import org.uva.sea.ql.visitor.NodeVisitor;
+import org.uva.sea.ql.visitor.StatementVisitor;
 
 public class Form implements ASTNode {
 
@@ -14,8 +14,7 @@ public class Form implements ASTNode {
 		this.statements = statements;
 	}
 
-	@Override
-	public void accept(NodeVisitor visitor) {
+	public void accept(StatementVisitor visitor) {
 		visitor.visit(this);
 	}
 

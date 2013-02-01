@@ -15,4 +15,9 @@ public class Str implements Type {
     public int hashCode() {
         return Str.class.hashCode();
     }
+
+    @Override
+    public String toString() {
+        return "string";
+    }
 }

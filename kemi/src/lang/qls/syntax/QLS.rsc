@@ -1,53 +1,70 @@
 module lang::qls::syntax::QLS
 
-// TODO support trailing empty lines
 start syntax Stylesheet
   = stylesheet: Statement+ statements
   ;
 
 syntax Statement
-  = @Foldable ClassDefinition
-  | @Foldable TypeStyleDefinition
-  | @Foldable ClassStyleDefinition
-  | @Foldable IdentStyleDefinition
+  = @Foldable PageDefinition
+  | @Foldable SectionDefinition
+  | @Foldable StyleDefinition
   ;
 
-syntax ClassDefinition
-  = classDefinition: "class" Ident "{" ClassRule+ "}"
+syntax PageDefinition
+  = pageDefinition: "page" PageIdent "{" PageRule+ "}"
   ;
 
-syntax ClassRule
-  = classRule: QuestionIdent
+syntax PageRule
+  = pageRule: SectionIdent
+  | pageRule: QuestionIdent
   ;
 
-syntax TypeStyleDefinition
-  = typeStyleDefinition: Type "{" StyleRule+ "}"
+syntax SectionDefinition
+  = sectionDefinition: "section" SectionIdent "{" SectionRule+ "}"
   ;
 
-syntax ClassStyleDefinition
-  = classStyleDefinition: ClassIdent "{" StyleRule+ "}"
+syntax SectionRule
+  = sectionRule: "section" SectionIdent "{" SectionRule+ "}"
+  | sectionRule: QuestionIdent
   ;
 
-syntax IdentStyleDefinition
-  = identStyleDefinition: QuestionIdent "{" StyleRule+ "}"
+syntax StyleDefinition
+  = styleDefinition: StyleIdent "{" StyleRule+ "}"
   ;
 
 syntax StyleRule
-  = styleRule: StyleAttr StyleAttrValue
-  ; 
-
-lexical ClassIdent
-  = @category="NonterminalLabel" [.]Ident
-  ; 
-
-lexical QuestionIdent
-  = @category="Variable" [#]Ident
+  = typeStyleRule: TypeStyleAttr TypeStyleValue
+  | widthStyleRule: WidthStyleAttr Int
   ;
 
-lexical Ident
+syntax TypeStyleValue
+  = radio: "radio"
+  | checkbox: "checkbox"
+  ;
+
+syntax StyleIdent
+  = typeIdent: TypeIdent
+  | pageIdent: PageIdent
+  | sectionIdent: SectionIdent
+  | questionIdent: QuestionIdent
+  ;
+
+lexical PageIdent
+  = @category="NonterminalLabel" [.]BaseIdent
+  ; 
+
+lexical SectionIdent
+  = @category="MetaVariable" [$]BaseIdent
+  ;
+
+lexical QuestionIdent
+  = @category="Variable" [#]BaseIdent
+  ;
+
+lexical BaseIdent
   = ([a-z A-Z 0-9 _] !<< [a-z A-Z][a-z A-Z 0-9 _]* !>> [a-z A-Z 0-9 _]) \ Keywords;
 
-lexical Type
+lexical TypeIdent
   = @category="Type" "boolean"
   | @category="Type" "integer"
   | @category="Type" "money"
@@ -55,19 +72,12 @@ lexical Type
   | @category="Type" "string"
   ; 
 
-lexical StyleAttr
-  = @category="Identifier" "type"
-  | @category="Identifier" "width"
+lexical TypeStyleAttr
+  = @category="Constant" "type"
   ;
 
-syntax StyleAttrValue
-  = styleAttrValue: StyleTypeValue
-  | styleAttrValue: Int
-  ;
-
-lexical StyleTypeValue
-  = "radio"
-  | "checkbox"
+lexical WidthStyleAttr
+  = @category="Constant" "width"
   ;
 
 lexical Int
@@ -99,7 +109,8 @@ keyword Keywords
   | money: "money"
   | date: "date"
   | string: "string"
-  | form: "class"
+  | page: "page"
+  | section: "section"
   | \type: "type"
   | width: "width"
   | radio: "radio"

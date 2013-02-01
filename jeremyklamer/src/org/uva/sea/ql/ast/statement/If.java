@@ -42,4 +42,14 @@ public class If extends Statement{
 		return errors;
 	}
 	
+	@Override
+	public void printSelf(int indentation){
+		printIndentation(indentation);
+		System.out.println(getSimpleName(this) + ", Condition : " + getSimpleName(this.condition));
+		
+		for(Statement statement : ifBody){
+			statement.printSelf(indentation + 1);
+		}
+	}
+	
 }

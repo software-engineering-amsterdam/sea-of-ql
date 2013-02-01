@@ -1,4 +1,4 @@
-// Output created by jacc on Mon Jan 28 13:33:25 CET 2013
+// Output created by jacc on Mon Jan 28 21:34:43 CET 2013
 
 package org.uva.sea.ql.parser;
 
@@ -6,6 +6,7 @@ import org.uva.sea.ql.ast.*;
 import org.uva.sea.ql.ast.expressions.*;
 import org.uva.sea.ql.ast.statements.*;
 import org.uva.sea.ql.ast.types.*;
+import org.uva.sea.ql.ICodeLocationInformation;
 import java.util.ArrayList;
 
 class Parser implements Tokens {
@@ -2804,15 +2805,16 @@ public Parser(Lexer lexer) {
   this.lexer = lexer; 
 }
 
-private void yyerror(String msg) { 
-  System.err.println(msg); 
+private void yyerror(String msg) {
+  ICodeLocationInformation info = lexer.location(); 
+  System.err.println(String.format("'%s' near line %d, column %d in '%s'", msg, info.getLineNumber(), info.getColumn(), info.getFileName()));
 }
 
 private static Statement chainStatements(Statement... statements) {
                 ArrayList<Statement> newStatements = new ArrayList<Statement>();        
                 for (Statement s : statements) {
                         if (s instanceof Statements) {
-                                for (Statement inner : ((Statements) s).getChildren()) {
+                                for (Statement inner : (Statements)s) {
                                         newStatements.add(inner);
                                 }
                         }

@@ -6,8 +6,10 @@ import java.util.HashMap;
 import java.util.Map;
 
 import khosrow.uva.sea.ql.ast.ASTNode;
+import khosrow.uva.sea.ql.ast.expr.BoolLiteral;
 import khosrow.uva.sea.ql.ast.expr.Ident;
 import khosrow.uva.sea.ql.ast.expr.IntLiteral;
+import khosrow.uva.sea.ql.ast.expr.MoneyLiteral;
 import khosrow.uva.sea.ql.ast.expr.StringLiteral;
 
 public class QLLexer implements QLTokens {
@@ -83,7 +85,7 @@ public class QLLexer implements QLTokens {
 			    		nextChar();
 			    		continue;
 			    	}
-			    	return token = DIV; 
+			    	return token = '/'; 
 			    }
 			    case '{': nextChar(); return token = '{';
 			    case '}': nextChar(); return token = '}';
@@ -96,10 +98,10 @@ public class QLLexer implements QLTokens {
 			    		nextChar();
 			    		continue;
 			    	}
-			    	return token = MUL;
+			    	return token = '*';
 			    }
-			    case '+': nextChar(); return token = ADD;
-			    case '-': nextChar(); return token = SUB;
+			    case '+': nextChar(); return token = '+';
+			    case '-': nextChar(); return token = '-';			    
 			    case ';': nextChar(); return token = ';';
 			    case ':': nextChar(); return token = ':';			    
 			    case '&': {
@@ -125,7 +127,7 @@ public class QLLexer implements QLTokens {
 			    		nextChar();
 			    		return token = LEQ;
 			    	}
-			    	return token = LT;
+			    	return token = '<';
 			    }
 			    case '=': { 
 			    	nextChar(); 
@@ -140,7 +142,7 @@ public class QLLexer implements QLTokens {
 			    		nextChar();
 			    		return token = GEQ;
 			    	}
-			    	return token = GT;
+			    	return token = '>';
 			    }
 			    case '"': {
 			    	StringBuilder sb = new StringBuilder();
@@ -161,11 +163,23 @@ public class QLLexer implements QLTokens {
 			    	if (Character.isDigit(c)) {
 			    		int n = 0; 
 			    		do {
-			    			n = 10 * n + (c - '0');
+			    			n = 10 * n + Character.digit(c, 10);
 			    			nextChar(); 
-			    		} while (Character.isDigit(c)); 
-			    		yylval = new IntLiteral(n);
-			    		return token = INT;
+			    		} while (Character.isDigit(c));
+			    		if(c != '.') {
+			    			yylval = new IntLiteral(n);
+			    			return token = INT_LITERAL;
+			    			}
+			    		double v = n, d = 10; 
+			    		for(;;) {
+			    			nextChar();
+			    			if(!Character.isDigit(c))
+			    				break;
+			    			v = v + Character.digit(c, 10) / d;
+			    			d *= 10;
+			    		}
+			    		yylval = new MoneyLiteral(v);
+		    			return token = MONEY_LITERAL; 
 			    	}
 			    	if (Character.isLetter(c)) {
 			    		StringBuilder sb = new StringBuilder();
@@ -178,10 +192,14 @@ public class QLLexer implements QLTokens {
 			    		if (KEYWORDS.containsKey(name)) {
 			    			return token = KEYWORDS.get(name);
 			    		}
+			    		if(name.equals("true") || name.equals("false"))
+			    		{
+			    			yylval = new BoolLiteral(Boolean.getBoolean(name));
+			    			return token = BOOL_LITERAL;
+			    		}
 						yylval = new Ident(name);
 			    		return token = IDENT;
 			    	}
-			    	char temp = (char) c;
 			    	throw new RuntimeException("Unexpected character: " + (char)c);
 			    }
 			}

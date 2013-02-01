@@ -18,11 +18,10 @@ public class TestForm {
 	}
 	
 	@Test
-	public void testForm() throws ParseError{
-		
-		assertEquals(parser.ParseForm("FORM f1 {}".toString()).getClass(), Form.class);
-		
+	public void testForm() throws ParseError{		
+		assertEquals(parser.ParseForm("form f1 {}".toString()).getClass(), Form.class);
+		assertEquals(parser.ParseForm("form f2 { Q1: \"Ask a question?\" boolean }").getClass(), Form.class);
+		assertEquals(parser.ParseForm("form f3 { Q2 (a + B): \"Ask a question?\" boolean }").getClass(), Form.class);
+		assertEquals(parser.ParseForm("form f3 { if (a - b > c) { Q3 (a + B): \"Ask a question?\" boolean }}").getClass(), Form.class);
 	}
-	
-
 }

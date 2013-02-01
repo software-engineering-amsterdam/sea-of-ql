@@ -5,13 +5,18 @@ import static org.junit.Assert.assertEquals;
 
 import khosrow.uva.sea.ql.ast.expr.Add;
 import khosrow.uva.sea.ql.ast.expr.And;
+import khosrow.uva.sea.ql.ast.expr.BoolLiteral;
 import khosrow.uva.sea.ql.ast.expr.GT;
 import khosrow.uva.sea.ql.ast.expr.Ident;
+import khosrow.uva.sea.ql.ast.expr.IntLiteral;
 import khosrow.uva.sea.ql.ast.expr.LEq;
 import khosrow.uva.sea.ql.ast.expr.LT;
+import khosrow.uva.sea.ql.ast.expr.MoneyLiteral;
 import khosrow.uva.sea.ql.ast.expr.Mul;
+import khosrow.uva.sea.ql.ast.expr.Neg;
 import khosrow.uva.sea.ql.ast.expr.Not;
-import khosrow.uva.sea.ql.ast.type.Int;
+import khosrow.uva.sea.ql.ast.expr.Pos;
+import khosrow.uva.sea.ql.ast.expr.StringLiteral;
 import khosrow.uva.sea.ql.parser.jacc.JACCParser;
 
 import org.junit.Before;
@@ -81,11 +86,25 @@ public class TestExpressions {
 		assertEquals(parser.ParseExpression("a2bc232").getClass(), Ident.class);
 		assertEquals(parser.ParseExpression("a2bc232aa").getClass(), Ident.class);
 	}
-
+	
 	@Test
-	public void testNums() throws ParseError {
-		assertEquals(parser.ParseExpression("0").getClass(), Int.class);
-		assertEquals(parser.ParseExpression("1223").getClass(), Int.class);
-		assertEquals(parser.ParseExpression("234234234").getClass(), Int.class);
+	public void testUnary() throws ParseError{
+		assertEquals(parser.ParseExpression("-1").getClass(), Neg.class);
+		assertEquals(parser.ParseExpression("-a").getClass(), Neg.class);
+		assertEquals(parser.ParseExpression("-abc").getClass(), Neg.class);
+		assertEquals(parser.ParseExpression("-(a * b)").getClass(), Neg.class);
+		assertEquals(parser.ParseExpression("+1").getClass(), Pos.class);
+		assertEquals(parser.ParseExpression("- (( 2 * (-a - b)) / 2)").getClass(), Neg.class);
+	}
+	
+	@Test
+	public void testLiterals() throws ParseError{
+		assertEquals(parser.ParseExpression("\"A text\"").getClass(), StringLiteral.class);
+		assertEquals(parser.ParseExpression("true").getClass(), BoolLiteral.class);
+		assertEquals(parser.ParseExpression("false").getClass(), BoolLiteral.class);
+		assertEquals(parser.ParseExpression("0").getClass(), IntLiteral.class);
+		assertEquals(parser.ParseExpression("1223").getClass(), IntLiteral.class);
+		assertEquals(parser.ParseExpression("234234234").getClass(), IntLiteral.class);
+		assertEquals(parser.ParseExpression("2333.12332").getClass(), MoneyLiteral.class);
 	}
 }

@@ -8,8 +8,6 @@ import java.io.IOException;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-import net.miginfocom.swing.MigLayout;
-
 import org.uva.sea.ql.form.Form;
 import org.uva.sea.ql.parser.antlr.ANTLRParser;
 import org.uva.sea.ql.parser.test.IParse;
@@ -43,9 +41,7 @@ public class FormBuilder {
 	private void displayForm(JPanel formPanel, String formTitle) {
 		JFrame mainWindow = new JFrame(formTitle);
 
-		MigLayout ml = new MigLayout("fillx, wrap 1, debug", "", "");
 		mainWindow.setContentPane(formPanel);
-		mainWindow.getContentPane().setLayout(ml);
 		mainWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		mainWindow.setLocationRelativeTo(null); // Put in center of the screen
 		mainWindow.pack(); //Automatically resize

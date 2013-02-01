@@ -28,4 +28,5 @@ public abstract class Unary extends Expr{
 			errors.add(new Error(type.getClass().getSimpleName() + " is not compatible. In " + getSimpleName(this)));
 		return errors;			
 	}
+	
 }

@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.uva.sea.ql.Message;
+import org.uva.sea.ql.Error;
 import org.uva.sea.ql.ast.*;
 import org.uva.sea.ql.ast.expr.*;
 import org.uva.sea.ql.ast.type.*;
@@ -13,60 +15,58 @@ public class TypecheckerVisitor implements ASTNodeVisitor<Type, TypecheckerVisit
 
     public static class Context {
         private final Map<Ident, Type> symbolTable;
-        private final List<String> errors;
+        private final List<Message> errors;
 
         public Context() {
             this.symbolTable = new HashMap<Ident, Type>();
-            this.errors = new ArrayList<String>();
+            this.errors = new ArrayList<Message>();
         }
 
-        public List<String> getErrors() { return errors; }
+        public List<Message> getErrors() { return errors; }
         public Map<Ident, Type> getSymbolTable() { return symbolTable; }
     }
 
 	private static final Type BOOL_TYPE    = new org.uva.sea.ql.ast.type.Bool(),
 			                  INT_TYPE     = new org.uva.sea.ql.ast.type.Int(),
-			                  STRING_TYPE  = new org.uva.sea.ql.ast.type.Str();
+			                  STRING_TYPE  = new org.uva.sea.ql.ast.type.Str(),
+			                  VOID_TYPE    = new org.uva.sea.ql.ast.type.Void(),
+			                  UNKNOWN_TYPE = new org.uva.sea.ql.ast.type.Unknown();
 
+    /**
+     * Private constructor to indicate that no instance should be made of this class.
+     */
+    private TypecheckerVisitor() { }
 
     /**
      * This method checks a form for errors.
      * @return A list of errors. When no errors are found, an empty list is returned.
      */
-	public List<String> typecheck(Form form) {
+	public static List<Message> typecheck(Form form) {
+        TypecheckerVisitor typecheckerVisitor = new TypecheckerVisitor();
 		Context context = new Context();
-        form.accept(this, context);
+        form.accept(typecheckerVisitor, context);
         return context.getErrors();
     }
-	
-	// Form operations
+
+
+    // Form operations
 	@Override
 	public Type visit(Computed astNode, Context context) {
         astNode.getExpression().accept(this, context);
-		return null;
+		return VOID_TYPE;
 	}
 
     @Override
     public Type visit(CompositeFormElement astNode, Context context) {
         for(FormElement formElement : astNode.getFormElements())
             formElement.accept(this, context);
-        return null;
+        return VOID_TYPE;
     }
-
-	@Override
-	public Type visit(Declaration astNode, Context context) {
-		if(!context.getSymbolTable().containsKey(astNode.getIdentity()))
-            context.getSymbolTable().put(astNode.getIdentity(), astNode.getType());
-		else
-            context.getErrors().add(String.format("The identity '%s' is already declared!", astNode.getIdentity().getName()));
-
-		return null;
-	}
 
 	@Override
 	public Type visit(Form astNode, Context context) {
 		astNode.getBody().accept(this, context);
-		return null;			
+		return VOID_TYPE;
 	}
 	
 	@Override
@@ -74,35 +74,64 @@ public class TypecheckerVisitor implements ASTNodeVisitor<Type, TypecheckerVisit
 		if(context.getSymbolTable().containsKey(astNode))
 			return context.getSymbolTable().get(astNode);
 		else {
-			context.errors.add(String.format("Identity '%s' has not yet been declared!", astNode.getName()));
+			context.errors.add(new Error(String.format("Identifier '%s' has not yet been declared!", astNode.getName())));
             /**
              * We are trying to retrieve the type of an undefined variable. There is no way we can determine
              * what type an undefined variable has, because it is literally unknown.
              * To avoid null checks everywhere where a type is used, return an 'null' implementation of the
              * Type interface.
              */
-            return new Unknown();
+            return UNKNOWN_TYPE;
         }
 	}
-	
-	@Override
-	public Type visit(If astNode, Context context) {
-		Type type = astNode.getCondition().accept(this, context);
-        if(!type.equals(BOOL_TYPE))
-            context.getErrors().add("The condition of an if-statement should have type boolean.");
 
-		astNode.getIfBody().accept(this, context);
-		astNode.getElseBody().accept(this, context);
-		
-		return null;
-	}
-	
+    @Override
+    public Type visit(If astNode, Context context) {
+        Type type = astNode.getCondition().accept(this, context);
+        if(!type.equals(BOOL_TYPE))
+            context.getErrors().add(new Error("The condition of an if-statement should have type boolean."));
+
+        astNode.getIfBody().accept(this, context);
+
+        return VOID_TYPE;
+    }
+
+    @Override
+    public Type visit(IfElse astNode, Context context) {
+        Type type = astNode.getCondition().accept(this, context);
+        if(!type.equals(BOOL_TYPE))
+            context.getErrors().add(new Error("The condition of an if-statement should have type boolean."));
+
+        astNode.getIfBody().accept(this, context);
+        astNode.getElseBody().accept(this, context);
+
+        return VOID_TYPE;
+    }
+
+    @Override
+    public Type visit(StoredExpression astNode, Context context) {
+        addTypeToSymbolTable(
+                astNode.getIdentifier(),
+                astNode.getExpression().accept(this, context),
+                context);
+        return VOID_TYPE;
+    }
+
 	@Override
 	public Type visit(Question astNode, Context context) {
-		astNode.getDeclaration().accept(this, context);
-		return null;
+        addTypeToSymbolTable(
+                astNode.getIdentifier(),
+                astNode.getType(),
+                context);
+		return VOID_TYPE;
 	}
-	
+
+    private void addTypeToSymbolTable(Ident identifier, Type type, Context context) {
+        if(!context.getSymbolTable().containsKey(identifier))
+            context.getSymbolTable().put(identifier, type);
+        else
+            context.getErrors().add(new Error(String.format("The identifier '%s' is already declared!", identifier.getName())));
+    }
 	
 	// Value operations
 	@Override
@@ -185,7 +214,7 @@ public class TypecheckerVisitor implements ASTNodeVisitor<Type, TypecheckerVisit
 	// Boolean operations
 	@Override
 	public Type visit(And astNode, Context context) {
-		checkBothSidesAreBools(astNode, context, "||");
+		checkBothSidesAreBools(astNode, context, "&&");
 		return BOOL_TYPE;
 	}
 
@@ -221,7 +250,7 @@ public class TypecheckerVisitor implements ASTNodeVisitor<Type, TypecheckerVisit
 			!expression.getLeftExpression().accept(this, context).equals(BOOL_TYPE) ||
 			!expression.getRightExpression().accept(this, context).equals(BOOL_TYPE))
 			
-			context.getErrors().add(String.format("Both sides of the '%s' have to be of type boolean.", operator));
+			context.getErrors().add(new Error(String.format("Both sides of the '%s' have to be of type boolean.", operator)));
 	}
 	
 	private void checkBothSidesAreInts(BinaryExpr expression, Context context, String operator) {
@@ -229,23 +258,23 @@ public class TypecheckerVisitor implements ASTNodeVisitor<Type, TypecheckerVisit
 			!expression.getLeftExpression().accept(this, context).equals(INT_TYPE) ||
 			!expression.getRightExpression().accept(this, context).equals(INT_TYPE))
 			
-			context.getErrors().add(String.format("Both sides of the '%s' have to be of type integer.", operator));
+			context.getErrors().add(new Error(String.format("Both sides of the '%s' have to be of type integer.", operator)));
 	}
 
     private void checkBothSidesAreOfSameType(BinaryExpr expression, Context context, String operator) {
         if (
             !expression.getLeftExpression().accept(this, context).equals(
                 expression.getRightExpression().accept(this, context)))
-            context.getErrors().add(String.format("The left and right side of the '%s' operator need to be of the same type.", operator));
+            context.getErrors().add(new Error(String.format("The left and right side of the '%s' operator need to be of the same type.", operator)));
     }
 	
 	private void checkExpressionIsBool(UnaryExpr expression, Context context, String operator) {
 		if(!expression.getExpression().accept(this, context).equals(BOOL_TYPE))
-            context.getErrors().add(String.format("The expression of the '%s' operator has to be of type boolean.", operator));
+            context.getErrors().add(new Error(String.format("The expression of the '%s' operator has to be of type boolean.", operator)));
 	}
 	
 	private void checkExpressionIsInt(UnaryExpr expression, Context context, String operator) {
 		if(!expression.getExpression().accept(this, context).equals(INT_TYPE))
-            context.getErrors().add(String.format("The expression of the '%s' operator has to be of type boolean.", operator));
+            context.getErrors().add(new Error(String.format("The expression of the '%s' operator has to be of type boolean.", operator)));
 	}
 }

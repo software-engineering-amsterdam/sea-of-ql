@@ -39,7 +39,7 @@ import org.uva.sea.ql.ast.types.Type;
 	
 	@Override
 	public void visit(Statements element) {
-		for (Statement s : element.getChildren()) {
+		for (Statement s : element) {
 			s.accept(this);
 		}
 	}

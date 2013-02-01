@@ -17,4 +17,9 @@ public class ComputedQuestion extends Question{
 		return computation;
 	}
 
+	@Override
+	public void printSelf(int indentation){
+		printIndentation(indentation);
+		System.out.println(getSimpleName(this) + ", Ident : " + this.getName().getName() + " : " + getSentence() + " return value : " + getSimpleName(getReturnType()));
+	}
 }

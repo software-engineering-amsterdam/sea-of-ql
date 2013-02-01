@@ -17,10 +17,10 @@ public class LEq extends Binary {
 	}
 
 	@Override
-	public Value eval() {
+	public Value eval(Env environment) {
 		return new BoolValue(
-				((IntValue)getLeft().eval()).getValue() <=
-				((IntValue)getRight().eval()).getValue()
+				((IntValue)getLeft().eval(environment)).getValue() <=
+				((IntValue)getRight().eval(environment)).getValue()
 				);
 	}
 

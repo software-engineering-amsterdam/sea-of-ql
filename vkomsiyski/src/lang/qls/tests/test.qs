@@ -1,12 +1,34 @@
+stylesheet test;  
+
 bool {
-color: "red"
+color: "rgba(255, 128, 128, 50%)"
 }
 
-int {
+int { 
 minimum: 4
+//widget:SpinBox 
+} 
+ 
+sellingPrice {  
+stepSize: -19.3  
+} 
+ 
+ 
+ 
+group "hi" { 
+	over
+	DateQ
+}    
+
+group "hdi" { 
+hasMaintLoan
+	
 }
 
-group "hi" {
-	meh1df
-	meg2df
+
+
+over {
+//	widget: ComboBox
+	font: "italic bold 20px Times New Roman"
+	color: "blue" 
 }

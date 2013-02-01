@@ -1,29 +1,29 @@
 package org.uva.sea.ql.ast;
 
 import org.uva.sea.ql.ast.expr.Ident;
-import org.uva.sea.ql.visitor.TypeChecker;
+import org.uva.sea.ql.visitor.ITypeChecker;
 
 public class Form extends FormElement {
 
-	private final Ident fID;
-	private final Block fBody;
+	private final Ident name;
+	private final Block body;
 
-	public Form(Ident fID, Block fBody) {
-		this.fID = fID;
-		this.fBody = fBody;
+	public Form(Ident name, Block body) {
+		this.name = name;
+		this.body = body;
 	}
 
-	public Ident getFormID() {
-		return fID;
+	public Ident getFormName() {
+		return name;
 	}
 
 	public Block getFormBody() {
-		return fBody;
+		return body;
 	}
 
 	@Override
-	public void accept(TypeChecker visitor) {
-		visitor.visit(this);
+	public void accept(ITypeChecker TypeChecker) {
+		TypeChecker.visit(this);
 	}
 
 }

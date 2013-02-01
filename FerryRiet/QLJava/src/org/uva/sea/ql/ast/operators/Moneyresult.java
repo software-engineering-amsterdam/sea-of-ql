@@ -6,14 +6,18 @@ import org.uva.sea.ql.ast.types.TypeDescription;
 
 import org.uva.sea.ql.ast.types.MoneyType;
 
-public class Moneyresult implements ExpressionResult {
+public class MoneyResult implements ExpressionResult {
 	private BigDecimal value;
 
-	public Moneyresult(BigDecimal val) {
+	public MoneyResult(BigDecimal val) {
 		value = val;
 	}
 
-	public int getValue() {
+	public MoneyResult(Integer val) {
+		value = new BigDecimal(val);
+	}
+
+	public int getIntegerValue() {
 		return 1;
 	}
 
@@ -32,12 +36,16 @@ public class Moneyresult implements ExpressionResult {
 
 	@Override
 	public BigDecimal getMoneyValue() {
-		// TODO Auto-generated method stub
 		return value;
 	}
 
 	@Override
 	public boolean getBooleanValue() {
 		return false;
+	}
+
+	@Override
+	public String getStringValue() {
+		return value.toString();
 	}
 }

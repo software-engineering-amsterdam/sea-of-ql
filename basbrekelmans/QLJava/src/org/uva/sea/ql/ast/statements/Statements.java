@@ -1,13 +1,13 @@
 package org.uva.sea.ql.ast.statements;
 
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.Iterator;
 import java.util.List;
 
 import org.uva.sea.ql.ICodeLocationInformation;
 import org.uva.sea.ql.ast.IStatementVisitor;
 
-public class Statements extends Statement {
+public class Statements extends Statement implements Iterable<Statement> {
 
 	private List<Statement> children;
 	
@@ -24,10 +24,6 @@ public class Statements extends Statement {
 		}
 	}
 	
-	public Iterable<Statement> getChildren() {
-		return children;
-	}
-	
 	public void addChild(Statement child) {
 		children.add(child);
 	}
@@ -35,5 +31,10 @@ public class Statements extends Statement {
 	@Override
 	public void accept(IStatementVisitor visitor)  {
 		visitor.visit(this);
+	}
+
+	@Override
+	public Iterator<Statement> iterator() {
+		return children.iterator();
 	}
 }

@@ -9,28 +9,43 @@ import lang::qls::compiler::PrettyPrinter;
 
 
 public set[Message] semanticChecker(Stylesheet s) =
-  undefinedClassErrors(s) +
-  classRuleTypeErrors(s);
+  undefinedClassWarnings(s) +
+  unusedClassWarnings(s);
 
-public set[Message] undefinedClassErrors(Stylesheet s) {
-  errors = {};
+public set[Message] undefinedClassWarnings(Stylesheet s) {
+  warnings = {};
   visit(s) {
-    case d:classStyleDefinition(str ident, _):
+    case d:styleDefinition(StyleIdent: classStyleIdent(ident), _):
+      // Class definitions' identifiers start without a dot
       if(!isDefinedClass(substring(ident, 1, size(ident)), s))
-        errors += error("Undefined class <ident>", d@location);
+        warnings += warning("Undefined class <ident>", d@location);
   }
-  return errors;
+  return warnings;
 }
 
-public set[Message] classRuleTypeErrors(Stylesheet s) {
-  return {};
+public set[Message] unusedClassWarnings(Stylesheet s) {
+  warnings = {};
+  visit(s) {
+    case d:classDefinition(str ident, _):
+      // Class style definitions' identifiers start with a dot
+      if(!isUsedClass(".<ident>", s))
+        warnings += warning("Unused class <ident>", d@location);
+  }
+  return warnings;
 }
 
 private bool isDefinedClass(str ident, Stylesheet s) {
   visit(s) {
-    case classDefinition(str className, _):
-      if(className == ident)
-        return true;
+    case classDefinition(ident, _):
+      return true;
+  }
+  return false;
+}
+
+private bool isUsedClass(str ident, Stylesheet s) {
+  visit(s) {
+    case styleDefinition(StyleIdent: classStyleIdent(ident), _):
+      return true;
   }
   return false;
 }

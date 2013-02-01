@@ -1,18 +1,16 @@
 package org.uva.sea.ql.form;
 
-import java.awt.Component;
 import java.awt.Container;
-import java.awt.Label;
 import java.util.List;
-
-import net.miginfocom.swing.MigLayout;
 
 import org.uva.sea.ql.ast.eval.Env;
 import org.uva.sea.ql.ast.expressions.Expr;
+import org.uva.sea.ql.interpreter.FormElement;
 
 public class IfElseStatement extends IfStatement {
 
 	private final List<FormItem> elseBody;
+	private Container elseBodyContainer;
 	
 	public IfElseStatement(Expr expression, List<FormItem> ifBody, List<FormItem> elseBody) {
 		super(expression, ifBody);
@@ -42,23 +40,25 @@ public class IfElseStatement extends IfStatement {
 	@Override
 	public boolean validate(Env environment) {
 		boolean valid = super.validate(environment);
+		Env elseBodyEnvironment = new Env(environment);
 		for (FormItem f : elseBody) {
-			if (!f.validate(new Env(environment)))
+			if (!f.validate(elseBodyEnvironment))
 				valid = false;
 		}
 		return errors.size() == 0 && valid;
 	}
 	
 	@Override
-	public Component getFormComponent() {
-		Container ifContainer = (Container)super.getFormComponent();
-		Container elseBodyContainer = new Container();
-		elseBodyContainer.setLayout(new MigLayout("wrap 1, debug"));
-		for (FormItem f : elseBody) {
-			elseBodyContainer.add(f.getFormComponent());
-		}
-		ifContainer.add(new Label("ELSE"), "wrap");
-		ifContainer.add(elseBodyContainer, "wrap");
-		return ifContainer;
+	public List<FormElement> getFormComponents() {
+		List<FormElement> components = super.getFormComponents();
+		elseBodyContainer = getBodyFormContainer(elseBody);
+		components.add(new FormElement(elseBodyContainer, "span, growx"));
+		return components;
+	}
+	
+	@Override
+	public void eval(Env environment, Form form) {
+		super.eval(environment, form);
+		elseBodyContainer.setVisible(!isExpressionValid(environment));
 	}
 }

@@ -7,9 +7,10 @@ import org.uva.sea.ql.ast.types.TypeDescription;
 public interface ExpressionResult {
 	String toString();
 
-	int getValue();
+	int getIntegerValue();
 
-	String getStringValue() ;
+	String getStringValue();
+
 	BigDecimal getMoneyValue();
 
 	boolean getBooleanValue();

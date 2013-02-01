@@ -6,4 +6,9 @@ public class IntegerType extends NumericType {
 	public boolean isCompatibleTo(Type t) {
 		return t.isCompatibleToIntegerType();
 	}
+
+	@Override
+	public String toString() {
+		return "IntegerType";
+	}
 }

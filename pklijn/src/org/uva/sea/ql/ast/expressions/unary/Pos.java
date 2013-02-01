@@ -16,8 +16,8 @@ public class Pos extends Unary {
 	}
 
 	@Override
-	public Value eval() {
-		return new IntValue(Math.abs(((IntValue)getArg().eval()).getValue()));
+	public Value eval(Env environment) {
+		return new IntValue(Math.abs(((IntValue)getArg().eval(environment)).getValue()));
 	}
 
 	@Override

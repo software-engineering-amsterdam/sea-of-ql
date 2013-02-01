@@ -3,7 +3,7 @@ module lang::ql::compiler::PrettyPrinter
 import lang::ql::ast::AST;
 
 public str prettyPrint(Form form) =
-  "form <form.formName> { <for(e <- form.formElements) {>
+  "form <form.formName.ident> { <for(e <- form.formElements) {>
   '  <prettyPrint(e)><}>
   '}
   '";
@@ -13,13 +13,13 @@ public str prettyPrint(Statement item: question(Question question)) =
 
 public str prettyPrint(Question q: 
   question(questionText, answerDataType, answerIdentifier)) =
-    "<questionText>
-    '  <answerDataType> <answerIdentifier>";
+    "<questionText.text>
+    '  <answerDataType.name> <answerIdentifier.ident>";
 
 public str prettyPrint(Question q: 
   question(questionText, answerDataType, answerIdentifier, calculatedField)) =
-    "<questionText>
-    '  <answerDataType> <answerIdentifier> = <prettyPrint(calculatedField)>";
+    "<questionText.text>
+    '  <answerDataType.name> <answerIdentifier.ident> = <prettyPrint(calculatedField)>";
 
 public str prettyPrint(Statement item: 
   ifCondition(Conditional ifPart, list[Conditional] elseIfs, list[ElsePart] elsePart)) = 

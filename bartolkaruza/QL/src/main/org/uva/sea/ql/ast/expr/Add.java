@@ -1,17 +1,27 @@
 package org.uva.sea.ql.ast.expr;
 
-import org.uva.sea.ql.ast.expr.grouping.ArithmeticExpr;
+import org.uva.sea.ql.ast.expr.grouping.BinaryExpr;
 import org.uva.sea.ql.ast.expr.grouping.Expr;
-import org.uva.sea.ql.visitor.NodeVisitor;
+import org.uva.sea.ql.ast.expr.type.NumericType;
+import org.uva.sea.ql.ast.expr.type.Type;
+import org.uva.sea.ql.symbol.SymbolTable;
+import org.uva.sea.ql.visitor.ExpressionVisitor;
 
-public class Add extends ArithmeticExpr {
+public class Add extends BinaryExpr {
 
-	public Add(Expr lhs, Expr rhs) {
-		super(lhs, rhs);
+	private Type type = new NumericType();
+
+	public Add(int lineNumber, Expr lhs, Expr rhs) {
+		super(lineNumber, lhs, rhs);
 	}
 
 	@Override
-	public void accept(NodeVisitor visitor) {
+	public Type typeOf(SymbolTable symbolTable) {
+		return type;
+	}
+
+	@Override
+	public void accept(ExpressionVisitor visitor) {
 		visitor.visit(this);
 	}
 

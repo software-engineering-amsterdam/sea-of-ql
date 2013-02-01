@@ -8,9 +8,28 @@ import org.uva.sea.ql.ast.Expr;
  *
  */
 public class Or extends BinExpr {
-
-	public Or(Expr result, Expr rhs) {
-		super(result, rhs, "||");
+	/**
+	 * Constructor
+	 * @param l left
+	 * @param r right
+	 */
+	public Or(Expr l, Expr r) {
+		super(l, r, "||");
 	}
-
+	/**
+	 * isCompatibleTo
+	 * @param t type
+	 * @return boolean - true if compatible false otherwise
+	 */
+	@Override
+	public boolean isCompatibleTo(Expr t) {
+		return t.isCompatibleWithBool();
+	}
+	/**
+	 * isCompatibleWithBool
+	 * @return
+	 */
+	public boolean isCompatibleWithBool() { 
+		return true; 
+	}
 }

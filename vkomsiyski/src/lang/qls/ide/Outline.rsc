@@ -5,7 +5,6 @@ import lang::qls::util::Implode;
 import util::IDE;
 import ParseTree;
 import Node;
-import List;
 
 
 public Contribution getQLSOutliner() 
@@ -13,8 +12,8 @@ public Contribution getQLSOutliner()
 	  return "outline"(outline(implode(input)));
     });
     
-public list[node] outline(FormStyle style) = 
-	[outline(rule) | rule <- style.rules];
+public node outline(FormStyle style) = 
+	makeOutlineNode("style", style.name, style@location, [outline(rule) | rule <- style.rules]);
 	
 private node outline(StyleRule r:typed(\type, rules)) =
 	makeOutlineNode("typed", \type.name, r@location, [outline(rule) | rule <- rules]);

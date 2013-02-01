@@ -3,14 +3,14 @@ module compiler::Assembly
 import syntax::AbstractSyntax;
 
 public data Instr =
-       dclMon(QuestionId Id)    // Reserve a memory location for a money variable
-     | dclStr(QuestionId Id)    // Reserve a memory location for a string variable
-     | dclBool(QuestionId Id)   // Reserve a memory location for a bool variable
-     | dclNat(QuestionId Id)    // Reserve a memory location for a natural variable
+       dclMon(str id)    // Reserve a memory location for a money variable
+     | dclStr(str id)    // Reserve a memory location for a string variable
+     | dclBool(str id)   // Reserve a memory location for a bool variable
+     | dclInt(str id)    // Reserve a memory location for a natural variable
      | pushMon(int intCon)      // Push integer constant (money) on the stack
      | pushStr(str strCon)      // Push string constant on the stack
-     | rvalue(QuestionId Id)    // Push the value of a variable on the stack
-     | lvalue(QuestionId Id)    // Push the address of a variable on the stack
+     | rvalue(str id)    // Push the value of a variable on the stack
+     | lvalue(str id)    // Push the address of a variable on the stack
      | assign()                 // Assign value on top, to variable at address top-1
      | add2()                   // Replace top two stack values by their sum
      | sub2()                   // Replace top two stack values by their difference
