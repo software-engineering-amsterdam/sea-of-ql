@@ -23,7 +23,7 @@ import org.uva.sea.ql.ast.expression.unary.Not;
 import org.uva.sea.ql.ast.expression.unary.Pos;
 import org.uva.sea.ql.ast.type.Type;
 import org.uva.sea.ql.ast.type.Undefined;
-import org.uva.sea.ql.eval.Environment;
+import org.uva.sea.ql.visitor.Environment;
 import org.uva.sea.ql.visitor.IExpressionVisitor;
 
 /**
@@ -31,18 +31,12 @@ import org.uva.sea.ql.visitor.IExpressionVisitor;
  */
 public class ExpressionChecker extends TypeCheckVisitor implements IExpressionVisitor<Boolean> {
 	/**
-	 * Holds the expression type resolver.
-	 */
-	private final ExpressionTypeResolver resolver;
-
-	/**
 	 * Constructs a new ExpressionChecker.
 	 *
 	 * @param environment
 	 */
 	public ExpressionChecker( Environment environment ) {
 		super( environment );
-		this.resolver = getResolver();
 	}
 
 	/**
@@ -64,14 +58,12 @@ public class ExpressionChecker extends TypeCheckVisitor implements IExpressionVi
 		Type rightType = node.getRhs().accept( resolver );
 
 		if ( !( leftType.isCompatibleToNumber() && rightType.isCompatibleToNumber() ) ) {
-			this.addError(
-				String.format(
-					"Both sides of the %s-expression must be a Number type.",
-					node.getClass().getSimpleName().toUpperCase()
-				),
+			this.addIncompatibleTypesError(
+				node.toString(),
+				"Number",
+				String.format( "%s and %s", leftType.toString(), rightType.toString() ),
 				node
 			);
-
 			return false;
 		}
 
@@ -97,14 +89,12 @@ public class ExpressionChecker extends TypeCheckVisitor implements IExpressionVi
 		Type rightType = node.getRhs().accept( resolver );
 
 		if ( !( leftType.isCompatibleToBool() && rightType.isCompatibleToBool() ) ) {
-			this.addError(
-				String.format(
-					"Both sides of the %s-expression must be of type Boolean.",
-					node.getClass().getSimpleName().toUpperCase()
-				),
+			this.addIncompatibleTypesError(
+				node.toString(),
+				"Boolean",
+				String.format( "%s and %s", leftType.toString(), rightType.toString() ),
 				node
 			);
-
 			return false;
 		}
 
@@ -130,14 +120,12 @@ public class ExpressionChecker extends TypeCheckVisitor implements IExpressionVi
 		Type rightType = node.getRhs().accept( resolver );
 
 		if ( !( leftType.isCompatibleToNumber() && rightType.isCompatibleToNumber() ) ) {
-			this.addError(
-				String.format(
-					"Both sides of the comparison must be a Number.",
-					node.getClass().getSimpleName().toUpperCase()
-				),
+			this.addIncompatibleTypesError(
+				node.toString(),
+				"Number",
+				String.format( "%s and %s", leftType.toString(), rightType.toString() ),
 				node
 			);
-
 			return false;
 		}
 
@@ -159,7 +147,9 @@ public class ExpressionChecker extends TypeCheckVisitor implements IExpressionVi
 		Type expressionType = node.getExpression().accept( resolver );
 
 		if ( !expressionType.isCompatibleToBool() ) {
-			this.addError( "Expression must be a Boolean type.", node );
+			this.addIncompatibleTypeError(
+				node.toString(), "Boolean.", expressionType.toString(), node
+			);
 			return false;
 		}
 
@@ -181,7 +171,9 @@ public class ExpressionChecker extends TypeCheckVisitor implements IExpressionVi
 		Type expressionType = node.getExpression().accept( resolver );
 
 		if ( !expressionType.isCompatibleToNumber() ) {
-			this.addError( "Expression must be a Number type.", node );
+			this.addIncompatibleTypeError(
+				node.toString(), "Number.", expressionType.toString(), node
+			);
 			return false;
 		}
 
@@ -207,14 +199,12 @@ public class ExpressionChecker extends TypeCheckVisitor implements IExpressionVi
 		Type rightType = node.getRhs().accept( resolver );
 
 		if ( !leftType.isCompatibleTo( rightType ) ) {
-			this.addError(
-				String.format(
-					"Both sides of the comparison must be of the same type.",
-					node.getClass().getSimpleName().toUpperCase()
-				),
+			this.addIncompatibleTypesError(
+				node.toString(),
+				"same",
+				String.format( "%s and %s", leftType.toString(), rightType.toString() ),
 				node
 			);
-
 			return false;
 		}
 
@@ -244,7 +234,7 @@ public class ExpressionChecker extends TypeCheckVisitor implements IExpressionVi
 	@Override
 	public Boolean visit( Ident node ) {
 		if ( node.accept( resolver ) instanceof Undefined ) {
-			this.addError( "Undefined variable: " + node.getName(), node );
+			this.addUndefinedError( node.getName(), node );
 			return false;
 		}
 

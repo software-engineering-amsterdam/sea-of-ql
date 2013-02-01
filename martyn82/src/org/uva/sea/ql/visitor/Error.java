@@ -1,11 +1,11 @@
-package org.uva.sea.ql.eval;
+package org.uva.sea.ql.visitor;
 
 import org.uva.sea.ql.ast.Node;
 
 /**
  * Represents an error.
  */
-public class Error {
+abstract public class Error {
 	/**
 	 * Holds the error message.
 	 */
@@ -17,12 +17,19 @@ public class Error {
 	private final Node node;
 
 	/**
+	 * Holds the error code.
+	 */
+	private final int code;
+
+	/**
 	 * Constructs a new error.
 	 *
+	 * @param code
 	 * @param message
 	 * @param node
 	 */
-	public Error( String message, Node node ) {
+	protected Error( int code, String message, Node node ) {
+		this.code = code;
 		this.message = message;
 		this.node = node;
 	}
@@ -32,8 +39,17 @@ public class Error {
 	 *
 	 * @return The error message.
 	 */
-	public String getMessage() {
+	final public String getMessage() {
 		return this.message;
+	}
+
+	/**
+	 * Retrieves the error code.
+	 *
+	 * @return The error code;
+	 */
+	final public int getCode() {
+		return this.code;
 	}
 
 	/**
@@ -41,7 +57,13 @@ public class Error {
 	 *
 	 * @return The node.
 	 */
-	public Node getNode() {
+	final public Node getNode() {
 		return this.node;
 	}
+
+	/**
+	 * Converts this object to its string representation.
+	 */
+	@Override
+	abstract public String toString();
 }

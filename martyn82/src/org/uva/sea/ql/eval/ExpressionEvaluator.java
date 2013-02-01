@@ -21,6 +21,7 @@ import org.uva.sea.ql.eval.value.Integer;
 import org.uva.sea.ql.eval.value.Money;
 import org.uva.sea.ql.eval.value.String;
 import org.uva.sea.ql.eval.value.Value;
+import org.uva.sea.ql.visitor.Environment;
 import org.uva.sea.ql.visitor.IExpressionVisitor;
 
 /**

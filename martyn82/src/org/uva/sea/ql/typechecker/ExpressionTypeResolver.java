@@ -27,7 +27,7 @@ import org.uva.sea.ql.ast.expression.unary.Not;
 import org.uva.sea.ql.ast.expression.unary.Pos;
 import org.uva.sea.ql.ast.type.Type;
 import org.uva.sea.ql.ast.type.Undefined;
-import org.uva.sea.ql.eval.Environment;
+import org.uva.sea.ql.visitor.Environment;
 import org.uva.sea.ql.visitor.IExpressionVisitor;
 
 /**
@@ -35,17 +35,12 @@ import org.uva.sea.ql.visitor.IExpressionVisitor;
  */
 public class ExpressionTypeResolver extends TypeResolver implements IExpressionVisitor<Type> {
 	/**
-	 * Holds the environment.
-	 */
-	private final Environment environment;
-
-	/**
 	 * Constructs a new Expression TypeResolver instance.
 	 *
 	 * @param environment
 	 */
 	public ExpressionTypeResolver( Environment environment ) {
-		this.environment = environment;
+		super( environment );
 	}
 
 	/**

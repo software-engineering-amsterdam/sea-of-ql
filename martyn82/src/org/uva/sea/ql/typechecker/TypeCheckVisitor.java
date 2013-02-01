@@ -1,23 +1,22 @@
 package org.uva.sea.ql.typechecker;
 
 import org.uva.sea.ql.ast.Node;
-import org.uva.sea.ql.eval.Environment;
-import org.uva.sea.ql.eval.Error;
+import org.uva.sea.ql.visitor.Environment;
 import org.uva.sea.ql.visitor.NodeVisitor;
 
 /**
  * Represents a type checker visitor.
  */
 abstract public class TypeCheckVisitor extends NodeVisitor<Boolean> {
-	/**
-	 * Holds the environment object.
-	 */
-	private final Environment environment;
+	private final static String ERROR_TYPE_MISMATCH = "Both sides of %s must be of type %s, found %s";
+	private final static String ERROR_INCOMPATIBLE_TYPE = "Invalid type: expected %s, but was %s";
+	private final static String ERROR_UNDEFINED_VAR = "Undefined variable: %s";
+	private final static String ERROR_DECLARED_VAR = "Variable %s is already declared.";
 
 	/**
 	 * Holds the expression type resolver.
 	 */
-	private final ExpressionTypeResolver resolver;
+	protected final ExpressionTypeResolver resolver;
 
 	/**
 	 * Constructs a new instance.
@@ -25,7 +24,7 @@ abstract public class TypeCheckVisitor extends NodeVisitor<Boolean> {
 	 * @param environment
 	 */
 	public TypeCheckVisitor( Environment environment ) {
-		this.environment = environment;
+		super( environment );
 		this.resolver = new ExpressionTypeResolver( this.environment );
 	}
 
@@ -39,21 +38,89 @@ abstract public class TypeCheckVisitor extends NodeVisitor<Boolean> {
 	}
 
 	/**
-	 * Adds an error.
+	 * Adds a TypeError to the list.
 	 *
+	 * @param code
 	 * @param message
 	 * @param node
 	 */
-	protected void addError( String message, Node node ) {
-		this.environment.addError( new Error( message, node ) );
+	private void addError( int code, String message, Node node ) {
+		this.environment.addError( new TypeError( code, message, node ) );
 	}
 
 	/**
-	 * Retrieves the type resolver.
+	 * Adds a TypeError to the error list.
 	 *
-	 * @return Type resolver.
+	 * @param nodeName     The name of the node.
+	 * @param expectedType The name of the type that was expected.
+	 * @param actualType   The name of the type that was encountered.
+	 * @param node         The node at which the error occurred.
 	 */
-	protected ExpressionTypeResolver getResolver() {
-		return this.resolver;
+	protected void addIncompatibleTypesError( String nodeName, String expectedType, String actualType, Node node ) {
+		this.addError(
+			TypeError.TYPE_MISMATCH,
+			String.format(
+				ERROR_TYPE_MISMATCH,
+				nodeName,
+				expectedType,
+				actualType
+			),
+			node
+		);
 	}
-}
+
+	/**
+	 * Adds a TypeError to the error list.
+	 *
+	 * @param nodeName     The name of the node.
+	 * @param expectedType The name of the type that was expected.
+	 * @param actualType   The name of the type that was encountered.
+	 * @param node         The node at which the error occurred.
+	 */
+	protected void addIncompatibleTypeError( String nodeName, String expectedType, String actualType, Node node ) {
+		this.addError(
+			TypeError.TYPE_INVALID,
+			String.format(
+				ERROR_INCOMPATIBLE_TYPE,
+				nodeName,
+				expectedType,
+				actualType
+			),
+			node
+		);
+	}
+
+	/**
+	 * Adds a TypeError referring to an undefined variable to the error list.
+	 *
+	 * @param nodeName The name of the variable.
+	 * @param node     The node at which the error occurred.
+	 */
+	protected void addUndefinedError( String nodeName, Node node ) {
+		this.addError(
+			TypeError.TYPE_UNDEFINED,
+			String.format(
+				ERROR_UNDEFINED_VAR,
+				nodeName
+			),
+			node
+		);
+	}
+
+	/**
+	 * Adds a TypeError referring to an already declared variable.
+	 *
+	 * @param nodeName The name of the variable.
+	 * @param node     The node at which the error occurred.
+	 */
+	protected void addAlreadyDeclaredError( String nodeName, Node node ) {
+		this.addError(
+			TypeError.TYPE_ERROR,
+			String.format(
+				ERROR_DECLARED_VAR,
+				nodeName
+			),
+			node
+		);
+	}
+ }

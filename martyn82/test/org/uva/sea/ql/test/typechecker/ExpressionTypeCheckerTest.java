@@ -1,9 +1,7 @@
 package org.uva.sea.ql.test.typechecker;
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
 
 import org.junit.Test;
 import org.uva.sea.ql.ast.expression.Expression;
@@ -27,13 +25,10 @@ import org.uva.sea.ql.ast.expression.logical.Or;
 import org.uva.sea.ql.ast.expression.unary.Neg;
 import org.uva.sea.ql.ast.expression.unary.Not;
 import org.uva.sea.ql.ast.expression.unary.Pos;
-import org.uva.sea.ql.eval.Environment;
-import org.uva.sea.ql.eval.Error;
-import org.uva.sea.ql.parser.ParseError;
 import org.uva.sea.ql.test.IExpressionTest;
 import org.uva.sea.ql.test.visitor.VisitorTest;
 import org.uva.sea.ql.typechecker.ExpressionChecker;
-import org.uva.sea.ql.typechecker.TypeChecker;
+import org.uva.sea.ql.visitor.Environment;
 
 /**
  * Expression TypeChecker test.
@@ -57,34 +52,6 @@ public class ExpressionTypeCheckerTest extends VisitorTest<Boolean> implements I
 
 		this.environment = new Environment();
 		this.expressionVisitor = new ExpressionChecker( this.environment );
-	}
-
-	/**
-	 * Perform typechecker on the example program string as defined in abstract parent class.
-	 */
-	@Test
-	public void testExample() {
-		Environment environment = new Environment();
-		TypeChecker typeChecker = new TypeChecker( environment );
-
-		try {
-			this.parser.parse( program ).accept( typeChecker );
-		}
-		catch ( ParseError e ) {
-			e.printStackTrace();
-			fail( e.getMessage() );
-			return;
-		}
-
-		if ( environment.getErrors().size() > 0 ) {
-			for ( Error error : environment.getErrors() ) {
-				System.err.println(
-					error.getMessage()
-					+ " at "
-					+ error.getNode().getClass().getSimpleName()
-				);
-			}
-		}
 	}
 
 	/**
@@ -213,16 +180,7 @@ public class ExpressionTypeCheckerTest extends VisitorTest<Boolean> implements I
 		assertTrue( typeCheck( new NEq( new Bool( false ), new Bool( true ) ) ) );
 
 		assertFalse( typeCheck( new NEq( new Int( 12 ), new Bool( true ) ) ) );
-		assertEquals(
-			"Both sides of the comparison must be of the same type.",
-			environment.getErrors().get( 0 ).getMessage()
-		);
-
 		assertFalse( typeCheck( new NEq( new Str( "" ), new Bool( true ) ) ) );
-		assertEquals(
-			"Both sides of the comparison must be of the same type.",
-			environment.getErrors().get( 0 ).getMessage()
-		);
 	}
 
 	@Override

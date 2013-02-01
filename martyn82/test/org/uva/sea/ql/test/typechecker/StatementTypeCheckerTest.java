@@ -3,6 +3,7 @@ package org.uva.sea.ql.test.typechecker;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import org.junit.Test;
 import org.uva.sea.ql.ast.expression.Ident;
@@ -22,11 +23,14 @@ import org.uva.sea.ql.ast.statement.QuestionDeclaration;
 import org.uva.sea.ql.ast.statement.Statement;
 import org.uva.sea.ql.ast.statement.Statements;
 import org.uva.sea.ql.ast.statement.VarDeclaration;
-import org.uva.sea.ql.eval.Environment;
+import org.uva.sea.ql.parser.ParseError;
 import org.uva.sea.ql.test.IStatementTest;
 import org.uva.sea.ql.test.visitor.VisitorTest;
 import org.uva.sea.ql.typechecker.ExpressionChecker;
 import org.uva.sea.ql.typechecker.StatementChecker;
+import org.uva.sea.ql.typechecker.TypeError;
+import org.uva.sea.ql.visitor.Environment;
+import org.uva.sea.ql.visitor.Error;
 
 /**
  * Tests statements type checker.
@@ -59,6 +63,31 @@ public class StatementTypeCheckerTest extends VisitorTest<Boolean> implements IS
 	}
 
 	/**
+	 * Perform typechecker on the example program string as defined in abstract parent class.
+	 */
+	@Test
+	public void testExample() {
+		try {
+			this.parser.parse( program ).accept( this.statementChecker );
+		}
+		catch ( ParseError e ) {
+			e.printStackTrace();
+			fail( e.getMessage() );
+			return;
+		}
+
+		if ( this.environment.getErrors().size() > 0 ) {
+			for ( Error error : this.environment.getErrors() ) {
+				System.err.println(
+					error.getMessage()
+					+ " at "
+					+ error.getNode().getClass().getSimpleName()
+				);
+			}
+		}
+	}
+
+	/**
 	 * Typechecks the given statement.
 	 *
 	 * @param statement
@@ -76,7 +105,7 @@ public class StatementTypeCheckerTest extends VisitorTest<Boolean> implements IS
 		assertTrue( typeCheck( new Assignment( new Ident( "x" ), new Int( 23 ) ) ) );
 
 		assertFalse( typeCheck( new Assignment( new Ident( "x" ), new Ident( "y" ) ) ) );
-		assertEquals( "Undefined variable: y", environment.getErrors().get( 0 ).getMessage() );
+		assertEquals( TypeError.TYPE_UNDEFINED, this.environment.getErrors().get( 0 ).getCode() );
 
 		assertFalse(
 			typeCheck(
@@ -85,7 +114,7 @@ public class StatementTypeCheckerTest extends VisitorTest<Boolean> implements IS
 				)
 			)
 		);
-		assertEquals( "Undefined variable: y", environment.getErrors().get( 0 ).getMessage() );
+		assertEquals( TypeError.TYPE_UNDEFINED, this.environment.getErrors().get( 0 ).getCode() );
 
 		/*
 		 * if ( true ) {
@@ -106,10 +135,7 @@ public class StatementTypeCheckerTest extends VisitorTest<Boolean> implements IS
 			)
 		);
 
-		assertEquals(
-			"The variable x is already declared elsewhere.",
-			environment.getErrors().get( 0 ).getMessage()
-		);
+		assertEquals( TypeError.TYPE_ERROR, this.environment.getErrors().get( 0 ).getCode() );
 	}
 
 	@Override
@@ -118,10 +144,7 @@ public class StatementTypeCheckerTest extends VisitorTest<Boolean> implements IS
 		assertTrue( typeCheck( new IfThenElse( new Bool( true ), new Statements(), new ElseIfs() ) ) );
 
 		assertFalse( typeCheck( new IfThenElse( new Int( 1 ), new Statements(), new ElseIfs() ) ) );
-		assertEquals(
-			"Condition of an IF block should evaluate to Boolean.",
-			environment.getErrors().get( 0 ).getMessage()
-		);
+		assertEquals( TypeError.TYPE_INVALID, this.environment.getErrors().get( 0 ).getCode() );
 
 		/*
 		 * if ( true ) {
@@ -145,10 +168,7 @@ public class StatementTypeCheckerTest extends VisitorTest<Boolean> implements IS
 				)
 			)
 		);
-		assertEquals(
-			"Type mismatch: cannot convert from Boolean to Integer.",
-			environment.getErrors().get( 0 ).getMessage()
-		);
+		assertEquals( TypeError.TYPE_MISMATCH, this.environment.getErrors().get( 0 ).getCode() );
 	}
 
 	@Override

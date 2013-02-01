@@ -24,9 +24,9 @@ import org.uva.sea.ql.ast.expression.logical.Or;
 import org.uva.sea.ql.ast.expression.unary.Neg;
 import org.uva.sea.ql.ast.expression.unary.Not;
 import org.uva.sea.ql.ast.expression.unary.Pos;
-import org.uva.sea.ql.eval.Environment;
 import org.uva.sea.ql.eval.ExpressionEvaluator;
 import org.uva.sea.ql.test.IExpressionTest;
+import org.uva.sea.ql.visitor.Environment;
 
 /**
  * Test expression evaluator.

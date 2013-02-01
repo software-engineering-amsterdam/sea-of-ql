@@ -18,10 +18,10 @@ import org.uva.sea.ql.ast.statement.Statement;
 import org.uva.sea.ql.ast.statement.Statements;
 import org.uva.sea.ql.ast.statement.VarDeclaration;
 import org.uva.sea.ql.ast.type.Money;
-import org.uva.sea.ql.eval.Environment;
 import org.uva.sea.ql.eval.ExpressionEvaluator;
 import org.uva.sea.ql.eval.StatementEvaluator;
 import org.uva.sea.ql.test.IStatementTest;
+import org.uva.sea.ql.visitor.Environment;
 
 /**
  * Test statement evaluator.
