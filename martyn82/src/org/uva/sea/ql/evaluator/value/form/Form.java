@@ -16,6 +16,10 @@ public class Form extends Value {
 		return this.questions;
 	}
 
+	public Ident getIdent() {
+		return this.ident;
+	}
+
 	@Override
 	public Form getValue() {
 		return this;

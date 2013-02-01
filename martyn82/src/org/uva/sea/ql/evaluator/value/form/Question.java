@@ -14,6 +14,14 @@ public class Question extends Value {
 		this.value = value;
 	}
 
+	public String getLabel() {
+		return this.label;
+	}
+
+	public Ident getIdent() {
+		return this.ident;
+	}
+
 	@Override
 	public Value getValue() {
 		return this.value;
