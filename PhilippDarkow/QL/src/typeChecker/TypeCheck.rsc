@@ -4,7 +4,7 @@ import Prelude;
 import syntax::AbstractSyntax;
 import syntax::ConcreteSyntax;
 import util::Load;
-import typeChecker::Mapping;
+import typeChecker::ExpressionTypeChecker;
 
 alias QLTENV = tuple[ rel[str id, str questionLabel, Type tp] question, list[tuple[loc l, str msg]] errors];
 
@@ -12,47 +12,7 @@ QLTENV addError(QLTENV qlTenv, loc l, str msg) = qlTenv[errors = qlTenv.errors +
 // to add an instance of a qltenv item
 QLTENV addInstance(QLTENV qlTenv, str id, str questionLabel, Type tp) = qlTenv[question = qlTenv.question + {<id,questionLabel,tp>}]; //= qlTenv.errors + <l, msg> 
 
-str required(Type t, str got) = "Required <getName(t)>, got <got>";                 
-str required(Type t1, Type t2) = required(t1, getName(t2));
-
-
-// compile Expressions.
-QLTENV checkExp(exp:boolCon(bool B), Type req, QLTENV env) =                              
-  req == boolean() ? env : addError(env, exp@location, required(req, "boolean"));
- 
-QLTENV checkExp(exp:moneyCon(int I), Type req, QLTENV env) =
- req == money() ? env : addError(env, exp@location, required(req, "money"));
- 
-QLTENV checkExp(exp:id(str id), Type req, QLTENV env) {
-  if(env.question[id] == {}){
-  	return addError(env, exp@location, "Undeclared variable <id>");
-  }else{
-  tpid = range(env.question[id]);
-  println("TPID : <getOneFrom(tpid)>");
-  return req == getOneFrom(tpid) ? env : addError(env, exp@location, required(req, getOneFrom(tpid)));
-  } 
-  
-}
-
-QLTENV checkExp(exp:add(EXP E1, EXP E2), Type req, QLTENV env) =                        
-  req == money() ? checkExp(E1, money(), checkExp(E2, money(), env))
-                   : addError(env, exp@location, required(req, "money"));
-  
-QLTENV checkExp(exp:sub(EXP E1, EXP E2), Type req, QLTENV env) =                      
-  req == money() ? checkExp(E1, money(), checkExp(E2, money(), env))
-                   : addError(env, exp@location, required(req, "money"));
-
-QLTENV checkExp(exp:or(EXP E1, EXP E2), Type req, QLTENV env) =                    
-  req == string() ? checkExp(E1, string(), checkExp(E2, string(), env))
-                   : addError(env, exp@location, required(req, "string"));
-                   
-QLTENV checkExp(exp:and(EXP E1, EXP E2), Type req, QLTENV env) =                    
-  req == string() ? checkExp(E1, string(), checkExp(E2, string(), env))
-                   : addError(env, exp@location, required(req, "string"));
-
-
 // check statements for Questions 
-
 /** Method to check if statement 
 * @param statement the if statement
 * @param env the QL Type environment
