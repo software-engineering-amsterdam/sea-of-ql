@@ -9,11 +9,16 @@ import org.uva.sea.ql.visitor.NodeVisitor;
  */
 public class TypeResolver extends NodeVisitor<Type> {
 	/**
+	 * Holds the environment.
+	 */
+	protected final Environment environment;
+
+	/**
 	 * Constructs a new TypeResolver.
 	 *
 	 * @param environment
 	 */
 	protected TypeResolver( Environment environment ) {
-		super( environment );
+		this.environment = environment;
 	}
 }

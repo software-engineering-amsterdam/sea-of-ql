@@ -19,12 +19,17 @@ abstract public class TypeCheckVisitor extends NodeVisitor<Boolean> {
 	protected final ExpressionTypeResolver resolver;
 
 	/**
+	 * Holds the environment.
+	 */
+	protected final Environment environment;
+
+	/**
 	 * Constructs a new instance.
 	 *
 	 * @param environment
 	 */
 	public TypeCheckVisitor( Environment environment ) {
-		super( environment );
+		this.environment = environment;
 		this.resolver = new ExpressionTypeResolver( this.environment );
 	}
 

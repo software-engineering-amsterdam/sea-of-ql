@@ -20,7 +20,6 @@ abstract public class PrintVisitor extends NodeVisitor<Boolean> implements IPrin
 	 * @param context
 	 */
 	public PrintVisitor( PrintContext context ) {
-		super( null );
 		this.context = context;
 	}
 
