@@ -21,42 +21,17 @@ private str nextLabel() {
   return "L<nLabel>";
 }
 
-// Compile a statement
-
-//Instrs compileStat(asgStat(str Id, QUE qName)) =
-//	[lvalue(Id), *compileExp(qName), assign()];
-	
-Instrs compileStat(ifElseStat(EXP Exp,              
-                              list[STATEMENT] Stats1,
-                              list[STATEMENT] Stats2)){
-  
-  elseLab = nextLabel();
-  endLab = nextLabel();  
-  return [*compileExp(Exp), 
-          gofalse(elseLab), 
-          *compileStats(Stats1),  
-          go(endLab), 
-          label(elseLab), 
-          *compileStats(Stats2), 
-          label(endLab)];
-}
-
+// Compile a statement	
 // Compile a list of statements  Compiling a list of statements conveniently uses a list comprehension and list splicing.
 Instrs compileStats(list[Statement] Stats1) =      
   [ *compileStat(S) | S <- Stats1 ];
   
-// Compile declarations
-// Compiling declarations allocates memory locations of the appropriate type for each declared variable.
-Instrs compileDecls(list[Body] Body) =
-  [ ((tp == natural()) ? dclNat(Id) : dclStr(Id))  |       
-    decl(str Id, QUE tp) <- Body
-  ];
 
-//Instrs compileStatement(Statement s){
-//	println("in compile statement <[s]>");
-//	
-//}
-
+/** Method to compile an if statement
+* @param ifStat the if Statement
+* @return Instrs of an if Statement
+* @author Philipp
+*/
 Instrs compileStatement(ifStat(Expression exp, list[Body] Body)){
 	println("in compile statement <exp>");
 	endLab = nextLabel();
@@ -68,65 +43,100 @@ Instrs compileStatement(ifStat(Expression exp, list[Body] Body)){
 	
 }
 
-
-Instrs compileQuestion(Question q){
-	println("in compile question <[q]>");
-	// get the type of the question
-	visit(q){
-		case Type tp : {
-			println("TP : <tp>");
-			if(tp == money()){
-				Instrs aa = [ dclMon(Id) |
-	  			easyQuestion(str Id, str questionLabel, Type tp) <- [q]
-	  			];
-	  			println("AA : <aa>");
-	  			return aa;
-			}else if(tp == string()){
-				Instrs aa = [ dclStr(Id) |
-	  			easyQuestion(str Id, str questionLabel, Type tp) <- [q]
-	  			];
-	  			return aa;
-			}else if(tp == boolean()){
-				Instrs aa = [ dclBool(Id) |
-	  			easyQuestion(str Id, str questionLabel, Type tp) <- [q]
-	  			];
-	  			return aa;
-			} 
-		}
-	};
+/** Method to compile an if else statement
+* @param ifElseStat the if else Statement
+* @return Instrs of an if else Statement
+* @author Philipp
+*/
+Instrs compileStat(ifElseStat(Expression exp,list[Body] Body1, list[Body] Body2)){  
+  elseLab = nextLabel();
+  endLab = nextLabel();  
+  return [*compileExp(exp), 
+          gofalse(elseLab), 
+          *compileBody(Body1),  
+          go(endLab), 
+          label(elseLab), 
+          *compileBody(Body2), 
+          label(endLab)];
 }
 
-//Instrs compileQuestion(list[Question] Ques){
-//	println("in compile question");
-//	Instrs aa = [ ((tp == integer()) ? dclStr(Id) : dclInt(Id)) |
-//	  question(str Id, str questionLabel, Type tp) <- Ques
-//	  ];
-//	  println("AA : <aa>");
-//}
+/** Method to compile a computed Question  --> NOT DONE
+* @param question the computed question
+* @return Instrs of a computed question
+* @author Philipp
+*/
+Instrs compileQuestion(question:computedQuestion(str id, str labelQuestion, Type tp, Expression exp)){
+	println("in compile computed question <question>");
+	
+}
 
+/** Method to compile an easy Question
+* @param question the easy question
+* @return Instrs of an easy question
+* @author Philipp
+*/
+Instrs compileQuestion(question:easyQuestion(str id, str labelQuestion, Type tp)){
+	println("in compile question <question>");
+	// get the type of the question
+	switch(tp){
+		case money() : {
+			return [ dclMon(Id) |
+	  		easyQuestion(str Id, str questionLabel, Type tp) <- [question]
+	  		];
+		}
+		case boolean() : return [ dclBool(Id) |
+	  		easyQuestion(str Id, str questionLabel, Type tp) <- [question]];
+		case string() : return aa = [ dclStr(Id) |
+	  		easyQuestion(str Id, str questionLabel, Type tp) <- [question]];
+	};
+		
+	//visit(q){
+	//	case Type tp : {
+	//		println("TP : <tp>");
+	//		if(tp == money()){
+	//			Instrs aa = [ dclMon(Id) |
+	//  			easyQuestion(str Id, str questionLabel, Type tp) <- [q]
+	//  			];
+	//  			println("AA : <aa>");
+	//  			return aa;
+	//		}else if(tp == string()){
+	//			Instrs aa = [ dclStr(Id) |
+	//  			easyQuestion(str Id, str questionLabel, Type tp) <- [q]
+	//  			];
+	//  			return aa;
+	//		}else if(tp == boolean()){
+	//			Instrs aa = [ dclBool(Id) |
+	//  			easyQuestion(str Id, str questionLabel, Type tp) <- [q]
+	//  			];
+	//  			return aa;
+	//		} 
+	//	}
+	//};
+}
 
+/** Method to compile the Body fragment of the QL program
+* @param Body the Body fragment
+* @return Instrs
+* @author Philipp
+*/
 Instrs compileBody(list[Body] Body){
 	Instrs questionResult = [];
 	Instrs statementResult = [];
 	visit(Body){
 		case Question q : {
-			println("IN Q : <q>");
 			questionResult += [*compileQuestion(q)];
 		}
 		case Statement s : {
-			println("In S : <s>");
 			statementResult += [*compileStatement(s)];
-			println("statementResult : <statementResult>");
 		}
 	}
-	return questionResult;
+	return [*questionResult,*statementResult];
 }
 
 // Compile a QL program
 public Instrs compileProgram(Program P){
   nLabel = 0;
   if(program(Expression exp, list[Body] Body) := P){
-     //println("EXP in COMPILE : <exp>");
      println("Body in COMPILE : <Body>");
      return [*compileBody(Body)];
   } else
