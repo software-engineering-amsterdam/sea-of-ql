@@ -24,7 +24,7 @@ import org.uva.sea.ql.ast.expression.logical.Or;
 import org.uva.sea.ql.ast.expression.unary.Neg;
 import org.uva.sea.ql.ast.expression.unary.Not;
 import org.uva.sea.ql.ast.expression.unary.Pos;
-import org.uva.sea.ql.eval.ExpressionEvaluator;
+import org.uva.sea.ql.evaluator.ExpressionEvaluator;
 import org.uva.sea.ql.test.IExpressionTest;
 import org.uva.sea.ql.visitor.Environment;
 
@@ -191,7 +191,7 @@ public class ExpressionEvaluatorTest implements IExpressionTest {
 	@Override
 	@Test
 	public void testId() {
-		this.environment.declareVariable( new Ident( "x" ), new org.uva.sea.ql.eval.value.String( "value of x" ) );
+		this.environment.declareVariable( new Ident( "x" ), new org.uva.sea.ql.evaluator.value.String( "value of x" ) );
 		assertEquals( "value of x", eval( new Ident( "x" ) ) );
 	}
 

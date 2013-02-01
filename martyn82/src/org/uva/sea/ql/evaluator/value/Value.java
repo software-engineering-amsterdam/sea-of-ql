@@ -1,4 +1,4 @@
-package org.uva.sea.ql.eval.value;
+package org.uva.sea.ql.evaluator.value;
 
 /**
  * Represents an abstract value.

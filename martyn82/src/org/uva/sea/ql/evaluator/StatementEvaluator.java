@@ -1,4 +1,4 @@
-package org.uva.sea.ql.eval;
+package org.uva.sea.ql.evaluator;
 
 import org.uva.sea.ql.ast.statement.Assignment;
 import org.uva.sea.ql.ast.statement.Else;
@@ -10,9 +10,9 @@ import org.uva.sea.ql.ast.statement.QuestionDeclaration;
 import org.uva.sea.ql.ast.statement.Statement;
 import org.uva.sea.ql.ast.statement.Statements;
 import org.uva.sea.ql.ast.statement.VarDeclaration;
-import org.uva.sea.ql.eval.value.Boolean;
-import org.uva.sea.ql.eval.value.Undefined;
-import org.uva.sea.ql.eval.value.Value;
+import org.uva.sea.ql.evaluator.value.Boolean;
+import org.uva.sea.ql.evaluator.value.Undefined;
+import org.uva.sea.ql.evaluator.value.Value;
 import org.uva.sea.ql.visitor.Environment;
 import org.uva.sea.ql.visitor.IStatementVisitor;
 

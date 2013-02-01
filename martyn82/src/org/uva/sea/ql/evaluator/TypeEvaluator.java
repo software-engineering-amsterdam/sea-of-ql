@@ -1,15 +1,15 @@
-package org.uva.sea.ql.eval;
+package org.uva.sea.ql.evaluator;
 
 import org.uva.sea.ql.ast.type.Bool;
 import org.uva.sea.ql.ast.type.Int;
 import org.uva.sea.ql.ast.type.Money;
 import org.uva.sea.ql.ast.type.Number;
 import org.uva.sea.ql.ast.type.Str;
-import org.uva.sea.ql.eval.value.Boolean;
-import org.uva.sea.ql.eval.value.Integer;
-import org.uva.sea.ql.eval.value.String;
-import org.uva.sea.ql.eval.value.Undefined;
-import org.uva.sea.ql.eval.value.Value;
+import org.uva.sea.ql.evaluator.value.Boolean;
+import org.uva.sea.ql.evaluator.value.Integer;
+import org.uva.sea.ql.evaluator.value.String;
+import org.uva.sea.ql.evaluator.value.Undefined;
+import org.uva.sea.ql.evaluator.value.Value;
 import org.uva.sea.ql.visitor.ITypeVisitor;
 
 /**
@@ -33,7 +33,7 @@ public class TypeEvaluator implements ITypeVisitor<Value> {
 
 	@Override
 	public Value visit( Money node ) {
-		return new org.uva.sea.ql.eval.value.Money( 0d );
+		return new org.uva.sea.ql.evaluator.value.Money( 0d );
 	}
 
 	@Override

@@ -1,4 +1,4 @@
-package org.uva.sea.ql.eval;
+package org.uva.sea.ql.evaluator;
 
 import org.uva.sea.ql.ast.expression.Ident;
 import org.uva.sea.ql.ast.expression.arithmetic.Add;
@@ -16,11 +16,11 @@ import org.uva.sea.ql.ast.expression.logical.Or;
 import org.uva.sea.ql.ast.expression.unary.Neg;
 import org.uva.sea.ql.ast.expression.unary.Not;
 import org.uva.sea.ql.ast.expression.unary.Pos;
-import org.uva.sea.ql.eval.value.Boolean;
-import org.uva.sea.ql.eval.value.Integer;
-import org.uva.sea.ql.eval.value.Money;
-import org.uva.sea.ql.eval.value.String;
-import org.uva.sea.ql.eval.value.Value;
+import org.uva.sea.ql.evaluator.value.Boolean;
+import org.uva.sea.ql.evaluator.value.Integer;
+import org.uva.sea.ql.evaluator.value.Money;
+import org.uva.sea.ql.evaluator.value.String;
+import org.uva.sea.ql.evaluator.value.Value;
 import org.uva.sea.ql.visitor.Environment;
 import org.uva.sea.ql.visitor.IExpressionVisitor;
 
