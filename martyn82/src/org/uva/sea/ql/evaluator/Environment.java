@@ -63,11 +63,18 @@ public class Environment {
 	 * @return True if it is defined, false otherwise.
 	 */
 	public boolean isDeclared( Ident ident ) {
-		if ( this.types.containsKey( ident ) ) {
-			return true;
-		}
+		return this.types.containsKey( ident );
+	}
 
-		return false;
+	/**
+	 * Determines whether the given identifier is bound to a value.
+	 *
+	 * @param ident
+	 *
+	 * @return True if it is bound, false otherwise.
+	 */
+	public boolean isBound( Ident ident ) {
+		return this.bindings.containsKey( ident );
 	}
 
 	/**
@@ -111,6 +118,10 @@ public class Environment {
 	 * @param type
 	 */
 	public void declareType( Ident ident, Type type ) {
+		if ( this.isDeclared( ident ) ) {
+			throw new RuntimeException( "Variable " + ident.getName() + " already declared." );
+		}
+
 		this.types.put( ident, type );
 	}
 
