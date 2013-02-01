@@ -1,7 +1,7 @@
 package org.uva.sea.ql.test.parser;
 
 import org.uva.sea.ql.parser.IParser;
-import org.uva.sea.ql.parser.jacc.JACCParser;
+import org.uva.sea.ql.parser.jacc.QLParser;
 
 /**
  * Abstract class for implementing parser test.
@@ -16,7 +16,7 @@ abstract public class ParserTest {
 	 * Constructs a new instance of the parser test.
 	 */
 	public ParserTest() {
-		this.parser = new JACCParser();
+		this.parser = new QLParser();
 	}
 
 	/**
