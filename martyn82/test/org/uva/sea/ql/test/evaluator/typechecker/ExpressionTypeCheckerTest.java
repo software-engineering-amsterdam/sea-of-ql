@@ -1,4 +1,4 @@
-package org.uva.sea.ql.test.typechecker;
+package org.uva.sea.ql.test.evaluator.typechecker;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
