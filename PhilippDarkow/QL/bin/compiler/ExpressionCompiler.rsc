@@ -14,9 +14,9 @@ public Instrs compileExp(moneyCon(real M)) = [pushMon(N)];
 
 public Instrs compileExp(boolCon(bool B)) = [pushBool(B)];
 
-public Instrs compileExp(\int(int I)) = [pushInt(I)];
+//public Instrs compileExp(\int(int I)) = [pushInt(I)];
 
-public Instrs compileExp(string(str S)) = [pushStr(S)];
+//public Instrs compileExp(string(str S)) = [pushStr(S)];
 
 //Instrs compileExp(string(str S)) = [pushStr(substring(S,1,size(S)-1))];
 

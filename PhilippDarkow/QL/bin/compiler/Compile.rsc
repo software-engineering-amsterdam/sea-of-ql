@@ -7,7 +7,11 @@ import util::Load;
 import compiler::ExpressionCompiler;
 
 alias Instrs = list[Instr];     // We introduce Instrs as an alias for a list of assembly language instructions                  
-  
+
+//public Instrs compileExp(\int(int I)) = [pushInt(I)];
+
+//public Instrs compileExp(string(str S)) = [pushStr(S)];
+ 
 // Unique label generation
 
 private int nLabel = 0;                            
@@ -48,6 +52,22 @@ Instrs compileDecls(list[Body] Body) =
     decl(str Id, QUE tp) <- Body
   ];
 
+//Instrs compileStatement(Statement s){
+//	println("in compile statement <[s]>");
+//	
+//}
+
+Instrs compileStatement(ifStat(Expression exp, list[Body] Body)){
+	println("in compile statement <exp>");
+	endLab = nextLabel();
+	return[*compileExp(exp),
+			gofalse(endLab),
+			*compileBody(Body),
+			go(endLab),
+			label(endLab) ];
+	
+}
+
 
 Instrs compileQuestion(Question q){
 	println("in compile question <[q]>");
@@ -62,17 +82,14 @@ Instrs compileQuestion(Question q){
 	  			println("AA : <aa>");
 	  			return aa;
 			}else if(tp == string()){
-				println("");
 				Instrs aa = [ dclStr(Id) |
 	  			easyQuestion(str Id, str questionLabel, Type tp) <- [q]
 	  			];
-	  			println("AA : <aa>");
 	  			return aa;
 			}else if(tp == boolean()){
 				Instrs aa = [ dclBool(Id) |
 	  			easyQuestion(str Id, str questionLabel, Type tp) <- [q]
 	  			];
-	  			println("AA : <aa>");
 	  			return aa;
 			} 
 		}
@@ -89,33 +106,29 @@ Instrs compileQuestion(Question q){
 
 
 Instrs compileBody(list[Body] Body){
-	Instrs result = [];
+	Instrs questionResult = [];
+	Instrs statementResult = [];
 	visit(Body){
 		case Question q : {
 			println("IN Q : <q>");
-			result += [*compileQuestion(q)];
-			//return [*compileQuestion(q)];
+			questionResult += [*compileQuestion(q)];
 		}
 		case Statement s : {
 			println("In S : <s>");
-			
+			statementResult += [*compileStatement(s)];
+			println("statementResult : <statementResult>");
 		}
 	}
-	return result;
+	return questionResult;
 }
 
-//Instrs compileBody(list[Body] Body){
-//			return [*compileQuestion(Body)];
-//}
-
-// Compile a Pico program
-
+// Compile a QL program
 public Instrs compileProgram(Program P){
   nLabel = 0;
   if(program(Expression exp, list[Body] Body) := P){
      //println("EXP in COMPILE : <exp>");
      println("Body in COMPILE : <Body>");
-     return [*compileBody(Body)];   //*compileDecls(Body), *compileStats(Series)
+     return [*compileBody(Body)];
   } else
     throw "Cannot happen";
 }
