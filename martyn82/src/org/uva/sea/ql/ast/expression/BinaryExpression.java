@@ -42,9 +42,4 @@ abstract public class BinaryExpression extends Expression {
 	public Expression getRhs() {
 		return this.rhs;
 	}
-
-	@Override
-	public String toString() {
-		return this.getClass().getSimpleName();
-	}
 }
