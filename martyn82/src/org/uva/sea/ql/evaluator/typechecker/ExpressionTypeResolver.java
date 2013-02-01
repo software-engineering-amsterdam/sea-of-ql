@@ -1,4 +1,4 @@
-package org.uva.sea.ql.typechecker;
+package org.uva.sea.ql.evaluator.typechecker;
 
 import org.uva.sea.ql.ast.expression.ArithmeticExpression;
 import org.uva.sea.ql.ast.expression.ComparisonExpression;
@@ -27,7 +27,7 @@ import org.uva.sea.ql.ast.expression.unary.Not;
 import org.uva.sea.ql.ast.expression.unary.Pos;
 import org.uva.sea.ql.ast.type.Type;
 import org.uva.sea.ql.ast.type.Undefined;
-import org.uva.sea.ql.visitor.Environment;
+import org.uva.sea.ql.evaluator.Environment;
 import org.uva.sea.ql.visitor.IExpressionVisitor;
 
 /**

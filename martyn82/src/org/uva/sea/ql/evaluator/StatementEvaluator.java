@@ -13,7 +13,6 @@ import org.uva.sea.ql.ast.statement.VarDeclaration;
 import org.uva.sea.ql.evaluator.value.Boolean;
 import org.uva.sea.ql.evaluator.value.Undefined;
 import org.uva.sea.ql.evaluator.value.Value;
-import org.uva.sea.ql.visitor.Environment;
 import org.uva.sea.ql.visitor.IStatementVisitor;
 
 /**

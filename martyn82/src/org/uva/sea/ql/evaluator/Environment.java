@@ -1,4 +1,4 @@
-package org.uva.sea.ql.visitor;
+package org.uva.sea.ql.evaluator;
 
 import java.util.HashMap;
 import java.util.LinkedList;
