@@ -67,6 +67,37 @@ Instrs compileDecls(list[Body] Body) =
     decl(str Id, QUE tp) <- Body
   ];
 
+Instrs compileQuestion(Question q){
+	println("in compile question <[q]>");
+	Instrs aa = [ ((tp == integer()) ? dclInt(Id) : dclStr(Id)) |
+	  easyQuestion(str Id, str questionLabel, Type tp) <- [q]
+	  ];
+	  println("AA : <aa>");
+	  return aa;
+}
+
+//Instrs compileQuestion(list[Question] Ques){
+//	println("in compile question");
+//	Instrs aa = [ ((tp == integer()) ? dclStr(Id) : dclInt(Id)) |
+//	  question(str Id, str questionLabel, Type tp) <- Ques
+//	  ];
+//	  println("AA : <aa>");
+//}
+
+
+Instrs compileBody(list[Body] Body){
+	visit(Body){
+		case Question q : {
+			println("IN Q : <q>");
+			return [*compileQuestion(q)];
+		}
+	}
+}
+
+//Instrs compileBody(list[Body] Body){
+//			return [*compileQuestion(Body)];
+//}
+
 // Compile a Pico program
 
 public Instrs compileProgram(Program P){
@@ -74,7 +105,7 @@ public Instrs compileProgram(Program P){
   if(program(Expression exp, list[Body] Body) := P){
      //println("EXP in COMPILE : <exp>");
      println("Body in COMPILE : <Body>");
-     return [*compileDecls(Body), *compileStats(Series)];
+     return [*compileBody(Body)];   //*compileDecls(Body), *compileStats(Series)
   } else
     throw "Cannot happen";
 }
