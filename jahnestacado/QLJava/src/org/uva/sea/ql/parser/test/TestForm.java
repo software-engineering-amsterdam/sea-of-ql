@@ -13,7 +13,6 @@ import org.uva.sea.ql.ast.form.Form;
 import org.uva.sea.ql.ast.form.IfThen;
 import org.uva.sea.ql.ast.form.IfThenElse;
 import org.uva.sea.ql.ast.form.Question;
-import org.uva.sea.ql.interpreter.SwingVisitor;
 import org.uva.sea.ql.parser.antlr.ANTLRParser;
 import org.uva.sea.ql.visitor.checkers.ElementChecker;
 

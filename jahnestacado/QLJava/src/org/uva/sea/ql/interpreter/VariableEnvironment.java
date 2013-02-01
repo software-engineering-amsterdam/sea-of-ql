@@ -2,29 +2,29 @@ package org.uva.sea.ql.interpreter;
 
 import java.util.Map;
 
-import javax.swing.JComponent;
-
 import org.uva.sea.ql.ast.expr.values.Value;
 import org.uva.sea.ql.swing.Renderer;
 
 public class VariableEnvironment {
 	private final String varName;
-	Map<String, Value> declaredVar;
-	JComponent component;
+	private final Map<String, Value> declaredVar;
+	private final Value value;
 
 	public VariableEnvironment(String varName, Map<String, Value> declaredVar,Value value) {
 		this.varName = varName;
 		this.declaredVar = declaredVar;
-		this.component = component;
+		this.value = value;
 
 	}
 	
 	public static void refreshForm(String varName, Map<String, Value> declaredVar,Value value){
 		VariableEnvironment env=new VariableEnvironment(varName,declaredVar,value);
+		System.out.println(declaredVar.get(varName)+" 1st");
 		declaredVar.put(varName, value);
-		SwingVisitor.regenerate(declaredVar);
-		Renderer render=new Renderer(SwingVisitor.regenerate(declaredVar));
+		System.out.println(declaredVar.get(varName)+" 2st");
 
+		Renderer.refresh(SwingVisitor.regenerate(declaredVar));
+		
 		
 	}
 

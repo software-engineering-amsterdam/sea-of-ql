@@ -8,7 +8,10 @@ import java.util.Map;
 import javax.swing.JPanel;
 
 import org.uva.sea.ql.ast.expr.Expr;
-import org.uva.sea.ql.ast.expr.values.Null;
+import org.uva.sea.ql.ast.expr.values.BoolLit;
+import org.uva.sea.ql.ast.expr.values.Decimal;
+import org.uva.sea.ql.ast.expr.values.Int;
+import org.uva.sea.ql.ast.expr.values.StringLit;
 import org.uva.sea.ql.ast.expr.values.Value;
 import org.uva.sea.ql.ast.form.Body;
 import org.uva.sea.ql.ast.form.BodyElement;
@@ -17,10 +20,12 @@ import org.uva.sea.ql.ast.form.Form;
 import org.uva.sea.ql.ast.form.IfThen;
 import org.uva.sea.ql.ast.form.IfThenElse;
 import org.uva.sea.ql.ast.form.Question;
+import org.uva.sea.ql.ast.form.SingleLineElement;
+import org.uva.sea.ql.ast.types.Type;
 import org.uva.sea.ql.visitor.IElementVisitor;
-
+@SuppressWarnings("rawtypes")
 public class SwingVisitor implements IElementVisitor{
-	private static  List<JPanel> questionList;
+	private static List<JPanel> questionList;
 	private final Map<String,Value> declaredVar;
 	private static Form form;
 	
@@ -65,13 +70,13 @@ public class SwingVisitor implements IElementVisitor{
 
 	@Override
 	public void visit(Question qlElement) {
-		initVar(qlElement.getId().getName(),new Null());
+		initVar(qlElement);
 		addQuestion(qlElement,declaredVar);
 	}
 
 	@Override
 	public void visit(ComputedQuestion qlElement) {
-		initVar(qlElement.getId().getName(),new Null());   //na ginei method
+		initVar(qlElement);   //na ginei method
 		Value value = ExprEvaluator.eval(qlElement.getExpr(),declaredVar);
 		declaredVar.put(qlElement.getId().getName(),value);
 
@@ -79,13 +84,7 @@ public class SwingVisitor implements IElementVisitor{
 
 	}
 	
-	private void checkVarName(Question qlElement){
-		String varName=qlElement.getId().getName();
-		if(!declaredVar.containsKey(varName)){
-			declaredVar.put(varName, null);
-		}
-		
-	}
+	
 
 	@Override
 	public void visit(IfThenElse qlElement) {
@@ -126,11 +125,31 @@ public class SwingVisitor implements IElementVisitor{
 		return questionList;
 	}
 	
-	private void initVar(String varName,Value value){
+	private void initVar(SingleLineElement qlElement){
+		String varName=qlElement.getId().getName();
 		if(declaredVar.containsKey(varName)){
+			Value value=declaredVar.get(varName);
 			declaredVar.put(varName, value);
 		}
-		else declaredVar.put(varName, new Null());
+		else declaredVar.put(varName, getValue(qlElement));
 		
 	}
+	
+	
+	private Value getValue(SingleLineElement qlElement) {
+		Type type = qlElement.getType();
+
+		if (type.isCompatibleToBoolType()) {
+			return new BoolLit(false);
+		} else if (type.isCompatibleToIntType()) {
+			return new Int(0);
+		} else if (type.isCompatibleToMoneyType()) {
+			return new Decimal(0.0f);
+		} else {
+			return new StringLit("");
+		}
+
+	}
+	
+	
 }

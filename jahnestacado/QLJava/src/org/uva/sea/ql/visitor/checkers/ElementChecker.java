@@ -7,7 +7,6 @@ import java.util.Map;
 
 import org.uva.sea.ql.ast.expr.Expr;
 import org.uva.sea.ql.ast.expr.Ident;
-
 import org.uva.sea.ql.ast.form.Body;
 import org.uva.sea.ql.ast.form.BodyElement;
 import org.uva.sea.ql.ast.form.ComputedQuestion;

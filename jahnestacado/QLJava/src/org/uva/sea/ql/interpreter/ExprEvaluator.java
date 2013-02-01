@@ -24,7 +24,6 @@ import org.uva.sea.ql.ast.expr.unary.Pos;
 import org.uva.sea.ql.ast.expr.values.BoolLit;
 import org.uva.sea.ql.ast.expr.values.Decimal;
 import org.uva.sea.ql.ast.expr.values.Int;
-import org.uva.sea.ql.ast.expr.values.Null;
 import org.uva.sea.ql.ast.expr.values.StringLit;
 import org.uva.sea.ql.ast.expr.values.Value;
 import org.uva.sea.ql.visitor.IExprVisitor;
@@ -236,10 +235,7 @@ public class ExprEvaluator implements IExprVisitor<Value> {
 		return node;
 	}
 
-	@Override
-	public Value visit(Null node) {
-		return node;
-	}
+	
 
 
 

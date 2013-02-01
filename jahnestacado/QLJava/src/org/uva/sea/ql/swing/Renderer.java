@@ -8,30 +8,59 @@ import javax.swing.JPanel;
 import net.miginfocom.swing.MigLayout;
 
 
-public class Renderer extends JFrame{
+public class Renderer {
 	private static List<JPanel> questionList;
-	private final JPanel content;
+	private static JPanel content;
+	private  static JFrame frame;
 	
 	public Renderer(List<JPanel> questionList){
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.setSize(new Dimension(700, 600));
+		frame=new JFrame();
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setSize(new Dimension(700, 600));
 		this.questionList=questionList;
-        content=new JPanel();
-        content.setLayout((new MigLayout(
-        		"",
-        		// Layout Constraints
-        		"[center]", // Column constraints with default align
-        		"[]")));
-        
-        for(JPanel question:questionList){
-        	content.add(question,"wrap");
-        }
-        
-        JPanel containerPanel=new JPanel();
-        containerPanel.add(content);
-		this.add(containerPanel);
-		this.setVisible(true);
+		content=new JPanel();
+        setPanel();
 		
+		
+		
+	}
+	
+	public static void setPanel(){
+		 content.setLayout((new MigLayout(
+	        		"",
+	        		// Layout Constraints
+	        		"[center]", // Column constraints with default align
+	        		"[]")));
+	        
+	        for(JPanel question:questionList){
+	        	content.add(question,"wrap");
+	        }
+	        
+	        JPanel containerPanel=new JPanel();
+	        containerPanel.add(content);
+	        frame.add(containerPanel);
+			frame.setVisible(true);
+	}
+	
+	public static void refresh(List<JPanel> questionList){
+		    content.removeAll();
+	        
+	        for(JPanel question:questionList){
+	        	content.add(question,"wrap");
+	        }
+	        
+	        JPanel containerPanel=new JPanel();
+	        containerPanel.add(content);
+	        frame.add(containerPanel);
+			frame.setVisible(true);
+			frame.validate();
+	}
+	
+	
+	
+	public static JFrame getFrame(){
+		
+		return frame;
 	}
 	
   
