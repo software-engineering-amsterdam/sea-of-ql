@@ -13,6 +13,9 @@ import org.uva.sea.ql.ast.statement.VarDeclaration;
 import org.uva.sea.ql.evaluator.value.Boolean;
 import org.uva.sea.ql.evaluator.value.Undefined;
 import org.uva.sea.ql.evaluator.value.Value;
+import org.uva.sea.ql.evaluator.value.form.Form;
+import org.uva.sea.ql.evaluator.value.form.Question;
+import org.uva.sea.ql.evaluator.value.form.Questions;
 import org.uva.sea.ql.visitor.IStatementVisitor;
 
 /**
@@ -38,10 +41,14 @@ public class StatementEvaluator implements IStatementVisitor<Value> {
 	 * Constructs a new statement evaluator instance.
 	 *
 	 * @param environment
+	 * @param expressionEvaluator
+	 * @param typeEvaluator
 	 */
-	public StatementEvaluator( Environment environment, ExpressionEvaluator expressionEvaluator ) {
+	public StatementEvaluator(
+		Environment environment, ExpressionEvaluator expressionEvaluator, TypeEvaluator typeEvaluator
+	) {
 		this.expressionEvaluator = expressionEvaluator;
-		this.typeEvaluator = new TypeEvaluator();
+		this.typeEvaluator = typeEvaluator;
 		this.environment = environment;
 	}
 
@@ -57,9 +64,7 @@ public class StatementEvaluator implements IStatementVisitor<Value> {
 
 	@Override
 	public Value visit( Else node ) {
-		node.getBody().accept( this );
-
-		return new Undefined();
+		return node.getBody().accept( this );
 	}
 
 	@Override
@@ -68,21 +73,18 @@ public class StatementEvaluator implements IStatementVisitor<Value> {
 
 		if ( value.getValue() ) {
 			if ( node.hasIfBody() ) {
-				node.getIfBody().accept( this );
-				return new Undefined();
+				return node.getIfBody().accept( this );
 			}
 		}
 
 		for ( ElseIf elseIf : node.getElseIfs() ) {
 			if ( ( (Boolean) elseIf.getCondition().accept( this.expressionEvaluator ) ).getValue() ) {
-				elseIf.getBody().accept( this );
-				return new Undefined();
+				return elseIf.getBody().accept( this );
 			}
 		}
 
 		if ( node.hasElse() ) {
-			node.getElse().accept( this );
-			return new Undefined();
+			return node.getElse().accept( this );
 		}
 
 		return new Undefined();
@@ -93,7 +95,7 @@ public class StatementEvaluator implements IStatementVisitor<Value> {
 		Value value = node.getType().accept( this.typeEvaluator );
 		this.environment.declareVariable( node.getIdent(), value );
 
-		return new Undefined();
+		return value;
 	}
 
 	@Override
@@ -101,21 +103,45 @@ public class StatementEvaluator implements IStatementVisitor<Value> {
 		Value value = node.getExpression().accept( this.expressionEvaluator );
 		this.environment.declareVariable( node.getIdent(), value );
 
-		return new Undefined();
+		return value;
 	}
 
 	@Override
 	public Value visit( FormDeclaration node ) {
-		node.getStatements().accept( this );
+		Value value;
+		Questions questions = new Questions();
 
-		return new Undefined();
+		for ( Statement statement : node.getStatements() ) {
+			value = statement.accept( this );
+
+			if ( value instanceof Question ) {
+				questions.add( (Question) value );
+			}
+		}
+
+		return new Form( node.getIdent(), questions );
 	}
 
 	@Override
 	public Value visit( QuestionDeclaration node ) {
-		node.getDeclaration().accept( this );
+		Value value;
 
-		return new Undefined();
+		if ( node.getDeclaration() instanceof VarDeclaration ) {
+			value = node.getDeclaration().accept( this );
+		}
+		else if ( node.getDeclaration() instanceof Assignment ) {
+			if ( !this.environment.isDeclared( node.getIdent() ) || !this.environment.isBound( node.getIdent() ) ) {
+				value = node.getDeclaration().accept( this );
+			}
+			else {
+				value = node.getIdent().accept( this.expressionEvaluator );
+			}
+		}
+		else {
+			value = new Undefined();
+		}
+
+		return new Question( node.getName().getValue(), node.getIdent(), value );
 	}
 
 	@Override
