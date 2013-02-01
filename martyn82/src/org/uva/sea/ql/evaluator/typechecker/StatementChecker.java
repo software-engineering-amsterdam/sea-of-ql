@@ -133,6 +133,8 @@ public class StatementChecker extends TypeCheckVisitor implements IStatementVisi
 				this.addIncompatibleTypesError( node.toString(), leftType.toString(), rightType.toString(), node );
 				return false;
 			}
+
+			return true;
 		}
 
 		Type expressionType = node.getExpression().accept( this.resolver );
