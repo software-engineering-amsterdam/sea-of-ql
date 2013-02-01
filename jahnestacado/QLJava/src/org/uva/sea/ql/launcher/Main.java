@@ -2,6 +2,9 @@ package org.uva.sea.ql.launcher;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
+
+import javax.swing.JPanel;
 
 import org.antlr.runtime.ANTLRFileStream;
 import org.uva.sea.ql.interpreter.SwingVisitor;
@@ -19,8 +22,8 @@ public class Main {
 		try {
 			ANTLRFileStream charStream = new ANTLRFileStream(filePath.getAbsolutePath());
 			ANTLRParser parser = new ANTLRParser();
-			SwingVisitor.generate(parser.parseForm(charStream.toString()));
-			Renderer render=new Renderer(SwingVisitor.getQL());
+			List<JPanel> panelList=SwingVisitor.generate(parser.parseForm(charStream.toString()));
+			Renderer render=new Renderer(panelList);
 		} catch (IOException e) {
 			e.printStackTrace();
 		} catch (ParseError e) {

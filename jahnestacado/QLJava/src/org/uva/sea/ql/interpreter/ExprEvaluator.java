@@ -2,6 +2,8 @@ package org.uva.sea.ql.interpreter;
 
 
 
+import java.util.Map;
+
 import org.uva.sea.ql.ast.expr.Expr;
 import org.uva.sea.ql.ast.expr.Ident;
 import org.uva.sea.ql.ast.expr.binary.algebraic.Add;
@@ -22,14 +24,23 @@ import org.uva.sea.ql.ast.expr.unary.Pos;
 import org.uva.sea.ql.ast.expr.values.BoolLit;
 import org.uva.sea.ql.ast.expr.values.Decimal;
 import org.uva.sea.ql.ast.expr.values.Int;
+import org.uva.sea.ql.ast.expr.values.Null;
 import org.uva.sea.ql.ast.expr.values.StringLit;
 import org.uva.sea.ql.ast.expr.values.Value;
 import org.uva.sea.ql.visitor.IExprVisitor;
 @SuppressWarnings("rawtypes")
 public class ExprEvaluator implements IExprVisitor<Value> {
+	Map<String,Value> declaredVar;
+	Expr expr;
+	
+	public ExprEvaluator(Expr expr,Map<String,Value >declaredVar){
+		this.expr=expr;
+		this.declaredVar=declaredVar;
+		
+	}
 
-	public static Value eval(Expr expr){
-		ExprEvaluator evaluator=new ExprEvaluator();
+	public static Value eval(Expr expr,Map<String,Value >declaredVar){
+		ExprEvaluator evaluator=new ExprEvaluator(expr,declaredVar);
 		return expr.accept(evaluator);
 		
 	}
@@ -140,8 +151,7 @@ public class ExprEvaluator implements IExprVisitor<Value> {
 
 	@Override
 	public Value visit(Ident node) {
-		// TODO Auto-generated method stub
-		return null;
+		return declaredVar.get(node.getName());
 	}
 
 	@Override
@@ -223,6 +233,11 @@ public class ExprEvaluator implements IExprVisitor<Value> {
 
 	@Override
 	public Value visit(StringLit node) {
+		return node;
+	}
+
+	@Override
+	public Value visit(Null node) {
 		return node;
 	}
 

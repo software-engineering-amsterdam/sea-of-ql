@@ -19,6 +19,7 @@ import org.uva.sea.ql.ast.expr.unary.Pos;
 import org.uva.sea.ql.ast.expr.values.BoolLit;
 import org.uva.sea.ql.ast.expr.values.Decimal;
 import org.uva.sea.ql.ast.expr.values.Int;
+import org.uva.sea.ql.ast.expr.values.Null;
 import org.uva.sea.ql.ast.expr.values.StringLit;
 
 public interface IExprVisitor<T> {
@@ -44,4 +45,7 @@ public interface IExprVisitor<T> {
 	 public T visit(BoolLit node);
 	 public T visit(Decimal node);
 	 public T visit(StringLit node);
+	 public T visit(Null node);
+	 
+	
 }

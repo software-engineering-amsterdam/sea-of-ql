@@ -9,12 +9,14 @@ import net.miginfocom.swing.MigLayout;
 
 
 public class Renderer extends JFrame{
-	List<JPanel> questionList;
+	private static List<JPanel> questionList;
+	private final JPanel content;
 	
 	public Renderer(List<JPanel> questionList){
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setSize(new Dimension(700, 600));
-        JPanel content=new JPanel();
+		this.questionList=questionList;
+        content=new JPanel();
         content.setLayout((new MigLayout(
         		"",
         		// Layout Constraints
@@ -25,11 +27,13 @@ public class Renderer extends JFrame{
         	content.add(question,"wrap");
         }
         
-        JPanel n2=new JPanel();
-        n2.add(content);
-		this.add(n2);
+        JPanel containerPanel=new JPanel();
+        containerPanel.add(content);
+		this.add(containerPanel);
 		this.setVisible(true);
 		
 	}
+	
+  
 
 }
