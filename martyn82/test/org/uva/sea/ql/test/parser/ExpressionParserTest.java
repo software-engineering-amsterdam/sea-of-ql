@@ -255,6 +255,8 @@ public class ExpressionParserTest extends ParserTest implements IExpressionTest 
 		assertExpression( Ident.class, "abc2323" );
 		assertExpression( Ident.class, "a2bc232" );
 		assertExpression( Ident.class, "a2bc232aa" );
+		assertExpression( Ident.class, "_bla" );
+		assertExpression( Ident.class, "a_12bla" );
 	}
 
 	@Override
