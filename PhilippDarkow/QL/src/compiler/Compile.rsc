@@ -4,30 +4,9 @@ import Prelude;
 import syntax::AbstractSyntax;
 import compiler::Assembly;
 import util::Load;
+import compiler::ExpressionCompiler;
 
 alias Instrs = list[Instr];     // We introduce Instrs as an alias for a list of assembly language instructions                  
-
-// compile Expressions.
-// The compiler consists of the functions compileExp, compileStat, compileStats, compileDecls and compileProgram.
-// They all have a program fragment as argument and return the corresponding list of instructions
-Instrs compileExp(moneyCon(Money M)) = [pushMon(N)];  
-
-Instrs compileExp(boolCon(bool B)) = [pushBool(B)];
-
-//Instrs compileExp(string(str S)) = [pushStr(substring(S,1,size(S)-1))];
-
-Instrs compileExp(id(str Id)) = [rvalue(Id)];
-
-public Instrs compileExp(add(EXP E1, EXP E2)) =    
-  [*compileExp(E1), *compileExp(E2), add2()];
-
-Instrs compileExp(sub(EXP E1, EXP E2)) =
-  [*compileExp(E1), *compileExp(E2), sub2()];
-
-//Instrs compileExp(conc(EXP E1, EXP E2)) =
-//  [*compileExp(E1), *compileExp(E2), conc2()];
-
-
   
 // Unique label generation
 
@@ -69,6 +48,7 @@ Instrs compileDecls(list[Body] Body) =
     decl(str Id, QUE tp) <- Body
   ];
 
+
 Instrs compileQuestion(Question q){
 	println("in compile question <[q]>");
 	// get the type of the question
@@ -97,11 +77,6 @@ Instrs compileQuestion(Question q){
 			} 
 		}
 	};
-//	Instrs aa = [ ((tp == money()) ? dclMon(Id) : dclStr(Id)) |
-//	  easyQuestion(str Id, str questionLabel, Type tp) <- [q]
-//	  ];
-//	  println("AA : <aa>");
-//	  return aa;
 }
 
 //Instrs compileQuestion(list[Question] Ques){
@@ -120,6 +95,10 @@ Instrs compileBody(list[Body] Body){
 			println("IN Q : <q>");
 			result += [*compileQuestion(q)];
 			//return [*compileQuestion(q)];
+		}
+		case Statement s : {
+			println("In S : <s>");
+			
 		}
 	}
 	return result;
