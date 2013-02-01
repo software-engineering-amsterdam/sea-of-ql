@@ -3,7 +3,7 @@ package org.uva.sea.ql.ast.types.literals;
 import org.uva.sea.ql.ast.base.Expression;
 
 /**
- * Representation of primitive data types in the QL language.
+ * Representation of literals in the QL language.
  * 
  * @author J. Dijkstra
  */

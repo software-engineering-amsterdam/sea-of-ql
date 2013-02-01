@@ -11,7 +11,7 @@ import org.uva.sea.ql.ast.types.datatypes.StringType;
  * @author J. Dijkstra
  */
 public class StringLiteral extends LiteralType {
-	private static final DataType type = new StringType();
+	private static final DataType TYPE = new StringType();
 
 	/**
 	 * Value of the data type.
@@ -44,6 +44,6 @@ public class StringLiteral extends LiteralType {
 
 	@Override
 	public DataType typeOf(final SymbolTable symbolTable) {
-		return type;
+		return TYPE;
 	}
 }

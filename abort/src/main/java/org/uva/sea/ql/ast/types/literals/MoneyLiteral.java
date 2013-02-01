@@ -8,12 +8,12 @@ import org.uva.sea.ql.ast.types.datatypes.DataType;
 import org.uva.sea.ql.ast.types.datatypes.MoneyType;
 
 /**
- * Represents the money data type as defined in the QL language.
+ * Represents the money literal as defined in the QL language.
  * 
  * @author J. Dijkstra
  */
 public class MoneyLiteral extends NumericLiteral {
-	private static final DataType type = new MoneyType();
+	private static final DataType TYPE = new MoneyType();
 
 	/**
 	 * Value of the data type.
@@ -46,6 +46,6 @@ public class MoneyLiteral extends NumericLiteral {
 
 	@Override
 	public DataType typeOf(final SymbolTable symbolTable) {
-		return type;
+		return TYPE;
 	}
 }

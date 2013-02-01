@@ -15,10 +15,13 @@ import org.uva.sea.ql.ast.operators.binary.*;
 import org.uva.sea.ql.ast.operators.unary.*;
 import org.uva.sea.ql.ast.traversal.SymbolTable;
 import org.uva.sea.ql.ast.traversal.TypeChecker;
+import org.uva.sea.ql.ast.types.Ident;
 import org.uva.sea.ql.ast.types.datatypes.*;
 import org.uva.sea.ql.ast.types.literals.*;
 
+// Test the type checking functionality
 public class TestTypeChecker extends TestBase {
+	// Filenames for forms to parse and typecheck
 	private static final String RESOURCE_FORM_VALID = "form_valid.ql";
 	private static final String RESOURCE_FORM_INVALID = "form_invalid.ql";
 
@@ -43,7 +46,7 @@ public class TestTypeChecker extends TestBase {
 	@Test
 	public void testInvalidForm() throws RecognitionException, IOException {
 		invalidForm.accept(typeChecker);
-		assertEquals(10, typeChecker.getErrorLog().getLength());
+		assertEquals(12, typeChecker.getErrorLog().getLength());
 	}
 	
 	@Test

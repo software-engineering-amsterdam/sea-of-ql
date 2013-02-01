@@ -3,40 +3,16 @@ package org.uva.sea.ql.ast.traversal;
 import java.util.List;
 
 import org.uva.sea.ql.ast.base.Expression;
-import org.uva.sea.ql.ast.conditionals.IfStatement;
-import org.uva.sea.ql.ast.conditionals.IfThen;
-import org.uva.sea.ql.ast.conditionals.IfThenElse;
-import org.uva.sea.ql.ast.form.Computation;
-import org.uva.sea.ql.ast.form.Element;
-import org.uva.sea.ql.ast.form.Form;
-import org.uva.sea.ql.ast.form.Question;
-import org.uva.sea.ql.ast.operators.base.BinaryOperator;
-import org.uva.sea.ql.ast.operators.base.UnaryOperator;
-import org.uva.sea.ql.ast.operators.binary.Add;
-import org.uva.sea.ql.ast.operators.binary.And;
-import org.uva.sea.ql.ast.operators.binary.Div;
-import org.uva.sea.ql.ast.operators.binary.Eq;
-import org.uva.sea.ql.ast.operators.binary.GEq;
-import org.uva.sea.ql.ast.operators.binary.GT;
-import org.uva.sea.ql.ast.operators.binary.LEq;
-import org.uva.sea.ql.ast.operators.binary.LT;
-import org.uva.sea.ql.ast.operators.binary.Mul;
-import org.uva.sea.ql.ast.operators.binary.NEq;
-import org.uva.sea.ql.ast.operators.binary.Or;
-import org.uva.sea.ql.ast.operators.binary.Sub;
-import org.uva.sea.ql.ast.operators.unary.Neg;
-import org.uva.sea.ql.ast.operators.unary.Not;
-import org.uva.sea.ql.ast.operators.unary.Pos;
-import org.uva.sea.ql.ast.traversal.base.HandSide;
-import org.uva.sea.ql.ast.traversal.base.IVisitor;
-import org.uva.sea.ql.ast.traversal.logging.TypeErrorLog;
-import org.uva.sea.ql.ast.traversal.logging.TypeEventLog;
+import org.uva.sea.ql.ast.conditionals.*;
+import org.uva.sea.ql.ast.form.*;
+import org.uva.sea.ql.ast.operators.base.*;
+import org.uva.sea.ql.ast.operators.binary.*;
+import org.uva.sea.ql.ast.operators.unary.*;
+import org.uva.sea.ql.ast.traversal.base.*;
+import org.uva.sea.ql.ast.traversal.logging.*;
+import org.uva.sea.ql.ast.types.Ident;
 import org.uva.sea.ql.ast.types.datatypes.DataType;
-import org.uva.sea.ql.ast.types.literals.BoolLiteral;
-import org.uva.sea.ql.ast.types.literals.Ident;
-import org.uva.sea.ql.ast.types.literals.IntLiteral;
-import org.uva.sea.ql.ast.types.literals.MoneyLiteral;
-import org.uva.sea.ql.ast.types.literals.StringLiteral;
+import org.uva.sea.ql.ast.types.literals.*;
 
 /**
  * Visitor that type checks (semantics) of the abstract syntax tree. The tree it
@@ -62,17 +38,21 @@ public class TypeChecker implements IVisitor<Boolean> {
 
 	@Override
 	public Boolean visit(final Computation computation) {
+		// Check for errors in the expression of the computation
 		final Expression expression = computation.getExpression();
 		final boolean expressionErrors = expression.accept(this);
-		if (expressionErrors)
+		if (expressionErrors) {
 			return true;
+		}
 
+		// Check if the identifier has been declared before in the symbol table
 		final Ident identifier = computation.getIdent();
 		if (symbolTable.get(identifier) != null) {
 			errorLog.addLabelRedeclaration(computation, identifier);
 			return true;
 		}
 
+		// Add the identifier of this computation to the symbol table
 		symbolTable.add(identifier, computation.getExpectedType());
 
 		return false;
@@ -80,20 +60,24 @@ public class TypeChecker implements IVisitor<Boolean> {
 
 	@Override
 	public Boolean visit(final Form form) {
+		// Check for errors in the form elements and return whether errors are found or not
 		final boolean elementErrors = checkElements(form.getElements());
-		if (!elementErrors)
+		if (!elementErrors) {
 			eventLog.addCorrectSemantics(form);
+		}
 		return elementErrors;
 	}
 
 	@Override
 	public Boolean visit(final Question question) {
+		// Check if the identifier has been declared before in the symbol table
 		final Ident identifier = question.getIdent();
 		if (symbolTable.get(identifier) != null) {
 			errorLog.addLabelRedeclaration(question, identifier);
 			return true;
 		}
 
+		// Add the identifier to the symbol table
 		symbolTable.add(identifier, question.getExpectedType());
 		return false;
 	}
@@ -151,15 +135,18 @@ public class TypeChecker implements IVisitor<Boolean> {
 		final boolean rightHandSideErrors = rightHandSide.accept(this);
 
 		// Errors are present deeper in the AST
-		if (leftHandSideErrors || rightHandSideErrors)
+		if (leftHandSideErrors || rightHandSideErrors) {
 			return true;
+		}
 
 		final DataType leftType = leftHandSide.typeOf(symbolTable);
 		final DataType rightType = rightHandSide.typeOf(symbolTable);
 		// Invalid reference
-		if ((leftType == null) || (rightType == null))
+		if (leftType == null || rightType == null) {
 			return true;
+		}
 
+		// Equals requires both left and the right handside to be of the same type
 		if (!leftType.isSameTypeAs(rightType)) {
 			errorLog.addBothSidesAreDifferentTypes(eq);
 			return true;
@@ -229,13 +216,17 @@ public class TypeChecker implements IVisitor<Boolean> {
 		final boolean expressionErrors = expression.accept(this);
 
 		// Errors are present deeper in the AST
-		if (expressionErrors)
+		if (expressionErrors) {
 			return true;
+		}
 
 		// Invalid reference
 		final DataType expressionType = checkTypeOf(expression);
-		if (expressionType == null)
+		if (expressionType == null) {
 			return true;
+		}
+
+		// The expression should be compatible to bool
 		if (!expressionType.isCompatibleToBool()) {
 			errorLog.addTypeIsNotBoolean(HandSide.RIGHT, not);
 			return true;
@@ -257,6 +248,12 @@ public class TypeChecker implements IVisitor<Boolean> {
 		return errorLog;
 	}
 
+	/**
+	 * Check numeric binary expressions for errors and log them.
+	 * 
+	 * @param operation the operation to check.
+	 * @return whether errors are present or not.
+	 */
 	private boolean checkNumericBinaryExpression(final BinaryOperator operation) {
 		final Expression leftHandSide = operation.getLeftHandSide();
 		final Expression rightHandSide = operation.getRightHandSide();
@@ -264,14 +261,17 @@ public class TypeChecker implements IVisitor<Boolean> {
 		final boolean rightHandSideErrors = rightHandSide.accept(this);
 
 		// Errors are present deeper in the AST
-		if (leftHandSideErrors || rightHandSideErrors)
+		if (leftHandSideErrors || rightHandSideErrors) {
 			return true;
+		}
 
 		final DataType leftHandSideType = checkTypeOf(leftHandSide);
 		final DataType rightHandSideType = checkTypeOf(rightHandSide);
-		if ((leftHandSideType == null) || (rightHandSideType == null))
+		if (leftHandSideType == null || rightHandSideType == null) {
 			return true;
+		}
 
+		// Both hand sides should be compatible to numeric
 		boolean error = false;
 		if (!leftHandSideType.isCompatibleToNumeric()) {
 			errorLog.addTypeIsNotIntegerOrMoney(HandSide.LEFT, operation);
@@ -285,6 +285,12 @@ public class TypeChecker implements IVisitor<Boolean> {
 		return error;
 	}
 
+	/**
+	 * Check boolean binary expressions for errors and log them.
+	 * 
+	 * @param operation the operation to check.
+	 * @return whether errors are present or not.
+	 */	
 	private Boolean checkBooleanBinaryExpression(final BinaryOperator operation) {
 		final Expression leftHandSide = operation.getLeftHandSide();
 		final Expression rightHandSide = operation.getRightHandSide();
@@ -292,14 +298,18 @@ public class TypeChecker implements IVisitor<Boolean> {
 		final boolean rightHandSideErrors = rightHandSide.accept(this);
 
 		// Errors are present deeper in the AST
-		if (leftHandSideErrors || rightHandSideErrors)
+		if (leftHandSideErrors || rightHandSideErrors) {
 			return true;
+		}
 
 		final DataType leftHandSideType = checkTypeOf(leftHandSide);
 		final DataType rightHandSideType = checkTypeOf(rightHandSide);
-		if ((leftHandSideType == null) || (rightHandSideType == null))
+		if (leftHandSideType == null || rightHandSideType == null)
+		{
 			return true;
+		}
 
+		// Both hand sides should be compatible to bool
 		boolean error = false;
 		if (!leftHandSideType.isCompatibleToBool()) {
 			errorLog.addTypeIsNotBoolean(HandSide.LEFT, operation);
@@ -313,19 +323,28 @@ public class TypeChecker implements IVisitor<Boolean> {
 		return error;
 	}
 
+	/**
+	 * Check unary numeric expressions for errors and log them.
+	 * 
+	 * @param operation the operation to check.
+	 * @return whether errors are present or not.
+	 */
 	private Boolean checkNumericUnaryExpression(final UnaryOperator operation) {
 		final Expression expression = operation.getExpression();
 		final boolean expressionErrors = expression.accept(this);
 
 		// Errors are present deeper in the AST
-		if (expressionErrors)
+		if (expressionErrors) {
 			return true;
+		}
 
 		// Invalid reference
 		final DataType expressionType = checkTypeOf(expression);
-		if (expressionType == null)
+		if (expressionType == null) {
 			return true;
+		}
 
+		// The expression should be compatible to numeric
 		if (!expressionType.isCompatibleToNumeric()) {
 			errorLog.addTypeIsNotIntegerOrMoney(HandSide.RIGHT, operation);
 			return true;
@@ -334,6 +353,12 @@ public class TypeChecker implements IVisitor<Boolean> {
 		return false;
 	}
 
+	/**
+	 * Check for errors in an if statement.
+	 * 
+	 * @param statement if statement to check
+	 * @return whether errors were found or not
+	 */
 	private boolean checkIfStatement(final IfStatement statement) {
 		final boolean conditionErrors = statement.getCondition().accept(this);
 		final boolean successElementsErrors = checkElements(statement
@@ -343,13 +368,21 @@ public class TypeChecker implements IVisitor<Boolean> {
 		return (conditionErrors || successElementsErrors);
 	}
 
+	/**
+	 * Check for errors in form elements.
+	 * 
+	 * @param elements elements to check
+	 * @return whether there are errors found or not
+	 */
 	private boolean checkElements(final List<Element> elements) {
 		boolean errors = false;
 		for (final Element element : elements) {
 			// Errors deeper in the tree. As we still want to check errors on
 			// the same nesting level, we will continue the loop
 			if (element.accept(this))
+			{
 				errors = true;
+			}
 		}
 
 		return errors;

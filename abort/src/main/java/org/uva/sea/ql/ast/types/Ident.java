@@ -1,4 +1,4 @@
-package org.uva.sea.ql.ast.types.literals;
+package org.uva.sea.ql.ast.types;
 
 import org.uva.sea.ql.ast.base.Expression;
 import org.uva.sea.ql.ast.traversal.SymbolTable;
@@ -46,18 +46,23 @@ public class Ident extends Expression {
 
 	@Override
 	public boolean equals(final Object obj) {
-		if (this == obj)
+		if (this == obj) {
 			return true;
-		if (obj == null)
+		}
+		if (obj == null || getClass() != obj.getClass()) {
 			return false;
-		if (getClass() != obj.getClass())
-			return false;
+		}
 		final Ident other = (Ident) obj;
 		if (name == null) {
 			if (other.name != null)
+			{
 				return false;
-		} else if (!name.equals(other.name))
+			}
+		}
+		else if (!name.equals(other.name))
+		{
 			return false;
+		}
 		return true;
 	}
 

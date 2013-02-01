@@ -7,6 +7,7 @@ package org.uva.sea.ql.parser.antlr;
 import org.uva.sea.ql.ast.*;
 import org.uva.sea.ql.ast.base.*;
 import org.uva.sea.ql.ast.form.*;
+import org.uva.sea.ql.ast.types.*;
 import org.uva.sea.ql.ast.types.literals.*;
 import org.uva.sea.ql.ast.types.datatypes.*;
 import org.uva.sea.ql.ast.operators.base.*;

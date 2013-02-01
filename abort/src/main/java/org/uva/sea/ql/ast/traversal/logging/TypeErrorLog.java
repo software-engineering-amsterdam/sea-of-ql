@@ -6,7 +6,7 @@ import org.uva.sea.ql.ast.base.Node;
 import org.uva.sea.ql.ast.operators.base.BinaryOperator;
 import org.uva.sea.ql.ast.operators.base.Operator;
 import org.uva.sea.ql.ast.traversal.base.HandSide;
-import org.uva.sea.ql.ast.types.literals.Ident;
+import org.uva.sea.ql.ast.types.Ident;
 
 /**
  * Type checking error logger, which contains common errors.

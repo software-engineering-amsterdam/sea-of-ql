@@ -14,6 +14,7 @@ import org.uva.sea.ql.ast.operators.unary.Neg;
 import org.uva.sea.ql.ast.operators.unary.Not;
 import org.uva.sea.ql.ast.operators.unary.Pos;
 
+// Test unary operations
 public class TestUnaryOperators extends TestBase {
 	@Test
 	public void testNeg() throws RecognitionException {

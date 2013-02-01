@@ -1,8 +1,8 @@
 package org.uva.sea.ql.ast.form;
 
 import org.uva.sea.ql.ast.traversal.base.IVisitor;
+import org.uva.sea.ql.ast.types.Ident;
 import org.uva.sea.ql.ast.types.datatypes.DataType;
-import org.uva.sea.ql.ast.types.literals.Ident;
 
 /**
  * Question as defined in the QL language.

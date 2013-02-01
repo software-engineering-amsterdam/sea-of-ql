@@ -15,6 +15,7 @@ import org.uva.sea.ql.ast.form.Question;
 import org.uva.sea.ql.ast.operators.binary.Eq;
 import org.uva.sea.ql.ast.types.datatypes.StringType;
 
+// Test conditionals (if statements)
 public class TestConditionals extends TestBase {
 	@Test
 	public void testIfThen() throws RecognitionException {

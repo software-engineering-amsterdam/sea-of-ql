@@ -13,7 +13,7 @@ import org.uva.sea.ql.ast.types.datatypes.DataType;
  * @author J. Dijkstra
  */
 public class Eq extends BinaryOperator {
-	private static final DataType type = new BoolType();
+	private static final DataType TYPE = new BoolType();
 
 	/**
 	 * Constructor.
@@ -29,7 +29,7 @@ public class Eq extends BinaryOperator {
 
 	@Override
 	public DataType typeOf(final SymbolTable symbolTable) {
-		return type;
+		return TYPE;
 	}
 
 	@Override

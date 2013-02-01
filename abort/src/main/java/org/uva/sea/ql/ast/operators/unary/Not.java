@@ -13,7 +13,7 @@ import org.uva.sea.ql.ast.types.datatypes.DataType;
  * @author J. Dijkstra
  */
 public class Not extends UnaryOperator {
-	private static final DataType type = new BoolType();
+	private static final DataType TYPE = new BoolType();
 
 	/**
 	 * Constructor.
@@ -27,7 +27,7 @@ public class Not extends UnaryOperator {
 
 	@Override
 	public DataType typeOf(final SymbolTable symbolTable) {
-		return type;
+		return TYPE;
 	}
 
 	@Override

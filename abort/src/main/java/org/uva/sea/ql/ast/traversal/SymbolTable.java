@@ -3,8 +3,8 @@ package org.uva.sea.ql.ast.traversal;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.uva.sea.ql.ast.types.Ident;
 import org.uva.sea.ql.ast.types.datatypes.DataType;
-import org.uva.sea.ql.ast.types.literals.Ident;
 
 /**
  * Stores labels from the grammar with their result types. References to these
@@ -14,7 +14,7 @@ import org.uva.sea.ql.ast.types.literals.Ident;
  */
 public class SymbolTable {
 	/**
-	 * Map that stores idents and the type they should result to
+	 * Map that stores idents and the type they should result to.
 	 */
 	private final Map<Ident, DataType> types = new HashMap<Ident, DataType>();
 

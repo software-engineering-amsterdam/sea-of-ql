@@ -16,13 +16,15 @@ import org.uva.sea.ql.ast.form.Element;
 import org.uva.sea.ql.ast.form.Form;
 import org.uva.sea.ql.ast.form.Question;
 import org.uva.sea.ql.ast.operators.binary.Sub;
+import org.uva.sea.ql.ast.types.Ident;
 import org.uva.sea.ql.ast.types.datatypes.BoolType;
 import org.uva.sea.ql.ast.types.datatypes.IntType;
 import org.uva.sea.ql.ast.types.datatypes.MoneyType;
 import org.uva.sea.ql.ast.types.datatypes.StringType;
-import org.uva.sea.ql.ast.types.literals.Ident;
 
+// Test form structure and element recognition (idents) after parsing
 public class TestForm extends TestBase {
+	// Form location
 	private static final String RESOURCE_FORM = "form.ql";
 	private Form form;
 

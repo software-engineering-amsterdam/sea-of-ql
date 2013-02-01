@@ -10,13 +10,14 @@ import java.math.BigDecimal;
 import org.antlr.runtime.RecognitionException;
 import org.junit.Test;
 import org.uva.sea.ql.ast.base.Expression;
+import org.uva.sea.ql.ast.types.Ident;
 import org.uva.sea.ql.ast.types.literals.BoolLiteral;
-import org.uva.sea.ql.ast.types.literals.Ident;
 import org.uva.sea.ql.ast.types.literals.IntLiteral;
 import org.uva.sea.ql.ast.types.literals.MoneyLiteral;
 import org.uva.sea.ql.ast.types.literals.StringLiteral;
 
-public class TestDataTypes extends TestBase {
+// Test literal types
+public class TestTypeLiterals extends TestBase {
 	@Test
 	public void testSingleLineComment() throws RecognitionException {
 		assertNull(parseDataType("// this is a comment\n"));
@@ -41,7 +42,6 @@ public class TestDataTypes extends TestBase {
 		assertEquals(1223, ((IntLiteral) parseDataType("1223")).getValue());
 		assertEquals(234234234,
 				((IntLiteral) parseDataType("234234234")).getValue());
-
 	}
 
 	@Test

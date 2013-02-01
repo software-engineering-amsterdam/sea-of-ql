@@ -2,8 +2,8 @@ package org.uva.sea.ql.ast.form;
 
 import org.uva.sea.ql.ast.base.Expression;
 import org.uva.sea.ql.ast.traversal.base.IVisitor;
+import org.uva.sea.ql.ast.types.Ident;
 import org.uva.sea.ql.ast.types.datatypes.DataType;
-import org.uva.sea.ql.ast.types.literals.Ident;
 
 /**
  * QL Computation to display in a form.

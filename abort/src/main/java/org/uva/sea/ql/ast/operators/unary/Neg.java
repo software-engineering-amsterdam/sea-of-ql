@@ -13,7 +13,7 @@ import org.uva.sea.ql.ast.types.datatypes.NumericType;
  * @author J. Dijkstra
  */
 public class Neg extends UnaryOperator {
-	private static final DataType type = new NumericType();
+	private static final DataType TYPE = new NumericType();
 
 	/**
 	 * Constructor.
@@ -27,7 +27,7 @@ public class Neg extends UnaryOperator {
 
 	@Override
 	public DataType typeOf(final SymbolTable symbolTable) {
-		return type;
+		return TYPE;
 	}
 
 	@Override

@@ -13,7 +13,7 @@ import org.uva.sea.ql.ast.types.datatypes.NumericType;
  * @author J. Dijkstra
  */
 public class Sub extends BinaryOperator {
-	private static final DataType type = new NumericType();
+	private static final DataType TYPE = new NumericType();
 
 	/**
 	 * Constructor.
@@ -29,7 +29,7 @@ public class Sub extends BinaryOperator {
 
 	@Override
 	public DataType typeOf(final SymbolTable symbolTable) {
-		return type;
+		return TYPE;
 	}
 
 	@Override

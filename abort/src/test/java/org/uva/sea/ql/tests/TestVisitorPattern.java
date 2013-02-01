@@ -26,12 +26,13 @@ import org.uva.sea.ql.ast.operators.unary.Not;
 import org.uva.sea.ql.ast.operators.unary.Pos;
 import org.uva.sea.ql.ast.traversal.base.IVisitable;
 import org.uva.sea.ql.ast.traversal.base.IVisitor;
+import org.uva.sea.ql.ast.types.Ident;
 import org.uva.sea.ql.ast.types.literals.BoolLiteral;
-import org.uva.sea.ql.ast.types.literals.Ident;
 import org.uva.sea.ql.ast.types.literals.IntLiteral;
 import org.uva.sea.ql.ast.types.literals.MoneyLiteral;
 import org.uva.sea.ql.ast.types.literals.StringLiteral;
 
+// Test whether the visitor pattern has been implemented as it should be.
 public class TestVisitorPattern extends TestBase {
 	@SuppressWarnings("unchecked")
 	private final IVisitor<Void> visitor = mock(IVisitor.class);

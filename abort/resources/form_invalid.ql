@@ -26,4 +26,6 @@ form Box1HouseOwning {
 	if (true && "applepie" || 1 + true || "haha" + 2.000 || +true || -false || 1.2323 + (- bla) || 3==!8) { "hihi" }
 
 	hasSoldHouse: "Just to redeclare and annoy the type checker" integer	
+	valueResidue: "Redeclaration of a computed type!" money(29 * 2)
+	invalidCalculation: "Invalid calculation for a computed type!" money(apple * 3)
 }

@@ -6,12 +6,12 @@ import org.uva.sea.ql.ast.types.datatypes.BoolType;
 import org.uva.sea.ql.ast.types.datatypes.DataType;
 
 /**
- * Boolean data type as represented in the QL language.
+ * Boolean literal as represented in the QL language.
  * 
  * @author J. Dijkstra
  */
 public class BoolLiteral extends LiteralType {
-	private static final DataType type = new BoolType();
+	private static final DataType TYPE = new BoolType();
 
 	/**
 	 * Value of this data type
@@ -44,6 +44,6 @@ public class BoolLiteral extends LiteralType {
 
 	@Override
 	public DataType typeOf(final SymbolTable symbolTable) {
-		return type;
+		return TYPE;
 	}
 }

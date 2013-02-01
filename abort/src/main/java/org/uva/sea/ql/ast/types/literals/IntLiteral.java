@@ -6,12 +6,12 @@ import org.uva.sea.ql.ast.types.datatypes.DataType;
 import org.uva.sea.ql.ast.types.datatypes.IntType;
 
 /**
- * Represents the integer data type of the QL language.
+ * Represents the integer literal of the QL language.
  * 
  * @author J. Dijkstra
  */
 public class IntLiteral extends NumericLiteral {
-	private static final DataType type = new IntType();
+	private static final DataType TYPE = new IntType();
 
 	/**
 	 * Value of the data type
@@ -44,6 +44,6 @@ public class IntLiteral extends NumericLiteral {
 
 	@Override
 	public DataType typeOf(final SymbolTable symbolTable) {
-		return type;
+		return TYPE;
 	}
 }

@@ -15,10 +15,11 @@ import org.uva.sea.ql.ast.traversal.base.HandSide;
 import org.uva.sea.ql.ast.traversal.logging.Message;
 import org.uva.sea.ql.ast.traversal.logging.TypeErrorLog;
 import org.uva.sea.ql.ast.traversal.logging.TypeEventLog;
+import org.uva.sea.ql.ast.types.Ident;
 import org.uva.sea.ql.ast.types.literals.BoolLiteral;
-import org.uva.sea.ql.ast.types.literals.Ident;
 import org.uva.sea.ql.ast.types.literals.IntLiteral;
 
+// Test log functionality used for typechecking
 public class TestLogs extends TestBase {
 	@Test
 	public void testEventLog() {

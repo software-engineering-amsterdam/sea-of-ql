@@ -25,6 +25,7 @@ import org.uva.sea.ql.ast.operators.binary.NEq;
 import org.uva.sea.ql.ast.operators.binary.Or;
 import org.uva.sea.ql.ast.operators.binary.Sub;
 
+// Tests all binary operators
 public class TestBinaryOperators extends TestBase {
 	@Test
 	public void testAdd() throws RecognitionException {

@@ -13,7 +13,7 @@ import org.uva.sea.ql.ast.types.datatypes.NumericType;
  * @author J. Dijkstra
  */
 public class Pos extends UnaryOperator {
-	private static final DataType type = new NumericType();
+	private static final DataType TYPE = new NumericType();
 
 	/**
 	 * Constructor.
@@ -27,7 +27,7 @@ public class Pos extends UnaryOperator {
 
 	@Override
 	public DataType typeOf(final SymbolTable symbolTable) {
-		return type;
+		return TYPE;
 	}
 
 	@Override

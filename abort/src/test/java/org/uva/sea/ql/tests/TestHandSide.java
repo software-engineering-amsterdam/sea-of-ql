@@ -6,6 +6,7 @@ import static org.junit.Assert.assertFalse;
 import org.junit.Test;
 import org.uva.sea.ql.ast.traversal.base.HandSide;
 
+// Test handside instance
 public class TestHandSide extends TestBase {
 	@Test
 	public void testHandSide() {

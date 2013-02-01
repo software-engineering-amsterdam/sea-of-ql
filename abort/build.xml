@@ -30,10 +30,10 @@
 		<property name="sonar.jacoco.reportPath" value="target/jacoco.exec" />
 
 		<!-- Sonar settings for home network -->
-		<property name="sonar.jdbc.url" value="jdbc:h2:tcp://192.168.1.197:9092/sonar" />
+		<property name="sonar.jdbc.url" value="jdbc:h2:tcp://localhost:9092/sonar" />
 		<property name="sonar.jdbc.username" value="sonar" />
 		<property name="sonar.jdbc.password" value="sonar" />
-		<property name="sonar.host.url" value="http://192.168.1.197:9000" />
+		<property name="sonar.host.url" value="http://localhost:9000" />
 	
 		<!-- ========= Define "regular" targets: clean, compile, test, ... ========= -->
 		<target name="clean">
