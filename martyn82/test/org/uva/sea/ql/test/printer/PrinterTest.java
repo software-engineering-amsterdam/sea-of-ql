@@ -3,7 +3,7 @@ package org.uva.sea.ql.test.printer;
 import org.junit.Test;
 import org.uva.sea.ql.parser.ParseError;
 import org.uva.sea.ql.printer.PrintContext;
-import org.uva.sea.ql.printer.Printer;
+import org.uva.sea.ql.printer.QLPrinter;
 import org.uva.sea.ql.test.visitor.VisitorTest;
 
 /**
@@ -25,7 +25,7 @@ public class PrinterTest extends VisitorTest<Boolean> {
 	@Test
 	public void test() throws ParseError {
 		this.parser.parse( program ).accept(
-			new Printer(
+			new QLPrinter(
 				new PrintContext( System.out )
 			)
 		);
