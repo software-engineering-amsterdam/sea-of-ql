@@ -1,9 +1,6 @@
 package org.uva.sea.ql;
 
-import java.util.Iterator;
-
 import org.uva.sea.ql.ast.expression.Ident;
-import org.uva.sea.ql.ast.statement.FormDeclaration;
 import org.uva.sea.ql.ast.statement.Statement;
 import org.uva.sea.ql.evaluator.Environment;
 
@@ -52,11 +49,6 @@ public class Program {
 		this.interpreter.evaluate( source );
 		Statement ast = this.interpreter.getAST();
 		System.out.println( env.lookup( new Ident( "x" ) ).getValue() );
-
-
-		Iterator<Statement> it = ( (FormDeclaration) ast ).getStatements().iterator();
-		it.next();
-		Statement ite = it.next();
 
 		env.declareVariable( new Ident( "baz" ), new org.uva.sea.ql.evaluator.value.Boolean( true ) );
 		this.interpreter.evaluate( ast, env );
