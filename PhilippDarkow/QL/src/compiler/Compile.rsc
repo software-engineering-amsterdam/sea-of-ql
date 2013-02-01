@@ -12,9 +12,11 @@ alias Instrs = list[Instr];     // We introduce Instrs as an alias for a list of
 // They all have a program fragment as argument and return the corresponding list of instructions
 Instrs compileExp(moneyCon(Money M)) = [pushMon(N)];  
 
+Instrs compileExp(boolCon(bool B)) = [pushBool(B)];
+
 //Instrs compileExp(string(str S)) = [pushStr(substring(S,1,size(S)-1))];
 
-Instrs compileExp(id(QuestionId Id)) = [rvalue(Id)];
+Instrs compileExp(id(str Id)) = [rvalue(Id)];
 
 public Instrs compileExp(add(EXP E1, EXP E2)) =    
   [*compileExp(E1), *compileExp(E2), add2()];
@@ -69,11 +71,37 @@ Instrs compileDecls(list[Body] Body) =
 
 Instrs compileQuestion(Question q){
 	println("in compile question <[q]>");
-	Instrs aa = [ ((tp == integer()) ? dclInt(Id) : dclStr(Id)) |
-	  easyQuestion(str Id, str questionLabel, Type tp) <- [q]
-	  ];
-	  println("AA : <aa>");
-	  return aa;
+	// get the type of the question
+	visit(q){
+		case Type tp : {
+			println("TP : <tp>");
+			if(tp == money()){
+				Instrs aa = [ dclMon(Id) |
+	  			easyQuestion(str Id, str questionLabel, Type tp) <- [q]
+	  			];
+	  			println("AA : <aa>");
+	  			return aa;
+			}else if(tp == string()){
+				println("");
+				Instrs aa = [ dclStr(Id) |
+	  			easyQuestion(str Id, str questionLabel, Type tp) <- [q]
+	  			];
+	  			println("AA : <aa>");
+	  			return aa;
+			}else if(tp == boolean()){
+				Instrs aa = [ dclBool(Id) |
+	  			easyQuestion(str Id, str questionLabel, Type tp) <- [q]
+	  			];
+	  			println("AA : <aa>");
+	  			return aa;
+			} 
+		}
+	};
+//	Instrs aa = [ ((tp == money()) ? dclMon(Id) : dclStr(Id)) |
+//	  easyQuestion(str Id, str questionLabel, Type tp) <- [q]
+//	  ];
+//	  println("AA : <aa>");
+//	  return aa;
 }
 
 //Instrs compileQuestion(list[Question] Ques){
@@ -86,12 +114,15 @@ Instrs compileQuestion(Question q){
 
 
 Instrs compileBody(list[Body] Body){
+	Instrs result = [];
 	visit(Body){
 		case Question q : {
 			println("IN Q : <q>");
-			return [*compileQuestion(q)];
+			result += [*compileQuestion(q)];
+			//return [*compileQuestion(q)];
 		}
 	}
+	return result;
 }
 
 //Instrs compileBody(list[Body] Body){

@@ -9,6 +9,7 @@ public data Instr =
      | dclInt(str id)    // Reserve a memory location for a natural variable
      | pushMon(int intCon)      // Push integer constant (money) on the stack
      | pushStr(str strCon)      // Push string constant on the stack
+     | pushBool(bool boolCon)	// Push bool constant on the stack
      | rvalue(str id)    // Push the value of a variable on the stack
      | lvalue(str id)    // Push the address of a variable on the stack
      | assign()                 // Assign value on top, to variable at address top-1
