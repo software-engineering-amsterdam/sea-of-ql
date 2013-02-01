@@ -21,6 +21,7 @@ import org.uva.sea.ql.ast.type.Money;
 import org.uva.sea.ql.evaluator.Environment;
 import org.uva.sea.ql.evaluator.ExpressionEvaluator;
 import org.uva.sea.ql.evaluator.StatementEvaluator;
+import org.uva.sea.ql.evaluator.TypeEvaluator;
 import org.uva.sea.ql.test.IStatementTest;
 
 /**
@@ -38,6 +39,11 @@ public class StatementEvaluatorTest implements IStatementTest {
 	private final ExpressionEvaluator expressionEvaluator;
 
 	/**
+	 * Holds the type evaluator.
+	 */
+	private final TypeEvaluator typeEvaluator;
+
+	/**
 	 * Holds the environment.
 	 */
 	private final Environment environment;
@@ -48,7 +54,8 @@ public class StatementEvaluatorTest implements IStatementTest {
 	public StatementEvaluatorTest() {
 		this.environment = new Environment();
 		this.expressionEvaluator = new ExpressionEvaluator( this.environment );
-		this.statementEvaluator = new StatementEvaluator( environment, this.expressionEvaluator );
+		this.typeEvaluator = new TypeEvaluator();
+		this.statementEvaluator = new StatementEvaluator( environment, this.expressionEvaluator, this.typeEvaluator );
 	}
 
 	/**
@@ -190,16 +197,16 @@ public class StatementEvaluatorTest implements IStatementTest {
 	@Override
 	@Test
 	public void testVarDeclaration() {
-		assertEquals( null, eval( new VarDeclaration( new Ident( "x" ), new org.uva.sea.ql.ast.type.Bool() ) ) );
+		assertEquals( false, eval( new VarDeclaration( new Ident( "x" ), new org.uva.sea.ql.ast.type.Bool() ) ) );
 		assertEquals( false, eval( new Ident( "x" ) ) );
 
-		assertEquals( null, eval( new VarDeclaration( new Ident( "x" ), new org.uva.sea.ql.ast.type.Int() ) ) );
+		assertEquals( 0, eval( new VarDeclaration( new Ident( "x" ), new org.uva.sea.ql.ast.type.Int() ) ) );
 		assertEquals( 0, eval( new Ident( "x" ) ) );
 
-		assertEquals( null, eval( new VarDeclaration( new Ident( "x" ), new org.uva.sea.ql.ast.type.Str() ) ) );
+		assertEquals( "", eval( new VarDeclaration( new Ident( "x" ), new org.uva.sea.ql.ast.type.Str() ) ) );
 		assertEquals( "", eval( new Ident( "x" ) ) );
 
-		assertEquals( null, eval( new VarDeclaration( new Ident( "x" ), new Money() ) ) );
+		assertEquals( 0d, eval( new VarDeclaration( new Ident( "x" ), new Money() ) ) );
 		assertEquals( 0d, eval( new Ident( "x" ) ) );
 	}
 
@@ -213,7 +220,7 @@ public class StatementEvaluatorTest implements IStatementTest {
 	@Override
 	@Test
 	public void testAssignment() {
-		assertEquals( null, eval( new Assignment( new Ident( "x" ), new Str( "hello world!" ) ) ) );
+		assertEquals( "hello world!", eval( new Assignment( new Ident( "x" ), new Str( "hello world!" ) ) ) );
 		assertEquals( "hello world!", eval( new Ident( "x" ) ) );
 	}
 }
