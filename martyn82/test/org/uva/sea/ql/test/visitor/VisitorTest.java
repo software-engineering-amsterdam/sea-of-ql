@@ -1,5 +1,9 @@
 package org.uva.sea.ql.test.visitor;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+
 import org.uva.sea.ql.parser.IParser;
 import org.uva.sea.ql.parser.jacc.JACCParser;
 
@@ -14,29 +18,51 @@ abstract public class VisitorTest<T> {
 	protected final IParser parser;
 
 	/**
-	 * Holds the program source to use.
+	 * Holds the read program from file.
 	 */
-	protected String program;
+	protected final String program;
 
 	/**
 	 * Constructs a new VisitorTest instance.
 	 */
 	protected VisitorTest() {
 		this.parser = new JACCParser();
-		init();
+		this.program = this.getFileContents( System.getProperty( "user.dir" ) + "/assets/sample.ql" );
 	}
 
-	private void init() {
-		program =
-			"form Box1HouseOwning {\n" +
-				"\t\"Did you sell a house in 2010?\" hasSoldHouse : boolean\n" +
-				"\t\"Did you buy a house in 2010?\" hasBoughtHouse: boolean\n" +
-				"\t\"Did you enter a loan for maintainance/reconstruction?\" hasMaintLoan: boolean\n" +
-				"\tif ( hasSoldHouse ) {\n" +
-				"\t\t\"Private debts for the sold house:\" privateDebt: money\n" +
-				"\t\t\"Price the house was sold for:\" sellingPrice: money\n" +
-				"\t\t\"Value residue:\" valueResidue = sellingPrice - privateDebt\n" +
-			"\t}\n" +
-		"}";
+	/**
+	 * Retrieves contents of given file.
+	 *
+	 * @param fileName
+	 *
+	 * @return The contents.
+	 */
+	private String getFileContents( String fileName ) {
+		BufferedReader br = null;
+		StringBuffer sb = new StringBuffer();
+		String line;
+
+		try {
+			br = new BufferedReader( new FileReader( fileName ) );
+
+			while ( ( line = br.readLine() ) != null ) {
+				sb.append( line );
+			}
+		}
+		catch ( IOException e ) {
+			e.printStackTrace();
+		}
+		finally {
+			if ( br != null ) {
+				try {
+					br.close();
+				}
+				catch ( IOException e ) {
+					e.printStackTrace();
+				}
+			}
+		}
+
+		return sb.toString();
 	}
 }
