@@ -80,7 +80,7 @@ public class SwingVisitor implements IElementVisitor{
 		Value value = ExprEvaluator.eval(qlElement.getExpr(),declaredVar);
 		declaredVar.put(qlElement.getId().getName(),value);
 
-		addComputedQuestion(qlElement,value,declaredVar);
+		addComputedQuestion(qlElement,declaredVar);
 
 	}
 	
@@ -114,8 +114,8 @@ public class SwingVisitor implements IElementVisitor{
 		
 	}
 	
-	private void addComputedQuestion(ComputedQuestion qlElement,Value expr,Map<String,Value> declaredVar){
-		ComputedQuestionPanel panel=new ComputedQuestionPanel(qlElement,expr, declaredVar);
+	private void addComputedQuestion(ComputedQuestion qlElement,Map<String,Value> declaredVar){
+		ComputedQuestionPanel panel=new ComputedQuestionPanel(qlElement, declaredVar);
 		questionList.add(panel.getPanel());
 		
 		
