@@ -121,7 +121,13 @@ public class QLLexer implements QLTokens {
 			    	}
 			    	throw new RuntimeException("Unexpected character: " + (char)c);
 			    }
-			    case '!': nextChar(); return token = '!';
+			    case '!': 
+			    	nextChar(); 
+			    	if (c == '=') {
+			    		nextChar();
+			    		return token = NEQ;
+			    	}
+			    	return token = '!';
 			    case '<': {
 			    	nextChar();
 			    	if (c == '=') {

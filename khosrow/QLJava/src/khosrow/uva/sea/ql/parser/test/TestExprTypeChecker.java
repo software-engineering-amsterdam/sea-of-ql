@@ -161,8 +161,82 @@ public class TestExprTypeChecker {
 		assertEquals(ExprTypeChecker.Check(parser.ParseExpression("mA == iA"), theEnviroment(), theErrorList()), true);
 		assertEquals(ExprTypeChecker.Check(parser.ParseExpression("true == iB"), theEnviroment(), theErrorList()), false);
 		assertEquals(ExprTypeChecker.Check(parser.ParseExpression("iA == bA"), theEnviroment(), theErrorList()), false);		
-		assertEquals(ExprTypeChecker.Check(parser.ParseExpression("sA == bA"), theEnviroment(), theErrorList()), false);
-		
+		assertEquals(ExprTypeChecker.Check(parser.ParseExpression("sA == bA"), theEnviroment(), theErrorList()), false);		
+	}
+	
+	@Test
+	public void testNEqsType() throws ParseError {
+		assertEquals(ExprTypeChecker.Check(parser.ParseExpression("bA == bB"), theEnviroment(), theErrorList()), true);
+		assertEquals(ExprTypeChecker.Check(parser.ParseExpression("true != bA"), theEnviroment(), theErrorList()), true);
+		assertEquals(ExprTypeChecker.Check(parser.ParseExpression("bA != false"), theEnviroment(), theErrorList()), true);
+		assertEquals(ExprTypeChecker.Check(parser.ParseExpression("true != false"), theEnviroment(), theErrorList()), true);
+		assertEquals(ExprTypeChecker.Check(parser.ParseExpression("iA != iB"), theEnviroment(), theErrorList()), true);
+		assertEquals(ExprTypeChecker.Check(parser.ParseExpression("sA != sB"), theEnviroment(), theErrorList()), true);
+		assertEquals(ExprTypeChecker.Check(parser.ParseExpression("mA != mB"), theEnviroment(), theErrorList()), true);
+		assertEquals(ExprTypeChecker.Check(parser.ParseExpression("mA != iA"), theEnviroment(), theErrorList()), true);
+		assertEquals(ExprTypeChecker.Check(parser.ParseExpression("true != iB"), theEnviroment(), theErrorList()), false);
+		assertEquals(ExprTypeChecker.Check(parser.ParseExpression("iA != bA"), theEnviroment(), theErrorList()), false);		
+		assertEquals(ExprTypeChecker.Check(parser.ParseExpression("sA != bA"), theEnviroment(), theErrorList()), false);		
+	}
+	
+	@Test
+	public void testGEqsType() throws ParseError {
+		assertEquals(ExprTypeChecker.Check(parser.ParseExpression("bA >= bB"), theEnviroment(), theErrorList()), true);
+		assertEquals(ExprTypeChecker.Check(parser.ParseExpression("true >= bA"), theEnviroment(), theErrorList()), true);
+		assertEquals(ExprTypeChecker.Check(parser.ParseExpression("bA >= false"), theEnviroment(), theErrorList()), true);
+		assertEquals(ExprTypeChecker.Check(parser.ParseExpression("true >= false"), theEnviroment(), theErrorList()), true);
+		assertEquals(ExprTypeChecker.Check(parser.ParseExpression("iA >= iB"), theEnviroment(), theErrorList()), true);
+		assertEquals(ExprTypeChecker.Check(parser.ParseExpression("sA >= sB"), theEnviroment(), theErrorList()), true);
+		assertEquals(ExprTypeChecker.Check(parser.ParseExpression("mA >= mB"), theEnviroment(), theErrorList()), true);
+		assertEquals(ExprTypeChecker.Check(parser.ParseExpression("mA >= iA"), theEnviroment(), theErrorList()), true);
+		assertEquals(ExprTypeChecker.Check(parser.ParseExpression("true >= iB"), theEnviroment(), theErrorList()), false);
+		assertEquals(ExprTypeChecker.Check(parser.ParseExpression("iA >= bA"), theEnviroment(), theErrorList()), false);		
+		assertEquals(ExprTypeChecker.Check(parser.ParseExpression("sA >= bA"), theEnviroment(), theErrorList()), false);		
+	}
+	
+	@Test
+	public void testGTsType() throws ParseError {
+		assertEquals(ExprTypeChecker.Check(parser.ParseExpression("bA > bB"), theEnviroment(), theErrorList()), true);
+		assertEquals(ExprTypeChecker.Check(parser.ParseExpression("true > bA"), theEnviroment(), theErrorList()), true);
+		assertEquals(ExprTypeChecker.Check(parser.ParseExpression("bA > false"), theEnviroment(), theErrorList()), true);
+		assertEquals(ExprTypeChecker.Check(parser.ParseExpression("true > false"), theEnviroment(), theErrorList()), true);
+		assertEquals(ExprTypeChecker.Check(parser.ParseExpression("iA > iB"), theEnviroment(), theErrorList()), true);
+		assertEquals(ExprTypeChecker.Check(parser.ParseExpression("sA > sB"), theEnviroment(), theErrorList()), true);
+		assertEquals(ExprTypeChecker.Check(parser.ParseExpression("mA > mB"), theEnviroment(), theErrorList()), true);
+		assertEquals(ExprTypeChecker.Check(parser.ParseExpression("mA > iA"), theEnviroment(), theErrorList()), true);
+		assertEquals(ExprTypeChecker.Check(parser.ParseExpression("true > iB"), theEnviroment(), theErrorList()), false);
+		assertEquals(ExprTypeChecker.Check(parser.ParseExpression("iA > bA"), theEnviroment(), theErrorList()), false);		
+		assertEquals(ExprTypeChecker.Check(parser.ParseExpression("sA > bA"), theEnviroment(), theErrorList()), false);		
+	}
+	
+	@Test
+	public void testLEqsType() throws ParseError {
+		assertEquals(ExprTypeChecker.Check(parser.ParseExpression("bA <= bB"), theEnviroment(), theErrorList()), true);
+		assertEquals(ExprTypeChecker.Check(parser.ParseExpression("true <= bA"), theEnviroment(), theErrorList()), true);
+		assertEquals(ExprTypeChecker.Check(parser.ParseExpression("bA <= false"), theEnviroment(), theErrorList()), true);
+		assertEquals(ExprTypeChecker.Check(parser.ParseExpression("true <= false"), theEnviroment(), theErrorList()), true);
+		assertEquals(ExprTypeChecker.Check(parser.ParseExpression("iA <= iB"), theEnviroment(), theErrorList()), true);
+		assertEquals(ExprTypeChecker.Check(parser.ParseExpression("sA <= sB"), theEnviroment(), theErrorList()), true);
+		assertEquals(ExprTypeChecker.Check(parser.ParseExpression("mA <= mB"), theEnviroment(), theErrorList()), true);
+		assertEquals(ExprTypeChecker.Check(parser.ParseExpression("mA <= iA"), theEnviroment(), theErrorList()), true);
+		assertEquals(ExprTypeChecker.Check(parser.ParseExpression("true <= iB"), theEnviroment(), theErrorList()), false);
+		assertEquals(ExprTypeChecker.Check(parser.ParseExpression("iA <= bA"), theEnviroment(), theErrorList()), false);		
+		assertEquals(ExprTypeChecker.Check(parser.ParseExpression("sA <= bA"), theEnviroment(), theErrorList()), false);		
+	}
+	
+	@Test
+	public void testLTsType() throws ParseError {
+		assertEquals(ExprTypeChecker.Check(parser.ParseExpression("bA < bB"), theEnviroment(), theErrorList()), true);
+		assertEquals(ExprTypeChecker.Check(parser.ParseExpression("true < bA"), theEnviroment(), theErrorList()), true);
+		assertEquals(ExprTypeChecker.Check(parser.ParseExpression("bA < false"), theEnviroment(), theErrorList()), true);
+		assertEquals(ExprTypeChecker.Check(parser.ParseExpression("true < false"), theEnviroment(), theErrorList()), true);
+		assertEquals(ExprTypeChecker.Check(parser.ParseExpression("iA < iB"), theEnviroment(), theErrorList()), true);
+		assertEquals(ExprTypeChecker.Check(parser.ParseExpression("sA < sB"), theEnviroment(), theErrorList()), true);
+		assertEquals(ExprTypeChecker.Check(parser.ParseExpression("mA < mB"), theEnviroment(), theErrorList()), true);
+		assertEquals(ExprTypeChecker.Check(parser.ParseExpression("mA < iA"), theEnviroment(), theErrorList()), true);
+		assertEquals(ExprTypeChecker.Check(parser.ParseExpression("true < iB"), theEnviroment(), theErrorList()), false);
+		assertEquals(ExprTypeChecker.Check(parser.ParseExpression("iA < bA"), theEnviroment(), theErrorList()), false);		
+		assertEquals(ExprTypeChecker.Check(parser.ParseExpression("sA < bA"), theEnviroment(), theErrorList()), false);		
 	}
 
 }

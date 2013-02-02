@@ -95,32 +95,93 @@ public class ExprTypeChecker implements IExprVisitor<Boolean> {
 	}
 
 	@Override
+	public Boolean visit(NEq ast) {
+		boolean checkLhs = ast.getLhs().accept(this);
+		boolean checkRhs = ast.getRhs().accept(this);
+		
+		if (!(checkLhs && checkRhs))
+			return false;
+		Type lhsType = ast.getLhs().typeOf(typeEnv);
+		Type rhsType = ast.getRhs().typeOf(typeEnv);
+		
+		if (!lhsType.isCompatibleTo(rhsType)) {
+			addToErrorList(ast, "invalid type for !=");
+			return false;
+		}			 
+		return true;
+	}
+	
+	@Override
 	public Boolean visit(GEq ast) {
-		// TODO Auto-generated method stub
-		return null;
+		boolean checkLhs = ast.getLhs().accept(this);
+		boolean checkRhs = ast.getRhs().accept(this);
+		
+		if (!(checkLhs && checkRhs))
+			return false;
+		Type lhsType = ast.getLhs().typeOf(typeEnv);
+		Type rhsType = ast.getRhs().typeOf(typeEnv);
+		
+		if (!lhsType.isCompatibleTo(rhsType)) {
+			addToErrorList(ast, "invalid type for >=");
+			return false;
+		}			 
+		return true;
 	}
 
 	@Override
 	public Boolean visit(GT ast) {
-		// TODO Auto-generated method stub
-		return null;
+		boolean checkLhs = ast.getLhs().accept(this);
+		boolean checkRhs = ast.getRhs().accept(this);
+		
+		if (!(checkLhs && checkRhs))
+			return false;
+		Type lhsType = ast.getLhs().typeOf(typeEnv);
+		Type rhsType = ast.getRhs().typeOf(typeEnv);
+		
+		if (!lhsType.isCompatibleTo(rhsType)) {
+			addToErrorList(ast, "invalid type for >");
+			return false;
+		}			 
+		return true;
 	}
 
 	@Override
-	public Boolean visit(Ident ast) {		
+	public Boolean visit(Ident ast) {
 		return true;
 	}
 
 	@Override
 	public Boolean visit(LEq ast) {
-		// TODO Auto-generated method stub
-		return null;
+		boolean checkLhs = ast.getLhs().accept(this);
+		boolean checkRhs = ast.getRhs().accept(this);
+		
+		if (!(checkLhs && checkRhs))
+			return false;
+		Type lhsType = ast.getLhs().typeOf(typeEnv);
+		Type rhsType = ast.getRhs().typeOf(typeEnv);
+		
+		if (!lhsType.isCompatibleTo(rhsType)) {
+			addToErrorList(ast, "invalid type for <=");
+			return false;
+		}			 
+		return true;
 	}
 
 	@Override
 	public Boolean visit(LT ast) {
-		// TODO Auto-generated method stub
-		return null;
+		boolean checkLhs = ast.getLhs().accept(this);
+		boolean checkRhs = ast.getRhs().accept(this);
+		
+		if (!(checkLhs && checkRhs))
+			return false;
+		Type lhsType = ast.getLhs().typeOf(typeEnv);
+		Type rhsType = ast.getRhs().typeOf(typeEnv);
+		
+		if (!lhsType.isCompatibleTo(rhsType)) {
+			addToErrorList(ast, "invalid type for <");
+			return false;
+		}			 
+		return true;
 	}
 
 	@Override
@@ -164,12 +225,18 @@ public class ExprTypeChecker implements IExprVisitor<Boolean> {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
+	
 	@Override
-	public Boolean visit(NEq ast) {
+	public Boolean visit(Pos ast) {
 		// TODO Auto-generated method stub
 		return null;
 	}
+	
+	@Override
+	public Boolean visit(Unary ast) {
+		// TODO Auto-generated method stub
+		return null;
+	}	
 
 	@Override
 	public Boolean visit(Not ast) {
@@ -196,12 +263,6 @@ public class ExprTypeChecker implements IExprVisitor<Boolean> {
 	}
 
 	@Override
-	public Boolean visit(Pos ast) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
 	public Boolean visit(Sub ast) {
 		boolean checkLhs = ast.getLhs().accept(this);
 		boolean checkRhs = ast.getRhs().accept(this);
@@ -217,12 +278,6 @@ public class ExprTypeChecker implements IExprVisitor<Boolean> {
 			return false;
 		}			 
 		return true;
-	}
-
-	@Override
-	public Boolean visit(Unary ast) {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 	@Override
