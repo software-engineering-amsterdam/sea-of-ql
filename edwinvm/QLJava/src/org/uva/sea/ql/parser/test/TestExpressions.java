@@ -15,6 +15,9 @@ import org.uva.sea.ql.ast.expressions.binary.numeric.Add;
 import org.uva.sea.ql.ast.expressions.binary.numeric.Div;
 import org.uva.sea.ql.ast.expressions.binary.numeric.Mul;
 import org.uva.sea.ql.ast.expressions.binary.numeric.Sub;
+import org.uva.sea.ql.ast.expressions.unary.Neg;
+import org.uva.sea.ql.ast.expressions.unary.Not;
+import org.uva.sea.ql.ast.expressions.unary.Pos;
 import org.uva.sea.ql.ast.values.Bool;
 import org.uva.sea.ql.ast.values.Ident;
 import org.uva.sea.ql.ast.values.Int;
@@ -97,6 +100,23 @@ public class TestExpressions {
 	public void testOrs() throws ParseError {
 		assertEquals(_parser.parse("a || b").getClass(), Or.class);
 		assertEquals(_parser.parse("a || b <= c").getClass(), Or.class);
+	}
+	
+	// Test methods for unary expressions
+	
+	@Test
+	public void testNegs() throws ParseError {
+		assertEquals(_parser.parse("--x").getClass(), Neg.class);
+	}
+	
+	@Test
+	public void testPoss() throws ParseError {
+		assertEquals(_parser.parse("++x").getClass(), Pos.class);
+	}
+	
+	@Test
+	public void testNots() throws ParseError {
+		assertEquals(_parser.parse("!hasBoughtHouse").getClass(), Not.class);
 	}
 
 	// Test methods for literal expressions
