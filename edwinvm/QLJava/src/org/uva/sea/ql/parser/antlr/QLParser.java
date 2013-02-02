@@ -1,12 +1,12 @@
-// $ANTLR 3.4 C:\\Users\\Edwin\\Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g 2013-02-02 02:45:46
+// $ANTLR 3.4 C:\\Users\\Edwin\\Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g 2013-02-02 03:33:58
 
 package org.uva.sea.ql.parser.antlr;
 import org.uva.sea.ql.ast.*;
 import org.uva.sea.ql.ast.expressions.binary.bool.*;
 import org.uva.sea.ql.ast.expressions.binary.numeric.*;
+import org.uva.sea.ql.ast.expressions.literal.*;
 import org.uva.sea.ql.ast.expressions.unary.*;
 import org.uva.sea.ql.ast.questions.*;
-import org.uva.sea.ql.ast.values.*;
 import org.uva.sea.ql.ast.types.*;
 
 
@@ -313,7 +313,7 @@ public class QLParser extends Parser {
                     state._fsp--;
                     if (state.failed) return result;
 
-                    if ( state.backtracking==0 ) { result = new AnswerableQuestion(new org.uva.sea.ql.ast.values.Str((String4!=null?String4.getText():null)), new Ident((Ident5!=null?Ident5.getText():null)), t); }
+                    if ( state.backtracking==0 ) { result = new AnswerableQuestion(new org.uva.sea.ql.ast.expressions.literal.Str((String4!=null?String4.getText():null)), new Ident((Ident5!=null?Ident5.getText():null)), t); }
 
                     }
                     break;
@@ -332,7 +332,7 @@ public class QLParser extends Parser {
                     state._fsp--;
                     if (state.failed) return result;
 
-                    if ( state.backtracking==0 ) { result = new ComputedQuestion(new org.uva.sea.ql.ast.values.Str((String6!=null?String6.getText():null)), new Ident((Ident7!=null?Ident7.getText():null)), e); }
+                    if ( state.backtracking==0 ) { result = new ComputedQuestion(new org.uva.sea.ql.ast.expressions.literal.Str((String6!=null?String6.getText():null)), new Ident((Ident7!=null?Ident7.getText():null)), e); }
 
                     }
                     break;
@@ -781,7 +781,7 @@ public class QLParser extends Parser {
                     {
                     Int8=(Token)match(input,Int,FOLLOW_Int_in_primary362); if (state.failed) return result;
 
-                    if ( state.backtracking==0 ) { result = new org.uva.sea.ql.ast.values.Int(Integer.parseInt((Int8!=null?Int8.getText():null))); }
+                    if ( state.backtracking==0 ) { result = new org.uva.sea.ql.ast.expressions.literal.Int(Integer.parseInt((Int8!=null?Int8.getText():null))); }
 
                     }
                     break;
@@ -790,7 +790,7 @@ public class QLParser extends Parser {
                     {
                     Bool9=(Token)match(input,Bool,FOLLOW_Bool_in_primary377); if (state.failed) return result;
 
-                    if ( state.backtracking==0 ) { result = new org.uva.sea.ql.ast.values.Bool(Boolean.parseBoolean((Bool9!=null?Bool9.getText():null))); }
+                    if ( state.backtracking==0 ) { result = new org.uva.sea.ql.ast.expressions.literal.Bool(Boolean.parseBoolean((Bool9!=null?Bool9.getText():null))); }
 
                     }
                     break;
@@ -799,7 +799,7 @@ public class QLParser extends Parser {
                     {
                     Money10=(Token)match(input,Money,FOLLOW_Money_in_primary391); if (state.failed) return result;
 
-                    if ( state.backtracking==0 ) { result = new org.uva.sea.ql.ast.values.Money(Double.parseDouble((Money10!=null?Money10.getText():null).replace(',', '.'))); }
+                    if ( state.backtracking==0 ) { result = new org.uva.sea.ql.ast.expressions.literal.Money(Double.parseDouble((Money10!=null?Money10.getText():null).replace(',', '.'))); }
 
                     }
                     break;
@@ -808,7 +808,7 @@ public class QLParser extends Parser {
                     {
                     String11=(Token)match(input,String,FOLLOW_String_in_primary404); if (state.failed) return result;
 
-                    if ( state.backtracking==0 ) { result = new org.uva.sea.ql.ast.values.Str((String11!=null?String11.getText():null)); }
+                    if ( state.backtracking==0 ) { result = new org.uva.sea.ql.ast.expressions.literal.Str((String11!=null?String11.getText():null)); }
 
                     }
                     break;

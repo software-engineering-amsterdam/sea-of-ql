@@ -1,4 +1,4 @@
-package org.uva.sea.ql.ast.values;
+package org.uva.sea.ql.ast.expressions.literal;
 
 import java.util.Map;
 

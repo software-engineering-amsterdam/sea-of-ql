@@ -1,7 +1,7 @@
 package org.uva.sea.ql.ast;
 
-import org.uva.sea.ql.ast.values.Ident;
-import org.uva.sea.ql.ast.values.Str;
+import org.uva.sea.ql.ast.expressions.literal.Ident;
+import org.uva.sea.ql.ast.expressions.literal.Str;
 
 public abstract class Question extends FormStatement {
 	private final Str _label;
