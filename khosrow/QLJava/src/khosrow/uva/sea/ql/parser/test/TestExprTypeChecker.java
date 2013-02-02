@@ -59,5 +59,73 @@ public class TestExprTypeChecker {
 		assertEquals(ExprTypeChecker.Check(parser.ParseExpression("bA + bB"), theEnviroment(), messages), false);
 		assertEquals(ExprTypeChecker.Check(parser.ParseExpression("bA + 1"), theEnviroment(), messages), false);
 	}
+	
+	@Test
+	public void testSubsType() throws ParseError {
+		List<QlError> messages = new ArrayList<QlError>();	
+		assertEquals(ExprTypeChecker.Check(parser.ParseExpression("1 - 2.01"), theEnviroment(), messages), true);
+		assertEquals(ExprTypeChecker.Check(parser.ParseExpression("1 - 2 - 3 - (1 - 2)"), theEnviroment(), messages), true);
+		assertEquals(ExprTypeChecker.Check(parser.ParseExpression("iA - iB"), theEnviroment(), messages), true);
+		assertEquals(ExprTypeChecker.Check(parser.ParseExpression("iA - mA"), theEnviroment(), messages), true);
+		assertEquals(ExprTypeChecker.Check(parser.ParseExpression("mA - mB"), theEnviroment(), messages), true);
+		assertEquals(ExprTypeChecker.Check(parser.ParseExpression("mB - iC"), theEnviroment(), messages), true);
+		assertEquals(ExprTypeChecker.Check(parser.ParseExpression("mA - 2.01"), theEnviroment(), messages), true);
+		assertEquals(ExprTypeChecker.Check(parser.ParseExpression("sA - sB"), theEnviroment(), messages), false);
+		assertEquals(ExprTypeChecker.Check(parser.ParseExpression("sA - iA"), theEnviroment(), messages), false);
+		assertEquals(ExprTypeChecker.Check(parser.ParseExpression("sA - bA"), theEnviroment(), messages), false);
+		assertEquals(ExprTypeChecker.Check(parser.ParseExpression("bA - bB"), theEnviroment(), messages), false);
+		assertEquals(ExprTypeChecker.Check(parser.ParseExpression("bA - 1"), theEnviroment(), messages), false);
+	}
+	
+	@Test
+	public void testMulsType() throws ParseError {
+		List<QlError> messages = new ArrayList<QlError>();	
+		assertEquals(ExprTypeChecker.Check(parser.ParseExpression("1 * 2.01"), theEnviroment(), messages), true);
+		assertEquals(ExprTypeChecker.Check(parser.ParseExpression("1 * 2 * 3 * (1 * 2)"), theEnviroment(), messages), true);
+		assertEquals(ExprTypeChecker.Check(parser.ParseExpression("iA * iB"), theEnviroment(), messages), true);
+		assertEquals(ExprTypeChecker.Check(parser.ParseExpression("iA * mA"), theEnviroment(), messages), true);
+		assertEquals(ExprTypeChecker.Check(parser.ParseExpression("mA * mB"), theEnviroment(), messages), true);
+		assertEquals(ExprTypeChecker.Check(parser.ParseExpression("mB * iC"), theEnviroment(), messages), true);
+		assertEquals(ExprTypeChecker.Check(parser.ParseExpression("mA * 2.01"), theEnviroment(), messages), true);
+		assertEquals(ExprTypeChecker.Check(parser.ParseExpression("sA * sB"), theEnviroment(), messages), false);
+		assertEquals(ExprTypeChecker.Check(parser.ParseExpression("sA * iA"), theEnviroment(), messages), false);
+		assertEquals(ExprTypeChecker.Check(parser.ParseExpression("sA * bA"), theEnviroment(), messages), false);
+		assertEquals(ExprTypeChecker.Check(parser.ParseExpression("bA * bB"), theEnviroment(), messages), false);
+		assertEquals(ExprTypeChecker.Check(parser.ParseExpression("bA * 1"), theEnviroment(), messages), false);
+	}
+	
+	@Test
+	public void testDivsType() throws ParseError {
+		List<QlError> messages = new ArrayList<QlError>();	
+		assertEquals(ExprTypeChecker.Check(parser.ParseExpression("1 / 2.01"), theEnviroment(), messages), true);
+		assertEquals(ExprTypeChecker.Check(parser.ParseExpression("1 / 2 / 3 / (1 / 2)"), theEnviroment(), messages), true);
+		assertEquals(ExprTypeChecker.Check(parser.ParseExpression("iA / iB"), theEnviroment(), messages), true);
+		assertEquals(ExprTypeChecker.Check(parser.ParseExpression("iA / mA"), theEnviroment(), messages), true);
+		assertEquals(ExprTypeChecker.Check(parser.ParseExpression("mA / mB"), theEnviroment(), messages), true);
+		assertEquals(ExprTypeChecker.Check(parser.ParseExpression("mB / iC"), theEnviroment(), messages), true);
+		assertEquals(ExprTypeChecker.Check(parser.ParseExpression("mA / 2.01"), theEnviroment(), messages), true);
+		assertEquals(ExprTypeChecker.Check(parser.ParseExpression("sA / sB"), theEnviroment(), messages), false);
+		assertEquals(ExprTypeChecker.Check(parser.ParseExpression("sA / iA"), theEnviroment(), messages), false);
+		assertEquals(ExprTypeChecker.Check(parser.ParseExpression("sA / bA"), theEnviroment(), messages), false);
+		assertEquals(ExprTypeChecker.Check(parser.ParseExpression("bA / bB"), theEnviroment(), messages), false);
+		assertEquals(ExprTypeChecker.Check(parser.ParseExpression("bA / 1"), theEnviroment(), messages), false);
+	}
+	
+	@Test
+	public void testModsType() throws ParseError {
+		List<QlError> messages = new ArrayList<QlError>();	
+		assertEquals(ExprTypeChecker.Check(parser.ParseExpression("1 % 2.01"), theEnviroment(), messages), true);
+		assertEquals(ExprTypeChecker.Check(parser.ParseExpression("1 % 2 % 3 % (1 % 2)"), theEnviroment(), messages), true);
+		assertEquals(ExprTypeChecker.Check(parser.ParseExpression("iA % iB"), theEnviroment(), messages), true);
+		assertEquals(ExprTypeChecker.Check(parser.ParseExpression("iA % mA"), theEnviroment(), messages), true);
+		assertEquals(ExprTypeChecker.Check(parser.ParseExpression("mA % mB"), theEnviroment(), messages), true);
+		assertEquals(ExprTypeChecker.Check(parser.ParseExpression("mB % iC"), theEnviroment(), messages), true);
+		assertEquals(ExprTypeChecker.Check(parser.ParseExpression("mA % 2.01"), theEnviroment(), messages), true);
+		assertEquals(ExprTypeChecker.Check(parser.ParseExpression("sA % sB"), theEnviroment(), messages), false);
+		assertEquals(ExprTypeChecker.Check(parser.ParseExpression("sA % iA"), theEnviroment(), messages), false);
+		assertEquals(ExprTypeChecker.Check(parser.ParseExpression("sA % bA"), theEnviroment(), messages), false);
+		assertEquals(ExprTypeChecker.Check(parser.ParseExpression("bA % bB"), theEnviroment(), messages), false);
+		assertEquals(ExprTypeChecker.Check(parser.ParseExpression("bA % 1"), theEnviroment(), messages), false);
+	}
 
 }

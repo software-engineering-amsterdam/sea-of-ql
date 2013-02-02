@@ -100,6 +100,7 @@ public class QLLexer implements QLTokens {
 			    	}
 			    	return token = '*';
 			    }
+			    case '%': nextChar(); return token = '%';
 			    case '+': nextChar(); return token = '+';
 			    case '-': nextChar(); return token = '-';			    
 			    case ';': nextChar(); return token = ';';
