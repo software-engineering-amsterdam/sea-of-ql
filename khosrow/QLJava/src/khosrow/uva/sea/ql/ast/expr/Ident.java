@@ -2,7 +2,8 @@ package khosrow.uva.sea.ql.ast.expr;
 
 import khosrow.uva.sea.ql.ast.type.Type;
 import khosrow.uva.sea.ql.ast.type.Error;
-import khosrow.uva.sea.ql.eval.env.Env;
+import khosrow.uva.sea.ql.env.Env;
+import khosrow.uva.sea.ql.visitor.IExpressionVisitor;
 
 
 public class Ident extends Expr {
@@ -22,5 +23,9 @@ public class Ident extends Expr {
 			return typeEnv.TypeOf(this);
 		return new Error("undefined identifier: " + name);
 	}
-
+	
+	@Override
+	public <T> T Accept(IExpressionVisitor<T> visitor) {
+		return visitor.Visit(this);
+	}
 }

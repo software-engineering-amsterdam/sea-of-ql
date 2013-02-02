@@ -1,4 +1,4 @@
-package khosrow.uva.sea.ql.eval.env;
+package khosrow.uva.sea.ql.env;
 
 import java.util.HashMap;
 import java.util.Map;

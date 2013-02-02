@@ -11,4 +11,9 @@ public class Error extends Type {
 		return message;
 	}
 
+	@Override
+	public boolean IsCompatibleTo(Type t) {
+		return false;
+	}
+
 }
