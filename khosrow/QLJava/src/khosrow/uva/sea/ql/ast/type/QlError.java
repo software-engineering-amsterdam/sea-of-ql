@@ -1,9 +1,9 @@
 package khosrow.uva.sea.ql.ast.type;
 
-public class Error extends Type {
+public class QlError extends Type {
 	private final String message;
 	
-	public Error(String message) {
+	public QlError(String message) {
 		this.message = message;
 	}
 
@@ -12,7 +12,7 @@ public class Error extends Type {
 	}
 
 	@Override
-	public boolean IsCompatibleTo(Type t) {
+	public boolean isCompatibleTo(Type t) {
 		return false;
 	}
 

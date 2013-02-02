@@ -3,22 +3,22 @@ package khosrow.uva.sea.ql.ast.type;
 public class Numeric extends Type {
 
 	@Override
-	public boolean IsCompatibleTo(Type t) {		
-		return t.IsCompatibleToNumeric();
+	public boolean isCompatibleTo(Type t) {		
+		return t.isCompatibleToNumeric();
 	}
 	
 	@Override 
-	public boolean IsCompatibleToNumeric() {
+	public boolean isCompatibleToNumeric() {
 		return true;
 	}
 	
 	@Override 
-	public boolean IsCompatibleToInt() {
+	public boolean isCompatibleToInt() {
 		return true;
 	}
 	
 	@Override 
-	public boolean IsCompatibleToMoney() {
+	public boolean isCompatibleToMoney() {
 		return true;
 	}
 

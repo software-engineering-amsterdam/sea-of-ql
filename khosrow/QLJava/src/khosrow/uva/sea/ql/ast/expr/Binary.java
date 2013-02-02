@@ -10,11 +10,11 @@ public abstract class Binary extends Expr {
 		this.rhs = rhs;
 	}
 	
-	protected Expr getLhs() {
+	public Expr getLhs() {
 		return lhs;
 	}
 	
-	protected Expr getRhs() {
+	public Expr getRhs() {
 		return rhs;
 	}
 	

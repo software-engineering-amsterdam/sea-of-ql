@@ -3,8 +3,7 @@ package khosrow.uva.sea.ql.ast.expr;
 import khosrow.uva.sea.ql.ast.type.Numeric;
 import khosrow.uva.sea.ql.ast.type.Type;
 import khosrow.uva.sea.ql.env.Env;
-import khosrow.uva.sea.ql.visitor.IExpressionVisitor;
-
+import khosrow.uva.sea.ql.visitor.IExprVisitor;
 
 public class Mul extends Binary {
 	public Mul(Expr lhs, Expr rhs) {
@@ -12,12 +11,12 @@ public class Mul extends Binary {
 	}
 	
 	@Override
-	public Type TypeOf(Env typeEnv) {
+	public Type typeOf(Env typeEnv) {
 		return new Numeric();
 	}
 	
 	@Override
-	public <T> T Accept(IExpressionVisitor<T> visitor) {
-		return visitor.Visit(this);
+	public <T> T accept(IExprVisitor<T> visitor) {
+		return visitor.visit(this);
 	}
 }

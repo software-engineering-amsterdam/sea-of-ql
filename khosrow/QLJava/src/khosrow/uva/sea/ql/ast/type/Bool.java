@@ -4,12 +4,12 @@ package khosrow.uva.sea.ql.ast.type;
 public class Bool extends Type {
 
 	@Override
-	public boolean IsCompatibleTo(Type t) {
-		return t.IsCompatibleToBool();
+	public boolean isCompatibleTo(Type t) {
+		return t.isCompatibleToBool();
 	}
 	
 	@Override
-	public boolean IsCompatibleToBool() {
+	public boolean isCompatibleToBool() {
 		return true;
 	}
 }
