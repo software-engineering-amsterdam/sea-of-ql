@@ -3,11 +3,11 @@ package org.uva.sea.ql.parser.test;
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
-import org.uva.sea.ql.ast.expressions.Add;
-import org.uva.sea.ql.ast.expressions.GT;
-import org.uva.sea.ql.ast.expressions.LEq;
-import org.uva.sea.ql.ast.expressions.LT;
-import org.uva.sea.ql.ast.expressions.Mul;
+import org.uva.sea.ql.ast.expressions.binary.Add;
+import org.uva.sea.ql.ast.expressions.binary.GT;
+import org.uva.sea.ql.ast.expressions.binary.LEq;
+import org.uva.sea.ql.ast.expressions.binary.LT;
+import org.uva.sea.ql.ast.expressions.binary.Mul;
 import org.uva.sea.ql.ast.values.Bool;
 import org.uva.sea.ql.ast.values.Ident;
 import org.uva.sea.ql.ast.values.Int;

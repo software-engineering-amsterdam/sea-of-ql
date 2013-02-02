@@ -1,6 +1,9 @@
 package org.uva.sea.ql.ast.values;
 
+import java.util.Map;
+
 import org.uva.sea.ql.ast.Expr;
+import org.uva.sea.ql.ast.Type;
 
 public class Bool extends Expr {
 	private final boolean _value;
@@ -11,5 +14,10 @@ public class Bool extends Expr {
 
 	public boolean getValue() {
 		return _value;
+	}
+
+	@Override
+	public Type typeOf(Map<Ident, Type> typeEnv) {
+		return new org.uva.sea.ql.ast.types.Bool();
 	}
 }
