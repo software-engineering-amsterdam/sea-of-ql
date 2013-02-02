@@ -16,6 +16,7 @@ Ruud van der Weijde<br />
 > ###### Road Map:
 > - ~~More unittests~~
 > - ~~Refactor visitor~~
-> - Update error handling
-> - Split up IfThenElse
+> - Provide warnings for duplicate labels
+> - Update error handling, trigger errors for semantics, warning for duplicate labels.
+> - Split up IfThenElse (if time left)
 > - Generate output (a form)
