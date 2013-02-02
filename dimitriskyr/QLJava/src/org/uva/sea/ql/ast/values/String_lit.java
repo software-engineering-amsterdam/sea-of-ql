@@ -1,9 +1,11 @@
-package org.uva.sea.ql.ast.types;
+package org.uva.sea.ql.ast.values;
 
 import org.uva.sea.ql.ast.*;
+import org.uva.sea.ql.ast.visitor.Visitor;
+
 import java.lang.String;
 
-public class String_lit extends Type{
+public class String_lit extends Value{
 	private final String value;
 	
 	public String_lit(String value){
@@ -12,5 +14,10 @@ public class String_lit extends Type{
 
 	public String getValue() {
 		return value;
+	}
+	
+	@Override
+	public void accept(Visitor visitor) {
+		visitor.visit(this);
 	}
 }

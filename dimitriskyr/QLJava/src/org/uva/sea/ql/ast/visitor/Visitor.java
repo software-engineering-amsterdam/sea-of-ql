@@ -2,9 +2,9 @@ package org.uva.sea.ql.ast.visitor;
 import org.uva.sea.ql.ast.*;
 import org.uva.sea.ql.ast.expressions.*;
 import org.uva.sea.ql.ast.statements.*;
-import org.uva.sea.ql.ast.types.*;
+import org.uva.sea.ql.ast.values.*;
 
-public interface Visitorinterface {
+public interface Visitor {
 	
 	
 	
@@ -40,13 +40,13 @@ public interface Visitorinterface {
 	
 	public void visit (Form form);
 	
-	public void visit (ComQuestions comquestions);
+	public void visit (ComQuestion comquestions);
 	
-	public void visit (Ifthen ifthen);
+	public void visit (IfThen ifthen);
 	
 	public void visit (Ifthenelse ifthenelse);
 	
-	public void visit (Questions questions);
+	public void visit (Question question);
 	
 	public void visit (Bool bool);
 	
@@ -61,8 +61,10 @@ public interface Visitorinterface {
 	public void visit(Type type);
 
 	public void visit(Statement statement);
+
+	public void visit(Value value);
 	
-	public void visit(Question question);
+	
 	
 	
 	

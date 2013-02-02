@@ -1,25 +1,26 @@
 package org.uva.sea.ql.ast.statements;
 
 import org.uva.sea.ql.ast.*;
+import org.uva.sea.ql.ast.visitor.Visitor;
 
-public class ComQuestions extends Question{
-	private Type ident;
-	private Type string;
+public class ComQuestion extends Statement{
+	private Value ident;
+	private Value string;
 	private Type bool;
 	private Expr expression;
 	
-	public ComQuestions(Type ident, Type string, Type bool, Expr expression){
+	public ComQuestion(Value ident, Value string, Type bool, Expr expression){
 		this.ident=ident;
 		this.string=string;
 		this.bool=bool;
 		this.expression=expression;
 	}
 	
-	public Type getIdent() {
+	public Value getIdent() {
 		return ident;
 	}
 	
-	public Type getString() {
+	public Value getString() {
 		return string;
 	}
 	
@@ -29,6 +30,11 @@ public class ComQuestions extends Question{
 	
 	public Expr getExpression() {
 		return expression;
+	}
+	
+	@Override
+	public void accept(Visitor visitor) {
+		visitor.visit(this);
 	}
 
 }
