@@ -7,7 +7,8 @@ import lang::ql::util::Environment;
 import lang::qls::ast::AST;
 import lang::qls::gen::Templates;
 import lang::qls::gen::Declare;
-import lang::qls::gen::Widgets;
+import lang::qls::gen::Decorate;
+import lang::qls::gen::Groups;
 import lang::qls::util::Environment;
 import lang::qls::util::QL;
 
@@ -28,10 +29,12 @@ public str generate(FormStyle style) {
 	src += addTitle(formQL.name);
 	src += addWidgets(widgets, varRules);
 	src += addBody2();
-	src += addVisibility(widgets);
+	src += addGroups(stylenv.groups);
 	src += addBody3();
-	src += addSubmit(widgets, env.declarations);
+	src += addVisibility(widgets);
 	src += addBody4();
+	src += addSubmit(widgets, env.declarations);
+	src += addBody5();
 
 	return src;
 }
@@ -53,7 +56,9 @@ private str addDeclarations(Declarations d, VarRules rules) {
 private str addWidgets(list[Widget] widgets, VarRules rules) {
 	src = "";
 	for (widget <- widgets)
-		src += addWidget(widget) + decorateLabel(widget.name, rules);
+		src += addWidget(widget) + 
+			   decorateLabel(widget.name, rules) +
+			   decorateWidget(widget.name, rules);
 	return src;
 }
   
@@ -73,4 +78,17 @@ private str addSubmit(list[Widget] widgets, Declarations d) {
 		src += submitWidget(widget.name, d);
 	return src;
 }
+
+
+
+
+private str addGroups(Groups groups) {
+	src = "";
+	for (name <- groups) 
+		src += addGroup(name, groups[name]);
+	return src;
+}
+
+
+
  

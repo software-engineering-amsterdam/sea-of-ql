@@ -3,6 +3,9 @@ module lang::ql::ast::semanticcheck::TypeCheck
 
 import lang::ql::ast::semanticcheck::TypeEnvUtils;
 import lang::ql::ast::AST;
+import IO;
+import Node;
+import String;
 
 public TENV checkFormBody(formBodyItem,TENV env){
 	for(item<-formBodyItem){
@@ -88,14 +91,15 @@ TENV checkExpression(exp:ident(name),Type req,TENV env){
 }
 
 TENV checkExpression(exp:eq(eqLeft,eqRight),Type req,TENV env)=
-	req==boolean()||req==string()||req==integer() ? 
-	checkExpression(eqLeft,req,checkExpression(eqRight,req,env)) :
-	addError(env, exp@location, requiredMsg(req));
+	//req==boolean()||req==string()||req==integer() ? 
+	isSameType(eqLeft,eqRight,env) ?
+	checkExpression(eqLeft,getExprType(eqLeft,env),checkExpression(eqRight,getExprType(eqLeft,env),env)) : 
+	addError(env, exp@location, "Must be of the same Type");
 
 TENV checkExpression(exp:neq(eqLeft,eqRight),Type req,TENV env)=
-	req==boolean() ? 
-	checkExpression(eqLeft,integer(),checkExpression(eqRight,integer(),env)) : 
-	addError(env, exp@location, requiredMsg(req));
+	isSameType(eqLeft,eqRight,env) ?
+	checkExpression(eqLeft,getExprType(eqLeft,env),checkExpression(eqRight,getExprType(eqLeft,env),env)) : 
+	addError(env, exp@location, "Must be of the same Type");
 
 TENV checkExpression(exp:lt(ltLeft,ltRight),Type req,TENV env)=
 	req==boolean() ? 
@@ -161,3 +165,29 @@ TENV checkExpression(exp:sub(subLeft,subRight),Type req,TENV env)=
 	req==integer() ? 
 	checkExpression(subLeft,req,checkExpression(subRight,req,env)) : 
 	addError(env, exp@location, requiredMsg(integer(),"in arithmetic operations",req));
+	
+bool isSameType(Expr le,Expr re,TENV env){
+	str leType= toString(getExprType(le,env));
+	str reType= toString(getExprType(re,env));
+	print(leType);
+	print(reType);
+	return(startsWith(leType,reType) || startsWith(leType,reType)); 
+}
+
+Type getExprType(Expr ex,TENV env){
+	top-down-break visit (ex){
+		case \int(_) : return integer();
+		case string(_): return string();
+		case boolean(_): return boolean();
+		case date(_): return date();
+		case money(_): return money();
+		case float(_): return float();
+		case ident(str name): return getIdentType(name,env);
+	}
+}
+
+Type getIdentType(str id,TENV env){
+	for(x<-env.symbols){
+		if(id==x.variableName) return x.variableType;
+	}
+}
