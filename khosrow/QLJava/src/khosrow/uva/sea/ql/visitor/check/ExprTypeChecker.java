@@ -79,8 +79,19 @@ public class ExprTypeChecker implements IExprVisitor<Boolean> {
 
 	@Override
 	public Boolean visit(Eq ast) {
-		// TODO Auto-generated method stub
-		return null;
+		boolean checkLhs = ast.getLhs().accept(this);
+		boolean checkRhs = ast.getRhs().accept(this);
+		
+		if (!(checkLhs && checkRhs))
+			return false;
+		Type lhsType = ast.getLhs().typeOf(typeEnv);
+		Type rhsType = ast.getRhs().typeOf(typeEnv);
+		
+		if (!lhsType.isCompatibleTo(rhsType)) {
+			addToErrorList(ast, "invalid type for ==");
+			return false;
+		}			 
+		return true;
 	}
 
 	@Override
@@ -168,8 +179,20 @@ public class ExprTypeChecker implements IExprVisitor<Boolean> {
 
 	@Override
 	public Boolean visit(Or ast) {
-		// TODO Auto-generated method stub
-		return null;
+		boolean checkLhs = ast.getLhs().accept(this);
+		boolean checkRhs = ast.getRhs().accept(this);
+		
+		if (!(checkLhs && checkRhs))
+			return false;
+		Type lhsType = ast.getLhs().typeOf(typeEnv);
+		Type rhsType = ast.getRhs().typeOf(typeEnv);
+		
+		if (!(lhsType.isCompatibleToBool()
+				&& rhsType.isCompatibleToBool())) {
+			addToErrorList(ast, "invalid type for ||");
+			return false;
+		}			 
+		return true;
 	}
 
 	@Override

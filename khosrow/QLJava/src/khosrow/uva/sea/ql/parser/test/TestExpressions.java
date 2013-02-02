@@ -58,6 +58,8 @@ public class TestExpressions {
 	public void testBools() throws ParseError {
 		assertEquals(parser.ParseExpression("!b").getClass(), Not.class);
 		assertEquals(parser.ParseExpression("a && b").getClass(), And.class);
+		assertEquals(parser.ParseExpression("a || b").getClass(), Or.class);
+		assertEquals(parser.ParseExpression("a == b").getClass(), Eq.class);
 		assertEquals(parser.ParseExpression("a > b && b > c").getClass(), And.class);
 		assertEquals(parser.ParseExpression("(a > b) && (b > c)").getClass(), And.class);
 	}
