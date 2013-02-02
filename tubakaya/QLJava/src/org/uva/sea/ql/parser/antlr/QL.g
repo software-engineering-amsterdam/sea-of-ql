@@ -1,5 +1,7 @@
 grammar QL;
-options {backtrack=true; memoize=true;}
+
+
+options {backtrack=true;}
 
 @parser::header
 {
@@ -14,7 +16,7 @@ import org.uva.sea.ql.ast.conditions.*;
 package org.uva.sea.ql.parser.antlr; 
 }
 
-primary returns [Expr result]
+primary returns [Expr result] 
   : Int   { $result = new Int(Integer.parseInt($Int.text)); }
   | Ident { $result = new Ident($Ident.text); }
   | '(' x=orExpr ')'{ $result = $x.result; }
