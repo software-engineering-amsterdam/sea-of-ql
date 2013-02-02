@@ -31,8 +31,8 @@ public class ComputedQuestionPanel extends JPanel {
 	}
 	
 	private void addComponents(){
-		this.setLayout(new MigLayout("","[right][]","[]"));
-		this.add(label,"align right");
+		this.setLayout(new MigLayout());
+		this.add(label,"align label");
 		this.add(computedValue,"wrap");
 		
 	}

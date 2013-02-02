@@ -25,21 +25,17 @@ public class Renderer {
 		
 	}
 	
-	public static void setPanel(){
-		 content.setLayout((new MigLayout(
-	        		"",
-	        		// Layout Constraints
-	        		"[center]", // Column constraints with default align
-	        		"[]")));
-	        
-	        for(JPanel question:questionList){
-	        	content.add(question,"wrap");
-	        }
-	        
-	        JPanel containerPanel=new JPanel();
-	        containerPanel.add(content);
-	        frame.add(containerPanel);
-			frame.setVisible(true);
+	public static void setPanel() {
+		content.setLayout(new MigLayout());
+
+		for (JPanel question : questionList) {
+			content.add(question, "align label,wrap");
+		}
+
+		JPanel containerPanel = new JPanel();
+		containerPanel.add(content);
+		frame.add(containerPanel);
+		frame.setVisible(true);
 	}
 	
 	public static void refresh(List<JPanel> questionList){

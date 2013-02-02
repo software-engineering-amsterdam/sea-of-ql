@@ -23,14 +23,14 @@ public class QuestionPanel extends JPanel{
 	public QuestionPanel(Question qlElement,Map<String,Value> declaredVar){
 	    this.qlElement=qlElement;
 		
-		label=new JLabel(qlElement.getLabel().getValue());
+		label=new JLabel(qlElement.getLabel().getValue().toString());
 		inputComponent=setInputComponent(qlElement.getId().getName(),qlElement.getType(),declaredVar);
 		addComponents();
 	}
 	
 	private void addComponents(){
-		this.setLayout(new MigLayout("","[right][]","[]"));
-		this.add(label,"align right");
+		this.setLayout(new MigLayout());
+		this.add(label,"align label");
 		this.add(inputComponent,"wrap");
 		
 	}

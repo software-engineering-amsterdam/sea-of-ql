@@ -8,7 +8,10 @@ TODO
 **Fix single-line comments
 **Refactor Hierarchy of IfThen IfThenElse
 **Refactor Hierarchy of SingleLineElements (nad their respective super classes)
+**Bug in keyboard input. Must Override default listener.
 
 TO ASK
 
-What is serialize warning in swing component classes.
+**What is serialize warning in swing component classes.
+** Static callers within class
+**Static variables if it is needed
