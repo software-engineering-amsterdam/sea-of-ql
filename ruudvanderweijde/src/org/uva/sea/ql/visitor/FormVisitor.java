@@ -11,7 +11,6 @@ import org.uva.sea.ql.ast.stmt.Statement;
 import org.uva.sea.ql.ast.stmt.question.ComputedQuestion;
 import org.uva.sea.ql.ast.stmt.question.NormalQuestion;
 import org.uva.sea.ql.ast.type.Type;
-import org.uva.sea.ql.visitor.printer.ExpressionVisitorPrinter;
 
 /*
  * This SemanticVisitor checks for:
@@ -71,7 +70,6 @@ public class FormVisitor implements IFormVisitor {
 	}
 
 	private void checkExpr(Expr expr) {
-		expr.accept(new ExpressionVisitorPrinter());
 		expr.accept(new ExpressionVisitor(typeEnv, errors));
 	}
 
