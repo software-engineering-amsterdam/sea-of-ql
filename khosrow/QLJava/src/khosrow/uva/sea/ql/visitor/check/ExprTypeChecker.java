@@ -30,8 +30,8 @@ public class ExprTypeChecker implements IExprVisitor<Boolean> {
 		
 		if (!(checkLhs && checkRhs))
 			return false;
-		Type lhsType = ast.typeOf(typeEnv);
-		Type rhsType = ast.typeOf(typeEnv);
+		Type lhsType = ast.getLhs().typeOf(typeEnv);
+		Type rhsType = ast.getRhs().typeOf(typeEnv);
 		
 		if (!(lhsType.isCompatibleToNumeric()
 				&& rhsType.isCompatibleToNumeric())) {
@@ -144,26 +144,22 @@ public class ExprTypeChecker implements IExprVisitor<Boolean> {
 
 	@Override
 	public Boolean visit(IntLiteral ast) {
-		// TODO Auto-generated method stub
-		return null;
+		return true;
 	}
 
 	@Override
-	public Boolean visit(BoolLiteral ast) {
-		// TODO Auto-generated method stub
-		return null;
+	public Boolean visit(BoolLiteral ast) {		
+		return true;
 	}
 
 	@Override
 	public Boolean visit(MoneyLiteral ast) {
-		// TODO Auto-generated method stub
-		return null;
+		return true;
 	}
 
 	@Override
 	public Boolean visit(StringLiteral ast) {
-		// TODO Auto-generated method stub
-		return null;
+		return true;
 	}
 	
 	private void addToErrorList(ASTNode ast, String message) {

@@ -29,6 +29,7 @@ public class TestExpressions {
 		assertEquals(parser.ParseExpression("(a + b)").getClass(), Add.class);
 		assertEquals(parser.ParseExpression("a + b * c").getClass(), Add.class);
 		assertEquals(parser.ParseExpression("a * b + c").getClass(), Add.class);
+		assertEquals(parser.ParseExpression("1 * 2 + 3").getClass(), Add.class);
 	}
 
 	@Test
