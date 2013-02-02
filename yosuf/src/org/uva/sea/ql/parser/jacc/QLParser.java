@@ -1,11 +1,16 @@
-// Output created by jacc on Sat Feb 02 19:21:39 CET 2013
+// Output created by jacc on Sat Feb 02 20:46:17 CET 2013
 
 package org.uva.sea.ql.parser.jacc;
 
-        import org.uva.sea.ql.ast.*;
-        import org.uva.sea.ql.ast.exp.*;
-        import org.uva.sea.ql.ast.type.*;
-        import org.uva.sea.ql.ast.value.*;
+import org.uva.sea.ql.ast.*;
+import org.uva.sea.ql.ast.exp.*;
+import org.uva.sea.ql.ast.type.*;
+import org.uva.sea.ql.ast.value.*;
+
+@edu.umd.cs.findbugs.annotations.SuppressWarnings(
+    value="URF_UNREAD_PUBLIC_OR_PROTECTED_FIELD", 
+    justification="because I know better")
+@SuppressWarnings("unused")
 
 class QLParser implements QLTokens {
     private int yyss = 100;
@@ -2254,7 +2259,7 @@ private ASTNode result;
 public ASTNode getResult(){
         return result;
 }
-
+ 
 public QLParser(QLLexer lexer) { 
   this.lexer = lexer; 
 }

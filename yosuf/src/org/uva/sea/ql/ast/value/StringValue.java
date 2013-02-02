@@ -12,6 +12,7 @@ public class StringValue extends Value {
 	 *            (not null)
 	 */
 	public StringValue(final String value) {
+		super();
 		this.value = value;
 		state.assertNotNull(this.value, "StringLiteral.value");
 	}

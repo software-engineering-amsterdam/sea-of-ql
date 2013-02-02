@@ -15,4 +15,12 @@ public class Form implements ASTNode {
 		state.assertNotNull(body, "Form.body");
 	}
 
+	public Identifier getIdentifier() {
+		return identifier;
+	}
+
+	public ASTNode getBody() {
+		return body;
+	}
+
 }

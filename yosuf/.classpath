@@ -7,5 +7,6 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
 	<classpathentry kind="lib" path="/Users/yosuf/Development/Workspace/sea-of-ql/yosuf/lib/useful-3.1.6-sources.jar"/>
 	<classpathentry kind="lib" path="/Users/yosuf/Development/Workspace/sea-of-ql/yosuf/lib/useful-3.1.6.jar" sourcepath="/Users/yosuf/Development/Workspace/sea-of-ql/yosuf/lib/useful-3.1.6-sources.jar"/>
+	<classpathentry kind="var" path="FINDBUGS_ANNOTATIONS"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

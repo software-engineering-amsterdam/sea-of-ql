@@ -12,6 +12,7 @@ public class IntegerValue extends Value {
 	 *            (not null)
 	 */
 	public IntegerValue(final int value) {
+		super();
 		this.value = value;
 		state.assertNotNull(this.value, "Integer.value");
 	}

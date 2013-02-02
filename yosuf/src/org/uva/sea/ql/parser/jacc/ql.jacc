@@ -10,7 +10,7 @@
 %token <DataType> BOOL INT MON STR
 %token <Identifier> IDENT
 %token '*' '/' '+' '-' OR AND NEQ EQ '<' LEQ '>' GEQ '!'
-%token '(' ')'
+%token '(' ')' 
 %token IF
 %token FORM
 
@@ -28,10 +28,15 @@
 %type <Question> question
 
 %{
-	import org.uva.sea.ql.ast.*;
-	import org.uva.sea.ql.ast.exp.*;
-	import org.uva.sea.ql.ast.type.*;
-	import org.uva.sea.ql.ast.value.*;
+import org.uva.sea.ql.ast.*;
+import org.uva.sea.ql.ast.exp.*;
+import org.uva.sea.ql.ast.type.*;
+import org.uva.sea.ql.ast.value.*;
+
+@edu.umd.cs.findbugs.annotations.SuppressWarnings(
+    value="URF_UNREAD_PUBLIC_OR_PROTECTED_FIELD", 
+    justification="because I know better")
+@SuppressWarnings("unused")
 %}
 
 %%
@@ -95,7 +100,7 @@ private ASTNode result;
 public ASTNode getResult(){
 	return result;
 }
-
+ 
 public QLParser(QLLexer lexer) { 
   this.lexer = lexer; 
 }
