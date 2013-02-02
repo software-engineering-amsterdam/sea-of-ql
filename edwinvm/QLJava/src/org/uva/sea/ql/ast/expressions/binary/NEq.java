@@ -4,10 +4,10 @@ import java.util.Map;
 
 import org.uva.sea.ql.ast.Expr;
 import org.uva.sea.ql.ast.Type;
-import org.uva.sea.ql.ast.expressions.Binary;
+import org.uva.sea.ql.ast.expressions.BinaryExpr;
 import org.uva.sea.ql.ast.values.Ident;
 
-public class NEq extends Binary {
+public class NEq extends BinaryExpr {
 	public NEq(Expr lhs, Expr rhs) {
 		super(lhs, rhs);
 	}

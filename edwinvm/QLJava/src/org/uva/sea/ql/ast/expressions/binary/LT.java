@@ -4,10 +4,10 @@ import java.util.Map;
 
 import org.uva.sea.ql.ast.Expr;
 import org.uva.sea.ql.ast.Type;
-import org.uva.sea.ql.ast.expressions.Binary;
+import org.uva.sea.ql.ast.expressions.BinaryExpr;
 import org.uva.sea.ql.ast.values.Ident;
 
-public class LT extends Binary {
+public class LT extends BinaryExpr {
 	public LT(Expr lhs, Expr rhs) {
 		super(lhs, rhs);
 	}
