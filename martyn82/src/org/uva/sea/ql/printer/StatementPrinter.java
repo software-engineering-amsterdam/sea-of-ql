@@ -34,41 +34,41 @@ public class StatementPrinter extends PrintVisitor implements IStatementVisitor<
 
 	@Override
 	public Boolean visit( Else node ) {
-		indent();
-		write( "ELSE" );
+		this.indent();
+		this.write( "ELSE" );
 
-		increaseLevel();
+		this.increaseLevel();
 
-		indent();
+		this.indent();
 		node.getBody().accept( this );
 
-		decreaseLevel();
+		this.decreaseLevel();
 
 		return true;
 	}
 
 	@Override
 	public Boolean visit( IfThenElse node ) {
-		indent();
-		write( "IF" );
+		this.indent();
+		this.write( "IF" );
 
-		increaseLevel();
+		this.increaseLevel();
 
-		indent();
+		this.indent();
 		node.getCondition().accept( this.expressionVisitor );
 
-		decreaseLevel();
+		this.decreaseLevel();
 
-		indent();
-		write( "THEN" );
+		this.indent();
+		this.write( "THEN" );
 
 		if ( node.hasIfBody() ) {
-			increaseLevel();
+			this.increaseLevel();
 
-			indent();
+			this.indent();
 			node.getIfBody().accept( this );
 
-			decreaseLevel();
+			this.decreaseLevel();
 		}
 
 		if ( node.hasElseIfs() ) {
@@ -93,93 +93,93 @@ public class StatementPrinter extends PrintVisitor implements IStatementVisitor<
 
 	@Override
 	public Boolean visit( ElseIf node ) {
-		indent();
-		write( "ELSEIF" );
+		this.indent();
+		this.write( "ELSEIF" );
 
-		increaseLevel();
+		this.increaseLevel();
 
-		indent();
+		this.indent();
 		node.getCondition().accept( this.expressionVisitor );
 
-		decreaseLevel();
+		this.decreaseLevel();
 
-		indent();
-		write( "THEN" );
+		this.indent();
+		this.write( "THEN" );
 
-		increaseLevel();
+		this.increaseLevel();
 
 		node.getBody().accept( this );
 
-		decreaseLevel();
+		this.decreaseLevel();
 
 		return true;
 	}
 
 	@Override
 	public Boolean visit( VarDeclaration node ) {
-		writeName( node );
+		this.writeName( node );
 
-		increaseLevel();
+		this.increaseLevel();
 
-		indent();
+		this.indent();
 		node.getIdent().accept( this.expressionVisitor );
 
-		indent();
-		write( node.getType().getClass().getSimpleName().toUpperCase() );
+		this.indent();
+		this.write( node.getType().getClass().getSimpleName().toUpperCase() );
 
-		decreaseLevel();
+		this.decreaseLevel();
 
 		return true;
 	}
 
 	@Override
 	public Boolean visit( Assignment node ) {
-		writeName( node );
+		this.writeName( node );
 
-		increaseLevel();
+		this.increaseLevel();
 
-		indent();
+		this.indent();
 		node.getIdent().accept( this.expressionVisitor );
 
-		indent();
+		this.indent();
 		node.getExpression().accept( this.expressionVisitor );
 
-		decreaseLevel();
+		this.decreaseLevel();
 
 		return true;
 	}
 
 	@Override
 	public Boolean visit( FormDeclaration node ) {
-		writeName( node );
+		this.writeName( node );
 
-		increaseLevel();
+		this.increaseLevel();
 
-		indent();
+		this.indent();
 		node.getIdent().accept( this.expressionVisitor );
 
-		indent();
+		this.indent();
 		node.getStatements().accept( this );
 
-		decreaseLevel();
+		this.decreaseLevel();
 
 		return true;
 	}
 
 	@Override
 	public Boolean visit( QuestionDeclaration node ) {
-		indent();
-		writeName( node );
+		this.indent();
+		this.writeName( node );
 
-		increaseLevel();
+		this.increaseLevel();
 
-		indent();
+		this.indent();
 		node.getName().accept( this.expressionVisitor );
 
-		indent();
+		this.indent();
 		node.getDeclaration().accept( this );
 
-		decreaseLevel();
+		this.decreaseLevel();
 
 		return true;
 	}

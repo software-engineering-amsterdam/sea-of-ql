@@ -458,7 +458,7 @@ public class QLLexer implements QLTokens {
 	 * @return True if successful, false otherwise.
 	 */
 	private boolean matchWord() {
-		if ( !Character.isLetter( c ) ) {
+		if ( !Character.isLetter( c ) && c != '_' ) {
 			return false;
 		}
 
@@ -468,7 +468,7 @@ public class QLLexer implements QLTokens {
 			sb.append( (char) c );
 			nextChar();
 		}
-		while ( Character.isLetterOrDigit( c ) );
+		while ( Character.isLetterOrDigit( c ) || c == '_' );
 
 		String name = sb.toString();
 

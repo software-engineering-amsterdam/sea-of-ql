@@ -53,53 +53,54 @@ public class PrintContext implements IPrintContext {
 	 * @return Output stream
 	 */
 	public OutputStream getOutput() {
-		return out;
+		return this.out;
 	}
 
 	@Override
 	public void indent() {
-		if ( !empty ) {
-			write( "\n" );
+		if ( !this.empty ) {
+			this.write( "\n" );
 		}
 
 		StringBuilder sb = new StringBuilder();
 
-		for ( int i = 0; i < level; i++ ) {
+		for ( int i = 0; i < this.level; i++ ) {
 			sb.append( INDENT );
 		}
 
-		write( sb.toString() );
+		this.write( sb.toString() );
 	}
 
 	@Override
 	public void increaseLevel() {
-		level++;
+		this.level++;
 	}
 
 	@Override
 	public void decreaseLevel() {
-		level--;
+		this.level--;
 	}
 
 	@Override
 	public void write( String data ) {
 		try {
-			out.write( data.getBytes() );
-			empty = false;
+			this.out.write( data.getBytes() );
+			this.empty = false;
 		}
 		catch ( IOException e ) {
-			// keep silent
+			e.printStackTrace();
+			throw new RuntimeException( e );
 		}
 	}
 
 	@Override
 	public void writeName( Node node ) {
-		write( node.getClass().getSimpleName().toUpperCase() );
+		this.write( node.toString() );
 	}
 
 	@Override
 	public void writeAtomic( Literal node ) {
-		write(
+		this.write(
 			String.format(
 				TPL_ATOMIC_NODE,
 				node.getClass().getSimpleName().toUpperCase(),
@@ -110,10 +111,10 @@ public class PrintContext implements IPrintContext {
 
 	@Override
 	public void writeAtomic( Ident node ) {
-		write(
+		this.write(
 			String.format(
 				TPL_ATOMIC_NODE,
-				node.getClass().getSimpleName().toUpperCase(),
+				node.toString(),
 				node.getName()
 			)
 		);
