@@ -1,4 +1,4 @@
-package org.uva.sea.ql.parser.test.semantic.statement;
+package org.uva.sea.ql.tests.semantic.statement;
 
 import static org.junit.Assert.assertEquals;
 
@@ -18,7 +18,7 @@ import org.uva.sea.ql.ast.type.StringType;
 import org.uva.sea.ql.ast.type.Type;
 import org.uva.sea.ql.parser.ANTLRParser;
 import org.uva.sea.ql.parser.error.ParseError;
-import org.uva.sea.ql.parser.test.IParse;
+import org.uva.sea.ql.tests.IParse;
 import org.uva.sea.ql.visitor.FormVisitor;
 
 @RunWith(Parameterized.class)
