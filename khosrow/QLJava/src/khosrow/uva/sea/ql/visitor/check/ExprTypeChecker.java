@@ -222,26 +222,50 @@ public class ExprTypeChecker implements IExprVisitor<Boolean> {
 
 	@Override
 	public Boolean visit(Neg ast) {
-		// TODO Auto-generated method stub
-		return null;
+		boolean checkArg = ast.getArg().accept(this);
+		
+		if (!checkArg)
+			return false;
+		
+		Type argType = ast.getArg().typeOf(typeEnv);
+		
+		if (!argType.isCompatibleToNumeric()) {
+			addToErrorList(ast, "invalid type for unary -");
+			return false;
+		}
+		return true;
 	}
 	
 	@Override
 	public Boolean visit(Pos ast) {
-		// TODO Auto-generated method stub
-		return null;
+		boolean checkArg = ast.getArg().accept(this);
+		
+		if (!checkArg)
+			return false;
+		
+		Type argType = ast.getArg().typeOf(typeEnv);
+		
+		if (!argType.isCompatibleToNumeric()) {
+			addToErrorList(ast, "invalid type for unary +");
+			return false;
+		}
+		return true;
 	}
 	
 	@Override
-	public Boolean visit(Unary ast) {
-		// TODO Auto-generated method stub
-		return null;
-	}	
-
-	@Override
 	public Boolean visit(Not ast) {
-		// TODO Auto-generated method stub
-		return null;
+		boolean checkArg = ast.getArg().accept(this);
+		
+		if (!checkArg)
+			return false;
+		
+		Type argType = ast.getArg().typeOf(typeEnv);
+		
+		if (!argType.isCompatibleToBool()) {
+			addToErrorList(ast, "invalid type for !");
+			return false;
+		}
+		return true;
 	}
 
 	@Override

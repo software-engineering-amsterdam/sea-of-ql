@@ -166,7 +166,7 @@ public class TestExprTypeChecker {
 	
 	@Test
 	public void testNEqsType() throws ParseError {
-		assertEquals(ExprTypeChecker.Check(parser.ParseExpression("bA == bB"), theEnviroment(), theErrorList()), true);
+		assertEquals(ExprTypeChecker.Check(parser.ParseExpression("bA != bB"), theEnviroment(), theErrorList()), true);
 		assertEquals(ExprTypeChecker.Check(parser.ParseExpression("true != bA"), theEnviroment(), theErrorList()), true);
 		assertEquals(ExprTypeChecker.Check(parser.ParseExpression("bA != false"), theEnviroment(), theErrorList()), true);
 		assertEquals(ExprTypeChecker.Check(parser.ParseExpression("true != false"), theEnviroment(), theErrorList()), true);
@@ -237,6 +237,41 @@ public class TestExprTypeChecker {
 		assertEquals(ExprTypeChecker.Check(parser.ParseExpression("true < iB"), theEnviroment(), theErrorList()), false);
 		assertEquals(ExprTypeChecker.Check(parser.ParseExpression("iA < bA"), theEnviroment(), theErrorList()), false);		
 		assertEquals(ExprTypeChecker.Check(parser.ParseExpression("sA < bA"), theEnviroment(), theErrorList()), false);		
+	}
+	
+	@Test
+	public void testNegsType() throws ParseError {
+		assertEquals(ExprTypeChecker.Check(parser.ParseExpression("-1"), theEnviroment(), theErrorList()), true);
+		assertEquals(ExprTypeChecker.Check(parser.ParseExpression("-iA"), theEnviroment(), theErrorList()), true);
+		assertEquals(ExprTypeChecker.Check(parser.ParseExpression("-1.65"), theEnviroment(), theErrorList()), true);
+		assertEquals(ExprTypeChecker.Check(parser.ParseExpression("-mA"), theEnviroment(), theErrorList()), true);
+		assertEquals(ExprTypeChecker.Check(parser.ParseExpression("-bA"), theEnviroment(), theErrorList()), false);
+		assertEquals(ExprTypeChecker.Check(parser.ParseExpression("-sA"), theEnviroment(), theErrorList()), false);
+		assertEquals(ExprTypeChecker.Check(parser.ParseExpression("-true"), theEnviroment(), theErrorList()), false);
+		assertEquals(ExprTypeChecker.Check(parser.ParseExpression("-false"), theEnviroment(), theErrorList()), false);
+	}
+	
+	@Test
+	public void testPossType() throws ParseError {
+		assertEquals(ExprTypeChecker.Check(parser.ParseExpression("+1"), theEnviroment(), theErrorList()), true);
+		assertEquals(ExprTypeChecker.Check(parser.ParseExpression("+iA"), theEnviroment(), theErrorList()), true);
+		assertEquals(ExprTypeChecker.Check(parser.ParseExpression("+1.65"), theEnviroment(), theErrorList()), true);
+		assertEquals(ExprTypeChecker.Check(parser.ParseExpression("+mA"), theEnviroment(), theErrorList()), true);
+		assertEquals(ExprTypeChecker.Check(parser.ParseExpression("+bA"), theEnviroment(), theErrorList()), false);
+		assertEquals(ExprTypeChecker.Check(parser.ParseExpression("+sA"), theEnviroment(), theErrorList()), false);
+		assertEquals(ExprTypeChecker.Check(parser.ParseExpression("+true"), theEnviroment(), theErrorList()), false);
+		assertEquals(ExprTypeChecker.Check(parser.ParseExpression("+false"), theEnviroment(), theErrorList()), false);
+	}
+	
+	@Test
+	public void testNotsType() throws ParseError {
+		assertEquals(ExprTypeChecker.Check(parser.ParseExpression("!bA"), theEnviroment(), theErrorList()), true);
+		assertEquals(ExprTypeChecker.Check(parser.ParseExpression("!true"), theEnviroment(), theErrorList()), true);
+		assertEquals(ExprTypeChecker.Check(parser.ParseExpression("!false"), theEnviroment(), theErrorList()), true);
+		assertEquals(ExprTypeChecker.Check(parser.ParseExpression("!iA"), theEnviroment(), theErrorList()), false);
+		assertEquals(ExprTypeChecker.Check(parser.ParseExpression("!mA"), theEnviroment(), theErrorList()), false);
+		assertEquals(ExprTypeChecker.Check(parser.ParseExpression("!sA"), theEnviroment(), theErrorList()), false);
+		assertEquals(ExprTypeChecker.Check(parser.ParseExpression("!1"), theEnviroment(), theErrorList()), false);
 	}
 
 }
