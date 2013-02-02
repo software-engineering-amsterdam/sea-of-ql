@@ -85,11 +85,18 @@ public class SwingVisitor implements IElementVisitor{
 	}
 	
 	
-
 	@Override
 	public void visit(IfThenElse qlElement) {
-		// TODO Auto-generated method stub
+		Body body = qlElement.getIfBody();
+		Body body2 = qlElement.getElseBody();
 
+		Expr condition = qlElement.getCondition();
+		Value<Boolean> expr = ExprEvaluator.eval(condition, declaredVar);
+
+		if (!expr.getValue())
+			body2.accept(this);
+		else
+			body.accept(this);
 	}
 
 	@Override
@@ -97,8 +104,12 @@ public class SwingVisitor implements IElementVisitor{
 		Body body=qlElement.getIfBody();
 		Expr condition=qlElement.getCondition();
 		Value<Boolean> expr=ExprEvaluator.eval(condition,declaredVar);
+		
 		if(!expr.getValue()) return;
+		
 		body.accept(this);
+		
+		
 		
 		
 		

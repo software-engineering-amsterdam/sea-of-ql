@@ -1,50 +1,24 @@
-// $ANTLR 3.4 /home/jahn/workspace1/jahnestacado/jahnestacado/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g 2013-01-30 21:26:33
+// $ANTLR 3.4 /home/jahn/workspace1/jahnestacado/jahnestacado/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g 2013-02-02 02:54:30
 
 package org.uva.sea.ql.parser.antlr;
-import java.util.HashMap;
+import org.uva.sea.ql.ast.*;
+import org.uva.sea.ql.ast.expr.*;
+import org.uva.sea.ql.ast.expr.binary.*;
+import org.uva.sea.ql.ast.expr.binary.algebraic.*;
+import org.uva.sea.ql.ast.expr.binary.bool.*;
+import org.uva.sea.ql.ast.expr.unary.*;
+import org.uva.sea.ql.ast.form.*;
+import org.uva.sea.ql.ast.types.*;
+import org.uva.sea.ql.ast.expr.values.*;
 
-import org.antlr.runtime.BitSet;
-import org.antlr.runtime.MismatchedSetException;
-import org.antlr.runtime.NoViableAltException;
-import org.antlr.runtime.Parser;
-import org.antlr.runtime.RecognitionException;
-import org.antlr.runtime.RecognizerSharedState;
-import org.antlr.runtime.Token;
-import org.antlr.runtime.TokenStream;
-import org.uva.sea.ql.ast.expr.Expr;
-import org.uva.sea.ql.ast.expr.Ident;
-import org.uva.sea.ql.ast.expr.binary.algebraic.Add;
-import org.uva.sea.ql.ast.expr.binary.algebraic.Div;
-import org.uva.sea.ql.ast.expr.binary.algebraic.Mul;
-import org.uva.sea.ql.ast.expr.binary.algebraic.Sub;
-import org.uva.sea.ql.ast.expr.binary.bool.And;
-import org.uva.sea.ql.ast.expr.binary.bool.Eq;
-import org.uva.sea.ql.ast.expr.binary.bool.GEq;
-import org.uva.sea.ql.ast.expr.binary.bool.GT;
-import org.uva.sea.ql.ast.expr.binary.bool.LEq;
-import org.uva.sea.ql.ast.expr.binary.bool.LT;
-import org.uva.sea.ql.ast.expr.binary.bool.NEq;
-import org.uva.sea.ql.ast.expr.binary.bool.Or;
-import org.uva.sea.ql.ast.expr.unary.Neg;
-import org.uva.sea.ql.ast.expr.unary.Not;
-import org.uva.sea.ql.ast.expr.unary.Pos;
-import org.uva.sea.ql.ast.expr.values.BoolLit;
-import org.uva.sea.ql.ast.expr.values.Decimal;
-import org.uva.sea.ql.ast.expr.values.Int;
-import org.uva.sea.ql.ast.expr.values.StringLit;
-import org.uva.sea.ql.ast.form.Body;
-import org.uva.sea.ql.ast.form.BodyElement;
-import org.uva.sea.ql.ast.form.ComputedQuestion;
-import org.uva.sea.ql.ast.form.ConditionalElement;
-import org.uva.sea.ql.ast.form.Form;
-import org.uva.sea.ql.ast.form.IfThen;
-import org.uva.sea.ql.ast.form.IfThenElse;
-import org.uva.sea.ql.ast.form.Question;
-import org.uva.sea.ql.ast.types.BoolType;
-import org.uva.sea.ql.ast.types.IntType;
-import org.uva.sea.ql.ast.types.MoneyType;
-import org.uva.sea.ql.ast.types.StringType;
-import org.uva.sea.ql.ast.types.Type;
+
+
+import org.antlr.runtime.*;
+import java.util.Stack;
+import java.util.List;
+import java.util.ArrayList;
+import java.util.Map;
+import java.util.HashMap;
 
 @SuppressWarnings({"all", "warnings", "unchecked"})
 public class QLParser extends Parser {

@@ -48,8 +48,11 @@ public class QuestionPanel extends JPanel{
 			return QLCheckBox.responsiveCheckBox(varName, declaredVar);
 		}
 		if (type.isCompatibleToIntType()) {
-			return new JSpinner();
+			return QLSpinner.responsiveSpinner(varName, declaredVar);
 		}
+		if (type.isCompatibleToMoneyType()) {
+			return QLNumField.responsiveNumField(varName, declaredVar);
+		} 
 		return null;
 	}
 

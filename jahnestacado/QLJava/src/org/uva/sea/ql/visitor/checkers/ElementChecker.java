@@ -30,12 +30,15 @@ public class ElementChecker implements IElementVisitor {
 			this.errorReport=errorReport;
 	}
 	
-	public static void checkQL(Form form){
+	public static boolean checkQL(Form form){
 		Map<String,Type> declaredVar= new LinkedHashMap<String,Type>();
 		List<String> errorReport= new ArrayList<String>();
 		ElementChecker checker=new ElementChecker(declaredVar,errorReport);
 		form.accept(checker);
 		printErrors(errorReport);
+		if(errorReport.size()!=0) return false;
+		
+		return true;
 		
 	}
 	

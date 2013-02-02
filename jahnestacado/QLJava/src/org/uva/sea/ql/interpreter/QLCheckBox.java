@@ -19,6 +19,7 @@ public class QLCheckBox extends JCheckBox implements ActionListener {
 
 
 	public QLCheckBox(String varName, Map<String, Value> declaredVar) {
+		super("Yes");
 		this.varName = varName;
 		this.declaredVar = declaredVar;
 		state = (Boolean) declaredVar.get(varName).getValue();

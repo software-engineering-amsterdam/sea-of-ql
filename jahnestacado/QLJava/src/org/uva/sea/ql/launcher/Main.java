@@ -11,6 +11,7 @@ import org.uva.sea.ql.interpreter.SwingVisitor;
 import org.uva.sea.ql.parser.antlr.ANTLRParser;
 import org.uva.sea.ql.parser.test.ParseError;
 import org.uva.sea.ql.swing.Renderer;
+import org.uva.sea.ql.visitor.checkers.ElementChecker;
 
 public class Main {
 
@@ -22,8 +23,11 @@ public class Main {
 		try {
 			ANTLRFileStream charStream = new ANTLRFileStream(filePath.getAbsolutePath());
 			ANTLRParser parser = new ANTLRParser();
+			if(ElementChecker.checkQL(parser.parseForm(charStream.toString()))){
+
 			List<JPanel> panelList=SwingVisitor.generate(parser.parseForm(charStream.toString()));
 			Renderer render=new Renderer(panelList);
+			}
 		} catch (IOException e) {
 			e.printStackTrace();
 		} catch (ParseError e) {
