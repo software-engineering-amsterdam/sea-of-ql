@@ -3,11 +3,18 @@ package org.uva.sea.ql.parser.test;
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
+import org.uva.sea.ql.ast.expressions.binary.bool.And;
+import org.uva.sea.ql.ast.expressions.binary.bool.Eq;
+import org.uva.sea.ql.ast.expressions.binary.bool.GEq;
 import org.uva.sea.ql.ast.expressions.binary.bool.GT;
 import org.uva.sea.ql.ast.expressions.binary.bool.LEq;
 import org.uva.sea.ql.ast.expressions.binary.bool.LT;
+import org.uva.sea.ql.ast.expressions.binary.bool.NEq;
+import org.uva.sea.ql.ast.expressions.binary.bool.Or;
 import org.uva.sea.ql.ast.expressions.binary.numeric.Add;
+import org.uva.sea.ql.ast.expressions.binary.numeric.Div;
 import org.uva.sea.ql.ast.expressions.binary.numeric.Mul;
+import org.uva.sea.ql.ast.expressions.binary.numeric.Sub;
 import org.uva.sea.ql.ast.values.Bool;
 import org.uva.sea.ql.ast.values.Ident;
 import org.uva.sea.ql.ast.values.Int;
@@ -24,6 +31,8 @@ public class TestExpressions {
 	public TestExpressions() {
 		_parser = new ANTLRParserExpressions();
 	}
+	
+	// Test methods for binary numeric expressions
 	
 	@Test
 	public void testAdds() throws ParseError {
@@ -49,18 +58,49 @@ public class TestExpressions {
 	}
 	
 	@Test
+	public void testDivs() throws ParseError {
+		assertEquals(_parser.parse("a / b").getClass(), Div.class);
+		assertEquals(_parser.parse("a / (b * c)").getClass(), Div.class);
+	}
+	
+	@Test
+	public void testSubs() throws ParseError {
+		assertEquals(_parser.parse("a - b").getClass(), Sub.class);
+		assertEquals(_parser.parse("a - (b * c)").getClass(), Sub.class);
+	}
+	
+	// Test methods for binary boolean expressions
+	
+	@Test
 	public void testRels() throws ParseError {
 		assertEquals(_parser.parse("a < b").getClass(), LT.class);
 		assertEquals(_parser.parse("a < b + c").getClass(), LT.class);
 		assertEquals(_parser.parse("a < (b * c)").getClass(), LT.class);
 		assertEquals(_parser.parse("(a * b) < c").getClass(), LT.class);
 		
+		assertEquals(_parser.parse("(a == b)").getClass(), Eq.class);
 		assertEquals(_parser.parse("(a <= b)").getClass(), LEq.class);
+		assertEquals(_parser.parse("(a >= b)").getClass(), GEq.class);
+		assertEquals(_parser.parse("(a != b)").getClass(), NEq.class);
 		
 		assertEquals(_parser.parse("a + b > c").getClass(), GT.class);
 		assertEquals(_parser.parse("a > b + c").getClass(), GT.class);
 	}
+	
+	@Test
+	public void testAnds() throws ParseError {
+		assertEquals(_parser.parse("a && b").getClass(), And.class);
+		assertEquals(_parser.parse("a && b <= c").getClass(), And.class);
+	}
+	
+	@Test
+	public void testOrs() throws ParseError {
+		assertEquals(_parser.parse("a || b").getClass(), Or.class);
+		assertEquals(_parser.parse("a || b <= c").getClass(), Or.class);
+	}
 
+	// Test methods for literal expressions
+	
 	@Test
 	public void testIds() throws ParseError {
 		assertEquals(_parser.parse("a").getClass(), Ident.class);
