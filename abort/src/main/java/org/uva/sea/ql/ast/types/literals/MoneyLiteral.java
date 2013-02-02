@@ -2,8 +2,8 @@ package org.uva.sea.ql.ast.types.literals;
 
 import java.math.BigDecimal;
 
-import org.uva.sea.ql.ast.traversal.SymbolTable;
 import org.uva.sea.ql.ast.traversal.base.IVisitor;
+import org.uva.sea.ql.ast.traversal.typechecking.SymbolTable;
 import org.uva.sea.ql.ast.types.datatypes.DataType;
 import org.uva.sea.ql.ast.types.datatypes.MoneyType;
 

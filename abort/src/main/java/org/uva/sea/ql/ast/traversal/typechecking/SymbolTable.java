@@ -1,4 +1,4 @@
-package org.uva.sea.ql.ast.traversal;
+package org.uva.sea.ql.ast.traversal.typechecking;
 
 import java.util.HashMap;
 import java.util.Map;

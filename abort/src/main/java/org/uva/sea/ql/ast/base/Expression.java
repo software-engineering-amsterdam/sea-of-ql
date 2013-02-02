@@ -1,6 +1,6 @@
 package org.uva.sea.ql.ast.base;
 
-import org.uva.sea.ql.ast.traversal.SymbolTable;
+import org.uva.sea.ql.ast.traversal.typechecking.SymbolTable;
 import org.uva.sea.ql.ast.types.datatypes.DataType;
 
 /**

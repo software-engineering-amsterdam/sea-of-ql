@@ -2,8 +2,8 @@ package org.uva.sea.ql.ast.operators.binary;
 
 import org.uva.sea.ql.ast.base.Expression;
 import org.uva.sea.ql.ast.operators.base.BinaryOperator;
-import org.uva.sea.ql.ast.traversal.SymbolTable;
 import org.uva.sea.ql.ast.traversal.base.IVisitor;
+import org.uva.sea.ql.ast.traversal.typechecking.SymbolTable;
 import org.uva.sea.ql.ast.types.datatypes.BoolType;
 import org.uva.sea.ql.ast.types.datatypes.DataType;
 

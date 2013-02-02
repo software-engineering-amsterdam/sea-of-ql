@@ -1,0 +1,5 @@
+<form>
+<fieldset>
+${form.fields}
+</fieldset>
+</form>

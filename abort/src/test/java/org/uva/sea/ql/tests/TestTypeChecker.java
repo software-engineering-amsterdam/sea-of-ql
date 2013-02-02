@@ -3,6 +3,7 @@ package org.uva.sea.ql.tests;
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import org.antlr.runtime.RecognitionException;
@@ -13,8 +14,9 @@ import org.uva.sea.ql.ast.base.Expression;
 import org.uva.sea.ql.ast.form.Form;
 import org.uva.sea.ql.ast.operators.binary.*;
 import org.uva.sea.ql.ast.operators.unary.*;
-import org.uva.sea.ql.ast.traversal.SymbolTable;
-import org.uva.sea.ql.ast.traversal.TypeChecker;
+import org.uva.sea.ql.ast.traversal.codegen.BootstrapGenerator;
+import org.uva.sea.ql.ast.traversal.typechecking.SymbolTable;
+import org.uva.sea.ql.ast.traversal.typechecking.TypeChecker;
 import org.uva.sea.ql.ast.types.Ident;
 import org.uva.sea.ql.ast.types.datatypes.*;
 import org.uva.sea.ql.ast.types.literals.*;
@@ -22,8 +24,8 @@ import org.uva.sea.ql.ast.types.literals.*;
 // Test the type checking functionality
 public class TestTypeChecker extends TestBase {
 	// Filenames for forms to parse and typecheck
-	private static final String RESOURCE_FORM_VALID = "form_valid.ql";
-	private static final String RESOURCE_FORM_INVALID = "form_invalid.ql";
+	private static final String RESOURCE_FORM_VALID = "tests/form_valid.ql";
+	private static final String RESOURCE_FORM_INVALID = "tests/form_invalid.ql";
 
 	private final TypeChecker typeChecker = new TypeChecker();
 	private Form validForm;
@@ -119,8 +121,12 @@ public class TestTypeChecker extends TestBase {
 	}
 	
 	@After
-	public void printErrorLog() {
+	public void printErrorLog() throws FileNotFoundException {
 		typeChecker.getErrorLog().write(System.err);
 		typeChecker.getEventLog().write(System.out);
+		
+		
+		
+		validForm.accept(new BootstrapGenerator());
 	}
 }
