@@ -2,18 +2,13 @@ package org.uva.sea.ql.ast.expressions.literal;
 
 import java.util.Map;
 
-import org.uva.sea.ql.ast.Expr;
 import org.uva.sea.ql.ast.Type;
+import org.uva.sea.ql.ast.expressions.LiteralExpr;
 
-public class Bool extends Expr {
-	private final boolean _value;
+public class Bool extends LiteralExpr {
 
 	public Bool(boolean value) {
-		_value = value;
-	}
-
-	public boolean getValue() {
-		return _value;
+		super(value);
 	}
 
 	@Override

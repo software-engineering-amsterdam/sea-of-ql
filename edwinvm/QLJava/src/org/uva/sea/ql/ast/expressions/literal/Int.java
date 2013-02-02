@@ -2,18 +2,13 @@ package org.uva.sea.ql.ast.expressions.literal;
 
 import java.util.Map;
 
-import org.uva.sea.ql.ast.Expr;
 import org.uva.sea.ql.ast.Type;
+import org.uva.sea.ql.ast.expressions.LiteralExpr;
 
-public class Int extends Expr {
-	private final int _value;
+public class Int extends LiteralExpr {
 
 	public Int(int value) {
-		_value = value;
-	}
-
-	public int getValue() {
-		return _value;
+		super(value);
 	}
 
 	@Override
