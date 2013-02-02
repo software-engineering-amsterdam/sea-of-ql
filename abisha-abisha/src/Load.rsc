@@ -1,7 +1,7 @@
 module Load
 
 import Prelude;
-import concreteSyntax;
-import abstractSyntax;
+import ConcreteSyntax;
+import AbstractSyntax;
 
-public PROGRAM load(str txt)= implode(#PROGRAM, parse(#PROGRAM, txt));
+public FORM load(str txt)= implode(#FORM, parse(#FORM, txt));
