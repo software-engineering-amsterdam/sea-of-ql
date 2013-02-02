@@ -66,7 +66,7 @@ mulExpr returns [Expr result]
     :   lhs=unExpr { $result=$lhs.result; } ( op=( '*' | '/' ) rhs=unExpr 
     { 
         if ($op.text.equals("*"))  { $result = new Mul($result, rhs); }
-        if ($op.text.equals("<=")) { $result = new Div($result, rhs); }
+        if ($op.text.equals("/")) { $result = new Div($result, rhs); }
     })*
     ;
     
