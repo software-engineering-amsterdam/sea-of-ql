@@ -31,7 +31,7 @@ public class TestExprTypeChecker {
 	@Test
 	public void testExprTypeChecker() throws ParseError {
 		
-		assertEquals(true, ExprTypeChecker.check(parser.parse("5 + 6 - 2 * (-23) +34"),typeEnvironment, errors));
+		assertEquals(true, ExprTypeChecker.check(parser.parse("5 + 6 + 2 * (-23) +34"),typeEnvironment, errors));
 		assertEquals(true, ExprTypeChecker.check(parser.parse("5<=9 || true"), typeEnvironment, errors));
 		assertEquals(true, ExprTypeChecker.check(parser.parse("(+5<=-9) && !false || true"), typeEnvironment, errors));
 		

@@ -18,15 +18,15 @@ public class Question extends Statement {
 		}
 		
 		public Ident getID() {
-			return this.id;
+			return id;
 		}
 		
 		public StringLiteral getLabel() {
-			return this.label;
+			return label;
 		}
 		
 		public Type getType() {
-			return this.type;
+			return type;
 		}
 
 		@Override

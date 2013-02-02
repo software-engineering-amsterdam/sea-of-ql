@@ -35,7 +35,7 @@ public class StatementChecker implements IStatementChecker {
 	@Override
 	public boolean visit(Form form) {
 		
-		Ident id = form.getID();
+		//Ident id = form.getID();
 		boolean checkBody = form.getBody().accept(this);
 		
 		if(!checkBody) {
@@ -52,7 +52,6 @@ public class StatementChecker implements IStatementChecker {
 			
 		if (typeEnvironment.containsKey(qID.getName())) {
 			errors.add("Duplicate questionID : " + qID.getName());
-			//System.out.println("miltos");
 			return false;
 		}
 		else {
@@ -65,6 +64,7 @@ public class StatementChecker implements IStatementChecker {
 	@Override
 	public boolean visit(ComputedQuestion computedQuestion) {
 		
+		
 		Ident qID = computedQuestion.getID();
 		Expr expr = computedQuestion.getExpr(); 
 				
@@ -76,10 +76,16 @@ public class StatementChecker implements IStatementChecker {
 			typeEnvironment.put(qID.getName(), computedQuestion.getType());
 		}
 		
+		if (!(computedQuestion.getType().isCompatibleTo(expr.isOfType(typeEnvironment)))) {
+			errors.add("Invalid expression in question " + computedQuestion.getID() + 
+					". Expected expression of type " + computedQuestion.getType());
+			return false;
+		}
+		
 		boolean checkExpr = ExprTypeChecker.check(expr, typeEnvironment, errors);
 		
 		if (!checkExpr) {
-			errors.add("ERROR");
+			errors.add("Invalid expression in question " + computedQuestion.getID());
 			return false;
 		}
 		
@@ -88,8 +94,30 @@ public class StatementChecker implements IStatementChecker {
 
 	@Override
 	public boolean visit(IfStatement ifStatement) {
-		// TODO Auto-generated method stub
-		return false;
+		
+		Expr expr = ifStatement.getExpr();
+		
+		boolean checkCondition = ExprTypeChecker.check(expr, typeEnvironment, errors);
+		
+		if(!checkCondition) {
+			errors.add("Invalid expression in condition");
+			return false;
+		}
+		
+		Type conditionType = expr.isOfType(typeEnvironment);
+		
+		if(!(conditionType.isCompatibleToBool())) {
+			errors.add("Expression in condition is of type "+conditionType.getClass().getSimpleName()+". Expected type bool");
+			return false;
+		}
+		
+		boolean checkBody = ifStatement.getBody().accept(this);
+		
+		if(!checkBody) {
+			return false;
+		}
+		
+		return true;
 	}
 
 	@Override

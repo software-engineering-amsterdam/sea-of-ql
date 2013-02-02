@@ -1,4 +1,4 @@
-// $ANTLR 3.5 /home/rene/workspace/sea-of-ql/renetassy/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g 2013-01-31 22:36:48
+// $ANTLR 3.5 /home/rene/workspace/sea-of-ql/renetassy/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g 2013-02-02 14:47:48
 
 package org.uva.sea.ql.parser.antlr;
 import org.uva.sea.ql.ast.*;
@@ -124,22 +124,22 @@ public class QLParser extends Parser {
 
 
 	// $ANTLR start "question"
-	// /home/rene/workspace/sea-of-ql/renetassy/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:22:1: question returns [Question result] : ( normalQuestion | computedQuestion ) ;
+	// /home/rene/workspace/sea-of-ql/renetassy/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:22:1: question returns [Question result] : ( computedQuestion | normalQuestion ) ;
 	public final Question question() throws RecognitionException {
 		Question result = null;
 
 		int question_StartIndex = input.index();
 
-		Question normalQuestion2 =null;
-		ComputedQuestion computedQuestion3 =null;
+		ComputedQuestion computedQuestion2 =null;
+		Question normalQuestion3 =null;
 
 		try {
 			if ( state.backtracking>0 && alreadyParsedRule(input, 2) ) { return result; }
 
-			// /home/rene/workspace/sea-of-ql/renetassy/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:23:2: ( ( normalQuestion | computedQuestion ) )
-			// /home/rene/workspace/sea-of-ql/renetassy/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:23:4: ( normalQuestion | computedQuestion )
+			// /home/rene/workspace/sea-of-ql/renetassy/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:23:2: ( ( computedQuestion | normalQuestion ) )
+			// /home/rene/workspace/sea-of-ql/renetassy/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:23:4: ( computedQuestion | normalQuestion )
 			{
-			// /home/rene/workspace/sea-of-ql/renetassy/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:23:4: ( normalQuestion | computedQuestion )
+			// /home/rene/workspace/sea-of-ql/renetassy/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:23:4: ( computedQuestion | normalQuestion )
 			int alt1=2;
 			int LA1_0 = input.LA(1);
 			if ( (LA1_0==Ident) ) {
@@ -151,10 +151,10 @@ public class QLParser extends Parser {
 						case 29:
 							{
 							int LA1_4 = input.LA(5);
-							if ( (LA1_4==EOF||LA1_4==Ident||LA1_4==28||LA1_4==33) ) {
+							if ( (LA1_4==14) ) {
 								alt1=1;
 							}
-							else if ( (LA1_4==14) ) {
+							else if ( (LA1_4==EOF||LA1_4==Ident||LA1_4==28||LA1_4==33) ) {
 								alt1=2;
 							}
 
@@ -178,10 +178,10 @@ public class QLParser extends Parser {
 						case 26:
 							{
 							int LA1_5 = input.LA(5);
-							if ( (LA1_5==EOF||LA1_5==Ident||LA1_5==28||LA1_5==33) ) {
+							if ( (LA1_5==14) ) {
 								alt1=1;
 							}
-							else if ( (LA1_5==14) ) {
+							else if ( (LA1_5==EOF||LA1_5==Ident||LA1_5==28||LA1_5==33) ) {
 								alt1=2;
 							}
 
@@ -205,10 +205,10 @@ public class QLParser extends Parser {
 						case 30:
 							{
 							int LA1_6 = input.LA(5);
-							if ( (LA1_6==EOF||LA1_6==Ident||LA1_6==28||LA1_6==33) ) {
+							if ( (LA1_6==14) ) {
 								alt1=1;
 							}
-							else if ( (LA1_6==14) ) {
+							else if ( (LA1_6==EOF||LA1_6==Ident||LA1_6==28||LA1_6==33) ) {
 								alt1=2;
 							}
 
@@ -286,23 +286,23 @@ public class QLParser extends Parser {
 
 			switch (alt1) {
 				case 1 :
-					// /home/rene/workspace/sea-of-ql/renetassy/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:23:6: normalQuestion
+					// /home/rene/workspace/sea-of-ql/renetassy/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:23:6: computedQuestion
 					{
-					pushFollow(FOLLOW_normalQuestion_in_question74);
-					normalQuestion2=normalQuestion();
+					pushFollow(FOLLOW_computedQuestion_in_question74);
+					computedQuestion2=computedQuestion();
 					state._fsp--;
 					if (state.failed) return result;
-					if ( state.backtracking==0 ) { result = normalQuestion2; }
+					if ( state.backtracking==0 ) { result = computedQuestion2; }
 					}
 					break;
 				case 2 :
-					// /home/rene/workspace/sea-of-ql/renetassy/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:23:60: computedQuestion
+					// /home/rene/workspace/sea-of-ql/renetassy/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:23:64: normalQuestion
 					{
-					pushFollow(FOLLOW_computedQuestion_in_question80);
-					computedQuestion3=computedQuestion();
+					pushFollow(FOLLOW_normalQuestion_in_question80);
+					normalQuestion3=normalQuestion();
 					state._fsp--;
 					if (state.failed) return result;
-					if ( state.backtracking==0 ) { result = computedQuestion3; }
+					if ( state.backtracking==0 ) { result = normalQuestion3; }
 					}
 					break;
 
@@ -1291,8 +1291,8 @@ public class QLParser extends Parser {
 	public static final BitSet FOLLOW_orExpr_in_ifStatement51 = new BitSet(new long[]{0x0000000000008000L});
 	public static final BitSet FOLLOW_15_in_ifStatement53 = new BitSet(new long[]{0x0000000080000000L});
 	public static final BitSet FOLLOW_body_in_ifStatement55 = new BitSet(new long[]{0x0000000000000002L});
-	public static final BitSet FOLLOW_normalQuestion_in_question74 = new BitSet(new long[]{0x0000000000000002L});
-	public static final BitSet FOLLOW_computedQuestion_in_question80 = new BitSet(new long[]{0x0000000000000002L});
+	public static final BitSet FOLLOW_computedQuestion_in_question74 = new BitSet(new long[]{0x0000000000000002L});
+	public static final BitSet FOLLOW_normalQuestion_in_question80 = new BitSet(new long[]{0x0000000000000002L});
 	public static final BitSet FOLLOW_Ident_in_normalQuestion102 = new BitSet(new long[]{0x0000000000100000L});
 	public static final BitSet FOLLOW_20_in_normalQuestion104 = new BitSet(new long[]{0x0000000000000200L});
 	public static final BitSet FOLLOW_String_in_normalQuestion106 = new BitSet(new long[]{0x0000000064000000L});

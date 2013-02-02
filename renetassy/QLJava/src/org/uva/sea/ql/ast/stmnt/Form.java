@@ -14,7 +14,7 @@ public class Form extends Statement {
 	}
 	
 	public Ident getID() {
-		return this.id;
+		return id;
 	}
 	
 	public Body getBody() {

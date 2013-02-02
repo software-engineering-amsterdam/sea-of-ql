@@ -17,7 +17,7 @@ public class TestStatementChecker {
 	private ANTLRParser parser;
 	private Map<String,Type> typeEnvironment;
 	private List<String> errors;
-	private StatementChecker stmntChecker;
+	//private StatementChecker stmntChecker;
 
 	public TestStatementChecker() {
 		
@@ -32,9 +32,14 @@ public class TestStatementChecker {
 	public void testExprTypeChecker() throws ParseError {
 		
 		assertEquals(true, StatementChecker.check(parser.parseForm("form arxigos {" +
-				" question1 : \"pou ise milto?\" int " +
-				" question1 : \"omonoia arxige\" bool" +
+				" question1 : \"pou ise milto?\" int (3 + 7) " +
+				" question2 : \"omonoia arxige\" bool " +
+				" if (true) { " +
+				" 	question3 : \"ti leei psile\" int (5+5) " +
+				" 	question6 : \" ena kai ena ison tessera \" int (1+1) " +
+				" } " +
 				" }"),typeEnvironment, errors));
 	}
 
+	
 }

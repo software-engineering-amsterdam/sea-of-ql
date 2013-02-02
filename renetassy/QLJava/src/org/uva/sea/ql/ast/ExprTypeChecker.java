@@ -59,6 +59,7 @@ public class ExprTypeChecker implements IExprTypeChecker {
 		
 		//check children
 		if (!(checkLeft && checkRight)) {
+			//System.out.println("add childern");
 			return false;
 		}
 		
@@ -68,9 +69,9 @@ public class ExprTypeChecker implements IExprTypeChecker {
 		//check required types for +
 		if (!(leftType.isCompatibleToNumeric() && rightType.isCompatibleToNumeric())) {
 			addError("+");
+			//System.out.println("add type");
 			return false;
 		}
-	
 		return true;
 	}
 
@@ -82,6 +83,7 @@ public class ExprTypeChecker implements IExprTypeChecker {
 		
 		//check children
 		if (!(checkLeft && checkRight)) {
+			//System.out.println("and childern");
 			return false;
 		}
 		
@@ -91,6 +93,7 @@ public class ExprTypeChecker implements IExprTypeChecker {
 		//check required types for &&
 		if (!(leftType.isCompatibleToBool() && rightType.isCompatibleToBool())) {
 			addError("&&");
+			//System.out.println("and type");
 			return false;
 		}
 	

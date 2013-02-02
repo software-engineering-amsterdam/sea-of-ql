@@ -20,7 +20,7 @@ ifStatement returns [IfStatement result]
 	;
 
 question returns [Question result]
-	: ( normalQuestion { result = $normalQuestion.result; } | computedQuestion { result = $computedQuestion.result; } )  
+	: ( computedQuestion { result = $computedQuestion.result; } | normalQuestion { result = $normalQuestion.result; } )  
 	;
 	
 normalQuestion returns [Question result]

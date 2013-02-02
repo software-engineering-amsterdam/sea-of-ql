@@ -13,7 +13,7 @@ public class Body extends Statement {
 	}
 	
 	public List<Statement> getStatements() {
-		return this.statements;
+		return statements;
 	}
 
 	@Override

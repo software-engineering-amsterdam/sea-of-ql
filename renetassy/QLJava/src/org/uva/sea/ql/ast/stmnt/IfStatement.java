@@ -5,12 +5,20 @@ import org.uva.sea.ql.ast.expr.Expr;
 
 public class IfStatement extends Statement {
 	
-	private Expr condition;
-	private Body content;
+	private Expr expr;
+	private Body body;
 	
-	public IfStatement (Expr condition, Body content) {
-		this.condition=condition;
-		this.content=content;
+	public IfStatement (Expr expr, Body body) {
+		this.expr=expr;
+		this.body=body;
+	}
+	
+	public Body getBody() {
+		return body;
+	}
+	
+	public Expr getExpr() {
+		return expr;
 	}
 
 	@Override
