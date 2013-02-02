@@ -28,5 +28,5 @@ TO DO
 Known Bugs:
 -----------
    Fixed - 1. Equality must be implemented correctly..== operator must check that both expr (le,re) are of the same type.
-   Fixed - 2. Cyclic dependencies should be implemented.
+   2. Cyclic dependencies should be implemented.
    low priority - 3. integer, float, money should be considered as numeric values
