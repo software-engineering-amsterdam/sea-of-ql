@@ -6,29 +6,29 @@ import org.uva.sea.ql.ast.primary.Ident;
 import org.uva.sea.ql.ast.primary.Str;
 import org.uva.sea.ql.visitor.ASTNodeVisitor;
 
-public class Computation implements QLStatement {
+public class Computation extends QLStatement {
 
-	private final Ident identifier;
+    private final Ident identifier;
     private final Str label;
-	private final QLExpression expression;
+    private final QLExpression expression;
 
-	public Computation(Ident identifier, Str label, QLExpression expression) {
-		this.identifier = identifier;
-		this.label = label;
-		this.expression = expression;
-	}
+    public Computation(Ident identifier, Str label, QLExpression expression) {
+        this.identifier = identifier;
+        this.label = label;
+        this.expression = expression;
+    }
 
-	public Ident getIdentifier() {
-		return identifier;
-	}
+    public Ident getIdentifier() {
+        return identifier;
+    }
 
-	public Str getLabel() {
-		return label;
-	}
+    public Str getLabel() {
+        return label;
+    }
 
-	public QLExpression getExpression() {
-		return expression;
-	}
+    public QLExpression getExpression() {
+        return expression;
+    }
 
     @Override
     public <T> T accept(ASTNodeVisitor<T> visitor) {

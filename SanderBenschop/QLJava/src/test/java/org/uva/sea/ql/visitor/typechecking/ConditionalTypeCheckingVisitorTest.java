@@ -3,6 +3,7 @@ package org.uva.sea.ql.visitor.typechecking;
 import org.junit.Before;
 import org.junit.Test;
 import org.uva.sea.ql.ast.QLStatement;
+import org.uva.sea.ql.ast.SourceCodeInformation;
 import org.uva.sea.ql.ast.primary.Bool;
 import org.uva.sea.ql.ast.primary.Int;
 import org.uva.sea.ql.ast.statement.IfStatement;
@@ -15,16 +16,18 @@ import static junit.framework.Assert.*;
 
 public class ConditionalTypeCheckingVisitorTest {
 
+    private SourceCodeInformation sourceCodeInformation;
     private TypeCheckingVisitor typeCheckingVisitor;
 
     @Before
     public void init() {
+        sourceCodeInformation = new SourceCodeInformation(0, 0);
         typeCheckingVisitor = new TypeCheckingVisitor();
     }
 
     @Test
     public void shouldReduceProperly() {
-        Bool expression = new Bool(true);
+        Bool expression = new Bool(true, sourceCodeInformation);
         List<QLStatement> emptyStatementList = Collections.emptyList();
         IfStatement conditional = new IfStatement(expression, emptyStatementList);
 
@@ -35,7 +38,7 @@ public class ConditionalTypeCheckingVisitorTest {
 
     @Test
     public void shouldDetectTypeError() {
-        Int expression = new Int(0);
+        Int expression = new Int(0, sourceCodeInformation);
         List<QLStatement> emptyStatementList = Collections.emptyList();
         IfStatement conditional = new IfStatement(expression, emptyStatementList);
 

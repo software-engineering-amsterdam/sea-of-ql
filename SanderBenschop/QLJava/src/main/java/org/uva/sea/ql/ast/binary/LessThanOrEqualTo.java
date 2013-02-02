@@ -1,6 +1,7 @@
 package org.uva.sea.ql.ast.binary;
 
 import org.uva.sea.ql.ast.QLExpression;
+import org.uva.sea.ql.ast.SourceCodeInformation;
 import org.uva.sea.ql.ast.primary.typeClasses.BooleanType;
 import org.uva.sea.ql.ast.primary.typeClasses.Type;
 import org.uva.sea.ql.visitor.ASTNodeVisitor;
@@ -10,8 +11,8 @@ public class LessThanOrEqualTo extends BinaryOperation {
 
     private final Type returningType;
 
-    public LessThanOrEqualTo(QLExpression leftHandSide, QLExpression rightHandSide) {
-		super(leftHandSide, rightHandSide);
+    public LessThanOrEqualTo(QLExpression leftHandSide, QLExpression rightHandSide, SourceCodeInformation sourceInfo) {
+		super(leftHandSide, rightHandSide, sourceInfo);
         this.returningType = new BooleanType();
 	}
 

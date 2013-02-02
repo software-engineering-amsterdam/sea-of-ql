@@ -2,6 +2,7 @@ package org.uva.sea.ql.visitor.typechecking;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.uva.sea.ql.ast.SourceCodeInformation;
 import org.uva.sea.ql.ast.binary.Multiply;
 import org.uva.sea.ql.ast.primary.Bool;
 import org.uva.sea.ql.ast.primary.Ident;
@@ -14,17 +15,21 @@ import static junit.framework.Assert.*;
 
 public class ComputationTypeCheckingVisitorTest {
 
+    private SourceCodeInformation sourceCodeInformation;
     private TypeCheckingVisitor typeCheckingVisitor;
 
     @Before
     public void init() {
+        sourceCodeInformation = new SourceCodeInformation(0,0);
         typeCheckingVisitor = new TypeCheckingVisitor();
     }
 
     @Test
     public void shouldReduceProperly() {
-        Int number = new Int(0);
-        Computation computation = new Computation(new Ident("test"), new Str("\"Label\""), number);
+        Ident ident = new Ident("test", sourceCodeInformation);
+        Str str = new Str("\"Label\"", sourceCodeInformation);
+        Int number = new Int(0, sourceCodeInformation);
+        Computation computation = new Computation(ident, str, number);
 
         boolean computationCorrect = typeCheckingVisitor.visitComputation(computation);
         assertTrue(typeCheckingVisitor.getErrors().isEmpty());
@@ -33,8 +38,10 @@ public class ComputationTypeCheckingVisitorTest {
 
     @Test
     public void shouldNotAcceptOtherExpressionThanInt() {
-        Bool bool = new Bool(true);
-        Computation computation = new Computation(new Ident("test"), new Str("\"Label\""), bool);
+        Ident ident = new Ident("test", sourceCodeInformation);
+        Str str = new Str("\"Label\"", sourceCodeInformation);
+        Bool bool = new Bool(true, sourceCodeInformation);
+        Computation computation = new Computation(ident, str, bool);
 
         boolean computationCorrect = typeCheckingVisitor.visitComputation(computation);
         assertEquals(1, typeCheckingVisitor.getErrors().size());
@@ -44,12 +51,15 @@ public class ComputationTypeCheckingVisitorTest {
 
     @Test
     public void shouldMakeIdentifierReduceableIfExpressionIsReduceable() {
-        Int leftHandSide = new Int(1);
-        Int rightHandSide = new Int(3);
-        Int rightHandSide2 = new Int(5);
-        Multiply multiply = new Multiply(leftHandSide, rightHandSide);
-        Computation computation = new Computation(new Ident("test"), new Str("\"Label\""), multiply);
-        Multiply multiply2 = new Multiply(new Ident("test"), rightHandSide2);
+        Int leftHandSide = new Int(1, sourceCodeInformation);
+        Int rightHandSide = new Int(3, sourceCodeInformation);
+        Int rightHandSide2 = new Int(5, sourceCodeInformation);
+        Multiply multiply = new Multiply(leftHandSide, rightHandSide, sourceCodeInformation);
+        //
+        Ident ident = new Ident("test", sourceCodeInformation);
+        Str str = new Str("\"Label\"", sourceCodeInformation);
+        Computation computation = new Computation(ident, str, multiply);
+        Multiply multiply2 = new Multiply(ident, rightHandSide2, sourceCodeInformation);
 
         boolean computationCorrect = typeCheckingVisitor.visitComputation(computation);
         boolean multiplyCorrect = typeCheckingVisitor.visitMultiply(multiply2);

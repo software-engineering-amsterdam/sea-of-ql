@@ -17,6 +17,10 @@ import org.uva.sea.ql.ast.statement.*;
   private String removeOuterQuotes(String original) {
     return original.substring(1, original.length()-1);
   }
+  
+  private SourceCodeInformation createSourceCodeInformation(Token token) {
+    return new SourceCodeInformation(token.getLine(), token.getCharPositionInLine());
+  }
 }
 
 @lexer::header
@@ -55,8 +59,8 @@ statement returns [QLStatement result]
 question returns [Question result]
   : Ident ':' Str datatype 
     {
-	    Ident ident = new Ident($Ident.text);
-	    Str label = new Str(removeOuterQuotes($Str.text));
+	    Ident ident = new Ident($Ident.text, createSourceCodeInformation($Ident));
+	    Str label = new Str(removeOuterQuotes($Str.text), createSourceCodeInformation($Str));
 	    Type datatype = $datatype.result;
 	    $result = new Question(ident, label, datatype);
     }
@@ -71,8 +75,8 @@ datatype returns [Type result]
 computation returns [Computation result]
   : Ident ':' Str '(' orExpr ')'
     {
-      Ident ident = new Ident($Ident.text);
-      Str label = new Str(removeOuterQuotes($Str.text));
+      Ident ident = new Ident($Ident.text, createSourceCodeInformation($Ident));
+      Str label = new Str(removeOuterQuotes($Str.text), createSourceCodeInformation($Str));
       QLExpression expression = $orExpr.result;
       $result = new Computation(ident, label, expression);
     }
@@ -86,28 +90,29 @@ conditional returns [Conditional result]
   ;
 
 primary returns [QLExpression result]
-  : Int   { $result = new Int(Integer.parseInt($Int.text)); }
-  | Bool  { $result = new Bool(Boolean.parseBoolean($Bool.text)); }
-  | Str   { $result = new Str(removeOuterQuotes($Str.text)); }
-  | Ident { $result = new Ident($Ident.text); }
+  : Int   { $result = new Int(Integer.parseInt($Int.text), createSourceCodeInformation($Int)); }
+  | Bool  { $result = new Bool(Boolean.parseBoolean($Bool.text), createSourceCodeInformation($Bool)); }
+  | Str   { $result = new Str(removeOuterQuotes($Str.text), createSourceCodeInformation($Str)); }
+  | Ident { $result = new Ident($Ident.text, createSourceCodeInformation($Ident)); }
   | '(' x=orExpr ')'{ $result = $x.result; }
   ;
 
 unExpr returns [QLExpression result]
-    :  '+' x=unExpr { $result = new Positive($x.result); }
-    |  '-' x=unExpr { $result = new Negative($x.result); }
-    |  '!' x=unExpr { $result = new Not($x.result); }
+    :  op='+' x=unExpr { $result = new Positive($x.result, createSourceCodeInformation($op)); }
+    |  op='-' x=unExpr { $result = new Negative($x.result, createSourceCodeInformation($op)); }
+    |  op='!' x=unExpr { $result = new Not($x.result, createSourceCodeInformation($op)); }
     |  x=primary    { $result = $x.result; }
     ;    
     
 mulExpr returns [QLExpression result]
     :   lhs=unExpr { $result=$lhs.result; } ( op=( '*' | '/' ) rhs=unExpr 
 	    { 
+        SourceCodeInformation sourceCodeInformation = createSourceCodeInformation($op);
 	      if ($op.text.equals("*")) {
-	        $result = new Multiply($result, rhs);
+	        $result = new Multiply($result, rhs, sourceCodeInformation);
 	      }
 	      if ($op.text.equals("/")) {
-	        $result = new Divide($result, rhs);      
+	        $result = new Divide($result, rhs, sourceCodeInformation);      
 	      }
 	    })*
     ;
@@ -116,11 +121,12 @@ mulExpr returns [QLExpression result]
 addExpr returns [QLExpression result]
     :   lhs=mulExpr { $result=$lhs.result; } ( op=('+' | '-') rhs=mulExpr
 	    { 
+	      SourceCodeInformation sourceCodeInformation = createSourceCodeInformation($op);
 	      if ($op.text.equals("+")) {
-	        $result = new Add($result, rhs);
+	        $result = new Add($result, rhs, sourceCodeInformation);
 	      }
 	      if ($op.text.equals("-")) {
-	        $result = new Subtract($result, rhs);      
+	        $result = new Subtract($result, rhs, sourceCodeInformation);      
 	      }
 	    })*
     ;
@@ -128,34 +134,35 @@ addExpr returns [QLExpression result]
 relExpr returns [QLExpression result]
     :   lhs=addExpr { $result=$lhs.result; } ( op=('<'|'<='|'>'|'>='|'=='|'!=') rhs=addExpr 
 	    { 
+	      SourceCodeInformation sourceCodeInformation = createSourceCodeInformation($op);
 	      if ($op.text.equals("<")) {
-	        $result = new LessThan($result, rhs);
+	        $result = new LessThan($result, rhs, sourceCodeInformation);
 	      }
 	      if ($op.text.equals("<=")) {
-	        $result = new LessThanOrEqualTo($result, rhs);      
+	        $result = new LessThanOrEqualTo($result, rhs, sourceCodeInformation);      
 	      }
 	      if ($op.text.equals(">")) {
-	        $result = new GreaterThan($result, rhs);
+	        $result = new GreaterThan($result, rhs, sourceCodeInformation);
 	      }
 	      if ($op.text.equals(">=")) {
-	        $result = new GreaterThanOrEqualTo($result, rhs);      
+	        $result = new GreaterThanOrEqualTo($result, rhs, sourceCodeInformation);      
 	      }
 	      if ($op.text.equals("==")) {
-	        $result = new EqualTo($result, rhs);
+	        $result = new EqualTo($result, rhs, sourceCodeInformation);
 	      }
 	      if ($op.text.equals("!=")) {
-	        $result = new NotEqualTo($result, rhs);
+	        $result = new NotEqualTo($result, rhs, sourceCodeInformation);
 	      }
 	    })*
     ;
     
 andExpr returns [QLExpression result]
-    :   lhs=relExpr { $result=$lhs.result; } ( '&&' rhs=relExpr { $result = new And($result, rhs); } )*
+    :   lhs=relExpr { $result=$lhs.result; } ( op='&&' rhs=relExpr { $result = new And($result, rhs, createSourceCodeInformation($op)); } )*
     ;
     
 
 orExpr returns [QLExpression result]
-    :   lhs=andExpr { $result = $lhs.result; } ( '||' rhs=andExpr { $result = new Or($result, rhs); } )*
+    :   lhs=andExpr { $result = $lhs.result; } ( op='||' rhs=andExpr { $result = new Or($result, rhs, createSourceCodeInformation($op)); } )*
     ;
     
 // Tokens

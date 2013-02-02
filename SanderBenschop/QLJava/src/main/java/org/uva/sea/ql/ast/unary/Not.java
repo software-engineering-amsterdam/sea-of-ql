@@ -1,6 +1,7 @@
 package org.uva.sea.ql.ast.unary;
 
 import org.uva.sea.ql.ast.QLExpression;
+import org.uva.sea.ql.ast.SourceCodeInformation;
 import org.uva.sea.ql.ast.primary.typeClasses.BooleanType;
 import org.uva.sea.ql.ast.primary.typeClasses.Type;
 import org.uva.sea.ql.visitor.ASTNodeVisitor;
@@ -10,8 +11,8 @@ public class Not extends UnaryOperation {
 
     private final Type returningType;
 
-	public Not(QLExpression expression) {
-		super(expression);
+	public Not(QLExpression expression, SourceCodeInformation sourceInfo) {
+		super(expression, sourceInfo);
         this.returningType = new BooleanType();
 	}
 

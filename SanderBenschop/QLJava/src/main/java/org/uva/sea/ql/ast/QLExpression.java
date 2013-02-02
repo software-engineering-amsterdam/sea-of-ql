@@ -3,7 +3,17 @@ package org.uva.sea.ql.ast;
 import org.uva.sea.ql.ast.primary.typeClasses.Type;
 import org.uva.sea.ql.visitor.typechecking.SymbolTable;
 
-public interface QLExpression extends ASTNode {
+public abstract class QLExpression implements ASTNode {
 
-    Type getType(SymbolTable symbolTable);
+    private final SourceCodeInformation sourceCodeInformation;
+
+    public QLExpression(SourceCodeInformation sourceCodeInformation) {
+        this.sourceCodeInformation = sourceCodeInformation;
+    }
+
+    public SourceCodeInformation getSourceCodeInformation() {
+        return sourceCodeInformation;
+    }
+
+    public abstract Type getType(SymbolTable symbolTable);
 }

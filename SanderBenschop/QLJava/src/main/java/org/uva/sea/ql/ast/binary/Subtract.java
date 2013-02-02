@@ -1,6 +1,7 @@
 package org.uva.sea.ql.ast.binary;
 
 import org.uva.sea.ql.ast.QLExpression;
+import org.uva.sea.ql.ast.SourceCodeInformation;
 import org.uva.sea.ql.ast.primary.typeClasses.IntegerType;
 import org.uva.sea.ql.ast.primary.typeClasses.Type;
 import org.uva.sea.ql.visitor.ASTNodeVisitor;
@@ -10,8 +11,8 @@ public class Subtract extends BinaryOperation {
 
     private final Type returningType;
 
-	public Subtract(QLExpression leftHandSide, QLExpression rightHandSide) {
-		super(leftHandSide, rightHandSide);
+	public Subtract(QLExpression leftHandSide, QLExpression rightHandSide, SourceCodeInformation sourceInfo) {
+		super(leftHandSide, rightHandSide, sourceInfo);
         this.returningType = new IntegerType();
 	}
 

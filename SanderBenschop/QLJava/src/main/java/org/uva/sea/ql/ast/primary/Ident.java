@@ -1,16 +1,18 @@
 package org.uva.sea.ql.ast.primary;
 
 import org.uva.sea.ql.ast.QLExpression;
+import org.uva.sea.ql.ast.SourceCodeInformation;
 import org.uva.sea.ql.ast.primary.typeClasses.Type;
 import org.uva.sea.ql.ast.primary.typeClasses.UndefinedType;
 import org.uva.sea.ql.visitor.ASTNodeVisitor;
 import org.uva.sea.ql.visitor.typechecking.SymbolTable;
 
-public final class Ident implements QLExpression {
+public final class Ident extends QLExpression {
 
     private final String name;
 
-    public Ident(String name) {
+    public Ident(String name, SourceCodeInformation sourceInfo) {
+        super(sourceInfo);
         this.name = name;
     }
 

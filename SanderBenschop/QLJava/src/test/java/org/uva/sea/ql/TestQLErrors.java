@@ -1,6 +1,7 @@
 package org.uva.sea.ql;
 
 import org.junit.Test;
+import org.uva.sea.ql.ast.SourceCodeInformation;
 import org.uva.sea.ql.ast.binary.Add;
 import org.uva.sea.ql.ast.binary.BinaryOperation;
 import org.uva.sea.ql.ast.primary.Bool;
@@ -29,9 +30,10 @@ public class TestQLErrors {
 
     @Test
     public void shouldGetUnequalTypeErrorMessage() {
-        Datatype<Integer> leftHandSide = new Int(0);
-        Datatype<Boolean> rightHandSide = new Bool(true);
-        BinaryOperation binaryOperation = new Add(leftHandSide, rightHandSide);
+
+        Datatype<Integer> leftHandSide = new Int(0, new SourceCodeInformation(LINE_NUMBER, 0));
+        Datatype<Boolean> rightHandSide = new Bool(true, new SourceCodeInformation(LINE_NUMBER, 2));
+        BinaryOperation binaryOperation = new Add(leftHandSide, rightHandSide, new SourceCodeInformation(LINE_NUMBER, 1));
 
         QLError error = new UnequalTypesError(LINE_NUMBER, binaryOperation);
         assertEquals("Error: binary operation on line 42 contains unequal types of respectively Int and Bool.", error.getErrorMessage());

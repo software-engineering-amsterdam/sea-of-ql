@@ -1,5 +1,5 @@
 package org.uva.sea.ql.ast;
 
-public interface QLStatement extends ASTNode {
+public abstract class QLStatement implements ASTNode {
 
 }

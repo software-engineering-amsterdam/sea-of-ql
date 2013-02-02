@@ -2,6 +2,7 @@ package org.uva.sea.ql.visitor.typechecking;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.uva.sea.ql.ast.SourceCodeInformation;
 import org.uva.sea.ql.ast.binary.EqualTo;
 import org.uva.sea.ql.ast.primary.Ident;
 import org.uva.sea.ql.ast.primary.Int;
@@ -13,18 +14,24 @@ import static junit.framework.Assert.assertTrue;
 
 public class QuestionTypeCheckingVisitorTest {
 
+    private SourceCodeInformation sourceCodeInformation;
     private TypeCheckingVisitor typeCheckingVisitor;
 
     @Before
     public void init() throws IllegalAccessException {
+        sourceCodeInformation = new SourceCodeInformation(0,0);
         typeCheckingVisitor = new TypeCheckingVisitor();
     }
 
     @Test
     public void shouldMakeIdentifierReducableToOwnType() {
-        Question question = new Question(new Ident("age"), new Str("\"How old are you?\""), new IntegerType());
-        Int otherNumber = new Int(20);
-        EqualTo twentyYearsOld = new EqualTo(new Ident("age"), otherNumber);
+        Ident ident = new Ident("age", sourceCodeInformation);
+        Str label = new Str("\"How old are you?\"", sourceCodeInformation);
+        Question question = new Question(ident, label, new IntegerType());
+
+        Ident ident2 = new Ident("age", sourceCodeInformation);
+        Int otherNumber = new Int(20, sourceCodeInformation);
+        EqualTo twentyYearsOld = new EqualTo(ident2, otherNumber, sourceCodeInformation);
 
         boolean questionCorrect = typeCheckingVisitor.visitQuestion(question);
         boolean equalToCorrect = typeCheckingVisitor.visitEqualTo(twentyYearsOld);

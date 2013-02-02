@@ -6,7 +6,7 @@ import org.uva.sea.ql.ast.QLStatement;
 import java.util.Collections;
 import java.util.List;
 
-public abstract class Conditional implements QLStatement {
+public abstract class Conditional extends QLStatement {
 
     private final QLExpression condition;
     private final List<QLStatement> successBlock;

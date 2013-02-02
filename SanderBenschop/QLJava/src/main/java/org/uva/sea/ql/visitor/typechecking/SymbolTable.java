@@ -1,6 +1,5 @@
 package org.uva.sea.ql.visitor.typechecking;
 
-import org.uva.sea.ql.ast.QLExpression;
 import org.uva.sea.ql.ast.primary.Ident;
 import org.uva.sea.ql.ast.primary.typeClasses.Type;
 

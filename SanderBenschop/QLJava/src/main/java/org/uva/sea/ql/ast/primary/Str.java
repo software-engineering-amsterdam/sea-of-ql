@@ -1,5 +1,6 @@
 package org.uva.sea.ql.ast.primary;
 
+import org.uva.sea.ql.ast.SourceCodeInformation;
 import org.uva.sea.ql.ast.primary.typeClasses.StringType;
 import org.uva.sea.ql.ast.primary.typeClasses.Type;
 import org.uva.sea.ql.visitor.ASTNodeVisitor;
@@ -10,7 +11,8 @@ public final class Str extends Datatype<String> {
 	private final String value;
 	private final Type returningType;
 
-	public Str(String value) {
+	public Str(String value, SourceCodeInformation sourceInfo) {
+        super(sourceInfo);
 		this.value = value;
         this.returningType = new StringType();
 	}
