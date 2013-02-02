@@ -1,5 +1,5 @@
 @contributor{George Marmanidis -geo.marmani@gmail.com}
-module lang::ql::tests::ASTTests::TestExpressions
+module lang::ql::tests::TestExpressions
 
 import lang::ql::syntax::QL;
 import ParseTree;
@@ -10,7 +10,7 @@ import lang::ql::ast::AST;
 
 private start[Expr] parseExpr(str src, loc l) = parse(#start[Expr], src, l);
 private Expr implodeExpr(Tree t) = implode(#Expr, t);
-private Expr p(str src) = implodeExpr(parseExpr(src, |file:///-|));
+public Expr p(str src) = implodeExpr(parseExpr(src, |file:///-|));
 
 public test bool testAdd1() = p("a + b") is add;
 public test bool testAdd2() = p("a + b + c") is add;

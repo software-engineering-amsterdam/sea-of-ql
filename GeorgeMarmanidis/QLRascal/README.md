@@ -1,4 +1,4 @@
-QL-Rascal 21/01/2012
+QL-Rascal 29/01/2012
 ========================
 
 GENERAL USAGE NOTES
@@ -27,5 +27,6 @@ TO DO
 
 Known Bugs:
 -----------
-   1. Equality must be implemented correctly..== operator must check that both expr (le,re) are of the same type.
+   Fixed - 1. Equality must be implemented correctly..== operator must check that both expr (le,re) are of the same type.
    2. Cyclic dependencies should be implemented.
+   low priority - 3. integer, float, money should be considered as numeric values
