@@ -6,6 +6,7 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import org.junit.Test;
+import org.uva.sea.ql.ast.expression.Expression;
 import org.uva.sea.ql.ast.expression.Ident;
 import org.uva.sea.ql.ast.expression.arithmetic.Add;
 import org.uva.sea.ql.ast.expression.arithmetic.Mul;
@@ -19,7 +20,8 @@ import org.uva.sea.ql.ast.statement.Assignment;
 import org.uva.sea.ql.ast.statement.ElseIfs;
 import org.uva.sea.ql.ast.statement.FormDeclaration;
 import org.uva.sea.ql.ast.statement.IfThenElse;
-import org.uva.sea.ql.ast.statement.QuestionDeclaration;
+import org.uva.sea.ql.ast.statement.QuestionComputed;
+import org.uva.sea.ql.ast.statement.QuestionVar;
 import org.uva.sea.ql.ast.statement.Statement;
 import org.uva.sea.ql.ast.statement.Statements;
 import org.uva.sea.ql.ast.statement.VarDeclaration;
@@ -77,13 +79,7 @@ public class StatementTypeCheckerTest extends VisitorTest<Boolean> implements IS
 		}
 
 		if ( this.environment.getErrors().size() > 0 ) {
-			for ( Error error : this.environment.getErrors() ) {
-				System.err.println(
-					error.getMessage()
-					+ " at "
-					+ error.getNode().getClass().getSimpleName()
-				);
-			}
+			this.dumpErrors();
 		}
 	}
 
@@ -96,12 +92,45 @@ public class StatementTypeCheckerTest extends VisitorTest<Boolean> implements IS
 	 */
 	private Boolean typeCheck( Statement statement ) {
 		this.environment.getErrors().clear();
-		return statement.accept( this.statementChecker );
+
+		if ( !statement.accept( this.statementChecker ) ) {
+			return false;
+		}
+
+		return true;
+	}
+
+	/**
+	 * TypeChecks the given expression.
+	 *
+	 * @param expression
+	 *
+	 * @return True if typecheck OK, false otherwise.
+	 */
+	private Boolean typeCheck( Expression expression ) {
+		if ( !expression.accept( this.expressionChecker ) ) {
+			return false;
+		}
+
+		return true;
+	}
+
+	/**
+	 * Dumps the error list to std error.
+	 */
+	private void dumpErrors() {
+		for ( Error error : this.environment.getErrors() ) {
+			System.err.println( error.toString() );
+		}
 	}
 
 	@Override
 	@Test
 	public void testVarDeclaration() {
+		assertTrue( typeCheck( new VarDeclaration( new Ident( "z" ), new org.uva.sea.ql.ast.type.Bool() ) ) );
+		assertFalse( typeCheck( new Add( new Int( 1 ), new Ident( "z" ) ) ) );
+
+		assertTrue( typeCheck( new VarDeclaration( new Ident( "x" ), new org.uva.sea.ql.ast.type.Int() ) ) );
 		assertTrue( typeCheck( new Assignment( new Ident( "x" ), new Int( 23 ) ) ) );
 
 		assertFalse( typeCheck( new Assignment( new Ident( "x" ), new Ident( "y" ) ) ) );
@@ -157,7 +186,7 @@ public class StatementTypeCheckerTest extends VisitorTest<Boolean> implements IS
 				new IfThenElse(
 					new Bool( true ),
 					new Statements(
-						new QuestionDeclaration(
+						new QuestionVar(
 							new Str( "" ), new VarDeclaration( new Ident( "x" ), new org.uva.sea.ql.ast.type.Bool() )
 						),
 						new Statements(
@@ -180,7 +209,7 @@ public class StatementTypeCheckerTest extends VisitorTest<Boolean> implements IS
 				new FormDeclaration(
 					new Ident( "formVar" ),
 					new Statements(
-						new QuestionDeclaration(
+						new QuestionVar(
 							new Str( "label" ),
 							new VarDeclaration(
 								new Ident( "questionVar" ),
@@ -198,7 +227,7 @@ public class StatementTypeCheckerTest extends VisitorTest<Boolean> implements IS
 	public void testQuestionDeclaration() {
 		assertTrue(
 			typeCheck(
-				new QuestionDeclaration(
+				new QuestionVar(
 					new Str( "label" ),
 					new VarDeclaration(
 						new Ident( "var" ),
@@ -210,7 +239,7 @@ public class StatementTypeCheckerTest extends VisitorTest<Boolean> implements IS
 
 		assertTrue(
 			typeCheck(
-				new QuestionDeclaration(
+				new QuestionComputed(
 					new Str( "label" ),
 					new Assignment(
 						new Ident( "x" ),
@@ -225,7 +254,7 @@ public class StatementTypeCheckerTest extends VisitorTest<Boolean> implements IS
 
 		assertFalse(
 			typeCheck(
-				new QuestionDeclaration(
+				new QuestionComputed(
 					new Str( "label" ),
 					new Assignment(
 						new Ident( "x" ),

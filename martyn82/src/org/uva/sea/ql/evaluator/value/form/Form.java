@@ -16,6 +16,10 @@ public class Form extends Value {
 		return this.questions;
 	}
 
+	public int getQuestionCount() {
+		return this.questions.size();
+	}
+
 	public Ident getIdent() {
 		return this.ident;
 	}

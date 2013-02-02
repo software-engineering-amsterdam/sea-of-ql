@@ -6,7 +6,8 @@ import org.uva.sea.ql.ast.statement.ElseIf;
 import org.uva.sea.ql.ast.statement.ElseIfs;
 import org.uva.sea.ql.ast.statement.FormDeclaration;
 import org.uva.sea.ql.ast.statement.IfThenElse;
-import org.uva.sea.ql.ast.statement.QuestionDeclaration;
+import org.uva.sea.ql.ast.statement.QuestionComputed;
+import org.uva.sea.ql.ast.statement.QuestionVar;
 import org.uva.sea.ql.ast.statement.Statement;
 import org.uva.sea.ql.ast.statement.Statements;
 import org.uva.sea.ql.ast.statement.VarDeclaration;
@@ -18,6 +19,7 @@ import org.uva.sea.ql.visitor.IStatementVisitor;
  * Represents a type checker for statement nodes.
  */
 public class StatementChecker extends TypeCheckVisitor implements IStatementVisitor<Boolean> {
+
 	/**
 	 * Holds the expression checker.
 	 */
@@ -102,12 +104,28 @@ public class StatementChecker extends TypeCheckVisitor implements IStatementVisi
 
 	@Override
 	public Boolean visit( VarDeclaration node ) {
+		/*
+		 * If the identifier is already declared, then check if types are compliant.
+		 *     If types are not compliant, report error.
+		 *     If types are compliant, report success.
+		 *
+		 * If the identifier is not declared, then declare it and initialize its type.
+		 */
+
 		if ( this.environment.isDeclared( node.getIdent() ) ) {
-			this.addAlreadyDeclaredError(
-				node.getIdent().getName(),
-				node
-			);
-			return false;
+			Type identType = this.environment.lookupType( node.getIdent() );
+			Type declaredType = node.getType();
+
+			if ( identType.getClass() != declaredType.getClass() ) {
+				this.addAlreadyDeclaredError(
+					node.getIdent().getName(),
+					node
+				);
+
+				return false;
+			}
+
+			return true;
 		}
 
 		this.environment.declareType( node.getIdent(), node.getType() );
@@ -117,28 +135,26 @@ public class StatementChecker extends TypeCheckVisitor implements IStatementVisi
 
 	@Override
 	public Boolean visit( Assignment node ) {
+		if ( !this.environment.isDeclared( node.getIdent() ) ) {
+			Type expressionType = node.getExpression().accept( this.resolver );
+			this.environment.declareType( node.getIdent(), expressionType );
+		}
+
+		if ( !node.getIdent().accept( this.expressionChecker ) ) {
+			return false;
+		}
+
 		if ( !node.getExpression().accept( this.expressionChecker ) ) {
 			return false;
 		}
 
-		if ( this.environment.isDeclared( node.getIdent() ) ) {
-			if ( !node.getIdent().accept( this.expressionChecker ) ) {
-				return false;
-			}
+		Type leftType = node.getIdent().accept( this.resolver );
+		Type rightType = node.getExpression().accept( this.resolver );
 
-			Type leftType = node.getIdent().accept( this.resolver );
-			Type rightType = node.getExpression().accept( this.resolver );
-
-			if ( !leftType.isCompatibleTo( rightType ) ) {
-				this.addIncompatibleTypesError( node.toString(), leftType.toString(), rightType.toString(), node );
-				return false;
-			}
-
-			return true;
+		if ( !leftType.isCompatibleTo( rightType ) ) {
+			this.addIncompatibleTypesError( node.toString(), leftType.toString(), rightType.toString(), node );
+			return false;
 		}
-
-		Type expressionType = node.getExpression().accept( this.resolver );
-		this.environment.declareType( node.getIdent(), expressionType );
 
 		return true;
 	}
@@ -149,12 +165,21 @@ public class StatementChecker extends TypeCheckVisitor implements IStatementVisi
 	}
 
 	@Override
-	public Boolean visit( QuestionDeclaration node ) {
-		if ( !node.getName().accept( this.expressionChecker ) ) {
+	public Boolean visit( QuestionVar node ) {
+		if ( !node.getLabel().accept( this.expressionChecker ) ) {
 			return false;
 		}
 
-		return node.getDeclaration().accept( this );
+		return node.getVarDeclaration().accept( this );
+	}
+
+	@Override
+	public Boolean visit( QuestionComputed node ) {
+		if ( !node.getLabel().accept( this.expressionChecker ) ) {
+			return false;
+		}
+
+		return node.getAssignment().accept( this );
 	}
 
 	@Override

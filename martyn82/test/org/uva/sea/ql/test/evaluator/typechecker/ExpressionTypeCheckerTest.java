@@ -191,6 +191,7 @@ public class ExpressionTypeCheckerTest extends VisitorTest<Boolean> implements I
 		assertTrue( typeCheck( new Add( new Money( .2 ), new Money( 131d ) ) ) );
 
 		assertFalse( typeCheck( new Add( new Bool( false ), new Str( "" ) ) ) );
+		assertFalse( typeCheck( new Add( new Int( 1 ), new Str( "" ) ) ) );
 	}
 
 	@Override

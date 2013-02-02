@@ -1,27 +1,21 @@
 package org.uva.sea.ql;
 
-import org.uva.sea.ql.ast.expression.Expression;
 import org.uva.sea.ql.ast.statement.Statement;
 import org.uva.sea.ql.evaluator.Environment;
 import org.uva.sea.ql.evaluator.Error;
-import org.uva.sea.ql.evaluator.ExpressionEvaluator;
 import org.uva.sea.ql.evaluator.QLEvaluator;
-import org.uva.sea.ql.evaluator.StatementEvaluator;
-import org.uva.sea.ql.evaluator.TypeEvaluator;
-import org.uva.sea.ql.evaluator.typechecker.ExpressionChecker;
 import org.uva.sea.ql.evaluator.typechecker.QLTypeChecker;
-import org.uva.sea.ql.evaluator.typechecker.StatementChecker;
 import org.uva.sea.ql.evaluator.value.Value;
 import org.uva.sea.ql.evaluator.value.form.Form;
 import org.uva.sea.ql.parser.ParseError;
 import org.uva.sea.ql.parser.jacc.QLParser;
 
 public class QLInterpreter {
-	private final Environment environment;
 	private final QLParser parser;
 	private final QLTypeChecker typeChecker;
 	private final QLEvaluator evaluator;
 
+	private Environment environment;
 	private Value result;
 	private Statement ast;
 
@@ -36,25 +30,25 @@ public class QLInterpreter {
 		return this.environment;
 	}
 
-	public Value evaluate( Expression node, Environment environment ) {
-		if ( !node.accept( new ExpressionChecker( environment ) ) ) {
-			this.dumpErrors( environment );
-			return null;
-		}
+	public boolean evaluate( Statement node, Environment environment ) {
+		this.environment = environment;
+		QLEvaluator evaluator = new QLEvaluator( environment );
 
-		return node.accept( new ExpressionEvaluator( environment ) );
+		this.result = node.accept( evaluator );
+
+		return true;
 	}
 
-	public Value evaluate( Statement node, Environment environment ) {
-		StatementChecker checker = new StatementChecker( environment, new ExpressionChecker( environment ) );
+	public boolean typeCheck( Statement node, Environment environment ) {
+		this.environment = environment;
+		QLTypeChecker checker = new QLTypeChecker( environment );
 
 		if ( !node.accept( checker ) ) {
-			this.dumpErrors( environment );
-			return null;
+			this.dumpErrors();
+			return false;
 		}
 
-		StatementEvaluator evaluator = new StatementEvaluator( environment, new ExpressionEvaluator( environment ), new TypeEvaluator() );
-		return node.accept( evaluator );
+		return true;
 	}
 
 	public boolean evaluate( String source ) {
@@ -67,11 +61,13 @@ public class QLInterpreter {
 		}
 
 		if ( !this.ast.accept( this.typeChecker ) ) {
-			this.dumpErrors( this.environment );
+			this.dumpErrors();
 			return false;
 		}
 
+		this.environment.clean();
 		this.result = this.ast.accept( this.evaluator );
+
 		return true;
 	}
 
@@ -79,8 +75,8 @@ public class QLInterpreter {
 		return this.ast;
 	}
 
-	private void dumpErrors( Environment environment ) {
-		for ( Error error : environment.getErrors() ) {
+	private void dumpErrors() {
+		for ( Error error : this.environment.getErrors() ) {
 			System.err.println( error.toString() );
 		}
 	}

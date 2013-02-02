@@ -24,6 +24,10 @@ public class Questions implements Iterable<Question> {
 		this.questions = new LinkedList<Question>();
 	}
 
+	public int size() {
+		return this.questions.size();
+	}
+
 	public void add( Question question ) {
 		this.questions.add( question );
 	}

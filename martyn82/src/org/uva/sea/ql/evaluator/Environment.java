@@ -38,6 +38,15 @@ public class Environment {
 	}
 
 	/**
+	 * Cleans the environment by wiping the types, bindings and errors.
+	 */
+	public void clean() {
+		this.types.clear();
+		this.bindings.clear();
+		this.errors.clear();
+	}
+
+	/**
 	 * Retrieves the error list.
 	 *
 	 * @return Errors
@@ -64,17 +73,6 @@ public class Environment {
 	 */
 	public boolean isDeclared( Ident ident ) {
 		return this.types.containsKey( ident );
-	}
-
-	/**
-	 * Determines whether the given identifier is bound to a value.
-	 *
-	 * @param ident
-	 *
-	 * @return True if it is bound, false otherwise.
-	 */
-	public boolean isBound( Ident ident ) {
-		return this.bindings.containsKey( ident );
 	}
 
 	/**

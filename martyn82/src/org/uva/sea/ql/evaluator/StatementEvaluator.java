@@ -6,7 +6,8 @@ import org.uva.sea.ql.ast.statement.ElseIf;
 import org.uva.sea.ql.ast.statement.ElseIfs;
 import org.uva.sea.ql.ast.statement.FormDeclaration;
 import org.uva.sea.ql.ast.statement.IfThenElse;
-import org.uva.sea.ql.ast.statement.QuestionDeclaration;
+import org.uva.sea.ql.ast.statement.QuestionComputed;
+import org.uva.sea.ql.ast.statement.QuestionVar;
 import org.uva.sea.ql.ast.statement.Statement;
 import org.uva.sea.ql.ast.statement.Statements;
 import org.uva.sea.ql.ast.statement.VarDeclaration;
@@ -38,6 +39,11 @@ public class StatementEvaluator implements IStatementVisitor<Value> {
 	private final TypeEvaluator typeEvaluator;
 
 	/**
+	 * Holds the question list.
+	 */
+	private final Questions questions;
+
+	/**
 	 * Constructs a new statement evaluator instance.
 	 *
 	 * @param environment
@@ -47,9 +53,10 @@ public class StatementEvaluator implements IStatementVisitor<Value> {
 	public StatementEvaluator(
 		Environment environment, ExpressionEvaluator expressionEvaluator, TypeEvaluator typeEvaluator
 	) {
+		this.environment = environment;
 		this.expressionEvaluator = expressionEvaluator;
 		this.typeEvaluator = typeEvaluator;
-		this.environment = environment;
+		this.questions = new Questions();
 	}
 
 	@Override
@@ -75,6 +82,8 @@ public class StatementEvaluator implements IStatementVisitor<Value> {
 			if ( node.hasIfBody() ) {
 				return node.getIfBody().accept( this );
 			}
+
+			return new Undefined();
 		}
 
 		for ( ElseIf elseIf : node.getElseIfs() ) {
@@ -93,7 +102,10 @@ public class StatementEvaluator implements IStatementVisitor<Value> {
 	@Override
 	public Value visit( VarDeclaration node ) {
 		Value value = node.getType().accept( this.typeEvaluator );
-		this.environment.declareVariable( node.getIdent(), value );
+
+		if ( !this.environment.isDeclared( node.getIdent() ) ) {
+			this.environment.declareVariable( node.getIdent(), value );
+		}
 
 		return value;
 	}
@@ -108,40 +120,31 @@ public class StatementEvaluator implements IStatementVisitor<Value> {
 
 	@Override
 	public Value visit( FormDeclaration node ) {
-		Value value;
-		Questions questions = new Questions();
+		node.getStatements().accept( this );
 
-		for ( Statement statement : node.getStatements() ) {
-			value = statement.accept( this );
+		Form form = new Form( node.getIdent(), this.questions );
 
-			if ( value instanceof Question ) {
-				questions.add( (Question) value );
-			}
-		}
-
-		return new Form( node.getIdent(), questions );
+		return form;
 	}
 
 	@Override
-	public Value visit( QuestionDeclaration node ) {
-		Value value;
+	public Value visit( QuestionVar node ) {
+		Value value = node.getVarDeclaration().accept( this );
 
-		if ( node.getDeclaration() instanceof VarDeclaration ) {
-			value = node.getDeclaration().accept( this );
-		}
-		else if ( node.getDeclaration() instanceof Assignment ) {
-			if ( !this.environment.isDeclared( node.getIdent() ) || !this.environment.isBound( node.getIdent() ) ) {
-				value = node.getDeclaration().accept( this );
-			}
-			else {
-				value = node.getIdent().accept( this.expressionEvaluator );
-			}
-		}
-		else {
-			value = new Undefined();
-		}
+		Question question = new Question( node.getLabel().getValue(), node.getVarDeclaration().getIdent(), value );
+		this.questions.add( question );
 
-		return new Question( node.getName().getValue(), node.getIdent(), value );
+		return new Undefined();
+	}
+
+	@Override
+	public Value visit( QuestionComputed node ) {
+		Value value = node.getAssignment().accept( this );
+
+		Question question = new Question( node.getLabel().getValue(), node.getAssignment().getIdent(), value );
+		this.questions.add( question );
+
+		return question;
 	}
 
 	@Override

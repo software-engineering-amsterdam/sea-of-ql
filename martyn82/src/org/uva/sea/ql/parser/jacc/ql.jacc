@@ -73,8 +73,8 @@ import org.uva.sea.ql.ast.statement.*;
  formbody       : statements
                 ;
 
- question       : STR vardeclaration               { $$ = new QuestionDeclaration( $1, $2 ); }
-                | STR assignment                   { $$ = new QuestionDeclaration( $1, $2 ); }
+ question       : STR vardeclaration               { $$ = new QuestionVar( $1, $2 ); }
+                | STR assignment                   { $$ = new QuestionComputed( $1, $2 ); }
                 ;
 
  blockstatement : ifblock

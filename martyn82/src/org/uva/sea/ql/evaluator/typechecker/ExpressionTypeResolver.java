@@ -120,8 +120,8 @@ public class ExpressionTypeResolver extends TypeResolver implements IExpressionV
 
 	@Override
 	public Type visit( Ident node ) {
-		if ( environment.isDeclared( node ) ) {
-			return environment.lookupType( node );
+		if ( this.environment.isDeclared( node ) ) {
+			return this.environment.lookupType( node );
 		}
 
 		return new Undefined();
