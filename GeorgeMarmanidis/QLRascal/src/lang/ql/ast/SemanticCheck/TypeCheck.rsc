@@ -169,8 +169,7 @@ TENV checkExpression(exp:sub(subLeft,subRight),Type req,TENV env)=
 bool isSameType(Expr le,Expr re,TENV env){
 	str leType= toString(getExprType(le,env));
 	str reType= toString(getExprType(re,env));
-	print(leType);
-	print(reType);
+
 	return(startsWith(leType,reType) || startsWith(leType,reType)); 
 }
 
