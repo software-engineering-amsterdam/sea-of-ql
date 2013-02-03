@@ -39,10 +39,21 @@ import org.uva.sea.ql.ast.types.literals.StringLiteral;
 public class BootstrapGenerator implements IVisitor<ST> {
 	private final STGroupFile templateGroup = new STGroupFile("codegeneration/bootstrap.stg", '$', '$');
 	
+	public String generateFrontend(final Form form) {
+		final ST formTemplate = form.accept(this);
+		final STGroupFile index = new STGroupFile("codegeneration/index.stg", '$',  '$');
+		final ST pageTemplate = index.getInstanceOf("page");
+		pageTemplate.add("title", form.getName());
+		pageTemplate.add("fields", formTemplate);
+		return pageTemplate.render();
+	}
+	
 	@Override
 	public ST visit(final Add add) {
-		// TODO Auto-generated method stub
-		return null;
+		final ST st = templateGroup.getInstanceOf("add");
+		st.add("lhs", add.getLeftHandSide().accept(this));
+		st.add("rhs", add.getRightHandSide().accept(this));
+		return st;
 	}
 
 	@Override
@@ -107,26 +118,31 @@ public class BootstrapGenerator implements IVisitor<ST> {
 
 	@Override
 	public ST visit(final Sub sub) {
-		// TODO Auto-generated method stub
-		return null;
+		final ST st = templateGroup.getInstanceOf("sub");
+		st.add("lhs", sub.getLeftHandSide().accept(this));
+		st.add("rhs", sub.getRightHandSide().accept(this));
+		return st;
 	}
 
 	@Override
 	public ST visit(final Neg neg) {
-		// TODO Auto-generated method stub
-		return null;
+		final ST st = templateGroup.getInstanceOf("neg");
+		st.add("expression", neg.getExpression().accept(this));
+		return st;
 	}
 
 	@Override
 	public ST visit(final Not not) {
-		// TODO Auto-generated method stub
-		return null;
+		final ST st = templateGroup.getInstanceOf("not");
+		st.add("expression", not.getExpression().accept(this));
+		return st;
 	}
 
 	@Override
 	public ST visit(final Pos pos) {
-		// TODO Auto-generated method stub
-		return null;
+		final ST st = templateGroup.getInstanceOf("pos");
+		st.add("expression", pos.getExpression().accept(this));
+		return st;
 	}
 
 	@Override
@@ -137,10 +153,8 @@ public class BootstrapGenerator implements IVisitor<ST> {
 
 	@Override
 	public ST visit(final Form form) {
-		ST st = templateGroup.getInstanceOf("form");
-		// st.add("${form.fields}", form.getElements().get(0).accept(this));
+		final ST st = templateGroup.getInstanceOf("form");
 		st.add("fields", getFilledFormTemplates(form.getElements()));
-		System.out.println(st.render());
 		return st;
 	}
 	
@@ -193,7 +207,7 @@ public class BootstrapGenerator implements IVisitor<ST> {
 
 	@Override
 	public ST visit(final IntLiteral i) {
-		// TODO Auto-generated method stub
+
 		return null;
 	}
 
@@ -205,8 +219,9 @@ public class BootstrapGenerator implements IVisitor<ST> {
 
 	@Override
 	public ST visit(final StringLiteral literal) {
-		// TODO Auto-generated method stub
-		return null;
+		final ST st = templateGroup.getInstanceOf("stringliteral");
+		st.add("literal", literal.getValue());
+		return st;
 	}
 
 	@Override

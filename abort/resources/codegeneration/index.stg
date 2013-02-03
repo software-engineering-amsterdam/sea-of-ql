@@ -1,13 +1,10 @@
-group codegeneration;
-
+page(title, fields) ::= <<
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>QL - ${page.title}</title>
+    <title>QL - $title$</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <!-- CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <style type="text/css">
 
@@ -71,10 +68,11 @@ group codegeneration;
   <div id="wrap">
       <div class="container">
         <div class="page-header">
-          <h1>${form.name}</h1>
+          <h1>$title$</h1>
         </div>
         <p class="lead">Generated form :).</p>
         <div id="contents">
+        	$fields$
         </div>
       </div>
       <div id="push"></div>
@@ -90,3 +88,4 @@ group codegeneration;
       <script src="http://code.jquery.com/jquery-latest.js"></script>
     <script src="js/bootstrap.min.js"></script>
 </html>
+>>

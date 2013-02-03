@@ -124,9 +124,10 @@ public class TestTypeChecker extends TestBase {
 	public void printErrorLog() throws FileNotFoundException {
 		typeChecker.getErrorLog().write(System.err);
 		typeChecker.getEventLog().write(System.out);
-		
-		
-		
-		validForm.accept(new BootstrapGenerator());
+	}
+	
+	@Test
+	public void testTemplate() {
+		System.out.println(new BootstrapGenerator().generateFrontend(validForm));
 	}
 }

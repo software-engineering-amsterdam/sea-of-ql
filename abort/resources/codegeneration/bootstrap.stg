@@ -26,3 +26,9 @@ question_bool(id, text) ::= <<
             </label>
           </div>
 >>
+pos(expression) ::= "Math.abs($expression$)"
+neg(expression) ::= "-Math.abs($expression$)"
+add(lhs, rhs) ::= "$lhs$ + $rhs$"
+sub(lhs, rhs) ::= "$lhs$ - $rhs$"
+stringliteral(literal) ::= "\"$literal$\""
+moneyliteral(literal) ::= "new BigDecimal(\"$literal$\")"
