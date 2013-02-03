@@ -14,10 +14,10 @@ syntax Rule
   | widget: "widget:" WidgetType widget 
   | minInt: "minimum:" Int val 
   | maxInt: "maximum:" Int val 
-  | stepInt: "stepSize:" Int val
+  | stepInt: "stepSize:" IntNumber val
   | minFloat: "minimum:" Float val 
   | maxFloat: "maximum:" Float val 
-  | stepFloat: "stepSize:" Float val
+  | stepFloat: "stepSize:" FloatNumber val
   | minDate: "minimum:" Date val 
   | maxDate: "maximum:" Date val; 
   

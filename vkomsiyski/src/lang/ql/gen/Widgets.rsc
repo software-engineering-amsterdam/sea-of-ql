@@ -87,7 +87,7 @@ public str setValue(Type t:float(_), str name, str val) = "\n\t\t<name>Widget.se
 
 public str submitWidget(str name, Declarations d) = "
 \t\tif (<name>Widget.isVisible())
-\t\t\tobj.put(\"<name>\", <unparse(ident(name), d)>);"; 
+\t\t\tobj.put(\"<name>\", <unparse(ident(name), d)>);\n"; 
 
 
 

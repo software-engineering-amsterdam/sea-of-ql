@@ -17,6 +17,9 @@ import java.io.*;
 
 public class StyledFormGUI extends QWidget {
 
+	QGroupBox groupBox;
+	QGridLayout groupBoxLayout;
+	List\<QLabel\> groupLabels = new ArrayList\<QLabel\>();
 	List\<QLabel\> labels = new ArrayList\<QLabel\>();
  	Map\<QLabel, Boolean\> visibilityMap = new HashMap\<QLabel, Boolean\>();
 ";
@@ -40,12 +43,24 @@ public str addBody1() = "
 public str addTitle(str name) = "
 		setWindowTitle(\"<name>\");";
 
-public str addBody2() = "	 
+public str addBody2() = "\n
+		int labelMinWidth = 0, widgetMinWidth = 0;	
 	 	for (int i = 0; i \< labels.size(); i++) {
+	 		 labels.get(i).setVisible(true);
+			labels.get(i).buddy().setVisible(true);
 	 		layout.addWidget(labels.get(i), i, 0,  Qt.AlignmentFlag.AlignRight);
 	 		layout.addWidget(labels.get(i).buddy(), i, 1,  Qt.AlignmentFlag.AlignLeft);
+			if (labels.get(i).width() \> labelMinWidth) 
+	 			labelMinWidth = labels.get(i).width();
+	 		if (labels.get(i).buddy().width() \> widgetMinWidth)
+	 			widgetMinWidth = labels.get(i).buddy().width();
 	 	}
-	 	
+		layout.setColumnMinimumWidth(0, labelMinWidth);
+		layout.setColumnMinimumWidth(1, widgetMinWidth);
+
+";
+
+public str addBody3() = "\n
 	 	updateVisibility();
 	 	layout.addWidget(submitButton, labels.size(), 0, 1, 2, Qt.AlignmentFlag.AlignCenter);
 	}
@@ -60,7 +75,7 @@ public str addBody2() = "
 	private void onChanged() {
 ";
 
-public str addBody3() = "
+public str addBody4() = "
 		updateVisibility();
 	}
 	 	
@@ -85,7 +100,7 @@ public str addBody3() = "
 ";
 	
 	
-public str addBody4() = "	
+public str addBody5() = "	
 		System.out.println(obj);
 		PrintWriter out = null;
 		try{

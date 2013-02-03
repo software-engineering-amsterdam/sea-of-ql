@@ -1,5 +1,5 @@
 @contributor{George Marmanidis -geo.marmani@gmail.com}
-module lang::ql::tests::ASTTests::TestExpressions
+module lang::ql::tests::TestExpressions
 
 import lang::ql::syntax::QL;
 import ParseTree;

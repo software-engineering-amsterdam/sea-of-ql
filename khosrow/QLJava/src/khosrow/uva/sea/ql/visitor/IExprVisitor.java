@@ -21,7 +21,6 @@ public interface IExprVisitor<T> {
 	public T visit(Or ast);
 	public T visit(Pos ast);	
 	public T visit(Sub ast);
-	public T visit(Unary ast);
 	public T visit(IntLiteral ast);
 	public T visit(BoolLiteral ast);	
 	public T visit(MoneyLiteral ast);

@@ -13,17 +13,17 @@ public class Env {
 		this.types = new HashMap<Ident, Type>();
 	}
 	
-	public boolean Contains(Ident name) {
+	public boolean contains(Ident name) {
 		if (types.containsKey(name)) 
 			return true;		
 		return false;
 	}
 	
-	public Type TypeOf(Ident name) {
+	public Type typeOf(Ident name) {
 		return types.get(name);
 	}
 	
-	public void DeclareType(Ident name, Type type) {
+	public void declareType(Ident name, Type type) {
 		types.put(name, type);
 	}
 }

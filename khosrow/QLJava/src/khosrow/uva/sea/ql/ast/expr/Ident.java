@@ -15,11 +15,23 @@ public class Ident extends Expr {
 	public String getName() {
 		return name;
 	}
+	
+	@Override
+	public int hashCode() {
+		return name.hashCode();
+	}	
+
+	@Override
+	public boolean equals(Object obj) {
+		if (!(obj instanceof Ident))
+			return false;
+		return name.equals(((Ident)obj).name);
+	}
 
 	@Override
 	public Type typeOf(Env typeEnv) {
-		if(typeEnv.Contains(this))
-			return typeEnv.TypeOf(this);
+		if(typeEnv.contains(this))
+			return typeEnv.typeOf(this);
 		return new QlError("undefined identifier: " + name);
 	}
 	

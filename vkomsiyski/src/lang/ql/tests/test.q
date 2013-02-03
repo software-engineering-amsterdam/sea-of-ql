@@ -12,4 +12,4 @@ form teerrst {
    date DateQ = "Enter your birthday:" 
    bool over = "You are at least 18 yo" (DateQ <=  28.1.1994)
     
-}  
+}   

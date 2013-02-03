@@ -30,8 +30,8 @@ public class ExprTypeChecker implements IExprVisitor<Boolean> {
 		
 		if (!(checkLhs && checkRhs))
 			return false;
-		Type lhsType = ast.typeOf(typeEnv);
-		Type rhsType = ast.typeOf(typeEnv);
+		Type lhsType = ast.getLhs().typeOf(typeEnv);
+		Type rhsType = ast.getRhs().typeOf(typeEnv);
 		
 		if (!(lhsType.isCompatibleToNumeric()
 				&& rhsType.isCompatibleToNumeric())) {
@@ -43,127 +43,285 @@ public class ExprTypeChecker implements IExprVisitor<Boolean> {
 
 	@Override
 	public Boolean visit(And ast) {
-		// TODO Auto-generated method stub
-		return null;
+		boolean checkLhs = ast.getLhs().accept(this);
+		boolean checkRhs = ast.getRhs().accept(this);
+		
+		if (!(checkLhs && checkRhs))
+			return false;
+		Type lhsType = ast.getLhs().typeOf(typeEnv);
+		Type rhsType = ast.getRhs().typeOf(typeEnv);
+		
+		if (!(lhsType.isCompatibleToBool()
+				&& rhsType.isCompatibleToBool())) {
+			addToErrorList(ast, "invalid type for &&");
+			return false;
+		}			 
+		return true;
 	}
 
 	@Override
 	public Boolean visit(Div ast) {
-		// TODO Auto-generated method stub
-		return null;
+		boolean checkLhs = ast.getLhs().accept(this);
+		boolean checkRhs = ast.getRhs().accept(this);
+		
+		if (!(checkLhs && checkRhs))
+			return false;
+		Type lhsType = ast.getLhs().typeOf(typeEnv);
+		Type rhsType = ast.getRhs().typeOf(typeEnv);
+		
+		if (!(lhsType.isCompatibleToNumeric()
+				&& rhsType.isCompatibleToNumeric())) {
+			addToErrorList(ast, "invalid type for /");
+			return false;
+		}			 
+		return true;
 	}
 
 	@Override
 	public Boolean visit(Eq ast) {
-		// TODO Auto-generated method stub
-		return null;
+		boolean checkLhs = ast.getLhs().accept(this);
+		boolean checkRhs = ast.getRhs().accept(this);
+		
+		if (!(checkLhs && checkRhs))
+			return false;
+		Type lhsType = ast.getLhs().typeOf(typeEnv);
+		Type rhsType = ast.getRhs().typeOf(typeEnv);
+		
+		if (!lhsType.isCompatibleTo(rhsType)) {
+			addToErrorList(ast, "invalid type for ==");
+			return false;
+		}			 
+		return true;
 	}
 
 	@Override
+	public Boolean visit(NEq ast) {
+		boolean checkLhs = ast.getLhs().accept(this);
+		boolean checkRhs = ast.getRhs().accept(this);
+		
+		if (!(checkLhs && checkRhs))
+			return false;
+		Type lhsType = ast.getLhs().typeOf(typeEnv);
+		Type rhsType = ast.getRhs().typeOf(typeEnv);
+		
+		if (!lhsType.isCompatibleTo(rhsType)) {
+			addToErrorList(ast, "invalid type for !=");
+			return false;
+		}			 
+		return true;
+	}
+	
+	@Override
 	public Boolean visit(GEq ast) {
-		// TODO Auto-generated method stub
-		return null;
+		boolean checkLhs = ast.getLhs().accept(this);
+		boolean checkRhs = ast.getRhs().accept(this);
+		
+		if (!(checkLhs && checkRhs))
+			return false;
+		Type lhsType = ast.getLhs().typeOf(typeEnv);
+		Type rhsType = ast.getRhs().typeOf(typeEnv);
+		
+		if (!lhsType.isCompatibleTo(rhsType)) {
+			addToErrorList(ast, "invalid type for >=");
+			return false;
+		}			 
+		return true;
 	}
 
 	@Override
 	public Boolean visit(GT ast) {
-		// TODO Auto-generated method stub
-		return null;
+		boolean checkLhs = ast.getLhs().accept(this);
+		boolean checkRhs = ast.getRhs().accept(this);
+		
+		if (!(checkLhs && checkRhs))
+			return false;
+		Type lhsType = ast.getLhs().typeOf(typeEnv);
+		Type rhsType = ast.getRhs().typeOf(typeEnv);
+		
+		if (!lhsType.isCompatibleTo(rhsType)) {
+			addToErrorList(ast, "invalid type for >");
+			return false;
+		}			 
+		return true;
 	}
 
 	@Override
-	public Boolean visit(Ident ast) {		
+	public Boolean visit(Ident ast) {
 		return true;
 	}
 
 	@Override
 	public Boolean visit(LEq ast) {
-		// TODO Auto-generated method stub
-		return null;
+		boolean checkLhs = ast.getLhs().accept(this);
+		boolean checkRhs = ast.getRhs().accept(this);
+		
+		if (!(checkLhs && checkRhs))
+			return false;
+		Type lhsType = ast.getLhs().typeOf(typeEnv);
+		Type rhsType = ast.getRhs().typeOf(typeEnv);
+		
+		if (!lhsType.isCompatibleTo(rhsType)) {
+			addToErrorList(ast, "invalid type for <=");
+			return false;
+		}			 
+		return true;
 	}
 
 	@Override
 	public Boolean visit(LT ast) {
-		// TODO Auto-generated method stub
-		return null;
+		boolean checkLhs = ast.getLhs().accept(this);
+		boolean checkRhs = ast.getRhs().accept(this);
+		
+		if (!(checkLhs && checkRhs))
+			return false;
+		Type lhsType = ast.getLhs().typeOf(typeEnv);
+		Type rhsType = ast.getRhs().typeOf(typeEnv);
+		
+		if (!lhsType.isCompatibleTo(rhsType)) {
+			addToErrorList(ast, "invalid type for <");
+			return false;
+		}			 
+		return true;
 	}
 
 	@Override
 	public Boolean visit(Mod ast) {
-		// TODO Auto-generated method stub
-		return null;
+		boolean checkLhs = ast.getLhs().accept(this);
+		boolean checkRhs = ast.getRhs().accept(this);
+		
+		if (!(checkLhs && checkRhs))
+			return false;
+		Type lhsType = ast.getLhs().typeOf(typeEnv);
+		Type rhsType = ast.getRhs().typeOf(typeEnv);
+		
+		if (!(lhsType.isCompatibleToNumeric()
+				&& rhsType.isCompatibleToNumeric())) {
+			addToErrorList(ast, "invalid type for %");
+			return false;
+		}			 
+		return true;
 	}
 
 	@Override
 	public Boolean visit(Mul ast) {
-		// TODO Auto-generated method stub
-		return null;
+		boolean checkLhs = ast.getLhs().accept(this);
+		boolean checkRhs = ast.getRhs().accept(this);
+		
+		if (!(checkLhs && checkRhs))
+			return false;
+		Type lhsType = ast.getLhs().typeOf(typeEnv);
+		Type rhsType = ast.getRhs().typeOf(typeEnv);
+		
+		if (!(lhsType.isCompatibleToNumeric()
+				&& rhsType.isCompatibleToNumeric())) {
+			addToErrorList(ast, "invalid type for *");
+			return false;
+		}			 
+		return true;
 	}
 
 	@Override
 	public Boolean visit(Neg ast) {
-		// TODO Auto-generated method stub
-		return null;
+		boolean checkArg = ast.getArg().accept(this);
+		
+		if (!checkArg)
+			return false;
+		
+		Type argType = ast.getArg().typeOf(typeEnv);
+		
+		if (!argType.isCompatibleToNumeric()) {
+			addToErrorList(ast, "invalid type for unary -");
+			return false;
+		}
+		return true;
 	}
-
+	
 	@Override
-	public Boolean visit(NEq ast) {
-		// TODO Auto-generated method stub
-		return null;
+	public Boolean visit(Pos ast) {
+		boolean checkArg = ast.getArg().accept(this);
+		
+		if (!checkArg)
+			return false;
+		
+		Type argType = ast.getArg().typeOf(typeEnv);
+		
+		if (!argType.isCompatibleToNumeric()) {
+			addToErrorList(ast, "invalid type for unary +");
+			return false;
+		}
+		return true;
 	}
-
+	
 	@Override
 	public Boolean visit(Not ast) {
-		// TODO Auto-generated method stub
-		return null;
+		boolean checkArg = ast.getArg().accept(this);
+		
+		if (!checkArg)
+			return false;
+		
+		Type argType = ast.getArg().typeOf(typeEnv);
+		
+		if (!argType.isCompatibleToBool()) {
+			addToErrorList(ast, "invalid type for !");
+			return false;
+		}
+		return true;
 	}
 
 	@Override
 	public Boolean visit(Or ast) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Boolean visit(Pos ast) {
-		// TODO Auto-generated method stub
-		return null;
+		boolean checkLhs = ast.getLhs().accept(this);
+		boolean checkRhs = ast.getRhs().accept(this);
+		
+		if (!(checkLhs && checkRhs))
+			return false;
+		Type lhsType = ast.getLhs().typeOf(typeEnv);
+		Type rhsType = ast.getRhs().typeOf(typeEnv);
+		
+		if (!(lhsType.isCompatibleToBool()
+				&& rhsType.isCompatibleToBool())) {
+			addToErrorList(ast, "invalid type for ||");
+			return false;
+		}			 
+		return true;
 	}
 
 	@Override
 	public Boolean visit(Sub ast) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Boolean visit(Unary ast) {
-		// TODO Auto-generated method stub
-		return null;
+		boolean checkLhs = ast.getLhs().accept(this);
+		boolean checkRhs = ast.getRhs().accept(this);
+		
+		if (!(checkLhs && checkRhs))
+			return false;
+		Type lhsType = ast.getLhs().typeOf(typeEnv);
+		Type rhsType = ast.getRhs().typeOf(typeEnv);
+		
+		if (!(lhsType.isCompatibleToNumeric()
+				&& rhsType.isCompatibleToNumeric())) {
+			addToErrorList(ast, "invalid type for -");
+			return false;
+		}			 
+		return true;
 	}
 
 	@Override
 	public Boolean visit(IntLiteral ast) {
-		// TODO Auto-generated method stub
-		return null;
+		return true;
 	}
 
 	@Override
-	public Boolean visit(BoolLiteral ast) {
-		// TODO Auto-generated method stub
-		return null;
+	public Boolean visit(BoolLiteral ast) {		
+		return true;
 	}
 
 	@Override
 	public Boolean visit(MoneyLiteral ast) {
-		// TODO Auto-generated method stub
-		return null;
+		return true;
 	}
 
 	@Override
 	public Boolean visit(StringLiteral ast) {
-		// TODO Auto-generated method stub
-		return null;
+		return true;
 	}
 	
 	private void addToErrorList(ASTNode ast, String message) {
