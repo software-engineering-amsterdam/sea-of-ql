@@ -6,7 +6,7 @@ import org.uva.sea.ql.ast.nodevisitor.Visitor;
 import org.uva.sea.ql.ast.nodevisitor.VisitorResult;
 import org.uva.sea.ql.ast.operators.ExpressionResult;
 import org.uva.sea.ql.ast.operators.IntegerResult;
-import org.uva.sea.ql.ast.types.NumeralType;
+import org.uva.sea.ql.ast.types.IntegerType;
 import org.uva.sea.ql.ast.types.TypeDescription;
 
 public class IntLiteral extends Expr {
@@ -28,7 +28,7 @@ public class IntLiteral extends Expr {
 
 	@Override
 	public TypeDescription typeOf(HashMap<String, Statement> typeEnv) {
-		return new NumeralType();
+		return new IntegerType();
 	}
 
 	@Override
