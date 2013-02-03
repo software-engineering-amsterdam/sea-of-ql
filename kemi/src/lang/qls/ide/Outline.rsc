@@ -27,11 +27,11 @@ private node outline(Stylesheet s) =
     "Stylesheet",
     "stylesheet <s.ident>",
     s@location,
-    [outline(st) | st <- s.statements]
+    [outline(st) | st <- s.definitions]
   );
 
-private node outline(Statement s:
-  statement(definition)) =
+private node outline(Definition s:
+  definition(definition)) =
     outline(definition);
 
 private node outline(PageDefinition d) =

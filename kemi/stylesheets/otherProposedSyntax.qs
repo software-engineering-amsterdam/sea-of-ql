@@ -29,6 +29,10 @@ stylesheet testStylesheet {
       type checkbox
     }
     
+    default boolean {
+      width 300
+    }
+    
   }
   
   page "page 2" {

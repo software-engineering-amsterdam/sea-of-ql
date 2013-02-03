@@ -1,7 +1,7 @@
 module lang::qls::syntax::QLS
 
 start syntax Stylesheet
-  = stylesheet: "stylesheet" Ident "{" Statement* statements "}"
+  = stylesheet: "stylesheet" Ident "{" Definition* definitions "}"
   ;
 
 
@@ -10,11 +10,11 @@ lexical Ident
   ;
 
 
-syntax Statement
-  = @Foldable statement: PageDefinition
-  | @Foldable statement: SectionDefinition
-  | @Foldable statement: QuestionDefinition
-  | @Foldable statement: DefaultDefinition
+syntax Definition
+  = @Foldable definition: PageDefinition
+  | @Foldable definition: SectionDefinition
+  | @Foldable definition: QuestionDefinition
+  | @Foldable definition: DefaultDefinition
   ;
 
 

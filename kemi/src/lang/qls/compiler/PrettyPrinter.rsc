@@ -4,13 +4,13 @@ import lang::qls::ast::AST;
 
 
 public str prettyPrint(Stylesheet s) =
-  "stylesheet <s.ident> {<for(st <- s.statements) {>
+  "stylesheet <s.ident> {<for(st <- s.definitions) {>
   '  <prettyPrint(st)><}>
   '}
   '";
 
-public str prettyPrint(Statement s:
-  statement(definition)) =
+public str prettyPrint(Definition s:
+  definition(definition)) =
     prettyPrint(definition);
 
 public str prettyPrint(PageDefinition d) =

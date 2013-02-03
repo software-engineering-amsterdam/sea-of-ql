@@ -1,14 +1,14 @@
 module lang::qls::ast::AST
 
 data Stylesheet
-  = stylesheet(str ident, list[Statement] statements)
+  = stylesheet(str ident, list[Definition] definitions)
   ;
 
-data Statement
-  = statement(PageDefinition pageDefinition)
-  | statement(SectionDefinition sectionDefinition)
-  | statement(QuestionDefinition questionDefinition)
-  | statement(DefaultDefinition defaultDefinition)
+data Definition
+  = definition(PageDefinition pageDefinition)
+  | definition(SectionDefinition sectionDefinition)
+  | definition(QuestionDefinition questionDefinition)
+  | definition(DefaultDefinition defaultDefinition)
   ;
 
 data PageDefinition
@@ -51,7 +51,7 @@ data TypeStyleValue
   ;
 
 anno loc Stylesheet@location;
-anno loc Statement@location;
+anno loc Definition@location;
 anno loc PageDefinition@location;
 anno loc PageRule@location;
 anno loc SectionDefinition@location;
