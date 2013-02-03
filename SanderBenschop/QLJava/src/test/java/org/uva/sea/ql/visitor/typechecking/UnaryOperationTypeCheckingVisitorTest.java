@@ -7,7 +7,7 @@ import org.uva.sea.ql.ast.primary.Bool;
 import org.uva.sea.ql.ast.primary.Ident;
 import org.uva.sea.ql.ast.primary.Int;
 import org.uva.sea.ql.ast.unary.Not;
-import org.uva.sea.ql.visitor.typechecking.errors.UnsupportedTypeError;
+import org.uva.sea.ql.visitor.typechecking.error.UnsupportedTypeError;
 
 import static junit.framework.Assert.*;
 

@@ -3,6 +3,7 @@ package org.uva.sea.ql.visitor.typechecking;
 import org.uva.sea.ql.ast.Form;
 import org.uva.sea.ql.ast.QLExpression;
 import org.uva.sea.ql.ast.QLStatement;
+import org.uva.sea.ql.ast.SourceCodeInformation;
 import org.uva.sea.ql.ast.binary.*;
 import org.uva.sea.ql.ast.primary.Bool;
 import org.uva.sea.ql.ast.primary.Ident;
@@ -18,9 +19,9 @@ import org.uva.sea.ql.ast.unary.Positive;
 import org.uva.sea.ql.ast.unary.UnaryOperation;
 import org.uva.sea.ql.visitor.ASTNodeVisitor;
 import org.uva.sea.ql.visitor.QLError;
-import org.uva.sea.ql.visitor.typechecking.errors.IdentifierRedeclarationError;
-import org.uva.sea.ql.visitor.typechecking.errors.UnequalTypesError;
-import org.uva.sea.ql.visitor.typechecking.errors.UnsupportedTypeError;
+import org.uva.sea.ql.visitor.typechecking.error.IdentifierRedeclarationError;
+import org.uva.sea.ql.visitor.typechecking.error.UnequalTypesError;
+import org.uva.sea.ql.visitor.typechecking.error.UnsupportedTypeError;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,29 +45,32 @@ public class TypeCheckingVisitor implements ASTNodeVisitor<Boolean> {
 
     @Override
     public Boolean visitForm(Form form) {
+        boolean correctForm = true;
         for (QLStatement formStatement : form.getStatements()) {
-            formStatement.accept(this);
+            boolean correctStatement = formStatement.accept(this);
+            if (!correctStatement && correctForm) correctForm = false;
         }
-        return true;
+        return correctForm;
     }
 
     @Override
     public Boolean visitComputation(Computation computation) {
         Type expectedType = new IntegerType();
+        QLExpression expression = computation.getExpression();
 
         boolean identifierPreviouslyUndeclared = (!symbolTable.containsReductionFor(computation.getIdentifier()));
-        boolean expressionCorrect = computation.getExpression().accept(this);
+        boolean expressionCorrect = expression.accept(this);
 
         if (!(identifierPreviouslyUndeclared && expressionCorrect)) {
             return false;
         }
 
-        Type expressionType = computation.getExpression().getType(symbolTable);
+        Type expressionType = expression.getType(symbolTable);
         if (expressionType.isCompatibleTo(expectedType)){
             symbolTable.setReducableToType(computation.getIdentifier(), expectedType);
             return true;
         } else {
-            addErrorForUnsupportedType(expectedType, expressionType);
+            addErrorForUnsupportedType(expression.getSourceCodeInformation(), expectedType, expressionType);
         }
 
         return false;
@@ -74,36 +78,42 @@ public class TypeCheckingVisitor implements ASTNodeVisitor<Boolean> {
 
     @Override
     public Boolean visitIfStatement(IfStatement ifStatement) {
+        boolean correctStatementBody = true;
         for (QLStatement successBlockStatement : ifStatement.getSuccessBlock()) {
-            successBlockStatement.accept(this);
+            boolean correctStatement = successBlockStatement.accept(this);
+            if (!correctStatement && correctStatementBody) correctStatementBody = false;
         }
 
-        return typeCheckConditional(ifStatement);
+        return typeCheckConditional(ifStatement) && correctStatementBody;
     }
 
     @Override
     public Boolean visitIfElseStatement(IfElseStatement ifElseStatement) {
+        boolean correctStatementBodies = true;
         for (QLStatement successBlockStatement : ifElseStatement.getSuccessBlock()) {
-            successBlockStatement.accept(this);
+            boolean correctStatement = successBlockStatement.accept(this);
+            if (!correctStatement && correctStatementBodies) correctStatementBodies = false;
         }
 
         for (QLStatement failureBlockStatement : ifElseStatement.getFailureBlock()) {
-            failureBlockStatement.accept(this);
+            boolean correctStatement = failureBlockStatement.accept(this);
+            if (!correctStatement && correctStatementBodies) correctStatementBodies = false;
         }
 
-        return typeCheckConditional(ifElseStatement);
+        return typeCheckConditional(ifElseStatement) && correctStatementBodies;
     }
 
     private boolean typeCheckConditional(Conditional conditional) {
         Type expectedType = new BooleanType();
-        boolean condition = conditional.getCondition().accept(this);
-        if (!condition) {
+        QLExpression condition = conditional.getCondition();
+        boolean conditionValid = condition.accept(this);
+        if (!conditionValid) {
             return false;
         }
 
-        Type conditionType = conditional.getCondition().getType(symbolTable);
+        Type conditionType = condition.getType(symbolTable);
         if (!conditionType.isCompatibleTo(expectedType)) {
-            addErrorForUnsupportedType(expectedType, conditionType);
+            addErrorForUnsupportedType(condition.getSourceCodeInformation(), expectedType, conditionType);
             return false;
         }
 
@@ -124,22 +134,20 @@ public class TypeCheckingVisitor implements ASTNodeVisitor<Boolean> {
 
     @Override
     public Boolean visitPositive(Positive positive) {
-        return typeCheckUnaryOperation(positive);
+        return typeCheckUnaryOperation(positive, new IntegerType());
     }
 
     @Override
     public Boolean visitNegative(Negative negative) {
-        return typeCheckUnaryOperation(negative);
+        return typeCheckUnaryOperation(negative, new IntegerType());
     }
 
     @Override
     public Boolean visitNot(Not not) {
-        return typeCheckUnaryOperation(not);
+        return typeCheckUnaryOperation(not, new BooleanType());
     }
 
-    private boolean typeCheckUnaryOperation(UnaryOperation unaryOperation) {
-        Type expectedType = unaryOperation.getType(symbolTable);
-
+    private boolean typeCheckUnaryOperation(UnaryOperation unaryOperation, Type expectedType) {
         boolean innerExpressionCorrect = unaryOperation.getExpression().accept(this);
         if (!innerExpressionCorrect) {
             return false;
@@ -147,7 +155,7 @@ public class TypeCheckingVisitor implements ASTNodeVisitor<Boolean> {
 
         Type innerExpressionType = unaryOperation.getExpression().getType(symbolTable);
         if (!innerExpressionType.isCompatibleTo(expectedType)) {
-            addErrorForUnsupportedType(expectedType, innerExpressionType);
+            addErrorForUnsupportedType(unaryOperation.getSourceCodeInformation(), expectedType, innerExpressionType);
             return false;
         }
 
@@ -156,32 +164,32 @@ public class TypeCheckingVisitor implements ASTNodeVisitor<Boolean> {
 
     @Override
     public Boolean visitMultiply(Multiply multiply) {
-        return typeCheckBinaryOperation(multiply);
+        return typeCheckBinaryOperation(multiply, new IntegerType());
     }
 
     @Override
     public Boolean visitDivide(Divide divide) {
-        return typeCheckBinaryOperation(divide);
+        return typeCheckBinaryOperation(divide, new IntegerType());
     }
 
     @Override
     public Boolean visitSubtract(Subtract subtract) {
-        return typeCheckBinaryOperation(subtract);
+        return typeCheckBinaryOperation(subtract, new IntegerType());
     }
 
     @Override
     public Boolean visitAdd(Add add) {
-        return typeCheckBinaryOperation(add);
+        return typeCheckBinaryOperation(add, new IntegerType());
     }
 
     @Override
     public Boolean visitAnd(And and) {
-        return typeCheckBinaryOperation(and);
+        return typeCheckBinaryOperation(and, new BooleanType());
     }
 
     @Override
     public Boolean visitOr(Or or) {
-        return typeCheckBinaryOperation(or);
+        return typeCheckBinaryOperation(or, new BooleanType());
     }
 
     @Override
@@ -196,27 +204,25 @@ public class TypeCheckingVisitor implements ASTNodeVisitor<Boolean> {
 
     @Override
     public Boolean visitGreaterThan(GreaterThan greaterThan) {
-        return typeCheckBinaryOperation(greaterThan);
+        return typeCheckBinaryOperation(greaterThan, new IntegerType());
     }
 
     @Override
     public Boolean visitGreaterThanOrEqualTo(GreaterThanOrEqualTo greaterThanOrEqualTo) {
-        return typeCheckBinaryOperation(greaterThanOrEqualTo);
+        return typeCheckBinaryOperation(greaterThanOrEqualTo, new IntegerType());
     }
 
     @Override
     public Boolean visitLessThan(LessThan lessThan) {
-        return typeCheckBinaryOperation(lessThan);
+        return typeCheckBinaryOperation(lessThan, new IntegerType());
     }
 
     @Override
     public Boolean visitLessThanOrEqualTo(LessThanOrEqualTo lessThanOrEqualTo) {
-        return typeCheckBinaryOperation(lessThanOrEqualTo);
+        return typeCheckBinaryOperation(lessThanOrEqualTo, new IntegerType());
     }
 
-    private boolean typeCheckBinaryOperation(BinaryOperation binaryOperation) {
-        Type expectedType = binaryOperation.getType(symbolTable);
-
+    private boolean typeCheckBinaryOperation(BinaryOperation binaryOperation, Type expectedType) {
         QLExpression leftHandSide = binaryOperation.getLeftHandSide(), rightHandSide = binaryOperation.getRightHandSide();
 
         boolean leftHandSideCorrect = leftHandSide.accept(this), rightHandSideCorrect = rightHandSide.accept(this);
@@ -229,11 +235,11 @@ public class TypeCheckingVisitor implements ASTNodeVisitor<Boolean> {
         boolean leftHandSideCompatible = leftHandSideType.isCompatibleTo(expectedType), rightHandSideCompatible = rightHandSideType.isCompatibleTo(expectedType);
 
         if(!leftHandSideCompatible) {
-            addErrorForUnsupportedType(expectedType, leftHandSideType);
+            addErrorForUnsupportedType(binaryOperation.getSourceCodeInformation(), expectedType, leftHandSideType);
         }
 
         if(!rightHandSideCompatible) {
-            addErrorForUnsupportedType(expectedType, rightHandSideType);
+            addErrorForUnsupportedType(binaryOperation.getSourceCodeInformation(), expectedType, rightHandSideType);
         }
 
         return leftHandSideCompatible && rightHandSideCompatible;
@@ -281,18 +287,19 @@ public class TypeCheckingVisitor implements ASTNodeVisitor<Boolean> {
         return semanticValidationErrors;
     }
 
-    private void addErrorForUnsupportedType(Type expectedType, Type actualType) {
-        QLError unsupportedTypeError = new UnsupportedTypeError(0, expectedType, actualType);
+    private void addErrorForUnsupportedType(SourceCodeInformation sourceCodeInformation, Type expectedType, Type actualType) {
+        QLError unsupportedTypeError = new UnsupportedTypeError(sourceCodeInformation, expectedType, actualType);
         semanticValidationErrors.add(unsupportedTypeError);
     }
 
     private void addErrorForUnequalTypes(BinaryOperation binaryOperation) {
-        QLError unequalTypesError = new UnequalTypesError(0, binaryOperation);
+        Type leftHandType = binaryOperation.getLeftHandSide().getType(symbolTable), rightHandType = binaryOperation.getRightHandSide().getType(symbolTable);
+        QLError unequalTypesError = new UnequalTypesError(binaryOperation.getSourceCodeInformation(), leftHandType, rightHandType);
         semanticValidationErrors.add(unequalTypesError);
     }
 
     private void addErrorForIdentifierRedeclaration(Ident ident) {
-        QLError identifierRedeclarationError = new IdentifierRedeclarationError(0, ident.getName());
+        QLError identifierRedeclarationError = new IdentifierRedeclarationError(ident.getSourceCodeInformation(), ident.getName());
         semanticValidationErrors.add(identifierRedeclarationError);
     }
 }

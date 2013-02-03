@@ -1,15 +1,17 @@
 package org.uva.sea.ql.visitor;
 
+import org.uva.sea.ql.ast.SourceCodeInformation;
+
 public abstract class QLError {
 
-    private final int line;
+    private final SourceCodeInformation sourceCodeInformation;
 
-    public QLError(int line) {
-        this.line = line;
+    public QLError(SourceCodeInformation sourceCodeInformation) {
+        this.sourceCodeInformation = sourceCodeInformation;
     }
 
-    protected int getLine() {
-        return line;
+    protected SourceCodeInformation getSourceCodeInformation() {
+        return sourceCodeInformation;
     }
 
     public abstract String getErrorMessage();

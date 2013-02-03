@@ -10,7 +10,7 @@ import org.uva.sea.ql.ast.primary.Ident;
 import org.uva.sea.ql.ast.primary.Str;
 import org.uva.sea.ql.ast.primary.typeClasses.BooleanType;
 import org.uva.sea.ql.ast.statement.Question;
-import org.uva.sea.ql.visitor.typechecking.errors.IdentifierRedeclarationError;
+import org.uva.sea.ql.visitor.typechecking.error.IdentifierRedeclarationError;
 
 import static junit.framework.Assert.*;
 import static org.mockito.Mockito.when;

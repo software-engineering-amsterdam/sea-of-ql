@@ -1,8 +1,15 @@
 package org.uva.sea.ql.ast.primary.typeClasses;
 
 import org.junit.Test;
+import org.uva.sea.ql.ast.primary.Str;
 
 public class StringType implements Type {
+
+    @Override
+    public String getObjectLiteralSimpleClassName() {
+        return Str.class.getSimpleName();
+
+    }
 
     @Test
     public boolean isCompatibleTo(Type type) {

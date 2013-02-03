@@ -9,8 +9,8 @@ import org.uva.sea.ql.ast.binary.Multiply;
 import org.uva.sea.ql.ast.primary.Bool;
 import org.uva.sea.ql.ast.primary.Int;
 import org.uva.sea.ql.ast.primary.Str;
-import org.uva.sea.ql.visitor.typechecking.errors.UnequalTypesError;
-import org.uva.sea.ql.visitor.typechecking.errors.UnsupportedTypeError;
+import org.uva.sea.ql.visitor.typechecking.error.UnequalTypesError;
+import org.uva.sea.ql.visitor.typechecking.error.UnsupportedTypeError;
 
 import static junit.framework.Assert.*;
 

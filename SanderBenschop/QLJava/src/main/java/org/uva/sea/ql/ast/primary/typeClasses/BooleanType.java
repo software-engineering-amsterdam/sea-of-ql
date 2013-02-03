@@ -1,8 +1,14 @@
 package org.uva.sea.ql.ast.primary.typeClasses;
 
 import org.junit.Test;
+import org.uva.sea.ql.ast.primary.Bool;
 
 public class BooleanType implements Type {
+
+    @Override
+    public String getObjectLiteralSimpleClassName() {
+        return Bool.class.getSimpleName();
+    }
 
     @Test
     public boolean isCompatibleTo(Type type) {

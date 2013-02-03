@@ -1,0 +1,7 @@
+form QLForm {
+    age : "How old are you?" integer
+    if (age >= true) {
+        yearsToTwentyOneYears : "Years until you will be 21" (21 - age)
+        driversLicense : "Do you have a driver's license?" boolean
+    }
+}

@@ -1,8 +1,14 @@
 package org.uva.sea.ql.ast.primary.typeClasses;
 
 import org.junit.Test;
+import org.uva.sea.ql.ast.primary.Int;
 
 public class IntegerType implements Type {
+
+    @Override
+    public String getObjectLiteralSimpleClassName() {
+        return Int.class.getSimpleName();
+    }
 
     @Test
     public boolean isCompatibleTo(Type type) {

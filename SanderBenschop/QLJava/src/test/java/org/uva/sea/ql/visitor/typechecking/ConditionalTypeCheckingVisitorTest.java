@@ -7,7 +7,7 @@ import org.uva.sea.ql.ast.SourceCodeInformation;
 import org.uva.sea.ql.ast.primary.Bool;
 import org.uva.sea.ql.ast.primary.Int;
 import org.uva.sea.ql.ast.statement.IfStatement;
-import org.uva.sea.ql.visitor.typechecking.errors.UnsupportedTypeError;
+import org.uva.sea.ql.visitor.typechecking.error.UnsupportedTypeError;
 
 import java.util.Collections;
 import java.util.List;
