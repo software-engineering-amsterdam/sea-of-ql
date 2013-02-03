@@ -1,30 +1,43 @@
 module lang::qls::ast::AST
 
 data Stylesheet
-  = stylesheet(set[Statement] statements)
+  = stylesheet(str ident, list[Definition] definitions)
   ;
 
-data Statement
-  = pageDefinition(str pageName, set[PageRule] pageRules)
-  | sectionDefinition(str sectionName, set[SectionRule] sectionRules)
-  | styleDefinition(StyleIdent ident, set[StyleRule] styleRules)
+data Definition
+  = definition(PageDefinition pageDefinition)
+  | definition(SectionDefinition sectionDefinition)
+  | definition(QuestionDefinition questionDefinition)
+  | definition(DefaultDefinition defaultDefinition)
+  ;
+
+data PageDefinition
+  = pageDefinition(str ident, list[PageRule] pageRules)
   ;
 
 data PageRule
-  = pageRule(str ident)
+  = pageRule(SectionDefinition sectionDefinition)
+  | pageRule(QuestionDefinition questionDefinition)
+  | pageRule(DefaultDefinition defaultDefinition)
+  ;
+
+data SectionDefinition
+  = sectionDefinition(str ident, list[SectionRule] sectionRules)
   ;
 
 data SectionRule
-  = sectionRule(str ident)
-  | sectionRule(str ident, set[SectionRule] sectionRules)
-  // TODO: does not work... | sectionRule(Statement sectionDefinition)
+  = sectionRule(SectionDefinition sectionDefinition)
+  | sectionRule(QuestionDefinition questionDefinition)
+  | sectionRule(DefaultDefinition defaultDefinition)
   ;
 
-data StyleIdent
-  = typeIdent(str typeName)
-  | pageIdent(str pageName)
-  | sectionIdent(str sectionName)
-  | questionIdent(str questionName)
+data QuestionDefinition
+  = questionDefinition(str ident)
+  | questionDefinition(str ident, list[StyleRule] styleRules)
+  ;
+
+data DefaultDefinition
+  = defaultDefinition(str ident, list[StyleRule] styleRules)
   ;
 
 data StyleRule
@@ -33,12 +46,17 @@ data StyleRule
   ;
 
 data TypeStyleValue
-  = radio()
-  | checkbox()
+  = radio(str name)
+  | checkbox(str name)
   ;
 
 anno loc Stylesheet@location;
-anno loc Statement@location;
+anno loc Definition@location;
+anno loc PageDefinition@location;
 anno loc PageRule@location;
+anno loc SectionDefinition@location;
 anno loc SectionRule@location;
+anno loc QuestionDefinition@location;
+anno loc DefaultDefinition@location;
 anno loc StyleRule@location;
+

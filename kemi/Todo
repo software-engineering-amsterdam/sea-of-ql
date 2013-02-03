@@ -8,3 +8,11 @@ BONUS:
 * 	Bonus exercise for Rascal variants: use SAT/SMT/Constraint solver to check for non-determinism.
 
 Grading: See wiki
+
+
+
+--------------------------------------------------------------------------------
+- QLS                                                                          -
+--------------------------------------------------------------------------------
+* Refactor SemanticChecker
+* Refactor StyleHelpers

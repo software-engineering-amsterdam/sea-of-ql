@@ -12,7 +12,14 @@ import util::IDE;
 
 public set[Message] semanticChecker(node form) {
   SAS sas = <(), ()>;
-  return analyzeSemantics(sas, form);
+  <sas, messages> = analyzeSemantics(sas, form);
+  return messages;
+}
+
+public SAS semanticAnalysisState(node form) {
+  SAS sas = <(), ()>;
+  <sas, messages> = analyzeSemantics(sas, form);
+  return sas;
 }
 
 private SAS merge(SAS cur, SAS add) {
@@ -24,14 +31,14 @@ private SAS merge(SAS cur, SAS add) {
   return ret;
 }
   
-private set[Message] analyzeSemantics(SAS sas, Form form) {
+private tuple[SAS sas, set[Message] messages] analyzeSemantics(SAS sas, Form form) {
   messages = {};
   for(e <- form.formElements) {
     <s, m> = analyzeSemantics(sas, e);
     messages += m;
     sas = merge(sas, s);
   }
-  return messages;
+  return <sas, messages>;
 }
 
 private State analyzeSemantics(SAS sas, 
