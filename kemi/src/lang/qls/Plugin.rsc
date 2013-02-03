@@ -37,11 +37,11 @@ public void setupQLS() {
     outliner(node(Tree input) {
       return outlineStylesheet(implodeQLS(input));
     }),
-    /*
+    
     annotator(Tree (Tree input) {
       return input[@messages=semanticCheckerQLS(input)];
     }),
-    */
+    
     popup(
       menu("QLS",[
         action("Format (removes comments)", formatQLS)
