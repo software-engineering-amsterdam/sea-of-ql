@@ -1,6 +1,8 @@
-package org.uva.sea.ql.parser.antlr;
+package org.uva.sea.ql.parsers;
 
 import org.uva.sea.ql.ast.types.Expr;
+import org.uva.sea.ql.parser.antlr.QLLexer;
+import org.uva.sea.ql.parser.antlr.QLParser;
 import org.uva.sea.ql.parser.exceptions.ParseException;
 import org.antlr.runtime.ANTLRStringStream;
 import org.antlr.runtime.CommonTokenStream;

@@ -1,15 +1,15 @@
-package org.uva.sea.ql.parser.tests;
+package org.uva.sea.ql.parsers.tests;
 
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.uva.sea.ql.ast.operations.*;
-import org.uva.sea.ql.parser.antlr.AddExprParser;
-import org.uva.sea.ql.parser.antlr.ParserBase;
 import org.uva.sea.ql.parser.exceptions.ParseException;
+import org.uva.sea.ql.parsers.AddExprParser;
+import org.uva.sea.ql.parsers.ParserBase;
 
-public class AddExprTests {
+public class AddExprParserTests {
 
 	private ParserBase parser;
 	
