@@ -7,6 +7,8 @@
 
 %token <StringValue> STRING_VAL
 %token <IntegerValue> INT_VAL
+%token <IntegerValue> BOOL_VAL
+%token <IntegerValue> MON_VAL
 %token <DataType> BOOL INT MON STR
 %token <Identifier> IDENT
 %token '*' '/' '+' '-' OR AND NEQ EQ '<' LEQ '>' GEQ '!'
@@ -35,7 +37,7 @@ import org.uva.sea.ql.ast.value.*;
 
 @edu.umd.cs.findbugs.annotations.SuppressWarnings(
     value="URF_UNREAD_PUBLIC_OR_PROTECTED_FIELD", 
-    justification="because I know better")
+    justification="because this class is generated.")
 @SuppressWarnings("unused")
 %}
 

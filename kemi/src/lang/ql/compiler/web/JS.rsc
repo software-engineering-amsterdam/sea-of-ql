@@ -3,7 +3,7 @@ module lang::ql::compiler::web::JS
 import IO;
 import String;
 import lang::ql::ast::AST;
-import lang::ql::compiler::PrettyPrinter;
+import lang::ql::compiler::web::JSExpressionPrinter;
 
 import util::ValueUI; 
 
@@ -53,7 +53,8 @@ private list[str] getConditionalVariableMembers(Statement cond) =
   [name | /x:ident(name) <- [cond.ifPart.condition] + [x.condition | x <- cond.elseIfs]];
 
 private str JS(Form f) =
-  " \<!-- THIS IS AN AUTOMATICALLY GENERATED FILE. DO NOT EDIT!--\>
+  "//THIS IS AN AUTOMATICALLY GENERATED FILE. DO NOT EDIT!
+  '
   'function validate<f.formName.ident>() {
   '  $(\"#<f.formName.ident>\").validate({
   '    rules: {
@@ -94,7 +95,7 @@ private str individualCalculatedField(str form, tuple[str ident, Expr expr] cf) 
   '<for(e <- eidents) {>
   '  <assignVar(e)>
   '<}>
-  '  result = <prettyPrint(cf.expr)>;
+  '  result = <jsPrint(cf.expr)>;
   '  $(\"#<cf.ident>\").val(result);  
   '});
   ";
@@ -161,6 +162,12 @@ private str individualConditional(int suffix, Statement cond) {
   
   for(cb <- cbs) {
     ret += "
+    '$(\"#<cb>\").change(callback_<suffix>);
+    ";
+  }
+  
+  for(cb <- cbs) {
+    ret += "
     '$(\"#<cb>\").click(callback_<suffix>);
     ";
   }
@@ -182,13 +189,13 @@ private str individualConditional(int suffix, Statement cond) {
 
 private str individualConditionalVisibility(Statement item: 
   ifCondition(Conditional ifPart, list[Conditional] elseIfs, list[ElsePart] elsePart)) =
-    "if(<prettyPrint(ifPart.condition)>) { 
+    "if(<jsPrint(ifPart.condition)>) { 
     '<for(e <- getDirectDescendingIdents(ifPart.body)) {>
     '  <showElement(e)>
     '<}>
     '
     '<for(ei <- elseIfs) { >
-    '} else if(<prettyPrint(ei.condition)>) { 
+    '} else if(<jsPrint(ei.condition)>) { 
     '  <for(e <- [id | /u:identDefinition(str id) <- ei.body]) {>
     '    <showElement(e)>
     '  <}>

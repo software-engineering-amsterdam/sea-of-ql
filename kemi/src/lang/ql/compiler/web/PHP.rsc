@@ -14,7 +14,9 @@ public void PHP(Form f, loc dest) {
 }
 
 private str createPHP(Form form) =
-  "\<?php 
+  "\<?php
+  ' 
+  '  //THIS IS AN AUTOMATICALLY GENERATED FILE. DO NOT EDIT!
   '
   '  $__RES = array();
   '

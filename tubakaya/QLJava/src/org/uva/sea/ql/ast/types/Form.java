@@ -1,11 +1,11 @@
 package org.uva.sea.ql.ast.types;
 import java.util.List;
 
-public class Form{
+public class Form extends Expr{
 
-	protected List<Element> elements;
+	protected List<FormElement> elements;
 
-	public Form(List<Element> elements) {
+	public Form(List<FormElement> elements) {
 		this.elements = elements;
 	}	
 }
