@@ -1,10 +1,10 @@
 package org.uva.sea.ql.ast.types;
 
-public class Int extends Expr {
+public class INT extends Expr {
 
 	private final int value;
 
-	public Int(int n) {
+	public INT(int n) {
 		this.value = n;
 	}
 

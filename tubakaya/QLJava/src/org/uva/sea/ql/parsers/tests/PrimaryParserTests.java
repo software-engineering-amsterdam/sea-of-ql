@@ -21,36 +21,51 @@ public class PrimaryParserTests {
 	
 	@Test
 	public void does_returnInt_when_textIsADigit() throws ParseException {
-		assertEquals(Int.class, parser.parse("0").getClass());		
+		assertEquals(INT.class, parser.parse("0").getClass());		
 	}
 	
 	@Test
 	public void does_returnInt_when_textIsATwoDigitNumber() throws ParseException {
-		assertEquals(Int.class, parser.parse("12").getClass());		
+		assertEquals(INT.class, parser.parse("12").getClass());		
 	}
 	
 	@Test
 	public void does_returnIdent_when_textIsALetter() throws ParseException {
-		assertEquals(Ident.class, parser.parse("a").getClass());		
+		assertEquals(IDENT.class, parser.parse("a").getClass());		
 	}
 	
 	@Test
 	public void does_returnIdent_when_textIsAWord() throws ParseException {
-		assertEquals(Ident.class, parser.parse("abc").getClass());		
+		assertEquals(IDENT.class, parser.parse("abc").getClass());		
 	}
 	
 	@Test
 	public void does_returnIdent_when_textIsAWordEndingWithANumber() throws ParseException {
-		assertEquals(Ident.class, parser.parse("abc1").getClass());		
+		assertEquals(IDENT.class, parser.parse("abc1").getClass());		
 	}
 	
 	@Test
 	public void does_returnIdent_when_textIsStartsWithALetterButContainsNumbers() throws ParseException {
-		assertEquals(Ident.class, parser.parse("a2bc123").getClass());		
+		assertEquals(IDENT.class, parser.parse("a2bc123").getClass());		
 	}
 	
 	@Test
 	public void does_returnOrExpression_when_textIsAnOrClauseWithinParantheses() throws ParseException {
 		assertEquals(Or.class, parser.parse("(a || b)").getClass());		
+	}
+	
+	@Test
+	public void does_returnBOOL_when_textIsTrue() throws ParseException {
+		assertEquals(BOOL.class, parser.parse("true").getClass());		
+	}
+	
+	@Test
+	public void does_returnBOOL_when_textIsFalse() throws ParseException {
+		assertEquals(BOOL.class, parser.parse("FALSE").getClass());		
+	}
+	
+	@Test
+	public void does_returnSTRING_when_textIsInsideQuotes() throws ParseException {
+		assertEquals(STRING.class, parser.parse("\"test\"").getClass());		
 	}
 }

@@ -1,7 +1,7 @@
 grammar QL;
 
 
-options {backtrack=true;}
+options {backtrack=true; memoize=true;}
 
 @parser::header
 {
@@ -17,8 +17,10 @@ package org.uva.sea.ql.parsers.antlr;
 }
 
 primary returns [Expr result] 
-  : Int   { $result = new Int(Integer.parseInt($Int.text)); }
-  | Ident { $result = new Ident($Ident.text); }
+  : INT   { $result = new INT(Integer.parseInt($INT.text)); }
+  | BOOL  { $result = new BOOL(Boolean.parseBoolean($BOOL.text)); } 
+  | STRING {$result = new STRING($STRING.text);}
+  | IDENT { $result = new IDENT($IDENT.text); }
   | '(' x=orExpr ')'{ $result = $x.result; }
   ;
     
@@ -96,6 +98,15 @@ COMMENT
      : '/*' .* '*/' {$channel=HIDDEN;}
     ;
 
-Ident:   ('a'..'z'|'A'..'Z')('a'..'z'|'A'..'Z'|'0'..'9'|'_')*;
+BOOL
+  : 'true'
+  | 'false'
+  | 'TRUE'
+  | 'FALSE'
+  ;
+  
+IDENT:   ('a'..'z'|'A'..'Z')('a'..'z'|'A'..'Z'|'0'..'9'|'_')*;
 
-Int: ('0'..'9')+;
+INT: ('0'..'9')+;
+
+STRING: '"' .* '"';
