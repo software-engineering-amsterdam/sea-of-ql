@@ -26,6 +26,7 @@ import org.uva.sea.ql.ast.type.BooleanType;
 import org.uva.sea.ql.ast.type.IntegerType;
 import org.uva.sea.ql.ast.type.MoneyType;
 import org.uva.sea.ql.ast.type.StringType;
+import org.uva.sea.ql.ast.value.BooleanValue;
 import org.uva.sea.ql.ast.value.IntegerValue;
 import org.uva.sea.ql.ast.value.StringValue;
 
@@ -85,5 +86,7 @@ public interface ASTNodeVisitor {
 	void visit(IfStatement ifStatement);
 
 	void visit(Form form);
+
+	void visit(BooleanValue booleanValue);
 
 }

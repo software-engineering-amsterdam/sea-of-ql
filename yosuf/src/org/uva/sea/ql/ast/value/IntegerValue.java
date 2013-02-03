@@ -27,4 +27,9 @@ public class IntegerValue extends Value {
 	public void accept(final ASTNodeVisitor visitor) {
 		visitor.visit(this);
 	}
+
+	@Override
+	public Value evaluate() {
+		return this;
+	}
 }
