@@ -16,10 +16,28 @@ import org.uva.sea.ql.ast.conditions.*;
 package org.uva.sea.ql.parsers.antlr; 
 }
 
+form returns [Form result]
+  : FORM IDENT '{' elements=formElementList '}' { $result = new Form($elements.result); }
+  ;
+
+formElementList returns [List<FormElement> result]
+  : {$result = new ArrayList<FormElement>();} (element=formElement {$result.add($element.result);})*
+  ;
+  
+formElement returns [FormElement result]
+  : IDENT COLON STRING type { $result = new FormElement(new IDENT($IDENT.text), new StringLiteral($STRING.text), $type.result); }
+  ;
+  
+type returns [TypeDefinition result]
+  : x='boolean' {$result = new BooleanDefinition(); }
+  | x='integer' {$result=new IntDefinition();}
+  | x='string'  {$result=new StringDefinition();}
+  ;
+
 primary returns [Expr result] 
-  : INT   { $result = new INT(Integer.parseInt($INT.text)); }
-  | BOOL  { $result = new BOOL(Boolean.parseBoolean($BOOL.text)); } 
-  | STRING {$result = new STRING($STRING.text);}
+  : INT   { $result = new IntLiteral($INT.text); }
+  | BOOL  { $result = new BooleanLiteral($BOOL.text); } 
+  | STRING {$result = new StringLiteral($STRING.text);}
   | IDENT { $result = new IDENT($IDENT.text); }
   | '(' x=orExpr ')'{ $result = $x.result; }
   ;
@@ -27,7 +45,7 @@ primary returns [Expr result]
 unExpr returns [Expr result]
     :  '+' x=unExpr { $result = new Pos($x.result); }
     |  '-' x=unExpr { $result = new Neg($x.result); }
-    |  '!' x=unExpr { $result = new Not($x.result); }
+    |  '!' x=unExpr { $result = new Not($x.result); } 
     |  x=primary    { $result = $x.result; }
     ;    
     
@@ -41,7 +59,7 @@ mulExpr returns [Expr result]
         $result = new Div($result, rhs);      
       }
     })*
-    ;
+    ; 
     
   
 addExpr returns [Expr result]
@@ -98,15 +116,21 @@ COMMENT
      : '/*' .* '*/' {$channel=HIDDEN;}
     ;
 
+COLON
+    :':'
+    ;
+
 BOOL
   : 'true'
   | 'false'
-  | 'TRUE'
-  | 'FALSE'
   ;
   
+FORM
+  : 'form'
+  ;
+
+STRING: '"' .* '"';
+
 IDENT:   ('a'..'z'|'A'..'Z')('a'..'z'|'A'..'Z'|'0'..'9'|'_')*;
 
 INT: ('0'..'9')+;
-
-STRING: '"' .* '"';
