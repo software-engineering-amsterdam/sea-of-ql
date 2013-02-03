@@ -32,8 +32,9 @@ public class ExprEvaluator implements IExprVisitor<IValue> {
 
 	@Override
 	public IValue visit(And ast) {
-		// TODO Auto-generated method stub
-		return null;
+		IValue lhsVal = ast.getLhs().accept(this);
+		IValue rhsVal = ast.getRhs().accept(this);
+		return new BoolVal(((BoolVal)lhsVal).getValue() && ((BoolVal)rhsVal).getValue());
 	}
 
 	@Override
@@ -119,32 +120,43 @@ public class ExprEvaluator implements IExprVisitor<IValue> {
 
 	@Override
 	public IValue visit(Neg ast) {
-		// TODO Auto-generated method stub
-		return null;
+		IValue argVal = ast.getArg().accept(this);
+		Type argType = ast.getArg().typeOf(valueEnv);
+		
+		if(argType instanceof Money)
+			return new MoneyVal(((MoneyVal)argVal).getValue() * -1);
+		return new IntVal(((IntVal)argVal).getValue() * -1);
 	}
 
 	@Override
 	public IValue visit(NEq ast) {
-		// TODO Auto-generated method stub
-		return null;
+		IValue lhsVal = ast.getLhs().accept(this);
+		IValue rhsVal = ast.getRhs().accept(this);
+		int compResult = lhsVal.compareTo(rhsVal);
+		return new BoolVal(compResult != 0);
 	}
 
 	@Override
 	public IValue visit(Not ast) {
-		// TODO Auto-generated method stub
-		return null;
+		IValue argVal = ast.getArg().accept(this);
+		return new BoolVal(!((BoolVal)argVal).getValue());
 	}
 
 	@Override
 	public IValue visit(Or ast) {
-		// TODO Auto-generated method stub
-		return null;
+		IValue lhsVal = ast.getLhs().accept(this);
+		IValue rhsVal = ast.getRhs().accept(this);
+		return new BoolVal(((BoolVal)lhsVal).getValue() || ((BoolVal)rhsVal).getValue());
 	}
 
 	@Override
 	public IValue visit(Pos ast) {
-		// TODO Auto-generated method stub
-		return null;
+		IValue argVal = ast.getArg().accept(this);
+		Type argType = ast.getArg().typeOf(valueEnv);	
+		
+		if(argType instanceof Money)
+			return new MoneyVal(((MoneyVal)argVal).getValue());		
+		return new IntVal(((IntVal)argVal).getValue());
 	}
 
 	@Override
