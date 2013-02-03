@@ -13,4 +13,4 @@ public test bool testStyles3() = parseStylesheet("stylesheet S1 { question Q1 { 
 public test bool testStyles4() = parseStylesheet("stylesheet S1 { default boolean { width 10 } }") is stylesheet;
 
 public test bool testStyles5() =
-  parseStylesheet(|project://QL-R-kemi/stylesheets/otherProposedSyntax.qs|) is stylesheet;
+  parseStylesheet(|project://QL-R-kemi/stylesheets/proposedSyntax.qs|) is stylesheet;

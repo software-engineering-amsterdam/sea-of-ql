@@ -1,32 +1,50 @@
-page .pageOne {
-  $sectionOne
-  #fieldThree
-}
-
-section $sectionOne {
-  #fieldOne
-  section $sectionTwo {
-    #fieldTwo
-    #fieldFour
-    section $sectionThree {
-      #fieldFive
+stylesheet testStylesheet {
+  page "Page one" {
+    section "section one" {
+      section "section two" {
+        question questionTen
+        default boolean {
+          width 200
+        }
+        
+      }
+      
+      question questionFive {
+        width 50
+      }
+      
     }
+    
+    section "section three!" {
+      question questionFour
+      question questionSix
+      question questionSeven
+      default boolean {
+        type checkbox
+      }
+      
+    }
+    
+    question questionOne {
+      type checkbox
+    }
+    
+    default boolean {
+      width 300
+    }
+    
   }
-}
-
-boolean {
-  type checkbox
-}
-
-.pageOne {
-  type radio
-}
-
-$sectionOne {
-  width 400
-  type radio
-}
-
-#fieldTwo {
-  width 200
+  
+  page "page 2" {
+    question questionTwo
+  }
+  
+  default boolean {
+    type radio
+  }
+  
+  question questionThree {
+    width 200
+  }
+  
 }
