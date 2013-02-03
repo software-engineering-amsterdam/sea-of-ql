@@ -9,7 +9,7 @@ import org.uva.sea.ql.ast.Statement;
 import org.uva.sea.ql.ast.nodevisitor.Visitor;
 import org.uva.sea.ql.ast.nodevisitor.VisitorResult;
 import org.uva.sea.ql.ast.types.MoneyType;
-import org.uva.sea.ql.ast.types.NumeralType;
+import org.uva.sea.ql.ast.types.IntegerType;
 import org.uva.sea.ql.ast.types.TypeDescription;
 
 public class Add extends BinExpr {
@@ -20,7 +20,7 @@ public class Add extends BinExpr {
 
 	@Override
 	public TypeDescription typeOf(HashMap<String, Statement> typeEnv) {
-		return new NumeralType();
+		return new IntegerType();
 	}
 
 	@Override

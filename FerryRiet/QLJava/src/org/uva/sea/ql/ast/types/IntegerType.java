@@ -1,15 +1,14 @@
 package org.uva.sea.ql.ast.types;
 
+public class IntegerType extends TypeDescription {
 
-public class NumeralType extends TypeDescription {
-
-	public NumeralType() {
+	public IntegerType() {
 		super("numeral");
 	}
 
 	@Override
 	public boolean isCompatibleTo(TypeDescription t) {
-		return t.isCompatibleToNumeric();
+		return t.isCompatibleToInt();
 	}
 
 	@Override
@@ -20,10 +19,5 @@ public class NumeralType extends TypeDescription {
 	@Override
 	public boolean isCompatibleToMoney() {
 		return false;
-	}
-
-	@Override
-	public boolean isCompatibleToNumeric() {
-		return true;
 	}
 }

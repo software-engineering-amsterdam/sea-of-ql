@@ -1,6 +1,5 @@
 package org.uva.sea.ql.ast.types;
 
-
 public class MoneyType extends TypeDescription {
 
 	public MoneyType() {
@@ -19,11 +18,6 @@ public class MoneyType extends TypeDescription {
 
 	@Override
 	public boolean isCompatibleToMoney() {
-		return true;
-	}
-
-	@Override
-	public boolean isCompatibleToNumeric() {
 		return true;
 	}
 }
