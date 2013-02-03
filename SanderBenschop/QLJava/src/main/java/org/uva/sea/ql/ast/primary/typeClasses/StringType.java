@@ -8,7 +8,6 @@ public class StringType implements Type {
     @Override
     public String getObjectLiteralSimpleClassName() {
         return Str.class.getSimpleName();
-
     }
 
     @Test
