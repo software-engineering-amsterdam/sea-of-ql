@@ -1,6 +1,6 @@
 package khosrow.uva.sea.ql.values;
 
-public class StrVal extends Value {
+public class StrVal implements IValue {
 	private final String value;
 	
 	public StrVal(String value) {
@@ -11,8 +11,7 @@ public class StrVal extends Value {
 		return value;
 	}
 
-	@Override
-	public int compareTo(Value value) {
+	public int compareTo(IValue value) {
 		return getValue().compareTo(((StrVal)value).getValue());
 	}
 }

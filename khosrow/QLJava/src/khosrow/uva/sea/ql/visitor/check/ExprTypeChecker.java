@@ -4,9 +4,9 @@ import java.util.List;
 
 import khosrow.uva.sea.ql.ast.ASTNode;
 import khosrow.uva.sea.ql.ast.expr.*;
-import khosrow.uva.sea.ql.ast.type.QlError;
 import khosrow.uva.sea.ql.ast.type.*;
 import khosrow.uva.sea.ql.env.Env;
+import khosrow.uva.sea.ql.resources.QlError;
 import khosrow.uva.sea.ql.visitor.IExprVisitor;
 
 public class ExprTypeChecker implements IExprVisitor<Boolean> {

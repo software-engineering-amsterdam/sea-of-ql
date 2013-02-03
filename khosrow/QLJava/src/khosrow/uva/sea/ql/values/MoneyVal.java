@@ -12,7 +12,7 @@ public class MoneyVal extends NumericVal {
 	}
 
 	@Override
-	public int compareTo(Value value) {
+	public int compareTo(IValue value) {
 		return (int) (getValue() - ((MoneyVal)value).getValue());
 	}
 	

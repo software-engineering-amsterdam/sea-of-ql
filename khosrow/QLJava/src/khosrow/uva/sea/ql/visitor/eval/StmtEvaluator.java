@@ -1,4 +1,4 @@
-package khosrow.uva.sea.ql.visitor.check;
+package khosrow.uva.sea.ql.visitor.eval;
 
 import khosrow.uva.sea.ql.ast.stmt.Assign;
 import khosrow.uva.sea.ql.ast.stmt.ExpressionQuestion;
@@ -7,12 +7,11 @@ import khosrow.uva.sea.ql.ast.stmt.Label;
 import khosrow.uva.sea.ql.ast.stmt.SimpleQuestion;
 import khosrow.uva.sea.ql.visitor.IStmtVisitor;
 
-public class StmtTypeChecker implements IStmtVisitor {
+public class StmtEvaluator implements IStmtVisitor {
 
 	@Override
 	public void visit(Assign stmt) {
 		// TODO Auto-generated method stub
-		// check if ident does exist in the env!!
 		
 	}
 

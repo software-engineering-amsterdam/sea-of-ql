@@ -1,6 +1,7 @@
 package khosrow.uva.sea.ql.parser.test;
 
 import static org.junit.Assert.*;
+import khosrow.uva.sea.ql.ast.stmt.Assign;
 import khosrow.uva.sea.ql.ast.stmt.ExpressionQuestion;
 import khosrow.uva.sea.ql.ast.stmt.If;
 import khosrow.uva.sea.ql.ast.stmt.Label;
@@ -45,6 +46,16 @@ public class TestStatments {
 		assertEquals(parser.ParseStatement("if ((a / b) > 2) { }").getClass(), If.class);
 		assertEquals(parser.ParseStatement("if ((a / b) > 2) { Q1: \"Ask a question?\" string }").getClass(), If.class);
 		assertEquals(parser.ParseStatement("if ((a / b) > 2) { Q2 (a <= b): \"Ask a question?\" string }").getClass(), If.class);
+	}
+	
+	@Test
+	public void testAssign() throws ParseError {
+		assertEquals(parser.ParseStatement("Q1 = a").getClass(), Assign.class);
+		assertEquals(parser.ParseStatement("Q1 = 1").getClass(), Assign.class);
+		assertEquals(parser.ParseStatement("Q1 = 2.3").getClass(), Assign.class);
+		assertEquals(parser.ParseStatement("Q1 = \"Test\"").getClass(), Assign.class);
+		assertEquals(parser.ParseStatement("Q1 = true").getClass(), Assign.class);
+		assertEquals(parser.ParseStatement("Q1 = false").getClass(), Assign.class);
 	}
 
 }

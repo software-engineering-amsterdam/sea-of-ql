@@ -5,8 +5,8 @@ import static org.junit.Assert.*;
 import java.util.ArrayList;
 import java.util.List;
 
-import khosrow.uva.sea.ql.ast.type.*;
 import khosrow.uva.sea.ql.parser.jacc.JACCParser;
+import khosrow.uva.sea.ql.resources.QlError;
 import khosrow.uva.sea.ql.visitor.check.ExprTypeChecker;
 
 import org.junit.Before;

@@ -2,6 +2,7 @@ package khosrow.uva.sea.ql.ast.stmt;
 
 import khosrow.uva.sea.ql.ast.expr.Expr;
 import khosrow.uva.sea.ql.ast.expr.StringLiteral;
+import khosrow.uva.sea.ql.visitor.IStmtVisitor;
 
 public class Label extends Stmt {
 	private final String text;
@@ -22,6 +23,12 @@ public class Label extends Stmt {
 
 	public void setExpr(Expr expr) {
 		this.expr = expr;
+	}
+
+	@Override
+	public void accept(IStmtVisitor visitor) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

@@ -1,28 +1,27 @@
 package khosrow.uva.sea.ql.visitor.eval;
 
-
 import khosrow.uva.sea.ql.ast.expr.*;
 import khosrow.uva.sea.ql.ast.type.*;
 import khosrow.uva.sea.ql.env.Env;
 import khosrow.uva.sea.ql.values.*;
 import khosrow.uva.sea.ql.visitor.IExprVisitor;
 
-public class ExprEvaluator implements IExprVisitor<Value> {
+public class ExprEvaluator implements IExprVisitor<IValue> {
 	private final Env valueEnv;
 	
 	public ExprEvaluator(Env valueEnv) {
 		this.valueEnv = valueEnv;
 	}
 	
-	public static Value Evaluate(Expr expr, Env valueEnv) {
+	public static IValue Evaluate(Expr expr, Env valueEnv) {
 		ExprEvaluator evaluater = new ExprEvaluator(valueEnv);
 		return expr.accept(evaluater);
 	}
 	
 	@Override
-	public Value visit(Add ast) {
-		Value lhsVal = ast.getLhs().accept(this);
-		Value rhsVal = ast.getRhs().accept(this);
+	public IValue visit(Add ast) {
+		IValue lhsVal = ast.getLhs().accept(this);
+		IValue rhsVal = ast.getRhs().accept(this);
 		Type lhsType = ast.getLhs().typeOf(valueEnv);
 		Type rhsType = ast.getRhs().typeOf(valueEnv);
 		
@@ -32,15 +31,15 @@ public class ExprEvaluator implements IExprVisitor<Value> {
 	}
 
 	@Override
-	public Value visit(And ast) {
+	public IValue visit(And ast) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public Value visit(Div ast) {
-		Value lhsVal = ast.getLhs().accept(this);
-		Value rhsVal = ast.getRhs().accept(this);
+	public IValue visit(Div ast) {
+		IValue lhsVal = ast.getLhs().accept(this);
+		IValue rhsVal = ast.getRhs().accept(this);
 		Type lhsType = ast.getLhs().typeOf(valueEnv);
 		Type rhsType = ast.getRhs().typeOf(valueEnv);
 		
@@ -50,55 +49,54 @@ public class ExprEvaluator implements IExprVisitor<Value> {
 	}
 
 	@Override
-	public Value visit(Eq ast) {
-		Value lhsVal = ast.getLhs().accept(this);
-		Value rhsVal = ast.getRhs().accept(this);
+	public IValue visit(Eq ast) {
+		IValue lhsVal = ast.getLhs().accept(this);
+		IValue rhsVal = ast.getRhs().accept(this);
 		int compResult = lhsVal.compareTo(rhsVal);
 		return new BoolVal(compResult == 0);
 	}
 
 	@Override
-	public Value visit(GEq ast) {
-		Value lhsVal = ast.getLhs().accept(this);
-		Value rhsVal = ast.getRhs().accept(this);
+	public IValue visit(GEq ast) {
+		IValue lhsVal = ast.getLhs().accept(this);
+		IValue rhsVal = ast.getRhs().accept(this);
 		int compResult = lhsVal.compareTo(rhsVal);
 		return new BoolVal(compResult >= 0);
 	}
 
 	@Override
-	public Value visit(GT ast) {
-		Value lhsVal = ast.getLhs().accept(this);
-		Value rhsVal = ast.getRhs().accept(this);
+	public IValue visit(GT ast) {
+		IValue lhsVal = ast.getLhs().accept(this);
+		IValue rhsVal = ast.getRhs().accept(this);
 		int compResult = lhsVal.compareTo(rhsVal);
 		return new BoolVal(compResult > 0);
 	}
 
 	@Override
-	public Value visit(Ident ast) {
-		// TODO Auto-generated method stub
-		return null;
+	public IValue visit(Ident ast) {
+		return valueEnv.valueOf(ast);
 	}
 
 	@Override
-	public Value visit(LEq ast) {
-		Value lhsVal = ast.getLhs().accept(this);
-		Value rhsVal = ast.getRhs().accept(this);
+	public IValue visit(LEq ast) {
+		IValue lhsVal = ast.getLhs().accept(this);
+		IValue rhsVal = ast.getRhs().accept(this);
 		int compResult = lhsVal.compareTo(rhsVal);
 		return new BoolVal(compResult <= 0);
 	}
 
 	@Override
-	public Value visit(LT ast) {
-		Value lhsVal = ast.getLhs().accept(this);
-		Value rhsVal = ast.getRhs().accept(this);
+	public IValue visit(LT ast) {
+		IValue lhsVal = ast.getLhs().accept(this);
+		IValue rhsVal = ast.getRhs().accept(this);
 		int compResult = lhsVal.compareTo(rhsVal);
 		return new BoolVal(compResult < 0);
 	}
 
 	@Override
-	public Value visit(Mod ast) {
-		Value lhsVal = ast.getLhs().accept(this);
-		Value rhsVal = ast.getRhs().accept(this);
+	public IValue visit(Mod ast) {
+		IValue lhsVal = ast.getLhs().accept(this);
+		IValue rhsVal = ast.getRhs().accept(this);
 		Type lhsType = ast.getLhs().typeOf(valueEnv);
 		Type rhsType = ast.getRhs().typeOf(valueEnv);
 		
@@ -108,9 +106,9 @@ public class ExprEvaluator implements IExprVisitor<Value> {
 	}
 
 	@Override
-	public Value visit(Mul ast) {
-		Value lhsVal = ast.getLhs().accept(this);
-		Value rhsVal = ast.getRhs().accept(this);
+	public IValue visit(Mul ast) {
+		IValue lhsVal = ast.getLhs().accept(this);
+		IValue rhsVal = ast.getRhs().accept(this);
 		Type lhsType = ast.getLhs().typeOf(valueEnv);
 		Type rhsType = ast.getRhs().typeOf(valueEnv);
 		
@@ -120,39 +118,39 @@ public class ExprEvaluator implements IExprVisitor<Value> {
 	}
 
 	@Override
-	public Value visit(Neg ast) {
+	public IValue visit(Neg ast) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public Value visit(NEq ast) {
+	public IValue visit(NEq ast) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public Value visit(Not ast) {
+	public IValue visit(Not ast) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public Value visit(Or ast) {
+	public IValue visit(Or ast) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public Value visit(Pos ast) {
+	public IValue visit(Pos ast) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public Value visit(Sub ast) {
-		Value lhsVal = ast.getLhs().accept(this);
-		Value rhsVal = ast.getRhs().accept(this);
+	public IValue visit(Sub ast) {
+		IValue lhsVal = ast.getLhs().accept(this);
+		IValue rhsVal = ast.getRhs().accept(this);
 		Type lhsType = ast.getLhs().typeOf(valueEnv);
 		Type rhsType = ast.getRhs().typeOf(valueEnv);
 		
@@ -162,22 +160,22 @@ public class ExprEvaluator implements IExprVisitor<Value> {
 	}
 
 	@Override
-	public Value visit(IntLiteral ast) {
+	public IValue visit(IntLiteral ast) {
 		return new IntVal(ast.getValue());
 	}
 
 	@Override
-	public Value visit(BoolLiteral ast) {
+	public IValue visit(BoolLiteral ast) {
 		return new BoolVal(ast.getValue());
 	}
 
 	@Override
-	public Value visit(MoneyLiteral ast) {
+	public IValue visit(MoneyLiteral ast) {
 		return new MoneyVal(ast.getValue());
 	}
 
 	@Override
-	public Value visit(StringLiteral ast) {
+	public IValue visit(StringLiteral ast) {
 		return new StrVal(ast.getValue());
 	}
 
