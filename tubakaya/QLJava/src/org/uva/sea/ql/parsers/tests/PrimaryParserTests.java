@@ -6,9 +6,9 @@ import org.junit.Before;
 import org.junit.Test;
 import org.uva.sea.ql.ast.types.*;
 import org.uva.sea.ql.ast.operations.*;
-import org.uva.sea.ql.parser.exceptions.ParseException;
 import org.uva.sea.ql.parsers.PrimaryParser;
 import org.uva.sea.ql.parsers.ParserBase;
+import org.uva.sea.ql.parsers.exceptions.ParseException;
 
 public class PrimaryParserTests {
 

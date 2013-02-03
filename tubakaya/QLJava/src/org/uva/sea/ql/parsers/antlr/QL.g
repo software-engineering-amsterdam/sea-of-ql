@@ -5,7 +5,7 @@ options {backtrack=true;}
 
 @parser::header
 {
-package org.uva.sea.ql.parser.antlr;
+package org.uva.sea.ql.parsers.antlr;
 import org.uva.sea.ql.ast.types.*; 
 import org.uva.sea.ql.ast.operations.*; 
 import org.uva.sea.ql.ast.conditions.*; 
@@ -13,7 +13,7 @@ import org.uva.sea.ql.ast.conditions.*;
 
 @lexer::header
 {
-package org.uva.sea.ql.parser.antlr; 
+package org.uva.sea.ql.parsers.antlr; 
 }
 
 primary returns [Expr result] 

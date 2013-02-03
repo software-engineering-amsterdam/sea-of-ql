@@ -1,7 +1,7 @@
 package org.uva.sea.ql.parsers;
 
 import org.uva.sea.ql.ast.types.Expr;
-import org.uva.sea.ql.parser.antlr.QLParser;
+import org.uva.sea.ql.parsers.antlr.QLParser;
 import org.antlr.runtime.RecognitionException;
 
 public class PrimaryParser extends ParserBase {

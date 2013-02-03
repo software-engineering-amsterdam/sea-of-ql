@@ -1,6 +1,6 @@
-// $ANTLR 3.5 C:\\Tubis\\School\\Software Construction\\WorkSpace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g 2013-02-03 10:44:34
+// $ANTLR 3.5 C:\\Tubis\\School\\Software Construction\\WorkSpace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parsers\\antlr\\QL.g 2013-02-03 12:05:17
 
-package org.uva.sea.ql.parser.antlr;
+package org.uva.sea.ql.parsers.antlr;
 import org.uva.sea.ql.ast.types.*; 
 import org.uva.sea.ql.ast.operations.*; 
 import org.uva.sea.ql.ast.conditions.*; 
@@ -57,12 +57,12 @@ public class QLParser extends Parser {
 	}
 
 	@Override public String[] getTokenNames() { return QLParser.tokenNames; }
-	@Override public String getGrammarFileName() { return "C:\\Tubis\\School\\Software Construction\\WorkSpace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g"; }
+	@Override public String getGrammarFileName() { return "C:\\Tubis\\School\\Software Construction\\WorkSpace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parsers\\antlr\\QL.g"; }
 
 
 
 	// $ANTLR start "primary"
-	// C:\\Tubis\\School\\Software Construction\\WorkSpace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:19:1: primary returns [Expr result] : ( Int | Ident | '(' x= orExpr ')' );
+	// C:\\Tubis\\School\\Software Construction\\WorkSpace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parsers\\antlr\\QL.g:19:1: primary returns [Expr result] : ( Int | Ident | '(' x= orExpr ')' );
 	public final Expr primary() throws RecognitionException {
 		Expr result = null;
 
@@ -72,7 +72,7 @@ public class QLParser extends Parser {
 		Expr x =null;
 
 		try {
-			// C:\\Tubis\\School\\Software Construction\\WorkSpace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:20:3: ( Int | Ident | '(' x= orExpr ')' )
+			// C:\\Tubis\\School\\Software Construction\\WorkSpace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parsers\\antlr\\QL.g:20:3: ( Int | Ident | '(' x= orExpr ')' )
 			int alt1=3;
 			switch ( input.LA(1) ) {
 			case Int:
@@ -98,21 +98,21 @@ public class QLParser extends Parser {
 			}
 			switch (alt1) {
 				case 1 :
-					// C:\\Tubis\\School\\Software Construction\\WorkSpace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:20:5: Int
+					// C:\\Tubis\\School\\Software Construction\\WorkSpace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parsers\\antlr\\QL.g:20:5: Int
 					{
 					Int1=(Token)match(input,Int,FOLLOW_Int_in_primary44); if (state.failed) return result;
 					if ( state.backtracking==0 ) { result = new Int(Integer.parseInt((Int1!=null?Int1.getText():null))); }
 					}
 					break;
 				case 2 :
-					// C:\\Tubis\\School\\Software Construction\\WorkSpace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:21:5: Ident
+					// C:\\Tubis\\School\\Software Construction\\WorkSpace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parsers\\antlr\\QL.g:21:5: Ident
 					{
 					Ident2=(Token)match(input,Ident,FOLLOW_Ident_in_primary54); if (state.failed) return result;
 					if ( state.backtracking==0 ) { result = new Ident((Ident2!=null?Ident2.getText():null)); }
 					}
 					break;
 				case 3 :
-					// C:\\Tubis\\School\\Software Construction\\WorkSpace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:22:5: '(' x= orExpr ')'
+					// C:\\Tubis\\School\\Software Construction\\WorkSpace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parsers\\antlr\\QL.g:22:5: '(' x= orExpr ')'
 					{
 					match(input,11,FOLLOW_11_in_primary62); if (state.failed) return result;
 					pushFollow(FOLLOW_orExpr_in_primary66);
@@ -140,7 +140,7 @@ public class QLParser extends Parser {
 
 
 	// $ANTLR start "unExpr"
-	// C:\\Tubis\\School\\Software Construction\\WorkSpace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:25:1: unExpr returns [Expr result] : ( '+' x= unExpr | '-' x= unExpr | '!' x= unExpr |x= primary );
+	// C:\\Tubis\\School\\Software Construction\\WorkSpace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parsers\\antlr\\QL.g:25:1: unExpr returns [Expr result] : ( '+' x= unExpr | '-' x= unExpr | '!' x= unExpr |x= primary );
 	public final Expr unExpr() throws RecognitionException {
 		Expr result = null;
 
@@ -148,7 +148,7 @@ public class QLParser extends Parser {
 		Expr x =null;
 
 		try {
-			// C:\\Tubis\\School\\Software Construction\\WorkSpace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:26:5: ( '+' x= unExpr | '-' x= unExpr | '!' x= unExpr |x= primary )
+			// C:\\Tubis\\School\\Software Construction\\WorkSpace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parsers\\antlr\\QL.g:26:5: ( '+' x= unExpr | '-' x= unExpr | '!' x= unExpr |x= primary )
 			int alt2=4;
 			switch ( input.LA(1) ) {
 			case 14:
@@ -181,7 +181,7 @@ public class QLParser extends Parser {
 			}
 			switch (alt2) {
 				case 1 :
-					// C:\\Tubis\\School\\Software Construction\\WorkSpace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:26:8: '+' x= unExpr
+					// C:\\Tubis\\School\\Software Construction\\WorkSpace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parsers\\antlr\\QL.g:26:8: '+' x= unExpr
 					{
 					match(input,14,FOLLOW_14_in_unExpr93); if (state.failed) return result;
 					pushFollow(FOLLOW_unExpr_in_unExpr97);
@@ -192,7 +192,7 @@ public class QLParser extends Parser {
 					}
 					break;
 				case 2 :
-					// C:\\Tubis\\School\\Software Construction\\WorkSpace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:27:8: '-' x= unExpr
+					// C:\\Tubis\\School\\Software Construction\\WorkSpace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parsers\\antlr\\QL.g:27:8: '-' x= unExpr
 					{
 					match(input,15,FOLLOW_15_in_unExpr108); if (state.failed) return result;
 					pushFollow(FOLLOW_unExpr_in_unExpr112);
@@ -203,7 +203,7 @@ public class QLParser extends Parser {
 					}
 					break;
 				case 3 :
-					// C:\\Tubis\\School\\Software Construction\\WorkSpace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:28:8: '!' x= unExpr
+					// C:\\Tubis\\School\\Software Construction\\WorkSpace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parsers\\antlr\\QL.g:28:8: '!' x= unExpr
 					{
 					match(input,8,FOLLOW_8_in_unExpr123); if (state.failed) return result;
 					pushFollow(FOLLOW_unExpr_in_unExpr127);
@@ -214,7 +214,7 @@ public class QLParser extends Parser {
 					}
 					break;
 				case 4 :
-					// C:\\Tubis\\School\\Software Construction\\WorkSpace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:29:8: x= primary
+					// C:\\Tubis\\School\\Software Construction\\WorkSpace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parsers\\antlr\\QL.g:29:8: x= primary
 					{
 					pushFollow(FOLLOW_primary_in_unExpr140);
 					x=primary();
@@ -240,7 +240,7 @@ public class QLParser extends Parser {
 
 
 	// $ANTLR start "mulExpr"
-	// C:\\Tubis\\School\\Software Construction\\WorkSpace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:32:1: mulExpr returns [Expr result] : lhs= unExpr (op= ( '*' | '/' ) rhs= unExpr )* ;
+	// C:\\Tubis\\School\\Software Construction\\WorkSpace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parsers\\antlr\\QL.g:32:1: mulExpr returns [Expr result] : lhs= unExpr (op= ( '*' | '/' ) rhs= unExpr )* ;
 	public final Expr mulExpr() throws RecognitionException {
 		Expr result = null;
 
@@ -250,15 +250,15 @@ public class QLParser extends Parser {
 		Expr rhs =null;
 
 		try {
-			// C:\\Tubis\\School\\Software Construction\\WorkSpace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:33:5: (lhs= unExpr (op= ( '*' | '/' ) rhs= unExpr )* )
-			// C:\\Tubis\\School\\Software Construction\\WorkSpace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:33:9: lhs= unExpr (op= ( '*' | '/' ) rhs= unExpr )*
+			// C:\\Tubis\\School\\Software Construction\\WorkSpace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parsers\\antlr\\QL.g:33:5: (lhs= unExpr (op= ( '*' | '/' ) rhs= unExpr )* )
+			// C:\\Tubis\\School\\Software Construction\\WorkSpace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parsers\\antlr\\QL.g:33:9: lhs= unExpr (op= ( '*' | '/' ) rhs= unExpr )*
 			{
 			pushFollow(FOLLOW_unExpr_in_mulExpr178);
 			lhs=unExpr();
 			state._fsp--;
 			if (state.failed) return result;
 			if ( state.backtracking==0 ) { result =lhs; }
-			// C:\\Tubis\\School\\Software Construction\\WorkSpace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:33:45: (op= ( '*' | '/' ) rhs= unExpr )*
+			// C:\\Tubis\\School\\Software Construction\\WorkSpace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parsers\\antlr\\QL.g:33:45: (op= ( '*' | '/' ) rhs= unExpr )*
 			loop3:
 			while (true) {
 				int alt3=2;
@@ -269,7 +269,7 @@ public class QLParser extends Parser {
 
 				switch (alt3) {
 				case 1 :
-					// C:\\Tubis\\School\\Software Construction\\WorkSpace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:33:47: op= ( '*' | '/' ) rhs= unExpr
+					// C:\\Tubis\\School\\Software Construction\\WorkSpace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parsers\\antlr\\QL.g:33:47: op= ( '*' | '/' ) rhs= unExpr
 					{
 					op=input.LT(1);
 					if ( input.LA(1)==13||input.LA(1)==16 ) {
@@ -319,7 +319,7 @@ public class QLParser extends Parser {
 
 
 	// $ANTLR start "addExpr"
-	// C:\\Tubis\\School\\Software Construction\\WorkSpace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:45:1: addExpr returns [Expr result] : lhs= mulExpr (op= ( '+' | '-' ) rhs= mulExpr )* ;
+	// C:\\Tubis\\School\\Software Construction\\WorkSpace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parsers\\antlr\\QL.g:45:1: addExpr returns [Expr result] : lhs= mulExpr (op= ( '+' | '-' ) rhs= mulExpr )* ;
 	public final Expr addExpr() throws RecognitionException {
 		Expr result = null;
 
@@ -329,15 +329,15 @@ public class QLParser extends Parser {
 		Expr rhs =null;
 
 		try {
-			// C:\\Tubis\\School\\Software Construction\\WorkSpace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:46:5: (lhs= mulExpr (op= ( '+' | '-' ) rhs= mulExpr )* )
-			// C:\\Tubis\\School\\Software Construction\\WorkSpace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:46:9: lhs= mulExpr (op= ( '+' | '-' ) rhs= mulExpr )*
+			// C:\\Tubis\\School\\Software Construction\\WorkSpace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parsers\\antlr\\QL.g:46:5: (lhs= mulExpr (op= ( '+' | '-' ) rhs= mulExpr )* )
+			// C:\\Tubis\\School\\Software Construction\\WorkSpace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parsers\\antlr\\QL.g:46:9: lhs= mulExpr (op= ( '+' | '-' ) rhs= mulExpr )*
 			{
 			pushFollow(FOLLOW_mulExpr_in_addExpr239);
 			lhs=mulExpr();
 			state._fsp--;
 			if (state.failed) return result;
 			if ( state.backtracking==0 ) { result =lhs; }
-			// C:\\Tubis\\School\\Software Construction\\WorkSpace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:46:46: (op= ( '+' | '-' ) rhs= mulExpr )*
+			// C:\\Tubis\\School\\Software Construction\\WorkSpace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parsers\\antlr\\QL.g:46:46: (op= ( '+' | '-' ) rhs= mulExpr )*
 			loop4:
 			while (true) {
 				int alt4=2;
@@ -348,7 +348,7 @@ public class QLParser extends Parser {
 
 				switch (alt4) {
 				case 1 :
-					// C:\\Tubis\\School\\Software Construction\\WorkSpace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:46:48: op= ( '+' | '-' ) rhs= mulExpr
+					// C:\\Tubis\\School\\Software Construction\\WorkSpace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parsers\\antlr\\QL.g:46:48: op= ( '+' | '-' ) rhs= mulExpr
 					{
 					op=input.LT(1);
 					if ( (input.LA(1) >= 14 && input.LA(1) <= 15) ) {
@@ -398,7 +398,7 @@ public class QLParser extends Parser {
 
 
 	// $ANTLR start "relExpr"
-	// C:\\Tubis\\School\\Software Construction\\WorkSpace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:57:1: relExpr returns [Expr result] : lhs= addExpr (op= ( '<' | '<=' | '>' | '>=' | '==' | '!=' ) rhs= addExpr )* ;
+	// C:\\Tubis\\School\\Software Construction\\WorkSpace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parsers\\antlr\\QL.g:57:1: relExpr returns [Expr result] : lhs= addExpr (op= ( '<' | '<=' | '>' | '>=' | '==' | '!=' ) rhs= addExpr )* ;
 	public final Expr relExpr() throws RecognitionException {
 		Expr result = null;
 
@@ -408,15 +408,15 @@ public class QLParser extends Parser {
 		Expr rhs =null;
 
 		try {
-			// C:\\Tubis\\School\\Software Construction\\WorkSpace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:58:5: (lhs= addExpr (op= ( '<' | '<=' | '>' | '>=' | '==' | '!=' ) rhs= addExpr )* )
-			// C:\\Tubis\\School\\Software Construction\\WorkSpace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:58:9: lhs= addExpr (op= ( '<' | '<=' | '>' | '>=' | '==' | '!=' ) rhs= addExpr )*
+			// C:\\Tubis\\School\\Software Construction\\WorkSpace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parsers\\antlr\\QL.g:58:5: (lhs= addExpr (op= ( '<' | '<=' | '>' | '>=' | '==' | '!=' ) rhs= addExpr )* )
+			// C:\\Tubis\\School\\Software Construction\\WorkSpace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parsers\\antlr\\QL.g:58:9: lhs= addExpr (op= ( '<' | '<=' | '>' | '>=' | '==' | '!=' ) rhs= addExpr )*
 			{
 			pushFollow(FOLLOW_addExpr_in_relExpr292);
 			lhs=addExpr();
 			state._fsp--;
 			if (state.failed) return result;
 			if ( state.backtracking==0 ) { result =lhs; }
-			// C:\\Tubis\\School\\Software Construction\\WorkSpace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:58:46: (op= ( '<' | '<=' | '>' | '>=' | '==' | '!=' ) rhs= addExpr )*
+			// C:\\Tubis\\School\\Software Construction\\WorkSpace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parsers\\antlr\\QL.g:58:46: (op= ( '<' | '<=' | '>' | '>=' | '==' | '!=' ) rhs= addExpr )*
 			loop5:
 			while (true) {
 				int alt5=2;
@@ -427,7 +427,7 @@ public class QLParser extends Parser {
 
 				switch (alt5) {
 				case 1 :
-					// C:\\Tubis\\School\\Software Construction\\WorkSpace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:58:48: op= ( '<' | '<=' | '>' | '>=' | '==' | '!=' ) rhs= addExpr
+					// C:\\Tubis\\School\\Software Construction\\WorkSpace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parsers\\antlr\\QL.g:58:48: op= ( '<' | '<=' | '>' | '>=' | '==' | '!=' ) rhs= addExpr
 					{
 					op=input.LT(1);
 					if ( input.LA(1)==9||(input.LA(1) >= 17 && input.LA(1) <= 21) ) {
@@ -489,7 +489,7 @@ public class QLParser extends Parser {
 
 
 	// $ANTLR start "andExpr"
-	// C:\\Tubis\\School\\Software Construction\\WorkSpace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:81:1: andExpr returns [Expr result] : lhs= relExpr ( '&&' rhs= relExpr )* ;
+	// C:\\Tubis\\School\\Software Construction\\WorkSpace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parsers\\antlr\\QL.g:81:1: andExpr returns [Expr result] : lhs= relExpr ( '&&' rhs= relExpr )* ;
 	public final Expr andExpr() throws RecognitionException {
 		Expr result = null;
 
@@ -498,15 +498,15 @@ public class QLParser extends Parser {
 		Expr rhs =null;
 
 		try {
-			// C:\\Tubis\\School\\Software Construction\\WorkSpace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:82:5: (lhs= relExpr ( '&&' rhs= relExpr )* )
-			// C:\\Tubis\\School\\Software Construction\\WorkSpace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:82:9: lhs= relExpr ( '&&' rhs= relExpr )*
+			// C:\\Tubis\\School\\Software Construction\\WorkSpace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parsers\\antlr\\QL.g:82:5: (lhs= relExpr ( '&&' rhs= relExpr )* )
+			// C:\\Tubis\\School\\Software Construction\\WorkSpace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parsers\\antlr\\QL.g:82:9: lhs= relExpr ( '&&' rhs= relExpr )*
 			{
 			pushFollow(FOLLOW_relExpr_in_andExpr354);
 			lhs=relExpr();
 			state._fsp--;
 			if (state.failed) return result;
 			if ( state.backtracking==0 ) { result =lhs; }
-			// C:\\Tubis\\School\\Software Construction\\WorkSpace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:82:46: ( '&&' rhs= relExpr )*
+			// C:\\Tubis\\School\\Software Construction\\WorkSpace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parsers\\antlr\\QL.g:82:46: ( '&&' rhs= relExpr )*
 			loop6:
 			while (true) {
 				int alt6=2;
@@ -517,7 +517,7 @@ public class QLParser extends Parser {
 
 				switch (alt6) {
 				case 1 :
-					// C:\\Tubis\\School\\Software Construction\\WorkSpace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:82:48: '&&' rhs= relExpr
+					// C:\\Tubis\\School\\Software Construction\\WorkSpace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parsers\\antlr\\QL.g:82:48: '&&' rhs= relExpr
 					{
 					match(input,10,FOLLOW_10_in_andExpr360); if (state.failed) return result;
 					pushFollow(FOLLOW_relExpr_in_andExpr364);
@@ -550,7 +550,7 @@ public class QLParser extends Parser {
 
 
 	// $ANTLR start "orExpr"
-	// C:\\Tubis\\School\\Software Construction\\WorkSpace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:86:1: orExpr returns [Expr result] : lhs= andExpr ( '||' rhs= andExpr )* ;
+	// C:\\Tubis\\School\\Software Construction\\WorkSpace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parsers\\antlr\\QL.g:86:1: orExpr returns [Expr result] : lhs= andExpr ( '||' rhs= andExpr )* ;
 	public final Expr orExpr() throws RecognitionException {
 		Expr result = null;
 
@@ -559,15 +559,15 @@ public class QLParser extends Parser {
 		Expr rhs =null;
 
 		try {
-			// C:\\Tubis\\School\\Software Construction\\WorkSpace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:87:5: (lhs= andExpr ( '||' rhs= andExpr )* )
-			// C:\\Tubis\\School\\Software Construction\\WorkSpace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:87:9: lhs= andExpr ( '||' rhs= andExpr )*
+			// C:\\Tubis\\School\\Software Construction\\WorkSpace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parsers\\antlr\\QL.g:87:5: (lhs= andExpr ( '||' rhs= andExpr )* )
+			// C:\\Tubis\\School\\Software Construction\\WorkSpace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parsers\\antlr\\QL.g:87:9: lhs= andExpr ( '||' rhs= andExpr )*
 			{
 			pushFollow(FOLLOW_andExpr_in_orExpr399);
 			lhs=andExpr();
 			state._fsp--;
 			if (state.failed) return result;
 			if ( state.backtracking==0 ) { result = lhs; }
-			// C:\\Tubis\\School\\Software Construction\\WorkSpace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:87:48: ( '||' rhs= andExpr )*
+			// C:\\Tubis\\School\\Software Construction\\WorkSpace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parsers\\antlr\\QL.g:87:48: ( '||' rhs= andExpr )*
 			loop7:
 			while (true) {
 				int alt7=2;
@@ -578,7 +578,7 @@ public class QLParser extends Parser {
 
 				switch (alt7) {
 				case 1 :
-					// C:\\Tubis\\School\\Software Construction\\WorkSpace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:87:50: '||' rhs= andExpr
+					// C:\\Tubis\\School\\Software Construction\\WorkSpace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parsers\\antlr\\QL.g:87:50: '||' rhs= andExpr
 					{
 					match(input,22,FOLLOW_22_in_orExpr405); if (state.failed) return result;
 					pushFollow(FOLLOW_andExpr_in_orExpr409);
