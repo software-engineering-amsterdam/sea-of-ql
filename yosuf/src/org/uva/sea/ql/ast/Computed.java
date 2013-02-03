@@ -3,7 +3,9 @@ package org.uva.sea.ql.ast;
 import static julius.validation.Assertions.state;
 
 import org.uva.sea.ql.ast.exp.Expression;
+import org.uva.sea.ql.ast.exp.Identifier;
 import org.uva.sea.ql.ast.type.DataType;
+import org.uva.sea.ql.visitor.ASTNodeVisitor;
 
 public class Computed implements ASTNode {
 	private final DataType dataType;
@@ -31,4 +33,8 @@ public class Computed implements ASTNode {
 		state.assertNotNull(this.expression, "Computed.expression");
 	}
 
+	@Override
+	public void accept(final ASTNodeVisitor visitor) {
+		visitor.visit(this);
+	}
 }

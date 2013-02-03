@@ -2,6 +2,8 @@ package org.uva.sea.ql.ast.value;
 
 import static julius.validation.Assertions.state;
 
+import org.uva.sea.ql.visitor.ASTNodeVisitor;
+
 public class StringValue extends Value {
 
 	private final String value;
@@ -26,4 +28,8 @@ public class StringValue extends Value {
 		return "StringLiteral [value=" + value + "]";
 	}
 
+	@Override
+	public void accept(final ASTNodeVisitor visitor) {
+		visitor.visit(this);
+	}
 }

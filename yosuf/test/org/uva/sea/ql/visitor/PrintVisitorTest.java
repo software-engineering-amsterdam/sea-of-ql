@@ -4,7 +4,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.uva.sea.ql.ast.Form;
-import org.uva.sea.ql.ast.Identifier;
+import org.uva.sea.ql.ast.exp.Identifier;
 import org.uva.sea.ql.ast.type.StringType;
 import org.uva.sea.ql.util.LogPrinter;
 
@@ -25,7 +25,5 @@ public class PrintVisitorTest {
 	@Test
 	public void testVisitForm() {
 		Form form = new Form(new Identifier("ident"), new StringType());
-
-		visitor.visit(form);
 	}
 }

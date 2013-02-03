@@ -3,6 +3,8 @@ package org.uva.sea.ql.ast;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.uva.sea.ql.visitor.ASTNodeVisitor;
+
 public class CompoundStatement implements ASTNode {
 
 	List<Statement> statements = new ArrayList<Statement>();
@@ -15,5 +17,10 @@ public class CompoundStatement implements ASTNode {
 			final Statement statement) {
 		// TODO compoundStatement
 		statements.add(statement);
+	}
+
+	@Override
+	public void accept(final ASTNodeVisitor visitor) {
+		visitor.visit(this);
 	}
 }
