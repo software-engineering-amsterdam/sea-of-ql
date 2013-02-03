@@ -16,9 +16,11 @@ import org.junit.Test;
 
 public class TestExprTypeChecker {
 	private IParse parser;
+	
 	private static List<QlError> theErrorList() {
 		return new ArrayList<QlError>();
 	}
+	
 	private static Env theEnviroment() {
 		Env typeEnv = new Env();		
 		typeEnv.declareType(new Ident("iA"), new Int());

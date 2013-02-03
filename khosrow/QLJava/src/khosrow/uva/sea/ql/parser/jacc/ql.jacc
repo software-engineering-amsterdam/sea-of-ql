@@ -13,7 +13,7 @@
 %token '!' '+' '-' '/' '%' '*' '+' '-'
 %token '{' '(' ':' ')' '}'
 %token '>' '<' EQ NEQ GEQ LEQ AND OR
-%token FORM IF
+%token FORM IF BECOMES
 
 %left OR
 %left AND
