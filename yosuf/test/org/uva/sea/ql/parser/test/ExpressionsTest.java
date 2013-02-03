@@ -4,13 +4,13 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.uva.sea.ql.ast.Identifier;
 import org.uva.sea.ql.ast.exp.Add;
 import org.uva.sea.ql.ast.exp.And;
 import org.uva.sea.ql.ast.exp.Divide;
 import org.uva.sea.ql.ast.exp.Equals;
 import org.uva.sea.ql.ast.exp.GreaterOrEquals;
 import org.uva.sea.ql.ast.exp.GreaterThan;
+import org.uva.sea.ql.ast.exp.Identifier;
 import org.uva.sea.ql.ast.exp.Multiply;
 import org.uva.sea.ql.ast.exp.Negative;
 import org.uva.sea.ql.ast.exp.Not;

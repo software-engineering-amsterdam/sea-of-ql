@@ -2,15 +2,15 @@ package org.uva.sea.ql.ast;
 
 import static julius.validation.Assertions.state;
 
+import org.uva.sea.ql.ast.exp.Expression;
 import org.uva.sea.ql.ast.exp.Identifier;
 import org.uva.sea.ql.ast.type.DataType;
-import org.uva.sea.ql.ast.value.StringValue;
 import org.uva.sea.ql.visitor.ASTNodeVisitor;
 
-public class Question extends Statement {
+public class Computed implements ASTNode {
 	private final DataType dataType;
 	private final Identifier identifier;
-	private final StringValue questionText;
+	private final Expression expression;
 
 	/**
 	 * 
@@ -18,28 +18,23 @@ public class Question extends Statement {
 	 *            (not null)
 	 * @param identifier
 	 *            (not null)
-	 * @param questionText
+	 * @param expression
 	 *            (not null)
 	 */
-	public Question(final DataType dataType, final Identifier identifier,
-			final StringValue questionText) {
+	public Computed(final DataType dataType, final Identifier identifier,
+			final Expression expression) {
 
 		this.dataType = dataType;
 		this.identifier = identifier;
-		this.questionText = questionText;
+		this.expression = expression;
 
-		state.assertNotNull(this.dataType, "Question.dataType");
-		state.assertNotNull(this.identifier, "Question.identifier");
-		state.assertNotNull(this.questionText, "Question.questionText");
-	}
-
-	public StringValue getQuestionText() {
-		return questionText;
+		state.assertNotNull(this.dataType, "Computed.dataType");
+		state.assertNotNull(this.identifier, "Computed.identifier");
+		state.assertNotNull(this.expression, "Computed.expression");
 	}
 
 	@Override
 	public void accept(final ASTNodeVisitor visitor) {
 		visitor.visit(this);
 	}
-
 }
