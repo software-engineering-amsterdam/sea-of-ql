@@ -4,8 +4,18 @@ options {backtrack=true; memoize=true;}
 @parser::header
 {
 package org.uva.sea.ql.parser.antlr;
-import org.uva.sea.ql.ast.*;
+import org.uva.sea.ql.ast.expressions.*;
+import org.uva.sea.ql.ast.expressions.unary.*;
+import org.uva.sea.ql.ast.expressions.binary.*;
+import org.uva.sea.ql.ast.types.*;
 import org.uva.sea.ql.form.*;
+}
+
+@parser::members {
+  @Override
+  public void reportError(RecognitionException e) {
+    throw new RuntimeException(e);
+  }
 }
 
 @lexer::header
@@ -14,32 +24,50 @@ package org.uva.sea.ql.parser.antlr;
 }
 
 form returns [Form result]
-@init { List<FormItem> formItems = new ArrayList(); }
   : 'form' Ident '{'
-    formItem {formItems.addAll($formItem.result);}
-    '}' { $result = new Form($Ident.text,formItems); }
+    formItems
+    '}' { $result = new Form(new Ident($Ident.text), $formItems.result); }
   ;
 
-
-formItem returns [List<FormItem> result]
+formItems returns [List<FormItem> result]
 @init { List<FormItem> formItems = new ArrayList(); }
-  : (i=ifStatement { formItems.add($i.result); } | q=question { formItems.add($q.result); })+ { $result = formItems; }
+  : ( ie=ifElseStatement { formItems.add($ie.result); }
+    | i=ifStatement { formItems.add($i.result); } 
+    | cq=computedQuestion { formItems.add($cq.result); } 
+    | q=question { formItems.add($q.result); } )+ 
+      { $result = formItems; }
   ;
- 
+
+ifElseStatement returns [IfElseStatement result]
+  : 'if' '(' orExpr ')' '{' ifBody=formItems '}'
+    'else' '{' elseBody=formItems '}' 
+      { $result = new IfElseStatement($orExpr.result, $ifBody.result, $elseBody.result); }
+  ;
+
 ifStatement returns [IfStatement result]
-  : 'if' '(' Ident ')' '{' formItem '}' { $result = new IfStatement($Ident.text,$formItem.result); }
+  : 'if' '(' orExpr ')' '{' ifBody=formItems '}'
+      { $result = new IfStatement($orExpr.result, $ifBody.result); }
+  ;
+
+computedQuestion returns [ComputedQuestion result]
+  : Ident ':' String questionType '(' orExpr ')' 
+      { $result = new ComputedQuestion(new Ident($Ident.text), $String.text, $questionType.result, $orExpr.result); }
   ;
 
 question returns [Question result]
-  : Ident ':' String {$result = new Question($Ident.text, $String.text);}
+  : Ident ':' String questionType { $result = new Question(new Ident($Ident.text), $String.text, $questionType.result); }
   ;
 
-//questionType
-//  : 'boolean'
-//  ;
+questionType returns [Type result]
+  : 'boolean' { $result = new BoolType(); }
+  | 'int' { $result = new IntType(); }
+  | 'string' { $result = new StringType(); }
+  ;
 
 primary returns [Expr result]
   : Int   { $result = new Int(Integer.parseInt($Int.text)); }
+  | Bool { $result = new Bool(Boolean.parseBoolean($Bool.text)); }
+  | String { $result = new Str($String.text); }
   | Ident { $result = new Ident($Ident.text); }
   | '(' x=orExpr ')'{ $result = $x.result; }
   ;
@@ -57,7 +85,7 @@ mulExpr returns [Expr result]
       if ($op.text.equals("*")) {
         $result = new Mul($result, rhs);
       }
-      if ($op.text.equals("<=")) {
+      if ($op.text.equals("/")) {
         $result = new Div($result, rhs);      
       }
     })*
@@ -115,11 +143,10 @@ WS  :	(' ' | '\t' | '\n' | '\r') { $channel=HIDDEN; }
     ;
 
 COMMENT 
-    : '/*' .* '*/' {$channel=HIDDEN;}
+    : ('/*' .* '*/' | '//'.* '\n') { $channel=HIDDEN; }
     ;
 
-Int: ('0'..'9')+;
-//Boolean: ('true'|'false');
-Ident: ('a'..'z'|'A'..'Z')('a'..'z'|'A'..'Z'|'0'..'9'|'_')*;
 String: '"' .* '"';
-//Money: ('0'..'9')+ ((',') ('0'..'9') ('0'..'9');
+Bool: 'true' | 'false';
+Int: ('0'..'9')+;
+Ident: ('a'..'z'|'A'..'Z')('a'..'z'|'A'..'Z'|'0'..'9'|'_')*;

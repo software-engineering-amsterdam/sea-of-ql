@@ -1,0 +1,50 @@
+In general:
+T = {x | x is kind of Type}
+C = {y | y is Client | Client is either Visitor V Interpreter}
+|T| = nt
+|C| = nc
+
+Visitor:
+-----------------
+Visitors have a visit method for every Type.
+Types have one accept method that takes a Visitor.
+
+When adding a Type:
+- add the Type [O(1)]
+- implement an accept method [O(1)]
+- implement a visit method for this Type in every Visitor [O(nc)]
+Total: O(nc + 1 + 1) -> O(nc + 1)
+
+When adding a Visitor:
+- add the Visitor [O(nt)]
+- implement visit methods for every Type [O(nt)]
+Total: O(nt + nt) -> O(nt)
+
+Interpreter:
+-----------------
+There is a Context.
+There is a specialized method in every Type.
+
+When adding a Type:
+- add the Type [O(1)]
+- implement specialized methods for every Context [O(nc)]
+Total: O(nc + 1)
+
+When adding an Interpreter:
+- add Interpreter [O(1)]
+- add a Context [O(1)]
+- implement new specialized method in every Type [O(nt + nc)]
+Total: O(nt + nc + 1 + 1) -> O(nt + nc + 1) -> O(nt + nc)
+
+-----------------------
+
+Using Visitor:
+- if nt > nc, then adding Type is cheaper than adding Visitor
+- if nc > nt, then adding Visitor is cheaper than adding Type
+
+Using Interpreter:
+- adding Type is cheaper than adding Interpreter
+
+Conclusion:
+- Use Interpreter when your Type tree is more likely to change.
+- Use Visitor when your pool of Visitors is more likely to change (in contrast to Interpreter).

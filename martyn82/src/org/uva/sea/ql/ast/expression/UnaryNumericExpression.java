@@ -6,7 +6,7 @@ package org.uva.sea.ql.ast.expression;
 abstract public class UnaryNumericExpression extends UnaryExpression {
 	/**
 	 * Constructs a new unary numerical expression.
-	 * 
+	 *
 	 * @param expression The expression.
 	 */
 	protected UnaryNumericExpression( Expression expression ) {

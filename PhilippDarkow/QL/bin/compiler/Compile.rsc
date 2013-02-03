@@ -3,17 +3,18 @@ module compiler::Compile
 import Prelude;
 import syntax::AbstractSyntax;
 import compiler::Assembly;
-import typeChecker::Load;
+import util::Load;
 
-alias Instrs = list[Instr];                       
+alias Instrs = list[Instr];     // We introduce Instrs as an alias for a list of assembly language instructions                  
 
 // compile Expressions.
+// The compiler consists of the functions compileExp, compileStat, compileStats, compileDecls and compileProgram.
+// They all have a program fragment as argument and return the corresponding list of instructions
+Instrs compileExp(moneyCon(Money M)) = [pushMon(N)];  
 
-Instrs compileExp(natCon(int N)) = [pushNat(N)];  
+//Instrs compileExp(string(str S)) = [pushStr(substring(S,1,size(S)-1))];
 
-Instrs compileExp(strCon(str S)) = [pushStr(substring(S,1,size(S)-1))];
-
-Instrs compileExp(id(PicoId Id)) = [rvalue(Id)];
+Instrs compileExp(id(QuestionId Id)) = [rvalue(Id)];
 
 public Instrs compileExp(add(EXP E1, EXP E2)) =    
   [*compileExp(E1), *compileExp(E2), add2()];
@@ -21,8 +22,10 @@ public Instrs compileExp(add(EXP E1, EXP E2)) =
 Instrs compileExp(sub(EXP E1, EXP E2)) =
   [*compileExp(E1), *compileExp(E2), sub2()];
 
-Instrs compileExp(conc(EXP E1, EXP E2)) =
-  [*compileExp(E1), *compileExp(E2), conc2()];
+//Instrs compileExp(conc(EXP E1, EXP E2)) =
+//  [*compileExp(E1), *compileExp(E2), conc2()];
+
+
   
 // Unique label generation
 
@@ -35,8 +38,8 @@ private str nextLabel() {
 
 // Compile a statement
 
-Instrs compileStat(asgStat(PicoId Id, EXP Exp)) =
-	[lvalue(Id), *compileExp(Exp), assign()];
+//Instrs compileStat(asgStat(str Id, QUE qName)) =
+//	[lvalue(Id), *compileExp(qName), assign()];
 	
 Instrs compileStat(ifElseStat(EXP Exp,              
                               list[STATEMENT] Stats1,
@@ -53,35 +56,56 @@ Instrs compileStat(ifElseStat(EXP Exp,
           label(endLab)];
 }
 
-Instrs compileStat(whileStat(EXP Exp, 
-                             list[STATEMENT] Stats1)) {
-  entryLab = nextLabel();
-  endLab = nextLabel();
-  return [label(entryLab), 
-          *compileExp(Exp), 
-          gofalse(endLab), 
-          *compileStats(Stats1), 
-          go(entryLab), 
-          label(endLab)];
-}
-
-// Compile a list of statements
-Instrs compileStats(list[STATEMENT] Stats1) =      
+// Compile a list of statements  Compiling a list of statements conveniently uses a list comprehension and list splicing.
+Instrs compileStats(list[Statement] Stats1) =      
   [ *compileStat(S) | S <- Stats1 ];
   
 // Compile declarations
-
-Instrs compileDecls(list[DECL] Decls) =
+// Compiling declarations allocates memory locations of the appropriate type for each declared variable.
+Instrs compileDecls(list[Body] Body) =
   [ ((tp == natural()) ? dclNat(Id) : dclStr(Id))  |       
-    decl(PicoId Id, TYPE tp) <- Decls
+    decl(str Id, QUE tp) <- Body
   ];
+
+Instrs compileQuestion(Question q){
+	println("in compile question <[q]>");
+	Instrs aa = [ ((tp == integer()) ? dclInt(Id) : dclStr(Id)) |
+	  easyQuestion(str Id, str questionLabel, Type tp) <- [q]
+	  ];
+	  println("AA : <aa>");
+	  return aa;
+}
+
+//Instrs compileQuestion(list[Question] Ques){
+//	println("in compile question");
+//	Instrs aa = [ ((tp == integer()) ? dclStr(Id) : dclInt(Id)) |
+//	  question(str Id, str questionLabel, Type tp) <- Ques
+//	  ];
+//	  println("AA : <aa>");
+//}
+
+
+Instrs compileBody(list[Body] Body){
+	visit(Body){
+		case Question q : {
+			println("IN Q : <q>");
+			return [*compileQuestion(q)];
+		}
+	}
+}
+
+//Instrs compileBody(list[Body] Body){
+//			return [*compileQuestion(Body)];
+//}
 
 // Compile a Pico program
 
-public Instrs compileProgram(PROGRAM P){
+public Instrs compileProgram(Program P){
   nLabel = 0;
-  if(program(list[DECL] Decls, list[STATEMENT] Series) := P){
-     return [*compileDecls(Decls), *compileStats(Series)];
+  if(program(Expression exp, list[Body] Body) := P){
+     //println("EXP in COMPILE : <exp>");
+     println("Body in COMPILE : <Body>");
+     return [*compileBody(Body)];   //*compileDecls(Body), *compileStats(Series)
   } else
     throw "Cannot happen";
 }

@@ -1,6 +1,7 @@
 module lang::ql::ast::AST
 
-data Form = form(str formName, list[Statement] formElements);
+data Form
+  = form(IdentDefinition formName, list[Statement] formElements);
 
 data Conditional
   = conditional(Expr condition, list[Statement] body)
@@ -16,43 +17,27 @@ data Statement
   ;
 
 data Question
-  // How standard implode returns it
-  = question(str, str, str)
-  | question(str, str, str, Expr e)
-  // How we want it
-  //| question(Expr questionText, Type answerDataType, Expr answerIdentifier)
-  //| question(Expr questionText, Type answerDataType, Expr answerIdentifier, Expr calculatedField)
+  = question(QuestionText questionText, Type answerDataType, IdentDefinition answerIdentifier)
+  | question(QuestionText questionText, Type answerDataType, IdentDefinition answerIdentifier, Expr calculatedField)
+  ;
+
+data QuestionText
+  = questionText(str text)
   ;
 
 data Type
-  = \type(str typeName)
+  = booleanType(str name)
+  | integerType(str name)
+  | moneyType(str name)
+  | dateType(str name)
+  | stringType(str name)
+  | invalidType(str name)
+  | undefinedType(str name)
   ;
 
-/* Nevermind, thought this would help but probably won't
-data Ident
-  = ident(str name)
+data IdentDefinition
+  = identDefinition(str ident)
   ;
-
-data String
-  = string(str stringValue)
-  ;
-
-data Int
-  = integer(int intValue)
-  ;
-
-data Boolean
-  = boolean(bool booleanValue)
-  ;
-
-data Money
-  = money(real moneyValue)
-  ;
-
-data Date
-  = date(str dateValue)
-  ;
-*/
 
 data Expr
   = ident(str name)
@@ -87,5 +72,8 @@ anno loc Conditional@location;
 anno loc ElsePart@location;
 anno loc Expr@location;
 anno loc Form@location;
+anno loc IdentDefinition@location;
 anno loc Question@location;
+anno loc QuestionText@location;
 anno loc Statement@location;
+anno loc Type@location;

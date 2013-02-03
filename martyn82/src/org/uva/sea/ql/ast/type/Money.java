@@ -1,13 +1,16 @@
 package org.uva.sea.ql.ast.type;
 
-import org.uva.sea.ql.visitor.Visitor;
-
+/**
+ * Represents a money type.
+ */
 public class Money extends Number {
-
 	@Override
-	public void accept( Visitor visitor ) {
-		// TODO Auto-generated method stub
-		
+	public boolean isCompatibleToMoney() {
+		return true;
 	}
 
+	@Override
+	public String toString() {
+		return "Money";
+	}
 }

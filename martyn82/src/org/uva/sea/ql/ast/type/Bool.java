@@ -1,15 +1,28 @@
 package org.uva.sea.ql.ast.type;
 
-import org.uva.sea.ql.visitor.Visitor;
+import org.uva.sea.ql.visitor.ITypeVisitor;
 
 /**
- * Represents a boolean type.
+ * Represents a Boolean type.
  */
 public class Bool extends Type {
+	@Override
+	public <T> T accept( ITypeVisitor<T> visitor ) {
+		return visitor.visit( this );
+	}
 
 	@Override
-	public void accept( Visitor visitor ) {
-		// TODO Auto-generated method stub
-		
+	public boolean isCompatibleTo( Type type ) {
+		return type.isCompatibleToBool();
+	}
+
+	@Override
+	public boolean isCompatibleToBool() {
+		return true;
+	}
+
+	@Override
+	public String toString() {
+		return "Boolean";
 	}
 }

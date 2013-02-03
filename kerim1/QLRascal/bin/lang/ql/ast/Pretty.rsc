@@ -2,28 +2,34 @@ module lang::ql::ast::Pretty
 
 import lang::ql::ast::AST;
 
-public str pretty(form(str name, list[Statement] body)) = "form <name> { \n<for (s <- body) {>\t<pretty(s)>\n<}>}";
+public str pretty(form(str name, list[Statement] body)) = 
+	"form <name> { <for (s <- body) {>
+	'	<pretty(s)><}>
+	'}";
 
 public str pretty(question(Question question)) = pretty(question);
  
-public str pretty(ifThenElse(Expr condition, list[Statement] thenPart, list[ElseIf] elseIfs, list[Statement] elsePart)) {
- 	return 	"if <pretty(condition)> { 
- 			'<for (s <- thenPart) {>\t<pretty(s)>\n<}>}
- 			'<for (elseIf <- elseIfs) {><pretty(elseIf)><}>
- 			'else {
- 			'<for (s <- elsePart) {>\t<pretty(s)>\n<}>}";
-}
+public str pretty(ifThenElse(Expr condition, list[Statement] thenPart, list[ElseIf] elseIfs, list[Statement] elsePart)) =
+	"
+	'if <pretty(condition)> { <for (s <- thenPart) {>
+	'	<pretty(s)><}>
+	'} <for (elseIf <- elseIfs) {>
+ 	'<pretty(elseIf)><}>
+ 	'else { <for (s <- elsePart) {>
+ 	'	<pretty(s)><}>
+ 	'}";
  
-public str pretty(ifThen(Expr condition, list[Statement] thenPart, list[ElseIf] elseIfs)) {
- 	return 	"if <pretty(condition)> {
- 			'<for (s <- thenPart) {>\t<pretty(s)>\n<}>}
- 			'<for (elseIf <- elseIfs) {><pretty(elseIf)><}>";
-}
+public str pretty(ifThen(Expr condition, list[Statement] thenPart, list[ElseIf] elseIfs)) = 
+	"
+	'if <pretty(condition)> { <for (s <- thenPart) {>
+ 	'	<pretty(s)><}>
+ 	'} <for (elseIf <- elseIfs) {>
+ 	'<pretty(elseIf)><}>";
  
-public str pretty(elseIf(Expr condition, list[Statement] thenPart)) {
-	return 	"else if <pretty(condition)> {
-			'<for (s <- thenPart) {>\t<pretty(s)>\n<}>}";
-}
+public str pretty(elseIf(Expr condition, list[Statement] thenPart)) = 
+	"else if <pretty(condition)> { <for (s <- thenPart) {>
+	'	<pretty(s)><}>
+	'}";
 
 public str pretty(computed(str identifier, str label, Type tp, Expr expression)) = "<identifier>: <label> <pretty(tp)> <pretty(expression)>";
 

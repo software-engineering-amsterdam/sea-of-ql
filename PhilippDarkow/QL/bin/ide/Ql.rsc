@@ -17,8 +17,8 @@ import demo::lang::Pico::Visualize;
 
 //  define the language name and extension
 
-private str Pico_NAME = "Pico";
-private str Pico_EXT = "pico";
+private str Pico_NAME = "QL";
+private str Pico_EXT = "ql";
 
 //  Define the connection with the Pico parser
 Tree parser(str x, loc l) {

@@ -1,16 +1,53 @@
 grammar QL;
-options {backtrack=true; memoize=true;}
+//options {backtrack=true; memoize=true;}
 
 @parser::header
 {
 package org.uva.sea.ql.parser.antlr;
 import org.uva.sea.ql.ast.*;
+import org.uva.sea.ql.ast.types.*;
+import org.uva.sea.ql.ast.expr.*;
+import org.uva.sea.ql.ast.values.*;
 }
 
 @lexer::header
 {
 package org.uva.sea.ql.parser.antlr;
 }
+
+form returns [Form result]
+	@init { List<FormUnit> formUnits = new ArrayList<FormUnit>();}
+	: 'form' Ident ':' (formUnit {formUnits.add($formUnit.result);})* 'endform' { $result = new Form($Ident.text, formUnits); }
+	; 
+
+formUnit returns [FormUnit result]
+	: question         { $result = $question.result; }
+  | computedQuestion { $result = $computedQuestion.result; }
+	| ifStatement      { $result = $ifStatement.result; }
+	;
+
+question returns [Question result]
+	: Ident ':' sentence '(' type ')' { $result = new Question($Ident.text, $sentence.text, $type.result); }
+	;
+	  
+computedQuestion returns [ComputedQuestion result]
+	: Ident ':' '[' orExpr ']' sentence '(' type ')' { $result = new ComputedQuestion($Ident.text, $sentence.text, $orExpr.result, $type.result); }
+	;
+
+ifStatement returns [IfStatement result]
+	@init { List<FormUnit> formUnits = new ArrayList<FormUnit>();}
+	: 'if' '(' orExpr ')' 'then' (formUnit {formUnits.add($formUnit.result);})* 'endif' { $result = new IfStatement($orExpr.result, formUnits); }
+	;  
+
+type returns [Type result]
+  : 'Boolean' {$result = new TypeBool();}
+  | 'Integer' {$result = new TypeInt();}
+  | 'String'  {$result = new TypeString();}
+  ;
+ 
+sentence
+  : '"' .* '"'
+  ; 
 
 primary returns [Expr result]
   : Int   { $result = new Int(Integer.parseInt($Int.text)); }
@@ -31,13 +68,13 @@ mulExpr returns [Expr result]
       if ($op.text.equals("*")) {
         $result = new Mul($result, rhs);
       }
-      if ($op.text.equals("<=")) {
+      if ($op.text.equals("/")) {
         $result = new Div($result, rhs);      
       }
     })*
     ;
     
-  
+
 addExpr returns [Expr result]
     :   lhs=mulExpr { $result=$lhs.result; } ( op=('+' | '-') rhs=mulExpr
     { 
@@ -49,7 +86,7 @@ addExpr returns [Expr result]
       }
     })*
     ;
-  
+
 relExpr returns [Expr result]
     :   lhs=addExpr { $result=$lhs.result; } ( op=('<'|'<='|'>'|'>='|'=='|'!=') rhs=addExpr 
     { 
@@ -83,15 +120,16 @@ orExpr returns [Expr result]
     :   lhs=andExpr { $result = $lhs.result; } ( '||' rhs=andExpr { $result = new Or($result, rhs); } )*
     ;
 
-    
+     
 // Tokens
-WS  :	(' ' | '\t' | '\n' | '\r') { $channel=HIDDEN; }
+WS  :	(' ' | '\t' | '\n' | '\r')+ { $channel=HIDDEN; }
     ;
+
+SINGLECOMMENT : '//' .* ('\n' | '\r') {$channel=HIDDEN;} ;
 
 COMMENT 
-     : '/*' .* '*/' {$channel=HIDDEN;}
-    ;
-
+    : '/*' .* '*/' {$channel=HIDDEN;} ;
+    
 Ident:   ('a'..'z'|'A'..'Z')('a'..'z'|'A'..'Z'|'0'..'9'|'_')*;
 
 Int: ('0'..'9')+;

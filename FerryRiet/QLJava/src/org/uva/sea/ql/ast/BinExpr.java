@@ -1,6 +1,7 @@
 package org.uva.sea.ql.ast;
 
-import org.uva.sea.ql.astnodevisitor.Visitor;
+import org.uva.sea.ql.ast.nodevisitor.Visitor;
+import org.uva.sea.ql.ast.nodevisitor.VisitorResult;
 
 public abstract class BinExpr extends Expr {
 	private final Expr exprLeftHand;
@@ -11,16 +12,16 @@ public abstract class BinExpr extends Expr {
 		exprRightHand = rhs;
 	}
 
-	public Expr getExprLeftHand() {
+	public final Expr getExprLeftHand() {
 		return exprLeftHand;
 	}
 
-	public Expr getExprRightHand() {
+	public final Expr getExprRightHand() {
 		return exprRightHand;
 	}
 
 	@Override
-	public void accept(Visitor visitor) {
-		visitor.visit(this);
+	public VisitorResult accept(Visitor visitor) {
+		return visitor.visit(this);
 	}
 }

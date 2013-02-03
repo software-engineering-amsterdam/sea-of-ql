@@ -1,31 +1,44 @@
 module lang::qls::ast::AST
 
-
 data Stylesheet
-  = stylesheet(list[Statement] statements)
+  = stylesheet(set[Statement] statements)
   ;
 
 data Statement
-  = classDefinition(str ident, list[ClassRule] questionIdent)
-  | typeStyleDefinition(str \type, list[StyleRule] styleRules)
-  | classStyleDefinition(str ident, list[StyleRule] styleRules)
-  | identStyleDefinition(str ident, list[StyleRule] styleRules)
+  = pageDefinition(str pageName, set[PageRule] pageRules)
+  | sectionDefinition(str sectionName, set[SectionRule] sectionRules)
+  | styleDefinition(StyleIdent ident, set[StyleRule] styleRules)
   ;
 
-data ClassRule
-  = classRule(str ident)
+data PageRule
+  = pageRule(str ident)
+  ;
+
+data SectionRule
+  = sectionRule(str ident)
+  | sectionRule(str ident, set[SectionRule] sectionRules)
+  // TODO: does not work... | sectionRule(Statement sectionDefinition)
+  ;
+
+data StyleIdent
+  = typeIdent(str typeName)
+  | pageIdent(str pageName)
+  | sectionIdent(str sectionName)
+  | questionIdent(str questionName)
   ;
 
 data StyleRule
-  = styleRule(str attr, StyleAttrValue \value)
+  = typeStyleRule(str attr, TypeStyleValue typeValue)
+  | widthStyleRule(str attr, int widthValue)
   ;
 
-data StyleAttrValue
-  = styleAttrValue(str \value)
+data TypeStyleValue
+  = radio()
+  | checkbox()
   ;
 
 anno loc Stylesheet@location;
 anno loc Statement@location;
-anno loc ClassRule@location;
+anno loc PageRule@location;
+anno loc SectionRule@location;
 anno loc StyleRule@location;
-anno loc StyleAttrValue@location;

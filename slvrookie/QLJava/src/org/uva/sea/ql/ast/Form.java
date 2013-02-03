@@ -1,30 +1,29 @@
 package org.uva.sea.ql.ast;
 
 import org.uva.sea.ql.ast.expr.Ident;
-import org.uva.sea.ql.visitor.Visitor;
+import org.uva.sea.ql.visitor.ITypeChecker;
 
-public class Form implements ASTNode {
+public class Form extends FormElement {
 
-	private final Ident fID;
-	private final FormBlock fbody;
+	private final Ident name;
+	private final Block body;
 
-	public Form(Ident fID, FormBlock fbody) {
-		this.fID = fID;
-		this.fbody = fbody;
+	public Form(Ident name, Block body) {
+		this.name = name;
+		this.body = body;
 	}
 
-	public Ident getfID() {
-		return fID;
+	public Ident getFormName() {
+		return name;
 	}
 
-	public FormBlock getfBody() {
-		return fbody;
+	public Block getFormBody() {
+		return body;
 	}
 
 	@Override
-	public void accept(Visitor visitor) {
-		// TODO Auto-generated method stub
-
+	public void accept(ITypeChecker TypeChecker) {
+		TypeChecker.visit(this);
 	}
 
 }

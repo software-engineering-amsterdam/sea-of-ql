@@ -40,7 +40,7 @@ mulExpr returns [Expr result]
       if ($op.text.equals("*")) {
         $result = new Mul($result, rhs);
       }
-      if ($op.text.equals("<=")) {
+      if ($op.text.equals("/")) {
         $result = new Div($result, rhs);      
       }
     })*
@@ -117,11 +117,16 @@ formElement returns [FormElement result]
     : ifFormElement { $result = $ifFormElement.result; }
     | questionFormElement { $result = $questionFormElement.result; }
     | computedFormElement { $result = $computedFormElement.result; }
+    | storedExpressionFormElement { $result = $storedExpressionFormElement.result; }
+    ;
+    
+storedExpressionFormElement returns [StoredExpression result]
+    : Ident '=' orExpr { $result = new StoredExpression(new Ident($Ident.text), $orExpr.result); }
     ;
     
 questionFormElement returns [Question result]
     : strExpr Ident ':' typeDeclaration { 
-        $result = new Question($strExpr.result.getValue(), new Declaration(new Ident($Ident.text), $typeDeclaration.result)); }
+        $result = new Question($strExpr.result.getValue(), new Ident($Ident.text), $typeDeclaration.result); }
     ;
 
 Type: 'string'|'boolean'|'integer'; 
@@ -140,13 +145,13 @@ computedFormElement returns [Computed result]
     : strExpr orExpr { $result = new Computed($strExpr.result.getValue(), $orExpr.result); }
     ;
    
-ifFormElement returns [If result]
-    : 'if' '(' orExpr ')' '{' ifElements = formElements '}' 'else' elseElement = ifFormElement 
-        { $result = new If($orExpr.result, $ifElements.result, $elseElement.result); }
+ifFormElement returns [FormElement result]
+    : 'if' '(' orExpr ')' '{' ifElements = formElements '}' 'else' elseElement = ifFormElement
+        { $result = new IfElse($orExpr.result, $ifElements.result, $elseElement.result); }
     | 'if' '(' orExpr ')' '{' ifElements = formElements '}' 'else' '{' elseElements = formElements'}' 
-        { $result = new If($orExpr.result, $ifElements.result, $elseElements.result); }
+        { $result = new IfElse($orExpr.result, $ifElements.result, $elseElements.result); }
     | 'if' '(' orExpr ')' '{' formElements '}' 
-        { $result = new If($orExpr.result, $formElements.result, new NullFormElement()); }
+        { $result = new If($orExpr.result, $formElements.result); }
     ;
     
 // Tokens

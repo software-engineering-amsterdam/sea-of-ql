@@ -1,6 +1,6 @@
 package org.uva.sea.ql.ast.expression;
 
-import org.uva.sea.ql.visitor.Visitor;
+import org.uva.sea.ql.visitor.IExpressionVisitor;
 
 /**
  * Represents an identifier expression.
@@ -13,7 +13,7 @@ public class Ident extends Expression {
 
 	/**
 	 * Constructs a new identifier expression.
-	 * 
+	 *
 	 * @param name The name of the identifier.
 	 */
 	public Ident( String name ) {
@@ -22,7 +22,7 @@ public class Ident extends Expression {
 
 	/**
 	 * Retrieves the name of the identifier.
-	 * 
+	 *
 	 * @return The name of the identifier.
 	 */
 	public String getName() {
@@ -30,12 +30,20 @@ public class Ident extends Expression {
 	}
 
 	@Override
-	public void accept( Visitor visitor ) {
-		visitor.visit( this );
+	public int hashCode() {
+		return this.name.hashCode();
 	}
-	
+
 	@Override
-	public String toString() {
-		return this.name;
+	public boolean equals( Object object ) {
+		if ( !( object instanceof Ident ) ) {
+			return false;
+		}
+		return this.name.equals( ( (Ident) object ).name );
+	}
+
+	@Override
+	public <T> T accept( IExpressionVisitor<T> visitor ) {
+		return visitor.visit( this );
 	}
 }

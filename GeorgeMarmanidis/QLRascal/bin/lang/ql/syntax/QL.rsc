@@ -1,11 +1,12 @@
+@contributor{George Marmanidis -geo.marmani@gmail.com}
 module lang::ql::syntax::QL
 
 lexical Ident 
- 	= ([a-z A-Z 0-9 _] !<< [a-z A-Z][a-z A-Z 0-9 _]* !>> [a-z A-Z 0-9 _]) \ Keywords
+ 	= @category="Identifier" ([a-z A-Z 0-9 _] !<< [a-z A-Z][a-z A-Z 0-9 _]* !>> [a-z A-Z 0-9 _]) \ Keywords
  	;
 
 lexical Money 
-	=   [0-9]+ "." !>> [0-9]?[0-9]
+	= ([0-9]+ "," [0-9][0-9]?)
 	;
 
 lexical Date
@@ -34,7 +35,7 @@ layout Standard
   
 lexical Comment 
  	= @category="Comment" "/*" CommentChar* "*/"
-  	| @category="Comment" "//" CommentChar* [\n]$
+  	| @category="Comment" "//" CommentChar* [\n]
   	;
 
 lexical CommentChar
@@ -60,14 +61,14 @@ start syntax FormBodyItem
 	| conditionalStatement: ConditionalStatement conditionalStatement
 	;
 
-start syntax ConditionalStatement //"{" Question+ question "}" can i insert FormBodyItem??
-	= ifCond: "if" Expr cond "{" Question+ question "}" "else" "{" Question+ question "}"
-	| simpleIfCond : "if" Expr cond "{" Question+ question "}"
-	| ifElseIfCond : "if" Expr cond "{" Question+ question "}" ElseIf+ elseIfCondition "else" "{" Question+ question "}"
+start syntax ConditionalStatement 
+	= ifCond: "if" Expr cond "{" FormBodyItem+ question "}" "else" "{" FormBodyItem+ question "}"
+	| simpleIfCond : "if" Expr cond "{" FormBodyItem+ question "}"
+	| ifElseIfCond : "if" Expr cond "{" FormBodyItem+ question "}" ElseIf+ elseIfCondition "else" "{" FormBodyItem+ question "}"
 	;
 
 start syntax ElseIf
-	= elseif: "else" "if" Expr cond "{"Question+ question"}"
+	= elseif: "else" "if" Expr cond "{"FormBodyItem+ question"}"
 	;
 
 start syntax Question
@@ -79,7 +80,7 @@ start syntax Expr
   	= ident: Ident name
   	| \int: Int
   	| boolean: Boolean
-  	> money: Money
+  	| money: Money
   	| date: Date
   	| float: Float
   	| string: String
@@ -117,10 +118,12 @@ start syntax Type
  	| float: "float"
  	;    
 
-keyword Keywords
+keyword Keywords //create Keywords in order to not use them in form declaration
 	= \true: "true"
 	| \false: "false"
 	| \if: "if"
+	| \else: "else"
+	| \form: "form"
 	;
   
 

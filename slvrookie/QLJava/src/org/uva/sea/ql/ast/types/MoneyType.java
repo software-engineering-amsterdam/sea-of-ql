@@ -1,5 +1,20 @@
 package org.uva.sea.ql.ast.types;
 
-public abstract class MoneyType extends Type {
+public class MoneyType extends Numeric {
 
+	@Override
+	public boolean isCompatibleTo(Type t) {
+		return t.isCompatibleToMoneyType();
+	}
+
+	@Override
+	public boolean isCompatibleToMoneyType() {
+		return true;
+	}
+	
+	@Override
+	public boolean isCompatibleToIntType() {
+		return false;
+	}
+	
 }

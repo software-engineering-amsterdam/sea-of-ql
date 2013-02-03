@@ -11,16 +11,17 @@ import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
 import org.uva.sea.ql.parser.jacc.JACCParser;
 
-import org.uva.sea.ql.ast.Add;
-import org.uva.sea.ql.ast.Sub;
 
-import org.uva.sea.ql.ast.Div;
-import org.uva.sea.ql.ast.GT;
 import org.uva.sea.ql.ast.Ident;
 import org.uva.sea.ql.ast.Int;
-import org.uva.sea.ql.ast.LEq;
-import org.uva.sea.ql.ast.LT;
-import org.uva.sea.ql.ast.Mul;
+import org.uva.sea.ql.ast.operators.binary.numeric.Add;
+import org.uva.sea.ql.ast.operators.binary.numeric.Div;
+import org.uva.sea.ql.ast.operators.binary.numeric.Mul;
+import org.uva.sea.ql.ast.operators.binary.numeric.Sub;
+import org.uva.sea.ql.ast.operators.binary.relational.GT;
+import org.uva.sea.ql.ast.operators.binary.relational.LEq;
+import org.uva.sea.ql.ast.operators.binary.relational.LT;
+
 
 
 @RunWith(Parameterized.class)

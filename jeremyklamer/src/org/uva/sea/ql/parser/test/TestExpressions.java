@@ -3,24 +3,22 @@ package org.uva.sea.ql.parser.test;
 import static org.junit.Assert.assertEquals;
 
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
 import org.uva.sea.ql.ast.Add;
-import org.uva.sea.ql.ast.Expr;
-import org.uva.sea.ql.ast.GT;
 import org.uva.sea.ql.ast.Ident;
 import org.uva.sea.ql.ast.Int;
-import org.uva.sea.ql.ast.LEq;
 import org.uva.sea.ql.ast.LT;
 import org.uva.sea.ql.ast.Mul;
+import org.uva.sea.ql.ast.type.Type;
+import org.uva.sea.ql.interpreter.IntVal;
 import org.uva.sea.ql.parser.antlr.ANTLRParser;
-//import org.uva.sea.ql.parser.jacc.JACCParser;
-//import org.uva.sea.ql.parser.rats.RatsParser;
 
 @RunWith(Parameterized.class)
 public class TestExpressions {
@@ -40,66 +38,108 @@ public class TestExpressions {
 	
 	@Test
 	public void testAdds() throws ParseError {
-		//assertEquals(parser.parse("5 + 6").getClass(), Add.class);
-		//Why is this SUB? 
-		//System.out.println(parser.parse("5 + 8 - 3"));
-//		System.out.println(parser.parse("form testForm1 { question1 : \"alles goed ? \" boolean " +
-//				"question2 : \"Heel goed ? \" boolean " +
-//				"question3 : \"Super goed ? \" boolean " + 
-//				"question4 : \"Niet goed ? \" boolean }"));
-		
-		System.out.println(parser.parse("form testForm1 { question1 : \"alles goed ? \" money( a + b) } "));
-		//parser.parse("true");
-		
-//		assertEquals(parser.parse("a + b").getClass(), Add.class);
-//		assertEquals(parser.parse("a + b + c").getClass(), Add.class);
-//		assertEquals(parser.parse("(a + b + c)").getClass(), Add.class);
-//		assertEquals(parser.parse("a + (b + c)").getClass(), Add.class);
-//		assertEquals(parser.parse("(a + b) + c").getClass(), Add.class);
-//		assertEquals(parser.parse("(a + b)").getClass(), Add.class);
-//		assertEquals(parser.parse("a + b * c").getClass(), Add.class);
-//		assertEquals(parser.parse("a * b + c").getClass(), Add.class);
+		assertEquals(Add.class, parser.parse("a + b").getClass());
+		assertEquals(Add.class, parser.parse("a + b + c").getClass());
+		assertEquals(Add.class, parser.parse("(a + b + c)").getClass());
+		assertEquals(Add.class, parser.parse("a + (b + c)").getClass());
+		assertEquals(Add.class, parser.parse("(a + b) + c").getClass());
+		assertEquals(Add.class, parser.parse("(a + b)").getClass());
+		assertEquals(Add.class, parser.parse("a + b * c").getClass());
+		assertEquals(Add.class, parser.parse("a * b + c").getClass());
 	}
 
-	//@Test
+	@Test
 	public void testMuls() throws ParseError {
-		assertEquals(parser.parse("a * b").getClass(), Mul.class);
-		assertEquals(parser.parse("a * b * c").getClass(), Mul.class);
-		assertEquals(parser.parse("a * (b * c)").getClass(), Mul.class);
-		assertEquals(parser.parse("(a * b) * c").getClass(), Mul.class);
-		assertEquals(parser.parse("(a * b)").getClass(), Mul.class);
-		assertEquals(parser.parse("(a + b) * c").getClass(), Mul.class);
-		assertEquals(parser.parse("a * (b + c)").getClass(), Mul.class);
+		assertEquals(Mul.class, parser.parse("a * b").getClass());
+		assertEquals(Mul.class, parser.parse("a * b * c").getClass());
+		assertEquals(Mul.class, parser.parse("a * (b * c)").getClass());
+		assertEquals(Mul.class, parser.parse("(a * b) * c").getClass());
+		assertEquals(Mul.class, parser.parse("(a * b)").getClass());
+		assertEquals(Mul.class, parser.parse("(a + b) * c").getClass());
+		assertEquals(Mul.class, parser.parse("a * (b + c)").getClass());
 	}
 	
-	//@Test
+	@Test
 	public void testRels() throws ParseError {
-		assertEquals(parser.parse("a < b").getClass(), LT.class);
-		assertEquals(parser.parse("a < b + c").getClass(), LT.class);
-		assertEquals(parser.parse("a < (b * c)").getClass(), LT.class);
-		assertEquals(parser.parse("(a * b) < c").getClass(), LT.class);
-		assertEquals(parser.parse("(a <= b)").getClass(), LEq.class);
-		assertEquals(parser.parse("a + b > c").getClass(), GT.class);
-		assertEquals(parser.parse("a > b + c").getClass(), GT.class);
+		assertEquals(LT.class, parser.parse("a < b").getClass());
+		assertEquals(LT.class, parser.parse("a < b + c").getClass());
+		assertEquals(LT.class, parser.parse("a < (b * c)").getClass());
+		assertEquals(LT.class, parser.parse("(a * b) < c").getClass());
+		assertEquals(LT.class, parser.parse("(a < b)").getClass());
+		assertEquals(LT.class, parser.parse("a + b < c").getClass());
+		assertEquals(LT.class, parser.parse("a < b + c").getClass());
 	}
 
 
-	//@Test
+	@Test
 	public void testIds() throws ParseError {
-		assertEquals(parser.parse("a").getClass(), Ident.class);
-		assertEquals(parser.parse("abc").getClass(), Ident.class);
-		assertEquals(parser.parse("ABC").getClass(), Ident.class);
-		assertEquals(parser.parse("ABCDEF").getClass(), Ident.class);
-		assertEquals(parser.parse("abc2323").getClass(), Ident.class);
-		assertEquals(parser.parse("a2bc232").getClass(), Ident.class);
-		assertEquals(parser.parse("a2bc232aa").getClass(), Ident.class);
+		assertEquals(Ident.class, parser.parse("a").getClass());
+		assertEquals(Ident.class, parser.parse("abc").getClass());
+		assertEquals(Ident.class, parser.parse("ABC").getClass());
+		assertEquals(Ident.class, parser.parse("ABCDEF").getClass());
+		assertEquals(Ident.class, parser.parse("abc2323").getClass());
+		assertEquals(Ident.class, parser.parse("a2bc232").getClass());
+		assertEquals(Ident.class, parser.parse("a2bc232aa").getClass());
 	}
-
-	//@Test
+	
+	@Test
 	public void testNums() throws ParseError {
-		assertEquals(parser.parse("0").getClass(), Int.class);
-		assertEquals(parser.parse("1223").getClass(), Int.class);
-		assertEquals(parser.parse("234234234").getClass(), Int.class);
+		assertEquals(Int.class, parser.parse("0").getClass());
+		assertEquals(Int.class, parser.parse("1223").getClass());
+		assertEquals(Int.class, parser.parse("234234234").getClass());
+	}
+	
+	@Test
+	public void testCalcs() throws ParseError {
+		assertEquals(new Integer(32) , ((IntVal)parser.parse("8 * 4").interpret()).getVal());
+		assertEquals(new Integer(11) , ((IntVal)parser.parse("1 - 4 / 2 + 12").interpret()).getVal());
+		assertEquals(new Integer(45) , ((IntVal)parser.parse("3 - 18 + 15 * 4").interpret()).getVal());
+		assertEquals(new Integer(-30) , ((IntVal)parser.parse("(3 - 18) * 2").interpret()).getVal());
+		assertEquals(new Integer(-30) , ((IntVal)parser.parse("(3 - 18) * 2").interpret()).getVal());
+	}
+	
+	@Test
+	public void testUnaryTypes() throws ParseError {
+		Map<Ident, Type> testMap = new HashMap<Ident, Type>();
+		assertEquals(0 , parser.parse("3").checkType(testMap).size());
+		assertEquals(0 , parser.parse("-3").checkType(testMap).size());
+		assertEquals(0 , parser.parse("+3").checkType(testMap).size());
+		assertEquals(0 , parser.parse("true").checkType(testMap).size());
+		assertEquals(0 , parser.parse("!true").checkType(testMap).size());
+		assertEquals(1 , parser.parse("!3").checkType(testMap).size());
+		assertEquals(1 , parser.parse("+true").checkType(testMap).size());
+		assertEquals(1 , parser.parse("-true").checkType(testMap).size());
+	}
+	
+	@Test
+	public void testBinaryTypes() throws ParseError {
+		Map<Ident, Type> testMap = new HashMap<Ident, Type>();
+		assertEquals(0 , parser.parse("3 + 3").checkType(testMap).size());
+		assertEquals(0 , parser.parse("3 * 3").checkType(testMap).size());
+		assertEquals(0 , parser.parse("3 / 3").checkType(testMap).size());
+		assertEquals(0 , parser.parse("3 - 3").checkType(testMap).size());
+		assertEquals(0 , parser.parse("3 <= 3").checkType(testMap).size());
+		assertEquals(0 , parser.parse("3 < 3").checkType(testMap).size());
+		assertEquals(0 , parser.parse("3 == 3").checkType(testMap).size());
+		assertEquals(0 , parser.parse("3 > 3").checkType(testMap).size());
+		assertEquals(0 , parser.parse("3 >= 3").checkType(testMap).size());
+		assertEquals(0 , parser.parse("3 != 3").checkType(testMap).size());
+		assertEquals(0 , parser.parse("true && true").checkType(testMap).size());
+		assertEquals(0 , parser.parse("true || true").checkType(testMap).size());
+		
+		assertEquals(1 , parser.parse("3 + true").checkType(testMap).size());
+		assertEquals(1 , parser.parse("3 * true").checkType(testMap).size());
+		assertEquals(1 , parser.parse("3 / true").checkType(testMap).size());
+		assertEquals(1 , parser.parse("3 - true").checkType(testMap).size());
+		assertEquals(1 , parser.parse("3 <= true").checkType(testMap).size());
+		assertEquals(1 , parser.parse("3 < true").checkType(testMap).size());
+		assertEquals(1 , parser.parse("3 == true").checkType(testMap).size());
+		assertEquals(1 , parser.parse("3 > true").checkType(testMap).size());
+		assertEquals(1 , parser.parse("3 >= true").checkType(testMap).size());
+		assertEquals(1 , parser.parse("3 != true").checkType(testMap).size());
+		assertEquals(1 , parser.parse("3 && true").checkType(testMap).size());
+		assertEquals(1 , parser.parse("3 || true").checkType(testMap).size());
+		assertEquals(2 , parser.parse("3 + true * 8 - true + 3").checkType(testMap).size());
 	}
 	
 }

@@ -1,8 +1,10 @@
+@contributor{George Marmanidis -geo.marmani@gmail.com}
 module lang::ql::ast::AST
+
 import List;
 
 data Form
-	= form(str ident,list[FormBodyItem] formItem)
+	= form(str ident,list[FormBodyItem] formItems)
 	;
 	
 data FormBodyItem
@@ -11,27 +13,25 @@ data FormBodyItem
 	;
 	
 data ConditionalStatement
-	= ifCond(Expr ifCondition,list[Question] ifQuestion,list[Question] elseQuestion)
-	| simpleIfCond(Expr ifCondition,list[Question] ifQuestion)
-	| ifElseIfCond(Expr ifCondition,list[Question] ifQuestion,list[ElseIf] elseifBranch,list[Question] elseQuestion)
+	= ifCond(Expr ifCondition,list[FormBodyItem] ifQuestions,list[FormBodyItem] elseQuestions)
+	| simpleIfCond(Expr ifCondition,list[FormBodyItem] ifQuestions)
+	| ifElseIfCond(Expr ifCondition,list[FormBodyItem] ifQuestions,list[ElseIf] elseifBranch,list[FormBodyItem] elseQuestions)
 	;
 	
-data ElseIf = elseif(Expr ifExpression,list[Question] elseQuestion);
+data ElseIf = elseif(Expr ifExpression,list[FormBodyItem] elseQuestions);
 
-data Question//needs more tests
+data Question
 	= simpleQuestion(str questionId,str questionLabel,Type questionType)
 	| computedQuestion(str questionId, str questionLabel, Type questionType, Expr questionComputation) 
 	;
 
-//data WhitespaceOrComment 
-
 data Expr
   = ident(str name)
   | \int(int ivalue) 
-  | \string (str strValue) //works needs more tests
-  | boolean (str bValue) 
-  | date(str dValue) // works..needs to set the days and month numbers correclty
-  | money (real monValue)//works but problem with 1,22 two decimal digits
+  | string(str strValue) 
+  | boolean(str bValue) 
+  | date(str dValue) 
+  | money (str monValue)
   | float (real fValue) 
   
   | add(Expr addLeft, Expr addRight)
@@ -62,3 +62,10 @@ data Type
 	| date()
 	| float()
 	;
+	
+anno loc Expr@location;
+anno loc Question@location;
+anno loc Type@location;
+anno loc Form@location;
+anno loc ConditionalStatement@location;
+anno loc ElseIf@location;

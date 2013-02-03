@@ -2,22 +2,16 @@ package org.uva.sea.ql.parser;
 
 import java.io.IOException;
 import java.io.Reader;
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
 import org.uva.sea.ql.CodeLocationInformationImpl;
 import org.uva.sea.ql.ICodeLocationInformation;
 import org.uva.sea.ql.ast.*;
-import org.uva.sea.ql.ast.expressions.BooleanLiteral;
-import org.uva.sea.ql.ast.expressions.Expression;
 import org.uva.sea.ql.ast.expressions.Identifier;
 import org.uva.sea.ql.ast.expressions.IntegerLiteral;
 import org.uva.sea.ql.ast.expressions.MoneyLiteral;
 import org.uva.sea.ql.ast.expressions.StringLiteral;
-import org.uva.sea.ql.ast.types.QLType;
-import org.uva.sea.ql.ast.types.TypeDeclaration;
 
 /**
  * @author Bastiaan.Brekelmans
@@ -32,12 +26,12 @@ public class Lexer implements Tokens {
 		KEYWORDS.put("if", IF);
 		KEYWORDS.put("else", ELSE);
 		KEYWORDS.put("form", FORM);
-		KEYWORDS.put("true", BOOLEANLITERAL);
-		KEYWORDS.put("false", BOOLEANLITERAL);
-		KEYWORDS.put("bool", TYPE);
-		KEYWORDS.put("int", TYPE);
-		KEYWORDS.put("money", TYPE);
-		KEYWORDS.put("string", TYPE);
+		KEYWORDS.put("true", TRUE);
+		KEYWORDS.put("false", FALSE);
+		KEYWORDS.put("bool", BOOLEAN);
+		KEYWORDS.put("int", INTEGER);
+		KEYWORDS.put("money", MONEY);
+		KEYWORDS.put("string", STRING);
 	}
 
 	//last token
@@ -142,6 +136,12 @@ public class Lexer implements Tokens {
 			case '(':
 				nextChar();
 				return token = '(';
+			case '{':
+				nextChar();
+				return token = '{';
+			case '}':
+				nextChar();
+				return token = '}';
 			case '*': {
 				nextChar();
 				if (inComment && c == '/') {
@@ -151,6 +151,9 @@ public class Lexer implements Tokens {
 				}
 				return token = '*';
 			}
+			case ':':
+				nextChar();
+				return token = ':';
 			case '+':
 				nextChar();
 				return token = '+';
@@ -160,6 +163,7 @@ public class Lexer implements Tokens {
 			case '&': {
 				nextChar();
 				if (c == '&') {
+					nextChar();
 					return token = AND;
 				}
 				error("Unexpected character: " + (char)c);
@@ -167,12 +171,20 @@ public class Lexer implements Tokens {
 			case '|': {
 				nextChar();
 				if (c == '|') {
+					nextChar();
 					return token = OR;
 				}
 				error("Unexpected character: " + (char) c);
 			}
+			case '^':
+				nextChar();
+				return token = '^';
 			case '!':
 				nextChar();
+				if (c == '=') {
+					nextChar();
+					return token = NEQ;
+				}
 				return token = '!';
 			case '<': {
 				nextChar();
@@ -180,14 +192,15 @@ public class Lexer implements Tokens {
 					nextChar();
 					return token = LEQ;
 				}
-				return '<';
+				return token = '<';
 			}
 			case '=': {
 				nextChar();
 				if (c == '=') {
+					nextChar();
 					return token = EQ;
 				}
-				error("Unexpected character: " + (char) c);
+				return token = '=';
 			}
 			case '>': {
 				nextChar();
@@ -199,50 +212,62 @@ public class Lexer implements Tokens {
 			}
 			default: {
 				if (Character.isDigit(c) || c == '.') {
-					StringBuilder builder = new StringBuilder();
-					double numberLiteral;
-					do {
-						builder.append(c);
-						nextChar();
-					} while (Character.isDigit(c) || c == '.' || c == 'E' || c == 'e' || c == '-' || c == '+');
-					numberLiteral = Double.parseDouble(builder.toString());
-					if (numberLiteral % 1 != 0 || numberLiteral > Long.MAX_VALUE) {
-						// number is real (money)
-						yylval = new MoneyLiteral(location(), numberLiteral);
-
-					} else {
-						// number is integer
-						yylval = new IntegerLiteral(location(), (long) numberLiteral);
-					}
-					return token = NUMBERLITERAL;
-
+					return getNumber();
 				}
 				if (Character.isLetter(c) || c == '_') {
-					StringBuilder sb = new StringBuilder();
-					do {
-						sb.append((char) c);
-						nextChar();
-					} while (Character.isLetterOrDigit(c));
-					String name = sb.toString();
-					if (KEYWORDS.containsKey(name)) {
-						int token = KEYWORDS.get(name);
-						if (token == BOOLEANLITERAL)
-						{
-							this.yylval = new BooleanLiteral(location(), Boolean.parseBoolean(name));
-						}
-						if (token == TYPE)
-						{
-							this.yylval = new TypeDeclaration(location(), QLType.parse(name));
-						}
-						return token = KEYWORDS.get(name);
-					}
-					yylval = new Identifier(location(), name);
-					return token = IDENTIFIER;
+					return getIdentifierOrKeyword();
 				}
 				error("Unexpected character: " + (char) c);
 			}
 			}
 		}
+	}
+
+	private int getIdentifierOrKeyword() {
+		StringBuilder sb = new StringBuilder();
+		do {
+			sb.append((char) c);
+			nextChar();
+		} while (Character.isLetterOrDigit(c) || c == '_');
+		String name = sb.toString();
+		if (KEYWORDS.containsKey(name)) {
+			return token = KEYWORDS.get(name);
+		}
+		yylval = new Identifier(location(), name);
+		return token = IDENTIFIER;
+	}
+
+	private int getNumber() {
+		StringBuilder builder = new StringBuilder();
+		double numberLiteral;
+		boolean isFloat = false;
+		do {
+			isFloat |= c == '.' || c == 'e' || c == 'E';
+			builder.append((char)c);
+			//if E then we can have a - or + as next char
+			if (c == 'E' || c == 'e') {
+				nextChar();
+				if (c == '-' || c == '+' || Character.isDigit(c)) {
+					builder.append((char)c);
+					nextChar();
+					continue;
+				} else {
+					break;
+				}
+			} else {
+				nextChar();	
+			}			
+		} while (Character.isDigit(c) || c == '.' || c == 'E' || c == 'e');
+		numberLiteral = Double.parseDouble(builder.toString());
+		if (isFloat || numberLiteral > Long.MAX_VALUE) {
+			// number is real (money)
+			yylval = new MoneyLiteral(location(), numberLiteral);
+
+		} else {
+			// number is integer
+			yylval = new IntegerLiteral(location(), (long) numberLiteral);
+		}
+		return token = NUMBERLITERAL;
 	}
 
 	private int getStringLiteral() {
@@ -262,7 +287,7 @@ public class Lexer implements Tokens {
 			}
 			else 
 			{
-				builder.append(c);
+				builder.append((char)c);
 			}
 			nextChar();
 		}

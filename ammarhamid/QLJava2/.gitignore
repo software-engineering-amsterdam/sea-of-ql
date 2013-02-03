@@ -1,4 +1,8 @@
 bin/
+build/
+.idea/
+.settings/
+out/
 *.class
 
 # Package Files #

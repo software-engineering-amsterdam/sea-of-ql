@@ -1,15 +1,16 @@
 package org.uva.sea.ql.ast.type;
 
-import org.uva.sea.ql.visitor.Visitor;
-
 /**
- * Represents an integer type.
+ * Represents an Integer type.
  */
 public class Int extends Number {
-
 	@Override
-	public void accept( Visitor visitor ) {
-		// TODO Auto-generated method stub
+	public boolean isCompatibleToInt() {
+		return true;
 	}
 
+	@Override
+	public String toString() {
+		return "Integer";
+	}
 }

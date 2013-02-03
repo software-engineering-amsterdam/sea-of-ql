@@ -1,0 +1,141 @@
+module org.uva.sea.ql.parser.rats.QLParser;
+
+header {
+import xtc.util.Action;
+import org.uva.sea.ql.ast.*;
+import org.uva.sea.ql.ast.statement.*;
+import org.uva.sea.ql.ast.operative.*;
+import org.uva.sea.ql.ast.primitive.*;
+import org.uva.sea.ql.ast.types.*;
+}
+
+public Form RunParse = yyValue:Form;
+
+Statement Form = 
+	"form" Spacing f:Ident Spacing b:Block { yyValue = new Form(f, b); };
+	
+Block Block =
+	LBracket l:Statement* RBracket { yyValue= new Block(l.list()); }
+	;
+
+Statement Statement =
+	yyValue:IfThen
+	/ yyValue:Question
+	;
+	
+IfThen IfThen =
+	"if" Spacing LParen c:Expr RParen b:Block "else" Spacing e:Block { yyValue = new IfThenElse(c,b,e); }
+	/ "if" Spacing LParen c:Expr RParen b:Block { yyValue = new IfThen(c,b); }
+	;		
+
+Question Question =
+	q:Literal Spacing x:Ident Spacing ":" Spacing t:Type Spacing { yyValue = new QuestionAnswerable(q, new Ident(x), t); }
+	/ q:Literal Spacing x:Ident Spacing ":" Spacing e:Expr Spacing { yyValue = new QuestionComputed(q, new Ident(x), e); }
+	; 
+
+	
+Type Type =
+	"boolean" Spacing { yyValue = new org.uva.sea.ql.ast.types.Bool(); }
+	/ "integer" Spacing { yyValue = new org.uva.sea.ql.ast.types.Int(); }
+	/ "string" Spacing { yyValue = new org.uva.sea.ql.ast.types.Str(); }
+	;
+
+
+Expr Expr =
+    l:RelExpr "&&" Spacing r:RelExpr { yyValue = new And(l, r); }
+    / l:RelExpr "||" Spacing r:RelExpr { yyValue = new Or(l, r); }
+    / yyValue:RelExpr
+    ; 
+    
+Expr RelExpr =
+   l:AddExpr "<=" Spacing r:AddExpr { yyValue = new LEq(l, r); }
+   / l:AddExpr ">=" Spacing r:AddExpr { yyValue = new GEq(l, r); }
+   / l:AddExpr "<" Spacing r:AddExpr { yyValue = new LT(l, r); }
+   / l:AddExpr ">" Spacing r:AddExpr { yyValue = new GT(l, r); }
+   / l:AddExpr "==" Spacing r:AddExpr { yyValue = new Eq(l, r); }
+   / l:AddExpr "!=" Spacing r:AddExpr { yyValue = new NEq(l, r); }
+   / yyValue:AddExpr
+   ;
+ 
+Expr AddExpr =
+     seed:MulExpr actions:AddTail* { yyValue = apply(actions, seed); };
+
+constant Action<Expr> AddTail = 
+	"+" Spacing right:MulExpr { 
+		yyValue = new Action<Expr>() {
+			public Expr run(Expr left) {
+              return new Add(left, right);
+            }
+        };
+    }
+	/ "-" Spacing right:MulExpr { 
+		yyValue = new Action<Expr>() {
+			public Expr run(Expr left) {
+              return new Sub(left, right);
+            }
+        };
+    }; 
+	
+   
+Expr MulExpr =
+	seed:Unary actions:MulTail* { yyValue = apply(actions, seed); };
+
+constant Action<Expr> MulTail =
+	"*" Spacing right:Unary { 
+		yyValue = new Action<Expr>() {
+			public Expr run(Expr left) {
+              return new Mul(left, right);
+            }
+        };
+    }
+    / "/" Spacing right:Unary { 
+		yyValue = new Action<Expr>() {
+			public Expr run(Expr left) {
+              return new Div(left, right);
+            }
+        };
+    }; 
+
+Expr Unary = 
+    "+" Spacing un:Unary { yyValue = new Pos(un); }
+    / "-" Spacing un:Unary { yyValue = new Neg(un); }
+    / "!" Spacing un:Unary { yyValue = new Not(un); }
+	/ yyValue:Primary;
+	
+
+Expr Primary = 
+	s:Literal Spacing { yyValue = new org.uva.sea.ql.ast.primitive.Str(s); }
+	/ "true" Spacing { yyValue = new org.uva.sea.ql.ast.primitive.Bool(true); }
+	/ "false" Spacing { yyValue = new org.uva.sea.ql.ast.primitive.Bool(false); }
+	/ n:Int Spacing { yyValue = new org.uva.sea.ql.ast.primitive.Int(Integer.parseInt(n)); }
+	/ x:Ident Spacing { yyValue = new Ident(x); }
+	/ LParen yyValue:Expr RParen
+	;
+
+String Int
+  = [0-9]+ //![0-9a-zA-Z] 
+	;
+
+String Ident
+  = [a-zA-Z_][A-Za-z0-9_]* //![0-9a-zA-Z_]
+  ;
+
+String Literal 
+	= ["] [A-Za-z0-9_?!;:\t\f\n ]* ["]
+	;
+	
+transient void LParen = '(' Spacing;
+transient void RParen = ')' Spacing;
+
+transient void LBracket = '{' Spacing;
+transient void RBracket = '}' Spacing;
+
+transient void quotes = '\"' Spacing;
+
+
+transient void Spacing = (Space / Comment)*;
+transient void Space              = ' ' /  '\t' / '\f' / LineTerminator ;
+transient void LineTerminator     = '\r' '\n' / '\r' / '\n' ;
+transient void Comment  = "/*" (('*' !'/') / (!'*' _))* "*/" ;
+
+

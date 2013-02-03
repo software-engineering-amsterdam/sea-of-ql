@@ -1,20 +1,51 @@
 grammar QL;
-options {backtrack=true; memoize=true;}
+options { 	
+	backtrack=true; 
+	memoize=true; 
+	language=Java;  
+}
 
 @parser::header
 {
 package org.uva.sea.ql.parser.antlr;
 import org.uva.sea.ql.ast.*;
+import org.uva.sea.ql.ast.expressions.binary.*;
+import org.uva.sea.ql.ast.expressions.unary.*;
+import org.uva.sea.ql.ast.types.*;
+import org.uva.sea.ql.ast.form.*;
+import org.uva.sea.ql.parser.test.*;
+import java.util.LinkedList;
 }
 
 @lexer::header
 {
 package org.uva.sea.ql.parser.antlr;
 }
+@members {
+	private List<String> errors = new LinkedList<String>();
+	
+	public void displayRecognitionError(String[] tokenNames, RecognitionException e) { 
+        String hdr = getErrorHeader(e);        
+        String msg = getErrorMessage(e, tokenNames);	      
+	    
+	    errors.add(hdr + " -- " + msg);
+	       
+	}
+	
+	public boolean isErrorFound(){
+		return this.errors.size() != 0;
+	}
+	public List<String> getErrors(){
+		return this.errors;
+	}
+}
 
 primary returns [Expr result]
   : Int   { $result = new Int(Integer.parseInt($Int.text)); }
   | Ident { $result = new Ident($Ident.text); }
+  | Bool { $result = new Bool($Bool.text);}
+  | Str { $result = new Str($Str.text);}
+  | Money { $result = new Money($Money.text); }
   | '(' x=orExpr ')'{ $result = $x.result; }
   ;
     
@@ -37,7 +68,6 @@ mulExpr returns [Expr result]
     })*
     ;
     
-  
 addExpr returns [Expr result]
     :   lhs=mulExpr { $result=$lhs.result; } ( op=('+' | '-') rhs=mulExpr
     { 
@@ -78,20 +108,61 @@ andExpr returns [Expr result]
     :   lhs=relExpr { $result=$lhs.result; } ( '&&' rhs=relExpr { $result = new And($result, rhs); } )*
     ;
     
-
 orExpr returns [Expr result]
     :   lhs=andExpr { $result = $lhs.result; } ( '||' rhs=andExpr { $result = new Or($result, rhs); } )*
     ;
 
-    
-// Tokens
-WS  :	(' ' | '\t' | '\n' | '\r') { $channel=HIDDEN; }
+form returns [Form result]
+    : Form Ident '{' formElements '}' { $result = new Form(new Ident($Ident.text), $formElements.result); };
+
+formElement returns [FormElement result] 
+    : question {$result = $question.result;}
+    | condition {$result = $condition.result;}
+    | computation {$result = $computation.result;}
     ;
 
-COMMENT 
-     : '/*' .* '*/' {$channel=HIDDEN;}
+formElements returns [ArrayList<FormElement> result]
+    @init { result = new ArrayList<FormElement>(); }
+    : (element = formElement { $result.add(element);})*
     ;
+computation returns [Computation result]
+    : Ident ':' Str type '(' orExpr ')' { $result = new Computation(new Ident($Ident.text), new Str($Str.text), $orExpr.result, $type.result); }
+    ;
+question returns [Question result] 
+    : Ident ':' Str type { $result = new Question(new Ident($Ident.text), new Str($Str.text), $type.result); }
+    ;
+condition returns [Condition result]
+    : If '(' orExpr ')' '{' ifElems = formElements '}' Else '{' elseElems = formElements '}' { $result = new Condition($orExpr.result, $ifElems.result, $elseElems.result);}
+    | If '(' orExpr ')' '{' formElements '}' { $result = new Condition($orExpr.result, $formElements.result); }
+    ;
+
+type returns [Expr result]
+    : 'boolean' {$result = new Bool();}
+    | 'string'  {$result = new Str();}
+    | 'money'   {$result = new Money();}
+    | 'int'     {$result = new Int();}
+    ;
+// Tokens
+
+WS:	(' ' | '\t' | '\n' | '\r')+ { $channel=HIDDEN; };
+
+Comment: '/*' .* '*/' {$channel=HIDDEN;}
+        | '//'  ~ ('\n' | '\r')* {$channel=HIDDEN;};
+
+SpecialChars: ('!' | '?' | ',' | '.' | '<' | '>' | '=' | '+' | '-' | '[' | ']' | '|' | ':' | '/' | '\\' | '\'');
+
+Bool: ('true' | 'false');
+
+If: ('if');
+
+Else: ('else');
+
+Form: 'form';
+
+Str: '"' (Ident | WS | Int | SpecialChars)* '"';
 
 Ident:   ('a'..'z'|'A'..'Z')('a'..'z'|'A'..'Z'|'0'..'9'|'_')*;
+
+Money: ('0'..'9') ',' ('0'..'9')('0'..'9');
 
 Int: ('0'..'9')+;

@@ -1,14 +1,25 @@
 package org.uva.sea.ql.ast.type;
 
-public class Money extends Type {
-	
-	private final int amount; 
+import org.uva.sea.ql.ast.Expr;
 
-	public Money(int amount){
+public class Money extends Numeric {
+	
+	@Override
+	public boolean isCompatibleTo(Type t) {
+		return t.isCompatibleToMoney();
+	}
+	
+	private Expr amount; 
+
+	public Money(){
+		this.amount = null;
+	}
+	
+	public Money(Expr amount){
 		this.amount = amount;
 	}
 	
-	public int getAmount(){
+	public Expr getAmount(){
 		return this.amount;
 	}
 

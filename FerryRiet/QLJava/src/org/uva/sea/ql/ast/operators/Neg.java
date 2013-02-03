@@ -1,0 +1,41 @@
+package org.uva.sea.ql.ast.operators;
+
+import java.math.BigDecimal;
+import java.util.HashMap;
+
+import org.uva.sea.ql.ast.Expr;
+import org.uva.sea.ql.ast.Statement;
+import org.uva.sea.ql.ast.UnExpr;
+import org.uva.sea.ql.ast.nodevisitor.Visitor;
+import org.uva.sea.ql.ast.nodevisitor.VisitorResult;
+import org.uva.sea.ql.ast.types.MoneyType;
+import org.uva.sea.ql.ast.types.IntegerType;
+import org.uva.sea.ql.ast.types.TypeDescription;
+
+public class Neg extends UnExpr {
+
+	public Neg(Expr x) {
+		super(x);
+	}
+
+	@Override
+	public TypeDescription typeOf(HashMap<String, Statement> typeEnv) {
+		return new IntegerType();
+	}
+
+	@Override
+	public VisitorResult accept(Visitor visitor) {
+		return visitor.visit(this);
+	}
+
+	@Override
+	public ExpressionResult eval(HashMap<String, ExpressionResult> symbolMap) {
+		ExpressionResult rightHandResult = getExprRightHand().eval(symbolMap);
+
+		if ((new MoneyType()).isCompatibleTo(rightHandResult.typeOf())
+				&& (new MoneyType()).isCompatibleTo(rightHandResult.typeOf())) {
+			return new MoneyResult(rightHandResult.getMoneyValue().multiply(new BigDecimal(-1)));
+		}
+		return new IntegerResult(rightHandResult.getIntegerValue() * -1);
+	}
+}

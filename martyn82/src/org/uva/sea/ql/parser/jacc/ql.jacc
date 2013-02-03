@@ -1,22 +1,20 @@
 %package org.uva.sea.ql.parser.jacc
-%class QLParser
+%class JACCParser
 %interface QLTokens
-%semantic org.uva.sea.ql.ast.ASTNode 
+%semantic org.uva.sea.ql.ast.Node 
 %start start
 
-%token <org.uva.sea.ql.ast.expression.value.Bool> BOOL
-%token <org.uva.sea.ql.ast.expression.value.Money> MON
-%token <org.uva.sea.ql.ast.expression.value.Int> INT
-%token <org.uva.sea.ql.ast.expression.value.Str> STR
-%token <org.uva.sea.ql.ast.type.Bool> BOOLEAN
-%token <org.uva.sea.ql.ast.type.Money> MONEY
-%token <org.uva.sea.ql.ast.type.Int> INTEGER
-%token <org.uva.sea.ql.ast.type.Str> STRING
-%token IDENT
-%token '*' '/' '+' '-' OR AND NEQ EQ '<' LEQ '>' GEQ '!'
+%token BOOLEAN INTEGER MONEY STRING
+%token <Bool> BOOL
+%token <Money> MON
+%token <Int> INT
+%token <Str> STR
+%token <Ident> IDENT
+%token '^' '*' '/' '+' '-' OR AND NEQ EQ '<' LEQ '>' GEQ '!'
 %token '(' ')' '{' '}'
-%token ';' ':'
-%token IF ELSE
+%token ':'
+%token TRUE FALSE
+%token IF ELSE FORM
 
 %left OR
 %left AND
@@ -25,62 +23,111 @@
 %left '*' '/'
 %left UMIN UPLUS UNOT
 
-%type <ASTNode> node
-%type <Expression> expression
-%type <Statement> statement
-%type <Statements> statements
+// data types
+%type <org.uva.sea.ql.ast.type.Bool> BOOLEAN
+%type <org.uva.sea.ql.ast.type.Int> INTEGER
+%type <org.uva.sea.ql.ast.type.Money> MONEY
+%type <org.uva.sea.ql.ast.type.Str> STRING
+
+// AST nodes
+%type <Assignment>      assignment
+%type <Else>            else
+%type <ElseIf>          elseif
+%type <ElseIfs>         elseifs
+%type <Expression>      expression
+%type <FormDeclaration> form
+%type <IfThenElse>      ifblock
+%type <Statement>       statement
+%type <Statements>      formbody ifbody statements
+%type <org.uva.sea.ql.ast.type.Type> datatype
+%type <VarDeclaration>  vardeclaration
 
 %{
-import org.uva.sea.ql.ast.*;
 import org.uva.sea.ql.ast.expression.*;
+import org.uva.sea.ql.ast.expression.arithmetic.*;
+import org.uva.sea.ql.ast.expression.comparison.*;
+import org.uva.sea.ql.ast.expression.literal.*;
+import org.uva.sea.ql.ast.expression.logical.*;
+import org.uva.sea.ql.ast.expression.unary.*;
 import org.uva.sea.ql.ast.statement.*;
-import org.uva.sea.ql.ast.type.Type;
 %}
 
 %%
 
- start          : node  { result = $1; }
+ start          : statement                       { result = $1; }
                 ;
 
- node           : expression
-                | statement
+ statements     : statement statements             { $$ = new Statements( $1, $2 ); }
+                | statement                        { $$ = new Statements( $1 ); }
                 ;
 
- statements     : statement ';' statements          { $$ = new Statements( $1, $3 ); }
-                | statement ';'                     { $$ = new Statements( $1 ); }
-                ;
-                
- statement      : ifthenelse
-                | vardeclaration
+ statement      : form
+                | question
+                | blockstatement
                 | assignment
                 ;
-                
- ifthenelse     : IF '(' expression ')' '{' statements '}' ELSE '{' statements '}'  { $$ = new If( $3, $6, $10 ); }
-                | IF '(' expression ')' '{' statements '}'                          { $$ = new If( $3, $6 ); }
-                | IF '(' expression ')' '{' '}'                                     { $$ = new If( $3 ); }
+
+ form           : FORM IDENT '{' formbody '}'      { $$ = new FormDeclaration( $2, $4 ); }
                 ;
-                
- vardeclaration : IDENT ':' type                   { $$ = new VarDeclaration( (Ident) $1, (Type) $3 ); }
+
+ formbody       : statements
                 ;
-                
- assignment     : IDENT '=' expression             { $$ = new Assignment( (Ident) $1, (Expression) $3 ); }
+
+ question       : STR vardeclaration               { $$ = new QuestionDeclaration( $1, $2 ); }
+                | STR assignment                   { $$ = new QuestionDeclaration( $1, $2 ); }
                 ;
-                
- expression     : '+' expression %prec UPLUS       { $$ = new Pos( $2 ); }
-                | '-' expression %prec UMIN        { $$ = new Neg( $2 ); }
-                | '!' expression %prec UNOT        { $$ = new Not( $2); }
-                | expression '*' expression        { $$ = new Mul( $1, $3 ); }
-                | expression '/' expression        { $$ = new Div( $1, $3 ); }
-                | expression '+' expression        { $$ = new Add( $1, $3 ); }
-                | expression '-' expression        { $$ = new Sub( $1, $3 ); }
-                | expression EQ expression         { $$ = new Eq( $1, $3 ); }
+
+ blockstatement : ifblock
+                ;
+
+ ifbody         : formbody
+                | /* empty */                      { $$ = new Statements(); }
+                ;
+
+ ifblock        : IF '(' expression ')' '{' ifbody '}' elseifs else     { $$ = new IfThenElse( $3, $6, $8, $9 ); }
+                | IF '(' expression ')' '{' ifbody '}' elseifs          { $$ = new IfThenElse( $3, $6, $8 ); }
+                ;
+
+ elseifs        : elseifs elseif                                        { $$ = new ElseIfs( $2, $1 ); }
+                | /* empty */                                           { $$ = new ElseIfs(); }
+                ;
+
+ elseif         : ELSE IF '(' expression ')' '{' ifbody '}'             { $$ = new ElseIf( $4, $7 ); }
+                ;
+
+ else           : ELSE '{' ifbody '}'                                   { $$ = new Else( $3 ); }
+                ;
+
+ vardeclaration : IDENT ':' datatype               { $$ = new VarDeclaration( $1, $3 ); }
+                ;
+
+ assignment     : IDENT '=' expression             { $$ = new Assignment( $1, $3 ); }
+                ;
+
+ comparison     : expression EQ expression         { $$ = new Eq( $1, $3 ); }
                 | expression NEQ expression        { $$ = new NEq( $1, $3 ); }
                 | expression '>' expression        { $$ = new GT( $1, $3 ); }
                 | expression '<' expression        { $$ = new LT( $1, $3 ); }
                 | expression GEQ expression        { $$ = new GEq( $1, $3 ); }
                 | expression LEQ expression        { $$ = new LEq( $1, $3 ); }
-                | expression AND expression        { $$ = new And( $1, $3 ); }
+                ;
+
+ arithmetic     : expression '*' expression        { $$ = new Mul( $1, $3 ); }
+                | expression '/' expression        { $$ = new Div( $1, $3 ); }
+                | expression '+' expression        { $$ = new Add( $1, $3 ); }
+                | expression '-' expression        { $$ = new Sub( $1, $3 ); }
+                ;
+
+ logical        : expression AND expression        { $$ = new And( $1, $3 ); }
                 | expression OR expression         { $$ = new Or( $1, $3 ); }
+                ;
+ 
+ expression     : '+' expression %prec UPLUS       { $$ = new Pos( $2 ); }
+                | '-' expression %prec UMIN        { $$ = new Neg( $2 ); }
+                | '!' expression %prec UNOT        { $$ = new Not( $2 ); }
+                | comparison
+                | arithmetic
+                | logical
                 | literal
                 | '(' expression ')'               { $$ = $2; }
                 ;
@@ -90,12 +137,17 @@ import org.uva.sea.ql.ast.type.Type;
                 | INT                              { $$ = $1; }
                 | STR                              { $$ = $1; }
                 | IDENT                            { $$ = $1; }
+                | boolliteral                      { $$ = $1; }
+                ;
+                
+ boolliteral    : TRUE                             { $$ = new org.uva.sea.ql.ast.expression.literal.Bool( true ); }
+                | FALSE                            { $$ = new org.uva.sea.ql.ast.expression.literal.Bool( false ); }
                 ;
 
- type           : BOOLEAN                          { $$ = $1; }
-                | MONEY                            { $$ = $1; }
-                | INTEGER                          { $$ = $1; }
-                | STRING                           { $$ = $1; }
+ datatype       : BOOLEAN                          { $$ = new org.uva.sea.ql.ast.type.Bool(); }
+                | MONEY                            { $$ = new org.uva.sea.ql.ast.type.Money(); }
+                | INTEGER                          { $$ = new org.uva.sea.ql.ast.type.Int(); }
+                | STRING                           { $$ = new org.uva.sea.ql.ast.type.Str(); }
                 ;
 
 %%
@@ -107,23 +159,23 @@ import org.uva.sea.ql.ast.type.Type;
     /**
      * Holds the parsing result (AST)
      */
-    private ASTNode result;
+    private Statement result;
     
     /**
      * Retrieves the generated AST.
      *
      * @return The AST.
      */
-    public ASTNode getResult() {
+    public Statement getResult() {
         return result;
     }
     
     /**
-     * Sets the lexer.
+     * Constructs a new instance of the parser.
      *
      * @param lexer
      */
-    public QLParser( QLLexer lexer ) { 
+    public JACCParser( QLLexer lexer ) { 
         this.lexer = lexer;
     }
     

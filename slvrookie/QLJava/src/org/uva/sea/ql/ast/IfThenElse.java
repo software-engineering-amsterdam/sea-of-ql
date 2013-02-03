@@ -1,38 +1,24 @@
 package org.uva.sea.ql.ast;
 
 import org.uva.sea.ql.ast.expr.Expr;
-import org.uva.sea.ql.visitor.Visitor;
+import org.uva.sea.ql.visitor.ITypeChecker;
 
-public class IfThenElse extends FormElement {
+public class IfThenElse extends IfThen {
 
-	private final Expr expression;
-	private final FormBlock thenBody;
-	private final FormBlock elseBody;
+	private final Block elseBody;
 
-	public IfThenElse(Expr expression, FormBlock thenBody, FormBlock elseBody) {
-
-		this.expression = expression;
-		this.thenBody = thenBody;
+	public IfThenElse(Expr condition, Block thenBody, Block elseBody) {
+		super(condition, thenBody);
 		this.elseBody = elseBody;
-
 	}
 
-	public Expr getExpression() {
-		return expression;
-	}
-
-	public FormBlock getThenBody() {
-		return thenBody;
-	}
-
-	public FormBlock getElseBody() {
+	public Block getElseBody() {
 		return elseBody;
 	}
 
 	@Override
-	public void accept(Visitor visitor) {
-		// TODO Auto-generated method stub
-
+	public void accept(ITypeChecker TypeChecker) {
+		TypeChecker.visit(this);
 	}
-
+	
 }

@@ -2,37 +2,27 @@ module lang::ql::ide::Outline
 
 import List;
 import Node;
-import ParseTree;
 import lang::ql::ast::AST;
 import lang::ql::compiler::PrettyPrinter;
-import lang::ql::ide::Outline;
-import lang::ql::util::Implode;
-import lang::ql::util::Parse;
 import util::IDE;
 
-public node outlineForm(Form form) {
-  return 
-    "outline"(outline(form))
-    [@label="Form"]
-    [@\loc=form@location];
-}
+public node outlineForm(Form form) =
+  "outline"(outline(form))
+  [@label="Form"]
+  [@\loc=form@location];
 
-private node createNode(str name, str label, loc location, list[node] children)
-  = setAnnotations(makeNode(name, children), ("label": label, "loc": location));
+private node createNode(str name, str label, loc location, list[node] children) =
+  setAnnotations(makeNode(name, children), ("label": label, "loc": location));
 
-private node outlineBranch(str name, str label, loc location, list[Statement] items) {
-  return
-    "<name>"([outline(i) | i <- items])
-    [@label="<label>"]
-    [@\loc=location];
-}
+private node outlineBranch(str name, str label, loc location, list[Statement] items) =
+  "<name>"([outline(i) | i <- items])
+  [@label="<label>"]
+  [@\loc=location];
 
-private node outline(Form form) {
-  return  
-    "form"([outline(e) | e <- form.formElements])
-    [@label="Form <form.formName> (<size(form.formElements)>)"]
-    [@\loc=form@location];
-}
+private node outline(Form form) = 
+  "form"([outline(e) | e <- form.formElements])
+  [@label="Form <form.formName.ident> (<size(form.formElements)>)"]
+  [@\loc=form@location];
 
 private node outline(Statement item:
   ifCondition(Conditional ifPart, list[Conditional] elseIfs, list[ElsePart] elsePart)) {
@@ -76,7 +66,7 @@ private node outline(Statement item:
 private node outline(Question q:
   question(questionText, answerDataType, answerIdentifier)) {
   str name = "Question";
-  str label = "Q: <answerDataType>:<questionText>";
+  str label = "Q: <answerDataType.name>:<questionText.text>";
 
   return createNode(name, label, q@location, []);
 }
@@ -84,7 +74,7 @@ private node outline(Question q:
 private node outline(Question q:
   question(questionText, answerDataType, answerIdentifier, calculatedField)) {
   str name = "CalculatedQuestion";
-  str label = "CQ: <answerDataType>:<questionText>(<calculatedField>)";
+  str label = "CQ: <answerDataType.name>:<questionText.text>(<calculatedField>)";
   
   return createNode(name, label, q@location, []);
 }

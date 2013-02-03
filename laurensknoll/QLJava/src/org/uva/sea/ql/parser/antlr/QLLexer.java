@@ -1,4 +1,4 @@
-// $ANTLR 3.5 C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g 2013-01-16 21:02:29
+// $ANTLR 3.5 C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g 2013-01-21 14:47:59
 
 package org.uva.sea.ql.parser.antlr;
 
@@ -30,12 +30,17 @@ public class QLLexer extends Lexer {
 	public static final int T__27=27;
 	public static final int T__28=28;
 	public static final int T__29=29;
-	public static final int Boolean=4;
+	public static final int T__30=30;
+	public static final int T__31=31;
+	public static final int T__32=32;
+	public static final int T__33=33;
+	public static final int T__34=34;
+	public static final int BOOLEAN=4;
 	public static final int COMMENT=5;
-	public static final int Ident=6;
-	public static final int Int=7;
-	public static final int Money=8;
-	public static final int String=9;
+	public static final int IDENT=6;
+	public static final int INT=7;
+	public static final int MONEY=8;
+	public static final int STRING=9;
 	public static final int WS=10;
 
 	// delegates
@@ -363,10 +368,10 @@ public class QLLexer extends Lexer {
 		try {
 			int _type = T__26;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:21:7: ( 'if' )
-			// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:21:9: 'if'
+			// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:21:7: ( 'boolean' )
+			// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:21:9: 'boolean'
 			{
-			match("if"); 
+			match("boolean"); 
 
 			}
 
@@ -384,10 +389,11 @@ public class QLLexer extends Lexer {
 		try {
 			int _type = T__27;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:22:7: ( '{' )
-			// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:22:9: '{'
+			// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:22:7: ( 'form' )
+			// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:22:9: 'form'
 			{
-			match('{'); 
+			match("form"); 
+
 			}
 
 			state.type = _type;
@@ -404,10 +410,10 @@ public class QLLexer extends Lexer {
 		try {
 			int _type = T__28;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:23:7: ( '||' )
-			// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:23:9: '||'
+			// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:23:7: ( 'if' )
+			// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:23:9: 'if'
 			{
-			match("||"); 
+			match("if"); 
 
 			}
 
@@ -425,10 +431,11 @@ public class QLLexer extends Lexer {
 		try {
 			int _type = T__29;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:24:7: ( '}' )
-			// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:24:9: '}'
+			// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:24:7: ( 'integer' )
+			// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:24:9: 'integer'
 			{
-			match('}'); 
+			match("integer"); 
+
 			}
 
 			state.type = _type;
@@ -440,13 +447,116 @@ public class QLLexer extends Lexer {
 	}
 	// $ANTLR end "T__29"
 
+	// $ANTLR start "T__30"
+	public final void mT__30() throws RecognitionException {
+		try {
+			int _type = T__30;
+			int _channel = DEFAULT_TOKEN_CHANNEL;
+			// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:25:7: ( 'money' )
+			// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:25:9: 'money'
+			{
+			match("money"); 
+
+			}
+
+			state.type = _type;
+			state.channel = _channel;
+		}
+		finally {
+			// do for sure before leaving
+		}
+	}
+	// $ANTLR end "T__30"
+
+	// $ANTLR start "T__31"
+	public final void mT__31() throws RecognitionException {
+		try {
+			int _type = T__31;
+			int _channel = DEFAULT_TOKEN_CHANNEL;
+			// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:26:7: ( 'string' )
+			// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:26:9: 'string'
+			{
+			match("string"); 
+
+			}
+
+			state.type = _type;
+			state.channel = _channel;
+		}
+		finally {
+			// do for sure before leaving
+		}
+	}
+	// $ANTLR end "T__31"
+
+	// $ANTLR start "T__32"
+	public final void mT__32() throws RecognitionException {
+		try {
+			int _type = T__32;
+			int _channel = DEFAULT_TOKEN_CHANNEL;
+			// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:27:7: ( '{' )
+			// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:27:9: '{'
+			{
+			match('{'); 
+			}
+
+			state.type = _type;
+			state.channel = _channel;
+		}
+		finally {
+			// do for sure before leaving
+		}
+	}
+	// $ANTLR end "T__32"
+
+	// $ANTLR start "T__33"
+	public final void mT__33() throws RecognitionException {
+		try {
+			int _type = T__33;
+			int _channel = DEFAULT_TOKEN_CHANNEL;
+			// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:28:7: ( '||' )
+			// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:28:9: '||'
+			{
+			match("||"); 
+
+			}
+
+			state.type = _type;
+			state.channel = _channel;
+		}
+		finally {
+			// do for sure before leaving
+		}
+	}
+	// $ANTLR end "T__33"
+
+	// $ANTLR start "T__34"
+	public final void mT__34() throws RecognitionException {
+		try {
+			int _type = T__34;
+			int _channel = DEFAULT_TOKEN_CHANNEL;
+			// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:29:7: ( '}' )
+			// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:29:9: '}'
+			{
+			match('}'); 
+			}
+
+			state.type = _type;
+			state.channel = _channel;
+		}
+		finally {
+			// do for sure before leaving
+		}
+	}
+	// $ANTLR end "T__34"
+
 	// $ANTLR start "WS"
 	public final void mWS() throws RecognitionException {
 		try {
 			int _type = WS;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:141:2: ( ( ' ' | '\\t' | '\\n' | '\\r' ) )
-			// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:141:4: ( ' ' | '\\t' | '\\n' | '\\r' )
+			// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:168:2: ( ( ' ' | '\\t' | '\\n' | '\\r' ) )
+			// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:168:4: ( ' ' | '\\t' | '\\n' | '\\r' )
 			{
 			if ( (input.LA(1) >= '\t' && input.LA(1) <= '\n')||input.LA(1)=='\r'||input.LA(1)==' ' ) {
 				input.consume();
@@ -473,7 +583,7 @@ public class QLLexer extends Lexer {
 		try {
 			int _type = COMMENT;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:145:2: ( '//' (~ ( '\\n' | '\\r' ) )* ( '\\r' )? '\\n' | '/*' ( . )* '*/' )
+			// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:172:2: ( '//' ( . )* ( '\\r' )? '\\n' | '/*' ( . )* '*/' )
 			int alt4=2;
 			int LA4_0 = input.LA(1);
 			if ( (LA4_0=='/') ) {
@@ -507,31 +617,30 @@ public class QLLexer extends Lexer {
 
 			switch (alt4) {
 				case 1 :
-					// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:145:4: '//' (~ ( '\\n' | '\\r' ) )* ( '\\r' )? '\\n'
+					// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:172:4: '//' ( . )* ( '\\r' )? '\\n'
 					{
 					match("//"); 
 
-					// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:145:9: (~ ( '\\n' | '\\r' ) )*
+					// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:172:9: ( . )*
 					loop1:
 					while (true) {
 						int alt1=2;
 						int LA1_0 = input.LA(1);
-						if ( ((LA1_0 >= '\u0000' && LA1_0 <= '\t')||(LA1_0 >= '\u000B' && LA1_0 <= '\f')||(LA1_0 >= '\u000E' && LA1_0 <= '\uFFFF')) ) {
+						if ( (LA1_0=='\r') ) {
+							alt1=2;
+						}
+						else if ( (LA1_0=='\n') ) {
+							alt1=2;
+						}
+						else if ( ((LA1_0 >= '\u0000' && LA1_0 <= '\t')||(LA1_0 >= '\u000B' && LA1_0 <= '\f')||(LA1_0 >= '\u000E' && LA1_0 <= '\uFFFF')) ) {
 							alt1=1;
 						}
 
 						switch (alt1) {
 						case 1 :
-							// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:
+							// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:172:9: .
 							{
-							if ( (input.LA(1) >= '\u0000' && input.LA(1) <= '\t')||(input.LA(1) >= '\u000B' && input.LA(1) <= '\f')||(input.LA(1) >= '\u000E' && input.LA(1) <= '\uFFFF') ) {
-								input.consume();
-							}
-							else {
-								MismatchedSetException mse = new MismatchedSetException(null,input);
-								recover(mse);
-								throw mse;
-							}
+							matchAny(); 
 							}
 							break;
 
@@ -540,7 +649,7 @@ public class QLLexer extends Lexer {
 						}
 					}
 
-					// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:145:23: ( '\\r' )?
+					// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:172:12: ( '\\r' )?
 					int alt2=2;
 					int LA2_0 = input.LA(1);
 					if ( (LA2_0=='\r') ) {
@@ -548,7 +657,7 @@ public class QLLexer extends Lexer {
 					}
 					switch (alt2) {
 						case 1 :
-							// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:145:23: '\\r'
+							// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:172:12: '\\r'
 							{
 							match('\r'); 
 							}
@@ -561,11 +670,11 @@ public class QLLexer extends Lexer {
 					}
 					break;
 				case 2 :
-					// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:146:4: '/*' ( . )* '*/'
+					// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:173:4: '/*' ( . )* '*/'
 					{
 					match("/*"); 
 
-					// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:146:9: ( . )*
+					// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:173:9: ( . )*
 					loop3:
 					while (true) {
 						int alt3=2;
@@ -586,7 +695,7 @@ public class QLLexer extends Lexer {
 
 						switch (alt3) {
 						case 1 :
-							// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:146:9: .
+							// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:173:9: .
 							{
 							matchAny(); 
 							}
@@ -613,58 +722,16 @@ public class QLLexer extends Lexer {
 	}
 	// $ANTLR end "COMMENT"
 
-	// $ANTLR start "Boolean"
-	public final void mBoolean() throws RecognitionException {
+	// $ANTLR start "STRING"
+	public final void mSTRING() throws RecognitionException {
 		try {
-			int _type = Boolean;
+			int _type = STRING;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:150:2: ( 'boolean' )
-			// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:150:4: 'boolean'
-			{
-			match("boolean"); 
-
-			}
-
-			state.type = _type;
-			state.channel = _channel;
-		}
-		finally {
-			// do for sure before leaving
-		}
-	}
-	// $ANTLR end "Boolean"
-
-	// $ANTLR start "Money"
-	public final void mMoney() throws RecognitionException {
-		try {
-			int _type = Money;
-			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:154:2: ( 'money' )
-			// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:154:4: 'money'
-			{
-			match("money"); 
-
-			}
-
-			state.type = _type;
-			state.channel = _channel;
-		}
-		finally {
-			// do for sure before leaving
-		}
-	}
-	// $ANTLR end "Money"
-
-	// $ANTLR start "String"
-	public final void mString() throws RecognitionException {
-		try {
-			int _type = String;
-			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:158:2: ( '\"' ( . )* '\"' )
-			// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:158:4: '\"' ( . )* '\"'
+			// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:177:2: ( '\"' ( . )* '\"' )
+			// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:177:4: '\"' ( . )* '\"'
 			{
 			match('\"'); 
-			// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:158:8: ( . )*
+			// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:177:8: ( . )*
 			loop5:
 			while (true) {
 				int alt5=2;
@@ -678,7 +745,7 @@ public class QLLexer extends Lexer {
 
 				switch (alt5) {
 				case 1 :
-					// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:158:8: .
+					// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:177:8: .
 					{
 					matchAny(); 
 					}
@@ -699,15 +766,62 @@ public class QLLexer extends Lexer {
 			// do for sure before leaving
 		}
 	}
-	// $ANTLR end "String"
+	// $ANTLR end "STRING"
 
-	// $ANTLR start "Ident"
-	public final void mIdent() throws RecognitionException {
+	// $ANTLR start "BOOLEAN"
+	public final void mBOOLEAN() throws RecognitionException {
 		try {
-			int _type = Ident;
+			int _type = BOOLEAN;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:162:2: ( ( 'a' .. 'z' | 'A' .. 'Z' ) ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )* )
-			// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:162:4: ( 'a' .. 'z' | 'A' .. 'Z' ) ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )*
+			// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:181:2: ( 'true' | 'false' )
+			int alt6=2;
+			int LA6_0 = input.LA(1);
+			if ( (LA6_0=='t') ) {
+				alt6=1;
+			}
+			else if ( (LA6_0=='f') ) {
+				alt6=2;
+			}
+
+			else {
+				NoViableAltException nvae =
+					new NoViableAltException("", 6, 0, input);
+				throw nvae;
+			}
+
+			switch (alt6) {
+				case 1 :
+					// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:181:4: 'true'
+					{
+					match("true"); 
+
+					}
+					break;
+				case 2 :
+					// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:182:4: 'false'
+					{
+					match("false"); 
+
+					}
+					break;
+
+			}
+			state.type = _type;
+			state.channel = _channel;
+		}
+		finally {
+			// do for sure before leaving
+		}
+	}
+	// $ANTLR end "BOOLEAN"
+
+	// $ANTLR start "IDENT"
+	public final void mIDENT() throws RecognitionException {
+		try {
+			int _type = IDENT;
+			int _channel = DEFAULT_TOKEN_CHANNEL;
+			// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:186:2: ( ( 'a' .. 'z' | 'A' .. 'Z' ) ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )* )
+			// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:186:4: ( 'a' .. 'z' | 'A' .. 'Z' ) ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )*
 			{
 			if ( (input.LA(1) >= 'A' && input.LA(1) <= 'Z')||(input.LA(1) >= 'a' && input.LA(1) <= 'z') ) {
 				input.consume();
@@ -717,16 +831,16 @@ public class QLLexer extends Lexer {
 				recover(mse);
 				throw mse;
 			}
-			// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:162:23: ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )*
-			loop6:
+			// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:186:23: ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )*
+			loop7:
 			while (true) {
-				int alt6=2;
-				int LA6_0 = input.LA(1);
-				if ( ((LA6_0 >= '0' && LA6_0 <= '9')||(LA6_0 >= 'A' && LA6_0 <= 'Z')||LA6_0=='_'||(LA6_0 >= 'a' && LA6_0 <= 'z')) ) {
-					alt6=1;
+				int alt7=2;
+				int LA7_0 = input.LA(1);
+				if ( ((LA7_0 >= '0' && LA7_0 <= '9')||(LA7_0 >= 'A' && LA7_0 <= 'Z')||LA7_0=='_'||(LA7_0 >= 'a' && LA7_0 <= 'z')) ) {
+					alt7=1;
 				}
 
-				switch (alt6) {
+				switch (alt7) {
 				case 1 :
 					// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:
 					{
@@ -742,7 +856,7 @@ public class QLLexer extends Lexer {
 					break;
 
 				default :
-					break loop6;
+					break loop7;
 				}
 			}
 
@@ -755,27 +869,27 @@ public class QLLexer extends Lexer {
 			// do for sure before leaving
 		}
 	}
-	// $ANTLR end "Ident"
+	// $ANTLR end "IDENT"
 
-	// $ANTLR start "Int"
-	public final void mInt() throws RecognitionException {
+	// $ANTLR start "INT"
+	public final void mINT() throws RecognitionException {
 		try {
-			int _type = Int;
+			int _type = INT;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:166:2: ( ( '0' .. '9' )+ )
-			// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:166:4: ( '0' .. '9' )+
+			// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:190:2: ( ( '0' .. '9' )+ )
+			// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:190:4: ( '0' .. '9' )+
 			{
-			// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:166:4: ( '0' .. '9' )+
-			int cnt7=0;
-			loop7:
+			// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:190:4: ( '0' .. '9' )+
+			int cnt8=0;
+			loop8:
 			while (true) {
-				int alt7=2;
-				int LA7_0 = input.LA(1);
-				if ( ((LA7_0 >= '0' && LA7_0 <= '9')) ) {
-					alt7=1;
+				int alt8=2;
+				int LA8_0 = input.LA(1);
+				if ( ((LA8_0 >= '0' && LA8_0 <= '9')) ) {
+					alt8=1;
 				}
 
-				switch (alt7) {
+				switch (alt8) {
 				case 1 :
 					// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:
 					{
@@ -791,11 +905,11 @@ public class QLLexer extends Lexer {
 					break;
 
 				default :
-					if ( cnt7 >= 1 ) break loop7;
-					EarlyExitException eee = new EarlyExitException(7, input);
+					if ( cnt8 >= 1 ) break loop8;
+					EarlyExitException eee = new EarlyExitException(8, input);
 					throw eee;
 				}
-				cnt7++;
+				cnt8++;
 			}
 
 			}
@@ -807,333 +921,83 @@ public class QLLexer extends Lexer {
 			// do for sure before leaving
 		}
 	}
-	// $ANTLR end "Int"
+	// $ANTLR end "INT"
+
+	// $ANTLR start "MONEY"
+	public final void mMONEY() throws RecognitionException {
+		try {
+			int _type = MONEY;
+			int _channel = DEFAULT_TOKEN_CHANNEL;
+			// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:194:2: ( ( '0' .. '9' )+ '.' ( '0' .. '9' ) ( '0' .. '9' ) )
+			// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:194:4: ( '0' .. '9' )+ '.' ( '0' .. '9' ) ( '0' .. '9' )
+			{
+			// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:194:4: ( '0' .. '9' )+
+			int cnt9=0;
+			loop9:
+			while (true) {
+				int alt9=2;
+				int LA9_0 = input.LA(1);
+				if ( ((LA9_0 >= '0' && LA9_0 <= '9')) ) {
+					alt9=1;
+				}
+
+				switch (alt9) {
+				case 1 :
+					// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:
+					{
+					if ( (input.LA(1) >= '0' && input.LA(1) <= '9') ) {
+						input.consume();
+					}
+					else {
+						MismatchedSetException mse = new MismatchedSetException(null,input);
+						recover(mse);
+						throw mse;
+					}
+					}
+					break;
+
+				default :
+					if ( cnt9 >= 1 ) break loop9;
+					EarlyExitException eee = new EarlyExitException(9, input);
+					throw eee;
+				}
+				cnt9++;
+			}
+
+			match('.'); 
+			if ( (input.LA(1) >= '0' && input.LA(1) <= '9') ) {
+				input.consume();
+			}
+			else {
+				MismatchedSetException mse = new MismatchedSetException(null,input);
+				recover(mse);
+				throw mse;
+			}
+			if ( (input.LA(1) >= '0' && input.LA(1) <= '9') ) {
+				input.consume();
+			}
+			else {
+				MismatchedSetException mse = new MismatchedSetException(null,input);
+				recover(mse);
+				throw mse;
+			}
+			}
+
+			state.type = _type;
+			state.channel = _channel;
+		}
+		finally {
+			// do for sure before leaving
+		}
+	}
+	// $ANTLR end "MONEY"
 
 	@Override
 	public void mTokens() throws RecognitionException {
-		// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:1:8: ( T__11 | T__12 | T__13 | T__14 | T__15 | T__16 | T__17 | T__18 | T__19 | T__20 | T__21 | T__22 | T__23 | T__24 | T__25 | T__26 | T__27 | T__28 | T__29 | WS | COMMENT | Boolean | Money | String | Ident | Int )
-		int alt8=26;
-		switch ( input.LA(1) ) {
-		case '!':
-			{
-			int LA8_1 = input.LA(2);
-			if ( (LA8_1=='=') ) {
-				alt8=2;
-			}
-
-			else {
-				alt8=1;
-			}
-
-			}
-			break;
-		case '&':
-			{
-			alt8=3;
-			}
-			break;
-		case '(':
-			{
-			alt8=4;
-			}
-			break;
-		case ')':
-			{
-			alt8=5;
-			}
-			break;
-		case '*':
-			{
-			alt8=6;
-			}
-			break;
-		case '+':
-			{
-			alt8=7;
-			}
-			break;
-		case '-':
-			{
-			alt8=8;
-			}
-			break;
-		case '/':
-			{
-			int LA8_8 = input.LA(2);
-			if ( (LA8_8=='*'||LA8_8=='/') ) {
-				alt8=21;
-			}
-
-			else {
-				alt8=9;
-			}
-
-			}
-			break;
-		case ':':
-			{
-			alt8=10;
-			}
-			break;
-		case '<':
-			{
-			int LA8_10 = input.LA(2);
-			if ( (LA8_10=='=') ) {
-				alt8=12;
-			}
-
-			else {
-				alt8=11;
-			}
-
-			}
-			break;
-		case '=':
-			{
-			alt8=13;
-			}
-			break;
-		case '>':
-			{
-			int LA8_12 = input.LA(2);
-			if ( (LA8_12=='=') ) {
-				alt8=15;
-			}
-
-			else {
-				alt8=14;
-			}
-
-			}
-			break;
-		case 'i':
-			{
-			int LA8_13 = input.LA(2);
-			if ( (LA8_13=='f') ) {
-				int LA8_31 = input.LA(3);
-				if ( ((LA8_31 >= '0' && LA8_31 <= '9')||(LA8_31 >= 'A' && LA8_31 <= 'Z')||LA8_31=='_'||(LA8_31 >= 'a' && LA8_31 <= 'z')) ) {
-					alt8=25;
-				}
-
-				else {
-					alt8=16;
-				}
-
-			}
-
-			else {
-				alt8=25;
-			}
-
-			}
-			break;
-		case '{':
-			{
-			alt8=17;
-			}
-			break;
-		case '|':
-			{
-			alt8=18;
-			}
-			break;
-		case '}':
-			{
-			alt8=19;
-			}
-			break;
-		case '\t':
-		case '\n':
-		case '\r':
-		case ' ':
-			{
-			alt8=20;
-			}
-			break;
-		case 'b':
-			{
-			int LA8_18 = input.LA(2);
-			if ( (LA8_18=='o') ) {
-				int LA8_32 = input.LA(3);
-				if ( (LA8_32=='o') ) {
-					int LA8_35 = input.LA(4);
-					if ( (LA8_35=='l') ) {
-						int LA8_37 = input.LA(5);
-						if ( (LA8_37=='e') ) {
-							int LA8_39 = input.LA(6);
-							if ( (LA8_39=='a') ) {
-								int LA8_41 = input.LA(7);
-								if ( (LA8_41=='n') ) {
-									int LA8_43 = input.LA(8);
-									if ( ((LA8_43 >= '0' && LA8_43 <= '9')||(LA8_43 >= 'A' && LA8_43 <= 'Z')||LA8_43=='_'||(LA8_43 >= 'a' && LA8_43 <= 'z')) ) {
-										alt8=25;
-									}
-
-									else {
-										alt8=22;
-									}
-
-								}
-
-								else {
-									alt8=25;
-								}
-
-							}
-
-							else {
-								alt8=25;
-							}
-
-						}
-
-						else {
-							alt8=25;
-						}
-
-					}
-
-					else {
-						alt8=25;
-					}
-
-				}
-
-				else {
-					alt8=25;
-				}
-
-			}
-
-			else {
-				alt8=25;
-			}
-
-			}
-			break;
-		case 'm':
-			{
-			int LA8_19 = input.LA(2);
-			if ( (LA8_19=='o') ) {
-				int LA8_33 = input.LA(3);
-				if ( (LA8_33=='n') ) {
-					int LA8_36 = input.LA(4);
-					if ( (LA8_36=='e') ) {
-						int LA8_38 = input.LA(5);
-						if ( (LA8_38=='y') ) {
-							int LA8_40 = input.LA(6);
-							if ( ((LA8_40 >= '0' && LA8_40 <= '9')||(LA8_40 >= 'A' && LA8_40 <= 'Z')||LA8_40=='_'||(LA8_40 >= 'a' && LA8_40 <= 'z')) ) {
-								alt8=25;
-							}
-
-							else {
-								alt8=23;
-							}
-
-						}
-
-						else {
-							alt8=25;
-						}
-
-					}
-
-					else {
-						alt8=25;
-					}
-
-				}
-
-				else {
-					alt8=25;
-				}
-
-			}
-
-			else {
-				alt8=25;
-			}
-
-			}
-			break;
-		case '\"':
-			{
-			alt8=24;
-			}
-			break;
-		case 'A':
-		case 'B':
-		case 'C':
-		case 'D':
-		case 'E':
-		case 'F':
-		case 'G':
-		case 'H':
-		case 'I':
-		case 'J':
-		case 'K':
-		case 'L':
-		case 'M':
-		case 'N':
-		case 'O':
-		case 'P':
-		case 'Q':
-		case 'R':
-		case 'S':
-		case 'T':
-		case 'U':
-		case 'V':
-		case 'W':
-		case 'X':
-		case 'Y':
-		case 'Z':
-		case 'a':
-		case 'c':
-		case 'd':
-		case 'e':
-		case 'f':
-		case 'g':
-		case 'h':
-		case 'j':
-		case 'k':
-		case 'l':
-		case 'n':
-		case 'o':
-		case 'p':
-		case 'q':
-		case 'r':
-		case 's':
-		case 't':
-		case 'u':
-		case 'v':
-		case 'w':
-		case 'x':
-		case 'y':
-		case 'z':
-			{
-			alt8=25;
-			}
-			break;
-		case '0':
-		case '1':
-		case '2':
-		case '3':
-		case '4':
-		case '5':
-		case '6':
-		case '7':
-		case '8':
-		case '9':
-			{
-			alt8=26;
-			}
-			break;
-		default:
-			NoViableAltException nvae =
-				new NoViableAltException("", 8, 0, input);
-			throw nvae;
-		}
-		switch (alt8) {
+		// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:1:8: ( T__11 | T__12 | T__13 | T__14 | T__15 | T__16 | T__17 | T__18 | T__19 | T__20 | T__21 | T__22 | T__23 | T__24 | T__25 | T__26 | T__27 | T__28 | T__29 | T__30 | T__31 | T__32 | T__33 | T__34 | WS | COMMENT | STRING | BOOLEAN | IDENT | INT | MONEY )
+		int alt10=31;
+		alt10 = dfa10.predict(input);
+		switch (alt10) {
 			case 1 :
 				// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:1:10: T__11
 				{
@@ -1268,51 +1132,86 @@ public class QLLexer extends Lexer {
 				}
 				break;
 			case 20 :
-				// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:1:124: WS
+				// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:1:124: T__30
+				{
+				mT__30(); 
+
+				}
+				break;
+			case 21 :
+				// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:1:130: T__31
+				{
+				mT__31(); 
+
+				}
+				break;
+			case 22 :
+				// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:1:136: T__32
+				{
+				mT__32(); 
+
+				}
+				break;
+			case 23 :
+				// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:1:142: T__33
+				{
+				mT__33(); 
+
+				}
+				break;
+			case 24 :
+				// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:1:148: T__34
+				{
+				mT__34(); 
+
+				}
+				break;
+			case 25 :
+				// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:1:154: WS
 				{
 				mWS(); 
 
 				}
 				break;
-			case 21 :
-				// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:1:127: COMMENT
+			case 26 :
+				// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:1:157: COMMENT
 				{
 				mCOMMENT(); 
 
 				}
 				break;
-			case 22 :
-				// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:1:135: Boolean
+			case 27 :
+				// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:1:165: STRING
 				{
-				mBoolean(); 
+				mSTRING(); 
 
 				}
 				break;
-			case 23 :
-				// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:1:143: Money
+			case 28 :
+				// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:1:172: BOOLEAN
 				{
-				mMoney(); 
+				mBOOLEAN(); 
 
 				}
 				break;
-			case 24 :
-				// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:1:149: String
+			case 29 :
+				// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:1:180: IDENT
 				{
-				mString(); 
+				mIDENT(); 
 
 				}
 				break;
-			case 25 :
-				// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:1:156: Ident
+			case 30 :
+				// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:1:186: INT
 				{
-				mIdent(); 
+				mINT(); 
 
 				}
 				break;
-			case 26 :
-				// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:1:162: Int
+			case 31 :
+				// C:\\Users\\Laurens.ZORGNED\\Desktop\\ANTLR\\Prototype(2)\\QL.g:1:190: MONEY
 				{
-				mInt(); 
+				mMONEY(); 
 
 				}
 				break;
@@ -1321,5 +1220,147 @@ public class QLLexer extends Lexer {
 	}
 
 
+	protected DFA10 dfa10 = new DFA10(this);
+	static final String DFA10_eotS =
+		"\1\uffff\1\33\6\uffff\1\35\1\uffff\1\37\1\uffff\1\41\5\30\5\uffff\1\30"+
+		"\1\uffff\1\52\10\uffff\3\30\1\57\4\30\2\uffff\3\30\1\uffff\5\30\1\74\4"+
+		"\30\1\101\1\30\1\uffff\1\101\1\30\1\104\1\30\1\uffff\2\30\1\uffff\1\110"+
+		"\1\111\1\112\3\uffff";
+	static final String DFA10_eofS =
+		"\113\uffff";
+	static final String DFA10_minS =
+		"\1\11\1\75\6\uffff\1\52\1\uffff\1\75\1\uffff\1\75\1\157\1\141\1\146\1"+
+		"\157\1\164\5\uffff\1\162\1\uffff\1\56\10\uffff\1\157\1\162\1\154\1\60"+
+		"\1\164\1\156\1\162\1\165\2\uffff\1\154\1\155\1\163\1\uffff\2\145\1\151"+
+		"\2\145\1\60\1\145\1\147\1\171\1\156\1\60\1\141\1\uffff\1\60\1\145\1\60"+
+		"\1\147\1\uffff\1\156\1\162\1\uffff\3\60\3\uffff";
+	static final String DFA10_maxS =
+		"\1\175\1\75\6\uffff\1\57\1\uffff\1\75\1\uffff\1\75\2\157\1\156\1\157\1"+
+		"\164\5\uffff\1\162\1\uffff\1\71\10\uffff\1\157\1\162\1\154\1\172\1\164"+
+		"\1\156\1\162\1\165\2\uffff\1\154\1\155\1\163\1\uffff\2\145\1\151\2\145"+
+		"\1\172\1\145\1\147\1\171\1\156\1\172\1\141\1\uffff\1\172\1\145\1\172\1"+
+		"\147\1\uffff\1\156\1\162\1\uffff\3\172\3\uffff";
+	static final String DFA10_acceptS =
+		"\2\uffff\1\3\1\4\1\5\1\6\1\7\1\10\1\uffff\1\12\1\uffff\1\15\6\uffff\1"+
+		"\26\1\27\1\30\1\31\1\33\1\uffff\1\35\1\uffff\1\2\1\1\1\32\1\11\1\14\1"+
+		"\13\1\17\1\16\10\uffff\1\36\1\37\3\uffff\1\22\14\uffff\1\21\4\uffff\1"+
+		"\34\2\uffff\1\24\3\uffff\1\25\1\20\1\23";
+	static final String DFA10_specialS =
+		"\113\uffff}>";
+	static final String[] DFA10_transitionS = {
+			"\2\25\2\uffff\1\25\22\uffff\1\25\1\1\1\26\3\uffff\1\2\1\uffff\1\3\1\4"+
+			"\1\5\1\6\1\uffff\1\7\1\uffff\1\10\12\31\1\11\1\uffff\1\12\1\13\1\14\2"+
+			"\uffff\32\30\6\uffff\1\30\1\15\3\30\1\16\2\30\1\17\3\30\1\20\5\30\1\21"+
+			"\1\27\6\30\1\22\1\23\1\24",
+			"\1\32",
+			"",
+			"",
+			"",
+			"",
+			"",
+			"",
+			"\1\34\4\uffff\1\34",
+			"",
+			"\1\36",
+			"",
+			"\1\40",
+			"\1\42",
+			"\1\44\15\uffff\1\43",
+			"\1\45\7\uffff\1\46",
+			"\1\47",
+			"\1\50",
+			"",
+			"",
+			"",
+			"",
+			"",
+			"\1\51",
+			"",
+			"\1\53\1\uffff\12\31",
+			"",
+			"",
+			"",
+			"",
+			"",
+			"",
+			"",
+			"",
+			"\1\54",
+			"\1\55",
+			"\1\56",
+			"\12\30\7\uffff\32\30\4\uffff\1\30\1\uffff\32\30",
+			"\1\60",
+			"\1\61",
+			"\1\62",
+			"\1\63",
+			"",
+			"",
+			"\1\64",
+			"\1\65",
+			"\1\66",
+			"",
+			"\1\67",
+			"\1\70",
+			"\1\71",
+			"\1\72",
+			"\1\73",
+			"\12\30\7\uffff\32\30\4\uffff\1\30\1\uffff\32\30",
+			"\1\75",
+			"\1\76",
+			"\1\77",
+			"\1\100",
+			"\12\30\7\uffff\32\30\4\uffff\1\30\1\uffff\32\30",
+			"\1\102",
+			"",
+			"\12\30\7\uffff\32\30\4\uffff\1\30\1\uffff\32\30",
+			"\1\103",
+			"\12\30\7\uffff\32\30\4\uffff\1\30\1\uffff\32\30",
+			"\1\105",
+			"",
+			"\1\106",
+			"\1\107",
+			"",
+			"\12\30\7\uffff\32\30\4\uffff\1\30\1\uffff\32\30",
+			"\12\30\7\uffff\32\30\4\uffff\1\30\1\uffff\32\30",
+			"\12\30\7\uffff\32\30\4\uffff\1\30\1\uffff\32\30",
+			"",
+			"",
+			""
+	};
+
+	static final short[] DFA10_eot = DFA.unpackEncodedString(DFA10_eotS);
+	static final short[] DFA10_eof = DFA.unpackEncodedString(DFA10_eofS);
+	static final char[] DFA10_min = DFA.unpackEncodedStringToUnsignedChars(DFA10_minS);
+	static final char[] DFA10_max = DFA.unpackEncodedStringToUnsignedChars(DFA10_maxS);
+	static final short[] DFA10_accept = DFA.unpackEncodedString(DFA10_acceptS);
+	static final short[] DFA10_special = DFA.unpackEncodedString(DFA10_specialS);
+	static final short[][] DFA10_transition;
+
+	static {
+		int numStates = DFA10_transitionS.length;
+		DFA10_transition = new short[numStates][];
+		for (int i=0; i<numStates; i++) {
+			DFA10_transition[i] = DFA.unpackEncodedString(DFA10_transitionS[i]);
+		}
+	}
+
+	protected class DFA10 extends DFA {
+
+		public DFA10(BaseRecognizer recognizer) {
+			this.recognizer = recognizer;
+			this.decisionNumber = 10;
+			this.eot = DFA10_eot;
+			this.eof = DFA10_eof;
+			this.min = DFA10_min;
+			this.max = DFA10_max;
+			this.accept = DFA10_accept;
+			this.special = DFA10_special;
+			this.transition = DFA10_transition;
+		}
+		@Override
+		public String getDescription() {
+			return "1:1: Tokens : ( T__11 | T__12 | T__13 | T__14 | T__15 | T__16 | T__17 | T__18 | T__19 | T__20 | T__21 | T__22 | T__23 | T__24 | T__25 | T__26 | T__27 | T__28 | T__29 | T__30 | T__31 | T__32 | T__33 | T__34 | WS | COMMENT | STRING | BOOLEAN | IDENT | INT | MONEY );";
+		}
+	}
 
 }

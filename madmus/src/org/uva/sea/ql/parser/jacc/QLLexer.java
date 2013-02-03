@@ -9,16 +9,29 @@ import org.uva.sea.ql.ast.ASTNode;
 import org.uva.sea.ql.ast.Ident;
 import org.uva.sea.ql.ast.Int;
 
+/**
+ * 
+ * Lexer class
+ * @author Emrullah Cakir
+ *
+ */
 public class QLLexer implements QLTokens {
 	private static final Map<String, Integer> KEYWORDS;
 	
+
 	static {
 		KEYWORDS = new HashMap<String, Integer>();
+		KEYWORDS.put("true", BOOL);
+		KEYWORDS.put("false", BOOL);
+		KEYWORDS.put("if", IF);
+		KEYWORDS.put("boolean", BOOL);
+		KEYWORDS.put("integer", INT);
+		KEYWORDS.put("string", STRING);
+		KEYWORDS.put("form", FORM);		
 	}
 		
 	private int token;
 	private int c = ' ';
-	
 	private ASTNode yylval;
 	private final Reader input;
 

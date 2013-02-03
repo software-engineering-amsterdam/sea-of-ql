@@ -6,7 +6,7 @@ package org.uva.sea.ql.ast.expression;
 abstract public class ArithmeticExpression extends BinaryExpression {
 	/**
 	 * Constructs a new ArithmeticExpression instance.
-	 * 
+	 *
 	 * @param lhs The left-hand side expression.
 	 * @param rhs The right-hand side expression.
 	 */

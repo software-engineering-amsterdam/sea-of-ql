@@ -1,27 +1,84 @@
 package org.uva.sea.ql.form;
 
+import java.awt.Button;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.List;
 
-public class Form {
+import javax.swing.JPanel;
 
-	private String id;
-	private List<FormItem> formItems;
+import net.miginfocom.swing.MigLayout;
+
+import org.uva.sea.ql.ast.eval.Env;
+import org.uva.sea.ql.ast.expressions.Ident;
+import org.uva.sea.ql.interpreter.FormElement;
+
+public class Form implements ActionListener {
+
+	private Ident id;
+	private List<FormItem> body;
+	private Env environment;
 	
-	public Form(String id, List<FormItem> formItems) {
+	public Form(Ident id, List<FormItem> formItems) {
 		this.id = id;
-		this.formItems = formItems;
-//		System.out.println("formItems: " + id);
-//		for (FormItem f : formItems) {
-//			f.print(0);
-//		}
+		this.body = formItems;
 	}
 
-	public String getIdentity() {
+	public Ident getIdentity() {
 		return id;
 	}
 	
-	public List<FormItem> getFormItems() {
-		return formItems;
+	public String getName() {
+		return id.getName();
+	}
+	
+	public List<FormItem> getBody() {
+		return body;
 	}
 
+	public void print() {
+		System.out.println("formItems: " + id.getName());
+		for (FormItem f : body) {
+			f.print(0);
+		}		
+	}
+	
+	public boolean checkFormValidity() {
+		boolean valid = true;
+		environment = new Env();
+		for (FormItem f : body) {
+			if (!f.validate(environment))
+				valid = false;
+		}
+		return valid;
+	}
+	
+	public void eval() {
+		for (FormItem f : body) {
+			f.eval(environment, this);
+		}
+	}
+	
+	public JPanel buildForm() {
+		MigLayout ml = new MigLayout("ins 20", "[para]0[][100lp, fill][60lp][95lp, fill]", "");
+		JPanel formPanel = new JPanel(ml);
+		
+		for (FormItem f : body) {
+			List<FormElement> components = f.getFormComponents();
+			for (FormElement fe : components) {
+				formPanel.add(fe.getFormComponent(), fe.getProperties());
+			}
+		}
+		Button testButton = new Button("test");
+		testButton.addActionListener(this);
+		formPanel.add(testButton,"");
+		eval();
+		return formPanel;
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		eval();
+		System.out.println("BAM");
+	}
 }

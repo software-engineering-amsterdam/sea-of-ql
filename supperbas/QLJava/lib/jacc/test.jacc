@@ -1,0 +1,21 @@
+%token TRUE FALSE 
+%token '-' '&' '|'
+%token '(' ')' 
+
+%%
+
+bexp : bexp '|' conj
+     | conj
+     ;
+
+conj : conj '&' neg
+     | neg
+     ;
+
+neg : '-' atom
+    | atom
+    ;
+
+atom : TRUE | FALSE | '(' bexp ')';
+
+%%

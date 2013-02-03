@@ -8,9 +8,6 @@ import org.uva.sea.ql.parser.ParseError;
 import org.uva.sea.ql.parser.Parser;
 import org.uva.sea.ql.parser.antlr.ANTLRParser;
 
-import java.util.Arrays;
-import java.util.Iterator;
-
 public abstract class ParserTests {
 	
 	protected final Parser parser;

@@ -1,44 +1,35 @@
 module lang::ql::compiler::PrettyPrinter
 
 import lang::ql::ast::AST;
-import lang::ql::util::Parse;
-import lang::ql::util::Implode;
 
-public str prettyPrint(Form form) {
-  return 
-    "form <form.formName> { <for (e <- form.formElements) {>
-    '  <prettyPrint(e)><}>
-    '}
-    '";
-}
+public str prettyPrint(Form form) =
+  "form <form.formName.ident> { <for(e <- form.formElements) {>
+  '  <prettyPrint(e)><}>
+  '}
+  '";
 
-public str prettyPrint(Statement item: question(Question question)) = prettyPrint(question);
+public str prettyPrint(Statement item: question(Question question)) = 
+  prettyPrint(question);
 
 public str prettyPrint(Question q: 
-  question(questionText, answerDataType, answerIdentifier)) {
-  return
-    "<questionText>
-    '  <answerDataType> <answerIdentifier>";
-}
+  question(questionText, answerDataType, answerIdentifier)) =
+    "<questionText.text>
+    '  <answerDataType.name> <answerIdentifier.ident>";
 
 public str prettyPrint(Question q: 
-  question(questionText, answerDataType, answerIdentifier, calculatedField)) {
-  return
-    "<questionText>
-    '  <answerDataType> <answerIdentifier> = <prettyPrint(calculatedField)>";
-}
+  question(questionText, answerDataType, answerIdentifier, calculatedField)) =
+    "<questionText.text>
+    '  <answerDataType.name> <answerIdentifier.ident> = <prettyPrint(calculatedField)>";
 
 public str prettyPrint(Statement item: 
-  ifCondition(Conditional ifPart, list[Conditional] elseIfs, list[ElsePart] elsePart)) {
-  return 
-    "if (<prettyPrint(ifPart.condition)>) { <for (e <- ifPart.body) {>
-    ' <prettyPrint(e)><}><for(ei <- elseIfs) { >
-    '} else if(<prettyPrint(ei.condition)>) { <for (e <- ei.body) {>
+  ifCondition(Conditional ifPart, list[Conditional] elseIfs, list[ElsePart] elsePart)) = 
+    "if(<prettyPrint(ifPart.condition)>) { <for(e <- ifPart.body) {>
+    '  <prettyPrint(e)><}><for(ei <- elseIfs) { >
+    '} else if(<prettyPrint(ei.condition)>) { <for(e <- ei.body) {>
     '  <prettyPrint(e)><}><}><for(ep <- elsePart) { >
-    '} else { <for (e <- ep.body) {>
+    '} else { <for(e <- ep.body) {>
     '  <prettyPrint(e)><}><}>
     '}";
-}
 
 public str prettyPrint(pos(Expr posValue)) = 
   "+<prettyPrint(posValue)>";

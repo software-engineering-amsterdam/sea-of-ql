@@ -2,118 +2,149 @@ module typeChecker::TypeCheck
 
 import Prelude;
 import syntax::AbstractSyntax;
-import typeChecker::Load;
+import syntax::ConcreteSyntax;
+import util::Load;
+import typeChecker::Mapping;
 
-alias TENV = tuple[ map[QuestionId, TYPE] symbols, list[tuple[loc l, str msg]] errors]; 
-alias QTENV = tuple[ map[QuestionString, TYPE] symbols, list[tuple[loc l, str msg]] errors]; 
+alias QLTENV = tuple[ rel[str id, str questionLabel, Type tp] question, list[tuple[loc l, str msg]] errors];
 
-TENV addError(TENV env, loc l, str msg) = env[errors = env.errors + <l, msg>]; 
-QTENV addError(TENV env, loc l, str msg) = env[errors = env.errors + <l, msg>];     
+QLTENV addError(QLTENV qlTenv, loc l, str msg) = qlTenv[errors = qlTenv.errors + <l, msg>];
+// to add an instance of a qltenv item
+QLTENV addInstance(QLTENV qlTenv, str id, str questionLabel, Type tp) = qlTenv[question = qlTenv.question + {<id,questionLabel,tp>}]; //= qlTenv.errors + <l, msg> 
 
-str required(TYPE t, str got) = "Required <getName(t)>, got <got>";                 
-str required(TYPE t1, TYPE t2) = required(t1, getName(t2));
+str required(Type t, str got) = "Required <getName(t)>, got <got>";                 
+str required(Type t1, Type t2) = required(t1, getName(t2));
+
 
 // compile Expressions.
-
-TENV checkExp(exp:boolCon(bool B), TYPE req, TENV env) =                              
+QLTENV checkExp(exp:boolCon(bool B), Type req, QLTENV env) =                              
   req == boolean() ? env : addError(env, exp@location, required(req, "boolean"));
-
-TENV checkExp(exp:strCon(str S), TYPE req, TENV env) =
- req == string() ? env : addError(env, exp@location, required(req, "string"));
  
-TENV checkExp(exp:moneyCon(int I), TYPE req, TENV env) =
+QLTENV checkExp(exp:moneyCon(int I), Type req, QLTENV env) =
  req == money() ? env : addError(env, exp@location, required(req, "money"));
-
-QTENV checkExp(exp:strQue(string N), TYPE req, QTENV env) =                              
-  req == string() ? env : addError(env, exp@location, required(req, "string"));
  
- //TENV checkExp(exp:natCon(int I), QuestionString name, TYPE req, TENV env) =
- //req == natCon() ? env : addError(env, exp@location, required(req, "natural"));
-
-TENV checkExp(exp:id(QuestionId Id), TYPE req, TENV env) {                              
-  if(!env.symbols[Id]?)
-     return addError(env, exp@location, "Undeclared variable <Id>");
-  tpid = env.symbols[Id];
-  return req == tpid ? env : addError(env, exp@location, required(req, tpid));
+QLTENV checkExp(exp:id(str id), Type req, QLTENV env) {
+  if(env.question[id] == {}){
+  	return addError(env, exp@location, "Undeclared variable <id>");
+  }else{
+  tpid = range(env.question[id]);
+  println("TPID : <getOneFrom(tpid)>");
+  return req == getOneFrom(tpid) ? env : addError(env, exp@location, required(req, getOneFrom(tpid)));
+  } 
+  
 }
 
-QTENV checkExp(exp:id(QuestionString qName), TYPE req, QTENV env) {                              
-  if(!env.symbols[qName]?)
-     return addError(env, exp@location, "Undeclared variable <qName>");
-  tpid = env.symbols[qName];
-  return req == tpid ? env : addError(env, exp@location, required(req, tpid));
-}
-
-
-TENV checkExp(exp:add(EXP E1, EXP E2), TYPE req, TENV env) =                        
+QLTENV checkExp(exp:add(EXP E1, EXP E2), Type req, QLTENV env) =                        
   req == money() ? checkExp(E1, money(), checkExp(E2, money(), env))
                    : addError(env, exp@location, required(req, "money"));
   
-TENV checkExp(exp:sub(EXP E1, EXP E2), TYPE req, TENV env) =                      
+QLTENV checkExp(exp:sub(EXP E1, EXP E2), Type req, QLTENV env) =                      
   req == money() ? checkExp(E1, money(), checkExp(E2, money(), env))
                    : addError(env, exp@location, required(req, "money"));
 
-//TENV checkExp(exp:conc(EXP E1, EXP E2), TYPE req, TENV env) =                    
-//  req == string() ? checkExp(E1, string(), checkExp(E2, string(), env))
-//                   : addError(env, exp@location, required(req, "string"));
+QLTENV checkExp(exp:or(EXP E1, EXP E2), Type req, QLTENV env) =                    
+  req == string() ? checkExp(E1, string(), checkExp(E2, string(), env))
+                   : addError(env, exp@location, required(req, "string"));
+                   
+QLTENV checkExp(exp:and(EXP E1, EXP E2), Type req, QLTENV env) =                    
+  req == string() ? checkExp(E1, string(), checkExp(E2, string(), env))
+                   : addError(env, exp@location, required(req, "string"));
 
 
-// check a statement
+// check statements for Questions 
 
-TENV checkStat(stat:asgStat(QuestionId Id, EXP Exp), TENV env) {                        
-  if(!env.symbols[Id]?)
-     return addError(env, stat@location, "Undeclared variable <Id>");
-  tpid = env.symbols[Id];
-  return checkExp(Exp, tpid, env);
+/** Method to check if statement 
+* @param statement the if statement
+* @param env the QL Type environment
+* @return env the enviroment
+* @author Philipp
+*/
+QLTENV checkStatement(statement:ifStat(Expression exp, list[Body] body), QLTENV env){
+    println("EXP : <exp>"); 
+    env0 = checkExp(exp, boolean(), env);
+    println();
+    if(size(env0.errors) != 0)
+    	return addError(env0, env0.errors[0].l, env0.errors[0].msg);
+    return env;
 }
 
-QTENV checkStat(stat:asgStat(QuestionIString qName, EXP Exp), QTENV env) {                        
-  if(!env.symbols[qName]?)
-     return addError(env, stat@location, "Undeclared variable <qName>");
-  tpid = env.symbols[qName];
-  return checkExp(Exp, tpid, env);
+// check if else statement
+QLTENV checkStatement(statement:ifElseStat(Expression exp, list[Body] thenpart, list[Body] elsepart), QLTENV env){
+    println("EXP : <Exp>"); 
+    env0 = checkExp(Exp, boolean(), env);
+    if(size(env0.errors) != 0)
+    	return addError(env0, env0.errors[0].l, env0.errors[0].msg);
+    env1 = checkQuestionStats(Stats1, env0);
+    return env;
 }
-	
-//TENV checkStat(stat:ifElseStat(EXP Exp,                                             
-//                              list[STATEMENT] Stats1,
-//                              list[STATEMENT] Stats2),
-//               TENV env){
-//    env0 = checkExp(Exp, natural(), env);
-//    env1 = checkStats(Stats1, env0);
-//    env2 = checkStats(Stats2, env1);
-//    return env2;
-//}
 
-// check a list of statements
-TENV checkStats(list[STATEMENT] Stats1, TENV env) {                                 
-  for(S <- Stats1){
-      env = checkStat(S, env);
-  }
-  return env;
+/** Method to check easy question and save it in the environment
+* @param question the easy question
+* @param env the QL Type environment
+* @return env the enviroment
+* @author Philipp
+*/
+QLTENV checkQuestion(question:easyQuestion(str id, str labelQuestion, Type tp) , QLTENV env){
+	return addInstance(env, id , labelQuestion, tp );	
 }
-  
-// check declarations
 
-TENV checkDecls(list[DECL] Decls) =                                                 
-    <( Id : tp  | decl(QuestionId Id, QuestionString qName, TYPE tp) <- Decls), []>;
+/** Method to check computed question and save it in the environment
+* @param question the computed question
+* @param env the QL Type environment
+* @return env the enviroment
+* @author Philipp
+*/
+QLTENV checkQuestion(question:computedQuestion(str id, str labelQuestion, Type tp, Expression exp) , QLTENV env){
+	println("check computed question");
+	env = <{< id , labelQuestion, tp >} , []>;
+	println("ENV : <env>");
+	return env;
+}
+
+/** Method to check for double Identifiers
+* @param env the QL Type environment
+* @return true if no double Idenfiers
+* @author Philipp
+*/
+bool checkIdentifiers(QLTENV env){
+	if(size(env.question) == size(env.question.id)){
+		return true;
+	}else{
+		println("in add error");
+		return false;
+	}
+}
+
+/** Method to check the body of the QL program
+* @param Body the body of the QL program
+* @param env the QL Type enviroment
+* @return QLTENV the enviroment
+* @author Philipp
+*/
+QLTENV checkBody(list[Body] Body, QLTENV env){
+	for(s <- Body){
+	visit(Body){
+     	case Question q : {
+    			env = checkQuestion(q,env);
+    			if(checkIdentifiers(env) == false) return addError(env, q@location, "Identifier double declared");
+    	    }
+        case Statement s: {
+        		env = checkStatement(s,env);
+        	}
+      };
+	}
+	return env;
+}
 
 // check a QL program
-
-//public TENV checkProgram(PROGRAM P){                                                
-//  if(program(EXP exp, list[DECL] Decls, list[STATEMENT] Series) := P){
-//     TENV env = checkDecls(Decls);
-//     return checkStats(Series, env);
-//  } else
-//    throw "Cannot happen";
-//}
-
-public TENV checkProgram(PROGRAM P){                                                
-  if(program(EXP exp, list[DECL] Decls, list[STATEMENT] Series) := P){
-     println(Decls);
-     TENV env = checkDecls(Decls);
-     return checkStats(Series, env);
+public QLTENV checkProgram(Program P){                                                
+  if(program(Expression id, list[Body] Body) := P){	 
+     QLTENV env = <{},[]>; 
+     env = checkBody(Body, env);
+     println("ENV : <env>"); 
+	 return env;
   } else
-    throw "Cannot happen";
+     throw "Cannot happen";
 }
-                                                                                    
+                                                                                 
 public list[tuple[loc l, str msg]] checkProgram(str txt) = checkProgram(load(txt)).errors;

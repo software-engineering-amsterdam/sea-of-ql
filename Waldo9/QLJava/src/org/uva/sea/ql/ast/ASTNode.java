@@ -1,5 +1,5 @@
 package org.uva.sea.ql.ast;
 
-public interface ASTNode {
+public interface ASTNode {	
 
 }
