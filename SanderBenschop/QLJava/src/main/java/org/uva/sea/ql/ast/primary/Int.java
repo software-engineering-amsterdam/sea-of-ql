@@ -6,7 +6,7 @@ import org.uva.sea.ql.ast.primary.typeClasses.Type;
 import org.uva.sea.ql.visitor.ASTNodeVisitor;
 import org.uva.sea.ql.visitor.typechecking.SymbolTable;
 
-public final class Int extends Datatype<Integer> {
+public final class Int extends ObjectLiteral<Integer> {
 
 	private final int value;
     private final Type returningType;

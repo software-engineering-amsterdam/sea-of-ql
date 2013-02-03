@@ -1,7 +1,7 @@
 package org.uva.sea.ql.parser.stringparsing.primary;
 
 import org.junit.Test;
-import org.uva.sea.ql.ast.primary.Datatype;
+import org.uva.sea.ql.ast.primary.ObjectLiteral;
 import org.uva.sea.ql.ast.primary.Str;
 import org.uva.sea.ql.parser.TestParser;
 import org.uva.sea.ql.parser.exception.ParseError;
@@ -18,12 +18,12 @@ public class StringTest extends TestParser {
     @Test
     @SuppressWarnings("unchecked")
     public void shouldRemoveOuterQuotes() throws ParseError {
-        assertEquals("Test", ((Datatype<String>) parsePrimary("\"Test\"")).getValue());
+        assertEquals("Test", ((ObjectLiteral<String>) parsePrimary("\"Test\"")).getValue());
     }
 
     @Test
     @SuppressWarnings("unchecked")
     public void shouldProperlyEscapeNonOuterQuotes() throws ParseError {
-        assertEquals("\\\"Hello\\\"", ((Datatype<String>) parsePrimary("\"\\\"Hello\\\"\"")).getValue());
+        assertEquals("\\\"Hello\\\"", ((ObjectLiteral<String>) parsePrimary("\"\\\"Hello\\\"\"")).getValue());
     }
 }

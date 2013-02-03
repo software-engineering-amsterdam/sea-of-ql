@@ -6,7 +6,7 @@ import org.uva.sea.ql.ast.primary.typeClasses.Type;
 import org.uva.sea.ql.visitor.ASTNodeVisitor;
 import org.uva.sea.ql.visitor.typechecking.SymbolTable;
 
-public final class Str extends Datatype<String> {
+public final class Str extends ObjectLiteral<String> {
 
 	private final String value;
 	private final Type returningType;

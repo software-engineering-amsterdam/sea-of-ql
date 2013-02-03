@@ -6,7 +6,7 @@ import org.uva.sea.ql.ast.primary.typeClasses.Type;
 import org.uva.sea.ql.visitor.ASTNodeVisitor;
 import org.uva.sea.ql.visitor.typechecking.SymbolTable;
 
-public final class Bool extends Datatype<Boolean> {
+public final class Bool extends ObjectLiteral<Boolean> {
 
 	private final boolean value;
 	private final Type returningType;
