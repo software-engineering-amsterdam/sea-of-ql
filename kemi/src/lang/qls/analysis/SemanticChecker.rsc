@@ -8,9 +8,9 @@ import lang::qls::ast::AST;
 import lang::qls::compiler::PrettyPrinter;
 
 
-public set[Message] semanticChecker(Stylesheet s) =
+public set[Message] semanticChecker(Stylesheet s) = {};/*
   undefinedClassWarnings(s) +
-  unusedClassWarnings(s);
+  unusedClassWarnings(s);*/
 
 public set[Message] undefinedClassWarnings(Stylesheet s) {
   warnings = {};
