@@ -4,20 +4,25 @@ import IO;
 import List;
 import String;
 
-//import lang::ql::ast::AST;
-//import lang::ql::tests::ParseHelper;
+import lang::ql::analysis::SemanticChecker;
+import lang::ql::ast::AST;
+import lang::ql::tests::ParseHelper;
+
 import lang::qls::ast::AST;
 import lang::qls::tests::ParseHelper;
 
 public void main() {
-  Stylesheet s = parseStylesheet(|project://QL-R-kemi/stylesheets/otherProposedSyntax.qs|);
+  Form f = parseForm(|project://QL-R-kemi/forms/basic.q|);
+  Stylesheet s = parseStylesheet(|project://QL-R-kemi/stylesheets/basic.qs|);
+  iprintln(getStyleRules("numberQuestion", f, s));
+  
   //Stylesheet s = parseStylesheet("stylesheet S1 { section \"S1\" { section \"SS\" {question Q1 { type checkbox }} } section \"P1\" {  } }");
   //Stylesheet s = parseStylesheet("stylesheet S1 { question Q1 { type checkbox width 100 } default boolean { type radio } default string { width 104 }}");
-  iprintln(getStyleRules("questionTen", s));
 }
 
-public list[StyleRule] getStyleRules(str questionIdent, Stylesheet s) {
-  str \type = "boolean"; //TODO: combine
+public list[StyleRule] getStyleRules(str questionIdent, Form f, Stylesheet s) {
+  typeMap = semanticAnalysisState(f).definitions;
+  str \type = typeMap[identDefinition(questionIdent)].name;
   list[StyleRule] rules = getStyleRules(\type, s.definitions);
   for(d <- getDefinitions(questionIdent, s)) {
     switch(d) {
