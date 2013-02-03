@@ -128,7 +128,7 @@ public list[str] getSectionNames(Stylesheet s) =
 
 
 public void main() {
-  s = parseStylesheet(|project://QL-R-kemi/stylesheets/otherProposedSyntax.qs|);
+  s = parseStylesheet(|project://QL-R-kemi/stylesheets/proposedSyntax.qs|);
   //iprintln(getQuestionDefinitions(s));
   //iprintln(getPageNames(s));
   //iprintln(getSectionNames(s));

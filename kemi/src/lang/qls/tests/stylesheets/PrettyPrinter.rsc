@@ -11,4 +11,4 @@ private bool prettyPrintAndCompare(str s) =
   parseStylesheet(s) == parseStylesheet(prettyPrint(parseStylesheet(s)));
 
 public test bool testProposedSyntax() = 
-  prettyPrintAndCompare(|project://QL-R-kemi/stylesheets/otherProposedSyntax.qs|);
+  prettyPrintAndCompare(|project://QL-R-kemi/stylesheets/proposedSyntax.qs|);
