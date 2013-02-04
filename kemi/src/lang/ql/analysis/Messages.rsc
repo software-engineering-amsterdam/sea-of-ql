@@ -13,20 +13,20 @@ module lang::ql::analysis::Messages
 import lang::ql::ast::AST;
 import util::IDE;
 
-public Message alreadyDeclaredMessage(str name, loc \loc) 
-  = error("Identifier <name> is already declared.", \loc);
+public Message alreadyDeclaredMessage(str name, loc \loc) =
+  error("Identifier <name> is already declared.", \loc);
   
-public Message redeclaredMessage(loc \loc) 
-  = error("Identifier is being redeclared with a different type.", \loc);
+public Message redeclaredMessage(loc \loc) = 
+  error("Identifier is being redeclared with a different type.", \loc);
 
-public Message labelError(loc \loc) 
-  = warning("This question is already defined", \loc);
+public Message labelError(loc \loc) =
+  warning("This question is already defined", \loc);
 
-public Message invalidAssignmentMessage(Type decl, Type eval, \loc) 
-  = error("Declared type is <decl.name>, evaluates to <eval.name>.", \loc);
+public Message invalidAssignmentMessage(Type decl, Type eval, \loc) = 
+  error("Declared type is <decl.name>, evaluates to <eval.name>.", \loc);
 
-public Message invalidTypeMessage(loc \loc) 
-  = error("Invalid types in expression.", \loc);
+public Message invalidTypeMessage(loc \loc) =
+  error("Invalid types in expression.", \loc);
   
-public Message undeclaredIdentifierMessage(str ident, loc \loc) 
-  = error("Identifier <ident> is undeclared.", \loc);
+public Message undeclaredIdentifierMessage(str ident, loc \loc) = 
+  error("Identifier <ident> is undeclared.", \loc);

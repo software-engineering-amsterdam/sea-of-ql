@@ -20,15 +20,15 @@ import lang::ql::ast::AST;
 import lang::ql::compiler::PrettyPrinter;
 import util::IDE;
 
-public set[Message] semanticChecker(node form) {
+public set[Message] semanticChecker(Form form) {
   SAS sas = <(), ()>;
-  <sas, messages> = analyzeSemantics(sas, form);
+  <_, messages> = analyzeSemantics(sas, form);
   return messages;
 }
 
-public SAS semanticAnalysisState(node form) {
+public SAS semanticAnalysisState(Form form) {
   SAS sas = <(), ()>;
-  <sas, messages> = analyzeSemantics(sas, form);
+  <sas, _> = analyzeSemantics(sas, form);
   return sas;
 }
 
@@ -41,87 +41,85 @@ private SAS merge(SAS cur, SAS add) {
   return ret;
 }
   
-private tuple[SAS sas, set[Message] messages] analyzeSemantics(SAS sas, Form form) {
+private tuple[SAS sas, set[Message] messages] analyzeSemantics(SAS sas, 
+    Form form) {
   messages = {};
+  
   for(e <- form.formElements) {
     <s, m> = analyzeSemantics(sas, e);
     messages += m;
     sas = merge(sas, s);
   }
+  
   return <sas, messages>;
 }
 
 private State analyzeSemantics(SAS sas, 
-  Statement item: question(Question question)) = 
-    analyzeSemantics(sas, question);
+    Statement item: question(Question question)) = 
+  analyzeSemantics(sas, question);
     
 private State analyzeSemantics(SAS sas, Question q:
-  question(QuestionText text, Type \type, IdentDefinition ident)) =
-    analyzeSemanticsQuestion(sas, text, \type, ident); 
+    question(QuestionText text, Type \type, IdentDefinition ident)) =
+  analyzeSemanticsQuestion(sas, text, \type, ident); 
 
 private State analyzeSemantics(SAS sas, Question q: 
-  question(QuestionText text, Type \type, IdentDefinition ident, Expr calc)) =
-    analyzeSemanticsQuestion(sas, text, \type, ident, calc);
+    question(QuestionText text, Type \type, IdentDefinition ident, Expr calc)) =
+  analyzeSemanticsQuestion(sas, text, \type, ident, calc);
 
 private State analyzeSemanticsQuestion(SAS sas,
-  QuestionText text, Type \type, IdentDefinition ident, Expr expression) {
+    QuestionText text, Type \type, IdentDefinition ident, Expr expression) {
+  messages = analyzeAssignmentExpression(sas, \type, expression);
     
-    messages = analyzeAssignmentExpression(sas, \type, expression);
+  <sas, m> = analyzeSemanticsQuestion(sas, text, \type, ident);
     
-    <sas, m> = analyzeSemanticsQuestion(sas, text, \type, ident);
-    messages += m;
-    
-    return <sas, messages>;
+  return <sas, messages + m>;
 }
 
 private State analyzeSemanticsQuestion(SAS sas, 
-  QuestionText text, Type \type, IdentDefinition ident) {
-    set[Message] messages = {};
+    QuestionText text, Type \type, IdentDefinition ident) {
+  set[Message] messages = {};
     
-    <tm, m> = typeMapper(ident, \type, sas.definitions);
-    messages += m;
-    sas.definitions += tm;
+  <tm, m> = typeMapper(ident, \type, sas.definitions);
+  messages += m;
+  sas.definitions += tm;
     
-    <lm, m> = labelMapper(text, ident, sas.labels);
-    messages += m;
-    sas.labels += lm;
+  <lm, m> = labelMapper(text, ident, sas.labels);
+  messages += m;
+  sas.labels += lm;
 
-    return <sas, messages>;
+  return <sas, messages>;
 }
 
 
 private State analyzeSemantics(SAS sas, Statement item: 
-  ifCondition(Conditional ifPart, list[Conditional] elseIfs, list[ElsePart] elsePart)) {
-    set[Message] messages = {};
+    ifCondition(Conditional ifPart, list[Conditional] elseIfs, 
+    list[ElsePart] elsePart)) {
+  set[Message] messages = {};
     
-    // If branch
-    messages += analyzeExpression(sas, ifPart.condition);
+  messages += analyzeExpression(sas, ifPart.condition);
     
-    for(e <- ifPart.body) {
+  for(e <- ifPart.body) {
+    <s, m> = analyzeSemantics(sas, e);
+    messages += m;
+    sas = merge(sas, s);
+  }
+    
+  for(ei <- elseIfs) {
+    messages += analyzeExpression(sas, ei.condition);
+    for(e <- ei.body) {
       <s, m> = analyzeSemantics(sas, e);
       messages += m;
       sas = merge(sas, s);
     }
-    
-    // ElseIf branche(s)
-    for(ei <- elseIfs) {
-      messages += analyzeExpression(sas, ei.condition);
-      
-      for(e <- ei.body) {
-        <s, m> = analyzeSemantics(sas, e);
-        messages += m;
-        sas = merge(sas, s);
-      }
-    }
+  }
         
-    // Else branch
-    for(ep <- elsePart) {
-      for(e <- ep.body) {
-        <s, m> = analyzeSemantics(sas, e);
-        messages += m;
-        sas = merge(sas, s);
-      }
-    }    
+  for(ep <- elsePart) {
+    for(e <- ep.body) {
+      <s, m> = analyzeSemantics(sas, e);
+      messages += m;
+      sas = merge(sas, s);
+    }
+  }    
 
-    return <sas, messages>;
+  return <sas, messages>;
 }
