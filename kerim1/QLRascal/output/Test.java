@@ -1,7 +1,9 @@
 import java.awt.*;
+import java.awt.event.*;
 import javax.swing.*;
+import javax.swing.event.*;
 
-public class Box1HouseOwning extends JFrame {
+public class Box1HouseOwning extends JFrame implements ChangeListener, FocusListener {
 	private JCheckBox hasSoldHouse = new JCheckBox();
 	private JCheckBox hasBoughtHouse = new JCheckBox();
 	private JCheckBox hasMaintLoan = new JCheckBox();
@@ -11,9 +13,7 @@ public class Box1HouseOwning extends JFrame {
 	private JSpinner sellingPrice = new JSpinner(sellingPriceModel);
 	private SpinnerNumberModel privateDebtModel = new SpinnerNumberModel();
 	private JSpinner privateDebt = new JSpinner(privateDebtModel);
-	private JTextField nameHouse = new JTextField();
-	private JPanel if8 = new JPanel();
-	private JPanel else8 = new JPanel();
+	private JPanel if7 = new JPanel();
 	
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -34,6 +34,8 @@ public class Box1HouseOwning extends JFrame {
 		content.setLayout(new BoxLayout(content, BoxLayout.Y_AXIS));
 		getContentPane().add(content, BorderLayout.CENTER);
 		
+		hasSoldHouse.addChangeListener(this);
+		
 		JPanel hasSoldHousePanel = new JPanel();
 		hasSoldHousePanel.setBorder(BorderFactory.createEmptyBorder(0, 0, 10, 0));
 		hasSoldHousePanel.setLayout(new GridLayout(1, 2, 10, 0));
@@ -44,7 +46,9 @@ public class Box1HouseOwning extends JFrame {
 		hasSoldHousePanel.add(hasSoldHouseLabel);
 		hasSoldHousePanel.add(hasSoldHouse);
 		content.add(hasSoldHousePanel);
-		  	
+		
+		hasBoughtHouse.addChangeListener(this);
+		
 		JPanel hasBoughtHousePanel = new JPanel();
 		hasBoughtHousePanel.setBorder(BorderFactory.createEmptyBorder(0, 0, 10, 0));
 		hasBoughtHousePanel.setLayout(new GridLayout(1, 2, 10, 0));
@@ -55,7 +59,9 @@ public class Box1HouseOwning extends JFrame {
 		hasBoughtHousePanel.add(hasBoughtHouseLabel);
 		hasBoughtHousePanel.add(hasBoughtHouse);
 		content.add(hasBoughtHousePanel);
-		  	
+		
+		hasMaintLoan.addChangeListener(this);
+		
 		JPanel hasMaintLoanPanel = new JPanel();
 		hasMaintLoanPanel.setBorder(BorderFactory.createEmptyBorder(0, 0, 10, 0));
 		hasMaintLoanPanel.setLayout(new GridLayout(1, 2, 10, 0));
@@ -66,7 +72,9 @@ public class Box1HouseOwning extends JFrame {
 		hasMaintLoanPanel.add(hasMaintLoanLabel);
 		hasMaintLoanPanel.add(hasMaintLoan);
 		content.add(hasMaintLoanPanel);
-		  	
+		
+		valueResidue.addChangeListener(this);
+		
 		JPanel valueResiduePanel = new JPanel();
 		valueResiduePanel.setBorder(BorderFactory.createEmptyBorder(0, 0, 10, 0));
 		valueResiduePanel.setLayout(new GridLayout(1, 2, 10, 0));
@@ -77,12 +85,14 @@ public class Box1HouseOwning extends JFrame {
 		valueResiduePanel.add(valueResidueLabel);
 		valueResiduePanel.add(valueResidue);
 		content.add(valueResiduePanel);
-		  	
+		
 		valueResidue.setEnabled(false);
-			
-		if8.setLayout(new BoxLayout(if8, BoxLayout.Y_AXIS));
-		content.add(if8);
-			
+		
+		if7.setLayout(new BoxLayout(if7, BoxLayout.Y_AXIS));
+		content.add(if7);
+		
+		sellingPrice.addChangeListener(this);
+		
 		JPanel sellingPricePanel = new JPanel();
 		sellingPricePanel.setBorder(BorderFactory.createEmptyBorder(0, 0, 10, 0));
 		sellingPricePanel.setLayout(new GridLayout(1, 2, 10, 0));
@@ -92,8 +102,10 @@ public class Box1HouseOwning extends JFrame {
 		
 		sellingPricePanel.add(sellingPriceLabel);
 		sellingPricePanel.add(sellingPrice);
-		if8.add(sellingPricePanel);
-		  	
+		if7.add(sellingPricePanel);
+		
+		privateDebt.addChangeListener(this);
+		
 		JPanel privateDebtPanel = new JPanel();
 		privateDebtPanel.setBorder(BorderFactory.createEmptyBorder(0, 0, 10, 0));
 		privateDebtPanel.setLayout(new GridLayout(1, 2, 10, 0));
@@ -103,22 +115,31 @@ public class Box1HouseOwning extends JFrame {
 		
 		privateDebtPanel.add(privateDebtLabel);
 		privateDebtPanel.add(privateDebt);
-		if8.add(privateDebtPanel);
-		  	
-		else8.setLayout(new BoxLayout(else8, BoxLayout.Y_AXIS));
-		content.add(else8);
+		if7.add(privateDebtPanel);
 			
-		JPanel nameHousePanel = new JPanel();
-		nameHousePanel.setBorder(BorderFactory.createEmptyBorder(0, 0, 10, 0));
-		nameHousePanel.setLayout(new GridLayout(1, 2, 10, 0));
-		
-		JLabel nameHouseLabel = new JLabel("Name of the house:");
-		nameHouseLabel.setHorizontalAlignment(SwingConstants.RIGHT);
-		
-		nameHousePanel.add(nameHouseLabel);
-		nameHousePanel.add(nameHouse);
-		else8.add(nameHousePanel);
-		  		
 		pack();
+		
+		formStateChanged();
+	}
+	
+	public void stateChanged(ChangeEvent e) {
+		formStateChanged();
+	}
+	
+	public void focusGained(FocusEvent e) { }
+	
+	public void focusLost(FocusEvent e) {
+		if (!e.isTemporary()) {
+			formStateChanged();
+		}
+	}
+	
+	private void formStateChanged() {
+		valueResidueModel.setValue(new Integer(sellingPriceModel.getNumber().intValue() - privateDebtModel.getNumber().intValue()).intValue());
+		if7.setVisible(false);
+		if (new Boolean(hasSoldHouse.isSelected()).booleanValue()) {
+			if7.setVisible(true);
+		}
+		
 	}
 }
