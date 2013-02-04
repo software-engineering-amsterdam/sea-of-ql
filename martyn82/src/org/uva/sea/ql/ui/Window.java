@@ -16,8 +16,8 @@ public class Window extends JFrame {
 
 	private void initComponents() {
 		this.setDefaultCloseOperation( EXIT_ON_CLOSE );
+		this.setLocation( 100, 100 );
 		this.setSize( 500, 500 );
-		this.setLocation( 300, 300 );
 
 		this.add( this.formPanel );
 	}

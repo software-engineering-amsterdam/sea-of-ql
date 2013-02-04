@@ -1,9 +1,13 @@
 package org.uva.sea.ql.evaluator;
 
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.util.LinkedList;
 
+import javax.swing.Box;
+import javax.swing.BoxLayout;
 import javax.swing.JCheckBox;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
@@ -72,9 +76,9 @@ public class Renderer implements IStatementVisitor<Void>, ITypeVisitor<JComponen
 	 * @return Panel resulting from statement.
 	 */
 	public static JPanel render( Statement statement, Environment environment ) {
-		Renderer evaluator = new Renderer( environment );
-		statement.accept( evaluator );
-		return evaluator.getPanel();
+		Renderer renderer = new Renderer( environment );
+		statement.accept( renderer );
+		return renderer.getPanel();
 	}
 
 	/**
@@ -88,6 +92,8 @@ public class Renderer implements IStatementVisitor<Void>, ITypeVisitor<JComponen
 		this.typeEvaluator = new TypeEvaluator();
 
 		this.panel = new JPanel();
+		this.panel.setLayout( new BoxLayout( this.panel, BoxLayout.Y_AXIS ) );
+		this.panel.add( Box.createHorizontalGlue() );
 	}
 
 	/**
@@ -114,7 +120,8 @@ public class Renderer implements IStatementVisitor<Void>, ITypeVisitor<JComponen
 	 * @param label
 	 */
 	private void addLabel( String label ) {
-		this.addComponent( new JLabel( label ) );
+		JLabel labelElement = new JLabel( label );
+		this.addComponent( labelElement );
 	}
 
 	/**
@@ -134,7 +141,7 @@ public class Renderer implements IStatementVisitor<Void>, ITypeVisitor<JComponen
 			( (JCheckBox) component ).setSelected( ( (Boolean) value ).getValue() );
 		}
 		else if ( component instanceof JTextField ) {
-			( (JTextField) component ).setText( ( (org.uva.sea.ql.evaluator.value.String) value ).getValue() );
+			( (JTextField) component ).setText( value.getValue().toString() );
 		}
 
 		return component;
@@ -149,6 +156,19 @@ public class Renderer implements IStatementVisitor<Void>, ITypeVisitor<JComponen
 					environment.assign( question.getIdent(), new Boolean( source.isSelected() ) );
 					environment.notifyObservers( question.getIdent() );
 				}
+			} );
+		}
+		else if ( component instanceof JTextField ) {
+			( (JTextField) component ).addFocusListener( new FocusListener() {
+				@Override
+				public void focusLost( FocusEvent event ) {
+					JTextField source = (JTextField) event.getSource();
+					environment.assign( question.getIdent(), new org.uva.sea.ql.evaluator.value.Money( Double.parseDouble( source.getText().toString() ) ) );
+					environment.notifyObservers( question.getIdent() );
+				}
+
+				@Override
+				public void focusGained( FocusEvent arg0 ) {}
 			} );
 		}
 	}
@@ -194,7 +214,10 @@ public class Renderer implements IStatementVisitor<Void>, ITypeVisitor<JComponen
 		JPanel tru = render( node.getBody(), this.environment );
 
 		tru.setVisible( value.getValue() );
+
 		this.addComponent( tru );
+
+		this.registerCondition( node.getCondition(), tru, new JPanel() );
 
 		return null;
 	}
@@ -211,6 +234,7 @@ public class Renderer implements IStatementVisitor<Void>, ITypeVisitor<JComponen
 	@Override
 	public Void visit( Else node ) {
 		JPanel panel = render( node.getBody(), this.environment );
+
 		this.addComponent( panel );
 
 		return null;
@@ -218,18 +242,15 @@ public class Renderer implements IStatementVisitor<Void>, ITypeVisitor<JComponen
 
 	@Override
 	public Void visit( IfThenElse node ) {
-		Boolean value = (Boolean) node.getCondition().accept( this.expressionEvaluator );
+		boolean condition = ( (Boolean) node.getCondition().accept( this.expressionEvaluator ) ).getValue();
 
 		JPanel tru = render( node.getIfBody(), this.environment );
-		JPanel sif = render( node.getElseIfs(), this.environment );
 		JPanel fls = render( node.getElse(), this.environment );
 
-		tru.setVisible( value.getValue() );
-		sif.setVisible( !value.getValue() );
-		fls.setVisible( !value.getValue() );
+		tru.setVisible( condition );
+		fls.setVisible( !condition );
 
 		this.addComponent( tru );
-		this.addComponent( sif );
 		this.addComponent( fls );
 
 		this.registerCondition( node.getCondition(), tru, fls );
