@@ -89,7 +89,7 @@ private str createQuestion(str title, Question q:
     question(QuestionText text, Type \type, IdentDefinition ident, 
     calculatedField)) =
   "\<div id=\"<ident.ident>Block\"\>
-  '  \<label for=\"<ident.ident>\"\><substring(text.text, 1, size(text.text) - 1)>\</label\>
+  '  \<label for=\"<ident.ident>\"\><trimQuotes(text.text)>\</label\>
   '  \<input type=\"<\type.name>\" id=\"<ident.ident>\" name=\"<ident.ident>\" disabled=\"disabled\"/\>
   '\</div\>
   '";
