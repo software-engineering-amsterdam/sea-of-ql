@@ -5,8 +5,8 @@
 * HTML templating
 * Parantheses support
 * Randomized testing for semantic checker
-* Bonus exercise for Rascal variants: use SAT/SMT/Constraint solver to check for
-  non-determinism.
+* Bonus exercise for Rascal variants: use SAT/SMT/Constraint solver to check for non-determinism.
+
 # QLS
 * Enforce filename == formIdent in SemanticChecker
 * Refactor SemanticChecker
