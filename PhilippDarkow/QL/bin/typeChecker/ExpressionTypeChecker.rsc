@@ -4,16 +4,10 @@ import Prelude;
 import syntax::AbstractSyntax;
 import syntax::ConcreteSyntax;
 import util::Load;
-
-alias QLTENV = tuple[ rel[str id, str questionLabel, Type tp] question, list[tuple[loc l, str msg]] errors];
-
-QLTENV addError(QLTENV qlTenv, loc l, str msg) = qlTenv[errors = qlTenv.errors + <l, msg>];
-// to add an instance of a qltenv item
-QLTENV addInstance(QLTENV qlTenv, str id, str questionLabel, Type tp) = qlTenv[question = qlTenv.question + {<id,questionLabel,tp>}]; //= qlTenv.errors + <l, msg> 
+import typeChecker::TypeEnvironment;
 
 str required(Type t, str got) = "Required <getName(t)>, got <got>";                 
 str required(Type t1, Type t2) = required(t1, getName(t2));
-
 
 // compile Expressions.
 public QLTENV checkExp(exp:boolCon(bool B), Type req, QLTENV env) =                              

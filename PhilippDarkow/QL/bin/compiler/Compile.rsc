@@ -8,9 +8,14 @@ import compiler::ExpressionCompiler;
 
 alias Instrs = list[Instr];     // We introduce Instrs as an alias for a list of assembly language instructions                  
 
+
+//  check StringTemplate after compiling and the IDE support + delete assembly language
+//
+//
+
 //public Instrs compileExp(\int(int I)) = [pushInt(I)];
 
-//public Instrs compileExp(string(str S)) = [pushStr(S)];
+//public Instrs coe mpileExp(string(str S)) = [pushStr(S)];
  
 // Unique label generation
 

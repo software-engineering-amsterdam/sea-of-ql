@@ -5,14 +5,8 @@ import syntax::AbstractSyntax;
 import syntax::ConcreteSyntax;
 import util::Load;
 import typeChecker::ExpressionTypeChecker;
+import typeChecker::TypeEnvironment;
 
-alias QLTENV = tuple[ rel[str id, str questionLabel, Type tp] question, list[tuple[loc l, str msg]] errors];
-
-QLTENV addError(QLTENV qlTenv, loc l, str msg) = qlTenv[errors = qlTenv.errors + <l, msg>];
-// to add an instance of a qltenv item
-QLTENV addInstance(QLTENV qlTenv, str id, str questionLabel, Type tp) = qlTenv[question = qlTenv.question + {<id,questionLabel,tp>}]; //= qlTenv.errors + <l, msg> 
-
-// check statements for Questions 
 /** Method to check if statement 
 * @param statement the if statement
 * @param env the QL Type environment
@@ -24,7 +18,7 @@ QLTENV checkStatement(statement:ifStat(Expression exp, list[Body] body), QLTENV 
     env0 = checkExp(exp, boolean(), env);
     println();
     if(size(env0.errors) != 0)
-    	return addError(env0, env0.errors[0].l, env0.errors[0].msg);
+    	return addError(env0, env0.errors[0].l, env0.errors[0].msg);   // check standart libary Message !!!
     return env;
 }
 
@@ -33,7 +27,7 @@ QLTENV checkStatement(statement:ifElseStat(Expression exp, list[Body] thenpart, 
     println("EXP : <Exp>"); 
     env0 = checkExp(Exp, boolean(), env);
     if(size(env0.errors) != 0)
-    	return addError(env0, env0.errors[0].l, env0.errors[0].msg);
+    	return addError(env0, env0.errors[0].l, env0.errors[0].msg);    // check standart libary Message !!!
     env1 = checkQuestionStats(Stats1, env0);
     return env;
 }
@@ -85,7 +79,7 @@ QLTENV checkBody(list[Body] Body, QLTENV env){
 	for(s <- Body){
 	visit(Body){
      	case Question q : {
-    			env = checkQuestion(q,env);
+    			env = checkQuestion(q,env);   // I can put the check in the checkQuestion !!!!
     			if(checkIdentifiers(env) == false) return addError(env, q@location, "Identifier double declared");
     	    }
         case Statement s: {
@@ -98,7 +92,7 @@ QLTENV checkBody(list[Body] Body, QLTENV env){
 
 // check a QL program
 public QLTENV checkProgram(Program P){                                                
-  if(program(Expression id, list[Body] Body) := P){	 
+  if(program(str id, list[Body] Body) := P){	 
      QLTENV env = <{},[]>; 
      env = checkBody(Body, env);
      println("ENV : <env>"); 
