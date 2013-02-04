@@ -34,3 +34,7 @@ ok
 rascal>doNotNest(grammar({}, #Form.definitions))
 DoNotNest: {
   <prod(
+  
+  Oberon0:  module ldta::oberon0::util::Priorities
+            module ldta::oberon0::l1::Priorities
+  
