@@ -6,7 +6,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.uva.sea.ql.ast.ASTNode;
-import org.uva.sea.ql.ast.Identifier;
+import org.uva.sea.ql.ast.exp.Identifier;
 import org.uva.sea.ql.ast.value.IntegerValue;
 import org.uva.sea.ql.ast.value.StringValue;
 

@@ -11,8 +11,6 @@ import ParseTree;
 import Message;
 
 
-private loc projectLoc = |project://QL-R|;
-
 
 public Contribution getQLSAnnotator() 
   = annotator(Tree (Tree input) {
@@ -22,7 +20,7 @@ public Contribution getQLSAnnotator()
     
 public set[Message] annotate(FormStyle style) {
 	
-	formQL = getForm(projectLoc, style.name);
+	formQL = getForm(style.name);
 	
 	if (formQL := form("", []))
 		return {error("No QL file with such name!", style@location)};

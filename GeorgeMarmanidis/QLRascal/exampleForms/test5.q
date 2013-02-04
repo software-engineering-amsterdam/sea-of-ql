@@ -7,9 +7,7 @@ form foodinwork {
 	if (male) {
 	 y: "Bla" integer (y+3)
 	}
-	
-	
-	
+
 	if(age>12){
 		work: "Do you work?" boolean
 		study: "Do you study?" boolean (!work)

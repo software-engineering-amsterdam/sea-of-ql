@@ -1,30 +1,72 @@
+@license{
+  Copyright (c) 2013 
+  All rights reserved. This program and the accompanying materials
+  are made available under the terms of the Eclipse Public License v1.0
+  which accompanies this distribution, and is available at
+  http://www.eclipse.org/legal/epl-v10.html
+}
+@contributor{Kevin van der Vlist - kevin@kevinvandervlist.nl}
+@contributor{Jimi van der Woning - Jimi.vanderWoning@student.uva.nl}
+
 module lang::qls::ast::AST
 
 data Stylesheet
-  = stylesheet(list[Statement] statements)
+  = stylesheet(str ident, list[Definition] definitions)
   ;
 
-data Statement
-  = classDefinition(str ident, list[ClassRule] questionIdent)
-  | typeStyleDefinition(str \type, list[StyleRule] styleRules)
-  | classStyleDefinition(str ident, list[StyleRule] styleRules)
-  | identStyleDefinition(str ident, list[StyleRule] styleRules)
+data Definition
+  = definition(PageDefinition pageDefinition)
+  | definition(SectionDefinition sectionDefinition)
+  | definition(QuestionDefinition questionDefinition)
+  | definition(DefaultDefinition defaultDefinition)
   ;
 
-data ClassRule
-  = classRule(str ident)
+data PageDefinition
+  = pageDefinition(str ident, list[PageRule] pageRules)
+  ;
+
+data PageRule
+  = pageRule(SectionDefinition sectionDefinition)
+  | pageRule(QuestionDefinition questionDefinition)
+  | pageRule(DefaultDefinition defaultDefinition)
+  ;
+
+data SectionDefinition
+  = sectionDefinition(str ident, list[SectionRule] sectionRules)
+  ;
+
+data SectionRule
+  = sectionRule(SectionDefinition sectionDefinition)
+  | sectionRule(QuestionDefinition questionDefinition)
+  | sectionRule(DefaultDefinition defaultDefinition)
+  ;
+
+data QuestionDefinition
+  = questionDefinition(str ident)
+  | questionDefinition(str ident, list[StyleRule] styleRules)
+  ;
+
+data DefaultDefinition
+  = defaultDefinition(str ident, list[StyleRule] styleRules)
   ;
 
 data StyleRule
-  = styleRule(str attr, StyleAttrValue \value)
+  = typeStyleRule(str attr, TypeStyleValue typeValue)
+  | widthStyleRule(str attr, int widthValue)
   ;
 
-data StyleAttrValue
-  = styleAttrValue(str \value)
+data TypeStyleValue
+  = radio(str name)
+  | checkbox(str name)
   ;
 
 anno loc Stylesheet@location;
-anno loc Statement@location;
-anno loc ClassRule@location;
+anno loc Definition@location;
+anno loc PageDefinition@location;
+anno loc PageRule@location;
+anno loc SectionDefinition@location;
+anno loc SectionRule@location;
+anno loc QuestionDefinition@location;
+anno loc DefaultDefinition@location;
 anno loc StyleRule@location;
-anno loc StyleAttrValue@location;
+

@@ -43,8 +43,7 @@ public class Ident extends Expr {
 	}
 
 	@Override
-	public ExpressionResult eval(HashMap<String, Statement> symbolMap) {
-		// TODO Auto-generated method stub
-		return null;
+	public ExpressionResult eval(HashMap<String, ExpressionResult> symbolMap) {
+		return symbolMap.get(this.getName());
 	}
 }

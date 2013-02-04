@@ -6,44 +6,38 @@ import org.uva.sea.ql.ast.*;
 import org.uva.sea.ql.ast.statement.*;
 import org.uva.sea.ql.ast.operative.*;
 import org.uva.sea.ql.ast.primitive.*;
+import org.uva.sea.ql.ast.types.*;
 }
 
 public Form RunParse = yyValue:Form;
 
 Statement Form = 
-	"form" Spacing f:Ident Spacing LBracket b:Block RBracket { yyValue = new Form(f, b); };
+	"form" Spacing f:Ident Spacing b:Block { yyValue = new Form(f, b); };
 	
 Block Block =
-	l:Statement* { yyValue= new Block(l.list()); }
+	LBracket l:Statement* RBracket { yyValue= new Block(l.list()); }
 	;
 
 Statement Statement =
-	yyValue:Branch
+	yyValue:IfThen
 	/ yyValue:Question
 	;
 	
-Branch Branch =
-	"if" Spacing LParen c:Expr RParen LBracket b:Block RBracket e:Else { yyValue = new Branch(c,b,e); }
+IfThen IfThen =
+	"if" Spacing LParen c:Expr RParen b:Block "else" Spacing e:Block { yyValue = new IfThenElse(c,b,e); }
+	/ "if" Spacing LParen c:Expr RParen b:Block { yyValue = new IfThen(c,b); }
 	;		
 
-Block Else =
-	"else" Spacing LBracket yyValue:Block RBracket
-	/ { yyValue=null; }
-	;
-
 Question Question =
-	q:Literal Spacing x:Ident Spacing ":" Spacing t:Type Spacing { yyValue = new Question(q, new Ident(x), t); }
+	q:Literal Spacing x:Ident Spacing ":" Spacing t:Type Spacing { yyValue = new QuestionAnswerable(q, new Ident(x), t); }
+	/ q:Literal Spacing x:Ident Spacing ":" Spacing e:Expr Spacing { yyValue = new QuestionComputed(q, new Ident(x), e); }
 	; 
+
 	
-Expr Type =
-	yyValue:TypeIn 
-	/ yyValue:Expr
-	;
-	
-Expr TypeIn =
-	"boolean" Spacing { yyValue = new Bool(); }
-	/ "integer" Spacing { yyValue = new Int(); }
-	/ "string" Spacing { yyValue = new Str(); }
+Type Type =
+	"boolean" Spacing { yyValue = new org.uva.sea.ql.ast.types.Bool(); }
+	/ "integer" Spacing { yyValue = new org.uva.sea.ql.ast.types.Int(); }
+	/ "string" Spacing { yyValue = new org.uva.sea.ql.ast.types.Str(); }
 	;
 
 
@@ -110,10 +104,10 @@ Expr Unary =
 	
 
 Expr Primary = 
-	s:Literal Spacing { yyValue = new Str(s); }
-	/ "true" Spacing { yyValue = new Bool(true); }
-	/ "false" Spacing { yyValue = new Bool(false); }
-	/ n:Int Spacing { yyValue = new Int(Integer.parseInt(n)); }
+	s:Literal Spacing { yyValue = new org.uva.sea.ql.ast.primitive.Str(s); }
+	/ "true" Spacing { yyValue = new org.uva.sea.ql.ast.primitive.Bool(true); }
+	/ "false" Spacing { yyValue = new org.uva.sea.ql.ast.primitive.Bool(false); }
+	/ n:Int Spacing { yyValue = new org.uva.sea.ql.ast.primitive.Int(Integer.parseInt(n)); }
 	/ x:Ident Spacing { yyValue = new Ident(x); }
 	/ LParen yyValue:Expr RParen
 	;

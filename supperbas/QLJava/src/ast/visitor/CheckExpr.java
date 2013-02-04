@@ -4,12 +4,14 @@ import java.util.List;
 import java.util.Map;
 
 import ast.Expression;
+import ast.Type;
 import ast.expression.Binary;
 import ast.expression.binary.*;
 import ast.expression.unary.*;
 import ast.expression.value.Bool;
 import ast.expression.value.Money;
 import ast.expression.value.Str;
+import ast.statement.*;
 import ast.type.*;
 import ast.type.Error;
 
@@ -267,5 +269,41 @@ public class CheckExpr implements Visitor<Boolean> {
 	@Override
 	public Boolean visit(ast.expression.value.Ident ast) {
 		return ast instanceof ast.expression.value.Ident;
+	}
+
+	@Override
+	public Boolean visit(Assignment ast) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Boolean visit(Else ast) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Boolean visit(Form ast) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Boolean visit(If ast) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Boolean visit(Question ast) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Boolean visit(Var ast) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

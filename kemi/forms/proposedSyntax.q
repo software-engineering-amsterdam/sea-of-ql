@@ -1,13 +1,26 @@
-form calculatedField {
-  fieldset personal "Personal details" {
-    "What is your age?"
-      integer number
-    "Your age times three equals:"
-      integer numberx3 = number * 3
-  }
-  fieldset other "Other things" {
-    "Other question"
-      list["A", "B", "C"] enumQuestion
-      .styleClass
+form testStylesheet {
+  "Question ten?"
+    boolean questionTen
+  "Question five?"
+    integer questionFive
+  
+  if(questionTen) {
+    "Question four"
+      money questionFour
+    if(questionFour * 3 > 100 || questionFour < 20) {
+      "Question six"
+        boolean questionSix
+    }
+    "Question seven"
+      money questionSeven = questionFive - questionFour
+  } else if(questionFive > 100) {
+    "Question one?"
+      boolean questionOne
+  } else {
+    "Question two"
+      money questionTwo
+    
+    "Question three"
+      money questionThree = questionTwo / 2
   }
 }

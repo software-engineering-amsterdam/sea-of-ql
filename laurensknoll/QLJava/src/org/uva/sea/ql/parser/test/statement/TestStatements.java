@@ -2,13 +2,7 @@ package org.uva.sea.ql.parser.test.statement;
 
 import static org.junit.Assert.assertEquals;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
-import org.junit.runners.Parameterized.Parameters;
 import org.uva.sea.ql.ast.statement.Block;
 import org.uva.sea.ql.ast.statement.ComputedQuestion;
 import org.uva.sea.ql.ast.statement.If;
@@ -16,20 +10,12 @@ import org.uva.sea.ql.ast.statement.Question;
 import org.uva.sea.ql.parser.test.IParse;
 import org.uva.sea.ql.parser.test.ParseError;
 
-@RunWith(Parameterized.class)
 public class TestStatements {
 
 	private IParse parser;
 
-	@Parameters
-	public static List<Object[]> theParsers() {
-		List<Object[]> parserList = new ArrayList<Object[]>();
-		parserList.add(new Object[] { new Parser() });
-		return parserList;
-	}
-
-	public TestStatements(IParse parser) {
-		this.parser = parser;
+	public TestStatements() {
+		this.parser = new Parser();
 	}
 
 	@Test
@@ -56,8 +42,7 @@ public class TestStatements {
 
 	@Test
 	public void testIfStatements() throws ParseError {
-		assertEquals(If.class, parser.parse("if (a < b) { }")
-				.getClass());
+		assertEquals(If.class, parser.parse("if (a < b) { }").getClass());
 		assertEquals(If.class, parser.parse("if (a > b || b < c) { }")
 				.getClass());
 	}

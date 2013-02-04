@@ -34,11 +34,3 @@ adding the following features:
 Note: don't be seduced by the provided example code and start copy-pasting grammar rules around. It is important to
       really understand the parser technology involved. ANTLR, Rats! and Jacc are well-documented on the web. Please
       use this information to fulfill the above requirements.
-
-TODO
-----
-- Envionment:
-    - Add column and linenumber to TypeErrors.
-- Evaluator:
-    - Evaluate to values instead of just types.
-- Compatibility checks in Types

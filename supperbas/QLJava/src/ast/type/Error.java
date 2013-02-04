@@ -1,5 +1,8 @@
 package ast.type;
 
+import ast.Type;
+import ast.visitor.Visitor;
+
 public class Error<T> extends Type {
 	private final T ast;
 	private final String str;
@@ -25,5 +28,11 @@ public class Error<T> extends Type {
 
 	public String getStr() {
 		return str;
+	}
+
+	@Override
+	public <T> T accept(Visitor<T> visitor) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

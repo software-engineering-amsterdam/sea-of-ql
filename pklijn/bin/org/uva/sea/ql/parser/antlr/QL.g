@@ -29,7 +29,6 @@ form returns [Form result]
     '}' { $result = new Form(new Ident($Ident.text), $formItems.result); }
   ;
 
-
 formItems returns [List<FormItem> result]
 @init { List<FormItem> formItems = new ArrayList(); }
   : ( ie=ifElseStatement { formItems.add($ie.result); }
@@ -144,7 +143,7 @@ WS  :	(' ' | '\t' | '\n' | '\r') { $channel=HIDDEN; }
     ;
 
 COMMENT 
-    : ('/*' .* '*/' | '//'.* '\n') {$channel=HIDDEN;}
+    : ('/*' .* '*/' | '//'.* '\n') { $channel=HIDDEN; }
     ;
 
 String: '"' .* '"';

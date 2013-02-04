@@ -27,4 +27,9 @@ public class IntValue extends Value {
 		
 		return ((IntValue)obj).getValue().equals(getValue());
 	}
+	
+	@Override
+	public int hashCode() {
+		return value.hashCode();
+	}
 }

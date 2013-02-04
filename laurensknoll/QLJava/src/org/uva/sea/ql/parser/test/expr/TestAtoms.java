@@ -2,13 +2,7 @@ package org.uva.sea.ql.parser.test.expr;
 
 import static org.junit.Assert.assertEquals;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
-import org.junit.runners.Parameterized.Parameters;
 import org.uva.sea.ql.ast.expr.atom.Bool;
 import org.uva.sea.ql.ast.expr.atom.Ident;
 import org.uva.sea.ql.ast.expr.atom.Int;
@@ -17,20 +11,12 @@ import org.uva.sea.ql.ast.expr.atom.String;
 import org.uva.sea.ql.parser.test.IParse;
 import org.uva.sea.ql.parser.test.ParseError;
 
-@RunWith(Parameterized.class)
 public class TestAtoms {
 
 	private IParse parser;
 
-	@Parameters
-	public static List<Object[]> theParsers() {
-		List<Object[]> parserList = new ArrayList<Object[]>();
-		parserList.add(new Object[] { new Parser() });
-		return parserList;
-	}
-
-	public TestAtoms(IParse parser) {
-		this.parser = parser;
+	public TestAtoms() {
+		this.parser = new Parser();
 	}
 
 	@Test

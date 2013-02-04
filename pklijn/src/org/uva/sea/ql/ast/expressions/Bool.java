@@ -21,7 +21,7 @@ public class Bool extends Expr {
 	}
 
 	@Override
-	public Value eval() {
+	public Value eval(Env environment) {
 		return new org.uva.sea.ql.ast.values.BoolValue(value);
 	}
 

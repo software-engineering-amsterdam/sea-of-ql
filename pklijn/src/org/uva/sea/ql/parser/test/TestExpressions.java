@@ -80,53 +80,53 @@ public class TestExpressions {
 	public void testCalculation() throws ParseError {
 		assertEquals(
 				new Integer(3),
-				((IntValue)parser.parse("1 + 2").eval()).getValue());
+				((IntValue)parser.parse("1 + 2").eval(null)).getValue());
 		assertEquals(
 				new Integer(7),
-				((IntValue)parser.parse("1 + 2 * 3").eval()).getValue()); 
+				((IntValue)parser.parse("1 + 2 * 3").eval(null)).getValue()); 
 		assertEquals(
 				new Integer(9),
-				((IntValue)parser.parse("(1 + 2) * 3").eval()).getValue()); 
+				((IntValue)parser.parse("(1 + 2) * 3").eval(null)).getValue()); 
 		assertEquals(
 				new Integer(4),
-				((IntValue)parser.parse("(1 + 2) * 3 - (2 + 3)").eval()).getValue());
+				((IntValue)parser.parse("(1 + 2) * 3 - (2 + 3)").eval(null)).getValue());
 		assertEquals(
 				new Integer(3),
-				((IntValue)parser.parse("27 / 3 / 3").eval()).getValue());
+				((IntValue)parser.parse("27 / 3 / 3").eval(null)).getValue());
 		assertEquals(
 				new Integer(5),
-				((IntValue)parser.parse("(4 * 5) / 4").eval()).getValue());
+				((IntValue)parser.parse("(4 * 5) / 4").eval(null)).getValue());
 	}
 	
 	@Test
 	public void testComparison() throws ParseError {
-		assertTrue(((BoolValue)parser.parse("(1 < 2) && (3 < 4)").eval()).getValue());
-		assertTrue(((BoolValue)parser.parse("(1 <= 1) && (7 > 4)").eval()).getValue());
-		assertTrue(((BoolValue)parser.parse("(1 > 2) || (3 < 4)").eval()).getValue());
-		assertFalse(((BoolValue)parser.parse("(1 >= 2) || (3 >= 4)").eval()).getValue());
+		assertTrue(((BoolValue)parser.parse("(1 < 2) && (3 < 4)").eval(null)).getValue());
+		assertTrue(((BoolValue)parser.parse("(1 <= 1) && (7 > 4)").eval(null)).getValue());
+		assertTrue(((BoolValue)parser.parse("(1 > 2) || (3 < 4)").eval(null)).getValue());
+		assertFalse(((BoolValue)parser.parse("(1 >= 2) || (3 >= 4)").eval(null)).getValue());
 		
-		assertTrue(((BoolValue)parser.parse("10 == 10").eval()).getValue());
-		assertTrue(((BoolValue)parser.parse("099 == 99").eval()).getValue());
-		assertFalse(((BoolValue)parser.parse("23 == 25").eval()).getValue());
-		assertTrue(((BoolValue)parser.parse("-124 == -124").eval()).getValue());
+		assertTrue(((BoolValue)parser.parse("10 == 10").eval(null)).getValue());
+		assertTrue(((BoolValue)parser.parse("099 == 99").eval(null)).getValue());
+		assertFalse(((BoolValue)parser.parse("23 == 25").eval(null)).getValue());
+		assertTrue(((BoolValue)parser.parse("-124 == -124").eval(null)).getValue());
 		
-		assertTrue(((BoolValue)parser.parse("1 != 2").eval()).getValue());
-		assertFalse(((BoolValue)parser.parse("245 != 245").eval()).getValue());
+		assertTrue(((BoolValue)parser.parse("1 != 2").eval(null)).getValue());
+		assertFalse(((BoolValue)parser.parse("245 != 245").eval(null)).getValue());
 		
-		assertTrue(((BoolValue)parser.parse("true == true").eval()).getValue());
-		assertTrue(((BoolValue)parser.parse("false == false").eval()).getValue());
-		assertFalse(((BoolValue)parser.parse("true == false").eval()).getValue());
-		assertFalse(((BoolValue)parser.parse("false == true").eval()).getValue());
+		assertTrue(((BoolValue)parser.parse("true == true").eval(null)).getValue());
+		assertTrue(((BoolValue)parser.parse("false == false").eval(null)).getValue());
+		assertFalse(((BoolValue)parser.parse("true == false").eval(null)).getValue());
+		assertFalse(((BoolValue)parser.parse("false == true").eval(null)).getValue());
 		
-		assertTrue(((BoolValue)parser.parse("true != false").eval()).getValue());
-		assertTrue(((BoolValue)parser.parse("false != true").eval()).getValue());
-		assertFalse(((BoolValue)parser.parse("true != true").eval()).getValue());
-		assertFalse(((BoolValue)parser.parse("false != false").eval()).getValue());
+		assertTrue(((BoolValue)parser.parse("true != false").eval(null)).getValue());
+		assertTrue(((BoolValue)parser.parse("false != true").eval(null)).getValue());
+		assertFalse(((BoolValue)parser.parse("true != true").eval(null)).getValue());
+		assertFalse(((BoolValue)parser.parse("false != false").eval(null)).getValue());
 		
-		assertTrue(((BoolValue)parser.parse("\"peter\" == \"peter\"").eval()).getValue());
-		assertFalse(((BoolValue)parser.parse("\"peter\" == \"klijn\"").eval()).getValue());
-		assertTrue(((BoolValue)parser.parse("\"peter\" != \"klijn\"").eval()).getValue());
-		assertFalse(((BoolValue)parser.parse("\"peter\" != \"peter\"").eval()).getValue());
+		assertTrue(((BoolValue)parser.parse("\"peter\" == \"peter\"").eval(null)).getValue());
+		assertFalse(((BoolValue)parser.parse("\"peter\" == \"klijn\"").eval(null)).getValue());
+		assertTrue(((BoolValue)parser.parse("\"peter\" != \"klijn\"").eval(null)).getValue());
+		assertFalse(((BoolValue)parser.parse("\"peter\" != \"peter\"").eval(null)).getValue());
 	}
 	
 	@Test

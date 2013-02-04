@@ -85,7 +85,7 @@ public class IfThenElse extends Statement {
 	/**
 	 * Retrieves the else-ifs.
 	 *
-	 * @return THe ELSE-IFs.
+	 * @return The ELSE-IFs.
 	 */
 	public ElseIfs getElseIfs() {
 		return this.elseIfs;

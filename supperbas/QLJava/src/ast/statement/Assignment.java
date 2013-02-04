@@ -1,10 +1,7 @@
 package ast.statement;
 
-import java.util.Map;
-
 import ast.*;
-import ast.type.Ident;
-import ast.type.Type;
+import ast.expression.value.Ident;
 import ast.visitor.Visitor;
 
 public class Assignment extends Statement {
@@ -19,13 +16,7 @@ public class Assignment extends Statement {
 
 	@Override
 	public <T> T accept(Visitor<T> visitor) {
-		return null; //visitor.visit(this);
-	}
-
-	@Override
-	public Type typeOf(Map<Ident, Type> typeEnv) {
-		// TODO Auto-generated method stub
-		return null;
+		return visitor.visit(this);
 	}
 
 	public Ident getIdent() {

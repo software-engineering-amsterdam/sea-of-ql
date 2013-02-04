@@ -12,7 +12,7 @@ public abstract class Expr implements ASTNode {
 	
 	protected final List<Type> allowedTypes = new ArrayList<Type>();
 
-	public abstract Value eval();
+	public abstract Value eval(Env environment);
 	
 	public abstract Type typeOf(Env environment);
 	

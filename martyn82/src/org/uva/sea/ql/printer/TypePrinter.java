@@ -22,31 +22,31 @@ public class TypePrinter extends PrintVisitor implements ITypeVisitor<Boolean> {
 
 	@Override
 	public Boolean visit( Bool node ) {
-		writeName( node );
+		this.writeName( node );
 		return true;
 	}
 
 	@Override
 	public Boolean visit( Int node ) {
-		writeName( node );
+		this.writeName( node );
 		return true;
 	}
 
 	@Override
 	public Boolean visit( Str node ) {
-		writeName( node );
+		this.writeName( node );
 		return true;
 	}
 
 	@Override
 	public Boolean visit( Money node ) {
-		writeName( node );
+		this.writeName( node );
 		return true;
 	}
 
 	@Override
 	public Boolean visit( Number node ) {
-		writeName( node );
+		this.writeName( node );
 		return true;
 	}
 }

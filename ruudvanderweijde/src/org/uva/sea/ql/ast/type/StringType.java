@@ -10,4 +10,9 @@ public class StringType extends Type {
 	public boolean isCompatibleToStringType() {
 		return true;
 	}
+
+	@Override
+	public String toString() {
+		return "StringType";
+	}
 }
