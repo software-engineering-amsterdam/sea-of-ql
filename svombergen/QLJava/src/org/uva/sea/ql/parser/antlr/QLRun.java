@@ -2,6 +2,7 @@ package org.uva.sea.ql.parser.antlr;
 
 import org.uva.sea.ql.ast.ConsistencyChecker;
 import org.uva.sea.ql.ast.Form;
+import org.uva.sea.ql.ast.PrintVisitor;
 
 public class QLRun {
 
@@ -14,6 +15,7 @@ public class QLRun {
 		//System.out.println("parse: " + parser.parse("3 * (2+3+4+5+6)"));
 		System.out.println("correctform: " + cc.isFormCorrect());
 		System.out.println("form: " + f2);
+		f2.accept(new PrintVisitor());
 	}
 
 }

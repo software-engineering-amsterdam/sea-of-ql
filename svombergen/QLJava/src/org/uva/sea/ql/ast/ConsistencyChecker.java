@@ -18,8 +18,8 @@ public class ConsistencyChecker {
 	}
 
 	private boolean foundDuplicateLabel() {
-		return false;
 		
+		return false;
 	}
 
 	private boolean foundUndefinedVariable() {
