@@ -29,7 +29,7 @@ private str assignVar(str ident) =
   '} else if($(\"#<ident>\").val() == \"false\") {
   '  <ident> = false;
   '} else {
-  '  <ident> = $(\"#<ident>\").val();;
+  '  <ident> = $(\"#<ident>\").val();
   '}";
   
 private list[str] getDirectDescendingIdents(Statement cond) {
@@ -96,7 +96,7 @@ private str individualCalculatedField(str form, tuple[str ident, Expr expr] cf) 
   '  <assignVar(e)>
   '<}>
   '  result = <jsPrint(cf.expr)>;
-  '  $(\"#<cf.ident>\").val(result);  
+  '  $(\"#<cf.ident>\").val(result).change();  
   '});
   ";
 }  
