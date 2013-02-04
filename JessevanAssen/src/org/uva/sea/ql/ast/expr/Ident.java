@@ -14,7 +14,12 @@ public class Ident implements Expr {
 		return name;
 	}
 
-	@Override
+    @Override
+    public String toString() {
+        return name;
+    }
+
+    @Override
 	public <ReturnType, ParameterType> ReturnType accept(ASTNodeVisitor<ReturnType, ParameterType> visitor, ParameterType param) {
 		return visitor.visit(this, param);
 	}

@@ -7,10 +7,7 @@ import org.uva.sea.ql.ast.expr.*;
 import org.uva.sea.ql.ast.expr.value.*;
 import org.uva.sea.ql.interpreter.valueParser.*;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class InterpreterVisitor implements ASTNodeVisitor<Value, InterpreterVisitor.Context> {
 
@@ -20,26 +17,29 @@ public class InterpreterVisitor implements ASTNodeVisitor<Value, InterpreterVisi
         private final Map<String, String> values;
 
         private Context(Map<String, String> values) {
+            // A LinkedHashMap is used here instead of a regular HashMap, because a LinkedHashMap retains
+            // the order in which the values are inserted. This gives the values a better context, because
+            // they can be retrieved in the same order as they were in the form.
+            this.identifiers = new LinkedHashMap<Ident, Value>();
             this.errors = new ArrayList<Message>();
-            this.identifiers = new HashMap<Ident, Value>();
             this.values = values;
         }
 
-        public List<Message> getErrors() { return errors; }
         public Map<Ident, Value> getIdentifiers() { return identifiers; }
+        public List<Message> getErrors() { return errors; }
         public Map<String, String> getValues() { return values; }
     }
 
     public static class Result {
-        private final Map<String, String> values;
+        private final Map<Ident, Value> identifiers;
         private final List<Message> errors;
 
-        private Result(Map<String, String> values, List<Message> errors) {
-            this.values = values;
+        private Result(Map<Ident, Value> identifiers, List<Message> errors) {
+            this.identifiers = identifiers;
             this.errors = errors;
         }
 
-        public Map<String, String> getValues() { return values; }
+        public Map<Ident, Value> getIdentifiers() { return identifiers; }
         public List<Message> getErrors() { return errors; }
     }
 
@@ -47,7 +47,7 @@ public class InterpreterVisitor implements ASTNodeVisitor<Value, InterpreterVisi
         Context context = new Context(values);
         InterpreterVisitor visitor = new InterpreterVisitor();
         form.accept(visitor, context);
-        return new Result(context.getValues(), context.getErrors());
+        return new Result(context.getIdentifiers(), context.getErrors());
     }
 
 
