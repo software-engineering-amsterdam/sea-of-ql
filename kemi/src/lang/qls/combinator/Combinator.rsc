@@ -18,7 +18,7 @@ import lang::ql::ast::AST;
 import lang::ql::tests::ParseHelper;
 import lang::qls::ast::AST;
 import lang::qls::tests::ParseHelper;
-import lang::qls::util::StyleHelpers;
+import lang::qls::util::StyleHelper;
 
 public void main() {
   Form f = parseForm(|project://QL-R-kemi/forms/proposedSyntax.q|);
