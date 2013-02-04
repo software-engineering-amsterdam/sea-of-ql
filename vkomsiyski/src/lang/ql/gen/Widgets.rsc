@@ -67,7 +67,7 @@ public str addWidget(Widget w:<name, date(_), vis, val, e>) ="
 \t\t<name>Widget.dateChanged.connect(this, \"onChanged(QDate)\");"
 + genericWidget(name, vis, e);
 
-private str genericWidget(str name, str vis, bool e) = "
+public str genericWidget(str name, str vis, bool e) = "
 \t\t<name>Label.setBuddy(<name>Widget);
 \t\tlabels.add(<name>Label);
 \t\t<name>Widget.setEnabled(<e>);"

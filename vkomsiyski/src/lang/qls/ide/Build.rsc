@@ -7,7 +7,7 @@ import ParseTree;
 import Message;
 import IO;
 
-private loc generated_form = |project://QL-R/src/form/StyledFormGUI.java|;
+private loc generated_form = |project://QL-R/src/form/FormGUI.java|;
 
 
 public Contribution getQLSBuilder() 

@@ -1,94 +1,90 @@
 module lang::qls::gen::Generate
 
 import lang::ql::ast::AST;
+import lang::ql::gen::Generic;
 import lang::ql::gen::Declare;
 import lang::ql::gen::Widgets;
 import lang::ql::util::Environment;
 import lang::qls::ast::AST;
-import lang::qls::gen::Templates;
-import lang::qls::gen::Declare;
 import lang::qls::gen::Decorate;
+import lang::qls::gen::Custom;
 import lang::qls::gen::Groups;
+import lang::qls::gen::Widgets;
 import lang::qls::util::Environment;
 import lang::qls::util::QL;
 
 
-
 public str generate(FormStyle style) {
-
 	formQL = getForm(style.name);
 	stylenv = getStyleEnvironment(style, formQL);	
 	env = getEnvironment(formQL);		
-	widgets = getWidgets(formQL, env.declarations);	
+	env.declarations = decorateDeclarations(env.declarations, stylenv);
+	widgets = getCustomWidgets(formQL, env.declarations);	
+	widgets = decorateWidgets(widgets, stylenv);
+	varRules = getAllVarRules(env.declarations, stylenv);
 	
-	varRules = getAllVarRules(stylenv, env.declarations);
-	
-	src = addHeader();
-	src += addDeclarations(env.declarations, varRules);
-	src += addBody1();
+	src = "";
+	src += header();
+	src += imports();
+	src += declarations();
+	src += addDeclarations(env);
+	src += main();
+	src += constructor();
+	src += localDeclarations();
 	src += addTitle(formQL.name);
-	src += addWidgets(widgets, varRules);
-	src += addBody2();
+	src += addCustomWidgets(widgets, varRules);
+	src += gridLayout();
 	src += addGroups(stylenv.groups);
-	src += addBody3();
-	src += addVisibility(widgets);
-	src += addBody4();
-	src += addSubmit(widgets, env.declarations);
-	src += addBody5();
+	src += visibility();
+	src += addCustomVisibility(widgets);
+	src += slots();
+	src += addCustomSubmit(widgets, env.declarations);
+	src += submit();
 
 	return src;
 }
 
 
-
-private str addDeclarations(Declarations d, VarRules rules) {
+private str addDeclarations(Environment env) {
 	src = "";
-	for (name <- d) {
-		src += declareLabel(name, d[name].label);
-		src += declareStyledWidget(name, d[name].\type, rules);
+	for (name <- env.declarations) {
+		src += declareLabel(name, env.declarations[name].label);
+		src += declareCustomWidget(name, env.declarations[name].\type@widget.name);
 	}
 	return src;
 }
 
-
-
-
-private str addWidgets(list[Widget] widgets, VarRules rules) {
+private str addCustomWidgets(list[Widget] widgets, VarRules rules) {
 	src = "";
-	for (widget <- widgets)
-		src += addWidget(widget) + 
-			   decorateLabel(widget.name, rules) +
-			   decorateWidget(widget.name, rules);
+	for (widget <- widgets) {
+		src += addCustomWidget(widget, widget.\type@widget);
+		src += customizeLabel(widget.name, rules); 
+    	src += customizeWidget(widget.name, widget.\type@widget, rules);
+	}
 	return src;
 }
-  
-private str addVisibility(list[Widget] widgets) {
-	src = "";
-	for (widget:<name, \type, _, val, false> <- widgets) 
-		src += setValue(\type, name, val);
-	for (widget <- widgets)
-		src += visibilityMap(widget.name, widget.visibility);
-	return src;
-}
-  
-  
-private str addSubmit(list[Widget] widgets, Declarations d) {
-	src = "";
-	for (widget <- widgets) 
-		src += submitWidget(widget.name, d);
-	return src;
-}
-
-
-
 
 private str addGroups(Groups groups) {
 	src = "";
 	for (name <- groups) 
 		src += addGroup(name, groups[name]);
 	return src;
+} 
+
+
+private str addCustomVisibility(list[Widget] widgets) {
+	src = "";
+	for (widget:<name, \type, _, val, false> <- widgets) 
+		src += setValueCustom(\type, \type@widget, name, val);
+	for (widget <- widgets)
+		src += visibilityMap(widget.name, widget.visibility);
+	return src;
 }
 
 
-
- 
+private str addCustomSubmit(list[Widget] widgets, Declarations d) {
+	src = "";
+	for (widget <- widgets) 
+		src += submitCustomWidget(widget.name, d);
+	return src;
+}

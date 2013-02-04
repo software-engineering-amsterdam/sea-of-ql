@@ -111,10 +111,12 @@ public str unparse(Expr e:or(e1, e2)) = unparse(e1) + "||" + unparse(e2);
 
 public str unparse(Expr e:or(e1, e2), Declarations d) = "(" + unparse(e1, d) + "||" + unparse(e2, d) + ")";
 
-private str getValue(Type t:\bool(_)) = "Widget.isChecked()";
+public str getValue(Type t:\bool(_)) = "Widget.isChecked()";
 
-private str getValue(Type t:string(_)) = "Widget.text()";
+public str getValue(Type t:string(_)) = "Widget.text()";
 
-private str getValue(Type t:date(_)) = "Widget.date()";
+public str getValue(Type t:date(_)) = "Widget.date()";
 
-private str getValue(Type t) = "Widget.value()";
+public str getValue(Type t:\int(_)) = "Widget.value()";
+
+public str getValue(Type t:float(_)) = "Widget.value()";
