@@ -3,7 +3,7 @@ package org.uva.sea.ql.tests.parser.parserTests;
 import org.junit.Test;
 import org.uva.sea.ql.ast.Computed;
 import org.uva.sea.ql.ast.Statement;
-import org.uva.sea.ql.ast.expr.value.Bool;
+import org.uva.sea.ql.ast.expression.value.Bool;
 import org.uva.sea.ql.parser.ParseError;
 
 import static org.junit.Assert.assertEquals;

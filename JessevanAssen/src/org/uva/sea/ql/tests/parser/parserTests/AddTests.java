@@ -1,7 +1,7 @@
 package org.uva.sea.ql.tests.parser.parserTests;
 
 import org.junit.Test;
-import org.uva.sea.ql.ast.expr.Add;
+import org.uva.sea.ql.ast.expression.Add;
 import org.uva.sea.ql.parser.ParseError;
 
 import static org.junit.Assert.assertEquals;

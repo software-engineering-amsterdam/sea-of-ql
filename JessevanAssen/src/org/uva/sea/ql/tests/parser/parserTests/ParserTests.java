@@ -3,7 +3,7 @@ package org.uva.sea.ql.tests.parser.parserTests;
 import org.uva.sea.ql.ast.Form;
 import org.uva.sea.ql.ast.If;
 import org.uva.sea.ql.ast.Statement;
-import org.uva.sea.ql.ast.expr.Expr;
+import org.uva.sea.ql.ast.expression.Expression;
 import org.uva.sea.ql.parser.ParseError;
 import org.uva.sea.ql.parser.Parser;
 import org.uva.sea.ql.parser.antlr.ANTLRParser;
@@ -26,7 +26,7 @@ public abstract class ParserTests {
         return parsed.getBody();
 	}
 	
-	protected Expr parseExpression(String expression) throws ParseError {
+	protected Expression parseExpression(String expression) throws ParseError {
 		final String template = "if(%s) { }";
 		
 		Statement parsed = parseStatement(String.format(template, expression));

@@ -2,16 +2,16 @@ package org.uva.sea.ql.tests.semanticAnalyzer.semanticAnalyzerVisitorTests;
 
 import org.junit.Test;
 import org.uva.sea.ql.ast.StoredExpression;
-import org.uva.sea.ql.ast.expr.Ident;
+import org.uva.sea.ql.ast.expression.Identifier;
 
 import static junit.framework.Assert.*;
 
 public class StoredExpressionTests extends SemanticAnalyzerVisitorTests {
 
-    private final Ident identifier = new Ident("identifier");
+    private final Identifier identifier = new Identifier("identifier");
     private final StoredExpression storedExpression = new StoredExpression(
             identifier,
-            new org.uva.sea.ql.ast.expr.value.Bool(false)
+            new org.uva.sea.ql.ast.expression.value.Bool(false)
     );
 
     @Test

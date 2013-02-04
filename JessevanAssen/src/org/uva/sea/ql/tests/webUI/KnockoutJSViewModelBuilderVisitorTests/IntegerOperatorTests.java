@@ -1,8 +1,8 @@
 package org.uva.sea.ql.tests.webUI.KnockoutJSViewModelBuilderVisitorTests;
 
 import org.junit.Test;
-import org.uva.sea.ql.ast.expr.*;
-import org.uva.sea.ql.ast.expr.value.Int;
+import org.uva.sea.ql.ast.expression.*;
+import org.uva.sea.ql.ast.expression.value.Int;
 
 public class IntegerOperatorTests extends OperatorTests {
     private static final int LEFT_VALUE = 1;
@@ -22,46 +22,46 @@ public class IntegerOperatorTests extends OperatorTests {
 
     @Test
     public void testDiv() {
-        testBinaryOperator(new Div(LEFT, RIGHT), "/");
+        testBinaryOperator(new Divide(LEFT, RIGHT), "/");
     }
 
     @Test
     public void testGEq() {
-        testBinaryOperator(new GEq(LEFT, RIGHT), ">=");
+        testBinaryOperator(new GreaterThanOrEqualTo(LEFT, RIGHT), ">=");
     }
 
     @Test
     public void testGT() {
-        testBinaryOperator(new GT(LEFT, RIGHT), ">");
+        testBinaryOperator(new GreaterThan(LEFT, RIGHT), ">");
     }
 
     @Test
     public void testLEq() {
-        testBinaryOperator(new LEq(LEFT, RIGHT), "<=");
+        testBinaryOperator(new LesserThanOrEqualTo(LEFT, RIGHT), "<=");
     }
 
     @Test
     public void testLT() {
-        testBinaryOperator(new LT(LEFT, RIGHT), "<");
+        testBinaryOperator(new LesserThan(LEFT, RIGHT), "<");
     }
 
     @Test
     public void testMul() {
-        testBinaryOperator(new Mul(LEFT, RIGHT), "*");
+        testBinaryOperator(new Multiply(LEFT, RIGHT), "*");
     }
 
     @Test
     public void testSub() {
-        testBinaryOperator(new Sub(LEFT, RIGHT), "-");
+        testBinaryOperator(new Subtract(LEFT, RIGHT), "-");
     }
 
     @Test
     public void testNeg() {
-        testUnaryOperator(new Neg(LEFT), "-");
+        testUnaryOperator(new Negative(LEFT), "-");
     }
 
     @Test
     public void testPos() {
-        testUnaryOperator(new Pos(LEFT), "+");
+        testUnaryOperator(new Positive(LEFT), "+");
     }
 }

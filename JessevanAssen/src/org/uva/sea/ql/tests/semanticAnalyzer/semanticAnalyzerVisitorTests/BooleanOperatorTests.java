@@ -1,8 +1,8 @@
 package org.uva.sea.ql.tests.semanticAnalyzer.semanticAnalyzerVisitorTests;
 
 import org.junit.Test;
-import org.uva.sea.ql.ast.expr.*;
-import org.uva.sea.ql.ast.expr.value.Value;
+import org.uva.sea.ql.ast.expression.*;
+import org.uva.sea.ql.ast.expression.value.Value;
 
 import java.util.Arrays;
 import java.util.List;
@@ -42,21 +42,21 @@ public class BooleanOperatorTests extends OperatorTests {
 
 class AndExpressionFactory implements BinaryExpressionFactory {
 	@Override
-	public BinaryExpr createBinaryExpression(Expr left, Expr right) {
+	public BinaryExpression createBinaryExpression(Expression left, Expression right) {
 		return new And(left, right);
 	}
 }
 
 class OrExpressionFactory implements BinaryExpressionFactory {
 	@Override
-	public BinaryExpr createBinaryExpression(Expr left, Expr right) {
+	public BinaryExpression createBinaryExpression(Expression left, Expression right) {
 		return new Or(left, right);
 	}
 }
 
 class NotExpressionFactory implements UnaryExpressionFactory {
 	@Override
-	public UnaryExpr createUnaryExpression(Expr expression) {
+	public UnaryExpression createUnaryExpression(Expression expression) {
 		return new Not(expression);
 	}
 	

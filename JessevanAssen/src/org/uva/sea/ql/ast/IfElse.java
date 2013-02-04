@@ -1,20 +1,20 @@
 package org.uva.sea.ql.ast;
 
-import org.uva.sea.ql.ast.expr.Expr;
+import org.uva.sea.ql.ast.expression.Expression;
 
 public class IfElse implements Statement {
 
-	private final Expr condition;
+	private final Expression condition;
 	private final Statement ifBody;
 	private final Statement elseBody;
 
-	public IfElse(Expr condition, Statement ifBody, Statement elseBody) {
+	public IfElse(Expression condition, Statement ifBody, Statement elseBody) {
 		this.condition = condition;
 		this.ifBody = ifBody;
 		this.elseBody = elseBody;
 	}
 	
-	public Expr getCondition() { return condition; }
+	public Expression getCondition() { return condition; }
 	public Statement getIfBody() { return ifBody; }
 	public Statement getElseBody() { return elseBody; }
 

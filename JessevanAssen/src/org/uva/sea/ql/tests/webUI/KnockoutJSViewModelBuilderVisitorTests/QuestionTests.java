@@ -2,7 +2,7 @@ package org.uva.sea.ql.tests.webUI.KnockoutJSViewModelBuilderVisitorTests;
 
 import org.junit.Test;
 import org.uva.sea.ql.ast.Question;
-import org.uva.sea.ql.ast.expr.Ident;
+import org.uva.sea.ql.ast.expression.Identifier;
 import org.uva.sea.ql.ast.type.Bool;
 import org.uva.sea.ql.ast.type.Type;
 
@@ -35,7 +35,7 @@ public class QuestionTests extends KnockoutJSViewModelBuilderVisitorTests {
     private Question createQuestion(Type type) {
         return new Question(
                 QUESTION_LABEL,
-                new Ident(IDENTIFIER_NAME),
+                new Identifier(IDENTIFIER_NAME),
                 type
         );
     }

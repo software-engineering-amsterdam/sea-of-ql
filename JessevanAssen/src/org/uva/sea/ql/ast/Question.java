@@ -1,22 +1,22 @@
 package org.uva.sea.ql.ast;
 
-import org.uva.sea.ql.ast.expr.Ident;
+import org.uva.sea.ql.ast.expression.Identifier;
 import org.uva.sea.ql.ast.type.Type;
 
 public class Question implements Statement {
 
 	private final String question;
-	private final Ident identifier;
+	private final Identifier identifier;
     private final Type type;
 	
-	public Question(String question, Ident identifier, Type type) {
+	public Question(String question, Identifier identifier, Type type) {
 		this.question = question;
 		this.identifier = identifier;
         this.type = type;
 	}
 	
 	public String getQuestion() { return question; }
-    public Ident getIdentifier() { return identifier; }
+    public Identifier getIdentifier() { return identifier; }
     public Type getType() { return type; }
 
 	@Override

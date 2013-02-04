@@ -1,19 +1,19 @@
 package org.uva.sea.ql.ast;
 
-import org.uva.sea.ql.ast.expr.Expr;
+import org.uva.sea.ql.ast.expression.Expression;
 
 public class Computed implements Statement {
 	
 	private final String label;
-	private final Expr expression;
+	private final Expression expression;
 	
-	public Computed(String label, Expr expression) {
+	public Computed(String label, Expression expression) {
 		this.label = label;
 		this.expression = expression;
 	}
 
 	public String getLabel() { return label; }
-	public Expr getExpression() { return expression; }
+	public Expression getExpression() { return expression; }
 
 	@Override
 	public <ReturnType, ParameterType> ReturnType accept(StatementVisitor<ReturnType, ParameterType> visitor, ParameterType param) {

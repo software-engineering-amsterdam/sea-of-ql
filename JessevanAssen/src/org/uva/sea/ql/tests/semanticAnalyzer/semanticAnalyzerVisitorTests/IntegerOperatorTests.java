@@ -1,8 +1,8 @@
 package org.uva.sea.ql.tests.semanticAnalyzer.semanticAnalyzerVisitorTests;
 
 import org.junit.Test;
-import org.uva.sea.ql.ast.expr.*;
-import org.uva.sea.ql.ast.expr.value.Value;
+import org.uva.sea.ql.ast.expression.*;
+import org.uva.sea.ql.ast.expression.value.Value;
 
 import java.util.Arrays;
 import java.util.List;
@@ -79,63 +79,63 @@ public class IntegerOperatorTests extends OperatorTests {
 
 class AddExpressionFactory implements BinaryExpressionFactory {
 	@Override
-	public BinaryExpr createBinaryExpression(Expr left, Expr right) {
+	public BinaryExpression createBinaryExpression(Expression left, Expression right) {
 		return new Add(left, right);
 	}
 }
 class DivExpressionFactory implements BinaryExpressionFactory {
 	@Override
-	public BinaryExpr createBinaryExpression(Expr left, Expr right) {
-		return new Div(left, right);
+	public BinaryExpression createBinaryExpression(Expression left, Expression right) {
+		return new Divide(left, right);
 	}
 }
 class GEqExpressionFactory implements BinaryExpressionFactory {
 	@Override
-	public BinaryExpr createBinaryExpression(Expr left, Expr right) {
-		return new GEq(left, right);
+	public BinaryExpression createBinaryExpression(Expression left, Expression right) {
+		return new GreaterThanOrEqualTo(left, right);
 	}
 }
 class GTExpressionFactory implements BinaryExpressionFactory {
 	@Override
-	public BinaryExpr createBinaryExpression(Expr left, Expr right) {
-		return new GT(left, right);
+	public BinaryExpression createBinaryExpression(Expression left, Expression right) {
+		return new GreaterThan(left, right);
 	}
 }
 class LEqExpressionFactory implements BinaryExpressionFactory {
 	@Override
-	public BinaryExpr createBinaryExpression(Expr left, Expr right) {
-		return new LEq(left, right);
+	public BinaryExpression createBinaryExpression(Expression left, Expression right) {
+		return new LesserThanOrEqualTo(left, right);
 	}
 }
 class LTExpressionFactory implements BinaryExpressionFactory {
 	@Override
-	public BinaryExpr createBinaryExpression(Expr left, Expr right) {
-		return new LT(left, right);
+	public BinaryExpression createBinaryExpression(Expression left, Expression right) {
+		return new LesserThan(left, right);
 	}
 }
 class MulExpressionFactory implements BinaryExpressionFactory {
 	@Override
-	public BinaryExpr createBinaryExpression(Expr left, Expr right) {
-		return new Mul(left, right);
+	public BinaryExpression createBinaryExpression(Expression left, Expression right) {
+		return new Multiply(left, right);
 	}
 }
 class SubExpressionFactory implements BinaryExpressionFactory {
 	@Override
-	public BinaryExpr createBinaryExpression(Expr left, Expr right) {
-		return new Sub(left, right);
+	public BinaryExpression createBinaryExpression(Expression left, Expression right) {
+		return new Subtract(left, right);
 	}
 }
 class NegExpressionFactory implements UnaryExpressionFactory {
 	@Override
-	public UnaryExpr createUnaryExpression(Expr expression) {
-		return new Neg(expression);
+	public UnaryExpression createUnaryExpression(Expression expression) {
+		return new Negative(expression);
 	}
 }
 class PosExpressionFactory implements UnaryExpressionFactory {
 
 	@Override
-	public UnaryExpr createUnaryExpression(Expr expression) {
-		return new Pos(expression);
+	public UnaryExpression createUnaryExpression(Expression expression) {
+		return new Positive(expression);
 	}
 
 }

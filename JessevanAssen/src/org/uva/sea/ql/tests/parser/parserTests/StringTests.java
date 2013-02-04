@@ -1,8 +1,8 @@
 package org.uva.sea.ql.tests.parser.parserTests;
 
 import org.junit.Test;
-import org.uva.sea.ql.ast.expr.Expr;
-import org.uva.sea.ql.ast.expr.value.Str;
+import org.uva.sea.ql.ast.expression.Expression;
+import org.uva.sea.ql.ast.expression.value.Str;
 import org.uva.sea.ql.parser.ParseError;
 
 import static org.junit.Assert.assertEquals;
@@ -25,7 +25,7 @@ public class StringTests extends ParserTests {
     }
 	
 	private void testString(String stringValue) throws ParseError {
-		Expr parsed = parseExpression(String.format("\"%s\"", stringValue));
+		Expression parsed = parseExpression(String.format("\"%s\"", stringValue));
 		assertEquals(Str.class, parsed.getClass());
 		assertEquals(stringValue, ((Str) parsed).getValue());
 	}

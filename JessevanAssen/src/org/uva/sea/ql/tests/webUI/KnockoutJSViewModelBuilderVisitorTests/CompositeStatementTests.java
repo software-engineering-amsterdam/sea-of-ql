@@ -4,7 +4,7 @@ import org.junit.Test;
 import org.uva.sea.ql.ast.CompositeStatement;
 import org.uva.sea.ql.ast.Computed;
 import org.uva.sea.ql.ast.Statement;
-import org.uva.sea.ql.ast.expr.value.Bool;
+import org.uva.sea.ql.ast.expression.value.Bool;
 
 import java.util.Arrays;
 

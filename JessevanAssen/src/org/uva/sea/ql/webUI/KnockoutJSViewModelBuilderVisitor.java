@@ -1,10 +1,10 @@
 package org.uva.sea.ql.webUI;
 
 import org.uva.sea.ql.ast.*;
-import org.uva.sea.ql.ast.expr.*;
-import org.uva.sea.ql.ast.expr.value.Bool;
-import org.uva.sea.ql.ast.expr.value.Int;
-import org.uva.sea.ql.ast.expr.value.Str;
+import org.uva.sea.ql.ast.expression.*;
+import org.uva.sea.ql.ast.expression.value.Bool;
+import org.uva.sea.ql.ast.expression.value.Int;
+import org.uva.sea.ql.ast.expression.value.Str;
 import org.uva.sea.ql.ast.type.TypeVisitor;
 
 import java.util.ArrayList;
@@ -13,7 +13,7 @@ import java.util.List;
 
 public class KnockoutJSViewModelBuilderVisitor implements
         StatementVisitor<Void, KnockoutJSViewModelBuilderVisitor.Context>,
-        ExprVisitor<Void, KnockoutJSViewModelBuilderVisitor.Context>,
+        ExpressionVisitor<Void, KnockoutJSViewModelBuilderVisitor.Context>,
         TypeVisitor<String, Void> {
 
     public static class Context {
@@ -102,13 +102,13 @@ public class KnockoutJSViewModelBuilderVisitor implements
     }
 
     @Override
-    public Void visit(Div astNode, Context param) {
+    public Void visit(Divide astNode, Context param) {
         visitBinaryExpression(astNode, param, "/");
         return null;
     }
 
     @Override
-    public Void visit(Eq astNode, Context param) {
+    public Void visit(EqualTo astNode, Context param) {
         visitBinaryExpression(astNode, param, "==");
         return null;
     }
@@ -122,19 +122,19 @@ public class KnockoutJSViewModelBuilderVisitor implements
     }
 
     @Override
-    public Void visit(GEq astNode, Context param) {
+    public Void visit(GreaterThanOrEqualTo astNode, Context param) {
         visitBinaryExpression(astNode, param, ">=");
         return null;
     }
 
     @Override
-    public Void visit(GT astNode, Context param) {
+    public Void visit(GreaterThan astNode, Context param) {
         visitBinaryExpression(astNode, param, ">");
         return null;
     }
 
     @Override
-    public Void visit(Ident astNode, Context param) {
+    public Void visit(Identifier astNode, Context param) {
         param.getObjectHierarchy()
                 .append("_self.identifiers.")
                 .append(astNode.getName())
@@ -156,7 +156,7 @@ public class KnockoutJSViewModelBuilderVisitor implements
         return null;
     }
 
-    private void createBlock(Expr condition, Statement body, Context context) {
+    private void createBlock(Expression condition, Statement body, Context context) {
         context.getObjectHierarchy().append("new Block(function(){return ");
         condition.accept(this, context);
         context.getObjectHierarchy().append(";},[");
@@ -171,31 +171,31 @@ public class KnockoutJSViewModelBuilderVisitor implements
     }
 
     @Override
-    public Void visit(LEq astNode, Context param) {
+    public Void visit(LesserThanOrEqualTo astNode, Context param) {
         visitBinaryExpression(astNode, param, "<=");
         return null;
     }
 
     @Override
-    public Void visit(LT astNode, Context param) {
+    public Void visit(LesserThan astNode, Context param) {
         visitBinaryExpression(astNode, param, "<");
         return null;
     }
 
     @Override
-    public Void visit(Mul astNode, Context param) {
+    public Void visit(Multiply astNode, Context param) {
         visitBinaryExpression(astNode, param, "*");
         return null;
     }
 
     @Override
-    public Void visit(Neg astNode, Context param) {
+    public Void visit(Negative astNode, Context param) {
         visitUnaryExpression(astNode, param, "-");
         return null;
     }
 
     @Override
-    public Void visit(NEq astNode, Context param) {
+    public Void visit(NotEqualTo astNode, Context param) {
         visitBinaryExpression(astNode, param, "!=");
         return null;
     }
@@ -213,7 +213,7 @@ public class KnockoutJSViewModelBuilderVisitor implements
     }
 
     @Override
-    public Void visit(Pos astNode, Context param) {
+    public Void visit(Positive astNode, Context param) {
         visitUnaryExpression(astNode, param, "+");
         return null;
     }
@@ -262,18 +262,18 @@ public class KnockoutJSViewModelBuilderVisitor implements
     }
 
     @Override
-    public Void visit(Sub astNode, Context param) {
+    public Void visit(Subtract astNode, Context param) {
         visitBinaryExpression(astNode, param, "-");
         return null;
     }
 
-    private void visitUnaryExpression(UnaryExpr unaryExpr, Context param, String operator) {
+    private void visitUnaryExpression(UnaryExpression unaryExpression, Context param, String operator) {
         param.getObjectHierarchy().append("(").append(operator);
-        unaryExpr.getExpression().accept(this, param);
+        unaryExpression.getExpression().accept(this, param);
         param.getObjectHierarchy().append(")");
     }
 
-    private void visitBinaryExpression(BinaryExpr binaryExpression, Context param, String operator) {
+    private void visitBinaryExpression(BinaryExpression binaryExpression, Context param, String operator) {
         param.getObjectHierarchy().append("(");
         binaryExpression.getLeftExpression().accept(this, param);
         param.getObjectHierarchy().append(operator);

@@ -4,7 +4,7 @@ import org.junit.Test;
 import org.uva.sea.ql.ast.If;
 import org.uva.sea.ql.ast.NullStatement;
 import org.uva.sea.ql.ast.Statement;
-import org.uva.sea.ql.ast.expr.value.Bool;
+import org.uva.sea.ql.ast.expression.value.Bool;
 
 import static junit.framework.Assert.assertNull;
 import static org.mockito.Mockito.*;

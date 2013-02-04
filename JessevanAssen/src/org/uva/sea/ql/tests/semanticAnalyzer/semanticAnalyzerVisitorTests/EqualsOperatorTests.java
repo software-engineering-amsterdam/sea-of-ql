@@ -1,11 +1,11 @@
 package org.uva.sea.ql.tests.semanticAnalyzer.semanticAnalyzerVisitorTests;
 
 import org.junit.Test;
-import org.uva.sea.ql.ast.expr.BinaryExpr;
-import org.uva.sea.ql.ast.expr.Eq;
-import org.uva.sea.ql.ast.expr.Expr;
-import org.uva.sea.ql.ast.expr.NEq;
-import org.uva.sea.ql.ast.expr.value.Value;
+import org.uva.sea.ql.ast.expression.BinaryExpression;
+import org.uva.sea.ql.ast.expression.EqualTo;
+import org.uva.sea.ql.ast.expression.Expression;
+import org.uva.sea.ql.ast.expression.NotEqualTo;
+import org.uva.sea.ql.ast.expression.value.Value;
 
 import java.util.Arrays;
 import java.util.List;
@@ -38,14 +38,14 @@ public class EqualsOperatorTests extends OperatorTests {
 
 class EqExpressionFactory implements BinaryExpressionFactory {
     @Override
-    public BinaryExpr createBinaryExpression(Expr left, Expr right) {
-        return new Eq(left, right);
+    public BinaryExpression createBinaryExpression(Expression left, Expression right) {
+        return new EqualTo(left, right);
     }
 }
 
 class NeqExpressionFactory implements BinaryExpressionFactory {
     @Override
-    public BinaryExpr createBinaryExpression(Expr left, Expr right) {
-        return new NEq(left, right);
+    public BinaryExpression createBinaryExpression(Expression left, Expression right) {
+        return new NotEqualTo(left, right);
     }
 }

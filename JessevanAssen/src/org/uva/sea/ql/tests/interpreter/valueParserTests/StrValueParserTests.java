@@ -1,8 +1,8 @@
 package org.uva.sea.ql.tests.interpreter.valueParserTests;
 
 import org.junit.Test;
-import org.uva.sea.ql.ast.expr.value.Str;
-import org.uva.sea.ql.ast.expr.value.Value;
+import org.uva.sea.ql.ast.expression.value.Str;
+import org.uva.sea.ql.ast.expression.value.Value;
 import org.uva.sea.ql.interpreter.valueParser.StrValueParser;
 import org.uva.sea.ql.interpreter.valueParser.ValueParser;
 

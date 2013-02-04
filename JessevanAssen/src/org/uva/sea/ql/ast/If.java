@@ -1,18 +1,18 @@
 package org.uva.sea.ql.ast;
 
-import org.uva.sea.ql.ast.expr.Expr;
+import org.uva.sea.ql.ast.expression.Expression;
 
 public class If implements Statement {
 	
-	private final Expr condition;
+	private final Expression condition;
 	private final Statement ifBody;
 	
-	public If(Expr condition, Statement ifBody) {
+	public If(Expression condition, Statement ifBody) {
 		this.condition = condition;
 		this.ifBody = ifBody;
 	}
 	
-	public Expr getCondition() { return condition; }
+	public Expression getCondition() { return condition; }
 	public Statement getIfBody() { return ifBody; }
 
 	@Override

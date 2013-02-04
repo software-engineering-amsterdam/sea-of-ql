@@ -1,9 +1,9 @@
 package org.uva.sea.ql.tests.parser.parserTests;
 
 import org.junit.Test;
-import org.uva.sea.ql.ast.expr.GT;
-import org.uva.sea.ql.ast.expr.LEq;
-import org.uva.sea.ql.ast.expr.LT;
+import org.uva.sea.ql.ast.expression.GreaterThan;
+import org.uva.sea.ql.ast.expression.LesserThan;
+import org.uva.sea.ql.ast.expression.LesserThanOrEqualTo;
 import org.uva.sea.ql.parser.ParseError;
 
 import static org.junit.Assert.assertEquals;
@@ -12,13 +12,13 @@ public class RelTests extends ParserTests {
 
 	@Test
 	public void testRels() throws ParseError {
-		assertEquals(LT.class, parseExpression("a < b").getClass());
-		assertEquals(LT.class, parseExpression("a < b + c").getClass());
-		assertEquals(LT.class, parseExpression("a < (b * c)").getClass());
-		assertEquals(LT.class, parseExpression("(a * b) < c").getClass());
-		assertEquals(LEq.class, parseExpression("(a <= b)").getClass());
-		assertEquals(GT.class, parseExpression("a + b > c").getClass());
-		assertEquals(GT.class, parseExpression("a > b + c").getClass());
+		assertEquals(LesserThan.class, parseExpression("a < b").getClass());
+		assertEquals(LesserThan.class, parseExpression("a < b + c").getClass());
+		assertEquals(LesserThan.class, parseExpression("a < (b * c)").getClass());
+		assertEquals(LesserThan.class, parseExpression("(a * b) < c").getClass());
+		assertEquals(LesserThanOrEqualTo.class, parseExpression("(a <= b)").getClass());
+		assertEquals(GreaterThan.class, parseExpression("a + b > c").getClass());
+		assertEquals(GreaterThan.class, parseExpression("a > b + c").getClass());
 	}    
 	
 }

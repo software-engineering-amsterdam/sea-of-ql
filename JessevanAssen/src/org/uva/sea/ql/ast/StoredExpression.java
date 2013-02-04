@@ -1,20 +1,20 @@
 package org.uva.sea.ql.ast;
 
-import org.uva.sea.ql.ast.expr.Expr;
-import org.uva.sea.ql.ast.expr.Ident;
+import org.uva.sea.ql.ast.expression.Expression;
+import org.uva.sea.ql.ast.expression.Identifier;
 
 public class StoredExpression implements Statement {
 
-    private final Ident identifier;
-    private final Expr expression;
+    private final Identifier identifier;
+    private final Expression expression;
 
-    public StoredExpression(Ident identifier, Expr expression) {
+    public StoredExpression(Identifier identifier, Expression expression) {
         this.identifier = identifier;
         this.expression = expression;
     }
 
-    public Expr getExpression() { return expression; }
-    public Ident getIdentifier() { return identifier; }
+    public Expression getExpression() { return expression; }
+    public Identifier getIdentifier() { return identifier; }
 
 
     @Override

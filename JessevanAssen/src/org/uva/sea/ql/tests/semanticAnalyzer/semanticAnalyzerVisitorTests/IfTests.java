@@ -4,11 +4,11 @@ import org.junit.Test;
 import org.uva.sea.ql.ast.If;
 import org.uva.sea.ql.ast.NullStatement;
 import org.uva.sea.ql.ast.Statement;
-import org.uva.sea.ql.ast.expr.Expr;
-import org.uva.sea.ql.ast.expr.value.Bool;
-import org.uva.sea.ql.ast.expr.value.Int;
-import org.uva.sea.ql.ast.expr.value.Str;
-import org.uva.sea.ql.ast.expr.value.Value;
+import org.uva.sea.ql.ast.expression.Expression;
+import org.uva.sea.ql.ast.expression.value.Bool;
+import org.uva.sea.ql.ast.expression.value.Int;
+import org.uva.sea.ql.ast.expression.value.Str;
+import org.uva.sea.ql.ast.expression.value.Value;
 
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.*;
@@ -38,7 +38,7 @@ public class IfTests extends SemanticAnalyzerVisitorTests {
 
     @Test
     public void acceptIsCalled_conditionAcceptIsCalled() {
-        Expr mockExpression = mock(Expr.class);
+        Expression mockExpression = mock(Expression.class);
         when(mockExpression.accept(visitor, context)).thenReturn(new org.uva.sea.ql.ast.type.Bool());
 
         If i = new If(mockExpression, new NullStatement());

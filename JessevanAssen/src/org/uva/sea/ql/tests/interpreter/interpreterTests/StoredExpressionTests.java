@@ -2,9 +2,9 @@ package org.uva.sea.ql.tests.interpreter.interpreterTests;
 
 import org.junit.Test;
 import org.uva.sea.ql.ast.StoredExpression;
-import org.uva.sea.ql.ast.expr.Expr;
-import org.uva.sea.ql.ast.expr.Ident;
-import org.uva.sea.ql.ast.expr.value.Bool;
+import org.uva.sea.ql.ast.expression.Expression;
+import org.uva.sea.ql.ast.expression.Identifier;
+import org.uva.sea.ql.ast.expression.value.Bool;
 
 import static junit.framework.Assert.*;
 import static org.mockito.Mockito.mock;
@@ -14,14 +14,14 @@ public class StoredExpressionTests extends InterpreterVisitorTests {
 
     @Test
     public void acceptIsCalledOnStoredExpression_returnsNull() {
-        final StoredExpression storedExpression = new StoredExpression(new Ident(""), new Bool(true));
+        final StoredExpression storedExpression = new StoredExpression(new Identifier(""), new Bool(true));
         assertNull(storedExpression.accept(visitor, context));
     }
 
     @Test
     public void acceptIsCalledOnStoredExpression_acceptIsCalledOnExpression() {
-        final Ident identifier = new Ident("abcd");
-        final Expr mockExpression = mock(Expr.class);
+        final Identifier identifier = new Identifier("abcd");
+        final Expression mockExpression = mock(Expression.class);
         final StoredExpression storedExpression = new StoredExpression(identifier, mockExpression);
 
         storedExpression.accept(visitor, context);
@@ -31,8 +31,8 @@ public class StoredExpressionTests extends InterpreterVisitorTests {
 
     @Test
     public void acceptIsCalledOnStoredExpression_expressionIsAddedToIdentifiers() {
-        final Ident identifier = new Ident("abcd");
-        final Expr expression = new Bool(true);
+        final Identifier identifier = new Identifier("abcd");
+        final Expression expression = new Bool(true);
         final StoredExpression storedExpression = new StoredExpression(identifier, expression);
 
         storedExpression.accept(visitor, context);

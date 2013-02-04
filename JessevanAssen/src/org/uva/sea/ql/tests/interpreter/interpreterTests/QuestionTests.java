@@ -2,7 +2,7 @@ package org.uva.sea.ql.tests.interpreter.interpreterTests;
 
 import org.junit.Test;
 import org.uva.sea.ql.ast.Question;
-import org.uva.sea.ql.ast.expr.Ident;
+import org.uva.sea.ql.ast.expression.Identifier;
 import org.uva.sea.ql.ast.type.Bool;
 import org.uva.sea.ql.interpreter.valueParser.BoolValueParser;
 
@@ -10,7 +10,7 @@ import static junit.framework.Assert.*;
 
 public class QuestionTests extends InterpreterVisitorTests {
 
-    private static final Ident IDENTIFIER = new Ident("abcd");
+    private static final Identifier IDENTIFIER = new Identifier("abcd");
     private final Question QUESTION = new Question("label", IDENTIFIER, new Bool());
 
     @Test
@@ -44,7 +44,7 @@ public class QuestionTests extends InterpreterVisitorTests {
 
     @Test
     public void valueIsParsed_valueIsAddedToIdentifiers() {
-        final org.uva.sea.ql.ast.expr.value.Bool expectedResult = new org.uva.sea.ql.ast.expr.value.Bool(true);
+        final org.uva.sea.ql.ast.expression.value.Bool expectedResult = new org.uva.sea.ql.ast.expression.value.Bool(true);
 
         context.getValues().put(IDENTIFIER.getName(), expectedResult.toString());
         QUESTION.accept(visitor, context);
