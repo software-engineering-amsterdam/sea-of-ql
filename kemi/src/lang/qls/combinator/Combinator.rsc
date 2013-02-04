@@ -25,5 +25,12 @@ public void main() {
   Stylesheet s = parseStylesheet(|project://QL-R-kemi/stylesheets/proposedSyntax.qs|);
   //Stylesheet s = parseStylesheet("stylesheet S1 { section \"S1\" { section \"SS\" {question Q1 { type checkbox }} } section \"P1\" {  } }");
   //Stylesheet s = parseStylesheet("stylesheet S1 { question Q1 { type checkbox width 100 } default boolean { type radio } default string { width 104 }}");
-  iprintln(getStyleRules("questionTen", f, s));
+  
+  typeMap = getTypeMap(f);
+  //iprintln(typeMap);
+  
+  for(k <- typeMap){
+    iprintln(<k.ident, getStyleRules(k.ident, f, s)>);
+  }
+
 }

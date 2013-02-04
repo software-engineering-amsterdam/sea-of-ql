@@ -1,4 +1,4 @@
-stylesheet testStylesheet {
+stylesheet proposedSyntax {
   page "Page one" {
     section "section one" {
       section "section two" {

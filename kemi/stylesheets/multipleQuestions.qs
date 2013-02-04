@@ -1,4 +1,4 @@
-stylesheet mulitpleQuestions {
+stylesheet multipleQuestions {
   page "Page one" {
     question fieldOne
   }

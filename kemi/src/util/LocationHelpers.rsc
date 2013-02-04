@@ -8,15 +8,10 @@
 @contributor{Kevin van der Vlist - kevin@kevinvandervlist.nl}
 @contributor{Jimi van der Woning - Jimi.vanderWoning@student.uva.nl}
 
-module lang::qls::tests::ParseHelper
+module util::LocationHelpers
 
-import IO;
-import ParseTree;
-import lang::qls::ast::AST;
-import lang::qls::syntax::QLS;
+import String;
 
-public Stylesheet parseStylesheet(str src) = 
-  implode(#lang::qls::ast::AST::Stylesheet, parse(#start[Stylesheet], src, |file:///-|));
 
-public Stylesheet parseStylesheet(loc f) = 
-  implode(#lang::qls::ast::AST::Stylesheet, parse(#start[Stylesheet], f));
+public str basename(loc l) =
+  replaceLast(l.file, ".<l.extension>", "");

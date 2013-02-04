@@ -12,9 +12,11 @@ module lang::qls::util::StyleHelpers
 
 import IO;
 import List;
+import Map;
 import String;
 
 import lang::ql::analysis::SemanticChecker;
+import lang::ql::analysis::State;
 import lang::ql::ast::AST;
 import lang::ql::tests::ParseHelper;
 
@@ -25,7 +27,7 @@ public void main() {
   Form f = parseForm(|project://QL-R-kemi/forms/taxOfficeExample.q|);
   Stylesheet s = parseStylesheet(|project://QL-R-kemi/stylesheets/taxOfficeExample.qs|);
 
-  typeMap = semanticAnalysisState(f).definitions;
+  typeMap = getTypeMap(f);
   //iprintln(typeMap);
   
   for(k <- typeMap){
@@ -36,8 +38,17 @@ public void main() {
   //Stylesheet s = parseStylesheet("stylesheet S1 { question Q1 { type checkbox width 100 } default boolean { type radio } default string { width 104 }}");
 }
 
+private TypeMap typeMap = ();
+
+public TypeMap getTypeMap(Form f) {
+  if(size(typeMap) < 1) {
+    typeMap = semanticAnalysisState(f).definitions;
+  }
+  return typeMap;
+}
+
 public list[StyleRule] getStyleRules(str questionIdent, Form f, Stylesheet s) {
-  typeMap = semanticAnalysisState(f).definitions;
+  typeMap = getTypeMap(f);
   str \type = typeMap[identDefinition(questionIdent)].name;
   list[StyleRule] rules = getStyleRules(\type, s.definitions);
   for(d <- getDefinitions(questionIdent, s)) {
@@ -51,7 +62,12 @@ public list[StyleRule] getStyleRules(str questionIdent, Form f, Stylesheet s) {
 }
 
 private list[StyleRule] getStyleRules(str \type, list[&T] definitions) =
-  [r | d <- definitions, d.defaultDefinition?, d.defaultDefinition.ident == \type, r <- d.defaultDefinition.styleRules];
+  [
+    * d.defaultDefinition.styleRules |
+    d <- definitions,
+    d.defaultDefinition?,
+    d.defaultDefinition.ident == \type
+  ];
 
 public list[StyleRule] deDupeStyleRules(list[StyleRule] styleRules) {
   list[str] attrs = [];
