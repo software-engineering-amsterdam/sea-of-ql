@@ -32,6 +32,7 @@ public class ANTLRParser implements IParse {
 		try {
 			return parser.form();
 		} catch (RecognitionException e) {
+			
 			throw new ParseError(e.getMessage());
 		}
 	}

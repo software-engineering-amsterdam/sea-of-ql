@@ -1,6 +1,7 @@
 package org.uva.sea.ql.visitor.printer;
 
 import org.uva.sea.ql.ast.Form;
+import org.uva.sea.ql.ast.stmt.IfThen;
 import org.uva.sea.ql.ast.stmt.IfThenElse;
 import org.uva.sea.ql.ast.stmt.Statement;
 import org.uva.sea.ql.ast.stmt.question.ComputedQuestion;
@@ -43,6 +44,24 @@ public class FormVisitorPrinter implements IFormVisitor {
 		}
 		decreaseDepth();
 		decreaseDepth();
+	}
+	
+
+	@Override
+	public void visit(IfThen ifThen) {
+		printString("IfThenElse " + "\t condition type: "
+				+ ifThen.getCondition().getClass() + "\t ifBlock count: "
+				+ ifThen.getIfBlock().size() + "\t elseBlock count: ");
+		increaseDepth();
+		printString("IF");
+		ifThen.getCondition().accept(this);
+		increaseDepth();
+		for (Statement stmt : ifThen.getIfBlock()) {
+			stmt.accept(this);
+		}
+		decreaseDepth();
+		decreaseDepth();
+		
 	}
 
 	@Override

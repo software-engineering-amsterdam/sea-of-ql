@@ -26,18 +26,21 @@ import org.uva.sea.ql.ast.expr.unary.Not;
 import org.uva.sea.ql.ast.expr.unary.Pos;
 import org.uva.sea.ql.ast.expr.unary.Unary;
 import org.uva.sea.ql.ast.type.Type;
+import org.uva.sea.ql.message.Error;
+import org.uva.sea.ql.message.Message;
+import org.uva.sea.ql.message.Warning;
 
 public class ExpressionVisitor implements IExpressionVisitor<Boolean> {
 	private final Map<Ident, Type> typeEnv;
-	private final List<String> errors;
+	private final List<Message> errors;
 
-	public ExpressionVisitor(Map<Ident, Type> tenv, List<String> errors) {
+	public ExpressionVisitor(Map<Ident, Type> tenv, List<Message> errors) {
 		this.typeEnv = tenv;
 		this.errors = errors;
 	}
 
 	public static boolean check(Expr expr, Map<Ident, Type> typeEnv,
-			List<String> errs) {
+			List<Message> errs) {
 		ExpressionVisitor check = new ExpressionVisitor(typeEnv, errs);
 		return expr.accept(check);
 	}
@@ -180,7 +183,7 @@ public class ExpressionVisitor implements IExpressionVisitor<Boolean> {
 	public Boolean visit(Bool ast) {
 		Type astType = ast.typeOf(typeEnv);
 		if (!astType.isCompatibleToBooleanType()) {
-			addErrorMessage(String.format("%s is not a valid Boolean.", ast.toString()));
+			addError(String.format("%s is not a valid Boolean.", ast.toString()));
 			return false;
 		}
 		return true;
@@ -195,7 +198,7 @@ public class ExpressionVisitor implements IExpressionVisitor<Boolean> {
 	public Boolean visit(Int ast) {
 		Type astType = ast.typeOf(typeEnv);
 		if (!astType.isCompatibleToNumericType()) {
-			addErrorMessage(String.format("%s is not a valid Int.", ast.toString()));
+			addError(String.format("%s is not a valid Int.", ast.toString()));
 			return false;
 		}
 		return true;
@@ -205,7 +208,7 @@ public class ExpressionVisitor implements IExpressionVisitor<Boolean> {
 	public Boolean visit(StringLiteral ast) {
 		Type astType = ast.typeOf(typeEnv);
 		if (!astType.isCompatibleToStringType()) {
-			addErrorMessage(String.format("%s is not a valid String.", ast.toString()));
+			addError(String.format("%s is not a valid String.", ast.toString()));
 			return false;
 		}
 		return true;
@@ -228,7 +231,7 @@ public class ExpressionVisitor implements IExpressionVisitor<Boolean> {
 		if (!(lhsType.isCompatibleToNumericType() && rhsType
 				.isCompatibleToNumericType())) {
 
-			addErrorMessage(String.format("Invalid Numeric types (%s '%s' %s).",
+			addError(String.format("Invalid Numeric types (%s '%s' %s).",
 					lhsType.toString(), ast.toString(), rhsType.toString()));
 			return false;
 		}
@@ -242,7 +245,7 @@ public class ExpressionVisitor implements IExpressionVisitor<Boolean> {
 		if (!(lhsType.isCompatibleToBooleanType() && rhsType
 				.isCompatibleToBooleanType())) {
 
-			addErrorMessage(String.format("Invalid Boolean types (%s '%s' %s).",
+			addError(String.format("Invalid Boolean types (%s '%s' %s).",
 					lhsType.toString(), ast.toString(), rhsType.toString()));
 			return false;
 		}
@@ -255,7 +258,7 @@ public class ExpressionVisitor implements IExpressionVisitor<Boolean> {
 		if (!(lhsType.isCompatibleToBooleanType() && rhsType.isCompatibleToBooleanType()) 
 				&& !(lhsType.isCompatibleToNumericType() && rhsType.isCompatibleToNumericType())) {
 
-			addErrorMessage(String.format("Invalid Boolean/Numeric types (%s '%s' %s).",
+			addError(String.format("Invalid Boolean/Numeric types (%s '%s' %s).",
 					lhsType.toString(), ast.toString(), rhsType.toString()));
 			return false;
 		}
@@ -265,7 +268,7 @@ public class ExpressionVisitor implements IExpressionVisitor<Boolean> {
 	private boolean isCompatibleToNumeric(Unary ast) {
 		Type argType = ast.getArg().typeOf(typeEnv);
 		if (!argType.isCompatibleToNumericType()) {
-			addErrorMessage(String.format("Invalid Numeric type for %s.", 
+			addError(String.format("Invalid Numeric type for %s.", 
 					ast.toString()));
 			return false;
 		}
@@ -275,7 +278,7 @@ public class ExpressionVisitor implements IExpressionVisitor<Boolean> {
 	private boolean isCompatibleToBoolean(Unary ast) {
 		Type argType = ast.getArg().typeOf(typeEnv);
 		if (!argType.isCompatibleToBooleanType()) {
-			addErrorMessage(String.format("Invalid Boolean type for %s.", 
+			addError(String.format("Invalid Boolean type for %s.", 
 					ast.toString()));
 			return false;
 		}
@@ -283,11 +286,17 @@ public class ExpressionVisitor implements IExpressionVisitor<Boolean> {
 	}
 
 
-	public void addErrorMessage(String message) {
-		errors.add(message);
+	public void addError(String message) {
+		Message msg = new Error(message);
+		errors.add(msg);
+	}
+	
+	public void addWarning(String message) {
+		Message msg = new Warning(message);
+		errors.add(msg);
 	}
 
-	public List<String> getMessages() {
+	public List<Message> getErrors() {
 		return errors;
 	}
 }

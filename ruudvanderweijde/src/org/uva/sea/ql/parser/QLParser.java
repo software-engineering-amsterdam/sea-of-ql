@@ -1,14 +1,14 @@
-// $ANTLR 3.5 C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g 2013-01-29 14:46:08
+// $ANTLR 3.5 C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g 2013-02-04 11:21:46
 
   package org.uva.sea.ql.parser;
   import org.uva.sea.ql.ast.*;
-import org.uva.sea.ql.ast.expr.*;
-import org.uva.sea.ql.ast.expr.binary.*;
-import org.uva.sea.ql.ast.expr.primary.*;
-import org.uva.sea.ql.ast.expr.unary.*;
-import org.uva.sea.ql.ast.type.*;
-import org.uva.sea.ql.ast.stmt.*;
-import org.uva.sea.ql.ast.stmt.question.*;
+  import org.uva.sea.ql.ast.expr.*;
+  import org.uva.sea.ql.ast.expr.binary.*;
+  import org.uva.sea.ql.ast.expr.primary.*;
+  import org.uva.sea.ql.ast.expr.unary.*;
+  import org.uva.sea.ql.ast.type.*;
+  import org.uva.sea.ql.ast.stmt.*;
+  import org.uva.sea.ql.ast.stmt.question.*;
 
 
 import org.antlr.runtime.*;
@@ -336,7 +336,7 @@ public class QLParser extends Parser {
 			      if (elseBlock != null) {
 			        result = new IfThenElse(condition, ifBlock, elseBlock);
 			      } else {
-			        result = new IfThenElse(condition, ifBlock);
+			        result = new IfThen(condition, ifBlock);
 			      }
 			    }
 			}

@@ -53,7 +53,7 @@ ifStatement returns [Statement result]
       if (elseBlock != null) {
         $result = new IfThenElse(condition, ifBlock, elseBlock);
       } else {
-        $result = new IfThenElse(condition, ifBlock);
+        $result = new IfThen(condition, ifBlock);
       }
     }
   ;
