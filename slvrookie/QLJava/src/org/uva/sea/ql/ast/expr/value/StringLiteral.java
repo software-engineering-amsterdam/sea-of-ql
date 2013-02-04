@@ -2,12 +2,11 @@ package org.uva.sea.ql.ast.expr.value;
 
 import java.util.Map;
 
-import org.uva.sea.ql.ast.expr.*;
 import org.uva.sea.ql.ast.types.StringType;
 import org.uva.sea.ql.ast.types.Type;
 import org.uva.sea.ql.visitor.IExprVisitor;
 
-public class StringLiteral extends Expr {
+public class StringLiteral extends Value {
 
 	private final String value;
 

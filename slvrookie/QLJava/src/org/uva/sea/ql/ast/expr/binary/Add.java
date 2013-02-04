@@ -17,6 +17,7 @@ public class Add extends BinaryExpr {
 
 	@Override
 	public Type typeOf(Map<String, Type> typeEnv) {
+		
 		if(this.getLhs().typeOf(typeEnv).isCompatibleToIntType() && this.getRhs().typeOf(typeEnv).isCompatibleToIntType()) {
 			return new IntType();
 		}

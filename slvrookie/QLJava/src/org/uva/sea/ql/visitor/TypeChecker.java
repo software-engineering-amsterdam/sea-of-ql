@@ -1,7 +1,8 @@
 package org.uva.sea.ql.visitor;
 
+
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -16,16 +17,32 @@ import org.uva.sea.ql.ast.types.*;
 
 public class TypeChecker implements ITypeChecker {
 
-	private Map<String, Type> typeEnv = new HashMap<String, Type>();
-	private final List<String> messages = new ArrayList<String>();
+	private final Map<String, Type> typeEnv;
+	private final List<String> errors;
+	
+	public TypeChecker(Map<String, Type> tenv, List<String> errors) {
+		this.typeEnv = tenv;
+		this.errors = errors;
+	}
+	
+	public static void check(Form form) {
+		Map<String,Type> typeEnv= new LinkedHashMap<String,Type>();
+		List<String> error= new ArrayList<String>();
+		TypeChecker check = new TypeChecker(typeEnv, error);
+		form.accept(check);
+		getErrors(error);
+	}
+	
 
 	public void addError(String error) {
-		this.messages.add(error);
+		errors.add(error);
 	}
 
-	public List<String> getErrorList() {
-		return messages;
-	}
+	  private static void getErrors(List<String> errors){
+	    	for(String error: errors){
+	    		System.out.println(error);
+	    	}
+	    }
 
 	public void visit(Form form) {
 		form.getFormBody().accept(this);
@@ -54,7 +71,7 @@ public class TypeChecker implements ITypeChecker {
 
 	public void visit(CompQuestion compQuestion) {
 		isIdentDeclared(compQuestion);
-		ExprVisitor.check(compQuestion.getQuestionExpr(), typeEnv, messages);
+		ExprVisitor.check(compQuestion.getQuestionExpr(), typeEnv, errors);
 		if (!compQuestion.getQuestionExpr().typeOf(typeEnv).isCompatibleTo(compQuestion.getQuestionType())) {
 			addError("Incompatible type and expression at " + compQuestion.getQuestionName().getName() + ". Expected " + compQuestion.getQuestionType().getClass().getSimpleName() + " but got " + compQuestion.getQuestionExpr().typeOf(typeEnv).getClass().getSimpleName() + ".");
 		}
@@ -69,7 +86,7 @@ public class TypeChecker implements ITypeChecker {
 	}
 	
 	public void isConditionBoolean(IfThen ifBody){	
-		ExprVisitor.check(ifBody.getCondition(), typeEnv, messages) ;
+		ExprVisitor.check(ifBody.getCondition(), typeEnv, errors) ;
 		if (!ifBody.getCondition().typeOf(typeEnv).isCompatibleToBoolType()) {
 			addError("If condition must be Boolean.");
 		}

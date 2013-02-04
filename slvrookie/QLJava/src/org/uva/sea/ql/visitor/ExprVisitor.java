@@ -13,11 +13,11 @@ import org.uva.sea.ql.ast.types.Type;
 public class ExprVisitor implements IExprVisitor<Boolean> {
 	
 	private final Map<String, Type> typeEnv;
-	private final List<String> messages;
+	private final List<String> errors;
 	
-	private ExprVisitor(Map<String, Type> tenv, List<String> messages) {
+	private ExprVisitor(Map<String, Type> tenv, List<String> errors) {
 		this.typeEnv = tenv;
-		this.messages = messages;
+		this.errors = errors;
 	}
 	
 	public static boolean check(Expr expr, Map<String, Type> typeEnv, List<String> errs) {
@@ -26,7 +26,7 @@ public class ExprVisitor implements IExprVisitor<Boolean> {
 	}
 	
 	public void addError(String error) {
-		this.messages.add(error);
+		this.errors.add(error);
 	}
 
 	@Override
