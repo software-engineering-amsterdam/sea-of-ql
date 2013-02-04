@@ -39,7 +39,8 @@ QLTENV checkStatement(statement:ifElseStat(Expression exp, list[Body] thenpart, 
 * @author Philipp
 */
 QLTENV checkQuestion(question:easyQuestion(str id, str labelQuestion, Type tp) , QLTENV env){
-	return addInstance(env, id , labelQuestion, tp );	
+	if(checkIdentifiers(env) == false) return addError(env, question@location, "Identifier <id> is declared two times");
+	else return addInstance(env, id , labelQuestion, tp );	
 }
 
 /** Method to check computed question and save it in the environment
@@ -79,8 +80,7 @@ QLTENV checkBody(list[Body] Body, QLTENV env){
 	for(s <- Body){
 	visit(Body){
      	case Question q : {
-    			env = checkQuestion(q,env);   // I can put the check in the checkQuestion !!!!
-    			if(checkIdentifiers(env) == false) return addError(env, q@location, "Identifier double declared");
+    			env = checkQuestion(q,env);
     	    }
         case Statement s: {
         		env = checkStatement(s,env);
