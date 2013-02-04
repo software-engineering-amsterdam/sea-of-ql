@@ -15,8 +15,7 @@ public class Form implements ASTNode {
 	public Ident getName() { return name; }
 	public Statement getBody() { return body; }
 	
-	@Override
-	public <ReturnType, ParameterType> ReturnType accept(ASTNodeVisitor<ReturnType, ParameterType> visitor, ParameterType param) {
+	public <ReturnType, ParameterType> ReturnType accept(StatementVisitor<ReturnType, ParameterType> visitor, ParameterType param) {
 		return visitor.visit(this, param);
 	}
 }

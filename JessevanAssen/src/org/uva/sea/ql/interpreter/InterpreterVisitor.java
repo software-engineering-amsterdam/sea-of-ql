@@ -9,7 +9,9 @@ import org.uva.sea.ql.interpreter.valueParser.*;
 
 import java.util.*;
 
-public class InterpreterVisitor implements ASTNodeVisitor<Value, InterpreterVisitor.Context> {
+public class InterpreterVisitor implements
+        StatementVisitor<Value, InterpreterVisitor.Context>,
+        ExprVisitor<Value, InterpreterVisitor.Context> {
 
     public static class Context {
         private final List<Message> errors;

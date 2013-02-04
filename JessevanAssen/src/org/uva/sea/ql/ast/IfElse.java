@@ -19,7 +19,7 @@ public class IfElse implements Statement {
 	public Statement getElseBody() { return elseBody; }
 
 	@Override
-	public <ReturnType, ParameterType> ReturnType accept(ASTNodeVisitor<ReturnType, ParameterType> visitor, ParameterType param) {
+	public <ReturnType, ParameterType> ReturnType accept(StatementVisitor<ReturnType, ParameterType> visitor, ParameterType param) {
 		return visitor.visit(this, param);
 	}	
 }

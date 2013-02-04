@@ -16,7 +16,7 @@ public class If implements Statement {
 	public Statement getIfBody() { return ifBody; }
 
 	@Override
-	public <ReturnType, ParameterType> ReturnType accept(ASTNodeVisitor<ReturnType, ParameterType> visitor, ParameterType param) {
+	public <ReturnType, ParameterType> ReturnType accept(StatementVisitor<ReturnType, ParameterType> visitor, ParameterType param) {
 		return visitor.visit(this, param);
 	}	
 }

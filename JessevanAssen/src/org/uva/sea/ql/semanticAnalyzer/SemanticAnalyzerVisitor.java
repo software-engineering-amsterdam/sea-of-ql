@@ -11,7 +11,9 @@ import org.uva.sea.ql.ast.*;
 import org.uva.sea.ql.ast.expr.*;
 import org.uva.sea.ql.ast.type.*;
 
-public class SemanticAnalyzerVisitor implements ASTNodeVisitor<Type, SemanticAnalyzerVisitor.Context> {
+public class SemanticAnalyzerVisitor implements
+        StatementVisitor<Type, SemanticAnalyzerVisitor.Context>,
+        ExprVisitor<Type, SemanticAnalyzerVisitor.Context> {
 
     public static class Context {
         private final Map<Ident, Type> symbolTable;

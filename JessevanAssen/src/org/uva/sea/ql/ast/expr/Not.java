@@ -1,7 +1,5 @@
 package org.uva.sea.ql.ast.expr;
 
-import org.uva.sea.ql.ast.ASTNodeVisitor;
-
 public class Not extends UnaryExpr {
 
 	public Not(Expr expression) {
@@ -9,7 +7,7 @@ public class Not extends UnaryExpr {
 	}
 
 	@Override
-	public <ReturnType, ParameterType> ReturnType accept(ASTNodeVisitor<ReturnType, ParameterType> visitor, ParameterType param) {
+	public <ReturnType, ParameterType> ReturnType accept(ExprVisitor<ReturnType, ParameterType> visitor, ParameterType param) {
 		return visitor.visit(this, param);
 	}
 }

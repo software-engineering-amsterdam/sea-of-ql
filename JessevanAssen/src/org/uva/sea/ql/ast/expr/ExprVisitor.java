@@ -9,7 +9,6 @@ public interface ExprVisitor<ReturnType, ParameterType> {
     public ReturnType visit(Add      astNode, ParameterType param);
     public ReturnType visit(And      astNode, ParameterType param);
     public ReturnType visit(Bool     astNode, ParameterType param);
-    public ReturnType visit(Computed astNode, ParameterType param);
     public ReturnType visit(Div      astNode, ParameterType param);
     public ReturnType visit(Eq       astNode, ParameterType param);
     public ReturnType visit(GEq      astNode, ParameterType param);

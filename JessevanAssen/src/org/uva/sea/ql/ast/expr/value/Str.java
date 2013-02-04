@@ -1,6 +1,6 @@
 package org.uva.sea.ql.ast.expr.value;
 
-import org.uva.sea.ql.ast.ASTNodeVisitor;
+import org.uva.sea.ql.ast.expr.ExprVisitor;
 
 public class Str implements Value {
 
@@ -40,7 +40,7 @@ public class Str implements Value {
     }
 
     @Override
-	public <ReturnType, ParameterType> ReturnType accept(ASTNodeVisitor<ReturnType, ParameterType> visitor, ParameterType param) {
+	public <ReturnType, ParameterType> ReturnType accept(ExprVisitor<ReturnType, ParameterType> visitor, ParameterType param) {
 		return visitor.visit(this, param);
 	}	
 }

@@ -11,7 +11,10 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-public class KnockoutJSViewModelBuilderVisitor implements ASTNodeVisitor<Void, KnockoutJSViewModelBuilderVisitor.Context>, TypeVisitor<String, Void> {
+public class KnockoutJSViewModelBuilderVisitor implements
+        StatementVisitor<Void, KnockoutJSViewModelBuilderVisitor.Context>,
+        ExprVisitor<Void, KnockoutJSViewModelBuilderVisitor.Context>,
+        TypeVisitor<String, Void> {
 
     public static class Context {
         private final List<String> identifiers;
