@@ -6,8 +6,6 @@ import org.junit.Before;
 import org.junit.Test;
 import org.uva.sea.ql.ast.Form;
 import org.uva.sea.ql.ast.Question;
-import org.uva.sea.ql.parser.IParse;
-import org.uva.sea.ql.parser.ParseError;
 import org.uva.sea.ql.parser.jacc.JACCParser;
 
 public class FormTest {
@@ -52,6 +50,5 @@ public class FormTest {
 				+ "Money presentCash = 1000;" + "}" + "}";
 
 		assertEquals(Form.class, parser.parse(form).getClass());
-
 	}
 }
