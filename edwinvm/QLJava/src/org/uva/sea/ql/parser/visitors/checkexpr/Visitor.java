@@ -15,29 +15,40 @@ import org.uva.sea.ql.ast.expressions.binary.numeric.Sub;
 import org.uva.sea.ql.ast.expressions.literal.Bool;
 import org.uva.sea.ql.ast.expressions.literal.Ident;
 import org.uva.sea.ql.ast.expressions.literal.Int;
+import org.uva.sea.ql.ast.expressions.literal.Money;
+import org.uva.sea.ql.ast.expressions.literal.Str;
 import org.uva.sea.ql.ast.expressions.unary.Neg;
 import org.uva.sea.ql.ast.expressions.unary.Not;
 import org.uva.sea.ql.ast.expressions.unary.Pos;
 
 public interface Visitor<T> {
 	
+	// Binary numeric expressions
 	T visit(Add ast);
-	T visit(And ast);
 	T visit(Div ast);
+	T visit(Sub ast);
+	T visit(Mul ast);
+	
+	// Binary boolean expressions
+	T visit(And ast);
 	T visit(Eq ast);
 	T visit(GEq ast);
 	T visit(GT ast);
-	T visit(Ident ast);
-	T visit(Int ast);
 	T visit(LEq ast);
 	T visit(LT ast);
-	T visit(Mul ast);
-	T visit(Neg ast);
 	T visit(NEq ast);
-	T visit(Not ast);
 	T visit(Or ast);
+	
+	// Unary expressions
+	T visit(Neg ast);
+	T visit(Not ast);
 	T visit(Pos ast);
-	T visit(Sub ast);
+	
+	// Literal expressions
 	T visit(Bool ast);
+	T visit(Ident ast);
+	T visit(Int ast);
+	T visit(Money money);
+	T visit(Str str);
 	
 }
