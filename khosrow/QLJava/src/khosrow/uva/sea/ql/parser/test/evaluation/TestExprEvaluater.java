@@ -1,7 +1,10 @@
-package khosrow.uva.sea.ql.parser.test;
+package khosrow.uva.sea.ql.parser.test.evaluation;
 
 import static org.junit.Assert.*;
 import khosrow.uva.sea.ql.parser.jacc.JACCParser;
+import khosrow.uva.sea.ql.parser.test.IParse;
+import khosrow.uva.sea.ql.parser.test.ParseError;
+import khosrow.uva.sea.ql.parser.test.TheTestEnv;
 import khosrow.uva.sea.ql.values.*;
 import khosrow.uva.sea.ql.visitor.eval.ExprEvaluator;
 

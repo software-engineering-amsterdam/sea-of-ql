@@ -1,4 +1,4 @@
-package khosrow.uva.sea.ql.parser.test;
+package khosrow.uva.sea.ql.parser.test.semantic;
 
 import static org.junit.Assert.*;
 
@@ -6,6 +6,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import khosrow.uva.sea.ql.parser.jacc.JACCParser;
+import khosrow.uva.sea.ql.parser.test.IParse;
+import khosrow.uva.sea.ql.parser.test.ParseError;
+import khosrow.uva.sea.ql.parser.test.TheTestEnv;
 import khosrow.uva.sea.ql.resources.QlTypeError;
 import khosrow.uva.sea.ql.visitor.check.StmtTypeChecker;
 

@@ -1,4 +1,4 @@
-package khosrow.uva.sea.ql.parser.test;
+package khosrow.uva.sea.ql.parser.test.syntax;
 
 import static org.junit.Assert.*;
 import khosrow.uva.sea.ql.ast.stmt.Assign;
@@ -7,6 +7,8 @@ import khosrow.uva.sea.ql.ast.stmt.If;
 import khosrow.uva.sea.ql.ast.stmt.Label;
 import khosrow.uva.sea.ql.ast.stmt.SimpleQuestion;
 import khosrow.uva.sea.ql.parser.jacc.JACCParser;
+import khosrow.uva.sea.ql.parser.test.IParse;
+import khosrow.uva.sea.ql.parser.test.ParseError;
 
 import org.junit.Before;
 import org.junit.Test;

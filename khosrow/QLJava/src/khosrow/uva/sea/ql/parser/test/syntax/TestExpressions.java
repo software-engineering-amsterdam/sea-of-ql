@@ -1,9 +1,11 @@
-package khosrow.uva.sea.ql.parser.test;
+package khosrow.uva.sea.ql.parser.test.syntax;
 
 import static org.junit.Assert.assertEquals;
 
 import khosrow.uva.sea.ql.ast.expr.*;
 import khosrow.uva.sea.ql.parser.jacc.JACCParser;
+import khosrow.uva.sea.ql.parser.test.IParse;
+import khosrow.uva.sea.ql.parser.test.ParseError;
 
 import org.junit.Before;
 import org.junit.Test;
