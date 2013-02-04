@@ -3,10 +3,10 @@ package org.uva.sea.ql.parser.test;
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
-import org.uva.sea.ql.ast.expressions.binary.numeric.Add;
-import org.uva.sea.ql.ast.expressions.binary.numeric.Div;
-import org.uva.sea.ql.ast.expressions.binary.numeric.Mul;
-import org.uva.sea.ql.ast.expressions.binary.numeric.Sub;
+import org.uva.sea.ql.ast.expressions.binary.arithmetic.Add;
+import org.uva.sea.ql.ast.expressions.binary.arithmetic.Div;
+import org.uva.sea.ql.ast.expressions.binary.arithmetic.Mul;
+import org.uva.sea.ql.ast.expressions.binary.arithmetic.Sub;
 import org.uva.sea.ql.parser.IParser;
 import org.uva.sea.ql.parser.ParseError;
 import org.uva.sea.ql.parser.antlr.check.ANTLRParserExpressions;
