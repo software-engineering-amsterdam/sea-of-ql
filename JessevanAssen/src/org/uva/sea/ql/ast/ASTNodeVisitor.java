@@ -8,7 +8,7 @@ public interface ASTNodeVisitor<ReturnType, ParameterType> {
 	public ReturnType visit(And                  astNode, ParameterType param);
 	public ReturnType visit(Bool                 astNode, ParameterType param);
 	public ReturnType visit(Computed             astNode, ParameterType param);
-    public ReturnType visit(CompositeFormElement astNode, ParameterType param);
+    public ReturnType visit(CompositeStatement   astNode, ParameterType param);
 	public ReturnType visit(Div                  astNode, ParameterType param);
 	public ReturnType visit(Eq                   astNode, ParameterType param);
 	public ReturnType visit(Form                 astNode, ParameterType param);

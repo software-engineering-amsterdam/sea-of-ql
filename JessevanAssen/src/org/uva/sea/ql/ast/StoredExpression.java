@@ -3,7 +3,7 @@ package org.uva.sea.ql.ast;
 import org.uva.sea.ql.ast.expr.Expr;
 import org.uva.sea.ql.ast.expr.Ident;
 
-public class StoredExpression implements FormElement {
+public class StoredExpression implements Statement {
 
     private final Ident identifier;
     private final Expr expression;

@@ -12,7 +12,7 @@ public class ComputedTests extends ParserTests {
 	@Test
 	public void testComputed() throws ParseError {
 		final String label = "All ways lead to Rome.";
-		ASTNode parsed = parseFormElement(String.format("\"%s\" true", label));
+		ASTNode parsed = parseStatement(String.format("\"%s\" true", label));
 		assertEquals(Computed.class, parsed.getClass());
 		
 		Computed computed = (Computed) parsed;

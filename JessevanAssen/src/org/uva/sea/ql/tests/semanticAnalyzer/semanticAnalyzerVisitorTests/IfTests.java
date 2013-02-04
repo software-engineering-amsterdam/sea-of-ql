@@ -1,8 +1,8 @@
 package org.uva.sea.ql.tests.semanticAnalyzer.semanticAnalyzerVisitorTests;
 
 import org.junit.Test;
-import org.uva.sea.ql.ast.FormElement;
-import org.uva.sea.ql.ast.NullFormElement;
+import org.uva.sea.ql.ast.NullStatement;
+import org.uva.sea.ql.ast.Statement;
 import org.uva.sea.ql.ast.expr.Expr;
 import org.uva.sea.ql.ast.If;
 import org.uva.sea.ql.ast.expr.value.Bool;
@@ -17,7 +17,7 @@ public class IfTests extends SemanticAnalyzerVisitorTests {
 
     @Test
     public void expressionIsBoolean_noErrorsAreAdded() {
-        If i = new If(new Bool(true), new NullFormElement());
+        If i = new If(new Bool(true), new NullStatement());
         i.accept(visitor, context);
         assertTrue(context.getErrors().isEmpty());
     }
@@ -31,7 +31,7 @@ public class IfTests extends SemanticAnalyzerVisitorTests {
 
         for(Value value : notBooleanValues) {
             int errors = context.getErrors().size();
-            new If(value, new NullFormElement()).accept(visitor, context);
+            new If(value, new NullStatement()).accept(visitor, context);
             assertTrue(errors + 1 == context.getErrors().size());
         }
     }
@@ -41,16 +41,16 @@ public class IfTests extends SemanticAnalyzerVisitorTests {
         Expr mockExpression = mock(Expr.class);
         when(mockExpression.accept(visitor, context)).thenReturn(new org.uva.sea.ql.ast.type.Bool());
 
-        If i = new If(mockExpression, new NullFormElement());
+        If i = new If(mockExpression, new NullStatement());
         i.accept(visitor, context);
         verify(mockExpression).accept(visitor, context);
     }
 
     @Test
     public void acceptIsCalled_ifBodyAcceptIsCalled() {
-        FormElement mockFormElement = mock(FormElement.class);
-        If i = new If(new Bool(true), mockFormElement);
+        Statement mockStatement = mock(Statement.class);
+        If i = new If(new Bool(true), mockStatement);
         i.accept(visitor, context);
-        verify(mockFormElement).accept(visitor, context);
+        verify(mockStatement).accept(visitor, context);
     }
 }

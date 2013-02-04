@@ -76,9 +76,9 @@ public class InterpreterVisitor implements ASTNodeVisitor<Value, InterpreterVisi
     }
 
     @Override
-    public Value visit(CompositeFormElement astNode, Context param) {
-        for(FormElement formElement : astNode.getFormElements())
-            formElement.accept(this, param);
+    public Value visit(CompositeStatement astNode, Context param) {
+        for(Statement statement : astNode.getStatements())
+            statement.accept(this, param);
         return null;
     }
 

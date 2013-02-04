@@ -13,11 +13,11 @@ public class CreateViewModelTests extends KnockoutJSViewModelBuilderVisitorTests
 
     private static final Form FORM = new Form(
             new Ident("a"),
-            new CompositeFormElement(
+            new CompositeStatement(
                     Arrays.asList(
-                            (FormElement) new Question("a", new Ident("a"), new Bool()),
-                            (FormElement) new Question("b", new Ident("b"), new Bool()),
-                            (FormElement) new Question("c", new Ident("c"), new Bool())
+                            (Statement) new Question("a", new Ident("a"), new Bool()),
+                            (Statement) new Question("b", new Ident("b"), new Bool()),
+                            (Statement) new Question("c", new Ident("c"), new Bool())
                     )
             )
     );

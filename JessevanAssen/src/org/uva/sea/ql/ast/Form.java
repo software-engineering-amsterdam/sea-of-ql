@@ -5,15 +5,15 @@ import org.uva.sea.ql.ast.expr.Ident;
 public class Form implements ASTNode {
 	
 	private final Ident name;
-	private final FormElement body;
+	private final Statement body;
 	
-	public Form(Ident name, FormElement body) {
+	public Form(Ident name, Statement body) {
 		this.name = name;
 		this.body = body;
 	}
 	
 	public Ident getName() { return name; }
-	public FormElement getBody() { return body; }
+	public Statement getBody() { return body; }
 	
 	@Override
 	public <ReturnType, ParameterType> ReturnType accept(ASTNodeVisitor<ReturnType, ParameterType> visitor, ParameterType param) {

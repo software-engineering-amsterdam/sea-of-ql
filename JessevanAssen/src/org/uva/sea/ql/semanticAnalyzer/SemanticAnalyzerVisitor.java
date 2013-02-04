@@ -57,9 +57,9 @@ public class SemanticAnalyzerVisitor implements ASTNodeVisitor<Type, SemanticAna
 	}
 
     @Override
-    public Type visit(CompositeFormElement astNode, Context context) {
-        for(FormElement formElement : astNode.getFormElements())
-            formElement.accept(this, context);
+    public Type visit(CompositeStatement astNode, Context context) {
+        for(Statement statement : astNode.getStatements())
+            statement.accept(this, context);
         return VOID_TYPE;
     }
 

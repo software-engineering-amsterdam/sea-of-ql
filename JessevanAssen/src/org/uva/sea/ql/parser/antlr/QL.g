@@ -93,38 +93,38 @@ orExpr returns [Expr result]
     ;
 
 form returns [Form result]
-    : 'form' Ident '{' formElements '}' { 
-        $result = new Form(new Ident($Ident.text), $formElements.result); 
+    : 'form' Ident '{' statements '}' { 
+        $result = new Form(new Ident($Ident.text), $statements.result); 
       }
     ;
     
-formElements returns [FormElement result]
+statements returns [Statement result]
     @init {
-        ArrayList<FormElement> formElements = new ArrayList<FormElement>();
+        ArrayList<Statement> statements = new ArrayList<Statement>();
     }
     @after {
-        if(formElements.isEmpty())
-            result = new NullFormElement();
-        else if(formElements.size() == 1)
-            result = formElements.get(0);
+        if(statements.isEmpty())
+            result = new NullStatement();
+        else if(statements.size() == 1)
+            result = statements.get(0);
         else
-            result = new CompositeFormElement(formElements);
+            result = new CompositeStatement(statements);
     }
-    : (formElement { formElements.add($formElement.result); })*
+    : (statement { statements.add($statement.result); })*
     ;
     
-formElement returns [FormElement result]
-    : ifFormElement { $result = $ifFormElement.result; }
-    | questionFormElement { $result = $questionFormElement.result; }
-    | computedFormElement { $result = $computedFormElement.result; }
-    | storedExpressionFormElement { $result = $storedExpressionFormElement.result; }
+statement returns [Statement result]
+    : ifStatement { $result = $ifStatement.result; }
+    | questionStatement { $result = $questionStatement.result; }
+    | computedStatement { $result = $computedStatement.result; }
+    | storedExpressionStatement { $result = $storedExpressionStatement.result; }
     ;
     
-storedExpressionFormElement returns [StoredExpression result]
+storedExpressionStatement returns [StoredExpression result]
     : Ident '=' orExpr { $result = new StoredExpression(new Ident($Ident.text), $orExpr.result); }
     ;
     
-questionFormElement returns [Question result]
+questionStatement returns [Question result]
     : strExpr Ident ':' typeDeclaration { 
         $result = new Question($strExpr.result.getValue(), new Ident($Ident.text), $typeDeclaration.result); }
     ;
@@ -141,17 +141,17 @@ typeDeclaration returns [Type result]
       }
     ;
 
-computedFormElement returns [Computed result]
+computedStatement returns [Computed result]
     : strExpr orExpr { $result = new Computed($strExpr.result.getValue(), $orExpr.result); }
     ;
    
-ifFormElement returns [FormElement result]
-    : 'if' '(' orExpr ')' '{' ifElements = formElements '}' 'else' elseElement = ifFormElement
+ifStatement returns [Statement result]
+    : 'if' '(' orExpr ')' '{' ifElements = statements '}' 'else' elseElement = ifStatement
         { $result = new IfElse($orExpr.result, $ifElements.result, $elseElement.result); }
-    | 'if' '(' orExpr ')' '{' ifElements = formElements '}' 'else' '{' elseElements = formElements'}' 
+    | 'if' '(' orExpr ')' '{' ifElements = statements '}' 'else' '{' elseElements = statements'}' 
         { $result = new IfElse($orExpr.result, $ifElements.result, $elseElements.result); }
-    | 'if' '(' orExpr ')' '{' formElements '}' 
-        { $result = new If($orExpr.result, $formElements.result); }
+    | 'if' '(' orExpr ')' '{' statements '}' 
+        { $result = new If($orExpr.result, $statements.result); }
     ;
     
 // Tokens

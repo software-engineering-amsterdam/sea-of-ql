@@ -24,36 +24,36 @@ public class IfTests extends ParserTests {
 			"}";
 	@Test
 	public void testLonelyIf() throws ParseError {
-        FormElement formElement = parseFormElement(ifString);
-        assertEquals(If.class, formElement.getClass());
+        Statement statement = parseStatement(ifString);
+        assertEquals(If.class, statement.getClass());
 	}
 	
 	@Test
 	public void testIfElse() throws ParseError {
-        FormElement formElement = parseFormElement(ifString + elseString);
-        assertEquals(IfElse.class, formElement.getClass());
-        assertEquals(Question.class, ((IfElse)formElement).getElseBody().getClass());
+        Statement statement = parseStatement(ifString + elseString);
+        assertEquals(IfElse.class, statement.getClass());
+        assertEquals(Question.class, ((IfElse) statement).getElseBody().getClass());
 	}
 	
 	@Test
 	public void testIfElseif() throws ParseError {
-        FormElement formElement = parseFormElement(ifString + elseIfStrings);
-        assertEquals(IfElse.class, formElement.getClass());
-        formElement = ((IfElse)formElement).getElseBody();
-        assertEquals(IfElse.class, formElement.getClass());
-        formElement = ((IfElse)formElement).getElseBody();
-        assertEquals(If.class, formElement.getClass());
+        Statement statement = parseStatement(ifString + elseIfStrings);
+        assertEquals(IfElse.class, statement.getClass());
+        statement = ((IfElse) statement).getElseBody();
+        assertEquals(IfElse.class, statement.getClass());
+        statement = ((IfElse) statement).getElseBody();
+        assertEquals(If.class, statement.getClass());
 	}
 	
 	@Test
 	public void testIfElseifElse() throws ParseError {
-        FormElement formElement = parseFormElement(ifString + elseIfStrings + elseString);
-        assertEquals(IfElse.class, formElement.getClass());
-        formElement = ((IfElse)formElement).getElseBody();
-        assertEquals(IfElse.class, formElement.getClass());
-        formElement = ((IfElse)formElement).getElseBody();
-        assertEquals(IfElse.class, formElement.getClass());
-        formElement = ((IfElse)formElement).getElseBody();
-        assertEquals(Question.class, formElement.getClass());
+        Statement statement = parseStatement(ifString + elseIfStrings + elseString);
+        assertEquals(IfElse.class, statement.getClass());
+        statement = ((IfElse) statement).getElseBody();
+        assertEquals(IfElse.class, statement.getClass());
+        statement = ((IfElse) statement).getElseBody();
+        assertEquals(IfElse.class, statement.getClass());
+        statement = ((IfElse) statement).getElseBody();
+        assertEquals(Question.class, statement.getClass());
     }
 }

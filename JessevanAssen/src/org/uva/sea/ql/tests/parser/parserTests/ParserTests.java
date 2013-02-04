@@ -16,10 +16,10 @@ public abstract class ParserTests {
 		this.parser = new ANTLRParser();
 	}
 	
-	protected FormElement parseFormElement(String formElement) throws ParseError {
+	protected Statement parseStatement(String statement) throws ParseError {
 		final String template = "form default { %s }";
 		
-		Form parsed = (Form) parser.parse(String.format(template, formElement));
+		Form parsed = parser.parse(String.format(template, statement));
 		assertNotNull(parsed.getBody());
         return parsed.getBody();
 	}
@@ -27,7 +27,7 @@ public abstract class ParserTests {
 	protected Expr parseExpression(String expression) throws ParseError {
 		final String template = "if(%s) { }";
 		
-		FormElement parsed = parseFormElement(String.format(template, expression));
+		Statement parsed = parseStatement(String.format(template, expression));
 		return ((If) parsed).getCondition();
 	}
 }

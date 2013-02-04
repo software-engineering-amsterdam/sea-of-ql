@@ -1,7 +1,7 @@
 package org.uva.sea.ql.tests.parser.parserTests;
 
 import org.junit.Test;
-import org.uva.sea.ql.ast.FormElement;
+import org.uva.sea.ql.ast.Statement;
 import org.uva.sea.ql.ast.StoredExpression;
 import org.uva.sea.ql.ast.expr.Add;
 import org.uva.sea.ql.parser.ParseError;
@@ -16,7 +16,7 @@ public class StoredExpressionTests extends ParserTests {
         final String expression = "1 + 2";
         final String storedExpressionSignature = "%s = %s";
 
-        FormElement parsed = parseFormElement(String.format(storedExpressionSignature, identifier, expression));
+        Statement parsed = parseStatement(String.format(storedExpressionSignature, identifier, expression));
         assertEquals(StoredExpression.class, parsed.getClass());
         StoredExpression storedExpression = (StoredExpression) parsed;
         assertEquals(identifier, storedExpression.getIdentifier().getName());

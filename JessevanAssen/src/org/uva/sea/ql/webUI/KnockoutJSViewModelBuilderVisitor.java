@@ -88,8 +88,8 @@ public class KnockoutJSViewModelBuilderVisitor implements ASTNodeVisitor<Void, K
     }
 
     @Override
-    public Void visit(CompositeFormElement astNode, Context param) {
-        for(Iterator<FormElement> iterator = astNode.getFormElements().iterator(); iterator.hasNext(); ) {
+    public Void visit(CompositeStatement astNode, Context param) {
+        for(Iterator<Statement> iterator = astNode.getStatements().iterator(); iterator.hasNext(); ) {
             iterator.next().accept(this, param);
             if(iterator.hasNext())
                 param.getObjectHierarchy().append(",");
@@ -153,7 +153,7 @@ public class KnockoutJSViewModelBuilderVisitor implements ASTNodeVisitor<Void, K
         return null;
     }
 
-    private void createBlock(Expr condition, FormElement body, Context context) {
+    private void createBlock(Expr condition, Statement body, Context context) {
         context.getObjectHierarchy().append("new Block(function(){return ");
         condition.accept(this, context);
         context.getObjectHierarchy().append(";},[");

@@ -2,7 +2,7 @@ package org.uva.sea.ql.ast;
 
 import org.uva.sea.ql.ast.expr.Expr;
 
-public class Computed implements FormElement {
+public class Computed implements Statement {
 	
 	private final String label;
 	private final Expr expression;

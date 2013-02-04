@@ -20,7 +20,7 @@ public class FormTests extends ParserTests {
 		Form form = (Form) parsed;
 		assertEquals(formName, form.getName().getName());
 		assertNotNull(form.getBody());
-		assertEquals(NullFormElement.class, form.getBody().getClass());
+		assertEquals(NullStatement.class, form.getBody().getClass());
 	}
 	
 	@Test
@@ -38,12 +38,12 @@ public class FormTests extends ParserTests {
 		Form form = (Form) parsed;
 		assertEquals(formName, form.getName().getName());
 		assertNotNull(form.getBody());
-        assertEquals(CompositeFormElement.class, form.getBody().getClass());
-        Iterator<FormElement> formElements = ((CompositeFormElement)form.getBody()).getFormElements().iterator();
+        assertEquals(CompositeStatement.class, form.getBody().getClass());
+        Iterator<Statement> statementIterator = ((CompositeStatement)form.getBody()).getStatements().iterator();
 		for(int i = 0; i < 3; ++i) {
-            assertTrue(formElements.hasNext());
-            formElements.next();
+            assertTrue(statementIterator.hasNext());
+            statementIterator.next();
         }
-        assertFalse(formElements.hasNext());
+        assertFalse(statementIterator.hasNext());
 	}
 }

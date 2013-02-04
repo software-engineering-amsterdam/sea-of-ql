@@ -1,6 +1,5 @@
 package org.uva.sea.ql.tests.formLoader;
 
-import junit.framework.Assert;
 import org.junit.Test;
 import org.uva.sea.ql.ast.*;
 import org.uva.sea.ql.ast.expr.Ident;
@@ -23,7 +22,7 @@ public class FormLoaderImplTests {
         FormSource formSource = new StringFormSource(formSourceResult);
 
         Parser mockParser = mock(Parser.class);
-        when(mockParser.parse(anyString())).thenReturn(new Form(new Ident("a"), new NullFormElement()));
+        when(mockParser.parse(anyString())).thenReturn(new Form(new Ident("a"), new NullStatement()));
 
         FormLoaderImpl formLoader = new FormLoaderImpl(formSource, mockParser);
         formLoader.loadForm();
@@ -52,9 +51,9 @@ public class FormLoaderImplTests {
         Parser mockParser = mock(Parser.class);
         final Form inconsistentForm = new Form(
                 new Ident(""),
-                new CompositeFormElement(Arrays.asList(
-                        (FormElement) new Question("", new Ident("a"), new Bool()),
-                        (FormElement) new Question("", new Ident("a"), new Bool())
+                new CompositeStatement(Arrays.asList(
+                        (Statement) new Question("", new Ident("a"), new Bool()),
+                        (Statement) new Question("", new Ident("a"), new Bool())
                 ))
         );
         when(mockParser.parse(anyString())).thenReturn(inconsistentForm);
