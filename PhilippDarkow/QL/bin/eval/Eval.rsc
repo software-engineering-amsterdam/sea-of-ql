@@ -1,19 +1,17 @@
-module typeChecker::Eval
+module eval::Eval
 
 import Prelude;
 import syntax::AbstractSyntax;
 import util::Load;
 import typeChecker::TypeCheck;
+import eval::EvalTypeEnvironment;
 
 // First we introduce a data type QuestionValue that wraps all possible values that can occur at run-time.
-data QuestionValue = boolVal(bool b) | strVal(str s) | moneyVal (real m) | intVal(int i) | errorval(loc l, str msg);  
-data QuestionName = strVal(str s) | errorval(loc l, str msg);
+//data QuestionValue = boolVal(bool b) | strVal(str s) | moneyVal (real m) | intVal(int i) | errorval(loc l, str msg);  
 
-alias VENV = map[str , QuestionValue];   
-//alias QTENV = tuple[ map[str, Type] symbols, list[tuple[loc l, str msg]] errors];                                     
+//alias VENV = map[str , QuestionValue];                                       
 
 // Evaluate Expressions.
-
 QuestionValue evalExp(exp:moneyCon(int M), VENV env) = moneyVal(N);
 
 //QuestionValue evalExp(exp:string(str S), VENV env) = strVal(S);
@@ -74,10 +72,11 @@ VENV evalDecls (list[Question] results) =
 
 VENV evalQuestion(question:easyQuestion(str id, str labelQuestion, Type tp) , VENV env){
 	println("in eval Question");
-	return addInstance(env, id , labelQuestion, tp );
+	return addInstance(env, id , labelQuestion, tp);
 }
 
 VENV evalBody(list[Body] Body, VENV env){
+	println("In EVAL Body");
 	visit(Body){
 		case Question q : {
 			println("In Q : <q>");
@@ -91,10 +90,10 @@ VENV evalBody(list[Body] Body, VENV env){
 
 // Evaluate a QL program
 public VENV evalProgram(Program P){
-  if(program(Expression exp,list[Body] Body) := P){
-     println("EVAL Body : <Body>");   
-     VENV env = <{},[]>;    
-     //VENV env = evalBody(Body, env); 
+  if(program(str questionnaireName,list[Body] Body) := P){
+     println("EVAL Body : <Body>"); 
+     VENV env = ();      
+     env = evalBody(Body, env); 
      println(env);
      return evalStats(Series, env);
   } else

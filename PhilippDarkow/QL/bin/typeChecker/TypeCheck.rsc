@@ -43,7 +43,7 @@ QLTENV checkQuestion(question:easyQuestion(str id, str labelQuestion, Type tp) ,
 	else return addInstance(env, id , labelQuestion, tp );	
 }
 
-/** Method to check computed question and save it in the environment
+/** Method to check computed question and save it in the environment   --> is not working
 * @param question the computed question
 * @param env the QL Type environment
 * @return env the enviroment
@@ -51,9 +51,11 @@ QLTENV checkQuestion(question:easyQuestion(str id, str labelQuestion, Type tp) ,
 */
 QLTENV checkQuestion(question:computedQuestion(str id, str labelQuestion, Type tp, Expression exp) , QLTENV env){
 	println("check computed question");
-	env = <{< id , labelQuestion, tp >} , []>;
-	println("ENV : <env>");
-	return env;
+	if(checkIdentifiers(env) == false) return addError(env, question@location, "Identifier <id> is declared two times");
+	else return addInstance(env, id, labelQuestion, tp, exp);
+	//env = <{< id , labelQuestion, tp >} , []>;
+	//println("ENV : <env>");
+	//return env;
 }
 
 /** Method to check for double Identifiers
@@ -65,7 +67,7 @@ bool checkIdentifiers(QLTENV env){
 	if(size(env.question) == size(env.question.id)){
 		return true;
 	}else{
-		println("in add error");
+		println("Error in check Identifiers");
 		return false;
 	}
 }
