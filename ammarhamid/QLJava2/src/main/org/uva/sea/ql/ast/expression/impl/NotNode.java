@@ -2,8 +2,8 @@ package org.uva.sea.ql.ast.expression.impl;
 
 import org.uva.sea.ql.ast.exception.InvalidTypeException;
 import org.uva.sea.ql.ast.expression.ExprNode;
-import org.uva.sea.ql.ast.value.ValueNode;
-import org.uva.sea.ql.ast.value.impl.BooleanNode;
+import org.uva.sea.ql.ast.value.Value;
+import org.uva.sea.ql.ast.value.impl.BooleanValue;
 
 public class NotNode extends ExprNode
 {
@@ -15,20 +15,20 @@ public class NotNode extends ExprNode
     }
 
     @Override
-    public ValueNode evaluate()
+    public Value evaluate()
     {
-        final ValueNode valueNode = this.exprNode.evaluate();
+        final Value value = this.exprNode.evaluate();
 
-        if(valueNode.isBooleanNode())
+        if(value.isCompatibleToBoolean())
         {
-            return new BooleanNode(!valueNode.asBooleanNode().getValue());
+            return new BooleanValue(!value.asBooleanValue().getValue());
         }
 
         throw new InvalidTypeException("Invalid operand type for not(!) operation: " + toTreeString(" "));
     }
 
     @Override
-    public String toTreeString(String indent)
+    public String toTreeString(final String indent)
     {
         return '\n' + indent + "not(!)" + exprNode.toTreeString(indent + "  ");
     }

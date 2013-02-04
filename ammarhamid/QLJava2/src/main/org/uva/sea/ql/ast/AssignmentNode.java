@@ -1,32 +1,32 @@
 package org.uva.sea.ql.ast;
 
-import org.uva.sea.ql.ast.value.ValueNode;
+import org.uva.sea.ql.ast.value.Value;
 
 public class AssignmentNode implements Node
 {
     private final String identifier;
-    private final ValueNode valueNode;
+    private final Value value;
     private final VariableScope variableScope;
 
-    public AssignmentNode(final String identifier, final Node node, final VariableScope variableScope)
+    public AssignmentNode(final String identifier, final Node value, final VariableScope variableScope)
     {
         this.identifier = identifier;
         // TODO check this casting !!
-        this.valueNode = (ValueNode) node;
+        this.value = (Value) value;
         this.variableScope = variableScope;
     }
 
-    @Override
-    public ValueNode evaluate()
+    // TODO move this code to GUI interpreter
+    public Value evaluate()
     {
-        this.variableScope.assign(this.identifier, this.valueNode);
+        this.variableScope.assign(this.identifier, this.value);
 
-        return ValueNode.VOID;
+        return null;
     }
 
     @Override
-    public String toTreeString(String indent)
+    public String toTreeString(final String indent)
     {
-        return '\n' + this.identifier + " = " +this.valueNode.toTreeString(" ");
+        return '\n' + this.identifier + " = " +this.value.toTreeString(" ");
     }
 }

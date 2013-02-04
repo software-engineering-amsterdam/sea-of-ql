@@ -1,7 +1,7 @@
 package org.uva.sea.ql.ast;
 
 import org.uva.sea.ql.ast.expression.ExprNode;
-import org.uva.sea.ql.ast.value.ValueNode;
+import org.uva.sea.ql.ast.value.Value;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,28 +20,29 @@ public class IfNode implements Node
         this.branches.add(new Branch(exprNode, block));
     }
 
-    @Override
-    public ValueNode evaluate()
+    // TODO move this code to GUI interpreter
+    public Value evaluate()
     {
         for(final Branch branch : branches)
         {
-            ValueNode valueNode = branch.exprNode.evaluate();
-            if(!valueNode.isBooleanNode())
+            Value value = branch.evaluateExpression();
+            if(!value.isCompatibleToBoolean())
             {
                 throw new RuntimeException("illegal boolean expression inside if-block: " + branch.exprNode.toTreeString(" "));
             }
 
-            if(valueNode.asBooleanNode().getValue())
+            if(value.asBooleanValue().getValue())
             {
-                return branch.block.evaluate();
+//                return branch.block.evaluate();
+                return null;
             }
         }
 
-        return ValueNode.VOID;
+        return null;
     }
 
     @Override
-    public String toTreeString(String indent)
+    public String toTreeString(final String indent)
     {
         final StringBuilder stringBuilder = new StringBuilder();
         for(final Branch branch : branches)
@@ -61,6 +62,11 @@ public class IfNode implements Node
         {
             this.exprNode = exprNode;
             this.block = block;
+        }
+
+        private Value evaluateExpression()
+        {
+            return exprNode.evaluate();
         }
     }
 }

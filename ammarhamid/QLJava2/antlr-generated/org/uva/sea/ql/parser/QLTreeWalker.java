@@ -1,4 +1,4 @@
-// $ANTLR 3.4 src/main/org/uva/sea/ql/parser/QLTreeWalker.g 2013-01-28 14:59:06
+// $ANTLR 3.4 src/main/org/uva/sea/ql/parser/QLTreeWalker.g 2013-02-04 14:18:23
 
 	package org.uva.sea.ql.parser;
 	import org.uva.sea.ql.ast.Node;
@@ -22,11 +22,11 @@
 	import org.uva.sea.ql.ast.expression.impl.NotNode;
 	import org.uva.sea.ql.ast.expression.impl.NegateNode;
 	import org.uva.sea.ql.ast.expression.impl.IdentifierNode;
-	import org.uva.sea.ql.ast.value.ValueNode;
-	import org.uva.sea.ql.ast.value.impl.IntegerNode;
-	import org.uva.sea.ql.ast.value.impl.BooleanNode;
-	import org.uva.sea.ql.ast.value.impl.MoneyNode;
-	import org.uva.sea.ql.ast.value.impl.StringNode;
+	import org.uva.sea.ql.ast.value.Value;
+	import org.uva.sea.ql.ast.value.impl.IntegerValue;
+	import org.uva.sea.ql.ast.value.impl.BooleanValue;
+	import org.uva.sea.ql.ast.value.impl.MoneyValue;
+	import org.uva.sea.ql.ast.value.impl.StringValue;
 
 
 import org.antlr.runtime.*;
@@ -704,7 +704,7 @@ public TreeAdaptor getTreeAdaptor() {
                     }
 
 
-                     ifNode.addBranch(new BooleanNode("true"), (b2!=null?b2.node:null)); 
+                     ifNode.addBranch(new BooleanValue("true"), (b2!=null?b2.node:null)); 
 
                     }
                     break;
@@ -903,7 +903,7 @@ public TreeAdaptor getTreeAdaptor() {
                     adaptor.addChild(root_0, string_literal18_tree);
 
 
-                    retval.node = new BooleanNode("false"); 
+                    retval.node = new BooleanValue("false"); 
 
                     }
                     break;
@@ -921,7 +921,7 @@ public TreeAdaptor getTreeAdaptor() {
                     adaptor.addChild(root_0, string_literal19_tree);
 
 
-                    retval.node = new IntegerNode(0); 
+                    retval.node = new IntegerValue(0); 
 
                     }
                     break;
@@ -939,7 +939,7 @@ public TreeAdaptor getTreeAdaptor() {
                     adaptor.addChild(root_0, string_literal20_tree);
 
 
-                    retval.node = new StringNode("");
+                    retval.node = new StringValue("");
 
                     }
                     break;
@@ -957,7 +957,7 @@ public TreeAdaptor getTreeAdaptor() {
                     adaptor.addChild(root_0, string_literal21_tree);
 
 
-                    retval.node = new MoneyNode("0");
+                    retval.node = new MoneyValue("0");
 
                     }
                     break;
@@ -1820,7 +1820,7 @@ public TreeAdaptor getTreeAdaptor() {
                     adaptor.addChild(root_0, Boolean36_tree);
 
 
-                    retval.node = new BooleanNode((Boolean36!=null?Boolean36.getText():null));
+                    retval.node = new BooleanValue((Boolean36!=null?Boolean36.getText():null));
 
                     }
                     break;
@@ -1838,7 +1838,7 @@ public TreeAdaptor getTreeAdaptor() {
                     adaptor.addChild(root_0, Integer37_tree);
 
 
-                    retval.node = new IntegerNode((Integer37!=null?Integer37.getText():null));
+                    retval.node = new IntegerValue((Integer37!=null?Integer37.getText():null));
 
                     }
                     break;
@@ -1856,7 +1856,7 @@ public TreeAdaptor getTreeAdaptor() {
                     adaptor.addChild(root_0, Money38_tree);
 
 
-                    retval.node = new MoneyNode((Money38!=null?Money38.getText():null));
+                    retval.node = new MoneyValue((Money38!=null?Money38.getText():null));
 
                     }
                     break;
@@ -1874,7 +1874,7 @@ public TreeAdaptor getTreeAdaptor() {
                     adaptor.addChild(root_0, StringLiteral39_tree);
 
 
-                    retval.node = new StringNode((StringLiteral39!=null?StringLiteral39.getText():null));
+                    retval.node = new StringValue((StringLiteral39!=null?StringLiteral39.getText():null));
 
                     }
                     break;

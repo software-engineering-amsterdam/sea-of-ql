@@ -1,6 +1,6 @@
 package org.uva.sea.ql.ast;
 
-import org.uva.sea.ql.ast.value.ValueNode;
+import org.uva.sea.ql.ast.value.Value;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,14 +19,14 @@ public class BlockNode implements Node
         this.statements.add(statement);
     }
 
-    @Override
-    public ValueNode evaluate()
+    // TODO move this code to GUI interpreter
+    public Value evaluate()
     {
         for(final Node statement : statements)
         {
-            statement.evaluate();
+            //statement.evaluate();
         }
-        return ValueNode.VOID;
+        return null;
     }
 
     @Override
