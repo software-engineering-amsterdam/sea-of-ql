@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.uva.sea.ql.ast.Expr;
 import org.uva.sea.ql.ast.Type;
+import org.uva.sea.ql.ast.expressions.binary.BinaryBoolExpr;
 import org.uva.sea.ql.ast.expressions.binary.BinaryNumericExpr;
 import org.uva.sea.ql.ast.expressions.binary.bool.And;
 import org.uva.sea.ql.ast.expressions.binary.bool.Eq;
@@ -42,67 +43,32 @@ public class CheckExpr implements Visitor<Boolean> {
 		CheckExpr exprChecker = new CheckExpr(typeEnv, errors);
 		return expr.accept(exprChecker);
 	}
-
-	private void addError(Expr expr, String errorMessage) {
-		_messages.add(new Message("Type error for expr " + expr.toString() + ": " + errorMessage));
-	}
 	
 	@Override
-	public Boolean visit(Add ast) { return visitNumericExpr(ast, "+"); }
+	public Boolean visit(Add ast) { return checkNumericExpr(ast, "+"); }
 	@Override
-	public Boolean visit(Div ast) { return visitNumericExpr(ast, "/"); }
+	public Boolean visit(Div ast) { return checkNumericExpr(ast, "/"); }
 	@Override
-	public Boolean visit(Sub ast) { return visitNumericExpr(ast, "-"); }
+	public Boolean visit(Sub ast) { return checkNumericExpr(ast, "-"); }
 	@Override
-	public Boolean visit(Mul ast) { return visitNumericExpr(ast, "*"); }
+	public Boolean visit(Mul ast) { return checkNumericExpr(ast, "*"); }
 
 	@Override
-	public Boolean visit(And ast) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
+	public Boolean visit(And ast) { return checkBooleanExpr(ast, "&&"); }
 	@Override
-	public Boolean visit(Eq ast) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
+	public Boolean visit(Eq ast)  { return checkBooleanExpr(ast, "=="); }
 	@Override
-	public Boolean visit(GEq ast) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
+	public Boolean visit(GEq ast) { return checkBooleanExpr(ast, ">="); }
 	@Override
-	public Boolean visit(GT ast) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
+	public Boolean visit(GT ast)  { return checkBooleanExpr(ast, ">");  }
 	@Override
-	public Boolean visit(LEq ast) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
+	public Boolean visit(LEq ast) { return checkBooleanExpr(ast, "<="); }
 	@Override
-	public Boolean visit(LT ast) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
+	public Boolean visit(LT ast)  { return checkBooleanExpr(ast, "<");  }
 	@Override
-	public Boolean visit(NEq ast) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
+	public Boolean visit(NEq ast) { return checkBooleanExpr(ast, "!="); }
 	@Override
-	public Boolean visit(Or ast) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	public Boolean visit(Or ast)  { return checkBooleanExpr(ast, "||"); }
 
 	@Override
 	public Boolean visit(Neg ast) {
@@ -152,7 +118,7 @@ public class CheckExpr implements Visitor<Boolean> {
 		return null;
 	}
 	
-	private Boolean visitNumericExpr(BinaryNumericExpr expr, String binarySymbol) {
+	private Boolean checkNumericExpr(BinaryNumericExpr expr, String binarySymbol) {
 		boolean checkLhs = expr.getLhs().accept(this);
 		boolean checkRhs = expr.getRhs().accept(this);
 		
@@ -164,7 +130,7 @@ public class CheckExpr implements Visitor<Boolean> {
 		Type lhsType = expr.getLhs().typeOf(_typeEnv);
 		Type rhsType = expr.getRhs().typeOf(_typeEnv);
 		
-		// Check if Types are compatible with Add
+		// Check if Types are compatible with BinaryNumericExpr
 		if (!(lhsType.isCompatibleToNumeric() && rhsType.isCompatibleToNumeric())) {
 			addError(expr, "invalid type for " + binarySymbol);
 			return false;
@@ -172,5 +138,31 @@ public class CheckExpr implements Visitor<Boolean> {
 		
 		// No Type errors
 		return true; 
+	}
+	
+	private Boolean checkBooleanExpr(BinaryBoolExpr expr, String binarySymbol) {
+		boolean checkLhs = expr.getLhs().accept(this);
+		boolean checkRhs = expr.getRhs().accept(this);
+		
+		if (!(checkLhs && checkRhs)) {
+			// Type errors occurred
+			return false;
+		}
+		
+		Type lhsType = expr.getLhs().typeOf(_typeEnv);
+		Type rhsType = expr.getRhs().typeOf(_typeEnv);
+		
+		// Check if Types are compatible with BinaryBoolExpr
+		if (!(lhsType.isCompatibleToBool() && rhsType.isCompatibleToBool())) {
+			addError(expr, "invalid type for " + binarySymbol);
+			return false;
+		}
+		
+		// No Type errors
+		return true; 
+	}
+	
+	private void addError(Expr expr, String errorMessage) {
+		_messages.add(new Message("Type error for expr " + expr.toString() + ": " + errorMessage));
 	}
 }
