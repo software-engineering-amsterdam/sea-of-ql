@@ -35,4 +35,9 @@ public class Bool extends Expr {
 		List<Message> errors = new ArrayList<Message>();
 		return errors;
 	}
+	
+	@Override
+	public String toString() {
+		return Boolean.toString(value);
+	}
 }
