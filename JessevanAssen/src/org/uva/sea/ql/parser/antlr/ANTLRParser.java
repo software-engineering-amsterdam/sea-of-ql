@@ -11,15 +11,30 @@ public class ANTLRParser implements Parser {
 
 	@Override
 	public Form parse(String src) throws ParseError {
+        SimpleErrorReporter errorReporter = new SimpleErrorReporter();
 		ANTLRStringStream stream = new ANTLRStringStream(src);
 		CommonTokenStream tokens = new CommonTokenStream();
-		tokens.setTokenSource(new QLLexer(stream));
+        QLLexer lexer = new QLLexer(stream);
+        lexer.setErrorReporter(errorReporter);
+		tokens.setTokenSource(lexer);
 		QLParser parser = new QLParser(tokens);
+        parser.setErrorReporter(errorReporter);
 		try {
-			return parser.form();
+			Form form = parser.form();
+            if(!errorReporter.hasErrors())
+                return form;
+            else {
+                StringBuilder errorListBuilder = new StringBuilder();
+                for(String error : errorReporter)
+                    errorListBuilder
+                            .append(" - ")
+                            .append(error)
+                            .append(System.lineSeparator());
+                throw new ParseError(errorListBuilder.toString());
+            }
 		} catch (RecognitionException e) {
 			throw new ParseError(e.getMessage());
-		}
+        }
 	}
 
 }
