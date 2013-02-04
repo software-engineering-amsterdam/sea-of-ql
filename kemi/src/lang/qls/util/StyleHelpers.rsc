@@ -1,3 +1,13 @@
+@license{
+  Copyright (c) 2013 
+  All rights reserved. This program and the accompanying materials
+  are made available under the terms of the Eclipse Public License v1.0
+  which accompanies this distribution, and is available at
+  http://www.eclipse.org/legal/epl-v10.html
+}
+@contributor{Kevin van der Vlist - kevin@kevinvandervlist.nl}
+@contributor{Jimi van der Woning - Jimi.vanderWoning@student.uva.nl}
+
 module lang::qls::util::StyleHelpers
 
 import IO;
@@ -12,9 +22,15 @@ import lang::qls::ast::AST;
 import lang::qls::tests::ParseHelper;
 
 public void main() {
-  Form f = parseForm(|project://QL-R-kemi/forms/basic.q|);
-  Stylesheet s = parseStylesheet(|project://QL-R-kemi/stylesheets/basic.qs|);
-  iprintln(getStyleRules("numberQuestion", f, s));
+  Form f = parseForm(|project://QL-R-kemi/forms/taxOfficeExample.q|);
+  Stylesheet s = parseStylesheet(|project://QL-R-kemi/stylesheets/taxOfficeExample.qs|);
+
+  typeMap = semanticAnalysisState(f).definitions;
+  //iprintln(typeMap);
+  
+  for(k <- typeMap){
+    iprintln(<k.ident, getStyleRules(k.ident, f, s)>);
+  }
   
   //Stylesheet s = parseStylesheet("stylesheet S1 { section \"S1\" { section \"SS\" {question Q1 { type checkbox }} } section \"P1\" {  } }");
   //Stylesheet s = parseStylesheet("stylesheet S1 { question Q1 { type checkbox width 100 } default boolean { type radio } default string { width 104 }}");

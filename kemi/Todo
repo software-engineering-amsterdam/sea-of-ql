@@ -16,3 +16,4 @@ Grading: See wiki
 --------------------------------------------------------------------------------
 * Refactor SemanticChecker
 * Refactor StyleHelpers
+* Keywords in QLS are allowed in QL
