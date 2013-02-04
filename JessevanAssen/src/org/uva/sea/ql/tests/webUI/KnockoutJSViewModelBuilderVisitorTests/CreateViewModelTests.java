@@ -1,7 +1,10 @@
 package org.uva.sea.ql.tests.webUI.KnockoutJSViewModelBuilderVisitorTests;
 
 import org.junit.Test;
-import org.uva.sea.ql.ast.*;
+import org.uva.sea.ql.ast.CompositeStatement;
+import org.uva.sea.ql.ast.Form;
+import org.uva.sea.ql.ast.Question;
+import org.uva.sea.ql.ast.Statement;
 import org.uva.sea.ql.ast.expr.Ident;
 import org.uva.sea.ql.ast.type.Bool;
 

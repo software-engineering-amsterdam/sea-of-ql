@@ -5,7 +5,8 @@ import org.uva.sea.ql.ast.Form;
 import org.uva.sea.ql.ast.Statement;
 import org.uva.sea.ql.ast.expr.Ident;
 
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
 
 public class FormTests extends SemanticAnalyzerVisitorTests {
 	

@@ -1,12 +1,14 @@
 package org.uva.sea.ql.tests.parser.parserTests;
 
-import static org.junit.Assert.*;
-
-import org.uva.sea.ql.ast.*;
+import org.uva.sea.ql.ast.Form;
+import org.uva.sea.ql.ast.If;
+import org.uva.sea.ql.ast.Statement;
 import org.uva.sea.ql.ast.expr.Expr;
 import org.uva.sea.ql.parser.ParseError;
 import org.uva.sea.ql.parser.Parser;
 import org.uva.sea.ql.parser.antlr.ANTLRParser;
+
+import static org.junit.Assert.assertNotNull;
 
 public abstract class ParserTests {
 	

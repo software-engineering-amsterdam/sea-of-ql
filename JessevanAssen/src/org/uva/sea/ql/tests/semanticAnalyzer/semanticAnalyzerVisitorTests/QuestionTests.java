@@ -7,9 +7,7 @@ import org.uva.sea.ql.ast.type.Bool;
 import org.uva.sea.ql.ast.type.Int;
 import org.uva.sea.ql.ast.type.Type;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 public class QuestionTests extends SemanticAnalyzerVisitorTests {
 

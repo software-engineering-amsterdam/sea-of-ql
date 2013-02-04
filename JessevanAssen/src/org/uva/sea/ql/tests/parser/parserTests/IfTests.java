@@ -1,10 +1,13 @@
 package org.uva.sea.ql.tests.parser.parserTests;
 
-import static org.junit.Assert.*;
-
 import org.junit.Test;
-import org.uva.sea.ql.ast.*;
+import org.uva.sea.ql.ast.If;
+import org.uva.sea.ql.ast.IfElse;
+import org.uva.sea.ql.ast.Question;
+import org.uva.sea.ql.ast.Statement;
 import org.uva.sea.ql.parser.ParseError;
+
+import static org.junit.Assert.assertEquals;
 
 public class IfTests extends ParserTests {
 

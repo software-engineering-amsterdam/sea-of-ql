@@ -2,7 +2,9 @@ package org.uva.sea.ql.tests.interpreter.interpreterTests;
 
 import org.junit.Test;
 import org.uva.sea.ql.ast.expr.*;
-import org.uva.sea.ql.ast.expr.value.*;
+import org.uva.sea.ql.ast.expr.value.Bool;
+import org.uva.sea.ql.ast.expr.value.Int;
+import org.uva.sea.ql.ast.expr.value.Str;
 
 import static junit.framework.Assert.assertEquals;
 

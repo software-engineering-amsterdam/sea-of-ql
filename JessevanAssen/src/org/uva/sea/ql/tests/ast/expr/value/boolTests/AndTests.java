@@ -1,6 +1,7 @@
 package org.uva.sea.ql.tests.ast.expr.value.boolTests;
 
 import org.junit.Test;
+
 import static junit.framework.Assert.assertEquals;
 
 public class AndTests extends BoolTests {

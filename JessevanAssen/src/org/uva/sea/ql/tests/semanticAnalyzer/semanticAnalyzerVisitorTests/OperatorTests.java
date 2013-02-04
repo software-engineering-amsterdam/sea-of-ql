@@ -1,14 +1,14 @@
 package org.uva.sea.ql.tests.semanticAnalyzer.semanticAnalyzerVisitorTests;
 
-import static org.junit.Assert.*;
-
-import java.util.List;
-
 import org.uva.sea.ql.ast.expr.Expr;
 import org.uva.sea.ql.ast.expr.value.Bool;
 import org.uva.sea.ql.ast.expr.value.Int;
 import org.uva.sea.ql.ast.expr.value.Str;
 import org.uva.sea.ql.ast.expr.value.Value;
+
+import java.util.List;
+
+import static org.junit.Assert.assertTrue;
 
 public class OperatorTests extends SemanticAnalyzerVisitorTests {
 	

@@ -1,13 +1,21 @@
 package org.uva.sea.ql.interpreter;
 
-import org.uva.sea.ql.Message;
 import org.uva.sea.ql.Error;
+import org.uva.sea.ql.Message;
 import org.uva.sea.ql.ast.*;
 import org.uva.sea.ql.ast.expr.*;
-import org.uva.sea.ql.ast.expr.value.*;
-import org.uva.sea.ql.interpreter.valueParser.*;
+import org.uva.sea.ql.ast.expr.value.Bool;
+import org.uva.sea.ql.ast.expr.value.Int;
+import org.uva.sea.ql.ast.expr.value.Str;
+import org.uva.sea.ql.ast.expr.value.Value;
+import org.uva.sea.ql.interpreter.valueParser.ValueParser;
+import org.uva.sea.ql.interpreter.valueParser.ValueParserException;
+import org.uva.sea.ql.interpreter.valueParser.ValueParserFactory;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 
 public class InterpreterVisitor implements
         StatementVisitor<Value, InterpreterVisitor.Context>,

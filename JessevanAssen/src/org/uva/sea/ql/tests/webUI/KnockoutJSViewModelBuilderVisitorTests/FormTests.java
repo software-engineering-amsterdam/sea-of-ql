@@ -6,8 +6,6 @@ import org.uva.sea.ql.ast.NullStatement;
 import org.uva.sea.ql.ast.expr.Ident;
 
 import static junit.framework.Assert.assertEquals;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
 
 public class FormTests extends KnockoutJSViewModelBuilderVisitorTests {
 	

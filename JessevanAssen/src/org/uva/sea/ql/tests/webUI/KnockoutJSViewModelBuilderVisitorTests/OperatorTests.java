@@ -1,7 +1,6 @@
 package org.uva.sea.ql.tests.webUI.KnockoutJSViewModelBuilderVisitorTests;
 
 import org.uva.sea.ql.ast.expr.BinaryExpr;
-import org.uva.sea.ql.ast.expr.Expr;
 import org.uva.sea.ql.ast.expr.UnaryExpr;
 
 import static org.junit.Assert.assertEquals;

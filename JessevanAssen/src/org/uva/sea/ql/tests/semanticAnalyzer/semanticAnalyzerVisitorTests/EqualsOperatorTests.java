@@ -1,5 +1,6 @@
 package org.uva.sea.ql.tests.semanticAnalyzer.semanticAnalyzerVisitorTests;
 
+import org.junit.Test;
 import org.uva.sea.ql.ast.expr.BinaryExpr;
 import org.uva.sea.ql.ast.expr.Eq;
 import org.uva.sea.ql.ast.expr.Expr;
@@ -8,8 +9,6 @@ import org.uva.sea.ql.ast.expr.value.Value;
 
 import java.util.Arrays;
 import java.util.List;
-
-import org.junit.Test;
 
 public class EqualsOperatorTests extends OperatorTests {
 

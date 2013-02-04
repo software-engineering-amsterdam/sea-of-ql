@@ -1,12 +1,15 @@
 package org.uva.sea.ql.tests.semanticAnalyzer.semanticAnalyzerVisitorTests;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-
 import org.junit.Test;
 import org.uva.sea.ql.ast.Question;
 import org.uva.sea.ql.ast.expr.Ident;
-import org.uva.sea.ql.ast.type.*;
+import org.uva.sea.ql.ast.type.Bool;
+import org.uva.sea.ql.ast.type.Int;
+import org.uva.sea.ql.ast.type.Str;
+import org.uva.sea.ql.ast.type.Type;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 
 public class IdentTests extends SemanticAnalyzerVisitorTests {
 

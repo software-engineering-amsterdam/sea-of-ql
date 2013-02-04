@@ -1,8 +1,14 @@
 package org.uva.sea.ql.tests.interpreter.valueParserTests;
 
 import org.junit.Test;
-import org.uva.sea.ql.ast.type.*;
-import org.uva.sea.ql.interpreter.valueParser.*;
+import org.uva.sea.ql.ast.type.Bool;
+import org.uva.sea.ql.ast.type.Int;
+import org.uva.sea.ql.ast.type.Str;
+import org.uva.sea.ql.ast.type.Unknown;
+import org.uva.sea.ql.interpreter.valueParser.BoolValueParser;
+import org.uva.sea.ql.interpreter.valueParser.IntValueParser;
+import org.uva.sea.ql.interpreter.valueParser.StrValueParser;
+import org.uva.sea.ql.interpreter.valueParser.ValueParserFactory;
 
 import static junit.framework.Assert.assertEquals;
 

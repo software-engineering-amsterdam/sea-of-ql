@@ -1,11 +1,11 @@
 package org.uva.sea.ql.tests.parser.parserTests;
 
-import static org.junit.Assert.assertEquals;
-
 import org.junit.Test;
-import org.uva.sea.ql.ast.ASTNode;
+import org.uva.sea.ql.ast.expr.Expr;
 import org.uva.sea.ql.ast.expr.value.Str;
 import org.uva.sea.ql.parser.ParseError;
+
+import static org.junit.Assert.assertEquals;
 
 public class StringTests extends ParserTests {
 	
@@ -25,7 +25,7 @@ public class StringTests extends ParserTests {
     }
 	
 	private void testString(String stringValue) throws ParseError {
-		ASTNode parsed = parseExpression(String.format("\"%s\"", stringValue));
+		Expr parsed = parseExpression(String.format("\"%s\"", stringValue));
 		assertEquals(Str.class, parsed.getClass());
 		assertEquals(stringValue, ((Str) parsed).getValue());
 	}

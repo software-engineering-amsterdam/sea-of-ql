@@ -1,11 +1,11 @@
 package org.uva.sea.ql.tests.semanticAnalyzer.semanticAnalyzerVisitorTests;
 
-import java.util.Arrays;
-import java.util.List;
-
 import org.junit.Test;
 import org.uva.sea.ql.ast.expr.*;
 import org.uva.sea.ql.ast.expr.value.Value;
+
+import java.util.Arrays;
+import java.util.List;
 
 public class IntegerOperatorTests extends OperatorTests {
 

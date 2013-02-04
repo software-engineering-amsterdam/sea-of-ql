@@ -1,18 +1,18 @@
 package org.uva.sea.ql.tests.parser.parserTests;
 
-import static org.junit.Assert.*;
-
 import org.junit.Test;
-import org.uva.sea.ql.ast.*;
+import org.uva.sea.ql.ast.expr.Expr;
 import org.uva.sea.ql.ast.expr.value.Bool;
 import org.uva.sea.ql.parser.ParseError;
+
+import static org.junit.Assert.*;
 
 
 public class BooleanTests extends ParserTests {
 
 	@Test
 	public void testParseTrue() throws ParseError {
-		ASTNode parsed = parseExpression("true");
+		Expr parsed = parseExpression("true");
 		assertEquals(Bool.class, parsed.getClass());
 		
 		assertTrue(((Bool) parsed).getValue());
@@ -20,7 +20,7 @@ public class BooleanTests extends ParserTests {
 	
 	@Test
 	public void testParseFalse() throws ParseError {
-		ASTNode parsed = parseExpression("false");
+		Expr parsed = parseExpression("false");
 		assertEquals(Bool.class, parsed.getClass());
 		
 		assertFalse(((Bool) parsed).getValue());

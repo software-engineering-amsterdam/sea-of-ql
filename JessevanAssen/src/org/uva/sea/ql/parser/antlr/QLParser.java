@@ -1,17 +1,13 @@
 // $ANTLR 3.5 C:\\Users\\Jesse\\Documents\\Software Construction\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g 2013-02-04 12:59:08
 
 package org.uva.sea.ql.parser.antlr;
-import org.uva.sea.ql.ast.*;
-import org.uva.sea.ql.ast.type.*;
-import org.uva.sea.ql.ast.expr.*;
-import org.uva.sea.ql.ast.expr.value.*;
-
 
 import org.antlr.runtime.*;
-import java.util.Stack;
-import java.util.List;
+import org.uva.sea.ql.ast.*;
+import org.uva.sea.ql.ast.expr.*;
+import org.uva.sea.ql.ast.type.Type;
+
 import java.util.ArrayList;
-import java.util.Map;
 import java.util.HashMap;
 
 @SuppressWarnings("all")
@@ -1336,7 +1332,7 @@ public class QLParser extends Parser {
 		if (state.failed) return;
 		match(input,33,FOLLOW_33_in_synpred25_QL825); if (state.failed) return;
 		match(input,28,FOLLOW_28_in_synpred25_QL827); if (state.failed) return;
-		match(input,31,FOLLOW_31_in_synpred25_QL829); if (state.failed) return;
+		match(input, 31, FOLLOW_31_in_synpred25_QL829); if (state.failed) return;
 		pushFollow(FOLLOW_statements_in_synpred25_QL835);
 		elseElements=statements();
 		state._fsp--;

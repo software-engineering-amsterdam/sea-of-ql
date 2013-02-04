@@ -1,9 +1,9 @@
 package org.uva.sea.ql.tests.ast.expr.IdentTests;
 
-import static org.junit.Assert.*;
-
 import org.junit.Test;
 import org.uva.sea.ql.ast.expr.Ident;
+
+import static org.junit.Assert.assertEquals;
 
 public class HashCodeTests {
 

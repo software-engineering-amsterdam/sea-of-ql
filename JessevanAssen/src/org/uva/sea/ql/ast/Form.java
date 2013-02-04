@@ -2,7 +2,7 @@ package org.uva.sea.ql.ast;
 
 import org.uva.sea.ql.ast.expr.Ident;
 
-public class Form implements ASTNode {
+public class Form {
 	
 	private final Ident name;
 	private final Statement body;

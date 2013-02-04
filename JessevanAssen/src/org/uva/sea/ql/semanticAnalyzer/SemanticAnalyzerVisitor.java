@@ -1,15 +1,15 @@
 package org.uva.sea.ql.semanticAnalyzer;
 
+import org.uva.sea.ql.Error;
+import org.uva.sea.ql.Message;
+import org.uva.sea.ql.ast.*;
+import org.uva.sea.ql.ast.expr.*;
+import org.uva.sea.ql.ast.type.Type;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import org.uva.sea.ql.Message;
-import org.uva.sea.ql.Error;
-import org.uva.sea.ql.ast.*;
-import org.uva.sea.ql.ast.expr.*;
-import org.uva.sea.ql.ast.type.*;
 
 public class SemanticAnalyzerVisitor implements
         StatementVisitor<Type, SemanticAnalyzerVisitor.Context>,

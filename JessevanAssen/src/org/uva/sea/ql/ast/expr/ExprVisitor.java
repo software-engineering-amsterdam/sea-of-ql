@@ -1,6 +1,5 @@
 package org.uva.sea.ql.ast.expr;
 
-import org.uva.sea.ql.ast.Computed;
 import org.uva.sea.ql.ast.expr.value.Bool;
 import org.uva.sea.ql.ast.expr.value.Int;
 import org.uva.sea.ql.ast.expr.value.Str;

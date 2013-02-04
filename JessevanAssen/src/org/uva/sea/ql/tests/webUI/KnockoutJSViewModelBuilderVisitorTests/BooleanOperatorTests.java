@@ -1,8 +1,9 @@
 package org.uva.sea.ql.tests.webUI.KnockoutJSViewModelBuilderVisitorTests;
 
-import org.junit.Assert;
 import org.junit.Test;
-import org.uva.sea.ql.ast.expr.*;
+import org.uva.sea.ql.ast.expr.And;
+import org.uva.sea.ql.ast.expr.Not;
+import org.uva.sea.ql.ast.expr.Or;
 import org.uva.sea.ql.ast.expr.value.Bool;
 
 public class BooleanOperatorTests extends OperatorTests {

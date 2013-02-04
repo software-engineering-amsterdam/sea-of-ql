@@ -1,9 +1,9 @@
 package org.uva.sea.ql.tests.interpreter.interpreterTests;
 
 import org.junit.Test;
+import org.uva.sea.ql.ast.IfElse;
 import org.uva.sea.ql.ast.NullStatement;
 import org.uva.sea.ql.ast.Statement;
-import org.uva.sea.ql.ast.IfElse;
 import org.uva.sea.ql.ast.expr.value.Bool;
 
 import static junit.framework.Assert.assertNull;

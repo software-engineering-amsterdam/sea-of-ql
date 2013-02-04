@@ -4,8 +4,6 @@ import org.junit.Test;
 import org.uva.sea.ql.ast.expr.*;
 import org.uva.sea.ql.ast.expr.value.Int;
 
-import static org.junit.Assert.assertEquals;
-
 public class IntegerOperatorTests extends OperatorTests {
     private static final int LEFT_VALUE = 1;
     private static final Int LEFT = new Int(LEFT_VALUE);

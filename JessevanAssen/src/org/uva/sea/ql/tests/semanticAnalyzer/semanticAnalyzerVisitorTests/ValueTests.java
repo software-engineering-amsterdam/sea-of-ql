@@ -1,8 +1,8 @@
 package org.uva.sea.ql.tests.semanticAnalyzer.semanticAnalyzerVisitorTests;
 
-import static org.junit.Assert.assertEquals;
-
 import org.junit.Test;
+
+import static org.junit.Assert.assertEquals;
 
 public class ValueTests extends SemanticAnalyzerVisitorTests {
 

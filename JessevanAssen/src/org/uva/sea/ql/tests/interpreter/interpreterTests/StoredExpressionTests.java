@@ -6,9 +6,7 @@ import org.uva.sea.ql.ast.expr.Expr;
 import org.uva.sea.ql.ast.expr.Ident;
 import org.uva.sea.ql.ast.expr.value.Bool;
 
-import static junit.framework.Assert.assertNull;
-import static junit.framework.Assert.assertSame;
-import static junit.framework.Assert.assertTrue;
+import static junit.framework.Assert.*;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 

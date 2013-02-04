@@ -1,5 +1,5 @@
 package org.uva.sea.ql.ast;
 
-public interface Statement extends ASTNode {
+public interface Statement {
     public <ReturnType, ParameterType> ReturnType accept(StatementVisitor<ReturnType, ParameterType> visitor, ParameterType param);
 }
