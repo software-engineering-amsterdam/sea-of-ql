@@ -11,7 +11,7 @@ public abstract class FormItem {
 	
 	protected List<Message> errors = new ArrayList<Message>();
 
-	public abstract void print(int level);
+	public abstract String getPrintableText(int level);
 	
 	public abstract List<FormElement> getFormComponents();
 	
@@ -19,15 +19,19 @@ public abstract class FormItem {
 	
 	public abstract void eval(Env environment, Form form);
 	
-	protected void printIndent(int level) {
+	protected String getIndent(int level) {
+		String indent = "";
 		for (int i = 0; i <= level; i++) {
-			System.out.print("  ");
+			indent += "  ";
 		}
+		return indent;
 	}
 	
-	protected void printErrors() {
+	protected String getErrorText() {
+		String errorText = "";
 		for (Message e : errors) {
-			System.out.println("!! -> " + e.getText());
+			errorText += "!! -> " + e.getText() + "\n";
 		}
+		return errorText;
 	}
 }

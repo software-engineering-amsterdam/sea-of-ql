@@ -59,7 +59,7 @@ public class Ident extends Expr {
 	
 	@Override
 	public String toString() {
-		return "Ident(" + name + ")";
+		return name;
 	}
 
 }

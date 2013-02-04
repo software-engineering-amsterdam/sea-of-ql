@@ -20,21 +20,21 @@ import org.uva.sea.ql.ast.expr.Mul;
 import org.uva.sea.ql.ast.expr.Not;
 import org.uva.sea.ql.parser.antlr.ANTLRParser;
 
-@RunWith(Parameterized.class)
+//@RunWith(Parameterized.class)
 public class TestExpressions {
 
 	private IParse parser;
 
-	@Parameters
-	public static List<Object> theParsers() {
+	//@Parameters
+	/*public static List<Object> theParsers() {
 	  return Arrays.asList(
 			    new Object[] {new ANTLRParser()}
 			 );
-	}
+	}*/
 
-	
-	public TestExpressions(IParse parser) {
-		this.parser = parser;
+	//Constructor
+	public TestExpressions() {
+		this.parser = new ANTLRParser();
 	}
 
 	

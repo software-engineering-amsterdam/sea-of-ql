@@ -1,8 +1,9 @@
 package org.uva.sea.ql.form;
 
-import java.awt.Container;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.swing.JPanel;
 
 import net.miginfocom.swing.MigLayout;
 
@@ -18,7 +19,7 @@ public class IfStatement extends FormItem {
 
 	private final Expr expression;
 	private final List<FormItem> ifBody;
-	private Container ifBodyContainer;
+	private JPanel ifBodyContainer;
 	
 	public IfStatement(Expr expression, List<FormItem> ifBody) {
 		this.expression = expression;
@@ -34,13 +35,14 @@ public class IfStatement extends FormItem {
 	}
 	
 	@Override
-	public void print(int level) {
-		printIndent(level);
-		System.out.println("IF expr: "+ expression);
-		printErrors();
+	public String getPrintableText(int level) {
+		String printableText = getIndent(level);
+		printableText += "if (" + expression + ")\n";
+		printableText += getErrorText();
 		for (FormItem f : ifBody) {
-			f.print(level + 1);
+			printableText += f.getPrintableText(level + 1);
 		}
+		return printableText;
 	}
 
 	@Override
@@ -66,9 +68,8 @@ public class IfStatement extends FormItem {
 		return components;
 	}
 	
-	protected Container getBodyFormContainer(List<FormItem> body) {
-		Container bodyContainer = new Container();
-		bodyContainer.setLayout(new MigLayout("ins 0", "[para]15[][100lp, fill][60lp][95lp, fill]", ""));
+	protected JPanel getBodyFormContainer(List<FormItem> body) {
+		JPanel bodyContainer = new JPanel(new MigLayout("ins 0", "[para]15[][100lp, fill][60lp][95lp, fill]", ""));
 		for (FormItem f : body) {
 			for (FormElement fe : f.getFormComponents()) {
 				bodyContainer.add(fe.getFormComponent(), fe.getProperties());

@@ -1,5 +1,9 @@
 package org.uva.sea.ql.ast.type;
 
+import java.awt.Checkbox;
+
+import ui.UIComponent;
+
 public class BoolType extends Type{
 	
 	public BoolType(){
@@ -14,6 +18,11 @@ public class BoolType extends Type{
 	@Override
 	public boolean isCompatibleToBool() {
 		return true;
+	}
+
+	@Override
+	public UIComponent getAnswerComp() {
+		return new UIComponent(new Checkbox(), "wrap");
 	}
 	
 }

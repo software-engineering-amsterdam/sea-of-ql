@@ -33,11 +33,12 @@ public class Form {
 		return body;
 	}
 
-	public void print() {
-		System.out.println("formItems: " + id.getName());
+	public String getPrintableText() {
+		String formText = "Form: " + id + "\n";
 		for (FormItem f : body) {
-			f.print(0);
-		}		
+			formText += f.getPrintableText(0);
+		}
+		return formText;
 	}
 	
 	public boolean checkFormValidity() {

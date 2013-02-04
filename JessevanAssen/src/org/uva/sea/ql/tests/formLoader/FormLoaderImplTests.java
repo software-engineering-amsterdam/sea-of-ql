@@ -1,10 +1,9 @@
 package org.uva.sea.ql.tests.formLoader;
 
-import junit.framework.Assert;
 import org.junit.Test;
 import org.uva.sea.ql.ast.*;
-import org.uva.sea.ql.ast.expr.Ident;
-import org.uva.sea.ql.ast.type.Bool;
+import org.uva.sea.ql.ast.expression.Identifier;
+import org.uva.sea.ql.ast.type.Boolean;
 import org.uva.sea.ql.formLoader.*;
 import org.uva.sea.ql.parser.ParseError;
 import org.uva.sea.ql.parser.Parser;
@@ -23,7 +22,7 @@ public class FormLoaderImplTests {
         FormSource formSource = new StringFormSource(formSourceResult);
 
         Parser mockParser = mock(Parser.class);
-        when(mockParser.parse(anyString())).thenReturn(new Form(new Ident("a"), new NullFormElement()));
+        when(mockParser.parse(anyString())).thenReturn(new Form(new Identifier("a"), new NullStatement()));
 
         FormLoaderImpl formLoader = new FormLoaderImpl(formSource, mockParser);
         formLoader.loadForm();
@@ -51,10 +50,10 @@ public class FormLoaderImplTests {
     public void semanticAnalyzerFails_throwsFormLoaderException() throws ParseError {
         Parser mockParser = mock(Parser.class);
         final Form inconsistentForm = new Form(
-                new Ident(""),
-                new CompositeFormElement(Arrays.asList(
-                        (FormElement) new Question("", new Ident("a"), new Bool()),
-                        (FormElement) new Question("", new Ident("a"), new Bool())
+                new Identifier(""),
+                new CompositeStatement(Arrays.asList(
+                        (Statement) new Question("", new Identifier("a"), new Boolean()),
+                        (Statement) new Question("", new Identifier("a"), new Boolean())
                 ))
         );
         when(mockParser.parse(anyString())).thenReturn(inconsistentForm);

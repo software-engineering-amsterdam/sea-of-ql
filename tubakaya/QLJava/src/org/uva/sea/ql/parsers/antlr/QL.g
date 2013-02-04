@@ -7,8 +7,7 @@ options {backtrack=true; memoize=true;}
 {
 package org.uva.sea.ql.parsers.antlr;
 import org.uva.sea.ql.ast.types.*; 
-import org.uva.sea.ql.ast.operations.*; 
-import org.uva.sea.ql.ast.conditions.*; 
+import org.uva.sea.ql.ast.operations.*;
 }
 
 @lexer::header
@@ -25,7 +24,7 @@ formElementList returns [List<FormElement> result]
   ;
   
 formElement returns [FormElement result]
-  : IDENT COLON STRING type { $result = new FormElement(new IDENT($IDENT.text), new StringLiteral($STRING.text), $type.result); }
+  : IDENT COLON STRING type { $result = new FormElement(new Ident($IDENT.text), new StringLiteral($STRING.text), $type.result); }
   ;
   
 type returns [TypeDefinition result]
@@ -38,7 +37,7 @@ primary returns [Expr result]
   : INT   { $result = new IntLiteral($INT.text); }
   | BOOL  { $result = new BooleanLiteral($BOOL.text); } 
   | STRING {$result = new StringLiteral($STRING.text);}
-  | IDENT { $result = new IDENT($IDENT.text); }
+  | IDENT { $result = new Ident($IDENT.text); }
   | '(' x=orExpr ')'{ $result = $x.result; }
   ;
     
@@ -55,7 +54,7 @@ mulExpr returns [Expr result]
       if ($op.text.equals("*")) {
         $result = new Mul($result, rhs);
       }
-      if ($op.text.equals("<=")) {
+      if ($op.text.equals("/")) {
         $result = new Div($result, rhs);      
       }
     })*

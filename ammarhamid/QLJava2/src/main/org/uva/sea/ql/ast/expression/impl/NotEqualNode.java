@@ -1,8 +1,8 @@
 package org.uva.sea.ql.ast.expression.impl;
 
 import org.uva.sea.ql.ast.expression.ExprNode;
-import org.uva.sea.ql.ast.value.ValueNode;
-import org.uva.sea.ql.ast.value.impl.BooleanNode;
+import org.uva.sea.ql.ast.value.Value;
+import org.uva.sea.ql.ast.value.impl.BooleanValue;
 
 public class NotEqualNode extends ExprNode
 {
@@ -16,16 +16,16 @@ public class NotEqualNode extends ExprNode
     }
 
     @Override
-    public ValueNode evaluate()
+    public Value evaluate()
     {
-        final ValueNode valueNode1 = this.lhs.evaluate();
-        final ValueNode valueNode2 = this.rhs.evaluate();
+        final Value value1 = this.lhs.evaluate();
+        final Value value2 = this.rhs.evaluate();
 
-        return new BooleanNode(!valueNode1.getValue().equals(valueNode2.getValue()));
+        return new BooleanValue(!value1.evaluate().equals(value2.evaluate()));
     }
 
     @Override
-    public String toTreeString(String indent)
+    public String toTreeString(final String indent)
     {
         return '\n' + indent + "!=" + lhs.toTreeString(indent + "  ")
                 + rhs.toTreeString(indent + "  ");

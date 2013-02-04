@@ -1,7 +1,8 @@
 package org.uva.sea.ql.form;
 
-import java.awt.Container;
 import java.util.List;
+
+import javax.swing.JPanel;
 
 import org.uva.sea.ql.ast.eval.Env;
 import org.uva.sea.ql.ast.expressions.Expr;
@@ -10,7 +11,7 @@ import org.uva.sea.ql.interpreter.FormElement;
 public class IfElseStatement extends IfStatement {
 
 	private final List<FormItem> elseBody;
-	private Container elseBodyContainer;
+	private JPanel elseBodyContainer;
 	
 	public IfElseStatement(Expr expression, List<FormItem> ifBody, List<FormItem> elseBody) {
 		super(expression, ifBody);
@@ -23,18 +24,13 @@ public class IfElseStatement extends IfStatement {
 	}
 
 	@Override
-	public void print(int level) {
-		printIndent(level);
-		System.out.println("IF expr: "+ getExpression());
-		printErrors();
-		for (FormItem f : getIfBody()) {
-			f.print(level + 1);
-		}
-		printIndent(level);
-		System.out.println("ELSE");
+	public String getPrintableText(int level) {
+		String printableText = super.getPrintableText(level);
+		printableText += getIndent(level) + "else\n";
 		for (FormItem f : elseBody) {
-			f.print(level + 1);
+			printableText += f.getPrintableText(level + 1);
 		}
+		return printableText;
 	}
 	
 	@Override
@@ -59,6 +55,10 @@ public class IfElseStatement extends IfStatement {
 	@Override
 	public void eval(Env environment, Form form) {
 		super.eval(environment, form);
+		Env elseBodyEnvironment = new Env(environment);
+		for (FormItem f : elseBody) {
+			f.eval(elseBodyEnvironment, form);
+		}
 		elseBodyContainer.setVisible(!isExpressionValid(environment));
 	}
 }

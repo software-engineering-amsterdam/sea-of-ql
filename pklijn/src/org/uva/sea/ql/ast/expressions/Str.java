@@ -35,5 +35,9 @@ public class Str extends Expr {
 		List<Message> errors = new ArrayList<Message>();
 		return errors;
 	}
-
+	
+	@Override
+	public String toString() {
+		return "\"" + value + "\"";
+	}
 }
