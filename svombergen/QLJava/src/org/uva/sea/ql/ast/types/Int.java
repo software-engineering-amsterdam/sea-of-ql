@@ -1,4 +1,6 @@
-package org.uva.sea.ql.ast;
+package org.uva.sea.ql.ast.types;
+
+import org.uva.sea.ql.ast.Expr;
 
 public class Int extends Expr {
 
@@ -10,6 +12,11 @@ public class Int extends Expr {
 
 	public int getValue() {
 		return value;
+	}
+	
+	@Override
+	public String toString(){
+		return "" + getValue();
 	}
 	
 }
