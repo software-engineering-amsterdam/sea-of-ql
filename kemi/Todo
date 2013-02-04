@@ -1,13 +1,12 @@
-* 	A generator that converts QL models to an Java and/or JavaScript code. 
-*	Development of the QLS layout language (including IDE support). 
-  Include support for at least date picker, spin lock and radio button widgets. This language has to be designed!
-*	Checking of the QLS language against the QL language.
-*   Randomized testing for semantic checker? -> how exactly are we going to do this
+--------------------------------------------------------------------------------
+- QL                                                                           -
+--------------------------------------------------------------------------------
+* Think of stuff to do
 
 BONUS:
-* 	Bonus exercise for Rascal variants: use SAT/SMT/Constraint solver to check for non-determinism.
-
-Grading: See wiki
+* Parantheses support
+* Randomized testing for semantic checker
+* Bonus exercise for Rascal variants: use SAT/SMT/Constraint solver to check for non-determinism.
 
 
 
@@ -16,4 +15,26 @@ Grading: See wiki
 --------------------------------------------------------------------------------
 * Refactor SemanticChecker
 * Refactor StyleHelpers
-* Keywords in QLS are allowed in QL
+* Wider widget support (date picker, spin lock)
+* Wider styling support
+* More tests
+* "Type checking"
+
+
+
+--------------------------------------------------------------------------------
+- Both                                                                         -
+--------------------------------------------------------------------------------
+* Coupling
+* Checking of the QLS language against the QL language
+* Compiler
+
+* Refactoring
+* Adding comments
+* Adding header comments (@author etc.)
+
+
+
+
+Page: <div class="page"> ... </div>
+Section: <fieldset><legend>SectionName</legend> ... </fieldset>
