@@ -7,13 +7,13 @@
 
 %token <StringValue> STRING_VAL
 %token <IntegerValue> INT_VAL
-%token <IntegerValue> BOOL_VAL
-%token <IntegerValue> MON_VAL
+%token <BooleanValue> BOOL_VAL
+%token <MoneyValue> MON_VAL
 %token <DataType> BOOL INT MON STR
 %token <Identifier> IDENT
 %token '*' '/' '+' '-' OR AND NEQ EQ '<' LEQ '>' GEQ '!'
 %token '(' ')' 
-%token IF
+%token IF ELSE
 %token FORM
 
 %left OR
@@ -27,7 +27,6 @@
 %type <Statement> stm
 %type <CompoundStatement> compound
 %type <DataType> dataType
-%type <Question> question
 
 %{
 import org.uva.sea.ql.ast.*;
@@ -91,8 +90,9 @@ question: dataType IDENT '=' STRING_VAL ';'	{ $$ = new Question($1, $2, $4); }
 		| dataType IDENT '=' expr ';' 		{ $$ = new Computed($1, $2, $4); } 
 		;
 		
-ifStm	: IF '(' expr ')' '{' compound '}'	{ $$ = new IfStatement($3, $6); }
-		;						
+ifStm	: IF '(' expr ')' '{' compound '}'							{ $$ = new IfStatement($3, $6); }
+		| IF '(' expr ')' '{' compound '}' ELSE '{' compound '}'	{ $$ = new IfElseStatement($3, $6, $10); }
+		;				
 
 %%
 

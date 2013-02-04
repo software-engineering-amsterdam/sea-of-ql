@@ -7,7 +7,8 @@ import org.uva.sea.ql.ast.exp.Identifier;
 import org.uva.sea.ql.ast.type.DataType;
 import org.uva.sea.ql.visitor.ASTNodeVisitor;
 
-public class Computed implements ASTNode {
+public class Computed extends Statement {
+
 	private final DataType dataType;
 	private final Identifier identifier;
 	private final Expression expression;

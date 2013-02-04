@@ -24,11 +24,6 @@ public class StringValue extends Value {
 	}
 
 	@Override
-	public String toString() {
-		return "StringLiteral [value=" + value + "]";
-	}
-
-	@Override
 	public void accept(final ASTNodeVisitor visitor) {
 		visitor.visit(this);
 	}
@@ -36,6 +31,11 @@ public class StringValue extends Value {
 	@Override
 	public Value evaluate() {
 		return this;
+	}
+
+	@Override
+	public String toString() {
+		return "StringLiteral [value=" + value + "]";
 	}
 
 }

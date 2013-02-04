@@ -7,9 +7,9 @@ import org.jpatterns.gof.CompositePattern.Composite;
 import org.uva.sea.ql.visitor.ASTNodeVisitor;
 
 @Composite
-public class CompoundStatement implements ASTNode {
+public class CompoundStatement extends Statement {
 
-	List<Statement> statements = new ArrayList<Statement>();
+	private final List<Statement> statements = new ArrayList<Statement>();
 
 	public CompoundStatement(final Statement statement) {
 		statements.add(statement);
@@ -17,12 +17,16 @@ public class CompoundStatement implements ASTNode {
 
 	public CompoundStatement(final CompoundStatement compoundStatement,
 			final Statement statement) {
-		// TODO compoundStatement
+		statements.addAll(compoundStatement.statements);
 		statements.add(statement);
 	}
 
 	@Override
 	public void accept(final ASTNodeVisitor visitor) {
 		visitor.visit(this);
+	}
+
+	public List<Statement> getStatements() {
+		return new ArrayList<Statement>(statements);
 	}
 }
