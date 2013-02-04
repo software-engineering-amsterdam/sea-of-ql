@@ -1,45 +1,55 @@
 package org.uva.sea.ql.interpreter;
 
-import org.uva.sea.ql.Message;
 import org.uva.sea.ql.Error;
+import org.uva.sea.ql.Message;
 import org.uva.sea.ql.ast.*;
-import org.uva.sea.ql.ast.expr.*;
-import org.uva.sea.ql.ast.expr.value.*;
-import org.uva.sea.ql.interpreter.valueParser.*;
+import org.uva.sea.ql.ast.expression.*;
+import org.uva.sea.ql.ast.expression.value.Bool;
+import org.uva.sea.ql.ast.expression.value.Int;
+import org.uva.sea.ql.ast.expression.value.Str;
+import org.uva.sea.ql.ast.expression.value.Value;
+import org.uva.sea.ql.interpreter.valueParser.ValueParser;
+import org.uva.sea.ql.interpreter.valueParser.ValueParserException;
+import org.uva.sea.ql.interpreter.valueParser.ValueParserFactory;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 
-public class InterpreterVisitor implements ASTNodeVisitor<Value, InterpreterVisitor.Context> {
+public class InterpreterVisitor implements
+        StatementVisitor<Void, InterpreterVisitor.Context>,
+        ExpressionVisitor<Value, InterpreterVisitor.Context> {
 
     public static class Context {
         private final List<Message> errors;
-        private final Map<Ident, Value> identifiers;
+        private final Map<Identifier, Value> identifiers;
         private final Map<String, String> values;
 
         private Context(Map<String, String> values) {
             // A LinkedHashMap is used here instead of a regular HashMap, because a LinkedHashMap retains
             // the order in which the values are inserted. This gives the values a better context, because
             // they can be retrieved in the same order as they were in the form.
-            this.identifiers = new LinkedHashMap<Ident, Value>();
+            this.identifiers = new LinkedHashMap<Identifier, Value>();
             this.errors = new ArrayList<Message>();
             this.values = values;
         }
 
-        public Map<Ident, Value> getIdentifiers() { return identifiers; }
+        public Map<Identifier, Value> getIdentifiers() { return identifiers; }
         public List<Message> getErrors() { return errors; }
         public Map<String, String> getValues() { return values; }
     }
 
     public static class Result {
-        private final Map<Ident, Value> identifiers;
+        private final Map<Identifier, Value> identifiers;
         private final List<Message> errors;
 
-        private Result(Map<Ident, Value> identifiers, List<Message> errors) {
+        private Result(Map<Identifier, Value> identifiers, List<Message> errors) {
             this.identifiers = identifiers;
             this.errors = errors;
         }
 
-        public Map<Ident, Value> getIdentifiers() { return identifiers; }
+        public Map<Identifier, Value> getIdentifiers() { return identifiers; }
         public List<Message> getErrors() { return errors; }
     }
 
@@ -71,26 +81,26 @@ public class InterpreterVisitor implements ASTNodeVisitor<Value, InterpreterVisi
     }
 
     @Override
-    public Value visit(Computed astNode, Context param) {
+    public Void visit(Computed astNode, Context param) {
         return null;
     }
 
     @Override
-    public Value visit(CompositeFormElement astNode, Context param) {
-        for(FormElement formElement : astNode.getFormElements())
-            formElement.accept(this, param);
+    public Void visit(CompositeStatement astNode, Context param) {
+        for(Statement statement : astNode.getStatements())
+            statement.accept(this, param);
         return null;
     }
 
     @Override
-    public Value visit(Div astNode, Context param) {
+    public Value visit(Divide astNode, Context param) {
         final Int left = (Int)astNode.getLeftExpression().accept(this, param),
                   right = (Int)astNode.getRightExpression().accept(this, param);
         return left.divideBy(right);
     }
 
     @Override
-    public Value visit(Eq astNode, Context param) {
+    public Value visit(EqualTo astNode, Context param) {
         final Value left = astNode.getLeftExpression().accept(this, param),
                     right = astNode.getRightExpression().accept(this, param);
 
@@ -105,39 +115,39 @@ public class InterpreterVisitor implements ASTNodeVisitor<Value, InterpreterVisi
     }
 
     @Override
-    public Value visit(Form astNode, Context param) {
+    public Void visit(Form astNode, Context param) {
         astNode.getBody().accept(this, param);
         return null;
     }
 
     @Override
-    public Value visit(GEq astNode, Context param) {
+    public Value visit(GreaterThanOrEqualTo astNode, Context param) {
         final Int left = (Int)astNode.getLeftExpression().accept(this, param),
                   right = (Int)astNode.getRightExpression().accept(this, param);
         return left.isGreaterThanOrEqualTo(right);
     }
 
     @Override
-    public Value visit(GT astNode, Context param) {
+    public Value visit(GreaterThan astNode, Context param) {
         final Int left = (Int)astNode.getLeftExpression().accept(this, param),
                   right = (Int)astNode.getRightExpression().accept(this, param);
         return left.isGreaterThan(right);
     }
 
     @Override
-    public Value visit(Ident astNode, Context param) {
+    public Value visit(Identifier astNode, Context param) {
         return param.getIdentifiers().get(astNode);
     }
 
     @Override
-    public Value visit(If astNode, Context param) {
+    public Void visit(If astNode, Context param) {
         if(astNode.getCondition().accept(this, param).equals(new Bool(true)))
             astNode.getIfBody().accept(this, param);
         return null;
     }
 
     @Override
-    public Value visit(IfElse astNode, Context param) {
+    public Void visit(IfElse astNode, Context param) {
         if(astNode.getCondition().accept(this, param).equals(new Bool(true)))
             astNode.getIfBody().accept(this, param);
         else
@@ -151,37 +161,37 @@ public class InterpreterVisitor implements ASTNodeVisitor<Value, InterpreterVisi
     }
 
     @Override
-    public Value visit(LEq astNode, Context param) {
+    public Value visit(LesserThanOrEqualTo astNode, Context param) {
         final Int left = (Int)astNode.getLeftExpression().accept(this, param),
                   right = (Int)astNode.getRightExpression().accept(this, param);
         return left.isLesserThanOrEqualTo(right);
     }
 
     @Override
-    public Value visit(LT astNode, Context param) {
+    public Value visit(LesserThan astNode, Context param) {
         final Int left = (Int)astNode.getLeftExpression().accept(this, param),
                   right = (Int)astNode.getRightExpression().accept(this, param);
         return left.isLesserThan(right);
     }
 
     @Override
-    public Value visit(Mul astNode, Context param) {
+    public Value visit(Multiply astNode, Context param) {
         final Int left = (Int)astNode.getLeftExpression().accept(this, param),
                   right = (Int)astNode.getRightExpression().accept(this, param);
         return left.multiply(right);
     }
 
     @Override
-    public Value visit(Neg astNode, Context param) {
+    public Value visit(Negative astNode, Context param) {
         final Int expression = (Int)astNode.getExpression().accept(this, param);
         return expression.negative();
     }
 
     @Override
-    public Value visit(NEq astNode, Context param) {
-        // Piggyback on the Eq to avoid having to do the glorious instanceof twice
-        final Eq equals = new Eq(astNode.getLeftExpression(), astNode.getRightExpression());
-        final Bool equalsResult = (Bool) equals.accept(this, param);
+    public Value visit(NotEqualTo astNode, Context param) {
+        // Piggyback on the EqualTo to avoid having to do the glorious instanceof twice
+        final EqualTo equalTo = new EqualTo(astNode.getLeftExpression(), astNode.getRightExpression());
+        final Bool equalsResult = (Bool) equalTo.accept(this, param);
         return equalsResult.not();
     }
 
@@ -199,14 +209,14 @@ public class InterpreterVisitor implements ASTNodeVisitor<Value, InterpreterVisi
     }
 
     @Override
-    public Value visit(Pos astNode, Context param) {
+    public Value visit(Positive astNode, Context param) {
         final Int expression = (Int)astNode.getExpression().accept(this, param);
         return expression.positive();
     }
 
     @Override
-    public Value visit(Question astNode, Context param) {
-        final Ident identifier = astNode.getIdentifier();
+    public Void visit(Question astNode, Context param) {
+        final Identifier identifier = astNode.getIdentifier();
         final ValueParser valueParser = ValueParserFactory.createValueParser(astNode.getType());
 
         if(!param.getValues().containsKey(identifier.getName())) {
@@ -243,7 +253,7 @@ public class InterpreterVisitor implements ASTNodeVisitor<Value, InterpreterVisi
     }
 
     @Override
-    public Value visit(StoredExpression astNode, Context param) {
+    public Void visit(StoredExpression astNode, Context param) {
         param.getIdentifiers().put(
                 astNode.getIdentifier(),
                 astNode.getExpression().accept(this, param));
@@ -256,7 +266,7 @@ public class InterpreterVisitor implements ASTNodeVisitor<Value, InterpreterVisi
     }
 
     @Override
-    public Value visit(Sub astNode, Context param) {
+    public Value visit(Subtract astNode, Context param) {
         final Int left = (Int)astNode.getLeftExpression().accept(this, param),
                   right = (Int)astNode.getRightExpression().accept(this, param);
         return left.subtractWith(right);

@@ -1,6 +1,6 @@
 package org.uva.sea.ql.ast;
 
-import org.uva.sea.ql.ast.value.ValueNode;
+import org.uva.sea.ql.ast.value.Value;
 
 import java.util.Map;
 import java.util.TreeMap;
@@ -14,7 +14,7 @@ import java.util.TreeMap;
 public class VariableScope
 {
     private VariableScope parent;
-    private Map<String, ValueNode> variablesMap;
+    private Map<String, Value> variablesMap;
 
     public VariableScope()
     {
@@ -28,26 +28,18 @@ public class VariableScope
         this.variablesMap = new TreeMap<>();
     }
 
-    public void assign(final String variableName, final ValueNode valueNode)
+    public void assign(final String variableName, final Value value)
     {
         if(resolve(variableName) != null)
         {
             // there is already such a variable, re-assign it
-            this.reAssign(variableName, valueNode);
+            this.reAssign(variableName, value);
         }
         else
         {
             // a newly declared variable
-            this.variablesMap.put(variableName, valueNode);
+            this.variablesMap.put(variableName, value);
         }
-    }
-
-    public VariableScope copy()
-    {
-        // This is used in case functions are recursively called.
-        final VariableScope variableScope = new VariableScope();
-        variableScope.variablesMap = new TreeMap<>(this.variablesMap);
-        return variableScope;
     }
 
     public boolean isGlobalScope()
@@ -60,27 +52,27 @@ public class VariableScope
         return this.parent;
     }
 
-    public void reAssign(final String variableName, final ValueNode valueNode)
+    public void reAssign(final String variableName, final Value value)
     {
         if(this.variablesMap.containsKey(variableName))
         {
             // the variable is declared in this scope
-            this.variablesMap.put(variableName, valueNode);
+            this.variablesMap.put(variableName, value);
         }
         else if(parent != null)
         {
             // the variable was not declared in this scope, so let the parent scope re-assign it
-            this.parent.reAssign(variableName, valueNode);
+            this.parent.reAssign(variableName, value);
         }
     }
 
-    public ValueNode resolve(final String variableName)
+    public Value resolve(final String variableName)
     {
-        final ValueNode valueNode = this.variablesMap.get(variableName);
-        if(valueNode != null)
+        final Value value = this.variablesMap.get(variableName);
+        if(value != null)
         {
             // the variable resides in this scope
-            return valueNode;
+            return value;
         }
         else if(!isGlobalScope())
         {

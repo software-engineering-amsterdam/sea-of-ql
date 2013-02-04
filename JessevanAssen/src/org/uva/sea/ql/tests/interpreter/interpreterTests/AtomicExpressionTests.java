@@ -1,8 +1,10 @@
 package org.uva.sea.ql.tests.interpreter.interpreterTests;
 
 import org.junit.Test;
-import org.uva.sea.ql.ast.expr.*;
-import org.uva.sea.ql.ast.expr.value.*;
+import org.uva.sea.ql.ast.expression.*;
+import org.uva.sea.ql.ast.expression.value.Bool;
+import org.uva.sea.ql.ast.expression.value.Int;
+import org.uva.sea.ql.ast.expression.value.Str;
 
 import static junit.framework.Assert.assertEquals;
 
@@ -28,7 +30,7 @@ public class AtomicExpressionTests extends InterpreterVisitorTests {
         final Int right = new Int(1);
         assertEquals(
                 left.subtractWith(right),
-                new Sub(left, right).accept(visitor, context)
+                new Subtract(left, right).accept(visitor, context)
         );
     }
 
@@ -38,7 +40,7 @@ public class AtomicExpressionTests extends InterpreterVisitorTests {
         final Int right = new Int(4);
         assertEquals(
                 left.multiply(right),
-                new Mul(left, right).accept(visitor, context)
+                new Multiply(left, right).accept(visitor, context)
         );
     }
 
@@ -48,7 +50,7 @@ public class AtomicExpressionTests extends InterpreterVisitorTests {
         final Int right = new Int(2);
         assertEquals(
                 left.divideBy(right),
-                new Div(left, right).accept(visitor, context)
+                new Divide(left, right).accept(visitor, context)
         );
     }
 
@@ -58,15 +60,15 @@ public class AtomicExpressionTests extends InterpreterVisitorTests {
         final Int right = new Int(2);
         assertEquals(
                 left.isGreaterThan(right),
-                new GT(left, right).accept(visitor, context)
+                new GreaterThan(left, right).accept(visitor, context)
         );
         assertEquals(
                 right.isGreaterThan(left),
-                new GT(right, left).accept(visitor, context)
+                new GreaterThan(right, left).accept(visitor, context)
         );
         assertEquals(
                 left.isGreaterThan(left),
-                new GT(left, left).accept(visitor, context)
+                new GreaterThan(left, left).accept(visitor, context)
         );
     }
 
@@ -76,15 +78,15 @@ public class AtomicExpressionTests extends InterpreterVisitorTests {
         final Int right = new Int(2);
         assertEquals(
                 left.isLesserThan(right),
-                new LT(left, right).accept(visitor, context)
+                new LesserThan(left, right).accept(visitor, context)
         );
         assertEquals(
                 right.isLesserThan(left),
-                new LT(right, left).accept(visitor, context)
+                new LesserThan(right, left).accept(visitor, context)
         );
         assertEquals(
                 left.isGreaterThan(left),
-                new LT(left, left).accept(visitor, context)
+                new LesserThan(left, left).accept(visitor, context)
         );
     }
 
@@ -94,15 +96,15 @@ public class AtomicExpressionTests extends InterpreterVisitorTests {
         final Int right = new Int(2);
         assertEquals(
                 left.isGreaterThanOrEqualTo(right),
-                new GEq(left, right).accept(visitor, context)
+                new GreaterThanOrEqualTo(left, right).accept(visitor, context)
         );
         assertEquals(
                 right.isGreaterThanOrEqualTo(left),
-                new GEq(right, left).accept(visitor, context)
+                new GreaterThanOrEqualTo(right, left).accept(visitor, context)
         );
         assertEquals(
                 left.isGreaterThanOrEqualTo(left),
-                new GEq(left, left).accept(visitor, context)
+                new GreaterThanOrEqualTo(left, left).accept(visitor, context)
         );
     }
 
@@ -112,15 +114,15 @@ public class AtomicExpressionTests extends InterpreterVisitorTests {
         final Int right = new Int(2);
         assertEquals(
                 left.isLesserThanOrEqualTo(right),
-                new LEq(left, right).accept(visitor, context)
+                new LesserThanOrEqualTo(left, right).accept(visitor, context)
         );
         assertEquals(
                 right.isLesserThanOrEqualTo(left),
-                new LEq(right, left).accept(visitor, context)
+                new LesserThanOrEqualTo(right, left).accept(visitor, context)
         );
         assertEquals(
                 left.isLesserThanOrEqualTo(left),
-                new LEq(left, left).accept(visitor, context)
+                new LesserThanOrEqualTo(left, left).accept(visitor, context)
         );
     }
 
@@ -129,7 +131,7 @@ public class AtomicExpressionTests extends InterpreterVisitorTests {
         for(Int x : new Int[] { new Int(1), new Int(-1) })
             assertEquals(
                     x.positive(),
-                    new Pos(x).accept(visitor, context)
+                    new Positive(x).accept(visitor, context)
             );
     }
 
@@ -138,7 +140,7 @@ public class AtomicExpressionTests extends InterpreterVisitorTests {
         for(Int x : new Int[] { new Int(1), new Int(-1) })
             assertEquals(
                     x.negative(),
-                    new Neg(x).accept(visitor, context)
+                    new Negative(x).accept(visitor, context)
             );
     }
 
@@ -148,21 +150,21 @@ public class AtomicExpressionTests extends InterpreterVisitorTests {
             for(Bool y : BOOLEAN_VALUES)
                 assertEquals(
                         x.isEqualTo(y),
-                        new Eq(x, y).accept(visitor, context)
+                        new EqualTo(x, y).accept(visitor, context)
                 );
         final Int[] intValues = new Int[] { new Int(1), new Int(2), new Int(3) };
         for(Int x : intValues)
             for(Int y : intValues)
                 assertEquals(
                         x.isEqualTo(y),
-                        new Eq(x, y).accept(visitor, context)
+                        new EqualTo(x, y).accept(visitor, context)
                 );
         final Str[] strValues = new Str[] { new Str("a"), new Str("b"), new Str("c") };
         for(Str x : strValues)
             for(Str y : strValues)
                 assertEquals(
                         x.isEqualTo(y),
-                        new Eq(x, y).accept(visitor, context)
+                        new EqualTo(x, y).accept(visitor, context)
                 );
     }
 
@@ -172,21 +174,21 @@ public class AtomicExpressionTests extends InterpreterVisitorTests {
             for(Bool y : BOOLEAN_VALUES)
                 assertEquals(
                         x.isNotEqualTo(y),
-                        new NEq(x, y).accept(visitor, context)
+                        new NotEqualTo(x, y).accept(visitor, context)
                 );
         final Int[] intValues = new Int[] { new Int(1), new Int(2), new Int(3) };
         for(Int x : intValues)
             for(Int y : intValues)
                 assertEquals(
                         x.isNotEqualTo(y),
-                        new NEq(x, y).accept(visitor, context)
+                        new NotEqualTo(x, y).accept(visitor, context)
                 );
         final Str[] strValues = new Str[] { new Str("a"), new Str("b"), new Str("c") };
         for(Str x : strValues)
             for(Str y : strValues)
                 assertEquals(
                         x.isNotEqualTo(y),
-                        new NEq(x, y).accept(visitor, context)
+                        new NotEqualTo(x, y).accept(visitor, context)
                 );
     }
 

@@ -1,8 +1,7 @@
 package org.uva.sea.ql.ast.exp;
 
-import org.uva.sea.ql.ast.value.IntegerValue;
-import org.uva.sea.ql.ast.value.Value;
 import org.uva.sea.ql.visitor.ASTNodeVisitor;
+import org.uva.sea.ql.visitor.ExpressionVisitor;
 
 public class Multiply extends Binary {
 
@@ -16,11 +15,12 @@ public class Multiply extends Binary {
 	}
 
 	@Override
-	public IntegerValue evaluate() {
-		Value left = getLeft().evaluate();
-		Value right = getRight().evaluate();
+	public <T> T accept(final ExpressionVisitor<T> visitor) {
+		return visitor.visit(this);
+	}
 
-		return new IntegerValue(((IntegerValue) left).getValue()
-				* ((IntegerValue) right).getValue());
+	@Override
+	public Nature getNature() {
+		return Nature.NUMERIC;
 	}
 }

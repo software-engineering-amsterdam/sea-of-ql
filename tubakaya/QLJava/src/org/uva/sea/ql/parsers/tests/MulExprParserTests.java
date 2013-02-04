@@ -41,8 +41,7 @@ public class MulExprParserTests {
 	@Test
 	public void does_returnMulExpression_when_starSignUsedBetweenTwoIdentifiersWithinParanthesis() throws ParseException {
 		assertEquals(Mul.class, parser.parse("(a * b)").getClass());		
-	}
-	
+	}	
 
 	@Test
 	public void does_returnMulExpression_when_starSignUsedBetweenAnAdditionWithinParanthesisAndAnIdentifier() throws ParseException {
@@ -52,5 +51,10 @@ public class MulExprParserTests {
 	@Test
 	public void does_returnMulExpression_when_starSignUsedBetweenAnIdentifierAndAnAdditionWithinParanthesis() throws ParseException {
 		assertEquals(Mul.class, parser.parse("a * (b + c)").getClass());		
+	}
+	
+	@Test
+	public void does_returnDivExpression_when_divideSignUsedBetweenTwoIdentifiers() throws ParseException {
+		assertEquals(Div.class, parser.parse("a / b").getClass());		
 	}
 }

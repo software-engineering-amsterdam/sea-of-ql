@@ -7,7 +7,7 @@ import org.uva.sea.ql.ast.types.IntType;
 import org.uva.sea.ql.ast.types.MoneyType;
 import org.uva.sea.ql.ast.types.Numeric;
 import org.uva.sea.ql.ast.types.Type;
-import org.uva.sea.ql.visitor.IExprVisitor;
+import org.uva.sea.ql.visitors.interfaces.IExprVisitor;
 
 public class Add extends BinaryExpr {
 
@@ -17,6 +17,7 @@ public class Add extends BinaryExpr {
 
 	@Override
 	public Type typeOf(Map<String, Type> typeEnv) {
+		
 		if(this.getLhs().typeOf(typeEnv).isCompatibleToIntType() && this.getRhs().typeOf(typeEnv).isCompatibleToIntType()) {
 			return new IntType();
 		}

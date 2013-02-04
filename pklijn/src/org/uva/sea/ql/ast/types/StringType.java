@@ -1,16 +1,17 @@
 package org.uva.sea.ql.ast.types;
 
-import java.awt.Component;
-import java.awt.TextField;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
+import javax.swing.JComponent;
+import javax.swing.JTextField;
 
 import org.uva.sea.ql.ast.values.StringValue;
 import org.uva.sea.ql.ast.values.Value;
 
 public class StringType extends Type implements ActionListener {
 
-	private TextField answerField;
+	private JTextField answerField;
 	
 	@Override
 	public String toString() {
@@ -18,8 +19,8 @@ public class StringType extends Type implements ActionListener {
 	}
 
 	@Override
-	public Component getAnswerField(boolean enabled) {
-		answerField = new TextField();
+	public JComponent getAnswerField(boolean enabled) {
+		answerField = new JTextField();
 		answerField.setEnabled(enabled);
 		answerField.addActionListener(this);
 		return answerField;
@@ -31,7 +32,7 @@ public class StringType extends Type implements ActionListener {
 	}
 	
 	@Override
-	public Value getAnswerFieldValue(Component answerComponent) {
+	public Value getAnswerFieldValue(JComponent answerComponent) {
 		return new StringValue(answerField.getText());
 	}
 	

@@ -1,7 +1,7 @@
 package org.uva.sea.ql.ast.types;
 
-import java.awt.Component;
-import java.awt.Label;
+import javax.swing.JComponent;
+import javax.swing.JLabel;
 
 import org.uva.sea.ql.ast.values.Value;
 
@@ -18,8 +18,8 @@ public class NotDefinedType extends Type {
 	};
 	
 	@Override
-	public Component getAnswerField(boolean enabled) {
-		return new Label("<UNDEFINED VALUE>");
+	public JComponent getAnswerField(boolean enabled) {
+		return new JLabel("<UNDEFINED VALUE>");
 	}
 
 	@Override
@@ -28,7 +28,7 @@ public class NotDefinedType extends Type {
 	}
 	
 	@Override
-	public Value getAnswerFieldValue(Component answerComponent) {
+	public Value getAnswerFieldValue(JComponent answerComponent) {
 		return null;
 	}
 	

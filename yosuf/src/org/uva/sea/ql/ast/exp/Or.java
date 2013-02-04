@@ -1,8 +1,7 @@
 package org.uva.sea.ql.ast.exp;
 
-import org.uva.sea.ql.ast.value.BooleanValue;
-import org.uva.sea.ql.ast.value.Value;
 import org.uva.sea.ql.visitor.ASTNodeVisitor;
+import org.uva.sea.ql.visitor.ExpressionVisitor;
 
 public class Or extends Binary {
 
@@ -16,11 +15,12 @@ public class Or extends Binary {
 	}
 
 	@Override
-	public BooleanValue evaluate() {
-		Value left = getLeft().evaluate();
-		Value right = getRight().evaluate();
+	public <T> T accept(final ExpressionVisitor<T> visitor) {
+		return visitor.visit(this);
+	}
 
-		return new BooleanValue(((BooleanValue) left).getValue()
-				|| ((BooleanValue) right).getValue());
+	@Override
+	public Nature getNature() {
+		return Nature.BOOLEAN;
 	}
 }

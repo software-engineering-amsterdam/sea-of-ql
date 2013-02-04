@@ -1,6 +1,6 @@
 package org.uva.sea.ql.ast;
 
-import org.uva.sea.ql.ast.visitor.*;
+import org.uva.sea.ql.ast.visitor.Visitor;
 
 /**
  * Interface: ASTNode

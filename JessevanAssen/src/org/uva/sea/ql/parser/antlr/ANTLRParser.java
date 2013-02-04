@@ -4,8 +4,8 @@ import org.antlr.runtime.ANTLRStringStream;
 import org.antlr.runtime.CommonTokenStream;
 import org.antlr.runtime.RecognitionException;
 import org.uva.sea.ql.ast.Form;
-import org.uva.sea.ql.parser.Parser;
 import org.uva.sea.ql.parser.ParseError;
+import org.uva.sea.ql.parser.Parser;
 
 public class ANTLRParser implements Parser {
 

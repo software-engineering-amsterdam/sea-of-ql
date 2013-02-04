@@ -1,18 +1,18 @@
 package org.uva.sea.ql.interpreter;
 
-import java.awt.Component;
+import javax.swing.JComponent;
 
 public class FormElement {
 	
-	private Component formComponent;
+	private JComponent formComponent;
 	private String properties;
 	
-	public FormElement(Component formComponent, String properties) {
+	public FormElement(JComponent formComponent, String properties) {
 		this.formComponent = formComponent;
 		this.properties = properties;
 	}
 	
-	public Component getFormComponent() {
+	public JComponent getFormComponent() {
 		return formComponent;
 	}
 	

@@ -1,5 +1,6 @@
 package org.uva.sea.ql.ast.nodevisitor;
 
+import org.uva.sea.ql.ast.BigLiteral;
 import org.uva.sea.ql.ast.BinExpr;
 import org.uva.sea.ql.ast.BooleanLiteral;
 import org.uva.sea.ql.ast.CompoundStatement;
@@ -28,6 +29,7 @@ import org.uva.sea.ql.ast.operators.Pos;
 import org.uva.sea.ql.ast.operators.Sub;
 import org.uva.sea.ql.ast.types.TypeDescription;
 
+
 public interface Visitor {
 	VisitorResult visit(Expr expr);
 
@@ -36,6 +38,8 @@ public interface Visitor {
 	VisitorResult visit(Ident expr);
 
 	VisitorResult visit(IntLiteral expr);
+
+	VisitorResult visit(BigLiteral expr);
 
 	VisitorResult visit(StringLiteral expr);
 

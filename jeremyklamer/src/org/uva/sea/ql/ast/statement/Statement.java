@@ -8,9 +8,13 @@ import org.uva.sea.ql.ast.Ident;
 import org.uva.sea.ql.ast.type.Type;
 import org.uva.sea.ql.message.Message;
 
+import ui.UIComponent;
+
 public abstract class Statement implements ASTNode{
 
 	public abstract List<Message> checkType (Map<Ident, Type> typeEnv);
+	
+	public abstract List<UIComponent> getUIComponents();
 	
 	protected static String getSimpleName(Object e) { 
 		return e.getClass().getSimpleName();

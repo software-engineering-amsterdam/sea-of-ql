@@ -11,6 +11,7 @@ import org.uva.sea.ql.ast.value.IntegerValue;
 import org.uva.sea.ql.ast.value.StringValue;
 
 public class QLLexer implements QLTokens {
+
 	private static final int ERROR_CHAR = -1;
 	private static final Map<String, Integer> KEYWORDS;
 
@@ -22,6 +23,8 @@ public class QLLexer implements QLTokens {
 		KEYWORDS.put("String", STR);
 		KEYWORDS.put("Integer", INT);
 		KEYWORDS.put("Money", MON);
+		KEYWORDS.put("BooleanValue", BOOL_VAL);
+		KEYWORDS.put("MoneyValue", MON_VAL);
 	}
 
 	private int token;

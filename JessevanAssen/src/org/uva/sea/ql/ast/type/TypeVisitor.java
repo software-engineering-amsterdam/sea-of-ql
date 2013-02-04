@@ -1,9 +1,8 @@
 package org.uva.sea.ql.ast.type;
 
 public interface TypeVisitor<ReturnType, ParameterType> {
-    public ReturnType visit(Bool    type, ParameterType param);
-    public ReturnType visit(Int     type, ParameterType param);
-    public ReturnType visit(Str     type, ParameterType param);
+    public ReturnType visit(Boolean type, ParameterType param);
+    public ReturnType visit(Integer type, ParameterType param);
+    public ReturnType visit(String type, ParameterType param);
     public ReturnType visit(Unknown type, ParameterType param);
-    public ReturnType visit(Void    type, ParameterType param);
 }
