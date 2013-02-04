@@ -8,7 +8,7 @@
 @contributor{Kevin van der Vlist - kevin@kevinvandervlist.nl}
 @contributor{Jimi van der Woning - Jimi.vanderWoning@student.uva.nl}
 
-module util::LocationHelpers
+module util::LocationHelper
 
 import String;
 

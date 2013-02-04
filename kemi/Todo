@@ -1,15 +1,14 @@
 --------------------------------------------------------------------------------
 - QL                                                                           -
 --------------------------------------------------------------------------------
-* Enforce filename == formIdent in SemanticChecker
 * Whens instead of if thingies in typecheck
-* node form -> Form form 
 
 BONUS:
 * HTML templating
 * Parantheses support
 * Randomized testing for semantic checker
-* Bonus exercise for Rascal variants: use SAT/SMT/Constraint solver to check for non-determinism.
+* Bonus exercise for Rascal variants: use SAT/SMT/Constraint solver to check for
+  non-determinism.
 
 
 

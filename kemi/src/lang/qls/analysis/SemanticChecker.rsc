@@ -20,8 +20,8 @@ import lang::ql::ast::AST;
 
 import lang::qls::ast::AST;
 import lang::qls::compiler::PrettyPrinter;
-import lang::qls::util::StyleHelpers;
-import util::LocationHelpers;
+import lang::qls::util::StyleHelper;
+import util::LocationHelper;
 
 import lang::qls::tests::ParseHelper;
 

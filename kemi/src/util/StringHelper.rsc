@@ -8,18 +8,9 @@
 @contributor{Kevin van der Vlist - kevin@kevinvandervlist.nl}
 @contributor{Jimi van der Woning - Jimi.vanderWoning@student.uva.nl}
 
-module lang::ql::analysis::LabelMap
+module util::StringHelper
 
-import lang::ql::analysis::Messages;
-import lang::ql::analysis::State;
-import lang::ql::ast::AST;
-import util::IDE;
+import String;
 
-public LabelMapMessages labelMapper(QuestionText qt, IdentDefinition ident, 
-    LabelMap lm) {
-  if(qt in lm)
-    return <lm, {labelError(qt@location)}>;
-    
-  lm[qt] = ident;
-  return <lm, {}>; 
-} 
+public str trimQuotes(str string) =
+  substring(string, 1, size(string) - 1);

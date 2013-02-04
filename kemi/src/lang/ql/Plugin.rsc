@@ -59,7 +59,7 @@ public void setupQL() {
       return outlineForm(implodeQL(input));
     }),
     
-    annotator(Tree (Tree input) {
+    annotator(Tree(Tree input) {
       return input[@messages=semanticCheckerQL(input)];
     }),
     
@@ -68,17 +68,7 @@ public void setupQL() {
         action("Format (removes comments)", formatQL),
         action("Build", buildQL)
       ])
-    ),
-    
-    builder(set[Message] (Tree input) {
-      messages = semanticChecker(input); 
-      if(messages != {}) {
-        return messages;
-      }
-      
-      buildQL(input, FORM_TARGET);
-      return {};
-    })
+    )
   };
   
   registerContributions(LANG_QL, contribs);
