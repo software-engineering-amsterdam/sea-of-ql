@@ -19,12 +19,12 @@ public class StoredExpressionTests extends SemanticAnalyzerVisitorTests {
         storedExpression.accept(visitor, context);
 
         assertTrue(context.getSymbolTable().containsKey(identifier));
-        assertEquals(org.uva.sea.ql.ast.type.Bool.class, context.getSymbolTable().get(identifier).getClass());
+        assertEquals(org.uva.sea.ql.ast.type.Boolean.class, context.getSymbolTable().get(identifier).getClass());
     }
 
     @Test
     public void identIsAlreadyInSymbolTable_errorIsAdded() {
-        context.getSymbolTable().put(identifier, new org.uva.sea.ql.ast.type.Str());
+        context.getSymbolTable().put(identifier, new org.uva.sea.ql.ast.type.String());
 
         storedExpression.accept(visitor, context);
 

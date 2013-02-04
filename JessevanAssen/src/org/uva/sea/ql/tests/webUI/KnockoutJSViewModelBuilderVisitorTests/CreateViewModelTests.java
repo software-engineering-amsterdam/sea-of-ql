@@ -6,7 +6,7 @@ import org.uva.sea.ql.ast.Form;
 import org.uva.sea.ql.ast.Question;
 import org.uva.sea.ql.ast.Statement;
 import org.uva.sea.ql.ast.expression.Identifier;
-import org.uva.sea.ql.ast.type.Bool;
+import org.uva.sea.ql.ast.type.Boolean;
 
 import java.util.Arrays;
 
@@ -18,9 +18,9 @@ public class CreateViewModelTests extends KnockoutJSViewModelBuilderVisitorTests
             new Identifier("a"),
             new CompositeStatement(
                     Arrays.asList(
-                            (Statement) new Question("a", new Identifier("a"), new Bool()),
-                            (Statement) new Question("b", new Identifier("b"), new Bool()),
-                            (Statement) new Question("c", new Identifier("c"), new Bool())
+                            (Statement) new Question("a", new Identifier("a"), new Boolean()),
+                            (Statement) new Question("b", new Identifier("b"), new Boolean()),
+                            (Statement) new Question("c", new Identifier("c"), new org.uva.sea.ql.ast.type.Boolean())
                     )
             )
     );

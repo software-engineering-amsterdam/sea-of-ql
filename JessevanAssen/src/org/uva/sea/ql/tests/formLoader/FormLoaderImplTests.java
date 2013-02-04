@@ -3,7 +3,7 @@ package org.uva.sea.ql.tests.formLoader;
 import org.junit.Test;
 import org.uva.sea.ql.ast.*;
 import org.uva.sea.ql.ast.expression.Identifier;
-import org.uva.sea.ql.ast.type.Bool;
+import org.uva.sea.ql.ast.type.Boolean;
 import org.uva.sea.ql.formLoader.*;
 import org.uva.sea.ql.parser.ParseError;
 import org.uva.sea.ql.parser.Parser;
@@ -52,8 +52,8 @@ public class FormLoaderImplTests {
         final Form inconsistentForm = new Form(
                 new Identifier(""),
                 new CompositeStatement(Arrays.asList(
-                        (Statement) new Question("", new Identifier("a"), new Bool()),
-                        (Statement) new Question("", new Identifier("a"), new Bool())
+                        (Statement) new Question("", new Identifier("a"), new Boolean()),
+                        (Statement) new Question("", new Identifier("a"), new Boolean())
                 ))
         );
         when(mockParser.parse(anyString())).thenReturn(inconsistentForm);

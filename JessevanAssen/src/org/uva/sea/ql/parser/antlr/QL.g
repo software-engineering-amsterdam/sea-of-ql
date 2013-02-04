@@ -4,6 +4,9 @@ options {backtrack=true; memoize=true;}
 @parser::header
 {
 package org.uva.sea.ql.parser.antlr;
+import java.lang.Boolean;
+import java.lang.Integer;
+import java.lang.String;
 import org.uva.sea.ql.ast.*;
 import org.uva.sea.ql.ast.type.*;
 import org.uva.sea.ql.ast.expression.*;
@@ -133,11 +136,11 @@ Type: 'string'|'boolean'|'integer';
 typeDeclaration returns [Type result]
     : Type {
         if($Type.text.equals("boolean"))
-          $result = new org.uva.sea.ql.ast.type.Bool();
+          $result = new org.uva.sea.ql.ast.type.Boolean();
         else if($Type.text.equals("integer"))
-          $result = new org.uva.sea.ql.ast.type.Int();
+          $result = new org.uva.sea.ql.ast.type.Integer();
         else if($Type.text.equals("string"))
-          $result = new org.uva.sea.ql.ast.type.Str();
+          $result = new org.uva.sea.ql.ast.type.String();
       }
     ;
 

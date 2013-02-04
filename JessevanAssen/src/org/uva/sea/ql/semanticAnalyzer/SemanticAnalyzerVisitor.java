@@ -4,8 +4,10 @@ import org.uva.sea.ql.Error;
 import org.uva.sea.ql.Message;
 import org.uva.sea.ql.ast.*;
 import org.uva.sea.ql.ast.expression.*;
-import org.uva.sea.ql.ast.type.Type;
+import org.uva.sea.ql.ast.type.*;
+import org.uva.sea.ql.ast.type.Integer;
 
+import java.lang.String;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -28,9 +30,9 @@ public class SemanticAnalyzerVisitor implements
         public Map<Identifier, Type> getSymbolTable() { return symbolTable; }
     }
 
-	private static final Type BOOL_TYPE    = new org.uva.sea.ql.ast.type.Bool(),
-			                  INT_TYPE     = new org.uva.sea.ql.ast.type.Int(),
-			                  STRING_TYPE  = new org.uva.sea.ql.ast.type.Str(),
+	private static final Type BOOL_TYPE    = new org.uva.sea.ql.ast.type.Boolean(),
+			                  INT_TYPE     = new Integer(),
+			                  STRING_TYPE  = new org.uva.sea.ql.ast.type.String(),
 			                  UNKNOWN_TYPE = new org.uva.sea.ql.ast.type.Unknown();
 
     /**

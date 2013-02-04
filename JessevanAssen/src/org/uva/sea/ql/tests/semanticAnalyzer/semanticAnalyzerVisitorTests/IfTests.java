@@ -39,7 +39,7 @@ public class IfTests extends SemanticAnalyzerVisitorTests {
     @Test
     public void acceptIsCalled_conditionAcceptIsCalled() {
         Expression mockExpression = mock(Expression.class);
-        when(mockExpression.accept(visitor, context)).thenReturn(new org.uva.sea.ql.ast.type.Bool());
+        when(mockExpression.accept(visitor, context)).thenReturn(new org.uva.sea.ql.ast.type.Boolean());
 
         If i = new If(mockExpression, new NullStatement());
         i.accept(visitor, context);

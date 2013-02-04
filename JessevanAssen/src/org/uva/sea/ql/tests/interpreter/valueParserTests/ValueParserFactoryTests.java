@@ -1,9 +1,9 @@
 package org.uva.sea.ql.tests.interpreter.valueParserTests;
 
 import org.junit.Test;
-import org.uva.sea.ql.ast.type.Bool;
-import org.uva.sea.ql.ast.type.Int;
-import org.uva.sea.ql.ast.type.Str;
+import org.uva.sea.ql.ast.type.Boolean;
+import org.uva.sea.ql.ast.type.Integer;
+import org.uva.sea.ql.ast.type.String;
 import org.uva.sea.ql.ast.type.Unknown;
 import org.uva.sea.ql.interpreter.valueParser.BoolValueParser;
 import org.uva.sea.ql.interpreter.valueParser.IntValueParser;
@@ -19,7 +19,7 @@ public class ValueParserFactoryTests {
     public void boolTypeIsPassed_returnsBoolValueParser() {
         assertEquals(
                 BoolValueParser.class,
-                ValueParserFactory.createValueParser(new Bool()).getClass()
+                ValueParserFactory.createValueParser(new Boolean()).getClass()
         );
     }
 
@@ -27,7 +27,7 @@ public class ValueParserFactoryTests {
     public void intTypeIsPassed_returnsIntValueParser() {
         assertEquals(
                 IntValueParser.class,
-                ValueParserFactory.createValueParser(new Int()).getClass()
+                ValueParserFactory.createValueParser(new Integer()).getClass()
         );
     }
 
@@ -35,7 +35,7 @@ public class ValueParserFactoryTests {
     public void strTypeIsPassed_returnsStrValueParser() {
         assertEquals(
                 StrValueParser.class,
-                ValueParserFactory.createValueParser(new Str()).getClass()
+                ValueParserFactory.createValueParser(new String()).getClass()
         );
     }
 

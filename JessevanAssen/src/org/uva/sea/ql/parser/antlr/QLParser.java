@@ -1,6 +1,9 @@
-// $ANTLR 3.5 C:\\Users\\Jesse\\Documents\\Software Construction\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g 2013-02-04 14:04:50
+// $ANTLR 3.5 C:\\Users\\Jesse\\Documents\\Software Construction\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g 2013-02-04 14:38:39
 
 package org.uva.sea.ql.parser.antlr;
+import java.lang.Boolean;
+import java.lang.Integer;
+import java.lang.String;
 import org.uva.sea.ql.ast.*;
 import org.uva.sea.ql.ast.type.*;
 import org.uva.sea.ql.ast.expression.*;
@@ -78,7 +81,7 @@ public class QLParser extends Parser {
 
 
 	// $ANTLR start "primary"
-	// C:\\Users\\Jesse\\Documents\\Software Construction\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:18:1: primary returns [Expression result] : ( Bool | Int | strExpression | Identifier | '(' x= orExpression ')' );
+	// C:\\Users\\Jesse\\Documents\\Software Construction\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:21:1: primary returns [Expression result] : ( Bool | Int | strExpression | Identifier | '(' x= orExpression ')' );
 	public final Expression primary() throws RecognitionException {
 		Expression result = null;
 
@@ -93,7 +96,7 @@ public class QLParser extends Parser {
 		try {
 			if ( state.backtracking>0 && alreadyParsedRule(input, 1) ) { return result; }
 
-			// C:\\Users\\Jesse\\Documents\\Software Construction\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:19:5: ( Bool | Int | strExpression | Identifier | '(' x= orExpression ')' )
+			// C:\\Users\\Jesse\\Documents\\Software Construction\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:22:5: ( Bool | Int | strExpression | Identifier | '(' x= orExpression ')' )
 			int alt1=5;
 			switch ( input.LA(1) ) {
 			case Bool:
@@ -129,21 +132,21 @@ public class QLParser extends Parser {
 			}
 			switch (alt1) {
 				case 1 :
-					// C:\\Users\\Jesse\\Documents\\Software Construction\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:19:7: Bool
+					// C:\\Users\\Jesse\\Documents\\Software Construction\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:22:7: Bool
 					{
 					Bool1=(Token)match(input,Bool,FOLLOW_Bool_in_primary48); if (state.failed) return result;
 					if ( state.backtracking==0 ) { result = new org.uva.sea.ql.ast.expression.value.Bool(Boolean.parseBoolean((Bool1!=null?Bool1.getText():null))); }
 					}
 					break;
 				case 2 :
-					// C:\\Users\\Jesse\\Documents\\Software Construction\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:20:7: Int
+					// C:\\Users\\Jesse\\Documents\\Software Construction\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:23:7: Int
 					{
 					Int2=(Token)match(input,Int,FOLLOW_Int_in_primary67); if (state.failed) return result;
 					if ( state.backtracking==0 ) { result = new org.uva.sea.ql.ast.expression.value.Int(Integer.parseInt((Int2!=null?Int2.getText():null))); }
 					}
 					break;
 				case 3 :
-					// C:\\Users\\Jesse\\Documents\\Software Construction\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:21:7: strExpression
+					// C:\\Users\\Jesse\\Documents\\Software Construction\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:24:7: strExpression
 					{
 					pushFollow(FOLLOW_strExpression_in_primary87);
 					strExpression3=strExpression();
@@ -153,14 +156,14 @@ public class QLParser extends Parser {
 					}
 					break;
 				case 4 :
-					// C:\\Users\\Jesse\\Documents\\Software Construction\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:22:7: Identifier
+					// C:\\Users\\Jesse\\Documents\\Software Construction\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:25:7: Identifier
 					{
 					Identifier4=(Token)match(input,Identifier,FOLLOW_Identifier_in_primary97); if (state.failed) return result;
 					if ( state.backtracking==0 ) { result = new Identifier((Identifier4!=null?Identifier4.getText():null)); }
 					}
 					break;
 				case 5 :
-					// C:\\Users\\Jesse\\Documents\\Software Construction\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:23:7: '(' x= orExpression ')'
+					// C:\\Users\\Jesse\\Documents\\Software Construction\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:26:7: '(' x= orExpression ')'
 					{
 					match(input,15,FOLLOW_15_in_primary110); if (state.failed) return result;
 					pushFollow(FOLLOW_orExpression_in_primary114);
@@ -190,7 +193,7 @@ public class QLParser extends Parser {
 
 
 	// $ANTLR start "strExpression"
-	// C:\\Users\\Jesse\\Documents\\Software Construction\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:26:1: strExpression returns [org.uva.sea.ql.ast.expression.value.Str result] : Str ;
+	// C:\\Users\\Jesse\\Documents\\Software Construction\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:29:1: strExpression returns [org.uva.sea.ql.ast.expression.value.Str result] : Str ;
 	public final org.uva.sea.ql.ast.expression.value.Str strExpression() throws RecognitionException {
 		org.uva.sea.ql.ast.expression.value.Str result = null;
 
@@ -201,8 +204,8 @@ public class QLParser extends Parser {
 		try {
 			if ( state.backtracking>0 && alreadyParsedRule(input, 2) ) { return result; }
 
-			// C:\\Users\\Jesse\\Documents\\Software Construction\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:27:5: ( Str )
-			// C:\\Users\\Jesse\\Documents\\Software Construction\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:27:7: Str
+			// C:\\Users\\Jesse\\Documents\\Software Construction\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:30:5: ( Str )
+			// C:\\Users\\Jesse\\Documents\\Software Construction\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:30:7: Str
 			{
 			Str5=(Token)match(input,Str,FOLLOW_Str_in_strExpression142); if (state.failed) return result;
 			if ( state.backtracking==0 ) { result = new org.uva.sea.ql.ast.expression.value.Str((Str5!=null?Str5.getText():null).substring(1, (Str5!=null?Str5.getText():null).length() - 1)); }
@@ -225,7 +228,7 @@ public class QLParser extends Parser {
 
 
 	// $ANTLR start "unaryExpression"
-	// C:\\Users\\Jesse\\Documents\\Software Construction\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:30:1: unaryExpression returns [Expression result] : ( '+' x= unaryExpression | '-' x= unaryExpression | '!' x= unaryExpression | primary );
+	// C:\\Users\\Jesse\\Documents\\Software Construction\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:33:1: unaryExpression returns [Expression result] : ( '+' x= unaryExpression | '-' x= unaryExpression | '!' x= unaryExpression | primary );
 	public final Expression unaryExpression() throws RecognitionException {
 		Expression result = null;
 
@@ -237,7 +240,7 @@ public class QLParser extends Parser {
 		try {
 			if ( state.backtracking>0 && alreadyParsedRule(input, 3) ) { return result; }
 
-			// C:\\Users\\Jesse\\Documents\\Software Construction\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:31:5: ( '+' x= unaryExpression | '-' x= unaryExpression | '!' x= unaryExpression | primary )
+			// C:\\Users\\Jesse\\Documents\\Software Construction\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:34:5: ( '+' x= unaryExpression | '-' x= unaryExpression | '!' x= unaryExpression | primary )
 			int alt2=4;
 			switch ( input.LA(1) ) {
 			case 18:
@@ -272,7 +275,7 @@ public class QLParser extends Parser {
 			}
 			switch (alt2) {
 				case 1 :
-					// C:\\Users\\Jesse\\Documents\\Software Construction\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:31:8: '+' x= unaryExpression
+					// C:\\Users\\Jesse\\Documents\\Software Construction\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:34:8: '+' x= unaryExpression
 					{
 					match(input,18,FOLLOW_18_in_unaryExpression176); if (state.failed) return result;
 					pushFollow(FOLLOW_unaryExpression_in_unaryExpression180);
@@ -283,7 +286,7 @@ public class QLParser extends Parser {
 					}
 					break;
 				case 2 :
-					// C:\\Users\\Jesse\\Documents\\Software Construction\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:32:8: '-' x= unaryExpression
+					// C:\\Users\\Jesse\\Documents\\Software Construction\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:35:8: '-' x= unaryExpression
 					{
 					match(input,19,FOLLOW_19_in_unaryExpression191); if (state.failed) return result;
 					pushFollow(FOLLOW_unaryExpression_in_unaryExpression195);
@@ -294,7 +297,7 @@ public class QLParser extends Parser {
 					}
 					break;
 				case 3 :
-					// C:\\Users\\Jesse\\Documents\\Software Construction\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:33:8: '!' x= unaryExpression
+					// C:\\Users\\Jesse\\Documents\\Software Construction\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:36:8: '!' x= unaryExpression
 					{
 					match(input,12,FOLLOW_12_in_unaryExpression206); if (state.failed) return result;
 					pushFollow(FOLLOW_unaryExpression_in_unaryExpression210);
@@ -305,7 +308,7 @@ public class QLParser extends Parser {
 					}
 					break;
 				case 4 :
-					// C:\\Users\\Jesse\\Documents\\Software Construction\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:34:8: primary
+					// C:\\Users\\Jesse\\Documents\\Software Construction\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:37:8: primary
 					{
 					pushFollow(FOLLOW_primary_in_unaryExpression221);
 					primary6=primary();
@@ -333,7 +336,7 @@ public class QLParser extends Parser {
 
 
 	// $ANTLR start "multiplyExpression"
-	// C:\\Users\\Jesse\\Documents\\Software Construction\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:37:1: multiplyExpression returns [Expression result] : lhs= unaryExpression (op= ( '*' | '/' ) rhs= unaryExpression )* ;
+	// C:\\Users\\Jesse\\Documents\\Software Construction\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:40:1: multiplyExpression returns [Expression result] : lhs= unaryExpression (op= ( '*' | '/' ) rhs= unaryExpression )* ;
 	public final Expression multiplyExpression() throws RecognitionException {
 		Expression result = null;
 
@@ -346,15 +349,15 @@ public class QLParser extends Parser {
 		try {
 			if ( state.backtracking>0 && alreadyParsedRule(input, 4) ) { return result; }
 
-			// C:\\Users\\Jesse\\Documents\\Software Construction\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:38:5: (lhs= unaryExpression (op= ( '*' | '/' ) rhs= unaryExpression )* )
-			// C:\\Users\\Jesse\\Documents\\Software Construction\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:38:9: lhs= unaryExpression (op= ( '*' | '/' ) rhs= unaryExpression )*
+			// C:\\Users\\Jesse\\Documents\\Software Construction\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:41:5: (lhs= unaryExpression (op= ( '*' | '/' ) rhs= unaryExpression )* )
+			// C:\\Users\\Jesse\\Documents\\Software Construction\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:41:9: lhs= unaryExpression (op= ( '*' | '/' ) rhs= unaryExpression )*
 			{
 			pushFollow(FOLLOW_unaryExpression_in_multiplyExpression270);
 			lhs=unaryExpression();
 			state._fsp--;
 			if (state.failed) return result;
 			if ( state.backtracking==0 ) { result =lhs; }
-			// C:\\Users\\Jesse\\Documents\\Software Construction\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:38:54: (op= ( '*' | '/' ) rhs= unaryExpression )*
+			// C:\\Users\\Jesse\\Documents\\Software Construction\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:41:54: (op= ( '*' | '/' ) rhs= unaryExpression )*
 			loop3:
 			while (true) {
 				int alt3=2;
@@ -365,7 +368,7 @@ public class QLParser extends Parser {
 
 				switch (alt3) {
 				case 1 :
-					// C:\\Users\\Jesse\\Documents\\Software Construction\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:38:56: op= ( '*' | '/' ) rhs= unaryExpression
+					// C:\\Users\\Jesse\\Documents\\Software Construction\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:41:56: op= ( '*' | '/' ) rhs= unaryExpression
 					{
 					op=input.LT(1);
 					if ( input.LA(1)==17||input.LA(1)==20 ) {
@@ -417,7 +420,7 @@ public class QLParser extends Parser {
 
 
 	// $ANTLR start "addExpression"
-	// C:\\Users\\Jesse\\Documents\\Software Construction\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:50:1: addExpression returns [Expression result] : lhs= multiplyExpression (op= ( '+' | '-' ) rhs= multiplyExpression )* ;
+	// C:\\Users\\Jesse\\Documents\\Software Construction\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:53:1: addExpression returns [Expression result] : lhs= multiplyExpression (op= ( '+' | '-' ) rhs= multiplyExpression )* ;
 	public final Expression addExpression() throws RecognitionException {
 		Expression result = null;
 
@@ -430,15 +433,15 @@ public class QLParser extends Parser {
 		try {
 			if ( state.backtracking>0 && alreadyParsedRule(input, 5) ) { return result; }
 
-			// C:\\Users\\Jesse\\Documents\\Software Construction\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:51:5: (lhs= multiplyExpression (op= ( '+' | '-' ) rhs= multiplyExpression )* )
-			// C:\\Users\\Jesse\\Documents\\Software Construction\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:51:9: lhs= multiplyExpression (op= ( '+' | '-' ) rhs= multiplyExpression )*
+			// C:\\Users\\Jesse\\Documents\\Software Construction\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:54:5: (lhs= multiplyExpression (op= ( '+' | '-' ) rhs= multiplyExpression )* )
+			// C:\\Users\\Jesse\\Documents\\Software Construction\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:54:9: lhs= multiplyExpression (op= ( '+' | '-' ) rhs= multiplyExpression )*
 			{
 			pushFollow(FOLLOW_multiplyExpression_in_addExpression331);
 			lhs=multiplyExpression();
 			state._fsp--;
 			if (state.failed) return result;
 			if ( state.backtracking==0 ) { result =lhs; }
-			// C:\\Users\\Jesse\\Documents\\Software Construction\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:51:57: (op= ( '+' | '-' ) rhs= multiplyExpression )*
+			// C:\\Users\\Jesse\\Documents\\Software Construction\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:54:57: (op= ( '+' | '-' ) rhs= multiplyExpression )*
 			loop4:
 			while (true) {
 				int alt4=2;
@@ -449,7 +452,7 @@ public class QLParser extends Parser {
 
 				switch (alt4) {
 				case 1 :
-					// C:\\Users\\Jesse\\Documents\\Software Construction\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:51:59: op= ( '+' | '-' ) rhs= multiplyExpression
+					// C:\\Users\\Jesse\\Documents\\Software Construction\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:54:59: op= ( '+' | '-' ) rhs= multiplyExpression
 					{
 					op=input.LT(1);
 					if ( (input.LA(1) >= 18 && input.LA(1) <= 19) ) {
@@ -501,7 +504,7 @@ public class QLParser extends Parser {
 
 
 	// $ANTLR start "relationExpression"
-	// C:\\Users\\Jesse\\Documents\\Software Construction\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:62:1: relationExpression returns [Expression result] : lhs= addExpression (op= ( '<' | '<=' | '>' | '>=' | '==' | '!=' ) rhs= addExpression )* ;
+	// C:\\Users\\Jesse\\Documents\\Software Construction\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:65:1: relationExpression returns [Expression result] : lhs= addExpression (op= ( '<' | '<=' | '>' | '>=' | '==' | '!=' ) rhs= addExpression )* ;
 	public final Expression relationExpression() throws RecognitionException {
 		Expression result = null;
 
@@ -514,15 +517,15 @@ public class QLParser extends Parser {
 		try {
 			if ( state.backtracking>0 && alreadyParsedRule(input, 6) ) { return result; }
 
-			// C:\\Users\\Jesse\\Documents\\Software Construction\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:63:5: (lhs= addExpression (op= ( '<' | '<=' | '>' | '>=' | '==' | '!=' ) rhs= addExpression )* )
-			// C:\\Users\\Jesse\\Documents\\Software Construction\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:63:9: lhs= addExpression (op= ( '<' | '<=' | '>' | '>=' | '==' | '!=' ) rhs= addExpression )*
+			// C:\\Users\\Jesse\\Documents\\Software Construction\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:66:5: (lhs= addExpression (op= ( '<' | '<=' | '>' | '>=' | '==' | '!=' ) rhs= addExpression )* )
+			// C:\\Users\\Jesse\\Documents\\Software Construction\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:66:9: lhs= addExpression (op= ( '<' | '<=' | '>' | '>=' | '==' | '!=' ) rhs= addExpression )*
 			{
 			pushFollow(FOLLOW_addExpression_in_relationExpression384);
 			lhs=addExpression();
 			state._fsp--;
 			if (state.failed) return result;
 			if ( state.backtracking==0 ) { result =lhs; }
-			// C:\\Users\\Jesse\\Documents\\Software Construction\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:63:52: (op= ( '<' | '<=' | '>' | '>=' | '==' | '!=' ) rhs= addExpression )*
+			// C:\\Users\\Jesse\\Documents\\Software Construction\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:66:52: (op= ( '<' | '<=' | '>' | '>=' | '==' | '!=' ) rhs= addExpression )*
 			loop5:
 			while (true) {
 				int alt5=2;
@@ -533,7 +536,7 @@ public class QLParser extends Parser {
 
 				switch (alt5) {
 				case 1 :
-					// C:\\Users\\Jesse\\Documents\\Software Construction\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:63:54: op= ( '<' | '<=' | '>' | '>=' | '==' | '!=' ) rhs= addExpression
+					// C:\\Users\\Jesse\\Documents\\Software Construction\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:66:54: op= ( '<' | '<=' | '>' | '>=' | '==' | '!=' ) rhs= addExpression
 					{
 					op=input.LT(1);
 					if ( input.LA(1)==13||(input.LA(1) >= 22 && input.LA(1) <= 23)||(input.LA(1) >= 25 && input.LA(1) <= 27) ) {
@@ -597,7 +600,7 @@ public class QLParser extends Parser {
 
 
 	// $ANTLR start "andExpression"
-	// C:\\Users\\Jesse\\Documents\\Software Construction\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:86:1: andExpression returns [Expression result] : lhs= relationExpression ( '&&' rhs= relationExpression )* ;
+	// C:\\Users\\Jesse\\Documents\\Software Construction\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:89:1: andExpression returns [Expression result] : lhs= relationExpression ( '&&' rhs= relationExpression )* ;
 	public final Expression andExpression() throws RecognitionException {
 		Expression result = null;
 
@@ -609,15 +612,15 @@ public class QLParser extends Parser {
 		try {
 			if ( state.backtracking>0 && alreadyParsedRule(input, 7) ) { return result; }
 
-			// C:\\Users\\Jesse\\Documents\\Software Construction\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:87:5: (lhs= relationExpression ( '&&' rhs= relationExpression )* )
-			// C:\\Users\\Jesse\\Documents\\Software Construction\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:87:9: lhs= relationExpression ( '&&' rhs= relationExpression )*
+			// C:\\Users\\Jesse\\Documents\\Software Construction\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:90:5: (lhs= relationExpression ( '&&' rhs= relationExpression )* )
+			// C:\\Users\\Jesse\\Documents\\Software Construction\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:90:9: lhs= relationExpression ( '&&' rhs= relationExpression )*
 			{
 			pushFollow(FOLLOW_relationExpression_in_andExpression446);
 			lhs=relationExpression();
 			state._fsp--;
 			if (state.failed) return result;
 			if ( state.backtracking==0 ) { result =lhs; }
-			// C:\\Users\\Jesse\\Documents\\Software Construction\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:87:57: ( '&&' rhs= relationExpression )*
+			// C:\\Users\\Jesse\\Documents\\Software Construction\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:90:57: ( '&&' rhs= relationExpression )*
 			loop6:
 			while (true) {
 				int alt6=2;
@@ -628,7 +631,7 @@ public class QLParser extends Parser {
 
 				switch (alt6) {
 				case 1 :
-					// C:\\Users\\Jesse\\Documents\\Software Construction\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:87:59: '&&' rhs= relationExpression
+					// C:\\Users\\Jesse\\Documents\\Software Construction\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:90:59: '&&' rhs= relationExpression
 					{
 					match(input,14,FOLLOW_14_in_andExpression452); if (state.failed) return result;
 					pushFollow(FOLLOW_relationExpression_in_andExpression456);
@@ -663,7 +666,7 @@ public class QLParser extends Parser {
 
 
 	// $ANTLR start "orExpression"
-	// C:\\Users\\Jesse\\Documents\\Software Construction\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:91:1: orExpression returns [Expression result] : lhs= andExpression ( '||' rhs= andExpression )* ;
+	// C:\\Users\\Jesse\\Documents\\Software Construction\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:94:1: orExpression returns [Expression result] : lhs= andExpression ( '||' rhs= andExpression )* ;
 	public final Expression orExpression() throws RecognitionException {
 		Expression result = null;
 
@@ -675,15 +678,15 @@ public class QLParser extends Parser {
 		try {
 			if ( state.backtracking>0 && alreadyParsedRule(input, 8) ) { return result; }
 
-			// C:\\Users\\Jesse\\Documents\\Software Construction\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:92:5: (lhs= andExpression ( '||' rhs= andExpression )* )
-			// C:\\Users\\Jesse\\Documents\\Software Construction\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:92:9: lhs= andExpression ( '||' rhs= andExpression )*
+			// C:\\Users\\Jesse\\Documents\\Software Construction\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:95:5: (lhs= andExpression ( '||' rhs= andExpression )* )
+			// C:\\Users\\Jesse\\Documents\\Software Construction\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:95:9: lhs= andExpression ( '||' rhs= andExpression )*
 			{
 			pushFollow(FOLLOW_andExpression_in_orExpression491);
 			lhs=andExpression();
 			state._fsp--;
 			if (state.failed) return result;
 			if ( state.backtracking==0 ) { result = lhs; }
-			// C:\\Users\\Jesse\\Documents\\Software Construction\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:92:54: ( '||' rhs= andExpression )*
+			// C:\\Users\\Jesse\\Documents\\Software Construction\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:95:54: ( '||' rhs= andExpression )*
 			loop7:
 			while (true) {
 				int alt7=2;
@@ -694,7 +697,7 @@ public class QLParser extends Parser {
 
 				switch (alt7) {
 				case 1 :
-					// C:\\Users\\Jesse\\Documents\\Software Construction\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:92:56: '||' rhs= andExpression
+					// C:\\Users\\Jesse\\Documents\\Software Construction\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:95:56: '||' rhs= andExpression
 					{
 					match(input,32,FOLLOW_32_in_orExpression497); if (state.failed) return result;
 					pushFollow(FOLLOW_andExpression_in_orExpression501);
@@ -729,7 +732,7 @@ public class QLParser extends Parser {
 
 
 	// $ANTLR start "form"
-	// C:\\Users\\Jesse\\Documents\\Software Construction\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:95:1: form returns [Form result] : 'form' Identifier '{' statements '}' ;
+	// C:\\Users\\Jesse\\Documents\\Software Construction\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:98:1: form returns [Form result] : 'form' Identifier '{' statements '}' ;
 	public final Form form() throws RecognitionException {
 		Form result = null;
 
@@ -741,8 +744,8 @@ public class QLParser extends Parser {
 		try {
 			if ( state.backtracking>0 && alreadyParsedRule(input, 9) ) { return result; }
 
-			// C:\\Users\\Jesse\\Documents\\Software Construction\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:96:5: ( 'form' Identifier '{' statements '}' )
-			// C:\\Users\\Jesse\\Documents\\Software Construction\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:96:7: 'form' Identifier '{' statements '}'
+			// C:\\Users\\Jesse\\Documents\\Software Construction\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:99:5: ( 'form' Identifier '{' statements '}' )
+			// C:\\Users\\Jesse\\Documents\\Software Construction\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:99:7: 'form' Identifier '{' statements '}'
 			{
 			match(input,29,FOLLOW_29_in_form527); if (state.failed) return result;
 			Identifier7=(Token)match(input,Identifier,FOLLOW_Identifier_in_form529); if (state.failed) return result;
@@ -774,7 +777,7 @@ public class QLParser extends Parser {
 
 
 	// $ANTLR start "statements"
-	// C:\\Users\\Jesse\\Documents\\Software Construction\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:101:1: statements returns [Statement result] : ( statement )* ;
+	// C:\\Users\\Jesse\\Documents\\Software Construction\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:104:1: statements returns [Statement result] : ( statement )* ;
 	public final Statement statements() throws RecognitionException {
 		Statement result = null;
 
@@ -788,10 +791,10 @@ public class QLParser extends Parser {
 		try {
 			if ( state.backtracking>0 && alreadyParsedRule(input, 10) ) { return result; }
 
-			// C:\\Users\\Jesse\\Documents\\Software Construction\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:113:5: ( ( statement )* )
-			// C:\\Users\\Jesse\\Documents\\Software Construction\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:113:7: ( statement )*
+			// C:\\Users\\Jesse\\Documents\\Software Construction\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:116:5: ( ( statement )* )
+			// C:\\Users\\Jesse\\Documents\\Software Construction\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:116:7: ( statement )*
 			{
-			// C:\\Users\\Jesse\\Documents\\Software Construction\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:113:7: ( statement )*
+			// C:\\Users\\Jesse\\Documents\\Software Construction\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:116:7: ( statement )*
 			loop8:
 			while (true) {
 				int alt8=2;
@@ -802,7 +805,7 @@ public class QLParser extends Parser {
 
 				switch (alt8) {
 				case 1 :
-					// C:\\Users\\Jesse\\Documents\\Software Construction\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:113:8: statement
+					// C:\\Users\\Jesse\\Documents\\Software Construction\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:116:8: statement
 					{
 					pushFollow(FOLLOW_statement_in_statements581);
 					statement9=statement();
@@ -844,7 +847,7 @@ public class QLParser extends Parser {
 
 
 	// $ANTLR start "statement"
-	// C:\\Users\\Jesse\\Documents\\Software Construction\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:116:1: statement returns [Statement result] : ( ifStatement | questionStatement | computedStatement | storedExpressionStatement );
+	// C:\\Users\\Jesse\\Documents\\Software Construction\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:119:1: statement returns [Statement result] : ( ifStatement | questionStatement | computedStatement | storedExpressionStatement );
 	public final Statement statement() throws RecognitionException {
 		Statement result = null;
 
@@ -858,7 +861,7 @@ public class QLParser extends Parser {
 		try {
 			if ( state.backtracking>0 && alreadyParsedRule(input, 11) ) { return result; }
 
-			// C:\\Users\\Jesse\\Documents\\Software Construction\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:117:5: ( ifStatement | questionStatement | computedStatement | storedExpressionStatement )
+			// C:\\Users\\Jesse\\Documents\\Software Construction\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:120:5: ( ifStatement | questionStatement | computedStatement | storedExpressionStatement )
 			int alt9=4;
 			switch ( input.LA(1) ) {
 			case 30:
@@ -926,7 +929,7 @@ public class QLParser extends Parser {
 			}
 			switch (alt9) {
 				case 1 :
-					// C:\\Users\\Jesse\\Documents\\Software Construction\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:117:7: ifStatement
+					// C:\\Users\\Jesse\\Documents\\Software Construction\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:120:7: ifStatement
 					{
 					pushFollow(FOLLOW_ifStatement_in_statement610);
 					ifStatement10=ifStatement();
@@ -936,7 +939,7 @@ public class QLParser extends Parser {
 					}
 					break;
 				case 2 :
-					// C:\\Users\\Jesse\\Documents\\Software Construction\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:118:7: questionStatement
+					// C:\\Users\\Jesse\\Documents\\Software Construction\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:121:7: questionStatement
 					{
 					pushFollow(FOLLOW_questionStatement_in_statement620);
 					questionStatement11=questionStatement();
@@ -946,7 +949,7 @@ public class QLParser extends Parser {
 					}
 					break;
 				case 3 :
-					// C:\\Users\\Jesse\\Documents\\Software Construction\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:119:7: computedStatement
+					// C:\\Users\\Jesse\\Documents\\Software Construction\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:122:7: computedStatement
 					{
 					pushFollow(FOLLOW_computedStatement_in_statement630);
 					computedStatement12=computedStatement();
@@ -956,7 +959,7 @@ public class QLParser extends Parser {
 					}
 					break;
 				case 4 :
-					// C:\\Users\\Jesse\\Documents\\Software Construction\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:120:7: storedExpressionStatement
+					// C:\\Users\\Jesse\\Documents\\Software Construction\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:123:7: storedExpressionStatement
 					{
 					pushFollow(FOLLOW_storedExpressionStatement_in_statement640);
 					storedExpressionStatement13=storedExpressionStatement();
@@ -984,7 +987,7 @@ public class QLParser extends Parser {
 
 
 	// $ANTLR start "storedExpressionStatement"
-	// C:\\Users\\Jesse\\Documents\\Software Construction\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:123:1: storedExpressionStatement returns [StoredExpression result] : Identifier '=' orExpression ;
+	// C:\\Users\\Jesse\\Documents\\Software Construction\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:126:1: storedExpressionStatement returns [StoredExpression result] : Identifier '=' orExpression ;
 	public final StoredExpression storedExpressionStatement() throws RecognitionException {
 		StoredExpression result = null;
 
@@ -996,8 +999,8 @@ public class QLParser extends Parser {
 		try {
 			if ( state.backtracking>0 && alreadyParsedRule(input, 12) ) { return result; }
 
-			// C:\\Users\\Jesse\\Documents\\Software Construction\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:124:5: ( Identifier '=' orExpression )
-			// C:\\Users\\Jesse\\Documents\\Software Construction\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:124:7: Identifier '=' orExpression
+			// C:\\Users\\Jesse\\Documents\\Software Construction\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:127:5: ( Identifier '=' orExpression )
+			// C:\\Users\\Jesse\\Documents\\Software Construction\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:127:7: Identifier '=' orExpression
 			{
 			Identifier14=(Token)match(input,Identifier,FOLLOW_Identifier_in_storedExpressionStatement667); if (state.failed) return result;
 			match(input,24,FOLLOW_24_in_storedExpressionStatement669); if (state.failed) return result;
@@ -1025,7 +1028,7 @@ public class QLParser extends Parser {
 
 
 	// $ANTLR start "questionStatement"
-	// C:\\Users\\Jesse\\Documents\\Software Construction\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:127:1: questionStatement returns [Question result] : strExpression Identifier ':' typeDeclaration ;
+	// C:\\Users\\Jesse\\Documents\\Software Construction\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:130:1: questionStatement returns [Question result] : strExpression Identifier ':' typeDeclaration ;
 	public final Question questionStatement() throws RecognitionException {
 		Question result = null;
 
@@ -1038,8 +1041,8 @@ public class QLParser extends Parser {
 		try {
 			if ( state.backtracking>0 && alreadyParsedRule(input, 13) ) { return result; }
 
-			// C:\\Users\\Jesse\\Documents\\Software Construction\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:128:5: ( strExpression Identifier ':' typeDeclaration )
-			// C:\\Users\\Jesse\\Documents\\Software Construction\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:128:7: strExpression Identifier ':' typeDeclaration
+			// C:\\Users\\Jesse\\Documents\\Software Construction\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:131:5: ( strExpression Identifier ':' typeDeclaration )
+			// C:\\Users\\Jesse\\Documents\\Software Construction\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:131:7: strExpression Identifier ':' typeDeclaration
 			{
 			pushFollow(FOLLOW_strExpression_in_questionStatement698);
 			strExpression16=strExpression();
@@ -1072,7 +1075,7 @@ public class QLParser extends Parser {
 
 
 	// $ANTLR start "typeDeclaration"
-	// C:\\Users\\Jesse\\Documents\\Software Construction\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:133:1: typeDeclaration returns [Type result] : Type ;
+	// C:\\Users\\Jesse\\Documents\\Software Construction\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:136:1: typeDeclaration returns [Type result] : Type ;
 	public final Type typeDeclaration() throws RecognitionException {
 		Type result = null;
 
@@ -1083,17 +1086,17 @@ public class QLParser extends Parser {
 		try {
 			if ( state.backtracking>0 && alreadyParsedRule(input, 14) ) { return result; }
 
-			// C:\\Users\\Jesse\\Documents\\Software Construction\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:134:5: ( Type )
-			// C:\\Users\\Jesse\\Documents\\Software Construction\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:134:7: Type
+			// C:\\Users\\Jesse\\Documents\\Software Construction\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:137:5: ( Type )
+			// C:\\Users\\Jesse\\Documents\\Software Construction\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:137:7: Type
 			{
 			Type19=(Token)match(input,Type,FOLLOW_Type_in_typeDeclaration738); if (state.failed) return result;
 			if ( state.backtracking==0 ) {
 			        if((Type19!=null?Type19.getText():null).equals("boolean"))
-			          result = new org.uva.sea.ql.ast.type.Bool();
+			          result = new org.uva.sea.ql.ast.type.Boolean();
 			        else if((Type19!=null?Type19.getText():null).equals("integer"))
-			          result = new org.uva.sea.ql.ast.type.Int();
+			          result = new org.uva.sea.ql.ast.type.Integer();
 			        else if((Type19!=null?Type19.getText():null).equals("string"))
-			          result = new org.uva.sea.ql.ast.type.Str();
+			          result = new org.uva.sea.ql.ast.type.String();
 			      }
 			}
 
@@ -1114,7 +1117,7 @@ public class QLParser extends Parser {
 
 
 	// $ANTLR start "computedStatement"
-	// C:\\Users\\Jesse\\Documents\\Software Construction\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:144:1: computedStatement returns [Computed result] : strExpression orExpression ;
+	// C:\\Users\\Jesse\\Documents\\Software Construction\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:147:1: computedStatement returns [Computed result] : strExpression orExpression ;
 	public final Computed computedStatement() throws RecognitionException {
 		Computed result = null;
 
@@ -1126,8 +1129,8 @@ public class QLParser extends Parser {
 		try {
 			if ( state.backtracking>0 && alreadyParsedRule(input, 15) ) { return result; }
 
-			// C:\\Users\\Jesse\\Documents\\Software Construction\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:145:5: ( strExpression orExpression )
-			// C:\\Users\\Jesse\\Documents\\Software Construction\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:145:7: strExpression orExpression
+			// C:\\Users\\Jesse\\Documents\\Software Construction\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:148:5: ( strExpression orExpression )
+			// C:\\Users\\Jesse\\Documents\\Software Construction\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:148:7: strExpression orExpression
 			{
 			pushFollow(FOLLOW_strExpression_in_computedStatement761);
 			strExpression20=strExpression();
@@ -1157,7 +1160,7 @@ public class QLParser extends Parser {
 
 
 	// $ANTLR start "ifStatement"
-	// C:\\Users\\Jesse\\Documents\\Software Construction\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:148:1: ifStatement returns [Statement result] : ( 'if' '(' orExpression ')' '{' ifElements= statements '}' 'else' elseElement= ifStatement | 'if' '(' orExpression ')' '{' ifElements= statements '}' 'else' '{' elseElements= statements '}' | 'if' '(' orExpression ')' '{' statements '}' );
+	// C:\\Users\\Jesse\\Documents\\Software Construction\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:151:1: ifStatement returns [Statement result] : ( 'if' '(' orExpression ')' '{' ifElements= statements '}' 'else' elseElement= ifStatement | 'if' '(' orExpression ')' '{' ifElements= statements '}' 'else' '{' elseElements= statements '}' | 'if' '(' orExpression ')' '{' statements '}' );
 	public final Statement ifStatement() throws RecognitionException {
 		Statement result = null;
 
@@ -1174,7 +1177,7 @@ public class QLParser extends Parser {
 		try {
 			if ( state.backtracking>0 && alreadyParsedRule(input, 16) ) { return result; }
 
-			// C:\\Users\\Jesse\\Documents\\Software Construction\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:149:5: ( 'if' '(' orExpression ')' '{' ifElements= statements '}' 'else' elseElement= ifStatement | 'if' '(' orExpression ')' '{' ifElements= statements '}' 'else' '{' elseElements= statements '}' | 'if' '(' orExpression ')' '{' statements '}' )
+			// C:\\Users\\Jesse\\Documents\\Software Construction\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:152:5: ( 'if' '(' orExpression ')' '{' ifElements= statements '}' 'else' elseElement= ifStatement | 'if' '(' orExpression ')' '{' ifElements= statements '}' 'else' '{' elseElements= statements '}' | 'if' '(' orExpression ')' '{' statements '}' )
 			int alt10=3;
 			int LA10_0 = input.LA(1);
 			if ( (LA10_0==30) ) {
@@ -1200,7 +1203,7 @@ public class QLParser extends Parser {
 
 			switch (alt10) {
 				case 1 :
-					// C:\\Users\\Jesse\\Documents\\Software Construction\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:149:7: 'if' '(' orExpression ')' '{' ifElements= statements '}' 'else' elseElement= ifStatement
+					// C:\\Users\\Jesse\\Documents\\Software Construction\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:152:7: 'if' '(' orExpression ')' '{' ifElements= statements '}' 'else' elseElement= ifStatement
 					{
 					match(input,30,FOLLOW_30_in_ifStatement789); if (state.failed) return result;
 					match(input,15,FOLLOW_15_in_ifStatement791); if (state.failed) return result;
@@ -1224,7 +1227,7 @@ public class QLParser extends Parser {
 					}
 					break;
 				case 2 :
-					// C:\\Users\\Jesse\\Documents\\Software Construction\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:151:7: 'if' '(' orExpression ')' '{' ifElements= statements '}' 'else' '{' elseElements= statements '}'
+					// C:\\Users\\Jesse\\Documents\\Software Construction\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:154:7: 'if' '(' orExpression ')' '{' ifElements= statements '}' 'else' '{' elseElements= statements '}'
 					{
 					match(input,30,FOLLOW_30_in_ifStatement831); if (state.failed) return result;
 					match(input,15,FOLLOW_15_in_ifStatement833); if (state.failed) return result;
@@ -1250,7 +1253,7 @@ public class QLParser extends Parser {
 					}
 					break;
 				case 3 :
-					// C:\\Users\\Jesse\\Documents\\Software Construction\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:153:7: 'if' '(' orExpression ')' '{' statements '}'
+					// C:\\Users\\Jesse\\Documents\\Software Construction\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:156:7: 'if' '(' orExpression ')' '{' statements '}'
 					{
 					match(input,30,FOLLOW_30_in_ifStatement877); if (state.failed) return result;
 					match(input,15,FOLLOW_15_in_ifStatement879); if (state.failed) return result;
@@ -1289,8 +1292,8 @@ public class QLParser extends Parser {
 		Statement ifElements =null;
 		Statement elseElement =null;
 
-		// C:\\Users\\Jesse\\Documents\\Software Construction\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:149:7: ( 'if' '(' orExpression ')' '{' ifElements= statements '}' 'else' elseElement= ifStatement )
-		// C:\\Users\\Jesse\\Documents\\Software Construction\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:149:7: 'if' '(' orExpression ')' '{' ifElements= statements '}' 'else' elseElement= ifStatement
+		// C:\\Users\\Jesse\\Documents\\Software Construction\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:152:7: ( 'if' '(' orExpression ')' '{' ifElements= statements '}' 'else' elseElement= ifStatement )
+		// C:\\Users\\Jesse\\Documents\\Software Construction\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:152:7: 'if' '(' orExpression ')' '{' ifElements= statements '}' 'else' elseElement= ifStatement
 		{
 		match(input,30,FOLLOW_30_in_synpred24_QL789); if (state.failed) return;
 		match(input,15,FOLLOW_15_in_synpred24_QL791); if (state.failed) return;
@@ -1320,8 +1323,8 @@ public class QLParser extends Parser {
 		Statement ifElements =null;
 		Statement elseElements =null;
 
-		// C:\\Users\\Jesse\\Documents\\Software Construction\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:151:7: ( 'if' '(' orExpression ')' '{' ifElements= statements '}' 'else' '{' elseElements= statements '}' )
-		// C:\\Users\\Jesse\\Documents\\Software Construction\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:151:7: 'if' '(' orExpression ')' '{' ifElements= statements '}' 'else' '{' elseElements= statements '}'
+		// C:\\Users\\Jesse\\Documents\\Software Construction\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:154:7: ( 'if' '(' orExpression ')' '{' ifElements= statements '}' 'else' '{' elseElements= statements '}' )
+		// C:\\Users\\Jesse\\Documents\\Software Construction\\sea-of-ql\\JessevanAssen\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:154:7: 'if' '(' orExpression ')' '{' ifElements= statements '}' 'else' '{' elseElements= statements '}'
 		{
 		match(input,30,FOLLOW_30_in_synpred25_QL831); if (state.failed) return;
 		match(input,15,FOLLOW_15_in_synpred25_QL833); if (state.failed) return;

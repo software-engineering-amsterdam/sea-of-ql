@@ -5,8 +5,10 @@ import org.uva.sea.ql.ast.expression.*;
 import org.uva.sea.ql.ast.expression.value.Bool;
 import org.uva.sea.ql.ast.expression.value.Int;
 import org.uva.sea.ql.ast.expression.value.Str;
-import org.uva.sea.ql.ast.type.TypeVisitor;
+import org.uva.sea.ql.ast.type.*;
+import org.uva.sea.ql.ast.type.Integer;
 
+import java.lang.String;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -283,17 +285,17 @@ public class KnockoutJSViewModelBuilderVisitor implements
 
 
     @Override
-    public String visit(org.uva.sea.ql.ast.type.Bool type, Void param) {
+    public String visit(org.uva.sea.ql.ast.type.Boolean type, Void param) {
         return "DataType.BOOLEAN";
     }
 
     @Override
-    public String visit(org.uva.sea.ql.ast.type.Int type, Void param) {
+    public String visit(Integer type, Void param) {
         return "DataType.INTEGER";
     }
 
     @Override
-    public String visit(org.uva.sea.ql.ast.type.Str type, Void param) {
+    public String visit(org.uva.sea.ql.ast.type.String type, Void param) {
         return "DataType.STRING";
     }
 

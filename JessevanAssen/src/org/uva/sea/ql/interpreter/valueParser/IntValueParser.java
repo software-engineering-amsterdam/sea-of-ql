@@ -12,7 +12,7 @@ public class IntValueParser implements ValueParser {
             return new Int(Integer.parseInt(value));
         } catch(NumberFormatException ex) {
             throw new ValueParserException(
-                    String.format("The value '%s' can't be parsed as an Int.", value),
+                    String.format("The value '%s' can't be parsed as an Integer.", value),
                     ex
             );
         }

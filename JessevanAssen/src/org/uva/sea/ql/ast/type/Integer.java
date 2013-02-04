@@ -1,6 +1,6 @@
 package org.uva.sea.ql.ast.type;
 
-public class Bool implements Type {
+public class Integer implements Type {
     @Override
     public <ReturnType, ParameterType> ReturnType accept(TypeVisitor<ReturnType, ParameterType> visitor, ParameterType param) {
         return visitor.visit(this, param);
@@ -8,16 +8,16 @@ public class Bool implements Type {
     
     @Override
     public boolean equals(Object obj) {
-    	return obj != null && obj.getClass() == Bool.class;
+    	return obj != null && obj.getClass() == Integer.class;
     }
 
     @Override
     public int hashCode() {
-        return Bool.class.hashCode();
+        return Integer.class.hashCode();
     }
 
     @Override
-    public String toString() {
-        return "boolean";
+    public java.lang.String toString() {
+        return "integer";
     }
 }

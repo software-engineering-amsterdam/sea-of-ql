@@ -3,8 +3,10 @@ package org.uva.sea.ql.tests.webUI.KnockoutJSViewModelBuilderVisitorTests;
 import org.junit.Test;
 import org.uva.sea.ql.ast.Question;
 import org.uva.sea.ql.ast.expression.Identifier;
-import org.uva.sea.ql.ast.type.Bool;
-import org.uva.sea.ql.ast.type.Type;
+import org.uva.sea.ql.ast.type.*;
+import org.uva.sea.ql.ast.type.Boolean;
+
+import java.lang.String;
 
 import static org.junit.Assert.assertEquals;
 
@@ -15,7 +17,7 @@ public class QuestionTests extends KnockoutJSViewModelBuilderVisitorTests {
 
     @Test
     public void questionVisited_questionAddedToStringBuilder() {
-        createQuestion(new Bool()).accept(visitor, context);
+        createQuestion(new org.uva.sea.ql.ast.type.Boolean()).accept(visitor, context);
         assertEquals(
                 String.format("new Question(\"%s\",\"%s\",_self.identifiers.%s,DataType.BOOLEAN)", QUESTION_LABEL, IDENTIFIER_NAME, IDENTIFIER_NAME),
                 context.getObjectHierarchy().toString()
@@ -24,7 +26,7 @@ public class QuestionTests extends KnockoutJSViewModelBuilderVisitorTests {
 
     @Test
     public void questionVisited_addVariableToIdentifierMap() {
-        createQuestion(new Bool()).accept(visitor, context);
+        createQuestion(new Boolean()).accept(visitor, context);
         assertEquals(
                 String.format("%s:ko.observable()", IDENTIFIER_NAME),
                 context.getIdentifiers().get(0)

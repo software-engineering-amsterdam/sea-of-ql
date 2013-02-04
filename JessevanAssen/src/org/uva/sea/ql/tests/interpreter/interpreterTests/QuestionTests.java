@@ -3,7 +3,7 @@ package org.uva.sea.ql.tests.interpreter.interpreterTests;
 import org.junit.Test;
 import org.uva.sea.ql.ast.Question;
 import org.uva.sea.ql.ast.expression.Identifier;
-import org.uva.sea.ql.ast.type.Bool;
+import org.uva.sea.ql.ast.type.Boolean;
 import org.uva.sea.ql.interpreter.valueParser.BoolValueParser;
 
 import static junit.framework.Assert.*;
@@ -11,7 +11,7 @@ import static junit.framework.Assert.*;
 public class QuestionTests extends InterpreterVisitorTests {
 
     private static final Identifier IDENTIFIER = new Identifier("abcd");
-    private final Question QUESTION = new Question("label", IDENTIFIER, new Bool());
+    private final Question QUESTION = new Question("label", IDENTIFIER, new Boolean());
 
     @Test
     public void acceptIsCalled_returnsNull() {
