@@ -1,5 +1,7 @@
 package org.uva.sea.ql.ast.statement;
 
+import org.uva.sea.ql.ast.expression.Expression;
+import org.uva.sea.ql.ast.expression.Ident;
 import org.uva.sea.ql.ast.expression.literal.Str;
 import org.uva.sea.ql.visitor.IStatementVisitor;
 
@@ -30,6 +32,20 @@ public class QuestionComputed extends QuestionDeclaration {
 	 */
 	public Assignment getAssignment() {
 		return this.assignment;
+	}
+
+	/**
+	 * Retrieves the expression of the assignment.
+	 *
+	 * @return The expression.
+	 */
+	public Expression getExpression() {
+		return this.assignment.getExpression();
+	}
+
+	@Override
+	public Ident getIdent() {
+		return this.assignment.getIdent();
 	}
 
 	@Override

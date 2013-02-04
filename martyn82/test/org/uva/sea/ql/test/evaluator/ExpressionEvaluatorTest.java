@@ -25,7 +25,7 @@ import org.uva.sea.ql.ast.expression.unary.Neg;
 import org.uva.sea.ql.ast.expression.unary.Not;
 import org.uva.sea.ql.ast.expression.unary.Pos;
 import org.uva.sea.ql.evaluator.Environment;
-import org.uva.sea.ql.evaluator.ExpressionEvaluator;
+import org.uva.sea.ql.evaluator.Evaluator;
 import org.uva.sea.ql.test.IExpressionTest;
 
 /**
@@ -35,7 +35,7 @@ public class ExpressionEvaluatorTest implements IExpressionTest {
 	/**
 	 * Holds the expression evaluator.
 	 */
-	private final ExpressionEvaluator evaluator;
+	private final Evaluator evaluator;
 
 	/**
 	 * Holds the environment.
@@ -47,7 +47,7 @@ public class ExpressionEvaluatorTest implements IExpressionTest {
 	 */
 	public ExpressionEvaluatorTest() {
 		this.environment = new Environment();
-		this.evaluator = new ExpressionEvaluator( this.environment );
+		this.evaluator = new Evaluator( this.environment );
 	}
 
 	/**

@@ -1,6 +1,7 @@
 package org.uva.sea.ql.test.evaluator;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
 import org.junit.Test;
 import org.uva.sea.ql.ast.expression.Expression;
@@ -19,29 +20,18 @@ import org.uva.sea.ql.ast.statement.Statements;
 import org.uva.sea.ql.ast.statement.VarDeclaration;
 import org.uva.sea.ql.ast.type.Money;
 import org.uva.sea.ql.evaluator.Environment;
-import org.uva.sea.ql.evaluator.ExpressionEvaluator;
-import org.uva.sea.ql.evaluator.StatementEvaluator;
-import org.uva.sea.ql.evaluator.TypeEvaluator;
+import org.uva.sea.ql.evaluator.Evaluator;
+import org.uva.sea.ql.evaluator.Renderer;
 import org.uva.sea.ql.test.IStatementTest;
 
 /**
  * Test statement evaluator.
  */
-public class StatementEvaluatorTest implements IStatementTest {
-	/**
-	 * Holds the statement evaluator.
-	 */
-	private final StatementEvaluator statementEvaluator;
-
+public class RendererTest implements IStatementTest {
 	/**
 	 * Holds the expression evaluator.
 	 */
-	private final ExpressionEvaluator expressionEvaluator;
-
-	/**
-	 * Holds the type evaluator.
-	 */
-	private final TypeEvaluator typeEvaluator;
+	private final Evaluator expressionEvaluator;
 
 	/**
 	 * Holds the environment.
@@ -51,22 +41,18 @@ public class StatementEvaluatorTest implements IStatementTest {
 	/**
 	 * Constructs a new statement evaluator test.
 	 */
-	public StatementEvaluatorTest() {
+	public RendererTest() {
 		this.environment = new Environment();
-		this.expressionEvaluator = new ExpressionEvaluator( this.environment );
-		this.typeEvaluator = new TypeEvaluator();
-		this.statementEvaluator = new StatementEvaluator( environment, this.expressionEvaluator, this.typeEvaluator );
+		this.expressionEvaluator = new Evaluator( this.environment );
 	}
 
 	/**
 	 * Evaluates the given statement.
 	 *
 	 * @param statement
-	 *
-	 * @return The evaluated value.
 	 */
-	private Object eval( Statement statement ) {
-		return statement.accept( this.statementEvaluator ).getValue();
+	private void eval( Statement statement ) {
+		Renderer.render( statement, this.environment );
 	}
 
 	/**
@@ -88,19 +74,16 @@ public class StatementEvaluatorTest implements IStatementTest {
 		 * 		x = 1
 		 * }
 		 */
-		assertEquals(
-			null,
-			eval(
-				new IfThenElse(
-					new Bool( true ),
-					new Statements(
-						new Assignment(
-							new Ident( "x" ),
-							new Int( 1 )
-						)
-					),
-					new ElseIfs()
-				)
+		eval(
+			new IfThenElse(
+				new Bool( true ),
+				new Statements(
+					new Assignment(
+						new Ident( "x" ),
+						new Int( 1 )
+					)
+				),
+				new ElseIfs()
 			)
 		);
 		assertEquals( 1, eval( new Ident( "x" ) ) ); // x is assigned to be 1
@@ -113,25 +96,22 @@ public class StatementEvaluatorTest implements IStatementTest {
 		 * 		x = 2
 		 * }
 		 */
-		assertEquals(
-			null,
-			eval(
-				new IfThenElse(
-					new Bool( false ),
-					new Statements(
-						new Assignment(
-							new Ident( "x" ),
-							new Int( 1 )
-						)
-					),
-					new ElseIfs(
-						new ElseIf(
-							new Bool( true ),
-							new Statements(
-								new Assignment(
-									new Ident( "x" ),
-									new Int( 2 )
-								)
+		eval(
+			new IfThenElse(
+				new Bool( false ),
+				new Statements(
+					new Assignment(
+						new Ident( "x" ),
+						new Int( 1 )
+					)
+				),
+				new ElseIfs(
+					new ElseIf(
+						new Bool( true ),
+						new Statements(
+							new Assignment(
+								new Ident( "x" ),
+								new Int( 2 )
 							)
 						)
 					)
@@ -151,34 +131,31 @@ public class StatementEvaluatorTest implements IStatementTest {
 		 * 		x = 10
 		 * }
 		 */
-		assertEquals(
-			null,
-			eval(
-				new IfThenElse(
-					new Bool( false ),
-					new Statements(
-						new Assignment(
-							new Ident( "x" ),
-							new Int( 3 )
-						)
-					),
-					new ElseIfs(
-						new ElseIf(
-							new Eq( new Bool( true ), new Bool( false ) ),
-							new Statements(
-								new Assignment(
-									new Ident( "x" ),
-									new Int( 4 )
-								)
-							)
-						)
-					),
-					new Else(
+		eval(
+			new IfThenElse(
+				new Bool( false ),
+				new Statements(
+					new Assignment(
+						new Ident( "x" ),
+						new Int( 3 )
+					)
+				),
+				new ElseIfs(
+					new ElseIf(
+						new Eq( new Bool( true ), new Bool( false ) ),
 						new Statements(
 							new Assignment(
 								new Ident( "x" ),
-								new Int( 10 )
+								new Int( 4 )
 							)
+						)
+					)
+				),
+				new Else(
+					new Statements(
+						new Assignment(
+							new Ident( "x" ),
+							new Int( 10 )
 						)
 					)
 				)
@@ -191,36 +168,43 @@ public class StatementEvaluatorTest implements IStatementTest {
 	@Test
 	public void testFormDeclaration() {
 		// TODO Auto-generated method stub
-
+		fail( "Unimplemented testcase" );
 	}
 
 	@Override
 	@Test
 	public void testVarDeclaration() {
-		assertEquals( false, eval( new VarDeclaration( new Ident( "x" ), new org.uva.sea.ql.ast.type.Bool() ) ) );
+		eval( new VarDeclaration( new Ident( "x" ), new org.uva.sea.ql.ast.type.Bool() ) );
 		assertEquals( false, eval( new Ident( "x" ) ) );
 
-		assertEquals( 0, eval( new VarDeclaration( new Ident( "x" ), new org.uva.sea.ql.ast.type.Int() ) ) );
+		eval( new VarDeclaration( new Ident( "x" ), new org.uva.sea.ql.ast.type.Int() ) );
 		assertEquals( 0, eval( new Ident( "x" ) ) );
 
-		assertEquals( "", eval( new VarDeclaration( new Ident( "x" ), new org.uva.sea.ql.ast.type.Str() ) ) );
+		eval( new VarDeclaration( new Ident( "x" ), new org.uva.sea.ql.ast.type.Str() ) );
 		assertEquals( "", eval( new Ident( "x" ) ) );
 
-		assertEquals( 0d, eval( new VarDeclaration( new Ident( "x" ), new Money() ) ) );
+		eval( new VarDeclaration( new Ident( "x" ), new Money() ) );
 		assertEquals( 0d, eval( new Ident( "x" ) ) );
 	}
 
 	@Override
 	@Test
-	public void testQuestionDeclaration() {
-		// TODO Auto-generated method stub
-
+	public void testAssignment() {
+		eval( new Assignment( new Ident( "x" ), new Str( "hello world!" ) ) );
+		assertEquals( "hello world!", eval( new Ident( "x" ) ) );
 	}
 
 	@Override
 	@Test
-	public void testAssignment() {
-		assertEquals( "hello world!", eval( new Assignment( new Ident( "x" ), new Str( "hello world!" ) ) ) );
-		assertEquals( "hello world!", eval( new Ident( "x" ) ) );
+	public void testQuestionVar() {
+		// TODO Auto-generated method stub
+		fail( "Unimplemented testcase" );
+	}
+
+	@Override
+	@Test
+	public void testQuestionComputed() {
+		// TODO Auto-generated method stub
+		fail( "Unimplemented testcase" );
 	}
 }

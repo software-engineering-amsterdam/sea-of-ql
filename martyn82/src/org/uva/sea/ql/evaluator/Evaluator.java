@@ -26,7 +26,7 @@ import org.uva.sea.ql.visitor.IExpressionVisitor;
 /**
  * Evaluator for expression nodes.
  */
-public class ExpressionEvaluator implements IExpressionVisitor<Value> {
+public class Evaluator implements IExpressionVisitor<Value> {
 	/**
 	 * Holds the environment.
 	 */
@@ -37,7 +37,7 @@ public class ExpressionEvaluator implements IExpressionVisitor<Value> {
 	 *
 	 * @param environment
 	 */
-	public ExpressionEvaluator( Environment environment ) {
+	public Evaluator( Environment environment ) {
 		this.environment = environment;
 	}
 

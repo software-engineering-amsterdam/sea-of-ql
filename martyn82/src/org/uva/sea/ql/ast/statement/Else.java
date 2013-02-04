@@ -21,6 +21,24 @@ public class Else extends Statement {
 	}
 
 	/**
+	 * Retrieves the body.
+	 *
+	 * @return The body of the ELSE.
+	 */
+	public Statements getBody() {
+		return this.body;
+	}
+
+	/**
+	 * Retrieves the size of the body.
+	 *
+	 * @return The size in number of statements.
+	 */
+	public int size() {
+		return this.body.size();
+	}
+
+	/**
 	 * Accept a statement visitor.
 	 *
 	 * @param visitor
@@ -28,14 +46,5 @@ public class Else extends Statement {
 	@Override
 	public <T> T accept( IStatementVisitor<T> visitor ) {
 		return visitor.visit( this );
-	}
-
-	/**
-	 * Retrieves the body.
-	 *
-	 * @return The body of the ELSE.
-	 */
-	public Statements getBody() {
-		return this.body;
 	}
 }

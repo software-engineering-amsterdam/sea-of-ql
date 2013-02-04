@@ -1,6 +1,8 @@
 package org.uva.sea.ql.ast.statement;
 
+import org.uva.sea.ql.ast.expression.Ident;
 import org.uva.sea.ql.ast.expression.literal.Str;
+import org.uva.sea.ql.ast.type.Type;
 import org.uva.sea.ql.visitor.IStatementVisitor;
 
 /**
@@ -30,6 +32,20 @@ public class QuestionVar extends QuestionDeclaration {
 	 */
 	public VarDeclaration getVarDeclaration() {
 		return this.varDeclaration;
+	}
+
+	/**
+	 * Retrieves the type of the declaration.
+	 *
+	 * @return The type.
+	 */
+	public Type getType() {
+		return this.varDeclaration.getType();
+	}
+
+	@Override
+	public Ident getIdent() {
+		return this.varDeclaration.getIdent();
 	}
 
 	@Override

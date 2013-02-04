@@ -146,14 +146,6 @@ public class StatementParserTest extends ParserTest implements IStatementTest {
 
 	@Override
 	@Test
-	public void testQuestionDeclaration() {
-		assertNode( QuestionVar.class, "\"What?\" answer: boolean" );
-		assertNode( QuestionComputed.class, "\"This is the question?\" answer = (a && !b)" );
-		assertNode( QuestionComputed.class, "\"\" answer = 1 + answer2" );
-	}
-
-	@Override
-	@Test
 	public void testAssignment() {
 		assertNode( Assignment.class, "var = true" );
 		assertNode( Assignment.class, "var = 1 + 45" );
@@ -167,5 +159,18 @@ public class StatementParserTest extends ParserTest implements IStatementTest {
 		assertVarDeclaration( "x : integer" );
 		assertVarDeclaration( "y : money" );
 		assertVarDeclaration( "str: string" );
+	}
+
+	@Override
+	@Test
+	public void testQuestionVar() {
+		assertNode( QuestionVar.class, "\"What?\" answer: boolean" );
+	}
+
+	@Override
+	@Test
+	public void testQuestionComputed() {
+		assertNode( QuestionComputed.class, "\"This is the question?\" answer = (a && !b)" );
+		assertNode( QuestionComputed.class, "\"\" answer = 1 + answer2" );
 	}
 }

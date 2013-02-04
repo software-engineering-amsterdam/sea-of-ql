@@ -1,11 +1,9 @@
 package org.uva.sea.ql;
 
-import org.uva.sea.ql.ast.expression.Ident;
-import org.uva.sea.ql.ast.statement.Statement;
-import org.uva.sea.ql.ast.type.Bool;
-import org.uva.sea.ql.evaluator.Environment;
-import org.uva.sea.ql.evaluator.value.form.Form;
-import org.uva.sea.ql.evaluator.value.form.Question;
+import javax.swing.JPanel;
+
+import org.uva.sea.ql.evaluator.Error;
+import org.uva.sea.ql.ui.Window;
 
 /**
  * Main program.
@@ -39,42 +37,28 @@ public class Program {
 	public void run() {
 		String source = "" +
 			"form Foo {\n" +
-			"	\"Bar?\" baz: boolean\n" +
+			"	\"baz?\" baz: boolean\n" +
 			"	if ( baz ) {\n" +
-			"		\"Fooz\" fooz = baz\n" +
+			"		\"fooz?\" fooz = baz\n" +
 			"	}\n" +
 			"	else {\n" +
-			"		\"Barz\" barz: boolean\n" +
-			"		\"Bazz\" bazz = baz && barz\n" +
+			"		\"barz?\" barz: boolean\n" +
+			"		\"bazz?\" bazz = baz || barz\n" +
 			"	}\n" +
+		"		\"bazzz?\" bazzz = baz\n" +
 		"}";
 
 		if ( !this.interpreter.evaluate( source ) ) {
+			for ( Error error : this.interpreter.getEnvironment().getErrors() ) {
+				System.err.println( error.toString() );
+			}
+
 			return;
 		}
 
-		Statement ast = this.interpreter.getAST();
-		Form form = this.interpreter.getResult();
-		System.out.println( "Questions:" + form.getQuestionCount() );
-		for ( Question q : form.getQuestions() ) {
-			System.out.println( q.getLabel() );
-		}
+		JPanel form = this.interpreter.getResult();
 
-		Environment env = new Environment();
-		env.declareType( new Ident( "baz" ), new Bool() );
-		env.declareVariable( new Ident( "baz" ), new org.uva.sea.ql.evaluator.value.Boolean( true ) );
-
-		if ( !this.interpreter.typeCheck( ast, env ) ) {
-			return;
-		}
-
-		this.interpreter.evaluate( ast, env );
-
-		form = this.interpreter.getResult();
-		System.out.println( "Questions:" + form.getQuestionCount() );
-		for ( Question q : form.getQuestions() ) {
-			System.out.println( q.getLabel() );
-		}
-
+		Window window = new Window( form.getName(), form );
+		window.setVisible( true );
 	}
 }

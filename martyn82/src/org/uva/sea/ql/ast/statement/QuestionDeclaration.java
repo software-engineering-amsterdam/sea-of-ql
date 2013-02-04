@@ -1,5 +1,6 @@
 package org.uva.sea.ql.ast.statement;
 
+import org.uva.sea.ql.ast.expression.Ident;
 import org.uva.sea.ql.ast.expression.literal.Str;
 
 /**
@@ -28,4 +29,11 @@ abstract public class QuestionDeclaration extends Statement {
 	public Str getLabel() {
 		return this.label;
 	}
+
+	/**
+	 * Retrieves the identifier of the question.
+	 *
+	 * @return The identifier.
+	 */
+	abstract public Ident getIdent();
 }

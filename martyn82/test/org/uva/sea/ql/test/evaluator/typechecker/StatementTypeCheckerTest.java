@@ -224,7 +224,7 @@ public class StatementTypeCheckerTest extends VisitorTest<Boolean> implements IS
 
 	@Override
 	@Test
-	public void testQuestionDeclaration() {
+	public void testQuestionVar() {
 		assertTrue(
 			typeCheck(
 				new QuestionVar(
@@ -236,7 +236,11 @@ public class StatementTypeCheckerTest extends VisitorTest<Boolean> implements IS
 				)
 			)
 		);
+	}
 
+	@Override
+	@Test
+	public void testQuestionComputed() {
 		assertTrue(
 			typeCheck(
 				new QuestionComputed(

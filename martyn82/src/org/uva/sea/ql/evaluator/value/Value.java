@@ -4,6 +4,12 @@ package org.uva.sea.ql.evaluator.value;
  * Represents an abstract value.
  */
 abstract public class Value {
+	/**
+	 * Retrieves the value of the instance.
+	 *
+	 * @return The value.
+	 */
+	abstract public Object getValue();
 
 	// arithmetic
 
@@ -377,11 +383,4 @@ abstract public class Value {
 	public Value pos() {
 		throw new UnsupportedOperationException();
 	}
-
-	/**
-	 * Retrieves the value of the instance.
-	 *
-	 * @return The value.
-	 */
-	abstract public Object getValue();
 }

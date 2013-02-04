@@ -5,6 +5,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+import org.uva.sea.ql.Observable;
+import org.uva.sea.ql.Observer;
 import org.uva.sea.ql.ast.expression.Ident;
 import org.uva.sea.ql.ast.type.Type;
 import org.uva.sea.ql.evaluator.value.Value;
@@ -28,6 +30,8 @@ public class Environment {
 	 */
 	private final List<Error> errors;
 
+	private final Map<Ident, Observable> observables;
+
 	/**
 	 * Constructs a new context.
 	 */
@@ -35,6 +39,8 @@ public class Environment {
 		this.types = new HashMap<Ident, Type>();
 		this.bindings = new HashMap<Ident, Value>();
 		this.errors = new LinkedList<Error>();
+
+		this.observables = new HashMap<Ident, Observable>();
 	}
 
 	/**
@@ -44,6 +50,8 @@ public class Environment {
 		this.types.clear();
 		this.bindings.clear();
 		this.errors.clear();
+
+		this.observables.clear();
 	}
 
 	/**
@@ -131,5 +139,21 @@ public class Environment {
 	 */
 	public void declareVariable( Ident ident, Value value ) {
 		this.bindings.put( ident, value );
+	}
+
+	public void registerObserver( Ident ident, Observer observer ) {
+		this.observables.get( ident ).registerObserver( observer );
+System.out.println( "Registers: " + ident.getName() + " " + observer );
+	}
+
+	public void setObservable( Ident ident, Observable observable ) {
+		if ( !this.observables.containsKey( ident ) ) {
+			this.observables.put( ident, observable );
+		}
+	}
+
+	public void notifyObservers( Ident ident ) {
+System.out.println( ident.getName() + " has " + this.observables.get( ident ).countObservers() + " observers" );
+		this.observables.get( ident ).notifyObservers();
 	}
 }
