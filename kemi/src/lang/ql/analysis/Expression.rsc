@@ -204,11 +204,13 @@ private tuple[Type, set[Message]] analyzeRelational(Types types, Expr parent,
   return <err(), lm + rm>;
 }
 
-// This function checks whether the usage of a and/or expression is correct.
-// Usage is correct if: 
-// - Neither of the members are undefined
-// - Members are of allowed type of operator in question
-// - Left and right hand side are booleans
+/*
+ * This function checks whether the usage of a and/or expression is correct.
+ * Usage is correct if: 
+ * - Neither of the members are undefined
+ * - Members are of allowed type of operator in question
+ * - Left and right hand side are booleans
+ */
 private tuple[Type, set[Message]] analyzeAndOr(Types types, Expr parent, 
     Expr lhs, Expr rhs) {
   <ltype, lm> = analyze(types, lhs);
