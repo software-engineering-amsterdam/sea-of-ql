@@ -47,6 +47,12 @@ public TypeMap getTypeMap(Form f) {
   return typeMap;
 }
 
+public Form accompanyingForm(Stylesheet s) =
+  parseForm(accompanyingFormLocation(s));
+
+public loc accompanyingFormLocation(Stylesheet s) =
+  |project://QL-R-kemi/forms/| + "<s.ident>.q";
+
 public list[StyleRule] getStyleRules(str questionIdent, Form f, Stylesheet s) {
   typeMap = getTypeMap(f);
   str \type = typeMap[identDefinition(questionIdent)].name;
