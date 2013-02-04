@@ -3,7 +3,6 @@ package org.uva.sea.ql.ast;
 import static julius.validation.Assertions.state;
 
 import org.uva.sea.ql.ast.exp.Expression;
-import org.uva.sea.ql.visitor.ASTNodeVisitor;
 
 public class IfElseStatement extends IfStatement {
 
@@ -20,11 +19,4 @@ public class IfElseStatement extends IfStatement {
 	public CompoundStatement getCompoundStatement() {
 		return elseCompound;
 	}
-
-	@Override
-	public void accept(final ASTNodeVisitor visitor) {
-		// TODO Auto-generated method stub
-
-	}
-
 }

@@ -2,80 +2,38 @@ package org.uva.sea.ql.ast.statement;
 
 import org.uva.sea.ql.ast.expression.Ident;
 import org.uva.sea.ql.ast.expression.literal.Str;
-import org.uva.sea.ql.visitor.IStatementVisitor;
 
 /**
  * Represents a question declaration.
  */
-public class QuestionDeclaration extends Statement {
+abstract public class QuestionDeclaration extends Statement {
 	/**
-	 * Holds the name node.
+	 * Holds the label node.
 	 */
-	private final Str name;
+	private final Str label;
 
 	/**
-	 * Holds the declaration node.
-	 */
-	private final Statement statement;
-
-	/**
-	 * Holds the identifier.
-	 */
-	private final Ident ident;
-
-	/**
-	 * Constructs a new question declaration node.
+	 * Constructs a new QuestionDeclaration.
 	 *
-	 * @param name
-	 * @param declaration
+	 * @param label
 	 */
-	public QuestionDeclaration( Str name, VarDeclaration declaration ) {
-		this.name = name;
-		this.statement = declaration;
-		this.ident = declaration.getIdent();
+	public QuestionDeclaration( Str label ) {
+		this.label = label;
 	}
 
 	/**
-	 * Constructs a new question declaration.
+	 * Retrieves the label node.
 	 *
-	 * @param name
-	 * @param assignment
+	 * @return Label AST node.
 	 */
-	public QuestionDeclaration( Str name, Assignment assignment ) {
-		this.name = name;
-		this.statement = assignment;
-		this.ident = assignment.getIdent();
+	public Str getLabel() {
+		return this.label;
 	}
 
 	/**
-	 * Retrieves the name node.
+	 * Retrieves the identifier of the question.
 	 *
-	 * @return Name AST node.
+	 * @return The identifier.
 	 */
-	public Str getName() {
-		return this.name;
-	}
-
-	/**
-	 * Retrieves the identifier.
-	 *
-	 * @return The identifier AST node.
-	 */
-	public Ident getIdent() {
-		return this.ident;
-	}
-
-	/**
-	 * Retrieves the declaration node.
-	 *
-	 * @return Declaration AST node.
-	 */
-	public Statement getDeclaration() {
-		return this.statement;
-	}
-
-	@Override
-	public <T> T accept( IStatementVisitor<T> visitor ) {
-		return visitor.visit( this );
-	}
+	abstract public Ident getIdent();
 }

@@ -54,8 +54,8 @@ public class ExpressionChecker extends TypeCheckVisitor implements IExpressionVi
 			return false;
 		}
 
-		Type leftType = node.getLhs().accept( resolver );
-		Type rightType = node.getRhs().accept( resolver );
+		Type leftType = node.getLhs().accept( this.resolver );
+		Type rightType = node.getRhs().accept( this.resolver );
 
 		if ( !( leftType.isCompatibleToNumber() && rightType.isCompatibleToNumber() ) ) {
 			this.addIncompatibleTypesError(
@@ -85,8 +85,8 @@ public class ExpressionChecker extends TypeCheckVisitor implements IExpressionVi
 			return false;
 		}
 
-		Type leftType = node.getLhs().accept( resolver );
-		Type rightType = node.getRhs().accept( resolver );
+		Type leftType = node.getLhs().accept( this.resolver );
+		Type rightType = node.getRhs().accept( this.resolver );
 
 		if ( !( leftType.isCompatibleToBool() && rightType.isCompatibleToBool() ) ) {
 			this.addIncompatibleTypesError(
@@ -116,8 +116,8 @@ public class ExpressionChecker extends TypeCheckVisitor implements IExpressionVi
 			return false;
 		}
 
-		Type leftType = node.getLhs().accept( resolver );
-		Type rightType = node.getRhs().accept( resolver );
+		Type leftType = node.getLhs().accept( this.resolver );
+		Type rightType = node.getRhs().accept( this.resolver );
 
 		if ( !( leftType.isCompatibleToNumber() && rightType.isCompatibleToNumber() ) ) {
 			this.addIncompatibleTypesError(
@@ -144,7 +144,7 @@ public class ExpressionChecker extends TypeCheckVisitor implements IExpressionVi
 			return false;
 		}
 
-		Type expressionType = node.getExpression().accept( resolver );
+		Type expressionType = node.getExpression().accept( this.resolver );
 
 		if ( !expressionType.isCompatibleToBool() ) {
 			this.addIncompatibleTypeError(
@@ -168,7 +168,7 @@ public class ExpressionChecker extends TypeCheckVisitor implements IExpressionVi
 			return false;
 		}
 
-		Type expressionType = node.getExpression().accept( resolver );
+		Type expressionType = node.getExpression().accept( this.resolver );
 
 		if ( !expressionType.isCompatibleToNumber() ) {
 			this.addIncompatibleTypeError(
@@ -195,8 +195,8 @@ public class ExpressionChecker extends TypeCheckVisitor implements IExpressionVi
 			return false;
 		}
 
-		Type leftType = node.getLhs().accept( resolver );
-		Type rightType = node.getRhs().accept( resolver );
+		Type leftType = node.getLhs().accept( this.resolver );
+		Type rightType = node.getRhs().accept( this.resolver );
 
 		if ( !leftType.isCompatibleTo( rightType ) ) {
 			this.addIncompatibleTypesError(
@@ -213,27 +213,27 @@ public class ExpressionChecker extends TypeCheckVisitor implements IExpressionVi
 
 	@Override
 	public Boolean visit( org.uva.sea.ql.ast.expression.literal.Int node ) {
-		return node.accept( resolver ).isCompatibleToInt();
+		return node.accept( this.resolver ).isCompatibleToInt();
 	}
 
 	@Override
 	public Boolean visit( org.uva.sea.ql.ast.expression.literal.Bool node ) {
-		return node.accept( resolver ).isCompatibleToBool();
+		return node.accept( this.resolver ).isCompatibleToBool();
 	}
 
 	@Override
 	public Boolean visit( org.uva.sea.ql.ast.expression.literal.Money node ) {
-		return node.accept( resolver ).isCompatibleToMoney();
+		return node.accept( this.resolver ).isCompatibleToMoney();
 	}
 
 	@Override
 	public Boolean visit( org.uva.sea.ql.ast.expression.literal.Str node ) {
-		return node.accept( resolver ).isCompatibleToStr();
+		return node.accept( this.resolver ).isCompatibleToStr();
 	}
 
 	@Override
 	public Boolean visit( Ident node ) {
-		if ( node.accept( resolver ) instanceof Undefined ) {
+		if ( node.accept( this.resolver ).getClass() == Undefined.class ) {
 			this.addUndefinedError( node.getName(), node );
 			return false;
 		}

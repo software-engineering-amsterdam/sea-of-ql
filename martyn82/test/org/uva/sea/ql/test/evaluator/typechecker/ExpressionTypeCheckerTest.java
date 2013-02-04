@@ -191,6 +191,7 @@ public class ExpressionTypeCheckerTest extends VisitorTest<Boolean> implements I
 		assertTrue( typeCheck( new Add( new Money( .2 ), new Money( 131d ) ) ) );
 
 		assertFalse( typeCheck( new Add( new Bool( false ), new Str( "" ) ) ) );
+		assertFalse( typeCheck( new Add( new Int( 1 ), new Str( "" ) ) ) );
 	}
 
 	@Override
@@ -255,8 +256,8 @@ public class ExpressionTypeCheckerTest extends VisitorTest<Boolean> implements I
 		Ident identBVar = new Ident( "bVar" );
 		Ident identIVar = new Ident( "iVar" );
 
-		this.environment.declareType( identBVar, new org.uva.sea.ql.ast.type.Bool() );
-		this.environment.declareType( identIVar, new org.uva.sea.ql.ast.type.Int() );
+		this.environment.declare( identBVar, new org.uva.sea.ql.ast.type.Bool() );
+		this.environment.declare( identIVar, new org.uva.sea.ql.ast.type.Int() );
 
 		assertTrue( typeCheck( identBVar ) );
 		assertTrue( typeCheck( identIVar ) );

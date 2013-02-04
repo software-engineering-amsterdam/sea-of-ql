@@ -5,7 +5,6 @@ import static julius.validation.Assertions.state;
 import org.uva.sea.ql.ast.exp.Expression;
 import org.uva.sea.ql.ast.exp.Identifier;
 import org.uva.sea.ql.ast.type.DataType;
-import org.uva.sea.ql.visitor.ASTNodeVisitor;
 
 public class Computed extends Statement {
 
@@ -32,10 +31,5 @@ public class Computed extends Statement {
 		state.assertNotNull(this.dataType, "Computed.dataType");
 		state.assertNotNull(this.identifier, "Computed.identifier");
 		state.assertNotNull(this.expression, "Computed.expression");
-	}
-
-	@Override
-	public void accept(final ASTNodeVisitor visitor) {
-		visitor.visit(this);
 	}
 }

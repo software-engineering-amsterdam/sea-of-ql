@@ -6,7 +6,8 @@ import org.uva.sea.ql.ast.statement.ElseIf;
 import org.uva.sea.ql.ast.statement.ElseIfs;
 import org.uva.sea.ql.ast.statement.FormDeclaration;
 import org.uva.sea.ql.ast.statement.IfThenElse;
-import org.uva.sea.ql.ast.statement.QuestionDeclaration;
+import org.uva.sea.ql.ast.statement.QuestionComputed;
+import org.uva.sea.ql.ast.statement.QuestionVar;
 import org.uva.sea.ql.ast.statement.Statement;
 import org.uva.sea.ql.ast.statement.Statements;
 import org.uva.sea.ql.ast.statement.VarDeclaration;
@@ -16,6 +17,7 @@ import org.uva.sea.ql.visitor.IStatementVisitor;
  * Represents a pretty printer for statement nodes.
  */
 public class StatementPrinter extends PrintVisitor implements IStatementVisitor<Boolean> {
+
 	/**
 	 * Holds the expression visitor.
 	 */
@@ -125,7 +127,7 @@ public class StatementPrinter extends PrintVisitor implements IStatementVisitor<
 		node.getIdent().accept( this.expressionVisitor );
 
 		this.indent();
-		this.write( node.getType().getClass().getSimpleName().toUpperCase() );
+		this.write( node.getType().toString().toUpperCase() );
 
 		this.decreaseLevel();
 
@@ -167,17 +169,35 @@ public class StatementPrinter extends PrintVisitor implements IStatementVisitor<
 	}
 
 	@Override
-	public Boolean visit( QuestionDeclaration node ) {
+	public Boolean visit( QuestionVar node ) {
 		this.indent();
 		this.writeName( node );
 
 		this.increaseLevel();
 
 		this.indent();
-		node.getName().accept( this.expressionVisitor );
+		node.getLabel().accept( this.expressionVisitor );
 
 		this.indent();
-		node.getDeclaration().accept( this );
+		node.getVarDeclaration().accept( this );
+
+		this.decreaseLevel();
+
+		return true;
+	}
+
+	@Override
+	public Boolean visit( QuestionComputed node ) {
+		this.indent();
+		this.writeName( node );
+
+		this.increaseLevel();
+
+		this.indent();
+		node.getLabel().accept( this.expressionVisitor );
+
+		this.indent();
+		node.getAssignment().accept( this );
 
 		this.decreaseLevel();
 

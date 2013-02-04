@@ -1,5 +1,7 @@
 package org.uva.sea.ql.evaluator.value;
 
+import org.uva.sea.ql.ast.type.Str;
+
 /**
  * Represents a string value.
  */
@@ -16,6 +18,11 @@ public class String extends Value {
 	 */
 	public String( java.lang.String value ) {
 		this.value = value;
+	}
+
+	@Override
+	public Str getType() {
+		return new Str();
 	}
 
 	@Override

@@ -1,9 +1,24 @@
 package org.uva.sea.ql.evaluator.value;
 
+import org.uva.sea.ql.ast.type.Type;
+
 /**
  * Represents an abstract value.
  */
 abstract public class Value {
+	/**
+	 * Retrieves the value of the instance.
+	 *
+	 * @return The value.
+	 */
+	abstract public Object getValue();
+
+	/**
+	 * Retrieves the type of the value instance.
+	 *
+	 * @return The type.
+	 */
+	abstract public Type getType();
 
 	// arithmetic
 
@@ -377,11 +392,4 @@ abstract public class Value {
 	public Value pos() {
 		throw new UnsupportedOperationException();
 	}
-
-	/**
-	 * Retrieves the value of the instance.
-	 *
-	 * @return The value.
-	 */
-	abstract public Object getValue();
 }

@@ -130,7 +130,7 @@ public class ExpressionTypeCheck implements ExpressionVisitor<Expression> {
 
 	@Override
 	public Expression visit(final Not not) {
-		assertBoolean(not);
+		assertBoolean(not.getOperation().accept(this));
 
 		return not;
 	}
