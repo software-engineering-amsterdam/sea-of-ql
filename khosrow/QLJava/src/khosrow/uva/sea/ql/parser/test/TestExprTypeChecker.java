@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import khosrow.uva.sea.ql.parser.jacc.JACCParser;
-import khosrow.uva.sea.ql.resources.QlError;
+import khosrow.uva.sea.ql.resources.QlTypeError;
 import khosrow.uva.sea.ql.visitor.check.ExprTypeChecker;
 
 import org.junit.Before;
@@ -15,8 +15,8 @@ import org.junit.Test;
 public class TestExprTypeChecker {
 	private IParse parser;
 	
-	private static List<QlError> theErrorList() {
-		return new ArrayList<QlError>();
+	private static List<QlTypeError> theErrorList() {
+		return new ArrayList<QlTypeError>();
 	}
 	
 	@Before

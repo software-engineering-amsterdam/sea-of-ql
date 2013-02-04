@@ -7,7 +7,8 @@ import org.junit.Test;
 import org.uva.sea.ql.ast.statement.Assignment;
 import org.uva.sea.ql.ast.statement.FormDeclaration;
 import org.uva.sea.ql.ast.statement.IfThenElse;
-import org.uva.sea.ql.ast.statement.QuestionDeclaration;
+import org.uva.sea.ql.ast.statement.QuestionComputed;
+import org.uva.sea.ql.ast.statement.QuestionVar;
 import org.uva.sea.ql.ast.statement.Statement;
 import org.uva.sea.ql.ast.statement.VarDeclaration;
 import org.uva.sea.ql.parser.IParser;
@@ -70,8 +71,8 @@ public class StatementParserTest extends ParserTest implements IStatementTest {
 			return;
 		}
 
-		assertEquals( QuestionDeclaration.class, root.getClass() );
-		assertEquals( VarDeclaration.class, ( (QuestionDeclaration) root ).getDeclaration().getClass() );
+		assertEquals( QuestionVar.class, root.getClass() );
+		assertEquals( VarDeclaration.class, ( (QuestionVar) root ).getVarDeclaration().getClass() );
 	}
 
 	@Override
@@ -145,14 +146,6 @@ public class StatementParserTest extends ParserTest implements IStatementTest {
 
 	@Override
 	@Test
-	public void testQuestionDeclaration() {
-		assertNode( QuestionDeclaration.class, "\"What?\" answer: boolean" );
-		assertNode( QuestionDeclaration.class, "\"This is the question?\" answer = (a && !b)" );
-		assertNode( QuestionDeclaration.class, "\"\" answer = 1 + answer2" );
-	}
-
-	@Override
-	@Test
 	public void testAssignment() {
 		assertNode( Assignment.class, "var = true" );
 		assertNode( Assignment.class, "var = 1 + 45" );
@@ -166,5 +159,18 @@ public class StatementParserTest extends ParserTest implements IStatementTest {
 		assertVarDeclaration( "x : integer" );
 		assertVarDeclaration( "y : money" );
 		assertVarDeclaration( "str: string" );
+	}
+
+	@Override
+	@Test
+	public void testQuestionVar() {
+		assertNode( QuestionVar.class, "\"What?\" answer: boolean" );
+	}
+
+	@Override
+	@Test
+	public void testQuestionComputed() {
+		assertNode( QuestionComputed.class, "\"This is the question?\" answer = (a && !b)" );
+		assertNode( QuestionComputed.class, "\"\" answer = 1 + answer2" );
 	}
 }

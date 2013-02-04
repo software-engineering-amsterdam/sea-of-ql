@@ -45,6 +45,6 @@ public class TypeEvaluator implements ITypeVisitor<Value> {
 			return this.visit( (Money) node );
 		}
 
-		return new Undefined();
+		return Undefined.UNDEFINED;
 	}
 }

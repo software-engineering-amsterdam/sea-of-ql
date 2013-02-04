@@ -6,20 +6,20 @@ import khosrow.uva.sea.ql.ast.ASTNode;
 import khosrow.uva.sea.ql.ast.expr.*;
 import khosrow.uva.sea.ql.ast.type.*;
 import khosrow.uva.sea.ql.env.Env;
-import khosrow.uva.sea.ql.resources.QlError;
+import khosrow.uva.sea.ql.resources.QlTypeError;
 import khosrow.uva.sea.ql.visitor.IExprVisitor;
 
 public class ExprTypeChecker implements IExprVisitor<Boolean> {
-	private final Env typeEnv;
-	private List<QlError> messages;
+	private final Env env;
+	private List<QlTypeError> messages;
 	
-	public ExprTypeChecker(Env typeEnv, List<QlError> messages) {
-		this.typeEnv = typeEnv;
-		this.setMessages(messages);
+	private ExprTypeChecker(Env env, List<QlTypeError> messages) {
+		this.env =  env;
+		this.messages = messages;
 	}
 	
-	public static boolean Check(Expr expr, Env typeEnv, List<QlError> messages) {
-		ExprTypeChecker checker = new ExprTypeChecker(typeEnv, messages);
+	public static boolean Check(Expr expr, Env env, List<QlTypeError> messages) {
+		ExprTypeChecker checker = new ExprTypeChecker(env, messages);
 		return expr.accept(checker);
 	}
 	
@@ -30,8 +30,8 @@ public class ExprTypeChecker implements IExprVisitor<Boolean> {
 		
 		if (!(checkLhs && checkRhs))
 			return false;
-		Type lhsType = ast.getLhs().typeOf(typeEnv);
-		Type rhsType = ast.getRhs().typeOf(typeEnv);
+		Type lhsType = ast.getLhs().typeOf(env);
+		Type rhsType = ast.getRhs().typeOf(env);
 		
 		if (!(lhsType.isCompatibleToNumeric()
 				&& rhsType.isCompatibleToNumeric())) {
@@ -49,8 +49,8 @@ public class ExprTypeChecker implements IExprVisitor<Boolean> {
 		
 		if (!(checkLhs && checkRhs))
 			return false;
-		Type lhsType = ast.getLhs().typeOf(typeEnv);
-		Type rhsType = ast.getRhs().typeOf(typeEnv);
+		Type lhsType = ast.getLhs().typeOf(env);
+		Type rhsType = ast.getRhs().typeOf(env);
 		
 		if (!(lhsType.isCompatibleToBool()
 				&& rhsType.isCompatibleToBool())) {
@@ -68,8 +68,8 @@ public class ExprTypeChecker implements IExprVisitor<Boolean> {
 		
 		if (!(checkLhs && checkRhs))
 			return false;
-		Type lhsType = ast.getLhs().typeOf(typeEnv);
-		Type rhsType = ast.getRhs().typeOf(typeEnv);
+		Type lhsType = ast.getLhs().typeOf(env);
+		Type rhsType = ast.getRhs().typeOf(env);
 		
 		if (!(lhsType.isCompatibleToNumeric()
 				&& rhsType.isCompatibleToNumeric())) {
@@ -87,8 +87,8 @@ public class ExprTypeChecker implements IExprVisitor<Boolean> {
 		
 		if (!(checkLhs && checkRhs))
 			return false;
-		Type lhsType = ast.getLhs().typeOf(typeEnv);
-		Type rhsType = ast.getRhs().typeOf(typeEnv);
+		Type lhsType = ast.getLhs().typeOf(env);
+		Type rhsType = ast.getRhs().typeOf(env);
 		
 		if (!lhsType.isCompatibleTo(rhsType)) {
 			addToErrorList(ast, "the operator == can not be applied to instances of type " 
@@ -105,8 +105,8 @@ public class ExprTypeChecker implements IExprVisitor<Boolean> {
 		
 		if (!(checkLhs && checkRhs))
 			return false;
-		Type lhsType = ast.getLhs().typeOf(typeEnv);
-		Type rhsType = ast.getRhs().typeOf(typeEnv);
+		Type lhsType = ast.getLhs().typeOf(env);
+		Type rhsType = ast.getRhs().typeOf(env);
 		
 		if (!lhsType.isCompatibleTo(rhsType)) {
 			addToErrorList(ast, "the operator != can not be applied to instances of type " 
@@ -123,8 +123,8 @@ public class ExprTypeChecker implements IExprVisitor<Boolean> {
 		
 		if (!(checkLhs && checkRhs))
 			return false;
-		Type lhsType = ast.getLhs().typeOf(typeEnv);
-		Type rhsType = ast.getRhs().typeOf(typeEnv);
+		Type lhsType = ast.getLhs().typeOf(env);
+		Type rhsType = ast.getRhs().typeOf(env);
 		
 		if (!(lhsType.isCompatibleTo(rhsType) 
 			  && lhsType.isCompatibleToNumeric()
@@ -143,8 +143,8 @@ public class ExprTypeChecker implements IExprVisitor<Boolean> {
 		
 		if (!(checkLhs && checkRhs))
 			return false;
-		Type lhsType = ast.getLhs().typeOf(typeEnv);
-		Type rhsType = ast.getRhs().typeOf(typeEnv);
+		Type lhsType = ast.getLhs().typeOf(env);
+		Type rhsType = ast.getRhs().typeOf(env);
 		
 		if (!(lhsType.isCompatibleTo(rhsType) 
 				  && lhsType.isCompatibleToNumeric()
@@ -168,8 +168,8 @@ public class ExprTypeChecker implements IExprVisitor<Boolean> {
 		
 		if (!(checkLhs && checkRhs))
 			return false;
-		Type lhsType = ast.getLhs().typeOf(typeEnv);
-		Type rhsType = ast.getRhs().typeOf(typeEnv);
+		Type lhsType = ast.getLhs().typeOf(env);
+		Type rhsType = ast.getRhs().typeOf(env);
 		
 		if (!(lhsType.isCompatibleTo(rhsType) 
 				  && lhsType.isCompatibleToNumeric()
@@ -188,8 +188,8 @@ public class ExprTypeChecker implements IExprVisitor<Boolean> {
 		
 		if (!(checkLhs && checkRhs))
 			return false;
-		Type lhsType = ast.getLhs().typeOf(typeEnv);
-		Type rhsType = ast.getRhs().typeOf(typeEnv);
+		Type lhsType = ast.getLhs().typeOf(env);
+		Type rhsType = ast.getRhs().typeOf(env);
 		
 		if (!(lhsType.isCompatibleTo(rhsType) 
 				  && lhsType.isCompatibleToNumeric()
@@ -208,8 +208,8 @@ public class ExprTypeChecker implements IExprVisitor<Boolean> {
 		
 		if (!(checkLhs && checkRhs))
 			return false;
-		Type lhsType = ast.getLhs().typeOf(typeEnv);
-		Type rhsType = ast.getRhs().typeOf(typeEnv);
+		Type lhsType = ast.getLhs().typeOf(env);
+		Type rhsType = ast.getRhs().typeOf(env);
 		
 		if (!(lhsType.isCompatibleToNumeric()
 				&& rhsType.isCompatibleToNumeric())) {
@@ -227,8 +227,8 @@ public class ExprTypeChecker implements IExprVisitor<Boolean> {
 		
 		if (!(checkLhs && checkRhs))
 			return false;
-		Type lhsType = ast.getLhs().typeOf(typeEnv);
-		Type rhsType = ast.getRhs().typeOf(typeEnv);
+		Type lhsType = ast.getLhs().typeOf(env);
+		Type rhsType = ast.getRhs().typeOf(env);
 		
 		if (!(lhsType.isCompatibleToNumeric()
 				&& rhsType.isCompatibleToNumeric())) {
@@ -246,7 +246,7 @@ public class ExprTypeChecker implements IExprVisitor<Boolean> {
 		if (!checkArg)
 			return false;
 		
-		Type argType = ast.getArg().typeOf(typeEnv);
+		Type argType = ast.getArg().typeOf(env);
 		
 		if (!argType.isCompatibleToNumeric()) {
 			addToErrorList(ast, "the unary operator - can not be applied to instances of type " 
@@ -263,7 +263,7 @@ public class ExprTypeChecker implements IExprVisitor<Boolean> {
 		if (!checkArg)
 			return false;
 		
-		Type argType = ast.getArg().typeOf(typeEnv);
+		Type argType = ast.getArg().typeOf(env);
 		
 		if (!argType.isCompatibleToNumeric()) {
 			addToErrorList(ast, "the unary operator + can not be applied to instances of type " 
@@ -280,7 +280,7 @@ public class ExprTypeChecker implements IExprVisitor<Boolean> {
 		if (!checkArg)
 			return false;
 		
-		Type argType = ast.getArg().typeOf(typeEnv);
+		Type argType = ast.getArg().typeOf(env);
 		
 		if (!argType.isCompatibleToBool()) {
 			addToErrorList(ast, "the unary operator ! can not be applied to instances of type " 
@@ -297,8 +297,8 @@ public class ExprTypeChecker implements IExprVisitor<Boolean> {
 		
 		if (!(checkLhs && checkRhs))
 			return false;
-		Type lhsType = ast.getLhs().typeOf(typeEnv);
-		Type rhsType = ast.getRhs().typeOf(typeEnv);
+		Type lhsType = ast.getLhs().typeOf(env);
+		Type rhsType = ast.getRhs().typeOf(env);
 		
 		if (!(lhsType.isCompatibleToBool()
 				&& rhsType.isCompatibleToBool())) {
@@ -316,8 +316,8 @@ public class ExprTypeChecker implements IExprVisitor<Boolean> {
 		
 		if (!(checkLhs && checkRhs))
 			return false;
-		Type lhsType = ast.getLhs().typeOf(typeEnv);
-		Type rhsType = ast.getRhs().typeOf(typeEnv);
+		Type lhsType = ast.getLhs().typeOf(env);
+		Type rhsType = ast.getRhs().typeOf(env);
 		
 		if (!(lhsType.isCompatibleToNumeric()
 				&& rhsType.isCompatibleToNumeric())) {
@@ -349,19 +349,15 @@ public class ExprTypeChecker implements IExprVisitor<Boolean> {
 	}
 	
 	private void addToErrorList(ASTNode ast, String message) {
-		messages.add(new QlError("Type error at node " + ast.getClass() + ". Message: " + message));		
+		messages.add(new QlTypeError("Type error at node " + ast.getClass() + ". Message: " + message));		
 	}
 
 	public Env getTypeEnv() {
-		return typeEnv;
+		return env;
 	}
 
-	public List<QlError> getMessages() {
+	public List<QlTypeError> getMessages() {
 		return messages;
-	}
-
-	public void setMessages(List<QlError> messages) {
-		this.messages = messages;
-	}
+	}	
 
 }

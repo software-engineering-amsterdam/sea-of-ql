@@ -1,5 +1,8 @@
 package org.uva.sea.ql.ast.types;
 
+import org.uva.sea.ql.ast.operators.ExpressionResult;
+import org.uva.sea.ql.ast.operators.IntegerResult;
+
 public class IntegerType extends TypeDescription {
 
 	public IntegerType() {
@@ -19,5 +22,10 @@ public class IntegerType extends TypeDescription {
 	@Override
 	public boolean isCompatibleToMoney() {
 		return false;
+	}
+
+	@Override
+	public ExpressionResult getTypeContainer() {
+		return new IntegerResult(0);
 	}
 }

@@ -294,5 +294,8 @@ public class PrintVisitor implements Visitor {
 	public VisitorResult visit(BooleanLiteral expr) {
 		return new PrintVisitorResult(expr.getValue());
 	}
-
+	@Override
+	public VisitorResult visit(BigLiteral expr) {
+		return new PrintVisitorResult(expr.getValue().toString());
+	}
 }

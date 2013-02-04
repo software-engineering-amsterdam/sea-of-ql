@@ -5,18 +5,18 @@ import java.util.Map;
 
 import khosrow.uva.sea.ql.ast.expr.Ident;
 import khosrow.uva.sea.ql.ast.type.Type;
-import khosrow.uva.sea.ql.values.IValue;
+import khosrow.uva.sea.ql.values.Value;
 
 public class Env {
 	private final Map<Ident, Type> types;
-	private final Map<Ident, IValue> bindings;
+	private final Map<Ident, Value> bindings;
 	
 	public Env() {
 		this.types = new HashMap<Ident, Type>();
-		this.bindings = new HashMap<Ident, IValue>();
+		this.bindings = new HashMap<Ident, Value>();
 	}
 	
-	public boolean lookUpType(Ident name) {
+	public boolean lookUpIdent(Ident name) {
 		if (types.containsKey(name)) 
 			return true;		
 		return false;
@@ -32,7 +32,7 @@ public class Env {
 		return types.get(name);
 	}
 	
-	public IValue valueOf(Ident name) {
+	public Value valueOf(Ident name) {
 		return bindings.get(name);
 	}
 	
@@ -40,7 +40,7 @@ public class Env {
 		types.put(name, type);
 	}
 		
-	public void declareValue(Ident name, IValue value) {
+	public void declareValue(Ident name, Value value) {
 		bindings.put(name, value);
 	}
 }

@@ -1,4 +1,15 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
+<fullyQualifiedTypeName name="sun.nio.cs.ext.Big5"/>
+<fullyQualifiedTypeName name="org.uva.sea.ql.driver.QLForm"/>
+<fullyQualifiedTypeName name="org.antlr.grammar.v3.ANTLRParser.id_return"/>
+<fullyQualifiedTypeName name="java.util.LinkedList"/>
+<fullyQualifiedTypeName name="java.lang.String"/>
+<fullyQualifiedTypeName name="org.uva.sea.ql.ast.nodevisitor.QLFormSymbolsCreator"/>
 <fullyQualifiedTypeName name="org.uva.sea.ql.ast.operators.ExpressionResult"/>
+<fullyQualifiedTypeName name="org.uva.sea.ql.ast.operators.BooleanResult"/>
+<fullyQualifiedTypeName name="org.uva.sea.ql.ast.operators.IntegerResult"/>
+<fullyQualifiedTypeName name="org.uva.sea.ql.ast.operators.MoneyResult"/>
+<fullyQualifiedTypeName name="java.math.BigDecimal"/>
+<fullyQualifiedTypeName name="org.uva.sea.ql.ast.operators.StringResult"/>
 </qualifiedTypeNameHistroy>

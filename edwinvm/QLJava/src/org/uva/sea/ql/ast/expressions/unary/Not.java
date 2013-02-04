@@ -6,7 +6,7 @@ import org.uva.sea.ql.ast.Expr;
 import org.uva.sea.ql.ast.Type;
 import org.uva.sea.ql.ast.expressions.UnaryExpr;
 import org.uva.sea.ql.ast.expressions.literal.Ident;
-import org.uva.sea.ql.parser.visitors.checkexpr.Visitor;
+import org.uva.sea.ql.ast.visitors.checkexpr.Visitor;
 
 public class Not extends UnaryExpr {
 	public Not(Expr expr) {

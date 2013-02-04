@@ -20,9 +20,14 @@ public interface IStatementTest {
 	void testVarDeclaration();
 
 	/**
-	 * Test QuestionDeclaration.
+	 * Test QuestionVar.
 	 */
-	void testQuestionDeclaration();
+	void testQuestionVar();
+
+	/**
+	 * Test QuestionComputed.
+	 */
+	void testQuestionComputed();
 
 	/**
 	 * Test Assignment.

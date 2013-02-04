@@ -2,14 +2,14 @@ package org.uva.sea.ql.evaluator.typechecker;
 
 import org.uva.sea.ql.ast.Node;
 import org.uva.sea.ql.evaluator.Environment;
-import org.uva.sea.ql.visitor.NodeVisitor;
+import org.uva.sea.ql.visitor.ASTNodeVisitor;
 
 /**
  * Represents a type checker visitor.
  */
-abstract public class TypeCheckVisitor extends NodeVisitor<Boolean> {
+abstract public class TypeCheckVisitor extends ASTNodeVisitor<Boolean> {
 	private final static String ERROR_TYPE_MISMATCH = "Both sides of %s must be of type %s, found %s";
-	private final static String ERROR_INCOMPATIBLE_TYPE = "Invalid type: expected %s, but was %s";
+	private final static String ERROR_INCOMPATIBLE_TYPE = "Invalid type at %s: expected %s, but was %s";
 	private final static String ERROR_UNDEFINED_VAR = "Undefined variable: %s";
 	private final static String ERROR_DECLARED_VAR = "Variable %s is already declared.";
 

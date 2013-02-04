@@ -50,7 +50,7 @@ public class IfThenElse extends Statement {
 	 * @param elseIfs
 	 */
 	public IfThenElse( Expression condition, Statements ifBody, ElseIfs elseIfs ) {
-		this( condition, ifBody, elseIfs, null );
+		this( condition, ifBody, elseIfs, new Else( new Statements() ) );
 	}
 
 	/**
@@ -106,7 +106,7 @@ public class IfThenElse extends Statement {
 	 * @return True if the IF-body is present, false otherwise.
 	 */
 	public boolean hasIfBody() {
-		return this.ifBody != null;
+		return this.ifBody.size() > 0;
 	}
 
 	/**
@@ -124,7 +124,7 @@ public class IfThenElse extends Statement {
 	 * @return True if there is an ELSE statement, false otherwise.
 	 */
 	public boolean hasElse() {
-		return this.elseBody != null;
+		return this.elseBody.size() > 0;
 	}
 
 	@Override

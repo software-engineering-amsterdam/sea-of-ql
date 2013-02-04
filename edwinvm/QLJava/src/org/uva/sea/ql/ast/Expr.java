@@ -3,7 +3,7 @@ package org.uva.sea.ql.ast;
 import java.util.Map;
 
 import org.uva.sea.ql.ast.expressions.literal.Ident;
-import org.uva.sea.ql.parser.visitors.checkexpr.Visitor;
+import org.uva.sea.ql.ast.visitors.checkexpr.Visitor;
 
 public abstract class Expr implements ASTNode {
 	

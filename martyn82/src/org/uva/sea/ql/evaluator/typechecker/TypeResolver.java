@@ -2,12 +2,12 @@ package org.uva.sea.ql.evaluator.typechecker;
 
 import org.uva.sea.ql.ast.type.Type;
 import org.uva.sea.ql.evaluator.Environment;
-import org.uva.sea.ql.visitor.NodeVisitor;
+import org.uva.sea.ql.visitor.ASTNodeVisitor;
 
 /**
  * Represents a type resolver.
  */
-public class TypeResolver extends NodeVisitor<Type> {
+abstract public class TypeResolver extends ASTNodeVisitor<Type> {
 	/**
 	 * Holds the environment.
 	 */

@@ -3,12 +3,10 @@ package org.uva.sea.ql.parser.antlr;
 import org.antlr.runtime.ANTLRStringStream;
 import org.antlr.runtime.CommonTokenStream;
 import org.antlr.runtime.RecognitionException;
-import org.uva.sea.ql.ast.Form;
-import org.uva.sea.ql.ast.FormElement;
 import org.uva.sea.ql.ast.expr.Expr;
+import org.uva.sea.ql.ast.formelements.Form;
+import org.uva.sea.ql.ast.formelements.FormElement;
 import org.uva.sea.ql.ast.types.Type;
-import org.uva.sea.ql.parser.test.IParse;
-import org.uva.sea.ql.parser.test.ParseError;
 
 public class ANTLRParser implements IParse {
 
