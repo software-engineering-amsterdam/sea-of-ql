@@ -5,9 +5,9 @@ import static julius.validation.Assertions.state;
 import org.uva.sea.ql.ast.exp.Identifier;
 import org.uva.sea.ql.ast.type.DataType;
 import org.uva.sea.ql.ast.value.StringValue;
-import org.uva.sea.ql.visitor.ASTNodeVisitor;
 
 public class Question extends Statement {
+
 	private final DataType dataType;
 	private final Identifier identifier;
 	private final StringValue questionText;
@@ -36,10 +36,4 @@ public class Question extends Statement {
 	public StringValue getQuestionText() {
 		return questionText;
 	}
-
-	@Override
-	public void accept(final ASTNodeVisitor visitor) {
-		visitor.visit(this);
-	}
-
 }

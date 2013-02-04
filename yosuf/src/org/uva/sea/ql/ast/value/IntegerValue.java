@@ -2,7 +2,6 @@ package org.uva.sea.ql.ast.value;
 
 import static julius.validation.Assertions.state;
 
-import org.uva.sea.ql.visitor.ASTNodeVisitor;
 import org.uva.sea.ql.visitor.ExpressionVisitor;
 
 public class IntegerValue extends Value {
@@ -22,11 +21,6 @@ public class IntegerValue extends Value {
 
 	public int getValue() {
 		return value;
-	}
-
-	@Override
-	public void accept(final ASTNodeVisitor visitor) {
-		visitor.visit(this);
 	}
 
 	@Override

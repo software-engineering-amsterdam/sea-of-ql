@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.jpatterns.gof.CompositePattern.Composite;
-import org.uva.sea.ql.visitor.ASTNodeVisitor;
 
 @Composite
 public class CompoundStatement extends Statement {
@@ -19,11 +18,6 @@ public class CompoundStatement extends Statement {
 			final Statement statement) {
 		statements.addAll(compoundStatement.statements);
 		statements.add(statement);
-	}
-
-	@Override
-	public void accept(final ASTNodeVisitor visitor) {
-		visitor.visit(this);
 	}
 
 	public List<Statement> getStatements() {

@@ -1,19 +1,38 @@
 package org.uva.sea.ql.visitor;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.uva.sea.ql.ast.exp.Add;
+import org.uva.sea.ql.ast.exp.And;
+import org.uva.sea.ql.ast.exp.Divide;
+import org.uva.sea.ql.ast.exp.Equals;
+import org.uva.sea.ql.ast.exp.GreaterOrEquals;
+import org.uva.sea.ql.ast.exp.GreaterThan;
+import org.uva.sea.ql.ast.exp.Identifier;
+import org.uva.sea.ql.ast.exp.Multiply;
+import org.uva.sea.ql.ast.exp.Negative;
+import org.uva.sea.ql.ast.exp.Not;
+import org.uva.sea.ql.ast.exp.NotEquals;
+import org.uva.sea.ql.ast.exp.Or;
+import org.uva.sea.ql.ast.exp.Positive;
+import org.uva.sea.ql.ast.exp.SmallerOrEquals;
+import org.uva.sea.ql.ast.exp.SmallerThan;
+import org.uva.sea.ql.ast.exp.Substitute;
 import org.uva.sea.ql.ast.value.BooleanValue;
 import org.uva.sea.ql.ast.value.IntegerValue;
+import org.uva.sea.ql.ast.value.StringValue;
 import org.uva.sea.ql.util.LogPrinter;
 
 public class ExpressionTypeCheckTest {
 
 	private ExpressionTypeCheck typeCheck;
+
+	private final IntegerValue intValue = new IntegerValue(0);
+	private final BooleanValue boolValue = new BooleanValue(true);
+	private final StringValue stringValue = new StringValue("someString");
 
 	@Before
 	public void setUp() {
@@ -28,108 +47,186 @@ public class ExpressionTypeCheckTest {
 	}
 
 	@Test
+	public void testNestedErroneousExpressions() {
+		// one error in each type.
+		Add add = new Add(intValue, boolValue);
+		Or or = new Or(boolValue, stringValue);
+		Multiply multiply = new Multiply(add, or);
+
+		typeCheck.visit(multiply);
+		assertErrors(3);
+	}
+
+	@Test
+	public void testNestedExpressions() {
+		And and = new And(boolValue, boolValue);
+		Or or = new Or(boolValue, new SmallerThan(intValue, intValue));
+		And nestedAnd = new And(or, and);
+
+		typeCheck.visit(nestedAnd);
+		assertErrors(0);
+	}
+
+	@Test
 	public void testVisitAdd() {
-		Add add = new Add(new IntegerValue(5), new IntegerValue(6));
-		typeCheck.visit(add);
+		typeCheck.visit(new Add(intValue, intValue));
+		assertErrors(0);
 
-		assertEquals(0, typeCheck.getValidationExceptions().size());
-
-		Add erroneous = new Add(new BooleanValue(false),
-				new BooleanValue(false));
-		typeCheck.visit(erroneous);
-
-		assertEquals(2, typeCheck.getValidationExceptions().size());
-		LogPrinter.debugInfo(typeCheck.getValidationExceptions());
+		typeCheck.visit(new Add(boolValue, stringValue));
+		assertErrors(2);
 	}
 
 	@Test
 	public void testVisitIntegerValue() {
-		fail("Not yet implemented");
+		typeCheck.visit(intValue);
+		assertErrors(0);
 	}
 
 	@Test
 	public void testVisitAnd() {
-		fail("Not yet implemented");
+		typeCheck.visit(new And(boolValue, boolValue));
+		assertErrors(0);
+
+		typeCheck.visit(new And(intValue, boolValue));
+		assertErrors(1);
 	}
 
 	@Test
 	public void testVisitDivide() {
-		fail("Not yet implemented");
+		typeCheck.visit(new Divide(intValue, intValue));
+		assertErrors(0);
+
+		typeCheck.visit(new Divide(stringValue, boolValue));
+		assertErrors(2);
 	}
 
 	@Test
 	public void testVisitEquals() {
-		fail("Not yet implemented");
+		typeCheck.visit(new Equals(intValue, intValue));
+		assertErrors(0);
+
+		typeCheck.visit(new Equals(stringValue, boolValue));
+		assertErrors(2);
 	}
 
 	@Test
 	public void testVisitGreaterOrEquals() {
-		fail("Not yet implemented");
+		typeCheck.visit(new GreaterOrEquals(intValue, intValue));
+		assertErrors(0);
+
+		typeCheck.visit(new GreaterOrEquals(stringValue, intValue));
+		assertErrors(1);
 	}
 
 	@Test
 	public void testVisitBooleanValue() {
-		fail("Not yet implemented");
+		typeCheck.visit(boolValue);
+		assertErrors(0);
 	}
 
 	@Test
 	public void testVisitStringValue() {
-		fail("Not yet implemented");
+		typeCheck.visit(stringValue);
+		assertErrors(0);
 	}
 
 	@Test
 	public void testVisitGreaterThan() {
-		fail("Not yet implemented");
+		typeCheck.visit(new GreaterThan(intValue, intValue));
+		assertErrors(0);
+
+		typeCheck.visit(new GreaterThan(intValue, boolValue));
+		assertErrors(1);
 	}
 
 	@Test
 	public void testVisitIdentifier() {
-		fail("Not yet implemented");
+		typeCheck.visit(new Identifier("someIdentifier"));
+		assertErrors(0);
 	}
 
 	@Test
 	public void testVisitMultiply() {
-		fail("Not yet implemented");
+		typeCheck.visit(new Multiply(intValue, intValue));
+		assertErrors(0);
+
+		typeCheck.visit(new Multiply(boolValue, intValue));
+		assertErrors(1);
 	}
 
 	@Test
 	public void testVisitNegative() {
-		fail("Not yet implemented");
+		typeCheck.visit(new Negative(intValue));
+		assertErrors(0);
+
+		typeCheck.visit(new Negative(boolValue));
+		assertErrors(1);
 	}
 
 	@Test
 	public void testVisitNot() {
-		fail("Not yet implemented");
+		typeCheck.visit(new Not(boolValue));
+		assertErrors(0);
+
+		typeCheck.visit(new Not(stringValue));
+		assertErrors(1);
 	}
 
 	@Test
 	public void testVisitNotEquals() {
-		fail("Not yet implemented");
+		typeCheck.visit(new NotEquals(intValue, intValue));
+		assertErrors(0);
+
+		typeCheck.visit(new Add(boolValue, stringValue));
+		assertErrors(2);
 	}
 
 	@Test
 	public void testVisitOr() {
-		fail("Not yet implemented");
+		typeCheck.visit(new Or(boolValue, boolValue));
+		assertErrors(0);
+
+		typeCheck.visit(new Or(boolValue, stringValue));
+		assertErrors(1);
 	}
 
 	@Test
 	public void testVisitPositive() {
-		fail("Not yet implemented");
+		typeCheck.visit(new Positive(intValue));
+		assertErrors(0);
+
+		typeCheck.visit(new Positive(stringValue));
+		assertErrors(1);
 	}
 
 	@Test
 	public void testVisitSmallerOrEquals() {
-		fail("Not yet implemented");
+		typeCheck.visit(new SmallerOrEquals(intValue, intValue));
+		assertErrors(0);
+
+		typeCheck.visit(new SmallerOrEquals(stringValue, boolValue));
+		assertErrors(2);
 	}
 
 	@Test
 	public void testVisitSmallerThan() {
-		fail("Not yet implemented");
+		typeCheck.visit(new SmallerThan(intValue, intValue));
+		assertErrors(0);
+
+		typeCheck.visit(new SmallerThan(boolValue, stringValue));
+		assertErrors(2);
 	}
 
 	@Test
 	public void testVisitSubstitute() {
-		fail("Not yet implemented");
+		typeCheck.visit(new Substitute(intValue, intValue));
+		assertErrors(0);
+
+		typeCheck.visit(new Substitute(intValue, stringValue));
+		assertErrors(1);
 	}
 
+	private void assertErrors(final int numberofErrors) {
+		assertEquals(numberofErrors, typeCheck.getValidationExceptions().size());
+	}
 }

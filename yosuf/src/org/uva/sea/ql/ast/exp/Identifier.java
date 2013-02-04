@@ -2,7 +2,6 @@ package org.uva.sea.ql.ast.exp;
 
 import static julius.validation.Assertions.state;
 
-import org.uva.sea.ql.visitor.ASTNodeVisitor;
 import org.uva.sea.ql.visitor.ExpressionVisitor;
 
 public class Identifier extends Expression {
@@ -21,11 +20,6 @@ public class Identifier extends Expression {
 
 	public String getName() {
 		return name;
-	}
-
-	@Override
-	public void accept(final ASTNodeVisitor visitor) {
-		visitor.visit(this);
 	}
 
 	@Override

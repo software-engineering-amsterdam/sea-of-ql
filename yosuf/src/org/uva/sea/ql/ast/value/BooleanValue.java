@@ -1,6 +1,5 @@
 package org.uva.sea.ql.ast.value;
 
-import org.uva.sea.ql.visitor.ASTNodeVisitor;
 import org.uva.sea.ql.visitor.ExpressionVisitor;
 
 public class BooleanValue extends Value {
@@ -9,11 +8,6 @@ public class BooleanValue extends Value {
 
 	public BooleanValue(final boolean value) {
 		this.value = value;
-	}
-
-	@Override
-	public void accept(final ASTNodeVisitor visitor) {
-		visitor.visit(this);
 	}
 
 	@Override
