@@ -18,7 +18,7 @@ import util::IDE;
 
 import lang::qls::ast::AST;
 import lang::qls::compiler::PrettyPrinter;
-import util::LocationHelpers;
+import util::LocationHelper;
 
 import lang::qls::tests::ParseHelper;
 

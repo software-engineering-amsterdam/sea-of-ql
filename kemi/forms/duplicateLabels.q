@@ -1,4 +1,4 @@
-form mulitpleQuestions {
+form duplicateLabels {
   "Question one?"
     integer numberOne
   "Question two?"

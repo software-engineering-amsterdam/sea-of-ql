@@ -8,10 +8,9 @@
 @contributor{Kevin van der Vlist - kevin@kevinvandervlist.nl}
 @contributor{Jimi van der Woning - Jimi.vanderWoning@student.uva.nl}
 
-module util::LocationHelpers
+module util::StringHelper
 
 import String;
 
-
-public str basename(loc l) =
-  replaceLast(l.file, ".<l.extension>", "");
+public str trimQuotes(str string) =
+  substring(string, 1, size(string) - 1);

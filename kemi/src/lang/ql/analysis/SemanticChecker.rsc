@@ -14,16 +14,19 @@ import List;
 import Set;
 import lang::ql::analysis::Expression;
 import lang::ql::analysis::LabelMap;
+import lang::ql::analysis::Messages;
 import lang::ql::analysis::State;
 import lang::ql::analysis::TypeMap;
 import lang::ql::ast::AST;
 import lang::ql::compiler::PrettyPrinter;
 import util::IDE;
+import util::LocationHelper;
 
 public set[Message] semanticChecker(Form form) {
   SAS sas = <(), ()>;
   <_, messages> = analyzeSemantics(sas, form);
-  return messages;
+  
+  return filenameDoesNotMatchErrors(form) + messages;
 }
 
 public SAS semanticAnalysisState(Form form) {
@@ -31,6 +34,13 @@ public SAS semanticAnalysisState(Form form) {
   <sas, _> = analyzeSemantics(sas, form);
   return sas;
 }
+
+private default set[Message] filenameDoesNotMatchErrors(Form form) = 
+  {};
+
+private set[Message] filenameDoesNotMatchErrors(Form form) =
+  {formIdentifierDoesNotMatchFilename(form.formName)}
+    when form.formName.ident != basename(form.formName@location);
 
 private SAS merge(SAS cur, SAS add) {
   SAS ret = <(), ()>;
