@@ -1,0 +1,11 @@
+page(formName, formContent) ::= <<
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <title>Question language - $formName$</title>
+    </head>
+    <body>
+        $formContent$
+    </body>
+</html>
+>>
