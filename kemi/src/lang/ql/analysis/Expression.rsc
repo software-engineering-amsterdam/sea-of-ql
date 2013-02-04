@@ -143,7 +143,7 @@ private tuple[Type, set[Message]] analyze(Types types, Expr e) =
 private tuple[Type, set[Message]] analyzeUnary(Types types, Expr parent, Expr val) {
   <ltype, lm> = analyze(types, val);
   
-  if(ltype is undef)
+  if(ltype == undef())
     return <err(), lm>;
 
   if(ltype notin types[getName(parent)])
