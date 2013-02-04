@@ -2,8 +2,8 @@ package org.uva.sea.ql.webUI;
 
 import org.uva.sea.ql.Message;
 import org.uva.sea.ql.ast.Form;
-import org.uva.sea.ql.ast.expr.Ident;
-import org.uva.sea.ql.ast.expr.value.Value;
+import org.uva.sea.ql.ast.expression.Identifier;
+import org.uva.sea.ql.ast.expression.value.Value;
 import org.uva.sea.ql.formLoader.FormLoaderFactory;
 import org.uva.sea.ql.interpreter.InterpreterVisitor;
 import org.uva.sea.ql.valuePersister.ValuePersister;
@@ -16,7 +16,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.*;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 
 public class Controller extends HttpServlet {
 
@@ -52,7 +54,7 @@ public class Controller extends HttpServlet {
             showErrors(result.getErrors().iterator(), response);
     }
 
-    private void persistFormValues(Map<Ident, Value> values) {
+    private void persistFormValues(Map<Identifier, Value> values) {
         ValuePersister persister = ValuePersisterFactory.createValuePersister();
         persister.persist(values);
     }

@@ -1,9 +1,12 @@
 package org.uva.sea.ql.tests.webUI.KnockoutJSViewModelBuilderVisitorTests;
 
 import org.junit.Test;
-import org.uva.sea.ql.ast.*;
-import org.uva.sea.ql.ast.expr.Ident;
-import org.uva.sea.ql.ast.type.Bool;
+import org.uva.sea.ql.ast.CompositeStatement;
+import org.uva.sea.ql.ast.Form;
+import org.uva.sea.ql.ast.Question;
+import org.uva.sea.ql.ast.Statement;
+import org.uva.sea.ql.ast.expression.Identifier;
+import org.uva.sea.ql.ast.type.Boolean;
 
 import java.util.Arrays;
 
@@ -12,12 +15,12 @@ import static junit.framework.Assert.assertTrue;
 public class CreateViewModelTests extends KnockoutJSViewModelBuilderVisitorTests {
 
     private static final Form FORM = new Form(
-            new Ident("a"),
-            new CompositeFormElement(
+            new Identifier("a"),
+            new CompositeStatement(
                     Arrays.asList(
-                            (FormElement) new Question("a", new Ident("a"), new Bool()),
-                            (FormElement) new Question("b", new Ident("b"), new Bool()),
-                            (FormElement) new Question("c", new Ident("c"), new Bool())
+                            (Statement) new Question("a", new Identifier("a"), new Boolean()),
+                            (Statement) new Question("b", new Identifier("b"), new Boolean()),
+                            (Statement) new Question("c", new Identifier("c"), new org.uva.sea.ql.ast.type.Boolean())
                     )
             )
     );

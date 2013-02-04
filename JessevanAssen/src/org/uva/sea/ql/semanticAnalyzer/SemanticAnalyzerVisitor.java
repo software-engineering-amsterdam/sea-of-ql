@@ -1,35 +1,38 @@
 package org.uva.sea.ql.semanticAnalyzer;
 
+import org.uva.sea.ql.Error;
+import org.uva.sea.ql.Message;
+import org.uva.sea.ql.ast.*;
+import org.uva.sea.ql.ast.expression.*;
+import org.uva.sea.ql.ast.type.*;
+import org.uva.sea.ql.ast.type.Integer;
+
+import java.lang.String;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.uva.sea.ql.Message;
-import org.uva.sea.ql.Error;
-import org.uva.sea.ql.ast.*;
-import org.uva.sea.ql.ast.expr.*;
-import org.uva.sea.ql.ast.type.*;
-
-public class SemanticAnalyzerVisitor implements ASTNodeVisitor<Type, SemanticAnalyzerVisitor.Context> {
+public class SemanticAnalyzerVisitor implements
+        StatementVisitor<Void, SemanticAnalyzerVisitor.Context>,
+        ExpressionVisitor<Type, SemanticAnalyzerVisitor.Context> {
 
     public static class Context {
-        private final Map<Ident, Type> symbolTable;
+        private final Map<Identifier, Type> symbolTable;
         private final List<Message> errors;
 
         public Context() {
-            this.symbolTable = new HashMap<Ident, Type>();
+            this.symbolTable = new HashMap<Identifier, Type>();
             this.errors = new ArrayList<Message>();
         }
 
         public List<Message> getErrors() { return errors; }
-        public Map<Ident, Type> getSymbolTable() { return symbolTable; }
+        public Map<Identifier, Type> getSymbolTable() { return symbolTable; }
     }
 
-	private static final Type BOOL_TYPE    = new org.uva.sea.ql.ast.type.Bool(),
-			                  INT_TYPE     = new org.uva.sea.ql.ast.type.Int(),
-			                  STRING_TYPE  = new org.uva.sea.ql.ast.type.Str(),
-			                  VOID_TYPE    = new org.uva.sea.ql.ast.type.Void(),
+	private static final Type BOOL_TYPE    = new org.uva.sea.ql.ast.type.Boolean(),
+			                  INT_TYPE     = new Integer(),
+			                  STRING_TYPE  = new org.uva.sea.ql.ast.type.String(),
 			                  UNKNOWN_TYPE = new org.uva.sea.ql.ast.type.Unknown();
 
     /**
@@ -51,26 +54,26 @@ public class SemanticAnalyzerVisitor implements ASTNodeVisitor<Type, SemanticAna
 
     // Form operations
 	@Override
-	public Type visit(Computed astNode, Context context) {
+	public Void visit(Computed astNode, Context context) {
         astNode.getExpression().accept(this, context);
-		return VOID_TYPE;
+		return null;
 	}
 
     @Override
-    public Type visit(CompositeFormElement astNode, Context context) {
-        for(FormElement formElement : astNode.getFormElements())
-            formElement.accept(this, context);
-        return VOID_TYPE;
+    public Void visit(CompositeStatement astNode, Context context) {
+        for(Statement statement : astNode.getStatements())
+            statement.accept(this, context);
+        return null;
     }
 
 	@Override
-	public Type visit(Form astNode, Context context) {
+	public Void visit(Form astNode, Context context) {
 		astNode.getBody().accept(this, context);
-		return VOID_TYPE;
+		return null;
 	}
 	
 	@Override
-	public Type visit(Ident astNode, Context context) {
+	public Type visit(Identifier astNode, Context context) {
 		if(context.getSymbolTable().containsKey(astNode))
 			return context.getSymbolTable().get(astNode);
 		else {
@@ -86,18 +89,18 @@ public class SemanticAnalyzerVisitor implements ASTNodeVisitor<Type, SemanticAna
 	}
 
     @Override
-    public Type visit(If astNode, Context context) {
+    public Void visit(If astNode, Context context) {
         Type type = astNode.getCondition().accept(this, context);
         if(!type.equals(BOOL_TYPE))
             context.getErrors().add(new Error("The condition of an if-statement should have type boolean."));
 
         astNode.getIfBody().accept(this, context);
 
-        return VOID_TYPE;
+        return null;
     }
 
     @Override
-    public Type visit(IfElse astNode, Context context) {
+    public Void visit(IfElse astNode, Context context) {
         Type type = astNode.getCondition().accept(this, context);
         if(!type.equals(BOOL_TYPE))
             context.getErrors().add(new Error("The condition of an if-statement should have type boolean."));
@@ -105,28 +108,28 @@ public class SemanticAnalyzerVisitor implements ASTNodeVisitor<Type, SemanticAna
         astNode.getIfBody().accept(this, context);
         astNode.getElseBody().accept(this, context);
 
-        return VOID_TYPE;
+        return null;
     }
 
     @Override
-    public Type visit(StoredExpression astNode, Context context) {
+    public Void visit(StoredExpression astNode, Context context) {
         addTypeToSymbolTable(
                 astNode.getIdentifier(),
                 astNode.getExpression().accept(this, context),
                 context);
-        return VOID_TYPE;
+        return null;
     }
 
 	@Override
-	public Type visit(Question astNode, Context context) {
+	public Void visit(Question astNode, Context context) {
         addTypeToSymbolTable(
                 astNode.getIdentifier(),
                 astNode.getType(),
                 context);
-		return VOID_TYPE;
+		return null;
 	}
 
-    private void addTypeToSymbolTable(Ident identifier, Type type, Context context) {
+    private void addTypeToSymbolTable(Identifier identifier, Type type, Context context) {
         if(!context.getSymbolTable().containsKey(identifier))
             context.getSymbolTable().put(identifier, type);
         else
@@ -135,17 +138,17 @@ public class SemanticAnalyzerVisitor implements ASTNodeVisitor<Type, SemanticAna
 	
 	// Value operations
 	@Override
-	public Type visit(org.uva.sea.ql.ast.expr.value.Bool astNode, Context context) {
+	public Type visit(org.uva.sea.ql.ast.expression.value.Bool astNode, Context context) {
 		return BOOL_TYPE;
 	}
 
 	@Override
-	public Type visit(org.uva.sea.ql.ast.expr.value.Int astNode, Context context) {
+	public Type visit(org.uva.sea.ql.ast.expression.value.Int astNode, Context context) {
 		return INT_TYPE;
 	}
 
 	@Override
-	public Type visit(org.uva.sea.ql.ast.expr.value.Str astNode, Context context) {
+	public Type visit(org.uva.sea.ql.ast.expression.value.Str astNode, Context context) {
 		return STRING_TYPE;
 	}
 
@@ -157,55 +160,55 @@ public class SemanticAnalyzerVisitor implements ASTNodeVisitor<Type, SemanticAna
 		return INT_TYPE;
 	}
 	@Override
-	public Type visit(Div astNode, Context context) {
+	public Type visit(Divide astNode, Context context) {
 		checkBothSidesAreInts(astNode, context, "/");
 		return INT_TYPE;
 	}
 	
 	@Override
-	public Type visit(GEq astNode, Context context) {
+	public Type visit(GreaterThanOrEqualTo astNode, Context context) {
 		checkBothSidesAreInts(astNode, context, ">=");
 		return BOOL_TYPE;
 	}
 	
 	@Override
-	public Type visit(GT astNode, Context context) {
+	public Type visit(GreaterThan astNode, Context context) {
 		checkBothSidesAreInts(astNode, context, ">");
 		return BOOL_TYPE;
 	}
 	
 	@Override
-	public Type visit(LEq astNode, Context context) {
+	public Type visit(LesserThanOrEqualTo astNode, Context context) {
 		checkBothSidesAreInts(astNode, context, "<=");
 		return BOOL_TYPE;
 	}
 	
 	@Override
-	public Type visit(LT astNode, Context context) {
+	public Type visit(LesserThan astNode, Context context) {
 		checkBothSidesAreInts(astNode, context, "<");
 		return BOOL_TYPE;
 	}
 	
 	@Override
-	public Type visit(Mul astNode, Context context) {
+	public Type visit(Multiply astNode, Context context) {
 		checkBothSidesAreInts(astNode, context, "*");
 		return BOOL_TYPE;
 	}
 	
 	@Override
-	public Type visit(Sub astNode, Context context) {
+	public Type visit(Subtract astNode, Context context) {
 		checkBothSidesAreInts(astNode, context, "-");
 		return INT_TYPE;
 	}
 	
 	@Override
-	public Type visit(Neg astNode, Context context) {
+	public Type visit(Negative astNode, Context context) {
 		checkExpressionIsInt(astNode, context, "-");
 		return INT_TYPE;
 	}
 	
 	@Override
-	public Type visit(Pos astNode, Context context) {
+	public Type visit(Positive astNode, Context context) {
 		checkExpressionIsInt(astNode, context, "+");
 		return INT_TYPE;
 	}
@@ -233,19 +236,19 @@ public class SemanticAnalyzerVisitor implements ASTNodeVisitor<Type, SemanticAna
 
 	// Same type on both sides
 	@Override
-	public Type visit(Eq astNode, Context context) {
+	public Type visit(EqualTo astNode, Context context) {
 		checkBothSidesAreOfSameType(astNode, context, "==");
 		return BOOL_TYPE;
 	}
 
 	@Override
-	public Type visit(NEq astNode, Context context) {
+	public Type visit(NotEqualTo astNode, Context context) {
         checkBothSidesAreOfSameType(astNode, context, "!=");
         return BOOL_TYPE;
 	}
 
 	
-	private void checkBothSidesAreBools(BinaryExpr expression, Context context, String operator) {
+	private void checkBothSidesAreBools(BinaryExpression expression, Context context, String operator) {
 		if(
 			!expression.getLeftExpression().accept(this, context).equals(BOOL_TYPE) ||
 			!expression.getRightExpression().accept(this, context).equals(BOOL_TYPE))
@@ -253,7 +256,7 @@ public class SemanticAnalyzerVisitor implements ASTNodeVisitor<Type, SemanticAna
 			context.getErrors().add(new Error(String.format("Both sides of the '%s' have to be of type boolean.", operator)));
 	}
 	
-	private void checkBothSidesAreInts(BinaryExpr expression, Context context, String operator) {
+	private void checkBothSidesAreInts(BinaryExpression expression, Context context, String operator) {
 		if(
 			!expression.getLeftExpression().accept(this, context).equals(INT_TYPE) ||
 			!expression.getRightExpression().accept(this, context).equals(INT_TYPE))
@@ -261,19 +264,19 @@ public class SemanticAnalyzerVisitor implements ASTNodeVisitor<Type, SemanticAna
 			context.getErrors().add(new Error(String.format("Both sides of the '%s' have to be of type integer.", operator)));
 	}
 
-    private void checkBothSidesAreOfSameType(BinaryExpr expression, Context context, String operator) {
+    private void checkBothSidesAreOfSameType(BinaryExpression expression, Context context, String operator) {
         if (
             !expression.getLeftExpression().accept(this, context).equals(
                 expression.getRightExpression().accept(this, context)))
             context.getErrors().add(new Error(String.format("The left and right side of the '%s' operator need to be of the same type.", operator)));
     }
 	
-	private void checkExpressionIsBool(UnaryExpr expression, Context context, String operator) {
+	private void checkExpressionIsBool(UnaryExpression expression, Context context, String operator) {
 		if(!expression.getExpression().accept(this, context).equals(BOOL_TYPE))
             context.getErrors().add(new Error(String.format("The expression of the '%s' operator has to be of type boolean.", operator)));
 	}
 	
-	private void checkExpressionIsInt(UnaryExpr expression, Context context, String operator) {
+	private void checkExpressionIsInt(UnaryExpression expression, Context context, String operator) {
 		if(!expression.getExpression().accept(this, context).equals(INT_TYPE))
             context.getErrors().add(new Error(String.format("The expression of the '%s' operator has to be of type boolean.", operator)));
 	}

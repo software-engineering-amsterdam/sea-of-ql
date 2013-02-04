@@ -1,7 +1,7 @@
 package org.uva.sea.ql.valuePersister.persisters.filePersister;
 
-import org.uva.sea.ql.ast.expr.Ident;
-import org.uva.sea.ql.ast.expr.value.Value;
+import org.uva.sea.ql.ast.expression.Identifier;
+import org.uva.sea.ql.ast.expression.value.Value;
 import org.uva.sea.ql.valuePersister.ValuePersister;
 import org.uva.sea.ql.valuePersister.ValuePersisterException;
 import org.uva.sea.ql.valuePersister.ValueSerializer;
@@ -27,7 +27,7 @@ public class FilePersister implements ValuePersister {
     }
 
     @Override
-    public void persist(Map<Ident, Value> values) {
+    public void persist(Map<Identifier, Value> values) {
         try{
             File file = createFile();
             serializeValuesToFile(values, file);
@@ -36,7 +36,7 @@ public class FilePersister implements ValuePersister {
         }
     }
 
-    private void serializeValuesToFile(Map<Ident, Value> values, File file) throws IOException {
+    private void serializeValuesToFile(Map<Identifier, Value> values, File file) throws IOException {
         FileOutputStream stream = new FileOutputStream(file);
         Writer writer = new OutputStreamWriter(stream);
         writer.write(serializer.serialize(values));

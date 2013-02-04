@@ -1,7 +1,7 @@
 package org.uva.sea.ql.interpreter.valueParser;
 
-import org.uva.sea.ql.ast.expr.value.Bool;
-import org.uva.sea.ql.ast.expr.value.Value;
+import org.uva.sea.ql.ast.expression.value.Bool;
+import org.uva.sea.ql.ast.expression.value.Value;
 
 public class BoolValueParser implements ValueParser {
 
