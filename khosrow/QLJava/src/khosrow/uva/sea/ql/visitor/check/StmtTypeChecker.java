@@ -51,12 +51,8 @@ public class StmtTypeChecker implements IStmtVisitor<Boolean> {
 	}
 	
 	@Override
-	public Boolean visit(Label stmt) {	
-		/**
-		 * if the syntax is correct then
-		 * the type will also be correct
-		 */
-		return true;
+	public Boolean visit(Label stmt) {
+		return checkExpr(stmt.getExpr());
 	}
 	
 	@Override
