@@ -10,8 +10,12 @@
 
 module lang::qls::util::Parse
 
-import lang::qls::syntax::QLS;
 import ParseTree;
+import lang::ql::syntax::Comment;
+import lang::ql::syntax::Layout;
+import lang::ql::syntax::String;
+import lang::ql::syntax::Types;
+import lang::qls::syntax::QLS;
 
 public start[Stylesheet] parse(str src, loc l) = 
   parse(#start[Stylesheet], src, l);

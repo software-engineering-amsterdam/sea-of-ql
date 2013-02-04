@@ -10,8 +10,12 @@
 
 module lang::ql::util::Parse
 
-import lang::ql::syntax::QL;
 import ParseTree;
+import lang::ql::syntax::Comment;
+import lang::ql::syntax::Layout;
+import lang::ql::syntax::QL;
+import lang::ql::syntax::String;
+import lang::ql::syntax::Types;
 
 public start[Form] parse(str src, loc l) = 
   parse(#start[Form], src, l);

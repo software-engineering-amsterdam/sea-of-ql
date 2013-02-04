@@ -10,6 +10,11 @@
 
 module lang::ql::syntax::QL
 
+extend lang::ql::syntax::Comment;
+extend lang::ql::syntax::Layout;
+extend lang::ql::syntax::String;
+extend lang::ql::syntax::Types; 
+
 start syntax Form = 
   @Foldable form: "form" IdentDefinition formName "{" Statement+ formElements "}";
 
@@ -84,22 +89,6 @@ lexical QuestionText
   = @category="Identifier" questionText: String questionText
   ;
 
-lexical Type
-  = @category="Type" booleanType: "boolean"
-  | @category="Type" integerType: "integer"
-  | @category="Type" moneyType: "money"
-  | @category="Type" dateType: "date"
-  | @category="Type" stringType: "string"
-  ;
-
-lexical String
-  = @category="Constant" "\"" TextChar* "\"";
-
-lexical TextChar
-  = [\\] << [\"]
-  | ![\"]
-  ;
-
 lexical Int =
   @category="Constant" [0-9]+ !>> [0-9]
   ;
@@ -134,22 +123,6 @@ lexical Day
   = [0-2][0-9]
   | [3][0-1]
   ;
-  
-lexical Comment 
-  = @category="Comment" "/*" CommentChar* "*/"
-  | @category="Comment" "//" ![\n]* $
-  ;
-
-lexical CommentChar
-  = ![*]
-  | [*] !>> [/]
-  ;
-
-lexical Whitespace = 
-  [\u0009-\u000D \u0020 \u0085 \u00A0 \u1680 \u180E \u2000-\u200A \u2028 \u2029 \u202F \u205F \u3000];
-
-layout Standard = 
-  WhitespaceOrComment* !>> [\ \t\n\f\r] !>> "//" !>> "/*";
 
 keyword Keywords 
   = boolean: "boolean"
