@@ -48,7 +48,7 @@ form	: FORM IDENT '{' stmts '}'
 								{ $$ = new Form($2, $4); }					
 		;
 
-stmts	: stmts stmt 		    { $$ = new Stmts($1, $2); }
+stmts	: stmts stmt   		    { $$ = new Stmts($1, $2); }
         | /* empty */		 	{ $$ = new Stmts(); }
         ;
 

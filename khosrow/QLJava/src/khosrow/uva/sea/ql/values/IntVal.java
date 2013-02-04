@@ -12,7 +12,7 @@ public class IntVal extends NumericVal {
 	}
 
 	@Override
-	public int compareTo(IValue value) {
+	public int compareTo(Value value) {
 		return getValue() - ((IntVal)value).getValue();
 	}
 	

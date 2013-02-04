@@ -1,6 +1,6 @@
 package khosrow.uva.sea.ql.values;
 
-public interface IValue {
+public abstract class Value {
 	
 	/**
 	 * @param value
@@ -10,6 +10,5 @@ public interface IValue {
 	 * and a negative value if this object represents a value less than the argument.
 
 	 */
-	public int compareTo(IValue value);
-	
+	public abstract int compareTo(Value value);	
 }

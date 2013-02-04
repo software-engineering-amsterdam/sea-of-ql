@@ -1,6 +1,6 @@
 package khosrow.uva.sea.ql.values;
 
-public class BoolVal implements IValue {	
+public class BoolVal extends Value {	
 	private final Boolean value;
 	
 	public BoolVal(boolean value) {
@@ -11,7 +11,7 @@ public class BoolVal implements IValue {
 		return value;
 	}
 	
-	public int compareTo(IValue value) {
+	public int compareTo(Value value) {
 		return getValue().compareTo(((BoolVal)value).getValue());
 	}
 }
