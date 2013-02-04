@@ -40,8 +40,8 @@ private void createPage(str title, list[Question] questions, loc dest) =
   '    \<meta charset=\"utf-8\"/\>
   '    \<title\><title>\</title\>
   '    \<script type=\"text/javascript\" src=\"checking.js\"\>\</script\>
-  '    \<script type=\"text/javascript\" src=\"https://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js\"\>\</script\>
-  '    \<script type=\"text/javascript\" src=\"http://jzaefferer.github.com/jquery-validation/jquery.validate.js\"\>\</script\>
+  '    \<script type=\"text/javascript\" src=\"jquery.min.js\"\>\</script\>
+  '    \<script type=\"text/javascript\" src=\"jquery.validate.js\"\>\</script\>
   '    \<script\>
   '      $(document).ready(function(){
   '        validate<title>();

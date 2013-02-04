@@ -18,8 +18,12 @@ import lang::ql::compiler::web::JSExpressionPrinter;
 import util::ValueUI; 
 
 private str BLOCK = "Block";
+private loc JS_SRC_LOC = |project://QL-R-kemi/js/|;
 
 public void JS(Form f, loc dest) {
+  for(js <- listEntries(JS_SRC_LOC))
+    writeFile(dest + js, readFile(JS_SRC_LOC + js));
+
   dest += "checking.js";
   
   writeFile(dest, JS(f));

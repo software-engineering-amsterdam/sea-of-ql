@@ -26,7 +26,7 @@ import lang::ql::util::Parse;
 
 private str LANG_QL = "QL-R";
 private str EXT_QL = "q";
-private loc FORM_TARGET = |project://QL-R-kemi/bin/|;
+private loc FORM_TARGET = |project://QL-R-kemi/output/|;
 
 private Form implodeQL(Tree t) =
   lang::ql::util::Implode::implode(t);
@@ -45,7 +45,7 @@ private void buildQL(start[Form] f, loc l) {
     alert("The form cannot be built when it still contains errors.");
     return;
   }
-  target = buildForm(implodeQL(f), |project://QL-R-kemi/bin/|);
+  target = buildForm(implodeQL(f), FORM_TARGET);
   alert("The form is built in <target>.");
 }
 
