@@ -25,6 +25,21 @@ public class TestStmtTypeChecker {
 	}
 	
 	@Test
+	public void testAssignStmts() throws ParseError{
+		assertEquals(StmtTypeChecker.Check(parser.ParseStatement("iA = 1"), TheTestEnv.getTypeEnv(), theErrorList()), true);
+		assertEquals(StmtTypeChecker.Check(parser.ParseStatement("mA = 1.1"), TheTestEnv.getTypeEnv(), theErrorList()), true);
+		assertEquals(StmtTypeChecker.Check(parser.ParseStatement("bA = true"), TheTestEnv.getTypeEnv(), theErrorList()), true);
+		assertEquals(StmtTypeChecker.Check(parser.ParseStatement("sA = \"Text\""), TheTestEnv.getTypeEnv(), theErrorList()), true);
+		assertEquals(StmtTypeChecker.Check(parser.ParseStatement("iA = mA"), TheTestEnv.getTypeEnv(), theErrorList()), true);
+		assertEquals(StmtTypeChecker.Check(parser.ParseStatement("iA = iB"), TheTestEnv.getTypeEnv(), theErrorList()), true);
+		
+		assertEquals(StmtTypeChecker.Check(parser.ParseStatement("iA = true"), TheTestEnv.getTypeEnv(), theErrorList()), false);
+		assertEquals(StmtTypeChecker.Check(parser.ParseStatement("mA = \"Text\""), TheTestEnv.getTypeEnv(), theErrorList()), false);
+		assertEquals(StmtTypeChecker.Check(parser.ParseStatement("bA = iA"), TheTestEnv.getTypeEnv(), theErrorList()), false);
+		assertEquals(StmtTypeChecker.Check(parser.ParseStatement("sA = mA"), TheTestEnv.getTypeEnv(), theErrorList()), false);
+	}
+	
+	@Test
 	public void testIfStmts() throws ParseError{
 		assertEquals(StmtTypeChecker.Check(parser.ParseStatement("if (true) {}"), TheTestEnv.getTypeEnv(), theErrorList()), true);
 		assertEquals(StmtTypeChecker.Check(parser.ParseStatement("if (false) {}"), TheTestEnv.getTypeEnv(), theErrorList()), true);
@@ -67,5 +82,21 @@ public class TestStmtTypeChecker {
 		assertEquals(StmtTypeChecker.Check(parser.ParseStatement("if (iA == iB) { \"This is a label\" (BA + iB > iC) }"), TheTestEnv.getTypeEnv(), theErrorList()), false);
 	}
 	
-
+	@Test
+	public void testSimpleQuestionStmt() throws ParseError{
+		assertEquals(StmtTypeChecker.Check(parser.ParseStatement("Q1: \"Is this a simple question?\" boolean"), TheTestEnv.getTypeEnv(), theErrorList()), true);
+	}
+	
+	@Test
+	public void testExpressionQuestionStmt() throws ParseError{
+		assertEquals(StmtTypeChecker.Check(parser.ParseStatement("Q1 (iA >= iB): \"Is this a expression question?\" string"), TheTestEnv.getTypeEnv(), theErrorList()), true);
+		assertEquals(StmtTypeChecker.Check(parser.ParseStatement("Q1 (sA == sB): \"Is this a expression question?\" string"), TheTestEnv.getTypeEnv(), theErrorList()), true);
+		assertEquals(StmtTypeChecker.Check(parser.ParseStatement("Q1 (iA >= sB): \"Is this a expression question?\" string"), TheTestEnv.getTypeEnv(), theErrorList()), false);
+	}
+	
+	@Test
+	public void testLabelStmt() throws ParseError{
+		assertEquals(StmtTypeChecker.Check(parser.ParseStatement(" \"This is a label\" (iB > iC)"), TheTestEnv.getTypeEnv(), theErrorList()), true);
+		assertEquals(StmtTypeChecker.Check(parser.ParseStatement(" \"This is a label\" (BA * iB > iC)"), TheTestEnv.getTypeEnv(), theErrorList()), false);
+	}
 }
