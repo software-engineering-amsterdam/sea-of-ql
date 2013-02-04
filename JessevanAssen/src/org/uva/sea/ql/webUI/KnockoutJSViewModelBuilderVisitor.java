@@ -301,9 +301,4 @@ public class KnockoutJSViewModelBuilderVisitor implements
     public String visit(org.uva.sea.ql.ast.type.Unknown type, Void param) {
         throw new RuntimeException("Visit called on unknown type, no type should be unknown at this point!");
     }
-
-    @Override
-    public String visit(org.uva.sea.ql.ast.type.Void type, Void param) {
-        throw new RuntimeException("Visit called on void type. There should be no need to access the type of an Void expression.");
-    }
 }

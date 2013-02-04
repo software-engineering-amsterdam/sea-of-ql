@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Map;
 
 public class SemanticAnalyzerVisitor implements
-        StatementVisitor<Type, SemanticAnalyzerVisitor.Context>,
+        StatementVisitor<Void, SemanticAnalyzerVisitor.Context>,
         ExpressionVisitor<Type, SemanticAnalyzerVisitor.Context> {
 
     public static class Context {
@@ -31,7 +31,6 @@ public class SemanticAnalyzerVisitor implements
 	private static final Type BOOL_TYPE    = new org.uva.sea.ql.ast.type.Bool(),
 			                  INT_TYPE     = new org.uva.sea.ql.ast.type.Int(),
 			                  STRING_TYPE  = new org.uva.sea.ql.ast.type.Str(),
-			                  VOID_TYPE    = new org.uva.sea.ql.ast.type.Void(),
 			                  UNKNOWN_TYPE = new org.uva.sea.ql.ast.type.Unknown();
 
     /**
@@ -53,22 +52,22 @@ public class SemanticAnalyzerVisitor implements
 
     // Form operations
 	@Override
-	public Type visit(Computed astNode, Context context) {
+	public Void visit(Computed astNode, Context context) {
         astNode.getExpression().accept(this, context);
-		return VOID_TYPE;
+		return null;
 	}
 
     @Override
-    public Type visit(CompositeStatement astNode, Context context) {
+    public Void visit(CompositeStatement astNode, Context context) {
         for(Statement statement : astNode.getStatements())
             statement.accept(this, context);
-        return VOID_TYPE;
+        return null;
     }
 
 	@Override
-	public Type visit(Form astNode, Context context) {
+	public Void visit(Form astNode, Context context) {
 		astNode.getBody().accept(this, context);
-		return VOID_TYPE;
+		return null;
 	}
 	
 	@Override
@@ -88,18 +87,18 @@ public class SemanticAnalyzerVisitor implements
 	}
 
     @Override
-    public Type visit(If astNode, Context context) {
+    public Void visit(If astNode, Context context) {
         Type type = astNode.getCondition().accept(this, context);
         if(!type.equals(BOOL_TYPE))
             context.getErrors().add(new Error("The condition of an if-statement should have type boolean."));
 
         astNode.getIfBody().accept(this, context);
 
-        return VOID_TYPE;
+        return null;
     }
 
     @Override
-    public Type visit(IfElse astNode, Context context) {
+    public Void visit(IfElse astNode, Context context) {
         Type type = astNode.getCondition().accept(this, context);
         if(!type.equals(BOOL_TYPE))
             context.getErrors().add(new Error("The condition of an if-statement should have type boolean."));
@@ -107,25 +106,25 @@ public class SemanticAnalyzerVisitor implements
         astNode.getIfBody().accept(this, context);
         astNode.getElseBody().accept(this, context);
 
-        return VOID_TYPE;
+        return null;
     }
 
     @Override
-    public Type visit(StoredExpression astNode, Context context) {
+    public Void visit(StoredExpression astNode, Context context) {
         addTypeToSymbolTable(
                 astNode.getIdentifier(),
                 astNode.getExpression().accept(this, context),
                 context);
-        return VOID_TYPE;
+        return null;
     }
 
 	@Override
-	public Type visit(Question astNode, Context context) {
+	public Void visit(Question astNode, Context context) {
         addTypeToSymbolTable(
                 astNode.getIdentifier(),
                 astNode.getType(),
                 context);
-		return VOID_TYPE;
+		return null;
 	}
 
     private void addTypeToSymbolTable(Identifier identifier, Type type, Context context) {

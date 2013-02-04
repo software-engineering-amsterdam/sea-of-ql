@@ -40,11 +40,6 @@ public class ValueParserFactoryTests {
     }
 
     @Test(expected = RuntimeException.class)
-    public void voidTypeIsPassed_throwsException() {
-        ValueParserFactory.createValueParser(new org.uva.sea.ql.ast.type.Void());
-    }
-
-    @Test(expected = RuntimeException.class)
     public void unknownTypeIsPassed_throwsException() {
         ValueParserFactory.createValueParser(new Unknown());
     }

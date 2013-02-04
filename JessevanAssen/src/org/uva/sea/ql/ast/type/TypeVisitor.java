@@ -5,5 +5,4 @@ public interface TypeVisitor<ReturnType, ParameterType> {
     public ReturnType visit(Int     type, ParameterType param);
     public ReturnType visit(Str     type, ParameterType param);
     public ReturnType visit(Unknown type, ParameterType param);
-    public ReturnType visit(Void    type, ParameterType param);
 }

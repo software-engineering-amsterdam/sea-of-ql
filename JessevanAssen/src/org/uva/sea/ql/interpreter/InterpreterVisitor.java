@@ -18,7 +18,7 @@ import java.util.List;
 import java.util.Map;
 
 public class InterpreterVisitor implements
-        StatementVisitor<Value, InterpreterVisitor.Context>,
+        StatementVisitor<Void, InterpreterVisitor.Context>,
         ExpressionVisitor<Value, InterpreterVisitor.Context> {
 
     public static class Context {
@@ -81,12 +81,12 @@ public class InterpreterVisitor implements
     }
 
     @Override
-    public Value visit(Computed astNode, Context param) {
+    public Void visit(Computed astNode, Context param) {
         return null;
     }
 
     @Override
-    public Value visit(CompositeStatement astNode, Context param) {
+    public Void visit(CompositeStatement astNode, Context param) {
         for(Statement statement : astNode.getStatements())
             statement.accept(this, param);
         return null;
@@ -115,7 +115,7 @@ public class InterpreterVisitor implements
     }
 
     @Override
-    public Value visit(Form astNode, Context param) {
+    public Void visit(Form astNode, Context param) {
         astNode.getBody().accept(this, param);
         return null;
     }
@@ -140,14 +140,14 @@ public class InterpreterVisitor implements
     }
 
     @Override
-    public Value visit(If astNode, Context param) {
+    public Void visit(If astNode, Context param) {
         if(astNode.getCondition().accept(this, param).equals(new Bool(true)))
             astNode.getIfBody().accept(this, param);
         return null;
     }
 
     @Override
-    public Value visit(IfElse astNode, Context param) {
+    public Void visit(IfElse astNode, Context param) {
         if(astNode.getCondition().accept(this, param).equals(new Bool(true)))
             astNode.getIfBody().accept(this, param);
         else
@@ -215,7 +215,7 @@ public class InterpreterVisitor implements
     }
 
     @Override
-    public Value visit(Question astNode, Context param) {
+    public Void visit(Question astNode, Context param) {
         final Identifier identifier = astNode.getIdentifier();
         final ValueParser valueParser = ValueParserFactory.createValueParser(astNode.getType());
 
@@ -253,7 +253,7 @@ public class InterpreterVisitor implements
     }
 
     @Override
-    public Value visit(StoredExpression astNode, Context param) {
+    public Void visit(StoredExpression astNode, Context param) {
         param.getIdentifiers().put(
                 astNode.getIdentifier(),
                 astNode.getExpression().accept(this, param));
