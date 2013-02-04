@@ -12,13 +12,7 @@ public class ANTLRParser implements Parser {
 	@Override
 	public Form parse(String src) throws ParseError {
         SimpleErrorReporter errorReporter = new SimpleErrorReporter();
-		ANTLRStringStream stream = new ANTLRStringStream(src);
-		CommonTokenStream tokens = new CommonTokenStream();
-        QLLexer lexer = new QLLexer(stream);
-        lexer.setErrorReporter(errorReporter);
-		tokens.setTokenSource(lexer);
-		QLParser parser = new QLParser(tokens);
-        parser.setErrorReporter(errorReporter);
+        QLParser parser = createQLParser(src, errorReporter);
 		try {
 			Form form = parser.form();
             if(!errorReporter.hasErrors())
@@ -36,5 +30,16 @@ public class ANTLRParser implements Parser {
 			throw new ParseError(e.getMessage());
         }
 	}
+
+    private QLParser createQLParser(String src, SimpleErrorReporter errorReporter) {
+        ANTLRStringStream stream = new ANTLRStringStream(src);
+        CommonTokenStream tokens = new CommonTokenStream();
+        QLLexer lexer = new QLLexer(stream);
+        lexer.setErrorReporter(errorReporter);
+        tokens.setTokenSource(lexer);
+        QLParser parser = new QLParser(tokens);
+        parser.setErrorReporter(errorReporter);
+        return parser;
+    }
 
 }
