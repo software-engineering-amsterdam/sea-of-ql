@@ -1,11 +1,11 @@
-package org.uva.sea.ql.ast.expressions.binary.bool;
+package org.uva.sea.ql.ast.expressions.binary.relational;
 
 import org.uva.sea.ql.ast.Expr;
 import org.uva.sea.ql.ast.expressions.binary.BinaryBoolExpr;
 import org.uva.sea.ql.ast.visitors.checkexpr.Visitor;
 
-public class GT extends BinaryBoolExpr {
-	public GT(Expr lhs, Expr rhs) {
+public class GEq extends BinaryBoolExpr {
+	public GEq(Expr lhs, Expr rhs) {
 		super(lhs, rhs);
 	}
 	
