@@ -1,4 +1,4 @@
-package org.uva.sea.ql.parser.visitors.checkexpr;
+package org.uva.sea.ql.check;
 
 import java.util.List;
 import java.util.Map;
