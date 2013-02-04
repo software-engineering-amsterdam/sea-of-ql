@@ -103,19 +103,14 @@ public class SwingVisitor implements IElementVisitor{
 
 	@Override
 	public void visit(IfThen qlElement) {
-		Body body=qlElement.getIfBody();
-		Expr condition=qlElement.getCondition();
-		Value<Boolean> expr=ExprEvaluator.eval(condition,declaredVar);
-		
-		if(!expr.getValue()) return;
-		
+		Body body = qlElement.getIfBody();
+		Expr condition = qlElement.getCondition();
+		Value<Boolean> expr = ExprEvaluator.eval(condition, declaredVar);
+
+		if (!expr.getValue())
+			return;
+
 		body.accept(this);
-		
-		
-		
-		
-		
-		
 
 	}
 	

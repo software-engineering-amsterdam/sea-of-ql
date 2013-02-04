@@ -51,8 +51,8 @@ public class ExprEvaluator implements IExprVisitor<Value> {
 	public Value visit(Add node) {
 		Value left=node.getLeftExpr().accept(this);
 		Value right=node.getRightExpr().accept(this);
-		String exprType=left.isOfType(null).getClass().getSimpleName();
-		if(exprType.equals("MoneyType")){
+		boolean isMoneyCompatible=left.isOfType(null).isCompatibleToMoneyType();
+		if(isMoneyCompatible){
 			return new DecimalLit(((DecimalLit)left).getValue() + ((DecimalLit)right).getValue());
 		}
 		return new IntegerLit(((IntegerLit)left).getValue() + ((IntegerLit)right).getValue());
@@ -62,8 +62,8 @@ public class ExprEvaluator implements IExprVisitor<Value> {
 	public Value visit(Div node) {
 		Value left=node.getLeftExpr().accept(this);
 		Value right=node.getRightExpr().accept(this);
-		String exprType=left.isOfType(null).getClass().getSimpleName();
-		if(exprType.equals("MoneyType")){
+		boolean isMoneyCompatible=left.isOfType(null).isCompatibleToMoneyType();
+		if(isMoneyCompatible){
 			return new DecimalLit(((DecimalLit)left).getValue() / ((DecimalLit)right).getValue());
 		}
 		return new IntegerLit(((IntegerLit)left).getValue() / ((IntegerLit)right).getValue());
@@ -73,8 +73,8 @@ public class ExprEvaluator implements IExprVisitor<Value> {
 	public Value visit(Sub node) {
 		Value left=node.getLeftExpr().accept(this);
 		Value right=node.getRightExpr().accept(this);
-		String exprType=left.isOfType(null).getClass().getSimpleName();
-		if(exprType.equals("MoneyType")){
+		boolean isMoneyCompatible=left.isOfType(null).isCompatibleToMoneyType();
+		if(isMoneyCompatible){
 			return new DecimalLit(((DecimalLit)left).getValue() - ((DecimalLit)right).getValue());
 		}
 		return new IntegerLit(((IntegerLit)left).getValue() - ((IntegerLit)right).getValue());
@@ -84,8 +84,8 @@ public class ExprEvaluator implements IExprVisitor<Value> {
 	public Value visit(Mul node) {
 		Value left=node.getLeftExpr().accept(this);
 		Value right=node.getRightExpr().accept(this);
-		String exprType=left.isOfType(null).getClass().getSimpleName();
-		if(exprType.equals("MoneyType")){
+		boolean isMoneyCompatible=left.isOfType(null).isCompatibleToMoneyType();
+		if(isMoneyCompatible){
 			return new DecimalLit(((DecimalLit)left).getValue() * ((DecimalLit)right).getValue());
 		}
 		return new IntegerLit(((IntegerLit)left).getValue() * ((IntegerLit)right).getValue());

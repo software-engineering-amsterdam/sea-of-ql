@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 
 import net.miginfocom.swing.MigLayout;
 
@@ -20,7 +21,7 @@ public class Renderer {
 		frame.setSize(new Dimension(700, 600));
 		frame.setTitle("QL-" + qlName);
 		this.questionList = questionList;
-		content = new JPanel();
+
 		addQuestionsToPanel();
 		frame.setVisible(true);
 
@@ -29,6 +30,7 @@ public class Renderer {
 	
 
 	private void addQuestionsToPanel() {
+		content = new JPanel();
 		content.setLayout(new MigLayout());
 
 		for (JPanel question : questionList) {
@@ -38,12 +40,13 @@ public class Renderer {
 		JPanel containerPanel = new JPanel();
 		containerPanel.add(content);
 		frame.add(containerPanel);
-	}
+		}
 
 	
 	public static void refresh(List<JPanel> questionList) {
 		System.out.println("refresh");
 		content.removeAll();
+		
 
 		for (JPanel question : questionList) {
 			content.add(question, "wrap");
@@ -52,8 +55,9 @@ public class Renderer {
 		JPanel containerPanel = new JPanel();
 		containerPanel.add(content);
 		frame.add(containerPanel);
+		frame.invalidate();
 		frame.setVisible(true);
-		frame.validate();
+		
 	}
 
 	
