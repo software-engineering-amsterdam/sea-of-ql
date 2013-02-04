@@ -4,6 +4,8 @@ package org.uva.sea.ql.parser.antlr;
 import org.uva.sea.ql.ast.*;
 import org.uva.sea.ql.ast.expressions.binary.arithmetic.*;
 import org.uva.sea.ql.ast.expressions.binary.bool.*;
+import org.uva.sea.ql.ast.expressions.binary.logical.And;
+import org.uva.sea.ql.ast.expressions.binary.logical.Or;
 import org.uva.sea.ql.ast.expressions.literal.*;
 import org.uva.sea.ql.ast.expressions.unary.*;
 import org.uva.sea.ql.ast.questions.*;

@@ -4,14 +4,14 @@ import org.uva.sea.ql.ast.expressions.binary.arithmetic.Add;
 import org.uva.sea.ql.ast.expressions.binary.arithmetic.Div;
 import org.uva.sea.ql.ast.expressions.binary.arithmetic.Mul;
 import org.uva.sea.ql.ast.expressions.binary.arithmetic.Sub;
-import org.uva.sea.ql.ast.expressions.binary.bool.And;
 import org.uva.sea.ql.ast.expressions.binary.bool.Eq;
 import org.uva.sea.ql.ast.expressions.binary.bool.GEq;
 import org.uva.sea.ql.ast.expressions.binary.bool.GT;
 import org.uva.sea.ql.ast.expressions.binary.bool.LEq;
 import org.uva.sea.ql.ast.expressions.binary.bool.LT;
 import org.uva.sea.ql.ast.expressions.binary.bool.NEq;
-import org.uva.sea.ql.ast.expressions.binary.bool.Or;
+import org.uva.sea.ql.ast.expressions.binary.logical.And;
+import org.uva.sea.ql.ast.expressions.binary.logical.Or;
 import org.uva.sea.ql.ast.expressions.literal.Bool;
 import org.uva.sea.ql.ast.expressions.literal.Ident;
 import org.uva.sea.ql.ast.expressions.literal.Int;
@@ -29,15 +29,17 @@ public interface Visitor<T> {
 	T visit(Sub ast);
 	T visit(Mul ast);
 	
-	// Binary boolean expressions
+	// Binary logical expressions
 	T visit(And ast);
+	T visit(Or ast);
+	
+	// Binary relational expressions
 	T visit(Eq ast);
 	T visit(GEq ast);
 	T visit(GT ast);
 	T visit(LEq ast);
 	T visit(LT ast);
 	T visit(NEq ast);
-	T visit(Or ast);
 	
 	// Unary expressions
 	T visit(Neg ast);
