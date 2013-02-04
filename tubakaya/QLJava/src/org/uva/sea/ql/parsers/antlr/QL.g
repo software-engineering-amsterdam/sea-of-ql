@@ -16,7 +16,7 @@ import org.uva.sea.ql.ast.conditions.*;
 package org.uva.sea.ql.parsers.antlr; 
 }
 
-form returns [Form result]
+form returns [Form result] 
   : FORM IDENT '{' elements=formElementList '}' { $result = new Form($elements.result); }
   ;
 

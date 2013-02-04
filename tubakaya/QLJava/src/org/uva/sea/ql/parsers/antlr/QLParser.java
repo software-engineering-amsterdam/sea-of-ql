@@ -3,9 +3,6 @@
 package org.uva.sea.ql.parsers.antlr;
 import org.uva.sea.ql.ast.types.*; 
 import org.uva.sea.ql.ast.operations.*; 
-import org.uva.sea.ql.ast.conditions.*; 
-
-
 import org.antlr.runtime.*;
 import java.util.Stack;
 import java.util.List;
