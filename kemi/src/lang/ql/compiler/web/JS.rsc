@@ -65,7 +65,7 @@ private set[str] getConditionalVariableMembers(Statement cond) =
    };
 
 private str JS(Form f) =
-  "//THIS IS AN AUTOMATICALLY GENERATED FILE. DO NOT EDIT!
+  "// THIS IS AN AUTOMATICALLY GENERATED FILE. DO NOT EDIT!
   '
   'function validate<f.formName.ident>() {
   '  $(\"#<f.formName.ident>\").validate({
@@ -74,10 +74,10 @@ private str JS(Form f) =
   '    }
   '  });
   '
-  '  \<!-- The code to automatically generate calculated fields --\>
+  '  // The code to automatically generate calculated fields 
   '  <calculatedFields(f)>
   '
-  '  \<!-- End with control flow functionality for branches etc. --\>
+  '  // End with control flow functionality for branches etc. 
   '  <conditionalVisibility(f)>
   '}
   ";
@@ -151,7 +151,7 @@ private str conditionalVisibility(Form f) {
   }
   
   str ret = "
-    '\<!-- Hide all elements in a conditional branch on page load --\>
+    '// Hide all elements in a conditional branch on page load 
     '<for(i <- [id | c <- conditionals, /u:identDefinition(str id) <- c]) {>
     '  <hideElement(i)>
     '<}>
