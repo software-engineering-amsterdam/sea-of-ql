@@ -4,7 +4,7 @@ import org.uva.sea.ql.ast.*;
 import org.uva.sea.ql.ast.visitor.*;
 
 /**
- * Class: BinExpr
+ * Class: BinExpr.
  * @author Danny
  *
  * BinExpr: binary expression
