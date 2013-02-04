@@ -13,7 +13,7 @@ import org.uva.sea.ql.ast.eval.Env;
 import org.uva.sea.ql.ast.expressions.Ident;
 import org.uva.sea.ql.interpreter.FormElement;
 
-public class Form implements ActionListener {
+public class Form {
 
 	private Ident id;
 	private List<FormItem> body;
@@ -69,16 +69,7 @@ public class Form implements ActionListener {
 				formPanel.add(fe.getFormComponent(), fe.getProperties());
 			}
 		}
-		Button testButton = new Button("test");
-		testButton.addActionListener(this);
-		formPanel.add(testButton,"");
 		eval();
 		return formPanel;
-	}
-
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		eval();
-		System.out.println("BAM");
 	}
 }
