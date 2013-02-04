@@ -1,5 +1,9 @@
 package org.uva.sea.ql.ast.traversal.codegen;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,6 +15,7 @@ import org.uva.sea.ql.ast.form.Computation;
 import org.uva.sea.ql.ast.form.Element;
 import org.uva.sea.ql.ast.form.Form;
 import org.uva.sea.ql.ast.form.Question;
+import org.uva.sea.ql.ast.operators.base.BinaryOperator;
 import org.uva.sea.ql.ast.operators.binary.Add;
 import org.uva.sea.ql.ast.operators.binary.And;
 import org.uva.sea.ql.ast.operators.binary.Div;
@@ -48,80 +53,85 @@ public class BootstrapGenerator implements IVisitor<ST> {
 		return pageTemplate.render();
 	}
 	
+	public boolean generateFrontend(final Form form, final String outputFile) {
+		BufferedWriter bufferedWriter = null; 
+		try {
+			bufferedWriter = new BufferedWriter(new FileWriter(new File(outputFile)));
+			bufferedWriter.write(generateFrontend(form));
+		}
+		catch (IOException e) {
+			System.err.println("IO Exception: " + e.getMessage());
+			return false;
+		}
+		finally {
+			if (bufferedWriter != null) {
+				try {
+					bufferedWriter.close();
+				} catch (IOException e) { }
+			}
+		}
+		
+		return true;
+	}
+	
 	@Override
 	public ST visit(final Add add) {
-		final ST st = templateGroup.getInstanceOf("add");
-		st.add("lhs", add.getLeftHandSide().accept(this));
-		st.add("rhs", add.getRightHandSide().accept(this));
-		return st;
+		return getBinaryOperationTemplate(add, "add");
 	}
 
 	@Override
 	public ST visit(final And and) {
-		// TODO Auto-generated method stub
-		return null;
+		return getBinaryOperationTemplate(and, "and");
 	}
 
 	@Override
 	public ST visit(final Div div) {
-		// TODO Auto-generated method stub
-		return null;
+		return getBinaryOperationTemplate(div, "div");
 	}
 
 	@Override
 	public ST visit(final Eq eq) {
-		// TODO Auto-generated method stub
-		return null;
+		return getBinaryOperationTemplate(eq, "eq");
 	}
 
 	@Override
 	public ST visit(final GEq geq) {
-		// TODO Auto-generated method stub
-		return null;
+		return getBinaryOperationTemplate(geq, "geq");
 	}
 
 	@Override
 	public ST visit(final GT gt) {
-		// TODO Auto-generated method stub
-		return null;
+		return getBinaryOperationTemplate(gt, "gt");
 	}
 
 	@Override
 	public ST visit(final LEq leq) {
-		// TODO Auto-generated method stub
-		return null;
+		return getBinaryOperationTemplate(leq, "leq");
 	}
 
 	@Override
 	public ST visit(final LT lt) {
-		// TODO Auto-generated method stub
-		return null;
+		return getBinaryOperationTemplate(lt, "lt");
 	}
 
 	@Override
 	public ST visit(final Mul mul) {
-		// TODO Auto-generated method stub
-		return null;
+		return getBinaryOperationTemplate(mul, "mul");
 	}
 
 	@Override
 	public ST visit(final NEq neq) {
-		// TODO Auto-generated method stub
-		return null;
+		return getBinaryOperationTemplate(neq, "neq");
 	}
 
 	@Override
 	public ST visit(final Or or) {
-		// TODO Auto-generated method stub
-		return null;
+		return getBinaryOperationTemplate(or, "or");
 	}
 
 	@Override
 	public ST visit(final Sub sub) {
-		final ST st = templateGroup.getInstanceOf("sub");
-		st.add("lhs", sub.getLeftHandSide().accept(this));
-		st.add("rhs", sub.getRightHandSide().accept(this));
-		return st;
+		return getBinaryOperationTemplate(sub, "sub");
 	}
 
 	@Override
@@ -147,8 +157,14 @@ public class BootstrapGenerator implements IVisitor<ST> {
 
 	@Override
 	public ST visit(final Computation computation) {
-		// TODO Auto-generated method stub
-		return null;
+		final Class<? extends DataType> type = computation.getExpectedType().getClass();
+		final ST computationTemplate = templateGroup.getInstanceOf("computation");
+		
+		computationTemplate.add("id", computation.getIdent().getName());
+		computationTemplate.add("text", computation.getDescription());
+		computationTemplate.add("expression", computation.getExpression().accept(this));
+
+		return computationTemplate;
 	}
 
 	@Override
@@ -161,7 +177,7 @@ public class BootstrapGenerator implements IVisitor<ST> {
 	private List<ST> getFilledFormTemplates(final List<Element> elements) {
 		final List<ST> templates = new ArrayList<ST>();
 		for (final Element element : elements) {
-			if (element instanceof Question) { templates.add(element.accept(this)); }
+			templates.add(element.accept(this));
 		}
 		
 		return templates;
@@ -189,32 +205,40 @@ public class BootstrapGenerator implements IVisitor<ST> {
 
 	@Override
 	public ST visit(final IfThen ifThen) {
-		// TODO Auto-generated method stub
-		return null;
+		final ST template = templateGroup.getInstanceOf("if_then");
+		template.add("condition", ifThen.getCondition().accept(this));
+		template.add("success_elements", getFilledFormTemplates(ifThen.getSuccessElements()));
+		return template;
 	}
 
 	@Override
 	public ST visit(final IfThenElse ifThenElse) {
-		// TODO Auto-generated method stub
-		return null;
+		final ST template = templateGroup.getInstanceOf("if_then_else");
+		template.add("condition", ifThenElse.getCondition().accept(this));
+		template.add("success_elements", getFilledFormTemplates(ifThenElse.getSuccessElements()));
+		template.add("else_elements", getFilledFormTemplates(ifThenElse.getElseElements()));
+		return template;
 	}
 
 	@Override
 	public ST visit(final BoolLiteral bool) {
-		// TODO Auto-generated method stub
-		return null;
+		final ST st = templateGroup.getInstanceOf("boolliteral");
+		st.add("literal", bool.getValue());
+		return st;
 	}
 
 	@Override
 	public ST visit(final IntLiteral i) {
-
-		return null;
+		final ST st = templateGroup.getInstanceOf("intliteral");
+		st.add("literal", i.getValue());
+		return st;
 	}
 
 	@Override
 	public ST visit(final MoneyLiteral money) {
-		// TODO Auto-generated method stub
-		return null;
+		final ST st = templateGroup.getInstanceOf("moneyliteral");
+		st.add("literal", money.getValue());
+		return st;
 	}
 
 	@Override
@@ -226,8 +250,15 @@ public class BootstrapGenerator implements IVisitor<ST> {
 
 	@Override
 	public ST visit(final Ident ident) {
-		// TODO Auto-generated method stub
-		return null;
+		final ST st = templateGroup.getInstanceOf("ident");
+		st.add("name", ident.getName());
+		return st;
 	}
-
+	
+	private ST getBinaryOperationTemplate(final BinaryOperator operation, final String templateName) { 
+		final ST st = templateGroup.getInstanceOf(templateName);
+		st.add("lhs", operation.getLeftHandSide().accept(this));
+		st.add("rhs", operation.getRightHandSide().accept(this));
+		return st;
+	}
 }

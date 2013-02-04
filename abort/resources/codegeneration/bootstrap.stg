@@ -12,23 +12,61 @@ question_money(id, text) ::= <<
   <label class="control-label" for="$id$">$text$</label>
           <div class="controls">
             <div class="input-prepend">
-              <span class="add-on">&eur;</span>
-              <input class="span2" placeholder="" id="prependedInput" type="text" id="$id$" name="$id$">
+              <span class="add-on">&euro;</span>
+              <input placeholder="" type="text" id="$id$" name="$id$" class="input-xlarge">
             </div>
           </div>
 >>
 question_bool(id, text) ::= <<
-    <div class="control-group">
-          <label class="control-label"></label>
-          <div class="controls">
-            <label class="checkbox">
-              <input type="checkbox" value="$text$" id="$id$" name="$id$">
-            </label>
-          </div>
+   <div class="control-group">
+      <div class="controls">
+      <div class="input-prepend">
+        <span class="add-on">
+          <label class="checkbox">
+             <input type="checkbox" id="$id$" name="$id$">
+          </label>
+        </span>
+        <input placeholder="$text$" type="text" class="input-xlarge uneditable-input" readonly>
+      </div>
+   </div>
+>>
+computation(id, text, expression) ::= <<
+ <label class="control-label" for="$id$">$text$</label><div class="controls"><input id="$id$" name="$id$" type="text" placeholder="Computation" data-expression="$expression$" class="input-xlarge uneditable-input" readonly></div>
+>>
+if_then(condition, success_elements) ::= <<
+  <div class="if-then" data-condition="$condition$" data-conditional="true">
+      <div class="success-elements">
+        $success_elements$
+      </div>
+  </div>
+>>
+if_then_else(condition, success_elements, else_elements) ::= <<
+  <div class="if-then-else" data-condition="$condition$" data-conditional="true">
+    <div class="success-elements">
+      $success_elements$
+    </div>
+    <div class="else-elements">
+      $else_elements$
+    </div>
+  </div>
 >>
 pos(expression) ::= "Math.abs($expression$)"
 neg(expression) ::= "-Math.abs($expression$)"
+not(expression) ::= "!($expression$)"
 add(lhs, rhs) ::= "$lhs$ + $rhs$"
 sub(lhs, rhs) ::= "$lhs$ - $rhs$"
+and(lhs, rhs) ::= "$lhs$ && $rhs$"
+or(lhs, rhs) ::= "$lhs$ || $rhs$"
+mul(lhs, rhs) ::= "$lhs$ * $rhs$"
+div(lhs, rhs) ::= "$lhs$ / $rhs$"
+neq(lhs, rhs) ::= "$lhs$ !== $rhs$"
+eq(lhs, rhs) ::= "$lhs$ === $rhs$"
+leq(lhs, rhs) ::= "$lhs$ <= $rhs$"
+geq(lhs, rhs) ::= "$lhs$ >= $rhs$"
+gt(lhs, rhs) ::= "$lhs$ > $rhs$"
+lt(lhs, rhs) ::= "$lhs$ < $rhs$"
 stringliteral(literal) ::= "\"$literal$\""
-moneyliteral(literal) ::= "new BigDecimal(\"$literal$\")"
+moneyliteral(literal) ::= "new BigDecimal('$literal$')"
+intliteral(literal) ::= "$literal$"
+boolliteral(literal) ::= "$literal$"
+ident(name) ::= "getValue('#$name$')"

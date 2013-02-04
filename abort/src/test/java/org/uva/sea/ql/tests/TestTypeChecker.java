@@ -21,9 +21,11 @@ import org.uva.sea.ql.ast.types.Ident;
 import org.uva.sea.ql.ast.types.datatypes.*;
 import org.uva.sea.ql.ast.types.literals.*;
 
+import sun.org.mozilla.javascript.internal.Undefined;
+
 // Test the type checking functionality
 public class TestTypeChecker extends TestBase {
-	// Filenames for forms to parse and typecheck
+	// Filenames for forms to parse and type check
 	private static final String RESOURCE_FORM_VALID = "tests/form_valid.ql";
 	private static final String RESOURCE_FORM_INVALID = "tests/form_invalid.ql";
 
@@ -128,6 +130,7 @@ public class TestTypeChecker extends TestBase {
 	
 	@Test
 	public void testTemplate() {
-		System.out.println(new BootstrapGenerator().generateFrontend(validForm));
+		// System.out.println(new BootstrapGenerator().generateFrontend(validForm));
+		System.out.println(new BootstrapGenerator().generateFrontend(validForm, "resources/codegeneration/generated.html"));
 	}
 }
