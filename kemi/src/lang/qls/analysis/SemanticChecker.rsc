@@ -10,6 +10,7 @@
 
 module lang::qls::analysis::SemanticChecker
 
+import IO;
 import List;
 import Set;
 import String;
@@ -17,14 +18,28 @@ import util::IDE;
 
 import lang::qls::ast::AST;
 import lang::qls::compiler::PrettyPrinter;
+import util::LocationHelpers;
 
-import IO;
 import lang::qls::tests::ParseHelper;
 
-public set[Message] semanticChecker(Stylesheet s) = 
+public set[Message] semanticChecker(Stylesheet s) =
+  filenameDoesNotMatchErrors(s) +
   alreadyUsedQuestionErrors(s) +
   doubleNameWarnings(s) +
-  defaultRedefinitionWarnings(s);
+  defaultRedefinitionWarnings(s) +
+  accompanyingFormNotFoundWarnings(s);
+
+
+public default set[Message] filenameDoesNotMatchErrors(Stylesheet s) = 
+  {};
+
+public set[Message] filenameDoesNotMatchErrors(Stylesheet s) =
+  {error(
+    "Stylesheet name (<s.ident>) does not match filename " +
+      "(<basename(s@location)>)",
+    s@location
+  )}
+    when s.ident != basename(s@location);
 
 
 public set[Message] alreadyUsedQuestionErrors(Stylesheet s) {
@@ -35,7 +50,8 @@ public set[Message] alreadyUsedQuestionErrors(Stylesheet s) {
     i = indexOf(idents, d.ident);
     if(i >= 0) {
       errors += error(
-        "Question already used at line <questionDefinitions[i]@location.begin.line>",
+        "Question already used at line " +
+          "<questionDefinitions[i]@location.begin.line>",
         d@location
       );
     }
@@ -57,7 +73,8 @@ public set[Message] doublePageNameWarnings(Stylesheet s) {
     i = indexOf(names, d.ident);
     if(i >= 0) {
       warnings += warning(
-        "Page name already used at line <pageDefinitions[i]@location.begin.line>",
+        "Page name already used at line " +
+          "<pageDefinitions[i]@location.begin.line>",
         d@location
       );
     }
@@ -74,7 +91,8 @@ public set[Message] doubleSectionNameWarnings(Stylesheet s) {
     i = indexOf(names, d.ident);
     if(i >= 0) {
       warnings += warning(
-        "Section name already used at line <sectionDefinitions[i]@location.begin.line>",
+        "Section name already used at line " +
+          "<sectionDefinitions[i]@location.begin.line>",
         d@location
       );
     }
@@ -120,6 +138,14 @@ private list[DefaultDefinition] getDefaultRedefinitions(list[&T] definitions) {
   }
   return redefinitions;
 }
+
+private default set[Message] accompanyingFormNotFoundWarnings(Stylesheet s) =
+  {};
+
+private set[Message] accompanyingFormNotFoundWarnings(Stylesheet s) =
+  {warning("No form found with name <s.ident>", s@location)}
+    when !isFile(|project://QL-R-kemi/forms/| + "<s.ident>.q");
+
 
 public list[QuestionDefinition] getQuestionDefinitions(Stylesheet s) =
   [d | /QuestionDefinition d <- s];
