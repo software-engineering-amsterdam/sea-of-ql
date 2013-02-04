@@ -28,4 +28,9 @@ public class Add extends Binary {
 	public Type typeOf(Env environment) {
 		return new org.uva.sea.ql.ast.types.IntType();
 	}
+	
+	@Override
+	public String toString() {
+		return "(" + getLeft() + " + " + getRight() + ")";
+	}
 }

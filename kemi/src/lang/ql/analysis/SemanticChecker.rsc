@@ -1,3 +1,13 @@
+@license{
+  Copyright (c) 2013 
+  All rights reserved. This program and the accompanying materials
+  are made available under the terms of the Eclipse Public License v1.0
+  which accompanies this distribution, and is available at
+  http://www.eclipse.org/legal/epl-v10.html
+}
+@contributor{Kevin van der Vlist - kevin@kevinvandervlist.nl}
+@contributor{Jimi van der Woning - Jimi.vanderWoning@student.uva.nl}
+
 module lang::ql::analysis::SemanticChecker
 
 import List;
@@ -12,7 +22,14 @@ import util::IDE;
 
 public set[Message] semanticChecker(node form) {
   SAS sas = <(), ()>;
-  return analyzeSemantics(sas, form);
+  <sas, messages> = analyzeSemantics(sas, form);
+  return messages;
+}
+
+public SAS semanticAnalysisState(node form) {
+  SAS sas = <(), ()>;
+  <sas, messages> = analyzeSemantics(sas, form);
+  return sas;
 }
 
 private SAS merge(SAS cur, SAS add) {
@@ -24,14 +41,14 @@ private SAS merge(SAS cur, SAS add) {
   return ret;
 }
   
-private set[Message] analyzeSemantics(SAS sas, Form form) {
+private tuple[SAS sas, set[Message] messages] analyzeSemantics(SAS sas, Form form) {
   messages = {};
   for(e <- form.formElements) {
     <s, m> = analyzeSemantics(sas, e);
     messages += m;
     sas = merge(sas, s);
   }
-  return messages;
+  return <sas, messages>;
 }
 
 private State analyzeSemantics(SAS sas, 

@@ -33,14 +33,14 @@ public class TestForms {
 	}
 
 	
-	//@Test
+	@Test
 	public void testBasicForms() throws ParseError {
 		assertEquals(Form.class,parser.parseForm("form basicForm1 { question1 : \"Is everything ok? \" boolean }").getClass());
 		assertEquals(Form.class,parser.parseForm("form basicForm2 { question1 : \"How much does a burge cost? \" money }").getClass());
 		assertEquals(Form.class,parser.parseForm("form basicForm2 { question1 : \"Total money spent: \" money( 5 * 18) }").getClass());
 	}
 	
-	//@Test
+	@Test
 	public void testComplForms() throws ParseError {
 		assertEquals(Form.class, parser.parseForm("" +
 				"form testForm1 { question1 : \"How are you? \" boolean " +
@@ -50,7 +50,7 @@ public class TestForms {
 					"}").getClass());
 	}
 	
-	//@Test
+	@Test
 	public void testIfForms() throws ParseError {
 		assertEquals(Form.class, parser.parseForm(
 				"form Box1HouseOwning {" +
@@ -66,7 +66,7 @@ public class TestForms {
 					"}").getClass());
 	}
 	
-	//@Test
+	@Test
 	public void testIfThenForms() throws ParseError {
 		assertEquals(Form.class, parser.parseForm(
 				"form Box1HouseOwning {" +
@@ -84,7 +84,7 @@ public class TestForms {
 					"}").getClass());
 	}
 	
-	//@Test
+	@Test
 	public void testNestedIfForms() throws ParseError {
 		assertEquals(Form.class, parser.parseForm(
 				"form Box1HouseOwning {" +
@@ -143,7 +143,7 @@ public class TestForms {
 						"privateDebt: \"Private debts for the sold house:\" money " +
 						"valueResidue: \"Value residue:\" money(13 - 5) " +
 						"} " +
-					"else { sellingPrice: \"lastquestion:\" money " +
+					"else { sellingPrice: \"How much would you sell your house for :\" money " +
 						"} " +
 					"}").checkType(new HashMap<Ident, Type>()).size());
 		
@@ -181,13 +181,13 @@ public class TestForms {
 				"form Box1HouseOwning {" +
 					"hasSoldHouse: \"For how much did you sell your house?\" money(5+10) " +
 					"hasSoldHouse2: \"Price the house was sold for:\" boolean " +
-					"if (hasSoldHouse3 > true) {" +
+					"if (hasSoldHouse > true) {" +
 						"hasSoldHouse: \"Price the house was sold for:\" boolean " +
 						"} " +
 					"else { sellingPrice: \"lastquestion:\" money " +
 						"} " +
 					"}").checkType(new HashMap<Ident, Type>()).size());
-
+		
 	}
 	
 }

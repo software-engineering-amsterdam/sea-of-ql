@@ -1,10 +1,10 @@
 package org.uva.sea.ql.tests.interpreter.interpreterTests;
 
 import org.junit.Test;
-import org.uva.sea.ql.ast.FormElement;
 import org.uva.sea.ql.ast.IfElse;
-import org.uva.sea.ql.ast.NullFormElement;
-import org.uva.sea.ql.ast.expr.value.Bool;
+import org.uva.sea.ql.ast.NullStatement;
+import org.uva.sea.ql.ast.Statement;
+import org.uva.sea.ql.ast.expression.value.Bool;
 
 import static junit.framework.Assert.assertNull;
 import static org.mockito.Mockito.*;
@@ -13,8 +13,8 @@ public class IfElseTests extends InterpreterVisitorTests {
 
     @Test
     public void conditionIsTrue_acceptIsOnlyCalledOnIfBody() {
-        FormElement mockIfBody = mock(FormElement.class);
-        FormElement mockElseBody = mock(FormElement.class);
+        Statement mockIfBody = mock(Statement.class);
+        Statement mockElseBody = mock(Statement.class);
         IfElse ifElse = new IfElse(new Bool(true), mockIfBody, mockElseBody);
         ifElse.accept(visitor, context);
         verify(mockIfBody, times(1)).accept(visitor, context);
@@ -23,8 +23,8 @@ public class IfElseTests extends InterpreterVisitorTests {
 
     @Test
     public void conditionIsFalse_acceptIsOnlyCalledOnElseBody() {
-        FormElement mockIfBody = mock(FormElement.class);
-        FormElement mockElseBody = mock(FormElement.class);
+        Statement mockIfBody = mock(Statement.class);
+        Statement mockElseBody = mock(Statement.class);
         IfElse ifElse = new IfElse(new Bool(false), mockIfBody, mockElseBody);
         ifElse.accept(visitor, context);
         verify(mockIfBody, never()).accept(visitor, context);
@@ -33,7 +33,7 @@ public class IfElseTests extends InterpreterVisitorTests {
 
     @Test
     public void acceptIsCalled_returnsNull() {
-        IfElse ifElse = new IfElse(new Bool(true), new NullFormElement(), new NullFormElement());
+        IfElse ifElse = new IfElse(new Bool(true), new NullStatement(), new NullStatement());
         assertNull(ifElse.accept(visitor, context));
     }
 }

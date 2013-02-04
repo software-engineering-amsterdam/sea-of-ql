@@ -2,21 +2,7 @@ package khosrow.uva.sea.ql.parser.test;
 
 import static org.junit.Assert.assertEquals;
 
-
-import khosrow.uva.sea.ql.ast.expr.Add;
-import khosrow.uva.sea.ql.ast.expr.And;
-import khosrow.uva.sea.ql.ast.expr.BoolLiteral;
-import khosrow.uva.sea.ql.ast.expr.GT;
-import khosrow.uva.sea.ql.ast.expr.Ident;
-import khosrow.uva.sea.ql.ast.expr.IntLiteral;
-import khosrow.uva.sea.ql.ast.expr.LEq;
-import khosrow.uva.sea.ql.ast.expr.LT;
-import khosrow.uva.sea.ql.ast.expr.MoneyLiteral;
-import khosrow.uva.sea.ql.ast.expr.Mul;
-import khosrow.uva.sea.ql.ast.expr.Neg;
-import khosrow.uva.sea.ql.ast.expr.Not;
-import khosrow.uva.sea.ql.ast.expr.Pos;
-import khosrow.uva.sea.ql.ast.expr.StringLiteral;
+import khosrow.uva.sea.ql.ast.expr.*;
 import khosrow.uva.sea.ql.parser.jacc.JACCParser;
 
 import org.junit.Before;
@@ -43,6 +29,7 @@ public class TestExpressions {
 		assertEquals(parser.ParseExpression("(a + b)").getClass(), Add.class);
 		assertEquals(parser.ParseExpression("a + b * c").getClass(), Add.class);
 		assertEquals(parser.ParseExpression("a * b + c").getClass(), Add.class);
+		assertEquals(parser.ParseExpression("1 * 2 + 3").getClass(), Add.class);
 	}
 
 	@Test
@@ -71,6 +58,8 @@ public class TestExpressions {
 	public void testBools() throws ParseError {
 		assertEquals(parser.ParseExpression("!b").getClass(), Not.class);
 		assertEquals(parser.ParseExpression("a && b").getClass(), And.class);
+		assertEquals(parser.ParseExpression("a || b").getClass(), Or.class);
+		assertEquals(parser.ParseExpression("a == b").getClass(), Eq.class);
 		assertEquals(parser.ParseExpression("a > b && b > c").getClass(), And.class);
 		assertEquals(parser.ParseExpression("(a > b) && (b > c)").getClass(), And.class);
 	}

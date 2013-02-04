@@ -2,10 +2,11 @@ package org.uva.sea.ql.ast.expression.impl;
 
 import org.uva.sea.ql.ast.exception.InvalidTypeException;
 import org.uva.sea.ql.ast.expression.ExprNode;
-import org.uva.sea.ql.ast.value.ValueNode;
-import org.uva.sea.ql.ast.value.impl.IntegerNode;
-import org.uva.sea.ql.ast.value.impl.MoneyNode;
-import org.uva.sea.ql.ast.value.impl.StringNode;
+import org.uva.sea.ql.ast.value.Value;
+import org.uva.sea.ql.ast.value.impl.IntegerValue;
+import org.uva.sea.ql.ast.value.impl.MoneyValue;
+import org.uva.sea.ql.ast.value.impl.NumericValue;
+import org.uva.sea.ql.ast.value.impl.StringValue;
 
 public class AddNode extends ExprNode
 {
@@ -19,27 +20,17 @@ public class AddNode extends ExprNode
     }
 
     @Override
-    public ValueNode evaluate()
+    public Value evaluate()
     {
-        final ValueNode valueNode1 = this.lhs.evaluate();
-        final ValueNode valueNode2 = this.rhs.evaluate();
+        final Value value1 = this.lhs.evaluate();
+        final Value value2 = this.rhs.evaluate();
 
-        final ValueNode result;
-        if(valueNode1.isStringNode() || valueNode2.isStringNode())
+        final Value result;
+        if(value1.isCompatibleTo(value2))
         {
-            result = new StringNode(valueNode1.getValue() + "" + valueNode2.getValue());
-        }
-        else if(valueNode1.isIntegerNode() && valueNode2.isIntegerNode())
-        {
-            final IntegerNode integerNode1 = valueNode1.asIntegerNode();
-            final IntegerNode integerNode2 = valueNode2.asIntegerNode();
-            result = new IntegerNode(integerNode1.getValue() + integerNode2.getValue());
-        }
-        else if(valueNode1.isMoneyNode() && valueNode2.isMoneyNode())
-        {
-            final MoneyNode moneyNode1 = valueNode1.asMoneyNode();
-            final MoneyNode moneyNode2 = valueNode2.asMoneyNode();
-            result = new MoneyNode(moneyNode1.getValue().add(moneyNode2.getValue()));
+            final NumericValue numericValue1 = value1.asNumericValue();
+            final NumericValue numericValue2 = value2.asNumericValue();
+            result = numericValue1.add(numericValue2);
         }
         else
         {
@@ -50,7 +41,7 @@ public class AddNode extends ExprNode
     }
 
     @Override
-    public String toTreeString(String indent)
+    public String toTreeString(final String indent)
     {
         return '\n' + indent + "+" + lhs.toTreeString(indent + "  ")
                 + rhs.toTreeString(indent + "  ");

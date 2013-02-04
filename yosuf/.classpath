@@ -5,7 +5,9 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="lib" path="/Users/yosuf/Development/Workspace/sea-of-ql/yosuf/lib/jacc/jacc.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
-	<classpathentry kind="lib" path="/Users/yosuf/Development/Workspace/sea-of-ql/yosuf/lib/useful-3.1.6-sources.jar"/>
-	<classpathentry kind="lib" path="/Users/yosuf/Development/Workspace/sea-of-ql/yosuf/lib/useful-3.1.6.jar" sourcepath="/Users/yosuf/Development/Workspace/sea-of-ql/yosuf/lib/useful-3.1.6-sources.jar"/>
+	<classpathentry kind="lib" path="/Users/yosuf/Development/Workspace/sea-of-ql/yosuf/lib/findbugs/annotations.jar"/>
+	<classpathentry kind="lib" path="/Users/yosuf/Development/Workspace/sea-of-ql/yosuf/lib/useful/useful-3.1.6-sources.jar"/>
+	<classpathentry kind="lib" path="/Users/yosuf/Development/Workspace/sea-of-ql/yosuf/lib/useful/useful-3.1.6.jar"/>
+	<classpathentry kind="lib" path="/Users/yosuf/Development/Workspace/sea-of-ql/yosuf/lib/jpatterns/jpatterns-0.0.1.jar" sourcepath="lib/jpatterns/jpatterns-0.0.1-sources.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

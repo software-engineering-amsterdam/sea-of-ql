@@ -1,8 +1,0 @@
-The responsibilities of the type checker:
-
--  Variables aren't redeclared.
--  +, -, *, /, <, >, <=, >= have integers on both sides
--  -( ), +( ) have integers as its expression
--  ==, != have equal types
--  !( ), &&, || have booleans on both sides
--  ifs have booleans as their expression

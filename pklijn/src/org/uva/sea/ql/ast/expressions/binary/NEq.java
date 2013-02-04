@@ -24,4 +24,9 @@ public class NEq extends Binary {
 	public Type typeOf(Env environment) {
 		return new org.uva.sea.ql.ast.types.BoolType();
 	}
+	
+	@Override
+	public String toString() {
+		return "(" + getLeft() + " != " + getRight() + ")";
+	}
 }

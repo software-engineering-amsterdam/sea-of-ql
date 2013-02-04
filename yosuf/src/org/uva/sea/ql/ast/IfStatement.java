@@ -3,10 +3,12 @@ package org.uva.sea.ql.ast;
 import static julius.validation.Assertions.state;
 
 import org.uva.sea.ql.ast.exp.Expression;
+import org.uva.sea.ql.visitor.ASTNodeVisitor;
 
-public class IfStatement implements ASTNode {
+public class IfStatement extends Statement {
+
 	private final Expression expression;
-	private final CompoundStatement compound;
+	private final CompoundStatement ifCompound;
 
 	/**
 	 * 
@@ -19,10 +21,19 @@ public class IfStatement implements ASTNode {
 			final CompoundStatement compound) {
 
 		this.expression = expression;
-		this.compound = compound;
+		ifCompound = compound;
 
 		state.assertNotNull(this.expression, "IfStatement.expression");
-		state.assertNotNull(this.compound, "IfStatement.compound");
+		state.assertNotNull(ifCompound, "IfStatement.compound");
+	}
+
+	public CompoundStatement getIfCompound() {
+		return ifCompound;
+	}
+
+	@Override
+	public void accept(final ASTNodeVisitor visitor) {
+		visitor.visit(this);
 	}
 
 }

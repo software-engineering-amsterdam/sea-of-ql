@@ -10,9 +10,15 @@ import org.uva.sea.ql.parser.test.ParseError;
 import org.uva.sea.ql.parser.test.form.Parser;
 
 public class Program {
+	private final static int FormLocation = 0;
 
 	public static void main(String[] args) {
-		String formText = Program.readResourceContent("questionForm.txt");
+		if (args.length != 1) {
+			throw new IllegalArgumentException("Example use: Program form.ql");
+		}
+
+		String formText = Program
+				.readResourceContent(args[Program.FormLocation]);
 
 		Question questionForm = null;
 

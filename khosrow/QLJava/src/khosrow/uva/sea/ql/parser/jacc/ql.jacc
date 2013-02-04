@@ -13,7 +13,7 @@
 %token '!' '+' '-' '/' '%' '*' '+' '-'
 %token '{' '(' ':' ')' '}'
 %token '>' '<' EQ NEQ GEQ LEQ AND OR
-%token FORM IF
+%token FORM IF BECOMES
 
 %left OR
 %left AND
@@ -52,7 +52,9 @@ stmts	: stmts stmt 		    { $$ = new Stmts($1, $2); }
         | /* empty */		 	{ $$ = new Stmts(); }
         ;
 
-stmt	: IF '(' expr ')' '{' stmts '}'
+stmt	: IDENT BECOMES expr
+								{ $$ = new Assign($1, $3); }
+		| IF '(' expr ')' '{' stmts '}'
 								{ $$ = new If($3, $6); }		
 		| STRING_LITERAL '(' expr ')'
 								{ $$ = new Label($1, $3); }		

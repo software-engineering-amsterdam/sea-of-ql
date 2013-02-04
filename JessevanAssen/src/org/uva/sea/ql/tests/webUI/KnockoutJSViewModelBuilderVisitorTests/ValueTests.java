@@ -1,7 +1,9 @@
 package org.uva.sea.ql.tests.webUI.KnockoutJSViewModelBuilderVisitorTests;
 
 import org.junit.Test;
-import org.uva.sea.ql.ast.expr.value.*;
+import org.uva.sea.ql.ast.expression.value.Bool;
+import org.uva.sea.ql.ast.expression.value.Int;
+import org.uva.sea.ql.ast.expression.value.Str;
 
 import static org.junit.Assert.assertEquals;
 

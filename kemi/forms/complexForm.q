@@ -3,12 +3,12 @@ form complexForm {
 	if(abool && true) {
 		"Should be simplified to if(abool)" boolean abool2
 	} else {
-		"This went wrong" money cost
+		"This went wrong" boolean abool3
 	}
 	if(! (true && true)) {
-		"Should eval to false" boolean abool3
+		"Should eval to false" boolean abool4
 	}
 	if(! (true || false) || !(true && false)) {
-		"Should eval to false" boolean abool4
+		"Should eval to false" boolean abool5
 	}
 }

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import org.uva.sea.ql.ast.BigLiteral;
 import org.uva.sea.ql.ast.BinExpr;
 import org.uva.sea.ql.ast.BooleanLiteral;
 import org.uva.sea.ql.ast.CompoundStatement;
@@ -31,8 +32,8 @@ import org.uva.sea.ql.ast.operators.Not;
 import org.uva.sea.ql.ast.operators.Or;
 import org.uva.sea.ql.ast.operators.Pos;
 import org.uva.sea.ql.ast.operators.Sub;
-import org.uva.sea.ql.ast.types.TypeDescription;
 import org.uva.sea.ql.ast.types.BooleanType;
+import org.uva.sea.ql.ast.types.TypeDescription;
 
 public class TypeCheckVisitor implements Visitor {
 
@@ -40,6 +41,10 @@ public class TypeCheckVisitor implements Visitor {
 
 	private final HashMap<String, Statement> symbolMap = new HashMap<String, Statement>();
 
+	public int getErrorCount() {
+		return errorList.size() ;
+	}
+	
 	@Override
 	public VisitorResult visit(final Ident id) {
 		LineStatement lineStatement;
@@ -81,12 +86,12 @@ public class TypeCheckVisitor implements Visitor {
 	@Override
 	public VisitorResult visit(final LineStatement lineStatement) {
 		// Add symbols to the symbolmap so the visitor of the
-		// expression can test their existance.
+		// expression can test their existence.
 		if (symbolMap.get(lineStatement.getLineId().getName()) == null) {
 			// New symbol in map .get returned null
 			symbolMap.put(lineStatement.getLineId().getName(), lineStatement);
 		} else {
-			// Error Symbol allready exists.
+			// Error Symbol already exists.
 			errorList.add("Line(" + lineStatement.getLine() + "," + lineStatement.getCharPositionInLine() + ") Field :"
 					+ lineStatement.getLineName() + " has multiple definitions.");
 		}
@@ -123,7 +128,7 @@ public class TypeCheckVisitor implements Visitor {
 		expr.getExprLeftHand().accept(this);
 		expr.getExprRightHand().accept(this);
 
-		// Do two checks on compatability because Money is compatible to Integer
+		// Do two checks on compatibility because Money is compatible to Integer
 		// but not the other way around. The order in the expression is unknown
 		//
 		if ((expr.getExprLeftHand().typeOf(symbolMap).isCompatibleTo(expr.getExprRightHand().typeOf(symbolMap)))) {
@@ -134,7 +139,7 @@ public class TypeCheckVisitor implements Visitor {
 		}
 		
 		/***
-		 * Due to empty AST expression nodes no availble line
+		 * Due to empty AST expression nodes no available line
 		 * numbers/positions. (Annotation of AST would be nice?)
 		 */
 		errorList.add("Line(nan,nan) Expression: incompatible types on operator: " + operator + ".");
@@ -207,7 +212,7 @@ public class TypeCheckVisitor implements Visitor {
 	public VisitorResult visit(final GT expr) {
 		if (lhsRhsCompatible(expr, ">")) {
 			if (expr.typeOf(symbolMap).isCompatibleTo(expr.getExprLeftHand().typeOf(symbolMap))) {
-				errorList.add("Line(nan,nan) Expression: operator < on boolean operands.");
+				errorList.add("Line(nan,nan) Expression: operator > on boolean operands.");
 			}
 		}
 		return null;
@@ -227,7 +232,7 @@ public class TypeCheckVisitor implements Visitor {
 	public VisitorResult visit(final LEq expr) {
 		if (lhsRhsCompatible(expr, "<=")) {
 			if (expr.typeOf(symbolMap).isCompatibleTo(expr.getExprLeftHand().typeOf(symbolMap))) {
-				errorList.add("Line(nan,nan) Expression: operator < on boolean operands.");
+				errorList.add("Line(nan,nan) Expression: operator <= on boolean operands.");
 			}
 		}
 		return null;
@@ -237,7 +242,7 @@ public class TypeCheckVisitor implements Visitor {
 	public VisitorResult visit(final GEq expr) {
 		if (lhsRhsCompatible(expr, ">=")) {
 			if (expr.typeOf(symbolMap).isCompatibleTo(expr.getExprLeftHand().typeOf(symbolMap))) {
-				errorList.add("Line(nan,nan) Expression: operator > on boolean operands.");
+				errorList.add("Line(nan,nan) Expression: operator >= on boolean operands.");
 			}
 		}
 		return null;
@@ -293,5 +298,10 @@ public class TypeCheckVisitor implements Visitor {
 
 	public List<String> getErrorList() {
 		return errorList;
+	}
+
+	@Override
+	public VisitorResult visit(BigLiteral expr) {
+		return null;
 	}
 }

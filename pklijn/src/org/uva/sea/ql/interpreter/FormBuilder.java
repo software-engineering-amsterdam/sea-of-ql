@@ -7,6 +7,9 @@ import java.io.IOException;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JTextArea;
+
+import net.miginfocom.swing.MigLayout;
 
 import org.uva.sea.ql.form.Form;
 import org.uva.sea.ql.parser.antlr.ANTLRParser;
@@ -29,8 +32,9 @@ public class FormBuilder {
 				displayForm(form1.buildForm(), form1.getName());
 			}
 			else {
-				System.out.println("ERRORS FOUND!!!");
-				form1.print();
+				JPanel panel = new JPanel(new MigLayout());
+				panel.add(new JTextArea(form1.getPrintableText()));
+				displayForm(panel ,"Errors found!");
 			}
 		}
 		catch (ParseError e) {

@@ -1,7 +1,7 @@
 package org.uva.sea.ql.interpreter.valueParser;
 
-import org.uva.sea.ql.ast.expr.value.Int;
-import org.uva.sea.ql.ast.expr.value.Value;
+import org.uva.sea.ql.ast.expression.value.Int;
+import org.uva.sea.ql.ast.expression.value.Value;
 
 public class IntValueParser implements ValueParser {
     private static final Int DEFAULT = new Int(-1);
@@ -12,7 +12,7 @@ public class IntValueParser implements ValueParser {
             return new Int(Integer.parseInt(value));
         } catch(NumberFormatException ex) {
             throw new ValueParserException(
-                    String.format("The value '%s' can't be parsed as an Int.", value),
+                    String.format("The value '%s' can't be parsed as an Integer.", value),
                     ex
             );
         }

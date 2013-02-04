@@ -1,7 +1,7 @@
 package org.uva.sea.ql.ast;
 
 import org.uva.sea.ql.ast.expression.ExprNode;
-import org.uva.sea.ql.ast.value.ValueNode;
+import org.uva.sea.ql.ast.value.Value;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,39 +15,40 @@ public class IfNode implements Node
         this.branches = new ArrayList<>();
     }
 
-    public void addBranch(final ExprNode exprNode, final Node statementBlock)
+    public void addBranch(final ExprNode exprNode, final Node block)
     {
-        this.branches.add(new Branch(exprNode, statementBlock));
+        this.branches.add(new Branch(exprNode, block));
     }
 
-    @Override
-    public ValueNode evaluate()
+    // TODO move this code to GUI interpreter
+    public Value evaluate()
     {
         for(final Branch branch : branches)
         {
-            ValueNode valueNode = branch.exprNode.evaluate();
-            if(!valueNode.isBooleanNode())
+            Value value = branch.evaluateExpression();
+            if(!value.isCompatibleToBoolean())
             {
-                throw new RuntimeException("illegal boolean expression inside if-statementBlock: " + branch.exprNode.toTreeString(" "));
+                throw new RuntimeException("illegal boolean expression inside if-block: " + branch.exprNode.toTreeString(" "));
             }
 
-            if(valueNode.asBooleanNode().getValue())
+            if(value.asBooleanValue().getValue())
             {
-                return branch.statementBlock.evaluate();
+//                return branch.block.evaluate();
+                return null;
             }
         }
 
-        return ValueNode.VOID;
+        return null;
     }
 
     @Override
-    public String toTreeString(String indent)
+    public String toTreeString(final String indent)
     {
         final StringBuilder stringBuilder = new StringBuilder();
         for(final Branch branch : branches)
         {
             stringBuilder.append(branch.exprNode.toTreeString(indent + "  "))
-                    .append(branch.statementBlock.toTreeString(indent + "  "));
+                    .append(branch.block.toTreeString(indent + "  "));
         }
         return stringBuilder.toString();
     }
@@ -55,12 +56,17 @@ public class IfNode implements Node
     private class Branch
     {
         private final ExprNode exprNode;
-        private final Node statementBlock;
+        private final Node block;
 
-        private Branch(final ExprNode exprNode, final Node statementBlock)
+        private Branch(final ExprNode exprNode, final Node block)
         {
             this.exprNode = exprNode;
-            this.statementBlock = statementBlock;
+            this.block = block;
+        }
+
+        private Value evaluateExpression()
+        {
+            return exprNode.evaluate();
         }
     }
 }

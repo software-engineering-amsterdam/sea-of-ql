@@ -2,8 +2,8 @@ package org.uva.sea.ql.ast.questions;
 
 import org.uva.sea.ql.ast.Expr;
 import org.uva.sea.ql.ast.Question;
-import org.uva.sea.ql.ast.values.Ident;
-import org.uva.sea.ql.ast.values.Str;
+import org.uva.sea.ql.ast.expressions.literal.Ident;
+import org.uva.sea.ql.ast.expressions.literal.Str;
 
 public class ComputedQuestion extends Question {
 	private final Expr _expression;

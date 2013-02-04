@@ -1,6 +1,7 @@
 package khosrow.uva.sea.ql.ast.stmt;
 
 import khosrow.uva.sea.ql.ast.expr.Expr;
+import khosrow.uva.sea.ql.visitor.IStmtVisitor;
 
 
 public class If extends Stmt {
@@ -19,5 +20,11 @@ public class If extends Stmt {
 
 	public Stmts getBody() {
 		return body;
+	}
+
+	@Override
+	public void accept(IStmtVisitor visitor) {
+		// TODO Auto-generated method stub
+		
 	}
 }

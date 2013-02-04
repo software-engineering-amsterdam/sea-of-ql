@@ -1,5 +1,7 @@
 module lang::qls::ast::AST
 
+import lang::ql::ast::AST;
+
 data FormStyle = style(str name, list[StyleRule] rules); 
 
 data StyleRule
@@ -27,8 +29,10 @@ data WidgetType
   | radio(str name)
   | slider(str name)
   | dial(str name)
-  | spinbox(str name);
-  
+  | spinbox(str name)
+  | dateedit(str name)
+  | lineedit(str name)
+  | doublespinbox(str name);
 
 data Type
   = \bool(str name)
@@ -41,4 +45,4 @@ data Type
 anno loc FormStyle@location;
 anno loc StyleRule@location;
 anno loc Rule@location;  
-  
+anno WidgetType Type@widget;

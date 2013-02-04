@@ -2,6 +2,9 @@ package org.uva.sea.ql.ast.value;
 
 import static julius.validation.Assertions.state;
 
+import org.uva.sea.ql.visitor.ASTNodeVisitor;
+import org.uva.sea.ql.visitor.ExpressionVisitor;
+
 public class IntegerValue extends Value {
 
 	private final int value;
@@ -12,6 +15,7 @@ public class IntegerValue extends Value {
 	 *            (not null)
 	 */
 	public IntegerValue(final int value) {
+		super();
 		this.value = value;
 		state.assertNotNull(this.value, "Integer.value");
 	}
@@ -20,4 +24,18 @@ public class IntegerValue extends Value {
 		return value;
 	}
 
+	@Override
+	public void accept(final ASTNodeVisitor visitor) {
+		visitor.visit(this);
+	}
+
+	@Override
+	public <T> T accept(final ExpressionVisitor<T> visitor) {
+		return visitor.visit(this);
+	}
+
+	@Override
+	public Nature getNature() {
+		return Nature.NUMERIC;
+	}
 }

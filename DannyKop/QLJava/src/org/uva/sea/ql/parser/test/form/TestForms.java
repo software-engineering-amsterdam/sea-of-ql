@@ -5,6 +5,7 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 import org.uva.sea.ql.ast.form.Form;
 import org.uva.sea.ql.ast.form.Question;
+import org.uva.sea.ql.ast.types.Str;
 import org.uva.sea.ql.ast.visitor.SymbolTable;
 import org.uva.sea.ql.parser.test.*;
 
@@ -30,6 +31,6 @@ public class TestForms extends TestParser {
 		assertEquals(Question.class, f.getElements().get(0).getClass());
 		assertEquals(((Question)f.getElements().get(0)).getIdent().getName(), "naam" );
 		assertEquals(((Question)f.getElements().get(0)).getQuestion().getValue(), "\"Wat is uw naam?\"" );
-		assertEquals(((Question)f.getElements().get(0)).getType(new SymbolTable()), "string" );
+		assertEquals(((Question)f.getElements().get(0)).getType(new SymbolTable()).getClass() , Str.class );
 	}
 }

@@ -36,4 +36,8 @@ public class Int extends Expr {
 		return errors;
 	}
 	
+	@Override
+	public String toString() {
+		return Integer.toString(value);
+	}
 }

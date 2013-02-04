@@ -2,9 +2,9 @@ package org.uva.sea.ql.ast.visitor;
 
 import org.uva.sea.ql.ast.Expr;
 import org.uva.sea.ql.ast.Form;
-import org.uva.sea.ql.ast.Question;
 import org.uva.sea.ql.ast.Statement;
 import org.uva.sea.ql.ast.Type;
+import org.uva.sea.ql.ast.Value;
 import org.uva.sea.ql.ast.expressions.Add;
 import org.uva.sea.ql.ast.expressions.And;
 import org.uva.sea.ql.ast.expressions.Div;
@@ -20,16 +20,16 @@ import org.uva.sea.ql.ast.expressions.Not;
 import org.uva.sea.ql.ast.expressions.Or;
 import org.uva.sea.ql.ast.expressions.Pos;
 import org.uva.sea.ql.ast.expressions.Sub;
-import org.uva.sea.ql.ast.statements.ComQuestions;
-import org.uva.sea.ql.ast.statements.Ifthen;
+import org.uva.sea.ql.ast.statements.ComQuestion;
+import org.uva.sea.ql.ast.statements.IfThen;
 import org.uva.sea.ql.ast.statements.Ifthenelse;
-import org.uva.sea.ql.ast.statements.Questions;
-import org.uva.sea.ql.ast.types.Bool;
-import org.uva.sea.ql.ast.types.Ident;
-import org.uva.sea.ql.ast.types.Int;
-import org.uva.sea.ql.ast.types.String_lit;
+import org.uva.sea.ql.ast.statements.Question;
+import org.uva.sea.ql.ast.values.Bool;
+import org.uva.sea.ql.ast.values.Ident;
+import org.uva.sea.ql.ast.values.Int;
+import org.uva.sea.ql.ast.values.String_lit;
 
-public class Visitorclass implements Visitorinterface {
+public class VisitorClass implements Visitor {
 
 	@Override
 	public void visit(Add add) {
@@ -128,13 +128,13 @@ public class Visitorclass implements Visitorinterface {
 	}
 
 	@Override
-	public void visit(ComQuestions comquestions) {
+	public void visit(ComQuestion comquestions) {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void visit(Ifthen ifthen) {
+	public void visit(IfThen ifthen) {
 		// TODO Auto-generated method stub
 		
 	}
@@ -146,7 +146,7 @@ public class Visitorclass implements Visitorinterface {
 	}
 
 	@Override
-	public void visit(Questions questions) {
+	public void visit(Question question) {
 		// TODO Auto-generated method stub
 		
 	}
@@ -194,10 +194,12 @@ public class Visitorclass implements Visitorinterface {
 	}
 
 	@Override
-	public void visit(Question question) {
+	public void visit(Value value) {
 		// TODO Auto-generated method stub
 		
 	}
+
+	
 	
 	
 	
