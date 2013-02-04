@@ -1,7 +1,7 @@
 --------------------------------------------------------------------------------
 - QL                                                                           -
 --------------------------------------------------------------------------------
-* Whens instead of if thingies in typecheck
+* Think of something to do.
 
 BONUS:
 * HTML templating
@@ -32,12 +32,8 @@ BONUS:
 * Coupling
 * Checking of the QLS language against the QL language
 * Compiler
-
 * Refactoring
 * Adding comments
-* Adding header comments (@author etc.)
-
-
 
 
 Page: <div class="page"> ... </div>

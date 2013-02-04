@@ -41,7 +41,7 @@ private str assignVar(str ident) =
   '  <ident> = $(\"#<ident>\").val();
   '}";
   
-private list[str] getDirectDescendingIdents(Statement cond) {
+private set[str] getDirectDescendingIdents(Statement cond) {
   list[Statement] items = cond.ifPart.body;
   
   for(ei <- cond.elseIfs)
@@ -53,16 +53,16 @@ private list[str] getDirectDescendingIdents(Statement cond) {
   return getDirectDescendingIdents(items);
 }
 
-private list[str] getDirectDescendingIdents(list[Statement] items) =
-  [q.answerIdentifier.ident | i <- items, question(Question q) := i];
+private set[str] getDirectDescendingIdents(list[Statement] items) =
+  {q.answerIdentifier.ident | i <- items, question(Question q) := i};
   
-private list[str] getConditionalVariableMembers(Statement cond) =
-  [
+private set[str] getConditionalVariableMembers(Statement cond) =
+  {
     name | 
     /x:ident(name) <- 
       [cond.ifPart.condition] + 
       [x.condition | x <- cond.elseIfs]
-   ];
+   };
 
 private str JS(Form f) =
   "//THIS IS AN AUTOMATICALLY GENERATED FILE. DO NOT EDIT!

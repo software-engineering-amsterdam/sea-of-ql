@@ -43,7 +43,7 @@ private str createPHP(Statement item: question(Question question)) =
 private str createPHP(Question q: 
   question(_, answerDataType, answerIdentifier)) =
     "<validator(answerDataType, answerIdentifier.ident)>
-   ' lo<caddToArray(answerDataType.name, answerIdentifier.ident)>
+   ' <addToArray(answerDataType.name, answerIdentifier.ident)>
     ";
 
 private str createPHP(Question q: 
