@@ -16,6 +16,9 @@ public QLTENV checkExp(exp:boolCon(bool B), Type req, QLTENV env) =
 public QLTENV checkExp(exp:moneyCon(int I), Type req, QLTENV env) =
  req == money() ? env : addError(env, exp@location, required(req, "money"));
  
+public QLTENV checkExp(exp:integer(int I), Type req, QLTENV env) = 
+ req == integer() ? env : addError(env, exp@location, required(req, "integer"));
+ 
 public QLTENV checkExp(exp:id(str id), Type req, QLTENV env) {
   if(env.question[id] == {}){
   	return addError(env, exp@location, "Undeclared variable <id>");
@@ -27,6 +30,7 @@ public QLTENV checkExp(exp:id(str id), Type req, QLTENV env) {
   
 }
 
+// CHECK MONEY EXPRESSIONS
 public QLTENV checkExp(exp:add(EXP E1, EXP E2), Type req, QLTENV env) =                        
   req == money() ? checkExp(E1, money(), checkExp(E2, money(), env))
                    : addError(env, exp@location, required(req, "money"));
@@ -62,7 +66,8 @@ public QLTENV checkExp(exp:geq(EXP E1, EXP E2), Type req, QLTENV env) =
 public QLTENV checkExp(exp:eq(EXP E1, EXP E2), Type req, QLTENV env) =                      
   req == money() ? checkExp(E1, money(), checkExp(E2, money(), env))
                    : addError(env, exp@location, required(req, "money"));
-                   
+
+// CHECK STRING EXPRESSIONS                    
 public QLTENV checkExp(exp:or(EXP E1, EXP E2), Type req, QLTENV env) =                    
   req == string() ? checkExp(E1, string(), checkExp(E2, string(), env))
                    : addError(env, exp@location, required(req, "string"));
@@ -70,3 +75,40 @@ public QLTENV checkExp(exp:or(EXP E1, EXP E2), Type req, QLTENV env) =
 public QLTENV checkExp(exp:and(EXP E1, EXP E2), Type req, QLTENV env) =                    
   req == string() ? checkExp(E1, string(), checkExp(E2, string(), env))
                    : addError(env, exp@location, required(req, "string"));
+                   
+// CHECK INTEGER EXPRESSIONS                 
+public QLTENV checkExp(exp:add(EXP E1, EXP E2), Type req, QLTENV env) =                        
+  req == integer() ? checkExp(E1, integer(), checkExp(E2, integer(), env))
+                   : addError(env, exp@location, required(req, "integer"));
+  
+public QLTENV checkExp(exp:sub(EXP E1, EXP E2), Type req, QLTENV env) =                      
+  req == integer() ? checkExp(E1, integer(), checkExp(E2, integer(), env))
+                   : addError(env, exp@location, required(req, "integer"));
+                   
+public QLTENV checkExp(exp:mul(EXP E1, EXP E2), Type req, QLTENV env) =                      
+  req == integer() ? checkExp(E1, integer(), checkExp(E2, integer(), env))
+                   : addError(env, exp@location, required(req, "integer"));
+                   
+public QLTENV checkExp(exp:div(EXP E1, EXP E2), Type req, QLTENV env) =                      
+  req == integer() ? checkExp(E1, integer(), checkExp(E2, integer(), env))
+                   : addError(env, exp@location, required(req, "integer"));
+                   
+public QLTENV checkExp(exp:lt(EXP E1, EXP E2), Type req, QLTENV env) =                      
+  req == integer() ? checkExp(E1, integer(), checkExp(E2, integer(), env))
+                   : addError(env, exp@location, required(req, "integer"));
+                   
+public QLTENV checkExp(exp:leq(EXP E1, EXP E2), Type req, QLTENV env) =                      
+  req == integer() ? checkExp(E1, integer(), checkExp(E2, integer(), env))
+                   : addError(env, exp@location, required(req, "integer"));
+                   
+public QLTENV checkExp(exp:gt(EXP E1, EXP E2), Type req, QLTENV env) =                      
+  req == integer() ? checkExp(E1, integer(), checkExp(E2, integer(), env))
+                   : addError(env, exp@location, required(req, "integer"));
+
+public QLTENV checkExp(exp:geq(EXP E1, EXP E2), Type req, QLTENV env) =                      
+  req == integer() ? checkExp(E1, integer(), checkExp(E2, integer(), env))
+                   : addError(env, exp@location, required(req, "integer"));
+                   
+public QLTENV checkExp(exp:eq(EXP E1, EXP E2), Type req, QLTENV env) =                      
+  req == integer() ? checkExp(E1, integer(), checkExp(E2, integer(), env))
+                   : addError(env, exp@location, required(req, "integer"));

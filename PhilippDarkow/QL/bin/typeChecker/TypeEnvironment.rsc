@@ -2,6 +2,9 @@ module typeChecker::TypeEnvironment
 
 import syntax::AbstractSyntax;
 
+/** Class to specify the Type environment for the QL language
+*/
+
 public alias QLTENV = tuple[ rel[str id, str questionLabel, Type tp] question, list[tuple[loc l, str msg]] errors];
 
 public QLTENV addError(QLTENV qlTenv, loc l, str msg) = qlTenv[errors = qlTenv.errors + <l, msg>];
