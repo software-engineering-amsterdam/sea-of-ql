@@ -9,7 +9,7 @@ import org.uva.sea.ql.ast.expr.binary.algebraic.Mul;
 import org.uva.sea.ql.ast.expr.binary.bool.GT;
 import org.uva.sea.ql.ast.expr.binary.bool.LEq;
 import org.uva.sea.ql.ast.expr.binary.bool.LT;
-import org.uva.sea.ql.ast.expr.values.Int;
+import org.uva.sea.ql.ast.expr.values.IntegerLit;
 import org.uva.sea.ql.parser.antlr.ANTLRParser;
 
 public class TestExpressions {
@@ -71,9 +71,9 @@ public class TestExpressions {
 
 	@Test
 	public void testNums() throws ParseError {
-		assertEquals(Int.class, parser.parseExpr("0").getClass());
-		assertEquals(Int.class, parser.parseExpr("1223").getClass());
-		assertEquals(Int.class, parser.parseExpr("234234234").getClass());
+		assertEquals(IntegerLit.class, parser.parseExpr("0").getClass());
+		assertEquals(IntegerLit.class, parser.parseExpr("1223").getClass());
+		assertEquals(IntegerLit.class, parser.parseExpr("234234234").getClass());
 	}
 
 }

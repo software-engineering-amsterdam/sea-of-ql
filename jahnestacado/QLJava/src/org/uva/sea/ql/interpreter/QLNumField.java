@@ -6,7 +6,7 @@ import java.util.Map;
 
 import javax.swing.JTextField;
 
-import org.uva.sea.ql.ast.expr.values.Decimal;
+import org.uva.sea.ql.ast.expr.values.DecimalLit;
 import org.uva.sea.ql.ast.expr.values.Value;
 
 @SuppressWarnings("rawtypes")
@@ -32,11 +32,11 @@ public class QLNumField extends JTextField implements ActionListener{
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		Float input=Float.parseFloat(this.getText());
-		VariableEnvironment.refreshForm(varName, declaredVar, new Decimal(input));
+		VariableEnvironment.refreshForm(varName, declaredVar, new DecimalLit(input));
 
 	}
 	
-	public JTextField getTextField() {
+	private JTextField getTextField() {
 		this.addActionListener(this);
 		this.setText(value.toString());
 		return this;

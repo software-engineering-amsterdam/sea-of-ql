@@ -6,9 +6,9 @@ import org.uva.sea.ql.ast.types.MoneyType;
 import org.uva.sea.ql.ast.types.Type;
 import org.uva.sea.ql.visitor.IExprVisitor;
 
-public class Decimal extends Value<Float> {
+public class DecimalLit extends Value<Float> {
 
-	public Decimal(float value) {
+	public DecimalLit(float value) {
 		super(value);
 	}
 

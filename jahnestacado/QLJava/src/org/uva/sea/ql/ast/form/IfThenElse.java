@@ -3,7 +3,7 @@ package org.uva.sea.ql.ast.form;
 import org.uva.sea.ql.ast.expr.Expr;
 import org.uva.sea.ql.visitor.IElementVisitor;
 
-public class IfThenElse extends ConditionalElement {
+public class IfThenElse extends IfThen {
 
 	private final Body elseBody;
 

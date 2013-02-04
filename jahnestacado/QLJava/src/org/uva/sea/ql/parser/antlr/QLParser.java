@@ -1,4 +1,4 @@
-// $ANTLR 3.4 /home/jahn/workspace1/jahnestacado/jahnestacado/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g 2013-02-02 02:54:30
+// $ANTLR 3.4 /home/jahn/workspace1/jahnestacado/jahnestacado/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g 2013-02-04 02:43:44
 
 package org.uva.sea.ql.parser.antlr;
 import org.uva.sea.ql.ast.*;
@@ -831,7 +831,7 @@ public class QLParser extends Parser {
                     {
                     Decimal14=(Token)match(input,Decimal,FOLLOW_Decimal_in_primary317); if (state.failed) return result;
 
-                    if ( state.backtracking==0 ) { result = new Decimal(Float.parseFloat((Decimal14!=null?Decimal14.getText():null))); }
+                    if ( state.backtracking==0 ) { result = new DecimalLit(Float.parseFloat((Decimal14!=null?Decimal14.getText():null))); }
 
                     }
                     break;
@@ -840,7 +840,7 @@ public class QLParser extends Parser {
                     {
                     Int15=(Token)match(input,Int,FOLLOW_Int_in_primary325); if (state.failed) return result;
 
-                    if ( state.backtracking==0 ) { result = new Int(Integer.parseInt((Int15!=null?Int15.getText():null))); }
+                    if ( state.backtracking==0 ) { result = new IntegerLit(Integer.parseInt((Int15!=null?Int15.getText():null))); }
 
                     }
                     break;

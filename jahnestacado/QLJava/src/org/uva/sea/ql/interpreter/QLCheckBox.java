@@ -37,7 +37,7 @@ public class QLCheckBox extends JCheckBox implements ActionListener {
 		VariableEnvironment.refreshForm(varName, declaredVar, new BoolLit(!state));
 	}
 
-	public JCheckBox getCheckBox() {
+	private JCheckBox getCheckBox() {
 		this.addActionListener(this);
 		this.setSelected(state);
 		return this;

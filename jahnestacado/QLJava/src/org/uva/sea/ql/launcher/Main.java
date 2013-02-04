@@ -7,6 +7,7 @@ import java.util.List;
 import javax.swing.JPanel;
 
 import org.antlr.runtime.ANTLRFileStream;
+import org.uva.sea.ql.ast.form.Form;
 import org.uva.sea.ql.interpreter.SwingVisitor;
 import org.uva.sea.ql.parser.antlr.ANTLRParser;
 import org.uva.sea.ql.parser.test.ParseError;
@@ -23,10 +24,11 @@ public class Main {
 		try {
 			ANTLRFileStream charStream = new ANTLRFileStream(filePath.getAbsolutePath());
 			ANTLRParser parser = new ANTLRParser();
-			if(ElementChecker.checkQL(parser.parseForm(charStream.toString()))){
+			Form parsedForm=parser.parseForm(charStream.toString());
+			if(ElementChecker.checkQL(parsedForm)){
 
-			List<JPanel> panelList=SwingVisitor.generate(parser.parseForm(charStream.toString()));
-			Renderer render=new Renderer(panelList);
+			List<JPanel> panelList=SwingVisitor.generate(parsedForm);
+			new Renderer(panelList);
 			}
 		} catch (IOException e) {
 			e.printStackTrace();

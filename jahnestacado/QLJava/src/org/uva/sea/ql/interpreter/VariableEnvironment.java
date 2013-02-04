@@ -18,10 +18,8 @@ public class VariableEnvironment {
 	}
 	
 	public static void refreshForm(String varName, Map<String, Value> declaredVar,Value value){
-		VariableEnvironment env=new VariableEnvironment(varName,declaredVar,value);
-		System.out.println(declaredVar.get(varName)+" 1st");
+		new VariableEnvironment(varName,declaredVar,value);
 		declaredVar.put(varName, value);
-		System.out.println(declaredVar.get(varName)+" 2st");
 
 		Renderer.refresh(SwingVisitor.regenerate(declaredVar));
 		

@@ -36,7 +36,7 @@ public class ElementChecker implements IElementVisitor {
 		ElementChecker checker=new ElementChecker(declaredVar,errorReport);
 		form.accept(checker);
 		printErrors(errorReport);
-		if(errorReport.size()!=0) return false;
+		if(!errorReport.isEmpty()) return false;
 		
 		return true;
 		

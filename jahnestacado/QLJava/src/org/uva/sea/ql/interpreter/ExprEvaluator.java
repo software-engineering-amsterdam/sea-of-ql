@@ -22,8 +22,8 @@ import org.uva.sea.ql.ast.expr.unary.Neg;
 import org.uva.sea.ql.ast.expr.unary.Not;
 import org.uva.sea.ql.ast.expr.unary.Pos;
 import org.uva.sea.ql.ast.expr.values.BoolLit;
-import org.uva.sea.ql.ast.expr.values.Decimal;
-import org.uva.sea.ql.ast.expr.values.Int;
+import org.uva.sea.ql.ast.expr.values.DecimalLit;
+import org.uva.sea.ql.ast.expr.values.IntegerLit;
 import org.uva.sea.ql.ast.expr.values.StringLit;
 import org.uva.sea.ql.ast.expr.values.Value;
 import org.uva.sea.ql.visitor.IExprVisitor;
@@ -53,9 +53,9 @@ public class ExprEvaluator implements IExprVisitor<Value> {
 		Value right=node.getRightExpr().accept(this);
 		String exprType=left.isOfType(null).getClass().getSimpleName();
 		if(exprType.equals("MoneyType")){
-			return new Decimal(((Decimal)left).getValue() + ((Decimal)right).getValue());
+			return new DecimalLit(((DecimalLit)left).getValue() + ((DecimalLit)right).getValue());
 		}
-		return new Int(((Int)left).getValue() + ((Int)right).getValue());
+		return new IntegerLit(((IntegerLit)left).getValue() + ((IntegerLit)right).getValue());
 	}
 	
 	@Override
@@ -64,9 +64,9 @@ public class ExprEvaluator implements IExprVisitor<Value> {
 		Value right=node.getRightExpr().accept(this);
 		String exprType=left.isOfType(null).getClass().getSimpleName();
 		if(exprType.equals("MoneyType")){
-			return new Decimal(((Decimal)left).getValue() / ((Decimal)right).getValue());
+			return new DecimalLit(((DecimalLit)left).getValue() / ((DecimalLit)right).getValue());
 		}
-		return new Int(((Int)left).getValue() / ((Int)right).getValue());
+		return new IntegerLit(((IntegerLit)left).getValue() / ((IntegerLit)right).getValue());
 	}
 
 	@Override
@@ -75,9 +75,9 @@ public class ExprEvaluator implements IExprVisitor<Value> {
 		Value right=node.getRightExpr().accept(this);
 		String exprType=left.isOfType(null).getClass().getSimpleName();
 		if(exprType.equals("MoneyType")){
-			return new Decimal(((Decimal)left).getValue() - ((Decimal)right).getValue());
+			return new DecimalLit(((DecimalLit)left).getValue() - ((DecimalLit)right).getValue());
 		}
-		return new Int(((Int)left).getValue() - ((Int)right).getValue());
+		return new IntegerLit(((IntegerLit)left).getValue() - ((IntegerLit)right).getValue());
 	}
 	
 	@Override
@@ -86,9 +86,9 @@ public class ExprEvaluator implements IExprVisitor<Value> {
 		Value right=node.getRightExpr().accept(this);
 		String exprType=left.isOfType(null).getClass().getSimpleName();
 		if(exprType.equals("MoneyType")){
-			return new Decimal(((Decimal)left).getValue() * ((Decimal)right).getValue());
+			return new DecimalLit(((DecimalLit)left).getValue() * ((DecimalLit)right).getValue());
 		}
-		return new Int(((Int)left).getValue() * ((Int)right).getValue());
+		return new IntegerLit(((IntegerLit)left).getValue() * ((IntegerLit)right).getValue());
 	}
 	
 	//** Logical Exprs
@@ -121,9 +121,9 @@ public class ExprEvaluator implements IExprVisitor<Value> {
 		Value right=node.getRightExpr().accept(this);
 		String exprType=left.isOfType(null).getClass().getSimpleName();
 		if(exprType.equals("MoneyType")){
-			return new BoolLit(((Decimal)left).getValue() == ((Decimal)right).getValue());
+			return new BoolLit(((DecimalLit)left).getValue() == ((DecimalLit)right).getValue());
 		}
-		return new BoolLit(((Int)left).getValue() == ((Int)right).getValue());
+		return new BoolLit(((IntegerLit)left).getValue() == ((IntegerLit)right).getValue());
 	}
 
 	@Override
@@ -132,9 +132,9 @@ public class ExprEvaluator implements IExprVisitor<Value> {
 		Value right=node.getRightExpr().accept(this);
 		String exprType=left.isOfType(null).getClass().getSimpleName();
 		if(exprType.equals("MoneyType")){
-			return new BoolLit(((Decimal)left).getValue() >= ((Decimal)right).getValue());
+			return new BoolLit(((DecimalLit)left).getValue() >= ((DecimalLit)right).getValue());
 		}
-		return new BoolLit(((Int)left).getValue() >= ((Int)right).getValue());
+		return new BoolLit(((IntegerLit)left).getValue() >= ((IntegerLit)right).getValue());
 	}
 
 	@Override
@@ -143,9 +143,9 @@ public class ExprEvaluator implements IExprVisitor<Value> {
 		Value right=node.getRightExpr().accept(this);
 		String exprType=left.isOfType(null).getClass().getSimpleName();
 		if(exprType.equals("MoneyType")){
-			return new BoolLit(((Decimal)left).getValue() > ((Decimal)right).getValue());
+			return new BoolLit(((DecimalLit)left).getValue() > ((DecimalLit)right).getValue());
 		}
-		return new BoolLit(((Int)left).getValue() > ((Int)right).getValue());
+		return new BoolLit(((IntegerLit)left).getValue() > ((IntegerLit)right).getValue());
 	}
 
 	@Override
@@ -159,9 +159,9 @@ public class ExprEvaluator implements IExprVisitor<Value> {
 		Value right=node.getRightExpr().accept(this);
 		String exprType=left.isOfType(null).getClass().getSimpleName();
 		if(exprType.equals("MoneyType")){
-			return new BoolLit(((Decimal)left).getValue() <= ((Decimal)right).getValue());
+			return new BoolLit(((DecimalLit)left).getValue() <= ((DecimalLit)right).getValue());
 		}
-		return new BoolLit(((Int)left).getValue() <= ((Int)right).getValue());
+		return new BoolLit(((IntegerLit)left).getValue() <= ((IntegerLit)right).getValue());
 	}
 
 	@Override
@@ -170,9 +170,9 @@ public class ExprEvaluator implements IExprVisitor<Value> {
 		Value right=node.getRightExpr().accept(this);
 		String exprType=left.isOfType(null).getClass().getSimpleName();
 		if(exprType.equals("MoneyType")){
-			return new BoolLit(((Decimal)left).getValue() < ((Decimal)right).getValue());
+			return new BoolLit(((DecimalLit)left).getValue() < ((DecimalLit)right).getValue());
 		}
-		return new BoolLit(((Int)left).getValue() < ((Int)right).getValue());
+		return new BoolLit(((IntegerLit)left).getValue() < ((IntegerLit)right).getValue());
 	}
 
 	
@@ -183,9 +183,9 @@ public class ExprEvaluator implements IExprVisitor<Value> {
 		Value right=node.getRightExpr().accept(this);
 		String exprType=left.isOfType(null).getClass().getSimpleName();
 		if(exprType.equals("MoneyType")){
-			return new BoolLit(((Decimal)left).getValue() != ((Decimal)right).getValue());
+			return new BoolLit(((DecimalLit)left).getValue() != ((DecimalLit)right).getValue());
 		}
-		return new BoolLit(((Int)left).getValue() != ((Int)right).getValue());
+		return new BoolLit(((IntegerLit)left).getValue() != ((IntegerLit)right).getValue());
 	}
 
 	//** Unary Exprs
@@ -194,9 +194,9 @@ public class ExprEvaluator implements IExprVisitor<Value> {
 		Value operand=node.getLeftExpr().accept(this);
 		String exprType=operand.isOfType(null).getClass().getSimpleName();
 		if(exprType.equals("MoneyType")){
-			return new Decimal(- ((Decimal)operand).getValue());
+			return new DecimalLit(- ((DecimalLit)operand).getValue());
 		}
-		return new Int(- ((Int)operand).getValue());
+		return new IntegerLit(- ((IntegerLit)operand).getValue());
 	}
 	
 	@Override
@@ -216,7 +216,7 @@ public class ExprEvaluator implements IExprVisitor<Value> {
 	
 
 	@Override
-	public Value visit(Int node) {
+	public Value visit(IntegerLit node) {
 		return node;
 	}
 
@@ -226,7 +226,7 @@ public class ExprEvaluator implements IExprVisitor<Value> {
 	}
 
 	@Override
-	public Value visit(Decimal node) {
+	public Value visit(DecimalLit node) {
 		return node;
 	}
 

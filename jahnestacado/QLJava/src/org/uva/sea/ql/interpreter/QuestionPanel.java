@@ -23,7 +23,7 @@ public class QuestionPanel extends JPanel{
 	public QuestionPanel(Question qlElement,Map<String,Value> declaredVar){
 	    this.qlElement=qlElement;
 		
-		label=new JLabel(qlElement.getLabel().getValue().toString());
+		label=new JLabel(qlElement.getLabel().getValue().toString().replaceAll("\"", ""));
 		inputComponent=setInputComponent(qlElement.getId().getName(),qlElement.getType(),declaredVar);
 		addComponents();
 	}

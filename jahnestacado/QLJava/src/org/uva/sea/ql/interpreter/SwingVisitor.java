@@ -9,8 +9,8 @@ import javax.swing.JPanel;
 
 import org.uva.sea.ql.ast.expr.Expr;
 import org.uva.sea.ql.ast.expr.values.BoolLit;
-import org.uva.sea.ql.ast.expr.values.Decimal;
-import org.uva.sea.ql.ast.expr.values.Int;
+import org.uva.sea.ql.ast.expr.values.DecimalLit;
+import org.uva.sea.ql.ast.expr.values.IntegerLit;
 import org.uva.sea.ql.ast.expr.values.StringLit;
 import org.uva.sea.ql.ast.expr.values.Value;
 import org.uva.sea.ql.ast.form.Body;
@@ -22,6 +22,7 @@ import org.uva.sea.ql.ast.form.IfThenElse;
 import org.uva.sea.ql.ast.form.Question;
 import org.uva.sea.ql.ast.form.SingleLineElement;
 import org.uva.sea.ql.ast.types.Type;
+import org.uva.sea.ql.swing.Renderer;
 import org.uva.sea.ql.visitor.IElementVisitor;
 @SuppressWarnings("rawtypes")
 public class SwingVisitor implements IElementVisitor{
@@ -56,6 +57,7 @@ public class SwingVisitor implements IElementVisitor{
 	@Override
 	public void visit(Form qlElement) {
        String formName=qlElement.getId().getName();
+       Renderer.setName(formName);
        qlElement.getBody().accept(this);
 	}
 
@@ -153,9 +155,9 @@ public class SwingVisitor implements IElementVisitor{
 		if (type.isCompatibleToBoolType()) {
 			return new BoolLit(false);
 		} else if (type.isCompatibleToIntType()) {
-			return new Int(0);
+			return new IntegerLit(0);
 		} else if (type.isCompatibleToMoneyType()) {
-			return new Decimal(0.0f);
+			return new DecimalLit(0.0f);
 		} else {
 			return new StringLit("");
 		}

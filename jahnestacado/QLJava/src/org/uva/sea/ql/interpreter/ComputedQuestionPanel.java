@@ -20,7 +20,7 @@ public class ComputedQuestionPanel extends JPanel {
 
 	public ComputedQuestionPanel(ComputedQuestion qlElement,Map<String,Value> declaredVar){
 	    this.qlElement=qlElement;
-		label=new JLabel(qlElement.getLabel().getValue());
+		label=new JLabel(qlElement.getLabel().getValue().replaceAll("\"", ""));
 		computedValue=new JTextField(8);
 		computedValue.setForeground(Color.blue);
 		computedValue.setBackground(Color.white);

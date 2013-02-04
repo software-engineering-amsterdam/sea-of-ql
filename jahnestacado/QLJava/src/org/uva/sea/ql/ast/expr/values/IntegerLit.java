@@ -6,9 +6,9 @@ import org.uva.sea.ql.ast.types.IntType;
 import org.uva.sea.ql.ast.types.Type;
 import org.uva.sea.ql.visitor.IExprVisitor;
 
-public class Int extends Value<Integer> {
+public class IntegerLit extends Value<Integer> {
 
-	public Int(int value) {
+	public IntegerLit(int value) {
 		super(value);
 
 	}

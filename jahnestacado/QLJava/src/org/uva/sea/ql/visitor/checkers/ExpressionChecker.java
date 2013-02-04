@@ -24,8 +24,8 @@ import org.uva.sea.ql.ast.expr.unary.Not;
 import org.uva.sea.ql.ast.expr.unary.Pos;
 import org.uva.sea.ql.ast.expr.unary.Unary;
 import org.uva.sea.ql.ast.expr.values.BoolLit;
-import org.uva.sea.ql.ast.expr.values.Decimal;
-import org.uva.sea.ql.ast.expr.values.Int;
+import org.uva.sea.ql.ast.expr.values.DecimalLit;
+import org.uva.sea.ql.ast.expr.values.IntegerLit;
 import org.uva.sea.ql.ast.expr.values.StringLit;
 import org.uva.sea.ql.ast.types.Type;
 import org.uva.sea.ql.visitor.IExprVisitor;
@@ -206,7 +206,7 @@ public class ExpressionChecker implements IExprVisitor<Boolean> {
 
     //** Literal Exprs
 	@Override
-	public Boolean visit(Int node) {
+	public Boolean visit(IntegerLit node) {
 		return true;
 
 	}
@@ -217,7 +217,7 @@ public class ExpressionChecker implements IExprVisitor<Boolean> {
 	}
 
 	@Override
-	public Boolean visit(Decimal node) {
+	public Boolean visit(DecimalLit node) {
 		return true;
 
 	}

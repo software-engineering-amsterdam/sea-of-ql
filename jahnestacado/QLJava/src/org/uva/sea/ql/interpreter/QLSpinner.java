@@ -12,7 +12,7 @@ import javax.swing.JFormattedTextField;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerNumberModel;
 
-import org.uva.sea.ql.ast.expr.values.Int;
+import org.uva.sea.ql.ast.expr.values.IntegerLit;
 import org.uva.sea.ql.ast.expr.values.Value;
 
 public class QLSpinner extends JSpinner  {
@@ -37,7 +37,7 @@ public class QLSpinner extends JSpinner  {
 
 	
 	
-	public JSpinner getSpinner() {
+	private JSpinner getSpinner() {
 		this.setValue((Integer) value);
 		JFormattedTextField tf = ((JSpinner.DefaultEditor)this.getEditor()).getTextField();
 		tf.setEditable(false);
@@ -78,12 +78,12 @@ public class QLSpinner extends JSpinner  {
 
 	
 	private void increaseValueByOne(){
-		VariableEnvironment.refreshForm(varName, declaredVar, new Int(value+1));		
+		VariableEnvironment.refreshForm(varName, declaredVar, new IntegerLit(value+1));		
 
 	}
 	
 	private void decreaseValueByOne(){
-		VariableEnvironment.refreshForm(varName, declaredVar, new Int(value-1));		
+		VariableEnvironment.refreshForm(varName, declaredVar, new IntegerLit(value-1));		
 
 	}
     

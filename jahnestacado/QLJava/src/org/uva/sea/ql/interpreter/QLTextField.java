@@ -36,7 +36,7 @@ public class QLTextField extends JTextField implements ActionListener{
 
 	}
 	
-	public JTextField getTextField() {
+	private JTextField getTextField() {
 		this.addActionListener(this);
 		this.setText(value);
 		return this;
