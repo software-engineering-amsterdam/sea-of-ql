@@ -4,16 +4,14 @@ import java.util.List;
 
 public class Form {
 	protected Expr name;
-	protected List<Question> result;
-	protected IfStatement ifStat;
+	protected List<Statement> sList;
 
-	public Form(Expr x, List<Question> r, IfStatement ifSt){
+	public Form(Expr x, List<Statement> r){
 		name = x;
-		result = r;
-		ifStat = ifSt;
+		sList = r;
 	}
 	
 	public String toString(){
-		return name.toString() + ", " +result.toString();
+		return name.toString() + ", " +sList.toString();
 	}
 }

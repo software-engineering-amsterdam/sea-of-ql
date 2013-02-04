@@ -24,14 +24,18 @@ package org.uva.sea.ql.parser.antlr;
 }
 
 form returns [Form result]
-	@init { List<Question> list = new ArrayList<Question>(); }
-	: 'form' Ident '{' (q=question {list.add($q.result);})* ifStatement '}' EOF { $result = new Form(new Ident($Ident.text), list, $ifStatement.result); }
+	@init { List<Statement> list = new ArrayList<Statement>(); }
+	: 'form' Ident '{' (s=statement {list.add($s.result);})* '}' EOF { $result = new Form(new Ident($Ident.text), list); }
+	;
+	
+statement returns [Statement result]
+	: q=question { $result = $q.result; }
+	| i=ifStatement { $result = $i.result; }
 	;
 
 ifStatement returns [IfStatement result]
-	@init {List<Question> list = new ArrayList<Question>(); }
-	: 'if' '(' x=orExpr ')' '{' (q=question {list.add($q.result);})* '}' { $result = new IfStatement(x, list); }
-	| { $result = null; }
+	@init {List<Statement> list = new ArrayList<Statement>(); }
+	: 'if' '(' x=orExpr ')' '{' (s=statement {list.add($s.result);})* '}' { $result = new IfStatement(x, list); }
 	;
 	
 question returns [Question result]

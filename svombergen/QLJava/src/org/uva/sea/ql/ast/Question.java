@@ -2,7 +2,7 @@ package org.uva.sea.ql.ast;
 
 import org.uva.sea.ql.ast.types.*;
 
-public class Question {
+public class Question extends Statement {
 	
 	protected Ident name;
 	protected Str question;

@@ -2,14 +2,15 @@ package org.uva.sea.ql.ast;
 
 import java.util.List;
 
-public class IfStatement {
+public class IfStatement extends Statement {
+	
 	protected Expr ifStat;
-	protected List<Question> qList;
+	protected List<Statement> sList;
 	
 	
-	public IfStatement(Expr x, List<Question> list) {
+	public IfStatement(Expr x, List<Statement> list) {
 		ifStat = x;
-		qList = list;
+		sList = list;
 	}
 
 }
