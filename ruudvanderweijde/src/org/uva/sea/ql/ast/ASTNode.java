@@ -1,7 +1,7 @@
 package org.uva.sea.ql.ast;
 
-import org.uva.sea.ql.visitor.FormVisitor;
+import org.uva.sea.ql.visitor.IFormVisitor;
 
 public interface ASTNode {
-	void accept (FormVisitor visitor);
+	void accept (IFormVisitor visitor);
 }

@@ -11,19 +11,7 @@ public abstract class Type {
 		return t.getClass().isInstance(this);
 	}
 	
-	//public abstract boolean isCompatibleTo(Type t);
 	
-	/*public boolean isCompatibleToInt() { 
-		return false;
-	}
-
+	public abstract String toString();
 	
-	public boolean isCompatibleToStr() { 
-		return false; 
-	}
-	
-	
-	public boolean isCompatibleToBool() { 
-		return false; 
-	}*/
 }

@@ -1,17 +1,50 @@
-class styleClass {
-  #fieldOne
-  #fieldTwo
+stylesheet testStylesheet {
+  page "Page one" {
+    section "section one" {
+      section "section two" {
+        question questionTen
+        default boolean {
+          width 200
+        }
+        
+      }
+      
+      question questionFive {
+        width 50
+      }
+      
+    }
+    
+    section "section three!" {
+      question questionFour
+      question questionSix
+      question questionSeven
+      default boolean {
+        type checkbox
+      }
+      
+    }
+    
+    question questionOne {
+      type checkbox
+    }
+    
+    default boolean {
+      width 300
+    }
+    
+  }
+  
+  page "page 2" {
+    question questionTwo
+  }
+  
+  default boolean {
+    type radio
+  }
+  
+  question questionThree {
+    width 200
+  }
+  
 }
-
-boolean {
-  type checkbox
-}
-
-.styleClass {
-  type radio
-}
-
-#fieldThree {
-  width 200
-}
-

@@ -35,10 +35,11 @@ type returns [TypeDescription result]
     : 'boolean' { $result = new BooleanType() ;}
     | 'string'  { $result = new StringType() ;}
     | 'money'   { $result = new MoneyType() ;}
-    ;
+    ; 
 
 primary returns [Expr result]
-  : IntLiteral      { $result = new IntLiteral(Integer.parseInt($IntLiteral.text)); }
+  : IntLiteral      { $result = new IntLiteral($IntLiteral.text); }
+  | BigLiteral      { $result = new BigLiteral($BigLiteral.text); }
   | Ident           { $result = new Ident($Ident); }
   | BooleanLiteral  { $result = new BooleanLiteral($BooleanLiteral.text) ;}
   | StringLiteral   { $result = new StringLiteral($StringLiteral.text) ;}
@@ -131,3 +132,6 @@ BooleanLiteral
 Ident:   ('a'..'z'|'A'..'Z')('a'..'z'|'A'..'Z'|'0'..'9'|'_')*;
 
 IntLiteral: ('0'..'9')+;
+
+BigLiteral: ('0'..'9')+ ('.' ('0'..'9')+)? ;
+

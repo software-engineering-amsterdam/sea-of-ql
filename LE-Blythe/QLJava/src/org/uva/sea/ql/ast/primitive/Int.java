@@ -7,20 +7,10 @@ import org.uva.sea.ql.util.Environment;
 
 public class Int extends Primitive {
 
-	private Integer value;
-	
-	public Int(){
-		value = null;
-	}
-	
+	private int value;
 	
 	public Int(int n){
 		value = n;
-	}
-
-
-	public boolean isDefined(){
-		return value != null;
 	}
 	
 	

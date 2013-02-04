@@ -63,10 +63,11 @@ public str addWidget(Widget w:<name, string(_), vis, val, e>) ="
 public str addWidget(Widget w:<name, date(_), vis, val, e>) ="
 \t\t<name>Widget.setDate(<val>);
 \t\t<name>Widget.setDisplayFormat(\"d MMMM yyyy\"); 
+\t\t<name>Widget.setCalendarPopup(true); 
 \t\t<name>Widget.dateChanged.connect(this, \"onChanged(QDate)\");"
 + genericWidget(name, vis, e);
 
-private str genericWidget(str name, str vis, bool e) = "
+public str genericWidget(str name, str vis, bool e) = "
 \t\t<name>Label.setBuddy(<name>Widget);
 \t\tlabels.add(<name>Label);
 \t\t<name>Widget.setEnabled(<e>);"
@@ -80,7 +81,15 @@ public str setValue(Type t:date(_), str name, str val) = "\n\t\t<name>Widget.set
 
 public str setValue(Type t:\bool(_), str name, str val) = "\n\t\t<name>Widget.setChecked(<val>);";
 
-public str setValue(Type t, str name, str val) = "\n\t\t<name>Widget.setValue(<val>);";
+public str setValue(Type t:\int(_), str name, str val) = "\n\t\t<name>Widget.setValue(<val>);";
+
+public str setValue(Type t:float(_), str name, str val) = "\n\t\t<name>Widget.setValue(<val>);";
+
+public str submitWidget(str name, Declarations d) = "
+\t\tif (<name>Widget.isVisible())
+\t\t\tobj.put(\"<name>\", <unparse(ident(name), d)>);\n"; 
 
 
-   
+
+
+

@@ -1,6 +1,5 @@
 package org.uva.sea.ql.ast;
 
-import java.util.ArrayList;
 import java.util.Map;
 
 import org.uva.sea.ql.ast.type.Numeric;
@@ -8,16 +7,11 @@ import org.uva.sea.ql.ast.type.Type;
 import org.uva.sea.ql.interpreter.IntVal;
 import org.uva.sea.ql.interpreter.Value;
 
-public class Pos extends Expr {
-
-	private final Expr expr;
+public class Pos extends Unary {
 	
 	public Pos(Expr expr) {
-		this.expr = expr;
-	}
-
-	public Expr getExpr() {
-		return expr;
+		super(expr);
+		permittedTypes = new Numeric();
 	}
 	
 	@Override
@@ -30,12 +24,4 @@ public class Pos extends Expr {
 		return new Numeric();
 	}
 	
-	@Override
-	public ArrayList<String> checkType(Map<Ident, Type> typeEnv) {
-		ArrayList<String> retVal = new ArrayList<String>();
-		Type type = typeOf(typeEnv);
-		if(!(type.isCompatibleToNumeric()))
-			retVal.add(type + " is not compatible. In " + this.getClass());
-		return retVal;	
-	}
 }

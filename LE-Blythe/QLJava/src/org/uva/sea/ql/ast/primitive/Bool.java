@@ -7,20 +7,10 @@ import org.uva.sea.ql.util.Environment;
 
 public class Bool extends Primitive {
 
-	private Boolean value;
-	
-	public Bool(){
-		value = null;
-	}
-	
+	private boolean value;
 	
 	public Bool(boolean b){
 		value = b;
-	}
-
-
-	public boolean isDefined(){
-		return value != null;
 	}
 	
 	

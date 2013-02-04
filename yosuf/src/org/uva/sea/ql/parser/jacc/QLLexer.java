@@ -6,7 +6,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.uva.sea.ql.ast.ASTNode;
-import org.uva.sea.ql.ast.Identifier;
+import org.uva.sea.ql.ast.exp.Identifier;
 import org.uva.sea.ql.ast.value.IntegerValue;
 import org.uva.sea.ql.ast.value.StringValue;
 
@@ -19,6 +19,9 @@ public class QLLexer implements QLTokens {
 		KEYWORDS.put("form", FORM);
 		KEYWORDS.put("if", IF);
 		KEYWORDS.put("Boolean", BOOL);
+		KEYWORDS.put("String", STR);
+		KEYWORDS.put("Integer", INT);
+		KEYWORDS.put("Money", MON);
 	}
 
 	private int token;
@@ -90,6 +93,9 @@ public class QLLexer implements QLTokens {
 			case '}':
 				nextChar();
 				return token = '}';
+			case ';':
+				nextChar();
+				return token = ';';
 
 			case '*': {
 				nextChar();

@@ -1,8 +1,8 @@
 form mulitpleQuestions {
   "Question one?"
-    integer numberOne
+    integer fieldOne
   "Question two?"
     date theDate
   "Question three?"
-    money myFunding
+    boolean fieldTwo
 }

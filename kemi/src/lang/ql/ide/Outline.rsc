@@ -1,3 +1,13 @@
+@license{
+  Copyright (c) 2013 
+  All rights reserved. This program and the accompanying materials
+  are made available under the terms of the Eclipse Public License v1.0
+  which accompanies this distribution, and is available at
+  http://www.eclipse.org/legal/epl-v10.html
+}
+@contributor{Kevin van der Vlist - kevin@kevinvandervlist.nl}
+@contributor{Jimi van der Woning - Jimi.vanderWoning@student.uva.nl}
+
 module lang::ql::ide::Outline
 
 import List;
@@ -21,7 +31,7 @@ private node outlineBranch(str name, str label, loc location, list[Statement] it
 
 private node outline(Form form) = 
   "form"([outline(e) | e <- form.formElements])
-  [@label="Form <form.formName> (<size(form.formElements)>)"]
+  [@label="Form <form.formName.ident> (<size(form.formElements)>)"]
   [@\loc=form@location];
 
 private node outline(Statement item:
@@ -66,7 +76,7 @@ private node outline(Statement item:
 private node outline(Question q:
   question(questionText, answerDataType, answerIdentifier)) {
   str name = "Question";
-  str label = "Q: <answerDataType>:<questionText>";
+  str label = "Q: <answerDataType.name>:<questionText.text>";
 
   return createNode(name, label, q@location, []);
 }
@@ -74,7 +84,7 @@ private node outline(Question q:
 private node outline(Question q:
   question(questionText, answerDataType, answerIdentifier, calculatedField)) {
   str name = "CalculatedQuestion";
-  str label = "CQ: <answerDataType>:<questionText>(<calculatedField>)";
+  str label = "CQ: <answerDataType.name>:<questionText.text>(<calculatedField>)";
   
   return createNode(name, label, q@location, []);
 }

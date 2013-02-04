@@ -2,15 +2,14 @@ package org.uva.sea.ql.ast.questions;
 
 import org.uva.sea.ql.ast.Expr;
 import org.uva.sea.ql.ast.Question;
-import org.uva.sea.ql.ast.expressions.Ident;
-import org.uva.sea.ql.ast.values.Str;
+import org.uva.sea.ql.ast.expressions.literal.Ident;
+import org.uva.sea.ql.ast.expressions.literal.Str;
 
 public class ComputedQuestion extends Question {
 	private final Expr _expression;
 
 	public ComputedQuestion(Str label, Ident variable, Expr expression) {
-		setLabel(label);
-		setVariable(variable);
+		super(label, variable);
 		_expression = expression;
 	}
 	

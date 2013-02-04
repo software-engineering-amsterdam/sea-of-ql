@@ -11,6 +11,13 @@ import org.uva.sea.ql.ast.types.*;
 import org.uva.sea.ql.form.*;
 }
 
+@parser::members {
+  @Override
+  public void reportError(RecognitionException e) {
+    throw new RuntimeException(e);
+  }
+}
+
 @lexer::header
 {
 package org.uva.sea.ql.parser.antlr;
@@ -21,7 +28,6 @@ form returns [Form result]
     formItems
     '}' { $result = new Form(new Ident($Ident.text), $formItems.result); }
   ;
-
 
 formItems returns [List<FormItem> result]
 @init { List<FormItem> formItems = new ArrayList(); }
@@ -137,7 +143,7 @@ WS  :	(' ' | '\t' | '\n' | '\r') { $channel=HIDDEN; }
     ;
 
 COMMENT 
-    : ('/*' .* '*/' | '//'.* '\n') {$channel=HIDDEN;}
+    : ('/*' .* '*/' | '//'.* '\n') { $channel=HIDDEN; }
     ;
 
 String: '"' .* '"';

@@ -1,38 +1,4 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
-<fullyQualifiedTypeName name="org.uva.sea.ql.parser.antlr.ANTLRParser"/>
-<fullyQualifiedTypeName name="org.uva.sea.ql.ast.Statement"/>
-<fullyQualifiedTypeName name="java.util.List"/>
-<fullyQualifiedTypeName name="org.antlr.runtime.Token"/>
-<fullyQualifiedTypeName name="org.uva.sea.ql.ast.ASTNode"/>
-<fullyQualifiedTypeName name="org.uva.sea.ql.ast.CompoundBlock"/>
-<fullyQualifiedTypeName name="org.uva.sea.ql.ast.ConditionalStatement"/>
-<fullyQualifiedTypeName name="org.uva.sea.ql.astvisitor.ASTNodeVisitor"/>
-<fullyQualifiedTypeName name="org.uva.sea.ql.astvisitor.ASTNodePrintVisitor"/>
-<fullyQualifiedTypeName name="com.sun.tools.corba.se.idl.constExpr.Not"/>
-<fullyQualifiedTypeName name="java.util.BitSet"/>
-<fullyQualifiedTypeName name="org.uva.sea.ql.astnodevisitor.VisitorResult"/>
-<fullyQualifiedTypeName name="junit.framework.TestCase"/>
-<fullyQualifiedTypeName name="org.uva.sea.ql.astnodevisitor.PrintVisitor"/>
-<fullyQualifiedTypeName name="org.uva.sea.ql.ast.QLProgram"/>
-<fullyQualifiedTypeName name="org.uva.sea.ql.ast.BooleanLiteral"/>
-<fullyQualifiedTypeName name="org.uva.sea.ql.ast.MoneyType"/>
-<fullyQualifiedTypeName name="java.util.HashMap"/>
-<fullyQualifiedTypeName name="com.sun.org.apache.xpath.internal.operations.Bool"/>
-<fullyQualifiedTypeName name="org.uva.sea.ql.ast.LineStatement"/>
-<fullyQualifiedTypeName name="org.uva.sea.ql.ast.BooleanType"/>
-<fullyQualifiedTypeName name="org.uva.sea.ql.ast.StringType"/>
-<fullyQualifiedTypeName name="org.uva.sea.ql.ast.NumeralType"/>
-<fullyQualifiedTypeName name="org.uva.sea.ql.ast.ErrorType"/>
-<fullyQualifiedTypeName name="org.uva.sea.ql.astnodevisitor.SemanticCheckVisitor"/>
-<fullyQualifiedTypeName name="org.uva.sea.ql.ast.TypeDescription"/>
-<fullyQualifiedTypeName name="org.uva.sea.ql.ast.BinExpr"/>
-<fullyQualifiedTypeName name="org.uva.sea.ql.astnodevisitor.PrintVisitorResult"/>
-<fullyQualifiedTypeName name="org.uva.sea.ql.ast.GEq"/>
-<fullyQualifiedTypeName name="org.uva.sea.ql.ast.Expr"/>
-<fullyQualifiedTypeName name="org.uva.sea.ql.interpreter.Interpreter"/>
-<fullyQualifiedTypeName name="org.uva.sea.ql.ast.IntLiteral"/>
-<fullyQualifiedTypeName name="org.uva.sea.ql.astnodevisitor.Visitor"/>
-<fullyQualifiedTypeName name="com.sun.org.apache.bcel.internal.classfile.Visitor"/>
-<fullyQualifiedTypeName name="com.sun.corba.se.impl.encoding.CodeSetConversion.BTCConverter"/>
+<fullyQualifiedTypeName name="org.uva.sea.ql.ast.operators.ExpressionResult"/>
 </qualifiedTypeNameHistroy>

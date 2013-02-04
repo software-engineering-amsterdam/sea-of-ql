@@ -1,23 +1,31 @@
 module lang::ql::gen::Generate
 
-
-import lang::ql::gen::Templates;
+import lang::ql::ast::AST;
+import lang::ql::gen::Generic;
 import lang::ql::gen::Declare;
 import lang::ql::gen::Widgets;
 import lang::ql::util::Environment;
 
 
-public str generate(node input) {
+public str generate(Form input) {
 	env = getEnvironment(input);
 	widgets = getWidgets(input, env.declarations);
 	
-	src = header;
+	src = "";
+	src += header();
+	src += imports();
+	src += declarations();
 	src += addDeclarations(env);
-	src += body1;
+	src += main();
+	src += constructor();
+	src += addTitle(input.name);
 	src += addWidgets(widgets);
-	src += body2;
+	src += gridLayout();
+	src += visibility();
 	src += addVisibility(widgets);
-	src += body3;
+	src += slots();
+	src += addSubmit(widgets, env.declarations);
+	src += submit();
 
 	return src;
 }
@@ -47,4 +55,11 @@ private str addVisibility(list[Widget] widgets) {
 	return src;
 }
   
+  
+private str addSubmit(list[Widget] widgets, Declarations d) {
+	src = "";
+	for (widget <- widgets) 
+		src += submitWidget(widget.name, d);
+	return src;
+}
  

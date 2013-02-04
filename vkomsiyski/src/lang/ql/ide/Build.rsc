@@ -11,7 +11,7 @@ import IO;
 private loc generated_form = |project://QL-R/src/form/FormGUI.java|;
 
 
-public Contribution getBuilder() 
+public Contribution getQLBuilder() 
   = builder(set[Message] (Tree input) {
   	 writeFile(generated_form, generate(implode(input)));
 	 return {};

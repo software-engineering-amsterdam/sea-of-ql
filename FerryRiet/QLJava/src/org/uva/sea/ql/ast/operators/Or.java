@@ -25,4 +25,14 @@ public class Or extends BinExpr {
 	public VisitorResult accept(Visitor visitor) {
 		return visitor.visit(this);
 	}
+
+	@Override
+	public ExpressionResult eval(HashMap<String, ExpressionResult> symbolMap) {
+		// TODO and check type
+		ExpressionResult leftHandresult = getExprLeftHand().eval(symbolMap);
+		ExpressionResult rightHandResult = getExprRightHand().eval(symbolMap);
+
+		return new BooleanResult(leftHandresult.getBooleanValue()
+				|| rightHandResult.getBooleanValue());
+	}
 }

@@ -9,13 +9,13 @@ import Node;
 import List;
 
 
-public Contribution getOutliner() 
+public Contribution getQLOutliner() 
   = outliner(node(Tree input) {
 	  return "outline"(outline(implode(input)));
     });
 
 
-private node outline(Form form) =
+public node outline(Form form) = 
 	makeOutlineNode("form", form.name, form@location, getNodesFromStatements(form.statements));
   	
 private node outline(Statement input:regular(\type, name, _)) =

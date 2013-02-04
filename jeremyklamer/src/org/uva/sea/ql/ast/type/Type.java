@@ -1,6 +1,8 @@
 package org.uva.sea.ql.ast.type;
 
-import org.uva.sea.ql.ast.*;
+import org.uva.sea.ql.ast.ASTNode;
+
+import ui.UIComponent;
 
 public abstract class Type implements ASTNode{
 
@@ -10,5 +12,7 @@ public abstract class Type implements ASTNode{
 	public boolean isCompatibleToNumeric() { return false; }
 	public boolean isCompatibleToStr() { return false; }
 	public boolean isCompatibleToBool() { return false; }
+	
+	public abstract UIComponent getAnswerComp();
 	
 }

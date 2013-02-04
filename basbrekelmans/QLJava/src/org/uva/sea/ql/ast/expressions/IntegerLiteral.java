@@ -1,7 +1,7 @@
 package org.uva.sea.ql.ast.expressions;
 
 import org.uva.sea.ql.ICodeLocationInformation;
-import org.uva.sea.ql.ast.types.QLType;
+import org.uva.sea.ql.ast.IExpressionVisitor;
 
 public class IntegerLiteral extends NumberLiteral {
 
@@ -11,10 +11,13 @@ public class IntegerLiteral extends NumberLiteral {
 		super(codeLocation);
 		this.value = value;
 	}
-
-	@Override
-	public QLType getType() {
-		return QLType.INTEGER;
+	
+	public long getValue() {
+		return value;
 	}
-
+	
+	public <T> T accept(IExpressionVisitor<T> visitor)
+	{
+		return visitor.visit(this);
+	}
 }

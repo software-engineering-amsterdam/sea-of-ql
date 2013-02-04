@@ -25,4 +25,11 @@ public class Not extends UnExpr {
 	public VisitorResult accept(Visitor visitor) {
 		return visitor.visit(this);
 	}
+
+	@Override
+	public ExpressionResult eval(HashMap<String, ExpressionResult> symbolMap) {
+		ExpressionResult rightHandResult = getExprRightHand().eval(symbolMap);
+
+		return new BooleanResult(!rightHandResult.getBooleanValue());
+	}
 }

@@ -1,9 +1,10 @@
 package org.uva.sea.ql.ast.expressions.binary;
 
-import org.uva.sea.ql.ast.Expr;
+import org.uva.sea.ql.ast.*;
+import org.uva.sea.ql.ast.visitor.*;
 
 /**
- * Class: BinExpr
+ * Class: BinExpr.
  * @author Danny
  *
  * BinExpr: binary expression
@@ -15,16 +16,7 @@ public class BinExpr extends Expr {
 	
 	// The operator of the expr
 	protected final String op;
-	
-	/**
-	 * Constructor
-	 * @param l - the left expr
-	 * @param r - the right expr
-	 */
-	public BinExpr(Expr l, Expr r){
-		this(l, r, null);
-	}
-	
+		
 	/**
 	 * Constructor 
 	 * @param l - the left expr
@@ -36,7 +28,6 @@ public class BinExpr extends Expr {
 		this.right = r;
 		this.op = op;
 	}
-	
 	/**
 	 * getLeft()
 	 * @return left
@@ -51,13 +42,38 @@ public class BinExpr extends Expr {
 	public Expr getRight(){
 		return this.right;
 	}
-	
 	/**
 	 * getOperator
 	 * @return String - the operator or null when no value is given
 	 */
 	public String getOperator(){
 		return this.op;
+	}
+	/**
+	 * accept()
+	 * @param visitor
+	 */
+	@Override
+	public void accept(Visitor visitor){
+		visitor.visit(this);
+	}
+	/**
+	 * isCompatibleTo
+	 * @param t type
+	 * @return boolean - true if compatible false otherwise
+	 */
+	@Override
+	public boolean isCompatibleTo(Expr t) {
+		return false;
+	}
+	/**
+	 * getType
+	 * @param st - the table to check for the type
+	 * @return Expr - type
+	 */
+	@Override
+	public Expr getType(SymbolTable st) {
+		return this;
 	}
 
 }

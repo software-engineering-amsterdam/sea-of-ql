@@ -25,10 +25,6 @@ public abstract class TypeDescription implements ASTNode {
 		return false;
 	}
 
-	public boolean isCompatibleToNumeric() {
-		return false;
-	}
-
 	public boolean isCompatibleToString() {
 		return false;
 	}

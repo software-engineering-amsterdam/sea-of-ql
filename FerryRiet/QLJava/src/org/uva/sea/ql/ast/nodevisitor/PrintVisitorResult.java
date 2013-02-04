@@ -1,25 +1,24 @@
 package org.uva.sea.ql.ast.nodevisitor;
 
 public class PrintVisitorResult implements VisitorResult {
-	private String printResult;
-
+	private StringBuilder stringBuilder = new StringBuilder() ;
+	
 	public PrintVisitorResult(String result) {
-		printResult = result;
+		stringBuilder.append(result);
 	}
 
 	public PrintVisitorResult appendResult(String string) {
-		printResult = printResult.concat(string);
+		stringBuilder.append(string);
 		return this;
 	}
 
 	public PrintVisitorResult appendResult(VisitorResult printVisitorResult) {
-		printResult = printResult
-				.concat(((PrintVisitorResult) printVisitorResult)
+		stringBuilder.append(((PrintVisitorResult) printVisitorResult)
 						.getPrintResult());
 		return this;
 	}
 
 	public String getPrintResult() {
-		return printResult;
+		return stringBuilder.toString();
 	}
 }

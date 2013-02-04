@@ -80,7 +80,7 @@ start syntax Expr
   	= ident: Ident name
   	| \int: Int
   	| boolean: Boolean
-  	> money: Money
+  	| money: Money
   	| date: Date
   	| float: Float
   	| string: String

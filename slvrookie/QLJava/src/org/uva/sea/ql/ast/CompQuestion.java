@@ -3,25 +3,25 @@ package org.uva.sea.ql.ast;
 import org.uva.sea.ql.ast.expr.*;
 import org.uva.sea.ql.ast.expr.value.StringLiteral;
 import org.uva.sea.ql.ast.types.Type;
-import org.uva.sea.ql.visitor.TypeChecker;
+import org.uva.sea.ql.visitor.ITypeChecker;
 
 public class CompQuestion extends Question {
 
-	private final Expr qExpr;
+	private final Expr expression;
 
-	public CompQuestion(Ident qID, StringLiteral qString, Type qType, Expr qExpr) {
+	public CompQuestion(Ident name, StringLiteral label, Type type, Expr expression) {
 
-		super(qID, qString, qType);
-		this.qExpr = qExpr;
+		super(name, label, type);
+		this.expression = expression;
 	}
 
 	public Expr getQuestionExpr() {
-		return qExpr;
+		return expression;
 	}
 
 	@Override
-	public void accept(TypeChecker visitor) {
-		visitor.visit(this);
+	public void accept(ITypeChecker TypeChecker) {
+		TypeChecker.visit(this);
 
 	}
 
