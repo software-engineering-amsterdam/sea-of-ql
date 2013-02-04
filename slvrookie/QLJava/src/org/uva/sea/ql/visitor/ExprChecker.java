@@ -10,18 +10,18 @@ import org.uva.sea.ql.ast.expr.unary.*;
 import org.uva.sea.ql.ast.expr.value.*;
 import org.uva.sea.ql.ast.types.Type;
 
-public class ExprVisitor implements IExprVisitor<Boolean> {
+public class ExprChecker implements IExprVisitor<Boolean> {
 	
 	private final Map<String, Type> typeEnv;
 	private final List<String> errors;
 	
-	private ExprVisitor(Map<String, Type> tenv, List<String> errors) {
+	private ExprChecker(Map<String, Type> tenv, List<String> errors) {
 		this.typeEnv = tenv;
 		this.errors = errors;
 	}
 	
 	public static boolean check(Expr expr, Map<String, Type> typeEnv, List<String> errs) {
-		ExprVisitor check = new ExprVisitor(typeEnv, errs);
+		ExprChecker check = new ExprChecker(typeEnv, errs);
 		return expr.accept(check);
 	}
 	

@@ -1,7 +1,7 @@
 package org.uva.sea.ql.ast;
 
 import org.uva.sea.ql.ast.expr.Ident;
-import org.uva.sea.ql.visitor.ITypeChecker;
+import org.uva.sea.ql.visitor.IElementVisitor;
 
 public class Form extends FormElement {
 
@@ -22,8 +22,8 @@ public class Form extends FormElement {
 	}
 
 	@Override
-	public void accept(ITypeChecker TypeChecker) {
-		TypeChecker.visit(this);
+	public void accept(IElementVisitor ElementVisitor) {
+		ElementVisitor.visit(this);
 	}
 
 }

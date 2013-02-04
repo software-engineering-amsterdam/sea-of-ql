@@ -17,7 +17,7 @@ import org.uva.sea.ql.parser.antlr.ANTLRParser;
 import org.uva.sea.ql.parser.test.IParse;
 import org.uva.sea.ql.parser.test.ParseError;
 import org.uva.sea.ql.visitor.ExprEvaluator;
-import org.uva.sea.ql.visitor.TypeChecker;
+import org.uva.sea.ql.visitor.ElementChecker;
 
 
 public class TestTypeChecker {
@@ -33,7 +33,7 @@ public class TestTypeChecker {
 		try {
 			File filePath = new File(path);
 			ANTLRFileStream charStream = new ANTLRFileStream(filePath.getAbsolutePath());
-			TypeChecker.check(parser.parseForm(charStream.toString()));
+			ElementChecker.check(parser.parseForm(charStream.toString()));
 			Value val = parser.parseExpr(expr1).accept(eval);
 			if (val instanceof IntLiteral){
     			System.out.println(((IntLiteral) val).getValue());

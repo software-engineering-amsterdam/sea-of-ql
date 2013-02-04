@@ -3,7 +3,7 @@ package org.uva.sea.ql.ast;
 import org.uva.sea.ql.ast.expr.*;
 import org.uva.sea.ql.ast.expr.value.StringLiteral;
 import org.uva.sea.ql.ast.types.Type;
-import org.uva.sea.ql.visitor.ITypeChecker;
+import org.uva.sea.ql.visitor.IElementVisitor;
 
 public class CompQuestion extends Question {
 
@@ -20,8 +20,8 @@ public class CompQuestion extends Question {
 	}
 
 	@Override
-	public void accept(ITypeChecker TypeChecker) {
-		TypeChecker.visit(this);
+	public void accept(IElementVisitor ElementVisitor) {
+		ElementVisitor.visit(this);
 
 	}
 

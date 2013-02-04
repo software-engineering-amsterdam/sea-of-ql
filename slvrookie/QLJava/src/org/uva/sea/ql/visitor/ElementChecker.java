@@ -15,12 +15,12 @@ import org.uva.sea.ql.ast.IfThenElse;
 import org.uva.sea.ql.ast.Question;
 import org.uva.sea.ql.ast.types.*;
 
-public class TypeChecker implements ITypeChecker {
+public class ElementChecker implements IElementVisitor {
 
 	private final Map<String, Type> typeEnv;
 	private final List<String> errors;
 	
-	public TypeChecker(Map<String, Type> tenv, List<String> errors) {
+	public ElementChecker(Map<String, Type> tenv, List<String> errors) {
 		this.typeEnv = tenv;
 		this.errors = errors;
 	}
@@ -28,7 +28,7 @@ public class TypeChecker implements ITypeChecker {
 	public static void check(Form form) {
 		Map<String,Type> typeEnv= new LinkedHashMap<String,Type>();
 		List<String> error= new ArrayList<String>();
-		TypeChecker check = new TypeChecker(typeEnv, error);
+		ElementChecker check = new ElementChecker(typeEnv, error);
 		form.accept(check);
 		getErrors(error);
 	}
@@ -71,7 +71,7 @@ public class TypeChecker implements ITypeChecker {
 
 	public void visit(CompQuestion compQuestion) {
 		isIdentDeclared(compQuestion);
-		ExprVisitor.check(compQuestion.getQuestionExpr(), typeEnv, errors);
+		ExprChecker.check(compQuestion.getQuestionExpr(), typeEnv, errors);
 		if (!compQuestion.getQuestionExpr().typeOf(typeEnv).isCompatibleTo(compQuestion.getQuestionType())) {
 			addError("Incompatible type and expression at " + compQuestion.getQuestionName().getName() + ". Expected " + compQuestion.getQuestionType().getClass().getSimpleName() + " but got " + compQuestion.getQuestionExpr().typeOf(typeEnv).getClass().getSimpleName() + ".");
 		}
@@ -86,7 +86,7 @@ public class TypeChecker implements ITypeChecker {
 	}
 	
 	public void isConditionBoolean(IfThen ifBody){	
-		ExprVisitor.check(ifBody.getCondition(), typeEnv, errors) ;
+		ExprChecker.check(ifBody.getCondition(), typeEnv, errors) ;
 		if (!ifBody.getCondition().typeOf(typeEnv).isCompatibleToBoolType()) {
 			addError("If condition must be Boolean.");
 		}
