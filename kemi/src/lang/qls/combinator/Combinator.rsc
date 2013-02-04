@@ -1,68 +1,29 @@
+@license{
+  Copyright (c) 2013 
+  All rights reserved. This program and the accompanying materials
+  are made available under the terms of the Eclipse Public License v1.0
+  which accompanies this distribution, and is available at
+  http://www.eclipse.org/legal/epl-v10.html
+}
+@contributor{Kevin van der Vlist - kevin@kevinvandervlist.nl}
+@contributor{Jimi van der Woning - Jimi.vanderWoning@student.uva.nl}
+
 module lang::qls::combinator::Combinator
 
 import IO;
+import List;
 import String;
 
 import lang::ql::ast::AST;
 import lang::ql::tests::ParseHelper;
 import lang::qls::ast::AST;
 import lang::qls::tests::ParseHelper;
-
-
-public Statement getClassDefinition(str className, Stylesheet s) {
-  visit(s) {
-    case d:classDefinition(className, _): return d;
-  }
-  //TODO: not found
-}
-
-public Statement getStyleDefinition(StyleIdent ident, Stylesheet s) {
-  visit(s) {
-    case d:styleDefinition(ident, _): return d;
-  }
-  //TODO: not found
-}
-
-public StyleIdent getTypeIdent(StyleIdent: questionStyleIdent(ident), Form f) {
-  ident = substring(ident, 1, size(ident));
-  visit(f) {
-    case question(_, \type, ident):
-      return typeStyleIdent(\type);
-  }
-  //TODO: not found
-}
-
-public StyleIdent getClassIdent(StyleIdent: questionStyleIdent(ident), Stylesheet s) {
-  visit(s) {
-    case classDefinition(name, classRules):
-      if(classRule(ident) in classRules)
-        return classStyleIdent(".<name>");
-  }
-  //TODO: not found
-}
-
-public set[StyleRule] getStyleRules(str ident, Stylesheet s, Form f) {
-  ident = questionStyleIdent("#<ident>");
-
-  return getTypeStyleRules(ident, s, f) +
-    getClassStyleRules(ident, s) +
-    getQuestionStyleRules(ident, s);
-}
-  //TODO: importance and stuff
-
-private set[StyleRule] getTypeStyleRules(StyleIdent ident, Stylesheet s, Form f) =
-  getStyleDefinition(getTypeIdent(ident, f), s).styleRules;
-
-private set[StyleRule] getClassStyleRules(StyleIdent ident, Stylesheet s) =
-  getStyleDefinition(getClassIdent(ident, s), s).styleRules;
-
-private set[StyleRule] getQuestionStyleRules(StyleIdent ident, Stylesheet s) =
-  getStyleDefinition(ident, s).styleRules;
-
+import lang::qls::util::StyleHelpers;
 
 public void main() {
-  Form f = parseForm(|project://QL-R-kemi/forms/multipleQuestions.q|);
+  Form f = parseForm(|project://QL-R-kemi/forms/proposedSyntax.q|);
   Stylesheet s = parseStylesheet(|project://QL-R-kemi/stylesheets/proposedSyntax.qs|);
-  sr = getStyleRules("fieldTwo", s, f);
-  iprintln(sr);
+  //Stylesheet s = parseStylesheet("stylesheet S1 { section \"S1\" { section \"SS\" {question Q1 { type checkbox }} } section \"P1\" {  } }");
+  //Stylesheet s = parseStylesheet("stylesheet S1 { question Q1 { type checkbox width 100 } default boolean { type radio } default string { width 104 }}");
+  iprintln(getStyleRules("questionTen", f, s));
 }

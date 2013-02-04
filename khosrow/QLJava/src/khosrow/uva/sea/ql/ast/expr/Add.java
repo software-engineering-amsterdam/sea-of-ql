@@ -15,9 +15,10 @@ public class Add extends Binary {
 	public Type typeOf(Env typeEnv) {
 		return new Numeric();
 	}
-
+	
 	@Override
 	public <T> T accept(IExprVisitor<T> visitor) {
 		return visitor.visit(this);
 	}
+	
 }

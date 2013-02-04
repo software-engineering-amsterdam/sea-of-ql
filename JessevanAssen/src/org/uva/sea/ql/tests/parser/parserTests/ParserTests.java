@@ -1,12 +1,14 @@
 package org.uva.sea.ql.tests.parser.parserTests;
 
-import static org.junit.Assert.*;
-
-import org.uva.sea.ql.ast.*;
-import org.uva.sea.ql.ast.expr.Expr;
+import org.uva.sea.ql.ast.Form;
+import org.uva.sea.ql.ast.If;
+import org.uva.sea.ql.ast.Statement;
+import org.uva.sea.ql.ast.expression.Expression;
 import org.uva.sea.ql.parser.ParseError;
 import org.uva.sea.ql.parser.Parser;
 import org.uva.sea.ql.parser.antlr.ANTLRParser;
+
+import static org.junit.Assert.assertNotNull;
 
 public abstract class ParserTests {
 	
@@ -16,18 +18,18 @@ public abstract class ParserTests {
 		this.parser = new ANTLRParser();
 	}
 	
-	protected FormElement parseFormElement(String formElement) throws ParseError {
+	protected Statement parseStatement(String statement) throws ParseError {
 		final String template = "form default { %s }";
 		
-		Form parsed = (Form) parser.parse(String.format(template, formElement));
+		Form parsed = parser.parse(String.format(template, statement));
 		assertNotNull(parsed.getBody());
         return parsed.getBody();
 	}
 	
-	protected Expr parseExpression(String expression) throws ParseError {
+	protected Expression parseExpression(String expression) throws ParseError {
 		final String template = "if(%s) { }";
 		
-		FormElement parsed = parseFormElement(String.format(template, expression));
+		Statement parsed = parseStatement(String.format(template, expression));
 		return ((If) parsed).getCondition();
 	}
 }

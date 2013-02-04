@@ -1,3 +1,13 @@
+@license{
+  Copyright (c) 2013 
+  All rights reserved. This program and the accompanying materials
+  are made available under the terms of the Eclipse Public License v1.0
+  which accompanies this distribution, and is available at
+  http://www.eclipse.org/legal/epl-v10.html
+}
+@contributor{Kevin van der Vlist - kevin@kevinvandervlist.nl}
+@contributor{Jimi van der Woning - Jimi.vanderWoning@student.uva.nl}
+
 module lang::ql::analysis::Expression
 
 import Node;
@@ -143,7 +153,7 @@ private tuple[Type, set[Message]] analyze(Types types, Expr e) =
 private tuple[Type, set[Message]] analyzeUnary(Types types, Expr parent, Expr val) {
   <ltype, lm> = analyze(types, val);
   
-  if(ltype is undef())
+  if(ltype == undef())
     return <err(), lm>;
 
   if(ltype notin types[getName(parent)])

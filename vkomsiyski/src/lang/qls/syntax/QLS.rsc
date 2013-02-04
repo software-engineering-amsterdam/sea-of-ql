@@ -12,12 +12,12 @@ syntax Rule
   = color: "color:"  Color color // color of the label text
   | font: "font:" Font font // font of the label text
   | widget: "widget:" WidgetType widget 
-  | minInt: "minimum:" Int val 
-  | maxInt: "maximum:" Int val 
-  | stepInt: "stepSize:" IntNumber val
-  | minFloat: "minimum:" Float val 
-  | maxFloat: "maximum:" Float val 
-  | stepFloat: "stepSize:" FloatNumber val
+  | minInt: "minimum:" SignedInt val 
+  | maxInt: "maximum:" SignedInt val 
+  | stepInt: "stepSize:" Int val
+  | minFloat: "minimum:" SignedFloat val 
+  | maxFloat: "maximum:" SignedFloat val 
+  | stepFloat: "stepSize:" Float val
   | minDate: "minimum:" Date val 
   | maxDate: "maximum:" Date val; 
   
@@ -50,13 +50,13 @@ lexical Color = @category="Variable" String; // see http://doc.qt.digia.com/stab
 
 lexical Font = @category="Variable" String; // see http://doc.qt.digia.com/stable/stylesheet-reference.html
 
-lexical Int = IntNumber | "-" IntNumber;
+lexical SignedInt = Int | "-" Int;
 
-lexical IntNumber = [0-9]+ !>> [0-9];
+lexical Int = [0-9]+ !>> [0-9];
 
-lexical Float = FloatNumber | "-" FloatNumber;
+lexical SignedFloat = Float | "-" Float;
 
-lexical FloatNumber = [0-9]* "." [0-9]+ !>> [0-9];
+lexical Float = [0-9]* "." [0-9]+ !>> [0-9];
 
 lexical Date = Day "." Month "." Year;
 
@@ -64,7 +64,7 @@ lexical Day = "0"?[1-9] | [12][0-9] | "3" [01];
 
 lexical Month = "0"?[1-9] | "1"[0-2];
 
-lexical Year = IntNumber; 
+lexical Year = Int; 
 
 lexical String = "\"" StringChar* [\\] !<< "\"" ; 
   

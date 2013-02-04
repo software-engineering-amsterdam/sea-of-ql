@@ -4,9 +4,9 @@ import java.util.List;
 
 import khosrow.uva.sea.ql.ast.ASTNode;
 import khosrow.uva.sea.ql.ast.expr.*;
-import khosrow.uva.sea.ql.ast.type.QlError;
-import khosrow.uva.sea.ql.ast.type.Type;
+import khosrow.uva.sea.ql.ast.type.*;
 import khosrow.uva.sea.ql.env.Env;
+import khosrow.uva.sea.ql.resources.QlError;
 import khosrow.uva.sea.ql.visitor.IExprVisitor;
 
 public class ExprTypeChecker implements IExprVisitor<Boolean> {
@@ -35,7 +35,8 @@ public class ExprTypeChecker implements IExprVisitor<Boolean> {
 		
 		if (!(lhsType.isCompatibleToNumeric()
 				&& rhsType.isCompatibleToNumeric())) {
-			addToErrorList(ast, "invalid type for +");
+			addToErrorList(ast, "the operator + can not be applied to instances of type " 
+					+ lhsType.getClass() + " and type " + rhsType.getClass());
 			return false;
 		}			 
 		return true;
@@ -53,7 +54,8 @@ public class ExprTypeChecker implements IExprVisitor<Boolean> {
 		
 		if (!(lhsType.isCompatibleToBool()
 				&& rhsType.isCompatibleToBool())) {
-			addToErrorList(ast, "invalid type for &&");
+			addToErrorList(ast, "the operator && can not be applied to instances of type " 
+					+ lhsType.getClass() + " and type " + rhsType.getClass());
 			return false;
 		}			 
 		return true;
@@ -71,7 +73,8 @@ public class ExprTypeChecker implements IExprVisitor<Boolean> {
 		
 		if (!(lhsType.isCompatibleToNumeric()
 				&& rhsType.isCompatibleToNumeric())) {
-			addToErrorList(ast, "invalid type for /");
+			addToErrorList(ast, "the operator / can not be applied to instances of type " 
+					+ lhsType.getClass() + " and type " + rhsType.getClass());
 			return false;
 		}			 
 		return true;
@@ -88,7 +91,8 @@ public class ExprTypeChecker implements IExprVisitor<Boolean> {
 		Type rhsType = ast.getRhs().typeOf(typeEnv);
 		
 		if (!lhsType.isCompatibleTo(rhsType)) {
-			addToErrorList(ast, "invalid type for ==");
+			addToErrorList(ast, "the operator == can not be applied to instances of type " 
+					+ lhsType.getClass() + " and type " + rhsType.getClass());
 			return false;
 		}			 
 		return true;
@@ -105,7 +109,8 @@ public class ExprTypeChecker implements IExprVisitor<Boolean> {
 		Type rhsType = ast.getRhs().typeOf(typeEnv);
 		
 		if (!lhsType.isCompatibleTo(rhsType)) {
-			addToErrorList(ast, "invalid type for !=");
+			addToErrorList(ast, "the operator != can not be applied to instances of type " 
+					+ lhsType.getClass() + " and type " + rhsType.getClass());
 			return false;
 		}			 
 		return true;
@@ -121,10 +126,13 @@ public class ExprTypeChecker implements IExprVisitor<Boolean> {
 		Type lhsType = ast.getLhs().typeOf(typeEnv);
 		Type rhsType = ast.getRhs().typeOf(typeEnv);
 		
-		if (!lhsType.isCompatibleTo(rhsType)) {
-			addToErrorList(ast, "invalid type for >=");
+		if (!(lhsType.isCompatibleTo(rhsType) 
+			  && lhsType.isCompatibleToNumeric()
+			  && rhsType.isCompatibleToNumeric())) {
+			addToErrorList(ast, "the operator >= can not be applied to instances of type " 
+					+ lhsType.getClass() + " and type " + rhsType.getClass());
 			return false;
-		}			 
+		}		
 		return true;
 	}
 
@@ -138,10 +146,13 @@ public class ExprTypeChecker implements IExprVisitor<Boolean> {
 		Type lhsType = ast.getLhs().typeOf(typeEnv);
 		Type rhsType = ast.getRhs().typeOf(typeEnv);
 		
-		if (!lhsType.isCompatibleTo(rhsType)) {
-			addToErrorList(ast, "invalid type for >");
-			return false;
-		}			 
+		if (!(lhsType.isCompatibleTo(rhsType) 
+				  && lhsType.isCompatibleToNumeric()
+				  && rhsType.isCompatibleToNumeric())) {
+				addToErrorList(ast, "the operator > can not be applied to instances of type " 
+						+ lhsType.getClass() + " and type " + rhsType.getClass());
+				return false;
+		}
 		return true;
 	}
 
@@ -160,10 +171,13 @@ public class ExprTypeChecker implements IExprVisitor<Boolean> {
 		Type lhsType = ast.getLhs().typeOf(typeEnv);
 		Type rhsType = ast.getRhs().typeOf(typeEnv);
 		
-		if (!lhsType.isCompatibleTo(rhsType)) {
-			addToErrorList(ast, "invalid type for <=");
-			return false;
-		}			 
+		if (!(lhsType.isCompatibleTo(rhsType) 
+				  && lhsType.isCompatibleToNumeric()
+				  && rhsType.isCompatibleToNumeric())) {
+				addToErrorList(ast, "the operator <= can not be applied to instances of type " 
+						+ lhsType.getClass() + " and type " + rhsType.getClass());
+				return false;
+			}
 		return true;
 	}
 
@@ -177,10 +191,13 @@ public class ExprTypeChecker implements IExprVisitor<Boolean> {
 		Type lhsType = ast.getLhs().typeOf(typeEnv);
 		Type rhsType = ast.getRhs().typeOf(typeEnv);
 		
-		if (!lhsType.isCompatibleTo(rhsType)) {
-			addToErrorList(ast, "invalid type for <");
-			return false;
-		}			 
+		if (!(lhsType.isCompatibleTo(rhsType) 
+				  && lhsType.isCompatibleToNumeric()
+				  && rhsType.isCompatibleToNumeric())) {
+				addToErrorList(ast, "the operator < can not be applied to instances of type " 
+						+ lhsType.getClass() + " and type " + rhsType.getClass());
+				return false;
+		}
 		return true;
 	}
 
@@ -196,7 +213,8 @@ public class ExprTypeChecker implements IExprVisitor<Boolean> {
 		
 		if (!(lhsType.isCompatibleToNumeric()
 				&& rhsType.isCompatibleToNumeric())) {
-			addToErrorList(ast, "invalid type for %");
+			addToErrorList(ast, "the operator % can not be applied to instances of type " 
+					+ lhsType.getClass() + " and type " + rhsType.getClass());
 			return false;
 		}			 
 		return true;
@@ -214,7 +232,8 @@ public class ExprTypeChecker implements IExprVisitor<Boolean> {
 		
 		if (!(lhsType.isCompatibleToNumeric()
 				&& rhsType.isCompatibleToNumeric())) {
-			addToErrorList(ast, "invalid type for *");
+			addToErrorList(ast, "the operator * can not be applied to instances of type " 
+					+ lhsType.getClass() + " and type " + rhsType.getClass());
 			return false;
 		}			 
 		return true;
@@ -230,7 +249,8 @@ public class ExprTypeChecker implements IExprVisitor<Boolean> {
 		Type argType = ast.getArg().typeOf(typeEnv);
 		
 		if (!argType.isCompatibleToNumeric()) {
-			addToErrorList(ast, "invalid type for unary -");
+			addToErrorList(ast, "the unary operator - can not be applied to instances of type " 
+					+ argType.getClass());
 			return false;
 		}
 		return true;
@@ -246,7 +266,8 @@ public class ExprTypeChecker implements IExprVisitor<Boolean> {
 		Type argType = ast.getArg().typeOf(typeEnv);
 		
 		if (!argType.isCompatibleToNumeric()) {
-			addToErrorList(ast, "invalid type for unary +");
+			addToErrorList(ast, "the unary operator + can not be applied to instances of type " 
+					+ argType.getClass());
 			return false;
 		}
 		return true;
@@ -262,7 +283,8 @@ public class ExprTypeChecker implements IExprVisitor<Boolean> {
 		Type argType = ast.getArg().typeOf(typeEnv);
 		
 		if (!argType.isCompatibleToBool()) {
-			addToErrorList(ast, "invalid type for !");
+			addToErrorList(ast, "the unary operator ! can not be applied to instances of type " 
+					+ argType.getClass());
 			return false;
 		}
 		return true;
@@ -280,7 +302,8 @@ public class ExprTypeChecker implements IExprVisitor<Boolean> {
 		
 		if (!(lhsType.isCompatibleToBool()
 				&& rhsType.isCompatibleToBool())) {
-			addToErrorList(ast, "invalid type for ||");
+			addToErrorList(ast, "the operator || can not be applied to instances of type " 
+					+ lhsType.getClass() + " and type " + rhsType.getClass());
 			return false;
 		}			 
 		return true;
@@ -298,7 +321,8 @@ public class ExprTypeChecker implements IExprVisitor<Boolean> {
 		
 		if (!(lhsType.isCompatibleToNumeric()
 				&& rhsType.isCompatibleToNumeric())) {
-			addToErrorList(ast, "invalid type for -");
+			addToErrorList(ast, "the operator - can not be applied to instances of type " 
+					+ lhsType.getClass() + " and type " + rhsType.getClass());
 			return false;
 		}			 
 		return true;

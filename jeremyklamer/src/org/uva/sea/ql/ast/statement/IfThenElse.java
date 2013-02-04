@@ -9,6 +9,8 @@ import org.uva.sea.ql.ast.Ident;
 import org.uva.sea.ql.ast.type.Type;
 import org.uva.sea.ql.message.Message;
 
+import ui.UIComponent;
+
 public class IfThenElse extends If{
 	
 	private final List<Statement> elseBody;
@@ -44,5 +46,18 @@ public class IfThenElse extends If{
 		for(Statement statement : elseBody){
 			statement.printSelf(indentation + 1);
 		}
+	}
+	
+	@Override
+	public List<UIComponent> getUIComponents() {
+		ArrayList<UIComponent> components = new ArrayList<UIComponent>();
+		
+		components.addAll(super.getUIComponents());
+		
+		for(Statement statement : elseBody){
+			components.addAll(statement.getUIComponents());
+		}
+		
+		return components;
 	}
 }

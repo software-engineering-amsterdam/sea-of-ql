@@ -19,7 +19,7 @@ alias StyleEnvironment = tuple[TypeRules typeRules,
 						 		 set[Message] messages];
 
 
-public VarRules getAllVarRules(StyleEnvironment env, Declarations d) {
+public VarRules getAllVarRules(Declarations d, StyleEnvironment env) {
 	varRules = env.varRules;
 	for (name <- d, name notin varRules, d[name].\type in env.typeRules)
 		varRules += (name : env.typeRules[d[name].\type]);

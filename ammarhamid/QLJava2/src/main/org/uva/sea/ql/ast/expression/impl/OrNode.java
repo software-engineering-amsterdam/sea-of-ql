@@ -2,8 +2,8 @@ package org.uva.sea.ql.ast.expression.impl;
 
 import org.uva.sea.ql.ast.exception.InvalidTypeException;
 import org.uva.sea.ql.ast.expression.ExprNode;
-import org.uva.sea.ql.ast.value.ValueNode;
-import org.uva.sea.ql.ast.value.impl.BooleanNode;
+import org.uva.sea.ql.ast.value.Value;
+import org.uva.sea.ql.ast.value.impl.BooleanValue;
 
 public class OrNode extends ExprNode
 {
@@ -17,23 +17,23 @@ public class OrNode extends ExprNode
     }
 
     @Override
-    public ValueNode evaluate()
+    public Value evaluate()
     {
-        final ValueNode valueNode1 = this.lhs.evaluate();
-        final ValueNode valueNode2 = this.rhs.evaluate();
+        final Value value1 = this.lhs.evaluate();
+        final Value value2 = this.rhs.evaluate();
 
-        if(valueNode1.isBooleanNode() && valueNode2.isBooleanNode())
+        if(value1.isCompatibleTo(value2))
         {
-            final BooleanNode booleanNode1 = valueNode1.asBooleanNode();
-            final BooleanNode booleanNode2 = valueNode2.asBooleanNode();
-            return new BooleanNode(booleanNode1.getValue() || booleanNode2.getValue());
+            final BooleanValue booleanValue1 = value1.asBooleanValue();
+            final BooleanValue booleanValue2 = value2.asBooleanValue();
+            return new BooleanValue(booleanValue1.getValue() || booleanValue2.getValue());
         }
 
         throw new InvalidTypeException("Invalid operand type for or(||) operation: " + toTreeString(" "));
     }
 
     @Override
-    public String toTreeString(String indent)
+    public String toTreeString(final String indent)
     {
         return '\n' + indent + "||" + lhs.toTreeString(indent + "  ")
                 + rhs.toTreeString(indent + "  ");

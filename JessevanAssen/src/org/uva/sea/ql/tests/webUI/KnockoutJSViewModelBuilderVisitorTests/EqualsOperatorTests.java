@@ -1,9 +1,9 @@
 package org.uva.sea.ql.tests.webUI.KnockoutJSViewModelBuilderVisitorTests;
 
 import org.junit.Test;
-import org.uva.sea.ql.ast.expr.Eq;
-import org.uva.sea.ql.ast.expr.NEq;
-import org.uva.sea.ql.ast.expr.value.Bool;
+import org.uva.sea.ql.ast.expression.EqualTo;
+import org.uva.sea.ql.ast.expression.NotEqualTo;
+import org.uva.sea.ql.ast.expression.value.Bool;
 
 public class EqualsOperatorTests extends OperatorTests {
 
@@ -19,12 +19,12 @@ public class EqualsOperatorTests extends OperatorTests {
 
     @Test
     public void testEq() {
-        testBinaryOperator(new Eq(LEFT, RIGHT), "==");
+        testBinaryOperator(new EqualTo(LEFT, RIGHT), "==");
     }
 
     @Test
     public void testNeq() {
-        testBinaryOperator(new NEq(LEFT, RIGHT), "!=");
+        testBinaryOperator(new NotEqualTo(LEFT, RIGHT), "!=");
     }
 
 }

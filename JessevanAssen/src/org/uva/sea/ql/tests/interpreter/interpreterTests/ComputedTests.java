@@ -2,7 +2,7 @@ package org.uva.sea.ql.tests.interpreter.interpreterTests;
 
 import org.junit.Test;
 import org.uva.sea.ql.ast.Computed;
-import org.uva.sea.ql.ast.expr.value.Bool;
+import org.uva.sea.ql.ast.expression.value.Bool;
 
 import static junit.framework.Assert.assertNull;
 
