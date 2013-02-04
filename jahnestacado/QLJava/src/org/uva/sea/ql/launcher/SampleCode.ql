@@ -2,7 +2,9 @@ form Box1HouseOwning {
 	hasSoldHouse: "Did you sell a house in 2010?" money
 	hasBoughtHouse: "Did you by a house in 2010?" boolean
 	hasMaintLoan: "Did you enter a loan for maintenance/reconstruction?" boolean
+	//temp2: "Did you enter a loan for maintenance/reconstruction?" int 
 	temp1: "Did you enter a loan for maintenance/reconstruction?" int 
+	
 	
 	if (hasMaintLoan) {
 		se67llingPrice: "Price the house was sold for:" int (77- temp1)

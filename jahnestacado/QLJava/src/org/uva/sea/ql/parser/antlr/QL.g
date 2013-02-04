@@ -151,9 +151,6 @@ orExpr returns [Expr result]
    
 // Tokens
 
-
-
-
 INTEGER:'int';
 STRING:'string';
 BOOLEAN:'boolean';
@@ -168,7 +165,8 @@ WS  :	(' ' | '\t' | '\n' | '\r') { $channel=HIDDEN; }
     ;
 
 COMMENT 
-     : ('/*' .* '*/'|'//'  ){$channel=HIDDEN;}  
+     : '/*' .* '*/' {$channel=HIDDEN;}  
+     | '//' .* ( '\n' | '\r') {$channel=HIDDEN;}
      ;
      
   
