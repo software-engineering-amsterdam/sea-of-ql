@@ -13,6 +13,7 @@ import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
 import org.uva.sea.ql.ast.expr.primary.Ident;
 import org.uva.sea.ql.ast.type.Type;
+import org.uva.sea.ql.message.Message;
 import org.uva.sea.ql.parser.ANTLRParser;
 import org.uva.sea.ql.parser.error.ParseError;
 import org.uva.sea.ql.tests.IParse;
@@ -29,7 +30,7 @@ public class TestForm {
 		return Arrays.asList(data);
 	}
 	public static HashMap<Ident, Type> exprMap = new HashMap<Ident, Type>();
-	public static ArrayList<String> errors = new ArrayList<String>();
+	public static ArrayList<Message> errors = new ArrayList<Message>();
 	private String formString = "form Box1HouseOwning {\n"
 			+ "   hasSoldHouse: \"Did you sell a house in 2010?\" boolean\n"
 			+ "   hasBoughtHouse: \"Did you by a house in 2010?\" boolean\n"
@@ -44,7 +45,7 @@ public class TestForm {
 	public TestForm(IParse parser) {
 		this.parser = parser;
 		exprMap = new HashMap<Ident, Type>();
-		errors = new ArrayList<String>();
+		errors = new ArrayList<Message>();
 	}
 
 	@Test

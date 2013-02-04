@@ -1,7 +1,7 @@
 package org.uva.sea.ql.tests.semantic.expression;
 
-import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -14,6 +14,7 @@ import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
 import org.uva.sea.ql.ast.expr.primary.Ident;
 import org.uva.sea.ql.ast.type.Type;
+import org.uva.sea.ql.message.Message;
 import org.uva.sea.ql.parser.ANTLRParser;
 import org.uva.sea.ql.parser.error.ParseError;
 import org.uva.sea.ql.tests.IParse;
@@ -30,7 +31,7 @@ public class TestCombinations {
 		return Arrays.asList(data);
 	}
 	public static HashMap<Ident, Type> exprMap = new HashMap<Ident, Type>();
-	public static ArrayList<String> errors = new ArrayList<String>();
+	public static ArrayList<Message> errors = new ArrayList<Message>();
 
 	
 	public TestCombinations(IParse parser) {
