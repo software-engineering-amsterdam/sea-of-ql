@@ -7,7 +7,25 @@ package org.uva.sea.ql.parser.antlr;
 import org.uva.sea.ql.ast.*;
 import org.uva.sea.ql.ast.types.*;
 import org.uva.sea.ql.ast.operators.*;
+import java.util.LinkedList;
 }
+
+@members {
+    private List<String> errors = new LinkedList<String>();
+    public void displayRecognitionError(String[] tokenNames,
+                                        RecognitionException e) {
+        String hdr = getErrorHeader(e);
+        String msg = getErrorMessage(e, tokenNames);
+        errors.add(hdr + " " + msg);
+    }
+    public List<String> getErrors() {
+        return errors;
+    }
+    public int getErrorCount() {
+        return errors.size() ;
+    }
+}
+
 
 @lexer::header
 {
@@ -35,6 +53,7 @@ type returns [TypeDescription result]
     : 'boolean' { $result = new BooleanType() ;}
     | 'string'  { $result = new StringType() ;}
     | 'money'   { $result = new MoneyType() ;}
+    | 'integer' { $result = new IntegerType() ;}
     ; 
 
 primary returns [Expr result]

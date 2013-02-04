@@ -2,6 +2,7 @@ package org.uva.sea.ql.ast.nodevisitor;
 
 import java.util.HashMap;
 
+import org.uva.sea.ql.ast.BigLiteral;
 import org.uva.sea.ql.ast.BinExpr;
 import org.uva.sea.ql.ast.BooleanLiteral;
 import org.uva.sea.ql.ast.CompoundStatement;
@@ -31,15 +32,22 @@ import org.uva.sea.ql.ast.operators.Or;
 import org.uva.sea.ql.ast.operators.Pos;
 import org.uva.sea.ql.ast.operators.Sub;
 import org.uva.sea.ql.ast.types.TypeDescription;
-import org.uva.sea.ql.driver.QLForm;
 
-public class QLFormCreator implements Visitor {
-	private QLForm qlform = new QLForm();
+public class QLFormSymbolsCreator implements Visitor {
+	private String formName;
 	private HashMap<String, ExpressionResult> symbols = new HashMap<String, ExpressionResult>();
+
+	public String getFormName() {
+		return formName;
+	}
+
+	public HashMap<String, ExpressionResult> getSymbols() {
+		return symbols;
+	}
 
 	@Override
 	public VisitorResult visit(QLProgram qlProgram) {
-		qlform.setFormName(qlProgram.getProgramName());
+		formName = qlProgram.getProgramName();
 		qlProgram.getCompound().accept(this);
 		return null;
 	}
@@ -53,16 +61,20 @@ public class QLFormCreator implements Visitor {
 
 	@Override
 	public VisitorResult visit(LineStatement lineStatement) {
-		
+		symbols.put(lineStatement.getLineName(),
+				lineStatement.getTypeContainer());
 		return null;
 	}
 
 	@Override
 	public VisitorResult visit(ConditionalStatement conditionalStatement) {
-		// TODO Auto-generated method stub
+		conditionalStatement.getTrueCompound().accept(this);
+		if (conditionalStatement.getFalseCompound() != null) {
+			conditionalStatement.getFalseCompound().accept(this);
+		}
 		return null;
 	}
-	
+
 	@Override
 	public VisitorResult visit(Expr expr) {
 		return null;
@@ -135,67 +147,61 @@ public class QLFormCreator implements Visitor {
 
 	@Override
 	public VisitorResult visit(Eq expr) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public VisitorResult visit(GT expr) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public VisitorResult visit(LT expr) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public VisitorResult visit(LEq expr) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public VisitorResult visit(NEq expr) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public VisitorResult visit(GEq expr) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public VisitorResult visit(UnExpr expr) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public VisitorResult visit(Not expr) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public VisitorResult visit(Neg expr) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public VisitorResult visit(Pos expr) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public VisitorResult visit(TypeDescription typeDescription) {
-		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public VisitorResult visit(BigLiteral expr) {
 		return null;
 	}
 }

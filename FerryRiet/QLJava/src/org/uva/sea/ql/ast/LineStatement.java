@@ -3,6 +3,7 @@ package org.uva.sea.ql.ast;
 import org.antlr.runtime.Token;
 import org.uva.sea.ql.ast.nodevisitor.Visitor;
 import org.uva.sea.ql.ast.nodevisitor.VisitorResult;
+import org.uva.sea.ql.ast.operators.ExpressionResult;
 import org.uva.sea.ql.ast.types.TypeDescription;
 
 public class LineStatement extends Statement {
@@ -51,5 +52,9 @@ public class LineStatement extends Statement {
 
 	public TypeDescription getTypeDescription() {
 		return typeDescription;
+	}
+
+	public ExpressionResult getTypeContainer() {
+		return typeDescription.getTypeContainer();
 	}
 }
