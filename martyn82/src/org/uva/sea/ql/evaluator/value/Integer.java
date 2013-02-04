@@ -1,5 +1,7 @@
 package org.uva.sea.ql.evaluator.value;
 
+import org.uva.sea.ql.ast.type.Int;
+
 /**
  * Represents an Integer value.
  */
@@ -17,6 +19,11 @@ public class Integer extends Number {
 	public Integer( java.lang.Integer value ) {
 		super( value );
 		this.value = value;
+	}
+
+	@Override
+	public Int getType() {
+		return new Int();
 	}
 
 	@Override

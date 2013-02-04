@@ -4,11 +4,24 @@ package org.uva.sea.ql.evaluator.value;
  * Represents a Money value.
  */
 public class Money extends Number {
+	/**
+	 * Holds the inner value.
+	 */
 	private final java.lang.Double value;
 
+	/**
+	 * Constructs a new Money value.
+	 *
+	 * @param value
+	 */
 	public Money( java.lang.Double value ) {
 		super( value );
 		this.value = value;
+	}
+
+	@Override
+	public org.uva.sea.ql.ast.type.Money getType() {
+		return new org.uva.sea.ql.ast.type.Money();
 	}
 
 	@Override

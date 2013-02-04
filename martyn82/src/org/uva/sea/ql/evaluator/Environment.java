@@ -16,42 +16,29 @@ import org.uva.sea.ql.evaluator.value.Value;
  */
 public class Environment {
 	/**
-	 * Holds the declared variables.
-	 */
-	private final Map<Ident, Type> types;
-
-	/**
-	 * Holds the bound variables.
-	 */
-	private final Map<Ident, Value> bindings;
-
-	/**
 	 * Holds the error list.
 	 */
 	private final List<Error> errors;
 
-	private final Map<Ident, Observable> observables;
+	/**
+	 * Holds the variable bindings.
+	 */
+	private final Map<Ident, Bindable> bindings;
 
 	/**
 	 * Constructs a new context.
 	 */
 	public Environment() {
-		this.types = new HashMap<Ident, Type>();
-		this.bindings = new HashMap<Ident, Value>();
 		this.errors = new LinkedList<Error>();
-
-		this.observables = new HashMap<Ident, Observable>();
+		this.bindings = new HashMap<Ident, Bindable>();
 	}
 
 	/**
 	 * Cleans the environment by wiping the types, bindings and errors.
 	 */
 	public void clean() {
-		this.types.clear();
-		this.bindings.clear();
 		this.errors.clear();
-
-		this.observables.clear();
+		this.bindings.clear();
 	}
 
 	/**
@@ -80,7 +67,7 @@ public class Environment {
 	 * @return True if it is defined, false otherwise.
 	 */
 	public boolean isDeclared( Ident ident ) {
-		return this.types.containsKey( ident );
+		return this.bindings.containsKey( ident );
 	}
 
 	/**
@@ -93,8 +80,8 @@ public class Environment {
 	 * @throws RuntimeException If the variable cannot be found.
 	 */
 	public Type lookupType( Ident ident ) {
-		if ( this.types.containsKey( ident ) ) {
-			return this.types.get( ident );
+		if ( this.bindings.containsKey( ident ) ) {
+			return this.bindings.get( ident ).getType();
 		}
 
 		throw new RuntimeException( "Undefined variable: " + ident.getName() );
@@ -111,7 +98,7 @@ public class Environment {
 	 */
 	public Value lookup( Ident ident ) {
 		if ( this.bindings.containsKey( ident ) ) {
-			return this.bindings.get( ident );
+			return this.bindings.get( ident ).getValue();
 		}
 
 		throw new RuntimeException( "Undefined variable: " + ident.getName() );
@@ -123,37 +110,39 @@ public class Environment {
 	 * @param ident
 	 * @param type
 	 */
-	public void declareType( Ident ident, Type type ) {
+	public void declare( Ident ident, Type type ) {
 		if ( this.isDeclared( ident ) ) {
 			throw new RuntimeException( "Variable " + ident.getName() + " already declared." );
 		}
 
-		this.types.put( ident, type );
+		this.bindings.put( ident, new Bindable( type ) );
 	}
 
 	/**
-	 * Declares a variable for the given identifier and value.
+	 * Assigns a value to a variable for the given identifier and value.
 	 *
 	 * @param ident
 	 * @param value
 	 */
-	public void declareVariable( Ident ident, Value value ) {
-		this.bindings.put( ident, value );
+	public void assign( Ident ident, Value value ) {
+		if ( !this.isDeclared( ident ) ) {
+			throw new RuntimeException( "Variable " + ident.getName() + " is undefined." );
+		}
+
+		this.bindings.get( ident ).setValue( value );
 	}
 
 	public void registerObserver( Ident ident, Observer observer ) {
-		this.observables.get( ident ).registerObserver( observer );
-System.out.println( "Registers: " + ident.getName() + " " + observer );
+		this.bindings.get( ident ).getObservable().registerObserver( observer );
 	}
 
 	public void setObservable( Ident ident, Observable observable ) {
-		if ( !this.observables.containsKey( ident ) ) {
-			this.observables.put( ident, observable );
+		if ( this.bindings.get( ident ).getObservable() == null ) {
+			this.bindings.get( ident ).setObservable( observable );
 		}
 	}
 
 	public void notifyObservers( Ident ident ) {
-System.out.println( ident.getName() + " has " + this.observables.get( ident ).countObservers() + " observers" );
-		this.observables.get( ident ).notifyObservers();
+		this.bindings.get( ident ).getObservable().notifyObservers();
 	}
 }

@@ -177,14 +177,14 @@ public class RendererTest implements IStatementTest {
 		eval( new VarDeclaration( new Ident( "x" ), new org.uva.sea.ql.ast.type.Bool() ) );
 		assertEquals( false, eval( new Ident( "x" ) ) );
 
-		eval( new VarDeclaration( new Ident( "x" ), new org.uva.sea.ql.ast.type.Int() ) );
-		assertEquals( 0, eval( new Ident( "x" ) ) );
+		eval( new VarDeclaration( new Ident( "y" ), new org.uva.sea.ql.ast.type.Int() ) );
+		assertEquals( 0, eval( new Ident( "y" ) ) );
 
-		eval( new VarDeclaration( new Ident( "x" ), new org.uva.sea.ql.ast.type.Str() ) );
-		assertEquals( "", eval( new Ident( "x" ) ) );
+		eval( new VarDeclaration( new Ident( "z" ), new org.uva.sea.ql.ast.type.Str() ) );
+		assertEquals( "", eval( new Ident( "z" ) ) );
 
-		eval( new VarDeclaration( new Ident( "x" ), new Money() ) );
-		assertEquals( 0d, eval( new Ident( "x" ) ) );
+		eval( new VarDeclaration( new Ident( "u" ), new Money() ) );
+		assertEquals( 0d, eval( new Ident( "u" ) ) );
 	}
 
 	@Override

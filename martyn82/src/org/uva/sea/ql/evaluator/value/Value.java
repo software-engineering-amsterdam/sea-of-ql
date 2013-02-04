@@ -1,5 +1,7 @@
 package org.uva.sea.ql.evaluator.value;
 
+import org.uva.sea.ql.ast.type.Type;
+
 /**
  * Represents an abstract value.
  */
@@ -10,6 +12,13 @@ abstract public class Value {
 	 * @return The value.
 	 */
 	abstract public Object getValue();
+
+	/**
+	 * Retrieves the type of the value instance.
+	 *
+	 * @return The type.
+	 */
+	abstract public Type getType();
 
 	// arithmetic
 

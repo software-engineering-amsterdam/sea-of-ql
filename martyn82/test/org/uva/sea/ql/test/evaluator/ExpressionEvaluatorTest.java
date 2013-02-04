@@ -191,7 +191,8 @@ public class ExpressionEvaluatorTest implements IExpressionTest {
 	@Override
 	@Test
 	public void testId() {
-		this.environment.declareVariable( new Ident( "x" ), new org.uva.sea.ql.evaluator.value.String( "value of x" ) );
+		this.environment.declare( new Ident( "x" ), new org.uva.sea.ql.ast.type.Str() );
+		this.environment.assign( new Ident( "x" ), new org.uva.sea.ql.evaluator.value.String( "value of x" ) );
 		assertEquals( "value of x", eval( new Ident( "x" ) ) );
 	}
 

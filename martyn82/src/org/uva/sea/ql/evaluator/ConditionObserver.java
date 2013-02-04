@@ -23,11 +23,9 @@ public class ConditionObserver implements Observer {
 
 	@Override
 	public void update( Observable observable ) {
-System.out.println( "UPDATE for condition" );
-
 		Value value = this.condition.accept( new Evaluator( this.environment ) );
 		boolean visible = ( (Boolean) value ).getValue();
-System.out.println( "condition is " + visible );
+
 		this.trueComponent.setVisible( visible );
 
 		if ( this.falseComponent != null ) {

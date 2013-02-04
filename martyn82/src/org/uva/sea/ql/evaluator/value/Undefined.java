@@ -16,7 +16,12 @@ public class Undefined extends Value {
 	}
 
 	@Override
-	public Object getValue() {
+	public org.uva.sea.ql.ast.type.Undefined getType() {
+		return new org.uva.sea.ql.ast.type.Undefined();
+	}
+
+	@Override
+	public Void getValue() {
 		return null;
 	}
 }

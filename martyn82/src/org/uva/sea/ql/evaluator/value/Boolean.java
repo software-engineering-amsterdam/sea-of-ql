@@ -1,5 +1,7 @@
 package org.uva.sea.ql.evaluator.value;
 
+import org.uva.sea.ql.ast.type.Bool;
+
 /**
  * Represents a Boolean value.
  */
@@ -16,6 +18,11 @@ public class Boolean extends Value {
 	 */
 	public Boolean( java.lang.Boolean value ) {
 		this.value = value;
+	}
+
+	@Override
+	public Bool getType() {
+		return new Bool();
 	}
 
 	@Override

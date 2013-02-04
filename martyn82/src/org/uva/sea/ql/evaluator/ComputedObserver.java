@@ -22,10 +22,8 @@ public class ComputedObserver implements Observer {
 
 	@Override
 	public void update( Observable observable ) {
-System.out.println( "UPDATE computed" );
-
 		Value value = this.question.getExpression().accept( new Evaluator( this.environment ) );
-		this.environment.declareVariable( question.getIdent(), value );
+		this.environment.assign( question.getIdent(), value );
 		this.environment.notifyObservers( this.question.getIdent() );
 
 		if ( this.component instanceof JCheckBox ) {

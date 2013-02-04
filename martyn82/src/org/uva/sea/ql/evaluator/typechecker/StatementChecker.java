@@ -128,7 +128,7 @@ public class StatementChecker extends TypeCheckVisitor implements IStatementVisi
 			return true;
 		}
 
-		this.environment.declareType( node.getIdent(), node.getType() );
+		this.environment.declare( node.getIdent(), node.getType() );
 
 		return true;
 	}
@@ -137,7 +137,7 @@ public class StatementChecker extends TypeCheckVisitor implements IStatementVisi
 	public Boolean visit( Assignment node ) {
 		if ( !this.environment.isDeclared( node.getIdent() ) ) {
 			Type expressionType = node.getExpression().accept( this.resolver );
-			this.environment.declareType( node.getIdent(), expressionType );
+			this.environment.declare( node.getIdent(), expressionType );
 		}
 
 		if ( !node.getIdent().accept( this.expressionChecker ) ) {

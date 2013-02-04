@@ -34,7 +34,6 @@ import org.uva.sea.ql.ast.type.Money;
 import org.uva.sea.ql.ast.type.Number;
 import org.uva.sea.ql.ast.type.Str;
 import org.uva.sea.ql.ast.type.Type;
-import org.uva.sea.ql.evaluator.typechecker.ExpressionTypeResolver;
 import org.uva.sea.ql.evaluator.value.Boolean;
 import org.uva.sea.ql.evaluator.value.Value;
 import org.uva.sea.ql.visitor.IStatementVisitor;
@@ -53,11 +52,6 @@ public class Renderer implements IStatementVisitor<Void>, ITypeVisitor<JComponen
 	 * Holds the expression evaluator.
 	 */
 	private final Evaluator expressionEvaluator;
-
-	/**
-	 * Holds the type resolver.
-	 */
-	private final ExpressionTypeResolver typeResolver;
 
 	/**
 	 * Holds the type evaluator.
@@ -92,7 +86,6 @@ public class Renderer implements IStatementVisitor<Void>, ITypeVisitor<JComponen
 		this.environment = environment;
 		this.expressionEvaluator = new Evaluator( environment );
 		this.typeEvaluator = new TypeEvaluator();
-		this.typeResolver = new ExpressionTypeResolver( environment );
 
 		this.panel = new JPanel();
 	}
@@ -152,9 +145,8 @@ public class Renderer implements IStatementVisitor<Void>, ITypeVisitor<JComponen
 			( (JCheckBox) component ).addItemListener( new ItemListener() {
 				@Override
 				public void itemStateChanged( ItemEvent event ) {
-					System.out.println( "Notify for " + question.getIdent().getName() );
 					JCheckBox source = (JCheckBox) event.getSource();
-					environment.declareVariable( question.getIdent(), new Boolean( source.isSelected() ) );
+					environment.assign( question.getIdent(), new Boolean( source.isSelected() ) );
 					environment.notifyObservers( question.getIdent() );
 				}
 			} );
@@ -164,24 +156,36 @@ public class Renderer implements IStatementVisitor<Void>, ITypeVisitor<JComponen
 	private void registerCondition( Expression expression, JPanel ifTrue, JPanel ifFalse ) {
 		Observer observer = new ConditionObserver( expression, this.environment, ifTrue, ifFalse );
 		LinkedList<Ident> list = new LinkedList<Ident>();
-		this.getIdents( list, expression );
+		this.findDependencies( list, expression );
 
 		for ( Ident ident : list ) {
 			this.environment.registerObserver( ident, observer );
 		}
 	}
 
-	private void getIdents( LinkedList<Ident> list, Expression expression ) {
+	private void findDependencies( LinkedList<Ident> list, Expression expression ) {
 		if ( expression instanceof BinaryExpression ) {
-			this.getIdents( list, ( (BinaryExpression) expression ).getLhs() );
-			this.getIdents( list, ( (BinaryExpression) expression ).getRhs() );
+			this.findDependencies( list, ( (BinaryExpression) expression ).getLhs() );
+			this.findDependencies( list, ( (BinaryExpression) expression ).getRhs() );
 		}
 		else if ( expression instanceof UnaryExpression ) {
-			this.getIdents( list, ( (UnaryExpression) expression ).getExpression() );
+			this.findDependencies( list, ( (UnaryExpression) expression ).getExpression() );
 		}
 		else if ( expression instanceof Ident ) {
 			list.add( (Ident) expression );
 		}
+	}
+
+	private void registerDependencies( final QuestionComputed question, final JComponent component ) {
+		Observer observer = new ComputedObserver( component, this.environment, question );
+		LinkedList<Ident> list = new LinkedList<Ident>();
+		this.findDependencies( list, question.getExpression() );
+
+		for ( Ident ident : list ) {
+			this.environment.registerObserver( ident, observer );
+		}
+
+		this.registerHandler( question, component );
 	}
 
 	@Override
@@ -237,10 +241,11 @@ public class Renderer implements IStatementVisitor<Void>, ITypeVisitor<JComponen
 	public Void visit( VarDeclaration node ) {
 		Value value = node.getType().accept( this.typeEvaluator );
 
-// FIXME ident type is declared, but ident var may not
-//		if ( !this.environment.isDeclared( node.getIdent() ) ) {
-			this.environment.declareVariable( node.getIdent(), value );
-//		}
+		if ( !this.environment.isDeclared( node.getIdent() ) ) {
+			this.environment.declare( node.getIdent(), value.getType() );
+		}
+
+		this.environment.assign( node.getIdent(), value );
 
 		return null;
 	}
@@ -248,7 +253,12 @@ public class Renderer implements IStatementVisitor<Void>, ITypeVisitor<JComponen
 	@Override
 	public Void visit( Assignment node ) {
 		Value value = node.getExpression().accept( this.expressionEvaluator );
-		this.environment.declareVariable( node.getIdent(), value );
+
+		if ( !this.environment.isDeclared( node.getIdent() ) ) {
+			this.environment.declare( node.getIdent(), value.getType() );
+		}
+
+		this.environment.assign( node.getIdent(), value );
 
 		return null;
 	}
@@ -279,8 +289,6 @@ public class Renderer implements IStatementVisitor<Void>, ITypeVisitor<JComponen
 		this.environment.setObservable( node.getIdent(), new Observable() );
 		this.registerHandler( node, component );
 
-System.out.println( "Registered questionVar for " + node.getIdent().getName() );
-
 		return null;
 	}
 
@@ -289,7 +297,7 @@ System.out.println( "Registered questionVar for " + node.getIdent().getName() );
 		node.getAssignment().accept( this );
 
 		Value value = this.environment.lookup( node.getIdent() );
-		Type type = node.getExpression().accept( this.typeResolver );
+		Type type = value.getType();
 		String label = node.getLabel().getValue();
 
 		JComponent component = this.createControlFromType( type, value, false );
@@ -298,17 +306,8 @@ System.out.println( "Registered questionVar for " + node.getIdent().getName() );
 		this.addComponent( component );
 
 		this.environment.setObservable( node.getIdent(), new Observable() );
+		this.registerDependencies( node, component );
 
-		LinkedList<Ident> list = new LinkedList<Ident>();
-		this.getIdents( list, node.getExpression() );
-
-		for ( Ident ident : list ) {
-			this.environment.registerObserver( ident, new ComputedObserver( component, this.environment, node ) );
-		}
-
-		this.registerHandler( node, component );
-
-		System.out.println( "Registered questionComputed for " + node.getIdent().getName() );
 		return null;
 	}
 
