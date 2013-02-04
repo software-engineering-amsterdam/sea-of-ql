@@ -7,18 +7,16 @@ import org.uva.sea.ql.ast.Form;
 import org.uva.sea.ql.ast.Question;
 import org.uva.sea.ql.ast.Statement;
 import org.uva.sea.ql.ast.expr.type.Type;
-import org.uva.sea.ql.error.ErrorHandler;
 import org.uva.sea.ql.error.QLError;
+import org.uva.sea.ql.parser.ParserContext;
 import org.uva.sea.ql.visitor.StatementVisitor;
 
 public class DefinitionCollector implements StatementVisitor {
+	
+	private ParserContext context;
 
-	private SymbolTable table;
-	private ErrorHandler handler;
-
-	public DefinitionCollector(SymbolTable table, ErrorHandler handler) {
-		this.table = table;
-		this.handler = handler;
+	public DefinitionCollector(ParserContext context) {
+		this.context = context;
 	}
 
 	@Override
@@ -43,14 +41,14 @@ public class DefinitionCollector implements StatementVisitor {
 
 	@Override
 	public void visit(ComputedQuestion node) {
-		declareVariable(node, node.getExpr().typeOf(table));
+		declareVariable(node, node.getExpr().typeOf(context.getTable()));
 	}
 
 	private void declareVariable(Question node, Type type) {
-		if (table.hasSymbol(node.getName())) {
-			handler.addError(new QLError("Duplicate entry with name: " + node.getName() + " at line: " + node.getLineNumber()));
+		if (context.hasSymbol(node.getName())) {
+			context.addError(new QLError("Duplicate entry with name: " + node.getName() + " at line: " + node.getLineNumber()));
 		} else {
-			table.putSymbol(node.getName(), new Symbol(node, type));
+			context.putSymbol(node.getName(), new Symbol(node, type));
 		}
 	}
 

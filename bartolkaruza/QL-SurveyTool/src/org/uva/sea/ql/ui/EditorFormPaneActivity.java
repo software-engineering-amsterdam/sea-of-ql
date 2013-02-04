@@ -1,8 +1,7 @@
 package org.uva.sea.ql.ui;
 
 import org.uva.sea.ql.R;
-import org.uva.sea.ql.ast.Form;
-import org.uva.sea.ql.error.ErrorHandler;
+import org.uva.sea.ql.parser.ParserContext;
 import org.uva.sea.ql.service.ParserService;
 import org.uva.sea.ql.service.ServiceFactory;
 
@@ -14,9 +13,6 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 public class EditorFormPaneActivity extends FragmentActivity {
-	
-	private Form currentForm;
-	private ErrorHandler errorHandler = new ErrorHandler();
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -43,9 +39,9 @@ public class EditorFormPaneActivity extends FragmentActivity {
 	}
 	
 	private void parseAndCheckForm(String ql) {
-		ParserService service = ServiceFactory.defaultFactory().getParserService();
-		service.parseNewForm(ql);
-		if(service.getErrors().size() > 0) {
+		ParserService service = ServiceFactory.getParserService();
+		ParserContext context = service.parseNewForm(ql);
+		if(context.getErrors().size() > 0) {
 			Toast.makeText(this, "errors found", Toast.LENGTH_SHORT).show();
 		}
 	}

@@ -24,10 +24,9 @@ import org.uva.sea.ql.ast.expr.value.Ident;
 import org.uva.sea.ql.ast.expr.value.Int;
 import org.uva.sea.ql.ast.expr.value.Money;
 import org.uva.sea.ql.ast.expr.value.TextString;
-import org.uva.sea.ql.error.ErrorHandler;
 import org.uva.sea.ql.error.QLError;
+import org.uva.sea.ql.parser.ParserContext;
 import org.uva.sea.ql.symbol.Symbol;
-import org.uva.sea.ql.symbol.SymbolTable;
 import org.uva.sea.ql.visitor.ExpressionVisitor;
 
 public class ExpressionSemanticChecker implements ExpressionVisitor{
@@ -48,13 +47,12 @@ public class ExpressionSemanticChecker implements ExpressionVisitor{
 	private static final String EQ = "==";
 	private static final String NEQ = "!=";
 	
-	private final SymbolTable table;
-	private final ErrorHandler handler;
+	private final ParserContext context;
+	
 	private List<Symbol> symbols = new ArrayList<Symbol>();
 	
-	public ExpressionSemanticChecker(SymbolTable table, ErrorHandler handler) {
-		this.table = table;
-		this.handler = handler;
+	public ExpressionSemanticChecker(ParserContext context) {
+		this.context = context;
 	}
 	
 	public List<Symbol> getSymbols() {
@@ -68,102 +66,102 @@ public class ExpressionSemanticChecker implements ExpressionVisitor{
 	@Override
 	public void visit(Ident node) {
 		
-		if(table.hasSymbol(node.getName())) {
-			Symbol symbol = table.getSymbol(node.getName());
+		if(context.hasSymbol(node.getName())) {
+			Symbol symbol = context.getSymbol(node.getName());
 			symbols.add(symbol);
 		} else {
-			handler.addError(new QLError("undefined variable: " + node.getName() + " at line: " + node.getLineNumber()));
+			context.addError(new QLError("undefined variable: " + node.getName() + " at line: " + node.getLineNumber()));
 		}
 	}
 	
 	@Override
 	public void visit(Add node) {
 		if(!areNodesNumeric(node)) {
-			handler.reportOperationTypeError(ADD, node.getLineNumber());
+			context.reportOperationTypeError(ADD, node.getLineNumber());
 		}
 	}
 	@Override
 	public void visit(And node) {
 		if(!areNodesBool(node)) {
-			handler.reportOperationTypeError(AND, node.getLineNumber());
+			context.reportOperationTypeError(AND, node.getLineNumber());
 		}
 	}
 	@Override
 	public void visit(Div node) {
 		if(!areNodesNumeric(node)) {
-			handler.reportOperationTypeError(DIV, node.getLineNumber());
+			context.reportOperationTypeError(DIV, node.getLineNumber());
 		}
 	}
 	@Override
 	public void visit(Eq node) {
-		if(!node.getLhs().typeOf(table).isCompatibleTo(node.getRhs().typeOf(table))) {
-			handler.reportOperationTypeError(EQ, node.getLineNumber());
+		if(!node.getLhs().typeOf(context.getTable()).isCompatibleTo(node.getRhs().typeOf(context.getTable()))) {
+			context.reportOperationTypeError(EQ, node.getLineNumber());
 		}
 	}
 	@Override
 	public void visit(GEq node) {
 		if(!areNodesNumeric(node)) {
-			handler.reportOperationTypeError(GEQ, node.getLineNumber());
+			context.reportOperationTypeError(GEQ, node.getLineNumber());
 		}
 	}
 	@Override
 	public void visit(GT node) {
 		if(!areNodesNumeric(node)) {
-			handler.reportOperationTypeError(GT_, node.getLineNumber());
+			context.reportOperationTypeError(GT_, node.getLineNumber());
 		}
 	}
 	@Override
 	public void visit(LEq node) {
 		if(!areNodesNumeric(node)) {
-			handler.reportOperationTypeError(LEQ, node.getLineNumber());
+			context.reportOperationTypeError(LEQ, node.getLineNumber());
 		}
 	}
 	@Override
 	public void visit(LT node) {
 		if(!areNodesNumeric(node)) {
-			handler.reportOperationTypeError(LT_, node.getLineNumber());
+			context.reportOperationTypeError(LT_, node.getLineNumber());
 		}
 	}
 	@Override
 	public void visit(Mul node) {
 		if(!areNodesNumeric(node)) {
-			handler.reportOperationTypeError(MUL, node.getLineNumber());
+			context.reportOperationTypeError(MUL, node.getLineNumber());
 		}
 	}
 	@Override
 	public void visit(Neg node) {
-		if(!node.getRhs().typeOf(table).isCompatibleToNumeric()) {
-			handler.reportOperationTypeError(NEG, node.getLineNumber());
+		if(!node.getRhs().typeOf(context.getTable()).isCompatibleToNumeric()) {
+			context.reportOperationTypeError(NEG, node.getLineNumber());
 		}
 	}
 	@Override
 	public void visit(NEq node) {
 		if(!areNodesBool(node)) {
-			handler.reportOperationTypeError(NEQ, node.getLineNumber());
+			context.reportOperationTypeError(NEQ, node.getLineNumber());
 		}
 	}
 	@Override
 	public void visit(Not node) {
-		if(!node.getRhs().typeOf(table).isCompatibleToBool()) {
-			handler.reportOperationTypeError(NOT, node.getLineNumber());
+		if(!node.getRhs().typeOf(context.getTable()).isCompatibleToBool()) {
+			context.reportOperationTypeError(NOT, node.getLineNumber());
 		}
 	}
 	@Override
 	public void visit(Or node) {
 		if(!areNodesBool(node)) {
-			handler.reportOperationTypeError(OR, node.getLineNumber());
+			context.reportOperationTypeError(OR, node.getLineNumber());
 		}
 	}
 	@Override
 	public void visit(Pos node) {
-		if(!node.getRhs().typeOf(table).isCompatibleToNumeric()) {
-			handler.reportOperationTypeError(POS, node.getLineNumber());
+		if(!node.getRhs().typeOf(context.getTable()).isCompatibleToNumeric()) {
+			context.reportOperationTypeError(POS, node.getLineNumber());
 		}
 	}
 	@Override
 	public void visit(Sub node) {
 		if(!areNodesNumeric(node)) {
-			handler.reportOperationTypeError(SUB, node.getLineNumber());
+			context.reportOperationTypeError(SUB, node.getLineNumber());
 		}
 	}
 	@Override
@@ -184,11 +182,11 @@ public class ExpressionSemanticChecker implements ExpressionVisitor{
 	}
 	
 	private boolean areNodesNumeric(BinaryExpr expr) {
-		return expr.getLhs().typeOf(table).isCompatibleToNumeric() && expr.getRhs().typeOf(table).isCompatibleToNumeric();
+		return expr.getLhs().typeOf(context.getTable()).isCompatibleToNumeric() && expr.getRhs().typeOf(context.getTable()).isCompatibleToNumeric();
 	}
 	
 	private boolean areNodesBool(BinaryExpr expr) {
-		return expr.getLhs().typeOf(table).isCompatibleToBool() && expr.getRhs().typeOf(table).isCompatibleToBool();
+		return expr.getLhs().typeOf(context.getTable()).isCompatibleToBool() && expr.getRhs().typeOf(context.getTable()).isCompatibleToBool();
 	}
 
 }
