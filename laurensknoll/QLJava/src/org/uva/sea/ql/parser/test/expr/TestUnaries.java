@@ -2,33 +2,19 @@ package org.uva.sea.ql.parser.test.expr;
 
 import static org.junit.Assert.assertEquals;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
-import org.junit.runners.Parameterized.Parameters;
 import org.uva.sea.ql.ast.expr.unary.Neg;
 import org.uva.sea.ql.ast.expr.unary.Not;
 import org.uva.sea.ql.ast.expr.unary.Pos;
 import org.uva.sea.ql.parser.test.IParse;
 import org.uva.sea.ql.parser.test.ParseError;
 
-@RunWith(Parameterized.class)
 public class TestUnaries {
 
 	private IParse parser;
 
-	@Parameters
-	public static List<Object[]> theParsers() {
-		List<Object[]> parserList = new ArrayList<Object[]>();
-		parserList.add(new Object[] { new Parser() });
-		return parserList;
-	}
-
-	public TestUnaries(IParse parser) {
-		this.parser = parser;
+	public TestUnaries() {
+		this.parser = new Parser();
 	}
 
 	@Test

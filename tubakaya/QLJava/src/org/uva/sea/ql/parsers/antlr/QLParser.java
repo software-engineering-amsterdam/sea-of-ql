@@ -3,9 +3,6 @@
 package org.uva.sea.ql.parsers.antlr;
 import org.uva.sea.ql.ast.types.*; 
 import org.uva.sea.ql.ast.operations.*; 
-import org.uva.sea.ql.ast.conditions.*; 
-
-
 import org.antlr.runtime.*;
 import java.util.Stack;
 import java.util.List;
@@ -200,7 +197,7 @@ public class QLParser extends Parser {
 			type3=type();
 			state._fsp--;
 			if (state.failed) return result;
-			if ( state.backtracking==0 ) { result = new FormElement(new IDENT((IDENT1!=null?IDENT1.getText():null)), new StringLiteral((STRING2!=null?STRING2.getText():null)), type3); }
+			if ( state.backtracking==0 ) { result = new FormElement(new Ident((IDENT1!=null?IDENT1.getText():null)), new StringLiteral((STRING2!=null?STRING2.getText():null)), type3); }
 			}
 
 		}
@@ -371,7 +368,7 @@ public class QLParser extends Parser {
 					// C:\\Tubis\\School\\Software Construction\\WorkSpace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parsers\\antlr\\QL.g:41:5: IDENT
 					{
 					IDENT7=(Token)match(input,IDENT,FOLLOW_IDENT_in_primary203); if (state.failed) return result;
-					if ( state.backtracking==0 ) { result = new IDENT((IDENT7!=null?IDENT7.getText():null)); }
+					if ( state.backtracking==0 ) { result = new Ident((IDENT7!=null?IDENT7.getText():null)); }
 					}
 					break;
 				case 5 :

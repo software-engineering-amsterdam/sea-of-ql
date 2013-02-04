@@ -1,3 +1,13 @@
+@license{
+  Copyright (c) 2013 
+  All rights reserved. This program and the accompanying materials
+  are made available under the terms of the Eclipse Public License v1.0
+  which accompanies this distribution, and is available at
+  http://www.eclipse.org/legal/epl-v10.html
+}
+@contributor{Kevin van der Vlist - kevin@kevinvandervlist.nl}
+@contributor{Jimi van der Woning - Jimi.vanderWoning@student.uva.nl}
+
 module lang::ql::compiler::web::JS
 
 import IO;
@@ -29,7 +39,7 @@ private str assignVar(str ident) =
   '} else if($(\"#<ident>\").val() == \"false\") {
   '  <ident> = false;
   '} else {
-  '  <ident> = $(\"#<ident>\").val();;
+  '  <ident> = $(\"#<ident>\").val();
   '}";
   
 private list[str] getDirectDescendingIdents(Statement cond) {
@@ -96,7 +106,7 @@ private str individualCalculatedField(str form, tuple[str ident, Expr expr] cf) 
   '  <assignVar(e)>
   '<}>
   '  result = <jsPrint(cf.expr)>;
-  '  $(\"#<cf.ident>\").val(result);  
+  '  $(\"#<cf.ident>\").val(result).change();  
   '});
   ";
 }  
