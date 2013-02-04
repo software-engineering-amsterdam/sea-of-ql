@@ -1,9 +1,9 @@
 package org.uva.sea.ql.ast.types;
 
-public class IDENT extends Expr{
+public class Ident extends Expr{
 	private final String value;
 
-	public IDENT(String string) {
+	public Ident(String string) {
 		value = string;
 	}
 
