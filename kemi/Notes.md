@@ -14,6 +14,8 @@ Eclipse highlight categories (probably):
   - "NonterminalLabel". -> gray, italic
 
 
+Page: <div class="page"> ... </div>
+Section: <fieldset><legend>SectionName</legend> ... </fieldset>
 
 rascal>import lang::rascal::grammar::definition::Priorities;
 ok
