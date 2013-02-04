@@ -5,7 +5,7 @@ import java.util.Map;
 import org.uva.sea.ql.ast.Expr;
 import org.uva.sea.ql.ast.Type;
 import org.uva.sea.ql.ast.types.Error;
-import org.uva.sea.ql.parser.visitors.checkexpr.Visitor;
+import org.uva.sea.ql.ast.visitors.checkexpr.Visitor;
 
 public class Ident extends Expr {
 	private final String _name;

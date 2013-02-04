@@ -27,6 +27,7 @@ import org.uva.sea.ql.ast.expressions.literal.Str;
 import org.uva.sea.ql.ast.expressions.unary.Neg;
 import org.uva.sea.ql.ast.expressions.unary.Not;
 import org.uva.sea.ql.ast.expressions.unary.Pos;
+import org.uva.sea.ql.ast.visitors.checkexpr.Visitor;
 import org.uva.sea.ql.parser.Message;
 
 public class CheckExpr implements Visitor<Boolean> {

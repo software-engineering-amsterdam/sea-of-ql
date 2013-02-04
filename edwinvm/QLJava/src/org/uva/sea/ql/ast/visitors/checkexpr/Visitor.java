@@ -1,4 +1,4 @@
-package org.uva.sea.ql.parser.visitors.checkexpr;
+package org.uva.sea.ql.ast.visitors.checkexpr;
 
 import org.uva.sea.ql.ast.expressions.binary.bool.And;
 import org.uva.sea.ql.ast.expressions.binary.bool.Eq;

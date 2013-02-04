@@ -4,7 +4,7 @@ import java.util.Map;
 
 import org.uva.sea.ql.ast.Type;
 import org.uva.sea.ql.ast.expressions.LiteralExpr;
-import org.uva.sea.ql.parser.visitors.checkexpr.Visitor;
+import org.uva.sea.ql.ast.visitors.checkexpr.Visitor;
 
 public class Bool extends LiteralExpr {
 
