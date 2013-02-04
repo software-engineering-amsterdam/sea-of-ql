@@ -5,8 +5,13 @@ start syntax Stylesheet
   ;
 
 
-lexical Ident
-  = ([a-z A-Z 0-9 _] !<< [a-z A-Z][a-z A-Z 0-9 _]* !>> [a-z A-Z 0-9 _]) \ Keywords
+syntax Ident
+  = IdentIdent \ Keywords
+  | ("\\" IdentIdent) \ Keywords
+  ;
+
+lexical IdentIdent
+  = [a-z A-Z 0-9 _] !<< [a-z A-Z][a-z A-Z 0-9 _]* !>> [a-z A-Z 0-9 _]
   ;
 
 

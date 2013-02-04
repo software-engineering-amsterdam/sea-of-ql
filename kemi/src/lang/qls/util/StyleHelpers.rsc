@@ -12,9 +12,15 @@ import lang::qls::ast::AST;
 import lang::qls::tests::ParseHelper;
 
 public void main() {
-  Form f = parseForm(|project://QL-R-kemi/forms/basic.q|);
-  Stylesheet s = parseStylesheet(|project://QL-R-kemi/stylesheets/basic.qs|);
-  iprintln(getStyleRules("numberQuestion", f, s));
+  Form f = parseForm(|project://QL-R-kemi/forms/taxOfficeExample.q|);
+  Stylesheet s = parseStylesheet(|project://QL-R-kemi/stylesheets/taxOfficeExample.qs|);
+
+  typeMap = semanticAnalysisState(f).definitions;
+  //iprintln(typeMap);
+  
+  for(k <- typeMap){
+    iprintln(<k.ident, getStyleRules(k.ident, f, s)>);
+  }
   
   //Stylesheet s = parseStylesheet("stylesheet S1 { section \"S1\" { section \"SS\" {question Q1 { type checkbox }} } section \"P1\" {  } }");
   //Stylesheet s = parseStylesheet("stylesheet S1 { question Q1 { type checkbox width 100 } default boolean { type radio } default string { width 104 }}");
