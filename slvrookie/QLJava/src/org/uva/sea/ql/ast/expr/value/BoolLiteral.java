@@ -4,7 +4,7 @@ import java.util.Map;
 
 import org.uva.sea.ql.ast.types.BoolType;
 import org.uva.sea.ql.ast.types.Type;
-import org.uva.sea.ql.visitor.IExprVisitor;
+import org.uva.sea.ql.visitors.interfaces.IExprVisitor;
 
 public class BoolLiteral extends Value {
 

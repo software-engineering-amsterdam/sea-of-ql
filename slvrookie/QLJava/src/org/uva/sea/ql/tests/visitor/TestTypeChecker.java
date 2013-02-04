@@ -1,4 +1,4 @@
-package org.uva.sea.ql.parser.test.tests;
+package org.uva.sea.ql.tests.visitor;
 
 
 
@@ -14,16 +14,16 @@ import org.uva.sea.ql.ast.expr.value.IntLiteral;
 import org.uva.sea.ql.ast.expr.value.MoneyLiteral;
 import org.uva.sea.ql.ast.expr.value.Value;
 import org.uva.sea.ql.parser.antlr.ANTLRParser;
-import org.uva.sea.ql.parser.test.IParse;
-import org.uva.sea.ql.parser.test.ParseError;
-import org.uva.sea.ql.visitor.ExprEvaluator;
-import org.uva.sea.ql.visitor.ElementChecker;
+import org.uva.sea.ql.parser.antlr.IParse;
+import org.uva.sea.ql.parser.antlr.ParseError;
+import org.uva.sea.ql.visitors.ElementChecker;
+import org.uva.sea.ql.visitors.ExprEvaluator;
 
 
 public class TestTypeChecker {
 
 	final private IParse parser = new ANTLRParser();
-	final String path = "src/org/uva/sea/ql/parser/test/tests/TestQL.ql";
+	final String path = "src/org/uva/sea/ql/tests/TestQL.ql";
 	final String expr1 = "3 != 2";
 	final Map<String, Value> env = new HashMap<String, Value>();
 	@Test

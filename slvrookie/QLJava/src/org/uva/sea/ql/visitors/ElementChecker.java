@@ -1,4 +1,4 @@
-package org.uva.sea.ql.visitor;
+package org.uva.sea.ql.visitors;
 
 
 import java.util.ArrayList;
@@ -6,14 +6,15 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.uva.sea.ql.ast.Block;
-import org.uva.sea.ql.ast.CompQuestion;
-import org.uva.sea.ql.ast.Form;
-import org.uva.sea.ql.ast.FormElement;
-import org.uva.sea.ql.ast.IfThen;
-import org.uva.sea.ql.ast.IfThenElse;
-import org.uva.sea.ql.ast.Question;
+import org.uva.sea.ql.ast.formelements.Block;
+import org.uva.sea.ql.ast.formelements.CompQuestion;
+import org.uva.sea.ql.ast.formelements.Form;
+import org.uva.sea.ql.ast.formelements.FormElement;
+import org.uva.sea.ql.ast.formelements.IfThen;
+import org.uva.sea.ql.ast.formelements.IfThenElse;
+import org.uva.sea.ql.ast.formelements.Question;
 import org.uva.sea.ql.ast.types.*;
+import org.uva.sea.ql.visitors.interfaces.IElementVisitor;
 
 public class ElementChecker implements IElementVisitor {
 

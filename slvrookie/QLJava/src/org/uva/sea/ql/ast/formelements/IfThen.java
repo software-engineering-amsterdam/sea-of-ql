@@ -1,7 +1,7 @@
-package org.uva.sea.ql.ast;
+package org.uva.sea.ql.ast.formelements;
 
 import org.uva.sea.ql.ast.expr.Expr;
-import org.uva.sea.ql.visitor.IElementVisitor;
+import org.uva.sea.ql.visitors.interfaces.IElementVisitor;
 
 public class IfThen extends FormElement {
 

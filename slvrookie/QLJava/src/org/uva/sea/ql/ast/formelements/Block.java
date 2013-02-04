@@ -1,9 +1,9 @@
-package org.uva.sea.ql.ast;
+package org.uva.sea.ql.ast.formelements;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import org.uva.sea.ql.visitor.IElementVisitor;
+import org.uva.sea.ql.visitors.interfaces.IElementVisitor;
 
 public class Block extends FormElement {
 

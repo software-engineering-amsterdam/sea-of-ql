@@ -7,7 +7,7 @@ import org.uva.sea.ql.ast.types.IntType;
 import org.uva.sea.ql.ast.types.MoneyType;
 import org.uva.sea.ql.ast.types.Numeric;
 import org.uva.sea.ql.ast.types.Type;
-import org.uva.sea.ql.visitor.IExprVisitor;
+import org.uva.sea.ql.visitors.interfaces.IExprVisitor;
 
 public class Neg extends UnaryExpr {
 

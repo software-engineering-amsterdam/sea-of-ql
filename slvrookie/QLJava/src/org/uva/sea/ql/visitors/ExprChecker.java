@@ -1,4 +1,4 @@
-package org.uva.sea.ql.visitor;
+package org.uva.sea.ql.visitors;
 
 import java.util.List;
 import java.util.Map;
@@ -9,6 +9,7 @@ import org.uva.sea.ql.ast.expr.binary.*;
 import org.uva.sea.ql.ast.expr.unary.*;
 import org.uva.sea.ql.ast.expr.value.*;
 import org.uva.sea.ql.ast.types.Type;
+import org.uva.sea.ql.visitors.interfaces.IExprVisitor;
 
 public class ExprChecker implements IExprVisitor<Boolean> {
 	

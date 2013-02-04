@@ -7,6 +7,13 @@ import org.uva.sea.ql.ast.expr.*;
 import org.uva.sea.ql.ast.expr.value.*;
 import org.uva.sea.ql.ast.expr.binary.*;
 import org.uva.sea.ql.ast.expr.unary.*;
+import org.uva.sea.ql.ast.formelements.Block;
+import org.uva.sea.ql.ast.formelements.CompQuestion;
+import org.uva.sea.ql.ast.formelements.Form;
+import org.uva.sea.ql.ast.formelements.FormElement;
+import org.uva.sea.ql.ast.formelements.IfThen;
+import org.uva.sea.ql.ast.formelements.IfThenElse;
+import org.uva.sea.ql.ast.formelements.Question;
 
 
 import org.antlr.runtime.*;
