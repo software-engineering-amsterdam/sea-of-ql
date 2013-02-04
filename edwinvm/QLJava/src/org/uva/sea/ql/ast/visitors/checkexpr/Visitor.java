@@ -1,5 +1,9 @@
 package org.uva.sea.ql.ast.visitors.checkexpr;
 
+import org.uva.sea.ql.ast.expressions.binary.arithmetic.Add;
+import org.uva.sea.ql.ast.expressions.binary.arithmetic.Div;
+import org.uva.sea.ql.ast.expressions.binary.arithmetic.Mul;
+import org.uva.sea.ql.ast.expressions.binary.arithmetic.Sub;
 import org.uva.sea.ql.ast.expressions.binary.bool.And;
 import org.uva.sea.ql.ast.expressions.binary.bool.Eq;
 import org.uva.sea.ql.ast.expressions.binary.bool.GEq;
@@ -8,10 +12,6 @@ import org.uva.sea.ql.ast.expressions.binary.bool.LEq;
 import org.uva.sea.ql.ast.expressions.binary.bool.LT;
 import org.uva.sea.ql.ast.expressions.binary.bool.NEq;
 import org.uva.sea.ql.ast.expressions.binary.bool.Or;
-import org.uva.sea.ql.ast.expressions.binary.numeric.Add;
-import org.uva.sea.ql.ast.expressions.binary.numeric.Div;
-import org.uva.sea.ql.ast.expressions.binary.numeric.Mul;
-import org.uva.sea.ql.ast.expressions.binary.numeric.Sub;
 import org.uva.sea.ql.ast.expressions.literal.Bool;
 import org.uva.sea.ql.ast.expressions.literal.Ident;
 import org.uva.sea.ql.ast.expressions.literal.Int;
@@ -23,7 +23,7 @@ import org.uva.sea.ql.ast.expressions.unary.Pos;
 
 public interface Visitor<T> {
 	
-	// Binary numeric expressions
+	// Binary arithmetic expressions
 	T visit(Add ast);
 	T visit(Div ast);
 	T visit(Sub ast);

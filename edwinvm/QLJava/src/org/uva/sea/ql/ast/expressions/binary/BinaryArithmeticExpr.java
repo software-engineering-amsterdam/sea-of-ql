@@ -8,8 +8,8 @@ import org.uva.sea.ql.ast.expressions.BinaryExpr;
 import org.uva.sea.ql.ast.expressions.literal.Ident;
 import org.uva.sea.ql.ast.types.Numeric;
 
-public abstract class BinaryNumericExpr extends BinaryExpr {
-	protected BinaryNumericExpr(Expr lhs, Expr rhs) {
+public abstract class BinaryArithmeticExpr extends BinaryExpr {
+	protected BinaryArithmeticExpr(Expr lhs, Expr rhs) {
 		super(lhs, rhs);
 	}
 	

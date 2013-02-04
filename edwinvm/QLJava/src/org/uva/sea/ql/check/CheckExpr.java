@@ -6,7 +6,11 @@ import java.util.Map;
 import org.uva.sea.ql.ast.Expr;
 import org.uva.sea.ql.ast.Type;
 import org.uva.sea.ql.ast.expressions.binary.BinaryBoolExpr;
-import org.uva.sea.ql.ast.expressions.binary.BinaryNumericExpr;
+import org.uva.sea.ql.ast.expressions.binary.BinaryArithmeticExpr;
+import org.uva.sea.ql.ast.expressions.binary.arithmetic.Add;
+import org.uva.sea.ql.ast.expressions.binary.arithmetic.Div;
+import org.uva.sea.ql.ast.expressions.binary.arithmetic.Mul;
+import org.uva.sea.ql.ast.expressions.binary.arithmetic.Sub;
 import org.uva.sea.ql.ast.expressions.binary.bool.And;
 import org.uva.sea.ql.ast.expressions.binary.bool.Eq;
 import org.uva.sea.ql.ast.expressions.binary.bool.GEq;
@@ -15,10 +19,6 @@ import org.uva.sea.ql.ast.expressions.binary.bool.LEq;
 import org.uva.sea.ql.ast.expressions.binary.bool.LT;
 import org.uva.sea.ql.ast.expressions.binary.bool.NEq;
 import org.uva.sea.ql.ast.expressions.binary.bool.Or;
-import org.uva.sea.ql.ast.expressions.binary.numeric.Add;
-import org.uva.sea.ql.ast.expressions.binary.numeric.Div;
-import org.uva.sea.ql.ast.expressions.binary.numeric.Mul;
-import org.uva.sea.ql.ast.expressions.binary.numeric.Sub;
 import org.uva.sea.ql.ast.expressions.literal.Bool;
 import org.uva.sea.ql.ast.expressions.literal.Ident;
 import org.uva.sea.ql.ast.expressions.literal.Int;
@@ -119,7 +119,7 @@ public class CheckExpr implements Visitor<Boolean> {
 		return null;
 	}
 	
-	private Boolean checkNumericExpr(BinaryNumericExpr expr, String binarySymbol) {
+	private Boolean checkNumericExpr(BinaryArithmeticExpr expr, String binarySymbol) {
 		boolean checkLhs = expr.getLhs().accept(this);
 		boolean checkRhs = expr.getRhs().accept(this);
 		

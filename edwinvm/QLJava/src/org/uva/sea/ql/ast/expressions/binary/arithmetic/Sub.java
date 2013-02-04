@@ -1,11 +1,11 @@
-package org.uva.sea.ql.ast.expressions.binary.numeric;
+package org.uva.sea.ql.ast.expressions.binary.arithmetic;
 
 import org.uva.sea.ql.ast.Expr;
-import org.uva.sea.ql.ast.expressions.binary.BinaryNumericExpr;
+import org.uva.sea.ql.ast.expressions.binary.BinaryArithmeticExpr;
 import org.uva.sea.ql.ast.visitors.checkexpr.Visitor;
 
-public class Div extends BinaryNumericExpr {
-	public Div(Expr lhs, Expr rhs) {
+public class Sub extends BinaryArithmeticExpr {
+	public Sub(Expr lhs, Expr rhs) {
 		super(lhs, rhs);
 	}
 	
