@@ -78,9 +78,9 @@ private str questionDefinition(Form form, QuestionDefinition pqd) {
   if(questionDefinition(str ident) := pqd) {
     ret += "END: <ident>";
   } else {
-    tsrs = [def | def <- pqd.styleRules, typeStyleRule(_, _) := def];
+    tsrs = [def | def <- pqd.styleRules, widgetStyleRule(_, _) := def];
     for(tsr <- tsrs)
-      ret += typeStyleRule(form, tsr);
+      ret += widgetStyleRule(form, tsr);
       
     wsrs = [def | def <- pqd.styleRules, widthStyleRule(_, _) := def];
     for(wsr <- wsrs)
@@ -90,8 +90,8 @@ private str questionDefinition(Form form, QuestionDefinition pqd) {
   return ret;
 }
 
-private str typeStyleRule(Form form, StyleRule sr) {
-  str ret = "<sr.attr> :: <typeStyleValue(form, sr.typeValue)>";
+private str widgetStyleRule(Form form, StyleRule sr) {
+  str ret = "<sr.attr> :: <widgetStyleValue(form, sr.widgetValue)>";
   return ret;
 }
 
@@ -100,13 +100,38 @@ private str widthStyleRule(Form form, StyleRule sr) {
   return ret;
 }
 
-private str typeStyleValue(Form form, TypeStyleValue tsv: radio(str name)) {
+private str widgetStyleValue(Form form, WidgetStyleValue wsv: text(str name)) {
   str ret = "Radio: <name>";
   return ret;
 }
 
-private str typeStyleValue(Form form, TypeStyleValue tsv: checkbox(str name)) {
+private str widgetStyleValue(Form form, WidgetStyleValue wsv: number(str name)) {
+  str ret = "Radio: <name>";
+  return ret;
+}
+
+private str widgetStyleValue(Form form, WidgetStyleValue wsv: datepicker(str name)) {
+  str ret = "Datepicker: <name>";
+  return ret;
+}
+
+private str widgetStyleValue(Form form, WidgetStyleValue wsv: slider(str name)) {
+  str ret = "Slider: <name>";
+  return ret;
+}
+
+private str widgetStyleValue(Form form, WidgetStyleValue wsv: radio(str name)) {
+  str ret = "Radio: <name>";
+  return ret;
+}
+
+private str widgetStyleValue(Form form, WidgetStyleValue wsv: checkbox(str name)) {
   str ret = "Checkbox: <name>";
+  return ret;
+}
+
+private str widgetStyleValue(Form form, WidgetStyleValue wsv: select(str name)) {
+  str ret = "Select: <name>";
   return ret;
 }
 
@@ -115,9 +140,9 @@ private str defaultDefinition(Form form, DefaultDefinition dd) {
   
   ret += "Type ident: <dd.ident>";
 
-  tsrs = [def | def <- dd.styleRules, typeStyleRule(_, _) := def];
+  tsrs = [def | def <- dd.styleRules, widgetStyleRule(_, _) := def];
   for(tsr <- tsrs)
-    ret += typeStyleRule(form, tsr);
+    ret += widgetStyleRule(form, tsr);
     
   wsrs = [def | def <- dd.styleRules, widthStyleRule(_, _) := def];
   for(wsr <- wsrs)
