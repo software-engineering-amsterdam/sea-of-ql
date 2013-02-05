@@ -71,8 +71,10 @@ public class BoolType extends Type implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		if ((buttonTrue.isSelected() || buttonFalse.isSelected()) && form != null) {
-			form.eval();
+		if (e.getSource() == buttonTrue || e.getSource() == buttonFalse) {
+			if ((buttonTrue.isSelected() || buttonFalse.isSelected()) && form != null) {
+				form.eval();
+			}
 		}
 	}
 }

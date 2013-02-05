@@ -1,4 +1,4 @@
-form testStylesheet {
+form proposedSyntax {
   "Question ten?"
     boolean questionTen
   "Question five?"

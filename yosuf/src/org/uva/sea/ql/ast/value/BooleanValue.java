@@ -23,4 +23,11 @@ public class BooleanValue extends Value {
 	public boolean getValue() {
 		return value;
 	}
+
+	@Override
+	public String toString() {
+		return "BooleanValue [value=" + value + ", getNature()=" + getNature()
+				+ "]";
+	}
+
 }

@@ -1,5 +1,5 @@
 /* The stylesheet contains multiple comments */
-stylesheet commentForm {
+stylesheet comment {
   /* Another comment */
   question theAnswer
   question aDate

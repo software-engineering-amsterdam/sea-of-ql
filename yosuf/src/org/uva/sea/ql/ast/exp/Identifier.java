@@ -31,4 +31,10 @@ public class Identifier extends Expression {
 	public Nature getNature() {
 		return Nature.TEXTUAL;
 	}
+
+	@Override
+	public String toString() {
+		return "Identifier [name=" + name + "]";
+	}
+
 }

@@ -1,15 +1,16 @@
 module Plugin
 
 import IO;
+import String;
 import ParseTree;
 import util::IDE;
-import util::Prompt;
 
-import lang::ql::syntax::QL;
-import lang::ql::ast::Check;
-import lang::ql::ast::Outline;
 import lang::ql::util::Parse;
 import lang::ql::util::Implode;
+
+import lang::ql::ast::AST;
+import lang::ql::ast::Outline;
+import lang::ql::checker::Check;
 import lang::ql::generator::GenerateJava;
 
 private str LANG = "QL-R";
@@ -30,9 +31,12 @@ public void main() {
   		popup(
 			menu(LANG, [
 	    		action("Java generator", void (Tree t, loc l) {;
-					//str name = prompt("Name: ");
-				  	loc output = |project://QLRascal/output/Test.java|;				  	
-				  	writeFile(output, generateJava(implode(t)));
+					Form form = implode(t);
+					
+					str name = toUpperCase(substring(form.name, 0, 1)) + substring(form.name, 1);
+				  	loc output = |project://QLRascal/output/<name>.java|;	
+				  				  	
+				  	writeFile(output, generateJava(form, name));
 	    		})
 		    ])
 	  	)

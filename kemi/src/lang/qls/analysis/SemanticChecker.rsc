@@ -10,21 +10,49 @@
 
 module lang::qls::analysis::SemanticChecker
 
+import IO;
 import List;
 import Set;
 import String;
 import util::IDE;
 
+import lang::ql::ast::AST;
+
+import lang::qls::analysis::StyleAttrChecker;
 import lang::qls::ast::AST;
 import lang::qls::compiler::PrettyPrinter;
+import lang::qls::util::StyleHelper;
+import util::LocationHelper;
 
-import IO;
-import lang::qls::tests::ParseHelper;
+import lang::qls::util::ParseHelper;
 
-public set[Message] semanticChecker(Stylesheet s) = 
+public set[Message] semanticChecker(Stylesheet s) =
+  filenameDoesNotMatchErrors(s) +
+  accompanyingFormNotFoundErrors(s) +
+  unallowedAttrErrors(s) +
   alreadyUsedQuestionErrors(s) +
+  undefinedQuestionErrors(s) +
   doubleNameWarnings(s) +
   defaultRedefinitionWarnings(s);
+
+
+public default set[Message] filenameDoesNotMatchErrors(Stylesheet s) = 
+  {};
+
+public set[Message] filenameDoesNotMatchErrors(Stylesheet s) =
+  {error(
+    "Stylesheet name (<s.ident>) does not match filename " +
+      "(<basename(s@location)>)",
+    s@location
+  )}
+    when s.ident != basename(s@location);
+
+private default set[Message] accompanyingFormNotFoundErrors(Stylesheet s) =
+  {};
+
+private set[Message] accompanyingFormNotFoundErrors(Stylesheet s) =
+  {error("No form found with name <s.ident>", s@location)}
+    when !isFile(accompanyingFormLocation(s));
 
 
 public set[Message] alreadyUsedQuestionErrors(Stylesheet s) {
@@ -35,11 +63,28 @@ public set[Message] alreadyUsedQuestionErrors(Stylesheet s) {
     i = indexOf(idents, d.ident);
     if(i >= 0) {
       errors += error(
-        "Question already used at line <questionDefinitions[i]@location.begin.line>",
+        "Question already used at line " +
+          "<questionDefinitions[i]@location.begin.line>",
         d@location
       );
     }
     idents += d.ident;
+  }
+  return errors;
+}
+
+public set[Message] undefinedQuestionErrors(Stylesheet s) {
+  if(!isFile(accompanyingFormLocation(s)))
+    return {};
+  
+  errors = {};
+  typeMap = getTypeMap(accompanyingForm(s));
+  visit(s) {
+    case QuestionDefinition d: {
+      if(identDefinition(d.ident) notin typeMap) {
+        errors += error("Question undefined in form", d@location);
+      }
+    }
   }
   return errors;
 }
@@ -57,7 +102,8 @@ public set[Message] doublePageNameWarnings(Stylesheet s) {
     i = indexOf(names, d.ident);
     if(i >= 0) {
       warnings += warning(
-        "Page name already used at line <pageDefinitions[i]@location.begin.line>",
+        "Page name already used at line " +
+          "<pageDefinitions[i]@location.begin.line>",
         d@location
       );
     }
@@ -74,7 +120,8 @@ public set[Message] doubleSectionNameWarnings(Stylesheet s) {
     i = indexOf(names, d.ident);
     if(i >= 0) {
       warnings += warning(
-        "Section name already used at line <sectionDefinitions[i]@location.begin.line>",
+        "Section name already used at line " +
+          "<sectionDefinitions[i]@location.begin.line>",
         d@location
       );
     }
@@ -111,7 +158,8 @@ private list[DefaultDefinition] getDefaultRedefinitions(list[&T] definitions) {
   idents = [];
   redefinitions = [];
   for(def <- definitions) {
-    if(!def.defaultDefinition?) continue;
+    if(!def.defaultDefinition?)
+      continue;
     
     d = def.defaultDefinition;
     i = indexOf(idents, d.ident);
@@ -120,6 +168,10 @@ private list[DefaultDefinition] getDefaultRedefinitions(list[&T] definitions) {
   }
   return redefinitions;
 }
+
+
+public list[DefaultDefinition] getDefaultDefinitions(Stylesheet s) =
+  [d | /DefaultDefinition d <- s];
 
 public list[QuestionDefinition] getQuestionDefinitions(Stylesheet s) =
   [d | /QuestionDefinition d <- s];

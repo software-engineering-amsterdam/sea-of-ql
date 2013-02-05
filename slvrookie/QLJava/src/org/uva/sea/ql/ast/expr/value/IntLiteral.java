@@ -137,4 +137,14 @@ public class IntLiteral extends Value {
 	public Value pos() {
 		return new IntLiteral(+this.value);
 	}
+	
+	@Override
+	public boolean isOfValue(Value v) {
+		return v.isIntLiteral();
+	}
+	
+	@Override
+	public boolean isIntLiteral() {
+		return true;
+	}
 }

@@ -18,12 +18,17 @@ import lang::ql::compiler::web::JSExpressionPrinter;
 import util::ValueUI; 
 
 private str BLOCK = "Block";
+private loc JS_SRC_LOC = |project://QL-R-kemi/js/|;
 
 public void JS(Form f, loc dest) {
+  for(js <- listEntries(JS_SRC_LOC))
+    writeFile(dest + js, readFile(JS_SRC_LOC + js));
+
+  writeFile(dest + "styling.js", "function styling() { }");
+  
   dest += "checking.js";
   
-  writeFile(dest, "");
-  appendToFile(dest, JS(f));
+  writeFile(dest, JS(f));
 }
 
 private str showElement(str name) =
@@ -42,28 +47,31 @@ private str assignVar(str ident) =
   '  <ident> = $(\"#<ident>\").val();
   '}";
   
-private list[str] getDirectDescendingIdents(Statement cond) {
+private set[str] getDirectDescendingIdents(Statement cond) {
   list[Statement] items = cond.ifPart.body;
   
-  for(ei <- cond.elseIfs) {
+  for(ei <- cond.elseIfs)
     items += ei.body;
-  }
 
-  for(ep <- cond.elsePart) {
+  for(ep <- cond.elsePart)
     items += ep.body;
-  }
   
   return getDirectDescendingIdents(items);
 }
 
-private list[str] getDirectDescendingIdents(list[Statement] items) =
-  [q.answerIdentifier.ident | i <- items, question(Question q) := i];
+private set[str] getDirectDescendingIdents(list[Statement] items) =
+  {q.answerIdentifier.ident | i <- items, question(Question q) := i};
   
-private list[str] getConditionalVariableMembers(Statement cond) =
-  [name | /x:ident(name) <- [cond.ifPart.condition] + [x.condition | x <- cond.elseIfs]];
+private set[str] getConditionalVariableMembers(Statement cond) =
+  {
+    name | 
+    /x:ident(name) <- 
+      [cond.ifPart.condition] + 
+      [x.condition | x <- cond.elseIfs]
+   };
 
 private str JS(Form f) =
-  "//THIS IS AN AUTOMATICALLY GENERATED FILE. DO NOT EDIT!
+  "// THIS IS AN AUTOMATICALLY GENERATED FILE. DO NOT EDIT!
   '
   'function validate<f.formName.ident>() {
   '  $(\"#<f.formName.ident>\").validate({
@@ -72,43 +80,54 @@ private str JS(Form f) =
   '    }
   '  });
   '
-  '  \<!-- The code to automatically generate calculated fields --\>
+  '  // The code to automatically generate calculated fields 
   '  <calculatedFields(f)>
   '
-  '  \<!-- End with control flow functionality for branches etc. --\>
+  '  // End with control flow functionality for branches etc. 
   '  <conditionalVisibility(f)>
+  '
+  '  styling();
   '}
   ";
   
 private str calculatedFields(Form f) {
   list[tuple[str ident, Expr expr]] cfs = [];
   
+  int cbcounter = 0;
+  
   top-down visit(f) {
     case q: question(_, _, i, e): cfs += [<i.ident, e>];
   }
   
-  return "<for(c <- cfs) {>
-  '<individualCalculatedField(f.formName.ident, c)>
-  '<}>";
+  str ret = "";
+  for(c <- cfs) {
+    ret += "<individualCalculatedField(cbcounter, c.ident, c.expr)>";
+    cbcounter += 1;
+  }
+  return ret;
 }
   
-private str individualCalculatedField(str form, tuple[str ident, Expr expr] cf) {  
+private str individualCalculatedField(int cnt, str ident, Expr expr) {  
   list[str] eidents = [];
   
-  top-down visit(cf.expr) {
+  top-down visit(expr) {
     case Expr e: ident(str name): eidents += name;
   }
 
   return "
-  '$(\"#<form>\").change(function(e)  {
-  '  var result; 
-  '<for(e <- eidents) {>
-  '  <assignVar(e)>
-  '<}>
-  '  result = <jsPrint(cf.expr)>;
-  '  $(\"#<cf.ident>\").val(result).change();  
-  '});
-  ";
+    '<for(e <- eidents) {>
+    '$(\"#<e>\").change(calc_callback_<cnt>);
+    '<}>
+    '
+    'function calc_callback_<cnt>(e) {
+    '  var result; 
+    '<for(e <- eidents) {>
+    '  <assignVar(e)>
+    '<}>
+    '  result = <jsPrint(expr)>;
+    '  $(\"#<ident>\").val(result).change();  
+    '}
+    ";
 }  
 
 private str createValidationRules(Form f) {
@@ -120,11 +139,11 @@ private str createValidationRules(Form f) {
   }
   
   return "<for (r <- rules) {>
-  '<r.ident>: {
-  '  required: true,
-  '  <getTypeRule(r.\type)>: true
-  '},
-  '<}>";
+    '<r.ident>: {
+    '  required: true,
+    '  <getTypeRule(r.\type)>: true
+    '},
+    '<}>";
 }
 
 private str getTypeRule(str t) {
@@ -143,16 +162,15 @@ private str conditionalVisibility(Form f) {
   int cbcounter = 0;
   
   top-down visit(f) {
-    case c: ifCondition(_, _, _):
-      conditionals += c;
+    case c: ifCondition(_, _, _): conditionals += c;
   }
   
   str ret = "
-  '\<!-- Hide all elements in a conditional branch on page load --\>
-  '<for(i <- [id | c <- conditionals, /u:identDefinition(str id) <- c]) {>
-  '  <hideElement(i)>
-  '<}>
-  ";
+    '// Hide all elements in a conditional branch on page load 
+    '<for(i <- [id | c <- conditionals, /u:identDefinition(str id) <- c]) {>
+    '<hideElement(i)>
+    '<}>
+    ";
   
   for(c <- conditionals) {
     ret += "
@@ -198,23 +216,24 @@ private str individualConditional(int suffix, Statement cond) {
 }
 
 private str individualConditionalVisibility(Statement item: 
-  ifCondition(Conditional ifPart, list[Conditional] elseIfs, list[ElsePart] elsePart)) =
-    "if(<jsPrint(ifPart.condition)>) { 
-    '<for(e <- getDirectDescendingIdents(ifPart.body)) {>
-    '  <showElement(e)>
-    '<}>
-    '
-    '<for(ei <- elseIfs) { >
-    '} else if(<jsPrint(ei.condition)>) { 
-    '  <for(e <- [id | /u:identDefinition(str id) <- ei.body]) {>
-    '    <showElement(e)>
-    '  <}>
-    '<}>
-    '
-    '<for(ep <- elsePart) { >
-    '} else { 
-    '  <for(e <- [id | /u:identDefinition(str id) <- ep.body]) {>
-    '    <showElement(e)>    
-    '  <}>
-    '<}>
-    '}";
+    ifCondition(Conditional ifPart, list[Conditional] elseIfs, 
+    list[ElsePart] elsePart)) =
+  "if(<jsPrint(ifPart.condition)>) { 
+  '<for(e <- getDirectDescendingIdents(ifPart.body)) {>
+  '  <showElement(e)>
+  '<}>
+  '
+  '<for(ei <- elseIfs) { >
+  '} else if(<jsPrint(ei.condition)>) { 
+  '  <for(e <- [id | /u:identDefinition(str id) <- ei.body]) {>
+  '    <showElement(e)>
+  '  <}>
+  '<}>
+  '
+  '<for(ep <- elsePart) { >
+  '} else { 
+  '  <for(e <- [id | /u:identDefinition(str id) <- ep.body]) {>
+  '    <showElement(e)>    
+  '  <}>
+  '<}>
+  '}";

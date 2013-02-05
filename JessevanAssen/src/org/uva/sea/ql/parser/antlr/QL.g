@@ -18,6 +18,36 @@ import org.uva.sea.ql.ast.expression.value.*;
 package org.uva.sea.ql.parser.antlr;
 }
 
+@lexer::members {
+  private ErrorReporter errorReporter = null;
+  public void setErrorReporter(ErrorReporter errorReporter) {
+    this.errorReporter = errorReporter;
+  }
+
+  @Override
+  public void reportError(RecognitionException e) {
+    if(errorReporter != null)
+      errorReporter.reportError(e.toString());
+    else
+      throw new RuntimeException(e);
+  }
+}
+@parser::members {
+  private ErrorReporter errorReporter = null;
+  public void setErrorReporter(ErrorReporter errorReporter) {
+    this.errorReporter = errorReporter;
+  }
+
+  @Override
+  public void reportError(RecognitionException e) {
+    if(errorReporter != null)
+      errorReporter.reportError(e.toString());
+    else
+      throw new RuntimeException(e);
+  }
+}
+
+
 primary returns [Expression result]
     : Bool          { $result = new org.uva.sea.ql.ast.expression.value.Bool(Boolean.parseBoolean($Bool.text)); }
     | Int           { $result = new org.uva.sea.ql.ast.expression.value.Int(Integer.parseInt($Int.text)); }
