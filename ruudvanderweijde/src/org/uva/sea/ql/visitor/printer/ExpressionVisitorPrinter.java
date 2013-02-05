@@ -124,7 +124,7 @@ public class ExpressionVisitorPrinter implements IExpressionVisitor<Boolean> {
 
 	@Override
 	public Boolean visit(Ident ast) {
-		printPrimaryValue(ast);
+		System.out.println(ast.toString() + ": " + ast.getName());
 		return true;
 	}
 

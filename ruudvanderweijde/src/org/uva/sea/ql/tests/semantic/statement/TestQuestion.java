@@ -12,14 +12,14 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
 import org.uva.sea.ql.ast.expr.primary.Ident;
-import org.uva.sea.ql.ast.type.BooleanType;
-import org.uva.sea.ql.ast.type.IntegerType;
-import org.uva.sea.ql.ast.type.StringType;
-import org.uva.sea.ql.ast.type.Type;
 import org.uva.sea.ql.message.Message;
 import org.uva.sea.ql.parser.ANTLRParser;
 import org.uva.sea.ql.parser.error.ParseError;
 import org.uva.sea.ql.tests.IParse;
+import org.uva.sea.ql.type.BooleanType;
+import org.uva.sea.ql.type.IntegerType;
+import org.uva.sea.ql.type.StringType;
+import org.uva.sea.ql.type.Type;
 import org.uva.sea.ql.visitor.FormVisitor;
 
 @RunWith(Parameterized.class)

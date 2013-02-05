@@ -25,23 +25,23 @@ import org.uva.sea.ql.ast.expr.unary.Neg;
 import org.uva.sea.ql.ast.expr.unary.Not;
 import org.uva.sea.ql.ast.expr.unary.Pos;
 import org.uva.sea.ql.ast.expr.unary.Unary;
-import org.uva.sea.ql.ast.type.Type;
 import org.uva.sea.ql.message.Error;
 import org.uva.sea.ql.message.Message;
 import org.uva.sea.ql.message.Warning;
+import org.uva.sea.ql.type.Type;
 
-public class ExpressionVisitor implements IExpressionVisitor<Boolean> {
+public class ExpressionTypeVisitor implements IExpressionVisitor<Boolean> {
 	private final Map<Ident, Type> typeEnv;
 	private final List<Message> errors;
 
-	public ExpressionVisitor(Map<Ident, Type> tenv, List<Message> errors) {
+	public ExpressionTypeVisitor(Map<Ident, Type> tenv, List<Message> errors) {
 		this.typeEnv = tenv;
 		this.errors = errors;
 	}
 
 	public static boolean check(Expr expr, Map<Ident, Type> typeEnv,
 			List<Message> errs) {
-		ExpressionVisitor check = new ExpressionVisitor(typeEnv, errs);
+		ExpressionTypeVisitor check = new ExpressionTypeVisitor(typeEnv, errs);
 		return expr.accept(check);
 	}
 

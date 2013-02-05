@@ -1,4 +1,4 @@
-package org.uva.sea.ql.ast.type;
+package org.uva.sea.ql.type;
 
 public class BooleanType extends Type {
 

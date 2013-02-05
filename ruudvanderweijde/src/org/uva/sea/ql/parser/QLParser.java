@@ -1,14 +1,14 @@
-// $ANTLR 3.5 C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g 2013-02-04 11:21:46
+// $ANTLR 3.5 C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g 2013-02-04 22:47:25
 
   package org.uva.sea.ql.parser;
   import org.uva.sea.ql.ast.*;
-  import org.uva.sea.ql.ast.expr.*;
-  import org.uva.sea.ql.ast.expr.binary.*;
-  import org.uva.sea.ql.ast.expr.primary.*;
-  import org.uva.sea.ql.ast.expr.unary.*;
-  import org.uva.sea.ql.ast.type.*;
-  import org.uva.sea.ql.ast.stmt.*;
-  import org.uva.sea.ql.ast.stmt.question.*;
+import org.uva.sea.ql.ast.expr.*;
+import org.uva.sea.ql.ast.expr.binary.*;
+import org.uva.sea.ql.ast.expr.primary.*;
+import org.uva.sea.ql.ast.expr.unary.*;
+import org.uva.sea.ql.ast.stmt.*;
+import org.uva.sea.ql.ast.stmt.question.*;
+import org.uva.sea.ql.type.*;
 
 
 import org.antlr.runtime.*;

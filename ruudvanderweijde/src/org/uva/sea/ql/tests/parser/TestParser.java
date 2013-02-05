@@ -18,6 +18,7 @@ import org.uva.sea.ql.ast.expr.binary.LT;
 import org.uva.sea.ql.ast.expr.binary.Mul;
 import org.uva.sea.ql.ast.expr.primary.Ident;
 import org.uva.sea.ql.ast.expr.primary.Int;
+import org.uva.sea.ql.ast.stmt.IfThen;
 import org.uva.sea.ql.ast.stmt.IfThenElse;
 import org.uva.sea.ql.ast.stmt.question.ComputedQuestion;
 import org.uva.sea.ql.ast.stmt.question.NormalQuestion;
@@ -53,8 +54,8 @@ public class TestParser {
 		String strQL8 = "i2: \"integer test\" integer (10-1)";
 		
 		
-		assertEquals(parser.parseStatement(strQL1).getClass(), IfThenElse.class);
-		assertEquals(parser.parseStatement(strQL2).getClass(), IfThenElse.class);
+		assertEquals(parser.parseStatement(strQL1).getClass(), IfThen.class);
+		assertEquals(parser.parseStatement(strQL2).getClass(), IfThen.class);
 		assertEquals(parser.parseStatement(strQL3).getClass(), IfThenElse.class);
 		assertEquals(parser.parseStatement(strQL4).getClass(), IfThenElse.class);
 		assertEquals(parser.parseStatement(strQL5).getClass(), NormalQuestion.class);

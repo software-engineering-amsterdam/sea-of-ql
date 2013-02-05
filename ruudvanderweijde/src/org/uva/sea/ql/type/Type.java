@@ -1,10 +1,9 @@
-package org.uva.sea.ql.ast.type;
+package org.uva.sea.ql.type;
 
 
 public abstract class Type {
 	public abstract boolean isCompatibleTo(Type t);
 	
-	// subclasses will overwrite these functions when needed.
 	public boolean isCompatibleToIntegerType() { return false; }
 	public boolean isCompatibleToNumericType() { return false; }
 	public boolean isCompatibleToStringType() { return false; }

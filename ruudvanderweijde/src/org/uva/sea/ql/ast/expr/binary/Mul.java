@@ -4,8 +4,8 @@ import java.util.Map;
 
 import org.uva.sea.ql.ast.expr.Expr;
 import org.uva.sea.ql.ast.expr.primary.Ident;
-import org.uva.sea.ql.ast.type.NumericType;
-import org.uva.sea.ql.ast.type.Type;
+import org.uva.sea.ql.type.NumericType;
+import org.uva.sea.ql.type.Type;
 import org.uva.sea.ql.visitor.IExpressionVisitor;
 
 public class Mul extends Binary {

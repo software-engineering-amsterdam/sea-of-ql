@@ -2,8 +2,8 @@ package org.uva.sea.ql.ast.expr.primary;
 
 import java.util.Map;
 
-import org.uva.sea.ql.ast.type.BooleanType;
-import org.uva.sea.ql.ast.type.Type;
+import org.uva.sea.ql.type.BooleanType;
+import org.uva.sea.ql.type.Type;
 import org.uva.sea.ql.visitor.IExpressionVisitor;
 
 

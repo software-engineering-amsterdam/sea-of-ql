@@ -12,12 +12,12 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
 import org.uva.sea.ql.ast.expr.primary.Ident;
-import org.uva.sea.ql.ast.type.Type;
 import org.uva.sea.ql.message.Message;
 import org.uva.sea.ql.parser.ANTLRParser;
 import org.uva.sea.ql.parser.error.ParseError;
 import org.uva.sea.ql.tests.IParse;
-import org.uva.sea.ql.visitor.ExpressionVisitor;
+import org.uva.sea.ql.type.Type;
+import org.uva.sea.ql.visitor.ExpressionTypeVisitor;
 
 @RunWith(Parameterized.class)
 public class TestPrimary {
@@ -39,19 +39,19 @@ public class TestPrimary {
 
 	@Test
 	public void testBool() throws ParseError {
-		assertEquals(parser.parseExpression("true").accept(new ExpressionVisitor(exprMap, errors)), true);
-    	assertEquals(parser.parseExpression("false").accept(new ExpressionVisitor(exprMap, errors)), true);	
+		assertEquals(parser.parseExpression("true").accept(new ExpressionTypeVisitor(exprMap, errors)), true);
+    	assertEquals(parser.parseExpression("false").accept(new ExpressionTypeVisitor(exprMap, errors)), true);	
 	}
 
 	@Test
 	public void testIdent() throws ParseError {
-		assertEquals(parser.parseExpression("ident1").accept(new ExpressionVisitor(exprMap, errors)), true);
-    	assertEquals(parser.parseExpression("validident").accept(new ExpressionVisitor(exprMap, errors)), true);	
+		assertEquals(parser.parseExpression("ident1").accept(new ExpressionTypeVisitor(exprMap, errors)), true);
+    	assertEquals(parser.parseExpression("validident").accept(new ExpressionTypeVisitor(exprMap, errors)), true);	
 	}
 	
 	@Test
 	public void testInt() throws ParseError {
-		assertEquals(parser.parseExpression("1").accept(new ExpressionVisitor(exprMap, errors)), true);
-    	assertEquals(parser.parseExpression("100").accept(new ExpressionVisitor(exprMap, errors)), true);	
+		assertEquals(parser.parseExpression("1").accept(new ExpressionTypeVisitor(exprMap, errors)), true);
+    	assertEquals(parser.parseExpression("100").accept(new ExpressionTypeVisitor(exprMap, errors)), true);	
 	}	
 }

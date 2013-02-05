@@ -11,10 +11,9 @@ import org.uva.sea.ql.ast.stmt.IfThenElse;
 import org.uva.sea.ql.ast.stmt.Statement;
 import org.uva.sea.ql.ast.stmt.question.ComputedQuestion;
 import org.uva.sea.ql.ast.stmt.question.NormalQuestion;
-import org.uva.sea.ql.ast.type.Type;
 import org.uva.sea.ql.message.Error;
 import org.uva.sea.ql.message.Message;
-import org.uva.sea.ql.message.Warning;
+import org.uva.sea.ql.type.Type;
 
 /*
  * This FormVisitor checks for:
@@ -27,7 +26,12 @@ import org.uva.sea.ql.message.Warning;
 public class FormVisitor implements IFormVisitor {
 	private final Map<Ident, Type> typeEnv;
 	private final List<Message> errors;
+	private final String ERROR_DUPLICATE_ID = "Duplicate question identiefier: '%s'";
+	private final String ERROR_BOOL_CONDITION = "Condition is not an boolean expression. %s type given.";
+	private final String ERROR_WRONG_TYPE = "Question '%s' returns invalid expression: %s type expected, %s type given.";
+	private final String ERROR_WRONG_COMPUTED_TYPE = "Invalid type for computed question '%s'. Only numeric expressions are allowed in computed questions, %s type given.";
 
+	
 	public FormVisitor(Map<Ident, Type> tenv, List<Message> errors) {
 		this.typeEnv = tenv;
 		this.errors = errors;
@@ -77,15 +81,14 @@ public class FormVisitor implements IFormVisitor {
 
 	private void checkName(Ident id, Type type) {
 		if (typeEnv.containsKey(id)) {
-			addError(String.format("Duplicate question identiefier: '%s'",
-					id.getValue()));
+			addError(String.format(ERROR_DUPLICATE_ID, id.getName()));
 		} else {
 			typeEnv.put(id, type);
 		}
 	}
 
 	private void checkExpr(Expr expr) {
-		expr.accept(new ExpressionVisitor(typeEnv, errors));
+		expr.accept(new ExpressionTypeVisitor(typeEnv, errors));
 	}
 
 	private void checkIfConditionIsOfBooleanType(Expr expr) {
@@ -93,9 +96,7 @@ public class FormVisitor implements IFormVisitor {
 
 		Type exprType = expr.typeOf(typeEnv);
 		if (!exprType.isCompatibleToBooleanType()) {
-			addError(String.format(
-					"Condition is not an boolean expression. %s type given.",
-					exprType.toString()));
+			addError(String.format(ERROR_BOOL_CONDITION, exprType.toString()));
 		}
 	}
 
@@ -103,17 +104,16 @@ public class FormVisitor implements IFormVisitor {
 		if (!question.getType().isCompatibleTo(
 				question.getExpr().typeOf(typeEnv))) {
 
-			addError(String
-					.format("Question '%s' returns invalid expression: %s type expected, %s type given.",
-							question.getId().getValue(), question.getType(),
+			addError(String.format(ERROR_WRONG_TYPE,
+							question.getId().getName(), question.getType(),
 							question.getExpr().typeOf(typeEnv)));
 			
 		} else if (!question.getExpr().typeOf(typeEnv)
 				.isCompatibleToNumericType()) {
 
 			addError(String
-					.format("Invalid type for computed question '%s'. Only numeric expressions are allowed in computed questions, %s type given.",
-							question.getId().getValue(), question.getExpr()
+					.format(ERROR_WRONG_COMPUTED_TYPE,
+							question.getId().getName(), question.getExpr()
 									.typeOf(typeEnv)));
 		}
 	}
@@ -121,11 +121,6 @@ public class FormVisitor implements IFormVisitor {
 	private void addError(String message) {
 		Message error = new Error(message);
 		errors.add(error);
-	}
-
-	private void addWarning(String message) {
-		Message warning = new Warning(message);
-		errors.add(warning);
 	}
 
 	public List<Message> getMessages() {

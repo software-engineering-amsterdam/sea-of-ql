@@ -2,8 +2,8 @@ package org.uva.sea.ql.ast.expr.primary;
 
 import java.util.Map;
 
-import org.uva.sea.ql.ast.type.IntegerType;
-import org.uva.sea.ql.ast.type.Type;
+import org.uva.sea.ql.type.IntegerType;
+import org.uva.sea.ql.type.Type;
 import org.uva.sea.ql.visitor.IExpressionVisitor;
 
 
@@ -33,5 +33,4 @@ public class Int extends Primary<Integer> {
 	public <T> T accept(IExpressionVisitor<T> visitor) {
 		return visitor.visit(this);
 	}
-
 }
