@@ -1,0 +1,39 @@
+import "statements.stg"
+
+page(formContent, script) ::= <<
+<html>
+  <head>
+    <title>QL</title>
+    <link rel="stylesheet" href="jQueryMobile/jquery.mobile-1.3.0-rc.1/jquery.mobile.structure-1.3.0-rc.1.min.css" />
+    <link rel="stylesheet" href="jQueryMobile/jquery.mobile-1.3.0-rc.1/jquery.mobile.theme-1.3.0-rc.1.min.css" />
+    <script src="jQuery/jquery-1.9.1.min.js"></script>
+    <script src="jQueryMobile/jquery.mobile-1.3.0-rc.1/jquery.mobile-1.3.0-rc.1.min.js"></script>
+    <script type="text/javascript">
+      \$('#QLFormPage').on('pageinit', function(event) {
+        \$('#QLFormPage > form').submit(function() {
+          console.log(\$(this).serialize());
+          console.log(\$(this).serializeArray());
+          alert(1);
+          return false;
+        });
+      });
+    </script>
+    <script type="text/javascript">
+      $script$
+    </script>
+  </head>
+  <body>
+    <div data-role="page" id="QLFormPage">
+      <div data-role="header" data-position="fixed">
+        <h3 id="header">QL Form</h3>
+      </div>
+      <form id="form">
+        <div data-role="content">
+          $formContent$
+          <input type="submit" value="Submit values" data-mini="true" />
+        </div>
+      </form>
+    </div>
+  </body>
+</html>
+>>

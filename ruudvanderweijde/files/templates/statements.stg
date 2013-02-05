@@ -1,0 +1,27 @@
+BooleanType(id, label, readOnly) ::= <<
+<div data-role="fieldcontain" class="ui-hide-label">
+  <fieldset data-role="controlgroup" data-mini="true">
+    <input type="checkbox" name="$id$" id="$id$" /> 
+    <label for="$id$">$label$</label>
+  </fieldset>
+</div>
+>>
+IntegerType(id, label, readOnly) ::= <<
+<div data-role="fieldcontain">
+    <label for="$id$">$label$</label> 
+    <input type="text" name="$id$" id="$id$" data-mini="true" 
+      $if((readOnly))$disabled="disabled"$endif$ />
+</div>
+>>
+StringType(id, label, readOnly) ::= <<
+<div data-role="fieldcontain">
+    <label for="$id$">$label$</label> 
+    <input type="text" name="$id$" id="$id$" data-mini="true" />
+</div>
+>>
+OpenBlock(id) ::= <<
+<div data-role="fieldcontain" id="$id$">
+>>
+CloseBlock(id) ::= <<
+</div><!-- end of $id$ -->
+>>
