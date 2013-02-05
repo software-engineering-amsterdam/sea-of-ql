@@ -34,7 +34,7 @@ public class Panel {
 		jLabel = new JLabel(statement.getDisplayText());
 
 		jPanel.setLayout(new MigLayout("",
-				"[][][][][][][][][][][][][][][][][]", "[]"));
+				"[200][][][][][][][][][][][][][][][][]", "[]"));
 
 		jPanel.add(jLabel, "cell 0 0,alignx left,aligny top");
 
