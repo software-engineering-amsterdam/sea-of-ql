@@ -6,6 +6,7 @@ sc-ql-2012-2013-rascal
 
 Code for the Rascal variant of lab assignment Software Construction 2012-2013
 
+* Information about form generation can be found [here](output/README.md)
 * [Todo list](Todo.md)
 * [Notes](Notes.md)
 
