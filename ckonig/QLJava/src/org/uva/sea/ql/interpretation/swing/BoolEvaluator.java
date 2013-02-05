@@ -16,7 +16,6 @@ import org.uva.sea.ql.ast.expressions.Expr;
 import org.uva.sea.ql.ast.expressions.UnaryExpr;
 import org.uva.sea.ql.ast.interfaces.ReturnTypes;
 import org.uva.sea.ql.ast.interfaces.Returns;
-import org.uva.sea.ql.ast.interfaces.ReturnsMathOperands;
 import org.uva.sea.ql.interpretation.exception.EvaluationException;
 
 public class BoolEvaluator {
@@ -51,8 +50,9 @@ public class BoolEvaluator {
                                 ReturnTypes.BOOLEAN)) {
                     return eval(b.getLeft()) == eval(b.getRight());
                 }
-                if (b.getLeft() instanceof ReturnsMathOperands
-                        && b.getRight() instanceof ReturnsMathOperands) {
+                if (l.getReturnType(registry.getQuestionsAst()).equals(ReturnTypes.MATH)
+                        && r.getReturnType(registry.getQuestionsAst()).equals(
+                                ReturnTypes.MATH)) {
                     return math.eval(b.getLeft()) == math.eval(b.getRight());
                 }
             }
@@ -64,8 +64,9 @@ public class BoolEvaluator {
                                 ReturnTypes.BOOLEAN)) {
                     return eval(b.getLeft()) != eval(b.getRight());
                 }
-                if (b.getLeft() instanceof ReturnsMathOperands
-                        && b.getRight() instanceof ReturnsMathOperands) {
+                if (l.getReturnType(registry.getQuestionsAst()).equals(ReturnTypes.MATH)
+                        && r.getReturnType(registry.getQuestionsAst()).equals(
+                                ReturnTypes.MATH)) {
                     return math.eval(b.getLeft()) != math.eval(b.getRight());
                 }
             }

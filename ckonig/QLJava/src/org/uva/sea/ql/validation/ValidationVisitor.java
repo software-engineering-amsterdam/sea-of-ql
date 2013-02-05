@@ -13,7 +13,6 @@ import org.uva.sea.ql.ast.interfaces.AcceptsBothOperands;
 import org.uva.sea.ql.ast.interfaces.AcceptsMathOperands;
 import org.uva.sea.ql.ast.interfaces.ReturnTypes;
 import org.uva.sea.ql.ast.interfaces.Returns;
-import org.uva.sea.ql.ast.interfaces.ReturnsMathOperands;
 import org.uva.sea.ql.common.ElementVisitor;
 import org.uva.sea.ql.common.VisitorException;
 
@@ -118,7 +117,9 @@ public class ValidationVisitor implements ElementVisitor {
             final BinaryExpr b = (BinaryExpr) r;
             final Returns left = this.getIdentOrOrigin(b.getLeft());
             final Returns right = this.getIdentOrOrigin(b.getRight());
-            if (!(left instanceof ReturnsMathOperands && right instanceof ReturnsMathOperands)) {
+            if (!(left.getReturnType(this.registry.getQuestions()).equals(
+                    ReturnTypes.MATH) && right.getReturnType(
+                    this.registry.getQuestions()).equals(ReturnTypes.MATH))) {
                 throw new AstValidationError("both childs of " + b.getClass()
                         + " must return math operands!");
             }
@@ -132,10 +133,12 @@ public class ValidationVisitor implements ElementVisitor {
             final BinaryExpr b = (BinaryExpr) r;
             final Returns left = getIdentOrOrigin(b.getLeft());
             final Returns right = getIdentOrOrigin(b.getRight());
-            if (!((left instanceof ReturnsMathOperands && right instanceof ReturnsMathOperands) || (left
+            if (!((left.getReturnType(this.registry.getQuestions()).equals(
+                    ReturnTypes.MATH) && right.getReturnType(
+                    this.registry.getQuestions()).equals(ReturnTypes.MATH)) || (left
                     .getReturnType(this.registry.getQuestions()).equals(
-                            ReturnTypes.MATH) && right.getReturnType(
-                    this.registry.getQuestions()).equals(ReturnTypes.MATH)))) {
+                            ReturnTypes.BOOLEAN) && right.getReturnType(
+                    this.registry.getQuestions()).equals(ReturnTypes.BOOLEAN)))) {
                 throw new AstValidationError("BOTH childs of " + b.getClass()
                         + " must return either math OR bool operands");
             }

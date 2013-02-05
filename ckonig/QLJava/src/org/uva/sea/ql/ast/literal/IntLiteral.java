@@ -6,24 +6,22 @@ import org.uva.sea.ql.ast.elements.Question;
 import org.uva.sea.ql.ast.expressions.Expr;
 import org.uva.sea.ql.ast.interfaces.ReturnTypes;
 import org.uva.sea.ql.ast.interfaces.Returns;
-import org.uva.sea.ql.ast.interfaces.ReturnsMathOperands;
 
-public class IntLiteral extends Expr implements ReturnsMathOperands, Returns{
+public class IntLiteral extends Expr implements Returns {
 
-	private final int value;
+    private final int value;
 
-	public IntLiteral(int n) {
-		this.value = n;
-	}
+    public IntLiteral(int n) {
+        this.value = n;
+    }
 
-	public final int getValue() {
-		return this.value;
-	}
+    public final int getValue() {
+        return this.value;
+    }
 
     @Override
     public ReturnTypes getReturnType(List<Question> questions) {
-       return ReturnTypes.MATH;
+        return ReturnTypes.MATH;
     }
-	
 
 }

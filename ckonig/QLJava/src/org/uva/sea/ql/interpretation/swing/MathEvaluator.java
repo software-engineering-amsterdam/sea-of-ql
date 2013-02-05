@@ -4,7 +4,8 @@ import org.uva.sea.ql.ast.elements.Ident;
 import org.uva.sea.ql.ast.expressions.BinaryExpr;
 import org.uva.sea.ql.ast.expressions.Expr;
 import org.uva.sea.ql.ast.expressions.UnaryExpr;
-import org.uva.sea.ql.ast.interfaces.ReturnsMathOperands;
+import org.uva.sea.ql.ast.interfaces.ReturnTypes;
+import org.uva.sea.ql.ast.interfaces.Returns;
 import org.uva.sea.ql.ast.literal.IntLiteral;
 import org.uva.sea.ql.ast.math.Add;
 import org.uva.sea.ql.ast.math.Div;
@@ -30,7 +31,7 @@ public class MathEvaluator {
     }
 
     public final float eval(Expr e) throws EvaluationException {
-        
+
         if (e instanceof UnaryExpr) {
             final UnaryExpr u = (UnaryExpr) e;
             if (u instanceof Neg) {
@@ -61,8 +62,9 @@ public class MathEvaluator {
         if (e instanceof Ident) {
             final Ident i = (Ident) e;
             final QuestionPanel q = this.registry.getQuestionPanelByIdent(i);
-
-            if (q.getQuestion().getType() instanceof ReturnsMathOperands) {
+            Returns r = (Returns) q.getQuestion().getType();
+            if (r.getReturnType(registry.getQuestionsAst()).equals(
+                    ReturnTypes.MATH)) {
                 final String val = q.getStringValue();
                 if (val.trim().equals("")) {
                     if (replaceEmtyWithZero) {
