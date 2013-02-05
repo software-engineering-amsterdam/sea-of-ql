@@ -1,13 +1,20 @@
 package org.uva.sea.ql.interpreter;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 
+import javax.swing.JButton;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 import net.miginfocom.swing.MigLayout;
 
@@ -16,46 +23,58 @@ import org.uva.sea.ql.parser.antlr.ANTLRParser;
 import org.uva.sea.ql.parser.test.IParse;
 import org.uva.sea.ql.parser.test.ParseError;
 
-public class FormBuilder {
+public class FormBuilder implements ActionListener {
 	
 	private final String NEWLINECHAR = "\n";
 	private IParse parser;
+	private JFrame mainWindow;
+	private JButton selectFormButton;
+	private JButton backToMainButton;
 	
 	public FormBuilder() {
+		mainWindow = new JFrame();
+		mainWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		mainWindow.setLocationRelativeTo(null);
+		selectFormButton = new JButton("Select an existing form");
+		backToMainButton = new JButton("Back");
+		selectFormButton.addActionListener(this);
+		backToMainButton.addActionListener(this);
 	}
 	
-	public void displayForm() {
+	public void displayMain() {
+		JPanel panel = new JPanel(new MigLayout());
+		panel.add(new JLabel("Press the button below to select your form:"), "span, growx");
+		panel.add(selectFormButton, "span, growx");
+		displayForm(panel,"Questionare form");
+	}
+	
+	public void displayForm(String formText) {
 		parser = new ANTLRParser();
 		try {
-			Form form1 = parser.parseForm(getQLFormText("form1.ql"));
-			if (form1.checkFormValidity()) {
-				displayForm(form1.buildForm(), form1.getName());
+			Form form = parser.parseForm(formText);
+			if (form.checkFormValidity()) {
+				JPanel panel = form.buildForm();
+				panel.add(backToMainButton, "span, growx");
+				displayForm(panel, form.getName());
 			}
 			else {
-				JPanel panel = new JPanel(new MigLayout());
-				panel.add(new JTextArea(form1.getPrintableText()));
-				displayForm(panel ,"Errors found!");
+				displayForm(getDisplayFormErrorPanel(form), "Errors found!");
 			}
 		}
 		catch (ParseError e) {
-			System.out.println(e.getMessage());
+			JOptionPane.showMessageDialog(null, "The form has an invalid syntax");
+			displayMain();
 		}
 	}
 	
 	private void displayForm(JPanel formPanel, String formTitle) {
-		JFrame mainWindow = new JFrame(formTitle);
-
 		mainWindow.setContentPane(formPanel);
-		mainWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		mainWindow.setLocationRelativeTo(null); // Put in center of the screen
+		mainWindow.setTitle(formTitle);
 		mainWindow.pack(); //Automatically resize
-		
 		mainWindow.setVisible(true);
 	}
 	
-	private String getQLFormText(String formFile) {
-		String url = this.getClass().getResource(formFile).getPath();
-		url = url.replace("%20", " ");
+	private String getFileText(String url) {
 		try {
 			BufferedReader br = new BufferedReader(new FileReader(url));
 			String line, fileText = "";
@@ -71,5 +90,38 @@ public class FormBuilder {
 			System.out.println(e.getMessage());
 		}
 		return "";
+	}
+	
+	private void selectQLFile() {
+		JFileChooser fileChooser = new JFileChooser();
+		fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+		fileChooser.setFileFilter(new FileNameExtensionFilter("Questionairs (*.ql)", "ql"));
+		int returnVal = fileChooser.showOpenDialog(null);
+		if (returnVal == JFileChooser.APPROVE_OPTION) {
+			if (fileChooser.getSelectedFile().getPath().toLowerCase().endsWith(".ql")) {
+				displayForm(getFileText(fileChooser.getSelectedFile().getPath()));
+			}
+			else {
+				JOptionPane.showMessageDialog(null, "The selected file is not of the right type!");
+			}
+		}
+	}
+	
+	private JPanel getDisplayFormErrorPanel(Form form) {
+		JPanel panel = new JPanel(new MigLayout());
+		panel.add(new JLabel("Errors found in form:"), "span, growx");
+		panel.add(new JTextArea(form.getPrintableText()), "span, growx");
+		panel.add(backToMainButton, "span, growx");
+		return panel;
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		if (e.getSource() == selectFormButton) {
+			selectQLFile();
+		}
+		if (e.getSource() == backToMainButton) {
+			displayMain();
+		}
 	}
 }
