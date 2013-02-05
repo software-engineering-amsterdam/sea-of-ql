@@ -16,4 +16,6 @@ public interface ExpressionResult {
 	boolean getBooleanValue();
 
 	TypeDescription typeOf();
+
+	ExpressionResult setValue(String string);
 }

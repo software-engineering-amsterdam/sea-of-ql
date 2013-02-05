@@ -41,4 +41,10 @@ public class StringResult implements ExpressionResult {
 	public String getStringValue() {
 		return value;
 	}
+
+	@Override
+	public ExpressionResult setValue(String string) {
+		value = string;
+		return this;
+	}
 }

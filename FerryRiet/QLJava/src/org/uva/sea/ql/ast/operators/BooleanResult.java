@@ -37,4 +37,10 @@ public class BooleanResult implements ExpressionResult {
 		return value == true ? new String("true") : new String("false");
 	}
 
+	@Override
+	public ExpressionResult setValue(String string) {
+		value = string.equals("true") ? true : false ;
+		return this ;
+	}
+
 }

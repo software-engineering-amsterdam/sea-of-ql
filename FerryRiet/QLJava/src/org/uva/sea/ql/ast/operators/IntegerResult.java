@@ -43,4 +43,17 @@ public class IntegerResult implements ExpressionResult {
 	public String getStringValue() {
 		return value.toString();
 	}
+
+	@Override
+	public ExpressionResult setValue(String string) {
+		try {
+		value = Integer.parseInt(string);
+		}
+		catch (java.lang.NumberFormatException e) {
+			System.out.println("Format error in ints");
+			value = 0 ;
+		}
+		
+		return this;
+	}
 }

@@ -1,6 +1,8 @@
 package org.uva.sea.ql.driver;
 
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.HashMap;
 
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;
@@ -9,15 +11,19 @@ import javax.swing.JTextField;
 
 import net.miginfocom.swing.MigLayout;
 
+import org.uva.sea.ql.ast.Expr;
 import org.uva.sea.ql.ast.LineStatement;
+import org.uva.sea.ql.ast.operators.ExpressionResult;
 import org.uva.sea.ql.ast.types.BooleanType;
 
 public class Panel {
 	private String panelName;
 	private JPanel jPanel;
-    private JTextField jTextField;
-	private JCheckBox jCheckBox ;
-    private JLabel jLabel;
+	private JTextField jTextField;
+	private JCheckBox jCheckBox;
+	private JLabel jLabel;
+	private ExpressionResult fieldResult;
+	private Expr fieldInitializer;
 
 	public Panel(LineStatement statement) {
 		BooleanType booleanType = new BooleanType();
@@ -27,39 +33,66 @@ public class Panel {
 		jPanel = new JPanel();
 		jLabel = new JLabel(statement.getDisplayText());
 
-		jPanel.setLayout(new MigLayout("", "[][][][][][][][][][][][][][][][][]", "[]"));
+		jPanel.setLayout(new MigLayout("",
+				"[][][][][][][][][][][][][][][][][]", "[]"));
 
 		jPanel.add(jLabel, "cell 0 0,alignx left,aligny top");
 
+		fieldResult = statement.getTypeDescription().getTypeContainer();
+		fieldInitializer = statement.getInitalizerExpr();
+
 		if (booleanType.isCompatibleTo(statement.getTypeDescription())) {
-			jCheckBox  = new JCheckBox("");
+			jCheckBox = new JCheckBox("");
 			jPanel.add(jCheckBox, "cell 12 0");
 
 		} else {
 			jTextField = new JTextField();
 			jTextField.setColumns(10);
-			jPanel.add(jTextField, "cell 12 0,growx");;
+			if (statement.getInitalizerExpr() != null)
+				jTextField.setEditable(false);
+			jPanel.add(jTextField, "cell 12 0,growx");
+			;
 		}
 	}
 
-	public boolean equals(String name) {
-		return panelName.equals(name);
+	public void updatecalculatedField(HashMap<String, ExpressionResult> symbols) {
+		if (fieldInitializer != null) {
+			fieldResult = fieldInitializer.eval(symbols);
+			jTextField.setText(fieldResult.toString());
+		}
 	}
-	public void registerAt(JPanel panel,int location) {
-		StringBuilder stringBuilder = new StringBuilder("cell 0 ") ;
-		
-		stringBuilder.append(location) ;
-		stringBuilder.append(" ,growx") ;
-		
-		
-		panel.add(jPanel,stringBuilder.toString()) ;
+
+	public boolean actionSource(ActionEvent ev) {
+		return jTextField == null ? ev.getSource() == jCheckBox : ev
+				.getSource() == jTextField;
 	}
-	
-	public void registerActionListener(ActionListener actionHandler){
-		if ( jCheckBox != null ) jCheckBox.addActionListener(actionHandler) ;
+
+	public void registerAt(JPanel panel, int location) {
+		StringBuilder stringBuilder = new StringBuilder("cell 0 ");
+
+		stringBuilder.append(location);
+		stringBuilder.append(" ,growx");
+
+		panel.add(jPanel, stringBuilder.toString());
+	}
+
+	public ExpressionResult getFieldValue() {
+		if (jCheckBox != null)
+			return fieldResult.setValue(jCheckBox.isSelected() ? "true"
+					: "false");
+		else
+			return fieldResult.setValue(jTextField.getText());
+	}
+
+	public void registerActionListener(ActionListener actionHandler) {
+		if (jCheckBox != null)
+			jCheckBox.addActionListener(actionHandler);
 		else {
-			jTextField.addActionListener(actionHandler) ;
+			jTextField.addActionListener(actionHandler);
 		}
 	}
 
+	public String getFieldName() {
+		return panelName;
+	}
 }
