@@ -1,17 +1,21 @@
 package org.uva.sea.ql.form;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.swing.JPanel;
 
 import org.uva.sea.ql.ast.eval.Env;
 import org.uva.sea.ql.ast.expressions.Expr;
+import org.uva.sea.ql.ast.expressions.Ident;
+import org.uva.sea.ql.ast.values.Value;
 import org.uva.sea.ql.interpreter.FormElement;
 
 public class IfElseStatement extends IfStatement {
 
 	private final List<FormItem> elseBody;
 	private JPanel elseBodyContainer;
+	private Env elseBodyEnvironment;
 	
 	public IfElseStatement(Expr expression, List<FormItem> ifBody, List<FormItem> elseBody) {
 		super(expression, ifBody);
@@ -36,7 +40,7 @@ public class IfElseStatement extends IfStatement {
 	@Override
 	public boolean validate(Env environment) {
 		boolean valid = super.validate(environment);
-		Env elseBodyEnvironment = new Env(environment);
+		elseBodyEnvironment = new Env(environment);
 		for (FormItem f : elseBody) {
 			if (!f.validate(elseBodyEnvironment))
 				valid = false;
@@ -55,10 +59,16 @@ public class IfElseStatement extends IfStatement {
 	@Override
 	public void eval(Env environment, Form form) {
 		super.eval(environment, form);
-		Env elseBodyEnvironment = new Env(environment);
 		for (FormItem f : elseBody) {
 			f.eval(elseBodyEnvironment, form);
 		}
 		elseBodyContainer.setVisible(!isExpressionValid(environment));
+	}
+	
+	@Override
+	public Map<Ident, Value> getAllValues() {
+		Map<Ident, Value> values = elseBodyEnvironment.getAllValues();
+		values.putAll(super.getAllValues());
+		return values;
 	}
 }

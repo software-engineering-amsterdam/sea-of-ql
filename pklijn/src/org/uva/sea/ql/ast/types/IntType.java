@@ -29,14 +29,16 @@ public class IntType extends Type implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		if (isValidInteger()) {
-			if (form != null) {
-				form.eval();
+		if (e.getSource() == answerField) {
+			if (isValidInteger()) {
+				if (form != null) {
+					form.eval();
+				}
 			}
-		}
-		else {
-			JOptionPane.showMessageDialog(null, "The value should be an Integer!");
-			answerField.setText("");
+			else {
+				JOptionPane.showMessageDialog(null, "The value should be an Integer!");
+				answerField.setText("");
+			}
 		}
 	}
 

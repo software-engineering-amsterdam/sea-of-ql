@@ -28,7 +28,7 @@ public class StringType extends Type implements ActionListener {
 
 	@Override
 	public boolean hasValue() {
-		return true;
+		return (!answerField.getText().equals(""));
 	}
 	
 	@Override
@@ -53,8 +53,10 @@ public class StringType extends Type implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		if (form != null) {
-			form.eval();
+		if (e.getSource() == answerField) {
+			if (form != null) {
+				form.eval();
+			}
 		}
 	}
 }
