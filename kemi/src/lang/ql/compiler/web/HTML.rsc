@@ -40,6 +40,7 @@ private str createPage(str title, list[Question] questions) =
   '    \<meta charset=\"utf-8\"/\>
   '    \<title\><title>\</title\>
   '    \<script type=\"text/javascript\" src=\"checking.js\"\>\</script\>
+  '    \<script type=\"text/javascript\" src=\"styling.js\"\>\</script\>
   '    \<script type=\"text/javascript\" src=\"jquery.min.js\"\>\</script\>
   '    \<script type=\"text/javascript\" src=\"jquery.validate.js\"\>\</script\>
   '    \<script\>
