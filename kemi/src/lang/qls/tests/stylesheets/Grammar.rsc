@@ -11,7 +11,7 @@
 module lang::qls::tests::stylesheets::Grammar
 
 import lang::qls::ast::AST;
-import lang::qls::tests::ParseHelper;
+import lang::qls::util::ParseHelper;
 
 
 public test bool testBasic() = 

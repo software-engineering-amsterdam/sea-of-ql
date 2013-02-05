@@ -12,7 +12,7 @@ module lang::qls::tests::stylesheets::PrettyPrinter
 
 import lang::qls::ast::AST;
 import lang::qls::compiler::PrettyPrinter;
-import lang::qls::tests::ParseHelper;
+import lang::qls::util::ParseHelper;
 
 private bool prettyPrintAndCompare(loc f) = 
   parseStylesheet(f) == parseStylesheet(prettyPrint(parseStylesheet(f)));

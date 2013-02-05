@@ -12,7 +12,7 @@ module lang::qls::tests::stylesheets::Outline
 
 import lang::qls::ast::AST;
 import lang::qls::ide::Outline;
-import lang::qls::tests::ParseHelper;
+import lang::qls::util::ParseHelper;
 import IO;
 
 private node outline(loc f) = 

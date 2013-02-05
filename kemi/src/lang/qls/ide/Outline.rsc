@@ -16,8 +16,6 @@ import ParseTree;
 import util::IDE;
 
 import lang::qls::ast::AST;
-import lang::qls::util::Implode;
-import lang::qls::util::Parse;
 
 // The root note of the stylesheet
 public node outlineStylesheet(Stylesheet sh) = 

@@ -10,6 +10,8 @@
 
 module lang::qls::syntax::QLS
 
+extend lang::qls::syntax::Keyword;
+
 start syntax Stylesheet
   = stylesheet: "stylesheet" Ident "{" Definition* definitions "}"
   ;
@@ -119,21 +121,3 @@ lexical CommentChar
 lexical Whitespace = [\u0009-\u000D \u0020 \u0085 \u00A0 \u1680 \u180E \u2000-\u200A \u2028 \u2029 \u202F \u205F \u3000];
 
 layout Standard = WhitespaceOrComment* !>> [\ \t\n\f\r] !>> "//" !>> "/*";
-
-keyword Keywords 
-  = stylesheet: "stylesheet"
-  | page: "page"
-  | section: "section"
-  | question: "question"
-  | \default: "default"
-  | boolean: "boolean"
-  | \int: "integer"
-  | money: "money"
-  | date: "date"
-  | string: "string"
-  | \type: "type"
-  | width: "width"
-  | radio: "radio"
-  | checkbox: "checkbox"
-  ;
-

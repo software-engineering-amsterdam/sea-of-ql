@@ -20,8 +20,7 @@ import lang::qls::ast::AST;
 import lang::qls::compiler::PrettyPrinter;
 import lang::qls::ide::Outline;
 import lang::qls::syntax::QLS;
-import lang::qls::util::Implode;
-import lang::qls::util::Parse;
+import lang::qls::util::ParseHelper;
 
 private str LANG = "QLS-R";
 private str EXT = "qs";
