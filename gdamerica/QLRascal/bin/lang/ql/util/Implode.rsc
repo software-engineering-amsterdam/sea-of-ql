@@ -15,3 +15,6 @@ import IO;
 public Form implode(Tree t) = implode(#Form, t);
 public Form load(loc l) = implode(parse(readFile(l), l));
 
+public Form load(str txt) = implode(#Form, parse(#Form, txt));
+
+
