@@ -27,12 +27,12 @@ import org.uva.sea.ql.ast.expr.values.IntegerLit;
 import org.uva.sea.ql.ast.expr.values.StringLit;
 import org.uva.sea.ql.ast.expr.values.Value;
 import org.uva.sea.ql.visitor.IExprVisitor;
-@SuppressWarnings("rawtypes")
+
 public class ExprEvaluator implements IExprVisitor<Value> {
 	Map<String,Value> declaredVar;
 	Expr expr;
 	
-	public ExprEvaluator(Expr expr,Map<String,Value >declaredVar){
+	private ExprEvaluator(Expr expr,Map<String,Value >declaredVar){
 		this.expr=expr;
 		this.declaredVar=declaredVar;
 		
@@ -96,7 +96,7 @@ public class ExprEvaluator implements IExprVisitor<Value> {
 	@Override
 	public Value visit(And node) {
 		Value left = node.getLeftExpr().accept(this);
-		if (!((Boolean) left.getValue())) {
+		if (!( (BoolLit) left).getValue()) {
 			return left;
 		}
 
@@ -106,7 +106,7 @@ public class ExprEvaluator implements IExprVisitor<Value> {
 	@Override
 	public Value visit(Or node) {
 		Value left = node.getLeftExpr().accept(this);
-		if ((Boolean) left.getValue()) {
+		if (((BoolLit) left).getValue()) {
 			return left;
 		}
 

@@ -20,7 +20,7 @@ public class QLTextField extends JTextField implements ActionListener{
 		super(10);
 		this.varName=varName;
 		this.declaredVar=declaredVar;
-		value=(String) declaredVar.get(varName).getValue();
+		value=((StringLit) declaredVar.get(varName)).getValue();
 	}
 	
 	public static JTextField responsiveTextField(String varName,Map<String, Value> declaredVar) {

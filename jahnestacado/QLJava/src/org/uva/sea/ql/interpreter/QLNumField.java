@@ -20,7 +20,7 @@ public class QLNumField extends JTextField implements ActionListener{
 		super(10);
 		this.varName=varName;
 		this.declaredVar=declaredVar;
-		value=(Float) declaredVar.get(varName).getValue();
+		value=((DecimalLit) declaredVar.get(varName)).getValue();
 	}
 	
 	public static JTextField responsiveNumField(String varName,Map<String, Value> declaredVar) {

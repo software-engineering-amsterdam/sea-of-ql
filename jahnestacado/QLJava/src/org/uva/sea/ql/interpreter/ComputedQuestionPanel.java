@@ -9,6 +9,9 @@ import javax.swing.JTextField;
 
 import net.miginfocom.swing.MigLayout;
 
+import org.uva.sea.ql.ast.expr.values.DecimalLit;
+import org.uva.sea.ql.ast.expr.values.IntegerLit;
+import org.uva.sea.ql.ast.expr.values.StringLit;
 import org.uva.sea.ql.ast.expr.values.Value;
 import org.uva.sea.ql.ast.form.ComputedQuestion;
 
@@ -25,7 +28,7 @@ public class ComputedQuestionPanel extends JPanel {
 		computedValue.setForeground(Color.blue);
 		computedValue.setBackground(Color.white);
 		computedValue.setHorizontalAlignment(JTextField.CENTER);
-		computedValue.setText(ExprEvaluator.eval(qlElement.getExpr(), declaredVar).getValue().toString());
+		computedValue.setText(valueToString(qlElement, declaredVar));
 		computedValue.setEditable(false);
 		addComponents();
 	}
@@ -41,6 +44,17 @@ public class ComputedQuestionPanel extends JPanel {
 		return this;
 	}
 	
+	
+	private String valueToString(ComputedQuestion qlElement, Map<String,Value> declaredVar){
+		if(qlElement.getType().isCompatibleToIntType()){
+			return String.valueOf(((IntegerLit) ExprEvaluator.eval(qlElement.getExpr(), declaredVar)).getValue());
+		}
+		else if(qlElement.getType().isCompatibleToMoneyType()){
+			return String.valueOf(((DecimalLit) ExprEvaluator.eval(qlElement.getExpr(), declaredVar)).getValue());
+		}
+		return (((StringLit) ExprEvaluator.eval(qlElement.getExpr(), declaredVar)).getValue());
+		
+	}
 	
 	
 

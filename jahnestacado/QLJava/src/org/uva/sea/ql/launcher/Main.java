@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
+import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import org.antlr.runtime.ANTLRFileStream;
@@ -28,7 +29,10 @@ public class Main {
 			if(ElementChecker.checkQL(parsedForm)){
 
 			List<JPanel> panelList=SwingVisitor.generate(parsedForm);
+
+			
 			new Renderer(panelList);
+			
 			}
 		} catch (IOException e) {
 			e.printStackTrace();

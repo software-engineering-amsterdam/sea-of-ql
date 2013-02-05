@@ -23,10 +23,10 @@ public class QLSpinner extends JSpinner  {
 	
 	
 	public QLSpinner(String varName,Map<String, Value> declaredVar){
-		super(new SpinnerNumberModel(0, 0, 1000, 1));
+		super(new SpinnerNumberModel(0, 0, 10000, 1));
 		this.varName=varName;
 		this.declaredVar=declaredVar;
-		value=(Integer) declaredVar.get(varName).getValue();
+		value=((IntegerLit) declaredVar.get(varName)).getValue();
 		
 	}
 	

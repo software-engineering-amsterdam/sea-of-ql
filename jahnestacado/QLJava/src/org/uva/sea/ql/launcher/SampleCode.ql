@@ -1,16 +1,15 @@
 form Box1HouseOwning {
 	hasSoldHouse: "Did you sell a house in 2010?" boolean
-	hasBoughtHouse: "Did you buy a house in 2010?" boolean
+	hasBoughtHouse: "Did you buy a house in 2010?" money
 	hasMaintLoan: "Did you enter a loan for maintenance/reconstruction?" boolean
-	if (hasSoldHouse) {
-		sellingPrice: "Price the house was sold for:" int
-		privateDebt: "Private debts for the sold house:" int
-		valueResidue: "Value residue:" int(sellingPrice - privateDebt)
-	}
-	if(hasBoughtHouse){
-	    buyingPrice: "Price the house was bought for:" int
-		privateDebt2: "Private debts for the bought house:" int
-		
-	}
 	
+	testQuestion1: "This is a test question" string
+	if (hasSoldHouse) {
+		testQuestion2: "This is an additional test question"int
+	    testQuestion23: "This is an additional test question" money (100.00+45.9)
+		
+		if (hasMaintLoan) {
+			testQuestion3: "This is an additional test question" int (testQuestion2)
+		}
+	}
 }

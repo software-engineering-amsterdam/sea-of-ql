@@ -24,13 +24,13 @@ import org.uva.sea.ql.ast.form.SingleLineElement;
 import org.uva.sea.ql.ast.types.Type;
 import org.uva.sea.ql.swing.Renderer;
 import org.uva.sea.ql.visitor.IElementVisitor;
-@SuppressWarnings("rawtypes")
+
 public class SwingVisitor implements IElementVisitor{
-	private static List<JPanel> questionList;
+	private final List<JPanel> questionList;
 	private final Map<String,Value> declaredVar;
 	private static Form form;
 	
-	public SwingVisitor(Form form,List<JPanel> questionList,Map<String,Value> declaredVar){
+	private SwingVisitor(Form form,List<JPanel> questionList,Map<String,Value> declaredVar){
 		this.questionList=questionList;
 		this.declaredVar=declaredVar;
 		this.form=form;
@@ -38,11 +38,12 @@ public class SwingVisitor implements IElementVisitor{
 	
 	
 	public static List<JPanel> generate(Form form){
+         
 		List<JPanel> questionList=new ArrayList<JPanel>();
 		Map<String,Value> declaredVar=new LinkedHashMap<String,Value>();
 		SwingVisitor visitor=new SwingVisitor(form,questionList,declaredVar);
 		form.accept(visitor);
-		return getQLPanels();
+		return questionList;
 
 	}
 	
@@ -50,12 +51,14 @@ public class SwingVisitor implements IElementVisitor{
 		List<JPanel> questionList=new ArrayList<JPanel>();
 		SwingVisitor visitor=new SwingVisitor(form,questionList,declaredVar);
 		form.accept(visitor);
-		return getQLPanels();
+		return questionList;
+
 		
 	}
 
 	@Override
 	public void visit(Form qlElement) {
+
        String formName=qlElement.getId().getName();
        Renderer.setName(formName);
        qlElement.getBody().accept(this);
@@ -63,6 +66,8 @@ public class SwingVisitor implements IElementVisitor{
 
 	@Override
 	public void visit(Body qlElement) {
+		System.out.println("body");
+
 		List<BodyElement> bodyList=qlElement.getBodyElement();
 		for(BodyElement element:bodyList){
 			element.accept(this);
@@ -72,13 +77,15 @@ public class SwingVisitor implements IElementVisitor{
 
 	@Override
 	public void visit(Question qlElement) {
+		System.out.println("question");
+
 		initVar(qlElement);
 		addQuestion(qlElement,declaredVar);
 	}
 
 	@Override
 	public void visit(ComputedQuestion qlElement) {
-		initVar(qlElement);   //na ginei method
+		initVar(qlElement);   
 		Value value = ExprEvaluator.eval(qlElement.getExpr(),declaredVar);
 		declaredVar.put(qlElement.getId().getName(),value);
 
@@ -93,9 +100,9 @@ public class SwingVisitor implements IElementVisitor{
 		Body body2 = qlElement.getElseBody();
 
 		Expr condition = qlElement.getCondition();
-		Value<Boolean> expr = ExprEvaluator.eval(condition, declaredVar);
+		Value expr = ExprEvaluator.eval(condition, declaredVar);
 
-		if (!expr.getValue())
+		if (!((BoolLit) expr).getValue())
 			body2.accept(this);
 		else
 			body.accept(this);
@@ -105,9 +112,9 @@ public class SwingVisitor implements IElementVisitor{
 	public void visit(IfThen qlElement) {
 		Body body = qlElement.getIfBody();
 		Expr condition = qlElement.getCondition();
-		Value<Boolean> expr = ExprEvaluator.eval(condition, declaredVar);
+		Value expr = ExprEvaluator.eval(condition, declaredVar);
 
-		if (!expr.getValue())
+		if (!((BoolLit) expr).getValue())
 			return;
 
 		body.accept(this);
@@ -129,9 +136,6 @@ public class SwingVisitor implements IElementVisitor{
 		
 	}
 	
-	private static List<JPanel> getQLPanels(){
-		return questionList;
-	}
 	
 	private void initVar(SingleLineElement qlElement){
 		String varName=qlElement.getId().getName();

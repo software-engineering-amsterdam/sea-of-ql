@@ -25,7 +25,7 @@ public class ElementChecker implements IElementVisitor {
 	private final List<String> errorReport;
 	 
 	
-	public ElementChecker(Map<String,Type> declaredVar,List<String> errorReport){
+	private ElementChecker(Map<String,Type> declaredVar,List<String> errorReport){
 			this.declaredVar=declaredVar;
 			this.errorReport=errorReport;
 	}

@@ -6,12 +6,15 @@ import org.uva.sea.ql.ast.types.MoneyType;
 import org.uva.sea.ql.ast.types.Type;
 import org.uva.sea.ql.visitor.IExprVisitor;
 
-public class DecimalLit extends Value<Float> {
-
+public class DecimalLit extends Value {
+	private final float value;
 	public DecimalLit(float value) {
-		super(value);
+		this.value=value;
 	}
 
+	public float getValue() {
+		return value;
+	}
 	@Override
 	public <T> T accept(IExprVisitor<T> nodeVisitor) {
 		return nodeVisitor.visit(this);
