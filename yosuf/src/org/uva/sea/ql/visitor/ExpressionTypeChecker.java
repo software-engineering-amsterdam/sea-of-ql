@@ -35,11 +35,11 @@ import org.uva.sea.ql.ast.value.IntegerValue;
 import org.uva.sea.ql.ast.value.StringValue;
 
 @Visitor
-public class ExpressionTypeCheck implements ExpressionVisitor<Expression> {
+public class ExpressionTypeChecker implements ExpressionVisitor<Expression> {
 
 	private final List<ValidationException> typeErrors;
 
-	public ExpressionTypeCheck() {
+	public ExpressionTypeChecker() {
 		typeErrors = new ArrayList<ValidationException>();
 	}
 

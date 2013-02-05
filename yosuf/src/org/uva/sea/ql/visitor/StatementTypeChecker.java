@@ -22,9 +22,10 @@ import org.uva.sea.ql.ast.type.BooleanType;
 public class StatementTypeChecker implements StatementVisitor<Statement> {
 
 	private final List<ValidationException> typeErrors = new ArrayList<ValidationException>();
-	private final ExpressionTypeCheck expressionTypeChecker;
+	private final ExpressionTypeChecker expressionTypeChecker;
 
-	public StatementTypeChecker(final ExpressionTypeCheck expressionTypeChecker) {
+	public StatementTypeChecker(
+			final ExpressionTypeChecker expressionTypeChecker) {
 		this.expressionTypeChecker = expressionTypeChecker;
 		state.assertNotNull(this.expressionTypeChecker, "expressionTypeChecker");
 	}
@@ -115,11 +116,15 @@ public class StatementTypeChecker implements StatementVisitor<Statement> {
 		}
 	}
 
+	/**
+	 * 
+	 * @return a copy. Does not include expression type errors
+	 */
 	public List<ValidationException> getTypeErrors() {
-		List<ValidationException> allErrors = new ArrayList<ValidationException>(
-				typeErrors);
-		allErrors.addAll(expressionTypeChecker.getTypeErrors());
+		return new ArrayList<ValidationException>(typeErrors);
+	}
 
-		return allErrors;
+	public ExpressionTypeChecker getExpressionTypeChecker() {
+		return expressionTypeChecker;
 	}
 }
