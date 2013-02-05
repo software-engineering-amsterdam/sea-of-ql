@@ -49,8 +49,12 @@ public TypeMap getTypeMap(Form f) {
   return cachedTypeMap.typeMap;
 }
 
+public default Form accompanyingForm(Stylesheet s) =
+  form(identDefinition(""), []);
+
 public Form accompanyingForm(Stylesheet s) =
-  parseForm(accompanyingFormLocation(s));
+  parseForm(accompanyingFormLocation(s))
+    when isFile(accompanyingFormLocation(s));
 
 public loc accompanyingFormLocation(Stylesheet s) =
   |project://QL-R-kemi/forms/| + "<s.ident>.q";
