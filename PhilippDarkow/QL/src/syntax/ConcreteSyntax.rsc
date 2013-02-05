@@ -67,7 +67,7 @@ start syntax Type
    = integer : "integer" 
    | string :"string"
    | boolean :"boolean"
-   | money :"money"  
+   | money :"money"   
    ;
    
 // start syntax Expression  

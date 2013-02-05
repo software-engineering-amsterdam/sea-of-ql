@@ -49,10 +49,10 @@ QLTENV checkQuestion(question:easyQuestion(str id, str labelQuestion, Type tp) ,
 * @return env the enviroment
 * @author Philipp
 */
-QLTENV checkQuestion(question:computedQuestion(str id, str labelQuestion, Type tp, Expression exp) , QLTENV env){
+QLTENV checkQuestion(question:computedQuestion(str id, str labelQuestion, Type tp) , QLTENV env){  //, Expression exp
 	println("check computed question");
 	if(checkIdentifiers(env) == false) return addError(env, question@location, "Identifier <id> is declared two times");
-	else return addInstance(env, id, labelQuestion, tp, exp);
+	else return addInstance(env, id, labelQuestion, tp); //, exp
 	//env = <{< id , labelQuestion, tp >} , []>;
 	//println("ENV : <env>");
 	//return env;

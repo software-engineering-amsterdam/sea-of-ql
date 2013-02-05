@@ -72,7 +72,7 @@ VENV evalDecls (list[Question] results) =
 
 VENV evalQuestion(question:easyQuestion(str id, str labelQuestion, Type tp) , VENV env){
 	println("in eval Question");
-	return addInstance(env, id , labelQuestion, tp);
+	return addInstance(env, id , tp);
 }
 
 VENV evalBody(list[Body] Body, VENV env){

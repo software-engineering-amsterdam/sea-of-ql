@@ -30,6 +30,15 @@ public QLTENV checkExp(exp:id(str id), Type req, QLTENV env) {
   
 }
 
+// CHECK BOOLEAN EXPRESSIONS
+public QLTENV checkExp(exp:and(EXP E1, EXP E2), Type req, QLTENV env) =                        
+  req == boolean() ? checkExp(E1, boolean(), checkExp(E2, boolean(), env))
+                   : addError(env, exp@location, required(req, "boolean"));
+  
+public QLTENV checkExp(exp:or(EXP E1, EXP E2), Type req, QLTENV env) =                      
+  req == boolean() ? checkExp(E1, boolean(), checkExp(E2, boolean(), env))
+                   : addError(env, exp@location, required(req, "boolean")); 
+
 // CHECK MONEY EXPRESSIONS
 public QLTENV checkExp(exp:add(EXP E1, EXP E2), Type req, QLTENV env) =                        
   req == money() ? checkExp(E1, money(), checkExp(E2, money(), env))
