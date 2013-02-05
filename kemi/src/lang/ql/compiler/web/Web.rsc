@@ -10,6 +10,7 @@
 
 module lang::ql::compiler::web::Web
 
+import IO;
 import lang::ql::ast::AST;
 import lang::ql::compiler::web::HTML;
 import lang::ql::compiler::web::JS;
@@ -17,6 +18,9 @@ import lang::ql::compiler::web::PHP;
 
 public loc buildForm(Form form, loc destFolder) {
   destFolder += "<form.formName.ident>/";
+  
+  if(!exists(destFolder))
+    mkDirectory(destFolder);
   
   HTML(form, destFolder);
   JS(form, destFolder);
