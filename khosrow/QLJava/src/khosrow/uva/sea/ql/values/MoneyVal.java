@@ -16,13 +16,4 @@ public class MoneyVal extends NumericVal {
 		return (int) (getValue() - ((MoneyVal)value).getValue());
 	}
 	
-	@Override
-	public double convertToMoneyVal() {
-		return getValue();
-	}
-	
-	@Override
-	public int convertToIntVal() {
-		return getValue().intValue();
-	}
 }

@@ -21,13 +21,42 @@ public class ExprEvaluator implements IExprVisitor<Value> {
 	@Override
 	public Value visit(Add ast) {
 		Value lhsVal = ast.getLhs().accept(this);
+		Value rhsVal = ast.getRhs().accept(this);		
+		return lhsVal.add(rhsVal);
+	}
+	
+	@Override
+	public Value visit(Sub ast) {
+		Value lhsVal = ast.getLhs().accept(this);
 		Value rhsVal = ast.getRhs().accept(this);
-		Type lhsType = ast.getLhs().typeOf(valueEnv);
-		Type rhsType = ast.getRhs().typeOf(valueEnv);
-		
-		if (lhsType instanceof Money || rhsType instanceof Money)
-			return new MoneyVal(((NumericVal)lhsVal).convertToMoneyVal() + ((NumericVal)rhsVal).convertToMoneyVal());
-		return new IntVal(((IntVal)lhsVal).getValue() + ((IntVal)rhsVal).getValue());
+		return lhsVal.sub(rhsVal);
+	}
+	
+	@Override
+	public Value visit(Div ast) {
+		Value lhsVal = ast.getLhs().accept(this);
+		Value rhsVal = ast.getRhs().accept(this);
+		return lhsVal.div(rhsVal);
+	}
+	
+	@Override
+	public Value visit(Mod ast) {
+		Value lhsVal = ast.getLhs().accept(this);
+		Value rhsVal = ast.getRhs().accept(this);
+		return lhsVal.mod(rhsVal);
+	}
+
+	@Override
+	public Value visit(Mul ast) {
+		Value lhsVal = ast.getLhs().accept(this);
+		Value rhsVal = ast.getRhs().accept(this);
+		return lhsVal.mul(rhsVal);
+	}
+
+	@Override
+	public Value visit(Neg ast) {
+		Value argVal = ast.getArg().accept(this);
+		return argVal.neg();
 	}
 
 	@Override
@@ -35,19 +64,7 @@ public class ExprEvaluator implements IExprVisitor<Value> {
 		Value lhsVal = ast.getLhs().accept(this);
 		Value rhsVal = ast.getRhs().accept(this);
 		return new BoolVal(((BoolVal)lhsVal).getValue() && ((BoolVal)rhsVal).getValue());
-	}
-
-	@Override
-	public Value visit(Div ast) {
-		Value lhsVal = ast.getLhs().accept(this);
-		Value rhsVal = ast.getRhs().accept(this);
-		Type lhsType = ast.getLhs().typeOf(valueEnv);
-		Type rhsType = ast.getRhs().typeOf(valueEnv);
-		
-		if(lhsType instanceof Money || rhsType instanceof Money)
-			return new MoneyVal(((NumericVal)lhsVal).convertToMoneyVal() / ((NumericVal)rhsVal).convertToMoneyVal());
-		return new IntVal(((IntVal)lhsVal).getValue() / ((IntVal)rhsVal).getValue());
-	}
+	}	
 
 	@Override
 	public Value visit(Eq ast) {
@@ -94,39 +111,7 @@ public class ExprEvaluator implements IExprVisitor<Value> {
 		return new BoolVal(compResult < 0);
 	}
 
-	@Override
-	public Value visit(Mod ast) {
-		Value lhsVal = ast.getLhs().accept(this);
-		Value rhsVal = ast.getRhs().accept(this);
-		Type lhsType = ast.getLhs().typeOf(valueEnv);
-		Type rhsType = ast.getRhs().typeOf(valueEnv);
-		
-		if(lhsType instanceof Money || rhsType instanceof Money)
-			return new MoneyVal(((NumericVal)lhsVal).convertToMoneyVal() % ((NumericVal)rhsVal).convertToMoneyVal());
-		return new IntVal(((IntVal)lhsVal).getValue() % ((IntVal)rhsVal).getValue());
-	}
-
-	@Override
-	public Value visit(Mul ast) {
-		Value lhsVal = ast.getLhs().accept(this);
-		Value rhsVal = ast.getRhs().accept(this);
-		Type lhsType = ast.getLhs().typeOf(valueEnv);
-		Type rhsType = ast.getRhs().typeOf(valueEnv);
-		
-		if(lhsType instanceof Money || rhsType instanceof Money)
-			return new MoneyVal(((NumericVal)lhsVal).convertToMoneyVal() * ((NumericVal)rhsVal).convertToMoneyVal());
-		return new IntVal(((IntVal)lhsVal).getValue() * ((IntVal)rhsVal).getValue());
-	}
-
-	@Override
-	public Value visit(Neg ast) {
-		Value argVal = ast.getArg().accept(this);
-		Type argType = ast.getArg().typeOf(valueEnv);
-		
-		if(argType instanceof Money)
-			return new MoneyVal(((MoneyVal)argVal).getValue() * -1);
-		return new IntVal(((IntVal)argVal).getValue() * -1);
-	}
+	
 
 	@Override
 	public Value visit(NEq ast) {
@@ -159,17 +144,7 @@ public class ExprEvaluator implements IExprVisitor<Value> {
 		return new IntVal(((IntVal)argVal).getValue());
 	}
 
-	@Override
-	public Value visit(Sub ast) {
-		Value lhsVal = ast.getLhs().accept(this);
-		Value rhsVal = ast.getRhs().accept(this);
-		Type lhsType = ast.getLhs().typeOf(valueEnv);
-		Type rhsType = ast.getRhs().typeOf(valueEnv);
-		
-		if(lhsType instanceof Money || rhsType instanceof Money)
-			return new MoneyVal(((NumericVal)lhsVal).convertToMoneyVal() - ((NumericVal)rhsVal).convertToMoneyVal());
-		return new IntVal(((IntVal)lhsVal).getValue() - ((IntVal)rhsVal).getValue());
-	}
+	
 
 	@Override
 	public Value visit(IntLiteral ast) {
