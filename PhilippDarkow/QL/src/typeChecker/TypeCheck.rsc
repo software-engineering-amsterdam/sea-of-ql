@@ -40,22 +40,23 @@ QLTENV checkStatement(statement:ifElseStat(Expression exp, list[Body] thenpart, 
 */
 QLTENV checkQuestion(question:easyQuestion(str id, str labelQuestion, Type tp) , QLTENV env){
 	if(checkIdentifiers(env) == false) return addError(env, question@location, "Identifier <id> is declared two times");
-	else return addInstance(env, id , labelQuestion, tp );	
+	else return addInstance(env, id , labelQuestion, tp, false );	
 }
 
-/** Method to check computed question and save it in the environment   --> is not working
+/** Method to check computed question and save it in the environment   --> need now to check the all expression of the question
 * @param question the computed question
 * @param env the QL Type environment
 * @return env the enviroment
 * @author Philipp
 */
-QLTENV checkQuestion(question:computedQuestion(str id, str labelQuestion, Type tp) , QLTENV env){  //, Expression exp
+QLTENV checkQuestion(question:computedQuestion(str id, str labelQuestion, Type tp, Expression exp) , QLTENV env){  //, Expression exp
 	println("check computed question");
 	if(checkIdentifiers(env) == false) return addError(env, question@location, "Identifier <id> is declared two times");
-	else return addInstance(env, id, labelQuestion, tp); //, exp
-	//env = <{< id , labelQuestion, tp >} , []>;
-	//println("ENV : <env>");
-	//return env;
+	// need to check the expression
+	else {
+	 
+	 return addInstance(env, id, labelQuestion, tp, true);
+	 } 
 }
 
 /** Method to check for double Identifiers

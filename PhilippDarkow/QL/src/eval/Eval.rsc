@@ -66,13 +66,14 @@ VENV evalDecls (list[Question] results) =
    ( Id : ( tp == money() ? moneyVal(0) : strVal("")) | result(QuestionId Id, TYPE tp) <- results); // | results(QuestionId Id, TYPE tp) <- results); 
  // (results.tp == money() ? moneyVal(0) : strVal(""))
  
+VENV evalStatement(statement:ifStat(), VENV env){
+	println("in eval Statement");
+	
+}
     
-//TENV checkDecls(list[DECL] Decls) =                                                 
-//    <( Id : question | decl(QuestionId Id, QUE question)  <- Decls), []>;
-
 VENV evalQuestion(question:easyQuestion(str id, str labelQuestion, Type tp) , VENV env){
 	println("in eval Question");
-	return addInstance(env, id , tp);
+	return addInstance(env, id , (tp == money() ? moneyVal(0) : intVal(0)));
 }
 
 VENV evalBody(list[Body] Body, VENV env){
@@ -80,12 +81,14 @@ VENV evalBody(list[Body] Body, VENV env){
 	visit(Body){
 		case Question q : {
 			println("In Q : <q>");
-			evalQuestion(q, env);
+			env = evalQuestion(q, env);
 		}
 		case Statement s : {
 			println("in S : <s>");
+			env = evalStatement(s,env);
 		}
 	}
+	return env;
 }
 
 // Evaluate a QL program
@@ -95,7 +98,7 @@ public VENV evalProgram(Program P){
      VENV env = ();      
      env = evalBody(Body, env); 
      println(env);
-     return evalStats(Series, env);
+     return env;
   } else
     throw "Cannot happen";
 }
