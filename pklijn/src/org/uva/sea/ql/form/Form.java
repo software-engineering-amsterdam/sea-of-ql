@@ -13,6 +13,7 @@ import java.util.Map;
 
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import net.miginfocom.swing.MigLayout;
@@ -110,6 +111,7 @@ public class Form implements ActionListener {
 						writer.writeNext(new String[]{key.getName(), values.get(key).toString()});
 					}
 					writer.close();
+					JOptionPane.showMessageDialog(null, "The form results are now saved to the selected folder!");
 				}
 				catch (IOException ex) {
 					System.out.println(ex.getMessage());
