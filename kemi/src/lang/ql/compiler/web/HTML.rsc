@@ -11,8 +11,9 @@
 module lang::ql::compiler::web::HTML
 
 import IO;
-import util::StringHelper;
 import lang::ql::ast::AST; 
+import lang::ql::compiler::web::HTMLType;
+import util::StringHelper;
 
 public void HTML(Form f, loc dest) {
   dest += "index.html";
@@ -28,11 +29,11 @@ public void HTML(Form f, loc dest) {
     case q: question(_, _, _, _): questions += [q];
   }
   
-  createPage(title, questions, dest);
+  writeFile(dest, createPage(title, questions));
+  
 }
 
-private void createPage(str title, list[Question] questions, loc dest) =
-  appendToFile(dest, 
+private str createPage(str title, list[Question] questions) =
   "\<!DOCTYPE html\>
   '\<html\>
   '  \<head\>
@@ -61,7 +62,7 @@ private void createPage(str title, list[Question] questions, loc dest) =
   '    \</form\>
   '  \</body\>
   '\</html\>
-  ");
+  ";
 
 private str createQuestion(str title, Question q: 
     question(QuestionText text, Type \type, IdentDefinition ident)) {
