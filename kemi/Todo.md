@@ -25,3 +25,4 @@ consistent way.
 * Refactoring
 * Adding comments
 * Usage of ParseHelpers outside 'test' packages
+* Remove all old main()s
