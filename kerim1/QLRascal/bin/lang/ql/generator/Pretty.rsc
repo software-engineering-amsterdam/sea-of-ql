@@ -1,4 +1,4 @@
-module lang::ql::ast::Pretty
+module lang::ql::generator::Pretty
 
 import lang::ql::ast::AST;
 
@@ -43,9 +43,9 @@ public str pretty(ident(str name)) = name;
 public str pretty(\int(int integer)) = "<integer>";
 public str pretty(\bool(bool boolean)) = "<boolean>";
 public str pretty(string(str string)) = string;
-public str pretty(pos(Expr val)) = "+(<pretty(val)>)";
-public str pretty(neg(Expr val)) = "-(<pretty(val)>)";
-public str pretty(not(Expr val)) = "!(<pretty(val)>)";
+public str pretty(pos(Expr val)) = "+<pretty(val)>";
+public str pretty(neg(Expr val)) = "-<pretty(val)>";
+public str pretty(not(Expr val)) = "!<pretty(val)>";
 public str pretty(mul(Expr lhs, Expr rhs)) = "(<pretty(lhs)> * <pretty(rhs)>)";
 public str pretty(div(Expr lhs, Expr rhs)) = "(<pretty(lhs)> / <pretty(rhs)>)";
 public str pretty(add(Expr lhs, Expr rhs)) = "(<pretty(lhs)> + <pretty(rhs)>)";
