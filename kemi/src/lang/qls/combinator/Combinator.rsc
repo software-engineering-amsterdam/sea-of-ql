@@ -17,7 +17,7 @@ import String;
 import lang::ql::ast::AST;
 import lang::ql::tests::ParseHelper;
 import lang::qls::ast::AST;
-import lang::qls::tests::ParseHelper;
+import lang::qls::util::ParseHelper;
 import lang::qls::util::StyleHelper;
 
 public void main() {

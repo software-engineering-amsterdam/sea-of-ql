@@ -21,7 +21,7 @@ import lang::ql::ast::AST;
 import lang::ql::tests::ParseHelper;
 
 import lang::qls::ast::AST;
-import lang::qls::tests::ParseHelper;
+import lang::qls::util::ParseHelper;
 
 public void main() {
   Form f = parseForm(|project://QL-R-kemi/forms/taxOfficeExample.q|);

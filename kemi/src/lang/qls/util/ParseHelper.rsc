@@ -8,11 +8,22 @@
 @contributor{Kevin van der Vlist - kevin@kevinvandervlist.nl}
 @contributor{Jimi van der Woning - Jimi.vanderWoning@student.uva.nl}
 
-module lang::qls::util::Parse
+module lang::qls::util::ParseHelper
 
-import lang::qls::syntax::QLS;
 import ParseTree;
+
+import lang::qls::ast::AST;
+import lang::qls::syntax::Keyword;
+import lang::qls::syntax::QLS;
 
 public start[Stylesheet] parse(str src, loc l) = 
   parse(#start[Stylesheet], src, l);
 
+public Stylesheet implode(Tree t) =
+  implode(#lang::qls::ast::AST::Stylesheet, t);
+
+public Stylesheet parseStylesheet(str src) =
+  implode(parse(#start[Stylesheet], src, |file:///-|));
+
+public Stylesheet parseStylesheet(loc f) =
+  implode(parse(#start[Stylesheet], f));
