@@ -10,17 +10,37 @@ import org.uva.sea.ql.ast.expression.*;
 import org.uva.sea.ql.ast.form.*;
 }
 
+@parser::members {
+    @Override
+    public void reportError(RecognitionException e) {
+      throw new RuntimeException(e);
+    }
+}
+
 @lexer::header
 {
 package org.uva.sea.ql.parser.antlr;
 }
 
+@rulecatch {
+  catch (RecognitionException re) {
+    reportError(re);
+    recover(input,re);
+    throw re;
+  }
+}
+
 form returns [QLForm result]
-  : 'form' IDENT body { $result = new QLForm($IDENT.text, $body.result); }
+  : 'form' IDENT body { $result = new QLForm($IDENT.text, $body.result); } EOF
   ;
   
+topLevelBody returns [Body result]
+  : body EOF { $result = $body.result; }
+  ;
+
+  
 body returns [Body result]
-  @init { ArrayList<FormElement> tempList = new ArrayList<FormElement>(); }
+  @init { List<FormElement> tempList = new ArrayList<FormElement>(); }
   @after { $result = new Body(tempList); }
   : '{' (formElement { tempList.add($formElement.result); })* '}'
   ;
@@ -30,18 +50,19 @@ formElement returns [FormElement result]
   | ifStatement { $result = $ifStatement.result; }
   ;
   
+topLevelFormElement returns [FormElement result]
+  : formElement EOF { $result = $formElement.result; }
+  ;
+  
 question returns [Question result]
-  @init { boolean computed = false; }
-  : IDENT ':' STRING_LITERAL type
-    ( '(' expression ')' { computed = true; } )?
+  : id=IDENT ':' lbl=STRING_LITERAL type
     {
-      if (computed) {
-        $result = new ComputedQuestion(new Ident($IDENT.text),
-          $STRING_LITERAL.text, $type.result, $expression.result);
-      } else {
-        $result = new Question(new Ident($IDENT.text),
-          $STRING_LITERAL.text, $type.result);
-      }
+      $result = new Question(new Ident($id.text), $lbl.text, $type.result);
+    }
+  | id=IDENT ':' lbl=STRING_LITERAL type '(' cond=expression ')'
+    {
+      $result = new ComputedQuestion(new Ident($id.text), $lbl.text,
+        $type.result, $cond.result);
     }
   ;
   
@@ -58,18 +79,26 @@ ifStatement returns [IfStatement result]
     }
   ;
 
+topLevelExpression returns [Expr result]
+  : expression EOF { $result = $expression.result; }
+  ;
+
 expression returns [Expr result]
+  : orExpr { $result = $orExpr.result; }
+  ;
+
+primary returns [Expr result]
   : INT   { $result = new Int(Integer.parseInt($INT.text)); }
   | IDENT { $result = new Ident($IDENT.text); }
   | STRING_LITERAL { $result = new Str($STRING_LITERAL.text); }
-  | '(' x=orExpr ')' { $result = $x.result; }
+  | '(' orExpr ')' { $result = $orExpr.result; }
   ;
     
 unExpr returns [Expr result]
   : '+' x=unExpr { $result = new Pos($x.result); }
   | '-' x=unExpr { $result = new Neg($x.result); }
   | '!' x=unExpr { $result = new Not($x.result); }
-  | x=expression    { $result = $x.result; }
+  | x=primary    { $result = $x.result; }
   ;    
     
 mulExpr returns [Expr result]
