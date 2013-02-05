@@ -1,5 +1,7 @@
 package org.uva.sea.ql.interpreter;
 
+import java.awt.Image;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.BufferedReader;
@@ -23,6 +25,8 @@ import org.uva.sea.ql.parser.antlr.ANTLRParser;
 import org.uva.sea.ql.parser.test.IParse;
 import org.uva.sea.ql.parser.test.ParseError;
 
+import com.apple.eawt.Application;
+
 public class FormBuilder implements ActionListener {
 	
 	private final String NEWLINECHAR = "\n";
@@ -35,6 +39,9 @@ public class FormBuilder implements ActionListener {
 		mainWindow = new JFrame();
 		mainWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		mainWindow.setLocationRelativeTo(null);
+		Application application = Application.getApplication();
+		Image dockImage = Toolkit.getDefaultToolkit().getImage(System.getProperty("user.dir") + "/lib/logo.png");
+		application.setDockIconImage(dockImage);
 		selectFormButton = new JButton("Select an existing form");
 		backToMainButton = new JButton("Back");
 		selectFormButton.addActionListener(this);
@@ -45,29 +52,31 @@ public class FormBuilder implements ActionListener {
 		JPanel panel = new JPanel(new MigLayout());
 		panel.add(new JLabel("Press the button below to select your form:"), "span, growx");
 		panel.add(selectFormButton, "span, growx");
-		displayForm(panel,"Questionare form");
+		showPanelInMainWindow(panel,"Questionare form");
 	}
 	
 	public void displayForm(String formText) {
 		parser = new ANTLRParser();
 		try {
 			Form form = parser.parseForm(formText);
-			if (form.checkFormValidity()) {
+			if (form.isFormValid()) {
 				JPanel panel = form.buildForm();
 				panel.add(backToMainButton, "span, growx");
-				displayForm(panel, form.getName());
+				showPanelInMainWindow(panel, form.getName());
 			}
 			else {
-				displayForm(getDisplayFormErrorPanel(form), "Errors found!");
+				showPanelInMainWindow(getDisplayFormErrorPanel(form), "Errors found!");
 			}
 		}
 		catch (ParseError e) {
 			JOptionPane.showMessageDialog(null, "The form has an invalid syntax");
-			displayMain();
+		}
+		catch (RuntimeException e) {
+			JOptionPane.showMessageDialog(null, "The form has an invalid syntax:\n" + e.getMessage());
 		}
 	}
 	
-	private void displayForm(JPanel formPanel, String formTitle) {
+	private void showPanelInMainWindow(JPanel formPanel, String formTitle) {
 		mainWindow.setContentPane(formPanel);
 		mainWindow.setTitle(formTitle);
 		mainWindow.pack(); //Automatically resize

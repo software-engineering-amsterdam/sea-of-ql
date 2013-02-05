@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.jpatterns.gof.CompositePattern.Composite;
+import org.uva.sea.ql.visitor.StatementVisitor;
 
 @Composite
 public class CompoundStatement extends Statement {
@@ -23,4 +24,15 @@ public class CompoundStatement extends Statement {
 	public List<Statement> getStatements() {
 		return new ArrayList<Statement>(statements);
 	}
+
+	@Override
+	public <T> T accept(final StatementVisitor<T> visitor) {
+		return visitor.visit(this);
+	}
+
+	@Override
+	public String toString() {
+		return "CompoundStatement [statements=" + statements + "]";
+	}
+
 }

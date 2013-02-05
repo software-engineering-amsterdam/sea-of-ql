@@ -1,13 +1,12 @@
 package org.uva.sea.ql.ast.elements;
 
-import org.uva.sea.ql.ast.expressions.Expr;
 import org.uva.sea.ql.ast.literal.StringLiteral;
 import org.uva.sea.ql.ast.types.Type;
 import org.uva.sea.ql.common.ASTElement;
-import org.uva.sea.ql.common.ASTVisitor;
+import org.uva.sea.ql.common.ElementVisitor;
 import org.uva.sea.ql.common.VisitorException;
 
-public class Question extends Expr implements ASTElement {
+public class Question extends BlockElement implements ASTElement {
 	private StringLiteral content;
 	private Type type;
 	private Ident ident;
@@ -35,7 +34,7 @@ public class Question extends Expr implements ASTElement {
 	}
 
 	@Override
-	public final void accept(ASTVisitor visitor) throws VisitorException {
+	public final void accept(ElementVisitor visitor) throws VisitorException {
 		visitor.visit(this);
 	}
 

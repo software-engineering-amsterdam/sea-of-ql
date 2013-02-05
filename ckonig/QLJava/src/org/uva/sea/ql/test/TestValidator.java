@@ -5,7 +5,7 @@ import junit.framework.Assert;
 import org.junit.Test;
 import org.uva.sea.ql.ast.elements.Form;
 import org.uva.sea.ql.ast.expressions.Expr;
-import org.uva.sea.ql.common.ASTVisitor;
+import org.uva.sea.ql.common.ElementVisitor;
 import org.uva.sea.ql.common.VisitorException;
 import org.uva.sea.ql.parser.ParseError;
 import org.uva.sea.ql.validation.AstValidationError;
@@ -19,16 +19,10 @@ public class TestValidator extends TestExpressions {
     @Test
     public final void testValidatorVisitorFromFile() {
         try {
-            final Expr e = parser.parseFile();
-            final ASTVisitor visitor = new ValidationVisitor();
-            Assert.assertTrue(Form.class.equals(e.getClass()));
-            final Form f = (Form) e;
-            f.accept(visitor);
+            final Form e = parser.parseFile();
+            this.validateForm(e);
         } catch (ParseError ex) {
             Assert.fail("Parse Exception occured during test: "
-                    + ex.getMessage());
-        } catch (VisitorException ex) {
-            Assert.fail("Visitor Exception occured during test: "
                     + ex.getMessage());
         }
     }
@@ -36,14 +30,20 @@ public class TestValidator extends TestExpressions {
     @Test
     public final void testValidatorVisitorPositive() {
         try {
-            final Expr e = parser.parseFull(getQL());
-            final ASTVisitor visitor = new ValidationVisitor();
-            Assert.assertTrue(Form.class.equals(e.getClass()));
-            final Form f = (Form) e;
-            f.accept(visitor);
+            final Form e = parser.parseFull(getQL());
+            this.validateForm(e);
         } catch (ParseError ex) {
             Assert.fail("Parse Exception occured during test: "
                     + ex.getMessage());
+        }
+
+    }
+
+    private final void validateForm(Form f) {
+
+        try {
+            f.accept(new ValidationVisitor());
+
         } catch (VisitorException ex) {
             Assert.fail("Visitor Exception occured during test: "
                     + ex.getMessage());
@@ -54,10 +54,10 @@ public class TestValidator extends TestExpressions {
     public final void testValidatorVisitorLeftBoolNegative() {
         boolean exceptionThrown = false;
         try {
-            final Expr e = parser.parseFull(getQL("money", "boolean",
+            final Form e = parser.parseFull(getQL("money", "boolean",
                     "boolean",
                     "hasSoldHouse && (hasBoughtHouse || hasMaintLoan)"));
-            final ASTVisitor visitor = new ValidationVisitor();
+            final ElementVisitor visitor = new ValidationVisitor();
             Assert.assertTrue(Form.class.equals(e.getClass()));
             final Form f = (Form) e;
             f.accept(visitor);
@@ -69,10 +69,10 @@ public class TestValidator extends TestExpressions {
         Assert.assertEquals(true, exceptionThrown);
         exceptionThrown = false;
         try {
-            final Expr e = parser.parseFull(getQL("boolean", "money",
+            final Form e = parser.parseFull(getQL("boolean", "money",
                     "boolean",
                     "hasSoldHouse && (hasBoughtHouse || hasMaintLoan)"));
-            final ASTVisitor visitor = new ValidationVisitor();
+            final ElementVisitor visitor = new ValidationVisitor();
             Assert.assertTrue(Form.class.equals(e.getClass()));
             final Form f = (Form) e;
             f.accept(visitor);
@@ -89,10 +89,10 @@ public class TestValidator extends TestExpressions {
     public final void testValidatorVisitorRightBoolNegative() {
         boolean exceptionThrown = false;
         try {
-            final Expr e = parser.parseFull(getQL("boolean", "money",
+            final Form e = parser.parseFull(getQL("boolean", "money",
                     "boolean",
                     "hasSoldHouse && (hasBoughtHouse || hasMaintLoan)"));
-            final ASTVisitor visitor = new ValidationVisitor();
+            final ElementVisitor visitor = new ValidationVisitor();
             Assert.assertTrue(Form.class.equals(e.getClass()));
             final Form f = (Form) e;
             f.accept(visitor);
@@ -104,10 +104,10 @@ public class TestValidator extends TestExpressions {
         Assert.assertEquals(true, exceptionThrown);
         exceptionThrown = false;
         try {
-            final Expr e = parser
+            final Form e = parser
                     .parseFull(getQL("boolean", "boolean", "money",
                             "hasSoldHouse && (hasBoughtHouse || hasMaintLoan)"));
-            final ASTVisitor visitor = new ValidationVisitor();
+            final ElementVisitor visitor = new ValidationVisitor();
             Assert.assertTrue(Form.class.equals(e.getClass()));
             final Form f = (Form) e;
             f.accept(visitor);

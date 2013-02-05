@@ -56,7 +56,7 @@ public class Form implements ActionListener {
 		return formText;
 	}
 	
-	public boolean checkFormValidity() {
+	public boolean isFormValid() {
 		boolean valid = true;
 		environment = new Env();
 		for (FormItem f : body) {

@@ -227,6 +227,6 @@ public class ExpressionTypeCheckTest {
 	}
 
 	private void assertErrors(final int numberofErrors) {
-		assertEquals(numberofErrors, typeCheck.getValidationExceptions().size());
+		assertEquals(numberofErrors, typeCheck.getTypeErrors().size());
 	}
 }

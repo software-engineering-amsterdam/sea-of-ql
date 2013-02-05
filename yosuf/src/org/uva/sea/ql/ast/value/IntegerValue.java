@@ -32,4 +32,11 @@ public class IntegerValue extends Value {
 	public Nature getNature() {
 		return Nature.NUMERIC;
 	}
+
+	@Override
+	public String toString() {
+		return "IntegerValue [value=" + value + ", getNature()=" + getNature()
+				+ "]";
+	}
+
 }

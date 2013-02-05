@@ -5,6 +5,7 @@ import static julius.validation.Assertions.state;
 import org.uva.sea.ql.ast.exp.Identifier;
 import org.uva.sea.ql.ast.type.DataType;
 import org.uva.sea.ql.ast.value.StringValue;
+import org.uva.sea.ql.visitor.StatementVisitor;
 
 public class Question extends Statement {
 
@@ -36,4 +37,24 @@ public class Question extends Statement {
 	public StringValue getQuestionText() {
 		return questionText;
 	}
+
+	public DataType getDataType() {
+		return dataType;
+	}
+
+	public Identifier getIdentifier() {
+		return identifier;
+	}
+
+	@Override
+	public <T> T accept(final StatementVisitor<T> visitor) {
+		return visitor.visit(this);
+	}
+
+	@Override
+	public String toString() {
+		return "Question [dataType=" + dataType + ", identifier=" + identifier
+				+ ", questionText=" + questionText + "]";
+	}
+
 }

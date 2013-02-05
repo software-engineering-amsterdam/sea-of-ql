@@ -17,4 +17,11 @@ public class Multiply extends Binary {
 	public Nature getNature() {
 		return Nature.NUMERIC;
 	}
+
+	@Override
+	public String toString() {
+		return "Multiply [getNature()=" + getNature() + ", getLeft()="
+				+ getLeft() + ", getRight()=" + getRight() + "]";
+	}
+
 }
