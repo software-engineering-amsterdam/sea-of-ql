@@ -14,4 +14,9 @@ public class IntegerType extends DataType {
 		return Nature.NUMERIC;
 	}
 
+	@Override
+	public String toString() {
+		return "IntegerType [getNature()=" + getNature() + "]";
+	}
+
 }

@@ -25,4 +25,12 @@ public class IfElseStatement extends IfStatement {
 	public <T> T accept(final StatementVisitor<T> visitor) {
 		return visitor.visit(this);
 	}
+
+	@Override
+	public String toString() {
+		return "IfElseStatement [elseCompound=" + elseCompound
+				+ ", getExpression()=" + getExpression() + ", getIfCompound()="
+				+ getIfCompound() + "]";
+	}
+
 }

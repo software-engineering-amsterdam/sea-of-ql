@@ -31,4 +31,9 @@ public class Form extends Statement {
 		return visitor.visit(this);
 	}
 
+	@Override
+	public String toString() {
+		return "Form [identifier=" + identifier + ", body=" + body + "]";
+	}
+
 }

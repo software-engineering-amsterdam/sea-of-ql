@@ -29,4 +29,10 @@ public class CompoundStatement extends Statement {
 	public <T> T accept(final StatementVisitor<T> visitor) {
 		return visitor.visit(this);
 	}
+
+	@Override
+	public String toString() {
+		return "CompoundStatement [statements=" + statements + "]";
+	}
+
 }

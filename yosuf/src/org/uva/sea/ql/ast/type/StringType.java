@@ -14,4 +14,9 @@ public class StringType extends DataType {
 		return Nature.TEXTUAL;
 	}
 
+	@Override
+	public String toString() {
+		return "StringType [getNature()=" + getNature() + "]";
+	}
+
 }

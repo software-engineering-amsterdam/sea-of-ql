@@ -50,4 +50,11 @@ public class Question extends Statement {
 	public <T> T accept(final StatementVisitor<T> visitor) {
 		return visitor.visit(this);
 	}
+
+	@Override
+	public String toString() {
+		return "Question [dataType=" + dataType + ", identifier=" + identifier
+				+ ", questionText=" + questionText + "]";
+	}
+
 }

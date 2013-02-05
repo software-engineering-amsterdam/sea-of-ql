@@ -9,9 +9,8 @@ import org.uva.sea.ql.visitor.StatementVisitor;
 
 public class Computed extends Statement {
 
-	private final DataType dataType;
-
 	private final Identifier identifier;
+	private final DataType dataType;
 	private final Expression expression;
 
 	/**
@@ -51,4 +50,11 @@ public class Computed extends Statement {
 	public <T> T accept(final StatementVisitor<T> visitor) {
 		return visitor.visit(this);
 	}
+
+	@Override
+	public String toString() {
+		return "Computed [identifier=" + identifier + ", dataType=" + dataType
+				+ ", expression=" + expression + "]";
+	}
+
 }

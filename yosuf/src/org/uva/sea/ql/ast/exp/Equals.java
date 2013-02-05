@@ -17,4 +17,11 @@ public class Equals extends Binary {
 	public Nature getNature() {
 		return Nature.BOOLEAN;
 	}
+
+	@Override
+	public String toString() {
+		return "Equals [getNature()=" + getNature() + ", getLeft()="
+				+ getLeft() + ", getRight()=" + getRight() + "]";
+	}
+
 }

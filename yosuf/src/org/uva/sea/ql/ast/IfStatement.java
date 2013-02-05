@@ -41,4 +41,10 @@ public class IfStatement extends Statement {
 		return visitor.visit(this);
 	}
 
+	@Override
+	public String toString() {
+		return "IfStatement [expression=" + expression + ", ifCompound="
+				+ ifCompound + "]";
+	}
+
 }
