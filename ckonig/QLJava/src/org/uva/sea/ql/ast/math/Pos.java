@@ -1,10 +1,8 @@
 package org.uva.sea.ql.ast.math;
 
 import org.uva.sea.ql.ast.expressions.Expr;
-import org.uva.sea.ql.ast.interfaces.Accepts;
-import org.uva.sea.ql.ast.interfaces.ReturnTypes;
 
-public class Pos extends UnaryMathOperator implements Accepts {
+public class Pos extends UnaryMathOperator {
     public static final String STR = "+";
 
     public Pos(Expr ex) {
@@ -16,8 +14,4 @@ public class Pos extends UnaryMathOperator implements Accepts {
         return STR;
     }
 
-    @Override
-    public ReturnTypes accepts() {
-        return ReturnTypes.MATH;
-    }
 }

@@ -17,7 +17,7 @@ public class LT extends BinaryBooleanOperator implements Accepts {
     }
 
     @Override
-    public ReturnTypes accepts() {
-        return ReturnTypes.MATH;
+    public boolean accepts(ReturnTypes r) {
+        return r.equals(ReturnTypes.MATH);
     }
 }

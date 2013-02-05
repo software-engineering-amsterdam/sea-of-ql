@@ -1,10 +1,8 @@
 package org.uva.sea.ql.ast.math;
 
 import org.uva.sea.ql.ast.expressions.Expr;
-import org.uva.sea.ql.ast.interfaces.Accepts;
-import org.uva.sea.ql.ast.interfaces.ReturnTypes;
 
-public class Div extends BinaryMathOperator implements Accepts {
+public class Div extends BinaryMathOperator {
     public static final String STR = "/";
 
     public Div(Expr left, Expr right) {
@@ -14,11 +12,6 @@ public class Div extends BinaryMathOperator implements Accepts {
     @Override
     public final String toString() {
         return STR;
-    }
-
-    @Override
-    public ReturnTypes accepts() {
-        return ReturnTypes.MATH;
     }
 
 }

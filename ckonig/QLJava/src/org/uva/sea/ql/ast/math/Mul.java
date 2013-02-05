@@ -1,10 +1,8 @@
 package org.uva.sea.ql.ast.math;
 
 import org.uva.sea.ql.ast.expressions.Expr;
-import org.uva.sea.ql.ast.interfaces.Accepts;
-import org.uva.sea.ql.ast.interfaces.ReturnTypes;
 
-public class Mul extends BinaryMathOperator implements Accepts {
+public class Mul extends BinaryMathOperator {
     public static final String STR = "*";
 
     public Mul(Expr left, Expr right) {
@@ -16,8 +14,4 @@ public class Mul extends BinaryMathOperator implements Accepts {
         return STR;
     }
 
-    @Override
-    public ReturnTypes accepts() {
-        return ReturnTypes.MATH;
-    }
 }

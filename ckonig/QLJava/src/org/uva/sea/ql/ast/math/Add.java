@@ -1,15 +1,9 @@
 package org.uva.sea.ql.ast.math;
 
-import java.util.List;
-
-import org.uva.sea.ql.ast.elements.Question;
 import org.uva.sea.ql.ast.expressions.BinaryExpr;
 import org.uva.sea.ql.ast.expressions.Expr;
-import org.uva.sea.ql.ast.interfaces.Accepts;
-import org.uva.sea.ql.ast.interfaces.ReturnTypes;
-import org.uva.sea.ql.ast.interfaces.Returns;
 
-public class Add extends BinaryExpr implements Accepts, Returns {
+public class Add extends BinaryExpr {
     public static final String STR = "+";
 
     public Add(Expr left, Expr right) {
@@ -21,13 +15,4 @@ public class Add extends BinaryExpr implements Accepts, Returns {
         return STR;
     }
 
-    @Override
-    public ReturnTypes getReturnType(List<Question> questions) {
-        return ReturnTypes.MATH;
-    }
-
-    @Override
-    public ReturnTypes accepts() {
-        return ReturnTypes.MATH;
-    }
 }

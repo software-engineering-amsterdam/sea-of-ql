@@ -85,7 +85,7 @@ public class ValidationVisitor implements ElementVisitor {
 
     private void visit(Accepts r) throws VisitorException {
         if (r instanceof BinaryExpr) {
-            if (r.accepts().equals(ReturnTypes.BOOLEAN)) {
+            if (r.accepts(ReturnTypes.BOOLEAN)) {
                 final BinaryExpr b = (BinaryExpr) r;
                 final Returns left = this.getIdentOrOrigin(b.getLeft());
                 final Returns right = this.getIdentOrOrigin(b.getRight());
@@ -99,7 +99,7 @@ public class ValidationVisitor implements ElementVisitor {
                             + ")");
                 }
             }
-            if (r.accepts().equals(ReturnTypes.MATH)) {
+            if (r.accepts(ReturnTypes.MATH)) {
                 final BinaryExpr b = (BinaryExpr) r;
                 final Returns left = this.getIdentOrOrigin(b.getLeft());
                 final Returns right = this.getIdentOrOrigin(b.getRight());
@@ -110,7 +110,7 @@ public class ValidationVisitor implements ElementVisitor {
                             + b.getClass() + " must return math operands!");
                 }
             }
-            if (r.accepts().equals(ReturnTypes.BOTH)) {
+            if (r.accepts(ReturnTypes.BOTH)) {
                 final BinaryExpr b = (BinaryExpr) r;
                 final Returns left = this.getIdentOrOrigin(b.getLeft());
                 final Returns right = this.getIdentOrOrigin(b.getRight());

@@ -17,8 +17,8 @@ public class NEq extends BinaryBooleanOperator implements Accepts {
     }
 
     @Override
-    public ReturnTypes accepts() {
-        return ReturnTypes.BOTH;
+    public boolean accepts(ReturnTypes r) {
+        return r.equals(ReturnTypes.BOTH);
     }
 
 }

@@ -17,7 +17,7 @@ public class And extends BinaryBooleanOperator implements Accepts {
     }
 
     @Override
-    public ReturnTypes accepts() {
-       return ReturnTypes.BOOLEAN;
+    public boolean accepts(ReturnTypes r) {
+        return r.equals(ReturnTypes.BOOLEAN);
     }
 }
