@@ -13,8 +13,6 @@ public class BooleanOperatorTests extends OperatorTests {
     private static final boolean RIGHT_VALUE = false;
     private static final Bool RIGHT = new Bool(RIGHT_VALUE);
 
-    private static final String BINARY_PATTERN = "(%s%s%s)";
-
     @Override protected Object getLeftValue() { return LEFT_VALUE; }
     @Override protected Object getRightValue() { return RIGHT_VALUE; }
 

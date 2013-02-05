@@ -13,78 +13,78 @@ import org.uva.sea.ql.ast.types.Money;
 import org.uva.sea.ql.interpretation.exception.EmptyInputException;
 import org.uva.sea.ql.interpretation.exception.EvaluationException;
 
-
 public class AutoValueSetter {
-	private QuestionPanel questionPanel;
-	private SwingRegistry registry;
+    private QuestionPanel questionPanel;
+    private SwingRegistry registry;
 
-	public AutoValueSetter(SwingRegistry registry, QuestionPanel questionPanel) {
-		this.registry = registry;
-		this.questionPanel = questionPanel;
-	}
+    public AutoValueSetter(SwingRegistry reg, QuestionPanel panel) {
+        this.registry = reg;
+        this.questionPanel = panel;
+    }
 
-	public void createListeners() {
-		if (questionPanel.getQuestion().getType() instanceof Money) {
-			Money m = (Money) questionPanel.getQuestion().getType();
-			if (m.getExpr() != null) {
-				List<Ident> idents = Ident.getIdents(m.getExpr());
-				for (Ident i : idents) {
-					QuestionPanel qp = registry.getQuestionPanelByIdent(i);
-					if (qp.getQuestion().getType() instanceof Money) {
-						addMoneyEvaluationListener(qp);
-					}
-				}
-			}
-		}
-	}
+    public final void createListeners() {
+        if (this.questionPanel.getQuestion().getType() instanceof Money) {
+            final Money m = (Money) this.questionPanel.getQuestion().getType();
+            if (m.getExpr() != null) {
+                final List<Ident> idents = Ident.getIdents(m.getExpr());
+                for (Ident i : idents) {
+                    final QuestionPanel qp = this.registry
+                            .getQuestionPanelByIdent(i);
+                    if (qp.getQuestion().getType() instanceof Money) {
+                        addMoneyEvaluationListener(qp);
+                    }
+                }
+            }
+        }
+    }
 
-	private void addMoneyEvaluationListener(QuestionPanel qp) {
-		JTextField t = (JTextField) qp.getInput();
-		t.addActionListener(new ActionListener() {
+    private final void addMoneyEvaluationListener(QuestionPanel qp) {
+        final JTextField t = (JTextField) qp.getInput();
+        t.addActionListener(new ActionListener() {
 
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				evaluateMoneyValue(questionPanel);
-			}
-		});
-		t.addKeyListener(new KeyListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                evaluateMoneyValue();
+            }
+        });
+        t.addKeyListener(new KeyListener() {
 
-			@Override
-			public void keyTyped(KeyEvent e) {
-				evaluateMoneyValue(questionPanel);
+            @Override
+            public void keyTyped(KeyEvent e) {
+                evaluateMoneyValue();
 
-			}
+            }
 
-			@Override
-			public void keyReleased(KeyEvent e) {
-				evaluateMoneyValue(questionPanel);
+            @Override
+            public void keyReleased(KeyEvent e) {
+                evaluateMoneyValue();
 
-			}
+            }
 
-			@Override
-			public void keyPressed(KeyEvent e) {
-				evaluateMoneyValue(questionPanel);
+            @Override
+            public void keyPressed(KeyEvent e) {
+                evaluateMoneyValue();
 
-			}
-		});
-	}
+            }
+        });
+    }
 
-	private void evaluateMoneyValue(QuestionPanel questionPanel) {
-		if (questionPanel.getQuestion().getType() instanceof Money) {
-			JTextField t = (JTextField) questionPanel.getInput();
-			Money m = (Money) questionPanel.getQuestion().getType();
-			if (m.getExpr() != null) {
-				t.setEditable(false);
-				try {
-					float result = new MathEvaluator(registry, true).eval(m
-							.getExpr());
-					t.setText(Float.toString(result));
-				} catch (EmptyInputException ex) {
-					// no input? no evaluation!
-				} catch (EvaluationException ex) {
-					System.out.println("error: " + ex.getMessage());
-				}
-			}
-		}
-	}
+    private void evaluateMoneyValue() {
+        if (this.questionPanel.getQuestion().getType() instanceof Money) {
+            final JTextField t = (JTextField) this.questionPanel.getInput();
+            final Money m = (Money) this.questionPanel.getQuestion().getType();
+            if (m.getExpr() != null) {
+                t.setEditable(false);
+                try {
+                    final float result = new MathEvaluator(this.registry, true)
+                            .eval(m.getExpr());
+                    t.setText(Float.toString(result));
+                } catch (EmptyInputException ex) {
+                    // no input? no evaluation!
+                } catch (EvaluationException ex) {
+                    System.out.println("error: " + ex.getMessage());
+                }
+            }
+        }
+    }
 }

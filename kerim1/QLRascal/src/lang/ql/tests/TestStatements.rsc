@@ -49,5 +49,4 @@ public test bool testIfThen4() = p(	"if(a == b){
 										'	c: \"cde\" bool
 										'	d: \"def\" bool
 										'}elseif(1 \> 2){
-										'	e: \"efg\" string}") is ifThen;
-										
+										'	e: \"efg\" string}") is ifThen;						

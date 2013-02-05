@@ -7,13 +7,10 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 import javax.swing.JButton;
-import javax.swing.JCheckBox;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
-import javax.swing.JTextField;
 import javax.swing.JTextPane;
 
 import org.antlr.runtime.ANTLRStringStream;
@@ -22,12 +19,22 @@ import org.uva.sea.ql.ast.QLProgram;
 import org.uva.sea.ql.ast.nodevisitor.TypeCheckVisitor;
 import org.uva.sea.ql.parser.antlr.QLLexer;
 import org.uva.sea.ql.parser.antlr.QLParser;
+import javax.swing.JPanel;
+import javax.swing.JLabel;
+import com.jgoodies.forms.layout.FormLayout;
+import com.jgoodies.forms.layout.ColumnSpec;
+import com.jgoodies.forms.layout.RowSpec;
+import com.jgoodies.forms.factories.FormFactory;
+import net.miginfocom.swing.MigLayout;
+import javax.swing.JTextField;
+import java.awt.Font;
 
 public class QLDriver extends JFrame implements ActionListener {
 
 	private static final long serialVersionUID = 5869298083469486262L;
 	private JButton btnNewButton;
 	private JTextPane txtpnFormNameofForm;
+	private JTextField textField;
 
 	/**
 	 * Launch the application.
@@ -50,7 +57,7 @@ public class QLDriver extends JFrame implements ActionListener {
 	 */
 	public QLDriver() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 480, 328);
+		setBounds(100, 100, 480, 355);
 
 		JMenuBar menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
@@ -70,15 +77,28 @@ public class QLDriver extends JFrame implements ActionListener {
 		getContentPane().setLayout(null);
 
 		txtpnFormNameofForm = new JTextPane();
-		txtpnFormNameofForm.setBounds(16, 15, 390, 219);
+		txtpnFormNameofForm.setFont(new Font("Arial", Font.PLAIN, 12));
+		txtpnFormNameofForm.setBounds(16, 15, 438, 219);
 		txtpnFormNameofForm
-				.setText("form First_Form { \r\n\tdoit: \"Give me some java baby....\" boolean\r\n\tif ( doit ) {\n\t\ttonight: \"after dinner \" money\n\t} \r\n}");
+				.setText("form First_Form { \r\n\tdoit:      \"1   line type boolean ...\" boolean\r\n\tdo  :      \"2    line type money.\" money\r\n\tagain:   \"3    line type integer\" integer\r\n\tagain2: \"4    line type boolean\" boolean\r\n       if ( again2 ) { tomorow: \"5 conditional money\" money }\r\n\tif ( doit ) {\n\t\t\r\n\t\tif ( doit == again2 ) { tonight: \"6 double conditional money \" money\n\t} \r\n       }\r\n}");
 		getContentPane().add(txtpnFormNameofForm);
 
 		btnNewButton = new JButton("Run");
 		btnNewButton.setBounds(16, 246, 96, 29);
 		btnNewButton.addActionListener(this);
 		getContentPane().add(btnNewButton);
+		
+		JPanel panel = new JPanel();
+		panel.setBounds(146, 245, 260, 30);
+		getContentPane().add(panel);
+		panel.setLayout(new MigLayout("", "[18px][][][][][][grow]", "[14px]"));
+		
+		JLabel lblEee = new JLabel("eee");
+		panel.add(lblEee, "cell 0 0,alignx left,aligny top");
+		
+		textField = new JTextField();
+		panel.add(textField, "cell 5 0 2 1,growx");
+		textField.setColumns(10);
 	}
 
 	@Override

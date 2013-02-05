@@ -7,7 +7,7 @@ public class UnaryExpr extends Expr {
 		this.adjacent = ex;
 	}
 
-	public Expr getAdjacent() {
+	public final Expr getAdjacent() {
 		return this.adjacent;
 	}
 }

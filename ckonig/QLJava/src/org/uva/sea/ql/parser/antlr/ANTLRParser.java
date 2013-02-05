@@ -7,6 +7,7 @@ import org.antlr.runtime.ANTLRStringStream;
 import org.antlr.runtime.CharStream;
 import org.antlr.runtime.CommonTokenStream;
 import org.antlr.runtime.RecognitionException;
+import org.uva.sea.ql.ast.elements.Form;
 import org.uva.sea.ql.ast.expressions.Expr;
 import org.uva.sea.ql.parser.IParse;
 import org.uva.sea.ql.parser.ParseError;
@@ -15,12 +16,12 @@ public class ANTLRParser implements IParse {
 	private static final String DEFAULT_FILENAME = "example.ql";
 	
 	@Override
-	public Expr parseForm(String src) throws ParseError {
+	public Form parseForm(String src) throws ParseError {
 		return parse(new ANTLRStringStream(src));
 	}
 
 	@Override
-	public Expr parseDefaultFile() throws ParseError {
+	public Form parseDefaultFile() throws ParseError {
 		return parseFile(DEFAULT_FILENAME);
 	}
 
@@ -34,7 +35,7 @@ public class ANTLRParser implements IParse {
 		}
 	}
 
-	private Expr parseFile(String filename) throws ParseError {
+	private Form parseFile(String filename) throws ParseError {
 		try {
 			return parse(new ANTLRFileStream(filename));
 		} catch (IOException ex) {
@@ -42,7 +43,7 @@ public class ANTLRParser implements IParse {
 		}
 	}
 
-	private Expr parse(CharStream stream) throws ParseError {
+	private Form parse(CharStream stream) throws ParseError {
 		QLParser parser = getParser(stream);
 		try {
 			return parser.parse();

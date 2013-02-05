@@ -21,12 +21,14 @@ public class ANTLRParser implements IParse {
 	}
 	
 	@Override
-	public Form parseForm(String src) throws ParseError {
+	public Form parseForm(String src) throws ParseError, RuntimeException {
 		QLParser parser = createParser(src);
 		try {
 			return parser.form();
 		} catch (RecognitionException e) {
 			throw new ParseError(e.getMessage());
+		} catch (RuntimeException e) {
+			throw new RuntimeException(e);
 		}
 	}
 	

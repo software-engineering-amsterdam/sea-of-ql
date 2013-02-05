@@ -216,7 +216,9 @@ public class KnockoutJSViewModelBuilderVisitor implements
 
     @Override
     public Void visit(Positive astNode, Context param) {
-        visitUnaryExpression(astNode, param, "+");
+        param.getObjectHierarchy().append("Math.abs(");
+        astNode.getExpression().accept(this, param);
+        param.getObjectHierarchy().append(")");
         return null;
     }
 

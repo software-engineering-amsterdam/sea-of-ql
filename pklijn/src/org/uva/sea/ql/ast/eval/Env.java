@@ -80,4 +80,8 @@ public class Env {
 			throw new IllegalArgumentException("The ident " + ident.getName() + " does not exist in the values of this environment");
 		}
 	}
+	
+	public Map<Ident, Value> getAllValues() {
+		return values;
+	}
 }

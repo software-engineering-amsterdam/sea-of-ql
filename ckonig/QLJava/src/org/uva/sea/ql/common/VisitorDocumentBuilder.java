@@ -1,29 +1,29 @@
 package org.uva.sea.ql.common;
 
 import org.uva.sea.ql.ast.elements.Block;
+import org.uva.sea.ql.ast.elements.BlockElement;
 import org.uva.sea.ql.ast.elements.Form;
 import org.uva.sea.ql.ast.elements.IfStatement;
 import org.uva.sea.ql.ast.elements.Question;
-import org.uva.sea.ql.ast.expressions.Expr;
 
-public class VisitorDocumentBuilder implements ASTVisitor {
+public class VisitorDocumentBuilder implements ElementVisitor {
 
 	private QLDocument document;
 
-	public VisitorDocumentBuilder(QLDocument document) {
-		this.document = document;
+	public VisitorDocumentBuilder(QLDocument doc) {
+		this.document = doc;
 	}
 
 	@Override
-	public void visit(Form form) throws VisitorException {
-		document.setHeading(form.getName());
+	public final void visit(Form form) throws VisitorException {
+		this.document.setHeading(form.getName());
 		form.getBlock().accept(this);
-		document.create();
+		this.document.create();
 	}
 
 	@Override
-	public void visit(Block block) throws VisitorException {
-		for (Expr e : block.getContent()) {
+	public final void visit(Block block) throws VisitorException {
+		for (BlockElement e : block.getContent()) {
 			if (e instanceof Question) {
 				((Question) e).accept(this);
 			}
@@ -34,19 +34,19 @@ public class VisitorDocumentBuilder implements ASTVisitor {
 	}
 
 	@Override
-	public void visit(Question question) throws VisitorException {
-		document.appendQuestion(question);
+	public final  void visit(Question question) throws VisitorException {
+		this.document.appendQuestion(question);
 	}
 
 	@Override
-	public void visit(IfStatement ifStatement) throws VisitorException {
-		document.beginIf(ifStatement);
+	public final void visit(IfStatement ifStatement) throws VisitorException {
+		this.document.beginIf(ifStatement);
 		ifStatement.getContent().accept(this);
-		document.endIf();
+		this.document.endIf();
 	}
 
-	public Object getOutput() {
-		return document.getOutput();
+	public final Object getOutput() {
+		return this.document.getOutput();
 	}
 
 }

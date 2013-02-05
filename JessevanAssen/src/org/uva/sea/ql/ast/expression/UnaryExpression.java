@@ -2,12 +2,12 @@ package org.uva.sea.ql.ast.expression;
 
 public abstract class UnaryExpression implements Expression {
 	
-	private final Expression expression;
+	private final Expression innerExpression;
 	
-	public UnaryExpression(Expression expression) {
-		this.expression = expression;
+	public UnaryExpression(Expression innerExpression) {
+		this.innerExpression = innerExpression;
 	}
 	
-	public Expression getExpression() { return expression; }
+	public Expression getExpression() { return innerExpression; }
 	
 }
