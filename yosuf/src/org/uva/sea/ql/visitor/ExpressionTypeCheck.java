@@ -26,6 +26,10 @@ import org.uva.sea.ql.ast.exp.Positive;
 import org.uva.sea.ql.ast.exp.SmallerOrEquals;
 import org.uva.sea.ql.ast.exp.SmallerThan;
 import org.uva.sea.ql.ast.exp.Substitute;
+import org.uva.sea.ql.ast.type.BooleanType;
+import org.uva.sea.ql.ast.type.IntegerType;
+import org.uva.sea.ql.ast.type.MoneyType;
+import org.uva.sea.ql.ast.type.StringType;
 import org.uva.sea.ql.ast.value.BooleanValue;
 import org.uva.sea.ql.ast.value.IntegerValue;
 import org.uva.sea.ql.ast.value.StringValue;
@@ -33,14 +37,14 @@ import org.uva.sea.ql.ast.value.StringValue;
 @Visitor
 public class ExpressionTypeCheck implements ExpressionVisitor<Expression> {
 
-	private final List<ValidationException> validationExceptions;
+	private final List<ValidationException> typeErrors;
 
 	public ExpressionTypeCheck() {
-		validationExceptions = new ArrayList<ValidationException>();
+		typeErrors = new ArrayList<ValidationException>();
 	}
 
-	public List<ValidationException> getValidationExceptions() {
-		return validationExceptions;
+	public List<ValidationException> getTypeErrors() {
+		return typeErrors;
 	}
 
 	@Override
@@ -198,8 +202,28 @@ public class ExpressionTypeCheck implements ExpressionVisitor<Expression> {
 			checked.assertTrue(nature == expression.getNature(), "A " + nature
 					+ " is incompatible with " + expression);
 		} catch (ValidationException e) {
-			validationExceptions.add(e);
+			typeErrors.add(e);
 		}
+	}
+
+	@Override
+	public Expression visit(final BooleanType booleanType) {
+		return booleanType;
+	}
+
+	@Override
+	public Expression visit(final IntegerType integerType) {
+		return integerType;
+	}
+
+	@Override
+	public Expression visit(final MoneyType moneyType) {
+		return moneyType;
+	}
+
+	@Override
+	public Expression visit(final StringType stringType) {
+		return stringType;
 	}
 
 }
