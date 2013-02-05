@@ -2,7 +2,7 @@ stylesheet complexForm {
   page "A page" {
     section "A section" {
       question abool {
-        type checkbox
+        widget checkbox
       }
     }
     
@@ -11,7 +11,7 @@ stylesheet complexForm {
       question abool3
       
       default boolean {
-        type radio
+        widget radio
       }
     }
   }
@@ -20,7 +20,7 @@ stylesheet complexForm {
     section "Why not have another section?" {
       question abool4
       question abool5 {
-        type radio
+        widget radio
       }
     }
   }

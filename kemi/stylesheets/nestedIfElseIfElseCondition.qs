@@ -10,12 +10,12 @@ stylesheet nestedIfElseIfElseCondition {
       section "Subsection one" {
      	  question anotherDate
      	  question aoeu {
-     	    type checkbox
+     	    widget checkbox
      	  }
      	}
      	
-     	default date {
-     	  width 400
+     	default integer {
+     	  width 100
      	}
  	  }
   }

@@ -4,7 +4,7 @@ stylesheet proposedSyntax {
       section "section two" {
         question questionTen
         default boolean {
-          type radio
+          widget select
         }
         
       }
@@ -20,17 +20,21 @@ stylesheet proposedSyntax {
       question questionSix
       question questionSeven
       default boolean {
-        type checkbox
+        widget checkbox
       }
       
     }
     
     question questionOne {
-      type checkbox
+      widget checkbox
     }
     
     default boolean {
-      type radio
+      widget radio
+    }
+    
+    default date {
+      widget datepicker
     }
     
   }
@@ -40,7 +44,11 @@ stylesheet proposedSyntax {
   }
   
   default boolean {
-    type radio
+    widget radio
+  }
+  
+  default integer {
+    widget slider
   }
   
   question questionThree {
