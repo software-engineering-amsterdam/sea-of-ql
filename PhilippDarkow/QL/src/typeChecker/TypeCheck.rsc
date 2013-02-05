@@ -54,7 +54,8 @@ QLTENV checkQuestion(question:computedQuestion(str id, str labelQuestion, Type t
 	if(checkIdentifiers(env) == false) return addError(env, question@location, "Identifier <id> is declared two times");
 	// need to check the expression
 	else {
-	 
+	println("EXP : <exp>");
+	 env = checkExp(exp, tp, env);
 	 return addInstance(env, id, labelQuestion, tp, true);
 	 } 
 }
