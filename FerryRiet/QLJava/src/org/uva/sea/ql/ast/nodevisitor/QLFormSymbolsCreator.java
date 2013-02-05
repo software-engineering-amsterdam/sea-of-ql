@@ -1,5 +1,6 @@
 package org.uva.sea.ql.ast.nodevisitor;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import org.uva.sea.ql.ast.BigLiteral;
@@ -32,10 +33,12 @@ import org.uva.sea.ql.ast.operators.Or;
 import org.uva.sea.ql.ast.operators.Pos;
 import org.uva.sea.ql.ast.operators.Sub;
 import org.uva.sea.ql.ast.types.TypeDescription;
+import org.uva.sea.ql.driver.Panel;
 
 public class QLFormSymbolsCreator implements Visitor {
 	private String formName;
 	private HashMap<String, ExpressionResult> symbols = new HashMap<String, ExpressionResult>();
+	private ArrayList<Panel> panels = new ArrayList<Panel>();
 
 	public String getFormName() {
 		return formName;
@@ -61,9 +64,18 @@ public class QLFormSymbolsCreator implements Visitor {
 
 	@Override
 	public VisitorResult visit(LineStatement lineStatement) {
+		Panel newPanel ;
 		symbols.put(lineStatement.getLineName(),
 				lineStatement.getTypeContainer());
+		
+		newPanel = new Panel(lineStatement) ;
+		
+		panels.add(newPanel) ;
 		return null;
+	}
+
+	public ArrayList<Panel> getPanels() {
+		return panels;
 	}
 
 	@Override
