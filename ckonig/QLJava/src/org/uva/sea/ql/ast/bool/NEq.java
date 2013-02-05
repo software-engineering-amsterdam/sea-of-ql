@@ -1,18 +1,24 @@
 package org.uva.sea.ql.ast.bool;
 
 import org.uva.sea.ql.ast.expressions.Expr;
-import org.uva.sea.ql.ast.interfaces.AcceptsBothOperands;
+import org.uva.sea.ql.ast.interfaces.Accepts;
+import org.uva.sea.ql.ast.interfaces.ReturnTypes;
 
-public class NEq extends BinaryBooleanOperator implements AcceptsBothOperands {
-	public static final String STR = "!=";
+public class NEq extends BinaryBooleanOperator implements Accepts {
+    public static final String STR = "!=";
 
-	public NEq(Expr left, Expr right) {
-		super(left, right);
-	}
+    public NEq(Expr left, Expr right) {
+        super(left, right);
+    }
 
-	@Override
-	public final String toString() {
-		return STR;
-	}
+    @Override
+    public final String toString() {
+        return STR;
+    }
+
+    @Override
+    public ReturnTypes accepts() {
+        return ReturnTypes.BOTH;
+    }
 
 }

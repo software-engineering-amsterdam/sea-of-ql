@@ -1,9 +1,10 @@
 package org.uva.sea.ql.ast.bool;
 
 import org.uva.sea.ql.ast.expressions.Expr;
-import org.uva.sea.ql.ast.interfaces.AcceptsMathOperands;
+import org.uva.sea.ql.ast.interfaces.Accepts;
+import org.uva.sea.ql.ast.interfaces.ReturnTypes;
 
-public class GEq extends BinaryBooleanOperator implements AcceptsMathOperands{
+public class GEq extends BinaryBooleanOperator implements Accepts{
 	public static final String STR = ">=";
 
 	public GEq(Expr left, Expr right) {
@@ -14,4 +15,9 @@ public class GEq extends BinaryBooleanOperator implements AcceptsMathOperands{
 	public final String toString() {
 		return STR;
 	}
+
+    @Override
+    public ReturnTypes accepts() {
+      return ReturnTypes.MATH;
+    }
 }

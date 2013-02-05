@@ -1,6 +1,8 @@
 package org.uva.sea.ql.ast.elements;
 
 
-public abstract class BlockElement {
-
+public class BlockElement {
+    public BlockElement(){
+        
+    }
 }
