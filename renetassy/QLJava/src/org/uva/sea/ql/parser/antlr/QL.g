@@ -134,7 +134,7 @@ SLINE_COMMENT	: '//' .* ('\n'|'\r') { $channel=HIDDEN; };
 
 Bool: ('true' | 'false');
 
-String: ('"' ~('\n' | '\r' | '"')* '"');
+String: '"' ~('\n' | '\r' | '"')* '"';
 
 Int: ('0'..'9')+;
 

@@ -1,9 +1,10 @@
-package org.uva.sea.ql.ast.stmnt;
+package org.uva.sea.ql.ast;
 
-import org.uva.sea.ql.ast.StatementChecker;
+import org.uva.sea.ql.StatementChecker;
 import org.uva.sea.ql.ast.expr.Ident;
+import org.uva.sea.ql.ast.stmnt.Body;
 
-public class Form extends Statement {
+public class Form extends QLProgram {
 	
 	private Ident id;
 	private Body body;
@@ -25,7 +26,5 @@ public class Form extends Statement {
 	public boolean accept(StatementChecker visitor) {
 		return visitor.visit(this);
 	}
-	
-	
-	
+
 }

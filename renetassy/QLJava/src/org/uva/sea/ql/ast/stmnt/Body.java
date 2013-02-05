@@ -2,7 +2,7 @@ package org.uva.sea.ql.ast.stmnt;
 
 import java.util.List;
 
-import org.uva.sea.ql.ast.StatementChecker;
+import org.uva.sea.ql.StatementChecker;
 
 public class Body extends Statement {
 	

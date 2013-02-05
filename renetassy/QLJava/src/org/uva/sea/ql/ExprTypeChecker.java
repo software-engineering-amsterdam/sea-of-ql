@@ -1,4 +1,4 @@
-package org.uva.sea.ql.ast;
+package org.uva.sea.ql;
 
 import java.util.List;
 import java.util.Map;
@@ -24,31 +24,35 @@ import org.uva.sea.ql.ast.expr.Pos;
 import org.uva.sea.ql.ast.expr.StringLiteral;
 import org.uva.sea.ql.ast.expr.Sub;
 import org.uva.sea.ql.ast.types.Type;
+import org.uva.sea.ql.errors.ExprError;
+import org.uva.sea.ql.errors.QLError;
 
-public class ExprTypeChecker implements IExprTypeChecker {
+public class ExprTypeChecker implements IExprVisitor {
 	
 	private final Map<String, Type> typeEnvironment;
-	private final List<String> errors;
-
-	public ExprTypeChecker(Map<String, Type> typeEnvironment, List<String> errors) {
+	//private final List<String> errors;
+	private final List<QLError> errors;
+	
+	public ExprTypeChecker(Map<String, Type> typeEnvironment, List<QLError> errors) {
 		
 		this.typeEnvironment = typeEnvironment;
 		this.errors = errors;
 	}
 	
-	public List<String> getErrors(){
+	public List<QLError> getErrors(){
 		return errors;
 	}
 	
-	public static boolean check(Expr expr, Map <String, Type> typeEnvironment, List<String> errors ) {
+	public static boolean check(Expr expr, Map <String, Type> typeEnvironment, List<QLError> errors ) {
 		
 		ExprTypeChecker typeChecker = new ExprTypeChecker(typeEnvironment, errors);
 		return expr.accept(typeChecker);
 		
 	}
 	
-	protected void addError(String operator) {
-		errors.add("The operands of \""+ operator +"\" are not compatible");
+	private void addError(String operator) {
+		//errors.add("The operands of \""+ operator +"\" are not compatible");
+		errors.add(new ExprError(operator));
 	}
 
 	@Override
@@ -57,9 +61,8 @@ public class ExprTypeChecker implements IExprTypeChecker {
 		boolean checkLeft = node.getLeft().accept(this);
 		boolean checkRight = node.getRight().accept(this);
 		
-		//check children
+		//check sub-trees
 		if (!(checkLeft && checkRight)) {
-			//System.out.println("add childern");
 			return false;
 		}
 		
@@ -74,16 +77,15 @@ public class ExprTypeChecker implements IExprTypeChecker {
 		}
 		return true;
 	}
-
+	
 	@Override
 	public boolean visit(And node) {
 		
 		boolean checkLeft = node.getLeft().accept(this);
 		boolean checkRight = node.getRight().accept(this);
 		
-		//check children
+		//check sub-trees
 		if (!(checkLeft && checkRight)) {
-			//System.out.println("and childern");
 			return false;
 		}
 		
@@ -107,7 +109,7 @@ public class ExprTypeChecker implements IExprTypeChecker {
 		boolean checkLeft = node.getLeft().accept(this);
 		boolean checkRight = node.getRight().accept(this);
 		
-		//check children
+		//check sub-trees
 		if (!(checkLeft && checkRight)) {
 			return false;
 		}
@@ -131,7 +133,7 @@ public class ExprTypeChecker implements IExprTypeChecker {
 		boolean checkLeft = node.getLeft().accept(this);
 		boolean checkRight = node.getRight().accept(this);
 		
-		//check children
+		//check sub-trees
 		if (!(checkLeft && checkRight)) {
 			return false;
 		}
@@ -155,7 +157,7 @@ public class ExprTypeChecker implements IExprTypeChecker {
 		boolean checkLeft = node.getLeft().accept(this);
 		boolean checkRight = node.getRight().accept(this);
 		
-		//check children
+		//check sub-trees
 		if (!(checkLeft && checkRight)) {
 			return false;
 		}
@@ -179,7 +181,7 @@ public class ExprTypeChecker implements IExprTypeChecker {
 		boolean checkLeft = node.getLeft().accept(this);
 		boolean checkRight = node.getRight().accept(this);
 		
-		//check children
+		//check sub-trees
 		if (!(checkLeft && checkRight)) {
 			return false;
 		}
@@ -199,6 +201,12 @@ public class ExprTypeChecker implements IExprTypeChecker {
 
 	@Override
 	public boolean visit(Ident node) {
+		
+		/**if(node.isOfType(typeEnvironment).isCompatibleToUndefined()) {
+			errors.add("Variable " +node.getName()+ " is undefined ");
+			return false;
+		}*/
+		
 		return true;
 		
 	}
@@ -215,7 +223,7 @@ public class ExprTypeChecker implements IExprTypeChecker {
 		boolean checkLeft = node.getLeft().accept(this);
 		boolean checkRight = node.getRight().accept(this);
 		
-		//check children
+		//check sub-trees
 		if (!(checkLeft && checkRight)) {
 			return false;
 		}
@@ -239,7 +247,7 @@ public class ExprTypeChecker implements IExprTypeChecker {
 		boolean checkLeft = node.getLeft().accept(this);
 		boolean checkRight = node.getRight().accept(this);
 		
-		//check children
+		//check sub-trees
 		if (!(checkLeft && checkRight)) {
 			return false;
 		}
@@ -264,7 +272,7 @@ public class ExprTypeChecker implements IExprTypeChecker {
 		boolean checkLeft = node.getLeft().accept(this);
 		boolean checkRight = node.getRight().accept(this);
 		
-		//check children
+		//check sub-trees
 		if (!(checkLeft && checkRight)) {
 			return false;
 		}
@@ -304,7 +312,7 @@ public class ExprTypeChecker implements IExprTypeChecker {
 		boolean checkLeft = node.getLeft().accept(this);
 		boolean checkRight = node.getRight().accept(this);
 		
-		//check children
+		//check sub-trees
 		if (!(checkLeft && checkRight)) {
 			return false;
 		}
@@ -343,7 +351,7 @@ public class ExprTypeChecker implements IExprTypeChecker {
 		boolean checkLeft = node.getLeft().accept(this);
 		boolean checkRight = node.getRight().accept(this);
 		
-		//check children
+		//check sub-trees
 		if (!(checkLeft && checkRight)) {
 			return false;
 		}
@@ -382,7 +390,7 @@ public class ExprTypeChecker implements IExprTypeChecker {
 		boolean checkLeft = node.getLeft().accept(this);
 		boolean checkRight = node.getRight().accept(this);
 		
-		//check children
+		//check sub-trees
 		if (!(checkLeft && checkRight)) {
 			return false;
 		}

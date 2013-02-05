@@ -1,6 +1,6 @@
 package org.uva.sea.ql.ast.stmnt;
 
-import org.uva.sea.ql.ast.StatementChecker;
+import org.uva.sea.ql.StatementChecker;
 import org.uva.sea.ql.ast.expr.Expr;
 
 public class IfStatement extends Statement {
@@ -9,8 +9,8 @@ public class IfStatement extends Statement {
 	private Body body;
 	
 	public IfStatement (Expr expr, Body body) {
-		this.expr=expr;
-		this.body=body;
+		this.expr = expr;
+		this.body = body;
 	}
 	
 	public Body getBody() {

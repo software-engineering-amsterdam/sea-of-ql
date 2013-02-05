@@ -1,6 +1,6 @@
 package org.uva.sea.ql.ast.stmnt;
 
-import org.uva.sea.ql.ast.StatementChecker;
+import org.uva.sea.ql.StatementChecker;
 import org.uva.sea.ql.ast.expr.Ident;
 import org.uva.sea.ql.ast.expr.StringLiteral;
 import org.uva.sea.ql.ast.types.Type;

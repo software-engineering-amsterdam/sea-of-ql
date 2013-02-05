@@ -2,7 +2,7 @@ package org.uva.sea.ql.ast.expr;
 
 import java.util.Map;
 
-import org.uva.sea.ql.ast.ExprTypeChecker;
+import org.uva.sea.ql.ExprTypeChecker;
 import org.uva.sea.ql.ast.types.Type;
 import org.uva.sea.ql.ast.types.UndefinedType;
 

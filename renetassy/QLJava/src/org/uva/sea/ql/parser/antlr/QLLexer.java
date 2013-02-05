@@ -1,4 +1,4 @@
-// $ANTLR 3.5 /home/rene/workspace/sea-of-ql/renetassy/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g 2013-02-02 14:47:48
+// $ANTLR 3.5 /home/rene/workspace/sea-of-ql/renetassy/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g 2013-02-04 12:08:20
 
 package org.uva.sea.ql.parser.antlr;
 
@@ -725,14 +725,11 @@ public class QLLexer extends Lexer {
 		try {
 			int _type = String;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// /home/rene/workspace/sea-of-ql/renetassy/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:137:7: ( ( '\"' (~ ( '\\n' | '\\r' | '\"' ) )* '\"' ) )
-			// /home/rene/workspace/sea-of-ql/renetassy/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:137:9: ( '\"' (~ ( '\\n' | '\\r' | '\"' ) )* '\"' )
-			{
-			// /home/rene/workspace/sea-of-ql/renetassy/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:137:9: ( '\"' (~ ( '\\n' | '\\r' | '\"' ) )* '\"' )
-			// /home/rene/workspace/sea-of-ql/renetassy/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:137:10: '\"' (~ ( '\\n' | '\\r' | '\"' ) )* '\"'
+			// /home/rene/workspace/sea-of-ql/renetassy/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:137:7: ( '\"' (~ ( '\\n' | '\\r' | '\"' ) )* '\"' )
+			// /home/rene/workspace/sea-of-ql/renetassy/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:137:9: '\"' (~ ( '\\n' | '\\r' | '\"' ) )* '\"'
 			{
 			match('\"'); 
-			// /home/rene/workspace/sea-of-ql/renetassy/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:137:14: (~ ( '\\n' | '\\r' | '\"' ) )*
+			// /home/rene/workspace/sea-of-ql/renetassy/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:137:13: (~ ( '\\n' | '\\r' | '\"' ) )*
 			loop4:
 			while (true) {
 				int alt4=2;
@@ -762,8 +759,6 @@ public class QLLexer extends Lexer {
 			}
 
 			match('\"'); 
-			}
-
 			}
 
 			state.type = _type;

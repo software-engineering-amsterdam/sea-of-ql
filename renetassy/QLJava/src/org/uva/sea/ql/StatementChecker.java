@@ -1,30 +1,32 @@
-package org.uva.sea.ql.ast;
+package org.uva.sea.ql;
 
 import java.util.List;
 import java.util.Map;
 
+import org.uva.sea.ql.ast.Form;
 import org.uva.sea.ql.ast.expr.Expr;
 import org.uva.sea.ql.ast.expr.Ident;
 import org.uva.sea.ql.ast.stmnt.Body;
 import org.uva.sea.ql.ast.stmnt.ComputedQuestion;
-import org.uva.sea.ql.ast.stmnt.Form;
 import org.uva.sea.ql.ast.stmnt.IfStatement;
 import org.uva.sea.ql.ast.stmnt.Question;
 import org.uva.sea.ql.ast.stmnt.Statement;
 import org.uva.sea.ql.ast.types.Type;
+import org.uva.sea.ql.errors.QLError;
+import org.uva.sea.ql.errors.StmntError;
 
-public class StatementChecker implements IStatementChecker {
+public class StatementChecker implements IStatementVisitor {
 	
 	private final Map<String, Type> typeEnvironment;
-	private List<String> errors;
+	private List<QLError> errors;
 	
-	public StatementChecker(Map<String, Type> typeEnvironment, List<String> errors) {
+	public StatementChecker(Map<String, Type> typeEnvironment, List<QLError> errors) {
 		
 			this.typeEnvironment = typeEnvironment;
 			this.errors = errors;
 	}
 	
-	public static boolean check(Form form, Map <String, Type> typeEnvironment, List<String> errors) {
+	public static boolean check(Form form, Map <String, Type> typeEnvironment, List<QLError> errors) {
 		
 		StatementChecker stmntChecker = new StatementChecker(typeEnvironment, errors);
 		
@@ -51,7 +53,7 @@ public class StatementChecker implements IStatementChecker {
 		Ident qID = question.getID();
 			
 		if (typeEnvironment.containsKey(qID.getName())) {
-			errors.add("Duplicate questionID : " + qID.getName());
+			errors.add(new StmntError("Duplicate questionID : " + qID.getName() + ""));
 			return false;
 		}
 		else {
@@ -69,7 +71,7 @@ public class StatementChecker implements IStatementChecker {
 		Expr expr = computedQuestion.getExpr(); 
 				
 		if (typeEnvironment.containsKey(qID.getName())) {
-			errors.add("Duplicate questionID : " + qID.getName());
+			errors.add(new StmntError ("Duplicate questionID : " + qID.getName()+""));
 			return false;
 		}
 		else {
@@ -77,15 +79,15 @@ public class StatementChecker implements IStatementChecker {
 		}
 		
 		if (!(computedQuestion.getType().isCompatibleTo(expr.isOfType(typeEnvironment)))) {
-			errors.add("Invalid expression in question " + computedQuestion.getID() + 
-					". Expected expression of type " + computedQuestion.getType());
+			errors.add( new StmntError("Invalid expression in question " + computedQuestion.getID() + 
+					". Expected expression of type " + computedQuestion.getType()+""));
 			return false;
 		}
 		
 		boolean checkExpr = ExprTypeChecker.check(expr, typeEnvironment, errors);
 		
 		if (!checkExpr) {
-			errors.add("Invalid expression in question " + computedQuestion.getID());
+			errors.add(new StmntError("Invalid expression in question " + computedQuestion.getID()+""));
 			return false;
 		}
 		
@@ -100,14 +102,14 @@ public class StatementChecker implements IStatementChecker {
 		boolean checkCondition = ExprTypeChecker.check(expr, typeEnvironment, errors);
 		
 		if(!checkCondition) {
-			errors.add("Invalid expression in condition");
+			//errors.add(new StmntError("Invalid expression in condition"));
 			return false;
 		}
 		
 		Type conditionType = expr.isOfType(typeEnvironment);
 		
 		if(!(conditionType.isCompatibleToBool())) {
-			errors.add("Expression in condition is of type "+conditionType.getClass().getSimpleName()+". Expected type bool");
+			errors.add(new StmntError("Expression in condition is of type "+conditionType.getClass().getSimpleName()+". Expected type Bool"));
 			return false;
 		}
 		
