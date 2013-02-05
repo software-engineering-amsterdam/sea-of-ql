@@ -26,9 +26,9 @@ import org.uva.sea.ql.ast.value.IntegerValue;
 import org.uva.sea.ql.ast.value.StringValue;
 import org.uva.sea.ql.util.LogPrinter;
 
-public class ExpressionTypeCheckTest {
+public class ExpressionTypeCheckerTest {
 
-	private ExpressionTypeCheck typeCheck;
+	private ExpressionTypeChecker typeCheck;
 
 	private final IntegerValue intValue = new IntegerValue(0);
 	private final BooleanValue boolValue = new BooleanValue(true);
@@ -36,7 +36,7 @@ public class ExpressionTypeCheckTest {
 
 	@Before
 	public void setUp() {
-		typeCheck = new ExpressionTypeCheck();
+		typeCheck = new ExpressionTypeChecker();
 
 		LogPrinter.setDebugOn(true);
 	}
