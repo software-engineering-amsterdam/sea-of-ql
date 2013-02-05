@@ -14,13 +14,50 @@ import lang::qls::ast::AST;
 import lang::qls::tests::ParseHelper;
 
 
-public test bool testStyles1() = parseStylesheet("stylesheet S1 { page \"P1\" { section \"Sec1\" { }  question Q1 { } default string { width 200 } } }") is stylesheet;
+public test bool testBasic() = 
+  parseStylesheet(|project://QL-R-kemi/stylesheets/basic.qs|) is stylesheet;
 
-public test bool testStyles2() = parseStylesheet("stylesheet S1 { section \"Sec1\" { section \"Sec2\" { question Q1 { } } default money { type radio } } }") is stylesheet;
+public test bool testCalculatedField() = 
+  parseStylesheet(|project://QL-R-kemi/stylesheets/calculatedField.qs|)
+    is stylesheet;
 
-public test bool testStyles3() = parseStylesheet("stylesheet S1 { question Q1 { type checkbox } }") is stylesheet;
+public test bool testComment() = 
+  parseStylesheet(|project://QL-R-kemi/stylesheets/comment.qs|) is stylesheet;
 
-public test bool testStyles4() = parseStylesheet("stylesheet S1 { default boolean { width 10 } }") is stylesheet;
+public test bool testComplexForm() = 
+  parseStylesheet(|project://QL-R-kemi/stylesheets/complexForm.qs|)
+    is stylesheet;
 
-public test bool testStyles5() =
-  parseStylesheet(|project://QL-R-kemi/stylesheets/proposedSyntax.qs|) is stylesheet;
+public test bool testIfCondition() = 
+  parseStylesheet(|project://QL-R-kemi/stylesheets/ifCondition.qs|)
+    is stylesheet;
+
+public test bool testIfElseCondition() = 
+  parseStylesheet(|project://QL-R-kemi/stylesheets/ifElseCondition.qs|)
+    is stylesheet;
+
+public test bool testIfElseIfCondition() = 
+  parseStylesheet(|project://QL-R-kemi/stylesheets/ifElseIfCondition.qs|)
+    is stylesheet;
+
+public test bool testIfElseIfElseCondition() = 
+  parseStylesheet(|project://QL-R-kemi/stylesheets/ifElseIfElseCondition.qs|)
+    is stylesheet;
+
+public test bool testMultipleQuestions() = 
+  parseStylesheet(|project://QL-R-kemi/stylesheets/multipleQuestions.qs|)
+    is stylesheet;
+
+public test bool testNestedIfElseIfElseCondition() = 
+  parseStylesheet(
+    |project://QL-R-kemi/stylesheets/nestedIfElseIfElseCondition.qs|
+  )
+    is stylesheet;
+
+public test bool testProposedSyntax() = 
+  parseStylesheet(|project://QL-R-kemi/stylesheets/proposedSyntax.qs|)
+    is stylesheet;
+
+public test bool testTaxOfficeExample() = 
+  parseStylesheet(|project://QL-R-kemi/stylesheets/taxOfficeExample.qs|)
+    is stylesheet;
