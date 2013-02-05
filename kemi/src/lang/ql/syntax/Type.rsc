@@ -1,4 +1,4 @@
-module lang::ql::syntax::Types
+module lang::ql::syntax::Type
 
 lexical Type
   = @category="Type" booleanType: "boolean"

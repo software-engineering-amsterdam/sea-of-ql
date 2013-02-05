@@ -1,5 +1,8 @@
 # QL
 * Think of something to do.
+* Syntax: getting Ident of QL and IdentIdent of QLS in sync, and extracting them
+to separate syntax module. We also should use keyword exclusion in a 
+consistent way. 
 
 ## BONUS:
 * HTML templating

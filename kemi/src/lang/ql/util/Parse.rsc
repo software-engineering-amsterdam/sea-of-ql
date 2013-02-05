@@ -12,10 +12,12 @@ module lang::ql::util::Parse
 
 import ParseTree;
 import lang::ql::syntax::Comment;
+import lang::ql::syntax::Int;
+import lang::ql::syntax::Keyword;
 import lang::ql::syntax::Layout;
 import lang::ql::syntax::QL;
 import lang::ql::syntax::String;
-import lang::ql::syntax::Types;
+import lang::ql::syntax::Type;
 
 public start[Form] parse(str src, loc l) = 
   parse(#start[Form], src, l);

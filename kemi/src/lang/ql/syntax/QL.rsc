@@ -11,9 +11,11 @@
 module lang::ql::syntax::QL
 
 extend lang::ql::syntax::Comment;
+extend lang::ql::syntax::Int;
+extend lang::ql::syntax::Keyword;
 extend lang::ql::syntax::Layout;
 extend lang::ql::syntax::String;
-extend lang::ql::syntax::Types; 
+extend lang::ql::syntax::Type; 
 
 start syntax Form = 
   @Foldable form: "form" IdentDefinition formName "{" Statement+ formElements "}";
@@ -36,7 +38,6 @@ syntax ElsIfPart =
 syntax ElsePart = 
   @Foldable elsePart: "else" "{" Statement+ body "}";
 
-// What the ...?! Colons don't work, but equals signs do...
 start syntax Question 
   = question: QuestionText questionText Type answerDataType IdentDefinition answerIdentifier
   | question: QuestionText questionText Type answerDataType IdentDefinition answerIdentifier "=" Expr calculatedField
@@ -73,11 +74,6 @@ syntax Expr
   > left or: Expr left "||" Expr right
   ;
 
-syntax WhitespaceOrComment 
-  = whitespace: Whitespace whitespace
-  | comment: Comment comment
-  ;   
-
 lexical IdentDefinition
   = identDefinition: Ident ident
   ;
@@ -89,15 +85,12 @@ lexical QuestionText
   = @category="Identifier" questionText: String questionText
   ;
 
-lexical Int =
-  @category="Constant" [0-9]+ !>> [0-9]
-  ;
-
 lexical Boolean
   = "true"
   | "false"
   ;
 
+// Workaround; see https://github.com/cwi-swat/rascal/issues/100
 syntax Money = 
   @category="Constant" LMoney;
 
@@ -122,15 +115,4 @@ lexical Month
 lexical Day
   = [0-2][0-9]
   | [3][0-1]
-  ;
-
-keyword Keywords 
-  = boolean: "boolean"
-  | \int: "integer"
-  | money: "money"
-  | date: "date"
-  | string: "string"
-  | \true: "true"
-  | \false: "false"
-  | form: "form"
   ;

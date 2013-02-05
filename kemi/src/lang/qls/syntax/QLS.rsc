@@ -11,9 +11,11 @@
 module lang::qls::syntax::QLS
 
 extend lang::ql::syntax::Comment;
+extend lang::ql::syntax::Int;
 extend lang::ql::syntax::Layout;
 extend lang::ql::syntax::String;
-extend lang::ql::syntax::Types;
+extend lang::ql::syntax::Type;
+extend lang::qls::syntax::Keyword;
 
 start syntax Stylesheet
   = stylesheet: "stylesheet" Ident "{" Definition* definitions "}"
@@ -83,25 +85,4 @@ lexical TypeStyleAttr
 
 lexical WidthStyleAttr
   = @category="Constant" "width"
-  ;
-
-lexical Int
-  = [0-9]+ !>> [0-9]
-  ;
-
-keyword Keywords 
-  = stylesheet: "stylesheet"
-  | page: "page"
-  | section: "section"
-  | question: "question"
-  | \default: "default"
-  | boolean: "boolean"
-  | \int: "integer"
-  | money: "money"
-  | date: "date"
-  | string: "string"
-  | \type: "type"
-  | width: "width"
-  | radio: "radio"
-  | checkbox: "checkbox"
   ;
