@@ -18,6 +18,7 @@ import util::IDE;
 
 import lang::ql::ast::AST;
 
+import lang::qls::analysis::StyleAttrChecker;
 import lang::qls::ast::AST;
 import lang::qls::compiler::PrettyPrinter;
 import lang::qls::util::StyleHelper;
@@ -28,6 +29,7 @@ import lang::qls::util::ParseHelper;
 public set[Message] semanticChecker(Stylesheet s) =
   filenameDoesNotMatchErrors(s) +
   accompanyingFormNotFoundErrors(s) +
+  unallowedAttrErrors(s) +
   alreadyUsedQuestionErrors(s) +
   undefinedQuestionErrors(s) +
   doubleNameWarnings(s) +
@@ -167,6 +169,9 @@ private list[DefaultDefinition] getDefaultRedefinitions(list[&T] definitions) {
   return redefinitions;
 }
 
+
+public list[DefaultDefinition] getDefaultDefinitions(Stylesheet s) =
+  [d | /DefaultDefinition d <- s];
 
 public list[QuestionDefinition] getQuestionDefinitions(Stylesheet s) =
   [d | /QuestionDefinition d <- s];

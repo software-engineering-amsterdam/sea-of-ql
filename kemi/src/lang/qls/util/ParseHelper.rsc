@@ -12,6 +12,11 @@ module lang::qls::util::ParseHelper
 
 import ParseTree;
 
+import lang::ql::syntax::Comment;
+import lang::ql::syntax::Int;
+import lang::ql::syntax::Layout;
+import lang::ql::syntax::String;
+import lang::ql::syntax::Type;
 import lang::qls::ast::AST;
 import lang::qls::syntax::Keyword;
 import lang::qls::syntax::QLS;

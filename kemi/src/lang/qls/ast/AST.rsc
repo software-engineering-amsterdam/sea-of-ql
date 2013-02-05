@@ -47,7 +47,15 @@ data QuestionDefinition
   ;
 
 data DefaultDefinition
-  = defaultDefinition(str ident, list[StyleRule] styleRules)
+  = defaultDefinition(Type ident, list[StyleRule] styleRules)
+  ;
+
+data Type
+  = booleanType(str name)
+  | integerType(str name)
+  | moneyType(str name)
+  | dateType(str name)
+  | stringType(str name)
   ;
 
 data StyleRule
