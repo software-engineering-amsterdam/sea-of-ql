@@ -8,8 +8,10 @@ import org.uva.sea.ql.ast.expressions.UnaryExpr;
 import org.uva.sea.ql.ast.interfaces.Accepts;
 import org.uva.sea.ql.ast.interfaces.ReturnTypes;
 import org.uva.sea.ql.ast.interfaces.Returns;
+import org.uva.sea.ql.common.Evaluatable;
 
-public class UnaryMathOperator extends UnaryExpr implements Returns, Accepts {
+public abstract class UnaryMathOperator extends UnaryExpr implements Returns,
+        Accepts, Evaluatable {
 
     public UnaryMathOperator(Expr ex) {
         super(ex);

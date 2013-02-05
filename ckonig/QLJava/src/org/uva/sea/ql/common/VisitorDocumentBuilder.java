@@ -8,45 +8,40 @@ import org.uva.sea.ql.ast.elements.Question;
 
 public class VisitorDocumentBuilder implements ElementVisitor {
 
-	private QLDocument document;
+    private QLDocument document;
 
-	public VisitorDocumentBuilder(QLDocument doc) {
-		this.document = doc;
-	}
+    public VisitorDocumentBuilder(QLDocument doc) {
+        this.document = doc;
+    }
 
-	@Override
-	public final void visit(Form form) throws VisitorException {
-		this.document.setHeading(form.getName());
-		form.getBlock().accept(this);
-		this.document.create();
-	}
+    @Override
+    public final void visit(Form form) throws VisitorException {
+        this.document.setHeading(form.getName());
+        form.getBlock().accept(this);
+        this.document.create();
+    }
 
-	@Override
-	public final void visit(Block block) throws VisitorException {
-		for (BlockElement e : block.getContent()) {
-			if (e instanceof Question) {
-				((Question) e).accept(this);
-			}
-			if (e instanceof IfStatement) {
-				((IfStatement) e).accept(this);
-			}
-		}
-	}
+    @Override
+    public final void visit(Block block) throws VisitorException {
+        for (BlockElement e : block.getContent()) {
+            e.accept(this);
+        }
+    }
 
-	@Override
-	public final  void visit(Question question) throws VisitorException {
-		this.document.appendQuestion(question);
-	}
+    @Override
+    public final void visit(Question question) throws VisitorException {
+        this.document.appendQuestion(question);
+    }
 
-	@Override
-	public final void visit(IfStatement ifStatement) throws VisitorException {
-		this.document.beginIf(ifStatement);
-		ifStatement.getContent().accept(this);
-		this.document.endIf();
-	}
+    @Override
+    public final void visit(IfStatement ifStatement) throws VisitorException {
+        this.document.beginIf(ifStatement);
+        ifStatement.getContent().accept(this);
+        this.document.endIf();
+    }
 
-	public final Object getOutput() {
-		return this.document.getOutput();
-	}
+    public final Object getOutput() {
+        return this.document.getOutput();
+    }
 
 }

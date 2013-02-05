@@ -116,6 +116,50 @@ public class TestValidator extends TestExpressions {
         } catch (VisitorException ex) {
             Assert.fail("unexpected exception occured: " + ex.getMessage());
         }
+        exceptionThrown = false;
+        try {
+            final Form e = parser
+                    .parseFull(getQL("boolean", "boolean", "money",
+                            "hasSoldHouse < 20000"));
+            final ElementVisitor visitor = new ValidationVisitor();
+            Assert.assertTrue(Form.class.equals(e.getClass()));
+            final Form f = (Form) e;
+            f.accept(visitor);
+        } catch (AstValidationError ex) {
+            exceptionThrown = true;
+        } catch (VisitorException ex) {
+            Assert.fail("unexpected exception occured: " + ex.getMessage());
+        }
+        Assert.assertEquals(true, exceptionThrown);
+        exceptionThrown = false;
+        try {
+            final Form e = parser
+                    .parseFull(getQL("money", "boolean", "money",
+                            "hasSoldHouse"));
+            final ElementVisitor visitor = new ValidationVisitor();
+            Assert.assertTrue(Form.class.equals(e.getClass()));
+            final Form f = (Form) e;
+            f.accept(visitor);
+        } catch (AstValidationError ex) {
+            exceptionThrown = true;
+        } catch (VisitorException ex) {
+            Assert.fail("unexpected exception occured: " + ex.getMessage());
+        }
+        Assert.assertEquals(true, exceptionThrown);
+        exceptionThrown = false;
+        try {
+            final Form e = parser
+                    .parseFull(getQL("money", "boolean", "money",
+                            "hasSoldHouse == hasBoughtHouse"));
+            final ElementVisitor visitor = new ValidationVisitor();
+            Assert.assertTrue(Form.class.equals(e.getClass()));
+            final Form f = (Form) e;
+            f.accept(visitor);
+        } catch (AstValidationError ex) {
+            exceptionThrown = true;
+        } catch (VisitorException ex) {
+            Assert.fail("unexpected exception occured: " + ex.getMessage());
+        }
         Assert.assertEquals(true, exceptionThrown);
     }
 
