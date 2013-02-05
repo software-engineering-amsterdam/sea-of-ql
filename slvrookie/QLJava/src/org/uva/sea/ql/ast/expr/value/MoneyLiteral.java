@@ -17,7 +17,6 @@ public class MoneyLiteral extends Value {
 	public double getValue() {
 		return value;
 	}
-	
 
 	@Override
 	public Type typeOf(Map<String, Type> typeEnv) {
@@ -138,5 +137,17 @@ public class MoneyLiteral extends Value {
 	public Value pos() {
 		return new MoneyLiteral(+this.value);
 	}
+
+	@Override
+	public boolean isOfValue(Value v) {
+		return v.isMoneyLiteral();
+	}
+	
+	@Override
+	public boolean isMoneyLiteral() {
+		return true;
+	}
+
+	
 
 }
