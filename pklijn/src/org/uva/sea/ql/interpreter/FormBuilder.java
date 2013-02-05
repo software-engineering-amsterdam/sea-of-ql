@@ -1,5 +1,7 @@
 package org.uva.sea.ql.interpreter;
 
+import java.awt.Image;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.BufferedReader;
@@ -7,7 +9,6 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
@@ -24,6 +25,8 @@ import org.uva.sea.ql.parser.antlr.ANTLRParser;
 import org.uva.sea.ql.parser.test.IParse;
 import org.uva.sea.ql.parser.test.ParseError;
 
+import com.apple.eawt.Application;
+
 public class FormBuilder implements ActionListener {
 	
 	private final String NEWLINECHAR = "\n";
@@ -36,6 +39,9 @@ public class FormBuilder implements ActionListener {
 		mainWindow = new JFrame();
 		mainWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		mainWindow.setLocationRelativeTo(null);
+		Application application = Application.getApplication();
+		Image dockImage = Toolkit.getDefaultToolkit().getImage(System.getProperty("user.dir") + "/lib/logo.png");
+		application.setDockIconImage(dockImage);
 		selectFormButton = new JButton("Select an existing form");
 		backToMainButton = new JButton("Back");
 		selectFormButton.addActionListener(this);
