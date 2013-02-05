@@ -41,7 +41,7 @@ public class Program {
 				System.out.println(error);
 			}
 		} else {
-			org.uva.sea.ql.visitor.swing.Form swingVisitor = new org.uva.sea.ql.visitor.swing.Form();
+			org.uva.sea.ql.visitor.eval.Form swingVisitor = new org.uva.sea.ql.visitor.eval.Form();
 			JFrame frame = questionForm.accept(swingVisitor);
 			frame.setVisible(true);
 		}
