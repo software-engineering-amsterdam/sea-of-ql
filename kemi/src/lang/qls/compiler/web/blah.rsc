@@ -5,7 +5,7 @@ import lang::ql::compiler::web::Web;
 import lang::ql::tests::ParseHelper;
 import lang::qls::ast::AST;
 import lang::qls::compiler::web::Web;
-import lang::qls::tests::ParseHelper;
+import lang::qls::util::ParseHelper;
 
 import IO;
 import util::ValueUI;
