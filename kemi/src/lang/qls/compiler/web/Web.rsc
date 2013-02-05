@@ -8,15 +8,20 @@
 @contributor{Kevin van der Vlist - kevin@kevinvandervlist.nl}
 @contributor{Jimi van der Woning - Jimi.vanderWoning@student.uva.nl}
 
-module lang::ql::util::Implode
+module lang::qls::compiler::web::Web
 
 import IO;
-import ParseTree;
 import lang::ql::ast::AST;
-import lang::ql::util::Parse;
+import lang::qls::ast::AST;
+import lang::qls::compiler::web::JS;
 
-public Form implode(Tree t) = 
-  implode(#Form, t);
-
-public Form load(loc l) = 
-  implode(parse(readFile(l), l));
+public loc buildSheet(Form form, Stylesheet sheet, loc destFolder) {
+  destFolder += "<sheet.ident>/";
+  
+  if(!exists(destFolder))
+    mkDirectory(destFolder);
+  
+  JS(form, sheet, destFolder);
+  
+  return destFolder;
+}
