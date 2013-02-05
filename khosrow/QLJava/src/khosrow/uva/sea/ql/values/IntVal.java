@@ -18,47 +18,40 @@ public class IntVal extends NumericVal {
 	public int compareTo(Value value) {
 		return getValue() - ((IntVal)value).getValue();
 	}
-	
-	
-	private MoneyVal convertToMoneyVal() {
-		return new MoneyVal(getValue());
-	}
-	
-	
-	
+		
 	@Override
 	public Value add(Value arg) {
 		if(arg.isCompatibleToInt())
 			return arg.addInt(this);
-		return arg.addMoney(this.convertToMoneyVal());
+		return this.addMoney((MoneyVal)arg);
 	}
 	
 	@Override
 	public Value sub(Value arg) {
 		if(arg.isCompatibleToInt())
 			return arg.subInt(this);
-		return arg.subMoney(this.convertToMoneyVal());
+		return this.subMoney((MoneyVal)arg);
 	}
 	
 	@Override
 	public Value mul(Value arg) {
 		if(arg.isCompatibleToInt())
 			return arg.mulInt(this);
-		return arg.mulMoney(this.convertToMoneyVal());
+		return this.mulMoney((MoneyVal)arg);
 	}
 	
 	@Override
 	public Value mod(Value arg) {
 		if(arg.isCompatibleToInt())
 			return arg.modInt(this);
-		return arg.modMoney(this.convertToMoneyVal());
+		return this.modMoney((MoneyVal)arg);
 	}	
 	
 	@Override
 	public Value div(Value arg) {
 		if(arg.isCompatibleToInt())
 			return arg.divInt(this);
-		return arg.divMoney(this.convertToMoneyVal());
+		return this.divMoney((MoneyVal)arg);
 	}
 	
 	@Override
@@ -98,28 +91,31 @@ public class IntVal extends NumericVal {
 	
 	@Override
 	protected Value addMoney(MoneyVal arg) {
-		return new MoneyVal(arg.getValue() + getValue());
+		return arg.add(this.convertToMoney());
 	}
 	
 	@Override
 	protected Value subMoney(MoneyVal arg) {
-		return new MoneyVal(arg.getValue() - getValue());
+		return arg.sub(this.convertToMoney());
 	}
 	
 	@Override
 	protected Value mulMoney(MoneyVal arg) {
-		return new MoneyVal(arg.getValue() * getValue());
+		return arg.mul(this.convertToMoney());
 	}
 	
 	@Override
 	protected Value divMoney(MoneyVal arg) {
-		return new MoneyVal(arg.getValue() / getValue());
+		return arg.div(this.convertToMoney());
 	}
 	
 	@Override
 	protected Value modMoney(MoneyVal arg) {
-		return new MoneyVal(arg.getValue() % getValue());
+		return arg.mod(this.convertToMoney());
 	}
-		
+	
+	private MoneyVal convertToMoney() {
+		return new MoneyVal(getValue());
+	}
 	
 }
