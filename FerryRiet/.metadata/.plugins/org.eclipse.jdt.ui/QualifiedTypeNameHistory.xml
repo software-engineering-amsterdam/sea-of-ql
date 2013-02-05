@@ -5,11 +5,9 @@
 <fullyQualifiedTypeName name="org.antlr.grammar.v3.ANTLRParser.id_return"/>
 <fullyQualifiedTypeName name="java.util.LinkedList"/>
 <fullyQualifiedTypeName name="org.uva.sea.ql.ast.nodevisitor.QLFormSymbolsCreator"/>
-<fullyQualifiedTypeName name="org.uva.sea.ql.ast.operators.ExpressionResult"/>
 <fullyQualifiedTypeName name="org.uva.sea.ql.ast.operators.BooleanResult"/>
 <fullyQualifiedTypeName name="org.uva.sea.ql.ast.operators.IntegerResult"/>
 <fullyQualifiedTypeName name="org.uva.sea.ql.ast.operators.MoneyResult"/>
-<fullyQualifiedTypeName name="java.math.BigDecimal"/>
 <fullyQualifiedTypeName name="org.uva.sea.ql.ast.operators.StringResult"/>
 <fullyQualifiedTypeName name="javax.swing.JLabel"/>
 <fullyQualifiedTypeName name="java.lang.String"/>
@@ -25,10 +23,18 @@
 <fullyQualifiedTypeName name="java.awt.event.ActionListener"/>
 <fullyQualifiedTypeName name="antlr.collections.List"/>
 <fullyQualifiedTypeName name="java.util.ArrayList"/>
-<fullyQualifiedTypeName name="org.uva.sea.ql.driver.Panel"/>
 <fullyQualifiedTypeName name="org.uva.sea.ql.driver.ConditionalPanel"/>
 <fullyQualifiedTypeName name="org.uva.sea.ql.ast.LineStatement"/>
 <fullyQualifiedTypeName name="org.antlr.stringtemplate.language.Expr"/>
 <fullyQualifiedTypeName name="java.lang.Boolean"/>
+<fullyQualifiedTypeName name="java.awt.event.ActionEvent"/>
+<fullyQualifiedTypeName name="javax.swing.text.html.HTMLDocument.Iterator"/>
+<fullyQualifiedTypeName name="java.util.Iterator"/>
+<fullyQualifiedTypeName name="java.util.Map"/>
+<fullyQualifiedTypeName name="java.lang.Integer"/>
+<fullyQualifiedTypeName name="java.math.BigDecimal"/>
+<fullyQualifiedTypeName name="org.uva.sea.ql.driver.Panel"/>
 <fullyQualifiedTypeName name="org.uva.sea.ql.ast.Expr"/>
+<fullyQualifiedTypeName name="java.util.HashMap"/>
+<fullyQualifiedTypeName name="org.uva.sea.ql.ast.operators.ExpressionResult"/>
 </qualifiedTypeNameHistroy>
