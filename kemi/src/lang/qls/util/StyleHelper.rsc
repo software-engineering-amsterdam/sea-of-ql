@@ -38,13 +38,15 @@ public void main() {
   //Stylesheet s = parseStylesheet("stylesheet S1 { question Q1 { type checkbox width 100 } default boolean { type radio } default string { width 104 }}");
 }
 
-private TypeMap typeMap = ();
+alias CachedTypeMap = tuple[Form form, TypeMap typeMap];
+private CachedTypeMap cachedTypeMap = <form(identDefinition(""), []), ()>;
+
 
 public TypeMap getTypeMap(Form f) {
-  if(size(typeMap) < 1) {
-    typeMap = semanticAnalysisState(f).definitions;
+  if(f != cachedTypeMap.form) {
+    cachedTypeMap = <f, semanticAnalysisState(f).definitions>;
   }
-  return typeMap;
+  return cachedTypeMap.typeMap;
 }
 
 public Form accompanyingForm(Stylesheet s) =
