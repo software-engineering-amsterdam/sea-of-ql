@@ -13,6 +13,7 @@ module lang::qls::tests::TestRunner
 extend lang::qls::tests::stylesheets::Grammar;
 extend lang::qls::tests::stylesheets::Outline;
 extend lang::qls::tests::stylesheets::PrettyPrinter;
+extend lang::qls::tests::stylesheets::SemanticChecker;
 
 import IO;
 
