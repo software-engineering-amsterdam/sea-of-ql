@@ -3,6 +3,7 @@ module lang::ql::checker::CheckIfElse
 import Message;
 import lang::ql::ast::AST;
 import lang::ql::checker::Check;
+import lang::ql::generator::Pretty;
 
 // Public aliases do not work
 public alias CheckEnv = tuple[

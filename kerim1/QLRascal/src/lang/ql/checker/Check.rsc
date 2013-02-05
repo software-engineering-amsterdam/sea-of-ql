@@ -48,8 +48,15 @@ public Type getTypeOfVariable(CheckEnv env, str ident) {
 	}
 }
 
-public set[str] getAllIndentifiersInExpr(Expr e) = 
-	{ name | ident(str name) := e };
+public set[str] getAllIndentifiersInExpr(Expr e) {
+	set[str] identifiers = {};
+	
+	visit (e) { 
+		case ident(str name): identifiers += name;  
+	}
+	
+	return identifiers;
+}
 
 public str getReadableTypes(set[Type] types) = 
 	intercalate(" or ", [pretty(tp) | tp <- types]);
