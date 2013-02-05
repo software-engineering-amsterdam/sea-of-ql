@@ -1,12 +1,9 @@
 package org.uva.sea.ql.ast.bool;
 
-import org.uva.sea.ql.ast.expressions.BinaryExpr;
 import org.uva.sea.ql.ast.expressions.Expr;
 import org.uva.sea.ql.ast.interfaces.AcceptsMathOperands;
-import org.uva.sea.ql.ast.interfaces.ReturnsBoolOperands;
 
-public class LT extends BinaryExpr implements AcceptsMathOperands,
-		ReturnsBoolOperands {
+public class LT extends BinaryBooleanOperator implements AcceptsMathOperands{
 	public static final String STR = "<";
 
 	public LT(Expr left, Expr right) {

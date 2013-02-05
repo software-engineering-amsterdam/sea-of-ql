@@ -1,12 +1,9 @@
 package org.uva.sea.ql.ast.bool;
 
-import org.uva.sea.ql.ast.expressions.BinaryExpr;
 import org.uva.sea.ql.ast.expressions.Expr;
 import org.uva.sea.ql.ast.interfaces.AcceptsMathOperands;
-import org.uva.sea.ql.ast.interfaces.ReturnsBoolOperands;
 
-public class GEq extends BinaryExpr implements AcceptsMathOperands,
-		ReturnsBoolOperands {
+public class GEq extends BinaryBooleanOperator implements AcceptsMathOperands{
 	public static final String STR = ">=";
 
 	public GEq(Expr left, Expr right) {

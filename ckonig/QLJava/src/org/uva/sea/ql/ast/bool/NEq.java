@@ -1,12 +1,9 @@
 package org.uva.sea.ql.ast.bool;
 
-import org.uva.sea.ql.ast.expressions.BinaryExpr;
 import org.uva.sea.ql.ast.expressions.Expr;
 import org.uva.sea.ql.ast.interfaces.AcceptsBothOperands;
-import org.uva.sea.ql.ast.interfaces.ReturnsBoolOperands;
 
-public class NEq extends BinaryExpr implements AcceptsBothOperands,
-		ReturnsBoolOperands {
+public class NEq extends BinaryBooleanOperator implements AcceptsBothOperands {
 	public static final String STR = "!=";
 
 	public NEq(Expr left, Expr right) {

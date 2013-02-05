@@ -1,12 +1,9 @@
 package org.uva.sea.ql.ast.bool;
 
-import org.uva.sea.ql.ast.expressions.BinaryExpr;
 import org.uva.sea.ql.ast.expressions.Expr;
 import org.uva.sea.ql.ast.interfaces.AcceptsMathOperands;
-import org.uva.sea.ql.ast.interfaces.ReturnsBoolOperands;
 
-public class GT extends BinaryExpr implements AcceptsMathOperands,
-		ReturnsBoolOperands {
+public class GT extends BinaryBooleanOperator implements AcceptsMathOperands{
 	public static final String STR = ">";
 
 	public GT(Expr left, Expr right) {

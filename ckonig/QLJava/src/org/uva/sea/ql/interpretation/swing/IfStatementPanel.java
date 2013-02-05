@@ -4,7 +4,9 @@ import javax.swing.BoxLayout;
 import javax.swing.JPanel;
 
 import org.uva.sea.ql.ast.elements.IfStatement;
-import org.uva.sea.ql.ast.interfaces.ReturnsBoolOperands;
+import org.uva.sea.ql.ast.expressions.Expr;
+import org.uva.sea.ql.ast.interfaces.ReturnTypes;
+import org.uva.sea.ql.ast.interfaces.Returns;
 import org.uva.sea.ql.interpretation.exception.EvaluationException;
 
 public class IfStatementPanel extends JPanel {
@@ -21,7 +23,11 @@ public class IfStatementPanel extends JPanel {
     }
 
     public final void eval(SwingRegistry registry) throws EvaluationException {
-        if (this.ifStatement.getCondition() instanceof ReturnsBoolOperands) {
+        Expr e = this.ifStatement.getCondition();
+        Returns r = (Returns) e;
+
+        if (r.getReturnType(registry.getQuestionsAst()).equals(
+                ReturnTypes.BOOLEAN)) {
             final boolean result = new BoolEvaluator(registry)
                     .eval(this.ifStatement.getCondition());
             this.setVisible(result);

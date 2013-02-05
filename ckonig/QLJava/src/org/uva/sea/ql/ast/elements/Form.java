@@ -1,6 +1,5 @@
 package org.uva.sea.ql.ast.elements;
 
-import org.uva.sea.ql.ast.expressions.Expr;
 import org.uva.sea.ql.common.ASTElement;
 import org.uva.sea.ql.common.ElementVisitor;
 import org.uva.sea.ql.common.VisitorException;

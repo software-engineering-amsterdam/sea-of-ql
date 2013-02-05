@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.uva.sea.ql.ast.elements.Ident;
+import org.uva.sea.ql.ast.elements.Question;
 import org.uva.sea.ql.interpretation.exception.EvaluationException;
 
 public class SwingRegistry {
@@ -50,5 +51,13 @@ public class SwingRegistry {
             }
         }
         return null;
+    }
+
+    public List<Question> getQuestionsAst() {
+        List<Question> questions = new ArrayList();
+        for (QuestionPanel qp : getQuestions()) {
+            questions.add(qp.getQuestion());
+        }
+        return questions;
     }
 }

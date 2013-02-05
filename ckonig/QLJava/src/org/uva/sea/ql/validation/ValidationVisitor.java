@@ -11,7 +11,8 @@ import org.uva.sea.ql.ast.expressions.Expr;
 import org.uva.sea.ql.ast.interfaces.AcceptsBoolOperands;
 import org.uva.sea.ql.ast.interfaces.AcceptsBothOperands;
 import org.uva.sea.ql.ast.interfaces.AcceptsMathOperands;
-import org.uva.sea.ql.ast.interfaces.ReturnsBoolOperands;
+import org.uva.sea.ql.ast.interfaces.ReturnTypes;
+import org.uva.sea.ql.ast.interfaces.Returns;
 import org.uva.sea.ql.ast.interfaces.ReturnsMathOperands;
 import org.uva.sea.ql.common.ElementVisitor;
 import org.uva.sea.ql.common.VisitorException;
@@ -54,7 +55,9 @@ public class ValidationVisitor implements ElementVisitor {
 
     @Override
     public final void visit(IfStatement ifStatement) throws VisitorException {
-        if (ifStatement.getCondition() instanceof ReturnsBoolOperands) {
+        Returns r = (Returns) ifStatement.getCondition();
+        if (r.getReturnType(registry.getQuestions())
+                .equals(ReturnTypes.BOOLEAN)) {
             if (ifStatement.getCondition() instanceof AcceptsBoolOperands) {
                 this.visit((AcceptsBoolOperands) ifStatement.getCondition());
             }
@@ -73,12 +76,13 @@ public class ValidationVisitor implements ElementVisitor {
 
     }
 
-    private Expr getIdentOrOrigin(Expr e) throws VisitorException {
+    private Returns getIdentOrOrigin(Expr e) throws VisitorException {
         if (e instanceof Ident) {
             e = this.registry.getQuestionTypeByIdent((Ident) e);
         }
         visitOperands(e);
-        return e;
+        Returns r = (Returns) e;
+        return r;
     }
 
     private void visitOperands(Expr e) throws VisitorException {
@@ -96,9 +100,11 @@ public class ValidationVisitor implements ElementVisitor {
     private void visit(AcceptsBoolOperands r) throws VisitorException {
         if (r instanceof BinaryExpr) {
             final BinaryExpr b = (BinaryExpr) r;
-            final Expr left = this.getIdentOrOrigin(b.getLeft());
-            final Expr right = this.getIdentOrOrigin(b.getRight());
-            if (!(left instanceof ReturnsBoolOperands && right instanceof ReturnsBoolOperands)) {
+            final Returns left = this.getIdentOrOrigin(b.getLeft());
+            final Returns right = this.getIdentOrOrigin(b.getRight());
+            if (!(left.getReturnType(this.registry.getQuestions()).equals(
+                    ReturnTypes.BOOLEAN) && right.getReturnType(
+                    this.registry.getQuestions()).equals(ReturnTypes.BOOLEAN))) {
                 throw new AstValidationError("both childs of " + b.getClass()
                         + " must be bool (left " + left.getClass() + ", right "
                         + right.getClass() + ")");
@@ -110,8 +116,8 @@ public class ValidationVisitor implements ElementVisitor {
     private void visit(AcceptsMathOperands r) throws VisitorException {
         if (r instanceof BinaryExpr) {
             final BinaryExpr b = (BinaryExpr) r;
-            final Expr left = this.getIdentOrOrigin(b.getLeft());
-            final Expr right = this.getIdentOrOrigin(b.getRight());
+            final Returns left = this.getIdentOrOrigin(b.getLeft());
+            final Returns right = this.getIdentOrOrigin(b.getRight());
             if (!(left instanceof ReturnsMathOperands && right instanceof ReturnsMathOperands)) {
                 throw new AstValidationError("both childs of " + b.getClass()
                         + " must return math operands!");
@@ -124,9 +130,12 @@ public class ValidationVisitor implements ElementVisitor {
         if (r instanceof BinaryExpr) {
 
             final BinaryExpr b = (BinaryExpr) r;
-            final Expr left = getIdentOrOrigin(b.getLeft());
-            final Expr right = getIdentOrOrigin(b.getRight());
-            if (!((left instanceof ReturnsMathOperands && right instanceof ReturnsMathOperands) || (left instanceof ReturnsBoolOperands && right instanceof ReturnsBoolOperands))) {
+            final Returns left = getIdentOrOrigin(b.getLeft());
+            final Returns right = getIdentOrOrigin(b.getRight());
+            if (!((left instanceof ReturnsMathOperands && right instanceof ReturnsMathOperands) || (left
+                    .getReturnType(this.registry.getQuestions()).equals(
+                            ReturnTypes.MATH) && right.getReturnType(
+                    this.registry.getQuestions()).equals(ReturnTypes.MATH)))) {
                 throw new AstValidationError("BOTH childs of " + b.getClass()
                         + " must return either math OR bool operands");
             }

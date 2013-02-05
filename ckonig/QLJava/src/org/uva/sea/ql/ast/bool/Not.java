@@ -1,12 +1,9 @@
 package org.uva.sea.ql.ast.bool;
 
 import org.uva.sea.ql.ast.expressions.Expr;
-import org.uva.sea.ql.ast.expressions.UnaryExpr;
 import org.uva.sea.ql.ast.interfaces.AcceptsBoolOperands;
-import org.uva.sea.ql.ast.interfaces.ReturnsBoolOperands;
 
-public class Not extends UnaryExpr implements AcceptsBoolOperands,
-		ReturnsBoolOperands {
+public class Not extends UnaryBooleanOperator implements AcceptsBoolOperands {
 	public static final String STR = "!";
 
 	public Not(Expr ex) {
