@@ -1,152 +1,140 @@
 module lang::qls::compiler::web::JS
 
 import IO;
+import util::StringHelper;
 import lang::ql::ast::AST;
 import lang::qls::ast::AST;
 import lang::qls::util::StyleHelper;
 
-import util::ValueUI;
+import lang::qls::util::ParseHelper;
 
-public void JS(Form form, Stylesheet sheet, loc dest) {
+public void main() {
+  s = parseStylesheet(|project://QL-R-kemi/stylesheets/proposedSyntax.qs|);
+  println(JS(s));
+}
+
+
+public void JS(Stylesheet sheet, loc dest) {
   dest += "styling.js";
   
-  writeFile(dest, JS(form, sheet));
+  writeFile(dest, JS(sheet));
 }
 
-private str JS(Form form, Stylesheet sheet) { 
+public str JS(Stylesheet s) =
+  "function styling() {
+  '  <layoutJS(s)>
+  '
+  '  <styleJS(s)>
+  '}
+  '";
+
+private str pageName(PageDefinition p) =
+  "$(\"\<span/\>\").text(\"<trimQuotes(p.ident)>\")";
+
+private str sectionName(SectionDefinition s) =
+  "$(\"\<legend/\>\").text(\"<trimQuotes(s.ident)>\")";
+
+private str blockIdent(QuestionDefinition q) =
+  "<q.ident>Block";
+
+private str layoutJS(Stylesheet s) {
   str ret = "";
   
-  pds = [pd | def <- sheet.definitions, definition(PageDefinition pd) := def];
-  for(pd <- pds)
-    ret += createPageDefinition(form, pd);
-    
-  sds = [sd | def <- sheet.definitions, definition(SectionDefinition sd) := def];
-  for(sd <- sds)
-    ret += sectionDefinition(form, sd);
-    
-  qds = [qd | def <- sheet.definitions, definition(QuestionDefinition qd) := def];
-  for(qd <- qds)
-    ret += QuestionDefinition(form, qd);
-    
-  dds = [dd | def <- sheet.definitions, definition(DefaultDefinition dd) := def];
-  for(dd <- dds)
-    ret += defaultDefinition(form, dd);    
-
-  return ret;  
-}
-
-private str createPageDefinition(Form form, PageDefinition pd) {
-  str ret = "<pd.ident>";
-  
-  str ident = pd.ident;
-  
-  sds = [sd | def <- pd.pageRules, pageRule(SectionDefinition sd) := def];
-  for(sd <- sds)
-    ret += sectionDefinition(form, sd);
-    
-  qds = [qd | def <- pd.pageRules, pageRule(QuestionDefinition qd) := def];
-  for(qd <- qds)
-    ret += questionDefinition(form, qd);
-    
-  dds = [dd | def <- pd.pageRules, pageRule(DefaultDefinition dd) := def];
-  for(dd <- dds)
-    ret += defaultDefinition(form, dd);
-  
-  return ret;
-}
-
-private str sectionDefinition(Form form, SectionDefinition psd) {
-  str ret = "";
-
-  sds = [sd | def <- psd.sectionRules, sectionRule(SectionDefinition sd) := def];
-  for(sd <- sds)
-    ret += sectionDefinition(form, sd);
-    
-  qds = [qd | def <- psd.sectionRules, sectionRule(QuestionDefinition qd) := def];
-  for(qd <- qds)
-    ret += questionDefinition(form, qd);
-    
-  dds = [dd | def <- psd.sectionRules, sectionRule(DefaultDefinition dd) := def];
-  for(dd <- dds)
-    ret += defaultDefinition(form, dd);
-
-  return ret;
-}
-
-private str questionDefinition(Form form, QuestionDefinition pqd) {
-  str ret = "";
-  if(questionDefinition(str ident) := pqd) {
-    ret += "END: <ident>";
-  } else {
-    tsrs = [def | def <- pqd.styleRules, widgetStyleRule(_, _) := def];
-    for(tsr <- tsrs)
-      ret += widgetStyleRule(form, tsr);
+  for(d <- s.definitions) {
+    switch(d) {
+      case definition(PageDefinition p):
+        ret += "<layoutJS(p, s)>";
       
-    wsrs = [def | def <- pqd.styleRules, widthStyleRule(_, _) := def];
-    for(wsr <- wsrs)
-      ret += widthStyleRule(form, wsr);
+      case definition(SectionDefinition sd):
+        ret += "<layoutJS(sd, s)>";
+      
+      case definition(QuestionDefinition q):
+        ret += "<layoutJS(q, s)>";
+    }
+  }
+  
+  return ret;
+}
+
+private str layoutJS(PageDefinition p, &T parent) {
+  str ret =
+    "$(\"\<div /\>\")
+    '  .attr({
+    '    id: \"<uniqueId(p)>\",
+    '    class: \"page\"
+    '  })
+    '  .append(<pageName(p)>)
+    '  .appendTo($(\"#<uniqueId(parent)>\"));
+    '
+    '";
+  
+  for(d <- p.pageRules) {
+    switch(d) {
+      case pageRule(SectionDefinition s):
+        ret += "<layoutJS(s, p)>";
+      
+      case pageRule(QuestionDefinition q):
+        ret += "<layoutJS(q, p)>";
+    }
+  }
+  
+  return ret;
+}
+
+private str layoutJS(SectionDefinition s, &T parent) {
+  str ret =
+    "$(\"\<fieldset /\>\")
+    '  .attr({
+    '    id: \"<uniqueId(s)>\",
+    '    class: \"section\"
+    '  })
+    '  .append(<sectionName(s)>)
+    '  .appendTo($(\"#<uniqueId(parent)>\"));
+    '
+    '";
+  
+  for(d <- s.sectionRules) {
+    switch(d) {
+      case sectionRule(SectionDefinition sd):
+        ret += "<layoutJS(sd, s)>";
+      
+      case sectionRule(QuestionDefinition q):
+        ret += "<layoutJS(q, s)>";
+    }
+  }
+  
+  return ret;
+}
+
+private str layoutJS(QuestionDefinition q, &T parent) =
+  "$(\"#<blockIdent(q)>\")
+  '  .appendTo($(\"#<uniqueId(parent)>\"));
+  '
+  '";
+
+private str styleJS(Stylesheet s) {
+  ret = "/********** STILL TODO\n";
+
+  for(q <- getQuestionDefinitions(s)) {
+    if(!q.styleRules?)
+      continue;
+
+    ret += styleJS(q);
   }
 
-  return ret;
+  return ret + "**********/";
 }
 
-private str widgetStyleRule(Form form, StyleRule sr) {
-  str ret = "<sr.attr> :: <widgetStyleValue(form, sr.widgetValue)>";
-  return ret;
-}
+private str styleJS(QuestionDefinition q) =
+  "Question <blockIdent(q)>:<for(r <- q.styleRules) {>
+  '  <styleJS(r)><}>
+  '
+  '";
 
-private str widthStyleRule(Form form, StyleRule sr) {
-  str ret = "<sr.attr> :: <sr.widthValue>";
-  return ret;
-}
+private str styleJS(StyleRule r: 
+    widgetStyleRule(attr, \value)) =
+  "<attr> <\value.name>";
 
-private str widgetStyleValue(Form form, WidgetStyleValue wsv: text(str name)) {
-  str ret = "Radio: <name>";
-  return ret;
-}
-
-private str widgetStyleValue(Form form, WidgetStyleValue wsv: number(str name)) {
-  str ret = "Radio: <name>";
-  return ret;
-}
-
-private str widgetStyleValue(Form form, WidgetStyleValue wsv: datepicker(str name)) {
-  str ret = "Datepicker: <name>";
-  return ret;
-}
-
-private str widgetStyleValue(Form form, WidgetStyleValue wsv: slider(str name)) {
-  str ret = "Slider: <name>";
-  return ret;
-}
-
-private str widgetStyleValue(Form form, WidgetStyleValue wsv: radio(str name)) {
-  str ret = "Radio: <name>";
-  return ret;
-}
-
-private str widgetStyleValue(Form form, WidgetStyleValue wsv: checkbox(str name)) {
-  str ret = "Checkbox: <name>";
-  return ret;
-}
-
-private str widgetStyleValue(Form form, WidgetStyleValue wsv: select(str name)) {
-  str ret = "Select: <name>";
-  return ret;
-}
-
-private str defaultDefinition(Form form, DefaultDefinition dd) {
-  str ret = "";
-  
-  ret += "Type ident: <dd.ident>";
-
-  tsrs = [def | def <- dd.styleRules, widgetStyleRule(_, _) := def];
-  for(tsr <- tsrs)
-    ret += widgetStyleRule(form, tsr);
-    
-  wsrs = [def | def <- dd.styleRules, widthStyleRule(_, _) := def];
-  for(wsr <- wsrs)
-    ret += widthStyleRule(form, wsr);
-
-  return ret;
-}
+public str styleJS(StyleRule r: 
+    widthStyleRule(str attr, int \value)) =
+  "<attr> <\value>";

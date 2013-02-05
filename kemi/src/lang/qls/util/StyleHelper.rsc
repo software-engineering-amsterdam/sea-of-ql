@@ -23,6 +23,8 @@ import lang::ql::tests::ParseHelper;
 import lang::qls::ast::AST;
 import lang::qls::util::ParseHelper;
 
+import util::StringHelper;
+
 public void main() {
   Form f = parseForm(|project://QL-R-kemi/forms/taxOfficeExample.q|);
   Stylesheet s = parseStylesheet(|project://QL-R-kemi/stylesheets/taxOfficeExample.qs|);
@@ -141,3 +143,50 @@ private list[node] getDefinitions(str qid, list[SectionRule] sectionRules, list[
   }
   return [];
 }
+
+public str uniqueId(Stylesheet s) =
+  s.ident;
+
+public str uniqueId(PageDefinition p) =
+  "page_<split(" ", stripQuotes(p.ident))[0]>_" +
+    "<p@location.begin.line>_<p@location.begin.column>";
+
+public str uniqueId(SectionDefinition s) =
+  "section_<split(" ", stripQuotes(s.ident))[0]>_" +
+    "<s@location.begin.line>_<s@location.begin.column>";
+
+public list[PageDefinition] getPageDefinitions(Stylesheet s) =
+  [d | /PageDefinition d <- s];
+
+public list[str] getPageNames(Stylesheet s) =
+  [name | /PageDefinition d:pageDefinition(name, _) <- s];
+
+public list[SectionDefinition] getSectionDefinitions(Stylesheet s) =
+  [d | /SectionDefinition d <- s];
+
+public list[str] getSectionNames(Stylesheet s) =
+  [name | /SectionDefinition d:sectionDefinition(name, _) <- s];
+
+public list[SectionDefinition] getChildSectionDefinitions(Stylesheet s) =
+  [r.sectionDefinition | r <- s.definitions, r.sectionDefinition?];
+
+public list[SectionDefinition] getChildSectionDefinitions(PageDefinition p) =
+  [r.sectionDefinition | r <- p.pageRules, r.sectionDefinition?];
+
+public list[SectionDefinition] getChildSectionDefinitions(SectionDefinition s) =
+  [r.sectionDefinition | r <- s.sectionRules, r.sectionDefinition?];
+
+public list[QuestionDefinition] getQuestionDefinitions(Stylesheet s) =
+  [d | /QuestionDefinition d <- s];
+
+public list[QuestionDefinition] getChildQuestionDefinitions(Stylesheet s) =
+  [d.questionDefinition | d <- s.definitions, d.questionDefinition?];
+
+public list[QuestionDefinition] getChildQuestionDefinitions(PageDefinition p) =
+  [d.questionDefinition | d <- p.pageRules, d.questionDefinition?];
+
+public list[QuestionDefinition] getChildQuestionDefinitions(SectionDefinition s) =
+  [d.questionDefinition | d <- s.sectionRules, d.questionDefinition?];
+
+public list[DefaultDefinition] getDefaultDefinitions(Stylesheet s) =
+  [d | /DefaultDefinition d <- s];

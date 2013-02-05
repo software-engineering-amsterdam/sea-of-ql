@@ -14,3 +14,6 @@ import String;
 
 public str trimQuotes(str string) =
   substring(string, 1, size(string) - 1);
+
+public str stripQuotes(str string) =
+  replaceAll(string, "\"", "");

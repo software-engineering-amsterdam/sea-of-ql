@@ -170,25 +170,6 @@ private list[DefaultDefinition] getDefaultRedefinitions(list[&T] definitions) {
 }
 
 
-public list[DefaultDefinition] getDefaultDefinitions(Stylesheet s) =
-  [d | /DefaultDefinition d <- s];
-
-public list[QuestionDefinition] getQuestionDefinitions(Stylesheet s) =
-  [d | /QuestionDefinition d <- s];
-
-public list[PageDefinition] getPageDefinitions(Stylesheet s) =
-  [d | /PageDefinition d <- s];
-
-public list[str] getPageNames(Stylesheet s) =
-  [name | /PageDefinition d:pageDefinition(name, _) <- s];
-
-public list[SectionDefinition] getSectionDefinitions(Stylesheet s) =
-  [d | /SectionDefinition d <- s];
-
-public list[str] getSectionNames(Stylesheet s) =
-  [name | /SectionDefinition d:sectionDefinition(name, _) <- s];
-
-
 public void main() {
   s = parseStylesheet(|project://QL-R-kemi/stylesheets/proposedSyntax.qs|);
   //iprintln(getQuestionDefinitions(s));
