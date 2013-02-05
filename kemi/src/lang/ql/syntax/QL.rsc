@@ -10,13 +10,6 @@
 
 module lang::ql::syntax::QL
 
-extend lang::ql::syntax::Comment;
-extend lang::ql::syntax::Int;
-extend lang::ql::syntax::Keyword;
-extend lang::ql::syntax::Layout;
-extend lang::ql::syntax::String;
-extend lang::ql::syntax::Type; 
-
 start syntax Form = 
   @Foldable form: "form" IdentDefinition formName "{" Statement+ formElements "}";
 
@@ -38,6 +31,7 @@ syntax ElsIfPart =
 syntax ElsePart = 
   @Foldable elsePart: "else" "{" Statement+ body "}";
 
+// What the ...?! Colons don't work, but equals signs do...
 start syntax Question 
   = question: QuestionText questionText Type answerDataType IdentDefinition answerIdentifier
   | question: QuestionText questionText Type answerDataType IdentDefinition answerIdentifier "=" Expr calculatedField
@@ -74,6 +68,11 @@ syntax Expr
   > left or: Expr left "||" Expr right
   ;
 
+syntax WhitespaceOrComment 
+  = whitespace: Whitespace whitespace
+  | comment: Comment comment
+  ;   
+
 lexical IdentDefinition
   = identDefinition: Ident ident
   ;
@@ -85,12 +84,31 @@ lexical QuestionText
   = @category="Identifier" questionText: String questionText
   ;
 
+lexical Type
+  = @category="Type" booleanType: "boolean"
+  | @category="Type" integerType: "integer"
+  | @category="Type" moneyType: "money"
+  | @category="Type" dateType: "date"
+  | @category="Type" stringType: "string"
+  ;
+
+lexical String
+  = @category="Constant" "\"" TextChar* "\"";
+
+lexical TextChar
+  = [\\] << [\"]
+  | ![\"]
+  ;
+
+lexical Int =
+  @category="Constant" [0-9]+ !>> [0-9]
+  ;
+
 lexical Boolean
   = "true"
   | "false"
   ;
 
-// Workaround; see https://github.com/cwi-swat/rascal/issues/100
 syntax Money = 
   @category="Constant" LMoney;
 
@@ -116,3 +134,31 @@ lexical Day
   = [0-2][0-9]
   | [3][0-1]
   ;
+  
+lexical Comment 
+  = @category="Comment" "/*" CommentChar* "*/"
+  | @category="Comment" "//" ![\n]* $
+  ;
+
+lexical CommentChar
+  = ![*]
+  | [*] !>> [/]
+  ;
+
+lexical Whitespace = 
+  [\u0009-\u000D \u0020 \u0085 \u00A0 \u1680 \u180E \u2000-\u200A \u2028 \u2029 \u202F \u205F \u3000];
+
+layout Standard = 
+  WhitespaceOrComment* !>> [\ \t\n\f\r] !>> "//" !>> "/*";
+
+keyword Keywords 
+  = boolean: "boolean"
+  | \int: "integer"
+  | money: "money"
+  | date: "date"
+  | string: "string"
+  | \true: "true"
+  | \false: "false"
+  | form: "form"
+  ;
+
