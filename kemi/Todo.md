@@ -24,4 +24,4 @@ consistent way.
 * Compiler
 * Refactoring
 * Adding comments
-
+* Usage of ParseHelpers outside 'test' packages

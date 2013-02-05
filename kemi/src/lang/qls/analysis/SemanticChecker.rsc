@@ -29,7 +29,7 @@ public set[Message] semanticChecker(Stylesheet s) =
   filenameDoesNotMatchErrors(s) +
   accompanyingFormNotFoundErrors(s) +
   alreadyUsedQuestionErrors(s) +
-  undefinedQuestionWarnings(s) +
+  undefinedQuestionErrors(s) +
   doubleNameWarnings(s) +
   defaultRedefinitionWarnings(s);
 
@@ -71,20 +71,20 @@ public set[Message] alreadyUsedQuestionErrors(Stylesheet s) {
   return errors;
 }
 
-public set[Message] undefinedQuestionWarnings(Stylesheet s) {
+public set[Message] undefinedQuestionErrors(Stylesheet s) {
   if(!isFile(accompanyingFormLocation(s)))
     return {};
   
-  warnings = {};
+  errors = {};
   typeMap = getTypeMap(accompanyingForm(s));
   visit(s) {
     case QuestionDefinition d: {
       if(identDefinition(d.ident) notin typeMap) {
-        warnings += warning("Question undefined in form", d@location);
+        errors += error("Question undefined in form", d@location);
       }
     }
   }
-  return warnings;
+  return errors;
 }
 
 public set[Message] doubleNameWarnings(Stylesheet s) {
