@@ -3,6 +3,7 @@ package org.uva.sea.ql.ast.types;
 import org.uva.sea.ql.ast.ASTNode;
 import org.uva.sea.ql.ast.nodevisitor.Visitor;
 import org.uva.sea.ql.ast.nodevisitor.VisitorResult;
+import org.uva.sea.ql.ast.operators.ExpressionResult;
 
 public abstract class TypeDescription implements ASTNode {
 	private String typeName;
@@ -10,7 +11,9 @@ public abstract class TypeDescription implements ASTNode {
 	public TypeDescription(String typeName) {
 		this.typeName = typeName;
 	}
-
+ 
+	public abstract ExpressionResult getTypeContainer() ;
+	
 	public String getTypeName() {
 		return typeName;
 	}
@@ -22,10 +25,6 @@ public abstract class TypeDescription implements ASTNode {
 	public abstract boolean isCompatibleTo(TypeDescription t);
 
 	public boolean isCompatibleToInt() {
-		return false;
-	}
-
-	public boolean isCompatibleToNumeric() {
 		return false;
 	}
 

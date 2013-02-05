@@ -23,5 +23,9 @@ public abstract class Type {
 	public boolean isCompatibleToMoneyType() {
 		return false;
 	}
+	
+	public boolean isCompatibleToErrorType() {
+		return false;
+	}
 
 }

@@ -18,7 +18,7 @@ set[Occurrence] usesStat(s: ifElseStat(EXP e,
 set[Occurrence] usesStats(list[STATEMENT] stats) =  
    {*usesStat(s) | s <- stats};
 
-public set[Occurrence] uses(PROGRAM p) = usesStats(p.stats);
+public set[Occurrence] uses(Program p) = usesStats(p.stats);
 
-public set[Occurrence] defs(PROGRAM p) =                 
+public set[Occurrence] defs(Program p) =                 
    { < stat@location, v, stat > | /stat:asgStat(QuestionId v, EXP e) <- p.stats};

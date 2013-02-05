@@ -1,6 +1,8 @@
 package org.uva.sea.ql.ast.form;
 
-import org.uva.sea.ql.ast.Ident;
+import org.uva.sea.ql.ast.*;
+import org.uva.sea.ql.ast.visitor.*;
+import org.uva.sea.ql.ast.types.*;
 
 /**
  * class: Question
@@ -10,20 +12,17 @@ import org.uva.sea.ql.ast.Ident;
 public class Question extends FormElement {
 	
 	private final Ident identifier;
-	private final String question;
-	private final String type;
+	private final Str question;
 	
 	/**
 	 * Constructor
 	 * @param id 	- Identifier
 	 * @param q 	- Question
-	 * @param t 	- Type
 	 */
-	public Question(Ident id, String q, String t) {
-		super();
+	public Question(Ident id, Str q, Expr type) {
+		super(type);
 		this.identifier = id;
 		this.question = q;
-		this.type = t;
 	}
 	/**
 	 * getIdent()
@@ -36,14 +35,24 @@ public class Question extends FormElement {
 	 * getQuestion()
 	 * @return question
 	 */
-	public String getQuestion(){
+	public Str getQuestion(){
 		return this.question;
-	}
+	}	
 	/**
-	 * getType()
+	 * accept()
+	 * @param visitor
 	 * @return type
 	 */
-	public String getType(){
-		return this.type;
+	public void accept(Visitor visitor){
+		visitor.visit(this);
+	}
+	/**
+	 * isCompatibleTo
+	 * @param t type
+	 * @return boolean - true if compatible false otherwise
+	 */
+	@Override
+	public boolean isCompatibleTo(Expr t) {
+		return t.isCompatibleTo(this);
 	}
 }

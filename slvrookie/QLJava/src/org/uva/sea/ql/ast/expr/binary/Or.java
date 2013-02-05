@@ -5,7 +5,7 @@ import java.util.Map;
 import org.uva.sea.ql.ast.expr.*;
 import org.uva.sea.ql.ast.types.BoolType;
 import org.uva.sea.ql.ast.types.Type;
-import org.uva.sea.ql.visitor.IExprVisitor;
+import org.uva.sea.ql.visitors.interfaces.IExprVisitor;
 
 public class Or extends BinaryExpr {
 
@@ -19,8 +19,8 @@ public class Or extends BinaryExpr {
 	}
 
 	@Override
-	public <T> T accept(IExprVisitor<T> visitor) {
-		return visitor.visit(this);
+	public <T> T accept(IExprVisitor<T> ExprVisitor) {
+		return ExprVisitor.visit(this);
 	}
 	
 }

@@ -1,51 +1,67 @@
+@license{
+  Copyright (c) 2013 
+  All rights reserved. This program and the accompanying materials
+  are made available under the terms of the Eclipse Public License v1.0
+  which accompanies this distribution, and is available at
+  http://www.eclipse.org/legal/epl-v10.html
+}
+@contributor{Kevin van der Vlist - kevin@kevinvandervlist.nl}
+@contributor{Jimi van der Woning - Jimi.vanderWoning@student.uva.nl}
+
 module lang::qls::syntax::QLS
 
-// TODO support trailing empty lines
 start syntax Stylesheet
-  = stylesheet: Statement+ statements
+  = stylesheet: "stylesheet" Ident "{" Definition* definitions "}"
   ;
 
-syntax Statement
-  = @Foldable ClassDefinition
-  | @Foldable TypeStyleDefinition
-  | @Foldable ClassStyleDefinition
-  | @Foldable IdentStyleDefinition
+
+syntax Ident
+  = IdentIdent \ Keywords
+  | ("\\" IdentIdent) \ Keywords
   ;
 
-syntax ClassDefinition
-  = classDefinition: "class" Ident "{" ClassRule+ "}"
+lexical IdentIdent
+  = [a-z A-Z 0-9 _] !<< [a-z A-Z][a-z A-Z 0-9 _]* !>> [a-z A-Z 0-9 _]
   ;
 
-syntax ClassRule
-  = classRule: QuestionIdent
+
+syntax Definition
+  = @Foldable definition: PageDefinition
+  | @Foldable definition: SectionDefinition
+  | @Foldable definition: QuestionDefinition
+  | @Foldable definition: DefaultDefinition
   ;
 
-syntax TypeStyleDefinition
-  = typeStyleDefinition: Type "{" StyleRule+ "}"
+
+syntax PageDefinition
+  = pageDefinition: "page" String "{" PageRule* "}"
   ;
 
-syntax ClassStyleDefinition
-  = classStyleDefinition: ClassIdent "{" StyleRule+ "}"
+
+syntax PageRule
+  = @Foldable pageRule: SectionDefinition
+  | @Foldable pageRule: QuestionDefinition
+  | @Foldable pageRule: DefaultDefinition
   ;
 
-syntax IdentStyleDefinition
-  = identStyleDefinition: QuestionIdent "{" StyleRule+ "}"
+syntax SectionDefinition
+  = sectionDefinition: "section" String "{" SectionRule* "}"
   ;
 
-syntax StyleRule
-  = styleRule: StyleAttr StyleAttrValue
-  ; 
-
-lexical ClassIdent
-  = @category="NonterminalLabel" [.]Ident
-  ; 
-
-lexical QuestionIdent
-  = @category="Variable" [#]Ident
+syntax SectionRule
+  = @Foldable sectionRule: SectionDefinition
+  | @Foldable sectionRule: QuestionDefinition
+  | @Foldable sectionRule: DefaultDefinition
   ;
 
-lexical Ident
-  = ([a-z A-Z 0-9 _] !<< [a-z A-Z][a-z A-Z 0-9 _]* !>> [a-z A-Z 0-9 _]) \ Keywords;
+syntax QuestionDefinition
+  = questionDefinition: "question" Ident
+  | questionDefinition: "question" Ident "{" StyleRule* "}"
+  ;
+
+syntax DefaultDefinition
+  = defaultDefinition: "default" Type "{" StyleRule* "}"
+  ;
 
 lexical Type
   = @category="Type" "boolean"
@@ -55,23 +71,34 @@ lexical Type
   | @category="Type" "string"
   ; 
 
-lexical StyleAttr
-  = @category="Identifier" "type"
-  | @category="Identifier" "width"
+syntax StyleRule
+  = typeStyleRule: TypeStyleAttr TypeStyleValue
+  | widthStyleRule: WidthStyleAttr Int
   ;
 
-syntax StyleAttrValue
-  = styleAttrValue: StyleTypeValue
-  | styleAttrValue: Int
+lexical TypeStyleValue
+  = radio: "radio"
+  | checkbox: "checkbox"
   ;
 
-lexical StyleTypeValue
-  = "radio"
-  | "checkbox"
+lexical TypeStyleAttr
+  = @category="Constant" "type"
+  ;
+
+lexical WidthStyleAttr
+  = @category="Constant" "width"
   ;
 
 lexical Int
   = [0-9]+ !>> [0-9]
+  ;
+
+lexical String
+  = @category="Variable" "\"" TextChar* "\"";
+
+lexical TextChar
+  = [\\] << [\"]
+  | ![\"]
   ;
 
 syntax WhitespaceOrComment 
@@ -94,12 +121,16 @@ lexical Whitespace = [\u0009-\u000D \u0020 \u0085 \u00A0 \u1680 \u180E \u2000-\u
 layout Standard = WhitespaceOrComment* !>> [\ \t\n\f\r] !>> "//" !>> "/*";
 
 keyword Keywords 
-  = boolean: "boolean"
+  = stylesheet: "stylesheet"
+  | page: "page"
+  | section: "section"
+  | question: "question"
+  | \default: "default"
+  | boolean: "boolean"
   | \int: "integer"
   | money: "money"
   | date: "date"
   | string: "string"
-  | form: "class"
   | \type: "type"
   | width: "width"
   | radio: "radio"

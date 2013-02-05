@@ -4,7 +4,7 @@ public data Type = string() | integer() | boolean() | money() | money(Expression
 
 // Data of a QL Program	
 public data Program =
-	program(Expression exp, list[Body] body);
+	program(str questionnaireName, list[Body] body);
 	
 // Data of a Body Rule
 public data Body =

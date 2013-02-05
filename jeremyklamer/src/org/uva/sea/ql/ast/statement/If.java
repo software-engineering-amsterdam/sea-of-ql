@@ -10,6 +10,8 @@ import org.uva.sea.ql.ast.type.Type;
 import org.uva.sea.ql.message.Error;
 import org.uva.sea.ql.message.Message;
 
+import ui.UIComponent;
+
 public class If extends Statement{
 	
 	private final Expr condition; 
@@ -40,6 +42,27 @@ public class If extends Statement{
 			errors.addAll(statement.checkType(typeEnv));
 		}
 		return errors;
+	}
+	
+	@Override
+	public void printSelf(int indentation){
+		printIndentation(indentation);
+		System.out.println(getSimpleName(this) + ", Condition : " + getSimpleName(this.condition));
+		
+		for(Statement statement : ifBody){
+			statement.printSelf(indentation + 1);
+		}
+	}
+
+	@Override
+	public List<UIComponent> getUIComponents() {
+		ArrayList<UIComponent> components = new ArrayList<UIComponent>();
+		
+		for(Statement statement : ifBody){
+			components.addAll(statement.getUIComponents());
+		}
+		
+		return components;
 	}
 	
 }

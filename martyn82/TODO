@@ -1,0 +1,13 @@
+TODO
+----
+- Environment
+    - Add column and linenumber to TypeErrors.
+- Store type in question
+- Use Block as name for Statements
+- StatementEvaluator accept GUI factory
+    - Creates GUI elements and adds them directly.
+    - Registers observers.
+- Form IDENT -> String label // OR make getLabel() to get Ident.getName() ??
+- Value should implement isDefined()
+- Value's specific operation methods should be protected
+- Support for rendering elseif nodes.

@@ -5,6 +5,17 @@ options {backtrack=true; memoize=true;}
 {
 package org.uva.sea.ql.parser.antlr;
 import org.uva.sea.ql.ast.*;
+import org.uva.sea.ql.ast.boolexpr.*;
+import org.uva.sea.ql.ast.relationalexpr.*;
+import org.uva.sea.ql.ast.unaryexpr.*;
+import org.uva.sea.ql.ast.binaryexpr.*;
+import org.uva.sea.ql.ast.types.*;
+}
+@parser::members {
+    @Override
+    public void reportError(RecognitionException e) {
+        throw new RuntimeException(e);
+    }
 }
 
 @lexer::header
@@ -12,9 +23,37 @@ import org.uva.sea.ql.ast.*;
 package org.uva.sea.ql.parser.antlr;
 }
 
+form returns [Form result]
+	@init { List<Statement> list = new ArrayList<Statement>(); }
+	: 'form' Ident '{' (s=statement {list.add($s.result);})* '}' EOF { $result = new Form(new Ident($Ident.text), list); }
+	;
+	
+statement returns [Statement result]
+	: q=question { $result = $q.result; }
+	| i=ifStatement { $result = $i.result; }
+	;
+
+ifStatement returns [IfStatement result]
+	@init {List<Statement> list = new ArrayList<Statement>(); }
+	: 'if' '(' x=orExpr ')' '{' (s=statement {list.add($s.result);})* '}' { $result = new IfStatement(x, list); }
+	;
+	
+question returns [Question result]
+	: Ident ':' Str type { $result = new Question(new Ident($Ident.text), new Str($Str.text), $type.result); }
+	;
+
+type returns [Type result]
+	: 'boolean' { $result = new BoolType(); }
+	| 'int' { $result = new IntType(); }
+	| 'string' { $result = new StrType(); }
+	| 'money' { $result = new MoneyType(); }
+	| 'money(' x=addExpr ')' { $result = new MoneyExprType($x.result); }
+	;
+
 primary returns [Expr result]
   : Int   { $result = new Int(Integer.parseInt($Int.text)); }
   | Ident { $result = new Ident($Ident.text); }
+  | Str	  { $result = new Str($Str.text); }
   | '(' x=orExpr ')'{ $result = $x.result; }
   ;
     
@@ -31,7 +70,7 @@ mulExpr returns [Expr result]
       if ($op.text.equals("*")) {
         $result = new Mul($result, rhs);
       }
-      if ($op.text.equals("<=")) {
+      if ($op.text.equals("/")) {
         $result = new Div($result, rhs);      
       }
     })*
@@ -89,9 +128,12 @@ WS  :	(' ' | '\t' | '\n' | '\r') { $channel=HIDDEN; }
     ;
 
 COMMENT 
-     : '/*' .* '*/' {$channel=HIDDEN;}
+     : '/*' .* '*/' { $channel=HIDDEN; }
+     | '//' .* '\n' { $channel=HIDDEN; }
     ;
 
 Ident:   ('a'..'z'|'A'..'Z')('a'..'z'|'A'..'Z'|'0'..'9'|'_')*;
 
 Int: ('0'..'9')+;
+
+Str:   ('"' .* '"' | '“' .* '”');

@@ -21,7 +21,7 @@ public class Int extends Expr {
 	}
 
 	@Override
-	public Value eval() {
+	public Value eval(Env environment) {
 		return new org.uva.sea.ql.ast.values.IntValue(value);
 	}
 
@@ -36,4 +36,8 @@ public class Int extends Expr {
 		return errors;
 	}
 	
+	@Override
+	public String toString() {
+		return Integer.toString(value);
+	}
 }

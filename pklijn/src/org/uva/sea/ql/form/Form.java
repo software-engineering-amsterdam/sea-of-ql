@@ -8,11 +8,13 @@ import net.miginfocom.swing.MigLayout;
 
 import org.uva.sea.ql.ast.eval.Env;
 import org.uva.sea.ql.ast.expressions.Ident;
+import org.uva.sea.ql.interpreter.FormElement;
 
 public class Form {
 
 	private Ident id;
 	private List<FormItem> body;
+	private Env environment;
 	
 	public Form(Ident id, List<FormItem> formItems) {
 		this.id = id;
@@ -31,16 +33,17 @@ public class Form {
 		return body;
 	}
 
-	public void print() {
-		System.out.println("formItems: " + id.getName());
+	public String getPrintableText() {
+		String formText = "Form: " + id + "\n";
 		for (FormItem f : body) {
-			f.print(0);
-		}		
+			formText += f.getPrintableText(0);
+		}
+		return formText;
 	}
 	
 	public boolean checkFormValidity() {
 		boolean valid = true;
-		Env environment = new Env();
+		environment = new Env();
 		for (FormItem f : body) {
 			if (!f.validate(environment))
 				valid = false;
@@ -48,12 +51,23 @@ public class Form {
 		return valid;
 	}
 	
-	public JPanel buildForm() {
-		JPanel formPanel = new JPanel();
-//		formPanel.setLayout(new MigLayout("fillx"));
+	public void eval() {
 		for (FormItem f : body) {
-			formPanel.add(f.getFormComponent());
+			f.eval(environment, this);
 		}
+	}
+	
+	public JPanel buildForm() {
+		MigLayout ml = new MigLayout("ins 20", "[para]0[][100lp, fill][60lp][95lp, fill]", "");
+		JPanel formPanel = new JPanel(ml);
+		
+		for (FormItem f : body) {
+			List<FormElement> components = f.getFormComponents();
+			for (FormElement fe : components) {
+				formPanel.add(fe.getFormComponent(), fe.getProperties());
+			}
+		}
+		eval();
 		return formPanel;
 	}
 }

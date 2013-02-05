@@ -7,6 +7,7 @@ import java.io.IOException;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JTextArea;
 
 import net.miginfocom.swing.MigLayout;
 
@@ -31,8 +32,9 @@ public class FormBuilder {
 				displayForm(form1.buildForm(), form1.getName());
 			}
 			else {
-				System.out.println("ERRORS FOUND!!!");
-				form1.print();
+				JPanel panel = new JPanel(new MigLayout());
+				panel.add(new JTextArea(form1.getPrintableText()));
+				displayForm(panel ,"Errors found!");
 			}
 		}
 		catch (ParseError e) {
@@ -43,9 +45,7 @@ public class FormBuilder {
 	private void displayForm(JPanel formPanel, String formTitle) {
 		JFrame mainWindow = new JFrame(formTitle);
 
-		MigLayout ml = new MigLayout("fillx, wrap 1, debug", "", "");
 		mainWindow.setContentPane(formPanel);
-		mainWindow.getContentPane().setLayout(ml);
 		mainWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		mainWindow.setLocationRelativeTo(null); // Put in center of the screen
 		mainWindow.pack(); //Automatically resize

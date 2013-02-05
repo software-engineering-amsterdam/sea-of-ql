@@ -25,10 +25,13 @@ import org.uva.sea.ql.ast.operative.Pos;
 import org.uva.sea.ql.ast.operative.Sub;
 import org.uva.sea.ql.ast.primitive.Int;
 import org.uva.sea.ql.ast.primitive.Str;
+import org.uva.sea.ql.ast.primitive.Undefined;
 import org.uva.sea.ql.ast.statement.Block;
-import org.uva.sea.ql.ast.statement.Branch;
 import org.uva.sea.ql.ast.statement.Form;
-import org.uva.sea.ql.ast.statement.Question;
+import org.uva.sea.ql.ast.statement.IfThen;
+import org.uva.sea.ql.ast.statement.IfThenElse;
+import org.uva.sea.ql.ast.statement.QuestionAnswerable;
+import org.uva.sea.ql.ast.statement.QuestionComputed;
 import org.uva.sea.ql.ast.types.Bool;
 import org.uva.sea.ql.ast.types.Numeric;
 import org.uva.sea.ql.ast.types.Type;
@@ -90,14 +93,6 @@ public class VisitorChecker implements IVisitor<Void> {
 		return null;
 	}
 	
-
-	private Void checkBlock(Block block){
-		if(block != null)
-			block.accept(this);	
-		
-		return null;
-	}
-	
 	
 	private boolean identifierExists(Ident ident){
 		if(environment.contains(ident)){
@@ -139,18 +134,38 @@ public class VisitorChecker implements IVisitor<Void> {
 	}
 	
 	@Override
-	public Void visit(Branch branch) {
+	public Void visit(IfThen branch) {
 
 		Type type = new Bool();
 		checkExpression(branch.getIfCondition(), type);
-		checkBlock(branch.getIfBlock());
-		checkBlock(branch.getElseBlock());
+		branch.getIfBlock().accept(this);
+		
+		return null;
+	}
+	
+	
+	public Void visit(IfThenElse branch) {
+		Type type = new Bool();
+		checkExpression(branch.getIfCondition(), type);
+		branch.getIfBlock().accept(this);
+		branch.getElseBlock().accept(this);
 		
 		return null;
 	}
 	
 	@Override
-	public Void visit(Question question) {
+	public Void visit(QuestionAnswerable question) {
+		
+		Ident ident = question.getIdentifier();
+		
+		if(!identifierExists(ident))
+			environment.add(ident, question.getValue() );
+		
+		return null;
+	}
+	
+	@Override
+	public Void visit(QuestionComputed question) {
 		
 		Ident ident = question.getIdentifier();
 		Expr val = question.getValue();
@@ -160,7 +175,6 @@ public class VisitorChecker implements IVisitor<Void> {
 		//i.e. val:integer has type integer
 		//i.e. val:a+b has type numeric
 		Type typeOfIdent = question.getValue().typeOf(environment);
-		
 		
 		checkExpression(val, typeOfIdent);
 		
@@ -179,38 +193,6 @@ public class VisitorChecker implements IVisitor<Void> {
 	public List<Error> getErrors(){
 		return errors;
 	}
-
-
-	/*@Override
-	public Void visit(OperatorBinaryBoolean operator) {
-		checkOperatorBinary(operator, new Bool() );
-		return null;
-			
-	}
-
-
-	public Void visit(OperatorBinaryNumeric operator) {
-		checkOperatorBinary(operator, new Numeric() );
-		return null;
-	}
-
-
-	public Void visit(OperatorBinaryComparative operator) {
-		checkOperatorBinary(operator, new Numeric() );
-		return null;
-	}
-
-
-	public Void visit(OperatorUnaryBoolean operator) {
-		checkOperatorUnary(operator, new Bool() );
-		return null;
-	}
-
-
-	public Void visit(OperatorUnaryNumeric operator) {
-		checkOperatorUnary(operator, new Numeric() );
-		return null;
-	}*/
 	
 	@Override
 	public Void visit(Add operator) {
@@ -336,5 +318,11 @@ public class VisitorChecker implements IVisitor<Void> {
 		// TODO Auto-generated method stub
 		return null;
 	}
-	
+
+	@Override
+	public Void visit(Undefined ast) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

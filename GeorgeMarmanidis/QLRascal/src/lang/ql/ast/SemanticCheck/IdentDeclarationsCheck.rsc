@@ -5,51 +5,14 @@ module lang::ql::ast::semanticcheck::IdentDeclarationsCheck
 import lang::ql::ast::semanticcheck::TypeEnvUtils;
 import lang::ql::ast::AST;
 
-//Retrieves all the identifiers and keeps type,location,label and if is computed.
-public TENV getIdentDeclarations(list[FormBodyItem] formBodyItem,TENV env){
-	for(item<-formBodyItem){
-		env=getIdentDeclarations(item,env);
-	}	
+public TENV getIdentDeclarations(list[FormBodyItem] formBodyItems,TENV env){
+	visit(formBodyItems){
+		case q:simpleQuestion(_,_,_) : env=getIdentDeclarations(q,env);
+		case q:computedQuestion(_,_,_,_) : env=getIdentDeclarations(q,env);
+	}
 	return env;	
 }
 
-TENV getIdentDeclarations(conditionalStatement(ConditionalStatement itemCondStatement),TENV env){
-	env=getIdentDeclarations(itemCondStatement,env);	
-	return env;
-}
-
-TENV getIdentDeclarations(ifElseIfCond(Expr ifCondition,list[FormBodyItem] ifQuestion,list[ElseIf] elseifBranch,list[FormBodyItem] elseQuestion),TENV env){
-	env=getIdentDeclarations(ifQuestion,env);
-	env=getIdentDeclarations(elseQuestion,env);
-	env=getIdentDeclarations(elseifBranch,env);
-	return env;
-}
-
-TENV getIdentDeclarations(list[ElseIf] elseIfStatements,TENV env){
-	for(statement<-elseIfStatements){
-		if(elseif(Expr ifExpression,list[FormBodyItem] elseQuestion):= statement) env=getIdentDeclarations(elseQuestion,env);
-	}
-	return env;
-}
-
-TENV getIdentDeclarations(simpleIfCond(Expr ifCondition,list[FormBodyItem] ifQuestion),TENV env){
-	env=getIdentDeclarations(ifQuestion,env);
-	return env;
-}
-
-TENV getIdentDeclarations(ifCond(Expr ifCondition,list[FormBodyItem] ifQuestion,list[FormBodyItem] elseQuestion),TENV env){
-	env=getIdentDeclarations(ifQuestion,env);
-	env=getIdentDeclarations(elseQuestion,env);
-	return env;
-}
-
-TENV getIdentDeclarations(list[Question] questionItem,TENV env){
-	for(question<-questionItem){
-		env=getIdentDeclarations(question,env);
-	}
-	return env;
-}
-//TENV dadaw()=3 when dawdaw;
 TENV getIdentDeclarations(question:simpleQuestion(str questionId,str questionLabel,Type questionType),TENV env){
 	
 	//we search for duplicating identifiers in this part of the code
@@ -59,7 +22,7 @@ TENV getIdentDeclarations(question:simpleQuestion(str questionId,str questionLab
 	for(x<-env.symbols){
 		if(questionId==x.variableName){
 			
-			if(!(questionType==x.variableType)){
+			if(questionType!=x.variableType){
 				return env=addError(env,question@location,"Same identifier declared with different type");
 			}
 			else{
@@ -83,7 +46,7 @@ TENV getIdentDeclarations(question:computedQuestion(str questionId, str question
 	for(x<-env.symbols){
 		if(questionId==x.variableName){
 			
-			if(!(questionType==x.variableType)){
+			if(questionType!=x.variableType){
 				return env=addError(env,question@location,"Same identifier declared with different type");
 			}
 			else{
@@ -96,10 +59,5 @@ TENV getIdentDeclarations(question:computedQuestion(str questionId, str question
 	
 	
 	env=addSymbol(env,questionId,questionLabel,questionType,true,question@location);
-	return env;
-}
-
-TENV getIdentDeclarations(question(Question questionItem),TENV env){
-	env=getIdentDeclarations(questionItem,env);
 	return env;
 }

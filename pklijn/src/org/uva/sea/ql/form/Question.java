@@ -1,29 +1,29 @@
 package org.uva.sea.ql.form;
 
-import java.awt.Component;
-import java.awt.Container;
-import java.awt.Label;
+import java.util.ArrayList;
+import java.util.List;
 
-import javax.swing.JTextField;
-
-import net.miginfocom.swing.MigLayout;
+import javax.swing.JComponent;
+import javax.swing.JLabel;
 
 import org.uva.sea.ql.ast.eval.Env;
-import org.uva.sea.ql.ast.eval.EnvAddIdentResults;
 import org.uva.sea.ql.ast.expressions.Ident;
 import org.uva.sea.ql.ast.types.Type;
+import org.uva.sea.ql.interpreter.FormElement;
 import org.uva.sea.ql.messages.Error;
 
 public class Question extends FormItem {
 
-	private final Ident id;
-	private final String label;
-	private final Type questionType;
+	protected final Ident id;
+	protected final String label;
+	protected final Type questionType;
+	protected JComponent answerComponent;
 	
 	public Question(Ident id, String question, Type questionType) {
 		this.id = id;
 		this.label = question;
 		this.questionType = questionType;
+		this.answerComponent = questionType.getAnswerField(true);
 	}
 	
 	public Ident getId() {
@@ -39,30 +39,43 @@ public class Question extends FormItem {
 	}
 
 	@Override
-	public void print(int level) {
-		printIndent(level);
-		System.out.println("Q:" + label 
-				+ " (id: " + id.getName() 
-				+ ", type: " + questionType + ")");
-		printErrors();
+	public String getPrintableText(int level) {
+		String printableText = getIndent(level);
+		printableText += id + ": " + label + " " + questionType + "\n";
+		printableText += getErrorText();
+		return printableText;
 	}
 
 	@Override
 	public boolean validate(Env environment) {
-		if (environment.addIdent(id, questionType) == EnvAddIdentResults.DIFFERENT_TYPE_FOUND) {
-			errors.add(new Error("Ident " + id + " already defined with other type!"));
+		if (environment.hasIdent(id)) {
+			if (!(environment.typeOf(id).equals(questionType))) {
+				errors.add(new Error("Ident " + id + " already defined with other type!"));
+			}
+		}
+		else {
+			environment.addIdent(id, questionType);
 		}
 		return errors.size() == 0;
 	}
 
 	@Override
-	public Component getFormComponent() {
-		Container questionContainer = new Container();
-		questionContainer.setLayout(new MigLayout("fillx, right, debug", "", ""));
-		
-		questionContainer.add(new Label(label));
-		JTextField answerField = new JTextField(10);
-		questionContainer.add(answerField, "span, growx, right");
-		return questionContainer;
+	public List<FormElement> getFormComponents() {
+		return getQuestionComponents();
+	}
+	
+	protected List<FormElement> getQuestionComponents() {
+		List<FormElement> components = new ArrayList<FormElement>();
+		components.add(new FormElement(new JLabel(label), "skip"));
+		components.add(new FormElement(answerComponent, "span, growx"));
+		return components;
+	}
+
+	@Override
+	public void eval(Env environment, Form form) {
+		questionType.setForm(form);
+		if (questionType.hasValue()) {
+			environment.addValue(id, questionType.getAnswerFieldValue(answerComponent));
+		}
 	}
 }

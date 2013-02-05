@@ -11,10 +11,8 @@ public class ParseError extends Exception {
 
 	/**
 	 * Constructs a new parse error.
-	 * 
+	 *
 	 * @param message
-	 * @param lineNumber
-	 * @param columnNumber
 	 */
 	public ParseError( String message ) {
 		super( message );

@@ -16,12 +16,17 @@ public class Not extends Unary {
 	}
 
 	@Override
-	public Value eval() {
-		return new BoolValue(!((BoolValue)getArg().eval()).getValue());
+	public Value eval(Env environment) {
+		return new BoolValue(!((BoolValue)getArg().eval(environment)).getValue());
 	}
 
 	@Override
 	public Type typeOf(Env environment) {
 		return new org.uva.sea.ql.ast.types.BoolType();
+	}
+	
+	@Override
+	public String toString() {
+		return "!" + getArg();
 	}
 }

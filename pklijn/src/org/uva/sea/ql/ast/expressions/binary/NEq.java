@@ -16,12 +16,17 @@ public class NEq extends Binary {
 	}
 
 	@Override
-	public Value eval() {
-		return new org.uva.sea.ql.ast.values.BoolValue(!(getLeft().eval().equals(getRight().eval())));
+	public Value eval(Env environment) {
+		return new org.uva.sea.ql.ast.values.BoolValue(!(getLeft().eval(environment).equals(getRight().eval(environment))));
 	}
 
 	@Override
 	public Type typeOf(Env environment) {
 		return new org.uva.sea.ql.ast.types.BoolType();
+	}
+	
+	@Override
+	public String toString() {
+		return "(" + getLeft() + " != " + getRight() + ")";
 	}
 }

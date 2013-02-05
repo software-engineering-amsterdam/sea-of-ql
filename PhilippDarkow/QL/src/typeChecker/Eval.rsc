@@ -4,14 +4,13 @@ import Prelude;
 import syntax::AbstractSyntax;
 import util::Load;
 import typeChecker::TypeCheck;
-import typeChecker::Mapping;
 
 // First we introduce a data type QuestionValue that wraps all possible values that can occur at run-time.
-data QuestionValue = boolVal(bool b) | strVal(str s) | moneyVal (real m) | errorval(loc l, str msg);  
+data QuestionValue = boolVal(bool b) | strVal(str s) | moneyVal (real m) | intVal(int i) | errorval(loc l, str msg);  
 data QuestionName = strVal(str s) | errorval(loc l, str msg);
 
-alias VENV = map[str , QuestionValue];   // QuestionName
-alias QTENV = tuple[ map[str, Type] symbols, list[tuple[loc l, str msg]] errors];                                     
+alias VENV = map[str , QuestionValue];   
+//alias QTENV = tuple[ map[str, Type] symbols, list[tuple[loc l, str msg]] errors];                                     
 
 // Evaluate Expressions.
 
@@ -69,29 +68,33 @@ VENV evalDecls (list[Question] results) =
    ( Id : ( tp == money() ? moneyVal(0) : strVal("")) | result(QuestionId Id, TYPE tp) <- results); // | results(QuestionId Id, TYPE tp) <- results); 
  // (results.tp == money() ? moneyVal(0) : strVal(""))
  
-//VENV evalDecls (list[tuple [QuestionId qId, Type tp]] results) =   
-//   ( result.qId : ( tp == money() ? moneyVal(0) : strVal("")) ); //| result(QuestionId Id, TYPE tp) <- results);
     
 //TENV checkDecls(list[DECL] Decls) =                                                 
 //    <( Id : question | decl(QuestionId Id, QUE question)  <- Decls), []>;
 
-// Evaluate a Pico program
+VENV evalQuestion(question:easyQuestion(str id, str labelQuestion, Type tp) , VENV env){
+	println("in eval Question");
+	return addInstance(env, id , labelQuestion, tp );
+}
 
+VENV evalBody(list[Body] Body, VENV env){
+	visit(Body){
+		case Question q : {
+			println("In Q : <q>");
+			evalQuestion(q, env);
+		}
+		case Statement s : {
+			println("in S : <s>");
+		}
+	}
+}
+
+// Evaluate a QL program
 public VENV evalProgram(Program P){
-  if(program(EXP exp,list[DECL] Decls, list[STATEMENT] Series) := P){
-     println("EVAL DECLS : <Decls>");     
-     TENV tenv = checkDecls(Decls);
-     println("TENV : <tenv>");  
-     //VENV env = checkDecls(Decls);
-     //list[QUET] results = mapQuestionIdToType3(tenv.symbols);
-     QTENV results = mapQuestionIdToType2(tenv.symbols);
-     println("QTENV RESULTS IN EVAL : <results.symbols>");
-     list[tuple[QuestionId Id, TYPE tp]] hhh = toList(results.symbols);
-     println("HHHHH : <hhh>");
-     //VENV gg = results.symbols;  // QuestionValue
-     //println("gg : <gg>");
-     VENV env = evalDecls(hhh);
-     
+  if(program(Expression exp,list[Body] Body) := P){
+     println("EVAL Body : <Body>");   
+     VENV env = <{},[]>;    
+     //VENV env = evalBody(Body, env); 
      println(env);
      return evalStats(Series, env);
   } else

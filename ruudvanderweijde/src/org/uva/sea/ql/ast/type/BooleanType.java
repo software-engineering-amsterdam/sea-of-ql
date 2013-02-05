@@ -10,6 +10,12 @@ public class BooleanType extends Type {
 	@Override
 	public boolean isCompatibleToBooleanType() {
 		return true;
+	}	
+
+	@Override
+	public String toString() {
+		return "BooleanType";
 	}
+
 
 }

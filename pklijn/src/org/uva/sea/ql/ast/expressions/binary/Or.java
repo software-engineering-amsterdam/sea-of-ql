@@ -16,15 +16,20 @@ public class Or extends Binary {
 	}
 
 	@Override
-	public Value eval() {
+	public Value eval(Env environment) {
 		return new BoolValue(
-				((BoolValue)getLeft().eval()).getValue() ||
-				((BoolValue)getRight().eval()).getValue()
+				((BoolValue)getLeft().eval(environment)).getValue() ||
+				((BoolValue)getRight().eval(environment)).getValue()
 				);
 	}
 
 	@Override
 	public Type typeOf(Env environment) {
 		return new org.uva.sea.ql.ast.types.BoolType();
+	}
+	
+	@Override
+	public String toString() {
+		return "(" + getLeft() + " || " + getRight() + ")";
 	}
 }

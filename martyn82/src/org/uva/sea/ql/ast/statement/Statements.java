@@ -4,13 +4,12 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
-import org.uva.sea.ql.ast.Node;
 import org.uva.sea.ql.visitor.IStatementVisitor;
 
 /**
  * Represents a collection of statements.
  */
-public class Statements extends Node implements Iterable<Statement> {
+public class Statements extends Statement implements Iterable<Statement> {
 	/**
 	 * Holds the list of statements.
 	 */
@@ -71,6 +70,7 @@ public class Statements extends Node implements Iterable<Statement> {
 	 *
 	 * @param visitor
 	 */
+	@Override
 	public <T> T accept( IStatementVisitor<T> visitor ) {
 		return visitor.visit( this );
 	}

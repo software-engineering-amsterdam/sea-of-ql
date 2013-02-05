@@ -21,7 +21,7 @@ public class Str extends Expr {
 	}
 
 	@Override
-	public Value eval() {
+	public Value eval(Env environment) {
 		return new org.uva.sea.ql.ast.values.StringValue(value);
 	}
 
@@ -35,5 +35,9 @@ public class Str extends Expr {
 		List<Message> errors = new ArrayList<Message>();
 		return errors;
 	}
-
+	
+	@Override
+	public String toString() {
+		return "\"" + value + "\"";
+	}
 }

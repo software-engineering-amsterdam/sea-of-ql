@@ -1,6 +1,7 @@
 package org.uva.sea.ql.ast.expressions.binary;
 
-import org.uva.sea.ql.ast.Expr;
+import org.uva.sea.ql.ast.*;
+
 
 /**
  * Class: And
@@ -9,8 +10,30 @@ import org.uva.sea.ql.ast.Expr;
  */
 public class And extends BinExpr {
 
-	public And(Expr result, Expr rhs) {
-		super(result, rhs, "&&");
+	/**
+	 * Constructor
+	 * @param l left
+	 * @param r right
+	 */
+	public And(Expr l, Expr r) {
+		super(l, r, "&&");
 	}
-
+	/**
+	 * isCompatibleTo
+	 * @param t type
+	 * @return boolean - true if compatible false otherwise
+	 */
+	@Override
+	public boolean isCompatibleTo(Expr t) {
+		return t.isCompatibleWithBool();
+	}
+	
+	/**
+	 * isCompatibleWithBool
+	 * @return
+	 */
+	@Override
+	public boolean isCompatibleWithBool() { 
+		return true; 
+	}
 }

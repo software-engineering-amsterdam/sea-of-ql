@@ -15,18 +15,23 @@ import org.uva.sea.ql.ast.*;
 import org.uva.sea.ql.ast.expressions.*;
 import org.uva.sea.ql.ast.types.*;
 import org.uva.sea.ql.ast.statements.*;
+import org.uva.sea.ql.ast.values.*;
 }
+
+/*  TYPE CHECKING
+(px an '+' na dw type tis left timis meta type tis right timis kai an einai similar ok. O visitor mas voithaei na kanoume 
+to idio se periptwseis opws 3 * 5 + 6 * 7)!!!! */
 
 //form  
 
 form returns[Form result] 
-    @init { List<Statement> formpart = new ArrayList<Statement>();}
- :  'form' ident '{' (part {formpart.add($part.result);})+ '}'  {$result = new Form (new Ident($ident.text), formpart);}
- ;
+    @init { List<Statement> formparts = new ArrayList<Statement>();}
+ :  'form' ident '{' (parts {formparts.add($parts.result);})+ '}'  {$result = new Form (new Ident($ident.text), formparts);}
+ ; 
 
 //form end 
 
-part returns [Statement result]
+parts returns [Statement result]
   : ifthen { $result = $ifthen.result; } 
   | questions { $result = $questions.result; }
 //| ifthenelse { $result= $ifthenelse.result; } 
@@ -35,8 +40,8 @@ part returns [Statement result]
 //if-then statement
   
 ifthen returns [Statement result]
-  @init { List<Statement> block = new ArrayList<Statement>();}
-  : 'if' expression '{' (part {block.add($part.result);})+ '}' {$result = new Ifthen($expression.result , block);}
+  @init { List<Statement> ifBlock = new ArrayList<Statement>();}
+  : 'if' expression '{' (parts {ifBlock.add($parts.result);})+ '}' {$result = new IfThen($expression.result , ifBlock);}
   ;
                                       
 //if-then end
@@ -51,10 +56,10 @@ ifthen returns [Statement result]
 //if-then-else end  
 
 //questions 
-
- questions returns [Question result]
-  : ident ':' string bool {$result = new Questions(new Ident($ident.text) , new String_lit($string.text) , new Bool(Boolean.parseBoolean($bool.text)));}
-  | ident ':' string type expression  {$result = new ComQuestions(new Ident($ident.text) , new String_lit($string.text) , $type.result , $expression.result);}
+ 
+ questions returns [Statement result]
+  : ident ':' string type {$result = new Question(new Ident($ident.text) , new String_lit($string.text) , $type.result);}
+  | ident ':' string type expression  {$result = new ComQuestion(new Ident($ident.text) , new String_lit($string.text) , $type.result , $expression.result);}
   ; 
 
 /*questions returns [Question result]
@@ -66,7 +71,7 @@ ifthen returns [Statement result]
 //end of questions 
                                           
 expression returns [Expr result] 
-  : type 
+  : value
   | '(' x=orExpr ')' {$result = $x.result;}
   ; 
 
@@ -127,7 +132,7 @@ relExpr returns [Expr result]
       }
     })*
     ; 
-  
+   
 andExpr returns [Expr result]
   : lhs=relExpr {$result = $lhs.result;} ( '&&' rhs=relExpr {$result = new And ($result, rhs); } )* ;
   
@@ -138,18 +143,35 @@ orExpr returns [Expr result]
 //end of expressions
 
 //types
+
 type returns [Type result]
+ :  ( whattype =('integer'|'boolean'|'string')
+    { 
+      if ($whattype.text.equals("integer")) {
+        $result = new IntegerType();
+      }
+      if ($whattype.text.equals("boolean")) {
+        $result = new BooleanType();      
+      }
+      if ($whattype.text.equals("string")) {
+        $result = new StringType();
+     }
+    })+
+  ; 
+
+value returns [Value result]
   : integer {$result = new Int(Integer.parseInt($integer.text));}
   | ident {$result = new Ident($ident.text);}
   | bool { $result = new Bool(Boolean.parseBoolean($bool.text));}
   | string { $result = new String_lit($string.text);}
   ;
+ 
   
 integer : Int ; 
 string : String_literal ; 
 bool : Bool ;
 ident : Ident ;
-//end of types 
+//end of values 
   
 // Tokens
 

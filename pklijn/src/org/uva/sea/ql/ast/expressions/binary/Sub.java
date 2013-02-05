@@ -16,15 +16,20 @@ public class Sub extends Binary {
 	}
 	
 	@Override
-	public Value eval() {
+	public Value eval(Env environment) {
 		return new IntValue(
-				((IntValue)getLeft().eval()).getValue() - 
-				((IntValue)getRight().eval()).getValue()
+				((IntValue)getLeft().eval(environment)).getValue() - 
+				((IntValue)getRight().eval(environment)).getValue()
 				);
 	}
 	
 	@Override
 	public Type typeOf(Env environment) {
 		return new org.uva.sea.ql.ast.types.IntType();
+	}
+	
+	@Override
+	public String toString() {
+		return "(" + getLeft() + " - " + getRight() + ")";
 	}
 }

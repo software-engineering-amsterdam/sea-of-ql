@@ -17,15 +17,20 @@ public class GT extends Binary {
 	}
 
 	@Override
-	public Value eval() {
+	public Value eval(Env environment) {
 		return new BoolValue(
-				((IntValue)getLeft().eval()).getValue() >
-				((IntValue)getRight().eval()).getValue()
+				((IntValue)getLeft().eval(environment)).getValue() >
+				((IntValue)getRight().eval(environment)).getValue()
 				);
 	}
 
 	@Override
 	public Type typeOf(Env environment) {
 		return new org.uva.sea.ql.ast.types.BoolType();
+	}
+	
+	@Override
+	public String toString() {
+		return "(" + getLeft() + " > " + getRight() + ")";
 	}
 }

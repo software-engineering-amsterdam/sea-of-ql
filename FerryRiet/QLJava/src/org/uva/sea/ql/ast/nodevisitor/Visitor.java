@@ -1,6 +1,17 @@
 package org.uva.sea.ql.ast.nodevisitor;
 
-import org.uva.sea.ql.ast.*;
+import org.uva.sea.ql.ast.BigLiteral;
+import org.uva.sea.ql.ast.BinExpr;
+import org.uva.sea.ql.ast.BooleanLiteral;
+import org.uva.sea.ql.ast.CompoundStatement;
+import org.uva.sea.ql.ast.ConditionalStatement;
+import org.uva.sea.ql.ast.Expr;
+import org.uva.sea.ql.ast.Ident;
+import org.uva.sea.ql.ast.IntLiteral;
+import org.uva.sea.ql.ast.LineStatement;
+import org.uva.sea.ql.ast.QLProgram;
+import org.uva.sea.ql.ast.StringLiteral;
+import org.uva.sea.ql.ast.UnExpr;
 import org.uva.sea.ql.ast.operators.Add;
 import org.uva.sea.ql.ast.operators.And;
 import org.uva.sea.ql.ast.operators.Div;
@@ -18,6 +29,7 @@ import org.uva.sea.ql.ast.operators.Pos;
 import org.uva.sea.ql.ast.operators.Sub;
 import org.uva.sea.ql.ast.types.TypeDescription;
 
+
 public interface Visitor {
 	VisitorResult visit(Expr expr);
 
@@ -26,6 +38,8 @@ public interface Visitor {
 	VisitorResult visit(Ident expr);
 
 	VisitorResult visit(IntLiteral expr);
+
+	VisitorResult visit(BigLiteral expr);
 
 	VisitorResult visit(StringLiteral expr);
 

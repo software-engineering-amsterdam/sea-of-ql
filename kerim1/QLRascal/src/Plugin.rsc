@@ -29,9 +29,9 @@ public void main() {
   		}),
   		popup(
 			menu(LANG, [
-	    		action("Java generator", void (Tree t, loc l) {
-					str name = prompt("Name: ");
-				  	loc output = |project://QLRascal/output/<name>.java|;
+	    		action("Java generator", void (Tree t, loc l) {;
+					//str name = prompt("Name: ");
+				  	loc output = |project://QLRascal/output/Test.java|;				  	
 				  	writeFile(output, generateJava(implode(t)));
 	    		})
 		    ])

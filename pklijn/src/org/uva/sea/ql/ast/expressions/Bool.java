@@ -21,7 +21,7 @@ public class Bool extends Expr {
 	}
 
 	@Override
-	public Value eval() {
+	public Value eval(Env environment) {
 		return new org.uva.sea.ql.ast.values.BoolValue(value);
 	}
 
@@ -34,5 +34,10 @@ public class Bool extends Expr {
 	public List<Message> checkType(Env environment) {
 		List<Message> errors = new ArrayList<Message>();
 		return errors;
+	}
+	
+	@Override
+	public String toString() {
+		return Boolean.toString(value);
 	}
 }

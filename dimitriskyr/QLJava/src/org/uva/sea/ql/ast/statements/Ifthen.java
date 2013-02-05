@@ -1,14 +1,16 @@
 package org.uva.sea.ql.ast.statements;
 import org.uva.sea.ql.ast.*;
+import org.uva.sea.ql.ast.visitor.Visitor;
+
 import java.util.*;
 
-public class Ifthen extends Statement {
+public class IfThen extends Statement {
 	private Expr expression;
-	private List<Statement> block;
+	private List<Statement> ifBlock;
 	
-	public Ifthen (Expr expression, List<Statement> block){
+	public IfThen (Expr expression, List<Statement> thenBlock){
 		this.expression=expression;
-		this.block = block;
+		this.ifBlock = thenBlock;
 	}
 	
 	public Expr getExpression() {
@@ -16,7 +18,12 @@ public class Ifthen extends Statement {
 	}
 	
 	public List<Statement> getBlock() {
-		return block;
+		return ifBlock;
+	}
+	
+	@Override
+	public void accept(Visitor visitor) {
+		visitor.visit(this);
 	}
 
 }

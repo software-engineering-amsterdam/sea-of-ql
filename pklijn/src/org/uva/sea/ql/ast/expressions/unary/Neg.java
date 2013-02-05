@@ -16,13 +16,17 @@ public class Neg extends Unary {
 	}
 
 	@Override
-	public Value eval() {
-		return new IntValue(((IntValue)getArg().eval()).getValue() * -1);
+	public Value eval(Env environment) {
+		return new IntValue(((IntValue)getArg().eval(environment)).getValue() * -1);
 	}
 
 	@Override
 	public Type typeOf(Env environment) {
 		return new org.uva.sea.ql.ast.types.IntType();
 	}
-
+	
+	@Override
+	public String toString() {
+		return "-" + getArg();
+	}
 }

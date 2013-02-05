@@ -19,6 +19,8 @@ public class ANTLRParser implements IParse {
 			return getParser(src).orExpr();
 		} catch (RecognitionException e) {
 			throw new ParseError(e.getMessage());
+		} catch (RuntimeException e) {
+			throw new ParseError(e.getMessage());
 		}
 	}
 
@@ -27,6 +29,8 @@ public class ANTLRParser implements IParse {
 		try {
 			return getParser(src).form();
 		} catch (RecognitionException e) {
+			throw new ParseError(e.getMessage());
+		} catch (RuntimeException e) {
 			throw new ParseError(e.getMessage());
 		}
 	}

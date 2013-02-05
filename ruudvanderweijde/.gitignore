@@ -4,3 +4,6 @@ bin/
 # Package Files #
 *.war
 *.ear
+
+# Class diagram #
+*.ucls

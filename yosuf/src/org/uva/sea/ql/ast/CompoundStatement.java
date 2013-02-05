@@ -3,15 +3,24 @@ package org.uva.sea.ql.ast;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CompoundStatement implements ASTNode {
+import org.jpatterns.gof.CompositePattern.Composite;
 
-	public CompoundStatement(final ASTNode astNode) {
+@Composite
+public class CompoundStatement extends Statement {
 
+	private final List<Statement> statements = new ArrayList<Statement>();
+
+	public CompoundStatement(final Statement statement) {
+		statements.add(statement);
 	}
 
-	List<Statement> statements = new ArrayList<Statement>();
+	public CompoundStatement(final CompoundStatement compoundStatement,
+			final Statement statement) {
+		statements.addAll(compoundStatement.statements);
+		statements.add(statement);
+	}
 
-	public void addStatement(final ASTNode astNode) {
-
+	public List<Statement> getStatements() {
+		return new ArrayList<Statement>(statements);
 	}
 }

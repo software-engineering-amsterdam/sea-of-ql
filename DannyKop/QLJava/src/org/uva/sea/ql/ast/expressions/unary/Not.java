@@ -1,6 +1,8 @@
 package org.uva.sea.ql.ast.expressions.unary;
 
 import org.uva.sea.ql.ast.Expr;
+import org.uva.sea.ql.ast.types.Bool;
+import org.uva.sea.ql.ast.visitor.SymbolTable;
 
 /**
  * Class: Not
@@ -8,9 +10,29 @@ import org.uva.sea.ql.ast.Expr;
  * 
  */
 public class Not extends UnaryExpr {
-
-	public Not(Expr expr) {
-		super(expr, "!");
+	/**
+	 * Constructor
+	 * @param argument
+	 */
+	public Not(Expr argument) {
+		super(argument, "!");
 	}
-
+	/**
+	 * getType
+	 * @param st - the table to check for the type
+	 * @return Expr - type
+	 */
+	@Override
+	public Expr getType(SymbolTable st) {
+		return new Bool();
+	}
+	/**
+	 * isCompatibleTo
+	 * @param t type
+	 * @return boolean - true if compatible false otherwise
+	 */
+	@Override
+	public boolean isCompatibleTo(Expr t) {
+		return t.isCompatibleWithBool();
+	}
 }

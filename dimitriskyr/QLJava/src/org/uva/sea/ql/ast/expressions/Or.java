@@ -1,23 +1,16 @@
 package org.uva.sea.ql.ast.expressions;
 
 import org.uva.sea.ql.ast.*;
+import org.uva.sea.ql.ast.visitor.Visitor;
 
-public class Or extends Expr {
-	private Expr lhs;
-	private Expr rhs;
+public class Or extends BinaryExpression {
 	
-	public Or(Expr lhs, Expr rhs){
-		this.lhs=lhs;
-		this.rhs=rhs;
+	public Or (Expr lhs, Expr rhs){
+		super(lhs,rhs);
 	}
 	
-	public Expr getLhs() {
-		return lhs;
+	@Override
+	public void accept(Visitor visitor) {
+		visitor.visit(this);
 	}
-	
-	public Expr getRhs() {
-		return rhs;
-	}
-	
-	
 }

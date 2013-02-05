@@ -1,5 +1,7 @@
 package org.uva.sea.ql.ast.types;
 
+import org.uva.sea.ql.ast.operators.ExpressionResult;
+import org.uva.sea.ql.ast.operators.StringResult;
 
 public class StringType extends TypeDescription {
 
@@ -15,5 +17,10 @@ public class StringType extends TypeDescription {
 	@Override
 	public boolean isCompatibleToString() {
 		return true;
+	}
+
+	@Override
+	public ExpressionResult getTypeContainer() {
+		return new StringResult("");
 	}
 }

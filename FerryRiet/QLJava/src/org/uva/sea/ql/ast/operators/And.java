@@ -27,11 +27,12 @@ public class And extends BinExpr {
 	}
 
 	@Override
-	public ExpressionResult eval(HashMap<String, Statement> symbolMap) {
+	public ExpressionResult eval(HashMap<String, ExpressionResult> symbolMap) {
 		// TODO and check type
 		ExpressionResult leftHandresult = getExprLeftHand().eval(symbolMap);
 		ExpressionResult rightHandResult = getExprRightHand().eval(symbolMap);
 
-		return new BooleanResult(leftHandresult.getBooleanValue() && rightHandResult.getBooleanValue());
-}
+		return new BooleanResult(leftHandresult.getBooleanValue()
+				&& rightHandResult.getBooleanValue());
+	}
 }

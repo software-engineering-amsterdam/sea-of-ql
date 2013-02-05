@@ -1,5 +1,5 @@
 %package org.uva.sea.ql.parser.jacc
-%class QLParser
+%class JACCParser
 %interface QLTokens
 %semantic org.uva.sea.ql.ast.Node 
 %start start
@@ -43,9 +43,12 @@
 %type <VarDeclaration>  vardeclaration
 
 %{
-import org.uva.sea.ql.ast.*;
 import org.uva.sea.ql.ast.expression.*;
+import org.uva.sea.ql.ast.expression.arithmetic.*;
+import org.uva.sea.ql.ast.expression.comparison.*;
 import org.uva.sea.ql.ast.expression.literal.*;
+import org.uva.sea.ql.ast.expression.logical.*;
+import org.uva.sea.ql.ast.expression.unary.*;
 import org.uva.sea.ql.ast.statement.*;
 %}
 
@@ -70,8 +73,8 @@ import org.uva.sea.ql.ast.statement.*;
  formbody       : statements
                 ;
 
- question       : STR vardeclaration               { $$ = new QuestionDeclaration( $1, $2 ); }
-                | STR assignment                   { $$ = new QuestionDeclaration( $1, $2 ); }
+ question       : STR vardeclaration               { $$ = new QuestionVar( $1, $2 ); }
+                | STR assignment                   { $$ = new QuestionComputed( $1, $2 ); }
                 ;
 
  blockstatement : ifblock
@@ -168,11 +171,11 @@ import org.uva.sea.ql.ast.statement.*;
     }
     
     /**
-     * Sets the lexer.
+     * Constructs a new instance of the parser.
      *
      * @param lexer
      */
-    public QLParser( QLLexer lexer ) { 
+    public JACCParser( QLLexer lexer ) { 
         this.lexer = lexer;
     }
     

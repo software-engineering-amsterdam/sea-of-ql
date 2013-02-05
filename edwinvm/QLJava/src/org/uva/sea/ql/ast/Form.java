@@ -1,6 +1,6 @@
 package org.uva.sea.ql.ast;
 
-import org.uva.sea.ql.ast.values.Ident;
+import org.uva.sea.ql.ast.expressions.literal.Ident;
 
 public class Form implements ASTNode {
 	private final Ident _name;

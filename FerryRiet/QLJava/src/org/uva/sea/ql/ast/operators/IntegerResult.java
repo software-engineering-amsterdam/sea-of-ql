@@ -3,7 +3,7 @@ package org.uva.sea.ql.ast.operators;
 import java.math.BigDecimal;
 
 import org.uva.sea.ql.ast.types.TypeDescription;
-import org.uva.sea.ql.ast.types.NumeralType;
+import org.uva.sea.ql.ast.types.IntegerType;
 
 public class IntegerResult implements ExpressionResult {
 	private Integer value;
@@ -12,7 +12,7 @@ public class IntegerResult implements ExpressionResult {
 		value = new Integer(val);
 	}
 
-	public int getValue() {
+	public int getIntegerValue() {
 		return value;
 	}
 
@@ -26,18 +26,21 @@ public class IntegerResult implements ExpressionResult {
 
 	@Override
 	public TypeDescription typeOf() {
-		return new NumeralType();
+		return new IntegerType();
 	}
 
 	@Override
 	public BigDecimal getMoneyValue() {
-		// TODO Auto-generated method stub
-		return null;
+		return new BigDecimal(value);
 	}
 
 	@Override
 	public boolean getBooleanValue() {
-		// TODO Auto-generated method stub
-		return false;
+		return value == 0;
+	}
+
+	@Override
+	public String getStringValue() {
+		return value.toString();
 	}
 }

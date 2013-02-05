@@ -8,5 +8,10 @@ public abstract class Primitive extends Expr{
 	public Primitive interpret(Environment env) throws Exception{
 		return this;
 	}
+	
+	
+	public boolean isDefined(){
+		return true;
+	}
 
 }
