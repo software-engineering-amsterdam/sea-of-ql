@@ -2,17 +2,20 @@ module lang::ql::ast::TypeEnvironment
 
 import lang::ql::ast::AST;
 
-public alias TypeEnv = 	tuple[
-							map[str, Type] computedQuestions,
-							map[str, Type] noncomputedQuestions
-						];
+public alias TypeEnv = 	
+	tuple[
+		map[str, Type] computedQuestions,
+		map[str, Type] noncomputedQuestions
+	];
 
 public TypeEnv getTypeEnvironment(Form form) {
 	TypeEnv env = <(), ()>;
 	
 	visit (form) {
-		case computed(str identifier, _, Type tp, _): env.computedQuestions[identifier] = tp;
-		case noncomputed(str identifier, _, Type tp): env.noncomputedQuestions[identifier] = tp;
+		case computed(str identifier, _, Type tp, _): 
+			env.computedQuestions[identifier] = tp;
+		case noncomputed(str identifier, _, Type tp): 
+			env.noncomputedQuestions[identifier] = tp;
  	}
 	
 	return env;

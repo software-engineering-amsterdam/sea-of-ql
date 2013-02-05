@@ -7,15 +7,15 @@ import org.uva.sea.ql.ast.interfaces.ReturnsBoolOperands;
 
 public class Eq extends BinaryExpr implements AcceptsBothOperands,
 		ReturnsBoolOperands {
-	public static final String str = "==";
+	public static final String STR = "==";
 
 	public Eq(Expr left, Expr right) {
 		super(left, right);
 	}
 
 	@Override
-	public String toString() {
-		return str;
+	public final String toString() {
+		return STR;
 	}
 
 }

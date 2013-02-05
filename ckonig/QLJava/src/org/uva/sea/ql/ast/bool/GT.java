@@ -7,14 +7,14 @@ import org.uva.sea.ql.ast.interfaces.ReturnsBoolOperands;
 
 public class GT extends BinaryExpr implements AcceptsMathOperands,
 		ReturnsBoolOperands {
-	public static final String str = ">";
+	public static final String STR = ">";
 
 	public GT(Expr left, Expr right) {
 		super(left, right);
 	}
 
 	@Override
-	public String toString() {
-		return str;
+	public final String toString() {
+		return STR;
 	}
 }

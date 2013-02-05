@@ -12,30 +12,30 @@ public class Question extends Expr implements ASTElement {
 	private Type type;
 	private Ident ident;
 
-	public Question(Ident ident, StringLiteral content, Type type) {
-		this.ident = ident;
-		this.content = content;
-		this.type = type;
+	public Question(Ident i, StringLiteral s, Type t) {
+		this.ident = i;
+		this.content = s;
+		this.type = t;
 	}
 
-	public StringLiteral getContent() {
-		return content;
+	public final StringLiteral getContent() {
+		return this.content;
 	}
 
-	public Ident getIdent() {
-		return ident;
+	public final Ident getIdent() {
+		return this.ident;
 	}
 	
-	public String getIdentName(){
-		return ident.getName();
+	public final String getIdentName(){
+		return this.ident.getName();
 	}
 
-	public Type getType() {
-		return type;
+	public final Type getType() {
+		return this.type;
 	}
 
 	@Override
-	public void accept(ASTVisitor visitor) throws VisitorException {
+	public final void accept(ASTVisitor visitor) throws VisitorException {
 		visitor.visit(this);
 	}
 

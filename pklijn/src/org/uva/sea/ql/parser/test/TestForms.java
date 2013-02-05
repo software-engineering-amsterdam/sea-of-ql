@@ -137,27 +137,5 @@ public class TestForms {
 				"		}\n" +
 				"	}\n" +
 				"}").checkFormValidity());
-		
-		// Demo form for error displaying
-//		Form errorForm = parser.parseForm("" +
-//				"form errorDemoFrom {\n" +
-//				"	q1: \"error1\" int(true)\n" +
-//				"	q2: \"error2\" int(q2 + 1)\n" +
-//				"	if (q3) {\n" +
-//				"		q3: \"error3\" boolean\n" +
-//				"	}\n" +
-//				"	q3p2: \"Out of scope error\" boolean(q3)" +
-//				"	if (true) {\n" +
-//				"		if (true) {\n" +
-//				"			if (true) {\n" +
-//				"				q4: \"diep geneste error\" string(1 + \"\")\n" +
-//				"				q5: \"AllowedTypeDemo of equals\" boolean(q6 == q6)\n" +
-//				"				q6: \"In scope, no error!\" boolean(q3p2)" +
-//				"			}\n" +
-//				"		}\n" +
-//				"	}\n" +
-//				"}");
-//		errorForm.checkFormValidity();
-//		errorForm.print();
 	}
 }

@@ -10,11 +10,12 @@ import org.uva.sea.ql.messages.*;
 
 public abstract class Expr implements ASTNode {
 	
-	protected final List<Type> allowedTypes = new ArrayList<Type>();
+	protected final List<Type> allowedTypes = new ArrayList<Type>(); // TODO: allowed argument types.
 
 	public abstract Value eval(Env environment);
 	
 	public abstract Type typeOf(Env environment);
+//	public abstract Type typeOf(Env environment); // TODO: array allowedArgumentsType // SET!
 	
 	public abstract List<Message> checkType(Env environment);
 	

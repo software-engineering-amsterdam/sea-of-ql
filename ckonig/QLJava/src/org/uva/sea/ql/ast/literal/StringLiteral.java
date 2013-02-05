@@ -9,12 +9,12 @@ public class StringLiteral extends Expr {
 		this.value = s.replace("\"", "");
 	}
 
-	public String getValue() {
+	public final String getValue() {
 		return this.value;
 	}
 
 	@Override
-	public String toString() {
+	public final String toString() {
 		return this.value;
 	}
 }

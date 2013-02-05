@@ -9,7 +9,7 @@ import lang::ql::generator::GenerateJavaStateChangedLogic;
 anno str Statement@id;
 anno str ElseIf@id;
 
-public str generateJava(Form form) { 
+public str generateJava(Form form, str className) { 
 	form = idStatements(form);
 	
 	return 	"import java.awt.*;
@@ -17,11 +17,11 @@ public str generateJava(Form form) {
 			'import javax.swing.*;
 			'import javax.swing.event.*;
 			'
-			'public class <form.name> extends JFrame implements ChangeListener, FocusListener {
+			'public class <className> extends JFrame implements ChangeListener, FocusListener {
 			'	<generateInstanceVars(form)>
-			'	<generateMainMethod(form)>
+			'	<generateMainMethod(form, className)>
 			'	
-			'	<generateConstructor(form)>
+			'	<generateConstructor(form, className)>
 			'	
 			'	<generateListeners(form)>
 			'}";
@@ -75,17 +75,17 @@ str generateQuestionVar(str identifier, stringType()) =
 str generatePanelVar(str name) =
 	"private JPanel <name> = new JPanel();\n";
 	
-str generateMainMethod(Form form) = 
+str generateMainMethod(Form form, str className) = 
 	"public static void main(String[] args) {
 	'	EventQueue.invokeLater(new Runnable() {
     '		public void run() {
-    '      		new <form.name>().setVisible(true);
+    '      		new <className>().setVisible(true);
   	'		}
    	'	});
 	'}";
 	
-str generateConstructor(Form form) =
-	"private <form.name>() {
+str generateConstructor(Form form, str className) =
+	"private <className>() {
 	'	setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
   	'	setTitle(\"QL: <form.name>\");
   	'	setAlwaysOnTop(true);

@@ -11,13 +11,13 @@ public class QLFileFilter extends FileFilter {
 	}
 
 	@Override
-	public String getDescription() {
+	public final String getDescription() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public boolean accept(File arg0) {
+	public final boolean accept(File arg0) {
 		if (arg0.getName().endsWith(".ql"))
 			return true;
 		return false;

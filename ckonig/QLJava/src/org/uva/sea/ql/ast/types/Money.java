@@ -13,8 +13,8 @@ public class Money extends Type implements ReturnsMathOperands {
 		this.expr = e;
 	}
 
-	public Expr getExpr() {
-		return expr;
+	public final Expr getExpr() {
+		return this.expr;
 	}
 
 }

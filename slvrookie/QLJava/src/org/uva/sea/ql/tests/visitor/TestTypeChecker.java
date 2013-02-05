@@ -24,7 +24,7 @@ public class TestTypeChecker {
 
 	final private IParse parser = new ANTLRParser();
 	final String path = "src/org/uva/sea/ql/tests/TestQL.ql";
-	final String expr1 = "3 != 2";
+	final String expr1 = "(3.00+2.00)-6.11";
 	final Map<String, Value> env = new HashMap<String, Value>();
 	@Test
 	public void testTypeCheck() throws ParseError {

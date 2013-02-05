@@ -22,7 +22,7 @@ import java.util.Map;
 
 public class Controller extends HttpServlet {
 
-    public static String VIEWMODEL_ATTRIBUTE = "viewModel_attribute";
+    public static final String VIEWMODEL_ATTRIBUTE = "viewModel_attribute";
 
     private static final String VIEWPATH = "form.jsp";
     private static final String JSON_CONTENTTYPE = "application/json";

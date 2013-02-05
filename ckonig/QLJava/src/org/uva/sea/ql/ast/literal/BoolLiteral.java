@@ -7,7 +7,7 @@ public class BoolLiteral extends Expr{
 	public BoolLiteral(Boolean b) {
 		this.value = b;
 	}
-	public boolean getValue(){
-		return value;
+	public final boolean getValue(){
+		return this.value;
 	}
 }

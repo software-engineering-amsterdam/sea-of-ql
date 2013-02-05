@@ -1,7 +1,9 @@
 package org.uva.sea.ql.form;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.swing.JComponent;
 import javax.swing.JLabel;
@@ -9,6 +11,7 @@ import javax.swing.JLabel;
 import org.uva.sea.ql.ast.eval.Env;
 import org.uva.sea.ql.ast.expressions.Ident;
 import org.uva.sea.ql.ast.types.Type;
+import org.uva.sea.ql.ast.values.Value;
 import org.uva.sea.ql.interpreter.FormElement;
 import org.uva.sea.ql.messages.Error;
 
@@ -77,5 +80,10 @@ public class Question extends FormItem {
 		if (questionType.hasValue()) {
 			environment.addValue(id, questionType.getAnswerFieldValue(answerComponent));
 		}
+	}
+	
+	@Override
+	public Map<Ident, Value> getAllValues() {
+		return new HashMap<Ident,Value>();
 	}
 }

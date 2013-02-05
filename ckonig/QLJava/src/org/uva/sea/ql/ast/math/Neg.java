@@ -7,14 +7,14 @@ import org.uva.sea.ql.ast.interfaces.ReturnsMathOperands;
 
 public class Neg extends UnaryExpr implements AcceptsMathOperands,
 		ReturnsMathOperands {
-	public static final String str = "-";
+	public static final String STR = "-";
 
 	public Neg(Expr ex) {
 		super(ex);
 	}
 
 	@Override
-	public String toString() {
-		return str;
+	public final String toString() {
+		return STR;
 	}
 }

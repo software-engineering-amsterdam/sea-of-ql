@@ -7,14 +7,14 @@ import org.uva.sea.ql.ast.interfaces.ReturnsBoolOperands;
 
 public class LEq extends BinaryExpr implements AcceptsMathOperands,
 		ReturnsBoolOperands {
-	public static final String str = "<=";
+	public static final String STR = "<=";
 
 	public LEq(Expr left, Expr right) {
 		super(left, right);
 	}
 
 	@Override
-	public String toString() {
-		return str;
+	public final String toString() {
+		return STR;
 	}
 }
