@@ -16,4 +16,4 @@ form Box1HouseOwning {
 	}
 	finalQuestion: "Please confirm that you have filled in everything correctly?" boolean
 	terms: "I accept the terms... etc" boolean 
-};
+}
