@@ -23,6 +23,9 @@ public class FileFormSource implements FormSource {
     }
 
     private String readFile() throws IOException {
+        if(!file.canRead())
+            throw new FormLoaderException(String.format("The form file '%s' can't be found or isn't readable.", file.getPath()));
+        
         BufferedReader reader = new BufferedReader(new FileReader(file));
         StringBuilder output = new StringBuilder();
         for(String line; (line = reader.readLine()) != null; )
