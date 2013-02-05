@@ -57,7 +57,7 @@ public loc accompanyingFormLocation(Stylesheet s) =
 
 public list[StyleRule] getStyleRules(str questionIdent, Form f, Stylesheet s) {
   typeMap = getTypeMap(f);
-  str \type = typeMap[identDefinition(questionIdent)].name;
+  Type \type = typeMap[identDefinition(questionIdent)];
   list[StyleRule] rules = getStyleRules(\type, s.definitions);
   for(d <- getDefinitions(questionIdent, s)) {
     switch(d) {
@@ -69,7 +69,7 @@ public list[StyleRule] getStyleRules(str questionIdent, Form f, Stylesheet s) {
   return deDupeStyleRules(rules);
 }
 
-private list[StyleRule] getStyleRules(str \type, list[&T] definitions) =
+private list[StyleRule] getStyleRules(Type \type, list[&T] definitions) =
   [
     * d.defaultDefinition.styleRules |
     d <- definitions,

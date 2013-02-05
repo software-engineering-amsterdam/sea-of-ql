@@ -47,7 +47,7 @@ public str prettyPrint(QuestionDefinition d:
     '";
 
 public str prettyPrint(DefaultDefinition d) =
-  "default <d.ident> {<for(r <- d.styleRules) {>
+  "default <d.ident.name> {<for(r <- d.styleRules) {>
   '  <prettyPrint(r)><}>
   '}
   '";

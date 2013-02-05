@@ -79,7 +79,7 @@ private node outline(QuestionDefinition d:
 private node outline(DefaultDefinition d) =
     createNode(
       "DefaultDefinition",
-      "default <d.ident> (<size(d.styleRules)>)",
+      "default <d.ident.name> (<size(d.styleRules)>)",
       d@location,
       [outline(r) | r <- d.styleRules]
     );
