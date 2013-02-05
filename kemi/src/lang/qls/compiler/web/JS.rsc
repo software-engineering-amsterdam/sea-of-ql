@@ -11,5 +11,5 @@ public void JS(Form form, Stylesheet sheet, loc dest) {
 }
 
 private str JS(Form form, Stylesheet sheet) { 
-  return "<form.formName.ident> with <sheet.ident>";
+  return "function styling() { console.log(\"<form.formName.ident> with <sheet.ident>\"); }";
 }
