@@ -69,6 +69,12 @@ public set[Message] analyzeExpression(SAS sas, Expr expression) {
   return messages;
 }
 
+/*
+ * This function checks the type usage of an assignment expression.
+ * Usage is correct if:
+ * - Declared type is money, evaluated type of expression is integer
+ * - Declared and evaluating type are the same. 
+ */
 public set[Message] analyzeAssignmentExpression(SAS sas, Type \type, 
     Expr expression) {
   types = (
@@ -76,11 +82,14 @@ public set[Message] analyzeAssignmentExpression(SAS sas, Type \type,
     key <- sas.definitions
   ) + typesByOperator;
   <t, messages> = analyze(types, expression);
+  
+  if(t == i() && \type == m()) 
+    return messages;
 
-  if(t != \type) 
-    messages += {invalidAssignmentMessage(\type, t, expression@location)};
-
-  return messages;
+  if(t == \type) 
+    return messages;
+    
+  return messages + {invalidAssignmentMessage(\type, t, expression@location)};
 }
 
 // The following block contains all Expr patterns that are available.
