@@ -12,7 +12,6 @@ module lang::ql::compiler::web::HTML
 
 import IO;
 import lang::ql::ast::AST; 
-import lang::ql::compiler::web::HTMLType;
 import util::StringHelper;
 
 public void HTML(Form f, loc dest) {
