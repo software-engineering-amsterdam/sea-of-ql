@@ -30,6 +30,7 @@ public class MathEvaluator {
     }
 
     public final float eval(Expr e) throws EvaluationException {
+        
         if (e instanceof UnaryExpr) {
             final UnaryExpr u = (UnaryExpr) e;
             if (u instanceof Neg) {

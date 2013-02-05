@@ -1,6 +1,7 @@
 package org.uva.sea.ql.validation;
 
 import org.uva.sea.ql.ast.elements.Block;
+import org.uva.sea.ql.ast.elements.BlockElement;
 import org.uva.sea.ql.ast.elements.Form;
 import org.uva.sea.ql.ast.elements.Ident;
 import org.uva.sea.ql.ast.elements.IfStatement;
@@ -12,10 +13,10 @@ import org.uva.sea.ql.ast.interfaces.AcceptsBothOperands;
 import org.uva.sea.ql.ast.interfaces.AcceptsMathOperands;
 import org.uva.sea.ql.ast.interfaces.ReturnsBoolOperands;
 import org.uva.sea.ql.ast.interfaces.ReturnsMathOperands;
-import org.uva.sea.ql.common.ASTVisitor;
+import org.uva.sea.ql.common.ElementVisitor;
 import org.uva.sea.ql.common.VisitorException;
 
-public class ValidationVisitor implements ASTVisitor {
+public class ValidationVisitor implements ElementVisitor {
     private Registry registry;
 
     public ValidationVisitor() {
@@ -24,29 +25,12 @@ public class ValidationVisitor implements ASTVisitor {
 
     @Override
     public final void visit(Form form) throws VisitorException {
-        if (form.getName() == null) {
-            throw new AstValidationError("form name may not be null");
-        }
-        if (form.getBlock() == null) {
-            throw new AstValidationError("form block may not be null");
-        }
         form.getBlock().accept(this);
     }
 
     @Override
     public final void visit(Block block) throws VisitorException {
-        if (block.getContent() == null) {
-            throw new AstValidationError("block content may not be null");
-        }
-        for (Expr expr : block.getContent()) {
-            if (expr == null) {
-                throw new AstValidationError("block line must not be null");
-            }
-            if (!(expr.getClass().equals(IfStatement.class) || expr.getClass()
-                    .equals(Question.class))) {
-                throw new AstValidationError(
-                        "block line must be IF or question");
-            }
+        for (BlockElement expr : block.getContent()) {
             if (expr.getClass().equals(IfStatement.class)) {
                 ((IfStatement) expr).accept(this);
             }
@@ -58,12 +42,6 @@ public class ValidationVisitor implements ASTVisitor {
 
     @Override
     public final void visit(Question question) throws VisitorException {
-        if (question.getIdent() == null)
-            throw new AstValidationError("question ident may not be null");
-        if (question.getContent() == null)
-            throw new AstValidationError("question content may not be null");
-        if (question.getType() == null)
-            throw new AstValidationError("question type may not be null");
         for (Question q : this.registry.getQuestions()) {
             if (q.getIdentName().equals(question.getIdentName())) {
                 throw new AstValidationError("duplicate question Identifier:"
@@ -76,12 +54,6 @@ public class ValidationVisitor implements ASTVisitor {
 
     @Override
     public final void visit(IfStatement ifStatement) throws VisitorException {
-        if (ifStatement.getCondition() == null
-                || ifStatement.getContent() == null) {
-            throw new AstValidationError(
-                    "if condition and content may not be null");
-        }
-
         if (ifStatement.getCondition() instanceof ReturnsBoolOperands) {
             if (ifStatement.getCondition() instanceof AcceptsBoolOperands) {
                 this.visit((AcceptsBoolOperands) ifStatement.getCondition());

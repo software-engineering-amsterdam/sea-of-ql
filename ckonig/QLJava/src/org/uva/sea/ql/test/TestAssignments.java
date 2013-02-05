@@ -9,6 +9,7 @@ import junit.framework.Assert;
 
 import org.junit.Test;
 import org.uva.sea.ql.ast.elements.Block;
+import org.uva.sea.ql.ast.elements.BlockElement;
 import org.uva.sea.ql.ast.elements.Form;
 import org.uva.sea.ql.ast.elements.IfStatement;
 import org.uva.sea.ql.ast.elements.Question;
@@ -22,7 +23,7 @@ public class TestAssignments extends TestExpressions {
 
     @Test
     public void testExampleFile() throws ParseError, IOException {
-        final Expr e = parser.parseFile();
+        final Form e = parser.parseFile();
         assertNotNull("result was null", e);
         assertEquals(Form.class, e.getClass());
         final Form f = (Form) e;
@@ -34,7 +35,7 @@ public class TestAssignments extends TestExpressions {
     }
 
     private void testBlock(Block b) {
-        for (Expr line : b.getContent()) {
+        for (BlockElement line : b.getContent()) {
             Assert.assertTrue(line.getClass().equals(IfStatement.class)
                     || line.getClass().equals(Question.class));
             if (line.getClass().equals(Question.class)) {

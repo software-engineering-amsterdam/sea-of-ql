@@ -4,7 +4,7 @@ import java.io.IOException;
 
 import org.uva.sea.ql.ast.elements.Form;
 import org.uva.sea.ql.ast.expressions.Expr;
-import org.uva.sea.ql.common.ASTVisitor;
+import org.uva.sea.ql.common.ElementVisitor;
 import org.uva.sea.ql.common.VisitorException;
 import org.uva.sea.ql.parser.ParseError;
 
@@ -13,12 +13,12 @@ public class Validator {
 
     }
 
-    public final void validate(Expr e) throws IOException, AstValidationError {
+    public final void validate(Form e) throws IOException, AstValidationError {
         try {
             if (e != null) {
                 if (e.getClass().equals(Form.class)) {
                     final Form f = (Form) e;
-                    final ASTVisitor validator = new ValidationVisitor();
+                    final ElementVisitor validator = new ValidationVisitor();
                     f.accept(validator);
                     System.out.println("validation success");
                 } else {

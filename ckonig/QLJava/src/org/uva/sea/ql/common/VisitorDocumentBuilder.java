@@ -1,12 +1,12 @@
 package org.uva.sea.ql.common;
 
 import org.uva.sea.ql.ast.elements.Block;
+import org.uva.sea.ql.ast.elements.BlockElement;
 import org.uva.sea.ql.ast.elements.Form;
 import org.uva.sea.ql.ast.elements.IfStatement;
 import org.uva.sea.ql.ast.elements.Question;
-import org.uva.sea.ql.ast.expressions.Expr;
 
-public class VisitorDocumentBuilder implements ASTVisitor {
+public class VisitorDocumentBuilder implements ElementVisitor {
 
 	private QLDocument document;
 
@@ -23,7 +23,7 @@ public class VisitorDocumentBuilder implements ASTVisitor {
 
 	@Override
 	public final void visit(Block block) throws VisitorException {
-		for (Expr e : block.getContent()) {
+		for (BlockElement e : block.getContent()) {
 			if (e instanceof Question) {
 				((Question) e).accept(this);
 			}

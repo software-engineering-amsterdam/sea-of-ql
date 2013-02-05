@@ -23,7 +23,7 @@ public final class GenerationRunner {
         try {
 
             final IParse parser = new ANTLRParser();
-            final Expr e = parser.parseDefaultFile();
+            final Form e = parser.parseDefaultFile();
             new Validator().validate(e);
             final Form f = (Form) e;
             final VisitorDocumentBuilder visitor = new VisitorDocumentBuilder(
