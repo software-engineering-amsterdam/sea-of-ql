@@ -1,5 +1,6 @@
 module lang::qls::analysis::StyleAttrChecker
 
+import IO;
 import util::IDE;
 
 import lang::ql::ast::AST;
@@ -45,7 +46,7 @@ private set[Message] unallowedQuestionAttrErrors(Stylesheet s) {
   errors = {};
   typeMap = getTypeMap(accompanyingForm(s));
   for(d <- getQuestionDefinitions(s)) {
-    if(!d.styleRules?)
+    if(!d.styleRules? || identDefinition(d.ident) notin typeMap)
       continue;
 
     \type = typeMap[identDefinition(d.ident)];
