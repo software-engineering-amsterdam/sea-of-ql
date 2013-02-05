@@ -25,7 +25,7 @@ stylesheet complexForm {
     }
   }
   
-  default boolean {
+  default integer {
     width 100
   }
 }

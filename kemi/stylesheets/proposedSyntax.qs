@@ -4,7 +4,7 @@ stylesheet proposedSyntax {
       section "section two" {
         question questionTen
         default boolean {
-          width 200
+          type radio
         }
         
       }
@@ -30,7 +30,7 @@ stylesheet proposedSyntax {
     }
     
     default boolean {
-      width 300
+      type radio
     }
     
   }
