@@ -7,6 +7,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
@@ -45,29 +46,31 @@ public class FormBuilder implements ActionListener {
 		JPanel panel = new JPanel(new MigLayout());
 		panel.add(new JLabel("Press the button below to select your form:"), "span, growx");
 		panel.add(selectFormButton, "span, growx");
-		displayForm(panel,"Questionare form");
+		showPanelInMainWindow(panel,"Questionare form");
 	}
 	
 	public void displayForm(String formText) {
 		parser = new ANTLRParser();
 		try {
 			Form form = parser.parseForm(formText);
-			if (form.checkFormValidity()) {
+			if (form.isFormValid()) {
 				JPanel panel = form.buildForm();
 				panel.add(backToMainButton, "span, growx");
-				displayForm(panel, form.getName());
+				showPanelInMainWindow(panel, form.getName());
 			}
 			else {
-				displayForm(getDisplayFormErrorPanel(form), "Errors found!");
+				showPanelInMainWindow(getDisplayFormErrorPanel(form), "Errors found!");
 			}
 		}
 		catch (ParseError e) {
 			JOptionPane.showMessageDialog(null, "The form has an invalid syntax");
-			displayMain();
+		}
+		catch (RuntimeException e) {
+			JOptionPane.showMessageDialog(null, "The form has an invalid syntax:\n" + e.getMessage());
 		}
 	}
 	
-	private void displayForm(JPanel formPanel, String formTitle) {
+	private void showPanelInMainWindow(JPanel formPanel, String formTitle) {
 		mainWindow.setContentPane(formPanel);
 		mainWindow.setTitle(formTitle);
 		mainWindow.pack(); //Automatically resize
