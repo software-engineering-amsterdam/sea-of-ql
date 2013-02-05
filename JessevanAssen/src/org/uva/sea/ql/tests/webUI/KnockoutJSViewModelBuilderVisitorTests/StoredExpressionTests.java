@@ -16,7 +16,7 @@ public class StoredExpressionTests extends KnockoutJSViewModelBuilderVisitorTest
         new StoredExpression(new Identifier(IDENTIFIER_NAME), new Bool(false)).accept(visitor, context);
         assertEquals(
                 String.format(
-                        "%s:ko.computed(function(){return false;})",
+                        "_self.identifiers.%s=ko.computed(function(){return false;});",
                         IDENTIFIER_NAME),
                 context.getIdentifiers().get(0)
         );
