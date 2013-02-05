@@ -11,66 +11,65 @@ import org.uva.sea.ql.ast.elements.IfStatement;
 import org.uva.sea.ql.ast.elements.Question;
 import org.uva.sea.ql.common.QLDocument;
 
-
 public class SwingDocument implements QLDocument {
-	private final JPanel panel;
-	private Stack<JPanel> history;
-	private SwingRegistry registry;
+    private final JPanel panel;
+    private Stack<JPanel> history;
+    private SwingRegistry registry;
 
-	public SwingDocument() {
-		this.panel = new JPanel();
-		history = new Stack<>();
-		history.push(panel);
-		panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
-		registry = new SwingRegistry();
-	}
+    public SwingDocument() {
+        this.panel = new JPanel();
+        this.history = new Stack<>();
+        this.history.push(this.panel);
+        this.panel.setLayout(new BoxLayout(this.panel, BoxLayout.Y_AXIS));
+        this.registry = new SwingRegistry();
+    }
 
-	@Override
-	public Object getOutput() {
-		return panel;
-	}
+    @Override
+    public final Object getOutput() {
+        return this.panel;
+    }
 
-	@Override
-	public void setHeading(String content) {
-		// TODO Auto-generated method stub
+    @Override
+    public void setHeading(String content) {
+        // TODO Auto-generated method stub
+    }
 
-	}
+    @Override
+    public final void appendQuestion(Question question) {
+        final QuestionPanel p = new QuestionPanel(question);
+        this.history.peek().add(p);
+        this.registry.addQuestion(p);
+    }
 
-	@Override
-	public void appendQuestion(Question question) {
-		QuestionPanel p = new QuestionPanel(question);
-		history.peek().add(p);
-		registry.addQuestion(p);
-	}
+    @Override
+    public final void beginIf(IfStatement ifStatement) {
+        final IfStatementPanel p = new IfStatementPanel(ifStatement);
+        p.setVisible(false);
+        this.history.peek().add(p);
+        this.history.push(p);
+        this.registry.addIfStatement(p);
 
-	@Override
-	public void beginIf(IfStatement ifStatement) {
-		IfStatementPanel p = new IfStatementPanel(ifStatement);
-		p.setVisible(false);
-		history.peek().add(p);
-		history.push(p);
-		registry.addIfStatement(p);
+    }
 
-	}
+    @Override
+    public final void endIf() {
+        this.history.pop();
+    }
 
-	@Override
-	public void endIf() {
-		history.pop();
-	}
-
-	@Override
-	public void create() {
-		for (QuestionPanel questionPanel : registry.getQuestions()) {
-			new AutoValueSetter(registry, questionPanel).createListeners();
-		}
-		QuestionListener questionListener = new QuestionListener(registry);
-		for (IfStatementPanel ifPanel : registry.getIfStatements()) {
-			IfStatement ifStatement = ifPanel.getIfStatement();
-			List<Ident> idents = ifStatement.getIdents();
-			for (Ident ident : idents) {
-				questionListener.addIdentListener(ident);
-			}
-		}
-	}
+    @Override
+    public final void create() {
+        for (QuestionPanel questionPanel : this.registry.getQuestions()) {
+            new AutoValueSetter(this.registry, questionPanel).createListeners();
+        }
+        final QuestionListener questionListener = new QuestionListener(
+                this.registry);
+        for (IfStatementPanel ifPanel : this.registry.getIfStatements()) {
+            final IfStatement ifStatement = ifPanel.getIfStatement();
+            final List<Ident> idents = ifStatement.getIdents();
+            for (Ident ident : idents) {
+                questionListener.addIdentListener(ident);
+            }
+        }
+    }
 
 }

@@ -14,16 +14,16 @@ public class Block extends Expr implements ASTElement {
 		this.content = ex;
 	}
 
-	public List<Expr> getContent() {
-		return content;
+	public final List<Expr> getContent() {
+		return this.content;
 	}
 
-	public void addLine(Expr e) {
+	public final void addLine(Expr e) {
 		this.content.add(e);
 	}
 
 	@Override
-	public void accept(ASTVisitor visitor) throws VisitorException{
+	public final void accept(ASTVisitor visitor) throws VisitorException{
 		visitor.visit(this);
 	}
 }

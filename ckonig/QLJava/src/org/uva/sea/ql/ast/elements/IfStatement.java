@@ -11,26 +11,26 @@ public class IfStatement extends Expr implements ASTElement {
 	private Expr condition;
 	private Block content;
 
-	public IfStatement(Expr condition, Block content) {
-		this.condition = condition;
-		this.content = content;
+	public IfStatement(Expr cond, Block block) {
+		this.condition = cond;
+		this.content = block;
 	}
 
-	public Expr getCondition() {
-		return condition;
+	public final Expr getCondition() {
+		return this.condition;
 	}
 
-	public Block getContent() {
-		return content;
+	public final Block getContent() {
+		return this.content;
 	}
 
 	@Override
-	public void accept(ASTVisitor visitor) throws VisitorException {
+	public final void accept(ASTVisitor visitor) throws VisitorException {
 		visitor.visit(this);
 	}
 
-	public List<Ident> getIdents() {
-		return Ident.getIdents(condition);
+	public final List<Ident> getIdents() {
+		return Ident.getIdents(this.condition);
 	}
 
 }

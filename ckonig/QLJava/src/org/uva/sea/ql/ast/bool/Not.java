@@ -7,14 +7,14 @@ import org.uva.sea.ql.ast.interfaces.ReturnsBoolOperands;
 
 public class Not extends UnaryExpr implements AcceptsBoolOperands,
 		ReturnsBoolOperands {
-	public static final String str = "!";
+	public static final String STR = "!";
 
 	public Not(Expr ex) {
 		super(ex);
 	}
 
 	@Override
-	public String toString() {
-		return str;
+	public final String toString() {
+		return STR;
 	}
 }

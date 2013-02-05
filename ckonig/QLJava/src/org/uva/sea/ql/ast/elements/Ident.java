@@ -13,20 +13,20 @@ public class Ident extends Expr implements ReturnsMathOperands,
 
 	private final String name;
 
-	public Ident(String name) {
-		this.name = name;
+	public Ident(String id) {
+		this.name = id;
 	}
 
-	public String getName() {
-		return name;
+	public final String getName() {
+		return this.name;
 	}
 	public static List<Ident> getIdents(Expr e) {
-		List<Ident> idents = new ArrayList<>();
+		final List<Ident> idents = new ArrayList<>();
 		if (e.getClass().equals(Ident.class)) {
 			idents.add((Ident) e);
 		}
 		if (e instanceof BinaryExpr) {
-			BinaryExpr b = (BinaryExpr) e;
+			final BinaryExpr b = (BinaryExpr) e;
 			idents.addAll(getIdents(b.getLeft()));
 			idents.addAll(getIdents(b.getRight()));
 		}

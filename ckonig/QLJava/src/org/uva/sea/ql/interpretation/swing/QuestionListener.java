@@ -17,18 +17,18 @@ import org.uva.sea.ql.ast.types.StrType;
 public class QuestionListener {
 	private final SwingRegistry registry;
 
-	public QuestionListener(SwingRegistry registry) {
-		this.registry = registry;
+	public QuestionListener(SwingRegistry reg) {
+		this.registry = reg;
 	}
 
-	public void addIdentListener(Ident ident) {
-		QuestionPanel qp = registry.getQuestionPanelByIdent(ident);
+	public final void addIdentListener(Ident ident) {
+		final QuestionPanel qp = this.registry.getQuestionPanelByIdent(ident);
 		addListeners(qp);
 	}
 
 	private void addListeners(QuestionPanel questionPanel) {
 		if (questionPanel.getQuestion().getType() instanceof BooleanType) {
-			JCheckBox checkbox = (JCheckBox) questionPanel.getInput();
+			final JCheckBox checkbox = (JCheckBox) questionPanel.getInput();
 			checkbox.addActionListener(new ActionListener() {
 
 				@Override
@@ -39,7 +39,7 @@ public class QuestionListener {
 		}
 		if (questionPanel.getQuestion().getType() instanceof Money
 				|| questionPanel.getQuestion().getType() instanceof StrType) {
-			JTextField t = (JTextField) questionPanel.getInput();
+			final JTextField t = (JTextField) questionPanel.getInput();
 			t.addActionListener(new ActionListener() {
 
 				@Override

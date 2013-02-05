@@ -11,8 +11,8 @@ public class IntLiteral extends Expr implements ReturnsMathOperands{
 		this.value = n;
 	}
 
-	public int getValue() {
-		return value;
+	public final int getValue() {
+		return this.value;
 	}
 
 }

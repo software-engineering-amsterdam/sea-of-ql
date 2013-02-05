@@ -22,8 +22,8 @@ public class BoolEvaluator {
 
 	private SwingRegistry registry;
 
-	public BoolEvaluator(SwingRegistry registry) {
-		this.registry = registry;
+	public BoolEvaluator(SwingRegistry reg) {
+		this.registry = reg;
 	}
 
 	public boolean eval(Expr e) throws EvaluationException {
@@ -76,8 +76,8 @@ public class BoolEvaluator {
 			}
 		}
 		if (e instanceof Ident) {
-			Ident i = (Ident) e;
-			QuestionPanel q = registry.getQuestionPanelByIdent(i);
+			final Ident i = (Ident) e;
+			final QuestionPanel q = this.registry.getQuestionPanelByIdent(i);
 
 			if (q.getQuestion().getType() instanceof ReturnsBoolOperands) {
 				return q.getBoolValue();

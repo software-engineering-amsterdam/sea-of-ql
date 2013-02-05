@@ -17,24 +17,24 @@ public class Registry {
 		this.ifStatements = new ArrayList<IfStatement>();
 	}
 
-	public void addQuestion(Question q) {
+	public final void addQuestion(Question q) {
 		this.questions.add(q);
 	}
 
-	public void addIfStatement(IfStatement i) {
+	public final void addIfStatement(IfStatement i) {
 		this.ifStatements.add(i);
 	}
 
-	public List<Question> getQuestions() {
+	public final List<Question> getQuestions() {
 		return this.questions;
 	}
 
-	public List<IfStatement> getIfStatements() {
+	public final List<IfStatement> getIfStatements() {
 		return this.ifStatements;
 	}
 
-	public Type getQuestionTypeByIdent(Ident i) {
-		for (Question q : questions) {
+	public final Type getQuestionTypeByIdent(Ident i) {
+		for (Question q : this.questions) {
 			if (q.getIdentName().equals(i.getName())) {
 				return q.getType();
 			}
