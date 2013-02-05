@@ -8,16 +8,9 @@
 @contributor{Kevin van der Vlist - kevin@kevinvandervlist.nl}
 @contributor{Jimi van der Woning - Jimi.vanderWoning@student.uva.nl}
 
-module lang::qls::util::Implode
+module util::StringHelper
 
-import ParseTree;
-import lang::qls::util::Parse;
-import lang::qls::ast::AST;
+import String;
 
-
-public Stylesheet implode(Tree t) = 
-  implode(#Stylesheet, t);
-
-public Stylesheet load(loc l) = 
-  implode(parse(readFile(l), l));
-  
+public str trimQuotes(str string) =
+  substring(string, 1, size(string) - 1);

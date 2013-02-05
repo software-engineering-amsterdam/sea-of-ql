@@ -12,8 +12,13 @@ Eclipse highlight categories (probably):
   - "MetaKeyword"; -> purple, bold
   - "MetaSkipped"; -> black, dark green background
   - "NonterminalLabel". -> gray, italic
+  
+  
+IMP EDITOR!!!!!!!!!!!!!!
 
 
+Page: <div class="page"> ... </div>
+Section: <fieldset><legend>SectionName</legend> ... </fieldset>
 
 rascal>import lang::rascal::grammar::definition::Priorities;
 ok

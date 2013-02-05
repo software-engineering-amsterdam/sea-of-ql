@@ -8,15 +8,20 @@
 @contributor{Kevin van der Vlist - kevin@kevinvandervlist.nl}
 @contributor{Jimi van der Woning - Jimi.vanderWoning@student.uva.nl}
 
-module lang::qls::tests::ParseHelper
+module lang::qls::compiler::web::Web
 
 import IO;
-import ParseTree;
+import lang::ql::ast::AST;
 import lang::qls::ast::AST;
-import lang::qls::syntax::QLS;
+import lang::qls::compiler::web::JS;
 
-public Stylesheet parseStylesheet(str src) = 
-  implode(#lang::qls::ast::AST::Stylesheet, parse(#start[Stylesheet], src, |file:///-|));
-
-public Stylesheet parseStylesheet(loc f) = 
-  parseStylesheet(readFile(f));
+public loc buildSheet(Form form, Stylesheet sheet, loc destFolder) {
+  destFolder += "<sheet.ident>/";
+  
+  if(!exists(destFolder))
+    mkDirectory(destFolder);
+  
+  JS(form, sheet, destFolder);
+  
+  return destFolder;
+}

@@ -8,10 +8,10 @@
 @contributor{Kevin van der Vlist - kevin@kevinvandervlist.nl}
 @contributor{Jimi van der Woning - Jimi.vanderWoning@student.uva.nl}
 
-module lang::qls::util::Parse
+module util::LocationHelper
 
-import lang::qls::syntax::QLS;
-import ParseTree;
+import String;
 
-public start[Stylesheet] parse(str src, loc l) = 
-  parse(#start[Stylesheet], src, l);
+
+public str basename(loc l) =
+  replaceLast(l.file, ".<l.extension>", "");

@@ -8,24 +8,26 @@
 @contributor{Kevin van der Vlist - kevin@kevinvandervlist.nl}
 @contributor{Jimi van der Woning - Jimi.vanderWoning@student.uva.nl}
 
-module lang::qls::util::StyleHelpers
+module lang::qls::util::StyleHelper
 
 import IO;
 import List;
+import Map;
 import String;
 
 import lang::ql::analysis::SemanticChecker;
+import lang::ql::analysis::State;
 import lang::ql::ast::AST;
 import lang::ql::tests::ParseHelper;
 
 import lang::qls::ast::AST;
-import lang::qls::tests::ParseHelper;
+import lang::qls::util::ParseHelper;
 
 public void main() {
   Form f = parseForm(|project://QL-R-kemi/forms/taxOfficeExample.q|);
   Stylesheet s = parseStylesheet(|project://QL-R-kemi/stylesheets/taxOfficeExample.qs|);
 
-  typeMap = semanticAnalysisState(f).definitions;
+  typeMap = getTypeMap(f);
   //iprintln(typeMap);
   
   for(k <- typeMap){
@@ -36,9 +38,30 @@ public void main() {
   //Stylesheet s = parseStylesheet("stylesheet S1 { question Q1 { type checkbox width 100 } default boolean { type radio } default string { width 104 }}");
 }
 
+alias CachedTypeMap = tuple[Form form, TypeMap typeMap];
+private CachedTypeMap cachedTypeMap = <form(identDefinition(""), []), ()>;
+
+
+public TypeMap getTypeMap(Form f) {
+  if(f != cachedTypeMap.form) {
+    cachedTypeMap = <f, semanticAnalysisState(f).definitions>;
+  }
+  return cachedTypeMap.typeMap;
+}
+
+public default Form accompanyingForm(Stylesheet s) =
+  form(identDefinition(""), []);
+
+public Form accompanyingForm(Stylesheet s) =
+  parseForm(accompanyingFormLocation(s))
+    when isFile(accompanyingFormLocation(s));
+
+public loc accompanyingFormLocation(Stylesheet s) =
+  |project://QL-R-kemi/forms/| + "<s.ident>.q";
+
 public list[StyleRule] getStyleRules(str questionIdent, Form f, Stylesheet s) {
-  typeMap = semanticAnalysisState(f).definitions;
-  str \type = typeMap[identDefinition(questionIdent)].name;
+  typeMap = getTypeMap(f);
+  Type \type = typeMap[identDefinition(questionIdent)];
   list[StyleRule] rules = getStyleRules(\type, s.definitions);
   for(d <- getDefinitions(questionIdent, s)) {
     switch(d) {
@@ -50,8 +73,13 @@ public list[StyleRule] getStyleRules(str questionIdent, Form f, Stylesheet s) {
   return deDupeStyleRules(rules);
 }
 
-private list[StyleRule] getStyleRules(str \type, list[&T] definitions) =
-  [r | d <- definitions, d.defaultDefinition?, d.defaultDefinition.ident == \type, r <- d.defaultDefinition.styleRules];
+private list[StyleRule] getStyleRules(Type \type, list[&T] definitions) =
+  [
+    * d.defaultDefinition.styleRules |
+    d <- definitions,
+    d.defaultDefinition?,
+    d.defaultDefinition.ident == \type
+  ];
 
 public list[StyleRule] deDupeStyleRules(list[StyleRule] styleRules) {
   list[str] attrs = [];

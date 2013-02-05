@@ -26,7 +26,7 @@ import lang::ql::util::Parse;
 
 private str LANG_QL = "QL-R";
 private str EXT_QL = "q";
-private loc FORM_TARGET = |project://QL-R-kemi/bin/|;
+private loc FORM_TARGET = |project://QL-R-kemi/output/|;
 
 private Form implodeQL(Tree t) =
   lang::ql::util::Implode::implode(t);
@@ -45,7 +45,7 @@ private void buildQL(start[Form] f, loc l) {
     alert("The form cannot be built when it still contains errors.");
     return;
   }
-  target = buildForm(implodeQL(f), |project://QL-R-kemi/bin/|);
+  target = buildForm(implodeQL(f), FORM_TARGET);
   alert("The form is built in <target>.");
 }
 
@@ -59,7 +59,7 @@ public void setupQL() {
       return outlineForm(implodeQL(input));
     }),
     
-    annotator(Tree (Tree input) {
+    annotator(Tree(Tree input) {
       return input[@messages=semanticCheckerQL(input)];
     }),
     
@@ -68,15 +68,15 @@ public void setupQL() {
         action("Format (removes comments)", formatQL),
         action("Build", buildQL)
       ])
-    ),
+    ), 
     
     builder(set[Message] (Tree input) {
-      messages = semanticChecker(input); 
+      messages = semanticCheckerQL(input); 
       if(messages != {}) {
         return messages;
       }
       
-      buildQL(input, FORM_TARGET);
+      buildForm(implodeQL(input), FORM_TARGET);
       return {};
     })
   };

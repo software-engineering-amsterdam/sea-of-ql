@@ -1,10 +1,10 @@
-stylesheet testStylesheet {
+stylesheet proposedSyntax {
   page "Page one" {
     section "section one" {
       section "section two" {
         question questionTen
         default boolean {
-          width 200
+          type radio
         }
         
       }
@@ -30,7 +30,7 @@ stylesheet testStylesheet {
     }
     
     default boolean {
-      width 300
+      type radio
     }
     
   }

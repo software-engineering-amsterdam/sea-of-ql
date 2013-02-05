@@ -23,12 +23,15 @@ data ElsePart
 
 data Statement 
   = question(Question question)
-  | ifCondition(Conditional ifPart, list[Conditional] elseIfs, list[ElsePart] elsePart)
+  | ifCondition(Conditional ifPart, list[Conditional] elseIfs, 
+    list[ElsePart] elsePart)
   ;
 
 data Question
-  = question(QuestionText questionText, Type answerDataType, IdentDefinition answerIdentifier)
-  | question(QuestionText questionText, Type answerDataType, IdentDefinition answerIdentifier, Expr calculatedField)
+  = question(QuestionText questionText, Type answerDataType, 
+    IdentDefinition answerIdentifier)
+  | question(QuestionText questionText, Type answerDataType, 
+    IdentDefinition answerIdentifier, Expr calculatedField)
   ;
 
 data QuestionText
@@ -77,7 +80,6 @@ data Expr
   | or(Expr left, Expr right)
   ;
   
-// Some annotation for language integration
 anno loc Conditional@location;
 anno loc ElsePart@location;
 anno loc Expr@location;
