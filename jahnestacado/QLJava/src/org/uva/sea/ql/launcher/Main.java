@@ -10,6 +10,7 @@ import javax.swing.JPanel;
 
 import org.uva.sea.ql.ast.expr.values.Value;
 import org.uva.sea.ql.ast.form.Form;
+import org.uva.sea.ql.interpreter.QLFrame;
 import org.uva.sea.ql.interpreter.SwingVisitor;
 import org.uva.sea.ql.visitor.checkers.ElementChecker;
 
@@ -21,7 +22,7 @@ public class Main {
 		if (ElementChecker.checkQL(parsedForm)) {
             List<JPanel> questionList = new ArrayList<JPanel>();
 			Map<String, Value> declaredVar = new HashMap<String, Value>();
-			JFrame frame = new JFrame();
+			JFrame frame = new QLFrame().getQLFrame();
 			new SwingVisitor(questionList, declaredVar).generate(parsedForm,frame);
 
 		}

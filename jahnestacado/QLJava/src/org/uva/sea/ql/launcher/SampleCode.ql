@@ -19,5 +19,5 @@ form Box1HouseOwning {
 	}
 	
 	        test6Questisson2: "10.This is an additional test question" boolean (hasSoldHouse)
-	
+		hasBoughtHwouse: "Did you buy a house in 2010?" int (test6Question2+100)
 }

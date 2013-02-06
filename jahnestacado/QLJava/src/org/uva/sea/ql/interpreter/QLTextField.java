@@ -11,19 +11,18 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 
-import org.uva.sea.ql.ast.expr.values.DecimalLit;
 import org.uva.sea.ql.ast.expr.values.StringLit;
 import org.uva.sea.ql.ast.expr.values.Value;
 
-@SuppressWarnings("rawtypes")
-public class QLTextField extends JTextField implements ActionListener{
+public class QLTextField implements ActionListener{
 	private final String varName;
 	private final Map<String, Value> declaredVar;
 	private final String value;
+	private final JTextField txtField;
 	
 	
 	public QLTextField(String varName,Map<String, Value> declaredVar){
-		super(10);
+		txtField=new JTextField(10);
 		this.varName=varName;
 		this.declaredVar=declaredVar;
 		value=((StringLit) declaredVar.get(varName)).getValue();
@@ -37,18 +36,18 @@ public class QLTextField extends JTextField implements ActionListener{
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		String input=this.getText();
+		String input=txtField.getText();
 		VariableUpdater varUpdater=new VariableUpdater(varName, declaredVar, new StringLit(input));
 		List<JPanel> questionList=new ArrayList<JPanel>();
-		JFrame frame = (JFrame) SwingUtilities.getRoot(this);
+		JFrame frame = (JFrame) SwingUtilities.getRoot(txtField);
 		new SwingVisitor(questionList,varUpdater.getUpdatedValues()).regenerate(frame);
 
 	}
 	
 	private JTextField getTextField() {
-		this.addActionListener(this);
-		this.setText(value);
-		return this;
+		txtField.addActionListener(this);
+		txtField.setText(value);
+		return txtField;
 	}
 
 }

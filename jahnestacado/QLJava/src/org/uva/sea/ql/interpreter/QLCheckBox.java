@@ -15,16 +15,16 @@ import org.uva.sea.ql.ast.expr.values.BoolLit;
 import org.uva.sea.ql.ast.expr.values.Value;
 
 
-@SuppressWarnings("rawtypes")
-public class QLCheckBox extends JCheckBox implements ActionListener {
+public class QLCheckBox  implements ActionListener {
 
 	private final String varName;
 	private final Map<String, Value> declaredVar;
+	private final JCheckBox chBox;
 
 
 
 	public QLCheckBox(String varName, Map<String, Value> declaredVar) {
-		super("Yes");
+		chBox=new JCheckBox("Yes");
 		this.varName = varName;
 		this.declaredVar = declaredVar;
 
@@ -42,15 +42,15 @@ public class QLCheckBox extends JCheckBox implements ActionListener {
 
 		VariableUpdater varUpdater=new VariableUpdater(varName, declaredVar, new BoolLit(!getState()));
 		List<JPanel> questionList=new ArrayList<JPanel>();
-		JFrame frame = (JFrame) SwingUtilities.getRoot(this);
+		JFrame frame = (JFrame) SwingUtilities.getRoot(chBox);
 		new SwingVisitor(questionList,varUpdater.getUpdatedValues()).regenerate(frame);
 
 	}
 
 	private JCheckBox getCheckBox() {
-		this.addActionListener(this);
-		this.setSelected(getState());
-		return this;
+		chBox.addActionListener(this);
+		chBox.setSelected(getState());
+		return chBox;
 	}
 	
 	private boolean getState(){

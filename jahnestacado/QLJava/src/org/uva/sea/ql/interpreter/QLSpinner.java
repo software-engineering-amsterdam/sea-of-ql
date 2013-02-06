@@ -21,15 +21,16 @@ import org.uva.sea.ql.ast.expr.values.DecimalLit;
 import org.uva.sea.ql.ast.expr.values.IntegerLit;
 import org.uva.sea.ql.ast.expr.values.Value;
 
-public class QLSpinner extends JSpinner  {
+public class QLSpinner  {
 	private final String varName;
 	private final Map<String, Value> declaredVar;
+	private final JSpinner spinner;
 
    
 	
 	
 	private QLSpinner(String varName,Map<String, Value> declaredVar){
-		super(new SpinnerNumberModel(0, 0, 10000, 1));
+		spinner=new JSpinner(new SpinnerNumberModel(0, 0, 10000, 1));
 		this.varName=varName;
 		this.declaredVar=declaredVar;
 	
@@ -44,11 +45,11 @@ public class QLSpinner extends JSpinner  {
 	
 	private JSpinner getSpinner() {
 
-		this.setValue(getCurrentValue());
-		JFormattedTextField tf = ((JSpinner.DefaultEditor)this.getEditor()).getTextField();
+		spinner.setValue(getCurrentValue());
+		JFormattedTextField tf = ((JSpinner.DefaultEditor)spinner.getEditor()).getTextField();
 		tf.setEditable(false);
 				  
-		for (Component child : this.getComponents()) {
+		for (Component child : spinner.getComponents()) {
 	        if ("Spinner.nextButton".equals(child.getName())) {
 	            ((JButton) child).addActionListener(new UpButton());
 	        }
@@ -56,7 +57,7 @@ public class QLSpinner extends JSpinner  {
 	            ((JButton) child).addActionListener(new DownButton());
 	        }
 	    }
-		return this;
+		return spinner;
 	}
 
 	
@@ -86,7 +87,7 @@ public class QLSpinner extends JSpinner  {
 	private void increaseValueByOne(){
 		VariableUpdater varUpdater=new VariableUpdater(varName, declaredVar, new IntegerLit(getCurrentValue()+1));
 		List<JPanel> questionList=new ArrayList<JPanel>();
-		JFrame frame = (JFrame) SwingUtilities.getRoot(this);
+		JFrame frame = (JFrame) SwingUtilities.getRoot(spinner);
 		new SwingVisitor(questionList,varUpdater.getUpdatedValues()).regenerate(frame);
 
 	}
@@ -94,7 +95,7 @@ public class QLSpinner extends JSpinner  {
 	private void decreaseValueByOne(){
 		VariableUpdater varUpdater=new VariableUpdater(varName, declaredVar, new IntegerLit(getCurrentValue()-1));
 		List<JPanel> questionList=new ArrayList<JPanel>();
-		JFrame frame = (JFrame) SwingUtilities.getRoot(this);
+		JFrame frame = (JFrame) SwingUtilities.getRoot(spinner);
 		new SwingVisitor(questionList,varUpdater.getUpdatedValues()).regenerate(frame);
 
 	}

@@ -16,14 +16,13 @@ import org.uva.sea.ql.ast.expr.values.StringLit;
 import org.uva.sea.ql.ast.expr.values.Value;
 import org.uva.sea.ql.ast.form.ComputedQuestion;
 
-public class ComputedQuestionPanel extends JPanel {
+public class ComputedQuestionPanel {
 	private final JLabel label;
-	private final ComputedQuestion qlElement;
 	private final JTextField computedValue;
-	private static final long serialVersionUID = 1L;
+	private final JPanel panel;
 
 	public ComputedQuestionPanel(ComputedQuestion qlElement,Map<String,Value> declaredVar){
-	    this.qlElement=qlElement;
+		panel=new JPanel(new MigLayout());
 		label=new JLabel(qlElement.getLabel().getValue().replaceAll("\"", ""));
 		computedValue=new JTextField(8);
 		computedValue.setForeground(Color.blue);
@@ -35,14 +34,14 @@ public class ComputedQuestionPanel extends JPanel {
 	}
 	
 	private void addComponents(){
-		this.setLayout(new MigLayout());
-		this.add(label,"align label");
-		this.add(computedValue,"wrap");
+		panel.setLayout(new MigLayout());
+		panel.add(label,"align label");
+		panel.add(computedValue,"wrap");
 		
 	}
 	
 	public JPanel getPanel(){
-		return this;
+		return panel;
 	}
 	
 	

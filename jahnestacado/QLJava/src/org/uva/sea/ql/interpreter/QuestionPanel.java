@@ -13,30 +13,29 @@ import org.uva.sea.ql.ast.expr.values.Value;
 import org.uva.sea.ql.ast.form.Question;
 import org.uva.sea.ql.ast.types.Type;
 
-public class QuestionPanel extends JPanel{
+public class QuestionPanel {
 
 	private final JLabel label;
-	private final Question qlElement;
 	private final JComponent inputComponent;
+	private final JPanel panel;
 	
 	
 	public QuestionPanel(Question qlElement,Map<String,Value> declaredVar){
-	    this.qlElement=qlElement;
-		
+		panel=new JPanel(new MigLayout());
 		label=new JLabel(qlElement.getLabel().getValue().toString().replaceAll("\"", ""));
 		inputComponent=setInputComponent(qlElement.getId().getName(),qlElement.getType(),declaredVar);
 		addComponents();
 	}
 	
 	private void addComponents(){
-		this.setLayout(new MigLayout());
-		this.add(label,"align label");
-		this.add(inputComponent,"wrap");
+		
+		panel.add(label,"align label");
+		panel.add(inputComponent,"wrap");
 		
 	}
 	
 	public JPanel getPanel(){
-		return this;
+		return panel;
 	}
 	
 	private JComponent setInputComponent(final String varName,Type type,final Map<String,Value> declaredVar){
