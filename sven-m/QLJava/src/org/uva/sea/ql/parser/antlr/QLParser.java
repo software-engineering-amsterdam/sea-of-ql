@@ -86,8 +86,8 @@ public class QLParser extends Parser {
 
 	// $ANTLR start "form"
 	// /Users/sven/Documents/sc2013/sea-of-ql/sven-m/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:33:1: form returns [QLForm result] : 'form' IDENT body EOF ;
-	public final QLForm form() throws RecognitionException {
-		QLForm result = null;
+	public final Form form() throws RecognitionException {
+		Form result = null;
 
 		int form_StartIndex = input.index();
 
@@ -106,7 +106,7 @@ public class QLParser extends Parser {
 			body2=body();
 			state._fsp--;
 			if (state.failed) return result;
-			if ( state.backtracking==0 ) { result = new QLForm((IDENT1!=null?IDENT1.getText():null), body2); }
+			if ( state.backtracking==0 ) { result = new Form((IDENT1!=null?IDENT1.getText():null), body2); }
 			match(input,EOF,FOLLOW_EOF_in_form69); if (state.failed) return result;
 			}
 
@@ -545,7 +545,7 @@ public class QLParser extends Parser {
 					if (state.failed) return result;
 					match(input,15,FOLLOW_15_in_question246); if (state.failed) return result;
 					if ( state.backtracking==0 ) {
-					      result = new ComputedQuestion(new Ident((id!=null?id.getText():null)), (lbl!=null?lbl.getText():null),
+					      result = new Computed(new Ident((id!=null?id.getText():null)), (lbl!=null?lbl.getText():null),
 					        type9, cond);
 					    }
 					}
