@@ -32,7 +32,6 @@ public class ComputedQuestionPanel extends JPanel {
 		computedValue.setText(valueToString(qlElement, declaredVar));
 		computedValue.setEditable(false);
 		addComponents();
-		this.setVisible(((BoolLit) declaredVar.get(qlElement.getId().getName())).getValue());
 	}
 	
 	private void addComponents(){
@@ -53,6 +52,9 @@ public class ComputedQuestionPanel extends JPanel {
 		}
 		else if(qlElement.getType().isCompatibleToMoneyType()){
 			return String.valueOf(((DecimalLit) ExprEvaluator.eval(qlElement.getExpr(), declaredVar)).getValue());
+		}
+		else if(qlElement.getType().isCompatibleToBoolType()){
+			return String.valueOf(((BoolLit) ExprEvaluator.eval(qlElement.getExpr(), declaredVar)).getValue());
 		}
 		return (((StringLit) ExprEvaluator.eval(qlElement.getExpr(), declaredVar)).getValue());
 		

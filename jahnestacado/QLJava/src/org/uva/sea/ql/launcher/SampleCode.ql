@@ -3,7 +3,6 @@ form Box1HouseOwning {
 	hasBoughtHouse: "Did you buy a house in 2010?" money
 	hasMaintLoan: "Did you enter a loan for maintenance/reconstruction?" boolean
     test6Question2: "This is an additional test question"int
-        test6Questisson2: "This is an additional test question" boolean (hasSoldHouse)
     
 	
 	
@@ -18,4 +17,7 @@ form Box1HouseOwning {
 		    test6Quesdtion2: "This is an additional test question"int
 		
 	}
+	
+	        test6Questisson2: "This is an additional test question" boolean (hasSoldHouse)
+	
 }
