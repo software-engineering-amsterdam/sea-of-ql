@@ -15,7 +15,7 @@ import org.uva.sea.ql.visitor.TypeVisitor;
 /**
  * Evaluator for type nodes.
  */
-public class TypeEvaluator implements TypeVisitor<Value> {
+public class TypeInitializer implements TypeVisitor<Value> {
 	@Override
 	public Value visit( Bool node ) {
 		return new Boolean( false );

@@ -55,9 +55,9 @@ public class Renderer implements StatementVisitor<Void>, TypeVisitor<Control> {
 	private final Evaluator expressionEvaluator;
 
 	/**
-	 * Holds the type evaluator.
+	 * Holds the type initializer.
 	 */
-	private final TypeEvaluator typeEvaluator;
+	private final TypeInitializer typeInitializer;
 
 	/**
 	 * Holds the working panel.
@@ -94,7 +94,7 @@ public class Renderer implements StatementVisitor<Void>, TypeVisitor<Control> {
 		this.factory = factory;
 		this.environment = environment;
 		this.expressionEvaluator = new Evaluator( environment );
-		this.typeEvaluator = new TypeEvaluator();
+		this.typeInitializer = new TypeInitializer();
 
 		this.panel = this.factory.createPanel();
 	}
@@ -262,7 +262,7 @@ public class Renderer implements StatementVisitor<Void>, TypeVisitor<Control> {
 
 	@Override
 	public Void visit( VarDeclaration node ) {
-		Value value = node.getType().accept( this.typeEvaluator );
+		Value value = node.getType().accept( this.typeInitializer );
 
 		if ( !this.environment.isDeclared( node.getIdent() ) ) {
 			this.environment.declare( node.getIdent(), value.getType() );
@@ -301,7 +301,7 @@ public class Renderer implements StatementVisitor<Void>, TypeVisitor<Control> {
 		node.getVarDeclaration().accept( this );
 
 		Type type = node.getType();
-		Value value = type.accept( this.typeEvaluator );
+		Value value = type.accept( this.typeInitializer );
 
 		java.lang.String label = node.getLabel().getValue();
 		Control component = this.createControlFromType( type, value, true );
