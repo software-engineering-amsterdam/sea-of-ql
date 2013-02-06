@@ -14,10 +14,10 @@ form Box1HouseOwning {
 		if (hasMaintLoan) {
 			testQuestion3: "This is an additional test question" int (88)
 		}
-		    test6Quesdtion2: "This is an additional test question"int
+		    test6Quesdtion2: "This is an additional test question" money (hasBoughtHouse)
 		
 	}
 	
 	        test6Questisson2: "10.This is an additional test question" boolean (hasSoldHouse)
-		hasBoughtHwouse: "Did you buy a house in 2010?" int (test6Question2+100)
+		hasBoughtHwouse: "Did you buy a house in 2010?" string (testQuestion1)
 }

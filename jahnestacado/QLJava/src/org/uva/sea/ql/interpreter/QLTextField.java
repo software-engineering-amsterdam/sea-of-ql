@@ -6,7 +6,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import javax.swing.InputVerifier;
+import javax.swing.JComponent;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
@@ -19,6 +22,7 @@ public class QLTextField implements ActionListener{
 	private final Map<String, Value> declaredVar;
 	private final String value;
 	private final JTextField txtField;
+
 	
 	
 	public QLTextField(String varName,Map<String, Value> declaredVar){
@@ -37,6 +41,7 @@ public class QLTextField implements ActionListener{
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		String input=txtField.getText();
+		if(!QLVerifier.isString(input)) return;
 		VariableUpdater varUpdater=new VariableUpdater(varName, declaredVar, new StringLit(input));
 		List<JPanel> questionList=new ArrayList<JPanel>();
 		JFrame frame = (JFrame) SwingUtilities.getRoot(txtField);
@@ -49,5 +54,8 @@ public class QLTextField implements ActionListener{
 		txtField.setText(value);
 		return txtField;
 	}
+	
+	
+	
 
 }

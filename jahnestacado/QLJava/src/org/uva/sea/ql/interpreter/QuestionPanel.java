@@ -1,11 +1,13 @@
 package org.uva.sea.ql.interpreter;
 
+import java.awt.Color;
 import java.util.Map;
 
+import javax.swing.InputVerifier;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JSpinner;
+import javax.swing.JTextField;
 
 import net.miginfocom.swing.MigLayout;
 
@@ -18,21 +20,19 @@ public class QuestionPanel {
 	private final JLabel label;
 	private final JComponent inputComponent;
 	private final JPanel panel;
+	private boolean needsVerifier;
+	private final Type type;
 	
 	
 	public QuestionPanel(Question qlElement,Map<String,Value> declaredVar){
-		panel=new JPanel(new MigLayout());
-		label=new JLabel(qlElement.getLabel().getValue().toString().replaceAll("\"", ""));
-		inputComponent=setInputComponent(qlElement.getId().getName(),qlElement.getType(),declaredVar);
+		this.type=qlElement.getType();
+		this.panel=new JPanel(new MigLayout());
+		this.label=new JLabel(qlElement.getLabel().getValue().toString().replaceAll("\"", ""));
+		this.inputComponent=setInputComponent(qlElement.getId().getName(),type,declaredVar);
 		addComponents();
 	}
 	
-	private void addComponents(){
-		
-		panel.add(label,"align label");
-		panel.add(inputComponent,"wrap");
-		
-	}
+	
 	
 	public JPanel getPanel(){
 		return panel;
@@ -41,6 +41,7 @@ public class QuestionPanel {
 	private JComponent setInputComponent(final String varName,Type type,final Map<String,Value> declaredVar){
 	
 		if (type.isCompatibleToStringType()) {
+			needsVerifier=true;
 			return QLTextField.responsiveTextField(varName, declaredVar);
 		} 
 		else if (type.isCompatibleToBoolType()) {
@@ -50,6 +51,7 @@ public class QuestionPanel {
 			return QLSpinner.responsiveSpinner(varName, declaredVar);
 		}
 		if (type.isCompatibleToMoneyType()) {
+			needsVerifier=true;
 			return QLNumField.responsiveNumField(varName, declaredVar);
 		} 
 		return null;
@@ -58,5 +60,16 @@ public class QuestionPanel {
 	
 
 
+	
+	private void addComponents() {
+		if (needsVerifier) {
+			panel.add(label, "align label");
+			panel.add(inputComponent);
+			panel.add(QLVerifier.getVerifier(inputComponent, type), "wrap");
+		} else {
+			panel.add(label, "align label");
+			panel.add(inputComponent, "wrap");
+		}
+	}
 
 }
