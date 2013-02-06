@@ -9,7 +9,7 @@ stylesheet comment {
    */
   
   default boolean {
-    type checkbox //Comment within a defaultDefinition
+    widget checkbox //Comment within a defaultDefinition
   }
   
   // Single line comment is supported as well. 

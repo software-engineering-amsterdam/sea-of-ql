@@ -32,10 +32,10 @@ public void JS(Form f, loc dest) {
 }
 
 private str showElement(str name) =
-  "$(\"#<name><BLOCK>\").show();";
+  "show($(\"#<name><BLOCK>\"));";
 
 private str hideElement(str name) =
-  "$(\"#<name><BLOCK>\").hide();";
+  "hide($(\"#<name><BLOCK>\"));";
 
 private str assignVar(str ident) =
   "var <ident>;
