@@ -10,4 +10,7 @@ TODO
 - Form IDENT -> String label // OR make getLabel() to get Ident.getName() ??
 - Value should implement isDefined()
 - Value's specific operation methods should be protected
+- Avoid the use of prefixes 'I' or postfixes 'Visitor'
 - Support for rendering elseif nodes.
+- Create docs
+- Review!
