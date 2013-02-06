@@ -1,4 +1,4 @@
-package org.uva.sea.ql.ast;
+package org.uva.sea.ql.ast.stm;
 
 import static julius.validation.Assertions.state;
 

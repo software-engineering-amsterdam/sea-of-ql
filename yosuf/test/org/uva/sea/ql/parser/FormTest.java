@@ -4,8 +4,8 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.uva.sea.ql.ast.Form;
-import org.uva.sea.ql.ast.Question;
+import org.uva.sea.ql.ast.stm.Form;
+import org.uva.sea.ql.ast.stm.Question;
 import org.uva.sea.ql.parser.jacc.JACCParser;
 
 public class FormTest {

@@ -3,9 +3,9 @@ package org.uva.sea.ql.parser.jacc;
 import java.io.StringReader;
 
 import org.uva.sea.ql.ast.ASTNode;
+import org.uva.sea.ql.lead.LogPrinter;
 import org.uva.sea.ql.parser.IParse;
 import org.uva.sea.ql.parser.ParseError;
-import org.uva.sea.ql.util.LogPrinter;
 
 public class JACCParser implements IParse {
 	@Override

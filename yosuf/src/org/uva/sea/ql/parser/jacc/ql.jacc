@@ -30,6 +30,7 @@
 
 %{
 import org.uva.sea.ql.ast.*;
+import org.uva.sea.ql.ast.stm.*;
 import org.uva.sea.ql.ast.exp.*;
 import org.uva.sea.ql.ast.type.*;
 import org.uva.sea.ql.ast.value.*;
@@ -38,7 +39,7 @@ import org.uva.sea.ql.ast.value.*;
     value="URF_UNREAD_PUBLIC_OR_PROTECTED_FIELD", 
     justification="because this class is generated.")
 @SuppressWarnings("unused")
-%}
+public%}
 
 %%
 
@@ -98,9 +99,20 @@ ifStm	: IF '(' expr ')' '{' compound '}'							{ $$ = new IfStatement($3, $6); }
 
 private QLLexer lexer; 
 private ASTNode result;
+private Form form;
 
+/**
+* @return 
+*/
 public ASTNode getResult(){
 	return result;
+}
+
+/**
+* @return 
+*/
+public Form getForm(){
+	return form;
 }
  
 public QLParser(QLLexer lexer) { 

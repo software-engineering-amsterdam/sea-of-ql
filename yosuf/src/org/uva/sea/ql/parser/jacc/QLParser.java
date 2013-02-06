@@ -1,8 +1,9 @@
-// Output created by jacc on Tue Feb 05 18:55:09 CET 2013
+// Output created by jacc on Wed Feb 06 15:01:55 CET 2013
 
 package org.uva.sea.ql.parser.jacc;
 
 import org.uva.sea.ql.ast.*;
+import org.uva.sea.ql.ast.stm.*;
 import org.uva.sea.ql.ast.exp.*;
 import org.uva.sea.ql.ast.type.*;
 import org.uva.sea.ql.ast.value.*;
@@ -11,7 +12,7 @@ import org.uva.sea.ql.ast.value.*;
     value="URF_UNREAD_PUBLIC_OR_PROTECTED_FIELD", 
     justification="because this class is generated.")
 @SuppressWarnings("unused")
-
+public
 class QLParser implements QLTokens {
     private int yyss = 100;
     private int yytok;
@@ -2366,9 +2367,20 @@ class QLParser implements QLTokens {
 
 private QLLexer lexer; 
 private ASTNode result;
+private Form form;
 
+/**
+* @return 
+*/
 public ASTNode getResult(){
         return result;
+}
+
+/**
+* @return 
+*/
+public Form getForm(){
+        return form;
 }
  
 public QLParser(QLLexer lexer) { 
