@@ -18,10 +18,4 @@ public class Or extends Binary {
 		return Nature.BOOLEAN;
 	}
 
-	@Override
-	public String toString() {
-		return "Or [getNature()=" + getNature() + ", getLeft()=" + getLeft()
-				+ ", getRight()=" + getRight() + "]";
-	}
-
 }

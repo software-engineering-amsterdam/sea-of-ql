@@ -17,11 +17,4 @@ public class Positive extends Unary {
 	public Nature getNature() {
 		return Nature.NUMERIC;
 	}
-
-	@Override
-	public String toString() {
-		return "Positive [getNature()=" + getNature() + ", getOperation()="
-				+ getOperation() + "]";
-	}
-
 }

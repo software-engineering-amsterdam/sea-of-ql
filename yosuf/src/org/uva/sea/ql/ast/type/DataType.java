@@ -8,4 +8,9 @@ public abstract class DataType extends Expression {
 		super();
 	}
 
+	@Override
+	public String toString() {
+		return getClass() + " [Nature=" + getNature() + "]";
+	}
+
 }

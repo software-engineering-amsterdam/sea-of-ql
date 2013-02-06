@@ -35,8 +35,7 @@ public class IntegerValue extends Value {
 
 	@Override
 	public String toString() {
-		return "IntegerValue [value=" + value + ", getNature()=" + getNature()
-				+ "]";
+		return "IntegerValue [value=" + value + ", Nature=" + getNature() + "]";
 	}
 
 }

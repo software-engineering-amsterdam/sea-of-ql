@@ -13,10 +13,4 @@ public class MoneyType extends DataType {
 	public Nature getNature() {
 		return Nature.NUMERIC;
 	}
-
-	@Override
-	public String toString() {
-		return "MoneyType [getNature()=" + getNature() + "]";
-	}
-
 }

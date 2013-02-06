@@ -18,10 +18,4 @@ public class NotEquals extends Binary {
 		return Nature.BOOLEAN;
 	}
 
-	@Override
-	public String toString() {
-		return "NotEquals [getNature()=" + getNature() + ", getLeft()="
-				+ getLeft() + ", getRight()=" + getRight() + "]";
-	}
-
 }

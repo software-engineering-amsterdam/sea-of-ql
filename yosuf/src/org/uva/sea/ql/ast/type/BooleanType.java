@@ -14,9 +14,4 @@ public class BooleanType extends DataType {
 		return Nature.BOOLEAN;
 	}
 
-	@Override
-	public String toString() {
-		return "BooleanType [getNature()=" + getNature() + "]";
-	}
-
 }

@@ -18,10 +18,4 @@ public class Substitute extends Binary {
 		return Nature.NUMERIC;
 	}
 
-	@Override
-	public String toString() {
-		return "Substitute [getNature()=" + getNature() + ", getLeft()="
-				+ getLeft() + ", getRight()=" + getRight() + "]";
-	}
-
 }

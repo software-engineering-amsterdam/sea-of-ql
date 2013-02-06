@@ -18,10 +18,4 @@ public class Divide extends Binary {
 		return Nature.NUMERIC;
 	}
 
-	@Override
-	public String toString() {
-		return "Divide [getNature()=" + getNature() + ", getLeft()="
-				+ getLeft() + ", getRight()=" + getRight() + "]";
-	}
-
 }

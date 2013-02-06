@@ -19,4 +19,11 @@ public abstract class Unary extends Expression {
 	public Expression getOperation() {
 		return operation;
 	}
+
+	@Override
+	public String toString() {
+		return getClass() + "[operation=" + operation + ", Nature="
+				+ getNature() + "]";
+	}
+
 }

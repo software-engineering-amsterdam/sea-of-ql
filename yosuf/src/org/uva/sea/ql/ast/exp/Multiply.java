@@ -18,10 +18,4 @@ public class Multiply extends Binary {
 		return Nature.NUMERIC;
 	}
 
-	@Override
-	public String toString() {
-		return "Multiply [getNature()=" + getNature() + ", getLeft()="
-				+ getLeft() + ", getRight()=" + getRight() + "]";
-	}
-
 }

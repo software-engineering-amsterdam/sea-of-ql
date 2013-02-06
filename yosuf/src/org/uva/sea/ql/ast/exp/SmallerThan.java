@@ -18,10 +18,4 @@ public class SmallerThan extends Binary {
 		return Nature.BOOLEAN;
 	}
 
-	@Override
-	public String toString() {
-		return "SmallerThan [getNature()=" + getNature() + ", getLeft()="
-				+ getLeft() + ", getRight()=" + getRight() + "]";
-	}
-
 }

@@ -18,10 +18,4 @@ public class Negative extends Unary {
 		return Nature.NUMERIC;
 	}
 
-	@Override
-	public String toString() {
-		return "Negative [getNature()=" + getNature() + ", getOperation()="
-				+ getOperation() + "]";
-	}
-
 }

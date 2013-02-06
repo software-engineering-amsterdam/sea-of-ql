@@ -18,10 +18,4 @@ public class GreaterThan extends Binary {
 		return Nature.BOOLEAN;
 	}
 
-	@Override
-	public String toString() {
-		return "GreaterThan [getNature()=" + getNature() + ", getLeft()="
-				+ getLeft() + ", getRight()=" + getRight() + "]";
-	}
-
 }

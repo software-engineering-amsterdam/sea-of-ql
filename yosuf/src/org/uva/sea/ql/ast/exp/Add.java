@@ -18,10 +18,4 @@ public class Add extends Binary {
 		return Nature.NUMERIC;
 	}
 
-	@Override
-	public String toString() {
-		return "Add [getNature()=" + getNature() + ", getLeft()=" + getLeft()
-				+ ", getRight()=" + getRight() + "]";
-	}
-
 }

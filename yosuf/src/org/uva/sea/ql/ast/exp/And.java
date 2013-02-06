@@ -18,10 +18,4 @@ public class And extends Binary {
 		return Nature.BOOLEAN;
 	}
 
-	@Override
-	public String toString() {
-		return "And [getNature()=" + getNature() + ", getLeft()=" + getLeft()
-				+ ", getRight()=" + getRight() + "]";
-	}
-
 }
