@@ -20,6 +20,7 @@ consistent way.
 * /A[DS]T/ reuse
 * Sections of conditionals show up when that section ought to be invisible 
 (see taxOfficeExample)
+* QL Typechecking breaks when the form is used with a stylesheet.
 
 # Both
 * Checking of the QLS language against the QL language
