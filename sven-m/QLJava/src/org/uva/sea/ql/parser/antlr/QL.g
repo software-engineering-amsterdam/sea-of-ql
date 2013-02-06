@@ -30,8 +30,8 @@ package org.uva.sea.ql.parser.antlr;
   }
 }
 
-form returns [QLForm result]
-  : 'form' IDENT body { $result = new QLForm($IDENT.text, $body.result); } EOF
+form returns [Form result]
+  : 'form' IDENT body { $result = new Form($IDENT.text, $body.result); } EOF
   ;
   
 topLevelBody returns [Body result]
@@ -40,7 +40,7 @@ topLevelBody returns [Body result]
 
   
 body returns [Body result]
-  @init { List<FormElement> tempList = new ArrayList<FormElement>(); }
+  @init { List<FormElement> tempList = new ArrayList<>(); }
   @after { $result = new Body(tempList); }
   : '{' (formElement { tempList.add($formElement.result); })* '}'
   ;
@@ -61,7 +61,7 @@ question returns [Question result]
     }
   | id=IDENT ':' lbl=STRING_LITERAL type '(' cond=expression ')'
     {
-      $result = new ComputedQuestion(new Ident($id.text), $lbl.text,
+      $result = new Computed(new Ident($id.text), $lbl.text,
         $type.result, $cond.result);
     }
   ;
@@ -73,9 +73,26 @@ type returns [ExprType result]
   ;
 
 ifStatement returns [IfStatement result]
-  : 'if' '(' expression ')' body
+  @init {
+    List<ElseIfStatement> elseIfs = new ArrayList<>();
+    ElseStatement elseStmt = null;
+  }
+  : 'if' '(' ic=expression ')' ib=body
+    (
+      'else' 'if' '(' eic=expression ')' eib=body
+      {
+        elseIfs.add(new ElseIfStatement($eic.result, $eib.result));
+      }
+    )*
+    
+    (
+      'else' eb=body
+      {
+        elseStmt = new ElseStatement($eb.result);
+      }
+    )?
     {
-      $result = new IfStatement($expression.result, $body.result);
+      $result = new IfStatement($ic.result, $ib.result, elseIfs, elseStmt); 
     }
   ;
 
