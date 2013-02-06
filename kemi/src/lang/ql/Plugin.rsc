@@ -26,58 +26,61 @@ import lang::ql::util::Parse;
 
 private str LANG_QL = "QL-R";
 private str EXT_QL = "q";
+private str ACTION_FORMAT = "Format (removes comments)";
+private str ACTION_BUILD = "Build form";
 private loc FORM_TARGET = |project://QL-R-kemi/output/|;
 
-private Form implodeQL(Tree t) =
-  lang::ql::util::Implode::implode(t);
-
-private start[Form] parseQL(str src, loc l) =
-  lang::ql::util::Parse::parse(src, l);
-
-private set[Message] semanticCheckerQL(Tree t) =
-  lang::ql::analysis::SemanticChecker::semanticChecker(implodeQL(t));
-
-private void formatQL(start[Form] f, loc l) =
-  writeFile(l, lang::ql::compiler::PrettyPrinter::prettyPrint(implodeQL(f)));
-
-private void buildQL(start[Form] f, loc l) {
-  if(semanticCheckerQL(f) != {}) {
+private void format(start[Form] f, loc l) =
+  writeFile(l, prettyPrint(implode(f)));
+  
+private void build(start[Form] form, loc source) {
+  messages = buildAndReturnMessages(form, FORM_TARGET);
+  
+  if(messages != {}) {
     alert("The form cannot be built when it still contains errors.");
-    return;
+  } else {
+    alert("The form is built in <FORM_TARGET>.");
   }
-  target = buildForm(implodeQL(f), FORM_TARGET);
-  alert("The form is built in <target>.");
+  return;
+}
+  
+public set[Message] buildAndReturnMessages(start[Form] form, loc target) =
+  buildAndReturnMessages(implode(form), target);
+  
+public set[Message] buildAndReturnMessages(Form form, loc target) {
+  messages = semanticChecker(form);
+  if(messages != {}) {
+    return messages;
+  }
+  buildForm(form, target);
+  
+  return {};
 }
 
 public void setupQL() {
   registerLanguage(LANG_QL, EXT_QL, Tree(str src, loc l) {
-    return parseQL(src, l);
+    return parse(src, l);
   });
   
   contribs = {
     outliner(node(Tree input) {
-      return outlineForm(implodeQL(input));
+      return outlineForm(implode(input));
     }),
     
     annotator(Tree(Tree input) {
-      return input[@messages=semanticCheckerQL(input)];
+      return input[@messages=semanticChecker(implode(input))];
     }),
     
     popup(
-      menu("QL",[
-        action("Format (removes comments)", formatQL),
-        action("Build", buildQL)
+      menu(LANG_QL,[
+        action(ACTION_BUILD, build),
+        action(ACTION_FORMAT, format)
       ])
     ), 
     
     builder(set[Message] (Tree input) {
-      messages = semanticCheckerQL(input); 
-      if(messages != {}) {
-        return messages;
-      }
-      
-      buildForm(implodeQL(input), FORM_TARGET);
-      return {};
+      messages = buildAndReturnMessages(implode(input), FORM_TARGET);
+      return messages;
     })
   };
   

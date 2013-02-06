@@ -18,6 +18,8 @@ consistent way.
 * More tests
 * "Type checking"
 * /A[DS]T/ reuse
+* Sections of conditionals show up when that section ought to be invisible 
+(see taxOfficeExample)
 
 # Both
 * Checking of the QLS language against the QL language
