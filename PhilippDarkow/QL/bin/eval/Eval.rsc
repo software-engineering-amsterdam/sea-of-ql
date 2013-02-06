@@ -72,8 +72,27 @@ VENV evalStatement(statement:ifStat(), VENV env){
 }
     
 VENV evalQuestion(question:easyQuestion(str id, str labelQuestion, Type tp) , VENV env){
-	println("in eval Question");
-	return addInstance(env, id , (tp == money() ? moneyVal(0) : intVal(0)));
+	println("in eval Question <tp>");
+	visit(tp){
+		case money() : {
+			println("type is money");
+			return addInstance(env, id , moneyVal(0.0));
+		}
+		case integer() : {
+			println("type is integer");
+			return addInstance(env, id , intVal(0));
+		}
+		case string() : {
+			println("type is string");
+			return addInstance(env, id , strVal(""));
+		}
+		case boolean() : {
+			println("type is boolean");
+			return addInstance(env, id , boolVal(false));
+		}
+	}
+	return addInstance(env, id ,( tp == money() ? moneyVal(0) : intVal(0)) );
+	//( Id : (tp == natural() ? natval(0) : strval(""))  | decl(PicoId Id, TYPE tp) <- Decls);
 }
 
 VENV evalBody(list[Body] Body, VENV env){

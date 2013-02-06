@@ -30,8 +30,7 @@ public QLTENV checkExp(exp:id(str id), Type req, QLTENV env) {
   println("TPID : <toList(tpid.tp)> req : <req> ");
   list[Type] result = toList(tpid.tp); 
   return req == result[0] ? env : addError(env, exp@location, required(req, result[0]));
-  } 
-  
+  }  
 }
 
 // CHECK BOOLEAN EXPRESSIONS
