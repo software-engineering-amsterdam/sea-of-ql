@@ -21,13 +21,14 @@ import org.uva.sea.ql.ast.form.IfThenElse;
 import org.uva.sea.ql.ast.form.Question;
 import org.uva.sea.ql.ast.form.SingleLineElement;
 import org.uva.sea.ql.ast.types.Type;
+import org.uva.sea.ql.launcher.QLInputReader;
 import org.uva.sea.ql.swing.Renderer;
 import org.uva.sea.ql.visitor.IElementVisitor;
 
 public class SwingVisitor implements IElementVisitor{
 	private final List<JPanel> questionList;
 	private final Map<String,Value> declaredVar;
-	private static Form form;
+	
 	
 	
 	
@@ -42,7 +43,6 @@ public class SwingVisitor implements IElementVisitor{
 		String formName=form.getId().getName();
 		System.out.print(formName);
 		frame.setTitle(formName);
-		this.form = form;
 		form.accept(this);
 		new Renderer(questionList, frame).addQuestionsToPanel();
 
@@ -50,6 +50,7 @@ public class SwingVisitor implements IElementVisitor{
 
 	
 	public void regenerate(JFrame frame) {
+		Form form=QLInputReader.getParsedForm();
 		form.accept(this);
 		new Renderer(questionList, frame).refresh();
 
