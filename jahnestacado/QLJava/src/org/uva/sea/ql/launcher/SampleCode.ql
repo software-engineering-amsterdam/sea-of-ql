@@ -18,6 +18,6 @@ form Box1HouseOwning {
 		
 	}
 	
-	        test6Questisson2: "This is an additional test question" boolean (hasSoldHouse)
+	        test6Questisson2: "10.This is an additional test question" boolean (hasSoldHouse)
 	
 }
