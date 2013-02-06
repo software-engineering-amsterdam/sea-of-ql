@@ -25,6 +25,20 @@ public class FormElementTest extends SyntaxTest {
 		
 		assertEquals(parseClass("if (d < e) { q1: \" \" integer }"), IfStatement.class);
 		assertEquals(parseClass("if (a == b) { } "), IfStatement.class);
+		
+		assertEquals(parseClass(
+				"if (d < e) { q1: \" \" integer } else if (a) { }"
+				), IfStatement.class);
+		assertEquals(parseClass(
+				"if (a == b) { } else if (1+1) { }"
+				), IfStatement.class);
+		
+		assertEquals(parseClass(
+				"if (d < e) { q1: \" \" integer } else { q2: \" \" string }"
+				), IfStatement.class);
+		assertEquals(parseClass(
+				"if (a == b) { } else if (r == 4) {} else {} "
+				), IfStatement.class);
 	}
 
 }

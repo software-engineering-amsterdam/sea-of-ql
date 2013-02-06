@@ -1,7 +1,7 @@
 package org.uva.sea.ql.ast.form;
 
-public class AbstractIfThenElse extends FormElement {
-	private Body body;
+public abstract class AbstractIfThenElse extends FormElement {
+	private final Body body;
 	
 	public AbstractIfThenElse(Body body) {
 		this.body = body;

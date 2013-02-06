@@ -2,7 +2,7 @@ package org.uva.sea.ql.ast.form;
 
 import org.uva.sea.ql.ast.expression.Expr;
 
-public class AbstractConditional extends AbstractIfThenElse {
+public abstract class AbstractConditional extends AbstractIfThenElse {
 	private Expr condition;
 	
 	public AbstractConditional(Expr condition, Body body) {

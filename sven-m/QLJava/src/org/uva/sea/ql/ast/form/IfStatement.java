@@ -4,25 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.uva.sea.ql.ast.expression.Expr;
+import org.uva.sea.ql.ast.visitor.FormVisitor;
 
 public class IfStatement extends AbstractConditional {
 	private final List<ElseIfStatement> elseIfStatements;
 	private final ElseStatement elseStatement;
-	
-	public IfStatement(Expr condition, Body body) {
-		super(condition, body);
-		elseIfStatements = null;
-		elseStatement = null;
-	}
-	
-	public IfStatement(Expr condition, Body body,
-			List<ElseIfStatement> elseIfs)
-	{
-		super(condition, body);
-		
-		elseIfStatements = new ArrayList<>(elseIfs);
-		elseStatement = null;
-	}
 	
 	public IfStatement(Expr condition, Body body,
 			List<ElseIfStatement> elseIfs, ElseStatement elseStatement)
@@ -39,5 +25,9 @@ public class IfStatement extends AbstractConditional {
 	
 	public ElseStatement getElse() {
 		return elseStatement;
+	}
+	
+	public <T> T accept(FormVisitor<T> visitor) {
+		return visitor.visit(this);
 	}
 }

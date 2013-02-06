@@ -16,4 +16,5 @@ public abstract class Binary extends Expr {
 	public Expr getRhs() {
 		return rhs;
 	}
+
 }
