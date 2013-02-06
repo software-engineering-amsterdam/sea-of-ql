@@ -124,6 +124,27 @@ public class StatementTypeChecker implements StatementVisitor<Statement> {
 		return new ArrayList<ValidationException>(typeErrors);
 	}
 
+	/**
+	 * 
+	 * @return all error types including expression type errors
+	 */
+	public List<ValidationException> getAllTypeErrors() {
+		List<ValidationException> allErrors = new ArrayList<ValidationException>(
+				typeErrors);
+		allErrors.addAll(expressionTypeChecker.getTypeErrors());
+
+		return allErrors;
+	}
+
+	/**
+	 * Should be used after visiting is done to avoid false positive.
+	 * 
+	 * @return
+	 */
+	public boolean isValid() {
+		return getAllTypeErrors().isEmpty();
+	}
+
 	public ExpressionTypeChecker getExpressionTypeChecker() {
 		return expressionTypeChecker;
 	}

@@ -1,0 +1,8 @@
+form taxes {
+ Money income = 7000;
+ Boolean married = "Are you married?";
+ 
+ if( married ){
+ 	Integer spouseAge = "How old is your spouse?";
+ }
+}
