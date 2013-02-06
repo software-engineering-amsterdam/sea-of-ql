@@ -60,41 +60,39 @@ VENV evalStats(list[Statement] Stats1, VENV env) {
   return env;
 }
   
-// Eval declarations
-
-VENV evalDecls (list[Question] results) =   
-   ( Id : ( tp == money() ? moneyVal(0) : strVal("")) | result(QuestionId Id, TYPE tp) <- results); // | results(QuestionId Id, TYPE tp) <- results); 
- // (results.tp == money() ? moneyVal(0) : strVal(""))
  
 VENV evalStatement(statement:ifStat(), VENV env){
 	println("in eval Statement");
 	
 }
-    
+
+/** Method to evaluate simple questions
+* @param question the simple question
+* @param env the type environment
+* @return env a instance added to the VENV
+* @author Philipp
+*/    
 VENV evalQuestion(question:easyQuestion(str id, str labelQuestion, Type tp) , VENV env){
-	println("in eval Question <tp>");
+	println("in eval simple Question <tp>");
 	visit(tp){
-		case money() : {
-			println("type is money");
-			return addInstance(env, id , moneyVal(0.0));
-		}
-		case integer() : {
-			println("type is integer");
-			return addInstance(env, id , intVal(0));
-		}
-		case string() : {
-			println("type is string");
-			return addInstance(env, id , strVal(""));
-		}
-		case boolean() : {
-			println("type is boolean");
-			return addInstance(env, id , boolVal(false));
-		}
+		case money() : return addInstance(env, id , moneyVal(0.0));
+		case integer() : return addInstance(env, id , intVal(0));
+		case string() : return addInstance(env, id , strVal(""));
+		case boolean() : return addInstance(env, id , boolVal(false));
 	}
-	return addInstance(env, id ,( tp == money() ? moneyVal(0) : intVal(0)) );
-	//( Id : (tp == natural() ? natval(0) : strval(""))  | decl(PicoId Id, TYPE tp) <- Decls);
 }
 
+
+VENV evalQuestion(question:computedQuestion(str id, str labelQuestion, Type tp, Expression exp), VENV env){
+	println("in eval computed question");
+}
+
+/** Method to eval the Body of the QL language
+* @param Body the Body of the QL
+* @param env the VENV 
+* @return env the evaluated VENV
+* @author Philipp
+*/
 VENV evalBody(list[Body] Body, VENV env){
 	println("In EVAL Body");
 	visit(Body){
