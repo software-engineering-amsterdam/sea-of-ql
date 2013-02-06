@@ -33,16 +33,15 @@ import org.uva.sea.ql.visitor.IExprVisitor;
 public class ExprEvaluator implements IExprVisitor<Value> {
 	private final Map<String, Type> emptyMap=new HashMap<String, Type>();
 	private final Map<String,Value> declaredVar;
-	private final Expr expr;
 	
-	private ExprEvaluator(Expr expr,Map<String,Value >declaredVar){
-		this.expr=expr;
+	
+	private ExprEvaluator(Map<String,Value >declaredVar){
 		this.declaredVar=declaredVar;
 		
 	}
 
 	public static Value eval(Expr expr,Map<String,Value >declaredVar){
-		ExprEvaluator evaluator=new ExprEvaluator(expr,declaredVar);
+		ExprEvaluator evaluator=new ExprEvaluator(declaredVar);
 		return expr.accept(evaluator);
 		
 	}
