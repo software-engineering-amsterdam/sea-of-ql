@@ -2,10 +2,16 @@ package org.uva.sea.ql.interpreter;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
+import javax.swing.JFrame;
+import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.SwingUtilities;
 
+import org.uva.sea.ql.ast.expr.values.DecimalLit;
 import org.uva.sea.ql.ast.expr.values.StringLit;
 import org.uva.sea.ql.ast.expr.values.Value;
 
@@ -32,7 +38,10 @@ public class QLTextField extends JTextField implements ActionListener{
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		String input=this.getText();
-		VariableEnvironment.refreshForm(varName, declaredVar, new StringLit(input));
+		VariableUpdater varUpdater=new VariableUpdater(varName, declaredVar, new StringLit(input));
+		List<JPanel> questionList=new ArrayList<JPanel>();
+		JFrame frame = (JFrame) SwingUtilities.getRoot(this);
+		new SwingVisitor(questionList,varUpdater.getUpdatedValues()).regenerate(frame);
 
 	}
 	

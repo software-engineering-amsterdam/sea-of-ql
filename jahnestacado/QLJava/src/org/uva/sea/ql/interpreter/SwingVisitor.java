@@ -1,10 +1,9 @@
 package org.uva.sea.ql.interpreter;
 
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import org.uva.sea.ql.ast.expr.Expr;
@@ -30,46 +29,42 @@ public class SwingVisitor implements IElementVisitor{
 	private final Map<String,Value> declaredVar;
 	private static Form form;
 	
-	private SwingVisitor(Form form,List<JPanel> questionList,Map<String,Value> declaredVar){
+	
+	
+	public SwingVisitor(List<JPanel> questionList,Map<String,Value> declaredVar){
 		this.questionList=questionList;
 		this.declaredVar=declaredVar;
-		this.form=form;
-	}
-	
-	
-	public static List<JPanel> generate(Form form){
-         
-		List<JPanel> questionList=new ArrayList<JPanel>();
-		Map<String,Value> declaredVar=new LinkedHashMap<String,Value>();
-		SwingVisitor visitor=new SwingVisitor(form,questionList,declaredVar);
-		form.accept(visitor);
-		return questionList;
-
-	}
-	
-	public static List<JPanel> regenerate(Map<String,Value> declaredVar){
-		List<JPanel> questionList=new ArrayList<JPanel>();
-		SwingVisitor visitor=new SwingVisitor(form,questionList,declaredVar);
-		form.accept(visitor);
-		return questionList;
-
 		
 	}
+	
+	
+	public void generate(Form form, JFrame frame) {
+		String formName=form.getId().getName();
+		System.out.print(formName);
+		frame.setTitle(formName);
+		this.form = form;
+		form.accept(this);
+		new Renderer(questionList, frame).addQuestionsToPanel();
 
+	}
+
+	
+	public void regenerate(JFrame frame) {
+		form.accept(this);
+		new Renderer(questionList, frame).refresh();
+
+	}
+
+	
 	@Override
 	public void visit(Form qlElement) {
-
-       String formName=qlElement.getId().getName();
-       Renderer.setName(formName);
-       qlElement.getBody().accept(this);
+		qlElement.getBody().accept(this);
 	}
 
 	@Override
 	public void visit(Body qlElement) {
-		System.out.println("body");
-
-		List<BodyElement> bodyList=qlElement.getBodyElement();
-		for(BodyElement element:bodyList){
+		List<BodyElement> bodyList = qlElement.getBodyElement();
+		for (BodyElement element : bodyList) {
 			element.accept(this);
 		}
 
@@ -77,12 +72,11 @@ public class SwingVisitor implements IElementVisitor{
 
 	@Override
 	public void visit(Question qlElement) {
-		System.out.println("question");
-
 		initVar(qlElement);
-		addQuestion(qlElement,declaredVar);
+		addQuestion(qlElement, declaredVar);
 	}
 
+	
 	@Override
 	public void visit(ComputedQuestion qlElement) {
 		initVar(qlElement);   
@@ -143,12 +137,12 @@ public class SwingVisitor implements IElementVisitor{
 			Value value=declaredVar.get(varName);
 			declaredVar.put(varName, value);
 		}
-		else declaredVar.put(varName, getValue(qlElement));
+		else declaredVar.put(varName,initValue(qlElement));
 		
 	}
 	
 	
-	private Value getValue(SingleLineElement qlElement) {
+	private Value initValue(SingleLineElement qlElement) {
 		Type type = qlElement.getType();
 
 		if (type.isCompatibleToBoolType()) {
@@ -162,6 +156,7 @@ public class SwingVisitor implements IElementVisitor{
 		}
 
 	}
+	
 	
 	
 }

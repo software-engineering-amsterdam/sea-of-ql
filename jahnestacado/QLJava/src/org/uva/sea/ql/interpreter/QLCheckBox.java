@@ -2,9 +2,14 @@ package org.uva.sea.ql.interpreter;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import javax.swing.JCheckBox;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
 
 import org.uva.sea.ql.ast.expr.values.BoolLit;
 import org.uva.sea.ql.ast.expr.values.Value;
@@ -15,14 +20,13 @@ public class QLCheckBox extends JCheckBox implements ActionListener {
 
 	private final String varName;
 	private final Map<String, Value> declaredVar;
-	private final boolean state;
+
 
 
 	public QLCheckBox(String varName, Map<String, Value> declaredVar) {
 		super("Yes");
 		this.varName = varName;
 		this.declaredVar = declaredVar;
-		state =  ((BoolLit) declaredVar.get(varName)).getValue();
 
 	}
 
@@ -34,13 +38,23 @@ public class QLCheckBox extends JCheckBox implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		VariableEnvironment.refreshForm(varName, declaredVar, new BoolLit(!state));
+	
+
+		VariableUpdater varUpdater=new VariableUpdater(varName, declaredVar, new BoolLit(!getState()));
+		List<JPanel> questionList=new ArrayList<JPanel>();
+		JFrame frame = (JFrame) SwingUtilities.getRoot(this);
+		new SwingVisitor(questionList,varUpdater.getUpdatedValues()).regenerate(frame);
+
 	}
 
 	private JCheckBox getCheckBox() {
 		this.addActionListener(this);
-		this.setSelected(state);
+		this.setSelected(getState());
 		return this;
+	}
+	
+	private boolean getState(){
+		return ((BoolLit) declaredVar.get(varName)).getValue();
 	}
 
 }

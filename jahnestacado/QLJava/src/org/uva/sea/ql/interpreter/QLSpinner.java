@@ -5,29 +5,34 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import javax.swing.JButton;
 import javax.swing.JFormattedTextField;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerNumberModel;
+import javax.swing.SwingUtilities;
 
+import org.uva.sea.ql.ast.expr.values.DecimalLit;
 import org.uva.sea.ql.ast.expr.values.IntegerLit;
 import org.uva.sea.ql.ast.expr.values.Value;
 
 public class QLSpinner extends JSpinner  {
 	private final String varName;
 	private final Map<String, Value> declaredVar;
-	private final Integer value;
+
    
 	
 	
-	public QLSpinner(String varName,Map<String, Value> declaredVar){
+	private QLSpinner(String varName,Map<String, Value> declaredVar){
 		super(new SpinnerNumberModel(0, 0, 10000, 1));
 		this.varName=varName;
 		this.declaredVar=declaredVar;
-		value=((IntegerLit) declaredVar.get(varName)).getValue();
-		
+	
 	}
 	
 	public static JSpinner responsiveSpinner(String varName,Map<String, Value> declaredVar) {
@@ -38,7 +43,8 @@ public class QLSpinner extends JSpinner  {
 	
 	
 	private JSpinner getSpinner() {
-		this.setValue((Integer) value);
+
+		this.setValue(getCurrentValue());
 		JFormattedTextField tf = ((JSpinner.DefaultEditor)this.getEditor()).getTextField();
 		tf.setEditable(false);
 				  
@@ -69,7 +75,7 @@ public class QLSpinner extends JSpinner  {
 
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
-			if(value==0) return;
+			if(getCurrentValue()==0) return;
 			decreaseValueByOne();			
 		}
 		
@@ -78,17 +84,25 @@ public class QLSpinner extends JSpinner  {
 
 	
 	private void increaseValueByOne(){
-		VariableEnvironment.refreshForm(varName, declaredVar, new IntegerLit(value+1));		
+		VariableUpdater varUpdater=new VariableUpdater(varName, declaredVar, new IntegerLit(getCurrentValue()+1));
+		List<JPanel> questionList=new ArrayList<JPanel>();
+		JFrame frame = (JFrame) SwingUtilities.getRoot(this);
+		new SwingVisitor(questionList,varUpdater.getUpdatedValues()).regenerate(frame);
 
 	}
 	
 	private void decreaseValueByOne(){
-		VariableEnvironment.refreshForm(varName, declaredVar, new IntegerLit(value-1));		
+		VariableUpdater varUpdater=new VariableUpdater(varName, declaredVar, new IntegerLit(getCurrentValue()-1));
+		List<JPanel> questionList=new ArrayList<JPanel>();
+		JFrame frame = (JFrame) SwingUtilities.getRoot(this);
+		new SwingVisitor(questionList,varUpdater.getUpdatedValues()).regenerate(frame);
 
 	}
     
     
 	
-	
+	private int getCurrentValue(){
+		return ((IntegerLit) declaredVar.get(varName)).getValue();
+	}
 	
     }

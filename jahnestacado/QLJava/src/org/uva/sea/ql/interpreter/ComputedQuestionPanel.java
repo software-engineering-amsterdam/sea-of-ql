@@ -9,6 +9,7 @@ import javax.swing.JTextField;
 
 import net.miginfocom.swing.MigLayout;
 
+import org.uva.sea.ql.ast.expr.values.BoolLit;
 import org.uva.sea.ql.ast.expr.values.DecimalLit;
 import org.uva.sea.ql.ast.expr.values.IntegerLit;
 import org.uva.sea.ql.ast.expr.values.StringLit;
@@ -31,6 +32,7 @@ public class ComputedQuestionPanel extends JPanel {
 		computedValue.setText(valueToString(qlElement, declaredVar));
 		computedValue.setEditable(false);
 		addComponents();
+		this.setVisible(((BoolLit) declaredVar.get(qlElement.getId().getName())).getValue());
 	}
 	
 	private void addComponents(){

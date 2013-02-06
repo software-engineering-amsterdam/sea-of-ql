@@ -10,29 +10,24 @@ import javax.swing.JScrollPane;
 import net.miginfocom.swing.MigLayout;
 
 public class Renderer {
-	private final  List<JPanel> questionList;
-	private static JPanel content;
-	private static JFrame frame;
+	private static  List<JPanel> questionList;
+	private  JPanel content;
+	private  JFrame frame;
 	private static String qlName;
 
-	public Renderer(List<JPanel> questionList) {
-		frame = new JFrame();
+	public Renderer(List<JPanel> questionList,JFrame frame) {
+		this.frame=frame;
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setSize(new Dimension(700, 600));
-		frame.setTitle("QL-" + qlName);
+		frame.setResizable(false);
 		this.questionList = questionList;
+		content = new JPanel(new MigLayout());
 
-		addQuestionsToPanel();
-		frame.setVisible(true);
 
 	}
 	
 	
 
-	private void addQuestionsToPanel() {
-		content = new JPanel();
-		content.setLayout(new MigLayout());
-
+	public void addQuestionsToPanel() {
 		for (JPanel question : questionList) {
 			content.add(question, "align label,wrap");
 		}
@@ -40,13 +35,14 @@ public class Renderer {
 		JPanel containerPanel = new JPanel();
 		containerPanel.add(content);
 		frame.add(containerPanel);
+		frame.pack();
+		frame.setVisible(true);
 		}
 
 	
-	public static void refresh(List<JPanel> questionList) {
-		System.out.println("refresh");
+	public  void refresh() {
 		content.removeAll();
-		
+		content.updateUI();
 
 		for (JPanel question : questionList) {
 			content.add(question, "wrap");
@@ -55,15 +51,11 @@ public class Renderer {
 		JPanel containerPanel = new JPanel();
 		containerPanel.add(content);
 		frame.add(containerPanel);
+		frame.pack();
 		frame.invalidate();
-		frame.setVisible(true);
-		
 	}
 
 	
-
-	public static void setName(String name) {
-		qlName = name;
-	}
+	
 
 }
