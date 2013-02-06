@@ -23,10 +23,10 @@ import org.uva.sea.ql.ast.type.BooleanType;
 
 public class StatementTypeChecker implements StatementVisitor<Statement> {
 
-	private final List<ValidationException> typeErrors = new ArrayList<ValidationException>();
+	private final List<TypeCheckException> typeErrors = new ArrayList<TypeCheckException>();
 	private final ExpressionTypeChecker expressionTypeChecker;
 
-	private final Map<String, Statement> environment = new HashMap<String, Statement>();
+	private final Map<Expression, Expression> environment = new HashMap<Expression, Expression>();
 
 	public StatementTypeChecker(
 			final ExpressionTypeChecker expressionTypeChecker) {
@@ -37,7 +37,8 @@ public class StatementTypeChecker implements StatementVisitor<Statement> {
 	@Override
 	public Statement visit(final Form form) {
 		form.getBody().accept(this);
-		assertIdentifierAndAddToEnvironment(form.getIdentifier(), form);
+		assertIdentifierAndAddToEnvironment(form.getIdentifier(),
+				form.getIdentifier());
 
 		return form;
 	}
@@ -55,7 +56,8 @@ public class StatementTypeChecker implements StatementVisitor<Statement> {
 	@Override
 	public Statement visit(final Computed computed) {
 
-		assertIdentifierAndAddToEnvironment(computed.getIdentifier(), computed);
+		assertIdentifierAndAddToEnvironment(computed.getIdentifier(),
+				computed.getExpression());
 		visitExpression(computed.getExpression());
 		assertSameNature(computed.getDataType(), computed.getExpression(),
 				computed.toString());
@@ -66,7 +68,8 @@ public class StatementTypeChecker implements StatementVisitor<Statement> {
 	@Override
 	public Statement visit(final IfStatement ifStatement) {
 		visitExpression(ifStatement.getExpression());
-		assertSameNature(new BooleanType(), ifStatement.getExpression(),
+
+		assertIfStatementExpression(ifStatement.getExpression(),
 				ifStatement.toString());
 
 		ifStatement.getIfCompound().accept(this);
@@ -74,11 +77,29 @@ public class StatementTypeChecker implements StatementVisitor<Statement> {
 		return ifStatement;
 	}
 
+	/**
+	 * Checks whethere the given expression is of the boolean nature or refers
+	 * to any expression with such nature.
+	 * 
+	 * @param expression
+	 */
+	private void assertIfStatementExpression(final Expression expression,
+			final String reference) {
+		if (environment.get(expression) != null) {
+			assertSameNature(new BooleanType(), environment.get(expression),
+					reference);
+		} else {
+			assertSameNature(new BooleanType(), expression, reference);
+		}
+	}
+
 	@Override
 	public Statement visit(final IfElseStatement ifElseStatement) {
 		visitExpression(ifElseStatement.getExpression());
-		assertSameNature(new BooleanType(), ifElseStatement.getExpression(),
+
+		assertIfStatementExpression(ifElseStatement.getExpression(),
 				ifElseStatement.toString());
+
 		ifElseStatement.getIfCompound().accept(this);
 		ifElseStatement.getElseCompound().accept(this);
 
@@ -87,7 +108,8 @@ public class StatementTypeChecker implements StatementVisitor<Statement> {
 
 	@Override
 	public Statement visit(final Question question) {
-		assertIdentifierAndAddToEnvironment(question.getIdentifier(), question);
+		assertIdentifierAndAddToEnvironment(question.getIdentifier(),
+				question.getDataType());
 		return question;
 	}
 
@@ -101,7 +123,7 @@ public class StatementTypeChecker implements StatementVisitor<Statement> {
 							+ reference);
 
 		} catch (ValidationException e) {
-			typeErrors.add(e);
+			typeErrors.add(new TypeCheckException(e.getMessage(), e));
 		}
 	}
 
@@ -110,18 +132,19 @@ public class StatementTypeChecker implements StatementVisitor<Statement> {
 	}
 
 	private void assertIdentifierAndAddToEnvironment(
-			final Identifier identifier, final Statement statement) {
+			final Identifier identifier, final Expression expression) {
 		identifier.accept(expressionTypeChecker);
 
 		try {
-			checked.assertTrue(!identifier.getName().isEmpty(), statement
+			checked.assertTrue(!identifier.getName().isEmpty(), expression
 					+ " identifier cannot be empty");
-			checked.assertTrue(environment.get(identifier.getName()) == null,
+
+			checked.assertTrue(environment.get(identifier) == null,
 					identifier.getName() + " already exists");
 
-			environment.put(identifier.getName(), statement);
+			environment.put(identifier, expression);
 		} catch (ValidationException e) {
-			typeErrors.add(e);
+			typeErrors.add(new TypeCheckException(e.getMessage(), e));
 		}
 	}
 
@@ -129,16 +152,16 @@ public class StatementTypeChecker implements StatementVisitor<Statement> {
 	 * 
 	 * @return a copy. Does not include expression type errors
 	 */
-	public List<ValidationException> getTypeErrors() {
-		return new ArrayList<ValidationException>(typeErrors);
+	public List<TypeCheckException> getTypeErrors() {
+		return new ArrayList<TypeCheckException>(typeErrors);
 	}
 
 	/**
 	 * 
 	 * @return all error types including expression type errors
 	 */
-	public List<ValidationException> getAllTypeErrors() {
-		List<ValidationException> allErrors = new ArrayList<ValidationException>(
+	public List<TypeCheckException> getAllTypeErrors() {
+		List<TypeCheckException> allErrors = new ArrayList<TypeCheckException>(
 				typeErrors);
 		allErrors.addAll(expressionTypeChecker.getTypeErrors());
 
