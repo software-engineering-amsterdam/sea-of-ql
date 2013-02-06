@@ -1,0 +1,12 @@
+package org.uva.sea.ql.ast;
+
+import org.uva.sea.ql.ast.ASTNode;
+import org.uva.sea.ql.ast.expressions.Ident;
+
+public class Form implements ASTNode {
+	protected final Ident name;
+
+	public Form(Ident name) {
+		this.name = name;
+	}
+}

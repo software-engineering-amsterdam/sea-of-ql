@@ -1,0 +1,9 @@
+package org.uva.sea.ql.parser.typechecking;
+
+import java.util.List;
+
+public class Environment {
+	private List<String> messages;
+	private Map<String, Type> typeEnvironment;
+	
+}

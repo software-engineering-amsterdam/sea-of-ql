@@ -1,0 +1,193 @@
+package org.uva.sea.ql.parser.test;
+
+import static org.junit.Assert.assertEquals;
+
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.Parameterized;
+import org.junit.runners.Parameterized.Parameters;
+import org.uva.sea.ql.ast.expression.Add;
+import org.uva.sea.ql.ast.expression.And;
+import org.uva.sea.ql.ast.expression.Eq;
+import org.uva.sea.ql.ast.expression.GEq;
+import org.uva.sea.ql.ast.expression.GT;
+import org.uva.sea.ql.ast.expression.Ident;
+import org.uva.sea.ql.ast.expression.Int;
+import org.uva.sea.ql.ast.expression.LEq;
+import org.uva.sea.ql.ast.expression.LT;
+import org.uva.sea.ql.ast.expression.Mul;
+import org.uva.sea.ql.ast.expression.Not;
+import org.uva.sea.ql.ast.form.Body;
+import org.uva.sea.ql.ast.form.ComputedQuestion;
+import org.uva.sea.ql.ast.form.IfStatement;
+import org.uva.sea.ql.ast.form.QLForm;
+import org.uva.sea.ql.ast.form.Question;
+
+public class TestSyntax {
+	private HashMap<String, Class<?>> tests;
+	
+	public TestSyntax() {
+		super();
+	}
+	
+	@Before
+	public void initMap() {
+		tests = new HashMap<String, Class<?>>();
+	}
+	
+	private void testd(IParse.ParseMethod method) throws ParseError {
+		for (Map.Entry<String, Class<?>> t : tests.entrySet()) {
+			assertEquals(
+				"Error source: " + t.getKey(), // message
+				t.getValue(),				   // expected
+				parser.parse(method, t.getKey()).getClass() // actual
+			);
+		}
+	}
+	
+	@Test
+	public void testForms() throws ParseError {
+		tests.put("form f1 { \n q1: \"Question 1\" boolean }", QLForm.class);
+		tests.put("form f2 { \n afds fds \" \" string }", QLForm.class);
+		tests.put("form f3 { }", QLForm.class);
+		tests.put("form f5 { \n 434fw: \" \" integer }", QLForm.class);
+		
+		try {
+			test(IParse.ParseMethod.FORM);
+		} catch (ParseError e) {
+			System.out.println("parse error!");
+			throw e;
+		}
+	}
+	
+	@Test
+	public void TestBodies() throws ParseError {
+		tests.put("{ \n fdsafjdks: \" \" boolean }", Body.class);
+		tests.put("{ \n {}:'FFD<> \" \" boolean }", Body.class);
+		tests.put("{ \n @#$%^&: \" \" boolean }", Body.class);
+		tests.put("{ \n \t \t \r\n \r \r \n }", Body.class);
+		tests.put("{ }", Body.class);
+		
+		test(IParse.ParseMethod.BODY);
+	}
+	
+	@Test
+	public void FormElements() throws ParseError {
+		tests.put("q1: \"fjdslfj\" boolean", Question.class);
+		tests.put("q1: \"\" boolean", Question.class);
+		
+		tests.put("q1: \"fjdkslfj \" boolean(a == b)", ComputedQuestion.class);
+		tests.put("q1: \"\" integer(this + that)", ComputedQuestion.class);
+		
+		tests.put("if (d < e) { q1: \" \" integer }", IfStatement.class);
+		tests.put("if (a == b) { } ", IfStatement.class);
+		
+		test(IParse.ParseMethod.FORM_ELEMENT);
+	}
+	
+	@Test
+	public void testAdds() throws ParseError {
+		tests.put("a + b", Add.class);
+		tests.put("a + b + c", Add.class);
+		tests.put("(a + b + c)", Add.class);
+		tests.put("a + (b + c)", Add.class);
+		tests.put("(a + b) + c", Add.class);
+		tests.put("(a + b)", Add.class);
+		tests.put("a + b * c", Add.class);
+		tests.put("a * b + c", Add.class);
+		
+		test(IParse.ParseMethod.EXPRESSION);
+	}
+
+	@Test
+	public void testMuls() throws ParseError {
+		tests.put("a * b", Mul.class);
+		tests.put("a * b * c", Mul.class);
+		tests.put("a * (b * c)", Mul.class);
+		tests.put("(a * b) * c", Mul.class);
+		tests.put("(a * b)", Mul.class);
+		tests.put("(a + b) * c", Mul.class);
+		tests.put("a * (b + c)", Mul.class);
+		
+		test(IParse.ParseMethod.EXPRESSION);
+	}
+
+	@Test
+	public void testRels() throws ParseError {
+		tests.put("a < b", LT.class);
+		tests.put("a < b + c", LT.class);
+		tests.put("a < (b * c)", LT.class);
+		tests.put("(a * b) < c", LT.class);
+		
+		tests.put("(a <= b)", LEq.class);
+		tests.put("(a + b <= b)", LEq.class);
+		tests.put("(a <= b * c)", LEq.class);
+		tests.put("(a - b * c <= b)", LEq.class);
+		tests.put("(a <= b)", LEq.class);
+		
+		tests.put("a + b == c", Eq.class);
+		tests.put("a == b + c", Eq.class);
+		tests.put("a + b == c", Eq.class);
+		tests.put("a == b + c", Eq.class);
+		
+		tests.put("(a >= b)", GEq.class);
+		tests.put("(a + b >= b)", GEq.class);
+		tests.put("(a >= b * c)", GEq.class);
+		tests.put("(a - b * c >= b)", GEq.class);
+		tests.put("(a >= b)", GEq.class);
+		
+		tests.put("a + b > c", GT.class);
+		tests.put("a > b + c", GT.class);
+		tests.put("a + b > c", GT.class);
+		tests.put("a > b + c", GT.class);
+		
+		test(IParse.ParseMethod.EXPRESSION);
+	}
+
+	@Test
+	public void testBools() throws ParseError {
+		tests.put("!b", Not.class);
+		tests.put("!(a == b)", Not.class);
+		tests.put("!(b && c)", Not.class);
+		tests.put("!(d == (e && f) || g)", Not.class);
+		
+		tests.put("a && b", And.class);
+		tests.put("a > b && b > c", And.class);
+		tests.put("(a > b) && (b > c)", And.class);
+		
+		test(IParse.ParseMethod.EXPRESSION);
+	}
+
+	@Test
+	public void testIds() throws ParseError {
+		tests.put("a", Ident.class);
+		tests.put("abc", Ident.class);
+		tests.put("ABC", Ident.class);
+		tests.put("ABCDEF", Ident.class);
+		tests.put("abc2323", Ident.class);
+		tests.put("a2bc232", Ident.class);
+		tests.put("a2bc232aa", Ident.class);
+		
+		test(IParse.ParseMethod.EXPRESSION);
+	}
+
+	@Test
+	public void testNums() throws ParseError {
+		tests.put("0", Int.class);
+		tests.put("00000000000000", Int.class);
+		tests.put("1223", Int.class);
+		tests.put("234234234", Int.class);
+		tests.put("000000003", Int.class);
+		
+		test(IParse.ParseMethod.EXPRESSION);
+	}
+
+}

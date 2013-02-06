@@ -1,4 +1,4 @@
-// $ANTLR 3.5 /Users/sven/Documents/sc2013/sea-of-ql/sven-m/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g 2013-02-06 13:28:25
+// $ANTLR 3.5 /Users/sven/Documents/sc2013/sea-of-ql/sven-m/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g 2013-02-06 16:30:20
 
 package org.uva.sea.ql.parser.antlr;
 import org.uva.sea.ql.ast.*;
@@ -362,8 +362,8 @@ public class QLParser extends Parser {
 		Token id=null;
 		Token lbl=null;
 		Expr cond =null;
-		ExprType type8 =null;
-		ExprType type9 =null;
+		Type type8 =null;
+		Type type9 =null;
 
 		try {
 			if ( state.backtracking>0 && alreadyParsedRule(input, 6) ) { return result; }
@@ -573,9 +573,9 @@ public class QLParser extends Parser {
 
 
 	// $ANTLR start "type"
-	// /Users/sven/Documents/sc2013/sea-of-ql/sven-m/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:69:1: type returns [ExprType result] : ( 'boolean' | 'string' | 'integer' );
-	public final ExprType type() throws RecognitionException {
-		ExprType result = null;
+	// /Users/sven/Documents/sc2013/sea-of-ql/sven-m/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:69:1: type returns [Type result] : ( 'boolean' | 'string' | 'integer' );
+	public final Type type() throws RecognitionException {
+		Type result = null;
 
 		int type_StartIndex = input.index();
 

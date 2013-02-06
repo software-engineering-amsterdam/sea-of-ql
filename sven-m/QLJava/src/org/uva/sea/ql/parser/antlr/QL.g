@@ -66,7 +66,7 @@ question returns [Question result]
     }
   ;
   
-type returns [ExprType result]
+type returns [Type result]
   : 'boolean' { $result = new BoolType(); }
   | 'string' { $result = new StrType(); }
   | 'integer' { $result = new IntType(); }

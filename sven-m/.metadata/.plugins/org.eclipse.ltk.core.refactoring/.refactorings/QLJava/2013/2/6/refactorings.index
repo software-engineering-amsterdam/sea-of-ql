@@ -1,0 +1,44 @@
+1360067334810	Rename method 'parse'
+1360071655912	Rename type 'Visitor'
+1360071684562	Delete element
+1360073574220	Delete element
+1360077656537	Move compilation unit
+1360079197748	Rename type 'QLTypeError'
+1360079210428	Delete element
+1360086304919	Rename type 'ComputedQuestion'
+1360086908957	Rename type 'Visitor'
+1360087506188	Rename type 'ExpressionTypeChecker'
+1360088681716	Rename type 'FormElementTypeChecker'
+1360088708485	Move compilation unit
+1360088795821	Rename package 'org.uva.sea.ql.visitors'
+1360088845297	Move compilation unit
+1360088849649	Delete element
+1360088855195	Move compilation unit
+1360088860612	Delete element
+1360144549538	Delete element
+1360144554401	Delete element
+1360144560179	Delete element
+1360144658937	Delete element
+1360144679889	Rename type 'QLForm'
+1360149701794	Encapsulate field 'body'
+1360150916526	Rename type 'AbstractIfStatement'
+1360151162217	Rename type 'AbstractIf'
+1360156033416	Rename type 'TypeChecker'
+1360156043301	Copy compilation unit
+1360156559292	Delete element
+1360156569213	Rename type 'ExprType'
+1360156755023	Delete elements
+1360156762052	Rename type 'StrType'
+1360156775084	Rename type 'IntType'
+1360156789146	Rename type 'BoolType'
+1360156824123	Rename type 'Str'
+1360156831298	Rename type 'Int'
+1360156844108	Rename type 'Bool'
+1360161029666	Rename method 'assertType'
+1360161078356	Rename method 'assertType'
+1360161123547	Rename method 'assertChildType'
+1360164492156	Rename type 'Printer'
+1360164642204	Delete element
+1360164710682	Delete element
+1360165787817	Rename method 'addTypeMessage'
+1360166800090	Delete element

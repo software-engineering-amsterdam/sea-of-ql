@@ -1,0 +1,25 @@
+package org.uva.sea.ql.ast.form;
+
+import org.uva.sea.ql.ast.expression.Expr;
+import org.uva.sea.ql.ast.expression.Ident;
+import org.uva.sea.ql.ast.type.ExprType;
+import org.uva.sea.ql.visitors.Visitor;
+
+public class ComputedQuestion extends Question {
+	private final Expr expression;
+	
+	public ComputedQuestion(Ident name, String label, ExprType type,
+			Expr expression)
+	{
+		super(name, label, type);
+		this.expression = expression;
+	}
+	
+	public Expr getExpression() {
+		return expression;
+	}
+	
+	public void accept(Visitor visitor) {
+		visitor.visit(this);
+	}
+}
