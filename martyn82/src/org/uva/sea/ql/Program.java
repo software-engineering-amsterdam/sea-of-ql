@@ -4,10 +4,11 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 
-import javax.swing.JPanel;
-
 import org.uva.sea.ql.evaluator.Error;
-import org.uva.sea.ql.ui.Window;
+import org.uva.sea.ql.ui.ControlFactory;
+import org.uva.sea.ql.ui.control.PanelControl;
+import org.uva.sea.ql.ui.control.WindowControl;
+import org.uva.sea.ql.ui.swing.SwingControlFactory;
 
 /**
  * Main program.
@@ -17,6 +18,8 @@ public class Program {
 	 * Holds the interpreter.
 	 */
 	private final QLInterpreter interpreter;
+
+	private final ControlFactory factory;
 
 	/**
 	 * Main application entry point.
@@ -32,7 +35,8 @@ public class Program {
 	 * Constructs a new Program instance.
 	 */
 	public Program() {
-		this.interpreter = new QLInterpreter();
+		this.factory = new SwingControlFactory();
+		this.interpreter = new QLInterpreter( this.factory );
 	}
 
 	/**
@@ -66,10 +70,10 @@ public class Program {
 			return;
 		}
 
-		JPanel form = this.interpreter.getResult();
+		PanelControl formPanel = this.interpreter.getResult();
 
-		Window window = new Window( form.getName(), form );
-		window.setVisible( true );
+		WindowControl window = this.factory.createWindow( formPanel.getName(), formPanel );
+		window.show();
 	}
 
 	/**

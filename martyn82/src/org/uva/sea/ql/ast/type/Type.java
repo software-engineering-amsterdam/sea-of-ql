@@ -7,6 +7,9 @@ import org.uva.sea.ql.visitor.TypeVisitor;
  * Represents an abstract type.
  */
 abstract public class Type extends Node {
+	@Override
+	abstract public String toString();
+
 	/**
 	 * Accept a visitor.
 	 *
@@ -22,9 +25,6 @@ abstract public class Type extends Node {
 	 * @return True if this type is compatible to the given type, false if it is not.
 	 */
 	abstract public boolean isCompatibleTo( Type type );
-
-	@Override
-	abstract public String toString();
 
 	/**
 	 * Determines whether this type is compatible to integer.

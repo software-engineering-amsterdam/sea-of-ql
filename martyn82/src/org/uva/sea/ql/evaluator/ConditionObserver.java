@@ -1,20 +1,19 @@
 package org.uva.sea.ql.evaluator;
 
-import javax.swing.JComponent;
-
 import org.uva.sea.ql.Observable;
 import org.uva.sea.ql.Observer;
 import org.uva.sea.ql.ast.expression.Expression;
 import org.uva.sea.ql.evaluator.value.Boolean;
 import org.uva.sea.ql.evaluator.value.Value;
+import org.uva.sea.ql.ui.control.Control;
 
 public class ConditionObserver implements Observer {
 	private final Expression condition;
 	private final Environment environment;
-	private final JComponent trueComponent;
-	private final JComponent falseComponent;
+	private final Control trueComponent;
+	private final Control falseComponent;
 
-	public ConditionObserver( Expression condition, Environment environment, JComponent trueComponent, JComponent falseComponent ) {
+	public ConditionObserver( Expression condition, Environment environment, Control trueComponent, Control falseComponent ) {
 		this.condition = condition;
 		this.environment = environment;
 		this.trueComponent = trueComponent;

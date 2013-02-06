@@ -23,6 +23,8 @@ import org.uva.sea.ql.evaluator.Environment;
 import org.uva.sea.ql.evaluator.Evaluator;
 import org.uva.sea.ql.evaluator.Renderer;
 import org.uva.sea.ql.test.IStatementTest;
+import org.uva.sea.ql.ui.ControlFactory;
+import org.uva.sea.ql.ui.swing.SwingControlFactory;
 
 /**
  * Test statement evaluator.
@@ -38,10 +40,13 @@ public class RendererTest implements IStatementTest {
 	 */
 	private final Environment environment;
 
+	private final ControlFactory factory;
+
 	/**
 	 * Constructs a new statement evaluator test.
 	 */
 	public RendererTest() {
+		this.factory = new SwingControlFactory();
 		this.environment = new Environment();
 		this.expressionEvaluator = new Evaluator( this.environment );
 	}
@@ -52,7 +57,7 @@ public class RendererTest implements IStatementTest {
 	 * @param statement
 	 */
 	private void eval( Statement statement ) {
-		Renderer.render( statement, this.environment );
+		Renderer.render( statement, this.environment, this.factory );
 	}
 
 	/**

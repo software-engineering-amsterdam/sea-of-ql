@@ -38,6 +38,8 @@ public class TypeEvaluator implements TypeVisitor<Value> {
 
 	@Override
 	public Value visit( Number node ) {
+		// TODO get this out
+
 		if ( node instanceof Int ) {
 			return this.visit( (Int) node );
 		}

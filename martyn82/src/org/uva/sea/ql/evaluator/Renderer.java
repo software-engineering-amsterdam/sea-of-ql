@@ -1,18 +1,6 @@
 package org.uva.sea.ql.evaluator;
 
-import java.awt.event.FocusEvent;
-import java.awt.event.FocusListener;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
 import java.util.LinkedList;
-
-import javax.swing.Box;
-import javax.swing.BoxLayout;
-import javax.swing.JCheckBox;
-import javax.swing.JComponent;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
 
 import org.uva.sea.ql.Observable;
 import org.uva.sea.ql.Observer;
@@ -39,14 +27,23 @@ import org.uva.sea.ql.ast.type.Number;
 import org.uva.sea.ql.ast.type.Str;
 import org.uva.sea.ql.ast.type.Type;
 import org.uva.sea.ql.evaluator.value.Boolean;
+import org.uva.sea.ql.evaluator.value.Integer;
+import org.uva.sea.ql.evaluator.value.String;
+import org.uva.sea.ql.evaluator.value.Undefined;
 import org.uva.sea.ql.evaluator.value.Value;
+import org.uva.sea.ql.ui.ControlEvent;
+import org.uva.sea.ql.ui.ControlEventListener;
+import org.uva.sea.ql.ui.ControlFactory;
+import org.uva.sea.ql.ui.control.Control;
+import org.uva.sea.ql.ui.control.PanelControl;
+import org.uva.sea.ql.ui.swing.JPanelControl;
 import org.uva.sea.ql.visitor.StatementVisitor;
 import org.uva.sea.ql.visitor.TypeVisitor;
 
 /**
  * Evaluator for statement nodes.
  */
-public class Renderer implements StatementVisitor<Void>, TypeVisitor<JComponent> {
+public class Renderer implements StatementVisitor<Void>, TypeVisitor<Control> {
 	/**
 	 * Holds the environment.
 	 */
@@ -65,18 +62,24 @@ public class Renderer implements StatementVisitor<Void>, TypeVisitor<JComponent>
 	/**
 	 * Holds the working panel.
 	 */
-	private final JPanel panel;
+	private final PanelControl panel;
+
+	/**
+	 * Holds the control factory used to construct control elements.
+	 */
+	private final ControlFactory factory;
 
 	/**
 	 * Renders the given statement.
 	 *
 	 * @param statement
 	 * @param environment
+	 * @param factory
 	 *
 	 * @return Panel resulting from statement.
 	 */
-	public static JPanel render( Statement statement, Environment environment ) {
-		Renderer renderer = new Renderer( environment );
+	public static PanelControl render( Statement statement, Environment environment, ControlFactory factory ) {
+		Renderer renderer = new Renderer( environment, factory );
 		statement.accept( renderer );
 		return renderer.getPanel();
 	}
@@ -85,15 +88,15 @@ public class Renderer implements StatementVisitor<Void>, TypeVisitor<JComponent>
 	 * Hidden constructor for renderer.
 	 *
 	 * @param environment
+	 * @param factory
 	 */
-	private Renderer( Environment environment ) {
+	private Renderer( Environment environment, ControlFactory factory ) {
+		this.factory = factory;
 		this.environment = environment;
 		this.expressionEvaluator = new Evaluator( environment );
 		this.typeEvaluator = new TypeEvaluator();
 
-		this.panel = new JPanel();
-		this.panel.setLayout( new BoxLayout( this.panel, BoxLayout.Y_AXIS ) );
-		this.panel.add( Box.createHorizontalGlue() );
+		this.panel = this.factory.createPanel();
 	}
 
 	/**
@@ -101,7 +104,7 @@ public class Renderer implements StatementVisitor<Void>, TypeVisitor<JComponent>
 	 *
 	 * @return The result.
 	 */
-	private JPanel getPanel() {
+	private PanelControl getPanel() {
 		return this.panel;
 	}
 
@@ -110,7 +113,7 @@ public class Renderer implements StatementVisitor<Void>, TypeVisitor<JComponent>
 	 *
 	 * @param component
 	 */
-	private void addComponent( JComponent component ) {
+	private void addComponent( Control component ) {
 		this.panel.add( component );
 	}
 
@@ -119,9 +122,8 @@ public class Renderer implements StatementVisitor<Void>, TypeVisitor<JComponent>
 	 *
 	 * @param label
 	 */
-	private void addLabel( String label ) {
-		JLabel labelElement = new JLabel( label );
-		this.addComponent( labelElement );
+	private void addLabel( java.lang.String label ) {
+		this.addComponent( this.factory.createLabel( label ) );
 	}
 
 	/**
@@ -133,47 +135,46 @@ public class Renderer implements StatementVisitor<Void>, TypeVisitor<JComponent>
 	 *
 	 * @return The control.
 	 */
-	private JComponent createControlFromType( Type type, Value value, boolean editable ) {
-		JComponent component = type.accept( this );
+	private Control createControlFromType( Type type, Value value, boolean editable ) {
+		Control component = type.accept( this );
 		component.setEnabled( editable );
-
-		if ( component instanceof JCheckBox ) {
-			( (JCheckBox) component ).setSelected( ( (Boolean) value ).getValue() );
-		}
-		else if ( component instanceof JTextField ) {
-			( (JTextField) component ).setText( value.getValue().toString() );
-		}
-
+		component.setValue( value.getValue() );
 		return component;
 	}
 
-	private void registerHandler( final QuestionDeclaration question, final JComponent component ) {
-		if ( component instanceof JCheckBox ) {
-			( (JCheckBox) component ).addItemListener( new ItemListener() {
-				@Override
-				public void itemStateChanged( ItemEvent event ) {
-					JCheckBox source = (JCheckBox) event.getSource();
-					environment.assign( question.getIdent(), new Boolean( source.isSelected() ) );
-					environment.notifyObservers( question.getIdent() );
-				}
-			} );
-		}
-		else if ( component instanceof JTextField ) {
-			( (JTextField) component ).addFocusListener( new FocusListener() {
-				@Override
-				public void focusLost( FocusEvent event ) {
-					JTextField source = (JTextField) event.getSource();
-					environment.assign( question.getIdent(), new org.uva.sea.ql.evaluator.value.Money( Double.parseDouble( source.getText().toString() ) ) );
-					environment.notifyObservers( question.getIdent() );
+	private void registerHandler( final QuestionDeclaration question, final Control component ) {
+		component.addChangeListener( new ControlEventListener() {
+			@Override
+			public void itemChanged( ControlEvent event ) {
+				Control source = event.getSource();
+				Type type = environment.lookupType( question.getIdent() );
+				Value value = Undefined.UNDEFINED;
+
+				// TODO get this out
+
+				if ( type instanceof Bool ) {
+					value = new Boolean( (java.lang.Boolean) source.getValue() );
 				}
 
-				@Override
-				public void focusGained( FocusEvent arg0 ) {}
-			} );
-		}
+				if ( type instanceof Str ) {
+					value = new String( (java.lang.String) source.getValue() );
+				}
+
+				if ( type instanceof Int ) {
+					value = new Integer( java.lang.Integer.parseInt( source.getValue().toString() ) );
+				}
+
+				if ( type instanceof Money ) {
+					value = new org.uva.sea.ql.evaluator.value.Money( java.lang.Double.parseDouble( source.getValue().toString() ) );
+				}
+
+				environment.assign( question.getIdent(), value );
+				environment.notifyObservers( question.getIdent() );
+			}
+		} );
 	}
 
-	private void registerCondition( Expression expression, JPanel ifTrue, JPanel ifFalse ) {
+	private void registerCondition( Expression expression, PanelControl ifTrue, PanelControl ifFalse ) {
 		Observer observer = new ConditionObserver( expression, this.environment, ifTrue, ifFalse );
 		LinkedList<Ident> list = new LinkedList<Ident>();
 		this.findDependencies( list, expression );
@@ -184,6 +185,8 @@ public class Renderer implements StatementVisitor<Void>, TypeVisitor<JComponent>
 	}
 
 	private void findDependencies( LinkedList<Ident> list, Expression expression ) {
+		// TODO get this out
+
 		if ( expression instanceof BinaryExpression ) {
 			this.findDependencies( list, ( (BinaryExpression) expression ).getLhs() );
 			this.findDependencies( list, ( (BinaryExpression) expression ).getRhs() );
@@ -196,7 +199,7 @@ public class Renderer implements StatementVisitor<Void>, TypeVisitor<JComponent>
 		}
 	}
 
-	private void registerDependencies( final QuestionComputed question, final JComponent component ) {
+	private void registerDependencies( final QuestionComputed question, final Control component ) {
 		Observer observer = new ComputedObserver( component, this.environment, question );
 		LinkedList<Ident> list = new LinkedList<Ident>();
 		this.findDependencies( list, question.getExpression() );
@@ -211,13 +214,12 @@ public class Renderer implements StatementVisitor<Void>, TypeVisitor<JComponent>
 	@Override
 	public Void visit( ElseIf node ) {
 		Boolean value = (Boolean) node.getCondition().accept( this.expressionEvaluator );
-		JPanel tru = render( node.getBody(), this.environment );
+		PanelControl tru = render( node.getBody(), this.environment, this.factory );
 
 		tru.setVisible( value.getValue() );
 
 		this.addComponent( tru );
-
-		this.registerCondition( node.getCondition(), tru, new JPanel() );
+		this.registerCondition( node.getCondition(), tru, new JPanelControl() );
 
 		return null;
 	}
@@ -233,7 +235,7 @@ public class Renderer implements StatementVisitor<Void>, TypeVisitor<JComponent>
 
 	@Override
 	public Void visit( Else node ) {
-		JPanel panel = render( node.getBody(), this.environment );
+		PanelControl panel = render( node.getBody(), this.environment, this.factory );
 
 		this.addComponent( panel );
 
@@ -244,8 +246,8 @@ public class Renderer implements StatementVisitor<Void>, TypeVisitor<JComponent>
 	public Void visit( IfThenElse node ) {
 		boolean condition = ( (Boolean) node.getCondition().accept( this.expressionEvaluator ) ).getValue();
 
-		JPanel tru = render( node.getIfBody(), this.environment );
-		JPanel fls = render( node.getElse(), this.environment );
+		PanelControl tru = render( node.getIfBody(), this.environment, this.factory );
+		PanelControl fls = render( node.getElse(), this.environment, this.factory );
 
 		tru.setVisible( condition );
 		fls.setVisible( !condition );
@@ -286,7 +288,7 @@ public class Renderer implements StatementVisitor<Void>, TypeVisitor<JComponent>
 
 	@Override
 	public Void visit( FormDeclaration node ) {
-		JPanel formPanel = render( node.getStatements(), this.environment );
+		PanelControl formPanel = render( node.getStatements(), this.environment, this.factory );
 		this.addComponent( formPanel );
 
 		this.panel.setName( node.getIdent().getName() );
@@ -300,9 +302,9 @@ public class Renderer implements StatementVisitor<Void>, TypeVisitor<JComponent>
 
 		Type type = node.getType();
 		Value value = type.accept( this.typeEvaluator );
-		String label = node.getLabel().getValue();
 
-		JComponent component = this.createControlFromType( type, value, true );
+		java.lang.String label = node.getLabel().getValue();
+		Control component = this.createControlFromType( type, value, true );
 
 		this.addLabel( label );
 		this.addComponent( component );
@@ -319,9 +321,9 @@ public class Renderer implements StatementVisitor<Void>, TypeVisitor<JComponent>
 
 		Value value = this.environment.lookup( node.getIdent() );
 		Type type = value.getType();
-		String label = node.getLabel().getValue();
 
-		JComponent component = this.createControlFromType( type, value, false );
+		java.lang.String label = node.getLabel().getValue();
+		Control component = this.createControlFromType( type, value, false );
 
 		this.addLabel( label );
 		this.addComponent( component );
@@ -342,27 +344,27 @@ public class Renderer implements StatementVisitor<Void>, TypeVisitor<JComponent>
 	}
 
 	@Override
-	public JComponent visit( Bool node ) {
-		return new JCheckBox();
+	public Control visit( Bool node ) {
+		return this.factory.createCheckBox();
 	}
 
 	@Override
-	public JComponent visit( Int node ) {
-		return new JTextField();
+	public Control visit( Int node ) {
+		return this.factory.createTextBox();
 	}
 
 	@Override
-	public JComponent visit( Str node ) {
-		return new JTextField();
+	public Control visit( Str node ) {
+		return this.factory.createTextBox();
 	}
 
 	@Override
-	public JComponent visit( Money node ) {
-		return new JTextField();
+	public Control visit( Money node ) {
+		return this.factory.createTextBox();
 	}
 
 	@Override
-	public JComponent visit( Number node ) {
-		return new JTextField();
+	public Control visit( Number node ) {
+		return this.factory.createTextBox();
 	}
 }
