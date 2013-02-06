@@ -1,4 +1,4 @@
-// $ANTLR 3.5 C:\\Users\\User\\Desktop\\software engineering\\software construction\\GitHub\\sea-of-ql\\dimitriskyr\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g 2013-02-01 20:18:48
+// $ANTLR 3.5 C:\\Users\\User\\Desktop\\software engineering\\software construction\\GitHub\\sea-of-ql\\dimitriskyr\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g 2013-02-06 19:28:00
 
 package org.uva.sea.ql.parser.antlr;
 
@@ -11,7 +11,6 @@ import java.util.ArrayList;
 @SuppressWarnings("all")
 public class QLLexer extends Lexer {
 	public static final int EOF=-1;
-	public static final int T__10=10;
 	public static final int T__11=11;
 	public static final int T__12=12;
 	public static final int T__13=13;
@@ -34,12 +33,15 @@ public class QLLexer extends Lexer {
 	public static final int T__30=30;
 	public static final int T__31=31;
 	public static final int T__32=32;
+	public static final int T__33=33;
+	public static final int T__34=34;
 	public static final int Bool=4;
 	public static final int Comments=5;
 	public static final int Ident=6;
 	public static final int Int=7;
-	public static final int String_literal=8;
-	public static final int WS=9;
+	public static final int Money=8;
+	public static final int String_literal=9;
+	public static final int WS=10;
 
 	// delegates
 	// delegators
@@ -56,36 +58,15 @@ public class QLLexer extends Lexer {
 	}
 	@Override public String getGrammarFileName() { return "C:\\Users\\User\\Desktop\\software engineering\\software construction\\GitHub\\sea-of-ql\\dimitriskyr\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g"; }
 
-	// $ANTLR start "T__10"
-	public final void mT__10() throws RecognitionException {
-		try {
-			int _type = T__10;
-			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// C:\\Users\\User\\Desktop\\software engineering\\software construction\\GitHub\\sea-of-ql\\dimitriskyr\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:6:7: ( '!' )
-			// C:\\Users\\User\\Desktop\\software engineering\\software construction\\GitHub\\sea-of-ql\\dimitriskyr\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:6:9: '!'
-			{
-			match('!'); 
-			}
-
-			state.type = _type;
-			state.channel = _channel;
-		}
-		finally {
-			// do for sure before leaving
-		}
-	}
-	// $ANTLR end "T__10"
-
 	// $ANTLR start "T__11"
 	public final void mT__11() throws RecognitionException {
 		try {
 			int _type = T__11;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// C:\\Users\\User\\Desktop\\software engineering\\software construction\\GitHub\\sea-of-ql\\dimitriskyr\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:7:7: ( '!=' )
-			// C:\\Users\\User\\Desktop\\software engineering\\software construction\\GitHub\\sea-of-ql\\dimitriskyr\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:7:9: '!='
+			// C:\\Users\\User\\Desktop\\software engineering\\software construction\\GitHub\\sea-of-ql\\dimitriskyr\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:6:7: ( '!' )
+			// C:\\Users\\User\\Desktop\\software engineering\\software construction\\GitHub\\sea-of-ql\\dimitriskyr\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:6:9: '!'
 			{
-			match("!="); 
-
+			match('!'); 
 			}
 
 			state.type = _type;
@@ -102,10 +83,10 @@ public class QLLexer extends Lexer {
 		try {
 			int _type = T__12;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// C:\\Users\\User\\Desktop\\software engineering\\software construction\\GitHub\\sea-of-ql\\dimitriskyr\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:8:7: ( '&&' )
-			// C:\\Users\\User\\Desktop\\software engineering\\software construction\\GitHub\\sea-of-ql\\dimitriskyr\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:8:9: '&&'
+			// C:\\Users\\User\\Desktop\\software engineering\\software construction\\GitHub\\sea-of-ql\\dimitriskyr\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:7:7: ( '!=' )
+			// C:\\Users\\User\\Desktop\\software engineering\\software construction\\GitHub\\sea-of-ql\\dimitriskyr\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:7:9: '!='
 			{
-			match("&&"); 
+			match("!="); 
 
 			}
 
@@ -123,10 +104,11 @@ public class QLLexer extends Lexer {
 		try {
 			int _type = T__13;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// C:\\Users\\User\\Desktop\\software engineering\\software construction\\GitHub\\sea-of-ql\\dimitriskyr\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:9:7: ( '(' )
-			// C:\\Users\\User\\Desktop\\software engineering\\software construction\\GitHub\\sea-of-ql\\dimitriskyr\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:9:9: '('
+			// C:\\Users\\User\\Desktop\\software engineering\\software construction\\GitHub\\sea-of-ql\\dimitriskyr\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:8:7: ( '&&' )
+			// C:\\Users\\User\\Desktop\\software engineering\\software construction\\GitHub\\sea-of-ql\\dimitriskyr\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:8:9: '&&'
 			{
-			match('('); 
+			match("&&"); 
+
 			}
 
 			state.type = _type;
@@ -143,10 +125,10 @@ public class QLLexer extends Lexer {
 		try {
 			int _type = T__14;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// C:\\Users\\User\\Desktop\\software engineering\\software construction\\GitHub\\sea-of-ql\\dimitriskyr\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:10:7: ( ')' )
-			// C:\\Users\\User\\Desktop\\software engineering\\software construction\\GitHub\\sea-of-ql\\dimitriskyr\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:10:9: ')'
+			// C:\\Users\\User\\Desktop\\software engineering\\software construction\\GitHub\\sea-of-ql\\dimitriskyr\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:9:7: ( '(' )
+			// C:\\Users\\User\\Desktop\\software engineering\\software construction\\GitHub\\sea-of-ql\\dimitriskyr\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:9:9: '('
 			{
-			match(')'); 
+			match('('); 
 			}
 
 			state.type = _type;
@@ -163,10 +145,10 @@ public class QLLexer extends Lexer {
 		try {
 			int _type = T__15;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// C:\\Users\\User\\Desktop\\software engineering\\software construction\\GitHub\\sea-of-ql\\dimitriskyr\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:11:7: ( '*' )
-			// C:\\Users\\User\\Desktop\\software engineering\\software construction\\GitHub\\sea-of-ql\\dimitriskyr\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:11:9: '*'
+			// C:\\Users\\User\\Desktop\\software engineering\\software construction\\GitHub\\sea-of-ql\\dimitriskyr\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:10:7: ( ')' )
+			// C:\\Users\\User\\Desktop\\software engineering\\software construction\\GitHub\\sea-of-ql\\dimitriskyr\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:10:9: ')'
 			{
-			match('*'); 
+			match(')'); 
 			}
 
 			state.type = _type;
@@ -183,10 +165,10 @@ public class QLLexer extends Lexer {
 		try {
 			int _type = T__16;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// C:\\Users\\User\\Desktop\\software engineering\\software construction\\GitHub\\sea-of-ql\\dimitriskyr\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:12:7: ( '+' )
-			// C:\\Users\\User\\Desktop\\software engineering\\software construction\\GitHub\\sea-of-ql\\dimitriskyr\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:12:9: '+'
+			// C:\\Users\\User\\Desktop\\software engineering\\software construction\\GitHub\\sea-of-ql\\dimitriskyr\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:11:7: ( '*' )
+			// C:\\Users\\User\\Desktop\\software engineering\\software construction\\GitHub\\sea-of-ql\\dimitriskyr\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:11:9: '*'
 			{
-			match('+'); 
+			match('*'); 
 			}
 
 			state.type = _type;
@@ -203,10 +185,10 @@ public class QLLexer extends Lexer {
 		try {
 			int _type = T__17;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// C:\\Users\\User\\Desktop\\software engineering\\software construction\\GitHub\\sea-of-ql\\dimitriskyr\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:13:7: ( '-' )
-			// C:\\Users\\User\\Desktop\\software engineering\\software construction\\GitHub\\sea-of-ql\\dimitriskyr\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:13:9: '-'
+			// C:\\Users\\User\\Desktop\\software engineering\\software construction\\GitHub\\sea-of-ql\\dimitriskyr\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:12:7: ( '+' )
+			// C:\\Users\\User\\Desktop\\software engineering\\software construction\\GitHub\\sea-of-ql\\dimitriskyr\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:12:9: '+'
 			{
-			match('-'); 
+			match('+'); 
 			}
 
 			state.type = _type;
@@ -223,10 +205,10 @@ public class QLLexer extends Lexer {
 		try {
 			int _type = T__18;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// C:\\Users\\User\\Desktop\\software engineering\\software construction\\GitHub\\sea-of-ql\\dimitriskyr\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:14:7: ( '/' )
-			// C:\\Users\\User\\Desktop\\software engineering\\software construction\\GitHub\\sea-of-ql\\dimitriskyr\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:14:9: '/'
+			// C:\\Users\\User\\Desktop\\software engineering\\software construction\\GitHub\\sea-of-ql\\dimitriskyr\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:13:7: ( '-' )
+			// C:\\Users\\User\\Desktop\\software engineering\\software construction\\GitHub\\sea-of-ql\\dimitriskyr\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:13:9: '-'
 			{
-			match('/'); 
+			match('-'); 
 			}
 
 			state.type = _type;
@@ -243,10 +225,10 @@ public class QLLexer extends Lexer {
 		try {
 			int _type = T__19;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// C:\\Users\\User\\Desktop\\software engineering\\software construction\\GitHub\\sea-of-ql\\dimitriskyr\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:15:7: ( ':' )
-			// C:\\Users\\User\\Desktop\\software engineering\\software construction\\GitHub\\sea-of-ql\\dimitriskyr\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:15:9: ':'
+			// C:\\Users\\User\\Desktop\\software engineering\\software construction\\GitHub\\sea-of-ql\\dimitriskyr\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:14:7: ( '/' )
+			// C:\\Users\\User\\Desktop\\software engineering\\software construction\\GitHub\\sea-of-ql\\dimitriskyr\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:14:9: '/'
 			{
-			match(':'); 
+			match('/'); 
 			}
 
 			state.type = _type;
@@ -263,10 +245,10 @@ public class QLLexer extends Lexer {
 		try {
 			int _type = T__20;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// C:\\Users\\User\\Desktop\\software engineering\\software construction\\GitHub\\sea-of-ql\\dimitriskyr\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:16:7: ( '<' )
-			// C:\\Users\\User\\Desktop\\software engineering\\software construction\\GitHub\\sea-of-ql\\dimitriskyr\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:16:9: '<'
+			// C:\\Users\\User\\Desktop\\software engineering\\software construction\\GitHub\\sea-of-ql\\dimitriskyr\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:15:7: ( ':' )
+			// C:\\Users\\User\\Desktop\\software engineering\\software construction\\GitHub\\sea-of-ql\\dimitriskyr\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:15:9: ':'
 			{
-			match('<'); 
+			match(':'); 
 			}
 
 			state.type = _type;
@@ -283,11 +265,10 @@ public class QLLexer extends Lexer {
 		try {
 			int _type = T__21;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// C:\\Users\\User\\Desktop\\software engineering\\software construction\\GitHub\\sea-of-ql\\dimitriskyr\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:17:7: ( '<=' )
-			// C:\\Users\\User\\Desktop\\software engineering\\software construction\\GitHub\\sea-of-ql\\dimitriskyr\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:17:9: '<='
+			// C:\\Users\\User\\Desktop\\software engineering\\software construction\\GitHub\\sea-of-ql\\dimitriskyr\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:16:7: ( '<' )
+			// C:\\Users\\User\\Desktop\\software engineering\\software construction\\GitHub\\sea-of-ql\\dimitriskyr\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:16:9: '<'
 			{
-			match("<="); 
-
+			match('<'); 
 			}
 
 			state.type = _type;
@@ -304,10 +285,10 @@ public class QLLexer extends Lexer {
 		try {
 			int _type = T__22;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// C:\\Users\\User\\Desktop\\software engineering\\software construction\\GitHub\\sea-of-ql\\dimitriskyr\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:18:7: ( '==' )
-			// C:\\Users\\User\\Desktop\\software engineering\\software construction\\GitHub\\sea-of-ql\\dimitriskyr\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:18:9: '=='
+			// C:\\Users\\User\\Desktop\\software engineering\\software construction\\GitHub\\sea-of-ql\\dimitriskyr\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:17:7: ( '<=' )
+			// C:\\Users\\User\\Desktop\\software engineering\\software construction\\GitHub\\sea-of-ql\\dimitriskyr\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:17:9: '<='
 			{
-			match("=="); 
+			match("<="); 
 
 			}
 
@@ -325,10 +306,11 @@ public class QLLexer extends Lexer {
 		try {
 			int _type = T__23;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// C:\\Users\\User\\Desktop\\software engineering\\software construction\\GitHub\\sea-of-ql\\dimitriskyr\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:19:7: ( '>' )
-			// C:\\Users\\User\\Desktop\\software engineering\\software construction\\GitHub\\sea-of-ql\\dimitriskyr\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:19:9: '>'
+			// C:\\Users\\User\\Desktop\\software engineering\\software construction\\GitHub\\sea-of-ql\\dimitriskyr\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:18:7: ( '==' )
+			// C:\\Users\\User\\Desktop\\software engineering\\software construction\\GitHub\\sea-of-ql\\dimitriskyr\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:18:9: '=='
 			{
-			match('>'); 
+			match("=="); 
+
 			}
 
 			state.type = _type;
@@ -345,11 +327,10 @@ public class QLLexer extends Lexer {
 		try {
 			int _type = T__24;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// C:\\Users\\User\\Desktop\\software engineering\\software construction\\GitHub\\sea-of-ql\\dimitriskyr\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:20:7: ( '>=' )
-			// C:\\Users\\User\\Desktop\\software engineering\\software construction\\GitHub\\sea-of-ql\\dimitriskyr\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:20:9: '>='
+			// C:\\Users\\User\\Desktop\\software engineering\\software construction\\GitHub\\sea-of-ql\\dimitriskyr\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:19:7: ( '>' )
+			// C:\\Users\\User\\Desktop\\software engineering\\software construction\\GitHub\\sea-of-ql\\dimitriskyr\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:19:9: '>'
 			{
-			match(">="); 
-
+			match('>'); 
 			}
 
 			state.type = _type;
@@ -366,10 +347,10 @@ public class QLLexer extends Lexer {
 		try {
 			int _type = T__25;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// C:\\Users\\User\\Desktop\\software engineering\\software construction\\GitHub\\sea-of-ql\\dimitriskyr\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:21:7: ( 'boolean' )
-			// C:\\Users\\User\\Desktop\\software engineering\\software construction\\GitHub\\sea-of-ql\\dimitriskyr\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:21:9: 'boolean'
+			// C:\\Users\\User\\Desktop\\software engineering\\software construction\\GitHub\\sea-of-ql\\dimitriskyr\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:20:7: ( '>=' )
+			// C:\\Users\\User\\Desktop\\software engineering\\software construction\\GitHub\\sea-of-ql\\dimitriskyr\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:20:9: '>='
 			{
-			match("boolean"); 
+			match(">="); 
 
 			}
 
@@ -387,10 +368,10 @@ public class QLLexer extends Lexer {
 		try {
 			int _type = T__26;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// C:\\Users\\User\\Desktop\\software engineering\\software construction\\GitHub\\sea-of-ql\\dimitriskyr\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:22:7: ( 'form' )
-			// C:\\Users\\User\\Desktop\\software engineering\\software construction\\GitHub\\sea-of-ql\\dimitriskyr\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:22:9: 'form'
+			// C:\\Users\\User\\Desktop\\software engineering\\software construction\\GitHub\\sea-of-ql\\dimitriskyr\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:21:7: ( 'boolean' )
+			// C:\\Users\\User\\Desktop\\software engineering\\software construction\\GitHub\\sea-of-ql\\dimitriskyr\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:21:9: 'boolean'
 			{
-			match("form"); 
+			match("boolean"); 
 
 			}
 
@@ -408,10 +389,10 @@ public class QLLexer extends Lexer {
 		try {
 			int _type = T__27;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// C:\\Users\\User\\Desktop\\software engineering\\software construction\\GitHub\\sea-of-ql\\dimitriskyr\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:23:7: ( 'if' )
-			// C:\\Users\\User\\Desktop\\software engineering\\software construction\\GitHub\\sea-of-ql\\dimitriskyr\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:23:9: 'if'
+			// C:\\Users\\User\\Desktop\\software engineering\\software construction\\GitHub\\sea-of-ql\\dimitriskyr\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:22:7: ( 'form' )
+			// C:\\Users\\User\\Desktop\\software engineering\\software construction\\GitHub\\sea-of-ql\\dimitriskyr\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:22:9: 'form'
 			{
-			match("if"); 
+			match("form"); 
 
 			}
 
@@ -429,10 +410,10 @@ public class QLLexer extends Lexer {
 		try {
 			int _type = T__28;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// C:\\Users\\User\\Desktop\\software engineering\\software construction\\GitHub\\sea-of-ql\\dimitriskyr\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:24:7: ( 'integer' )
-			// C:\\Users\\User\\Desktop\\software engineering\\software construction\\GitHub\\sea-of-ql\\dimitriskyr\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:24:9: 'integer'
+			// C:\\Users\\User\\Desktop\\software engineering\\software construction\\GitHub\\sea-of-ql\\dimitriskyr\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:23:7: ( 'if' )
+			// C:\\Users\\User\\Desktop\\software engineering\\software construction\\GitHub\\sea-of-ql\\dimitriskyr\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:23:9: 'if'
 			{
-			match("integer"); 
+			match("if"); 
 
 			}
 
@@ -450,10 +431,10 @@ public class QLLexer extends Lexer {
 		try {
 			int _type = T__29;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// C:\\Users\\User\\Desktop\\software engineering\\software construction\\GitHub\\sea-of-ql\\dimitriskyr\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:25:7: ( 'string' )
-			// C:\\Users\\User\\Desktop\\software engineering\\software construction\\GitHub\\sea-of-ql\\dimitriskyr\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:25:9: 'string'
+			// C:\\Users\\User\\Desktop\\software engineering\\software construction\\GitHub\\sea-of-ql\\dimitriskyr\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:24:7: ( 'integer' )
+			// C:\\Users\\User\\Desktop\\software engineering\\software construction\\GitHub\\sea-of-ql\\dimitriskyr\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:24:9: 'integer'
 			{
-			match("string"); 
+			match("integer"); 
 
 			}
 
@@ -471,10 +452,11 @@ public class QLLexer extends Lexer {
 		try {
 			int _type = T__30;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// C:\\Users\\User\\Desktop\\software engineering\\software construction\\GitHub\\sea-of-ql\\dimitriskyr\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:26:7: ( '{' )
-			// C:\\Users\\User\\Desktop\\software engineering\\software construction\\GitHub\\sea-of-ql\\dimitriskyr\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:26:9: '{'
+			// C:\\Users\\User\\Desktop\\software engineering\\software construction\\GitHub\\sea-of-ql\\dimitriskyr\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:25:7: ( 'money' )
+			// C:\\Users\\User\\Desktop\\software engineering\\software construction\\GitHub\\sea-of-ql\\dimitriskyr\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:25:9: 'money'
 			{
-			match('{'); 
+			match("money"); 
+
 			}
 
 			state.type = _type;
@@ -491,10 +473,10 @@ public class QLLexer extends Lexer {
 		try {
 			int _type = T__31;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// C:\\Users\\User\\Desktop\\software engineering\\software construction\\GitHub\\sea-of-ql\\dimitriskyr\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:27:7: ( '||' )
-			// C:\\Users\\User\\Desktop\\software engineering\\software construction\\GitHub\\sea-of-ql\\dimitriskyr\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:27:9: '||'
+			// C:\\Users\\User\\Desktop\\software engineering\\software construction\\GitHub\\sea-of-ql\\dimitriskyr\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:26:7: ( 'string' )
+			// C:\\Users\\User\\Desktop\\software engineering\\software construction\\GitHub\\sea-of-ql\\dimitriskyr\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:26:9: 'string'
 			{
-			match("||"); 
+			match("string"); 
 
 			}
 
@@ -512,10 +494,10 @@ public class QLLexer extends Lexer {
 		try {
 			int _type = T__32;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// C:\\Users\\User\\Desktop\\software engineering\\software construction\\GitHub\\sea-of-ql\\dimitriskyr\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:28:7: ( '}' )
-			// C:\\Users\\User\\Desktop\\software engineering\\software construction\\GitHub\\sea-of-ql\\dimitriskyr\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:28:9: '}'
+			// C:\\Users\\User\\Desktop\\software engineering\\software construction\\GitHub\\sea-of-ql\\dimitriskyr\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:27:7: ( '{' )
+			// C:\\Users\\User\\Desktop\\software engineering\\software construction\\GitHub\\sea-of-ql\\dimitriskyr\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:27:9: '{'
 			{
-			match('}'); 
+			match('{'); 
 			}
 
 			state.type = _type;
@@ -527,15 +509,56 @@ public class QLLexer extends Lexer {
 	}
 	// $ANTLR end "T__32"
 
+	// $ANTLR start "T__33"
+	public final void mT__33() throws RecognitionException {
+		try {
+			int _type = T__33;
+			int _channel = DEFAULT_TOKEN_CHANNEL;
+			// C:\\Users\\User\\Desktop\\software engineering\\software construction\\GitHub\\sea-of-ql\\dimitriskyr\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:28:7: ( '||' )
+			// C:\\Users\\User\\Desktop\\software engineering\\software construction\\GitHub\\sea-of-ql\\dimitriskyr\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:28:9: '||'
+			{
+			match("||"); 
+
+			}
+
+			state.type = _type;
+			state.channel = _channel;
+		}
+		finally {
+			// do for sure before leaving
+		}
+	}
+	// $ANTLR end "T__33"
+
+	// $ANTLR start "T__34"
+	public final void mT__34() throws RecognitionException {
+		try {
+			int _type = T__34;
+			int _channel = DEFAULT_TOKEN_CHANNEL;
+			// C:\\Users\\User\\Desktop\\software engineering\\software construction\\GitHub\\sea-of-ql\\dimitriskyr\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:29:7: ( '}' )
+			// C:\\Users\\User\\Desktop\\software engineering\\software construction\\GitHub\\sea-of-ql\\dimitriskyr\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:29:9: '}'
+			{
+			match('}'); 
+			}
+
+			state.type = _type;
+			state.channel = _channel;
+		}
+		finally {
+			// do for sure before leaving
+		}
+	}
+	// $ANTLR end "T__34"
+
 	// $ANTLR start "Comments"
 	public final void mComments() throws RecognitionException {
 		try {
 			int _type = Comments;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// C:\\Users\\User\\Desktop\\software engineering\\software construction\\GitHub\\sea-of-ql\\dimitriskyr\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:178:10: ( ( '/*' ( . )* '*/' | '//' ( . )* ( '\\n' | '\\r' ) ) )
-			// C:\\Users\\User\\Desktop\\software engineering\\software construction\\GitHub\\sea-of-ql\\dimitriskyr\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:178:12: ( '/*' ( . )* '*/' | '//' ( . )* ( '\\n' | '\\r' ) )
+			// C:\\Users\\User\\Desktop\\software engineering\\software construction\\GitHub\\sea-of-ql\\dimitriskyr\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:183:10: ( ( '/*' ( . )* '*/' | '//' ( . )* ( '\\n' | '\\r' ) ) )
+			// C:\\Users\\User\\Desktop\\software engineering\\software construction\\GitHub\\sea-of-ql\\dimitriskyr\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:183:12: ( '/*' ( . )* '*/' | '//' ( . )* ( '\\n' | '\\r' ) )
 			{
-			// C:\\Users\\User\\Desktop\\software engineering\\software construction\\GitHub\\sea-of-ql\\dimitriskyr\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:178:12: ( '/*' ( . )* '*/' | '//' ( . )* ( '\\n' | '\\r' ) )
+			// C:\\Users\\User\\Desktop\\software engineering\\software construction\\GitHub\\sea-of-ql\\dimitriskyr\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:183:12: ( '/*' ( . )* '*/' | '//' ( . )* ( '\\n' | '\\r' ) )
 			int alt3=2;
 			int LA3_0 = input.LA(1);
 			if ( (LA3_0=='/') ) {
@@ -569,11 +592,11 @@ public class QLLexer extends Lexer {
 
 			switch (alt3) {
 				case 1 :
-					// C:\\Users\\User\\Desktop\\software engineering\\software construction\\GitHub\\sea-of-ql\\dimitriskyr\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:178:13: '/*' ( . )* '*/'
+					// C:\\Users\\User\\Desktop\\software engineering\\software construction\\GitHub\\sea-of-ql\\dimitriskyr\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:183:13: '/*' ( . )* '*/'
 					{
 					match("/*"); 
 
-					// C:\\Users\\User\\Desktop\\software engineering\\software construction\\GitHub\\sea-of-ql\\dimitriskyr\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:178:18: ( . )*
+					// C:\\Users\\User\\Desktop\\software engineering\\software construction\\GitHub\\sea-of-ql\\dimitriskyr\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:183:18: ( . )*
 					loop1:
 					while (true) {
 						int alt1=2;
@@ -594,7 +617,7 @@ public class QLLexer extends Lexer {
 
 						switch (alt1) {
 						case 1 :
-							// C:\\Users\\User\\Desktop\\software engineering\\software construction\\GitHub\\sea-of-ql\\dimitriskyr\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:178:18: .
+							// C:\\Users\\User\\Desktop\\software engineering\\software construction\\GitHub\\sea-of-ql\\dimitriskyr\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:183:18: .
 							{
 							matchAny(); 
 							}
@@ -610,11 +633,11 @@ public class QLLexer extends Lexer {
 					}
 					break;
 				case 2 :
-					// C:\\Users\\User\\Desktop\\software engineering\\software construction\\GitHub\\sea-of-ql\\dimitriskyr\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:178:28: '//' ( . )* ( '\\n' | '\\r' )
+					// C:\\Users\\User\\Desktop\\software engineering\\software construction\\GitHub\\sea-of-ql\\dimitriskyr\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:183:28: '//' ( . )* ( '\\n' | '\\r' )
 					{
 					match("//"); 
 
-					// C:\\Users\\User\\Desktop\\software engineering\\software construction\\GitHub\\sea-of-ql\\dimitriskyr\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:178:33: ( . )*
+					// C:\\Users\\User\\Desktop\\software engineering\\software construction\\GitHub\\sea-of-ql\\dimitriskyr\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:183:33: ( . )*
 					loop2:
 					while (true) {
 						int alt2=2;
@@ -628,7 +651,7 @@ public class QLLexer extends Lexer {
 
 						switch (alt2) {
 						case 1 :
-							// C:\\Users\\User\\Desktop\\software engineering\\software construction\\GitHub\\sea-of-ql\\dimitriskyr\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:178:33: .
+							// C:\\Users\\User\\Desktop\\software engineering\\software construction\\GitHub\\sea-of-ql\\dimitriskyr\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:183:33: .
 							{
 							matchAny(); 
 							}
@@ -669,8 +692,8 @@ public class QLLexer extends Lexer {
 		try {
 			int _type = WS;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// C:\\Users\\User\\Desktop\\software engineering\\software construction\\GitHub\\sea-of-ql\\dimitriskyr\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:180:4: ( ( ' ' | '\\t' | '\\n' | 'r' ) )
-			// C:\\Users\\User\\Desktop\\software engineering\\software construction\\GitHub\\sea-of-ql\\dimitriskyr\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:180:6: ( ' ' | '\\t' | '\\n' | 'r' )
+			// C:\\Users\\User\\Desktop\\software engineering\\software construction\\GitHub\\sea-of-ql\\dimitriskyr\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:185:4: ( ( ' ' | '\\t' | '\\n' | 'r' ) )
+			// C:\\Users\\User\\Desktop\\software engineering\\software construction\\GitHub\\sea-of-ql\\dimitriskyr\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:185:6: ( ' ' | '\\t' | '\\n' | 'r' )
 			{
 			if ( (input.LA(1) >= '\t' && input.LA(1) <= '\n')||input.LA(1)==' '||input.LA(1)=='r' ) {
 				input.consume();
@@ -697,10 +720,10 @@ public class QLLexer extends Lexer {
 		try {
 			int _type = Int;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// C:\\Users\\User\\Desktop\\software engineering\\software construction\\GitHub\\sea-of-ql\\dimitriskyr\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:182:5: ( ( '0' .. '9' )+ )
-			// C:\\Users\\User\\Desktop\\software engineering\\software construction\\GitHub\\sea-of-ql\\dimitriskyr\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:182:7: ( '0' .. '9' )+
+			// C:\\Users\\User\\Desktop\\software engineering\\software construction\\GitHub\\sea-of-ql\\dimitriskyr\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:187:5: ( ( '0' .. '9' )+ )
+			// C:\\Users\\User\\Desktop\\software engineering\\software construction\\GitHub\\sea-of-ql\\dimitriskyr\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:187:7: ( '0' .. '9' )+
 			{
-			// C:\\Users\\User\\Desktop\\software engineering\\software construction\\GitHub\\sea-of-ql\\dimitriskyr\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:182:7: ( '0' .. '9' )+
+			// C:\\Users\\User\\Desktop\\software engineering\\software construction\\GitHub\\sea-of-ql\\dimitriskyr\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:187:7: ( '0' .. '9' )+
 			int cnt4=0;
 			loop4:
 			while (true) {
@@ -744,40 +767,126 @@ public class QLLexer extends Lexer {
 	}
 	// $ANTLR end "Int"
 
+	// $ANTLR start "Money"
+	public final void mMoney() throws RecognitionException {
+		try {
+			int _type = Money;
+			int _channel = DEFAULT_TOKEN_CHANNEL;
+			// C:\\Users\\User\\Desktop\\software engineering\\software construction\\GitHub\\sea-of-ql\\dimitriskyr\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:189:7: ( ( '0' .. '9' )+ '.' ( '0' .. '9' )+ )
+			// C:\\Users\\User\\Desktop\\software engineering\\software construction\\GitHub\\sea-of-ql\\dimitriskyr\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:189:9: ( '0' .. '9' )+ '.' ( '0' .. '9' )+
+			{
+			// C:\\Users\\User\\Desktop\\software engineering\\software construction\\GitHub\\sea-of-ql\\dimitriskyr\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:189:9: ( '0' .. '9' )+
+			int cnt5=0;
+			loop5:
+			while (true) {
+				int alt5=2;
+				int LA5_0 = input.LA(1);
+				if ( ((LA5_0 >= '0' && LA5_0 <= '9')) ) {
+					alt5=1;
+				}
+
+				switch (alt5) {
+				case 1 :
+					// C:\\Users\\User\\Desktop\\software engineering\\software construction\\GitHub\\sea-of-ql\\dimitriskyr\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:
+					{
+					if ( (input.LA(1) >= '0' && input.LA(1) <= '9') ) {
+						input.consume();
+					}
+					else {
+						MismatchedSetException mse = new MismatchedSetException(null,input);
+						recover(mse);
+						throw mse;
+					}
+					}
+					break;
+
+				default :
+					if ( cnt5 >= 1 ) break loop5;
+					EarlyExitException eee = new EarlyExitException(5, input);
+					throw eee;
+				}
+				cnt5++;
+			}
+
+			match('.'); 
+			// C:\\Users\\User\\Desktop\\software engineering\\software construction\\GitHub\\sea-of-ql\\dimitriskyr\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:189:23: ( '0' .. '9' )+
+			int cnt6=0;
+			loop6:
+			while (true) {
+				int alt6=2;
+				int LA6_0 = input.LA(1);
+				if ( ((LA6_0 >= '0' && LA6_0 <= '9')) ) {
+					alt6=1;
+				}
+
+				switch (alt6) {
+				case 1 :
+					// C:\\Users\\User\\Desktop\\software engineering\\software construction\\GitHub\\sea-of-ql\\dimitriskyr\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:
+					{
+					if ( (input.LA(1) >= '0' && input.LA(1) <= '9') ) {
+						input.consume();
+					}
+					else {
+						MismatchedSetException mse = new MismatchedSetException(null,input);
+						recover(mse);
+						throw mse;
+					}
+					}
+					break;
+
+				default :
+					if ( cnt6 >= 1 ) break loop6;
+					EarlyExitException eee = new EarlyExitException(6, input);
+					throw eee;
+				}
+				cnt6++;
+			}
+
+			}
+
+			state.type = _type;
+			state.channel = _channel;
+		}
+		finally {
+			// do for sure before leaving
+		}
+	}
+	// $ANTLR end "Money"
+
 	// $ANTLR start "Bool"
 	public final void mBool() throws RecognitionException {
 		try {
 			int _type = Bool;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// C:\\Users\\User\\Desktop\\software engineering\\software construction\\GitHub\\sea-of-ql\\dimitriskyr\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:184:5: ( ( 'true' | 'false' ) )
-			// C:\\Users\\User\\Desktop\\software engineering\\software construction\\GitHub\\sea-of-ql\\dimitriskyr\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:184:7: ( 'true' | 'false' )
+			// C:\\Users\\User\\Desktop\\software engineering\\software construction\\GitHub\\sea-of-ql\\dimitriskyr\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:191:5: ( ( 'true' | 'false' ) )
+			// C:\\Users\\User\\Desktop\\software engineering\\software construction\\GitHub\\sea-of-ql\\dimitriskyr\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:191:7: ( 'true' | 'false' )
 			{
-			// C:\\Users\\User\\Desktop\\software engineering\\software construction\\GitHub\\sea-of-ql\\dimitriskyr\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:184:7: ( 'true' | 'false' )
-			int alt5=2;
-			int LA5_0 = input.LA(1);
-			if ( (LA5_0=='t') ) {
-				alt5=1;
+			// C:\\Users\\User\\Desktop\\software engineering\\software construction\\GitHub\\sea-of-ql\\dimitriskyr\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:191:7: ( 'true' | 'false' )
+			int alt7=2;
+			int LA7_0 = input.LA(1);
+			if ( (LA7_0=='t') ) {
+				alt7=1;
 			}
-			else if ( (LA5_0=='f') ) {
-				alt5=2;
+			else if ( (LA7_0=='f') ) {
+				alt7=2;
 			}
 
 			else {
 				NoViableAltException nvae =
-					new NoViableAltException("", 5, 0, input);
+					new NoViableAltException("", 7, 0, input);
 				throw nvae;
 			}
 
-			switch (alt5) {
+			switch (alt7) {
 				case 1 :
-					// C:\\Users\\User\\Desktop\\software engineering\\software construction\\GitHub\\sea-of-ql\\dimitriskyr\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:184:8: 'true'
+					// C:\\Users\\User\\Desktop\\software engineering\\software construction\\GitHub\\sea-of-ql\\dimitriskyr\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:191:8: 'true'
 					{
 					match("true"); 
 
 					}
 					break;
 				case 2 :
-					// C:\\Users\\User\\Desktop\\software engineering\\software construction\\GitHub\\sea-of-ql\\dimitriskyr\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:184:17: 'false'
+					// C:\\Users\\User\\Desktop\\software engineering\\software construction\\GitHub\\sea-of-ql\\dimitriskyr\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:191:17: 'false'
 					{
 					match("false"); 
 
@@ -802,8 +911,8 @@ public class QLLexer extends Lexer {
 		try {
 			int _type = Ident;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// C:\\Users\\User\\Desktop\\software engineering\\software construction\\GitHub\\sea-of-ql\\dimitriskyr\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:186:7: ( ( 'a' .. 'z' | 'A' .. 'Z' ) ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )* )
-			// C:\\Users\\User\\Desktop\\software engineering\\software construction\\GitHub\\sea-of-ql\\dimitriskyr\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:186:9: ( 'a' .. 'z' | 'A' .. 'Z' ) ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )*
+			// C:\\Users\\User\\Desktop\\software engineering\\software construction\\GitHub\\sea-of-ql\\dimitriskyr\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:193:7: ( ( 'a' .. 'z' | 'A' .. 'Z' ) ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )* )
+			// C:\\Users\\User\\Desktop\\software engineering\\software construction\\GitHub\\sea-of-ql\\dimitriskyr\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:193:9: ( 'a' .. 'z' | 'A' .. 'Z' ) ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )*
 			{
 			if ( (input.LA(1) >= 'A' && input.LA(1) <= 'Z')||(input.LA(1) >= 'a' && input.LA(1) <= 'z') ) {
 				input.consume();
@@ -813,16 +922,16 @@ public class QLLexer extends Lexer {
 				recover(mse);
 				throw mse;
 			}
-			// C:\\Users\\User\\Desktop\\software engineering\\software construction\\GitHub\\sea-of-ql\\dimitriskyr\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:186:30: ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )*
-			loop6:
+			// C:\\Users\\User\\Desktop\\software engineering\\software construction\\GitHub\\sea-of-ql\\dimitriskyr\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:193:30: ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )*
+			loop8:
 			while (true) {
-				int alt6=2;
-				int LA6_0 = input.LA(1);
-				if ( ((LA6_0 >= '0' && LA6_0 <= '9')||(LA6_0 >= 'A' && LA6_0 <= 'Z')||LA6_0=='_'||(LA6_0 >= 'a' && LA6_0 <= 'z')) ) {
-					alt6=1;
+				int alt8=2;
+				int LA8_0 = input.LA(1);
+				if ( ((LA8_0 >= '0' && LA8_0 <= '9')||(LA8_0 >= 'A' && LA8_0 <= 'Z')||LA8_0=='_'||(LA8_0 >= 'a' && LA8_0 <= 'z')) ) {
+					alt8=1;
 				}
 
-				switch (alt6) {
+				switch (alt8) {
 				case 1 :
 					// C:\\Users\\User\\Desktop\\software engineering\\software construction\\GitHub\\sea-of-ql\\dimitriskyr\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:
 					{
@@ -838,7 +947,7 @@ public class QLLexer extends Lexer {
 					break;
 
 				default :
-					break loop6;
+					break loop8;
 				}
 			}
 
@@ -858,32 +967,32 @@ public class QLLexer extends Lexer {
 		try {
 			int _type = String_literal;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// C:\\Users\\User\\Desktop\\software engineering\\software construction\\GitHub\\sea-of-ql\\dimitriskyr\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:188:16: ( '\"' ( . )* '\"' )
-			// C:\\Users\\User\\Desktop\\software engineering\\software construction\\GitHub\\sea-of-ql\\dimitriskyr\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:188:18: '\"' ( . )* '\"'
+			// C:\\Users\\User\\Desktop\\software engineering\\software construction\\GitHub\\sea-of-ql\\dimitriskyr\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:195:16: ( '\"' ( . )* '\"' )
+			// C:\\Users\\User\\Desktop\\software engineering\\software construction\\GitHub\\sea-of-ql\\dimitriskyr\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:195:18: '\"' ( . )* '\"'
 			{
 			match('\"'); 
-			// C:\\Users\\User\\Desktop\\software engineering\\software construction\\GitHub\\sea-of-ql\\dimitriskyr\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:188:22: ( . )*
-			loop7:
+			// C:\\Users\\User\\Desktop\\software engineering\\software construction\\GitHub\\sea-of-ql\\dimitriskyr\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:195:22: ( . )*
+			loop9:
 			while (true) {
-				int alt7=2;
-				int LA7_0 = input.LA(1);
-				if ( (LA7_0=='\"') ) {
-					alt7=2;
+				int alt9=2;
+				int LA9_0 = input.LA(1);
+				if ( (LA9_0=='\"') ) {
+					alt9=2;
 				}
-				else if ( ((LA7_0 >= '\u0000' && LA7_0 <= '!')||(LA7_0 >= '#' && LA7_0 <= '\uFFFF')) ) {
-					alt7=1;
+				else if ( ((LA9_0 >= '\u0000' && LA9_0 <= '!')||(LA9_0 >= '#' && LA9_0 <= '\uFFFF')) ) {
+					alt9=1;
 				}
 
-				switch (alt7) {
+				switch (alt9) {
 				case 1 :
-					// C:\\Users\\User\\Desktop\\software engineering\\software construction\\GitHub\\sea-of-ql\\dimitriskyr\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:188:22: .
+					// C:\\Users\\User\\Desktop\\software engineering\\software construction\\GitHub\\sea-of-ql\\dimitriskyr\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:195:22: .
 					{
 					matchAny(); 
 					}
 					break;
 
 				default :
-					break loop7;
+					break loop9;
 				}
 			}
 
@@ -901,208 +1010,222 @@ public class QLLexer extends Lexer {
 
 	@Override
 	public void mTokens() throws RecognitionException {
-		// C:\\Users\\User\\Desktop\\software engineering\\software construction\\GitHub\\sea-of-ql\\dimitriskyr\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:1:8: ( T__10 | T__11 | T__12 | T__13 | T__14 | T__15 | T__16 | T__17 | T__18 | T__19 | T__20 | T__21 | T__22 | T__23 | T__24 | T__25 | T__26 | T__27 | T__28 | T__29 | T__30 | T__31 | T__32 | Comments | WS | Int | Bool | Ident | String_literal )
-		int alt8=29;
-		alt8 = dfa8.predict(input);
-		switch (alt8) {
+		// C:\\Users\\User\\Desktop\\software engineering\\software construction\\GitHub\\sea-of-ql\\dimitriskyr\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:1:8: ( T__11 | T__12 | T__13 | T__14 | T__15 | T__16 | T__17 | T__18 | T__19 | T__20 | T__21 | T__22 | T__23 | T__24 | T__25 | T__26 | T__27 | T__28 | T__29 | T__30 | T__31 | T__32 | T__33 | T__34 | Comments | WS | Int | Money | Bool | Ident | String_literal )
+		int alt10=31;
+		alt10 = dfa10.predict(input);
+		switch (alt10) {
 			case 1 :
-				// C:\\Users\\User\\Desktop\\software engineering\\software construction\\GitHub\\sea-of-ql\\dimitriskyr\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:1:10: T__10
-				{
-				mT__10(); 
-
-				}
-				break;
-			case 2 :
-				// C:\\Users\\User\\Desktop\\software engineering\\software construction\\GitHub\\sea-of-ql\\dimitriskyr\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:1:16: T__11
+				// C:\\Users\\User\\Desktop\\software engineering\\software construction\\GitHub\\sea-of-ql\\dimitriskyr\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:1:10: T__11
 				{
 				mT__11(); 
 
 				}
 				break;
-			case 3 :
-				// C:\\Users\\User\\Desktop\\software engineering\\software construction\\GitHub\\sea-of-ql\\dimitriskyr\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:1:22: T__12
+			case 2 :
+				// C:\\Users\\User\\Desktop\\software engineering\\software construction\\GitHub\\sea-of-ql\\dimitriskyr\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:1:16: T__12
 				{
 				mT__12(); 
 
 				}
 				break;
-			case 4 :
-				// C:\\Users\\User\\Desktop\\software engineering\\software construction\\GitHub\\sea-of-ql\\dimitriskyr\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:1:28: T__13
+			case 3 :
+				// C:\\Users\\User\\Desktop\\software engineering\\software construction\\GitHub\\sea-of-ql\\dimitriskyr\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:1:22: T__13
 				{
 				mT__13(); 
 
 				}
 				break;
-			case 5 :
-				// C:\\Users\\User\\Desktop\\software engineering\\software construction\\GitHub\\sea-of-ql\\dimitriskyr\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:1:34: T__14
+			case 4 :
+				// C:\\Users\\User\\Desktop\\software engineering\\software construction\\GitHub\\sea-of-ql\\dimitriskyr\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:1:28: T__14
 				{
 				mT__14(); 
 
 				}
 				break;
-			case 6 :
-				// C:\\Users\\User\\Desktop\\software engineering\\software construction\\GitHub\\sea-of-ql\\dimitriskyr\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:1:40: T__15
+			case 5 :
+				// C:\\Users\\User\\Desktop\\software engineering\\software construction\\GitHub\\sea-of-ql\\dimitriskyr\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:1:34: T__15
 				{
 				mT__15(); 
 
 				}
 				break;
-			case 7 :
-				// C:\\Users\\User\\Desktop\\software engineering\\software construction\\GitHub\\sea-of-ql\\dimitriskyr\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:1:46: T__16
+			case 6 :
+				// C:\\Users\\User\\Desktop\\software engineering\\software construction\\GitHub\\sea-of-ql\\dimitriskyr\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:1:40: T__16
 				{
 				mT__16(); 
 
 				}
 				break;
-			case 8 :
-				// C:\\Users\\User\\Desktop\\software engineering\\software construction\\GitHub\\sea-of-ql\\dimitriskyr\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:1:52: T__17
+			case 7 :
+				// C:\\Users\\User\\Desktop\\software engineering\\software construction\\GitHub\\sea-of-ql\\dimitriskyr\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:1:46: T__17
 				{
 				mT__17(); 
 
 				}
 				break;
-			case 9 :
-				// C:\\Users\\User\\Desktop\\software engineering\\software construction\\GitHub\\sea-of-ql\\dimitriskyr\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:1:58: T__18
+			case 8 :
+				// C:\\Users\\User\\Desktop\\software engineering\\software construction\\GitHub\\sea-of-ql\\dimitriskyr\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:1:52: T__18
 				{
 				mT__18(); 
 
 				}
 				break;
-			case 10 :
-				// C:\\Users\\User\\Desktop\\software engineering\\software construction\\GitHub\\sea-of-ql\\dimitriskyr\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:1:64: T__19
+			case 9 :
+				// C:\\Users\\User\\Desktop\\software engineering\\software construction\\GitHub\\sea-of-ql\\dimitriskyr\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:1:58: T__19
 				{
 				mT__19(); 
 
 				}
 				break;
-			case 11 :
-				// C:\\Users\\User\\Desktop\\software engineering\\software construction\\GitHub\\sea-of-ql\\dimitriskyr\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:1:70: T__20
+			case 10 :
+				// C:\\Users\\User\\Desktop\\software engineering\\software construction\\GitHub\\sea-of-ql\\dimitriskyr\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:1:64: T__20
 				{
 				mT__20(); 
 
 				}
 				break;
-			case 12 :
-				// C:\\Users\\User\\Desktop\\software engineering\\software construction\\GitHub\\sea-of-ql\\dimitriskyr\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:1:76: T__21
+			case 11 :
+				// C:\\Users\\User\\Desktop\\software engineering\\software construction\\GitHub\\sea-of-ql\\dimitriskyr\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:1:70: T__21
 				{
 				mT__21(); 
 
 				}
 				break;
-			case 13 :
-				// C:\\Users\\User\\Desktop\\software engineering\\software construction\\GitHub\\sea-of-ql\\dimitriskyr\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:1:82: T__22
+			case 12 :
+				// C:\\Users\\User\\Desktop\\software engineering\\software construction\\GitHub\\sea-of-ql\\dimitriskyr\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:1:76: T__22
 				{
 				mT__22(); 
 
 				}
 				break;
-			case 14 :
-				// C:\\Users\\User\\Desktop\\software engineering\\software construction\\GitHub\\sea-of-ql\\dimitriskyr\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:1:88: T__23
+			case 13 :
+				// C:\\Users\\User\\Desktop\\software engineering\\software construction\\GitHub\\sea-of-ql\\dimitriskyr\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:1:82: T__23
 				{
 				mT__23(); 
 
 				}
 				break;
-			case 15 :
-				// C:\\Users\\User\\Desktop\\software engineering\\software construction\\GitHub\\sea-of-ql\\dimitriskyr\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:1:94: T__24
+			case 14 :
+				// C:\\Users\\User\\Desktop\\software engineering\\software construction\\GitHub\\sea-of-ql\\dimitriskyr\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:1:88: T__24
 				{
 				mT__24(); 
 
 				}
 				break;
-			case 16 :
-				// C:\\Users\\User\\Desktop\\software engineering\\software construction\\GitHub\\sea-of-ql\\dimitriskyr\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:1:100: T__25
+			case 15 :
+				// C:\\Users\\User\\Desktop\\software engineering\\software construction\\GitHub\\sea-of-ql\\dimitriskyr\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:1:94: T__25
 				{
 				mT__25(); 
 
 				}
 				break;
-			case 17 :
-				// C:\\Users\\User\\Desktop\\software engineering\\software construction\\GitHub\\sea-of-ql\\dimitriskyr\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:1:106: T__26
+			case 16 :
+				// C:\\Users\\User\\Desktop\\software engineering\\software construction\\GitHub\\sea-of-ql\\dimitriskyr\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:1:100: T__26
 				{
 				mT__26(); 
 
 				}
 				break;
-			case 18 :
-				// C:\\Users\\User\\Desktop\\software engineering\\software construction\\GitHub\\sea-of-ql\\dimitriskyr\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:1:112: T__27
+			case 17 :
+				// C:\\Users\\User\\Desktop\\software engineering\\software construction\\GitHub\\sea-of-ql\\dimitriskyr\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:1:106: T__27
 				{
 				mT__27(); 
 
 				}
 				break;
-			case 19 :
-				// C:\\Users\\User\\Desktop\\software engineering\\software construction\\GitHub\\sea-of-ql\\dimitriskyr\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:1:118: T__28
+			case 18 :
+				// C:\\Users\\User\\Desktop\\software engineering\\software construction\\GitHub\\sea-of-ql\\dimitriskyr\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:1:112: T__28
 				{
 				mT__28(); 
 
 				}
 				break;
-			case 20 :
-				// C:\\Users\\User\\Desktop\\software engineering\\software construction\\GitHub\\sea-of-ql\\dimitriskyr\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:1:124: T__29
+			case 19 :
+				// C:\\Users\\User\\Desktop\\software engineering\\software construction\\GitHub\\sea-of-ql\\dimitriskyr\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:1:118: T__29
 				{
 				mT__29(); 
 
 				}
 				break;
-			case 21 :
-				// C:\\Users\\User\\Desktop\\software engineering\\software construction\\GitHub\\sea-of-ql\\dimitriskyr\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:1:130: T__30
+			case 20 :
+				// C:\\Users\\User\\Desktop\\software engineering\\software construction\\GitHub\\sea-of-ql\\dimitriskyr\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:1:124: T__30
 				{
 				mT__30(); 
 
 				}
 				break;
-			case 22 :
-				// C:\\Users\\User\\Desktop\\software engineering\\software construction\\GitHub\\sea-of-ql\\dimitriskyr\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:1:136: T__31
+			case 21 :
+				// C:\\Users\\User\\Desktop\\software engineering\\software construction\\GitHub\\sea-of-ql\\dimitriskyr\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:1:130: T__31
 				{
 				mT__31(); 
 
 				}
 				break;
-			case 23 :
-				// C:\\Users\\User\\Desktop\\software engineering\\software construction\\GitHub\\sea-of-ql\\dimitriskyr\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:1:142: T__32
+			case 22 :
+				// C:\\Users\\User\\Desktop\\software engineering\\software construction\\GitHub\\sea-of-ql\\dimitriskyr\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:1:136: T__32
 				{
 				mT__32(); 
 
 				}
 				break;
+			case 23 :
+				// C:\\Users\\User\\Desktop\\software engineering\\software construction\\GitHub\\sea-of-ql\\dimitriskyr\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:1:142: T__33
+				{
+				mT__33(); 
+
+				}
+				break;
 			case 24 :
-				// C:\\Users\\User\\Desktop\\software engineering\\software construction\\GitHub\\sea-of-ql\\dimitriskyr\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:1:148: Comments
+				// C:\\Users\\User\\Desktop\\software engineering\\software construction\\GitHub\\sea-of-ql\\dimitriskyr\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:1:148: T__34
+				{
+				mT__34(); 
+
+				}
+				break;
+			case 25 :
+				// C:\\Users\\User\\Desktop\\software engineering\\software construction\\GitHub\\sea-of-ql\\dimitriskyr\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:1:154: Comments
 				{
 				mComments(); 
 
 				}
 				break;
-			case 25 :
-				// C:\\Users\\User\\Desktop\\software engineering\\software construction\\GitHub\\sea-of-ql\\dimitriskyr\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:1:157: WS
+			case 26 :
+				// C:\\Users\\User\\Desktop\\software engineering\\software construction\\GitHub\\sea-of-ql\\dimitriskyr\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:1:163: WS
 				{
 				mWS(); 
 
 				}
 				break;
-			case 26 :
-				// C:\\Users\\User\\Desktop\\software engineering\\software construction\\GitHub\\sea-of-ql\\dimitriskyr\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:1:160: Int
+			case 27 :
+				// C:\\Users\\User\\Desktop\\software engineering\\software construction\\GitHub\\sea-of-ql\\dimitriskyr\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:1:166: Int
 				{
 				mInt(); 
 
 				}
 				break;
-			case 27 :
-				// C:\\Users\\User\\Desktop\\software engineering\\software construction\\GitHub\\sea-of-ql\\dimitriskyr\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:1:164: Bool
+			case 28 :
+				// C:\\Users\\User\\Desktop\\software engineering\\software construction\\GitHub\\sea-of-ql\\dimitriskyr\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:1:170: Money
+				{
+				mMoney(); 
+
+				}
+				break;
+			case 29 :
+				// C:\\Users\\User\\Desktop\\software engineering\\software construction\\GitHub\\sea-of-ql\\dimitriskyr\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:1:176: Bool
 				{
 				mBool(); 
 
 				}
 				break;
-			case 28 :
-				// C:\\Users\\User\\Desktop\\software engineering\\software construction\\GitHub\\sea-of-ql\\dimitriskyr\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:1:169: Ident
+			case 30 :
+				// C:\\Users\\User\\Desktop\\software engineering\\software construction\\GitHub\\sea-of-ql\\dimitriskyr\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:1:181: Ident
 				{
 				mIdent(); 
 
 				}
 				break;
-			case 29 :
-				// C:\\Users\\User\\Desktop\\software engineering\\software construction\\GitHub\\sea-of-ql\\dimitriskyr\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:1:175: String_literal
+			case 31 :
+				// C:\\Users\\User\\Desktop\\software engineering\\software construction\\GitHub\\sea-of-ql\\dimitriskyr\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:1:187: String_literal
 				{
 				mString_literal(); 
 
@@ -1113,138 +1236,147 @@ public class QLLexer extends Lexer {
 	}
 
 
-	protected DFA8 dfa8 = new DFA8(this);
-	static final String DFA8_eotS =
-		"\1\uffff\1\33\6\uffff\1\35\1\uffff\1\37\1\uffff\1\41\4\30\3\uffff\1\27"+
-		"\1\uffff\1\30\13\uffff\3\30\1\54\6\30\1\uffff\4\30\1\67\3\30\1\73\1\30"+
-		"\1\uffff\1\73\2\30\1\uffff\2\30\1\101\1\102\1\103\3\uffff";
-	static final String DFA8_eofS =
-		"\104\uffff";
-	static final String DFA8_minS =
+	protected DFA10 dfa10 = new DFA10(this);
+	static final String DFA10_eotS =
+		"\1\uffff\1\34\6\uffff\1\36\1\uffff\1\40\1\uffff\1\42\5\31\3\uffff\1\30"+
+		"\1\52\1\31\13\uffff\3\31\1\60\3\31\2\uffff\4\31\1\uffff\5\31\1\75\4\31"+
+		"\1\102\1\31\1\uffff\1\102\1\31\1\105\1\31\1\uffff\2\31\1\uffff\1\111\1"+
+		"\112\1\113\3\uffff";
+	static final String DFA10_eofS =
+		"\114\uffff";
+	static final String DFA10_minS =
 		"\1\11\1\75\6\uffff\1\52\1\uffff\1\75\1\uffff\1\75\1\157\1\141\1\146\1"+
-		"\164\3\uffff\1\60\1\uffff\1\162\13\uffff\1\157\1\162\1\154\1\60\1\164"+
-		"\1\162\1\165\1\154\1\155\1\163\1\uffff\1\145\1\151\2\145\1\60\1\145\1"+
-		"\147\1\156\1\60\1\141\1\uffff\1\60\1\145\1\147\1\uffff\1\156\1\162\3\60"+
-		"\3\uffff";
-	static final String DFA8_maxS =
-		"\1\175\1\75\6\uffff\1\57\1\uffff\1\75\1\uffff\1\75\2\157\1\156\1\164\3"+
-		"\uffff\1\172\1\uffff\1\162\13\uffff\1\157\1\162\1\154\1\172\1\164\1\162"+
-		"\1\165\1\154\1\155\1\163\1\uffff\1\145\1\151\2\145\1\172\1\145\1\147\1"+
-		"\156\1\172\1\141\1\uffff\1\172\1\145\1\147\1\uffff\1\156\1\162\3\172\3"+
-		"\uffff";
-	static final String DFA8_acceptS =
-		"\2\uffff\1\3\1\4\1\5\1\6\1\7\1\10\1\uffff\1\12\1\uffff\1\15\5\uffff\1"+
-		"\25\1\26\1\27\1\uffff\1\32\1\uffff\1\31\1\34\1\35\1\2\1\1\1\30\1\11\1"+
-		"\14\1\13\1\17\1\16\12\uffff\1\22\12\uffff\1\21\3\uffff\1\33\5\uffff\1"+
-		"\24\1\20\1\23";
-	static final String DFA8_specialS =
-		"\104\uffff}>";
-	static final String[] DFA8_transitionS = {
-			"\2\27\25\uffff\1\27\1\1\1\31\3\uffff\1\2\1\uffff\1\3\1\4\1\5\1\6\1\uffff"+
-			"\1\7\1\uffff\1\10\12\25\1\11\1\uffff\1\12\1\13\1\14\2\uffff\32\30\6\uffff"+
-			"\1\30\1\15\3\30\1\16\2\30\1\17\10\30\1\24\1\20\1\26\6\30\1\21\1\22\1"+
-			"\23",
-			"\1\32",
+		"\157\1\164\3\uffff\1\60\1\56\1\162\13\uffff\1\157\1\162\1\154\1\60\1\164"+
+		"\1\156\1\162\2\uffff\1\165\1\154\1\155\1\163\1\uffff\2\145\1\151\2\145"+
+		"\1\60\1\145\1\147\1\171\1\156\1\60\1\141\1\uffff\1\60\1\145\1\60\1\147"+
+		"\1\uffff\1\156\1\162\1\uffff\3\60\3\uffff";
+	static final String DFA10_maxS =
+		"\1\175\1\75\6\uffff\1\57\1\uffff\1\75\1\uffff\1\75\2\157\1\156\1\157\1"+
+		"\164\3\uffff\1\172\1\71\1\162\13\uffff\1\157\1\162\1\154\1\172\1\164\1"+
+		"\156\1\162\2\uffff\1\165\1\154\1\155\1\163\1\uffff\2\145\1\151\2\145\1"+
+		"\172\1\145\1\147\1\171\1\156\1\172\1\141\1\uffff\1\172\1\145\1\172\1\147"+
+		"\1\uffff\1\156\1\162\1\uffff\3\172\3\uffff";
+	static final String DFA10_acceptS =
+		"\2\uffff\1\3\1\4\1\5\1\6\1\7\1\10\1\uffff\1\12\1\uffff\1\15\6\uffff\1"+
+		"\26\1\27\1\30\3\uffff\1\32\1\36\1\37\1\2\1\1\1\31\1\11\1\14\1\13\1\17"+
+		"\1\16\7\uffff\1\33\1\34\4\uffff\1\22\14\uffff\1\21\4\uffff\1\35\2\uffff"+
+		"\1\24\3\uffff\1\25\1\20\1\23";
+	static final String DFA10_specialS =
+		"\114\uffff}>";
+	static final String[] DFA10_transitionS = {
+			"\2\30\25\uffff\1\30\1\1\1\32\3\uffff\1\2\1\uffff\1\3\1\4\1\5\1\6\1\uffff"+
+			"\1\7\1\uffff\1\10\12\26\1\11\1\uffff\1\12\1\13\1\14\2\uffff\32\31\6\uffff"+
+			"\1\31\1\15\3\31\1\16\2\31\1\17\3\31\1\20\4\31\1\25\1\21\1\27\6\31\1\22"+
+			"\1\23\1\24",
+			"\1\33",
 			"",
 			"",
 			"",
 			"",
 			"",
 			"",
-			"\1\34\4\uffff\1\34",
+			"\1\35\4\uffff\1\35",
 			"",
-			"\1\36",
+			"\1\37",
 			"",
-			"\1\40",
-			"\1\42",
-			"\1\44\15\uffff\1\43",
-			"\1\45\7\uffff\1\46",
-			"\1\47",
-			"",
-			"",
-			"",
-			"\12\30\7\uffff\32\30\4\uffff\1\30\1\uffff\32\30",
-			"",
+			"\1\41",
+			"\1\43",
+			"\1\45\15\uffff\1\44",
+			"\1\46\7\uffff\1\47",
 			"\1\50",
-			"",
-			"",
-			"",
-			"",
-			"",
-			"",
-			"",
-			"",
-			"",
-			"",
-			"",
 			"\1\51",
-			"\1\52",
-			"\1\53",
-			"\12\30\7\uffff\32\30\4\uffff\1\30\1\uffff\32\30",
+			"",
+			"",
+			"",
+			"\12\31\7\uffff\32\31\4\uffff\1\31\1\uffff\32\31",
+			"\1\53\1\uffff\12\26",
+			"\1\54",
+			"",
+			"",
+			"",
+			"",
+			"",
+			"",
+			"",
+			"",
+			"",
+			"",
+			"",
 			"\1\55",
 			"\1\56",
 			"\1\57",
-			"\1\60",
+			"\12\31\7\uffff\32\31\4\uffff\1\31\1\uffff\32\31",
 			"\1\61",
 			"\1\62",
-			"",
 			"\1\63",
+			"",
+			"",
 			"\1\64",
 			"\1\65",
 			"\1\66",
-			"\12\30\7\uffff\32\30\4\uffff\1\30\1\uffff\32\30",
+			"\1\67",
+			"",
 			"\1\70",
 			"\1\71",
 			"\1\72",
-			"\12\30\7\uffff\32\30\4\uffff\1\30\1\uffff\32\30",
+			"\1\73",
 			"\1\74",
-			"",
-			"\12\30\7\uffff\32\30\4\uffff\1\30\1\uffff\32\30",
-			"\1\75",
+			"\12\31\7\uffff\32\31\4\uffff\1\31\1\uffff\32\31",
 			"\1\76",
-			"",
 			"\1\77",
 			"\1\100",
-			"\12\30\7\uffff\32\30\4\uffff\1\30\1\uffff\32\30",
-			"\12\30\7\uffff\32\30\4\uffff\1\30\1\uffff\32\30",
-			"\12\30\7\uffff\32\30\4\uffff\1\30\1\uffff\32\30",
+			"\1\101",
+			"\12\31\7\uffff\32\31\4\uffff\1\31\1\uffff\32\31",
+			"\1\103",
+			"",
+			"\12\31\7\uffff\32\31\4\uffff\1\31\1\uffff\32\31",
+			"\1\104",
+			"\12\31\7\uffff\32\31\4\uffff\1\31\1\uffff\32\31",
+			"\1\106",
+			"",
+			"\1\107",
+			"\1\110",
+			"",
+			"\12\31\7\uffff\32\31\4\uffff\1\31\1\uffff\32\31",
+			"\12\31\7\uffff\32\31\4\uffff\1\31\1\uffff\32\31",
+			"\12\31\7\uffff\32\31\4\uffff\1\31\1\uffff\32\31",
 			"",
 			"",
 			""
 	};
 
-	static final short[] DFA8_eot = DFA.unpackEncodedString(DFA8_eotS);
-	static final short[] DFA8_eof = DFA.unpackEncodedString(DFA8_eofS);
-	static final char[] DFA8_min = DFA.unpackEncodedStringToUnsignedChars(DFA8_minS);
-	static final char[] DFA8_max = DFA.unpackEncodedStringToUnsignedChars(DFA8_maxS);
-	static final short[] DFA8_accept = DFA.unpackEncodedString(DFA8_acceptS);
-	static final short[] DFA8_special = DFA.unpackEncodedString(DFA8_specialS);
-	static final short[][] DFA8_transition;
+	static final short[] DFA10_eot = DFA.unpackEncodedString(DFA10_eotS);
+	static final short[] DFA10_eof = DFA.unpackEncodedString(DFA10_eofS);
+	static final char[] DFA10_min = DFA.unpackEncodedStringToUnsignedChars(DFA10_minS);
+	static final char[] DFA10_max = DFA.unpackEncodedStringToUnsignedChars(DFA10_maxS);
+	static final short[] DFA10_accept = DFA.unpackEncodedString(DFA10_acceptS);
+	static final short[] DFA10_special = DFA.unpackEncodedString(DFA10_specialS);
+	static final short[][] DFA10_transition;
 
 	static {
-		int numStates = DFA8_transitionS.length;
-		DFA8_transition = new short[numStates][];
+		int numStates = DFA10_transitionS.length;
+		DFA10_transition = new short[numStates][];
 		for (int i=0; i<numStates; i++) {
-			DFA8_transition[i] = DFA.unpackEncodedString(DFA8_transitionS[i]);
+			DFA10_transition[i] = DFA.unpackEncodedString(DFA10_transitionS[i]);
 		}
 	}
 
-	protected class DFA8 extends DFA {
+	protected class DFA10 extends DFA {
 
-		public DFA8(BaseRecognizer recognizer) {
+		public DFA10(BaseRecognizer recognizer) {
 			this.recognizer = recognizer;
-			this.decisionNumber = 8;
-			this.eot = DFA8_eot;
-			this.eof = DFA8_eof;
-			this.min = DFA8_min;
-			this.max = DFA8_max;
-			this.accept = DFA8_accept;
-			this.special = DFA8_special;
-			this.transition = DFA8_transition;
+			this.decisionNumber = 10;
+			this.eot = DFA10_eot;
+			this.eof = DFA10_eof;
+			this.min = DFA10_min;
+			this.max = DFA10_max;
+			this.accept = DFA10_accept;
+			this.special = DFA10_special;
+			this.transition = DFA10_transition;
 		}
 		@Override
 		public String getDescription() {
-			return "1:1: Tokens : ( T__10 | T__11 | T__12 | T__13 | T__14 | T__15 | T__16 | T__17 | T__18 | T__19 | T__20 | T__21 | T__22 | T__23 | T__24 | T__25 | T__26 | T__27 | T__28 | T__29 | T__30 | T__31 | T__32 | Comments | WS | Int | Bool | Ident | String_literal );";
+			return "1:1: Tokens : ( T__11 | T__12 | T__13 | T__14 | T__15 | T__16 | T__17 | T__18 | T__19 | T__20 | T__21 | T__22 | T__23 | T__24 | T__25 | T__26 | T__27 | T__28 | T__29 | T__30 | T__31 | T__32 | T__33 | T__34 | Comments | WS | Int | Money | Bool | Ident | String_literal );";
 		}
 	}
 

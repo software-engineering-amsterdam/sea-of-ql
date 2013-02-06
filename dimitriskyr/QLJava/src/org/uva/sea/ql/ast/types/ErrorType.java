@@ -2,15 +2,16 @@ package org.uva.sea.ql.ast.types;
 
 import org.uva.sea.ql.ast.Type;
 
-public class IntegerType extends NumericType {
+public class ErrorType extends Type {
+
 	@Override
 	public boolean isCompatibleTo(Type t) {
-		return t.isCompatibleToInteger();
+		return t.isCompatibleToError();
 	}
 	
-	public boolean isCompatibleToInteger() {
+	@Override
+	public boolean isCompatibleToError() {
 		return true;
 	}
-	
-	
+
 }
