@@ -17,4 +17,10 @@ public class GreaterOrEquals extends Binary {
 	public Nature getNature() {
 		return Nature.BOOLEAN;
 	}
+
+	@Override
+	public String toString() {
+		return "GreaterOrEquals [getNature()=" + getNature() + ", getLeft()="
+				+ getLeft() + ", getRight()=" + getRight() + "]";
+	}
 }

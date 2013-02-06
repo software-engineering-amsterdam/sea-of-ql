@@ -81,7 +81,7 @@ CheckEnv checkBinaryExpr(Expr e, CheckEnv env) {
 	set[Type] reqTypes = requiredTypes[getName(e)];
 	env = checkExpr(e.lhs, reqTypes, env);		
 	
-	set[Type] reqForRhs;
+	set[Type] reqForRhs = {};
 	if (ident(name) := e.lhs) {
 		if (isVariableDefined(env, name)) {
 			reqForRhs = {getTypeOfVariable(env, name)};

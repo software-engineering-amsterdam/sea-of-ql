@@ -17,6 +17,10 @@ import org.uva.sea.ql.ast.exp.Positive;
 import org.uva.sea.ql.ast.exp.SmallerOrEquals;
 import org.uva.sea.ql.ast.exp.SmallerThan;
 import org.uva.sea.ql.ast.exp.Substitute;
+import org.uva.sea.ql.ast.type.BooleanType;
+import org.uva.sea.ql.ast.type.IntegerType;
+import org.uva.sea.ql.ast.type.MoneyType;
+import org.uva.sea.ql.ast.type.StringType;
 import org.uva.sea.ql.ast.value.BooleanValue;
 import org.uva.sea.ql.ast.value.IntegerValue;
 import org.uva.sea.ql.ast.value.StringValue;
@@ -61,5 +65,13 @@ public interface ExpressionVisitor<T> {
 	T visit(SmallerThan smallerThan);
 
 	T visit(Substitute substitute);
+
+	T visit(BooleanType booleanType);
+
+	T visit(IntegerType integerType);
+
+	T visit(MoneyType moneyType);
+
+	T visit(StringType stringType);
 
 }

@@ -2,6 +2,7 @@ package org.uva.sea.ql.ast.expr.value;
 
 import org.uva.sea.ql.ast.expr.Expr;
 
+
 public abstract class Value extends Expr {
 
 	public Value add(Value value) {
@@ -160,5 +161,22 @@ public abstract class Value extends Expr {
 		throw new UnsupportedOperationException();
 	}
 	
+	public abstract boolean isOfValue(Value v);
+
+	public boolean isStringLiteral() {
+		return false;
+	}
+	
+	public boolean isIntLiteral() {
+		return false;
+	}
+	
+	public boolean isMoneyLiteral() {
+		return false;
+	}
+	
+	public boolean isBoolLiteral() {
+		return false;
+	}
 
 }

@@ -1,4 +1,4 @@
-form mulitpleQuestions {
+form multipleQuestions {
   "Question one?"
     integer fieldOne
   "Question two?"

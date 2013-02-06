@@ -1,7 +1,10 @@
 package org.uva.sea.ql.ast.types;
 
+import java.awt.AWTEvent;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 
 import javax.swing.JComponent;
 import javax.swing.JOptionPane;
@@ -10,7 +13,7 @@ import javax.swing.JTextField;
 import org.uva.sea.ql.ast.values.IntValue;
 import org.uva.sea.ql.ast.values.Value;
 
-public class IntType extends Type implements ActionListener {
+public class IntType extends Type implements ActionListener, FocusListener {
 
 	private JTextField answerField;
 	
@@ -24,23 +27,10 @@ public class IntType extends Type implements ActionListener {
 		answerField = new JTextField();
 		answerField.setEnabled(enabled);
 		answerField.addActionListener(this);
+		answerField.addFocusListener(this);
 		return answerField;
 	}
 
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		if (e.getSource() == answerField) {
-			if (isValidInteger()) {
-				if (form != null) {
-					form.eval();
-				}
-			}
-			else {
-				JOptionPane.showMessageDialog(null, "The value should be an Integer!");
-				answerField.setText("");
-			}
-		}
-	}
 
 	@Override
 	public boolean hasValue() {
@@ -81,5 +71,33 @@ public class IntType extends Type implements ActionListener {
 		if(isValidInteger())
 			return new IntValue(Integer.parseInt(answerField.getText()));
 		return new IntValue();
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		eventUpdate(e);
+	}
+	
+	@Override
+	public void focusGained(FocusEvent e) {	
+	}
+
+	@Override
+	public void focusLost(FocusEvent e) {
+		eventUpdate(e);
+	}
+	
+	public void eventUpdate(AWTEvent e) {
+		if (e.getSource() == answerField) {
+			if (isValidInteger()) {
+				if (form != null) {
+					form.eval();
+				}
+			}
+			else {
+				JOptionPane.showMessageDialog(null, "The value should be an Integer!");
+				answerField.setText("");
+			}
+		}
 	}
 }

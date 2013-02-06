@@ -17,7 +17,7 @@ public class TestFields extends TestExpressions {
         super();
     }
     @Test
-    public void testIds() throws ParseError {
+    public final void testIds() throws ParseError {
         final Class<?> c = Ident.class;
         testId("a", c);
         testId("aBC", c);
@@ -33,7 +33,7 @@ public class TestFields extends TestExpressions {
     }
 
     @Test
-    public void testNums() throws ParseError {
+    public final void testNums() throws ParseError {
         assertEquals(IntLiteral.class, parser.parse("0").getClass());
         assertEquals(IntLiteral.class, parser.parse("1223").getClass());
         assertEquals(IntLiteral.class, parser.parse("234234234").getClass());
@@ -54,7 +54,7 @@ public class TestFields extends TestExpressions {
 
     }
 
-    private final String[] getTestStrings() {
+    private static final String[] getTestStrings() {
         final String[] ret = { "\"a\"", "\"1223\"", "\"2342 34234\"",
                 "\"aBc\"", "\"abc 2323\"", "\"a2bc232aa\"", };
         return ret;

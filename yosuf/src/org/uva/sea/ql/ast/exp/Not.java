@@ -17,4 +17,11 @@ public class Not extends Unary {
 	public Nature getNature() {
 		return Nature.BOOLEAN;
 	}
+
+	@Override
+	public String toString() {
+		return "Not [getNature()=" + getNature() + ", getOperation()="
+				+ getOperation() + "]";
+	}
+
 }

@@ -48,4 +48,16 @@ public class MoneyResult implements ExpressionResult {
 	public String getStringValue() {
 		return value.toString();
 	}
+
+	@Override
+	public ExpressionResult setValue(String string) {
+		try {
+		value = new BigDecimal(string); 
+		}
+		catch (java.lang.NumberFormatException e) {
+			System.out.println("BigDecimal convert error");
+			value = new BigDecimal(0); 
+		}
+		return this ;
+	}
 }

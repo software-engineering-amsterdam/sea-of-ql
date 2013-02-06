@@ -72,7 +72,7 @@ CheckEnv checkQuestionDeclaration(Question q:noncomputed(str identifier, str lab
 		}		
 	}
 	else { 
-		if (identifier in env.questionVars) {
+		if (identifier in env.computedQuestionVars) {
 			env = addError(env, q@location, "There is already a computed version of this question");	
 		}
 		

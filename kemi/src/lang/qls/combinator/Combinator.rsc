@@ -17,13 +17,20 @@ import String;
 import lang::ql::ast::AST;
 import lang::ql::tests::ParseHelper;
 import lang::qls::ast::AST;
-import lang::qls::tests::ParseHelper;
-import lang::qls::util::StyleHelpers;
+import lang::qls::util::ParseHelper;
+import lang::qls::util::StyleHelper;
 
 public void main() {
   Form f = parseForm(|project://QL-R-kemi/forms/proposedSyntax.q|);
   Stylesheet s = parseStylesheet(|project://QL-R-kemi/stylesheets/proposedSyntax.qs|);
   //Stylesheet s = parseStylesheet("stylesheet S1 { section \"S1\" { section \"SS\" {question Q1 { type checkbox }} } section \"P1\" {  } }");
   //Stylesheet s = parseStylesheet("stylesheet S1 { question Q1 { type checkbox width 100 } default boolean { type radio } default string { width 104 }}");
-  iprintln(getStyleRules("questionTen", f, s));
+  
+  typeMap = getTypeMap(f);
+  //iprintln(typeMap);
+  
+  for(k <- typeMap){
+    iprintln(<k.ident, getStyleRules(k.ident, f, s)>);
+  }
+
 }

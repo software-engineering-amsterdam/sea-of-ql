@@ -3,10 +3,12 @@ package org.uva.sea.ql.ast;
 import static julius.validation.Assertions.state;
 
 import org.uva.sea.ql.ast.exp.Expression;
+import org.uva.sea.ql.visitor.StatementVisitor;
 
 public class IfStatement extends Statement {
 
 	private final Expression expression;
+
 	private final CompoundStatement ifCompound;
 
 	/**
@@ -26,8 +28,23 @@ public class IfStatement extends Statement {
 		state.assertNotNull(ifCompound, "IfStatement.compound");
 	}
 
+	public Expression getExpression() {
+		return expression;
+	}
+
 	public CompoundStatement getIfCompound() {
 		return ifCompound;
+	}
+
+	@Override
+	public <T> T accept(final StatementVisitor<T> visitor) {
+		return visitor.visit(this);
+	}
+
+	@Override
+	public String toString() {
+		return "IfStatement [expression=" + expression + ", ifCompound="
+				+ ifCompound + "]";
 	}
 
 }
