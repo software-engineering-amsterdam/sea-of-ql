@@ -25,6 +25,8 @@ public str JS(Stylesheet s) =
   '  <layoutJS(s)>
   '
   '  <styleJS(s)>
+  '
+  '  $(\"fieldset\").trigger(\"check\");
   '}
   '";
 
