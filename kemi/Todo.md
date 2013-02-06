@@ -15,9 +15,8 @@ consistent way.
 * Refactor SemanticChecker
 * Refactor StyleHelpers
 * Wider styling support
-* "Type checking"
 * /A[DS]T/ reuse
-* QL Typechecking breaks when the form is used with a stylesheet. <-- Does not seem to happen for me
+* QL Typechecking breaks when the form is used with a stylesheet. <-- Does not seem to happen for me, compilation fails on TypeErrors, line is highlighted, etc.
 
 # Both
 * Checking of the QLS language against the QL language

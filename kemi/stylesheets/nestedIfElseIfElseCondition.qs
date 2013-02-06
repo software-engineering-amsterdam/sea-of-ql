@@ -10,7 +10,7 @@ stylesheet nestedIfElseIfElseCondition {
       section "Subsection one" {
      	  question anotherDate
      	  question aoeu {
-     	    widget checkbox
+     	    widget slider
      	  }
      	}
      	
