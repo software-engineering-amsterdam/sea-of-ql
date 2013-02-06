@@ -1,13 +1,13 @@
 package org.uva.sea.ql.ast.type;
 
-import org.uva.sea.ql.visitor.ITypeVisitor;
+import org.uva.sea.ql.visitor.TypeVisitor;
 
 /**
  * Represents an Error type.
  */
 public class Undefined extends Type {
 	@Override
-	public <T> T accept( ITypeVisitor<T> visitor ) {
+	public <T> T accept( TypeVisitor<T> visitor ) {
 		return null;
 	}
 

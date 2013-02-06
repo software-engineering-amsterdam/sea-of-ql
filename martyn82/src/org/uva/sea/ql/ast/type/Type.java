@@ -1,7 +1,7 @@
 package org.uva.sea.ql.ast.type;
 
 import org.uva.sea.ql.ast.Node;
-import org.uva.sea.ql.visitor.ITypeVisitor;
+import org.uva.sea.ql.visitor.TypeVisitor;
 
 /**
  * Represents an abstract type.
@@ -12,7 +12,7 @@ abstract public class Type extends Node {
 	 *
 	 * @param visitor
 	 */
-	abstract public <T> T accept( ITypeVisitor<T> visitor );
+	abstract public <T> T accept( TypeVisitor<T> visitor );
 
 	/**
 	 * Determines whether this type is compatible to the given type.

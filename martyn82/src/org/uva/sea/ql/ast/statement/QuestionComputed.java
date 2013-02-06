@@ -3,7 +3,7 @@ package org.uva.sea.ql.ast.statement;
 import org.uva.sea.ql.ast.expression.Expression;
 import org.uva.sea.ql.ast.expression.Ident;
 import org.uva.sea.ql.ast.expression.literal.Str;
-import org.uva.sea.ql.visitor.IStatementVisitor;
+import org.uva.sea.ql.visitor.StatementVisitor;
 
 /**
  * Represents a computed question declaration.
@@ -49,7 +49,7 @@ public class QuestionComputed extends QuestionDeclaration {
 	}
 
 	@Override
-	public <T> T accept( IStatementVisitor<T> visitor ) {
+	public <T> T accept( StatementVisitor<T> visitor ) {
 		return visitor.visit( this );
 	}
 }

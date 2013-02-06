@@ -21,12 +21,12 @@ import org.uva.sea.ql.evaluator.value.Integer;
 import org.uva.sea.ql.evaluator.value.Money;
 import org.uva.sea.ql.evaluator.value.String;
 import org.uva.sea.ql.evaluator.value.Value;
-import org.uva.sea.ql.visitor.IExpressionVisitor;
+import org.uva.sea.ql.visitor.ExpressionVisitor;
 
 /**
  * Evaluator for expression nodes.
  */
-public class Evaluator implements IExpressionVisitor<Value> {
+public class Evaluator implements ExpressionVisitor<Value> {
 	/**
 	 * Holds the environment.
 	 */

@@ -5,12 +5,12 @@ import org.uva.sea.ql.ast.type.Int;
 import org.uva.sea.ql.ast.type.Money;
 import org.uva.sea.ql.ast.type.Number;
 import org.uva.sea.ql.ast.type.Str;
-import org.uva.sea.ql.visitor.ITypeVisitor;
+import org.uva.sea.ql.visitor.TypeVisitor;
 
 /**
  * Represents a pretty printer for type nodes.
  */
-public class TypePrinter extends PrintVisitor implements ITypeVisitor<Boolean> {
+public class TypePrinter extends PrintVisitor implements TypeVisitor<Boolean> {
 	/**
 	 * Constructs a new TypePrinter instance.
 	 *

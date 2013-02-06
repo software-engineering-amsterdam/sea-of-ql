@@ -1,7 +1,7 @@
 package org.uva.sea.ql.ast.statement;
 
 import org.uva.sea.ql.ast.expression.Expression;
-import org.uva.sea.ql.visitor.IStatementVisitor;
+import org.uva.sea.ql.visitor.StatementVisitor;
 
 /**
  * Represents an ElseIf block.
@@ -43,7 +43,7 @@ public class ElseIf extends Statement {
 	 * @param visitor
 	 */
 	@Override
-	public <T> T accept( IStatementVisitor<T> visitor ) {
+	public <T> T accept( StatementVisitor<T> visitor ) {
 		return visitor.visit( this );
 	}
 

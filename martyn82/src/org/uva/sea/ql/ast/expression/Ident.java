@@ -1,6 +1,6 @@
 package org.uva.sea.ql.ast.expression;
 
-import org.uva.sea.ql.visitor.IExpressionVisitor;
+import org.uva.sea.ql.visitor.ExpressionVisitor;
 
 /**
  * Represents an identifier expression.
@@ -43,7 +43,7 @@ public class Ident extends Expression {
 	}
 
 	@Override
-	public <T> T accept( IExpressionVisitor<T> visitor ) {
+	public <T> T accept( ExpressionVisitor<T> visitor ) {
 		return visitor.visit( this );
 	}
 }

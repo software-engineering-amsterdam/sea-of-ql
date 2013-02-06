@@ -9,7 +9,7 @@ import org.uva.sea.ql.ast.type.Str;
 /**
  * Represents Type visitor.
  */
-public interface ITypeVisitor<T> {
+public interface TypeVisitor<T> {
 	/**
 	 * Visit a boolean type.
 	 *

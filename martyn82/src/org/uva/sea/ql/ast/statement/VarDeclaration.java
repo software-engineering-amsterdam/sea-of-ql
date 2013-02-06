@@ -2,7 +2,7 @@ package org.uva.sea.ql.ast.statement;
 
 import org.uva.sea.ql.ast.expression.Ident;
 import org.uva.sea.ql.ast.type.Type;
-import org.uva.sea.ql.visitor.IStatementVisitor;
+import org.uva.sea.ql.visitor.StatementVisitor;
 
 /**
  * Represents a variable declaration.
@@ -48,7 +48,7 @@ public class VarDeclaration extends Statement {
 	}
 
 	@Override
-	public <T> T accept( IStatementVisitor<T> visitor ) {
+	public <T> T accept( StatementVisitor<T> visitor ) {
 		return visitor.visit( this );
 	}
 }

@@ -1,6 +1,6 @@
 package org.uva.sea.ql.ast.expression.literal;
 
-import org.uva.sea.ql.visitor.IExpressionVisitor;
+import org.uva.sea.ql.visitor.ExpressionVisitor;
 
 /**
  * Represents a boolean literal expression.
@@ -35,7 +35,7 @@ public class Bool extends Literal {
 	}
 
 	@Override
-	public <T> T accept( IExpressionVisitor<T> visitor ) {
+	public <T> T accept( ExpressionVisitor<T> visitor ) {
 		return visitor.visit( this );
 	}
 }

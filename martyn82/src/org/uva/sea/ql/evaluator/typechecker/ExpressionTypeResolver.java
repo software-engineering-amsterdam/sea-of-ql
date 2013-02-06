@@ -28,12 +28,12 @@ import org.uva.sea.ql.ast.expression.unary.Pos;
 import org.uva.sea.ql.ast.type.Type;
 import org.uva.sea.ql.ast.type.Undefined;
 import org.uva.sea.ql.evaluator.Environment;
-import org.uva.sea.ql.visitor.IExpressionVisitor;
+import org.uva.sea.ql.visitor.ExpressionVisitor;
 
 /**
  * Represents a type resolver for expression nodes.
  */
-public class ExpressionTypeResolver extends TypeResolver implements IExpressionVisitor<Type> {
+public class ExpressionTypeResolver extends TypeResolver implements ExpressionVisitor<Type> {
 	/**
 	 * Constructs a new Expression TypeResolver instance.
 	 *

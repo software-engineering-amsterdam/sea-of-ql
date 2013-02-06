@@ -2,7 +2,7 @@ package org.uva.sea.ql.ast.expression.arithmetic;
 
 import org.uva.sea.ql.ast.expression.ArithmeticExpression;
 import org.uva.sea.ql.ast.expression.Expression;
-import org.uva.sea.ql.visitor.IExpressionVisitor;
+import org.uva.sea.ql.visitor.ExpressionVisitor;
 
 /**
  * Represents a division expression.
@@ -19,7 +19,7 @@ public class Div extends ArithmeticExpression {
 	}
 
 	@Override
-	public <T> T accept( IExpressionVisitor<T> visitor ) {
+	public <T> T accept( ExpressionVisitor<T> visitor ) {
 		return visitor.visit( this );
 	}
 }

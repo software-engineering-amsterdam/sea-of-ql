@@ -14,7 +14,7 @@ import org.uva.sea.ql.ast.statement.VarDeclaration;
 /**
  * Statement visitor.
  */
-public interface IStatementVisitor<T> {
+public interface StatementVisitor<T> {
 	/**
 	 * Visit ELSE-IF-statement.
 	 *

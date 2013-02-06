@@ -40,13 +40,13 @@ import org.uva.sea.ql.ast.type.Str;
 import org.uva.sea.ql.ast.type.Type;
 import org.uva.sea.ql.evaluator.value.Boolean;
 import org.uva.sea.ql.evaluator.value.Value;
-import org.uva.sea.ql.visitor.IStatementVisitor;
-import org.uva.sea.ql.visitor.ITypeVisitor;
+import org.uva.sea.ql.visitor.StatementVisitor;
+import org.uva.sea.ql.visitor.TypeVisitor;
 
 /**
  * Evaluator for statement nodes.
  */
-public class Renderer implements IStatementVisitor<Void>, ITypeVisitor<JComponent> {
+public class Renderer implements StatementVisitor<Void>, TypeVisitor<JComponent> {
 	/**
 	 * Holds the environment.
 	 */

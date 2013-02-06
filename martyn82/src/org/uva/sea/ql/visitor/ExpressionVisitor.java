@@ -24,7 +24,7 @@ import org.uva.sea.ql.ast.expression.unary.Pos;
 /**
  * Expression visitor.
  */
-public interface IExpressionVisitor<T> {
+public interface ExpressionVisitor<T> {
 
 	// Arithmetic expressions
 

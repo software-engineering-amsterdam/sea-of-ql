@@ -10,12 +10,12 @@ import org.uva.sea.ql.evaluator.value.Integer;
 import org.uva.sea.ql.evaluator.value.String;
 import org.uva.sea.ql.evaluator.value.Undefined;
 import org.uva.sea.ql.evaluator.value.Value;
-import org.uva.sea.ql.visitor.ITypeVisitor;
+import org.uva.sea.ql.visitor.TypeVisitor;
 
 /**
  * Evaluator for type nodes.
  */
-public class TypeEvaluator implements ITypeVisitor<Value> {
+public class TypeEvaluator implements TypeVisitor<Value> {
 	@Override
 	public Value visit( Bool node ) {
 		return new Boolean( false );

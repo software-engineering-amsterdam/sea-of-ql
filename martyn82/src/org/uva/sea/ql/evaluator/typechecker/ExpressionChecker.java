@@ -24,12 +24,12 @@ import org.uva.sea.ql.ast.expression.unary.Pos;
 import org.uva.sea.ql.ast.type.Type;
 import org.uva.sea.ql.ast.type.Undefined;
 import org.uva.sea.ql.evaluator.Environment;
-import org.uva.sea.ql.visitor.IExpressionVisitor;
+import org.uva.sea.ql.visitor.ExpressionVisitor;
 
 /**
  * Represents a type checker for Expression nodes.
  */
-public class ExpressionChecker extends TypeCheckVisitor implements IExpressionVisitor<Boolean> {
+public class ExpressionChecker extends TypeCheckVisitor implements ExpressionVisitor<Boolean> {
 	/**
 	 * Constructs a new ExpressionChecker.
 	 *

@@ -11,12 +11,12 @@ import org.uva.sea.ql.ast.statement.QuestionVar;
 import org.uva.sea.ql.ast.statement.Statement;
 import org.uva.sea.ql.ast.statement.Statements;
 import org.uva.sea.ql.ast.statement.VarDeclaration;
-import org.uva.sea.ql.visitor.IStatementVisitor;
+import org.uva.sea.ql.visitor.StatementVisitor;
 
 /**
  * Represents a pretty printer for statement nodes.
  */
-public class StatementPrinter extends PrintVisitor implements IStatementVisitor<Boolean> {
+public class StatementPrinter extends PrintVisitor implements StatementVisitor<Boolean> {
 
 	/**
 	 * Holds the expression visitor.

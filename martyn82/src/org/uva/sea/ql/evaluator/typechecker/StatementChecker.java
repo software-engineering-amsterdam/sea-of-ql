@@ -13,12 +13,12 @@ import org.uva.sea.ql.ast.statement.Statements;
 import org.uva.sea.ql.ast.statement.VarDeclaration;
 import org.uva.sea.ql.ast.type.Type;
 import org.uva.sea.ql.evaluator.Environment;
-import org.uva.sea.ql.visitor.IStatementVisitor;
+import org.uva.sea.ql.visitor.StatementVisitor;
 
 /**
  * Represents a type checker for statement nodes.
  */
-public class StatementChecker extends TypeCheckVisitor implements IStatementVisitor<Boolean> {
+public class StatementChecker extends TypeCheckVisitor implements StatementVisitor<Boolean> {
 
 	/**
 	 * Holds the expression checker.

@@ -22,12 +22,12 @@ import org.uva.sea.ql.ast.expression.logical.Or;
 import org.uva.sea.ql.ast.expression.unary.Neg;
 import org.uva.sea.ql.ast.expression.unary.Not;
 import org.uva.sea.ql.ast.expression.unary.Pos;
-import org.uva.sea.ql.visitor.IExpressionVisitor;
+import org.uva.sea.ql.visitor.ExpressionVisitor;
 
 /**
  * Represents a pretty printer for expression nodes.
  */
-public class ExpressionPrinter extends PrintVisitor implements IExpressionVisitor<Boolean> {
+public class ExpressionPrinter extends PrintVisitor implements ExpressionVisitor<Boolean> {
 	/**
 	 * Constructs a new ExpressionPrinter instance.
 	 *

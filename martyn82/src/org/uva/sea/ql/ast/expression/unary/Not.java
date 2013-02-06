@@ -2,7 +2,7 @@ package org.uva.sea.ql.ast.expression.unary;
 
 import org.uva.sea.ql.ast.expression.Expression;
 import org.uva.sea.ql.ast.expression.UnaryExpression;
-import org.uva.sea.ql.visitor.IExpressionVisitor;
+import org.uva.sea.ql.visitor.ExpressionVisitor;
 
 /**
  * Represents a logical NOT expression.
@@ -18,7 +18,7 @@ public class Not extends UnaryExpression {
 	}
 
 	@Override
-	public <T> T accept( IExpressionVisitor<T> visitor ) {
+	public <T> T accept( ExpressionVisitor<T> visitor ) {
 		return visitor.visit( this );
 	}
 }

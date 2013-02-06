@@ -4,7 +4,7 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
-import org.uva.sea.ql.visitor.IStatementVisitor;
+import org.uva.sea.ql.visitor.StatementVisitor;
 
 /**
  * Represents a list of ElseIfs.
@@ -59,7 +59,7 @@ public class ElseIfs extends Statement implements Iterable<ElseIf> {
 	 * @param visitor
 	 */
 	@Override
-	public <T> T accept( IStatementVisitor<T> visitor ) {
+	public <T> T accept( StatementVisitor<T> visitor ) {
 		return visitor.visit( this );
 	}
 
