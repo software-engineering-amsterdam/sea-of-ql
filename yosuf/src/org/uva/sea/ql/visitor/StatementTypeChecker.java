@@ -4,7 +4,9 @@ import static julius.validation.Assertions.checked;
 import static julius.validation.Assertions.state;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import julius.validation.ValidationException;
 
@@ -24,6 +26,8 @@ public class StatementTypeChecker implements StatementVisitor<Statement> {
 	private final List<ValidationException> typeErrors = new ArrayList<ValidationException>();
 	private final ExpressionTypeChecker expressionTypeChecker;
 
+	private final Map<String, Statement> environment = new HashMap<String, Statement>();
+
 	public StatementTypeChecker(
 			final ExpressionTypeChecker expressionTypeChecker) {
 		this.expressionTypeChecker = expressionTypeChecker;
@@ -33,7 +37,7 @@ public class StatementTypeChecker implements StatementVisitor<Statement> {
 	@Override
 	public Statement visit(final Form form) {
 		form.getBody().accept(this);
-		assertIdentifier(form.getIdentifier(), form.toString());
+		assertIdentifierAndAddToEnvironment(form.getIdentifier(), form);
 
 		return form;
 	}
@@ -51,7 +55,7 @@ public class StatementTypeChecker implements StatementVisitor<Statement> {
 	@Override
 	public Statement visit(final Computed computed) {
 
-		assertIdentifier(computed.getIdentifier(), computed.toString());
+		assertIdentifierAndAddToEnvironment(computed.getIdentifier(), computed);
 		visitExpression(computed.getExpression());
 		assertSameNature(computed.getDataType(), computed.getExpression(),
 				computed.toString());
@@ -64,6 +68,7 @@ public class StatementTypeChecker implements StatementVisitor<Statement> {
 		visitExpression(ifStatement.getExpression());
 		assertSameNature(new BooleanType(), ifStatement.getExpression(),
 				ifStatement.toString());
+
 		ifStatement.getIfCompound().accept(this);
 
 		return ifStatement;
@@ -82,7 +87,7 @@ public class StatementTypeChecker implements StatementVisitor<Statement> {
 
 	@Override
 	public Statement visit(final Question question) {
-		assertIdentifier(question.getIdentifier(), question.toString());
+		assertIdentifierAndAddToEnvironment(question.getIdentifier(), question);
 		return question;
 	}
 
@@ -104,13 +109,17 @@ public class StatementTypeChecker implements StatementVisitor<Statement> {
 		expression.accept(expressionTypeChecker);
 	}
 
-	private void assertIdentifier(final Identifier identifier,
-			final String reference) {
+	private void assertIdentifierAndAddToEnvironment(
+			final Identifier identifier, final Statement statement) {
 		identifier.accept(expressionTypeChecker);
 
 		try {
-			checked.assertTrue(!identifier.getName().isEmpty(), reference
+			checked.assertTrue(!identifier.getName().isEmpty(), statement
 					+ " identifier cannot be empty");
+			checked.assertTrue(environment.get(identifier.getName()) == null,
+					identifier.getName() + " already exists");
+
+			environment.put(identifier.getName(), statement);
 		} catch (ValidationException e) {
 			typeErrors.add(e);
 		}
