@@ -33,14 +33,19 @@ import org.uva.sea.ql.visitor.ExpressionVisitor;
 /**
  * Represents a type resolver for expression nodes.
  */
-public class ExpressionTypeResolver extends TypeResolver implements ExpressionVisitor<Type> {
+public class ExpressionTypeResolver implements ExpressionVisitor<Type> {
+	/**
+	 * Holds the environment.
+	 */
+	private final Environment environment;
+
 	/**
 	 * Constructs a new Expression TypeResolver instance.
 	 *
 	 * @param environment
 	 */
 	public ExpressionTypeResolver( Environment environment ) {
-		super( environment );
+		this.environment = environment;
 	}
 
 	/**

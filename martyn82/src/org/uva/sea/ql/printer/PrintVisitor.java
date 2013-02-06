@@ -3,12 +3,11 @@ package org.uva.sea.ql.printer;
 import org.uva.sea.ql.ast.Node;
 import org.uva.sea.ql.ast.expression.Ident;
 import org.uva.sea.ql.ast.expression.literal.Literal;
-import org.uva.sea.ql.visitor.ASTNodeVisitor;
 
 /**
  * Visitor that prints the AST.
  */
-abstract public class PrintVisitor extends ASTNodeVisitor<Boolean> implements IPrintContext {
+abstract public class PrintVisitor implements IPrintContext {
 	/**
 	 * Holds the context.
 	 */
