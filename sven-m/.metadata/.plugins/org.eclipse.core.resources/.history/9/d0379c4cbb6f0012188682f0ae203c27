@@ -1,0 +1,11 @@
+package org.uva.sea.ql.ast.expression;
+
+import org.uva.sea.ql.ast.ASTNode;
+
+public class Eq extends Binary implements ASTNode {
+
+	public Eq(Expr lhs, Expr rhs) {
+		super(lhs, rhs);
+	}
+
+}

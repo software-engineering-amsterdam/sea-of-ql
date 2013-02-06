@@ -1,0 +1,7 @@
+package org.uva.sea.ql.visitors;
+
+import org.uva.sea.ql.ast.expression.Expr;
+
+public interface IVisitor {
+	Expr visit(Expr expr);
+}

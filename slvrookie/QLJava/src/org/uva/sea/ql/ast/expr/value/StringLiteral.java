@@ -28,4 +28,14 @@ public class StringLiteral extends Value {
 		return ExprVisitor.visit(this);
 	}
 
+	@Override
+	public boolean isOfValue(Value v) {
+		return v.isStringLiteral();
+	}
+
+	@Override
+	public boolean isStringLiteral() {
+		return true;
+	}
+
 }

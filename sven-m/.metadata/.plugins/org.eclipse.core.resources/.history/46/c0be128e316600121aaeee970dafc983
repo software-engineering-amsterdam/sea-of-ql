@@ -1,0 +1,11 @@
+package org.uva.sea.ql.ast.expressions;
+
+import org.uva.sea.ql.ast.ASTNode;
+
+public class Or extends Binary implements ASTNode {
+
+	public Or(Expr lhs, Expr rhs) {
+		super(lhs, rhs);
+	}
+
+}

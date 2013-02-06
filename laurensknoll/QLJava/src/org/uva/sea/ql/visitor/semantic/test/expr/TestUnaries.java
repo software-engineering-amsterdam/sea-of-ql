@@ -2,6 +2,8 @@ package org.uva.sea.ql.visitor.semantic.test.expr;
 
 import static org.junit.Assert.assertEquals;
 
+import java.math.BigDecimal;
+
 import org.junit.Test;
 import org.uva.sea.ql.ast.expr.atom.Bool;
 import org.uva.sea.ql.ast.expr.atom.Ident;
@@ -33,7 +35,7 @@ public class TestUnaries {
 	@Test
 	public void testNegatives() {
 		Int i = new Int(10);
-		Money m = new Money(10.0f);
+		Money m = new Money(new BigDecimal("10.00"));
 		Bool b = new Bool(true);
 		Ident intIdent = new Ident("int");
 		Ident moneyIdent = new Ident("money");
@@ -56,7 +58,7 @@ public class TestUnaries {
 	@Test
 	public void testPositives() {
 		Int i = new Int(10);
-		Money m = new Money(10.0f);
+		Money m = new Money(new BigDecimal("10.00"));
 		Bool b = new Bool(true);
 		Ident intIdent = new Ident("int");
 		Ident moneyIdent = new Ident("money");
@@ -79,7 +81,7 @@ public class TestUnaries {
 	@Test
 	public void testNots() {
 		Int i = new Int(10);
-		Money m = new Money(10.0f);
+		Money m = new Money(new BigDecimal("10.00"));
 		Bool b = new Bool(true);
 		Ident intIdent = new Ident("int");
 		Ident moneyIdent = new Ident("money");

@@ -25,4 +25,4 @@ public Form parseForm(str src) =
   implode(#lang::ql::ast::AST::Form, parse(#start[Form], src, |file:///-|));
   
 public Form parseForm(loc f) = 
-  parseForm(readFile(f));
+  implode(#lang::ql::ast::AST::Form, parse(#start[Form], f));

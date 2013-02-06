@@ -55,9 +55,8 @@ public class ValidationVisitor implements ElementVisitor {
         Returns r = (Returns) ifStatement.getCondition();
         if (r.getReturnType(registry.getQuestions())
                 .equals(ReturnTypes.BOOLEAN)) {
-            if (ifStatement.getCondition() instanceof Accepts) {
+            if (ifStatement.getCondition() instanceof Accepts)
                 this.visit((Accepts) ifStatement.getCondition());
-            }
 
         } else {
             throw new AstValidationError("not a valid condition: "
@@ -80,7 +79,7 @@ public class ValidationVisitor implements ElementVisitor {
     private void visitOperands(Expr e) throws VisitorException {
         if (e instanceof Accepts) {
             this.visit((Accepts) e);
-        } 
+        }
     }
 
     private void visit(Accepts r) throws VisitorException {

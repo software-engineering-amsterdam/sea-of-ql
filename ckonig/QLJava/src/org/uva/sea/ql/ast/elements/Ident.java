@@ -40,7 +40,7 @@ public class Ident extends Expr implements Returns {
                 return question.getType().getReturnType(questions);
             }
         }
-        return null;
+        throw new RuntimeException("Question not found: " + this.name);
     }
 
 }

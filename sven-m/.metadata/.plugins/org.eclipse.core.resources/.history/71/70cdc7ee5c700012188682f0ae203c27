@@ -1,0 +1,7 @@
+package org.uva.sea.ql.ast;
+
+import org.uva.sea.ql.ast.visitor.Expression;
+
+public interface ExpressionNode extends ASTNode {
+	public <T> T accept(ExpressionVisitor<T> visitor);
+}

@@ -3,11 +3,10 @@ package org.uva.sea.ql.ast.elements;
 import java.util.List;
 
 import org.uva.sea.ql.ast.expressions.Expr;
-import org.uva.sea.ql.common.ASTElement;
 import org.uva.sea.ql.common.ElementVisitor;
 import org.uva.sea.ql.common.VisitorException;
 
-public class IfStatement extends BlockElement implements ASTElement {
+public class IfStatement extends BlockElement {
 	private Expr condition;
 	private Block content;
 

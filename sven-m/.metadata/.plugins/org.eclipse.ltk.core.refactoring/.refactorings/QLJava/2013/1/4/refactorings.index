@@ -19,3 +19,7 @@
 1359037358895	Rename package 'org.uva.sea.ql.ast.types'
 1359037379859	Rename package 'org.uva.sea.ql.ast.expressions'
 1359044551470	Copy compilation unit
+1359067664840	Delete element
+1359087526988	Rename type 'ANTLRParser'
+1359088605265	Rename type 'TestExpressions'
+1359217591545	Delete element

@@ -1,0 +1,75 @@
+package org.uva.sea.ql.parser.test;
+
+import static org.junit.Assert.assertEquals;
+
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.Parameterized;
+import org.junit.runners.Parameterized.Parameters;
+import org.uva.sea.ql.ast.expression.Add;
+import org.uva.sea.ql.ast.expression.And;
+import org.uva.sea.ql.ast.expression.Eq;
+import org.uva.sea.ql.ast.expression.GEq;
+import org.uva.sea.ql.ast.expression.GT;
+import org.uva.sea.ql.ast.expression.Ident;
+import org.uva.sea.ql.ast.expression.Int;
+import org.uva.sea.ql.ast.expression.LEq;
+import org.uva.sea.ql.ast.expression.LT;
+import org.uva.sea.ql.ast.expression.Mul;
+import org.uva.sea.ql.ast.expression.Not;
+import org.uva.sea.ql.ast.form.Body;
+import org.uva.sea.ql.ast.form.ComputedQuestion;
+import org.uva.sea.ql.ast.form.IfStatement;
+import org.uva.sea.ql.ast.form.QLForm;
+import org.uva.sea.ql.ast.form.Question;
+
+public abstract class SyntaxTest extends AbstractTest {
+	private HashMap<String, Class<?>> tests;
+	
+	public SyntaxTest() {
+		super();
+	}
+	
+	@Before
+	public void initMap() {
+		tests = new HashMap<String, Class<?>>();
+	}
+	
+	private void testd(IParse.ParseMethod method) throws ParseError {
+		for (Map.Entry<String, Class<?>> t : tests.entrySet()) {
+			assertEquals(
+				"Error source: " + t.getKey(), // message
+				t.getValue(),				   // expected
+				parser.parse(method, t.getKey()).getClass() // actual
+			);
+		}
+	}
+	
+
+
+	
+	@Test
+	public void FormElements() throws ParseError {
+		assertEquals(parse("q1: \"fjdslfj\" boolean"), Question.class);
+		assertEquals(parse("q1: \"\" boolean"), Question.class);
+		
+		assertEquals(parse("q1: \"fjdkslfj \" boolean(a == b)"), ComputedQuestion.class);
+		assertEquals(parse("q1: \"\" integer(this + that)"), ComputedQuestion.class);
+		
+		assertEquals(parse("if (d < e) { q1: \" \" integer }"), IfStatement.class);
+		assertEquals(parse("if (a == b) { } "), IfStatement.class);
+		
+		test(IParse.ParseMethod.FORM_ELEMENT);
+	}
+	
+
+
+}

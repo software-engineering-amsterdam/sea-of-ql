@@ -8,8 +8,10 @@ import org.uva.sea.ql.ast.expressions.Expr;
 import org.uva.sea.ql.ast.interfaces.Accepts;
 import org.uva.sea.ql.ast.interfaces.ReturnTypes;
 import org.uva.sea.ql.ast.interfaces.Returns;
+import org.uva.sea.ql.common.Evaluatable;
 
-public class BinaryMathOperator extends BinaryExpr implements Returns, Accepts {
+public abstract class BinaryMathOperator extends BinaryExpr implements Returns,
+        Accepts, Evaluatable {
     public BinaryMathOperator(Expr l, Expr r) {
         super(l, r);
     }

@@ -7,8 +7,9 @@ import org.uva.sea.ql.ast.expressions.BinaryExpr;
 import org.uva.sea.ql.ast.expressions.Expr;
 import org.uva.sea.ql.ast.interfaces.ReturnTypes;
 import org.uva.sea.ql.ast.interfaces.Returns;
+import org.uva.sea.ql.common.Evaluatable;
 
-public abstract class BinaryBooleanOperator extends BinaryExpr implements Returns{
+public abstract class BinaryBooleanOperator extends BinaryExpr implements Returns, Evaluatable{
     public BinaryBooleanOperator(Expr l, Expr r){
         super(l,r);
     }
