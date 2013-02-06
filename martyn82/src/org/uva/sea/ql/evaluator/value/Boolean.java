@@ -36,7 +36,7 @@ public class Boolean extends Value {
 	}
 
 	@Override
-	public Value and( Boolean value ) {
+	protected Value and( Boolean value ) {
 		return new Boolean( value.getValue() && this.value );
 	}
 
@@ -46,7 +46,7 @@ public class Boolean extends Value {
 	}
 
 	@Override
-	public Value or( Boolean value ) {
+	protected Value or( Boolean value ) {
 		return new Boolean( value.getValue() || this.value );
 	}
 

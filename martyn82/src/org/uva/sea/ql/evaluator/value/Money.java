@@ -35,12 +35,12 @@ public class Money extends Number {
 	}
 
 	@Override
-	public Value add( Integer value ) {
+	protected Value add( Integer value ) {
 		return new Money( value.getValue() + this.value );
 	}
 
 	@Override
-	public Value add( Money value ) {
+	protected Value add( Money value ) {
 		return new Money( value.getValue() + this.value );
 	}
 
@@ -50,12 +50,12 @@ public class Money extends Number {
 	}
 
 	@Override
-	public Value sub( Integer value ) {
+	protected Value sub( Integer value ) {
 		return new Money( value.getValue() - this.value );
 	}
 
 	@Override
-	public Value sub( Money value ) {
+	protected Value sub( Money value ) {
 		return new Money( value.getValue() - this.value );
 	}
 
@@ -65,12 +65,12 @@ public class Money extends Number {
 	}
 
 	@Override
-	public Value div( Integer value ) {
+	protected Value div( Integer value ) {
 		return new Money( value.getValue() / this.value );
 	}
 
 	@Override
-	public Value div( Money value ) {
+	protected Value div( Money value ) {
 		return new Money( value.getValue() / this.value );
 	}
 
@@ -80,12 +80,12 @@ public class Money extends Number {
 	}
 
 	@Override
-	public Value mul( Integer value ) {
+	protected Value mul( Integer value ) {
 		return new Money( value.getValue() * this.value );
 	}
 
 	@Override
-	public Value mul( Money value ) {
+	protected Value mul( Money value ) {
 		return new Money( value.getValue() * this.value );
 	}
 
@@ -95,12 +95,12 @@ public class Money extends Number {
 	}
 
 	@Override
-	public Value geq( Integer value ) {
+	protected Value geq( Integer value ) {
 		return new Boolean( value.getValue() >= this.value );
 	}
 
 	@Override
-	public Value geq( Money value ) {
+	protected Value geq( Money value ) {
 		return new Boolean( value.getValue() >= this.value );
 	}
 
@@ -110,12 +110,12 @@ public class Money extends Number {
 	}
 
 	@Override
-	public Value gt( Integer value ) {
+	protected Value gt( Integer value ) {
 		return new Boolean( value.getValue() > this.value );
 	}
 
 	@Override
-	public Value gt( Money value ) {
+	protected Value gt( Money value ) {
 		return new Boolean( value.getValue() > this.value );
 	}
 
@@ -125,12 +125,12 @@ public class Money extends Number {
 	}
 
 	@Override
-	public Value leq( Integer value ) {
+	protected Value leq( Integer value ) {
 		return new Boolean( value.getValue() <= this.value );
 	}
 
 	@Override
-	public Value leq( Money value ) {
+	protected Value leq( Money value ) {
 		return new Boolean( value.getValue() <= this.value );
 	}
 
@@ -140,12 +140,12 @@ public class Money extends Number {
 	}
 
 	@Override
-	public Value lt( Integer value ) {
+	protected Value lt( Integer value ) {
 		return new Boolean( value.getValue() < this.value );
 	}
 
 	@Override
-	public Value lt( Money value ) {
+	protected Value lt( Money value ) {
 		return new Boolean( value.getValue() < this.value );
 	}
 

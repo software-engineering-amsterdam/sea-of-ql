@@ -20,6 +20,15 @@ abstract public class Value {
 	 */
 	abstract public Type getType();
 
+	/**
+	 * Determines whether the value is defined.
+	 *
+	 * @return True if the value is defined, false otherwise.
+	 */
+	public boolean isDefined() {
+		return true;
+	}
+
 	// arithmetic
 
 	/**
@@ -40,7 +49,7 @@ abstract public class Value {
 	 *
 	 * @return The result.
 	 */
-	public Value add( Integer value ) {
+	protected Value add( Integer value ) {
 		throw new UnsupportedOperationException();
 	}
 
@@ -51,7 +60,7 @@ abstract public class Value {
 	 *
 	 * @return The result.
 	 */
-	public Value add( Money value ) {
+	protected Value add( Money value ) {
 		throw new UnsupportedOperationException();
 	}
 
@@ -73,7 +82,7 @@ abstract public class Value {
 	 *
 	 * @return The result.
 	 */
-	public Value sub( Integer value ) {
+	protected Value sub( Integer value ) {
 		throw new UnsupportedOperationException();
 	}
 
@@ -84,7 +93,7 @@ abstract public class Value {
 	 *
 	 * @return The result.
 	 */
-	public Value sub( Money value ) {
+	protected Value sub( Money value ) {
 		throw new UnsupportedOperationException();
 	}
 
@@ -106,7 +115,7 @@ abstract public class Value {
 	 *
 	 * @return The result.
 	 */
-	public Value div( Integer value ) {
+	protected Value div( Integer value ) {
 		throw new UnsupportedOperationException();
 	}
 
@@ -117,7 +126,7 @@ abstract public class Value {
 	 *
 	 * @return The result.
 	 */
-	public Value div( Money value ) {
+	protected Value div( Money value ) {
 		throw new UnsupportedOperationException();
 	}
 
@@ -139,7 +148,7 @@ abstract public class Value {
 	 *
 	 * @return The result.
 	 */
-	public Value mul( Integer value ) {
+	protected Value mul( Integer value ) {
 		throw new UnsupportedOperationException();
 	}
 
@@ -150,7 +159,7 @@ abstract public class Value {
 	 *
 	 * @return The result.
 	 */
-	public Value mul( Money value ) {
+	protected Value mul( Money value ) {
 		throw new UnsupportedOperationException();
 	}
 
@@ -174,7 +183,7 @@ abstract public class Value {
 	 *
 	 * @return The result.
 	 */
-	public Value and( Boolean value ) {
+	protected Value and( Boolean value ) {
 		throw new UnsupportedOperationException();
 	}
 
@@ -196,7 +205,7 @@ abstract public class Value {
 	 *
 	 * @return The result.
 	 */
-	public Value or( Boolean value ) {
+	protected Value or( Boolean value ) {
 		throw new UnsupportedOperationException();
 	}
 
@@ -255,7 +264,7 @@ abstract public class Value {
 	 *
 	 * @return The result.
 	 */
-	public Value geq( Integer value ) {
+	protected Value geq( Integer value ) {
 		throw new UnsupportedOperationException();
 	}
 
@@ -266,7 +275,7 @@ abstract public class Value {
 	 *
 	 * @return The result.
 	 */
-	public Value geq( Money value ) {
+	protected Value geq( Money value ) {
 		throw new UnsupportedOperationException();
 	}
 
@@ -288,7 +297,7 @@ abstract public class Value {
 	 *
 	 * @return The result.
 	 */
-	public Value gt( Integer value ) {
+	protected Value gt( Integer value ) {
 		throw new UnsupportedOperationException();
 	}
 
@@ -299,7 +308,7 @@ abstract public class Value {
 	 *
 	 * @return The result.
 	 */
-	public Value gt( Money value ) {
+	protected Value gt( Money value ) {
 		throw new UnsupportedOperationException();
 	}
 
@@ -321,7 +330,7 @@ abstract public class Value {
 	 *
 	 * @return The result.
 	 */
-	public Value leq( Integer value ) {
+	protected Value leq( Integer value ) {
 		throw new UnsupportedOperationException();
 	}
 
@@ -332,7 +341,7 @@ abstract public class Value {
 	 *
 	 * @return The result.
 	 */
-	public Value leq( Money value ) {
+	protected Value leq( Money value ) {
 		throw new UnsupportedOperationException();
 	}
 
@@ -354,7 +363,7 @@ abstract public class Value {
 	 *
 	 * @return The result.
 	 */
-	public Value lt( Integer value ) {
+	protected Value lt( Integer value ) {
 		throw new UnsupportedOperationException();
 	}
 
@@ -365,7 +374,7 @@ abstract public class Value {
 	 *
 	 * @return The result.
 	 */
-	public Value lt( Money value ) {
+	protected Value lt( Money value ) {
 		throw new UnsupportedOperationException();
 	}
 

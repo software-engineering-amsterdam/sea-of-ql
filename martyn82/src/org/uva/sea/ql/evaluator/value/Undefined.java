@@ -24,4 +24,9 @@ public class Undefined extends Value {
 	public Void getValue() {
 		return null;
 	}
+
+	@Override
+	public boolean isDefined() {
+		return false;
+	}
 }
