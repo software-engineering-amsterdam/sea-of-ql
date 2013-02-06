@@ -1,13 +1,10 @@
 package org.uva.sea.ql.interpreter;
 
-import java.awt.Color;
 import java.util.Map;
 
-import javax.swing.InputVerifier;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JTextField;
 
 import net.miginfocom.swing.MigLayout;
 
@@ -65,7 +62,7 @@ public class QuestionPanel {
 		if (needsVerifier) {
 			panel.add(label, "align label");
 			panel.add(inputComponent);
-			panel.add(QLVerifier.getVerifier(inputComponent, type), "wrap");
+			panel.add(QLInputVerifier.getVerifier(inputComponent, type), "wrap");
 		} else {
 			panel.add(label, "align label");
 			panel.add(inputComponent, "wrap");

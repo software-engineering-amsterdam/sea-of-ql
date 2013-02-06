@@ -4,7 +4,6 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.util.regex.Pattern;
 
 import javax.swing.JComponent;
 import javax.swing.JLabel;
@@ -12,12 +11,12 @@ import javax.swing.JTextField;
 
 import org.uva.sea.ql.ast.types.Type;
 
-public class QLVerifier implements KeyListener {
+public class QLInputVerifier implements KeyListener {
 	private final JLabel alertMsg;
 	private final JTextField inputTextField;
 	private final Type type;
 
-	private QLVerifier(JLabel alertMsg, JComponent component, Type type) {
+	private QLInputVerifier(JLabel alertMsg, JComponent component, Type type) {
 		this.alertMsg = alertMsg;
 		alertMsg.setForeground(Color.red);
 		this.inputTextField = (JTextField) component;
@@ -30,7 +29,7 @@ public class QLVerifier implements KeyListener {
 	
 	public static JLabel getVerifier(JComponent component, Type type) {
 		JLabel alertMsg = new JLabel();
-		new QLVerifier(alertMsg, component, type);
+		new QLInputVerifier(alertMsg, component, type);
 		return alertMsg;
 	}
 
@@ -46,7 +45,7 @@ public class QLVerifier implements KeyListener {
 
 	
 	private void numVerifier(String input) {
-		if (!isNum(input)) {
+		if (!isNumChar(input)) {
 			alertMsg.setText("*accepts only numeric characters*");
 			return;
 		}
@@ -56,7 +55,7 @@ public class QLVerifier implements KeyListener {
 	}
 
 	private void stringVerifier(String input) {
-		if (!isString(input)) {
+		if (!isStringChar(input)) {
 			alertMsg.setText("*accepts only string characters*");
 			return;
 		}
@@ -65,12 +64,12 @@ public class QLVerifier implements KeyListener {
 	}
 
 	
-	public static boolean isString(String input) {
+	public static boolean isStringChar(String input) {
 		return !input.matches(".*\\d.*");
 	}
 	
 
-	public static boolean isNum(String input) {
+	public static boolean isNumChar(String input) {
 		try {
 			Float.parseFloat(input);
 		} catch (Exception e) {

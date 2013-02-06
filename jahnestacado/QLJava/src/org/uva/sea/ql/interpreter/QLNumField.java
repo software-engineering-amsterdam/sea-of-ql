@@ -39,7 +39,7 @@ public class QLNumField  implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		
 		String txt=txtField.getText();
-		if(!QLVerifier.isNum(txt)) return;
+		if(!QLInputVerifier.isNumChar(txt)) return;
 		Float input=Float.parseFloat(txtField.getText());
 		VariableUpdater varUpdater=new VariableUpdater(varName, declaredVar, new DecimalLit(input));
 		List<JPanel> questionList=new ArrayList<JPanel>();

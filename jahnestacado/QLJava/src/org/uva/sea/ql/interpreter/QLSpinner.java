@@ -3,8 +3,6 @@ package org.uva.sea.ql.interpreter;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -17,7 +15,6 @@ import javax.swing.JSpinner;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.SwingUtilities;
 
-import org.uva.sea.ql.ast.expr.values.DecimalLit;
 import org.uva.sea.ql.ast.expr.values.IntegerLit;
 import org.uva.sea.ql.ast.expr.values.Value;
 

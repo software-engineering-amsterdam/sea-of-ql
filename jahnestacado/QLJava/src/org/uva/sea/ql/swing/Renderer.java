@@ -9,9 +9,9 @@ import javax.swing.JPanel;
 import net.miginfocom.swing.MigLayout;
 
 public class Renderer {
-	private static List<JPanel> questionList;
-	private JPanel content;
-	private JFrame frame;
+	private final List<JPanel> questionList;
+	private final JPanel content;
+	private final JFrame frame;
 
 	public Renderer(List<JPanel> questionList, JFrame frame) {
 		this.frame = frame;
@@ -40,6 +40,9 @@ public class Renderer {
 
 	}
 
+	/*
+	 * Cleans panel in order to display properly the new one
+	 */
 	private void cleanOldPanels() {
 		Component[] components = frame.getContentPane().getComponents();
 		for (int i = 0; i < components.length; i++) {

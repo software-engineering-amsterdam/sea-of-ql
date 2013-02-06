@@ -35,20 +35,20 @@ import org.uva.sea.ql.visitor.IExprVisitor;
 
 public class ExpressionChecker implements IExprVisitor<Boolean> {
 	private final Map<String, Type> declaredVar;
-	private final List<String> errorReport;
+	private final List<QLError> errorReport;
 	
 
-	public ExpressionChecker(Map<String, Type> declaredVar, List<String> errorReport) {
+	public ExpressionChecker(Map<String, Type> declaredVar, List<QLError> errorReport) {
 		this.declaredVar = declaredVar;
 		this.errorReport = errorReport;
 	}
 
-	public static boolean check(Expr expr, Map<String, Type> declaredVar,List<String> errorReport) {
+	public static boolean check(Expr expr, Map<String, Type> declaredVar,List<QLError> errorReport) {
 		ExpressionChecker check = new ExpressionChecker(declaredVar, errorReport);
 		return expr.accept(check);
 	}
 	
-	private void addError(String message) {
+	private void addError(QLError message) {
 		errorReport.add(message);
 	}
 
@@ -234,7 +234,7 @@ public class ExpressionChecker implements IExprVisitor<Boolean> {
 	private boolean isUndefined(Type ident, Expr node) {
 		if (ident.isCompatibleToUndefinedType()) {
 			Ident id = (Ident) node;
-			addError("Variable '" + id.getName() + "' is undefined.");
+			addError(new QLError("Variable '" + id.getName() + "' is undefined."));
 			return true;
 		}
 		return false;
@@ -287,7 +287,7 @@ public class ExpressionChecker implements IExprVisitor<Boolean> {
 		Type rightExprType = node.getRightExpr().isOfType(declaredVar);
 		Type declaredType=getQuestionsType();
 		if (!(leftExprType.isCompatibleToType(rightExprType) && rightExprType.isCompatibleToType(declaredType))) {
-		addError("Invalid type for '"+symbol+"'. Both operands must be of the same Numeric type("+declaredType.getClass().getSimpleName()+")");
+		addError(new QLError("Invalid type for '"+symbol+"'. Both operands must be of the same Numeric type("+declaredType.getClass().getSimpleName()+")"));
 			return false;
 		}
 		return true;
@@ -299,7 +299,7 @@ public class ExpressionChecker implements IExprVisitor<Boolean> {
 		Type leftExprType = node.getLeftExpr().isOfType(declaredVar);
 		Type rightExprType = node.getRightExpr().isOfType(declaredVar);
 		if (!(leftExprType.isCompatibleToBoolType() && rightExprType.isCompatibleToBoolType())) {
-			errorReport.add("Invalid type for '"+symbol+"'. Both operands must be of the Boolean type");
+			errorReport.add(new QLError("Invalid type for '"+symbol+"'. Both operands must be of the Boolean type"));
 			return false;
 		}
 		return true;
@@ -311,7 +311,7 @@ public class ExpressionChecker implements IExprVisitor<Boolean> {
 		Type leftExprType = node.getLeftExpr().isOfType(declaredVar);
 		Type declaredType=getQuestionsType();
         if (!leftExprType.isCompatibleToType(declaredType)) {
-			errorReport.add("Invalid type for '"+symbol+"'. Right operand must be of the Numeric type("+declaredType.getClass().getSimpleName()+")");
+			errorReport.add(new QLError("Invalid type for '"+symbol+"'. Right operand must be of the Numeric type("+declaredType.getClass().getSimpleName()+")"));
 			return false;
 		}
 		return true;
@@ -323,7 +323,7 @@ public class ExpressionChecker implements IExprVisitor<Boolean> {
 		Type leftExprType = node.getLeftExpr().isOfType(declaredVar);
 
         if (!leftExprType.isCompatibleToBoolType()) {
-			errorReport.add("Invalid type for '"+symbol+"'. Right operand must be of the Boolean type");
+			errorReport.add(new QLError("Invalid type for '"+symbol+"'. Right operand must be of the Boolean type"));
 			return false;
 		}
 		return true;
@@ -336,7 +336,7 @@ public class ExpressionChecker implements IExprVisitor<Boolean> {
 		Type rightExprType = node.getRightExpr().isOfType(declaredVar);
 		Type declaredType=getQuestionsType();
 		if (!(leftExprType.isCompatibleToType(rightExprType) &&  rightExprType.isCompatibleToType(declaredType))) {
-			errorReport.add("Invalid type for '"+symbol+"'. Both operands must be of the same type");
+			errorReport.add(new QLError("Invalid type for '"+symbol+"'. Both operands must be of the same type"));
 			return false;
 		}
 		return true;

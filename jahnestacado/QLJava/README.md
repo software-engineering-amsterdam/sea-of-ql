@@ -9,8 +9,6 @@ TODO
 **Add more Tests
 
 TO ASK
-
-**What is serialize warning in swing component classes.
 ** Static callers within class
 **Static variables if it is needed
 **Interface argument or generified Visitor?

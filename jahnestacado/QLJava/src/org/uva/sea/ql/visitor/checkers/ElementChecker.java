@@ -22,17 +22,17 @@ import org.uva.sea.ql.visitor.IElementVisitor;
 public class ElementChecker implements IElementVisitor {
 	
 	private final Map<String,Type> declaredVar;
-	private final List<String> errorReport;
+	private final List<QLError> errorReport;
 	 
 	
-	private ElementChecker(Map<String,Type> declaredVar,List<String> errorReport){
+	private ElementChecker(Map<String,Type> declaredVar,List<QLError> errorReport){
 			this.declaredVar=declaredVar;
 			this.errorReport=errorReport;
 	}
 	
 	public static boolean checkQL(Form form){
 		Map<String,Type> declaredVar= new LinkedHashMap<String,Type>();
-		List<String> errorReport= new ArrayList<String>();
+		List<QLError> errorReport= new ArrayList<QLError>();
 		ElementChecker checker=new ElementChecker(declaredVar,errorReport);
 		form.accept(checker);
 		printErrors(errorReport);
@@ -47,7 +47,7 @@ public class ElementChecker implements IElementVisitor {
 		Type type=qlElement.getType();
 		
 		if(declaredVar.containsKey(id)){
-			addError("Invalid variable name.Variable"+id+" is already declared");
+			addError(new QLError("Invalid variable name. Variable '"+id+"' is already declared"));
 			return;
 		}
 		
@@ -63,7 +63,7 @@ public class ElementChecker implements IElementVisitor {
 		ExpressionChecker.check(computedExpr,declaredVar, errorReport);
 
 		if(!(questionType.isCompatibleToType(exprType))){
-			addError("Invalid expression type. Expression must be of '"+classToString(questionType)+"'.");
+			addError(new QLError("Invalid expression type. Expression must be of '"+classToString(questionType)+"'."));
 			return;
 		}
 		
@@ -83,10 +83,10 @@ public class ElementChecker implements IElementVisitor {
 		ExpressionChecker.check(condition,declaredVar, errorReport);
 		if(conditionType.isCompatibleToUndefinedType()){
 			 Ident conditionID=(Ident) condition;
-			 addError("Variable '"+conditionID.getName()+"' is undefined.");
+			 addError(new QLError("Variable '"+conditionID.getName()+"' is undefined."));
 		}
 		else if(!conditionType.isCompatibleToBoolType()){ 
-			addError("Invalid conditional expression. Expression can only be of 'Boolean' type.");
+			addError(new QLError("Invalid conditional expression. Expression can only be of 'Boolean' type."));
 		}
 		
 	}
@@ -143,13 +143,13 @@ public class ElementChecker implements IElementVisitor {
 			
 	}
 	
-    private static void printErrors(List<String> errorReport){
-    	for(String error:errorReport){
-    		System.out.println(error);
+    private static void printErrors(List<QLError> errorReport){
+    	for(QLError error:errorReport){
+    		System.out.println(error.getError());
     	}
     }
     
-    private void addError(String message){
+    private void addError(QLError message){
     	errorReport.add(message);
     }
 	
