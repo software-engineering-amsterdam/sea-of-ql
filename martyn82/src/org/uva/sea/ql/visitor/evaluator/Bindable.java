@@ -1,9 +1,9 @@
-package org.uva.sea.ql.evaluator;
+package org.uva.sea.ql.visitor.evaluator;
 
 import org.uva.sea.ql.Observable;
 import org.uva.sea.ql.ast.type.Type;
-import org.uva.sea.ql.evaluator.value.Undefined;
-import org.uva.sea.ql.evaluator.value.Value;
+import org.uva.sea.ql.visitor.evaluator.value.Undefined;
+import org.uva.sea.ql.visitor.evaluator.value.Value;
 
 public class Bindable {
 	private Type type;

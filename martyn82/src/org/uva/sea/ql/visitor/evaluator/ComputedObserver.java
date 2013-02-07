@@ -1,10 +1,10 @@
-package org.uva.sea.ql.evaluator;
+package org.uva.sea.ql.visitor.evaluator;
 
 import org.uva.sea.ql.Observable;
 import org.uva.sea.ql.Observer;
 import org.uva.sea.ql.ast.statement.QuestionComputed;
-import org.uva.sea.ql.evaluator.value.Value;
 import org.uva.sea.ql.ui.control.Control;
+import org.uva.sea.ql.visitor.evaluator.value.Value;
 
 public class ComputedObserver implements Observer {
 	private final Control component;

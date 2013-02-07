@@ -20,7 +20,7 @@ abstract public class VisitorTest<T> {
 	/**
 	 * Holds the read program from file.
 	 */
-	protected final String program;
+	protected  String program;
 
 	/**
 	 * Constructs a new VisitorTest instance.

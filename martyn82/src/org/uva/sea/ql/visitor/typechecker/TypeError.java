@@ -1,7 +1,7 @@
-package org.uva.sea.ql.evaluator.typechecker;
+package org.uva.sea.ql.visitor.typechecker;
 
 import org.uva.sea.ql.ast.Node;
-import org.uva.sea.ql.evaluator.Error;
+import org.uva.sea.ql.visitor.evaluator.Error;
 
 /**
  * Represents a type error.

@@ -1,7 +1,7 @@
-package org.uva.sea.ql.evaluator.typechecker;
+package org.uva.sea.ql.visitor.typechecker;
 
 import org.uva.sea.ql.ast.Node;
-import org.uva.sea.ql.evaluator.Environment;
+import org.uva.sea.ql.visitor.evaluator.Environment;
 
 /**
  * Represents a type checker visitor.

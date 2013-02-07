@@ -1,10 +1,11 @@
 package org.uva.sea.ql.test.printer;
 
+import java.io.IOException;
+
 import org.junit.Test;
 import org.uva.sea.ql.parser.ParseError;
-import org.uva.sea.ql.printer.PrintContext;
-import org.uva.sea.ql.printer.QLPrinter;
 import org.uva.sea.ql.test.visitor.VisitorTest;
+import org.uva.sea.ql.visitor.printer.QLPrinter;
 
 /**
  * Testing visitor.
@@ -23,11 +24,8 @@ public class PrinterTest extends VisitorTest<Boolean> {
 	 * @throws ParseError
 	 */
 	@Test
-	public void test() throws ParseError {
-		this.parser.parse( program ).accept(
-			new QLPrinter(
-				new PrintContext( System.out )
-			)
-		);
+	public void test() throws ParseError, IOException {
+		QLPrinter printer = new QLPrinter( System.out );
+		printer.print( this.parser.parse( program ) );
 	}
 }

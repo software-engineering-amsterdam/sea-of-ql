@@ -19,12 +19,12 @@ import org.uva.sea.ql.ast.statement.Statement;
 import org.uva.sea.ql.ast.statement.Statements;
 import org.uva.sea.ql.ast.statement.VarDeclaration;
 import org.uva.sea.ql.ast.type.Money;
-import org.uva.sea.ql.evaluator.Environment;
-import org.uva.sea.ql.evaluator.Evaluator;
-import org.uva.sea.ql.evaluator.Renderer;
 import org.uva.sea.ql.test.IStatementTest;
 import org.uva.sea.ql.ui.ControlFactory;
 import org.uva.sea.ql.ui.swing.SwingControlFactory;
+import org.uva.sea.ql.visitor.evaluator.Environment;
+import org.uva.sea.ql.visitor.evaluator.Evaluator;
+import org.uva.sea.ql.visitor.evaluator.Renderer;
 
 /**
  * Test statement evaluator.

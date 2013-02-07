@@ -1,4 +1,4 @@
-package org.uva.sea.ql.evaluator.value;
+package org.uva.sea.ql.visitor.evaluator.value;
 
 import org.uva.sea.ql.ast.type.Bool;
 

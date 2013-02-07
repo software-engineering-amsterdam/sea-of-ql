@@ -1,4 +1,4 @@
-package org.uva.sea.ql.evaluator;
+package org.uva.sea.ql.visitor.evaluator;
 
 import org.uva.sea.ql.ast.Node;
 

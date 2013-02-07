@@ -1,4 +1,4 @@
-package org.uva.sea.ql.evaluator;
+package org.uva.sea.ql.visitor.evaluator;
 
 import java.util.LinkedList;
 
@@ -26,11 +26,6 @@ import org.uva.sea.ql.ast.type.Money;
 import org.uva.sea.ql.ast.type.Number;
 import org.uva.sea.ql.ast.type.Str;
 import org.uva.sea.ql.ast.type.Type;
-import org.uva.sea.ql.evaluator.value.Boolean;
-import org.uva.sea.ql.evaluator.value.Integer;
-import org.uva.sea.ql.evaluator.value.String;
-import org.uva.sea.ql.evaluator.value.Undefined;
-import org.uva.sea.ql.evaluator.value.Value;
 import org.uva.sea.ql.ui.ControlEvent;
 import org.uva.sea.ql.ui.ControlEventListener;
 import org.uva.sea.ql.ui.ControlFactory;
@@ -39,6 +34,9 @@ import org.uva.sea.ql.ui.control.PanelControl;
 import org.uva.sea.ql.ui.swing.JPanelControl;
 import org.uva.sea.ql.visitor.StatementVisitor;
 import org.uva.sea.ql.visitor.TypeVisitor;
+import org.uva.sea.ql.visitor.evaluator.value.Boolean;
+import org.uva.sea.ql.visitor.evaluator.value.Undefined;
+import org.uva.sea.ql.visitor.evaluator.value.Value;
 
 /**
  * Evaluator for statement nodes.
@@ -95,7 +93,6 @@ public class Renderer implements StatementVisitor<Void>, TypeVisitor<Control> {
 		this.environment = environment;
 		this.expressionEvaluator = new Evaluator( environment );
 		this.typeInitializer = new TypeInitializer();
-
 		this.panel = this.factory.createPanel();
 	}
 
@@ -148,24 +145,24 @@ public class Renderer implements StatementVisitor<Void>, TypeVisitor<Control> {
 			public void itemChanged( ControlEvent event ) {
 				Control source = event.getSource();
 				Type type = environment.lookupType( question.getIdent() );
-				Value value = Undefined.UNDEFINED;
 
 				// TODO get this out
+				Value value = Undefined.UNDEFINED;
 
 				if ( type instanceof Bool ) {
 					value = new Boolean( (java.lang.Boolean) source.getValue() );
 				}
 
 				if ( type instanceof Str ) {
-					value = new String( (java.lang.String) source.getValue() );
+					value = new org.uva.sea.ql.visitor.evaluator.value.String( (java.lang.String) source.getValue() );
 				}
 
 				if ( type instanceof Int ) {
-					value = new Integer( java.lang.Integer.parseInt( source.getValue().toString() ) );
+					value = new org.uva.sea.ql.visitor.evaluator.value.Integer( java.lang.Integer.parseInt( source.getValue().toString() ) );
 				}
 
 				if ( type instanceof Money ) {
-					value = new org.uva.sea.ql.evaluator.value.Money( java.lang.Double.parseDouble( source.getValue().toString() ) );
+					value = new org.uva.sea.ql.visitor.evaluator.value.Money( java.lang.Double.parseDouble( source.getValue().toString() ) );
 				}
 
 				environment.assign( question.getIdent(), value );

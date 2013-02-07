@@ -4,11 +4,11 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 
-import org.uva.sea.ql.evaluator.Error;
 import org.uva.sea.ql.ui.ControlFactory;
 import org.uva.sea.ql.ui.control.PanelControl;
 import org.uva.sea.ql.ui.control.WindowControl;
 import org.uva.sea.ql.ui.swing.SwingControlFactory;
+import org.uva.sea.ql.visitor.evaluator.Error;
 
 /**
  * Main program.

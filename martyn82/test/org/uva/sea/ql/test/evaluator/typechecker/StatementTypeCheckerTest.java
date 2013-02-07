@@ -25,14 +25,14 @@ import org.uva.sea.ql.ast.statement.QuestionVar;
 import org.uva.sea.ql.ast.statement.Statement;
 import org.uva.sea.ql.ast.statement.Statements;
 import org.uva.sea.ql.ast.statement.VarDeclaration;
-import org.uva.sea.ql.evaluator.Environment;
-import org.uva.sea.ql.evaluator.Error;
-import org.uva.sea.ql.evaluator.typechecker.ExpressionChecker;
-import org.uva.sea.ql.evaluator.typechecker.StatementChecker;
-import org.uva.sea.ql.evaluator.typechecker.TypeError;
 import org.uva.sea.ql.parser.ParseError;
 import org.uva.sea.ql.test.IStatementTest;
 import org.uva.sea.ql.test.visitor.VisitorTest;
+import org.uva.sea.ql.visitor.evaluator.Environment;
+import org.uva.sea.ql.visitor.evaluator.Error;
+import org.uva.sea.ql.visitor.typechecker.ExpressionChecker;
+import org.uva.sea.ql.visitor.typechecker.StatementChecker;
+import org.uva.sea.ql.visitor.typechecker.TypeError;
 
 /**
  * Tests statements type checker.

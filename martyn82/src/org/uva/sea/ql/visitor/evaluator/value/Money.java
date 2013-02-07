@@ -1,33 +1,31 @@
-package org.uva.sea.ql.evaluator.value;
-
-import org.uva.sea.ql.ast.type.Int;
+package org.uva.sea.ql.visitor.evaluator.value;
 
 /**
- * Represents an Integer value.
+ * Represents a Money value.
  */
-public class Integer extends Number {
+public class Money extends Number {
 	/**
 	 * Holds the inner value.
 	 */
-	private final java.lang.Integer value;
+	private final java.lang.Double value;
 
 	/**
-	 * Constructs a new Integer value.
+	 * Constructs a new Money value.
 	 *
 	 * @param value
 	 */
-	public Integer( java.lang.Integer value ) {
+	public Money( java.lang.Double value ) {
 		super( value );
 		this.value = value;
 	}
 
 	@Override
-	public Int getType() {
-		return new Int();
+	public org.uva.sea.ql.ast.type.Money getType() {
+		return new org.uva.sea.ql.ast.type.Money();
 	}
 
 	@Override
-	public java.lang.Integer getValue() {
+	public java.lang.Double getValue() {
 		return this.value;
 	}
 
@@ -38,7 +36,7 @@ public class Integer extends Number {
 
 	@Override
 	protected Value add( Integer value ) {
-		return new Integer( value.getValue() + this.value );
+		return new Money( value.getValue() + this.value );
 	}
 
 	@Override
@@ -53,7 +51,7 @@ public class Integer extends Number {
 
 	@Override
 	protected Value sub( Integer value ) {
-		return new Integer( value.getValue() - this.value );
+		return new Money( value.getValue() - this.value );
 	}
 
 	@Override
@@ -68,7 +66,7 @@ public class Integer extends Number {
 
 	@Override
 	protected Value div( Integer value ) {
-		return new Integer( value.getValue() / this.value );
+		return new Money( value.getValue() / this.value );
 	}
 
 	@Override
@@ -83,7 +81,7 @@ public class Integer extends Number {
 
 	@Override
 	protected Value mul( Integer value ) {
-		return new Integer( value.getValue() * this.value );
+		return new Money( value.getValue() * this.value );
 	}
 
 	@Override
@@ -153,11 +151,11 @@ public class Integer extends Number {
 
 	@Override
 	public Value neg() {
-		return new Integer( -this.value );
+		return new Money( -this.value );
 	}
 
 	@Override
 	public Value pos() {
-		return new Integer( +this.value );
+		return new Money( +this.value );
 	}
 }

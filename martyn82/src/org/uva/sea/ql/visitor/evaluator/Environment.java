@@ -1,4 +1,4 @@
-package org.uva.sea.ql.evaluator;
+package org.uva.sea.ql.visitor.evaluator;
 
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -9,7 +9,7 @@ import org.uva.sea.ql.Observable;
 import org.uva.sea.ql.Observer;
 import org.uva.sea.ql.ast.expression.Ident;
 import org.uva.sea.ql.ast.type.Type;
-import org.uva.sea.ql.evaluator.value.Value;
+import org.uva.sea.ql.visitor.evaluator.value.Value;
 
 /**
  * Represents an evaluation context.

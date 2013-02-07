@@ -1,11 +1,11 @@
-package org.uva.sea.ql.evaluator;
+package org.uva.sea.ql.visitor.evaluator;
 
 import org.uva.sea.ql.Observable;
 import org.uva.sea.ql.Observer;
 import org.uva.sea.ql.ast.expression.Expression;
-import org.uva.sea.ql.evaluator.value.Boolean;
-import org.uva.sea.ql.evaluator.value.Value;
 import org.uva.sea.ql.ui.control.Control;
+import org.uva.sea.ql.visitor.evaluator.value.Boolean;
+import org.uva.sea.ql.visitor.evaluator.value.Value;
 
 public class ConditionObserver implements Observer {
 	private final Expression condition;

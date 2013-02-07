@@ -1,6 +1,6 @@
-package org.uva.sea.ql.evaluator.typechecker;
+package org.uva.sea.ql.visitor.typechecker;
 
-import org.uva.sea.ql.evaluator.Environment;
+import org.uva.sea.ql.visitor.evaluator.Environment;
 
 /**
  * TypeChecker for QL.
