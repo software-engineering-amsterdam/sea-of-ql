@@ -22,10 +22,11 @@ public class QuestionPanel {
 	
 	
 	public QuestionPanel(Question qlElement,Map<String,Value> declaredVar){
-		this.type=qlElement.getType();
-		this.panel=new JPanel(new MigLayout());
-		this.label=new JLabel(qlElement.getLabel().getValue().toString().replaceAll("\"", ""));
-		this.inputComponent=setInputComponent(qlElement.getId().getName(),type,declaredVar);
+		type=qlElement.getType();
+		panel=new JPanel(new MigLayout());
+		label=new JLabel(qlElement.getLabel().getValue().toString().replaceAll("\"", ""));
+		inputComponent=setInputComponent(qlElement.getId().getName(),type,declaredVar);
+		label.setName("QUESTION_PANEL");
 		addComponents();
 	}
 	

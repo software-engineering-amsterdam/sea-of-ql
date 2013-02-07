@@ -19,7 +19,7 @@ import pdfgenerator.PdfGen;
 
 public class QLGenButton implements ActionListener {
 
-	private final JButton button = new JButton("Submit");
+	private final JButton button = new JButton("Generate");
 	private final List<JPanel> questionPanelList;
 	private List<String> questionLabels;
 	private List<String> questionValues;
@@ -74,26 +74,20 @@ public class QLGenButton implements ActionListener {
 			}
 		}
 		
-		if(hasError) return;
-
-		for (int y = 0; y <= questionLabels.size() - 1; y++) {
-			System.out.println(questionLabels.get(y) + " "
-					+ questionValues.get(y));
-		}
-
+		
 	}
 
 	private void getJLabelValue(Component component, int questionNumber) {
 		JLabel label = (JLabel) component;
 		String text = label.getText();
-		if(text.isEmpty()) return;
-
-		if (text.startsWith("*") && text.endsWith("*") ){
+		
+		if (label.getName().equals("WARNING") ){
+			if(text.isEmpty()) return;
 			hasError=true;
 			showMessage();
 			return;
 		}
-		questionLabels.add(questionNumber + ". " + label.getText());
+		questionLabels.add(questionNumber + ". " + text);
 	}
 
 	private void getJSpinnerValue(Component component) {

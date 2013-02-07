@@ -22,6 +22,7 @@ public class QLInputVerifier implements KeyListener {
 		this.inputTextField = (JTextField) component;
 		this.type = type;
 		inputTextField.addKeyListener(this);
+		alertMsg.setName("WARNING");
 		alertMsg.setFont(new Font("Courier New", Font.ITALIC, 10));
 
 	}

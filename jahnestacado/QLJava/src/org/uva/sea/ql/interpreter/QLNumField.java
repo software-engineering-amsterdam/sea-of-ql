@@ -27,6 +27,7 @@ public class QLNumField  implements ActionListener{
 		this.varName=varName;
 		this.declaredVar=declaredVar;
 		value=((DecimalLit) declaredVar.get(varName)).getValue();
+		txtField.setName("NUMFIELD");
 	}
 	
 	public static JTextField responsiveNumField(String varName,Map<String, Value> declaredVar) {

@@ -27,6 +27,7 @@ public class QLTextField implements ActionListener{
 		this.varName=varName;
 		this.declaredVar=declaredVar;
 		value=((StringLit) declaredVar.get(varName)).getValue();
+		txtField.setName("TEXTFIELD");
 	}
 	
 	public static JTextField responsiveTextField(String varName,Map<String, Value> declaredVar) {
