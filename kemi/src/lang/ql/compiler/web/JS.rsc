@@ -138,30 +138,44 @@ private str individualCalculatedField(int cnt, str ident, Expr expr) {
 }  
 
 private str createValidationRules(Form f) {
-  list[tuple[str ident, str \type]] rules = [];
+  list[tuple[str ident, Type \type]] rules = [];
   
   top-down visit(f) {
-    case q: question(_, t, i): rules += [<i.ident, t.name>];
-    case q: question(_, t, i, _): rules += [<i.ident, t.name>];
+    case q: question(_, t, i): rules += [<i.ident, t>];
+    case q: question(_, t, i, _): rules += [<i.ident, t>];
   }
   
   return "<for (r <- rules) {>
     '<r.ident>: {
-    '  required: true,
-    '  <getTypeRule(r.\type)>: true
+    '  <getTypeRule(r.\type)>
     '},
     '<}>";
 }
 
-private str getTypeRule(str t) {
-  switch(t) {
-    case "integer": return "digits";
-    case "date": return "date";
-    case "money": return "number";
-    case "string": return "required";
-    case "boolean": return "selectBoxRequired";
-  }
-}
+
+private str getTypeRule(Type t: integerType(_)) =
+  "required: true,
+  'digits: true
+  ";
+
+private str getTypeRule(Type t: dateType(_)) =
+  "required: true,
+  'date: true
+  ";
+
+private str getTypeRule(Type t: moneyType(_)) =
+  "required: true,
+  'number: true
+  ";
+
+private str getTypeRule(Type t: stringType(_)) =
+  "required: true,
+  ";
+
+private str getTypeRule(Type t: booleanType(_)) =
+  "required: true,
+  'selectBoxRequired: true
+  ";
 
 private str conditionalVisibility(Form f) {
   list[Statement] conditionals = [];
