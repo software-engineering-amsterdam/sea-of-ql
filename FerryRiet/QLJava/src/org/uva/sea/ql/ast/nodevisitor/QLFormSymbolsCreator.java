@@ -34,6 +34,7 @@ import org.uva.sea.ql.ast.operators.Or;
 import org.uva.sea.ql.ast.operators.Pos;
 import org.uva.sea.ql.ast.operators.Sub;
 import org.uva.sea.ql.ast.types.TypeDescription;
+import org.uva.sea.ql.driver.CompoundPanel;
 import org.uva.sea.ql.driver.ConditionalPanel;
 import org.uva.sea.ql.driver.Panel;
 
@@ -41,7 +42,7 @@ public class QLFormSymbolsCreator implements Visitor {
 	private String formName;
 	private HashMap<String, ExpressionResult> symbols = new HashMap<String, ExpressionResult>();
 	private ArrayList<Panel> panels = new ArrayList<Panel>();
-	private Stack<ArrayList<Panel>> panelStack = new Stack<ArrayList<Panel>>() ;
+	private Stack<ArrayList<Panel>> panelStack = new Stack<ArrayList<Panel>>();
 
 	public String getFormName() {
 		return formName;
@@ -53,30 +54,30 @@ public class QLFormSymbolsCreator implements Visitor {
 
 	@Override
 	public VisitorResult visit(QLProgram qlProgram) {
-		panels = new ArrayList<Panel>() ;
 		formName = qlProgram.getProgramName();
-		qlProgram.getCompound().accept(this);
-		return null;
+		return qlProgram.getCompound().accept(this);
 	}
 
 	@Override
 	public VisitorResult visit(CompoundStatement compoundBlock) {
-		panelStack.push(panels) ;
-		for (Statement statement : compoundBlock.getStatementList())
-			statement.accept(this);
-		return null;
+		CompoundPanel cPanel = new CompoundPanel();
+
+		for (Statement statement : compoundBlock.getStatementList()) {
+			Panel newPanel = statement.accept(this);
+			cPanel.addPanel(newPanel);
+		}
+		return cPanel;
 	}
 
 	@Override
 	public VisitorResult visit(LineStatement lineStatement) {
-		Panel newPanel ;
+		Panel newPanel;
 		symbols.put(lineStatement.getLineName(),
 				lineStatement.getTypeContainer());
-		
-		newPanel = new Panel(lineStatement) ;
-		
-		panels.add(newPanel) ;
-		return null;
+
+		newPanel = new Panel(lineStatement);
+
+		return newPanel;
 	}
 
 	public ArrayList<Panel> getPanels() {
@@ -85,18 +86,15 @@ public class QLFormSymbolsCreator implements Visitor {
 
 	@Override
 	public VisitorResult visit(ConditionalStatement conditionalStatement) {
-		Panel newPanel ;
-		//newPanel = new ConditionalPanel(conditionalStatement) ;
-		
-		
-		
-		
-		
-		conditionalStatement.getTrueCompound().accept(this);
+		ConditionalPanel conditionalPanel = new ConditionalPanel(
+				conditionalStatement);
+		// newPanel = new ConditionalPanel(conditionalStatement) ;
+
+		conditionalPanel.setcThenPanel((CompoundPanel)conditionalStatement.getTrueCompound().accept(this));
 		if (conditionalStatement.getFalseCompound() != null) {
-			conditionalStatement.getFalseCompound().accept(this);
+			conditionalPanel.setcElsePanel((CompoundPanel)conditionalStatement.getFalseCompound().accept(this));
 		}
-		return null;
+		return conditionalPanel;
 	}
 
 	@Override

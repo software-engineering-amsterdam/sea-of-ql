@@ -22,12 +22,13 @@ public class QLForm extends JFrame implements ActionListener {
 	private HashMap<String, ExpressionResult> identifiers = new HashMap<String, ExpressionResult>();
 	private HashMap<String, ExpressionResult> symbols;
 	private JPanel contentPane;
+	private CompoundPanel cPanel;
 	QLFormSymbolsCreator symCreator = new QLFormSymbolsCreator();
 
 	public QLForm(QLProgram qlprogram) {
 		int panelCount = 0;
 
-		qlprogram.accept(symCreator);
+		cPanel = (CompoundPanel) qlprogram.accept(symCreator);
 
 		symbols = symCreator.getSymbols();
 
@@ -41,28 +42,13 @@ public class QLForm extends JFrame implements ActionListener {
 		contentPane
 				.setLayout(new MigLayout("", "[grow]", "[][][][][][][][][]"));
 
-		for (Panel panel : symCreator.getPanels()) {
-			panel.registerAt(contentPane, panelCount++);
-			panel.registerActionListener(this);
-		}
-
+		cPanel.registerAt(contentPane, 0);
+		cPanel.registerActionListener(this) ;
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		System.out.println("action performed");
-
-		for (Panel panel : symCreator.getPanels()) {
-			if (panel.actionSource(e)) {
-				System.out.println("foundid");
-				symbols.put(panel.getFieldName(), panel.getFieldValue());
-				break;
-			}
-		}
-
-		for (Panel panel : symCreator.getPanels()) {
-			panel.updatecalculatedField(symbols) ;
-		}
 
 		printMap(symbols);
 

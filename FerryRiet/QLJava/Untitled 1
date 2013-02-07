@@ -1,0 +1,6 @@
+form First_Form { 
+  doit:      "1   line type boolean ..." boolean
+  do  :      "2    line type money." money
+  again:   "3    line type integer" integer
+  again2: "4    line type boolean" money( do * again) 
+ }

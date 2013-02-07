@@ -13,10 +13,11 @@ import net.miginfocom.swing.MigLayout;
 
 import org.uva.sea.ql.ast.Expr;
 import org.uva.sea.ql.ast.LineStatement;
+import org.uva.sea.ql.ast.nodevisitor.VisitorResult;
 import org.uva.sea.ql.ast.operators.ExpressionResult;
 import org.uva.sea.ql.ast.types.BooleanType;
 
-public class Panel {
+public class Panel implements VisitorResult {
 	private String panelName;
 	private JPanel jPanel;
 	private JTextField jTextField;
@@ -67,13 +68,13 @@ public class Panel {
 				.getSource() == jTextField;
 	}
 
-	public void registerAt(JPanel panel, int location) {
+	public void registerAt(JPanel parentPanel, int location) {
 		StringBuilder stringBuilder = new StringBuilder("cell 0 ");
 
 		stringBuilder.append(location);
 		stringBuilder.append(" ,growx");
 
-		panel.add(jPanel, stringBuilder.toString());
+		parentPanel.add(jPanel, stringBuilder.toString());
 	}
 
 	public ExpressionResult getFieldValue() {

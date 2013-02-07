@@ -16,14 +16,8 @@
 <fullyQualifiedTypeName name="javax.swing.JTextField"/>
 <fullyQualifiedTypeName name="javax.swing.JCheckBox"/>
 <fullyQualifiedTypeName name="javax.swing.border.EmptyBorder"/>
-<fullyQualifiedTypeName name="net.miginfocom.swing.MigLayout"/>
-<fullyQualifiedTypeName name="javax.swing.JPanel"/>
 <fullyQualifiedTypeName name="javax.swing.JFrame"/>
 <fullyQualifiedTypeName name="java.lang.StringBuilder"/>
-<fullyQualifiedTypeName name="java.awt.event.ActionListener"/>
-<fullyQualifiedTypeName name="antlr.collections.List"/>
-<fullyQualifiedTypeName name="java.util.ArrayList"/>
-<fullyQualifiedTypeName name="org.uva.sea.ql.driver.ConditionalPanel"/>
 <fullyQualifiedTypeName name="org.uva.sea.ql.ast.LineStatement"/>
 <fullyQualifiedTypeName name="org.antlr.stringtemplate.language.Expr"/>
 <fullyQualifiedTypeName name="java.lang.Boolean"/>
@@ -33,8 +27,20 @@
 <fullyQualifiedTypeName name="java.util.Map"/>
 <fullyQualifiedTypeName name="java.lang.Integer"/>
 <fullyQualifiedTypeName name="java.math.BigDecimal"/>
-<fullyQualifiedTypeName name="org.uva.sea.ql.driver.Panel"/>
-<fullyQualifiedTypeName name="org.uva.sea.ql.ast.Expr"/>
 <fullyQualifiedTypeName name="java.util.HashMap"/>
 <fullyQualifiedTypeName name="org.uva.sea.ql.ast.operators.ExpressionResult"/>
+<fullyQualifiedTypeName name="java.lang.StackOverflowError"/>
+<fullyQualifiedTypeName name="java.util.Stack"/>
+<fullyQualifiedTypeName name="org.uva.sea.ql.ast.Expr"/>
+<fullyQualifiedTypeName name="antlr.collections.List"/>
+<fullyQualifiedTypeName name="java.util.ArrayList"/>
+<fullyQualifiedTypeName name="java.util.List"/>
+<fullyQualifiedTypeName name="org.uva.sea.ql.driver.Panel"/>
+<fullyQualifiedTypeName name="javax.swing.JPanel"/>
+<fullyQualifiedTypeName name="net.miginfocom.swing.MigLayout"/>
+<fullyQualifiedTypeName name="java.awt.event.ActionListener"/>
+<fullyQualifiedTypeName name="org.uva.sea.ql.driver.ConditionalPanel"/>
+<fullyQualifiedTypeName name="org.uva.sea.ql.ast.ConditionalStatement"/>
+<fullyQualifiedTypeName name="org.uva.sea.ql.ast.nodevisitor.VisitorResult"/>
+<fullyQualifiedTypeName name="org.uva.sea.ql.driver.CompoundPanel"/>
 </qualifiedTypeNameHistroy>
