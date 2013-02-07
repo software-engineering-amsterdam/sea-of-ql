@@ -4,6 +4,7 @@
 to separate syntax module. We also should use keyword exclusion in a 
 consistent way. 
 * Usage of ParseHelpers outside 'test' package
+* Cleanup parentheses code
 
 ## BONUS:
 * HTML templating

@@ -12,7 +12,7 @@ module lang::ql::compiler::PrettyPrinter
 
 import Node;
 import lang::ql::ast::AST;
-import lang::ql::compiler::parentheses;
+import lang::ql::compiler::ParenthesizeExpressions;
 
 private str PAREN_ANNO = "parentheses";
 
