@@ -15,8 +15,19 @@ import typeChecker::TypeEnvironment;
 */
 QLTENV checkStatement(statement:ifStat(Expression exp, list[Body] body), QLTENV env){
     println("EXP : <exp>"); 
-    env0 = checkExp(exp, boolean(), env);
-    println();
+    QLTENV env0 = <{},[]>;
+    visit(exp){
+    	case int i : {
+    		println("exp is int");
+    		env0 = checkExp(exp, integer(), env);
+    	}
+    	case real m : {
+    		println("exp is money");
+    		env0 = checkExp(exp, money(), env);
+    	}
+    }
+    //env0 = checkExp(exp, boolean(), env);
+    println(env0);
     if(size(env0.errors) != 0)
     	return addError(env0, env0.errors[0].l, env0.errors[0].msg);   // check standart libary Message !!!
     return env;
@@ -24,8 +35,14 @@ QLTENV checkStatement(statement:ifStat(Expression exp, list[Body] body), QLTENV 
 
 // check if else statement
 QLTENV checkStatement(statement:ifElseStat(Expression exp, list[Body] thenpart, list[Body] elsepart), QLTENV env){
-    println("EXP : <Exp>"); 
-    env0 = checkExp(Exp, boolean(), env);
+    println("EXP : <Exp>");
+    visit(Exp){
+    	case _ : 
+    		println("Integer case");
+
+    }
+    println(env0); 
+   // env0 = checkExp(Exp, boolean(), env);
     if(size(env0.errors) != 0)
     	return addError(env0, env0.errors[0].l, env0.errors[0].msg);    // check standart libary Message !!!
     env1 = checkQuestionStats(Stats1, env0);
