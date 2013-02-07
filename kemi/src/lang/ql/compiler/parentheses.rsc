@@ -35,36 +35,76 @@ public void main() {
   //x = {x | x <- r, <prod(label("mul", _), _, _), _, prod(label("add", _), _, _)> := x};
   //text(x);
   
-  iprintln(exp2box(e));  
+  iprintln(parenExpr(e));  
 }
 
 /* SIMPLIFICATION REWRITE RULES */
 
-public Expr exp2box(p:mul(lhs, rhs)) = mul(exp2box(p, lhs), exp2box(p, rhs));
-public Expr exp2box(p:add(lhs, rhs)) = add(exp2box(p, lhs), exp2box(p, rhs));
-public Expr exp2box(Expr e) = e;
+public Expr parenExpr(p:pos(val)) = 
+  pos(parenExpr(p, val));
+  
+public Expr parenExpr(p:neg(val)) = 
+  neg(parenExpr(p, val));
 
-public Expr exp2box(Expr parent, Expr kid) =
-  parens(parent, kid, exp2box(kid), parenizer);
+public Expr parenExpr(p:not(val)) = 
+  not(parenExpr(p, val));
+
+public Expr parenExpr(p:mul(lhs, rhs)) = 
+  mul(parenExpr(p, lhs), parenExpr(p, rhs));
+
+public Expr parenExpr(p:div(lhs, rhs)) = 
+  div(parenExpr(p, lhs), parenExpr(p, rhs));
+
+public Expr parenExpr(p:add(lhs, rhs)) = 
+  add(parenExpr(p, lhs), parenExpr(p, rhs));
+
+public Expr parenExpr(p:sub(lhs, rhs)) = 
+  sub(parenExpr(p, lhs), parenExpr(p, rhs));
+
+public Expr parenExpr(p:lt(lhs, rhs)) = 
+  lt(parenExpr(p, lhs), parenExpr(p, rhs));
+
+public Expr parenExpr(p:leq(lhs, rhs)) = 
+  leq(parenExpr(p, lhs), parenExpr(p, rhs));  
+
+public Expr parenExpr(p:gt(lhs, rhs)) = 
+  gt(parenExpr(p, lhs), parenExpr(p, rhs));
+
+public Expr parenExpr(p:geq(lhs, rhs)) = 
+  geq(parenExpr(p, lhs), parenExpr(p, rhs));
+
+public Expr parenExpr(p:eq(lhs, rhs)) = 
+  eq(parenExpr(p, lhs), parenExpr(p, rhs));  
+
+public Expr parenExpr(p:neq(lhs, rhs)) = 
+  neq(parenExpr(p, lhs), parenExpr(p, rhs));
+  
+public Expr parenExpr(p:and(lhs, rhs)) = 
+  and(parenExpr(p, lhs), parenExpr(p, rhs));
+
+public Expr parenExpr(p:or(lhs, rhs)) = 
+  or(parenExpr(p, lhs), parenExpr(p, rhs));
+
+public Expr parenExpr(Expr e) = e;
+
+// Private stuff
+
+private Expr parenExpr(Expr parent, Expr kid) =
+  parens(parent, kid, parenExpr(kid), parenizer);
 
 private Expr parenizer(Expr e) {
   return e@paren = true;
 }
 
-/* END */
+// From: Oberon0 :: TODO cleanup
 
-/* Setup for grammar */
-
-public DoNotNest getQLPrios() = doNotNest(grammar({}, #lang::ql::syntax::QL::Form.definitions));
-
-private DoNotNest PRIOS = getQLPrios();
+//private DoNotNest getQLPrios() = doNotNest(grammar({}, #lang::ql::syntax::QL::Form.definitions));
+//private DoNotNest PRIOS = getQLPrios();
+private DoNotNest PRIOS = 
+  doNotNest(grammar({}, #lang::ql::syntax::QL::Form.definitions));
 
 public &T parens(node parent, node kid, &T x,  &T(&T x) parenizer) = parens(PRIOS, parent, kid, x, parenizer);
-//public &T parens(node parent, node kid, &T x,  &T(&T x) parenizer) = parens(PRIOS, parent, kid, x, parenizer);
 
-/* Generic library stuff */
-
-//public &T parens(DoNotNest prios, node parent, node kid, &T x,  &T(&T x) parenizer) = parenizer(x)
 public &T parens(DoNotNest prios, node parent, node kid, &T x,  &T(&T x) parenizer) = parenizer(x)
   when 
      <pprod, pos, kprod> <- prios,
@@ -87,4 +127,3 @@ public bool isASTsymbol(\empty()) = false;
 public default bool isASTsymbol(Symbol _) = true;
 
 public default &T parens(DoNotNest prios, node parent, node kid, &T x,  &T(&T x) parenizer) = x;
-
