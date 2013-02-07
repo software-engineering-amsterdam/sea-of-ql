@@ -21,14 +21,14 @@ import org.uva.sea.ql.ast.values.*;
 /*  TYPE CHECKING
 (px an '+' na dw type tis left timis meta type tis right timis kai an einai similar ok. O visitor mas voithaei na kanoume 
 to idio se periptwseis opws 3 * 5 + 6 * 7)!!!! */
-
+ 
 //form  
 
-form returns[Form result] 
+form returns[Form result]   
     @init { List<Statement> formparts = new ArrayList<Statement>();}
  :  'form' ident '{' (parts {formparts.add($parts.result);})+ '}'  {$result = new Form (new Ident($ident.text), formparts);}
  ; 
-
+ 
 //form end 
 
 parts returns [Statement result]
@@ -69,7 +69,7 @@ ifthen returns [Statement result]
   */ 
 
 //end of questions 
-                                          
+                                           
 expression returns [Expr result] 
   : value
   | '(' x=orExpr ')' {$result = $x.result;}
@@ -141,11 +141,11 @@ orExpr returns [Expr result]
   : lhs=andExpr {$result = $lhs.result;}  ( '||' rhs=andExpr {$result = new Or($result,rhs); } )* ;
 
 //end of expressions
-
+ 
 //types
 
 type returns [Type result]
- :  ( whattype =('integer'|'boolean'|'string')
+ :  ( whattype =('integer'|'boolean'|'string'|'money')
     { 
       if ($whattype.text.equals("integer")) {
         $result = new IntegerType();
@@ -156,6 +156,9 @@ type returns [Type result]
       if ($whattype.text.equals("string")) {
         $result = new StringType();
      }
+     if ($whattype.text.equals("money")) {
+        $result = new MoneyType();
+     }
     })+
   ; 
 
@@ -164,13 +167,15 @@ value returns [Value result]
   | ident {$result = new Ident($ident.text);}
   | bool { $result = new Bool(Boolean.parseBoolean($bool.text));}
   | string { $result = new String_lit($string.text);}
+  | money {$result = new Money(Float.parseFloat($money.text));}
   ;
  
-  
+   
 integer : Int ; 
 string : String_literal ; 
 bool : Bool ;
 ident : Ident ;
+money : Money ;
 //end of values 
   
 // Tokens
@@ -180,6 +185,8 @@ Comments : ('/*' .* '*/' | '//' .* ('\n' | '\r')) {$channel=HIDDEN;};
 WS : (' ' | '\t' | '\n' | 'r') {$channel = HIDDEN;} ;  
 
 Int : ('0'..'9')+ ;
+
+Money : ('0'..'9')+'.'('0'..'9')+;
 
 Bool: ('true' | 'false'); 
 

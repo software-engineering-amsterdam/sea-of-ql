@@ -1,13 +1,15 @@
 package org.uva.sea.ql.ast;
+
 import java.util.List;
 
-import org.uva.sea.ql.ast.visitor.Visitor;
+import org.uva.sea.ql.ast.values.Ident;
+import org.uva.sea.ql.ast.visitor.IStatementVisitor;
 
 public class Form implements ASTNode { 
-	private Value name;
+	private Ident name;
 	private List<Statement> block ;
 	
-	public Form(Value name, List<Statement> block){
+	public Form(Ident name, List<Statement> block){
 		this.name=name;
 		this.block=block;
 	}
@@ -20,11 +22,7 @@ public class Form implements ASTNode {
 		return block;
 	}
  
-	@Override
-	public void accept(Visitor visitor) {
+	public void accept(IStatementVisitor visitor) {
 		visitor.visit(this);
-		
 	}
-
-
 }

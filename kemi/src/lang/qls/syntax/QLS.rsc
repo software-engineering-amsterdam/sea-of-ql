@@ -71,17 +71,22 @@ syntax DefaultDefinition
   ;
 
 syntax StyleRule
-  = typeStyleRule: TypeStyleAttr TypeStyleValue
+  = widgetStyleRule: WidgetStyleAttr WidgetStyleValue
   | widthStyleRule: WidthStyleAttr Int
   ;
 
-lexical TypeStyleValue
-  = radio: "radio"
+lexical WidgetStyleValue
+  = text: "text"
+  | number: "number"
+  | datepicker: "datepicker"
+  | slider: "slider"
+  | radio: "radio"
   | checkbox: "checkbox"
+  | select: "select"
   ;
 
-lexical TypeStyleAttr
-  = @category="Constant" "type"
+lexical WidgetStyleAttr
+  = @category="Constant" "widget"
   ;
 
 lexical WidthStyleAttr

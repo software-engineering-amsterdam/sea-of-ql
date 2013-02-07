@@ -37,13 +37,13 @@ import org.uva.sea.ql.ast.value.StringValue;
 @Visitor
 public class ExpressionTypeChecker implements ExpressionVisitor<Expression> {
 
-	private final List<ValidationException> typeErrors;
+	private final List<TypeCheckException> typeErrors;
 
 	public ExpressionTypeChecker() {
-		typeErrors = new ArrayList<ValidationException>();
+		typeErrors = new ArrayList<TypeCheckException>();
 	}
 
-	public List<ValidationException> getTypeErrors() {
+	public List<TypeCheckException> getTypeErrors() {
 		return typeErrors;
 	}
 
@@ -202,7 +202,7 @@ public class ExpressionTypeChecker implements ExpressionVisitor<Expression> {
 			checked.assertTrue(nature == expression.getNature(), "A " + nature
 					+ " is incompatible with " + expression);
 		} catch (ValidationException e) {
-			typeErrors.add(e);
+			typeErrors.add(new TypeCheckException(e.getMessage(), e));
 		}
 	}
 

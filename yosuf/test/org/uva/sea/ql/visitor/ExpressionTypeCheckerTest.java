@@ -24,7 +24,7 @@ import org.uva.sea.ql.ast.exp.Substitute;
 import org.uva.sea.ql.ast.value.BooleanValue;
 import org.uva.sea.ql.ast.value.IntegerValue;
 import org.uva.sea.ql.ast.value.StringValue;
-import org.uva.sea.ql.util.LogPrinter;
+import org.uva.sea.ql.lead.LogPrinter;
 
 public class ExpressionTypeCheckerTest {
 

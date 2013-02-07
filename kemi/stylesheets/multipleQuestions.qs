@@ -12,6 +12,6 @@ stylesheet multipleQuestions {
   }
   
   default boolean {
-    type radio
+    widget radio
   }
 }
