@@ -1,6 +1,5 @@
 package org.uva.sea.ql.visitor;
 
-import org.jpatterns.gof.VisitorPattern;
 import org.uva.sea.ql.ast.exp.Add;
 import org.uva.sea.ql.ast.exp.And;
 import org.uva.sea.ql.ast.exp.Divide;
@@ -17,16 +16,11 @@ import org.uva.sea.ql.ast.exp.Positive;
 import org.uva.sea.ql.ast.exp.SmallerOrEquals;
 import org.uva.sea.ql.ast.exp.SmallerThan;
 import org.uva.sea.ql.ast.exp.Substitute;
-import org.uva.sea.ql.ast.type.BooleanType;
-import org.uva.sea.ql.ast.type.IntegerType;
-import org.uva.sea.ql.ast.type.MoneyType;
-import org.uva.sea.ql.ast.type.StringType;
 import org.uva.sea.ql.ast.value.BooleanValue;
 import org.uva.sea.ql.ast.value.IntegerValue;
 import org.uva.sea.ql.ast.value.StringValue;
 
-@VisitorPattern
-public interface ExpressionVisitor<T> {
+public interface ValuableVisitor<T> {
 
 	T visit(Add add);
 
@@ -65,13 +59,4 @@ public interface ExpressionVisitor<T> {
 	T visit(SmallerThan smallerThan);
 
 	T visit(Substitute substitute);
-
-	T visit(BooleanType booleanType);
-
-	T visit(IntegerType integerType);
-
-	T visit(MoneyType moneyType);
-
-	T visit(StringType stringType);
-
 }

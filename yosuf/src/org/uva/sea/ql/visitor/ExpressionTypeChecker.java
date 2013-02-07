@@ -8,11 +8,11 @@ import java.util.List;
 import julius.validation.ValidationException;
 
 import org.jpatterns.gof.VisitorPattern.Visitor;
+import org.uva.sea.ql.ast.Natural;
 import org.uva.sea.ql.ast.exp.Add;
 import org.uva.sea.ql.ast.exp.And;
 import org.uva.sea.ql.ast.exp.Divide;
 import org.uva.sea.ql.ast.exp.Equals;
-import org.uva.sea.ql.ast.exp.Expression;
 import org.uva.sea.ql.ast.exp.Expression.Nature;
 import org.uva.sea.ql.ast.exp.GreaterOrEquals;
 import org.uva.sea.ql.ast.exp.GreaterThan;
@@ -35,7 +35,7 @@ import org.uva.sea.ql.ast.value.IntegerValue;
 import org.uva.sea.ql.ast.value.StringValue;
 
 @Visitor
-public class ExpressionTypeChecker implements ExpressionVisitor<Expression> {
+public class ExpressionTypeChecker implements NaturalVisitor<Natural> {
 
 	private final List<TypeCheckException> typeErrors;
 
@@ -48,7 +48,7 @@ public class ExpressionTypeChecker implements ExpressionVisitor<Expression> {
 	}
 
 	@Override
-	public Expression visit(final Add add) {
+	public Natural visit(final Add add) {
 		assertNumeric(add.getRight().accept(this));
 		assertNumeric(add.getLeft().accept(this));
 
@@ -56,12 +56,12 @@ public class ExpressionTypeChecker implements ExpressionVisitor<Expression> {
 	}
 
 	@Override
-	public Expression visit(final IntegerValue integerValue) {
+	public Natural visit(final IntegerValue integerValue) {
 		return integerValue;
 	}
 
 	@Override
-	public Expression visit(final And and) {
+	public Natural visit(final And and) {
 		assertBoolean(and.getLeft().accept(this));
 		assertBoolean(and.getRight().accept(this));
 
@@ -69,7 +69,7 @@ public class ExpressionTypeChecker implements ExpressionVisitor<Expression> {
 	}
 
 	@Override
-	public Expression visit(final Divide divide) {
+	public Natural visit(final Divide divide) {
 		assertNumeric(divide.getRight().accept(this));
 		assertNumeric(divide.getLeft().accept(this));
 
@@ -77,7 +77,7 @@ public class ExpressionTypeChecker implements ExpressionVisitor<Expression> {
 	}
 
 	@Override
-	public Expression visit(final Equals equals) {
+	public Natural visit(final Equals equals) {
 		// Only numeric equals supported right now.
 		assertNumeric(equals.getRight().accept(this));
 		assertNumeric(equals.getLeft().accept(this));
@@ -86,7 +86,7 @@ public class ExpressionTypeChecker implements ExpressionVisitor<Expression> {
 	}
 
 	@Override
-	public Expression visit(final GreaterOrEquals greaterOrEquals) {
+	public Natural visit(final GreaterOrEquals greaterOrEquals) {
 		assertNumeric(greaterOrEquals.getRight().accept(this));
 		assertNumeric(greaterOrEquals.getLeft().accept(this));
 
@@ -94,17 +94,17 @@ public class ExpressionTypeChecker implements ExpressionVisitor<Expression> {
 	}
 
 	@Override
-	public Expression visit(final BooleanValue booleanValue) {
+	public Natural visit(final BooleanValue booleanValue) {
 		return booleanValue;
 	}
 
 	@Override
-	public Expression visit(final StringValue stringValue) {
+	public Natural visit(final StringValue stringValue) {
 		return stringValue;
 	}
 
 	@Override
-	public Expression visit(final GreaterThan greaterThan) {
+	public Natural visit(final GreaterThan greaterThan) {
 		assertNumeric(greaterThan.getRight().accept(this));
 		assertNumeric(greaterThan.getLeft().accept(this));
 
@@ -112,12 +112,12 @@ public class ExpressionTypeChecker implements ExpressionVisitor<Expression> {
 	}
 
 	@Override
-	public Expression visit(final Identifier identifier) {
+	public Natural visit(final Identifier identifier) {
 		return identifier;
 	}
 
 	@Override
-	public Expression visit(final Multiply multiply) {
+	public Natural visit(final Multiply multiply) {
 
 		assertNumeric(multiply.getRight().accept(this));
 		assertNumeric(multiply.getLeft().accept(this));
@@ -126,21 +126,21 @@ public class ExpressionTypeChecker implements ExpressionVisitor<Expression> {
 	}
 
 	@Override
-	public Expression visit(final Negative negative) {
+	public Natural visit(final Negative negative) {
 		assertNumeric(negative.getOperation());
 
 		return negative;
 	}
 
 	@Override
-	public Expression visit(final Not not) {
+	public Natural visit(final Not not) {
 		assertBoolean(not.getOperation().accept(this));
 
 		return not;
 	}
 
 	@Override
-	public Expression visit(final NotEquals notEquals) {
+	public Natural visit(final NotEquals notEquals) {
 		assertNumeric(notEquals.getRight().accept(this));
 		assertNumeric(notEquals.getLeft().accept(this));
 
@@ -148,7 +148,7 @@ public class ExpressionTypeChecker implements ExpressionVisitor<Expression> {
 	}
 
 	@Override
-	public Expression visit(final Or or) {
+	public Natural visit(final Or or) {
 
 		assertBoolean(or.getRight().accept(this));
 		assertBoolean(or.getLeft().accept(this));
@@ -157,14 +157,14 @@ public class ExpressionTypeChecker implements ExpressionVisitor<Expression> {
 	}
 
 	@Override
-	public Expression visit(final Positive positive) {
+	public Natural visit(final Positive positive) {
 		assertNumeric(positive.getOperation().accept(this));
 
 		return positive;
 	}
 
 	@Override
-	public Expression visit(final SmallerOrEquals smallerOrEquals) {
+	public Natural visit(final SmallerOrEquals smallerOrEquals) {
 		assertNumeric(smallerOrEquals.getRight().accept(this));
 		assertNumeric(smallerOrEquals.getLeft().accept(this));
 
@@ -172,7 +172,7 @@ public class ExpressionTypeChecker implements ExpressionVisitor<Expression> {
 	}
 
 	@Override
-	public Expression visit(final SmallerThan smallerThan) {
+	public Natural visit(final SmallerThan smallerThan) {
 
 		assertNumeric(smallerThan.getRight().accept(this));
 		assertNumeric(smallerThan.getLeft().accept(this));
@@ -181,7 +181,7 @@ public class ExpressionTypeChecker implements ExpressionVisitor<Expression> {
 	}
 
 	@Override
-	public Expression visit(final Substitute substitute) {
+	public Natural visit(final Substitute substitute) {
 
 		assertNumeric(substitute.getRight().accept(this));
 		assertNumeric(substitute.getLeft().accept(this));
@@ -189,40 +189,40 @@ public class ExpressionTypeChecker implements ExpressionVisitor<Expression> {
 		return substitute;
 	}
 
-	private void assertNumeric(final Expression expression) {
-		assertNature(expression, Nature.NUMERIC);
+	private void assertNumeric(final Natural natural) {
+		assertNature(natural, Nature.NUMERIC);
 	}
 
-	private void assertBoolean(final Expression expression) {
-		assertNature(expression, Nature.BOOLEAN);
+	private void assertBoolean(final Natural natural) {
+		assertNature(natural, Nature.BOOLEAN);
 	}
 
-	private void assertNature(final Expression expression, final Nature nature) {
+	private void assertNature(final Natural natural, final Nature nature) {
 		try {
-			checked.assertTrue(nature == expression.getNature(), "A " + nature
-					+ " is incompatible with " + expression);
+			checked.assertTrue(nature == natural.getNature(), "A " + nature
+					+ " is incompatible with " + natural);
 		} catch (ValidationException e) {
 			typeErrors.add(new TypeCheckException(e.getMessage(), e));
 		}
 	}
 
 	@Override
-	public Expression visit(final BooleanType booleanType) {
+	public Natural visit(final BooleanType booleanType) {
 		return booleanType;
 	}
 
 	@Override
-	public Expression visit(final IntegerType integerType) {
+	public Natural visit(final IntegerType integerType) {
 		return integerType;
 	}
 
 	@Override
-	public Expression visit(final MoneyType moneyType) {
+	public Natural visit(final MoneyType moneyType) {
 		return moneyType;
 	}
 
 	@Override
-	public Expression visit(final StringType stringType) {
+	public Natural visit(final StringType stringType) {
 		return stringType;
 	}
 

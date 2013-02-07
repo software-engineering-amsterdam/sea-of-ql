@@ -4,7 +4,6 @@
 %semantic org.uva.sea.ql.ast.ASTNode 
 %start top
 
-
 %token <StringValue> STRING_VAL
 %token <IntegerValue> INT_VAL
 %token <BooleanValue> BOOL_VAL

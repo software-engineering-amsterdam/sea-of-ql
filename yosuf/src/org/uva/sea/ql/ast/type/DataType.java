@@ -1,8 +1,9 @@
 package org.uva.sea.ql.ast.type;
 
-import org.uva.sea.ql.ast.exp.Expression;
+import org.uva.sea.ql.ast.ASTNode;
+import org.uva.sea.ql.ast.Natural;
 
-public abstract class DataType extends Expression {
+public abstract class DataType implements Natural, ASTNode {
 
 	protected DataType() {
 		super();
