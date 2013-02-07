@@ -6,10 +6,10 @@ stylesheet defaultRedefinition {
   }
 
   default boolean {
-    type checkbox
+    widget checkbox
   }
   default boolean {
-    type radio
+    widget radio
   }
   
   default integer {

@@ -15,13 +15,13 @@ import lang::ql::ast::AST;
 import lang::qls::ast::AST;
 import lang::qls::compiler::web::JS;
 
-public loc buildSheet(Form form, Stylesheet sheet, loc destFolder) {
+public loc buildSheet(Stylesheet sheet, loc destFolder) {
   destFolder += "<sheet.ident>/";
   
   if(!exists(destFolder))
     mkDirectory(destFolder);
   
-  JS(form, sheet, destFolder);
+  JS(sheet, destFolder);
   
   return destFolder;
 }

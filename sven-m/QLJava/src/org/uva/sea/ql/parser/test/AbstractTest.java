@@ -1,17 +1,16 @@
 package org.uva.sea.ql.parser.test;
 
-import org.uva.sea.ql.parser.antlr.QLFormParser;
+import org.uva.sea.ql.parser.antlr.FormParser;
 
 public abstract class AbstractTest {
-	private QLFormParser parser;
+	private FormParser parser;
 
 	public AbstractTest() {
-		parser = new QLFormParser();
+		parser = new FormParser();
 	}
 	
-	protected QLFormParser getParser() {
+	protected FormParser getParser() {
 		return parser;
 	}
 	
-	protected abstract Class<?> parseClass(String src) throws ParseError;
 }

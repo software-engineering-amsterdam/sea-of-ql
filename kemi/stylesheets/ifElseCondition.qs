@@ -25,6 +25,6 @@ stylesheet ifElseCondition {
   }
   
   default boolean {
-    type checkbox
+    widget checkbox
   }
 }

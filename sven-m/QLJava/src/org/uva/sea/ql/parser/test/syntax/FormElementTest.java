@@ -17,28 +17,24 @@ public class FormElementTest extends SyntaxTest {
 	
 	@Test
 	public void testFormElements() throws ParseError {
-		assertEquals(parseClass("q1: \"fjdslfj\" boolean"), Question.class);
-		assertEquals(parseClass("q1: \"\" boolean"), Question.class);
+		assertEquals(Question.class, parseClass("q1: \"fjdslfj\" boolean"));
+		assertEquals(Question.class, parseClass("q1: \"\" boolean"));
 		
-		assertEquals(parseClass("q1: \"fjdkslfj \" boolean(a == b)"), Computed.class);
-		assertEquals(parseClass("q1: \"\" integer(this + that)"), Computed.class);
+		assertEquals(Computed.class, parseClass("q1: \"fjdkslfj \" boolean(a == b)"));
+		assertEquals(Computed.class, parseClass("q1: \"\" integer(this + that)"));
 		
-		assertEquals(parseClass("if (d < e) { q1: \" \" integer }"), IfStatement.class);
-		assertEquals(parseClass("if (a == b) { } "), IfStatement.class);
+		assertEquals(IfStatement.class, parseClass("if (d < e) { q1: \" \" integer }"));
+		assertEquals(IfStatement.class, parseClass("if (a == b) { } "));
 		
-		assertEquals(parseClass(
-				"if (d < e) { q1: \" \" integer } else if (a) { }"
-				), IfStatement.class);
-		assertEquals(parseClass(
-				"if (a == b) { } else if (1+1) { }"
-				), IfStatement.class);
+		assertEquals(IfStatement.class, parseClass(
+				"if (d < e) { q1: \" \" integer } else if (a) { }"));
+		assertEquals(IfStatement.class, parseClass(
+				"if (a == b) { } else if (1+1) { }"));
 		
-		assertEquals(parseClass(
-				"if (d < e) { q1: \" \" integer } else { q2: \" \" string }"
-				), IfStatement.class);
-		assertEquals(parseClass(
-				"if (a == b) { } else if (r == 4) {} else {} "
-				), IfStatement.class);
+		assertEquals(IfStatement.class, parseClass(
+				"if (d < e) { q1: \" \" integer } else { q2: \" \" string }"));
+		assertEquals(IfStatement.class, parseClass(
+				"if (a == b) { } else if (r == 4) {} else {} "));
 	}
 
 }

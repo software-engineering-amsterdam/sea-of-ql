@@ -26,5 +26,5 @@ public void main() {
 
   buildForm(f, DEST);
   
-  buildSheet(f, s, DEST);
+  buildSheet(s, DEST);
 }
