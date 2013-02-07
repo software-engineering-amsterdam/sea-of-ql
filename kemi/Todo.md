@@ -16,7 +16,6 @@ consistent way.
 * Refactor StyleHelpers
 * Wider styling support
 * /A[DS]T/ reuse
-* Typechecking in generated forms (e.g. HTML + JS) fails when using stylesheets. This means that forms can be submitted without giving answers to all questions, or by entering wrong types into the input field. 
 
 # Both
 * Checking of the QLS language against the QL language

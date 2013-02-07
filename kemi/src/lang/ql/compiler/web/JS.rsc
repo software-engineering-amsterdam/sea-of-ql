@@ -74,6 +74,13 @@ private str JS(Form f) =
   "// THIS IS AN AUTOMATICALLY GENERATED FILE. DO NOT EDIT!
   '
   'function validate<f.formName.ident>() {
+  '
+  '  jQuery.validator.addMethod(\"selectBoxRequired\", 
+  '    function(value, element, params) { 
+  '       return this.optional(element) || value != \"undefined\"; 
+  '    }, jQuery.format(\"This field is required. Please pick an answer.\")
+  '  );
+  '
   '  $(\"#<f.formName.ident>\").validate({
   '    rules: {
   '      <createValidationRules(f)>
@@ -152,7 +159,7 @@ private str getTypeRule(str t) {
     case "date": return "date";
     case "money": return "number";
     case "string": return "required";
-    case "boolean": return "required";
+    case "boolean": return "selectBoxRequired";
   }
 }
 
