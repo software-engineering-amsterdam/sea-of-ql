@@ -35,116 +35,133 @@ public class ExpressionEvalVisitor implements IExpressionVisitor<Value> {
 		this.valueEnv = Collections.unmodifiableMap(valueEnv);
 	}
 
-	public Value visit(Add exp) {
-		Value l = exp.getLhs().accept(this);
-		Value r = exp.getRhs().accept(this);
-		return l.add(r);
+	public Value visit(Add expr) {
+		Value left = expr.getLhs().accept(this);
+		Value right = expr.getRhs().accept(this);
+		return left.add(right);
 	}
 
 	@Override
-	public Value visit(And ast) {
-		// TODO Auto-generated method stub
+	public Value visit(And expr) {
+		Value left = expr.getLhs().accept(this);
+		Value right = expr.getRhs().accept(this);
+		return left.and(right);
+	}
+
+	@Override
+	public Value visit(Div expr) {
+		Value left = expr.getLhs().accept(this);
+		Value right = expr.getRhs().accept(this);
+		return left.div(right);
+	}
+
+	@Override
+	public Value visit(Eq expr) {
+		Value left = expr.getLhs().accept(this);
+		Value right = expr.getRhs().accept(this);
+		return left.eq(right);
+	}
+
+	@Override
+	public Value visit(GEq expr) {
+		Value left = expr.getLhs().accept(this);
+		Value right = expr.getRhs().accept(this);
+		return left.geq(right);
+	}
+
+	@Override
+	public Value visit(GT expr) {
+		Value left = expr.getLhs().accept(this);
+		Value right = expr.getRhs().accept(this);
+		return left.gt(right);
+	}
+
+	@Override
+	public Value visit(LEq expr) {
+		Value left = expr.getLhs().accept(this);
+		Value right = expr.getRhs().accept(this);
+		return left.leq(right);
+	}
+
+	@Override
+	public Value visit(LT expr) {
+		Value left = expr.getLhs().accept(this);
+		Value right = expr.getRhs().accept(this);
+		return left.lt(right);
+	}
+
+	@Override
+	public Value visit(Mul expr) {
+		Value left = expr.getLhs().accept(this);
+		Value right = expr.getRhs().accept(this);
+		return left.mul(right);
+	}
+
+	@Override
+	public Value visit(NEq expr) {
+		Value left = expr.getLhs().accept(this);
+		Value right = expr.getRhs().accept(this);
+		return left.neq(right);
+	}
+
+	@Override
+	public Value visit(Or expr) {
+		Value left = expr.getLhs().accept(this);
+		Value right = expr.getRhs().accept(this);
+		return left.or(right);
+	}
+
+	@Override
+	public Value visit(Sub expr) {
+		Value left = expr.getLhs().accept(this);
+		Value right = expr.getRhs().accept(this);
+		return left.sub(right);
+	}
+
+	@Override
+	public Value visit(Neg expr) {
+//		Value left = expr.getLhs().accept(this);
+//		Value right = expr.getRhs().accept(this);
+//		return left.neg(right);
 		return null;
 	}
 
 	@Override
-	public Value visit(Div ast) {
-		// TODO Auto-generated method stub
+	public Value visit(Not expr) {
+//		Value left = expr.getLhs().accept(this);
+//		Value right = expr.getRhs().accept(this);
+//		return left.not(right);
 		return null;
 	}
 
 	@Override
-	public Value visit(Eq ast) {
-		// TODO Auto-generated method stub
+	public Value visit(Pos expr) {
+//		Value left = expr.getLhs().accept(this);
+//		Value right = expr.getRhs().accept(this);
+//		return left.pos(right);
 		return null;
 	}
 
 	@Override
-	public Value visit(GEq ast) {
-		// TODO Auto-generated method stub
-		return null;
+	public Value visit(Bool expr) {
+		return new BooleanValue(expr.getValue());
 	}
 
 	@Override
-	public Value visit(GT ast) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Value visit(LEq ast) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Value visit(LT ast) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Value visit(Mul ast) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Value visit(NEq ast) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Value visit(Or ast) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Value visit(Sub ast) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Value visit(Neg ast) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Value visit(Not ast) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Value visit(Pos ast) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Value visit(Bool ast) {
-		return new BooleanValue(ast.getValue());
-	}
-
-	@Override
-	public Value visit(Ident ast) {
-		if (valueEnv.containsKey(ast)) {
-			return valueEnv.get(ast);
+	public Value visit(Ident expr) {
+		if (valueEnv.containsKey(expr)) {
+			return valueEnv.get(expr);
 		}
 		return new UndefinedValue();
 	}
 	
 	@Override
-	public Value visit(Int ast) {
-		return new IntegerValue(ast.getValue());
+	public Value visit(Int expr) {
+		return new IntegerValue(expr.getValue());
 	}
 
 	@Override
-	public Value visit(StringLiteral ast) {
-		return new StringValue(ast.getValue());
+	public Value visit(StringLiteral expr) {
+		return new StringValue(expr.getValue());
 	}
 }

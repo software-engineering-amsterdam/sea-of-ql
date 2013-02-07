@@ -18,6 +18,7 @@ import org.uva.sea.ql.message.Message;
 import org.uva.sea.ql.parser.ANTLRParser;
 import org.uva.sea.ql.parser.error.ParseError;
 import org.uva.sea.ql.type.Type;
+import org.uva.sea.ql.value.Value;
 import org.uva.sea.ql.visitor.FormRenderer;
 import org.uva.sea.ql.visitor.FormVisitor;
 
@@ -31,6 +32,7 @@ public class Main {
 		ANTLRParser parser = new ANTLRParser();
 
 		Map<Ident, Type> symbolTable = new HashMap<Ident, Type>();
+		Map<Ident, Value> symbolTableValues = new HashMap<Ident, Value>();
 		List<Message> errors = new ArrayList<Message>();
 
 		String qlFile = System.getProperty("user.dir") + "/input/form.ql";

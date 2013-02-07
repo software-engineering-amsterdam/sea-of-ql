@@ -30,6 +30,34 @@ public abstract class Value {
 		throw new UnsupportedOperationException();
 	}
 	
+	public Value eq(Value arg) {
+		throw new UnsupportedOperationException();
+	}
+	
+	public Value geq(Value arg) {
+		throw new UnsupportedOperationException();
+	}
+	
+	
+	public Value gt(Value arg) {
+		throw new UnsupportedOperationException();
+	}
+	
+	public Value lt(Value arg) {
+		throw new UnsupportedOperationException();
+	}
+	
+	public Value leq(Value arg) {
+		throw new UnsupportedOperationException();
+	}
+	
+	public Value neq(Value arg) {
+		throw new UnsupportedOperationException();
+	}
+	
+	public Value or(Value arg) {
+		throw new UnsupportedOperationException();
+	}
 	// Int functions
 	protected Value addInt(IntegerValue arg) {
 		throw new UnsupportedOperationException();
@@ -46,5 +74,4 @@ public abstract class Value {
 	protected Value subInt(IntegerValue arg) {
 		throw new UnsupportedOperationException();
 	}
-
 }

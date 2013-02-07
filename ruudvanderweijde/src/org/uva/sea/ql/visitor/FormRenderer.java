@@ -3,22 +3,28 @@ package org.uva.sea.ql.visitor;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Map;
 
 import org.stringtemplate.v4.ST;
 import org.stringtemplate.v4.STGroup;
 import org.stringtemplate.v4.STGroupFile;
 import org.uva.sea.ql.ast.Form;
+import org.uva.sea.ql.ast.expr.Expr;
+import org.uva.sea.ql.ast.expr.primary.Ident;
 import org.uva.sea.ql.ast.stmt.IfThen;
 import org.uva.sea.ql.ast.stmt.IfThenElse;
 import org.uva.sea.ql.ast.stmt.Statement;
 import org.uva.sea.ql.ast.stmt.question.ComputedQuestion;
 import org.uva.sea.ql.ast.stmt.question.NormalQuestion;
 import org.uva.sea.ql.ast.stmt.question.Question;
+import org.uva.sea.ql.value.BooleanValue;
+import org.uva.sea.ql.value.IntegerValue;
+import org.uva.sea.ql.value.Value;
 
 public class FormRenderer implements IFormVisitor {
 	private STGroup formTemplate = new STGroupFile(System.getProperty("user.dir") + "/files/templates/page.stg", '$', '$');
 	private String formContent = "";
-	
+
 	public FormRenderer() {
 	}
 
@@ -30,15 +36,6 @@ public class FormRenderer implements IFormVisitor {
 	@Override
 	public void visit(NormalQuestion question) {
 		addQuestionFormContent(question, false);
-	}
-
-	private void addQuestionFormContent(Question question, Boolean isReadOnly) {
-		ST qlQuestion = formTemplate.getInstanceOf(question.getType().toString());
-		qlQuestion.add("id", question.getId().getName());
-		qlQuestion.add("label", question.getLabel());
-		qlQuestion.add("readOnly", isReadOnly);
-		
-		formContent += qlQuestion.render();
 	}
 
 	@Override
@@ -76,6 +73,15 @@ public class FormRenderer implements IFormVisitor {
 		// render form
 		System.out.print(qlPage.render());
 		writeOutputToFile(qlPage.render(), "form.html");
+	}
+	
+	private void addQuestionFormContent(Question question, Boolean isReadOnly) {
+		ST qlQuestion = formTemplate.getInstanceOf(question.getType().toString());
+		qlQuestion.add("id", question.getId().getName());
+		qlQuestion.add("label", question.getLabel());
+		qlQuestion.add("readOnly", isReadOnly);
+		
+		formContent += qlQuestion.render();
 	}
 	
 	private void writeOutputToFile(String output, String fileName) {
