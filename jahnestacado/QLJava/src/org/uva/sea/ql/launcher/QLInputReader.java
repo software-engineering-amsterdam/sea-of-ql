@@ -25,6 +25,7 @@ public class QLInputReader {
 			e.printStackTrace();
 		}
 		return null;
+
 	}
 
 }

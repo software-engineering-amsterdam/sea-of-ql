@@ -8,40 +8,46 @@ import javax.swing.JPanel;
 
 import net.miginfocom.swing.MigLayout;
 
+import org.uva.sea.ql.interpreter.QLGenButton;
+
 public class Renderer {
-	private final List<JPanel> questionList;
+	private final List<JPanel> questionPanelList;
 	private final JPanel content;
 	private final JFrame frame;
 
-	public Renderer(List<JPanel> questionList, JFrame frame) {
+	public Renderer(List<JPanel> questionPanelList, JFrame frame) {
 		this.frame = frame;
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setResizable(false);
-		this.questionList = questionList;
+		this.questionPanelList = questionPanelList;
 		content = new JPanel(new MigLayout());
 
 	}
 
+	
+	
+	
 	public void addQuestionsToPanel() {
-		for (JPanel question : questionList) {
+		for (JPanel question : questionPanelList) {
 			content.add(question, "align label,wrap");
 		}
-
+        content.add(QLGenButton.responsiveButton(questionPanelList,frame),"align center");
 		JPanel containerPanel = new JPanel();
+		
 		containerPanel.add(content);
 		frame.add(containerPanel);
 		frame.pack();
 		frame.setVisible(true);
 	}
 
-	public void refresh() {
+	public void refresh() {   
 		cleanOldPanels();
 		addQuestionsToPanel();
 
 	}
 
 	/*
-	 * Cleans panel in order to display properly the new one
+	 * Cleans frame from sub-panels in order to display properly the new one
 	 */
 	private void cleanOldPanels() {
 		Component[] components = frame.getContentPane().getComponents();

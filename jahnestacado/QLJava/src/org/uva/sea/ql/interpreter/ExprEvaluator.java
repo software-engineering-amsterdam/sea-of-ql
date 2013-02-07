@@ -35,12 +35,12 @@ public class ExprEvaluator implements IExprVisitor<Value> {
 	private final Map<String,Value> declaredVar;
 	
 	
-	private ExprEvaluator(Map<String,Value >declaredVar){
+	private ExprEvaluator(Map<String,Value > declaredVar){
 		this.declaredVar=declaredVar;
 		
 	}
 
-	public static Value eval(Expr expr,Map<String,Value >declaredVar){
+	public static Value eval(Expr expr,Map<String,Value > declaredVar){
 		ExprEvaluator evaluator=new ExprEvaluator(declaredVar);
 		return expr.accept(evaluator);
 		

@@ -38,10 +38,9 @@ public class QLCheckBox  implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-	
-
 		VariableUpdater varUpdater=new VariableUpdater(varName, declaredVar, new BoolLit(!getState()));
 		List<JPanel> questionList=new ArrayList<JPanel>();
+		
 		JFrame frame = (JFrame) SwingUtilities.getRoot(chBox);
 		new SwingVisitor(questionList,varUpdater.getUpdatedValues()).regenerate(frame);
 

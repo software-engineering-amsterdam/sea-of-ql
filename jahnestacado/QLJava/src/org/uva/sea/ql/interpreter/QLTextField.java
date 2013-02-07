@@ -39,8 +39,10 @@ public class QLTextField implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		String input=txtField.getText();
 		if(!QLInputVerifier.isStringChar(input)) return;
+		
 		VariableUpdater varUpdater=new VariableUpdater(varName, declaredVar, new StringLit(input));
 		List<JPanel> questionList=new ArrayList<JPanel>();
+		
 		JFrame frame = (JFrame) SwingUtilities.getRoot(txtField);
 		new SwingVisitor(questionList,varUpdater.getUpdatedValues()).regenerate(frame);
 

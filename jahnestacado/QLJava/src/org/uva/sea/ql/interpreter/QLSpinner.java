@@ -21,13 +21,12 @@ import org.uva.sea.ql.ast.expr.values.Value;
 public class QLSpinner  {
 	private final String varName;
 	private final Map<String, Value> declaredVar;
-	private final JSpinner spinner;
+	private final JSpinner spinner=new JSpinner(new SpinnerNumberModel(0, 0, 10000, 1));
 
    
 	
 	
 	private QLSpinner(String varName,Map<String, Value> declaredVar){
-		spinner=new JSpinner(new SpinnerNumberModel(0, 0, 10000, 1));
 		this.varName=varName;
 		this.declaredVar=declaredVar;
 	
@@ -42,7 +41,7 @@ public class QLSpinner  {
 	
 	private JSpinner getSpinner() {
 
-		spinner.setValue(getCurrentValue());
+		spinner.setValue(getCurrentDisplayedValue());
 		JFormattedTextField tf = ((JSpinner.DefaultEditor)spinner.getEditor()).getTextField();
 		tf.setEditable(false);
 				  
@@ -73,7 +72,7 @@ public class QLSpinner  {
 
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
-			if(getCurrentValue()==0) return;
+			if(getCurrentDisplayedValue()==0) return;
 			decreaseValueByOne();			
 		}
 		
@@ -82,24 +81,25 @@ public class QLSpinner  {
 
 	
 	private void increaseValueByOne(){
-		VariableUpdater varUpdater=new VariableUpdater(varName, declaredVar, new IntegerLit(getCurrentValue()+1));
-		List<JPanel> questionList=new ArrayList<JPanel>();
-		JFrame frame = (JFrame) SwingUtilities.getRoot(spinner);
-		new SwingVisitor(questionList,varUpdater.getUpdatedValues()).regenerate(frame);
-
+		update(getCurrentDisplayedValue()+1);
 	}
 	
 	private void decreaseValueByOne(){
-		VariableUpdater varUpdater=new VariableUpdater(varName, declaredVar, new IntegerLit(getCurrentValue()-1));
+		update(getCurrentDisplayedValue()-1);
+
+	}
+	
+	private void update(int value){
+		VariableUpdater varUpdater=new VariableUpdater(varName, declaredVar, new IntegerLit(value));
 		List<JPanel> questionList=new ArrayList<JPanel>();
 		JFrame frame = (JFrame) SwingUtilities.getRoot(spinner);
 		new SwingVisitor(questionList,varUpdater.getUpdatedValues()).regenerate(frame);
-
+		
 	}
     
     
 	
-	private int getCurrentValue(){
+	private int getCurrentDisplayedValue(){
 		return ((IntegerLit) declaredVar.get(varName)).getValue();
 	}
 	

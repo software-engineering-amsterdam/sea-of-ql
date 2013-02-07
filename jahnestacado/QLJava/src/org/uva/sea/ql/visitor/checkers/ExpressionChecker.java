@@ -335,7 +335,7 @@ public class ExpressionChecker implements IExprVisitor<Boolean> {
 		Type leftExprType = node.getLeftExpr().isOfType(declaredVar);
 		Type rightExprType = node.getRightExpr().isOfType(declaredVar);
 		Type declaredType=getQuestionsType();
-		if (!(leftExprType.isCompatibleToType(rightExprType) &&  rightExprType.isCompatibleToType(declaredType))) {
+		if (!(leftExprType.isCompatibleToType(rightExprType))) {
 			errorReport.add(new QLError("Invalid type for '"+symbol+"'. Both operands must be of the same type"));
 			return false;
 		}

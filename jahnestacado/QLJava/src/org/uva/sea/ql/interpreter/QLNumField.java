@@ -40,9 +40,11 @@ public class QLNumField  implements ActionListener{
 		
 		String txt=txtField.getText();
 		if(!QLInputVerifier.isNumChar(txt)) return;
+		
 		Float input=Float.parseFloat(txtField.getText());
 		VariableUpdater varUpdater=new VariableUpdater(varName, declaredVar, new DecimalLit(input));
 		List<JPanel> questionList=new ArrayList<JPanel>();
+		
 		JFrame frame = (JFrame) SwingUtilities.getRoot(txtField);
 		new SwingVisitor(questionList,varUpdater.getUpdatedValues()).regenerate(frame);
 

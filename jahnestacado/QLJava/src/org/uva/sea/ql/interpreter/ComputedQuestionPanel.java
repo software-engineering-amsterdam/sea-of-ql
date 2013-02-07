@@ -24,6 +24,7 @@ public class ComputedQuestionPanel {
 	public ComputedQuestionPanel(ComputedQuestion qlElement,Map<String,Value> declaredVar){
 		panel=new JPanel(new MigLayout());
 		label=new JLabel(qlElement.getLabel().getValue().replaceAll("\"", ""));
+		
 		computedValue=new JTextField(8);
 		computedValue.setForeground(Color.blue);
 		computedValue.setBackground(Color.white);

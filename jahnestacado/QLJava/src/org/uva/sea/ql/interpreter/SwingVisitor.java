@@ -26,14 +26,14 @@ import org.uva.sea.ql.swing.Renderer;
 import org.uva.sea.ql.visitor.IElementVisitor;
 
 public class SwingVisitor implements IElementVisitor{
-	private final List<JPanel> questionList;
+	private final List<JPanel> questionPanelList;
 	private final Map<String,Value> declaredVar;
 	
 	
 	
 	
-	public SwingVisitor(List<JPanel> questionList,Map<String,Value> declaredVar){
-		this.questionList=questionList;
+	public SwingVisitor(List<JPanel> questionPanelList,Map<String,Value> declaredVar){
+		this.questionPanelList=questionPanelList;
 		this.declaredVar=declaredVar;
 		
 	}
@@ -41,10 +41,9 @@ public class SwingVisitor implements IElementVisitor{
 	
 	public void generate(Form form, JFrame frame) {
 		String formName=form.getId().getName();
-		System.out.print(formName);
 		frame.setTitle(formName);
 		form.accept(this);
-		new Renderer(questionList, frame).addQuestionsToPanel();
+		new Renderer(questionPanelList, frame).addQuestionsToPanel();
 
 	}
 
@@ -52,7 +51,7 @@ public class SwingVisitor implements IElementVisitor{
 	public void regenerate(JFrame frame) {
 		Form form=QLInputReader.getParsedForm();
 		form.accept(this);
-		new Renderer(questionList, frame).refresh();
+		new Renderer(questionPanelList, frame).refresh();
 
 	}
 
@@ -120,13 +119,13 @@ public class SwingVisitor implements IElementVisitor{
 	
 	private void addQuestion(Question qlElement,Map<String,Value> declaredVar){
 		QuestionPanel panel=new QuestionPanel(qlElement,declaredVar);
-		questionList.add(panel.getPanel());
+		questionPanelList.add(panel.getPanel());
 		
 	}
 	
 	private void addComputedQuestion(ComputedQuestion qlElement,Map<String,Value> declaredVar){
 		ComputedQuestionPanel panel=new ComputedQuestionPanel(qlElement, declaredVar);
-		questionList.add(panel.getPanel());
+		questionPanelList.add(panel.getPanel());
 		
 		
 	}

@@ -26,14 +26,12 @@ public class QLInputVerifier implements KeyListener {
 
 	}
 
-	
 	public static JLabel getVerifier(JComponent component, Type type) {
 		JLabel alertMsg = new JLabel();
 		new QLInputVerifier(alertMsg, component, type);
 		return alertMsg;
 	}
 
-	
 	private void setVerifierMsg() {
 		String input = inputTextField.getText();
 		if (type.isCompatibleToNumericType()) {
@@ -43,14 +41,13 @@ public class QLInputVerifier implements KeyListener {
 		stringVerifier(input);
 	}
 
-	
 	private void numVerifier(String input) {
 		if (!isNumChar(input)) {
 			alertMsg.setText("*accepts only numeric characters*");
 			return;
 		}
 
-	    alertMsg.setText("");
+		alertMsg.setText("");
 
 	}
 
@@ -63,11 +60,9 @@ public class QLInputVerifier implements KeyListener {
 		alertMsg.setText("");
 	}
 
-	
 	public static boolean isStringChar(String input) {
 		return !input.matches(".*\\d.*");
 	}
-	
 
 	public static boolean isNumChar(String input) {
 		try {
@@ -78,7 +73,6 @@ public class QLInputVerifier implements KeyListener {
 		return true;
 	}
 
-	
 	@Override
 	public void keyPressed(KeyEvent e) {
 
