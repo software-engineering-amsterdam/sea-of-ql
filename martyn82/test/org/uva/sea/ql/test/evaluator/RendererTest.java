@@ -18,7 +18,10 @@ import org.uva.sea.ql.ast.statement.IfThenElse;
 import org.uva.sea.ql.ast.statement.Statement;
 import org.uva.sea.ql.ast.statement.Statements;
 import org.uva.sea.ql.ast.statement.VarDeclaration;
-import org.uva.sea.ql.ast.type.Money;
+import org.uva.sea.ql.ast.type.BooleanType;
+import org.uva.sea.ql.ast.type.IntegerType;
+import org.uva.sea.ql.ast.type.MoneyType;
+import org.uva.sea.ql.ast.type.StringType;
 import org.uva.sea.ql.test.IStatementTest;
 import org.uva.sea.ql.ui.ControlFactory;
 import org.uva.sea.ql.ui.swing.SwingControlFactory;
@@ -179,16 +182,16 @@ public class RendererTest implements IStatementTest {
 	@Override
 	@Test
 	public void testVarDeclaration() {
-		eval( new VarDeclaration( new Ident( "x" ), new org.uva.sea.ql.ast.type.Bool() ) );
+		eval( new VarDeclaration( new Ident( "x" ), new BooleanType() ) );
 		assertEquals( false, eval( new Ident( "x" ) ) );
 
-		eval( new VarDeclaration( new Ident( "y" ), new org.uva.sea.ql.ast.type.Int() ) );
+		eval( new VarDeclaration( new Ident( "y" ), new IntegerType() ) );
 		assertEquals( 0, eval( new Ident( "y" ) ) );
 
-		eval( new VarDeclaration( new Ident( "z" ), new org.uva.sea.ql.ast.type.Str() ) );
+		eval( new VarDeclaration( new Ident( "z" ), new StringType() ) );
 		assertEquals( "", eval( new Ident( "z" ) ) );
 
-		eval( new VarDeclaration( new Ident( "u" ), new Money() ) );
+		eval( new VarDeclaration( new Ident( "u" ), new MoneyType() ) );
 		assertEquals( 0d, eval( new Ident( "u" ) ) );
 	}
 

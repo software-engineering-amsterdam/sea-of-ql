@@ -1,11 +1,11 @@
 package org.uva.sea.ql.visitor.evaluator.value;
 
-import org.uva.sea.ql.ast.type.Str;
+import org.uva.sea.ql.ast.type.StringType;
 
 /**
  * Represents a string value.
  */
-public class String extends Value {
+public class StringValue extends Value {
 	/**
 	 * Holds the inner value.
 	 */
@@ -16,13 +16,13 @@ public class String extends Value {
 	 *
 	 * @param value
 	 */
-	public String( java.lang.String value ) {
+	public StringValue( java.lang.String value ) {
 		this.value = value;
 	}
 
 	@Override
-	public Str getType() {
-		return new Str();
+	public StringType getType() {
+		return new StringType();
 	}
 
 	@Override

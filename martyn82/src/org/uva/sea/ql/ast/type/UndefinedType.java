@@ -5,7 +5,7 @@ import org.uva.sea.ql.visitor.TypeVisitor;
 /**
  * Represents an Error type.
  */
-public class Undefined extends Type {
+public class UndefinedType extends Type {
 	@Override
 	public <T> T accept( TypeVisitor<T> visitor ) {
 		return null;

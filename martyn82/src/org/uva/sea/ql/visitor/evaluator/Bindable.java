@@ -2,7 +2,7 @@ package org.uva.sea.ql.visitor.evaluator;
 
 import org.uva.sea.ql.Observable;
 import org.uva.sea.ql.ast.type.Type;
-import org.uva.sea.ql.visitor.evaluator.value.Undefined;
+import org.uva.sea.ql.visitor.evaluator.value.UndefinedValue;
 import org.uva.sea.ql.visitor.evaluator.value.Value;
 
 public class Bindable {
@@ -12,7 +12,7 @@ public class Bindable {
 
 	public Bindable( Type type ) {
 		this.type = type;
-		this.value = Undefined.UNDEFINED;
+		this.value = UndefinedValue.UNDEFINED;
 		this.observable = null;
 	}
 

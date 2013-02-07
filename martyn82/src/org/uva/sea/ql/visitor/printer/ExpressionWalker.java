@@ -31,7 +31,6 @@ import org.uva.sea.ql.visitor.ExpressionVisitor;
 public class ExpressionWalker implements ExpressionVisitor<String> {
 	private static final String TPL_BINARY = "( %s %s %s )";
 	private static final String TPL_UNARY = "( %s %s )";
-	private static final String TPL_ATOMIC = "%s(\"%s\")";
 
 	/**
 	 * Visit binary expression.
@@ -54,15 +53,6 @@ public class ExpressionWalker implements ExpressionVisitor<String> {
 	private String visitUnary( UnaryExpression node, String operator ) {
 		String operand = node.getExpression().accept( this );
 		return String.format( TPL_UNARY, operator, operand );
-	}
-
-	/**
-	 * Visit atomic identifier node.
-	 *
-	 * @param node
-	 */
-	private String visitIdent( Ident node ) {
-		return String.format( TPL_ATOMIC, "IDENT", node.getName() );
 	}
 
 	/**
@@ -98,7 +88,7 @@ public class ExpressionWalker implements ExpressionVisitor<String> {
 
 	@Override
 	public String visit( Ident node ) {
-		return this.visitIdent( node );
+		return String.format( "%s(%s)", "IDENT", node.getName() );
 	}
 
 	@Override

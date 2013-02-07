@@ -3,7 +3,7 @@ package org.uva.sea.ql.ast.type;
 /**
  * Represents a money type.
  */
-public class Money extends Number {
+public class MoneyType extends NumberType {
 	@Override
 	public boolean isCompatibleToMoney() {
 		return true;

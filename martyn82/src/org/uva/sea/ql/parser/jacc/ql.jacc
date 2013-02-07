@@ -24,10 +24,10 @@
 %left UMIN UPLUS UNOT
 
 // data types
-%type <org.uva.sea.ql.ast.type.Bool> BOOLEAN
-%type <org.uva.sea.ql.ast.type.Int> INTEGER
-%type <org.uva.sea.ql.ast.type.Money> MONEY
-%type <org.uva.sea.ql.ast.type.Str> STRING
+%type <org.uva.sea.ql.ast.type.BooleanType> BOOLEAN
+%type <org.uva.sea.ql.ast.type.IntegerType> INTEGER
+%type <org.uva.sea.ql.ast.type.MoneyType> MONEY
+%type <org.uva.sea.ql.ast.type.StringType> STRING
 
 // AST nodes
 %type <Assignment>      assignment
@@ -144,10 +144,10 @@ import org.uva.sea.ql.ast.statement.*;
                 | FALSE                            { $$ = new org.uva.sea.ql.ast.expression.literal.Bool( false ); }
                 ;
 
- datatype       : BOOLEAN                          { $$ = new org.uva.sea.ql.ast.type.Bool(); }
-                | MONEY                            { $$ = new org.uva.sea.ql.ast.type.Money(); }
-                | INTEGER                          { $$ = new org.uva.sea.ql.ast.type.Int(); }
-                | STRING                           { $$ = new org.uva.sea.ql.ast.type.Str(); }
+ datatype       : BOOLEAN                          { $$ = new org.uva.sea.ql.ast.type.BooleanType(); }
+                | MONEY                            { $$ = new org.uva.sea.ql.ast.type.MoneyType(); }
+                | INTEGER                          { $$ = new org.uva.sea.ql.ast.type.IntegerType(); }
+                | STRING                           { $$ = new org.uva.sea.ql.ast.type.StringType(); }
                 ;
 
 %%

@@ -20,11 +20,11 @@ import org.uva.sea.ql.ast.statement.QuestionVar;
 import org.uva.sea.ql.ast.statement.Statement;
 import org.uva.sea.ql.ast.statement.Statements;
 import org.uva.sea.ql.ast.statement.VarDeclaration;
-import org.uva.sea.ql.ast.type.Bool;
-import org.uva.sea.ql.ast.type.Int;
-import org.uva.sea.ql.ast.type.Money;
-import org.uva.sea.ql.ast.type.Number;
-import org.uva.sea.ql.ast.type.Str;
+import org.uva.sea.ql.ast.type.BooleanType;
+import org.uva.sea.ql.ast.type.IntegerType;
+import org.uva.sea.ql.ast.type.MoneyType;
+import org.uva.sea.ql.ast.type.NumberType;
+import org.uva.sea.ql.ast.type.StringType;
 import org.uva.sea.ql.ast.type.Type;
 import org.uva.sea.ql.ui.ControlEvent;
 import org.uva.sea.ql.ui.ControlEventListener;
@@ -34,8 +34,11 @@ import org.uva.sea.ql.ui.control.PanelControl;
 import org.uva.sea.ql.ui.swing.JPanelControl;
 import org.uva.sea.ql.visitor.StatementVisitor;
 import org.uva.sea.ql.visitor.TypeVisitor;
-import org.uva.sea.ql.visitor.evaluator.value.Boolean;
-import org.uva.sea.ql.visitor.evaluator.value.Undefined;
+import org.uva.sea.ql.visitor.evaluator.value.BooleanValue;
+import org.uva.sea.ql.visitor.evaluator.value.IntegerValue;
+import org.uva.sea.ql.visitor.evaluator.value.MoneyValue;
+import org.uva.sea.ql.visitor.evaluator.value.StringValue;
+import org.uva.sea.ql.visitor.evaluator.value.UndefinedValue;
 import org.uva.sea.ql.visitor.evaluator.value.Value;
 
 /**
@@ -147,22 +150,22 @@ public class Renderer implements StatementVisitor<Void>, TypeVisitor<Control> {
 				Type type = environment.lookupType( question.getIdent() );
 
 				// TODO get this out
-				Value value = Undefined.UNDEFINED;
+				Value value = UndefinedValue.UNDEFINED;
 
-				if ( type instanceof Bool ) {
-					value = new Boolean( (java.lang.Boolean) source.getValue() );
+				if ( type instanceof BooleanType ) {
+					value = new BooleanValue( (java.lang.Boolean) source.getValue() );
 				}
 
-				if ( type instanceof Str ) {
-					value = new org.uva.sea.ql.visitor.evaluator.value.String( (java.lang.String) source.getValue() );
+				if ( type instanceof StringType ) {
+					value = new StringValue( (java.lang.String) source.getValue() );
 				}
 
-				if ( type instanceof Int ) {
-					value = new org.uva.sea.ql.visitor.evaluator.value.Integer( java.lang.Integer.parseInt( source.getValue().toString() ) );
+				if ( type instanceof IntegerType ) {
+					value = new IntegerValue( java.lang.Integer.parseInt( source.getValue().toString() ) );
 				}
 
-				if ( type instanceof Money ) {
-					value = new org.uva.sea.ql.visitor.evaluator.value.Money( java.lang.Double.parseDouble( source.getValue().toString() ) );
+				if ( type instanceof MoneyType ) {
+					value = new MoneyValue( java.lang.Double.parseDouble( source.getValue().toString() ) );
 				}
 
 				environment.assign( question.getIdent(), value );
@@ -210,7 +213,7 @@ public class Renderer implements StatementVisitor<Void>, TypeVisitor<Control> {
 
 	@Override
 	public Void visit( ElseIf node ) {
-		Boolean value = (Boolean) node.getCondition().accept( this.expressionEvaluator );
+		BooleanValue value = (BooleanValue) node.getCondition().accept( this.expressionEvaluator );
 		PanelControl tru = render( node.getBody(), this.environment, this.factory );
 
 		tru.setVisible( value.getValue() );
@@ -241,7 +244,7 @@ public class Renderer implements StatementVisitor<Void>, TypeVisitor<Control> {
 
 	@Override
 	public Void visit( IfThenElse node ) {
-		boolean condition = ( (Boolean) node.getCondition().accept( this.expressionEvaluator ) ).getValue();
+		boolean condition = ( (BooleanValue) node.getCondition().accept( this.expressionEvaluator ) ).getValue();
 
 		PanelControl tru = render( node.getIfBody(), this.environment, this.factory );
 		PanelControl fls = render( node.getElse(), this.environment, this.factory );
@@ -341,27 +344,27 @@ public class Renderer implements StatementVisitor<Void>, TypeVisitor<Control> {
 	}
 
 	@Override
-	public Control visit( Bool node ) {
+	public Control visit( BooleanType node ) {
 		return this.factory.createCheckBox();
 	}
 
 	@Override
-	public Control visit( Int node ) {
+	public Control visit( IntegerType node ) {
 		return this.factory.createTextBox();
 	}
 
 	@Override
-	public Control visit( Str node ) {
+	public Control visit( StringType node ) {
 		return this.factory.createTextBox();
 	}
 
 	@Override
-	public Control visit( Money node ) {
+	public Control visit( MoneyType node ) {
 		return this.factory.createTextBox();
 	}
 
 	@Override
-	public Control visit( Number node ) {
+	public Control visit( NumberType node ) {
 		return this.factory.createTextBox();
 	}
 }

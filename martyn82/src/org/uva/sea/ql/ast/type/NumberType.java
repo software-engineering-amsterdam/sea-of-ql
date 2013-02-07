@@ -5,7 +5,7 @@ import org.uva.sea.ql.visitor.TypeVisitor;
 /**
  * Represents a numeric type.
  */
-public class Number extends Type {
+public class NumberType extends Type {
 	@Override
 	public <T> T accept( TypeVisitor<T> visitor ) {
 		return visitor.visit( this );

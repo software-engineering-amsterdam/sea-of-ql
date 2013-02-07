@@ -22,7 +22,7 @@ import org.uva.sea.ql.ast.expression.unary.Neg;
 import org.uva.sea.ql.ast.expression.unary.Not;
 import org.uva.sea.ql.ast.expression.unary.Pos;
 import org.uva.sea.ql.ast.type.Type;
-import org.uva.sea.ql.ast.type.Undefined;
+import org.uva.sea.ql.ast.type.UndefinedType;
 import org.uva.sea.ql.visitor.ExpressionVisitor;
 import org.uva.sea.ql.visitor.evaluator.Environment;
 
@@ -233,7 +233,7 @@ public class ExpressionChecker extends TypeCheckVisitor implements ExpressionVis
 
 	@Override
 	public Boolean visit( Ident node ) {
-		if ( node.accept( this.resolver ).getClass() == Undefined.class ) {
+		if ( node.accept( this.resolver ).getClass() == UndefinedType.class ) {
 			this.addUndefinedError( node.getName(), node );
 			return false;
 		}

@@ -25,6 +25,8 @@ import org.uva.sea.ql.ast.expression.logical.Or;
 import org.uva.sea.ql.ast.expression.unary.Neg;
 import org.uva.sea.ql.ast.expression.unary.Not;
 import org.uva.sea.ql.ast.expression.unary.Pos;
+import org.uva.sea.ql.ast.type.BooleanType;
+import org.uva.sea.ql.ast.type.IntegerType;
 import org.uva.sea.ql.test.IExpressionTest;
 import org.uva.sea.ql.test.visitor.VisitorTest;
 import org.uva.sea.ql.visitor.evaluator.Environment;
@@ -256,8 +258,8 @@ public class ExpressionTypeCheckerTest extends VisitorTest<Boolean> implements I
 		Ident identBVar = new Ident( "bVar" );
 		Ident identIVar = new Ident( "iVar" );
 
-		this.environment.declare( identBVar, new org.uva.sea.ql.ast.type.Bool() );
-		this.environment.declare( identIVar, new org.uva.sea.ql.ast.type.Int() );
+		this.environment.declare( identBVar, new BooleanType() );
+		this.environment.declare( identIVar, new IntegerType() );
 
 		assertTrue( typeCheck( identBVar ) );
 		assertTrue( typeCheck( identIVar ) );

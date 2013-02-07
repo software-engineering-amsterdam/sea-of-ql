@@ -4,7 +4,7 @@ import org.uva.sea.ql.Observable;
 import org.uva.sea.ql.Observer;
 import org.uva.sea.ql.ast.expression.Expression;
 import org.uva.sea.ql.ui.control.Control;
-import org.uva.sea.ql.visitor.evaluator.value.Boolean;
+import org.uva.sea.ql.visitor.evaluator.value.BooleanValue;
 import org.uva.sea.ql.visitor.evaluator.value.Value;
 
 public class ConditionObserver implements Observer {
@@ -23,7 +23,7 @@ public class ConditionObserver implements Observer {
 	@Override
 	public void update( Observable observable ) {
 		Value value = this.condition.accept( new Evaluator( this.environment ) );
-		boolean visible = ( (Boolean) value ).getValue();
+		boolean visible = ( (BooleanValue) value ).getValue();
 
 		this.trueComponent.setVisible( visible );
 

@@ -1,23 +1,25 @@
 package org.uva.sea.ql.visitor.evaluator.value;
 
+import org.uva.sea.ql.ast.type.UndefinedType;
+
 /**
  * Represents an undefined value.
  */
-public class Undefined extends Value {
+public class UndefinedValue extends Value {
 	/**
 	 * Holds the undefined value.
 	 */
-	public final static Undefined UNDEFINED = new Undefined();
+	public final static UndefinedValue UNDEFINED = new UndefinedValue();
 
 	/**
 	 * Hidden constructor.
 	 */
-	private Undefined() {
+	private UndefinedValue() {
 	}
 
 	@Override
-	public org.uva.sea.ql.ast.type.Undefined getType() {
-		return new org.uva.sea.ql.ast.type.Undefined();
+	public UndefinedType getType() {
+		return new UndefinedType();
 	}
 
 	@Override

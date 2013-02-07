@@ -3,7 +3,7 @@ package org.uva.sea.ql.visitor.evaluator.value;
 /**
  * Represents a numeric value.
  */
-abstract public class Number extends Value {
+abstract public class NumberValue extends Value {
 	/**
 	 * Holds the inner value.
 	 */
@@ -14,7 +14,7 @@ abstract public class Number extends Value {
 	 *
 	 * @param value
 	 */
-	public Number( java.lang.Number value ) {
+	public NumberValue( java.lang.Number value ) {
 		this.value = value;
 	}
 

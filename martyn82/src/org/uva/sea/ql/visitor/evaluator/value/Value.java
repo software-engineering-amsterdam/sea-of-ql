@@ -49,7 +49,7 @@ abstract public class Value {
 	 *
 	 * @return The result.
 	 */
-	protected Value add( Integer value ) {
+	protected Value add( IntegerValue value ) {
 		throw new UnsupportedOperationException();
 	}
 
@@ -60,7 +60,7 @@ abstract public class Value {
 	 *
 	 * @return The result.
 	 */
-	protected Value add( Money value ) {
+	protected Value add( MoneyValue value ) {
 		throw new UnsupportedOperationException();
 	}
 
@@ -82,7 +82,7 @@ abstract public class Value {
 	 *
 	 * @return The result.
 	 */
-	protected Value sub( Integer value ) {
+	protected Value sub( IntegerValue value ) {
 		throw new UnsupportedOperationException();
 	}
 
@@ -93,7 +93,7 @@ abstract public class Value {
 	 *
 	 * @return The result.
 	 */
-	protected Value sub( Money value ) {
+	protected Value sub( MoneyValue value ) {
 		throw new UnsupportedOperationException();
 	}
 
@@ -115,7 +115,7 @@ abstract public class Value {
 	 *
 	 * @return The result.
 	 */
-	protected Value div( Integer value ) {
+	protected Value div( IntegerValue value ) {
 		throw new UnsupportedOperationException();
 	}
 
@@ -126,7 +126,7 @@ abstract public class Value {
 	 *
 	 * @return The result.
 	 */
-	protected Value div( Money value ) {
+	protected Value div( MoneyValue value ) {
 		throw new UnsupportedOperationException();
 	}
 
@@ -148,7 +148,7 @@ abstract public class Value {
 	 *
 	 * @return The result.
 	 */
-	protected Value mul( Integer value ) {
+	protected Value mul( IntegerValue value ) {
 		throw new UnsupportedOperationException();
 	}
 
@@ -159,7 +159,7 @@ abstract public class Value {
 	 *
 	 * @return The result.
 	 */
-	protected Value mul( Money value ) {
+	protected Value mul( MoneyValue value ) {
 		throw new UnsupportedOperationException();
 	}
 
@@ -183,7 +183,7 @@ abstract public class Value {
 	 *
 	 * @return The result.
 	 */
-	protected Value and( Boolean value ) {
+	protected Value and( BooleanValue value ) {
 		throw new UnsupportedOperationException();
 	}
 
@@ -205,7 +205,7 @@ abstract public class Value {
 	 *
 	 * @return The result.
 	 */
-	protected Value or( Boolean value ) {
+	protected Value or( BooleanValue value ) {
 		throw new UnsupportedOperationException();
 	}
 
@@ -230,7 +230,7 @@ abstract public class Value {
 	 * @return The result.
 	 */
 	public Value eq( Value value ) {
-		return new Boolean( value.getValue().equals( this.getValue() ) );
+		return new BooleanValue( value.getValue().equals( this.getValue() ) );
 	}
 
 	/**
@@ -241,7 +241,7 @@ abstract public class Value {
 	 * @return The result.
 	 */
 	public Value neq( Value value ) {
-		return new Boolean( !value.getValue().equals( this.getValue() ) );
+		return new BooleanValue( !value.getValue().equals( this.getValue() ) );
 	}
 
 	// numeric comparisons
@@ -264,7 +264,7 @@ abstract public class Value {
 	 *
 	 * @return The result.
 	 */
-	protected Value geq( Integer value ) {
+	protected Value geq( IntegerValue value ) {
 		throw new UnsupportedOperationException();
 	}
 
@@ -275,7 +275,7 @@ abstract public class Value {
 	 *
 	 * @return The result.
 	 */
-	protected Value geq( Money value ) {
+	protected Value geq( MoneyValue value ) {
 		throw new UnsupportedOperationException();
 	}
 
@@ -297,7 +297,7 @@ abstract public class Value {
 	 *
 	 * @return The result.
 	 */
-	protected Value gt( Integer value ) {
+	protected Value gt( IntegerValue value ) {
 		throw new UnsupportedOperationException();
 	}
 
@@ -308,7 +308,7 @@ abstract public class Value {
 	 *
 	 * @return The result.
 	 */
-	protected Value gt( Money value ) {
+	protected Value gt( MoneyValue value ) {
 		throw new UnsupportedOperationException();
 	}
 
@@ -330,7 +330,7 @@ abstract public class Value {
 	 *
 	 * @return The result.
 	 */
-	protected Value leq( Integer value ) {
+	protected Value leq( IntegerValue value ) {
 		throw new UnsupportedOperationException();
 	}
 
@@ -341,7 +341,7 @@ abstract public class Value {
 	 *
 	 * @return The result.
 	 */
-	protected Value leq( Money value ) {
+	protected Value leq( MoneyValue value ) {
 		throw new UnsupportedOperationException();
 	}
 
@@ -363,7 +363,7 @@ abstract public class Value {
 	 *
 	 * @return The result.
 	 */
-	protected Value lt( Integer value ) {
+	protected Value lt( IntegerValue value ) {
 		throw new UnsupportedOperationException();
 	}
 
@@ -374,7 +374,7 @@ abstract public class Value {
 	 *
 	 * @return The result.
 	 */
-	protected Value lt( Money value ) {
+	protected Value lt( MoneyValue value ) {
 		throw new UnsupportedOperationException();
 	}
 

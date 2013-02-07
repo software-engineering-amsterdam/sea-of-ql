@@ -1,11 +1,11 @@
 package org.uva.sea.ql.visitor.evaluator.value;
 
-import org.uva.sea.ql.ast.type.Bool;
+import org.uva.sea.ql.ast.type.BooleanType;
 
 /**
  * Represents a Boolean value.
  */
-public class Boolean extends Value {
+public class BooleanValue extends Value {
 	/**
 	 * Holds the inner value.
 	 */
@@ -16,13 +16,13 @@ public class Boolean extends Value {
 	 *
 	 * @param value
 	 */
-	public Boolean( java.lang.Boolean value ) {
+	public BooleanValue( java.lang.Boolean value ) {
 		this.value = value;
 	}
 
 	@Override
-	public Bool getType() {
-		return new Bool();
+	public BooleanType getType() {
+		return new BooleanType();
 	}
 
 	@Override
@@ -36,8 +36,8 @@ public class Boolean extends Value {
 	}
 
 	@Override
-	protected Value and( Boolean value ) {
-		return new Boolean( value.getValue() && this.value );
+	protected Value and( BooleanValue value ) {
+		return new BooleanValue( value.getValue() && this.value );
 	}
 
 	@Override
@@ -46,12 +46,12 @@ public class Boolean extends Value {
 	}
 
 	@Override
-	protected Value or( Boolean value ) {
-		return new Boolean( value.getValue() || this.value );
+	protected Value or( BooleanValue value ) {
+		return new BooleanValue( value.getValue() || this.value );
 	}
 
 	@Override
 	public Value not() {
-		return new Boolean( !this.value );
+		return new BooleanValue( !this.value );
 	}
 }

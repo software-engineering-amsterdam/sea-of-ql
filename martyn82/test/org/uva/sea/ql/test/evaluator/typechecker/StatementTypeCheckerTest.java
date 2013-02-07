@@ -25,6 +25,8 @@ import org.uva.sea.ql.ast.statement.QuestionVar;
 import org.uva.sea.ql.ast.statement.Statement;
 import org.uva.sea.ql.ast.statement.Statements;
 import org.uva.sea.ql.ast.statement.VarDeclaration;
+import org.uva.sea.ql.ast.type.BooleanType;
+import org.uva.sea.ql.ast.type.IntegerType;
 import org.uva.sea.ql.parser.ParseError;
 import org.uva.sea.ql.test.IStatementTest;
 import org.uva.sea.ql.test.visitor.VisitorTest;
@@ -127,10 +129,10 @@ public class StatementTypeCheckerTest extends VisitorTest<Boolean> implements IS
 	@Override
 	@Test
 	public void testVarDeclaration() {
-		assertTrue( typeCheck( new VarDeclaration( new Ident( "z" ), new org.uva.sea.ql.ast.type.Bool() ) ) );
+		assertTrue( typeCheck( new VarDeclaration( new Ident( "z" ), new BooleanType() ) ) );
 		assertFalse( typeCheck( new Add( new Int( 1 ), new Ident( "z" ) ) ) );
 
-		assertTrue( typeCheck( new VarDeclaration( new Ident( "x" ), new org.uva.sea.ql.ast.type.Int() ) ) );
+		assertTrue( typeCheck( new VarDeclaration( new Ident( "x" ), new IntegerType() ) ) );
 		assertTrue( typeCheck( new Assignment( new Ident( "x" ), new Int( 23 ) ) ) );
 
 		assertFalse( typeCheck( new Assignment( new Ident( "x" ), new Ident( "y" ) ) ) );
@@ -157,7 +159,7 @@ public class StatementTypeCheckerTest extends VisitorTest<Boolean> implements IS
 					new Bool( true ),
 					new Statements(
 						new Assignment( new Ident( "x" ), new Int( 24 ) ),
-						new Statements( new VarDeclaration( new Ident( "x" ), new org.uva.sea.ql.ast.type.Bool() ) )
+						new Statements( new VarDeclaration( new Ident( "x" ), new BooleanType() ) )
 					),
 					new ElseIfs()
 				)
@@ -187,7 +189,7 @@ public class StatementTypeCheckerTest extends VisitorTest<Boolean> implements IS
 					new Bool( true ),
 					new Statements(
 						new QuestionVar(
-							new Str( "" ), new VarDeclaration( new Ident( "x" ), new org.uva.sea.ql.ast.type.Bool() )
+							new Str( "" ), new VarDeclaration( new Ident( "x" ), new BooleanType() )
 						),
 						new Statements(
 							new Assignment( new Ident( "x" ), new Int( 23 ) )
@@ -213,7 +215,7 @@ public class StatementTypeCheckerTest extends VisitorTest<Boolean> implements IS
 							new Str( "label" ),
 							new VarDeclaration(
 								new Ident( "questionVar" ),
-								new org.uva.sea.ql.ast.type.Int()
+								new IntegerType()
 							)
 						)
 					)
@@ -231,7 +233,7 @@ public class StatementTypeCheckerTest extends VisitorTest<Boolean> implements IS
 					new Str( "label" ),
 					new VarDeclaration(
 						new Ident( "var" ),
-						new org.uva.sea.ql.ast.type.Bool()
+						new BooleanType()
 					)
 				)
 			)

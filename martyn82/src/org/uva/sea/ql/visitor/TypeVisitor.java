@@ -1,10 +1,10 @@
 package org.uva.sea.ql.visitor;
 
-import org.uva.sea.ql.ast.type.Bool;
-import org.uva.sea.ql.ast.type.Int;
-import org.uva.sea.ql.ast.type.Money;
-import org.uva.sea.ql.ast.type.Number;
-import org.uva.sea.ql.ast.type.Str;
+import org.uva.sea.ql.ast.type.BooleanType;
+import org.uva.sea.ql.ast.type.IntegerType;
+import org.uva.sea.ql.ast.type.MoneyType;
+import org.uva.sea.ql.ast.type.NumberType;
+import org.uva.sea.ql.ast.type.StringType;
 
 /**
  * Represents Type visitor.
@@ -15,33 +15,33 @@ public interface TypeVisitor<T> {
 	 *
 	 * @param node
 	 */
-	T visit( Bool node );
+	T visit( BooleanType node );
 
 	/**
 	 * Visit an integer type.
 	 *
 	 * @param node
 	 */
-	T visit( Int node );
+	T visit( IntegerType node );
 
 	/**
 	 * Visit a string type.
 	 *
 	 * @param node
 	 */
-	T visit( Str node );
+	T visit( StringType node );
 
 	/**
 	 * Visit a money type.
 	 *
 	 * @param node
 	 */
-	T visit( Money node );
+	T visit( MoneyType node );
 
 	/**
 	 * Visit a number type.
 	 *
 	 * @param node
 	 */
-	T visit( Number node );
+	T visit( NumberType node );
 }

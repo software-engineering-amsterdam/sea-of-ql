@@ -17,10 +17,10 @@ import org.uva.sea.ql.ast.expression.unary.Neg;
 import org.uva.sea.ql.ast.expression.unary.Not;
 import org.uva.sea.ql.ast.expression.unary.Pos;
 import org.uva.sea.ql.visitor.ExpressionVisitor;
-import org.uva.sea.ql.visitor.evaluator.value.Boolean;
-import org.uva.sea.ql.visitor.evaluator.value.Integer;
-import org.uva.sea.ql.visitor.evaluator.value.Money;
-import org.uva.sea.ql.visitor.evaluator.value.String;
+import org.uva.sea.ql.visitor.evaluator.value.BooleanValue;
+import org.uva.sea.ql.visitor.evaluator.value.IntegerValue;
+import org.uva.sea.ql.visitor.evaluator.value.MoneyValue;
+import org.uva.sea.ql.visitor.evaluator.value.StringValue;
 import org.uva.sea.ql.visitor.evaluator.value.Value;
 
 /**
@@ -145,22 +145,22 @@ public class Evaluator implements ExpressionVisitor<Value> {
 
 	@Override
 	public Value visit( org.uva.sea.ql.ast.expression.literal.Int node ) {
-		return new Integer( node.getValue() );
+		return new IntegerValue( node.getValue() );
 	}
 
 	@Override
 	public Value visit( org.uva.sea.ql.ast.expression.literal.Bool node ) {
-		return new Boolean( node.getValue() );
+		return new BooleanValue( node.getValue() );
 	}
 
 	@Override
 	public Value visit( org.uva.sea.ql.ast.expression.literal.Money node ) {
-		return new Money( node.getValue() );
+		return new MoneyValue( node.getValue() );
 	}
 
 	@Override
 	public Value visit( org.uva.sea.ql.ast.expression.literal.Str node ) {
-		return new String( node.getValue() );
+		return new StringValue( node.getValue() );
 	}
 
 	@Override

@@ -5,7 +5,7 @@ import org.uva.sea.ql.visitor.TypeVisitor;
 /**
  * Represents a String type.
  */
-public class Str extends Type {
+public class StringType extends Type {
 	@Override
 	public <T> T accept( TypeVisitor<T> visitor ) {
 		return visitor.visit( this );

@@ -25,8 +25,13 @@ import org.uva.sea.ql.ast.expression.logical.Or;
 import org.uva.sea.ql.ast.expression.unary.Neg;
 import org.uva.sea.ql.ast.expression.unary.Not;
 import org.uva.sea.ql.ast.expression.unary.Pos;
+import org.uva.sea.ql.ast.type.BooleanType;
+import org.uva.sea.ql.ast.type.IntegerType;
+import org.uva.sea.ql.ast.type.MoneyType;
+import org.uva.sea.ql.ast.type.NumberType;
+import org.uva.sea.ql.ast.type.StringType;
 import org.uva.sea.ql.ast.type.Type;
-import org.uva.sea.ql.ast.type.Undefined;
+import org.uva.sea.ql.ast.type.UndefinedType;
 import org.uva.sea.ql.visitor.ExpressionVisitor;
 import org.uva.sea.ql.visitor.evaluator.Environment;
 
@@ -56,7 +61,7 @@ public class ExpressionTypeResolver implements ExpressionVisitor<Type> {
 	 * @return The type of the expression.
 	 */
 	private Type visitArithmetic( ArithmeticExpression node ) {
-		return new org.uva.sea.ql.ast.type.Number();
+		return new NumberType();
 	}
 
 	/**
@@ -67,7 +72,7 @@ public class ExpressionTypeResolver implements ExpressionVisitor<Type> {
 	 * @return The type of the expression.
 	 */
 	private Type visitLogical( LogicalExpression node ) {
-		return new org.uva.sea.ql.ast.type.Bool();
+		return new BooleanType();
 	}
 
 	/**
@@ -78,7 +83,7 @@ public class ExpressionTypeResolver implements ExpressionVisitor<Type> {
 	 * @return The type of the expression.
 	 */
 	private Type visitComparison( ComparisonExpression node ) {
-		return new org.uva.sea.ql.ast.type.Bool();
+		return new BooleanType();
 	}
 
 	/**
@@ -89,7 +94,7 @@ public class ExpressionTypeResolver implements ExpressionVisitor<Type> {
 	 * @return The type of the expression.
 	 */
 	private Type visitUnary( UnaryExpression node ) {
-		return new org.uva.sea.ql.ast.type.Bool();
+		return new BooleanType();
 	}
 
 	/**
@@ -100,27 +105,27 @@ public class ExpressionTypeResolver implements ExpressionVisitor<Type> {
 	 * @return The type of the expression.
 	 */
 	private Type visitUnaryNumeric( UnaryNumericExpression node ) {
-		return new org.uva.sea.ql.ast.type.Number();
+		return new NumberType();
 	}
 
 	@Override
 	public Type visit( Int node ) {
-		return new org.uva.sea.ql.ast.type.Int();
+		return new IntegerType();
 	}
 
 	@Override
 	public Type visit( Bool node ) {
-		return new org.uva.sea.ql.ast.type.Bool();
+		return new BooleanType();
 	}
 
 	@Override
 	public Type visit( Money node ) {
-		return new org.uva.sea.ql.ast.type.Money();
+		return new MoneyType();
 	}
 
 	@Override
 	public Type visit( Str node ) {
-		return new org.uva.sea.ql.ast.type.Str();
+		return new StringType();
 	}
 
 	@Override
@@ -129,7 +134,7 @@ public class ExpressionTypeResolver implements ExpressionVisitor<Type> {
 			return this.environment.lookupType( node );
 		}
 
-		return new Undefined();
+		return new UndefinedType();
 	}
 
 	@Override
