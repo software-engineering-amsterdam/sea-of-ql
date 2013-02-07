@@ -16,7 +16,7 @@ consistent way.
 * Refactor StyleHelpers
 * Wider styling support
 * /A[DS]T/ reuse
-* QL Typechecking breaks when the form is used with a stylesheet. <-- Does not seem to happen for me, compilation fails on TypeErrors, line is highlighted, etc.
+* Typechecking in generated forms (e.g. HTML + JS) fails when using stylesheets. This means that forms can be submitted without giving answers to all questions, or by entering wrong types into the input field. 
 
 # Both
 * Checking of the QLS language against the QL language
