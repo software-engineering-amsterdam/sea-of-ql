@@ -43,7 +43,7 @@ private str createPHP(Statement item: question(Question question)) =
 private str createPHP(Question q: 
   question(_, answerDataType, answerIdentifier)) =
     "<validator(answerDataType, answerIdentifier.ident)>
-   ' <addToArray(answerDataType.name, answerIdentifier.ident)>
+    '<addToArray(answerDataType, answerIdentifier.ident)>
     ";
 
 private str createPHP(Question q: 
@@ -52,7 +52,7 @@ private str createPHP(Question q:
   cf = prependIdent(calculatedField, "$");
   
   return 
-    "<addToArray(answerDataType.name, ansIdent.ident, prettyPrint(cf))>";
+    "<addToArray(answerDataType, ansIdent.ident, prettyPrint(cf))>";
 }
 
 private str createPHP(Statement item: 
@@ -69,10 +69,17 @@ private str createPHP(Statement item:
 private str createPHP(Expr e) =
   "<prettyPrint(prependIdent(e, "$"))>";
 
-private str addToArray(str answerDataType, str ident) =
+private str addToArray(Type answerDataType, str ident) =
   addToArray(answerDataType, ident, "$_POST[\'<ident>\']");
-
-private str addToArray(str answerDataType, str ident, str expr) =
+  
+private str addToArray(Type answerDataType: booleanType(_), str ident, str expr) =
+  "
+  '$<ident> = <expr> === \"true\";
+  '$__RES[\"<ident>\"] = $<ident>;
+  '
+  ";
+    
+private str addToArray(Type answerDataType, str ident, str expr) =
   "
   '$<ident> = <expr>;
   '$__RES[\"<ident>\"] = $<ident>;
