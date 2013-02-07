@@ -1,4 +1,4 @@
-package org.uva.sea.ql.test.evaluator;
+package org.uva.sea.ql.test.visitor.evaluator;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
