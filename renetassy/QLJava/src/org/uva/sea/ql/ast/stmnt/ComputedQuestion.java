@@ -1,6 +1,6 @@
 package org.uva.sea.ql.ast.stmnt;
 
-import org.uva.sea.ql.StatementChecker;
+import org.uva.sea.ql.ASTVisitor;
 import org.uva.sea.ql.ast.expr.Expr;
 import org.uva.sea.ql.ast.expr.Ident;
 import org.uva.sea.ql.ast.expr.StringLiteral;
@@ -20,7 +20,7 @@ public class ComputedQuestion extends Question {
 	}
 	
 	@Override
-	public boolean accept(StatementChecker visitor) {
+	public boolean accept(ASTVisitor visitor) {
 		return visitor.visit(this);
 	}
 

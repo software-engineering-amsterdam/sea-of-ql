@@ -1,6 +1,6 @@
 package org.uva.sea.ql.ast;
 
-import org.uva.sea.ql.StatementChecker;
+import org.uva.sea.ql.ASTVisitor;
 import org.uva.sea.ql.ast.expr.Ident;
 import org.uva.sea.ql.ast.stmnt.Body;
 
@@ -23,7 +23,7 @@ public class Form extends QLProgram {
 	}
 
 	@Override
-	public boolean accept(StatementChecker visitor) {
+	public boolean accept(ASTVisitor visitor) {
 		return visitor.visit(this);
 	}
 
