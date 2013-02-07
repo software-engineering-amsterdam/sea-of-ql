@@ -60,10 +60,10 @@ public class ExpressionTest extends SyntaxTest {
 		assertEquals(LEq.class, parseClass("(a - b * c <= b)"));
 		assertEquals(LEq.class, parseClass("(a <= b)"));
 		
-		assertEquals(Eq.class, parseClass("a + b == c"));
-		assertEquals(Eq.class, parseClass("a == b + c"));
-		assertEquals(Eq.class, parseClass("a + b == c"));
-		assertEquals(Eq.class, parseClass("a == b + c"));
+		assertEquals(Eq.classparseClass("a + b == c"));
+		assertEquals(Eq.classparseClass("a == b + c"));
+		assertEquals(Eq.classparseClass("a + b == c"));
+		assertEquals(Eq.classparseClass("a == b + c"));
 		
 		assertEquals(GEq.class, parseClass("(a >= b)"));
 		assertEquals(GEq.class, parseClass("(a + b >= b)"));

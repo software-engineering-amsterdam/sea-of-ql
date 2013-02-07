@@ -111,7 +111,7 @@ public class ExpressionTest extends SyntaxTest {
 	
 	@Test
 	public void testStrings() throws ParseError {
-		assertEquals(Str.class, parseClass("\"\""));
+		assertEquals(Str.class, parseClass("\"\n\""));
 		assertEquals(Str.class, parseClass("\"a\""));
 		assertEquals(Str.class, parseClass("\"fdT$)G*(FHE\""));
 	}

@@ -113,7 +113,7 @@ public class ExpressionTest extends SyntaxTest {
 	public void testStrings() throws ParseError {
 		assertEquals(Str.class, parseClass("\"\""));
 		assertEquals(Str.class, parseClass("\"a\""));
-		assertEquals(Str.class, parseClass("\"fdT$)G*(FHE\""));
+		assertEquals(Str.class, parseClass("d\"fdT$)G*(FHE\""));
 	}
 
 }

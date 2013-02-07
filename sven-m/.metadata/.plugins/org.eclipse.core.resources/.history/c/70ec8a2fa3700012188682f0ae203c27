@@ -14,7 +14,6 @@ import org.uva.sea.ql.ast.expression.LEq;
 import org.uva.sea.ql.ast.expression.LT;
 import org.uva.sea.ql.ast.expression.Mul;
 import org.uva.sea.ql.ast.expression.Not;
-import org.uva.sea.ql.ast.expression.Str;
 import org.uva.sea.ql.parser.test.ParseError;
 
 public class ExpressionTest extends SyntaxTest {
@@ -60,10 +59,10 @@ public class ExpressionTest extends SyntaxTest {
 		assertEquals(LEq.class, parseClass("(a - b * c <= b)"));
 		assertEquals(LEq.class, parseClass("(a <= b)"));
 		
-		assertEquals(Eq.class, parseClass("a + b == c"));
-		assertEquals(Eq.class, parseClass("a == b + c"));
-		assertEquals(Eq.class, parseClass("a + b == c"));
-		assertEquals(Eq.class, parseClass("a == b + c"));
+		assertEquals(Eq.classparseClass("a + b == c"));
+		assertEquals(Eq.classparseClass("a == b + c"));
+		assertEquals(Eq.classparseClass("a + b == c"));
+		assertEquals(Eq.classparseClass("a == b + c"));
 		
 		assertEquals(GEq.class, parseClass("(a >= b)"));
 		assertEquals(GEq.class, parseClass("(a + b >= b)"));
@@ -101,7 +100,7 @@ public class ExpressionTest extends SyntaxTest {
 	}
 
 	@Test
-	public void testInts() throws ParseError {
+	public void testNums() throws ParseError {
 		assertEquals(Int.class, parseClass("0"));
 		assertEquals(Int.class, parseClass("00000000000000"));
 		assertEquals(Int.class, parseClass("1223"));
@@ -111,9 +110,11 @@ public class ExpressionTest extends SyntaxTest {
 	
 	@Test
 	public void testStrings() throws ParseError {
-		assertEquals(Str.class, parseClass("\"\""));
-		assertEquals(Str.class, parseClass("\"a\""));
-		assertEquals(Str.class, parseClass("\"fdT$)G*(FHE\""));
+		assertEquals(Str.class, parseClass("0"));
+		assertEquals(Str.class, parseClass("00000000000000"));
+		assertEquals(Str.class, parseClass("1223"));
+		assertEquals(Str.class, parseClass("234234234"));
+		assertEquals(Str.class, parseClass("000000003"));
 	}
 
 }

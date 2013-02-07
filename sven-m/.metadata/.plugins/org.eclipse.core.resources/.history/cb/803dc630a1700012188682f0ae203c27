@@ -13,4 +13,5 @@ public abstract class AbstractTest {
 		return parser;
 	}
 	
+	protected abstract Class<?> parseClass(String src) throws ParseError;
 }

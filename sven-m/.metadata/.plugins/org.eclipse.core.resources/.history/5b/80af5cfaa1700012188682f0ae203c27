@@ -1,0 +1,40 @@
+package org.uva.sea.ql.parser.test.syntax;
+
+import static org.junit.Assert.assertEquals;
+
+import org.junit.Test;
+import org.uva.sea.ql.ast.form.Computed;
+import org.uva.sea.ql.ast.form.IfStatement;
+import org.uva.sea.ql.ast.form.Question;
+import org.uva.sea.ql.parser.test.ParseError;
+
+public class FormElementTest extends SyntaxTest {
+
+	@Override
+	protected Class<?> parseClass(String src) throws ParseError {
+		return getParser().parseFormElement(src).getClass();
+	}
+	
+	@Test
+	public void testFormElements() throws ParseError {
+		assertEquals(parseClass(Question.class, "q1: \"fjdslfj\" boolean"));
+		assertEquals(parseClass(Question.class, "q1: \"\" boolean"));
+		
+		assertEquals(parseClass(Question.class, "q1: \"fjdkslfj \" boolean(a == b)"));
+		assertEquals(parseClass(Question.class, "q1: \"\" integer(this + that)"));
+		
+		assertEquals(parseClass(Question.class, "if (d < e) { q1: \" \" integer }"));
+		assertEquals(parseClass(Question.class, "if (a == b) { } "));
+		
+		assertEquals(Question.class, parseClass(
+				"if (d < e) { q1: \" \" integer } else if (a) { }");
+		assertEquals(Question.class,parseClass(
+				"if (a == b) { } else if (1+1) { }");
+		
+		assertEquals(Question.class, parseClass(
+				"if (d < e) { q1: \" \" integer } else { q2: \" \" string }");
+		assertEquals(Question.class, parseClass(
+				"if (a == b) { } else if (r == 4) {} else {} ");
+	}
+
+}

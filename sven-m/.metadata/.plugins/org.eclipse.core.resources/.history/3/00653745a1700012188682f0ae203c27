@@ -6,5 +6,4 @@ import org.uva.sea.ql.parser.test.ParseError;
 public abstract class SyntaxTest extends AbstractTest {
 	
 	protected abstract Class<?> parseClass(String src) throws ParseError;
-	
 }
