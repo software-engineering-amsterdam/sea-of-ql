@@ -10,7 +10,11 @@
 
 module lang::ql::compiler::PrettyPrinter
 
+import Node;
 import lang::ql::ast::AST;
+import lang::ql::compiler::parentheses;
+
+private str PAREN_ANNO = "parentheses";
 
 public str prettyPrint(Form form) =
   "form <form.formName.ident> { <for(e <- form.formElements) {>
@@ -41,66 +45,77 @@ public str prettyPrint(Statement item:
     '} else { <for(e <- ep.body) {>
     '  <prettyPrint(e)><}><}>
     '}";
+    
+public str prettyPrint(Expr e) =
+  prettyPrintParen(parenExpr(e));
 
-public str prettyPrint(pos(Expr posValue)) = 
-  "(+<prettyPrint(posValue)>)";
+private str parenPrint(Expr p, str print) {
+  if(PAREN_ANNO in getAnnotations(p)) {
+    return "(<print>)";
+  } else {
+    return print;
+  }
+}    
 
-public str prettyPrint(neg(Expr negValue)) =
-  "(-<prettyPrint(negValue)>))";
+private str prettyPrintParen(p:pos(Expr posValue)) = 
+  parenPrint(p, "+<prettyPrintParen(posValue)>");
 
-public str prettyPrint(not(Expr notValue)) =
-  "(!<prettyPrint(notValue)>)";
+private str prettyPrintParen(p:neg(Expr negValue)) =
+  parenPrint(p, "-<prettyPrintParen(negValue)>");
 
-public str prettyPrint(mul(multiplicand, multiplier)) =
-  "(<prettyPrint(multiplicand)> * <prettyPrint(multiplier)>)";
+private str prettyPrintParen(p:not(Expr notValue)) =
+  parenPrint(p, "!<prettyPrintParen(notValue)>");
 
-public str prettyPrint(div(numerator, denominator)) =
-  "(<prettyPrint(numerator)> / <prettyPrint(denominator)>)";
+private str prettyPrintParen(p:mul(multiplicand, multiplier)) =
+  parenPrint(p, "<prettyPrintParen(multiplicand)> * <prettyPrintParen(multiplier)>");
 
-public str prettyPrint(add(leftAddend, rightAddend)) =
-  "(<prettyPrint(leftAddend)> + <prettyPrint(rightAddend)>)";
+private str prettyPrintParen(p:div(numerator, denominator)) =
+  parenPrint(p, "<prettyPrintParen(numerator)> / <prettyPrintParen(denominator)>");
 
-public str prettyPrint(sub(minuend, subtrahend)) =
-  "(<prettyPrint(minuend)> - <prettyPrint(subtrahend)>)";
+private str prettyPrintParen(p:add(leftAddend, rightAddend)) =
+  parenPrint(p, "<prettyPrintParen(leftAddend)> + <prettyPrintParen(rightAddend)>");
 
-public str prettyPrint(lt(left, right)) =
-  "(<prettyPrint(left)> \< <prettyPrint(right)>)";
+private str prettyPrintParen(p:sub(minuend, subtrahend)) =
+  parenPrint(p, "<prettyPrintParen(minuend)> - <prettyPrintParen(subtrahend)>");
 
-public str prettyPrint(leq(left, right)) =
-  "(<prettyPrint(left)> \<= <prettyPrint(right)>)";
+private str prettyPrintParen(p:lt(left, right)) =
+  parenPrint(p, "<prettyPrintParen(left)> \< <prettyPrintParen(right)>");
 
-public str prettyPrint(gt(left, right)) =
-  "(<prettyPrint(left)> \> <prettyPrint(right)>)";
+private str prettyPrintParen(p:leq(left, right)) =
+  parenPrint(p, "<prettyPrintParen(left)> \<= <prettyPrintParen(right)>");
 
-public str prettyPrint(geq(left, right)) =
-  "(<prettyPrint(left)> \>= <prettyPrint(right)>)";
+private str prettyPrintParen(p:gt(left, right)) =
+  parenPrint(p, "<prettyPrintParen(left)> \> <prettyPrintParen(right)>");
 
-public str prettyPrint(eq(left, right)) =
-  "(<prettyPrint(left)> == <prettyPrint(right)>)";
+private str prettyPrintParen(p:geq(left, right)) =
+  parenPrint(p, "<prettyPrintParen(left)> \>= <prettyPrintParen(right)>");
 
-public str prettyPrint(neq(left, right)) =
-  "(<prettyPrint(left)> != <prettyPrint(right)>)";
+private str prettyPrintParen(p:eq(left, right)) =
+  parenPrint(p, "<prettyPrintParen(left)> == <prettyPrintParen(right)>");
 
-public str prettyPrint(and(left, right)) =
-  "(<prettyPrint(left)> && <prettyPrint(right)>)";
+private str prettyPrintParen(p:neq(left, right)) =
+  parenPrint(p, "<prettyPrintParen(left)> != <prettyPrintParen(right)>");
 
-public str prettyPrint(or(left, right)) =
-  "(<prettyPrint(left)> || <prettyPrint(right)>)";
+private str prettyPrintParen(p:and(left, right)) =
+  parenPrint(p, "<prettyPrintParen(left)> && <prettyPrintParen(right)>");
 
-public str prettyPrint(ident(name)) =
+private str prettyPrintParen(p:or(left, right)) =
+  parenPrint(p, "<prettyPrintParen(left)> || <prettyPrintParen(right)>");
+
+private str prettyPrintParen(ident(name)) =
   "<name>";
 
-public str prettyPrint(\int(intValue)) =
+private str prettyPrintParen(\int(intValue)) =
   "<intValue>";
 
-public str prettyPrint(money(moneyValue)) =
+private str prettyPrintParen(money(moneyValue)) =
   "<moneyValue>";
 
-public str prettyPrint(boolean(booleanValue)) =
+private str prettyPrintParen(boolean(booleanValue)) =
   "<booleanValue>";
 
-public str prettyPrint(date(dateValue)) =
+private str prettyPrintParen(date(dateValue)) =
   "<dateValue>";
 
-public str prettyPrint(string(text)) =
+private str prettyPrintParen(string(text)) =
   "<text>";

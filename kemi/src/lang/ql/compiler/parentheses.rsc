@@ -23,8 +23,7 @@ import Node;
 
 //public alias DoNotNest = rel[Production father, int position, Production child];
 
-anno bool Expr @ paren;
-
+anno bool Expr @ parentheses;
 
 public void main() {
   //r = doNotNest(grammar({}, #lang::ql::syntax::QL::Form.definitions));
@@ -93,7 +92,7 @@ private Expr parenExpr(Expr parent, Expr kid) =
   parens(parent, kid, parenExpr(kid), parenizer);
 
 private Expr parenizer(Expr e) {
-  return e@paren = true;
+  return e@parentheses = true;
 }
 
 // From: Oberon0 :: TODO cleanup
