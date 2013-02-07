@@ -9,14 +9,14 @@ public class MoneyValue extends NumberValue {
 	/**
 	 * Holds the inner value.
 	 */
-	private final java.lang.Double value;
+	private final Double value;
 
 	/**
 	 * Constructs a new Money value.
 	 *
 	 * @param value
 	 */
-	public MoneyValue( java.lang.Double value ) {
+	public MoneyValue( Double value ) {
 		super( value );
 		this.value = value;
 	}
@@ -27,7 +27,7 @@ public class MoneyValue extends NumberValue {
 	}
 
 	@Override
-	public java.lang.Double getValue() {
+	public Double getValue() {
 		return this.value;
 	}
 

@@ -122,7 +122,7 @@ public class Renderer implements StatementVisitor<Void>, TypeVisitor<Control> {
 	 *
 	 * @param label
 	 */
-	private void addLabel( java.lang.String label ) {
+	private void addLabel( String label ) {
 		this.addComponent( this.factory.createLabel( label ) );
 	}
 
@@ -153,19 +153,19 @@ public class Renderer implements StatementVisitor<Void>, TypeVisitor<Control> {
 				Value value = UndefinedValue.UNDEFINED;
 
 				if ( type instanceof BooleanType ) {
-					value = new BooleanValue( (java.lang.Boolean) source.getValue() );
+					value = new BooleanValue( (Boolean) source.getValue() );
 				}
 
 				if ( type instanceof StringType ) {
-					value = new StringValue( (java.lang.String) source.getValue() );
+					value = new StringValue( (String) source.getValue() );
 				}
 
 				if ( type instanceof IntegerType ) {
-					value = new IntegerValue( java.lang.Integer.parseInt( source.getValue().toString() ) );
+					value = new IntegerValue( Integer.parseInt( source.getValue().toString() ) );
 				}
 
 				if ( type instanceof MoneyType ) {
-					value = new MoneyValue( java.lang.Double.parseDouble( source.getValue().toString() ) );
+					value = new MoneyValue( Double.parseDouble( source.getValue().toString() ) );
 				}
 
 				environment.assign( question.getIdent(), value );
@@ -303,7 +303,7 @@ public class Renderer implements StatementVisitor<Void>, TypeVisitor<Control> {
 		Type type = node.getType();
 		Value value = type.accept( this.typeInitializer );
 
-		java.lang.String label = node.getLabel().getValue();
+		String label = node.getLabel().getValue();
 		Control component = this.createControlFromType( type, value, true );
 
 		this.addLabel( label );
@@ -322,7 +322,7 @@ public class Renderer implements StatementVisitor<Void>, TypeVisitor<Control> {
 		Value value = this.environment.lookup( node.getIdent() );
 		Type type = value.getType();
 
-		java.lang.String label = node.getLabel().getValue();
+		String label = node.getLabel().getValue();
 		Control component = this.createControlFromType( type, value, false );
 
 		this.addLabel( label );

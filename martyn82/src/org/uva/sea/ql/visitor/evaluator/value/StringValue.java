@@ -9,14 +9,14 @@ public class StringValue extends Value {
 	/**
 	 * Holds the inner value.
 	 */
-	private final java.lang.String value;
+	private final String value;
 
 	/**
 	 * Constructs a new String value.
 	 *
 	 * @param value
 	 */
-	public StringValue( java.lang.String value ) {
+	public StringValue( String value ) {
 		this.value = value;
 	}
 
@@ -26,7 +26,7 @@ public class StringValue extends Value {
 	}
 
 	@Override
-	public java.lang.String getValue() {
+	public String getValue() {
 		return this.value;
 	}
 }

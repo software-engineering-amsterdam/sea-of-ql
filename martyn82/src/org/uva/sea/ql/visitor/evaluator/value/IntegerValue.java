@@ -9,14 +9,14 @@ public class IntegerValue extends NumberValue {
 	/**
 	 * Holds the inner value.
 	 */
-	private final java.lang.Integer value;
+	private final Integer value;
 
 	/**
 	 * Constructs a new Integer value.
 	 *
 	 * @param value
 	 */
-	public IntegerValue( java.lang.Integer value ) {
+	public IntegerValue( Integer value ) {
 		super( value );
 		this.value = value;
 	}
@@ -27,7 +27,7 @@ public class IntegerValue extends NumberValue {
 	}
 
 	@Override
-	public java.lang.Integer getValue() {
+	public Integer getValue() {
 		return this.value;
 	}
 

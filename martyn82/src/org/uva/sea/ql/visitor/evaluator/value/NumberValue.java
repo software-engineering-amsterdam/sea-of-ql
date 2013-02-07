@@ -7,19 +7,19 @@ abstract public class NumberValue extends Value {
 	/**
 	 * Holds the inner value.
 	 */
-	private final java.lang.Number value;
+	private final Number value;
 
 	/**
 	 * Constructs a new Number value.
 	 *
 	 * @param value
 	 */
-	public NumberValue( java.lang.Number value ) {
+	public NumberValue( Number value ) {
 		this.value = value;
 	}
 
 	@Override
-	public java.lang.Number getValue() {
+	public Number getValue() {
 		return this.value;
 	}
 }

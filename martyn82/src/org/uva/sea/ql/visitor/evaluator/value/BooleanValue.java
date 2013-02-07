@@ -9,14 +9,14 @@ public class BooleanValue extends Value {
 	/**
 	 * Holds the inner value.
 	 */
-	private final java.lang.Boolean value;
+	private final Boolean value;
 
 	/**
 	 * Constructs a new Boolean value.
 	 *
 	 * @param value
 	 */
-	public BooleanValue( java.lang.Boolean value ) {
+	public BooleanValue( Boolean value ) {
 		this.value = value;
 	}
 
@@ -26,7 +26,7 @@ public class BooleanValue extends Value {
 	}
 
 	@Override
-	public java.lang.Boolean getValue() {
+	public Boolean getValue() {
 		return this.value;
 	}
 
