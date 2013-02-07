@@ -10,7 +10,7 @@ public abstract class DataType extends Expression {
 
 	@Override
 	public String toString() {
-		return getClass() + " [Nature=" + getNature() + "]";
+		return getClass().getSimpleName() + " [Nature=" + getNature() + "]";
 	}
 
 }

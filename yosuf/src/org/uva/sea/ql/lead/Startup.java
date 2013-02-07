@@ -25,13 +25,19 @@ public final class Startup {
 	}
 
 	public void process() {
-		Form form = parseForm();
+		Form form = parseForm(readSourceFileFromArgs());
 
 		if (form != null && checkTypes(form)) {
 
+			LogPrinter.debugInfo(form);
 		}
 	}
 
+	/**
+	 * 
+	 * @param form
+	 * @return true if no errors are detected
+	 */
 	private boolean checkTypes(final Form form) {
 		StatementTypeChecker statementChecker = new StatementTypeChecker(
 				new ExpressionTypeChecker());
@@ -47,9 +53,9 @@ public final class Startup {
 	 * 
 	 * @return null if any error occurs reading or parsing the file
 	 */
-	private Form parseForm() {
+	private Form parseForm(final String source) {
 		try {
-			return parser.parseForm(readSourceFileFromArgs());
+			return parser.parseForm(source);
 		} catch (ParseError e) {
 			System.out.println(e.getMessage());
 			return null;
@@ -62,9 +68,6 @@ public final class Startup {
 		return FileHelper.readFileAsString(args[0]);
 	}
 
-	/**
-	 * @param args
-	 */
 	public static void main(final String[] args) {
 		new Startup(args).process();
 	}
