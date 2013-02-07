@@ -9,8 +9,8 @@ import java.util.Map;
 
 import org.junit.Test;
 import org.uva.sea.ql.ExprTypeChecker;
+import org.uva.sea.ql.QLError;
 import org.uva.sea.ql.ast.types.Type;
-import org.uva.sea.ql.errors.QLError;
 import org.uva.sea.ql.parser.antlr.ANTLRParser;
 
 public class TestExprTypeChecker {

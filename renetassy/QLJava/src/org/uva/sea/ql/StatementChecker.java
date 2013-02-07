@@ -12,8 +12,6 @@ import org.uva.sea.ql.ast.stmnt.IfStatement;
 import org.uva.sea.ql.ast.stmnt.Question;
 import org.uva.sea.ql.ast.stmnt.Statement;
 import org.uva.sea.ql.ast.types.Type;
-import org.uva.sea.ql.errors.QLError;
-import org.uva.sea.ql.errors.StmntError;
 
 public class StatementChecker implements IStatementVisitor {
 	
@@ -53,7 +51,7 @@ public class StatementChecker implements IStatementVisitor {
 		Ident qID = question.getID();
 			
 		if (typeEnvironment.containsKey(qID.getName())) {
-			errors.add(new StmntError("Duplicate questionID : " + qID.getName() + ""));
+			errors.add(new QLError("Duplicate questionID : " + qID.getName() + ""));
 			return false;
 		}
 		else {
@@ -71,7 +69,7 @@ public class StatementChecker implements IStatementVisitor {
 		Expr expr = computedQuestion.getExpr(); 
 				
 		if (typeEnvironment.containsKey(qID.getName())) {
-			errors.add(new StmntError ("Duplicate questionID : " + qID.getName()+""));
+			errors.add(new QLError ("Duplicate questionID : " + qID.getName()+""));
 			return false;
 		}
 		else {
@@ -79,7 +77,7 @@ public class StatementChecker implements IStatementVisitor {
 		}
 		
 		if (!(computedQuestion.getType().isCompatibleTo(expr.isOfType(typeEnvironment)))) {
-			errors.add( new StmntError("Invalid expression in question " + computedQuestion.getID() + 
+			errors.add( new QLError("Invalid expression in question " + computedQuestion.getID() + 
 					". Expected expression of type " + computedQuestion.getType()+""));
 			return false;
 		}
@@ -87,7 +85,7 @@ public class StatementChecker implements IStatementVisitor {
 		boolean checkExpr = ExprTypeChecker.check(expr, typeEnvironment, errors);
 		
 		if (!checkExpr) {
-			errors.add(new StmntError("Invalid expression in question " + computedQuestion.getID()+""));
+			errors.add(new QLError("Invalid expression in question " + computedQuestion.getID()+""));
 			return false;
 		}
 		
@@ -109,7 +107,7 @@ public class StatementChecker implements IStatementVisitor {
 		Type conditionType = expr.isOfType(typeEnvironment);
 		
 		if(!(conditionType.isCompatibleToBool())) {
-			errors.add(new StmntError("Expression in condition is of type "+conditionType.getClass().getSimpleName()+". Expected type Bool"));
+			errors.add(new QLError("Expression in condition is of type "+conditionType.getClass().getSimpleName()+". Expected type Bool"));
 			return false;
 		}
 		

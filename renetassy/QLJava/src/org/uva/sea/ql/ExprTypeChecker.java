@@ -24,8 +24,6 @@ import org.uva.sea.ql.ast.expr.Pos;
 import org.uva.sea.ql.ast.expr.StringLiteral;
 import org.uva.sea.ql.ast.expr.Sub;
 import org.uva.sea.ql.ast.types.Type;
-import org.uva.sea.ql.errors.ExprError;
-import org.uva.sea.ql.errors.QLError;
 
 public class ExprTypeChecker implements IExprVisitor {
 	
@@ -52,7 +50,7 @@ public class ExprTypeChecker implements IExprVisitor {
 	
 	private void addError(String operator) {
 		//errors.add("The operands of \""+ operator +"\" are not compatible");
-		errors.add(new ExprError(operator));
+		errors.add(new QLError("The operands of \""+ operator +"\" are not compatible"));
 	}
 
 	@Override
@@ -202,10 +200,10 @@ public class ExprTypeChecker implements IExprVisitor {
 	@Override
 	public boolean visit(Ident node) {
 		
-		/**if(node.isOfType(typeEnvironment).isCompatibleToUndefined()) {
-			errors.add("Variable " +node.getName()+ " is undefined ");
+		if(node.isOfType(typeEnvironment).isCompatibleToUndefined()) {
+			errors.add(new QLError("Variable " +node.getName()+ " is undefined "));
 			return false;
-		}*/
+		}
 		
 		return true;
 		
