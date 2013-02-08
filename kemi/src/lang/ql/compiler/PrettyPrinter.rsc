@@ -12,9 +12,12 @@ module lang::ql::compiler::PrettyPrinter
 
 import Node;
 import lang::ql::ast::AST;
-import lang::ql::compiler::ParenthesizeExpressions;
+import lang::ql::util::ParenthesizeExpressions;
 
-private str PAREN_ANNO = "parentheses";
+private str printExpression(Expr p, str print) = "(<print>)"
+  when "parentheses" in getAnnotations(p);
+
+private default str printExpression(Expr p, str print) = print;
 
 public str prettyPrint(Form form) =
   "form <form.formName.ident> { <for(e <- form.formElements) {>
@@ -47,60 +50,56 @@ public str prettyPrint(Statement item:
     '}";
     
 public str prettyPrint(Expr e) =
-  prettyPrintParen(parenExpr(e));
-
-private str parenPrint(Expr p, str print) {
-  if(PAREN_ANNO in getAnnotations(p)) {
-    return "(<print>)";
-  } else {
-    return print;
-  }
-}    
+  prettyPrintParen(parenizeExpr(e));
 
 private str prettyPrintParen(p:pos(Expr posValue)) = 
-  parenPrint(p, "+<prettyPrintParen(posValue)>");
+  printExpression(p, "+<prettyPrintParen(posValue)>");
 
 private str prettyPrintParen(p:neg(Expr negValue)) =
-  parenPrint(p, "-<prettyPrintParen(negValue)>");
+  printExpression(p, "-<prettyPrintParen(negValue)>");
 
 private str prettyPrintParen(p:not(Expr notValue)) =
-  parenPrint(p, "!<prettyPrintParen(notValue)>");
+  printExpression(p, "!<prettyPrintParen(notValue)>");
 
 private str prettyPrintParen(p:mul(multiplicand, multiplier)) =
-  parenPrint(p, "<prettyPrintParen(multiplicand)> * <prettyPrintParen(multiplier)>");
+  printExpression(p, 
+    "<prettyPrintParen(multiplicand)> * <prettyPrintParen(multiplier)>");
 
 private str prettyPrintParen(p:div(numerator, denominator)) =
-  parenPrint(p, "<prettyPrintParen(numerator)> / <prettyPrintParen(denominator)>");
+  printExpression(p, 
+    "<prettyPrintParen(numerator)> / <prettyPrintParen(denominator)>");
 
 private str prettyPrintParen(p:add(leftAddend, rightAddend)) =
-  parenPrint(p, "<prettyPrintParen(leftAddend)> + <prettyPrintParen(rightAddend)>");
+  printExpression(p, 
+    "<prettyPrintParen(leftAddend)> + <prettyPrintParen(rightAddend)>");
 
 private str prettyPrintParen(p:sub(minuend, subtrahend)) =
-  parenPrint(p, "<prettyPrintParen(minuend)> - <prettyPrintParen(subtrahend)>");
+  printExpression(p, "<prettyPrintParen(minuend)> - <prettyPrintParen(subtrahend)>");
 
 private str prettyPrintParen(p:lt(left, right)) =
-  parenPrint(p, "<prettyPrintParen(left)> \< <prettyPrintParen(right)>");
+  printExpression(p, "<prettyPrintParen(left)> \< <prettyPrintParen(right)>");
 
 private str prettyPrintParen(p:leq(left, right)) =
-  parenPrint(p, "<prettyPrintParen(left)> \<= <prettyPrintParen(right)>");
+  printExpression(p, "<prettyPrintParen(left)> \<= <prettyPrintParen(right)>");
 
 private str prettyPrintParen(p:gt(left, right)) =
-  parenPrint(p, "<prettyPrintParen(left)> \> <prettyPrintParen(right)>");
+  printExpression(p, "<prettyPrintParen(left)> \> <prettyPrintParen(right)>");
 
 private str prettyPrintParen(p:geq(left, right)) =
-  parenPrint(p, "<prettyPrintParen(left)> \>= <prettyPrintParen(right)>");
+  printExpression(p, 
+    "<prettyPrintParen(left)> \>= <prettyPrintParen(right)>");
 
 private str prettyPrintParen(p:eq(left, right)) =
-  parenPrint(p, "<prettyPrintParen(left)> == <prettyPrintParen(right)>");
+  printExpression(p, "<prettyPrintParen(left)> == <prettyPrintParen(right)>");
 
 private str prettyPrintParen(p:neq(left, right)) =
-  parenPrint(p, "<prettyPrintParen(left)> != <prettyPrintParen(right)>");
+  printExpression(p, "<prettyPrintParen(left)> != <prettyPrintParen(right)>");
 
 private str prettyPrintParen(p:and(left, right)) =
-  parenPrint(p, "<prettyPrintParen(left)> && <prettyPrintParen(right)>");
+  printExpression(p, "<prettyPrintParen(left)> && <prettyPrintParen(right)>");
 
 private str prettyPrintParen(p:or(left, right)) =
-  parenPrint(p, "<prettyPrintParen(left)> || <prettyPrintParen(right)>");
+  printExpression(p, "<prettyPrintParen(left)> || <prettyPrintParen(right)>");
 
 private str prettyPrintParen(ident(name)) =
   "<name>";

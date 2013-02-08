@@ -33,7 +33,7 @@ public test bool testCommentForm() =
 
 public test bool testIfCondition() = 
   outline(|project://QL-R-kemi/forms/ifCondition.q|) > "outline"();
-
+  
 public test bool testIfElseCondition() = 
   outline(|project://QL-R-kemi/forms/ifElseCondition.q|) > "outline"();
 

@@ -8,98 +8,72 @@
 @contributor{Kevin van der Vlist - kevin@kevinvandervlist.nl}
 @contributor{Jimi van der Woning - Jimi.vanderWoning@student.uva.nl}
 
-module lang::ql::compiler::ParenthesizeExpressions
+module lang::ql::util::ParenthesizeExpressions
 
 import Grammar; 
 import Node;
 import lang::ql::ast::AST;
 import lang::ql::syntax::QL;
 import lang::rascal::grammar::definition::Priorities;
+import util::Priorities;
 
-public Expr parenExpr(p:pos(val)) = 
-  pos(parenExpr(p, val));
-  
-public Expr parenExpr(p:neg(val)) = 
-  neg(parenExpr(p, val));
-
-public Expr parenExpr(p:not(val)) = 
-  not(parenExpr(p, val));
-
-public Expr parenExpr(p:mul(lhs, rhs)) = 
-  mul(parenExpr(p, lhs), parenExpr(p, rhs));
-
-public Expr parenExpr(p:div(lhs, rhs)) = 
-  div(parenExpr(p, lhs), parenExpr(p, rhs));
-
-public Expr parenExpr(p:add(lhs, rhs)) = 
-  add(parenExpr(p, lhs), parenExpr(p, rhs));
-
-public Expr parenExpr(p:sub(lhs, rhs)) = 
-  sub(parenExpr(p, lhs), parenExpr(p, rhs));
-
-public Expr parenExpr(p:lt(lhs, rhs)) = 
-  lt(parenExpr(p, lhs), parenExpr(p, rhs));
-
-public Expr parenExpr(p:leq(lhs, rhs)) = 
-  leq(parenExpr(p, lhs), parenExpr(p, rhs));  
-
-public Expr parenExpr(p:gt(lhs, rhs)) = 
-  gt(parenExpr(p, lhs), parenExpr(p, rhs));
-
-public Expr parenExpr(p:geq(lhs, rhs)) = 
-  geq(parenExpr(p, lhs), parenExpr(p, rhs));
-
-public Expr parenExpr(p:eq(lhs, rhs)) = 
-  eq(parenExpr(p, lhs), parenExpr(p, rhs));  
-
-public Expr parenExpr(p:neq(lhs, rhs)) = 
-  neq(parenExpr(p, lhs), parenExpr(p, rhs));
-  
-public Expr parenExpr(p:and(lhs, rhs)) = 
-  and(parenExpr(p, lhs), parenExpr(p, rhs));
-
-public Expr parenExpr(p:or(lhs, rhs)) = 
-  or(parenExpr(p, lhs), parenExpr(p, rhs));
-
-public Expr parenExpr(Expr e) = e;
-
-// Private stuff
-
-private Expr parenExpr(Expr parent, Expr kid) =
-  parens(parent, kid, parenExpr(kid), parenizer);
-
+/*
+ * Each expression that needs parentheses around it will receive an annotation.
+ * This way, the PrettyPrinter knows when to print parentheses. 
+ */
 private Expr parenizer(Expr e) {
   return e@parentheses = true;
 }
 
-// From: Oberon0 :: TODO cleanup
+private Expr parenizeExpr(Expr parent, Expr kid) =
+  parens(parent, kid, parenizeExpr(kid), parenizer);
 
-//private DoNotNest getQLPrios() = doNotNest(grammar({}, #lang::ql::syntax::QL::Form.definitions));
-//private DoNotNest PRIOS = getQLPrios();
 private DoNotNest PRIOS = 
   doNotNest(grammar({}, #lang::ql::syntax::QL::Form.definitions));
 
-public &T parens(node parent, node kid, &T x,  &T(&T x) parenizer) = parens(PRIOS, parent, kid, x, parenizer);
+private &T parens(node parent, node kid, &T x,  &T(&T x) parenizer) = 
+  parens(PRIOS, parent, kid, x, parenizer);
+  
+public Expr parenizeExpr(p:pos(val)) = 
+  pos(parenizeExpr(p, val));
+  
+public Expr parenizeExpr(p:neg(val)) = 
+  neg(parenizeExpr(p, val));
 
-public &T parens(DoNotNest prios, node parent, node kid, &T x,  &T(&T x) parenizer) = parenizer(x)
-  when 
-     <pprod, pos, kprod> <- prios,
-     pprod.def has name,
-     kprod.def has name, 
-     pprod.def.name == getName(parent), 
-     kprod.def.name == getName(kid),
-     parent[astPosition(pos, pprod)] == kid;
+public Expr parenizeExpr(p:not(val)) = 
+  not(parenizeExpr(p, val));
 
-private int astPosition(int pos, Production p)
-  = ( -1 | it + 1 | i <- [0,1..pos], isASTsymbol(p.symbols[i]) );
+public Expr parenizeExpr(p:mul(lhs, rhs)) = 
+  mul(parenizeExpr(p, lhs), parenizeExpr(p, rhs));
 
-public bool isASTsymbol(\layouts(_)) = false; 
-public bool isASTsymbol(\keywords(str name)) = false;
-public bool isASTsymbol(\lit(str string)) = false;
-public bool isASTsymbol(\cilit(str string)) = false;
-// This does not work, but is also not in doNotNest result...  
-// public bool isASTsymbol(\conditional(_, _)) = false;
-public bool isASTsymbol(\empty()) = false;
-public default bool isASTsymbol(Symbol _) = true;
+public Expr parenizeExpr(p:div(lhs, rhs)) = 
+  div(parenizeExpr(p, lhs), parenizeExpr(p, rhs));
 
-public default &T parens(DoNotNest prios, node parent, node kid, &T x,  &T(&T x) parenizer) = x;
+public Expr parenizeExpr(p:add(lhs, rhs)) = 
+  add(parenizeExpr(p, lhs), parenizeExpr(p, rhs));
+
+public Expr parenizeExpr(p:sub(lhs, rhs)) = 
+  sub(parenizeExpr(p, lhs), parenizeExpr(p, rhs));
+
+public Expr parenizeExpr(p:lt(lhs, rhs)) = 
+  lt(parenizeExpr(p, lhs), parenizeExpr(p, rhs));
+
+public Expr parenizeExpr(p:leq(lhs, rhs)) = 
+  leq(parenizeExpr(p, lhs), parenizeExpr(p, rhs));  
+
+public Expr parenizeExpr(p:gt(lhs, rhs)) = 
+  gt(parenizeExpr(p, lhs), parenizeExpr(p, rhs));
+
+public Expr parenizeExpr(p:geq(lhs, rhs)) = 
+  geq(parenizeExpr(p, lhs), parenizeExpr(p, rhs));
+
+public Expr parenizeExpr(p:eq(lhs, rhs)) = 
+  eq(parenizeExpr(p, lhs), parenizeExpr(p, rhs));  
+
+public Expr parenizeExpr(p:neq(lhs, rhs)) = 
+  neq(parenizeExpr(p, lhs), parenizeExpr(p, rhs));
+
+public Expr parenizeExpr(p:and(lhs, rhs)) = 
+  and(parenizeExpr(p, lhs), parenizeExpr(p, rhs));
+
+public Expr parenizeExpr(Expr e) = e;
