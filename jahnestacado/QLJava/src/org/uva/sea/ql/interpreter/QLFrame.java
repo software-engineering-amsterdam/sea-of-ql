@@ -5,14 +5,21 @@ import javax.swing.JFrame;
 public class QLFrame {
 	private final JFrame frame;
 	
-	public QLFrame(){
-		frame=new JFrame();
+	public QLFrame(JFrame frame){
+		this.frame=frame;
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setResizable(false);
+		frame.setResizable(false);       
 	}
 	
-	public JFrame getQLFrame(){
+	public static JFrame createQLFrame(){
+		QLFrame frame=new QLFrame(new JFrame());
+		return frame.getJFrame();
+	}
+	
+	private JFrame getJFrame(){
 		return frame;
 	}
-
+	
+	
+  
 }

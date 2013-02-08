@@ -22,7 +22,7 @@ public class Main {
 		if (ElementChecker.checkQL(parsedForm)) {
             List<JPanel> questionList = new ArrayList<JPanel>();
 			Map<String, Value> declaredVar = new HashMap<String, Value>();
-			JFrame frame = new QLFrame().getQLFrame();
+			JFrame frame = QLFrame.createQLFrame();
 			new SwingVisitor(questionList, declaredVar).generate(parsedForm,frame);
 
 		}

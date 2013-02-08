@@ -48,10 +48,8 @@ public class QLGenButton implements ActionListener {
 	public void actionPerformed(ActionEvent arg0) {
 		hasError=false;
 		getOutputData();
-		showM();
-		//QLToPDF.createPdf(frame.getTitle(), questionLabels, questionValues);
-		//QLToJSON.generateJson(frame.getTitle(), questionLabels, questionValues);
-
+		showSelectorDialog();
+	
 	}
 
 	private void getOutputData() {
@@ -88,7 +86,7 @@ public class QLGenButton implements ActionListener {
 		if (label.getName().equals("WARNING") ){
 			if(text.isEmpty()) return;
 			hasError=true;
-			showMessage();
+			showSelectorDialogessage();
 			return;
 		}
 		questionLabels.add(text);
@@ -112,36 +110,14 @@ public class QLGenButton implements ActionListener {
 		questionValues.add(state.toString());
 	}
 	
-	private void showMessage(){
+	private void showSelectorDialogessage(){
 		  JOptionPane.showMessageDialog(frame,"Wrong input.Check input warnings!");
 
 	}
 	
-	private void showM(){
-		 String [] comboSelection = new String[]{"PDF","JSON"};
-
-		JFrame f1=new JFrame();
-		f1.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-		JPanel comboBoxPanel=new JPanel(new MigLayout());
-		JPanel buttonPanel=new JPanel(new MigLayout());
-
-		JLabel label=new JLabel("Choose format");
-		JComboBox cb=new JComboBox(comboSelection);
-		
-		JButton b=new JButton("Generate");
-		
-		comboBoxPanel.add(label,"align label");
-		comboBoxPanel.add(cb,"align label,wrap");
-		
-		buttonPanel.add(b,"align label"); 
-		
-		JPanel p2=new JPanel(new MigLayout());
-		p2.add(comboBoxPanel,"align label,wrap");
-		p2.add(buttonPanel,"align label");
-		f1.add(p2);
-		f1.pack();
-		f1.setVisible(true);
+	private void showSelectorDialog(){
+		String formName=frame.getTitle();
+		QLOutputSelectorFrame.showFormatSelector(formName,questionLabels, questionValues);
 		
 	}
 

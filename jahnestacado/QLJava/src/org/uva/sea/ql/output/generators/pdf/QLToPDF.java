@@ -42,7 +42,6 @@ public class QLToPDF {
     
     private void putContent(String frameName){
         try {
-    		
 			String path = "src/org/uva/sea/ql/output/pdf/"+frameName+".pdf";
 			File filePath = new File(path);
             OutputStream file = new FileOutputStream(filePath.getAbsolutePath());
@@ -66,9 +65,9 @@ public class QLToPDF {
  
             document.close();
             file.close();
+
  
         } catch (Exception e) {
- 
             e.printStackTrace();
         }
     }

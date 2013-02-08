@@ -17,7 +17,6 @@ public class Renderer {
 
 	public Renderer(List<JPanel> questionPanelList, JFrame frame) {
 		this.frame = frame;
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setResizable(false);
 		this.questionPanelList = questionPanelList;
 		content = new JPanel(new MigLayout());
@@ -33,15 +32,16 @@ public class Renderer {
 		}
         content.add(QLGenButton.responsiveButton(questionPanelList,frame),"align center");
 		JPanel containerPanel = new JPanel();
-		
 		containerPanel.add(content);
 		frame.add(containerPanel);
 		frame.pack();
+		frame.setLocationRelativeTo(null);
 		frame.setVisible(true);
 	}
 
 	public void refresh() {   
 		cleanOldPanels();
+
 		addQuestionsToPanel();
 
 	}
