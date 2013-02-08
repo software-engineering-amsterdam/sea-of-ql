@@ -7,6 +7,36 @@ import util::Load;
 import typeChecker::ExpressionTypeChecker;
 import typeChecker::TypeEnvironment;
 
+Type findExpressionType(Expression exp, QLTENV env){
+	println("In find exp : <toString(getChildren(exp))>");
+	println("ENV : <env>");
+	str s = toString(getChildren(exp)[0]);
+	println("S : <s>");
+	for(b <- env.question){
+		println("B : <b>");
+		if(b.id == s){
+			println("match");
+			return b.tp;
+		}
+	}
+}
+
+set[Type] getExpressionType(Expression exp, QLTENV env){
+	println("in get EXpression Type : <exp>");
+	println("Type is : <env.question>");
+	// Making a set to check the two types
+	set[Type] types = {};
+	println("SHOW CHILDREN : <getChildren(exp)>");
+	for(s <- getChildren(exp)){
+		println("S is : <s>");
+		Type tp = findExpressionType(s, env);
+		println("Tp is : <tp>");
+		types += tp;
+	}
+	return types;
+}
+
+
 /** Method to check if statement 
 * @param statement the if statement
 * @param env the QL Type environment
@@ -14,8 +44,8 @@ import typeChecker::TypeEnvironment;
 * @author Philipp
 */
 QLTENV checkStatement(statement:ifStat(Expression exp, list[Body] body), QLTENV env){
-    println("EXP : <getChildren(exp)> <exp>"); 
-    //println("BODY : <body>");
+    println("EXP : <exp>"); 
+    println("ENV : <env>");
     // I need to get the type of the exp if it is an id
     QLTENV env0 = <{},[]>;
     if(size(getChildren(exp)) == 1){  // if the node is currently just a boolean
@@ -23,9 +53,17 @@ QLTENV checkStatement(statement:ifStat(Expression exp, list[Body] body), QLTENV 
     	println("b : <b>");
     	return b;
     }else{
-    	b = checkExp(exp,integer() ,env);
+    	// Get the type of the exp
+    	set[Type] tp = getExpressionType(exp,env);
+    	if(size(tp) == 1){
+    	b = checkExp(exp,getOneFrom(tp),env);
     	println("b : <b>");
     	return b;
+    	}else{
+    		//Error Handling
+    		println();
+    		return 0;
+    	}
     }
    
     visit(exp){

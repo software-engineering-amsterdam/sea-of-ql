@@ -69,23 +69,23 @@ public QLTENV checkExp(exp:and(Expression E1, Expression E2), Type req, QLTENV e
                    : addError(env, exp@location, required(req, "string"));
                    
 // CHECK INTEGER EXPRESSIONS                 
-public QLTENV checkExp(exp:add(Expression E1, Expression E2), Type req, QLTENV env) =                        
+public QLTENV checkExp(exp:add(int E1, Expression E2), Type req, QLTENV env) =                        
   req == integer() ? checkExp(E1, integer(), checkExp(E2, integer(), env))
                    : addError(env, exp@location, required(req, "integer"));
   
-public QLTENV checkExp(exp:sub(Expression E1, Expression E2), Type req, QLTENV env) =                      
+public QLTENV checkExp(exp:sub(int E1, Expression E2), Type req, QLTENV env) =                      
   req == integer() ? checkExp(E1, integer(), checkExp(E2, integer(), env))
                    : addError(env, exp@location, required(req, "integer"));
                    
-public QLTENV checkExp(exp:mul(Expression E1, Expression E2), Type req, QLTENV env) =                      
+public QLTENV checkExp(exp:mul(int E1, Expression E2), Type req, QLTENV env) =                      
   req == integer() ? checkExp(E1, integer(), checkExp(E2, integer(), env))
                    : addError(env, exp@location, required(req, "integer"));
                    
-public QLTENV checkExp(exp:div(Expression E1, Expression E2), Type req, QLTENV env) =                      
+public QLTENV checkExp(exp:div(int E1, Expression E2), Type req, QLTENV env) =                      
   req == integer() ? checkExp(E1, integer(), checkExp(E2, integer(), env))
                    : addError(env, exp@location, required(req, "integer"));
                    
-public QLTENV checkExp(exp:lt(Expression E1, Expression E2), Type req, QLTENV env) {                    
+public QLTENV checkExp(exp:lt(int E1, Expression E2), Type req, QLTENV env) {                    
   println("In lt");
   println("env : <env>");
   println("E1 : <E1>");
@@ -95,14 +95,14 @@ public QLTENV checkExp(exp:lt(Expression E1, Expression E2), Type req, QLTENV en
                    : addError(env, exp@location, required(req, "integer test"));
                    }
                    
-public QLTENV checkExp(exp:leq(Expression E1, Expression E2), Type req, QLTENV env) =                      
+public QLTENV checkExp(exp:leq(int E1, Expression E2), Type req, QLTENV env) =                      
   req == integer() ? checkExp(E1, integer(), checkExp(E2, integer(), env))
                    : addError(env, exp@location, required(req, "integer"));
                    
-public QLTENV checkExp(exp:gt(Expression E1, Expression E2), Type req, QLTENV env) {                      
-  println("In gt Integer : E1 : <E1>");
-  println("In gt Integer : req : <req>");
-  println("In gt Integer : env : <env>");
+public QLTENV checkExp(exp:gt(int E1, Expression E2), Type req, QLTENV env) {                      
+ // println("In gt Integer : E1 : <E1>");
+  //println("In gt Integer : req : <req>");
+  //println("In gt Integer : env : <env>");
   // Now compare both types 
   if(E1 == req){
   		println("not equal");
@@ -114,11 +114,11 @@ public QLTENV checkExp(exp:gt(Expression E1, Expression E2), Type req, QLTENV en
                    }
    }
 
-public QLTENV checkExp(exp:geq(Expression E1, Expression E2), Type req, QLTENV env) =                      
+public QLTENV checkExp(exp:geq(int E1, Expression E2), Type req, QLTENV env) =                      
   req == integer() ? checkExp(E1, integer(), checkExp(E2, integer(), env))
                    : addError(env, exp@location, required(req, "integer"));
                    
-public QLTENV checkExp(exp:eq(Expression E1, Expression E2), Type req, QLTENV env) =                      
+public QLTENV checkExp(exp:eq(int E1, Expression E2), Type req, QLTENV env) =                      
   req == integer() ? checkExp(E1, integer(), checkExp(E2, integer(), env))
                    : addError(env, exp@location, required(req, "integer"));
 
@@ -139,9 +139,11 @@ public QLTENV checkExp(exp:div(Expression E1, Expression E2), Type req, QLTENV e
   req == money() ? checkExp(E1, money(), checkExp(E2, money(), env))
                    : addError(env, exp@location, required(req, "money"));
                    
-public QLTENV checkExp(exp:lt(Expression E1, Expression E2), Type req, QLTENV env) =                      
-  req == money() ? checkExp(E1, money(), checkExp(E2, money(), env))
+public QLTENV checkExp(exp:lt(Expression E1, Expression E2), Type req, QLTENV env) {                     
+ println("IN CHECK EXP MONEY LESS THAN");
+ return req == money() ? checkExp(E1, money(), checkExp(E2, money(), env))
                    : addError(env, exp@location, required(req, "money"));
+                   }
                    
 public QLTENV checkExp(exp:leq(Expression E1, Expression E2), Type req, QLTENV env) =                      
   req == money() ? checkExp(E1, money(), checkExp(E2, money(), env))
