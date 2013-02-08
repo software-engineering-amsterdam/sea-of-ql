@@ -8,6 +8,7 @@ import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -15,7 +16,8 @@ import javax.swing.JPanel;
 import javax.swing.JSpinner;
 import javax.swing.JTextField;
 
-import pdfgenerator.PdfGen;
+import net.miginfocom.swing.MigLayout;
+
 
 public class QLGenButton implements ActionListener {
 
@@ -24,6 +26,7 @@ public class QLGenButton implements ActionListener {
 	private List<String> questionLabels;
 	private List<String> questionValues;
 	private final JFrame frame;
+	@SuppressWarnings("unused")
 	private boolean hasError;
 
 	private QLGenButton(List<JPanel> questionPanelList,JFrame frame) {
@@ -45,22 +48,23 @@ public class QLGenButton implements ActionListener {
 	public void actionPerformed(ActionEvent arg0) {
 		hasError=false;
 		getOutputData();
-		PdfGen.createPdf(frame.getTitle(), questionLabels, questionValues);
+		showM();
+		//QLToPDF.createPdf(frame.getTitle(), questionLabels, questionValues);
+		//QLToJSON.generateJson(frame.getTitle(), questionLabels, questionValues);
+
 	}
 
 	private void getOutputData() {
 		questionLabels = new ArrayList<String>();
         questionValues = new ArrayList<String>();
-		int questionNumber = 0;
 		for (JPanel question : questionPanelList) {
 			
-			questionNumber++;
 			Component[] components = question.getComponents();
 
 			for (int i = 0; i < components.length; i++) {
 			
 				if (components[i] instanceof JLabel) {
-					getJLabelValue(components[i], questionNumber);
+					getJLabelValue(components[i]);
 				}
 				if (components[i] instanceof JSpinner) {
 					getJSpinnerValue(components[i]);
@@ -77,7 +81,7 @@ public class QLGenButton implements ActionListener {
 		
 	}
 
-	private void getJLabelValue(Component component, int questionNumber) {
+	private void getJLabelValue(Component component) {
 		JLabel label = (JLabel) component;
 		String text = label.getText();
 		
@@ -87,7 +91,7 @@ public class QLGenButton implements ActionListener {
 			showMessage();
 			return;
 		}
-		questionLabels.add(questionNumber + ". " + text);
+		questionLabels.add(text);
 	}
 
 	private void getJSpinnerValue(Component component) {
@@ -111,6 +115,34 @@ public class QLGenButton implements ActionListener {
 	private void showMessage(){
 		  JOptionPane.showMessageDialog(frame,"Wrong input.Check input warnings!");
 
+	}
+	
+	private void showM(){
+		 String [] comboSelection = new String[]{"PDF","JSON"};
+
+		JFrame f1=new JFrame();
+		f1.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+		JPanel comboBoxPanel=new JPanel(new MigLayout());
+		JPanel buttonPanel=new JPanel(new MigLayout());
+
+		JLabel label=new JLabel("Choose format");
+		JComboBox cb=new JComboBox(comboSelection);
+		
+		JButton b=new JButton("Generate");
+		
+		comboBoxPanel.add(label,"align label");
+		comboBoxPanel.add(cb,"align label,wrap");
+		
+		buttonPanel.add(b,"align label"); 
+		
+		JPanel p2=new JPanel(new MigLayout());
+		p2.add(comboBoxPanel,"align label,wrap");
+		p2.add(buttonPanel,"align label");
+		f1.add(p2);
+		f1.pack();
+		f1.setVisible(true);
+		
 	}
 
 }

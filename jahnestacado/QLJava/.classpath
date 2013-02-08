@@ -5,6 +5,7 @@
 	<classpathentry exported="true" kind="lib" path="lib/miglayout-4.0.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/itextpdf-5.3.5.jar"/>
 	<classpathentry kind="lib" path="lib/antlr-3.4-complete-no-antlrv2.jar"/>
+	<classpathentry kind="lib" path="lib/json-simple-1.1.1.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
 	<classpathentry kind="var" path="ANTLR_HOME/antlr.jar" sourcepath="ANTLR_HOME/antlrsrc.zip"/>
 	<classpathentry kind="output" path="bin"/>
