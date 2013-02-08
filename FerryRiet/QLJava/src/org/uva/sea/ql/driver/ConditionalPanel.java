@@ -9,7 +9,7 @@ import org.uva.sea.ql.ast.Expr;
 import org.uva.sea.ql.ast.LineStatement;
 import org.uva.sea.ql.ast.nodevisitor.VisitorResult;
 
-public class ConditionalPanel implements VisitorResult {
+public class ConditionalPanel extends Panel {
 	private Expr trueExpr;
 	private boolean visible = false;
 

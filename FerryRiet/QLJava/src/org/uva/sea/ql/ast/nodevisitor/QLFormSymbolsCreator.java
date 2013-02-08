@@ -36,13 +36,14 @@ import org.uva.sea.ql.ast.operators.Sub;
 import org.uva.sea.ql.ast.types.TypeDescription;
 import org.uva.sea.ql.driver.CompoundPanel;
 import org.uva.sea.ql.driver.ConditionalPanel;
+import org.uva.sea.ql.driver.LinePanel;
 import org.uva.sea.ql.driver.Panel;
 
 public class QLFormSymbolsCreator implements Visitor {
 	private String formName;
 	private HashMap<String, ExpressionResult> symbols = new HashMap<String, ExpressionResult>();
 	private ArrayList<Panel> panels = new ArrayList<Panel>();
-	private Stack<ArrayList<Panel>> panelStack = new Stack<ArrayList<Panel>>();
+	private Stack<ArrayList<LinePanel>> panelStack = new Stack<ArrayList<LinePanel>>();
 
 	public String getFormName() {
 		return formName;
@@ -63,7 +64,7 @@ public class QLFormSymbolsCreator implements Visitor {
 		CompoundPanel cPanel = new CompoundPanel();
 
 		for (Statement statement : compoundBlock.getStatementList()) {
-			Panel newPanel = statement.accept(this);
+			Panel newPanel = (Panel) statement.accept(this);
 			cPanel.addPanel(newPanel);
 		}
 		return cPanel;
@@ -71,11 +72,11 @@ public class QLFormSymbolsCreator implements Visitor {
 
 	@Override
 	public VisitorResult visit(LineStatement lineStatement) {
-		Panel newPanel;
+		LinePanel newPanel;
 		symbols.put(lineStatement.getLineName(),
 				lineStatement.getTypeContainer());
 
-		newPanel = new Panel(lineStatement);
+		newPanel = new LinePanel(lineStatement);
 
 		return newPanel;
 	}
@@ -90,9 +91,11 @@ public class QLFormSymbolsCreator implements Visitor {
 				conditionalStatement);
 		// newPanel = new ConditionalPanel(conditionalStatement) ;
 
-		conditionalPanel.setcThenPanel((CompoundPanel)conditionalStatement.getTrueCompound().accept(this));
+		conditionalPanel.setcThenPanel((CompoundPanel) conditionalStatement
+				.getTrueCompound().accept(this));
 		if (conditionalStatement.getFalseCompound() != null) {
-			conditionalPanel.setcElsePanel((CompoundPanel)conditionalStatement.getFalseCompound().accept(this));
+			conditionalPanel.setcElsePanel((CompoundPanel) conditionalStatement
+					.getFalseCompound().accept(this));
 		}
 		return conditionalPanel;
 	}

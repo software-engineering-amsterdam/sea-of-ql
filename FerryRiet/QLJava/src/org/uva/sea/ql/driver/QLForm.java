@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
+import javax.sound.sampled.Line;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -49,6 +50,13 @@ public class QLForm extends JFrame implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		System.out.println("action performed");
+		
+		LinePanel linePanel = (LinePanel) cPanel.isActionSource(e) ;
+		
+		if ( linePanel != null) {
+			symbols.put(linePanel.getFieldName(),linePanel.getFieldValue()) ;
+		}
+	
 
 		printMap(symbols);
 
