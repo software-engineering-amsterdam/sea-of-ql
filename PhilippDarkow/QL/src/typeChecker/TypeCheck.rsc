@@ -14,20 +14,38 @@ import typeChecker::TypeEnvironment;
 * @author Philipp
 */
 QLTENV checkStatement(statement:ifStat(Expression exp, list[Body] body), QLTENV env){
-    println("EXP : <exp>"); 
+    println("EXP : <getName(exp)> <exp>"); 
+    // I need to get the type of the exp if it is an id
     QLTENV env0 = <{},[]>;
+    if(getName(exp) == "id"){  // if the node is currently just a boolean
+    	b = checkExpr(exp,boolean(),env);
+    	println("b : <b>");
+    	return b;
+    }else{    
     visit(exp){
-    	case int i : {
-    		println("exp is int");
+    	case int g : {
+    		println("exp is int <exp>");
     		env0 = checkExp(exp, integer(), env);
+    		println("ENV0 : <env0>");
+    		return env0;
     	}
     	case real m : {
     		println("exp is money");
     		env0 = checkExp(exp, money(), env);
+    		return env0;
+    	}
+    	case bool b : {
+    		println("exp is boolean");
+    		env0 = checkExp(exp, boolean(), env);
+    		return env0;
+    	}
+    	case str s : {
+    		println("exp is string");
+    		env0 = checkExp(exp, string(), env);
+    		return env0;
     	}
     }
-    //env0 = checkExp(exp, boolean(), env);
-    println(env0);
+    }
     if(size(env0.errors) != 0)
     	return addError(env0, env0.errors[0].l, env0.errors[0].msg);   // check standart libary Message !!!
     return env;
@@ -98,16 +116,20 @@ bool checkIdentifiers(QLTENV env){
 * @author Philipp
 */
 QLTENV checkBody(list[Body] Body, QLTENV env){
-	for(s <- Body){
+	//for(s <- Body){
 	visit(Body){
      	case Question q : {
+     			println("IN small q <q>");
+    			println("ENV : <env>");
     			env = checkQuestion(q,env);
     	    }
         case Statement s: {
+        		println("IN small s <s>");
+        		println("ENV : <env>");
         		env = checkStatement(s,env);
         	}
       };
-	}
+	//}
 	return env;
 }
 
