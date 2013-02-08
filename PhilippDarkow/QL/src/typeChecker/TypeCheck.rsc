@@ -8,12 +8,12 @@ import typeChecker::ExpressionTypeChecker;
 import typeChecker::TypeEnvironment;
 
 Type findExpressionType(Expression exp, QLTENV env){
-	println("In find exp : <toString(getChildren(exp))>");
-	println("ENV : <env>");
+	//println("In find exp : <toString(getChildren(exp))>");
+	//println("ENV : <env>");
 	str s = toString(getChildren(exp)[0]);
-	println("S : <s>");
+	//println("S : <s>");
 	for(b <- env.question){
-		println("B : <b>");
+		//println("B : <b>");
 		if(b.id == s){
 			println("match");
 			return b.tp;
@@ -21,17 +21,21 @@ Type findExpressionType(Expression exp, QLTENV env){
 	}
 }
 
-set[Type] getExpressionType(Expression exp, QLTENV env){
+list[Type] getExpressionType(Expression exp, QLTENV env){
 	println("in get EXpression Type : <exp>");
 	println("Type is : <env.question>");
 	// Making a set to check the two types
-	set[Type] types = {};
+	list[Type] types = [];
 	println("SHOW CHILDREN : <getChildren(exp)>");
 	for(s <- getChildren(exp)){
 		println("S is : <s>");
 		Type tp = findExpressionType(s, env);
 		println("Tp is : <tp>");
-		types += tp;
+		if(tp in types){
+			println("dont add");
+		}else{
+			types += tp;
+		}
 	}
 	return types;
 }
@@ -54,45 +58,36 @@ QLTENV checkStatement(statement:ifStat(Expression exp, list[Body] body), QLTENV 
     	return b;
     }else{
     	// Get the type of the exp
-    	set[Type] tp = getExpressionType(exp,env);
+    	list[Type] tp = getExpressionType(exp,env);
+    	println("LIST IS : <tp> SIZE : <size(tp)>");
     	if(size(tp) == 1){
-    	b = checkExp(exp,getOneFrom(tp),env);
-    	println("b : <b>");
-    	return b;
+    		if(tp[0] == integer()){
+    		b = checkIntExp(exp,tp[0],env);
+    		return b;
+    		}else{
+    		b = checkExp(exp,tp[0],env);
+    		return b;
+    		}
+    		println("b : <b>");
+    		return b;
     	}else{
     		//Error Handling
-    		println();
-    		return 0;
-    	}
-    }
-   
-    visit(exp){
-    	case int g : {
-    		println("exp is int <exp>");
-    		env0 = checkExp(exp, integer(), env);
-    		println("ENV0 : <env0>");
-    		return env0;
-    	}
-    	case real m : {
-    		println("exp is money");
-    		env0 = checkExp(exp, money(), env);
-    		return env0;
-    	}
-    	case bool b : {
-    		println("exp is boolean");
-    		env0 = checkExp(exp, boolean(), env);
-    		return env0;
-    	}
-    	case str s : {
-    		println("exp is string : <s>");
-    		env0 = checkExp(exp, string(), env);
-    		return env0;
+    		println("tp is  : <tp>");
+    		if(tp[0] == integer()){
+    			b = checkIntExp(exp,tp[0],env);
+    			println("b2 : <b>");
+    			return b;	
+    		}else{
+    		b = checkExp(exp,tp[0],env);
+    		println("b2 : <b>");
+    		return b;
+    		}
     	}
     }
 
-    if(size(env0.errors) != 0)
-    	return addError(env0, env0.errors[0].l, env0.errors[0].msg);   // check standart libary Message !!!
-    return env;
+   // if(size(env0.errors) != 0)
+   // 	return addError(env0, env0.errors[0].l, env0.errors[0].msg);   // check standart libary Message !!!
+   // return env;
 }
 
 // check if else statement
@@ -169,9 +164,9 @@ QLTENV checkBody(list[Body] Body, QLTENV env){
     	    }
         case Statement s: {
         		println("IN small s <s>");
-        		println("ENV : <env>");
+        		//println("ENV : <env>");
         		env = checkStatement(s,env);
-        		println("ENV2 : <env>");
+        		//println("ENV2 : <env>");
         	}
       };
 	//}
