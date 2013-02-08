@@ -80,3 +80,5 @@ public test bool testMoney3() = p("1000,99") is moneyCon;
 public test bool testString1() = p("\"How are you\"") is string;
 public test bool testString2() = p("\"String with numbers 321\"") is string;
 public test bool testString3() = p("\"String with specials : ?\"") is string;
+
+//public test bool testNegateBoolean() = p("!true") is not;

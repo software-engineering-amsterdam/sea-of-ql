@@ -34,6 +34,7 @@ public data Expression =
 	| geq (Expression left, Expression right)
 	| eq (Expression left, Expression right)
 	| neq (Expression left, Expression right)
+	| not(Expression exp)
 	| boolCon (bool bVal)
 	| moneyCon (str mVal)
 	| string (str sVal)

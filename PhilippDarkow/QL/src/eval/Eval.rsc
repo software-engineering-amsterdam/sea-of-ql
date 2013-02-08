@@ -4,11 +4,13 @@ import Prelude;
 import syntax::AbstractSyntax;
 import util::Load;
 import eval::EvalTypeEnvironment;
+import eval::ExpressionEval;
 
 // Evaluate a statement	
 VENV evalStatement(statement:ifStat(Expression exp, list[Body] body), VENV env){
-	println("in eval Statement <exp>");
-	evalExp(exp,env);	
+	println("in eval Statement <getChildren(exp)>");
+	list[str id] temp = getChildren(exp);
+	return evalExp(exp,env);	
 }
 
 
@@ -54,9 +56,11 @@ VENV evalBody(list[Body] Body, VENV env){
 		case Question q : {
 			println("In Q : <q>");
 			env = evalQuestion(q, env);
+			println("ENV : <env>");
 		}
 		case Statement s : {
 			println("in S : <s>");
+			println("in S : <env>");
 			env = evalStatement(s,env);
 		}
 	}

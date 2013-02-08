@@ -30,14 +30,18 @@ println("IN CHECK INT : <req>");
 //
 //}
  
-public QLTENV checkExpr(exp:id(str id), Type req, QLTENV env) {
+public QLTENV checkExp(exp:id(str id), Type req, QLTENV env) {
 	println("!!!!!!!!!!!!!!!");
   if(env.question[id] == {}){
   	return addError(env, exp@location, "Undeclared variable <id>");
   }else{
   rel[Type tp, bool result] tpid = range(env.question[id]);
   println("TPID : <toList(tpid.tp)> req : <req> ");
-  list[Type] result = toList(tpid.tp); 
+  list[Type] result = toList(tpid.tp);
+  println("LIST RESULT : <result> REQ : <req>"); 
+  if(req == result[0]){
+  	println("EQUAL TYPE");
+  }
   return req == result[0] ? env : addError(env, exp@location, required(req, result[0]));
   }  
 }
@@ -51,6 +55,10 @@ public QLTENV checkExp(exp:or(Expression E1, Expression E2), Type req, QLTENV en
   req == boolean() ? checkExp(E1, boolean(), checkExp(E2, boolean(), env))
                    : addError(env, exp@location, required(req, "boolean")); 
 
+public QLTENV checkExp(exp:not(Expression E1), Type req, QLTENV env) =                      
+  req == boolean() ? checkExp(E1, boolean(), env)
+                   : addError(env, exp@location, required(req, "boolean")); 
+                   
 // CHECK STRING EXPRESSIONS                    
 public QLTENV checkExp(exp:or(Expression E1, Expression E2), Type req, QLTENV env) =                    
   req == string() ? checkExp(E1, string(), checkExp(E2, string(), env))
@@ -79,8 +87,12 @@ public QLTENV checkExp(exp:div(Expression E1, Expression E2), Type req, QLTENV e
                    
 public QLTENV checkExp(exp:lt(Expression E1, Expression E2), Type req, QLTENV env) {                    
   println("In lt");
+  println("env : <env>");
+  println("E1 : <E1>");
+  println("E2 : <E2>");
+  //println("<checkExp(E1, integer(), checkExp(E2, integer(), env))>");
   return req == integer() ? checkExp(E1, integer(), checkExp(E2, integer(), env))
-                   : addError(env, exp@location, required(req, "integer"));
+                   : addError(env, exp@location, required(req, "integer test"));
                    }
                    
 public QLTENV checkExp(exp:leq(Expression E1, Expression E2), Type req, QLTENV env) =                      
