@@ -4,7 +4,7 @@ import org.uva.sea.ql.ast.ASTNode;
 import org.uva.sea.ql.ast.Block;
 import org.uva.sea.ql.ast.expr.Ident;
 
-public class QLForm implements ASTNode {
+public class QLForm implements ASTNode, QLItem {
 	private final Ident name;
 	private final Block<QLItem> blockItems;
 	
