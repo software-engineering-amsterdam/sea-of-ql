@@ -2,7 +2,9 @@ package org.uva.sea.ql.ast.exp;
 
 import static julius.validation.Assertions.state;
 
-public abstract class Binary extends Expression {
+import org.uva.sea.ql.ast.Valuable;
+
+public abstract class Binary extends Expression implements Valuable {
 
 	private final Expression left;
 	private final Expression right;
@@ -28,4 +30,11 @@ public abstract class Binary extends Expression {
 	public Expression getRight() {
 		return right;
 	}
+
+	@Override
+	public String toString() {
+		return getClass().getSimpleName() + " [left=" + left + ", right="
+				+ right + ", Nature=" + getNature() + "]";
+	}
+
 }

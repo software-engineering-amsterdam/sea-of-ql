@@ -2,7 +2,9 @@ package org.uva.sea.ql.ast.exp;
 
 import static julius.validation.Assertions.state;
 
-public abstract class Unary extends Expression {
+import org.uva.sea.ql.ast.Valuable;
+
+public abstract class Unary extends Expression implements Valuable {
 
 	private final Expression operation;
 
@@ -19,4 +21,11 @@ public abstract class Unary extends Expression {
 	public Expression getOperation() {
 		return operation;
 	}
+
+	@Override
+	public String toString() {
+		return getClass().getSimpleName() + "[operation=" + operation
+				+ ", Nature=" + getNature() + "]";
+	}
+
 }

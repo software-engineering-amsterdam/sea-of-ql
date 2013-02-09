@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
+import javax.sound.sampled.Line;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -13,21 +14,22 @@ import javax.swing.border.EmptyBorder;
 import net.miginfocom.swing.MigLayout;
 
 import org.uva.sea.ql.ast.QLProgram;
-import org.uva.sea.ql.ast.nodevisitor.QLFormSymbolsCreator;
-import org.uva.sea.ql.ast.operators.ExpressionResult;
+import org.uva.sea.ql.ast.literals.Result;
+import org.uva.sea.ql.ast.visitor.QLFormCreator;
 
 public class QLForm extends JFrame implements ActionListener {
 	private static final long serialVersionUID = 1L;
 	private String formName;
-	private HashMap<String, ExpressionResult> identifiers = new HashMap<String, ExpressionResult>();
-	private HashMap<String, ExpressionResult> symbols;
+	private HashMap<String, Result> identifiers = new HashMap<String, Result>();
+	private HashMap<String, Result> symbols;
 	private JPanel contentPane;
-	QLFormSymbolsCreator symCreator = new QLFormSymbolsCreator();
+	private CompoundPanel cPanel;
+	QLFormCreator symCreator = new QLFormCreator();
 
 	public QLForm(QLProgram qlprogram) {
 		int panelCount = 0;
 
-		qlprogram.accept(symCreator);
+		cPanel = (CompoundPanel) qlprogram.accept(symCreator);
 
 		symbols = symCreator.getSymbols();
 
@@ -41,28 +43,20 @@ public class QLForm extends JFrame implements ActionListener {
 		contentPane
 				.setLayout(new MigLayout("", "[grow]", "[][][][][][][][][]"));
 
-		for (Panel panel : symCreator.getPanels()) {
-			panel.registerAt(contentPane, panelCount++);
-			panel.registerActionListener(this);
-		}
-
+		cPanel.registerAt(contentPane, 0);
+		cPanel.registerActionListener(this) ;
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		System.out.println("action performed");
-
-		for (Panel panel : symCreator.getPanels()) {
-			if (panel.actionSource(e)) {
-				System.out.println("foundid");
-				symbols.put(panel.getFieldName(), panel.getFieldValue());
-				break;
-			}
+		
+		LinePanel linePanel = (LinePanel) cPanel.isActionSource(e) ;
+		
+		if ( linePanel != null) {
+			symbols.put(linePanel.getFieldName(),linePanel.getFieldValue()) ;
 		}
-
-		for (Panel panel : symCreator.getPanels()) {
-			panel.updatecalculatedField(symbols) ;
-		}
+	
 
 		printMap(symbols);
 
@@ -75,7 +69,7 @@ public class QLForm extends JFrame implements ActionListener {
 		Iterator it = mp.entrySet().iterator();
 		while (it.hasNext()) {
 			Map.Entry pairs = (Map.Entry) it.next();
-			ExpressionResult erExpressionResult = (ExpressionResult) pairs
+			Result erExpressionResult = (Result) pairs
 					.getValue();
 			System.out.print(pairs.getKey());
 			System.out.println(" = " + erExpressionResult.getStringValue());

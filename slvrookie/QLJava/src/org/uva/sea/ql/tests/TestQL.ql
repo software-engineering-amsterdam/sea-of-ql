@@ -1,8 +1,8 @@
 form bigBox1HouseOwning {
 				   		hasSoldHouse1: "Did you sell a house in 2010?" int
-				   		hasSoldHouse2: "Did you by a house in 2010?" boolean
+				   		hasSoldHouse2: "Did you by a house in 2010?" int(3-1)
 				   		hasSoldHouse3: "Did you enter a loan for maintenance/reconstruction?" boolean
-				   			if (hasSoldHouse1 == 3){ 
+				   			if (hasSoldHouse1 >= 3){ 
 				   				hasSoldHouse4: "Price the house was sold for:" int 
 				     			hasSoldHouse5: " Private debts for the sold house:" int 
 				     			hasSoldHouse6: "Value residue:" money((3.00*3.00)+(2.00/2.00)-(3.00*3.00)) } 

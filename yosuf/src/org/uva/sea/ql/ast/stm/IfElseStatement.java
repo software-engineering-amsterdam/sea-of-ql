@@ -28,9 +28,9 @@ public class IfElseStatement extends IfStatement {
 
 	@Override
 	public String toString() {
-		return "IfElseStatement [elseCompound=" + elseCompound
-				+ ", getExpression()=" + getExpression() + ", getIfCompound()="
-				+ getIfCompound() + "]";
+		return "IfElseStatement [Expression=" + getExpression()
+				+ ", IfCompound()=" + getIfCompound() + "elseCompound="
+				+ elseCompound + "]";
 	}
 
 }

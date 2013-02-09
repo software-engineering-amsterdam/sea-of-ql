@@ -1,6 +1,7 @@
 package org.uva.sea.ql.ast.exp;
 
-import org.uva.sea.ql.visitor.ExpressionVisitor;
+import org.uva.sea.ql.visitor.NaturalVisitor;
+import org.uva.sea.ql.visitor.ValuableVisitor;
 
 public class Positive extends Unary {
 
@@ -9,7 +10,12 @@ public class Positive extends Unary {
 	}
 
 	@Override
-	public <T> T accept(final ExpressionVisitor<T> visitor) {
+	public <T> T accept(final NaturalVisitor<T> visitor) {
+		return visitor.visit(this);
+	}
+
+	@Override
+	public <T> T accept(final ValuableVisitor<T> visitor) {
 		return visitor.visit(this);
 	}
 
@@ -17,11 +23,4 @@ public class Positive extends Unary {
 	public Nature getNature() {
 		return Nature.NUMERIC;
 	}
-
-	@Override
-	public String toString() {
-		return "Positive [getNature()=" + getNature() + ", getOperation()="
-				+ getOperation() + "]";
-	}
-
 }

@@ -10,7 +10,7 @@ import java.util.Map;
 
 import julius.validation.ValidationException;
 
-import org.uva.sea.ql.ast.exp.Expression;
+import org.uva.sea.ql.ast.Natural;
 import org.uva.sea.ql.ast.exp.Identifier;
 import org.uva.sea.ql.ast.stm.CompoundStatement;
 import org.uva.sea.ql.ast.stm.Computed;
@@ -26,7 +26,7 @@ public class StatementTypeChecker implements StatementVisitor<Statement> {
 	private final List<TypeCheckException> typeErrors = new ArrayList<TypeCheckException>();
 	private final ExpressionTypeChecker expressionTypeChecker;
 
-	private final Map<Expression, Expression> environment = new HashMap<Expression, Expression>();
+	private final Map<Natural, Natural> environment = new HashMap<Natural, Natural>();
 
 	public StatementTypeChecker(
 			final ExpressionTypeChecker expressionTypeChecker) {
@@ -78,12 +78,12 @@ public class StatementTypeChecker implements StatementVisitor<Statement> {
 	}
 
 	/**
-	 * Checks whethere the given expression is of the boolean nature or refers
-	 * to any expression with such nature.
+	 * Checks whethere the given expression is of the boolean nature or refers to any expression
+	 * with such nature.
 	 * 
 	 * @param expression
 	 */
-	private void assertIfStatementExpression(final Expression expression,
+	private void assertIfStatementExpression(final Natural expression,
 			final String reference) {
 		if (environment.get(expression) != null) {
 			assertSameNature(new BooleanType(), environment.get(expression),
@@ -113,13 +113,12 @@ public class StatementTypeChecker implements StatementVisitor<Statement> {
 		return question;
 	}
 
-	private void assertSameNature(final Expression expression1,
-			final Expression expression2, final String reference) {
+	private void assertSameNature(final Natural natural,
+			final Natural natural2, final String reference) {
 
 		try {
-			checked.assertTrue(
-					expression1.getNature() == expression2.getNature(),
-					expression1 + " does not match " + expression2 + " for "
+			checked.assertTrue(natural.getNature() == natural2.getNature(),
+					natural + " does not match " + natural2 + " for "
 							+ reference);
 
 		} catch (ValidationException e) {
@@ -127,22 +126,28 @@ public class StatementTypeChecker implements StatementVisitor<Statement> {
 		}
 	}
 
-	private void visitExpression(final Expression expression) {
+	private void visitExpression(final Natural expression) {
 		expression.accept(expressionTypeChecker);
 	}
 
+	/**
+	 * This method asserts the identifier is not empty an non existing in the environment
+	 * 
+	 * @param identifier
+	 * @param natural
+	 */
 	private void assertIdentifierAndAddToEnvironment(
-			final Identifier identifier, final Expression expression) {
+			final Identifier identifier, final Natural natural) {
 		identifier.accept(expressionTypeChecker);
 
 		try {
-			checked.assertTrue(!identifier.getName().isEmpty(), expression
+			checked.assertTrue(!identifier.getName().isEmpty(), natural
 					+ " identifier cannot be empty");
 
 			checked.assertTrue(environment.get(identifier) == null,
 					identifier.getName() + " already exists");
 
-			environment.put(identifier, expression);
+			environment.put(identifier, natural);
 		} catch (ValidationException e) {
 			typeErrors.add(new TypeCheckException(e.getMessage(), e));
 		}

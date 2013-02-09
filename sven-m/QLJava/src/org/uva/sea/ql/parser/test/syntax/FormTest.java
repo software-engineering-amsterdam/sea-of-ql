@@ -15,10 +15,10 @@ public class FormTest extends SyntaxTest {
 	
 	@Test
 	public void testForms() throws ParseError {
-		assertEquals(parseClass("form f1 { \n q1: \"Question 1\" boolean }"), Form.class);
-		assertEquals(parseClass("form f1 { \n q1: \"Question 1\" boolean }"), Form.class);
-		assertEquals(parseClass("form f2 { \n afds: \" \" string }"), Form.class);
-		assertEquals(parseClass("form f3 { }"), Form.class);
+		assertEquals(Form.class, parseClass("form f1 { \n q1: \"Question 1\" boolean }"));
+		assertEquals(Form.class, parseClass("form f1 { \n q1: \"Question 1\" boolean }"));
+		assertEquals(Form.class, parseClass("form f2 { \n afds: \" \" string }"));
+		assertEquals(Form.class, parseClass("form f3 { }"));
 		assertEquals(Form.class, parseClass("form f5 { \n d434fw: \" \" integer }"));
 	}
 

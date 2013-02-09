@@ -1,11 +1,12 @@
 package org.uva.sea.ql.ast.type;
 
-import org.uva.sea.ql.visitor.ExpressionVisitor;
+import org.uva.sea.ql.ast.exp.Expression.Nature;
+import org.uva.sea.ql.visitor.NaturalVisitor;
 
 public class StringType extends DataType {
 
 	@Override
-	public <T> T accept(final ExpressionVisitor<T> visitor) {
+	public <T> T accept(final NaturalVisitor<T> visitor) {
 		return visitor.visit(this);
 	}
 
@@ -13,10 +14,4 @@ public class StringType extends DataType {
 	public Nature getNature() {
 		return Nature.TEXTUAL;
 	}
-
-	@Override
-	public String toString() {
-		return "StringType [getNature()=" + getNature() + "]";
-	}
-
 }
