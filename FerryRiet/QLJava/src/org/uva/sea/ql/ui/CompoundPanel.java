@@ -1,23 +1,21 @@
 package org.uva.sea.ql.ui;
 
 import java.awt.Color;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Observer;
 
 import javax.swing.JPanel;
 
-import org.uva.sea.ql.ast.literals.Result;
-
-
 import net.miginfocom.swing.MigLayout;
+
+import org.uva.sea.ql.ast.literals.Result;
 
 public class CompoundPanel extends Panel {
 	private JPanel compoundJPanel ;
-
 	private List<Panel> panelList = new ArrayList<Panel>() ;
+
 	public CompoundPanel() {
 		compoundJPanel = new JPanel() ;
 		compoundJPanel.setLayout(new MigLayout("",
@@ -25,45 +23,36 @@ public class CompoundPanel extends Panel {
 		compoundJPanel.setBackground(Color.GREEN) ;
 
 	}
+	@Override
+	public synchronized void addObserver(Observer o) {
+		for (Panel panel : panelList) {
+			panel.addObserver(o);
+		}
+	}
 	
 	public void addPanel(Panel newPanel) {
 		panelList.add(newPanel) ;
 	}
+
 	@Override
-	public Panel isActionSource(ActionEvent ev) {
-		Panel actionPanel ;
+	public void registerAt(JPanel parentPanel, int location) {
+
+		StringBuilder stringBuilder = new StringBuilder("cell 0 ");
+		stringBuilder.append(location);
+		stringBuilder.append(" ,growx");
+		
+		parentPanel.add(compoundJPanel, stringBuilder.toString());
+		
+		int panelCount = 0 ;
 		for (Panel panel : panelList) {
-			actionPanel = panel.isActionSource(ev) ;
-			if ( actionPanel != null ) return actionPanel ;
+			panel.registerAt(compoundJPanel, panelCount++);
 		}
-		return null;
 	}
 
 	@Override
 	public void updatecalculatedField(HashMap<String, Result> symbols) {
 		for (Panel panel : panelList) {
 			panel.updatecalculatedField(symbols) ;
-		}
-	}
-
-	@Override
-	public void registerActionListener(ActionListener actionHandler) {
-		for (Panel panel : panelList) {
-			panel.registerActionListener(actionHandler);
-		}
-	}
-	@Override
-	public void registerAt(JPanel parentPanel, int location) {
-
-		StringBuilder stringBuilder = new StringBuilder("cell 0 ");
-
-		stringBuilder.append(location);
-		stringBuilder.append(" ,growx");
-		parentPanel.add(compoundJPanel, stringBuilder.toString());
-		
-		int panelCount = 0 ;
-		for (Panel panel : panelList) {
-			panel.registerAt(compoundJPanel, panelCount++);
 		}
 	}
 }

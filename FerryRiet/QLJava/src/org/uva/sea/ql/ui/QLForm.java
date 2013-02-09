@@ -5,6 +5,8 @@ import java.awt.event.ActionListener;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.Observable;
+import java.util.Observer;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -16,7 +18,7 @@ import org.uva.sea.ql.ast.QLProgram;
 import org.uva.sea.ql.ast.literals.Result;
 import org.uva.sea.ql.ast.visitor.QLFormCreator;
 
-public class QLForm extends JFrame implements ActionListener {
+public class QLForm extends JFrame implements ActionListener , Observer   {
 	private static final long serialVersionUID = 1L;
 	private HashMap<String, Result> qlSymbols;
 	private JPanel contentPane;
@@ -43,13 +45,26 @@ public class QLForm extends JFrame implements ActionListener {
 		
 		cPanel.registerAt(contentPane, 0);
 		cPanel.registerActionListener(this);
+		cPanel.addObserver(this) ;
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		System.out.println("action performed");
+	}
 
-		LinePanel linePanel = (LinePanel) cPanel.isActionSource(e);
+	private void printMap(Map mp) {
+		Iterator it = mp.entrySet().iterator();
+		while (it.hasNext()) {
+			Map.Entry pairs = (Map.Entry) it.next();
+			Result erExpressionResult = (Result) pairs.getValue();
+			System.out.print(pairs.getKey());
+			System.out.println(" = " + erExpressionResult.getStringValue());
+		}
+	}
+
+	@Override
+	public void update(Observable o, Object arg) {
+		LinePanel linePanel = (LinePanel) o;
 
 		if (linePanel != null) {
 			qlSymbols.put(linePanel.getFieldName(), linePanel.getFieldValue());
@@ -61,15 +76,5 @@ public class QLForm extends JFrame implements ActionListener {
 		// 1: find source of action
 		// 2: update variable
 		// 3: find dependent panels
-	}
-
-	private void printMap(Map mp) {
-		Iterator it = mp.entrySet().iterator();
-		while (it.hasNext()) {
-			Map.Entry pairs = (Map.Entry) it.next();
-			Result erExpressionResult = (Result) pairs.getValue();
-			System.out.print(pairs.getKey());
-			System.out.println(" = " + erExpressionResult.getStringValue());
-		}
 	}
 }

@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.HashMap;
+import java.util.Observer;
 
 import javax.swing.JPanel;
 
@@ -14,13 +15,11 @@ import org.uva.sea.ql.ast.literals.Result;
 import org.uva.sea.ql.ast.operators.Expr;
 
 public class ConditionalPanel extends Panel {
-	private JPanel panel;
+
 	private CompoundPanel cElsePanel;
-
 	private CompoundPanel cThenPanel;
-
+	private JPanel panel;
 	private Expr trueExpr;
-
 	private boolean visible = false;
 
 	public ConditionalPanel(ConditionalStatement statement) {
@@ -28,28 +27,31 @@ public class ConditionalPanel extends Panel {
 		panel.setLayout(new MigLayout("", "[]", "[][]"));
 
 		trueExpr = statement.getExpression();
-		panel.setBackground(Color.BLUE) ;
+		panel.setBackground(Color.BLUE);
 	}
 
 	@Override
-	public void updatecalculatedField(HashMap<String, Result> symbols) {
-		cThenPanel.updatecalculatedField(symbols) ;
-		if ( cElsePanel != null)
-			cElsePanel.updatecalculatedField(symbols) ;
+	public synchronized void addObserver(Observer o) {
+		cThenPanel.addObserver(o);
+		if (cElsePanel != null)
+			cElsePanel.addObserver(o);
 	}
 
 	@Override
 	public Panel isActionSource(ActionEvent ev) {
-		Panel actionPanel = cThenPanel.isActionSource(ev) ;
-		if ( actionPanel != null) return actionPanel ;
-		if ( cElsePanel != null) return cElsePanel.isActionSource(ev) ;
-		return null ;
+		Panel actionPanel = cThenPanel.isActionSource(ev);
+		if (actionPanel != null)
+			return actionPanel;
+		if (cElsePanel != null)
+			return cElsePanel.isActionSource(ev);
+		return null;
 	}
 
 	@Override
 	public void registerActionListener(ActionListener actionHandler) {
 		cThenPanel.registerActionListener(actionHandler);
-		if ( cElsePanel != null ) cElsePanel.registerActionListener(actionHandler);
+		if (cElsePanel != null)
+			cElsePanel.registerActionListener(actionHandler);
 	}
 
 	@Override
@@ -58,9 +60,10 @@ public class ConditionalPanel extends Panel {
 
 		stringBuilder.append(location);
 		stringBuilder.append(" ,growx");
-		parentPanel.add(panel, stringBuilder.toString() );
-		cThenPanel.registerAt(panel, 0) ;
-		if ( cElsePanel != null ) cElsePanel.registerAt(panel, 1) ;
+		parentPanel.add(panel, stringBuilder.toString());
+		cThenPanel.registerAt(panel, 0);
+		if (cElsePanel != null)
+			cElsePanel.registerAt(panel, 1);
 	}
 
 	public void setcElsePanel(CompoundPanel cElsePanel) {
@@ -69,5 +72,12 @@ public class ConditionalPanel extends Panel {
 
 	public void setcThenPanel(CompoundPanel cThenPanel) {
 		this.cThenPanel = cThenPanel;
+	}
+
+	@Override
+	public void updatecalculatedField(HashMap<String, Result> symbols) {
+		cThenPanel.updatecalculatedField(symbols);
+		if (cElsePanel != null)
+			cElsePanel.updatecalculatedField(symbols);
 	}
 }
