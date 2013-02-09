@@ -31,7 +31,7 @@ public class LinePanel extends Panel {
 		panelName = statement.getLineName();
 
 		jPanel = new JPanel();
-		jLabel = new JLabel(statement.getDisplayText());
+		jLabel = new JLabel(statement.getDisplayText().substring(1,statement.getDisplayText().length()-1));
 
 		jPanel.setLayout(new MigLayout("", "[200][][][][][][][][][][][][][][][][]", "[]"));
 
@@ -97,7 +97,11 @@ public class LinePanel extends Panel {
 	public void updatecalculatedField(HashMap<String, Result> symbols) {
 		if (fieldInitializer != null) {
 			fieldResult = fieldInitializer.eval(symbols);
-			jTextField.setText(fieldResult.toString());
+			if (!jTextField.getText().equals(fieldResult.toString())) {
+				jTextField.setText(fieldResult.toString());
+				setChanged();
+				notifyObservers(this);
+			}
 		}
 	}
 }

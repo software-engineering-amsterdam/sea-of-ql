@@ -27,7 +27,7 @@ public class ConditionalPanel extends Panel {
 		panel.setLayout(new MigLayout("", "[]", "[][]"));
 
 		trueExpr = statement.getExpression();
-		panel.setBackground(Color.BLUE);
+		//panel.setBackground(Color.BLUE);
 	}
 
 	@Override
@@ -75,6 +75,7 @@ public class ConditionalPanel extends Panel {
 			cThenPanel.setVisible(tResult.getBooleanValue()) ;
 			if ( cElsePanel != null ) cElsePanel.setVisible(!tResult.getBooleanValue()) ;
 		}
+		panel.repaint() ;
 	}
 
 	public void setcElsePanel(CompoundPanel cElsePanel) {
@@ -105,5 +106,6 @@ public class ConditionalPanel extends Panel {
 			cThenPanel.setVisible(tResult.getBooleanValue()) ;
 			if ( cElsePanel != null ) cElsePanel.setVisible(!tResult.getBooleanValue()) ;
 		}
+		panel.repaint() ;
 	}
 }

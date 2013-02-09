@@ -33,7 +33,6 @@ public class QLDriver extends JFrame implements ActionListener {
 	private static final long serialVersionUID = 5869298083469486262L;
 	private JButton btnNewButton;
 	private JTextPane txtpnFormNameofForm;
-	private JTextField textField;
 
 	/**
 	 * Launch the application.
@@ -56,7 +55,7 @@ public class QLDriver extends JFrame implements ActionListener {
 	 */
 	public QLDriver() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 480, 355);
+		setBounds(100, 100, 480, 492);
 
 		JMenuBar menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
@@ -77,28 +76,15 @@ public class QLDriver extends JFrame implements ActionListener {
 
 		txtpnFormNameofForm = new JTextPane();
 		txtpnFormNameofForm.setFont(new Font("Arial", Font.PLAIN, 12));
-		txtpnFormNameofForm.setBounds(16, 15, 438, 219);
+		txtpnFormNameofForm.setBounds(10, 0, 444, 382);
 		txtpnFormNameofForm
-				.setText("form First_Form { \r\n  clickme: \"First line test \" boolean\r\n   if ( clickme ) {\r\n            tomorrow: \"Second conditional line money\" money  \r\n   }\r\n   else {\r\n        today: \"Show me the code\" boolean   \r\n   }\r\n}");
+				.setText("form Box1HouseOwning {\r\n   hasSoldHouse: \"Did you sell a house in 2010?\" boolean\r\n   hasBoughtHouse: \"Did you by a house in 2010?\" boolean\r\n   hasMaintLoan: \"Did you enter a loan for maintenance/reconstruction?\" boolean\r\n   if (hasSoldHouse) {\r\n     sellingPrice: \"Price the house was sold for:\" money\r\n     privateDebt: \"Private debts for the sold house:\" money\r\n     valueResidue: \"Value residue:\" money(sellingPrice - privateDebt)\r\n     taxOwed: \"Tax owed:\" money( valueResidue * 0.21 )\r\n   }\r\n   else {\r\n     happyLiving: \"Do you like your current house?\" boolean       \r\n   }\r\n}");
 		getContentPane().add(txtpnFormNameofForm);
 
 		btnNewButton = new JButton("Run");
-		btnNewButton.setBounds(16, 246, 96, 29);
+		btnNewButton.setBounds(16, 393, 96, 29);
 		btnNewButton.addActionListener(this);
 		getContentPane().add(btnNewButton);
-		
-		JPanel panel = new JPanel();
-		panel.setBackground(Color.PINK);
-		panel.setBounds(146, 245, 260, 30);
-		getContentPane().add(panel);
-		panel.setLayout(new MigLayout("", "[18px][][][][][][grow]", "[14px]"));
-		
-		JLabel lblEee = new JLabel("eee");
-		panel.add(lblEee, "cell 0 0,alignx left,aligny top");
-		
-		textField = new JTextField();
-		panel.add(textField, "cell 5 0 2 1,growx");
-		textField.setColumns(10);
 	}
 
 	@Override
