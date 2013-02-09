@@ -36,7 +36,5 @@ public class Question implements QLItem {
 	public Value<?> getAnswer() {
 		return answer;
 	}
-	
-	
 
 }
