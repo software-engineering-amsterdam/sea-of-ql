@@ -4,6 +4,7 @@ import org.uva.sea.ql.ast.type.Type;
 import org.uva.sea.ql.ast.expr.Ident;
 import org.uva.sea.ql.ast.expr.value.StringValue;
 import org.uva.sea.ql.ast.expr.value.Value;
+import org.uva.sea.ql.semanticchecker.QLItemSemanticVisitor;
 
 
 public class Question implements QLItem {
@@ -35,6 +36,12 @@ public class Question implements QLItem {
 
 	public Value<?> getAnswer() {
 		return answer;
+	}
+
+	@Override
+	public void accept(QLItem visitableElement, QLItemSemanticVisitor visitor) {
+		
+		visitor.visit((Question) visitableElement);
 	}
 
 }
