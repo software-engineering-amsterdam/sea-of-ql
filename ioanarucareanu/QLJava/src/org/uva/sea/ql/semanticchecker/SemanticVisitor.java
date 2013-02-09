@@ -1,9 +1,12 @@
 package org.uva.sea.ql.semanticchecker;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.uva.sea.ql.ast.expr.Add;
 import org.uva.sea.ql.ast.expr.Div;
+import org.uva.sea.ql.ast.expr.Ident;
 import org.uva.sea.ql.ast.expr.Mul;
 import org.uva.sea.ql.ast.expr.Sub;
 import org.uva.sea.ql.ast.ql.ComputedQuestion;
@@ -12,16 +15,24 @@ import org.uva.sea.ql.ast.ql.QLForm;
 import org.uva.sea.ql.ast.ql.QLItem;
 import org.uva.sea.ql.ast.ql.Question;
 import org.uva.sea.ql.ast.ql.SimpleConditionalQuestion;
-
-import smth.ErrorMessage;
+import org.uva.sea.ql.ast.type.Type;
+import org.uva.sea.ql.ast.type.TypeFactory;
+import org.uva.sea.ql.ast.expr.rel.Eq;
+import org.uva.sea.ql.ast.expr.rel.GEq;
+import org.uva.sea.ql.ast.expr.rel.GT;
+import org.uva.sea.ql.ast.expr.rel.LEq;
+import org.uva.sea.ql.ast.expr.rel.LT;
+import org.uva.sea.ql.ast.expr.rel.NEq;
 
 public class SemanticVisitor implements QLItemSemanticVisitor, ExpressionSemanticVisitor {
 
-	public List<ErrorMessage> start(QLForm form) {
+	private final Map<Ident, Type> symbolTable = new HashMap<Ident, Type>();
+	private final ValidationErrors validationErrors = new ValidationErrors();
+
+	public void start(QLForm form) {
 
 		form.accept(form, this);
-		return null;
-	}
+	}	
 
 	public void visit(QLForm form) {
 
@@ -33,7 +44,7 @@ public class SemanticVisitor implements QLItemSemanticVisitor, ExpressionSemanti
 
 	@Override
 	public void visit(Question question) {
-		// TODO Auto-generated method stub
+
 
 	}
 
@@ -56,27 +67,70 @@ public class SemanticVisitor implements QLItemSemanticVisitor, ExpressionSemanti
 	}
 
 	@Override
-	public void visit(Add node) {
-		// TODO Auto-generated method stub
-		
+	public Type visit(Add node) {
+		ExpressionTypeValidatorUtil.checkBinaryExprMembersAreInt(node, this, validationErrors);
+		return TypeFactory.getIntType();
 	}
 
 	@Override
-	public void visit(Sub node) {
-		// TODO Auto-generated method stub
-		
+	public Type visit(Sub node) {
+		ExpressionTypeValidatorUtil.checkBinaryExprMembersAreInt(node, this, validationErrors);
+		return TypeFactory.getIntType();
 	}
 
 	@Override
-	public void visit(Mul node) {
-		// TODO Auto-generated method stub
-		
+	public Type visit(Mul node) {
+		ExpressionTypeValidatorUtil.checkBinaryExprMembersAreInt(node, this, validationErrors);
+		return TypeFactory.getIntType();
 	}
 
 	@Override
-	public void visit(Div node) {
-		// TODO Auto-generated method stub
-		
+	public Type visit(Div node) {
+		ExpressionTypeValidatorUtil.checkBinaryExprMembersAreInt(node, this, validationErrors);
+		return TypeFactory.getIntType();
 	}
+
+	@Override
+	public Type visit(Eq node) {
+		ExpressionTypeValidatorUtil.checkBinaryExprMembersShareSameType(node, this, validationErrors);
+		return TypeFactory.getBoolType();
+	}
+
+	@Override
+	public Type visit(NEq node) {
+		ExpressionTypeValidatorUtil.checkBinaryExprMembersShareSameType(node, this, validationErrors);
+		return TypeFactory.getBoolType();
+	}
+
+	@Override
+	public Type visit(GEq node) {
+		ExpressionTypeValidatorUtil.checkBinaryExprMembersShareSameNumericType(node, this, validationErrors);
+		return TypeFactory.getBoolType();
+	}
+
+	@Override
+	public Type visit(LEq node) {
+		ExpressionTypeValidatorUtil.checkBinaryExprMembersShareSameNumericType(node, this, validationErrors);
+		return TypeFactory.getBoolType();
+	}
+
+	@Override
+	public Type visit(GT node) {
+		ExpressionTypeValidatorUtil.checkBinaryExprMembersShareSameNumericType(node, this, validationErrors);
+		return TypeFactory.getBoolType();
+	}
+
+	@Override
+	public Type visit(LT node) {
+		ExpressionTypeValidatorUtil.checkBinaryExprMembersShareSameNumericType(node, this, validationErrors);
+		return TypeFactory.getBoolType();
+	}
+
+	@Override
+	public Type visit(Ident ident) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 
 }

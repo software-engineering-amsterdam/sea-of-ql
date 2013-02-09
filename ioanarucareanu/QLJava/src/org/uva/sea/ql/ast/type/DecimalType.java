@@ -11,4 +11,11 @@ public class DecimalType extends Type {
 		return new DecimalValue();
 	}
 
+	@Override
+	public String getHumanReadableType() {
+		
+		return "decimal";
+	}
+	
+
 }
