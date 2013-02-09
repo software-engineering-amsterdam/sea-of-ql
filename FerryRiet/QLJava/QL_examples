@@ -6,9 +6,9 @@ form First_Form {
  }
  
  form First_Form { 
-  again2: "First line test " boolean
-   if ( again2 ) {
-            tomorow: "Second conditional line money" money  
+  clickme: "First line test " boolean
+   if ( clickme ) {
+            tomorrow: "Second conditional line money" money  
    }
    else {
         today "Show me the code" boolean   

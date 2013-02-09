@@ -20,7 +20,7 @@ public class CompoundPanel extends Panel {
 		compoundJPanel = new JPanel() ;
 		compoundJPanel.setLayout(new MigLayout("",
 				"[]", "[18]"));
-		compoundJPanel.setBackground(Color.GREEN) ;
+		//compoundJPanel.setBackground(Color.GREEN) ;
 
 	}
 	@Override
@@ -32,6 +32,10 @@ public class CompoundPanel extends Panel {
 	
 	public void addPanel(Panel newPanel) {
 		panelList.add(newPanel) ;
+	}
+
+	public void removeFrom(JPanel parentPanel) {
+		parentPanel.remove(compoundJPanel) ;
 	}
 
 	@Override
@@ -54,5 +58,8 @@ public class CompoundPanel extends Panel {
 		for (Panel panel : panelList) {
 			panel.updatecalculatedField(symbols) ;
 		}
+	}
+	public void  setVisible(boolean visible) {
+		compoundJPanel.setVisible(visible) ;		
 	}
 }

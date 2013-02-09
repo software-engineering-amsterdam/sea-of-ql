@@ -51,4 +51,6 @@
 <fullyQualifiedTypeName name="java.util.Observable"/>
 <fullyQualifiedTypeName name="java.awt.event.ActionListener"/>
 <fullyQualifiedTypeName name="java.util.Observer"/>
+<fullyQualifiedTypeName name="org.uva.sea.ql.ast.literals.Result"/>
+<fullyQualifiedTypeName name="org.uva.sea.ql.ast.literals.BooleanResult"/>
 </qualifiedTypeNameHistroy>

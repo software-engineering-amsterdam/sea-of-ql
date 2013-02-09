@@ -1,7 +1,5 @@
 package org.uva.sea.ql.ui;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -18,7 +16,7 @@ import org.uva.sea.ql.ast.QLProgram;
 import org.uva.sea.ql.ast.literals.Result;
 import org.uva.sea.ql.ast.visitor.QLFormCreator;
 
-public class QLForm extends JFrame implements ActionListener , Observer   {
+public class QLForm extends JFrame implements Observer {
 	private static final long serialVersionUID = 1L;
 	private HashMap<String, Result> qlSymbols;
 	private JPanel contentPane;
@@ -35,21 +33,17 @@ public class QLForm extends JFrame implements ActionListener , Observer   {
 
 		setBounds(700, 100, 480, 600);
 
-		setTitle(formName) ;
-		
+		setTitle(formName);
+
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(1, 1, 1, 1));
 		contentPane.setLayout(new MigLayout("", "[grow]", "[]"));
 
 		setContentPane(contentPane);
-		
-		cPanel.registerAt(contentPane, 0);
-		cPanel.registerActionListener(this);
-		cPanel.addObserver(this) ;
-	}
 
-	@Override
-	public void actionPerformed(ActionEvent e) {
+		cPanel.registerAt(contentPane, 0);
+
+		cPanel.addObserver(this);
 	}
 
 	private void printMap(Map mp) {
@@ -70,11 +64,7 @@ public class QLForm extends JFrame implements ActionListener , Observer   {
 			qlSymbols.put(linePanel.getFieldName(), linePanel.getFieldValue());
 		}
 
-		cPanel.updatecalculatedField(qlSymbols) ;
+		cPanel.updatecalculatedField(qlSymbols);
 		printMap(qlSymbols);
-
-		// 1: find source of action
-		// 2: update variable
-		// 3: find dependent panels
 	}
 }

@@ -79,7 +79,7 @@ public class QLDriver extends JFrame implements ActionListener {
 		txtpnFormNameofForm.setFont(new Font("Arial", Font.PLAIN, 12));
 		txtpnFormNameofForm.setBounds(16, 15, 438, 219);
 		txtpnFormNameofForm
-				.setText("form First_Form { \r\n  doit:      \"1   line type boolean ...\" boolean\r\n  do  :      \"2    line type money.\" money\r\n  again:   \"3    line type integer\" integer\r\n  again2: \"4    line type boolean\" boolean\r\n   if ( again2 ) {\r\n            tomorow: \"5 conditional money\" money( do + again )  \r\n   }\r\n    if ( doit ) {\r\n          if ( doit == again2 ) {\r\n               tonight: \"6 double conditional money \" money\n\r\n          }\r\n    }\r\n}");
+				.setText("form First_Form { \r\n  clickme: \"First line test \" boolean\r\n   if ( clickme ) {\r\n            tomorrow: \"Second conditional line money\" money  \r\n   }\r\n   else {\r\n        today: \"Show me the code\" boolean   \r\n   }\r\n}");
 		getContentPane().add(txtpnFormNameofForm);
 
 		btnNewButton = new JButton("Run");

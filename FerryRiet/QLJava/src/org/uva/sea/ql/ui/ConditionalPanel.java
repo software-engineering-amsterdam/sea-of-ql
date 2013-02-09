@@ -11,6 +11,7 @@ import javax.swing.JPanel;
 import net.miginfocom.swing.MigLayout;
 
 import org.uva.sea.ql.ast.ConditionalStatement;
+import org.uva.sea.ql.ast.literals.BooleanResult;
 import org.uva.sea.ql.ast.literals.Result;
 import org.uva.sea.ql.ast.operators.Expr;
 
@@ -20,7 +21,6 @@ public class ConditionalPanel extends Panel {
 	private CompoundPanel cThenPanel;
 	private JPanel panel;
 	private Expr trueExpr;
-	private boolean visible = false;
 
 	public ConditionalPanel(ConditionalStatement statement) {
 		panel = new JPanel();
@@ -57,13 +57,24 @@ public class ConditionalPanel extends Panel {
 	@Override
 	public void registerAt(JPanel parentPanel, int location) {
 		StringBuilder stringBuilder = new StringBuilder("cell 0 ");
-
 		stringBuilder.append(location);
 		stringBuilder.append(" ,growx");
+
 		parentPanel.add(panel, stringBuilder.toString());
-		cThenPanel.registerAt(panel, 0);
-		if (cElsePanel != null)
-			cElsePanel.registerAt(panel, 1);
+
+		Result tResult = new BooleanResult(false);
+
+		if (tResult.getBooleanValue()) {
+			if ( cElsePanel != null ) cElsePanel.removeFrom(panel);
+			cThenPanel.registerAt(panel, 0);
+			cThenPanel.setVisible(tResult.getBooleanValue()) ;
+			if ( cElsePanel != null ) cElsePanel.setVisible(!tResult.getBooleanValue()) ;
+		} else {
+			cThenPanel.removeFrom(panel);
+			if ( cElsePanel != null ) cElsePanel.registerAt(panel, 0);
+			cThenPanel.setVisible(tResult.getBooleanValue()) ;
+			if ( cElsePanel != null ) cElsePanel.setVisible(!tResult.getBooleanValue()) ;
+		}
 	}
 
 	public void setcElsePanel(CompoundPanel cElsePanel) {
@@ -77,7 +88,22 @@ public class ConditionalPanel extends Panel {
 	@Override
 	public void updatecalculatedField(HashMap<String, Result> symbols) {
 		cThenPanel.updatecalculatedField(symbols);
+		
 		if (cElsePanel != null)
 			cElsePanel.updatecalculatedField(symbols);
+
+		Result tResult = trueExpr.eval(symbols);
+
+		if (tResult.getBooleanValue()) {
+			if ( cElsePanel != null ) cElsePanel.removeFrom(panel);
+			cThenPanel.registerAt(panel, 0);
+			cThenPanel.setVisible(tResult.getBooleanValue()) ;
+			if ( cElsePanel != null ) cElsePanel.setVisible(!tResult.getBooleanValue()) ;
+		} else {
+			cThenPanel.removeFrom(panel);
+			if ( cElsePanel != null ) cElsePanel.registerAt(panel, 0);
+			cThenPanel.setVisible(tResult.getBooleanValue()) ;
+			if ( cElsePanel != null ) cElsePanel.setVisible(!tResult.getBooleanValue()) ;
+		}
 	}
 }
