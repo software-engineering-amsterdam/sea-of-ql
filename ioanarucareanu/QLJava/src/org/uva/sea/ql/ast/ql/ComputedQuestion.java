@@ -4,6 +4,7 @@ import org.uva.sea.ql.ast.expr.Expr;
 import org.uva.sea.ql.ast.expr.Ident;
 import org.uva.sea.ql.ast.expr.value.StringValue;
 import org.uva.sea.ql.ast.type.Type;
+import org.uva.sea.ql.semanticchecker.QLItemSemanticVisitor;
 
 public class ComputedQuestion extends Question {
 
@@ -16,6 +17,12 @@ public class ComputedQuestion extends Question {
 	
 	public Expr getExpr() {
 		return expr;
+	}
+	
+	@Override
+	public void accept(QLItem visitableElement, QLItemSemanticVisitor visitor) {
+		
+		visitor.visit((ComputedQuestion) visitableElement);
 	}
 	
 }
