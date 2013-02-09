@@ -4,3 +4,13 @@ form First_Form {
   again:   "3    line type integer" integer
   again2: "4    line type boolean" money( do * again) 
  }
+ 
+ form First_Form { 
+  clickme: "First line test " boolean
+   if ( clickme ) {
+            tomorrow: "Second conditional line money" money  
+   }
+   else {
+        today "Show me the code" boolean   
+   }
+}

@@ -33,10 +33,10 @@ import org.uva.sea.ql.ast.operators.Pos;
 import org.uva.sea.ql.ast.operators.Sub;
 import org.uva.sea.ql.ast.operators.UnExpr;
 import org.uva.sea.ql.ast.types.Type;
-import org.uva.sea.ql.driver.CompoundPanel;
-import org.uva.sea.ql.driver.ConditionalPanel;
-import org.uva.sea.ql.driver.LinePanel;
-import org.uva.sea.ql.driver.Panel;
+import org.uva.sea.ql.ui.CompoundPanel;
+import org.uva.sea.ql.ui.ConditionalPanel;
+import org.uva.sea.ql.ui.LinePanel;
+import org.uva.sea.ql.ui.Panel;
 
 public class QLFormCreator implements Visitor<Panel> {
 	private String formName;

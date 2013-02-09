@@ -20,11 +20,6 @@ public class IntegerType extends Type {
 	}
 
 	@Override
-	public boolean isCompatibleToMoney() {
-		return false;
-	}
-
-	@Override
 	public Result getTypeContainer() {
 		return new IntegerResult(0);
 	}

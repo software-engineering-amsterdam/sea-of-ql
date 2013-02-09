@@ -35,7 +35,6 @@
 <fullyQualifiedTypeName name="java.util.ArrayList"/>
 <fullyQualifiedTypeName name="java.util.List"/>
 <fullyQualifiedTypeName name="net.miginfocom.swing.MigLayout"/>
-<fullyQualifiedTypeName name="java.awt.event.ActionListener"/>
 <fullyQualifiedTypeName name="org.uva.sea.ql.driver.ConditionalPanel"/>
 <fullyQualifiedTypeName name="org.uva.sea.ql.ast.ConditionalStatement"/>
 <fullyQualifiedTypeName name="org.uva.sea.ql.driver.CompoundPanel"/>
@@ -47,4 +46,11 @@
 <fullyQualifiedTypeName name="org.uva.sea.ql.ast.nodevisitor.Visitable"/>
 <fullyQualifiedTypeName name="org.uva.sea.ql.ast.nodevisitor.VisitorResult"/>
 <fullyQualifiedTypeName name="javax.swing.JPanel"/>
+<fullyQualifiedTypeName name="org.uva.sea.ql.ui.Panel"/>
+<fullyQualifiedTypeName name="java.awt.Color"/>
+<fullyQualifiedTypeName name="java.util.Observable"/>
+<fullyQualifiedTypeName name="java.awt.event.ActionListener"/>
+<fullyQualifiedTypeName name="java.util.Observer"/>
+<fullyQualifiedTypeName name="org.uva.sea.ql.ast.literals.Result"/>
+<fullyQualifiedTypeName name="org.uva.sea.ql.ast.literals.BooleanResult"/>
 </qualifiedTypeNameHistroy>

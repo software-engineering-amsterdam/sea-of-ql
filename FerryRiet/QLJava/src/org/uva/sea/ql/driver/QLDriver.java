@@ -1,6 +1,7 @@
 package org.uva.sea.ql.driver;
 
 import java.awt.EventQueue;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -8,10 +9,15 @@ import java.awt.event.MouseEvent;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
 import javax.swing.JTextPane;
+
+import net.miginfocom.swing.MigLayout;
 
 import org.antlr.runtime.ANTLRStringStream;
 import org.antlr.runtime.CommonTokenStream;
@@ -19,15 +25,8 @@ import org.uva.sea.ql.ast.QLProgram;
 import org.uva.sea.ql.ast.visitor.TypeCheck;
 import org.uva.sea.ql.parser.antlr.QLLexer;
 import org.uva.sea.ql.parser.antlr.QLParser;
-import javax.swing.JPanel;
-import javax.swing.JLabel;
-import com.jgoodies.forms.layout.FormLayout;
-import com.jgoodies.forms.layout.ColumnSpec;
-import com.jgoodies.forms.layout.RowSpec;
-import com.jgoodies.forms.factories.FormFactory;
-import net.miginfocom.swing.MigLayout;
-import javax.swing.JTextField;
-import java.awt.Font;
+import org.uva.sea.ql.ui.QLForm;
+import java.awt.Color;
 
 public class QLDriver extends JFrame implements ActionListener {
 
@@ -80,7 +79,7 @@ public class QLDriver extends JFrame implements ActionListener {
 		txtpnFormNameofForm.setFont(new Font("Arial", Font.PLAIN, 12));
 		txtpnFormNameofForm.setBounds(16, 15, 438, 219);
 		txtpnFormNameofForm
-				.setText("form First_Form { \r\n  doit:      \"1   line type boolean ...\" boolean\r\n  do  :      \"2    line type money.\" money\r\n  again:   \"3    line type integer\" integer\r\n  again2: \"4    line type boolean\" boolean\r\n   if ( again2 ) {\r\n            tomorow: \"5 conditional money\" money( do + again )  \r\n   }\r\n    if ( doit ) {\r\n          if ( doit == again2 ) {\r\n               tonight: \"6 double conditional money \" money\n\r\n          }\r\n    }\r\n}");
+				.setText("form First_Form { \r\n  clickme: \"First line test \" boolean\r\n   if ( clickme ) {\r\n            tomorrow: \"Second conditional line money\" money  \r\n   }\r\n   else {\r\n        today: \"Show me the code\" boolean   \r\n   }\r\n}");
 		getContentPane().add(txtpnFormNameofForm);
 
 		btnNewButton = new JButton("Run");
@@ -89,6 +88,7 @@ public class QLDriver extends JFrame implements ActionListener {
 		getContentPane().add(btnNewButton);
 		
 		JPanel panel = new JPanel();
+		panel.setBackground(Color.PINK);
 		panel.setBounds(146, 245, 260, 30);
 		getContentPane().add(panel);
 		panel.setLayout(new MigLayout("", "[18px][][][][][][grow]", "[14px]"));
