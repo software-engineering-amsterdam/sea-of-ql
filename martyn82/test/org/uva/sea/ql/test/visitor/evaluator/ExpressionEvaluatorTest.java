@@ -3,7 +3,6 @@ package org.uva.sea.ql.test.visitor.evaluator;
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
-import org.uva.sea.ql.ast.expression.Expression;
 import org.uva.sea.ql.ast.expression.Ident;
 import org.uva.sea.ql.ast.expression.arithmetic.Add;
 import org.uva.sea.ql.ast.expression.arithmetic.Div;
@@ -27,40 +26,14 @@ import org.uva.sea.ql.ast.expression.unary.Pos;
 import org.uva.sea.ql.ast.type.StringType;
 import org.uva.sea.ql.test.IExpressionTest;
 import org.uva.sea.ql.visitor.evaluator.Environment;
-import org.uva.sea.ql.visitor.evaluator.Evaluator;
 import org.uva.sea.ql.visitor.evaluator.value.StringValue;
 
 /**
  * Test expression evaluator.
  */
-public class ExpressionEvaluatorTest implements IExpressionTest {
-	/**
-	 * Holds the expression evaluator.
-	 */
-	private final Evaluator evaluator;
-
-	/**
-	 * Holds the environment.
-	 */
-	private final Environment environment;
-
-	/**
-	 * Constructs a new expression evaluator test.
-	 */
+public class ExpressionEvaluatorTest extends EvaluatorTest implements IExpressionTest {
 	public ExpressionEvaluatorTest() {
-		this.environment = new Environment();
-		this.evaluator = new Evaluator( this.environment );
-	}
-
-	/**
-	 * Evaluates the given expression.
-	 *
-	 * @param expression
-	 *
-	 * @return The evaluated value.
-	 */
-	private Object eval( Expression expression ) {
-		return expression.accept( this.evaluator ).getValue();
+		super( new Environment() );
 	}
 
 	@Override

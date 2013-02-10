@@ -51,11 +51,6 @@ public class Renderer implements StatementVisitor<Void>, TypeVisitor<Control> {
 	private final Environment environment;
 
 	/**
-	 * Holds the expression evaluator.
-	 */
-	private final Evaluator expressionEvaluator;
-
-	/**
 	 * Holds the type initializer.
 	 */
 	private final TypeInitializer typeInitializer;
@@ -94,7 +89,6 @@ public class Renderer implements StatementVisitor<Void>, TypeVisitor<Control> {
 	private Renderer( Environment environment, ControlFactory factory ) {
 		this.factory = factory;
 		this.environment = environment;
-		this.expressionEvaluator = new Evaluator( environment );
 		this.typeInitializer = new TypeInitializer();
 		this.panel = this.factory.createPanel();
 	}
@@ -213,7 +207,7 @@ public class Renderer implements StatementVisitor<Void>, TypeVisitor<Control> {
 
 	@Override
 	public Void visit( ElseIf node ) {
-		BooleanValue value = (BooleanValue) node.getCondition().accept( this.expressionEvaluator );
+		BooleanValue value = (BooleanValue) Evaluator.evaluate( node.getCondition(), this.environment );
 		PanelControl tru = render( node.getBody(), this.environment, this.factory );
 
 		tru.setVisible( value.getValue() );
@@ -244,7 +238,7 @@ public class Renderer implements StatementVisitor<Void>, TypeVisitor<Control> {
 
 	@Override
 	public Void visit( IfThenElse node ) {
-		boolean condition = ( (BooleanValue) node.getCondition().accept( this.expressionEvaluator ) ).getValue();
+		boolean condition = ( (BooleanValue) Evaluator.evaluate( node.getCondition(), this.environment ) ).getValue();
 
 		PanelControl tru = render( node.getIfBody(), this.environment, this.factory );
 		PanelControl fls = render( node.getElse(), this.environment, this.factory );
@@ -275,7 +269,7 @@ public class Renderer implements StatementVisitor<Void>, TypeVisitor<Control> {
 
 	@Override
 	public Void visit( Assignment node ) {
-		Value value = node.getExpression().accept( this.expressionEvaluator );
+		Value value = Evaluator.evaluate( node.getExpression(), this.environment );
 
 		if ( !this.environment.isDeclared( node.getIdent() ) ) {
 			this.environment.declare( node.getIdent(), value.getType() );

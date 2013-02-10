@@ -1,5 +1,6 @@
 package org.uva.sea.ql.visitor.evaluator;
 
+import org.uva.sea.ql.ast.expression.Expression;
 import org.uva.sea.ql.ast.expression.Ident;
 import org.uva.sea.ql.ast.expression.arithmetic.Add;
 import org.uva.sea.ql.ast.expression.arithmetic.Div;
@@ -37,8 +38,12 @@ public class Evaluator implements ExpressionVisitor<Value> {
 	 *
 	 * @param environment
 	 */
-	public Evaluator( Environment environment ) {
+	private Evaluator( Environment environment ) {
 		this.environment = environment;
+	}
+
+	public static Value evaluate( Expression node, Environment environment ) {
+		return node.accept( new Evaluator( environment ) );
 	}
 
 	@Override

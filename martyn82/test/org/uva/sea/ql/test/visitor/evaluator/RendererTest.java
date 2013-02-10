@@ -4,7 +4,6 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
 import org.junit.Test;
-import org.uva.sea.ql.ast.expression.Expression;
 import org.uva.sea.ql.ast.expression.Ident;
 import org.uva.sea.ql.ast.expression.comparison.Eq;
 import org.uva.sea.ql.ast.expression.literal.Bool;
@@ -26,52 +25,18 @@ import org.uva.sea.ql.test.IStatementTest;
 import org.uva.sea.ql.ui.ControlFactory;
 import org.uva.sea.ql.ui.swing.SwingControlFactory;
 import org.uva.sea.ql.visitor.evaluator.Environment;
-import org.uva.sea.ql.visitor.evaluator.Evaluator;
 import org.uva.sea.ql.visitor.evaluator.Renderer;
 
-/**
- * Test statement evaluator.
- */
-public class RendererTest implements IStatementTest {
-	/**
-	 * Holds the expression evaluator.
-	 */
-	private final Evaluator expressionEvaluator;
-
-	/**
-	 * Holds the environment.
-	 */
-	private final Environment environment;
-
+public class RendererTest extends EvaluatorTest implements IStatementTest {
 	private final ControlFactory factory;
 
-	/**
-	 * Constructs a new statement evaluator test.
-	 */
 	public RendererTest() {
+		super( new Environment() );
 		this.factory = new SwingControlFactory();
-		this.environment = new Environment();
-		this.expressionEvaluator = new Evaluator( this.environment );
 	}
 
-	/**
-	 * Evaluates the given statement.
-	 *
-	 * @param statement
-	 */
 	private void eval( Statement statement ) {
 		Renderer.render( statement, this.environment, this.factory );
-	}
-
-	/**
-	 * Evaluates the given expression.
-	 *
-	 * @param expression
-	 *
-	 * @return The evaluated value.
-	 */
-	private Object eval( Expression expression ) {
-		return expression.accept( this.expressionEvaluator ).getValue();
 	}
 
 	@Override

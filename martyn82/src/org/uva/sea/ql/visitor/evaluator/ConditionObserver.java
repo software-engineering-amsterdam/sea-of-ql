@@ -22,7 +22,7 @@ public class ConditionObserver implements Observer {
 
 	@Override
 	public void update( Observable observable ) {
-		Value value = this.condition.accept( new Evaluator( this.environment ) );
+		Value value = Evaluator.evaluate( this.condition, this.environment );
 		boolean visible = ( (BooleanValue) value ).getValue();
 
 		this.trueComponent.setVisible( visible );
