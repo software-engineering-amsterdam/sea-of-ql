@@ -6,7 +6,7 @@ import org.uva.sea.ql.ast.types.Type;
 
 import org.uva.sea.ql.ast.types.MoneyType;
 
-public class MoneyResult implements Result {
+public class MoneyResult extends Result<BigDecimal> {
 	private BigDecimal value;
 
 	public MoneyResult(BigDecimal val) {
@@ -52,12 +52,35 @@ public class MoneyResult implements Result {
 	@Override
 	public Result setValue(String string) {
 		try {
-		value = new BigDecimal(string); 
-		}
-		catch (java.lang.NumberFormatException e) {
+			value = new BigDecimal(string);
+		} catch (java.lang.NumberFormatException e) {
 			System.out.println("BigDecimal convert error");
-			value = new BigDecimal(0); 
+			value = new BigDecimal(0);
 		}
-		return this ;
+		return this;
+	}
+
+	@Override
+	public boolean isCompatibleToInt() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean isCompatibleToString() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean isCompatibleToBool() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean isCompatibleToMoney() {
+		// TODO Auto-generated method stub
+		return false;
 	}
 }

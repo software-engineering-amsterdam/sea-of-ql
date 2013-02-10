@@ -1,7 +1,6 @@
 package org.uva.sea.ql.ui;
 
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.HashMap;
 
 import javax.swing.JCheckBox;
@@ -58,7 +57,6 @@ public class LinePanel extends Panel {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		System.err.println("Second action trigger observer");
 		setChanged();
 		notifyObservers(this);
 	}
@@ -74,30 +72,20 @@ public class LinePanel extends Panel {
 			return fieldResult.setValue(jTextField.getText());
 	}
 
-	@Override
-	public Panel isActionSource(ActionEvent ev) {
-		if (jTextField == null) {
-			if (ev.getSource() == jCheckBox)
-				return this;
-		}
-		if (ev.getSource() == jTextField)
-			return this;
-		return null;
-	}
-
 	public void registerAt(JPanel parentPanel, int location) {
-		StringBuilder stringBuilder = new StringBuilder("cell 0 ");
+		String result = String.format("cell 0 %d ,growx", location) ;
 
-		stringBuilder.append(location);
-		stringBuilder.append(" ,growx");
-
-		parentPanel.add(jPanel, stringBuilder.toString());
+		parentPanel.add(jPanel, result);
 	}
 
 	public void updatecalculatedField(HashMap<String, Result> symbols) {
 		if (fieldInitializer != null) {
 			fieldResult = fieldInitializer.eval(symbols);
-			jTextField.setText(fieldResult.toString());
+			if (!jTextField.getText().equals(fieldResult.toString())) {
+				jTextField.setText(fieldResult.toString());
+				setChanged();
+				notifyObservers(this);
+			}
 		}
 	}
 }
