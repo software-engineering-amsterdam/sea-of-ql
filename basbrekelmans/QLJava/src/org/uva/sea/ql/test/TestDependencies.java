@@ -1,4 +1,4 @@
-package org.uva.sea.ql.parser.test;
+package org.uva.sea.ql.test;
 
 import org.junit.Test;
 import org.uva.sea.ql.ast.statements.Form;
@@ -6,6 +6,8 @@ import org.uva.sea.ql.dependencies.IVariableResolver;
 import org.uva.sea.ql.dependencies.VariableResolver;
 import org.uva.sea.ql.parser.IParser;
 import org.uva.sea.ql.parser.JACCParser;
+import org.uva.sea.ql.runtime.BooleanValue;
+import org.uva.sea.ql.runtime.Value;
 import org.uva.sea.ql.runtime.Variable;
 
 public class TestDependencies {
@@ -23,7 +25,5 @@ public class TestDependencies {
 						"}");
 		IVariableResolver variableResolver = new VariableResolver();
 		Iterable<Variable> variables = variableResolver.getVariables(form);
-		
-		int q = 3;
 	}
 }

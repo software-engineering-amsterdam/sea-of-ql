@@ -1,4 +1,4 @@
-package org.uva.sea.ql.parser.test;
+package org.uva.sea.ql.test;
 
 import static org.junit.Assert.assertEquals;
 
@@ -14,7 +14,7 @@ public class TestEval {
 	@Test
 	public void TestLiteralEvaluation() {
 		IParser parser = new JACCParser();
-		IExpressionEvaluator eval = new ExpressionEvaluator();
+		IExpressionEvaluator eval = new ExpressionEvaluator(null);
 		assertEquals(8L, eval.getValue((Expression)parser.parse("5 + 3")).getValue());
 		assertEquals(8.0, eval.getValue((Expression)parser.parse("5.0 + 3")).getValue());
 		assertEquals(1L, eval.getValue((Expression)parser.parse("3 / 2")).getValue());
@@ -29,6 +29,6 @@ public class TestEval {
 		assertEquals(false, eval.getValue((Expression)parser.parse("5 + 8 == 9 - 1")).getValue());
 		assertEquals(false, eval.getValue((Expression)parser.parse("5 + 8 == 13.0")).getValue());
 		assertEquals(true, eval.getValue((Expression)parser.parse("\"Hanky\" == \"Hanky\"")).getValue());
-		assertEquals(false, eval.getValue((Expression)parser.parse("\"Hanky\" == 13.0")).getValue());
+		assertEquals(false, eval.getValue((Expression)parser.parse("\"Hank5y\" == 13.0")).getValue());
 	}
 }
