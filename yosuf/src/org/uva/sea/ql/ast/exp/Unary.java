@@ -2,9 +2,7 @@ package org.uva.sea.ql.ast.exp;
 
 import static julius.validation.Assertions.state;
 
-import org.uva.sea.ql.ast.Valuable;
-
-public abstract class Unary extends Expression implements Valuable {
+public abstract class Unary extends Expression {
 
 	private final Expression operation;
 

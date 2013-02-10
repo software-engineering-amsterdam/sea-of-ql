@@ -11,4 +11,12 @@ public class MoneyType extends Type {
 		return new DecimalValue();
 	}
 
+	@Override
+	public String getHumanReadableType() {
+		
+		return "money";
+	}
+	
+	
+
 }

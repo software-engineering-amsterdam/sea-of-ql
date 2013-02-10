@@ -1,4 +1,4 @@
-// $ANTLR 3.4 /home/ioana/workspace/Construction/sea-of-ql/ioanarucareanu/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g 2013-02-09 03:29:04
+// $ANTLR 3.4 /home/ioana/workspace/Construction/sea-of-ql/ioanarucareanu/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g 2013-02-09 21:22:25
 
 package org.uva.sea.ql.parser.antlr;
 import org.uva.sea.ql.ast.*;
@@ -736,7 +736,7 @@ public class QLParser extends Parser {
                     {
                     match(input,BOOLEAN,FOLLOW_BOOLEAN_in_type255); if (state.failed) return result;
 
-                    if ( state.backtracking==0 ) { result = new BooleanType();}
+                    if ( state.backtracking==0 ) { result = TypeFactory.getBoolType();}
 
                     }
                     break;
@@ -745,7 +745,7 @@ public class QLParser extends Parser {
                     {
                     match(input,INTEGER,FOLLOW_INTEGER_in_type262); if (state.failed) return result;
 
-                    if ( state.backtracking==0 ) { result = new IntegerType();}
+                    if ( state.backtracking==0 ) { result = TypeFactory.getIntType();}
 
                     }
                     break;
@@ -754,7 +754,7 @@ public class QLParser extends Parser {
                     {
                     match(input,DECIMAL,FOLLOW_DECIMAL_in_type269); if (state.failed) return result;
 
-                    if ( state.backtracking==0 ) { result = new DecimalType();}
+                    if ( state.backtracking==0 ) { result = TypeFactory.getDecType();}
 
                     }
                     break;
@@ -763,7 +763,7 @@ public class QLParser extends Parser {
                     {
                     match(input,STRING,FOLLOW_STRING_in_type276); if (state.failed) return result;
 
-                    if ( state.backtracking==0 ) {result = new StringType();}
+                    if ( state.backtracking==0 ) {result = TypeFactory.getStringType();}
 
                     }
                     break;
@@ -772,7 +772,7 @@ public class QLParser extends Parser {
                     {
                     match(input,MONEY,FOLLOW_MONEY_in_type283); if (state.failed) return result;
 
-                    if ( state.backtracking==0 ) {result = new MoneyType();}
+                    if ( state.backtracking==0 ) {result = TypeFactory.getMoneyType();}
 
                     }
                     break;

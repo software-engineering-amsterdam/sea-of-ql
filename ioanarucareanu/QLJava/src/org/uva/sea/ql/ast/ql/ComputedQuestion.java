@@ -18,11 +18,13 @@ public class ComputedQuestion extends Question {
 	public Expr getExpr() {
 		return expr;
 	}
-	
+
 	@Override
 	public void accept(QLItem visitableElement, QLItemSemanticVisitor visitor) {
-		
-		visitor.visit((ComputedQuestion) visitableElement);
+		// TODO Auto-generated method stub
+		super.accept(visitableElement, visitor);
 	}
+	
+	
 	
 }

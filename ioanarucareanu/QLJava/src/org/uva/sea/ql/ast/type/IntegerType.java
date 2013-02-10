@@ -11,4 +11,10 @@ public class IntegerType extends Type {
 		return new IntegerValue();
 	}
 
+	@Override
+	public String getHumanReadableType() {
+		
+		return "integer";
+	}
+
 }

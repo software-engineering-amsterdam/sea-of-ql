@@ -5,10 +5,20 @@ import org.uva.sea.ql.ast.expr.value.Value;
 
 public class BooleanType extends Type {
 
-	@Override
-	public Value<?> createValueOfType() {
+	BooleanType() {
 		
-		return new BooleanValue();
 	}
 	
+	@Override
+	public Value<?> createValueOfType() {
+
+		return new BooleanValue();
+	}
+
+	@Override
+	public String getHumanReadableType() {
+		
+		return "boolean";
+	}
+
 }

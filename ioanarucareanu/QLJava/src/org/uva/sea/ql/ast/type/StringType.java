@@ -11,4 +11,10 @@ public class StringType extends Type {
 		return new StringValue();
 	}
 
+	@Override
+	public String getHumanReadableType() {
+		
+		return "text";
+	}
+
 }

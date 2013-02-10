@@ -40,6 +40,12 @@ public interface ValuableVisitor<T> {
 
 	T visit(GreaterThan greaterThan);
 
+	/**
+	 * Since the expression to which identifer refers might not be known yet, return can be null.
+	 * 
+	 * @param identifier
+	 * @return maybe null
+	 */
 	T visit(Identifier identifier);
 
 	T visit(Multiply multiply);
