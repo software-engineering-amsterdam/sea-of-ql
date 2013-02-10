@@ -81,6 +81,9 @@ private str JS(Form f) =
   '    }, jQuery.format(\"This field is required. Please pick an answer.\")
   '  );
   '
+  '  // Make sure all elements are properly styled before registering events
+  '  styling();
+  '
   '  $(\"#<f.formName.ident>\").validate({
   '    rules: {
   '      <createValidationRules(f)>
@@ -92,8 +95,6 @@ private str JS(Form f) =
   '
   '  // End with control flow functionality for branches etc. 
   '  <conditionalVisibility(f)>
-  '
-  '  styling();
   '}
   ";
   

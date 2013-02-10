@@ -115,7 +115,7 @@ private str layoutJS(QuestionDefinition q, &T parent) =
   '";
 
 private str styleJS(Stylesheet s) {
-  ret = "/********** STILL TODO\n";
+  ret = "";
 
   for(q <- getQuestionDefinitions(s)) {
     if(!q.styleRules?)
@@ -124,19 +124,73 @@ private str styleJS(Stylesheet s) {
     ret += styleJS(q);
   }
 
-  return ret + "**********/";
+  return ret;
 }
 
 private str styleJS(QuestionDefinition q) =
-  "Question <blockIdent(q)>:<for(r <- q.styleRules) {>
-  '  <styleJS(r)><}>
+  "//Question <blockIdent(q)>: <for(r <- q.styleRules) {>
+  '<styleJS(q, r)><}>
   '
   '";
 
-private str styleJS(StyleRule r: 
-    widgetStyleRule(attr, \value)) =
-  "<attr> <\value.name>";
+private str styleJS(QuestionDefinition q, StyleRule r: 
+    widgetStyleRule(attr, text(name))) =
+  "//<attr> <name>";
 
-public str styleJS(StyleRule r: 
+private str styleJS(QuestionDefinition q, StyleRule r: 
+    widgetStyleRule(attr, number(name))) =
+  "//<attr> <name>";
+
+private str styleJS(QuestionDefinition q, StyleRule r: 
+    widgetStyleRule(attr, datepicker(name))) =
+  "//<attr> <name>";
+
+private str styleJS(QuestionDefinition q, StyleRule r: 
+    widgetStyleRule(attr, slider(name))) =
+  "//<attr> <name>";
+
+private str styleJS(QuestionDefinition q, StyleRule r: 
+    widgetStyleRule(attr, radio(name))) =
+  "//<attr> <name>";
+
+private str styleJS(QuestionDefinition q, StyleRule r: 
+    widgetStyleRule(attr, checkbox(name))) =
+  "$(\"#<q.ident>\")
+  '  .replaceWith(
+  '    $(\"\<input /\>\")
+  '      .attr({
+  '        id: \"<q.ident>\",
+  '        name: \"<q.ident>\",
+  '        value: \"true\",
+  '        type: \"checkbox\"
+  '      })
+  '      .change(function(e) {
+  '        $(\"#<q.ident>False\").prop(
+  '          \"checked\",
+  '          !$(e.target).is(\":checked\")
+  '        );
+  '        $(e.target).attr({ value: $(e.target).is(\":checked\") });
+  '      })
+  '  );
+  '
+  '$(\"#<q.ident>\")
+  '  .before(
+  '    $(\"\<input /\>\")
+  '      .attr({
+  '        id: \"<q.ident>False\",
+  '        name: \"<q.ident>\",
+  '        value: \"false\",
+  '        type: \"checkbox\",
+  '        checked: \"checked\"
+  '      })
+  '      .css({ display: \"none\" })
+  '  );
+  '";
+
+private str styleJS(QuestionDefinition q, StyleRule r: 
+    widgetStyleRule(attr, select(name))) =
+  "//<attr> <name>";
+
+public str styleJS(QuestionDefinition q, StyleRule r: 
     widthStyleRule(str attr, int \value)) =
-  "<attr> <\value>";
+  "//<attr> <\value>";
