@@ -1,8 +1,6 @@
 package org.uva.sea.ql.ui;
 
 import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -44,16 +42,8 @@ public class QLForm extends JFrame implements Observer {
 		cPanel.registerAt(contentPane, 0);
 
 		cPanel.addObserver(this);
-	}
 
-	private void printMap(Map mp) {
-		Iterator it = mp.entrySet().iterator();
-		while (it.hasNext()) {
-			Map.Entry pairs = (Map.Entry) it.next();
-			Result erExpressionResult = (Result) pairs.getValue();
-			System.out.print(pairs.getKey());
-			System.out.println(" = " + erExpressionResult.getStringValue());
-		}
+		cPanel.updatecalculatedField(qlSymbols);
 	}
 
 	@Override
@@ -65,6 +55,6 @@ public class QLForm extends JFrame implements Observer {
 		}
 
 		cPanel.updatecalculatedField(qlSymbols);
-		printMap(qlSymbols);
+
 	}
 }

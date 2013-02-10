@@ -10,22 +10,17 @@ import javax.swing.JPanel;
 import org.uva.sea.ql.ast.literals.Result;
 
 public abstract class Panel extends Observable implements ActionListener {
-	public Panel isActionSource(ActionEvent ev) {
-		return null;
-	}
-
-	public void registerActionListener(ActionListener actionHandler) {
-	}
 
 	public void registerAt(JPanel parentPanel, int location) {
 
 	}
+
 	public void updatecalculatedField(HashMap<String, Result> symbols) {
 
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		
+
 	}
 }

@@ -4,18 +4,30 @@ import java.math.BigDecimal;
 
 import org.uva.sea.ql.ast.types.Type;
 
-public interface Result {
-	String toString();
+public abstract class Result<T> {
+	private T value;
 
-	int getIntegerValue();
+	public T getValue() {
+		return value;
+	}
 
-	String getStringValue();
+	public abstract String toString();
 
-	BigDecimal getMoneyValue();
+	public abstract int getIntegerValue();
 
-	boolean getBooleanValue();
+	public abstract String getStringValue();
 
-	Type typeOf();
+	public abstract BigDecimal getMoneyValue();
 
-	Result setValue(String string);
+	public abstract boolean getBooleanValue();
+
+	public abstract Type typeOf();
+
+	public abstract Result<T> setValue(String string);
+
+	public abstract boolean isCompatibleToInt() ;
+	public abstract boolean isCompatibleToString() ;
+	public abstract boolean isCompatibleToBool() ;
+	public abstract boolean isCompatibleToMoney() ;
+
 }

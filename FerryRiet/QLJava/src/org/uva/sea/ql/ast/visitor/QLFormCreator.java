@@ -85,7 +85,6 @@ public class QLFormCreator implements Visitor<Panel> {
 	@Override
 	public Panel visit(ConditionalStatement conditionalStatement) {
 		ConditionalPanel conditionalPanel = new ConditionalPanel(conditionalStatement);
-		// newPanel = new ConditionalPanel(conditionalStatement) ;
 
 		conditionalPanel.setcThenPanel((CompoundPanel) conditionalStatement
 				.getTrueCompound().accept(this));
