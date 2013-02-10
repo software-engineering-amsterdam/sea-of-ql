@@ -1,23 +1,22 @@
 package org.uva.sea.ql.tests.semantic.expression;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
-import org.uva.sea.ql.ast.expr.primary.Ident;
 import org.uva.sea.ql.message.Message;
 import org.uva.sea.ql.parser.ANTLRParser;
 import org.uva.sea.ql.parser.error.ParseError;
 import org.uva.sea.ql.tests.IParse;
-import org.uva.sea.ql.type.Type;
 import org.uva.sea.ql.visitor.ExpressionTypeVisitor;
+import org.uva.sea.ql.visitor.SymbolTable;
 
 @RunWith(Parameterized.class)
 public class TestUnary {
@@ -29,7 +28,7 @@ public class TestUnary {
 		Object[][] data = new Object[][] { new Object[] {new ANTLRParser()} };
 		return Arrays.asList(data);
 	}
-	public static HashMap<Ident, Type> exprMap = new HashMap<Ident, Type>();
+	public static SymbolTable symbolTable = new SymbolTable();
 	public static ArrayList<Message> errors = new ArrayList<Message>();
 
 	
@@ -39,19 +38,19 @@ public class TestUnary {
 	
 	@Test
 	public void testNeg() throws ParseError {
-		assertEquals(parser.parseExpression("-1").accept(new ExpressionTypeVisitor(exprMap, errors)), true);
-    	assertEquals(parser.parseExpression("+true").accept(new ExpressionTypeVisitor(exprMap, errors)), false);	
+		assertTrue(parser.parseExpression("-1").accept(new ExpressionTypeVisitor(symbolTable, errors)));
+    	assertFalse(parser.parseExpression("+true").accept(new ExpressionTypeVisitor(symbolTable, errors)));	
 	}
 
 	@Test
 	public void testNot() throws ParseError {
-		assertEquals(parser.parseExpression("!true").accept(new ExpressionTypeVisitor(exprMap, errors)), true);
-    	assertEquals(parser.parseExpression("!1").accept(new ExpressionTypeVisitor(exprMap, errors)), false);	
+		assertTrue(parser.parseExpression("!true").accept(new ExpressionTypeVisitor(symbolTable, errors)));
+		assertFalse(parser.parseExpression("!1").accept(new ExpressionTypeVisitor(symbolTable, errors)));	
 	}
 	
 	@Test
 	public void testPos() throws ParseError {
-		assertEquals(parser.parseExpression("+1").accept(new ExpressionTypeVisitor(exprMap, errors)), true);
-    	assertEquals(parser.parseExpression("+true").accept(new ExpressionTypeVisitor(exprMap, errors)), false);	
+		assertTrue(parser.parseExpression("+1").accept(new ExpressionTypeVisitor(symbolTable, errors)));
+		assertFalse(parser.parseExpression("+true").accept(new ExpressionTypeVisitor(symbolTable, errors)));	
 	}
 }

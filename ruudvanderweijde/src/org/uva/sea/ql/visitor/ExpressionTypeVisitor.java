@@ -1,7 +1,6 @@
 package org.uva.sea.ql.visitor;
 
 import java.util.List;
-import java.util.Map;
 
 import org.uva.sea.ql.ast.expr.Expr;
 import org.uva.sea.ql.ast.expr.binary.Add;
@@ -31,17 +30,17 @@ import org.uva.sea.ql.message.Warning;
 import org.uva.sea.ql.type.Type;
 
 public class ExpressionTypeVisitor implements IExpressionVisitor<Boolean> {
-	private final Map<Ident, Type> typeEnv;
+	private final SymbolTable symbolTable;
 	private final List<Message> errors;
 
-	public ExpressionTypeVisitor(Map<Ident, Type> tenv, List<Message> errors) {
-		this.typeEnv = tenv;
+	public ExpressionTypeVisitor(SymbolTable symbolTable, List<Message> errors) {
+		this.symbolTable = symbolTable;
 		this.errors = errors;
 	}
 
-	public static boolean check(Expr expr, Map<Ident, Type> typeEnv,
+	public static boolean check(Expr expr, SymbolTable symbolTable,
 			List<Message> errs) {
-		ExpressionTypeVisitor check = new ExpressionTypeVisitor(typeEnv, errs);
+		ExpressionTypeVisitor check = new ExpressionTypeVisitor(symbolTable, errs);
 		return expr.accept(check);
 	}
 
@@ -181,7 +180,7 @@ public class ExpressionTypeVisitor implements IExpressionVisitor<Boolean> {
 
 	@Override
 	public Boolean visit(Bool expr) {
-		Type exprType = expr.typeOf(typeEnv);
+		Type exprType = expr.typeOf(symbolTable);
 		if (!exprType.isCompatibleToBooleanType()) {
 			addError(String.format("%s is not a valid Boolean.", expr.toString()));
 			return false;
@@ -196,7 +195,7 @@ public class ExpressionTypeVisitor implements IExpressionVisitor<Boolean> {
 
 	@Override
 	public Boolean visit(Int expr) {
-		Type exprType = expr.typeOf(typeEnv);
+		Type exprType = expr.typeOf(symbolTable);
 		if (!exprType.isCompatibleToNumericType()) {
 			addError(String.format("%s is not a valid Int.", expr.toString()));
 			return false;
@@ -206,7 +205,7 @@ public class ExpressionTypeVisitor implements IExpressionVisitor<Boolean> {
 
 	@Override
 	public Boolean visit(StringLiteral expr) {
-		Type exprType = expr.typeOf(typeEnv);
+		Type exprType = expr.typeOf(symbolTable);
 		if (!exprType.isCompatibleToStringType()) {
 			addError(String.format("%s is not a valid String.", expr.toString()));
 			return false;
@@ -225,8 +224,8 @@ public class ExpressionTypeVisitor implements IExpressionVisitor<Boolean> {
 	}
 
 	private boolean bothSidesAreNumeric(Binary expr) {
-		Type lhsType = expr.getLhs().typeOf(typeEnv);
-		Type rhsType = expr.getRhs().typeOf(typeEnv);
+		Type lhsType = expr.getLhs().typeOf(symbolTable);
+		Type rhsType = expr.getRhs().typeOf(symbolTable);
 
 		if (!(lhsType.isCompatibleToNumericType() && rhsType
 				.isCompatibleToNumericType())) {
@@ -239,8 +238,8 @@ public class ExpressionTypeVisitor implements IExpressionVisitor<Boolean> {
 	}
 
 	private boolean bothSidesAreBoolean(Binary expr) {
-		Type lhsType = expr.getLhs().typeOf(typeEnv);
-		Type rhsType = expr.getRhs().typeOf(typeEnv);
+		Type lhsType = expr.getLhs().typeOf(symbolTable);
+		Type rhsType = expr.getRhs().typeOf(symbolTable);
 
 		if (!(lhsType.isCompatibleToBooleanType() && rhsType
 				.isCompatibleToBooleanType())) {
@@ -253,8 +252,8 @@ public class ExpressionTypeVisitor implements IExpressionVisitor<Boolean> {
 	}
 	
 	private boolean bothSidesAreBooleanOrNumeric(Binary expr) {
-		Type lhsType = expr.getLhs().typeOf(typeEnv);
-		Type rhsType = expr.getRhs().typeOf(typeEnv);
+		Type lhsType = expr.getLhs().typeOf(symbolTable);
+		Type rhsType = expr.getRhs().typeOf(symbolTable);
 		if (!(lhsType.isCompatibleToBooleanType() && rhsType.isCompatibleToBooleanType()) 
 				&& !(lhsType.isCompatibleToNumericType() && rhsType.isCompatibleToNumericType())) {
 
@@ -266,7 +265,7 @@ public class ExpressionTypeVisitor implements IExpressionVisitor<Boolean> {
 	}
 	
 	private boolean isCompatibleToNumeric(Unary expr) {
-		Type argType = expr.getArg().typeOf(typeEnv);
+		Type argType = expr.getArg().typeOf(symbolTable);
 		if (!argType.isCompatibleToNumericType()) {
 			addError(String.format("Invalid Numeric type for %s.", 
 					expr.toString()));
@@ -276,7 +275,7 @@ public class ExpressionTypeVisitor implements IExpressionVisitor<Boolean> {
 	}
 	
 	private boolean isCompatibleToBoolean(Unary expr) {
-		Type argType = expr.getArg().typeOf(typeEnv);
+		Type argType = expr.getArg().typeOf(symbolTable);
 		if (!argType.isCompatibleToBooleanType()) {
 			addError(String.format("Invalid Boolean type for %s.", 
 					expr.toString()));

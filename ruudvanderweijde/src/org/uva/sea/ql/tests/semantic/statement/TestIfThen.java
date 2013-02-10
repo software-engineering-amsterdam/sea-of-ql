@@ -18,6 +18,7 @@ import org.uva.sea.ql.parser.error.ParseError;
 import org.uva.sea.ql.tests.IParse;
 import org.uva.sea.ql.type.Type;
 import org.uva.sea.ql.visitor.FormVisitor;
+import org.uva.sea.ql.visitor.SymbolTable;
 
 @RunWith(Parameterized.class)
 public class TestIfThen {
@@ -29,13 +30,13 @@ public class TestIfThen {
 		Object[][] data = new Object[][] { new Object[] {new ANTLRParser()} };
 		return Arrays.asList(data);
 	}
-	public static HashMap<Ident, Type> exprMap = new HashMap<Ident, Type>();
+	public static SymbolTable symbolTable = new SymbolTable();
 	public static ArrayList<Message> errors = new ArrayList<Message>();
 
 	
 	public TestIfThen(IParse parser) {
 		this.parser = parser;
-		exprMap = new HashMap<Ident, Type>();
+		symbolTable = new SymbolTable();
 		errors = new ArrayList<Message>();
 	}
 
@@ -53,7 +54,7 @@ public class TestIfThen {
     	formString += "   }\n";
     	formString += "}\n";
     	
-    	parser.parseForm(formString).accept(new FormVisitor(exprMap, errors));
+    	parser.parseForm(formString).accept(new FormVisitor(symbolTable, errors));
     	assertEquals(errors.size(), 0);
 	}
 	@Test
@@ -75,7 +76,7 @@ public class TestIfThen {
     	formString += "   }\n";
     	formString += "}\n";
     	
-    	parser.parseForm(formString).accept(new FormVisitor(exprMap, errors));
+    	parser.parseForm(formString).accept(new FormVisitor(symbolTable, errors));
     	assertEquals(errors.size(), 0);
 	}
 }

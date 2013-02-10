@@ -3,22 +3,17 @@ package org.uva.sea.ql.visitor;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.Map;
 
 import org.stringtemplate.v4.ST;
 import org.stringtemplate.v4.STGroup;
 import org.stringtemplate.v4.STGroupFile;
 import org.uva.sea.ql.ast.Form;
-import org.uva.sea.ql.ast.expr.Expr;
-import org.uva.sea.ql.ast.expr.primary.Ident;
 import org.uva.sea.ql.ast.stmt.IfThen;
 import org.uva.sea.ql.ast.stmt.IfThenElse;
 import org.uva.sea.ql.ast.stmt.Statement;
 import org.uva.sea.ql.ast.stmt.question.ComputedQuestion;
 import org.uva.sea.ql.ast.stmt.question.NormalQuestion;
 import org.uva.sea.ql.ast.stmt.question.Question;
-import org.uva.sea.ql.value.BooleanValue;
-import org.uva.sea.ql.value.IntegerValue;
 import org.uva.sea.ql.value.Value;
 
 public class FormRenderer implements IFormVisitor {
@@ -40,9 +35,14 @@ public class FormRenderer implements IFormVisitor {
 
 	@Override
 	public void visit(IfThen ifThen) {
+//		Value aap = ifThen.getCondition().accept(this);
+		ST qlOpenBlock = formTemplate.getInstanceOf("OpenBlock");
+		qlOpenBlock.add("id", ifThen.hashCode());
+		formContent += qlOpenBlock.render();
 		for (Statement stmt : ifThen.getIfBlock()) {
 			stmt.accept(this);
 		}
+		formContent += formTemplate.getInstanceOf("CloseBlock").render();
 
 	}
 

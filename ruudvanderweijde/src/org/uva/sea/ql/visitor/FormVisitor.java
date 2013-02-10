@@ -24,7 +24,7 @@ import org.uva.sea.ql.type.Type;
  *  	- check expressions of computed types
  */
 public class FormVisitor implements IFormVisitor {
-	private final Map<Ident, Type> typeEnv;
+	private final SymbolTable symbolTable;
 	private final List<Message> errors;
 	private final String ERROR_DUPLICATE_ID = "Duplicate question identiefier: '%s'";
 	private final String ERROR_BOOL_CONDITION = "Condition is not an boolean expression. %s type given.";
@@ -32,8 +32,8 @@ public class FormVisitor implements IFormVisitor {
 	private final String ERROR_WRONG_COMPUTED_TYPE = "Invalid type for computed question '%s'. Only numeric expressions are allowed in computed questions, %s type given.";
 
 	
-	public FormVisitor(Map<Ident, Type> tenv, List<Message> errors) {
-		this.typeEnv = tenv;
+	public FormVisitor(SymbolTable symbolTable, List<Message> errors) {
+		this.symbolTable = symbolTable;
 		this.errors = errors;
 	}
 
@@ -80,21 +80,21 @@ public class FormVisitor implements IFormVisitor {
 	}
 
 	private void checkName(Ident id, Type type) {
-		if (typeEnv.containsKey(id)) {
+		if (symbolTable.containsKey(id)) {
 			addError(String.format(ERROR_DUPLICATE_ID, id.getName()));
 		} else {
-			typeEnv.put(id, type);
+			symbolTable.setType(id, type);
 		}
 	}
 
 	private void checkExpr(Expr expr) {
-		expr.accept(new ExpressionTypeVisitor(typeEnv, errors));
+		expr.accept(new ExpressionTypeVisitor(symbolTable, errors));
 	}
 
 	private void checkIfConditionIsOfBooleanType(Expr expr) {
 		checkExpr(expr);
 
-		Type exprType = expr.typeOf(typeEnv);
+		Type exprType = expr.typeOf(symbolTable);
 		if (!exprType.isCompatibleToBooleanType()) {
 			addError(String.format(ERROR_BOOL_CONDITION, exprType.toString()));
 		}
@@ -102,19 +102,19 @@ public class FormVisitor implements IFormVisitor {
 
 	private void checkIfCompatibleAndNumeric(ComputedQuestion question) {
 		if (!question.getType().isCompatibleTo(
-				question.getExpr().typeOf(typeEnv))) {
+				question.getExpr().typeOf(symbolTable))) {
 
 			addError(String.format(ERROR_WRONG_TYPE,
 							question.getId().getName(), question.getType(),
-							question.getExpr().typeOf(typeEnv)));
+							question.getExpr().typeOf(symbolTable)));
 			
-		} else if (!question.getExpr().typeOf(typeEnv)
+		} else if (!question.getExpr().typeOf(symbolTable)
 				.isCompatibleToNumericType()) {
 
 			addError(String
 					.format(ERROR_WRONG_COMPUTED_TYPE,
 							question.getId().getName(), question.getExpr()
-									.typeOf(typeEnv)));
+									.typeOf(symbolTable)));
 		}
 	}
 

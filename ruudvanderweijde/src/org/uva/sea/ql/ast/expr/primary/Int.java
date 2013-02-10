@@ -1,11 +1,9 @@
 package org.uva.sea.ql.ast.expr.primary;
 
-import java.util.Map;
-
 import org.uva.sea.ql.type.IntegerType;
 import org.uva.sea.ql.type.Type;
-import org.uva.sea.ql.value.Value;
 import org.uva.sea.ql.visitor.IExpressionVisitor;
+import org.uva.sea.ql.visitor.SymbolTable;
 
 
 public class Int extends Primary<Integer> {
@@ -26,7 +24,7 @@ public class Int extends Primary<Integer> {
 	}
 
 	@Override
-	public Type typeOf(Map<Ident, Type> typeEnv) {
+	public Type typeOf(SymbolTable symbolTable) {
 		return new IntegerType();
 	}
 	

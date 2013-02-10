@@ -4,20 +4,18 @@ import static org.junit.Assert.assertEquals;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
-import org.uva.sea.ql.ast.expr.primary.Ident;
 import org.uva.sea.ql.message.Message;
 import org.uva.sea.ql.parser.ANTLRParser;
 import org.uva.sea.ql.parser.error.ParseError;
 import org.uva.sea.ql.tests.IParse;
-import org.uva.sea.ql.type.Type;
 import org.uva.sea.ql.visitor.FormVisitor;
+import org.uva.sea.ql.visitor.SymbolTable;
 
 @RunWith(Parameterized.class)
 public class TestIfThenElse {
@@ -29,13 +27,13 @@ public class TestIfThenElse {
 		Object[][] data = new Object[][] { new Object[] {new ANTLRParser()} };
 		return Arrays.asList(data);
 	}
-	public static HashMap<Ident, Type> exprMap = new HashMap<Ident, Type>();
+	public static SymbolTable symbolTable = new SymbolTable();
 	public static ArrayList<Message> errors = new ArrayList<Message>();
 
 	
 	public TestIfThenElse(IParse parser) {
 		this.parser = parser;
-		exprMap = new HashMap<Ident, Type>();
+		symbolTable = new SymbolTable();
 		errors = new ArrayList<Message>();
 	}
 
@@ -53,7 +51,7 @@ public class TestIfThenElse {
     	formString += "   }\n";
     	formString += "}\n";
     	
-    	parser.parseForm(formString).accept(new FormVisitor(exprMap, errors));
+    	parser.parseForm(formString).accept(new FormVisitor(symbolTable, errors));
     	assertEquals(errors.size(), 0);
 	}
 	@Test
@@ -78,7 +76,7 @@ public class TestIfThenElse {
     	formString += "   }\n";
     	formString += "}\n";
     	
-    	parser.parseForm(formString).accept(new FormVisitor(exprMap, errors));
+    	parser.parseForm(formString).accept(new FormVisitor(symbolTable, errors));
     	assertEquals(errors.size(), 0);
 	}
 }

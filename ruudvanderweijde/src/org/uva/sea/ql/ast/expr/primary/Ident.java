@@ -1,11 +1,10 @@
 package org.uva.sea.ql.ast.expr.primary;
 
-import java.util.Map;
-
 import org.uva.sea.ql.ast.expr.Expr;
 import org.uva.sea.ql.type.Type;
 import org.uva.sea.ql.type.UndefinedType;
 import org.uva.sea.ql.visitor.IExpressionVisitor;
+import org.uva.sea.ql.visitor.SymbolTable;
 
 
 public final class Ident extends Expr {
@@ -41,9 +40,9 @@ public final class Ident extends Expr {
 	}
 
 	@Override
-	public Type typeOf(Map<Ident, Type> typeEnv) {
-		if (typeEnv.containsKey(this)) {
-			return typeEnv.get(this);
+	public Type typeOf(SymbolTable symbolTable) {
+		if (symbolTable.containsKey(this)) {
+			return symbolTable.getType(this);
 		}
 		return new UndefinedType();
 	}

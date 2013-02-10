@@ -17,10 +17,10 @@ import org.uva.sea.ql.ast.expr.primary.Ident;
 import org.uva.sea.ql.message.Message;
 import org.uva.sea.ql.parser.ANTLRParser;
 import org.uva.sea.ql.parser.error.ParseError;
-import org.uva.sea.ql.type.Type;
 import org.uva.sea.ql.value.Value;
 import org.uva.sea.ql.visitor.FormRenderer;
 import org.uva.sea.ql.visitor.FormVisitor;
+import org.uva.sea.ql.visitor.SymbolTable;
 
 /*
  * This file is added to test the QL program
@@ -31,7 +31,7 @@ public class Main {
 	static public void main(String[] args) throws ParseError {
 		ANTLRParser parser = new ANTLRParser();
 
-		Map<Ident, Type> symbolTable = new HashMap<Ident, Type>();
+		SymbolTable symbolTable = new SymbolTable();
 		Map<Ident, Value> symbolTableValues = new HashMap<Ident, Value>();
 		List<Message> errors = new ArrayList<Message>();
 
