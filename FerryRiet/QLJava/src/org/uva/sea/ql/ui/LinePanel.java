@@ -1,7 +1,6 @@
 package org.uva.sea.ql.ui;
 
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.HashMap;
 
 import javax.swing.JCheckBox;
@@ -31,7 +30,7 @@ public class LinePanel extends Panel {
 		panelName = statement.getLineName();
 
 		jPanel = new JPanel();
-		jLabel = new JLabel(statement.getDisplayText().substring(1,statement.getDisplayText().length()-1));
+		jLabel = new JLabel(statement.getDisplayText());
 
 		jPanel.setLayout(new MigLayout("", "[200][][][][][][][][][][][][][][][][]", "[]"));
 
@@ -58,7 +57,6 @@ public class LinePanel extends Panel {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		System.err.println("Second action trigger observer");
 		setChanged();
 		notifyObservers(this);
 	}
@@ -72,17 +70,6 @@ public class LinePanel extends Panel {
 			return fieldResult.setValue(jCheckBox.isSelected() ? "true" : "false");
 		else
 			return fieldResult.setValue(jTextField.getText());
-	}
-
-	@Override
-	public Panel isActionSource(ActionEvent ev) {
-		if (jTextField == null) {
-			if (ev.getSource() == jCheckBox)
-				return this;
-		}
-		if (ev.getSource() == jTextField)
-			return this;
-		return null;
 	}
 
 	public void registerAt(JPanel parentPanel, int location) {

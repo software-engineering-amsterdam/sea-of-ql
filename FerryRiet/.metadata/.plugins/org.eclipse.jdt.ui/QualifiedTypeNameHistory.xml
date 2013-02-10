@@ -47,10 +47,11 @@
 <fullyQualifiedTypeName name="org.uva.sea.ql.ast.nodevisitor.VisitorResult"/>
 <fullyQualifiedTypeName name="javax.swing.JPanel"/>
 <fullyQualifiedTypeName name="org.uva.sea.ql.ui.Panel"/>
-<fullyQualifiedTypeName name="java.awt.Color"/>
 <fullyQualifiedTypeName name="java.util.Observable"/>
 <fullyQualifiedTypeName name="java.awt.event.ActionListener"/>
 <fullyQualifiedTypeName name="java.util.Observer"/>
 <fullyQualifiedTypeName name="org.uva.sea.ql.ast.literals.Result"/>
 <fullyQualifiedTypeName name="org.uva.sea.ql.ast.literals.BooleanResult"/>
+<fullyQualifiedTypeName name="javax.swing.BorderFactory"/>
+<fullyQualifiedTypeName name="java.awt.Color"/>
 </qualifiedTypeNameHistroy>

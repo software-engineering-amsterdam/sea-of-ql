@@ -41,3 +41,13 @@ form Box1HouseOwning {
           
    }
 }
+	
+	private void printMap(Map mp) {
+		Iterator it = mp.entrySet().iterator();
+		while (it.hasNext()) {
+			Map.Entry pairs = (Map.Entry) it.next();
+			Result erExpressionResult = (Result) pairs.getValue();
+			System.out.print(pairs.getKey());
+			System.out.println(" = " + erExpressionResult.getStringValue());
+		}
+	}

@@ -1,8 +1,5 @@
 package org.uva.sea.ql.ui;
 
-import java.awt.Color;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.HashMap;
 import java.util.Observer;
 
@@ -27,7 +24,7 @@ public class ConditionalPanel extends Panel {
 		panel.setLayout(new MigLayout("", "[]", "[][]"));
 
 		trueExpr = statement.getExpression();
-		//panel.setBackground(Color.BLUE);
+		// panel.setBackground(Color.BLUE);
 	}
 
 	@Override
@@ -35,23 +32,6 @@ public class ConditionalPanel extends Panel {
 		cThenPanel.addObserver(o);
 		if (cElsePanel != null)
 			cElsePanel.addObserver(o);
-	}
-
-	@Override
-	public Panel isActionSource(ActionEvent ev) {
-		Panel actionPanel = cThenPanel.isActionSource(ev);
-		if (actionPanel != null)
-			return actionPanel;
-		if (cElsePanel != null)
-			return cElsePanel.isActionSource(ev);
-		return null;
-	}
-
-	@Override
-	public void registerActionListener(ActionListener actionHandler) {
-		cThenPanel.registerActionListener(actionHandler);
-		if (cElsePanel != null)
-			cElsePanel.registerActionListener(actionHandler);
 	}
 
 	@Override
@@ -64,18 +44,26 @@ public class ConditionalPanel extends Panel {
 
 		Result tResult = new BooleanResult(false);
 
+		activateTFPanel(tResult);
+	}
+
+	private void activateTFPanel(Result tResult) {
 		if (tResult.getBooleanValue()) {
-			if ( cElsePanel != null ) cElsePanel.removeFrom(panel);
+			if (cElsePanel != null)
+				cElsePanel.removeFrom(panel);
 			cThenPanel.registerAt(panel, 0);
-			cThenPanel.setVisible(tResult.getBooleanValue()) ;
-			if ( cElsePanel != null ) cElsePanel.setVisible(!tResult.getBooleanValue()) ;
+			cThenPanel.setVisible(tResult.getBooleanValue());
+			if (cElsePanel != null)
+				cElsePanel.setVisible(!tResult.getBooleanValue());
 		} else {
 			cThenPanel.removeFrom(panel);
-			if ( cElsePanel != null ) cElsePanel.registerAt(panel, 0);
-			cThenPanel.setVisible(tResult.getBooleanValue()) ;
-			if ( cElsePanel != null ) cElsePanel.setVisible(!tResult.getBooleanValue()) ;
+			if (cElsePanel != null)
+				cElsePanel.registerAt(panel, 0);
+			cThenPanel.setVisible(tResult.getBooleanValue());
+			if (cElsePanel != null)
+				cElsePanel.setVisible(!tResult.getBooleanValue());
 		}
-		panel.repaint() ;
+		panel.repaint();
 	}
 
 	public void setcElsePanel(CompoundPanel cElsePanel) {
@@ -89,23 +77,12 @@ public class ConditionalPanel extends Panel {
 	@Override
 	public void updatecalculatedField(HashMap<String, Result> symbols) {
 		cThenPanel.updatecalculatedField(symbols);
-		
+
 		if (cElsePanel != null)
 			cElsePanel.updatecalculatedField(symbols);
 
 		Result tResult = trueExpr.eval(symbols);
 
-		if (tResult.getBooleanValue()) {
-			if ( cElsePanel != null ) cElsePanel.removeFrom(panel);
-			cThenPanel.registerAt(panel, 0);
-			cThenPanel.setVisible(tResult.getBooleanValue()) ;
-			if ( cElsePanel != null ) cElsePanel.setVisible(!tResult.getBooleanValue()) ;
-		} else {
-			cThenPanel.removeFrom(panel);
-			if ( cElsePanel != null ) cElsePanel.registerAt(panel, 0);
-			cThenPanel.setVisible(tResult.getBooleanValue()) ;
-			if ( cElsePanel != null ) cElsePanel.setVisible(!tResult.getBooleanValue()) ;
-		}
-		panel.repaint() ;
+		activateTFPanel(tResult);
 	}
 }

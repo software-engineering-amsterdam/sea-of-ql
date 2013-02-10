@@ -9,15 +9,11 @@ import java.awt.event.MouseEvent;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
-import javax.swing.JTextField;
 import javax.swing.JTextPane;
-
-import net.miginfocom.swing.MigLayout;
 
 import org.antlr.runtime.ANTLRStringStream;
 import org.antlr.runtime.CommonTokenStream;
@@ -26,13 +22,12 @@ import org.uva.sea.ql.ast.visitor.TypeCheck;
 import org.uva.sea.ql.parser.antlr.QLLexer;
 import org.uva.sea.ql.parser.antlr.QLParser;
 import org.uva.sea.ql.ui.QLForm;
-import java.awt.Color;
 
 public class QLDriver extends JFrame implements ActionListener {
 
 	private static final long serialVersionUID = 5869298083469486262L;
-	private JButton btnNewButton;
-	private JTextPane txtpnFormNameofForm;
+	private JButton runButton;
+	private JTextPane sourcePAne;
 
 	/**
 	 * Launch the application.
@@ -74,30 +69,35 @@ public class QLDriver extends JFrame implements ActionListener {
 		mnNewMenu.add(mntmNewMenuItem);
 		getContentPane().setLayout(null);
 
-		txtpnFormNameofForm = new JTextPane();
-		txtpnFormNameofForm.setFont(new Font("Arial", Font.PLAIN, 12));
-		txtpnFormNameofForm.setBounds(10, 0, 444, 382);
-		txtpnFormNameofForm
+		sourcePAne = new JTextPane();
+		sourcePAne.setFont(new Font("Arial", Font.PLAIN, 12));
+		sourcePAne.setBounds(10, 0, 444, 382);
+		sourcePAne
 				.setText("form Box1HouseOwning {\r\n   hasSoldHouse: \"Did you sell a house in 2010?\" boolean\r\n   hasBoughtHouse: \"Did you by a house in 2010?\" boolean\r\n   hasMaintLoan: \"Did you enter a loan for maintenance/reconstruction?\" boolean\r\n   if (hasSoldHouse) {\r\n     sellingPrice: \"Price the house was sold for:\" money\r\n     privateDebt: \"Private debts for the sold house:\" money\r\n     valueResidue: \"Value residue:\" money(sellingPrice - privateDebt)\r\n     taxOwed: \"Tax owed:\" money( valueResidue * 0.21 )\r\n   }\r\n   else {\r\n     happyLiving: \"Do you like your current house?\" boolean       \r\n   }\r\n}");
-		getContentPane().add(txtpnFormNameofForm);
+		getContentPane().add(sourcePAne);
 
-		btnNewButton = new JButton("Run");
-		btnNewButton.setBounds(16, 393, 96, 29);
-		btnNewButton.addActionListener(this);
-		getContentPane().add(btnNewButton);
+		runButton = new JButton("Run");
+		runButton.setBounds(16, 393, 96, 29);
+		runButton.addActionListener(this);
+		getContentPane().add(runButton);
+
+		JPanel panel = new JPanel();
+		panel.setBorder(null);
+		panel.setBounds(211, 412, 10, 10);
+		getContentPane().add(panel);
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		if (e.getSource() == btnNewButton) {
+		if (e.getSource() == runButton) {
 			try {
-				ANTLRStringStream stream = new ANTLRStringStream(
-						txtpnFormNameofForm.getText());
+				ANTLRStringStream stream = new ANTLRStringStream(sourcePAne.getText());
 				CommonTokenStream tokens = new CommonTokenStream();
 				tokens.setTokenSource(new QLLexer(stream));
 				QLParser parser = new QLParser(tokens);
 
 				QLProgram qlprogram = parser.qlprogram();
+
 				if (parser.getErrorCount() == 0) {
 
 					TypeCheck typeCheck = new TypeCheck();
@@ -114,6 +114,7 @@ public class QLDriver extends JFrame implements ActionListener {
 					for (String errorString : parser.getErrors())
 						System.out.println(errorString);
 				}
+
 			} catch (Exception be) {
 				be.printStackTrace();
 			}
