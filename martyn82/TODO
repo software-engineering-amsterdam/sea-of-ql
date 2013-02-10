@@ -22,3 +22,5 @@ operator instanceof is only valid in some cases when the RHS is a type/interface
 - Create a visitor that gathers identifier dependencies on expressions. They return a HashSet<Identifier>
 - The printer visitor should return String values of the nodes and then a Printer (abstract) is used as protocol, a ConsolePrinter is used for printing to console.
 - Remove javadoc
+- The type checker needs an environment with an Identity:Type map
+- The evaluator needs an environment with an Identity:Value map
