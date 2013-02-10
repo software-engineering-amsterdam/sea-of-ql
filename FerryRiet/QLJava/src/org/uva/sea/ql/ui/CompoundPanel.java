@@ -38,11 +38,9 @@ public class CompoundPanel extends Panel {
 	@Override
 	public void registerAt(JPanel parentPanel, int location) {
 
-		StringBuilder stringBuilder = new StringBuilder("cell 0 ");
-		stringBuilder.append(location);
-		stringBuilder.append(" ,growx");
+		String result = String.format("cell 0 %d ,growx", location) ;
 
-		parentPanel.add(compoundJPanel, stringBuilder.toString());
+		parentPanel.add(compoundJPanel, result);
 
 		int panelCount = 0;
 		for (Panel panel : panelList) {

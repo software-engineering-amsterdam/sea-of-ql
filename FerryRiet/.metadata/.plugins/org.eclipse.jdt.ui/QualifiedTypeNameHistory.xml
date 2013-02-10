@@ -10,14 +10,12 @@
 <fullyQualifiedTypeName name="org.uva.sea.ql.ast.operators.MoneyResult"/>
 <fullyQualifiedTypeName name="org.uva.sea.ql.ast.operators.StringResult"/>
 <fullyQualifiedTypeName name="javax.swing.JLabel"/>
-<fullyQualifiedTypeName name="java.lang.String"/>
 <fullyQualifiedTypeName name="com.sun.org.apache.xalan.internal.xsltc.compiler.util.BooleanType"/>
 <fullyQualifiedTypeName name="org.uva.sea.ql.ast.types.BooleanType"/>
 <fullyQualifiedTypeName name="javax.swing.JTextField"/>
 <fullyQualifiedTypeName name="javax.swing.JCheckBox"/>
 <fullyQualifiedTypeName name="javax.swing.border.EmptyBorder"/>
 <fullyQualifiedTypeName name="javax.swing.JFrame"/>
-<fullyQualifiedTypeName name="java.lang.StringBuilder"/>
 <fullyQualifiedTypeName name="org.uva.sea.ql.ast.LineStatement"/>
 <fullyQualifiedTypeName name="org.antlr.stringtemplate.language.Expr"/>
 <fullyQualifiedTypeName name="java.lang.Boolean"/>
@@ -54,4 +52,6 @@
 <fullyQualifiedTypeName name="org.uva.sea.ql.ast.literals.BooleanResult"/>
 <fullyQualifiedTypeName name="javax.swing.BorderFactory"/>
 <fullyQualifiedTypeName name="java.awt.Color"/>
+<fullyQualifiedTypeName name="java.lang.StringBuilder"/>
+<fullyQualifiedTypeName name="java.lang.String"/>
 </qualifiedTypeNameHistroy>

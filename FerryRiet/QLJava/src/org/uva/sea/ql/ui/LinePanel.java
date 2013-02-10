@@ -73,12 +73,9 @@ public class LinePanel extends Panel {
 	}
 
 	public void registerAt(JPanel parentPanel, int location) {
-		StringBuilder stringBuilder = new StringBuilder("cell 0 ");
+		String result = String.format("cell 0 %d ,growx", location) ;
 
-		stringBuilder.append(location);
-		stringBuilder.append(" ,growx");
-
-		parentPanel.add(jPanel, stringBuilder.toString());
+		parentPanel.add(jPanel, result);
 	}
 
 	public void updatecalculatedField(HashMap<String, Result> symbols) {

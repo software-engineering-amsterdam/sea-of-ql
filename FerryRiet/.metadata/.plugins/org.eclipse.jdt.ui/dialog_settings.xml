@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <section name="Workbench">
 	<item value="0" key="org.eclipse.jdt.uiformatter_page.white_space_tab_page.node"/>
+	<item value="filter_imports;" key="filters_last_used"/>
 	<item value="0" key="org.eclipse.jdt.uiformatter_page.white_space.java_view.inner"/>
 	<item value="0" key="org.eclipse.jdt.uiformatter_page.modify_dialog_tab_page.last_focus_index"/>
 	<item value="true" key="SortMembers.sort_all"/>
 	<item value="862" key="org.eclipse.jdt.uiformatter_pagemodify_dialog.preferred_height"/>
 	<item value="490" key="org.eclipse.jdt.uiformatter_pagemodify_dialog.preferred_x"/>
-	<item value="1" key="org.eclipse.jdt.uiformatter_page.line_wrapping_tab_page.last_category_index"/>
-	<item value="6" key="org.eclipse.jdt.uiformatter_pagemodify_dialog.last_focus"/>
-	<item value="1005" key="org.eclipse.jdt.uiformatter_pagemodify_dialog.preferred_width"/>
 	<item value="0" key="org.eclipse.jdt.uiformatter_pagemodify_dialog.preferred_y"/>
+	<item value="1005" key="org.eclipse.jdt.uiformatter_pagemodify_dialog.preferred_width"/>
+	<item value="6" key="org.eclipse.jdt.uiformatter_pagemodify_dialog.last_focus"/>
+	<item value="1" key="org.eclipse.jdt.uiformatter_page.line_wrapping_tab_page.last_category_index"/>
 	<section name="OptionalMessageDialog.hide.">
 		<item value="false" key="RunnableJar.export.ipwarning"/>
 		<item value="true" key="org.eclipse.jdt.ui.typecomment.deprecated"/>
@@ -40,10 +41,12 @@
 	<section name="quick_assist_proposal_size">
 	</section>
 	<section name="SourceActionDialog.methods">
-		<item value="false" key="Comments"/>
 		<item value="1" key="VisibilityModifier"/>
+		<item value="false" key="Comments"/>
 		<item value="false" key="SynchronizedModifier"/>
 		<item value="false" key="FinalModifier"/>
+	</section>
+	<section name="BreadcrumbItemDropDown">
 	</section>
 	<section name="org.eclipse.jdt.internal.ui.packageview.PackageExplorerPart">
 		<item value="true" key="group_libraries"/>
@@ -61,15 +64,15 @@
 	</section>
 	<section name="JavaElementSearchActions">
 	</section>
-	<section name="RenameInformationPopup">
-	</section>
 	<section name="org.eclipse.ltk.ui.refactoring.settings">
-		<item value="false" key="updateQualifiedNames"/>
-		<item value="*" key="patterns"/>
 		<item value="false" key="renameSubpackages"/>
+		<item value="*" key="patterns"/>
+		<item value="false" key="updateQualifiedNames"/>
 		<item value="1" key="updateSimilarElementsMatchStrategy"/>
 		<item value="false" key="updateTextualMatches"/>
 		<item value="false" key="updateSimilarElements"/>
+	</section>
+	<section name="RenameInformationPopup">
 	</section>
 	<section name="AddGetterSetterDialog">
 		<item value="false" key="RemoveFinal"/>
