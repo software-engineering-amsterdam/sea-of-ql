@@ -81,15 +81,16 @@ public class StatementTypeChecker implements StatementVisitor<Statement> {
 	 * Checks whethere the given expression is of the boolean nature or refers to any expression
 	 * with such nature.
 	 * 
-	 * @param natural
+	 * @param naturalExpression
+	 * @param reference
 	 */
-	private void assertIfStatementExpression(final Natural natural,
+	private void assertIfStatementExpression(final Natural naturalExpression,
 			final String reference) {
-		if (environment.get(natural) != null) {
-			assertSameNature(new BooleanType(), environment.get(natural),
+		if (environment.get(naturalExpression) != null) {
+			assertSameNature(new BooleanType(), environment.get(naturalExpression),
 					reference);
 		} else {
-			assertSameNature(new BooleanType(), natural, reference);
+			assertSameNature(new BooleanType(), naturalExpression, reference);
 		}
 	}
 
@@ -135,6 +136,7 @@ public class StatementTypeChecker implements StatementVisitor<Statement> {
 	 * 
 	 * @param identifier
 	 * @param natural
+	 *            is the expression to which the identifier refers
 	 */
 	private void assertIdentifierAndAddToEnvironment(
 			final Identifier identifier, final Natural natural) {

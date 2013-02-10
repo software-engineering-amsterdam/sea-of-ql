@@ -4,7 +4,7 @@ import org.uva.sea.ql.ast.exp.Expression.Nature;
 import org.uva.sea.ql.visitor.NaturalVisitor;
 
 /**
- * Describes the specefic nature of the node.
+ * Describes the specefic nature of a node.
  * 
  */
 public interface Natural {
