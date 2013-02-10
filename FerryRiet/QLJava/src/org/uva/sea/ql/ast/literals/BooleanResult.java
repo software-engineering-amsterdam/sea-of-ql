@@ -5,7 +5,7 @@ import java.math.BigDecimal;
 import org.uva.sea.ql.ast.types.BooleanType;
 import org.uva.sea.ql.ast.types.Type;
 
-public class BooleanResult implements Result {
+public class BooleanResult extends Result<Boolean> {
 	private boolean value;
 
 	public BooleanResult(boolean bol) {
@@ -39,8 +39,38 @@ public class BooleanResult implements Result {
 
 	@Override
 	public Result setValue(String string) {
-		value = string.equals("true") ? true : false ;
-		return this ;
+		value = string.equals("true") ? true : false;
+		return this;
+	}
+
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public boolean isCompatibleToInt() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean isCompatibleToString() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean isCompatibleToBool() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean isCompatibleToMoney() {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 }

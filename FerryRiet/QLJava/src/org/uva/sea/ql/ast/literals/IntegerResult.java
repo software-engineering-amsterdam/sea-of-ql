@@ -5,7 +5,7 @@ import java.math.BigDecimal;
 import org.uva.sea.ql.ast.types.Type;
 import org.uva.sea.ql.ast.types.IntegerType;
 
-public class IntegerResult implements Result {
+public class IntegerResult extends Result<Integer> {
 	private Integer value;
 
 	public IntegerResult(int val) {
@@ -47,13 +47,36 @@ public class IntegerResult implements Result {
 	@Override
 	public Result setValue(String string) {
 		try {
-		value = Integer.parseInt(string);
-		}
-		catch (java.lang.NumberFormatException e) {
+			value = Integer.parseInt(string);
+		} catch (java.lang.NumberFormatException e) {
 			System.out.println("Format error in ints");
-			value = 0 ;
+			value = 0;
 		}
-		
+
 		return this;
+	}
+
+	@Override
+	public boolean isCompatibleToInt() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean isCompatibleToString() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean isCompatibleToBool() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean isCompatibleToMoney() {
+		// TODO Auto-generated method stub
+		return false;
 	}
 }
