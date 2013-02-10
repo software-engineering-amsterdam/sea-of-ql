@@ -41,7 +41,7 @@ public class VisibleFormNodeCreator implements StatementVisitor<Node> {
 
 	@Override
 	public Node visit(final Computed computed) {
-		HBox hBox = new HBox();
+		HBox hBox = createHBox();
 		hBox.getChildren().add(createInteractiveNode(computed.getDataType()));
 
 		return hBox;
@@ -49,24 +49,39 @@ public class VisibleFormNodeCreator implements StatementVisitor<Node> {
 
 	@Override
 	public Node visit(final IfStatement ifStatement) {
-		// TODO Auto-generated method stub
-		return null;
+		// TODO bind the expression
+		ifStatement.getExpression();
+
+		Node node = ifStatement.getIfCompound().accept(this);
+
+		return node;
 	}
 
 	@Override
 	public Node visit(final IfElseStatement ifElseStatement) {
-		// TODO Auto-generated method stub
-		return null;
+		// TODO bind the expression
+		ifElseStatement.getExpression();
+
+		Node ifNode = ifElseStatement.getIfCompound().accept(this);
+
+		Node elseNode = ifElseStatement.getElseCompound().accept(this);
+
+		return elseNode;
 	}
 
 	@Override
 	public Node visit(final Question question) {
-		HBox hBox = new HBox();
+		HBox hBox = createHBox();
 
 		hBox.getChildren().add(
 				createText(question.getQuestionText().getValue()));
 		hBox.getChildren().add(createInteractiveNode(question.getDataType()));
 
+		return hBox;
+	}
+
+	private HBox createHBox() {
+		HBox hBox = new HBox();
 		return hBox;
 	}
 

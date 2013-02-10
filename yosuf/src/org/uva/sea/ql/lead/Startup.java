@@ -89,8 +89,9 @@ public final class Startup extends Application {
 			evaluate(form);
 
 			LogPrinter.debugInfo(form);
+			new VisibleForm(model, form).start(stage);
 		}
-		new VisibleForm(model, form).start(stage);
+
 	}
 
 	@SuppressWarnings("static-access")
