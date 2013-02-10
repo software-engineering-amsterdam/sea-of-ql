@@ -1,7 +1,7 @@
 package org.uva.sea.ql.ast.expr;
 
-import org.uva.sea.ql.ast.type.Type;
 import org.uva.sea.ql.semanticchecker.ExpressionSemanticVisitor;
+import org.uva.sea.ql.semanticchecker.ReturnType;
 
 public class Add extends Binary {
 
@@ -12,7 +12,7 @@ public class Add extends Binary {
 	}
 	
 	@Override
-	public Type accept(ExpressionSemanticVisitor visitor) {
+	public ReturnType accept(ExpressionSemanticVisitor visitor) {
 		
 		return visitor.visit(this);
 	}

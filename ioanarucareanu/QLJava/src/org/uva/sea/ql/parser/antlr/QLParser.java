@@ -8,6 +8,7 @@ import org.uva.sea.ql.ast.expr.rel.*;
 import org.uva.sea.ql.ast.expr.value.*;
 import org.uva.sea.ql.ast.ql.*;
 import org.uva.sea.ql.ast.type.*;
+import org.uva.sea.ql.semanticchecker.ReturnTypeHolder;
 
 
 import org.antlr.runtime.*;
@@ -736,7 +737,7 @@ public class QLParser extends Parser {
                     {
                     match(input,BOOLEAN,FOLLOW_BOOLEAN_in_type255); if (state.failed) return result;
 
-                    if ( state.backtracking==0 ) { result = TypeFactory.getBoolType();}
+                    if ( state.backtracking==0 ) { result = ReturnTypeHolder.getBoolType();}
 
                     }
                     break;
@@ -745,7 +746,7 @@ public class QLParser extends Parser {
                     {
                     match(input,INTEGER,FOLLOW_INTEGER_in_type262); if (state.failed) return result;
 
-                    if ( state.backtracking==0 ) { result = TypeFactory.getIntType();}
+                    if ( state.backtracking==0 ) { result = ReturnTypeHolder.getIntType();}
 
                     }
                     break;
@@ -754,7 +755,7 @@ public class QLParser extends Parser {
                     {
                     match(input,DECIMAL,FOLLOW_DECIMAL_in_type269); if (state.failed) return result;
 
-                    if ( state.backtracking==0 ) { result = TypeFactory.getDecType();}
+                    if ( state.backtracking==0 ) { result = ReturnTypeHolder.getDecType();}
 
                     }
                     break;
@@ -763,7 +764,7 @@ public class QLParser extends Parser {
                     {
                     match(input,STRING,FOLLOW_STRING_in_type276); if (state.failed) return result;
 
-                    if ( state.backtracking==0 ) {result = TypeFactory.getStringType();}
+                    if ( state.backtracking==0 ) {result = ReturnTypeHolder.getStringType();}
 
                     }
                     break;
@@ -772,7 +773,7 @@ public class QLParser extends Parser {
                     {
                     match(input,MONEY,FOLLOW_MONEY_in_type283); if (state.failed) return result;
 
-                    if ( state.backtracking==0 ) {result = TypeFactory.getMoneyType();}
+                    if ( state.backtracking==0 ) {result = ReturnTypeHolder.getMoneyType();}
 
                     }
                     break;

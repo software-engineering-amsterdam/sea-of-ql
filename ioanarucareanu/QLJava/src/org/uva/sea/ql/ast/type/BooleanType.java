@@ -5,7 +5,7 @@ import org.uva.sea.ql.ast.expr.value.Value;
 
 public class BooleanType extends Type {
 
-	BooleanType() {
+	public BooleanType() {
 		
 	}
 	
