@@ -30,7 +30,7 @@ public class BooleanLiteral extends Expr {
 	}
 
 	@Override
-	public Result eval(HashMap<String, Result> symbolMap) {
+	public Result<boolean> eval(HashMap<String, Result> symbolMap) {
 		return new BooleanResult(value.equals("true"));
 	}
 }

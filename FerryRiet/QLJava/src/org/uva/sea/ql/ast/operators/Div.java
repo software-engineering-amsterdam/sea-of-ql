@@ -8,7 +8,6 @@ import org.uva.sea.ql.ast.literals.IntegerResult;
 import org.uva.sea.ql.ast.literals.MoneyResult;
 import org.uva.sea.ql.ast.literals.Result;
 import org.uva.sea.ql.ast.types.IntegerType;
-import org.uva.sea.ql.ast.types.MoneyType;
 import org.uva.sea.ql.ast.types.Type;
 import org.uva.sea.ql.ast.visitor.Visitor;
 
@@ -38,21 +37,21 @@ public class Div extends BinExpr {
 		// Money is compatible to Integer and Integer IS NOT compatible to Money
 		// The order of the test for compatibility is important.
 		// Case 1 MoneyType - MoneyType
-		if ((new MoneyType()).isCompatibleTo(leftHandResult.typeOf())
-				&& (new MoneyType()).isCompatibleTo(rightHandResult.typeOf())) {
+		if (leftHandResult.typeOf().isCompatibleToMoney()
+				&& rightHandResult.typeOf().isCompatibleToMoney()) {
 			return new MoneyResult(leftHandResult.getMoneyValue().divide(
 					rightHandResult.getMoneyValue()));
 		}
 		// Case 2 MoneyType - Integer
-		if ((new MoneyType()).isCompatibleTo(leftHandResult.typeOf())) {
+		if (leftHandResult.typeOf().isCompatibleToMoney()) {
 			return new MoneyResult(leftHandResult.getMoneyValue().divide(
 					new BigDecimal(rightHandResult.getIntegerValue())));
 		}
 		// Case 3 Integer - MoneyType
-		if ((new MoneyType()).isCompatibleTo(rightHandResult.typeOf())) {
-			return new MoneyResult((new BigDecimal(
-					leftHandResult.getIntegerValue()).divide(rightHandResult
-					.getMoneyValue())));
+		if (rightHandResult.typeOf().isCompatibleToMoney()) {
+			return new MoneyResult(
+					(new BigDecimal(leftHandResult.getIntegerValue())
+							.divide(rightHandResult.getMoneyValue())));
 		}
 		// Case 4 Integer - Integer
 		return new IntegerResult(leftHandResult.getIntegerValue()

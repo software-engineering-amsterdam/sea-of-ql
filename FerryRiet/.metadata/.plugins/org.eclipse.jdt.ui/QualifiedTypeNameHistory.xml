@@ -10,14 +10,12 @@
 <fullyQualifiedTypeName name="org.uva.sea.ql.ast.operators.MoneyResult"/>
 <fullyQualifiedTypeName name="org.uva.sea.ql.ast.operators.StringResult"/>
 <fullyQualifiedTypeName name="javax.swing.JLabel"/>
-<fullyQualifiedTypeName name="java.lang.String"/>
 <fullyQualifiedTypeName name="com.sun.org.apache.xalan.internal.xsltc.compiler.util.BooleanType"/>
 <fullyQualifiedTypeName name="org.uva.sea.ql.ast.types.BooleanType"/>
 <fullyQualifiedTypeName name="javax.swing.JTextField"/>
 <fullyQualifiedTypeName name="javax.swing.JCheckBox"/>
 <fullyQualifiedTypeName name="javax.swing.border.EmptyBorder"/>
 <fullyQualifiedTypeName name="javax.swing.JFrame"/>
-<fullyQualifiedTypeName name="java.lang.StringBuilder"/>
 <fullyQualifiedTypeName name="org.uva.sea.ql.ast.LineStatement"/>
 <fullyQualifiedTypeName name="org.antlr.stringtemplate.language.Expr"/>
 <fullyQualifiedTypeName name="java.lang.Boolean"/>
@@ -25,7 +23,6 @@
 <fullyQualifiedTypeName name="java.util.Iterator"/>
 <fullyQualifiedTypeName name="java.util.Map"/>
 <fullyQualifiedTypeName name="java.lang.Integer"/>
-<fullyQualifiedTypeName name="java.math.BigDecimal"/>
 <fullyQualifiedTypeName name="java.util.HashMap"/>
 <fullyQualifiedTypeName name="org.uva.sea.ql.ast.operators.ExpressionResult"/>
 <fullyQualifiedTypeName name="java.lang.StackOverflowError"/>
@@ -35,7 +32,6 @@
 <fullyQualifiedTypeName name="java.util.ArrayList"/>
 <fullyQualifiedTypeName name="java.util.List"/>
 <fullyQualifiedTypeName name="net.miginfocom.swing.MigLayout"/>
-<fullyQualifiedTypeName name="java.awt.event.ActionListener"/>
 <fullyQualifiedTypeName name="org.uva.sea.ql.driver.ConditionalPanel"/>
 <fullyQualifiedTypeName name="org.uva.sea.ql.ast.ConditionalStatement"/>
 <fullyQualifiedTypeName name="org.uva.sea.ql.driver.CompoundPanel"/>
@@ -47,4 +43,16 @@
 <fullyQualifiedTypeName name="org.uva.sea.ql.ast.nodevisitor.Visitable"/>
 <fullyQualifiedTypeName name="org.uva.sea.ql.ast.nodevisitor.VisitorResult"/>
 <fullyQualifiedTypeName name="javax.swing.JPanel"/>
+<fullyQualifiedTypeName name="org.uva.sea.ql.ui.Panel"/>
+<fullyQualifiedTypeName name="java.util.Observable"/>
+<fullyQualifiedTypeName name="java.awt.event.ActionListener"/>
+<fullyQualifiedTypeName name="java.util.Observer"/>
+<fullyQualifiedTypeName name="org.uva.sea.ql.ast.literals.Result"/>
+<fullyQualifiedTypeName name="org.uva.sea.ql.ast.literals.BooleanResult"/>
+<fullyQualifiedTypeName name="javax.swing.BorderFactory"/>
+<fullyQualifiedTypeName name="java.awt.Color"/>
+<fullyQualifiedTypeName name="java.lang.StringBuilder"/>
+<fullyQualifiedTypeName name="java.lang.String"/>
+<fullyQualifiedTypeName name="T"/>
+<fullyQualifiedTypeName name="java.math.BigDecimal"/>
 </qualifiedTypeNameHistroy>

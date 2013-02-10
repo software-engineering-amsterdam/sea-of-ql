@@ -2,11 +2,10 @@ package org.uva.sea.ql.ast.exp;
 
 import static julius.validation.Assertions.state;
 
-import org.uva.sea.ql.ast.Valuable;
 import org.uva.sea.ql.visitor.NaturalVisitor;
 import org.uva.sea.ql.visitor.ValuableVisitor;
 
-public class Identifier extends Expression implements Valuable {
+public class Identifier extends Expression {
 
 	private final String name;
 

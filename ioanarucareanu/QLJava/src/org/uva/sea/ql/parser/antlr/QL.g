@@ -45,11 +45,11 @@ conditionalQuestion returns [ConditionalQuestion result]
   ; 
 
 type returns [Type result]
-	: BOOLEAN { $result = new BooleanType();}
-	| INTEGER { $result = new IntegerType();}
-	| DECIMAL { $result = new DecimalType();}
-	| STRING {$result = new StringType();}
-	| MONEY {$result = new MoneyType();}
+	: BOOLEAN { $result = TypeFactory.getBoolType();}
+	| INTEGER { $result = TypeFactory.getIntType();}
+	| DECIMAL { $result = TypeFactory.getDecType();}
+	| STRING {$result = TypeFactory.getStringType();}
+	| MONEY {$result = TypeFactory.getMoneyType();}
 	;
 	  
 primary returns [Expr result]

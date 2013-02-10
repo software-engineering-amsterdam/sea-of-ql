@@ -1,10 +1,5 @@
 form taxes {
-	Money income = 7000; 
 	Boolean married = "Are you married?";
- 
-	if( married ){
-		Integer spouseAge = "How old is your spouse?";
-	}
-
-	Money presentCash = "How much cash money do you have?";
+	Boolean homeless = "Have you been homeless?";
+	Integer incomes = "What were your incomes of last year?";
 }

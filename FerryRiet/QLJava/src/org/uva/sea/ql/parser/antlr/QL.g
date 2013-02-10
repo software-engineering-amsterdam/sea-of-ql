@@ -5,6 +5,7 @@ options {backtrack=true; memoize=true;}
 {
 package org.uva.sea.ql.parser.antlr;
 import org.uva.sea.ql.ast.*;
+import org.uva.sea.ql.ast.literals.*;
 import org.uva.sea.ql.ast.types.*;
 import org.uva.sea.ql.ast.operators.*;
 import java.util.LinkedList;
@@ -49,20 +50,20 @@ statement returns [Statement result]
     |  cst=compoundStatement { $result = cst ;}  
     ;
 
-type returns [TypeDescription result]
+type returns [Type result]
     : 'boolean' { $result = new BooleanType() ;}
     | 'string'  { $result = new StringType() ;}
     | 'money'   { $result = new MoneyType() ;}
     | 'integer' { $result = new IntegerType() ;}
     ; 
 
-primary returns [Expr result]
-  : IntLiteral      { $result = new IntLiteral($IntLiteral.text); }
-  | BigLiteral      { $result = new BigLiteral($BigLiteral.text); }
-  | Ident           { $result = new Ident($Ident); }
-  | BooleanLiteral  { $result = new BooleanLiteral($BooleanLiteral.text) ;}
-  | StringLiteral   { $result = new StringLiteral($StringLiteral.text) ;}
-  | '(' x=orExpr ')'{ $result = $x.result; }
+primary returns [Expr result] 
+  : IntegerLiteral      { $result = new IntegerLiteral($IntegerLiteral.text); }
+  | MoneyLiteral        { $result = new MoneyLiteral($MoneyLiteral.text); }
+  | BooleanLiteral      { $result = new BooleanLiteral($BooleanLiteral.text) ;}
+  | StringLiteral       { $result = new StringLiteral($StringLiteral.text) ;}
+  | Ident               { $result = new Ident($Ident); }
+  | '(' x=orExpr ')'    { $result = $x.result; }
   ;
     
 unExpr returns [Expr result]
@@ -132,7 +133,8 @@ orExpr returns [Expr result]
 WS  :	(' ' | '\t' | '\n' | '\r') { $channel=HIDDEN; }
     ;
 
-StringLiteral : '"' ~('\n' | '\r' | '\f' | '"')* '"' ;
+// Get string with quotes removed
+StringLiteral : '"' ~('\n' | '\r' | '\f' | '"')* '"'  {setText(getText().substring(1, getText().length()-1));} ;
 
 COLON  : ':' ;
 LBRACE : '{' ;
@@ -150,7 +152,7 @@ BooleanLiteral
         
 Ident:   ('a'..'z'|'A'..'Z')('a'..'z'|'A'..'Z'|'0'..'9'|'_')*;
 
-IntLiteral: ('0'..'9')+;
+IntegerLiteral: ('0'..'9')+;
 
-BigLiteral: ('0'..'9')+ ('.' ('0'..'9')+)? ;
+MoneyLiteral: ('0'..'9')+ ('.' ('0'..'9')+)? ;
 

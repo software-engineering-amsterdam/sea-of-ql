@@ -6,7 +6,7 @@ import org.uva.sea.ql.ast.types.Type;
 
 import org.uva.sea.ql.ast.types.StringType;
 
-public class StringResult implements Result {
+public class StringResult extends Result<String> {
 	private String value;
 
 	public StringResult(String string) {
@@ -46,5 +46,29 @@ public class StringResult implements Result {
 	public Result setValue(String string) {
 		value = string;
 		return this;
+	}
+
+	@Override
+	public boolean isCompatibleToInt() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean isCompatibleToString() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean isCompatibleToBool() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean isCompatibleToMoney() {
+		// TODO Auto-generated method stub
+		return false;
 	}
 }

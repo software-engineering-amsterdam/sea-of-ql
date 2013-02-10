@@ -17,4 +17,14 @@ public abstract class Binary extends Expr {
 	public Expr getRightExpr() {
 		return rightExpr;
 	}
+	
+	public abstract String getOperator();
+
+	@Override
+	public String toString() {
+		return "Binary [" + leftExpr + getOperator() + rightExpr + "]";
+	}
+	
+	
+	
 }
