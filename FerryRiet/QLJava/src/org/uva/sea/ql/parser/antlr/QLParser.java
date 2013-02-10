@@ -3,7 +3,12 @@
 package org.uva.sea.ql.parser.antlr;
 import org.uva.sea.ql.ast.*;
 import org.uva.sea.ql.ast.types.*;
+import org.uva.sea.ql.ast.literals.BooleanLiteral;
+import org.uva.sea.ql.ast.literals.IntegerLiteral;
+import org.uva.sea.ql.ast.literals.MoneyLiteral;
+import org.uva.sea.ql.ast.literals.StringLiteral;
 import org.uva.sea.ql.ast.operators.*;
+
 import java.util.LinkedList;
 
 
@@ -213,7 +218,7 @@ public class QLParser extends Parser {
 		Statement ctrue =null;
 		Statement cfalse =null;
 		Statement cst =null;
-		TypeDescription type4 =null;
+		Type type4 =null;
 
 		try {
 			if ( state.backtracking>0 && alreadyParsedRule(input, 3) ) { return result; }
@@ -344,8 +349,8 @@ public class QLParser extends Parser {
 
 	// $ANTLR start "type"
 	// /Users/Ferry/sea-of-ql/FerryRiet/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:52:1: type returns [TypeDescription result] : ( 'boolean' | 'string' | 'money' | 'integer' );
-	public final TypeDescription type() throws RecognitionException {
-		TypeDescription result = null;
+	public final Type type() throws RecognitionException {
+		Type result = null;
 
 		int type_StartIndex = input.index();
 
@@ -489,14 +494,14 @@ public class QLParser extends Parser {
 					// /Users/Ferry/sea-of-ql/FerryRiet/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:60:5: IntLiteral
 					{
 					IntLiteral5=(Token)match(input,IntLiteral,FOLLOW_IntLiteral_in_primary296); if (state.failed) return result;
-					if ( state.backtracking==0 ) { result = new IntLiteral((IntLiteral5!=null?IntLiteral5.getText():null)); }
+					if ( state.backtracking==0 ) { result = new IntegerLiteral((IntLiteral5!=null?IntLiteral5.getText():null)); }
 					}
 					break;
 				case 2 :
 					// /Users/Ferry/sea-of-ql/FerryRiet/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:61:5: BigLiteral
 					{
 					BigLiteral6=(Token)match(input,BigLiteral,FOLLOW_BigLiteral_in_primary309); if (state.failed) return result;
-					if ( state.backtracking==0 ) { result = new BigLiteral((BigLiteral6!=null?BigLiteral6.getText():null)); }
+					if ( state.backtracking==0 ) { result = new MoneyLiteral((BigLiteral6!=null?BigLiteral6.getText():null)); }
 					}
 					break;
 				case 3 :

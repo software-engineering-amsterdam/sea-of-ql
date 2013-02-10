@@ -1,23 +1,24 @@
 package org.uva.sea.ql.ast;
 
 import org.antlr.runtime.Token;
-import org.uva.sea.ql.ast.nodevisitor.Visitor;
-import org.uva.sea.ql.ast.nodevisitor.VisitorResult;
-import org.uva.sea.ql.ast.operators.ExpressionResult;
-import org.uva.sea.ql.ast.types.TypeDescription;
+import org.uva.sea.ql.ast.literals.Result;
+import org.uva.sea.ql.ast.operators.Expr;
+import org.uva.sea.ql.ast.operators.Ident;
+import org.uva.sea.ql.ast.types.Type;
+import org.uva.sea.ql.ast.visitor.Visitor;
 
 public class LineStatement extends Statement {
 
 	private final Ident lineId;
 	private final Token lineString;
-	private final TypeDescription typeDescription;
+	private final Type typeDescription;
 	private final Expr initalizerExpr;
 
 	public Expr getInitalizerExpr() {
 		return initalizerExpr;
 	}
 
-	public LineStatement(Ident ident, Token lineString, TypeDescription ty,
+	public LineStatement(Ident ident, Token lineString, Type ty,
 			Expr initExpr) {
 		this.lineId = ident;
 		this.lineString = lineString;
@@ -26,7 +27,7 @@ public class LineStatement extends Statement {
 	}
 
 	@Override
-	public VisitorResult accept(Visitor visitor) {
+	public <T> T accept(Visitor<T> visitor) {
 		return visitor.visit(this);
 	}
 
@@ -50,11 +51,11 @@ public class LineStatement extends Statement {
 		return lineString.getText();
 	}
 
-	public TypeDescription getTypeDescription() {
+	public Type getTypeDescription() {
 		return typeDescription;
 	}
 
-	public ExpressionResult getTypeContainer() {
+	public Result getTypeContainer() {
 		return typeDescription.getTypeContainer();
 	}
 }

@@ -25,27 +25,27 @@ import org.uva.sea.ql.ast.formelements.IfThenElse;
 import org.uva.sea.ql.ast.formelements.Question;
 import org.uva.sea.ql.visitors.interfaces.IElementVisitor;
 
-public class Renderer implements IElementVisitor{
-	
+public class Renderer implements IElementVisitor {
+
 	private final JPanel panel;
 	private final State state;
-	private final Map<String, Value> env ;
+	private final Map<String, Value> env;
 	private final ExprEvaluator exprevaluator;
-	
+
 	public static JPanel render(FormElement element, State state) {
 		Renderer r = new Renderer(state);
 		element.accept(r);
 		return r.getPanel();
 	}
-	
+
 	private JPanel getPanel() {
 		return panel;
 	}
-	
+
 	public Renderer(State state) {
 		this.state = state;
 		this.panel = new JPanel(new MigLayout());
-		this.env = new HashMap<String,Value>();
+		this.env = new HashMap<String, Value>();
 		this.exprevaluator = new ExprEvaluator(env);
 	}
 
@@ -58,26 +58,26 @@ public class Renderer implements IElementVisitor{
 
 	@Override
 	public void visit(CompQuestion element) {
-	//	Value val = element.getQuestionExpr().accept(exprevaluator);
+		Value val = element.getQuestionExpr().accept(exprevaluator);
 		JComponent component = createControl(element, false);
-		JLabel labelElement = new JLabel(element.getQuestionLabel().getValue() );
+		JLabel labelElement = new JLabel(element.getQuestionLabel().getValue());
 		panel.add(labelElement);
 		panel.add(component, "wrap");
-	//	registerComputedDeps(stat, ctl);
-	//	registerPropagator(stat);
-	//	initValue(stat, ctl);
+		// registerComputedDeps(stat, ctl);
+		// registerPropagator(stat);
+		initComputedValue(component, val);
 	}
 
 	@Override
 	public void visit(Form element) {
-		JPanel formPanel = render( element.getFormBody(), state );
-		panel.add( formPanel );
-		panel.setName( element.getFormName().getName() );
+		JPanel formPanel = render(element.getFormBody(), state);
+		panel.add(formPanel);
+		panel.setName(element.getFormName().getName());
 	}
 
 	@Override
 	public void visit(IfThen element) {
-		boolean condition = ( (BoolLiteral) element.getCondition().accept(exprevaluator)).getValue();
+		boolean condition = ((BoolLiteral) element.getCondition().accept(exprevaluator)).getValue();
 		JPanel tru = render(element.getThenBody(), state);
 		tru.setVisible(condition);
 		panel.add(tru, "wrap");
@@ -85,10 +85,10 @@ public class Renderer implements IElementVisitor{
 
 	@Override
 	public void visit(IfThenElse element) {
-		boolean condition = ( (BoolLiteral) element.getCondition().accept(exprevaluator)).getValue();
+		boolean condition = ((BoolLiteral) element.getCondition().accept(exprevaluator)).getValue();
 		JPanel tru = render(element.getThenBody(), state);
 		JPanel fls = render(element.getElseBody(), state);
-//		registerConditionDeps(element.getCondition(), tru, fls);
+		// registerConditionDeps(element.getCondition(), tru, fls);
 		tru.setVisible(condition);
 		fls.setVisible(!condition);
 		panel.add(tru, "wrap");
@@ -98,50 +98,66 @@ public class Renderer implements IElementVisitor{
 	@Override
 	public void visit(Question element) {
 		JComponent component = createControl(element, true);
-		JLabel labelElement = new JLabel(element.getQuestionLabel().getValue() );
+		JLabel labelElement = new JLabel(element.getQuestionLabel().getValue());
 		panel.add(labelElement);
 		panel.add(component, "wrap");
 		valueInitializer(element);
-	//	registerHandler(stat, ctl);
+		// registerHandler(stat, ctl);
 	}
-	
+
 	private JComponent createControl(Question question, boolean enabled) {
-		
+
 		if (question.getQuestionType().isCompatibleToBoolType()) {
 			JComponent input = new JCheckBox();
-			input.setEnabled( enabled );
-			return  input;
+			input.setEnabled(enabled);
+			return input;
 		}
 		if (question.getQuestionType().isCompatibleToStringType()) {
 			JComponent input = new JTextField(5);
-			input.setEnabled( enabled );
+			input.setEnabled(enabled);
 			return input;
 		}
 		if (question.getQuestionType().isCompatibleToMoneyType()) {
 			JComponent input = new JTextField(5);
-			input.setEnabled( enabled );
+			input.setEnabled(enabled);
 			return input;
 		}
 		if (question.getQuestionType().isCompatibleToIntType()) {
 			JComponent input = new JTextField(5);
-			input.setEnabled( enabled );
+			input.setEnabled(enabled);
 			return input;
 		}
 		return null;
 	}
 
 	private void valueInitializer(Question question) {
-		if (question.getQuestionType().isCompatibleToBoolType()){
-			env.put(question.getQuestionName().getName(), new BoolLiteral(false));
+		if (question.getQuestionType().isCompatibleToBoolType()) {
+			env.put(question.getQuestionName().getName(),new BoolLiteral(false));
 		}
 		if (question.getQuestionType().isCompatibleToStringType()) {
 			env.put(question.getQuestionName().getName(), new StringLiteral(""));
 		}
 		if (question.getQuestionType().isCompatibleToMoneyType()) {
-			env.put(question.getQuestionName().getName(), new MoneyLiteral(0.00));
+			env.put(question.getQuestionName().getName(),new MoneyLiteral(0.00));
 		}
 		if (question.getQuestionType().isCompatibleToIntType()) {
 			env.put(question.getQuestionName().getName(), new IntLiteral(0));
+		}
+	}
+
+	public void initComputedValue(JComponent component, Value value) {
+		if (component instanceof JCheckBox) {
+			((JCheckBox) component).setSelected(((BoolLiteral) value).getValue());
+		} else if (component instanceof JTextField) {
+			if (value.isIntLiteral()) {
+				((JTextField) component).setText(String.valueOf(((IntLiteral) value).getValue()));
+			}
+			if (value.isMoneyLiteral()) {
+				((JTextField) component).setText(String.valueOf(((MoneyLiteral) value).getValue()));
+			}
+			if (value.isStringLiteral()) {
+				((JTextField) component).setText(((StringLiteral) value).getValue());
+			}
 		}
 	}
 
