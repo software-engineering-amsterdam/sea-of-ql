@@ -6,7 +6,7 @@
     <property name="webDir" value="WebContent" />
     <property name="libDir" value="lib" />
     <property name="srcDir" value="src" />
-    <property name="tomcatWebapps" value="/var/lib/tomcat6/webapps" />
+    <property name="tomcatWebapps" value="/home/ioana/Installs/apache-tomcat-6.0.36/webapps" />
 
     <target name="init" depends="clean">
         <mkdir dir="${buildDir}"/>
@@ -43,7 +43,8 @@
     </target>
 
     <target name="clean">
-        <delete dir="${tomcatWebapps}" />
+        <delete dir="${tomcatWebapps}/ql" />
+        <delete file="${tomcatWebapps}/ql.war" />
         <delete dir="${distDir}" />
         <delete dir="${buildDir}" />
     </target>

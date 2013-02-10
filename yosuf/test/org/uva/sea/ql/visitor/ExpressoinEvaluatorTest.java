@@ -44,7 +44,7 @@ public class ExpressoinEvaluatorTest {
 	@Before
 	public void setUp() {
 		model = new Model();
-		evaluator = new ExpressoinEvaluator(model);
+		evaluator = new ExpressionEvaluator(model);
 	}
 
 	@Test

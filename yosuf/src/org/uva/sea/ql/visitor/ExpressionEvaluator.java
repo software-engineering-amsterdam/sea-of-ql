@@ -25,11 +25,11 @@ import org.uva.sea.ql.ast.value.StringValue;
 import org.uva.sea.ql.ast.value.Value;
 import org.uva.sea.ql.lead.Model;
 
-public class ExpressoinEvaluator implements ValuableVisitor<Value> {
+public class ExpressionEvaluator implements ValuableVisitor<Value> {
 
 	private final Model model;
 
-	public ExpressoinEvaluator(final Model model) {
+	public ExpressionEvaluator(final Model model) {
 		this.model = model;
 		state.assertNotNull(this.model, "ExpressionEvaluator.model");
 	}

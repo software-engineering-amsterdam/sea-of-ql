@@ -8,16 +8,17 @@ import org.uva.sea.ql.ast.stm.Form;
 import org.uva.sea.ql.ast.stm.IfElseStatement;
 import org.uva.sea.ql.ast.stm.IfStatement;
 import org.uva.sea.ql.ast.stm.Question;
+import org.uva.sea.ql.ast.stm.Statement;
 import org.uva.sea.ql.ast.value.Value;
 import org.uva.sea.ql.lead.Model;
 
 public class StatementEvaluator implements StatementVisitor<Value> {
 
 	private final Model model;
-	private final ExpressoinEvaluator expressionEvaluator;
+	private final ExpressionEvaluator expressionEvaluator;
 
 	public StatementEvaluator(final Model model,
-			final ExpressoinEvaluator expressionEvaluator) {
+			final ExpressionEvaluator expressionEvaluator) {
 		this.model = model;
 		this.expressionEvaluator = expressionEvaluator;
 
@@ -28,30 +29,41 @@ public class StatementEvaluator implements StatementVisitor<Value> {
 
 	@Override
 	public Value visit(final Form form) {
-		// TODO Auto-generated method stub
+		form.getIdentifier().accept(expressionEvaluator);
+		form.getBody().accept(this);
 		return null;
 	}
 
 	@Override
 	public Value visit(final CompoundStatement compoundStatement) {
-		// TODO Auto-generated method stub
+		for (Statement statement : compoundStatement.getStatements()) {
+			statement.accept(this);
+		}
 		return null;
 	}
 
 	@Override
 	public Value visit(final IfStatement ifStatement) {
-		// TODO Auto-generated method stub
+		ifStatement.getExpression().accept(expressionEvaluator);
+		ifStatement.getIfCompound().accept(this);
+
 		return null;
 	}
 
 	@Override
 	public Value visit(final IfElseStatement ifElseStatement) {
-		// TODO Auto-generated method stub
+		ifElseStatement.getExpression().accept(expressionEvaluator);
+		ifElseStatement.getIfCompound().accept(this);
+		ifElseStatement.getElseCompound().accept(this);
+
 		return null;
 	}
 
 	@Override
 	public Value visit(final Question question) {
+
+		model.registerQuestion(question);
+
 		Computed computed = model.getValue(question.getIdentifier());
 
 		if (computed != null) {

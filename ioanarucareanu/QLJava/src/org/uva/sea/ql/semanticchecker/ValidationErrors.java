@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ValidationErrors {
+	
 	private final List<String> errors;
 
 	public ValidationErrors() {
