@@ -153,7 +153,8 @@ private str getTypeRule(Type t: dateType(_)) =
 
 private str getTypeRule(Type t: moneyType(_)) =
   "required: true,
-  'number: true
+  'number: true,
+  'moneyValidator: true
   ";
 
 private str getTypeRule(Type t: stringType(_)) =

@@ -43,8 +43,10 @@ function getFormValue(id) {
 	// Other elements have a type:
 	type = $(id).attr("type");
 	switch(type) {
-		case "checkbox": return $(id).is(":checked"); 
-		default: return $(id).val();
+		case "checkbox": 
+			return $(id).is(":checked"); 
+		default: 
+			return $(id).val();
 	}
 }
 
@@ -59,12 +61,17 @@ function setFormValue(id, val) {
 		} else {
 			$(id).val("undefined");
 		}
-		return ;
+		return;
 	}
 	// Other elements have a type:
 	type = $(id).attr("type");
 	switch(type) {
-		case "checkbox": $(id).prop("checked", val);
+		case "checkbox": 
+			$(id).prop("checked", val);
+			break;
+		case "money": 
+			$(id).val(roundMoney(val));
+			break;
 		default: $(id).val(val);
 	}
 	$(id).change();
@@ -73,3 +80,13 @@ function setFormValue(id, val) {
 $(document).on("check", "fieldset", function(e) {
   checkSection(e.target);
 });
+
+function roundMoney(amount) {
+	return Math.round(amount * 100) / 100;
+}
+
+// Each money field can only contain up to two decimals. 
+jQuery.validator.addMethod("moneyValidator", function(value, element, params) {
+	return this.optional(element) || roundMoney(value) == value; 
+	}, jQuery.format("The money field can only contain up to 2 decimals.")
+);
