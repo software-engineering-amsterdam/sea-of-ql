@@ -37,51 +37,18 @@ import org.uva.sea.ql.visitor.evaluator.value.StringValue;
 import org.uva.sea.ql.visitor.evaluator.value.UndefinedValue;
 import org.uva.sea.ql.visitor.evaluator.value.Value;
 
-/**
- * Evaluator for statement nodes.
- */
 public class Renderer implements StatementVisitor<Void>, TypeVisitor<Control> {
-	/**
-	 * Holds the environment.
-	 */
 	private final Environment environment;
-
-	/**
-	 * Holds the type initializer.
-	 */
 	private final TypeInitializer typeInitializer;
-
-	/**
-	 * Holds the working panel.
-	 */
 	private final PanelControl panel;
-
-	/**
-	 * Holds the control factory used to construct control elements.
-	 */
 	private final ControlFactory factory;
 
-	/**
-	 * Renders the given statement.
-	 *
-	 * @param statement
-	 * @param environment
-	 * @param factory
-	 *
-	 * @return Panel resulting from statement.
-	 */
 	public static PanelControl render( Statement statement, Environment environment, ControlFactory factory ) {
 		Renderer renderer = new Renderer( environment, factory );
 		statement.accept( renderer );
 		return renderer.getPanel();
 	}
 
-	/**
-	 * Hidden constructor for renderer.
-	 *
-	 * @param environment
-	 * @param factory
-	 */
 	private Renderer( Environment environment, ControlFactory factory ) {
 		this.factory = factory;
 		this.environment = environment;
@@ -89,46 +56,23 @@ public class Renderer implements StatementVisitor<Void>, TypeVisitor<Control> {
 		this.panel = this.factory.createPanel();
 	}
 
-	/**
-	 * Retrieves the rendered panel.
-	 *
-	 * @return The result.
-	 */
 	private PanelControl getPanel() {
 		return this.panel;
 	}
 
-	/**
-	 * Adds a component to the panel.
-	 *
-	 * @param component
-	 */
 	private void addComponent( Control component ) {
 		this.panel.add( component );
 	}
 
-	/**
-	 * Adds a label to the panel.
-	 *
-	 * @param label
-	 */
 	private void addLabel( String label ) {
 		this.addComponent( this.factory.createLabel( label ) );
 	}
 
-	/**
-	 * Creates a control from given type.
-	 *
-	 * @param type     The type to determine the control type.
-	 * @param value    The value of the control.
-	 * @param editable Whether the control is editable by the user.
-	 *
-	 * @return The control.
-	 */
 	private Control createControlFromType( Type type, Value value, boolean editable ) {
 		Control component = type.accept( this );
 		component.setEnabled( editable );
 		component.setValue( value.getValue() );
+
 		return component;
 	}
 
@@ -204,6 +148,7 @@ public class Renderer implements StatementVisitor<Void>, TypeVisitor<Control> {
 	@Override
 	public Void visit( IfThen node ) {
 		boolean condition = ( (BooleanValue) Evaluator.evaluate( node.getCondition(), this.environment ) ).getValue();
+
 		PanelControl tru = render( node.getBody(), this.environment, this.factory );
 		PanelControl fls = this.factory.createPanel();
 

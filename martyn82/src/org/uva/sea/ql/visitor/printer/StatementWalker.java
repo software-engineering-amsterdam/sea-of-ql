@@ -11,9 +11,6 @@ import org.uva.sea.ql.ast.statement.Statements;
 import org.uva.sea.ql.ast.statement.VarDeclaration;
 import org.uva.sea.ql.visitor.StatementVisitor;
 
-/**
- * Represents a pretty printer for statement nodes.
- */
 public class StatementWalker implements StatementVisitor<String> {
 	private static final String TPL_BLOCK_IFTHENELSE = "( IF %s THEN %s ELSE %s )";
 	private static final String TPL_VARDECLARATION = "( VAR %s : %s )";
@@ -21,16 +18,8 @@ public class StatementWalker implements StatementVisitor<String> {
 	private static final String TPL_FORMDECLARATION = "( FORM %s %s )";
 	private static final String TPL_QUESTION = "( QUESTION %s %s )";
 
-	/**
-	 * Holds the expression visitor.
-	 */
 	private final ExpressionWalker expressionVisitor;
 
-	/**
-	 * Constructs a new StatementPrinter instance.
-	 *
-	 * @param expressionVisitor
-	 */
 	public StatementWalker( ExpressionWalker expressionVisitor ) {
 		this.expressionVisitor = expressionVisitor;
 	}
@@ -52,7 +41,7 @@ public class StatementWalker implements StatementVisitor<String> {
 	@Override
 	public String visit( VarDeclaration node ) {
 		String identifier = node.getIdent().accept( this.expressionVisitor );
-		String type = node.getType().toString();
+		String type = node.getType().getName();
 		return String.format( TPL_VARDECLARATION, identifier, type );
 	}
 

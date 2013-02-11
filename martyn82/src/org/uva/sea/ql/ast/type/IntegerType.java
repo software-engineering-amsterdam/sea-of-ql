@@ -1,8 +1,5 @@
 package org.uva.sea.ql.ast.type;
 
-/**
- * Represents an Integer type.
- */
 public class IntegerType extends NumberType {
 	@Override
 	public boolean isCompatibleToInt() {
@@ -10,7 +7,7 @@ public class IntegerType extends NumberType {
 	}
 
 	@Override
-	public String toString() {
+	public String getName() {
 		return "Integer";
 	}
 }

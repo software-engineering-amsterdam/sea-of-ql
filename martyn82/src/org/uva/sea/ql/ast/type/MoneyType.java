@@ -1,8 +1,5 @@
 package org.uva.sea.ql.ast.type;
 
-/**
- * Represents a money type.
- */
 public class MoneyType extends NumberType {
 	@Override
 	public boolean isCompatibleToMoney() {
@@ -10,7 +7,7 @@ public class MoneyType extends NumberType {
 	}
 
 	@Override
-	public String toString() {
+	public String getName() {
 		return "Money";
 	}
 }

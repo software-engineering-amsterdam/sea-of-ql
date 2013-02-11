@@ -26,26 +26,12 @@ import org.uva.sea.ql.ast.type.UndefinedType;
 import org.uva.sea.ql.visitor.ExpressionVisitor;
 import org.uva.sea.ql.visitor.evaluator.Environment;
 
-/**
- * Represents a type checker for Expression nodes.
- */
 public class ExpressionChecker extends TypeCheckVisitor implements ExpressionVisitor<Boolean> {
-	/**
-	 * Constructs a new ExpressionChecker.
-	 *
-	 * @param environment
-	 */
+
 	public ExpressionChecker( Environment environment ) {
 		super( environment );
 	}
 
-	/**
-	 * Visit an arithmetic expression.
-	 *
-	 * @param node
-	 *
-	 * @return True if types are compliant.
-	 */
 	private Boolean visitArithmetic( ArithmeticExpression node ) {
 		boolean checkLeft = node.getLhs().accept( this );
 		boolean checkRight = node.getRhs().accept( this );
@@ -61,7 +47,7 @@ public class ExpressionChecker extends TypeCheckVisitor implements ExpressionVis
 			this.addIncompatibleTypesError(
 				node.toString(),
 				"Number",
-				String.format( "%s and %s", leftType.toString(), rightType.toString() ),
+				String.format( "%s and %s", leftType.getName(), rightType.getName() ),
 				node
 			);
 			return false;
@@ -70,13 +56,6 @@ public class ExpressionChecker extends TypeCheckVisitor implements ExpressionVis
 		return true;
 	}
 
-	/**
-	 * Visit a logical expression.
-	 *
-	 * @param node
-	 *
-	 * @return True if types are compliant.
-	 */
 	private Boolean visitLogical( LogicalExpression node ) {
 		boolean checkLeft = node.getLhs().accept( this );
 		boolean checkRight = node.getRhs().accept( this );
@@ -92,7 +71,7 @@ public class ExpressionChecker extends TypeCheckVisitor implements ExpressionVis
 			this.addIncompatibleTypesError(
 				node.toString(),
 				"Boolean",
-				String.format( "%s and %s", leftType.toString(), rightType.toString() ),
+				String.format( "%s and %s", leftType.getName(), rightType.getName() ),
 				node
 			);
 			return false;
@@ -101,13 +80,6 @@ public class ExpressionChecker extends TypeCheckVisitor implements ExpressionVis
 		return true;
 	}
 
-	/**
-	 * Visit a comparison expression.
-	 *
-	 * @param node
-	 *
-	 * @return True if types are compliant.
-	 */
 	private Boolean visitComparison( ComparisonExpression node ) {
 		boolean checkLeft = node.getLhs().accept( this );
 		boolean checkRight = node.getRhs().accept( this );
@@ -123,7 +95,7 @@ public class ExpressionChecker extends TypeCheckVisitor implements ExpressionVis
 			this.addIncompatibleTypesError(
 				node.toString(),
 				"Number",
-				String.format( "%s and %s", leftType.toString(), rightType.toString() ),
+				String.format( "%s and %s", leftType.getName(), rightType.getName() ),
 				node
 			);
 			return false;
@@ -132,13 +104,6 @@ public class ExpressionChecker extends TypeCheckVisitor implements ExpressionVis
 		return true;
 	}
 
-	/**
-	 * Visit a unary logical expression.
-	 *
-	 * @param node
-	 *
-	 * @return True if type is compliant.
-	 */
 	private Boolean visitUnary( UnaryExpression node ) {
 		if ( !node.getExpression().accept( this ) ) {
 			return false;
@@ -148,7 +113,7 @@ public class ExpressionChecker extends TypeCheckVisitor implements ExpressionVis
 
 		if ( !expressionType.isCompatibleToBool() ) {
 			this.addIncompatibleTypeError(
-				node.toString(), "Boolean.", expressionType.toString(), node
+				node.toString(), "Boolean.", expressionType.getName(), node
 			);
 			return false;
 		}
@@ -156,13 +121,6 @@ public class ExpressionChecker extends TypeCheckVisitor implements ExpressionVis
 		return true;
 	}
 
-	/**
-	 * Visit a unary numeric expression.
-	 *
-	 * @param node
-	 *
-	 * @return True if type is compliant.
-	 */
 	private Boolean visitUnaryNumeric( UnaryNumericExpression node ) {
 		if ( !node.getExpression().accept( this ) ) {
 			return false;
@@ -172,7 +130,7 @@ public class ExpressionChecker extends TypeCheckVisitor implements ExpressionVis
 
 		if ( !expressionType.isCompatibleToNumber() ) {
 			this.addIncompatibleTypeError(
-				node.toString(), "Number.", expressionType.toString(), node
+				node.toString(), "Number.", expressionType.getName(), node
 			);
 			return false;
 		}
@@ -180,13 +138,6 @@ public class ExpressionChecker extends TypeCheckVisitor implements ExpressionVis
 		return true;
 	}
 
-	/**
-	 * Visit an equals/not-equals expression.
-	 *
-	 * @param node
-	 *
-	 * @return True if types are compliant.
-	 */
 	private Boolean visitEqNEq( ComparisonExpression node ) {
 		boolean checkLeft = node.getLhs().accept( this );
 		boolean checkRight = node.getRhs().accept( this );
@@ -202,7 +153,7 @@ public class ExpressionChecker extends TypeCheckVisitor implements ExpressionVis
 			this.addIncompatibleTypesError(
 				node.toString(),
 				"same",
-				String.format( "%s and %s", leftType.toString(), rightType.toString() ),
+				String.format( "%s and %s", leftType.getName(), rightType.getName() ),
 				node
 			);
 			return false;

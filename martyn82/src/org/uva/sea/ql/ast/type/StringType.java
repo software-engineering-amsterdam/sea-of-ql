@@ -2,9 +2,6 @@ package org.uva.sea.ql.ast.type;
 
 import org.uva.sea.ql.visitor.TypeVisitor;
 
-/**
- * Represents a String type.
- */
 public class StringType extends Type {
 	@Override
 	public <T> T accept( TypeVisitor<T> visitor ) {
@@ -22,7 +19,7 @@ public class StringType extends Type {
 	}
 
 	@Override
-	public String toString() {
+	public String getName() {
 		return "String";
 	}
 }

@@ -2,9 +2,6 @@ package org.uva.sea.ql.ast.type;
 
 import org.uva.sea.ql.visitor.TypeVisitor;
 
-/**
- * Represents an Error type.
- */
 public class UndefinedType extends Type {
 	@Override
 	public <T> T accept( TypeVisitor<T> visitor ) {
@@ -17,7 +14,7 @@ public class UndefinedType extends Type {
 	}
 
 	@Override
-	public String toString() {
+	public String getName() {
 		return "Undefined";
 	}
 }

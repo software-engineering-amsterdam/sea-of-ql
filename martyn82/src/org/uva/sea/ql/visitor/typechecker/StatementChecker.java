@@ -31,7 +31,7 @@ public class StatementChecker extends TypeCheckVisitor implements StatementVisit
 		Type conditionType = condition.accept( this.resolver );
 
 		if ( !conditionType.isCompatibleToBool() ) {
-			this.addIncompatibleTypeError( node.toString(), "Boolean", conditionType.toString(), node );
+			this.addIncompatibleTypeError( node.toString(), "Boolean", conditionType.getName(), node );
 			return false;
 		}
 
@@ -106,7 +106,7 @@ public class StatementChecker extends TypeCheckVisitor implements StatementVisit
 		Type rightType = node.getExpression().accept( this.resolver );
 
 		if ( !leftType.isCompatibleTo( rightType ) ) {
-			this.addIncompatibleTypesError( node.toString(), leftType.toString(), rightType.toString(), node );
+			this.addIncompatibleTypesError( node.toString(), leftType.getName(), rightType.getName(), node );
 			return false;
 		}
 
