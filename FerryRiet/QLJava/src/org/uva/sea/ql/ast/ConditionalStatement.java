@@ -2,9 +2,9 @@ package org.uva.sea.ql.ast;
 
 import java.util.HashMap;
 
-import org.uva.sea.ql.ast.nodevisitor.Visitor;
-import org.uva.sea.ql.ast.nodevisitor.VisitorResult;
-import org.uva.sea.ql.ast.types.TypeDescription;
+import org.uva.sea.ql.ast.operators.Expr;
+import org.uva.sea.ql.ast.types.Type;
+import org.uva.sea.ql.ast.visitor.Visitor;
 
 public class ConditionalStatement extends Statement {
 
@@ -22,7 +22,7 @@ public class ConditionalStatement extends Statement {
 		return expression;
 	}
 
-	public TypeDescription getExpressionType(
+	public Type getExpressionType(
 			HashMap<String, Statement> symbolMap) {
 		return expression.typeOf(symbolMap);
 	}
@@ -36,7 +36,7 @@ public class ConditionalStatement extends Statement {
 	}
 
 	@Override
-	public VisitorResult accept(Visitor visitor) {
+	public <T> T accept(Visitor<T> visitor) {
 		return visitor.visit(this);
 	}
 }

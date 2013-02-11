@@ -1,16 +1,16 @@
 package org.uva.sea.ql.ast.types;
 
-import org.uva.sea.ql.ast.operators.ExpressionResult;
-import org.uva.sea.ql.ast.operators.IntegerResult;
+import org.uva.sea.ql.ast.literals.IntegerResult;
+import org.uva.sea.ql.ast.literals.Result;
 
-public class IntegerType extends TypeDescription {
+public class IntegerType extends Type {
 
 	public IntegerType() {
 		super("numeral");
 	}
 
 	@Override
-	public boolean isCompatibleTo(TypeDescription t) {
+	public boolean isCompatibleTo(Type t) {
 		return t.isCompatibleToInt();
 	}
 
@@ -20,12 +20,7 @@ public class IntegerType extends TypeDescription {
 	}
 
 	@Override
-	public boolean isCompatibleToMoney() {
-		return false;
-	}
-
-	@Override
-	public ExpressionResult getTypeContainer() {
+	public Result getTypeContainer() {
 		return new IntegerResult(0);
 	}
 }

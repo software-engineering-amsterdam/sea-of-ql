@@ -1,0 +1,10 @@
+package org.uva.sea.ql.parser.test;
+
+public class ExpressionTest extends SyntaxTest {
+
+	@Override
+	protected Class<?> parse(String src) throws ParseError {
+		return getParser().parseBody(src).getClass();
+	}
+
+}

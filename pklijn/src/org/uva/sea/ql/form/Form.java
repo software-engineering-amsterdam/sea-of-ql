@@ -24,6 +24,7 @@ import org.uva.sea.ql.ast.values.Value;
 import org.uva.sea.ql.interpreter.FormElement;
 import org.uva.sea.ql.opencsv.CSVWriter;
 
+// TODO: Clean this class, merge some functions. etc..
 public class Form implements ActionListener {
 
 	private Ident id;

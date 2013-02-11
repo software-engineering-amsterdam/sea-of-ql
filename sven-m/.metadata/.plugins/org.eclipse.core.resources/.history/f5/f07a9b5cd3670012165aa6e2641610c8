@@ -1,0 +1,13 @@
+package org.uva.sea.ql.parser.test;
+
+import org.uva.sea.ql.ast.expression.Expr;
+import org.uva.sea.ql.ast.form.FormElement;
+import org.uva.sea.ql.ast.form.QLForm;
+
+public interface IParse {
+	QLForm parse(String src) throws ParseError;
+	
+	QLForm parseForm(String src);
+	Expr parseExpression(String src);
+	FormElement parseFormElement(String src);
+}

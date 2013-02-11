@@ -1,0 +1,15 @@
+package org.uva.sea.ql.visitors;
+
+import org.uva.sea.ql.ast.form.Body;
+import org.uva.sea.ql.ast.form.IfStatement;
+import org.uva.sea.ql.ast.form.QLForm;
+//import org.uva.sea.ql.ast.form.Question;
+import org.uva.sea.ql.ast.form.ComputedQuestion;
+
+public interface Visitor {
+	void visit(QLForm form);
+	void visit(Body body);
+	void visit(IfStatement ifStatement);
+	void visit(Question question);
+	void visit(ComputedQuestion computedQuestion);
+}

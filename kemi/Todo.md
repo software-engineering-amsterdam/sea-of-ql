@@ -3,6 +3,7 @@
 * Syntax: getting Ident of QL and IdentIdent of QLS in sync, and extracting them
 to separate syntax module. We also should use keyword exclusion in a 
 consistent way. 
+* Usage of ParseHelpers outside 'test' package
 
 ## BONUS:
 * HTML templating
@@ -13,16 +14,13 @@ consistent way.
 # QLS
 * Refactor SemanticChecker
 * Refactor StyleHelpers
-* Wider widget support (date picker, spin lock)
 * Wider styling support
-* More tests
-* "Type checking"
 * /A[DS]T/ reuse
+* QL Typechecking breaks when the form is used with a stylesheet. <-- Does not seem to happen for me, compilation fails on TypeErrors, line is highlighted, etc.
 
 # Both
 * Checking of the QLS language against the QL language
 * Compiler
 * Refactoring
 * Adding comments
-* Usage of ParseHelpers outside 'test' packages
 * Remove all old main()s

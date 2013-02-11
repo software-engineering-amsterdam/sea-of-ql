@@ -1,7 +1,6 @@
 package org.uva.sea.ql.ast.statements;
 import org.uva.sea.ql.ast.*;
-import org.uva.sea.ql.ast.visitor.Visitor;
-
+import org.uva.sea.ql.ast.visitor.IStatementVisitor;
 import java.util.*;
 
 public class IfThen extends Statement {
@@ -22,7 +21,7 @@ public class IfThen extends Statement {
 	}
 	
 	@Override
-	public void accept(Visitor visitor) {
+	public void accept(IStatementVisitor visitor) {
 		visitor.visit(this);
 	}
 

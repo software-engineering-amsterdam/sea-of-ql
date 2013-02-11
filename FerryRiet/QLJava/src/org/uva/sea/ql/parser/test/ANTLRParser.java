@@ -3,9 +3,9 @@ package org.uva.sea.ql.parser.test;
 import org.antlr.runtime.ANTLRStringStream;
 import org.antlr.runtime.CommonTokenStream;
 import org.antlr.runtime.RecognitionException;
-import org.uva.sea.ql.ast.Expr;
 import org.uva.sea.ql.ast.QLProgram;
 import org.uva.sea.ql.ast.Statement;
+import org.uva.sea.ql.ast.operators.Expr;
 import org.uva.sea.ql.parser.antlr.QLLexer;
 import org.uva.sea.ql.parser.antlr.QLParser;
 

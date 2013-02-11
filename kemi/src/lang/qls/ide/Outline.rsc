@@ -93,7 +93,7 @@ private node outline(SectionRule r:
     outline(definition);
 
 private node outline(StyleRule r: 
-  typeStyleRule(attr, \value)) =
+  widgetStyleRule(attr, \value)) =
     createNode(
       "StyleRule",
       "<attr> <\value.name>",

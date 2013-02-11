@@ -1,0 +1,23 @@
+package org.uva.sea.ql.ast.form;
+
+import org.uva.sea.ql.ast.expression.Expr;
+
+public class IfStatement extends AbstractConditional {
+	private List<ElseIfStatement> elseIfStatements;
+	private ElseStatement elseStatement;
+	
+	public IfStatement(Expr condition, Body body, List<ElseIfStatement> elseIfs) {
+		super(condition, body);
+		
+		this.
+	}
+	
+	public Expr getCondition() {
+		return condition;
+	}
+	
+	public Body getBody() {
+		return body;
+	}
+	
+}

@@ -1,0 +1,19 @@
+package org.uva.sea.ql.ast.type;
+
+import java.util.Map;
+
+import org.uva.sea.ql.ast.form.Body;
+import org.uva.sea.ql.ast.form.QLForm;
+import org.uva.sea.ql.ast.form.FormElement;
+import org.uva.sea.ql.ast.form.IfStatement;
+import org.uva.sea.ql.ast.form.Question;
+import org.uva.sea.ql.ast.form.Computed;
+
+public interface IFormElementTypeChecker {
+	void visit(QLForm form, Map<String, ExprType> typeEnv);
+	void visit(Body body, Map<String, ExprType> typeEnv);
+	void visit(FormElement formElement, Map<String, ExprType> typeEnv);
+	void visit(IfStatement ifStatement, Map<String, ExprType> typeEnv);
+	void visit(Question question, Map<String, ExprType> typeEnv);
+	void visit(Computed computedQuestion, Map<String, ExprType> typeEnv);
+}

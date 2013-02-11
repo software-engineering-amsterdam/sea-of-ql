@@ -1,7 +1,10 @@
 package org.uva.sea.ql.ast.values;
 
+import java.util.Map;
+
 import org.uva.sea.ql.ast.*;
-import org.uva.sea.ql.ast.visitor.Visitor;
+import org.uva.sea.ql.ast.types.ErrorType;
+import org.uva.sea.ql.ast.visitor.ICheckExprVisitor;
 
 public class Ident extends Value {
 	
@@ -16,8 +19,15 @@ public class Ident extends Value {
 	}
 	
 	@Override
-	public void accept(Visitor visitor) {
-		visitor.visit(this);
+	public <T> T accept(ICheckExprVisitor<T> visitor) {
+		return visitor.visit(this);
 	}
 
+	@Override
+	public Type typeOf(Map<Ident, Type> typeEnv) {
+		if (typeEnv.containsKey(this)){
+			return typeEnv.get(this);
+		}
+		return new ErrorType();
+	}
 }

@@ -18,11 +18,15 @@ public class State {
 	}
 	
 	public Map<String, Value> getEnv() {
-		return this.env;
+		return env;
+	}
+	
+	public boolean isDeclared(String name) {
+		return env.containsKey(name);
 	}
 	
 	public void setValue(String name, Value val) {
-		this.env.put(name, val);
+		env.put(name, val);
 	}
 	
 	public void addObserver(String x, Observer obs) {

@@ -10,15 +10,15 @@ import lang::qls::util::StyleHelper;
 
 private map[Type, list[str]] allowedAttrs = (
   booleanType("boolean"):
-    ["type"],
+    ["widget"],
   integerType("integer"):
-    ["type", "width"],
+    ["widget", "width"],
   moneyType("money"):
-    ["type", "width"],
+    ["widget", "width"],
   dateType("date"):
-    ["width"],
+    ["widget"],
   stringType("string"):
-    ["type", "width"]
+    ["widget", "width"]
 );
 
 private bool isAllowedAttr(Type \type, str attr) =

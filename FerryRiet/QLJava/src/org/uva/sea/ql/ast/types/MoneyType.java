@@ -2,17 +2,17 @@ package org.uva.sea.ql.ast.types;
 
 import java.math.BigDecimal;
 
-import org.uva.sea.ql.ast.operators.ExpressionResult;
-import org.uva.sea.ql.ast.operators.MoneyResult;
+import org.uva.sea.ql.ast.literals.MoneyResult;
+import org.uva.sea.ql.ast.literals.Result;
 
-public class MoneyType extends TypeDescription {
+public class MoneyType extends Type {
 
 	public MoneyType() {
 		super("money");
 	}
 
 	@Override
-	public boolean isCompatibleTo(TypeDescription t) {
+	public boolean isCompatibleTo(Type t) {
 		return t.isCompatibleToMoney();
 	}
 
@@ -27,7 +27,7 @@ public class MoneyType extends TypeDescription {
 	}
 
 	@Override
-	public ExpressionResult getTypeContainer() {
+	public Result getTypeContainer() {
 		return new MoneyResult(new BigDecimal(0));
 	}
 }

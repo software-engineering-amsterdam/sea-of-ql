@@ -1,7 +1,7 @@
 package org.uva.sea.ql.ast.expressions;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import org.uva.sea.ql.ast.values.Value;
 import org.uva.sea.ql.ast.eval.Env;
@@ -10,19 +10,17 @@ import org.uva.sea.ql.messages.*;
 
 public abstract class Expr implements ASTNode {
 	
-	protected final List<Type> allowedTypes = new ArrayList<Type>(); // TODO: allowed argument types.
-
 	public abstract Value eval(Env environment);
 	
 	public abstract Type typeOf(Env environment);
-//	public abstract Type typeOf(Env environment); // TODO: array allowedArgumentsType // SET!
+	public abstract Set<Type> allowedArgumentTypes();
 	
 	public abstract List<Message> checkType(Env environment);
 	
 	protected String getPrintableAllowedTypes() {
 		int i = 0;
 		String printableString = "";
-		for (Type t : allowedTypes) {
+		for (Type t : allowedArgumentTypes()) {
 			if (i > 0)
 				printableString += ", ";
 			printableString += t;
