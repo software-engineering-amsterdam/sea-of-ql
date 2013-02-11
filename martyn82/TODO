@@ -3,13 +3,7 @@ TODO
 - Environment
     - Add column and linenumber to TypeErrors.
 - Store type in question
-- Form IDENT -> String label // OR make getLabel() to get Ident.getName() ??
 - Review!
-
-Instead of:
-StatementVisitor implements IStatementVisitor<T>
-do:
-BooleanStatementVisitor implements StatementVisitor<Boolean>
 
 operator instanceof is only valid in some cases when the RHS is a type/interface, not a class.
 
