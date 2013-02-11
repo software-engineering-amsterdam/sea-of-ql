@@ -11,5 +11,7 @@ public test bool testIncorrectQuestions() =
 		error("Question has already been defined before with type int", _),
 		error("There is already a non-computed version of this question", _),
 		error("There is already a computed version of this question", _),
+		error("Question has already been defined before", _),
+		error("Question has already been defined before", _),
 		warning("Duplicate label", _)
 	} := checkForm(load(testFile));

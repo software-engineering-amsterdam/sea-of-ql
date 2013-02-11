@@ -50,7 +50,10 @@ CheckEnv checkQuestionDeclaration(Question q:computed(str identifier, str label,
 		
 		if (declaredType != tp) {
 			env = addError(env, q@location, "Question has already been defined before with type <pretty(declaredType)>");
-		}		
+		}
+		else {
+			env = addError(env, q@location, "Question has already been defined before");
+		}
 	}
 	else { 
 		if (identifier in env.questionVars) {
@@ -69,7 +72,10 @@ CheckEnv checkQuestionDeclaration(Question q:noncomputed(str identifier, str lab
 		
 		if (declaredType != tp) {
 			env = addError(env, q@location, "Question has already been defined before with type <pretty(declaredType)>");
-		}		
+		}	
+		else {
+			env = addError(env, q@location, "Question has already been defined before");
+		}	
 	}
 	else { 
 		if (identifier in env.computedQuestionVars) {

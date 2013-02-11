@@ -62,7 +62,8 @@ public CheckEnv checkExpr(Expr e, set[Type] req, CheckEnv env) {
 	if (resultType notin req) {
 		env = addError(env, e@location, "Required <getReadableTypes(req)>, got <pretty(resultType)>");
 	}
-	else if (e has val) {
+	
+	if (e has val) {
 		env = checkUnaryExpr(e, env);
 	}
 	else if ((e has lhs) && (e has rhs)) {
