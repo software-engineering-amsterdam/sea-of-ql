@@ -137,22 +137,69 @@ private str styleJS(Stylesheet s) {
 
 private str styleJS(str ident, StyleRule r: 
     widgetStyleRule(attr, text(name))) =
-  "//<attr> <name>
+  "$(\"#<ident>\")
+  '  .replaceWith(
+  '    $(\"\<input /\>\")
+  '      .attr({
+  '        id: \"<ident>\",
+  '        name: \"<ident>\",
+  '        type: \"text\",
+  '        disabled: $(\"#<ident>\").is(\":disabled\")
+  '      })
+  '  );
+  '
   '";
 
 private str styleJS(str ident, StyleRule r: 
     widgetStyleRule(attr, number(name))) =
-  "//<attr> <name>
+  "$(\"#<ident>\")
+  '  .replaceWith(
+  '    $(\"\<input /\>\")
+  '      .attr({
+  '        id: \"<ident>\",
+  '        name: \"<ident>\",
+  '        type: \"number\",
+  '        step: $(\"#<ident>\").attr(\"type\") === \"money\" ? \"0.01\" : \"1\",
+  '        disabled: $(\"#<ident>\").is(\":disabled\")
+  '      })
+  '  );
+  '
   '";
 
 private str styleJS(str ident, StyleRule r: 
     widgetStyleRule(attr, datepicker(name))) =
-  "//<attr> <name>
-  '";
+  // Datepicker is the default type, so no need for replacement
+  "";
 
 private str styleJS(str ident, StyleRule r: 
     widgetStyleRule(attr, slider(name))) =
-  "//<attr> <name>
+  "$(\"#<ident>\")
+  '  .replaceWith(
+  '    $(\"\<span /\>\")
+  '      .append(
+  '        $(\"\<input /\>\")
+  '          .attr({
+  '            id: \"<ident>\",
+  '            name: \"<ident>\",
+  '            type: \"range\",
+  '            value: \"0\",
+  '            step: $(\"#<ident>\").attr(\"type\") === \"money\" ?
+  '              \"0.01\" : \"1\",
+  '            disabled: $(\"#<ident>\").is(\":disabled\")
+  '          })
+  '          .change(function() {
+  '            $(\"#<ident>Display\").text($(this).val());
+  '          })
+  '      )
+  '      .append(
+  '        $(\"\<span /\>\")
+  '          .attr({
+  '            id: \"<ident>Display\"
+  '          })
+  '          .text(0)
+  '      )
+  '  );
+  '
   '";
 
 private str styleJS(str ident, StyleRule r: 
@@ -166,7 +213,8 @@ private str styleJS(str ident, StyleRule r:
   '            id: \"<ident>\",
   '            name: \"<ident>\",
   '            value: \"true\",
-  '            type: \"radio\"
+  '            type: \"radio\",
+  '            disabled: $(\"#<ident>\").is(\":disabled\")
   '          })
   '      )
   '      .append(
@@ -182,7 +230,8 @@ private str styleJS(str ident, StyleRule r:
   '            id: \"<ident>False\",
   '            name: \"<ident>\",
   '            value: \"false\",
-  '            type: \"radio\"
+  '            type: \"radio\",
+  '            disabled: $(\"#<ident>\").is(\":disabled\")
   '          })
   '      )
   '      .append(
@@ -193,12 +242,6 @@ private str styleJS(str ident, StyleRule r:
   '          .text(\"<LABEL_FALSE>\")
   '      )
   '  );
-  '
-  '$(\"#<ident>\")
-  '  .rules(\"remove\");
-  '
-  '$(\"#<ident>\")
-  '  .rules(\"add\", \"required\");
   '
   '";
 
@@ -213,7 +256,8 @@ private str styleJS(str ident, StyleRule r:
   '            id: \"<ident>\",
   '            name: \"<ident>\",
   '            value: \"true\",
-  '            type: \"checkbox\"
+  '            type: \"checkbox\",
+  '            disabled: $(\"#<ident>\").is(\":disabled\")
   '          })
   '      )
   '      .append(
