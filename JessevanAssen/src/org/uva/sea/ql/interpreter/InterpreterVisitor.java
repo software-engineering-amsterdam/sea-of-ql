@@ -104,14 +104,7 @@ public class InterpreterVisitor implements
         final Value left = astNode.getLeftExpression().accept(this, param),
                     right = astNode.getRightExpression().accept(this, param);
 
-        if(left instanceof Bool && right instanceof Bool)
-            return ((Bool)left).isEqualTo((Bool)right);
-        else if(left instanceof Int && right instanceof Int)
-            return ((Int)left).isEqualTo((Int)right);
-        else if(left instanceof Str && right instanceof Str)
-            return ((Str)left).isEqualTo((Str)right);
-        else
-            return new Bool(false);
+        return new Bool(left.equals(right));
     }
 
     @Override
@@ -189,10 +182,9 @@ public class InterpreterVisitor implements
 
     @Override
     public Value visit(NotEqualTo astNode, Context param) {
-        // Piggyback on the EqualTo to avoid having to do the glorious instanceof twice
-        final EqualTo equalTo = new EqualTo(astNode.getLeftExpression(), astNode.getRightExpression());
-        final Bool equalsResult = (Bool) equalTo.accept(this, param);
-        return equalsResult.not();
+        final Value left = astNode.getLeftExpression().accept(this, param),
+                    right = astNode.getRightExpression().accept(this, param);
+        return new Bool(!left.equals(right));
     }
 
     @Override
