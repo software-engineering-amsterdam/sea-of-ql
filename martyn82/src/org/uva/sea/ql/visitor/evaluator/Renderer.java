@@ -1,9 +1,8 @@
 package org.uva.sea.ql.visitor.evaluator;
 
 import java.util.LinkedList;
+import java.util.Observer;
 
-import org.uva.sea.ql.Observable;
-import org.uva.sea.ql.Observer;
 import org.uva.sea.ql.ast.expression.BinaryExpression;
 import org.uva.sea.ql.ast.expression.Expression;
 import org.uva.sea.ql.ast.expression.Ident;
@@ -303,7 +302,6 @@ public class Renderer implements StatementVisitor<Void>, TypeVisitor<Control> {
 		this.addLabel( label );
 		this.addComponent( component );
 
-		this.environment.setObservable( node.getIdent(), new Observable() );
 		this.registerHandler( node, component );
 
 		return null;
@@ -322,7 +320,6 @@ public class Renderer implements StatementVisitor<Void>, TypeVisitor<Control> {
 		this.addLabel( label );
 		this.addComponent( component );
 
-		this.environment.setObservable( node.getIdent(), new Observable() );
 		this.registerDependencies( node, component );
 
 		return null;

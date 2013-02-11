@@ -1,7 +1,8 @@
 package org.uva.sea.ql.visitor.evaluator;
 
-import org.uva.sea.ql.Observable;
-import org.uva.sea.ql.Observer;
+import java.util.Observable;
+import java.util.Observer;
+
 import org.uva.sea.ql.ast.expression.Expression;
 import org.uva.sea.ql.ui.control.Control;
 import org.uva.sea.ql.visitor.evaluator.value.BooleanValue;
@@ -21,7 +22,7 @@ public class ConditionObserver implements Observer {
 	}
 
 	@Override
-	public void update( Observable observable ) {
+	public void update( Observable observable, Object arg ) {
 		Value value = Evaluator.evaluate( this.condition, this.environment );
 		boolean visible = ( (BooleanValue) value ).getValue();
 

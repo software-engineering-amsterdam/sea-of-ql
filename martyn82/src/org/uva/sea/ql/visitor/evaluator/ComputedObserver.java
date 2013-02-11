@@ -1,7 +1,8 @@
 package org.uva.sea.ql.visitor.evaluator;
 
-import org.uva.sea.ql.Observable;
-import org.uva.sea.ql.Observer;
+import java.util.Observable;
+import java.util.Observer;
+
 import org.uva.sea.ql.ast.statement.QuestionComputed;
 import org.uva.sea.ql.ui.control.Control;
 import org.uva.sea.ql.visitor.evaluator.value.Value;
@@ -18,7 +19,7 @@ public class ComputedObserver implements Observer {
 	}
 
 	@Override
-	public void update( Observable observable ) {
+	public void update( Observable observable, Object arg ) {
 		Value value = Evaluator.evaluate( this.question.getExpression(), this.environment );
 		this.environment.assign( question.getIdent(), value );
 		this.environment.notifyObservers( this.question.getIdent() );

@@ -4,9 +4,8 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Observer;
 
-import org.uva.sea.ql.Observable;
-import org.uva.sea.ql.Observer;
 import org.uva.sea.ql.ast.expression.Ident;
 import org.uva.sea.ql.ast.type.Type;
 import org.uva.sea.ql.visitor.evaluator.value.Value;
@@ -133,16 +132,10 @@ public class Environment {
 	}
 
 	public void registerObserver( Ident ident, Observer observer ) {
-		this.bindings.get( ident ).getObservable().registerObserver( observer );
-	}
-
-	public void setObservable( Ident ident, Observable observable ) {
-		if ( this.bindings.get( ident ).getObservable() == null ) {
-			this.bindings.get( ident ).setObservable( observable );
-		}
+		this.bindings.get( ident ).addObserver( observer );
 	}
 
 	public void notifyObservers( Ident ident ) {
-		this.bindings.get( ident ).getObservable().notifyObservers();
+		this.bindings.get( ident ).notifyObservers();
 	}
 }
