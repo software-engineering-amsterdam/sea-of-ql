@@ -38,14 +38,7 @@ private str hideElement(str name) =
   "hide($(\"#<name><BLOCK>\"));";
 
 private str assignVar(str ident) =
-  "var <ident>;
-  'if($(\"#<ident>\").val() == \"true\") {
-  '  <ident> = true;
-  '} else if($(\"#<ident>\").val() == \"false\") {
-  '  <ident> = false;
-  '} else {
-  '  <ident> = $(\"#<ident>\").val();
-  '}";
+  "var <ident> = getFormValue(\"#<ident>\");";
   
 private set[str] getDirectDescendingIdents(Statement cond) {
   list[Statement] items = cond.ifPart.body;
@@ -133,7 +126,8 @@ private str individualCalculatedField(int cnt, str ident, Expr expr) {
     '  <assignVar(e)>
     '<}>
     '  result = <jsPrint(expr)>;
-    '  $(\"#<ident>\").val(result).change();  
+    '  setFormValue(\"#<ident>\", result);
+    '  //$(\"#<ident>\").val(result).change();  
     '}
     ";
 }  
