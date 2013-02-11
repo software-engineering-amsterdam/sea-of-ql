@@ -48,18 +48,18 @@ list[Type] getExpressionType(Expression exp, QLTENV env){
 * @author Philipp
 */
 QLTENV checkStatement(statement:ifStat(Expression exp, list[Body] body), QLTENV env){
-    println("EXP : <exp>"); 
-    println("ENV : <env>");
+   // println("EXP : <exp>"); 
+   // println("ENV : <env>");
     // I need to get the type of the exp if it is an id
     QLTENV env0 = <{},[]>;
     if(size(getChildren(exp)) == 1){  // if the node is currently just a boolean
     	b = checkExp(exp,boolean() ,env);
-    	println("b : <b>");
+   // 	println("b : <b>");
     	return b;
     }else{
     	// Get the type of the exp
     	list[Type] tp = getExpressionType(exp,env);
-    	println("LIST IS : <tp> SIZE : <size(tp)>");
+    //	println("LIST IS : <tp> SIZE : <size(tp)>");
     	if(size(tp) == 1){
     		if(tp[0] == integer()){
     		b = checkIntExp(exp,tp[0],env);
@@ -68,18 +68,18 @@ QLTENV checkStatement(statement:ifStat(Expression exp, list[Body] body), QLTENV 
     		b = checkExp(exp,tp[0],env);
     		return b;
     		}
-    		println("b : <b>");
+    	//	println("b : <b>");
     		return b;
     	}else{
     		//Error Handling
-    		println("tp is  : <tp>");
+    	//	println("tp is  : <tp>");
     		if(tp[0] == integer()){
     			b = checkIntExp(exp,tp[0],env);
-    			println("b2 : <b>");
+    		//	println("b2 : <b>");
     			return b;	
     		}else{
     		b = checkExp(exp,tp[0],env);
-    		println("b2 : <b>");
+    	//	println("b2 : <b>");
     		return b;
     		}
     	}
@@ -113,11 +113,12 @@ QLTENV checkStatement(statement:ifElseStat(Expression exp, list[Body] thenpart, 
 * @author Philipp
 */
 QLTENV checkQuestion(question:easyQuestion(str id, str labelQuestion, Type tp) , QLTENV env){
-	if(checkIdentifiers(env) == false) return addError(env, question@location, "Identifier <id> is declared two times");
+	println("Easy Q : <id>");
+	if(checkIdentifiers(question, env) == false) return addError(env, question@location, "Identifier <id> is declared two times");
 	else return addInstance(env, id , labelQuestion, tp, false );	
 }
 
-/** Method to check computed question and save it in the environment   --> need now to check the all expression of the question
+/** Method to check computed question and save it in the environment
 * @param question the computed question
 * @param env the QL Type environment
 * @return env the enviroment
@@ -125,13 +126,18 @@ QLTENV checkQuestion(question:easyQuestion(str id, str labelQuestion, Type tp) ,
 */
 QLTENV checkQuestion(question:computedQuestion(str id, str labelQuestion, Type tp, Expression exp) , QLTENV env){  //, Expression exp
 	println("check computed question");
-	if(checkIdentifiers(env) == false) return addError(env, question@location, "Identifier <id> is declared two times");
+	//if(checkIdentifiers(env) == false) return addError(env, question@location, "Identifier <id> is declared two times");
 	// need to check the expression
-	else {
+	//else {
 	println("EXP : <exp>");
+	if(tp == integer()){
+		println("in computed question integer");
+		env = checkIntExp(exp, tp, env);
+	 	return addInstance(env, id, labelQuestion, tp, true);
+	}
 	 env = checkExp(exp, tp, env);
 	 return addInstance(env, id, labelQuestion, tp, true);
-	 } 
+	// } 
 }
 
 /** Method to check for double Identifiers
@@ -139,7 +145,12 @@ QLTENV checkQuestion(question:computedQuestion(str id, str labelQuestion, Type t
 * @return true if no double Idenfiers
 * @author Philipp
 */
-bool checkIdentifiers(QLTENV env){
+bool checkIdentifiers(question:easyQuestion(str id, str labelQuestion, Type tp) ,QLTENV env){
+	println("check env : <env>");
+	println("check question : <question>");
+//	for(S <- env){
+//		println("S in check is : <S.id>");
+//	}
 	if(size(env.question) == size(env.question.id)){
 		return true;
 	}else{
@@ -155,7 +166,6 @@ bool checkIdentifiers(QLTENV env){
 * @author Philipp
 */
 QLTENV checkBody(list[Body] Body, QLTENV env){
-	//for(s <- Body){
 	visit(Body){
      	case Question q : {
      			//println("IN small q <q>");
@@ -163,13 +173,10 @@ QLTENV checkBody(list[Body] Body, QLTENV env){
     			env = checkQuestion(q,env);
     	    }
         case Statement s: {
-        		println("IN small s <s>");
-        		//println("ENV : <env>");
+        		//println("IN small s <s>");
         		env = checkStatement(s,env);
-        		//println("ENV2 : <env>");
         	}
       };
-	//}
 	return env;
 }
 
