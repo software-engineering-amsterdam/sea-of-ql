@@ -5,9 +5,10 @@ import java.util.Map;
 
 import org.uva.sea.ql.ast.Expr;
 import org.uva.sea.ql.ast.Type;
+import org.uva.sea.ql.ast.expressions.UnaryExpr;
 import org.uva.sea.ql.ast.expressions.binary.BinaryArithmeticExpr;
-import org.uva.sea.ql.ast.expressions.binary.BinaryRelationalExpr;
 import org.uva.sea.ql.ast.expressions.binary.BinaryLogicalExpr;
+import org.uva.sea.ql.ast.expressions.binary.BinaryRelationalExpr;
 import org.uva.sea.ql.ast.expressions.binary.arithmetic.Add;
 import org.uva.sea.ql.ast.expressions.binary.arithmetic.Div;
 import org.uva.sea.ql.ast.expressions.binary.arithmetic.Mul;
@@ -74,19 +75,12 @@ public class CheckExpr implements Visitor<Boolean> {
 	public Boolean visit(Or ast)  { return checkLogicalExpr(ast, "||"); }
 
 	@Override
-	public Boolean visit(Neg ast) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
+	public Boolean visit(Neg ast) { return checkUnaryNumericExpr(ast, "--"); }
+	@Override
+	public Boolean visit(Pos ast) { return checkUnaryNumericExpr(ast, "++"); }
+	
 	@Override
 	public Boolean visit(Not ast) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Boolean visit(Pos ast) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -184,6 +178,26 @@ public class CheckExpr implements Visitor<Boolean> {
 		}
 		
 		// No Type errors
+		return true; 
+	}
+	
+	private Boolean checkUnaryNumericExpr(UnaryExpr expr, String binarySymbol) {
+		boolean checkExpr = expr.accept(this);
+		
+		if (!checkExpr) {
+			// Type error occurred
+			return false;
+		}
+		
+		Type exprType = expr.typeOf(_typeEnv);
+		
+		// Check if Type is compatible with UnaryNumericExpr
+		if (!exprType.isCompatibleToNumeric()) {
+			addError(expr, "invalid type for " + binarySymbol);
+			return false;
+		}
+		
+		// No Type error
 		return true; 
 	}
 	
