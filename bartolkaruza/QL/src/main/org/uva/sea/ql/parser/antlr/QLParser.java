@@ -1,4 +1,4 @@
-// $ANTLR 3.5 src/main/org/uva/sea/ql/parser/antlr/QL.g 2013-01-28 16:11:03
+// $ANTLR 3.5 src/main/org/uva/sea/ql/parser/antlr/QL.g 2013-02-11 20:52:29
 
 package org.uva.sea.ql.parser.antlr;
 import org.uva.sea.ql.ast.*;
@@ -426,7 +426,7 @@ public class QLParser extends Parser {
 			        result = new IntType();
 			      }
 			      if ((TYPE2!=null?TYPE2.getText():null).equals("string")) {
-			        result = new TextStringType();
+			        result = new TextType();
 			      }
 			      if ((TYPE2!=null?TYPE2.getText():null).equals("money")) {
 			        result = new MoneyType();
@@ -517,7 +517,7 @@ public class QLParser extends Parser {
 					// src/main/org/uva/sea/ql/parser/antlr/QL.g:73:6: STRING_VALUE
 					{
 					STRING_VALUE4=(Token)match(input,STRING_VALUE,FOLLOW_STRING_VALUE_in_primary290); if (state.failed) return result;
-					if ( state.backtracking==0 ) { result = new TextString((STRING_VALUE4!=null?STRING_VALUE4.getLine():0), (STRING_VALUE4!=null?STRING_VALUE4.getText():null).substring(1, (STRING_VALUE4!=null?STRING_VALUE4.getText():null).length() - 1)); }
+					if ( state.backtracking==0 ) { result = new Text((STRING_VALUE4!=null?STRING_VALUE4.getLine():0), (STRING_VALUE4!=null?STRING_VALUE4.getText():null).substring(1, (STRING_VALUE4!=null?STRING_VALUE4.getText():null).length() - 1)); }
 					}
 					break;
 				case 3 :
@@ -734,7 +734,7 @@ public class QLParser extends Parser {
 					      if ((op!=null?op.getText():null).equals("*")) {
 					        result = new Mul((op!=null?op.getLine():0), result, rhs);
 					      }
-					      if ((op!=null?op.getText():null).equals("<=")) {
+					      if ((op!=null?op.getText():null).equals("/")) {
 					        result = new Div((op!=null?op.getLine():0), result, rhs);      
 					      }
 					    }

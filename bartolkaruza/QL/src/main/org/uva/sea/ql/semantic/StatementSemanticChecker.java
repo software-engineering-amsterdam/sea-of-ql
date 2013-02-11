@@ -15,7 +15,7 @@ import org.uva.sea.ql.symbol.DefinitionCollector;
 import org.uva.sea.ql.symbol.Symbol;
 import org.uva.sea.ql.visitor.StatementVisitor;
 
-public class StatementSemanticChecker implements StatementVisitor {
+public class StatementSemanticChecker implements StatementVisitor<Void> {
 
 	private ParserContext context;
 	private ExpressionSemanticChecker expressionChecker;
@@ -35,7 +35,7 @@ public class StatementSemanticChecker implements StatementVisitor {
 	}
 
 	@Override
-	public void visit(Form node) {
+	public Void visit(Form node) {
 		node.accept(generator); // Create the symbol table entries
 		for (Statement statement : node.getStatements()) {
 			statement.accept(this);
@@ -50,10 +50,11 @@ public class StatementSemanticChecker implements StatementVisitor {
 				}
 			}
 		}
+		return null;
 	}
 
 	@Override
-	public void visit(ConditionalStatement node) {
+	public Void visit(ConditionalStatement node) {
 
 		if (!node.getExpression().typeOf(context.getTable()).isCompatibleToBool()) {
 			context.addError(new QLError("invalid non-boolean expression in statement at: " + node.getLineNumber()));
@@ -65,19 +66,21 @@ public class StatementSemanticChecker implements StatementVisitor {
 			statement.accept(this);
 		}
 		dependentOnStack.pop();
+		return null;
 	}
 
 	@Override
-	public void visit(AnswerableQuestion node) {
+	public Void visit(AnswerableQuestion node) {
 		Symbol symbol = context.getSymbol(node.getName());
 		for (List<Symbol> symbols : dependentOnStack) {
 			symbol.addDependantOn(symbols);
 		}
-
+		return null;
 	}
 
 	@Override
-	public void visit(ComputedQuestion node) {
+	public Void visit(ComputedQuestion node) {
 		node.getExpr().accept(expressionChecker);
+		return null;
 	}
 }

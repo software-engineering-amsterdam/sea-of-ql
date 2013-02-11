@@ -1,5 +1,6 @@
 package org.uva.sea.ql.parser;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.List;
 
@@ -9,8 +10,13 @@ import org.uva.sea.ql.error.QLError;
 import org.uva.sea.ql.symbol.Symbol;
 import org.uva.sea.ql.symbol.SymbolTable;
 
-public class ParserContext {
+public class ParserContext implements Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 6999454250035007570L;
+	
 	private ErrorHandler handler;
 	private SymbolTable table;
 	private Form form;

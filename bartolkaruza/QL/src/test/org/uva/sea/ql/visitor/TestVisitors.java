@@ -25,6 +25,6 @@ public class TestVisitors {
 		Form form = (Form) parser.parseNode("form somelabel { if(1+1) { question1: \" some text label\" boolean} }");
 		ParserContext context = new ParserContext();
 		form.accept(new DefinitionCollector(context));
-		assertTrue(context.getSymbol("question1").getType() instanceof BoolType);
+		assertTrue(context.getSymbol("question1").getExpr().typeOf(context.getTable()) instanceof BoolType);
 	}
 }

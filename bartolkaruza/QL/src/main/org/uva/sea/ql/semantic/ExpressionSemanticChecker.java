@@ -18,19 +18,18 @@ import org.uva.sea.ql.ast.expr.Not;
 import org.uva.sea.ql.ast.expr.Or;
 import org.uva.sea.ql.ast.expr.Pos;
 import org.uva.sea.ql.ast.expr.Sub;
-import org.uva.sea.ql.ast.expr.grouping.BinaryExpr;
 import org.uva.sea.ql.ast.expr.value.Bool;
 import org.uva.sea.ql.ast.expr.value.Ident;
 import org.uva.sea.ql.ast.expr.value.Int;
 import org.uva.sea.ql.ast.expr.value.Money;
-import org.uva.sea.ql.ast.expr.value.TextString;
+import org.uva.sea.ql.ast.expr.value.Text;
 import org.uva.sea.ql.error.QLError;
 import org.uva.sea.ql.parser.ParserContext;
 import org.uva.sea.ql.symbol.Symbol;
 import org.uva.sea.ql.visitor.ExpressionVisitor;
 
-public class ExpressionSemanticChecker implements ExpressionVisitor{
-	
+public class ExpressionSemanticChecker implements ExpressionVisitor<Void> {
+
 	private static final String ADD = "+";
 	private static final String AND = "&&";
 	private static final String DIV = "/";
@@ -46,147 +45,171 @@ public class ExpressionSemanticChecker implements ExpressionVisitor{
 	private static final String SUB = "-";
 	private static final String EQ = "==";
 	private static final String NEQ = "!=";
-	
+
 	private final ParserContext context;
-	
+
 	private List<Symbol> symbols = new ArrayList<Symbol>();
-	
+
 	public ExpressionSemanticChecker(ParserContext context) {
 		this.context = context;
 	}
-	
+
 	public List<Symbol> getSymbols() {
 		return symbols;
 	}
-	
+
 	public void clearSymbols() {
 		this.symbols = new ArrayList<Symbol>();
 	}
-	
+
 	@Override
-	public void visit(Ident node) {
-		
-		if(context.hasSymbol(node.getName())) {
+	public Void visit(Ident node) {
+		if (context.hasSymbol(node.getName())) {
 			Symbol symbol = context.getSymbol(node.getName());
 			symbols.add(symbol);
 		} else {
 			context.addError(new QLError("undefined variable: " + node.getName() + " at line: " + node.getLineNumber()));
 		}
-	}
-	
-	@Override
-	public void visit(Add node) {
-		if(!areNodesNumeric(node)) {
-			context.reportOperationTypeError(ADD, node.getLineNumber());
-		}
-	}
-	@Override
-	public void visit(And node) {
-		if(!areNodesBool(node)) {
-			context.reportOperationTypeError(AND, node.getLineNumber());
-		}
-	}
-	@Override
-	public void visit(Div node) {
-		if(!areNodesNumeric(node)) {
-			context.reportOperationTypeError(DIV, node.getLineNumber());
-		}
-	}
-	@Override
-	public void visit(Eq node) {
-		if(!node.getLhs().typeOf(context.getTable()).isCompatibleTo(node.getRhs().typeOf(context.getTable()))) {
-			context.reportOperationTypeError(EQ, node.getLineNumber());
-		}
-	}
-	@Override
-	public void visit(GEq node) {
-		if(!areNodesNumeric(node)) {
-			context.reportOperationTypeError(GEQ, node.getLineNumber());
-		}
-	}
-	@Override
-	public void visit(GT node) {
-		if(!areNodesNumeric(node)) {
-			context.reportOperationTypeError(GT_, node.getLineNumber());
-		}
-	}
-	@Override
-	public void visit(LEq node) {
-		if(!areNodesNumeric(node)) {
-			context.reportOperationTypeError(LEQ, node.getLineNumber());
-		}
-	}
-	@Override
-	public void visit(LT node) {
-		if(!areNodesNumeric(node)) {
-			context.reportOperationTypeError(LT_, node.getLineNumber());
-		}
-	}
-	@Override
-	public void visit(Mul node) {
-		if(!areNodesNumeric(node)) {
-			context.reportOperationTypeError(MUL, node.getLineNumber());
-		}
-	}
-	@Override
-	public void visit(Neg node) {
-		if(!node.getRhs().typeOf(context.getTable()).isCompatibleToNumeric()) {
-			context.reportOperationTypeError(NEG, node.getLineNumber());
-		}
-	}
-	@Override
-	public void visit(NEq node) {
-		if(!areNodesBool(node)) {
-			context.reportOperationTypeError(NEQ, node.getLineNumber());
-		}
-	}
-	@Override
-	public void visit(Not node) {
-		if(!node.getRhs().typeOf(context.getTable()).isCompatibleToBool()) {
-			context.reportOperationTypeError(NOT, node.getLineNumber());
-		}
-	}
-	@Override
-	public void visit(Or node) {
-		if(!areNodesBool(node)) {
-			context.reportOperationTypeError(OR, node.getLineNumber());
-		}
-	}
-	@Override
-	public void visit(Pos node) {
-		if(!node.getRhs().typeOf(context.getTable()).isCompatibleToNumeric()) {
-			context.reportOperationTypeError(POS, node.getLineNumber());
-		}
-	}
-	@Override
-	public void visit(Sub node) {
-		if(!areNodesNumeric(node)) {
-			context.reportOperationTypeError(SUB, node.getLineNumber());
-		}
-	}
-	@Override
-	public void visit(Bool node) {
-		
-	}
-	@Override
-	public void visit(Int node) {
-		
-	}
-	@Override
-	public void visit(Money node) {
-		
-	}
-	@Override
-	public void visit(TextString node) {
-		
-	}
-	
-	private boolean areNodesNumeric(BinaryExpr expr) {
-		return expr.getLhs().typeOf(context.getTable()).isCompatibleToNumeric() && expr.getRhs().typeOf(context.getTable()).isCompatibleToNumeric();
-	}
-	
-	private boolean areNodesBool(BinaryExpr expr) {
-		return expr.getLhs().typeOf(context.getTable()).isCompatibleToBool() && expr.getRhs().typeOf(context.getTable()).isCompatibleToBool();
+		return null;
 	}
 
+	@Override
+	public Void visit(Add node) {
+		if(!node.typeOf(context.getTable()).isCompatibleWithAdd()) {
+			context.reportOperationTypeError(ADD, node.getLineNumber());
+		}
+		return null;
+	}
+
+	@Override
+	public Void visit(And node) {
+		if(!node.getLeastUpperBoundsType(context.getTable()).isCompatibleWithAnd()) {
+			context.reportOperationTypeError(AND, node.getLineNumber());
+		}
+		return null;
+	}
+
+	@Override
+	public Void visit(Div node) {
+		if(!node.getLeastUpperBoundsType(context.getTable()).isCompatibleWithDiv()) {
+			context.reportOperationTypeError(DIV, node.getLineNumber());
+		}
+		return null;
+	}
+
+	@Override
+	public Void visit(Eq node) {
+		if(!node.getLeastUpperBoundsType(context.getTable()).isCompatibleWithEq()) {
+			context.reportOperationTypeError(EQ, node.getLineNumber());
+		}
+		return null;
+	}
+
+	@Override
+	public Void visit(GEq node) {
+		if(!node.getLeastUpperBoundsType(context.getTable()).isCompatibleWithGEq()) {
+			context.reportOperationTypeError(GEQ, node.getLineNumber());
+		}
+		return null;
+	}
+
+	@Override
+	public Void visit(GT node) {
+		if(!node.getLeastUpperBoundsType(context.getTable()).isCompatibleWithGT()) {
+			context.reportOperationTypeError(GT_, node.getLineNumber());
+		}
+		return null;
+	}
+
+	@Override
+	public Void visit(LEq node) {
+		if(!node.getLeastUpperBoundsType(context.getTable()).isCompatibleWithLEq()) {
+			context.reportOperationTypeError(LEQ, node.getLineNumber());
+		}
+		return null;
+	}
+
+	@Override
+	public Void visit(LT node) {
+		if(!node.getLeastUpperBoundsType(context.getTable()).isCompatibleWithLT()) {
+			context.reportOperationTypeError(LT_, node.getLineNumber());
+		}
+		return null;
+	}
+
+	@Override
+	public Void visit(Mul node) {
+		if(!node.getLeastUpperBoundsType(context.getTable()).isCompatibleWithMul()) {
+			context.reportOperationTypeError(MUL, node.getLineNumber());
+		}
+		return null;
+	}
+
+	@Override
+	public Void visit(Neg node) {
+		if(!node.getLeastUpperBoundsType(context.getTable()).isCompatibleWithNeg()) {
+			context.reportOperationTypeError(NEG, node.getLineNumber());
+		}
+		return null;
+	}
+
+	@Override
+	public Void visit(NEq node) {
+		if(!node.getLeastUpperBoundsType(context.getTable()).isCompatibleWithNEq()) {
+			context.reportOperationTypeError(NEQ, node.getLineNumber());
+		}
+		return null;
+	}
+
+	@Override
+	public Void visit(Not node) {
+		if(!node.getLeastUpperBoundsType(context.getTable()).isCompatibleWithNot()) {
+			context.reportOperationTypeError(NOT, node.getLineNumber());
+		}
+		return null;
+	}
+
+	@Override
+	public Void visit(Or node) {
+		if(!node.getLeastUpperBoundsType(context.getTable()).isCompatibleWithOr()) {
+			context.reportOperationTypeError(OR, node.getLineNumber());
+		}
+		return null;
+	}
+
+	@Override
+	public Void visit(Pos node) {
+		if(!node.getLeastUpperBoundsType(context.getTable()).isCompatibleWithPos()) {
+			context.reportOperationTypeError(POS, node.getLineNumber());
+		}
+		return null;
+	}
+
+	@Override
+	public Void visit(Sub node) {
+		if(!node.getLeastUpperBoundsType(context.getTable()).isCompatibleWithSub()) {
+			context.reportOperationTypeError(SUB, node.getLineNumber());
+		}
+		return null;
+	}
+
+	@Override
+	public Void visit(Bool node) {
+		return null;
+	}
+
+	@Override
+	public Void visit(Int node) {
+		return null;
+	}
+
+	@Override
+	public Void visit(Money node) {
+		return null;
+	}
+
+	@Override
+	public Void visit(Text node) {
+		return null;
+	}
 }

@@ -1,4 +1,4 @@
-// $ANTLR 3.5 src/main/org/uva/sea/ql/parser/antlr/QL.g 2013-01-28 16:11:03
+// $ANTLR 3.5 src/main/org/uva/sea/ql/parser/antlr/QL.g 2013-02-11 20:52:29
 
 package org.uva.sea.ql.parser.antlr;
 import org.uva.sea.ql.error.*;
@@ -642,10 +642,10 @@ public class QLLexer extends Lexer {
 		try {
 			int _type = MONEY_VALUE;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// src/main/org/uva/sea/ql/parser/antlr/QL.g:157:12: ( ( '0' .. '9' )+ '\\.' ( '0' .. '9' ) ( '0' .. '9' ) )
-			// src/main/org/uva/sea/ql/parser/antlr/QL.g:157:14: ( '0' .. '9' )+ '\\.' ( '0' .. '9' ) ( '0' .. '9' )
+			// src/main/org/uva/sea/ql/parser/antlr/QL.g:157:13: ( ( '0' .. '9' )+ '.' ( '0' .. '9' ) )
+			// src/main/org/uva/sea/ql/parser/antlr/QL.g:157:15: ( '0' .. '9' )+ '.' ( '0' .. '9' )
 			{
-			// src/main/org/uva/sea/ql/parser/antlr/QL.g:157:14: ( '0' .. '9' )+
+			// src/main/org/uva/sea/ql/parser/antlr/QL.g:157:15: ( '0' .. '9' )+
 			int cnt4=0;
 			loop4:
 			while (true) {
@@ -687,14 +687,6 @@ public class QLLexer extends Lexer {
 				recover(mse);
 				throw mse;
 			}
-			if ( (input.LA(1) >= '0' && input.LA(1) <= '9') ) {
-				input.consume();
-			}
-			else {
-				MismatchedSetException mse = new MismatchedSetException(null,input);
-				recover(mse);
-				throw mse;
-			}
 			}
 
 			state.type = _type;
@@ -711,10 +703,10 @@ public class QLLexer extends Lexer {
 		try {
 			int _type = INT_VALUE;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// src/main/org/uva/sea/ql/parser/antlr/QL.g:159:10: ( ( '0' .. '9' )+ )
-			// src/main/org/uva/sea/ql/parser/antlr/QL.g:159:12: ( '0' .. '9' )+
+			// src/main/org/uva/sea/ql/parser/antlr/QL.g:161:10: ( ( '0' .. '9' )+ )
+			// src/main/org/uva/sea/ql/parser/antlr/QL.g:161:12: ( '0' .. '9' )+
 			{
-			// src/main/org/uva/sea/ql/parser/antlr/QL.g:159:12: ( '0' .. '9' )+
+			// src/main/org/uva/sea/ql/parser/antlr/QL.g:161:12: ( '0' .. '9' )+
 			int cnt5=0;
 			loop5:
 			while (true) {
@@ -763,8 +755,8 @@ public class QLLexer extends Lexer {
 		try {
 			int _type = Ident;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// src/main/org/uva/sea/ql/parser/antlr/QL.g:161:6: ( ( 'a' .. 'z' | 'A' .. 'Z' ) ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )* )
-			// src/main/org/uva/sea/ql/parser/antlr/QL.g:161:10: ( 'a' .. 'z' | 'A' .. 'Z' ) ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )*
+			// src/main/org/uva/sea/ql/parser/antlr/QL.g:163:6: ( ( 'a' .. 'z' | 'A' .. 'Z' ) ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )* )
+			// src/main/org/uva/sea/ql/parser/antlr/QL.g:163:10: ( 'a' .. 'z' | 'A' .. 'Z' ) ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )*
 			{
 			if ( (input.LA(1) >= 'A' && input.LA(1) <= 'Z')||(input.LA(1) >= 'a' && input.LA(1) <= 'z') ) {
 				input.consume();
@@ -774,7 +766,7 @@ public class QLLexer extends Lexer {
 				recover(mse);
 				throw mse;
 			}
-			// src/main/org/uva/sea/ql/parser/antlr/QL.g:161:29: ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )*
+			// src/main/org/uva/sea/ql/parser/antlr/QL.g:163:29: ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )*
 			loop6:
 			while (true) {
 				int alt6=2;
@@ -819,10 +811,10 @@ public class QLLexer extends Lexer {
 		try {
 			int _type = NL;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// src/main/org/uva/sea/ql/parser/antlr/QL.g:163:4: ( ( '\\n' | '\\r' | '\\n\\r' ) )
-			// src/main/org/uva/sea/ql/parser/antlr/QL.g:163:6: ( '\\n' | '\\r' | '\\n\\r' )
+			// src/main/org/uva/sea/ql/parser/antlr/QL.g:165:4: ( ( '\\n' | '\\r' | '\\n\\r' ) )
+			// src/main/org/uva/sea/ql/parser/antlr/QL.g:165:6: ( '\\n' | '\\r' | '\\n\\r' )
 			{
-			// src/main/org/uva/sea/ql/parser/antlr/QL.g:163:6: ( '\\n' | '\\r' | '\\n\\r' )
+			// src/main/org/uva/sea/ql/parser/antlr/QL.g:165:6: ( '\\n' | '\\r' | '\\n\\r' )
 			int alt7=3;
 			int LA7_0 = input.LA(1);
 			if ( (LA7_0=='\n') ) {
@@ -848,19 +840,19 @@ public class QLLexer extends Lexer {
 
 			switch (alt7) {
 				case 1 :
-					// src/main/org/uva/sea/ql/parser/antlr/QL.g:163:7: '\\n'
+					// src/main/org/uva/sea/ql/parser/antlr/QL.g:165:7: '\\n'
 					{
 					match('\n'); 
 					}
 					break;
 				case 2 :
-					// src/main/org/uva/sea/ql/parser/antlr/QL.g:163:14: '\\r'
+					// src/main/org/uva/sea/ql/parser/antlr/QL.g:165:14: '\\r'
 					{
 					match('\r'); 
 					}
 					break;
 				case 3 :
-					// src/main/org/uva/sea/ql/parser/antlr/QL.g:163:21: '\\n\\r'
+					// src/main/org/uva/sea/ql/parser/antlr/QL.g:165:21: '\\n\\r'
 					{
 					match("\n\r"); 
 
@@ -886,8 +878,8 @@ public class QLLexer extends Lexer {
 		try {
 			int _type = WS;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// src/main/org/uva/sea/ql/parser/antlr/QL.g:165:5: ( ( ' ' | '\\t' ) )
-			// src/main/org/uva/sea/ql/parser/antlr/QL.g:165:7: ( ' ' | '\\t' )
+			// src/main/org/uva/sea/ql/parser/antlr/QL.g:167:5: ( ( ' ' | '\\t' ) )
+			// src/main/org/uva/sea/ql/parser/antlr/QL.g:167:7: ( ' ' | '\\t' )
 			{
 			if ( input.LA(1)=='\t'||input.LA(1)==' ' ) {
 				input.consume();
@@ -914,7 +906,7 @@ public class QLLexer extends Lexer {
 		try {
 			int _type = COMMENT;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// src/main/org/uva/sea/ql/parser/antlr/QL.g:167:9: ( '/*' ( . )* '*/' | '//' ( . )* NL )
+			// src/main/org/uva/sea/ql/parser/antlr/QL.g:169:9: ( '/*' ( . )* '*/' | '//' ( . )* NL )
 			int alt10=2;
 			int LA10_0 = input.LA(1);
 			if ( (LA10_0=='/') ) {
@@ -948,11 +940,11 @@ public class QLLexer extends Lexer {
 
 			switch (alt10) {
 				case 1 :
-					// src/main/org/uva/sea/ql/parser/antlr/QL.g:167:11: '/*' ( . )* '*/'
+					// src/main/org/uva/sea/ql/parser/antlr/QL.g:169:11: '/*' ( . )* '*/'
 					{
 					match("/*"); 
 
-					// src/main/org/uva/sea/ql/parser/antlr/QL.g:167:16: ( . )*
+					// src/main/org/uva/sea/ql/parser/antlr/QL.g:169:16: ( . )*
 					loop8:
 					while (true) {
 						int alt8=2;
@@ -973,7 +965,7 @@ public class QLLexer extends Lexer {
 
 						switch (alt8) {
 						case 1 :
-							// src/main/org/uva/sea/ql/parser/antlr/QL.g:167:16: .
+							// src/main/org/uva/sea/ql/parser/antlr/QL.g:169:16: .
 							{
 							matchAny(); 
 							}
@@ -989,11 +981,11 @@ public class QLLexer extends Lexer {
 					}
 					break;
 				case 2 :
-					// src/main/org/uva/sea/ql/parser/antlr/QL.g:167:26: '//' ( . )* NL
+					// src/main/org/uva/sea/ql/parser/antlr/QL.g:169:26: '//' ( . )* NL
 					{
 					match("//"); 
 
-					// src/main/org/uva/sea/ql/parser/antlr/QL.g:167:31: ( . )*
+					// src/main/org/uva/sea/ql/parser/antlr/QL.g:169:31: ( . )*
 					loop9:
 					while (true) {
 						int alt9=2;
@@ -1010,7 +1002,7 @@ public class QLLexer extends Lexer {
 
 						switch (alt9) {
 						case 1 :
-							// src/main/org/uva/sea/ql/parser/antlr/QL.g:167:31: .
+							// src/main/org/uva/sea/ql/parser/antlr/QL.g:169:31: .
 							{
 							matchAny(); 
 							}
