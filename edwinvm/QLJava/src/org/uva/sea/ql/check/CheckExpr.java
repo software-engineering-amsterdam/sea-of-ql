@@ -78,12 +78,8 @@ public class CheckExpr implements Visitor<Boolean> {
 	public Boolean visit(Neg ast) { return checkUnaryNumericExpr(ast, "--"); }
 	@Override
 	public Boolean visit(Pos ast) { return checkUnaryNumericExpr(ast, "++"); }
-	
 	@Override
-	public Boolean visit(Not ast) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	public Boolean visit(Not ast) { return checkUnaryLogicalExpr(ast, "!");  }
 
 	@Override
 	public Boolean visit(Bool ast) {
@@ -193,6 +189,26 @@ public class CheckExpr implements Visitor<Boolean> {
 		
 		// Check if Type is compatible with UnaryNumericExpr
 		if (!exprType.isCompatibleToNumeric()) {
+			addError(expr, "invalid type for " + binarySymbol);
+			return false;
+		}
+		
+		// No Type error
+		return true; 
+	}
+	
+	private Boolean checkUnaryLogicalExpr(UnaryExpr expr, String binarySymbol) {
+		boolean checkExpr = expr.accept(this);
+		
+		if (!checkExpr) {
+			// Type error occurred
+			return false;
+		}
+		
+		Type exprType = expr.typeOf(_typeEnv);
+		
+		// Check if Type is compatible with UnaryLogicalExpr
+		if (!exprType.isCompatibleToBool()) {
 			addError(expr, "invalid type for " + binarySymbol);
 			return false;
 		}
