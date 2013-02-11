@@ -6,40 +6,7 @@ import syntax::ConcreteSyntax;
 import util::Load;
 import typeChecker::ExpressionTypeChecker;
 import typeChecker::TypeEnvironment;
-
-Type findExpressionType(Expression exp, QLTENV env){
-	//println("In find exp : <toString(getChildren(exp))>");
-	//println("ENV : <env>");
-	str s = toString(getChildren(exp)[0]);
-	//println("S : <s>");
-	for(b <- env.question){
-		//println("B : <b>");
-		if(b.id == s){
-			println("match");
-			return b.tp;
-		}
-	}
-}
-
-list[Type] getExpressionType(Expression exp, QLTENV env){
-	println("in get EXpression Type : <exp>");
-	println("Type is : <env.question>");
-	// Making a set to check the two types
-	list[Type] types = [];
-	println("SHOW CHILDREN : <getChildren(exp)>");
-	for(s <- getChildren(exp)){
-		println("S is : <s>");
-		Type tp = findExpressionType(s, env);
-		println("Tp is : <tp>");
-		if(tp in types){
-			println("dont add");
-		}else{
-			types += tp;
-		}
-	}
-	return types;
-}
-
+import typeChecker::TypeHelper;
 
 /** Method to check if statement 
 * @param statement the if statement
@@ -48,46 +15,19 @@ list[Type] getExpressionType(Expression exp, QLTENV env){
 * @author Philipp
 */
 QLTENV checkStatement(statement:ifStat(Expression exp, list[Body] body), QLTENV env){
-   // println("EXP : <exp>"); 
-   // println("ENV : <env>");
-    // I need to get the type of the exp if it is an id
     QLTENV env0 = <{},[]>;
-    if(size(getChildren(exp)) == 1){  // if the node is currently just a boolean
-    	b = checkExp(exp,boolean() ,env);
-   // 	println("b : <b>");
-    	return b;
-    }else{
-    	// Get the type of the exp
+    if(size(getChildren(exp)) == 1) return checkExp(exp,boolean() ,env);
+    else{
     	list[Type] tp = getExpressionType(exp,env);
-    //	println("LIST IS : <tp> SIZE : <size(tp)>");
     	if(size(tp) == 1){
-    		if(tp[0] == integer()){
-    		b = checkIntExp(exp,tp[0],env);
-    		return b;
-    		}else{
-    		b = checkExp(exp,tp[0],env);
-    		return b;
-    		}
-    	//	println("b : <b>");
-    		return b;
+    		if(tp[0] == integer()) return checkIntExp(exp,tp[0],env);
+    		else return checkExp(exp,tp[0],env);
     	}else{
     		//Error Handling
-    	//	println("tp is  : <tp>");
-    		if(tp[0] == integer()){
-    			b = checkIntExp(exp,tp[0],env);
-    		//	println("b2 : <b>");
-    			return b;	
-    		}else{
-    		b = checkExp(exp,tp[0],env);
-    	//	println("b2 : <b>");
-    		return b;
-    		}
+    		if(tp[0] == integer()) return checkIntExp(exp,tp[0],env);	
+    		else return checkExp(exp,tp[0],env);
     	}
     }
-
-   // if(size(env0.errors) != 0)
-   // 	return addError(env0, env0.errors[0].l, env0.errors[0].msg);   // check standart libary Message !!!
-   // return env;
 }
 
 // check if else statement
@@ -99,7 +39,6 @@ QLTENV checkStatement(statement:ifElseStat(Expression exp, list[Body] thenpart, 
 
     }
     println(env0); 
-   // env0 = checkExp(Exp, boolean(), env);
     if(size(env0.errors) != 0)
     	return addError(env0, env0.errors[0].l, env0.errors[0].msg);    // check standart libary Message !!!
     env1 = checkQuestionStats(Stats1, env0);
@@ -113,7 +52,6 @@ QLTENV checkStatement(statement:ifElseStat(Expression exp, list[Body] thenpart, 
 * @author Philipp
 */
 QLTENV checkQuestion(question:easyQuestion(str id, str labelQuestion, Type tp) , QLTENV env){
-	println("Easy Q : <id>");
 	if(checkIdentifiers(question, env) == false) return addError(env, question@location, "Identifier <id> is declared two times");
 	else return addInstance(env, id , labelQuestion, tp, false );	
 }
@@ -124,45 +62,14 @@ QLTENV checkQuestion(question:easyQuestion(str id, str labelQuestion, Type tp) ,
 * @return env the enviroment
 * @author Philipp
 */
-QLTENV checkQuestion(question:computedQuestion(str id, str labelQuestion, Type tp, Expression exp) , QLTENV env){  //, Expression exp
-	println("check computed question");
-	//if(checkIdentifiers(env) == false) return addError(env, question@location, "Identifier <id> is declared two times");
-	// need to check the expression
-	//else {
-	println("EXP : <exp>");
+QLTENV checkQuestion(question:computedQuestion(str id, str labelQuestion, Type tp, Expression exp) , QLTENV env){  
+	if(checkIdentifiers(question,env) == false) return addError(env, question@location, "Identifier <id> is declared two times");
 	if(tp == integer()){
-		println("in computed question integer");
 		env = checkIntExp(exp, tp, env);
 	 	return addInstance(env, id, labelQuestion, tp, true);
 	}
 	 env = checkExp(exp, tp, env);
 	 return addInstance(env, id, labelQuestion, tp, true);
-	// } 
-}
-
-/** Method to check for double Identifiers
-* @param env the QL Type environment
-* @return true if no double Idenfiers
-* @author Philipp
-*/
-bool checkIdentifiers(question:easyQuestion(str id, str labelQuestion, Type tp) ,QLTENV env){
-	println("check env : <env>");
-	println("CHECK question : <question.id>");
-	//for(S <- env.question){
-	//	println("S in check is : <S>");
-	//}
-	if(question.id in env.question.id){
-		println("Error in check Identifiers");
-		return false;
-	}else{
-		return true;
-	}
-	//if(size(env.question) == size(env.question.id)){
-	//	return true;
-	//}else{
-	//	println("Error in check Identifiers");
-	//	return false;
-	//}
 }
 
 /** Method to check the body of the QL program
@@ -173,15 +80,8 @@ bool checkIdentifiers(question:easyQuestion(str id, str labelQuestion, Type tp) 
 */
 QLTENV checkBody(list[Body] Body, QLTENV env){
 	visit(Body){
-     	case Question q : {
-     			//println("IN small q <q>");
-    			//println("ENV : <env>");
-    			env = checkQuestion(q,env);
-    	    }
-        case Statement s: {
-        		//println("IN small s <s>");
-        		env = checkStatement(s,env);
-        	}
+     	case Question q : env = checkQuestion(q,env);
+        case Statement s: env = checkStatement(s,env);
       };
 	return env;
 }
@@ -191,7 +91,6 @@ public QLTENV checkProgram(Program P){
   if(program(str id, list[Body] Body) := P){	 
      QLTENV env = <{},[]>; 
      env = checkBody(Body, env);
-     println("ENV : <env>"); 
 	 return env;
   } else
      throw "Cannot happen";
