@@ -68,20 +68,14 @@ private str JS(Form f) =
   '
   'function validate<f.formName.ident>() {
   '
-  '  jQuery.validator.addMethod(\"selectBoxRequired\", 
-  '    function(value, element, params) { 
-  '       return this.optional(element) || value != \"undefined\"; 
-  '    }, jQuery.format(\"This field is required. Please pick an answer.\")
-  '  );
-  '
-  '  // Make sure all elements are properly styled before registering events
-  '  styling();
-  '
   '  $(\"#<f.formName.ident>\").validate({
   '    rules: {
   '      <createValidationRules(f)>
   '    }
   '  });
+  '
+  '  // Make sure all elements are properly styled before registering events
+  '  styling();
   '
   '  // The code to automatically generate calculated fields 
   '  <calculatedFields(f)>
@@ -168,8 +162,7 @@ private str getTypeRule(Type t: stringType(_)) =
   ";
 
 private str getTypeRule(Type t: booleanType(_)) =
-  "required: true,
-  'selectBoxRequired: true
+  "required: true
   ";
 
 private str conditionalVisibility(Form f) {
@@ -207,12 +200,6 @@ private str individualConditional(int suffix, Statement cond) {
   for(cb <- cbs) {
     ret += "
     '$(\"#<cb>\").change(callback_<suffix>);
-    ";
-  }
-  
-  for(cb <- cbs) {
-    ret += "
-    '$(\"#<cb>\").click(callback_<suffix>);
     ";
   }
   
