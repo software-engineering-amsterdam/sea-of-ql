@@ -1,22 +1,25 @@
 package org.uva.sea.ql.form;
 
-import java.awt.Component;
-import java.awt.Label;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.JComponent;
+import javax.swing.JLabel;
+
+import org.uva.sea.extensions.Tuple;
 import org.uva.sea.ql.ast.eval.Env;
 import org.uva.sea.ql.ast.expressions.Ident;
 import org.uva.sea.ql.ast.types.Type;
+import org.uva.sea.ql.ast.values.Value;
 import org.uva.sea.ql.interpreter.FormElement;
 import org.uva.sea.ql.messages.Error;
 
 public class Question extends FormItem {
 
-	private final Ident id;
-	private final String label;
+	protected final Ident id;
+	protected final String label;
 	protected final Type questionType;
-	protected Component answerComponent;
+	protected JComponent answerComponent;
 	
 	public Question(Ident id, String question, Type questionType) {
 		this.id = id;
@@ -38,12 +41,11 @@ public class Question extends FormItem {
 	}
 
 	@Override
-	public void print(int level) {
-		printIndent(level);
-		System.out.println("Q:" + label 
-				+ " (id: " + id.getName() 
-				+ ", type: " + questionType + ")");
-		printErrors();
+	public String getPrintableText(int level) {
+		String printableText = getIndent(level);
+		printableText += id + ": " + label + " " + questionType + "\n";
+		printableText += getErrorText();
+		return printableText;
 	}
 
 	@Override
@@ -66,7 +68,7 @@ public class Question extends FormItem {
 	
 	protected List<FormElement> getQuestionComponents() {
 		List<FormElement> components = new ArrayList<FormElement>();
-		components.add(new FormElement(new Label(label), "skip"));
+		components.add(new FormElement(new JLabel(label), "skip"));
 		components.add(new FormElement(answerComponent, "span, growx"));
 		return components;
 	}
@@ -77,5 +79,10 @@ public class Question extends FormItem {
 		if (questionType.hasValue()) {
 			environment.addValue(id, questionType.getAnswerFieldValue(answerComponent));
 		}
+	}
+	
+	@Override
+	public List<Tuple<Ident, Value>> getAllValues() {
+		return new ArrayList<Tuple<Ident, Value>>();
 	}
 }

@@ -2,21 +2,19 @@ package org.uva.sea.ql.tests.semanticAnalyzer.semanticAnalyzerVisitorTests;
 
 import org.junit.Test;
 import org.uva.sea.ql.ast.Question;
-import org.uva.sea.ql.ast.expr.Ident;
-import org.uva.sea.ql.ast.type.Bool;
-import org.uva.sea.ql.ast.type.Int;
+import org.uva.sea.ql.ast.expression.Identifier;
+import org.uva.sea.ql.ast.type.Boolean;
+import org.uva.sea.ql.ast.type.Integer;
 import org.uva.sea.ql.ast.type.Type;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 public class QuestionTests extends SemanticAnalyzerVisitorTests {
 
     @Test
     public void acceptIsCalledOnQuestion_IdentifierIsAddedToSymbolTable() {
-        final Ident identifier = new Ident("a");
-        final Type type = new Bool();
+        final Identifier identifier = new Identifier("a");
+        final Type type = new Boolean();
         final Question question = new Question("a", identifier, type);
 
         question.accept(visitor, context);
@@ -28,7 +26,7 @@ public class QuestionTests extends SemanticAnalyzerVisitorTests {
 
     @Test
     public void variableIsDeclaredTwice_addsError() {
-        final Question question = new Question("a", new Ident("a"), new Bool());
+        final Question question = new Question("a", new Identifier("a"), new Boolean());
 
         question.accept(visitor, context);
         question.accept(visitor, context);
@@ -38,8 +36,8 @@ public class QuestionTests extends SemanticAnalyzerVisitorTests {
 
     @Test
     public void variableNameIsDeclaredTwice_addsError() {
-        new Question("a", new Ident("a"), new Bool()).accept(visitor, context);
-        new Question("a", new Ident("a"), new Int()).accept(visitor, context);
+        new Question("a", new Identifier("a"), new Boolean()).accept(visitor, context);
+        new Question("a", new Identifier("a"), new Integer()).accept(visitor, context);
 
         assertFalse(context.getErrors().isEmpty());
     }

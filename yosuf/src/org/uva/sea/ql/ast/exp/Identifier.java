@@ -2,9 +2,8 @@ package org.uva.sea.ql.ast.exp;
 
 import static julius.validation.Assertions.state;
 
-import org.uva.sea.ql.ast.value.StringValue;
-import org.uva.sea.ql.ast.value.Value;
-import org.uva.sea.ql.visitor.ASTNodeVisitor;
+import org.uva.sea.ql.visitor.NaturalVisitor;
+import org.uva.sea.ql.visitor.ValuableVisitor;
 
 public class Identifier extends Expression {
 
@@ -25,12 +24,53 @@ public class Identifier extends Expression {
 	}
 
 	@Override
-	public void accept(final ASTNodeVisitor visitor) {
-		visitor.visit(this);
+	public <T> T accept(final NaturalVisitor<T> visitor) {
+		return visitor.visit(this);
 	}
 
 	@Override
-	public Value evaluate() {
-		return new StringValue(name);
+	public <T> T accept(final ValuableVisitor<T> visitor) {
+		return visitor.visit(this);
 	}
+
+	@Override
+	public Nature getNature() {
+		return Nature.TEXTUAL;
+	}
+
+	@Override
+	public String toString() {
+		return "Identifier [name=" + name + "]";
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((name == null) ? 0 : name.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(final Object obj) {
+		if (this == obj) {
+			return true;
+		}
+		if (obj == null) {
+			return false;
+		}
+		if (getClass() != obj.getClass()) {
+			return false;
+		}
+		Identifier other = (Identifier) obj;
+		if (name == null) {
+			if (other.name != null) {
+				return false;
+			}
+		} else if (!name.equals(other.name)) {
+			return false;
+		}
+		return true;
+	}
+
 }

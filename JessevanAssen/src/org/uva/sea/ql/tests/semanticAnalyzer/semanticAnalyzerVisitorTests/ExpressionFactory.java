@@ -1,11 +1,13 @@
 package org.uva.sea.ql.tests.semanticAnalyzer.semanticAnalyzerVisitorTests;
 
-import org.uva.sea.ql.ast.expr.*;
+import org.uva.sea.ql.ast.expression.BinaryExpression;
+import org.uva.sea.ql.ast.expression.Expression;
+import org.uva.sea.ql.ast.expression.UnaryExpression;
 
 interface BinaryExpressionFactory {
-	public BinaryExpr createBinaryExpression(Expr left, Expr right);
+	public BinaryExpression createBinaryExpression(Expression left, Expression right);
 }
 
 interface UnaryExpressionFactory {
-	public UnaryExpr createUnaryExpression(Expr expression);
+	public UnaryExpression createUnaryExpression(Expression expression);
 }

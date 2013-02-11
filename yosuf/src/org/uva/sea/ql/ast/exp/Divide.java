@@ -1,8 +1,7 @@
 package org.uva.sea.ql.ast.exp;
 
-import org.uva.sea.ql.ast.value.IntegerValue;
-import org.uva.sea.ql.ast.value.Value;
-import org.uva.sea.ql.visitor.ASTNodeVisitor;
+import org.uva.sea.ql.visitor.NaturalVisitor;
+import org.uva.sea.ql.visitor.ValuableVisitor;
 
 public class Divide extends Binary {
 
@@ -11,17 +10,18 @@ public class Divide extends Binary {
 	}
 
 	@Override
-	public void accept(final ASTNodeVisitor visitor) {
-		visitor.visit(this);
+	public <T> T accept(final NaturalVisitor<T> visitor) {
+		return visitor.visit(this);
 	}
 
 	@Override
-	public IntegerValue evaluate() {
-		Value left = getLeft().evaluate();
-		Value right = getRight().evaluate();
+	public <T> T accept(final ValuableVisitor<T> visitor) {
+		return visitor.visit(this);
+	}
 
-		return new IntegerValue(((IntegerValue) left).getValue()
-				/ ((IntegerValue) right).getValue());
+	@Override
+	public Nature getNature() {
+		return Nature.NUMERIC;
 	}
 
 }

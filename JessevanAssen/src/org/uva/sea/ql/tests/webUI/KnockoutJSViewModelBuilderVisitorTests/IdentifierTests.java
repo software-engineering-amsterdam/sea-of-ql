@@ -1,7 +1,7 @@
 package org.uva.sea.ql.tests.webUI.KnockoutJSViewModelBuilderVisitorTests;
 
 import org.junit.Test;
-import org.uva.sea.ql.ast.expr.Ident;
+import org.uva.sea.ql.ast.expression.Identifier;
 
 import static org.junit.Assert.assertEquals;
 
@@ -11,7 +11,7 @@ public class IdentifierTests extends KnockoutJSViewModelBuilderVisitorTests {
 
     @Test
     public void identifierVisited_identifierCallAddedToStringBuilder() {
-        new Ident(IDENTIFIER_NAME).accept(visitor, context);
+        new Identifier(IDENTIFIER_NAME).accept(visitor, context);
         assertEquals(String.format("_self.identifiers.%s()", IDENTIFIER_NAME), context.getObjectHierarchy().toString());
     }
 

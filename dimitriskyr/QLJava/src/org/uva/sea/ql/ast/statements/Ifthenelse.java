@@ -3,7 +3,7 @@ package org.uva.sea.ql.ast.statements;
 import java.util.List;
 import org.uva.sea.ql.ast.Expr;
 import org.uva.sea.ql.ast.Statement;
-import org.uva.sea.ql.ast.visitor.Visitor;
+import org.uva.sea.ql.ast.visitor.IStatementVisitor;
 
 public class Ifthenelse extends Statement {
 	private Expr expression;
@@ -28,7 +28,7 @@ public class Ifthenelse extends Statement {
 	}
 	
 	@Override
-	public void accept(Visitor visitor) {
+	public void accept(IStatementVisitor visitor) {
 		visitor.visit(this);
 	}
 

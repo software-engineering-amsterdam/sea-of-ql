@@ -1,7 +1,11 @@
 package org.uva.sea.ql.ast.expressions;
 
+import java.util.Map;
+
 import org.uva.sea.ql.ast.*;
-import org.uva.sea.ql.ast.visitor.Visitor;
+import org.uva.sea.ql.ast.types.BooleanType;
+import org.uva.sea.ql.ast.values.Ident;
+import org.uva.sea.ql.ast.visitor.ICheckExprVisitor;
 
 
 public class And extends BinaryExpression{
@@ -9,9 +13,14 @@ public class And extends BinaryExpression{
 	public And(Expr lhs, Expr rhs) {
 		super(lhs,rhs);
 	}
+
+	@Override
+	public Type typeOf(Map<Ident, Type> typeEnv) {
+		return new BooleanType();
+	}
 	
 	@Override
-	public void accept(Visitor visitor) {
-		visitor.visit(this);
+	public <T> T accept(ICheckExprVisitor<T> visitor) {
+		return  visitor.visit(this);
 	}
 }

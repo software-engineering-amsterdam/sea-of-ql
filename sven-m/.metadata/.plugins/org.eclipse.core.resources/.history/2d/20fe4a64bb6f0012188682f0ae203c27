@@ -1,0 +1,11 @@
+package org.uva.sea.ql.ast.expression;
+
+import org.uva.sea.ql.ast.ASTNode;
+
+public class LEq extends Binary implements ASTNode {
+
+	public LEq(Expr lhs, Expr rhs) {
+		super(lhs, rhs);
+	}
+
+}

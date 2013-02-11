@@ -1,0 +1,27 @@
+package org.uva.sea.ql.ast.form;
+
+import org.uva.sea.ql.ast.ASTNode;
+import org.uva.sea.ql.visitors.Visitor;
+
+public class QLForm implements ASTNode {
+	private final String name;
+	private final Body body;
+	
+	public QLForm(String name, Body body) {
+		this.name = name;
+		this.body = body;
+	}
+	
+	public String getName() {
+		return name;
+	}
+	
+	public Body getBody() {
+		return body;
+	}
+	
+	public void accept(Visitor visitor) {
+		visitor.visit(this);
+	}
+	
+}

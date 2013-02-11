@@ -1,3 +1,13 @@
+@license{
+  Copyright (c) 2013 
+  All rights reserved. This program and the accompanying materials
+  are made available under the terms of the Eclipse Public License v1.0
+  which accompanies this distribution, and is available at
+  http://www.eclipse.org/legal/epl-v10.html
+}
+@contributor{Kevin van der Vlist - kevin@kevinvandervlist.nl}
+@contributor{Jimi van der Woning - Jimi.vanderWoning@student.uva.nl}
+
 module lang::ql::ide::Outline
 
 import List;
@@ -11,10 +21,12 @@ public node outlineForm(Form form) =
   [@label="Form"]
   [@\loc=form@location];
 
-private node createNode(str name, str label, loc location, list[node] children) =
+private node createNode(str name, str label, loc location, 
+    list[node] children) =
   setAnnotations(makeNode(name, children), ("label": label, "loc": location));
 
-private node outlineBranch(str name, str label, loc location, list[Statement] items) =
+private node outlineBranch(str name, str label, loc location, 
+    list[Statement] items) =
   "<name>"([outline(i) | i <- items])
   [@label="<label>"]
   [@\loc=location];
@@ -25,18 +37,22 @@ private node outline(Form form) =
   [@\loc=form@location];
 
 private node outline(Statement item:
-  ifCondition(Conditional ifPart, list[Conditional] elseIfs, list[ElsePart] elsePart)) {
+    ifCondition(Conditional ifPart, list[Conditional] elseIfs, 
+    list[ElsePart] elsePart)) {
+
   str name = "IfCondition";
   str label = "If (<prettyPrint(ifPart.condition)>)";
 
   bool elseIfBlock = false;
   bool elseBlock = false;
 
-  children = [outlineBranch("ifPart", "<prettyPrint(ifPart.condition)>", ifPart@location, ifPart.body)];
+  children = [outlineBranch("ifPart", "<prettyPrint(ifPart.condition)>", 
+    ifPart@location, ifPart.body)];
 
   if (elseIfs != []) {
     elseIfBlock = true;
-    children += [outlineBranch("elseIf", "<prettyPrint(b.condition)>", b@location, b.body) | b <- elseIfs];
+    children += [outlineBranch("elseIf", "<prettyPrint(b.condition)>", 
+      b@location, b.body) | b <- elseIfs];
   }
 
   if(elsePart != []) {
@@ -55,16 +71,16 @@ private node outline(Statement item:
     name = "ifElseCondition";
     label = "If (<prettyPrint(ifPart.condition)>) else ...";
   }
-  
+
   return createNode(name, label, item@location, children);
 }
 
 private node outline(Statement item: 
-  question(Question question)) = 
-    outline(question);
+    question(Question question)) = 
+  outline(question);
 
 private node outline(Question q:
-  question(questionText, answerDataType, answerIdentifier)) {
+    question(questionText, answerDataType, _)) {
   str name = "Question";
   str label = "Q: <answerDataType.name>:<questionText.text>";
 
@@ -72,9 +88,9 @@ private node outline(Question q:
 }
 
 private node outline(Question q:
-  question(questionText, answerDataType, answerIdentifier, calculatedField)) {
+    question(questionText, answerDataType, _, cf)) {
   str name = "CalculatedQuestion";
-  str label = "CQ: <answerDataType.name>:<questionText.text>(<calculatedField>)";
+  str label = "CQ: <answerDataType.name>:<questionText.text>(<cf>)";
   
   return createNode(name, label, q@location, []);
 }

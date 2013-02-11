@@ -1,13 +1,16 @@
 package org.uva.sea.ql.ast.types;
 
-public class IntegerType extends TypeDescription {
+import org.uva.sea.ql.ast.literals.IntegerResult;
+import org.uva.sea.ql.ast.literals.Result;
+
+public class IntegerType extends Type {
 
 	public IntegerType() {
 		super("numeral");
 	}
 
 	@Override
-	public boolean isCompatibleTo(TypeDescription t) {
+	public boolean isCompatibleTo(Type t) {
 		return t.isCompatibleToInt();
 	}
 
@@ -17,7 +20,7 @@ public class IntegerType extends TypeDescription {
 	}
 
 	@Override
-	public boolean isCompatibleToMoney() {
-		return false;
+	public Result getTypeContainer() {
+		return new IntegerResult(0);
 	}
 }

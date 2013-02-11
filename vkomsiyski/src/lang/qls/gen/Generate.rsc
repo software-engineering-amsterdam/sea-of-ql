@@ -75,7 +75,7 @@ private str addGroups(Groups groups) {
 private str addCustomVisibility(list[Widget] widgets) {
 	src = "";
 	for (widget:<name, \type, _, val, false> <- widgets) 
-		src += setValueCustom(\type, \type@widget, name, val);
+		src += setCustomValue(\type, \type@widget, name, val);
 	for (widget <- widgets)
 		src += visibilityMap(widget.name, widget.visibility);
 	return src;

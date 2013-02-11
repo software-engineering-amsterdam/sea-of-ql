@@ -37,7 +37,7 @@ layout Standard
 
 // START SYNTAX 
 start syntax Program 
-   = program: "form" Expression questionnaireName "{" Body* body "}" ; 
+   = program: "form" Id questionnaireName "{" Body* body "}" ; 
 
 // start syntax Body
 start syntax Body =

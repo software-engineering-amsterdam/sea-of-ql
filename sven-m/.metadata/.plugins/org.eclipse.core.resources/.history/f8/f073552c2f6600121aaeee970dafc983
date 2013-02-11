@@ -1,0 +1,11 @@
+package org.uva.sea.ql.ast;
+
+import org.uva.sea.ql.ast.ASTNode;
+
+public class Not extends Unary implements ASTNode {
+
+	public Not(Expr op) {
+		super(op);
+	}
+
+}

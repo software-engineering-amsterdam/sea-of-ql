@@ -6,6 +6,7 @@ import org.junit.Test;
 import org.uva.sea.ql.ast.*;
 import org.uva.sea.ql.ast.expressions.binary.*;
 import org.uva.sea.ql.ast.form.*;
+import org.uva.sea.ql.ast.types.Money;
 import org.uva.sea.ql.ast.visitor.*;
 import org.uva.sea.ql.parser.test.*;
 
@@ -17,7 +18,7 @@ public class TestComputations extends TestParser {
 		assertEquals(Computation.class,  c.getClass());
 		//assertTrue(((Computation)c).getType().equals("money"));
 		System.out.println(((Computation) c).getType(new SymbolTable()));
-		assertTrue(((Computation) c).getType(new SymbolTable()).equals("money"));
+		assertEquals(((Computation) c).getType(new SymbolTable()).getClass(), Money.class);
 	}
 	
 	@Test

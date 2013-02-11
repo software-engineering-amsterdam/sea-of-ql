@@ -1,13 +1,16 @@
 package org.uva.sea.ql.form;
 
-import java.awt.Container;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.JPanel;
+
 import net.miginfocom.swing.MigLayout;
 
+import org.uva.sea.extensions.Tuple;
 import org.uva.sea.ql.ast.eval.Env;
 import org.uva.sea.ql.ast.expressions.Expr;
+import org.uva.sea.ql.ast.expressions.Ident;
 import org.uva.sea.ql.ast.types.BoolType;
 import org.uva.sea.ql.ast.values.Value;
 import org.uva.sea.ql.ast.values.BoolValue;
@@ -18,7 +21,8 @@ public class IfStatement extends FormItem {
 
 	private final Expr expression;
 	private final List<FormItem> ifBody;
-	private Container ifBodyContainer;
+	private JPanel ifBodyContainer;
+	private Env ifBodyEnvironment;
 	
 	public IfStatement(Expr expression, List<FormItem> ifBody) {
 		this.expression = expression;
@@ -34,13 +38,14 @@ public class IfStatement extends FormItem {
 	}
 	
 	@Override
-	public void print(int level) {
-		printIndent(level);
-		System.out.println("IF expr: "+ expression);
-		printErrors();
+	public String getPrintableText(int level) {
+		String printableText = getIndent(level);
+		printableText += "if (" + expression + ")\n";
+		printableText += getErrorText();
 		for (FormItem f : ifBody) {
-			f.print(level + 1);
+			printableText += f.getPrintableText(level + 1);
 		}
+		return printableText;
 	}
 
 	@Override
@@ -50,7 +55,7 @@ public class IfStatement extends FormItem {
 		if (!(expression.typeOf(environment).equals(new BoolType()))) {
 			errors.add(new Error("Ifstatement requires the expression to give a boolean result"));
 		}
-		Env ifBodyEnvironment = new Env(environment);
+		ifBodyEnvironment = new Env(environment);
 		for (FormItem f : ifBody) {
 			if (!f.validate(ifBodyEnvironment))
 				valid = false;
@@ -66,9 +71,8 @@ public class IfStatement extends FormItem {
 		return components;
 	}
 	
-	protected Container getBodyFormContainer(List<FormItem> body) {
-		Container bodyContainer = new Container();
-		bodyContainer.setLayout(new MigLayout("ins 0", "[para]15[][100lp, fill][60lp][95lp, fill]", ""));
+	protected JPanel getBodyFormContainer(List<FormItem> body) {
+		JPanel bodyContainer = new JPanel(new MigLayout("ins 0", "[para]15[][100lp, fill][60lp][95lp, fill]", ""));
 		for (FormItem f : body) {
 			for (FormElement fe : f.getFormComponents()) {
 				bodyContainer.add(fe.getFormComponent(), fe.getProperties());
@@ -81,7 +85,6 @@ public class IfStatement extends FormItem {
 	@Override
 	public void eval(Env environment, Form form) {
 		ifBodyContainer.setVisible(isExpressionValid(environment));
-		Env ifBodyEnvironment = new Env(environment);
 		for (FormItem f : ifBody) {
 			f.eval(ifBodyEnvironment, form);
 		}
@@ -93,5 +96,14 @@ public class IfStatement extends FormItem {
 			return ((BoolValue)expressionValue).getValue();
 		}
 		return false;
+	}
+
+	@Override
+	public List<Tuple<Ident, Value>> getAllValues() {
+		List<Tuple<Ident, Value>> values = ifBodyEnvironment.getAllValues();
+		for (FormItem f : ifBody) {
+			values.addAll(f.getAllValues());
+		}
+		return values;
 	}
 }

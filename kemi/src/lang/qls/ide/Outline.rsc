@@ -1,3 +1,13 @@
+@license{
+  Copyright (c) 2013 
+  All rights reserved. This program and the accompanying materials
+  are made available under the terms of the Eclipse Public License v1.0
+  which accompanies this distribution, and is available at
+  http://www.eclipse.org/legal/epl-v10.html
+}
+@contributor{Kevin van der Vlist - kevin@kevinvandervlist.nl}
+@contributor{Jimi van der Woning - Jimi.vanderWoning@student.uva.nl}
+
 module lang::qls::ide::Outline
 
 import List;
@@ -6,8 +16,6 @@ import ParseTree;
 import util::IDE;
 
 import lang::qls::ast::AST;
-import lang::qls::util::Implode;
-import lang::qls::util::Parse;
 
 // The root note of the stylesheet
 public node outlineStylesheet(Stylesheet sh) = 
@@ -71,7 +79,7 @@ private node outline(QuestionDefinition d:
 private node outline(DefaultDefinition d) =
     createNode(
       "DefaultDefinition",
-      "default <d.ident> (<size(d.styleRules)>)",
+      "default <d.ident.name> (<size(d.styleRules)>)",
       d@location,
       [outline(r) | r <- d.styleRules]
     );
@@ -85,7 +93,7 @@ private node outline(SectionRule r:
     outline(definition);
 
 private node outline(StyleRule r: 
-  typeStyleRule(attr, \value)) =
+  widgetStyleRule(attr, \value)) =
     createNode(
       "StyleRule",
       "<attr> <\value.name>",

@@ -1,0 +1,15 @@
+package org.uva.sea.ql.visitors;
+
+import org.uva.sea.ql.ast.form.QLForm;
+
+public class TypeChecker {
+	private String currentFormName;
+	
+	public void check(QLForm form) {
+		currentFormName = form.getName();
+		
+		form.getBody().accept(this);
+	}
+	
+	
+}

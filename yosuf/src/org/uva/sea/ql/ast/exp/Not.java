@@ -1,8 +1,7 @@
 package org.uva.sea.ql.ast.exp;
 
-import org.uva.sea.ql.ast.value.BooleanValue;
-import org.uva.sea.ql.ast.value.Value;
-import org.uva.sea.ql.visitor.ASTNodeVisitor;
+import org.uva.sea.ql.visitor.NaturalVisitor;
+import org.uva.sea.ql.visitor.ValuableVisitor;
 
 public class Not extends Unary {
 
@@ -11,14 +10,18 @@ public class Not extends Unary {
 	}
 
 	@Override
-	public void accept(final ASTNodeVisitor visitor) {
-		visitor.visit(this);
+	public <T> T accept(final NaturalVisitor<T> visitor) {
+		return visitor.visit(this);
 	}
 
 	@Override
-	public BooleanValue evaluate() {
-		Value operationValue = getOperation().evaluate();
-
-		return new BooleanValue(!((BooleanValue) operationValue).getValue());
+	public <T> T accept(final ValuableVisitor<T> visitor) {
+		return visitor.visit(this);
 	}
+
+	@Override
+	public Nature getNature() {
+		return Nature.BOOLEAN;
+	}
+
 }

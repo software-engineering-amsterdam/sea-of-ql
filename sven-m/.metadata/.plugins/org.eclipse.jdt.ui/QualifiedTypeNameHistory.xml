@@ -1,2 +1,26 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<qualifiedTypeNameHistroy/>
+<qualifiedTypeNameHistroy>
+<fullyQualifiedTypeName name="java.util.List"/>
+<fullyQualifiedTypeName name="java.util.AbstractList"/>
+<fullyQualifiedTypeName name="java.util.ArrayList"/>
+<fullyQualifiedTypeName name="org.uva.sea.ql.ast.type.ExprType"/>
+<fullyQualifiedTypeName name="org.antlr.runtime.tree.TreeWizard.Visitor"/>
+<fullyQualifiedTypeName name="org.uva.sea.ql.ast.form.Form"/>
+<fullyQualifiedTypeName name="org.uva.sea.ql.ast.form.QLForm"/>
+<fullyQualifiedTypeName name="org.uva.sea.ql.ast.expression.Expr"/>
+<fullyQualifiedTypeName name="com.sun.org.apache.xalan.internal.xsltc.compiler.Parser"/>
+<fullyQualifiedTypeName name="org.uva.sea.ql.ast.form.Question"/>
+<fullyQualifiedTypeName name="org.uva.sea.ql.ast.form.ComputedQuestion"/>
+<fullyQualifiedTypeName name="org.uva.sea.ql.ast.form.IfStatement"/>
+<fullyQualifiedTypeName name="java.util.Map"/>
+<fullyQualifiedTypeName name="java.util.Map.Entry"/>
+<fullyQualifiedTypeName name="java.util.HashMap"/>
+<fullyQualifiedTypeName name="org.junit.Before"/>
+<fullyQualifiedTypeName name="java.lang.reflect.Method"/>
+<fullyQualifiedTypeName name="org.uva.sea.ql.ast.expression.GEq"/>
+<fullyQualifiedTypeName name="org.uva.sea.ql.ast.form.FormElement"/>
+<fullyQualifiedTypeName name="org.uva.sea.ql.parser.test.IParse"/>
+<fullyQualifiedTypeName name="org.uva.sea.ql.parser.test.IParse.ParseMethod"/>
+<fullyQualifiedTypeName name="org.uva.sea.ql.parser.antlr.QLFormParser"/>
+<fullyQualifiedTypeName name="org.uva.sea.ql.ast.form.Body"/>
+</qualifiedTypeNameHistroy>

@@ -43,10 +43,10 @@ private list[Widget] getCustomWidgets(Statement s:conditional(\if, elseIfs, \els
   = [w | st <- s.\if.body, w <- getCustomWidgets(st, and(vis, s.\if.condition), d)] +
 	getCustomWidgets(conditional(head(s.elseIfs), tail(s.elseIfs), s.\else), and(vis, not(s.\if.condition)), d);
 
-public str setValueCustom(Type t, WidgetType wt:combobox(_), str name, str val) 
+public str setCustomValue(Type t, WidgetType wt:combobox(_), str name, str val) 
   = "\n\t\t<name>Widget.setCurrentIndex(<val> ? 1 : 0);";
 
-public str setValueCustom(Type t, WidgetType wt, str name, str val)
+public str setCustomValue(Type t, WidgetType wt, str name, str val)
   = setValue(t, name, val);
   
   

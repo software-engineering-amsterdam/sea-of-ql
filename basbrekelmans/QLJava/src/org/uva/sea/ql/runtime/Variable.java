@@ -11,7 +11,7 @@ public class Variable implements IPropertyChangeListener<Variable>, IObservable<
 	private List<Variable> dependencies = new ArrayList<Variable>();
 	private List<Variable> dependsOn = new ArrayList<Variable>();
 	private final ArrayList<IPropertyChangeListener<Variable>> listeners = new ArrayList<IPropertyChangeListener<Variable>>();
-	private Object value;
+	private Value value;
 	
 	public Variable(Identifier identifier) {
 		this.identifier = identifier;
@@ -50,15 +50,19 @@ public class Variable implements IPropertyChangeListener<Variable>, IObservable<
 		}
 	}
 
+	public boolean hasIdentifier() {
+		return identifier != null;
+	}
+	
 	public Identifier getIdentifier() {
 		return identifier;
 	}
 
-	public Object getValue() {
+	public Value getValue() {
 		return value;
 	}
 
-	public void setValue(Object value) {
+	public void setValue(Value value) {
 		this.value = value;
 		onValueChanged(this);
 	}

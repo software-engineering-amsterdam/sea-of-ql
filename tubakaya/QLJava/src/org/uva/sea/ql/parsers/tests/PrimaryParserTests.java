@@ -31,22 +31,22 @@ public class PrimaryParserTests {
 	
 	@Test
 	public void does_returnIdent_when_textIsALetter() throws ParseException {
-		assertEquals(IDENT.class, parser.parse("a").getClass());		
+		assertEquals(Ident.class, parser.parse("a").getClass());		
 	}
 	
 	@Test
 	public void does_returnIdent_when_textIsAWord() throws ParseException {
-		assertEquals(IDENT.class, parser.parse("abc").getClass());		
+		assertEquals(Ident.class, parser.parse("abc").getClass());		
 	}
 	
 	@Test
 	public void does_returnIdent_when_textIsAWordEndingWithANumber() throws ParseException {
-		assertEquals(IDENT.class, parser.parse("abc1").getClass());		
+		assertEquals(Ident.class, parser.parse("abc1").getClass());		
 	}
 	
 	@Test
 	public void does_returnIdent_when_textIsStartsWithALetterButContainsNumbers() throws ParseException {
-		assertEquals(IDENT.class, parser.parse("a2bc123").getClass());		
+		assertEquals(Ident.class, parser.parse("a2bc123").getClass());		
 	}
 	
 	@Test

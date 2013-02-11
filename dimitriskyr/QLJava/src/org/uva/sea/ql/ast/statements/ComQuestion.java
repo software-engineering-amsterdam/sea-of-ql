@@ -1,7 +1,7 @@
 package org.uva.sea.ql.ast.statements;
 
 import org.uva.sea.ql.ast.*;
-import org.uva.sea.ql.ast.visitor.Visitor;
+import org.uva.sea.ql.ast.visitor.IStatementVisitor;
 
 public class ComQuestion extends Statement{
 	private Value ident;
@@ -15,7 +15,7 @@ public class ComQuestion extends Statement{
 		this.bool=bool;
 		this.expression=expression;
 	}
-	
+	 
 	public Value getIdent() {
 		return ident;
 	}
@@ -33,7 +33,7 @@ public class ComQuestion extends Statement{
 	}
 	
 	@Override
-	public void accept(Visitor visitor) {
+	public void accept(IStatementVisitor visitor) {
 		visitor.visit(this);
 	}
 

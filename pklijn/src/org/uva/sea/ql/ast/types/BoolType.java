@@ -1,21 +1,21 @@
 package org.uva.sea.ql.ast.types;
 
-import java.awt.Checkbox;
-import java.awt.CheckboxGroup;
-import java.awt.Component;
-import java.awt.Container;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.ButtonGroup;
+import javax.swing.JComponent;
+import javax.swing.JPanel;
+import javax.swing.JRadioButton;
 
 import org.uva.sea.ql.ast.values.BoolValue;
 import org.uva.sea.ql.ast.values.Value;
 
 import net.miginfocom.swing.MigLayout;
 
-public class BoolType extends Type implements ItemListener {
+public class BoolType extends Type implements ActionListener {
 
-	private Checkbox checkboxTrue;
-	private Checkbox checkboxFalse;
+	private JRadioButton buttonTrue, buttonFalse;
 	
 	@Override
 	public String toString() {
@@ -23,39 +23,40 @@ public class BoolType extends Type implements ItemListener {
 	}
 	
 	@Override
-	public Component getAnswerField(boolean enabled) {
-		Container c = new Container();
-		c.setLayout(new MigLayout("ins 1"));
-		CheckboxGroup g = new CheckboxGroup();
-		checkboxTrue = new Checkbox("Yes", g, false);
-		checkboxFalse = new Checkbox("No", g, false);
-		checkboxTrue.addItemListener(this);
-		checkboxFalse.addItemListener(this);
-		checkboxTrue.setEnabled(enabled);
-		checkboxFalse.setEnabled(enabled);
-		c.add(checkboxTrue);
-		c.add(checkboxFalse);
-		return c;
+	public JComponent getAnswerField(boolean enabled) {
+		JPanel container = new JPanel(new MigLayout("ins 1"));
+		ButtonGroup bg = new ButtonGroup();
+		buttonTrue = new JRadioButton("Yes");
+		buttonFalse = new JRadioButton("No");
+		buttonTrue.addActionListener(this);
+		buttonFalse.addActionListener(this);
+		buttonTrue.setEnabled(enabled);
+		buttonFalse.setEnabled(enabled);
+		bg.add(buttonTrue);
+		bg.add(buttonFalse);
+		container.add(buttonTrue);
+		container.add(buttonFalse);
+		return container;
 	}
 
 	@Override
 	public boolean hasValue() {
-		return (checkboxTrue.getState() || checkboxFalse.getState());
+		return (buttonTrue.isSelected() || buttonFalse.isSelected());
 	}
 	
 	@Override
-	public Value getAnswerFieldValue(Component answerComponent) {
-		return new BoolValue(checkboxTrue.getState());
+	public Value getAnswerFieldValue(JComponent answerComponent) {
+		return new BoolValue(buttonTrue.isSelected());
 	}
 	
 	@Override
 	public void setAnswerFieldValue(Value value) {
 		if (value.getClass().equals(new BoolValue().getClass())) {
 			if (((BoolValue)value).getValue()) {
-				checkboxTrue.setState(true);
+				buttonTrue.setSelected(true);
 			}
 			else {
-				checkboxFalse.setState(true);
+				buttonFalse.setSelected(true);
 			}
 		}
 		else {
@@ -69,10 +70,9 @@ public class BoolType extends Type implements ItemListener {
 	}
 
 	@Override
-	public void itemStateChanged(ItemEvent e) {
-		Object source = e.getItemSelectable();
-		if (source == checkboxTrue || source == checkboxFalse) {
-			if (form != null) {
+	public void actionPerformed(ActionEvent e) {
+		if (e.getSource() == buttonTrue || e.getSource() == buttonFalse) {
+			if ((buttonTrue.isSelected() || buttonFalse.isSelected()) && form != null) {
 				form.eval();
 			}
 		}

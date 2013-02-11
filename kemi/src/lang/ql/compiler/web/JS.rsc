@@ -1,3 +1,13 @@
+@license{
+  Copyright (c) 2013 
+  All rights reserved. This program and the accompanying materials
+  are made available under the terms of the Eclipse Public License v1.0
+  which accompanies this distribution, and is available at
+  http://www.eclipse.org/legal/epl-v10.html
+}
+@contributor{Kevin van der Vlist - kevin@kevinvandervlist.nl}
+@contributor{Jimi van der Woning - Jimi.vanderWoning@student.uva.nl}
+
 module lang::ql::compiler::web::JS
 
 import IO;
@@ -8,64 +18,69 @@ import lang::ql::compiler::web::JSExpressionPrinter;
 import util::ValueUI; 
 
 private str BLOCK = "Block";
+private loc JS_SRC_LOC = |project://QL-R-kemi/js/|;
 
 public void JS(Form f, loc dest) {
+  for(js <- listEntries(JS_SRC_LOC))
+    writeFile(dest + js, readFile(JS_SRC_LOC + js));
+
+  writeFile(dest + "styling.js", "function styling() { }");
+  
   dest += "checking.js";
   
-  writeFile(dest, "");
-  appendToFile(dest, JS(f));
+  writeFile(dest, JS(f));
 }
 
 private str showElement(str name) =
-  "$(\"#<name><BLOCK>\").show();";
+  "show($(\"#<name><BLOCK>\"));";
 
 private str hideElement(str name) =
-  "$(\"#<name><BLOCK>\").hide();";
+  "hide($(\"#<name><BLOCK>\"));";
 
 private str assignVar(str ident) =
-  "var <ident>;
-  'if($(\"#<ident>\").val() == \"true\") {
-  '  <ident> = true;
-  '} else if($(\"#<ident>\").val() == \"false\") {
-  '  <ident> = false;
-  '} else {
-  '  <ident> = $(\"#<ident>\").val();;
-  '}";
+  "var <ident> = getFormValue(\"#<ident>\");";
   
-private list[str] getDirectDescendingIdents(Statement cond) {
+private set[str] getDirectDescendingIdents(Statement cond) {
   list[Statement] items = cond.ifPart.body;
   
-  for(ei <- cond.elseIfs) {
+  for(ei <- cond.elseIfs)
     items += ei.body;
-  }
 
-  for(ep <- cond.elsePart) {
+  for(ep <- cond.elsePart)
     items += ep.body;
-  }
   
   return getDirectDescendingIdents(items);
 }
 
-private list[str] getDirectDescendingIdents(list[Statement] items) =
-  [q.answerIdentifier.ident | i <- items, question(Question q) := i];
+private set[str] getDirectDescendingIdents(list[Statement] items) =
+  {q.answerIdentifier.ident | i <- items, question(Question q) := i};
   
-private list[str] getConditionalVariableMembers(Statement cond) =
-  [name | /x:ident(name) <- [cond.ifPart.condition] + [x.condition | x <- cond.elseIfs]];
+private set[str] getConditionalVariableMembers(Statement cond) =
+  {
+    name | 
+    /x:ident(name) <- 
+      [cond.ifPart.condition] + 
+      [x.condition | x <- cond.elseIfs]
+   };
 
 private str JS(Form f) =
-  "//THIS IS AN AUTOMATICALLY GENERATED FILE. DO NOT EDIT!
+  "// THIS IS AN AUTOMATICALLY GENERATED FILE. DO NOT EDIT!
   '
   'function validate<f.formName.ident>() {
+  '
   '  $(\"#<f.formName.ident>\").validate({
   '    rules: {
   '      <createValidationRules(f)>
   '    }
   '  });
   '
-  '  \<!-- The code to automatically generate calculated fields --\>
+  '  // Make sure all elements are properly styled before registering events
+  '  styling();
+  '
+  '  // The code to automatically generate calculated fields 
   '  <calculatedFields(f)>
   '
-  '  \<!-- End with control flow functionality for branches etc. --\>
+  '  // End with control flow functionality for branches etc. 
   '  <conditionalVisibility(f)>
   '}
   ";
@@ -73,59 +88,81 @@ private str JS(Form f) =
 private str calculatedFields(Form f) {
   list[tuple[str ident, Expr expr]] cfs = [];
   
+  int cbcounter = 0;
+  
   top-down visit(f) {
     case q: question(_, _, i, e): cfs += [<i.ident, e>];
   }
   
-  return "<for(c <- cfs) {>
-  '<individualCalculatedField(f.formName.ident, c)>
-  '<}>";
+  str ret = "";
+  for(c <- cfs) {
+    ret += "<individualCalculatedField(cbcounter, c.ident, c.expr)>";
+    cbcounter += 1;
+  }
+  return ret;
 }
   
-private str individualCalculatedField(str form, tuple[str ident, Expr expr] cf) {  
+private str individualCalculatedField(int cnt, str ident, Expr expr) {  
   list[str] eidents = [];
   
-  top-down visit(cf.expr) {
+  top-down visit(expr) {
     case Expr e: ident(str name): eidents += name;
   }
 
   return "
-  '$(\"#<form>\").change(function(e)  {
-  '  var result; 
-  '<for(e <- eidents) {>
-  '  <assignVar(e)>
-  '<}>
-  '  result = <jsPrint(cf.expr)>;
-  '  $(\"#<cf.ident>\").val(result);  
-  '});
-  ";
+    '<for(e <- eidents) {>
+    '$(\"#<e>\").change(calc_callback_<cnt>);
+    '<}>
+    '
+    'function calc_callback_<cnt>(e) {
+    '  var result; 
+    '<for(e <- eidents) {>
+    '  <assignVar(e)>
+    '<}>
+    '  result = <jsPrint(expr)>;
+    '  setFormValue(\"#<ident>\", result);
+    '}
+    ";
 }  
 
 private str createValidationRules(Form f) {
-  list[tuple[str ident, str \type]] rules = [];
+  list[tuple[str ident, Type \type]] rules = [];
   
   top-down visit(f) {
-    case q: question(_, t, i): rules += [<i.ident, t.name>];
-    case q: question(_, t, i, _): rules += [<i.ident, t.name>];
+    case q: question(_, t, i): rules += [<i.ident, t>];
+    case q: question(_, t, i, _): rules += [<i.ident, t>];
   }
   
   return "<for (r <- rules) {>
-  '<r.ident>: {
-  '  required: true,
-  '  <getTypeRule(r.\type)>: true
-  '},
-  '<}>";
+    '<r.ident>: {
+    '  <getTypeRule(r.\type)>
+    '},
+    '<}>";
 }
 
-private str getTypeRule(str t) {
-  switch(t) {
-    case "integer": return "digits";
-    case "date": return "date";
-    case "money": return "number";
-    case "string": return "required";
-    case "boolean": return "required";
-  }
-}
+
+private str getTypeRule(Type t: integerType(_)) =
+  "required: true,
+  'digits: true
+  ";
+
+private str getTypeRule(Type t: dateType(_)) =
+  "required: true,
+  'date: true
+  ";
+
+private str getTypeRule(Type t: moneyType(_)) =
+  "required: true,
+  'number: true
+  ";
+
+private str getTypeRule(Type t: stringType(_)) =
+  "required: true,
+  ";
+
+private str getTypeRule(Type t: booleanType(_)) =
+  "required: true
+  ";
 
 private str conditionalVisibility(Form f) {
   list[Statement] conditionals = [];
@@ -133,16 +170,15 @@ private str conditionalVisibility(Form f) {
   int cbcounter = 0;
   
   top-down visit(f) {
-    case c: ifCondition(_, _, _):
-      conditionals += c;
+    case c: ifCondition(_, _, _): conditionals += c;
   }
   
   str ret = "
-  '\<!-- Hide all elements in a conditional branch on page load --\>
-  '<for(i <- [id | c <- conditionals, /u:identDefinition(str id) <- c]) {>
-  '  <hideElement(i)>
-  '<}>
-  ";
+    '// Hide all elements in a conditional branch on page load 
+    '<for(i <- [id | c <- conditionals, /u:identDefinition(str id) <- c]) {>
+    '<hideElement(i)>
+    '<}>
+    ";
   
   for(c <- conditionals) {
     ret += "
@@ -166,12 +202,6 @@ private str individualConditional(int suffix, Statement cond) {
     ";
   }
   
-  for(cb <- cbs) {
-    ret += "
-    '$(\"#<cb>\").click(callback_<suffix>);
-    ";
-  }
-  
   ret += "
   'function callback_<suffix>(e) {
   '  <for(cb <- cbs) {>
@@ -188,23 +218,24 @@ private str individualConditional(int suffix, Statement cond) {
 }
 
 private str individualConditionalVisibility(Statement item: 
-  ifCondition(Conditional ifPart, list[Conditional] elseIfs, list[ElsePart] elsePart)) =
-    "if(<jsPrint(ifPart.condition)>) { 
-    '<for(e <- getDirectDescendingIdents(ifPart.body)) {>
-    '  <showElement(e)>
-    '<}>
-    '
-    '<for(ei <- elseIfs) { >
-    '} else if(<jsPrint(ei.condition)>) { 
-    '  <for(e <- [id | /u:identDefinition(str id) <- ei.body]) {>
-    '    <showElement(e)>
-    '  <}>
-    '<}>
-    '
-    '<for(ep <- elsePart) { >
-    '} else { 
-    '  <for(e <- [id | /u:identDefinition(str id) <- ep.body]) {>
-    '    <showElement(e)>    
-    '  <}>
-    '<}>
-    '}";
+    ifCondition(Conditional ifPart, list[Conditional] elseIfs, 
+    list[ElsePart] elsePart)) =
+  "if(<jsPrint(ifPart.condition)>) { 
+  '<for(e <- getDirectDescendingIdents(ifPart.body)) {>
+  '  <showElement(e)>
+  '<}>
+  '
+  '<for(ei <- elseIfs) { >
+  '} else if(<jsPrint(ei.condition)>) { 
+  '  <for(e <- [id | /u:identDefinition(str id) <- ei.body]) {>
+  '    <showElement(e)>
+  '  <}>
+  '<}>
+  '
+  '<for(ep <- elsePart) { >
+  '} else { 
+  '  <for(e <- [id | /u:identDefinition(str id) <- ep.body]) {>
+  '    <showElement(e)>    
+  '  <}>
+  '<}>
+  '}";

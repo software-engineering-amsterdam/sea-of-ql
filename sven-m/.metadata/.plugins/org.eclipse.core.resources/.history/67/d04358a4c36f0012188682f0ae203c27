@@ -1,0 +1,56 @@
+package org.uva.sea.ql.ast.type;
+
+import java.util.List;
+import java.util.Map;
+
+import org.uva.sea.ql.ast.form.Body;
+import org.uva.sea.ql.ast.form.Computed;
+import org.uva.sea.ql.ast.form.FormElement;
+import org.uva.sea.ql.ast.form.IfStatement;
+import org.uva.sea.ql.ast.form.QLForm;
+import org.uva.sea.ql.ast.form.Question;
+
+public class FormElementTypeChecker implements IFormElementTypeChecker {
+	private List<TypeError> errors;
+	private String currentFormName;
+	
+	@Override
+	public void visit(QLForm form, Map<String, ExprType> typeEnv) {
+		currentFormName = form.getName();
+		
+		form.getBody().accept(this);
+	}
+
+	@Override
+	public void visit(Body body, Map<String, ExprType> typeEnv) {
+		List<FormElement> elements = body.getElements();
+		
+		for (FormElement el : elements) {
+			el.accept(this, Map<String, ExprType> typeEnv);
+		}
+	}
+
+	@Override
+	public void visit(IfStatement ifStmt, Map<String, ExprType> typeEnv) {
+		
+	}
+
+	@Override
+	public void visit(Question question, Map<String, ExprType> typeEnv) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void visit(Computed computed, Map<String, ExprType> typeEnv) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void visit(FormElement element, Map<String, ExprType> typeEnv) {
+		// TODO Auto-generated method stub
+		
+	}
+	
+}

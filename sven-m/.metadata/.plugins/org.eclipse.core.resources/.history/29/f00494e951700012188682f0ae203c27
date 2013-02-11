@@ -1,0 +1,10 @@
+package org.uva.sea.ql.ast.form;
+
+public class AbstractIfStatement {
+	private Body body;
+
+	public Body getBody() {
+		return body;
+	}
+	
+}

@@ -3,8 +3,8 @@ package org.uva.sea.ql.parser.test;
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
-import org.uva.sea.ql.ast.questions.AnswerableQuestion;
-import org.uva.sea.ql.ast.questions.ComputedQuestion;
+import org.uva.sea.ql.ast.statements.questions.AnswerableQuestion;
+import org.uva.sea.ql.ast.statements.questions.ComputedQuestion;
 import org.uva.sea.ql.parser.IParser;
 import org.uva.sea.ql.parser.ParseError;
 import org.uva.sea.ql.parser.antlr.check.ANTLRParserQuestions;

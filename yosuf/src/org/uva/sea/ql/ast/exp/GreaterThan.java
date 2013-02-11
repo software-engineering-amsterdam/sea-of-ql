@@ -1,9 +1,7 @@
 package org.uva.sea.ql.ast.exp;
 
-import org.uva.sea.ql.ast.value.BooleanValue;
-import org.uva.sea.ql.ast.value.IntegerValue;
-import org.uva.sea.ql.ast.value.Value;
-import org.uva.sea.ql.visitor.ASTNodeVisitor;
+import org.uva.sea.ql.visitor.NaturalVisitor;
+import org.uva.sea.ql.visitor.ValuableVisitor;
 
 public class GreaterThan extends Binary {
 
@@ -12,17 +10,18 @@ public class GreaterThan extends Binary {
 	}
 
 	@Override
-	public void accept(final ASTNodeVisitor visitor) {
-		visitor.visit(this);
+	public <T> T accept(final NaturalVisitor<T> visitor) {
+		return visitor.visit(this);
 	}
 
 	@Override
-	public BooleanValue evaluate() {
-		Value left = getLeft().evaluate();
-		Value right = getRight().evaluate();
-
-		return new BooleanValue(
-				((IntegerValue) left).getValue() > ((IntegerValue) right)
-						.getValue());
+	public <T> T accept(final ValuableVisitor<T> visitor) {
+		return visitor.visit(this);
 	}
+
+	@Override
+	public Nature getNature() {
+		return Nature.BOOLEAN;
+	}
+
 }

@@ -2,7 +2,7 @@ package khosrow.uva.sea.ql.ast.expr;
 
 import khosrow.uva.sea.ql.ast.type.Type;
 import khosrow.uva.sea.ql.env.Env;
-import khosrow.uva.sea.ql.resources.QlError;
+import khosrow.uva.sea.ql.resources.QlTypeError;
 import khosrow.uva.sea.ql.visitor.IExprVisitor;
 
 public class Ident extends Expr {
@@ -29,10 +29,10 @@ public class Ident extends Expr {
 	}
 
 	@Override
-	public Type typeOf(Env typeEnv) {
-		if(typeEnv.lookUpType(this))
-			return typeEnv.typeOf(this);
-		return new QlError("undefined identifier: " + name);
+	public Type typeOf(Env env) {
+		if(env.lookUpIdent(this))
+			return env.typeOf(this);
+		return new QlTypeError("undefined identifier: " + name);
 	}
 	
 	@Override

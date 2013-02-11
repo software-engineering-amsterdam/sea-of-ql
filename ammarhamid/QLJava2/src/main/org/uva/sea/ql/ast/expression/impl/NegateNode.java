@@ -2,9 +2,9 @@ package org.uva.sea.ql.ast.expression.impl;
 
 import org.uva.sea.ql.ast.exception.InvalidTypeException;
 import org.uva.sea.ql.ast.expression.ExprNode;
-import org.uva.sea.ql.ast.value.ValueNode;
-import org.uva.sea.ql.ast.value.impl.IntegerNode;
-import org.uva.sea.ql.ast.value.impl.MoneyNode;
+import org.uva.sea.ql.ast.value.Value;
+import org.uva.sea.ql.ast.value.impl.IntegerValue;
+import org.uva.sea.ql.ast.value.impl.MoneyValue;
 
 public class NegateNode extends ExprNode
 {
@@ -16,18 +16,14 @@ public class NegateNode extends ExprNode
     }
 
     @Override
-    public ValueNode evaluate()
+    public Value evaluate()
     {
-        final ValueNode valueNode = this.exprNode.evaluate();
+        final Value value = this.exprNode.evaluate();
 
-        final ValueNode result;
-        if(valueNode.isIntegerNode())
+        final Value result;
+        if(value.isCompatibleToNumeric())
         {
-            result = new IntegerNode(-valueNode.asIntegerNode().getValue());
-        }
-        else if(valueNode.isMoneyNode())
-        {
-            result = new MoneyNode(valueNode.asMoneyNode().getValue().negate());
+            result = value.asNumericValue().negate();
         }
         else
         {
@@ -38,7 +34,7 @@ public class NegateNode extends ExprNode
     }
 
     @Override
-    public String toTreeString(String indent)
+    public String toTreeString(final String indent)
     {
         return '\n' + indent + "negate(-)" + exprNode.toTreeString(indent + "  ");
     }

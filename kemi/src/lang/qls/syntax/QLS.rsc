@@ -1,14 +1,25 @@
+@license{
+  Copyright (c) 2013 
+  All rights reserved. This program and the accompanying materials
+  are made available under the terms of the Eclipse Public License v1.0
+  which accompanies this distribution, and is available at
+  http://www.eclipse.org/legal/epl-v10.html
+}
+@contributor{Kevin van der Vlist - kevin@kevinvandervlist.nl}
+@contributor{Jimi van der Woning - Jimi.vanderWoning@student.uva.nl}
+
 module lang::qls::syntax::QLS
+
+extend lang::ql::syntax::Comment;
+extend lang::ql::syntax::Int;
+extend lang::ql::syntax::Layout;
+extend lang::ql::syntax::String;
+extend lang::ql::syntax::Type;
+extend lang::qls::syntax::Keyword;
 
 start syntax Stylesheet
   = stylesheet: "stylesheet" Ident "{" Definition* definitions "}"
   ;
-
-
-lexical Ident
-  = ([a-z A-Z 0-9 _] !<< [a-z A-Z][a-z A-Z 0-9 _]* !>> [a-z A-Z 0-9 _]) \ Keywords
-  ;
-
 
 syntax Definition
   = @Foldable definition: PageDefinition
@@ -17,11 +28,9 @@ syntax Definition
   | @Foldable definition: DefaultDefinition
   ;
 
-
 syntax PageDefinition
   = pageDefinition: "page" String "{" PageRule* "}"
   ;
-
 
 syntax PageRule
   = @Foldable pageRule: SectionDefinition
@@ -48,76 +57,34 @@ syntax DefaultDefinition
   = defaultDefinition: "default" Type "{" StyleRule* "}"
   ;
 
-lexical Type
-  = @category="Type" "boolean"
-  | @category="Type" "integer"
-  | @category="Type" "money"
-  | @category="Type" "date"
-  | @category="Type" "string"
-  ; 
-
 syntax StyleRule
-  = typeStyleRule: TypeStyleAttr TypeStyleValue
+  = widgetStyleRule: WidgetStyleAttr WidgetStyleValue
   | widthStyleRule: WidthStyleAttr Int
   ;
 
-lexical TypeStyleValue
-  = radio: "radio"
+lexical WidgetStyleValue
+  = text: "text"
+  | number: "number"
+  | datepicker: "datepicker"
+  | slider: "slider"
+  | radio: "radio"
   | checkbox: "checkbox"
+  | select: "select"
   ;
 
-lexical TypeStyleAttr
-  = @category="Constant" "type"
+lexical WidgetStyleAttr
+  = @category="Constant" "widget"
   ;
 
 lexical WidthStyleAttr
   = @category="Constant" "width"
   ;
 
-lexical Int
-  = [0-9]+ !>> [0-9]
+syntax Ident
+  = @category="Variable" IdentLexical \ Keywords
+  | @category="Variable" ("\\" IdentLexical) \ Keywords
   ;
 
-lexical String
-  = @category="Variable" "\"" TextChar* "\"";
-
-lexical TextChar
-  = [\\] << [\"]
-  | ![\"]
-  ;
-
-syntax WhitespaceOrComment 
-  = whitespace: Whitespace whitespace
-  | comment: Comment comment
-  ;
-  
-lexical Comment 
-  = @category="Comment" "/*" CommentChar* "*/"
-  | @category="Comment" "//" ![\n]* $
-  ;
-
-lexical CommentChar
-  = ![*]
-  | [*] !>> [/]
-  ;
-
-lexical Whitespace = [\u0009-\u000D \u0020 \u0085 \u00A0 \u1680 \u180E \u2000-\u200A \u2028 \u2029 \u202F \u205F \u3000];
-
-layout Standard = WhitespaceOrComment* !>> [\ \t\n\f\r] !>> "//" !>> "/*";
-
-keyword Keywords 
-  = stylesheet: "stylesheet"
-  | page: "page"
-  | section: "section"
-  | question: "question"
-  | \default: "default"
-  | boolean: "boolean"
-  | \int: "integer"
-  | money: "money"
-  | date: "date"
-  | string: "string"
-  | \type: "type"
-  | width: "width"
-  | radio: "radio"
-  | checkbox: "checkbox"
+lexical IdentLexical
+  = [a-z A-Z 0-9 _] !<< [a-z A-Z][a-z A-Z 0-9 _]* !>> [a-z A-Z 0-9 _]
   ;

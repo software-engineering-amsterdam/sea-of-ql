@@ -1,0 +1,13 @@
+package org.uva.sea.ql.ast.form;
+
+import java.util.List;
+
+import org.uva.sea.ql.ast.ASTNode;
+
+public class Body implements ASTNode/*, List<FormElement>*/ {
+	private final ArrayList<FormElement> = new ArrayList<>();
+	// TODO: gebruik (array)list!
+	public Body(List<FormElement> formElements) {
+		//this.formElements = formElements.toArray(new FormElement[0]);
+	}
+}
