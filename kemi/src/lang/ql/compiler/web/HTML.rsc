@@ -50,7 +50,6 @@ private str createPage(str title, list[Question] questions) =
   '      });
   '    \</script\>
   '    \<style type=\"text/css\" \>
-  '      label { display: block; }
   '      .error { float: none; color: red; padding-left: .5em; vertical-align: top; }
   '    \</style\>
   '  \</head\>
@@ -70,7 +69,7 @@ private str createQuestion(str title, Question q:
   if(\type.name == "boolean")
     return 
     "\<div id=\"<ident.ident>Block\"\>
-    '  \<label for=\"<ident.ident>\"\><trimQuotes(text.text)>\</label\>
+    '  \<label for=\"<ident.ident>\"\><trimQuotes(text.text)>\</label\>\<br /\>
     '  \<select id=\"<ident.ident>\" name=\"<ident.ident>\" form=\"<title>\"\>
     '  \<option value=\"\"\>Choose an answer\</option\>
     '  \<option value=\"true\"\>Yes\</option\>
@@ -81,7 +80,7 @@ private str createQuestion(str title, Question q:
     
   return 
     "\<div id=\"<ident.ident>Block\"\>
-    '  \<label for=\"<ident.ident>\"\><trimQuotes(text.text)>\</label\>
+    '  \<label for=\"<ident.ident>\"\><trimQuotes(text.text)>\</label\>\<br /\>
     '  \<input type=\"<\type.name>\" id=\"<ident.ident>\" name=\"<ident.ident>\" /\>
     '\</div\>
     '";
@@ -91,7 +90,7 @@ private str createQuestion(str title, Question q:
     question(QuestionText text, Type \type, IdentDefinition ident, 
     calculatedField)) =
   "\<div id=\"<ident.ident>Block\"\>
-  '  \<label for=\"<ident.ident>\"\><trimQuotes(text.text)>\</label\>
+  '  \<label for=\"<ident.ident>\"\><trimQuotes(text.text)>\</label\>\<br /\>
   '  \<input type=\"<\type.name>\" id=\"<ident.ident>\" name=\"<ident.ident>\" disabled=\"disabled\"/\>
   '\</div\>
   '";

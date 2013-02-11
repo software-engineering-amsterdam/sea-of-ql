@@ -14,6 +14,10 @@ public void main() {
 }
 
 
+private str LABEL_CHOOSE = "Choose an answer";
+private str LABEL_TRUE = "Yes";
+private str LABEL_FALSE = "No";
+
 public void JS(Stylesheet sheet, loc dest) {
   dest += "styling.js";
   
@@ -153,20 +157,72 @@ private str styleJS(str ident, StyleRule r:
 
 private str styleJS(str ident, StyleRule r: 
     widgetStyleRule(attr, radio(name))) =
-  "//<attr> <name>
+  "$(\"#<ident>\")
+  '  .replaceWith(
+  '    $(\"\<span /\>\")
+  '      .append(
+  '        $(\"\<input /\>\")
+  '          .attr({
+  '            id: \"<ident>\",
+  '            name: \"<ident>\",
+  '            value: \"true\",
+  '            type: \"radio\"
+  '          })
+  '      )
+  '      .append(
+  '        $(\"\<label /\>\")
+  '          .attr({
+  '            for: \"<ident>\"
+  '          })
+  '          .text(\"<LABEL_TRUE>\")
+  '      )
+  '      .append(
+  '        $(\"\<input /\>\")
+  '          .attr({
+  '            id: \"<ident>False\",
+  '            name: \"<ident>\",
+  '            value: \"false\",
+  '            type: \"radio\"
+  '          })
+  '      )
+  '      .append(
+  '        $(\"\<label /\>\")
+  '          .attr({
+  '            for: \"<ident>False\"
+  '          })
+  '          .text(\"<LABEL_FALSE>\")
+  '      )
+  '  );
+  '
+  '$(\"#<ident>\")
+  '  .rules(\"remove\");
+  '
+  '$(\"#<ident>\")
+  '  .rules(\"add\", \"required\");
+  '
   '";
 
 private str styleJS(str ident, StyleRule r: 
     widgetStyleRule(attr, checkbox(name))) =
   "$(\"#<ident>\")
   '  .replaceWith(
-  '    $(\"\<input /\>\")
-  '      .attr({
-  '        id: \"<ident>\",
-  '        name: \"<ident>\",
-  '        value: \"true\",
-  '        type: \"checkbox\"
-  '      })
+  '    $(\"\<span /\>\")
+  '      .append(
+  '        $(\"\<input /\>\")
+  '          .attr({
+  '            id: \"<ident>\",
+  '            name: \"<ident>\",
+  '            value: \"true\",
+  '            type: \"checkbox\"
+  '          })
+  '      )
+  '      .append(
+  '        $(\"\<label /\>\")
+  '          .attr({
+  '            for: \"<ident>\"
+  '          })
+  '          .text(\"<LABEL_TRUE>\")
+  '      )
   '  );
   '
   '$(\"#<ident>\")
@@ -176,8 +232,8 @@ private str styleJS(str ident, StyleRule r:
 
 private str styleJS(str ident, StyleRule r: 
     widgetStyleRule(attr, select(name))) =
-  "//<attr> <name>
-  '";
+  // Select is the default type, no need for replacement
+  "";
 
 public str styleJS(str ident, StyleRule r: 
     widthStyleRule(str attr, int \value)) =
