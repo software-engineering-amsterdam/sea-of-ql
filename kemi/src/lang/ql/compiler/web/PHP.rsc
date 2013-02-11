@@ -110,7 +110,11 @@ private str validator(Type \type: stringType(_), str ident) =
   validateString(ident);    
 
 private str validateBoolean(str ident) =
-  "if(!(is_bool((boolean) $_POST[\'<ident>\']))) {
+  "if(!isset($_POST[\'<ident>\'])) {
+  '  // A boolean which is not set means false.
+  '  $_POST[\'<ident>\'] = \"false\";
+  '} else if($_POST[\'<ident>\'] === \"true\" || $_POST[\'<ident>\'] === \"false\") {
+  '} else {
   '  die(\"<ident> is not a boolean!\");
   '}";
   
