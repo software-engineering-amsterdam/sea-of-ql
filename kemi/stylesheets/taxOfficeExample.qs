@@ -13,7 +13,7 @@ stylesheet taxOfficeExample {
     
     section "Selling" {
       question hasSoldHouse {
-        widget checkbox
+        widget select
       }
       section "You sold a house" {
         question sellingPrice
