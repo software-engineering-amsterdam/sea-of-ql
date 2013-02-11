@@ -2,7 +2,6 @@ module typeChecker::TypeCheck
 
 import Prelude;
 import syntax::AbstractSyntax;
-import syntax::ConcreteSyntax;
 import util::Load;
 import typeChecker::ExpressionTypeChecker;
 import typeChecker::TypeEnvironment;
@@ -33,19 +32,21 @@ QLTENV checkStatement(statement:ifStat(Expression exp, list[Body] body), QLTENV 
     }
 }
 
-// check if else statement
+/** Method to check an if else statement
+* @param statement the if else statement
+* @param thenpart thenpart of the statement
+* @param elsepart elsepart of the statement
+* @return env2 a QL type environment with the checked statement
+*/
 QLTENV checkStatement(statement:ifElseStat(Expression exp, list[Body] thenpart, list[Body] elsepart), QLTENV env){
-    println("EXP : <Exp>");
-    visit(Exp){
-    	case _ : 
-    		println("Integer case");
-
-    }
-    println(env0); 
-    if(size(env0.errors) != 0)
-    	return addError(env0, env0.errors[0].l, env0.errors[0].msg);    // check standart libary Message !!!
-    env1 = checkQuestionStats(Stats1, env0);
-    return env;
+    list[Type] tp = getExpressionType(exp,env);
+    if(tp[0] == integer()) return checkIntExp(exp,tp[0],env);
+    else{
+    	env0 = checkExp(exp, tp[0], env);    // check standart libary Message !!!
+    	env1 = checkBodyJustStatements(thenpart, env0);
+    	env2 = checkBodyJustStatements(elsepart, env1);
+    	return env2;
+	}
 }
 
 /** Method to check easy question and save it in the environment
@@ -73,6 +74,13 @@ QLTENV checkQuestion(question:computedQuestion(str id, str labelQuestion, Type t
 	}
 	 env = checkExp(exp, tp, env);
 	 return addInstance(env, id, labelQuestion, tp, true);
+}
+
+QLTENV checkBodyJustStatements(list[Body] Body, QLTENV env){
+	visit(Body){
+        case Statement s: env = checkStatement(s,env);
+      };
+	return env;
 }
 
 /** Method to check the body of the QL program

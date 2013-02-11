@@ -2,9 +2,7 @@ module typeChecker::ExpressionTypeChecker
 
 import Prelude;
 import syntax::AbstractSyntax;
-//import syntax::ConcreteSyntax;
 import typeChecker::TypeEnvironment;
-import typeChecker::TypeCheck;
 
 str required(Type t, str got) = "Required <getName(t)>, got <got>";                 
 str required(Type t1, Type t2) = required(t1, getName(t2));
