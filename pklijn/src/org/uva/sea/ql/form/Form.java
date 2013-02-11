@@ -7,9 +7,9 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
 
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
@@ -18,6 +18,7 @@ import javax.swing.JPanel;
 
 import net.miginfocom.swing.MigLayout;
 
+import org.uva.sea.extensions.Tuple;
 import org.uva.sea.ql.ast.eval.Env;
 import org.uva.sea.ql.ast.expressions.Ident;
 import org.uva.sea.ql.ast.values.Value;
@@ -90,26 +91,26 @@ public class Form implements ActionListener {
 		return formPanel;
 	}
 	
-	public Map<Ident, Value> getAllValues() {
-		Map<Ident, Value> values = environment.getAllValues();
+	public List<Tuple<Ident,Value>> getAllValues() {
+		List<Tuple<Ident, Value>> values = environment.getAllValues();
 		for (FormItem f : body) {
-			values.putAll(f.getAllValues());
+			values.addAll(f.getAllValues());
 		}
 		return values;
 	}
-
+	
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == finishButton) {
-			Map<Ident, Value> values = getAllValues();
+			List<Tuple<Ident, Value>> values = getAllValues();
 			File writeDirectory = getDirectory();
 			if (writeDirectory != null) {
 				try {
 					Date date = new Date();
 					DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd_HH-mm-ss");
 					CSVWriter writer = new CSVWriter(new FileWriter(writeDirectory.getPath() + File.separator + id.getName() + "-" + dateFormat.format(date) +".csv"));
-					for (Ident key : values.keySet()) {
-						writer.writeNext(new String[]{key.getName(), values.get(key).toString()});
+					for (Tuple<Ident, Value> v : values) {
+						writer.writeNext(new String[]{ v.getLeft().toString(), v.getRight().toString() });
 					}
 					writer.close();
 					JOptionPane.showMessageDialog(null, "The form results are now saved to the selected folder!");

@@ -1,10 +1,10 @@
 package org.uva.sea.ql.form;
 
 import java.util.List;
-import java.util.Map;
 
 import javax.swing.JPanel;
 
+import org.uva.sea.extensions.Tuple;
 import org.uva.sea.ql.ast.eval.Env;
 import org.uva.sea.ql.ast.expressions.Expr;
 import org.uva.sea.ql.ast.expressions.Ident;
@@ -66,9 +66,9 @@ public class IfElseStatement extends IfStatement {
 	}
 	
 	@Override
-	public Map<Ident, Value> getAllValues() {
-		Map<Ident, Value> values = elseBodyEnvironment.getAllValues();
-		values.putAll(super.getAllValues());
+	public List<Tuple<Ident, Value>> getAllValues() {
+		List<Tuple<Ident, Value>> values = elseBodyEnvironment.getAllValues();
+		values.addAll(super.getAllValues());
 		return values;
 	}
 }

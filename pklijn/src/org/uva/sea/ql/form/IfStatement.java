@@ -2,12 +2,12 @@ package org.uva.sea.ql.form;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import javax.swing.JPanel;
 
 import net.miginfocom.swing.MigLayout;
 
+import org.uva.sea.extensions.Tuple;
 import org.uva.sea.ql.ast.eval.Env;
 import org.uva.sea.ql.ast.expressions.Expr;
 import org.uva.sea.ql.ast.expressions.Ident;
@@ -99,10 +99,10 @@ public class IfStatement extends FormItem {
 	}
 
 	@Override
-	public Map<Ident, Value> getAllValues() {
-		Map<Ident, Value> values = ifBodyEnvironment.getAllValues();
+	public List<Tuple<Ident, Value>> getAllValues() {
+		List<Tuple<Ident, Value>> values = ifBodyEnvironment.getAllValues();
 		for (FormItem f : ifBody) {
-			values.putAll(f.getAllValues());
+			values.addAll(f.getAllValues());
 		}
 		return values;
 	}
