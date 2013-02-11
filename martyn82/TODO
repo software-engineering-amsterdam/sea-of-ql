@@ -4,12 +4,8 @@ TODO
     - Add column and linenumber to TypeErrors.
 - Store type in question
 - Use Block as name for Statements
-- StatementEvaluator accept GUI factory
-    - Creates GUI elements and adds them directly.
-    - Registers observers.
 - Form IDENT -> String label // OR make getLabel() to get Ident.getName() ??
 - Support for rendering elseif nodes.
-- Create docs
 - Review!
 
 Instead of:
@@ -20,7 +16,10 @@ BooleanStatementVisitor implements StatementVisitor<Boolean>
 operator instanceof is only valid in some cases when the RHS is a type/interface, not a class.
 
 - Create a visitor that gathers identifier dependencies on expressions. They return a HashSet<Identifier>
-- The printer visitor should return String values of the nodes and then a Printer (abstract) is used as protocol, a ConsolePrinter is used for printing to console.
 - Remove javadoc
 - The type checker needs an environment with an Identity:Type map
 - The evaluator needs an environment with an Identity:Value map
+- Use double dispatch for instanceof removal.
+- Use interface types as typehint for arguments and return types.
+- .class and getClass must be removed!
+- assert assumptions
