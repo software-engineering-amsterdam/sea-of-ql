@@ -80,7 +80,7 @@ public class FormVisitor implements IFormVisitor {
 	}
 
 	private void checkName(Ident id, Type type) {
-		if (symbolTable.containsKey(id)) {
+		if (symbolTable.hasTypeKey(id)) {
 			addError(String.format(ERROR_DUPLICATE_ID, id.getName()));
 		} else {
 			symbolTable.setType(id, type);

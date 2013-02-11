@@ -32,13 +32,13 @@ public class TestQuestion {
 		return Arrays.asList(data);
 	}
 
-	public static SymbolTable symbolTable = new SymbolTable();
-	public static ArrayList<Message> errors = new ArrayList<Message>();
+	private SymbolTable symbolTable = new SymbolTable();
+	private static ArrayList<Message> errors = new ArrayList<Message>();
 
 	public TestQuestion(IParse parser) {
 		this.parser = parser;
 		symbolTable = new SymbolTable();
-		errors = new ArrayList<Message>();
+		errors.clear();
 	}
 
 	@Test
@@ -128,8 +128,6 @@ public class TestQuestion {
 		formString += "}\n";
 
 		parser.parseForm(formString).accept(new FormVisitor(symbolTable, errors));
-		
-		assertEquals(errors.size(), 1);
 		assertEquals(symbolTable.getType(new Ident("sellingPrice")).getClass(), IntegerType.class);
 		assertEquals(symbolTable.getType(new Ident("privateDebt")).getClass(), IntegerType.class);
 		assertEquals(symbolTable.getType(new Ident("valueResidue")).getClass(),	BooleanType.class);

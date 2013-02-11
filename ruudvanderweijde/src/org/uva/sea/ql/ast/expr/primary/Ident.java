@@ -41,7 +41,7 @@ public final class Ident extends Expr {
 
 	@Override
 	public Type typeOf(SymbolTable symbolTable) {
-		if (symbolTable.containsKey(this)) {
+		if (symbolTable.hasTypeKey(this)) {
 			return symbolTable.getType(this);
 		}
 		return new UndefinedType();

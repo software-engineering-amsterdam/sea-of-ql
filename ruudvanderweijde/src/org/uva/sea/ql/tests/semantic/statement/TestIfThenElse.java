@@ -27,14 +27,14 @@ public class TestIfThenElse {
 		Object[][] data = new Object[][] { new Object[] {new ANTLRParser()} };
 		return Arrays.asList(data);
 	}
-	public static SymbolTable symbolTable = new SymbolTable();
+	public SymbolTable symbolTable = new SymbolTable();
 	public static ArrayList<Message> errors = new ArrayList<Message>();
 
 	
 	public TestIfThenElse(IParse parser) {
 		this.parser = parser;
 		symbolTable = new SymbolTable();
-		errors = new ArrayList<Message>();
+		errors.clear();
 	}
 
 	@Test

@@ -42,8 +42,6 @@ public class TestForm {
 	
 	public TestForm(IParse parser) {
 		this.parser = parser;
-		symbolTable = new SymbolTable();
-		errors = new ArrayList<Message>();
 	}
 
 	@Test
