@@ -1,33 +1,47 @@
 module lang::ql::checker::CheckQuestions
 
 import Message;
-import lang::ql::ast::AST;
-import lang::ql::checker::Check;
 import lang::ql::generator::Pretty;
 
-// Public aliases do not work
-public alias CheckEnv = tuple[
-	map[str, Type] questionVars,
-	map[str, Type] computedQuestionVars, // We have to build the type environment ourselves to check for duplicates
-	map[str, set[str]] varsDependencies,
-	rel[Expr expr, Type reqType] expressions, // Store all expressions while visiting tree, to check them later
+import lang::ql::ast::AST;
+import lang::ql::ast::ExprInspector;
+
+alias CheckQuestionEnv = tuple[
+	map[str, Type] nonComputedQuestionTypes,
+	map[str, Type] computedQuestionTypes,
 	set[str] labels, 
 	set[Message] errors
 ];
+
+// Helper functions to add values to the environment
+CheckQuestionEnv addNonComputedQuestionTypes(CheckQuestionEnv env, str ident, Type tp) = 
+	env[nonComputedQuestionTypes = env.nonComputedQuestionTypes + (ident: tp)];
+CheckQuestionEnv addComputedQuestionTypes(CheckQuestionEnv env, str ident, Type tp) = 
+	env[computedQuestionTypes = env.computedQuestionTypes + (ident: tp)];
+CheckQuestionEnv addLabel(CheckQuestionEnv env, str label) = 
+	env[labels = env.labels + label];
+CheckQuestionEnv addError(CheckQuestionEnv env, loc l, str msg) = 
+	env[errors = env.errors + error(msg, l)];
+CheckQuestionEnv addWarning(CheckQuestionEnv env, loc l, str msg) = 
+	env[errors = env.errors + warning(msg, l)];
 
 /* Checks for duplicate questions with different types,
  * computed and answerable questions that bind the same variable 
  * and provides warnings for duplicate labels.
  */
-public CheckEnv checkQuestion(Question q, set[str] identifiers, CheckEnv env) {
-	env = checkQuestionDeclaration(q, env);
+public set[Message] checkQuestions(Form form) {
+	CheckQuestionEnv env = <(), (), {}, {}>;
 	
-	if (q.identifier notin env.varsDependencies) {
-		env = addVarsDependencies(env, q.identifier, identifiers);
+	visit(form) {
+		case Question q:
+			env = checkQuestion(q, env);
 	}
-	else {
-		env = addVarsDependencies(env, q.identifier, env.varsDependencies[q.identifier] & identifiers);
-	}
+	
+	return env.errors;
+}
+
+CheckQuestionEnv checkQuestion(Question q, CheckQuestionEnv env) {
+	env = checkQuestionDeclaration(q, env);
 	
 	if (q.label in env.labels) {
 		env = addWarning(env, q@location, "Duplicate label");	
@@ -42,11 +56,9 @@ public CheckEnv checkQuestion(Question q, set[str] identifiers, CheckEnv env) {
 /* Checks for duplicate questions with different types,
  * computed and answerable questions that bind the same variable
  */
-CheckEnv checkQuestionDeclaration(Question q:computed(str identifier, str label, Type tp, Expr expression), CheckEnv env) {
-	env = addExpression(env, expression, tp);
-	
-	if (identifier in env.computedQuestionVars) {	
-		Type declaredType = env.computedQuestionVars[identifier];
+CheckQuestionEnv checkQuestionDeclaration(Question q:computed(str identifier, str label, Type tp, Expr expression), CheckQuestionEnv env) {
+	if (identifier in env.computedQuestionTypes) {	
+		Type declaredType = env.computedQuestionTypes[identifier];
 		
 		if (declaredType != tp) {
 			env = addError(env, q@location, "Question has already been defined before with type <pretty(declaredType)>");
@@ -56,19 +68,19 @@ CheckEnv checkQuestionDeclaration(Question q:computed(str identifier, str label,
 		}
 	}
 	else { 
-		if (identifier in env.questionVars) {
+		if (identifier in env.nonComputedQuestionTypes) {
 			env = addError(env, q@location, "There is already a non-computed version of this question");	
 		}
 		
-		env = addComputedQuestionVar(env, identifier, tp);
+		env = addComputedQuestionTypes(env, identifier, tp);
 	}
 	
 	return env;
 }
 
-CheckEnv checkQuestionDeclaration(Question q:noncomputed(str identifier, str label, Type tp), CheckEnv env) {
-	if (identifier in env.questionVars) {	
-		Type declaredType = env.questionVars[identifier];
+CheckQuestionEnv checkQuestionDeclaration(Question q:noncomputed(str identifier, str label, Type tp), CheckQuestionEnv env) {
+	if (identifier in env.nonComputedQuestionTypes) {	
+		Type declaredType = env.nonComputedQuestionTypes[identifier];
 		
 		if (declaredType != tp) {
 			env = addError(env, q@location, "Question has already been defined before with type <pretty(declaredType)>");
@@ -78,11 +90,11 @@ CheckEnv checkQuestionDeclaration(Question q:noncomputed(str identifier, str lab
 		}	
 	}
 	else { 
-		if (identifier in env.computedQuestionVars) {
+		if (identifier in env.computedQuestionTypes) {
 			env = addError(env, q@location, "There is already a computed version of this question");	
 		}
 		
-		env = addQuestionVar(env, identifier, tp);
+		env = addNonComputedQuestionTypes(env, identifier, tp);
 	}
 	
 	return env;

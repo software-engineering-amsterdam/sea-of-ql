@@ -3,19 +3,11 @@ module lang::ql::checker::CheckExpressions
 import Prelude;
 import Message;
 
-import lang::ql::ast::AST;
-import lang::ql::checker::Check;
 import lang::ql::generator::Pretty;
 
-// Public aliases do not work
-public alias CheckEnv = tuple[
-	map[str, Type] questionVars,
-	map[str, Type] computedQuestionVars, // We have to build the type environment ourselves to check for duplicates
-	map[str, set[str]] varsDependencies,
-	rel[Expr expr, Type reqType] expressions, // Store all expressions while visiting tree, to check them later
-	set[str] labels, 
-	set[Message] errors
-];
+import lang::ql::ast::AST;
+import lang::ql::ast::TypeEnvironment;
+import lang::ql::ast::VariableDependencies;
 
 map[str, set[Type]] requiredTypes = (
  	"pos": 		{intType()},
@@ -56,65 +48,86 @@ map[str, Type] resultTypes = (
   	"or": 		boolType()
 );
 
-public CheckEnv checkExpr(Expr e, set[Type] req, CheckEnv env) {
+public str getReadableTypes(set[Type] types) = 
+	intercalate(" or ", [pretty(tp) | tp <- types]);
+
+public set[Message] checkExpressions(Form form) {
+	TypeEnv typeEnv = getTypeEnvironment(form);
+	VarDependencies varDependencies = getVarDependencies(form);
+	set[Message] errors = {};
+	
+	visit (form) {
+		case ifThenElse(Expr e, _, _, _):
+			errors = checkExpr(e, {boolType()}, typeEnv, varDependencies, errors);
+		case ifThen(Expr e, _, _):
+  			errors = checkExpr(e, {boolType()}, typeEnv, varDependencies, errors);
+  		case elseIf(Expr e, _):
+			errors = checkExpr(e, {boolType()}, typeEnv, varDependencies, errors);
+		case computed(_, _, Type tp, Expr e):
+			errors = checkExpr(e, {tp}, typeEnv, varDependencies, errors);
+	}
+	
+	return errors;
+}
+
+set[Message] checkExpr(Expr e, set[Type] req, TypeEnv typeEnv, VarDependencies varDependencies, set[Message] errors) {
 	Type resultType = resultTypes[getName(e)];
 	
 	if (resultType notin req) {
-		env = addError(env, e@location, "Required <getReadableTypes(req)>, got <pretty(resultType)>");
+		errors += error("Required <getReadableTypes(req)>, got <pretty(resultType)>", e@location);
 	}
-	
-	if (e has val) {
-		env = checkUnaryExpr(e, env);
+	else if (e has val) {
+		errors = checkUnaryExpr(e, typeEnv, varDependencies, errors);
 	}
 	else if ((e has lhs) && (e has rhs)) {
-		env = checkBinaryExpr(e, env);
+		errors = checkBinaryExpr(e, typeEnv, varDependencies, errors);
 	}
 	
-	return env;
+	return errors;
 }
 
-CheckEnv checkUnaryExpr(Expr e, CheckEnv env) {
+set[Message] checkUnaryExpr(Expr e, TypeEnv typeEnv, VarDependencies varDependencies, set[Message] errors) {
 	set[Type] reqTypes = requiredTypes[getName(e)];
-	return checkExpr(e.val, reqTypes, env);
+	return checkExpr(e.val, reqTypes, typeEnv, varDependencies, errors);
 }
 
-CheckEnv checkBinaryExpr(Expr e, CheckEnv env) {
+set[Message] checkBinaryExpr(Expr e, TypeEnv typeEnv, VarDependencies varDependencies, set[Message] errors) {
 	set[Type] reqTypes = requiredTypes[getName(e)];
-	env = checkExpr(e.lhs, reqTypes, env);		
+	errors = checkExpr(e.lhs, reqTypes, typeEnv, varDependencies, errors);		
 	
 	set[Type] reqForRhs = {};
 	if (ident(name) := e.lhs) {
-		if (isVariableDefined(env, name)) {
-			reqForRhs = {getTypeOfVariable(env, name)};
+		if (isInTypeEnvironment(name, typeEnv)) {
+			reqForRhs = {getTypeForIdentifier(name, typeEnv)};
 		}
 	}
 	else {
 		reqForRhs = {resultTypes[getName(e.lhs)]};
 	}
 	
-	return checkExpr(e.rhs, reqForRhs, env);
+	return checkExpr(e.rhs, reqForRhs, typeEnv, varDependencies, errors);
 }
 
 /* Type checking on identifiers in expressions, 
  * checking for undefined variables used in expressions 
  * and checking for cyclic dependencies
  */
-public CheckEnv checkExpr(Expr e:ident(str name), set[Type] req, CheckEnv env) {                              
-	if (!isVariableDefined(env, name)) {
-   		env = addError(env, e@location, "Undefined variable \"<name>\"");
+set[Message] checkExpr(Expr e:ident(str name), set[Type] req, TypeEnv typeEnv, VarDependencies varDependencies, set[Message] errors) {                              
+	if (!isInTypeEnvironment(name, typeEnv)) {
+   		errors += error("Undefined variable \"<name>\"", e@location);
 	}
 	else {
-	  	Type tp = getTypeOfVariable(env, name);
+	  	Type tp = getTypeForIdentifier(name, typeEnv);
 	  	if (tp notin req) {
-	  		env = addError(env, e@location, "Required <getReadableTypes(req)>, got <pretty(tp)>");
+	  		errors += error("Required <getReadableTypes(req)>, got <pretty(tp)>", e@location);
 		}
 		
-		for (str identifier <- env.varsDependencies[name]) {
-			if ((identifier in env.varsDependencies) && (name in env.varsDependencies[identifier])) {
-				env = addError(env, e@location, "Cyclic dependency for <name> and <identifier>");
+		for (str identifier <- varDependencies[name]) {
+			if ((identifier in varDependencies) && (name in varDependencies[identifier])) {
+				errors += error("Cyclic dependency for <name> and <identifier>", e@location);
 			}	
 		}		
 	}
 	
-	return env;
+	return errors;
 }
