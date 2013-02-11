@@ -34,7 +34,7 @@ function getFormValue(id) {
 	// Select has a tagname...
 	tagname = $(id)[0].tagName;
 	if(tagname == "SELECT") {
-		if($("#sellingPrice").val() === "true") {
+		if($(id).val() === "true") {
 			return true;
 		} else {
 			return false;
