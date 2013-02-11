@@ -115,66 +115,71 @@ private str layoutJS(QuestionDefinition q, &T parent) =
   '";
 
 private str styleJS(Stylesheet s) {
+  f = accompanyingForm(s);
+  typeMap = getTypeMap(f);
+
   ret = "";
 
-  for(q <- getQuestionDefinitions(s)) {
-    if(!q.styleRules?)
-      continue;
-
-    ret += styleJS(q);
+  for(k <- typeMap) {
+    rules = getStyleRules(k.ident, f, s);
+    ret += "//Question <k.ident>\n";
+    for(r <- rules) {
+      ret += "<styleJS(k.ident, r)>\n";
+    }
   }
 
   return ret;
 }
 
-private str styleJS(QuestionDefinition q) =
-  "//Question <blockIdent(q)>: <for(r <- q.styleRules) {>
-  '<styleJS(q, r)><}>
-  '
+private str styleJS(str ident, StyleRule r: 
+    widgetStyleRule(attr, text(name))) =
+  "//<attr> <name>
   '";
 
-private str styleJS(QuestionDefinition q, StyleRule r: 
-    widgetStyleRule(attr, text(name))) =
-  "//<attr> <name>";
-
-private str styleJS(QuestionDefinition q, StyleRule r: 
+private str styleJS(str ident, StyleRule r: 
     widgetStyleRule(attr, number(name))) =
-  "//<attr> <name>";
+  "//<attr> <name>
+  '";
 
-private str styleJS(QuestionDefinition q, StyleRule r: 
+private str styleJS(str ident, StyleRule r: 
     widgetStyleRule(attr, datepicker(name))) =
-  "//<attr> <name>";
+  "//<attr> <name>
+  '";
 
-private str styleJS(QuestionDefinition q, StyleRule r: 
+private str styleJS(str ident, StyleRule r: 
     widgetStyleRule(attr, slider(name))) =
-  "//<attr> <name>";
+  "//<attr> <name>
+  '";
 
-private str styleJS(QuestionDefinition q, StyleRule r: 
+private str styleJS(str ident, StyleRule r: 
     widgetStyleRule(attr, radio(name))) =
-  "//<attr> <name>";
+  "//<attr> <name>
+  '";
 
-private str styleJS(QuestionDefinition q, StyleRule r: 
+private str styleJS(str ident, StyleRule r: 
     widgetStyleRule(attr, checkbox(name))) =
-  "$(\"#<q.ident>\")
+  "$(\"#<ident>\")
   '  .replaceWith(
   '    $(\"\<input /\>\")
   '      .attr({
-  '        id: \"<q.ident>\",
-  '        name: \"<q.ident>\",
+  '        id: \"<ident>\",
+  '        name: \"<ident>\",
   '        value: \"true\",
   '        type: \"checkbox\"
   '      })
   '  );
   '
-  '$(\"#<q.ident>\")
+  '$(\"#<ident>\")
   '  .rules(\"remove\");
   '
   '";
 
-private str styleJS(QuestionDefinition q, StyleRule r: 
+private str styleJS(str ident, StyleRule r: 
     widgetStyleRule(attr, select(name))) =
-  "//<attr> <name>";
+  "//<attr> <name>
+  '";
 
-public str styleJS(QuestionDefinition q, StyleRule r: 
+public str styleJS(str ident, StyleRule r: 
     widthStyleRule(str attr, int \value)) =
-  "//<attr> <\value>";
+  "//<attr> <\value>
+  '";
