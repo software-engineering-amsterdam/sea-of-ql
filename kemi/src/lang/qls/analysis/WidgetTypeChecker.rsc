@@ -17,7 +17,7 @@ public void main() {
 
 private map[Type, list[str]] allowedWidgets = (
   booleanType("boolean"):
-    ["text", "radio", "checkbox", "select"],
+    ["radio", "checkbox", "select"],
   integerType("integer"):
     ["text", "number", "slider"],
   moneyType("money"):
