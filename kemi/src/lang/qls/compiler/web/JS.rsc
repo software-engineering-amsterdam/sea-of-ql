@@ -164,27 +164,11 @@ private str styleJS(QuestionDefinition q, StyleRule r:
   '        value: \"true\",
   '        type: \"checkbox\"
   '      })
-  '      .change(function(e) {
-  '        $(\"#<q.ident>False\").prop(
-  '          \"checked\",
-  '          !$(e.target).is(\":checked\")
-  '        );
-  '        $(e.target).attr({ value: $(e.target).is(\":checked\") });
-  '      })
   '  );
   '
   '$(\"#<q.ident>\")
-  '  .before(
-  '    $(\"\<input /\>\")
-  '      .attr({
-  '        id: \"<q.ident>False\",
-  '        name: \"<q.ident>\",
-  '        value: \"false\",
-  '        type: \"checkbox\",
-  '        checked: \"checked\"
-  '      })
-  '      .css({ display: \"none\" })
-  '  );
+  '  .rules(\"remove\");
+  '
   '";
 
 private str styleJS(QuestionDefinition q, StyleRule r: 

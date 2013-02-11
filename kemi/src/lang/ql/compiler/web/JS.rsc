@@ -75,14 +75,14 @@ private str JS(Form f) =
   '
   'function validate<f.formName.ident>() {
   '
-  '  // Make sure all elements are properly styled before registering events
-  '  styling();
-  '
   '  $(\"#<f.formName.ident>\").validate({
   '    rules: {
   '      <createValidationRules(f)>
   '    }
   '  });
+  '
+  '  // Make sure all elements are properly styled before registering events
+  '  styling();
   '
   '  // The code to automatically generate calculated fields 
   '  <calculatedFields(f)>
