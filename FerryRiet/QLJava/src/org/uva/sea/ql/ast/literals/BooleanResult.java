@@ -5,10 +5,11 @@ import java.math.BigDecimal;
 import org.uva.sea.ql.ast.types.BooleanType;
 import org.uva.sea.ql.ast.types.Type;
 
-public class BooleanResult extends Result<Boolean> {
+public class BooleanResult extends Result {
 	private boolean value;
 
 	public BooleanResult(boolean bol) {
+		super(new BooleanType());
 		value = bol;
 	}
 

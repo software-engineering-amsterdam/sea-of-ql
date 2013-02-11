@@ -3,9 +3,9 @@ package org.uva.sea.ql.ast.operators;
 import java.util.HashMap;
 
 import org.antlr.runtime.Token;
-import org.uva.sea.ql.ast.LineStatement;
-import org.uva.sea.ql.ast.Statement;
 import org.uva.sea.ql.ast.literals.Result;
+import org.uva.sea.ql.ast.statements.LineStatement;
+import org.uva.sea.ql.ast.statements.Statement;
 import org.uva.sea.ql.ast.types.ErrorType;
 import org.uva.sea.ql.ast.types.Type;
 import org.uva.sea.ql.ast.visitor.Visitor;

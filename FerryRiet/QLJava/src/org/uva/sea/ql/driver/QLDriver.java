@@ -17,7 +17,7 @@ import javax.swing.JTextPane;
 
 import org.antlr.runtime.ANTLRStringStream;
 import org.antlr.runtime.CommonTokenStream;
-import org.uva.sea.ql.ast.QLProgram;
+import org.uva.sea.ql.ast.statements.QLProgram;
 import org.uva.sea.ql.ast.visitor.TypeCheck;
 import org.uva.sea.ql.parser.antlr.QLLexer;
 import org.uva.sea.ql.parser.antlr.QLParser;

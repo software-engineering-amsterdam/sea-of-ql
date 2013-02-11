@@ -1,4 +1,4 @@
-package org.uva.sea.ql.ast;
+package org.uva.sea.ql.ast.statements;
 
 import org.antlr.runtime.Token;
 import org.uva.sea.ql.ast.literals.Result;

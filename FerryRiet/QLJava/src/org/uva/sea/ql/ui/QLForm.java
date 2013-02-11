@@ -10,8 +10,8 @@ import javax.swing.border.EmptyBorder;
 
 import net.miginfocom.swing.MigLayout;
 
-import org.uva.sea.ql.ast.QLProgram;
 import org.uva.sea.ql.ast.literals.Result;
+import org.uva.sea.ql.ast.statements.QLProgram;
 import org.uva.sea.ql.ast.visitor.QLFormCreator;
 
 public class QLForm extends JFrame implements Observer {

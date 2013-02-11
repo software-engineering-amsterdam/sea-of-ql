@@ -3,10 +3,10 @@ package org.uva.sea.ql.ast.operators;
 import java.math.BigDecimal;
 import java.util.HashMap;
 
-import org.uva.sea.ql.ast.Statement;
 import org.uva.sea.ql.ast.literals.IntegerResult;
 import org.uva.sea.ql.ast.literals.MoneyResult;
 import org.uva.sea.ql.ast.literals.Result;
+import org.uva.sea.ql.ast.statements.Statement;
 import org.uva.sea.ql.ast.types.IntegerType;
 import org.uva.sea.ql.ast.types.MoneyType;
 import org.uva.sea.ql.ast.types.Type;

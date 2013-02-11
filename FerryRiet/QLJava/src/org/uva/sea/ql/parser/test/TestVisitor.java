@@ -3,7 +3,7 @@ package org.uva.sea.ql.parser.test;
 import junit.framework.TestCase;
 
 import org.junit.Test;
-import org.uva.sea.ql.ast.QLProgram;
+import org.uva.sea.ql.ast.statements.QLProgram;
 import org.uva.sea.ql.ast.visitor.Print;
 import org.uva.sea.ql.ast.visitor.PrintResult;
 import org.uva.sea.ql.ast.visitor.TypeCheck;

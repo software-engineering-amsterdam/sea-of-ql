@@ -5,10 +5,11 @@ import java.math.BigDecimal;
 import org.uva.sea.ql.ast.types.Type;
 import org.uva.sea.ql.ast.types.IntegerType;
 
-public class IntegerResult extends Result<Integer> {
+public class IntegerResult extends Result {
 	private Integer value;
 
 	public IntegerResult(int val) {
+		super(new IntegerType()) ;
 		value = new Integer(val);
 	}
 

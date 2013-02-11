@@ -1,9 +1,5 @@
 package org.uva.sea.ql.ast.visitor;
 
-import org.uva.sea.ql.ast.CompoundStatement;
-import org.uva.sea.ql.ast.ConditionalStatement;
-import org.uva.sea.ql.ast.LineStatement;
-import org.uva.sea.ql.ast.QLProgram;
 import org.uva.sea.ql.ast.literals.BooleanLiteral;
 import org.uva.sea.ql.ast.literals.IntegerLiteral;
 import org.uva.sea.ql.ast.literals.MoneyLiteral;
@@ -27,6 +23,10 @@ import org.uva.sea.ql.ast.operators.Or;
 import org.uva.sea.ql.ast.operators.Pos;
 import org.uva.sea.ql.ast.operators.Sub;
 import org.uva.sea.ql.ast.operators.UnExpr;
+import org.uva.sea.ql.ast.statements.CompoundStatement;
+import org.uva.sea.ql.ast.statements.ConditionalStatement;
+import org.uva.sea.ql.ast.statements.LineStatement;
+import org.uva.sea.ql.ast.statements.QLProgram;
 import org.uva.sea.ql.ast.types.Type;
 
 

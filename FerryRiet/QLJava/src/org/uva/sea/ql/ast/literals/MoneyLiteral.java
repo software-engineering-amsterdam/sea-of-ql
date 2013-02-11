@@ -4,8 +4,8 @@ import java.math.BigDecimal;
 
 import java.util.HashMap;
 
-import org.uva.sea.ql.ast.Statement;
 import org.uva.sea.ql.ast.operators.Expr;
+import org.uva.sea.ql.ast.statements.Statement;
 import org.uva.sea.ql.ast.types.MoneyType;
 import org.uva.sea.ql.ast.types.Type;
 

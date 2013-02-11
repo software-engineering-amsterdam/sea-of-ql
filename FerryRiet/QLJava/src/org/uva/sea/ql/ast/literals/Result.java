@@ -4,13 +4,13 @@ import java.math.BigDecimal;
 
 import org.uva.sea.ql.ast.types.Type;
 
-public abstract class Result<T> {
-	private T value;
-
-	public T getValue() {
-		return value;
+public abstract class Result {
+	private Type resultType ;
+	
+	public Result(Type rt) {
+		resultType = rt ;
 	}
-
+	
 	public abstract String toString();
 
 	public abstract int getIntegerValue();
@@ -23,11 +23,21 @@ public abstract class Result<T> {
 
 	public abstract Type typeOf();
 
-	public abstract Result<T> setValue(String string);
+	public boolean isCompatibleToInt() {
+		return resultType.isCompatibleToInt() ;
+	}
 
-	public abstract boolean isCompatibleToInt() ;
-	public abstract boolean isCompatibleToString() ;
-	public abstract boolean isCompatibleToBool() ;
-	public abstract boolean isCompatibleToMoney() ;
+	public boolean isCompatibleToString() {
+		return resultType.isCompatibleToString();
+	}
 
+	public boolean isCompatibleToBool() {
+		return resultType.isCompatibleToBool();
+	}
+
+	public boolean isCompatibleToMoney() {
+		return resultType.isCompatibleToMoney() ;
+	}
+
+	public abstract Result setValue(String string) ;
 }

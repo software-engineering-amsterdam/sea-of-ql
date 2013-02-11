@@ -1,4 +1,4 @@
-package org.uva.sea.ql.ast;
+package org.uva.sea.ql.ast.statements;
 
 import java.util.ArrayList;
 import java.util.List;

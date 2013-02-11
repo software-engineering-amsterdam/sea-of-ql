@@ -2,9 +2,9 @@ package org.uva.sea.ql.ast.operators;
 
 import java.util.HashMap;
 
-import org.uva.sea.ql.ast.Statement;
 import org.uva.sea.ql.ast.literals.BooleanResult;
 import org.uva.sea.ql.ast.literals.Result;
+import org.uva.sea.ql.ast.statements.Statement;
 import org.uva.sea.ql.ast.types.BooleanType;
 import org.uva.sea.ql.ast.types.Type;
 import org.uva.sea.ql.ast.visitor.Visitor;
