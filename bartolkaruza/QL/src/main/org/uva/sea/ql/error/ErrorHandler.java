@@ -1,10 +1,13 @@
 package org.uva.sea.ql.error;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ErrorHandler {
+public class ErrorHandler implements Serializable {
 
+	private static final long serialVersionUID = -8269697329363883138L;
+	
 	private List<QLError> errors = new ArrayList<QLError>();
 
 	public void addError(QLError error) {

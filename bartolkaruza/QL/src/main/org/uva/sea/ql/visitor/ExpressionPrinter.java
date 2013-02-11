@@ -20,139 +20,160 @@ import org.uva.sea.ql.ast.expr.value.Bool;
 import org.uva.sea.ql.ast.expr.value.Ident;
 import org.uva.sea.ql.ast.expr.value.Int;
 import org.uva.sea.ql.ast.expr.value.Money;
-import org.uva.sea.ql.ast.expr.value.TextString;
+import org.uva.sea.ql.ast.expr.value.Text;
 
-public class ExpressionPrinter implements ExpressionVisitor {
+public class ExpressionPrinter implements ExpressionVisitor<Void> {
 
 	@Override
-	public void visit(Ident node) {
+	public Void visit(Ident node) {
 		printNodeName(node);
+		return null;
 	}
 
 	@Override
-	public void visit(Add node) {
+	public Void visit(Add node) {
 		printNodeName(node);
 		node.getLhs().accept(this);
 		node.getRhs().accept(this);
+		return null;
 	}
 
 	@Override
-	public void visit(And node) {
+	public Void visit(And node) {
 		printNodeName(node);
 		node.getLhs().accept(this);
 		node.getRhs().accept(this);
+		return null;
 	}
 
 	@Override
-	public void visit(Div node) {
+	public Void visit(Div node) {
 		printNodeName(node);
 		node.getLhs().accept(this);
 		node.getRhs().accept(this);
+		return null;
 	}
 
 	@Override
-	public void visit(Eq node) {
+	public Void visit(Eq node) {
 		printNodeName(node);
 		node.getLhs().accept(this);
 		node.getRhs().accept(this);
+		return null;
 	}
 
 	@Override
-	public void visit(GEq node) {
+	public Void visit(GEq node) {
 		printNodeName(node);
 		node.getLhs().accept(this);
 		node.getRhs().accept(this);
+		return null;
 	}
 
 	@Override
-	public void visit(GT node) {
+	public Void visit(GT node) {
 		printNodeName(node);
 		node.getLhs().accept(this);
 		node.getRhs().accept(this);
+		return null;
 	}
 
 	@Override
-	public void visit(LEq node) {
+	public Void visit(LEq node) {
 		printNodeName(node);
 		node.getLhs().accept(this);
 		node.getRhs().accept(this);
+		return null;
 	}
 
 	@Override
-	public void visit(LT node) {
+	public Void visit(LT node) {
 		printNodeName(node);
 		node.getLhs().accept(this);
 		node.getRhs().accept(this);
+		return null;
 	}
 
 	@Override
-	public void visit(Mul node) {
+	public Void visit(Mul node) {
 		printNodeName(node);
 		node.getLhs().accept(this);
 		node.getRhs().accept(this);
+		return null;
 	}
 
 	@Override
-	public void visit(Neg node) {
+	public Void visit(Neg node) {
 		printNodeName(node);
 		node.getRhs().accept(this);
+		return null;
 	}
 
 	@Override
-	public void visit(NEq node) {
+	public Void visit(NEq node) {
 		printNodeName(node);
 		node.getLhs().accept(this);
 		node.getRhs().accept(this);
+		return null;
 	}
 
 	@Override
-	public void visit(Not node) {
+	public Void visit(Not node) {
 		printNodeName(node);
 		node.getRhs().accept(this);
+		return null;
 	}
 
 	@Override
-	public void visit(Or node) {
+	public Void visit(Or node) {
 		printNodeName(node);
 		node.getLhs().accept(this);
 		node.getRhs().accept(this);
+		return null;
 	}
 
 	@Override
-	public void visit(Pos node) {
+	public Void visit(Pos node) {
 		printNodeName(node);
 		node.getRhs().accept(this);
+		return null;
 	}
 
 	@Override
-	public void visit(Sub node) {
+	public Void visit(Sub node) {
 		printNodeName(node);
 		node.getLhs().accept(this);
 		node.getRhs().accept(this);
+		return null;
 	}
 
 	@Override
-	public void visit(Bool node) {
+	public Void visit(Bool node) {
 		printNodeName(node);
+		return null;
 	}
 
 	@Override
-	public void visit(Int node) {
+	public Void visit(Int node) {
 		printNodeName(node);
+		return null;
 	}
 
 	@Override
-	public void visit(Money node) {
+	public Void visit(Money node) {
 		printNodeName(node);
+		return null;
 	}
 
 	@Override
-	public void visit(TextString node) {
+	public Void visit(Text node) {
 		printNodeName(node);
+		return null;
 	}
 	
-	private void printNodeName(ASTNode node) {
+	private Void printNodeName(ASTNode node) {
 		System.out.println("at expression: " + node.getClass().getName());
+		return null;
 	}
 
 }

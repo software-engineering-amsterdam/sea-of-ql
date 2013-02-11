@@ -6,6 +6,7 @@ import org.uva.sea.ql.visitor.StatementVisitor;
 
 public class Form implements ASTNode {
 
+	private static final long serialVersionUID = 2334451266044770811L;
 	private String label;
 	private List<Statement> statements;
 
@@ -14,7 +15,7 @@ public class Form implements ASTNode {
 		this.statements = statements;
 	}
 
-	public void accept(StatementVisitor visitor) {
+	public void accept(StatementVisitor<?> visitor) {
 		visitor.visit(this);
 	}
 
