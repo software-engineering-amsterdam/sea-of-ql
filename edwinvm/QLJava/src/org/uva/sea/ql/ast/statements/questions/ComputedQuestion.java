@@ -1,4 +1,4 @@
-package org.uva.sea.ql.ast.questions;
+package org.uva.sea.ql.ast.statements.questions;
 
 import org.uva.sea.ql.ast.Expr;
 import org.uva.sea.ql.ast.expressions.literal.Ident;
