@@ -15,3 +15,7 @@ operator instanceof is only valid in some cases when the RHS is a type/interface
 - Use interface types as typehint for arguments and return types.
 - .class and getClass must be removed!
 - assert assumptions
+- make codelocation class to bundle column and linenumber QLLexer
+- rename IParser
+- rename literals
+- rename I*Test
