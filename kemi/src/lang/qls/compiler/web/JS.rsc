@@ -14,6 +14,10 @@ public void main() {
 }
 
 
+private str LABEL_CHOOSE = "Choose an answer";
+private str LABEL_TRUE = "Yes";
+private str LABEL_FALSE = "No";
+
 public void JS(Stylesheet sheet, loc dest) {
   dest += "styling.js";
   
@@ -115,28 +119,123 @@ private str layoutJS(QuestionDefinition q, &T parent) =
   '";
 
 private str styleJS(Stylesheet s) {
-  ret = "/********** STILL TODO\n";
+  f = accompanyingForm(s);
+  typeMap = getTypeMap(f);
 
-  for(q <- getQuestionDefinitions(s)) {
-    if(!q.styleRules?)
-      continue;
+  ret = "";
 
-    ret += styleJS(q);
+  for(k <- typeMap) {
+    rules = getStyleRules(k.ident, f, s);
+    ret += "//Question <k.ident>\n";
+    for(r <- rules) {
+      ret += "<styleJS(k.ident, r)>\n";
+    }
   }
 
-  return ret + "**********/";
+  return ret;
 }
 
-private str styleJS(QuestionDefinition q) =
-  "Question <blockIdent(q)>:<for(r <- q.styleRules) {>
-  '  <styleJS(r)><}>
+private str styleJS(str ident, StyleRule r: 
+    widgetStyleRule(attr, text(name))) =
+  "//<attr> <name>
+  '";
+
+private str styleJS(str ident, StyleRule r: 
+    widgetStyleRule(attr, number(name))) =
+  "//<attr> <name>
+  '";
+
+private str styleJS(str ident, StyleRule r: 
+    widgetStyleRule(attr, datepicker(name))) =
+  "//<attr> <name>
+  '";
+
+private str styleJS(str ident, StyleRule r: 
+    widgetStyleRule(attr, slider(name))) =
+  "//<attr> <name>
+  '";
+
+private str styleJS(str ident, StyleRule r: 
+    widgetStyleRule(attr, radio(name))) =
+  "$(\"#<ident>\")
+  '  .replaceWith(
+  '    $(\"\<span /\>\")
+  '      .append(
+  '        $(\"\<input /\>\")
+  '          .attr({
+  '            id: \"<ident>\",
+  '            name: \"<ident>\",
+  '            value: \"true\",
+  '            type: \"radio\"
+  '          })
+  '      )
+  '      .append(
+  '        $(\"\<label /\>\")
+  '          .attr({
+  '            for: \"<ident>\"
+  '          })
+  '          .text(\"<LABEL_TRUE>\")
+  '      )
+  '      .append(
+  '        $(\"\<input /\>\")
+  '          .attr({
+  '            id: \"<ident>False\",
+  '            name: \"<ident>\",
+  '            value: \"false\",
+  '            type: \"radio\"
+  '          })
+  '      )
+  '      .append(
+  '        $(\"\<label /\>\")
+  '          .attr({
+  '            for: \"<ident>False\"
+  '          })
+  '          .text(\"<LABEL_FALSE>\")
+  '      )
+  '  );
+  '
+  '$(\"#<ident>\")
+  '  .rules(\"remove\");
+  '
+  '$(\"#<ident>\")
+  '  .rules(\"add\", \"required\");
   '
   '";
 
-private str styleJS(StyleRule r: 
-    widgetStyleRule(attr, \value)) =
-  "<attr> <\value.name>";
+private str styleJS(str ident, StyleRule r: 
+    widgetStyleRule(attr, checkbox(name))) =
+  "$(\"#<ident>\")
+  '  .replaceWith(
+  '    $(\"\<span /\>\")
+  '      .append(
+  '        $(\"\<input /\>\")
+  '          .attr({
+  '            id: \"<ident>\",
+  '            name: \"<ident>\",
+  '            value: \"true\",
+  '            type: \"checkbox\"
+  '          })
+  '      )
+  '      .append(
+  '        $(\"\<label /\>\")
+  '          .attr({
+  '            for: \"<ident>\"
+  '          })
+  '          .text(\"<LABEL_TRUE>\")
+  '      )
+  '  );
+  '
+  '$(\"#<ident>\")
+  '  .rules(\"remove\");
+  '
+  '";
 
-public str styleJS(StyleRule r: 
+private str styleJS(str ident, StyleRule r: 
+    widgetStyleRule(attr, select(name))) =
+  // Select is the default type, no need for replacement
+  "";
+
+public str styleJS(str ident, StyleRule r: 
     widthStyleRule(str attr, int \value)) =
-  "<attr> <\value>";
+  "//<attr> <\value>
+  '";

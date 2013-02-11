@@ -11,7 +11,6 @@
 module lang::qls::util::ParseHelper
 
 import ParseTree;
-
 import lang::ql::syntax::Comment;
 import lang::ql::syntax::Int;
 import lang::ql::syntax::Layout;

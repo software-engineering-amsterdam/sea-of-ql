@@ -18,7 +18,7 @@ import String;
 import lang::ql::analysis::SemanticChecker;
 import lang::ql::analysis::State;
 import lang::ql::ast::AST;
-import lang::ql::tests::ParseHelper;
+import lang::ql::util::ParseHelper;
 
 import lang::qls::ast::AST;
 import lang::qls::util::ParseHelper;
