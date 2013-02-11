@@ -67,7 +67,7 @@ start syntax Type
    = integer : "integer" 
    | string :"string"
    | boolean :"boolean"
-   | money :"money"  
+   | money :"money"   
    ;
    
 // start syntax Expression  
@@ -98,7 +98,7 @@ start syntax Expression
    > left or: Expression "||" Expression
     | boolCon: Boolean bVal
     | moneyCon: Money mVal
-    | string: String
+    | string: String sVal
    ;
    
 // METHODS

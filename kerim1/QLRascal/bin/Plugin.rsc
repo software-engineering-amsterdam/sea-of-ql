@@ -15,7 +15,9 @@ import lang::ql::util::Implode;
 import lang::ql::ast::AST;
 import lang::ql::ast::Outline;
 
-import lang::ql::checker::Check;
+import lang::ql::checker::CheckQuestions;
+import lang::ql::checker::CheckExpressions;
+
 import lang::ql::generator::GenerateJava;
 
 private str LANG = "QL-R";
@@ -31,14 +33,16 @@ public void main() {
 			return outline(implode(t));
 		}),
 		annotator(Tree (Tree t) {
-			return t[@messages = checkForm(implode(t))];
+			Form form = implode(t);
+			return t[@messages = checkQuestions(form) + checkExpressions(form)];
   		}),
   		popup(
 			menu(LANG, [
 	    		action("Java generator", void (Tree t, loc l) {
 					Form form = implode(t);					
-						
-					if ({S1*, error(_, _), S2*} := checkForm(form)) {
+					set[Message] messages = checkQuestions(form) + checkExpressions(form);
+					
+					if ({S1*, error(_, _), S2*} := messages) {
 						alert("Cannot build Java file: the QL form contains errors!");
 					}
 					else {

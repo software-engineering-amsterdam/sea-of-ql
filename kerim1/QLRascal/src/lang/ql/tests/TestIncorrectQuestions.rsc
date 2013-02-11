@@ -2,7 +2,7 @@ module lang::ql::tests::TestIncorrectQuestions
 
 import Message;
 import lang::ql::util::Implode;
-import lang::ql::checker::Check;
+import lang::ql::checker::CheckQuestions;
 
 loc testFile = |project://QLRascal/src/lang/ql/tests/ql/IncorrectQuestions.q|;
 
@@ -14,4 +14,4 @@ public test bool testIncorrectQuestions() =
 		error("Question has already been defined before", _),
 		error("Question has already been defined before", _),
 		warning("Duplicate label", _)
-	} := checkForm(load(testFile));
+	} := checkQuestions(load(testFile));
