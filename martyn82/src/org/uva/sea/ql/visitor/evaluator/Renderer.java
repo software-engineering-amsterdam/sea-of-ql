@@ -13,7 +13,7 @@ import org.uva.sea.ql.ast.statement.IfThen;
 import org.uva.sea.ql.ast.statement.IfThenElse;
 import org.uva.sea.ql.ast.statement.QuestionComputed;
 import org.uva.sea.ql.ast.statement.QuestionDeclaration;
-import org.uva.sea.ql.ast.statement.QuestionVar;
+import org.uva.sea.ql.ast.statement.QuestionVariable;
 import org.uva.sea.ql.ast.statement.Statement;
 import org.uva.sea.ql.ast.statement.Statements;
 import org.uva.sea.ql.ast.statement.VarDeclaration;
@@ -209,16 +209,16 @@ public class Renderer implements StatementVisitor<Void>, TypeVisitor<Control> {
 
 	@Override
 	public Void visit( FormDeclaration node ) {
-		PanelControl formPanel = render( node.getStatements(), this.environment, this.factory );
+		PanelControl formPanel = render( node.getBody(), this.environment, this.factory );
 		this.addComponent( formPanel );
 
-		this.panel.setName( node.getIdent().getName() );
+		this.panel.setName( node.getLabel() );
 
 		return null;
 	}
 
 	@Override
-	public Void visit( QuestionVar node ) {
+	public Void visit( QuestionVariable node ) {
 		node.getVarDeclaration().accept( this );
 
 		Type type = node.getType();

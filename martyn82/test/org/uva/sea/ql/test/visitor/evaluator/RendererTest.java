@@ -1,17 +1,21 @@
 package org.uva.sea.ql.test.visitor.evaluator;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
 
 import org.junit.Test;
 import org.uva.sea.ql.ast.expression.Ident;
+import org.uva.sea.ql.ast.expression.arithmetic.Add;
 import org.uva.sea.ql.ast.expression.comparison.Eq;
 import org.uva.sea.ql.ast.expression.literal.Bool;
 import org.uva.sea.ql.ast.expression.literal.Int;
+import org.uva.sea.ql.ast.expression.literal.Money;
 import org.uva.sea.ql.ast.expression.literal.Str;
 import org.uva.sea.ql.ast.statement.Assignment;
+import org.uva.sea.ql.ast.statement.FormDeclaration;
 import org.uva.sea.ql.ast.statement.IfThen;
 import org.uva.sea.ql.ast.statement.IfThenElse;
+import org.uva.sea.ql.ast.statement.QuestionComputed;
+import org.uva.sea.ql.ast.statement.QuestionVariable;
 import org.uva.sea.ql.ast.statement.Statement;
 import org.uva.sea.ql.ast.statement.Statements;
 import org.uva.sea.ql.ast.statement.VarDeclaration;
@@ -135,8 +139,7 @@ public class RendererTest extends EvaluatorTest implements IStatementTest {
 	@Override
 	@Test
 	public void testFormDeclaration() {
-		// TODO Auto-generated method stub
-		fail( "Unimplemented testcase" );
+		eval( new FormDeclaration( "form1", new Statements() ) );
 	}
 
 	@Override
@@ -165,14 +168,32 @@ public class RendererTest extends EvaluatorTest implements IStatementTest {
 	@Override
 	@Test
 	public void testQuestionVar() {
-		// TODO Auto-generated method stub
-		fail( "Unimplemented testcase" );
+		eval(
+			new QuestionVariable( new Str( "Foo bar?" ), new VarDeclaration( new Ident( "x" ), BooleanType.BOOLEAN ) )
+		);
+		assertEquals( false, eval( new Ident( "x" ) ) );
+
+		eval(
+			new QuestionVariable( new Str( "Foo bar?" ), new VarDeclaration( new Ident( "x" ), IntegerType.INTEGER ) )
+		);
+		assertEquals( 0, eval( new Ident( "x" ) ) );
 	}
 
 	@Override
 	@Test
 	public void testQuestionComputed() {
-		// TODO Auto-generated method stub
-		fail( "Unimplemented testcase" );
+		eval(
+			new QuestionComputed(
+				new Str( "Foo Bar?" ),
+				new Assignment( new Ident( "y" ), new Eq( new Bool( true ), new Bool( true ) ) ) )
+		);
+		assertEquals( true, eval( new Ident( "y" ) ) );
+
+		eval(
+			new QuestionComputed(
+				new Str( "Foo Bar?" ),
+				new Assignment( new Ident( "y" ), new Add( new Int( 12 ), new Money( 23.4 ) ) ) )
+		);
+		assertEquals( 35.4, eval( new Ident( "y" ) ) );
 	}
 }

@@ -9,7 +9,7 @@ import org.uva.sea.ql.ast.statement.FormDeclaration;
 import org.uva.sea.ql.ast.statement.IfThen;
 import org.uva.sea.ql.ast.statement.IfThenElse;
 import org.uva.sea.ql.ast.statement.QuestionComputed;
-import org.uva.sea.ql.ast.statement.QuestionVar;
+import org.uva.sea.ql.ast.statement.QuestionVariable;
 import org.uva.sea.ql.ast.statement.Statement;
 import org.uva.sea.ql.ast.statement.VarDeclaration;
 import org.uva.sea.ql.parser.IParser;
@@ -72,8 +72,8 @@ public class StatementParserTest extends ParserTest implements IStatementTest {
 			return;
 		}
 
-		assertEquals( QuestionVar.class, root.getClass() );
-		assertEquals( VarDeclaration.class, ( (QuestionVar) root ).getVarDeclaration().getClass() );
+		assertEquals( QuestionVariable.class, root.getClass() );
+		assertEquals( VarDeclaration.class, ( (QuestionVariable) root ).getVarDeclaration().getClass() );
 	}
 
 	@Override
@@ -165,7 +165,7 @@ public class StatementParserTest extends ParserTest implements IStatementTest {
 	@Override
 	@Test
 	public void testQuestionVar() {
-		assertNode( QuestionVar.class, "\"What?\" answer: boolean" );
+		assertNode( QuestionVariable.class, "\"What?\" answer: boolean" );
 	}
 
 	@Override

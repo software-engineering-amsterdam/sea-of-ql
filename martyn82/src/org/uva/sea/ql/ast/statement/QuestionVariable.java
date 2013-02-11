@@ -8,7 +8,7 @@ import org.uva.sea.ql.visitor.StatementVisitor;
 /**
  * Represents a question declaration.
  */
-public class QuestionVar extends QuestionDeclaration {
+public class QuestionVariable extends QuestionDeclaration {
 	/**
 	 * Holds the var declaration of the question.
 	 */
@@ -20,7 +20,7 @@ public class QuestionVar extends QuestionDeclaration {
 	 * @param label
 	 * @param varDeclaration
 	 */
-	public QuestionVar( Str label, VarDeclaration varDeclaration ) {
+	public QuestionVariable( Str label, VarDeclaration varDeclaration ) {
 		super( label );
 		this.varDeclaration = varDeclaration;
 	}

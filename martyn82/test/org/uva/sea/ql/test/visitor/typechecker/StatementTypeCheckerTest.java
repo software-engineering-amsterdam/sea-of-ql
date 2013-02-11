@@ -20,7 +20,7 @@ import org.uva.sea.ql.ast.statement.Assignment;
 import org.uva.sea.ql.ast.statement.FormDeclaration;
 import org.uva.sea.ql.ast.statement.IfThen;
 import org.uva.sea.ql.ast.statement.QuestionComputed;
-import org.uva.sea.ql.ast.statement.QuestionVar;
+import org.uva.sea.ql.ast.statement.QuestionVariable;
 import org.uva.sea.ql.ast.statement.Statement;
 import org.uva.sea.ql.ast.statement.Statements;
 import org.uva.sea.ql.ast.statement.VarDeclaration;
@@ -186,7 +186,7 @@ public class StatementTypeCheckerTest extends VisitorTest<Boolean> implements IS
 				new IfThen(
 					new Bool( true ),
 					new Statements(
-						new QuestionVar(
+						new QuestionVariable(
 							new Str( "" ), new VarDeclaration( new Ident( "x" ), BooleanType.BOOLEAN )
 						),
 						new Statements(
@@ -202,13 +202,13 @@ public class StatementTypeCheckerTest extends VisitorTest<Boolean> implements IS
 	@Override
 	@Test
 	public void testFormDeclaration() {
-		assertTrue( typeCheck( new FormDeclaration( new Ident( "x" ), new Statements() ) ) );
+		assertTrue( typeCheck( new FormDeclaration( "x", new Statements() ) ) );
 		assertTrue(
 			typeCheck(
 				new FormDeclaration(
-					new Ident( "formVar" ),
+					"formVar",
 					new Statements(
-						new QuestionVar(
+						new QuestionVariable(
 							new Str( "label" ),
 							new VarDeclaration(
 								new Ident( "questionVar" ),
@@ -226,7 +226,7 @@ public class StatementTypeCheckerTest extends VisitorTest<Boolean> implements IS
 	public void testQuestionVar() {
 		assertTrue(
 			typeCheck(
-				new QuestionVar(
+				new QuestionVariable(
 					new Str( "label" ),
 					new VarDeclaration(
 						new Ident( "var" ),

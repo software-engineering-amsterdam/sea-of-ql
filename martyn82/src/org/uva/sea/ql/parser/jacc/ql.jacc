@@ -66,13 +66,13 @@ import org.uva.sea.ql.ast.type.*;
                 | assignment
                 ;
 
- form           : FORM IDENT '{' formbody '}'      { $$ = new FormDeclaration( $2, $4 ); }
+ form           : FORM IDENT '{' formbody '}'      { $$ = new FormDeclaration( $2.getName(), $4 ); }
                 ;
 
  formbody       : statements
                 ;
 
- question       : STR vardeclaration               { $$ = new QuestionVar( $1, $2 ); }
+ question       : STR vardeclaration               { $$ = new QuestionVariable( $1, $2 ); }
                 | STR assignment                   { $$ = new QuestionComputed( $1, $2 ); }
                 ;
 

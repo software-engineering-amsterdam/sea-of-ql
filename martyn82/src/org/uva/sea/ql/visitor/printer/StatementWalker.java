@@ -5,7 +5,7 @@ import org.uva.sea.ql.ast.statement.FormDeclaration;
 import org.uva.sea.ql.ast.statement.IfThen;
 import org.uva.sea.ql.ast.statement.IfThenElse;
 import org.uva.sea.ql.ast.statement.QuestionComputed;
-import org.uva.sea.ql.ast.statement.QuestionVar;
+import org.uva.sea.ql.ast.statement.QuestionVariable;
 import org.uva.sea.ql.ast.statement.Statement;
 import org.uva.sea.ql.ast.statement.Statements;
 import org.uva.sea.ql.ast.statement.VarDeclaration;
@@ -54,13 +54,13 @@ public class StatementWalker implements StatementVisitor<String> {
 
 	@Override
 	public String visit( FormDeclaration node ) {
-		String identifier = node.getIdent().accept( this.expressionVisitor );
-		String body = node.getStatements().accept( this );
-		return String.format( TPL_FORMDECLARATION, identifier, body );
+		String label = node.getLabel();
+		String body = node.getBody().accept( this );
+		return String.format( TPL_FORMDECLARATION, label, body );
 	}
 
 	@Override
-	public String visit( QuestionVar node ) {
+	public String visit( QuestionVariable node ) {
 		String label = node.getLabel().accept( this.expressionVisitor );
 		String body = node.getVarDeclaration().accept( this );
 		return String.format( TPL_QUESTION, label, body );

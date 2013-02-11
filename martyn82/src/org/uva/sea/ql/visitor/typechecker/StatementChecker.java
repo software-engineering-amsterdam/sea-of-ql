@@ -7,7 +7,7 @@ import org.uva.sea.ql.ast.statement.FormDeclaration;
 import org.uva.sea.ql.ast.statement.IfThen;
 import org.uva.sea.ql.ast.statement.IfThenElse;
 import org.uva.sea.ql.ast.statement.QuestionComputed;
-import org.uva.sea.ql.ast.statement.QuestionVar;
+import org.uva.sea.ql.ast.statement.QuestionVariable;
 import org.uva.sea.ql.ast.statement.Statement;
 import org.uva.sea.ql.ast.statement.Statements;
 import org.uva.sea.ql.ast.statement.VarDeclaration;
@@ -115,11 +115,11 @@ public class StatementChecker extends TypeCheckVisitor implements StatementVisit
 
 	@Override
 	public Boolean visit( FormDeclaration node ) {
-		return node.getStatements().accept( this );
+		return node.getBody().accept( this );
 	}
 
 	@Override
-	public Boolean visit( QuestionVar node ) {
+	public Boolean visit( QuestionVariable node ) {
 		if ( !node.getLabel().accept( this.expressionChecker ) ) {
 			return false;
 		}
