@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.uva.sea.ql.ast.Expr;
 import org.uva.sea.ql.ast.Type;
+import org.uva.sea.ql.ast.expressions.LiteralExpr;
 import org.uva.sea.ql.ast.expressions.UnaryExpr;
 import org.uva.sea.ql.ast.expressions.binary.BinaryArithmeticExpr;
 import org.uva.sea.ql.ast.expressions.binary.BinaryLogicalExpr;
@@ -82,34 +83,15 @@ public class CheckExpr implements Visitor<Boolean> {
 	public Boolean visit(Not ast) { return checkUnaryLogicalExpr(ast, "!");  }
 
 	@Override
-	public Boolean visit(Bool ast) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
+	public Boolean visit(Bool ast)  { return checkLiteralExpr(ast, Bool.class.toString());  }
 	@Override
-	public Boolean visit(Ident ast) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
+	public Boolean visit(Ident ast) { return checkLiteralExpr(ast, Ident.class.toString()); }
 	@Override
-	public Boolean visit(Int ast) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
+	public Boolean visit(Int ast)   { return checkLiteralExpr(ast, Int.class.toString());   }
 	@Override
-	public Boolean visit(Money money) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
+	public Boolean visit(Money ast) { return checkLiteralExpr(ast, Money.class.toString()); }
 	@Override
-	public Boolean visit(Str str) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	public Boolean visit(Str ast)   { return checkLiteralExpr(ast, Str.class.toString());   }
 	
 	private Boolean checkNumericExpr(BinaryArithmeticExpr expr, String binarySymbol) {
 		boolean checkLhs = expr.getLhs().accept(this);
@@ -210,6 +192,26 @@ public class CheckExpr implements Visitor<Boolean> {
 		// Check if Type is compatible with UnaryLogicalExpr
 		if (!exprType.isCompatibleToBool()) {
 			addError(expr, "invalid type for " + binarySymbol);
+			return false;
+		}
+		
+		// No Type error
+		return true; 
+	}
+	
+	private Boolean checkLiteralExpr(LiteralExpr expr, String className) {
+		boolean checkExpr = expr.accept(this);
+		
+		if (!checkExpr) {
+			// Type error occurred
+			return false;
+		}
+		
+		Type exprType = expr.typeOf(_typeEnv);
+		
+		// Check if Type is compatible with LiteralExpr
+		if (!exprType.isCompatibleTo(exprType)) {
+			addError(expr, "invalid type for literal " + className);
 			return false;
 		}
 		
