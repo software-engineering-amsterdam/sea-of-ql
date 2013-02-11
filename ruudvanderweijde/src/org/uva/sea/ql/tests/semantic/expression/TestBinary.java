@@ -16,7 +16,7 @@ import org.uva.sea.ql.parser.ANTLRParser;
 import org.uva.sea.ql.parser.error.ParseError;
 import org.uva.sea.ql.tests.IParse;
 import org.uva.sea.ql.visitor.ExpressionTypeVisitor;
-import org.uva.sea.ql.visitor.SymbolTable;
+import org.uva.sea.ql.visitor.TypeMapper;
 
 @RunWith(Parameterized.class)
 public class TestBinary {
@@ -28,7 +28,7 @@ public class TestBinary {
 		Object[][] data = new Object[][] { new Object[] {new ANTLRParser()} };
 		return Arrays.asList(data);
 	}
-	public static SymbolTable symbolTable = new SymbolTable();
+	public static TypeMapper typeMapper = new TypeMapper();
 	public static ArrayList<Message> errors = new ArrayList<Message>();
 
 	
@@ -38,79 +38,79 @@ public class TestBinary {
 
 	@Test
 	public void testAdd() throws ParseError {
-		assertTrue(parser.parseExpression("1 + 1").accept(new ExpressionTypeVisitor(symbolTable, errors)));
-		assertFalse(parser.parseExpression("1 + true").accept(new ExpressionTypeVisitor(symbolTable, errors)));	
+		assertTrue(parser.parseExpression("1 + 1").accept(new ExpressionTypeVisitor(typeMapper, errors)));
+		assertFalse(parser.parseExpression("1 + true").accept(new ExpressionTypeVisitor(typeMapper, errors)));	
 	}
 
 	@Test
 	public void testAnd() throws ParseError {
-		assertTrue(parser.parseExpression("true && false").accept(new ExpressionTypeVisitor(symbolTable, errors)));
-		assertFalse(parser.parseExpression("true && 1").accept(new ExpressionTypeVisitor(symbolTable, errors)));	
+		assertTrue(parser.parseExpression("true && false").accept(new ExpressionTypeVisitor(typeMapper, errors)));
+		assertFalse(parser.parseExpression("true && 1").accept(new ExpressionTypeVisitor(typeMapper, errors)));	
 	}
 
 	@Test
 	public void testDiv() throws ParseError {
-		assertTrue(parser.parseExpression("2 - 1").accept(new ExpressionTypeVisitor(symbolTable, errors)));
-		assertFalse(parser.parseExpression("2 - true").accept(new ExpressionTypeVisitor(symbolTable, errors)));	
+		assertTrue(parser.parseExpression("2 - 1").accept(new ExpressionTypeVisitor(typeMapper, errors)));
+		assertFalse(parser.parseExpression("2 - true").accept(new ExpressionTypeVisitor(typeMapper, errors)));	
 	}
 	
 	@Test
 	public void testEq() throws ParseError {
-		assertTrue(parser.parseExpression("true == true").accept(new ExpressionTypeVisitor(symbolTable, errors)));
-		assertFalse(parser.parseExpression("true == 1").accept(new ExpressionTypeVisitor(symbolTable, errors)));
+		assertTrue(parser.parseExpression("true == true").accept(new ExpressionTypeVisitor(typeMapper, errors)));
+		assertFalse(parser.parseExpression("true == 1").accept(new ExpressionTypeVisitor(typeMapper, errors)));
     	
-		assertTrue(parser.parseExpression("1 == 10").accept(new ExpressionTypeVisitor(symbolTable, errors)));
-    	assertFalse(parser.parseExpression("true == 1").accept(new ExpressionTypeVisitor(symbolTable, errors)));
+		assertTrue(parser.parseExpression("1 == 10").accept(new ExpressionTypeVisitor(typeMapper, errors)));
+    	assertFalse(parser.parseExpression("true == 1").accept(new ExpressionTypeVisitor(typeMapper, errors)));
 	}
 	
 	@Test
 	public void testGT() throws ParseError {
-		assertTrue(parser.parseExpression("10 > 1").accept(new ExpressionTypeVisitor(symbolTable, errors)));
-		assertFalse(parser.parseExpression("10 > true").accept(new ExpressionTypeVisitor(symbolTable, errors)));	
+		assertTrue(parser.parseExpression("10 > 1").accept(new ExpressionTypeVisitor(typeMapper, errors)));
+		assertFalse(parser.parseExpression("10 > true").accept(new ExpressionTypeVisitor(typeMapper, errors)));	
 	}
 	
 	@Test
 	public void testGEq() throws ParseError {
-		assertTrue(parser.parseExpression("1 >= 3").accept(new ExpressionTypeVisitor(symbolTable, errors)));
-		assertFalse(parser.parseExpression("1 >= true").accept(new ExpressionTypeVisitor(symbolTable, errors)));	
+		assertTrue(parser.parseExpression("1 >= 3").accept(new ExpressionTypeVisitor(typeMapper, errors)));
+		assertFalse(parser.parseExpression("1 >= true").accept(new ExpressionTypeVisitor(typeMapper, errors)));	
 	}
 	
 	@Test
 	public void testLEq() throws ParseError {
-		assertTrue(parser.parseExpression("1 <= 10").accept(new ExpressionTypeVisitor(symbolTable, errors)));
-		assertFalse(parser.parseExpression("1 <= true").accept(new ExpressionTypeVisitor(symbolTable, errors)));	
+		assertTrue(parser.parseExpression("1 <= 10").accept(new ExpressionTypeVisitor(typeMapper, errors)));
+		assertFalse(parser.parseExpression("1 <= true").accept(new ExpressionTypeVisitor(typeMapper, errors)));	
 	}	
 	
 	@Test
 	public void testLT() throws ParseError {
-		assertTrue(parser.parseExpression("1 < 10").accept(new ExpressionTypeVisitor(symbolTable, errors)));
-		assertFalse(parser.parseExpression("1 < true").accept(new ExpressionTypeVisitor(symbolTable, errors)));	
+		assertTrue(parser.parseExpression("1 < 10").accept(new ExpressionTypeVisitor(typeMapper, errors)));
+		assertFalse(parser.parseExpression("1 < true").accept(new ExpressionTypeVisitor(typeMapper, errors)));	
 	}
 	
 	@Test
 	public void testMul() throws ParseError {
-		assertTrue(parser.parseExpression("1 * 10").accept(new ExpressionTypeVisitor(symbolTable, errors)));
-		assertFalse(parser.parseExpression("1 * true").accept(new ExpressionTypeVisitor(symbolTable, errors)));	
+		assertTrue(parser.parseExpression("1 * 10").accept(new ExpressionTypeVisitor(typeMapper, errors)));
+		assertFalse(parser.parseExpression("1 * true").accept(new ExpressionTypeVisitor(typeMapper, errors)));	
 	}	
 	
 	@Test
 	public void testNEq() throws ParseError {
-		assertTrue(parser.parseExpression("true != true").accept(new ExpressionTypeVisitor(symbolTable, errors)));
-		assertFalse(parser.parseExpression("true != 1").accept(new ExpressionTypeVisitor(symbolTable, errors)));
+		assertTrue(parser.parseExpression("true != true").accept(new ExpressionTypeVisitor(typeMapper, errors)));
+		assertFalse(parser.parseExpression("true != 1").accept(new ExpressionTypeVisitor(typeMapper, errors)));
 		
-		assertTrue(parser.parseExpression("10 != 1").accept(new ExpressionTypeVisitor(symbolTable, errors)));
-		assertFalse(parser.parseExpression("true != 1").accept(new ExpressionTypeVisitor(symbolTable, errors)));
+		assertTrue(parser.parseExpression("10 != 1").accept(new ExpressionTypeVisitor(typeMapper, errors)));
+		assertFalse(parser.parseExpression("true != 1").accept(new ExpressionTypeVisitor(typeMapper, errors)));
 	}
 	
 	@Test
 	public void testOr() throws ParseError {
-		assertTrue(parser.parseExpression("true || false").accept(new ExpressionTypeVisitor(symbolTable, errors)));
-		assertFalse(parser.parseExpression("1 || true").accept(new ExpressionTypeVisitor(symbolTable, errors)));	
+		assertTrue(parser.parseExpression("true || false").accept(new ExpressionTypeVisitor(typeMapper, errors)));
+		assertFalse(parser.parseExpression("1 || true").accept(new ExpressionTypeVisitor(typeMapper, errors)));	
 	}
 	
 	@Test
 	public void testSub() throws ParseError {
-		assertTrue(parser.parseExpression("10 / 1").accept(new ExpressionTypeVisitor(symbolTable, errors)));
-		assertFalse(parser.parseExpression("10 / true").accept(new ExpressionTypeVisitor(symbolTable, errors)));	
+		assertTrue(parser.parseExpression("10 / 1").accept(new ExpressionTypeVisitor(typeMapper, errors)));
+		assertFalse(parser.parseExpression("10 / true").accept(new ExpressionTypeVisitor(typeMapper, errors)));	
 	}
 }

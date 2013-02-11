@@ -3,7 +3,7 @@ package org.uva.sea.ql.ast.expr.primary;
 import org.uva.sea.ql.type.BooleanType;
 import org.uva.sea.ql.type.Type;
 import org.uva.sea.ql.visitor.IExpressionVisitor;
-import org.uva.sea.ql.visitor.SymbolTable;
+import org.uva.sea.ql.visitor.TypeMapper;
 
 
 public class Bool extends Primary<Boolean> {
@@ -23,7 +23,7 @@ public class Bool extends Primary<Boolean> {
 	}
 
 	@Override
-	public Type typeOf(SymbolTable symbolTable) {
+	public Type typeOf(TypeMapper typeMapper) {
 		return new BooleanType();
 	}
 

@@ -3,7 +3,7 @@ package org.uva.sea.ql.ast.expr.primary;
 import org.uva.sea.ql.type.IntegerType;
 import org.uva.sea.ql.type.Type;
 import org.uva.sea.ql.visitor.IExpressionVisitor;
-import org.uva.sea.ql.visitor.SymbolTable;
+import org.uva.sea.ql.visitor.TypeMapper;
 
 
 public class Int extends Primary<Integer> {
@@ -24,7 +24,7 @@ public class Int extends Primary<Integer> {
 	}
 
 	@Override
-	public Type typeOf(SymbolTable symbolTable) {
+	public Type typeOf(TypeMapper typeMapper) {
 		return new IntegerType();
 	}
 	

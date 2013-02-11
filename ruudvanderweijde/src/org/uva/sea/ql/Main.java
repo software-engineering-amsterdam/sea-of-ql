@@ -19,8 +19,8 @@ import org.uva.sea.ql.parser.ANTLRParser;
 import org.uva.sea.ql.parser.error.ParseError;
 import org.uva.sea.ql.value.Value;
 import org.uva.sea.ql.visitor.FormRenderer;
-import org.uva.sea.ql.visitor.FormVisitor;
-import org.uva.sea.ql.visitor.SymbolTable;
+import org.uva.sea.ql.visitor.FormTypeCheckVisitor;
+import org.uva.sea.ql.visitor.TypeMapper;
 
 /*
  * This file is added to test the QL program
@@ -31,7 +31,7 @@ public class Main {
 	static public void main(String[] args) throws ParseError {
 		ANTLRParser parser = new ANTLRParser();
 
-		SymbolTable symbolTable = new SymbolTable();
+		TypeMapper typeMapper = new TypeMapper();
 		Map<Ident, Value> symbolTableValues = new HashMap<Ident, Value>();
 		List<Message> errors = new ArrayList<Message>();
 
@@ -49,7 +49,7 @@ public class Main {
 		}
 		
 		Form form = parser.parseForm(strInput);
-		form.accept(new FormVisitor(symbolTable, errors));
+		form.accept(new FormTypeCheckVisitor(typeMapper, errors));
 
 		if (!errors.isEmpty()) {
 			System.out.println("Unable to run the QL form. Please correct the following "

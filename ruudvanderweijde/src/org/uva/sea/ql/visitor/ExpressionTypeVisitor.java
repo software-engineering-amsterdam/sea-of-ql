@@ -30,17 +30,17 @@ import org.uva.sea.ql.message.Warning;
 import org.uva.sea.ql.type.Type;
 
 public class ExpressionTypeVisitor implements IExpressionVisitor<Boolean> {
-	private final SymbolTable symbolTable;
+	private final TypeMapper typeMapper;
 	private final List<Message> errors;
 
-	public ExpressionTypeVisitor(SymbolTable symbolTable, List<Message> errors) {
-		this.symbolTable = symbolTable;
+	public ExpressionTypeVisitor(TypeMapper typeMapper, List<Message> errors) {
+		this.typeMapper = typeMapper;
 		this.errors = errors;
 	}
 
-	public static boolean check(Expr expr, SymbolTable symbolTable,
+	public static boolean check(Expr expr, TypeMapper typeMapper,
 			List<Message> errs) {
-		ExpressionTypeVisitor check = new ExpressionTypeVisitor(symbolTable, errs);
+		ExpressionTypeVisitor check = new ExpressionTypeVisitor(typeMapper, errs);
 		return expr.accept(check);
 	}
 
@@ -180,7 +180,7 @@ public class ExpressionTypeVisitor implements IExpressionVisitor<Boolean> {
 
 	@Override
 	public Boolean visit(Bool expr) {
-		Type exprType = expr.typeOf(symbolTable);
+		Type exprType = expr.typeOf(typeMapper);
 		if (!exprType.isCompatibleToBooleanType()) {
 			addError(String.format("%s is not a valid Boolean.", expr.toString()));
 			return false;
@@ -195,7 +195,7 @@ public class ExpressionTypeVisitor implements IExpressionVisitor<Boolean> {
 
 	@Override
 	public Boolean visit(Int expr) {
-		Type exprType = expr.typeOf(symbolTable);
+		Type exprType = expr.typeOf(typeMapper);
 		if (!exprType.isCompatibleToNumericType()) {
 			addError(String.format("%s is not a valid Int.", expr.toString()));
 			return false;
@@ -205,7 +205,7 @@ public class ExpressionTypeVisitor implements IExpressionVisitor<Boolean> {
 
 	@Override
 	public Boolean visit(StringLiteral expr) {
-		Type exprType = expr.typeOf(symbolTable);
+		Type exprType = expr.typeOf(typeMapper);
 		if (!exprType.isCompatibleToStringType()) {
 			addError(String.format("%s is not a valid String.", expr.toString()));
 			return false;
@@ -224,8 +224,8 @@ public class ExpressionTypeVisitor implements IExpressionVisitor<Boolean> {
 	}
 
 	private boolean bothSidesAreNumeric(Binary expr) {
-		Type lhsType = expr.getLhs().typeOf(symbolTable);
-		Type rhsType = expr.getRhs().typeOf(symbolTable);
+		Type lhsType = expr.getLhs().typeOf(typeMapper);
+		Type rhsType = expr.getRhs().typeOf(typeMapper);
 
 		if (!(lhsType.isCompatibleToNumericType() && rhsType
 				.isCompatibleToNumericType())) {
@@ -238,8 +238,8 @@ public class ExpressionTypeVisitor implements IExpressionVisitor<Boolean> {
 	}
 
 	private boolean bothSidesAreBoolean(Binary expr) {
-		Type lhsType = expr.getLhs().typeOf(symbolTable);
-		Type rhsType = expr.getRhs().typeOf(symbolTable);
+		Type lhsType = expr.getLhs().typeOf(typeMapper);
+		Type rhsType = expr.getRhs().typeOf(typeMapper);
 
 		if (!(lhsType.isCompatibleToBooleanType() && rhsType
 				.isCompatibleToBooleanType())) {
@@ -252,8 +252,8 @@ public class ExpressionTypeVisitor implements IExpressionVisitor<Boolean> {
 	}
 	
 	private boolean bothSidesAreBooleanOrNumeric(Binary expr) {
-		Type lhsType = expr.getLhs().typeOf(symbolTable);
-		Type rhsType = expr.getRhs().typeOf(symbolTable);
+		Type lhsType = expr.getLhs().typeOf(typeMapper);
+		Type rhsType = expr.getRhs().typeOf(typeMapper);
 		if (!(lhsType.isCompatibleToBooleanType() && rhsType.isCompatibleToBooleanType()) 
 				&& !(lhsType.isCompatibleToNumericType() && rhsType.isCompatibleToNumericType())) {
 
@@ -265,7 +265,7 @@ public class ExpressionTypeVisitor implements IExpressionVisitor<Boolean> {
 	}
 	
 	private boolean isCompatibleToNumeric(Unary expr) {
-		Type argType = expr.getArg().typeOf(symbolTable);
+		Type argType = expr.getArg().typeOf(typeMapper);
 		if (!argType.isCompatibleToNumericType()) {
 			addError(String.format("Invalid Numeric type for %s.", 
 					expr.toString()));
@@ -275,7 +275,7 @@ public class ExpressionTypeVisitor implements IExpressionVisitor<Boolean> {
 	}
 	
 	private boolean isCompatibleToBoolean(Unary expr) {
-		Type argType = expr.getArg().typeOf(symbolTable);
+		Type argType = expr.getArg().typeOf(typeMapper);
 		if (!argType.isCompatibleToBooleanType()) {
 			addError(String.format("Invalid Boolean type for %s.", 
 					expr.toString()));

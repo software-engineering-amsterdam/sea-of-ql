@@ -14,8 +14,8 @@ import org.uva.sea.ql.message.Message;
 import org.uva.sea.ql.parser.ANTLRParser;
 import org.uva.sea.ql.parser.error.ParseError;
 import org.uva.sea.ql.tests.IParse;
-import org.uva.sea.ql.visitor.FormVisitor;
-import org.uva.sea.ql.visitor.SymbolTable;
+import org.uva.sea.ql.visitor.FormTypeCheckVisitor;
+import org.uva.sea.ql.visitor.TypeMapper;
 
 @RunWith(Parameterized.class)
 public class TestForm {
@@ -27,7 +27,7 @@ public class TestForm {
 		Object[][] data = new Object[][] { new Object[] {new ANTLRParser()} };
 		return Arrays.asList(data);
 	}
-	public static SymbolTable symbolTable = new SymbolTable();
+	public static TypeMapper typeMapper = new TypeMapper();
 	public static ArrayList<Message> errors = new ArrayList<Message>();
 	private String formString = "form Box1HouseOwning {\n"
 			+ "   hasSoldHouse: \"Did you sell a house in 2010?\" boolean\n"
@@ -46,7 +46,7 @@ public class TestForm {
 
 	@Test
 	public void testProvidedForm() throws ParseError {
-		parser.parseForm(formString).accept(new FormVisitor(symbolTable, errors));
+		parser.parseForm(formString).accept(new FormTypeCheckVisitor(typeMapper, errors));
     	assertEquals(errors.size(), 0);
 	}
 }

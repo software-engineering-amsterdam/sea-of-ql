@@ -14,8 +14,8 @@ import org.uva.sea.ql.message.Message;
 import org.uva.sea.ql.parser.ANTLRParser;
 import org.uva.sea.ql.parser.error.ParseError;
 import org.uva.sea.ql.tests.IParse;
-import org.uva.sea.ql.visitor.FormVisitor;
-import org.uva.sea.ql.visitor.SymbolTable;
+import org.uva.sea.ql.visitor.FormTypeCheckVisitor;
+import org.uva.sea.ql.visitor.TypeMapper;
 
 @RunWith(Parameterized.class)
 public class TestIfThenElse {
@@ -27,13 +27,13 @@ public class TestIfThenElse {
 		Object[][] data = new Object[][] { new Object[] {new ANTLRParser()} };
 		return Arrays.asList(data);
 	}
-	public SymbolTable symbolTable = new SymbolTable();
+	public TypeMapper typeMapper = new TypeMapper();
 	public static ArrayList<Message> errors = new ArrayList<Message>();
 
 	
 	public TestIfThenElse(IParse parser) {
 		this.parser = parser;
-		symbolTable = new SymbolTable();
+		typeMapper = new TypeMapper();
 		errors.clear();
 	}
 
@@ -51,7 +51,7 @@ public class TestIfThenElse {
     	formString += "   }\n";
     	formString += "}\n";
     	
-    	parser.parseForm(formString).accept(new FormVisitor(symbolTable, errors));
+    	parser.parseForm(formString).accept(new FormTypeCheckVisitor(typeMapper, errors));
     	assertEquals(errors.size(), 0);
 	}
 	@Test
@@ -76,7 +76,7 @@ public class TestIfThenElse {
     	formString += "   }\n";
     	formString += "}\n";
     	
-    	parser.parseForm(formString).accept(new FormVisitor(symbolTable, errors));
+    	parser.parseForm(formString).accept(new FormTypeCheckVisitor(typeMapper, errors));
     	assertEquals(errors.size(), 0);
 	}
 }

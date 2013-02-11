@@ -18,8 +18,8 @@ import org.uva.sea.ql.tests.IParse;
 import org.uva.sea.ql.type.BooleanType;
 import org.uva.sea.ql.type.IntegerType;
 import org.uva.sea.ql.type.StringType;
-import org.uva.sea.ql.visitor.FormVisitor;
-import org.uva.sea.ql.visitor.SymbolTable;
+import org.uva.sea.ql.visitor.FormTypeCheckVisitor;
+import org.uva.sea.ql.visitor.TypeMapper;
 
 @RunWith(Parameterized.class)
 public class TestQuestion {
@@ -32,12 +32,12 @@ public class TestQuestion {
 		return Arrays.asList(data);
 	}
 
-	private SymbolTable symbolTable = new SymbolTable();
+	private TypeMapper typeMapper = new TypeMapper();
 	private static ArrayList<Message> errors = new ArrayList<Message>();
 
 	public TestQuestion(IParse parser) {
 		this.parser = parser;
-		symbolTable = new SymbolTable();
+		typeMapper = new TypeMapper();
 		errors.clear();
 	}
 
@@ -50,12 +50,12 @@ public class TestQuestion {
 		formString += "   reasonSelling: \"Why did you sell a house in 2010?\" string\n";
 		formString += "}\n";
 
-		parser.parseForm(formString).accept(new FormVisitor(symbolTable, errors));
+		parser.parseForm(formString).accept(new FormTypeCheckVisitor(typeMapper, errors));
 		
 		assertEquals(errors.size(), 0);
-		assertEquals(symbolTable.getType(new Ident("sellingPrice")).getClass(), IntegerType.class);
-		assertEquals(symbolTable.getType(new Ident("hasSoldHouse")).getClass(), BooleanType.class);
-		assertEquals(symbolTable.getType(new Ident("reasonSelling")).getClass(), StringType.class);
+		assertEquals(typeMapper.getType(new Ident("sellingPrice")).getClass(), IntegerType.class);
+		assertEquals(typeMapper.getType(new Ident("hasSoldHouse")).getClass(), BooleanType.class);
+		assertEquals(typeMapper.getType(new Ident("reasonSelling")).getClass(), StringType.class);
 	}
 	
 	@Test
@@ -66,7 +66,7 @@ public class TestQuestion {
     	formString += "   hasSoldHouse: \"Did you sell a house in 2010?\" boolean\n";
     	formString += "}\n";
     	
-    	parser.parseForm(formString).accept(new FormVisitor(symbolTable, errors));
+    	parser.parseForm(formString).accept(new FormTypeCheckVisitor(typeMapper, errors));
     	assertEquals(errors.size(), 1);
 	} 
 	
@@ -77,10 +77,10 @@ public class TestQuestion {
 		formString += "		valueResidue: \"Value residue:\" integer(sellingPrice - privateDebt)\n";
 		formString += "}\n";
 
-		parser.parseForm(formString).accept(new FormVisitor(symbolTable, errors));
+		parser.parseForm(formString).accept(new FormTypeCheckVisitor(typeMapper, errors));
 		
 		assertEquals(errors.size(), 1);
-		assertEquals(symbolTable.getType(new Ident("valueResidue")).getClass(), IntegerType.class);
+		assertEquals(typeMapper.getType(new Ident("valueResidue")).getClass(), IntegerType.class);
 	}
 
 	@Test
@@ -92,12 +92,12 @@ public class TestQuestion {
 		formString += "		valueResidue: \"Value residue:\" integer(sellingPrice - privateDebt)\n";
 		formString += "}\n";
 
-		parser.parseForm(formString).accept(new FormVisitor(symbolTable, errors));
+		parser.parseForm(formString).accept(new FormTypeCheckVisitor(typeMapper, errors));
 		
 		assertEquals(errors.size(), 0);
-		assertEquals(symbolTable.getType(new Ident("sellingPrice")).getClass(), IntegerType.class);
-		assertEquals(symbolTable.getType(new Ident("sellingPrice")).getClass(), IntegerType.class);
-		assertEquals(symbolTable.getType(new Ident("sellingPrice")).getClass(),	IntegerType.class);
+		assertEquals(typeMapper.getType(new Ident("sellingPrice")).getClass(), IntegerType.class);
+		assertEquals(typeMapper.getType(new Ident("sellingPrice")).getClass(), IntegerType.class);
+		assertEquals(typeMapper.getType(new Ident("sellingPrice")).getClass(),	IntegerType.class);
 
 	}
 
@@ -110,12 +110,12 @@ public class TestQuestion {
 		formString += "		valueResidue: \"Value residue:\" integer(sellingPrice - privateDebt)\n";
 		formString += "}\n";
 
-		parser.parseForm(formString).accept(new FormVisitor(symbolTable, errors));
+		parser.parseForm(formString).accept(new FormTypeCheckVisitor(typeMapper, errors));
 		
 		assertEquals(errors.size(), 1);	
-		assertEquals(symbolTable.getType(new Ident("sellingPrice")).getClass(), BooleanType.class);
-		assertEquals(symbolTable.getType(new Ident("privateDebt")).getClass(), IntegerType.class);
-		assertEquals(symbolTable.getType(new Ident("valueResidue")).getClass(),	IntegerType.class);
+		assertEquals(typeMapper.getType(new Ident("sellingPrice")).getClass(), BooleanType.class);
+		assertEquals(typeMapper.getType(new Ident("privateDebt")).getClass(), IntegerType.class);
+		assertEquals(typeMapper.getType(new Ident("valueResidue")).getClass(),	IntegerType.class);
 	}
 
 	@Test
@@ -127,10 +127,10 @@ public class TestQuestion {
 		formString += "		valueResidue: \"Value residue:\" boolean(sellingPrice - privateDebt)\n";
 		formString += "}\n";
 
-		parser.parseForm(formString).accept(new FormVisitor(symbolTable, errors));
-		assertEquals(symbolTable.getType(new Ident("sellingPrice")).getClass(), IntegerType.class);
-		assertEquals(symbolTable.getType(new Ident("privateDebt")).getClass(), IntegerType.class);
-		assertEquals(symbolTable.getType(new Ident("valueResidue")).getClass(),	BooleanType.class);
+		parser.parseForm(formString).accept(new FormTypeCheckVisitor(typeMapper, errors));
+		assertEquals(typeMapper.getType(new Ident("sellingPrice")).getClass(), IntegerType.class);
+		assertEquals(typeMapper.getType(new Ident("privateDebt")).getClass(), IntegerType.class);
+		assertEquals(typeMapper.getType(new Ident("valueResidue")).getClass(),	BooleanType.class);
 	}
 
 	@Test
@@ -142,10 +142,10 @@ public class TestQuestion {
 		formString += "		valueResidue: \"Value residue:\" integer(sellingPrice - privateDebt)\n";
 		formString += "}\n";
 
-		parser.parseForm(formString).accept(new FormVisitor(symbolTable, errors));
+		parser.parseForm(formString).accept(new FormTypeCheckVisitor(typeMapper, errors));
 		assertEquals(errors.size(), 1);
-		assertEquals(symbolTable.getType(new Ident("sellingPrice")).getClass(), BooleanType.class);
-		assertEquals(symbolTable.getType(new Ident("privateDebt")).getClass(), BooleanType.class);
-		assertEquals(symbolTable.getType(new Ident("valueResidue")).getClass(), IntegerType.class);
+		assertEquals(typeMapper.getType(new Ident("sellingPrice")).getClass(), BooleanType.class);
+		assertEquals(typeMapper.getType(new Ident("privateDebt")).getClass(), BooleanType.class);
+		assertEquals(typeMapper.getType(new Ident("valueResidue")).getClass(), IntegerType.class);
 	}
 }

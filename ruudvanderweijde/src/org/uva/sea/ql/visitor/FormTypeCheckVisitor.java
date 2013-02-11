@@ -1,7 +1,6 @@
 package org.uva.sea.ql.visitor;
 
 import java.util.List;
-import java.util.Map;
 
 import org.uva.sea.ql.ast.Form;
 import org.uva.sea.ql.ast.expr.Expr;
@@ -23,17 +22,17 @@ import org.uva.sea.ql.type.Type;
  *  	- only allow numeric expressions in computed question expression
  *  	- check expressions of computed types
  */
-public class FormVisitor implements IFormVisitor {
-	private final SymbolTable symbolTable;
+public class FormTypeCheckVisitor implements IFormVisitor {
+	private final TypeMapper typeMapper;
 	private final List<Message> errors;
 	private final String ERROR_DUPLICATE_ID = "Duplicate question identiefier: '%s'";
 	private final String ERROR_BOOL_CONDITION = "Condition is not an boolean expression. %s type given.";
 	private final String ERROR_WRONG_TYPE = "Question '%s' returns invalid expression: %s type expected, %s type given.";
-	private final String ERROR_WRONG_COMPUTED_TYPE = "Invalid type for computed question '%s'. Only numeric expressions are allowed in computed questions, %s type given.";
-
+	private final String ERROR_WRONG_COMPUTED_TYPE = "Invalid type for computed question '%s'. " +
+			"Only numeric expressions are allowed in computed questions, %s type given.";
 	
-	public FormVisitor(SymbolTable symbolTable, List<Message> errors) {
-		this.symbolTable = symbolTable;
+	public FormTypeCheckVisitor(TypeMapper typeMapper, List<Message> errors) {
+		this.typeMapper = typeMapper;
 		this.errors = errors;
 	}
 
@@ -80,21 +79,21 @@ public class FormVisitor implements IFormVisitor {
 	}
 
 	private void checkName(Ident id, Type type) {
-		if (symbolTable.hasTypeKey(id)) {
+		if (typeMapper.hasTypeKey(id)) {
 			addError(String.format(ERROR_DUPLICATE_ID, id.getName()));
 		} else {
-			symbolTable.setType(id, type);
+			typeMapper.setType(id, type);
 		}
 	}
 
 	private void checkExpr(Expr expr) {
-		expr.accept(new ExpressionTypeVisitor(symbolTable, errors));
+		expr.accept(new ExpressionTypeVisitor(typeMapper, errors));
 	}
 
 	private void checkIfConditionIsOfBooleanType(Expr expr) {
 		checkExpr(expr);
 
-		Type exprType = expr.typeOf(symbolTable);
+		Type exprType = expr.typeOf(typeMapper);
 		if (!exprType.isCompatibleToBooleanType()) {
 			addError(String.format(ERROR_BOOL_CONDITION, exprType.toString()));
 		}
@@ -102,19 +101,19 @@ public class FormVisitor implements IFormVisitor {
 
 	private void checkIfCompatibleAndNumeric(ComputedQuestion question) {
 		if (!question.getType().isCompatibleTo(
-				question.getExpr().typeOf(symbolTable))) {
+				question.getExpr().typeOf(typeMapper))) {
 
 			addError(String.format(ERROR_WRONG_TYPE,
 							question.getId().getName(), question.getType(),
-							question.getExpr().typeOf(symbolTable)));
+							question.getExpr().typeOf(typeMapper)));
 			
-		} else if (!question.getExpr().typeOf(symbolTable)
+		} else if (!question.getExpr().typeOf(typeMapper)
 				.isCompatibleToNumericType()) {
 
 			addError(String
 					.format(ERROR_WRONG_COMPUTED_TYPE,
 							question.getId().getName(), question.getExpr()
-									.typeOf(symbolTable)));
+									.typeOf(typeMapper)));
 		}
 	}
 

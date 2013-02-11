@@ -4,7 +4,7 @@ import org.uva.sea.ql.ast.expr.Expr;
 import org.uva.sea.ql.type.Type;
 import org.uva.sea.ql.type.UndefinedType;
 import org.uva.sea.ql.visitor.IExpressionVisitor;
-import org.uva.sea.ql.visitor.SymbolTable;
+import org.uva.sea.ql.visitor.TypeMapper;
 
 
 public final class Ident extends Expr {
@@ -40,9 +40,9 @@ public final class Ident extends Expr {
 	}
 
 	@Override
-	public Type typeOf(SymbolTable symbolTable) {
-		if (symbolTable.hasTypeKey(this)) {
-			return symbolTable.getType(this);
+	public Type typeOf(TypeMapper typeMapper) {
+		if (typeMapper.hasTypeKey(this)) {
+			return typeMapper.getType(this);
 		}
 		return new UndefinedType();
 	}

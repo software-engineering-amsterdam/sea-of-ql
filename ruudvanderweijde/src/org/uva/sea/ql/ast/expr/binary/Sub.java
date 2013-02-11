@@ -4,7 +4,7 @@ import org.uva.sea.ql.ast.expr.Expr;
 import org.uva.sea.ql.type.NumericType;
 import org.uva.sea.ql.type.Type;
 import org.uva.sea.ql.visitor.IExpressionVisitor;
-import org.uva.sea.ql.visitor.SymbolTable;
+import org.uva.sea.ql.visitor.TypeMapper;
 
 public class Sub extends Binary {
 
@@ -18,7 +18,7 @@ public class Sub extends Binary {
 	}
 	
 	@Override
-	public Type typeOf(SymbolTable symbolTables) {
+	public Type typeOf(TypeMapper typeMappers) {
 		return new NumericType();
 	}
 

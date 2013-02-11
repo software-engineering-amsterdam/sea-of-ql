@@ -14,7 +14,6 @@ import org.uva.sea.ql.ast.stmt.Statement;
 import org.uva.sea.ql.ast.stmt.question.ComputedQuestion;
 import org.uva.sea.ql.ast.stmt.question.NormalQuestion;
 import org.uva.sea.ql.ast.stmt.question.Question;
-import org.uva.sea.ql.value.Value;
 
 public class FormRenderer implements IFormVisitor {
 	private STGroup formTemplate = new STGroupFile(System.getProperty("user.dir") + "/files/templates/page.stg", '$', '$');

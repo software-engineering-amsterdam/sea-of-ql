@@ -16,7 +16,7 @@ import org.uva.sea.ql.parser.ANTLRParser;
 import org.uva.sea.ql.parser.error.ParseError;
 import org.uva.sea.ql.tests.IParse;
 import org.uva.sea.ql.visitor.ExpressionTypeVisitor;
-import org.uva.sea.ql.visitor.SymbolTable;
+import org.uva.sea.ql.visitor.TypeMapper;
 
 @RunWith(Parameterized.class)
 public class TestUnary {
@@ -28,7 +28,7 @@ public class TestUnary {
 		Object[][] data = new Object[][] { new Object[] {new ANTLRParser()} };
 		return Arrays.asList(data);
 	}
-	public static SymbolTable symbolTable = new SymbolTable();
+	public static TypeMapper typeMapper = new TypeMapper();
 	public static ArrayList<Message> errors = new ArrayList<Message>();
 
 	
@@ -38,19 +38,19 @@ public class TestUnary {
 	
 	@Test
 	public void testNeg() throws ParseError {
-		assertTrue(parser.parseExpression("-1").accept(new ExpressionTypeVisitor(symbolTable, errors)));
-    	assertFalse(parser.parseExpression("+true").accept(new ExpressionTypeVisitor(symbolTable, errors)));	
+		assertTrue(parser.parseExpression("-1").accept(new ExpressionTypeVisitor(typeMapper, errors)));
+    	assertFalse(parser.parseExpression("+true").accept(new ExpressionTypeVisitor(typeMapper, errors)));	
 	}
 
 	@Test
 	public void testNot() throws ParseError {
-		assertTrue(parser.parseExpression("!true").accept(new ExpressionTypeVisitor(symbolTable, errors)));
-		assertFalse(parser.parseExpression("!1").accept(new ExpressionTypeVisitor(symbolTable, errors)));	
+		assertTrue(parser.parseExpression("!true").accept(new ExpressionTypeVisitor(typeMapper, errors)));
+		assertFalse(parser.parseExpression("!1").accept(new ExpressionTypeVisitor(typeMapper, errors)));	
 	}
 	
 	@Test
 	public void testPos() throws ParseError {
-		assertTrue(parser.parseExpression("+1").accept(new ExpressionTypeVisitor(symbolTable, errors)));
-		assertFalse(parser.parseExpression("+true").accept(new ExpressionTypeVisitor(symbolTable, errors)));	
+		assertTrue(parser.parseExpression("+1").accept(new ExpressionTypeVisitor(typeMapper, errors)));
+		assertFalse(parser.parseExpression("+true").accept(new ExpressionTypeVisitor(typeMapper, errors)));	
 	}
 }
