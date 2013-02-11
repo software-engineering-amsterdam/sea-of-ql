@@ -121,7 +121,6 @@ private str individualCalculatedField(int cnt, str ident, Expr expr) {
     '<}>
     '  result = <jsPrint(expr)>;
     '  setFormValue(\"#<ident>\", result);
-    '  //$(\"#<ident>\").val(result).change();  
     '}
     ";
 }  
