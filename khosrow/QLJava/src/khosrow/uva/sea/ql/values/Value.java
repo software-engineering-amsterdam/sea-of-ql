@@ -83,7 +83,7 @@ public abstract class Value implements ITypeCompatible {
 
 	 */
 	public abstract int compareTo(Value value);	// TODO: change this to protected!
-	
+		
 	protected Value addInt(IntVal arg) {
 		throw new UnsupportedOperationException();
 	}

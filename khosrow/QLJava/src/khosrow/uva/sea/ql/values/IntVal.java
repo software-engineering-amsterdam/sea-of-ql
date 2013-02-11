@@ -23,35 +23,35 @@ public class IntVal extends NumericVal {
 	public Value add(Value arg) {
 		if(arg.isCompatibleToInt())
 			return arg.addInt(this);
-		return this.addMoney((MoneyVal)arg);
+		return arg.add(this.convertToMoney());
 	}
 	
 	@Override
 	public Value sub(Value arg) {
 		if(arg.isCompatibleToInt())
 			return arg.subInt(this);
-		return this.subMoney((MoneyVal)arg);
+		return arg.sub(this.convertToMoney());
 	}
 	
 	@Override
 	public Value mul(Value arg) {
 		if(arg.isCompatibleToInt())
 			return arg.mulInt(this);
-		return this.mulMoney((MoneyVal)arg);
+		return arg.mul(this.convertToMoney());
 	}
 	
 	@Override
 	public Value mod(Value arg) {
 		if(arg.isCompatibleToInt())
 			return arg.modInt(this);
-		return this.modMoney((MoneyVal)arg);
+		return arg.mod(this.convertToMoney());
 	}	
 	
 	@Override
 	public Value div(Value arg) {
 		if(arg.isCompatibleToInt())
 			return arg.divInt(this);
-		return this.divMoney((MoneyVal)arg);
+		return arg.div(this.convertToMoney());
 	}
 	
 	@Override
@@ -62,6 +62,31 @@ public class IntVal extends NumericVal {
 	@Override
 	public Value neg() {
 		return new IntVal(-1 * getValue());
+	}
+	
+	public Value eq(Value arg) {
+		//if(arg.isCompatibleToInt())
+			return new BoolVal((false));
+	}
+	
+	public Value neq(Value arg) {
+		throw new UnsupportedOperationException();
+	}
+	
+	public Value geq(Value arg) {
+		throw new UnsupportedOperationException();
+	}
+	
+	public Value gt(Value arg) {
+		throw new UnsupportedOperationException();
+	}
+	
+	public Value leq(Value arg) {
+		throw new UnsupportedOperationException();
+	}
+	
+	public Value lt(Value arg) {
+		throw new UnsupportedOperationException();
 	}
 		
 	@Override
@@ -89,32 +114,7 @@ public class IntVal extends NumericVal {
 		return new IntVal(arg.getValue() % getValue());
 	}
 	
-	@Override
-	protected Value addMoney(MoneyVal arg) {
-		return arg.add(this.convertToMoney());
-	}
-	
-	@Override
-	protected Value subMoney(MoneyVal arg) {
-		return arg.sub(this.convertToMoney());
-	}
-	
-	@Override
-	protected Value mulMoney(MoneyVal arg) {
-		return arg.mul(this.convertToMoney());
-	}
-	
-	@Override
-	protected Value divMoney(MoneyVal arg) {
-		return arg.div(this.convertToMoney());
-	}
-	
-	@Override
-	protected Value modMoney(MoneyVal arg) {
-		return arg.mod(this.convertToMoney());
-	}
-	
-	private MoneyVal convertToMoney() {
+	private Value convertToMoney() {
 		return new MoneyVal(getValue());
 	}
 	

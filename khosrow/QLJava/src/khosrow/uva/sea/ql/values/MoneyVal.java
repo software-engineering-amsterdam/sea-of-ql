@@ -1,5 +1,7 @@
 package khosrow.uva.sea.ql.values;
 
+import java.math.BigDecimal;
+
 public class MoneyVal extends NumericVal {
 	private final Double value;
 	
@@ -23,35 +25,35 @@ public class MoneyVal extends NumericVal {
 	public Value add(Value arg) {
 		if(arg.isCompatibleToMoney())
 			return arg.addMoney(this);
-		return this.addInt((IntVal)arg);
+		return arg.add(this);	
 	}
 	
 	@Override
 	public Value sub(Value arg) {
 		if(arg.isCompatibleToMoney())
 			return arg.subMoney(this);
-		return this.subInt((IntVal)arg);
+		return arg.sub(this);
 	}
 	
 	@Override
 	public Value mul(Value arg) {
 		if(arg.isCompatibleToMoney())
 			return arg.mulMoney(this);
-		return this.mulInt((IntVal)arg);
+		return arg.mul(this);
 	}
 	
 	@Override
 	public Value mod(Value arg) {
 		if(arg.isCompatibleToMoney())
 			return arg.modMoney(this);
-		return this.modInt((IntVal)arg);
+		return arg.mod(this);
 	}	
 	
 	@Override
 	public Value div(Value arg) {
 		if(arg.isCompatibleToMoney())
 			return arg.divMoney(this);
-		return this.divInt((IntVal)arg);
+		return arg.div(this);
 	}
 	
 	@Override
@@ -71,7 +73,10 @@ public class MoneyVal extends NumericVal {
 	
 	@Override
 	protected Value subMoney(MoneyVal arg) {
-		return new MoneyVal(arg.getValue() - getValue());
+		BigDecimal a = new BigDecimal(arg.getValue());
+	    BigDecimal b = new BigDecimal(getValue());
+		
+		return new MoneyVal(a.subtract(b).ROUND_FLOOR);
 	}
 	
 	@Override
@@ -87,31 +92,5 @@ public class MoneyVal extends NumericVal {
 	@Override
 	protected Value modMoney(MoneyVal arg) {
 		return new MoneyVal(arg.getValue() % getValue());
-	}
-	
-	@Override
-	protected Value addInt(IntVal arg) {
-		return arg.add(this);
-	}
-	
-	@Override
-	protected Value subInt(IntVal arg) {
-		return arg.sub(this);
-	}
-	
-	@Override
-	protected Value mulInt(IntVal arg) {
-		return arg.mul(this);
-	}
-	
-	@Override
-	protected Value divInt(IntVal arg) {
-		return arg.div(this);
-	}
-	
-	@Override
-	protected Value modInt(IntVal arg) {
-		return arg.mod(this);
-	}
-	
+	}	
 }
