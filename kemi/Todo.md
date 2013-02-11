@@ -4,6 +4,7 @@
 to separate syntax module. We also should use keyword exclusion in a 
 consistent way. 
 * Usage of ParseHelpers outside 'test' package
+* PHP boolean checking
 
 ## BONUS:
 * HTML templating

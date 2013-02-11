@@ -79,9 +79,6 @@ lexical IdentDefinition
   = identDefinition: Ident ident
   ;
 
-lexical Ident
-  = @category="Variable" ([a-z A-Z 0-9 _] !<< [a-z A-Z][a-z A-Z 0-9 _]* !>> [a-z A-Z 0-9 _]) \ Keywords;
-
 lexical QuestionText
   = @category="Identifier" questionText: String questionText
   ;
@@ -115,4 +112,13 @@ lexical Month
 lexical Day
   = [0-2][0-9]
   | [3][0-1]
+  ;
+
+syntax Ident
+  = @category="Variable" IdentLexical \ Keywords
+  | @category="Variable" ("\\" IdentLexical) \ Keywords
+  ;
+
+lexical IdentLexical
+  = [a-z A-Z 0-9 _] !<< [a-z A-Z][a-z A-Z 0-9 _]* !>> [a-z A-Z 0-9 _]
   ;
