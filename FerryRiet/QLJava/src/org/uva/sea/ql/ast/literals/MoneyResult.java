@@ -74,6 +74,18 @@ public class MoneyResult extends Result {
 				.getIntegerValue())));
 	}
 
+	public Result sub(Result subber) {
+		return subber.doSub(this);
+	}
+
+	public Result doSub(MoneyResult subber) {
+		return new MoneyResult(subber.getMoneyValue().subtract(this.getMoneyValue()));
+	}
+
+	public Result doSub(IntegerResult subber) {
+		return new MoneyResult(new BigDecimal(subber.getIntegerValue()).subtract(this.getMoneyValue()));
+	}
+
 	@Override
 	public Result mul(Result muller) {
 		return muller.doMul(this);
@@ -110,7 +122,8 @@ public class MoneyResult extends Result {
 	public Result doDiv(IntegerResult diver) {
 		Result result;
 		try {
-			result = new MoneyResult(new BigDecimal(diver.getIntegerValue()).divide(getMoneyValue()));
+			result = new MoneyResult(
+					new BigDecimal(diver.getIntegerValue()).divide(getMoneyValue()));
 		} catch (ArithmeticException e) {
 			result = new MoneyResult(0);
 		}

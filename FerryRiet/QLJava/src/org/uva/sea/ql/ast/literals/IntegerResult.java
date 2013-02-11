@@ -98,6 +98,21 @@ public class IntegerResult extends Result {
 	}
 
 	@Override
+	public Result sub(Result subber) {
+		return subber.doSub(this);
+	}
+
+	@Override
+	public Result doSub(MoneyResult subber) {
+		return new MoneyResult(subber.getMoneyValue().subtract(
+				new BigDecimal(this.getIntegerValue())));
+	}
+
+	@Override
+	public Result doSub(IntegerResult subber) {
+		return new IntegerResult(subber.getIntegerValue() - this.getIntegerValue());
+	}
+	@Override
 	public Result mul(Result muller) {
 		return muller.doMul(this);
 	}

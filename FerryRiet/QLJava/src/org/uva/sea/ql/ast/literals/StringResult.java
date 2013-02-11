@@ -113,4 +113,19 @@ public class StringResult extends Result {
 	public Result doDiv(IntegerResult inte) {
 		throw new UnsupportedOperationException();
 	}
+
+	@Override
+	public Result sub(Result subber) {
+		throw new UnsupportedOperationException();
+	}
+
+	@Override
+	public Result doSub(MoneyResult subber) {
+		throw new UnsupportedOperationException();
+	}
+
+	@Override
+	public Result doSub(IntegerResult subber) {
+		throw new UnsupportedOperationException();
+	}
 }

@@ -49,8 +49,12 @@ public abstract class Result {
 	public abstract Result doMul(MoneyResult inte);
 	public abstract Result doMul(IntegerResult inte);
 
-	public abstract Result div(Result adder);
-	public abstract Result doDiv(MoneyResult inte);
-	public abstract Result doDiv(IntegerResult inte);
+	public abstract Result div(Result diver);
+	public abstract Result doDiv(MoneyResult diver);
+	public abstract Result doDiv(IntegerResult diver);
+
+	public abstract Result sub(Result subber);
+	public abstract Result doSub(MoneyResult subber);
+	public abstract Result doSub(IntegerResult subber);
 
 }
