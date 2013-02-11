@@ -1,12 +1,18 @@
 module Plugin
 
-import util::IDE;
+import lang::ql::ide::Outline;
 import lang::ql::util::Parse;
+import lang::ql::util::Implode;
+
+import util::IDE;
 import ParseTree;
 
+private str LANG = "QL-R";
 
 public void main() {
-  registerLanguage("QL-R", "q", Tree(str src, loc l) {
-     return parse(src, l);
-  });
+	registerLanguage(LANG, "q", Tree(str src, loc l) {
+		return parse(src, l);
+	});
+	
+	registerOutliner(LANG, outlineModule);
 }
