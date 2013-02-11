@@ -147,16 +147,22 @@ QLTENV checkQuestion(question:computedQuestion(str id, str labelQuestion, Type t
 */
 bool checkIdentifiers(question:easyQuestion(str id, str labelQuestion, Type tp) ,QLTENV env){
 	println("check env : <env>");
-	println("check question : <question>");
-//	for(S <- env){
-//		println("S in check is : <S.id>");
-//	}
-	if(size(env.question) == size(env.question.id)){
-		return true;
-	}else{
+	println("CHECK question : <question.id>");
+	//for(S <- env.question){
+	//	println("S in check is : <S>");
+	//}
+	if(question.id in env.question.id){
 		println("Error in check Identifiers");
 		return false;
+	}else{
+		return true;
 	}
+	//if(size(env.question) == size(env.question.id)){
+	//	return true;
+	//}else{
+	//	println("Error in check Identifiers");
+	//	return false;
+	//}
 }
 
 /** Method to check the body of the QL program
