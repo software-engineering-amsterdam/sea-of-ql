@@ -12,7 +12,7 @@ module lang::ql::tests::forms::Outline
 
 import lang::ql::ast::AST;
 import lang::ql::ide::Outline;
-import lang::ql::tests::ParseHelper;
+import lang::ql::util::ParseHelper;
 import lang::ql::util::FormGenerator;
 import lang::ql::util::Random;
 
