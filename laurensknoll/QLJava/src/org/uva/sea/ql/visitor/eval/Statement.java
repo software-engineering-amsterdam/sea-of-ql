@@ -74,9 +74,6 @@ public class Statement implements IStatement<JPanel> {
 	public JPanel visit(Question question) {
 		JPanel panel = new JPanel(new GridLayout(1, 2));
 
-		Ident id = question.getIdent();
-		this.environment.declare(id, null);
-
 		/*
 		 * TODO: Create visitor that creates labels. Expression
 		 * expressionVisitor = new Expression(this.environment);
@@ -88,6 +85,9 @@ public class Statement implements IStatement<JPanel> {
 		Type typeVisitor = new Type();
 		Widget inputField = type.accept(typeVisitor);
 		panel.add(inputField.getComponent());
+
+		Ident id = question.getIdent();
+		this.environment.declare(id, inputField);
 
 		return panel;
 	}
