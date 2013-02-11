@@ -5,7 +5,7 @@ import static julius.validation.Assertions.state;
 import org.uva.sea.ql.ast.exp.Expression;
 import org.uva.sea.ql.visitor.StatementVisitor;
 
-public class IfStatement extends Statement {
+public class IfStatement extends Block {
 
 	private final Expression expression;
 

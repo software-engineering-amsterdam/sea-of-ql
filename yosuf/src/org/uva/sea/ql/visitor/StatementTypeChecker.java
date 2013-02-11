@@ -18,10 +18,10 @@ import org.uva.sea.ql.ast.stm.Form;
 import org.uva.sea.ql.ast.stm.IfElseStatement;
 import org.uva.sea.ql.ast.stm.IfStatement;
 import org.uva.sea.ql.ast.stm.Question;
-import org.uva.sea.ql.ast.stm.Statement;
+import org.uva.sea.ql.ast.stm.Block;
 import org.uva.sea.ql.ast.type.BooleanType;
 
-public class StatementTypeChecker implements StatementVisitor<Statement> {
+public class StatementTypeChecker implements StatementVisitor<Block> {
 
 	private final List<TypeCheckException> typeErrors = new ArrayList<TypeCheckException>();
 	private final ExpressionTypeChecker expressionTypeChecker;
@@ -35,7 +35,7 @@ public class StatementTypeChecker implements StatementVisitor<Statement> {
 	}
 
 	@Override
-	public Statement visit(final Form form) {
+	public Block visit(final Form form) {
 		form.getBody().accept(this);
 		assertIdentifierAndAddToEnvironment(form.getIdentifier(),
 				form.getIdentifier());
@@ -44,9 +44,9 @@ public class StatementTypeChecker implements StatementVisitor<Statement> {
 	}
 
 	@Override
-	public Statement visit(final CompoundStatement compoundStatement) {
+	public Block visit(final CompoundStatement compoundStatement) {
 
-		for (Statement statement : compoundStatement.getStatements()) {
+		for (Block statement : compoundStatement.getStatements()) {
 			statement.accept(this);
 		}
 
@@ -54,7 +54,7 @@ public class StatementTypeChecker implements StatementVisitor<Statement> {
 	}
 
 	@Override
-	public Statement visit(final Computed computed) {
+	public Block visit(final Computed computed) {
 
 		assertIdentifierAndAddToEnvironment(computed.getIdentifier(),
 				computed.getExpression());
@@ -66,7 +66,7 @@ public class StatementTypeChecker implements StatementVisitor<Statement> {
 	}
 
 	@Override
-	public Statement visit(final IfStatement ifStatement) {
+	public Block visit(final IfStatement ifStatement) {
 		visitExpression(ifStatement.getExpression());
 
 		assertIfStatementExpression(ifStatement.getExpression(),
@@ -95,7 +95,7 @@ public class StatementTypeChecker implements StatementVisitor<Statement> {
 	}
 
 	@Override
-	public Statement visit(final IfElseStatement ifElseStatement) {
+	public Block visit(final IfElseStatement ifElseStatement) {
 		visitExpression(ifElseStatement.getExpression());
 
 		assertIfStatementExpression(ifElseStatement.getExpression(),
@@ -108,7 +108,7 @@ public class StatementTypeChecker implements StatementVisitor<Statement> {
 	}
 
 	@Override
-	public Statement visit(final Question question) {
+	public Block visit(final Question question) {
 		assertIdentifierAndAddToEnvironment(question.getIdentifier(),
 				question.getDataType());
 		return question;

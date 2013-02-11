@@ -7,7 +7,7 @@ import org.uva.sea.ql.ast.exp.Identifier;
 import org.uva.sea.ql.ast.type.DataType;
 import org.uva.sea.ql.visitor.StatementVisitor;
 
-public class Computed extends Statement {
+public class Computed extends Block {
 
 	private final Identifier identifier;
 	private final DataType dataType;

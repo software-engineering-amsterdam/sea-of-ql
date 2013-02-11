@@ -3,9 +3,9 @@ package org.uva.sea.ql.ast.stm;
 import org.uva.sea.ql.ast.ASTNode;
 import org.uva.sea.ql.visitor.StatementVisitor;
 
-public abstract class Statement implements ASTNode {
+public abstract class Block implements ASTNode {
 
-	protected Statement() {
+	protected Block() {
 		super();
 	}
 

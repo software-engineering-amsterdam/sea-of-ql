@@ -24,7 +24,7 @@
 %left UMIN UPLUS UNOT
 
 %type <Expression> expr
-%type <Statement> stm
+%type <Block> block
 %type <CompoundStatement> compound
 %type <DataType> dataType
 %type <Form> form
@@ -82,11 +82,11 @@ top		: form						{ form = $1; }
 form 	: FORM IDENT '{' compound '}'	{ $$ = new Form($2, $4); }
 		;
 		
-compound: stm 						{ $$ = new CompoundStatement($1); }
-		| compound stm				{ $$ = new CompoundStatement($1, $2); }
+compound: block 					{ $$ = new CompoundStatement($1); }
+		| compound block			{ $$ = new CompoundStatement($1, $2); }
  		; 
 
-stm		: question					{ $$ = $1; }
+block	: question					{ $$ = $1; }
     	| ifStm						{ $$ = $1; }
 		;
 		

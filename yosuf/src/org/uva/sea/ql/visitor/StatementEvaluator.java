@@ -8,7 +8,7 @@ import org.uva.sea.ql.ast.stm.Form;
 import org.uva.sea.ql.ast.stm.IfElseStatement;
 import org.uva.sea.ql.ast.stm.IfStatement;
 import org.uva.sea.ql.ast.stm.Question;
-import org.uva.sea.ql.ast.stm.Statement;
+import org.uva.sea.ql.ast.stm.Block;
 import org.uva.sea.ql.ast.value.Value;
 import org.uva.sea.ql.lead.Model;
 
@@ -36,7 +36,7 @@ public class StatementEvaluator implements StatementVisitor<Value> {
 
 	@Override
 	public Value visit(final CompoundStatement compoundStatement) {
-		for (Statement statement : compoundStatement.getStatements()) {
+		for (Block statement : compoundStatement.getStatements()) {
 			statement.accept(this);
 		}
 		return null;

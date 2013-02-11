@@ -1,4 +1,4 @@
-// Output created by jacc on Thu Feb 07 19:08:18 CET 2013
+// Output created by jacc on Mon Feb 11 14:50:10 CET 2013
 
 package org.uva.sea.ql.parser.jacc;
 
@@ -732,12 +732,7 @@ class QLParser implements QLTokens {
                         yyexpand();
                     }
                 case 128:
-                    switch (yytok) {
-                        case IDENT:
-                            yyn = 19;
-                            continue;
-                    }
-                    yyn = 151;
+                    yyn = yys54();
                     continue;
 
                 case 55:
@@ -746,7 +741,12 @@ class QLParser implements QLTokens {
                         yyexpand();
                     }
                 case 129:
-                    yyn = yys55();
+                    switch (yytok) {
+                        case IDENT:
+                            yyn = 19;
+                            continue;
+                    }
+                    yyn = 151;
                     continue;
 
                 case 56:
@@ -2026,46 +2026,7 @@ class QLParser implements QLTokens {
         return 151;
     }
 
-    private int yys55() {
-        switch (yytok) {
-            case MON:
-            case INT:
-            case IF:
-            case '}':
-            case STR:
-            case BOOL:
-                return yyr33();
-        }
-        return 151;
-    }
-
-    private int yys56() {
-        switch (yytok) {
-            case MON:
-            case INT:
-            case IF:
-            case '}':
-            case STR:
-            case BOOL:
-                return yyr32();
-        }
-        return 151;
-    }
-
-    private int yys57() {
-        switch (yytok) {
-            case MON:
-            case INT:
-            case IF:
-            case '}':
-            case STR:
-            case BOOL:
-                return yyr30();
-        }
-        return 151;
-    }
-
-    private int yys58() {
+    private int yys54() {
         switch (yytok) {
             case BOOL:
                 return 6;
@@ -2079,6 +2040,45 @@ class QLParser implements QLTokens {
                 return 59;
             case '}':
                 return 63;
+        }
+        return 151;
+    }
+
+    private int yys56() {
+        switch (yytok) {
+            case MON:
+            case INT:
+            case IF:
+            case '}':
+            case STR:
+            case BOOL:
+                return yyr33();
+        }
+        return 151;
+    }
+
+    private int yys57() {
+        switch (yytok) {
+            case MON:
+            case INT:
+            case IF:
+            case '}':
+            case STR:
+            case BOOL:
+                return yyr32();
+        }
+        return 151;
+    }
+
+    private int yys58() {
+        switch (yytok) {
+            case MON:
+            case INT:
+            case IF:
+            case '}':
+            case STR:
+            case BOOL:
+                return yyr30();
         }
         return 151;
     }
@@ -2266,6 +2266,26 @@ class QLParser implements QLTokens {
         return 1;
     }
 
+    private int yyr30() { // compound : block
+        { yyrv = new CompoundStatement(((Block)yysv[yysp-1])); }
+        yysv[yysp-=1] = yyrv;
+        return yypcompound();
+    }
+
+    private int yyr31() { // compound : compound block
+        { yyrv = new CompoundStatement(((CompoundStatement)yysv[yysp-2]), ((Block)yysv[yysp-1])); }
+        yysv[yysp-=2] = yyrv;
+        return yypcompound();
+    }
+
+    private int yypcompound() {
+        switch (yyst[yysp-1]) {
+            case 67: return 68;
+            case 50: return 54;
+            default: return 72;
+        }
+    }
+
     private int yyr21() { // dataType : BOOL
         { yyrv = new BooleanType(); }
         yysv[yysp-=1] = yyrv;
@@ -2293,7 +2313,7 @@ class QLParser implements QLTokens {
     private int yypdataType() {
         switch (yyst[yysp-1]) {
             case 0: return 2;
-            default: return 54;
+            default: return 55;
         }
     }
 
@@ -2450,13 +2470,13 @@ class QLParser implements QLTokens {
     private int yyr36() { // ifStm : IF '(' expr ')' '{' compound '}'
         { yyrv = new IfStatement(((Expression)yysv[yysp-5]), ((CompoundStatement)yysv[yysp-2])); }
         yysv[yysp-=7] = yyrv;
-        return 55;
+        return 56;
     }
 
     private int yyr37() { // ifStm : IF '(' expr ')' '{' compound '}' ELSE '{' compound '}'
         { yyrv = new IfElseStatement(((Expression)yysv[yysp-9]), ((CompoundStatement)yysv[yysp-6]), ((CompoundStatement)yysv[yysp-2])); }
         yysv[yysp-=11] = yyrv;
-        return 55;
+        return 56;
     }
 
     private int yyr34() { // question : dataType IDENT '=' STRING_VAL ';'
@@ -2474,48 +2494,28 @@ class QLParser implements QLTokens {
     private int yypquestion() {
         switch (yyst[yysp-1]) {
             case 0: return 5;
-            default: return 56;
+            default: return 57;
         }
     }
 
-    private int yyr32() { // stm : question
+    private int yyr32() { // block : question
         { yyrv = yysv[yysp-1]; }
         yysv[yysp-=1] = yyrv;
-        return yypstm();
+        return yypblock();
     }
 
-    private int yyr33() { // stm : ifStm
+    private int yyr33() { // block : ifStm
         { yyrv = yysv[yysp-1]; }
         yysv[yysp-=1] = yyrv;
-        return yypstm();
+        return yypblock();
     }
 
-    private int yypstm() {
+    private int yypblock() {
         switch (yyst[yysp-1]) {
-            case 71: return 57;
-            case 67: return 57;
-            case 50: return 57;
-            default: return 62;
-        }
-    }
-
-    private int yyr30() { // compound : stm
-        { yyrv = new CompoundStatement(((Statement)yysv[yysp-1])); }
-        yysv[yysp-=1] = yyrv;
-        return yypcompound();
-    }
-
-    private int yyr31() { // compound : compound stm
-        { yyrv = new CompoundStatement(((CompoundStatement)yysv[yysp-2]), ((Statement)yysv[yysp-1])); }
-        yysv[yysp-=2] = yyrv;
-        return yypcompound();
-    }
-
-    private int yypcompound() {
-        switch (yyst[yysp-1]) {
-            case 67: return 68;
+            case 71: return 58;
+            case 67: return 58;
             case 50: return 58;
-            default: return 72;
+            default: return 62;
         }
     }
 

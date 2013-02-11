@@ -16,7 +16,7 @@ import org.uva.sea.ql.ast.stm.Form;
 import org.uva.sea.ql.ast.stm.IfElseStatement;
 import org.uva.sea.ql.ast.stm.IfStatement;
 import org.uva.sea.ql.ast.stm.Question;
-import org.uva.sea.ql.ast.stm.Statement;
+import org.uva.sea.ql.ast.stm.Block;
 import org.uva.sea.ql.visitor.StatementVisitor;
 
 public class VisibleFormNodeCreator implements StatementVisitor<Node> {
@@ -33,7 +33,7 @@ public class VisibleFormNodeCreator implements StatementVisitor<Node> {
 	public Node visit(final CompoundStatement compoundStatement) {
 		VBox vBox = new VBox();
 
-		for (Statement statement : compoundStatement.getStatements()) {
+		for (Block statement : compoundStatement.getStatements()) {
 			vBox.getChildren().add(statement.accept(this));
 		}
 		return vBox;
