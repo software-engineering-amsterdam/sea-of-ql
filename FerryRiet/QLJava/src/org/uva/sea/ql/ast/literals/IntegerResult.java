@@ -9,7 +9,7 @@ public class IntegerResult extends Result {
 	private Integer value;
 
 	public IntegerResult(int val) {
-		super(new IntegerType()) ;
+		super(new IntegerType());
 		value = new Integer(val);
 	}
 
@@ -79,5 +79,65 @@ public class IntegerResult extends Result {
 	public boolean isCompatibleToMoney() {
 		// TODO Auto-generated method stub
 		return false;
+	}
+
+	@Override
+	public Result add(Result adder) {
+		return adder.doAdd(this);
+	}
+
+	@Override
+	public Result doAdd(MoneyResult inte) {
+		return new MoneyResult(inte.getMoneyValue().add(
+				new BigDecimal(this.getIntegerValue())));
+	}
+
+	@Override
+	public Result doAdd(IntegerResult inte) {
+		return new IntegerResult(this.getIntegerValue() + inte.getIntegerValue());
+	}
+
+	@Override
+	public Result mul(Result muller) {
+		return muller.doMul(this);
+	}
+
+	@Override
+	public Result doMul(MoneyResult muller) {
+		return new MoneyResult(muller.getMoneyValue().multiply(
+				new BigDecimal(this.getIntegerValue())));
+	}
+
+	@Override
+	public Result doMul(IntegerResult muller) {
+		return new IntegerResult(this.getIntegerValue() * muller.getIntegerValue());
+	}
+
+	@Override
+	public Result div(Result muller) {
+		return muller.doDiv(this);
+	}
+
+	@Override
+	public Result doDiv(MoneyResult diver) {
+		Result result;
+		try {
+			result = new MoneyResult(diver.getMoneyValue().divide(
+					new BigDecimal(this.getIntegerValue())));
+		} catch (ArithmeticException e) {
+			result = new MoneyResult(0);
+		}
+		return result;
+	}
+
+	@Override
+	public Result doDiv(IntegerResult diver) {
+		Result result;
+		try {
+			result = new IntegerResult(diver.getIntegerValue() / this.getIntegerValue());
+		} catch (ArithmeticException e) {
+			result = new IntegerResult(0) ;
+		}
+		return result ;
 	}
 }

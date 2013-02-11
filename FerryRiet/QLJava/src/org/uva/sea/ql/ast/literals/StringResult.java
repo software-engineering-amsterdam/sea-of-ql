@@ -51,25 +51,66 @@ public class StringResult extends Result {
 
 	@Override
 	public boolean isCompatibleToInt() {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
 	public boolean isCompatibleToString() {
-		// TODO Auto-generated method stub
-		return false;
+		return true;
 	}
 
 	@Override
 	public boolean isCompatibleToBool() {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
 	public boolean isCompatibleToMoney() {
-		// TODO Auto-generated method stub
-		return false;
+		throw new UnsupportedOperationException();
+	}
+
+	@Override
+	public Result add(Result adder) {
+		throw new UnsupportedOperationException();
+	}
+
+	@Override
+	public Result doAdd(MoneyResult inte) {
+		throw new UnsupportedOperationException();
+	}
+
+	@Override
+	public Result doAdd(IntegerResult inte) {
+		throw new UnsupportedOperationException();
+	}
+
+	@Override
+	public Result mul(Result adder) {
+		throw new UnsupportedOperationException();
+	}
+
+	@Override
+	public Result doMul(MoneyResult inte) {
+		throw new UnsupportedOperationException();
+	}
+
+	@Override
+	public Result doMul(IntegerResult inte) {
+		throw new UnsupportedOperationException();
+	}
+
+	@Override
+	public Result div(Result adder) {
+		throw new UnsupportedOperationException();
+	}
+
+	@Override
+	public Result doDiv(MoneyResult inte) {
+		throw new UnsupportedOperationException();
+	}
+
+	@Override
+	public Result doDiv(IntegerResult inte) {
+		throw new UnsupportedOperationException();
 	}
 }

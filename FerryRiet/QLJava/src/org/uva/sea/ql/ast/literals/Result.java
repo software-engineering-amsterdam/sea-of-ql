@@ -5,12 +5,12 @@ import java.math.BigDecimal;
 import org.uva.sea.ql.ast.types.Type;
 
 public abstract class Result {
-	private Type resultType ;
-	
+	private Type resultType;
+
 	public Result(Type rt) {
-		resultType = rt ;
+		resultType = rt;
 	}
-	
+
 	public abstract String toString();
 
 	public abstract int getIntegerValue();
@@ -24,7 +24,7 @@ public abstract class Result {
 	public abstract Type typeOf();
 
 	public boolean isCompatibleToInt() {
-		return resultType.isCompatibleToInt() ;
+		return resultType.isCompatibleToInt();
 	}
 
 	public boolean isCompatibleToString() {
@@ -36,8 +36,21 @@ public abstract class Result {
 	}
 
 	public boolean isCompatibleToMoney() {
-		return resultType.isCompatibleToMoney() ;
+		return resultType.isCompatibleToMoney();
 	}
 
-	public abstract Result setValue(String string) ;
+	public abstract Result setValue(String string);
+
+	public abstract Result add(Result adder);
+	public abstract Result doAdd(MoneyResult inte);
+	public abstract Result doAdd(IntegerResult inte);
+
+	public abstract Result mul(Result adder);
+	public abstract Result doMul(MoneyResult inte);
+	public abstract Result doMul(IntegerResult inte);
+
+	public abstract Result div(Result adder);
+	public abstract Result doDiv(MoneyResult inte);
+	public abstract Result doDiv(IntegerResult inte);
+
 }

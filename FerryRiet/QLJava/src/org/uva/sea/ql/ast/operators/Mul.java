@@ -1,10 +1,7 @@
 package org.uva.sea.ql.ast.operators;
 
-import java.math.BigDecimal;
 import java.util.HashMap;
 
-import org.uva.sea.ql.ast.literals.IntegerResult;
-import org.uva.sea.ql.ast.literals.MoneyResult;
 import org.uva.sea.ql.ast.literals.Result;
 import org.uva.sea.ql.ast.statements.Statement;
 import org.uva.sea.ql.ast.types.IntegerType;
@@ -31,30 +28,6 @@ public class Mul extends BinExpr {
 	public Result eval(HashMap<String, Result> symbolMap) {
 		Result leftHandResult = getExprLeftHand().eval(symbolMap);
 		Result rightHandResult = getExprRightHand().eval(symbolMap);
-
-		// Check types and allow promotion from integer to money, there is no
-		// demotion.
-		// Money is compatible to Integer and Integer IS NOT compatible to Money
-		// The order of the test for compatibility is important.
-		// Case 1 MoneyType MoneyType
-		if (leftHandResult.typeOf().isCompatibleToMoney()
-				&& rightHandResult.typeOf().isCompatibleToMoney()) {
-			return new MoneyResult(leftHandResult.getMoneyValue().multiply(
-					rightHandResult.getMoneyValue()));
-		}
-		// Case 2 MoneyType Integer
-		if (leftHandResult.typeOf().isCompatibleToMoney()) {
-			return new MoneyResult(leftHandResult.getMoneyValue().multiply(
-					new BigDecimal(rightHandResult.getIntegerValue())));
-		}
-		// Case 3 Integer MoneyType
-		if (rightHandResult.typeOf().isCompatibleToMoney()) {
-			return new MoneyResult(
-					(new BigDecimal(leftHandResult.getIntegerValue())
-							.multiply(rightHandResult.getMoneyValue())));
-		}
-		// Case 4 Integer Integer
-		return new IntegerResult(leftHandResult.getIntegerValue()
-				* rightHandResult.getIntegerValue());
+		return leftHandResult.mul(rightHandResult);
 	}
 }
