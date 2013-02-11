@@ -21,6 +21,9 @@ alias CFGraph = tuple[set[CFNode] entry, Graph[CFNode] graph, set[CFNode] exit];
 
 CFGraph cflowStat(statement:ifStat(Expression exp, list[Body] body)){
 	println("In cflow if statement");
+	CF1 = cflowCompleteBody(body);
+	E = {choice(exp@location, exp)};
+	return < E, (E * CF1.entry) + CF1.graph , CF1.exit >; 
 }
 
 CFGraph cflowStat(ifElseStat(Expression exp, list[Body] thenpart, list[Body] elsepart)){
