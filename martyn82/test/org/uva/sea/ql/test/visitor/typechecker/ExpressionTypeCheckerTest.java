@@ -32,23 +32,10 @@ import org.uva.sea.ql.test.visitor.VisitorTest;
 import org.uva.sea.ql.visitor.evaluator.Environment;
 import org.uva.sea.ql.visitor.typechecker.ExpressionChecker;
 
-/**
- * Expression TypeChecker test.
- */
 public class ExpressionTypeCheckerTest extends VisitorTest<Boolean> implements IExpressionTest {
-	/**
-	 * Holds the expression checker.
-	 */
 	private final ExpressionChecker expressionVisitor;
-
-	/**
-	 * Holds the environment.
-	 */
 	private final Environment environment;
 
-	/**
-	 * Constructs a new TypeChecker test.
-	 */
 	public ExpressionTypeCheckerTest() {
 		super();
 
@@ -56,13 +43,6 @@ public class ExpressionTypeCheckerTest extends VisitorTest<Boolean> implements I
 		this.expressionVisitor = new ExpressionChecker( this.environment );
 	}
 
-	/**
-	 * Typechecks the given expression.
-	 *
-	 * @param expression
-	 *
-	 * @return True if typecheck OK, false otherwise.
-	 */
 	private Boolean typeCheck( Expression expression ) {
 		this.environment.getErrors().clear();
 		return expression.accept( this.expressionVisitor );

@@ -16,29 +16,14 @@ import org.uva.sea.ql.parser.IParser;
 import org.uva.sea.ql.parser.ParseError;
 import org.uva.sea.ql.test.IStatementTest;
 
-/**
- * Represents a parser test for statements.
- */
 public class StatementParserTest extends ParserTest implements IStatementTest {
-	/**
-	 * Holds the parser.
-	 */
 	private final IParser parser;
 
-	/**
-	 * Constructs a new statement parser test.
-	 */
 	public StatementParserTest() {
 		super();
 		this.parser = this.getParser();
 	}
 
-	/**
-	 * Shorthand method for asserting a node type.
-	 *
-	 * @param expected
-	 * @param source
-	 */
 	private void assertNode( Class<?> expected, String source ) {
 		Statement root;
 
@@ -54,11 +39,6 @@ public class StatementParserTest extends ParserTest implements IStatementTest {
 		assertEquals( expected, root.getClass() );
 	}
 
-	/**
-	 * Shorthand method for asserting a VarDeclaration node.
-	 *
-	 * @param source
-	 */
 	private void assertVarDeclaration( String source ) {
 		source = "\"\" " + source;
 		Statement root;

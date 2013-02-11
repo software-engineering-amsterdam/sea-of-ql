@@ -7,36 +7,15 @@ import java.io.IOException;
 import org.uva.sea.ql.parser.IParser;
 import org.uva.sea.ql.parser.jacc.QLParser;
 
-/**
- * Implements basic functionality of visitor test classes.
- * @param <T>
- */
 abstract public class VisitorTest<T> {
-	/**
-	 * Holds the parser object.
-	 */
 	protected final IParser parser;
-
-	/**
-	 * Holds the read program from file.
-	 */
 	protected  String program;
 
-	/**
-	 * Constructs a new VisitorTest instance.
-	 */
 	protected VisitorTest() {
 		this.parser = new QLParser();
 		this.program = this.getFileContents( System.getProperty( "user.dir" ) + "/assets/sample.ql" );
 	}
 
-	/**
-	 * Retrieves contents of given file.
-	 *
-	 * @param fileName
-	 *
-	 * @return The contents.
-	 */
 	private String getFileContents( String fileName ) {
 		BufferedReader br = null;
 		StringBuffer sb = new StringBuffer();

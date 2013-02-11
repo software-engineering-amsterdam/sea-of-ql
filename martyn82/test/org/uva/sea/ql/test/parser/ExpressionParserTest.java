@@ -31,51 +31,26 @@ import org.uva.sea.ql.parser.IParser;
 import org.uva.sea.ql.parser.ParseError;
 import org.uva.sea.ql.test.IExpressionTest;
 
-/**
- * Testing expressions.
- */
 public class ExpressionParserTest extends ParserTest implements IExpressionTest {
-	/**
-	 * Enumeration of which side to pick in an expression or statement.
-	 */
 	private enum Side {
 		ALL,
 		LEFT,
 		RIGHT
 	};
 
-	/**
-	 * Holds the parser to use.
-	 */
 	private final IParser parser;
 
-	/**
-	 * Constructs a new parser test.
-	 */
 	public ExpressionParserTest() {
 		super();
 		this.parser = this.getParser();
 	}
 
-	/**
-	 * Shorthand method for asserting an expression source.
-	 *
-	 * @param expected
-	 * @param source
-	 */
 	private void assertExpression( Class<?> expected, String source ) {
 		// transform input expression to assignment statement, as atomic expressions do not exist in the QL language.
 		source = "x= " + source;
 		assertSide( expected, source, Side.RIGHT );
 	}
 
-	/**
-	 * Assert a side of a Node is of a certain type.
-	 *
-	 * @param expected
-	 * @param source
-	 * @param side
-	 */
 	private void assertSide( Class<?> expected, String source, Side side ) {
 		Statement root;
 
@@ -92,14 +67,6 @@ public class ExpressionParserTest extends ParserTest implements IExpressionTest 
 		assertEquals( expected, test.getClass() );
 	}
 
-	/**
-	 * Retrieves a part of a statement.
-	 *
-	 * @param node
-	 * @param which
-	 *
-	 * @return The node type it represents.
-	 */
 	private Node getPartOf( Statement node, Side which ) {
 		if ( node instanceof Assignment ) {
 			return getPartOf( (Assignment) node, which );
@@ -108,14 +75,6 @@ public class ExpressionParserTest extends ParserTest implements IExpressionTest 
 		return node;
 	}
 
-	/**
-	 * Retrieves a part of an assignment node.
-	 *
-	 * @param node
-	 * @param which
-	 *
-	 * @return The node at the given part.
-	 */
 	private Node getPartOf( Assignment node, Side which ) {
 		switch ( which ) {
 			case LEFT:

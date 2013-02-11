@@ -1,4 +1,4 @@
-// Output created by jacc on Mon Feb 11 14:24:56 CET 2013
+// Output created by jacc on Mon Feb 11 14:51:51 CET 2013
 
 package org.uva.sea.ql.parser.jacc;
 
@@ -3201,39 +3201,17 @@ class JACCParser implements QLTokens {
     protected String[] yyerrmsgs = {
     };
 
-    /**
-     * Holds the lexer.
-     */
     private QLLexer lexer;
-    
-    /**
-     * Holds the parsing result (AST)
-     */
     private Statement result;
     
-    /**
-     * Retrieves the generated AST.
-     *
-     * @return The AST.
-     */
     public Statement getResult() {
         return result;
     }
     
-    /**
-     * Constructs a new instance of the parser.
-     *
-     * @param lexer
-     */
     public JACCParser( QLLexer lexer ) { 
         this.lexer = lexer;
     }
     
-    /**
-     * Output error message.
-     *
-     * @param msg The error message.
-     */
     private void yyerror( String msg ) { 
         System.err.println( msg );
     }

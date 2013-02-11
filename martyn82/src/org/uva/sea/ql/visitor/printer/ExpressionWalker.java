@@ -25,43 +25,21 @@ import org.uva.sea.ql.ast.expression.unary.Not;
 import org.uva.sea.ql.ast.expression.unary.Pos;
 import org.uva.sea.ql.visitor.ExpressionVisitor;
 
-/**
- * Represents a pretty printer for expression nodes.
- */
 public class ExpressionWalker implements ExpressionVisitor<String> {
 	private static final String TPL_BINARY = "( %s %s %s )";
 	private static final String TPL_UNARY = "( %s %s )";
 
-	/**
-	 * Visit binary expression.
-	 *
-	 * @param node
-	 * @param operator
-	 */
 	private String visitBinary( BinaryExpression node, String operator ) {
 		String left = node.getLhs().accept( this );
 		String right = node.getRhs().accept( this );
 		return String.format( TPL_BINARY, left, operator, right );
 	}
 
-	/**
-	 * Visit unary expression.
-	 *
-	 * @param node
-	 * @param operator
-	 */
 	private String visitUnary( UnaryExpression node, String operator ) {
 		String operand = node.getExpression().accept( this );
 		return String.format( TPL_UNARY, operator, operand );
 	}
 
-	/**
-	 * Retrieves the name of a literal node.
-	 *
-	 * @param node
-	 *
-	 * @return The name of the node.
-	 */
 	private String getName( Literal node ) {
 		return node.getClass().getSimpleName().toUpperCase();
 	}

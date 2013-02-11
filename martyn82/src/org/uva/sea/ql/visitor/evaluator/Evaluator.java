@@ -24,20 +24,9 @@ import org.uva.sea.ql.visitor.evaluator.value.MoneyValue;
 import org.uva.sea.ql.visitor.evaluator.value.StringValue;
 import org.uva.sea.ql.visitor.evaluator.value.Value;
 
-/**
- * Evaluator for expression nodes.
- */
 public class Evaluator implements ExpressionVisitor<Value> {
-	/**
-	 * Holds the environment.
-	 */
 	private final Environment environment;
 
-	/**
-	 * Constructs a new ExpressionEvaluator.
-	 *
-	 * @param environment
-	 */
 	private Evaluator( Environment environment ) {
 		this.environment = environment;
 	}

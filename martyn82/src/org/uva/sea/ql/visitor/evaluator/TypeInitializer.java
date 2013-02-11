@@ -13,9 +13,6 @@ import org.uva.sea.ql.visitor.evaluator.value.StringValue;
 import org.uva.sea.ql.visitor.evaluator.value.UndefinedValue;
 import org.uva.sea.ql.visitor.evaluator.value.Value;
 
-/**
- * Evaluator for type nodes.
- */
 public class TypeInitializer implements TypeVisitor<Value> {
 	@Override
 	public Value visit( BooleanType node ) {

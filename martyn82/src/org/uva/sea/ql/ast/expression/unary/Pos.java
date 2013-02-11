@@ -4,15 +4,7 @@ import org.uva.sea.ql.ast.expression.Expression;
 import org.uva.sea.ql.ast.expression.UnaryNumericExpression;
 import org.uva.sea.ql.visitor.ExpressionVisitor;
 
-/**
- * Represents a positive expression.
- */
 public class Pos extends UnaryNumericExpression {
-	/**
-	 * Constructs a new positive expression.
-	 *
-	 * @param expression
-	 */
 	public Pos( Expression expression ) {
 		super( expression );
 	}

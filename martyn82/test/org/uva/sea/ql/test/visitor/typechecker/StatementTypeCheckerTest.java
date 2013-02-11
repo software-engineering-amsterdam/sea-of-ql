@@ -35,28 +35,11 @@ import org.uva.sea.ql.visitor.typechecker.ExpressionChecker;
 import org.uva.sea.ql.visitor.typechecker.StatementChecker;
 import org.uva.sea.ql.visitor.typechecker.TypeError;
 
-/**
- * Tests statements type checker.
- */
 public class StatementTypeCheckerTest extends VisitorTest<Boolean> implements IStatementTest {
-	/**
-	 * Holds the statement checker.
-	 */
 	private final StatementChecker statementChecker;
-
-	/**
-	 * Holds the expression checker.
-	 */
 	private final ExpressionChecker expressionChecker;
-
-	/**
-	 * Holds the environment.
-	 */
 	private final Environment environment;
 
-	/**
-	 * Constructs a new TypeChecker test.
-	 */
 	public StatementTypeCheckerTest() {
 		super();
 
@@ -65,9 +48,6 @@ public class StatementTypeCheckerTest extends VisitorTest<Boolean> implements IS
 		this.statementChecker = new StatementChecker( this.environment, this.expressionChecker );
 	}
 
-	/**
-	 * Perform typechecker on the example program string as defined in abstract parent class.
-	 */
 	@Test
 	public void testExample() {
 		try {
@@ -84,13 +64,6 @@ public class StatementTypeCheckerTest extends VisitorTest<Boolean> implements IS
 		}
 	}
 
-	/**
-	 * Typechecks the given statement.
-	 *
-	 * @param statement
-	 *
-	 * @return True if typecheck OK, false otherwise.
-	 */
 	private Boolean typeCheck( Statement statement ) {
 		this.environment.getErrors().clear();
 
@@ -101,13 +74,6 @@ public class StatementTypeCheckerTest extends VisitorTest<Boolean> implements IS
 		return true;
 	}
 
-	/**
-	 * TypeChecks the given expression.
-	 *
-	 * @param expression
-	 *
-	 * @return True if typecheck OK, false otherwise.
-	 */
 	private Boolean typeCheck( Expression expression ) {
 		if ( !expression.accept( this.expressionChecker ) ) {
 			return false;
@@ -116,9 +82,6 @@ public class StatementTypeCheckerTest extends VisitorTest<Boolean> implements IS
 		return true;
 	}
 
-	/**
-	 * Dumps the error list to std error.
-	 */
 	private void dumpErrors() {
 		for ( Error error : this.environment.getErrors() ) {
 			System.err.println( error.toString() );
