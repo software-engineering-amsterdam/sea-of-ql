@@ -10,9 +10,9 @@ import javax.swing.JTextField;
 
 import net.miginfocom.swing.MigLayout;
 
-import org.uva.sea.ql.ast.LineStatement;
 import org.uva.sea.ql.ast.literals.Result;
 import org.uva.sea.ql.ast.operators.Expr;
+import org.uva.sea.ql.ast.statements.LineStatement;
 import org.uva.sea.ql.ast.types.BooleanType;
 
 public class LinePanel extends Panel {

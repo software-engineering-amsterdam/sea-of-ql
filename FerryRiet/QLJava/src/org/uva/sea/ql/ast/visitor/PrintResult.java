@@ -20,4 +20,9 @@ public class PrintResult {
 	public String getPrintResult() {
 		return stringBuilder.toString();
 	}
+	
+	@Override
+	public String toString() {
+		return stringBuilder.toString();
+	}
 }

@@ -6,10 +6,11 @@ import org.uva.sea.ql.ast.types.Type;
 
 import org.uva.sea.ql.ast.types.StringType;
 
-public class StringResult extends Result<String> {
+public class StringResult extends Result {
 	private String value;
 
 	public StringResult(String string) {
+		super(new StringType());
 		value = string;
 	}
 

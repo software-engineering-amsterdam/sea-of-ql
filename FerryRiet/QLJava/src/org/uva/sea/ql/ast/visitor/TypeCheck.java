@@ -4,11 +4,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import org.uva.sea.ql.ast.CompoundStatement;
-import org.uva.sea.ql.ast.ConditionalStatement;
-import org.uva.sea.ql.ast.LineStatement;
-import org.uva.sea.ql.ast.QLProgram;
-import org.uva.sea.ql.ast.Statement;
 import org.uva.sea.ql.ast.literals.BooleanLiteral;
 import org.uva.sea.ql.ast.literals.IntegerLiteral;
 import org.uva.sea.ql.ast.literals.MoneyLiteral;
@@ -32,6 +27,11 @@ import org.uva.sea.ql.ast.operators.Or;
 import org.uva.sea.ql.ast.operators.Pos;
 import org.uva.sea.ql.ast.operators.Sub;
 import org.uva.sea.ql.ast.operators.UnExpr;
+import org.uva.sea.ql.ast.statements.CompoundStatement;
+import org.uva.sea.ql.ast.statements.ConditionalStatement;
+import org.uva.sea.ql.ast.statements.LineStatement;
+import org.uva.sea.ql.ast.statements.QLProgram;
+import org.uva.sea.ql.ast.statements.Statement;
 import org.uva.sea.ql.ast.types.BooleanType;
 import org.uva.sea.ql.ast.types.Type;
 
@@ -129,7 +129,8 @@ public class TypeCheck implements Visitor<Void> {
 		expr.getExprRightHand().accept(this);
 
 		// Do two checks on compatibility because Money is compatible to Integer
-		// but not the other way around. The order in the expression is unknown
+		// but not the other way around. The order in the expression is reversed 
+		// by the double dispatch.
 		//
 		if ((expr.getExprLeftHand().typeOf(symbolMap).isCompatibleTo(expr.getExprRightHand().typeOf(symbolMap)))) {
 			return true;
@@ -139,10 +140,10 @@ public class TypeCheck implements Visitor<Void> {
 		}
 		
 		/***
-		 * Due to empty AST expression nodes no available line
+		 * Due to empty AST expression nodes not available the line
 		 * numbers/positions. (Annotation of AST would be nice?)
 		 */
-		errorList.add("Line(nan,nan) Expression: incompatible types on operator: " + operator + ".");
+		errorList.add("Line(nan,nan) Expression: incompatible types on operator: " + operator);
 		return false;
 	}
 

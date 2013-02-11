@@ -1,6 +1,7 @@
-package org.uva.sea.ql.ast;
+package org.uva.sea.ql.ast.statements;
 
 import org.antlr.runtime.Token;
+import org.uva.sea.ql.ast.ASTNode;
 import org.uva.sea.ql.ast.visitor.Visitor;
 
 public class QLProgram implements ASTNode {

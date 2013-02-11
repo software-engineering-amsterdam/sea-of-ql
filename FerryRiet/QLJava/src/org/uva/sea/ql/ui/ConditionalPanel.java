@@ -7,10 +7,10 @@ import javax.swing.JPanel;
 
 import net.miginfocom.swing.MigLayout;
 
-import org.uva.sea.ql.ast.ConditionalStatement;
 import org.uva.sea.ql.ast.literals.BooleanResult;
 import org.uva.sea.ql.ast.literals.Result;
 import org.uva.sea.ql.ast.operators.Expr;
+import org.uva.sea.ql.ast.statements.ConditionalStatement;
 
 public class ConditionalPanel extends Panel {
 

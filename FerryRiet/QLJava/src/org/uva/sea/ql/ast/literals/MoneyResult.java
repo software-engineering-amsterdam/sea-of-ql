@@ -6,19 +6,21 @@ import org.uva.sea.ql.ast.types.Type;
 
 import org.uva.sea.ql.ast.types.MoneyType;
 
-public class MoneyResult extends Result<BigDecimal> {
+public class MoneyResult extends Result {
 	private BigDecimal value;
 
 	public MoneyResult(BigDecimal val) {
+		super(new MoneyType()) ;
 		value = val;
 	}
 
 	public MoneyResult(Integer val) {
+		super(new MoneyType());
 		value = new BigDecimal(val);
 	}
 
 	public int getIntegerValue() {
-		return 1;
+		return value.intValue();
 	}
 
 	public void setValue(BigDecimal value) {
@@ -58,29 +60,5 @@ public class MoneyResult extends Result<BigDecimal> {
 			value = new BigDecimal(0);
 		}
 		return this;
-	}
-
-	@Override
-	public boolean isCompatibleToInt() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean isCompatibleToString() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean isCompatibleToBool() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean isCompatibleToMoney() {
-		// TODO Auto-generated method stub
-		return false;
 	}
 }
