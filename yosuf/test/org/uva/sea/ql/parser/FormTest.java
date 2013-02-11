@@ -1,11 +1,12 @@
 package org.uva.sea.ql.parser;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.uva.sea.ql.ast.Form;
-import org.uva.sea.ql.ast.Question;
+import org.uva.sea.ql.ast.stm.Form;
+import org.uva.sea.ql.ast.stm.Question;
 import org.uva.sea.ql.parser.jacc.JACCParser;
 
 public class FormTest {
@@ -17,20 +18,11 @@ public class FormTest {
 		parser = new JACCParser();
 	}
 
-	@Test
-	public void testForm() throws ParseError {
-		assertEquals(
-				Form.class,
-				parser.parse(
-						"form someForm { Boolean question1 = \"Are you married?\" ; }")
-						.getClass());
-	}
-
 	@Test(expected = RuntimeException.class)
 	public void testEndlessStringLiteral() throws ParseError {
 		assertEquals(
 				Form.class,
-				parser.parse(
+				parser.parseForm(
 						"form someForm { Boolean question1 = \"Are you married? }")
 						.getClass());
 	}
@@ -49,6 +41,6 @@ public class FormTest {
 				+ "Integer money =1; " + "if(question1) { Integer money = 5; "
 				+ "Money presentCash = 1000;" + "}" + "}";
 
-		assertEquals(Form.class, parser.parse(form).getClass());
+		assertNotNull(parser.parseForm(form));
 	}
 }

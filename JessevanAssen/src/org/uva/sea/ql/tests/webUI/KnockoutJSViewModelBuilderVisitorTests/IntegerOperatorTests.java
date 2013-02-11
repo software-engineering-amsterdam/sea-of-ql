@@ -4,13 +4,13 @@ import org.junit.Test;
 import org.uva.sea.ql.ast.expression.*;
 import org.uva.sea.ql.ast.expression.value.Int;
 
+import static junit.framework.Assert.assertEquals;
+
 public class IntegerOperatorTests extends OperatorTests {
     private static final int LEFT_VALUE = 1;
     private static final Int LEFT = new Int(LEFT_VALUE);
     private static final int RIGHT_VALUE = 2;
     private static final Int RIGHT = new Int(RIGHT_VALUE);
-
-    private static final String UNARY_PATTERN  = "(%s%s)";
 
     @Override protected Object getLeftValue() { return LEFT_VALUE; }
     @Override protected Object getRightValue() { return RIGHT_VALUE; }
@@ -62,6 +62,10 @@ public class IntegerOperatorTests extends OperatorTests {
 
     @Test
     public void testPos() {
-        testUnaryOperator(new Positive(LEFT), "+");
+        new Positive(LEFT).accept(visitor, context);
+        assertEquals(
+                "Math.abs(1)",
+                context.getObjectHierarchy().toString()
+        );
     }
 }

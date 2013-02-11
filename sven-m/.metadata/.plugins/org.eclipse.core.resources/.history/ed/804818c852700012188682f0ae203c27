@@ -1,0 +1,7 @@
+package org.uva.sea.ql.ast.form;
+
+public class ElseStatement extends AbstractIf {
+	public ElseStatement(Body body) {
+		super(body);
+	}
+}

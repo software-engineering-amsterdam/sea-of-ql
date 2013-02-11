@@ -1,0 +1,9 @@
+package org.uva.sea.ql.ast;
+
+public class IfStatement extends FormElement implements ASTNode {
+
+	public IfStatement() {
+		// TODO Auto-generated constructor stub
+	}
+
+}

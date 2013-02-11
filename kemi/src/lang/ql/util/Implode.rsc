@@ -10,10 +10,10 @@
 
 module lang::ql::util::Implode
 
+import IO;
 import ParseTree;
-import lang::ql::util::Parse;
 import lang::ql::ast::AST;
-import util::Maybe;
+import lang::ql::util::Parse;
 
 public Form implode(Tree t) = 
   implode(#Form, t);

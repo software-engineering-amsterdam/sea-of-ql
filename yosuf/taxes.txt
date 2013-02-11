@@ -1,0 +1,5 @@
+form taxes {
+	Boolean married = "Are you married?";
+	Boolean homeless = "Have you been homeless?";
+	Integer incomes = "What were your incomes of last year?";
+}

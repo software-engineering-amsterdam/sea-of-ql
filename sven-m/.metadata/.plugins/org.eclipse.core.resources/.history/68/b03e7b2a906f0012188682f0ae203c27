@@ -1,0 +1,33 @@
+package org.uva.sea.ql.parser.test.syntax;
+
+import static org.junit.Assert.assertEquals;
+
+import org.junit.Test;
+import org.uva.sea.ql.ast.form.QLForm;
+import org.uva.sea.ql.parser.test.ParseError;
+
+public class FormTest extends SyntaxTest {
+
+	@Override
+	protected Class<?> parseClass(String src) {
+		Class<?> cls = null;
+		
+		try {
+			cls = getParser().parseForm(src).getClass(); 
+		} catch (ParseError e) {
+			System.out.println(e.getMessage());
+		}
+		
+		return cls;
+	}
+	
+	@Test
+	public void testForms() throws ParseError {
+		assertEquals(parseClass("form f1 { \n q1: \"Question 1\" boolean }"), QLForm.class);
+		assertEquals(parseClass("form f1 { \n q1: \"Question 1\" boolean }"), QLForm.class);
+		assertEquals(parseClass("form f2 { \n afds: \" \" string }"), QLForm.class);
+		assertEquals(parseClass("form f3 { }"), QLForm.class);
+		assertEquals(QLForm.class, parseClass("form f5 { \n d434fw: \" \" integer }"));
+	}
+
+}

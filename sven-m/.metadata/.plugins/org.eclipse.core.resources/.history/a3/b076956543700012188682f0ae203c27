@@ -1,0 +1,17 @@
+package org.uva.sea.ql.ast.type;
+
+import org.uva.sea.ql.ast.form.Body;
+import org.uva.sea.ql.ast.form.QLForm;
+import org.uva.sea.ql.ast.form.FormElement;
+import org.uva.sea.ql.ast.form.IfStatement;
+import org.uva.sea.ql.ast.form.Question;
+import org.uva.sea.ql.ast.form.Computed;
+
+public interface IFormElementTypeChecker {
+	void visit(QLForm form);
+	void visit(Body body);
+	void visit(FormElement formElement);
+	void visit(IfStatement ifStatement);
+	void visit(Question question);
+	void visit(Computed computedQuestion);
+}

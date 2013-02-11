@@ -9,11 +9,14 @@ import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.Map;
 
-public class IOHelper {
+public final class IOHelper {
 	public static final String OUT_PATH = "";
+	private IOHelper(){
+	    
+	}
 	public static void write(String path, String output)
 			throws FileNotFoundException {
-		PrintWriter out = new PrintWriter(path);
+		final PrintWriter out = new PrintWriter(path);
 		out.println(output);
 		out.close();
 	}
@@ -23,8 +26,8 @@ public class IOHelper {
 	}
 
 	public static String read(File file) throws IOException {
-		StringBuilder content = new StringBuilder();
-		LineNumberReader lnr = new LineNumberReader(new FileReader(file));
+		final StringBuilder content = new StringBuilder();
+		final LineNumberReader lnr = new LineNumberReader(new FileReader(file));
 		try {
 			String line = lnr.readLine();
 			while (line != null) {
@@ -40,8 +43,8 @@ public class IOHelper {
 
 	public static Map<String, String> readFolder(String path)
 			throws IOException {
-		Map<String, String> m = new HashMap<String, String>();
-		File folder = new File(path);
+		final Map<String, String> m = new HashMap<String, String>();
+		final File folder = new File(path);
 		for (final File fileEntry : folder.listFiles()) {
 			if (fileEntry.isFile()) {
 				m.put(fileEntry.getName().replace(".html", ""), read(path

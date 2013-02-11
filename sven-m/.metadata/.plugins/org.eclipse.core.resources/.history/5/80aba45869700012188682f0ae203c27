@@ -1,0 +1,143 @@
+package org.uva.sea.ql.parser.typechecking;
+
+import java.util.Map;
+
+import org.uva.sea.ql.ast.expression.Add;
+import org.uva.sea.ql.ast.expression.And;
+import org.uva.sea.ql.ast.expression.Binary;
+import org.uva.sea.ql.ast.expression.Div;
+import org.uva.sea.ql.ast.expression.Eq;
+import org.uva.sea.ql.ast.expression.GEq;
+import org.uva.sea.ql.ast.expression.GT;
+import org.uva.sea.ql.ast.expression.Ident;
+import org.uva.sea.ql.ast.expression.Int;
+import org.uva.sea.ql.ast.expression.LEq;
+import org.uva.sea.ql.ast.expression.LT;
+import org.uva.sea.ql.ast.expression.Mul;
+import org.uva.sea.ql.ast.expression.NEq;
+import org.uva.sea.ql.ast.expression.Neg;
+import org.uva.sea.ql.ast.expression.Not;
+import org.uva.sea.ql.ast.expression.Or;
+import org.uva.sea.ql.ast.expression.Pos;
+import org.uva.sea.ql.ast.expression.Str;
+import org.uva.sea.ql.ast.expression.Sub;
+import org.uva.sea.ql.ast.expression.Unary;
+import org.uva.sea.ql.ast.type.BoolType;
+import org.uva.sea.ql.ast.type.IntType;
+import org.uva.sea.ql.ast.type.StrType;
+import org.uva.sea.ql.ast.type.Type;
+import org.uva.sea.ql.ast.visitor.ExpressionVisitor;
+
+public class ExpressionTypeChecker implements ExpressionVisitor<Boolean>
+{
+	private ExpressionTypeEvaluator exprTypeEval;
+	private Map<String, Type> typeEnvironment;
+	
+	private final IntType intType = new IntType();
+	private final StrType strType = new StrType();
+	private final BoolType boolType = new BoolType();
+	
+	public ExpressionTypeChecker() {
+		exprTypeEval = new ExpressionTypeEvaluator(typeEnvironment);
+	}
+	
+	private Boolean assertType(Binary ast, Type type) {
+		return ast.getLhs().accept(exprTypeEval).equals(type)
+				&& ast.getLhs().accept(exprTypeEval).equals(type);
+	}
+	
+	private Boolean assertType(Unary ast, Type type) {
+		return ast.getOp().accept(exprTypeEval).equals(type);
+	}
+
+	@Override
+	public Boolean visit(Add ast) {
+		return assertType(ast, intType);
+	}
+
+	@Override
+	public Boolean visit(Mul ast) {
+		return assertType(ast, intType);
+	}
+
+	@Override
+	public Boolean visit(Div ast) {
+		return assertType(ast, intType);
+	}
+
+	@Override
+	public Boolean visit(Sub ast) {
+		return assertType(ast, intType);
+	}
+
+	@Override
+	public Boolean visit(And ast) {
+		return assertType(ast, boolType);
+	}
+
+	@Override
+	public Boolean visit(Or ast) {
+		return assertType(ast, boolType);
+	}
+
+	@Override
+	public Boolean visit(LT ast) {
+		return assertType(ast, boolType);
+	}
+
+	@Override
+	public Boolean visit(LEq ast) {
+		return assertType(ast, boolType);
+	}
+
+	@Override
+	public Boolean visit(Eq ast) {
+		return assertType(ast, boolType);
+	}
+
+	@Override
+	public Boolean visit(NEq ast) {
+		return assertType(ast, boolType);
+	}
+
+	@Override
+	public Boolean visit(GEq ast) {
+		return assertType(ast, boolType);
+	}
+
+	@Override
+	public Boolean visit(GT ast) {
+		return assertType(ast, boolType);
+	}
+
+	@Override
+	public Boolean visit(Pos ast) {
+		return assertType(ast, intType);
+	}
+
+	@Override
+	public Boolean visit(Neg ast) {
+		return assertType(ast, intType);
+	}
+
+	@Override
+	public Boolean visit(Not ast) {
+		return assertType(ast, boolType);
+	}
+
+	@Override
+	public Boolean visit(Ident ast) {
+		return true;
+	}
+
+	@Override
+	public Boolean visit(Int ast) {
+		return true;
+	}
+
+	@Override
+	public Boolean visit(Str ast) {
+		return true;
+	}
+
+}

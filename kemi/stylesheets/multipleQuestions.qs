@@ -1,4 +1,4 @@
-stylesheet mulitpleQuestions {
+stylesheet multipleQuestions {
   page "Page one" {
     question fieldOne
   }
@@ -12,6 +12,6 @@ stylesheet mulitpleQuestions {
   }
   
   default boolean {
-    type radio
+    widget radio
   }
 }

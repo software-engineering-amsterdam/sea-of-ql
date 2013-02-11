@@ -2,6 +2,8 @@ package org.uva.sea.ql.visitor.semantic.test.expr;
 
 import static org.junit.Assert.assertEquals;
 
+import java.math.BigDecimal;
+
 import org.junit.Test;
 import org.uva.sea.ql.ast.expr.atom.Bool;
 import org.uva.sea.ql.ast.expr.atom.Ident;
@@ -46,8 +48,8 @@ public class TestAtoms {
 
 	@Test
 	public void testMoneys() {
-		assertEquals(true, visitor.visit(new Money(-1.0f)));
-		assertEquals(true, visitor.visit(new Money(20.0f)));
+		assertEquals(true, visitor.visit(new Money(new BigDecimal("-1.00"))));
+		assertEquals(true, visitor.visit(new Money(new BigDecimal("20.00"))));
 	}
 
 	@Test

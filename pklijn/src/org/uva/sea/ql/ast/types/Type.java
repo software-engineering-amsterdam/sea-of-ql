@@ -18,6 +18,10 @@ public abstract class Type implements ASTNode {
 		return (obj.getClass().equals(this.getClass()));
 	}
 	
+	public int hashCode() {
+		return this.getClass().hashCode();
+	};
+	
 	public boolean isDefined() {
 		return true;
 	}

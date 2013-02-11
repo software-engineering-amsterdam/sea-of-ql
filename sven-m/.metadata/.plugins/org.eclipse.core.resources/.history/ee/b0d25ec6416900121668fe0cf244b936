@@ -1,0 +1,11 @@
+package org.uva.sea.ql.parser.test;
+
+public class FormTest extends TestSyntax {
+
+	@Override
+	protected Object parse(String src) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}

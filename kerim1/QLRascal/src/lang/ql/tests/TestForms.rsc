@@ -2,7 +2,7 @@ module lang::ql::tests::TestForms
 
 import lang::ql::util::Implode;
 
-loc testFile = |project://QLRascal/src/lang/ql/tests/test.q|;
+loc testFile = |project://QLRascal/src/lang/ql/tests/ql/Box1HouseOwning.q|;
 
 public test bool testForm1() = load("form test1 { }") is form;
 public test bool testForm2() = load("form test2 {

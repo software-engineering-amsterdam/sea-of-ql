@@ -1,8 +1,9 @@
 package khosrow.uva.sea.ql.ast.type;
 
 import khosrow.uva.sea.ql.ast.ASTNode;
+import khosrow.uva.sea.ql.resources.ITypeCompatible;
 
-public abstract class Type extends ASTNode {
+public abstract class Type extends ASTNode implements ITypeCompatible {
 	public abstract boolean isCompatibleTo(Type t);
 	
 	public boolean isCompatibleToInt() { return false;}

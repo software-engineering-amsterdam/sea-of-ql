@@ -27,29 +27,13 @@ public class Environment {
 		this.bindings.put(ident, value);
 	}
 
-	public boolean exists(Ident ident) {
-		if (this.bindings.containsKey(ident)) {
-			return true;
-		}
-
-		if (this.parent != null) {
-			return this.parent.exists(ident);
-		}
-
-		return false;
-	}
-
-	public AbstractValue typeOfIdent(Ident ident) {
+	public AbstractValue valueOfIdent(Ident ident) {
+		// Semantic validator guarantees that ident is defined.
 		if (this.bindings.containsKey(ident)) {
 			return this.bindings.get(ident);
+		} else {
+			return this.parent.valueOfIdent(ident);
 		}
-
-		if (this.parent != null) {
-			return this.parent.typeOfIdent(ident);
-		}
-
-		throw new IllegalArgumentException(
-				"Ident is not defined. Use exists before calling typeOfIdent.");
 	}
 
 }

@@ -1,7 +1,10 @@
 package org.uva.sea.ql.ast.types;
 
+import java.awt.AWTEvent;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 
 import javax.swing.JComponent;
 import javax.swing.JTextField;
@@ -9,7 +12,7 @@ import javax.swing.JTextField;
 import org.uva.sea.ql.ast.values.StringValue;
 import org.uva.sea.ql.ast.values.Value;
 
-public class StringType extends Type implements ActionListener {
+public class StringType extends Type implements ActionListener, FocusListener {
 
 	private JTextField answerField;
 	
@@ -23,12 +26,13 @@ public class StringType extends Type implements ActionListener {
 		answerField = new JTextField();
 		answerField.setEnabled(enabled);
 		answerField.addActionListener(this);
+		answerField.addFocusListener(this);
 		return answerField;
 	}
 
 	@Override
 	public boolean hasValue() {
-		return true;
+		return (!answerField.getText().equals(""));
 	}
 	
 	@Override
@@ -53,7 +57,20 @@ public class StringType extends Type implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		if (form != null) {
+		eventUpdate(e);
+	}
+
+	@Override
+	public void focusGained(FocusEvent e) {
+	}
+
+	@Override
+	public void focusLost(FocusEvent e) {
+		eventUpdate(e);
+	}
+	
+	public void eventUpdate(AWTEvent e) {
+		if (e.getSource() == answerField && form != null) {
 			form.eval();
 		}
 	}

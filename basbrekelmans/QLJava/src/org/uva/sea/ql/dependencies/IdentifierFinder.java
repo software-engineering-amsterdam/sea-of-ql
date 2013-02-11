@@ -23,6 +23,7 @@ import org.uva.sea.ql.ast.expressions.NotEquals;
 import org.uva.sea.ql.ast.expressions.Or;
 import org.uva.sea.ql.ast.expressions.StringLiteral;
 import org.uva.sea.ql.ast.expressions.Subtraction;
+import org.uva.sea.ql.ast.expressions.Unary;
 import org.uva.sea.ql.ast.expressions.UnaryMinus;
 import org.uva.sea.ql.ast.expressions.UnaryNot;
 import org.uva.sea.ql.ast.expressions.UnaryPlus;
@@ -126,20 +127,23 @@ public class IdentifierFinder implements IExpressionVisitor<Set<Identifier>> {
 
 	@Override
 	public Set<Identifier> visit(UnaryNot element) {
-		return element.getOperand().accept(this);
+		return visitUnary(element);
 	}
-
+	
 	@Override
 	public Set<Identifier> visit(UnaryMinus element) {
-		return element.getOperand().accept(this);
+		return visitUnary(element);
 	}
 
 	@Override
 	public Set<Identifier> visit(UnaryPlus element) {
+		return visitUnary(element);
+	}
+	
+	private Set<Identifier> visitUnary(Unary element) {
 		return element.getOperand().accept(this);
 	}
 	
-
 	private Set<Identifier> visitBinary(Binary element) {
 		Set<Identifier> left = element.getLeft().accept(this);
 		Set<Identifier> right = element.getRight().accept(this);

@@ -15,15 +15,15 @@ import lang::ql::analysis::State;
 import lang::ql::ast::AST;
 import util::IDE;
 
-public TypeMapMessages typeMapper(IdentDefinition ident, Type \type, TypeMap tm) {
+public TypeMapMessages typeMapper(IdentDefinition ident, Type \type, 
+    TypeMap tm) {
   if(ident notin tm) {
-    t = tm[ident] = \type;
-    return <t, {}>;
+    tm[ident] = \type;
+    return <tm, {}>;
   }
   
-  if(tm[ident] != \type) {
+  if(tm[ident] != \type)
     return <tm, {redeclaredMessage(\type@location)}>;
-  }
   
   return <tm, {alreadyDeclaredMessage(ident.ident, ident@location)}>;
 } 

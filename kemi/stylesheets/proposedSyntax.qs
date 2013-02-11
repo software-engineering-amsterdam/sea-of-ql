@@ -1,10 +1,10 @@
-stylesheet testStylesheet {
+stylesheet proposedSyntax {
   page "Page one" {
     section "section one" {
       section "section two" {
         question questionTen
         default boolean {
-          width 200
+          widget select
         }
         
       }
@@ -20,17 +20,21 @@ stylesheet testStylesheet {
       question questionSix
       question questionSeven
       default boolean {
-        type checkbox
+        widget checkbox
       }
       
     }
     
     question questionOne {
-      type checkbox
+      widget checkbox
     }
     
     default boolean {
-      width 300
+      widget radio
+    }
+    
+    default date {
+      widget datepicker
     }
     
   }
@@ -40,7 +44,11 @@ stylesheet testStylesheet {
   }
   
   default boolean {
-    type radio
+    widget radio
+  }
+  
+  default integer {
+    widget slider
   }
   
   question questionThree {

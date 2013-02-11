@@ -47,17 +47,30 @@ data QuestionDefinition
   ;
 
 data DefaultDefinition
-  = defaultDefinition(str ident, list[StyleRule] styleRules)
+  = defaultDefinition(Type ident, list[StyleRule] styleRules)
+  ;
+
+data Type
+  = booleanType(str name)
+  | integerType(str name)
+  | moneyType(str name)
+  | dateType(str name)
+  | stringType(str name)
   ;
 
 data StyleRule
-  = typeStyleRule(str attr, TypeStyleValue typeValue)
+  = widgetStyleRule(str attr, WidgetStyleValue widgetValue)
   | widthStyleRule(str attr, int widthValue)
   ;
 
-data TypeStyleValue
-  = radio(str name)
+data WidgetStyleValue
+  = text(str name)
+  | number(str name)
+  | datepicker(str name)
+  | slider(str name)
+  | radio(str name)
   | checkbox(str name)
+  | select(str name)
   ;
 
 anno loc Stylesheet@location;

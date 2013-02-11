@@ -72,5 +72,15 @@ public class BoolLiteral extends Value {
 	public Value not() {
 		return new BoolLiteral(!getValue());
 	}
+	
+	@Override
+	public boolean isOfValue(Value v) {
+		return v.isBoolLiteral();
+	}
+	
+	@Override
+	public boolean isBoolLiteral() {
+		return true;
+	}
 
 }

@@ -25,6 +25,8 @@ public class QLLexer implements QLTokens {
 		KEYWORDS.put("Money", MON);
 		KEYWORDS.put("BooleanValue", BOOL_VAL);
 		KEYWORDS.put("MoneyValue", MON_VAL);
+		KEYWORDS.put("true", TRUE);
+		KEYWORDS.put("false", FALSE);
 	}
 
 	private int token;
@@ -36,6 +38,7 @@ public class QLLexer implements QLTokens {
 	public QLLexer(final Reader input) {
 		this.input = input;
 		nextChar();
+		nextToken();
 	}
 
 	private void nextChar() {

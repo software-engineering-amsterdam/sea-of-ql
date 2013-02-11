@@ -22,17 +22,18 @@ public str prettyPrint(Statement item: question(Question question)) =
   prettyPrint(question);
 
 public str prettyPrint(Question q: 
-  question(questionText, answerDataType, answerIdentifier)) =
-    "<questionText.text>
-    '  <answerDataType.name> <answerIdentifier.ident>";
+    question(questionText, answerDataType, answerIdentifier)) =
+  "<questionText.text>
+  '  <answerDataType.name> <answerIdentifier.ident>";
 
 public str prettyPrint(Question q: 
-  question(questionText, answerDataType, answerIdentifier, calculatedField)) =
-    "<questionText.text>
-    '  <answerDataType.name> <answerIdentifier.ident> = <prettyPrint(calculatedField)>";
+    question(questionText, answerDataType, answerIdentifier, cf)) =
+  "<questionText.text>
+  '  <answerDataType.name> <answerIdentifier.ident> = <prettyPrint(cf)>";
 
 public str prettyPrint(Statement item: 
-  ifCondition(Conditional ifPart, list[Conditional] elseIfs, list[ElsePart] elsePart)) = 
+    ifCondition(Conditional ifPart, list[Conditional] elseIfs, 
+    list[ElsePart] elsePart)) = 
     "if(<prettyPrint(ifPart.condition)>) { <for(e <- ifPart.body) {>
     '  <prettyPrint(e)><}><for(ei <- elseIfs) { >
     '} else if(<prettyPrint(ei.condition)>) { <for(e <- ei.body) {>

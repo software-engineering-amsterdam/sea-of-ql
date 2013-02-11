@@ -26,6 +26,12 @@ import org.uva.sea.ql.ast.expressions.Xor;
 
 public class ExpressionEvaluator implements IExpressionEvaluator, IExpressionVisitor<Value> {
 
+	private final RuntimeContext context;
+
+	public ExpressionEvaluator(RuntimeContext context) {
+		this.context = context;
+	}
+	
 	@Override
 	public Value getValue(Expression expr) {
 		return expr.accept(this);
@@ -147,8 +153,7 @@ public class ExpressionEvaluator implements IExpressionEvaluator, IExpressionVis
 
 	@Override
 	public Value visit(Identifier element) {
-		// TODO Auto-generated method stub
-		return null;
+		return context.getValue(element);
 	}
 
 	@Override

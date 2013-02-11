@@ -1,5 +1,7 @@
 package org.uva.sea.ql.visitor.eval.value;
 
+import java.math.BigDecimal;
+
 public class Int extends AbstractValue {
 
 	private final int value;
@@ -34,7 +36,8 @@ public class Int extends AbstractValue {
 
 	@Override
 	protected AbstractValue addMoney(Money value) {
-		return new Money(value.getValue() + this.getValue());
+		BigDecimal intAsBigDecimal = new BigDecimal(this.getValue());
+		return new Money(value.getValue().add(intAsBigDecimal));
 	}
 
 	@Override
@@ -49,7 +52,9 @@ public class Int extends AbstractValue {
 
 	@Override
 	protected AbstractValue divMoney(Money value) {
-		return new Money(value.getValue() / this.getValue());
+		BigDecimal intAsBigDecimal = new BigDecimal(this.getValue());
+		return new Money(value.getValue().divide(intAsBigDecimal,
+				value.getRoundingMode()));
 	}
 
 	@Override
@@ -64,7 +69,8 @@ public class Int extends AbstractValue {
 
 	@Override
 	protected AbstractValue mulMoney(Money value) {
-		return new Money(value.getValue() * this.getValue());
+		BigDecimal intAsBigDecimal = new BigDecimal(this.getValue());
+		return new Money(value.getValue().multiply(intAsBigDecimal));
 	}
 
 	@Override
@@ -79,7 +85,8 @@ public class Int extends AbstractValue {
 
 	@Override
 	protected AbstractValue subMoney(Money value) {
-		return new Money(value.getValue() - this.getValue());
+		BigDecimal intAsBigDecimal = new BigDecimal(this.getValue());
+		return new Money(value.getValue().subtract(intAsBigDecimal));
 	}
 
 	@Override
@@ -94,7 +101,8 @@ public class Int extends AbstractValue {
 
 	@Override
 	public AbstractValue eqMoney(Money value) {
-		return new Bool(value.getValue() == this.getValue());
+		BigDecimal intAsBigDecimal = new BigDecimal(this.getValue());
+		return new Bool(value.getValue().compareTo(intAsBigDecimal) == 0);
 	}
 
 	@Override
@@ -109,7 +117,8 @@ public class Int extends AbstractValue {
 
 	@Override
 	public AbstractValue neqMoney(Money value) {
-		return new Bool(value.getValue() != this.getValue());
+		BigDecimal intAsBigDecimal = new BigDecimal(this.getValue());
+		return new Bool(value.getValue().compareTo(intAsBigDecimal) != 0);
 	}
 
 	@Override
@@ -124,7 +133,8 @@ public class Int extends AbstractValue {
 
 	@Override
 	public AbstractValue geqMoney(Money value) {
-		return new Bool(value.getValue() >= this.getValue());
+		BigDecimal intAsBigDecimal = new BigDecimal(this.getValue());
+		return new Bool(value.getValue().compareTo(intAsBigDecimal) >= 0);
 	}
 
 	@Override
@@ -139,7 +149,8 @@ public class Int extends AbstractValue {
 
 	@Override
 	public AbstractValue gtMoney(Money value) {
-		return new Bool(value.getValue() > this.getValue());
+		BigDecimal intAsBigDecimal = new BigDecimal(this.getValue());
+		return new Bool(value.getValue().compareTo(intAsBigDecimal) == 1);
 	}
 
 	@Override
@@ -154,7 +165,8 @@ public class Int extends AbstractValue {
 
 	@Override
 	public AbstractValue leqMoney(Money value) {
-		return new Bool(value.getValue() <= this.getValue());
+		BigDecimal intAsBigDecimal = new BigDecimal(this.getValue());
+		return new Bool(value.getValue().compareTo(intAsBigDecimal) <= 0);
 	}
 
 	@Override
@@ -169,7 +181,8 @@ public class Int extends AbstractValue {
 
 	@Override
 	public AbstractValue ltMoney(Money value) {
-		return new Bool(value.getValue() < this.getValue());
+		BigDecimal intAsBigDecimal = new BigDecimal(this.getValue());
+		return new Bool(value.getValue().compareTo(intAsBigDecimal) == -1);
 	}
 
 }
