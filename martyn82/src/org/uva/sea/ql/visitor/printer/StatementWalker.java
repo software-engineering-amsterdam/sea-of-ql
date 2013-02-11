@@ -1,10 +1,8 @@
 package org.uva.sea.ql.visitor.printer;
 
 import org.uva.sea.ql.ast.statement.Assignment;
-import org.uva.sea.ql.ast.statement.Else;
-import org.uva.sea.ql.ast.statement.ElseIf;
-import org.uva.sea.ql.ast.statement.ElseIfs;
 import org.uva.sea.ql.ast.statement.FormDeclaration;
+import org.uva.sea.ql.ast.statement.IfThen;
 import org.uva.sea.ql.ast.statement.IfThenElse;
 import org.uva.sea.ql.ast.statement.QuestionComputed;
 import org.uva.sea.ql.ast.statement.QuestionVar;
@@ -17,8 +15,7 @@ import org.uva.sea.ql.visitor.StatementVisitor;
  * Represents a pretty printer for statement nodes.
  */
 public class StatementWalker implements StatementVisitor<String> {
-	private static final String TPL_BLOCK_IFTHENELSE = "( IF %s THEN %s %s ELSE %s )";
-	private static final String TPL_BLOCK_ELSEIF = "( ELSEIF %s THEN %s )";
+	private static final String TPL_BLOCK_IFTHENELSE = "( IF %s THEN %s ELSE %s )";
 	private static final String TPL_VARDECLARATION = "( VAR %s : %s )";
 	private static final String TPL_ASSIGNMENT = "( VAR %s = %s )";
 	private static final String TPL_FORMDECLARATION = "( FORM %s %s )";
@@ -39,35 +36,17 @@ public class StatementWalker implements StatementVisitor<String> {
 	}
 
 	@Override
-	public String visit( Else node ) {
+	public String visit( IfThen node ) {
 		return node.getBody().accept( this );
 	}
 
 	@Override
 	public String visit( IfThenElse node ) {
 		String condition = node.getCondition().accept( this.expressionVisitor );
-		String then = node.hasIfBody() ? node.getIfBody().accept( this ) : "";
-		String elseIfs = node.hasElseIfs() ? node.getElseIfs().accept( this ) : "";
-		String elseBody = node.hasElse() ? node.getElse().accept( this ) : "";
-		return String.format( TPL_BLOCK_IFTHENELSE, condition, then, elseIfs, elseBody );
-	}
+		String then = node.getBody().accept( this );
+		String elseBody = node.getElse().accept( this );
 
-	@Override
-	public String visit( ElseIfs node ) {
-		StringBuilder sb = new StringBuilder();
-
-		for ( ElseIf elseIf : node ) {
-			sb.append( elseIf.accept( this ) );
-		}
-
-		return sb.toString();
-	}
-
-	@Override
-	public String visit( ElseIf node ) {
-		String condition = node.getCondition().accept( this.expressionVisitor );
-		String body = node.getBody().accept( this );
-		return String.format( TPL_BLOCK_ELSEIF, condition, body );
+		return String.format( TPL_BLOCK_IFTHENELSE, condition, then, elseBody );
 	}
 
 	@Override

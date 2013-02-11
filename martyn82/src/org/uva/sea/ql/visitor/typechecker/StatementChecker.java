@@ -1,10 +1,10 @@
 package org.uva.sea.ql.visitor.typechecker;
 
+import org.uva.sea.ql.ast.Node;
+import org.uva.sea.ql.ast.expression.Expression;
 import org.uva.sea.ql.ast.statement.Assignment;
-import org.uva.sea.ql.ast.statement.Else;
-import org.uva.sea.ql.ast.statement.ElseIf;
-import org.uva.sea.ql.ast.statement.ElseIfs;
 import org.uva.sea.ql.ast.statement.FormDeclaration;
+import org.uva.sea.ql.ast.statement.IfThen;
 import org.uva.sea.ql.ast.statement.IfThenElse;
 import org.uva.sea.ql.ast.statement.QuestionComputed;
 import org.uva.sea.ql.ast.statement.QuestionVar;
@@ -15,53 +15,32 @@ import org.uva.sea.ql.ast.type.Type;
 import org.uva.sea.ql.visitor.StatementVisitor;
 import org.uva.sea.ql.visitor.evaluator.Environment;
 
-/**
- * Represents a type checker for statement nodes.
- */
 public class StatementChecker extends TypeCheckVisitor implements StatementVisitor<Boolean> {
-
-	/**
-	 * Holds the expression checker.
-	 */
 	private final ExpressionChecker expressionChecker;
 
-	/**
-	 * Constructs a new Statement checker.
-	 *
-	 * @param environment
-	 * @param expressionChecker
-	 */
 	public StatementChecker( Environment environment, ExpressionChecker expressionChecker ) {
 		super( environment );
 		this.expressionChecker = expressionChecker;
 	}
 
-	@Override
-	public Boolean visit( Else node ) {
-		return node.getBody().accept( this );
-	}
+	private Boolean checkCondition( Expression condition, Node node ) {
+		if ( !condition.accept( this.expressionChecker ) ) {
+			return false;
+		}
 
-	@Override
-	public Boolean visit( ElseIfs node ) {
-		for ( ElseIf elseIf : node ) {
-			if ( !elseIf.accept( this ) ) {
-				return false;
-			}
+		Type conditionType = condition.accept( this.resolver );
+
+		if ( !conditionType.isCompatibleToBool() ) {
+			this.addIncompatibleTypeError( node.toString(), "Boolean", conditionType.toString(), node );
+			return false;
 		}
 
 		return true;
 	}
 
 	@Override
-	public Boolean visit( ElseIf node ) {
-		if ( !node.getCondition().accept( this.expressionChecker ) ) {
-			return false;
-		}
-
-		Type conditionType = node.getCondition().accept( this.resolver );
-
-		if ( !conditionType.isCompatibleToBool() ) {
-			this.addIncompatibleTypeError( node.toString(), "Boolean", conditionType.toString(), node );
+	public Boolean visit( IfThen node ) {
+		if ( !this.checkCondition( node.getCondition(), node ) ) {
 			return false;
 		}
 
@@ -70,33 +49,16 @@ public class StatementChecker extends TypeCheckVisitor implements StatementVisit
 
 	@Override
 	public Boolean visit( IfThenElse node ) {
-		if ( !node.getCondition().accept( this.expressionChecker ) ) {
+		if ( !this.checkCondition( node.getCondition(), node ) ) {
 			return false;
 		}
 
-		Type conditionType = node.getCondition().accept( this.resolver );
-
-		if ( !conditionType.isCompatibleToBool() ) {
-			this.addIncompatibleTypeError( node.toString(), "Boolean", conditionType.toString(), node );
+		if ( !node.getBody().accept( this ) ) {
 			return false;
 		}
 
-		if ( node.hasIfBody() ) {
-			if ( !node.getIfBody().accept( this ) ) {
-				return false;
-			}
-		}
-
-		if ( node.hasElseIfs() ) {
-			if ( !node.getElseIfs().accept( this ) ) {
-				return false;
-			}
-		}
-
-		if ( node.hasElse() ) {
-			if ( !node.getElse().accept( this ) ) {
-				return false;
-			}
+		if ( !node.getElse().accept( this ) ) {
+			return false;
 		}
 
 		return true;
@@ -104,19 +66,11 @@ public class StatementChecker extends TypeCheckVisitor implements StatementVisit
 
 	@Override
 	public Boolean visit( VarDeclaration node ) {
-		/*
-		 * If the identifier is already declared, then check if types are compliant.
-		 *     If types are not compliant, report error.
-		 *     If types are compliant, report success.
-		 *
-		 * If the identifier is not declared, then declare it and initialize its type.
-		 */
-
 		if ( this.environment.isDeclared( node.getIdent() ) ) {
 			Type identType = this.environment.lookupType( node.getIdent() );
 			Type declaredType = node.getType();
 
-			if ( identType.getClass() != declaredType.getClass() ) {
+			if ( !identType.equals( declaredType ) ) {
 				this.addAlreadyDeclaredError(
 					node.getIdent().getName(),
 					node

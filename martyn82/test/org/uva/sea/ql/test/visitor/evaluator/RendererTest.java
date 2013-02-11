@@ -10,9 +10,7 @@ import org.uva.sea.ql.ast.expression.literal.Bool;
 import org.uva.sea.ql.ast.expression.literal.Int;
 import org.uva.sea.ql.ast.expression.literal.Str;
 import org.uva.sea.ql.ast.statement.Assignment;
-import org.uva.sea.ql.ast.statement.Else;
-import org.uva.sea.ql.ast.statement.ElseIf;
-import org.uva.sea.ql.ast.statement.ElseIfs;
+import org.uva.sea.ql.ast.statement.IfThen;
 import org.uva.sea.ql.ast.statement.IfThenElse;
 import org.uva.sea.ql.ast.statement.Statement;
 import org.uva.sea.ql.ast.statement.Statements;
@@ -48,15 +46,14 @@ public class RendererTest extends EvaluatorTest implements IStatementTest {
 		 * }
 		 */
 		eval(
-			new IfThenElse(
+			new IfThen(
 				new Bool( true ),
 				new Statements(
 					new Assignment(
 						new Ident( "x" ),
 						new Int( 1 )
 					)
-				),
-				new ElseIfs()
+				)
 			)
 		);
 		assertEquals( 1, eval( new Ident( "x" ) ) ); // x is assigned to be 1
@@ -78,8 +75,8 @@ public class RendererTest extends EvaluatorTest implements IStatementTest {
 						new Int( 1 )
 					)
 				),
-				new ElseIfs(
-					new ElseIf(
+				new Statements(
+					new IfThen(
 						new Bool( true ),
 						new Statements(
 							new Assignment(
@@ -113,22 +110,20 @@ public class RendererTest extends EvaluatorTest implements IStatementTest {
 						new Int( 3 )
 					)
 				),
-				new ElseIfs(
-					new ElseIf(
+				new Statements(
+					new IfThenElse(
 						new Eq( new Bool( true ), new Bool( false ) ),
 						new Statements(
 							new Assignment(
 								new Ident( "x" ),
 								new Int( 4 )
 							)
-						)
-					)
-				),
-				new Else(
-					new Statements(
-						new Assignment(
-							new Ident( "x" ),
-							new Int( 10 )
+						),
+						new Statements(
+							new Assignment(
+								new Ident( "x" ),
+								new Int( 10 )
+							)
 						)
 					)
 				)

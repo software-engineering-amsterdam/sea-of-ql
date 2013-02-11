@@ -24,22 +24,20 @@
 %left UMIN UPLUS UNOT
 
 // data types
-%type <org.uva.sea.ql.ast.type.BooleanType> BOOLEAN
-%type <org.uva.sea.ql.ast.type.IntegerType> INTEGER
-%type <org.uva.sea.ql.ast.type.MoneyType> MONEY
-%type <org.uva.sea.ql.ast.type.StringType> STRING
+%type <BooleanType>     BOOLEAN
+%type <IntegerType>     INTEGER
+%type <MoneyType>       MONEY
+%type <StringType>      STRING
 
 // AST nodes
 %type <Assignment>      assignment
-%type <Else>            else
-%type <ElseIf>          elseif
-%type <ElseIfs>         elseifs
 %type <Expression>      expression
 %type <FormDeclaration> form
-%type <IfThenElse>      ifblock
+%type <IfThen>          ifthen
+%type <IfThenElse>      ifthenelse
 %type <Statement>       statement
 %type <Statements>      formbody ifbody statements
-%type <org.uva.sea.ql.ast.type.Type> datatype
+%type <Type>            datatype
 %type <VarDeclaration>  vardeclaration
 
 %{
@@ -50,11 +48,12 @@ import org.uva.sea.ql.ast.expression.literal.*;
 import org.uva.sea.ql.ast.expression.logical.*;
 import org.uva.sea.ql.ast.expression.unary.*;
 import org.uva.sea.ql.ast.statement.*;
+import org.uva.sea.ql.ast.type.*;
 %}
 
 %%
 
- start          : statement                       { result = $1; }
+ start          : statement                        { result = $1; }
                 ;
 
  statements     : statement statements             { $$ = new Statements( $1, $2 ); }
@@ -77,25 +76,20 @@ import org.uva.sea.ql.ast.statement.*;
                 | STR assignment                   { $$ = new QuestionComputed( $1, $2 ); }
                 ;
 
- blockstatement : ifblock
+ blockstatement : ifthen
+                | ifthenelse
                 ;
 
  ifbody         : formbody
                 | /* empty */                      { $$ = new Statements(); }
                 ;
 
- ifblock        : IF '(' expression ')' '{' ifbody '}' elseifs else     { $$ = new IfThenElse( $3, $6, $8, $9 ); }
-                | IF '(' expression ')' '{' ifbody '}' elseifs          { $$ = new IfThenElse( $3, $6, $8 ); }
+ ifthen         : IF '(' expression ')' '{' ifbody '}'                      { $$ = new IfThen( $3, $6 ); }
                 ;
-
- elseifs        : elseifs elseif                                        { $$ = new ElseIfs( $2, $1 ); }
-                | /* empty */                                           { $$ = new ElseIfs(); }
-                ;
-
- elseif         : ELSE IF '(' expression ')' '{' ifbody '}'             { $$ = new ElseIf( $4, $7 ); }
-                ;
-
- else           : ELSE '{' ifbody '}'                                   { $$ = new Else( $3 ); }
+                
+ ifthenelse     : IF '(' expression ')' '{' ifbody '}' ELSE '{' ifbody '}'  { $$ = new IfThenElse( $3, $6, $10 ); }
+                | IF '(' expression ')' '{' ifbody '}' ELSE ifthen          { $$ = new IfThenElse( $3, $6, new Statements( $9 ) ); }
+                | IF '(' expression ')' '{' ifbody '}' ELSE ifthenelse      { $$ = new IfThenElse( $3, $6, new Statements( $9 ) ); }
                 ;
 
  vardeclaration : IDENT ':' datatype               { $$ = new VarDeclaration( $1, $3 ); }
@@ -140,14 +134,14 @@ import org.uva.sea.ql.ast.statement.*;
                 | boolliteral                      { $$ = $1; }
                 ;
                 
- boolliteral    : TRUE                             { $$ = new org.uva.sea.ql.ast.expression.literal.Bool( true ); }
-                | FALSE                            { $$ = new org.uva.sea.ql.ast.expression.literal.Bool( false ); }
+ boolliteral    : TRUE                             { $$ = new Bool( true ); }
+                | FALSE                            { $$ = new Bool( false ); }
                 ;
 
- datatype       : BOOLEAN                          { $$ = new org.uva.sea.ql.ast.type.BooleanType(); }
-                | MONEY                            { $$ = new org.uva.sea.ql.ast.type.MoneyType(); }
-                | INTEGER                          { $$ = new org.uva.sea.ql.ast.type.IntegerType(); }
-                | STRING                           { $$ = new org.uva.sea.ql.ast.type.StringType(); }
+ datatype       : BOOLEAN                          { $$ = new BooleanType(); }
+                | MONEY                            { $$ = new MoneyType(); }
+                | INTEGER                          { $$ = new IntegerType(); }
+                | STRING                           { $$ = new StringType(); }
                 ;
 
 %%

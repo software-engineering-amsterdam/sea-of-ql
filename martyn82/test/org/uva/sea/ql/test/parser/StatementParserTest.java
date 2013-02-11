@@ -6,6 +6,7 @@ import static org.junit.Assert.fail;
 import org.junit.Test;
 import org.uva.sea.ql.ast.statement.Assignment;
 import org.uva.sea.ql.ast.statement.FormDeclaration;
+import org.uva.sea.ql.ast.statement.IfThen;
 import org.uva.sea.ql.ast.statement.IfThenElse;
 import org.uva.sea.ql.ast.statement.QuestionComputed;
 import org.uva.sea.ql.ast.statement.QuestionVar;
@@ -79,43 +80,43 @@ public class StatementParserTest extends ParserTest implements IStatementTest {
 	@Test
 	public void testIfThenElse() {
 		// literal conditions
-		assertNode( IfThenElse.class, "if ( true ) { }" );
-		assertNode( IfThenElse.class, "if ( false ) { }" );
-		assertNode( IfThenElse.class, "if ( 1 ) { }" );
-		assertNode( IfThenElse.class, "if ( \"str\" ) { }" );
-		assertNode( IfThenElse.class, "if ( 131.5e-02 ) { }" );
+		assertNode( IfThen.class, "if ( true ) { }" );
+		assertNode( IfThen.class, "if ( false ) { }" );
+		assertNode( IfThen.class, "if ( 1 ) { }" );
+		assertNode( IfThen.class, "if ( \"str\" ) { }" );
+		assertNode( IfThen.class, "if ( 131.5e-02 ) { }" );
 
 		// comparison conditions
-		assertNode( IfThenElse.class, "if ( a == b ) { }" );
-		assertNode( IfThenElse.class, "if ( a != b ) { }" );
-		assertNode( IfThenElse.class, "if ( a >= b ) { }" );
-		assertNode( IfThenElse.class, "if ( a > b ) { }" );
-		assertNode( IfThenElse.class, "if ( a < b ) { }" );
-		assertNode( IfThenElse.class, "if ( a <= b && c ) { }" );
+		assertNode( IfThen.class, "if ( a == b ) { }" );
+		assertNode( IfThen.class, "if ( a != b ) { }" );
+		assertNode( IfThen.class, "if ( a >= b ) { }" );
+		assertNode( IfThen.class, "if ( a > b ) { }" );
+		assertNode( IfThen.class, "if ( a < b ) { }" );
+		assertNode( IfThen.class, "if ( a <= b && c ) { }" );
 
 		// arithmetic conditions
-		assertNode( IfThenElse.class, "if ( 12 + 123 - 1 ) { }" );
-		assertNode( IfThenElse.class, "if ( 0 - 121 + .5 ) { }" );
-		assertNode( IfThenElse.class, "if ( 3 * 55 ) { }" );
-		assertNode( IfThenElse.class, "if ( 100 / 2 ) { }" );
+		assertNode( IfThen.class, "if ( 12 + 123 - 1 ) { }" );
+		assertNode( IfThen.class, "if ( 0 - 121 + .5 ) { }" );
+		assertNode( IfThen.class, "if ( 3 * 55 ) { }" );
+		assertNode( IfThen.class, "if ( 100 / 2 ) { }" );
 
 		// logical conditions
-		assertNode( IfThenElse.class, "if ( true && false ) { }" );
-		assertNode( IfThenElse.class, "if ( a || b ) { }" );
-		assertNode( IfThenElse.class, "if ( b && c ) { }" );
-		assertNode( IfThenElse.class, "if ( a && b || c ) { }" );
+		assertNode( IfThen.class, "if ( true && false ) { }" );
+		assertNode( IfThen.class, "if ( a || b ) { }" );
+		assertNode( IfThen.class, "if ( b && c ) { }" );
+		assertNode( IfThen.class, "if ( a && b || c ) { }" );
 
 		// unary numerical conditions
-		assertNode( IfThenElse.class, "if ( +22 ) { }" );
-		assertNode( IfThenElse.class, "if ( -22 ) { }" );
-		assertNode( IfThenElse.class, "if ( --9 ) { }" );
+		assertNode( IfThen.class, "if ( +22 ) { }" );
+		assertNode( IfThen.class, "if ( -22 ) { }" );
+		assertNode( IfThen.class, "if ( --9 ) { }" );
 
 		// unary logical conditions
-		assertNode( IfThenElse.class, "if ( !a ) { }" );
-		assertNode( IfThenElse.class, "if ( b && !a ) { }" );
+		assertNode( IfThen.class, "if ( !a ) { }" );
+		assertNode( IfThen.class, "if ( b && !a ) { }" );
 
 		// nested IFs
-		assertNode( IfThenElse.class, "if ( true ) { if ( false ) { } }" );
+		assertNode( IfThen.class, "if ( true ) { if ( false ) { } }" );
 		assertNode( IfThenElse.class, "if ( true ) { } else if ( true ) { if ( false ) { } }" );
 
 		// else variant

@@ -17,9 +17,8 @@ import org.uva.sea.ql.ast.expression.literal.Money;
 import org.uva.sea.ql.ast.expression.literal.Str;
 import org.uva.sea.ql.ast.expression.logical.And;
 import org.uva.sea.ql.ast.statement.Assignment;
-import org.uva.sea.ql.ast.statement.ElseIfs;
 import org.uva.sea.ql.ast.statement.FormDeclaration;
-import org.uva.sea.ql.ast.statement.IfThenElse;
+import org.uva.sea.ql.ast.statement.IfThen;
 import org.uva.sea.ql.ast.statement.QuestionComputed;
 import org.uva.sea.ql.ast.statement.QuestionVar;
 import org.uva.sea.ql.ast.statement.Statement;
@@ -155,13 +154,12 @@ public class StatementTypeCheckerTest extends VisitorTest<Boolean> implements IS
 		 */
 		assertFalse(
 			typeCheck(
-				new IfThenElse(
+				new IfThen(
 					new Bool( true ),
 					new Statements(
 						new Assignment( new Ident( "x" ), new Int( 24 ) ),
 						new Statements( new VarDeclaration( new Ident( "x" ), new BooleanType() ) )
-					),
-					new ElseIfs()
+					)
 				)
 			)
 		);
@@ -172,9 +170,9 @@ public class StatementTypeCheckerTest extends VisitorTest<Boolean> implements IS
 	@Override
 	@Test
 	public void testIfThenElse() {
-		assertTrue( typeCheck( new IfThenElse( new Bool( true ), new Statements(), new ElseIfs() ) ) );
+		assertTrue( typeCheck( new IfThen( new Bool( true ), new Statements() ) ) );
 
-		assertFalse( typeCheck( new IfThenElse( new Int( 1 ), new Statements(), new ElseIfs() ) ) );
+		assertFalse( typeCheck( new IfThen( new Int( 1 ), new Statements() ) ) );
 		assertEquals( TypeError.TYPE_INVALID, this.environment.getErrors().get( 0 ).getCode() );
 
 		/*
@@ -185,7 +183,7 @@ public class StatementTypeCheckerTest extends VisitorTest<Boolean> implements IS
 		 */
 		assertFalse(
 			typeCheck(
-				new IfThenElse(
+				new IfThen(
 					new Bool( true ),
 					new Statements(
 						new QuestionVar(
@@ -194,8 +192,7 @@ public class StatementTypeCheckerTest extends VisitorTest<Boolean> implements IS
 						new Statements(
 							new Assignment( new Ident( "x" ), new Int( 23 ) )
 						)
-					),
-					new ElseIfs()
+					)
 				)
 			)
 		);

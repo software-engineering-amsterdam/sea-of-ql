@@ -8,10 +8,8 @@ import org.uva.sea.ql.ast.expression.Expression;
 import org.uva.sea.ql.ast.expression.Ident;
 import org.uva.sea.ql.ast.expression.UnaryExpression;
 import org.uva.sea.ql.ast.statement.Assignment;
-import org.uva.sea.ql.ast.statement.Else;
-import org.uva.sea.ql.ast.statement.ElseIf;
-import org.uva.sea.ql.ast.statement.ElseIfs;
 import org.uva.sea.ql.ast.statement.FormDeclaration;
+import org.uva.sea.ql.ast.statement.IfThen;
 import org.uva.sea.ql.ast.statement.IfThenElse;
 import org.uva.sea.ql.ast.statement.QuestionComputed;
 import org.uva.sea.ql.ast.statement.QuestionDeclaration;
@@ -30,7 +28,6 @@ import org.uva.sea.ql.ui.ControlEventListener;
 import org.uva.sea.ql.ui.ControlFactory;
 import org.uva.sea.ql.ui.control.Control;
 import org.uva.sea.ql.ui.control.PanelControl;
-import org.uva.sea.ql.ui.swing.JPanelControl;
 import org.uva.sea.ql.visitor.StatementVisitor;
 import org.uva.sea.ql.visitor.TypeVisitor;
 import org.uva.sea.ql.visitor.evaluator.value.BooleanValue;
@@ -205,32 +202,18 @@ public class Renderer implements StatementVisitor<Void>, TypeVisitor<Control> {
 	}
 
 	@Override
-	public Void visit( ElseIf node ) {
-		BooleanValue value = (BooleanValue) Evaluator.evaluate( node.getCondition(), this.environment );
+	public Void visit( IfThen node ) {
+		boolean condition = ( (BooleanValue) Evaluator.evaluate( node.getCondition(), this.environment ) ).getValue();
 		PanelControl tru = render( node.getBody(), this.environment, this.factory );
+		PanelControl fls = this.factory.createPanel();
 
-		tru.setVisible( value.getValue() );
+		tru.setVisible( condition );
+		fls.setVisible( !condition );
 
 		this.addComponent( tru );
-		this.registerCondition( node.getCondition(), tru, new JPanelControl() );
+		this.addComponent( fls );
 
-		return null;
-	}
-
-	@Override
-	public Void visit( ElseIfs node ) {
-		for ( ElseIf elseIf : node ) {
-			elseIf.accept( this );
-		}
-
-		return null;
-	}
-
-	@Override
-	public Void visit( Else node ) {
-		PanelControl panel = render( node.getBody(), this.environment, this.factory );
-
-		this.addComponent( panel );
+		this.registerCondition( node.getCondition(), tru, fls );
 
 		return null;
 	}
@@ -239,7 +222,7 @@ public class Renderer implements StatementVisitor<Void>, TypeVisitor<Control> {
 	public Void visit( IfThenElse node ) {
 		boolean condition = ( (BooleanValue) Evaluator.evaluate( node.getCondition(), this.environment ) ).getValue();
 
-		PanelControl tru = render( node.getIfBody(), this.environment, this.factory );
+		PanelControl tru = render( node.getBody(), this.environment, this.factory );
 		PanelControl fls = render( node.getElse(), this.environment, this.factory );
 
 		tru.setVisible( condition );
