@@ -19,13 +19,16 @@ QLTENV checkStatement(statement:ifStat(Expression exp, list[Body] body), QLTENV 
     if(size(getChildren(exp)) == 1) return checkExp(exp,boolean() ,env);
     else{
     	list[Type] tp = getExpressionType(exp,env);
-    	if(size(tp) == 1){
-    		if(tp[0] == integer()) return checkIntExp(exp,tp[0],env);
-    		else return checkExp(exp,tp[0],env);
-    	}else{
-    		//Error Handling
-    		if(tp[0] == integer()) return checkIntExp(exp,tp[0],env);	
-    		else return checkExp(exp,tp[0],env);
+    	if(tp[0] == integer()) return checkIntExp(exp,tp[0],env);
+    	else{
+    		set[Type] s = toSet(tp);
+    		if(size(s) == 1){  	// To compare expression when they have equal tp
+    			return checkExp(exp,tp[0],env);
+    		}else {				// // To compare expression or and and when the types are for example boolean || money < money
+    			println("Set is : <s>");
+    			println("Need to be implemented");
+    			return checkExp(exp,tp[0],env);
+    		}
     	}
     }
 }

@@ -12,32 +12,31 @@ import Prelude;
 * @author Philipp
 */
 Type findExpressionType(Expression exp, QLTENV env){
-	println("arity of exp : <arity(exp)>");
 	str s = "";
-	if(arity(exp) > 1){
-		println("MORE IDS");
-		list [value id] k = getChildren(exp);
-		//s = toString(getChildren(k[0]));
-		println("K : <k[0]>");
-		println("S : <s>");
-	}else{
-		s = toString(getChildren(exp)[0]);
-	}
-	println("find expression exp : <exp>");
-	println("S is : <s>");
-	println("ENV is : <env>");
+	if(arity(exp) > 1){	
+		list [value id] k = getChildren(exp);	
+		list[Type] t = getExpressionType(exp, env);
+		s = toString(t[0]);
+		println("LIST T : <t>");
+		return t[0];
+	}else s = toString(getChildren(exp)[0]);
 	for(b <- env.question){
-		println("B.id is <b.id>");
 		if(b.id == s) return b.tp;
 	}
 }
 
+/** Method to get a list of question Types
+* @param exp the Expression
+* @param env the QL type environment
+* @return types a List of types
+* @author Philipp
+*/
 public list[Type] getExpressionType(Expression exp, QLTENV env){
-	// Making a set to check the two types
 	list[Type] types = [];
 	for(s <- getChildren(exp)){
 		Type tp = findExpressionType(s, env);
-		if(tp notin types) types += tp;
+		//if(tp notin types) types += tp;
+		types += tp;
 	}
 	return types;
 }
