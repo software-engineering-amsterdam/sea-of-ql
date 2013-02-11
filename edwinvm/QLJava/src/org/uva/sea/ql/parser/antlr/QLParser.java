@@ -9,6 +9,7 @@ import org.uva.sea.ql.ast.expressions.binary.relational.*;
 import org.uva.sea.ql.ast.expressions.literal.*;
 import org.uva.sea.ql.ast.expressions.unary.*;
 import org.uva.sea.ql.ast.questions.*;
+import org.uva.sea.ql.ast.statements.Question;
 import org.uva.sea.ql.ast.types.*;
 
 
