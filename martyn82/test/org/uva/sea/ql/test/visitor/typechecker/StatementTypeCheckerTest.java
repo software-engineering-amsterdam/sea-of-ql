@@ -128,10 +128,10 @@ public class StatementTypeCheckerTest extends VisitorTest<Boolean> implements IS
 	@Override
 	@Test
 	public void testVarDeclaration() {
-		assertTrue( typeCheck( new VarDeclaration( new Ident( "z" ), new BooleanType() ) ) );
+		assertTrue( typeCheck( new VarDeclaration( new Ident( "z" ), BooleanType.BOOLEAN ) ) );
 		assertFalse( typeCheck( new Add( new Int( 1 ), new Ident( "z" ) ) ) );
 
-		assertTrue( typeCheck( new VarDeclaration( new Ident( "x" ), new IntegerType() ) ) );
+		assertTrue( typeCheck( new VarDeclaration( new Ident( "x" ), IntegerType.INTEGER ) ) );
 		assertTrue( typeCheck( new Assignment( new Ident( "x" ), new Int( 23 ) ) ) );
 
 		assertFalse( typeCheck( new Assignment( new Ident( "x" ), new Ident( "y" ) ) ) );
@@ -158,7 +158,7 @@ public class StatementTypeCheckerTest extends VisitorTest<Boolean> implements IS
 					new Bool( true ),
 					new Statements(
 						new Assignment( new Ident( "x" ), new Int( 24 ) ),
-						new Statements( new VarDeclaration( new Ident( "x" ), new BooleanType() ) )
+						new Statements( new VarDeclaration( new Ident( "x" ), BooleanType.BOOLEAN ) )
 					)
 				)
 			)
@@ -187,7 +187,7 @@ public class StatementTypeCheckerTest extends VisitorTest<Boolean> implements IS
 					new Bool( true ),
 					new Statements(
 						new QuestionVar(
-							new Str( "" ), new VarDeclaration( new Ident( "x" ), new BooleanType() )
+							new Str( "" ), new VarDeclaration( new Ident( "x" ), BooleanType.BOOLEAN )
 						),
 						new Statements(
 							new Assignment( new Ident( "x" ), new Int( 23 ) )
@@ -212,7 +212,7 @@ public class StatementTypeCheckerTest extends VisitorTest<Boolean> implements IS
 							new Str( "label" ),
 							new VarDeclaration(
 								new Ident( "questionVar" ),
-								new IntegerType()
+								IntegerType.INTEGER
 							)
 						)
 					)
@@ -230,7 +230,7 @@ public class StatementTypeCheckerTest extends VisitorTest<Boolean> implements IS
 					new Str( "label" ),
 					new VarDeclaration(
 						new Ident( "var" ),
-						new BooleanType()
+						BooleanType.BOOLEAN
 					)
 				)
 			)

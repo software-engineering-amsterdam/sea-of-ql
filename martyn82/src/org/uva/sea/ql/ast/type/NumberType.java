@@ -3,6 +3,10 @@ package org.uva.sea.ql.ast.type;
 import org.uva.sea.ql.visitor.TypeVisitor;
 
 public class NumberType extends Type {
+	public final static NumberType NUMBER = new NumberType();
+
+	protected NumberType() {}
+
 	@Override
 	public <T> T accept( TypeVisitor<T> visitor ) {
 		return visitor.visit( this );

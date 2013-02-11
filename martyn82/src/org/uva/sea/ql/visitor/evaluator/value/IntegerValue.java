@@ -2,20 +2,9 @@ package org.uva.sea.ql.visitor.evaluator.value;
 
 import org.uva.sea.ql.ast.type.IntegerType;
 
-/**
- * Represents an Integer value.
- */
 public class IntegerValue extends NumberValue {
-	/**
-	 * Holds the inner value.
-	 */
 	private final Integer value;
 
-	/**
-	 * Constructs a new Integer value.
-	 *
-	 * @param value
-	 */
 	public IntegerValue( Integer value ) {
 		super( value );
 		this.value = value;
@@ -23,7 +12,7 @@ public class IntegerValue extends NumberValue {
 
 	@Override
 	public IntegerType getType() {
-		return new IntegerType();
+		return IntegerType.INTEGER;
 	}
 
 	@Override

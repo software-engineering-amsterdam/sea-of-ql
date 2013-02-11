@@ -6,9 +6,7 @@ import org.uva.sea.ql.visitor.TypeVisitor;
 abstract public class Type extends Node {
 
 	abstract public String getName();
-
 	abstract public <T> T accept( TypeVisitor<T> visitor );
-
 	abstract public boolean isCompatibleTo( Type type );
 
 	public boolean isCompatibleToInt() {

@@ -2,27 +2,16 @@ package org.uva.sea.ql.visitor.evaluator.value;
 
 import org.uva.sea.ql.ast.type.BooleanType;
 
-/**
- * Represents a Boolean value.
- */
 public class BooleanValue extends Value {
-	/**
-	 * Holds the inner value.
-	 */
 	private final Boolean value;
 
-	/**
-	 * Constructs a new Boolean value.
-	 *
-	 * @param value
-	 */
 	public BooleanValue( Boolean value ) {
 		this.value = value;
 	}
 
 	@Override
 	public BooleanType getType() {
-		return new BooleanType();
+		return BooleanType.BOOLEAN;
 	}
 
 	@Override

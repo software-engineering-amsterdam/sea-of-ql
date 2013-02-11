@@ -258,8 +258,8 @@ public class ExpressionTypeCheckerTest extends VisitorTest<Boolean> implements I
 		Ident identBVar = new Ident( "bVar" );
 		Ident identIVar = new Ident( "iVar" );
 
-		this.environment.declare( identBVar, new BooleanType() );
-		this.environment.declare( identIVar, new IntegerType() );
+		this.environment.declare( identBVar, BooleanType.BOOLEAN );
+		this.environment.declare( identIVar, IntegerType.INTEGER );
 
 		assertTrue( typeCheck( identBVar ) );
 		assertTrue( typeCheck( identIVar ) );

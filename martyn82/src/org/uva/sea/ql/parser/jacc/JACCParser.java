@@ -1,4 +1,4 @@
-// Output created by jacc on Mon Feb 11 13:33:19 CET 2013
+// Output created by jacc on Mon Feb 11 14:08:18 CET 2013
 
 package org.uva.sea.ql.parser.jacc;
 
@@ -2906,25 +2906,25 @@ class JACCParser implements QLTokens {
     }
 
     private int yyr50() { // datatype : BOOLEAN
-        { yyrv = new BooleanType(); }
+        { yyrv = BooleanType.BOOLEAN; }
         yysv[yysp-=1] = yyrv;
         return 59;
     }
 
     private int yyr51() { // datatype : MONEY
-        { yyrv = new MoneyType(); }
+        { yyrv = MoneyType.MONEY; }
         yysv[yysp-=1] = yyrv;
         return 59;
     }
 
     private int yyr52() { // datatype : INTEGER
-        { yyrv = new IntegerType(); }
+        { yyrv = IntegerType.INTEGER; }
         yysv[yysp-=1] = yyrv;
         return 59;
     }
 
     private int yyr53() { // datatype : STRING
-        { yyrv = new StringType(); }
+        { yyrv = StringType.STRING; }
         yysv[yysp-=1] = yyrv;
         return 59;
     }

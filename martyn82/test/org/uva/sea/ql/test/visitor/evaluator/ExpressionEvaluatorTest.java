@@ -28,9 +28,6 @@ import org.uva.sea.ql.test.IExpressionTest;
 import org.uva.sea.ql.visitor.evaluator.Environment;
 import org.uva.sea.ql.visitor.evaluator.value.StringValue;
 
-/**
- * Test expression evaluator.
- */
 public class ExpressionEvaluatorTest extends EvaluatorTest implements IExpressionTest {
 	public ExpressionEvaluatorTest() {
 		super( new Environment() );
@@ -166,7 +163,7 @@ public class ExpressionEvaluatorTest extends EvaluatorTest implements IExpressio
 	@Override
 	@Test
 	public void testId() {
-		this.environment.declare( new Ident( "x" ), new StringType() );
+		this.environment.declare( new Ident( "x" ), StringType.STRING );
 		this.environment.assign( new Ident( "x" ), new StringValue( "value of x" ) );
 		assertEquals( "value of x", eval( new Ident( "x" ) ) );
 	}

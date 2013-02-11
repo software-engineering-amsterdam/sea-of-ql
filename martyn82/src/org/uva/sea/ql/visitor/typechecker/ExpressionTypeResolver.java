@@ -35,97 +35,51 @@ import org.uva.sea.ql.ast.type.UndefinedType;
 import org.uva.sea.ql.visitor.ExpressionVisitor;
 import org.uva.sea.ql.visitor.evaluator.Environment;
 
-/**
- * Represents a type resolver for expression nodes.
- */
 public class ExpressionTypeResolver implements ExpressionVisitor<Type> {
-	/**
-	 * Holds the environment.
-	 */
 	private final Environment environment;
 
-	/**
-	 * Constructs a new Expression TypeResolver instance.
-	 *
-	 * @param environment
-	 */
 	public ExpressionTypeResolver( Environment environment ) {
 		this.environment = environment;
 	}
 
-	/**
-	 * Visit arithmetic expression.
-	 *
-	 * @param node
-	 *
-	 * @return The type of the expression.
-	 */
 	private Type visitArithmetic( ArithmeticExpression node ) {
-		return new NumberType();
+		return NumberType.NUMBER;
 	}
 
-	/**
-	 * Visit logical expression.
-	 *
-	 * @param node
-	 *
-	 * @return The type of the expression.
-	 */
 	private Type visitLogical( LogicalExpression node ) {
-		return new BooleanType();
+		return BooleanType.BOOLEAN;
 	}
 
-	/**
-	 * Visit comparison expression.
-	 *
-	 * @param node
-	 *
-	 * @return The type of the expression.
-	 */
 	private Type visitComparison( ComparisonExpression node ) {
-		return new BooleanType();
+		return BooleanType.BOOLEAN;
 	}
 
-	/**
-	 * Visit unary logical expression.
-	 *
-	 * @param node
-	 *
-	 * @return The type of the expression.
-	 */
 	private Type visitUnary( UnaryExpression node ) {
-		return new BooleanType();
+		return BooleanType.BOOLEAN;
 	}
 
-	/**
-	 * Visit unary numeric expression.
-	 *
-	 * @param node
-	 *
-	 * @return The type of the expression.
-	 */
 	private Type visitUnaryNumeric( UnaryNumericExpression node ) {
-		return new NumberType();
+		return NumberType.NUMBER;
 	}
 
 	@Override
 	public Type visit( Int node ) {
-		return new IntegerType();
+		return IntegerType.INTEGER;
 	}
 
 	@Override
 	public Type visit( Bool node ) {
-		return new BooleanType();
+		return BooleanType.BOOLEAN;
 	}
 
 	@Override
 	public Type visit( Money node ) {
-		return new MoneyType();
+		return MoneyType.MONEY;
 	}
 
 	@Override
 	public Type visit( Str node ) {
-		return new StringType();
+		return StringType.STRING;
 	}
 
 	@Override

@@ -2,20 +2,9 @@ package org.uva.sea.ql.visitor.evaluator.value;
 
 import org.uva.sea.ql.ast.type.MoneyType;
 
-/**
- * Represents a Money value.
- */
 public class MoneyValue extends NumberValue {
-	/**
-	 * Holds the inner value.
-	 */
 	private final Double value;
 
-	/**
-	 * Constructs a new Money value.
-	 *
-	 * @param value
-	 */
 	public MoneyValue( Double value ) {
 		super( value );
 		this.value = value;
@@ -23,7 +12,7 @@ public class MoneyValue extends NumberValue {
 
 	@Override
 	public MoneyType getType() {
-		return new MoneyType();
+		return MoneyType.MONEY;
 	}
 
 	@Override

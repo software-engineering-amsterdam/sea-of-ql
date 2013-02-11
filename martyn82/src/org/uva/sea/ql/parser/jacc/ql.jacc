@@ -138,10 +138,10 @@ import org.uva.sea.ql.ast.type.*;
                 | FALSE                            { $$ = new Bool( false ); }
                 ;
 
- datatype       : BOOLEAN                          { $$ = new BooleanType(); }
-                | MONEY                            { $$ = new MoneyType(); }
-                | INTEGER                          { $$ = new IntegerType(); }
-                | STRING                           { $$ = new StringType(); }
+ datatype       : BOOLEAN                          { $$ = BooleanType.BOOLEAN; }
+                | MONEY                            { $$ = MoneyType.MONEY; }
+                | INTEGER                          { $$ = IntegerType.INTEGER; }
+                | STRING                           { $$ = StringType.STRING; }
                 ;
 
 %%

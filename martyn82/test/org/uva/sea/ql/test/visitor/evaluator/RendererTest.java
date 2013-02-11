@@ -142,16 +142,16 @@ public class RendererTest extends EvaluatorTest implements IStatementTest {
 	@Override
 	@Test
 	public void testVarDeclaration() {
-		eval( new VarDeclaration( new Ident( "x" ), new BooleanType() ) );
+		eval( new VarDeclaration( new Ident( "x" ), BooleanType.BOOLEAN ) );
 		assertEquals( false, eval( new Ident( "x" ) ) );
 
-		eval( new VarDeclaration( new Ident( "y" ), new IntegerType() ) );
+		eval( new VarDeclaration( new Ident( "y" ), IntegerType.INTEGER ) );
 		assertEquals( 0, eval( new Ident( "y" ) ) );
 
-		eval( new VarDeclaration( new Ident( "z" ), new StringType() ) );
+		eval( new VarDeclaration( new Ident( "z" ), StringType.STRING ) );
 		assertEquals( "", eval( new Ident( "z" ) ) );
 
-		eval( new VarDeclaration( new Ident( "u" ), new MoneyType() ) );
+		eval( new VarDeclaration( new Ident( "u" ), MoneyType.MONEY ) );
 		assertEquals( 0d, eval( new Ident( "u" ) ) );
 	}
 
