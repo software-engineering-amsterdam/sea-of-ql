@@ -10,38 +10,20 @@ import org.uva.sea.ql.ui.control.WindowControl;
 import org.uva.sea.ql.ui.swing.SwingControlFactory;
 import org.uva.sea.ql.visitor.evaluator.Error;
 
-/**
- * Main program.
- */
 public class Program {
-	/**
-	 * Holds the interpreter.
-	 */
 	private final QLInterpreter interpreter;
-
 	private final ControlFactory factory;
 
-	/**
-	 * Main application entry point.
-	 *
-	 * @param args
-	 */
 	public static void main( String[] args ) {
 		Program program = new Program();
 		program.run();
 	}
 
-	/**
-	 * Constructs a new Program instance.
-	 */
 	public Program() {
 		this.factory = new SwingControlFactory();
 		this.interpreter = new QLInterpreter( this.factory );
 	}
 
-	/**
-	 * Runs the program.
-	 */
 	public void run() {
 //		String source = "" +
 //			"form Foo {\n" +
@@ -76,13 +58,6 @@ public class Program {
 		window.show();
 	}
 
-	/**
-	 * Retrieves contents of given file.
-	 *
-	 * @param fileName
-	 *
-	 * @return The contents.
-	 */
 	private String getFileContents( String fileName ) {
 		BufferedReader br = null;
 		StringBuffer sb = new StringBuffer();
