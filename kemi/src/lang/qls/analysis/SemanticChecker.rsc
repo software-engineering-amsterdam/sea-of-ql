@@ -116,40 +116,30 @@ public set[Message] doubleSectionNameWarnings(Stylesheet s) {
 }
 
 public set[Message] defaultRedefinitionWarnings(Stylesheet s) {
-  warnings = {};
-  for(r <- getDefaultRedefinitions(s.definitions))
-    warnings += warning(
-      "Default already declared at this level",
-      r@location
-    );
-  top-down visit(s) {
-    case pageDefinition(_, rules):
-      for(r <- getDefaultRedefinitions(rules))
-        warnings += warning(
-          "Default already declared at this level",
-          r@location
-        );
-    case sectionDefinition(_, rules):
-      for(r <- getDefaultRedefinitions(rules))
-        warnings += warning(
-          "Default already declared at this level",
-          r@location
-        );
-  }
-  return warnings;
+  list[list[PageRule]] pdrules = [pd.pageRules | 
+    pd <- getPageDefinitions(s)];
+  list[list[SectionRule]] sdrules = [sd.sectionRules | 
+    sd <- getSectionDefinitions(s)];
+  
+  return 
+    {defaultAlreadyDefined(r@location) | 
+      r <- getDefaultRedefinitions(s.definitions)} + 
+    {defaultAlreadyDefined(r@location) | 
+      rules <- pdrules, r <- getDefaultRedefinitions(rules)} + 
+    {defaultAlreadyDefined(r@location) | 
+      rules <- sdrules, r <- getDefaultRedefinitions(rules)};
 }
 
 private list[DefaultDefinition] getDefaultRedefinitions(list[&T] definitions) {
-  idents = [];
-  redefinitions = [];
-  for(def <- definitions) {
-    if(!def.defaultDefinition?)
-      continue;
-    
-    d = def.defaultDefinition;
-    i = indexOf(idents, d.ident);
-    if(i >= 0) redefinitions += d;
-    idents += d.ident;
+  set[Type] idents = {};
+  list[DefaultDefinition] redefinitions = [];
+  
+  for(definition(DefaultDefinition d) <- definitions) {
+    if(d.ident in idents) {
+      redefinitions += d;
+    } else {
+      idents += d.ident;
+    }
   }
   return redefinitions;
 }

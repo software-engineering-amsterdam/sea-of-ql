@@ -179,6 +179,12 @@ public list[SectionDefinition] getChildSectionDefinitions(SectionDefinition s) =
 public list[QuestionDefinition] getQuestionDefinitions(Stylesheet s) =
   [d | /QuestionDefinition d <- s];
 
+public list[PageDefinition] getPageDefinitions(Stylesheet s) =
+  [d | /PageDefinition d <- s];
+
+public list[SectionDefinition] getSectionDefinitions(Stylesheet s) =
+  [d | /SectionDefinition d <- s];
+
 public list[QuestionDefinition] getChildQuestionDefinitions(Stylesheet s) =
   [d.questionDefinition | d <- s.definitions, d.questionDefinition?];
 
