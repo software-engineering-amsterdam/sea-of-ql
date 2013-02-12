@@ -57,8 +57,8 @@ start syntax Element
   ;
     
 start syntax Question
-  = singleQuestion: Ident identification ":" String description DataType datatype 
-  | computableQuestion: Ident identification ":" String description DataType datatype Expr computableExpression 
+  = singleQuestion: Ident identification ":" String label DataType datatype 
+  | computableQuestion: Ident identification ":" String label DataType datatype Expr computableExpression 
   ;
    
 start syntax Condition
