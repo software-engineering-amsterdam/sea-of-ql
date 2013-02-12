@@ -1,13 +1,10 @@
 package org.uva.sea.ql.form;
 
-import java.util.List;
-
 import org.uva.sea.ql.ast.eval.Env;
 import org.uva.sea.ql.ast.expressions.Expr;
 import org.uva.sea.ql.ast.expressions.Ident;
 import org.uva.sea.ql.ast.types.Type;
 import org.uva.sea.ql.ast.values.Value;
-import org.uva.sea.ql.interpreter.FormElement;
 import org.uva.sea.ql.messages.Error;
 
 public class ComputedQuestion extends Question {
@@ -43,11 +40,6 @@ public class ComputedQuestion extends Question {
 		}
 		boolean valid = super.validate(environment);
 		return errors.size() == 0 && valid;
-	}
-	
-	@Override
-	public List<FormElement> getFormComponents() {
-		return getQuestionComponents();
 	}
 	
 	@Override
