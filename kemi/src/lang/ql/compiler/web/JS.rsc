@@ -75,7 +75,7 @@ private str JS(Form f) =
   '  });
   '
   '  $(\"#<f.formName.ident>\").on(\"input\", function(evt) {
-  '    if($(\"#<f.formName.ident>\").type !== \"date\") {
+  '    if($(evt.target).attr(\"type\") !== \"date\") {
   '      $(evt.target).valid();
   '    }
   '  });
