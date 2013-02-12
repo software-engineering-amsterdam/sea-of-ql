@@ -146,8 +146,27 @@ public class BooleanResult extends Result {
 
 	@Override
 	public Result doEq(BooleanResult equ) {
-		return new BooleanResult(
-				equ.getBooleanValue() == this.getBooleanValue());
+		return new BooleanResult(equ.getBooleanValue() == this.getBooleanValue());
+	}
+
+	@Override
+	public Result neq(Result equ) {
+		return equ.doEq(this);
+	}
+
+	@Override
+	public Result doNeq(MoneyResult equ) {
+		throw new UnsupportedOperationException();
+	}
+
+	@Override
+	public Result doNeq(IntegerResult equ) {
+		throw new UnsupportedOperationException();
+	}
+
+	@Override
+	public Result doNeq(BooleanResult equ) {
+		return new BooleanResult(equ.getBooleanValue() != this.getBooleanValue());
 	}
 
 	@Override
@@ -157,8 +176,7 @@ public class BooleanResult extends Result {
 
 	@Override
 	public Result doAnd(BooleanResult ander) {
-		return new BooleanResult(ander.getBooleanValue()
-				&& this.getBooleanValue());
+		return new BooleanResult(ander.getBooleanValue() && this.getBooleanValue());
 	}
 
 	@Override
@@ -227,9 +245,18 @@ public class BooleanResult extends Result {
 	}
 
 	@Override
-	public Result doOr(BooleanResult ander) {
-		return new BooleanResult(ander.getBooleanValue()
-				|| this.getBooleanValue());
+	public Result doOr(BooleanResult orarg) {
+		return new BooleanResult(orarg.getBooleanValue() || this.getBooleanValue());
+	}
+
+	@Override
+	public Result not(Result no) {
+		return no.doNot(this);
+	}
+
+	@Override
+	public Result doNot(BooleanResult notter) {
+		return new BooleanResult(!notter.getBooleanValue());
 	}
 
 }

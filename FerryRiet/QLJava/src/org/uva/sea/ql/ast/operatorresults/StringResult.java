@@ -149,6 +149,26 @@ public class StringResult extends Result {
 	}
 
 	@Override
+	public Result neq(Result eq) {
+		throw new UnsupportedOperationException();
+	}
+
+	@Override
+	public Result doNeq(MoneyResult eq) {
+		throw new UnsupportedOperationException();
+	}
+
+	@Override
+	public Result doNeq(IntegerResult eq) {
+		throw new UnsupportedOperationException();
+	}
+
+	@Override
+	public Result doNeq(BooleanResult eq) {
+		throw new UnsupportedOperationException();
+	}
+
+	@Override
 	public Result and(Result eq) {
 		throw new UnsupportedOperationException();
 	}
@@ -225,6 +245,16 @@ public class StringResult extends Result {
 
 	@Override
 	public Result doOr(BooleanResult ander) {
+		throw new UnsupportedOperationException();
+	}
+
+	@Override
+	public Result not(Result eq) {
+		throw new UnsupportedOperationException();
+	}
+
+	@Override
+	public Result doNot(BooleanResult ander) {
 		throw new UnsupportedOperationException();
 	}
 }

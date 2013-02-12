@@ -159,6 +159,28 @@ public class MoneyResult extends Result {
 	}
 
 	@Override
+	public Result neq(Result equ) {
+		return equ.doNeq(this);
+	}
+
+	@Override
+	public Result doNeq(MoneyResult equ) {
+		return new BooleanResult(equ.getMoneyValue().compareTo(
+				this.getMoneyValue()) != 0);
+	}
+
+	@Override
+	public Result doNeq(IntegerResult equ) {
+		return new BooleanResult(this.getMoneyValue().compareTo(
+				new BigDecimal(equ.getIntegerValue())) != 0);
+	}
+
+	@Override
+	public Result doNeq(BooleanResult equ) {
+		throw new UnsupportedOperationException();
+	}
+
+	@Override
 	public Result and(Result eq) {
 		throw new UnsupportedOperationException();
 	}
@@ -247,6 +269,16 @@ public class MoneyResult extends Result {
 
 	@Override
 	public Result doOr(BooleanResult ander) {
+		throw new UnsupportedOperationException();
+	}
+
+	@Override
+	public Result not(Result eq) {
+		throw new UnsupportedOperationException();
+	}
+
+	@Override
+	public Result doNot(BooleanResult ander) {
 		throw new UnsupportedOperationException();
 	}
 }
