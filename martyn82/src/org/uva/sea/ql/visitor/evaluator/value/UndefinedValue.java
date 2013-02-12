@@ -21,4 +21,9 @@ public class UndefinedValue extends Value {
 	public boolean isDefined() {
 		return false;
 	}
+
+	@Override
+	public String toString() {
+		return "";
+	}
 }

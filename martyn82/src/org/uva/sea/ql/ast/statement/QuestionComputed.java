@@ -22,8 +22,8 @@ public class QuestionComputed extends QuestionDeclaration {
 	}
 
 	@Override
-	public IdentifierExpression getIdent() {
-		return this.assignment.getIdent();
+	public IdentifierExpression getIdentifier() {
+		return this.assignment.getIdentifier();
 	}
 
 	@Override

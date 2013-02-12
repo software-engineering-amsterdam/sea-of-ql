@@ -5,16 +5,16 @@ import org.uva.sea.ql.ast.expression.IdentifierExpression;
 import org.uva.sea.ql.visitor.StatementVisitor;
 
 public class Assignment extends Statement {
-	private final IdentifierExpression ident;
+	private final IdentifierExpression identifier;
 	private final Expression expression;
 
-	public Assignment( IdentifierExpression ident, Expression expression ) {
-		this.ident = ident;
+	public Assignment( IdentifierExpression identifier, Expression expression ) {
+		this.identifier = identifier;
 		this.expression = expression;
 	}
 
-	public IdentifierExpression getIdent() {
-		return this.ident;
+	public IdentifierExpression getIdentifier() {
+		return this.identifier;
 	}
 
 	public Expression getExpression() {

@@ -29,7 +29,6 @@ import org.uva.sea.ql.ast.expression.unary.numeric.UnaryNumericExpression;
 import org.uva.sea.ql.ast.type.BooleanType;
 import org.uva.sea.ql.ast.type.IntegerType;
 import org.uva.sea.ql.ast.type.MoneyType;
-import org.uva.sea.ql.ast.type.NumberType;
 import org.uva.sea.ql.ast.type.StringType;
 import org.uva.sea.ql.ast.type.Type;
 import org.uva.sea.ql.ast.type.UndefinedType;
@@ -49,7 +48,17 @@ public class ExpressionTypeResolver implements ExpressionVisitor<Type> {
 	}
 
 	private Type visitArithmeticExpression( ArithmeticExpression node ) {
-		return NumberType.NUMBER;
+		Type leftType = node.getLhs().accept( this );
+		Type rightType = node.getRhs().accept( this );
+
+		if ( leftType.isCompatibleToMoney() || rightType.isCompatibleToMoney() ) {
+			return MoneyType.MONEY;
+		}
+		else if ( leftType.isCompatibleToInt() || rightType.isCompatibleToInt() ) {
+			return IntegerType.INTEGER;
+		}
+
+		return UndefinedType.UNDEFINED;
 	}
 
 	private Type visitLogicalExpression( LogicalExpression node ) {
@@ -65,7 +74,7 @@ public class ExpressionTypeResolver implements ExpressionVisitor<Type> {
 	}
 
 	private Type visitUnaryNumericExpression( UnaryNumericExpression node ) {
-		return NumberType.NUMBER;
+		return node.getExpression().accept( this );
 	}
 
 	@Override

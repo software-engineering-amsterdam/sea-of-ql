@@ -32,47 +32,47 @@ public class Environment {
 		this.errors.add( error );
 	}
 
-	public boolean isDeclared( IdentifierExpression ident ) {
-		return this.bindings.containsKey( ident );
+	public boolean isDeclared( IdentifierExpression identifier ) {
+		return this.bindings.containsKey( identifier );
 	}
 
-	public Type lookupType( IdentifierExpression ident ) {
-		if ( this.bindings.containsKey( ident ) ) {
-			return this.bindings.get( ident ).getType();
+	public Type lookupType( IdentifierExpression identifier ) {
+		if ( this.bindings.containsKey( identifier ) ) {
+			return this.bindings.get( identifier ).getType();
 		}
 
-		throw new RuntimeException( "Undefined variable: " + ident.getName() );
+		throw new RuntimeException( "Undefined variable: " + identifier.getName() );
 	}
 
-	public Value lookup( IdentifierExpression ident ) {
-		if ( this.bindings.containsKey( ident ) ) {
-			return this.bindings.get( ident ).getValue();
+	public Value lookup( IdentifierExpression identifier ) {
+		if ( this.bindings.containsKey( identifier ) ) {
+			return this.bindings.get( identifier ).getValue();
 		}
 
-		throw new RuntimeException( "Undefined variable: " + ident.getName() );
+		throw new RuntimeException( "Undefined variable: " + identifier.getName() );
 	}
 
-	public void declare( IdentifierExpression ident, Type type ) {
-		if ( this.isDeclared( ident ) ) {
-			throw new RuntimeException( "Variable " + ident.getName() + " already declared." );
+	public void declare( IdentifierExpression identifier, Type type ) {
+		if ( this.isDeclared( identifier ) ) {
+			throw new RuntimeException( "Variable " + identifier.getName() + " already declared." );
 		}
 
-		this.bindings.put( ident, new Bindable( type ) );
+		this.bindings.put( identifier, new Bindable( type ) );
 	}
 
-	public void assign( IdentifierExpression ident, Value value ) {
-		if ( !this.isDeclared( ident ) ) {
-			throw new RuntimeException( "Variable " + ident.getName() + " is undefined." );
+	public void assign( IdentifierExpression identifier, Value value ) {
+		if ( !this.isDeclared( identifier ) ) {
+			throw new RuntimeException( "Variable " + identifier.getName() + " is undefined." );
 		}
 
-		this.bindings.get( ident ).setValue( value );
+		this.bindings.get( identifier ).setValue( value );
 	}
 
-	public void registerObserver( IdentifierExpression ident, Observer observer ) {
-		this.bindings.get( ident ).addObserver( observer );
+	public void registerObserver( IdentifierExpression identifier, Observer observer ) {
+		this.bindings.get( identifier ).addObserver( observer );
 	}
 
-	public void notifyObservers( IdentifierExpression ident ) {
-		this.bindings.get( ident ).notifyObservers();
+	public void notifyObservers( IdentifierExpression identifier ) {
+		this.bindings.get( identifier ).notifyObservers();
 	}
 }

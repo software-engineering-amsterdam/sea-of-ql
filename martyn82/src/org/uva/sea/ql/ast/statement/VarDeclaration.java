@@ -5,16 +5,16 @@ import org.uva.sea.ql.ast.type.Type;
 import org.uva.sea.ql.visitor.StatementVisitor;
 
 public class VarDeclaration extends Statement {
-	private final IdentifierExpression ident;
+	private final IdentifierExpression identifier;
 	private final Type type;
 
-	public VarDeclaration( IdentifierExpression ident, Type type ) {
-		this.ident = ident;
+	public VarDeclaration( IdentifierExpression identifier, Type type ) {
+		this.identifier = identifier;
 		this.type = type;
 	}
 
-	public IdentifierExpression getIdent() {
-		return this.ident;
+	public IdentifierExpression getIdentifier() {
+		return this.identifier;
 	}
 
 	public Type getType() {

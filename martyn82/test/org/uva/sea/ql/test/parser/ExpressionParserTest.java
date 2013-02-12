@@ -78,7 +78,7 @@ public class ExpressionParserTest extends ParserTest implements ExpressionTest {
 	private Node getPartOf( Assignment node, Side which ) {
 		switch ( which ) {
 			case LEFT:
-				return node.getIdent();
+				return node.getIdentifier();
 
 			case RIGHT:
 				return node.getExpression();

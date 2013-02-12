@@ -22,8 +22,8 @@ public class QuestionVariable extends QuestionDeclaration {
 	}
 
 	@Override
-	public IdentifierExpression getIdent() {
-		return this.varDeclaration.getIdent();
+	public IdentifierExpression getIdentifier() {
+		return this.varDeclaration.getIdentifier();
 	}
 
 	@Override

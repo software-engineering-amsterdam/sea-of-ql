@@ -21,6 +21,11 @@ public class MoneyValue extends NumberValue {
 	}
 
 	@Override
+	public String toString() {
+		return Double.toString( this.value );
+	}
+
+	@Override
 	public Value add( Value value ) {
 		return value.add( this );
 	}

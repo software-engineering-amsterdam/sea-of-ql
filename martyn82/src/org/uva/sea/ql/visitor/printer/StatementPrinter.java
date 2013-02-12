@@ -40,14 +40,14 @@ public class StatementPrinter implements StatementVisitor<String> {
 
 	@Override
 	public String visit( VarDeclaration node ) {
-		String identifier = node.getIdent().accept( this.expressionVisitor );
+		String identifier = node.getIdentifier().accept( this.expressionVisitor );
 		String type = node.getType().getName();
 		return String.format( TPL_VARDECLARATION, identifier, type );
 	}
 
 	@Override
 	public String visit( Assignment node ) {
-		String identifier = node.getIdent().accept( this.expressionVisitor );
+		String identifier = node.getIdentifier().accept( this.expressionVisitor );
 		String expression = node.getExpression().accept( this.expressionVisitor );
 		return String.format( TPL_ASSIGNMENT, identifier, expression );
 	}

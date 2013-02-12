@@ -14,6 +14,10 @@ import org.uva.sea.ql.ast.expression.binary.comparison.LesserThanOrEqualExpressi
 import org.uva.sea.ql.ast.expression.binary.comparison.NotEqualExpression;
 import org.uva.sea.ql.ast.expression.binary.logical.AndExpression;
 import org.uva.sea.ql.ast.expression.binary.logical.OrExpression;
+import org.uva.sea.ql.ast.expression.literal.BooleanLiteral;
+import org.uva.sea.ql.ast.expression.literal.IntegerLiteral;
+import org.uva.sea.ql.ast.expression.literal.MoneyLiteral;
+import org.uva.sea.ql.ast.expression.literal.StringLiteral;
 import org.uva.sea.ql.ast.expression.unary.logical.NotExpression;
 import org.uva.sea.ql.ast.expression.unary.numeric.NegativeExpression;
 import org.uva.sea.ql.ast.expression.unary.numeric.PositiveExpression;
@@ -138,22 +142,22 @@ public class Evaluator implements ExpressionVisitor<Value> {
 	}
 
 	@Override
-	public Value visit( org.uva.sea.ql.ast.expression.literal.IntegerLiteral node ) {
+	public Value visit( IntegerLiteral node ) {
 		return new IntegerValue( node.getValue() );
 	}
 
 	@Override
-	public Value visit( org.uva.sea.ql.ast.expression.literal.BooleanLiteral node ) {
+	public Value visit( BooleanLiteral node ) {
 		return new BooleanValue( node.getValue() );
 	}
 
 	@Override
-	public Value visit( org.uva.sea.ql.ast.expression.literal.MoneyLiteral node ) {
+	public Value visit( MoneyLiteral node ) {
 		return new MoneyValue( node.getValue() );
 	}
 
 	@Override
-	public Value visit( org.uva.sea.ql.ast.expression.literal.StringLiteral node ) {
+	public Value visit( StringLiteral node ) {
 		return new StringValue( node.getValue() );
 	}
 

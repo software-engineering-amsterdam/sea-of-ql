@@ -71,13 +71,13 @@ public class TypeChecker extends AbstractTypeChecker implements StatementVisitor
 
 	@Override
 	public Boolean visit( VarDeclaration node ) {
-		if ( this.environment.isDeclared( node.getIdent() ) ) {
-			Type identType = this.environment.lookupType( node.getIdent() );
+		if ( this.environment.isDeclared( node.getIdentifier() ) ) {
+			Type identType = this.environment.lookupType( node.getIdentifier() );
 			Type declaredType = node.getType();
 
 			if ( !identType.equals( declaredType ) ) {
 				this.addAlreadyDeclaredError(
-					node.getIdent().getName(),
+					node.getIdentifier().getName(),
 					node
 				);
 
@@ -87,19 +87,19 @@ public class TypeChecker extends AbstractTypeChecker implements StatementVisitor
 			return true;
 		}
 
-		this.environment.declare( node.getIdent(), node.getType() );
+		this.environment.declare( node.getIdentifier(), node.getType() );
 
 		return true;
 	}
 
 	@Override
 	public Boolean visit( Assignment node ) {
-		if ( !this.environment.isDeclared( node.getIdent() ) ) {
+		if ( !this.environment.isDeclared( node.getIdentifier() ) ) {
 			Type expressionType = this.typeOf( node.getExpression() );
-			this.environment.declare( node.getIdent(), expressionType );
+			this.environment.declare( node.getIdentifier(), expressionType );
 		}
 
-		if ( !node.getIdent().accept( this.expressionChecker ) ) {
+		if ( !node.getIdentifier().accept( this.expressionChecker ) ) {
 			return false;
 		}
 
@@ -107,7 +107,7 @@ public class TypeChecker extends AbstractTypeChecker implements StatementVisitor
 			return false;
 		}
 
-		Type leftType = this.typeOf( node.getIdent() );
+		Type leftType = this.typeOf( node.getIdentifier() );
 		Type rightType = this.typeOf( node.getExpression() );
 
 		if ( !leftType.isCompatibleTo( rightType ) ) {

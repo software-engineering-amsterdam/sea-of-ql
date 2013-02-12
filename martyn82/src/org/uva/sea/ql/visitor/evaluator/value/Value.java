@@ -6,6 +6,9 @@ abstract public class Value {
 	abstract public Object getValue();
 	abstract public Type getType();
 
+	@Override
+	abstract public String toString();
+
 	public boolean isDefined() {
 		return true;
 	}

@@ -14,5 +14,5 @@ abstract public class QuestionDeclaration extends Statement {
 		return this.label;
 	}
 
-	abstract public IdentifierExpression getIdent();
+	abstract public IdentifierExpression getIdentifier();
 }
