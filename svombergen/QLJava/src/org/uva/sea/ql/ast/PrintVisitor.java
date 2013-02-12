@@ -8,7 +8,7 @@ public class PrintVisitor extends Visitor {
 	
 	@Override
 	public void visit(Question q){
-		System.out.println("Visiting " + q.getName());
+		System.out.println("Visiting " + q.getIdent());
 	}
 	
 	@Override

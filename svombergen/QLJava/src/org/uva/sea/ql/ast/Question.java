@@ -4,18 +4,18 @@ import org.uva.sea.ql.ast.types.*;
 
 public class Question extends Statement {
 	
-	protected Ident name;
+	protected Ident ident;
 	protected Str questionString;
 	protected Type type;
 
 	public Question(Ident id, Str q, Type t) {
-		name = id;
+		ident = id;
 		questionString = q;
 		type = t;
 	}
 	
-	public Ident getName(){
-		return name;
+	public Ident getIdent(){
+		return ident;
 	}
 	
 	public Str getQuestionString(){
