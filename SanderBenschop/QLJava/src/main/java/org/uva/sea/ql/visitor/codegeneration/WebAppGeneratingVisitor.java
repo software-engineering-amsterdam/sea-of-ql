@@ -23,150 +23,199 @@ import org.uva.sea.ql.ast.unary.Positive;
 import org.uva.sea.ql.ast.unary.UnaryOperation;
 import org.uva.sea.ql.visitor.ASTNodeVisitor;
 
-public class WebAppGeneratingVisitor implements ASTNodeVisitor<ST> {
+public class WebAppGeneratingVisitor implements ASTNodeVisitor<Void> {
 
     private final STGroupFile pageTemplateGroup;
     private final STGroupFile formTemplateGroup;
 
+    private final ST pageTemplate;
+
     public WebAppGeneratingVisitor() {
-        this.pageTemplateGroup =  new STGroupFile("src/main/resources/webappTemplates/qlpage.stg", '$', '$');
-        this.formTemplateGroup =  new STGroupFile("src/main/resources/webappTemplates/qlform.stg", '$', '$');
+        this.pageTemplateGroup =  new STGroupFile("src/main/resources/webapp/qlpage.stg", '$', '$');
+        this.formTemplateGroup =  new STGroupFile("src/main/resources/webapp/qlform.stg", '$', '$');
+        this.pageTemplate = pageTemplateGroup.getInstanceOf("page");
     }
 
     public String generateQLCodeForForm(Form form) {
-        ST pageTemplate = pageTemplateGroup.getInstanceOf("page");
-        pageTemplate.add("formName", form.getName());
-        pageTemplate.add("formContent", form.accept(this));
+        form.accept(this);
         return pageTemplate.render();
     }
 
-    @Override
-    public ST visitForm(Form form) {
-        ST formTemplate = formTemplateGroup.getInstanceOf("form");
-        for (QLStatement statement : form.getStatements()) {
-            ST template = statement.accept(this);
-            formTemplate.add("statements", template);
-        }
-        return formTemplate;
+    private void addToFormContent(ST template) {
+        pageTemplate.add("formContent", template);
+    }
+
+    private void addToJSDocumentReadyContent(ST template) {
+        pageTemplate.add("documentReadyContent", template);
     }
 
     @Override
-    public ST visitComputation(Computation computation) {
+    public Void visitForm(Form form) {
+        pageTemplate.add("formName", form.getName());
+        for (QLStatement statement : form.getStatements()) {
+            statement.accept(this);
+        }
+
+        return null;
+    }
+
+    @Override
+    public Void visitComputation(Computation computation) {
         ST computationTemplate = formTemplateGroup.getInstanceOf("computation");
         computationTemplate.add("id", computation.getIdentifier().getName());
         computationTemplate.add("labelText", computation.getLabel().getValue());
-        return computationTemplate;
-    }
 
-    @Override
-    public ST visitIfStatement(IfStatement ifStatement) {
+        addToFormContent(computationTemplate);
         return null;
     }
 
     @Override
-    public ST visitIfElseStatement(IfElseStatement ifElseStatement) {
+    public Void visitIfStatement(IfStatement ifStatement) {
         return null;
     }
 
     @Override
-    public ST visitQuestion(Question question) {
-        ST questiontemplate = getQuestionTemplate(question.getDatatype());
-        questiontemplate.add("id", question.getIdentifier().getName());
-        questiontemplate.add("labelText", question.getLabel().getValue());
-        return questiontemplate;
+    public Void visitIfElseStatement(IfElseStatement ifElseStatement) {
+        return null;
     }
 
-    private ST getQuestionTemplate(Type type) {
+    @Override
+    public Void visitQuestion(Question question) {
+        Type type = question.getDatatype();
+        ST questionHtmlTemplate = getQuestionHtmlTemplate(type), questionJSTemplate = formTemplateGroup.getInstanceOf("questionJS");
+
+        questionHtmlTemplate.add("id", question.getIdentifier().getName());
+        questionHtmlTemplate.add("labelText", question.getLabel().getValue());
+        questionJSTemplate.add("id", question.getIdentifier().getName());
+        questionJSTemplate.add("controllerType", type.getClass().getSimpleName() + "QuestionController");
+
+        addToFormContent(questionHtmlTemplate);
+        addToJSDocumentReadyContent(questionJSTemplate);
+        return null;
+    }
+
+    private ST getQuestionHtmlTemplate(Type type) {
         ST questiontemplate;
         if (type instanceof IntegerType || type instanceof StringType) {
-            questiontemplate = formTemplateGroup.getInstanceOf("openQuestion");
+            questiontemplate = formTemplateGroup.getInstanceOf("openQuestionHtml");
         } else if (type instanceof BooleanType) {
-            questiontemplate = formTemplateGroup.getInstanceOf("closedQuestion");
+            questiontemplate = formTemplateGroup.getInstanceOf("closedQuestionHtml");
         } else {
             throw new UnsupportedOperationException("Unsupported type.");
         }
+
         return questiontemplate;
     }
 
     @Override
-    public ST visitPositive(Positive positive) {
-        return getUnaryOperationST(positive, "positive");
+    public Void visitPositive(Positive positive) {
+        ST template = getUnaryOperationST(positive, "positive");
+        addToFormContent(template);
+        return null;
     }
 
     @Override
-    public ST visitNegative(Negative negative) {
-        return getUnaryOperationST(negative, "negative");
+    public Void visitNegative(Negative negative) {
+        ST template = getUnaryOperationST(negative, "negative");
+        addToFormContent(template);
+        return null;
     }
 
     @Override
-    public ST visitNot(Not not) {
-        return getUnaryOperationST(not, "not");
+    public Void visitNot(Not not) {
+        ST template = getUnaryOperationST(not, "not");
+        addToFormContent(template);
+        return null;
     }
 
-    public ST getUnaryOperationST(UnaryOperation unaryOperation, String templateName) {
+    private ST getUnaryOperationST(UnaryOperation unaryOperation, String templateName) {
         ST unaryOperationTemplate = formTemplateGroup.getInstanceOf(templateName);
         unaryOperationTemplate.add("expr", unaryOperation.getExpression().accept(this));
         return unaryOperationTemplate;
     }
 
     @Override
-    public ST visitMultiply(Multiply multiply) {
-        return getBinaryOperationST(multiply, "multiply");
+    public Void visitMultiply(Multiply multiply) {
+        ST template = getBinaryOperationST(multiply, "multiply");
+        addToFormContent(template);
+        return null;
     }
 
     @Override
-    public ST visitDivide(Divide divide) {
-        return getBinaryOperationST(divide, "divide");
+    public Void visitDivide(Divide divide) {
+        ST template = getBinaryOperationST(divide, "divide");
+        addToFormContent(template);
+        return null;
     }
 
     @Override
-    public ST visitSubtract(Subtract subtract) {
-        return getBinaryOperationST(subtract, "subtract");
+    public Void visitSubtract(Subtract subtract) {
+        ST template = getBinaryOperationST(subtract, "subtract");
+        addToFormContent(template);
+        return null;
     }
 
     @Override
-    public ST visitAdd(Add add) {
-        return getBinaryOperationST(add, "add");
+    public Void visitAdd(Add add) {
+        ST template = getBinaryOperationST(add, "add");
+        addToFormContent(template);
+        return null;
     }
 
     @Override
-    public ST visitAnd(And and) {
-        return getBinaryOperationST(and, "and");
+    public Void visitAnd(And and) {
+        ST template = getBinaryOperationST(and, "and");
+        addToFormContent(template);
+        return null;
     }
 
     @Override
-    public ST visitOr(Or or) {
-        return getBinaryOperationST(or, "or");
+    public Void visitOr(Or or) {
+        ST template = getBinaryOperationST(or, "or");
+        addToFormContent(template);
+        return null;
     }
 
     @Override
-    public ST visitEqualTo(EqualTo equalTo) {
-        return getBinaryOperationST(equalTo, "equalTo");
+    public Void visitEqualTo(EqualTo equalTo) {
+        ST template = getBinaryOperationST(equalTo, "equalTo");
+        addToFormContent(template);
+        return null;
     }
 
     @Override
-    public ST visitNotEqualTo(NotEqualTo notEqualTo) {
-        return getBinaryOperationST(notEqualTo, "notEqualTo");
+    public Void visitNotEqualTo(NotEqualTo notEqualTo) {
+        ST template = getBinaryOperationST(notEqualTo, "notEqualTo");
+        addToFormContent(template);
+        return null;
     }
 
     @Override
-    public ST visitGreaterThan(GreaterThan greaterThan) {
-        return getBinaryOperationST(greaterThan, "greaterThan");
+    public Void visitGreaterThan(GreaterThan greaterThan) {
+        ST template = getBinaryOperationST(greaterThan, "greaterThan");
+        addToFormContent(template);
+        return null;
     }
 
     @Override
-    public ST visitGreaterThanOrEqualTo(GreaterThanOrEqualTo greaterThanOrEqualTo) {
-        return getBinaryOperationST(greaterThanOrEqualTo, "greaterThanOrEqualTo");
+    public Void visitGreaterThanOrEqualTo(GreaterThanOrEqualTo greaterThanOrEqualTo) {
+        ST template = getBinaryOperationST(greaterThanOrEqualTo, "greaterThanOrEqualTo");
+        addToFormContent(template);
+        return null;
     }
 
     @Override
-    public ST visitLessThan(LessThan lessThan) {
-        return getBinaryOperationST(lessThan, "lessThan");
+    public Void visitLessThan(LessThan lessThan) {
+        ST template = getBinaryOperationST(lessThan, "lessThan");
+        addToFormContent(template);
+        return null;
     }
 
     @Override
-    public ST visitLessThanOrEqualTo(LessThanOrEqualTo lessThanOrEqualTo) {
-        return getBinaryOperationST(lessThanOrEqualTo, "lessThanOrEqualTo");
+    public Void visitLessThanOrEqualTo(LessThanOrEqualTo lessThanOrEqualTo) {
+        ST template = getBinaryOperationST(lessThanOrEqualTo, "lessThanOrEqualTo");
+        addToFormContent(template);
+        return null;
     }
 
     private ST getBinaryOperationST(BinaryOperation binaryOperation, String templateName) {
@@ -177,22 +226,22 @@ public class WebAppGeneratingVisitor implements ASTNodeVisitor<ST> {
     }
 
     @Override
-    public ST visitIdent(Ident ident) {
+    public Void visitIdent(Ident ident) {
         return null;
     }
 
     @Override
-    public ST visitBool(Bool boolLiteral) {
+    public Void visitBool(Bool boolLiteral) {
         return null;
     }
 
     @Override
-    public ST visitInt(Int intLiteral) {
+    public Void visitInt(Int intLiteral) {
         return null;
     }
 
     @Override
-    public ST visitStr(Str str) {
+    public Void visitStr(Str str) {
         return null;
     }
 }

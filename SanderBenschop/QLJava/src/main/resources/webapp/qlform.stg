@@ -1,0 +1,42 @@
+openQuestionHtml(id, labelText) ::= <<
+    <label for="openQuestion_$id$">$labelText$</label><input type="text" id="openQuestion_$id$" name="openQuestion_$id$"/>
+>>
+
+closedQuestionHtml(id, labelText) ::= <<
+    <label for="closedQuestion_$id$">$labelText$</label><input type="checkbox" id="closedQuestion_$id$" name="closedQuestion_$id$" value="Yes"/>
+>>
+
+questionJS(id, controllerType) ::= <<
+    var $id$QuestionController = ql.$controllerType$.new("question_$id$");
+    $id$QuestionController.bind();
+
+>>
+
+computation(id, labelText) ::= <<
+    <label for="computation_$id$">$labelText$</label><input type="text" id="computation_$id$" name="computation_$id$" readonly="readonly"/>
+>>
+
+positive(expr) ::= << Math.abs($expr$); >>
+negative(expr) ::= << -$expr$ >>
+not(expr) ::= << !$expr$ >>
+
+multiply(leftHandSideExpr, rightHandSideExpr) ::= << $leftHandSideExpr$ * $rightHandSideExpr$ >>
+divide(leftHandSideExpr, rightHandSideExpr) ::= << $leftHandSideExpr$ / $rightHandSideExpr$ >>
+subtract(leftHandSideExpr, rightHandSideExpr) ::= << $leftHandSideExpr$ - $rightHandSideExpr$ >>
+add(leftHandSideExpr, rightHandSideExpr) ::= << $leftHandSideExpr$ + $rightHandSideExpr$ >>
+
+and(leftHandSideBoolExpr, rightHandSideBoolExpr) ::= << $leftHandSideBoolExpr$ && $rightHandSideBoolExpr$ >>
+or(leftHandSideBoolExpr, rightHandSideBoolExpr) ::= << $leftHandSideBoolExpr$ || $rightHandSideBoolExpr$ >>
+
+equalTo(leftHandSideExpr, rightHandSideExpr) ::= << $leftHandSideExpr$ === $rightHandSideExpr$ >>
+notEqualTo(leftHandSideExpr, rightHandSideExpr) ::= << $leftHandSideExpr$ !== $rightHandSideExpr$ >>
+
+greaterThan(leftHandSideExpr, rightHandSideExpr) ::= << $leftHandSideExpr$ > $rightHandSideExpr$ >>
+greaterThanOrEqualTo(leftHandSideExpr, rightHandSideExpr) ::= << $leftHandSideExpr$ >= $rightHandSideExpr$ >>
+lessThan(leftHandSideExpr, rightHandSideExpr) ::= << $leftHandSideExpr$ < $rightHandSideExpr$ >>
+lessThanOrEqualTo(leftHandSideExpr, rightHandSideExpr) ::= << $leftHandSideExpr$ <= $rightHandSideExpr$ >>
+
+ident(name) ::= << getIdentifierValue($name$) >>
+bool(value) ::= << $value$ >>
+int(value) ::= << $value$ >>
+str(value) ::= << $value$ >>

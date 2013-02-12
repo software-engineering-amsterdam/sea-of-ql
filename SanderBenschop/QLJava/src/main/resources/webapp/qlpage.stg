@@ -1,0 +1,26 @@
+page(formName, formContent, documentReadyContent) ::= <<
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <title>Question language - $formName$</title>
+        <script type="text/javascript" src="jquery.js"></script>
+        <script type="text/javascript" src="selfish.js"></script>
+        <script type="text/javascript" src="generic.js"></script>
+        <script type="text/javascript">
+            jQuery(document).ready(function() {
+                /* Generated JS code start */
+                $documentReadyContent$
+                /* Generated JS code end */
+            });
+        </script>
+    </head>
+    <body>
+        <form>
+            <!-- Generated form content start -->
+            $formContent$
+            <!-- Generated form content end -->
+            <input type="submit" value="Submit"/>
+        </form>
+    </body>
+</html>
+>>

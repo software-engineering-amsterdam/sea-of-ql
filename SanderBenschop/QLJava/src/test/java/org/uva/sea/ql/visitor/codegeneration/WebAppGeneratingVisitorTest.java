@@ -30,7 +30,6 @@ public class WebAppGeneratingVisitorTest {
     }
 
     @Test
-    @Ignore
     public void testWebAppPageGeneration() {
         List<QLStatement> statements = new ArrayList<QLStatement>();
 
