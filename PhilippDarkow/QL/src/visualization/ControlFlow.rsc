@@ -10,6 +10,7 @@ public data CFNode
 	| exit()
 	| choice(loc location, Expression exp)
 	| q(loc location, Question question)
+	| bo(loc location, Body body)
 	| statement(loc location, Statement stat);
 
 alias CFGraph = tuple[set[CFNode] entry, Graph[CFNode] graph, set[CFNode] exit];  
@@ -54,6 +55,7 @@ CFGraph cflowQuestion(question:computedQuestion(str id, str labelQuestion, Type 
 }
 
 CFGraph cflowQues(list[Question] ques){
+	
 	if(size(ques) == 1) return cflowQuestion(ques[0]);
 }
 
@@ -63,7 +65,6 @@ CFGraph cflowCompleteBody(list[Body] Body){
 	list[Statement] statements = [];
 	visit(Body){
 		case Question q : return cflowQuestion(q);
-		//case Statement s : statements += s;
 	};
 	println("Statements : <statements>");
 	return cflowStats(statements);
@@ -85,12 +86,15 @@ CFGraph cflowBody(list[Body] Body){
 		}
 	}
 	println("HUI : <ques>");
-	//cflowQues(ques);
-	
+	p = cflowQues(ques);
+	println("!!!!P : <p>");
 	visit(Body){
 		case Statement s : statements += s;
 	};
 	println("Statements : <statements>");
+	jj = cflowStats(statements);
+	println("JJ : <jj>");
+	return < p.entry, p.graph + jj.graph + (p.exit * jj.entry), jj.exit >;
 	return cflowStats(statements);
 }
 
