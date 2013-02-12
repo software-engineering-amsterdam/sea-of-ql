@@ -14,7 +14,7 @@ public class Sub extends Binary {
 
 	@Override
 	public String toString() {
-		return "/";
+		return "-";
 	}
 	
 	@Override

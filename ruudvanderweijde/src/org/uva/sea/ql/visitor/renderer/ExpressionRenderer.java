@@ -1,7 +1,11 @@
 package org.uva.sea.ql.visitor.renderer;
 
+import java.util.LinkedList;
+import java.util.List;
+
 import org.uva.sea.ql.ast.expr.binary.Add;
 import org.uva.sea.ql.ast.expr.binary.And;
+import org.uva.sea.ql.ast.expr.binary.Binary;
 import org.uva.sea.ql.ast.expr.binary.Div;
 import org.uva.sea.ql.ast.expr.binary.Eq;
 import org.uva.sea.ql.ast.expr.binary.GEq;
@@ -19,122 +23,127 @@ import org.uva.sea.ql.ast.expr.primary.StringLiteral;
 import org.uva.sea.ql.ast.expr.unary.Neg;
 import org.uva.sea.ql.ast.expr.unary.Not;
 import org.uva.sea.ql.ast.expr.unary.Pos;
+import org.uva.sea.ql.ast.expr.unary.Unary;
 import org.uva.sea.ql.visitor.IExpressionVisitor;
 
-public class ExpressionRenderer<T> implements IExpressionVisitor<T> {
-
+public class ExpressionRenderer implements IExpressionVisitor<String> {
+	private String strExpression = new String();
+	private List<Ident> idents;
+	
+	public ExpressionRenderer(List<Ident> idents) {
+		this.idents = new LinkedList<Ident>();
+	}
+	
 	@Override
-	public T visit(Add ast) {
-		// TODO Auto-generated method stub
-		return null;
+	public String visit(Add ast) {
+		return binaryToString(ast);
+	}
+	
+	@Override
+	public String visit(And ast) {
+		return binaryToString(ast);
 	}
 
 	@Override
-	public T visit(And ast) {
-		// TODO Auto-generated method stub
-		return null;
+	public String visit(Div ast) {
+		return binaryToString(ast);
 	}
 
 	@Override
-	public T visit(Div ast) {
-		// TODO Auto-generated method stub
-		return null;
+	public String visit(Eq ast) {
+		return binaryToString(ast);
 	}
 
 	@Override
-	public T visit(Eq ast) {
-		// TODO Auto-generated method stub
-		return null;
+	public String visit(GEq ast) {
+		return binaryToString(ast);
 	}
 
 	@Override
-	public T visit(GEq ast) {
-		// TODO Auto-generated method stub
-		return null;
+	public String visit(GT ast) {
+		return binaryToString(ast);
 	}
 
 	@Override
-	public T visit(GT ast) {
-		// TODO Auto-generated method stub
-		return null;
+	public String visit(LEq ast) {
+		return binaryToString(ast);
 	}
 
 	@Override
-	public T visit(LEq ast) {
-		// TODO Auto-generated method stub
-		return null;
+	public String visit(LT ast) {
+		return binaryToString(ast);
 	}
 
 	@Override
-	public T visit(LT ast) {
-		// TODO Auto-generated method stub
-		return null;
+	public String visit(Mul ast) {
+		return binaryToString(ast);
 	}
 
 	@Override
-	public T visit(Mul ast) {
-		// TODO Auto-generated method stub
-		return null;
+	public String visit(NEq ast) {
+		return binaryToString(ast);
 	}
 
 	@Override
-	public T visit(NEq ast) {
-		// TODO Auto-generated method stub
-		return null;
+	public String visit(Or ast) {
+		return binaryToString(ast);
 	}
 
 	@Override
-	public T visit(Or ast) {
-		// TODO Auto-generated method stub
-		return null;
+	public String visit(Sub ast) {
+		return binaryToString(ast);
 	}
 
 	@Override
-	public T visit(Sub ast) {
-		// TODO Auto-generated method stub
-		return null;
+	public String visit(Neg ast) {
+		return unaryToString(ast); 
+	} 
+	
+	@Override
+	public String visit(Not ast) {
+		return unaryToString(ast); 
 	}
 
 	@Override
-	public T visit(Neg ast) {
-		// TODO Auto-generated method stub
-		return null;
+	public String visit(Pos ast) {
+		return unaryToString(ast); 
 	}
 
 	@Override
-	public T visit(Not ast) {
-		// TODO Auto-generated method stub
-		return null;
+	public String visit(Bool ast) {
+		return ast.getValue() ? "true" : "false";
 	}
 
 	@Override
-	public T visit(Pos ast) {
-		// TODO Auto-generated method stub
-		return null;
+	public String visit(Int ast) {
+		return ast.getValue().toString();
 	}
 
 	@Override
-	public T visit(Bool ast) {
-		// TODO Auto-generated method stub
-		return null;
+	public String visit(StringLiteral ast) {
+		return ast.getValue();
 	}
 
 	@Override
-	public T visit(Int ast) {
-		// TODO Auto-generated method stub
-		return null;
+	public String visit(Ident ast) {
+		idents.add(ast);
+		return "getValueOf('"+ast.getName()+"')"; 
 	}
 
-	@Override
-	public T visit(StringLiteral ast) {
-		// TODO Auto-generated method stub
-		return null;
+	private String binaryToString(Binary ast) {
+		strExpression += ast.getLhs().accept(this);
+		strExpression += ast.toString();
+		strExpression += ast.getRhs().accept(this);
+		return strExpression;
+	}
+	
+	private String unaryToString(Unary ast) {
+		strExpression += ast.toString();
+		strExpression += ast.getArg().accept(this);
+		return strExpression;
 	}
 
-	@Override
-	public T visit(Ident ast) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Ident> getIdents() {
+		return idents;
 	}
-
 }

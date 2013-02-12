@@ -35,14 +35,34 @@ public class IntegerValue extends Value {
 	
 	@Override
 	public Value pos() {
-		return new IntegerValue(Math.abs(this.getValue()));
+		return new IntegerValue(Math.abs(getValue()));
 	}
 	
 	@Override
 	public Value neg() {
-		return new IntegerValue(this.getValue()*-1);
+		return new IntegerValue(getValue()*-1);
 	}
 
+	@Override
+	public Value geq(Value arg) {
+		return arg.geqInt(this);
+	}
+	
+	@Override
+	public Value gt(Value arg) {
+		return arg.gtInt(this);
+	}
+	
+	@Override
+	public Value leq(Value arg) {
+		return arg.leqInt(this);
+	}
+	
+	@Override
+	public Value lt(Value arg) {
+		return arg.ltInt(this);
+	}
+	
 	/*
 	 * Values are reversed because of double dispatch
 	 */
@@ -59,9 +79,27 @@ public class IntegerValue extends Value {
 	@Override
 	protected Value divInt(IntegerValue arg) {
 		return new IntegerValue(arg.getValue() / getValue());
-	}
+	}	
+
 	@Override
 	protected Value mulInt(IntegerValue arg) {
 		return new IntegerValue(arg.getValue() * getValue());
+	}
+	
+	@Override
+	protected Value geqInt(IntegerValue arg) {
+		return new BooleanValue(arg.getValue() >= getValue());
+	}
+	@Override
+	protected Value gtInt(IntegerValue arg) {
+		return new BooleanValue(arg.getValue() > getValue());
+	}
+	@Override
+	protected Value leqInt(IntegerValue arg) {
+		return new BooleanValue(arg.getValue() <= getValue());
+	}
+	@Override
+	protected Value ltInt(IntegerValue arg) {
+		return new BooleanValue(arg.getValue() < getValue());
 	}
 }

@@ -21,9 +21,26 @@ StringType(id, label, readOnly) ::= <<
 >>
 OpenBlock(id) ::= <<
 <div data-role="fieldcontain" id="$id$">
-<script>alert("openblock: " + "$id$");</script>
 >>
 CloseBlock(id) ::= <<
 </div>
 >>
-Expression() ::= "expression!"
+Computation(id, condition, uuid) ::= <<
+  function function_$uuid$ () {
+    \$('#$id$').val($condition$);
+  }
+>>
+Condition(id, condition) ::= <<
+  function function_$id$ () {
+    if ($condition$) {
+      \$('#if_$id$').show();
+      \$('#else_$id$').hide();
+      } else {
+      \$('#if_$id$').hide();
+      \$('#else_$id$').show();
+    }
+  }
+>>
+BindIdToFunction(id, function) ::= <<
+  \$('#$id$').on('load, change', function_$function$);
+>>

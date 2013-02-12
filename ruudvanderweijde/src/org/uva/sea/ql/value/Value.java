@@ -78,6 +78,22 @@ public abstract class Value {
 		throw new UnsupportedOperationException();
 	}
 	
+	protected Value geqInt(IntegerValue arg) {
+		throw new UnsupportedOperationException();
+	}
+	
+	protected Value gtInt(IntegerValue arg) {
+		throw new UnsupportedOperationException();
+	}
+	
+	protected Value leqInt(IntegerValue arg) {
+		throw new UnsupportedOperationException();
+	}
+	
+	protected Value ltInt(IntegerValue arg) {
+		throw new UnsupportedOperationException();
+	}
+	
 	// Bool functions
 	protected Value andBool(BooleanValue arg) {
 		throw new UnsupportedOperationException();

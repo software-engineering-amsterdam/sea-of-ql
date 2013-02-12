@@ -4,13 +4,16 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.UUID;
 
 import org.stringtemplate.v4.ST;
 import org.stringtemplate.v4.STGroup;
 import org.stringtemplate.v4.STGroupFile;
 import org.uva.sea.ql.ast.Form;
 import org.uva.sea.ql.ast.expr.Expr;
+import org.uva.sea.ql.ast.expr.primary.Ident;
 import org.uva.sea.ql.ast.stmt.IfThen;
 import org.uva.sea.ql.ast.stmt.IfThenElse;
 import org.uva.sea.ql.ast.stmt.Statement;
@@ -24,6 +27,8 @@ import org.uva.sea.ql.visitor.valueCheck.ValueMapper;
 public class FormRenderer implements IFormVisitor {
 	private STGroup formTemplate = new STGroupFile(System.getProperty("user.dir") + "/files/templates/page.stg", '$', '$');
 	private String formContent = "";
+	private String scriptFunctions = "";
+	private String scriptCommands = "";
 	private ValueMapper valueMapper;
 	private List<Message> errors;
 
@@ -35,6 +40,8 @@ public class FormRenderer implements IFormVisitor {
 	@Override
 	public void visit(ComputedQuestion computedQuestion) {
 		addQuestionToFormContent(computedQuestion, true);
+		addComputationToFormContent(computedQuestion.getExpr(), computedQuestion.getId(),
+				getUniqueString());
 	}
 
 	@Override
@@ -44,9 +51,12 @@ public class FormRenderer implements IFormVisitor {
 
 	@Override
 	public void visit(IfThen ifThen) {
-		addExpressionToFormContent(ifThen.getCondition());
+		final String id = getUniqueString(); 
 		
-		openBlock("if_" + ifThen.hashCode());
+		Expr expr = ifThen.getCondition();
+		addConditionToFormContent(expr, id);
+		
+		openBlock("if_" + id);
 		for (Statement stmt : ifThen.getIfBlock()) {
 			stmt.accept(this);
 		}
@@ -55,14 +65,17 @@ public class FormRenderer implements IFormVisitor {
 
 	@Override
 	public void visit(IfThenElse ifThenElse) {
-		addExpressionToFormContent(ifThenElse.getCondition());
+		final String id = getUniqueString(); 
 		
-		openBlock("if_" + ifThenElse.hashCode());
+		Expr expr = ifThenElse.getCondition();
+		addConditionToFormContent(expr, id);
+		
+		openBlock("if_" + id);
 		for (Statement stmt : ifThenElse.getIfBlock()) {
 			stmt.accept(this);
 		}
 		closeBlock();
-		openBlock("else_" + ifThenElse.hashCode());
+		openBlock("else_" + id);
 		for (Statement stmt : ifThenElse.getElseBlock()) {
 			stmt.accept(this);
 		}
@@ -71,16 +84,15 @@ public class FormRenderer implements IFormVisitor {
 
 	@Override
 	public void visit(Form form) {
-		// dummy/test code
+
 		ST qlPage = formTemplate.getInstanceOf("page");
-				
-//		TODO add script
-//		qlPage.add("script", "");
 			
 		for (Statement stmt : form.getStatements()) {
 			stmt.accept(this);
 		}
 		
+		qlPage.add("scriptFunctions", getScriptFunctions());
+		qlPage.add("scriptCommands", getScriptCommands());
 		qlPage.add("formContent", getFormContent());
 		
 		// render form
@@ -121,12 +133,38 @@ public class FormRenderer implements IFormVisitor {
 		addFormContent(formTemplate.getInstanceOf("CloseBlock").render());
 	}
 
-	private void addExpressionToFormContent(Expr expr) {
-//		expr.accept(this);
+	private void addComputationToFormContent(Expr expr, Ident questionId, String uniqueId) {
+		String strCondition = getExpressionStringByExpression(expr, uniqueId);
 		
-		System.out.println(formTemplate.getInstanceOf("Expression").render());
-		addFormContent(formTemplate.getInstanceOf("Expression").render());
+		ST qlCondition = formTemplate.getInstanceOf("Computation");
+		qlCondition.add("id", questionId.getName());
+		qlCondition.add("uuid", uniqueId);
+		qlCondition.add("condition", strCondition);
 		
+		addScriptFunction(qlCondition.render());
+	}
+	
+	private void addConditionToFormContent(Expr expr, String uniqueId) {
+		String strCondition = getExpressionStringByExpression(expr, uniqueId);
+		
+		ST qlCondition = formTemplate.getInstanceOf("Condition");
+		qlCondition.add("id", uniqueId);
+		qlCondition.add("condition", strCondition);
+		
+		addScriptFunction(qlCondition.render());	
+	}
+	
+	private String getExpressionStringByExpression(Expr expr, String uniqueId) {
+		List<Ident> idents = new LinkedList<Ident>();
+		ExpressionRenderer exprRenderer = new ExpressionRenderer(idents);
+		String strCondition = expr.accept(exprRenderer);
+		for(Ident ident : exprRenderer.getIdents()) {
+			ST qlBindIdToFunction = formTemplate.getInstanceOf("BindIdToFunction");
+			qlBindIdToFunction.add("id", ident.getName());
+			qlBindIdToFunction.add("function", uniqueId);
+			addScriptCommand(qlBindIdToFunction.render());
+		}
+		return strCondition;
 	}
 	
 	private void addFormContent(String html) {
@@ -139,5 +177,41 @@ public class FormRenderer implements IFormVisitor {
 
 	public void setFormContent(String formContent) {
 		this.formContent = formContent;
+	}
+	
+	public List<Message> getErrors() {
+		return errors;
+	}
+
+	public ValueMapper getValueMapper() {
+		return valueMapper;
+	}
+
+	private void addScriptCommand(String html) {
+		setScriptCommands(getScriptCommands() + "\n" + html);
+	}
+	
+	public String getScriptCommands() {
+		return scriptCommands;
+	}
+
+	public void setScriptCommands(String scriptCommands) {
+		this.scriptCommands = scriptCommands;
+	}
+	
+	private void addScriptFunction(String html) {
+		setScriptFunctions(getScriptFunctions() + "\n" + html);
+	}
+	
+	public String getScriptFunctions() {
+		return scriptFunctions;
+	}
+
+	public void setScriptFunctions(String scriptFunction) {
+		this.scriptFunctions = scriptFunction;
+	}
+	
+	private String getUniqueString() {
+		return UUID.randomUUID().toString().replaceAll("-", "");
 	}
 }
