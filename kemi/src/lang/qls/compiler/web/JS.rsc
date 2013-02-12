@@ -293,9 +293,9 @@ private str getUniqueID(Stylesheet s) =
   s.ident;
 
 private str getUniqueID(PageDefinition p) =
-  "page_<split(" ", stripQuotes(p.ident))[0]>_" +
+  "page_<split(" ", trimQuotes(p.ident))[0]>_" +
     "<p@location.begin.line>_<p@location.begin.column>";
 
 private str getUniqueID(SectionDefinition s) =
-  "section_<split(" ", stripQuotes(s.ident))[0]>_" +
+  "section_<split(" ", trimQuotes(s.ident))[0]>_" +
     "<s@location.begin.line>_<s@location.begin.column>";
