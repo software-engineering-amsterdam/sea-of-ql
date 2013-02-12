@@ -241,7 +241,8 @@ private tuple[Type, set[Message]] analyzeAndOr(Types types, Expr parent,
  * This function checks whether the usage of a relational expression is correct.
  * Usage is correct if: 
  * - Neither of the members are undefined
- * - Members are of allowed type of operator in question
+ * - Left and right are both strings: result will be a string as well
+ * - Members are of allowed type of operator in question 
  * - Left and right hand side are integers: result will be an integer
  * - Left and right hand side contain one or two moneys. 
  *   The result will be money.
@@ -253,6 +254,9 @@ private tuple[Type, set[Message]] analyzeBinaryCalculation(Types types,
   
   if(ltype == undef() || rtype == undef())
     return <err(), lm + rm>;
+    
+  if(ltype == s() && rtype == s())
+    return <s(), lm + rm>;
 
   if(ltype notin types[getName(parent)] || rtype notin types[getName(parent)])
     return <err(), lm + rm + {invalidTypeMessage(parent@location)}>;

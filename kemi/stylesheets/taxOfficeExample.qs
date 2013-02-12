@@ -17,10 +17,14 @@ stylesheet taxOfficeExample {
       }
       section "You sold a house" {
         question sellingPrice
-        question privateDebt
+        question privateDebt {
+          widget slider
+        }
+        
         question valueResidue
         default money {
           width 150
+          widget number
         }
         
       }
