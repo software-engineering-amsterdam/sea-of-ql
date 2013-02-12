@@ -29,7 +29,7 @@ import util::ValueUI;
 
 public set[Message] semanticChecker(Stylesheet s) =
   filenameDoesNotMatchErrors(s) +
-  accompanyingFormNotFoundErrors(s) +
+  getAccompanyingFormNotFoundErrors(s) +
   unallowedAttrErrors(s) +
   unallowedWidgetErrors(s) +
   alreadyUsedQuestionErrors(s) +
@@ -45,12 +45,12 @@ public set[Message] filenameDoesNotMatchErrors(Stylesheet s) =
   {stylesheetDoesNotMatchFilename(s.ident, s@location)}
     when s.ident != basename(s@location);
 
-private default set[Message] accompanyingFormNotFoundErrors(Stylesheet s) =
+private default set[Message] getAccompanyingFormNotFoundErrors(Stylesheet s) =
   {};
 
-private set[Message] accompanyingFormNotFoundErrors(Stylesheet s) =
-  {accompanyingFormNotFound(s.ident, s@location)}
-    when !isFile(accompanyingFormLocation(s));
+private set[Message] getAccompanyingFormNotFoundErrors(Stylesheet s) =
+  {getAccompanyingFormNotFound(s.ident, s@location)}
+    when !isFile(getAccompanyingFormLocation(s));
 
 
 public set[Message] alreadyUsedQuestionErrors(Stylesheet s) {
@@ -69,11 +69,11 @@ public set[Message] alreadyUsedQuestionErrors(Stylesheet s) {
 }
 
 public set[Message] undefinedQuestionErrors(Stylesheet s) {
-  if(!isFile(accompanyingFormLocation(s)))
+  if(!isFile(getAccompanyingFormLocation(s)))
     return {};
   
   set[Message] errors = {};
-  typeMap = getTypeMap(accompanyingForm(s));
+  typeMap = getTypeMap(getAccompanyingForm(s));
   qdefs = getQuestionDefinitions(s);
   
   return {questionUndefinedInForm(q@location) | q <- qdefs, 

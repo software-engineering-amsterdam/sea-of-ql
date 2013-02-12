@@ -2,14 +2,15 @@
 * Think of something to do.
 
 # QLS
-* Refactor SemanticChecker
-* Refactor StyleHelpers
+* getDefinitions refactoring (StyleHelper QLS)
 
 ## BONUS:
 * HTML templating
 * Randomized testing for semantic checker
 * Bonus exercise for Rascal variants: use SAT/SMT/Constraint solver to check for non-determinism.
 * Wider styling support
+* Slider upper/lower boundary support
+* Outliner?
 
 # Both
 * Refactoring

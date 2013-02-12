@@ -66,11 +66,11 @@ private str layoutJS(PageDefinition p, &T parent) {
   str ret =
     "$(\"\<div /\>\")
     '  .attr({
-    '    id: \"<uniqueId(p)>\",
+    '    id: \"<getUniqueID(p)>\",
     '    class: \"page\"
     '  })
     '  .append(<pageName(p)>)
-    '  .appendTo($(\"#<uniqueId(parent)>\"));
+    '  .appendTo($(\"#<getUniqueID(parent)>\"));
     '
     '";
   
@@ -91,11 +91,11 @@ private str layoutJS(SectionDefinition s, &T parent) {
   str ret =
     "$(\"\<fieldset /\>\")
     '  .attr({
-    '    id: \"<uniqueId(s)>\",
+    '    id: \"<getUniqueID(s)>\",
     '    class: \"section\"
     '  })
     '  .append(<sectionName(s)>)
-    '  .appendTo($(\"#<uniqueId(parent)>\"));
+    '  .appendTo($(\"#<getUniqueID(parent)>\"));
     '
     '";
   
@@ -114,12 +114,12 @@ private str layoutJS(SectionDefinition s, &T parent) {
 
 private str layoutJS(QuestionDefinition q, &T parent) =
   "$(\"#<blockIdent(q)>\")
-  '  .appendTo($(\"#<uniqueId(parent)>\"));
+  '  .appendTo($(\"#<getUniqueID(parent)>\"));
   '
   '";
 
 private str styleJS(Stylesheet s) {
-  f = accompanyingForm(s);
+  f = getAccompanyingForm(s);
   typeMap = getTypeMap(f);
 
   ret = "";
@@ -285,3 +285,14 @@ public str styleJS(str ident, StyleRule r:
     widthStyleRule(str attr, int \value)) =
   "//<attr> <\value>
   '";
+
+private str getUniqueID(Stylesheet s) =
+  s.ident;
+
+private str getUniqueID(PageDefinition p) =
+  "page_<split(" ", stripQuotes(p.ident))[0]>_" +
+    "<p@location.begin.line>_<p@location.begin.column>";
+
+private str getUniqueID(SectionDefinition s) =
+  "section_<split(" ", stripQuotes(s.ident))[0]>_" +
+    "<s@location.begin.line>_<s@location.begin.column>";

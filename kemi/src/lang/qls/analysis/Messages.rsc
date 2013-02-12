@@ -26,7 +26,7 @@ public Message defaultAlreadyDefined(loc location) =
 public Message questionAlreadyDefined(loc old, loc cur) = 
   error("Question already used at line <old.begin.line>", cur);
 
-public Message accompanyingFormNotFound(str name, loc location) =
+public Message getAccompanyingFormNotFound(str name, loc location) =
   error("No form found with name <name>", location);
 
 public Message stylesheetDoesNotMatchFilename(str name, loc location) = 
