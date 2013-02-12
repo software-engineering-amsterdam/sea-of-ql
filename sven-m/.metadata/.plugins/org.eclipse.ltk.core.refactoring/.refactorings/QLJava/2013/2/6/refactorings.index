@@ -43,3 +43,5 @@
 1360165787817	Rename method 'addTypeMessage'
 1360166800090	Delete element
 1360184754694	Rename type 'QLFormParser'
+1360423957055	Rename type 'VariableUndeclaredError'
+1360424030793	Rename type 'VariableUndeclaredError'

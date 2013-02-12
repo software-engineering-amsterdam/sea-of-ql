@@ -1,0 +1,5 @@
+package org.uva.sea.ql.parser.errors;
+
+public abstract class SemanticError {
+
+}

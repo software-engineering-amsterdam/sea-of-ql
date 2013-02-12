@@ -1,0 +1,12 @@
+package org.uva.sea.ql.parser.typechecking;
+
+import java.util.List;
+
+public class FormError {
+	private List<String> exprErrors;
+	private String formElementName;
+	
+	public FormError() {
+		exprErrors = new ArrayList<>();
+	}
+}

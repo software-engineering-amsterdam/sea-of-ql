@@ -57,12 +57,17 @@ topLevelFormElement returns [FormElement result]
 question returns [Question result]
   : id=IDENT ':' lbl=STRING_LITERAL type
     {
-      $result = new Question(new Ident($id.text), $lbl.text, $type.result);
+      $result = new Question(
+        new Ident($id.text, new Location($id.line, $id.line, $id.pos,
+          $id.text.length())),
+        $lbl.text, $type.result);
     }
   | id=IDENT ':' lbl=STRING_LITERAL type '(' cond=expression ')'
     {
-      $result = new Computed(new Ident($id.text), $lbl.text,
-        $type.result, $cond.result);
+      $result = new Computed(
+        new Ident($id.text, new Location($id.line, $id.line, $id.pos,
+          $id.text.length())),
+        $lbl.text, $type.result, $cond.result);
     }
   ;
   
@@ -105,9 +110,22 @@ expression returns [Expr result]
   ;
 
 primary returns [Expr result]
-  : INT   { $result = new Int(Integer.parseInt($INT.text)); }
-  | IDENT { $result = new Ident($IDENT.text); }
-  | STRING_LITERAL { $result = new Str($STRING_LITERAL.text); }
+  : INT
+    {
+      $result = new Int(Integer.parseInt($INT.text), new Location($INT.line,
+        $INT.line, $INT.pos, $INT.text.length()));
+    }
+  | IDENT
+    {
+      $result = new Ident($IDENT.text, new Location($IDENT.line, $IDENT.line,
+          $IDENT.pos, $IDENT.pos + $IDENT.text.length()));
+    }
+  | STRING_LITERAL
+    {
+      $result = new Str($STRING_LITERAL.text,
+        new Location($STRING_LITERAL.line, $STRING_LITERAL.line,
+        $STRING_LITERAL.pos, $STRING_LITERAL.text.length()));
+    }
   | '(' orExpr ')' { $result = $orExpr.result; }
   ;
     

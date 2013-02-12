@@ -1,0 +1,12 @@
+package org.uva.sea.ql.parser.test.types;
+
+import org.junit.Test;
+import static org.junit.Assert.assertEquals;
+
+
+
+public class ExpressionTest {
+	@Test
+	public void testAdds() {
+	}
+}

@@ -1,12 +1,14 @@
 package org.uva.sea.ql.ast.expression;
 
+import org.uva.sea.ql.ast.Location;
 import org.uva.sea.ql.ast.visitor.ExpressionVisitor;
 
-public class Str extends Expr {
+public class Str extends Leaf {
 
 	private final String value;
 
-	public Str(String n) {
+	public Str(String n, Location location) {
+		super(location);
 		this.value = n;
 	}
 

@@ -1,0 +1,9 @@
+package org.uva.sea.ql.parser.test.types;
+
+public abstract class AbstractFormTypeTest {
+	private FormTypeChecker formTypeChecker;
+	
+	public AbstractFormTypeTest() {
+		super();
+	}
+}

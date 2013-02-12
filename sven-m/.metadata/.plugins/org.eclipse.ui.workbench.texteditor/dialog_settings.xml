@@ -2,36 +2,36 @@
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog_dialogBounds">
 		<item value="243" key="DIALOG_WIDTH"/>
-		<item value="282" key="DIALOG_Y_ORIGIN"/>
+		<item value="200" key="DIALOG_Y_ORIGIN"/>
+		<item value="389" key="DIALOG_X_ORIGIN"/>
 		<item value="379" key="DIALOG_HEIGHT"/>
-		<item value="699" key="DIALOG_X_ORIGIN"/>
 		<item value="1|Lucida Grande|11.0|0|COCOA|1|LucidaGrande" key="DIALOG_FONT_NAME"/>
 	</section>
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
 		<item value="true" key="wrap"/>
-		<item value="false" key="isRegEx"/>
 		<item value="true" key="casesensitive"/>
+		<item value="false" key="isRegEx"/>
 		<item value="false" key="incremental"/>
 		<item value="true" key="wholeword"/>
-		<item value="nextToken" key="selection"/>
+		<item value="" key="selection"/>
 		<list key="findhistory">
-			<item value="nextToken"/>
-			<item value="catch"/>
-			<item value="reportError"/>
-			<item value="Recogniz"/>
-			<item value="Recognizer"/>
-			<item value="ParseError"/>
-			<item value="&quot;,"/>
-			<item value="tests.put("/>
+			<item value=", GT.class"/>
+			<item value=", Add.class"/>
+			<item value=", Mul.class"/>
+			<item value=", LT.class"/>
+			<item value=", GEq.class"/>
+			<item value=", LEq.class"/>
+			<item value=", Eq.class"/>
+			<item value=", Ident.class"/>
 		</list>
 		<list key="replacehistory">
+			<item value=""/>
 			<item value="//reportError"/>
 			<item value="&quot;),"/>
 			<item value="assertEquals(parse("/>
 			<item value="GEq"/>
 			<item value="GE"/>
 			<item value="&gt;"/>
-			<item value=""/>
 		</list>
 	</section>
 </section>
