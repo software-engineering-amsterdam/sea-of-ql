@@ -3,7 +3,7 @@ package org.uva.sea.ql.ast.exp;
 import org.uva.sea.ql.ast.value.BooleanValue;
 import org.uva.sea.ql.ast.value.IntegerValue;
 import org.uva.sea.ql.visitor.NaturalVisitor;
-import org.uva.sea.ql.visitor.ValuableVisitor;
+import org.uva.sea.ql.visitor.ExpressionVisitor;
 
 public class Equals extends Binary<BooleanValue, IntegerValue> {
 
@@ -23,7 +23,7 @@ public class Equals extends Binary<BooleanValue, IntegerValue> {
 	}
 
 	@Override
-	public BooleanValue accept(final ValuableVisitor visitor) {
+	public BooleanValue accept(final ExpressionVisitor visitor) {
 		return visitor.visit(this);
 	}
 

@@ -21,7 +21,7 @@ import org.uva.sea.ql.ast.value.BooleanValue;
 import org.uva.sea.ql.ast.value.IntegerValue;
 import org.uva.sea.ql.ast.value.StringValue;
 
-public interface ValuableVisitor {
+public interface ExpressionVisitor {
 
 	IntegerValue visit(Add add);
 

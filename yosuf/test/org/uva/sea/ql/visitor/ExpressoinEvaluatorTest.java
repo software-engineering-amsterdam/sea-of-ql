@@ -37,7 +37,7 @@ public class ExpressoinEvaluatorTest {
 	private final BooleanValue trueVal = new BooleanValue(true);
 	private final BooleanValue falseVal = new BooleanValue(false);
 
-	private ValuableVisitor evaluator;
+	private ExpressionVisitor evaluator;
 	private Model model;
 
 	@Before

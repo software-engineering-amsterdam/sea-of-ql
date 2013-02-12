@@ -3,7 +3,7 @@ package org.uva.sea.ql.ast.value;
 import static julius.validation.Assertions.state;
 
 import org.uva.sea.ql.visitor.NaturalVisitor;
-import org.uva.sea.ql.visitor.ValuableVisitor;
+import org.uva.sea.ql.visitor.ExpressionVisitor;
 
 public class IntegerValue extends Value<IntegerValue> {
 
@@ -30,7 +30,7 @@ public class IntegerValue extends Value<IntegerValue> {
 	}
 
 	@Override
-	public IntegerValue accept(final ValuableVisitor visitor) {
+	public IntegerValue accept(final ExpressionVisitor visitor) {
 		return visitor.visit(this);
 	}
 

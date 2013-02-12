@@ -1,7 +1,7 @@
 package org.uva.sea.ql.ast.value;
 
 import org.uva.sea.ql.visitor.NaturalVisitor;
-import org.uva.sea.ql.visitor.ValuableVisitor;
+import org.uva.sea.ql.visitor.ExpressionVisitor;
 
 public class BooleanValue extends Value<BooleanValue> {
 
@@ -17,7 +17,7 @@ public class BooleanValue extends Value<BooleanValue> {
 	}
 
 	@Override
-	public BooleanValue accept(final ValuableVisitor visitor) {
+	public BooleanValue accept(final ExpressionVisitor visitor) {
 		return visitor.visit(this);
 	}
 

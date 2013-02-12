@@ -25,7 +25,7 @@ import org.uva.sea.ql.ast.value.IntegerValue;
 import org.uva.sea.ql.ast.value.StringValue;
 import org.uva.sea.ql.lead.Model;
 
-public class ExpressionEvaluator implements ValuableVisitor {
+public class ExpressionEvaluator implements ExpressionVisitor {
 
 	private final Model model;
 
