@@ -10,13 +10,13 @@ import javafx.scene.layout.VBox;
 
 import org.uva.sea.ql.ast.Natural;
 import org.uva.sea.ql.ast.exp.Expression.Nature;
+import org.uva.sea.ql.ast.stm.Block;
 import org.uva.sea.ql.ast.stm.CompoundStatement;
 import org.uva.sea.ql.ast.stm.Computed;
 import org.uva.sea.ql.ast.stm.Form;
 import org.uva.sea.ql.ast.stm.IfElseStatement;
 import org.uva.sea.ql.ast.stm.IfStatement;
 import org.uva.sea.ql.ast.stm.Question;
-import org.uva.sea.ql.ast.stm.Block;
 import org.uva.sea.ql.visitor.StatementVisitor;
 
 public class VisibleFormNodeCreator implements StatementVisitor<Node> {
@@ -62,7 +62,7 @@ public class VisibleFormNodeCreator implements StatementVisitor<Node> {
 		// TODO bind the expression
 		ifElseStatement.getExpression();
 
-		Node ifNode = ifElseStatement.getIfCompound().accept(this);
+		// Node ifNode = ifElseStatement.getIfCompound().accept(this);
 
 		Node elseNode = ifElseStatement.getElseCompound().accept(this);
 

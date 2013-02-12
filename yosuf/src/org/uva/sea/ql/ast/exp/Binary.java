@@ -2,6 +2,15 @@ package org.uva.sea.ql.ast.exp;
 
 import static julius.validation.Assertions.state;
 
+/**
+ * Since binary expressions can be evaluated to one literal value type and the left-hand-side and
+ * right-hand-side can be another literal value type, two types are defined to support both.
+ * 
+ * @param <T>
+ *            literal value type which the expression finally returns
+ * @param <U>
+ *            literal value type of the left-hand-side and right-hand-side
+ */
 public abstract class Binary<T, U> extends Expression<T> {
 
 	private final Expression<U> left;
