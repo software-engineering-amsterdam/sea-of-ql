@@ -10,7 +10,7 @@
 * Bonus exercise for Rascal variants: use SAT/SMT/Constraint solver to check for non-determinism.
 * Wider styling support
 * Slider upper/lower boundary support
-* Outliner?
+* Changing Outliner to look like rascal? e.g. categorizing 
 
 # Both
 * Refactoring
