@@ -1,4 +1,4 @@
-package org.uva.sea.ql.ast.exception;
+package org.uva.sea.ql.type.exception;
 
 /**
  * Invalid type exception used for semantic analysis.

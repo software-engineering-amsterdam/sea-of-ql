@@ -1,6 +1,6 @@
-package org.uva.sea.ql.ast;
+package org.uva.sea.ql;
 
-import org.uva.sea.ql.ast.value.Value;
+import org.uva.sea.ql.value.Value;
 
 import java.util.Map;
 import java.util.TreeMap;

@@ -1,6 +1,8 @@
-package org.uva.sea.ql.ast.value.impl;
+package org.uva.sea.ql.value.impl;
 
-import org.uva.sea.ql.ast.value.Value;
+import org.uva.sea.ql.type.Type;
+import org.uva.sea.ql.type.impl.StringType;
+import org.uva.sea.ql.value.Value;
 
 public class StringValue extends Value implements Comparable<StringValue>
 {
@@ -11,24 +13,6 @@ public class StringValue extends Value implements Comparable<StringValue>
 		this.value = value;
 	}
 
-    @Override
-    public Value evaluate()
-    {
-        return this;
-    }
-
-    @Override
-    public boolean isCompatibleTo(Value value)
-    {
-        return value.isCompatibleToString();
-    }
-
-    @Override
-    public boolean isCompatibleToString()
-    {
-        return true;
-    }
-
     public String getValue()
     {
         return value;
@@ -37,6 +21,12 @@ public class StringValue extends Value implements Comparable<StringValue>
     public void setValue(final String value)
     {
         this.value = value;
+    }
+
+    @Override
+    public Type getType()
+    {
+        return new StringType();
     }
 
     @Override

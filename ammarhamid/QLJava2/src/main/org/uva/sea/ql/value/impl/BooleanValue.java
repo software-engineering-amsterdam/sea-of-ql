@@ -1,6 +1,8 @@
-package org.uva.sea.ql.ast.value.impl;
+package org.uva.sea.ql.value.impl;
 
-import org.uva.sea.ql.ast.value.Value;
+import org.uva.sea.ql.type.Type;
+import org.uva.sea.ql.type.impl.BooleanType;
+import org.uva.sea.ql.value.Value;
 
 public class BooleanValue extends Value implements Comparable<BooleanValue>
 {
@@ -16,24 +18,6 @@ public class BooleanValue extends Value implements Comparable<BooleanValue>
         this.value = Boolean.valueOf(value);
     }
 
-    @Override
-    public Value evaluate()
-    {
-        return this;
-    }
-
-    @Override
-    public boolean isCompatibleTo(Value value)
-    {
-        return value.isCompatibleToBoolean();
-    }
-
-    @Override
-    public boolean isCompatibleToBoolean()
-    {
-        return true;
-    }
-
     public Boolean getValue()
     {
         return value;
@@ -42,6 +26,42 @@ public class BooleanValue extends Value implements Comparable<BooleanValue>
     public void setValue(final Boolean value)
     {
         this.value = value;
+    }
+
+    @Override
+    public Type getType()
+    {
+        return new BooleanType();
+    }
+
+    @Override
+    public Value not()
+    {
+        return new BooleanValue(!this.getValue());
+    }
+
+    @Override
+    public Value or(Value value)
+    {
+        return value.orBoolean(this);
+    }
+
+    @Override
+    public Value orBoolean(BooleanValue booleanValue)
+    {
+        return new BooleanValue(booleanValue.getValue() || getValue());
+    }
+
+    @Override
+    public Value and(Value value)
+    {
+        return value.andBoolean(this);
+    }
+
+    @Override
+    public Value andBoolean(BooleanValue booleanValue)
+    {
+        return new BooleanValue(booleanValue.getValue() && getValue());
     }
 
     @Override

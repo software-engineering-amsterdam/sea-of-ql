@@ -1,8 +1,8 @@
 package org.uva.sea.ql.ast.expression.impl;
 
-import org.uva.sea.ql.ast.VariableScope;
+import org.uva.sea.ql.VariableScope;
 import org.uva.sea.ql.ast.expression.ExprNode;
-import org.uva.sea.ql.ast.value.Value;
+import org.uva.sea.ql.value.Value;
 
 public class IdentifierNode extends ExprNode
 {
@@ -33,11 +33,11 @@ public class IdentifierNode extends ExprNode
         return value;
     }
 
-    @Override
-    public String toTreeString(String indent)
-    {
-        return '\n' + indent + this.value + " = " + String.valueOf(evaluate());
-    }
+//    @Override
+//    public String toTreeString(String indent)
+//    {
+//        return '\n' + indent + this.value + " = " + String.valueOf(evaluate());
+//    }
 
     @Override
     public boolean equals(Object o)

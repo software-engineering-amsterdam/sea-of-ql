@@ -1,12 +1,12 @@
-// $ANTLR 3.4 src/main/org/uva/sea/ql/parser/QLTreeWalker.g 2013-02-04 14:18:23
+// $ANTLR 3.4 src/main/org/uva/sea/ql/parser/QLTreeWalker.g 2013-02-12 23:19:49
 
 	package org.uva.sea.ql.parser;
 	import org.uva.sea.ql.ast.Node;
-	import org.uva.sea.ql.ast.IfNode;
-	import org.uva.sea.ql.ast.BlockNode;
-	import org.uva.sea.ql.ast.AssignmentNode;
-	import org.uva.sea.ql.ast.VariableScope;
+	import org.uva.sea.ql.ast.statement.IfNode;
+	import org.uva.sea.ql.ast.statement.BlockNode;
+	import org.uva.sea.ql.ast.statement.AssignmentNode;
 	import org.uva.sea.ql.ast.expression.ExprNode;
+	import org.uva.sea.ql.ast.expression.impl.ValueNode;
 	import org.uva.sea.ql.ast.expression.impl.AddNode;
 	import org.uva.sea.ql.ast.expression.impl.AndNode;
 	import org.uva.sea.ql.ast.expression.impl.OrNode;
@@ -22,11 +22,12 @@
 	import org.uva.sea.ql.ast.expression.impl.NotNode;
 	import org.uva.sea.ql.ast.expression.impl.NegateNode;
 	import org.uva.sea.ql.ast.expression.impl.IdentifierNode;
-	import org.uva.sea.ql.ast.value.Value;
-	import org.uva.sea.ql.ast.value.impl.IntegerValue;
-	import org.uva.sea.ql.ast.value.impl.BooleanValue;
-	import org.uva.sea.ql.ast.value.impl.MoneyValue;
-	import org.uva.sea.ql.ast.value.impl.StringValue;
+	import org.uva.sea.ql.VariableScope;
+	import org.uva.sea.ql.value.Value;
+	import org.uva.sea.ql.value.impl.IntegerValue;
+	import org.uva.sea.ql.value.impl.BooleanValue;
+	import org.uva.sea.ql.value.impl.MoneyValue;
+	import org.uva.sea.ql.value.impl.StringValue;
 
 
 import org.antlr.runtime.*;
@@ -124,7 +125,7 @@ public TreeAdaptor getTreeAdaptor() {
 
 
     // $ANTLR start "walk"
-    // src/main/org/uva/sea/ql/parser/QLTreeWalker.g:46:1: walk : form ;
+    // src/main/org/uva/sea/ql/parser/QLTreeWalker.g:47:1: walk : form ;
     public final QLTreeWalker.walk_return walk() throws RecognitionException {
         QLTreeWalker.walk_return retval = new QLTreeWalker.walk_return();
         retval.start = input.LT(1);
@@ -140,8 +141,8 @@ public TreeAdaptor getTreeAdaptor() {
 
 
         try {
-            // src/main/org/uva/sea/ql/parser/QLTreeWalker.g:47:5: ( form )
-            // src/main/org/uva/sea/ql/parser/QLTreeWalker.g:47:9: form
+            // src/main/org/uva/sea/ql/parser/QLTreeWalker.g:48:5: ( form )
+            // src/main/org/uva/sea/ql/parser/QLTreeWalker.g:48:9: form
             {
             root_0 = (CommonTree)adaptor.nil();
 
@@ -180,7 +181,7 @@ public TreeAdaptor getTreeAdaptor() {
 
 
     // $ANTLR start "form"
-    // src/main/org/uva/sea/ql/parser/QLTreeWalker.g:50:1: form : ^( FORM Identifier ^( BLOCK block ) ) ;
+    // src/main/org/uva/sea/ql/parser/QLTreeWalker.g:51:1: form : ^( FORM Identifier ^( BLOCK block ) ) ;
     public final QLTreeWalker.form_return form() throws RecognitionException {
         QLTreeWalker.form_return retval = new QLTreeWalker.form_return();
         retval.start = input.LT(1);
@@ -202,8 +203,8 @@ public TreeAdaptor getTreeAdaptor() {
         CommonTree BLOCK4_tree=null;
 
         try {
-            // src/main/org/uva/sea/ql/parser/QLTreeWalker.g:51:2: ( ^( FORM Identifier ^( BLOCK block ) ) )
-            // src/main/org/uva/sea/ql/parser/QLTreeWalker.g:51:4: ^( FORM Identifier ^( BLOCK block ) )
+            // src/main/org/uva/sea/ql/parser/QLTreeWalker.g:52:2: ( ^( FORM Identifier ^( BLOCK block ) ) )
+            // src/main/org/uva/sea/ql/parser/QLTreeWalker.g:52:4: ^( FORM Identifier ^( BLOCK block ) )
             {
             root_0 = (CommonTree)adaptor.nil();
 
@@ -293,7 +294,7 @@ public TreeAdaptor getTreeAdaptor() {
 
 
     // $ANTLR start "block"
-    // src/main/org/uva/sea/ql/parser/QLTreeWalker.g:54:1: block returns [Node node] : ( statement )* ;
+    // src/main/org/uva/sea/ql/parser/QLTreeWalker.g:55:1: block returns [Node node] : ( statement )* ;
     public final QLTreeWalker.block_return block() throws RecognitionException {
         QLTreeWalker.block_return retval = new QLTreeWalker.block_return();
         retval.start = input.LT(1);
@@ -315,13 +316,13 @@ public TreeAdaptor getTreeAdaptor() {
             currentScope = scope;
 
         try {
-            // src/main/org/uva/sea/ql/parser/QLTreeWalker.g:66:5: ( ( statement )* )
-            // src/main/org/uva/sea/ql/parser/QLTreeWalker.g:66:9: ( statement )*
+            // src/main/org/uva/sea/ql/parser/QLTreeWalker.g:67:5: ( ( statement )* )
+            // src/main/org/uva/sea/ql/parser/QLTreeWalker.g:67:9: ( statement )*
             {
             root_0 = (CommonTree)adaptor.nil();
 
 
-            // src/main/org/uva/sea/ql/parser/QLTreeWalker.g:66:9: ( statement )*
+            // src/main/org/uva/sea/ql/parser/QLTreeWalker.g:67:9: ( statement )*
             loop1:
             do {
                 int alt1=2;
@@ -334,7 +335,7 @@ public TreeAdaptor getTreeAdaptor() {
 
                 switch (alt1) {
             	case 1 :
-            	    // src/main/org/uva/sea/ql/parser/QLTreeWalker.g:66:10: statement
+            	    // src/main/org/uva/sea/ql/parser/QLTreeWalker.g:67:10: statement
             	    {
             	    _last = (CommonTree)input.LT(1);
             	    pushFollow(FOLLOW_statement_in_block125);
@@ -385,7 +386,7 @@ public TreeAdaptor getTreeAdaptor() {
 
 
     // $ANTLR start "statement"
-    // src/main/org/uva/sea/ql/parser/QLTreeWalker.g:69:1: statement returns [Node node] : ( ifStatement | assignmentStatement );
+    // src/main/org/uva/sea/ql/parser/QLTreeWalker.g:70:1: statement returns [Node node] : ( ifStatement | assignmentStatement );
     public final QLTreeWalker.statement_return statement() throws RecognitionException {
         QLTreeWalker.statement_return retval = new QLTreeWalker.statement_return();
         retval.start = input.LT(1);
@@ -403,7 +404,7 @@ public TreeAdaptor getTreeAdaptor() {
 
 
         try {
-            // src/main/org/uva/sea/ql/parser/QLTreeWalker.g:70:2: ( ifStatement | assignmentStatement )
+            // src/main/org/uva/sea/ql/parser/QLTreeWalker.g:71:2: ( ifStatement | assignmentStatement )
             int alt2=2;
             int LA2_0 = input.LA(1);
 
@@ -422,7 +423,7 @@ public TreeAdaptor getTreeAdaptor() {
             }
             switch (alt2) {
                 case 1 :
-                    // src/main/org/uva/sea/ql/parser/QLTreeWalker.g:70:4: ifStatement
+                    // src/main/org/uva/sea/ql/parser/QLTreeWalker.g:71:4: ifStatement
                     {
                     root_0 = (CommonTree)adaptor.nil();
 
@@ -441,7 +442,7 @@ public TreeAdaptor getTreeAdaptor() {
                     }
                     break;
                 case 2 :
-                    // src/main/org/uva/sea/ql/parser/QLTreeWalker.g:71:5: assignmentStatement
+                    // src/main/org/uva/sea/ql/parser/QLTreeWalker.g:72:5: assignmentStatement
                     {
                     root_0 = (CommonTree)adaptor.nil();
 
@@ -485,7 +486,7 @@ public TreeAdaptor getTreeAdaptor() {
 
 
     // $ANTLR start "ifStatement"
-    // src/main/org/uva/sea/ql/parser/QLTreeWalker.g:74:1: ifStatement returns [Node node] : ^( IF ( ^( EXPRESSION expression ^( BLOCK b1= block ) ) )+ ( ^( EXPRESSION ^( BLOCK b2= block ) ) )? ) ;
+    // src/main/org/uva/sea/ql/parser/QLTreeWalker.g:75:1: ifStatement returns [Node node] : ^( IF ( ^( EXPRESSION expression ^( BLOCK b1= block ) ) )+ ( ^( EXPRESSION ^( BLOCK b2= block ) ) )? ) ;
     public final QLTreeWalker.ifStatement_return ifStatement() throws RecognitionException {
         QLTreeWalker.ifStatement_return retval = new QLTreeWalker.ifStatement_return();
         retval.start = input.LT(1);
@@ -519,8 +520,8 @@ public TreeAdaptor getTreeAdaptor() {
             retval.node = ifNode;
 
         try {
-            // src/main/org/uva/sea/ql/parser/QLTreeWalker.g:80:2: ( ^( IF ( ^( EXPRESSION expression ^( BLOCK b1= block ) ) )+ ( ^( EXPRESSION ^( BLOCK b2= block ) ) )? ) )
-            // src/main/org/uva/sea/ql/parser/QLTreeWalker.g:80:6: ^( IF ( ^( EXPRESSION expression ^( BLOCK b1= block ) ) )+ ( ^( EXPRESSION ^( BLOCK b2= block ) ) )? )
+            // src/main/org/uva/sea/ql/parser/QLTreeWalker.g:81:2: ( ^( IF ( ^( EXPRESSION expression ^( BLOCK b1= block ) ) )+ ( ^( EXPRESSION ^( BLOCK b2= block ) ) )? ) )
+            // src/main/org/uva/sea/ql/parser/QLTreeWalker.g:81:6: ^( IF ( ^( EXPRESSION expression ^( BLOCK b1= block ) ) )+ ( ^( EXPRESSION ^( BLOCK b2= block ) ) )? )
             {
             root_0 = (CommonTree)adaptor.nil();
 
@@ -539,7 +540,7 @@ public TreeAdaptor getTreeAdaptor() {
 
 
             match(input, Token.DOWN, null); 
-            // src/main/org/uva/sea/ql/parser/QLTreeWalker.g:81:10: ( ^( EXPRESSION expression ^( BLOCK b1= block ) ) )+
+            // src/main/org/uva/sea/ql/parser/QLTreeWalker.g:82:10: ( ^( EXPRESSION expression ^( BLOCK b1= block ) ) )+
             int cnt3=0;
             loop3:
             do {
@@ -565,7 +566,7 @@ public TreeAdaptor getTreeAdaptor() {
 
                 switch (alt3) {
             	case 1 :
-            	    // src/main/org/uva/sea/ql/parser/QLTreeWalker.g:81:11: ^( EXPRESSION expression ^( BLOCK b1= block ) )
+            	    // src/main/org/uva/sea/ql/parser/QLTreeWalker.g:82:11: ^( EXPRESSION expression ^( BLOCK b1= block ) )
             	    {
             	    _last = (CommonTree)input.LT(1);
             	    {
@@ -642,7 +643,7 @@ public TreeAdaptor getTreeAdaptor() {
             } while (true);
 
 
-            // src/main/org/uva/sea/ql/parser/QLTreeWalker.g:82:10: ( ^( EXPRESSION ^( BLOCK b2= block ) ) )?
+            // src/main/org/uva/sea/ql/parser/QLTreeWalker.g:83:10: ( ^( EXPRESSION ^( BLOCK b2= block ) ) )?
             int alt4=2;
             int LA4_0 = input.LA(1);
 
@@ -651,7 +652,7 @@ public TreeAdaptor getTreeAdaptor() {
             }
             switch (alt4) {
                 case 1 :
-                    // src/main/org/uva/sea/ql/parser/QLTreeWalker.g:82:11: ^( EXPRESSION ^( BLOCK b2= block ) )
+                    // src/main/org/uva/sea/ql/parser/QLTreeWalker.g:83:11: ^( EXPRESSION ^( BLOCK b2= block ) )
                     {
                     _last = (CommonTree)input.LT(1);
                     {
@@ -704,7 +705,7 @@ public TreeAdaptor getTreeAdaptor() {
                     }
 
 
-                     ifNode.addBranch(new BooleanValue("true"), (b2!=null?b2.node:null)); 
+                     ifNode.addBranch(new ValueNode(new BooleanValue("true")), (b2!=null?b2.node:null)); 
 
                     }
                     break;
@@ -744,7 +745,7 @@ public TreeAdaptor getTreeAdaptor() {
 
 
     // $ANTLR start "assignmentStatement"
-    // src/main/org/uva/sea/ql/parser/QLTreeWalker.g:86:1: assignmentStatement returns [Node node] : ^( ASSIGNMENT Identifier type ) ;
+    // src/main/org/uva/sea/ql/parser/QLTreeWalker.g:87:1: assignmentStatement returns [Node node] : ^( ASSIGNMENT Identifier type ) ;
     public final QLTreeWalker.assignmentStatement_return assignmentStatement() throws RecognitionException {
         QLTreeWalker.assignmentStatement_return retval = new QLTreeWalker.assignmentStatement_return();
         retval.start = input.LT(1);
@@ -764,8 +765,8 @@ public TreeAdaptor getTreeAdaptor() {
         CommonTree Identifier16_tree=null;
 
         try {
-            // src/main/org/uva/sea/ql/parser/QLTreeWalker.g:87:2: ( ^( ASSIGNMENT Identifier type ) )
-            // src/main/org/uva/sea/ql/parser/QLTreeWalker.g:87:4: ^( ASSIGNMENT Identifier type )
+            // src/main/org/uva/sea/ql/parser/QLTreeWalker.g:88:2: ( ^( ASSIGNMENT Identifier type ) )
+            // src/main/org/uva/sea/ql/parser/QLTreeWalker.g:88:4: ^( ASSIGNMENT Identifier type )
             {
             root_0 = (CommonTree)adaptor.nil();
 
@@ -807,8 +808,6 @@ public TreeAdaptor getTreeAdaptor() {
             }
 
 
-             retval.node = new AssignmentNode((Identifier16!=null?Identifier16.getText():null), (type17!=null?type17.node:null), currentScope); 
-
             }
 
             retval.tree = (CommonTree)adaptor.rulePostProcessing(root_0);
@@ -835,7 +834,7 @@ public TreeAdaptor getTreeAdaptor() {
 
 
     // $ANTLR start "type"
-    // src/main/org/uva/sea/ql/parser/QLTreeWalker.g:90:1: type returns [Node node] : ( 'boolean' | 'integer' | 'string' | 'money' );
+    // src/main/org/uva/sea/ql/parser/QLTreeWalker.g:91:1: type returns [Node node] : ( 'boolean' | 'integer' | 'string' | 'money' );
     public final QLTreeWalker.type_return type() throws RecognitionException {
         QLTreeWalker.type_return retval = new QLTreeWalker.type_return();
         retval.start = input.LT(1);
@@ -857,7 +856,7 @@ public TreeAdaptor getTreeAdaptor() {
         CommonTree string_literal21_tree=null;
 
         try {
-            // src/main/org/uva/sea/ql/parser/QLTreeWalker.g:92:2: ( 'boolean' | 'integer' | 'string' | 'money' )
+            // src/main/org/uva/sea/ql/parser/QLTreeWalker.g:93:2: ( 'boolean' | 'integer' | 'string' | 'money' )
             int alt5=4;
             switch ( input.LA(1) ) {
             case 37:
@@ -890,74 +889,74 @@ public TreeAdaptor getTreeAdaptor() {
 
             switch (alt5) {
                 case 1 :
-                    // src/main/org/uva/sea/ql/parser/QLTreeWalker.g:92:4: 'boolean'
+                    // src/main/org/uva/sea/ql/parser/QLTreeWalker.g:93:4: 'boolean'
                     {
                     root_0 = (CommonTree)adaptor.nil();
 
 
                     _last = (CommonTree)input.LT(1);
-                    string_literal18=(CommonTree)match(input,37,FOLLOW_37_in_type281); 
+                    string_literal18=(CommonTree)match(input,37,FOLLOW_37_in_type280); 
                     string_literal18_tree = (CommonTree)adaptor.dupNode(string_literal18);
 
 
                     adaptor.addChild(root_0, string_literal18_tree);
 
 
-                    retval.node = new BooleanValue("false"); 
+                    retval.node = new ValueNode(new BooleanValue("false")); 
 
                     }
                     break;
                 case 2 :
-                    // src/main/org/uva/sea/ql/parser/QLTreeWalker.g:93:5: 'integer'
+                    // src/main/org/uva/sea/ql/parser/QLTreeWalker.g:94:5: 'integer'
                     {
                     root_0 = (CommonTree)adaptor.nil();
 
 
                     _last = (CommonTree)input.LT(1);
-                    string_literal19=(CommonTree)match(input,41,FOLLOW_41_in_type289); 
+                    string_literal19=(CommonTree)match(input,41,FOLLOW_41_in_type288); 
                     string_literal19_tree = (CommonTree)adaptor.dupNode(string_literal19);
 
 
                     adaptor.addChild(root_0, string_literal19_tree);
 
 
-                    retval.node = new IntegerValue(0); 
+                    retval.node = new ValueNode(new IntegerValue(0)); 
 
                     }
                     break;
                 case 3 :
-                    // src/main/org/uva/sea/ql/parser/QLTreeWalker.g:94:5: 'string'
+                    // src/main/org/uva/sea/ql/parser/QLTreeWalker.g:95:5: 'string'
                     {
                     root_0 = (CommonTree)adaptor.nil();
 
 
                     _last = (CommonTree)input.LT(1);
-                    string_literal20=(CommonTree)match(input,43,FOLLOW_43_in_type297); 
+                    string_literal20=(CommonTree)match(input,43,FOLLOW_43_in_type296); 
                     string_literal20_tree = (CommonTree)adaptor.dupNode(string_literal20);
 
 
                     adaptor.addChild(root_0, string_literal20_tree);
 
 
-                    retval.node = new StringValue("");
+                    retval.node = new ValueNode(new StringValue(""));
 
                     }
                     break;
                 case 4 :
-                    // src/main/org/uva/sea/ql/parser/QLTreeWalker.g:95:5: 'money'
+                    // src/main/org/uva/sea/ql/parser/QLTreeWalker.g:96:5: 'money'
                     {
                     root_0 = (CommonTree)adaptor.nil();
 
 
                     _last = (CommonTree)input.LT(1);
-                    string_literal21=(CommonTree)match(input,42,FOLLOW_42_in_type305); 
+                    string_literal21=(CommonTree)match(input,42,FOLLOW_42_in_type304); 
                     string_literal21_tree = (CommonTree)adaptor.dupNode(string_literal21);
 
 
                     adaptor.addChild(root_0, string_literal21_tree);
 
 
-                    retval.node = new MoneyValue("0");
+                    retval.node = new ValueNode(new MoneyValue("0"));
 
                     }
                     break;
@@ -987,7 +986,7 @@ public TreeAdaptor getTreeAdaptor() {
 
 
     // $ANTLR start "expression"
-    // src/main/org/uva/sea/ql/parser/QLTreeWalker.g:98:1: expression returns [ExprNode node] : ( ^( '&&' lhs= expression rhs= expression ) | ^( '||' lhs= expression rhs= expression ) | ^( '==' lhs= expression rhs= expression ) | ^( '!=' lhs= expression rhs= expression ) | ^( '<' lhs= expression rhs= expression ) | ^( '<=' lhs= expression rhs= expression ) | ^( '>=' lhs= expression rhs= expression ) | ^( '>' lhs= expression rhs= expression ) | ^( '+' lhs= expression rhs= expression ) | ^( '-' lhs= expression rhs= expression ) | ^( '*' lhs= expression rhs= expression ) | ^( '/' lhs= expression rhs= expression ) | ^( NOT op= expression ) | ^( NEGATION op= expression ) | Boolean | Integer | Money | StringLiteral | Identifier );
+    // src/main/org/uva/sea/ql/parser/QLTreeWalker.g:99:1: expression returns [ExprNode node] : ( ^( '&&' lhs= expression rhs= expression ) | ^( '||' lhs= expression rhs= expression ) | ^( '==' lhs= expression rhs= expression ) | ^( '!=' lhs= expression rhs= expression ) | ^( '<' lhs= expression rhs= expression ) | ^( '<=' lhs= expression rhs= expression ) | ^( '>=' lhs= expression rhs= expression ) | ^( '>' lhs= expression rhs= expression ) | ^( '+' lhs= expression rhs= expression ) | ^( '-' lhs= expression rhs= expression ) | ^( '*' lhs= expression rhs= expression ) | ^( '/' lhs= expression rhs= expression ) | ^( NOT op= expression ) | ^( NEGATION op= expression ) | Boolean | Integer | Money | StringLiteral | Identifier );
     public final QLTreeWalker.expression_return expression() throws RecognitionException {
         QLTreeWalker.expression_return retval = new QLTreeWalker.expression_return();
         retval.start = input.LT(1);
@@ -1045,7 +1044,7 @@ public TreeAdaptor getTreeAdaptor() {
         CommonTree Identifier40_tree=null;
 
         try {
-            // src/main/org/uva/sea/ql/parser/QLTreeWalker.g:99:5: ( ^( '&&' lhs= expression rhs= expression ) | ^( '||' lhs= expression rhs= expression ) | ^( '==' lhs= expression rhs= expression ) | ^( '!=' lhs= expression rhs= expression ) | ^( '<' lhs= expression rhs= expression ) | ^( '<=' lhs= expression rhs= expression ) | ^( '>=' lhs= expression rhs= expression ) | ^( '>' lhs= expression rhs= expression ) | ^( '+' lhs= expression rhs= expression ) | ^( '-' lhs= expression rhs= expression ) | ^( '*' lhs= expression rhs= expression ) | ^( '/' lhs= expression rhs= expression ) | ^( NOT op= expression ) | ^( NEGATION op= expression ) | Boolean | Integer | Money | StringLiteral | Identifier )
+            // src/main/org/uva/sea/ql/parser/QLTreeWalker.g:100:5: ( ^( '&&' lhs= expression rhs= expression ) | ^( '||' lhs= expression rhs= expression ) | ^( '==' lhs= expression rhs= expression ) | ^( '!=' lhs= expression rhs= expression ) | ^( '<' lhs= expression rhs= expression ) | ^( '<=' lhs= expression rhs= expression ) | ^( '>=' lhs= expression rhs= expression ) | ^( '>' lhs= expression rhs= expression ) | ^( '+' lhs= expression rhs= expression ) | ^( '-' lhs= expression rhs= expression ) | ^( '*' lhs= expression rhs= expression ) | ^( '/' lhs= expression rhs= expression ) | ^( NOT op= expression ) | ^( NEGATION op= expression ) | Boolean | Integer | Money | StringLiteral | Identifier )
             int alt6=19;
             switch ( input.LA(1) ) {
             case 24:
@@ -1153,7 +1152,7 @@ public TreeAdaptor getTreeAdaptor() {
 
             switch (alt6) {
                 case 1 :
-                    // src/main/org/uva/sea/ql/parser/QLTreeWalker.g:99:9: ^( '&&' lhs= expression rhs= expression )
+                    // src/main/org/uva/sea/ql/parser/QLTreeWalker.g:100:9: ^( '&&' lhs= expression rhs= expression )
                     {
                     root_0 = (CommonTree)adaptor.nil();
 
@@ -1164,7 +1163,7 @@ public TreeAdaptor getTreeAdaptor() {
                     CommonTree _first_1 = null;
                     CommonTree root_1 = (CommonTree)adaptor.nil();
                     _last = (CommonTree)input.LT(1);
-                    string_literal22=(CommonTree)match(input,24,FOLLOW_24_in_expression328); 
+                    string_literal22=(CommonTree)match(input,24,FOLLOW_24_in_expression327); 
                     string_literal22_tree = (CommonTree)adaptor.dupNode(string_literal22);
 
 
@@ -1173,7 +1172,7 @@ public TreeAdaptor getTreeAdaptor() {
 
                     match(input, Token.DOWN, null); 
                     _last = (CommonTree)input.LT(1);
-                    pushFollow(FOLLOW_expression_in_expression332);
+                    pushFollow(FOLLOW_expression_in_expression331);
                     lhs=expression();
 
                     state._fsp--;
@@ -1182,7 +1181,7 @@ public TreeAdaptor getTreeAdaptor() {
 
 
                     _last = (CommonTree)input.LT(1);
-                    pushFollow(FOLLOW_expression_in_expression336);
+                    pushFollow(FOLLOW_expression_in_expression335);
                     rhs=expression();
 
                     state._fsp--;
@@ -1201,7 +1200,7 @@ public TreeAdaptor getTreeAdaptor() {
                     }
                     break;
                 case 2 :
-                    // src/main/org/uva/sea/ql/parser/QLTreeWalker.g:100:9: ^( '||' lhs= expression rhs= expression )
+                    // src/main/org/uva/sea/ql/parser/QLTreeWalker.g:101:9: ^( '||' lhs= expression rhs= expression )
                     {
                     root_0 = (CommonTree)adaptor.nil();
 
@@ -1212,7 +1211,7 @@ public TreeAdaptor getTreeAdaptor() {
                     CommonTree _first_1 = null;
                     CommonTree root_1 = (CommonTree)adaptor.nil();
                     _last = (CommonTree)input.LT(1);
-                    string_literal23=(CommonTree)match(input,45,FOLLOW_45_in_expression350); 
+                    string_literal23=(CommonTree)match(input,45,FOLLOW_45_in_expression349); 
                     string_literal23_tree = (CommonTree)adaptor.dupNode(string_literal23);
 
 
@@ -1221,7 +1220,7 @@ public TreeAdaptor getTreeAdaptor() {
 
                     match(input, Token.DOWN, null); 
                     _last = (CommonTree)input.LT(1);
-                    pushFollow(FOLLOW_expression_in_expression354);
+                    pushFollow(FOLLOW_expression_in_expression353);
                     lhs=expression();
 
                     state._fsp--;
@@ -1230,7 +1229,7 @@ public TreeAdaptor getTreeAdaptor() {
 
 
                     _last = (CommonTree)input.LT(1);
-                    pushFollow(FOLLOW_expression_in_expression358);
+                    pushFollow(FOLLOW_expression_in_expression357);
                     rhs=expression();
 
                     state._fsp--;
@@ -1249,7 +1248,7 @@ public TreeAdaptor getTreeAdaptor() {
                     }
                     break;
                 case 3 :
-                    // src/main/org/uva/sea/ql/parser/QLTreeWalker.g:101:9: ^( '==' lhs= expression rhs= expression )
+                    // src/main/org/uva/sea/ql/parser/QLTreeWalker.g:102:9: ^( '==' lhs= expression rhs= expression )
                     {
                     root_0 = (CommonTree)adaptor.nil();
 
@@ -1260,7 +1259,7 @@ public TreeAdaptor getTreeAdaptor() {
                     CommonTree _first_1 = null;
                     CommonTree root_1 = (CommonTree)adaptor.nil();
                     _last = (CommonTree)input.LT(1);
-                    string_literal24=(CommonTree)match(input,34,FOLLOW_34_in_expression372); 
+                    string_literal24=(CommonTree)match(input,34,FOLLOW_34_in_expression371); 
                     string_literal24_tree = (CommonTree)adaptor.dupNode(string_literal24);
 
 
@@ -1269,7 +1268,7 @@ public TreeAdaptor getTreeAdaptor() {
 
                     match(input, Token.DOWN, null); 
                     _last = (CommonTree)input.LT(1);
-                    pushFollow(FOLLOW_expression_in_expression376);
+                    pushFollow(FOLLOW_expression_in_expression375);
                     lhs=expression();
 
                     state._fsp--;
@@ -1278,7 +1277,7 @@ public TreeAdaptor getTreeAdaptor() {
 
 
                     _last = (CommonTree)input.LT(1);
-                    pushFollow(FOLLOW_expression_in_expression380);
+                    pushFollow(FOLLOW_expression_in_expression379);
                     rhs=expression();
 
                     state._fsp--;
@@ -1297,7 +1296,7 @@ public TreeAdaptor getTreeAdaptor() {
                     }
                     break;
                 case 4 :
-                    // src/main/org/uva/sea/ql/parser/QLTreeWalker.g:102:9: ^( '!=' lhs= expression rhs= expression )
+                    // src/main/org/uva/sea/ql/parser/QLTreeWalker.g:103:9: ^( '!=' lhs= expression rhs= expression )
                     {
                     root_0 = (CommonTree)adaptor.nil();
 
@@ -1308,7 +1307,7 @@ public TreeAdaptor getTreeAdaptor() {
                     CommonTree _first_1 = null;
                     CommonTree root_1 = (CommonTree)adaptor.nil();
                     _last = (CommonTree)input.LT(1);
-                    string_literal25=(CommonTree)match(input,23,FOLLOW_23_in_expression394); 
+                    string_literal25=(CommonTree)match(input,23,FOLLOW_23_in_expression393); 
                     string_literal25_tree = (CommonTree)adaptor.dupNode(string_literal25);
 
 
@@ -1317,7 +1316,7 @@ public TreeAdaptor getTreeAdaptor() {
 
                     match(input, Token.DOWN, null); 
                     _last = (CommonTree)input.LT(1);
-                    pushFollow(FOLLOW_expression_in_expression398);
+                    pushFollow(FOLLOW_expression_in_expression397);
                     lhs=expression();
 
                     state._fsp--;
@@ -1326,7 +1325,7 @@ public TreeAdaptor getTreeAdaptor() {
 
 
                     _last = (CommonTree)input.LT(1);
-                    pushFollow(FOLLOW_expression_in_expression402);
+                    pushFollow(FOLLOW_expression_in_expression401);
                     rhs=expression();
 
                     state._fsp--;
@@ -1345,7 +1344,7 @@ public TreeAdaptor getTreeAdaptor() {
                     }
                     break;
                 case 5 :
-                    // src/main/org/uva/sea/ql/parser/QLTreeWalker.g:103:9: ^( '<' lhs= expression rhs= expression )
+                    // src/main/org/uva/sea/ql/parser/QLTreeWalker.g:104:9: ^( '<' lhs= expression rhs= expression )
                     {
                     root_0 = (CommonTree)adaptor.nil();
 
@@ -1356,7 +1355,7 @@ public TreeAdaptor getTreeAdaptor() {
                     CommonTree _first_1 = null;
                     CommonTree root_1 = (CommonTree)adaptor.nil();
                     _last = (CommonTree)input.LT(1);
-                    char_literal26=(CommonTree)match(input,32,FOLLOW_32_in_expression416); 
+                    char_literal26=(CommonTree)match(input,32,FOLLOW_32_in_expression415); 
                     char_literal26_tree = (CommonTree)adaptor.dupNode(char_literal26);
 
 
@@ -1365,7 +1364,7 @@ public TreeAdaptor getTreeAdaptor() {
 
                     match(input, Token.DOWN, null); 
                     _last = (CommonTree)input.LT(1);
-                    pushFollow(FOLLOW_expression_in_expression420);
+                    pushFollow(FOLLOW_expression_in_expression419);
                     lhs=expression();
 
                     state._fsp--;
@@ -1374,7 +1373,7 @@ public TreeAdaptor getTreeAdaptor() {
 
 
                     _last = (CommonTree)input.LT(1);
-                    pushFollow(FOLLOW_expression_in_expression424);
+                    pushFollow(FOLLOW_expression_in_expression423);
                     rhs=expression();
 
                     state._fsp--;
@@ -1393,7 +1392,7 @@ public TreeAdaptor getTreeAdaptor() {
                     }
                     break;
                 case 6 :
-                    // src/main/org/uva/sea/ql/parser/QLTreeWalker.g:104:9: ^( '<=' lhs= expression rhs= expression )
+                    // src/main/org/uva/sea/ql/parser/QLTreeWalker.g:105:9: ^( '<=' lhs= expression rhs= expression )
                     {
                     root_0 = (CommonTree)adaptor.nil();
 
@@ -1404,7 +1403,7 @@ public TreeAdaptor getTreeAdaptor() {
                     CommonTree _first_1 = null;
                     CommonTree root_1 = (CommonTree)adaptor.nil();
                     _last = (CommonTree)input.LT(1);
-                    string_literal27=(CommonTree)match(input,33,FOLLOW_33_in_expression438); 
+                    string_literal27=(CommonTree)match(input,33,FOLLOW_33_in_expression437); 
                     string_literal27_tree = (CommonTree)adaptor.dupNode(string_literal27);
 
 
@@ -1413,7 +1412,7 @@ public TreeAdaptor getTreeAdaptor() {
 
                     match(input, Token.DOWN, null); 
                     _last = (CommonTree)input.LT(1);
-                    pushFollow(FOLLOW_expression_in_expression442);
+                    pushFollow(FOLLOW_expression_in_expression441);
                     lhs=expression();
 
                     state._fsp--;
@@ -1422,7 +1421,7 @@ public TreeAdaptor getTreeAdaptor() {
 
 
                     _last = (CommonTree)input.LT(1);
-                    pushFollow(FOLLOW_expression_in_expression446);
+                    pushFollow(FOLLOW_expression_in_expression445);
                     rhs=expression();
 
                     state._fsp--;
@@ -1441,7 +1440,7 @@ public TreeAdaptor getTreeAdaptor() {
                     }
                     break;
                 case 7 :
-                    // src/main/org/uva/sea/ql/parser/QLTreeWalker.g:105:9: ^( '>=' lhs= expression rhs= expression )
+                    // src/main/org/uva/sea/ql/parser/QLTreeWalker.g:106:9: ^( '>=' lhs= expression rhs= expression )
                     {
                     root_0 = (CommonTree)adaptor.nil();
 
@@ -1452,7 +1451,7 @@ public TreeAdaptor getTreeAdaptor() {
                     CommonTree _first_1 = null;
                     CommonTree root_1 = (CommonTree)adaptor.nil();
                     _last = (CommonTree)input.LT(1);
-                    string_literal28=(CommonTree)match(input,36,FOLLOW_36_in_expression460); 
+                    string_literal28=(CommonTree)match(input,36,FOLLOW_36_in_expression459); 
                     string_literal28_tree = (CommonTree)adaptor.dupNode(string_literal28);
 
 
@@ -1461,7 +1460,7 @@ public TreeAdaptor getTreeAdaptor() {
 
                     match(input, Token.DOWN, null); 
                     _last = (CommonTree)input.LT(1);
-                    pushFollow(FOLLOW_expression_in_expression464);
+                    pushFollow(FOLLOW_expression_in_expression463);
                     lhs=expression();
 
                     state._fsp--;
@@ -1470,7 +1469,7 @@ public TreeAdaptor getTreeAdaptor() {
 
 
                     _last = (CommonTree)input.LT(1);
-                    pushFollow(FOLLOW_expression_in_expression468);
+                    pushFollow(FOLLOW_expression_in_expression467);
                     rhs=expression();
 
                     state._fsp--;
@@ -1489,7 +1488,7 @@ public TreeAdaptor getTreeAdaptor() {
                     }
                     break;
                 case 8 :
-                    // src/main/org/uva/sea/ql/parser/QLTreeWalker.g:106:9: ^( '>' lhs= expression rhs= expression )
+                    // src/main/org/uva/sea/ql/parser/QLTreeWalker.g:107:9: ^( '>' lhs= expression rhs= expression )
                     {
                     root_0 = (CommonTree)adaptor.nil();
 
@@ -1500,7 +1499,7 @@ public TreeAdaptor getTreeAdaptor() {
                     CommonTree _first_1 = null;
                     CommonTree root_1 = (CommonTree)adaptor.nil();
                     _last = (CommonTree)input.LT(1);
-                    char_literal29=(CommonTree)match(input,35,FOLLOW_35_in_expression482); 
+                    char_literal29=(CommonTree)match(input,35,FOLLOW_35_in_expression481); 
                     char_literal29_tree = (CommonTree)adaptor.dupNode(char_literal29);
 
 
@@ -1509,7 +1508,7 @@ public TreeAdaptor getTreeAdaptor() {
 
                     match(input, Token.DOWN, null); 
                     _last = (CommonTree)input.LT(1);
-                    pushFollow(FOLLOW_expression_in_expression486);
+                    pushFollow(FOLLOW_expression_in_expression485);
                     lhs=expression();
 
                     state._fsp--;
@@ -1518,7 +1517,7 @@ public TreeAdaptor getTreeAdaptor() {
 
 
                     _last = (CommonTree)input.LT(1);
-                    pushFollow(FOLLOW_expression_in_expression490);
+                    pushFollow(FOLLOW_expression_in_expression489);
                     rhs=expression();
 
                     state._fsp--;
@@ -1537,7 +1536,7 @@ public TreeAdaptor getTreeAdaptor() {
                     }
                     break;
                 case 9 :
-                    // src/main/org/uva/sea/ql/parser/QLTreeWalker.g:107:9: ^( '+' lhs= expression rhs= expression )
+                    // src/main/org/uva/sea/ql/parser/QLTreeWalker.g:108:9: ^( '+' lhs= expression rhs= expression )
                     {
                     root_0 = (CommonTree)adaptor.nil();
 
@@ -1548,7 +1547,7 @@ public TreeAdaptor getTreeAdaptor() {
                     CommonTree _first_1 = null;
                     CommonTree root_1 = (CommonTree)adaptor.nil();
                     _last = (CommonTree)input.LT(1);
-                    char_literal30=(CommonTree)match(input,28,FOLLOW_28_in_expression504); 
+                    char_literal30=(CommonTree)match(input,28,FOLLOW_28_in_expression503); 
                     char_literal30_tree = (CommonTree)adaptor.dupNode(char_literal30);
 
 
@@ -1557,7 +1556,7 @@ public TreeAdaptor getTreeAdaptor() {
 
                     match(input, Token.DOWN, null); 
                     _last = (CommonTree)input.LT(1);
-                    pushFollow(FOLLOW_expression_in_expression508);
+                    pushFollow(FOLLOW_expression_in_expression507);
                     lhs=expression();
 
                     state._fsp--;
@@ -1566,7 +1565,7 @@ public TreeAdaptor getTreeAdaptor() {
 
 
                     _last = (CommonTree)input.LT(1);
-                    pushFollow(FOLLOW_expression_in_expression512);
+                    pushFollow(FOLLOW_expression_in_expression511);
                     rhs=expression();
 
                     state._fsp--;
@@ -1585,7 +1584,7 @@ public TreeAdaptor getTreeAdaptor() {
                     }
                     break;
                 case 10 :
-                    // src/main/org/uva/sea/ql/parser/QLTreeWalker.g:108:9: ^( '-' lhs= expression rhs= expression )
+                    // src/main/org/uva/sea/ql/parser/QLTreeWalker.g:109:9: ^( '-' lhs= expression rhs= expression )
                     {
                     root_0 = (CommonTree)adaptor.nil();
 
@@ -1596,7 +1595,7 @@ public TreeAdaptor getTreeAdaptor() {
                     CommonTree _first_1 = null;
                     CommonTree root_1 = (CommonTree)adaptor.nil();
                     _last = (CommonTree)input.LT(1);
-                    char_literal31=(CommonTree)match(input,29,FOLLOW_29_in_expression526); 
+                    char_literal31=(CommonTree)match(input,29,FOLLOW_29_in_expression525); 
                     char_literal31_tree = (CommonTree)adaptor.dupNode(char_literal31);
 
 
@@ -1605,7 +1604,7 @@ public TreeAdaptor getTreeAdaptor() {
 
                     match(input, Token.DOWN, null); 
                     _last = (CommonTree)input.LT(1);
-                    pushFollow(FOLLOW_expression_in_expression530);
+                    pushFollow(FOLLOW_expression_in_expression529);
                     lhs=expression();
 
                     state._fsp--;
@@ -1614,7 +1613,7 @@ public TreeAdaptor getTreeAdaptor() {
 
 
                     _last = (CommonTree)input.LT(1);
-                    pushFollow(FOLLOW_expression_in_expression534);
+                    pushFollow(FOLLOW_expression_in_expression533);
                     rhs=expression();
 
                     state._fsp--;
@@ -1633,7 +1632,7 @@ public TreeAdaptor getTreeAdaptor() {
                     }
                     break;
                 case 11 :
-                    // src/main/org/uva/sea/ql/parser/QLTreeWalker.g:109:9: ^( '*' lhs= expression rhs= expression )
+                    // src/main/org/uva/sea/ql/parser/QLTreeWalker.g:110:9: ^( '*' lhs= expression rhs= expression )
                     {
                     root_0 = (CommonTree)adaptor.nil();
 
@@ -1644,7 +1643,7 @@ public TreeAdaptor getTreeAdaptor() {
                     CommonTree _first_1 = null;
                     CommonTree root_1 = (CommonTree)adaptor.nil();
                     _last = (CommonTree)input.LT(1);
-                    char_literal32=(CommonTree)match(input,27,FOLLOW_27_in_expression548); 
+                    char_literal32=(CommonTree)match(input,27,FOLLOW_27_in_expression547); 
                     char_literal32_tree = (CommonTree)adaptor.dupNode(char_literal32);
 
 
@@ -1653,7 +1652,7 @@ public TreeAdaptor getTreeAdaptor() {
 
                     match(input, Token.DOWN, null); 
                     _last = (CommonTree)input.LT(1);
-                    pushFollow(FOLLOW_expression_in_expression552);
+                    pushFollow(FOLLOW_expression_in_expression551);
                     lhs=expression();
 
                     state._fsp--;
@@ -1662,7 +1661,7 @@ public TreeAdaptor getTreeAdaptor() {
 
 
                     _last = (CommonTree)input.LT(1);
-                    pushFollow(FOLLOW_expression_in_expression556);
+                    pushFollow(FOLLOW_expression_in_expression555);
                     rhs=expression();
 
                     state._fsp--;
@@ -1681,7 +1680,7 @@ public TreeAdaptor getTreeAdaptor() {
                     }
                     break;
                 case 12 :
-                    // src/main/org/uva/sea/ql/parser/QLTreeWalker.g:110:9: ^( '/' lhs= expression rhs= expression )
+                    // src/main/org/uva/sea/ql/parser/QLTreeWalker.g:111:9: ^( '/' lhs= expression rhs= expression )
                     {
                     root_0 = (CommonTree)adaptor.nil();
 
@@ -1692,7 +1691,7 @@ public TreeAdaptor getTreeAdaptor() {
                     CommonTree _first_1 = null;
                     CommonTree root_1 = (CommonTree)adaptor.nil();
                     _last = (CommonTree)input.LT(1);
-                    char_literal33=(CommonTree)match(input,30,FOLLOW_30_in_expression570); 
+                    char_literal33=(CommonTree)match(input,30,FOLLOW_30_in_expression569); 
                     char_literal33_tree = (CommonTree)adaptor.dupNode(char_literal33);
 
 
@@ -1701,7 +1700,7 @@ public TreeAdaptor getTreeAdaptor() {
 
                     match(input, Token.DOWN, null); 
                     _last = (CommonTree)input.LT(1);
-                    pushFollow(FOLLOW_expression_in_expression574);
+                    pushFollow(FOLLOW_expression_in_expression573);
                     lhs=expression();
 
                     state._fsp--;
@@ -1710,7 +1709,7 @@ public TreeAdaptor getTreeAdaptor() {
 
 
                     _last = (CommonTree)input.LT(1);
-                    pushFollow(FOLLOW_expression_in_expression578);
+                    pushFollow(FOLLOW_expression_in_expression577);
                     rhs=expression();
 
                     state._fsp--;
@@ -1729,7 +1728,7 @@ public TreeAdaptor getTreeAdaptor() {
                     }
                     break;
                 case 13 :
-                    // src/main/org/uva/sea/ql/parser/QLTreeWalker.g:111:9: ^( NOT op= expression )
+                    // src/main/org/uva/sea/ql/parser/QLTreeWalker.g:112:9: ^( NOT op= expression )
                     {
                     root_0 = (CommonTree)adaptor.nil();
 
@@ -1740,7 +1739,7 @@ public TreeAdaptor getTreeAdaptor() {
                     CommonTree _first_1 = null;
                     CommonTree root_1 = (CommonTree)adaptor.nil();
                     _last = (CommonTree)input.LT(1);
-                    NOT34=(CommonTree)match(input,NOT,FOLLOW_NOT_in_expression592); 
+                    NOT34=(CommonTree)match(input,NOT,FOLLOW_NOT_in_expression591); 
                     NOT34_tree = (CommonTree)adaptor.dupNode(NOT34);
 
 
@@ -1749,7 +1748,7 @@ public TreeAdaptor getTreeAdaptor() {
 
                     match(input, Token.DOWN, null); 
                     _last = (CommonTree)input.LT(1);
-                    pushFollow(FOLLOW_expression_in_expression596);
+                    pushFollow(FOLLOW_expression_in_expression595);
                     op=expression();
 
                     state._fsp--;
@@ -1768,7 +1767,7 @@ public TreeAdaptor getTreeAdaptor() {
                     }
                     break;
                 case 14 :
-                    // src/main/org/uva/sea/ql/parser/QLTreeWalker.g:112:9: ^( NEGATION op= expression )
+                    // src/main/org/uva/sea/ql/parser/QLTreeWalker.g:113:9: ^( NEGATION op= expression )
                     {
                     root_0 = (CommonTree)adaptor.nil();
 
@@ -1779,7 +1778,7 @@ public TreeAdaptor getTreeAdaptor() {
                     CommonTree _first_1 = null;
                     CommonTree root_1 = (CommonTree)adaptor.nil();
                     _last = (CommonTree)input.LT(1);
-                    NEGATION35=(CommonTree)match(input,NEGATION,FOLLOW_NEGATION_in_expression610); 
+                    NEGATION35=(CommonTree)match(input,NEGATION,FOLLOW_NEGATION_in_expression609); 
                     NEGATION35_tree = (CommonTree)adaptor.dupNode(NEGATION35);
 
 
@@ -1788,7 +1787,7 @@ public TreeAdaptor getTreeAdaptor() {
 
                     match(input, Token.DOWN, null); 
                     _last = (CommonTree)input.LT(1);
-                    pushFollow(FOLLOW_expression_in_expression614);
+                    pushFollow(FOLLOW_expression_in_expression613);
                     op=expression();
 
                     state._fsp--;
@@ -1807,85 +1806,85 @@ public TreeAdaptor getTreeAdaptor() {
                     }
                     break;
                 case 15 :
-                    // src/main/org/uva/sea/ql/parser/QLTreeWalker.g:113:9: Boolean
+                    // src/main/org/uva/sea/ql/parser/QLTreeWalker.g:114:9: Boolean
                     {
                     root_0 = (CommonTree)adaptor.nil();
 
 
                     _last = (CommonTree)input.LT(1);
-                    Boolean36=(CommonTree)match(input,Boolean,FOLLOW_Boolean_in_expression627); 
+                    Boolean36=(CommonTree)match(input,Boolean,FOLLOW_Boolean_in_expression626); 
                     Boolean36_tree = (CommonTree)adaptor.dupNode(Boolean36);
 
 
                     adaptor.addChild(root_0, Boolean36_tree);
 
 
-                    retval.node = new BooleanValue((Boolean36!=null?Boolean36.getText():null));
+                    retval.node = new ValueNode(new BooleanValue((Boolean36!=null?Boolean36.getText():null)));
 
                     }
                     break;
                 case 16 :
-                    // src/main/org/uva/sea/ql/parser/QLTreeWalker.g:114:9: Integer
+                    // src/main/org/uva/sea/ql/parser/QLTreeWalker.g:115:9: Integer
                     {
                     root_0 = (CommonTree)adaptor.nil();
 
 
                     _last = (CommonTree)input.LT(1);
-                    Integer37=(CommonTree)match(input,Integer,FOLLOW_Integer_in_expression640); 
+                    Integer37=(CommonTree)match(input,Integer,FOLLOW_Integer_in_expression639); 
                     Integer37_tree = (CommonTree)adaptor.dupNode(Integer37);
 
 
                     adaptor.addChild(root_0, Integer37_tree);
 
 
-                    retval.node = new IntegerValue((Integer37!=null?Integer37.getText():null));
+                    retval.node = new ValueNode(new IntegerValue((Integer37!=null?Integer37.getText():null)));
 
                     }
                     break;
                 case 17 :
-                    // src/main/org/uva/sea/ql/parser/QLTreeWalker.g:115:9: Money
+                    // src/main/org/uva/sea/ql/parser/QLTreeWalker.g:116:9: Money
                     {
                     root_0 = (CommonTree)adaptor.nil();
 
 
                     _last = (CommonTree)input.LT(1);
-                    Money38=(CommonTree)match(input,Money,FOLLOW_Money_in_expression652); 
+                    Money38=(CommonTree)match(input,Money,FOLLOW_Money_in_expression651); 
                     Money38_tree = (CommonTree)adaptor.dupNode(Money38);
 
 
                     adaptor.addChild(root_0, Money38_tree);
 
 
-                    retval.node = new MoneyValue((Money38!=null?Money38.getText():null));
+                    retval.node = new ValueNode(new MoneyValue((Money38!=null?Money38.getText():null)));
 
                     }
                     break;
                 case 18 :
-                    // src/main/org/uva/sea/ql/parser/QLTreeWalker.g:116:9: StringLiteral
+                    // src/main/org/uva/sea/ql/parser/QLTreeWalker.g:117:9: StringLiteral
                     {
                     root_0 = (CommonTree)adaptor.nil();
 
 
                     _last = (CommonTree)input.LT(1);
-                    StringLiteral39=(CommonTree)match(input,StringLiteral,FOLLOW_StringLiteral_in_expression664); 
+                    StringLiteral39=(CommonTree)match(input,StringLiteral,FOLLOW_StringLiteral_in_expression663); 
                     StringLiteral39_tree = (CommonTree)adaptor.dupNode(StringLiteral39);
 
 
                     adaptor.addChild(root_0, StringLiteral39_tree);
 
 
-                    retval.node = new StringValue((StringLiteral39!=null?StringLiteral39.getText():null));
+                    retval.node = new ValueNode(new StringValue((StringLiteral39!=null?StringLiteral39.getText():null)));
 
                     }
                     break;
                 case 19 :
-                    // src/main/org/uva/sea/ql/parser/QLTreeWalker.g:117:9: Identifier
+                    // src/main/org/uva/sea/ql/parser/QLTreeWalker.g:118:9: Identifier
                     {
                     root_0 = (CommonTree)adaptor.nil();
 
 
                     _last = (CommonTree)input.LT(1);
-                    Identifier40=(CommonTree)match(input,Identifier,FOLLOW_Identifier_in_expression676); 
+                    Identifier40=(CommonTree)match(input,Identifier,FOLLOW_Identifier_in_expression675); 
                     Identifier40_tree = (CommonTree)adaptor.dupNode(Identifier40);
 
 
@@ -1937,54 +1936,54 @@ public TreeAdaptor getTreeAdaptor() {
     public static final BitSet FOLLOW_ASSIGNMENT_in_assignmentStatement258 = new BitSet(new long[]{0x0000000000000004L});
     public static final BitSet FOLLOW_Identifier_in_assignmentStatement260 = new BitSet(new long[]{0x00000E2000000000L});
     public static final BitSet FOLLOW_type_in_assignmentStatement262 = new BitSet(new long[]{0x0000000000000008L});
-    public static final BitSet FOLLOW_37_in_type281 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_41_in_type289 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_43_in_type297 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_42_in_type305 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_24_in_expression328 = new BitSet(new long[]{0x0000000000000004L});
-    public static final BitSet FOLLOW_expression_in_expression332 = new BitSet(new long[]{0x0000201F7996B040L});
-    public static final BitSet FOLLOW_expression_in_expression336 = new BitSet(new long[]{0x0000000000000008L});
-    public static final BitSet FOLLOW_45_in_expression350 = new BitSet(new long[]{0x0000000000000004L});
-    public static final BitSet FOLLOW_expression_in_expression354 = new BitSet(new long[]{0x0000201F7996B040L});
-    public static final BitSet FOLLOW_expression_in_expression358 = new BitSet(new long[]{0x0000000000000008L});
-    public static final BitSet FOLLOW_34_in_expression372 = new BitSet(new long[]{0x0000000000000004L});
-    public static final BitSet FOLLOW_expression_in_expression376 = new BitSet(new long[]{0x0000201F7996B040L});
-    public static final BitSet FOLLOW_expression_in_expression380 = new BitSet(new long[]{0x0000000000000008L});
-    public static final BitSet FOLLOW_23_in_expression394 = new BitSet(new long[]{0x0000000000000004L});
-    public static final BitSet FOLLOW_expression_in_expression398 = new BitSet(new long[]{0x0000201F7996B040L});
-    public static final BitSet FOLLOW_expression_in_expression402 = new BitSet(new long[]{0x0000000000000008L});
-    public static final BitSet FOLLOW_32_in_expression416 = new BitSet(new long[]{0x0000000000000004L});
-    public static final BitSet FOLLOW_expression_in_expression420 = new BitSet(new long[]{0x0000201F7996B040L});
-    public static final BitSet FOLLOW_expression_in_expression424 = new BitSet(new long[]{0x0000000000000008L});
-    public static final BitSet FOLLOW_33_in_expression438 = new BitSet(new long[]{0x0000000000000004L});
-    public static final BitSet FOLLOW_expression_in_expression442 = new BitSet(new long[]{0x0000201F7996B040L});
-    public static final BitSet FOLLOW_expression_in_expression446 = new BitSet(new long[]{0x0000000000000008L});
-    public static final BitSet FOLLOW_36_in_expression460 = new BitSet(new long[]{0x0000000000000004L});
-    public static final BitSet FOLLOW_expression_in_expression464 = new BitSet(new long[]{0x0000201F7996B040L});
-    public static final BitSet FOLLOW_expression_in_expression468 = new BitSet(new long[]{0x0000000000000008L});
-    public static final BitSet FOLLOW_35_in_expression482 = new BitSet(new long[]{0x0000000000000004L});
-    public static final BitSet FOLLOW_expression_in_expression486 = new BitSet(new long[]{0x0000201F7996B040L});
-    public static final BitSet FOLLOW_expression_in_expression490 = new BitSet(new long[]{0x0000000000000008L});
-    public static final BitSet FOLLOW_28_in_expression504 = new BitSet(new long[]{0x0000000000000004L});
-    public static final BitSet FOLLOW_expression_in_expression508 = new BitSet(new long[]{0x0000201F7996B040L});
-    public static final BitSet FOLLOW_expression_in_expression512 = new BitSet(new long[]{0x0000000000000008L});
-    public static final BitSet FOLLOW_29_in_expression526 = new BitSet(new long[]{0x0000000000000004L});
-    public static final BitSet FOLLOW_expression_in_expression530 = new BitSet(new long[]{0x0000201F7996B040L});
-    public static final BitSet FOLLOW_expression_in_expression534 = new BitSet(new long[]{0x0000000000000008L});
-    public static final BitSet FOLLOW_27_in_expression548 = new BitSet(new long[]{0x0000000000000004L});
-    public static final BitSet FOLLOW_expression_in_expression552 = new BitSet(new long[]{0x0000201F7996B040L});
-    public static final BitSet FOLLOW_expression_in_expression556 = new BitSet(new long[]{0x0000000000000008L});
-    public static final BitSet FOLLOW_30_in_expression570 = new BitSet(new long[]{0x0000000000000004L});
-    public static final BitSet FOLLOW_expression_in_expression574 = new BitSet(new long[]{0x0000201F7996B040L});
-    public static final BitSet FOLLOW_expression_in_expression578 = new BitSet(new long[]{0x0000000000000008L});
-    public static final BitSet FOLLOW_NOT_in_expression592 = new BitSet(new long[]{0x0000000000000004L});
-    public static final BitSet FOLLOW_expression_in_expression596 = new BitSet(new long[]{0x0000000000000008L});
-    public static final BitSet FOLLOW_NEGATION_in_expression610 = new BitSet(new long[]{0x0000000000000004L});
-    public static final BitSet FOLLOW_expression_in_expression614 = new BitSet(new long[]{0x0000000000000008L});
-    public static final BitSet FOLLOW_Boolean_in_expression627 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_Integer_in_expression640 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_Money_in_expression652 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_StringLiteral_in_expression664 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_Identifier_in_expression676 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_37_in_type280 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_41_in_type288 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_43_in_type296 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_42_in_type304 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_24_in_expression327 = new BitSet(new long[]{0x0000000000000004L});
+    public static final BitSet FOLLOW_expression_in_expression331 = new BitSet(new long[]{0x0000201F7996B040L});
+    public static final BitSet FOLLOW_expression_in_expression335 = new BitSet(new long[]{0x0000000000000008L});
+    public static final BitSet FOLLOW_45_in_expression349 = new BitSet(new long[]{0x0000000000000004L});
+    public static final BitSet FOLLOW_expression_in_expression353 = new BitSet(new long[]{0x0000201F7996B040L});
+    public static final BitSet FOLLOW_expression_in_expression357 = new BitSet(new long[]{0x0000000000000008L});
+    public static final BitSet FOLLOW_34_in_expression371 = new BitSet(new long[]{0x0000000000000004L});
+    public static final BitSet FOLLOW_expression_in_expression375 = new BitSet(new long[]{0x0000201F7996B040L});
+    public static final BitSet FOLLOW_expression_in_expression379 = new BitSet(new long[]{0x0000000000000008L});
+    public static final BitSet FOLLOW_23_in_expression393 = new BitSet(new long[]{0x0000000000000004L});
+    public static final BitSet FOLLOW_expression_in_expression397 = new BitSet(new long[]{0x0000201F7996B040L});
+    public static final BitSet FOLLOW_expression_in_expression401 = new BitSet(new long[]{0x0000000000000008L});
+    public static final BitSet FOLLOW_32_in_expression415 = new BitSet(new long[]{0x0000000000000004L});
+    public static final BitSet FOLLOW_expression_in_expression419 = new BitSet(new long[]{0x0000201F7996B040L});
+    public static final BitSet FOLLOW_expression_in_expression423 = new BitSet(new long[]{0x0000000000000008L});
+    public static final BitSet FOLLOW_33_in_expression437 = new BitSet(new long[]{0x0000000000000004L});
+    public static final BitSet FOLLOW_expression_in_expression441 = new BitSet(new long[]{0x0000201F7996B040L});
+    public static final BitSet FOLLOW_expression_in_expression445 = new BitSet(new long[]{0x0000000000000008L});
+    public static final BitSet FOLLOW_36_in_expression459 = new BitSet(new long[]{0x0000000000000004L});
+    public static final BitSet FOLLOW_expression_in_expression463 = new BitSet(new long[]{0x0000201F7996B040L});
+    public static final BitSet FOLLOW_expression_in_expression467 = new BitSet(new long[]{0x0000000000000008L});
+    public static final BitSet FOLLOW_35_in_expression481 = new BitSet(new long[]{0x0000000000000004L});
+    public static final BitSet FOLLOW_expression_in_expression485 = new BitSet(new long[]{0x0000201F7996B040L});
+    public static final BitSet FOLLOW_expression_in_expression489 = new BitSet(new long[]{0x0000000000000008L});
+    public static final BitSet FOLLOW_28_in_expression503 = new BitSet(new long[]{0x0000000000000004L});
+    public static final BitSet FOLLOW_expression_in_expression507 = new BitSet(new long[]{0x0000201F7996B040L});
+    public static final BitSet FOLLOW_expression_in_expression511 = new BitSet(new long[]{0x0000000000000008L});
+    public static final BitSet FOLLOW_29_in_expression525 = new BitSet(new long[]{0x0000000000000004L});
+    public static final BitSet FOLLOW_expression_in_expression529 = new BitSet(new long[]{0x0000201F7996B040L});
+    public static final BitSet FOLLOW_expression_in_expression533 = new BitSet(new long[]{0x0000000000000008L});
+    public static final BitSet FOLLOW_27_in_expression547 = new BitSet(new long[]{0x0000000000000004L});
+    public static final BitSet FOLLOW_expression_in_expression551 = new BitSet(new long[]{0x0000201F7996B040L});
+    public static final BitSet FOLLOW_expression_in_expression555 = new BitSet(new long[]{0x0000000000000008L});
+    public static final BitSet FOLLOW_30_in_expression569 = new BitSet(new long[]{0x0000000000000004L});
+    public static final BitSet FOLLOW_expression_in_expression573 = new BitSet(new long[]{0x0000201F7996B040L});
+    public static final BitSet FOLLOW_expression_in_expression577 = new BitSet(new long[]{0x0000000000000008L});
+    public static final BitSet FOLLOW_NOT_in_expression591 = new BitSet(new long[]{0x0000000000000004L});
+    public static final BitSet FOLLOW_expression_in_expression595 = new BitSet(new long[]{0x0000000000000008L});
+    public static final BitSet FOLLOW_NEGATION_in_expression609 = new BitSet(new long[]{0x0000000000000004L});
+    public static final BitSet FOLLOW_expression_in_expression613 = new BitSet(new long[]{0x0000000000000008L});
+    public static final BitSet FOLLOW_Boolean_in_expression626 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_Integer_in_expression639 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_Money_in_expression651 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_StringLiteral_in_expression663 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_Identifier_in_expression675 = new BitSet(new long[]{0x0000000000000002L});
 
 }

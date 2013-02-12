@@ -1,43 +1,48 @@
 package org.uva.sea.ql.ast.expression.impl;
 
-import org.uva.sea.ql.ast.exception.InvalidTypeException;
+import org.uva.sea.ql.ast.expression.BinaryNode;
 import org.uva.sea.ql.ast.expression.ExprNode;
-import org.uva.sea.ql.ast.value.Value;
-import org.uva.sea.ql.ast.value.impl.BooleanValue;
+import org.uva.sea.ql.value.Value;
 
-public class AndNode extends ExprNode
+public class AndNode extends BinaryNode
 {
-    private final ExprNode lhs;
-    private final ExprNode rhs;
 
     public AndNode(final ExprNode lhs, final ExprNode rhs)
     {
-        this.lhs = lhs;
-        this.rhs = rhs;
+        super(lhs, rhs);
     }
+
+//    @Override
+//    public Value evaluate()
+//    {
+//        final Value value1 = this.lhs.evaluate();
+//        final Value value2 = this.rhs.evaluate();
+//
+//        if(value1.isCompatibleTo(value2))
+//        {
+//            final BooleanValue booleanValue1 = value1.asBooleanValue();
+//            final BooleanValue booleanValue2 = value2.asBooleanValue();
+//            return new BooleanValue(booleanValue1.getValue() && booleanValue2.getValue());
+//        }
+//
+//        throw new InvalidTypeException("Invalid operand type for and(&&) operation: " + toTreeString(" "));
+//    }
+
 
     @Override
     public Value evaluate()
     {
         final Value value1 = this.lhs.evaluate();
         final Value value2 = this.rhs.evaluate();
-
-        if(value1.isCompatibleTo(value2))
-        {
-            final BooleanValue booleanValue1 = value1.asBooleanValue();
-            final BooleanValue booleanValue2 = value2.asBooleanValue();
-            return new BooleanValue(booleanValue1.getValue() && booleanValue2.getValue());
-        }
-
-        throw new InvalidTypeException("Invalid operand type for and(&&) operation: " + toTreeString(" "));
+        return value1.and(value2);
     }
 
-    @Override
-    public String toTreeString(final String indent)
-    {
-        return '\n' + indent + "&&" + lhs.toTreeString(indent + "  ")
-                + rhs.toTreeString(indent + "  ");
-
-    }
+//    @Override
+//    public String toTreeString(final String indent)
+//    {
+//        return '\n' + indent + "&&" + lhs.toTreeString(indent + "  ")
+//                + rhs.toTreeString(indent + "  ");
+//
+//    }
 
 }
