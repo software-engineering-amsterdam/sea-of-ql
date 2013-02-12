@@ -33,12 +33,27 @@ public class TestExprEvaluater {
 	
 	@Test
 	public void testEqs() throws ParseError {
-		assertEquals(((BoolVal)ExprEvaluator.Evaluate(parser.ParseExpression("1 == 2"), TheTestEnv.getTypeEnv())).getValue(), new Boolean(false));	
+		assertEquals(((BoolVal)ExprEvaluator.Evaluate(parser.ParseExpression("1 == 2"), TheTestEnv.getTypeEnv())).getValue(), new Boolean(false));
+		assertEquals(((BoolVal)ExprEvaluator.Evaluate(parser.ParseExpression("1.1 == 2"), TheTestEnv.getTypeEnv())).getValue(), new Boolean(false));
+		assertEquals(((BoolVal)ExprEvaluator.Evaluate(parser.ParseExpression("1 == 2.1"), TheTestEnv.getTypeEnv())).getValue(), new Boolean(false));
+		assertEquals(((BoolVal)ExprEvaluator.Evaluate(parser.ParseExpression("1 == 1"), TheTestEnv.getTypeEnv())).getValue(), new Boolean(true));
+		assertEquals(((BoolVal)ExprEvaluator.Evaluate(parser.ParseExpression("1.0 == 1"), TheTestEnv.getTypeEnv())).getValue(), new Boolean(true));
+		assertEquals(((BoolVal)ExprEvaluator.Evaluate(parser.ParseExpression("1.1 == 1.1"), TheTestEnv.getTypeEnv())).getValue(), new Boolean(true));
+	}
+	
+	@Test
+	public void testNeqs() throws ParseError {
+		assertEquals(((BoolVal)ExprEvaluator.Evaluate(parser.ParseExpression("1 != 1"), TheTestEnv.getTypeEnv())).getValue(), new Boolean(false));		
+		assertEquals(((BoolVal)ExprEvaluator.Evaluate(parser.ParseExpression("1 != 2"), TheTestEnv.getTypeEnv())).getValue(), new Boolean(true));
+		assertEquals(((BoolVal)ExprEvaluator.Evaluate(parser.ParseExpression("1.1 != 2"), TheTestEnv.getTypeEnv())).getValue(), new Boolean(true));
+		assertEquals(((BoolVal)ExprEvaluator.Evaluate(parser.ParseExpression("1 != 2.3"), TheTestEnv.getTypeEnv())).getValue(), new Boolean(true));
+		assertEquals(((BoolVal)ExprEvaluator.Evaluate(parser.ParseExpression("1.34 != 2.34"), TheTestEnv.getTypeEnv())).getValue(), new Boolean(true));					
+	}
+	
+	@Test
+	public void testGeqs() throws ParseError {			
 		assertEquals(((BoolVal)ExprEvaluator.Evaluate(parser.ParseExpression("1 >= 2"), TheTestEnv.getTypeEnv())).getValue(), new Boolean(false));
-		assertEquals(((BoolVal)ExprEvaluator.Evaluate(parser.ParseExpression("1 > 2"), TheTestEnv.getTypeEnv())).getValue(), new Boolean(false));
 		
-		assertEquals(((BoolVal)ExprEvaluator.Evaluate(parser.ParseExpression("1 <= 2"), TheTestEnv.getTypeEnv())).getValue(), new Boolean(true));
-		assertEquals(((BoolVal)ExprEvaluator.Evaluate(parser.ParseExpression("1 < 2"), TheTestEnv.getTypeEnv())).getValue(), new Boolean(true));
 					
 	}
 }
