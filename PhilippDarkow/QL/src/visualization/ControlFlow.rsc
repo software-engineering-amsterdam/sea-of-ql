@@ -51,12 +51,17 @@ CFGraph cflowQuestion(question:easyQuestion(str id, str labelQuestion, Type tp))
 }
 
 CFGraph cflowQuestion(question:computedQuestion(str id, str labelQuestion, Type tp, Expression exp)){
-	
+	println("Computed Question : <question>");
+	println("Question Location : <question@location>");
+	 Q = q(question@location, question);
+	 return <{Q}, {}, {Q}>;
 }
 
-CFGraph cflowQues(list[Question] ques){
-	
+CFGraph cflowQues(list[Question] ques){	
 	if(size(ques) == 1) return cflowQuestion(ques[0]);
+	CF1 = cflowQuestion(ques[0]);
+  	CF2 = cflowQues(tail(ques));
+  	return < CF1.entry, CF1.graph + CF2.graph + (CF1.exit * CF2.entry), CF2.exit >;
 }
 
 

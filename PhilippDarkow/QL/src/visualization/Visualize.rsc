@@ -19,8 +19,11 @@ str make(Type T) = "<T>";
 //
 
 str make(question:easyQuestion(str id, str labelQuestion, Type tp)) {
-	println("ID : <id>  TP : <tp>");
-	return "<make(id)> + <make(labelQuestion)> + <make(tp)>";    // Here further working
+	return "<make(id)> + <make(labelQuestion)> + <make(tp)>"; 
+}
+
+str make(question:computedQuestion(str id, str labelQuestion, Type tp, Expression exp)) {
+	return "<make(id)> + <make(labelQuestion)> + <make(tp)> + <make(exp)>";   
 }
 
 
@@ -61,6 +64,8 @@ Figure visNode(CFNode n:statement(loc location, asgStat(PicoId Id, EXP Exp))) =
 Figure visNode(CFNode n:q(loc location, question:easyQuestion(str id, str labelQuestion, Type tp))) = 
        box(text("<id> := <make(question)>"),  vis::Figure::id(getId(n)), gap(8), editIt(n));
 
+Figure visNode(CFNode n:q(loc location, question:computedQuestion(str id, str labelQuestion, Type tp, Expression exp))) = 
+       box(text("<id> := <make(question)>"),  vis::Figure::id(getId(n)), gap(8), editIt(n));
 //  Define the id for each CFG node
 
 str getId(entry(loc location)) = "ENTRY";
