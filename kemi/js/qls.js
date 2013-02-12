@@ -82,11 +82,21 @@ $(document).on("check", "fieldset", function(e) {
 });
 
 function roundMoney(amount) {
-	return Math.round(amount * 100) / 100;
+	return (new Number(amount)).toFixed(2);
+}
+
+function numDecimals(value) {
+  var valueStr = value.toString();
+  var sepPos = valueStr.indexOf(".");
+  if(sepPos > -1) {
+    return valueStr.length - sepPos - 1;
+  } else {
+    return 0;
+  }
 }
 
 // Each money field can only contain up to two decimals. 
 jQuery.validator.addMethod("moneyValidator", function(value, element, params) {
-	return this.optional(element) || roundMoney(value) == value; 
+	return this.optional(element) || numDecimals(value) <= 2; 
 	}, jQuery.format("The money field can only contain up to 2 decimals.")
 );
