@@ -24,8 +24,7 @@ import lang::qls::util::ParseHelper;
 import lang::qls::util::StyleHelper;
 import util::IDE;
 import util::LocationHelper;
-
-import util::ValueUI;
+import util::MapHelper;
 
 public set[Message] semanticChecker(Stylesheet s) =
   filenameDoesNotMatchErrors(s) +
@@ -34,6 +33,7 @@ public set[Message] semanticChecker(Stylesheet s) =
   unallowedWidgetErrors(s) +
   alreadyUsedQuestionErrors(s) +
   undefinedQuestionErrors(s) +
+  unusedQuestionWarnings(s) +
   doubleNameWarnings(s) +
   defaultRedefinitionWarnings(s);
 
@@ -78,6 +78,23 @@ public set[Message] undefinedQuestionErrors(Stylesheet s) {
   
   return {questionUndefinedInForm(q@location) | q <- qdefs, 
     identDefinition(q.ident) notin typeMap};
+}
+
+public set[Message] unusedQuestionWarnings(Stylesheet s) {
+  list[QuestionDefinition] questionDefinitions = getQuestionDefinitions(s);
+  typeMap = getTypeMap(getAccompanyingForm(s));
+  
+  for(d <- questionDefinitions) {
+    typeMap = delete(typeMap, identDefinition(d.ident));
+  }
+  
+  loc warningLoc = s@location;
+  warningLoc.offset = s@location.length - 1;
+  warningLoc.length = 1;
+  warningLoc.begin.line = s@location.end.line;
+  warningLoc.begin.column = s@location.end.column - 1;
+  
+  return {questionUnused(ident.ident, warningLoc) | ident <- typeMap};
 }
 
 public set[Message] doubleNameWarnings(Stylesheet s) {
