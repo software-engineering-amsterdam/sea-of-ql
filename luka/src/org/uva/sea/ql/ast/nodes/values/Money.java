@@ -18,7 +18,8 @@ public class Money extends Value{
 
 	@Override
 	public Type typeOf(Map<Ident, Type> typeEnv) {
-		return new MoneyType();
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	@Override
@@ -26,5 +27,16 @@ public class Money extends Value{
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+//	@Override
+//	public Type typeOf(Map<Ident, Type> typeEnv) {
+//		return new MoneyType();
+//	}
+//
+//	@Override
+//	public <T> T accept(Visitor<T> visitor) {
+//		// TODO Auto-generated method stub
+//		return null;
+//	}
 
 }

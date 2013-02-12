@@ -17,7 +17,8 @@ public class Str extends Value {
 
 	@Override
 	public Type typeOf(Map<Ident, Type> typeEnv) {
-		return new StringType();
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	@Override
@@ -25,5 +26,16 @@ public class Str extends Value {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+//	@Override
+//	public Type typeOf(Map<Ident, Type> typeEnv) {
+//		return new StringType();
+//	}
+//
+//	@Override
+//	public <T> T accept(Visitor<T> visitor) {
+//		// TODO Auto-generated method stub
+//		return null;
+//	}
 
 }

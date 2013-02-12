@@ -4,7 +4,9 @@ import org.antlr.runtime.ANTLRFileStream;
 import org.antlr.runtime.CommonTokenStream;
 import org.antlr.runtime.RecognitionException;
 import org.antlr.runtime.tree.CommonTree;
-import org.antlr.runtime.tree.DOTTreeGenerator;
+import org.antlr.runtime.tree.CommonTreeNodeStream;
+import org.uva.sea.ql.questionnaire.Questionnaire;
+
 
 public class __Test__ {
 
@@ -15,15 +17,23 @@ public class __Test__ {
 						"UTF8"));
 		
 		CommonTokenStream tokens = new CommonTokenStream(lex);
-		QLParser parser = new QLParser(tokens,49100,null); 
-		
+		QLParser parser = new QLParser(tokens); // new QLParser(tokens,49100,null);  -debug
 		
 		
 		try {
-		CommonTree tree = 	 (CommonTree) parser.parse().getTree();
-	
-		//	Questionnaire questionnaire =	
-		//	System.out.println(questionnaire.getName());
+			//parse
+//			parser.parse();
+			// walk the tree  
+		    CommonTree tree = (CommonTree)parser.parse().getTree();  
+		    CommonTreeNodeStream nodes = new CommonTreeNodeStream(tree);  
+		      
+		    // pass the reference to the Map of functions to the tree walker  
+		    QLTreeWalker walker = new QLTreeWalker(nodes, parser.typeEnv);  
+		      
+		    // get the returned node   
+		    Questionnaire returned = walker.walk();  
+		    
+		    System.out.println(returned.toString());  
 			
 		} catch (RecognitionException e) {
 			e.printStackTrace();

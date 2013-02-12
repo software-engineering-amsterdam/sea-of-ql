@@ -18,7 +18,8 @@ public class Bool extends Value{
 
 	@Override
 	public Type typeOf(Map<Ident, Type> typeEnv) {
-		return new BoolType();
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	@Override
@@ -26,6 +27,17 @@ public class Bool extends Value{
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+//	@Override
+//	public Type typeOf(Map<Ident, Type> typeEnv) {
+//		return new BoolType();
+//	}
+//
+//	@Override
+//	public <T> T accept(Visitor<T> visitor) {
+//		// TODO Auto-generated method stub
+//		return null;
+//	}
 	
 
 

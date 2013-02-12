@@ -9,10 +9,10 @@ public class Ident extends Expr {
 
 	//private final Value value;
 	private final String name;
-	public Ident(String idName,Expr e) { 
+	public Ident(String idName) { 
 		//super(e);
 	//	this.value = v;
-		this.name = "test";
+		this.name = idName;
 	}
 
 	@Override

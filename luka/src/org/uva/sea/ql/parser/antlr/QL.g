@@ -17,11 +17,10 @@ output=AST;
 //Each block own variable scope ? holds it for itself
 //use static value NULL in value for null pattern
 //ELSE IF?!
-
+// Module and square ?!!
 tokens{
-QUESTION_ASSIGNMENT;
+ASSIGNMENT;
 QUESTION_LABEL;
-CONST_ASSIGNMENT;
 IDENT;
 ASSIGNMENT_TYPE;
 ASSIGNMENT_EXPRESSION;
@@ -29,7 +28,8 @@ IF_STATEMENT;
 IF_CONDITION;
 IF_BLOCK_TRUE;
 IF_BLOCK_FALSE;
-
+UNARY_MINUS;
+UNARY_NEGATE;
 }
 //BOOL_TYPE;
 //MONEY_TYPE;
@@ -42,6 +42,16 @@ import org.uva.sea.ql.ast.nodes.values.*;
 import org.uva.sea.ql.ast.nodes.*;
 import org.uva.sea.ql.ast.type.*;
 import org.uva.sea.ql.ast.expr.*;
+import java.util.Map; 
+import java.util.HashMap; 
+}
+
+@parser::members{
+	public Map<Ident,Type> typeEnv = new HashMap<Ident,Type>();
+	private void mapIdentToType(String identName,Type type){
+	System.out.println(identName+type.toString());
+		typeEnv.put(new Ident(identName),type);
+	}
 }
 
 @lexer::header
@@ -57,25 +67,26 @@ import org.uva.sea.ql.ast.*;
  *------------------------------------------------------------------*/
  
 parse
-	: FormStart FormId Lbr block+ Rbr EOF -> ^(FormId block+);
+	: FormStart FormId Lbr blockItem* Rbr EOF -> ^(FormId blockItem*);
 	
-block
+blockItem
 	:	(questionAssignment | constantAssignment | ifBlock ) ; 
 	
 
 questionAssignment 
-	: Ident  Assignment_Indicator  String identType (atom)?  ->^(QUESTION_ASSIGNMENT ^(IDENT Ident) ^(ASSIGNMENT_TYPE identType) ^(QUESTION_LABEL  String)  ^(ASSIGNMENT_EXPRESSION atom)?)
+	: Ident  Assignment_Indicator  String identType (atom)? {mapIdentToType($Ident.text,$identType.t);}  ->^(ASSIGNMENT ^(IDENT Ident) ^(ASSIGNMENT_TYPE identType) ^(QUESTION_LABEL  String)  ^(ASSIGNMENT_EXPRESSION atom)?)
+	 
 	 ;
 
 
 constantAssignment
-	: Ident  Assignment_Indicator identType atom -> ^(CONST_ASSIGNMENT ^(IDENT Ident ) ^(ASSIGNMENT_TYPE identType) ^(ASSIGNMENT_EXPRESSION  atom))
+	: Ident  Assignment_Indicator identType atom {mapIdentToType($Ident.text,$identType.t);} -> ^(ASSIGNMENT ^(IDENT Ident ) ^(ASSIGNMENT_TYPE identType) ^(ASSIGNMENT_EXPRESSION  atom))
 	;
 	
-
-identType	
-	: BooleanType -> BooleanType 
-	| MoneyType -> MoneyType 
+//
+identType  returns [Type t]	
+	: BooleanType {$t = new BoolType();}  -> BooleanType 
+	| MoneyType {$t = new MoneyType();}  -> MoneyType 
 	;	
 
 
@@ -88,87 +99,50 @@ ifStatement
 	
 //TODO ELSE IF!?	
 ifStatementBlock	
-	: 	Lbr  block* Rbr -> block*;
+	: 	Lbr  blockItem* Rbr -> blockItem*;
 
 elseBlock
-	: Else Lbr block* Rbr -> block*
+	: Else Lbr blockItem* Rbr -> blockItem*
 	;
 	
 		 
 
 
-atom returns [Expr result]
-  : Int   { $result = new Int(Integer.parseInt($Int.text)); }
-  | Ident { $result = new Ident($Ident.text, new Bool(false)); } 
-  | BooleanType {$result = new Bool(false);}
-  | MoneyType { $result = new Int(Integer.parseInt($MoneyType.text));}
+atom 
+  : Int  
+  | Ident 
+  | BooleanType
+  | MoneyType 
  // | Integer {$result = new Ident($Integer.text, new int(1));}
-  |  RoundLbr!  x=orExpr^ RoundRbr! { $result = $x.result; } 
+  |  RoundLbr!  x=orExpr^ RoundRbr! 
   ;
   
-unExpr returns [Expr result]
-    :  Add x=atom { $result = new Pos($x.result); }
-    |  Sub x=atom { $result = new Neg($x.result); }
-    |  Not x=atom { $result = new Not($x.result); }
-    |  x=atom    { $result = $x.result; }
+unExpr 
+    :  Sub atom -> ^(UNARY_MINUS atom) //<- NEGATIVE//Add x=atom
+    |  Not atom -> ^(UNARY_NEGATE atom)
+    |  atom    
     ;    
     
-mulExpr returns [Expr result]
-    :   lhs=unExpr { $result=$lhs.result; } ( op=( Mul^ | Div^ ) rhs=unExpr 
-    { 
-      if ($op.text.equals($Mul)) {
-        $result = new Mul($result, $rhs.result);
-      }
-      if ($op.text.equals($Div)) {
-        $result = new Div($result, $rhs.result);      
-      }
-    })*
+mulExpr 
+    :   lhs=unExpr  ( op=( Mul | Div )^ rhs=unExpr )*
     ;
     
   
-addExpr returns [Expr result]
-    :   lhs=mulExpr { $result=$lhs.result; } ( op=(Add^ | Sub^) rhs=mulExpr
-    { 
-      if ($op.text.equals($Add)) {
-        $result = new Add($result, $rhs.result);
-      }
-      if ($op.text.equals($Sub)) {
-        $result = new Sub($result, $rhs.result);      
-      }
-    })*
+addExpr 
+    :   lhs=mulExpr ( op=(Add | Sub )^ rhs=mulExpr )*
     ;
   
-relExpr returns [Expr result]
-    :   lhs=addExpr { $result=$lhs.result; } ( op=(LT^|LTEqu^|GT^|GTEqu^|Equ^|NotEqu^) rhs=addExpr 
-    { 
-      if ($op.text.equals($LT)) {
-        $result = new LT($result, $rhs.result);
-      }
-      if ($op.text.equals($LTEqu)) {
-        $result = new LEq($result, $rhs.result);      
-      }
-      if ($op.text.equals($GT)) {
-        $result = new GT($result, $rhs.result);
-      }
-      if ($op.text.equals($GTEqu)) {
-        $result = new GEq($result, $rhs.result);      
-      }
-      if ($op.text.equals($Equ)) {
-        $result = new Eq($result, $rhs.result);
-      }
-      if ($op.text.equals($NotEqu)) {
-        $result = new NEq($result, $rhs.result);
-      }
-    })*
+relExpr 
+    :   lhs=addExpr  ( op=(LT |LTEqu |GT |GTEqu |Equ |NotEqu)^ rhs=addExpr )*
     ;
     
-andExpr returns [Expr result]
-    :   lhs=relExpr { $result=$lhs.result; } ( And^ rhs=relExpr { $result = new And($result, $rhs.result); } )* 
+andExpr 
+    :   lhs=relExpr ( And^ rhs=relExpr  )* 
     ;
     
 
-orExpr returns [Expr result]
-    :  lhs=andExpr { $result = $lhs.result; } ( Or^ rhs=andExpr { $result = new Or($result, $rhs.result); } )* 
+orExpr 
+    :  lhs=andExpr ( Or^ rhs=andExpr )* 
     ;
 
 

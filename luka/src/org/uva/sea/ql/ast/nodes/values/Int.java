@@ -14,16 +14,26 @@ public class Int extends Value{
 	public Int(int val){
 		this.value = val;
 	}
-
 	@Override
 	public Type typeOf(Map<Ident, Type> typeEnv) {
-		return new IntType();
+		// TODO Auto-generated method stub
+		return null;
 	}
-
 	@Override
 	public <T> T accept(Visitor<T> visitor) {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+//	@Override
+//	public Type typeOf(Map<Ident, Type> typeEnv) {
+//		return new IntType();
+//	}
+//
+//	@Override
+//	public <T> T accept(Visitor<T> visitor) {
+//		// TODO Auto-generated method stub
+//		return null;
+//	}
 
 }

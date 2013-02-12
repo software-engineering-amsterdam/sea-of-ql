@@ -6,10 +6,16 @@ public class Questionnaire extends ASTNode{
 
 	private final String questionnaireName;
 	private final Block questionnaireBlock= null;
+	
 	public Questionnaire(String qName){
 		this.questionnaireName = qName;
 	}
 	
+	@Override
+	public String toString() {
+		
+		return "adadad"+this.questionnaireName;
+	}
 	public String getName(){
 		return this.questionnaireName;
 	}

@@ -3,7 +3,7 @@ package org.uva.sea.ql.ast.stat;
 import org.uva.sea.ql.ast.expr.Ident;
 import org.uva.sea.ql.ast.nodes.values.Value;
 
-public abstract class TypedStat implements Stat{
+public abstract class TypedStat extends Stat{
 	protected Ident identifier;
 	protected String label;
 	protected Value value;

@@ -1,5 +1,7 @@
 package org.uva.sea.ql.ast.type;
 
+import org.uva.sea.ql.ast.expr.Expr;
+
 public abstract class Type {
 
 	public abstract boolean isCompatibleTo(Type t);
