@@ -1,12 +1,7 @@
 package org.uva.sea.ql.value;
 
 public abstract class Value {
-	
 	public Value add(Value arg) {
-		throw new UnsupportedOperationException();
-	}
-
-	public Value pos() {
 		throw new UnsupportedOperationException();
 	}
 
@@ -26,10 +21,6 @@ public abstract class Value {
 		throw new UnsupportedOperationException();
 	}
 
-	public Value neg(Value arg) {
-		throw new UnsupportedOperationException();
-	}
-	
 	public Value eq(Value arg) {
 		throw new UnsupportedOperationException();
 	}
@@ -37,7 +28,6 @@ public abstract class Value {
 	public Value geq(Value arg) {
 		throw new UnsupportedOperationException();
 	}
-	
 	
 	public Value gt(Value arg) {
 		throw new UnsupportedOperationException();
@@ -58,6 +48,19 @@ public abstract class Value {
 	public Value or(Value arg) {
 		throw new UnsupportedOperationException();
 	}
+
+	public Value neg() {
+		throw new UnsupportedOperationException();
+	}
+	
+	public Value pos() {
+		throw new UnsupportedOperationException();
+	}
+	
+	public Value not() {
+		throw new UnsupportedOperationException();
+	}
+	
 	// Int functions
 	protected Value addInt(IntegerValue arg) {
 		throw new UnsupportedOperationException();
@@ -72,6 +75,23 @@ public abstract class Value {
 	}
 	
 	protected Value subInt(IntegerValue arg) {
+		throw new UnsupportedOperationException();
+	}
+	
+	// Bool functions
+	protected Value andBool(BooleanValue arg) {
+		throw new UnsupportedOperationException();
+	}
+	
+	protected Value orBool(BooleanValue arg) {
+		throw new UnsupportedOperationException();
+	}
+	
+	protected Value eqBool(BooleanValue arg) {
+		throw new UnsupportedOperationException();
+	}
+	
+	protected Value neqBool(BooleanValue arg) {
 		throw new UnsupportedOperationException();
 	}
 }

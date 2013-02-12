@@ -11,4 +11,48 @@ public class BooleanValue extends Value {
 		return value;
 	}
 
+	@Override
+	public Value and(Value arg) {
+		return arg.andBool(this);
+	}
+	
+	@Override
+	public Value or(Value arg) {
+		return arg.orBool(this);
+	}
+	
+	@Override
+	public Value not() {
+		return new BooleanValue(!getValue());
+	}
+	
+	@Override
+	public Value eq(Value arg) {
+		return arg.eqBool(this);
+	}
+	
+	@Override
+	public Value neq(Value arg) {
+		return arg.neqBool(this);
+	}
+
+	@Override
+	protected Value andBool(BooleanValue arg) {
+		return new BooleanValue(arg.getValue() && getValue());
+	}
+
+	@Override
+	protected Value orBool(BooleanValue arg) {
+		return new BooleanValue(arg.getValue() || getValue());
+	}
+
+	@Override
+	protected Value eqBool(BooleanValue arg) {
+		return new BooleanValue(arg.getValue() == getValue());
+	}
+
+	@Override
+	protected Value neqBool(BooleanValue arg) {
+		return new BooleanValue(arg.getValue() != getValue());
+	}
 }

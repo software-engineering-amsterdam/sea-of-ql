@@ -32,6 +32,16 @@ public class IntegerValue extends Value {
 	public Value mul(Value arg) {
 		return arg.mulInt(this);
 	}
+	
+	@Override
+	public Value pos() {
+		return new IntegerValue(Math.abs(this.getValue()));
+	}
+	
+	@Override
+	public Value neg() {
+		return new IntegerValue(this.getValue()*-1);
+	}
 
 	/*
 	 * Values are reversed because of double dispatch
