@@ -1,6 +1,7 @@
 package org.uva.sea.ql.driver;
 
 import java.awt.EventQueue;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -11,30 +12,22 @@ import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JPanel;
 import javax.swing.JTextPane;
 
 import org.antlr.runtime.ANTLRStringStream;
 import org.antlr.runtime.CommonTokenStream;
-import org.uva.sea.ql.ast.QLProgram;
-import org.uva.sea.ql.ast.nodevisitor.TypeCheckVisitor;
+import org.uva.sea.ql.ast.statements.QLProgram;
+import org.uva.sea.ql.ast.visitor.TypeCheck;
 import org.uva.sea.ql.parser.antlr.QLLexer;
 import org.uva.sea.ql.parser.antlr.QLParser;
-import javax.swing.JPanel;
-import javax.swing.JLabel;
-import com.jgoodies.forms.layout.FormLayout;
-import com.jgoodies.forms.layout.ColumnSpec;
-import com.jgoodies.forms.layout.RowSpec;
-import com.jgoodies.forms.factories.FormFactory;
-import net.miginfocom.swing.MigLayout;
-import javax.swing.JTextField;
-import java.awt.Font;
+import org.uva.sea.ql.ui.QLForm;
 
 public class QLDriver extends JFrame implements ActionListener {
 
 	private static final long serialVersionUID = 5869298083469486262L;
-	private JButton btnNewButton;
-	private JTextPane txtpnFormNameofForm;
-	private JTextField textField;
+	private JButton runButton;
+	private JTextPane sourcePAne;
 
 	/**
 	 * Launch the application.
@@ -57,7 +50,7 @@ public class QLDriver extends JFrame implements ActionListener {
 	 */
 	public QLDriver() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 480, 355);
+		setBounds(100, 100, 480, 492);
 
 		JMenuBar menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
@@ -76,45 +69,38 @@ public class QLDriver extends JFrame implements ActionListener {
 		mnNewMenu.add(mntmNewMenuItem);
 		getContentPane().setLayout(null);
 
-		txtpnFormNameofForm = new JTextPane();
-		txtpnFormNameofForm.setFont(new Font("Arial", Font.PLAIN, 12));
-		txtpnFormNameofForm.setBounds(16, 15, 438, 219);
-		txtpnFormNameofForm
-				.setText("form First_Form { \r\n  doit:      \"1   line type boolean ...\" boolean\r\n  do  :      \"2    line type money.\" money\r\n  again:   \"3    line type integer\" integer\r\n  again2: \"4    line type boolean\" boolean\r\n   if ( again2 ) {\r\n            tomorow: \"5 conditional money\" money( do + again )  \r\n   }\r\n    if ( doit ) {\r\n          if ( doit == again2 ) {\r\n               tonight: \"6 double conditional money \" money\n\r\n          }\r\n    }\r\n}");
-		getContentPane().add(txtpnFormNameofForm);
+		sourcePAne = new JTextPane();
+		sourcePAne.setFont(new Font("Arial", Font.PLAIN, 12));
+		sourcePAne.setBounds(10, 0, 444, 382);
+		sourcePAne
+				.setText("form Box1HouseOwning {\r\n   hasSoldHouse: \"Did you sell a house in 2010?\" money\r\n   hasBoughtHouse: \"Did you by a house in 2010?\" integer ( hasSoldHouse ) \r\n   hasStoleHouse: \"Did you by a house in 2010?\"     money ( hasSoldHouse ) \r\n\r\n   hasMaintLoan: \"Did you enter a loan for maintenance/reconstruction?\" boolean\r\n}");
+		getContentPane().add(sourcePAne);
 
-		btnNewButton = new JButton("Run");
-		btnNewButton.setBounds(16, 246, 96, 29);
-		btnNewButton.addActionListener(this);
-		getContentPane().add(btnNewButton);
-		
+		runButton = new JButton("Run");
+		runButton.setBounds(16, 393, 96, 29);
+		runButton.addActionListener(this);
+		getContentPane().add(runButton);
+
 		JPanel panel = new JPanel();
-		panel.setBounds(146, 245, 260, 30);
+		panel.setBorder(null);
+		panel.setBounds(211, 412, 10, 10);
 		getContentPane().add(panel);
-		panel.setLayout(new MigLayout("", "[18px][][][][][][grow]", "[14px]"));
-		
-		JLabel lblEee = new JLabel("eee");
-		panel.add(lblEee, "cell 0 0,alignx left,aligny top");
-		
-		textField = new JTextField();
-		panel.add(textField, "cell 5 0 2 1,growx");
-		textField.setColumns(10);
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		if (e.getSource() == btnNewButton) {
+		if (e.getSource() == runButton) {
 			try {
-				ANTLRStringStream stream = new ANTLRStringStream(
-						txtpnFormNameofForm.getText());
+				ANTLRStringStream stream = new ANTLRStringStream(sourcePAne.getText());
 				CommonTokenStream tokens = new CommonTokenStream();
 				tokens.setTokenSource(new QLLexer(stream));
 				QLParser parser = new QLParser(tokens);
 
 				QLProgram qlprogram = parser.qlprogram();
+
 				if (parser.getErrorCount() == 0) {
 
-					TypeCheckVisitor typeCheck = new TypeCheckVisitor();
+					TypeCheck typeCheck = new TypeCheck();
 					qlprogram.accept(typeCheck);
 
 					if (typeCheck.getErrorCount() == 0) {
@@ -128,6 +114,7 @@ public class QLDriver extends JFrame implements ActionListener {
 					for (String errorString : parser.getErrors())
 						System.out.println(errorString);
 				}
+
 			} catch (Exception be) {
 				be.printStackTrace();
 			}

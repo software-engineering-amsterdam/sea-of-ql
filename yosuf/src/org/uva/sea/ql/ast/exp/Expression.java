@@ -1,9 +1,10 @@
 package org.uva.sea.ql.ast.exp;
 
 import org.uva.sea.ql.ast.ASTNode;
-import org.uva.sea.ql.visitor.ExpressionVisitor;
+import org.uva.sea.ql.ast.Natural;
+import org.uva.sea.ql.ast.Valuable;
 
-public abstract class Expression implements ASTNode {
+public abstract class Expression implements ASTNode, Natural, Valuable {
 
 	public enum Nature {
 		NUMERIC, BOOLEAN, TEXTUAL
@@ -12,8 +13,4 @@ public abstract class Expression implements ASTNode {
 	protected Expression() {
 		super();
 	}
-
-	public abstract <T> T accept(ExpressionVisitor<T> visitor);
-
-	public abstract Nature getNature();
 }

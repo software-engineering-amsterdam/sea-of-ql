@@ -40,6 +40,17 @@ public class TestExpressions {
 		assertEquals(parser.parseExpression("(a + b) * c").getClass(), Mul.class);
 		assertEquals(parser.parseExpression("a * (b + c)").getClass(), Mul.class);
 	}
+	
+	@Test
+	public void testDivs() throws ParseError {
+		assertEquals(Div.class, parser.parseExpression("a / b").getClass());
+		assertEquals(Div.class, parser.parseExpression("a / b / c").getClass());
+		assertEquals(Div.class, parser.parseExpression("a / (b / c)").getClass());
+		assertEquals(Div.class, parser.parseExpression("(a / b) / c").getClass());
+		assertEquals(Div.class, parser.parseExpression("(a / b)").getClass());
+		assertEquals(Div.class, parser.parseExpression("(a + b) / c").getClass());
+		assertEquals(Div.class, parser.parseExpression("a / (b + c)").getClass());
+	}
 
 	@Test
 	public void testRels() throws ParseError {

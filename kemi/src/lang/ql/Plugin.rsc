@@ -21,8 +21,7 @@ import lang::ql::compiler::PrettyPrinter;
 import lang::ql::compiler::web::Web;
 import lang::ql::ide::Outline;
 import lang::ql::syntax::QL;
-import lang::ql::util::Implode;
-import lang::ql::util::Parse;
+import lang::ql::util::ParseHelper;
 
 private str LANG_QL = "QL-R";
 private str EXT_QL = "q";

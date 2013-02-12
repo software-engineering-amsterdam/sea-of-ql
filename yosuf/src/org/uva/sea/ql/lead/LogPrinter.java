@@ -5,7 +5,8 @@ package org.uva.sea.ql.lead;
  * 
  */
 public class LogPrinter {
-	private static boolean debugOn = false;
+
+	private static boolean debugOn = true;
 
 	private LogPrinter() {
 		// only static

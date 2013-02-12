@@ -1,8 +1,11 @@
 package org.uva.sea.ql.ast;
 
+import org.uva.sea.ql.ast.expr.grouping.Expr;
+
 
 public abstract class Question implements Statement {
 
+	private static final long serialVersionUID = -1615595226266955315L;
 	private final String name;
 	private final String label;
 	private final int lineNumber;
@@ -24,5 +27,7 @@ public abstract class Question implements Statement {
 	public int getLineNumber() {
 		return lineNumber;
 	}
+
+	public abstract Expr getExpr();
 	
 }

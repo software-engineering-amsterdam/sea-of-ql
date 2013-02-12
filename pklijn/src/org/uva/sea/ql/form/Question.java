@@ -1,13 +1,12 @@
 package org.uva.sea.ql.form;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.swing.JComponent;
 import javax.swing.JLabel;
 
+import org.uva.sea.extensions.Tuple;
 import org.uva.sea.ql.ast.eval.Env;
 import org.uva.sea.ql.ast.expressions.Ident;
 import org.uva.sea.ql.ast.types.Type;
@@ -83,7 +82,7 @@ public class Question extends FormItem {
 	}
 	
 	@Override
-	public Map<Ident, Value> getAllValues() {
-		return new HashMap<Ident,Value>();
+	public List<Tuple<Ident, Value>> getAllValues() {
+		return new ArrayList<Tuple<Ident, Value>>();
 	}
 }

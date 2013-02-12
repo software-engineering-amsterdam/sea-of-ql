@@ -5,9 +5,9 @@ import lang::ql::ast::TypeEnvironment;
 
 public str generateExpr(Expr e:ident(str name), TypeEnv env) = generateExpr(e, getTypeForIdentifier(name, env));
 
-public str generateExpr(ident(str name), intType()) = "<name>Model.getNumber()";
-public str generateExpr(ident(str name), boolType()) = "new Boolean(<name>.isSelected())";
-public str generateExpr(ident(str name), stringType()) = "<name>.getText()";
+public str generateExpr(ident(str name), intType()) = "new Integer(<name>Model.getNumber().intValue())";
+public str generateExpr(ident(str name), boolType()) = "new Boolean(<name>Question.isSelected())";
+public str generateExpr(ident(str name), stringType()) = "<name>Question.getText()";
 
 public str generateExpr(\int(int integer), _) = "new Integer(<integer>)";
 public str generateExpr(\bool(bool boolean), _) = "new Boolean(<boolean>)";

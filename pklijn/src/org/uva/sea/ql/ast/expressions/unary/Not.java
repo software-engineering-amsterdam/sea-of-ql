@@ -1,6 +1,10 @@
 package org.uva.sea.ql.ast.expressions.unary;
 
 
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
+
 import org.uva.sea.ql.ast.eval.Env;
 import org.uva.sea.ql.ast.expressions.Expr;
 import org.uva.sea.ql.ast.types.BoolType;
@@ -12,7 +16,6 @@ public class Not extends Unary {
 
 	public Not(Expr arg) {
 		super(arg);
-		allowedTypes.add(new BoolType());
 	}
 
 	@Override
@@ -28,5 +31,10 @@ public class Not extends Unary {
 	@Override
 	public String toString() {
 		return "!" + getArg();
+	}
+
+	@Override
+	public Set<Type> allowedArgumentTypes() {
+		return new HashSet<Type>(Arrays.asList(new Type[] {new BoolType()}));
 	}
 }

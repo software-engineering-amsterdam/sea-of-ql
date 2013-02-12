@@ -38,6 +38,8 @@ public class Gui extends JFrame {
 			ast = parser.parseForm(charStream.toString());
 			ElementChecker.check(ast);
 			getContentPane().add(Renderer.render(ast, state));
+			getContentPane().validate();
+			getContentPane().repaint();
 		} catch (IOException e) {
 			e.printStackTrace();
 		} catch (ParseError e) {

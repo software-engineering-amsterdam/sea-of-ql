@@ -1,53 +1,26 @@
 package org.uva.sea.ql.ast.statement;
 
-import org.uva.sea.ql.ast.expression.Ident;
-import org.uva.sea.ql.visitor.IStatementVisitor;
+import org.uva.sea.ql.visitor.StatementVisitor;
 
-/**
- * Represents a form declaration node.
- */
 public class FormDeclaration extends Statement {
-	/**
-	 * Holds the identifier node.
-	 */
-	private final Ident ident;
+	private final String label;
+	private final Statements body;
 
-	/**
-	 * Holds the statements body.
-	 */
-	private final Statements statements;
-
-	/**
-	 * Constructs a new form declaration node.
-	 *
-	 * @param name
-	 * @param statements
-	 */
-	public FormDeclaration( Ident name, Statements statements ) {
-		this.ident = name;
-		this.statements = statements;
+	public FormDeclaration( String label, Statements body ) {
+		this.label = label;
+		this.body = body;
 	}
 
-	/**
-	 * Retrieves the declaration body.
-	 *
-	 * @return Declaration body.
-	 */
-	public Statements getStatements() {
-		return this.statements;
+	public Statements getBody() {
+		return this.body;
 	}
 
-	/**
-	 * Retrieves the identifier node.
-	 *
-	 * @return Declaration identifier.
-	 */
-	public Ident getIdent() {
-		return this.ident;
+	public String getLabel() {
+		return this.label;
 	}
 
 	@Override
-	public <T> T accept( IStatementVisitor<T> visitor ) {
+	public <T> T accept( StatementVisitor<T> visitor ) {
 		return visitor.visit( this );
 	}
 }

@@ -4,40 +4,26 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 
-import javax.swing.JPanel;
+import org.uva.sea.ql.ui.ControlFactory;
+import org.uva.sea.ql.ui.control.PanelControl;
+import org.uva.sea.ql.ui.control.WindowControl;
+import org.uva.sea.ql.ui.swing.SwingControlFactory;
+import org.uva.sea.ql.visitor.evaluator.Error;
 
-import org.uva.sea.ql.evaluator.Error;
-import org.uva.sea.ql.ui.Window;
-
-/**
- * Main program.
- */
 public class Program {
-	/**
-	 * Holds the interpreter.
-	 */
 	private final QLInterpreter interpreter;
+	private final ControlFactory factory;
 
-	/**
-	 * Main application entry point.
-	 *
-	 * @param args
-	 */
 	public static void main( String[] args ) {
 		Program program = new Program();
 		program.run();
 	}
 
-	/**
-	 * Constructs a new Program instance.
-	 */
 	public Program() {
-		this.interpreter = new QLInterpreter();
+		this.factory = new SwingControlFactory();
+		this.interpreter = new QLInterpreter( this.factory );
 	}
 
-	/**
-	 * Runs the program.
-	 */
 	public void run() {
 //		String source = "" +
 //			"form Foo {\n" +
@@ -66,19 +52,12 @@ public class Program {
 			return;
 		}
 
-		JPanel form = this.interpreter.getResult();
+		PanelControl formPanel = this.interpreter.getResult();
 
-		Window window = new Window( form.getName(), form );
-		window.setVisible( true );
+		WindowControl window = this.factory.createWindow( formPanel.getName(), formPanel );
+		window.show();
 	}
 
-	/**
-	 * Retrieves contents of given file.
-	 *
-	 * @param fileName
-	 *
-	 * @return The contents.
-	 */
 	private String getFileContents( String fileName ) {
 		BufferedReader br = null;
 		StringBuffer sb = new StringBuffer();

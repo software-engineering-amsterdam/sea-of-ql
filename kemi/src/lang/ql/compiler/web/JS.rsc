@@ -38,14 +38,7 @@ private str hideElement(str name) =
   "hide($(\"#<name><BLOCK>\"));";
 
 private str assignVar(str ident) =
-  "var <ident>;
-  'if($(\"#<ident>\").val() == \"true\") {
-  '  <ident> = true;
-  '} else if($(\"#<ident>\").val() == \"false\") {
-  '  <ident> = false;
-  '} else {
-  '  <ident> = $(\"#<ident>\").val();
-  '}";
+  "var <ident> = getFormValue(\"#<ident>\");";
   
 private set[str] getDirectDescendingIdents(Statement cond) {
   list[Statement] items = cond.ifPart.body;
@@ -74,19 +67,21 @@ private str JS(Form f) =
   "// THIS IS AN AUTOMATICALLY GENERATED FILE. DO NOT EDIT!
   '
   'function validate<f.formName.ident>() {
+  '
   '  $(\"#<f.formName.ident>\").validate({
   '    rules: {
   '      <createValidationRules(f)>
   '    }
   '  });
   '
+  '  // Make sure all elements are properly styled before registering events
+  '  styling();
+  '
   '  // The code to automatically generate calculated fields 
   '  <calculatedFields(f)>
   '
   '  // End with control flow functionality for branches etc. 
   '  <conditionalVisibility(f)>
-  '
-  '  styling();
   '}
   ";
   
@@ -125,36 +120,49 @@ private str individualCalculatedField(int cnt, str ident, Expr expr) {
     '  <assignVar(e)>
     '<}>
     '  result = <jsPrint(expr)>;
-    '  $(\"#<ident>\").val(result).change();  
+    '  setFormValue(\"#<ident>\", result);
     '}
     ";
 }  
 
 private str createValidationRules(Form f) {
-  list[tuple[str ident, str \type]] rules = [];
+  list[tuple[str ident, Type \type]] rules = [];
   
   top-down visit(f) {
-    case q: question(_, t, i): rules += [<i.ident, t.name>];
-    case q: question(_, t, i, _): rules += [<i.ident, t.name>];
+    case q: question(_, t, i): rules += [<i.ident, t>];
+    case q: question(_, t, i, _): rules += [<i.ident, t>];
   }
   
   return "<for (r <- rules) {>
     '<r.ident>: {
-    '  required: true,
-    '  <getTypeRule(r.\type)>: true
+    '  <getTypeRule(r.\type)>
     '},
     '<}>";
 }
 
-private str getTypeRule(str t) {
-  switch(t) {
-    case "integer": return "digits";
-    case "date": return "date";
-    case "money": return "number";
-    case "string": return "required";
-    case "boolean": return "required";
-  }
-}
+
+private str getTypeRule(Type t: integerType(_)) =
+  "required: true,
+  'digits: true
+  ";
+
+private str getTypeRule(Type t: dateType(_)) =
+  "required: true,
+  'date: true
+  ";
+
+private str getTypeRule(Type t: moneyType(_)) =
+  "required: true,
+  'number: true
+  ";
+
+private str getTypeRule(Type t: stringType(_)) =
+  "required: true,
+  ";
+
+private str getTypeRule(Type t: booleanType(_)) =
+  "required: true
+  ";
 
 private str conditionalVisibility(Form f) {
   list[Statement] conditionals = [];
@@ -191,12 +199,6 @@ private str individualConditional(int suffix, Statement cond) {
   for(cb <- cbs) {
     ret += "
     '$(\"#<cb>\").change(callback_<suffix>);
-    ";
-  }
-  
-  for(cb <- cbs) {
-    ret += "
-    '$(\"#<cb>\").click(callback_<suffix>);
     ";
   }
   

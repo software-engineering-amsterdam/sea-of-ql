@@ -1,22 +1,18 @@
 package org.uva.sea.ql.ast.type;
 
-import org.uva.sea.ql.visitor.ExpressionVisitor;
+import org.uva.sea.ql.ast.exp.Expression.Nature;
+import org.uva.sea.ql.visitor.NaturalVisitor;
 
 public class IntegerType extends DataType {
 
 	@Override
-	public <T> T accept(final ExpressionVisitor<T> visitor) {
+	public <T> T accept(final NaturalVisitor<T> visitor) {
 		return visitor.visit(this);
 	}
 
 	@Override
 	public Nature getNature() {
 		return Nature.NUMERIC;
-	}
-
-	@Override
-	public String toString() {
-		return "IntegerType [getNature()=" + getNature() + "]";
 	}
 
 }
