@@ -1,7 +1,7 @@
 package org.uva.sea.ql.ast.statements;
 
 import org.antlr.runtime.Token;
-import org.uva.sea.ql.ast.literals.Result;
+import org.uva.sea.ql.ast.operatorresults.Result;
 import org.uva.sea.ql.ast.operators.Expr;
 import org.uva.sea.ql.ast.operators.Ident;
 import org.uva.sea.ql.ast.types.Type;

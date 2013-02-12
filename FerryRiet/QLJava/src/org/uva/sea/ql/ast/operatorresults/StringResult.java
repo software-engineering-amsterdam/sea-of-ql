@@ -1,4 +1,4 @@
-package org.uva.sea.ql.ast.literals;
+package org.uva.sea.ql.ast.operatorresults;
 
 import java.math.BigDecimal;
 
@@ -145,6 +145,86 @@ public class StringResult extends Result {
 
 	@Override
 	public Result doEq(BooleanResult eq) {
+		throw new UnsupportedOperationException();
+	}
+
+	@Override
+	public Result and(Result eq) {
+		throw new UnsupportedOperationException();
+	}
+
+	@Override
+	public Result doAnd(BooleanResult ander) {
+		throw new UnsupportedOperationException();
+	}
+
+	@Override
+	public Result geq(Result g) {
+		throw new UnsupportedOperationException();
+	}
+
+	@Override
+	public Result doGeq(MoneyResult g) {
+		throw new UnsupportedOperationException();
+	}
+
+	@Override
+	public Result doGeq(IntegerResult g) {
+		throw new UnsupportedOperationException();
+	}
+
+	@Override
+	public Result gt(Result g) {
+		throw new UnsupportedOperationException();
+	}
+
+	@Override
+	public Result doGt(MoneyResult g) {
+		throw new UnsupportedOperationException();
+	}
+
+	@Override
+	public Result doGt(IntegerResult g) {
+		throw new UnsupportedOperationException();
+	}
+
+	@Override
+	public Result lt(Result g) {
+		throw new UnsupportedOperationException();
+	}
+
+	@Override
+	public Result doLt(MoneyResult g) {
+		throw new UnsupportedOperationException();
+	}
+
+	@Override
+	public Result doLt(IntegerResult g) {
+		throw new UnsupportedOperationException();
+	}
+
+	@Override
+	public Result leq(Result g) {
+		throw new UnsupportedOperationException();
+	}
+
+	@Override
+	public Result doLeq(MoneyResult g) {
+		throw new UnsupportedOperationException();
+	}
+
+	@Override
+	public Result doLeq(IntegerResult g) {
+		throw new UnsupportedOperationException();
+	}
+
+	@Override
+	public Result or(Result eq) {
+		throw new UnsupportedOperationException();
+	}
+
+	@Override
+	public Result doOr(BooleanResult ander) {
 		throw new UnsupportedOperationException();
 	}
 }

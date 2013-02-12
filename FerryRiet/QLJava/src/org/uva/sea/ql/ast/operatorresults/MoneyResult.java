@@ -1,4 +1,4 @@
-package org.uva.sea.ql.ast.literals;
+package org.uva.sea.ql.ast.operatorresults;
 
 import java.math.BigDecimal;
 
@@ -79,12 +79,14 @@ public class MoneyResult extends Result {
 	}
 
 	public Result doSub(MoneyResult subber) {
-		return new MoneyResult(subber.getMoneyValue().subtract(this.getMoneyValue()));
+		return new MoneyResult(subber.getMoneyValue().subtract(
+				this.getMoneyValue()));
 	}
 
 	public Result doSub(IntegerResult subber) {
-		return new MoneyResult(new BigDecimal(subber.getIntegerValue()).subtract(this
-				.getMoneyValue()));
+		return new MoneyResult(
+				new BigDecimal(subber.getIntegerValue()).subtract(this
+						.getMoneyValue()));
 	}
 
 	@Override
@@ -94,13 +96,14 @@ public class MoneyResult extends Result {
 
 	@Override
 	public Result doMul(MoneyResult money) {
-		return new MoneyResult(money.getMoneyValue().multiply(this.getMoneyValue()));
+		return new MoneyResult(money.getMoneyValue().multiply(
+				this.getMoneyValue()));
 	}
 
 	@Override
 	public Result doMul(IntegerResult inte) {
-		return new MoneyResult((this.getMoneyValue()).multiply(new BigDecimal(inte
-				.getIntegerValue())));
+		return new MoneyResult((this.getMoneyValue()).multiply(new BigDecimal(
+				inte.getIntegerValue())));
 	}
 
 	@Override
@@ -112,7 +115,8 @@ public class MoneyResult extends Result {
 	public Result doDiv(MoneyResult diver) {
 		Result result;
 		try {
-			result = new MoneyResult(diver.getMoneyValue().divide(this.getMoneyValue()));
+			result = new MoneyResult(diver.getMoneyValue().divide(
+					this.getMoneyValue()));
 		} catch (ArithmeticException e) {
 			result = new MoneyResult(0);
 		}
@@ -124,7 +128,8 @@ public class MoneyResult extends Result {
 		Result result;
 		try {
 			result = new MoneyResult(
-					new BigDecimal(diver.getIntegerValue()).divide(getMoneyValue()));
+					new BigDecimal(diver.getIntegerValue())
+							.divide(getMoneyValue()));
 		} catch (ArithmeticException e) {
 			result = new MoneyResult(0);
 		}
@@ -138,7 +143,8 @@ public class MoneyResult extends Result {
 
 	@Override
 	public Result doEq(MoneyResult equ) {
-		return new BooleanResult(equ.getMoneyValue().compareTo(this.getMoneyValue()) == 0);
+		return new BooleanResult(equ.getMoneyValue().compareTo(
+				this.getMoneyValue()) == 0);
 	}
 
 	@Override
@@ -149,6 +155,98 @@ public class MoneyResult extends Result {
 
 	@Override
 	public Result doEq(BooleanResult equ) {
+		throw new UnsupportedOperationException();
+	}
+
+	@Override
+	public Result and(Result eq) {
+		throw new UnsupportedOperationException();
+	}
+
+	@Override
+	public Result doAnd(BooleanResult ander) {
+		throw new UnsupportedOperationException();
+	}
+
+	@Override
+	public Result geq(Result g) {
+		return g.doGeq(this);
+	}
+
+	@Override
+	public Result doGeq(MoneyResult g) {
+		return new BooleanResult(g.getMoneyValue().compareTo(
+				this.getMoneyValue()) >= 0);
+	}
+
+	@Override
+	public Result doGeq(IntegerResult g) {
+		return new BooleanResult(
+				(new BigDecimal(g.getIntegerValue()).compareTo(this
+						.getMoneyValue())) >= 0);
+	}
+
+	@Override
+	public Result gt(Result g) {
+		return g.doGt(this);
+	}
+
+	@Override
+	public Result doGt(MoneyResult g) {
+		return new BooleanResult(g.getMoneyValue().compareTo(
+				this.getMoneyValue()) > 0);
+	}
+
+	@Override
+	public Result doGt(IntegerResult g) {
+		return new BooleanResult(
+				(new BigDecimal(g.getIntegerValue()).compareTo(this
+						.getMoneyValue())) > 0);
+	}
+
+	@Override
+	public Result lt(Result g) {
+		return g.doLt(this);
+	}
+
+	@Override
+	public Result doLt(MoneyResult g) {
+		return new BooleanResult(g.getMoneyValue().compareTo(
+				this.getMoneyValue()) < 0);
+	}
+
+	@Override
+	public Result doLt(IntegerResult g) {
+		return new BooleanResult(
+				(new BigDecimal(g.getIntegerValue()).compareTo(this
+						.getMoneyValue())) < 0);
+	}
+
+	@Override
+	public Result leq(Result g) {
+		return g.doLeq(this);
+	}
+
+	@Override
+	public Result doLeq(MoneyResult g) {
+		return new BooleanResult(g.getMoneyValue().compareTo(
+				this.getMoneyValue()) <= 0);
+	}
+
+	@Override
+	public Result doLeq(IntegerResult g) {
+		return new BooleanResult(
+				(new BigDecimal(g.getIntegerValue()).compareTo(this
+						.getMoneyValue())) <= 0);
+	}
+
+	@Override
+	public Result or(Result eq) {
+		throw new UnsupportedOperationException();
+	}
+
+	@Override
+	public Result doOr(BooleanResult ander) {
 		throw new UnsupportedOperationException();
 	}
 }

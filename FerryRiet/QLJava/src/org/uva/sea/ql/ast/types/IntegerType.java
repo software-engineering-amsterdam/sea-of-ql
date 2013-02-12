@@ -1,7 +1,7 @@
 package org.uva.sea.ql.ast.types;
 
-import org.uva.sea.ql.ast.literals.IntegerResult;
-import org.uva.sea.ql.ast.literals.Result;
+import org.uva.sea.ql.ast.operatorresults.IntegerResult;
+import org.uva.sea.ql.ast.operatorresults.Result;
 
 public class IntegerType extends Type {
 

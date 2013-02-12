@@ -2,7 +2,7 @@ package org.uva.sea.ql.ast.operators;
 
 import java.util.HashMap;
 
-import org.uva.sea.ql.ast.literals.Result;
+import org.uva.sea.ql.ast.operatorresults.Result;
 import org.uva.sea.ql.ast.statements.Statement;
 import org.uva.sea.ql.ast.types.IntegerType;
 import org.uva.sea.ql.ast.types.Type;

@@ -1,4 +1,4 @@
-package org.uva.sea.ql.ast.literals;
+package org.uva.sea.ql.ast.operatorresults;
 
 import java.math.BigDecimal;
 
@@ -61,5 +61,27 @@ public abstract class Result {
 	public abstract Result doEq(MoneyResult eq);
 	public abstract Result doEq(IntegerResult eq);
 	public abstract Result doEq(BooleanResult eq);
+
+	public abstract Result and(Result eq);
+	public abstract Result doAnd(BooleanResult ander);
+	
+	public abstract Result geq(Result g);
+	public abstract Result doGeq(MoneyResult g);
+	public abstract Result doGeq(IntegerResult g);
+
+	public abstract Result gt(Result g);
+	public abstract Result doGt(MoneyResult g);
+	public abstract Result doGt(IntegerResult g);
+
+	public abstract Result lt(Result g);
+	public abstract Result doLt(MoneyResult g);
+	public abstract Result doLt(IntegerResult g);
+	
+	public abstract Result leq(Result g);
+	public abstract Result doLeq(MoneyResult g);
+	public abstract Result doLeq(IntegerResult g);
+
+	public abstract Result or(Result eq);
+	public abstract Result doOr(BooleanResult ander);
 
 }

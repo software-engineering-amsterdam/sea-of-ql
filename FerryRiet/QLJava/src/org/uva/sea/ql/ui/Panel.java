@@ -7,7 +7,7 @@ import java.util.Observable;
 
 import javax.swing.JPanel;
 
-import org.uva.sea.ql.ast.literals.Result;
+import org.uva.sea.ql.ast.operatorresults.Result;
 
 public abstract class Panel extends Observable implements ActionListener {
 

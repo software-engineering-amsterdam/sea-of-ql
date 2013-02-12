@@ -9,7 +9,7 @@ import javax.swing.JPanel;
 
 import net.miginfocom.swing.MigLayout;
 
-import org.uva.sea.ql.ast.literals.Result;
+import org.uva.sea.ql.ast.operatorresults.Result;
 
 public class CompoundPanel extends Panel {
 	private JPanel compoundJPanel;

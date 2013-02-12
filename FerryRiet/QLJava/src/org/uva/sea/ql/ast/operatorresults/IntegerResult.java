@@ -1,4 +1,4 @@
-package org.uva.sea.ql.ast.literals;
+package org.uva.sea.ql.ast.operatorresults;
 
 import java.math.BigDecimal;
 
@@ -90,7 +90,8 @@ public class IntegerResult extends Result {
 
 	@Override
 	public Result doAdd(IntegerResult inte) {
-		return new IntegerResult(this.getIntegerValue() + inte.getIntegerValue());
+		return new IntegerResult(this.getIntegerValue()
+				+ inte.getIntegerValue());
 	}
 
 	@Override
@@ -106,8 +107,10 @@ public class IntegerResult extends Result {
 
 	@Override
 	public Result doSub(IntegerResult subber) {
-		return new IntegerResult(subber.getIntegerValue() - this.getIntegerValue());
+		return new IntegerResult(subber.getIntegerValue()
+				- this.getIntegerValue());
 	}
+
 	@Override
 	public Result mul(Result muller) {
 		return muller.doMul(this);
@@ -121,7 +124,8 @@ public class IntegerResult extends Result {
 
 	@Override
 	public Result doMul(IntegerResult muller) {
-		return new IntegerResult(this.getIntegerValue() * muller.getIntegerValue());
+		return new IntegerResult(this.getIntegerValue()
+				* muller.getIntegerValue());
 	}
 
 	@Override
@@ -145,30 +149,117 @@ public class IntegerResult extends Result {
 	public Result doDiv(IntegerResult diver) {
 		Result result;
 		try {
-			result = new IntegerResult(diver.getIntegerValue() / this.getIntegerValue());
+			result = new IntegerResult(diver.getIntegerValue()
+					/ this.getIntegerValue());
 		} catch (ArithmeticException e) {
-			result = new IntegerResult(0) ;
+			result = new IntegerResult(0);
 		}
-		return result ;
+		return result;
 	}
 
 	@Override
 	public Result eq(Result eq) {
-		return null;
+		return eq.div(this);
 	}
 
 	@Override
 	public Result doEq(MoneyResult equ) {
-		return new BooleanResult(equ.getMoneyValue().compareTo(new BigDecimal(this.getIntegerValue())) == 0);
+		return new BooleanResult(equ.getMoneyValue().compareTo(
+				new BigDecimal(this.getIntegerValue())) == 0);
 	}
 
 	@Override
 	public Result doEq(IntegerResult equ) {
-		return new BooleanResult(equ.getIntegerValue() == this.getIntegerValue()) ;
+		return new BooleanResult(
+				equ.getIntegerValue() == this.getIntegerValue());
 	}
 
 	@Override
 	public Result doEq(BooleanResult equ) {
+		throw new UnsupportedOperationException();
+	}
+
+	@Override
+	public Result and(Result eq) {
+		throw new UnsupportedOperationException();
+	}
+
+	@Override
+	public Result doAnd(BooleanResult ander) {
+		throw new UnsupportedOperationException();
+	}
+
+	@Override
+	public Result geq(Result g) {
+		return g.doGeq(this);
+	}
+
+	@Override
+	public Result doGeq(MoneyResult g) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Result doGeq(IntegerResult g) {
+		return new BooleanResult(g.getIntegerValue() >= this.getIntegerValue());
+	}
+
+	@Override
+	public Result gt(Result g) {
+		return g.doGt(this);
+	}
+
+	@Override
+	public Result doGt(MoneyResult g) {
+		return new BooleanResult(g.getMoneyValue().compareTo(
+				new BigDecimal(this.getIntegerValue())) > 0);
+	}
+
+	@Override
+	public Result doGt(IntegerResult g) {
+		return new BooleanResult(g.getIntegerValue() > this.getIntegerValue());
+	}
+
+	@Override
+	public Result lt(Result g) {
+		return g.doLt(this);
+	}
+
+	@Override
+	public Result doLt(MoneyResult g) {
+		return new BooleanResult(g.getMoneyValue().compareTo(
+				new BigDecimal(this.getIntegerValue())) < 0);
+	}
+
+	@Override
+	public Result doLt(IntegerResult g) {
+		return new BooleanResult(g.getIntegerValue() < this.getIntegerValue());
+	}
+
+	@Override
+	public Result leq(Result g) {
+		return g.doLeq(this);
+	}
+
+	@Override
+	public Result doLeq(MoneyResult g) {
+		return new BooleanResult(g.getMoneyValue().compareTo(
+				new BigDecimal(this.getIntegerValue())) <= 0);
+	}
+
+	@Override
+	public Result doLeq(IntegerResult g) {
+		return new BooleanResult(g.getIntegerValue() <= this.getIntegerValue());
+	}
+
+	@Override
+	public Result or(Result eq) {
+		throw new UnsupportedOperationException();
+	}
+
+	@Override
+	public Result doOr(BooleanResult ander) {
 		throw new UnsupportedOperationException();
 	}
 }
