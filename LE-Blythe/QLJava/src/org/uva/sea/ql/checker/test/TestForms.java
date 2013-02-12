@@ -6,7 +6,7 @@ import java.util.List;
 
 import org.junit.Test;
 import org.uva.sea.ql.ast.Statement;
-import org.uva.sea.ql.checker.VisitorChecker;
+import org.uva.sea.ql.checker.VisitorStatementChecker;
 import org.uva.sea.ql.checker.errors.Error;
 import org.uva.sea.ql.checker.errors.ExpressionTypeError;
 import org.uva.sea.ql.checker.errors.IdentifierExistsError;
@@ -19,7 +19,7 @@ import org.uva.sea.ql.util.FormStringBuilder;
 public class TestForms {
 
 	/** Confirm that the checker found the error we were expecting to get.
-	 * Provided is the list of errors that were enocuntered by the checker
+	 * Provided is the list of errors that were encountered by the checker
 	 * It is possible that more than one error is contained in the list due to errors
 	 * cascading. Therefore, this method checks to see if the expected error is found 
 	 * amongst those received
@@ -55,7 +55,7 @@ public class TestForms {
 	 */
 	private boolean faulty(Class<?> expectedFailureType, String... args) throws Exception{
 		
-		VisitorChecker checker = new VisitorChecker();
+		VisitorStatementChecker checker = new VisitorStatementChecker();
 		
 		Statement form = execute(args);
 		form.accept(checker);
@@ -72,7 +72,7 @@ public class TestForms {
 	 *  no errors
 	 */
 	private boolean correct(String... args) throws Exception{
-		VisitorChecker checker = new VisitorChecker();
+		VisitorStatementChecker checker = new VisitorStatementChecker();
 		
 		Statement form = execute(args);
 		form.accept(checker);

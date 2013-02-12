@@ -7,7 +7,6 @@ import org.uva.sea.ql.ast.Expr;
 import org.uva.sea.ql.ast.Ident;
 import org.uva.sea.ql.ast.OperatorBinary;
 import org.uva.sea.ql.ast.OperatorUnary;
-import org.uva.sea.ql.ast.Statement;
 import org.uva.sea.ql.ast.operative.Add;
 import org.uva.sea.ql.ast.operative.And;
 import org.uva.sea.ql.ast.operative.Div;
@@ -26,35 +25,28 @@ import org.uva.sea.ql.ast.operative.Sub;
 import org.uva.sea.ql.ast.primitive.Int;
 import org.uva.sea.ql.ast.primitive.Str;
 import org.uva.sea.ql.ast.primitive.Undefined;
-import org.uva.sea.ql.ast.statement.Block;
-import org.uva.sea.ql.ast.statement.Form;
-import org.uva.sea.ql.ast.statement.IfThen;
-import org.uva.sea.ql.ast.statement.IfThenElse;
-import org.uva.sea.ql.ast.statement.QuestionAnswerable;
-import org.uva.sea.ql.ast.statement.QuestionComputed;
 import org.uva.sea.ql.ast.types.Bool;
 import org.uva.sea.ql.ast.types.Numeric;
 import org.uva.sea.ql.ast.types.Type;
 import org.uva.sea.ql.checker.errors.Error;
 import org.uva.sea.ql.checker.errors.ExpressionTypeError;
-import org.uva.sea.ql.checker.errors.IdentifierExistsError;
 import org.uva.sea.ql.checker.errors.IdentifierScopeError;
-import org.uva.sea.ql.interfaces.IVisitor;
+import org.uva.sea.ql.interfaces.IVisitorExpr;
 import org.uva.sea.ql.util.Environment;
 
-public class VisitorChecker implements IVisitor<Void> {
+public class VisitorExprChecker implements IVisitorExpr<Void> {
 
 	private Environment environment;
 	private List<Error> errors;
 	
 	
-	public VisitorChecker(){
+	public VisitorExprChecker(){
 		environment = new Environment();
 		errors = new ArrayList<Error>();
 	}
 
 	
-	public VisitorChecker(Environment env, List<Error> errors){
+	public VisitorExprChecker(Environment env, List<Error> errors){
 		this.environment = env;
 		this.errors = errors;
 	}
@@ -94,15 +86,6 @@ public class VisitorChecker implements IVisitor<Void> {
 	}
 	
 	
-	private boolean identifierExists(Ident ident){
-		if(environment.contains(ident)){
-			errors.add(new IdentifierExistsError(ident));
-			return true;
-		}
-		
-		return false;
-	}
-
 	@Override
 	public Void visit(Ident ident) {
 		if(!ident.typeOf(environment).isDefinedType()){
@@ -112,78 +95,6 @@ public class VisitorChecker implements IVisitor<Void> {
 		return null;
 	}
 
-	@Override
-	public Void visit(Form form) {
-		form.getBlock().accept(this);
-		return null;
-	}
-
-	@Override
-	public Void visit(Block block) {
-		
-		//create a new instance of the visitor checker which uses a clone 
-		//of the current environment. We do this because any identifiers
-		//declared within this block must stay within the scope of this block
-		VisitorChecker blockVisitor = new VisitorChecker(environment.clone(), errors);
-		
-		for(Statement stmt: block.getStatements()){
-			stmt.accept(blockVisitor);
-		}
-		
-		return null;
-	}
-	
-	@Override
-	public Void visit(IfThen branch) {
-
-		Type type = new Bool();
-		checkExpression(branch.getIfCondition(), type);
-		branch.getIfBlock().accept(this);
-		
-		return null;
-	}
-	
-	
-	public Void visit(IfThenElse branch) {
-		Type type = new Bool();
-		checkExpression(branch.getIfCondition(), type);
-		branch.getIfBlock().accept(this);
-		branch.getElseBlock().accept(this);
-		
-		return null;
-	}
-	
-	@Override
-	public Void visit(QuestionAnswerable question) {
-		
-		Ident ident = question.getIdentifier();
-		
-		if(!identifierExists(ident))
-			environment.add(ident, question.getValue() );
-		
-		return null;
-	}
-	
-	@Override
-	public Void visit(QuestionComputed question) {
-		
-		Ident ident = question.getIdentifier();
-		Expr val = question.getValue();
-		
-		//the type of the declared identifier is inferred from the
-		//type of the expression that follows it's definition.
-		//i.e. val:integer has type integer
-		//i.e. val:a+b has type numeric
-		Type typeOfIdent = question.getValue().typeOf(environment);
-		
-		checkExpression(val, typeOfIdent);
-		
-		if(!identifierExists(ident))
-			environment.add(ident, val);
-		
-		return null;
-	}
-	
 	
 	public boolean errorsFound(){
 		return errors.size() > 0;

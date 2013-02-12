@@ -5,7 +5,7 @@ import java.io.FileNotFoundException;
 import java.io.PrintStream;
 import java.util.Scanner;
 
-import org.uva.sea.ql.ast.ASTNode;
+import org.uva.sea.ql.ast.Statement;
 import org.uva.sea.ql.checker.errors.Error;
 import org.uva.sea.ql.parser.rats.ParseError;
 import org.uva.sea.ql.parser.rats.RatsParser;
@@ -43,14 +43,14 @@ public class FormChecker {
 	}
 	
 	
-	private ASTNode parse(String input) throws ParseError{
+	private Statement parse(String input) throws ParseError{
 		return new RatsParser().parse(input); 
 	}
 	
 	
-	private void checkForm(ASTNode form) throws Exception{
+	private void checkForm(Statement form) throws Exception{
 		
-		VisitorChecker visitor = new VisitorChecker();
+		VisitorStatementChecker visitor = new VisitorStatementChecker();
 		form.accept(visitor);
 		
 		if(visitor.getErrors().size() == 0){
@@ -68,7 +68,7 @@ public class FormChecker {
 	
 	private void executeValidation(String filename) throws Exception{
 		String input = readFile(filename);
-		ASTNode form = parse(input);
+		Statement form = parse(input);
 		
 		checkForm(form);
 	}

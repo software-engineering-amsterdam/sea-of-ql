@@ -22,15 +22,9 @@ import org.uva.sea.ql.ast.primitive.Bool;
 import org.uva.sea.ql.ast.primitive.Int;
 import org.uva.sea.ql.ast.primitive.Str;
 import org.uva.sea.ql.ast.primitive.Undefined;
-import org.uva.sea.ql.ast.statement.Block;
-import org.uva.sea.ql.ast.statement.Form;
-import org.uva.sea.ql.ast.statement.IfThen;
-import org.uva.sea.ql.ast.statement.IfThenElse;
-import org.uva.sea.ql.ast.statement.QuestionAnswerable;
-import org.uva.sea.ql.ast.statement.QuestionComputed;
-import org.uva.sea.ql.interfaces.IVisitor;
+import org.uva.sea.ql.interfaces.IVisitorExpr;
 
-public class VisitorPrint implements IVisitor<String>{
+public class VisitorExprPrint implements IVisitorExpr<String>{
 
 	private static final String UNDEFINED = "undefined";
 	
@@ -123,38 +117,6 @@ public class VisitorPrint implements IVisitor<String>{
 	@Override
 	public String visit(Sub ast) {
 		return printOperatorBinary(ast, "-");
-	}
-
-	@Override
-	public String visit(Form form) {
-		return null;
-	}
-
-	@Override
-	public String visit(Block block) {
-		return null;
-	}
-
-	@Override
-	public String visit(IfThen branch) {
-		return null;
-	}
-	
-	@Override
-	public String visit(IfThenElse branch) {
-		return null;
-	}
-	
-	@Override
-	public String visit(QuestionAnswerable question) {
-		return null;
-	}
-	
-	
-	@Override
-	public String visit(QuestionComputed question) {
-		// TODO Auto-generated method stub
-		return null;
 	}
 	
 	@Override

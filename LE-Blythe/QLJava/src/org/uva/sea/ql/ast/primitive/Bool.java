@@ -2,7 +2,7 @@ package org.uva.sea.ql.ast.primitive;
 
 import org.uva.sea.ql.ast.Primitive;
 import org.uva.sea.ql.ast.types.Type;
-import org.uva.sea.ql.interfaces.IVisitor;
+import org.uva.sea.ql.interfaces.IVisitorExpr;
 import org.uva.sea.ql.util.Environment;
 
 public class Bool extends Primitive {
@@ -14,7 +14,7 @@ public class Bool extends Primitive {
 	}
 	
 	
-	public Boolean getValue(){
+	public boolean getValue(){
 		return value;
 	}
 	
@@ -24,7 +24,7 @@ public class Bool extends Primitive {
 	}
 	
 	@Override
-	public <T> T accept(IVisitor<T> visitor) {
+	public <T> T accept(IVisitorExpr<T> visitor) {
 		return visitor.visit(this);
 	}
 }
