@@ -1,4 +1,4 @@
-package org.uva.sea.ql.visitor;
+package org.uva.sea.ql.visitor.renderer;
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;
@@ -18,6 +18,8 @@ import org.uva.sea.ql.ast.stmt.question.ComputedQuestion;
 import org.uva.sea.ql.ast.stmt.question.NormalQuestion;
 import org.uva.sea.ql.ast.stmt.question.Question;
 import org.uva.sea.ql.message.Message;
+import org.uva.sea.ql.visitor.IFormVisitor;
+import org.uva.sea.ql.visitor.valueCheck.ValueMapper;
 
 public class FormRenderer implements IFormVisitor {
 	private STGroup formTemplate = new STGroupFile(System.getProperty("user.dir") + "/files/templates/page.stg", '$', '$');

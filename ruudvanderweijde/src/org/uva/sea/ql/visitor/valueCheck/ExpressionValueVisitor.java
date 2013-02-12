@@ -1,4 +1,4 @@
-package org.uva.sea.ql.visitor;
+package org.uva.sea.ql.visitor.valueCheck;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,6 +28,7 @@ import org.uva.sea.ql.value.IntegerValue;
 import org.uva.sea.ql.value.StringValue;
 import org.uva.sea.ql.value.UndefinedValue;
 import org.uva.sea.ql.value.Value;
+import org.uva.sea.ql.visitor.IExpressionVisitor;
 
 public class ExpressionValueVisitor implements IExpressionVisitor<Value> {
 	private final ValueMapper valueMapper;
@@ -123,26 +124,20 @@ public class ExpressionValueVisitor implements IExpressionVisitor<Value> {
 
 	@Override
 	public Value visit(Neg expr) {
-//		Value left = expr.getLhs().accept(this);
-//		Value right = expr.getRhs().accept(this);
-//		return left.neg(right);
-		return null;
+		Value arg = expr.getArg().accept(this);
+		return arg.neg();
 	}
 
 	@Override
 	public Value visit(Not expr) {
-//		Value left = expr.getLhs().accept(this);
-//		Value right = expr.getRhs().accept(this);
-//		return left.not(right);
-		return null;
+		Value arg = expr.getArg().accept(this);
+		return arg.not();
 	}
 
 	@Override
 	public Value visit(Pos expr) {
-//		Value left = expr.getLhs().accept(this);
-//		Value right = expr.getRhs().accept(this);
-//		return left.pos(right);
-		return null;
+		Value arg = expr.getArg().accept(this);
+		return arg.pos();
 	}
 
 	@Override

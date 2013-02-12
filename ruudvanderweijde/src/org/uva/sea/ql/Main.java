@@ -14,10 +14,10 @@ import org.uva.sea.ql.ast.Form;
 import org.uva.sea.ql.message.Message;
 import org.uva.sea.ql.parser.ANTLRParser;
 import org.uva.sea.ql.parser.error.ParseError;
-import org.uva.sea.ql.visitor.FormRenderer;
-import org.uva.sea.ql.visitor.ValueMapper;
+import org.uva.sea.ql.visitor.renderer.FormRenderer;
 import org.uva.sea.ql.visitor.typeCheck.FormTypeCheckVisitor;
 import org.uva.sea.ql.visitor.typeCheck.TypeMapper;
+import org.uva.sea.ql.visitor.valueCheck.ValueMapper;
 
 /*
  * This file is added to test the QL program
