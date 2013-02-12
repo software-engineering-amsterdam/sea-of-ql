@@ -1,7 +1,8 @@
 package org.uva.sea.ql.ast.expressions.unary;
 
 import org.uva.sea.ql.ast.Expr;
-import org.uva.sea.ql.ast.types.Int;
+import org.uva.sea.ql.ast.types.IntType;
+import org.uva.sea.ql.ast.types.Type;
 import org.uva.sea.ql.ast.visitor.SymbolTable;
 
 /**
@@ -17,24 +18,10 @@ public class Pos extends UnaryExpr {
 	 * @param argument
 	 */
 	public Pos(Expr argument){
-		super(argument, "+"); 
+		super(argument); 
 	}
-	/**
-	 * getType
-	 * @param st - the table to check for the type
-	 * @return Expr - type
-	 */
 	@Override
-	public Expr getType(SymbolTable st) {
-		return new Int();
-	}
-	/**
-	 * isCompatibleTo
-	 * @param t type
-	 * @return boolean - true if compatible false otherwise
-	 */
-	@Override
-	public boolean isCompatibleTo(Expr t) {
-		return (t.isCompatibleWithInt() || t.isCompatibleWithMoney());
+	public Type typeOf(SymbolTable st) {
+		return new IntType();
 	}
 }

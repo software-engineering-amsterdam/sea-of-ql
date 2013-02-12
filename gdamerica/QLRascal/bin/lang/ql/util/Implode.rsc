@@ -13,8 +13,12 @@ import ParseTree;
 import IO;
 
 public Form implode(Tree t) = implode(#Form, t);
-public Form load(loc l) = implode(parse(readFile(l), l));
 
-public Form load(str txt) = implode(#Form, parse(#Form, txt));
+public Form load(loc l) = implode(parseForm(readFile(l)));
+
+public Expr loadE(str x) = implode(#Expr, parseExpression(x));
+
+
+
 
 

@@ -27,11 +27,11 @@ str generateQuestion(noncomputed(str identifier, str label, Type tp), parentPane
 	
 str generateQuestion(computed(str identifier, str label, Type tp, _), parentPanel) = 
 	"<generateQuestion(identifier, label, tp, parentPanel)>
-	'<identifier>.setEnabled(false);\n";
+	'<identifier>Question.setEnabled(false);\n";
 
 str generateQuestion(str identifier, str label, Type tp, str parentPanel) = 
 	"
-	'<if(stringType() := tp){ ><identifier>.addFocusListener(this);<} else {><identifier>.addChangeListener(this);<}>
+	'<if(stringType() := tp){ ><identifier>Question.addFocusListener(this);<} else {><identifier>Question.addChangeListener(this);<}>
 	'
 	'JPanel <identifier>Panel = new JPanel();
 	'<identifier>Panel.setBorder(BorderFactory.createEmptyBorder(0, 0, 10, 0));
@@ -41,7 +41,7 @@ str generateQuestion(str identifier, str label, Type tp, str parentPanel) =
 	'<identifier>Label.setHorizontalAlignment(SwingConstants.RIGHT);
 	'
   	'<identifier>Panel.add(<identifier>Label);
-  	'<identifier>Panel.add(<identifier>);
+  	'<identifier>Panel.add(<identifier>Question);
   	'<parentPanel>.add(<identifier>Panel);\n";
   	
 str generatePanels(list[Statement] thenPart, list[ElseIf] elseIfs, list[Statement] elsePart, str parentPanel, str id) {

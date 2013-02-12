@@ -11,5 +11,11 @@ form IncorrectQuestions {
 	computed: "A computed question" bool(9 > 8)
 	computed: "So, not non-computed" bool
 	
+	nonComputedDuplicate: "A non computed question ..." string
+	nonComputedDuplicate: "... that is duplicated" string
+	
+	computedDuplicate: "A computed question ..." int(-10)
+	computedDuplicate: "... that is also duplicated" int(+20)
+	
 	duplicateLabel: "This one requires bool" string
 }

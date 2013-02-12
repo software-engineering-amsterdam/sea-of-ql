@@ -1,7 +1,7 @@
 package org.uva.sea.ql.ast.types;
 
-import org.uva.sea.ql.ast.literals.BooleanResult;
-import org.uva.sea.ql.ast.literals.Result;
+import org.uva.sea.ql.ast.operatorresults.BooleanResult;
+import org.uva.sea.ql.ast.operatorresults.Result;
 
 
 public class BooleanType extends Type {

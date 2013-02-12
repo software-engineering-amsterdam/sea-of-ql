@@ -1,8 +1,11 @@
 package org.uva.sea.ql.ast.eval;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
+import org.uva.sea.extensions.Tuple;
 import org.uva.sea.ql.ast.expressions.Ident;
 import org.uva.sea.ql.ast.types.NotDefinedType;
 import org.uva.sea.ql.ast.types.Type;
@@ -81,7 +84,11 @@ public class Env {
 		}
 	}
 	
-	public Map<Ident, Value> getAllValues() {
-		return values;
+	public List<Tuple<Ident, Value>> getAllValues() {
+		List<Tuple<Ident, Value>> allValues = new ArrayList<Tuple<Ident, Value>>();
+		for (Ident i : values.keySet()) {
+			allValues.add(new Tuple<Ident, Value>(i,values.get(i)));
+		}
+		return allValues;
 	}
 }

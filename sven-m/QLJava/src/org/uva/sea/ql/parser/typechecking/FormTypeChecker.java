@@ -12,7 +12,7 @@ import org.uva.sea.ql.ast.form.ElseIfStatement;
 import org.uva.sea.ql.ast.form.ElseStatement;
 import org.uva.sea.ql.ast.form.Question;
 import org.uva.sea.ql.ast.form.Computed;
-import org.uva.sea.ql.ast.type.Type;
+import org.uva.sea.ql.ast.form.Type;
 
 public class FormTypeChecker implements FormVisitor<Boolean> {
 	

@@ -27,7 +27,6 @@ import org.uva.sea.ql.ast.type.IntegerType;
 import org.uva.sea.ql.ast.value.BooleanValue;
 import org.uva.sea.ql.ast.value.IntegerValue;
 import org.uva.sea.ql.ast.value.StringValue;
-import org.uva.sea.ql.ast.value.Value;
 import org.uva.sea.ql.lead.Model;
 
 public class ExpressoinEvaluatorTest {
@@ -38,7 +37,7 @@ public class ExpressoinEvaluatorTest {
 	private final BooleanValue trueVal = new BooleanValue(true);
 	private final BooleanValue falseVal = new BooleanValue(false);
 
-	private ValuableVisitor<Value> evaluator;
+	private ExpressionVisitor evaluator;
 	private Model model;
 
 	@Before
@@ -163,19 +162,18 @@ public class ExpressoinEvaluatorTest {
 
 	@Test
 	public void testVisitStringValue() {
-		Value value = evaluator.visit(new StringValue("Software Construction"));
+		StringValue value = evaluator.visit(new StringValue(
+				"Software Construction"));
 
 		assertTrue(value instanceof StringValue);
-		assertEquals("Software Construction", ((StringValue) value).getValue());
+		assertEquals("Software Construction", value.getValue());
 	}
 
-	private void assertAsInteger(final int value, final Value exp) {
-		assertTrue(exp instanceof IntegerValue);
-		assertEquals(value, ((IntegerValue) exp).getValue());
+	private void assertAsInteger(final int value, final IntegerValue exp) {
+		assertEquals(value, exp.getValue());
 	}
 
-	private void assertAsBoolean(final boolean value, final Value exp) {
-		assertTrue(exp instanceof BooleanValue);
-		assertEquals(value, ((BooleanValue) exp).getValue());
+	private void assertAsBoolean(final boolean value, final BooleanValue exp) {
+		assertEquals(value, exp.getValue());
 	}
 }

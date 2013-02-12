@@ -5,7 +5,7 @@ import static julius.validation.Assertions.state;
 import org.uva.sea.ql.ast.exp.Identifier;
 import org.uva.sea.ql.visitor.StatementVisitor;
 
-public class Form extends Statement {
+public class Form extends Block {
 
 	private final Identifier identifier;
 	private final CompoundStatement body;

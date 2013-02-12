@@ -19,48 +19,48 @@ import org.uva.sea.ql.ast.expr.value.Bool;
 import org.uva.sea.ql.ast.expr.value.Ident;
 import org.uva.sea.ql.ast.expr.value.Int;
 import org.uva.sea.ql.ast.expr.value.Money;
-import org.uva.sea.ql.ast.expr.value.TextString;
+import org.uva.sea.ql.ast.expr.value.Text;
 
-public interface ExpressionVisitor extends NodeVisitor {
+public interface ExpressionVisitor<T> extends NodeVisitor<T> {
 	
-	public void visit(Ident node);
+	public T visit(Ident node);
 	
-	public void visit(Add node);
+	public T visit(Add node);
 
-	public void visit(And node);
+	public T visit(And node);
 
-	public void visit(Div node);
+	public T visit(Div node);
 
-	public void visit(Eq node);
+	public T visit(Eq node);
 
-	public void visit(GEq node);
+	public T visit(GEq node);
 
-	public void visit(GT node);
+	public T visit(GT node);
 
-	public void visit(LEq node);
+	public T visit(LEq node);
 
-	public void visit(LT node);
+	public T visit(LT node);
 
-	public void visit(Mul node);
+	public T visit(Mul node);
 
-	public void visit(Neg node);
+	public T visit(Neg node);
 
-	public void visit(NEq node);
+	public T visit(NEq node);
 
-	public void visit(Not node);
+	public T visit(Not node);
 
-	public void visit(Or node);
+	public T visit(Or node);
 
-	public void visit(Pos node);
+	public T visit(Pos node);
 
-	public void visit(Sub node);
+	public T visit(Sub node);
 
-	public void visit(Bool node);
+	public T visit(Bool node);
 
-	public void visit(Int node);
+	public T visit(Int node);
 
-	public void visit(Money node);
+	public T visit(Money node);
 
-	public void visit(TextString node);
+	public T visit(Text node);
 
 }

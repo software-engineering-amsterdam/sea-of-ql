@@ -19,6 +19,7 @@ public class QLLexer implements QLTokens {
 		KEYWORDS = new HashMap<String, Integer>();
 		KEYWORDS.put("form", FORM);
 		KEYWORDS.put("if", IF);
+		KEYWORDS.put("else", ELSE);
 		KEYWORDS.put("Boolean", BOOL);
 		KEYWORDS.put("String", STR);
 		KEYWORDS.put("Integer", INT);

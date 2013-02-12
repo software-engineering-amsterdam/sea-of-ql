@@ -11,7 +11,7 @@ import org.uva.sea.ql.ast.expressions.binary.GT;
 import org.uva.sea.ql.ast.expressions.binary.LEq;
 import org.uva.sea.ql.ast.expressions.binary.LT;
 import org.uva.sea.ql.ast.expressions.binary.Mul;
-import org.uva.sea.ql.ast.types.Int;
+import org.uva.sea.ql.ast.types.IntType;
 import org.uva.sea.ql.parser.antlr.ANTLRParser;
 import org.uva.sea.ql.parser.test.IParse;
 import org.uva.sea.ql.parser.test.ParseError;
@@ -80,9 +80,9 @@ public class TestExpressions {
 
 	@Test
 	public void testNums() throws ParseError {
-		assertEquals(parser.parse("0").getClass(), Int.class);
-		assertEquals(parser.parse("1223").getClass(), Int.class);
-		assertEquals(parser.parse("234234234").getClass(), Int.class);
+		assertEquals(parser.parse("0").getClass(), IntType.class);
+		assertEquals(parser.parse("1223").getClass(), IntType.class);
+		assertEquals(parser.parse("234234234").getClass(), IntType.class);
 	}
 	
 }

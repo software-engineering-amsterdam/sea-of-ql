@@ -2,8 +2,9 @@ package org.uva.sea.ql.ast.form;
 
 import java.util.List;
 
-import org.uva.sea.ql.ast.*;
-import org.uva.sea.ql.ast.visitor.*;
+import org.uva.sea.ql.ast.Expr;
+import org.uva.sea.ql.ast.types.BoolType;
+import org.uva.sea.ql.ast.visitor.Visitor;
 /**
  * class: Condition
  * @author Danny
@@ -21,10 +22,7 @@ public class Condition extends FormElement {
 	 * @param e - elements
 	 */
 	public Condition(Expr ifCondition, List<FormElement> e){
-		super(ifCondition);
-		this.ifCon = ifCondition;
-		this.ifElements = e;
-		this.elseElements = null;
+		this(ifCondition, e, null);
 	}
 	/**
 	 * Constructor
@@ -34,7 +32,7 @@ public class Condition extends FormElement {
 	 * @param elseElements
 	 */
 	public Condition(Expr ifCondition, List<FormElement> ifElements, List<FormElement> elseElements){
-		super(ifCondition);
+		super(new BoolType());
 		this.ifCon = ifCondition;
 		this.ifElements = ifElements;
 		this.elseElements = elseElements;
@@ -73,25 +71,8 @@ public class Condition extends FormElement {
 	 * @param visitor
 	 * @return type
 	 */
+	@Override
 	public void accept(Visitor visitor){
 		visitor.visit(this);
-	}
-	/**
-	 * getType
-	 * @param st - the table to check for the type
-	 * @return Expr - type
-	 */
-	@Override
-	public Expr getType(SymbolTable st) {
-		return ifCon.getType(st);
-	}
-	/**
-	 * isCompatibleTo
-	 * @param t type
-	 * @return boolean - true if compatible false otherwise
-	 */
-	@Override
-	public boolean isCompatibleTo(Expr t) {
-		return t.isCompatibleTo(this);
 	}
 }

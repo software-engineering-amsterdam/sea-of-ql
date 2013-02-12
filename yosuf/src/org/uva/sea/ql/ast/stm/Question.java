@@ -7,7 +7,7 @@ import org.uva.sea.ql.ast.type.DataType;
 import org.uva.sea.ql.ast.value.StringValue;
 import org.uva.sea.ql.visitor.StatementVisitor;
 
-public class Question extends Statement {
+public class Question extends Block {
 
 	private final DataType dataType;
 	private final Identifier identifier;

@@ -155,7 +155,9 @@ COMMENT
     : ('/*' .* '*/' | '//'.* '\n') { $channel=HIDDEN; }
     ;
 
-String: '"' .* '"';
+String returns [String result]
+    : '"' .* '"' { setText(getText().substring(1,getText().length() - 1)); }
+    ;
 Bool: 'true' | 'false';
 Int: ('0'..'9')+;
 Ident: ('a'..'z'|'A'..'Z')('a'..'z'|'A'..'Z'|'0'..'9'|'_')*;
