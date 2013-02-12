@@ -44,7 +44,7 @@ private set[Message] unallowedDefaultAttrErrors(Stylesheet s) {
 
 private set[Message] unallowedQuestionAttrErrors(Stylesheet s) {
   errors = {};
-  typeMap = getTypeMap(accompanyingForm(s));
+  typeMap = getTypeMap(getAccompanyingForm(s));
   for(d <- getQuestionDefinitions(s)) {
     if(!d.styleRules? || identDefinition(d.ident) notin typeMap)
       continue;
