@@ -8,19 +8,16 @@ import java.nio.MappedByteBuffer;
 import java.nio.channels.FileChannel;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.uva.sea.ql.ast.Form;
-import org.uva.sea.ql.ast.expr.primary.Ident;
 import org.uva.sea.ql.message.Message;
 import org.uva.sea.ql.parser.ANTLRParser;
 import org.uva.sea.ql.parser.error.ParseError;
-import org.uva.sea.ql.value.Value;
 import org.uva.sea.ql.visitor.FormRenderer;
-import org.uva.sea.ql.visitor.FormTypeCheckVisitor;
-import org.uva.sea.ql.visitor.TypeMapper;
+import org.uva.sea.ql.visitor.ValueMapper;
+import org.uva.sea.ql.visitor.typeCheck.FormTypeCheckVisitor;
+import org.uva.sea.ql.visitor.typeCheck.TypeMapper;
 
 /*
  * This file is added to test the QL program
@@ -32,7 +29,7 @@ public class Main {
 		ANTLRParser parser = new ANTLRParser();
 
 		TypeMapper typeMapper = new TypeMapper();
-		Map<Ident, Value> symbolTableValues = new HashMap<Ident, Value>();
+		ValueMapper valueMapper = new ValueMapper();
 		List<Message> errors = new ArrayList<Message>();
 
 		String qlFile = System.getProperty("user.dir") + "/input/form.ql";
@@ -47,20 +44,20 @@ public class Main {
 			System.out.println("IO Error: " + e.getMessage());
 			System.exit(0);
 		}
-		
+
 		Form form = parser.parseForm(strInput);
+		if (parser.hasErrors()) {
+			printErrorsAndQuit(parser.getErrors());
+		}
+
 		form.accept(new FormTypeCheckVisitor(typeMapper, errors));
 
 		if (!errors.isEmpty()) {
-			System.out.println("Unable to run the QL form. Please correct the following "
-					+ errors.size() + " errors.");
-			for (Message msg : errors) {
-				System.out.println("\t -" + msg);
-			}
-		} else {
-			// Render the form
-			form.accept(new FormRenderer());
+			printErrorsAndQuit(errors);
 		}
+
+		// Render the form
+		form.accept(new FormRenderer(valueMapper, errors));
 
 	}
 
@@ -68,12 +65,23 @@ public class Main {
 		FileInputStream stream = new FileInputStream(new File(path));
 		try {
 			FileChannel fc = stream.getChannel();
-			MappedByteBuffer bb = fc.map(FileChannel.MapMode.READ_ONLY, 0,
-					fc.size());
+			MappedByteBuffer bb = fc.map(FileChannel.MapMode.READ_ONLY, 0, fc.size());
 			/* Instead of using default, pass in a decoder. */
 			return Charset.defaultCharset().decode(bb).toString();
 		} finally {
 			stream.close();
 		}
+	}
+
+	private static void printErrorsAndQuit(List<Message> errors) {
+		System.out.println("Unable to run the QL form. Please correct the following "
+				+ errors.size() + " errors.");
+		System.out.println("---------------------------------------------------------------------");
+		for (Message message : errors) {
+			System.out.println(" -" + message);
+		}
+		System.out.println("---------------------------------------------------------------------");
+		System.out.println("Please correct the errors and try again.");
+		System.exit(0);
 	}
 }

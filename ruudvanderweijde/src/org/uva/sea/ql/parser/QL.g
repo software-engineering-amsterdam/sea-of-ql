@@ -9,19 +9,41 @@ options
 @parser::header
 {
   package org.uva.sea.ql.parser;
+  import java.util.LinkedList;
   import org.uva.sea.ql.ast.*;
   import org.uva.sea.ql.ast.expr.*;
   import org.uva.sea.ql.ast.expr.binary.*;
   import org.uva.sea.ql.ast.expr.primary.*;
   import org.uva.sea.ql.ast.expr.unary.*;
-  import org.uva.sea.ql.ast.type.*;
   import org.uva.sea.ql.ast.stmt.*;
   import org.uva.sea.ql.ast.stmt.question.*;
+  import org.uva.sea.ql.message.Message;
+  import org.uva.sea.ql.message.Error;
+  import org.uva.sea.ql.type.*;
+
 }
 
 @lexer::header
 {
   package org.uva.sea.ql.parser;
+  import java.util.LinkedList;
+}
+
+@members {
+    private final List<Message> errors = new ArrayList<Message>();
+    public void displayRecognitionError(String[] tokenNames,
+                                        RecognitionException e) {
+        String hdr = getErrorHeader(e);
+        String msg = getErrorMessage(e, tokenNames);
+        addError(hdr + " " + msg);
+    }
+    private void addError(String message) {
+        Message error = new Error(message);
+        errors.add(error);
+    }
+    public List<Message> getErrors() {
+        return this.errors;
+    }
 }
 
 form returns [Form result]
