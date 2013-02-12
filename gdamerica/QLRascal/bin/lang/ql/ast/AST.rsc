@@ -42,8 +42,8 @@ data Element
   ;
   
 data Question
-  = singleQuestion(str qstnIdent, str qstnDescr, DataType qstnDataType)
-  | computableQuestion(str cqstnIdent, str cqstnDescr, DataType cqstnDataType, Expr cqstnExpr)
+  = singleQuestion(str qstnIdent, str qstnLabel, DataType qstnDataType)
+  | computableQuestion(str cqstnIdent, str cqstnLabel, DataType cqstnDataType, Expr cqstnExpr)
   ;
 
 data Condition
