@@ -1,5 +1,4 @@
 # QL
-* Changing Outliner to look like rascal? e.g. categorizing
 * Refactoring / Adding comments
 * Create awesome form to show off.
 * Think of something to do.

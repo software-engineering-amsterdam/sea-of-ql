@@ -18,80 +18,62 @@ import lang::ql::util::ParseHelper;
 import util::IDE;
 
 public node outlineForm(Form form) =
-  "outline"(outline(form))
+  "outline"(outliner(form.formElements, form@location))
   [@label="Form"]
   [@\loc=form@location];
-
+  
 private node createNode(str name, str label, loc location, 
     list[node] children) =
   setAnnotations(makeNode(name, children), ("label": label, "loc": location));
 
-private node outlineBranch(str name, str label, loc location, 
-    list[Statement] items) =
-  "<name>"([outline(i) | i <- items])
-  [@label="<label>"]
-  [@\loc=location];
 
-private node outline(Form form) = 
-  "form"([outline(e) | e <- form.formElements])
-  [@label="Form <form.formName.ident> (<size(form.formElements)>)"]
-  [@\loc=form@location];
-
-private node outline(Statement item:
-    ifCondition(Conditional ifPart, list[Conditional] elseIfs, 
-    list[ElsePart] elsePart)) {
-
-  str name = "IfCondition";
-  str label = "If (<prettyPrint(ifPart.condition)>)";
-
-  bool elseIfBlock = false;
-  bool elseBlock = false;
-
-  children = [outlineBranch("ifPart", "<prettyPrint(ifPart.condition)>", 
-    ifPart@location, ifPart.body)];
-
-  if (elseIfs != []) {
-    elseIfBlock = true;
-    children += [outlineBranch("elseIf", "<prettyPrint(b.condition)>", 
-      b@location, b.body) | b <- elseIfs];
-  }
-
-  if(elsePart != []) {
-    elseBlock = true;
-    ElsePart ep = head(elsePart);
-    children += [outlineBranch("elsePart", "else", ep@location, ep.body)];
-  }
-
-  if(elseIfBlock && elseBlock) {
-    name = "ifElseIfElseCondition";
-    label = "If (<prettyPrint(ifPart.condition)>) elseif... else";
-  } else if(elseIfBlock) {
-    name = "ifElseIfCondition";
-    label = "If (<prettyPrint(ifPart.condition)>) elseif...";
-  } else if(elseBlock) {
-    name = "ifElseCondition";
-    label = "If (<prettyPrint(ifPart.condition)>) else ...";
-  }
-
-  return createNode(name, label, item@location, children);
-}
-
-private node outline(Statement item: 
-    question(Question question)) = 
-  outline(question);
-
-private node outline(Question q:
-    question(questionText, answerDataType, _)) {
-  str name = "Question";
-  str label = "Q: <answerDataType.name>:<questionText.text>";
-
-  return createNode(name, label, q@location, []);
-}
-
-private node outline(Question q:
-    question(questionText, answerDataType, _, cf)) {
-  str name = "CalculatedQuestion";
-  str label = "CQ: <answerDataType.name>:<questionText.text>(<cf>)";
+private list[node] outliner(list[Statement] statements, loc rootloc) {
+  qs = [
+    createNode("Question", "<text.text> : <\type.name>", q@location, []) |
+    /Question q: question(text, \type, _) <- statements
+  ];
+    
+  cqs = [
+    createNode("QQuestion", "<text.text> : <\type.name> (<prettyPrint(cf)>)", q@location, []) | 
+    /Question q: question(text, \type, _, cf) <- statements
+  ];
   
-  return createNode(name, label, q@location, []);
+  ifs = [
+    createNode("if", "if (<prettyPrint(ifPart.condition)>)", i@location, []) | 
+    /Statement i:ifCondition(Conditional ifPart, list[Conditional] elseIfs, list[ElsePart] elsePart) <- statements, 
+    elseIfs == [], 
+    elsePart == []
+  ];
+  
+  ifelse = [
+    createNode("ifelse", "if else (<prettyPrint(ifPart.condition)>)", i@location, []) | 
+    /Statement i:ifCondition(Conditional ifPart, list[Conditional] elseIfs, list[ElsePart] elsePart) <- statements, 
+    elseIfs == [],
+    elsePart != []
+  ];
+  
+  ifelseif = [
+    createNode("ifelseif", "if <prettyPrint(ifPart.condition)> elseif", i@location, []) | 
+    /Statement i:ifCondition(Conditional ifPart, list[Conditional] elseIfs, list[ElsePart] elsePart) <- statements,
+    elseIfs != [], 
+    elsePart == []
+  ];
+  
+  ifelseifelse = [
+    createNode("ifelseifelse", "if <prettyPrint(ifPart.condition)> elseifelse", i@location, []) | 
+    /Statement i:ifCondition(Conditional ifPart, list[Conditional] elseIfs, list[ElsePart] elsePart) <- statements,
+    elseIfs != [], 
+    elsePart != []
+  ];
+  
+  list[node] conds = 
+    [createNode("if", "if statements (<size(ifs)>)", rootloc, ifs)] +
+    [createNode("ifelse", "if-else statements (<size(ifelse)>)", rootloc, ifelse)] + 
+    [createNode("ifelseif", "if-else-if statements (<size(ifelseif)>)", rootloc, ifelseif)] + 
+    [createNode("ifelseifelse", "if-else-if-else statements (<size(ifelseifelse)>)", rootloc, ifelseifelse)]; 
+  
+  return 
+    [createNode("Questions", "Questions (<size(qs)>)", rootloc, qs)] +
+    [createNode("Calculated Questions", "Calculated Questions (<size(cqs)>)", rootloc, cqs)] + 
+    [createNode("Conditionals", "Conditionals (<size(ifs + ifelse + ifelseif + ifelseifelse)>)", rootloc, conds)];
 }
