@@ -9,12 +9,6 @@ import lang::qls::util::StyleHelper;
 
 import lang::qls::util::ParseHelper;
 
-public void main() {
-  s = parseStylesheet(|project://QL-R-kemi/stylesheets/proposedSyntax.qs|);
-  println(JS(s));
-}
-
-
 private str LABEL_CHOOSE = "Choose an answer";
 private str LABEL_TRUE = "Yes";
 private str LABEL_FALSE = "No";
@@ -293,9 +287,9 @@ private str getUniqueID(Stylesheet s) =
   s.ident;
 
 private str getUniqueID(PageDefinition p) =
-  "page_<split(" ", stripQuotes(p.ident))[0]>_" +
+  "page_<split(" ", trimQuotes(p.ident))[0]>_" +
     "<p@location.begin.line>_<p@location.begin.column>";
 
 private str getUniqueID(SectionDefinition s) =
-  "section_<split(" ", stripQuotes(s.ident))[0]>_" +
+  "section_<split(" ", trimQuotes(s.ident))[0]>_" +
     "<s@location.begin.line>_<s@location.begin.column>";

@@ -10,11 +10,6 @@ import lang::qls::util::StyleHelper;
 
 import lang::qls::util::ParseHelper;
 
-public void main() {
-  s = parseStylesheet(|project://QL-R-kemi/stylesheets/taxOfficeExample.qs|);
-  iprintln(unallowedWidgetErrors(s));
-}
-
 private map[Type, list[str]] allowedWidgets = (
   booleanType("boolean"):
     ["radio", "checkbox", "select"],
