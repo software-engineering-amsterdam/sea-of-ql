@@ -2,6 +2,7 @@ module template::StringTemplate
 
 import IO;
 import String;
+import Prelude;
 import syntax::AbstractSyntax;
 import typeChecker::TypeCheck;
 import util::Load;
@@ -28,20 +29,46 @@ private str genGetter(map[str,str] fields, str x) {
 
 /** Method to generate Question
 */
-private str generateQuestion(){
-	// ToDo
+private str generateQuestion(question:easyQuestion(str id, str labelQuestion, Type tp)){
+	println("in generate Question <question>");
+	if(tp == boolean()){
+		return "<labelQuestion> \<input type=\"checkbox\" id=<id> \> Yes";
+	}
+	
 }
 
 private str generateBody(list[Body] body){
 	println("in generate Body <body>");
+	list[str] ques = [];
 	for(s <- body){
 		visit(s){
 			case Question q : {
-				println("QQQQQ is : <q>");
-				generateQuestion(q);
+				//println("QQQQQ is : <q>");
+				return generateQuestion(q);
+				ques += generateQuestion(q);
 			}
 		}
 	}
+	println("Ques : <ques>");
+	return ques;
+//	\<input type=\"checkbox\" id=\"check1\"\>Do you like summer?
+	
+}
+
+private str generateBody(Body body){
+	println("in generate Body <body>");
+	list[str] ques = [];
+	for(s <- body){
+		visit(s){
+			case Question q : {
+				//println("QQQQQ is : <q>");
+				return generateQuestion(q);
+				ques += generateQuestion(q);
+			}
+		}
+	}
+	println("Ques : <ques>");
+	return ques;
 //	\<input type=\"checkbox\" id=\"check1\"\>Do you like summer?
 	
 }
@@ -53,8 +80,10 @@ public str generateJavaScriptForm(Program P){
 		\<html\>
 		\<body\>
 		\<form action = \" \" method = \"post\" name=<id>\>
-		<generateBody(Body)>
-		
+		<for (s <- Body) { >
+		<generateBody(s)>
+		< } >
+				
 		\</form\>
 		\</body\>
 		\</html\>";
@@ -63,15 +92,6 @@ public str generateJavaScriptForm(Program P){
 		return "not possible to generate java script code";
 	}
 }
-
-//\<select name=\"URL\"
-//		onchange=\"javascript:window.location.href=this.form.URL.options
-//		[this.form.URL.selectedIndex].value\"\>
-//		\<option\>Choose One\</option\>
-//		\<option value=\"http://webdesign.about.com/\"\>Web Design Home Page\</option\>
-//		\<option value=\"http://webdesign.about.com/library/weekly/mpreviss.htm\"\>Previous Articles\</option\>
-//		\<option value=\"http://webdesign.about.com/library/beginning/bl_begin.htm\"\>Beginning HTML\</option\>
-//		\</select\>
 
 public str generateJavaScriptForm(str txt) = generateJavaScriptForm(load(txt));
 
