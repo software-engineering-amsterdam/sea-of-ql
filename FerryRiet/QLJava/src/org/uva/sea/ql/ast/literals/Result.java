@@ -57,4 +57,9 @@ public abstract class Result {
 	public abstract Result doSub(MoneyResult subber);
 	public abstract Result doSub(IntegerResult subber);
 
+	public abstract Result eq(Result eq);
+	public abstract Result doEq(MoneyResult eq);
+	public abstract Result doEq(IntegerResult eq);
+	public abstract Result doEq(BooleanResult eq);
+
 }

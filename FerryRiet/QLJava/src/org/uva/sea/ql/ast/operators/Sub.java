@@ -3,20 +3,12 @@ package org.uva.sea.ql.ast.operators;
 import java.util.HashMap;
 
 import org.uva.sea.ql.ast.literals.Result;
-import org.uva.sea.ql.ast.statements.Statement;
-import org.uva.sea.ql.ast.types.IntegerType;
-import org.uva.sea.ql.ast.types.Type;
 import org.uva.sea.ql.ast.visitor.Visitor;
 
 public class Sub extends BinExpr {
 
 	public Sub(Expr result, Expr rhs) {
 		super(result, rhs);
-	}
-
-	@Override
-	public Type typeOf(HashMap<String, Statement> typeEnv) {
-		return new IntegerType();
 	}
 
 	@Override
@@ -29,6 +21,6 @@ public class Sub extends BinExpr {
 		Result leftHandResult = getExprLeftHand().eval(symbolMap);
 		Result rightHandResult = getExprRightHand().eval(symbolMap);
 
-		return leftHandResult.sub(rightHandResult) ;
+		return leftHandResult.sub(rightHandResult);
 	}
 }

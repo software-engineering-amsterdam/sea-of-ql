@@ -83,7 +83,8 @@ public class MoneyResult extends Result {
 	}
 
 	public Result doSub(IntegerResult subber) {
-		return new MoneyResult(new BigDecimal(subber.getIntegerValue()).subtract(this.getMoneyValue()));
+		return new MoneyResult(new BigDecimal(subber.getIntegerValue()).subtract(this
+				.getMoneyValue()));
 	}
 
 	@Override
@@ -128,5 +129,26 @@ public class MoneyResult extends Result {
 			result = new MoneyResult(0);
 		}
 		return result;
+	}
+
+	@Override
+	public Result eq(Result equ) {
+		return equ.doEq(this);
+	}
+
+	@Override
+	public Result doEq(MoneyResult equ) {
+		return new BooleanResult(equ.getMoneyValue().compareTo(this.getMoneyValue()) == 0);
+	}
+
+	@Override
+	public Result doEq(IntegerResult equ) {
+		return new BooleanResult(this.getMoneyValue().compareTo(
+				new BigDecimal(equ.getIntegerValue())) == 0);
+	}
+
+	@Override
+	public Result doEq(BooleanResult equ) {
+		throw new UnsupportedOperationException();
 	}
 }

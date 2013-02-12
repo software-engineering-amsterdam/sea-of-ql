@@ -128,4 +128,24 @@ public class BooleanResult extends Result {
 	public Result doSub(IntegerResult subber) {
 		throw new UnsupportedOperationException();
 	}
+
+	@Override
+	public Result eq(Result equ) {
+		return equ.doEq(this);
+	}
+
+	@Override
+	public Result doEq(MoneyResult equ) {
+		throw new UnsupportedOperationException();
+	}
+
+	@Override
+	public Result doEq(IntegerResult equ) {
+		throw new UnsupportedOperationException();
+	}
+
+	@Override
+	public Result doEq(BooleanResult equ) {
+		return new BooleanResult(equ.getBooleanValue() == this.getBooleanValue());
+	}
 }

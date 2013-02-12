@@ -73,7 +73,7 @@ public class QLDriver extends JFrame implements ActionListener {
 		sourcePAne.setFont(new Font("Arial", Font.PLAIN, 12));
 		sourcePAne.setBounds(10, 0, 444, 382);
 		sourcePAne
-				.setText("form Box1HouseOwning {\r\n   hasSoldHouse: \"Did you sell a house in 2010?\" boolean\r\n   hasBoughtHouse: \"Did you by a house in 2010?\" boolean\r\n   hasMaintLoan: \"Did you enter a loan for maintenance/reconstruction?\" boolean\r\n   if (hasSoldHouse) {\r\n     sellingPrice: \"Price the house was sold for:\" money\r\n     privateDebt: \"Private debts for the sold house:\" money\r\n     valueResidue: \"Value residue:\" money(sellingPrice - privateDebt)\r\n     taxOwed: \"Tax owed:\" money( valueResidue * 0.21 )\r\n   }\r\n   else {\r\n     happyLiving: \"Do you like your current house?\" boolean       \r\n   }\r\n}");
+				.setText("form Box1HouseOwning {\r\n   hasSoldHouse: \"Did you sell a house in 2010?\" money\r\n   hasBoughtHouse: \"Did you by a house in 2010?\" integer ( hasSoldHouse ) \r\n   hasStoleHouse: \"Did you by a house in 2010?\"     money ( hasSoldHouse ) \r\n\r\n   hasMaintLoan: \"Did you enter a loan for maintenance/reconstruction?\" boolean\r\n}");
 		getContentPane().add(sourcePAne);
 
 		runButton = new JButton("Run");

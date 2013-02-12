@@ -1,6 +1,5 @@
 package org.uva.sea.ql.ast.operators;
 
-import java.math.BigDecimal;
 import java.util.HashMap;
 
 import org.uva.sea.ql.ast.literals.BooleanResult;
@@ -30,30 +29,6 @@ public class Eq extends BinExpr {
 	public Result eval(HashMap<String, Result> symbolMap) {
 		Result leftHandResult = getExprLeftHand().eval(symbolMap);
 		Result rightHandResult = getExprRightHand().eval(symbolMap);
-
-		// case 0 Both type boolean
-		if (leftHandResult.isCompatibleToBool()) {
-			return new BooleanResult(
-					leftHandResult.getBooleanValue() == rightHandResult.getBooleanValue());
-		}
-		// case 1 Both type money
-		if (leftHandResult.isCompatibleToMoney() && rightHandResult.isCompatibleToMoney()) {
-			return new BooleanResult(leftHandResult.getMoneyValue().compareTo(
-					rightHandResult.getMoneyValue()) == 0);
-		}
-		// Case 2 MoneyType Integer
-		if (leftHandResult.isCompatibleToMoney()) {
-			return new BooleanResult(leftHandResult.getMoneyValue().compareTo(
-					new BigDecimal(rightHandResult.getIntegerValue())) == 0);
-		}
-		// Case 3 Integer MoneyType
-		if (rightHandResult.isCompatibleToMoney()) {
-			return new BooleanResult(
-					(new BigDecimal(leftHandResult.getIntegerValue())
-							.compareTo(rightHandResult.getMoneyValue())) == 0);
-		}
-		// Case 4 Integer Integer
-		return new BooleanResult(
-				leftHandResult.getIntegerValue() == rightHandResult.getIntegerValue());
+		return new  leftHandResult.eq(rightHandResult) ;
 	}
 }

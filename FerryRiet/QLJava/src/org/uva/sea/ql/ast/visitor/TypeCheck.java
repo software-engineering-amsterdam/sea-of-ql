@@ -99,7 +99,9 @@ public class TypeCheck implements Visitor<Void> {
 
 		if (lineStatement.getInitalizerExpr() != null) {
 			lineStatement.getInitalizerExpr().accept(this);
-			if ( lineStatement.getTypeDescription().isCompatibleTo(lineStatement.getInitalizerExpr().typeOf(symbolMap))) {
+			// The double dispatch reverses the check order
+			// the check order is important because we allow coercion from Integer to Money
+			if ( ! lineStatement.getInitalizerExpr().typeOf(symbolMap).isCompatibleTo(lineStatement.getTypeDescription())) {
 				errorList.add("Line(" + lineStatement.getLine() + "," + lineStatement.getCharPositionInLine() + ") Field :"
 						+ lineStatement.getLineName() + " has incompatible initializer");				
 			}

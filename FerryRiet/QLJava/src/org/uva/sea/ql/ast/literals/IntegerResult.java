@@ -59,25 +59,21 @@ public class IntegerResult extends Result {
 
 	@Override
 	public boolean isCompatibleToInt() {
-		// TODO Auto-generated method stub
-		return false;
+		return true;
 	}
 
 	@Override
 	public boolean isCompatibleToString() {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
 	public boolean isCompatibleToBool() {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
 	public boolean isCompatibleToMoney() {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
@@ -154,5 +150,25 @@ public class IntegerResult extends Result {
 			result = new IntegerResult(0) ;
 		}
 		return result ;
+	}
+
+	@Override
+	public Result eq(Result eq) {
+		return null;
+	}
+
+	@Override
+	public Result doEq(MoneyResult equ) {
+		return new BooleanResult(equ.getMoneyValue().compareTo(new BigDecimal(this.getIntegerValue())) == 0);
+	}
+
+	@Override
+	public Result doEq(IntegerResult equ) {
+		return new BooleanResult(equ.getIntegerValue() == this.getIntegerValue()) ;
+	}
+
+	@Override
+	public Result doEq(BooleanResult equ) {
+		throw new UnsupportedOperationException();
 	}
 }

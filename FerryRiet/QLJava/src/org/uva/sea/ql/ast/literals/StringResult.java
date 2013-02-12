@@ -2,9 +2,8 @@ package org.uva.sea.ql.ast.literals;
 
 import java.math.BigDecimal;
 
-import org.uva.sea.ql.ast.types.Type;
-
 import org.uva.sea.ql.ast.types.StringType;
+import org.uva.sea.ql.ast.types.Type;
 
 public class StringResult extends Result {
 	private String value;
@@ -126,6 +125,26 @@ public class StringResult extends Result {
 
 	@Override
 	public Result doSub(IntegerResult subber) {
+		throw new UnsupportedOperationException();
+	}
+
+	@Override
+	public Result eq(Result eq) {
+		throw new UnsupportedOperationException();
+	}
+
+	@Override
+	public Result doEq(MoneyResult eq) {
+		throw new UnsupportedOperationException();
+	}
+
+	@Override
+	public Result doEq(IntegerResult eq) {
+		throw new UnsupportedOperationException();
+	}
+
+	@Override
+	public Result doEq(BooleanResult eq) {
 		throw new UnsupportedOperationException();
 	}
 }
