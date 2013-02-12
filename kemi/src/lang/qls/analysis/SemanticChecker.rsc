@@ -25,19 +25,7 @@ import lang::qls::util::StyleHelper;
 import util::IDE;
 import util::LocationHelper;
 
-public void main() {
-  s = parseStylesheet(|project://QL-R-kemi/stylesheets/proposedSyntax.qs|);
-  //iprintln(getQuestionDefinitions(s));
-  //iprintln(getPageNames(s));
-  //iprintln(getSectionNames(s));
-  errors = semanticChecker(s);
-  iprintln(errors);
-  
-  list[QuestionDefinition] qdefs = [d | /d <- s, QuestionDefinition := d];
-  for(q <- qdefs) {
-    ;
-  }
-}
+import util::ValueUI;
 
 public set[Message] semanticChecker(Stylesheet s) =
   filenameDoesNotMatchErrors(s) +
@@ -86,25 +74,10 @@ public set[Message] undefinedQuestionErrors(Stylesheet s) {
   
   set[Message] errors = {};
   typeMap = getTypeMap(accompanyingForm(s));
-
-/*  
-  list[QuestionDefinition] qdefs = [d | /d <- s, QuestionDefinition := d];
-  for(q <- qdefs) {
-     if(identDefinition(q.ident) notin typeMap) {
-        errors += error("Question undefined in form", q@location);
-     }
-  }
-*/  
-
-  visit(s) {
-    case QuestionDefinition d: {
-      if(identDefinition(d.ident) notin typeMap) {
-        errors += questionUndefinedInForm(d@location);
-      }
-    }
-  }
-
-  return errors;
+  qdefs = getQuestionDefinitions(s);
+  
+  return {questionUndefinedInForm(q@location) | q <- qdefs, 
+    identDefinition(q.ident) notin typeMap};
 }
 
 public set[Message] doubleNameWarnings(Stylesheet s) {
@@ -113,38 +86,32 @@ public set[Message] doubleNameWarnings(Stylesheet s) {
 }
 
 public set[Message] doublePageNameWarnings(Stylesheet s) {
-  warnings = {};
-  pageDefinitions = getPageDefinitions(s);
-  names = [];
+  set[Message] warnings = {};
+  list[PageDefinition] pageDefinitions = getPageDefinitions(s);
+  map[str, loc] pages = ();
+  
   for(d <- pageDefinitions) {
-    i = indexOf(names, d.ident);
-    if(i >= 0) {
-      warnings += warning(
-        "Page name already used at line " +
-          "<pageDefinitions[i]@location.begin.line>",
-        d@location
-      );
-    }
-    names += d.ident;
+    if(d.ident in pages) {
+      warnings += pageAlreadyDefined(pages[d.ident], d@location);
+    } 
+    pages[d.ident] = d@location;
   }
+  
   return warnings;
 }
 
 public set[Message] doubleSectionNameWarnings(Stylesheet s) {
-  warnings = {};
-  sectionDefinitions = getSectionDefinitions(s);
-  names = [];
+  set[Message] warnings = {};
+  list[SectionDefinition] sectionDefinitions = getSectionDefinitions(s);
+  map[str, loc] sections = ();
+  
   for(d <- sectionDefinitions) {
-    i = indexOf(names, d.ident);
-    if(i >= 0) {
-      warnings += warning(
-        "Section name already used at line " +
-          "<sectionDefinitions[i]@location.begin.line>",
-        d@location
-      );
-    }
-    names += d.ident;
+    if(d.ident in sections) {
+      warnings += sectionAlreadyDefined(sections[d.ident], d@location);
+    } 
+    sections[d.ident] = d@location;
   }
+  
   return warnings;
 }
 

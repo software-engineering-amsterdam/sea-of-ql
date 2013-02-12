@@ -17,6 +17,12 @@ import util::LocationHelper;
 public Message questionAlreadyDefined(loc old, loc cur) = 
   error("Question already used at line <old.begin.line>", cur);
 
+public Message pageAlreadyDefined(loc old, loc cur) = 
+  warning("Page already used at line <old.begin.line>", cur);
+
+public Message sectionAlreadyDefined(loc old, loc cur) = 
+  warning("Section already used at line <old.begin.line>", cur);
+
 public Message accompanyingFormNotFound(str name, loc location) =
   error("No form found with name <name>", location);
 
