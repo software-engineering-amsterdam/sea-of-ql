@@ -9,18 +9,9 @@ import java.util.regex.Pattern;
 import org.uva.sea.ql.ast.Node;
 import org.uva.sea.ql.ast.expression.Ident;
 
-/**
- * Lexer class.
- */
 public class QLLexer implements QLTokens {
-	/**
-	 * Keyword map.
-	 */
 	private static final Map<String, Integer> KEYWORDS;
 
-	/**
-	 * Initializes the keyword mapping.
-	 */
 	static {
 		KEYWORDS = new HashMap<String, Integer>();
 		KEYWORDS.put( "true", TRUE );
@@ -34,61 +25,21 @@ public class QLLexer implements QLTokens {
 		KEYWORDS.put( "form", FORM );
 	}
 
-	/**
-	 * Holds the current token.
-	 */
 	private int token;
-
-	/**
-	 * Holds the current character code.
-	 */
 	private int c = ' ';
-
-	/**
-	 * Holds current column number.
-	 */
 	private int column;
-
-	/**
-	 * Holds current line number.
-	 */
 	private int line;
-
-	/**
-	 * Holds the current AST node.
-	 */
 	private Node yylval;
-
-	/**
-	 * Holds the input reader.
-	 */
 	private final Reader input;
-
-	/**
-	 * Holds the regular expression pattern for decimals.
-	 */
 	private final Pattern decimal = Pattern.compile( "[0-9]*\\.[0-9]+([E|e][\\+|\\-]?[0-9]+)?" );
-
-	/**
-	 * Holds the regular expression pattern for integers.
-	 */
 	private final Pattern integer = Pattern.compile( "[0-9]+" );
 
-	/**
-	 * Constructs a new lexer instance.
-	 *
-	 * @param input The input reader.
-	 */
 	public QLLexer( Reader input ) {
 		this.input = input;
 		this.column = 0;
 		this.line = 1;
 	}
 
-	/**
-	 * Reads the next character into field c.
-	 * On end of input or failure, c will be -1.
-	 */
 	private void nextChar() {
 		if ( c >= 0 ) {
 			try {
@@ -108,11 +59,6 @@ public class QLLexer implements QLTokens {
 		}
 	}
 
-	/**
-	 * Retrieves the next token based on previously read character.
-	 *
-	 * @return The token.
-	 */
 	public int nextToken() {
 		boolean inComment = false;
 
@@ -277,11 +223,6 @@ public class QLLexer implements QLTokens {
 		}
 	}
 
-	/**
-	 * Matches a string literal and updates the token field.
-	 *
-	 * @return True if string, false otherwise.
-	 */
 	private boolean matchString() {
 		StringBuilder sb = new StringBuilder();
 		boolean inString = true;
@@ -312,15 +253,6 @@ public class QLLexer implements QLTokens {
 		return true;
 	}
 
-	/**
-	 * Retrieves an escaped character within a string literal.
-	 *
-	 * @param input The escaped character.
-	 *
-	 * @return The un-escaped character.
-	 *
-	 * @throws RuntimeException if escaped character is invalid.
-	 */
 	private char getEscapedChar( char input ) {
 		switch ( input ) {
 			// whitespace
@@ -353,11 +285,6 @@ public class QLLexer implements QLTokens {
 		throw new RuntimeException( "Unrecognized escape sequence" );
 	}
 
-	/**
-	 * Matches an integer literal and updates the token field.
-	 *
-	 * @return True if integer, false otherwise.
-	 */
 	private boolean matchInteger() {
 		if ( !Character.isDigit( c ) ) {
 			return false;
@@ -382,12 +309,6 @@ public class QLLexer implements QLTokens {
 		return false;
 	}
 
-	/**
-	 * Matches a money (decimal) literal and updates the token field.
-	 * Fall back on Integer literals if decimal do not match.
-	 *
-	 * @return True if money or integer, false otherwise.
-	 */
 	private boolean matchNumber() {
 		if ( !Character.isDigit( c ) && c != '.' ) {
 			return matchInteger();
@@ -452,11 +373,6 @@ public class QLLexer implements QLTokens {
 		return false;
 	}
 
-	/**
-	 * Matches a keyword or identifier token and updates the token field accordingly on success.
-	 *
-	 * @return True if successful, false otherwise.
-	 */
 	private boolean matchWord() {
 		if ( !Character.isLetter( c ) && c != '_' ) {
 			return false;
@@ -483,38 +399,18 @@ public class QLLexer implements QLTokens {
 		return true;
 	}
 
-	/**
-	 * Returns the most recent identified token.
-	 *
-	 * @return The current token.
-	 */
 	public int getToken() {
 		return token;
 	}
 
-	/**
-	 * Returns the current AST.
-	 *
-	 * @return The AST.
-	 */
 	public Node getSemantic() {
 		return yylval;
 	}
 
-	/**
-	 * Retrieves the current column number on the current line.
-	 *
-	 * @return Column number.
-	 */
 	public int getColumn() {
 		return column;
 	}
 
-	/**
-	 * Retrieves the current line number.
-	 *
-	 * @return Line number.
-	 */
 	public int getLineNumber() {
 		return line;
 	}

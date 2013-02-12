@@ -6,7 +6,7 @@ import org.uva.sea.ql.ast.form.FormElement;
 import org.uva.sea.ql.parser.test.ParseError;
 import org.uva.sea.ql.parser.test.TestParser;
 import org.uva.sea.ql.ast.form.*;
-import org.uva.sea.ql.ast.types.Str;
+import org.uva.sea.ql.ast.types.StrType;
 
 public class TestTypes extends TestParser {
 
@@ -16,8 +16,7 @@ public class TestTypes extends TestParser {
 		FormElement fe = parseFormElement(testStr);
 		assertEquals(Question.class, fe.getClass());
 		Question q = (Question) fe;
-		assertEquals(Str.class, q.getQuestion().getClass());
-		System.out.println(q.getQuestion().getValue());
+		assertEquals(StrType.class, q.getQuestion().getClass());
 	}
 	
 	@Test

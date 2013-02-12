@@ -2,7 +2,7 @@ package org.uva.sea.ql.runtime;
 
 public class MoneyValue extends NumberValue {
 
-	private double value;
+	private final double value;
 	
 	public MoneyValue(double value) {
 		this.value = value;

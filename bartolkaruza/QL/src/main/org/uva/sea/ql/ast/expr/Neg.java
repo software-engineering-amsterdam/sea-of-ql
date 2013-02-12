@@ -2,27 +2,32 @@ package org.uva.sea.ql.ast.expr;
 
 import org.uva.sea.ql.ast.expr.grouping.Expr;
 import org.uva.sea.ql.ast.expr.grouping.UnaryExpr;
-import org.uva.sea.ql.ast.expr.type.NumericType;
 import org.uva.sea.ql.ast.expr.type.Type;
+import org.uva.sea.ql.ast.expr.value.Value;
 import org.uva.sea.ql.symbol.SymbolTable;
 import org.uva.sea.ql.visitor.ExpressionVisitor;
 
 public class Neg extends UnaryExpr {
 
-	private Type type = new NumericType();
+	private static final long serialVersionUID = -5588751682025757843L;
 	
 	public Neg(int lineNumber, Expr rhs) {
 		super(lineNumber, rhs);
 	}
 
 	@Override
-	public void accept(ExpressionVisitor visitor) {
+	public void accept(ExpressionVisitor<?> visitor) {
 		visitor.visit(this);
 	}
 	
 	@Override
 	public Type typeOf(SymbolTable symbolTable) {
-		return type;
+		return getLeastUpperBoundsType(symbolTable);
+	}
+
+	@Override
+	public Value evaluate() {
+		return getLeftValue().neg();
 	}
 
 }

@@ -1,4 +1,4 @@
 package org.uva.sea.ql.visitor;
 
 
-public interface NodeVisitor {}
+public interface NodeVisitor<T> {}

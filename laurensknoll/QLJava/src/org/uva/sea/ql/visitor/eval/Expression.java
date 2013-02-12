@@ -154,12 +154,7 @@ public class Expression implements IExpression<AbstractValue> {
 
 	@Override
 	public AbstractValue visit(Ident ident) {
-		if (!this.environment.exists(ident)) {
-			// TODO: Return null-reference
-			return null;
-		} else {
-			return this.environment.typeOfIdent(ident);
-		}
+		return this.environment.valueOfIdent(ident);
 	}
 
 	@Override

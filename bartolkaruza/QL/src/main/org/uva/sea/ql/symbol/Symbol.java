@@ -4,17 +4,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.uva.sea.ql.ast.Question;
+import org.uva.sea.ql.ast.expr.grouping.Expr;
 import org.uva.sea.ql.ast.expr.type.Type;
 
 public class Symbol {
 
 	private final Question declarationPoint;
-	private final Type type;
+	private final Expr expr;
 	private List<Symbol> dependantOn = new ArrayList<Symbol>();
 	
-	public Symbol(Question declarationPoint, Type type) {
+	public Symbol(Question declarationPoint, Expr expr) {
 		this.declarationPoint = declarationPoint;
-		this.type = type;
+		this.expr = expr;
 	}
 
 	public Question getDeclarationPoint() {
@@ -31,8 +32,12 @@ public class Symbol {
 		}
 	}
 
-	public Type getType() {
-		return type;
+	public Expr getExpr() {
+		return expr;
+	}
+	
+	public Type getType(SymbolTable table) {
+		return expr.typeOf(table);
 	}
 
 }

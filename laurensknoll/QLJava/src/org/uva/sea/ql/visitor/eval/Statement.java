@@ -1,6 +1,5 @@
 package org.uva.sea.ql.visitor.eval;
 
-import java.awt.Component;
 import java.awt.GridLayout;
 
 import javax.swing.JLabel;
@@ -14,6 +13,7 @@ import org.uva.sea.ql.ast.statement.If;
 import org.uva.sea.ql.ast.statement.Question;
 import org.uva.sea.ql.ast.type.AbstractType;
 import org.uva.sea.ql.visitor.IStatement;
+import org.uva.sea.ql.visitor.eval.ui.Widget;
 
 public class Statement implements IStatement<JPanel> {
 
@@ -41,9 +41,11 @@ public class Statement implements IStatement<JPanel> {
 	public JPanel visit(ComputedQuestion computedQuestion) {
 		JPanel panel = new JPanel();
 
-		JPanel question = computedQuestion.getQuestion().accept(this);
-		panel.add(question);
+		Question question = computedQuestion.getQuestion();
+		JPanel questionPanel = question.accept(this);
+		panel.add(questionPanel);
 
+		// Get Widget of an ident; Set value.
 		/*
 		 * TODO: How to evaluate expression and show initial value in question
 		 * Expression expressionVisitor = new Expression(this.environment);
@@ -84,8 +86,8 @@ public class Statement implements IStatement<JPanel> {
 
 		AbstractType type = question.getType();
 		Type typeVisitor = new Type();
-		Component inputField = type.accept(typeVisitor);
-		panel.add(inputField);
+		Widget inputField = type.accept(typeVisitor);
+		panel.add(inputField.getComponent());
 
 		return panel;
 	}

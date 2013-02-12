@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="ASCII"?>
-<cache:CacheIndex xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:cache="http://eclipse.org/dltk/cache_model" lastIndex="242" environment="org.eclipse.dltk.core.environment.localEnvironment">
-  <entries path="/Users/sven/Documents/sc2013/sea-of-ql/sven-m/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g" timestamp="1360164586000" lastAccessTime="1360164586582"/>
-  <entries path="/Users/sven/Documents/sc2013/sea-of-ql/sven-m/QLJava/src/org/uva/sea/ql/parser/antlr" timestamp="1360156755000" lastAccessTime="1360164586583">
-    <attributes name=".dltk.core.archive.cache.lastaccess" location="2838196607/1324792184/241.idx"/>
-  </entries>
-</cache:CacheIndex>

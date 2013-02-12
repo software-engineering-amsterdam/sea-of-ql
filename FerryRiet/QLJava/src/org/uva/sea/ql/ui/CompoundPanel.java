@@ -1,15 +1,16 @@
 package org.uva.sea.ql.ui;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Observer;
 
 import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
 
 import net.miginfocom.swing.MigLayout;
 
-import org.uva.sea.ql.ast.literals.Result;
+import org.uva.sea.ql.ast.operatorresults.Result;
 
 public class CompoundPanel extends Panel {
 	private JPanel compoundJPanel;
@@ -17,7 +18,8 @@ public class CompoundPanel extends Panel {
 
 	public CompoundPanel() {
 		compoundJPanel = new JPanel();
-		compoundJPanel.setLayout(new MigLayout("", "[]", "[18]"));
+		compoundJPanel.setBorder(new EmptyBorder(0, 0, 0, 0) );
+		compoundJPanel.setLayout(new MigLayout("", "0[]0", "0[18]0"));
 	}
 
 	@Override
@@ -49,7 +51,7 @@ public class CompoundPanel extends Panel {
 	}
 
 	@Override
-	public void updatecalculatedField(HashMap<String, Result> symbols) {
+	public void updatecalculatedField(Map<String, Result> symbols) {
 		for (Panel panel : panelList) {
 			panel.updatecalculatedField(symbols);
 		}

@@ -1,6 +1,5 @@
 package org.uva.sea.ql.ast.visitor;
 
-import org.uva.sea.ql.ast.*;
 import org.uva.sea.ql.ast.literals.BooleanLiteral;
 import org.uva.sea.ql.ast.literals.IntegerLiteral;
 import org.uva.sea.ql.ast.literals.MoneyLiteral;
@@ -24,9 +23,11 @@ import org.uva.sea.ql.ast.operators.Or;
 import org.uva.sea.ql.ast.operators.Pos;
 import org.uva.sea.ql.ast.operators.Sub;
 import org.uva.sea.ql.ast.operators.UnExpr;
-import org.uva.sea.ql.ast.types.BooleanType;
-import org.uva.sea.ql.ast.types.MoneyType;
-import org.uva.sea.ql.ast.types.StringType;
+import org.uva.sea.ql.ast.statements.CompoundStatement;
+import org.uva.sea.ql.ast.statements.ConditionalStatement;
+import org.uva.sea.ql.ast.statements.LineStatement;
+import org.uva.sea.ql.ast.statements.QLProgram;
+import org.uva.sea.ql.ast.statements.Statement;
 import org.uva.sea.ql.ast.types.Type;
 
 public class Print implements Visitor<PrintResult> {
@@ -59,9 +60,9 @@ public class Print implements Visitor<PrintResult> {
 		PrintResult pres;
 
 		pres = new PrintResult(lineStatement.getLineName() + ": "
-				+ lineStatement.getDisplayText());
+				+ "\"" + lineStatement.getDisplayText() + "\"");
 
-		pres.appendResult(lineStatement.getTypeDescription().accept(this));
+		pres.appendResult(" " + lineStatement.getTypeDescription().accept(this) + " ");
 
 		if (lineStatement.getInitalizerExpr() != null) {
 			pres.appendResult(" ( ");
@@ -92,19 +93,7 @@ public class Print implements Visitor<PrintResult> {
 
 	@Override
 	public PrintResult visit(Type typeDescription) {
-		PrintResult pres = null;
-
-		if (typeDescription.getClass() == BooleanType.class) {
-			pres = new PrintResult(" boolean ");
-		}
-		if (typeDescription.getClass() == StringType.class) {
-			pres = new PrintResult(" string ");
-		}
-		if (typeDescription.getClass() == MoneyType.class) {
-			pres = new PrintResult(" money ");
-
-		}
-		return pres;
+	    return new PrintResult(typeDescription.getTypeName());
 	}
 
 	@Override

@@ -1,8 +1,0 @@
-package org.uva.sea.ql.parser.typechecking;
-
-import org.uva.sea.ql.ast.visitor.ExpressionVisitor;
-import org.uga.sea.ql.ast.type.ExprType;
-
-public class ExpressionTypeEvaluator implements ExpressionVisitor<Type> {
-	
-}

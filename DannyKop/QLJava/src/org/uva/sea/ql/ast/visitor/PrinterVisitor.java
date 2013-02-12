@@ -1,9 +1,15 @@
 package org.uva.sea.ql.ast.visitor;
 
-import org.uva.sea.ql.ast.*;
+import org.uva.sea.ql.ast.Expr;
+import org.uva.sea.ql.ast.Ident;
 import org.uva.sea.ql.ast.expressions.binary.BinExpr;
 import org.uva.sea.ql.ast.expressions.unary.UnaryExpr;
-import org.uva.sea.ql.ast.form.*;
+import org.uva.sea.ql.ast.form.Computation;
+import org.uva.sea.ql.ast.form.Condition;
+import org.uva.sea.ql.ast.form.Form;
+import org.uva.sea.ql.ast.form.FormElement;
+import org.uva.sea.ql.ast.form.Question;
+import org.uva.sea.ql.ast.types.Type;
 
 public class PrinterVisitor implements Visitor {
 	
@@ -89,4 +95,9 @@ public class PrinterVisitor implements Visitor {
 		
 	}
 
+	@Override
+	public void visit(Type t) {
+		// TODO Auto-generated method stub
+		
 	}
+}

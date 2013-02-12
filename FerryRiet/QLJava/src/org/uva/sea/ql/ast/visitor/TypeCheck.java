@@ -4,11 +4,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import org.uva.sea.ql.ast.CompoundStatement;
-import org.uva.sea.ql.ast.ConditionalStatement;
-import org.uva.sea.ql.ast.LineStatement;
-import org.uva.sea.ql.ast.QLProgram;
-import org.uva.sea.ql.ast.Statement;
 import org.uva.sea.ql.ast.literals.BooleanLiteral;
 import org.uva.sea.ql.ast.literals.IntegerLiteral;
 import org.uva.sea.ql.ast.literals.MoneyLiteral;
@@ -32,6 +27,11 @@ import org.uva.sea.ql.ast.operators.Or;
 import org.uva.sea.ql.ast.operators.Pos;
 import org.uva.sea.ql.ast.operators.Sub;
 import org.uva.sea.ql.ast.operators.UnExpr;
+import org.uva.sea.ql.ast.statements.CompoundStatement;
+import org.uva.sea.ql.ast.statements.ConditionalStatement;
+import org.uva.sea.ql.ast.statements.LineStatement;
+import org.uva.sea.ql.ast.statements.QLProgram;
+import org.uva.sea.ql.ast.statements.Statement;
 import org.uva.sea.ql.ast.types.BooleanType;
 import org.uva.sea.ql.ast.types.Type;
 
@@ -42,9 +42,9 @@ public class TypeCheck implements Visitor<Void> {
 	private final HashMap<String, Statement> symbolMap = new HashMap<String, Statement>();
 
 	public int getErrorCount() {
-		return errorList.size() ;
+		return errorList.size();
 	}
-	
+
 	@Override
 	public Void visit(final Ident id) {
 		LineStatement lineStatement;
@@ -54,8 +54,8 @@ public class TypeCheck implements Visitor<Void> {
 			/***
 			 * Ident is not previous defined
 			 */
-			errorList.add("Line(" + id.getLine() + "," + id.getCharPositionInLine() + ") Field :" + id.getName()
-					+ " is not defined.");
+			errorList.add("Line(" + id.getLine() + "," + id.getCharPositionInLine() + ") Field :"
+					+ id.getName() + " is not defined.");
 		}
 		return null;
 	}
@@ -92,13 +92,23 @@ public class TypeCheck implements Visitor<Void> {
 			symbolMap.put(lineStatement.getLineId().getName(), lineStatement);
 		} else {
 			// Error Symbol already exists.
-			errorList.add("Line(" + lineStatement.getLine() + "," + lineStatement.getCharPositionInLine() + ") Field :"
+			errorList.add("Line(" + lineStatement.getLine() + ","
+					+ lineStatement.getCharPositionInLine() + ") Field :"
 					+ lineStatement.getLineName() + " has multiple definitions.");
 		}
 		lineStatement.getTypeDescription().accept(this);
 
 		if (lineStatement.getInitalizerExpr() != null) {
 			lineStatement.getInitalizerExpr().accept(this);
+			// The double dispatch reverses the check order
+			// the check order is important because we allow coercion from
+			// Integer to Money
+			if (!lineStatement.getInitalizerExprType(symbolMap).isCompatibleTo(
+					lineStatement.getTypeDescription())) {
+				errorList.add("Line(" + lineStatement.getLine() + ","
+						+ lineStatement.getCharPositionInLine() + ") Field :"
+						+ lineStatement.getLineName() + " has incompatible initializer");
+			}
 		}
 
 		return null;
@@ -129,26 +139,30 @@ public class TypeCheck implements Visitor<Void> {
 		expr.getExprRightHand().accept(this);
 
 		// Do two checks on compatibility because Money is compatible to Integer
-		// but not the other way around. The order in the expression is unknown
+		// but not the other way around. The order in the expression is reversed
+		// by the double dispatch.
 		//
-		if ((expr.getExprLeftHand().typeOf(symbolMap).isCompatibleTo(expr.getExprRightHand().typeOf(symbolMap)))) {
+		if ((expr.getExprLeftHandType(symbolMap).isCompatibleTo(expr
+				.getExprRightHandType(symbolMap)))) {
 			return true;
 		}
-		if ((expr.getExprRightHand().typeOf(symbolMap).isCompatibleTo(expr.getExprLeftHand().typeOf(symbolMap)))) {
+		if ((expr.getExprRightHandType(symbolMap).isCompatibleTo(expr
+				.getExprLeftHandType(symbolMap)))) {
 			return true;
 		}
-		
+
 		/***
-		 * Due to empty AST expression nodes no available line
+		 * Due to empty AST expression nodes not available the line
 		 * numbers/positions. (Annotation of AST would be nice?)
 		 */
-		errorList.add("Line(nan,nan) Expression: incompatible types on operator: " + operator + ".");
+		errorList.add("Line(nan,nan) Expression: incompatible types on operator: " + operator);
 		return false;
 	}
 
 	private boolean rhsCompatible(final Expr opExpr, final Expr rhs, final String operator) {
 		if (!opExpr.typeOf(symbolMap).isCompatibleTo(rhs.typeOf(symbolMap))) {
-			errorList.add("Line(nan,nan) Expression: incompatible operands on operator:" + operator + ".");
+			errorList.add("Line(nan,nan) Expression: incompatible operands on operator:" + operator
+					+ ".");
 			return false;
 		}
 		return true;

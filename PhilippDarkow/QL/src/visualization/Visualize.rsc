@@ -9,12 +9,25 @@ import visualization::ControlFlow;
 
 //  Convert expressions into text
 
-str make(natCon(int N)) = "<N>";
+str make(moneyCon(real M)) = "<M>";
+str make(boolCon(bool B)) = "<B>";
+str make(integer(bool B)) = "<B>";
 str make(strCon(str S)) = S;
-str make(syntax::AbstractSyntax::id(QuestionId Id)) = Id;
-str make(add(EXP E1, EXP E2)) = "<make(E1)> + <make(E2)>";
-str make(sub(EXP E1, EXP E2)) = "<make(E1)> - <make(E2)>";
-str make(conc(EXP E1, EXP E2)) = "<make(E1)> || <make(E2)>";
+//Adding not sure if that is right
+str make(str S) = S;
+str make(Type T) = "<T>";
+//
+
+str make(question:easyQuestion(str id, str labelQuestion, Type tp)) {
+	println("ID : <id>  TP : <tp>");
+	return "<make(id)> + <make(labelQuestion)> + <make(tp)>";    // Here further working
+}
+
+
+str make(syntax::AbstractSyntax::id(str Id)) = Id;
+str make(add(Expression E1, Expression E2)) = "<make(E1)> + <make(E2)>";
+str make(sub(Expression E1, Expression E2)) = "<make(E1)> - <make(E2)>";
+//str make(conc(Expression E1, Expression E2)) = "<make(E1)> || <make(E2)>";
 
 //  Add an editor to a node
 
@@ -30,11 +43,14 @@ Figure visNode(CFNode n:entry(loc location)) =
 Figure visNode(CFNode n:exit()) = 
        box(text("EXIT"),  vis::Figure::id(getId(n)), fillColor("grey"), gap(4));
 
-Figure visNode(CFNode n:choice(loc location, EXP exp)) = 
+Figure visNode(CFNode n:choice(loc location, Expression exp)) = 
        ellipse(text(make(exp)),  vis::Figure::id(getId(n)), fillColor("yellow"), gap(8), editIt(n));
 
 Figure visNode(CFNode n:statement(loc location, asgStat(PicoId Id, EXP Exp))) =
         box(text("<Id> := <make(Exp)>"),  vis::Figure::id(getId(n)), gap(8), editIt(n));
+        
+Figure visNode(CFNode n:q(loc location, question:easyQuestion(str id, str labelQuestion, Type tp))) = 
+       box(text("<id> := <make(question)>"),  vis::Figure::id(getId(n)), gap(8), editIt(n));
 
 //  Define the id for each CFG node
 

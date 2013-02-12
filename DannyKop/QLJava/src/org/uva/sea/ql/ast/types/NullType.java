@@ -1,24 +1,12 @@
 package org.uva.sea.ql.ast.types;
 
-import org.uva.sea.ql.ast.Expr;
-import org.uva.sea.ql.ast.visitor.SymbolTable;
 
-public class NullType extends Expr {
-	/**
-	 * Constructor
-	 */
-	public NullType() {
-	}
-	public String getValue() {
-		return "";
-	}
+public class NullType extends Type {
+
 	@Override
-	public boolean isCompatibleTo(Expr t) {
+	public boolean isCompatibleTo(Type t) {
+		// TODO Auto-generated method stub
 		return false;
-	}
-	@Override
-	public Expr getType(SymbolTable st) {
-		return this;
 	}
 
 }

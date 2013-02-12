@@ -1,8 +1,9 @@
 package org.uva.sea.ql.parser.test.syntax;
 
 import static org.junit.Assert.assertEquals;
-
 import org.junit.Test;
+
+import org.uva.sea.ql.parser.test.ParseError;
 import org.uva.sea.ql.ast.expression.Add;
 import org.uva.sea.ql.ast.expression.And;
 import org.uva.sea.ql.ast.expression.Eq;
@@ -15,7 +16,7 @@ import org.uva.sea.ql.ast.expression.LT;
 import org.uva.sea.ql.ast.expression.Mul;
 import org.uva.sea.ql.ast.expression.Not;
 import org.uva.sea.ql.ast.expression.Str;
-import org.uva.sea.ql.parser.test.ParseError;
+
 
 public class ExpressionTest extends SyntaxTest {
 

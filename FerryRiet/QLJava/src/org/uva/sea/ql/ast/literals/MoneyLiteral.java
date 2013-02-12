@@ -1,11 +1,12 @@
 package org.uva.sea.ql.ast.literals;
 
 import java.math.BigDecimal;
+import java.util.Map;
 
-import java.util.HashMap;
-
-import org.uva.sea.ql.ast.Statement;
+import org.uva.sea.ql.ast.operatorresults.MoneyResult;
+import org.uva.sea.ql.ast.operatorresults.Result;
 import org.uva.sea.ql.ast.operators.Expr;
+import org.uva.sea.ql.ast.statements.Statement;
 import org.uva.sea.ql.ast.types.MoneyType;
 import org.uva.sea.ql.ast.types.Type;
 
@@ -25,12 +26,12 @@ public class MoneyLiteral extends Expr {
 	}
 
 	@Override
-	public Type typeOf(HashMap<String, Statement> symbolMap) {
+	public Type typeOf(Map<String, Statement> symbolMap) {
 		return new MoneyType();
 	}
 
 	@Override
-	public Result eval(HashMap<String, Result> symbolMap) {
+	public Result eval(Map<String, Result> symbolMap) {
 		return new MoneyResult(value);
 	}
 

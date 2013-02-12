@@ -12,7 +12,9 @@ stylesheet taxOfficeExample {
     }
     
     section "Selling" {
-      question hasSoldHouse
+      question hasSoldHouse {
+        widget select
+      }
       section "You sold a house" {
         question sellingPrice
         question privateDebt

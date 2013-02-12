@@ -7,10 +7,11 @@ package org.uva.sea.ql.parser.antlr;
 import org.uva.sea.ql.ast.*;
 import org.uva.sea.ql.ast.literals.*;
 import org.uva.sea.ql.ast.types.*;
+import org.uva.sea.ql.ast.statements.*;
 import org.uva.sea.ql.ast.operators.*;
 import java.util.LinkedList;
 }
-
+ 
 @members {
     private List<String> errors = new LinkedList<String>();
     public void displayRecognitionError(String[] tokenNames,
@@ -45,8 +46,10 @@ compoundStatement returns [Statement result]
     ;    
 
 statement returns [Statement result]     
-    : Ident COLON StringLiteral type ('(' x=orExpr ')')? { $result = new LineStatement(new Ident($Ident),$StringLiteral,$type.result,x); }
-    | 'if' '(' ex=orExpr ')' ctrue=compoundStatement ('else' cfalse=compoundStatement)? { $result = new ConditionalStatement(ex,ctrue,cfalse) ; }
+    : Ident COLON StringLiteral type ('(' x=orExpr ')')? 
+          { $result = new LineStatement(new Ident($Ident),$StringLiteral,$type.result,x); }
+    | 'if' '(' ex=orExpr ')' ctrue=compoundStatement ('else' cfalse=compoundStatement)? 
+          { $result = new ConditionalStatement(ex,ctrue,cfalse) ; }
     |  cst=compoundStatement { $result = cst ;}  
     ;
 

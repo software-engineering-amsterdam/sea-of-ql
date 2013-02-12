@@ -80,6 +80,7 @@ data Expr
   | or(Expr left, Expr right)
   ;
   
+anno bool Expr@parentheses;
 anno loc Conditional@location;
 anno loc ElsePart@location;
 anno loc Expr@location;

@@ -1,6 +1,14 @@
 package khosrow.uva.sea.ql.values;
 
-public abstract class Value {
+import khosrow.uva.sea.ql.resources.ITypeCompatible;
+
+public abstract class Value implements ITypeCompatible {
+	
+	public boolean isCompatibleToInt() { return false;}
+	public boolean isCompatibleToBool() { return false;}
+	public boolean isCompatibleToMoney() { return false;}
+	public boolean isCompatibleToNumeric() { return false;}
+	public boolean isCompatibleToStr() { return false;}
 	
 	public Value add(Value arg) {
 		throw new UnsupportedOperationException();
@@ -75,7 +83,7 @@ public abstract class Value {
 
 	 */
 	public abstract int compareTo(Value value);	// TODO: change this to protected!
-	
+		
 	protected Value addInt(IntVal arg) {
 		throw new UnsupportedOperationException();
 	}

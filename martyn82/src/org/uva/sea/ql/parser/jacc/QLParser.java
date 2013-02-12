@@ -6,11 +6,7 @@ import org.uva.sea.ql.ast.statement.Statement;
 import org.uva.sea.ql.parser.IParser;
 import org.uva.sea.ql.parser.ParseError;
 
-/**
- * JACC parser.
- */
 public class QLParser implements IParser {
-
 	@Override
 	public Statement parse( String src ) throws ParseError {
 		QLLexer lexer = new QLLexer( new StringReader( src ) );
@@ -40,16 +36,6 @@ public class QLParser implements IParser {
 		return parser.getResult();
 	}
 
-	/**
-	 * Converts syntax error to parse error.
-	 *
-	 * @param message
-	 * @param token
-	 * @param lineNumber
-	 * @param columnNumber
-	 *
-	 * @throws ParseError
-	 */
 	private void onSyntaxError( String message, int token, int lineNumber, int columnNumber ) throws ParseError {
 		throw new ParseError(
 			String.format(

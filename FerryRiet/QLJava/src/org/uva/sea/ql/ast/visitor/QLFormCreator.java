@@ -1,18 +1,13 @@
 package org.uva.sea.ql.ast.visitor;
 
-import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
-import org.uva.sea.ql.ast.CompoundStatement;
-import org.uva.sea.ql.ast.ConditionalStatement;
-import org.uva.sea.ql.ast.LineStatement;
-import org.uva.sea.ql.ast.QLProgram;
-import org.uva.sea.ql.ast.Statement;
 import org.uva.sea.ql.ast.literals.BooleanLiteral;
 import org.uva.sea.ql.ast.literals.IntegerLiteral;
 import org.uva.sea.ql.ast.literals.MoneyLiteral;
-import org.uva.sea.ql.ast.literals.Result;
 import org.uva.sea.ql.ast.literals.StringLiteral;
+import org.uva.sea.ql.ast.operatorresults.Result;
 import org.uva.sea.ql.ast.operators.Add;
 import org.uva.sea.ql.ast.operators.And;
 import org.uva.sea.ql.ast.operators.BinExpr;
@@ -32,6 +27,11 @@ import org.uva.sea.ql.ast.operators.Or;
 import org.uva.sea.ql.ast.operators.Pos;
 import org.uva.sea.ql.ast.operators.Sub;
 import org.uva.sea.ql.ast.operators.UnExpr;
+import org.uva.sea.ql.ast.statements.CompoundStatement;
+import org.uva.sea.ql.ast.statements.ConditionalStatement;
+import org.uva.sea.ql.ast.statements.LineStatement;
+import org.uva.sea.ql.ast.statements.QLProgram;
+import org.uva.sea.ql.ast.statements.Statement;
 import org.uva.sea.ql.ast.types.Type;
 import org.uva.sea.ql.ui.CompoundPanel;
 import org.uva.sea.ql.ui.ConditionalPanel;
@@ -40,14 +40,13 @@ import org.uva.sea.ql.ui.Panel;
 
 public class QLFormCreator implements Visitor<Panel> {
 	private String formName;
-	private HashMap<String, Result> symbols = new HashMap<String, Result>();
-	private ArrayList<Panel> panels = new ArrayList<Panel>();
+	private Map<String, Result> symbols = new HashMap<String, Result>();
 
 	public String getFormName() {
 		return formName;
 	}
 
-	public HashMap<String, Result> getSymbols() {
+	public Map<String, Result> getSymbols() {
 		return symbols;
 	}
 
@@ -78,19 +77,15 @@ public class QLFormCreator implements Visitor<Panel> {
 		return newPanel;
 	}
 
-	public ArrayList<Panel> getPanels() {
-		return panels;
-	}
-
 	@Override
 	public Panel visit(ConditionalStatement conditionalStatement) {
 		ConditionalPanel conditionalPanel = new ConditionalPanel(conditionalStatement);
 
-		conditionalPanel.setcThenPanel((CompoundPanel) conditionalStatement
-				.getTrueCompound().accept(this));
+		conditionalPanel.setcThenPanel((CompoundPanel) conditionalStatement.getTrueCompound()
+				.accept(this));
 		if (conditionalStatement.getFalseCompound() != null) {
-			conditionalPanel.setcElsePanel((CompoundPanel) conditionalStatement
-					.getFalseCompound().accept(this));
+			conditionalPanel.setcElsePanel((CompoundPanel) conditionalStatement.getFalseCompound()
+					.accept(this));
 		}
 		return conditionalPanel;
 	}
