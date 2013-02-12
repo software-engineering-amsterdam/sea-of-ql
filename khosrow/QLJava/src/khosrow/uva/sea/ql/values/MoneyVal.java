@@ -12,16 +12,6 @@ public class MoneyVal extends NumericVal {
 	}
 
 	@Override
-	public boolean isCompatibleToMoney() {
-		return true;
-	}
-
-	@Override
-	public int compareTo(Value value) {
-		return (int) (getValue() - ((MoneyVal) value).getValue());
-	}
-
-	@Override
 	public Value add(Value arg) {
 		return arg.addMoney(this);
 	}
@@ -54,6 +44,36 @@ public class MoneyVal extends NumericVal {
 	@Override
 	public Value neg() {
 		return new MoneyVal(-1 * getValue());
+	}
+	
+	@Override
+	public Value eq(Value arg) {
+		return new BoolVal(arg.compareToMoney(this) == 0);
+	}
+
+	@Override
+	public Value neq(Value arg) {
+		return new BoolVal(arg.compareToMoney(this) != 0);
+	}
+
+	@Override
+	public Value geq(Value arg) {
+		return new BoolVal(arg.compareToMoney(this) >= 0);
+	}
+
+	@Override
+	public Value gt(Value arg) {
+		return new BoolVal(arg.compareToMoney(this) > 0);
+	}
+
+	@Override
+	public Value leq(Value arg) {
+		return new BoolVal(arg.compareToMoney(this) <= 0);
+	}
+
+	@Override
+	public Value lt(Value arg) {
+		return new BoolVal(arg.compareToMoney(this) < 0);
 	}
 
 	@Override
@@ -104,5 +124,15 @@ public class MoneyVal extends NumericVal {
 	@Override
 	protected Value modMoney(MoneyVal arg) {
 		return new MoneyVal(arg.getValue() % getValue());
+	}
+	
+	@Override
+	protected double compareToInt(IntVal arg) {
+		return arg.getValue() - getValue();	
+	}
+	
+	@Override
+	protected double compareToMoney(MoneyVal arg) {
+		return arg.getValue() - getValue();	
 	}
 }

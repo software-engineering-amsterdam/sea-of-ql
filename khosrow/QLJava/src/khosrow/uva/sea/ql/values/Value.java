@@ -1,14 +1,6 @@
 package khosrow.uva.sea.ql.values;
 
-import khosrow.uva.sea.ql.resources.ITypeCompatible;
-
-public abstract class Value implements ITypeCompatible {
-	
-	public boolean isCompatibleToInt() { return false;}
-	public boolean isCompatibleToBool() { return false;}
-	public boolean isCompatibleToMoney() { return false;}
-	public boolean isCompatibleToNumeric() { return false;}
-	public boolean isCompatibleToStr() { return false;}
+public abstract class Value {	
 	
 	public Value add(Value arg) {
 		throw new UnsupportedOperationException();
@@ -51,6 +43,7 @@ public abstract class Value implements ITypeCompatible {
 	}
 	
 	public Value eq(Value arg) {
+		
 		throw new UnsupportedOperationException();
 	}
 	
@@ -73,17 +66,23 @@ public abstract class Value implements ITypeCompatible {
 	public Value lt(Value arg) {
 		throw new UnsupportedOperationException();
 	}
-	
-	/**
-	 * @param value
-	 * @return
-	 * zero if this object represents the same value as the argument; 
-	 * a positive value if this object represents a value greater than the argument; 
-	 * and a negative value if this object represents a value less than the argument.
-
-	 */
-	public abstract int compareTo(Value value);	// TODO: change this to protected!
 		
+	protected double compareToInt(IntVal arg) {
+		throw new UnsupportedOperationException();	
+	}
+	
+	protected double compareToMoney(MoneyVal arg) {
+		throw new UnsupportedOperationException();	
+	}
+	
+	protected boolean compareToBool(BoolVal arg) {
+		throw new UnsupportedOperationException();	
+	}
+	
+	protected boolean compareToString(StrVal arg) {
+		throw new UnsupportedOperationException();	
+	}
+	
 	protected Value addInt(IntVal arg) {
 		throw new UnsupportedOperationException();
 	}
@@ -124,4 +123,11 @@ public abstract class Value implements ITypeCompatible {
 		throw new UnsupportedOperationException();
 	}
 	
+	protected Value andWith(BoolVal arg) {
+		throw new UnsupportedOperationException();
+	}
+	
+	protected Value orWith(BoolVal arg) {
+		throw new UnsupportedOperationException();
+	}
 }
