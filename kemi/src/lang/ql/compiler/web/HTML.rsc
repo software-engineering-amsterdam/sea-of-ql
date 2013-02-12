@@ -58,7 +58,7 @@ private str createPage(str title, list[Question] questions) =
   '<for(q <- questions) {>
   '      <createQuestion(title, q)>
   '<}>
-  '      \<input type=\"submit\" value=\"Submit <title>\"\>
+  '      \<input id=\"submit\" type=\"submit\" value=\"Submit <title>\"\>
   '    \</form\>
   '  \</body\>
   '\</html\>

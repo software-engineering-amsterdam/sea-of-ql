@@ -8,9 +8,15 @@
 @contributor{Kevin van der Vlist - kevin@kevinvandervlist.nl}
 @contributor{Jimi van der Woning - Jimi.vanderWoning@student.uva.nl}
 
-module util::LocationHelper
+module lang::ql::ast::Keyword
 
-import String;
-
-public str basename(loc l) =
-  replaceLast(l.file, ".<l.extension>", "");
+public set[str] keywords = {
+  "boolean",
+  "integer",
+  "money",
+  "date",
+  "string",
+  "true",
+  "false",
+  "form"
+};

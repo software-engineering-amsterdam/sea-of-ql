@@ -10,14 +10,9 @@ import lang::qls::util::StyleHelper;
 
 import lang::qls::util::ParseHelper;
 
-public void main() {
-  s = parseStylesheet(|project://QL-R-kemi/stylesheets/taxOfficeExample.qs|);
-  iprintln(unallowedWidgetErrors(s));
-}
-
 private map[Type, list[str]] allowedWidgets = (
   booleanType("boolean"):
-    ["text", "radio", "checkbox", "select"],
+    ["radio", "checkbox", "select"],
   integerType("integer"):
     ["text", "number", "slider"],
   moneyType("money"):
@@ -51,7 +46,7 @@ private set[Message] unallowedDefaultWidgetErrors(Stylesheet s) {
 
 private set[Message] unallowedQuestionWidgetErrors(Stylesheet s) {
   errors = {};
-  typeMap = getTypeMap(accompanyingForm(s));
+  typeMap = getTypeMap(getAccompanyingForm(s));
   for(d <- getQuestionDefinitions(s)) {
     if(!d.styleRules? || identDefinition(d.ident) notin typeMap)
       continue;
