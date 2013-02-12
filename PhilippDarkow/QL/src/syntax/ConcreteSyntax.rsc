@@ -98,7 +98,7 @@ start syntax Expression
    > left or: Expression "||" Expression
     | boolCon: Boolean bVal
     | moneyCon: Money mVal
-    | string: String sVal
+    | strCon: String sVal
    ;
    
 // METHODS
