@@ -99,6 +99,10 @@ public class TypeCheck implements Visitor<Void> {
 
 		if (lineStatement.getInitalizerExpr() != null) {
 			lineStatement.getInitalizerExpr().accept(this);
+			if ( lineStatement.getTypeDescription().isCompatibleTo(lineStatement.getInitalizerExpr().typeOf(symbolMap))) {
+				errorList.add("Line(" + lineStatement.getLine() + "," + lineStatement.getCharPositionInLine() + ") Field :"
+						+ lineStatement.getLineName() + " has incompatible initializer");				
+			}
 		}
 
 		return null;
