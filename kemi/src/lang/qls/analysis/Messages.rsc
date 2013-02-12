@@ -23,6 +23,9 @@ public Message sectionAlreadyDefined(loc old, loc cur) =
 public Message defaultAlreadyDefined(loc location) =
   warning("Default already declared at this level", location);
 
+public Message questionUnused(str ident, loc location) =
+  warning("Question <ident> is not defined in the stylesheet", location);
+
 public Message questionAlreadyDefined(loc old, loc cur) = 
   error("Question already used at line <old.begin.line>", cur);
 
