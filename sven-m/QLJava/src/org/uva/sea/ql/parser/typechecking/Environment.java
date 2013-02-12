@@ -5,17 +5,17 @@ import java.util.List;
 import java.util.Map;
 
 import org.uva.sea.ql.ast.expression.Ident;
-import org.uva.sea.ql.ast.type.Type;
+import org.uva.sea.ql.ast.form.Type;
 
 public class Environment {
 	Map<String, Type> types;
-	List<String> errors;
+	List<FormError> formErrors;
 	
 	public Environment() {
 		types = new HashMap<>();
 	}
 	
-	public Type checkIdentType(Ident id) {
+	public Type getIdent(Ident id) {
 		return types.get(id.getName());
 	}
 	

@@ -5,16 +5,8 @@ options {backtrack=true; memoize=true;}
 {
 package org.uva.sea.ql.parser.antlr;
 import org.uva.sea.ql.ast.*;
-import org.uva.sea.ql.ast.type.*;
 import org.uva.sea.ql.ast.expression.*;
 import org.uva.sea.ql.ast.form.*;
-}
-
-@parser::members {
-    @Override
-    public void reportError(RecognitionException e) {
-      throw new RuntimeException(e);
-    }
 }
 
 @lexer::header
@@ -31,7 +23,10 @@ package org.uva.sea.ql.parser.antlr;
 }
 
 form returns [Form result]
-  : 'form' IDENT body { $result = new Form($IDENT.text, $body.result); } EOF
+  : frm='form' IDENT body {
+      $result = new Form($IDENT.text, $body.result, new Location($frm.line,
+        0, $frm.pos, 0));
+    } EOF
   ;
   
 topLevelBody returns [Body result]
@@ -41,8 +36,12 @@ topLevelBody returns [Body result]
   
 body returns [Body result]
   @init { List<FormElement> tempList = new ArrayList<>(); }
-  @after { $result = new Body(tempList); }
-  : '{' (formElement { tempList.add($formElement.result); })* '}'
+  @after
+    {
+      $result = new Body(tempList, new Location($open.line, $close.line,
+        $open.pos, $close.pos + $close.text.length()));
+    }
+  : open='{' (formElement { tempList.add($formElement.result); })* close='}'
   ;
   
 formElement returns [FormElement result]
@@ -62,19 +61,32 @@ question returns [Question result]
           $id.text.length())),
         $lbl.text, $type.result);
     }
-  | id=IDENT ':' lbl=STRING_LITERAL type '(' cond=expression ')'
+  | id=IDENT ':' lbl=STRING_LITERAL type '(' cond=expression close=')'
     {
       $result = new Computed(
         new Ident($id.text, new Location($id.line, $id.line, $id.pos,
           $id.text.length())),
-        $lbl.text, $type.result, $cond.result);
+        $lbl.text, $type.result, $cond.result, new Location(0, $close.line, 0,
+          $close.pos + $close.text.length()));
     }
   ;
   
 type returns [Type result]
-  : 'boolean' { $result = new BoolType(); }
-  | 'string' { $result = new StrType(); }
-  | 'integer' { $result = new IntType(); }
+  : boolTok='boolean'
+    {
+      $result = new BoolType(new Location($boolTok.line, $boolTok.line,
+        $boolTok.pos, $boolTok.pos + $boolTok.text.length()));
+    }
+  | strTok='string'
+    {
+      $result = new StrType(new Location($strTok.line, $strTok.line,
+        $strTok.pos, $strTok.pos + $strTok.text.length()));
+    }
+  | intTok='integer'
+    {
+      $result = new IntType(new Location($intTok.line, $intTok.line,
+        $intTok.pos, $intTok.pos + $intTok.text.length()));
+    }
   ;
 
 ifStatement returns [IfStatement result]
@@ -82,22 +94,24 @@ ifStatement returns [IfStatement result]
     List<ElseIfStatement> elseIfs = new ArrayList<>();
     ElseStatement elseStmt = null;
   }
-  : 'if' '(' ic=expression ')' ib=body
+  : ifTok='if' '(' ic=expression ')' ib=body
     (
-      'else' 'if' '(' eic=expression ')' eib=body
+      elseIfTok='else' 'if' '(' eic=expression ')' eib=body
       {
-        elseIfs.add(new ElseIfStatement($eic.result, $eib.result));
+        elseIfs.add(new ElseIfStatement($eic.result, $eib.result,
+          new Location($elseIfTok.line, 0, $elseIfTok.pos, 0)));
       }
     )*
-    
     (
-      'else' eb=body
+      elseTok='else' eb=body
       {
-        elseStmt = new ElseStatement($eb.result);
+        elseStmt = new ElseStatement($eb.result, new Location($elseTok.line,
+          0, $elseTok.pos, 0));
       }
     )?
     {
-      $result = new IfStatement($ic.result, $ib.result, elseIfs, elseStmt); 
+      $result = new IfStatement($ic.result, $ib.result, elseIfs, elseStmt,
+        new Location($ifTok.line, 0, $ifTok.pos, 0)); 
     }
   ;
 

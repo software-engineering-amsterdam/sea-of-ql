@@ -22,11 +22,11 @@ import org.uva.sea.ql.ast.expression.Or;
 import org.uva.sea.ql.ast.expression.Pos;
 import org.uva.sea.ql.ast.expression.Str;
 import org.uva.sea.ql.ast.expression.Sub;
+import org.uva.sea.ql.ast.form.BoolType;
+import org.uva.sea.ql.ast.form.IntType;
+import org.uva.sea.ql.ast.form.StrType;
+import org.uva.sea.ql.ast.form.Type;
 
-import org.uva.sea.ql.ast.type.BoolType;
-import org.uva.sea.ql.ast.type.IntType;
-import org.uva.sea.ql.ast.type.StrType;
-import org.uva.sea.ql.ast.type.Type;
 
 public class ExpressionTypeEvaluator implements ExpressionVisitor<Type> {
 	private Map<String, Type> environment;
