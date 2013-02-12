@@ -21,7 +21,9 @@ StringType(id, label, readOnly) ::= <<
 >>
 OpenBlock(id) ::= <<
 <div data-role="fieldcontain" id="$id$">
+<script>alert("openblock: " + "$id$");</script>
 >>
 CloseBlock(id) ::= <<
-</div><!-- end of $id$ -->
+</div>
 >>
+Expression() ::= "expression!"

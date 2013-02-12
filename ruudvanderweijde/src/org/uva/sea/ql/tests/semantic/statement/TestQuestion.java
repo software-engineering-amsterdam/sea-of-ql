@@ -18,8 +18,8 @@ import org.uva.sea.ql.tests.IParse;
 import org.uva.sea.ql.type.BooleanType;
 import org.uva.sea.ql.type.IntegerType;
 import org.uva.sea.ql.type.StringType;
-import org.uva.sea.ql.visitor.FormTypeCheckVisitor;
-import org.uva.sea.ql.visitor.TypeMapper;
+import org.uva.sea.ql.visitor.typeCheck.FormTypeCheckVisitor;
+import org.uva.sea.ql.visitor.typeCheck.TypeMapper;
 
 @RunWith(Parameterized.class)
 public class TestQuestion {

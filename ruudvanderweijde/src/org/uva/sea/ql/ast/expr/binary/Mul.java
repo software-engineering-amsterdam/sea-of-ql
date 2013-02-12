@@ -4,7 +4,7 @@ import org.uva.sea.ql.ast.expr.Expr;
 import org.uva.sea.ql.type.NumericType;
 import org.uva.sea.ql.type.Type;
 import org.uva.sea.ql.visitor.IExpressionVisitor;
-import org.uva.sea.ql.visitor.TypeMapper;
+import org.uva.sea.ql.visitor.typeCheck.TypeMapper;
 
 public class Mul extends Binary {
 

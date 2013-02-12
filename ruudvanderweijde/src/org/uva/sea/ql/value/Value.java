@@ -1,7 +1,7 @@
 package org.uva.sea.ql.value;
 
 public abstract class Value {
-
+	
 	public Value add(Value arg) {
 		throw new UnsupportedOperationException();
 	}

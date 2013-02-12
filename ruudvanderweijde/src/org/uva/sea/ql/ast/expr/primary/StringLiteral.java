@@ -3,7 +3,7 @@ package org.uva.sea.ql.ast.expr.primary;
 import org.uva.sea.ql.type.StringType;
 import org.uva.sea.ql.type.Type;
 import org.uva.sea.ql.visitor.IExpressionVisitor;
-import org.uva.sea.ql.visitor.TypeMapper;
+import org.uva.sea.ql.visitor.typeCheck.TypeMapper;
 
 public class StringLiteral extends Primary<String> {
 

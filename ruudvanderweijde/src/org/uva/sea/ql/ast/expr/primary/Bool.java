@@ -3,7 +3,7 @@ package org.uva.sea.ql.ast.expr.primary;
 import org.uva.sea.ql.type.BooleanType;
 import org.uva.sea.ql.type.Type;
 import org.uva.sea.ql.visitor.IExpressionVisitor;
-import org.uva.sea.ql.visitor.TypeMapper;
+import org.uva.sea.ql.visitor.typeCheck.TypeMapper;
 
 
 public class Bool extends Primary<Boolean> {
