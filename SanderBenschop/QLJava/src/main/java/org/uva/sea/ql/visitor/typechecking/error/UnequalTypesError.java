@@ -2,9 +2,8 @@ package org.uva.sea.ql.visitor.typechecking.error;
 
 import org.uva.sea.ql.ast.SourceCodeInformation;
 import org.uva.sea.ql.ast.primary.typeClasses.Type;
-import org.uva.sea.ql.visitor.QLError;
 
-public class UnequalTypesError extends QLError {
+public class UnequalTypesError extends SemanticQLError {
 
     private static final String ERROR_MESSAGE_TEMPLATE = "Error: binary operation on line '%d' column position '%d' contains unequal types of respectively %s and %s.";
 

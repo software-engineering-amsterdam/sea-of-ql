@@ -2,9 +2,8 @@ package org.uva.sea.ql.visitor.typechecking.error;
 
 import org.uva.sea.ql.ast.SourceCodeInformation;
 import org.uva.sea.ql.ast.primary.typeClasses.Type;
-import org.uva.sea.ql.visitor.QLError;
 
-public class UnsupportedTypeError extends QLError {
+public class UnsupportedTypeError extends SemanticQLError {
 
     private static final String ERROR_MESSAGE_TEMPLATE = "Error: variable on line '%d' column position '%d' of type %s was expected to be of type %s.";
 

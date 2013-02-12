@@ -1,8 +1,11 @@
 package org.uva.sea.ql.visitor.codegeneration;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
-import org.mockito.Mockito;
 import org.uva.sea.ql.ast.Form;
 import org.uva.sea.ql.ast.QLStatement;
 import org.uva.sea.ql.ast.SourceCodeInformation;
@@ -14,11 +17,6 @@ import org.uva.sea.ql.ast.primary.typeClasses.IntegerType;
 import org.uva.sea.ql.ast.statement.Computation;
 import org.uva.sea.ql.ast.statement.Question;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import static org.mockito.Mockito.when;
-
 public class WebAppGeneratingVisitorTest {
 
     private WebAppGeneratingVisitor webAppGeneratingVisitor;
@@ -27,17 +25,19 @@ public class WebAppGeneratingVisitorTest {
 
     @Before
     public void init() {
-        webAppGeneratingVisitor = new WebAppGeneratingVisitor();
+        this.webAppGeneratingVisitor = new WebAppGeneratingVisitor();
         this.sourceCodeInformation = new SourceCodeInformation(0, 0);
     }
 
     @Test
+    @Ignore
     public void testWebAppPageGeneration() {
         List<QLStatement> statements = new ArrayList<QLStatement>();
 
         Question openQuestion = new Question(new Ident("age", sourceCodeInformation), new Str("How old are you?", sourceCodeInformation), new IntegerType());
         Question closedQuestion = new Question(new Ident("male", sourceCodeInformation), new Str("Are you male?", sourceCodeInformation), new BooleanType());
-        Computation computation = new Computation(new Ident("alwaysTen", sourceCodeInformation), new Str("Always 10:", sourceCodeInformation), new Int(10, sourceCodeInformation));
+        Computation computation = new Computation(new Ident("alwaysTen", sourceCodeInformation), new Str("Always 10:", sourceCodeInformation), new Int(10,
+                sourceCodeInformation));
 
         statements.add(openQuestion);
         statements.add(closedQuestion);
@@ -45,6 +45,5 @@ public class WebAppGeneratingVisitorTest {
 
         Form form = new Form("QLForm", statements);
         String code = webAppGeneratingVisitor.generateQLCodeForForm(form);
-        int breakpoint = 1;
     }
 }

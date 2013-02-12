@@ -37,19 +37,6 @@ public class ComputationTypeCheckingVisitorTest {
     }
 
     @Test
-    public void shouldNotAcceptOtherExpressionThanInt() {
-        Ident ident = new Ident("test", sourceCodeInformation);
-        Str str = new Str("\"Label\"", sourceCodeInformation);
-        Bool bool = new Bool(true, sourceCodeInformation);
-        Computation computation = new Computation(ident, str, bool);
-
-        boolean computationCorrect = typeCheckingVisitor.visitComputation(computation);
-        assertEquals(1, typeCheckingVisitor.getErrors().size());
-        assertTrue(typeCheckingVisitor.getErrors().get(0) instanceof UnsupportedTypeError);
-        assertFalse(computationCorrect);
-    }
-
-    @Test
     public void shouldMakeIdentifierReduceableIfExpressionIsReduceable() {
         Int leftHandSide = new Int(1, sourceCodeInformation);
         Int rightHandSide = new Int(3, sourceCodeInformation);

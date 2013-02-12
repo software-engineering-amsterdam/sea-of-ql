@@ -5,14 +5,14 @@ import org.uva.sea.ql.ast.binary.GreaterThan;
 import org.uva.sea.ql.ast.binary.LessThan;
 import org.uva.sea.ql.ast.binary.LessThanOrEqualTo;
 import org.uva.sea.ql.parser.TestParser;
-import org.uva.sea.ql.parser.exception.ParseError;
+import org.uva.sea.ql.parser.exception.ParseException;
 
 import static org.junit.Assert.assertEquals;
 
 public class RelationalTest extends TestParser {
 
     @Test
-    public void shouldEvaluateToRelationalClasses() throws ParseError {
+    public void shouldEvaluateToRelationalClasses() throws ParseException {
         assertEquals(LessThan.class,  parseExpression("a < b").getClass());
         assertEquals(LessThan.class,  parseExpression("a < b + c").getClass());
         assertEquals(LessThan.class,  parseExpression("a < (b * c)").getClass());

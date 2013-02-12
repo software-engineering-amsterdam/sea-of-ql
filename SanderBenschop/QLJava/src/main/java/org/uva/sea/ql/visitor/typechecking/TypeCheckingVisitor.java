@@ -18,7 +18,7 @@ import org.uva.sea.ql.ast.unary.Not;
 import org.uva.sea.ql.ast.unary.Positive;
 import org.uva.sea.ql.ast.unary.UnaryOperation;
 import org.uva.sea.ql.visitor.ASTNodeVisitor;
-import org.uva.sea.ql.visitor.QLError;
+import org.uva.sea.ql.visitor.typechecking.error.SemanticQLError;
 import org.uva.sea.ql.visitor.typechecking.error.IdentifierRedeclarationError;
 import org.uva.sea.ql.visitor.typechecking.error.UnequalTypesError;
 import org.uva.sea.ql.visitor.typechecking.error.UnsupportedTypeError;
@@ -32,7 +32,7 @@ import java.util.List;
 public class TypeCheckingVisitor implements ASTNodeVisitor<Boolean> {
 
     private final SymbolTable symbolTable;
-    private final List<QLError> semanticValidationErrors;
+    private final List<SemanticQLError> semanticValidationErrors;
 
     public TypeCheckingVisitor() {
         this(new SymbolTable());
@@ -40,7 +40,7 @@ public class TypeCheckingVisitor implements ASTNodeVisitor<Boolean> {
 
     protected TypeCheckingVisitor(SymbolTable symbolTable) {
         this.symbolTable = symbolTable;
-        this.semanticValidationErrors = new ArrayList<QLError>();
+        this.semanticValidationErrors = new ArrayList<SemanticQLError>();
     }
 
     @Override
@@ -55,25 +55,18 @@ public class TypeCheckingVisitor implements ASTNodeVisitor<Boolean> {
 
     @Override
     public Boolean visitComputation(Computation computation) {
-        Type expectedType = new IntegerType();
         QLExpression expression = computation.getExpression();
 
         boolean identifierPreviouslyUndeclared = (!symbolTable.containsReductionFor(computation.getIdentifier()));
         boolean expressionCorrect = expression.accept(this);
 
-        if (!(identifierPreviouslyUndeclared && expressionCorrect)) {
-            return false;
+        boolean computationCorrect = identifierPreviouslyUndeclared && expressionCorrect;
+
+        if (computationCorrect) {
+            symbolTable.setReducableToType(computation.getIdentifier(), expression.getType(symbolTable));
         }
 
-        Type expressionType = expression.getType(symbolTable);
-        if (expressionType.isCompatibleTo(expectedType)){
-            symbolTable.setReducableToType(computation.getIdentifier(), expectedType);
-            return true;
-        } else {
-            addErrorForUnsupportedType(expression.getSourceCodeInformation(), expectedType, expressionType);
-        }
-
-        return false;
+        return computationCorrect;
     }
 
     @Override
@@ -283,23 +276,23 @@ public class TypeCheckingVisitor implements ASTNodeVisitor<Boolean> {
         return true;
     }
 
-    public List<QLError> getErrors() {
+    public List<SemanticQLError> getErrors() {
         return semanticValidationErrors;
     }
 
     private void addErrorForUnsupportedType(SourceCodeInformation sourceCodeInformation, Type expectedType, Type actualType) {
-        QLError unsupportedTypeError = new UnsupportedTypeError(sourceCodeInformation, expectedType, actualType);
+        SemanticQLError unsupportedTypeError = new UnsupportedTypeError(sourceCodeInformation, expectedType, actualType);
         semanticValidationErrors.add(unsupportedTypeError);
     }
 
     private void addErrorForUnequalTypes(BinaryOperation binaryOperation) {
         Type leftHandType = binaryOperation.getLeftHandSide().getType(symbolTable), rightHandType = binaryOperation.getRightHandSide().getType(symbolTable);
-        QLError unequalTypesError = new UnequalTypesError(binaryOperation.getSourceCodeInformation(), leftHandType, rightHandType);
+        SemanticQLError unequalTypesError = new UnequalTypesError(binaryOperation.getSourceCodeInformation(), leftHandType, rightHandType);
         semanticValidationErrors.add(unequalTypesError);
     }
 
     private void addErrorForIdentifierRedeclaration(Ident ident) {
-        QLError identifierRedeclarationError = new IdentifierRedeclarationError(ident.getSourceCodeInformation(), ident.getName());
+        SemanticQLError identifierRedeclarationError = new IdentifierRedeclarationError(ident.getSourceCodeInformation(), ident.getName());
         semanticValidationErrors.add(identifierRedeclarationError);
     }
 }

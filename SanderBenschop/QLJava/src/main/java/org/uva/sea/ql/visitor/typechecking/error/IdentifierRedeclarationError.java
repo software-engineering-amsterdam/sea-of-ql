@@ -1,9 +1,8 @@
 package org.uva.sea.ql.visitor.typechecking.error;
 
 import org.uva.sea.ql.ast.SourceCodeInformation;
-import org.uva.sea.ql.visitor.QLError;
 
-public class IdentifierRedeclarationError extends QLError {
+public class IdentifierRedeclarationError extends SemanticQLError {
 
     private static final String ERROR_MESSAGE_TEMPLATE = "Error: attempt to declare identifier with name '%s' on line '%d' column position '%d' failed, because it is already defined.";
 

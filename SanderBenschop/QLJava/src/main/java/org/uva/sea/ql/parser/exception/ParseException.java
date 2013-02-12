@@ -1,10 +1,10 @@
 package org.uva.sea.ql.parser.exception;
 
-public class ParseError extends Exception {
+public class ParseException extends Exception {
 	
 	private static final long serialVersionUID = 1L;
 
-	public ParseError(String msg) {
+	public ParseException(String msg) {
 		super(msg);
 	}
 }

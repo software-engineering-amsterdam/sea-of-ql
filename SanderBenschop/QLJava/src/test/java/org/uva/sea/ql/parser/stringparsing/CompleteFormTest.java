@@ -8,7 +8,7 @@ import org.uva.sea.ql.ast.statement.Conditional;
 import org.uva.sea.ql.ast.statement.IfStatement;
 import org.uva.sea.ql.ast.statement.Question;
 import org.uva.sea.ql.parser.TestParser;
-import org.uva.sea.ql.parser.exception.ParseError;
+import org.uva.sea.ql.parser.exception.ParseException;
 
 import java.util.List;
 
@@ -17,7 +17,7 @@ import static junit.framework.Assert.assertEquals;
 public class CompleteFormTest extends TestParser {
 
     @Test
-    public void shouldParseCompleteForm() throws ParseError {
+    public void shouldParseCompleteForm() throws ParseException {
         //Source is from lecture #1
         String source = "form Box1HouseOwning {\n" +
         "hasSoldHouse: \"Did you sell a house in 2010?\" boolean\n"  +

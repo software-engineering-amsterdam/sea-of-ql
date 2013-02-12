@@ -6,7 +6,7 @@ import org.uva.sea.ql.ast.statement.IfElseStatement;
 import org.uva.sea.ql.ast.statement.IfStatement;
 import org.uva.sea.ql.ast.statement.Question;
 import org.uva.sea.ql.parser.TestParser;
-import org.uva.sea.ql.parser.exception.ParseError;
+import org.uva.sea.ql.parser.exception.ParseException;
 
 import java.util.List;
 
@@ -15,13 +15,13 @@ import static org.junit.Assert.assertEquals;
 public class ConditionalTest extends TestParser {
 
     @Test
-    public void shouldEvaluateToConditionalClass() throws ParseError {
+    public void shouldEvaluateToConditionalClass() throws ParseException {
         assertEquals(IfStatement.class, parseStatement("if(1==2){}").getClass());
         assertEquals(IfElseStatement.class, parseStatement("if(1==2){} else {}").getClass());
     }
 
     @Test
-    public void shouldHaveEmptyBlocks() throws ParseError {
+    public void shouldHaveEmptyBlocks() throws ParseException {
         IfStatement ifStatement = (IfStatement) parseStatement("if(1==2){}");
         IfElseStatement ifElseStatement = (IfElseStatement) parseStatement("if(1==2){} else {}");
         assertEquals(0, ifStatement.getSuccessBlock().size());
@@ -30,7 +30,7 @@ public class ConditionalTest extends TestParser {
     }
 
     @Test
-    public void shouldNotHaveDanglingElseProblemBecauseOfMandatoryBrackets() throws ParseError {
+    public void shouldNotHaveDanglingElseProblemBecauseOfMandatoryBrackets() throws ParseException {
         String parseText = "if(true) {" +       //Outer conditional & successBlock start
                                 "if(false) {" + //Inner conditional & successBlock start
                                 "q1 : \"What is 2*2?\" integer" +
@@ -44,7 +44,7 @@ public class ConditionalTest extends TestParser {
         assertOuterConditional(parseText);
     }
 
-    private void assertOuterConditional(String parseText) throws ParseError {
+    private void assertOuterConditional(String parseText) throws ParseException {
         IfElseStatement outerConditional = (IfElseStatement) parseStatement(parseText);
         List<QLStatement> outerSuccessBlock = outerConditional.getSuccessBlock(), outerFailureBlock = outerConditional.getFailureBlock();
         assertEquals(1, outerSuccessBlock.size());

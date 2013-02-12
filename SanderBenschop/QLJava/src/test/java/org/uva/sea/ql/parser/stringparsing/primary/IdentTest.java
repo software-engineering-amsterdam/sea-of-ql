@@ -4,7 +4,7 @@ import org.junit.Test;
 import org.uva.sea.ql.ast.SourceCodeInformation;
 import org.uva.sea.ql.ast.primary.Ident;
 import org.uva.sea.ql.parser.TestParser;
-import org.uva.sea.ql.parser.exception.ParseError;
+import org.uva.sea.ql.parser.exception.ParseException;
 
 import static junit.framework.Assert.assertFalse;
 import static org.junit.Assert.assertEquals;
@@ -13,7 +13,7 @@ import static org.junit.Assert.assertTrue;
 public class IdentTest extends TestParser {
 
     @Test
-    public void shouldEvaluateToIdentClass() throws ParseError {
+    public void shouldEvaluateToIdentClass() throws ParseException {
         assertEquals(Ident.class, parseIdent("a").getClass());
         assertEquals(Ident.class, parseIdent("abc").getClass());
         assertEquals(Ident.class, parseIdent("ABC").getClass());

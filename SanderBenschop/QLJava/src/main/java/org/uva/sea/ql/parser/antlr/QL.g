@@ -10,16 +10,34 @@ import org.uva.sea.ql.ast.primary.typeClasses.*;
 import org.uva.sea.ql.ast.unary.*;
 import org.uva.sea.ql.ast.binary.*;
 import org.uva.sea.ql.ast.statement.*;
+import org.uva.sea.ql.parser.error.*;
+import org.uva.sea.ql.parser.error.reporting.*;
 }
 
 @parser::members 
 {
+  private SyntacticErrorReporter syntacticErrorReporter = null;
+  
+  public void setErrorReporter(SyntacticErrorReporter syntacticErrorReporter) {
+    this.syntacticErrorReporter = syntacticErrorReporter;
+  }
+
   private String removeOuterQuotes(String original) {
-    return original.substring(1, original.length()-1);
+    return original.substring(1, original.length() -1);
   }
   
   private SourceCodeInformation createSourceCodeInformation(Token token) {
     return new SourceCodeInformation(token.getLine(), token.getCharPositionInLine());
+  }
+
+  @Override
+  public void reportError(RecognitionException e) {
+    if (syntacticErrorReporter == null) {
+      super.reportError(e);
+    } else {
+      String antlrMessage = getErrorMessage(e, this.getTokenNames());
+      syntacticErrorReporter.reportError(new SyntacticQLError(e, antlrMessage));
+    }
   }
 }
 

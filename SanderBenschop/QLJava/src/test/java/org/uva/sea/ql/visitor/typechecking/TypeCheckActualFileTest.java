@@ -14,8 +14,8 @@ import org.junit.Test;
 import org.uva.sea.ql.ast.Form;
 import org.uva.sea.ql.parser.ANTLRParser;
 import org.uva.sea.ql.parser.Parser;
-import org.uva.sea.ql.parser.exception.ParseError;
-import org.uva.sea.ql.visitor.QLError;
+import org.uva.sea.ql.parser.exception.ParseException;
+import org.uva.sea.ql.visitor.typechecking.error.SemanticQLError;
 
 public class TypeCheckActualFileTest {
 
@@ -29,22 +29,22 @@ public class TypeCheckActualFileTest {
     }
 
     @Test
-    public void testCorrectFile() throws FileNotFoundException, ParseError {
+    public void testCorrectFile() throws FileNotFoundException, ParseException {
         Form form = readAndParseToForm("src/test/resources/correctQLProgram.qlang");
         assertTrue(typeChecker.visitForm(form));
     }
 
     @Test
-    public void testTypeErrorFile() throws FileNotFoundException, ParseError {
+    public void testTypeErrorFile() throws FileNotFoundException, ParseException {
         Form form = readAndParseToForm("src/test/resources/typeErrorQLProgram.qlang");
         assertFalse(typeChecker.visitForm(form));
-        List<QLError> errors = typeChecker.getErrors();
+        List<SemanticQLError> errors = typeChecker.getErrors();
         assertEquals(1, errors.size());
         String errorMessage = errors.get(0).getErrorMessage();
         assertEquals("Error: variable on line '3' column position '12' of type Bool was expected to be of type Int.", errorMessage);
     }
 
-    private Form readAndParseToForm(String file) throws FileNotFoundException, ParseError {
+    private Form readAndParseToForm(String file) throws FileNotFoundException, ParseException {
         File sourceFile = new File(file);
         Scanner scanner = new Scanner(sourceFile);
         String qlSourcecode = scanner.useDelimiter("\\Z").next();
