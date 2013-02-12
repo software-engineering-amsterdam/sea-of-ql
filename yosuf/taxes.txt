@@ -2,6 +2,8 @@ form taxes {
 	Boolean married = "Are you married?";
 	Boolean homeless = "Have you been homeless?";
 	Integer incomes = "What were your incomes of last year?";
+	Integer number = true;
+	Integer number2 = false;
 	
 	if(homeless) {
 		String reason = "Why did you get homeless?";

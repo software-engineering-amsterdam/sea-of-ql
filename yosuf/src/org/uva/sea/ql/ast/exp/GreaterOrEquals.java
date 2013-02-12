@@ -1,11 +1,14 @@
 package org.uva.sea.ql.ast.exp;
 
+import org.uva.sea.ql.ast.value.BooleanValue;
+import org.uva.sea.ql.ast.value.IntegerValue;
 import org.uva.sea.ql.visitor.NaturalVisitor;
 import org.uva.sea.ql.visitor.ValuableVisitor;
 
-public class GreaterOrEquals extends Binary {
+public class GreaterOrEquals extends Binary<BooleanValue, IntegerValue> {
 
-	public GreaterOrEquals(final Expression left, final Expression right) {
+	public GreaterOrEquals(final Expression<IntegerValue> left,
+			final Expression<IntegerValue> right) {
 		super(left, right);
 	}
 
@@ -15,13 +18,13 @@ public class GreaterOrEquals extends Binary {
 	}
 
 	@Override
-	public <T> T accept(final ValuableVisitor<T> visitor) {
-		return visitor.visit(this);
+	public Nature getNature() {
+		return Nature.BOOLEAN;
 	}
 
 	@Override
-	public Nature getNature() {
-		return Nature.BOOLEAN;
+	public BooleanValue accept(final ValuableVisitor visitor) {
+		return visitor.visit(this);
 	}
 
 }

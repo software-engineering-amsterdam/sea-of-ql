@@ -53,7 +53,7 @@ public final class Startup extends Application {
 		statementChecker.visit(form);
 
 		for (TypeCheckException e : statementChecker.getAllTypeErrors()) {
-			System.out.println(e);
+			LogPrinter.debugInfo(e.toString());
 		}
 		return statementChecker.isValid();
 	}
@@ -87,9 +87,11 @@ public final class Startup extends Application {
 
 		if (form != null && checkTypes(form)) {
 			evaluate(form);
-
-			LogPrinter.debugInfo(form);
 			new VisibleForm(model, form).start(stage);
+		}
+
+		else {
+
 		}
 
 	}

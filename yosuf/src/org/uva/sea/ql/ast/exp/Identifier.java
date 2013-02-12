@@ -5,7 +5,7 @@ import static julius.validation.Assertions.state;
 import org.uva.sea.ql.visitor.NaturalVisitor;
 import org.uva.sea.ql.visitor.ValuableVisitor;
 
-public class Identifier extends Expression {
+public class Identifier extends Expression<Expression<?>> {
 
 	private final String name;
 
@@ -29,13 +29,13 @@ public class Identifier extends Expression {
 	}
 
 	@Override
-	public <T> T accept(final ValuableVisitor<T> visitor) {
-		return visitor.visit(this);
+	public Nature getNature() {
+		return Nature.TEXTUAL;
 	}
 
 	@Override
-	public Nature getNature() {
-		return Nature.TEXTUAL;
+	public Expression<?> accept(final ValuableVisitor visitor) {
+		return visitor.visit(this);
 	}
 
 	@Override
@@ -72,5 +72,4 @@ public class Identifier extends Expression {
 		}
 		return true;
 	}
-
 }

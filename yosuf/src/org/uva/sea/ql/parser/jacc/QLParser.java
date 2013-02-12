@@ -1,4 +1,4 @@
-// Output created by jacc on Mon Feb 11 14:50:10 CET 2013
+// Output created by jacc on Tue Feb 12 21:19:01 CET 2013
 
 package org.uva.sea.ql.parser.jacc;
 
@@ -11,7 +11,8 @@ import org.uva.sea.ql.ast.value.*;
 @edu.umd.cs.findbugs.annotations.SuppressWarnings(
     value="URF_UNREAD_PUBLIC_OR_PROTECTED_FIELD", 
     justification="because this class is generated.")
-@SuppressWarnings("unused")
+
+@SuppressWarnings({"unused","rawtypes", "unchecked"})
 
 class QLParser implements QLTokens {
     private int yyss = 100;

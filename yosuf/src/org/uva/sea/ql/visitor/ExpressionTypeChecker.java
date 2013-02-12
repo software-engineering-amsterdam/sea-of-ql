@@ -202,7 +202,8 @@ public class ExpressionTypeChecker implements NaturalVisitor<Natural> {
 			checked.assertTrue(nature == natural.getNature(), "A " + nature
 					+ " is incompatible with " + natural);
 		} catch (ValidationException e) {
-			typeErrors.add(new TypeCheckException(e.getMessage(), e));
+			typeErrors.add(new TypeCheckException("A " + nature
+					+ " is incompatible with " + natural, e));
 		}
 	}
 

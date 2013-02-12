@@ -5,7 +5,7 @@ import static julius.validation.Assertions.state;
 import org.uva.sea.ql.visitor.NaturalVisitor;
 import org.uva.sea.ql.visitor.ValuableVisitor;
 
-public class StringValue extends Value {
+public class StringValue extends Value<StringValue> {
 
 	private final String value;
 
@@ -30,7 +30,7 @@ public class StringValue extends Value {
 	}
 
 	@Override
-	public <T> T accept(final ValuableVisitor<T> visitor) {
+	public StringValue accept(final ValuableVisitor visitor) {
 		return visitor.visit(this);
 	}
 

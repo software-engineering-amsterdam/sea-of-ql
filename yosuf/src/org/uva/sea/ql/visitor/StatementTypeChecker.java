@@ -12,13 +12,13 @@ import julius.validation.ValidationException;
 
 import org.uva.sea.ql.ast.Natural;
 import org.uva.sea.ql.ast.exp.Identifier;
+import org.uva.sea.ql.ast.stm.Block;
 import org.uva.sea.ql.ast.stm.CompoundStatement;
 import org.uva.sea.ql.ast.stm.Computed;
 import org.uva.sea.ql.ast.stm.Form;
 import org.uva.sea.ql.ast.stm.IfElseStatement;
 import org.uva.sea.ql.ast.stm.IfStatement;
 import org.uva.sea.ql.ast.stm.Question;
-import org.uva.sea.ql.ast.stm.Block;
 import org.uva.sea.ql.ast.type.BooleanType;
 
 public class StatementTypeChecker implements StatementVisitor<Block> {
@@ -87,8 +87,8 @@ public class StatementTypeChecker implements StatementVisitor<Block> {
 	private void assertIfStatementExpression(final Natural naturalExpression,
 			final String reference) {
 		if (environment.get(naturalExpression) != null) {
-			assertSameNature(new BooleanType(), environment.get(naturalExpression),
-					reference);
+			assertSameNature(new BooleanType(),
+					environment.get(naturalExpression), reference);
 		} else {
 			assertSameNature(new BooleanType(), naturalExpression, reference);
 		}
@@ -123,7 +123,8 @@ public class StatementTypeChecker implements StatementVisitor<Block> {
 							+ reference);
 
 		} catch (ValidationException e) {
-			typeErrors.add(new TypeCheckException(e.getMessage(), e));
+			typeErrors.add(new TypeCheckException(natural + " does not match "
+					+ natural2 + " for " + reference, e));
 		}
 	}
 
@@ -151,7 +152,8 @@ public class StatementTypeChecker implements StatementVisitor<Block> {
 
 			environment.put(identifier, natural);
 		} catch (ValidationException e) {
-			typeErrors.add(new TypeCheckException(e.getMessage(), e));
+			typeErrors.add(new TypeCheckException(identifier.getName()
+					+ " already exists", e));
 		}
 	}
 

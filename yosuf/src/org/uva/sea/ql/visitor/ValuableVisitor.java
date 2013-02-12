@@ -4,6 +4,7 @@ import org.uva.sea.ql.ast.exp.Add;
 import org.uva.sea.ql.ast.exp.And;
 import org.uva.sea.ql.ast.exp.Divide;
 import org.uva.sea.ql.ast.exp.Equals;
+import org.uva.sea.ql.ast.exp.Expression;
 import org.uva.sea.ql.ast.exp.GreaterOrEquals;
 import org.uva.sea.ql.ast.exp.GreaterThan;
 import org.uva.sea.ql.ast.exp.Identifier;
@@ -20,49 +21,44 @@ import org.uva.sea.ql.ast.value.BooleanValue;
 import org.uva.sea.ql.ast.value.IntegerValue;
 import org.uva.sea.ql.ast.value.StringValue;
 
-public interface ValuableVisitor<T> {
+public interface ValuableVisitor {
 
-	T visit(Add add);
+	IntegerValue visit(Add add);
 
-	T visit(IntegerValue integerValue);
+	BooleanValue visit(And and);
 
-	T visit(And and);
+	IntegerValue visit(Divide divide);
 
-	T visit(Divide divide);
+	BooleanValue visit(Equals equals);
 
-	T visit(Equals equals);
+	BooleanValue visit(GreaterOrEquals greaterOrEquals);
 
-	T visit(GreaterOrEquals greaterOrEquals);
+	BooleanValue visit(GreaterThan greaterThan);
 
-	T visit(BooleanValue booleanValue);
+	Expression<?> visit(Identifier identifier);
 
-	T visit(StringValue stringValue);
+	IntegerValue visit(Multiply multiply);
 
-	T visit(GreaterThan greaterThan);
+	IntegerValue visit(Negative negative);
 
-	/**
-	 * Since the expression to which identifer refers might not be known yet, return can be null.
-	 * 
-	 * @param identifier
-	 * @return maybe null
-	 */
-	T visit(Identifier identifier);
+	BooleanValue visit(Not not);
 
-	T visit(Multiply multiply);
+	BooleanValue visit(NotEquals notEquals);
 
-	T visit(Negative negative);
+	BooleanValue visit(Or or);
 
-	T visit(Not not);
+	IntegerValue visit(Positive positive);
 
-	T visit(NotEquals notEquals);
+	BooleanValue visit(SmallerOrEquals smallerOrEquals);
 
-	T visit(Or or);
+	BooleanValue visit(SmallerThan smallerThan);
 
-	T visit(Positive positive);
+	IntegerValue visit(Substitute substitute);
 
-	T visit(SmallerOrEquals smallerOrEquals);
+	BooleanValue visit(BooleanValue booleanValue);
 
-	T visit(SmallerThan smallerThan);
+	IntegerValue visit(IntegerValue integerValue);
 
-	T visit(Substitute substitute);
+	StringValue visit(StringValue stringValue);
+
 }

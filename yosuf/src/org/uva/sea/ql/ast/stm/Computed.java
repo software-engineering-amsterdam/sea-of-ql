@@ -11,7 +11,7 @@ public class Computed extends Block {
 
 	private final Identifier identifier;
 	private final DataType dataType;
-	private final Expression expression;
+	private final Expression<?> expression;
 
 	/**
 	 * 
@@ -23,7 +23,7 @@ public class Computed extends Block {
 	 *            (not null)
 	 */
 	public Computed(final DataType dataType, final Identifier identifier,
-			final Expression expression) {
+			final Expression<?> expression) {
 
 		this.dataType = dataType;
 		this.identifier = identifier;
@@ -42,7 +42,7 @@ public class Computed extends Block {
 		return identifier;
 	}
 
-	public Expression getExpression() {
+	public Expression<?> getExpression() {
 		return expression;
 	}
 
