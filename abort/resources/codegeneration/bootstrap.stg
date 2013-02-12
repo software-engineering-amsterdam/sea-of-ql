@@ -33,15 +33,15 @@ question_bool(id, text) ::= <<
 computation(id, text, expression) ::= <<
  <label class="control-label" for="$id$">$text$</label><div class="controls"><input id="$id$" name="$id$" type="text" placeholder="Computation" data-expression="$expression$" class="input-xlarge uneditable-input" readonly></div>
 >>
-if_then(condition, success_elements) ::= <<
-  <div class="if-then" data-condition="$condition$" data-conditional="true">
+if_then(id, condition, success_elements) ::= <<
+  <div id="$id$" class="if-then" data-condition="$condition$" data-conditional="true">
       <div class="success-elements">
         $success_elements$
       </div>
   </div>
 >>
-if_then_else(condition, success_elements, else_elements) ::= <<
-  <div class="if-then-else" data-condition="$condition$" data-conditional="true">
+if_then_else(id, condition, success_elements, else_elements) ::= <<
+  <div id="$id$" class="if-then-else" data-condition="$condition$" data-conditional="true">
     <div class="success-elements">
       $success_elements$
     </div>
@@ -69,4 +69,4 @@ stringliteral(literal) ::= "\"$literal$\""
 moneyliteral(literal) ::= "new BigDecimal('$literal$')"
 intliteral(literal) ::= "$literal$"
 boolliteral(literal) ::= "$literal$"
-ident(name) ::= "getValue('#$name$')"
+ident(name) ::= "qlMap['$name$']"

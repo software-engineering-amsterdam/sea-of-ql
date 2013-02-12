@@ -1,0 +1,22 @@
+generate_dispatch(id) ::= <<
+ $\t$\$('#$id$').change(function() {
+ $\t$$\t$updateGUI(this, "$id$");
+ $\t$});$\n$
+>>
+
+generate_map(variables) ::= <<
+  var qlMap = {}, functionMap = {};
+  \$(document).ready(function() {
+$\t$initFunctionMap();$\n$
+$\t$initConditionalGUI();$\n$
+    $variables$
+  });
+>>
+
+generate_map_var(name) ::= <<
+$\t$qlMap['$name$'] = '';$\n$
+>>
+
+javascript_header(line) ::= <<
+$\t$$line$$\n$
+>>

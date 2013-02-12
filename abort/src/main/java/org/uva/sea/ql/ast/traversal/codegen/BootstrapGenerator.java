@@ -5,7 +5,11 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import org.stringtemplate.v4.ST;
 import org.stringtemplate.v4.STGroupFile;
@@ -41,16 +45,48 @@ import org.uva.sea.ql.ast.types.literals.IntLiteral;
 import org.uva.sea.ql.ast.types.literals.MoneyLiteral;
 import org.uva.sea.ql.ast.types.literals.StringLiteral;
 
+// TODO: wrapping class for header and body to return instead of ST's, hierarchy so that form returns a single element
 public class BootstrapGenerator implements IVisitor<ST> {
-	private final STGroupFile templateGroup = new STGroupFile("codegeneration/bootstrap.stg", '$', '$');
+	private final STGroupFile templateGroup = new STGroupFile("codegeneration/index.stg", '$', '$');
+	//private final ST bodyTemplate = templateGroup.getInstanceOf("body");
+	private final ST headerTemplate = templateGroup.getInstanceOf("javascript_header");
+	private final Set<Ident> initialVariables = new HashSet<Ident>();
+	// identifier used for conditions in JS
+	private int conditionalIdentifier = 0;
+	// amount of references to a specific identifier
+	private final Map<Ident, Integer> references = new HashMap<Ident, Integer>();
+
 	
 	public String generateFrontend(final Form form) {
 		final ST formTemplate = form.accept(this);
-		final STGroupFile index = new STGroupFile("codegeneration/index.stg", '$',  '$');
-		final ST pageTemplate = index.getInstanceOf("page");
+		final ST pageTemplate = templateGroup.getInstanceOf("page");
 		pageTemplate.add("title", form.getName());
+		
+		// only add dispatch for used references
+		for (Ident ident : references.keySet()) {
+			if (references.get(ident) > 0) {
+				headerTemplate.add("line", templateGroup.getInstanceOf("generate_dispatch").add("id", ident.getName()));
+			}
+		}
+		
+		ST js = templateGroup.getInstanceOf("generate_map");
+		js.add("variables", getVariables());
+		js.add("variables", headerTemplate);
+		pageTemplate.add("javascript", js);
 		pageTemplate.add("fields", formTemplate);
 		return pageTemplate.render();
+	}
+	
+	private ST getVariables() {
+		ST retval = templateGroup.getInstanceOf("javascript_header");
+
+		for (Ident ident : initialVariables) {
+			ST mapVars = templateGroup.getInstanceOf("generate_map_var");
+			mapVars.add("name", ident.getName());
+			retval.add("line", mapVars);
+		}
+		
+		return retval;
 	}
 	
 	public boolean generateFrontend(final Form form, final String outputFile) {
@@ -164,6 +200,10 @@ public class BootstrapGenerator implements IVisitor<ST> {
 		computationTemplate.add("text", computation.getDescription());
 		computationTemplate.add("expression", computation.getExpression().accept(this));
 
+		initIdentifier(computation.getIdent());
+		// initialVariables.add(computation.getIdent());
+		// headerTemplate.add("line", templateGroup.getInstanceOf("generate_dispatch").add("id", computation.getIdent().getName()));
+
 		return computationTemplate;
 	}
 
@@ -171,6 +211,7 @@ public class BootstrapGenerator implements IVisitor<ST> {
 	public ST visit(final Form form) {
 		final ST st = templateGroup.getInstanceOf("form");
 		st.add("fields", getFilledFormTemplates(form.getElements()));
+
 		return st;
 	}
 	
@@ -196,16 +237,21 @@ public class BootstrapGenerator implements IVisitor<ST> {
 		else {
 			questionTemplate = templateGroup.getInstanceOf("question_string_or_int");
 		}
-		
+
 		questionTemplate.add("id", question.getIdent().getName());
 		questionTemplate.add("text", question.getText());
-
+		
+		initIdentifier(question.getIdent());
+		// initialVariables.add(question.getIdent());
+		// headerTemplate.add("line", templateGroup.getInstanceOf("generate_dispatch").add("id", question.getIdent().getName()));
+	
 		return questionTemplate;
 	}
 
 	@Override
 	public ST visit(final IfThen ifThen) {
 		final ST template = templateGroup.getInstanceOf("if_then");
+		template.add("id", getConditionIdentifier());
 		template.add("condition", ifThen.getCondition().accept(this));
 		template.add("success_elements", getFilledFormTemplates(ifThen.getSuccessElements()));
 		return template;
@@ -214,12 +260,13 @@ public class BootstrapGenerator implements IVisitor<ST> {
 	@Override
 	public ST visit(final IfThenElse ifThenElse) {
 		final ST template = templateGroup.getInstanceOf("if_then_else");
+		template.add("id", getConditionIdentifier());
 		template.add("condition", ifThenElse.getCondition().accept(this));
 		template.add("success_elements", getFilledFormTemplates(ifThenElse.getSuccessElements()));
 		template.add("else_elements", getFilledFormTemplates(ifThenElse.getElseElements()));
 		return template;
 	}
-
+	
 	@Override
 	public ST visit(final BoolLiteral bool) {
 		final ST st = templateGroup.getInstanceOf("boolliteral");
@@ -250,8 +297,12 @@ public class BootstrapGenerator implements IVisitor<ST> {
 
 	@Override
 	public ST visit(final Ident ident) {
+		// only visited by computation
 		final ST st = templateGroup.getInstanceOf("ident");
 		st.add("name", ident.getName());
+		
+		references.put(ident, references.get(ident) + 1);
+		
 		return st;
 	}
 	
@@ -260,5 +311,15 @@ public class BootstrapGenerator implements IVisitor<ST> {
 		st.add("lhs", operation.getLeftHandSide().accept(this));
 		st.add("rhs", operation.getRightHandSide().accept(this));
 		return st;
+	}
+
+	private String getConditionIdentifier() {
+		final String conditionIdentifier = String.format("condition-%d", conditionalIdentifier);
+		conditionalIdentifier++;	
+		return conditionIdentifier;
+	}
+	
+	private void initIdentifier(Ident ident) {
+		references.put(ident, 0);
 	}
 }

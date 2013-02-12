@@ -1,28 +1,68 @@
-function evalConditions() {
-  /* each conditional */
-  $("[data-conditional='true']").each(function() {
-        var method = new Function("return " + $(this).data('condition'));
-        if (method() == true) {
-            console.log('yes');
-          $(this).children('.success-elements').show();
-          $(this).children('.else-elements').hide();
-        }
-        else {
-            console.log('no ' + $(this).data('condition'));
-          $(this).children('.success-elements').hide();
-          $(this).children('.else-elements').show();
-        }
-    });
+function initFunctionMap() {
+		getExpressionEntities().each(function() {
+			initExpressionAsFunction(this);
+		});
+
+		getConditionEntities().each(function() {
+			initConditionalExpressionAsFunction(this);
+		});
 }
- 
-function evalExpressions() {
-  $('[data-expression]').filter(
-      function() {
-          return ($(this).attr('data-expression').length > 0);
-      }).each(function() {
-        var expression = new Function("return " + $(this).data('expression'));
-        $(this).val(expression());
+
+function evaluateExpression(entity) {
+	var id = $(entity).attr('id');
+	var value = (functionMap[id])();
+	
+	qlMap[id] = value;
+	$(entity).val(value);
+}
+
+function evaluateConditional(entity) {
+	var id = $(entity).attr('id');
+	var value = (functionMap[id])();
+	
+	if (value == true) {
+		$(entity).children('.success-elements').show();
+		$(entity).children('.else-elements').hide();
+	}
+	else if (value == false) {
+		$(entity).children('.success-elements').hide();
+		$(entity).children('.else-elements').show();
+	}
+	else {
+		console.log("invalid contents to evaluate, probably empty variables or user abuse... hiding both until we have clarity");
+
+		$(entity).children('.success-elements').hide();
+		$(entity).children('.else-elements').hide();
+	}
+}
+
+function initExpressionAsFunction(entity) {
+	var id = $(entity).attr('id');
+	
+	functionMap[id] = getExpressionAsFunction($(entity).data('expression'));
+}
+
+function initConditionalExpressionAsFunction(entity) {
+	var id = $(entity).attr('id');
+
+	functionMap[id] = getExpressionAsFunction($(entity).data('condition'));
+}
+
+// function has to return the evaluated expression
+function getExpressionAsFunction(expression) {
+	return new Function('return ' + expression);
+}
+
+function getExpressionEntities() {
+	var entities = $('[data-expression]').filter(function(){
+        return ($(this).attr('data-expression').length > 0);
     });
+    
+    return (entities.length == 0 ? null : entities);
+}
+
+function getConditionEntities() {
+	return $("[data-conditional='true']");
 }
 
 function getValue(field) {
@@ -30,8 +70,41 @@ function getValue(field) {
     else return $(field).val();
 }
 
-function onChange() {
-    $('input').change(function() { evalConditions(); evalExpressions(); });
+function dispatchToDependencies(id) {
+	var matchPattern = new RegExp("\\s*qlMap\\['" + id + "'\\]\\s*");
+	getExpressionEntities().each(function() {
+		var entity = this;
+		if (matchPattern.test($(this).data('expression'))) {
+	  		evaluateExpression(entity);
+		}
+	});
+
+	getConditionEntities().each(function() {
+		var entity = this;
+		if (matchPattern.test($(this).data('condition'))) {
+			evaluateConditional(entity);
+		}	
+	});
 }
 
-$(document).ready(function() { evalConditions(); evalExpressions(); onChange(); });
+function doesArrayContainIdReference(expressions, id) {
+	var referenceName = "qlMap['" + id + "']";
+
+	$(expressions).each(function(index) {
+		if (expressions[index] == referenceName) {
+	 		return true;
+		}
+	});
+	return false;
+} 
+
+function initConditionalGUI() {
+	getConditionEntities().each(function() {
+		evaluateConditional(this); 
+	});
+}
+
+function updateGUI(updatedEntity, updatedId) {
+    qlMap[updatedId] = getValue(updatedEntity);
+	dispatchToDependencies(updatedId);
+}

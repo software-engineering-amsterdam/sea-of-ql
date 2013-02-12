@@ -5,66 +5,43 @@
     <title>QL - Box1HouseOwning</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="css/bootstrap.min.css" rel="stylesheet">
-    <style type="text/css">
-
-      html,
-      body {
-        height: 100%;
-        /* The html and body elements cannot have any padding or margin. */
-      }
-
-      /* Wrapper for page content to push down footer */
-      #wrap {
-        min-height: 100%;
-        height: auto !important;
-        height: 100%;
-        /* Negative indent footer by it's height */
-        margin: 0 auto -60px;
-      }
-
-      /* Set the fixed height of the footer here */
-      #push,
-      #footer {
-        height: 60px;
-      }
-      #footer {
-        background-color: #f5f5f5;
-      }
-
-      /* Lastly, apply responsive CSS fixes as necessary */
-      @media (max-width: 767px) {
-        #footer {
-          margin-left: -20px;
-          margin-right: -20px;
-          padding-left: 20px;
-          padding-right: 20px;
-        }
-      }
-
-
-
-      /* Custom page CSS
-      -------------------------------------------------- */
-      /* Not required for template or sticky footer method. */
-
-      .container {
-        width: auto;
-        max-width: 680px;
-      }
-      .container .credit {
-        margin: 20px 0;
-      }
-    </style>
     <link href="css/bootstrap-responsive.css" rel="stylesheet">
 
     <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
     <!--[if lt IE 9]>
       <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
-    <script src="js/jquery-1.9.0.min.js"></script>
+    <script src="js/jquery-1.9.1.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script src="js/BigDecimal-all-last.min.js"></script>
     <script src="js/eval.js"></script>
+	<script type="text/javascript">
+    	  var qlMap = {}, functionMap = {};
+    	  $(document).ready(function() {
+    		initFunctionMap();
+
+    		initConditionalGUI();
+
+    	    	
+    	    		$('#width').change(function() {
+    	     		updateGUI(this, "width");
+    	     	});
+    	     	$('#length').change(function() {
+    	     		updateGUI(this, "length");
+    	     	});
+    	     	$('#privateDebt').change(function() {
+    	     		updateGUI(this, "privateDebt");
+    	     	});
+    	     	$('#sellingPrice').change(function() {
+    	     		updateGUI(this, "sellingPrice");
+    	     	});
+    	     	$('#hasSoldHouse').change(function() {
+    	     		updateGUI(this, "hasSoldHouse");
+    	     	});
+
+
+    	  });
+    </script>
   </head>
   <body>
   <div id="wrap">
@@ -96,7 +73,7 @@
         		        </span>
         		        <input placeholder="Did you buy a house in 2010?" type="text" class="input-xlarge uneditable-input" readonly>
         		      </div>
-        		   </div><label class="control-label" for="width">What was the width of the house in meters?</label><div class="controls"><input id="width" name="width" type="text" placeholder="" class="input-xlarge"></div><label class="control-label" for="length">What was the length of the house in meters?</label><div class="controls"><input id="length" name="length" type="text" placeholder="" class="input-xlarge"></div><div class="if-then-else" data-condition="getValue('#hasSoldHouse')" data-conditional="true">
+        		   </div><label class="control-label" for="width">What was the width of the house in meters?</label><div class="controls"><input id="width" name="width" type="text" placeholder="" class="input-xlarge"></div><label class="control-label" for="length">What was the length of the house in meters?</label><div class="controls"><input id="length" name="length" type="text" placeholder="" class="input-xlarge"></div><div id="condition-0" class="if-then-else" data-condition="qlMap['hasSoldHouse']" data-conditional="true">
         		    <div class="success-elements">
         		        <label class="control-label" for="sellingPrice">Price was sold for:</label>
         		                <div class="controls">
@@ -110,20 +87,20 @@
         		                    <span class="add-on">&euro;</span>
         		                    <input placeholder="" type="text" id="privateDebt" name="privateDebt" class="input-xlarge">
         		                  </div>
-        		                </div><label class="control-label" for="valueResidue">Value residue:</label><div class="controls"><input id="valueResidue" name="valueResidue" type="text" placeholder="Computation" data-expression="getValue('#sellingPrice') - getValue('#privateDebt')" class="input-xlarge uneditable-input" readonly></div><label class="control-label" for="pricePerSquareMeter">Price per square meter</label><div class="controls"><input id="pricePerSquareMeter" name="pricePerSquareMeter" type="text" placeholder="Computation" data-expression="getValue('#sellingPrice') / getValue('#width') * getValue('#length')" class="input-xlarge uneditable-input" readonly></div>
+        		                </div><label class="control-label" for="valueResidue">Value residue:</label><div class="controls"><input id="valueResidue" name="valueResidue" type="text" placeholder="Computation" data-expression="qlMap['sellingPrice'] - qlMap['privateDebt']" class="input-xlarge uneditable-input" readonly></div><label class="control-label" for="pricePerSquareMeter">Price per square meter</label><div class="controls"><input id="pricePerSquareMeter" name="pricePerSquareMeter" type="text" placeholder="Computation" data-expression="qlMap['sellingPrice'] / qlMap['width'] * qlMap['length']" class="input-xlarge uneditable-input" readonly></div>
         		    </div>
         		    <div class="else-elements">
         		       <label class="control-label" for="reasonNotSelling">Why did you not sell the house?</label><div class="controls"><input id="reasonNotSelling" name="reasonNotSelling" type="text" placeholder="" class="input-xlarge"></div>
         		    </div>
-        		  </div><label class="control-label" for="area">Area of the house</label><div class="controls"><input id="area" name="area" type="text" placeholder="Computation" data-expression="getValue('#width') * getValue('#length')" class="input-xlarge uneditable-input" readonly></div><label class="control-label" for="age">How old are you?</label><div class="controls"><input id="age" name="age" type="text" placeholder="" class="input-xlarge"></div><div class="if-then" data-condition="Math.abs(1) === -Math.abs(1) || 1 <= -Math.abs(1) || -Math.abs(1) >= 1 || 1 !== 1 || !(1 === 1)" data-conditional="true">
+        		  </div><label class="control-label" for="area">Area of the house</label><div class="controls"><input id="area" name="area" type="text" placeholder="Computation" data-expression="qlMap['width'] * qlMap['length']" class="input-xlarge uneditable-input" readonly></div><label class="control-label" for="age">How old are you?</label><div class="controls"><input id="age" name="age" type="text" placeholder="" class="input-xlarge"></div><div id="condition-1" class="if-then" data-condition="Math.abs(1) === -Math.abs(1) || 1 <= -Math.abs(1) || -Math.abs(1) >= 1 || 1 !== 1 || !(1 === 1)" data-conditional="true">
         		      <div class="success-elements">
         		         <label class="control-label" for="impossible">For this question it is practically impossible to appear on your screen</label><div class="controls"><input id="impossible" name="impossible" type="text" placeholder="" class="input-xlarge"></div>
         		      </div>
-        		  </div><div class="if-then" data-condition="0 - 2 > 1 && 3 + 1 < 2" data-conditional="true">
+        		  </div><div id="condition-2" class="if-then" data-condition="0 - 2 > 1 && 3 + 1 < 2" data-conditional="true">
         		      <div class="success-elements">
         		         <label class="control-label" for="invisibleQuestion">You should never be able to see this. How did you manage?</label><div class="controls"><input id="invisibleQuestion" name="invisibleQuestion" type="text" placeholder="" class="input-xlarge"></div><label class="control-label" for="invisibleComputation">Very weird computation</label><div class="controls"><input id="invisibleComputation" name="invisibleComputation" type="text" placeholder="Computation" data-expression="new BigDecimal('1.337') * 3" class="input-xlarge uneditable-input" readonly></div>
         		      </div>
-        		  </div><div class="if-then-else" data-condition="false" data-conditional="true">
+        		  </div><div id="condition-3" class="if-then-else" data-condition="false" data-conditional="true">
         		    <div class="success-elements">
         		       <label class="control-label" for="invisibleQuestion2">You should never be able to see this. How did you manage?</label><div class="controls"><input id="invisibleQuestion2" name="invisibleQuestion2" type="text" placeholder="" class="input-xlarge"></div>
         		    </div>

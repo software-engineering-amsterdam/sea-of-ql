@@ -1,7 +1,10 @@
 package org.uva.sea.ql.tests;
 
-import static org.junit.Assert.*;
-import static org.mockito.Mockito.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
+import static org.mockito.Mockito.mock;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -12,16 +15,32 @@ import org.junit.Before;
 import org.junit.Test;
 import org.uva.sea.ql.ast.base.Expression;
 import org.uva.sea.ql.ast.form.Form;
-import org.uva.sea.ql.ast.operators.binary.*;
-import org.uva.sea.ql.ast.operators.unary.*;
+import org.uva.sea.ql.ast.operators.binary.Add;
+import org.uva.sea.ql.ast.operators.binary.And;
+import org.uva.sea.ql.ast.operators.binary.Div;
+import org.uva.sea.ql.ast.operators.binary.Eq;
+import org.uva.sea.ql.ast.operators.binary.GT;
+import org.uva.sea.ql.ast.operators.binary.LEq;
+import org.uva.sea.ql.ast.operators.binary.LT;
+import org.uva.sea.ql.ast.operators.binary.Mul;
+import org.uva.sea.ql.ast.operators.binary.Or;
+import org.uva.sea.ql.ast.operators.binary.Sub;
+import org.uva.sea.ql.ast.operators.unary.Neg;
+import org.uva.sea.ql.ast.operators.unary.Not;
+import org.uva.sea.ql.ast.operators.unary.Pos;
 import org.uva.sea.ql.ast.traversal.codegen.BootstrapGenerator;
 import org.uva.sea.ql.ast.traversal.typechecking.SymbolTable;
 import org.uva.sea.ql.ast.traversal.typechecking.TypeChecker;
 import org.uva.sea.ql.ast.types.Ident;
-import org.uva.sea.ql.ast.types.datatypes.*;
-import org.uva.sea.ql.ast.types.literals.*;
-
-import sun.org.mozilla.javascript.internal.Undefined;
+import org.uva.sea.ql.ast.types.datatypes.BoolType;
+import org.uva.sea.ql.ast.types.datatypes.IntType;
+import org.uva.sea.ql.ast.types.datatypes.MoneyType;
+import org.uva.sea.ql.ast.types.datatypes.NumericType;
+import org.uva.sea.ql.ast.types.datatypes.StringType;
+import org.uva.sea.ql.ast.types.literals.BoolLiteral;
+import org.uva.sea.ql.ast.types.literals.IntLiteral;
+import org.uva.sea.ql.ast.types.literals.MoneyLiteral;
+import org.uva.sea.ql.ast.types.literals.StringLiteral;
 
 // Test the type checking functionality
 public class TestTypeChecker extends TestBase {

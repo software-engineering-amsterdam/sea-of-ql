@@ -1,4 +1,7 @@
-page(title, fields) ::= <<
+import "bootstrap.stg"
+import "javascript.stg"
+
+page(title, fields, javascript) ::= <<
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -62,10 +65,13 @@ page(title, fields) ::= <<
     <!--[if lt IE 9]>
       <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
-    <script src="js/jquery-1.9.0.min.js"></script>
+    <script src="js/jquery-1.9.1.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script src="js/BigDecimal-all-last.min.js"></script>
     <script src="js/eval.js"></script>
+	<script type="text/javascript">
+    	$javascript$
+    </script>
   </head>
   <body>
   <div id="wrap">
