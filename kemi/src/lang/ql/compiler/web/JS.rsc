@@ -75,7 +75,9 @@ private str JS(Form f) =
   '  });
   '
   '  $(\"#<f.formName.ident>\").on(\"input\", function(evt) {
-  '    $(evt.target).valid();
+  '    if($(\"#<f.formName.ident>\").type !== \"date\") {
+  '      $(evt.target).valid();
+  '    }
   '  });
   '
   '  // Make sure all elements are properly styled before registering events
