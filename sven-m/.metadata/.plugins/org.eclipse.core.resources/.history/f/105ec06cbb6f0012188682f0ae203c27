@@ -1,9 +1,0 @@
-package org.uva.sea.ql.ast.expression;
-
-public class Mul extends Binary implements ASTNode {
-
-	public Mul(Expr lhs, Expr rhs) {
-		super(lhs, rhs);
-	}
-
-}
