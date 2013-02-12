@@ -1,9 +1,12 @@
 package org.uva.sea.ql.ast.statements;
 
+import java.util.HashMap;
+
 import org.antlr.runtime.Token;
 import org.uva.sea.ql.ast.operatorresults.Result;
 import org.uva.sea.ql.ast.operators.Expr;
 import org.uva.sea.ql.ast.operators.Ident;
+import org.uva.sea.ql.ast.types.BooleanType;
 import org.uva.sea.ql.ast.types.Type;
 import org.uva.sea.ql.ast.visitor.Visitor;
 
@@ -57,5 +60,9 @@ public class LineStatement extends Statement {
 
 	public Result getTypeContainer() {
 		return typeDescription.getTypeContainer();
+	}
+
+	public Type getInitalizerExprType(HashMap<String, Statement> symbolMap) {
+		return initalizerExpr.typeOf(symbolMap) ;
 	}
 }

@@ -1,6 +1,7 @@
 package org.uva.sea.ql.ast.visitor;
 
 import java.util.HashMap;
+import java.util.Map;
 
 import org.uva.sea.ql.ast.literals.BooleanLiteral;
 import org.uva.sea.ql.ast.literals.IntegerLiteral;
@@ -39,13 +40,13 @@ import org.uva.sea.ql.ui.Panel;
 
 public class QLFormCreator implements Visitor<Panel> {
 	private String formName;
-	private HashMap<String, Result> symbols = new HashMap<String, Result>();
+	private Map<String, Result> symbols = new HashMap<String, Result>();
 
 	public String getFormName() {
 		return formName;
 	}
 
-	public HashMap<String, Result> getSymbols() {
+	public Map<String, Result> getSymbols() {
 		return symbols;
 	}
 
@@ -80,11 +81,11 @@ public class QLFormCreator implements Visitor<Panel> {
 	public Panel visit(ConditionalStatement conditionalStatement) {
 		ConditionalPanel conditionalPanel = new ConditionalPanel(conditionalStatement);
 
-		conditionalPanel.setcThenPanel((CompoundPanel) conditionalStatement
-				.getTrueCompound().accept(this));
+		conditionalPanel.setcThenPanel((CompoundPanel) conditionalStatement.getTrueCompound()
+				.accept(this));
 		if (conditionalStatement.getFalseCompound() != null) {
-			conditionalPanel.setcElsePanel((CompoundPanel) conditionalStatement
-					.getFalseCompound().accept(this));
+			conditionalPanel.setcElsePanel((CompoundPanel) conditionalStatement.getFalseCompound()
+					.accept(this));
 		}
 		return conditionalPanel;
 	}

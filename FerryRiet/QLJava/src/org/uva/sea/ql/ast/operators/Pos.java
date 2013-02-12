@@ -1,7 +1,7 @@
 package org.uva.sea.ql.ast.operators;
 
 import java.math.BigDecimal;
-import java.util.HashMap;
+import java.util.Map;
 
 import org.uva.sea.ql.ast.operatorresults.IntegerResult;
 import org.uva.sea.ql.ast.operatorresults.MoneyResult;
@@ -18,7 +18,7 @@ public class Pos extends UnExpr {
 	}
 
 	@Override
-	public Type typeOf(HashMap<String, Statement> typeEnv) {
+	public Type typeOf(Map<String, Statement> typeEnv) {
 		return new IntegerType();
 	}
 
@@ -28,14 +28,13 @@ public class Pos extends UnExpr {
 	}
 
 	@Override
-	public Result eval(HashMap<String, Result> symbolMap) {
-		// I have problems with the sementic of this operator
+	public Result eval(Map<String, Result> symbolMap) {
+		// I have problems with the semantics of this operator
 		// is it not ABS?
 		Result rightHandResult = getExprRightHand().eval(symbolMap);
 
 		if (rightHandResult.isCompatibleToMoney()) {
-			return new MoneyResult(rightHandResult.getMoneyValue().multiply(
-					new BigDecimal(-1)));
+			return new MoneyResult(rightHandResult.getMoneyValue().multiply(new BigDecimal(-1)));
 		}
 		return new IntegerResult(rightHandResult.getIntegerValue() * -1);
 	}
