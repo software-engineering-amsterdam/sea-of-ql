@@ -1,6 +1,7 @@
 module lang::qls::compiler::web::JS
 
 import IO;
+import String;
 import util::StringHelper;
 import lang::ql::ast::AST;
 import lang::qls::ast::AST;
@@ -30,12 +31,14 @@ public str JS(Stylesheet s) =
   '
   '  <styleJS(s)>
   '
+  '  paginate();
+  '
   '  $(\"fieldset\").trigger(\"check\");
   '}
   '";
 
 private str pageName(PageDefinition p) =
-  "$(\"\<span/\>\").text(\"<trimQuotes(p.ident)>\")";
+  "$(\"\<h1/\>\").text(\"<trimQuotes(p.ident)>\")";
 
 private str sectionName(SectionDefinition s) =
   "$(\"\<legend/\>\").text(\"<trimQuotes(s.ident)>\")";

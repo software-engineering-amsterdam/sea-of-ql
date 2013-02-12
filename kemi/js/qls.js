@@ -100,3 +100,57 @@ jQuery.validator.addMethod("moneyValidator", function(value, element, params) {
 	return this.optional(element) || numDecimals(value) <= 2; 
 	}, jQuery.format("The money field can only contain up to 2 decimals.")
 );
+
+
+function button(text) {
+  return $("<button />")
+    .text(text || id);
+}
+
+function prevButton() {
+  return button("Previous");
+}
+
+function nextButton() {
+  return button("Next");
+}
+
+function showPage(page) {
+  $(".page").hide();
+  $(page).show();
+}
+
+function paginate() {
+  var pages = $(".page");
+  if(pages.length == 0) {
+    return;
+  }
+  
+  if(pages.length > 1) {
+    $.each(pages, function(i, page) {
+      if(i > 0) {
+        prevButton()
+          .click(function(e) {
+            e.preventDefault();
+            showPage(pages[i - 1]);
+          })
+          .appendTo(page);
+      }
+      if(i < pages.length - 1) {
+        nextButton()
+          .click(function(e) {
+            e.preventDefault();
+            if($(page).find("input, select").valid()) {
+              showPage(pages[i + 1]);
+            }
+          })
+          .appendTo(page);
+      }
+    });
+    
+    showPage(pages.first());
+  }
+  
+  $("#submit").appendTo(pages.last());
+}
+
