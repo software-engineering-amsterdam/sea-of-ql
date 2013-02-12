@@ -8,13 +8,13 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
@@ -60,7 +60,7 @@ public class FormBuilder implements ActionListener {
 		try {
 			Form form = parser.parseForm(formText);
 			if (form.isFormValid()) {
-				JPanel panel = form.buildForm();
+				JPanel panel = form.buildForm(mainWindow);
 				panel.add(backToMainButton, "span, growx");
 				showPanelInMainWindow(panel, form.getName());
 			}
@@ -119,7 +119,7 @@ public class FormBuilder implements ActionListener {
 	private JPanel getDisplayFormErrorPanel(Form form) {
 		JPanel panel = new JPanel(new MigLayout());
 		panel.add(new JLabel("Errors found in form:"), "span, growx");
-		panel.add(new JTextArea(form.getPrintableText()), "span, growx");
+		panel.add(new JScrollPane(new JTextArea(form.getPrintableText(), 20, 50)), "span, growx");
 		panel.add(backToMainButton, "span, growx");
 		return panel;
 	}
