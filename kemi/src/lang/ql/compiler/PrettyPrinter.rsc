@@ -12,6 +12,7 @@ module lang::ql::compiler::PrettyPrinter
 
 import Node;
 import lang::ql::ast::AST;
+import lang::ql::ast::Keyword;
 import lang::ql::util::ParenthesizeExpressions;
 
 private str printExpression(Expr p, str print) = "(<print>)"
@@ -20,7 +21,7 @@ private str printExpression(Expr p, str print) = "(<print>)"
 private default str printExpression(Expr p, str print) = print;
 
 public str prettyPrint(Form form) =
-  "form <form.formName.ident> { <for(e <- form.formElements) {>
+  "form <ppID(form.formName.ident)> { <for(e <- form.formElements) {>
   '  <prettyPrint(e)><}>
   '}
   '";
@@ -31,12 +32,12 @@ public str prettyPrint(Statement item: question(Question question)) =
 public str prettyPrint(Question q: 
     question(questionText, answerDataType, answerIdentifier)) =
   "<questionText.text>
-  '  <answerDataType.name> <answerIdentifier.ident>";
+  '  <answerDataType.name> <ppID(answerIdentifier.ident)>";
 
 public str prettyPrint(Question q: 
     question(questionText, answerDataType, answerIdentifier, cf)) =
   "<questionText.text>
-  '  <answerDataType.name> <answerIdentifier.ident> = <prettyPrint(cf)>";
+  '  <answerDataType.name> <ppID(answerIdentifier.ident)> = <prettyPrint(cf)>";
 
 public str prettyPrint(Statement item: 
     ifCondition(Conditional ifPart, list[Conditional] elseIfs, 
@@ -101,20 +102,27 @@ private str prettyPrintParen(p:and(left, right)) =
 private str prettyPrintParen(p:or(left, right)) =
   printExpression(p, "<prettyPrintParen(left)> || <prettyPrintParen(right)>");
 
-private str prettyPrintParen(ident(name)) =
-  "<name>";
+private str prettyPrintParen(ident(str name)) =
+  "<ppID(name)>";
 
-private str prettyPrintParen(\int(intValue)) =
+private str prettyPrintParen(\int(int intValue)) =
   "<intValue>";
 
-private str prettyPrintParen(money(moneyValue)) =
+private str prettyPrintParen(money(real moneyValue)) =
   "<moneyValue>";
 
-private str prettyPrintParen(boolean(booleanValue)) =
+private str prettyPrintParen(boolean(bool booleanValue)) =
   "<booleanValue>";
 
-private str prettyPrintParen(date(dateValue)) =
+private str prettyPrintParen(date(str dateValue)) =
   "<dateValue>";
 
-private str prettyPrintParen(string(text)) =
+private str prettyPrintParen(string(str text)) =
   "<text>";
+
+private default str ppID(str ident) =
+  ident;
+
+private str ppID(str ident) =
+  "\\<ident>"
+    when ident in keywords;
