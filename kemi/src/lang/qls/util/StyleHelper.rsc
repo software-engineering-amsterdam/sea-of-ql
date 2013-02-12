@@ -14,35 +14,16 @@ import IO;
 import List;
 import Map;
 import String;
-
 import lang::ql::analysis::SemanticChecker;
 import lang::ql::analysis::State;
 import lang::ql::ast::AST;
 import lang::ql::util::ParseHelper;
-
 import lang::qls::ast::AST;
 import lang::qls::util::ParseHelper;
-
 import util::StringHelper;
-
-public void main() {
-  Form f = parseForm(|project://QL-R-kemi/forms/taxOfficeExample.q|);
-  Stylesheet s = parseStylesheet(|project://QL-R-kemi/stylesheets/taxOfficeExample.qs|);
-
-  typeMap = getTypeMap(f);
-  //iprintln(typeMap);
-  
-  for(k <- typeMap){
-    iprintln(<k.ident, getStyleRules(k.ident, f, s)>);
-  }
-  
-  //Stylesheet s = parseStylesheet("stylesheet S1 { section \"S1\" { section \"SS\" {question Q1 { type checkbox }} } section \"P1\" {  } }");
-  //Stylesheet s = parseStylesheet("stylesheet S1 { question Q1 { type checkbox width 100 } default boolean { type radio } default string { width 104 }}");
-}
 
 alias CachedTypeMap = tuple[Form form, TypeMap typeMap];
 private CachedTypeMap cachedTypeMap = <form(identDefinition(""), []), ()>;
-
 
 public TypeMap getTypeMap(Form f) {
   if(f != cachedTypeMap.form) {
@@ -158,14 +139,8 @@ public str uniqueId(SectionDefinition s) =
 public list[PageDefinition] getPageDefinitions(Stylesheet s) =
   [d | /PageDefinition d <- s];
 
-public list[str] getPageNames(Stylesheet s) =
-  [name | /PageDefinition d:pageDefinition(name, _) <- s];
-
 public list[SectionDefinition] getSectionDefinitions(Stylesheet s) =
   [d | /SectionDefinition d <- s];
-
-public list[str] getSectionNames(Stylesheet s) =
-  [name | /SectionDefinition d:sectionDefinition(name, _) <- s];
 
 public list[SectionDefinition] getChildSectionDefinitions(Stylesheet s) =
   [r.sectionDefinition | r <- s.definitions, r.sectionDefinition?];
