@@ -27,7 +27,15 @@ str make(question:easyQuestion(str id, str labelQuestion, Type tp)) {
 str make(syntax::AbstractSyntax::id(str Id)) = Id;
 str make(add(Expression E1, Expression E2)) = "<make(E1)> + <make(E2)>";
 str make(sub(Expression E1, Expression E2)) = "<make(E1)> - <make(E2)>";
-//str make(conc(Expression E1, Expression E2)) = "<make(E1)> || <make(E2)>";
+str make(mul(Expression E1, Expression E2)) = "<make(E1)> * <make(E2)>";
+str make(div(Expression E1, Expression E2)) = "<make(E1)> / <make(E2)>";
+str make(lt(Expression E1, Expression E2)) = "<make(E1)> \< <make(E2)>";
+str make(leq(Expression E1, Expression E2)) = "<make(E1)> \<= <make(E2)>";
+str make(gt(Expression E1, Expression E2)) = "<make(E1)> \> <make(E2)>";
+str make(geq(Expression E1, Expression E2)) = "<make(E1)> \>= <make(E2)>";
+str make(eq(Expression E1, Expression E2)) = "<make(E1)> == <make(E2)>";
+str make(geq(Expression E1, Expression E2)) = "<make(E1)> != <make(E2)>";
+str make(or(Expression E1, Expression E2)) = "<make(E1)> || <make(E2)>";
 
 //  Add an editor to a node
 

@@ -6,8 +6,8 @@ import util::IDE;
 import vis::Figure;
 import vis::Render;
 
-import demo::lang::Pico::Abstract;
-import demo::lang::Pico::Syntax;
+import syntax::AbstractSyntax;
+import syntax::ConcreteSyntax;
 import demo::lang::Pico::Typecheck;
 import demo::lang::Pico::Eval;
 import demo::lang::Pico::Compile;
@@ -17,8 +17,8 @@ import demo::lang::Pico::Visualize;
 
 //  define the language name and extension
 
-private str Pico_NAME = "QL";
-private str Pico_EXT = "ql";
+private str QL_NAME = "QL";
+private str QL_EXT = "ql";
 
 //  Define the connection with the Pico parser
 Tree parser(str x, loc l) {
@@ -28,8 +28,8 @@ Tree parser(str x, loc l) {
 //  Define connection with the Pico checkers
 // (includes type checking and uninitialized variables check)
 
-public Program checkPicoProgram(Program x) {
-	p = implode(#PROGRAM, x);
+public Program checkQLProgram(Program x) {
+	p = implode(#Program, x);
 	env = checkProgram(p);
 	errors = { error(v, l) | <loc l, PicoId v> <- env.errors };
 	if(!isEmpty(errors))
@@ -56,15 +56,15 @@ public void compilePicoProgram(Program x, loc l){
 
 //  Define connection with CFG visualization
 
-public void visualizePicoProgram(Program x, loc selection) {
+public void visualizeQLProgram(Program x, loc selection) {
 	m = implode(#PROGRAM, x); 
 	CFG = cflowProgram(m);
 	render(visCFG(CFG.graph));
 }
 	
-//  Define all contributions to the Pico IDE
+//  Define all contributions to the QL IDE
 
-public set[Contribution] Pico_CONTRIBS = {
+public set[Contribution] QL_CONTRIBS = {
 	popup(
 		menu("Pico",[
 		    action("Evaluate Pico program", evalPicoProgram),
@@ -74,10 +74,10 @@ public set[Contribution] Pico_CONTRIBS = {
   	)
 };
 
-//  Register the Pico tools
+//  Register the QL tools
 
-public void registerPico() {
-  registerLanguage(Pico_NAME, Pico_EXT, parser);
-  registerAnnotator(Pico_NAME, checkPicoProgram);
-  registerContributions(Pico_NAME, Pico_CONTRIBS);
+public void registerQL() {
+  registerLanguage(QL_NAME, QL_EXT, parser);
+  registerAnnotator(QL_NAME, checkQLProgram);
+  registerContributions(QL_NAME, QL_CONTRIBS);
 }

@@ -53,6 +53,10 @@ CFGraph cflowQuestion(question:computedQuestion(str id, str labelQuestion, Type 
 	
 }
 
+CFGraph cflowQues(list[Question] ques){
+	if(size(ques) == 1) return cflowQuestion(ques[0]);
+}
+
 
 CFGraph cflowCompleteBody(list[Body] Body){
 	println("Body : <Body>");
@@ -67,7 +71,22 @@ CFGraph cflowCompleteBody(list[Body] Body){
 
 CFGraph cflowBody(list[Body] Body){
 	println("Body : <Body>");
+	list[Question] ques = [];
 	list[Statement] statements = [];
+	for(s <- Body){
+		println("S : <s>");
+		if(getName(s) == "question"){
+		visit(s){
+			case Question qu : {
+				println("QUE : <qu>");
+				ques += qu;
+			}
+		}
+		}
+	}
+	println("HUI : <ques>");
+	//cflowQues(ques);
+	
 	visit(Body){
 		case Statement s : statements += s;
 	};
