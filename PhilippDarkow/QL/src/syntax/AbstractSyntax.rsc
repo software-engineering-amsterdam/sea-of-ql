@@ -37,7 +37,7 @@ public data Expression =
 	| not (bool exp)
 	| boolCon (bool bVal)
 	| moneyCon (str mVal)
-	| string (str sVal)
+	| strCon (str sVal)
 	;
 
 // Data of a Statements Rule 	
