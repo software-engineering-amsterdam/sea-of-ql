@@ -1,4 +1,6 @@
-package org.uva.sea.ql.ast.expression;
+package org.uva.sea.ql.ast.expression.unary;
+
+import org.uva.sea.ql.ast.expression.Expression;
 
 abstract public class UnaryExpression extends Expression {
 	private final Expression expression;

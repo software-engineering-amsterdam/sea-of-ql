@@ -1,11 +1,10 @@
-package org.uva.sea.ql.ast.expression.unary;
+package org.uva.sea.ql.ast.expression.unary.numeric;
 
 import org.uva.sea.ql.ast.expression.Expression;
-import org.uva.sea.ql.ast.expression.UnaryExpression;
 import org.uva.sea.ql.visitor.ExpressionVisitor;
 
-public class NotExpression extends UnaryExpression {
-	public NotExpression( Expression expression ) {
+public class PositiveExpression extends UnaryNumericExpression {
+	public PositiveExpression( Expression expression ) {
 		super( expression );
 	}
 

@@ -4,8 +4,8 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 import org.uva.sea.ql.ast.expression.IdentifierExpression;
-import org.uva.sea.ql.ast.expression.arithmetic.AddExpression;
-import org.uva.sea.ql.ast.expression.comparison.EqualExpression;
+import org.uva.sea.ql.ast.expression.binary.arithmetic.AddExpression;
+import org.uva.sea.ql.ast.expression.binary.comparison.EqualExpression;
 import org.uva.sea.ql.ast.expression.literal.BooleanLiteral;
 import org.uva.sea.ql.ast.expression.literal.IntegerLiteral;
 import org.uva.sea.ql.ast.expression.literal.MoneyLiteral;

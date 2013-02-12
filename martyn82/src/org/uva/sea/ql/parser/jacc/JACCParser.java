@@ -1,13 +1,14 @@
-// Output created by jacc on Tue Feb 12 20:23:07 CET 2013
+// Output created by jacc on Tue Feb 12 20:45:18 CET 2013
 
 package org.uva.sea.ql.parser.jacc;
 
 import org.uva.sea.ql.ast.expression.*;
-import org.uva.sea.ql.ast.expression.arithmetic.*;
-import org.uva.sea.ql.ast.expression.comparison.*;
+import org.uva.sea.ql.ast.expression.binary.arithmetic.*;
+import org.uva.sea.ql.ast.expression.binary.comparison.*;
+import org.uva.sea.ql.ast.expression.binary.logical.*;
 import org.uva.sea.ql.ast.expression.literal.*;
-import org.uva.sea.ql.ast.expression.logical.*;
-import org.uva.sea.ql.ast.expression.unary.*;
+import org.uva.sea.ql.ast.expression.unary.logical.*;
+import org.uva.sea.ql.ast.expression.unary.numeric.*;
 import org.uva.sea.ql.ast.statement.*;
 import org.uva.sea.ql.ast.type.*;
 

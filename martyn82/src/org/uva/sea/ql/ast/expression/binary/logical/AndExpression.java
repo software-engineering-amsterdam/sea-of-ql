@@ -1,7 +1,6 @@
-package org.uva.sea.ql.ast.expression.logical;
+package org.uva.sea.ql.ast.expression.binary.logical;
 
 import org.uva.sea.ql.ast.expression.Expression;
-import org.uva.sea.ql.ast.expression.LogicalExpression;
 import org.uva.sea.ql.visitor.ExpressionVisitor;
 
 public class AndExpression extends LogicalExpression {

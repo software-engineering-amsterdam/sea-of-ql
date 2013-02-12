@@ -1,7 +1,6 @@
-package org.uva.sea.ql.ast.expression.unary;
+package org.uva.sea.ql.ast.expression.unary.numeric;
 
 import org.uva.sea.ql.ast.expression.Expression;
-import org.uva.sea.ql.ast.expression.UnaryNumericExpression;
 import org.uva.sea.ql.visitor.ExpressionVisitor;
 
 public class NegativeExpression extends UnaryNumericExpression {

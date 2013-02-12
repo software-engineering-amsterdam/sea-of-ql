@@ -1,25 +1,25 @@
 package org.uva.sea.ql.visitor;
 
 import org.uva.sea.ql.ast.expression.IdentifierExpression;
-import org.uva.sea.ql.ast.expression.arithmetic.AddExpression;
-import org.uva.sea.ql.ast.expression.arithmetic.DivideExpression;
-import org.uva.sea.ql.ast.expression.arithmetic.MultiplyExpression;
-import org.uva.sea.ql.ast.expression.arithmetic.SubtractExpression;
-import org.uva.sea.ql.ast.expression.comparison.EqualExpression;
-import org.uva.sea.ql.ast.expression.comparison.GreaterThanExpression;
-import org.uva.sea.ql.ast.expression.comparison.GreaterThanOrEqualExpression;
-import org.uva.sea.ql.ast.expression.comparison.LesserThanExpression;
-import org.uva.sea.ql.ast.expression.comparison.LesserThanOrEqualExpression;
-import org.uva.sea.ql.ast.expression.comparison.NotEqualExpression;
+import org.uva.sea.ql.ast.expression.binary.arithmetic.AddExpression;
+import org.uva.sea.ql.ast.expression.binary.arithmetic.DivideExpression;
+import org.uva.sea.ql.ast.expression.binary.arithmetic.MultiplyExpression;
+import org.uva.sea.ql.ast.expression.binary.arithmetic.SubtractExpression;
+import org.uva.sea.ql.ast.expression.binary.comparison.EqualExpression;
+import org.uva.sea.ql.ast.expression.binary.comparison.GreaterThanExpression;
+import org.uva.sea.ql.ast.expression.binary.comparison.GreaterThanOrEqualExpression;
+import org.uva.sea.ql.ast.expression.binary.comparison.LesserThanExpression;
+import org.uva.sea.ql.ast.expression.binary.comparison.LesserThanOrEqualExpression;
+import org.uva.sea.ql.ast.expression.binary.comparison.NotEqualExpression;
+import org.uva.sea.ql.ast.expression.binary.logical.AndExpression;
+import org.uva.sea.ql.ast.expression.binary.logical.OrExpression;
 import org.uva.sea.ql.ast.expression.literal.BooleanLiteral;
 import org.uva.sea.ql.ast.expression.literal.IntegerLiteral;
 import org.uva.sea.ql.ast.expression.literal.MoneyLiteral;
 import org.uva.sea.ql.ast.expression.literal.StringLiteral;
-import org.uva.sea.ql.ast.expression.logical.AndExpression;
-import org.uva.sea.ql.ast.expression.logical.OrExpression;
-import org.uva.sea.ql.ast.expression.unary.NegativeExpression;
-import org.uva.sea.ql.ast.expression.unary.NotExpression;
-import org.uva.sea.ql.ast.expression.unary.PositiveExpression;
+import org.uva.sea.ql.ast.expression.unary.logical.NotExpression;
+import org.uva.sea.ql.ast.expression.unary.numeric.NegativeExpression;
+import org.uva.sea.ql.ast.expression.unary.numeric.PositiveExpression;
 
 public interface ExpressionVisitor<T> {
 

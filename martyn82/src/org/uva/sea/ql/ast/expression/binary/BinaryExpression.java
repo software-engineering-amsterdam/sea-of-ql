@@ -1,4 +1,6 @@
-package org.uva.sea.ql.ast.expression;
+package org.uva.sea.ql.ast.expression.binary;
+
+import org.uva.sea.ql.ast.expression.Expression;
 
 abstract public class BinaryExpression extends Expression {
 	private final Expression lhs;

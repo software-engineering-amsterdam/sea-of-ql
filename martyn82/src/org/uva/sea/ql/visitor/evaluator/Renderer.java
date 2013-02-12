@@ -3,10 +3,10 @@ package org.uva.sea.ql.visitor.evaluator;
 import java.util.LinkedList;
 import java.util.Observer;
 
-import org.uva.sea.ql.ast.expression.BinaryExpression;
 import org.uva.sea.ql.ast.expression.Expression;
 import org.uva.sea.ql.ast.expression.IdentifierExpression;
-import org.uva.sea.ql.ast.expression.UnaryExpression;
+import org.uva.sea.ql.ast.expression.binary.BinaryExpression;
+import org.uva.sea.ql.ast.expression.unary.UnaryExpression;
 import org.uva.sea.ql.ast.statement.Assignment;
 import org.uva.sea.ql.ast.statement.FormDeclaration;
 import org.uva.sea.ql.ast.statement.IfThen;
