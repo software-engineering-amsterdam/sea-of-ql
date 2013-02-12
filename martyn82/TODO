@@ -8,7 +8,6 @@ TODO
 operator instanceof is only valid in some cases when the RHS is a type/interface, not a class.
 
 - Create a visitor that gathers identifier dependencies on expressions. They return a HashSet<Identifier>
-- Remove javadoc
 - The type checker needs an environment with an Identity:Type map
 - The evaluator needs an environment with an Identity:Value map
 - Use double dispatch for instanceof removal.
@@ -16,6 +15,3 @@ operator instanceof is only valid in some cases when the RHS is a type/interface
 - .class and getClass must be removed!
 - assert assumptions
 - make codelocation class to bundle column and linenumber QLLexer
-- rename IParser
-- rename literals
-- rename I*Test
