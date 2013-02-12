@@ -6,6 +6,7 @@ import Prelude;
 import syntax::AbstractSyntax;
 import typeChecker::TypeCheck;
 import util::Load;
+import template::File;
 
 // Capitalize the first character of a string
 
@@ -33,27 +34,33 @@ private str generateQuestion(question:easyQuestion(str id, str labelQuestion, Ty
 	println("in generate Question <question>");
 	if(tp == boolean()){
 		return "<labelQuestion> \<input type=\"checkbox\" id=<id> \> Yes";
+	}else if(tp == money()){
+		return "<labelQuestion> \<input type=\"checkbox\" id=<id> \> Yes";
+	}else if(tp == string()){
+		return "<labelQuestion> \<input type=\"checkbox\" id=<id> \> Yes";
 	}
 	
 }
 
-private str generateBody(list[Body] body){
-	println("in generate Body <body>");
-	list[str] ques = [];
-	for(s <- body){
-		visit(s){
-			case Question q : {
-				//println("QQQQQ is : <q>");
-				return generateQuestion(q);
-				ques += generateQuestion(q);
-			}
-		}
+private str generateQuestion(question:computedQuestion(str id, str labelQuestion, Type tp, Expression exp)){
+	println("in generate computed Question <question>");
+	if(tp == boolean()){
+		return "<labelQuestion> \<input type=\"checkbox\" id=<id> \> Yes";
 	}
-	println("Ques : <ques>");
-	return ques;
-//	\<input type=\"checkbox\" id=\"check1\"\>Do you like summer?
 	
 }
+
+//private str generateBody(list[Body] body){
+//	list[str] ques = [];
+//	for(s <- body){
+//		visit(s){
+//			case Question q : {
+//				ques += generateQuestion(q);
+//			}
+//		}
+//	}
+//	return ques;	
+//}
 
 private str generateBody(Body body){
 	println("in generate Body <body>");
@@ -65,29 +72,30 @@ private str generateBody(Body body){
 				return generateQuestion(q);
 				ques += generateQuestion(q);
 			}
+			case Statement s : {
+				return generateStatement(s);
+			}
 		}
 	}
 	println("Ques : <ques>");
-	return ques;
-//	\<input type=\"checkbox\" id=\"check1\"\>Do you like summer?
-	
+	return ques;	
 }
 
 public str generateJavaScriptForm(Program P){
 	if(program(str id, list[Body] Body) := P){
 		println("in generate JavaScriptForm");
-		return "\<!DOCTYPE html\>
+		str res = "\<!DOCTYPE html\>
 		\<html\>
 		\<body\>
 		\<form action = \" \" method = \"post\" name=<id>\>
 		<for (s <- Body) { >
-		<generateBody(s)>
-		< } >
-				
+		<generateBody(s)> \</br\>
+		< } >				
 		\</form\>
 		\</body\>
 		\</html\>";
-		
+		generateJavaScript(id,res);
+		return res;
 	}else{
 		return "not possible to generate java script code";
 	}
