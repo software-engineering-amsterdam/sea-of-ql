@@ -17,37 +17,21 @@ output=AST;
 //use static value NULL in value for null pattern
 } 
 tokens{
-ROOT;
-QUESTION_BLOCK;
-QUESTION_VAR;
+QUESTION_ASSIGNMENT;
 QUESTION_LABEL;
-IF_BLOCK;
-IF_EXPRESSION;
-IF_TRUE;
-IF_FALSE;
-VAR_TYPE;
-VAR_NAME;
-VAR_VALUE;
-CONST_VAR;
-CONST_TYPE;
-CONST_VALUE;
-CONST_NAME;
-CONST_TYPE_INT;
-VALUE_CALC;
-UNARY_EXPR;
-NEG_EXPR;
-INT_LITERAL;
-IDENT_LITERAL;
-BOOL_LITERAL;
-STR_LITERAL;
-MONEY_LITERAL;
-BOOL_TYPE;
-INT_TYPE;
-MONEY_TYPE;
-STR_TYPE;
-INTEGER_TYPE;
-}
+VAR_ASSIGNMENT;
+IDENT;
+ASSIGNMENT_TYPE;
+ASSIGNMENT_EXPRESSION;
+IF_STATEMENT;
+IF_CONDITION;
+IF_BLOCK_TRUE;
+IF_BLOCK_FALSE;
 
+}
+//BOOL_TYPE;
+//MONEY_TYPE;
+//INTEGER_TYPE;
 @parser::header
 {
 package org.uva.sea.ql.parser.antlr;
@@ -72,39 +56,31 @@ import org.uva.sea.ql.ast.*;
  *------------------------------------------------------------------*/
  
 parse
-	: FormStart formName=FormId Lbr statement+ Rbr EOF -> ^(FormId statement+);
+	: FormStart FormId Lbr statement+ Rbr EOF -> ^(FormId statement+);
 	
 statement
-	:	(answerableStatement | assignmentStatement | ifStatement ) ; //*
+	:	(answerableStatement | assignmentStatement | ifStatement ) ; 
 	
 
 //Answerable and NOT answerable (calculates value, just for presentation, uses (orExpr)? ) //'(' orExpr ')'
 answerableStatement 
-	: varName=Ident  Assignment_Indicator  label=QuestionLabel identType (atom)?  ->^(QUESTION_BLOCK ^(QUESTION_VAR ^(IDENT_LITERAL $varName identType)  ^(VAR_VALUE atom)?)  ^(QUESTION_LABEL ^(STR_LITERAL $label)))
+	: varName=Ident  Assignment_Indicator  label=QuestionLabel identType (atom)?  ->^(QUESTION_ASSIGNMENT ^(IDENT $varName) ^(ASSIGNMENT_TYPE identType) ^(QUESTION_LABEL  $label)  ^(ASSIGNMENT_EXPRESSION atom)?)
 	 ;
 
 //Constant internal variable assignment, normal value and computed value
 assignmentStatement
-	: constName=Ident  Assignment_Indicator identType atom -> ^(CONST_VAR ^(IDENT_LITERAL CONST_NAME $constName) ^(CONST_TYPE CONST_TYPE_INT) ^(CONST_VALUE  atom))
+	: constName=Ident  Assignment_Indicator identType atom -> ^(VAR_ASSIGNMENT ^(IDENT $constName ) ^(ASSIGNMENT_TYPE identType) ^(ASSIGNMENT_EXPRESSION  atom))
 	;
 	
 //Question type
 identType	
-	: Boolean -> ^(BOOL_TYPE) 
-	| Money -> ^(MONEY_TYPE) 
-	//| Integer -> ^(INTEGER_TYPE) 
+	: Boolean -> Boolean //^(BOOL_TYPE) 
+	| Money -> Money // ^(MONEY_TYPE) 
 	;	
 
 
-
-
-
-
-
-
-//IF / IF ELSE STATEMENT PARTS 
 ifStatement 
-	:If ifConditionalExpression  ifStatementBlock  (elseBlock)?  ->^(IF_BLOCK  ^(IF_EXPRESSION ifConditionalExpression )  ^(IF_TRUE ifStatementBlock) ^(IF_FALSE elseBlock)?) //^(IF_EXPRESSION orExpr)
+	:If ifConditionalExpression  ifStatementBlock  (elseBlock)?  ->^(IF_STATEMENT  ^(IF_CONDITION ifConditionalExpression )  ^(IF_BLOCK_TRUE ifStatementBlock) ^(IF_BLOCK_FALSE elseBlock)?) //^(IF_EXPRESSION orExpr)
 	;
 	
 ifConditionalExpression
@@ -130,19 +106,19 @@ atom returns [Expr result]
   ;
   
 unExpr returns [Expr result]
-    :  '+' x=atom { $result = new Pos($x.result); }
-    |  '-' x=atom { $result = new Neg($x.result); }
-    |  '!' x=atom { $result = new Not($x.result); }
+    :  Add x=atom { $result = new Pos($x.result); }
+    |  Sub x=atom { $result = new Neg($x.result); }
+    |  Not x=atom { $result = new Not($x.result); }
     |  x=atom    { $result = $x.result; }
     ;    
     
 mulExpr returns [Expr result]
-    :   lhs=unExpr { $result=$lhs.result; } ( op=( '*'^ | '/'^ ) rhs=unExpr 
+    :   lhs=unExpr { $result=$lhs.result; } ( op=( Mul^ | Div^ ) rhs=unExpr 
     { 
-      if ($op.text.equals("*")) {
+      if ($op.text.equals($Mul)) {
         $result = new Mul($result, $rhs.result);
       }
-      if ($op.text.equals("<=")) {
+      if ($op.text.equals($Div)) {
         $result = new Div($result, $rhs.result);      
       }
     })*
@@ -150,48 +126,48 @@ mulExpr returns [Expr result]
     
   
 addExpr returns [Expr result]
-    :   lhs=mulExpr { $result=$lhs.result; } ( op=('+'^ | '-'^) rhs=mulExpr
+    :   lhs=mulExpr { $result=$lhs.result; } ( op=(Add^ | Sub^) rhs=mulExpr
     { 
-      if ($op.text.equals("+")) {
+      if ($op.text.equals($Add)) {
         $result = new Add($result, $rhs.result);
       }
-      if ($op.text.equals("-")) {
+      if ($op.text.equals($Sub)) {
         $result = new Sub($result, $rhs.result);      
       }
     })*
     ;
   
 relExpr returns [Expr result]
-    :   lhs=addExpr { $result=$lhs.result; } ( op=('<'^|'<='^|'>'^|'>='^|'=='^|'!='^) rhs=addExpr 
+    :   lhs=addExpr { $result=$lhs.result; } ( op=(LT^|LTEqu^|GT^|GTEqu^|Equ^|NotEqu^) rhs=addExpr 
     { 
-      if ($op.text.equals("<")) {
+      if ($op.text.equals($LT)) {
         $result = new LT($result, $rhs.result);
       }
-      if ($op.text.equals("<=")) {
+      if ($op.text.equals($LTEqu)) {
         $result = new LEq($result, $rhs.result);      
       }
-      if ($op.text.equals(">")) {
+      if ($op.text.equals($GT)) {
         $result = new GT($result, $rhs.result);
       }
-      if ($op.text.equals(">=")) {
+      if ($op.text.equals($GTEqu)) {
         $result = new GEq($result, $rhs.result);      
       }
-      if ($op.text.equals("==")) {
+      if ($op.text.equals($Equ)) {
         $result = new Eq($result, $rhs.result);
       }
-      if ($op.text.equals("!=")) {
+      if ($op.text.equals($NotEqu)) {
         $result = new NEq($result, $rhs.result);
       }
     })*
     ;
     
 andExpr returns [Expr result]
-    :   lhs=relExpr { $result=$lhs.result; } ( '&&'^ rhs=relExpr { $result = new And($result, $rhs.result); } )* 
+    :   lhs=relExpr { $result=$lhs.result; } ( And^ rhs=relExpr { $result = new And($result, $rhs.result); } )* 
     ;
     
 
 orExpr returns [Expr result]
-    :  lhs=andExpr { $result = $lhs.result; } ( '||'^ rhs=andExpr { $result = new Or($result, $rhs.result); } )* 
+    :  lhs=andExpr { $result = $lhs.result; } ( Or^ rhs=andExpr { $result = new Or($result, $rhs.result); } )* 
     ;
 
 
@@ -206,12 +182,10 @@ WS  : ( '\t' | ' ' | '\r' | '\n'| '\u000C' )+ { $channel = HIDDEN; } ;
 COMMENT     : ('/*' .* '*/' | '//' ~('\r' | '\n')*)   { $channel = HIDDEN; } ;
 
 FormStart: 'form' { System.out.println("Lex Start: "+getText()); };
-//Ident types
+
 Boolean : 'boolean' { System.out.println("Lex Boolean: "+getText()); };
 Money	: 'money' { System.out.println("Lex Money: "+getText()); };
-//Integer: 'int' { System.out.println("Lex Int: "+getText()); };
 
-//Integer	:'integer' { System.out.println("Lex Integer: "+getText()); };
 If	: 'if' { System.out.println("Lex IF: "+getText()); };
 Else	: 'else' { System.out.println("Lex ELSE: "+getText()); };
 FormId 	: 'A'..'Z' ('a'..'z'|'A'..'Z'|'0'..'9')+  { System.out.println("Lex FormId: "+getText()); };
@@ -227,14 +201,60 @@ Lbr	:	'{' { System.out.println("Lex {: "+getText()); };
 Rbr	:	'}' { System.out.println("Lex }: "+getText()); };
 
 
-Assignment_Indicator
-	:	':'
+Assignment_Indicator :	':';
+
+RoundLbr : '(';
+
+RoundRbr : ')'	;
+
+Mul
+	:	'*'
 	;
 
-RoundLbr
-	:	'('
+Div
+	:	'/'
 	;
 
-RoundRbr
-	:	')'
+Add
+	:	'+'
+	;
+
+Sub
+	:	'-'
+	;
+
+LT
+	:	'<'
+	;
+
+LTEqu
+	:	'<='
+	;
+
+GT
+	:	'>'
+	;
+
+GTEqu
+	:	'>='
+	;
+
+Equ
+	:	'=='
+	;
+
+NotEqu
+	:	'!='
+	;
+
+And
+	:	'&&'
+	;
+
+Or
+	:	'||'
+	;
+
+Not
+	:	'!'
 	;
