@@ -14,19 +14,16 @@ import IO;
 import List;
 import Set;
 import String;
-import util::IDE;
-
 import lang::ql::ast::AST;
-
+import lang::qls::analysis::Messages;
 import lang::qls::analysis::StyleAttrChecker;
 import lang::qls::analysis::WidgetTypeChecker;
 import lang::qls::ast::AST;
 import lang::qls::compiler::PrettyPrinter;
-import lang::qls::util::StyleHelper;
-import util::LocationHelper;
-
-
 import lang::qls::util::ParseHelper;
+import lang::qls::util::StyleHelper;
+import util::IDE;
+import util::LocationHelper;
 
 public void main() {
   s = parseStylesheet(|project://QL-R-kemi/stylesheets/proposedSyntax.qs|);
@@ -35,6 +32,11 @@ public void main() {
   //iprintln(getSectionNames(s));
   errors = semanticChecker(s);
   iprintln(errors);
+  
+  list[QuestionDefinition] qdefs = [d | /d <- s, QuestionDefinition := d];
+  for(q <- qdefs) {
+    ;
+  }
 }
 
 public set[Message] semanticChecker(Stylesheet s) =
@@ -52,36 +54,29 @@ public default set[Message] filenameDoesNotMatchErrors(Stylesheet s) =
   {};
 
 public set[Message] filenameDoesNotMatchErrors(Stylesheet s) =
-  {error(
-    "Stylesheet name (<s.ident>) does not match filename " +
-      "(<basename(s@location)>)",
-    s@location
-  )}
+  {stylesheetDoesNotMatchFilename(s.ident, s@location)}
     when s.ident != basename(s@location);
 
 private default set[Message] accompanyingFormNotFoundErrors(Stylesheet s) =
   {};
 
 private set[Message] accompanyingFormNotFoundErrors(Stylesheet s) =
-  {error("No form found with name <s.ident>", s@location)}
+  {accompanyingFormNotFound(s.ident, s@location)}
     when !isFile(accompanyingFormLocation(s));
 
 
 public set[Message] alreadyUsedQuestionErrors(Stylesheet s) {
-  errors = {};
-  questionDefinitions = getQuestionDefinitions(s);
-  idents = [];
+  set[Message] errors = {};
+  list[QuestionDefinition] questionDefinitions = getQuestionDefinitions(s);
+  map[str, loc] idents = ();
+  
   for(d <- questionDefinitions) {
-    i = indexOf(idents, d.ident);
-    if(i >= 0) {
-      errors += error(
-        "Question already used at line " +
-          "<questionDefinitions[i]@location.begin.line>",
-        d@location
-      );
-    }
-    idents += d.ident;
+    if(d.ident in idents) {
+      errors += questionAlreadyDefined(idents[d.ident], d@location);
+    } 
+    idents[d.ident] = d@location;
   }
+  
   return errors;
 }
 
@@ -89,15 +84,26 @@ public set[Message] undefinedQuestionErrors(Stylesheet s) {
   if(!isFile(accompanyingFormLocation(s)))
     return {};
   
-  errors = {};
+  set[Message] errors = {};
   typeMap = getTypeMap(accompanyingForm(s));
+
+/*  
+  list[QuestionDefinition] qdefs = [d | /d <- s, QuestionDefinition := d];
+  for(q <- qdefs) {
+     if(identDefinition(q.ident) notin typeMap) {
+        errors += error("Question undefined in form", q@location);
+     }
+  }
+*/  
+
   visit(s) {
     case QuestionDefinition d: {
       if(identDefinition(d.ident) notin typeMap) {
-        errors += error("Question undefined in form", d@location);
+        errors += questionUndefinedInForm(d@location);
       }
     }
   }
+
   return errors;
 }
 
