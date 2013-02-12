@@ -22,7 +22,6 @@ import org.uva.sea.ql.ast.unary.Not;
 import org.uva.sea.ql.ast.unary.Positive;
 import org.uva.sea.ql.ast.unary.UnaryOperation;
 import org.uva.sea.ql.visitor.ASTNodeVisitor;
-import sun.org.mozilla.javascript.ast.UnaryExpression;
 
 public class WebAppGeneratingVisitor implements ASTNodeVisitor<ST> {
 

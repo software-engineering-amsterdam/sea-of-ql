@@ -10,7 +10,7 @@ public class IntegerType implements Type {
         return Int.class.getSimpleName();
     }
 
-    @Test
+    @Override
     public boolean isCompatibleTo(Type type) {
         return type.isCompatibleToIntegerType();
     }

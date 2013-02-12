@@ -10,7 +10,7 @@ public class StringType implements Type {
         return Str.class.getSimpleName();
     }
 
-    @Test
+    @Override
     public boolean isCompatibleTo(Type type) {
         return type.isCompatibleToStringType();
     }

@@ -1,6 +1,5 @@
 package org.uva.sea.ql.ast.primary.typeClasses;
 
-import org.junit.Test;
 import org.uva.sea.ql.ast.primary.Bool;
 
 public class BooleanType implements Type {
@@ -10,7 +9,7 @@ public class BooleanType implements Type {
         return Bool.class.getSimpleName();
     }
 
-    @Test
+    @Override
     public boolean isCompatibleTo(Type type) {
         return type.isCompatibleToBooleanType();
     }
