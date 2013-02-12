@@ -41,23 +41,23 @@ public Program checkQLProgram(Program x) {
 
 //  Define the connection with the Pico evaluator
 
-public void evalPicoProgram(Program x, loc selection) {
-	m = implode(#PROGRAM, x); 
-	text(evalProgram(m));
-}
+//public void evalPicoProgram(Program x, loc selection) {
+//	m = implode(#PROGRAM, x); 
+//	text(evalProgram(m));
+//}
 
 //  Define connection with the Pico compiler
 
-public void compilePicoProgram(Program x, loc l){
-    p = implode(#PROGRAM, x);
-    asm = compileProgram(p);
-	text(asm);
-}
+//public void compilePicoProgram(Program x, loc l){
+//    p = implode(#PROGRAM, x);
+//    asm = compileProgram(p);
+//	text(asm);
+//}
 
 //  Define connection with CFG visualization
 
 public void visualizeQLProgram(Program x, loc selection) {
-	m = implode(#PROGRAM, x); 
+	m = implode(#Program, x); 
 	CFG = cflowProgram(m);
 	render(visCFG(CFG.graph));
 }
@@ -67,8 +67,8 @@ public void visualizeQLProgram(Program x, loc selection) {
 public set[Contribution] QL_CONTRIBS = {
 	popup(
 		menu("Pico",[
-		    action("Evaluate Pico program", evalPicoProgram),
-    		action("Compile Pico to ASM", compilePicoProgram),
+		    //action("Evaluate Pico program", evalPicoProgram),
+    		//action("Compile Pico to ASM", compilePicoProgram),
     		action("Show Control flow graph", visualizePicoProgram)
 	    ])
   	)

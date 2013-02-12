@@ -36,6 +36,7 @@ str make(geq(Expression E1, Expression E2)) = "<make(E1)> \>= <make(E2)>";
 str make(eq(Expression E1, Expression E2)) = "<make(E1)> == <make(E2)>";
 str make(geq(Expression E1, Expression E2)) = "<make(E1)> != <make(E2)>";
 str make(or(Expression E1, Expression E2)) = "<make(E1)> || <make(E2)>";
+str make(and(Expression E1, Expression E2)) = "<make(E1)> && <make(E2)>";
 
 //  Add an editor to a node
 
