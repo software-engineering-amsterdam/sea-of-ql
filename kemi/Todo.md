@@ -1,6 +1,5 @@
 # QL
 * Changing Outliner to look like rascal? e.g. categorizing
-* Trim/Strip from StringHelper 
 * Refactoring / Adding comments
 * Possibly when clauses expression checking thingies
 * Remove all old main()s and blahs

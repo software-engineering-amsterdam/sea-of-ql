@@ -9,12 +9,6 @@ import lang::qls::util::StyleHelper;
 
 import lang::qls::util::ParseHelper;
 
-public void main() {
-  s = parseStylesheet(|project://QL-R-kemi/stylesheets/proposedSyntax.qs|);
-  println(JS(s));
-}
-
-
 private str LABEL_CHOOSE = "Choose an answer";
 private str LABEL_TRUE = "Yes";
 private str LABEL_FALSE = "No";
