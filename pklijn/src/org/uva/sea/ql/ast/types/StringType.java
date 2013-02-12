@@ -23,7 +23,7 @@ public class StringType extends Type implements ActionListener, FocusListener {
 
 	@Override
 	public JComponent getAnswerField(boolean enabled) {
-		answerField = new JTextField();
+		answerField = new JTextField(15);
 		answerField.setEnabled(enabled);
 		answerField.addActionListener(this);
 		answerField.addFocusListener(this);

@@ -7,12 +7,12 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
@@ -22,7 +22,6 @@ import org.uva.sea.extensions.Tuple;
 import org.uva.sea.ql.ast.eval.Env;
 import org.uva.sea.ql.ast.expressions.Ident;
 import org.uva.sea.ql.ast.values.Value;
-import org.uva.sea.ql.interpreter.FormElement;
 import org.uva.sea.ql.opencsv.CSVWriter;
 
 // TODO: Clean this class, merge some functions. etc..
@@ -32,6 +31,7 @@ public class Form implements ActionListener {
 	private List<FormItem> body;
 	private Env environment;
 	private JButton finishButton;
+	private JFrame mainWindow;
 	
 	public Form(Ident id, List<FormItem> formItems) {
 		this.id = id;
@@ -72,17 +72,14 @@ public class Form implements ActionListener {
 		for (FormItem f : body) {
 			f.eval(environment, this);
 		}
+		mainWindow.pack();
 	}
 	
-	public JPanel buildForm() {
-		MigLayout ml = new MigLayout("ins 20", "[para]0[][100lp, fill][60lp][95lp, fill]", "");
-		JPanel formPanel = new JPanel(ml);
-		
+	public JPanel buildForm(JFrame mainWindow) {
+		this.mainWindow = mainWindow;
+		JPanel formPanel = new JPanel(new MigLayout("hidemode 3"));
 		for (FormItem f : body) {
-			List<FormElement> components = f.getFormComponents();
-			for (FormElement fe : components) {
-				formPanel.add(fe.getFormComponent(), fe.getProperties());
-			}
+			f.buildForm(formPanel);
 		}
 		finishButton = new JButton("Finish form");
 		finishButton.addActionListener(this);
