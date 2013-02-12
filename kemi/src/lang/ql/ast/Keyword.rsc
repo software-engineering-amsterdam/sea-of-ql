@@ -8,26 +8,15 @@
 @contributor{Kevin van der Vlist - kevin@kevinvandervlist.nl}
 @contributor{Jimi van der Woning - Jimi.vanderWoning@student.uva.nl}
 
-module lang::qls::ast::Keyword
+module lang::ql::ast::Keyword
 
 public set[str] keywords = {
-  "stylesheet",
-  "page",
-  "section",
-  "question",
-  "default",
   "boolean",
   "integer",
   "money",
   "date",
   "string",
-  "widget",
-  "width",
-  "text",
-  "number",
-  "datepicker",
-  "slider",
-  "radio",
-  "checkbox",
-  "select"
+  "true",
+  "false",
+  "form"
 };
