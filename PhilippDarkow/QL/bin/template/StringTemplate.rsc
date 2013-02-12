@@ -4,6 +4,7 @@ import IO;
 import String;
 import syntax::AbstractSyntax;
 import typeChecker::TypeCheck;
+import util::Load;
 
 // Capitalize the first character of a string
 
@@ -31,13 +32,48 @@ private str generateQuestion(){
 	// ToDo
 }
 
-private str generateBody(){
-
+private str generateBody(list[Body] body){
+	println("in generate Body <body>");
+	for(s <- body){
+		visit(s){
+			case Question q : {
+				println("QQQQQ is : <q>");
+				generateQuestion(q);
+			}
+		}
+	}
+//	\<input type=\"checkbox\" id=\"check1\"\>Do you like summer?
+	
 }
 
-public str generateForm(){
-	// ToDo
+public str generateJavaScriptForm(Program P){
+	if(program(str id, list[Body] Body) := P){
+		println("in generate JavaScriptForm");
+		return "\<!DOCTYPE html\>
+		\<html\>
+		\<body\>
+		\<form action = \" \" method = \"post\" name=<id>\>
+		<generateBody(Body)>
+		
+		\</form\>
+		\</body\>
+		\</html\>";
+		
+	}else{
+		return "not possible to generate java script code";
+	}
 }
+
+//\<select name=\"URL\"
+//		onchange=\"javascript:window.location.href=this.form.URL.options
+//		[this.form.URL.selectedIndex].value\"\>
+//		\<option\>Choose One\</option\>
+//		\<option value=\"http://webdesign.about.com/\"\>Web Design Home Page\</option\>
+//		\<option value=\"http://webdesign.about.com/library/weekly/mpreviss.htm\"\>Previous Articles\</option\>
+//		\<option value=\"http://webdesign.about.com/library/beginning/bl_begin.htm\"\>Beginning HTML\</option\>
+//		\</select\>
+
+public str generateJavaScriptForm(str txt) = generateJavaScriptForm(load(txt));
 
 // Generate a class with given name and fields.
 

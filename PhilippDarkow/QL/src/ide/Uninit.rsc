@@ -5,7 +5,8 @@ import syntax::AbstractSyntax;
 import util::Load;
 
 import visualization::UseDef;
-import visualization::ControlFlow;
+import controlFlow::ControlFlowTypes;
+import controlFlow::ControlFlow;
 
 public set[CFNode] defNodes(str id, set[Occurrence] Defs) =
    {statement(occ.stat@location, occ.stat) | Occurrence occ <- Defs, occ.name == id};

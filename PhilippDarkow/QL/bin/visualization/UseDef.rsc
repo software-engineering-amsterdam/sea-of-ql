@@ -34,6 +34,6 @@ public set[Occurrence] body(){
 
 // Need to check in abstract syntax Occurence
 public set[Occurrence] defs(Program p) {                 
-   println("in USEDEF defs");
-   return { < stat@location, id, stat > | /stat:ifStat(str id, list[Body] s1) <- p.body};
+   println("in USEDEF defs <p.body[0].question>");
+   return { < question@location, id, question > | /question:easyQuestion(str id, str questionLabel, Type tp) <- p.body[0].question};
    }
