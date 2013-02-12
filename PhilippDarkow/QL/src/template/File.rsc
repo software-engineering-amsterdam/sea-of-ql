@@ -21,7 +21,7 @@ loc generateJavaScriptDirectory(){
 /** Method 
 */
 void generateJavaScriptFile(str id, str program, loc l){
-	l += id;
+	l += "<id>.html";
 	println("LOC : <l>");
 	writeFile(l,program);
 }

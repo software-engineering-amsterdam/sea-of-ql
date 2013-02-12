@@ -28,12 +28,37 @@ private str genGetter(map[str,str] fields, str x) {
          '}";
 }
 
+private str generateLabel(str id, str label){
+	//value ll = toValue(id);
+	println("LLLLLL : <id>");
+	return "var <id>Label = document.createElement(\'label\');
+	 <id>Label.htmlFor = <id>;
+	 <id>Label.innerHTML = <label>; ";
+}
+
+private str specifyAttributes(str id){
+	return "<id>.setAttribute(\'type\',\"checkbox\");
+		<id>.setAttribute(\'id\',<id>)
+		<id>.setAttribute(\'name\',<id>)
+		<id>.setAttribute(\'value\',<id>) ";
+}
+
+
 /** Method to generate Question
 */
-private str generateQuestion(question:easyQuestion(str id, str labelQuestion, Type tp)){
+private str generateQuestion(str formId, question:easyQuestion(str id, str labelQuestion, Type tp)){
 	println("in generate Question <question>");
+	
 	if(tp == boolean()){
-		return "<labelQuestion> \<input type=\"checkbox\" id=<id> \> Yes";
+		str label = generateLabel(id, labelQuestion);
+		str attributes = specifyAttributes(id);
+		//println("LABEL : <label>");
+		return "var <id> = document.createElement(\"input\");
+		<attributes>
+		<label>
+		<formId>.appendChild(<id>Label); 
+		<formId>.appendChild(<id>); 
+		 ";
 	}else if(tp == money()){
 		return "<labelQuestion> \<input type=\"checkbox\" id=<id> \> Yes";
 	}else if(tp == string()){
@@ -42,7 +67,7 @@ private str generateQuestion(question:easyQuestion(str id, str labelQuestion, Ty
 	
 }
 
-private str generateQuestion(question:computedQuestion(str id, str labelQuestion, Type tp, Expression exp)){
+private str generateQuestion(str formId, question:computedQuestion(str id, str labelQuestion, Type tp, Expression exp)){
 	println("in generate computed Question <question>");
 	if(tp == boolean()){
 		return "<labelQuestion> \<input type=\"checkbox\" id=<id> \> Yes";
@@ -62,26 +87,55 @@ private str generateQuestion(question:computedQuestion(str id, str labelQuestion
 //	return ques;	
 //}
 
-private str generateBody(Body body){
+private str generateBody(str id, Body body){
 	println("in generate Body <body>");
-	list[str] ques = [];
 	for(s <- body){
 		visit(s){
 			case Question q : {
-				//println("QQQQQ is : <q>");
-				return generateQuestion(q);
-				ques += generateQuestion(q);
+				return "<generateQuestion(id, q)> 
+				document.write(\"\\n\");";
 			}
 			case Statement s : {
 				return generateStatement(s);
 			}
 		}
-	}
-	println("Ques : <ques>");
-	return ques;	
+	}	
 }
 
 public str generateJavaScriptForm(Program P){
+	if(program(str id, list[Body] Body) := P){
+		println("in generate JavaScriptForm");
+		str res = "\<!DOCTYPE html\>
+		\<html\>
+		\<head\>
+		\<script\>
+		function createForm(){
+			var <id> = document.createElement(\"form\");
+			<id>.setAttribute(\'method\',\"post\");
+			<id>.setAttribute(\'action\',\"submit.php\");
+			<id>.setAttribute(\'name\',<id>);
+			<for (s <- Body) { >
+			<generateBody(id,s)> 
+			
+			< } >
+			document.getElementsByTagName(\'body\')[0].appendChild(<id>);		
+		}
+		\</script\>
+		\</head\>
+		\<body\>
+		\<script\>
+			createForm();
+		\</script\>
+		\</body\>
+		\</html\>";
+		generateJavaScript(id,res);
+		return res;
+	}else{
+		return "not possible to generate java script code";
+	}
+}
+
+public str generateJavaScriptFormMoreHTML(Program P){
 	if(program(str id, list[Body] Body) := P){
 		println("in generate JavaScriptForm");
 		str res = "\<!DOCTYPE html\>
@@ -103,14 +157,14 @@ public str generateJavaScriptForm(Program P){
 
 public str generateJavaScriptForm(str txt) = generateJavaScriptForm(load(txt));
 
-// Generate a class with given name and fields.
 
-public str genClass(str name, map[str,str] fields) { 
-  return 
-    "public class <name> {
-    '  <for (x <- fields) {>
-    '  private <fields[x]> <x>;
-    '  <genSetter(fields, x)>
-    '  <genGetter(fields, x)><}>
-    '}";
-}
+//function yesno(thecheckbox, thelabel) {
+    	//var checkboxvar = document.getElementById(thecheckbox);
+    	//var labelvar = document.getElementById(thelabel);
+    	//	if (!checkboxvar.checked) {
+        //		labelvar.innerHTML = \"Noddddddddddd\";
+    	//	}
+    	//	else {
+        //		labelvar.innerHTML = \"Yesaaaaaaaaaa\";
+    	//	}
+		//}
