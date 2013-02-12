@@ -2,10 +2,10 @@ package org.uva.sea.ql.ast.expression;
 
 import org.uva.sea.ql.visitor.ExpressionVisitor;
 
-public class Ident extends Expression {
+public class IdentifierExpression extends Expression {
 	private final String name;
 
-	public Ident( String name ) {
+	public IdentifierExpression( String name ) {
 		this.name = name;
 	}
 
@@ -20,10 +20,10 @@ public class Ident extends Expression {
 
 	@Override
 	public boolean equals( Object object ) {
-		if ( !( object instanceof Ident ) ) {
+		if ( !( object instanceof IdentifierExpression ) ) {
 			return false;
 		}
-		return this.name.equals( ( (Ident) object ).name );
+		return this.name.equals( ( (IdentifierExpression) object ).name );
 	}
 
 	@Override

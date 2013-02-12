@@ -1,11 +1,11 @@
-package org.uva.sea.ql.ast.expression.comparison;
+package org.uva.sea.ql.ast.expression.arithmetic;
 
-import org.uva.sea.ql.ast.expression.ComparisonExpression;
+import org.uva.sea.ql.ast.expression.ArithmeticExpression;
 import org.uva.sea.ql.ast.expression.Expression;
 import org.uva.sea.ql.visitor.ExpressionVisitor;
 
-public class LT extends ComparisonExpression {
-	public LT( Expression lhs, Expression rhs ) {
+public class AddExpression extends ArithmeticExpression {
+	public AddExpression( Expression lhs, Expression rhs ) {
 		super( lhs, rhs );
 	}
 

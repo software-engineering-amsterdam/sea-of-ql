@@ -2,20 +2,20 @@ package org.uva.sea.ql.ast.expression.literal;
 
 import org.uva.sea.ql.visitor.ExpressionVisitor;
 
-public class Money extends Number {
-	private final double value;
+public class StringLiteral extends LiteralExpression {
+	private final String value;
 
-	public Money( double value ) {
+	public StringLiteral( String value ) {
 		this.value = value;
 	}
 
-	public double getValue() {
+	public String getValue() {
 		return this.value;
 	}
 
 	@Override
 	public String toString() {
-		return String.valueOf( this.value );
+		return this.value;
 	}
 
 	@Override

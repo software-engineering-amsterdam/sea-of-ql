@@ -5,11 +5,11 @@
 %start start
 
 %token BOOLEAN INTEGER MONEY STRING
-%token <Bool> BOOL
-%token <Money> MON
-%token <Int> INT
-%token <Str> STR
-%token <Ident> IDENT
+%token <BooleanLiteral> BOOL
+%token <MoneyLiteral> MON
+%token <IntegerLiteral> INT
+%token <StringLiteral> STR
+%token <IdentifierExpression> IDENT
 %token '^' '*' '/' '+' '-' OR AND NEQ EQ '<' LEQ '>' GEQ '!'
 %token '(' ')' '{' '}'
 %token ':'
@@ -98,27 +98,27 @@ import org.uva.sea.ql.ast.type.*;
  assignment     : IDENT '=' expression             { $$ = new Assignment( $1, $3 ); }
                 ;
 
- comparison     : expression EQ expression         { $$ = new Eq( $1, $3 ); }
-                | expression NEQ expression        { $$ = new NEq( $1, $3 ); }
-                | expression '>' expression        { $$ = new GT( $1, $3 ); }
-                | expression '<' expression        { $$ = new LT( $1, $3 ); }
-                | expression GEQ expression        { $$ = new GEq( $1, $3 ); }
-                | expression LEQ expression        { $$ = new LEq( $1, $3 ); }
+ comparison     : expression EQ expression         { $$ = new EqualExpression( $1, $3 ); }
+                | expression NEQ expression        { $$ = new NotEqualExpression( $1, $3 ); }
+                | expression '>' expression        { $$ = new GreaterThanExpression( $1, $3 ); }
+                | expression '<' expression        { $$ = new LesserThanExpression( $1, $3 ); }
+                | expression GEQ expression        { $$ = new GreaterThanOrEqualExpression( $1, $3 ); }
+                | expression LEQ expression        { $$ = new LesserThanOrEqualExpression( $1, $3 ); }
                 ;
 
- arithmetic     : expression '*' expression        { $$ = new Mul( $1, $3 ); }
-                | expression '/' expression        { $$ = new Div( $1, $3 ); }
-                | expression '+' expression        { $$ = new Add( $1, $3 ); }
-                | expression '-' expression        { $$ = new Sub( $1, $3 ); }
+ arithmetic     : expression '*' expression        { $$ = new MultiplyExpression( $1, $3 ); }
+                | expression '/' expression        { $$ = new DivideExpression( $1, $3 ); }
+                | expression '+' expression        { $$ = new AddExpression( $1, $3 ); }
+                | expression '-' expression        { $$ = new SubtractExpression( $1, $3 ); }
                 ;
 
- logical        : expression AND expression        { $$ = new And( $1, $3 ); }
-                | expression OR expression         { $$ = new Or( $1, $3 ); }
+ logical        : expression AND expression        { $$ = new AndExpression( $1, $3 ); }
+                | expression OR expression         { $$ = new OrExpression( $1, $3 ); }
                 ;
  
- expression     : '+' expression %prec UPLUS       { $$ = new Pos( $2 ); }
-                | '-' expression %prec UMIN        { $$ = new Neg( $2 ); }
-                | '!' expression %prec UNOT        { $$ = new Not( $2 ); }
+ expression     : '+' expression %prec UPLUS       { $$ = new PositiveExpression( $2 ); }
+                | '-' expression %prec UMIN        { $$ = new NegativeExpression( $2 ); }
+                | '!' expression %prec UNOT        { $$ = new NotExpression( $2 ); }
                 | comparison
                 | arithmetic
                 | logical
@@ -134,8 +134,8 @@ import org.uva.sea.ql.ast.type.*;
                 | boolliteral                      { $$ = $1; }
                 ;
                 
- boolliteral    : TRUE                             { $$ = new Bool( true ); }
-                | FALSE                            { $$ = new Bool( false ); }
+ boolliteral    : TRUE                             { $$ = new BooleanLiteral( true ); }
+                | FALSE                            { $$ = new BooleanLiteral( false ); }
                 ;
 
  datatype       : BOOLEAN                          { $$ = BooleanType.BOOLEAN; }
@@ -148,12 +148,12 @@ import org.uva.sea.ql.ast.type.*;
     private QLLexer lexer;
     private Statement result;
     
-    public Statement getResult() {
-        return result;
-    }
-    
     public JACCParser( QLLexer lexer ) { 
         this.lexer = lexer;
+    }
+    
+    public Statement getResult() {
+        return result;
     }
     
     private void yyerror( String msg ) { 

@@ -2,29 +2,29 @@ package org.uva.sea.ql.visitor.typechecker;
 
 import org.uva.sea.ql.ast.expression.ArithmeticExpression;
 import org.uva.sea.ql.ast.expression.ComparisonExpression;
-import org.uva.sea.ql.ast.expression.Ident;
+import org.uva.sea.ql.ast.expression.IdentifierExpression;
 import org.uva.sea.ql.ast.expression.LogicalExpression;
 import org.uva.sea.ql.ast.expression.UnaryExpression;
 import org.uva.sea.ql.ast.expression.UnaryNumericExpression;
-import org.uva.sea.ql.ast.expression.arithmetic.Add;
-import org.uva.sea.ql.ast.expression.arithmetic.Div;
-import org.uva.sea.ql.ast.expression.arithmetic.Mul;
-import org.uva.sea.ql.ast.expression.arithmetic.Sub;
-import org.uva.sea.ql.ast.expression.comparison.Eq;
-import org.uva.sea.ql.ast.expression.comparison.GEq;
-import org.uva.sea.ql.ast.expression.comparison.GT;
-import org.uva.sea.ql.ast.expression.comparison.LEq;
-import org.uva.sea.ql.ast.expression.comparison.LT;
-import org.uva.sea.ql.ast.expression.comparison.NEq;
-import org.uva.sea.ql.ast.expression.literal.Bool;
-import org.uva.sea.ql.ast.expression.literal.Int;
-import org.uva.sea.ql.ast.expression.literal.Money;
-import org.uva.sea.ql.ast.expression.literal.Str;
-import org.uva.sea.ql.ast.expression.logical.And;
-import org.uva.sea.ql.ast.expression.logical.Or;
-import org.uva.sea.ql.ast.expression.unary.Neg;
-import org.uva.sea.ql.ast.expression.unary.Not;
-import org.uva.sea.ql.ast.expression.unary.Pos;
+import org.uva.sea.ql.ast.expression.arithmetic.AddExpression;
+import org.uva.sea.ql.ast.expression.arithmetic.DivideExpression;
+import org.uva.sea.ql.ast.expression.arithmetic.MultiplyExpression;
+import org.uva.sea.ql.ast.expression.arithmetic.SubtractExpression;
+import org.uva.sea.ql.ast.expression.comparison.EqualExpression;
+import org.uva.sea.ql.ast.expression.comparison.GreaterThanOrEqualExpression;
+import org.uva.sea.ql.ast.expression.comparison.GreaterThanExpression;
+import org.uva.sea.ql.ast.expression.comparison.LesserThanOrEqualExpression;
+import org.uva.sea.ql.ast.expression.comparison.LesserThanExpression;
+import org.uva.sea.ql.ast.expression.comparison.NotEqualExpression;
+import org.uva.sea.ql.ast.expression.literal.BooleanLiteral;
+import org.uva.sea.ql.ast.expression.literal.IntegerLiteral;
+import org.uva.sea.ql.ast.expression.literal.MoneyLiteral;
+import org.uva.sea.ql.ast.expression.literal.StringLiteral;
+import org.uva.sea.ql.ast.expression.logical.AndExpression;
+import org.uva.sea.ql.ast.expression.logical.OrExpression;
+import org.uva.sea.ql.ast.expression.unary.NegativeExpression;
+import org.uva.sea.ql.ast.expression.unary.NotExpression;
+import org.uva.sea.ql.ast.expression.unary.PositiveExpression;
 import org.uva.sea.ql.ast.type.BooleanType;
 import org.uva.sea.ql.ast.type.IntegerType;
 import org.uva.sea.ql.ast.type.MoneyType;
@@ -63,27 +63,27 @@ public class ExpressionTypeResolver implements ExpressionVisitor<Type> {
 	}
 
 	@Override
-	public Type visit( Int node ) {
+	public Type visit( IntegerLiteral node ) {
 		return IntegerType.INTEGER;
 	}
 
 	@Override
-	public Type visit( Bool node ) {
+	public Type visit( BooleanLiteral node ) {
 		return BooleanType.BOOLEAN;
 	}
 
 	@Override
-	public Type visit( Money node ) {
+	public Type visit( MoneyLiteral node ) {
 		return MoneyType.MONEY;
 	}
 
 	@Override
-	public Type visit( Str node ) {
+	public Type visit( StringLiteral node ) {
 		return StringType.STRING;
 	}
 
 	@Override
-	public Type visit( Ident node ) {
+	public Type visit( IdentifierExpression node ) {
 		if ( this.environment.isDeclared( node ) ) {
 			return this.environment.lookupType( node );
 		}
@@ -92,77 +92,77 @@ public class ExpressionTypeResolver implements ExpressionVisitor<Type> {
 	}
 
 	@Override
-	public Type visit( Add node ) {
+	public Type visit( AddExpression node ) {
 		return this.visitArithmetic( node );
 	}
 
 	@Override
-	public Type visit( Sub node ) {
+	public Type visit( SubtractExpression node ) {
 		return this.visitArithmetic( node );
 	}
 
 	@Override
-	public Type visit( Div node ) {
+	public Type visit( DivideExpression node ) {
 		return this.visitArithmetic( node );
 	}
 
 	@Override
-	public Type visit( Mul node ) {
+	public Type visit( MultiplyExpression node ) {
 		return this.visitArithmetic( node );
 	}
 
 	@Override
-	public Type visit( And node ) {
+	public Type visit( AndExpression node ) {
 		return this.visitLogical( node );
 	}
 
 	@Override
-	public Type visit( Or node ) {
+	public Type visit( OrExpression node ) {
 		return this.visitLogical( node );
 	}
 
 	@Override
-	public Type visit( Eq node ) {
+	public Type visit( EqualExpression node ) {
 		return this.visitComparison( node );
 	}
 
 	@Override
-	public Type visit( GEq node ) {
+	public Type visit( GreaterThanOrEqualExpression node ) {
 		return this.visitComparison( node );
 	}
 
 	@Override
-	public Type visit( GT node ) {
+	public Type visit( GreaterThanExpression node ) {
 		return this.visitComparison( node );
 	}
 
 	@Override
-	public Type visit( LEq node ) {
+	public Type visit( LesserThanOrEqualExpression node ) {
 		return this.visitComparison( node );
 	}
 
 	@Override
-	public Type visit( LT node ) {
+	public Type visit( LesserThanExpression node ) {
 		return this.visitComparison( node );
 	}
 
 	@Override
-	public Type visit( NEq node ) {
+	public Type visit( NotEqualExpression node ) {
 		return this.visitComparison( node );
 	}
 
 	@Override
-	public Type visit( Not node ) {
+	public Type visit( NotExpression node ) {
 		return this.visitUnary( node );
 	}
 
 	@Override
-	public Type visit( Pos node ) {
+	public Type visit( PositiveExpression node ) {
 		return this.visitUnaryNumeric( node );
 	}
 
 	@Override
-	public Type visit( Neg node ) {
+	public Type visit( NegativeExpression node ) {
 		return this.visitUnaryNumeric( node );
 	}
 }

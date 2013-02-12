@@ -2,14 +2,14 @@ package org.uva.sea.ql.ast.expression.literal;
 
 import org.uva.sea.ql.visitor.ExpressionVisitor;
 
-public class Int extends Number {
-	private final int value;
+public class BooleanLiteral extends LiteralExpression {
+	private final boolean value;
 
-	public Int( int value ) {
+	public BooleanLiteral( boolean value ) {
 		this.value = value;
 	}
 
-	public int getValue() {
+	public boolean getValue() {
 		return this.value;
 	}
 

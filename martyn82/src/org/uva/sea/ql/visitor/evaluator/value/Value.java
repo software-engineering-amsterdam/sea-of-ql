@@ -24,39 +24,39 @@ abstract public class Value {
 		throw new UnsupportedOperationException();
 	}
 
-	public Value sub( Value value ) {
+	public Value subtract( Value value ) {
 		throw new UnsupportedOperationException();
 	}
 
-	protected Value sub( IntegerValue value ) {
+	protected Value subtract( IntegerValue value ) {
 		throw new UnsupportedOperationException();
 	}
 
-	protected Value sub( MoneyValue value ) {
+	protected Value subtract( MoneyValue value ) {
 		throw new UnsupportedOperationException();
 	}
 
-	public Value div( Value value ) {
+	public Value divide( Value value ) {
 		throw new UnsupportedOperationException();
 	}
 
-	protected Value div( IntegerValue value ) {
+	protected Value divide( IntegerValue value ) {
 		throw new UnsupportedOperationException();
 	}
 
-	protected Value div( MoneyValue value ) {
+	protected Value divide( MoneyValue value ) {
 		throw new UnsupportedOperationException();
 	}
 
-	public Value mul( Value value ) {
+	public Value multiply( Value value ) {
 		throw new UnsupportedOperationException();
 	}
 
-	protected Value mul( IntegerValue value ) {
+	protected Value multiply( IntegerValue value ) {
 		throw new UnsupportedOperationException();
 	}
 
-	protected Value mul( MoneyValue value ) {
+	protected Value multiply( MoneyValue value ) {
 		throw new UnsupportedOperationException();
 	}
 
@@ -86,71 +86,71 @@ abstract public class Value {
 
 	// object comparison
 
-	public Value eq( Value value ) {
+	public Value equals( Value value ) {
 		return new BooleanValue( value.getValue().equals( this.getValue() ) );
 	}
 
-	public Value neq( Value value ) {
+	public Value notEquals( Value value ) {
 		return new BooleanValue( !value.getValue().equals( this.getValue() ) );
 	}
 
 	// numeric comparisons
 
-	public Value geq( Value value ) {
+	public Value greaterThanOrEquals( Value value ) {
 		throw new UnsupportedOperationException();
 	}
 
-	protected Value geq( IntegerValue value ) {
+	protected Value greaterThanOrEquals( IntegerValue value ) {
 		throw new UnsupportedOperationException();
 	}
 
-	protected Value geq( MoneyValue value ) {
+	protected Value greaterThanOrEquals( MoneyValue value ) {
 		throw new UnsupportedOperationException();
 	}
 
-	public Value gt( Value value ) {
+	public Value greaterThan( Value value ) {
 		throw new UnsupportedOperationException();
 	}
 
-	protected Value gt( IntegerValue value ) {
+	protected Value greaterThan( IntegerValue value ) {
 		throw new UnsupportedOperationException();
 	}
 
-	protected Value gt( MoneyValue value ) {
+	protected Value greaterThan( MoneyValue value ) {
 		throw new UnsupportedOperationException();
 	}
 
-	public Value leq( Value value ) {
+	public Value lesserThanOrEquals( Value value ) {
 		throw new UnsupportedOperationException();
 	}
 
-	protected Value leq( IntegerValue value ) {
+	protected Value lesserThanOrEquals( IntegerValue value ) {
 		throw new UnsupportedOperationException();
 	}
 
-	protected Value leq( MoneyValue value ) {
+	protected Value lesserThanOrEquals( MoneyValue value ) {
 		throw new UnsupportedOperationException();
 	}
 
-	public Value lt( Value value ) {
+	public Value lesserThan( Value value ) {
 		throw new UnsupportedOperationException();
 	}
 
-	protected Value lt( IntegerValue value ) {
+	protected Value lesserThan( IntegerValue value ) {
 		throw new UnsupportedOperationException();
 	}
 
-	protected Value lt( MoneyValue value ) {
+	protected Value lesserThan( MoneyValue value ) {
 		throw new UnsupportedOperationException();
 	}
 
 	// unary numeric
 
-	public Value neg() {
+	public Value negative() {
 		throw new UnsupportedOperationException();
 	}
 
-	public Value pos() {
+	public Value positive() {
 		throw new UnsupportedOperationException();
 	}
 }

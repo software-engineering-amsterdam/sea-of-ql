@@ -4,8 +4,8 @@ import org.uva.sea.ql.ast.expression.ComparisonExpression;
 import org.uva.sea.ql.ast.expression.Expression;
 import org.uva.sea.ql.visitor.ExpressionVisitor;
 
-public class Eq extends ComparisonExpression {
-	public Eq( Expression lhs, Expression rhs ) {
+public class GreaterThanExpression extends ComparisonExpression {
+	public GreaterThanExpression( Expression lhs, Expression rhs ) {
 		super( lhs, rhs );
 	}
 

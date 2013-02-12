@@ -2,14 +2,14 @@ package org.uva.sea.ql.ast.expression.literal;
 
 import org.uva.sea.ql.visitor.ExpressionVisitor;
 
-public class Bool extends Literal {
-	private final boolean value;
+public class MoneyLiteral extends NumberLiteral {
+	private final double value;
 
-	public Bool( boolean value ) {
+	public MoneyLiteral( double value ) {
 		this.value = value;
 	}
 
-	public boolean getValue() {
+	public double getValue() {
 		return this.value;
 	}
 

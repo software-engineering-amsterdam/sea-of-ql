@@ -4,8 +4,8 @@ import org.uva.sea.ql.ast.expression.Expression;
 import org.uva.sea.ql.ast.expression.LogicalExpression;
 import org.uva.sea.ql.visitor.ExpressionVisitor;
 
-public class And extends LogicalExpression {
-	public And( Expression lhs, Expression rhs ) {
+public class AndExpression extends LogicalExpression {
+	public AndExpression( Expression lhs, Expression rhs ) {
 		super( lhs, rhs );
 	}
 

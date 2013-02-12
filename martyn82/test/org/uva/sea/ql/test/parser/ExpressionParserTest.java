@@ -5,40 +5,40 @@ import static org.junit.Assert.fail;
 
 import org.junit.Test;
 import org.uva.sea.ql.ast.Node;
-import org.uva.sea.ql.ast.expression.Ident;
-import org.uva.sea.ql.ast.expression.arithmetic.Add;
-import org.uva.sea.ql.ast.expression.arithmetic.Div;
-import org.uva.sea.ql.ast.expression.arithmetic.Mul;
-import org.uva.sea.ql.ast.expression.arithmetic.Sub;
-import org.uva.sea.ql.ast.expression.comparison.Eq;
-import org.uva.sea.ql.ast.expression.comparison.GEq;
-import org.uva.sea.ql.ast.expression.comparison.GT;
-import org.uva.sea.ql.ast.expression.comparison.LEq;
-import org.uva.sea.ql.ast.expression.comparison.LT;
-import org.uva.sea.ql.ast.expression.comparison.NEq;
-import org.uva.sea.ql.ast.expression.literal.Bool;
-import org.uva.sea.ql.ast.expression.literal.Int;
-import org.uva.sea.ql.ast.expression.literal.Money;
-import org.uva.sea.ql.ast.expression.literal.Str;
-import org.uva.sea.ql.ast.expression.logical.And;
-import org.uva.sea.ql.ast.expression.logical.Or;
-import org.uva.sea.ql.ast.expression.unary.Neg;
-import org.uva.sea.ql.ast.expression.unary.Not;
-import org.uva.sea.ql.ast.expression.unary.Pos;
+import org.uva.sea.ql.ast.expression.IdentifierExpression;
+import org.uva.sea.ql.ast.expression.arithmetic.AddExpression;
+import org.uva.sea.ql.ast.expression.arithmetic.DivideExpression;
+import org.uva.sea.ql.ast.expression.arithmetic.MultiplyExpression;
+import org.uva.sea.ql.ast.expression.arithmetic.SubtractExpression;
+import org.uva.sea.ql.ast.expression.comparison.EqualExpression;
+import org.uva.sea.ql.ast.expression.comparison.GreaterThanOrEqualExpression;
+import org.uva.sea.ql.ast.expression.comparison.GreaterThanExpression;
+import org.uva.sea.ql.ast.expression.comparison.LesserThanOrEqualExpression;
+import org.uva.sea.ql.ast.expression.comparison.LesserThanExpression;
+import org.uva.sea.ql.ast.expression.comparison.NotEqualExpression;
+import org.uva.sea.ql.ast.expression.literal.BooleanLiteral;
+import org.uva.sea.ql.ast.expression.literal.IntegerLiteral;
+import org.uva.sea.ql.ast.expression.literal.MoneyLiteral;
+import org.uva.sea.ql.ast.expression.literal.StringLiteral;
+import org.uva.sea.ql.ast.expression.logical.AndExpression;
+import org.uva.sea.ql.ast.expression.logical.OrExpression;
+import org.uva.sea.ql.ast.expression.unary.NegativeExpression;
+import org.uva.sea.ql.ast.expression.unary.NotExpression;
+import org.uva.sea.ql.ast.expression.unary.PositiveExpression;
 import org.uva.sea.ql.ast.statement.Assignment;
 import org.uva.sea.ql.ast.statement.Statement;
-import org.uva.sea.ql.parser.IParser;
+import org.uva.sea.ql.parser.Parser;
 import org.uva.sea.ql.parser.ParseError;
-import org.uva.sea.ql.test.IExpressionTest;
+import org.uva.sea.ql.test.ExpressionTest;
 
-public class ExpressionParserTest extends ParserTest implements IExpressionTest {
+public class ExpressionParserTest extends ParserTest implements ExpressionTest {
 	private enum Side {
 		ALL,
 		LEFT,
 		RIGHT
 	};
 
-	private final IParser parser;
+	private final Parser parser;
 
 	public ExpressionParserTest() {
 		super();
@@ -91,217 +91,217 @@ public class ExpressionParserTest extends ParserTest implements IExpressionTest 
 
 	@Override
 	@Test
-	public void testAdd() {
-		assertExpression( Add.class, "a + b" );
-		assertExpression( Add.class, "a + b + c" );
-		assertExpression( Add.class, "(a + b)" );
-		assertExpression( Add.class, "(a + b + c)" );
-		assertExpression( Add.class, "(a + b) + c" );
-		assertExpression( Add.class, "a + (b + c)" );
-		assertExpression( Add.class, "a + b * c" );
-		assertExpression( Add.class, "a * b + c" );
-		assertExpression( Add.class, "1+1" );
-		assertExpression( Add.class, "3+2+1" );
+	public void testAddExpression() {
+		assertExpression( AddExpression.class, "a + b" );
+		assertExpression( AddExpression.class, "a + b + c" );
+		assertExpression( AddExpression.class, "(a + b)" );
+		assertExpression( AddExpression.class, "(a + b + c)" );
+		assertExpression( AddExpression.class, "(a + b) + c" );
+		assertExpression( AddExpression.class, "a + (b + c)" );
+		assertExpression( AddExpression.class, "a + b * c" );
+		assertExpression( AddExpression.class, "a * b + c" );
+		assertExpression( AddExpression.class, "1+1" );
+		assertExpression( AddExpression.class, "3+2+1" );
 	}
 
 	@Override
 	@Test
-	public void testSub() {
-		assertExpression( Sub.class, "a - b" );
-		assertExpression( Sub.class, "a - b - c" );
-		assertExpression( Sub.class, "(a - b - c)" );
-		assertExpression( Sub.class, "a - (b - c)" );
-		assertExpression( Sub.class, "(a - b) - c" );
-		assertExpression( Sub.class, "(a - b)" );
-		assertExpression( Sub.class, "a - b * c" );
-		assertExpression( Sub.class, "a * b - c" );
-		assertExpression( Sub.class, "1-1" );
+	public void testSubtractExpression() {
+		assertExpression( SubtractExpression.class, "a - b" );
+		assertExpression( SubtractExpression.class, "a - b - c" );
+		assertExpression( SubtractExpression.class, "(a - b - c)" );
+		assertExpression( SubtractExpression.class, "a - (b - c)" );
+		assertExpression( SubtractExpression.class, "(a - b) - c" );
+		assertExpression( SubtractExpression.class, "(a - b)" );
+		assertExpression( SubtractExpression.class, "a - b * c" );
+		assertExpression( SubtractExpression.class, "a * b - c" );
+		assertExpression( SubtractExpression.class, "1-1" );
 	}
 
 	@Override
 	@Test
-	public void testMul() {
-		assertExpression( Mul.class, "a * b" );
-		assertExpression( Mul.class, "a * b * c" );
-		assertExpression( Mul.class, "a * (b * c)" );
-		assertExpression( Mul.class, "(a * b) * c" );
-		assertExpression( Mul.class, "(a * b)" );
-		assertExpression( Mul.class, "(a + b) * c" );
-		assertExpression( Mul.class, "a * (b + c)" );
-		assertExpression( Mul.class, "1*1" );
+	public void testMultiplyExpression() {
+		assertExpression( MultiplyExpression.class, "a * b" );
+		assertExpression( MultiplyExpression.class, "a * b * c" );
+		assertExpression( MultiplyExpression.class, "a * (b * c)" );
+		assertExpression( MultiplyExpression.class, "(a * b) * c" );
+		assertExpression( MultiplyExpression.class, "(a * b)" );
+		assertExpression( MultiplyExpression.class, "(a + b) * c" );
+		assertExpression( MultiplyExpression.class, "a * (b + c)" );
+		assertExpression( MultiplyExpression.class, "1*1" );
 	}
 
 	@Override
 	@Test
-	public void testDiv() {
-		assertExpression( Div.class, "a / b" );
-		assertExpression( Div.class, "a / b / c" );
-		assertExpression( Div.class, "a / (b / c)" );
-		assertExpression( Div.class, "(a / b) / c" );
-		assertExpression( Div.class, "(a / b)" );
-		assertExpression( Div.class, "(a + b) / c" );
-		assertExpression( Div.class, "a / (b + c)" );
-		assertExpression( Div.class, "1/1" );
+	public void testDivideExpression() {
+		assertExpression( DivideExpression.class, "a / b" );
+		assertExpression( DivideExpression.class, "a / b / c" );
+		assertExpression( DivideExpression.class, "a / (b / c)" );
+		assertExpression( DivideExpression.class, "(a / b) / c" );
+		assertExpression( DivideExpression.class, "(a / b)" );
+		assertExpression( DivideExpression.class, "(a + b) / c" );
+		assertExpression( DivideExpression.class, "a / (b + c)" );
+		assertExpression( DivideExpression.class, "1/1" );
 	}
 
 	@Override
 	@Test
-	public void testLT() {
+	public void testLesserThanExpression() {
 		// lesser-than
-		assertExpression( LT.class, "a < b" );
-		assertExpression( LT.class, "a < b + c" );
-		assertExpression( LT.class, "a < (b * c)" );
-		assertExpression( LT.class, "(a * b) < c" );
+		assertExpression( LesserThanExpression.class, "a < b" );
+		assertExpression( LesserThanExpression.class, "a < b + c" );
+		assertExpression( LesserThanExpression.class, "a < (b * c)" );
+		assertExpression( LesserThanExpression.class, "(a * b) < c" );
 	}
 
 	@Override
 	@Test
-	public void testGT() {
+	public void testGreaterThanExpression() {
 		// greater-than
-		assertExpression( GT.class, "a > b" );
-		assertExpression( GT.class, "a > b + c" );
-		assertExpression( GT.class, "a > (b * c)" );
-		assertExpression( GT.class, "(a * b) > c" );
+		assertExpression( GreaterThanExpression.class, "a > b" );
+		assertExpression( GreaterThanExpression.class, "a > b + c" );
+		assertExpression( GreaterThanExpression.class, "a > (b * c)" );
+		assertExpression( GreaterThanExpression.class, "(a * b) > c" );
 	}
 
 	@Override
 	@Test
-	public void testLEq() {
+	public void testLesserThanOrEqualExpression() {
 		// lesser-than-equals
-		assertExpression( LEq.class, "a <= b" );
-		assertExpression( LEq.class, "a <= b + c" );
-		assertExpression( LEq.class, "a <= (b * c)" );
-		assertExpression( LEq.class, "(a * b) <= c" );
+		assertExpression( LesserThanOrEqualExpression.class, "a <= b" );
+		assertExpression( LesserThanOrEqualExpression.class, "a <= b + c" );
+		assertExpression( LesserThanOrEqualExpression.class, "a <= (b * c)" );
+		assertExpression( LesserThanOrEqualExpression.class, "(a * b) <= c" );
 	}
 
 	@Override
 	@Test
-	public void testGEq() {
+	public void testGreaterThanOrEqualExpression() {
 		// greater-than-equals
-		assertExpression( GEq.class, "a >= b");
-		assertExpression( GEq.class, "a >= b + c" );
-		assertExpression( GEq.class, "a >= (b * c)" );
-		assertExpression( GEq.class, "(a * b ) >= c" );
+		assertExpression( GreaterThanOrEqualExpression.class, "a >= b");
+		assertExpression( GreaterThanOrEqualExpression.class, "a >= b + c" );
+		assertExpression( GreaterThanOrEqualExpression.class, "a >= (b * c)" );
+		assertExpression( GreaterThanOrEqualExpression.class, "(a * b ) >= c" );
 	}
 
 	@Override
 	@Test
-	public void testEq() {
+	public void testEqualExpression() {
 		// equals
-		assertExpression( Eq.class, "a == b" );
-		assertExpression( Eq.class, "(a == b)" );
-		assertExpression( Eq.class, "a == (b > c)" );
-		assertExpression( Eq.class, "a == b + c" );
+		assertExpression( EqualExpression.class, "a == b" );
+		assertExpression( EqualExpression.class, "(a == b)" );
+		assertExpression( EqualExpression.class, "a == (b > c)" );
+		assertExpression( EqualExpression.class, "a == b + c" );
 	}
 
 	@Override
 	@Test
-	public void testNEq() {
+	public void testNotEqualExpression() {
 		// not-equals
-		assertExpression( NEq.class, "a != b" );
-		assertExpression( NEq.class, "(a != b)" );
-		assertExpression( NEq.class, "a != b + c" );
-		assertExpression( NEq.class, "a != (b < c)" );
+		assertExpression( NotEqualExpression.class, "a != b" );
+		assertExpression( NotEqualExpression.class, "(a != b)" );
+		assertExpression( NotEqualExpression.class, "a != b + c" );
+		assertExpression( NotEqualExpression.class, "a != (b < c)" );
 	}
 
 	@Override
 	@Test
-	public void testId() {
-		assertExpression( Ident.class, "a" );
-		assertExpression( Ident.class, "abc" );
-		assertExpression( Ident.class, "ABC" );
-		assertExpression( Ident.class, "ABCdeF" );
-		assertExpression( Ident.class, "abc2323" );
-		assertExpression( Ident.class, "a2bc232" );
-		assertExpression( Ident.class, "a2bc232aa" );
-		assertExpression( Ident.class, "_bla" );
-		assertExpression( Ident.class, "a_12bla" );
+	public void testIdentifierExpression() {
+		assertExpression( IdentifierExpression.class, "a" );
+		assertExpression( IdentifierExpression.class, "abc" );
+		assertExpression( IdentifierExpression.class, "ABC" );
+		assertExpression( IdentifierExpression.class, "ABCdeF" );
+		assertExpression( IdentifierExpression.class, "abc2323" );
+		assertExpression( IdentifierExpression.class, "a2bc232" );
+		assertExpression( IdentifierExpression.class, "a2bc232aa" );
+		assertExpression( IdentifierExpression.class, "_bla" );
+		assertExpression( IdentifierExpression.class, "a_12bla" );
 	}
 
 	@Override
 	@Test
-	public void testInt() {
-		assertExpression( Int.class, "0" );
-		assertExpression( Int.class, "1223" );
-		assertExpression( Int.class, "234234234" );
+	public void testIntegerLiteral() {
+		assertExpression( IntegerLiteral.class, "0" );
+		assertExpression( IntegerLiteral.class, "1223" );
+		assertExpression( IntegerLiteral.class, "234234234" );
 	}
 
 	@Override
 	@Test
-	public void testMoney() {
-		assertExpression( Money.class, "0.0" );
-		assertExpression( Money.class, "0.034982390" );
-		assertExpression( Money.class, ".5" );
-		assertExpression( Money.class, ".121e-10" );
-		assertExpression( Money.class, "141232.12141E+04" );
-		assertExpression( Money.class, "1.9e4" );
+	public void testMoneyLiteral() {
+		assertExpression( MoneyLiteral.class, "0.0" );
+		assertExpression( MoneyLiteral.class, "0.034982390" );
+		assertExpression( MoneyLiteral.class, ".5" );
+		assertExpression( MoneyLiteral.class, ".121e-10" );
+		assertExpression( MoneyLiteral.class, "141232.12141E+04" );
+		assertExpression( MoneyLiteral.class, "1.9e4" );
 	}
 
 	@Override
 	@Test
-	public void testNeg() {
-		assertExpression( Neg.class, "-1" );
-		assertExpression( Neg.class, "-44320" );
-		assertExpression( Neg.class, "-0" );
-		assertExpression( Neg.class, "-(a * b)" );
+	public void testNegativeExpression() {
+		assertExpression( NegativeExpression.class, "-1" );
+		assertExpression( NegativeExpression.class, "-44320" );
+		assertExpression( NegativeExpression.class, "-0" );
+		assertExpression( NegativeExpression.class, "-(a * b)" );
 	}
 
 	@Override
 	@Test
-	public void testPos() {
-		assertExpression( Pos.class, "+1" );
-		assertExpression( Pos.class, "+0" );
-		assertExpression( Pos.class, "+991821" );
-		assertExpression( Pos.class, "+(-43 * (11 + -3))" );
+	public void testPositiveExpression() {
+		assertExpression( PositiveExpression.class, "+1" );
+		assertExpression( PositiveExpression.class, "+0" );
+		assertExpression( PositiveExpression.class, "+991821" );
+		assertExpression( PositiveExpression.class, "+(-43 * (11 + -3))" );
 	}
 
 	@Override
 	@Test
-	public void testBool() {
-		assertExpression( Bool.class, "true" );
-		assertExpression( Bool.class, "false" );
+	public void testBooleanLiteral() {
+		assertExpression( BooleanLiteral.class, "true" );
+		assertExpression( BooleanLiteral.class, "false" );
 	}
 
 	@Override
 	@Test
-	public void testStr() {
-		assertExpression( Str.class, "\"\"" );
-		assertExpression( Str.class, "\"abc\"" );
-		assertExpression( Str.class, "\"321\"" );
-		assertExpression( Str.class, "\"s1t2r3\"" );
-		assertExpression( Str.class, "\"-53\"" );
+	public void testStringLiteral() {
+		assertExpression( StringLiteral.class, "\"\"" );
+		assertExpression( StringLiteral.class, "\"abc\"" );
+		assertExpression( StringLiteral.class, "\"321\"" );
+		assertExpression( StringLiteral.class, "\"s1t2r3\"" );
+		assertExpression( StringLiteral.class, "\"-53\"" );
 
 		// escaped characters
-		assertExpression( Str.class, "\"\\'\"" );
-		assertExpression( Str.class, "\"\\n\"" );
+		assertExpression( StringLiteral.class, "\"\\'\"" );
+		assertExpression( StringLiteral.class, "\"\\n\"" );
 	}
 
 	@Override
 	@Test
-	public void testAnd() {
-		assertExpression( And.class, "a && b" );
-		assertExpression( And.class, "(a && b)" );
-		assertExpression( And.class, "a && (b || c)" );
-		assertExpression( And.class, "a && b && c" );
-		assertExpression( And.class, "a && !b" );
+	public void testAndExpression() {
+		assertExpression( AndExpression.class, "a && b" );
+		assertExpression( AndExpression.class, "(a && b)" );
+		assertExpression( AndExpression.class, "a && (b || c)" );
+		assertExpression( AndExpression.class, "a && b && c" );
+		assertExpression( AndExpression.class, "a && !b" );
 	}
 
 	@Override
 	@Test
-	public void testOr() {
-		assertExpression( Or.class, "a || b" );
-		assertExpression( Or.class, "(a || b)" );
-		assertExpression( Or.class, "a || b && c" );
-		assertExpression( Or.class, "a || (b && c)" );
+	public void testOrExpression() {
+		assertExpression( OrExpression.class, "a || b" );
+		assertExpression( OrExpression.class, "(a || b)" );
+		assertExpression( OrExpression.class, "a || b && c" );
+		assertExpression( OrExpression.class, "a || (b && c)" );
 	}
 
 	@Override
 	@Test
-	public void testNot() {
-		assertExpression( Not.class, "!a" );
-		assertExpression( Not.class, "!(a && b)" );
-		assertExpression( Not.class, "!(a && !b)" );
-		assertExpression( Not.class, "!((a && !b) || !c)" );
+	public void testNotExpression() {
+		assertExpression( NotExpression.class, "!a" );
+		assertExpression( NotExpression.class, "!(a && b)" );
+		assertExpression( NotExpression.class, "!(a && !b)" );
+		assertExpression( NotExpression.class, "!((a && !b) || !c)" );
 	}
 
 	/**
@@ -310,14 +310,14 @@ public class ExpressionParserTest extends ParserTest implements IExpressionTest 
 	@Test
 	public void testComments() {
 		// multiline
-		assertExpression( Mul.class, "a /* some comments */ * c" );
-		assertExpression( Mul.class, "a */**/b" );
-		assertExpression( Mul.class, "a /** some\nlines\nof\ncomments\n*/\n*c" );
-		assertExpression( Div.class, "a / /**/ b" );
+		assertExpression( MultiplyExpression.class, "a /* some comments */ * c" );
+		assertExpression( MultiplyExpression.class, "a */**/b" );
+		assertExpression( MultiplyExpression.class, "a /** some\nlines\nof\ncomments\n*/\n*c" );
+		assertExpression( DivideExpression.class, "a / /**/ b" );
 
 		// single line
-		assertExpression( Div.class, "a / b // something" );
-		assertExpression( Div.class, "a // blablabla\n/b" );
-		assertExpression( Mul.class, "a *// comments\rd" );
+		assertExpression( DivideExpression.class, "a / b // something" );
+		assertExpression( DivideExpression.class, "a // blablabla\n/b" );
+		assertExpression( MultiplyExpression.class, "a *// comments\rd" );
 	}
 }

@@ -4,8 +4,8 @@ import org.uva.sea.ql.ast.expression.ComparisonExpression;
 import org.uva.sea.ql.ast.expression.Expression;
 import org.uva.sea.ql.visitor.ExpressionVisitor;
 
-public class GEq extends ComparisonExpression {
-	public GEq( Expression lhs, Expression rhs ) {
+public class NotEqualExpression extends ComparisonExpression {
+	public NotEqualExpression( Expression lhs, Expression rhs ) {
 		super( lhs, rhs );
 	}
 

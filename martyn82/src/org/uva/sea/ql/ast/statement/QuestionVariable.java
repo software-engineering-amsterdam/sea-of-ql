@@ -1,14 +1,14 @@
 package org.uva.sea.ql.ast.statement;
 
-import org.uva.sea.ql.ast.expression.Ident;
-import org.uva.sea.ql.ast.expression.literal.Str;
+import org.uva.sea.ql.ast.expression.IdentifierExpression;
+import org.uva.sea.ql.ast.expression.literal.StringLiteral;
 import org.uva.sea.ql.ast.type.Type;
 import org.uva.sea.ql.visitor.StatementVisitor;
 
 public class QuestionVariable extends QuestionDeclaration {
 	private final VarDeclaration varDeclaration;
 
-	public QuestionVariable( Str label, VarDeclaration varDeclaration ) {
+	public QuestionVariable( StringLiteral label, VarDeclaration varDeclaration ) {
 		super( label );
 		this.varDeclaration = varDeclaration;
 	}
@@ -22,7 +22,7 @@ public class QuestionVariable extends QuestionDeclaration {
 	}
 
 	@Override
-	public Ident getIdent() {
+	public IdentifierExpression getIdent() {
 		return this.varDeclaration.getIdent();
 	}
 

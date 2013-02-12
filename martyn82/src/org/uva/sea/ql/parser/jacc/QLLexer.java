@@ -7,7 +7,7 @@ import java.util.Map;
 import java.util.regex.Pattern;
 
 import org.uva.sea.ql.ast.Node;
-import org.uva.sea.ql.ast.expression.Ident;
+import org.uva.sea.ql.ast.expression.IdentifierExpression;
 
 public class QLLexer implements QLTokens {
 	private static final Map<String, Integer> KEYWORDS;
@@ -247,7 +247,7 @@ public class QLLexer implements QLTokens {
 			nextChar();
 		}
 
-		yylval = new org.uva.sea.ql.ast.expression.literal.Str( sb.toString() );
+		yylval = new org.uva.sea.ql.ast.expression.literal.StringLiteral( sb.toString() );
 		token = STR;
 
 		return true;
@@ -301,7 +301,7 @@ public class QLLexer implements QLTokens {
 		String value = sb.toString();
 
 		if ( integer.matcher( value ).matches() ) {
-			yylval = new org.uva.sea.ql.ast.expression.literal.Int( Integer.parseInt( value ) );
+			yylval = new org.uva.sea.ql.ast.expression.literal.IntegerLiteral( Integer.parseInt( value ) );
 			token = INT;
 			return true;
 		}
@@ -359,13 +359,13 @@ public class QLLexer implements QLTokens {
 		String value = sb.toString();
 
 		if ( isDecimal && decimal.matcher( value ).matches() ) {
-			yylval = new org.uva.sea.ql.ast.expression.literal.Money( Double.parseDouble( value ) );
+			yylval = new org.uva.sea.ql.ast.expression.literal.MoneyLiteral( Double.parseDouble( value ) );
 			token = MON;
 			return true;
 		}
 
 		if ( integer.matcher( value ).matches() ) {
-			yylval = new org.uva.sea.ql.ast.expression.literal.Int( Integer.parseInt( value ) );
+			yylval = new org.uva.sea.ql.ast.expression.literal.IntegerLiteral( Integer.parseInt( value ) );
 			token = INT;
 			return true;
 		}
@@ -393,7 +393,7 @@ public class QLLexer implements QLTokens {
 			return true;
 		}
 
-		yylval = new Ident( name );
+		yylval = new IdentifierExpression( name );
 		token = IDENT;
 
 		return true;

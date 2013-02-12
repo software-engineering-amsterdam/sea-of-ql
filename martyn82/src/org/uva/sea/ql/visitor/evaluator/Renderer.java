@@ -5,7 +5,7 @@ import java.util.Observer;
 
 import org.uva.sea.ql.ast.expression.BinaryExpression;
 import org.uva.sea.ql.ast.expression.Expression;
-import org.uva.sea.ql.ast.expression.Ident;
+import org.uva.sea.ql.ast.expression.IdentifierExpression;
 import org.uva.sea.ql.ast.expression.UnaryExpression;
 import org.uva.sea.ql.ast.statement.Assignment;
 import org.uva.sea.ql.ast.statement.FormDeclaration;
@@ -110,15 +110,15 @@ public class Renderer implements StatementVisitor<Void>, TypeVisitor<Control> {
 
 	private void registerCondition( Expression expression, PanelControl ifTrue, PanelControl ifFalse ) {
 		Observer observer = new ConditionObserver( expression, this.environment, ifTrue, ifFalse );
-		LinkedList<Ident> list = new LinkedList<Ident>();
+		LinkedList<IdentifierExpression> list = new LinkedList<IdentifierExpression>();
 		this.findDependencies( list, expression );
 
-		for ( Ident ident : list ) {
+		for ( IdentifierExpression ident : list ) {
 			this.environment.registerObserver( ident, observer );
 		}
 	}
 
-	private void findDependencies( LinkedList<Ident> list, Expression expression ) {
+	private void findDependencies( LinkedList<IdentifierExpression> list, Expression expression ) {
 		// TODO get this out
 
 		if ( expression instanceof BinaryExpression ) {
@@ -128,17 +128,17 @@ public class Renderer implements StatementVisitor<Void>, TypeVisitor<Control> {
 		else if ( expression instanceof UnaryExpression ) {
 			this.findDependencies( list, ( (UnaryExpression) expression ).getExpression() );
 		}
-		else if ( expression instanceof Ident ) {
-			list.add( (Ident) expression );
+		else if ( expression instanceof IdentifierExpression ) {
+			list.add( (IdentifierExpression) expression );
 		}
 	}
 
 	private void registerDependencies( final QuestionComputed question, final Control component ) {
 		Observer observer = new ComputedObserver( component, this.environment, question );
-		LinkedList<Ident> list = new LinkedList<Ident>();
+		LinkedList<IdentifierExpression> list = new LinkedList<IdentifierExpression>();
 		this.findDependencies( list, question.getExpression() );
 
-		for ( Ident ident : list ) {
+		for ( IdentifierExpression ident : list ) {
 			this.environment.registerObserver( ident, observer );
 		}
 

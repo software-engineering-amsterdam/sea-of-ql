@@ -2,20 +2,20 @@ package org.uva.sea.ql.ast.expression.literal;
 
 import org.uva.sea.ql.visitor.ExpressionVisitor;
 
-public class Str extends Literal {
-	private final String value;
+public class IntegerLiteral extends NumberLiteral {
+	private final int value;
 
-	public Str( String value ) {
+	public IntegerLiteral( int value ) {
 		this.value = value;
 	}
 
-	public String getValue() {
+	public int getValue() {
 		return this.value;
 	}
 
 	@Override
 	public String toString() {
-		return this.value;
+		return String.valueOf( this.value );
 	}
 
 	@Override

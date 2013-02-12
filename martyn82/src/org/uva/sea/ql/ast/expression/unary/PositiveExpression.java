@@ -4,8 +4,8 @@ import org.uva.sea.ql.ast.expression.Expression;
 import org.uva.sea.ql.ast.expression.UnaryNumericExpression;
 import org.uva.sea.ql.visitor.ExpressionVisitor;
 
-public class Neg extends UnaryNumericExpression {
-	public Neg( Expression expression ) {
+public class PositiveExpression extends UnaryNumericExpression {
+	public PositiveExpression( Expression expression ) {
 		super( expression );
 	}
 

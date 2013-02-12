@@ -1,10 +1,13 @@
 package org.uva.sea.ql.test;
 
-public interface IStatementTest {
+public interface StatementTest {
+	void testIfThen();
 	void testIfThenElse();
+
 	void testFormDeclaration();
-	void testVarDeclaration();
-	void testQuestionVar();
+	void testQuestionVariable();
 	void testQuestionComputed();
+
 	void testAssignment();
+	void testVarDeclaration();
 }

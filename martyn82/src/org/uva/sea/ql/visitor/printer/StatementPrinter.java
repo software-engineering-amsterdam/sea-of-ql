@@ -11,16 +11,16 @@ import org.uva.sea.ql.ast.statement.Statements;
 import org.uva.sea.ql.ast.statement.VarDeclaration;
 import org.uva.sea.ql.visitor.StatementVisitor;
 
-public class StatementWalker implements StatementVisitor<String> {
+public class StatementPrinter implements StatementVisitor<String> {
 	private static final String TPL_BLOCK_IFTHENELSE = "( IF %s THEN %s ELSE %s )";
 	private static final String TPL_VARDECLARATION = "( VAR %s : %s )";
 	private static final String TPL_ASSIGNMENT = "( VAR %s = %s )";
 	private static final String TPL_FORMDECLARATION = "( FORM %s %s )";
 	private static final String TPL_QUESTION = "( QUESTION %s %s )";
 
-	private final ExpressionWalker expressionVisitor;
+	private final ExpressionPrinter expressionVisitor;
 
-	public StatementWalker( ExpressionWalker expressionVisitor ) {
+	public StatementPrinter( ExpressionPrinter expressionVisitor ) {
 		this.expressionVisitor = expressionVisitor;
 	}
 

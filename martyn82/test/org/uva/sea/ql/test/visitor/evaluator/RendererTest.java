@@ -3,13 +3,13 @@ package org.uva.sea.ql.test.visitor.evaluator;
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
-import org.uva.sea.ql.ast.expression.Ident;
-import org.uva.sea.ql.ast.expression.arithmetic.Add;
-import org.uva.sea.ql.ast.expression.comparison.Eq;
-import org.uva.sea.ql.ast.expression.literal.Bool;
-import org.uva.sea.ql.ast.expression.literal.Int;
-import org.uva.sea.ql.ast.expression.literal.Money;
-import org.uva.sea.ql.ast.expression.literal.Str;
+import org.uva.sea.ql.ast.expression.IdentifierExpression;
+import org.uva.sea.ql.ast.expression.arithmetic.AddExpression;
+import org.uva.sea.ql.ast.expression.comparison.EqualExpression;
+import org.uva.sea.ql.ast.expression.literal.BooleanLiteral;
+import org.uva.sea.ql.ast.expression.literal.IntegerLiteral;
+import org.uva.sea.ql.ast.expression.literal.MoneyLiteral;
+import org.uva.sea.ql.ast.expression.literal.StringLiteral;
 import org.uva.sea.ql.ast.statement.Assignment;
 import org.uva.sea.ql.ast.statement.FormDeclaration;
 import org.uva.sea.ql.ast.statement.IfThen;
@@ -23,13 +23,13 @@ import org.uva.sea.ql.ast.type.BooleanType;
 import org.uva.sea.ql.ast.type.IntegerType;
 import org.uva.sea.ql.ast.type.MoneyType;
 import org.uva.sea.ql.ast.type.StringType;
-import org.uva.sea.ql.test.IStatementTest;
+import org.uva.sea.ql.test.StatementTest;
 import org.uva.sea.ql.ui.ControlFactory;
 import org.uva.sea.ql.ui.swing.SwingControlFactory;
 import org.uva.sea.ql.visitor.evaluator.Environment;
 import org.uva.sea.ql.visitor.evaluator.Renderer;
 
-public class RendererTest extends EvaluatorTest implements IStatementTest {
+public class RendererTest extends EvaluatorTest implements StatementTest {
 	private final ControlFactory factory;
 
 	public RendererTest() {
@@ -43,7 +43,7 @@ public class RendererTest extends EvaluatorTest implements IStatementTest {
 
 	@Override
 	@Test
-	public void testIfThenElse() {
+	public void testIfThen() {
 		/*
 		 * if ( true ) {
 		 * 		x = 1
@@ -51,17 +51,21 @@ public class RendererTest extends EvaluatorTest implements IStatementTest {
 		 */
 		eval(
 			new IfThen(
-				new Bool( true ),
+				new BooleanLiteral( true ),
 				new Statements(
 					new Assignment(
-						new Ident( "x" ),
-						new Int( 1 )
+						new IdentifierExpression( "x" ),
+						new IntegerLiteral( 1 )
 					)
 				)
 			)
 		);
-		assertEquals( 1, eval( new Ident( "x" ) ) ); // x is assigned to be 1
+		assertEquals( 1, eval( new IdentifierExpression( "x" ) ) ); // x is assigned to be 1
+	}
 
+	@Override
+	@Test
+	public void testIfThenElse() {
 		/*
 		 * if ( false ) {
 		 * 		x = 1
@@ -72,27 +76,27 @@ public class RendererTest extends EvaluatorTest implements IStatementTest {
 		 */
 		eval(
 			new IfThenElse(
-				new Bool( false ),
+				new BooleanLiteral( false ),
 				new Statements(
 					new Assignment(
-						new Ident( "x" ),
-						new Int( 1 )
+						new IdentifierExpression( "x" ),
+						new IntegerLiteral( 1 )
 					)
 				),
 				new Statements(
 					new IfThen(
-						new Bool( true ),
+						new BooleanLiteral( true ),
 						new Statements(
 							new Assignment(
-								new Ident( "x" ),
-								new Int( 2 )
+								new IdentifierExpression( "x" ),
+								new IntegerLiteral( 2 )
 							)
 						)
 					)
 				)
 			)
 		);
-		assertEquals( 2, eval( new Ident( "x" ) ) ); // x is assigned to be 2
+		assertEquals( 2, eval( new IdentifierExpression( "x" ) ) ); // x is assigned to be 2
 
 		/*
 		 * if ( false ) {
@@ -107,33 +111,33 @@ public class RendererTest extends EvaluatorTest implements IStatementTest {
 		 */
 		eval(
 			new IfThenElse(
-				new Bool( false ),
+				new BooleanLiteral( false ),
 				new Statements(
 					new Assignment(
-						new Ident( "x" ),
-						new Int( 3 )
+						new IdentifierExpression( "x" ),
+						new IntegerLiteral( 3 )
 					)
 				),
 				new Statements(
 					new IfThenElse(
-						new Eq( new Bool( true ), new Bool( false ) ),
+						new EqualExpression( new BooleanLiteral( true ), new BooleanLiteral( false ) ),
 						new Statements(
 							new Assignment(
-								new Ident( "x" ),
-								new Int( 4 )
+								new IdentifierExpression( "x" ),
+								new IntegerLiteral( 4 )
 							)
 						),
 						new Statements(
 							new Assignment(
-								new Ident( "x" ),
-								new Int( 10 )
+								new IdentifierExpression( "x" ),
+								new IntegerLiteral( 10 )
 							)
 						)
 					)
 				)
 			)
 		);
-		assertEquals( 10, eval( new Ident( "x" ) ) ); // x is assigned to be 10
+		assertEquals( 10, eval( new IdentifierExpression( "x" ) ) ); // x is assigned to be 10
 	}
 
 	@Override
@@ -145,38 +149,38 @@ public class RendererTest extends EvaluatorTest implements IStatementTest {
 	@Override
 	@Test
 	public void testVarDeclaration() {
-		eval( new VarDeclaration( new Ident( "x" ), BooleanType.BOOLEAN ) );
-		assertEquals( false, eval( new Ident( "x" ) ) );
+		eval( new VarDeclaration( new IdentifierExpression( "x" ), BooleanType.BOOLEAN ) );
+		assertEquals( false, eval( new IdentifierExpression( "x" ) ) );
 
-		eval( new VarDeclaration( new Ident( "y" ), IntegerType.INTEGER ) );
-		assertEquals( 0, eval( new Ident( "y" ) ) );
+		eval( new VarDeclaration( new IdentifierExpression( "y" ), IntegerType.INTEGER ) );
+		assertEquals( 0, eval( new IdentifierExpression( "y" ) ) );
 
-		eval( new VarDeclaration( new Ident( "z" ), StringType.STRING ) );
-		assertEquals( "", eval( new Ident( "z" ) ) );
+		eval( new VarDeclaration( new IdentifierExpression( "z" ), StringType.STRING ) );
+		assertEquals( "", eval( new IdentifierExpression( "z" ) ) );
 
-		eval( new VarDeclaration( new Ident( "u" ), MoneyType.MONEY ) );
-		assertEquals( 0d, eval( new Ident( "u" ) ) );
+		eval( new VarDeclaration( new IdentifierExpression( "u" ), MoneyType.MONEY ) );
+		assertEquals( 0d, eval( new IdentifierExpression( "u" ) ) );
 	}
 
 	@Override
 	@Test
 	public void testAssignment() {
-		eval( new Assignment( new Ident( "x" ), new Str( "hello world!" ) ) );
-		assertEquals( "hello world!", eval( new Ident( "x" ) ) );
+		eval( new Assignment( new IdentifierExpression( "x" ), new StringLiteral( "hello world!" ) ) );
+		assertEquals( "hello world!", eval( new IdentifierExpression( "x" ) ) );
 	}
 
 	@Override
 	@Test
-	public void testQuestionVar() {
+	public void testQuestionVariable() {
 		eval(
-			new QuestionVariable( new Str( "Foo bar?" ), new VarDeclaration( new Ident( "x" ), BooleanType.BOOLEAN ) )
+			new QuestionVariable( new StringLiteral( "Foo bar?" ), new VarDeclaration( new IdentifierExpression( "x" ), BooleanType.BOOLEAN ) )
 		);
-		assertEquals( false, eval( new Ident( "x" ) ) );
+		assertEquals( false, eval( new IdentifierExpression( "x" ) ) );
 
 		eval(
-			new QuestionVariable( new Str( "Foo bar?" ), new VarDeclaration( new Ident( "x" ), IntegerType.INTEGER ) )
+			new QuestionVariable( new StringLiteral( "Foo bar?" ), new VarDeclaration( new IdentifierExpression( "x" ), IntegerType.INTEGER ) )
 		);
-		assertEquals( 0, eval( new Ident( "x" ) ) );
+		assertEquals( 0, eval( new IdentifierExpression( "x" ) ) );
 	}
 
 	@Override
@@ -184,16 +188,16 @@ public class RendererTest extends EvaluatorTest implements IStatementTest {
 	public void testQuestionComputed() {
 		eval(
 			new QuestionComputed(
-				new Str( "Foo Bar?" ),
-				new Assignment( new Ident( "y" ), new Eq( new Bool( true ), new Bool( true ) ) ) )
+				new StringLiteral( "Foo Bar?" ),
+				new Assignment( new IdentifierExpression( "y" ), new EqualExpression( new BooleanLiteral( true ), new BooleanLiteral( true ) ) ) )
 		);
-		assertEquals( true, eval( new Ident( "y" ) ) );
+		assertEquals( true, eval( new IdentifierExpression( "y" ) ) );
 
 		eval(
 			new QuestionComputed(
-				new Str( "Foo Bar?" ),
-				new Assignment( new Ident( "y" ), new Add( new Int( 12 ), new Money( 23.4 ) ) ) )
+				new StringLiteral( "Foo Bar?" ),
+				new Assignment( new IdentifierExpression( "y" ), new AddExpression( new IntegerLiteral( 12 ), new MoneyLiteral( 23.4 ) ) ) )
 		);
-		assertEquals( 35.4, eval( new Ident( "y" ) ) );
+		assertEquals( 35.4, eval( new IdentifierExpression( "y" ) ) );
 	}
 }

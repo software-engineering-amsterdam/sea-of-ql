@@ -4,12 +4,12 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 
-import org.uva.sea.ql.parser.IParser;
+import org.uva.sea.ql.parser.Parser;
 import org.uva.sea.ql.parser.jacc.QLParser;
 
 abstract public class VisitorTest<T> {
-	protected final IParser parser;
-	protected  String program;
+	protected final Parser parser;
+	protected String program;
 
 	protected VisitorTest() {
 		this.parser = new QLParser();

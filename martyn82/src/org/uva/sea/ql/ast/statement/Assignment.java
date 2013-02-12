@@ -1,19 +1,19 @@
 package org.uva.sea.ql.ast.statement;
 
 import org.uva.sea.ql.ast.expression.Expression;
-import org.uva.sea.ql.ast.expression.Ident;
+import org.uva.sea.ql.ast.expression.IdentifierExpression;
 import org.uva.sea.ql.visitor.StatementVisitor;
 
 public class Assignment extends Statement {
-	private final Ident ident;
+	private final IdentifierExpression ident;
 	private final Expression expression;
 
-	public Assignment( Ident ident, Expression expression ) {
+	public Assignment( IdentifierExpression ident, Expression expression ) {
 		this.ident = ident;
 		this.expression = expression;
 	}
 
-	public Ident getIdent() {
+	public IdentifierExpression getIdent() {
 		return this.ident;
 	}
 

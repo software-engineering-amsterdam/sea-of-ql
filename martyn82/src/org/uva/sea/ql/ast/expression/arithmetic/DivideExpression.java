@@ -4,8 +4,8 @@ import org.uva.sea.ql.ast.expression.ArithmeticExpression;
 import org.uva.sea.ql.ast.expression.Expression;
 import org.uva.sea.ql.visitor.ExpressionVisitor;
 
-public class Add extends ArithmeticExpression {
-	public Add( Expression lhs, Expression rhs ) {
+public class DivideExpression extends ArithmeticExpression {
+	public DivideExpression( Expression lhs, Expression rhs ) {
 		super( lhs, rhs );
 	}
 

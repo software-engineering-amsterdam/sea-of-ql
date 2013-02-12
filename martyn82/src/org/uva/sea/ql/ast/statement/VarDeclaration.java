@@ -1,19 +1,19 @@
 package org.uva.sea.ql.ast.statement;
 
-import org.uva.sea.ql.ast.expression.Ident;
+import org.uva.sea.ql.ast.expression.IdentifierExpression;
 import org.uva.sea.ql.ast.type.Type;
 import org.uva.sea.ql.visitor.StatementVisitor;
 
 public class VarDeclaration extends Statement {
-	private final Ident ident;
+	private final IdentifierExpression ident;
 	private final Type type;
 
-	public VarDeclaration( Ident ident, Type type ) {
+	public VarDeclaration( IdentifierExpression ident, Type type ) {
 		this.ident = ident;
 		this.type = type;
 	}
 
-	public Ident getIdent() {
+	public IdentifierExpression getIdent() {
 		return this.ident;
 	}
 
