@@ -1,6 +1,8 @@
 package org.uva.sea.ql.parser.antlr;
 
-import org.antlr.runtime.*;
+import org.antlr.runtime.ANTLRFileStream;
+import org.antlr.runtime.CommonTokenStream;
+import org.antlr.runtime.RecognitionException;
 
 public class __Test__ {
 
@@ -9,11 +11,17 @@ public class __Test__ {
 				new ANTLRFileStream(
 						"/Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/__Test___input.txt",
 						"UTF8"));
+		
 		CommonTokenStream tokens = new CommonTokenStream(lex);
-		QLParser parser = new QLParser(tokens,49100,null); // 
-
+		QLParser parser = new QLParser(tokens,49100,null); 
+		
+		
+		
 		try {
-			parser.parse();
+			 parser.parse();
+			
+		//	Questionnaire questionnaire =	
+		//	System.out.println(questionnaire.getName());
 			
 		} catch (RecognitionException e) {
 			e.printStackTrace();

@@ -9,15 +9,15 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
-import org.uva.sea.ql.ast.nodes.Add;
-import org.uva.sea.ql.ast.nodes.And;
-import org.uva.sea.ql.ast.nodes.GT;
-import org.uva.sea.ql.ast.nodes.Ident;
-import org.uva.sea.ql.ast.nodes.LEq;
-import org.uva.sea.ql.ast.nodes.LT;
-import org.uva.sea.ql.ast.nodes.Mul;
-import org.uva.sea.ql.ast.nodes.Not;
-import org.uva.sea.ql.ast.type.Int;
+import org.uva.sea.ql.ast.expr.Add;
+import org.uva.sea.ql.ast.expr.And;
+import org.uva.sea.ql.ast.expr.GT;
+import org.uva.sea.ql.ast.expr.Ident;
+import org.uva.sea.ql.ast.expr.LEq;
+import org.uva.sea.ql.ast.expr.LT;
+import org.uva.sea.ql.ast.expr.Mul;
+import org.uva.sea.ql.ast.expr.Not;
+import org.uva.sea.ql.ast.type.IntType;
 import org.uva.sea.ql.parser.antlr.ANTLRParser;
 
 
@@ -93,9 +93,9 @@ public class TestExpressions {
 
 	@Test
 	public void testNums() throws ParseError {
-		assertEquals(parser.parse("0").getClass(), Int.class);
-		assertEquals(parser.parse("1223").getClass(), Int.class);
-		assertEquals(parser.parse("234234234").getClass(), Int.class);
+		assertEquals(parser.parse("0").getClass(), IntType.class);
+		assertEquals(parser.parse("1223").getClass(), IntType.class);
+		assertEquals(parser.parse("234234234").getClass(), IntType.class);
 	}
 	
 }
