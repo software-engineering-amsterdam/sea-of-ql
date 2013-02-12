@@ -189,4 +189,5 @@ Type getIdentType(str id,TENV env){
 	for(x<-env.symbols){
 		if(id==x.variableName) return x.variableType;
 	}
+	return integer();
 }
