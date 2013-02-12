@@ -1,5 +1,6 @@
 package org.uva.sea.ql.visitor.typechecker;
 
+import org.uva.sea.ql.ast.expression.Expression;
 import org.uva.sea.ql.ast.expression.IdentifierExpression;
 import org.uva.sea.ql.ast.expression.binary.arithmetic.AddExpression;
 import org.uva.sea.ql.ast.expression.binary.arithmetic.ArithmeticExpression;
@@ -20,8 +21,8 @@ import org.uva.sea.ql.ast.expression.literal.BooleanLiteral;
 import org.uva.sea.ql.ast.expression.literal.IntegerLiteral;
 import org.uva.sea.ql.ast.expression.literal.MoneyLiteral;
 import org.uva.sea.ql.ast.expression.literal.StringLiteral;
-import org.uva.sea.ql.ast.expression.unary.UnaryExpression;
 import org.uva.sea.ql.ast.expression.unary.logical.NotExpression;
+import org.uva.sea.ql.ast.expression.unary.logical.UnaryLogicalExpression;
 import org.uva.sea.ql.ast.expression.unary.numeric.NegativeExpression;
 import org.uva.sea.ql.ast.expression.unary.numeric.PositiveExpression;
 import org.uva.sea.ql.ast.expression.unary.numeric.UnaryNumericExpression;
@@ -38,27 +39,32 @@ import org.uva.sea.ql.visitor.evaluator.Environment;
 public class ExpressionTypeResolver implements ExpressionVisitor<Type> {
 	private final Environment environment;
 
-	public ExpressionTypeResolver( Environment environment ) {
+	public static Type typeOf( Expression expression, Environment environment ) {
+		ExpressionTypeResolver resolver = new ExpressionTypeResolver( environment );
+		return expression.accept( resolver );
+	}
+
+	private ExpressionTypeResolver( Environment environment ) {
 		this.environment = environment;
 	}
 
-	private Type visitArithmetic( ArithmeticExpression node ) {
+	private Type visitArithmeticExpression( ArithmeticExpression node ) {
 		return NumberType.NUMBER;
 	}
 
-	private Type visitLogical( LogicalExpression node ) {
+	private Type visitLogicalExpression( LogicalExpression node ) {
 		return BooleanType.BOOLEAN;
 	}
 
-	private Type visitComparison( ComparisonExpression node ) {
+	private Type visitComparisonExpression( ComparisonExpression node ) {
 		return BooleanType.BOOLEAN;
 	}
 
-	private Type visitUnary( UnaryExpression node ) {
+	private Type visitUnaryLogicalExpression( UnaryLogicalExpression node ) {
 		return BooleanType.BOOLEAN;
 	}
 
-	private Type visitUnaryNumeric( UnaryNumericExpression node ) {
+	private Type visitUnaryNumericExpression( UnaryNumericExpression node ) {
 		return NumberType.NUMBER;
 	}
 
@@ -88,81 +94,81 @@ public class ExpressionTypeResolver implements ExpressionVisitor<Type> {
 			return this.environment.lookupType( node );
 		}
 
-		return new UndefinedType();
+		return UndefinedType.UNDEFINED;
 	}
 
 	@Override
 	public Type visit( AddExpression node ) {
-		return this.visitArithmetic( node );
+		return this.visitArithmeticExpression( node );
 	}
 
 	@Override
 	public Type visit( SubtractExpression node ) {
-		return this.visitArithmetic( node );
+		return this.visitArithmeticExpression( node );
 	}
 
 	@Override
 	public Type visit( DivideExpression node ) {
-		return this.visitArithmetic( node );
+		return this.visitArithmeticExpression( node );
 	}
 
 	@Override
 	public Type visit( MultiplyExpression node ) {
-		return this.visitArithmetic( node );
+		return this.visitArithmeticExpression( node );
 	}
 
 	@Override
 	public Type visit( AndExpression node ) {
-		return this.visitLogical( node );
+		return this.visitLogicalExpression( node );
 	}
 
 	@Override
 	public Type visit( OrExpression node ) {
-		return this.visitLogical( node );
+		return this.visitLogicalExpression( node );
 	}
 
 	@Override
 	public Type visit( EqualExpression node ) {
-		return this.visitComparison( node );
+		return this.visitComparisonExpression( node );
 	}
 
 	@Override
 	public Type visit( GreaterThanOrEqualExpression node ) {
-		return this.visitComparison( node );
+		return this.visitComparisonExpression( node );
 	}
 
 	@Override
 	public Type visit( GreaterThanExpression node ) {
-		return this.visitComparison( node );
+		return this.visitComparisonExpression( node );
 	}
 
 	@Override
 	public Type visit( LesserThanOrEqualExpression node ) {
-		return this.visitComparison( node );
+		return this.visitComparisonExpression( node );
 	}
 
 	@Override
 	public Type visit( LesserThanExpression node ) {
-		return this.visitComparison( node );
+		return this.visitComparisonExpression( node );
 	}
 
 	@Override
 	public Type visit( NotEqualExpression node ) {
-		return this.visitComparison( node );
+		return this.visitComparisonExpression( node );
 	}
 
 	@Override
 	public Type visit( NotExpression node ) {
-		return this.visitUnary( node );
+		return this.visitUnaryLogicalExpression( node );
 	}
 
 	@Override
 	public Type visit( PositiveExpression node ) {
-		return this.visitUnaryNumeric( node );
+		return this.visitUnaryNumericExpression( node );
 	}
 
 	@Override
 	public Type visit( NegativeExpression node ) {
-		return this.visitUnaryNumeric( node );
+		return this.visitUnaryNumericExpression( node );
 	}
 }

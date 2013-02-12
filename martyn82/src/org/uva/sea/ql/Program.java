@@ -44,8 +44,10 @@ public class Program {
 
 		String source = this.getFileContents( System.getProperty( "user.dir" ) + "/assets/sample.ql" );
 
-		if ( !this.interpreter.evaluate( source ) ) {
-			for ( Error error : this.interpreter.getEnvironment().getErrors() ) {
+		this.interpreter.evaluate( source );
+
+		if ( this.interpreter.hasErrors() ) {
+			for ( Error error : this.interpreter.getErrors() ) {
 				System.err.println( error.toString() );
 			}
 

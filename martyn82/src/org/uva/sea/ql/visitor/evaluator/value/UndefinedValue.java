@@ -9,7 +9,7 @@ public class UndefinedValue extends Value {
 
 	@Override
 	public UndefinedType getType() {
-		return new UndefinedType();
+		return UndefinedType.UNDEFINED;
 	}
 
 	@Override

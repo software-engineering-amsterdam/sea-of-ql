@@ -33,11 +33,10 @@ import org.uva.sea.ql.test.visitor.VisitorTest;
 import org.uva.sea.ql.visitor.evaluator.Environment;
 import org.uva.sea.ql.visitor.evaluator.Error;
 import org.uva.sea.ql.visitor.typechecker.ExpressionChecker;
-import org.uva.sea.ql.visitor.typechecker.StatementChecker;
+import org.uva.sea.ql.visitor.typechecker.TypeChecker;
 import org.uva.sea.ql.visitor.typechecker.TypeError;
 
 public class StatementTypeCheckerTest extends VisitorTest<Boolean> implements StatementTest {
-	private final StatementChecker statementChecker;
 	private final ExpressionChecker expressionChecker;
 	private final Environment environment;
 
@@ -46,13 +45,12 @@ public class StatementTypeCheckerTest extends VisitorTest<Boolean> implements St
 
 		this.environment = new Environment();
 		this.expressionChecker = new ExpressionChecker( this.environment );
-		this.statementChecker = new StatementChecker( this.environment, this.expressionChecker );
 	}
 
 	@Test
 	public void testExample() {
 		try {
-			this.parser.parse( program ).accept( this.statementChecker );
+			TypeChecker.typeCheck( this.parser.parse( program ), this.environment );
 		}
 		catch ( ParseError e ) {
 			e.printStackTrace();
@@ -68,7 +66,7 @@ public class StatementTypeCheckerTest extends VisitorTest<Boolean> implements St
 	private Boolean typeCheck( Statement statement ) {
 		this.environment.getErrors().clear();
 
-		if ( !statement.accept( this.statementChecker ) ) {
+		if ( !TypeChecker.typeCheck( statement, this.environment ) ) {
 			return false;
 		}
 

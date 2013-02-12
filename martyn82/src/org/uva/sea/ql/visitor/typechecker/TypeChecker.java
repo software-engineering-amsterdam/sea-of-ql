@@ -15,10 +15,15 @@ import org.uva.sea.ql.ast.type.Type;
 import org.uva.sea.ql.visitor.StatementVisitor;
 import org.uva.sea.ql.visitor.evaluator.Environment;
 
-public class StatementChecker extends TypeCheckVisitor implements StatementVisitor<Boolean> {
+public class TypeChecker extends AbstractTypeChecker implements StatementVisitor<Boolean> {
 	private final ExpressionChecker expressionChecker;
 
-	public StatementChecker( Environment environment, ExpressionChecker expressionChecker ) {
+	public static boolean typeCheck( Statement statement, Environment environment ) {
+		TypeChecker checker = new TypeChecker( environment, new ExpressionChecker( environment ) );
+		return statement.accept( checker );
+	}
+
+	private TypeChecker( Environment environment, ExpressionChecker expressionChecker ) {
 		super( environment );
 		this.expressionChecker = expressionChecker;
 	}
@@ -28,7 +33,7 @@ public class StatementChecker extends TypeCheckVisitor implements StatementVisit
 			return false;
 		}
 
-		Type conditionType = condition.accept( this.resolver );
+		Type conditionType = this.typeOf( condition );
 
 		if ( !conditionType.isCompatibleToBool() ) {
 			this.addIncompatibleTypeError( node.toString(), "Boolean", conditionType.getName(), node );
@@ -90,7 +95,7 @@ public class StatementChecker extends TypeCheckVisitor implements StatementVisit
 	@Override
 	public Boolean visit( Assignment node ) {
 		if ( !this.environment.isDeclared( node.getIdent() ) ) {
-			Type expressionType = node.getExpression().accept( this.resolver );
+			Type expressionType = this.typeOf( node.getExpression() );
 			this.environment.declare( node.getIdent(), expressionType );
 		}
 
@@ -102,8 +107,8 @@ public class StatementChecker extends TypeCheckVisitor implements StatementVisit
 			return false;
 		}
 
-		Type leftType = node.getIdent().accept( this.resolver );
-		Type rightType = node.getExpression().accept( this.resolver );
+		Type leftType = this.typeOf( node.getIdent() );
+		Type rightType = this.typeOf( node.getExpression() );
 
 		if ( !leftType.isCompatibleTo( rightType ) ) {
 			this.addIncompatibleTypesError( node.toString(), leftType.getName(), rightType.getName(), node );

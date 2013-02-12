@@ -1,24 +1,28 @@
 package org.uva.sea.ql.visitor.typechecker;
 
 import org.uva.sea.ql.ast.Node;
+import org.uva.sea.ql.ast.expression.Expression;
+import org.uva.sea.ql.ast.type.Type;
 import org.uva.sea.ql.visitor.evaluator.Environment;
 
-abstract public class TypeCheckVisitor {
+abstract public class AbstractTypeChecker {
 	private final static String ERROR_TYPE_MISMATCH = "Both sides of %s must be of type %s, found %s";
 	private final static String ERROR_INCOMPATIBLE_TYPE = "Invalid type at %s: expected %s, but was %s";
 	private final static String ERROR_UNDEFINED_VAR = "Undefined variable: %s";
 	private final static String ERROR_DECLARED_VAR = "Variable %s is already declared.";
 
-	protected final ExpressionTypeResolver resolver;
 	protected final Environment environment;
 
-	public TypeCheckVisitor( Environment environment ) {
+	protected AbstractTypeChecker( Environment environment ) {
 		this.environment = environment;
-		this.resolver = new ExpressionTypeResolver( this.environment );
 	}
 
 	public Environment getEnvironment() {
 		return this.environment;
+	}
+
+	protected Type typeOf( Expression expression ) {
+		return ExpressionTypeResolver.typeOf( expression, this.environment );
 	}
 
 	private void addError( int code, String message, Node node ) {

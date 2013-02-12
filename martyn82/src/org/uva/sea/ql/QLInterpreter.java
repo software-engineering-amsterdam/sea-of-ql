@@ -1,5 +1,7 @@
 package org.uva.sea.ql;
 
+import java.util.List;
+
 import org.uva.sea.ql.ast.statement.Statement;
 import org.uva.sea.ql.parser.ParseError;
 import org.uva.sea.ql.parser.jacc.QLParser;
@@ -8,11 +10,10 @@ import org.uva.sea.ql.ui.control.PanelControl;
 import org.uva.sea.ql.visitor.evaluator.Environment;
 import org.uva.sea.ql.visitor.evaluator.Error;
 import org.uva.sea.ql.visitor.evaluator.Renderer;
-import org.uva.sea.ql.visitor.typechecker.QLTypeChecker;
+import org.uva.sea.ql.visitor.typechecker.TypeChecker;
 
 public class QLInterpreter {
 	private final QLParser parser;
-	private final QLTypeChecker typeChecker;
 	private final ControlFactory factory;
 
 	private Environment environment;
@@ -22,24 +23,7 @@ public class QLInterpreter {
 	public QLInterpreter( ControlFactory factory ) {
 		this.parser = new QLParser();
 		this.environment = new Environment();
-		this.typeChecker = new QLTypeChecker( this.environment );
 		this.factory = factory;
-	}
-
-	public Environment getEnvironment() {
-		return this.environment;
-	}
-
-	public boolean typeCheck( Statement node, Environment environment ) {
-		this.environment = environment;
-		QLTypeChecker checker = new QLTypeChecker( environment );
-
-		if ( !node.accept( checker ) ) {
-			this.dumpErrors();
-			return false;
-		}
-
-		return true;
 	}
 
 	public boolean evaluate( String source ) {
@@ -51,7 +35,7 @@ public class QLInterpreter {
 			throw new RuntimeException( e );
 		}
 
-		if ( !this.ast.accept( this.typeChecker ) ) {
+		if ( !TypeChecker.typeCheck( this.ast, this.environment ) ) {
 			this.dumpErrors();
 			return false;
 		}
@@ -61,8 +45,12 @@ public class QLInterpreter {
 		return true;
 	}
 
-	public Statement getAST() {
-		return this.ast;
+	public boolean hasErrors() {
+		return this.environment.getErrors().size() > 0;
+	}
+
+	public List<Error> getErrors() {
+		return this.environment.getErrors();
 	}
 
 	private void dumpErrors() {
