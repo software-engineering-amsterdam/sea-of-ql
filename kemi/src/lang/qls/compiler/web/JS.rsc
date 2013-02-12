@@ -183,6 +183,8 @@ private str styleJS(str ident, StyleRule r:
   '            name: \"<ident>\",
   '            type: \"range\",
   '            value: \"0\",
+  '            min: \"0\",
+  '            max: \"100\",
   '            step: $(\"#<ident>\").attr(\"type\") === \"money\" ?
   '              \"0.01\" : \"1\",
   '            disabled: $(\"#<ident>\").is(\":disabled\")
