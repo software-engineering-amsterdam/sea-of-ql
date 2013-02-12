@@ -1,8 +1,16 @@
 # QL
 * Think of something to do.
+* Refactoring
+* Adding comments
+* Remove all old main()s and blahs
+
 
 # QLS
 * getDefinitions refactoring (StyleHelper QLS)
+* Refactoring
+* Adding comments
+* Remove all old main()s and blahs
+
 
 ## BONUS:
 * HTML templating
@@ -11,8 +19,3 @@
 * Wider styling support
 * Slider upper/lower boundary support
 * Changing Outliner to look like rascal? e.g. categorizing 
-
-# Both
-* Refactoring
-* Adding comments
-* Remove all old main()s and blahs
