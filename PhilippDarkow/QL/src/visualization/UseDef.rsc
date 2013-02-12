@@ -2,7 +2,7 @@ module visualization::UseDef
 
 import Prelude;
 import syntax::AbstractSyntax;
-import visualization::ControlFlow;
+import controlFlow::ControlFlow;
 
 set[Occurrence] usesExp(Expression e, Statement s) = 
   u:id(str Id) := e ? {< u@location, Id, s>}
@@ -23,8 +23,17 @@ set[Occurrence] usesStat(s: ifElseStat(Expression e,
 set[Occurrence] usesStats(list[Statement] stats) =  
    {*usesStat(s) | s <- stats};
 
-public set[Occurrence] uses(Program p) = usesStats(p.stats);
+public set[Occurrence] uses(Program p) {
+ 	println("IN USES : <p.questionnaireName>");
+ 	return usesStats(p.stats);
+}
+
+public set[Occurrence] body(){
+
+}
 
 // Need to check in abstract syntax Occurence
-public set[Occurrence] defs(Program p) =                 
-   { < stat@location, v, stat > | /stat:ifStat(Expression e, list[Body] s1) <- p.body};
+public set[Occurrence] defs(Program p) {                 
+   println("in USEDEF defs");
+   return { < stat@location, id, stat > | /stat:ifStat(str id, list[Body] s1) <- p.body};
+   }

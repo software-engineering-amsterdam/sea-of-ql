@@ -1,45 +1,12 @@
 module visualization::Visualize
 
-import Prelude;
+//import Prelude;
+import visualization::PrintOutput;
 import vis::Figure;
 import vis::KeySym;
 
 import syntax::AbstractSyntax;
-import visualization::ControlFlow;
-
-//  Convert expressions into text
-
-str make(moneyCon(real M)) = "<M>";
-str make(boolCon(bool B)) = "<B>";
-str make(integer(bool B)) = "<B>";
-str make(strCon(str S)) = S;
-//Adding not sure if that is right
-str make(str S) = S;
-str make(Type T) = "<T>";
-//
-
-str make(question:easyQuestion(str id, str labelQuestion, Type tp)) {
-	return "<make(id)> + <make(labelQuestion)> + <make(tp)>"; 
-}
-
-str make(question:computedQuestion(str id, str labelQuestion, Type tp, Expression exp)) {
-	return "<make(id)> + <make(labelQuestion)> + <make(tp)> + <make(exp)>";   
-}
-
-
-str make(syntax::AbstractSyntax::id(str Id)) = Id;
-str make(add(Expression E1, Expression E2)) = "<make(E1)> + <make(E2)>";
-str make(sub(Expression E1, Expression E2)) = "<make(E1)> - <make(E2)>";
-str make(mul(Expression E1, Expression E2)) = "<make(E1)> * <make(E2)>";
-str make(div(Expression E1, Expression E2)) = "<make(E1)> / <make(E2)>";
-str make(lt(Expression E1, Expression E2)) = "<make(E1)> \< <make(E2)>";
-str make(leq(Expression E1, Expression E2)) = "<make(E1)> \<= <make(E2)>";
-str make(gt(Expression E1, Expression E2)) = "<make(E1)> \> <make(E2)>";
-str make(geq(Expression E1, Expression E2)) = "<make(E1)> \>= <make(E2)>";
-str make(eq(Expression E1, Expression E2)) = "<make(E1)> == <make(E2)>";
-str make(geq(Expression E1, Expression E2)) = "<make(E1)> != <make(E2)>";
-str make(or(Expression E1, Expression E2)) = "<make(E1)> || <make(E2)>";
-str make(and(Expression E1, Expression E2)) = "<make(E1)> && <make(E2)>";
+import controlFlow::ControlFlowTypes;
 
 //  Add an editor to a node
 
@@ -48,7 +15,6 @@ FProperty editIt(CFNode n) =
                     : onMouseDown(bool (int butnr, map[KeyModifier,bool] modifiers) {return false;});
         
 //  Visualize one CFG node
-
 Figure visNode(CFNode n:entry(loc location)) = 
        box(text("ENTRY"), vis::Figure::id(getId(n)), fillColor("red"), gap(4));
 
@@ -66,14 +32,13 @@ Figure visNode(CFNode n:q(loc location, question:easyQuestion(str id, str labelQ
 
 Figure visNode(CFNode n:q(loc location, question:computedQuestion(str id, str labelQuestion, Type tp, Expression exp))) = 
        box(text("<id> := <make(question)>"),  vis::Figure::id(getId(n)), gap(8), editIt(n));
-//  Define the id for each CFG node
 
+//  Define the id for each CFG node
 str getId(entry(loc location)) = "ENTRY";
 str getId(exit()) = "EXIT";
 default str getId(CFNode n) = "<n.location>";
 
 //  Visualize a complete CFG
-
 public Figure visCFG(rel[CFNode, CFNode] CFGGraph){
        nodeSet = {};
        edges = [];

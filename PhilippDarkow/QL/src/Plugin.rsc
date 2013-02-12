@@ -8,7 +8,7 @@ import syntax::ConcreteSyntax;
 import typeChecker::TypeCheck;
 //import demo::lang::Pico::Eval;
 //import demo::lang::Pico::Compile;
-import visualization::ControlFlow;
+import controlFlow::ControlFlow;
 import visualization::Visualize;
 import ide::Uninit;
 import util::IDE;
@@ -79,11 +79,11 @@ public set[Contribution] QL_CONTRIBS = {
 
 //  Register the QL tools
 
-public void registerQL() {
-  registerLanguage(QL_NAME, QL_EXT, parser);
+//public void registerQL() {
+//  registerLanguage(QL_NAME, QL_EXT, parser);
   //registerAnnotator(QL_NAME, checkQLProgram);
-  registerContributions(QL_NAME, QL_CONTRIBS);
-}
+//  registerContributions(QL_NAME, QL_CONTRIBS);
+//}
 
 public void main() {
   registerLanguage(LANG, EXT, Tree(str src, loc l) {
