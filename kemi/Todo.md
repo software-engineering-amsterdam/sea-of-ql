@@ -1,7 +1,6 @@
 # QL
 * Changing Outliner to look like rascal? e.g. categorizing
 * Refactoring / Adding comments
-* Possibly when clauses expression checking thingies
 * Create awesome form to show off.
 * Think of something to do.
 * Check license on all files
