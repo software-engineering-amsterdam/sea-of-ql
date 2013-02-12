@@ -26,10 +26,10 @@ str generateComputedLogic(computed(str identifier, _, intType(), Expr expression
 	"<identifier>Model.setValue(<generateExpr(expression, env)>.intValue());";
 	
 str generateComputedLogic(computed(str identifier, _, boolType(), Expr expression), TypeEnv env) = 
-	"<identifier>.setSelected(<generateExpr(expression, env)>.booleanValue());";
+	"<identifier>Question.setSelected(<generateExpr(expression, env)>.booleanValue());";
 
 str generateComputedLogic(computed(str identifier, _, stringType(), Expr expression), TypeEnv env) = 
-	"<identifier>.setText(<generateExpr(expression, env)>);";
+	"<identifier>Question.setText(<generateExpr(expression, env)>);";
 
 str generateIfThenElseLogic(Expr condition, list[Statement] thenPart, list[ElseIf] elseIfs, list[Statement] elsePart, str id, TypeEnv env) {
 	str out = 	"

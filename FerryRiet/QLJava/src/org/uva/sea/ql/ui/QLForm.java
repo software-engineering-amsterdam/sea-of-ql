@@ -1,6 +1,6 @@
 package org.uva.sea.ql.ui;
 
-import java.util.HashMap;
+import java.util.Map;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -10,13 +10,13 @@ import javax.swing.border.EmptyBorder;
 
 import net.miginfocom.swing.MigLayout;
 
-import org.uva.sea.ql.ast.literals.Result;
+import org.uva.sea.ql.ast.operatorresults.Result;
 import org.uva.sea.ql.ast.statements.QLProgram;
 import org.uva.sea.ql.ast.visitor.QLFormCreator;
 
 public class QLForm extends JFrame implements Observer {
 	private static final long serialVersionUID = 1L;
-	private HashMap<String, Result> qlSymbols;
+	private Map<String, Result> qlSymbols;
 	private JPanel contentPane;
 	private CompoundPanel cPanel;
 	QLFormCreator symCreator = new QLFormCreator();
@@ -34,8 +34,10 @@ public class QLForm extends JFrame implements Observer {
 		setTitle(formName);
 
 		contentPane = new JPanel();
+		
+		contentPane.setLayout(new MigLayout("gap 5px 5px", "0[]0", "0[]0"));
 		contentPane.setBorder(new EmptyBorder(1, 1, 1, 1));
-		contentPane.setLayout(new MigLayout("", "[grow]", "[]"));
+
 
 		setContentPane(contentPane);
 
@@ -55,6 +57,5 @@ public class QLForm extends JFrame implements Observer {
 		}
 
 		cPanel.updatecalculatedField(qlSymbols);
-
 	}
 }

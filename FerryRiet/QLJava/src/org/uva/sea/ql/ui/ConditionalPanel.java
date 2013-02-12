@@ -1,14 +1,15 @@
 package org.uva.sea.ql.ui;
 
-import java.util.HashMap;
+import java.util.Map;
 import java.util.Observer;
 
 import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
 
 import net.miginfocom.swing.MigLayout;
 
-import org.uva.sea.ql.ast.literals.BooleanResult;
-import org.uva.sea.ql.ast.literals.Result;
+import org.uva.sea.ql.ast.operatorresults.BooleanResult;
+import org.uva.sea.ql.ast.operatorresults.Result;
 import org.uva.sea.ql.ast.operators.Expr;
 import org.uva.sea.ql.ast.statements.ConditionalStatement;
 
@@ -21,7 +22,8 @@ public class ConditionalPanel extends Panel {
 
 	public ConditionalPanel(ConditionalStatement statement) {
 		panel = new JPanel();
-		panel.setLayout(new MigLayout("", "[]", "[][]"));
+		panel.setBorder(new EmptyBorder(0, 0, 0, 0));
+		panel.setLayout(new MigLayout("", "0[]0", "0[]0[]0"));
 
 		trueExpr = statement.getExpression();
 	}
@@ -54,8 +56,8 @@ public class ConditionalPanel extends Panel {
 
 	@Override
 	public void registerAt(JPanel parentPanel, int location) {
-		
-		String result = String.format("cell 0 %d ,growx", location) ;
+
+		String result = String.format("cell 0 %d ,growx", location);
 
 		parentPanel.add(panel, result);
 
@@ -73,7 +75,7 @@ public class ConditionalPanel extends Panel {
 	}
 
 	@Override
-	public void updatecalculatedField(HashMap<String, Result> symbols) {
+	public void updatecalculatedField(Map<String, Result> symbols) {
 		truePanel.updatecalculatedField(symbols);
 
 		if (falsePanel != null)

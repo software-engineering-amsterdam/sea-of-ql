@@ -7,6 +7,7 @@ import org.uva.sea.ql.visitor.StatementVisitor;
 
 public class ConditionalStatement implements Statement {
 
+	private static final long serialVersionUID = 8928419604109047055L;
 	private List<Statement> statements;
 	private Expr expression;
 	private int lineNumber;
@@ -18,7 +19,7 @@ public class ConditionalStatement implements Statement {
 	}
 
 	@Override
-	public void accept(StatementVisitor visitor) {
+	public void accept(StatementVisitor<?> visitor) {
 		visitor.visit(this);
 	}
 

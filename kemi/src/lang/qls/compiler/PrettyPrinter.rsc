@@ -14,7 +14,7 @@ import lang::qls::ast::AST;
 import lang::qls::ast::Keyword;
 
 public str prettyPrint(Stylesheet s) =
-  "stylesheet <s.ident> {<for(st <- s.definitions) {>
+  "stylesheet <prettyPrint(s.ident)> {<for(st <- s.definitions) {>
   '  <prettyPrint(st)><}>
   '}
   '";

@@ -1,7 +1,7 @@
 package org.uva.sea.ql.ast.types;
 
-import org.uva.sea.ql.ast.literals.Result;
-import org.uva.sea.ql.ast.literals.StringResult;
+import org.uva.sea.ql.ast.operatorresults.Result;
+import org.uva.sea.ql.ast.operatorresults.StringResult;
 
 public class StringType extends Type {
 

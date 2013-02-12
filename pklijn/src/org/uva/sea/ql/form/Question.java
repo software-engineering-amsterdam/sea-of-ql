@@ -1,18 +1,17 @@
 package org.uva.sea.ql.form;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.swing.JComponent;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 
+import org.uva.sea.extensions.Tuple;
 import org.uva.sea.ql.ast.eval.Env;
 import org.uva.sea.ql.ast.expressions.Ident;
 import org.uva.sea.ql.ast.types.Type;
 import org.uva.sea.ql.ast.values.Value;
-import org.uva.sea.ql.interpreter.FormElement;
 import org.uva.sea.ql.messages.Error;
 
 public class Question extends FormItem {
@@ -20,13 +19,15 @@ public class Question extends FormItem {
 	protected final Ident id;
 	protected final String label;
 	protected final Type questionType;
+	protected JLabel questionLabel;
 	protected JComponent answerComponent;
 	
 	public Question(Ident id, String question, Type questionType) {
 		this.id = id;
 		this.label = question;
 		this.questionType = questionType;
-		this.answerComponent = questionType.getAnswerField(true);
+		questionLabel = new JLabel(label);
+		answerComponent = questionType.getAnswerField(true);
 	}
 	
 	public Ident getId() {
@@ -61,17 +62,17 @@ public class Question extends FormItem {
 		}
 		return errors.size() == 0;
 	}
-
+	
 	@Override
-	public List<FormElement> getFormComponents() {
-		return getQuestionComponents();
+	public void buildForm(JPanel mainPanel) {
+		mainPanel.add(questionLabel);
+		mainPanel.add(answerComponent, "span");
 	}
 	
-	protected List<FormElement> getQuestionComponents() {
-		List<FormElement> components = new ArrayList<FormElement>();
-		components.add(new FormElement(new JLabel(label), "skip"));
-		components.add(new FormElement(answerComponent, "span, growx"));
-		return components;
+	@Override
+	public void setVisible(Boolean visible) {
+		questionLabel.setVisible(visible);
+		answerComponent.setVisible(visible);
 	}
 
 	@Override
@@ -83,7 +84,7 @@ public class Question extends FormItem {
 	}
 	
 	@Override
-	public Map<Ident, Value> getAllValues() {
-		return new HashMap<Ident,Value>();
+	public List<Tuple<Ident, Value>> getAllValues() {
+		return new ArrayList<Tuple<Ident, Value>>();
 	}
 }

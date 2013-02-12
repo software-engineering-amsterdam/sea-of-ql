@@ -21,17 +21,6 @@ start syntax Stylesheet
   = stylesheet: "stylesheet" Ident "{" Definition* definitions "}"
   ;
 
-
-syntax Ident
-  = IdentIdent \ Keywords
-  | ("\\" IdentIdent) \ Keywords
-  ;
-
-lexical IdentIdent
-  = [a-z A-Z 0-9 _] !<< [a-z A-Z][a-z A-Z 0-9 _]* !>> [a-z A-Z 0-9 _]
-  ;
-
-
 syntax Definition
   = @Foldable definition: PageDefinition
   | @Foldable definition: SectionDefinition
@@ -39,11 +28,9 @@ syntax Definition
   | @Foldable definition: DefaultDefinition
   ;
 
-
 syntax PageDefinition
   = pageDefinition: "page" String "{" PageRule* "}"
   ;
-
 
 syntax PageRule
   = @Foldable pageRule: SectionDefinition
@@ -91,4 +78,13 @@ lexical WidgetStyleAttr
 
 lexical WidthStyleAttr
   = @category="Constant" "width"
+  ;
+
+syntax Ident
+  = @category="Variable" IdentLexical \ Keywords
+  | @category="Variable" ("\\" IdentLexical) \ Keywords
+  ;
+
+lexical IdentLexical
+  = [a-z A-Z 0-9 _] !<< [a-z A-Z][a-z A-Z 0-9 _]* !>> [a-z A-Z 0-9 _]
   ;

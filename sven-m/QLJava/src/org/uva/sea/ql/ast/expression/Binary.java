@@ -1,5 +1,7 @@
 package org.uva.sea.ql.ast.expression;
 
+import org.uva.sea.ql.ast.Location;
+
 public abstract class Binary extends Expr {
 	private final Expr lhs;
 	private final Expr rhs;
@@ -15,6 +17,10 @@ public abstract class Binary extends Expr {
 
 	public Expr getRhs() {
 		return rhs;
+	}
+	
+	public Location getLocation() {
+		return new Location(lhs.getLocation(), rhs.getLocation());
 	}
 
 }

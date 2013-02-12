@@ -1,20 +1,18 @@
 package org.uva.sea.ql.form;
 
 import java.util.List;
-import java.util.Map;
 
 import javax.swing.JPanel;
 
+import org.uva.sea.extensions.Tuple;
 import org.uva.sea.ql.ast.eval.Env;
 import org.uva.sea.ql.ast.expressions.Expr;
 import org.uva.sea.ql.ast.expressions.Ident;
 import org.uva.sea.ql.ast.values.Value;
-import org.uva.sea.ql.interpreter.FormElement;
 
 public class IfElseStatement extends IfStatement {
 
 	private final List<FormItem> elseBody;
-	private JPanel elseBodyContainer;
 	private Env elseBodyEnvironment;
 	
 	public IfElseStatement(Expr expression, List<FormItem> ifBody, List<FormItem> elseBody) {
@@ -47,28 +45,38 @@ public class IfElseStatement extends IfStatement {
 		}
 		return errors.size() == 0 && valid;
 	}
+
+	@Override
+	public void buildForm(JPanel mainPanel) {
+		super.buildForm(mainPanel);
+		for (FormItem f : elseBody) {
+			f.buildForm(mainPanel);
+		}
+	}
 	
 	@Override
-	public List<FormElement> getFormComponents() {
-		List<FormElement> components = super.getFormComponents();
-		elseBodyContainer = getBodyFormContainer(elseBody);
-		components.add(new FormElement(elseBodyContainer, "span, growx"));
-		return components;
+	public void setVisible(Boolean visible) {
+		super.setVisible(!visible);
+		for (FormItem f : elseBody) {
+			f.setVisible(visible);
+		}
 	}
 	
 	@Override
 	public void eval(Env environment, Form form) {
-		super.eval(environment, form);
-		for (FormItem f : elseBody) {
-			f.eval(elseBodyEnvironment, form);
+		setVisible(!isExpressionValid(environment));
+		evalIfBody(environment, form);
+		if (!isExpressionValid(environment)) {
+			for (FormItem f : elseBody) {
+				f.eval(elseBodyEnvironment, form);
+			}
 		}
-		elseBodyContainer.setVisible(!isExpressionValid(environment));
 	}
 	
 	@Override
-	public Map<Ident, Value> getAllValues() {
-		Map<Ident, Value> values = elseBodyEnvironment.getAllValues();
-		values.putAll(super.getAllValues());
+	public List<Tuple<Ident, Value>> getAllValues() {
+		List<Tuple<Ident, Value>> values = elseBodyEnvironment.getAllValues();
+		values.addAll(super.getAllValues());
 		return values;
 	}
 }

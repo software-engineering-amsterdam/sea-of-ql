@@ -1,9 +1,9 @@
 package org.uva.sea.ql.ast.operators;
 
-import java.util.HashMap;
+import java.util.Map;
 
 import org.antlr.runtime.Token;
-import org.uva.sea.ql.ast.literals.Result;
+import org.uva.sea.ql.ast.operatorresults.Result;
 import org.uva.sea.ql.ast.statements.LineStatement;
 import org.uva.sea.ql.ast.statements.Statement;
 import org.uva.sea.ql.ast.types.ErrorType;
@@ -35,7 +35,7 @@ public class Ident extends Expr {
 	}
 
 	@Override
-	public Type typeOf(HashMap<String, Statement> typeEnv) {
+	public Type typeOf(Map<String, Statement> typeEnv) {
 		LineStatement line = (LineStatement) typeEnv.get(this.getName());
 		if (line != null) {
 			return line.getTypeDescription();
@@ -44,7 +44,7 @@ public class Ident extends Expr {
 	}
 
 	@Override
-	public Result eval(HashMap<String, Result> symbolMap) {
+	public Result eval(Map<String, Result> symbolMap) {
 		return symbolMap.get(this.getName());
 	}
 }

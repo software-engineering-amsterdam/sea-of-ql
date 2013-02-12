@@ -1,9 +1,0 @@
-package org.uva.sea.ql.ast;
-
-public class Question implements ASTNode {
-	protected final Ident name;
-	
-	public Question(Ident name) {
-		this.name = name;
-	}
-}

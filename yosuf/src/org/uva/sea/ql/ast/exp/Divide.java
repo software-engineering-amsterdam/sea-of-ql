@@ -1,11 +1,13 @@
 package org.uva.sea.ql.ast.exp;
 
+import org.uva.sea.ql.ast.value.IntegerValue;
 import org.uva.sea.ql.visitor.NaturalVisitor;
-import org.uva.sea.ql.visitor.ValuableVisitor;
+import org.uva.sea.ql.visitor.ExpressionVisitor;
 
-public class Divide extends Binary {
+public class Divide extends Binary<IntegerValue, IntegerValue> {
 
-	public Divide(final Expression left, final Expression right) {
+	public Divide(final Expression<IntegerValue> left,
+			final Expression<IntegerValue> right) {
 		super(left, right);
 	}
 
@@ -15,13 +17,13 @@ public class Divide extends Binary {
 	}
 
 	@Override
-	public <T> T accept(final ValuableVisitor<T> visitor) {
-		return visitor.visit(this);
+	public Nature getNature() {
+		return Nature.NUMERIC;
 	}
 
 	@Override
-	public Nature getNature() {
-		return Nature.NUMERIC;
+	public IntegerValue accept(final ExpressionVisitor visitor) {
+		return visitor.visit(this);
 	}
 
 }

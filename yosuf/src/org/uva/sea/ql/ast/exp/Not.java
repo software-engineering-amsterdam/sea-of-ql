@@ -1,11 +1,12 @@
 package org.uva.sea.ql.ast.exp;
 
+import org.uva.sea.ql.ast.value.BooleanValue;
 import org.uva.sea.ql.visitor.NaturalVisitor;
-import org.uva.sea.ql.visitor.ValuableVisitor;
+import org.uva.sea.ql.visitor.ExpressionVisitor;
 
-public class Not extends Unary {
+public class Not extends Unary<BooleanValue> {
 
-	public Not(final Expression operation) {
+	public Not(final Expression<BooleanValue> operation) {
 		super(operation);
 	}
 
@@ -15,7 +16,7 @@ public class Not extends Unary {
 	}
 
 	@Override
-	public <T> T accept(final ValuableVisitor<T> visitor) {
+	public BooleanValue accept(final ExpressionVisitor visitor) {
 		return visitor.visit(this);
 	}
 

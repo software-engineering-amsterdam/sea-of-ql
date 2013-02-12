@@ -1,4 +1,4 @@
-form IncorretExpressions {
+form IncorrectExpressions {
 	incorrectBool: "Should be a boolean" bool(2 - 1)
 	incorrectInt: "Should be an integer" int(1 < 2)
 	incorrectString: "Should be a string" string(true)

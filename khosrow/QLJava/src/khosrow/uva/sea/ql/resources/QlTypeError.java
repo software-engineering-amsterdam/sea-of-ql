@@ -1,6 +1,7 @@
 package khosrow.uva.sea.ql.resources;
 
 import khosrow.uva.sea.ql.ast.type.Type;
+import khosrow.uva.sea.ql.values.Value;
 
 public class QlTypeError extends Type {
 	private final String message;
@@ -15,7 +16,11 @@ public class QlTypeError extends Type {
 
 	@Override
 	public boolean isCompatibleTo(Type t) {
-		// TODO Auto-generated method stub
 		return false;
+	}
+
+	@Override
+	public Value initialize() {
+		return new QlValueError("No Error");
 	}
 }

@@ -64,13 +64,13 @@ str generateInstanceVars(Form form) {
 
 str generateQuestionVar(str identifier, intType()) = 
 	"private SpinnerNumberModel <identifier>Model = new SpinnerNumberModel();
-	'private JSpinner <identifier> = new JSpinner(<identifier>Model);\n";
+	'private JSpinner <identifier>Question = new JSpinner(<identifier>Model);\n";
 	
 str generateQuestionVar(str identifier, boolType()) = 
-	"private JCheckBox <identifier> = new JCheckBox();\n";
+	"private JCheckBox <identifier>Question = new JCheckBox();\n";
 	
 str generateQuestionVar(str identifier, stringType()) = 
-	"private JTextField <identifier> = new JTextField();\n";
+	"private JTextField <identifier>Question = new JTextField();\n";
 	
 str generatePanelVar(str name) =
 	"private JPanel <name> = new JPanel();\n";

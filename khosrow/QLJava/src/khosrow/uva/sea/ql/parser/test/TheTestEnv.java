@@ -53,4 +53,8 @@ public class TheTestEnv {
 		}
 		return env;
 	}
+	
+	public static Value getValueOf(String ident){
+		return env.valueOf(new Ident(ident));
+	}
 }

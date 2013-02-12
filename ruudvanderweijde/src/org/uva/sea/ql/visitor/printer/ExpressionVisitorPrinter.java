@@ -24,7 +24,7 @@ import org.uva.sea.ql.ast.expr.unary.Pos;
 import org.uva.sea.ql.ast.expr.unary.Unary;
 import org.uva.sea.ql.visitor.IExpressionVisitor;
 
-public class ExpressionVisitorPrinter  implements IExpressionVisitor<Boolean> {
+public class ExpressionVisitorPrinter implements IExpressionVisitor<Boolean> {
 
 	@Override
 	public Boolean visit(Add ast) {
@@ -124,7 +124,7 @@ public class ExpressionVisitorPrinter  implements IExpressionVisitor<Boolean> {
 
 	@Override
 	public Boolean visit(Ident ast) {
-		printPrimaryValue(ast);
+		System.out.println(ast.toString() + ": " + ast.getName());
 		return true;
 	}
 

@@ -1,5 +1,7 @@
 package org.uva.sea.ql.ast.expression;
 
+import org.uva.sea.ql.ast.Location;
+
 public abstract class Unary extends Expr {
 	private final Expr op;
 
@@ -9,5 +11,9 @@ public abstract class Unary extends Expr {
 
 	public Expr getOp() {
 		return op;
+	}
+	
+	public Location getLocation() {
+		return op.getLocation();
 	}
 }

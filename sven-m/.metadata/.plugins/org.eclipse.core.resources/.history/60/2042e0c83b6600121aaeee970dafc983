@@ -1,8 +1,0 @@
-package org.uva.sea.ql.ast.expression;
-
-import org.antlr.runtime.tree.TreeWizard.Visitor;
-import org.uva.sea.ql.ast.ASTNode;
-
-public abstract class Expr implements ASTNode {
-
-}

@@ -1,12 +1,14 @@
 package org.uva.sea.ql.ast.expression;
 
+import org.uva.sea.ql.ast.Location;
 import org.uva.sea.ql.ast.visitor.ExpressionVisitor;
 
-public class Int extends Expr {
+public class Int extends Leaf {
 
 	private final int value;
 
-	public Int(int n) {
+	public Int(int n, Location location) {
+		super(location);
 		this.value = n;
 	}
 

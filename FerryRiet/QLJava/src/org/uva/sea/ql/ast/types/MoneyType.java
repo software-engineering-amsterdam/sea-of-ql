@@ -2,8 +2,8 @@ package org.uva.sea.ql.ast.types;
 
 import java.math.BigDecimal;
 
-import org.uva.sea.ql.ast.literals.MoneyResult;
-import org.uva.sea.ql.ast.literals.Result;
+import org.uva.sea.ql.ast.operatorresults.MoneyResult;
+import org.uva.sea.ql.ast.operatorresults.Result;
 
 public class MoneyType extends Type {
 

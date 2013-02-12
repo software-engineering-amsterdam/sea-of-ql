@@ -1,5 +1,0 @@
-package org.uva.sea.ql.ast.form;
-
-public class ElseStatement extends AbstractIfStatement {
-
-}

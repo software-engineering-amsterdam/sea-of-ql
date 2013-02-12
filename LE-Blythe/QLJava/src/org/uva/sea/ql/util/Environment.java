@@ -1,48 +1,98 @@
 package org.uva.sea.ql.util;
 
 import java.util.HashMap;
+import java.util.Map;
+import java.util.Observable;
+import java.util.Observer;
 
 import org.uva.sea.ql.ast.Expr;
 import org.uva.sea.ql.ast.Ident;
+import org.uva.sea.ql.ast.primitive.Undefined;
 
-public class Environment implements Cloneable {
+public class Environment {
 
-	private HashMap<Ident, Expr> map;
+	private Environment parentEnvironment;
+	private Map<Ident, Expr> map;
+	private Map<Ident, Observable> observables;
 	
 	public Environment(){
+		init(null);
+	}
+	
+	
+	public Environment(Environment parentEnvironment){
+		init(parentEnvironment);
+	}
+	
+	
+	private void init(Environment parentEnvironment){
 		this.map = new HashMap<Ident, Expr>();
+		this.observables = new HashMap<Ident, Observable>();
+		this.parentEnvironment = parentEnvironment;
 	}
 	
 	
-	public Environment(HashMap<Ident, Expr> map){
-		this.map = map;
+	private boolean parentContains(Ident key){
+		return parentEnvironment != null && parentEnvironment.contains(key);
 	}
 	
 	
-	public void add(Ident key, Expr value){
-		map.put(key, value);
-	}
-	
-
-	public boolean contains(Ident key){
+	private boolean thisContains(Ident key){
 		return map.containsKey(key);
 	}
 	
 	
-	public boolean hasType(Ident key, Class<?> type){
-		return type.isInstance(map.get(key));
+	public boolean contains(Ident key){
+		return thisContains(key) || parentContains(key);
 	}
 	
 	
 	public Expr getValue(Ident key){
-		return map.get(key);
+		
+		if(thisContains(key)){
+			return map.get(key);
+		}
+		if(parentEnvironment != null){
+			return parentEnvironment.getValue(key);
+		}
+		return new Undefined();
 	}
 	
 	
-	@SuppressWarnings("unchecked")
-	public Environment clone(){
-		//note that a shallow copy of the stack suffices, as variables used are immutable
-		//i.e. once a variable has been added to the stack it may no longer be changed.
-		return new Environment((HashMap<Ident, Expr>)map.clone());
+	public boolean hasType(Ident key, Class<?> type){
+		return type.isInstance(getValue(key));
+	}
+	
+	
+	public Environment branchEnvironment(){
+		return new Environment(this);
+	}
+	
+	
+	public void putValue(Ident key, Expr value){
+		
+		if(parentContains(key)){
+			//this key is already present in the parent environment,
+			//so update the value there
+			parentEnvironment.putValue(key, value);
+		}else{
+			//otherwise it's a new key, add it to this environment
+			map.put(key, value);
+		}
+	}
+
+	
+	public void putObservable(Ident key, Observable observable){
+		observables.put(key, observable);
+	}
+	
+	
+	public void addObserver(Ident key, Observer observer){
+		observables.get(key).addObserver(observer);
+	}
+	
+	
+	public void notify(Ident key){
+		observables.get(key).notifyObservers();
 	}
 }
