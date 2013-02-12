@@ -1,9 +1,10 @@
 grammar QL;
 
-options {
-//backtrack=true; 
-//memoize=true;  
+options { 
 output=AST;
+} 
+//backtrack=true; 
+//memoize=true; 
 //TODO: var_scope, var_declaration, 
 // easy & computed question
 //if(VAR > CONST)
@@ -15,11 +16,12 @@ output=AST;
 // Unit tests ?!
 //Each block own variable scope ? holds it for itself
 //use static value NULL in value for null pattern
-} 
+//ELSE IF?!
+
 tokens{
 QUESTION_ASSIGNMENT;
 QUESTION_LABEL;
-VAR_ASSIGNMENT;
+CONST_ASSIGNMENT;
 IDENT;
 ASSIGNMENT_TYPE;
 ASSIGNMENT_EXPRESSION;
@@ -40,7 +42,6 @@ import org.uva.sea.ql.ast.nodes.values.*;
 import org.uva.sea.ql.ast.nodes.*;
 import org.uva.sea.ql.ast.type.*;
 import org.uva.sea.ql.ast.expr.*;
-import org.uva.sea.ql.questionnaire.*;
 }
 
 @lexer::header
@@ -56,41 +57,41 @@ import org.uva.sea.ql.ast.*;
  *------------------------------------------------------------------*/
  
 parse
-	: FormStart FormId Lbr statement+ Rbr EOF -> ^(FormId statement+);
+	: FormStart FormId Lbr block+ Rbr EOF -> ^(FormId block+);
 	
-statement
-	:	(answerableStatement | assignmentStatement | ifStatement ) ; 
+block
+	:	(questionAssignment | constantAssignment | ifBlock ) ; 
 	
 
-//Answerable and NOT answerable (calculates value, just for presentation, uses (orExpr)? ) //'(' orExpr ')'
-answerableStatement 
-	: varName=Ident  Assignment_Indicator  label=QuestionLabel identType (atom)?  ->^(QUESTION_ASSIGNMENT ^(IDENT $varName) ^(ASSIGNMENT_TYPE identType) ^(QUESTION_LABEL  $label)  ^(ASSIGNMENT_EXPRESSION atom)?)
+questionAssignment 
+	: Ident  Assignment_Indicator  String identType (atom)?  ->^(QUESTION_ASSIGNMENT ^(IDENT Ident) ^(ASSIGNMENT_TYPE identType) ^(QUESTION_LABEL  String)  ^(ASSIGNMENT_EXPRESSION atom)?)
 	 ;
 
-//Constant internal variable assignment, normal value and computed value
-assignmentStatement
-	: constName=Ident  Assignment_Indicator identType atom -> ^(VAR_ASSIGNMENT ^(IDENT $constName ) ^(ASSIGNMENT_TYPE identType) ^(ASSIGNMENT_EXPRESSION  atom))
+
+constantAssignment
+	: Ident  Assignment_Indicator identType atom -> ^(CONST_ASSIGNMENT ^(IDENT Ident ) ^(ASSIGNMENT_TYPE identType) ^(ASSIGNMENT_EXPRESSION  atom))
 	;
 	
-//Question type
+
 identType	
-	: Boolean -> Boolean //^(BOOL_TYPE) 
-	| Money -> Money // ^(MONEY_TYPE) 
+	: BooleanType -> BooleanType 
+	| MoneyType -> MoneyType 
 	;	
 
 
-ifStatement 
-	:If ifConditionalExpression  ifStatementBlock  (elseBlock)?  ->^(IF_STATEMENT  ^(IF_CONDITION ifConditionalExpression )  ^(IF_BLOCK_TRUE ifStatementBlock) ^(IF_BLOCK_FALSE elseBlock)?) //^(IF_EXPRESSION orExpr)
+ifBlock 
+	: ifStatement  ifStatementBlock  (elseBlock)?  ->^(IF_STATEMENT  ^(IF_CONDITION ifStatement )  ^(IF_BLOCK_TRUE ifStatementBlock) ^(IF_BLOCK_FALSE elseBlock)?) 
 	;
 	
-ifConditionalExpression
-	:  RoundLbr orExpr  RoundRbr -> orExpr;	
+ifStatement
+	:  If RoundLbr orExpr  RoundRbr -> orExpr;	
 	
+//TODO ELSE IF!?	
 ifStatementBlock	
-	: 	Lbr  statement* Rbr -> statement*;
+	: 	Lbr  block* Rbr -> block*;
 
 elseBlock
-	: Else Lbr statement* Rbr -> statement*
+	: Else Lbr block* Rbr -> block*
 	;
 	
 		 
@@ -99,8 +100,8 @@ elseBlock
 atom returns [Expr result]
   : Int   { $result = new Int(Integer.parseInt($Int.text)); }
   | Ident { $result = new Ident($Ident.text, new Bool(false)); } 
-  | Boolean {$result = new Bool(false);}
-  | Money { $result = new Int(Integer.parseInt($Money.text));}
+  | BooleanType {$result = new Bool(false);}
+  | MoneyType { $result = new Int(Integer.parseInt($MoneyType.text));}
  // | Integer {$result = new Ident($Integer.text, new int(1));}
   |  RoundLbr!  x=orExpr^ RoundRbr! { $result = $x.result; } 
   ;
@@ -182,15 +183,17 @@ WS  : ( '\t' | ' ' | '\r' | '\n'| '\u000C' )+ { $channel = HIDDEN; } ;
 COMMENT     : ('/*' .* '*/' | '//' ~('\r' | '\n')*)   { $channel = HIDDEN; } ;
 
 FormStart: 'form' { System.out.println("Lex Start: "+getText()); };
+Bool 	: 'true' 
+	| 'false';
 
-Boolean : 'boolean' { System.out.println("Lex Boolean: "+getText()); };
-Money	: 'money' { System.out.println("Lex Money: "+getText()); };
+BooleanType : 'boolean' { System.out.println("Lex Boolean: "+getText()); };
+MoneyType	: 'money' { System.out.println("Lex Money: "+getText()); };
 
 If	: 'if' { System.out.println("Lex IF: "+getText()); };
 Else	: 'else' { System.out.println("Lex ELSE: "+getText()); };
 FormId 	: 'A'..'Z' ('a'..'z'|'A'..'Z'|'0'..'9')+  { System.out.println("Lex FormId: "+getText()); };
 
-QuestionLabel: '"' .*  '"' { System.out.println("Lex Question: "+getText()); };
+String: '"' .*  '"' { System.out.println("Lex String: "+getText()); };
 
 
 

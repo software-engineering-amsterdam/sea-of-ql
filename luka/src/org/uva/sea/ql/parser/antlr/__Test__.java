@@ -3,6 +3,8 @@ package org.uva.sea.ql.parser.antlr;
 import org.antlr.runtime.ANTLRFileStream;
 import org.antlr.runtime.CommonTokenStream;
 import org.antlr.runtime.RecognitionException;
+import org.antlr.runtime.tree.CommonTree;
+import org.antlr.runtime.tree.DOTTreeGenerator;
 
 public class __Test__ {
 
@@ -18,8 +20,8 @@ public class __Test__ {
 		
 		
 		try {
-			 parser.parse();
-			
+		CommonTree tree = 	 (CommonTree) parser.parse().getTree();
+	
 		//	Questionnaire questionnaire =	
 		//	System.out.println(questionnaire.getName());
 			

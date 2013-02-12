@@ -1,4 +1,4 @@
-// $ANTLR 3.5 /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g 2013-02-12 08:24:47
+// $ANTLR 3.5 /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g 2013-02-12 08:51:39
 
 package org.uva.sea.ql.parser.antlr;
 import org.uva.sea.ql.ast.*;
@@ -12,45 +12,46 @@ import java.util.ArrayList;
 @SuppressWarnings("all")
 public class QLLexer extends Lexer {
 	public static final int EOF=-1;
-	public static final int T__42=42;
 	public static final int ASSIGNMENT_EXPRESSION=4;
 	public static final int ASSIGNMENT_TYPE=5;
 	public static final int Add=6;
 	public static final int And=7;
 	public static final int Assignment_Indicator=8;
-	public static final int Boolean=9;
-	public static final int COMMENT=10;
-	public static final int Div=11;
-	public static final int Else=12;
-	public static final int Equ=13;
-	public static final int FormId=14;
-	public static final int FormStart=15;
-	public static final int GT=16;
-	public static final int GTEqu=17;
-	public static final int IDENT=18;
-	public static final int IF_BLOCK_FALSE=19;
-	public static final int IF_BLOCK_TRUE=20;
-	public static final int IF_CONDITION=21;
-	public static final int IF_STATEMENT=22;
-	public static final int Ident=23;
-	public static final int If=24;
-	public static final int Int=25;
-	public static final int LT=26;
-	public static final int LTEqu=27;
-	public static final int Lbr=28;
-	public static final int Money=29;
-	public static final int Mul=30;
-	public static final int NotEqu=31;
-	public static final int Or=32;
-	public static final int QUESTION_ASSIGNMENT=33;
-	public static final int QUESTION_LABEL=34;
-	public static final int QuestionLabel=35;
-	public static final int Rbr=36;
-	public static final int RoundLbr=37;
-	public static final int RoundRbr=38;
-	public static final int Sub=39;
-	public static final int VAR_ASSIGNMENT=40;
-	public static final int WS=41;
+	public static final int Bool=9;
+	public static final int BooleanType=10;
+	public static final int COMMENT=11;
+	public static final int CONST_ASSIGNMENT=12;
+	public static final int Div=13;
+	public static final int Else=14;
+	public static final int Equ=15;
+	public static final int FormId=16;
+	public static final int FormStart=17;
+	public static final int GT=18;
+	public static final int GTEqu=19;
+	public static final int IDENT=20;
+	public static final int IF_BLOCK_FALSE=21;
+	public static final int IF_BLOCK_TRUE=22;
+	public static final int IF_CONDITION=23;
+	public static final int IF_STATEMENT=24;
+	public static final int Ident=25;
+	public static final int If=26;
+	public static final int Int=27;
+	public static final int LT=28;
+	public static final int LTEqu=29;
+	public static final int Lbr=30;
+	public static final int MoneyType=31;
+	public static final int Mul=32;
+	public static final int Not=33;
+	public static final int NotEqu=34;
+	public static final int Or=35;
+	public static final int QUESTION_ASSIGNMENT=36;
+	public static final int QUESTION_LABEL=37;
+	public static final int Rbr=38;
+	public static final int RoundLbr=39;
+	public static final int RoundRbr=40;
+	public static final int String=41;
+	public static final int Sub=42;
+	public static final int WS=43;
 
 	// delegates
 	// delegators
@@ -66,26 +67,6 @@ public class QLLexer extends Lexer {
 		super(input,state);
 	}
 	@Override public String getGrammarFileName() { return "/Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g"; }
-
-	// $ANTLR start "T__42"
-	public final void mT__42() throws RecognitionException {
-		try {
-			int _type = T__42;
-			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:7:7: ( '!' )
-			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:7:9: '!'
-			{
-			match('!'); 
-			}
-
-			state.type = _type;
-			state.channel = _channel;
-		}
-		finally {
-			// do for sure before leaving
-		}
-	}
-	// $ANTLR end "T__42"
 
 	// $ANTLR start "WS"
 	public final void mWS() throws RecognitionException {
@@ -295,13 +276,60 @@ public class QLLexer extends Lexer {
 	}
 	// $ANTLR end "FormStart"
 
-	// $ANTLR start "Boolean"
-	public final void mBoolean() throws RecognitionException {
+	// $ANTLR start "Bool"
+	public final void mBool() throws RecognitionException {
 		try {
-			int _type = Boolean;
+			int _type = Bool;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:186:9: ( 'boolean' )
-			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:186:11: 'boolean'
+			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:185:7: ( 'true' | 'false' )
+			int alt5=2;
+			int LA5_0 = input.LA(1);
+			if ( (LA5_0=='t') ) {
+				alt5=1;
+			}
+			else if ( (LA5_0=='f') ) {
+				alt5=2;
+			}
+
+			else {
+				NoViableAltException nvae =
+					new NoViableAltException("", 5, 0, input);
+				throw nvae;
+			}
+
+			switch (alt5) {
+				case 1 :
+					// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:185:9: 'true'
+					{
+					match("true"); 
+
+					}
+					break;
+				case 2 :
+					// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:186:4: 'false'
+					{
+					match("false"); 
+
+					}
+					break;
+
+			}
+			state.type = _type;
+			state.channel = _channel;
+		}
+		finally {
+			// do for sure before leaving
+		}
+	}
+	// $ANTLR end "Bool"
+
+	// $ANTLR start "BooleanType"
+	public final void mBooleanType() throws RecognitionException {
+		try {
+			int _type = BooleanType;
+			int _channel = DEFAULT_TOKEN_CHANNEL;
+			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:188:13: ( 'boolean' )
+			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:188:15: 'boolean'
 			{
 			match("boolean"); 
 
@@ -315,15 +343,15 @@ public class QLLexer extends Lexer {
 			// do for sure before leaving
 		}
 	}
-	// $ANTLR end "Boolean"
+	// $ANTLR end "BooleanType"
 
-	// $ANTLR start "Money"
-	public final void mMoney() throws RecognitionException {
+	// $ANTLR start "MoneyType"
+	public final void mMoneyType() throws RecognitionException {
 		try {
-			int _type = Money;
+			int _type = MoneyType;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:187:7: ( 'money' )
-			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:187:9: 'money'
+			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:189:11: ( 'money' )
+			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:189:13: 'money'
 			{
 			match("money"); 
 
@@ -337,15 +365,15 @@ public class QLLexer extends Lexer {
 			// do for sure before leaving
 		}
 	}
-	// $ANTLR end "Money"
+	// $ANTLR end "MoneyType"
 
 	// $ANTLR start "If"
 	public final void mIf() throws RecognitionException {
 		try {
 			int _type = If;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:189:4: ( 'if' )
-			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:189:6: 'if'
+			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:191:4: ( 'if' )
+			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:191:6: 'if'
 			{
 			match("if"); 
 
@@ -366,8 +394,8 @@ public class QLLexer extends Lexer {
 		try {
 			int _type = Else;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:190:6: ( 'else' )
-			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:190:8: 'else'
+			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:192:6: ( 'else' )
+			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:192:8: 'else'
 			{
 			match("else"); 
 
@@ -388,21 +416,21 @@ public class QLLexer extends Lexer {
 		try {
 			int _type = FormId;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:191:9: ( 'A' .. 'Z' ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' )+ )
-			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:191:11: 'A' .. 'Z' ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' )+
+			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:193:9: ( 'A' .. 'Z' ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' )+ )
+			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:193:11: 'A' .. 'Z' ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' )+
 			{
 			matchRange('A','Z'); 
-			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:191:20: ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' )+
-			int cnt5=0;
-			loop5:
+			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:193:20: ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' )+
+			int cnt6=0;
+			loop6:
 			while (true) {
-				int alt5=2;
-				int LA5_0 = input.LA(1);
-				if ( ((LA5_0 >= '0' && LA5_0 <= '9')||(LA5_0 >= 'A' && LA5_0 <= 'Z')||(LA5_0 >= 'a' && LA5_0 <= 'z')) ) {
-					alt5=1;
+				int alt6=2;
+				int LA6_0 = input.LA(1);
+				if ( ((LA6_0 >= '0' && LA6_0 <= '9')||(LA6_0 >= 'A' && LA6_0 <= 'Z')||(LA6_0 >= 'a' && LA6_0 <= 'z')) ) {
+					alt6=1;
 				}
 
-				switch (alt5) {
+				switch (alt6) {
 				case 1 :
 					// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:
 					{
@@ -418,11 +446,11 @@ public class QLLexer extends Lexer {
 					break;
 
 				default :
-					if ( cnt5 >= 1 ) break loop5;
-					EarlyExitException eee = new EarlyExitException(5, input);
+					if ( cnt6 >= 1 ) break loop6;
+					EarlyExitException eee = new EarlyExitException(6, input);
 					throw eee;
 				}
-				cnt5++;
+				cnt6++;
 			}
 
 			 System.out.println("Lex FormId: "+getText()); 
@@ -437,42 +465,42 @@ public class QLLexer extends Lexer {
 	}
 	// $ANTLR end "FormId"
 
-	// $ANTLR start "QuestionLabel"
-	public final void mQuestionLabel() throws RecognitionException {
+	// $ANTLR start "String"
+	public final void mString() throws RecognitionException {
 		try {
-			int _type = QuestionLabel;
+			int _type = String;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:193:14: ( '\"' ( . )* '\"' )
-			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:193:16: '\"' ( . )* '\"'
+			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:195:7: ( '\"' ( . )* '\"' )
+			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:195:9: '\"' ( . )* '\"'
 			{
 			match('\"'); 
-			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:193:20: ( . )*
-			loop6:
+			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:195:13: ( . )*
+			loop7:
 			while (true) {
-				int alt6=2;
-				int LA6_0 = input.LA(1);
-				if ( (LA6_0=='\"') ) {
-					alt6=2;
+				int alt7=2;
+				int LA7_0 = input.LA(1);
+				if ( (LA7_0=='\"') ) {
+					alt7=2;
 				}
-				else if ( ((LA6_0 >= '\u0000' && LA6_0 <= '!')||(LA6_0 >= '#' && LA6_0 <= '\uFFFF')) ) {
-					alt6=1;
+				else if ( ((LA7_0 >= '\u0000' && LA7_0 <= '!')||(LA7_0 >= '#' && LA7_0 <= '\uFFFF')) ) {
+					alt7=1;
 				}
 
-				switch (alt6) {
+				switch (alt7) {
 				case 1 :
-					// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:193:20: .
+					// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:195:13: .
 					{
 					matchAny(); 
 					}
 					break;
 
 				default :
-					break loop6;
+					break loop7;
 				}
 			}
 
 			match('\"'); 
-			 System.out.println("Lex Question: "+getText()); 
+			 System.out.println("Lex String: "+getText()); 
 			}
 
 			state.type = _type;
@@ -482,15 +510,15 @@ public class QLLexer extends Lexer {
 			// do for sure before leaving
 		}
 	}
-	// $ANTLR end "QuestionLabel"
+	// $ANTLR end "String"
 
 	// $ANTLR start "Ident"
 	public final void mIdent() throws RecognitionException {
 		try {
 			int _type = Ident;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:197:6: ( ( 'a' .. 'z' | 'A' .. 'Z' ) ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )+ )
-			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:197:10: ( 'a' .. 'z' | 'A' .. 'Z' ) ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )+
+			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:199:6: ( ( 'a' .. 'z' | 'A' .. 'Z' ) ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )+ )
+			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:199:10: ( 'a' .. 'z' | 'A' .. 'Z' ) ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )+
 			{
 			if ( (input.LA(1) >= 'A' && input.LA(1) <= 'Z')||(input.LA(1) >= 'a' && input.LA(1) <= 'z') ) {
 				input.consume();
@@ -500,17 +528,17 @@ public class QLLexer extends Lexer {
 				recover(mse);
 				throw mse;
 			}
-			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:197:29: ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )+
-			int cnt7=0;
-			loop7:
+			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:199:29: ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )+
+			int cnt8=0;
+			loop8:
 			while (true) {
-				int alt7=2;
-				int LA7_0 = input.LA(1);
-				if ( ((LA7_0 >= '0' && LA7_0 <= '9')||(LA7_0 >= 'A' && LA7_0 <= 'Z')||LA7_0=='_'||(LA7_0 >= 'a' && LA7_0 <= 'z')) ) {
-					alt7=1;
+				int alt8=2;
+				int LA8_0 = input.LA(1);
+				if ( ((LA8_0 >= '0' && LA8_0 <= '9')||(LA8_0 >= 'A' && LA8_0 <= 'Z')||LA8_0=='_'||(LA8_0 >= 'a' && LA8_0 <= 'z')) ) {
+					alt8=1;
 				}
 
-				switch (alt7) {
+				switch (alt8) {
 				case 1 :
 					// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:
 					{
@@ -526,11 +554,11 @@ public class QLLexer extends Lexer {
 					break;
 
 				default :
-					if ( cnt7 >= 1 ) break loop7;
-					EarlyExitException eee = new EarlyExitException(7, input);
+					if ( cnt8 >= 1 ) break loop8;
+					EarlyExitException eee = new EarlyExitException(8, input);
 					throw eee;
 				}
-				cnt7++;
+				cnt8++;
 			}
 
 			 System.out.println("Lex Ident: "+getText()); 
@@ -550,20 +578,20 @@ public class QLLexer extends Lexer {
 		try {
 			int _type = Int;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:198:4: ( ( '0' .. '9' )+ )
-			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:198:6: ( '0' .. '9' )+
+			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:200:4: ( ( '0' .. '9' )+ )
+			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:200:6: ( '0' .. '9' )+
 			{
-			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:198:6: ( '0' .. '9' )+
-			int cnt8=0;
-			loop8:
+			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:200:6: ( '0' .. '9' )+
+			int cnt9=0;
+			loop9:
 			while (true) {
-				int alt8=2;
-				int LA8_0 = input.LA(1);
-				if ( ((LA8_0 >= '0' && LA8_0 <= '9')) ) {
-					alt8=1;
+				int alt9=2;
+				int LA9_0 = input.LA(1);
+				if ( ((LA9_0 >= '0' && LA9_0 <= '9')) ) {
+					alt9=1;
 				}
 
-				switch (alt8) {
+				switch (alt9) {
 				case 1 :
 					// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:
 					{
@@ -579,11 +607,11 @@ public class QLLexer extends Lexer {
 					break;
 
 				default :
-					if ( cnt8 >= 1 ) break loop8;
-					EarlyExitException eee = new EarlyExitException(8, input);
+					if ( cnt9 >= 1 ) break loop9;
+					EarlyExitException eee = new EarlyExitException(9, input);
 					throw eee;
 				}
-				cnt8++;
+				cnt9++;
 			}
 
 			 System.out.println("Lex Int: "+getText()); 
@@ -603,8 +631,8 @@ public class QLLexer extends Lexer {
 		try {
 			int _type = Lbr;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:200:5: ( '{' )
-			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:200:7: '{'
+			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:202:5: ( '{' )
+			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:202:7: '{'
 			{
 			match('{'); 
 			 System.out.println("Lex {: "+getText()); 
@@ -624,8 +652,8 @@ public class QLLexer extends Lexer {
 		try {
 			int _type = Rbr;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:201:5: ( '}' )
-			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:201:7: '}'
+			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:203:5: ( '}' )
+			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:203:7: '}'
 			{
 			match('}'); 
 			 System.out.println("Lex }: "+getText()); 
@@ -645,8 +673,8 @@ public class QLLexer extends Lexer {
 		try {
 			int _type = Assignment_Indicator;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:204:22: ( ':' )
-			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:204:24: ':'
+			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:206:22: ( ':' )
+			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:206:24: ':'
 			{
 			match(':'); 
 			}
@@ -665,8 +693,8 @@ public class QLLexer extends Lexer {
 		try {
 			int _type = RoundLbr;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:206:10: ( '(' )
-			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:206:12: '('
+			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:208:10: ( '(' )
+			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:208:12: '('
 			{
 			match('('); 
 			}
@@ -685,8 +713,8 @@ public class QLLexer extends Lexer {
 		try {
 			int _type = RoundRbr;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:208:10: ( ')' )
-			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:208:12: ')'
+			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:210:10: ( ')' )
+			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:210:12: ')'
 			{
 			match(')'); 
 			}
@@ -705,8 +733,8 @@ public class QLLexer extends Lexer {
 		try {
 			int _type = Mul;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:211:2: ( '*' )
-			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:211:4: '*'
+			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:213:2: ( '*' )
+			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:213:4: '*'
 			{
 			match('*'); 
 			}
@@ -725,8 +753,8 @@ public class QLLexer extends Lexer {
 		try {
 			int _type = Div;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:215:2: ( '/' )
-			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:215:4: '/'
+			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:217:2: ( '/' )
+			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:217:4: '/'
 			{
 			match('/'); 
 			}
@@ -745,8 +773,8 @@ public class QLLexer extends Lexer {
 		try {
 			int _type = Add;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:219:2: ( '+' )
-			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:219:4: '+'
+			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:221:2: ( '+' )
+			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:221:4: '+'
 			{
 			match('+'); 
 			}
@@ -765,8 +793,8 @@ public class QLLexer extends Lexer {
 		try {
 			int _type = Sub;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:223:2: ( '-' )
-			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:223:4: '-'
+			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:225:2: ( '-' )
+			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:225:4: '-'
 			{
 			match('-'); 
 			}
@@ -785,8 +813,8 @@ public class QLLexer extends Lexer {
 		try {
 			int _type = LT;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:227:2: ( '<' )
-			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:227:4: '<'
+			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:229:2: ( '<' )
+			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:229:4: '<'
 			{
 			match('<'); 
 			}
@@ -805,8 +833,8 @@ public class QLLexer extends Lexer {
 		try {
 			int _type = LTEqu;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:231:2: ( '<=' )
-			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:231:4: '<='
+			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:233:2: ( '<=' )
+			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:233:4: '<='
 			{
 			match("<="); 
 
@@ -826,8 +854,8 @@ public class QLLexer extends Lexer {
 		try {
 			int _type = GT;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:235:2: ( '>' )
-			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:235:4: '>'
+			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:237:2: ( '>' )
+			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:237:4: '>'
 			{
 			match('>'); 
 			}
@@ -846,8 +874,8 @@ public class QLLexer extends Lexer {
 		try {
 			int _type = GTEqu;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:239:2: ( '>=' )
-			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:239:4: '>='
+			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:241:2: ( '>=' )
+			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:241:4: '>='
 			{
 			match(">="); 
 
@@ -867,8 +895,8 @@ public class QLLexer extends Lexer {
 		try {
 			int _type = Equ;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:243:2: ( '==' )
-			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:243:4: '=='
+			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:245:2: ( '==' )
+			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:245:4: '=='
 			{
 			match("=="); 
 
@@ -888,8 +916,8 @@ public class QLLexer extends Lexer {
 		try {
 			int _type = NotEqu;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:247:2: ( '!=' )
-			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:247:4: '!='
+			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:249:2: ( '!=' )
+			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:249:4: '!='
 			{
 			match("!="); 
 
@@ -909,8 +937,8 @@ public class QLLexer extends Lexer {
 		try {
 			int _type = And;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:251:2: ( '&&' )
-			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:251:4: '&&'
+			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:253:2: ( '&&' )
+			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:253:4: '&&'
 			{
 			match("&&"); 
 
@@ -930,8 +958,8 @@ public class QLLexer extends Lexer {
 		try {
 			int _type = Or;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:255:2: ( '||' )
-			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:255:4: '||'
+			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:257:2: ( '||' )
+			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:257:4: '||'
 			{
 			match("||"); 
 
@@ -946,79 +974,99 @@ public class QLLexer extends Lexer {
 	}
 	// $ANTLR end "Or"
 
+	// $ANTLR start "Not"
+	public final void mNot() throws RecognitionException {
+		try {
+			int _type = Not;
+			int _channel = DEFAULT_TOKEN_CHANNEL;
+			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:261:2: ( '!' )
+			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:261:4: '!'
+			{
+			match('!'); 
+			}
+
+			state.type = _type;
+			state.channel = _channel;
+		}
+		finally {
+			// do for sure before leaving
+		}
+	}
+	// $ANTLR end "Not"
+
 	@Override
 	public void mTokens() throws RecognitionException {
-		// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:1:8: ( T__42 | WS | COMMENT | FormStart | Boolean | Money | If | Else | FormId | QuestionLabel | Ident | Int | Lbr | Rbr | Assignment_Indicator | RoundLbr | RoundRbr | Mul | Div | Add | Sub | LT | LTEqu | GT | GTEqu | Equ | NotEqu | And | Or )
-		int alt9=29;
-		alt9 = dfa9.predict(input);
-		switch (alt9) {
+		// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:1:8: ( WS | COMMENT | FormStart | Bool | BooleanType | MoneyType | If | Else | FormId | String | Ident | Int | Lbr | Rbr | Assignment_Indicator | RoundLbr | RoundRbr | Mul | Div | Add | Sub | LT | LTEqu | GT | GTEqu | Equ | NotEqu | And | Or | Not )
+		int alt10=30;
+		alt10 = dfa10.predict(input);
+		switch (alt10) {
 			case 1 :
-				// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:1:10: T__42
-				{
-				mT__42(); 
-
-				}
-				break;
-			case 2 :
-				// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:1:16: WS
+				// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:1:10: WS
 				{
 				mWS(); 
 
 				}
 				break;
-			case 3 :
-				// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:1:19: COMMENT
+			case 2 :
+				// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:1:13: COMMENT
 				{
 				mCOMMENT(); 
 
 				}
 				break;
-			case 4 :
-				// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:1:27: FormStart
+			case 3 :
+				// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:1:21: FormStart
 				{
 				mFormStart(); 
 
 				}
 				break;
-			case 5 :
-				// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:1:37: Boolean
+			case 4 :
+				// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:1:31: Bool
 				{
-				mBoolean(); 
+				mBool(); 
+
+				}
+				break;
+			case 5 :
+				// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:1:36: BooleanType
+				{
+				mBooleanType(); 
 
 				}
 				break;
 			case 6 :
-				// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:1:45: Money
+				// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:1:48: MoneyType
 				{
-				mMoney(); 
+				mMoneyType(); 
 
 				}
 				break;
 			case 7 :
-				// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:1:51: If
+				// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:1:58: If
 				{
 				mIf(); 
 
 				}
 				break;
 			case 8 :
-				// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:1:54: Else
+				// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:1:61: Else
 				{
 				mElse(); 
 
 				}
 				break;
 			case 9 :
-				// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:1:59: FormId
+				// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:1:66: FormId
 				{
 				mFormId(); 
 
 				}
 				break;
 			case 10 :
-				// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:1:66: QuestionLabel
+				// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:1:73: String
 				{
-				mQuestionLabel(); 
+				mString(); 
 
 				}
 				break;
@@ -1155,47 +1203,56 @@ public class QLLexer extends Lexer {
 
 				}
 				break;
+			case 30 :
+				// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:1:189: Not
+				{
+				mNot(); 
+
+				}
+				break;
 
 		}
 	}
 
 
-	protected DFA9 dfa9 = new DFA9(this);
-	static final String DFA9_eotS =
-		"\1\uffff\1\33\1\uffff\1\35\21\uffff\1\45\1\47\7\uffff\3\13\1\53\1\13\1"+
-		"\55\4\uffff\3\13\1\uffff\1\13\1\uffff\1\62\2\13\1\65\1\uffff\1\13\1\67"+
-		"\1\uffff\1\13\1\uffff\1\71\1\uffff";
-	static final String DFA9_eofS =
-		"\72\uffff";
-	static final String DFA9_minS =
-		"\1\11\1\75\1\uffff\1\52\6\60\13\uffff\2\75\7\uffff\1\162\1\157\1\156\1"+
-		"\60\1\163\1\60\4\uffff\1\155\1\154\1\145\1\uffff\1\145\1\uffff\1\60\1"+
-		"\145\1\171\1\60\1\uffff\1\141\1\60\1\uffff\1\156\1\uffff\1\60\1\uffff";
-	static final String DFA9_maxS =
-		"\1\175\1\75\1\uffff\1\57\6\172\13\uffff\2\75\7\uffff\1\162\1\157\1\156"+
-		"\1\172\1\163\1\172\4\uffff\1\155\1\154\1\145\1\uffff\1\145\1\uffff\1\172"+
-		"\1\145\1\171\1\172\1\uffff\1\141\1\172\1\uffff\1\156\1\uffff\1\172\1\uffff";
-	static final String DFA9_acceptS =
-		"\2\uffff\1\2\7\uffff\1\12\1\13\1\14\1\15\1\16\1\17\1\20\1\21\1\22\1\24"+
-		"\1\25\2\uffff\1\32\1\34\1\35\1\33\1\1\1\3\1\23\6\uffff\1\27\1\26\1\31"+
-		"\1\30\3\uffff\1\7\1\uffff\1\11\4\uffff\1\4\2\uffff\1\10\1\uffff\1\6\1"+
-		"\uffff\1\5";
-	static final String DFA9_specialS =
-		"\72\uffff}>";
-	static final String[] DFA9_transitionS = {
-			"\2\2\1\uffff\2\2\22\uffff\1\2\1\1\1\12\3\uffff\1\30\1\uffff\1\20\1\21"+
-			"\1\22\1\23\1\uffff\1\24\1\uffff\1\3\12\14\1\17\1\uffff\1\25\1\27\1\26"+
-			"\2\uffff\32\11\6\uffff\1\13\1\5\2\13\1\10\1\4\2\13\1\7\3\13\1\6\15\13"+
-			"\1\15\1\31\1\16",
-			"\1\32",
+	protected DFA10 dfa10 = new DFA10(this);
+	static final String DFA10_eotS =
+		"\2\uffff\1\34\22\uffff\1\46\1\50\1\uffff\1\52\4\uffff\5\13\1\60\1\13\1"+
+		"\62\6\uffff\5\13\1\uffff\1\13\1\uffff\1\71\1\13\1\73\2\13\1\76\1\uffff"+
+		"\1\73\1\uffff\1\13\1\100\1\uffff\1\13\1\uffff\1\102\1\uffff";
+	static final String DFA10_eofS =
+		"\103\uffff";
+	static final String DFA10_minS =
+		"\1\11\1\uffff\1\52\7\60\13\uffff\2\75\1\uffff\1\75\4\uffff\1\162\1\154"+
+		"\1\165\1\157\1\156\1\60\1\163\1\60\6\uffff\1\155\1\163\1\145\1\154\1\145"+
+		"\1\uffff\1\145\1\uffff\1\60\1\145\1\60\1\145\1\171\1\60\1\uffff\1\60\1"+
+		"\uffff\1\141\1\60\1\uffff\1\156\1\uffff\1\60\1\uffff";
+	static final String DFA10_maxS =
+		"\1\175\1\uffff\1\57\7\172\13\uffff\2\75\1\uffff\1\75\4\uffff\1\162\1\154"+
+		"\1\165\1\157\1\156\1\172\1\163\1\172\6\uffff\1\155\1\163\1\145\1\154\1"+
+		"\145\1\uffff\1\145\1\uffff\1\172\1\145\1\172\1\145\1\171\1\172\1\uffff"+
+		"\1\172\1\uffff\1\141\1\172\1\uffff\1\156\1\uffff\1\172\1\uffff";
+	static final String DFA10_acceptS =
+		"\1\uffff\1\1\10\uffff\1\12\1\13\1\14\1\15\1\16\1\17\1\20\1\21\1\22\1\24"+
+		"\1\25\2\uffff\1\32\1\uffff\1\34\1\35\1\2\1\23\10\uffff\1\27\1\26\1\31"+
+		"\1\30\1\33\1\36\5\uffff\1\7\1\uffff\1\11\6\uffff\1\3\1\uffff\1\4\2\uffff"+
+		"\1\10\1\uffff\1\6\1\uffff\1\5";
+	static final String DFA10_specialS =
+		"\103\uffff}>";
+	static final String[] DFA10_transitionS = {
+			"\2\1\1\uffff\2\1\22\uffff\1\1\1\30\1\12\3\uffff\1\31\1\uffff\1\20\1\21"+
+			"\1\22\1\23\1\uffff\1\24\1\uffff\1\2\12\14\1\17\1\uffff\1\25\1\27\1\26"+
+			"\2\uffff\32\11\6\uffff\1\13\1\5\2\13\1\10\1\3\2\13\1\7\3\13\1\6\6\13"+
+			"\1\4\6\13\1\15\1\32\1\16",
 			"",
-			"\1\34\4\uffff\1\34",
-			"\12\13\7\uffff\32\13\4\uffff\1\13\1\uffff\16\13\1\36\13\13",
-			"\12\13\7\uffff\32\13\4\uffff\1\13\1\uffff\16\13\1\37\13\13",
+			"\1\33\4\uffff\1\33",
+			"\12\13\7\uffff\32\13\4\uffff\1\13\1\uffff\1\36\15\13\1\35\13\13",
+			"\12\13\7\uffff\32\13\4\uffff\1\13\1\uffff\21\13\1\37\10\13",
 			"\12\13\7\uffff\32\13\4\uffff\1\13\1\uffff\16\13\1\40\13\13",
-			"\12\13\7\uffff\32\13\4\uffff\1\13\1\uffff\5\13\1\41\24\13",
-			"\12\13\7\uffff\32\13\4\uffff\1\13\1\uffff\13\13\1\42\16\13",
-			"\12\43\7\uffff\32\43\4\uffff\1\13\1\uffff\32\43",
+			"\12\13\7\uffff\32\13\4\uffff\1\13\1\uffff\16\13\1\41\13\13",
+			"\12\13\7\uffff\32\13\4\uffff\1\13\1\uffff\5\13\1\42\24\13",
+			"\12\13\7\uffff\32\13\4\uffff\1\13\1\uffff\13\13\1\43\16\13",
+			"\12\44\7\uffff\32\44\4\uffff\1\13\1\uffff\32\44",
 			"",
 			"",
 			"",
@@ -1207,77 +1264,86 @@ public class QLLexer extends Lexer {
 			"",
 			"",
 			"",
-			"\1\44",
-			"\1\46",
+			"\1\45",
+			"\1\47",
 			"",
-			"",
-			"",
-			"",
-			"",
-			"",
-			"",
-			"\1\50",
 			"\1\51",
-			"\1\52",
-			"\12\13\7\uffff\32\13\4\uffff\1\13\1\uffff\32\13",
+			"",
+			"",
+			"",
+			"",
+			"\1\53",
 			"\1\54",
-			"\12\43\7\uffff\32\43\4\uffff\1\13\1\uffff\32\43",
-			"",
-			"",
-			"",
-			"",
+			"\1\55",
 			"\1\56",
 			"\1\57",
-			"\1\60",
-			"",
-			"\1\61",
-			"",
 			"\12\13\7\uffff\32\13\4\uffff\1\13\1\uffff\32\13",
+			"\1\61",
+			"\12\44\7\uffff\32\44\4\uffff\1\13\1\uffff\32\44",
+			"",
+			"",
+			"",
+			"",
+			"",
+			"",
 			"\1\63",
 			"\1\64",
-			"\12\13\7\uffff\32\13\4\uffff\1\13\1\uffff\32\13",
-			"",
+			"\1\65",
 			"\1\66",
-			"\12\13\7\uffff\32\13\4\uffff\1\13\1\uffff\32\13",
+			"\1\67",
 			"",
 			"\1\70",
+			"",
+			"\12\13\7\uffff\32\13\4\uffff\1\13\1\uffff\32\13",
+			"\1\72",
+			"\12\13\7\uffff\32\13\4\uffff\1\13\1\uffff\32\13",
+			"\1\74",
+			"\1\75",
+			"\12\13\7\uffff\32\13\4\uffff\1\13\1\uffff\32\13",
+			"",
+			"\12\13\7\uffff\32\13\4\uffff\1\13\1\uffff\32\13",
+			"",
+			"\1\77",
+			"\12\13\7\uffff\32\13\4\uffff\1\13\1\uffff\32\13",
+			"",
+			"\1\101",
 			"",
 			"\12\13\7\uffff\32\13\4\uffff\1\13\1\uffff\32\13",
 			""
 	};
 
-	static final short[] DFA9_eot = DFA.unpackEncodedString(DFA9_eotS);
-	static final short[] DFA9_eof = DFA.unpackEncodedString(DFA9_eofS);
-	static final char[] DFA9_min = DFA.unpackEncodedStringToUnsignedChars(DFA9_minS);
-	static final char[] DFA9_max = DFA.unpackEncodedStringToUnsignedChars(DFA9_maxS);
-	static final short[] DFA9_accept = DFA.unpackEncodedString(DFA9_acceptS);
-	static final short[] DFA9_special = DFA.unpackEncodedString(DFA9_specialS);
-	static final short[][] DFA9_transition;
+	static final short[] DFA10_eot = DFA.unpackEncodedString(DFA10_eotS);
+	static final short[] DFA10_eof = DFA.unpackEncodedString(DFA10_eofS);
+	static final char[] DFA10_min = DFA.unpackEncodedStringToUnsignedChars(DFA10_minS);
+	static final char[] DFA10_max = DFA.unpackEncodedStringToUnsignedChars(DFA10_maxS);
+	static final short[] DFA10_accept = DFA.unpackEncodedString(DFA10_acceptS);
+	static final short[] DFA10_special = DFA.unpackEncodedString(DFA10_specialS);
+	static final short[][] DFA10_transition;
 
 	static {
-		int numStates = DFA9_transitionS.length;
-		DFA9_transition = new short[numStates][];
+		int numStates = DFA10_transitionS.length;
+		DFA10_transition = new short[numStates][];
 		for (int i=0; i<numStates; i++) {
-			DFA9_transition[i] = DFA.unpackEncodedString(DFA9_transitionS[i]);
+			DFA10_transition[i] = DFA.unpackEncodedString(DFA10_transitionS[i]);
 		}
 	}
 
-	protected class DFA9 extends DFA {
+	protected class DFA10 extends DFA {
 
-		public DFA9(BaseRecognizer recognizer) {
+		public DFA10(BaseRecognizer recognizer) {
 			this.recognizer = recognizer;
-			this.decisionNumber = 9;
-			this.eot = DFA9_eot;
-			this.eof = DFA9_eof;
-			this.min = DFA9_min;
-			this.max = DFA9_max;
-			this.accept = DFA9_accept;
-			this.special = DFA9_special;
-			this.transition = DFA9_transition;
+			this.decisionNumber = 10;
+			this.eot = DFA10_eot;
+			this.eof = DFA10_eof;
+			this.min = DFA10_min;
+			this.max = DFA10_max;
+			this.accept = DFA10_accept;
+			this.special = DFA10_special;
+			this.transition = DFA10_transition;
 		}
 		@Override
 		public String getDescription() {
-			return "1:1: Tokens : ( T__42 | WS | COMMENT | FormStart | Boolean | Money | If | Else | FormId | QuestionLabel | Ident | Int | Lbr | Rbr | Assignment_Indicator | RoundLbr | RoundRbr | Mul | Div | Add | Sub | LT | LTEqu | GT | GTEqu | Equ | NotEqu | And | Or );";
+			return "1:1: Tokens : ( WS | COMMENT | FormStart | Bool | BooleanType | MoneyType | If | Else | FormId | String | Ident | Int | Lbr | Rbr | Assignment_Indicator | RoundLbr | RoundRbr | Mul | Div | Add | Sub | LT | LTEqu | GT | GTEqu | Equ | NotEqu | And | Or | Not );";
 		}
 	}
 
