@@ -2,15 +2,15 @@ module ide::Uninit
 
 import Prelude;
 import syntax::AbstractSyntax;
-import typeChecker::Load;
+import util::Load;
 
 import visualization::UseDef;
 import visualization::ControlFlow;
 
-public set[CFNode] defNodes(QuestionId Id, set[Occurrence] Defs) =
-   {statement(occ.stat@location, occ.stat) | Occurrence occ <- Defs, occ.name == Id};
+public set[CFNode] defNodes(str id, set[Occurrence] Defs) =
+   {statement(occ.stat@location, occ.stat) | Occurrence occ <- Defs, occ.name == id};
 
-public set[Occurrence] uninitProgram(PROGRAM P) {
+public set[Occurrence] uninitProgram(Program P) {
    D = defs(P);                     
    CFG = cflowProgram(P);           
    return { occ | occ <- uses(P),   
