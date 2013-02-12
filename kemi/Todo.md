@@ -3,6 +3,7 @@
 * Refactoring
 * Adding comments
 * Remove all old main()s and blahs
+* Create awesome form to show off.
 
 
 # QLS
@@ -10,7 +11,7 @@
 * Refactoring
 * Adding comments
 * Remove all old main()s and blahs
-
+* Create awesome stylesheet to show off.
 
 ## BONUS:
 * HTML templating
