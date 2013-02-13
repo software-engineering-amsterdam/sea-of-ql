@@ -293,6 +293,16 @@ public str styleJS(str ident, StyleRule r:
   "//<attr.name> <\value>
   '";
 
+public str styleJS(str ident, StyleRule r: 
+    stringStyleRule(StyleAttr attr, str \value)) =
+  "//<attr.name> <\value>
+  '";
+
+public str styleJS(str ident, StyleRule r: 
+    colorStyleRule(StyleAttr attr, str \value)) =
+  "//<attr.name> <\value>
+  '";
+
 private str getUniqueID(Stylesheet s) =
   s.ident;
 

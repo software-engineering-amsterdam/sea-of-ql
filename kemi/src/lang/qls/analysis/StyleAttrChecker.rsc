@@ -18,17 +18,20 @@ import lang::qls::analysis::SemanticChecker;
 import lang::qls::ast::AST;
 import lang::qls::util::StyleHelper;
 
+private list[str] defaultAttrs =
+  ["widget", "label-font", "label-color"];
+
 private map[Type, list[str]] allowedAttrs = (
   booleanType("boolean"):
-    ["widget"],
+    defaultAttrs + ["font", "color"],
   integerType("integer"):
-    ["widget", "width"],
+    defaultAttrs + ["width", "font", "color"],
   moneyType("money"):
-    ["widget", "width"],
+    defaultAttrs + ["width", "font", "color"],
   dateType("date"):
-    ["widget"],
+    defaultAttrs + [],
   stringType("string"):
-    ["widget", "width"]
+    defaultAttrs + ["width", "font", "color"]
 );
 
 private bool isAllowedAttr(Type \type, StyleAttr attr) =
