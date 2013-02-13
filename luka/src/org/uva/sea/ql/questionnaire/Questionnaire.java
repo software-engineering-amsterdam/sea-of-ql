@@ -1,6 +1,7 @@
 package org.uva.sea.ql.questionnaire;
 
 import org.uva.sea.ql.ast.expr.ASTNode;
+import org.uva.sea.ql.ast.stat.Block;
 
 public class Questionnaire extends ASTNode{
 

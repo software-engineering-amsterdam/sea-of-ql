@@ -1,17 +1,16 @@
 package org.uva.sea.ql.ast.stat;
 
 import org.uva.sea.ql.ast.expr.Expr;
-import org.uva.sea.ql.questionnaire.Block;
 
 public abstract class ConditionalStat {
 
 	protected Expr condition;
-	protected Block conditionalBlock;
+	protected Block trueBlock;
 	
-	public ConditionalStat(Expr condition, Block ifBlock){
+	public ConditionalStat(Expr condition, Block block){
 		this.condition = condition;
-		this.conditionalBlock = ifBlock;
+		this.trueBlock = block;
 	}
-	public abstract Block getConditionalBlock();
+	public abstract Block getBody();
 	
 }

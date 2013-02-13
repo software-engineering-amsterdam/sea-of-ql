@@ -5,7 +5,7 @@ import java.util.Map;
 import org.uva.sea.ql.ast.expr.Ident;
 import org.uva.sea.ql.ast.type.IntType;
 import org.uva.sea.ql.ast.type.Type;
-import org.uva.sea.ql.ast.visitor.Visitor;
+import org.uva.sea.ql.ast.visitor.ExpressionVisitor;
 
 
 public class Int extends Value{
@@ -16,11 +16,10 @@ public class Int extends Value{
 	}
 	@Override
 	public Type typeOf(Map<Ident, Type> typeEnv) {
-		// TODO Auto-generated method stub
-		return null;
+		return new IntType();
 	}
 	@Override
-	public <T> T accept(Visitor<T> visitor) {
+	public <T> T accept(ExpressionVisitor<T> visitor) {
 		// TODO Auto-generated method stub
 		return null;
 	}

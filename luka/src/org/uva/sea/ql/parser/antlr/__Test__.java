@@ -17,7 +17,7 @@ public class __Test__ {
 						"UTF8"));
 		
 		CommonTokenStream tokens = new CommonTokenStream(lex);
-		QLParser parser = new QLParser(tokens); // new QLParser(tokens,49100,null);  -debug
+		QLParser parser = new QLParser(tokens,49100,null); //new QLParser(tokens); //
 		
 		
 		try {

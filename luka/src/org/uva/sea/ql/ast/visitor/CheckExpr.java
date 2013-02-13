@@ -27,7 +27,7 @@ import org.uva.sea.ql.ast.nodes.values.Money;
 import org.uva.sea.ql.ast.nodes.values.Str;
 import org.uva.sea.ql.ast.type.Type;
 
-public class CheckExpr implements Visitor<Boolean> {
+public class CheckExpr implements ExpressionVisitor<Boolean> {
 	
 	private Map<Ident, Type> typeEnv;
 	private List<ErrorMessage> messages;

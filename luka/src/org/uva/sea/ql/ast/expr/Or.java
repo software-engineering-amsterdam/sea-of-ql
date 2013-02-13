@@ -4,7 +4,7 @@ import java.util.Map;
 
 import org.uva.sea.ql.ast.type.BoolType;
 import org.uva.sea.ql.ast.type.Type;
-import org.uva.sea.ql.ast.visitor.Visitor;
+import org.uva.sea.ql.ast.visitor.ExpressionVisitor;
 
 
 public class Or extends BinaryExpr{
@@ -22,7 +22,7 @@ public class Or extends BinaryExpr{
 	
 	
 	@Override
-	public <T> T accept(Visitor<T> visitor) {
+	public <T> T accept(ExpressionVisitor<T> visitor) {
 		return visitor.visit(this);
 	}
 	
