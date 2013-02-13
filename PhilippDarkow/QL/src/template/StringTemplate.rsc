@@ -36,7 +36,7 @@ private str generateQuestionLabel(str id, str label){
 private str createEndingLabel(str id){
 	return "var <id>EndLabel = document.createElement(\'label\');
 	 <id>EndLabel.htmlFor = <id>;
-	 <id>EndLabel.innerHTML = \"No\"; 
+	 <id>EndLabel.innerHTML = \"Yes\"; 
 	 <id>EndLabel.class = \"<id>EndClass\" ";
 }
 
@@ -68,6 +68,7 @@ str specifyAttributesNumeric(str id){
 str generateParagraph(str id, str att, str lab, str endlab){
 	str p = "var <id>Paragraph = document.createElement(\'p\');
 	<id>Paragraph.setAttribute(\"class\", <id>Paragraph);
+	<id>Paragraph.setAttribute(\"id\", <id>Paragraph);
 	<id>Paragraph.appendChild(<id>Label);
 	<id>Paragraph.appendChild(<id>);
 	<id>Paragraph.appendChild(<id>EndLabel);
@@ -83,6 +84,7 @@ str generateParagraph(str id, str att, str lab, str endlab){
 str generateParagraph(str id, str label, str attributes){
 	str p = "var <id>Paragraph = document.createElement(\'p\');
 	<id>Paragraph.setAttribute(\"class\", <id>Paragraph);
+	<id>Paragraph.setAttribute(\"id\", <id>Paragraph);
 	<id>Paragraph.appendChild(<id>Label);
 	<id>Paragraph.appendChild(<id>);
 	";
@@ -157,10 +159,20 @@ bool getInitResultExpression(Expression exp){
 
 str generateStatement(str formId, statement:ifStat(Expression exp, list[Body] thenPart)){
 	println("in generated if statement");
-	println("EXP : <exp>");
+	println("EXP : <toString(getChildren(exp))>");
+	str g = toString(getChildren(exp)[0]);
+	println("ggg : <g>");
+	javaScriptAddCheckStatementFunction(formId, g);
 	println("Body ThenPart : <thenPart>");
+	for(s <- thenPart){
+		println("BUU : <s>");
+	}
 	//bool checkExp = checkResultExpression();
-	return "";
+	//return "if(OwnHouse){
+	//	console.log(OwnHouse);
+	//	console.log(\'A if statement\');
+	//}";
+	return "<g>.setAttribute(\'onchange\',\"<g>DoTheCheckWithStatement(this)\");";
 }
 
 str huhu(list[Body] body){
@@ -176,7 +188,8 @@ public str generateBody(str id, Body body){
 		visit(body){
 			case Statement s : {
 				println("Statement s : <s>");
-				return generateStatement(id, s);
+				return " //Create Statement method
+				<generateStatement(id, s)> ";
 			}
 		}
 	}

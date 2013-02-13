@@ -65,7 +65,7 @@ void createEmptyHTMLFile(str id, loc dir){
 
 void createEmptyJavaScriptFile(str id, loc dir){
 	dir += "<id>.js";
-	writeFile(dir,"");
+	writeFile(dir,"var <id>;");
 }
 
 void createEmptyCSSFile(str id, loc dir){
@@ -88,9 +88,23 @@ void createValidatorFile(loc l){
 public void javaScriptAddCheckFunction(str formId, str checkBoxId) {
 	str check = "function <checkBoxId>DoTheCheck(cb) {
 		if(cb.checked == true)
-	{ cb.labels[1].innerHTML = \"Yes\"; }
-	if(cb.checked == false)
 	{ cb.labels[1].innerHTML = \"No\"; }
+	if(cb.checked == false)
+	{ cb.labels[1].innerHTML = \"Yes\"; }
 	}"; 
+	appendToJavaScriptFile(formId, "\n <check>");
+}
+
+public void javaScriptAddCheckStatementFunction(str formId, str checkBoxId){
+	str check = "function <checkBoxId>DoTheCheckWithStatement(cb) {
+		if(cb)
+	{ console.log(\'!!!!!!!!\');
+	var wnHouse = document.createElement(\"input\");
+	wnHouse.setAttribute(\'type\',\"text\");
+		wnHouse.setAttribute(\'id\',wnHouse);
+		wnHouse.setAttribute(\'name\',wnHouse);
+		wnHouse.setAttribute(\'value\',wnHouse);
+		<formId>.appendChild(wnHouse);  }
+	}";
 	appendToJavaScriptFile(formId, "\n <check>");
 }

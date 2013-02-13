@@ -6,7 +6,7 @@ import template::File;
 
 public str javaScriptCreateForm(str id, list[Body] Body){
 	str f = "function createForm(){
-			var <id> = document.createElement(\"form\");
+			<id> = document.createElement(\"form\");
 			<id>.setAttribute(\'method\',\"post\");
 			<id>.setAttribute(\'action\',\"submit.php\");
 			<id>.setAttribute(\'name\',<id>);
