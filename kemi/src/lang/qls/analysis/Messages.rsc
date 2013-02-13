@@ -41,3 +41,6 @@ public Message questionUndefinedInForm(loc location) =
 
 public Message typeWithInvalidAttr(str attr, str \type, loc location) =
   error("Attr <attr> not allowed for type <\type>", location);
+
+public Message typeWithInvalidWidget(str widget, str \type, loc location) =
+  error("Widget <widget> not allowed for type <\type>", location);
