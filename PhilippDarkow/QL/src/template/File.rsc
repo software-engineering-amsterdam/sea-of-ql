@@ -21,20 +21,6 @@ loc generateQLDirectory(){
 	}
 }
 
-/** Method 
-*/
-void generateHTMLFile(str id, str program, loc l){
-	l += "<id>.html";
-	println("LOC : <l>");
-	writeFile(l,program);
-}
-
-void generateJavaScriptFile(str id, str func, loc l){
-	l += "<id>.js";
-	println("create empty js file");
-	writeFile(l, func);
-}
-
 void generateCSSFile(str id, str css, loc l){
 	l += "<id>.css";
 	if(isFile(l)){
@@ -45,18 +31,79 @@ void generateCSSFile(str id, str css, loc l){
 	}
 }
 
-public void generateQLProgram(str id, str program, str func){
+
+public void appendToHTMLFile(str formId, str text){
+	loc l = |home:///TestQLJavaScript|;
+	l += "<formId>.html";
+	appendToFile(l, "\n <text>");
+}
+
+public void appendToJavaScriptFile(str formId, str text){
+	loc l = |home:///TestQLJavaScript|;
+	l += "<formId>.js";
+	
+	appendToFile(l, "\n <text>");
+}
+
+public void appendToCssFile(str formId, str text){
+	loc l = |home:///TestQLJavaScript|;
+	l += "<formId>.css";
+	appendToFile(l, "\n <text>");
+}
+
+public void createQLOnHarddisk(str id){
 	loc dir = generateQLDirectory();
-	generateHTMLFile(id,program,dir);
-	generateJavaScriptFile(id,func,dir);
-	//s = cssEndLabels();
-	//generateCSSFile(id,s,dir);
+	createEmptyHTMLFile(id, dir);
+	createEmptyJavaScriptFile(id, dir);
+	createEmptyCSSFile(id, dir);
+}
+
+void createEmptyHTMLFile(str id, loc dir){
+	dir += "<id>.html";
+	writeFile(dir,"");
+}
+
+void createEmptyJavaScriptFile(str id, loc dir){
+	dir += "<id>.js";
+	writeFile(dir,"");
+}
+
+void createEmptyCSSFile(str id, loc dir){
+	dir += "<id>.css";
+	writeFile(dir,"");
 }
 
 public void generateCSSFile(str formId, str id){
 	loc dir = generateQLDirectory();
 	s = cssEndLabels(id);
-	println("s : <s>");
 	generateCSSFile(formId,s,dir);
+}
+
+void createValidatorFile(loc l){
+	l += "gen_validatorv4.js";
+	str v = readFile(|project://QL/src/template/Validator|);
+	println("VVV : <v>");
+	writeFile(l, v);
+}
+
+public void javaScriptAddCheckFunction(str formId, str checkBoxId) {
+	str check = "function <checkBoxId>DoTheCheck() {
+	//	if(document.<formId>.<checkBoxId>.checked == true)
+	{ alert(\'<checkBoxId> is checked\'); }
+	//if(document.<formId>.<checkBoxId>.checked == false)
+	//{ alert(\'<checkBoxId> is not checked\'); }
+	}"; 
+	//javaScriptAddCheckFunction(formId, checkBoxId);
+	appendToJavaScriptFile(formId, "\n <check>");
+	//appendToFile(dir, "\n <check>");
+}
+
+private str javaScriptAddCheckFunction(str formId, str checkBoxId) {
+	return "function <checkBoxId>DoTheCheck() {
+	//	if(document.<formId>.<checkBoxId>.checked == true)
+	{ alert(\'<checkBoxId> is checked\'); }
+	if(document.<formId>.<checkBoxId>.checked == false)
+	{ alert(\'<checkBoxId> is not checked\'); }
+	}";
 }
 

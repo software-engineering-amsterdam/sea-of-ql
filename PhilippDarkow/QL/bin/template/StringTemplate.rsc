@@ -8,6 +8,7 @@ import typeChecker::TypeCheck;
 import util::Load;
 import template::File;
 import template::JavaScript;
+import template::CSS;
 
 // Capitalize the first character of a string
 
@@ -47,7 +48,9 @@ private str specifyAttributesCheckbox(str id){
 	return "<id>.setAttribute(\'type\',\"checkbox\");
 		<id>.setAttribute(\'id\',<id>);
 		<id>.setAttribute(\'name\',<id>);
-		<id>.setAttribute(\'value\',<id>); ";
+		<id>.setAttribute(\'value\',<id>);
+		<id>.setAttribute(\'onclick\',\"<id>DoTheCheck()\");
+		 ";
 }
 
 str specifyAttributesNumeric(str id){
@@ -88,7 +91,11 @@ private str generateQuestion(str formId, question:easyQuestion(str id, str label
 		str attributes = specifyAttributesCheckbox(id);
 		str check = createEndingLabel(id);
 		str paragraph = generateParagraph(id, label, attributes, check);
-		generateCSSFile(formId, id);
+		str cssLabel = cssEndLabels(id);
+		appendToCssFile(formId, cssLabel);
+		// if a checkbox we need to create a function to check the status
+		//javaScriptAddCheckFunction(formId, id);
+		javaScriptAddCheckFunction(formId, id);
 		return "var <id> = document.createElement(\"input\");
 		<attributes> 
 		<label>
@@ -96,7 +103,7 @@ private str generateQuestion(str formId, question:easyQuestion(str id, str label
 		<paragraph>
 		<formId>.appendChild(<id>Paragraph);	
 		 ";
-	}else if(tp == money()){
+	}else if(tp == money()){  // add the moment just a textfield
 		println("in money generate Easy Question");
 		str attributes = specifyAttributesNumeric(id);
 		str paragraph = generateParagraph(id, label, attributes);
@@ -106,9 +113,16 @@ private str generateQuestion(str formId, question:easyQuestion(str id, str label
 		<paragraph>
 		<formId>.appendChild(<id>Paragraph);
 		 ";
-		//return "<labelQuestion> \<input type=\"checkbox\" id=<id> \> Yes";
-	}else if(tp == string()){
-		return "<labelQuestion> \<input type=\"checkbox\" id=<id> \> Yes";
+	}else if(tp == integer()){ // add the moment just a textfield
+		println("in integer generate Easy Question");
+		str attributes = specifyAttributesNumeric(id);
+		str paragraph = generateParagraph(id, label, attributes);
+		return "var <id> = document.createElement(\"input\");
+		<attributes>
+		<label>
+		<paragraph>
+		<formId>.appendChild(<id>Paragraph);
+		 ";
 	}
 	
 }
@@ -117,28 +131,16 @@ private str generateQuestion(str formId, question:computedQuestion(str id, str l
 	println("in generate computed Question <question>");
 	if(tp == boolean()){
 		return "<labelQuestion> \<input type=\"checkbox\" id=<id> \> Yes";
-	}
-	
+	}	
 }
-
-//private str generateBody(list[Body] body){
-//	list[str] ques = [];
-//	for(s <- body){
-//		visit(s){
-//			case Question q : {
-//				ques += generateQuestion(q);
-//			}
-//		}
-//	}
-//	return ques;	
-//}
 
 public str generateBody(str id, Body body){
 	println("in generate Body <body>");
 	for(s <- body){
 		visit(s){
 			case Question q : {
-				return generateQuestion(id, q);
+				str temp = generateQuestion(id, q);
+				return temp;
 			}
 			case Statement s : {
 				return generateStatement(s);
@@ -150,11 +152,12 @@ public str generateBody(str id, Body body){
 public str generateQLForm(Program P){
 	if(program(str id, list[Body] Body) := P){
 		println("in generate JavaScriptForm");
+		createQLOnHarddisk(id);
 		str res = "\<!DOCTYPE html\>
 		\<html\>
 		\<head\>
-		\<script src=\"<id>.js\"\>
-		\</script\>
+		\<script src=\"<id>.js\"\> \</script\>
+		\<script src=\"gen_validatorv4.js\" type=\"text/javascript\"\> \</script\>
 		\<link href=\"<id>.css\" rel=\"stylesheet\" type=\"text/css\"\>
 		\</head\>
 		\<body\>
@@ -164,7 +167,9 @@ public str generateQLForm(Program P){
 		\</body\>
 		\</html\>";	
 		str functions = javaScriptCreateForm(id, Body);
-		generateQLProgram(id,res,functions);
+		//generateQLProgram(id,res,functions);
+		appendToHTMLFile(id, res);
+		//appendToJavaScriptFile(id, functions);
 		return res;
 	}else{
 		return "not possible to generate java script code";
