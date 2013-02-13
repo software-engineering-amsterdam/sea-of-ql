@@ -12,6 +12,7 @@ module lang::ql::compiler::web::Web
 
 import IO;
 import lang::ql::ast::AST;
+import lang::ql::compiler::web::CSS;
 import lang::ql::compiler::web::HTML;
 import lang::ql::compiler::web::JS;
 import lang::ql::compiler::web::PHP;
@@ -22,6 +23,7 @@ public loc buildForm(Form form, loc destFolder) {
   if(!exists(destFolder))
     mkDirectory(destFolder);
   
+  CSS(form, destFolder);
   HTML(form, destFolder);
   JS(form, destFolder);
   PHP(form, destFolder);

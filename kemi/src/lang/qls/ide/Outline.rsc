@@ -95,17 +95,35 @@ private node outline(SectionRule r:
 private node outline(StyleRule r: 
   widgetStyleRule(attr, \value)) =
     createNode(
-      "StyleRule",
-      "<attr> <\value.name>",
+      "WidgetStyleRule",
+      "<attr.name> <\value.name>",
       r@location,
       []
     );
 
 private node outline(StyleRule r: 
-  widthStyleRule(attr, \value)) =
+  intStyleRule(attr, \value)) =
     createNode(
-      "StyleRule",
-      "<attr> <\value>",
+      "IntStyleRule",
+      "<attr.name> <\value>",
+      r@location,
+      []
+    );
+
+private node outline(StyleRule r: 
+  stringStyleRule(attr, \value)) =
+    createNode(
+      "StringStyleRule",
+      "<attr.name> <\value>",
+      r@location,
+      []
+    );
+
+private node outline(StyleRule r: 
+  colorStyleRule(attr, \value)) =
+    createNode(
+      "ColorStyleRule",
+      "<attr.name> <\value>",
       r@location,
       []
     );
