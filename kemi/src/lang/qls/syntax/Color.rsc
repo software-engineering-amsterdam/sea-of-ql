@@ -8,12 +8,8 @@
 @contributor{Kevin van der Vlist - kevin@kevinvandervlist.nl}
 @contributor{Jimi van der Woning - Jimi.vanderWoning@student.uva.nl}
 
-module lang::ql::syntax::String
+module lang::qls::syntax::Color
 
-lexical String
-  = @category="Variable" "\"" TextChar* "\"";
-
-lexical TextChar
-  = [\\] << [\"]
-  | ![\"]
+lexical Color
+  = @category="Constant" [#][0-9A-F][0-9A-F][0-9A-F][0-9A-F][0-9A-F][0-9A-F]
   ;

@@ -1,20 +1,18 @@
 # QL
+* Syntax: all datatypes in separate modules (?)
+* blockIdent (<questionIdent>Block) and similars in some public function?
 * Refactoring / Adding comments
 * Create awesome form to show off.
 * Think of something to do.
-* Check license on all files
 
 # QLS
-* Unlisted questions warnings
-* Styling support
-* Changing Outliner to look like rascal? e.g. categorizing 
+* Checker for slider/number range datatypes (int / real)
+* blockIdent (<questionIdent>Block) and similars in some public function?
 * Refactoring / Adding comments
 * getDefinitions refactoring (StyleHelper QLS)
 * Create awesome stylesheet to show off.
-* Check license on all files
 
 ## BONUS:
-* Slider/number upper/lower boundary support
 * HTML templating
 * Auto keyword inference for lang::(ql|qls)::ast::Keyword
 * Randomized testing for semantic checker

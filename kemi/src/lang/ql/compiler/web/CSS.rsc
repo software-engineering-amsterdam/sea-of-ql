@@ -8,12 +8,23 @@
 @contributor{Kevin van der Vlist - kevin@kevinvandervlist.nl}
 @contributor{Jimi van der Woning - Jimi.vanderWoning@student.uva.nl}
 
-module lang::ql::syntax::String
+module lang::ql::compiler::web::CSS
 
-lexical String
-  = @category="Variable" "\"" TextChar* "\"";
+import IO;
+import lang::ql::ast::AST;
 
-lexical TextChar
-  = [\\] << [\"]
-  | ![\"]
-  ;
+public void CSS(Form f, loc dest) =
+  writeFile(
+    dest + "style.css",
+    ".error {
+    '  float: none;
+    '  color: red;
+    '  padding-left: .5em;
+    '  vertical-align: top;
+    '}
+    '
+    'label {
+    '  display: block;
+    '}
+    '"
+  );

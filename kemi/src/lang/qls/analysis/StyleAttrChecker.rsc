@@ -1,3 +1,13 @@
+@license{
+  Copyright (c) 2013 
+  All rights reserved. This program and the accompanying materials
+  are made available under the terms of the Eclipse Public License v1.0
+  which accompanies this distribution, and is available at
+  http://www.eclipse.org/legal/epl-v10.html
+}
+@contributor{Kevin van der Vlist - kevin@kevinvandervlist.nl}
+@contributor{Jimi van der Woning - Jimi.vanderWoning@student.uva.nl}
+
 module lang::qls::analysis::StyleAttrChecker
 
 import IO;
@@ -8,21 +18,24 @@ import lang::qls::analysis::SemanticChecker;
 import lang::qls::ast::AST;
 import lang::qls::util::StyleHelper;
 
+private list[str] defaultAttrs =
+  ["widget", "label-fontsize", "label-font", "label-color"];
+
 private map[Type, list[str]] allowedAttrs = (
   booleanType("boolean"):
-    ["widget"],
+    defaultAttrs + ["fontsize", "font", "color"],
   integerType("integer"):
-    ["widget", "width"],
+    defaultAttrs + ["width", "fontsize", "font", "color"],
   moneyType("money"):
-    ["widget", "width"],
+    defaultAttrs + ["width", "fontsize", "font", "color"],
   dateType("date"):
-    ["widget"],
+    defaultAttrs + [],
   stringType("string"):
-    ["widget", "width"]
+    defaultAttrs + ["width", "fontsize", "font", "color"]
 );
 
-private bool isAllowedAttr(Type \type, str attr) =
-  attr in allowedAttrs[\type];
+private bool isAllowedAttr(Type \type, StyleAttr attr) =
+  attr.name in allowedAttrs[\type];
 
 public set[Message] unallowedAttrErrors(Stylesheet s) =
   unallowedDefaultAttrErrors(s) +
@@ -34,7 +47,7 @@ private set[Message] unallowedDefaultAttrErrors(Stylesheet s) {
     for(r <- d.styleRules) {
       if(!isAllowedAttr(d.ident, r.attr))
         errors += error(
-          "Attr <r.attr> not allowed for type <d.ident.name>",
+          "Attr <r.attr.name> not allowed for type <d.ident.name>",
           r@location
         );
     }
@@ -53,7 +66,7 @@ private set[Message] unallowedQuestionAttrErrors(Stylesheet s) {
     for(r <- d.styleRules) {
       if(!isAllowedAttr(\type, r.attr))
         errors += error(
-          "Attr <r.attr> not allowed for type <\type.name>",
+          "Attr <r.attr.name> not allowed for type <\type.name>",
           r@location
         );
     }

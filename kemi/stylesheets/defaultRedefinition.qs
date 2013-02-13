@@ -1,5 +1,7 @@
 stylesheet defaultRedefinition {
   section "S1" {
+    question int
+    
     default integer {
       width 100
     }
