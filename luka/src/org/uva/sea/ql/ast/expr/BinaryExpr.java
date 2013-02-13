@@ -15,4 +15,9 @@ public abstract class BinaryExpr extends Expr {
 	public Expr getRhs() {
 		return rhs;
 	}
+	
+	@Override
+	public String toString() {
+		return "Binary: " +this.getClass().toString()+ "  LHS:("+lhs.toString() + ")  RHS("+rhs.toString()+")"; 
+	}
 }

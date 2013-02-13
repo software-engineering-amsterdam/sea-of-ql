@@ -9,4 +9,9 @@ public abstract class UnaryExpr extends Expr{
 	public Expr getExpr(){
 		return this.expr;
 	}
+	
+	@Override
+	public String toString() {
+		return "Unary: "+ this.getClass().toString()+" "+expr.toString();
+	}
 }

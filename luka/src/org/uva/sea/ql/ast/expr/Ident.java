@@ -17,7 +17,7 @@ public class Ident extends Expr {
 	
 	@Override
 	public String toString() {
-		return "IDENT IDENT IDENT IDENT"+this.name;
+		return "Ident:"+this.name;
 	}
 	public Ident(){
 		

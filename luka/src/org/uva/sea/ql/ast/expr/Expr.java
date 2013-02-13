@@ -13,5 +13,9 @@ public abstract class Expr extends ASTNode {
 	
 	//For double dispatch, accept visitor
 	 public abstract <T> T accept(ExpressionVisitor<T> visitor);
-	
+	 
+	@Override
+	public String toString() {
+		return " Expr "+this.getClass().toString();
+	}
 }

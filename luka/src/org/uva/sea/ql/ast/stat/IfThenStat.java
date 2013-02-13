@@ -9,11 +9,7 @@ public class IfThenStat extends ConditionalStat{
 		super(condition,ifBlock);
 	}
 	
-	@Override
-	public Block getBody() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	
 
 	@Override
 	public <T> T accept(StatementVisitor<T> visitor) {

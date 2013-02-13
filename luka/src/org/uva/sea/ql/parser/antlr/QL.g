@@ -2,9 +2,10 @@ grammar QL;
 
 options { 
 output=AST;
+backtrack=true;
+memoize=true; 
 } 
-//backtrack=true; 
-//memoize=true; 
+
 //TODO: var_scope, var_declaration, 
 // easy & computed question
 //if(VAR > CONST)
@@ -69,10 +70,10 @@ import org.uva.sea.ql.ast.*;
  *------------------------------------------------------------------*/
  
 parse
-	: FormStart FormId Lbr blockItem* Rbr EOF -> ^(FormId ^(BLOCK blockItem*));
+	: FormStart FormId Lbr blockItem* Rbr EOF{System.out.println("End grammar");} -> ^(FormId ^(BLOCK (blockItem)*));
 	
 blockItem
-	:	(questionAssignment | constantAssignment | ifBlock ) ; 
+	:	(questionAssignment | constantAssignment | ifBlock )^ ; 
 	
 
 questionAssignment 
@@ -158,26 +159,26 @@ orExpr
 WS  : ( '\t' | ' ' | '\r' | '\n'| '\u000C' )+ { $channel = HIDDEN; } ;
 COMMENT     : ('/*' .* '*/' | '//' ~('\r' | '\n')*)   { $channel = HIDDEN; } ;
 
-FormStart: 'form' { System.out.println("Lex Start: "+getText()); };
+FormStart: 'form'  { System.out.println("Start grammar"); };
 Bool 	: 'true' 
 	| 'false';
 
-BooleanType : 'boolean' { System.out.println("Lex Boolean: "+getText()); };
-MoneyType	: 'money' { System.out.println("Lex Money: "+getText()); };
+BooleanType : 'boolean'; //{ System.out.println("Lex Boolean: "+getText()); };
+MoneyType	: 'money'; //{ System.out.println("Lex Money: "+getText()); };
 
-If	: 'if' { System.out.println("Lex IF: "+getText()); };
-Else	: 'else' { System.out.println("Lex ELSE: "+getText()); };
-FormId 	: 'A'..'Z' ('a'..'z'|'A'..'Z'|'0'..'9')+  { System.out.println("Lex FormId: "+getText()); };
+If	: 'if'; //{ System.out.println("Lex IF: "+getText()); };
+Else	: 'else'; //{ System.out.println("Lex ELSE: "+getText()); };
+FormId 	: 'A'..'Z' ('a'..'z'|'A'..'Z'|'0'..'9')+;  //{ System.out.println("Lex FormId: "+getText()); };
 
-String: '"' .*  '"' { System.out.println("Lex String: "+getText()); };
+String: '"' .*  '"'; //{ System.out.println("Lex String: "+getText()); };
 
 
 
-Ident:   ('a'..'z'|'A'..'Z')('a'..'z'|'A'..'Z'|'0'..'9'|'_')+ { System.out.println("Lex Ident: "+getText()); };
-Int: ('0'..'9')+ { System.out.println("Lex Int: "+getText()); };
+Ident:   ('a'..'z'|'A'..'Z')('a'..'z'|'A'..'Z'|'0'..'9'|'_')+; //{ System.out.println("Lex Ident: "+getText()); };
+Int: ('0'..'9')+; //{ System.out.println("Lex Int: "+getText()); };
 
-Lbr	:	'{' { System.out.println("Lex {: "+getText()); };
-Rbr	:	'}' { System.out.println("Lex }: "+getText()); };
+Lbr	:	'{'; //{ System.out.println("Lex {: "+getText()); };
+Rbr	:	'}'; //{ System.out.println("Lex }: "+getText()); };
 
 
 Assignment_Indicator :	':';

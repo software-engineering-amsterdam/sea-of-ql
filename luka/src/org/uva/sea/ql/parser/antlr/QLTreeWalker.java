@@ -1,4 +1,4 @@
-// $ANTLR 3.5 /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QLTreeWalker.g 2013-02-13 02:36:42
+// $ANTLR 3.5 /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QLTreeWalker.g 2013-02-13 05:17:52
 
 package org.uva.sea.ql.parser.antlr;
 import java.util.Map; 
@@ -10,6 +10,7 @@ import org.uva.sea.ql.ast.expr.*;
 import org.uva.sea.ql.ast.stat.*;
 import org.uva.sea.ql.questionnaire.Questionnaire;
 import org.uva.sea.ql.ast.expr.ASTNode;
+import org.antlr.runtime.debug.DebugEventListener;
 
 
 import org.antlr.runtime.*;
@@ -94,16 +95,16 @@ public class QLTreeWalker extends TreeParser {
 
 	  public Map<Ident,Type> typeEnv = null; 
 		  
-		  public QLTreeWalker(CommonTreeNodeStream nodes, Map<Ident,Type> typeEnv) { 
-		  super(nodes); 
+		 public QLTreeWalker(CommonTreeNodeStream nodes, Map<Ident,Type> typeEnv) { 
+		 super(nodes,new RecognizerSharedState()); 
 		  this.typeEnv = typeEnv;
-		    
 		  } 
+		 
 
 
 
 	// $ANTLR start "walk"
-	// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QLTreeWalker.g:36:1: walk returns [Questionnaire root] : ^(formName= FormId ^( BLOCK ( blockItem )* ) ) ;
+	// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QLTreeWalker.g:37:1: walk returns [Questionnaire root] : ^(formName= FormId ^( BLOCK ( blockItem )* ) ) ;
 	public final Questionnaire walk() throws RecognitionException {
 		Questionnaire root = null;
 
@@ -115,15 +116,16 @@ public class QLTreeWalker extends TreeParser {
 		Block statBlock = new Block();
 
 		try {
-			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QLTreeWalker.g:43:2: ( ^(formName= FormId ^( BLOCK ( blockItem )* ) ) )
-			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QLTreeWalker.g:43:5: ^(formName= FormId ^( BLOCK ( blockItem )* ) )
+			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QLTreeWalker.g:44:2: ( ^(formName= FormId ^( BLOCK ( blockItem )* ) ) )
+			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QLTreeWalker.g:44:5: ^(formName= FormId ^( BLOCK ( blockItem )* ) )
 			{
 			formName=(CommonTree)match(input,FormId,FOLLOW_FormId_in_walk62); 
+			System.out.println("Start walking");
 			match(input, Token.DOWN, null); 
-			match(input,BLOCK,FOLLOW_BLOCK_in_walk65); 
+			match(input,BLOCK,FOLLOW_BLOCK_in_walk68); 
 			if ( input.LA(1)==Token.DOWN ) {
 				match(input, Token.DOWN, null); 
-				// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QLTreeWalker.g:43:31: ( blockItem )*
+				// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QLTreeWalker.g:45:10: ( blockItem )*
 				loop1:
 				while (true) {
 					int alt1=2;
@@ -134,9 +136,9 @@ public class QLTreeWalker extends TreeParser {
 
 					switch (alt1) {
 					case 1 :
-						// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QLTreeWalker.g:43:32: blockItem
+						// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QLTreeWalker.g:45:11: blockItem
 						{
-						pushFollow(FOLLOW_blockItem_in_walk68);
+						pushFollow(FOLLOW_blockItem_in_walk71);
 						blockItem1=blockItem();
 						state._fsp--;
 
@@ -154,6 +156,7 @@ public class QLTreeWalker extends TreeParser {
 
 			match(input, Token.UP, null); 
 
+			System.out.println("End walking");
 			}
 
 
@@ -174,7 +177,7 @@ public class QLTreeWalker extends TreeParser {
 
 
 	// $ANTLR start "blockItem"
-	// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QLTreeWalker.g:46:1: blockItem returns [Stat stat] : ( questionDeclaration | variableDeclaration | ifBlock ) ;
+	// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QLTreeWalker.g:49:1: blockItem returns [Stat stat] : ( questionDeclaration | variableDeclaration | ifBlock ) ;
 	public final Stat blockItem() throws RecognitionException {
 		Stat stat = null;
 
@@ -184,10 +187,10 @@ public class QLTreeWalker extends TreeParser {
 		Stat ifBlock4 =null;
 
 		try {
-			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QLTreeWalker.g:47:2: ( ( questionDeclaration | variableDeclaration | ifBlock ) )
-			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QLTreeWalker.g:47:3: ( questionDeclaration | variableDeclaration | ifBlock )
+			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QLTreeWalker.g:50:2: ( ( questionDeclaration | variableDeclaration | ifBlock ) )
+			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QLTreeWalker.g:50:3: ( questionDeclaration | variableDeclaration | ifBlock )
 			{
-			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QLTreeWalker.g:47:3: ( questionDeclaration | variableDeclaration | ifBlock )
+			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QLTreeWalker.g:50:3: ( questionDeclaration | variableDeclaration | ifBlock )
 			int alt2=3;
 			int LA2_0 = input.LA(1);
 			if ( (LA2_0==ASSIGNMENT) ) {
@@ -428,9 +431,9 @@ public class QLTreeWalker extends TreeParser {
 
 			switch (alt2) {
 				case 1 :
-					// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QLTreeWalker.g:47:4: questionDeclaration
+					// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QLTreeWalker.g:50:4: questionDeclaration
 					{
-					pushFollow(FOLLOW_questionDeclaration_in_blockItem91);
+					pushFollow(FOLLOW_questionDeclaration_in_blockItem97);
 					questionDeclaration2=questionDeclaration();
 					state._fsp--;
 
@@ -438,9 +441,9 @@ public class QLTreeWalker extends TreeParser {
 					}
 					break;
 				case 2 :
-					// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QLTreeWalker.g:48:4: variableDeclaration
+					// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QLTreeWalker.g:51:4: variableDeclaration
 					{
-					pushFollow(FOLLOW_variableDeclaration_in_blockItem98);
+					pushFollow(FOLLOW_variableDeclaration_in_blockItem104);
 					variableDeclaration3=variableDeclaration();
 					state._fsp--;
 
@@ -448,9 +451,9 @@ public class QLTreeWalker extends TreeParser {
 					}
 					break;
 				case 3 :
-					// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QLTreeWalker.g:49:4: ifBlock
+					// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QLTreeWalker.g:52:4: ifBlock
 					{
-					pushFollow(FOLLOW_ifBlock_in_blockItem106);
+					pushFollow(FOLLOW_ifBlock_in_blockItem112);
 					ifBlock4=ifBlock();
 					state._fsp--;
 
@@ -477,7 +480,7 @@ public class QLTreeWalker extends TreeParser {
 
 
 	// $ANTLR start "questionDeclaration"
-	// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QLTreeWalker.g:52:1: questionDeclaration returns [Stat stat] : ^( ASSIGNMENT ^( IDENT Ident ) ^( ASSIGNMENT_TYPE identType ) ^( QUESTION_LABEL String ) ( ^( ASSIGNMENT_EXPRESSION expression ) )? ) ;
+	// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QLTreeWalker.g:55:1: questionDeclaration returns [Stat stat] : ^( ASSIGNMENT ^( IDENT Ident ) ^( ASSIGNMENT_TYPE identType ) ^( QUESTION_LABEL String ) ( ^( ASSIGNMENT_EXPRESSION expression ) )? ) ;
 	public final Stat questionDeclaration() throws RecognitionException {
 		Stat stat = null;
 
@@ -488,31 +491,31 @@ public class QLTreeWalker extends TreeParser {
 		Expr expression8 =null;
 
 		try {
-			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QLTreeWalker.g:53:2: ( ^( ASSIGNMENT ^( IDENT Ident ) ^( ASSIGNMENT_TYPE identType ) ^( QUESTION_LABEL String ) ( ^( ASSIGNMENT_EXPRESSION expression ) )? ) )
-			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QLTreeWalker.g:53:4: ^( ASSIGNMENT ^( IDENT Ident ) ^( ASSIGNMENT_TYPE identType ) ^( QUESTION_LABEL String ) ( ^( ASSIGNMENT_EXPRESSION expression ) )? )
+			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QLTreeWalker.g:56:2: ( ^( ASSIGNMENT ^( IDENT Ident ) ^( ASSIGNMENT_TYPE identType ) ^( QUESTION_LABEL String ) ( ^( ASSIGNMENT_EXPRESSION expression ) )? ) )
+			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QLTreeWalker.g:56:4: ^( ASSIGNMENT ^( IDENT Ident ) ^( ASSIGNMENT_TYPE identType ) ^( QUESTION_LABEL String ) ( ^( ASSIGNMENT_EXPRESSION expression ) )? )
 			{
-			match(input,ASSIGNMENT,FOLLOW_ASSIGNMENT_in_questionDeclaration129); 
+			match(input,ASSIGNMENT,FOLLOW_ASSIGNMENT_in_questionDeclaration135); 
 			match(input, Token.DOWN, null); 
-			match(input,IDENT,FOLLOW_IDENT_in_questionDeclaration132); 
+			match(input,IDENT,FOLLOW_IDENT_in_questionDeclaration138); 
 			match(input, Token.DOWN, null); 
-			Ident5=(CommonTree)match(input,Ident,FOLLOW_Ident_in_questionDeclaration134); 
+			Ident5=(CommonTree)match(input,Ident,FOLLOW_Ident_in_questionDeclaration140); 
 			match(input, Token.UP, null); 
 
-			match(input,ASSIGNMENT_TYPE,FOLLOW_ASSIGNMENT_TYPE_in_questionDeclaration138); 
+			match(input,ASSIGNMENT_TYPE,FOLLOW_ASSIGNMENT_TYPE_in_questionDeclaration144); 
 			match(input, Token.DOWN, null); 
-			pushFollow(FOLLOW_identType_in_questionDeclaration140);
+			pushFollow(FOLLOW_identType_in_questionDeclaration146);
 			identType7=identType();
 			state._fsp--;
 
 			match(input, Token.UP, null); 
 
-			match(input,QUESTION_LABEL,FOLLOW_QUESTION_LABEL_in_questionDeclaration144); 
+			match(input,QUESTION_LABEL,FOLLOW_QUESTION_LABEL_in_questionDeclaration150); 
 			match(input, Token.DOWN, null); 
-			String6=(CommonTree)match(input,String,FOLLOW_String_in_questionDeclaration147); 
+			String6=(CommonTree)match(input,String,FOLLOW_String_in_questionDeclaration153); 
 			match(input, Token.UP, null); 
 
 			stat = new AnswerableStat(new Ident((Ident5!=null?Ident5.getText():null)),(String6!=null?String6.getText():null),identType7);
-			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QLTreeWalker.g:56:4: ( ^( ASSIGNMENT_EXPRESSION expression ) )?
+			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QLTreeWalker.g:59:4: ( ^( ASSIGNMENT_EXPRESSION expression ) )?
 			int alt3=2;
 			int LA3_0 = input.LA(1);
 			if ( (LA3_0==ASSIGNMENT_EXPRESSION) ) {
@@ -520,11 +523,11 @@ public class QLTreeWalker extends TreeParser {
 			}
 			switch (alt3) {
 				case 1 :
-					// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QLTreeWalker.g:56:5: ^( ASSIGNMENT_EXPRESSION expression )
+					// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QLTreeWalker.g:59:5: ^( ASSIGNMENT_EXPRESSION expression )
 					{
-					match(input,ASSIGNMENT_EXPRESSION,FOLLOW_ASSIGNMENT_EXPRESSION_in_questionDeclaration161); 
+					match(input,ASSIGNMENT_EXPRESSION,FOLLOW_ASSIGNMENT_EXPRESSION_in_questionDeclaration167); 
 					match(input, Token.DOWN, null); 
-					pushFollow(FOLLOW_expression_in_questionDeclaration163);
+					pushFollow(FOLLOW_expression_in_questionDeclaration169);
 					expression8=expression();
 					state._fsp--;
 
@@ -555,7 +558,7 @@ public class QLTreeWalker extends TreeParser {
 
 
 	// $ANTLR start "variableDeclaration"
-	// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QLTreeWalker.g:62:1: variableDeclaration returns [Stat stat] : ^( ASSIGNMENT ^( IDENT Ident ) ^( ASSIGNMENT_TYPE identType ) ^( ASSIGNMENT_EXPRESSION expression ) ) ;
+	// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QLTreeWalker.g:65:1: variableDeclaration returns [Stat stat] : ^( ASSIGNMENT ^( IDENT Ident ) ^( ASSIGNMENT_TYPE identType ) ^( ASSIGNMENT_EXPRESSION expression ) ) ;
 	public final Stat variableDeclaration() throws RecognitionException {
 		Stat stat = null;
 
@@ -565,27 +568,27 @@ public class QLTreeWalker extends TreeParser {
 		Type identType11 =null;
 
 		try {
-			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QLTreeWalker.g:63:2: ( ^( ASSIGNMENT ^( IDENT Ident ) ^( ASSIGNMENT_TYPE identType ) ^( ASSIGNMENT_EXPRESSION expression ) ) )
-			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QLTreeWalker.g:63:4: ^( ASSIGNMENT ^( IDENT Ident ) ^( ASSIGNMENT_TYPE identType ) ^( ASSIGNMENT_EXPRESSION expression ) )
+			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QLTreeWalker.g:66:2: ( ^( ASSIGNMENT ^( IDENT Ident ) ^( ASSIGNMENT_TYPE identType ) ^( ASSIGNMENT_EXPRESSION expression ) ) )
+			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QLTreeWalker.g:66:4: ^( ASSIGNMENT ^( IDENT Ident ) ^( ASSIGNMENT_TYPE identType ) ^( ASSIGNMENT_EXPRESSION expression ) )
 			{
-			match(input,ASSIGNMENT,FOLLOW_ASSIGNMENT_in_variableDeclaration195); 
+			match(input,ASSIGNMENT,FOLLOW_ASSIGNMENT_in_variableDeclaration201); 
 			match(input, Token.DOWN, null); 
-			match(input,IDENT,FOLLOW_IDENT_in_variableDeclaration198); 
+			match(input,IDENT,FOLLOW_IDENT_in_variableDeclaration204); 
 			match(input, Token.DOWN, null); 
-			Ident9=(CommonTree)match(input,Ident,FOLLOW_Ident_in_variableDeclaration200); 
+			Ident9=(CommonTree)match(input,Ident,FOLLOW_Ident_in_variableDeclaration206); 
 			match(input, Token.UP, null); 
 
-			match(input,ASSIGNMENT_TYPE,FOLLOW_ASSIGNMENT_TYPE_in_variableDeclaration205); 
+			match(input,ASSIGNMENT_TYPE,FOLLOW_ASSIGNMENT_TYPE_in_variableDeclaration211); 
 			match(input, Token.DOWN, null); 
-			pushFollow(FOLLOW_identType_in_variableDeclaration207);
+			pushFollow(FOLLOW_identType_in_variableDeclaration213);
 			identType11=identType();
 			state._fsp--;
 
 			match(input, Token.UP, null); 
 
-			match(input,ASSIGNMENT_EXPRESSION,FOLLOW_ASSIGNMENT_EXPRESSION_in_variableDeclaration211); 
+			match(input,ASSIGNMENT_EXPRESSION,FOLLOW_ASSIGNMENT_EXPRESSION_in_variableDeclaration217); 
 			match(input, Token.DOWN, null); 
-			pushFollow(FOLLOW_expression_in_variableDeclaration214);
+			pushFollow(FOLLOW_expression_in_variableDeclaration220);
 			expression10=expression();
 			state._fsp--;
 
@@ -611,7 +614,7 @@ public class QLTreeWalker extends TreeParser {
 
 
 	// $ANTLR start "ifBlock"
-	// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QLTreeWalker.g:68:1: ifBlock returns [Stat stat] : ^( IF_STATEMENT ^( IF_CONDITION expression ) ^( IF_BLOCK_TRUE ^( BLOCK ( (ifBlockItems= blockItem )* ) ) ) ( ^( IF_BLOCK_FALSE ^( BLOCK ( (elseBlockItems= blockItem )+ ) ) ) )? ) ;
+	// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QLTreeWalker.g:71:1: ifBlock returns [Stat stat] : ^( IF_STATEMENT ^( IF_CONDITION expression ) ^( IF_BLOCK_TRUE ^( BLOCK (ifBlockItems= blockItem )* ) ) ( ^( IF_BLOCK_FALSE ^( BLOCK (elseBlockItems= blockItem )+ ) ) )? ) ;
 	public final Stat ifBlock() throws RecognitionException {
 		Stat stat = null;
 
@@ -625,28 +628,25 @@ public class QLTreeWalker extends TreeParser {
 		Block elseBl = new Block();
 
 		try {
-			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QLTreeWalker.g:73:2: ( ^( IF_STATEMENT ^( IF_CONDITION expression ) ^( IF_BLOCK_TRUE ^( BLOCK ( (ifBlockItems= blockItem )* ) ) ) ( ^( IF_BLOCK_FALSE ^( BLOCK ( (elseBlockItems= blockItem )+ ) ) ) )? ) )
-			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QLTreeWalker.g:73:4: ^( IF_STATEMENT ^( IF_CONDITION expression ) ^( IF_BLOCK_TRUE ^( BLOCK ( (ifBlockItems= blockItem )* ) ) ) ( ^( IF_BLOCK_FALSE ^( BLOCK ( (elseBlockItems= blockItem )+ ) ) ) )? )
+			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QLTreeWalker.g:76:2: ( ^( IF_STATEMENT ^( IF_CONDITION expression ) ^( IF_BLOCK_TRUE ^( BLOCK (ifBlockItems= blockItem )* ) ) ( ^( IF_BLOCK_FALSE ^( BLOCK (elseBlockItems= blockItem )+ ) ) )? ) )
+			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QLTreeWalker.g:76:4: ^( IF_STATEMENT ^( IF_CONDITION expression ) ^( IF_BLOCK_TRUE ^( BLOCK (ifBlockItems= blockItem )* ) ) ( ^( IF_BLOCK_FALSE ^( BLOCK (elseBlockItems= blockItem )+ ) ) )? )
 			{
-			match(input,IF_STATEMENT,FOLLOW_IF_STATEMENT_in_ifBlock242); 
+			match(input,IF_STATEMENT,FOLLOW_IF_STATEMENT_in_ifBlock248); 
 			match(input, Token.DOWN, null); 
-			match(input,IF_CONDITION,FOLLOW_IF_CONDITION_in_ifBlock246); 
+			match(input,IF_CONDITION,FOLLOW_IF_CONDITION_in_ifBlock252); 
 			match(input, Token.DOWN, null); 
-			pushFollow(FOLLOW_expression_in_ifBlock248);
+			pushFollow(FOLLOW_expression_in_ifBlock254);
 			expression12=expression();
 			state._fsp--;
 
 			match(input, Token.UP, null); 
 
-			match(input,IF_BLOCK_TRUE,FOLLOW_IF_BLOCK_TRUE_in_ifBlock253); 
+			match(input,IF_BLOCK_TRUE,FOLLOW_IF_BLOCK_TRUE_in_ifBlock259); 
 			match(input, Token.DOWN, null); 
-			match(input,BLOCK,FOLLOW_BLOCK_in_ifBlock256); 
+			match(input,BLOCK,FOLLOW_BLOCK_in_ifBlock262); 
 			if ( input.LA(1)==Token.DOWN ) {
 				match(input, Token.DOWN, null); 
-				// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QLTreeWalker.g:73:72: ( (ifBlockItems= blockItem )* )
-				// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QLTreeWalker.g:73:73: (ifBlockItems= blockItem )*
-				{
-				// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QLTreeWalker.g:73:85: (ifBlockItems= blockItem )*
+				// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QLTreeWalker.g:76:72: (ifBlockItems= blockItem )*
 				loop4:
 				while (true) {
 					int alt4=2;
@@ -657,12 +657,13 @@ public class QLTreeWalker extends TreeParser {
 
 					switch (alt4) {
 					case 1 :
-						// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QLTreeWalker.g:73:85: ifBlockItems= blockItem
+						// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QLTreeWalker.g:76:73: ifBlockItems= blockItem
 						{
-						pushFollow(FOLLOW_blockItem_in_ifBlock261);
+						pushFollow(FOLLOW_blockItem_in_ifBlock267);
 						ifBlockItems=blockItem();
 						state._fsp--;
 
+						ifBl. addStatement(ifBlockItems);
 						}
 						break;
 
@@ -671,16 +672,13 @@ public class QLTreeWalker extends TreeParser {
 					}
 				}
 
-				ifBl.addStatement(ifBlockItems);
-				}
-
 				match(input, Token.UP, null); 
 			}
 
 			match(input, Token.UP, null); 
 
 			stat = new IfThenStat(expression12,ifBl);
-			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QLTreeWalker.g:74:2: ( ^( IF_BLOCK_FALSE ^( BLOCK ( (elseBlockItems= blockItem )+ ) ) ) )?
+			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QLTreeWalker.g:77:2: ( ^( IF_BLOCK_FALSE ^( BLOCK (elseBlockItems= blockItem )+ ) ) )?
 			int alt6=2;
 			int LA6_0 = input.LA(1);
 			if ( (LA6_0==IF_BLOCK_FALSE) ) {
@@ -688,16 +686,13 @@ public class QLTreeWalker extends TreeParser {
 			}
 			switch (alt6) {
 				case 1 :
-					// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QLTreeWalker.g:74:3: ^( IF_BLOCK_FALSE ^( BLOCK ( (elseBlockItems= blockItem )+ ) ) )
+					// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QLTreeWalker.g:77:3: ^( IF_BLOCK_FALSE ^( BLOCK (elseBlockItems= blockItem )+ ) )
 					{
-					match(input,IF_BLOCK_FALSE,FOLLOW_IF_BLOCK_FALSE_in_ifBlock274); 
+					match(input,IF_BLOCK_FALSE,FOLLOW_IF_BLOCK_FALSE_in_ifBlock280); 
 					match(input, Token.DOWN, null); 
-					match(input,BLOCK,FOLLOW_BLOCK_in_ifBlock277); 
+					match(input,BLOCK,FOLLOW_BLOCK_in_ifBlock283); 
 					match(input, Token.DOWN, null); 
-					// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QLTreeWalker.g:74:28: ( (elseBlockItems= blockItem )+ )
-					// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QLTreeWalker.g:74:29: (elseBlockItems= blockItem )+
-					{
-					// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QLTreeWalker.g:74:43: (elseBlockItems= blockItem )+
+					// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QLTreeWalker.g:77:28: (elseBlockItems= blockItem )+
 					int cnt5=0;
 					loop5:
 					while (true) {
@@ -709,12 +704,13 @@ public class QLTreeWalker extends TreeParser {
 
 						switch (alt5) {
 						case 1 :
-							// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QLTreeWalker.g:74:43: elseBlockItems= blockItem
+							// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QLTreeWalker.g:77:29: elseBlockItems= blockItem
 							{
-							pushFollow(FOLLOW_blockItem_in_ifBlock282);
+							pushFollow(FOLLOW_blockItem_in_ifBlock288);
 							elseBlockItems=blockItem();
 							state._fsp--;
 
+							elseBl.addStatement(elseBlockItems);
 							}
 							break;
 
@@ -724,9 +720,6 @@ public class QLTreeWalker extends TreeParser {
 							throw eee;
 						}
 						cnt5++;
-					}
-
-					elseBl.addStatement(elseBlockItems);
 					}
 
 					match(input, Token.UP, null); 
@@ -757,149 +750,41 @@ public class QLTreeWalker extends TreeParser {
 
 
 
-	// $ANTLR start "ifStatementBlock"
-	// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QLTreeWalker.g:78:1: ifStatementBlock returns [Stat\tblock] : ( blockItem )* ;
-	public final Stat ifStatementBlock() throws RecognitionException {
-		Stat block = null;
-
-
-		Stat blockItem13 =null;
-
-		try {
-			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QLTreeWalker.g:79:2: ( ( blockItem )* )
-			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QLTreeWalker.g:79:6: ( blockItem )*
-			{
-			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QLTreeWalker.g:79:6: ( blockItem )*
-			loop7:
-			while (true) {
-				int alt7=2;
-				int LA7_0 = input.LA(1);
-				if ( (LA7_0==ASSIGNMENT||LA7_0==IF_STATEMENT) ) {
-					alt7=1;
-				}
-
-				switch (alt7) {
-				case 1 :
-					// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QLTreeWalker.g:79:6: blockItem
-					{
-					pushFollow(FOLLOW_blockItem_in_ifStatementBlock315);
-					blockItem13=blockItem();
-					state._fsp--;
-
-					}
-					break;
-
-				default :
-					break loop7;
-				}
-			}
-
-			block = blockItem13;
-			}
-
-		}
-		catch (RecognitionException re) {
-			reportError(re);
-			recover(input,re);
-		}
-		finally {
-			// do for sure before leaving
-		}
-		return block;
-	}
-	// $ANTLR end "ifStatementBlock"
-
-
-
-	// $ANTLR start "elseBlock"
-	// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QLTreeWalker.g:82:1: elseBlock returns [Stat block] : ( blockItem )* ;
-	public final Stat elseBlock() throws RecognitionException {
-		Stat block = null;
-
-
-		Stat blockItem14 =null;
-
-		try {
-			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QLTreeWalker.g:83:2: ( ( blockItem )* )
-			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QLTreeWalker.g:83:5: ( blockItem )*
-			{
-			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QLTreeWalker.g:83:5: ( blockItem )*
-			loop8:
-			while (true) {
-				int alt8=2;
-				int LA8_0 = input.LA(1);
-				if ( (LA8_0==ASSIGNMENT||LA8_0==IF_STATEMENT) ) {
-					alt8=1;
-				}
-
-				switch (alt8) {
-				case 1 :
-					// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QLTreeWalker.g:83:5: blockItem
-					{
-					pushFollow(FOLLOW_blockItem_in_elseBlock334);
-					blockItem14=blockItem();
-					state._fsp--;
-
-					}
-					break;
-
-				default :
-					break loop8;
-				}
-			}
-
-			block = blockItem14;
-			}
-
-		}
-		catch (RecognitionException re) {
-			reportError(re);
-			recover(input,re);
-		}
-		finally {
-			// do for sure before leaving
-		}
-		return block;
-	}
-	// $ANTLR end "elseBlock"
-
-
-
 	// $ANTLR start "identType"
-	// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QLTreeWalker.g:86:1: identType returns [Type type] : ( BooleanType | MoneyType );
+	// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QLTreeWalker.g:89:1: identType returns [Type type] : ( BooleanType | MoneyType );
 	public final Type identType() throws RecognitionException {
 		Type type = null;
 
 
 		try {
-			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QLTreeWalker.g:87:2: ( BooleanType | MoneyType )
-			int alt9=2;
-			int LA9_0 = input.LA(1);
-			if ( (LA9_0==BooleanType) ) {
-				alt9=1;
+			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QLTreeWalker.g:90:2: ( BooleanType | MoneyType )
+			int alt7=2;
+			int LA7_0 = input.LA(1);
+			if ( (LA7_0==BooleanType) ) {
+				alt7=1;
 			}
-			else if ( (LA9_0==MoneyType) ) {
-				alt9=2;
+			else if ( (LA7_0==MoneyType) ) {
+				alt7=2;
 			}
 
 			else {
 				NoViableAltException nvae =
-					new NoViableAltException("", 9, 0, input);
+					new NoViableAltException("", 7, 0, input);
 				throw nvae;
 			}
 
-			switch (alt9) {
+			switch (alt7) {
 				case 1 :
-					// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QLTreeWalker.g:87:5: BooleanType
+					// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QLTreeWalker.g:90:5: BooleanType
 					{
-					match(input,BooleanType,FOLLOW_BooleanType_in_identType354); 
+					match(input,BooleanType,FOLLOW_BooleanType_in_identType329); 
 					type = new BoolType();
 					}
 					break;
 				case 2 :
-					// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QLTreeWalker.g:88:5: MoneyType
+					// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QLTreeWalker.g:91:5: MoneyType
 					{
-					match(input,MoneyType,FOLLOW_MoneyType_in_identType363); 
+					match(input,MoneyType,FOLLOW_MoneyType_in_identType338); 
 					type = new MoneyType();
 					}
 					break;
@@ -920,365 +805,385 @@ public class QLTreeWalker extends TreeParser {
 
 
 	// $ANTLR start "expression"
-	// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QLTreeWalker.g:91:1: expression returns [Expr node] : ( ^( Or lhs= expression rhs= expression ) | ^( And lhs= expression rhs= expression ) | ^( Equ lhs= expression rhs= expression ) | ^( NotEqu lhs= expression rhs= expression ) | ^( GTEqu lhs= expression rhs= expression ) | ^( LTEqu lhs= expression rhs= expression ) | ^( GT lhs= expression rhs= expression ) | ^( LT lhs= expression rhs= expression ) | ^( Add lhs= expression rhs= expression ) | ^( Sub lhs= expression rhs= expression ) | ^( Mul lhs= expression rhs= expression ) | ^( Div lhs= expression rhs= expression ) | ^( UNARY_MINUS ex= expression ) | ^( UNARY_NEGATE ex= expression ) | Int | Ident );
+	// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QLTreeWalker.g:94:1: expression returns [Expr result] : ( ^( Or lhs= expression rhs= expression ) | ^( And lhs= expression rhs= expression ) | ^( Equ lhs= expression rhs= expression ) | ^( NotEqu lhs= expression rhs= expression ) | ^( GTEqu lhs= expression rhs= expression ) | ^( LTEqu lhs= expression rhs= expression ) | ^( GT lhs= expression rhs= expression ) | ^( LT lhs= expression rhs= expression ) | ^( Add lhs= expression rhs= expression ) | ^( Sub lhs= expression rhs= expression ) | ^( Mul lhs= expression rhs= expression ) | ^( Div lhs= expression rhs= expression ) | ^( UNARY_MINUS ex= expression ) | ^( UNARY_NEGATE ex= expression ) | Int | Ident ) ;
 	public final Expr expression() throws RecognitionException {
-		Expr node = null;
+		Expr result = null;
 
 
-		CommonTree Int15=null;
+		CommonTree Int13=null;
+		CommonTree Ident14=null;
 		Expr lhs =null;
 		Expr rhs =null;
 		Expr ex =null;
 
 		try {
-			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QLTreeWalker.g:92:3: ( ^( Or lhs= expression rhs= expression ) | ^( And lhs= expression rhs= expression ) | ^( Equ lhs= expression rhs= expression ) | ^( NotEqu lhs= expression rhs= expression ) | ^( GTEqu lhs= expression rhs= expression ) | ^( LTEqu lhs= expression rhs= expression ) | ^( GT lhs= expression rhs= expression ) | ^( LT lhs= expression rhs= expression ) | ^( Add lhs= expression rhs= expression ) | ^( Sub lhs= expression rhs= expression ) | ^( Mul lhs= expression rhs= expression ) | ^( Div lhs= expression rhs= expression ) | ^( UNARY_MINUS ex= expression ) | ^( UNARY_NEGATE ex= expression ) | Int | Ident )
-			int alt10=16;
+			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QLTreeWalker.g:95:3: ( ( ^( Or lhs= expression rhs= expression ) | ^( And lhs= expression rhs= expression ) | ^( Equ lhs= expression rhs= expression ) | ^( NotEqu lhs= expression rhs= expression ) | ^( GTEqu lhs= expression rhs= expression ) | ^( LTEqu lhs= expression rhs= expression ) | ^( GT lhs= expression rhs= expression ) | ^( LT lhs= expression rhs= expression ) | ^( Add lhs= expression rhs= expression ) | ^( Sub lhs= expression rhs= expression ) | ^( Mul lhs= expression rhs= expression ) | ^( Div lhs= expression rhs= expression ) | ^( UNARY_MINUS ex= expression ) | ^( UNARY_NEGATE ex= expression ) | Int | Ident ) )
+			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QLTreeWalker.g:96:6: ( ^( Or lhs= expression rhs= expression ) | ^( And lhs= expression rhs= expression ) | ^( Equ lhs= expression rhs= expression ) | ^( NotEqu lhs= expression rhs= expression ) | ^( GTEqu lhs= expression rhs= expression ) | ^( LTEqu lhs= expression rhs= expression ) | ^( GT lhs= expression rhs= expression ) | ^( LT lhs= expression rhs= expression ) | ^( Add lhs= expression rhs= expression ) | ^( Sub lhs= expression rhs= expression ) | ^( Mul lhs= expression rhs= expression ) | ^( Div lhs= expression rhs= expression ) | ^( UNARY_MINUS ex= expression ) | ^( UNARY_NEGATE ex= expression ) | Int | Ident )
+			{
+			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QLTreeWalker.g:96:6: ( ^( Or lhs= expression rhs= expression ) | ^( And lhs= expression rhs= expression ) | ^( Equ lhs= expression rhs= expression ) | ^( NotEqu lhs= expression rhs= expression ) | ^( GTEqu lhs= expression rhs= expression ) | ^( LTEqu lhs= expression rhs= expression ) | ^( GT lhs= expression rhs= expression ) | ^( LT lhs= expression rhs= expression ) | ^( Add lhs= expression rhs= expression ) | ^( Sub lhs= expression rhs= expression ) | ^( Mul lhs= expression rhs= expression ) | ^( Div lhs= expression rhs= expression ) | ^( UNARY_MINUS ex= expression ) | ^( UNARY_NEGATE ex= expression ) | Int | Ident )
+			int alt8=16;
 			switch ( input.LA(1) ) {
 			case Or:
 				{
-				alt10=1;
+				alt8=1;
 				}
 				break;
 			case And:
 				{
-				alt10=2;
+				alt8=2;
 				}
 				break;
 			case Equ:
 				{
-				alt10=3;
+				alt8=3;
 				}
 				break;
 			case NotEqu:
 				{
-				alt10=4;
+				alt8=4;
 				}
 				break;
 			case GTEqu:
 				{
-				alt10=5;
+				alt8=5;
 				}
 				break;
 			case LTEqu:
 				{
-				alt10=6;
+				alt8=6;
 				}
 				break;
 			case GT:
 				{
-				alt10=7;
+				alt8=7;
 				}
 				break;
 			case LT:
 				{
-				alt10=8;
+				alt8=8;
 				}
 				break;
 			case Add:
 				{
-				alt10=9;
+				alt8=9;
 				}
 				break;
 			case Sub:
 				{
-				alt10=10;
+				alt8=10;
 				}
 				break;
 			case Mul:
 				{
-				alt10=11;
+				alt8=11;
 				}
 				break;
 			case Div:
 				{
-				alt10=12;
+				alt8=12;
 				}
 				break;
 			case UNARY_MINUS:
 				{
-				alt10=13;
+				alt8=13;
 				}
 				break;
 			case UNARY_NEGATE:
 				{
-				alt10=14;
+				alt8=14;
 				}
 				break;
 			case Int:
 				{
-				alt10=15;
+				alt8=15;
 				}
 				break;
 			case Ident:
 				{
-				alt10=16;
+				alt8=16;
 				}
 				break;
 			default:
 				NoViableAltException nvae =
-					new NoViableAltException("", 10, 0, input);
+					new NoViableAltException("", 8, 0, input);
 				throw nvae;
 			}
-			switch (alt10) {
+			switch (alt8) {
 				case 1 :
-					// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QLTreeWalker.g:93:6: ^( Or lhs= expression rhs= expression )
+					// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QLTreeWalker.g:96:7: ^( Or lhs= expression rhs= expression )
 					{
-					match(input,Or,FOLLOW_Or_in_expression390); 
+					match(input,Or,FOLLOW_Or_in_expression366); 
 					match(input, Token.DOWN, null); 
-					pushFollow(FOLLOW_expression_in_expression394);
+					pushFollow(FOLLOW_expression_in_expression370);
 					lhs=expression();
 					state._fsp--;
 
-					pushFollow(FOLLOW_expression_in_expression398);
+					result = lhs;
+					pushFollow(FOLLOW_expression_in_expression376);
 					rhs=expression();
 					state._fsp--;
 
+					result = new Or(result,rhs);
 					match(input, Token.UP, null); 
 
-					node = new Or(lhs,rhs);
 					}
 					break;
 				case 2 :
-					// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QLTreeWalker.g:94:6: ^( And lhs= expression rhs= expression )
+					// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QLTreeWalker.g:96:103: ^( And lhs= expression rhs= expression )
 					{
-					match(input,And,FOLLOW_And_in_expression409); 
+					match(input,And,FOLLOW_And_in_expression384); 
 					match(input, Token.DOWN, null); 
-					pushFollow(FOLLOW_expression_in_expression413);
+					pushFollow(FOLLOW_expression_in_expression388);
 					lhs=expression();
 					state._fsp--;
 
-					pushFollow(FOLLOW_expression_in_expression417);
+					result = lhs;
+					pushFollow(FOLLOW_expression_in_expression394);
 					rhs=expression();
 					state._fsp--;
 
+					result = new And(result,rhs);
 					match(input, Token.UP, null); 
 
-					node = new And(lhs,rhs);
 					}
 					break;
 				case 3 :
-					// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QLTreeWalker.g:95:6: ^( Equ lhs= expression rhs= expression )
+					// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QLTreeWalker.g:96:201: ^( Equ lhs= expression rhs= expression )
 					{
-					match(input,Equ,FOLLOW_Equ_in_expression429); 
+					match(input,Equ,FOLLOW_Equ_in_expression402); 
 					match(input, Token.DOWN, null); 
-					pushFollow(FOLLOW_expression_in_expression433);
+					pushFollow(FOLLOW_expression_in_expression406);
 					lhs=expression();
 					state._fsp--;
 
-					pushFollow(FOLLOW_expression_in_expression437);
+					result = lhs;
+					pushFollow(FOLLOW_expression_in_expression412);
 					rhs=expression();
 					state._fsp--;
 
+					result = new Eq(result,rhs);
 					match(input, Token.UP, null); 
 
-					node = new Eq(lhs,rhs);
 					}
 					break;
 				case 4 :
-					// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QLTreeWalker.g:96:6: ^( NotEqu lhs= expression rhs= expression )
+					// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QLTreeWalker.g:96:298: ^( NotEqu lhs= expression rhs= expression )
 					{
-					match(input,NotEqu,FOLLOW_NotEqu_in_expression448); 
+					match(input,NotEqu,FOLLOW_NotEqu_in_expression420); 
 					match(input, Token.DOWN, null); 
-					pushFollow(FOLLOW_expression_in_expression452);
+					pushFollow(FOLLOW_expression_in_expression424);
 					lhs=expression();
 					state._fsp--;
 
-					pushFollow(FOLLOW_expression_in_expression456);
+					result = lhs;
+					pushFollow(FOLLOW_expression_in_expression430);
 					rhs=expression();
 					state._fsp--;
 
+					result = new NEq(result,rhs);
 					match(input, Token.UP, null); 
 
-					node = new NEq(lhs,rhs);
 					}
 					break;
 				case 5 :
-					// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QLTreeWalker.g:97:6: ^( GTEqu lhs= expression rhs= expression )
+					// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QLTreeWalker.g:96:399: ^( GTEqu lhs= expression rhs= expression )
 					{
-					match(input,GTEqu,FOLLOW_GTEqu_in_expression467); 
+					match(input,GTEqu,FOLLOW_GTEqu_in_expression438); 
 					match(input, Token.DOWN, null); 
-					pushFollow(FOLLOW_expression_in_expression471);
+					pushFollow(FOLLOW_expression_in_expression442);
 					lhs=expression();
 					state._fsp--;
 
-					pushFollow(FOLLOW_expression_in_expression475);
+					result = lhs;
+					pushFollow(FOLLOW_expression_in_expression448);
 					rhs=expression();
 					state._fsp--;
 
+					result = new GEq(result,rhs);
 					match(input, Token.UP, null); 
 
-					node = new GEq(lhs,rhs);
 					}
 					break;
 				case 6 :
-					// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QLTreeWalker.g:98:6: ^( LTEqu lhs= expression rhs= expression )
+					// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QLTreeWalker.g:96:499: ^( LTEqu lhs= expression rhs= expression )
 					{
-					match(input,LTEqu,FOLLOW_LTEqu_in_expression486); 
+					match(input,LTEqu,FOLLOW_LTEqu_in_expression456); 
 					match(input, Token.DOWN, null); 
-					pushFollow(FOLLOW_expression_in_expression490);
+					pushFollow(FOLLOW_expression_in_expression460);
 					lhs=expression();
 					state._fsp--;
 
-					pushFollow(FOLLOW_expression_in_expression494);
+					result = lhs;
+					pushFollow(FOLLOW_expression_in_expression466);
 					rhs=expression();
 					state._fsp--;
 
+					result = new LEq(result,rhs);
 					match(input, Token.UP, null); 
 
-					node = new LEq(lhs,rhs);
 					}
 					break;
 				case 7 :
-					// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QLTreeWalker.g:99:6: ^( GT lhs= expression rhs= expression )
+					// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QLTreeWalker.g:96:599: ^( GT lhs= expression rhs= expression )
 					{
-					match(input,GT,FOLLOW_GT_in_expression505); 
+					match(input,GT,FOLLOW_GT_in_expression474); 
 					match(input, Token.DOWN, null); 
-					pushFollow(FOLLOW_expression_in_expression509);
+					pushFollow(FOLLOW_expression_in_expression478);
 					lhs=expression();
 					state._fsp--;
 
-					pushFollow(FOLLOW_expression_in_expression513);
+					result = lhs;
+					pushFollow(FOLLOW_expression_in_expression484);
 					rhs=expression();
 					state._fsp--;
 
+					result = new GT(result,rhs);
 					match(input, Token.UP, null); 
 
-					node = new GT(lhs,rhs);
 					}
 					break;
 				case 8 :
-					// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QLTreeWalker.g:100:6: ^( LT lhs= expression rhs= expression )
+					// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QLTreeWalker.g:96:695: ^( LT lhs= expression rhs= expression )
 					{
-					match(input,LT,FOLLOW_LT_in_expression524); 
+					match(input,LT,FOLLOW_LT_in_expression492); 
 					match(input, Token.DOWN, null); 
-					pushFollow(FOLLOW_expression_in_expression528);
+					pushFollow(FOLLOW_expression_in_expression496);
 					lhs=expression();
 					state._fsp--;
 
-					pushFollow(FOLLOW_expression_in_expression532);
+					result = lhs;
+					pushFollow(FOLLOW_expression_in_expression502);
 					rhs=expression();
 					state._fsp--;
 
+					result = new LT(result,rhs);
 					match(input, Token.UP, null); 
 
-					node = new LT(lhs,rhs);
 					}
 					break;
 				case 9 :
-					// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QLTreeWalker.g:101:6: ^( Add lhs= expression rhs= expression )
+					// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QLTreeWalker.g:96:791: ^( Add lhs= expression rhs= expression )
 					{
-					match(input,Add,FOLLOW_Add_in_expression543); 
+					match(input,Add,FOLLOW_Add_in_expression510); 
 					match(input, Token.DOWN, null); 
-					pushFollow(FOLLOW_expression_in_expression547);
+					pushFollow(FOLLOW_expression_in_expression514);
 					lhs=expression();
 					state._fsp--;
 
-					pushFollow(FOLLOW_expression_in_expression551);
+					result = lhs;
+					pushFollow(FOLLOW_expression_in_expression520);
 					rhs=expression();
 					state._fsp--;
 
+					result = new Add(result,rhs);
 					match(input, Token.UP, null); 
 
-					node = new Add(lhs,rhs);
 					}
 					break;
 				case 10 :
-					// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QLTreeWalker.g:102:6: ^( Sub lhs= expression rhs= expression )
+					// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QLTreeWalker.g:96:889: ^( Sub lhs= expression rhs= expression )
 					{
-					match(input,Sub,FOLLOW_Sub_in_expression562); 
+					match(input,Sub,FOLLOW_Sub_in_expression528); 
 					match(input, Token.DOWN, null); 
-					pushFollow(FOLLOW_expression_in_expression566);
+					pushFollow(FOLLOW_expression_in_expression532);
 					lhs=expression();
 					state._fsp--;
 
-					pushFollow(FOLLOW_expression_in_expression570);
+					result = lhs;
+					pushFollow(FOLLOW_expression_in_expression538);
 					rhs=expression();
 					state._fsp--;
 
+					result = new Sub(result,rhs);
 					match(input, Token.UP, null); 
 
-					node = new Sub(lhs,rhs);
 					}
 					break;
 				case 11 :
-					// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QLTreeWalker.g:103:6: ^( Mul lhs= expression rhs= expression )
+					// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QLTreeWalker.g:96:987: ^( Mul lhs= expression rhs= expression )
 					{
-					match(input,Mul,FOLLOW_Mul_in_expression581); 
+					match(input,Mul,FOLLOW_Mul_in_expression546); 
 					match(input, Token.DOWN, null); 
-					pushFollow(FOLLOW_expression_in_expression585);
+					pushFollow(FOLLOW_expression_in_expression550);
 					lhs=expression();
 					state._fsp--;
 
-					pushFollow(FOLLOW_expression_in_expression589);
+					result = lhs;
+					pushFollow(FOLLOW_expression_in_expression556);
 					rhs=expression();
 					state._fsp--;
 
+					result = new Mul(result,rhs);
 					match(input, Token.UP, null); 
 
-					node = new Mul(lhs,rhs);
 					}
 					break;
 				case 12 :
-					// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QLTreeWalker.g:104:6: ^( Div lhs= expression rhs= expression )
+					// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QLTreeWalker.g:96:1085: ^( Div lhs= expression rhs= expression )
 					{
-					match(input,Div,FOLLOW_Div_in_expression600); 
+					match(input,Div,FOLLOW_Div_in_expression564); 
 					match(input, Token.DOWN, null); 
-					pushFollow(FOLLOW_expression_in_expression604);
+					pushFollow(FOLLOW_expression_in_expression568);
 					lhs=expression();
 					state._fsp--;
 
-					pushFollow(FOLLOW_expression_in_expression608);
+					result = lhs;
+					pushFollow(FOLLOW_expression_in_expression574);
 					rhs=expression();
 					state._fsp--;
 
+					result = new Div(result,rhs);
 					match(input, Token.UP, null); 
 
-					node = new Div(lhs,rhs);
 					}
 					break;
 				case 13 :
-					// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QLTreeWalker.g:105:6: ^( UNARY_MINUS ex= expression )
+					// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QLTreeWalker.g:96:1183: ^( UNARY_MINUS ex= expression )
 					{
-					match(input,UNARY_MINUS,FOLLOW_UNARY_MINUS_in_expression619); 
+					match(input,UNARY_MINUS,FOLLOW_UNARY_MINUS_in_expression582); 
 					match(input, Token.DOWN, null); 
-					pushFollow(FOLLOW_expression_in_expression623);
+					pushFollow(FOLLOW_expression_in_expression586);
 					ex=expression();
 					state._fsp--;
 
+					result = new Neg(ex);
 					match(input, Token.UP, null); 
 
-					node = new Neg(ex);
 					}
 					break;
 				case 14 :
-					// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QLTreeWalker.g:106:6: ^( UNARY_NEGATE ex= expression )
+					// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QLTreeWalker.g:96:1248: ^( UNARY_NEGATE ex= expression )
 					{
-					match(input,UNARY_NEGATE,FOLLOW_UNARY_NEGATE_in_expression634); 
+					match(input,UNARY_NEGATE,FOLLOW_UNARY_NEGATE_in_expression595); 
 					match(input, Token.DOWN, null); 
-					pushFollow(FOLLOW_expression_in_expression638);
+					pushFollow(FOLLOW_expression_in_expression599);
 					ex=expression();
 					state._fsp--;
 
+					result = new Not(ex);
 					match(input, Token.UP, null); 
 
-					node = new Not(ex);
 					}
 					break;
 				case 15 :
-					// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QLTreeWalker.g:107:6: Int
+					// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QLTreeWalker.g:96:1313: Int
 					{
-					Int15=(CommonTree)match(input,Int,FOLLOW_Int_in_expression648); 
-					node = new Int(Integer.parseInt((Int15!=null?Int15.getText():null)));
+					Int13=(CommonTree)match(input,Int,FOLLOW_Int_in_expression606); 
+					result = new Int(Integer.parseInt((Int13!=null?Int13.getText():null)));
 					}
 					break;
 				case 16 :
-					// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QLTreeWalker.g:108:6: Ident
+					// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QLTreeWalker.g:96:1370: Ident
 					{
-					match(input,Ident,FOLLOW_Ident_in_expression658); 
+					Ident14=(CommonTree)match(input,Ident,FOLLOW_Ident_in_expression613); 
+					result = new Ident((Ident14!=null?Ident14.getText():null));
 					}
 					break;
 
 			}
+
+			}
+
 		}
 		catch (RecognitionException re) {
 			reportError(re);
@@ -1287,7 +1192,7 @@ public class QLTreeWalker extends TreeParser {
 		finally {
 			// do for sure before leaving
 		}
-		return node;
+		return result;
 	}
 	// $ANTLR end "expression"
 
@@ -1296,80 +1201,78 @@ public class QLTreeWalker extends TreeParser {
 
 
 	public static final BitSet FOLLOW_FormId_in_walk62 = new BitSet(new long[]{0x0000000000000004L});
-	public static final BitSet FOLLOW_BLOCK_in_walk65 = new BitSet(new long[]{0x0000000000000004L});
-	public static final BitSet FOLLOW_blockItem_in_walk68 = new BitSet(new long[]{0x0000000002000018L});
-	public static final BitSet FOLLOW_questionDeclaration_in_blockItem91 = new BitSet(new long[]{0x0000000000000002L});
-	public static final BitSet FOLLOW_variableDeclaration_in_blockItem98 = new BitSet(new long[]{0x0000000000000002L});
-	public static final BitSet FOLLOW_ifBlock_in_blockItem106 = new BitSet(new long[]{0x0000000000000002L});
-	public static final BitSet FOLLOW_ASSIGNMENT_in_questionDeclaration129 = new BitSet(new long[]{0x0000000000000004L});
-	public static final BitSet FOLLOW_IDENT_in_questionDeclaration132 = new BitSet(new long[]{0x0000000000000004L});
-	public static final BitSet FOLLOW_Ident_in_questionDeclaration134 = new BitSet(new long[]{0x0000000000000008L});
-	public static final BitSet FOLLOW_ASSIGNMENT_TYPE_in_questionDeclaration138 = new BitSet(new long[]{0x0000000000000004L});
-	public static final BitSet FOLLOW_identType_in_questionDeclaration140 = new BitSet(new long[]{0x0000000000000008L});
-	public static final BitSet FOLLOW_QUESTION_LABEL_in_questionDeclaration144 = new BitSet(new long[]{0x0000000000000004L});
-	public static final BitSet FOLLOW_String_in_questionDeclaration147 = new BitSet(new long[]{0x0000000000000008L});
-	public static final BitSet FOLLOW_ASSIGNMENT_EXPRESSION_in_questionDeclaration161 = new BitSet(new long[]{0x0000000000000004L});
-	public static final BitSet FOLLOW_expression_in_questionDeclaration163 = new BitSet(new long[]{0x0000000000000008L});
-	public static final BitSet FOLLOW_ASSIGNMENT_in_variableDeclaration195 = new BitSet(new long[]{0x0000000000000004L});
-	public static final BitSet FOLLOW_IDENT_in_variableDeclaration198 = new BitSet(new long[]{0x0000000000000004L});
-	public static final BitSet FOLLOW_Ident_in_variableDeclaration200 = new BitSet(new long[]{0x0000000000000008L});
-	public static final BitSet FOLLOW_ASSIGNMENT_TYPE_in_variableDeclaration205 = new BitSet(new long[]{0x0000000000000004L});
-	public static final BitSet FOLLOW_identType_in_variableDeclaration207 = new BitSet(new long[]{0x0000000000000008L});
-	public static final BitSet FOLLOW_ASSIGNMENT_EXPRESSION_in_variableDeclaration211 = new BitSet(new long[]{0x0000000000000004L});
-	public static final BitSet FOLLOW_expression_in_variableDeclaration214 = new BitSet(new long[]{0x0000000000000008L});
-	public static final BitSet FOLLOW_IF_STATEMENT_in_ifBlock242 = new BitSet(new long[]{0x0000000000000004L});
-	public static final BitSet FOLLOW_IF_CONDITION_in_ifBlock246 = new BitSet(new long[]{0x0000000000000004L});
-	public static final BitSet FOLLOW_expression_in_ifBlock248 = new BitSet(new long[]{0x0000000000000008L});
-	public static final BitSet FOLLOW_IF_BLOCK_TRUE_in_ifBlock253 = new BitSet(new long[]{0x0000000000000004L});
-	public static final BitSet FOLLOW_BLOCK_in_ifBlock256 = new BitSet(new long[]{0x0000000000000004L});
-	public static final BitSet FOLLOW_blockItem_in_ifBlock261 = new BitSet(new long[]{0x0000000002000018L});
-	public static final BitSet FOLLOW_IF_BLOCK_FALSE_in_ifBlock274 = new BitSet(new long[]{0x0000000000000004L});
-	public static final BitSet FOLLOW_BLOCK_in_ifBlock277 = new BitSet(new long[]{0x0000000000000004L});
-	public static final BitSet FOLLOW_blockItem_in_ifBlock282 = new BitSet(new long[]{0x0000000002000018L});
-	public static final BitSet FOLLOW_blockItem_in_ifStatementBlock315 = new BitSet(new long[]{0x0000000002000012L});
-	public static final BitSet FOLLOW_blockItem_in_elseBlock334 = new BitSet(new long[]{0x0000000002000012L});
-	public static final BitSet FOLLOW_BooleanType_in_identType354 = new BitSet(new long[]{0x0000000000000002L});
-	public static final BitSet FOLLOW_MoneyType_in_identType363 = new BitSet(new long[]{0x0000000000000002L});
-	public static final BitSet FOLLOW_Or_in_expression390 = new BitSet(new long[]{0x0000000000000004L});
-	public static final BitSet FOLLOW_expression_in_expression394 = new BitSet(new long[]{0x00001C1A74194180L});
-	public static final BitSet FOLLOW_expression_in_expression398 = new BitSet(new long[]{0x0000000000000008L});
-	public static final BitSet FOLLOW_And_in_expression409 = new BitSet(new long[]{0x0000000000000004L});
-	public static final BitSet FOLLOW_expression_in_expression413 = new BitSet(new long[]{0x00001C1A74194180L});
-	public static final BitSet FOLLOW_expression_in_expression417 = new BitSet(new long[]{0x0000000000000008L});
-	public static final BitSet FOLLOW_Equ_in_expression429 = new BitSet(new long[]{0x0000000000000004L});
-	public static final BitSet FOLLOW_expression_in_expression433 = new BitSet(new long[]{0x00001C1A74194180L});
-	public static final BitSet FOLLOW_expression_in_expression437 = new BitSet(new long[]{0x0000000000000008L});
-	public static final BitSet FOLLOW_NotEqu_in_expression448 = new BitSet(new long[]{0x0000000000000004L});
-	public static final BitSet FOLLOW_expression_in_expression452 = new BitSet(new long[]{0x00001C1A74194180L});
-	public static final BitSet FOLLOW_expression_in_expression456 = new BitSet(new long[]{0x0000000000000008L});
-	public static final BitSet FOLLOW_GTEqu_in_expression467 = new BitSet(new long[]{0x0000000000000004L});
-	public static final BitSet FOLLOW_expression_in_expression471 = new BitSet(new long[]{0x00001C1A74194180L});
-	public static final BitSet FOLLOW_expression_in_expression475 = new BitSet(new long[]{0x0000000000000008L});
-	public static final BitSet FOLLOW_LTEqu_in_expression486 = new BitSet(new long[]{0x0000000000000004L});
-	public static final BitSet FOLLOW_expression_in_expression490 = new BitSet(new long[]{0x00001C1A74194180L});
-	public static final BitSet FOLLOW_expression_in_expression494 = new BitSet(new long[]{0x0000000000000008L});
-	public static final BitSet FOLLOW_GT_in_expression505 = new BitSet(new long[]{0x0000000000000004L});
-	public static final BitSet FOLLOW_expression_in_expression509 = new BitSet(new long[]{0x00001C1A74194180L});
-	public static final BitSet FOLLOW_expression_in_expression513 = new BitSet(new long[]{0x0000000000000008L});
-	public static final BitSet FOLLOW_LT_in_expression524 = new BitSet(new long[]{0x0000000000000004L});
-	public static final BitSet FOLLOW_expression_in_expression528 = new BitSet(new long[]{0x00001C1A74194180L});
-	public static final BitSet FOLLOW_expression_in_expression532 = new BitSet(new long[]{0x0000000000000008L});
-	public static final BitSet FOLLOW_Add_in_expression543 = new BitSet(new long[]{0x0000000000000004L});
-	public static final BitSet FOLLOW_expression_in_expression547 = new BitSet(new long[]{0x00001C1A74194180L});
-	public static final BitSet FOLLOW_expression_in_expression551 = new BitSet(new long[]{0x0000000000000008L});
-	public static final BitSet FOLLOW_Sub_in_expression562 = new BitSet(new long[]{0x0000000000000004L});
-	public static final BitSet FOLLOW_expression_in_expression566 = new BitSet(new long[]{0x00001C1A74194180L});
-	public static final BitSet FOLLOW_expression_in_expression570 = new BitSet(new long[]{0x0000000000000008L});
-	public static final BitSet FOLLOW_Mul_in_expression581 = new BitSet(new long[]{0x0000000000000004L});
-	public static final BitSet FOLLOW_expression_in_expression585 = new BitSet(new long[]{0x00001C1A74194180L});
-	public static final BitSet FOLLOW_expression_in_expression589 = new BitSet(new long[]{0x0000000000000008L});
-	public static final BitSet FOLLOW_Div_in_expression600 = new BitSet(new long[]{0x0000000000000004L});
-	public static final BitSet FOLLOW_expression_in_expression604 = new BitSet(new long[]{0x00001C1A74194180L});
-	public static final BitSet FOLLOW_expression_in_expression608 = new BitSet(new long[]{0x0000000000000008L});
-	public static final BitSet FOLLOW_UNARY_MINUS_in_expression619 = new BitSet(new long[]{0x0000000000000004L});
-	public static final BitSet FOLLOW_expression_in_expression623 = new BitSet(new long[]{0x0000000000000008L});
-	public static final BitSet FOLLOW_UNARY_NEGATE_in_expression634 = new BitSet(new long[]{0x0000000000000004L});
-	public static final BitSet FOLLOW_expression_in_expression638 = new BitSet(new long[]{0x0000000000000008L});
-	public static final BitSet FOLLOW_Int_in_expression648 = new BitSet(new long[]{0x0000000000000002L});
-	public static final BitSet FOLLOW_Ident_in_expression658 = new BitSet(new long[]{0x0000000000000002L});
+	public static final BitSet FOLLOW_BLOCK_in_walk68 = new BitSet(new long[]{0x0000000000000004L});
+	public static final BitSet FOLLOW_blockItem_in_walk71 = new BitSet(new long[]{0x0000000002000018L});
+	public static final BitSet FOLLOW_questionDeclaration_in_blockItem97 = new BitSet(new long[]{0x0000000000000002L});
+	public static final BitSet FOLLOW_variableDeclaration_in_blockItem104 = new BitSet(new long[]{0x0000000000000002L});
+	public static final BitSet FOLLOW_ifBlock_in_blockItem112 = new BitSet(new long[]{0x0000000000000002L});
+	public static final BitSet FOLLOW_ASSIGNMENT_in_questionDeclaration135 = new BitSet(new long[]{0x0000000000000004L});
+	public static final BitSet FOLLOW_IDENT_in_questionDeclaration138 = new BitSet(new long[]{0x0000000000000004L});
+	public static final BitSet FOLLOW_Ident_in_questionDeclaration140 = new BitSet(new long[]{0x0000000000000008L});
+	public static final BitSet FOLLOW_ASSIGNMENT_TYPE_in_questionDeclaration144 = new BitSet(new long[]{0x0000000000000004L});
+	public static final BitSet FOLLOW_identType_in_questionDeclaration146 = new BitSet(new long[]{0x0000000000000008L});
+	public static final BitSet FOLLOW_QUESTION_LABEL_in_questionDeclaration150 = new BitSet(new long[]{0x0000000000000004L});
+	public static final BitSet FOLLOW_String_in_questionDeclaration153 = new BitSet(new long[]{0x0000000000000008L});
+	public static final BitSet FOLLOW_ASSIGNMENT_EXPRESSION_in_questionDeclaration167 = new BitSet(new long[]{0x0000000000000004L});
+	public static final BitSet FOLLOW_expression_in_questionDeclaration169 = new BitSet(new long[]{0x0000000000000008L});
+	public static final BitSet FOLLOW_ASSIGNMENT_in_variableDeclaration201 = new BitSet(new long[]{0x0000000000000004L});
+	public static final BitSet FOLLOW_IDENT_in_variableDeclaration204 = new BitSet(new long[]{0x0000000000000004L});
+	public static final BitSet FOLLOW_Ident_in_variableDeclaration206 = new BitSet(new long[]{0x0000000000000008L});
+	public static final BitSet FOLLOW_ASSIGNMENT_TYPE_in_variableDeclaration211 = new BitSet(new long[]{0x0000000000000004L});
+	public static final BitSet FOLLOW_identType_in_variableDeclaration213 = new BitSet(new long[]{0x0000000000000008L});
+	public static final BitSet FOLLOW_ASSIGNMENT_EXPRESSION_in_variableDeclaration217 = new BitSet(new long[]{0x0000000000000004L});
+	public static final BitSet FOLLOW_expression_in_variableDeclaration220 = new BitSet(new long[]{0x0000000000000008L});
+	public static final BitSet FOLLOW_IF_STATEMENT_in_ifBlock248 = new BitSet(new long[]{0x0000000000000004L});
+	public static final BitSet FOLLOW_IF_CONDITION_in_ifBlock252 = new BitSet(new long[]{0x0000000000000004L});
+	public static final BitSet FOLLOW_expression_in_ifBlock254 = new BitSet(new long[]{0x0000000000000008L});
+	public static final BitSet FOLLOW_IF_BLOCK_TRUE_in_ifBlock259 = new BitSet(new long[]{0x0000000000000004L});
+	public static final BitSet FOLLOW_BLOCK_in_ifBlock262 = new BitSet(new long[]{0x0000000000000004L});
+	public static final BitSet FOLLOW_blockItem_in_ifBlock267 = new BitSet(new long[]{0x0000000002000018L});
+	public static final BitSet FOLLOW_IF_BLOCK_FALSE_in_ifBlock280 = new BitSet(new long[]{0x0000000000000004L});
+	public static final BitSet FOLLOW_BLOCK_in_ifBlock283 = new BitSet(new long[]{0x0000000000000004L});
+	public static final BitSet FOLLOW_blockItem_in_ifBlock288 = new BitSet(new long[]{0x0000000002000018L});
+	public static final BitSet FOLLOW_BooleanType_in_identType329 = new BitSet(new long[]{0x0000000000000002L});
+	public static final BitSet FOLLOW_MoneyType_in_identType338 = new BitSet(new long[]{0x0000000000000002L});
+	public static final BitSet FOLLOW_Or_in_expression366 = new BitSet(new long[]{0x0000000000000004L});
+	public static final BitSet FOLLOW_expression_in_expression370 = new BitSet(new long[]{0x00001C1A74194180L});
+	public static final BitSet FOLLOW_expression_in_expression376 = new BitSet(new long[]{0x0000000000000008L});
+	public static final BitSet FOLLOW_And_in_expression384 = new BitSet(new long[]{0x0000000000000004L});
+	public static final BitSet FOLLOW_expression_in_expression388 = new BitSet(new long[]{0x00001C1A74194180L});
+	public static final BitSet FOLLOW_expression_in_expression394 = new BitSet(new long[]{0x0000000000000008L});
+	public static final BitSet FOLLOW_Equ_in_expression402 = new BitSet(new long[]{0x0000000000000004L});
+	public static final BitSet FOLLOW_expression_in_expression406 = new BitSet(new long[]{0x00001C1A74194180L});
+	public static final BitSet FOLLOW_expression_in_expression412 = new BitSet(new long[]{0x0000000000000008L});
+	public static final BitSet FOLLOW_NotEqu_in_expression420 = new BitSet(new long[]{0x0000000000000004L});
+	public static final BitSet FOLLOW_expression_in_expression424 = new BitSet(new long[]{0x00001C1A74194180L});
+	public static final BitSet FOLLOW_expression_in_expression430 = new BitSet(new long[]{0x0000000000000008L});
+	public static final BitSet FOLLOW_GTEqu_in_expression438 = new BitSet(new long[]{0x0000000000000004L});
+	public static final BitSet FOLLOW_expression_in_expression442 = new BitSet(new long[]{0x00001C1A74194180L});
+	public static final BitSet FOLLOW_expression_in_expression448 = new BitSet(new long[]{0x0000000000000008L});
+	public static final BitSet FOLLOW_LTEqu_in_expression456 = new BitSet(new long[]{0x0000000000000004L});
+	public static final BitSet FOLLOW_expression_in_expression460 = new BitSet(new long[]{0x00001C1A74194180L});
+	public static final BitSet FOLLOW_expression_in_expression466 = new BitSet(new long[]{0x0000000000000008L});
+	public static final BitSet FOLLOW_GT_in_expression474 = new BitSet(new long[]{0x0000000000000004L});
+	public static final BitSet FOLLOW_expression_in_expression478 = new BitSet(new long[]{0x00001C1A74194180L});
+	public static final BitSet FOLLOW_expression_in_expression484 = new BitSet(new long[]{0x0000000000000008L});
+	public static final BitSet FOLLOW_LT_in_expression492 = new BitSet(new long[]{0x0000000000000004L});
+	public static final BitSet FOLLOW_expression_in_expression496 = new BitSet(new long[]{0x00001C1A74194180L});
+	public static final BitSet FOLLOW_expression_in_expression502 = new BitSet(new long[]{0x0000000000000008L});
+	public static final BitSet FOLLOW_Add_in_expression510 = new BitSet(new long[]{0x0000000000000004L});
+	public static final BitSet FOLLOW_expression_in_expression514 = new BitSet(new long[]{0x00001C1A74194180L});
+	public static final BitSet FOLLOW_expression_in_expression520 = new BitSet(new long[]{0x0000000000000008L});
+	public static final BitSet FOLLOW_Sub_in_expression528 = new BitSet(new long[]{0x0000000000000004L});
+	public static final BitSet FOLLOW_expression_in_expression532 = new BitSet(new long[]{0x00001C1A74194180L});
+	public static final BitSet FOLLOW_expression_in_expression538 = new BitSet(new long[]{0x0000000000000008L});
+	public static final BitSet FOLLOW_Mul_in_expression546 = new BitSet(new long[]{0x0000000000000004L});
+	public static final BitSet FOLLOW_expression_in_expression550 = new BitSet(new long[]{0x00001C1A74194180L});
+	public static final BitSet FOLLOW_expression_in_expression556 = new BitSet(new long[]{0x0000000000000008L});
+	public static final BitSet FOLLOW_Div_in_expression564 = new BitSet(new long[]{0x0000000000000004L});
+	public static final BitSet FOLLOW_expression_in_expression568 = new BitSet(new long[]{0x00001C1A74194180L});
+	public static final BitSet FOLLOW_expression_in_expression574 = new BitSet(new long[]{0x0000000000000008L});
+	public static final BitSet FOLLOW_UNARY_MINUS_in_expression582 = new BitSet(new long[]{0x0000000000000004L});
+	public static final BitSet FOLLOW_expression_in_expression586 = new BitSet(new long[]{0x0000000000000008L});
+	public static final BitSet FOLLOW_UNARY_NEGATE_in_expression595 = new BitSet(new long[]{0x0000000000000004L});
+	public static final BitSet FOLLOW_expression_in_expression599 = new BitSet(new long[]{0x0000000000000008L});
+	public static final BitSet FOLLOW_Int_in_expression606 = new BitSet(new long[]{0x0000000000000002L});
+	public static final BitSet FOLLOW_Ident_in_expression613 = new BitSet(new long[]{0x0000000000000002L});
 }

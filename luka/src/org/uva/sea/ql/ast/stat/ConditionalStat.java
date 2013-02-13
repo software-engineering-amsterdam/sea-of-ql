@@ -11,6 +11,12 @@ public abstract class ConditionalStat extends Stat{
 		this.condition = condition;
 		this.trueBlock = block;
 	}
-	public abstract Block getBody();
+	public Block getBody(){
+		return this.trueBlock;
+	}
+	
+	public Expr getExpr(){
+		return this.condition;
+	}
 	
 }
