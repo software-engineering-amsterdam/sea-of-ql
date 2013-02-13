@@ -48,25 +48,36 @@ private str createEndingLabel(str id){
 	 <id>EndLabel.class = \"<id>EndClass\" ";
 }
 
+str generateParagraph(str id, str att, str lab, str endlab){
+	str p = "var <id>Paragraph = document.createElement(\'p\');
+	<id>Paragraph.appendChild(<id>Label);
+	<id>Paragraph.appendChild(<id>);
+	<id>Paragraph.appendChild(<id>EndLabel);
+	";
+	
+	return p;
+}
+
 /** Method to generate Question 
 */
 private str generateQuestion(str formId, question:easyQuestion(str id, str labelQuestion, Type tp)){
 	println("in generate Question <question>");
 	// document.write(\"\<p\>  \</p\>\");
-	if(tp == boolean()){
+	if(tp == boolean()){	
 		str label = generateQuestionLabel(id, labelQuestion);
 		str attributes = specifyAttributes(id);
 		str check = createEndingLabel(id);
-		println("check : <check>");
-		return "var <id> = document.createElement(\"input\");    //should maybe create an paragraph to have everything on one line
+		str paragraph = generateParagraph(id, label, attributes, check);
+		println("paragraph : <paragraph>");
+		return "var <id> = document.createElement(\"input\");
 		<attributes> 
 		<label>
 		<check>
-		<formId>.appendChild(<id>Label);		 		
-		<formId>.appendChild(<id>);
-		<formId>.appendChild(<id>EndLabel);		
+		<paragraph>
+		<formId>.appendChild(<id>Paragraph);	
 		 ";
 	}else if(tp == money()){
+		println();
 		return "<labelQuestion> \<input type=\"checkbox\" id=<id> \> Yes";
 	}else if(tp == string()){
 		return "<labelQuestion> \<input type=\"checkbox\" id=<id> \> Yes";
