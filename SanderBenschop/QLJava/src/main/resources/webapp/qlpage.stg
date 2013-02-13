@@ -15,12 +15,8 @@ page(formName, formContent, documentReadyContent) ::= <<
         </script>
     </head>
     <body>
-        <form>
-            <!-- Generated form content start -->
-            $formContent$
-            <!-- Generated form content end -->
-            <input type="submit" value="Submit"/>
-        </form>
+        $formContent$
+    </form>
     </body>
 </html>
 >>

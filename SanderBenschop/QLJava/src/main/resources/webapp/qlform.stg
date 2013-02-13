@@ -1,9 +1,16 @@
+form(statements) ::= <<
+    <form>
+        $statements$
+        <input type="submit" value="Submit"/>
+    </form>
+>>
+
 openQuestionHtml(id, labelText) ::= <<
-    <label for="openQuestion_$id$">$labelText$</label><input type="text" id="openQuestion_$id$" name="openQuestion_$id$"/>
+    <label for="question_$id$">$labelText$</label><input type="text" id="question_$id$" name="question_$id$"/>
 >>
 
 closedQuestionHtml(id, labelText) ::= <<
-    <label for="closedQuestion_$id$">$labelText$</label><input type="checkbox" id="closedQuestion_$id$" name="closedQuestion_$id$" value="Yes"/>
+    <label for="question_$id$">$labelText$</label><input type="checkbox" id="question_$id$" name="question_$id$"/>
 >>
 
 questionJS(id, controllerType) ::= <<
@@ -12,8 +19,16 @@ questionJS(id, controllerType) ::= <<
 
 >>
 
-computation(id, labelText) ::= <<
+computationHtml(id, labelText) ::= <<
     <label for="computation_$id$">$labelText$</label><input type="text" id="computation_$id$" name="computation_$id$" readonly="readonly"/>
+>>
+
+ifStatement(hashCode, successBodyContent) :: <<
+    <div id="ifstatement_$hashCode$">
+        <div class="successBody">
+            $successBodyContent$
+        </div>
+    </div>
 >>
 
 positive(expr) ::= << Math.abs($expr$); >>
@@ -36,7 +51,4 @@ greaterThanOrEqualTo(leftHandSideExpr, rightHandSideExpr) ::= << $leftHandSideEx
 lessThan(leftHandSideExpr, rightHandSideExpr) ::= << $leftHandSideExpr$ < $rightHandSideExpr$ >>
 lessThanOrEqualTo(leftHandSideExpr, rightHandSideExpr) ::= << $leftHandSideExpr$ <= $rightHandSideExpr$ >>
 
-ident(name) ::= << getIdentifierValue($name$) >>
-bool(value) ::= << $value$ >>
-int(value) ::= << $value$ >>
-str(value) ::= << $value$ >>
+ident(name) ::= << ql.variableMap["$name$"] >>

@@ -35,8 +35,7 @@ public class WebAppGeneratingVisitorTest {
 
         Question openQuestion = new Question(new Ident("age", sourceCodeInformation), new Str("How old are you?", sourceCodeInformation), new IntegerType());
         Question closedQuestion = new Question(new Ident("male", sourceCodeInformation), new Str("Are you male?", sourceCodeInformation), new BooleanType());
-        Computation computation = new Computation(new Ident("alwaysTen", sourceCodeInformation), new Str("Always 10:", sourceCodeInformation), new Int(10,
-                sourceCodeInformation));
+        Computation computation = new Computation(new Ident("alwaysTen", sourceCodeInformation), new Str("Always 10:", sourceCodeInformation), new Int(10, sourceCodeInformation));
 
         statements.add(openQuestion);
         statements.add(closedQuestion);

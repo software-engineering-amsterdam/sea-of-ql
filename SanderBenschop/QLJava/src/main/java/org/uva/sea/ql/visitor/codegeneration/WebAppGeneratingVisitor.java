@@ -22,76 +22,73 @@ import org.uva.sea.ql.ast.unary.Not;
 import org.uva.sea.ql.ast.unary.Positive;
 import org.uva.sea.ql.ast.unary.UnaryOperation;
 import org.uva.sea.ql.visitor.ASTNodeVisitor;
+import org.uva.sea.ql.visitor.codegeneration.codewrapper.CompositeStatementWebappCodeWrapper;
+import org.uva.sea.ql.visitor.codegeneration.codewrapper.SimpleExpressionWebappCodeWrapper;
+import org.uva.sea.ql.visitor.codegeneration.codewrapper.SimpleStatementWebappCodeWrapper;
+import org.uva.sea.ql.visitor.codegeneration.codewrapper.WebappCodeWrapper;
 
-public class WebAppGeneratingVisitor implements ASTNodeVisitor<Void> {
+public class WebAppGeneratingVisitor implements ASTNodeVisitor<WebappCodeWrapper> {
 
     private final STGroupFile pageTemplateGroup;
     private final STGroupFile formTemplateGroup;
 
-    private final ST pageTemplate;
-
     public WebAppGeneratingVisitor() {
         this.pageTemplateGroup =  new STGroupFile("src/main/resources/webapp/qlpage.stg", '$', '$');
         this.formTemplateGroup =  new STGroupFile("src/main/resources/webapp/qlform.stg", '$', '$');
-        this.pageTemplate = pageTemplateGroup.getInstanceOf("page");
     }
 
     public String generateQLCodeForForm(Form form) {
-        form.accept(this);
+        WebappCodeWrapper webappCodeWrapper = form.accept(this);
+
+        ST pageTemplate = pageTemplateGroup.getInstanceOf("page");
+        pageTemplate.add("formName", form.getName());
+        pageTemplate.add("documentReadyContent", webappCodeWrapper.getJavascriptCode());
+        pageTemplate.add("formContent", webappCodeWrapper.getHTMLCode());
+
         return pageTemplate.render();
     }
 
-    private void addToFormContent(ST template) {
-        pageTemplate.add("formContent", template);
-    }
-
-    private void addToJSDocumentReadyContent(ST template) {
-        pageTemplate.add("documentReadyContent", template);
-    }
-
     @Override
-    public Void visitForm(Form form) {
-        pageTemplate.add("formName", form.getName());
+    public WebappCodeWrapper visitForm(Form form) {
+        CompositeStatementWebappCodeWrapper compositeWrapper = new CompositeStatementWebappCodeWrapper();
         for (QLStatement statement : form.getStatements()) {
-            statement.accept(this);
+            WebappCodeWrapper statementWrapper = statement.accept(this);
+            compositeWrapper.addStatementWebappCodeWrapper(statementWrapper);
         }
+        return compositeWrapper;
+    }
 
+    @Override
+    public WebappCodeWrapper visitComputation(Computation computation) {
+        ST computationHtmlTemplate = formTemplateGroup.getInstanceOf("computationHtml");
+        computationHtmlTemplate.add("id", computation.getIdentifier().getName());
+        computationHtmlTemplate.add("labelText", computation.getLabel().getValue());
+
+        return new SimpleStatementWebappCodeWrapper("", computationHtmlTemplate.render());
+    }
+
+    @Override
+    public WebappCodeWrapper visitIfStatement(IfStatement ifStatement) {
         return null;
     }
 
     @Override
-    public Void visitComputation(Computation computation) {
-        ST computationTemplate = formTemplateGroup.getInstanceOf("computation");
-        computationTemplate.add("id", computation.getIdentifier().getName());
-        computationTemplate.add("labelText", computation.getLabel().getValue());
-
-        addToFormContent(computationTemplate);
+    public WebappCodeWrapper visitIfElseStatement(IfElseStatement ifElseStatement) {
         return null;
     }
 
     @Override
-    public Void visitIfStatement(IfStatement ifStatement) {
-        return null;
-    }
-
-    @Override
-    public Void visitIfElseStatement(IfElseStatement ifElseStatement) {
-        return null;
-    }
-
-    @Override
-    public Void visitQuestion(Question question) {
+    public WebappCodeWrapper visitQuestion(Question question) {
         Type type = question.getDatatype();
         ST questionHtmlTemplate = getQuestionHtmlTemplate(type), questionJSTemplate = formTemplateGroup.getInstanceOf("questionJS");
 
-        questionHtmlTemplate.add("id", question.getIdentifier().getName());
-        questionHtmlTemplate.add("labelText", question.getLabel().getValue());
         questionJSTemplate.add("id", question.getIdentifier().getName());
         questionJSTemplate.add("controllerType", type.getClass().getSimpleName() + "QuestionController");
 
-        addToFormContent(questionHtmlTemplate);
-        addToJSDocumentReadyContent(questionJSTemplate);
-        return null;
+        questionHtmlTemplate.add("id", question.getIdentifier().getName());
+        questionHtmlTemplate.add("labelText", question.getLabel().getValue());
+
+        return new SimpleStatementWebappCodeWrapper(questionJSTemplate.render(), questionHtmlTemplate.render());
     }
 
     private ST getQuestionHtmlTemplate(Type type) {
@@ -103,29 +100,25 @@ public class WebAppGeneratingVisitor implements ASTNodeVisitor<Void> {
         } else {
             throw new UnsupportedOperationException("Unsupported type.");
         }
-
         return questiontemplate;
     }
 
     @Override
-    public Void visitPositive(Positive positive) {
-        ST template = getUnaryOperationST(positive, "positive");
-        addToFormContent(template);
-        return null;
+    public WebappCodeWrapper visitPositive(Positive positive) {
+        String javascriptCode = getUnaryOperationST(positive, "positive").render();
+        return new SimpleExpressionWebappCodeWrapper(javascriptCode);
     }
 
     @Override
-    public Void visitNegative(Negative negative) {
-        ST template = getUnaryOperationST(negative, "negative");
-        addToFormContent(template);
-        return null;
+    public WebappCodeWrapper visitNegative(Negative negative) {
+        String javascriptCode = getUnaryOperationST(negative, "negative").render();
+        return new SimpleExpressionWebappCodeWrapper(javascriptCode);
     }
 
     @Override
-    public Void visitNot(Not not) {
-        ST template = getUnaryOperationST(not, "not");
-        addToFormContent(template);
-        return null;
+    public WebappCodeWrapper visitNot(Not not) {
+        String javascriptCode = getUnaryOperationST(not, "not").render();
+        return new SimpleExpressionWebappCodeWrapper(javascriptCode);
     }
 
     private ST getUnaryOperationST(UnaryOperation unaryOperation, String templateName) {
@@ -135,113 +128,107 @@ public class WebAppGeneratingVisitor implements ASTNodeVisitor<Void> {
     }
 
     @Override
-    public Void visitMultiply(Multiply multiply) {
-        ST template = getBinaryOperationST(multiply, "multiply");
-        addToFormContent(template);
-        return null;
+    public WebappCodeWrapper visitMultiply(Multiply multiply) {
+        String javascriptCode = getBinaryOperationST(multiply, "multiply").render();
+        return new SimpleExpressionWebappCodeWrapper(javascriptCode);
     }
 
     @Override
-    public Void visitDivide(Divide divide) {
-        ST template = getBinaryOperationST(divide, "divide");
-        addToFormContent(template);
-        return null;
+    public WebappCodeWrapper visitDivide(Divide divide) {
+        String javascriptCode = getBinaryOperationST(divide, "divide").render();
+        return new SimpleExpressionWebappCodeWrapper(javascriptCode);
     }
 
     @Override
-    public Void visitSubtract(Subtract subtract) {
-        ST template = getBinaryOperationST(subtract, "subtract");
-        addToFormContent(template);
-        return null;
+    public WebappCodeWrapper visitSubtract(Subtract subtract) {
+        String javascriptCode = getBinaryOperationST(subtract, "subtract").render();
+        return new SimpleExpressionWebappCodeWrapper(javascriptCode);
     }
 
     @Override
-    public Void visitAdd(Add add) {
-        ST template = getBinaryOperationST(add, "add");
-        addToFormContent(template);
-        return null;
+    public WebappCodeWrapper visitAdd(Add add) {
+        String javascriptCode = getBinaryOperationST(add, "add").render();
+        return new SimpleExpressionWebappCodeWrapper(javascriptCode);
     }
 
     @Override
-    public Void visitAnd(And and) {
-        ST template = getBinaryOperationST(and, "and");
-        addToFormContent(template);
-        return null;
+    public WebappCodeWrapper visitAnd(And and) {
+        String javascriptCode = getBinaryOperationST(and, "and").render();
+        return new SimpleExpressionWebappCodeWrapper(javascriptCode);
     }
 
     @Override
-    public Void visitOr(Or or) {
-        ST template = getBinaryOperationST(or, "or");
-        addToFormContent(template);
-        return null;
+    public WebappCodeWrapper visitOr(Or or) {
+        String javascriptCode = getBinaryOperationST(or, "or").render();
+        return new SimpleExpressionWebappCodeWrapper(javascriptCode);
     }
 
     @Override
-    public Void visitEqualTo(EqualTo equalTo) {
-        ST template = getBinaryOperationST(equalTo, "equalTo");
-        addToFormContent(template);
-        return null;
+    public WebappCodeWrapper visitEqualTo(EqualTo equalTo) {
+        String javascriptCode = getBinaryOperationST(equalTo, "equalTo").render();
+        return new SimpleExpressionWebappCodeWrapper(javascriptCode);
     }
 
     @Override
-    public Void visitNotEqualTo(NotEqualTo notEqualTo) {
-        ST template = getBinaryOperationST(notEqualTo, "notEqualTo");
-        addToFormContent(template);
-        return null;
+    public WebappCodeWrapper visitNotEqualTo(NotEqualTo notEqualTo) {
+        String javascriptCode = getBinaryOperationST(notEqualTo, "notEqualTo").render();
+        return new SimpleExpressionWebappCodeWrapper(javascriptCode);
     }
 
     @Override
-    public Void visitGreaterThan(GreaterThan greaterThan) {
-        ST template = getBinaryOperationST(greaterThan, "greaterThan");
-        addToFormContent(template);
-        return null;
+    public WebappCodeWrapper visitGreaterThan(GreaterThan greaterThan) {
+        String javascriptCode = getBinaryOperationST(greaterThan, "greaterThan").render();
+        return new SimpleExpressionWebappCodeWrapper(javascriptCode);
     }
 
     @Override
-    public Void visitGreaterThanOrEqualTo(GreaterThanOrEqualTo greaterThanOrEqualTo) {
-        ST template = getBinaryOperationST(greaterThanOrEqualTo, "greaterThanOrEqualTo");
-        addToFormContent(template);
-        return null;
+    public WebappCodeWrapper visitGreaterThanOrEqualTo(GreaterThanOrEqualTo greaterThanOrEqualTo) {
+        String javascriptCode = getBinaryOperationST(greaterThanOrEqualTo, "greaterThanOrEqualTo").render();
+        return new SimpleExpressionWebappCodeWrapper(javascriptCode);
     }
 
     @Override
-    public Void visitLessThan(LessThan lessThan) {
-        ST template = getBinaryOperationST(lessThan, "lessThan");
-        addToFormContent(template);
-        return null;
+    public WebappCodeWrapper visitLessThan(LessThan lessThan) {
+        String javascriptCode = getBinaryOperationST(lessThan, "lessThan").render();
+        return new SimpleExpressionWebappCodeWrapper(javascriptCode);
     }
 
     @Override
-    public Void visitLessThanOrEqualTo(LessThanOrEqualTo lessThanOrEqualTo) {
-        ST template = getBinaryOperationST(lessThanOrEqualTo, "lessThanOrEqualTo");
-        addToFormContent(template);
-        return null;
+    public WebappCodeWrapper visitLessThanOrEqualTo(LessThanOrEqualTo lessThanOrEqualTo) {
+        String javascriptCode = getBinaryOperationST(lessThanOrEqualTo, "lessThanOrEqualTo").render();
+        return new SimpleExpressionWebappCodeWrapper(javascriptCode);
     }
 
     private ST getBinaryOperationST(BinaryOperation binaryOperation, String templateName) {
         ST binaryOperationTemplate = formTemplateGroup.getInstanceOf(templateName);
-        binaryOperationTemplate.add("leftHandSideExpr", binaryOperation.getLeftHandSide());
-        binaryOperationTemplate.add("rightHandSideExpr", binaryOperation.getRightHandSide());
+        WebappCodeWrapper leftHandSideWrapper = binaryOperation.getLeftHandSide().accept(this), rightHandSideWrapper = binaryOperation.getRightHandSide().accept(this);
+        binaryOperationTemplate.add("leftHandSideExpr", leftHandSideWrapper.getJavascriptCode());
+        binaryOperationTemplate.add("rightHandSideExpr", rightHandSideWrapper.getJavascriptCode());
         return binaryOperationTemplate;
     }
 
     @Override
-    public Void visitIdent(Ident ident) {
-        return null;
+    public WebappCodeWrapper visitIdent(Ident ident) {
+        ST identTemplate = formTemplateGroup.getInstanceOf("ident");
+        identTemplate.add("name", ident.getName());
+        return new SimpleExpressionWebappCodeWrapper(identTemplate.render());
     }
 
     @Override
-    public Void visitBool(Bool boolLiteral) {
-        return null;
+    public WebappCodeWrapper visitBool(Bool boolLiteral) {
+        Boolean value = boolLiteral.getValue();
+        return new SimpleExpressionWebappCodeWrapper(value.toString());
     }
 
     @Override
-    public Void visitInt(Int intLiteral) {
-        return null;
+    public WebappCodeWrapper visitInt(Int intLiteral) {
+        Integer value = intLiteral.getValue();
+        return new SimpleExpressionWebappCodeWrapper(value.toString());
     }
 
     @Override
-    public Void visitStr(Str str) {
-        return null;
+    public WebappCodeWrapper visitStr(Str str) {
+        String value = str.getValue();
+        return new SimpleExpressionWebappCodeWrapper(value);
     }
 }
