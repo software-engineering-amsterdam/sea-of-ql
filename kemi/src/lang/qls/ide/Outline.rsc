@@ -96,7 +96,7 @@ private node outline(StyleRule r:
   widgetStyleRule(attr, \value)) =
     createNode(
       "StyleRule",
-      "<attr> <\value.name>",
+      "<attr.name> <\value.name>",
       r@location,
       []
     );
@@ -105,7 +105,7 @@ private node outline(StyleRule r:
   widthStyleRule(attr, \value)) =
     createNode(
       "StyleRule",
-      "<attr> <\value>",
+      "<attr.name> <\value>",
       r@location,
       []
     );

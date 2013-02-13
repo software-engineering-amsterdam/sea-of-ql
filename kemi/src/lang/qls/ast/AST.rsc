@@ -59,8 +59,13 @@ data Type
   ;
 
 data StyleRule
-  = widgetStyleRule(str attr, WidgetStyleValue widgetValue)
-  | widthStyleRule(str attr, int widthValue)
+  = widgetStyleRule(StyleAttr attr, WidgetStyleValue widgetValue)
+  | widthStyleRule(StyleAttr attr, int widthValue)
+  ;
+
+data StyleAttr
+  = widget(str name)
+  | width(str name)
   ;
 
 data WidgetStyleValue
@@ -82,4 +87,6 @@ anno loc SectionRule@location;
 anno loc QuestionDefinition@location;
 anno loc DefaultDefinition@location;
 anno loc StyleRule@location;
-
+anno loc Type@location;
+anno loc StyleAttr@location;
+anno loc WidgetStyleValue@location;

@@ -73,11 +73,11 @@ lexical WidgetStyleValue
   ;
 
 lexical WidgetStyleAttr
-  = @category="Constant" "widget"
+  = @category="Constant" widget: "widget"
   ;
 
 lexical WidthStyleAttr
-  = @category="Constant" "width"
+  = @category="Constant" width: "width"
   ;
 
 syntax Ident

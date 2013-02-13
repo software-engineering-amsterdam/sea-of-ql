@@ -31,8 +31,8 @@ private map[Type, list[str]] allowedAttrs = (
     ["widget", "width"]
 );
 
-private bool isAllowedAttr(Type \type, str attr) =
-  attr in allowedAttrs[\type];
+private bool isAllowedAttr(Type \type, StyleAttr attr) =
+  attr.name in allowedAttrs[\type];
 
 public set[Message] unallowedAttrErrors(Stylesheet s) =
   unallowedDefaultAttrErrors(s) +

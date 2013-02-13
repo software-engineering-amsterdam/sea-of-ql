@@ -61,12 +61,12 @@ public str prettyPrint(SectionRule r:
     prettyPrint(definition);
 
 public str prettyPrint(StyleRule r: 
-  widgetStyleRule(attr, \value)) =
-    "<attr> <\value.name>";
+  widgetStyleRule(StyleAttr attr, WidgetStyleValue \value)) =
+    "<attr.name> <\value.name>";
 
 public str prettyPrint(StyleRule r: 
-  widthStyleRule(str attr, int \value)) =
-    "<attr> <\value>";
+  widthStyleRule(StyleAttr attr, int \value)) =
+    "<attr.name> <\value>";
 
 public default str prettyPrint(str ident) =
   ident;
