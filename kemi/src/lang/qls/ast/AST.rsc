@@ -79,6 +79,8 @@ data StyleAttr
 data WidgetStyleValue
   = text(str name)
   | number(str name)
+  | number(str name, real min, real max)
+  | number(str name, real min, real max, real step)
   | datepicker(str name)
   | slider(str name)
   | slider(str name, real min, real max)

@@ -6,13 +6,13 @@
 * Think of something to do.
 
 # QLS
+* Checker for slider/number range datatypes (int / real)
 * blockIdent (<questionIdent>Block) and similars in some public function?
 * Refactoring / Adding comments
 * getDefinitions refactoring (StyleHelper QLS)
 * Create awesome stylesheet to show off.
 
 ## BONUS:
-* Slider/number upper/lower boundary support
 * HTML templating
 * Auto keyword inference for lang::(ql|qls)::ast::Keyword
 * Randomized testing for semantic checker

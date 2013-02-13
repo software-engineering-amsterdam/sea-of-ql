@@ -69,6 +69,8 @@ syntax StyleRule
 syntax WidgetStyleValue
   = text: TextWidgetValue
   | number: NumberWidgetValue
+  | number: NumberWidgetValue "[" Number "," Number "]"
+  | number: NumberWidgetValue "[" Number "," Number "," Number "]"
   | datepicker: DatepickerWidgetValue
   | slider: SliderWidgetValue
   | slider: SliderWidgetValue "[" Number "," Number "]"

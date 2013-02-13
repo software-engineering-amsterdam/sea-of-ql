@@ -159,6 +159,17 @@ private str styleJS(str ident, StyleRule r:
 
 private str styleJS(str ident, StyleRule r: 
     widgetStyleRule(attr, number(name))) =
+  numberJS(ident, -1, -1, -1);
+
+private str styleJS(str ident, StyleRule r: 
+    widgetStyleRule(attr, number(name, min, max))) =
+  numberJS(ident, min, max, -1);
+
+private str styleJS(str ident, StyleRule r: 
+    widgetStyleRule(attr, number(name, min, max, step))) =
+  numberJS(ident, min, max, step);
+
+private str numberJS(str ident, real min, real max, real step) =
   "$(\"#<ident>\")
   '  .replaceWith(
   '    $(\"\<input /\>\")
@@ -166,7 +177,14 @@ private str styleJS(str ident, StyleRule r:
   '        id: \"<ident>\",
   '        name: \"<ident>\",
   '        type: \"number\",
-  '        step: $(\"#<ident>\").attr(\"type\") === \"money\" ? \"0.01\" : \"1\",
+  '        <if(min >= 0) {> min: <min>, <}>
+  '        <if(max >= 0) {> max: <max>, <}>
+  '        <if(step >= 0) {>
+  '        step: <step>,
+  '        <} else {>
+  '        step: $(\"#<ident>\").attr(\"type\") === \"money\" ?
+  '          \"0.01\" : \"1\",
+  '        <}>
   '        disabled: $(\"#<ident>\").is(\":disabled\")
   '      })
   '  );

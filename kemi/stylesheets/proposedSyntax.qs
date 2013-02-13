@@ -16,7 +16,10 @@ stylesheet proposedSyntax {
     }
     
     section "section three!" {
-      question questionFour
+      question questionFour {
+        widget number[0., 2.5, 0.05]
+      }
+      
       question questionSix
       question questionSeven
       default boolean {
@@ -48,7 +51,7 @@ stylesheet proposedSyntax {
   }
   
   default integer {
-    widget slider[0, 100, 10]
+    widget slider[0., 100., 10.]
   }
   
   question questionThree {

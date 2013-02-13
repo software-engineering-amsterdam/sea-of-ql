@@ -20,8 +20,8 @@ public str prettyPrint(Stylesheet s) =
   '";
 
 public str prettyPrint(Definition s:
-  definition(definition)) =
-    prettyPrint(definition);
+    definition(definition)) =
+  prettyPrint(definition);
 
 public str prettyPrint(PageDefinition d) =
   "page <d.ident> {<for(r <- d.pageRules) {>
@@ -36,15 +36,15 @@ public str prettyPrint(SectionDefinition d) =
   '";
 
 public str prettyPrint(QuestionDefinition d:
-  questionDefinition(ident)) =
-    "question <prettyPrint(ident)>";
+    questionDefinition(ident)) =
+  "question <prettyPrint(ident)>";
 
 public str prettyPrint(QuestionDefinition d:
-  questionDefinition(ident, styleRules)) =
-    "question <prettyPrint(ident)> {<for(r <- styleRules) {>
-    '  <prettyPrint(r)><}>
-    '}
-    '";
+    questionDefinition(ident, styleRules)) =
+  "question <prettyPrint(ident)> {<for(r <- styleRules) {>
+  '  <prettyPrint(r)><}>
+  '}
+  '";
 
 public str prettyPrint(DefaultDefinition d) =
   "default <d.ident.name> {<for(r <- d.styleRules) {>
@@ -53,28 +53,38 @@ public str prettyPrint(DefaultDefinition d) =
   '";
 
 public str prettyPrint(PageRule r:
-  pageRule(definition)) =
-    prettyPrint(definition);
+    pageRule(definition)) =
+  prettyPrint(definition);
 
 public str prettyPrint(SectionRule r:
-  sectionRule(definition)) =
-    prettyPrint(definition);
+    sectionRule(definition)) =
+  prettyPrint(definition);
 
 public str prettyPrint(StyleRule r: 
-  widgetStyleRule(StyleAttr attr, WidgetStyleValue \value)) =
-    "<attr.name> <\value.name>";
+    widgetStyleRule(StyleAttr attr, WidgetStyleValue \value)) =
+  "<attr.name> <\value.name>[<\value.min>, <\value.max>, <\value.step>]"
+    when \value.step?;
 
 public str prettyPrint(StyleRule r: 
-  intStyleRule(StyleAttr attr, int \value)) =
-    "<attr.name> <\value>";
+    widgetStyleRule(StyleAttr attr, WidgetStyleValue \value)) =
+  "<attr.name> <\value.name>[<\value.min>, <\value.max>]"
+    when \value.min?;
+
+public default str prettyPrint(StyleRule r: 
+    widgetStyleRule(StyleAttr attr, WidgetStyleValue \value)) =
+  "<attr.name> <\value.name>";
 
 public str prettyPrint(StyleRule r: 
-  stringStyleRule(StyleAttr attr, str \value)) =
-    "<attr.name> <\value>";
+    intStyleRule(StyleAttr attr, int \value)) =
+  "<attr.name> <\value>";
 
 public str prettyPrint(StyleRule r: 
-  colorStyleRule(StyleAttr attr, str \value)) =
-    "<attr.name> <\value>";
+    stringStyleRule(StyleAttr attr, str \value)) =
+  "<attr.name> <\value>";
+
+public str prettyPrint(StyleRule r: 
+    colorStyleRule(StyleAttr attr, str \value)) =
+  "<attr.name> <\value>";
 
 public default str prettyPrint(str ident) =
   ident;
