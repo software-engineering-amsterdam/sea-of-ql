@@ -200,13 +200,6 @@ public class CheckExpr implements Visitor<Boolean> {
 	}
 	
 	private Boolean checkLiteralExpr(LiteralExpr expr, String className) {
-		boolean checkExpr = expr.accept(this);
-		
-		if (!checkExpr) {
-			// Type error occurred
-			return false;
-		}
-		
 		Type exprType = expr.typeOf(_typeEnv);
 		
 		// Check if Type is compatible with LiteralExpr
