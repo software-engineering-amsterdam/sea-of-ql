@@ -30,15 +30,6 @@ public class Money extends Value{
 		return visitor.visit(this);
 	}
 
-//	@Override
-//	public Type typeOf(Map<Ident, Type> typeEnv) {
-//		return new MoneyType();
-//	}
-//
-//	@Override
-//	public <T> T accept(Visitor<T> visitor) {
-//		// TODO Auto-generated method stub
-//		return null;
-//	}
+
 
 }

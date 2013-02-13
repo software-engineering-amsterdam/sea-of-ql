@@ -15,6 +15,10 @@ public class Int extends Value {
 		this.value = val;
 	}
 
+	public int getValue() {
+		return this.value;
+	}
+
 	@Override
 	public Type typeOf(Map<Ident, Type> typeEnv) {
 		return new IntType();
@@ -23,6 +27,11 @@ public class Int extends Value {
 	@Override
 	public <T> T accept(Visitor<T> visitor) {
 		return visitor.visit(this);
+	}
+
+	@Override
+	public Value equ(Value arg) {
+		return arg.equ(this);
 	}
 
 	@Override
@@ -45,15 +54,56 @@ public class Int extends Value {
 		return arg.mulInt(this);
 	}
 
-	public int getValue() {
-		return this.value;
+	@Override
+	public Value lt(Value arg) {
+		return arg.ltInt(this);
 	}
 
+	@Override
+	public Value lEq(Value arg) {
+		return arg.lEqInt(this);
+	}
+
+	@Override
+	public Value gt(Value arg) {
+		return arg.gtInt(this);
+	}
+
+	@Override
+	public Value gEq(Value arg) {
+		return arg.gEqInt(this);
+	}
+
+	@Override
+	public Value pos(Value arg) {
+		return posInt(this);
+	}
+
+	@Override
+	public Value neg() {
+		return negInt(this);
+	}
+
+	public Value nEqu(Value arg){
+		return arg.nEquInt(this);
+	}
+	
+	protected Value nEquInt(Int arg){
+		return new Bool(arg.getValue() != getValue());
+	}
+	
+
+	// INTERNAL
 	@Override
 	protected Value addInt(Int arg) {
 		return new Int(arg.getValue() + getValue());
 	}
 
+	@Override
+	protected Value negInt(Int arg) {
+		return new Int(-arg.getValue());
+	}
+	
 	@Override
 	protected Value subInt(Int arg) {
 		return new Int(arg.getValue() - getValue());
@@ -67,6 +117,31 @@ public class Int extends Value {
 	@Override
 	protected Value divInt(Int arg) {
 		return new Int(arg.getValue() / getValue());
+	}
+
+	@Override
+	protected Value equInt(Int arg) {
+		return new Bool(arg.getValue() == getValue());
+	}
+
+	@Override
+	protected Value ltInt(Int arg) {
+		return new Bool(arg.getValue() < getValue());
+	}
+
+	@Override
+	protected Value lEqInt(Int arg) {
+		return new Bool(arg.getValue() <= getValue());
+	}
+
+	@Override
+	protected Value gtInt(Int arg) {
+		return new Bool(arg.getValue() > getValue());
+	}
+
+	@Override
+	protected Value gEqInt(Int arg) {
+		return new Bool(arg.getValue() >= getValue());
 	}
 
 }
