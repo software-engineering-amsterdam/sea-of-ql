@@ -1,63 +1,66 @@
 package org.uva.sea.ql.visitor;
 
-import org.uva.sea.ql.ast.expression.Ident;
-import org.uva.sea.ql.ast.expression.arithmetic.Add;
-import org.uva.sea.ql.ast.expression.arithmetic.Div;
-import org.uva.sea.ql.ast.expression.arithmetic.Mul;
-import org.uva.sea.ql.ast.expression.arithmetic.Sub;
-import org.uva.sea.ql.ast.expression.comparison.Eq;
-import org.uva.sea.ql.ast.expression.comparison.GEq;
-import org.uva.sea.ql.ast.expression.comparison.GT;
-import org.uva.sea.ql.ast.expression.comparison.LEq;
-import org.uva.sea.ql.ast.expression.comparison.LT;
-import org.uva.sea.ql.ast.expression.comparison.NEq;
-import org.uva.sea.ql.ast.expression.literal.Bool;
-import org.uva.sea.ql.ast.expression.literal.Int;
-import org.uva.sea.ql.ast.expression.literal.Money;
-import org.uva.sea.ql.ast.expression.literal.Str;
-import org.uva.sea.ql.ast.expression.logical.And;
-import org.uva.sea.ql.ast.expression.logical.Or;
-import org.uva.sea.ql.ast.expression.unary.Neg;
-import org.uva.sea.ql.ast.expression.unary.Not;
-import org.uva.sea.ql.ast.expression.unary.Pos;
+import org.uva.sea.ql.ast.expression.IdentifierExpression;
+import org.uva.sea.ql.ast.expression.binary.arithmetic.AddExpression;
+import org.uva.sea.ql.ast.expression.binary.arithmetic.DivideExpression;
+import org.uva.sea.ql.ast.expression.binary.arithmetic.MultiplyExpression;
+import org.uva.sea.ql.ast.expression.binary.arithmetic.SubtractExpression;
+import org.uva.sea.ql.ast.expression.binary.comparison.EqualExpression;
+import org.uva.sea.ql.ast.expression.binary.comparison.GreaterThanExpression;
+import org.uva.sea.ql.ast.expression.binary.comparison.GreaterThanOrEqualExpression;
+import org.uva.sea.ql.ast.expression.binary.comparison.LesserThanExpression;
+import org.uva.sea.ql.ast.expression.binary.comparison.LesserThanOrEqualExpression;
+import org.uva.sea.ql.ast.expression.binary.comparison.NotEqualExpression;
+import org.uva.sea.ql.ast.expression.binary.logical.AndExpression;
+import org.uva.sea.ql.ast.expression.binary.logical.OrExpression;
+import org.uva.sea.ql.ast.expression.literal.BooleanLiteral;
+import org.uva.sea.ql.ast.expression.literal.IntegerLiteral;
+import org.uva.sea.ql.ast.expression.literal.MoneyLiteral;
+import org.uva.sea.ql.ast.expression.literal.StringLiteral;
+import org.uva.sea.ql.ast.expression.unary.logical.NotExpression;
+import org.uva.sea.ql.ast.expression.unary.numeric.NegativeExpression;
+import org.uva.sea.ql.ast.expression.unary.numeric.PositiveExpression;
 
 public interface ExpressionVisitor<T> {
 
 	// Arithmetic expressions
 
-	T visit( Add node );
-	T visit( Sub node );
-	T visit( Div node );
-	T visit( Mul node );
+	T visit( AddExpression node );
+	T visit( SubtractExpression node );
+	T visit( DivideExpression node );
+	T visit( MultiplyExpression node );
 
 	// Binary Logical expressions
 
-	T visit( And node );
-	T visit( Or node );
+	T visit( AndExpression node );
+	T visit( OrExpression node );
 
 	// Comparison expressions
 
-	T visit( Eq node );
-	T visit( GEq node );
-	T visit( GT node );
-	T visit( LEq node );
-	T visit( LT node );
-	T visit( NEq node );
+	T visit( EqualExpression node );
+	T visit( GreaterThanOrEqualExpression node );
+	T visit( GreaterThanExpression node );
+	T visit( LesserThanOrEqualExpression node );
+	T visit( LesserThanExpression node );
+	T visit( NotEqualExpression node );
 
 	// Unary logical expressions
 
-	T visit( Not node );
+	T visit( NotExpression node );
 
 	// Unary numeric expressions
 
-	T visit( Pos node );
-	T visit( Neg node );
+	T visit( PositiveExpression node );
+	T visit( NegativeExpression node );
 
 	// Literal expressions
 
-	T visit( Int node );
-	T visit( Bool node );
-	T visit( Money node );
-	T visit( Str node );
-	T visit( Ident node );
+	T visit( IntegerLiteral node );
+	T visit( BooleanLiteral node );
+	T visit( MoneyLiteral node );
+	T visit( StringLiteral node );
+
+	// Identifier expression
+
+	T visit( IdentifierExpression node );
 }

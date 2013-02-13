@@ -1,6 +1,6 @@
 package org.uva.sea.ql.ast.literals;
 
-import java.util.HashMap;
+import java.util.Map;
 
 import org.uva.sea.ql.ast.operatorresults.IntegerResult;
 import org.uva.sea.ql.ast.operatorresults.Result;
@@ -28,12 +28,12 @@ public class IntegerLiteral extends Expr {
 	}
 
 	@Override
-	public Type typeOf(HashMap<String, Statement> typeEnv) {
+	public Type typeOf(Map<String, Statement> typeEnv) {
 		return new IntegerType();
 	}
 
 	@Override
-	public Result eval(HashMap<String, Result> symbolMap) {
+	public Result eval(Map<String, Result> symbolMap) {
 		return new IntegerResult(value);
 	}
 }

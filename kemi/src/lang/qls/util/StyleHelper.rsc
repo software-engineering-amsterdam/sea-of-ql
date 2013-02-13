@@ -14,35 +14,22 @@ import IO;
 import List;
 import Map;
 import String;
-
 import lang::ql::analysis::SemanticChecker;
 import lang::ql::analysis::State;
 import lang::ql::ast::AST;
 import lang::ql::util::ParseHelper;
-
 import lang::qls::ast::AST;
 import lang::qls::util::ParseHelper;
-
 import util::StringHelper;
 
-public void main() {
-  Form f = parseForm(|project://QL-R-kemi/forms/taxOfficeExample.q|);
-  Stylesheet s = parseStylesheet(|project://QL-R-kemi/stylesheets/taxOfficeExample.qs|);
+import util::ValueUI;
 
-  typeMap = getTypeMap(f);
-  //iprintln(typeMap);
-  
-  for(k <- typeMap){
-    iprintln(<k.ident, getStyleRules(k.ident, f, s)>);
-  }
-  
-  //Stylesheet s = parseStylesheet("stylesheet S1 { section \"S1\" { section \"SS\" {question Q1 { type checkbox }} } section \"P1\" {  } }");
-  //Stylesheet s = parseStylesheet("stylesheet S1 { question Q1 { type checkbox width 100 } default boolean { type radio } default string { width 104 }}");
-}
+private loc FORM_LOC = |project://QL-R-kemi/forms/|;
+private str FORM_EXT = ".q";
 
+/* 
 alias CachedTypeMap = tuple[Form form, TypeMap typeMap];
 private CachedTypeMap cachedTypeMap = <form(identDefinition(""), []), ()>;
-
 
 public TypeMap getTypeMap(Form f) {
   if(f != cachedTypeMap.form) {
@@ -50,31 +37,38 @@ public TypeMap getTypeMap(Form f) {
   }
   return cachedTypeMap.typeMap;
 }
+I still want to disable this caching cruft. Just leave it up to rascal.
+This is way cleaner.
+*/
+public TypeMap getTypeMap(Form f) = semanticAnalysisState(f).definitions;
 
-public default Form accompanyingForm(Stylesheet s) =
+// Return a stub when no accompanying form is found.
+public default Form getAccompanyingForm(Stylesheet s) =
   form(identDefinition(""), []);
 
-public Form accompanyingForm(Stylesheet s) =
-  parseForm(accompanyingFormLocation(s))
-    when isFile(accompanyingFormLocation(s));
+public Form getAccompanyingForm(Stylesheet s) =
+  parseForm(getAccompanyingFormLocation(s))
+    when isFile(getAccompanyingFormLocation(s));
 
-public loc accompanyingFormLocation(Stylesheet s) =
-  |project://QL-R-kemi/forms/| + "<s.ident>.q";
+public loc getAccompanyingFormLocation(Stylesheet s) =
+  FORM_LOC + "<s.ident><FORM_EXT>";
 
+/* Note: getDefinitions() is problematic, see below */  
 public list[StyleRule] getStyleRules(str questionIdent, Form f, Stylesheet s) {
   typeMap = getTypeMap(f);
   Type \type = typeMap[identDefinition(questionIdent)];
-  list[StyleRule] rules = getStyleRules(\type, s.definitions);
-  for(d <- getDefinitions(questionIdent, s)) {
-    switch(d) {
-      case PageDefinition d: rules += getStyleRules(\type, d.pageRules);
-      case SectionDefinition d: rules += getStyleRules(\type, d.sectionRules);
-      case QuestionDefinition:questionDefinition(_, r): rules += r;
-    }
-  }
+  defs = getDefinitions(questionIdent, s);
+
+  list[StyleRule] rules = getStyleRules(\type, s.definitions) + 
+  [*getStyleRules(\type, d.pageRules) | PageDefinition d <- defs] +
+  [*getStyleRules(\type, d.sectionRules) | SectionDefinition d <- defs] +
+  [*r | d <- defs, questionDefinition(_, r) := d]; 
+  
   return deDupeStyleRules(rules);
 }
 
+/** Note: Problematic: list[node]. **/
+/** Note:list[&T] can't be node, because member access is unsupported. **/
 private list[StyleRule] getStyleRules(Type \type, list[&T] definitions) =
   [
     * d.defaultDefinition.styleRules |
@@ -83,19 +77,8 @@ private list[StyleRule] getStyleRules(Type \type, list[&T] definitions) =
     d.defaultDefinition.ident == \type
   ];
 
-public list[StyleRule] deDupeStyleRules(list[StyleRule] styleRules) {
-  list[str] attrs = [];
-  list[StyleRule] uniques = [];
-  for(r <- reverse(styleRules)) {
-    if(indexOf(attrs, r.attr) < 0) {
-      attrs += r.attr;
-      uniques += r;
-    }
-  }
-  return uniques;
-}
-
-public list[node] getDefinitions(str questionIdent, Stylesheet s) =
+/** Note: Problematic: getDefinitions. **/
+private list[node] getDefinitions(str questionIdent, Stylesheet s) =
   getDefinitions(questionIdent, s.definitions, [s]);
 
 private list[node] getDefinitions(str qid, list[Definition] definitions, list[node] stack) {
@@ -143,29 +126,22 @@ private list[node] getDefinitions(str qid, list[SectionRule] sectionRules, list[
   }
   return [];
 }
+/** Todo: End of problematic getDefinitions stuff. **/
 
-public str uniqueId(Stylesheet s) =
-  s.ident;
-
-public str uniqueId(PageDefinition p) =
-  "page_<split(" ", stripQuotes(p.ident))[0]>_" +
-    "<p@location.begin.line>_<p@location.begin.column>";
-
-public str uniqueId(SectionDefinition s) =
-  "section_<split(" ", stripQuotes(s.ident))[0]>_" +
-    "<s@location.begin.line>_<s@location.begin.column>";
+/*
+ * The later an element occurs in the list, the higher it's 
+ * importance (e.g. more specific binding).
+ */ 
+public list[StyleRule] deDupeStyleRules(list[StyleRule] styleRules) {
+  map[str, StyleRule] rules = (r.attr : r | r <- styleRules);
+  return [rules[key] | key <- rules];
+}
 
 public list[PageDefinition] getPageDefinitions(Stylesheet s) =
   [d | /PageDefinition d <- s];
 
-public list[str] getPageNames(Stylesheet s) =
-  [name | /PageDefinition d:pageDefinition(name, _) <- s];
-
 public list[SectionDefinition] getSectionDefinitions(Stylesheet s) =
   [d | /SectionDefinition d <- s];
-
-public list[str] getSectionNames(Stylesheet s) =
-  [name | /SectionDefinition d:sectionDefinition(name, _) <- s];
 
 public list[SectionDefinition] getChildSectionDefinitions(Stylesheet s) =
   [r.sectionDefinition | r <- s.definitions, r.sectionDefinition?];
@@ -178,6 +154,12 @@ public list[SectionDefinition] getChildSectionDefinitions(SectionDefinition s) =
 
 public list[QuestionDefinition] getQuestionDefinitions(Stylesheet s) =
   [d | /QuestionDefinition d <- s];
+
+public list[PageDefinition] getPageDefinitions(Stylesheet s) =
+  [d | /PageDefinition d <- s];
+
+public list[SectionDefinition] getSectionDefinitions(Stylesheet s) =
+  [d | /SectionDefinition d <- s];
 
 public list[QuestionDefinition] getChildQuestionDefinitions(Stylesheet s) =
   [d.questionDefinition | d <- s.definitions, d.questionDefinition?];

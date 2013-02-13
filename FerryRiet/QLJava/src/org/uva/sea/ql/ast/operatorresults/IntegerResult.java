@@ -84,14 +84,12 @@ public class IntegerResult extends Result {
 
 	@Override
 	public Result doAdd(MoneyResult inte) {
-		return new MoneyResult(inte.getMoneyValue().add(
-				new BigDecimal(this.getIntegerValue())));
+		return new MoneyResult(inte.getMoneyValue().add(new BigDecimal(this.getIntegerValue())));
 	}
 
 	@Override
 	public Result doAdd(IntegerResult inte) {
-		return new IntegerResult(this.getIntegerValue()
-				+ inte.getIntegerValue());
+		return new IntegerResult(this.getIntegerValue() + inte.getIntegerValue());
 	}
 
 	@Override
@@ -107,8 +105,7 @@ public class IntegerResult extends Result {
 
 	@Override
 	public Result doSub(IntegerResult subber) {
-		return new IntegerResult(subber.getIntegerValue()
-				- this.getIntegerValue());
+		return new IntegerResult(subber.getIntegerValue() - this.getIntegerValue());
 	}
 
 	@Override
@@ -124,8 +121,7 @@ public class IntegerResult extends Result {
 
 	@Override
 	public Result doMul(IntegerResult muller) {
-		return new IntegerResult(this.getIntegerValue()
-				* muller.getIntegerValue());
+		return new IntegerResult(this.getIntegerValue() * muller.getIntegerValue());
 	}
 
 	@Override
@@ -149,8 +145,7 @@ public class IntegerResult extends Result {
 	public Result doDiv(IntegerResult diver) {
 		Result result;
 		try {
-			result = new IntegerResult(diver.getIntegerValue()
-					/ this.getIntegerValue());
+			result = new IntegerResult(diver.getIntegerValue() / this.getIntegerValue());
 		} catch (ArithmeticException e) {
 			result = new IntegerResult(0);
 		}
@@ -159,7 +154,7 @@ public class IntegerResult extends Result {
 
 	@Override
 	public Result eq(Result eq) {
-		return eq.div(this);
+		return eq.doEq(this);
 	}
 
 	@Override
@@ -170,12 +165,32 @@ public class IntegerResult extends Result {
 
 	@Override
 	public Result doEq(IntegerResult equ) {
-		return new BooleanResult(
-				equ.getIntegerValue() == this.getIntegerValue());
+		return new BooleanResult(equ.getIntegerValue() == this.getIntegerValue());
 	}
 
 	@Override
 	public Result doEq(BooleanResult equ) {
+		throw new UnsupportedOperationException();
+	}
+
+	@Override
+	public Result neq(Result eq) {
+		return eq.doNeq(this);
+	}
+
+	@Override
+	public Result doNeq(MoneyResult equ) {
+		return new BooleanResult(equ.getMoneyValue().compareTo(
+				new BigDecimal(this.getIntegerValue())) != 0);
+	}
+
+	@Override
+	public Result doNeq(IntegerResult equ) {
+		return new BooleanResult(equ.getIntegerValue() != this.getIntegerValue());
+	}
+
+	@Override
+	public Result doNeq(BooleanResult equ) {
 		throw new UnsupportedOperationException();
 	}
 
@@ -196,8 +211,8 @@ public class IntegerResult extends Result {
 
 	@Override
 	public Result doGeq(MoneyResult g) {
-		// TODO Auto-generated method stub
-		return null;
+		return new BooleanResult(g.getMoneyValue()
+				.compareTo(new BigDecimal(this.getIntegerValue())) >= 0);
 	}
 
 	@Override
@@ -212,8 +227,8 @@ public class IntegerResult extends Result {
 
 	@Override
 	public Result doGt(MoneyResult g) {
-		return new BooleanResult(g.getMoneyValue().compareTo(
-				new BigDecimal(this.getIntegerValue())) > 0);
+		return new BooleanResult(g.getMoneyValue()
+				.compareTo(new BigDecimal(this.getIntegerValue())) > 0);
 	}
 
 	@Override
@@ -228,8 +243,8 @@ public class IntegerResult extends Result {
 
 	@Override
 	public Result doLt(MoneyResult g) {
-		return new BooleanResult(g.getMoneyValue().compareTo(
-				new BigDecimal(this.getIntegerValue())) < 0);
+		return new BooleanResult(g.getMoneyValue()
+				.compareTo(new BigDecimal(this.getIntegerValue())) < 0);
 	}
 
 	@Override
@@ -244,8 +259,8 @@ public class IntegerResult extends Result {
 
 	@Override
 	public Result doLeq(MoneyResult g) {
-		return new BooleanResult(g.getMoneyValue().compareTo(
-				new BigDecimal(this.getIntegerValue())) <= 0);
+		return new BooleanResult(g.getMoneyValue()
+				.compareTo(new BigDecimal(this.getIntegerValue())) <= 0);
 	}
 
 	@Override
@@ -260,6 +275,16 @@ public class IntegerResult extends Result {
 
 	@Override
 	public Result doOr(BooleanResult ander) {
+		throw new UnsupportedOperationException();
+	}
+
+	@Override
+	public Result not(Result eq) {
+		throw new UnsupportedOperationException();
+	}
+
+	@Override
+	public Result doNot(BooleanResult ander) {
 		throw new UnsupportedOperationException();
 	}
 }

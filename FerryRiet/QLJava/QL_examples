@@ -1,3 +1,13 @@
+form Box1HouseOwning {
+     sellingPrice : "Did you sell your house this year?" string 
+     privateDebt: "Private debts for the sold house:" string ( sellingPrice )
+     valueResidue: "Value residue:" money( sellingPrice - privateDebt)
+     taxOwed: "Value residue:" money(valueResidue * 0.21 )
+}
+
+
+
+
 form First_Form { 
   doit:      "1   line type boolean ..." boolean
   do  :      "2    line type money." money
@@ -37,8 +47,7 @@ form Box1HouseOwning {
      taxOwed: "Value residue:" money(valueResidue * 0.21 )
    }
    else {
-     happyLiving: "Do you like your current house?" boolean  
-          
+     happyLiving: "Do you like your current house?" boolean    
    }
 }
 	

@@ -1,7 +1,7 @@
 package org.uva.sea.ql.ast.operators;
 
 import java.math.BigDecimal;
-import java.util.HashMap;
+import java.util.Map;
 
 import org.uva.sea.ql.ast.operatorresults.IntegerResult;
 import org.uva.sea.ql.ast.operatorresults.MoneyResult;
@@ -18,7 +18,7 @@ public class Neg extends UnExpr {
 	}
 
 	@Override
-	public Type typeOf(HashMap<String, Statement> typeEnv) {
+	public Type typeOf(Map<String, Statement> typeEnv) {
 		return new IntegerType();
 	}
 
@@ -28,12 +28,11 @@ public class Neg extends UnExpr {
 	}
 
 	@Override
-	public Result eval(HashMap<String, Result> symbolMap) {
+	public Result eval(Map<String, Result> symbolMap) {
 		Result rightHandResult = getExprRightHand().eval(symbolMap);
 
 		if (rightHandResult.isCompatibleToMoney()) {
-			return new MoneyResult(rightHandResult.getMoneyValue().multiply(
-					new BigDecimal(-1)));
+			return new MoneyResult(rightHandResult.getMoneyValue().multiply(new BigDecimal(-1)));
 		}
 		return new IntegerResult(rightHandResult.getIntegerValue() * -1);
 	}

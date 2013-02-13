@@ -62,6 +62,11 @@ public abstract class Result {
 	public abstract Result doEq(IntegerResult eq);
 	public abstract Result doEq(BooleanResult eq);
 
+	public abstract Result neq(Result neq);
+	public abstract Result doNeq(MoneyResult neq);
+	public abstract Result doNeq(IntegerResult neq);
+	public abstract Result doNeq(BooleanResult neq);
+
 	public abstract Result and(Result eq);
 	public abstract Result doAnd(BooleanResult ander);
 	
@@ -83,5 +88,8 @@ public abstract class Result {
 
 	public abstract Result or(Result eq);
 	public abstract Result doOr(BooleanResult ander);
+
+	public abstract Result not(Result eq);
+	public abstract Result doNot(BooleanResult ander);
 
 }

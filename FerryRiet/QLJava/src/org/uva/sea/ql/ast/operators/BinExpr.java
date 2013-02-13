@@ -1,6 +1,6 @@
 package org.uva.sea.ql.ast.operators;
 
-import java.util.HashMap;
+import java.util.Map;
 
 import org.uva.sea.ql.ast.statements.Statement;
 import org.uva.sea.ql.ast.types.ErrorType;
@@ -19,10 +19,10 @@ public abstract class BinExpr extends Expr {
 	}
 
 	@Override
-	// 
-	// Method typeOf 
-	// Valid for:  add, div, mul, sub, Geq, LT, GT, Leq  
-	public Type typeOf(HashMap<String, Statement> typeEnv) {
+	//
+	// Method typeOf
+	// Valid for: add, div, mul, sub, Geq, LT, GT, Leq
+	public Type typeOf(Map<String, Statement> typeEnv) {
 		Type rightType = getExprRightHand().typeOf(typeEnv);
 		Type leftType = getExprLeftHand().typeOf(typeEnv);
 
@@ -48,5 +48,13 @@ public abstract class BinExpr extends Expr {
 	@Override
 	public <T> T accept(Visitor<T> visitor) {
 		return visitor.visit(this);
+	}
+
+	public Type getExprLeftHandType(Map<String, Statement> symbolMap) {
+		return exprLeftHand.typeOf(symbolMap);
+	}
+
+	public Type getExprRightHandType(Map<String, Statement> symbolMap) {
+		return exprRightHand.typeOf(symbolMap);
 	}
 }

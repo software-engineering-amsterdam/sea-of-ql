@@ -7,22 +7,22 @@ import org.jpatterns.gof.CompositePattern.Composite;
 import org.uva.sea.ql.visitor.StatementVisitor;
 
 @Composite
-public class CompoundStatement extends Statement {
+public class CompoundStatement extends Block {
 
-	private final List<Statement> statements = new ArrayList<Statement>();
+	private final List<Block> statements = new ArrayList<Block>();
 
-	public CompoundStatement(final Statement statement) {
+	public CompoundStatement(final Block statement) {
 		statements.add(statement);
 	}
 
 	public CompoundStatement(final CompoundStatement compoundStatement,
-			final Statement statement) {
+			final Block statement) {
 		statements.addAll(compoundStatement.statements);
 		statements.add(statement);
 	}
 
-	public List<Statement> getStatements() {
-		return new ArrayList<Statement>(statements);
+	public List<Block> getStatements() {
+		return new ArrayList<Block>(statements);
 	}
 
 	@Override

@@ -1,38 +1,38 @@
 package org.uva.sea.ql.visitor.typechecker;
 
-import org.uva.sea.ql.ast.expression.ArithmeticExpression;
-import org.uva.sea.ql.ast.expression.ComparisonExpression;
-import org.uva.sea.ql.ast.expression.Ident;
-import org.uva.sea.ql.ast.expression.LogicalExpression;
-import org.uva.sea.ql.ast.expression.UnaryExpression;
-import org.uva.sea.ql.ast.expression.UnaryNumericExpression;
-import org.uva.sea.ql.ast.expression.arithmetic.Add;
-import org.uva.sea.ql.ast.expression.arithmetic.Div;
-import org.uva.sea.ql.ast.expression.arithmetic.Mul;
-import org.uva.sea.ql.ast.expression.arithmetic.Sub;
-import org.uva.sea.ql.ast.expression.comparison.Eq;
-import org.uva.sea.ql.ast.expression.comparison.GEq;
-import org.uva.sea.ql.ast.expression.comparison.GT;
-import org.uva.sea.ql.ast.expression.comparison.LEq;
-import org.uva.sea.ql.ast.expression.comparison.LT;
-import org.uva.sea.ql.ast.expression.comparison.NEq;
-import org.uva.sea.ql.ast.expression.logical.And;
-import org.uva.sea.ql.ast.expression.logical.Or;
-import org.uva.sea.ql.ast.expression.unary.Neg;
-import org.uva.sea.ql.ast.expression.unary.Not;
-import org.uva.sea.ql.ast.expression.unary.Pos;
+import org.uva.sea.ql.ast.expression.IdentifierExpression;
+import org.uva.sea.ql.ast.expression.binary.arithmetic.AddExpression;
+import org.uva.sea.ql.ast.expression.binary.arithmetic.ArithmeticExpression;
+import org.uva.sea.ql.ast.expression.binary.arithmetic.DivideExpression;
+import org.uva.sea.ql.ast.expression.binary.arithmetic.MultiplyExpression;
+import org.uva.sea.ql.ast.expression.binary.arithmetic.SubtractExpression;
+import org.uva.sea.ql.ast.expression.binary.comparison.ComparisonExpression;
+import org.uva.sea.ql.ast.expression.binary.comparison.EqualExpression;
+import org.uva.sea.ql.ast.expression.binary.comparison.GreaterThanExpression;
+import org.uva.sea.ql.ast.expression.binary.comparison.GreaterThanOrEqualExpression;
+import org.uva.sea.ql.ast.expression.binary.comparison.LesserThanExpression;
+import org.uva.sea.ql.ast.expression.binary.comparison.LesserThanOrEqualExpression;
+import org.uva.sea.ql.ast.expression.binary.comparison.NotEqualExpression;
+import org.uva.sea.ql.ast.expression.binary.logical.AndExpression;
+import org.uva.sea.ql.ast.expression.binary.logical.LogicalExpression;
+import org.uva.sea.ql.ast.expression.binary.logical.OrExpression;
+import org.uva.sea.ql.ast.expression.unary.logical.NotExpression;
+import org.uva.sea.ql.ast.expression.unary.logical.UnaryLogicalExpression;
+import org.uva.sea.ql.ast.expression.unary.numeric.NegativeExpression;
+import org.uva.sea.ql.ast.expression.unary.numeric.PositiveExpression;
+import org.uva.sea.ql.ast.expression.unary.numeric.UnaryNumericExpression;
 import org.uva.sea.ql.ast.type.Type;
 import org.uva.sea.ql.ast.type.UndefinedType;
 import org.uva.sea.ql.visitor.ExpressionVisitor;
 import org.uva.sea.ql.visitor.evaluator.Environment;
 
-public class ExpressionChecker extends TypeCheckVisitor implements ExpressionVisitor<Boolean> {
+public class ExpressionChecker extends AbstractTypeChecker implements ExpressionVisitor<Boolean> {
 
 	public ExpressionChecker( Environment environment ) {
 		super( environment );
 	}
 
-	private Boolean visitArithmetic( ArithmeticExpression node ) {
+	private Boolean visitArithmeticExpression( ArithmeticExpression node ) {
 		boolean checkLeft = node.getLhs().accept( this );
 		boolean checkRight = node.getRhs().accept( this );
 
@@ -40,8 +40,8 @@ public class ExpressionChecker extends TypeCheckVisitor implements ExpressionVis
 			return false;
 		}
 
-		Type leftType = node.getLhs().accept( this.resolver );
-		Type rightType = node.getRhs().accept( this.resolver );
+		Type leftType = this.typeOf( node.getLhs() );
+		Type rightType = this.typeOf( node.getRhs() );
 
 		if ( !( leftType.isCompatibleToNumber() && rightType.isCompatibleToNumber() ) ) {
 			this.addIncompatibleTypesError(
@@ -56,7 +56,7 @@ public class ExpressionChecker extends TypeCheckVisitor implements ExpressionVis
 		return true;
 	}
 
-	private Boolean visitLogical( LogicalExpression node ) {
+	private Boolean visitLogicalExpression( LogicalExpression node ) {
 		boolean checkLeft = node.getLhs().accept( this );
 		boolean checkRight = node.getRhs().accept( this );
 
@@ -64,8 +64,8 @@ public class ExpressionChecker extends TypeCheckVisitor implements ExpressionVis
 			return false;
 		}
 
-		Type leftType = node.getLhs().accept( this.resolver );
-		Type rightType = node.getRhs().accept( this.resolver );
+		Type leftType = this.typeOf( node.getLhs() );
+		Type rightType = this.typeOf( node.getRhs() );
 
 		if ( !( leftType.isCompatibleToBool() && rightType.isCompatibleToBool() ) ) {
 			this.addIncompatibleTypesError(
@@ -80,7 +80,7 @@ public class ExpressionChecker extends TypeCheckVisitor implements ExpressionVis
 		return true;
 	}
 
-	private Boolean visitComparison( ComparisonExpression node ) {
+	private Boolean visitComparisonExpression( ComparisonExpression node ) {
 		boolean checkLeft = node.getLhs().accept( this );
 		boolean checkRight = node.getRhs().accept( this );
 
@@ -88,8 +88,8 @@ public class ExpressionChecker extends TypeCheckVisitor implements ExpressionVis
 			return false;
 		}
 
-		Type leftType = node.getLhs().accept( this.resolver );
-		Type rightType = node.getRhs().accept( this.resolver );
+		Type leftType = this.typeOf( node.getLhs() );
+		Type rightType = this.typeOf( node.getRhs() );
 
 		if ( !( leftType.isCompatibleToNumber() && rightType.isCompatibleToNumber() ) ) {
 			this.addIncompatibleTypesError(
@@ -104,12 +104,12 @@ public class ExpressionChecker extends TypeCheckVisitor implements ExpressionVis
 		return true;
 	}
 
-	private Boolean visitUnary( UnaryExpression node ) {
+	private Boolean visitUnaryLogicalExpression( UnaryLogicalExpression node ) {
 		if ( !node.getExpression().accept( this ) ) {
 			return false;
 		}
 
-		Type expressionType = node.getExpression().accept( this.resolver );
+		Type expressionType = this.typeOf( node.getExpression() );
 
 		if ( !expressionType.isCompatibleToBool() ) {
 			this.addIncompatibleTypeError(
@@ -121,12 +121,12 @@ public class ExpressionChecker extends TypeCheckVisitor implements ExpressionVis
 		return true;
 	}
 
-	private Boolean visitUnaryNumeric( UnaryNumericExpression node ) {
+	private Boolean visitUnaryNumericExpression( UnaryNumericExpression node ) {
 		if ( !node.getExpression().accept( this ) ) {
 			return false;
 		}
 
-		Type expressionType = node.getExpression().accept( this.resolver );
+		Type expressionType = this.typeOf( node.getExpression() );
 
 		if ( !expressionType.isCompatibleToNumber() ) {
 			this.addIncompatibleTypeError(
@@ -138,7 +138,7 @@ public class ExpressionChecker extends TypeCheckVisitor implements ExpressionVis
 		return true;
 	}
 
-	private Boolean visitEqNEq( ComparisonExpression node ) {
+	private Boolean visitEqualsOrNotEqualsExpression( ComparisonExpression node ) {
 		boolean checkLeft = node.getLhs().accept( this );
 		boolean checkRight = node.getRhs().accept( this );
 
@@ -146,8 +146,8 @@ public class ExpressionChecker extends TypeCheckVisitor implements ExpressionVis
 			return false;
 		}
 
-		Type leftType = node.getLhs().accept( this.resolver );
-		Type rightType = node.getRhs().accept( this.resolver );
+		Type leftType = this.typeOf( node.getLhs() );
+		Type rightType = this.typeOf( node.getRhs() );
 
 		if ( !leftType.isCompatibleTo( rightType ) ) {
 			this.addIncompatibleTypesError(
@@ -163,28 +163,30 @@ public class ExpressionChecker extends TypeCheckVisitor implements ExpressionVis
 	}
 
 	@Override
-	public Boolean visit( org.uva.sea.ql.ast.expression.literal.Int node ) {
-		return node.accept( this.resolver ).isCompatibleToInt();
+	public Boolean visit( org.uva.sea.ql.ast.expression.literal.IntegerLiteral node ) {
+		return this.typeOf( node ).isCompatibleToInt();
 	}
 
 	@Override
-	public Boolean visit( org.uva.sea.ql.ast.expression.literal.Bool node ) {
-		return node.accept( this.resolver ).isCompatibleToBool();
+	public Boolean visit( org.uva.sea.ql.ast.expression.literal.BooleanLiteral node ) {
+		return this.typeOf( node ).isCompatibleToBool();
 	}
 
 	@Override
-	public Boolean visit( org.uva.sea.ql.ast.expression.literal.Money node ) {
-		return node.accept( this.resolver ).isCompatibleToMoney();
+	public Boolean visit( org.uva.sea.ql.ast.expression.literal.MoneyLiteral node ) {
+		return this.typeOf( node ).isCompatibleToMoney();
 	}
 
 	@Override
-	public Boolean visit( org.uva.sea.ql.ast.expression.literal.Str node ) {
-		return node.accept( this.resolver ).isCompatibleToStr();
+	public Boolean visit( org.uva.sea.ql.ast.expression.literal.StringLiteral node ) {
+		return this.typeOf( node ).isCompatibleToStr();
 	}
 
 	@Override
-	public Boolean visit( Ident node ) {
-		if ( node.accept( this.resolver ).getClass() == UndefinedType.class ) {
+	public Boolean visit( IdentifierExpression node ) {
+		Type identifierType = this.typeOf( node );
+
+		if ( identifierType.equals( UndefinedType.UNDEFINED ) ) {
 			this.addUndefinedError( node.getName(), node );
 			return false;
 		}
@@ -193,77 +195,77 @@ public class ExpressionChecker extends TypeCheckVisitor implements ExpressionVis
 	}
 
 	@Override
-	public Boolean visit( Add node ) {
-		return this.visitArithmetic( node );
+	public Boolean visit( AddExpression node ) {
+		return this.visitArithmeticExpression( node );
 	}
 
 	@Override
-	public Boolean visit( Sub node ) {
-		return this.visitArithmetic( node );
+	public Boolean visit( SubtractExpression node ) {
+		return this.visitArithmeticExpression( node );
 	}
 
 	@Override
-	public Boolean visit( Div node ) {
-		return this.visitArithmetic( node );
+	public Boolean visit( DivideExpression node ) {
+		return this.visitArithmeticExpression( node );
 	}
 
 	@Override
-	public Boolean visit( Mul node ) {
-		return this.visitArithmetic( node );
+	public Boolean visit( MultiplyExpression node ) {
+		return this.visitArithmeticExpression( node );
 	}
 
 	@Override
-	public Boolean visit( And node ) {
-		return this.visitLogical( node );
+	public Boolean visit( AndExpression node ) {
+		return this.visitLogicalExpression( node );
 	}
 
 	@Override
-	public Boolean visit( Or node ) {
-		return this.visitLogical( node );
+	public Boolean visit( OrExpression node ) {
+		return this.visitLogicalExpression( node );
 	}
 
 	@Override
-	public Boolean visit( Eq node ) {
-		return this.visitEqNEq( node );
+	public Boolean visit( EqualExpression node ) {
+		return this.visitEqualsOrNotEqualsExpression( node );
 	}
 
 	@Override
-	public Boolean visit( GEq node ) {
-		return this.visitComparison( node );
+	public Boolean visit( GreaterThanOrEqualExpression node ) {
+		return this.visitComparisonExpression( node );
 	}
 
 	@Override
-	public Boolean visit( GT node ) {
-		return this.visitComparison( node );
+	public Boolean visit( GreaterThanExpression node ) {
+		return this.visitComparisonExpression( node );
 	}
 
 	@Override
-	public Boolean visit( LEq node ) {
-		return this.visitComparison( node );
+	public Boolean visit( LesserThanOrEqualExpression node ) {
+		return this.visitComparisonExpression( node );
 	}
 
 	@Override
-	public Boolean visit( LT node ) {
-		return this.visitComparison( node );
+	public Boolean visit( LesserThanExpression node ) {
+		return this.visitComparisonExpression( node );
 	}
 
 	@Override
-	public Boolean visit( NEq node ) {
-		return this.visitEqNEq( node );
+	public Boolean visit( NotEqualExpression node ) {
+		return this.visitEqualsOrNotEqualsExpression( node );
 	}
 
 	@Override
-	public Boolean visit( Not node ) {
-		return this.visitUnary( node );
+	public Boolean visit( NotExpression node ) {
+		return this.visitUnaryLogicalExpression( node );
 	}
 
 	@Override
-	public Boolean visit( Pos node ) {
-		return this.visitUnaryNumeric( node );
+	public Boolean visit( PositiveExpression node ) {
+		return this.visitUnaryNumericExpression( node );
 	}
 
 	@Override
-	public Boolean visit( Neg node ) {
-		return this.visitUnaryNumeric( node );
+	public Boolean visit( NegativeExpression node ) {
+		return this.visitUnaryNumericExpression( node );
 	}
 }

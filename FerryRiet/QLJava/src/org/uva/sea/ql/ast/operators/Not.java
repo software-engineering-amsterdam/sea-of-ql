@@ -1,6 +1,6 @@
 package org.uva.sea.ql.ast.operators;
 
-import java.util.HashMap;
+import java.util.Map;
 
 import org.uva.sea.ql.ast.operatorresults.BooleanResult;
 import org.uva.sea.ql.ast.operatorresults.Result;
@@ -16,7 +16,7 @@ public class Not extends UnExpr {
 	}
 
 	@Override
-	public Type typeOf(HashMap<String, Statement> typeEnv) {
+	public Type typeOf(Map<String, Statement> typeEnv) {
 		return new BooleanType();
 	}
 
@@ -26,7 +26,7 @@ public class Not extends UnExpr {
 	}
 
 	@Override
-	public Result eval(HashMap<String, Result> symbolMap) {
+	public Result eval(Map<String, Result> symbolMap) {
 		Result rightHandResult = getExprRightHand().eval(symbolMap);
 
 		return new BooleanResult(!rightHandResult.getBooleanValue());

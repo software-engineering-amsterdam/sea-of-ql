@@ -1,22 +1,30 @@
 package org.uva.sea.ql.ast.expression.impl;
 
-import org.uva.sea.ql.ast.exception.InvalidTypeException;
+import org.uva.sea.ql.ast.expression.BinaryNode;
 import org.uva.sea.ql.ast.expression.ExprNode;
-import org.uva.sea.ql.ast.value.Value;
-import org.uva.sea.ql.ast.value.impl.IntegerValue;
-import org.uva.sea.ql.ast.value.impl.MoneyValue;
-import org.uva.sea.ql.ast.value.impl.NumericValue;
-import org.uva.sea.ql.ast.value.impl.StringValue;
+import org.uva.sea.ql.type.Type;
+import org.uva.sea.ql.value.Value;
 
-public class AddNode extends ExprNode
+public class AddNode extends BinaryNode
 {
-    private final ExprNode lhs;
-    private final ExprNode rhs;
 
     public AddNode(final ExprNode lhs, final ExprNode rhs)
     {
-        this.lhs = lhs;
-        this.rhs = rhs;
+        super(lhs, rhs);
+    }
+
+    // TODO place it in visitor
+    public void checkType()
+    {
+        final Type type1 = this.lhs.evaluate().getType();
+        final Type type2 = this.rhs.evaluate().getType();
+
+        boolean compatible = type1.isCompatibleTo(type2);
+
+        if(!compatible)
+        {
+            // TODO do something !!
+        }
     }
 
     @Override
@@ -24,27 +32,14 @@ public class AddNode extends ExprNode
     {
         final Value value1 = this.lhs.evaluate();
         final Value value2 = this.rhs.evaluate();
-
-        final Value result;
-        if(value1.isCompatibleTo(value2))
-        {
-            final NumericValue numericValue1 = value1.asNumericValue();
-            final NumericValue numericValue2 = value2.asNumericValue();
-            result = numericValue1.add(numericValue2);
-        }
-        else
-        {
-            throw new InvalidTypeException("Invalid operand type for add(+) operation: " + toTreeString(" "));
-        }
-
-        return result;
+        return value1.add(value2);
     }
 
-    @Override
-    public String toTreeString(final String indent)
-    {
-        return '\n' + indent + "+" + lhs.toTreeString(indent + "  ")
-                + rhs.toTreeString(indent + "  ");
-    }
+//    @Override
+//    public String toTreeString(final String indent)
+//    {
+//        return '\n' + indent + "+" + lhs.toTreeString(indent + "  ")
+//                + rhs.toTreeString(indent + "  ");
+//    }
 
 }

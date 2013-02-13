@@ -10,13 +10,13 @@ import javafx.scene.layout.VBox;
 
 import org.uva.sea.ql.ast.Natural;
 import org.uva.sea.ql.ast.exp.Expression.Nature;
+import org.uva.sea.ql.ast.stm.Block;
 import org.uva.sea.ql.ast.stm.CompoundStatement;
 import org.uva.sea.ql.ast.stm.Computed;
 import org.uva.sea.ql.ast.stm.Form;
 import org.uva.sea.ql.ast.stm.IfElseStatement;
 import org.uva.sea.ql.ast.stm.IfStatement;
 import org.uva.sea.ql.ast.stm.Question;
-import org.uva.sea.ql.ast.stm.Statement;
 import org.uva.sea.ql.visitor.StatementVisitor;
 
 public class VisibleFormNodeCreator implements StatementVisitor<Node> {
@@ -33,7 +33,7 @@ public class VisibleFormNodeCreator implements StatementVisitor<Node> {
 	public Node visit(final CompoundStatement compoundStatement) {
 		VBox vBox = new VBox();
 
-		for (Statement statement : compoundStatement.getStatements()) {
+		for (Block statement : compoundStatement.getStatements()) {
 			vBox.getChildren().add(statement.accept(this));
 		}
 		return vBox;
@@ -41,7 +41,7 @@ public class VisibleFormNodeCreator implements StatementVisitor<Node> {
 
 	@Override
 	public Node visit(final Computed computed) {
-		HBox hBox = new HBox();
+		HBox hBox = createHBox();
 		hBox.getChildren().add(createInteractiveNode(computed.getDataType()));
 
 		return hBox;
@@ -49,24 +49,39 @@ public class VisibleFormNodeCreator implements StatementVisitor<Node> {
 
 	@Override
 	public Node visit(final IfStatement ifStatement) {
-		// TODO Auto-generated method stub
-		return null;
+		// TODO bind the expression
+		ifStatement.getExpression();
+
+		Node node = ifStatement.getIfCompound().accept(this);
+
+		return node;
 	}
 
 	@Override
 	public Node visit(final IfElseStatement ifElseStatement) {
-		// TODO Auto-generated method stub
-		return null;
+		// TODO bind the expression
+		ifElseStatement.getExpression();
+
+		// Node ifNode = ifElseStatement.getIfCompound().accept(this);
+
+		Node elseNode = ifElseStatement.getElseCompound().accept(this);
+
+		return elseNode;
 	}
 
 	@Override
 	public Node visit(final Question question) {
-		HBox hBox = new HBox();
+		HBox hBox = createHBox();
 
 		hBox.getChildren().add(
 				createText(question.getQuestionText().getValue()));
 		hBox.getChildren().add(createInteractiveNode(question.getDataType()));
 
+		return hBox;
+	}
+
+	private HBox createHBox() {
+		HBox hBox = new HBox();
 		return hBox;
 	}
 

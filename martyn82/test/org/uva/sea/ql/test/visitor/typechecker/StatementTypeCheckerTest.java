@@ -7,18 +7,19 @@ import static org.junit.Assert.fail;
 
 import org.junit.Test;
 import org.uva.sea.ql.ast.expression.Expression;
-import org.uva.sea.ql.ast.expression.Ident;
-import org.uva.sea.ql.ast.expression.arithmetic.Add;
-import org.uva.sea.ql.ast.expression.arithmetic.Mul;
-import org.uva.sea.ql.ast.expression.comparison.Eq;
-import org.uva.sea.ql.ast.expression.literal.Bool;
-import org.uva.sea.ql.ast.expression.literal.Int;
-import org.uva.sea.ql.ast.expression.literal.Money;
-import org.uva.sea.ql.ast.expression.literal.Str;
-import org.uva.sea.ql.ast.expression.logical.And;
+import org.uva.sea.ql.ast.expression.IdentifierExpression;
+import org.uva.sea.ql.ast.expression.binary.arithmetic.AddExpression;
+import org.uva.sea.ql.ast.expression.binary.arithmetic.MultiplyExpression;
+import org.uva.sea.ql.ast.expression.binary.comparison.EqualExpression;
+import org.uva.sea.ql.ast.expression.binary.logical.AndExpression;
+import org.uva.sea.ql.ast.expression.literal.BooleanLiteral;
+import org.uva.sea.ql.ast.expression.literal.IntegerLiteral;
+import org.uva.sea.ql.ast.expression.literal.MoneyLiteral;
+import org.uva.sea.ql.ast.expression.literal.StringLiteral;
 import org.uva.sea.ql.ast.statement.Assignment;
 import org.uva.sea.ql.ast.statement.FormDeclaration;
 import org.uva.sea.ql.ast.statement.IfThen;
+import org.uva.sea.ql.ast.statement.IfThenElse;
 import org.uva.sea.ql.ast.statement.QuestionComputed;
 import org.uva.sea.ql.ast.statement.QuestionVariable;
 import org.uva.sea.ql.ast.statement.Statement;
@@ -27,16 +28,15 @@ import org.uva.sea.ql.ast.statement.VarDeclaration;
 import org.uva.sea.ql.ast.type.BooleanType;
 import org.uva.sea.ql.ast.type.IntegerType;
 import org.uva.sea.ql.parser.ParseError;
-import org.uva.sea.ql.test.IStatementTest;
+import org.uva.sea.ql.test.StatementTest;
 import org.uva.sea.ql.test.visitor.VisitorTest;
 import org.uva.sea.ql.visitor.evaluator.Environment;
 import org.uva.sea.ql.visitor.evaluator.Error;
 import org.uva.sea.ql.visitor.typechecker.ExpressionChecker;
-import org.uva.sea.ql.visitor.typechecker.StatementChecker;
+import org.uva.sea.ql.visitor.typechecker.TypeChecker;
 import org.uva.sea.ql.visitor.typechecker.TypeError;
 
-public class StatementTypeCheckerTest extends VisitorTest<Boolean> implements IStatementTest {
-	private final StatementChecker statementChecker;
+public class StatementTypeCheckerTest extends VisitorTest<Boolean> implements StatementTest {
 	private final ExpressionChecker expressionChecker;
 	private final Environment environment;
 
@@ -45,13 +45,12 @@ public class StatementTypeCheckerTest extends VisitorTest<Boolean> implements IS
 
 		this.environment = new Environment();
 		this.expressionChecker = new ExpressionChecker( this.environment );
-		this.statementChecker = new StatementChecker( this.environment, this.expressionChecker );
 	}
 
 	@Test
 	public void testExample() {
 		try {
-			this.parser.parse( program ).accept( this.statementChecker );
+			TypeChecker.typeCheck( this.parser.parse( program ), this.environment );
 		}
 		catch ( ParseError e ) {
 			e.printStackTrace();
@@ -67,7 +66,7 @@ public class StatementTypeCheckerTest extends VisitorTest<Boolean> implements IS
 	private Boolean typeCheck( Statement statement ) {
 		this.environment.getErrors().clear();
 
-		if ( !statement.accept( this.statementChecker ) ) {
+		if ( !TypeChecker.typeCheck( statement, this.environment ) ) {
 			return false;
 		}
 
@@ -91,19 +90,19 @@ public class StatementTypeCheckerTest extends VisitorTest<Boolean> implements IS
 	@Override
 	@Test
 	public void testVarDeclaration() {
-		assertTrue( typeCheck( new VarDeclaration( new Ident( "z" ), BooleanType.BOOLEAN ) ) );
-		assertFalse( typeCheck( new Add( new Int( 1 ), new Ident( "z" ) ) ) );
+		assertTrue( typeCheck( new VarDeclaration( new IdentifierExpression( "z" ), BooleanType.BOOLEAN ) ) );
+		assertFalse( typeCheck( new AddExpression( new IntegerLiteral( 1 ), new IdentifierExpression( "z" ) ) ) );
 
-		assertTrue( typeCheck( new VarDeclaration( new Ident( "x" ), IntegerType.INTEGER ) ) );
-		assertTrue( typeCheck( new Assignment( new Ident( "x" ), new Int( 23 ) ) ) );
+		assertTrue( typeCheck( new VarDeclaration( new IdentifierExpression( "x" ), IntegerType.INTEGER ) ) );
+		assertTrue( typeCheck( new Assignment( new IdentifierExpression( "x" ), new IntegerLiteral( 23 ) ) ) );
 
-		assertFalse( typeCheck( new Assignment( new Ident( "x" ), new Ident( "y" ) ) ) );
+		assertFalse( typeCheck( new Assignment( new IdentifierExpression( "x" ), new IdentifierExpression( "y" ) ) ) );
 		assertEquals( TypeError.TYPE_UNDEFINED, this.environment.getErrors().get( 0 ).getCode() );
 
 		assertFalse(
 			typeCheck(
 				new Assignment(
-					new Ident( "x" ), new Add( new Mul( new Int( 24 ), new Money( .5 ) ), new Ident( "y" ) )
+					new IdentifierExpression( "x" ), new AddExpression( new MultiplyExpression( new IntegerLiteral( 24 ), new MoneyLiteral( .5 ) ), new IdentifierExpression( "y" ) )
 				)
 			)
 		);
@@ -118,10 +117,10 @@ public class StatementTypeCheckerTest extends VisitorTest<Boolean> implements IS
 		assertFalse(
 			typeCheck(
 				new IfThen(
-					new Bool( true ),
+					new BooleanLiteral( true ),
 					new Statements(
-						new Assignment( new Ident( "x" ), new Int( 24 ) ),
-						new Statements( new VarDeclaration( new Ident( "x" ), BooleanType.BOOLEAN ) )
+						new Assignment( new IdentifierExpression( "x" ), new IntegerLiteral( 24 ) ),
+						new Statements( new VarDeclaration( new IdentifierExpression( "x" ), BooleanType.BOOLEAN ) )
 					)
 				)
 			)
@@ -132,10 +131,10 @@ public class StatementTypeCheckerTest extends VisitorTest<Boolean> implements IS
 
 	@Override
 	@Test
-	public void testIfThenElse() {
-		assertTrue( typeCheck( new IfThen( new Bool( true ), new Statements() ) ) );
+	public void testIfThen() {
+		assertTrue( typeCheck( new IfThen( new BooleanLiteral( true ), new Statements() ) ) );
 
-		assertFalse( typeCheck( new IfThen( new Int( 1 ), new Statements() ) ) );
+		assertFalse( typeCheck( new IfThen( new IntegerLiteral( 1 ), new Statements() ) ) );
 		assertEquals( TypeError.TYPE_INVALID, this.environment.getErrors().get( 0 ).getCode() );
 
 		/*
@@ -147,19 +146,66 @@ public class StatementTypeCheckerTest extends VisitorTest<Boolean> implements IS
 		assertFalse(
 			typeCheck(
 				new IfThen(
-					new Bool( true ),
+					new BooleanLiteral( true ),
 					new Statements(
 						new QuestionVariable(
-							new Str( "" ), new VarDeclaration( new Ident( "x" ), BooleanType.BOOLEAN )
+							new StringLiteral( "" ), new VarDeclaration( new IdentifierExpression( "x" ), BooleanType.BOOLEAN )
 						),
 						new Statements(
-							new Assignment( new Ident( "x" ), new Int( 23 ) )
+							new Assignment( new IdentifierExpression( "x" ), new IntegerLiteral( 23 ) )
 						)
 					)
 				)
 			)
 		);
 		assertEquals( TypeError.TYPE_MISMATCH, this.environment.getErrors().get( 0 ).getCode() );
+	}
+
+	@Override
+	@Test
+	public void testIfThenElse() {
+		assertTrue(
+			typeCheck(
+				new IfThenElse(
+					new BooleanLiteral( true ),
+					new Statements(), // empty body
+					new Statements(
+						new IfThen(
+							new BooleanLiteral( false ),
+							new Statements() // empty body
+						)
+					)
+				)
+			)
+		);
+
+		assertFalse( typeCheck( new IfThenElse( new IntegerLiteral( 1 ), new Statements(), new Statements() ) ) );
+		assertEquals( TypeError.TYPE_INVALID, this.environment.getErrors().get( 0 ).getCode() );
+
+		/*
+		 * if ( true ) {
+		 *		"" x: boolean
+		 *		x = 23
+		 * }
+		 */
+		assertFalse(
+			typeCheck(
+				new IfThenElse(
+					new BooleanLiteral( true ),
+					new Statements(
+						new QuestionVariable(
+							new StringLiteral( "" ), new VarDeclaration( new IdentifierExpression( "x" ), BooleanType.BOOLEAN )
+						),
+						new Statements(
+							new Assignment( new IdentifierExpression( "x" ), new IntegerLiteral( 23 ) )
+						)
+					),
+					new Statements()
+				)
+			)
+		);
+		assertEquals( TypeError.TYPE_MISMATCH, this.environment.getErrors().get( 0 ).getCode() );
+
 	}
 
 	@Override
@@ -172,9 +218,9 @@ public class StatementTypeCheckerTest extends VisitorTest<Boolean> implements IS
 					"formVar",
 					new Statements(
 						new QuestionVariable(
-							new Str( "label" ),
+							new StringLiteral( "label" ),
 							new VarDeclaration(
-								new Ident( "questionVar" ),
+								new IdentifierExpression( "questionVar" ),
 								IntegerType.INTEGER
 							)
 						)
@@ -186,13 +232,13 @@ public class StatementTypeCheckerTest extends VisitorTest<Boolean> implements IS
 
 	@Override
 	@Test
-	public void testQuestionVar() {
+	public void testQuestionVariable() {
 		assertTrue(
 			typeCheck(
 				new QuestionVariable(
-					new Str( "label" ),
+					new StringLiteral( "label" ),
 					new VarDeclaration(
-						new Ident( "var" ),
+						new IdentifierExpression( "var" ),
 						BooleanType.BOOLEAN
 					)
 				)
@@ -206,12 +252,12 @@ public class StatementTypeCheckerTest extends VisitorTest<Boolean> implements IS
 		assertTrue(
 			typeCheck(
 				new QuestionComputed(
-					new Str( "label" ),
+					new StringLiteral( "label" ),
 					new Assignment(
-						new Ident( "x" ),
-						new Add(
-							new Int( 6 ),
-							new Money( 19.99 )
+						new IdentifierExpression( "x" ),
+						new AddExpression(
+							new IntegerLiteral( 6 ),
+							new MoneyLiteral( 19.99 )
 						)
 					)
 				)
@@ -221,12 +267,12 @@ public class StatementTypeCheckerTest extends VisitorTest<Boolean> implements IS
 		assertFalse(
 			typeCheck(
 				new QuestionComputed(
-					new Str( "label" ),
+					new StringLiteral( "label" ),
 					new Assignment(
-						new Ident( "x" ),
-						new Add(
-							new Ident( "y" ), // undefined variable
-							new Ident( "z" )  // undefined variable
+						new IdentifierExpression( "x" ),
+						new AddExpression(
+							new IdentifierExpression( "y" ), // undefined variable
+							new IdentifierExpression( "z" )  // undefined variable
 						)
 					)
 				)
@@ -237,13 +283,13 @@ public class StatementTypeCheckerTest extends VisitorTest<Boolean> implements IS
 	@Override
 	@Test
 	public void testAssignment() {
-		assertTrue( typeCheck( new Assignment( new Ident( "x" ), new Int( 99 ) ) ) );
-		assertTrue( typeCheck( new Assignment( new Ident( "y" ), new And( new Bool( true ), new Bool( false ) ) ) ) );
-		assertTrue( typeCheck( new Assignment( new Ident( "y" ), new Eq( new Str( "" ), new Str( "" ) ) ) ) );
+		assertTrue( typeCheck( new Assignment( new IdentifierExpression( "x" ), new IntegerLiteral( 99 ) ) ) );
+		assertTrue( typeCheck( new Assignment( new IdentifierExpression( "y" ), new AndExpression( new BooleanLiteral( true ), new BooleanLiteral( false ) ) ) ) );
+		assertTrue( typeCheck( new Assignment( new IdentifierExpression( "y" ), new EqualExpression( new StringLiteral( "" ), new StringLiteral( "" ) ) ) ) );
 
 		// variable 'x' is already declared as type Int
-		assertFalse( typeCheck( new Assignment( new Ident( "x" ), new Bool( true ) ) ) );
+		assertFalse( typeCheck( new Assignment( new IdentifierExpression( "x" ), new BooleanLiteral( true ) ) ) );
 		// variable 'y' is already declared as type Bool
-		assertFalse( typeCheck( new Assignment( new Ident( "y" ), new Mul( new Ident( "x" ), new Int( 4 ) ) ) ) );
+		assertFalse( typeCheck( new Assignment( new IdentifierExpression( "y" ), new MultiplyExpression( new IdentifierExpression( "x" ), new IntegerLiteral( 4 ) ) ) ) );
 	}
 }

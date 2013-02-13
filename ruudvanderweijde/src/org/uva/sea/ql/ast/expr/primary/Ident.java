@@ -1,35 +1,27 @@
 package org.uva.sea.ql.ast.expr.primary;
 
-import java.util.Map;
-
-import org.uva.sea.ql.ast.type.Type;
-import org.uva.sea.ql.ast.type.UndefinedType;
+import org.uva.sea.ql.ast.expr.Expr;
+import org.uva.sea.ql.type.Type;
+import org.uva.sea.ql.type.UndefinedType;
 import org.uva.sea.ql.visitor.IExpressionVisitor;
+import org.uva.sea.ql.visitor.typeCheck.TypeMapper;
 
 
-public final class Ident extends Primary<String> {
+public final class Ident extends Expr {
 
-	private final String value;
+	private final String name;
 
-	public Ident(String value) {
-		this.value = value;
+	public Ident(String name) {
+		this.name = name;
 	}
 	
-	public String getValue() {
-		return value;
+	public String getName() {
+		return name;
 	}
 	
 	@Override
 	public String toString() {
 		return "Ident";
-	}
-
-	@Override
-	public Type typeOf(Map<Ident, Type> typeEnv) {
-		if (typeEnv.containsKey(this)) {
-			return typeEnv.get(this);
-		}
-		return new UndefinedType();
 	}
 	
 	// Implemented "equals" and "hashCode" to be able to compare objects with the same string
@@ -37,14 +29,22 @@ public final class Ident extends Primary<String> {
 	@Override
 	public boolean equals(Object obj) {
 		if (obj instanceof Ident) {
-			return value.equals(((Ident) obj).value);
+			return name.equals(((Ident) obj).name);
 		}
 		return false;
 	}
 
 	@Override
 	public int hashCode() {
-		return value.hashCode();
+		return name.hashCode();
+	}
+
+	@Override
+	public Type typeOf(TypeMapper typeMapper) {
+		if (typeMapper.hasTypeKey(this)) {
+			return typeMapper.getType(this);
+		}
+		return new UndefinedType();
 	}
 
 	@Override
