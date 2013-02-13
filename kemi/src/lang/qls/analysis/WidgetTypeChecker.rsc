@@ -55,7 +55,8 @@ private set[Message] unallowedQuestionWidgetErrors(Stylesheet s) {
     { 
       typeWithInvalidWidget(widget.name, \type.name, r@location) |
       d <- getQuestionDefinitions(s),
-      d.styleRules? || identDefinition(d.ident) in typeMap,
+      d.styleRules?,
+      identDefinition(d.ident) in typeMap,
       \type := typeMap[identDefinition(d.ident)],
       r:widgetStyleRule(_, widget) <- d.styleRules,
       !isAllowedWidget(\type, widget.name)
