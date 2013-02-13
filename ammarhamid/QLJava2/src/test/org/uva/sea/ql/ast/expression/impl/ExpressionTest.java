@@ -1,7 +1,9 @@
 package org.uva.sea.ql.ast.expression.impl;
 
+import junit.framework.Assert;
 import org.junit.Ignore;
 import org.junit.Test;
+import org.uva.sea.ql.ErrorMessage;
 import org.uva.sea.ql.VariableScope;
 import org.uva.sea.ql.ast.Node;
 import org.uva.sea.ql.ast.expression.ExprNode;
@@ -13,16 +15,17 @@ import org.uva.sea.ql.value.impl.MoneyValue;
 import org.uva.sea.ql.value.impl.StringValue;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.Collection;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
 
-public class ExpressionEvaluationTest
+public class ExpressionTest
 {
 
-	@Test
-	public void evaluateOnIntegerTest()
-	{
+    @Test
+    public void evaluateOnIntegerTest()
+    {
         final ExprNode intValueNode1 = new ValueNode(new IntegerValue(6));
         final ExprNode intValueNode2 = new ValueNode(new IntegerValue(3));
 
@@ -101,11 +104,11 @@ public class ExpressionEvaluationTest
         exprNode = new NegateNode(moneyValueNode1);
         assertEquals("Negate(-) operation on money", moneyValueNode1.evaluate().negate(), exprNode.evaluate());
     }
-	
-	@Test
-	public void evaluateOnStringTest()
-	{
-		final ExprNode stringValueNode = new ValueNode(new StringValue("No."));
+
+    @Test
+    public void evaluateOnStringTest()
+    {
+        final ExprNode stringValueNode = new ValueNode(new StringValue("No."));
         final ExprNode intValueNode = new ValueNode(new IntegerValue(5));
 
         ExprNode exprNode;
@@ -114,7 +117,7 @@ public class ExpressionEvaluationTest
 
         exprNode = new EqualNode(stringValueNode, intValueNode);
         assertEquals("Equal(==) operation on string", new BooleanValue(Boolean.FALSE), exprNode.evaluate());
-	}
+    }
 
     @Test
     public void evaluateOnBooleanTest()
@@ -133,7 +136,6 @@ public class ExpressionEvaluationTest
         assertEquals("Or(||) operation on boolean", new BooleanValue(Boolean.TRUE), exprNode.evaluate());
     }
 
-    // TODO refactor this test to TypeTest
     @Test
     public void evaluateOnInvalidTypeTest()
     {
@@ -178,18 +180,11 @@ public class ExpressionEvaluationTest
         invalidTypeTest(exprNode);
     }
 
-    // TODO check it !!
     private void invalidTypeTest(final ExprNode exprNode)
     {
-        try
-        {
-            exprNode.evaluate();
-            fail("Evaluation should fail" + exprNode.toString());
-        }
-        catch(UnsupportedOperationException e)
-        {
-            // expected
-        }
+        Collection<ErrorMessage> errorMessages = new ArrayList<>();
+        exprNode.validate(errorMessages);
+        Assert.assertTrue("Error message should be exist", errorMessages.size() > 0);
     }
 
     @Ignore
