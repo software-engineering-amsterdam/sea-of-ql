@@ -8,7 +8,7 @@ import org.uva.sea.ql.ast.visitor.StatementVisitor;
 public class VisibleComputetStat extends ComputedStat{
 
 	public VisibleComputetStat(Ident ident, String label,Expr computableExpr ,Type type) {
-		super(ident, label,computableExpr,type);
+		super(ident, label,type,computableExpr);
 	}
 
 	@Override

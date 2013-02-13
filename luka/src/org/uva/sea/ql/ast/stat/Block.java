@@ -1,5 +1,6 @@
 package org.uva.sea.ql.ast.stat;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.uva.sea.ql.ast.visitor.StatementVisitor;
@@ -10,7 +11,19 @@ public class Block{ // implements StatementVisitor<Boolean>
 	private List<Stat> statements;
 	
 	public Block(){
-		
+		statements = new ArrayList<Stat>();
+	}
+	
+	public Block(List<Stat> stats){
+		this.statements = stats;
+	}
+	
+	public List<Stat> getStatements(){
+		return this.statements;
+	}
+	
+	public void addStatement(Stat stat){
+		this.statements.add(stat);
 	}
 	
 	public Boolean accept(StatementVisitor<Boolean> visitor){
@@ -24,22 +37,7 @@ public class Block{ // implements StatementVisitor<Boolean>
 //		}
 		return returnValue;
 	}
-	public Block(List<Stat> stats){
-		this.statements = stats;
-	}
-	
-	public List<Stat> getStatements(){
-		return this.statements;
-	}
-	
-	public void addStatement(Stat stat){
-		this.statements.add(stat);
-	}
-	
-	public void setStatements(List<Stat> stats){
-		this.statements = stats;
-	}
-	
+
 //	@Override
 //	public Boolean visit(ComputedStat stat) {
 //		// TODO Auto-generated method stub

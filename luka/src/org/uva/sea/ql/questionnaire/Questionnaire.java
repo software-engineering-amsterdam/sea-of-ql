@@ -6,16 +6,20 @@ import org.uva.sea.ql.ast.stat.Block;
 public class Questionnaire extends ASTNode{
 
 	private final String questionnaireName;
-	private final Block questionnaireBlock= null;
+	private final Block questionnaireBlock;
 	
-	public Questionnaire(String qName){
+	public Questionnaire(String qName,Block block){
 		this.questionnaireName = qName;
+		this.questionnaireBlock = block;
 	}
 	
 	@Override
 	public String toString() {
-		
-		return "adadad"+this.questionnaireName;
+		return "Questionnaore name: "+this.questionnaireName;
+	}
+	
+	public Block getBlock(){
+		return this.questionnaireBlock;
 	}
 	public String getName(){
 		return this.questionnaireName;

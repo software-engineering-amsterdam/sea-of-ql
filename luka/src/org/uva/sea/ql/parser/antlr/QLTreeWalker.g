@@ -19,6 +19,7 @@ import org.uva.sea.ql.questionnaire.Questionnaire;
 import org.uva.sea.ql.ast.expr.ASTNode;
 }
 
+
 @members{
   public Map<Ident,Type> typeEnv = null; 
 	  
@@ -29,33 +30,39 @@ import org.uva.sea.ql.ast.expr.ASTNode;
 	  } 
 }
 
+
+
+
 walk returns [Questionnaire root]
-	:  ^(FormId blockItem*) {$root = new Questionnaire("KOMM SCHON") ;};
+@init{
+Block statBlock = new Block();
+}
+@after{
+root = new Questionnaire($formName.text,statBlock);
+}
+	:  ^(formName=FormId ^(BLOCK (blockItem {statBlock.addStatement($blockItem.stat);})*)) 
+	;
 	
 blockItem returns [Stat stat]
-	:(questionAssignment 
-	| constantAssignment 
-	| ifBlock ) ; 
+	:(questionDeclaration {stat = $questionDeclaration.stat; }
+	| variableDeclaration  {stat = $variableDeclaration.stat; }
+	| ifBlock  {stat = $ifBlock.stat; } ) ; 
 	
 
-questionAssignment returns [Stat stat]
-	: ^(ASSIGNMENT ^(IDENT Ident) ^(ASSIGNMENT_TYPE identType) ^(QUESTION_LABEL  String)  (^(ASSIGNMENT_EXPRESSION expression))?)
-		//{$stat = new AnswerableStat($Ident.text,$String.text);}
+questionDeclaration returns [Stat stat]
+	: ^(ASSIGNMENT ^(IDENT Ident) ^(ASSIGNMENT_TYPE identType) ^(QUESTION_LABEL  String) {stat = new AnswerableStat(new Ident($Ident.text),$String.text,$identType.type);}
+	  (^(ASSIGNMENT_EXPRESSION expression) {stat = new VisibleComputetStat(new Ident($Ident.text),$String.text,$expression.node,$identType.type);} )?)
+		
 	 ;
 
 
-constantAssignment returns [Stat stat]
+variableDeclaration returns [Stat stat]
 	: ^(ASSIGNMENT ^(IDENT Ident ) ^(ASSIGNMENT_TYPE identType) ^(ASSIGNMENT_EXPRESSION  expression))
 	;
 	 
 
-identType returns [Type t]
-	:  BooleanType {$t = new BoolType();} 
-	|  MoneyType  {$t = new MoneyType();}
-	;	
-
 ifBlock returns [Stat stat]
-	: ^(IF_STATEMENT  ^(IF_CONDITION expression )  ^(IF_BLOCK_TRUE blockItem*) (^(IF_BLOCK_FALSE blockItem+))?) 
+	: ^(IF_STATEMENT  ^(IF_CONDITION expression )  ^(IF_BLOCK_TRUE ^(BLOCK blockItem*)) (^(IF_BLOCK_FALSE ^(BLOCK blockItem+)))?) 
 	;
 	
 //TODO ELSE IF!?	
@@ -67,6 +74,11 @@ elseBlock returns [Stat block]
 	:  blockItem* {$block = $blockItem.stat;}
 	;
 	
+identType returns [Type type]
+	:  BooleanType {$type = new BoolType();} 
+	|  MoneyType  {$type = new MoneyType();}
+	;	
+
 expression returns [Expr node]
   : 
      ^(Or lhs=expression rhs=expression) {$node = new Or(lhs,rhs);}

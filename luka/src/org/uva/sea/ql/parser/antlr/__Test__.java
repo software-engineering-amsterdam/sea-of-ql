@@ -17,23 +17,21 @@ public class __Test__ {
 						"UTF8"));
 		
 		CommonTokenStream tokens = new CommonTokenStream(lex);
-		QLParser parser = new QLParser(tokens,49100,null); //new QLParser(tokens); //
+		boolean onlyParse = false;
+		QLParser parser = new QLParser(tokens); // new QLParser(tokens,49100,null); //
 		
 		
 		try {
-			//parse
-//			parser.parse();
-			// walk the tree  
-		    CommonTree tree = (CommonTree)parser.parse().getTree();  
-		    CommonTreeNodeStream nodes = new CommonTreeNodeStream(tree);  
-		      
-		    // pass the reference to the Map of functions to the tree walker  
-		    QLTreeWalker walker = new QLTreeWalker(nodes, parser.typeEnv);  
-		      
-		    // get the returned node   
-		    Questionnaire returned = walker.walk();  
-		    
-		    System.out.println(returned.toString());  
+			if(onlyParse){
+				parser.parse();
+			}else{
+				CommonTree tree = (CommonTree)parser.parse().getTree();  
+			    CommonTreeNodeStream nodes = new CommonTreeNodeStream(tree);  
+			    QLTreeWalker walker = new QLTreeWalker(nodes, parser.typeEnv);  
+			    // get the returned node   
+			    Questionnaire returned = walker.walk();
+			    System.out.println(returned.toString()); 
+			}
 			
 		} catch (RecognitionException e) {
 			e.printStackTrace();

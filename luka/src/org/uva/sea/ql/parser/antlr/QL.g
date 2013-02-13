@@ -19,6 +19,7 @@ output=AST;
 //ELSE IF?!
 // Module and square ?!!
 tokens{
+BLOCK;
 ASSIGNMENT;
 QUESTION_LABEL;
 IDENT;
@@ -67,7 +68,7 @@ import org.uva.sea.ql.ast.*;
  *------------------------------------------------------------------*/
  
 parse
-	: FormStart FormId Lbr blockItem* Rbr EOF -> ^(FormId blockItem*);
+	: FormStart FormId Lbr blockItem* Rbr EOF -> ^(FormId ^(BLOCK blockItem*));
 	
 blockItem
 	:	(questionAssignment | constantAssignment | ifBlock ) ; 
@@ -91,18 +92,18 @@ identType  returns [Type t]
 
 
 ifBlock 
-	: ifStatement  ifStatementBlock  (elseBlock)?  ->^(IF_STATEMENT  ^(IF_CONDITION ifStatement )  ^(IF_BLOCK_TRUE ifStatementBlock) ^(IF_BLOCK_FALSE elseBlock)?) 
+	: ifCondition  ifStatementBlock  (elseBlock)?  ->^(IF_STATEMENT  ^(IF_CONDITION ifCondition )  ^(IF_BLOCK_TRUE ifStatementBlock) ^(IF_BLOCK_FALSE elseBlock)?) 
 	;
 	
-ifStatement
+ifCondition
 	:  If RoundLbr orExpr  RoundRbr -> orExpr;	
 	
 //TODO ELSE IF!?	
 ifStatementBlock	
-	: 	Lbr  blockItem* Rbr -> blockItem*;
+	: 	Lbr  blockItem* Rbr -> ^(BLOCK blockItem*);
 
 elseBlock
-	: Else Lbr blockItem* Rbr -> blockItem*
+	: Else Lbr blockItem* Rbr -> ^(BLOCK blockItem*)
 	;
 	
 		 
