@@ -25,7 +25,18 @@ private str CSS(Stylesheet s) {
   f = getAccompanyingForm(s);
   typeMap = getTypeMap(f);
 
-  ret = "";
+  ret =
+    ".error {
+    '  float: none;
+    '  color: red;
+    '  padding-left: .5em;
+    '  vertical-align: top;
+    '}
+    '
+    'label:first-child {
+    '  display: block;
+    '}
+    '";
 
   for(k <- typeMap) {
     rules = getStyleRules(k.ident, f, s);
