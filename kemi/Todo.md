@@ -1,11 +1,11 @@
 # QL
+* Syntax: all datatypes in separate modules (?)
 * blockIdent (<questionIdent>Block) and similars in some public function?
 * Refactoring / Adding comments
 * Create awesome form to show off.
 * Think of something to do.
 
 # QLS
-* Styling support
 * blockIdent (<questionIdent>Block) and similars in some public function?
 * Refactoring / Adding comments
 * getDefinitions refactoring (StyleHelper QLS)

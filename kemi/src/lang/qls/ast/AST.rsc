@@ -81,6 +81,8 @@ data WidgetStyleValue
   | number(str name)
   | datepicker(str name)
   | slider(str name)
+  | slider(str name, real min, real max)
+  | slider(str name, real min, real max, real step)
   | radio(str name)
   | checkbox(str name)
   | select(str name)

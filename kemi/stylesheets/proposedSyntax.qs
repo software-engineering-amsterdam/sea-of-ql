@@ -48,7 +48,7 @@ stylesheet proposedSyntax {
   }
   
   default integer {
-    widget slider
+    widget slider[0, 100, 10]
   }
   
   question questionThree {

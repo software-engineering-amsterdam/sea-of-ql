@@ -180,6 +180,17 @@ private str styleJS(str ident, StyleRule r:
 
 private str styleJS(str ident, StyleRule r: 
     widgetStyleRule(attr, slider(name))) =
+  sliderJS(ident, 0, 100, -1);
+
+private str styleJS(str ident, StyleRule r: 
+    widgetStyleRule(attr, slider(name, min, max))) =
+  sliderJS(ident, min, max, -1);
+
+private str styleJS(str ident, StyleRule r: 
+    widgetStyleRule(attr, slider(name, min, max, step))) =
+  sliderJS(ident, min, max, step);
+
+private str sliderJS(str ident, real min, real max, real step) =
   "$(\"#<ident>\")
   '  .replaceWith(
   '    $(\"\<span /\>\")
@@ -190,10 +201,14 @@ private str styleJS(str ident, StyleRule r:
   '            name: \"<ident>\",
   '            type: \"range\",
   '            value: \"0\",
-  '            min: \"0\",
-  '            max: \"100\",
+  '            min: <min>,
+  '            max: <max>,
+  '            <if(step < 0) {>
   '            step: $(\"#<ident>\").attr(\"type\") === \"money\" ?
   '              \"0.01\" : \"1\",
+  '            <} else {>
+  '            step: <step>,
+  '            <}>
   '            disabled: $(\"#<ident>\").is(\":disabled\")
   '          })
   '          .change(function() {
