@@ -44,5 +44,44 @@ public class TestExpressionTypeChecker {
 	@Test
 	public void testAdds() throws ParseError {
 		assertEquals(CheckExpr.check((Add) _parser.parse("1 + 1"), _typeEnv, _errorMessages), true);
+		assertEquals(CheckExpr.check((Add) _parser.parse("1 + (2 + 3)"), _typeEnv, _errorMessages), true);
+		assertEquals(CheckExpr.check((Add) _parser.parse("1 + (2 + 3.0)"), _typeEnv, _errorMessages), true);
+		
+		assertEquals(CheckExpr.check((Add) _parser.parse("1 + a"), _typeEnv, _errorMessages), false);
+		assertEquals(CheckExpr.check((Add) _parser.parse("1 + true"), _typeEnv, _errorMessages), false);
+		assertEquals(CheckExpr.check((Add) _parser.parse("true + true"), _typeEnv, _errorMessages), false);
+	}
+	
+	@Test
+	public void testMuls() throws ParseError {
+		assertEquals(CheckExpr.check((Mul) _parser.parse("1 * 1"), _typeEnv, _errorMessages), true);
+		assertEquals(CheckExpr.check((Mul) _parser.parse("1 * (2 * 3)"), _typeEnv, _errorMessages), true);
+		assertEquals(CheckExpr.check((Mul) _parser.parse("1 * (2 * 3.0)"), _typeEnv, _errorMessages), true);
+		
+		assertEquals(CheckExpr.check((Mul) _parser.parse("1 * a"), _typeEnv, _errorMessages), false);
+		assertEquals(CheckExpr.check((Mul) _parser.parse("1 * true"), _typeEnv, _errorMessages), false);
+		assertEquals(CheckExpr.check((Mul) _parser.parse("true * true"), _typeEnv, _errorMessages), false);
+	}
+	
+	@Test
+	public void testDivs() throws ParseError {
+		assertEquals(CheckExpr.check((Div) _parser.parse("10 / 2"), _typeEnv, _errorMessages), true);
+		assertEquals(CheckExpr.check((Div) _parser.parse("10 / (2 * 1)"), _typeEnv, _errorMessages), true);
+		assertEquals(CheckExpr.check((Div) _parser.parse("10 / (2 * 2.50)"), _typeEnv, _errorMessages), true);
+		
+		assertEquals(CheckExpr.check((Div) _parser.parse("1 / a"), _typeEnv, _errorMessages), false);
+		assertEquals(CheckExpr.check((Div) _parser.parse("1 / true"), _typeEnv, _errorMessages), false);
+		assertEquals(CheckExpr.check((Div) _parser.parse("true / true"), _typeEnv, _errorMessages), false);
+	}
+	
+	@Test
+	public void testSubs() throws ParseError {
+		assertEquals(CheckExpr.check((Sub) _parser.parse("10 - 10"), _typeEnv, _errorMessages), true);
+		assertEquals(CheckExpr.check((Sub) _parser.parse("10 - (2 * 5)"), _typeEnv, _errorMessages), true);
+		assertEquals(CheckExpr.check((Sub) _parser.parse("10 - (2 * 2.50)"), _typeEnv, _errorMessages), true);
+		
+		assertEquals(CheckExpr.check((Sub) _parser.parse("1 - a"), _typeEnv, _errorMessages), false);
+		assertEquals(CheckExpr.check((Sub) _parser.parse("1 - true"), _typeEnv, _errorMessages), false);
+		assertEquals(CheckExpr.check((Sub) _parser.parse("true - true"), _typeEnv, _errorMessages), false);
 	}
 }
