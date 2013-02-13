@@ -88,7 +88,6 @@ public class QLOutputSelectorFrame implements ActionListener{
 		case 1:
 			QLToJSON.generateJson(dialog.getTitle(), questionLabels,questionValues);
 			showConfirmationMessage(title+".json file successful created!");
-
 			break;
 
 		default:

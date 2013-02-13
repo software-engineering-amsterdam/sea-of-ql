@@ -1,6 +1,5 @@
 package org.uva.sea.ql.interpreter;
 
-import java.awt.Color;
 import java.util.Map;
 
 import javax.swing.JLabel;
@@ -20,20 +19,13 @@ public class ComputedQuestionPanel {
 	private final JLabel label;
 	private final JTextField computedValue;
 	private final JPanel panel;
-	private final static String txtFieldId="QLTEXTFIELD";
+	private final static String labelId="COM_QUESTION_PANEL";
 
 	public ComputedQuestionPanel(ComputedQuestion qlElement,Map<String,Value> declaredVar){
 		panel=new JPanel(new MigLayout());
-		label=new JLabel(qlElement.getLabel().getValue().replaceAll("\"", ""));
-		label.setName("COM_QUESTION_PANEL");
-		
-		computedValue=new JTextField(8);
-		computedValue.setName(txtFieldId);
-		computedValue.setForeground(Color.blue);
-		computedValue.setBackground(Color.white);
-		computedValue.setHorizontalAlignment(JTextField.CENTER);
+		label=QLLabel.getQLLabel(qlElement.getLabel().getValue(),labelId);
+		computedValue=QLComputedField.getQLComputedField();
 		computedValue.setText(valueToString(qlElement, declaredVar));
-		computedValue.setEditable(false);
 		addComponents();
 	}
 	

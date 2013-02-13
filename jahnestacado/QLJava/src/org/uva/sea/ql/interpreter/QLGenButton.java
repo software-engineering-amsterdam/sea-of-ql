@@ -40,7 +40,6 @@ public class QLGenButton implements ActionListener {
 	
 	}
 
-
 	
 	private void showSelectorDialog(QLOutputState outputState){
 		String formName=frame.getTitle();
