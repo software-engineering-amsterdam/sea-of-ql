@@ -13,6 +13,7 @@ module lang::qls::compiler::web::Web
 import IO;
 import lang::ql::ast::AST;
 import lang::qls::ast::AST;
+import lang::qls::compiler::web::CSS;
 import lang::qls::compiler::web::JS;
 
 public loc buildSheet(Stylesheet sheet, loc destFolder) {
@@ -22,6 +23,7 @@ public loc buildSheet(Stylesheet sheet, loc destFolder) {
     mkDirectory(destFolder);
   
   JS(sheet, destFolder);
+  CSS(sheet, destFolder);
   
   return destFolder;
 }

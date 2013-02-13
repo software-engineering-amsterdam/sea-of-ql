@@ -134,7 +134,7 @@ private str styleJS(Stylesheet s) {
   for(k <- typeMap) {
     rules = getStyleRules(k.ident, f, s);
     ret += "//Question <k.ident>\n";
-    for(r <- rules) {
+    for(r:widgetStyleRule(_, _) <- rules) {
       ret += "<styleJS(k.ident, r)>\n";
     }
   }
@@ -287,21 +287,6 @@ private str styleJS(str ident, StyleRule r:
     widgetStyleRule(attr, select(name))) =
   // Select is the default type, no need for replacement
   "";
-
-public str styleJS(str ident, StyleRule r: 
-    intStyleRule(StyleAttr attr, int \value)) =
-  "//<attr.name> <\value>
-  '";
-
-public str styleJS(str ident, StyleRule r: 
-    stringStyleRule(StyleAttr attr, str \value)) =
-  "//<attr.name> <\value>
-  '";
-
-public str styleJS(str ident, StyleRule r: 
-    colorStyleRule(StyleAttr attr, str \value)) =
-  "//<attr.name> <\value>
-  '";
 
 private str getUniqueID(Stylesheet s) =
   s.ident;

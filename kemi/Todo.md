@@ -1,11 +1,12 @@
 # QL
+* blockIdent (<questionIdent>Block) and similars in some public function?
 * Refactoring / Adding comments
 * Create awesome form to show off.
 * Think of something to do.
 
 # QLS
-* Unlisted questions warnings
 * Styling support
+* blockIdent (<questionIdent>Block) and similars in some public function?
 * Refactoring / Adding comments
 * getDefinitions refactoring (StyleHelper QLS)
 * Create awesome stylesheet to show off.

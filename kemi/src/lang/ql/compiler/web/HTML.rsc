@@ -44,6 +44,7 @@ private str createPage(str title, list[Question] questions) =
   '    \<script type=\"text/javascript\" src=\"qls.js\"\>\</script\>
   '    \<script type=\"text/javascript\" src=\"checking.js\"\>\</script\>
   '    \<script type=\"text/javascript\" src=\"styling.js\"\>\</script\>
+  '    \<link rel=\"stylesheet\" type=\"text/css\" href=\"style.css\" /\>
   '    \<script\>
   '      $(document).ready(function(){
   '        validate<title>();
