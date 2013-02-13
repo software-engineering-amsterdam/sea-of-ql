@@ -14,6 +14,7 @@ public class Int extends Primary<Integer> {
 		this.value = value;
 	}
 
+	@Override
 	public Integer getValue() {
 		return value;
 	}
