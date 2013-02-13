@@ -42,14 +42,13 @@ private str specifyAttributes(str id){
 }
 
 private str createEndingLabel(str id){
-	println("LLLLLL : <id>");
 	return "var <id>EndLabel = document.createElement(\'label\');
-	 <id>Label.htmlFor = <id>;
-	 <id>Label.innerHTML = <label>; ";
-	return "Yes";
+	 <id>EndLabel.htmlFor = <id>;
+	 <id>EndLabel.innerHTML = \"Yes\"; 
+	 <id>EndLabel.class = \"<id>EndClass\" ";
 }
 
-/** Method to generate Question
+/** Method to generate Question 
 */
 private str generateQuestion(str formId, question:easyQuestion(str id, str labelQuestion, Type tp)){
 	println("in generate Question <question>");
@@ -57,14 +56,15 @@ private str generateQuestion(str formId, question:easyQuestion(str id, str label
 	if(tp == boolean()){
 		str label = generateQuestionLabel(id, labelQuestion);
 		str attributes = specifyAttributes(id);
-		str check = createEndingLabel();
+		str check = createEndingLabel(id);
 		println("check : <check>");
-		return "var <id> = document.createElement(\"input\");
-		 <attributes> 
+		return "var <id> = document.createElement(\"input\");    //should maybe create an paragraph to have everything on one line
+		<attributes> 
 		<label>
-		
-		<formId>.appendChild(<id>Label); 		
-		<formId>.appendChild(<id>); 		
+		<check>
+		<formId>.appendChild(<id>Label);		 		
+		<formId>.appendChild(<id>);
+		<formId>.appendChild(<id>EndLabel);		
 		 ";
 	}else if(tp == money()){
 		return "<labelQuestion> \<input type=\"checkbox\" id=<id> \> Yes";
@@ -116,6 +116,7 @@ public str generateQLForm(Program P){
 		\<head\>
 		\<script src=\"<id>.js\"\>
 		\</script\>
+		\<link href=\"<id>.css\" rel=\"stylesheet\" type=\"text/css\"\>
 		\</head\>
 		\<body\>
 		\<script\>

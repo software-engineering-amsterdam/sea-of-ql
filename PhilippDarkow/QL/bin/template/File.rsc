@@ -3,6 +3,7 @@ module template::File
 import IO;
 import syntax::AbstractSyntax;
 import template::StringTemplate;
+import template::CSS;
 
 /** Method to generate a directory for the JavaScript Program
 * @return l the location of the directory
@@ -34,10 +35,17 @@ void generateJavaScriptFile(str id, str func, loc l){
 	writeFile(l, func);
 }
 
+void generateCSSFile(str id, str css, loc l){
+	l += "<id>.css";
+	writeFile(l,css);
+}
+
 public void generateQLProgram(str id, str program, str func){
 	loc dir = generateQLDirectory();
 	generateHTMLFile(id,program,dir);
 	generateJavaScriptFile(id,func,dir);
+	s = cssEndLabels();
+	generateCSSFile(id,s,dir);
 }
 
 public str javaScriptCreateForm(str id, list[Body] Body){
@@ -46,8 +54,8 @@ public str javaScriptCreateForm(str id, list[Body] Body){
 			<id>.setAttribute(\'method\',\"post\");
 			<id>.setAttribute(\'action\',\"submit.php\");
 			<id>.setAttribute(\'name\',<id>);
-			<for (s <- Body) { >
-			<generateBody(id,s)>		
+			<for (s <- Body) { >						
+			<generateBody(id,s)>					
 			< } >
 			document.getElementsByTagName(\'body\')[0].appendChild(<id>);		
 		} ";
