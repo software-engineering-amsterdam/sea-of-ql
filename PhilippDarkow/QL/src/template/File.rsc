@@ -82,28 +82,15 @@ public void generateCSSFile(str formId, str id){
 void createValidatorFile(loc l){
 	l += "gen_validatorv4.js";
 	str v = readFile(|project://QL/src/template/Validator|);
-	println("VVV : <v>");
 	writeFile(l, v);
 }
 
 public void javaScriptAddCheckFunction(str formId, str checkBoxId) {
-	str check = "function <checkBoxId>DoTheCheck() {
-	//	if(document.<formId>.<checkBoxId>.checked == true)
-	{ alert(\'<checkBoxId> is checked\'); }
-	//if(document.<formId>.<checkBoxId>.checked == false)
-	//{ alert(\'<checkBoxId> is not checked\'); }
+	str check = "function <checkBoxId>DoTheCheck(cb) {
+		if(cb.checked == true)
+	{ cb.labels[1].innerHTML = \"Yes\"; }
+	if(cb.checked == false)
+	{ cb.labels[1].innerHTML = \"No\"; }
 	}"; 
-	//javaScriptAddCheckFunction(formId, checkBoxId);
 	appendToJavaScriptFile(formId, "\n <check>");
-	//appendToFile(dir, "\n <check>");
 }
-
-private str javaScriptAddCheckFunction(str formId, str checkBoxId) {
-	return "function <checkBoxId>DoTheCheck() {
-	//	if(document.<formId>.<checkBoxId>.checked == true)
-	{ alert(\'<checkBoxId> is checked\'); }
-	if(document.<formId>.<checkBoxId>.checked == false)
-	{ alert(\'<checkBoxId> is not checked\'); }
-	}";
-}
-

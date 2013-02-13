@@ -36,7 +36,7 @@ private str generateQuestionLabel(str id, str label){
 private str createEndingLabel(str id){
 	return "var <id>EndLabel = document.createElement(\'label\');
 	 <id>EndLabel.htmlFor = <id>;
-	 <id>EndLabel.innerHTML = \"Yes\"; 
+	 <id>EndLabel.innerHTML = \"No\"; 
 	 <id>EndLabel.class = \"<id>EndClass\" ";
 }
 
@@ -49,7 +49,7 @@ private str specifyAttributesCheckbox(str id){
 		<id>.setAttribute(\'id\',<id>);
 		<id>.setAttribute(\'name\',<id>);
 		<id>.setAttribute(\'value\',<id>);
-		<id>.setAttribute(\'onclick\',\"<id>DoTheCheck()\");
+		<id>.setAttribute(\'onclick\',\"<id>DoTheCheck(this)\");
 		 ";
 }
 
@@ -60,6 +60,11 @@ str specifyAttributesNumeric(str id){
 		 ";
 }
 
+/** Method to generate a paragraph for a boolean question has as endlabel Yes or No
+* @param id the id of the boolean question
+* @return p the paragraph as a string
+* @author Philipp
+*/
 str generateParagraph(str id, str att, str lab, str endlab){
 	str p = "var <id>Paragraph = document.createElement(\'p\');
 	<id>Paragraph.setAttribute(\"class\", <id>Paragraph);
@@ -67,17 +72,20 @@ str generateParagraph(str id, str att, str lab, str endlab){
 	<id>Paragraph.appendChild(<id>);
 	<id>Paragraph.appendChild(<id>EndLabel);
 	";
-	
 	return p;
 }
 
+/** Method to generate a paragraph for a text field question has no endlabel
+* @param id the id of the question
+* @return p the paragraph as a string
+* @author Philipp
+*/
 str generateParagraph(str id, str label, str attributes){
 	str p = "var <id>Paragraph = document.createElement(\'p\');
 	<id>Paragraph.setAttribute(\"class\", <id>Paragraph);
 	<id>Paragraph.appendChild(<id>Label);
 	<id>Paragraph.appendChild(<id>);
 	";
-	
 	return p;
 }
 
@@ -85,7 +93,6 @@ str generateParagraph(str id, str label, str attributes){
 */
 private str generateQuestion(str formId, question:easyQuestion(str id, str labelQuestion, Type tp)){
 	println("in generate Question <question>");
-	// document.write(\"\<p\>  \</p\>\");
 	str label = generateQuestionLabel(id, labelQuestion);
 	if(tp == boolean()){	
 		str attributes = specifyAttributesCheckbox(id);
@@ -123,6 +130,16 @@ private str generateQuestion(str formId, question:easyQuestion(str id, str label
 		<paragraph>
 		<formId>.appendChild(<id>Paragraph);
 		 ";
+	}else if(tp == string()){
+		println("in string generate Easy Question");
+		str attributes = specifyAttributesNumeric(id);
+		str paragraph = generateParagraph(id, label, attributes);
+		return "var <id> = document.createElement(\"input\");
+		<attributes>
+		<label>
+		<paragraph>
+		<formId>.appendChild(<id>Paragraph);
+		 ";
 	}
 	
 }
@@ -134,19 +151,42 @@ private str generateQuestion(str formId, question:computedQuestion(str id, str l
 	}	
 }
 
+bool getInitResultExpression(Expression exp){
+	return true;
+}
+
+str generateStatement(str formId, statement:ifStat(Expression exp, list[Body] thenPart)){
+	println("in generated if statement");
+	println("EXP : <exp>");
+	println("Body ThenPart : <thenPart>");
+	//bool checkExp = checkResultExpression();
+	return "";
+}
+
+str huhu(list[Body] body){
+	
+}
+
 public str generateBody(str id, Body body){
 	println("in generate Body <body>");
-	for(s <- body){
-		visit(s){
-			case Question q : {
-				str temp = generateQuestion(id, q);
-				return temp;
-			}
+	//for(s <- body){
+	//	println("S : <s>");
+	if(getName(body) == "statement"){
+		println("WE HAVE A STATEMENT");
+		visit(body){
 			case Statement s : {
-				return generateStatement(s);
+				println("Statement s : <s>");
+				return generateStatement(id, s);
 			}
 		}
-	}	
+	}
+	visit(body){
+		case Question q : {
+			str temp = generateQuestion(id, q);
+			return temp;
+		}		
+	}
+	//}	
 }
 
 public str generateQLForm(Program P){
@@ -167,7 +207,6 @@ public str generateQLForm(Program P){
 		\</body\>
 		\</html\>";	
 		str functions = javaScriptCreateForm(id, Body);
-		//generateQLProgram(id,res,functions);
 		appendToHTMLFile(id, res);
 		//appendToJavaScriptFile(id, functions);
 		return res;
@@ -177,15 +216,3 @@ public str generateQLForm(Program P){
 }
 
 public str generateQLForm(str txt) = generateQLForm(load(txt));
-
-
-//function yesno(thecheckbox, thelabel) {
-    	//var checkboxvar = document.getElementById(thecheckbox);
-    	//var labelvar = document.getElementById(thelabel);
-    	//	if (!checkboxvar.checked) {
-        //		labelvar.innerHTML = \"Noddddddddddd\";
-    	//	}
-    	//	else {
-        //		labelvar.innerHTML = \"Yesaaaaaaaaaa\";
-    	//	}
-		//}
