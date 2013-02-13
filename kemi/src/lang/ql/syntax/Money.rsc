@@ -8,22 +8,13 @@
 @contributor{Kevin van der Vlist - kevin@kevinvandervlist.nl}
 @contributor{Jimi van der Woning - Jimi.vanderWoning@student.uva.nl}
 
-module lang::qls::compiler::web::Web
+module lang::ql::syntax::Money
 
-import IO;
-import lang::ql::ast::AST;
-import lang::qls::ast::AST;
-import lang::qls::compiler::web::CSS;
-import lang::qls::compiler::web::JS;
+syntax Money = 
+  @category="Constant" LMoney;
 
-public loc buildSheet(Stylesheet sheet, loc destFolder) {
-  destFolder += "<sheet.ident>/";
-  
-  if(!exists(destFolder))
-    mkDirectory(destFolder);
-  
-  CSS(sheet, destFolder);
-  JS(sheet, destFolder);
-  
-  return destFolder;
-}
+lexical LMoney
+  = [0-9]+ "."
+  | [0-9]+ "." [0-9]
+  | [0-9]+ "." [0-9][0-9]
+  ;

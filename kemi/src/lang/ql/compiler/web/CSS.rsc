@@ -8,22 +8,23 @@
 @contributor{Kevin van der Vlist - kevin@kevinvandervlist.nl}
 @contributor{Jimi van der Woning - Jimi.vanderWoning@student.uva.nl}
 
-module lang::qls::compiler::web::Web
+module lang::ql::compiler::web::CSS
 
 import IO;
 import lang::ql::ast::AST;
-import lang::qls::ast::AST;
-import lang::qls::compiler::web::CSS;
-import lang::qls::compiler::web::JS;
 
-public loc buildSheet(Stylesheet sheet, loc destFolder) {
-  destFolder += "<sheet.ident>/";
-  
-  if(!exists(destFolder))
-    mkDirectory(destFolder);
-  
-  CSS(sheet, destFolder);
-  JS(sheet, destFolder);
-  
-  return destFolder;
-}
+public void CSS(Form f, loc dest) =
+  writeFile(
+    dest + "style.css",
+    ".error {
+    '  float: none;
+    '  color: red;
+    '  padding-left: .5em;
+    '  vertical-align: top;
+    '}
+    '
+    'label {
+    '  display: block;
+    '}
+    '"
+  );

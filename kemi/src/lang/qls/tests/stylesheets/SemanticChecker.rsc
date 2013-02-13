@@ -74,7 +74,7 @@ public test bool testTaxOfficeExample() =
 
 
 public test bool testWrongFilename() = 
-  semanticChecker(|project://QL-R-kemi/stylesheets/wrongFilename.qs|, 0, 1);
+  semanticChecker(|project://QL-R-kemi/stylesheets/wrongFilename.qs|, 6, 1);
 
 public test bool testWithoutForm() = 
   semanticChecker(|project://QL-R-kemi/stylesheets/withoutForm.qs|, 0, 1);
@@ -95,6 +95,6 @@ public test bool testDoubleName() =
 public test bool testDefaultRedefinition() = 
   semanticChecker(
     |project://QL-R-kemi/stylesheets/defaultRedefinition.qs|,
-    1,
+    2,
     0
   );
