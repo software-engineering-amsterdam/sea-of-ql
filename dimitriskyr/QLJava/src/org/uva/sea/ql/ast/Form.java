@@ -1,15 +1,14 @@
 package org.uva.sea.ql.ast;
 
-import java.util.List;
-
+import org.uva.sea.ql.ast.statements.Block;
 import org.uva.sea.ql.ast.values.Ident;
 import org.uva.sea.ql.ast.visitor.IStatementVisitor;
 
 public class Form implements ASTNode { 
 	private Ident name;
-	private List<Statement> block ;
+	private Block block ;
 	
-	public Form(Ident name, List<Statement> block){
+	public Form(Ident name, Block block){
 		this.name=name;
 		this.block=block;
 	}
@@ -18,7 +17,7 @@ public class Form implements ASTNode {
 		return name;
 	}
 	
-	public List<Statement> getBlock() {
+	public Block getBlock() {
 		return block;
 	}
  
