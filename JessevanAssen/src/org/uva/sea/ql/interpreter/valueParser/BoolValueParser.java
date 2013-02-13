@@ -1,13 +1,13 @@
 package org.uva.sea.ql.interpreter.valueParser;
 
-import org.uva.sea.ql.ast.expr.value.Bool;
-import org.uva.sea.ql.ast.expr.value.Value;
+import org.uva.sea.ql.ast.expression.value.Bool;
+import org.uva.sea.ql.ast.expression.value.Value;
 
 public class BoolValueParser implements ValueParser {
 
-    private static String TRUE_STRING = "true",
-                          FALSE_STRING = "false";
-    private static Bool DEFAULT = new Bool(false);
+    private static final String TRUE_STRING = "true",
+                                FALSE_STRING = "false";
+    private static final Bool DEFAULT = new Bool(false);
 
     @Override
     public Value parseValue(String value) {

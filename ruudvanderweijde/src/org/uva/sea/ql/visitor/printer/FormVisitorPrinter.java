@@ -1,19 +1,20 @@
 package org.uva.sea.ql.visitor.printer;
 
 import org.uva.sea.ql.ast.Form;
+import org.uva.sea.ql.ast.stmt.IfThen;
 import org.uva.sea.ql.ast.stmt.IfThenElse;
 import org.uva.sea.ql.ast.stmt.Statement;
 import org.uva.sea.ql.ast.stmt.question.ComputedQuestion;
 import org.uva.sea.ql.ast.stmt.question.NormalQuestion;
-import org.uva.sea.ql.visitor.FormVisitor;
+import org.uva.sea.ql.visitor.IFormVisitor;
 
-public class FormVisitorPrinter implements FormVisitor {
+public class FormVisitorPrinter implements IFormVisitor {
 
 	private int depth = 0;
 
 	@Override
 	public void visit(Form form) {
-		printString("Form " + "\t id: " + form.getId().getValue()
+		printString("Form " + "\t id: " + form.getId().getName()
 				+ "\t Statement count: " + form.getStatements().size());
 		increaseDepth();
 		for (Statement stmt : form.getStatements()) {
@@ -44,21 +45,36 @@ public class FormVisitorPrinter implements FormVisitor {
 		decreaseDepth();
 		decreaseDepth();
 	}
+	
+
+	@Override
+	public void visit(IfThen ifThen) {
+		printString("IfThenElse " + "\t condition type: "
+				+ ifThen.getCondition().getClass() + "\t ifBlock count: "
+				+ ifThen.getIfBlock().size() + "\t elseBlock count: ");
+		increaseDepth();
+		printString("IF");
+		ifThen.getCondition().accept(this);
+		increaseDepth();
+		for (Statement stmt : ifThen.getIfBlock()) {
+			stmt.accept(this);
+		}
+		decreaseDepth();
+		decreaseDepth();
+		
+	}
 
 	@Override
 	public void visit(NormalQuestion question) {
-		printString("Question " + "\t id: " + question.getId().getValue()
+		printString("Question " + "\t id: " + question.getId().getName()
 				+ "\t label: " + question.getLabel() + "\t type: "
 				+ question.getType().getClass());
-//		increaseDepth();
-//		question.getType().accept(this);
-//		decreaseDepth();
 	}
 
 	@Override
 	public void visit(ComputedQuestion computedQuestion) {
 		printString("ComputedQuestion " + "\t id: "
-				+ computedQuestion.getId().getValue() + "\t label: "
+				+ computedQuestion.getId().getName() + "\t label: "
 				+ computedQuestion.getLabel() + "\t type: "
 				+ computedQuestion.getType().getClass()
 				+ computedQuestion.getExpr().toString());

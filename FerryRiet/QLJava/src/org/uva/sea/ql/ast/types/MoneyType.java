@@ -1,14 +1,18 @@
 package org.uva.sea.ql.ast.types;
 
+import java.math.BigDecimal;
 
-public class MoneyType extends TypeDescription {
+import org.uva.sea.ql.ast.operatorresults.MoneyResult;
+import org.uva.sea.ql.ast.operatorresults.Result;
+
+public class MoneyType extends Type {
 
 	public MoneyType() {
 		super("money");
 	}
 
 	@Override
-	public boolean isCompatibleTo(TypeDescription t) {
+	public boolean isCompatibleTo(Type t) {
 		return t.isCompatibleToMoney();
 	}
 
@@ -23,7 +27,7 @@ public class MoneyType extends TypeDescription {
 	}
 
 	@Override
-	public boolean isCompatibleToNumeric() {
-		return true;
+	public Result getTypeContainer() {
+		return new MoneyResult(new BigDecimal(0));
 	}
 }

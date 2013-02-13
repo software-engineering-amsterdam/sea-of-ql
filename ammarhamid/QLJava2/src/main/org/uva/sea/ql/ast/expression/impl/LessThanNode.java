@@ -1,11 +1,7 @@
 package org.uva.sea.ql.ast.expression.impl;
 
-import org.uva.sea.ql.ast.exception.InvalidTypeException;
 import org.uva.sea.ql.ast.expression.ExprNode;
-import org.uva.sea.ql.ast.value.ValueNode;
-import org.uva.sea.ql.ast.value.impl.BooleanNode;
-import org.uva.sea.ql.ast.value.impl.IntegerNode;
-import org.uva.sea.ql.ast.value.impl.MoneyNode;
+import org.uva.sea.ql.value.Value;
 
 public class LessThanNode extends ExprNode
 {
@@ -18,38 +14,39 @@ public class LessThanNode extends ExprNode
         this.rhs = rhs;
     }
 
-    @Override
-    public ValueNode evaluate()
-    {
-        final ValueNode valueNode1 = this.lhs.evaluate();
-        final ValueNode valueNode2 = this.rhs.evaluate();
-
-        final ValueNode result;
-        if(valueNode1.isIntegerNode() && valueNode2.isIntegerNode())
-        {
-            final IntegerNode integerNode1 = valueNode1.asIntegerNode();
-            final IntegerNode integerNode2 = valueNode2.asIntegerNode();
-            result = new BooleanNode(integerNode1.getValue() < integerNode2.getValue());
-        }
-        else if(valueNode1.isMoneyNode() && valueNode2.isMoneyNode())
-        {
-            final MoneyNode moneyNode1 = valueNode1.asMoneyNode();
-            final MoneyNode moneyNode2 = valueNode2.asMoneyNode();
-            result = new BooleanNode(moneyNode1.getValue().compareTo(moneyNode2.getValue()) < 0);
-        }
-        else
-        {
-            throw new InvalidTypeException("Invalid operand type for lessThan(<) operation: " + toTreeString(" "));
-        }
-
-        return result;
-    }
+//    @Override
+//    public Value evaluate()
+//    {
+//        final Value value1 = this.lhs.evaluate();
+//        final Value value2 = this.rhs.evaluate();
+//
+//        final Value result;
+//        if(value1.isCompatibleTo(value2))
+//        {
+//            final NumericValue numericValue1 = value1.asNumericValue();
+//            final NumericValue numericValue2 = value2.asNumericValue();
+//            result = numericValue1.lessThan(numericValue2);
+//        }
+//        else
+//        {
+//            throw new InvalidTypeException("Invalid operand type for lessThan(<) operation: " + toTreeString(" "));
+//        }
+//
+//        return result;
+//    }
 
     @Override
-    public String toTreeString(String indent)
+    public Value evaluate()
     {
-        return '\n' + indent + "<" + lhs.toTreeString(indent + "  ")
-                + rhs.toTreeString(indent + "  ");
-
+        final Value value1 = this.lhs.evaluate();
+        final Value value2 = this.rhs.evaluate();
+        return value1.lessThan(value2);
     }
+
+//    @Override
+//    public String toTreeString(String indent)
+//    {
+//        return '\n' + indent + "<" + lhs.toTreeString(indent + "  ")
+//                + rhs.toTreeString(indent + "  ");
+//    }
 }

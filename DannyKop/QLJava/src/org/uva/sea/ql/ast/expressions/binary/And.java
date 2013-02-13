@@ -1,6 +1,9 @@
 package org.uva.sea.ql.ast.expressions.binary;
 
-import org.uva.sea.ql.ast.*;
+import org.uva.sea.ql.ast.Expr;
+import org.uva.sea.ql.ast.types.BoolType;
+import org.uva.sea.ql.ast.types.Type;
+import org.uva.sea.ql.ast.visitor.SymbolTable;
 
 
 /**
@@ -16,24 +19,11 @@ public class And extends BinExpr {
 	 * @param r right
 	 */
 	public And(Expr l, Expr r) {
-		super(l, r, "&&");
+		super(l, r);
 	}
-	/**
-	 * isCompatibleTo
-	 * @param t type
-	 * @return boolean - true if compatible false otherwise
-	 */
 	@Override
-	public boolean isCompatibleTo(Expr t) {
-		return t.isCompatibleWithBool();
+	public Type typeOf(SymbolTable st) {
+		return new BoolType();
 	}
-	
-	/**
-	 * isCompatibleWithBool
-	 * @return
-	 */
-	@Override
-	public boolean isCompatibleWithBool() { 
-		return true; 
-	}
+
 }

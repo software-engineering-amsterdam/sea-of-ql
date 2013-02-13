@@ -5,7 +5,6 @@ options {backtrack=true; memoize=true;}
 {
 package org.uva.sea.ql.parser.antlr;
 import org.uva.sea.ql.ast.*;
-import org.uva.sea.ql.ast.type.*;
 import org.uva.sea.ql.ast.expression.*;
 import org.uva.sea.ql.ast.form.*;
 }
@@ -15,14 +14,34 @@ import org.uva.sea.ql.ast.form.*;
 package org.uva.sea.ql.parser.antlr;
 }
 
-form returns [QLForm result]
-  : 'form' IDENT body { $result = new QLForm($IDENT.text, $body.result); }
+@rulecatch {
+  catch (RecognitionException re) {
+    reportError(re);
+    recover(input,re);
+    throw re;
+  }
+}
+
+form returns [Form result]
+  : frm='form' IDENT body {
+      $result = new Form($IDENT.text, $body.result, new Location($frm.line,
+        0, $frm.pos, 0));
+    } EOF
   ;
   
+topLevelBody returns [Body result]
+  : body EOF { $result = $body.result; }
+  ;
+
+  
 body returns [Body result]
-  @init { ArrayList<FormElement> tempList = new ArrayList<FormElement>(); }
-  @after { $result = new Body(tempList); }
-  : '{' (formElement { tempList.add($formElement.result); })* '}'
+  @init { List<FormElement> tempList = new ArrayList<>(); }
+  @after
+    {
+      $result = new Body(tempList, new Location($open.line, $close.line,
+        $open.pos, $close.pos + $close.text.length()));
+    }
+  : open='{' (formElement { tempList.add($formElement.result); })* close='}'
   ;
   
 formElement returns [FormElement result]
@@ -30,46 +49,105 @@ formElement returns [FormElement result]
   | ifStatement { $result = $ifStatement.result; }
   ;
   
+topLevelFormElement returns [FormElement result]
+  : formElement EOF { $result = $formElement.result; }
+  ;
+  
 question returns [Question result]
-  @init { boolean computed = false; }
-  : IDENT ':' STRING_LITERAL type
-    ( '(' expression ')' { computed = true; } )?
+  : id=IDENT ':' lbl=STRING_LITERAL type
     {
-      if (computed) {
-        $result = new ComputedQuestion(new Ident($IDENT.text),
-          $STRING_LITERAL.text, $type.result, $expression.result);
-      } else {
-        $result = new Question(new Ident($IDENT.text),
-          $STRING_LITERAL.text, $type.result);
-      }
+      $result = new Question(
+        new Ident($id.text, new Location($id.line, $id.line, $id.pos,
+          $id.text.length())),
+        $lbl.text, $type.result);
+    }
+  | id=IDENT ':' lbl=STRING_LITERAL type '(' cond=expression close=')'
+    {
+      $result = new Computed(
+        new Ident($id.text, new Location($id.line, $id.line, $id.pos,
+          $id.text.length())),
+        $lbl.text, $type.result, $cond.result, new Location(0, $close.line, 0,
+          $close.pos + $close.text.length()));
     }
   ;
   
-type returns [ExprType result]
-  : 'boolean' { $result = new BoolType(); }
-  | 'string' { $result = new StrType(); }
-  | 'integer' { $result = new IntType(); }
-  ;
-
-ifStatement returns [IfStatement result]
-  : 'if' '(' expression ')' body
+type returns [Type result]
+  : boolTok='boolean'
     {
-      $result = new IfStatement($expression.result, $body.result);
+      $result = new BoolType(new Location($boolTok.line, $boolTok.line,
+        $boolTok.pos, $boolTok.pos + $boolTok.text.length()));
+    }
+  | strTok='string'
+    {
+      $result = new StrType(new Location($strTok.line, $strTok.line,
+        $strTok.pos, $strTok.pos + $strTok.text.length()));
+    }
+  | intTok='integer'
+    {
+      $result = new IntType(new Location($intTok.line, $intTok.line,
+        $intTok.pos, $intTok.pos + $intTok.text.length()));
     }
   ;
 
+ifStatement returns [IfStatement result]
+  @init {
+    List<ElseIfStatement> elseIfs = new ArrayList<>();
+    ElseStatement elseStmt = null;
+  }
+  : ifTok='if' '(' ic=expression ')' ib=body
+    (
+      elseIfTok='else' 'if' '(' eic=expression ')' eib=body
+      {
+        elseIfs.add(new ElseIfStatement($eic.result, $eib.result,
+          new Location($elseIfTok.line, 0, $elseIfTok.pos, 0)));
+      }
+    )*
+    (
+      elseTok='else' eb=body
+      {
+        elseStmt = new ElseStatement($eb.result, new Location($elseTok.line,
+          0, $elseTok.pos, 0));
+      }
+    )?
+    {
+      $result = new IfStatement($ic.result, $ib.result, elseIfs, elseStmt,
+        new Location($ifTok.line, 0, $ifTok.pos, 0)); 
+    }
+  ;
+
+topLevelExpression returns [Expr result]
+  : expression EOF { $result = $expression.result; }
+  ;
+
 expression returns [Expr result]
-  : INT   { $result = new Int(Integer.parseInt($INT.text)); }
-  | IDENT { $result = new Ident($IDENT.text); }
-  | STRING_LITERAL { $result = new Str($STRING_LITERAL.text); }
-  | '(' x=orExpr ')' { $result = $x.result; }
+  : orExpr { $result = $orExpr.result; }
+  ;
+
+primary returns [Expr result]
+  : INT
+    {
+      $result = new Int(Integer.parseInt($INT.text), new Location($INT.line,
+        $INT.line, $INT.pos, $INT.text.length()));
+    }
+  | IDENT
+    {
+      $result = new Ident($IDENT.text, new Location($IDENT.line, $IDENT.line,
+          $IDENT.pos, $IDENT.pos + $IDENT.text.length()));
+    }
+  | STRING_LITERAL
+    {
+      $result = new Str($STRING_LITERAL.text,
+        new Location($STRING_LITERAL.line, $STRING_LITERAL.line,
+        $STRING_LITERAL.pos, $STRING_LITERAL.text.length()));
+    }
+  | '(' orExpr ')' { $result = $orExpr.result; }
   ;
     
 unExpr returns [Expr result]
   : '+' x=unExpr { $result = new Pos($x.result); }
   | '-' x=unExpr { $result = new Neg($x.result); }
   | '!' x=unExpr { $result = new Not($x.result); }
-  | x=expression    { $result = $x.result; }
+  | x=primary    { $result = $x.result; }
   ;    
     
 mulExpr returns [Expr result]

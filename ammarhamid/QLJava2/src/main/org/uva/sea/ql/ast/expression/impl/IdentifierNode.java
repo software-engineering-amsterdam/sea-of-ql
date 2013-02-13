@@ -1,9 +1,10 @@
 package org.uva.sea.ql.ast.expression.impl;
 
-import org.uva.sea.ql.ast.VariableScope;
-import org.uva.sea.ql.ast.value.ValueNode;
+import org.uva.sea.ql.VariableScope;
+import org.uva.sea.ql.ast.expression.ExprNode;
+import org.uva.sea.ql.value.Value;
 
-public class IdentifierNode extends ValueNode<String> implements Comparable<IdentifierNode>
+public class IdentifierNode extends ExprNode
 {
 	public final String value;
 	public final VariableScope variableScope;
@@ -21,28 +22,22 @@ public class IdentifierNode extends ValueNode<String> implements Comparable<Iden
     }
 
     @Override
-    public String getValue()
+    public Value evaluate()
     {
-        return this.value;
-    }
-
-    @Override
-    public ValueNode evaluate()
-    {
-        final ValueNode valueNode = this.variableScope.resolve(this.value);
-        if(valueNode == null)
+        final Value value = this.variableScope.resolve(this.value);
+        if(value == null)
         {
             throw new RuntimeException("No such variable: " +this.value);
         }
 
-        return valueNode;
+        return value;
     }
 
-    @Override
-    public int compareTo(IdentifierNode o)
-    {
-        return this.value.compareTo(o.getValue());
-    }
+//    @Override
+//    public String toTreeString(String indent)
+//    {
+//        return '\n' + indent + this.value + " = " + String.valueOf(evaluate());
+//    }
 
     @Override
     public boolean equals(Object o)

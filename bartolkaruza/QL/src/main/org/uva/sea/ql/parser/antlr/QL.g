@@ -61,7 +61,7 @@ type returns [Type result]
         $result = new IntType();
       }
       if ($TYPE.text.equals("string")) {
-        $result = new TextStringType();
+        $result = new TextType();
       }
       if ($TYPE.text.equals("money")) {
         $result = new MoneyType();
@@ -70,7 +70,7 @@ type returns [Type result]
 
 primary returns [Expr result]
 	  : INT_VALUE   { $result = new Int($INT_VALUE.line, $INT_VALUE.text); }
-	  | STRING_VALUE { $result = new TextString($STRING_VALUE.line, $STRING_VALUE.text.substring(1, $STRING_VALUE.text.length() - 1)); }
+	  | STRING_VALUE { $result = new Text($STRING_VALUE.line, $STRING_VALUE.text.substring(1, $STRING_VALUE.text.length() - 1)); }
 	  | BOOLEAN_VALUE { $result = new Bool($BOOLEAN_VALUE.line, $BOOLEAN_VALUE.text); }
 	  | MONEY_VALUE { $result = new Money($MONEY_VALUE.line, $MONEY_VALUE.text); }
 	  | Ident { $result = new Ident($Ident.line, $Ident.text); }
@@ -90,7 +90,7 @@ mulExpr returns [Expr result]
       if ($op.text.equals("*")) {
         $result = new Mul($op.line, $result, rhs);
       }
-      if ($op.text.equals("<=")) {
+      if ($op.text.equals("/")) {
         $result = new Div($op.line, $result, rhs);      
       }
     })*
@@ -154,7 +154,9 @@ BOOLEAN_VALUE: 'true' | 'false';
 
 STRING_VALUE : '\"' .* '\"';
 
-MONEY_VALUE: ('0'..'9')+ '\.' ('0'..'9')('0'..'9');
+MONEY_VALUE : ('0'..'9')+ '.' ('0'..'9')+;
+
+//MONEY_VALUE: ('0'..'9')+ '\.' ('0'..'9')('0'..'9');
 
 INT_VALUE: ('0'..'9')+;
 

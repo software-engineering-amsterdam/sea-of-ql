@@ -6,7 +6,7 @@ import org.antlr.runtime.RecognitionException;
 import org.uva.sea.ql.parser.test.IParse;
 import org.uva.sea.ql.parser.test.ParseError;
 import org.uva.sea.ql.ast.Expr;
-import org.uva.sea.ql.ast.Type;
+import org.uva.sea.ql.ast.Value;
 
 public class ANTLRParser implements IParse {
 
@@ -27,9 +27,9 @@ public class ANTLRParser implements IParse {
 			}
 	} 
 	
-	public Type parseType(String src) throws ParseError {
+	public Value parseValue(String src) throws ParseError {
 		try {
-			return parse(src).type();
+			return parse(src).value();
 			} catch (RecognitionException e) {
 			throw new ParseError(e.getMessage());
 			}

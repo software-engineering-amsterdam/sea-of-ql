@@ -1,6 +1,5 @@
 package khosrow.uva.sea.ql.ast.expr;
 
-
 public abstract class Unary extends Expr {
 	private final Expr arg;
 	
@@ -8,7 +7,7 @@ public abstract class Unary extends Expr {
 		this.arg = arg;
 	}
 	
-	protected Expr getArg() {
+	public Expr getArg() {
 		return arg;
 	}
 	

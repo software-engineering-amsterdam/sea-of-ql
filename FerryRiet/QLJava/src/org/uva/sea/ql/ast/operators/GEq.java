@@ -1,16 +1,12 @@
 package org.uva.sea.ql.ast.operators;
 
-import java.math.BigDecimal;
-import java.util.HashMap;
+import java.util.Map;
 
-import org.uva.sea.ql.ast.BinExpr;
-import org.uva.sea.ql.ast.Expr;
-import org.uva.sea.ql.ast.Statement;
-import org.uva.sea.ql.ast.nodevisitor.Visitor;
-import org.uva.sea.ql.ast.nodevisitor.VisitorResult;
+import org.uva.sea.ql.ast.operatorresults.Result;
+import org.uva.sea.ql.ast.statements.Statement;
 import org.uva.sea.ql.ast.types.BooleanType;
-import org.uva.sea.ql.ast.types.MoneyType;
-import org.uva.sea.ql.ast.types.TypeDescription;
+import org.uva.sea.ql.ast.types.Type;
+import org.uva.sea.ql.ast.visitor.Visitor;
 
 public class GEq extends BinExpr {
 
@@ -19,38 +15,19 @@ public class GEq extends BinExpr {
 	}
 
 	@Override
-	public TypeDescription typeOf(HashMap<String, Statement> typeEnv) {
+	public Type typeOf(Map<String, Statement> typeEnv) {
 		return new BooleanType();
 	}
 
 	@Override
-	public VisitorResult accept(Visitor visitor) {
+	public <T> T accept(Visitor<T> visitor) {
 		return visitor.visit(this);
 	}
 
 	@Override
-	public ExpressionResult eval(HashMap<String, ExpressionResult> symbolMap) {
-		ExpressionResult leftHandResult = getExprLeftHand().eval(symbolMap);
-		ExpressionResult rightHandResult = getExprRightHand().eval(symbolMap);
-
-		// Both op type money
-		if ((new MoneyType()).isCompatibleTo(leftHandResult.typeOf())
-				&& (new MoneyType()).isCompatibleTo(rightHandResult.typeOf())) {
-			return new BooleanResult(leftHandResult.getMoneyValue().compareTo(rightHandResult.getMoneyValue()) >= 0);
-		}
-		// Case 2 MoneyType Integer
-		if ((new MoneyType()).isCompatibleTo(leftHandResult.typeOf())) {
-			return new BooleanResult(leftHandResult.getMoneyValue().compareTo(
-					new BigDecimal(rightHandResult.getValue())) >= 0);
-		}
-		// Case 3 Integer MoneyType
-		if ((new MoneyType()).isCompatibleTo(rightHandResult.typeOf())) {
-			return new BooleanResult((new BigDecimal(leftHandResult.getValue()).compareTo(rightHandResult
-					.getMoneyValue())) >= 0);
-		}
-		// Case 4 Integer Integer
-		return new BooleanResult(leftHandResult.getValue() >= rightHandResult.getValue());
-
-
+	public Result eval(Map<String, Result> symbolMap) {
+		Result leftHandResult = getExprLeftHand().eval(symbolMap);
+		Result rightHandResult = getExprRightHand().eval(symbolMap);
+		return leftHandResult.geq(rightHandResult);
 	}
 }

@@ -1,5 +1,7 @@
 module lang::qls::ast::AST
 
+import lang::ql::ast::AST;
+
 data FormStyle = style(str name, list[StyleRule] rules); 
 
 data StyleRule
@@ -10,16 +12,27 @@ data StyleRule
  
 data Rule
   = color(str name)
-  | widget(Widget \type)
+  | widget(WidgetType \type)
   | font(str name)
-  | width(int size)
-  | min(real val)
-  | max(real val)
-  | step(real val);
+  | minInt(int ival)
+  | maxInt(int ival)
+  | stepInt(int ival)
+  | minFloat(real rval)
+  | maxFloat(real rval)
+  | stepFloat(real rval)
+  | minDate(str dval)
+  | maxDate(str dval);
  
-data Widget
+data WidgetType
   = checkbox(str name)
-  | radio(str name);
+  | combobox(str name)
+  | radio(str name)
+  | slider(str name)
+  | dial(str name)
+  | spinbox(str name)
+  | dateedit(str name)
+  | lineedit(str name)
+  | doublespinbox(str name);
 
 data Type
   = \bool(str name)
@@ -32,4 +45,4 @@ data Type
 anno loc FormStyle@location;
 anno loc StyleRule@location;
 anno loc Rule@location;  
-  
+anno WidgetType Type@widget;

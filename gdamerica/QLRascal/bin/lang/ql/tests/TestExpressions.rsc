@@ -44,6 +44,7 @@ public test bool testDecimal1() = p("2.123") is decimal;
 public test bool testDecimal2() = p("12.123") is decimal;
 public test bool testDecimal3() = p("1234568.123") is decimal;
 
+
 public test bool testPos1() = p("+3") is pos;
 
 public test bool testNeg1() = p("-3") is neg;

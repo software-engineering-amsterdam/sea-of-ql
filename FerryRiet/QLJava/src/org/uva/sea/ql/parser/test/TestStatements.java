@@ -3,8 +3,8 @@ package org.uva.sea.ql.parser.test;
 import junit.framework.TestCase;
 
 import org.junit.Test;
-import org.uva.sea.ql.ast.ConditionalStatement;
-import org.uva.sea.ql.ast.LineStatement;
+import org.uva.sea.ql.ast.statements.ConditionalStatement;
+import org.uva.sea.ql.ast.statements.LineStatement;
 
 public class TestStatements extends TestCase {
 

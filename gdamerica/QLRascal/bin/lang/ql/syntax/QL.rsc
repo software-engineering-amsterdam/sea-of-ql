@@ -57,8 +57,8 @@ start syntax Element
   ;
     
 start syntax Question
-  = singleQuestion: Ident identification ":" String description DataType datatype 
-  | computableQuestion: Ident identification ":" String description DataType datatype Expr computableExpression 
+  = singleQuestion: Ident identification ":" String label DataType datatype 
+  | computableQuestion: Ident identification ":" String label DataType datatype Expr computableExpression 
   ;
    
 start syntax Condition
@@ -93,7 +93,7 @@ lexical Decimal
   ;  
 
 lexical Money
-  = [0-9]+ "." !>> [0-9] ? [0-9] ? [0-9]  
+  = [0-9]+ "." ([0-9] ? [0-9])  
   ;  
 
 lexical String
@@ -101,7 +101,7 @@ lexical String
   ;
 
 lexical Date
-  = [0-3][0-9] "/" [0-1][0-2] "/" [0-9][0-9][0-9][0-9] "/"   //dd/mm/yyyy/ doesn't work without closing "/" 
+  = [0-3][0-9] "/" [0-1][0-2] "/" [0-9][0-9][0-9][0-9] "/"   
   ;
          
 lexical Comment 
@@ -131,6 +131,7 @@ keyword Keywords
   | "int"
   | "decimal"
   | "form"
+  | "money"
   ; 
     
  

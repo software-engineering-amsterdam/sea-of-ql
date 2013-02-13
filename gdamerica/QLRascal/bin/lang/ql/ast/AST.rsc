@@ -18,18 +18,18 @@ data Expr
   | pos(Expr posValue)
   | neg(Expr negValue)
   | not(Expr notValue)
-  | mul(Expr mulLftValue, Expr mulRgtValue)
-  | div(Expr divLftValue, Expr divRgtValue)
-  | add(Expr addLftValue, Expr addRgtValue)
-  | sub(Expr subLftValue, Expr subRgtValue)
-  | lt(Expr ltLftValue, Expr ltRgtValue)
-  | leq(Expr legLftValue, Expr legRgtValue)
-  | gt(Expr gtLftValue, Expr gtRgtValue)
-  | geq(Expr geqLftValue, Expr geqRgtValue)
-  | eq(Expr eqLftValue, Expr eqRgtValue)
-  | neq(Expr neqLftValue, Expr neqRgtValue)
-  | and(Expr andLftValue, Expr andRgtValue)
-  | or(Expr orLftValue, Expr orRgtValue)
+  | mul(Expr lhsValue, Expr rhsValue)
+  | div(Expr lhsValue, Expr rhsValue)
+  | add(Expr lhsValue, Expr rhsValue)
+  | sub(Expr lhsValue, Expr rhsValue)
+  | lt(Expr lhsValue, Expr rhsValue)
+  | leq(Expr lhsValue, Expr rhsValue)
+  | gt(Expr lhsValue, Expr rhsValue)
+  | geq(Expr lhsValue, Expr rhsValue)
+  | eq(Expr lhsValue, Expr rhsValue)
+  | neq(Expr lhsValue, Expr rhsValue)
+  | and(Expr lhsValue, Expr rhsValue)
+  | or(Expr lhsValue, Expr rhsValue)
   ;
   
 data Form
@@ -42,8 +42,8 @@ data Element
   ;
   
 data Question
-  = singleQuestion(str qstnIdent, str qstnDescr, DataType qstnDataType)
-  | computableQuestion(str cqstnIdent, str cqstnDescr, DataType cqstnDataType, Expr cqstnExpr)
+  = singleQuestion(str qstnIdent, str qstnLabel, DataType qstnDataType)
+  | computableQuestion(str cqstnIdent, str cqstnLabel, DataType cqstnDataType, Expr cqstnExpr)
   ;
 
 data Condition

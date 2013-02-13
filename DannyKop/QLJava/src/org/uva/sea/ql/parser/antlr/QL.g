@@ -13,6 +13,7 @@ import org.uva.sea.ql.ast.expressions.binary.*;
 import org.uva.sea.ql.ast.expressions.unary.*;
 import org.uva.sea.ql.ast.types.*;
 import org.uva.sea.ql.ast.form.*;
+import org.uva.sea.ql.ast.literals.*;
 import org.uva.sea.ql.parser.test.*;
 import java.util.LinkedList;
 }
@@ -31,7 +32,6 @@ package org.uva.sea.ql.parser.antlr;
 	    errors.add(hdr + " -- " + msg);
 	       
 	}
-	
 	public boolean isErrorFound(){
 		return this.errors.size() != 0;
 	}
@@ -41,11 +41,10 @@ package org.uva.sea.ql.parser.antlr;
 }
 
 primary returns [Expr result]
-  : Int   { $result = new Int(Integer.parseInt($Int.text)); }
+  : Int   { $result = new IntLiteral(Integer.parseInt($Int.text)); }
   | Ident { $result = new Ident($Ident.text); }
-  | Bool { $result = new Bool($Bool.text);}
-  | Str { $result = new Str($Str.text);}
-  | Money { $result = new Money($Money.text); }
+  | Bool { $result = new BoolLiteral($Bool.text);}
+  | Str { $result = new StrLiteral($Str.text);}
   | '(' x=orExpr ')'{ $result = $x.result; }
   ;
     
@@ -62,7 +61,7 @@ mulExpr returns [Expr result]
       if ($op.text.equals("*")) {
         $result = new Mul($result, rhs);
       }
-      if ($op.text.equals("<=")) {
+      if ($op.text.equals("/")) {
         $result = new Div($result, rhs);      
       }
     })*
@@ -126,21 +125,20 @@ formElements returns [ArrayList<FormElement> result]
     : (element = formElement { $result.add(element);})*
     ;
 computation returns [Computation result]
-    : Ident ':' Str type '(' orExpr ')' { $result = new Computation(new Ident($Ident.text), new Str($Str.text), $orExpr.result, $type.result); }
+    : Ident ':' Str type '(' orExpr ')' { $result = new Computation(new Ident($Ident.text), new StrLiteral($Str.text), $orExpr.result, $type.result); }
     ;
 question returns [Question result] 
-    : Ident ':' Str type { $result = new Question(new Ident($Ident.text), new Str($Str.text), $type.result); }
+    : Ident ':' Str type { $result = new Question(new Ident($Ident.text), new StrLiteral($Str.text), $type.result); }
     ;
 condition returns [Condition result]
-    : If '(' orExpr ')' '{' formElements '}' { $result = new Condition($orExpr.result, $formElements.result); }
-    // Else needs to be implemented ->(question | condition | computation)*
+    : If '(' orExpr ')' '{' ifElems = formElements '}' Else '{' elseElems = formElements '}' { $result = new Condition($orExpr.result, $ifElems.result, $elseElems.result);}
+    | If '(' orExpr ')' '{' formElements '}' { $result = new Condition($orExpr.result, $formElements.result); }
     ;
 
-type returns [Expr result]
-    : 'boolean' {$result = new Bool();}
-    | 'string'  {$result = new Str();}
-    | 'money'   {$result = new Money();}
-    | 'int'     {$result = new Int();}
+type returns [Type result]
+    : 'boolean' {$result = new BoolType();}
+    | 'string'  {$result = new StrType();}
+    | 'int'     {$result = new IntType();}
     ;
 // Tokens
 
@@ -162,7 +160,5 @@ Form: 'form';
 Str: '"' (Ident | WS | Int | SpecialChars)* '"';
 
 Ident:   ('a'..'z'|'A'..'Z')('a'..'z'|'A'..'Z'|'0'..'9'|'_')*;
-
-Money: ('0'..'9') ',' ('0'..'9')('0'..'9');
 
 Int: ('0'..'9')+;

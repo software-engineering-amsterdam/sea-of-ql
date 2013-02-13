@@ -10,7 +10,7 @@ form test  {
 	
 	if (isEmpl)
 	{
-		if(isEmpl==false){
+		if(isEmpl==true){
 		salary: "Annual income:" money 
 		}
 		else{

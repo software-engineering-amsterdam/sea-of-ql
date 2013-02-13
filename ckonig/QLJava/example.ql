@@ -10,7 +10,7 @@ form Box1HouseOwning {
      if(valueResidue > 20000) {
      	askedForPermissionValRes20 : "Did you ask for permission to have a value residue larger than 20000?" boolean
      }
-     /**
+/**
      this is a multi line comment
      */
      if(sellingPrice < 80000) {

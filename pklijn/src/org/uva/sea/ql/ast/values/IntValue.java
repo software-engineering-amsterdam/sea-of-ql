@@ -32,4 +32,9 @@ public class IntValue extends Value {
 	public int hashCode() {
 		return value.hashCode();
 	}
+	
+	@Override
+	public String toString() {
+		return Integer.toString(value);
+	}
 }

@@ -1,8 +1,18 @@
+@license{
+  Copyright (c) 2013 
+  All rights reserved. This program and the accompanying materials
+  are made available under the terms of the Eclipse Public License v1.0
+  which accompanies this distribution, and is available at
+  http://www.eclipse.org/legal/epl-v10.html
+}
+@contributor{Kevin van der Vlist - kevin@kevinvandervlist.nl}
+@contributor{Jimi van der Woning - Jimi.vanderWoning@student.uva.nl}
+
 module lang::ql::tests::forms::Outline
 
 import lang::ql::ast::AST;
 import lang::ql::ide::Outline;
-import lang::ql::tests::ParseHelper;
+import lang::ql::util::ParseHelper;
 import lang::ql::util::FormGenerator;
 import lang::ql::util::Random;
 
@@ -23,7 +33,7 @@ public test bool testCommentForm() =
 
 public test bool testIfCondition() = 
   outline(|project://QL-R-kemi/forms/ifCondition.q|) > "outline"();
-
+  
 public test bool testIfElseCondition() = 
   outline(|project://QL-R-kemi/forms/ifElseCondition.q|) > "outline"();
 

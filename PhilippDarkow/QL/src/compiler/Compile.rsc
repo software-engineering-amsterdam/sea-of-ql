@@ -3,32 +3,20 @@ module compiler::Compile
 import Prelude;
 import syntax::AbstractSyntax;
 import compiler::Assembly;
-import typeChecker::Load;
+import util::Load;
+import compiler::ExpressionCompiler;
 
 alias Instrs = list[Instr];     // We introduce Instrs as an alias for a list of assembly language instructions                  
 
-// compile Expressions.
-// The compiler consists of the functions compileExp, compileStat, compileStats, compileDecls and compileProgram.
-// They all have a program fragment as argument and return the corresponding list of instructions
-Instrs compileExp(moneyCon(Money M)) = [pushMon(N)];  
 
-Instrs compileExp(strCon(str S)) = [pushStr(substring(S,1,size(S)-1))];
+//  check StringTemplate after compiling and the IDE support + delete assembly language
+//
+//
 
-Instrs compileExp(id(QuestionId Id)) = [rvalue(Id)];
+//public Instrs compileExp(\int(int I)) = [pushInt(I)];
 
-Instrs compileExp(strQue(QuestionString qName)) = [rvalue(qName)];
-
-public Instrs compileExp(add(EXP E1, EXP E2)) =    
-  [*compileExp(E1), *compileExp(E2), add2()];
-
-Instrs compileExp(sub(EXP E1, EXP E2)) =
-  [*compileExp(E1), *compileExp(E2), sub2()];
-
-//Instrs compileExp(conc(EXP E1, EXP E2)) =
-//  [*compileExp(E1), *compileExp(E2), conc2()];
-
-
-  
+//public Instrs coe mpileExp(string(str S)) = [pushStr(S)];
+ 
 // Unique label generation
 
 private int nLabel = 0;                            
@@ -38,46 +26,124 @@ private str nextLabel() {
   return "L<nLabel>";
 }
 
-// Compile a statement
-
-Instrs compileStat(asgStat(QuestionId Id, QUE qName)) =
-	[lvalue(Id), *compileExp(qName), assign()];
-	
-Instrs compileStat(ifElseStat(EXP Exp,              
-                              list[STATEMENT] Stats1,
-                              list[STATEMENT] Stats2)){
+// Compile a statement	
+// Compile a list of statements  Compiling a list of statements conveniently uses a list comprehension and list splicing.
+Instrs compileStats(list[Statement] Stats1) =      
+  [ *compileStat(S) | S <- Stats1 ];
   
+
+/** Method to compile an if statement
+* @param ifStat the if Statement
+* @return Instrs of an if Statement
+* @author Philipp
+*/
+Instrs compileStatement(ifStat(Expression exp, list[Body] Body)){
+	println("in compile statement <exp>");
+	endLab = nextLabel();
+	return[*compileExp(exp),
+			gofalse(endLab),
+			*compileBody(Body),
+			go(endLab),
+			label(endLab) ];
+	
+}
+
+/** Method to compile an if else statement
+* @param ifElseStat the if else Statement
+* @return Instrs of an if else Statement
+* @author Philipp
+*/
+Instrs compileStat(ifElseStat(Expression exp,list[Body] Body1, list[Body] Body2)){  
   elseLab = nextLabel();
   endLab = nextLabel();  
-  return [*compileExp(Exp), 
+  return [*compileExp(exp), 
           gofalse(elseLab), 
-          *compileStats(Stats1),  
+          *compileBody(Body1),  
           go(endLab), 
           label(elseLab), 
-          *compileStats(Stats2), 
+          *compileBody(Body2), 
           label(endLab)];
 }
 
-// Compile a list of statements  Compiling a list of statements conveniently uses a list comprehension and list splicing.
-Instrs compileStats(list[STATEMENT] Stats1) =      
-  [ *compileStat(S) | S <- Stats1 ];
-  
-// Compile declarations
-// Compiling declarations allocates memory locations of the appropriate type for each declared variable.
-Instrs compileDecls(list[DECL] Decls) =
-  [ ((tp == natural()) ? dclNat(Id) : dclStr(Id))  |       
-    decl(QuestionId Id, QUE tp) <- Decls
-  ];
+/** Method to compile a computed Question  --> NOT DONE
+* @param question the computed question
+* @return Instrs of a computed question
+* @author Philipp
+*/
+Instrs compileQuestion(question:computedQuestion(str id, str labelQuestion, Type tp, Expression exp)){
+	println("in compile computed question <question>");
+	
+}
 
-// Compile a Pico program
+/** Method to compile an easy Question
+* @param question the easy question
+* @return Instrs of an easy question
+* @author Philipp
+*/
+Instrs compileQuestion(question:easyQuestion(str id, str labelQuestion, Type tp)){
+	println("in compile question <question>");
+	// get the type of the question
+	switch(tp){
+		case money() : {
+			return [ dclMon(Id) |
+	  		easyQuestion(str Id, str questionLabel, Type tp) <- [question]
+	  		];
+		}
+		case boolean() : return [ dclBool(Id) |
+	  		easyQuestion(str Id, str questionLabel, Type tp) <- [question]];
+		case string() : return aa = [ dclStr(Id) |
+	  		easyQuestion(str Id, str questionLabel, Type tp) <- [question]];
+	};
+		
+	//visit(q){
+	//	case Type tp : {
+	//		println("TP : <tp>");
+	//		if(tp == money()){
+	//			Instrs aa = [ dclMon(Id) |
+	//  			easyQuestion(str Id, str questionLabel, Type tp) <- [q]
+	//  			];
+	//  			println("AA : <aa>");
+	//  			return aa;
+	//		}else if(tp == string()){
+	//			Instrs aa = [ dclStr(Id) |
+	//  			easyQuestion(str Id, str questionLabel, Type tp) <- [q]
+	//  			];
+	//  			return aa;
+	//		}else if(tp == boolean()){
+	//			Instrs aa = [ dclBool(Id) |
+	//  			easyQuestion(str Id, str questionLabel, Type tp) <- [q]
+	//  			];
+	//  			return aa;
+	//		} 
+	//	}
+	//};
+}
 
-public Instrs compileProgram(PROGRAM P){
+/** Method to compile the Body fragment of the QL program
+* @param Body the Body fragment
+* @return Instrs
+* @author Philipp
+*/
+Instrs compileBody(list[Body] Body){
+	Instrs questionResult = [];
+	Instrs statementResult = [];
+	visit(Body){
+		case Question q : {
+			questionResult += [*compileQuestion(q)];
+		}
+		case Statement s : {
+			statementResult += [*compileStatement(s)];
+		}
+	}
+	return [*questionResult,*statementResult];
+}
+
+// Compile a QL program
+public Instrs compileProgram(Program P){
   nLabel = 0;
-  if(program(EXP exp, list[DECL] Decls, list[STATEMENT] Series) := P){
-     println("EXP in COMPILE : <exp>");
-     println("DECL in COMPILE : <Decls>");
-     println("STATEMENT in COMPILE : <Series>");
-     return [*compileDecls(Decls), *compileStats(Series)];
+  if(program(Expression exp, list[Body] Body) := P){
+     println("Body in COMPILE : <Body>");
+     return [*compileBody(Body)];
   } else
     throw "Cannot happen";
 }

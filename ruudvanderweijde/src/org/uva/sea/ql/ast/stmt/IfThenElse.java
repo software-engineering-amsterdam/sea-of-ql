@@ -1,36 +1,17 @@
 package org.uva.sea.ql.ast.stmt;
 
-import java.util.Collections;
 import java.util.List;
 
 import org.uva.sea.ql.ast.expr.Expr;
-import org.uva.sea.ql.visitor.FormVisitor;
+import org.uva.sea.ql.visitor.IFormVisitor;
 
-public class IfThenElse extends Statement {
+public class IfThenElse extends IfThen {
 
-	private final Expr condition;
-	private final List<Statement> ifBlock;
 	private final List<Statement> elseBlock;
 	
-	public IfThenElse(Expr condition, List<Statement> ifBlock,
-			List<Statement> elseBlock) {
-		this.condition = condition;
-		this.ifBlock = ifBlock;
+	public IfThenElse(Expr condition, List<Statement> ifBlock, List<Statement> elseBlock) {
+		super(condition, ifBlock);
 		this.elseBlock = elseBlock;
-	}
-
-	public IfThenElse(Expr condition, List<Statement> ifBlock) {
-		this.condition = condition;
-		this.ifBlock = ifBlock;
-		this.elseBlock = Collections.emptyList();;
-	}
-
-	public Expr getCondition() {
-		return condition;
-	}
-
-	public List<Statement> getIfBlock() {
-		return ifBlock;
 	}
 
 	public List<Statement> getElseBlock() {
@@ -38,7 +19,7 @@ public class IfThenElse extends Statement {
 	}
 
 	@Override
-	public void accept(FormVisitor visitor) {
+	public void accept(IFormVisitor visitor) {
 		visitor.visit(this);
 	}
 }

@@ -1,7 +1,7 @@
 package org.uva.sea.ql.checker.errors;
 
 import org.uva.sea.ql.ast.Expr;
-import org.uva.sea.ql.util.VisitorPrint;
+import org.uva.sea.ql.util.VisitorExprPrint;
 
 public abstract class Error {
 	
@@ -19,7 +19,7 @@ public abstract class Error {
 	}
 	
 	protected static String expressionToString(Expr expr){
-		return expr.accept(new VisitorPrint());
+		return expr.accept(new VisitorExprPrint());
 	}
 	
 }

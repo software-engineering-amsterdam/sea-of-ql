@@ -1,59 +1,45 @@
 package org.uva.sea.ql.ast.expression.impl;
 
-import org.uva.sea.ql.ast.exception.InvalidTypeException;
+import org.uva.sea.ql.ast.expression.BinaryNode;
 import org.uva.sea.ql.ast.expression.ExprNode;
-import org.uva.sea.ql.ast.value.ValueNode;
-import org.uva.sea.ql.ast.value.impl.IntegerNode;
-import org.uva.sea.ql.ast.value.impl.MoneyNode;
-import org.uva.sea.ql.ast.value.impl.StringNode;
+import org.uva.sea.ql.type.Type;
+import org.uva.sea.ql.value.Value;
 
-public class AddNode extends ExprNode
+public class AddNode extends BinaryNode
 {
-    private final ExprNode lhs;
-    private final ExprNode rhs;
 
     public AddNode(final ExprNode lhs, final ExprNode rhs)
     {
-        this.lhs = lhs;
-        this.rhs = rhs;
+        super(lhs, rhs);
+    }
+
+    // TODO place it in visitor
+    public void checkType()
+    {
+        final Type type1 = this.lhs.evaluate().getType();
+        final Type type2 = this.rhs.evaluate().getType();
+
+        boolean compatible = type1.isCompatibleTo(type2);
+
+        if(!compatible)
+        {
+            // TODO do something !!
+        }
     }
 
     @Override
-    public ValueNode evaluate()
+    public Value evaluate()
     {
-        final ValueNode valueNode1 = this.lhs.evaluate();
-        final ValueNode valueNode2 = this.rhs.evaluate();
-
-        final ValueNode result;
-        if(valueNode1.isStringNode() || valueNode2.isStringNode())
-        {
-            result = new StringNode(valueNode1.getValue() + "" + valueNode2.getValue());
-        }
-        else if(valueNode1.isIntegerNode() && valueNode2.isIntegerNode())
-        {
-            final IntegerNode integerNode1 = valueNode1.asIntegerNode();
-            final IntegerNode integerNode2 = valueNode2.asIntegerNode();
-            result = new IntegerNode(integerNode1.getValue() + integerNode2.getValue());
-        }
-        else if(valueNode1.isMoneyNode() && valueNode2.isMoneyNode())
-        {
-            final MoneyNode moneyNode1 = valueNode1.asMoneyNode();
-            final MoneyNode moneyNode2 = valueNode2.asMoneyNode();
-            result = new MoneyNode(moneyNode1.getValue().add(moneyNode2.getValue()));
-        }
-        else
-        {
-            throw new InvalidTypeException("Invalid operand type for add(+) operation: " + toTreeString(" "));
-        }
-
-        return result;
+        final Value value1 = this.lhs.evaluate();
+        final Value value2 = this.rhs.evaluate();
+        return value1.add(value2);
     }
 
-    @Override
-    public String toTreeString(String indent)
-    {
-        return '\n' + indent + "+" + lhs.toTreeString(indent + "  ")
-                + rhs.toTreeString(indent + "  ");
-    }
+//    @Override
+//    public String toTreeString(final String indent)
+//    {
+//        return '\n' + indent + "+" + lhs.toTreeString(indent + "  ")
+//                + rhs.toTreeString(indent + "  ");
+//    }
 
 }

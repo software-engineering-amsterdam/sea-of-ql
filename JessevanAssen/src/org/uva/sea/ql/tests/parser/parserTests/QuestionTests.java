@@ -1,10 +1,11 @@
 package org.uva.sea.ql.tests.parser.parserTests;
 
-import static org.junit.Assert.*;
-
 import org.junit.Test;
-import org.uva.sea.ql.ast.*;
+import org.uva.sea.ql.ast.Question;
+import org.uva.sea.ql.ast.Statement;
 import org.uva.sea.ql.parser.ParseError;
+
+import static org.junit.Assert.assertEquals;
 
 public class QuestionTests extends ParserTests {
 
@@ -14,13 +15,13 @@ public class QuestionTests extends ParserTests {
 				     value    = "name",
 				     type     = "boolean";
 		
-		FormElement formElement = parseFormElement(String.format("\"%s\" %s : %s", question, value, type));
-		assertEquals(Question.class, formElement.getClass());
-		Question q = (Question) formElement;
+		Statement statement = parseStatement(String.format("\"%s\" %s : %s", question, value, type));
+		assertEquals(Question.class, statement.getClass());
+		Question q = (Question) statement;
 		
 		assertEquals(question, q.getQuestion());
 		assertEquals(value, q.getIdentifier().getName());
-		assertEquals(org.uva.sea.ql.ast.type.Bool.class, q.getType().getClass());
+		assertEquals(org.uva.sea.ql.ast.type.Boolean.class, q.getType().getClass());
 	}
 	
 }

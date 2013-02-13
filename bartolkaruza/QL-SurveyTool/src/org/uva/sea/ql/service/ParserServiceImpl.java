@@ -1,50 +1,31 @@
 package org.uva.sea.ql.service;
 
-import java.util.List;
-
 import org.uva.sea.ql.ast.Form;
-import org.uva.sea.ql.ast.Question;
-import org.uva.sea.ql.error.ErrorHandler;
 import org.uva.sea.ql.error.ParseError;
 import org.uva.sea.ql.error.QLError;
 import org.uva.sea.ql.parser.IParse;
+import org.uva.sea.ql.parser.ParserContext;
 import org.uva.sea.ql.parser.antlr.ANTLRParser;
-import org.uva.sea.ql.semantic.ExpressionSemanticChecker;
 import org.uva.sea.ql.semantic.StatementSemanticChecker;
-import org.uva.sea.ql.symbol.DefinitionCollector;
-import org.uva.sea.ql.symbol.SymbolTable;
 
 public class ParserServiceImpl implements ParserService {
-
-	private final ErrorHandler handler = new ErrorHandler();
-	private final SymbolTable table = new SymbolTable();
-	private final IParse parser = new ANTLRParser();
-	private Form currentForm;
 	
-	@Override
-	public List<QLError> getErrors() {
-		return handler.getErrors();
-	}
+	private final IParse parser = new ANTLRParser();
 
 	@Override
-	public void parseNewForm(String form) {
-		table.clear();
-		handler.clear();
+	public ParserContext parseNewForm(String form) {
+		ParserContext context = new ParserContext();
+		Form formHolder;
 		try {
-			currentForm = (Form) parser.parseNode(form);
+			formHolder = (Form) parser.parseNode(form);
 		} catch (ParseError e) {
-			handler.addError(new QLError(e.getLocalizedMessage()));
-			return; // Parse exception occurred, abort further checking
+			context.addError(new QLError(e.getLocalizedMessage()));
+			return context; // Parse exception occurred, abort further checking
 		}
-		DefinitionCollector generator = new DefinitionCollector(table, handler);
-		ExpressionSemanticChecker exprChecker = new ExpressionSemanticChecker(table, handler);
-		StatementSemanticChecker statementChecker = new StatementSemanticChecker(table, handler, generator, exprChecker);
-		currentForm.accept(statementChecker);
-	}
-
-	@Override
-	public List<Question> getVisibleQuestions() {
-		return null;
+		StatementSemanticChecker statementChecker = new StatementSemanticChecker(context);
+		formHolder.accept(statementChecker);
+		context.setForm(formHolder);
+		return context;
 	}
 
 }

@@ -1,5 +1,5 @@
 package org.uva.sea.ql.ast.visitor;
-/**
+/** 
  * class: AstException
  * @author Danny
  *

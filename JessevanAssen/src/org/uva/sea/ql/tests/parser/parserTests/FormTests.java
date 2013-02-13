@@ -1,49 +1,46 @@
 package org.uva.sea.ql.tests.parser.parserTests;
 
 import org.junit.Test;
-import static org.junit.Assert.*;
-
-import org.uva.sea.ql.ast.*;
+import org.uva.sea.ql.ast.CompositeStatement;
+import org.uva.sea.ql.ast.Form;
+import org.uva.sea.ql.ast.NullStatement;
+import org.uva.sea.ql.ast.Statement;
 import org.uva.sea.ql.parser.ParseError;
 
 import java.util.Iterator;
+
+import static org.junit.Assert.*;
 
 public class FormTests extends ParserTests {
 
 	@Test
 	public void testEmptyForm() throws ParseError {
 		final String formName = "awesomeForm";
-		ASTNode parsed = parser.parse(String.format("form %s { }", formName));
-		
-		assertEquals(Form.class, parsed.getClass());
-		
-		Form form = (Form) parsed;
+		Form form = parser.parse(String.format("form %s { }", formName));
+
 		assertEquals(formName, form.getName().getName());
 		assertNotNull(form.getBody());
-		assertEquals(NullFormElement.class, form.getBody().getClass());
+		assertEquals(NullStatement.class, form.getBody().getClass());
 	}
 	
 	@Test
 	public void testFilledForm() throws ParseError {
 		final String formName = "awesomeForm";
-		ASTNode parsed = parser.parse(String.format(
+        Form form = parser.parse(String.format(
 				"form %s { " +
 						"\"Favorite flavor of bread?\" bread : string " +
 						"\"Favorite flavor of cheese?\" cheese : string " +
 						"\"Favorite flavor of candy?\" candy : string " +
 				"}", formName));
-		
-		assertEquals(Form.class, parsed.getClass());
-		
-		Form form = (Form) parsed;
+
 		assertEquals(formName, form.getName().getName());
 		assertNotNull(form.getBody());
-        assertEquals(CompositeFormElement.class, form.getBody().getClass());
-        Iterator<FormElement> formElements = ((CompositeFormElement)form.getBody()).getFormElements().iterator();
+        assertEquals(CompositeStatement.class, form.getBody().getClass());
+        Iterator<Statement> statementIterator = ((CompositeStatement)form.getBody()).getStatements().iterator();
 		for(int i = 0; i < 3; ++i) {
-            assertTrue(formElements.hasNext());
-            formElements.next();
+            assertTrue(statementIterator.hasNext());
+            statementIterator.next();
         }
-        assertFalse(formElements.hasNext());
+        assertFalse(statementIterator.hasNext());
 	}
 }

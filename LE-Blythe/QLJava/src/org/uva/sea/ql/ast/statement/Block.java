@@ -3,7 +3,7 @@ package org.uva.sea.ql.ast.statement;
 import java.util.List;
 
 import org.uva.sea.ql.ast.Statement;
-import org.uva.sea.ql.interfaces.IVisitor;
+import org.uva.sea.ql.interfaces.IVisitorStatement;
 
 public class Block extends Statement{
 	
@@ -21,7 +21,7 @@ public class Block extends Statement{
 	
 	
 	@Override
-	public <T> T accept(IVisitor<T> visitor) {
+	public <T> T accept(IVisitorStatement<T> visitor) {
 		return visitor.visit(this);
 	}
 }

@@ -1,8 +1,10 @@
 package org.uva.sea.ql.ast.form;
 
-import org.uva.sea.ql.ast.*;
-import org.uva.sea.ql.ast.types.*;
-import org.uva.sea.ql.ast.visitor.*;
+import org.uva.sea.ql.ast.Expr;
+import org.uva.sea.ql.ast.Ident;
+import org.uva.sea.ql.ast.literals.StrLiteral;
+import org.uva.sea.ql.ast.types.Type;
+import org.uva.sea.ql.ast.visitor.Visitor;
 /**
  * Class: Computation
  * @author Danny
@@ -11,7 +13,7 @@ import org.uva.sea.ql.ast.visitor.*;
 public class Computation extends FormElement {
 
 	private final Ident identifier;
-	private final Str description;
+	private final StrLiteral description;
 	private final Expr argument;
 
 	/**
@@ -20,24 +22,24 @@ public class Computation extends FormElement {
 	 * @param d  - description
 	 * @param e  - argument
 	 */
-	public Computation(Ident id, Str d, Expr arg, Expr type) {
+	public Computation(Ident id, StrLiteral d, Expr arg, Type type) {
 		super(type);
 		this.identifier = id;
 		this.description = d;
 		this.argument = arg;
 	}
 	/**
-	 * getIdent()
+	 * getIdentifier
 	 * @return identifier
 	 */
-	public Ident getIdent(){
+	public Ident getIdentifier(){
 		return this.identifier;
 	}
 	/**
 	 * getDescription()
 	 * @return question
 	 */
-	public Str getDescription(){
+	public StrLiteral getDescription(){
 		return this.description;
 	}
 	/**
@@ -48,30 +50,12 @@ public class Computation extends FormElement {
 		return this.argument;
 	}
 	/**
-	 * getType
-	 * @param st - the table to check for the type
-	 * @return Expr - type
-	 */
-	@Override
-	public Expr getType(SymbolTable st){
-		return super.getType(st);
-	}
-	/**
 	 * accept()
 	 * @param visitor
 	 * @return type
 	 */
+	@Override
 	public void accept(Visitor visitor){
 		visitor.visit(this);
 	}
-	/**
-	 * isCompatibleTo
-	 * @param t type
-	 * @return boolean - true if compatible false otherwise
-	 */
-	@Override
-	public boolean isCompatibleTo(Expr t) {
-		return this.argument.isCompatibleTo(t);
-	}
-	
 }

@@ -3,15 +3,16 @@ package org.uva.sea.ql.ast.statements;
 import java.util.List;
 import org.uva.sea.ql.ast.Expr;
 import org.uva.sea.ql.ast.Statement;
+import org.uva.sea.ql.ast.visitor.IStatementVisitor;
 
 public class Ifthenelse extends Statement {
 	private Expr expression;
-	private List<Statement> block1,block2;
+	private List<Statement> thenBlock,elseBlock;
 	
-	public Ifthenelse (Expr expression, List<Statement> block1, List<Statement> block2){
+	public Ifthenelse (Expr expression, List<Statement> thenBlock, List<Statement> elseBlock){
 		this.expression=expression;
-		this.block1 = block1;
-		this.block2 = block2;
+		this.thenBlock = thenBlock;
+		this.elseBlock = elseBlock;
 	}
 	
 	public Expr getExpression() {
@@ -19,11 +20,16 @@ public class Ifthenelse extends Statement {
 	}
 	
 	public List<Statement> getBlock1() {
-		return block1;
+		return thenBlock;
 	}
 	
 	public List<Statement> getBlock2() {
-		return block2;
+		return elseBlock;
+	}
+	
+	@Override
+	public void accept(IStatementVisitor visitor) {
+		visitor.visit(this);
 	}
 
 }

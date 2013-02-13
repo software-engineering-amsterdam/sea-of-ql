@@ -1,7 +1,10 @@
 package org.uva.sea.ql.error;
 
-public class QLError {
+import java.io.Serializable;
 
+public class QLError implements Serializable {
+
+	private static final long serialVersionUID = 3519307324771392279L;
 	private String cause;
 
 	public QLError(String cause) {

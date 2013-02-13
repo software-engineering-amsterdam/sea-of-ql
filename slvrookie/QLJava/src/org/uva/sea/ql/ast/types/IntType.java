@@ -12,4 +12,9 @@ public class IntType extends Numeric {
 		return true;
 	}
 
+	@Override
+	public boolean isCompatibleToMoneyType() {
+		return false;
+	}
+
 }

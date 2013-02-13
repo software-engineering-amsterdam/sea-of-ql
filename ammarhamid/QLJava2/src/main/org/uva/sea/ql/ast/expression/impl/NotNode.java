@@ -1,35 +1,41 @@
 package org.uva.sea.ql.ast.expression.impl;
 
-import org.uva.sea.ql.ast.exception.InvalidTypeException;
 import org.uva.sea.ql.ast.expression.ExprNode;
-import org.uva.sea.ql.ast.value.ValueNode;
-import org.uva.sea.ql.ast.value.impl.BooleanNode;
+import org.uva.sea.ql.ast.expression.UnaryNode;
+import org.uva.sea.ql.value.Value;
 
-public class NotNode extends ExprNode
+public class NotNode extends UnaryNode
 {
-    private final ExprNode exprNode;
 
     public NotNode(final ExprNode exprNode)
     {
-        this.exprNode = exprNode;
+        super(exprNode);
     }
+
+//    @Override
+//    public Value evaluate()
+//    {
+//        final Value value = this.exprNode.evaluate();
+//
+//        if(value.isCompatibleToBoolean())
+//        {
+//            return new BooleanValue(!value.asBooleanValue().getValue());
+//        }
+//
+//        throw new InvalidTypeException("Invalid operand type for not(!) operation: " + toTreeString(" "));
+//    }
+
 
     @Override
-    public ValueNode evaluate()
+    public Value evaluate()
     {
-        final ValueNode valueNode = this.exprNode.evaluate();
-
-        if(valueNode.isBooleanNode())
-        {
-            return new BooleanNode(!valueNode.asBooleanNode().getValue());
-        }
-
-        throw new InvalidTypeException("Invalid operand type for not(!) operation: " + toTreeString(" "));
+        final Value value = this.exprNode.evaluate();
+        return value.not();
     }
 
-    @Override
-    public String toTreeString(String indent)
-    {
-        return '\n' + indent + "not(!)" + exprNode.toTreeString(indent + "  ");
-    }
+//    @Override
+//    public String toTreeString(final String indent)
+//    {
+//        return '\n' + indent + "not(!)" + exprNode.toTreeString(indent + "  ");
+//    }
 }
