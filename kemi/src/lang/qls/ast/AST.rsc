@@ -68,6 +68,8 @@ data StyleRule
 data StyleAttr
   = widget(str name)
   | width(str name)
+  | fontsize(str name)
+  | labelFontsize(str name)
   | font(str name)
   | labelFont(str name)
   | color(str name)

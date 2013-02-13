@@ -19,19 +19,19 @@ import lang::qls::ast::AST;
 import lang::qls::util::StyleHelper;
 
 private list[str] defaultAttrs =
-  ["widget", "label-font", "label-color"];
+  ["widget", "label-fontsize", "label-font", "label-color"];
 
 private map[Type, list[str]] allowedAttrs = (
   booleanType("boolean"):
-    defaultAttrs + ["font", "color"],
+    defaultAttrs + ["fontsize", "font", "color"],
   integerType("integer"):
-    defaultAttrs + ["width", "font", "color"],
+    defaultAttrs + ["width", "fontsize", "font", "color"],
   moneyType("money"):
-    defaultAttrs + ["width", "font", "color"],
+    defaultAttrs + ["width", "fontsize", "font", "color"],
   dateType("date"):
     defaultAttrs + [],
   stringType("string"):
-    defaultAttrs + ["width", "font", "color"]
+    defaultAttrs + ["width", "fontsize", "font", "color"]
 );
 
 private bool isAllowedAttr(Type \type, StyleAttr attr) =
@@ -47,7 +47,7 @@ private set[Message] unallowedDefaultAttrErrors(Stylesheet s) {
     for(r <- d.styleRules) {
       if(!isAllowedAttr(d.ident, r.attr))
         errors += error(
-          "Attr <r.attr> not allowed for type <d.ident.name>",
+          "Attr <r.attr.name> not allowed for type <d.ident.name>",
           r@location
         );
     }
@@ -66,7 +66,7 @@ private set[Message] unallowedQuestionAttrErrors(Stylesheet s) {
     for(r <- d.styleRules) {
       if(!isAllowedAttr(\type, r.attr))
         errors += error(
-          "Attr <r.attr> not allowed for type <\type.name>",
+          "Attr <r.attr.name> not allowed for type <\type.name>",
           r@location
         );
     }

@@ -76,21 +76,23 @@ lexical WidgetStyleValue
   ;
 
 lexical WidgetStyleAttr
-  = @category="Constant" widget: "widget"
+  = @category="Identifier" widget: "widget"
   ;
 
 lexical IntStyleAttr
-  = @category="Constant" width: "width"
+  = @category="Identifier" width: "width"
+  | @category="Identifier" fontsize: "fontsize"
+  | @category="Identifier" labelFontsize: "label-fontsize"
   ;
 
 lexical StringStyleAttr
-  = @category="Constant" font: "font"
-  | @category="Constant" labelFont: "label-font"
+  = @category="Identifier" font: "font"
+  | @category="Identifier" labelFont: "label-font"
   ;
 
 lexical ColorStyleAttr
-  = @category="Constant" color: "color"
-  | @category="Constant" labelColor: "label-color"
+  = @category="Identifier" color: "color"
+  | @category="Identifier" labelColor: "label-color"
   ;
 
 syntax Ident

@@ -25,6 +25,12 @@ stylesheet taxOfficeExample {
         default money {
           width 150
           widget number
+          font "sans-serif"
+          fontsize 12
+          color #FF0000
+          label-font "serif"
+          label-fontsize 24
+          label-color #FFFF00
         }
         
       }
