@@ -28,7 +28,7 @@ import org.uva.sea.ql.ast.nodes.values.Str;
 import org.uva.sea.ql.ast.type.Type;
 
 public class CheckExpr implements ExpressionVisitor<Boolean> {
-	
+
 	private Map<Ident, Type> typeEnv;
 	private List<ErrorMessage> messages;
 
@@ -37,17 +37,16 @@ public class CheckExpr implements ExpressionVisitor<Boolean> {
 		this.messages = messages;
 	}
 
-	public static boolean check(Expr expr, Map<Ident, Type> typeEnv,
-			List<ErrorMessage> errs) {
+	public static boolean check(Expr expr, Map<Ident, Type> typeEnv, List<ErrorMessage> errs) {
 		CheckExpr check = new CheckExpr(typeEnv, errs);
 		return expr.accept(check);
 	}
 
 	private void addError(Expr ex, String message) {
-		this.messages.add(new ErrorMessage(ex,message));
+		this.messages.add(new ErrorMessage(ex, message));
 	}
-	
-	public List<ErrorMessage> getErrorMessages(){
+
+	public List<ErrorMessage> getErrorMessages() {
 		return this.messages;
 	}
 

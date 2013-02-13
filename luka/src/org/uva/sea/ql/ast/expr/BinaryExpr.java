@@ -1,7 +1,7 @@
 package org.uva.sea.ql.ast.expr;
 
 public abstract class BinaryExpr extends Expr {
-	private final Expr lhs, rhs;
+	protected final Expr lhs, rhs;
 
 	protected BinaryExpr(Expr lhs, Expr rhs) {
 		this.lhs = lhs;

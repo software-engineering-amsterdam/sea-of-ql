@@ -22,11 +22,9 @@ import org.antlr.runtime.debug.DebugEventListener;
 
 
 @members{
-  public Map<Ident,Type> typeEnv = null; 
-	  
-	 public QLTreeWalker(CommonTreeNodeStream nodes, Map<Ident,Type> typeEnv) { 
+ 
+	 public QLTreeWalker(CommonTreeNodeStream nodes) { 
 	 super(nodes,new RecognizerSharedState()); 
-	  this.typeEnv = typeEnv;
 	  } 
 	 
 }

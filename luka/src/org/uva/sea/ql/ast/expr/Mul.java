@@ -8,22 +8,13 @@ import org.uva.sea.ql.ast.visitor.ExpressionVisitor;
 
 public class Mul extends BinaryExpr {
 
-	private final Expr lhs;
-	private final Expr rhs;
 
 	public Mul(Expr lhs, Expr rhs) {
 		super(lhs,rhs);
-		this.lhs = lhs;
-		this.rhs = rhs;
+		
 	}
 
-	public Expr getLhs() {
-		return lhs;
-	}
-
-	public Expr getRhs() {
-		return rhs;
-	}
+	
 
 	@Override
 	public Type typeOf(Map<Ident, Type> typeEnv) {

@@ -20,7 +20,7 @@ sellingPrice3: "Price the house was sold for:" money
 currentTax1: money(19)
 currentTax2: money(currentTax * (sellingPrice3 + 15))
 if(currentTax - privateDebt2){
-
+privateDebt3: "Private debts for the sold house:" money
 }
 hasYouDada: "Are you dada?" boolean
 }
