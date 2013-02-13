@@ -18,6 +18,7 @@ output=AST;
 //use static value NULL in value for null pattern
 //ELSE IF?!
 // Module and square ?!!
+//TODO ELSE IF!?
 tokens{
 BLOCK;
 ASSIGNMENT;
@@ -50,7 +51,7 @@ import java.util.HashMap;
 @parser::members{
 	public Map<Ident,Type> typeEnv = new HashMap<Ident,Type>();
 	private void mapIdentToType(String identName,Type type){
-	System.out.println(identName+type.toString());
+	//System.out.println(identName+type.toString());
 		typeEnv.put(new Ident(identName),type);
 	}
 }

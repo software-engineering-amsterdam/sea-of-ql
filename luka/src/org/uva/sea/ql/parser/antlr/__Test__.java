@@ -5,6 +5,11 @@ import org.antlr.runtime.CommonTokenStream;
 import org.antlr.runtime.RecognitionException;
 import org.antlr.runtime.tree.CommonTree;
 import org.antlr.runtime.tree.CommonTreeNodeStream;
+import org.uva.sea.ql.ast.stat.AnswerableStat;
+import org.uva.sea.ql.ast.stat.Block;
+import org.uva.sea.ql.ast.stat.IfThenElseStat;
+import org.uva.sea.ql.ast.stat.IfThenStat;
+import org.uva.sea.ql.ast.stat.Stat;
 import org.uva.sea.ql.questionnaire.Questionnaire;
 
 
@@ -30,11 +35,32 @@ public class __Test__ {
 			    QLTreeWalker walker = new QLTreeWalker(nodes, parser.typeEnv);  
 			    // get the returned node   
 			    Questionnaire returned = walker.walk();
-			    System.out.println(returned.toString()); 
+			    Block questionnaireBlock = returned.getBlock();
+			    System.out.println("------------------- starting loop"); 
+			    for(Stat qStat : questionnaireBlock.getStatements()){
+			    //printDebug("--outer loop","starting");
+			    	if(qStat instanceof AnswerableStat){
+			    		printDebug("AnswerableStat:","--->");
+			    		AnswerableStat answerableStat = (AnswerableStat) qStat;
+			    		printDebug("label",answerableStat.getLabel());
+			    		printDebug("type",answerableStat.getType().toString());
+			    		printDebug("ident",answerableStat.getIdent().toString());
+			    		printDebug("AnswerableStat:","<---");
+			    	}else if(qStat instanceof IfThenStat){
+			    		
+			    	}else if(qStat instanceof IfThenElseStat){
+			    		
+			    	}
+			    	//System.out.println(qStat.toString());
+			    }
+			  
 			}
 			
 		} catch (RecognitionException e) {
 			e.printStackTrace();
 		}
+	}
+	private static void printDebug(String from, String stuff){
+		System.out.println(from+" : "+stuff);
 	}
 }

@@ -1,6 +1,7 @@
 package org.uva.sea.ql.ast.stat;
 
 import org.uva.sea.ql.ast.expr.Expr;
+import org.uva.sea.ql.ast.visitor.StatementVisitor;
 
 public class IfThenElseStat extends ConditionalStat{
 	private Block elseBlock;
@@ -16,6 +17,11 @@ public class IfThenElseStat extends ConditionalStat{
 	
 	public Block getElseBody(){
 		return this.elseBlock;
+	}
+	@Override
+	public <T> T accept(StatementVisitor<T> visitor) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

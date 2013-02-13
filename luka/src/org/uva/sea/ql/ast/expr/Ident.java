@@ -6,13 +6,24 @@ import org.uva.sea.ql.ast.type.Type;
 import org.uva.sea.ql.ast.visitor.ExpressionVisitor;
 
 public class Ident extends Expr {
-
 	//private final Value value;
-	private final String name;
+	private String name;
+	
 	public Ident(String idName) { 
-		//super(e);
-	//	this.value = v;
+		
+		//super(this);
 		this.name = idName;
+	}
+	
+	@Override
+	public String toString() {
+		return "IDENT IDENT IDENT IDENT"+this.name;
+	}
+	public Ident(){
+		
+	}
+	public String getName(){
+		return this.name;
 	}
 
 	@Override

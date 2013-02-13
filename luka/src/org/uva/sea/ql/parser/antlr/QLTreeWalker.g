@@ -50,22 +50,31 @@ blockItem returns [Stat stat]
 	
 
 questionDeclaration returns [Stat stat]
-	: ^(ASSIGNMENT ^(IDENT Ident) ^(ASSIGNMENT_TYPE identType) ^(QUESTION_LABEL  String) {stat = new AnswerableStat(new Ident($Ident.text),$String.text,$identType.type);}
-	  (^(ASSIGNMENT_EXPRESSION expression) {stat = new VisibleComputetStat(new Ident($Ident.text),$String.text,$expression.node,$identType.type);} )?)
+	: ^(ASSIGNMENT ^(IDENT Ident) ^(ASSIGNMENT_TYPE identType) ^(QUESTION_LABEL  String) 
+	{stat = new AnswerableStat(new Ident($Ident.text),$String.text,$identType.type);}
+	//Computed question:
+	  (^(ASSIGNMENT_EXPRESSION expression) 
+	  {stat = new VisibleComputetStat(new Ident($Ident.text),$String.text,$expression.node,$identType.type);} )?)
 		
 	 ;
 
 
 variableDeclaration returns [Stat stat]
 	: ^(ASSIGNMENT ^(IDENT Ident ) ^(ASSIGNMENT_TYPE identType) ^(ASSIGNMENT_EXPRESSION  expression))
+	{stat = new HiddenComputetStat(new Ident($Ident.text),$expression.node,$identType.type);}
 	;
 	 
 
 ifBlock returns [Stat stat]
-	: ^(IF_STATEMENT  ^(IF_CONDITION expression )  ^(IF_BLOCK_TRUE ^(BLOCK blockItem*)) (^(IF_BLOCK_FALSE ^(BLOCK blockItem+)))?) 
+@init{
+Block ifBl = new Block();
+Block elseBl = new Block();
+}
+	: ^(IF_STATEMENT  ^(IF_CONDITION expression ) ^(IF_BLOCK_TRUE ^(BLOCK (ifBlockItems=blockItem* {ifBl.addStatement($ifBlockItems.stat);}))) {$stat = new IfThenStat($expression.node,ifBl);}
+	(^(IF_BLOCK_FALSE ^(BLOCK (elseBlockItems=blockItem+ {elseBl.addStatement($elseBlockItems.stat);}))) {$stat = new IfThenElseStat($expression.node,ifBl,elseBl);} )?) 
 	;
 	
-//TODO ELSE IF!?	
+	
 ifStatementBlock returns [Stat	block]
 	: 	 blockItem* {$block = $blockItem.stat;}
 	;
@@ -96,7 +105,7 @@ expression returns [Expr node]
   |  ^(UNARY_MINUS ex=expression) {$node = new Neg(ex);}
   |  ^(UNARY_NEGATE ex=expression) {$node = new Not(ex);}
   |  Int  {$node = new Int(Integer.parseInt($Int.text));}
-  |  Ident {$node = new Ident($Ident.text);}
+  |  Ident //{$node = new Ident($Ident.text); System.out.println("------------------------------------------");}
  // |  BooleanType {$node = new BoolType();}
   //|  MoneyType {$node = new MoneyType();}
   ;
