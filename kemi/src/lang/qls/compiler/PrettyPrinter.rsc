@@ -68,6 +68,14 @@ public str prettyPrint(StyleRule r:
   intStyleRule(StyleAttr attr, int \value)) =
     "<attr.name> <\value>";
 
+public str prettyPrint(StyleRule r: 
+  stringStyleRule(StyleAttr attr, str \value)) =
+    "<attr.name> <\value>";
+
+public str prettyPrint(StyleRule r: 
+  colorStyleRule(StyleAttr attr, str \value)) =
+    "<attr.name> <\value>";
+
 public default str prettyPrint(str ident) =
   ident;
 

@@ -15,6 +15,7 @@ extend lang::ql::syntax::Int;
 extend lang::ql::syntax::Layout;
 extend lang::ql::syntax::String;
 extend lang::ql::syntax::Type;
+extend lang::qls::syntax::Color;
 extend lang::qls::syntax::Keyword;
 
 start syntax Stylesheet
@@ -60,6 +61,8 @@ syntax DefaultDefinition
 syntax StyleRule
   = widgetStyleRule: WidgetStyleAttr WidgetStyleValue
   | intStyleRule: IntStyleAttr Int
+  | stringStyleRule: StringStyleAttr String
+  | colorStyleRule: ColorStyleAttr Color
   ;
 
 lexical WidgetStyleValue
@@ -78,6 +81,16 @@ lexical WidgetStyleAttr
 
 lexical IntStyleAttr
   = @category="Constant" width: "width"
+  ;
+
+lexical StringStyleAttr
+  = @category="Constant" font: "font"
+  | @category="Constant" labelFont: "label-font"
+  ;
+
+lexical ColorStyleAttr
+  = @category="Constant" color: "color"
+  | @category="Constant" labelColor: "label-color"
   ;
 
 syntax Ident

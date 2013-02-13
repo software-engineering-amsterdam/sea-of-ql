@@ -61,11 +61,17 @@ data Type
 data StyleRule
   = widgetStyleRule(StyleAttr attr, WidgetStyleValue widgetValue)
   | intStyleRule(StyleAttr attr, int intValue)
+  | stringStyleRule(StyleAttr attr, str stringValue)
+  | colorStyleRule(StyleAttr attr, str colorValue)
   ;
 
 data StyleAttr
   = widget(str name)
   | width(str name)
+  | font(str name)
+  | labelFont(str name)
+  | color(str name)
+  | labelColor(str name)
   ;
 
 data WidgetStyleValue
