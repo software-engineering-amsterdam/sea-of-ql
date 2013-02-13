@@ -1,9 +1,9 @@
 module template::File
 
 import IO;
-import syntax::AbstractSyntax;
 import template::StringTemplate;
 import template::CSS;
+import template::JavaScript;
 
 /** Method to generate a directory for the JavaScript Program
 * @return l the location of the directory
@@ -37,26 +37,26 @@ void generateJavaScriptFile(str id, str func, loc l){
 
 void generateCSSFile(str id, str css, loc l){
 	l += "<id>.css";
-	writeFile(l,css);
+	if(isFile(l)){
+		println("append to file : <l>");
+		appendToFile(l, "\n <css>");
+	}else{
+		writeFile(l,css);
+	}
 }
 
 public void generateQLProgram(str id, str program, str func){
 	loc dir = generateQLDirectory();
 	generateHTMLFile(id,program,dir);
 	generateJavaScriptFile(id,func,dir);
-	s = cssEndLabels();
-	generateCSSFile(id,s,dir);
+	//s = cssEndLabels();
+	//generateCSSFile(id,s,dir);
 }
 
-public str javaScriptCreateForm(str id, list[Body] Body){
-	return "function createForm(){
-			var <id> = document.createElement(\"form\");
-			<id>.setAttribute(\'method\',\"post\");
-			<id>.setAttribute(\'action\',\"submit.php\");
-			<id>.setAttribute(\'name\',<id>);
-			<for (s <- Body) { >						
-			<generateBody(id,s)>					
-			< } >
-			document.getElementsByTagName(\'body\')[0].appendChild(<id>);		
-		} ";
+public void generateCSSFile(str formId, str id){
+	loc dir = generateQLDirectory();
+	s = cssEndLabels(id);
+	println("s : <s>");
+	generateCSSFile(formId,s,dir);
 }
+

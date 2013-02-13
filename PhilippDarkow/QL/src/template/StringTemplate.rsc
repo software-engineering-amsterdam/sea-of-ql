@@ -7,6 +7,7 @@ import syntax::AbstractSyntax;
 import typeChecker::TypeCheck;
 import util::Load;
 import template::File;
+import template::JavaScript;
 
 // Capitalize the first character of a string
 
@@ -14,33 +15,23 @@ public str capitalize(str s) {
   return toUpperCase(substring(s, 0, 1)) + substring(s, 1);
 }
 
-// Helper function to generate a setter
-private str genSetter(map[str,str] fields, str x) {
-  return "public void set<capitalize(x)>(<fields[x]> <x>) {
-         '  this.<x> = <x>;
-         '}";
-}
-
-// Helper function to generate a getter
-private str genGetter(map[str,str] fields, str x) {
-  return "public <fields[x]> get<capitalize(x)>() {
-         '  return <x>;
-         '}";
-}
-
+/** Method to generate the JavaScript code for a question label
+* @param id the id of the question used for naming
+* @param label the label text
+* @return str a string with java script code
+* @author Philipp
+*/
 private str generateQuestionLabel(str id, str label){
 	return "var <id>Label = document.createElement(\'label\');
 	 <id>Label.htmlFor = <id>;
 	 <id>Label.innerHTML = <label>; ";
 }
 
-private str specifyAttributes(str id){
-	return "<id>.setAttribute(\'type\',\"checkbox\");
-		<id>.setAttribute(\'id\',<id>)
-		<id>.setAttribute(\'name\',<id>)
-		<id>.setAttribute(\'value\',<id>) ";
-}
-
+/** Method to generate the JavaScript code for the end part of a question
+* @param id the id of the question used for naming
+* @return str a string with java script code
+* @author Philipp
+*/
 private str createEndingLabel(str id){
 	return "var <id>EndLabel = document.createElement(\'label\');
 	 <id>EndLabel.htmlFor = <id>;
@@ -48,11 +39,40 @@ private str createEndingLabel(str id){
 	 <id>EndLabel.class = \"<id>EndClass\" ";
 }
 
+/** Method to set the attributes of a checkBox in java script
+* @param id the id of te question is used as id, name and value of the checkbox
+* @return str a java code snipped as string
+*/
+private str specifyAttributesCheckbox(str id){
+	return "<id>.setAttribute(\'type\',\"checkbox\");
+		<id>.setAttribute(\'id\',<id>);
+		<id>.setAttribute(\'name\',<id>);
+		<id>.setAttribute(\'value\',<id>); ";
+}
+
+str specifyAttributesNumeric(str id){
+	return "<id>.setAttribute(\'type\',\"text\");
+		<id>.setAttribute(\'id\',<id>);
+		<id>.setAttribute(\'name\',<id>);
+		 ";
+}
+
 str generateParagraph(str id, str att, str lab, str endlab){
 	str p = "var <id>Paragraph = document.createElement(\'p\');
+	<id>Paragraph.setAttribute(\"class\", <id>Paragraph);
 	<id>Paragraph.appendChild(<id>Label);
 	<id>Paragraph.appendChild(<id>);
 	<id>Paragraph.appendChild(<id>EndLabel);
+	";
+	
+	return p;
+}
+
+str generateParagraph(str id, str label, str attributes){
+	str p = "var <id>Paragraph = document.createElement(\'p\');
+	<id>Paragraph.setAttribute(\"class\", <id>Paragraph);
+	<id>Paragraph.appendChild(<id>Label);
+	<id>Paragraph.appendChild(<id>);
 	";
 	
 	return p;
@@ -63,12 +83,12 @@ str generateParagraph(str id, str att, str lab, str endlab){
 private str generateQuestion(str formId, question:easyQuestion(str id, str labelQuestion, Type tp)){
 	println("in generate Question <question>");
 	// document.write(\"\<p\>  \</p\>\");
+	str label = generateQuestionLabel(id, labelQuestion);
 	if(tp == boolean()){	
-		str label = generateQuestionLabel(id, labelQuestion);
-		str attributes = specifyAttributes(id);
+		str attributes = specifyAttributesCheckbox(id);
 		str check = createEndingLabel(id);
 		str paragraph = generateParagraph(id, label, attributes, check);
-		println("paragraph : <paragraph>");
+		generateCSSFile(formId, id);
 		return "var <id> = document.createElement(\"input\");
 		<attributes> 
 		<label>
@@ -77,8 +97,16 @@ private str generateQuestion(str formId, question:easyQuestion(str id, str label
 		<formId>.appendChild(<id>Paragraph);	
 		 ";
 	}else if(tp == money()){
-		println();
-		return "<labelQuestion> \<input type=\"checkbox\" id=<id> \> Yes";
+		println("in money generate Easy Question");
+		str attributes = specifyAttributesNumeric(id);
+		str paragraph = generateParagraph(id, label, attributes);
+		return "var <id> = document.createElement(\"input\");
+		<attributes>
+		<label>
+		<paragraph>
+		<formId>.appendChild(<id>Paragraph);
+		 ";
+		//return "<labelQuestion> \<input type=\"checkbox\" id=<id> \> Yes";
 	}else if(tp == string()){
 		return "<labelQuestion> \<input type=\"checkbox\" id=<id> \> Yes";
 	}
