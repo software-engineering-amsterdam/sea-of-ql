@@ -1,39 +1,43 @@
-module visualization::ControlFlow
+module controlFlow::ControlFlow
 
 import Prelude;
-import analysis::graphs::Graph;
 import syntax::AbstractSyntax;
 import util::Load;
+import controlFlow::ControlFlowQuestion;
+import controlFlow::ControlFlowTypes;
 
-public data CFNode                                                                
-	= entry(loc location)
-	| exit()
-	| choice(loc location, Expression exp)
-	| q(loc location, Question question)
-	| statement(loc location, Statement stat);
 
-alias CFGraph = tuple[set[CFNode] entry, Graph[CFNode] graph, set[CFNode] exit];  
-
-//CFGraph cflowStat(s:asgStat(QuestionId Id, EXP Exp)) {                                
-//   S = statement(s@location, s);
-//   return <{S}, {}, {S}>;
-//}
-
+/** Method to to get the CFGraph of an if statement
+* @param ifStat the if statement
+* @param body the body in the if statement
+* @return CFGraph
+* @author Philipp
+*/
 CFGraph cflowStat(statement:ifStat(Expression exp, list[Body] body)){
-	println("In cflow if statement");
 	CF1 = cflowCompleteBody(body);
 	E = {choice(exp@location, exp)};
 	return < E, (E * CF1.entry) + CF1.graph , CF1.exit >; 
 }
 
+/** Method to to get the CFGraph of an if else statement
+* @param ifElseStat the if else statement
+* @param thenpart the body in the if statement
+* @param elsepart the body in the else statement
+* @return CFGraph
+* @author Philipp
+*/
 CFGraph cflowStat(ifElseStat(Expression exp, list[Body] thenpart, list[Body] elsepart)){
-   println("thenpart : <thenpart>");
    CF1 = cflowCompleteBody(thenpart); 
    CF2 = cflowCompleteBody(elsepart); 
    E = {choice(exp@location, exp)}; 
    return < E, (E * CF1.entry) + (E * CF2.entry) + CF1.graph + CF2.graph, CF1.exit + CF2.exit >;
 }
 
+/** Method to to get the CFGraph of a list of statements
+* @param Stats the list of statements
+* @return CFGraph
+* @author Philipp
+*/
 CFGraph cflowStats(list[Statement] Stats){                                        
   if(size(Stats) == 1)
      return cflowStat(Stats[0]);
@@ -42,43 +46,38 @@ CFGraph cflowStats(list[Statement] Stats){
   return < CF1.entry, CF1.graph + CF2.graph + (CF1.exit * CF2.entry), CF2.exit >;
 }
 
-CFGraph cflowQuestion(question:easyQuestion(str id, str labelQuestion, Type tp)){
-	println("Question : <question>");
-	println("Question Location : <question@location>");
-	 Q = q(question@location, question);
-	 return <{Q}, {}, {Q}>;
-}
-
-CFGraph cflowQuestion(question:computedQuestion(str id, str labelQuestion, Type tp, Expression exp)){
-	
-}
-
 
 CFGraph cflowCompleteBody(list[Body] Body){
-	println("Body : <Body>");
 	list[Statement] statements = [];
 	visit(Body){
 		case Question q : return cflowQuestion(q);
-		//case Statement s : statements += s;
 	};
-	println("Statements : <statements>");
-	return cflowStats(statements);
 }
 
+/** Method to to get the CFGraph of the body
+* @param Body a list with the body
+* @return CFGraph
+* @author Philipp
+*/
 CFGraph cflowBody(list[Body] Body){
-	println("Body : <Body>");
 	list[Statement] statements = [];
+	questionsGraph = getFirstQuestionsOfForm(Body);
 	visit(Body){
 		case Statement s : statements += s;
 	};
-	println("Statements : <statements>");
-	return cflowStats(statements);
+	statementGraph = cflowStats(statements);
+	return < questionsGraph.entry, questionsGraph.graph + statementGraph.graph + 
+				(questionsGraph.exit * statementGraph.entry), statementGraph.exit >;
 }
 
+/** Method to to get the CFGraph of a QL program
+* @param P the program
+* @return CFGraph
+* @author Philipp
+*/
 public CFGraph cflowProgram(Program P){                                           
   if(program(str id, list[Body] Body) := P){  
      CF = cflowBody(Body);
-     //CF = cflowStats(Series);
      Entry = entry(P@location);
      Exit  = exit();
      return <{Entry}, ({Entry} * CF.entry) + CF.graph + (CF.exit * {Exit}), {Exit}>;

@@ -1,3 +1,13 @@
+@license{
+  Copyright (c) 2013 
+  All rights reserved. This program and the accompanying materials
+  are made available under the terms of the Eclipse Public License v1.0
+  which accompanies this distribution, and is available at
+  http://www.eclipse.org/legal/epl-v10.html
+}
+@contributor{Kevin van der Vlist - kevin@kevinvandervlist.nl}
+@contributor{Jimi van der Woning - Jimi.vanderWoning@student.uva.nl}
+
 module lang::qls::compiler::web::JS
 
 import IO;
@@ -124,7 +134,7 @@ private str styleJS(Stylesheet s) {
   for(k <- typeMap) {
     rules = getStyleRules(k.ident, f, s);
     ret += "//Question <k.ident>\n";
-    for(r <- rules) {
+    for(r:widgetStyleRule(_, _) <- rules) {
       ret += "<styleJS(k.ident, r)>\n";
     }
   }
@@ -149,6 +159,17 @@ private str styleJS(str ident, StyleRule r:
 
 private str styleJS(str ident, StyleRule r: 
     widgetStyleRule(attr, number(name))) =
+  numberJS(ident, -1, -1, -1);
+
+private str styleJS(str ident, StyleRule r: 
+    widgetStyleRule(attr, number(name, min, max))) =
+  numberJS(ident, min, max, -1);
+
+private str styleJS(str ident, StyleRule r: 
+    widgetStyleRule(attr, number(name, min, max, step))) =
+  numberJS(ident, min, max, step);
+
+private str numberJS(str ident, num min, num max, num step) =
   "$(\"#<ident>\")
   '  .replaceWith(
   '    $(\"\<input /\>\")
@@ -156,7 +177,14 @@ private str styleJS(str ident, StyleRule r:
   '        id: \"<ident>\",
   '        name: \"<ident>\",
   '        type: \"number\",
-  '        step: $(\"#<ident>\").attr(\"type\") === \"money\" ? \"0.01\" : \"1\",
+  '        <if(min >= 0) {> min: <min>, <}>
+  '        <if(max >= 0) {> max: <max>, <}>
+  '        <if(step >= 0) {>
+  '        step: <step>,
+  '        <} else {>
+  '        step: $(\"#<ident>\").attr(\"type\") === \"money\" ?
+  '          \"0.01\" : \"1\",
+  '        <}>
   '        disabled: $(\"#<ident>\").is(\":disabled\")
   '      })
   '  );
@@ -170,6 +198,17 @@ private str styleJS(str ident, StyleRule r:
 
 private str styleJS(str ident, StyleRule r: 
     widgetStyleRule(attr, slider(name))) =
+  sliderJS(ident, 0, 100, -1);
+
+private str styleJS(str ident, StyleRule r: 
+    widgetStyleRule(attr, slider(name, min, max))) =
+  sliderJS(ident, min, max, -1);
+
+private str styleJS(str ident, StyleRule r: 
+    widgetStyleRule(attr, slider(name, min, max, step))) =
+  sliderJS(ident, min, max, step);
+
+private str sliderJS(str ident, num min, num max, num step) =
   "$(\"#<ident>\")
   '  .replaceWith(
   '    $(\"\<span /\>\")
@@ -180,10 +219,14 @@ private str styleJS(str ident, StyleRule r:
   '            name: \"<ident>\",
   '            type: \"range\",
   '            value: \"0\",
-  '            min: \"0\",
-  '            max: \"100\",
+  '            min: <min>,
+  '            max: <max>,
+  '            <if(step < 0) {>
   '            step: $(\"#<ident>\").attr(\"type\") === \"money\" ?
   '              \"0.01\" : \"1\",
+  '            <} else {>
+  '            step: <step>,
+  '            <}>
   '            disabled: $(\"#<ident>\").is(\":disabled\")
   '          })
   '          .change(function() {
@@ -277,11 +320,6 @@ private str styleJS(str ident, StyleRule r:
     widgetStyleRule(attr, select(name))) =
   // Select is the default type, no need for replacement
   "";
-
-public str styleJS(str ident, StyleRule r: 
-    widthStyleRule(str attr, int \value)) =
-  "//<attr> <\value>
-  '";
 
 private str getUniqueID(Stylesheet s) =
   s.ident;

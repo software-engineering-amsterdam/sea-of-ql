@@ -83,4 +83,15 @@ public class TestExpressions {
 		assertEquals(parser.parseValue("234234234").getClass(), Int.class);
 	}
 	
+	@Test
+	public void testLogicAnd() throws ParseError {
+		assertEquals(parser.parseExpression("(false && true)").getClass(), And.class);
+	}
+	
+	@Test
+	public void testLogicOr() throws ParseError {
+		assertEquals(parser.parseExpression("(false || true)").getClass(), Or.class);
+	}
+
+	
 }

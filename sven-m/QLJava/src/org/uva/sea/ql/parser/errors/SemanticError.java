@@ -1,21 +1,21 @@
 package org.uva.sea.ql.parser.errors;
 
-import org.uva.sea.ql.ast.form.FormElement;
+import org.uva.sea.ql.ast.expression.Expr;
 
 public abstract class SemanticError {
-	private final FormElement formElement;
 	private final String message;
+	private final Expr expression;
 	
-	public SemanticError(String message, FormElement formElement) {
-		this.formElement = formElement;
+	public SemanticError(String message, Expr expression) {
 		this.message = message;
-	}
-	
-	public FormElement getFormElement() {
-		return formElement;
+		this.expression = expression;
 	}
 	
 	public String getMessage() {
 		return message;
+	}
+	
+	public Expr getExpression() {
+		return expression;
 	}
 }
