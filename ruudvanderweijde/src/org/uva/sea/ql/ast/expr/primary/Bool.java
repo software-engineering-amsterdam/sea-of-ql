@@ -13,6 +13,7 @@ public class Bool extends Primary<Boolean> {
 		this.value = value;
 	}
 	
+	@Override
 	public Boolean getValue() {
 		return value;
 	}

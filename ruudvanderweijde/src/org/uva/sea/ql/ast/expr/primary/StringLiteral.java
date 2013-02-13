@@ -13,6 +13,7 @@ public class StringLiteral extends Primary<String> {
 		this.value = value;
 	}
 	
+	@Override
 	public String getValue() {
 		return value;
 	}

@@ -42,5 +42,6 @@ Condition(id, condition) ::= <<
   }
 >>
 BindIdToFunction(id, function) ::= <<
-  \$('#$id$').on('load, change', function_$function$);
+  function_$function$();
+  \$('#$id$').on('change, keyup, click', function_$function$);
 >>

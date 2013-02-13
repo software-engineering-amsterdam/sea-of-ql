@@ -28,6 +28,7 @@ public class ANTLRParser implements IParse {
 		}
 	}
 
+	@Override
 	public Form parseForm(String src) throws ParseError {
 		QLParser parser = getQLParser(src);
 		try {
@@ -39,6 +40,7 @@ public class ANTLRParser implements IParse {
 		}
 	}
 
+	@Override
 	public Statement parseStatement(String src) throws ParseError {
 		QLParser parser = getQLParser(src);
 		try {
@@ -62,10 +64,12 @@ public class ANTLRParser implements IParse {
 		this.errors = errors;
 	}
 
+	@Override
 	public boolean hasErrors() {
 		return !(errors.isEmpty());
 	}
 
+	@Override
 	public List<Message> getErrors() {
 		return errors;
 	}
