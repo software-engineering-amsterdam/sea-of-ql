@@ -289,8 +289,8 @@ private str styleJS(str ident, StyleRule r:
   "";
 
 public str styleJS(str ident, StyleRule r: 
-    widthStyleRule(str attr, int \value)) =
-  "//<attr> <\value>
+    intStyleRule(StyleAttr attr, int \value)) =
+  "//<attr.name> <\value>
   '";
 
 private str getUniqueID(Stylesheet s) =

@@ -59,7 +59,7 @@ syntax DefaultDefinition
 
 syntax StyleRule
   = widgetStyleRule: WidgetStyleAttr WidgetStyleValue
-  | widthStyleRule: WidthStyleAttr Int
+  | intStyleRule: IntStyleAttr Int
   ;
 
 lexical WidgetStyleValue
@@ -76,7 +76,7 @@ lexical WidgetStyleAttr
   = @category="Constant" widget: "widget"
   ;
 
-lexical WidthStyleAttr
+lexical IntStyleAttr
   = @category="Constant" width: "width"
   ;
 

@@ -60,7 +60,7 @@ data Type
 
 data StyleRule
   = widgetStyleRule(StyleAttr attr, WidgetStyleValue widgetValue)
-  | widthStyleRule(StyleAttr attr, int widthValue)
+  | intStyleRule(StyleAttr attr, int intValue)
   ;
 
 data StyleAttr

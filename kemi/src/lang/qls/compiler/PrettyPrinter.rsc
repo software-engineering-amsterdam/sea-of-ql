@@ -65,7 +65,7 @@ public str prettyPrint(StyleRule r:
     "<attr.name> <\value.name>";
 
 public str prettyPrint(StyleRule r: 
-  widthStyleRule(StyleAttr attr, int \value)) =
+  intStyleRule(StyleAttr attr, int \value)) =
     "<attr.name> <\value>";
 
 public default str prettyPrint(str ident) =

@@ -102,7 +102,7 @@ private node outline(StyleRule r:
     );
 
 private node outline(StyleRule r: 
-  widthStyleRule(attr, \value)) =
+  intStyleRule(attr, \value)) =
     createNode(
       "StyleRule",
       "<attr.name> <\value>",
