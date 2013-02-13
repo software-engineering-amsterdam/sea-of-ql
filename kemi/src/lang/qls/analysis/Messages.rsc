@@ -38,3 +38,6 @@ public Message stylesheetDoesNotMatchFilename(str name, loc location) =
 
 public Message questionUndefinedInForm(loc location) =
   error("Question undefined in form", location);
+
+public Message typeWithInvalidAttr(str attr, str \type, loc location) =
+  error("Attr <attr> not allowed for type <\type>", location);
