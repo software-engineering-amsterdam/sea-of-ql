@@ -4,14 +4,13 @@ import java.util.Map;
 
 import org.uva.sea.ql.ast.type.NumericType;
 import org.uva.sea.ql.ast.type.Type;
-import org.uva.sea.ql.ast.visitor.ExpressionVisitor;
+import org.uva.sea.ql.ast.visitor.Visitor;
 
 
 
 public class Add extends BinaryExpr{
 
 
-    
     public Add(Expr lhs, Expr rhs) {
     	super(lhs,rhs);
       
@@ -23,7 +22,7 @@ public class Add extends BinaryExpr{
 	}
 	
 	@Override
-	public <T> T accept(ExpressionVisitor<T> visitor) {
+	public <T> T accept(Visitor<T> visitor) {
 		return visitor.visit(this);
 	}
 }

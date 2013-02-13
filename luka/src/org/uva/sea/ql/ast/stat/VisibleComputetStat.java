@@ -12,9 +12,8 @@ public class VisibleComputetStat extends ComputedStat{
 	}
 
 	@Override
-	public <T> T accept(StatementVisitor<T> visitor) {
-		// TODO Auto-generated method stub
-		return null;
+	public void accept(StatementVisitor visitor) {
+		 visitor.visit(this);
 	}
 
 }

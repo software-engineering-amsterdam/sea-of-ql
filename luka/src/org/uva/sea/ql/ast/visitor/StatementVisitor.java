@@ -6,15 +6,15 @@ import org.uva.sea.ql.ast.stat.ComputedStat;
 import org.uva.sea.ql.ast.stat.IfThenElseStat;
 import org.uva.sea.ql.ast.stat.IfThenStat;
 
-public interface StatementVisitor<T> {
-	
-	T visit(ComputedStat stat);
+public interface StatementVisitor {
 
-	T visit(AnswerableStat stat);
+	void visit(ComputedStat stat);
 
-	T visit(IfThenStat stat);
+	void visit(AnswerableStat stat);
 
-	T visit(IfThenElseStat stat);
+	void visit(IfThenStat stat);
 
-	T visit(Block stat);
+	void visit(IfThenElseStat stat);
+
+	void visit(Block stat);
 }

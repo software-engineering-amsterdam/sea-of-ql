@@ -1,4 +1,4 @@
-// $ANTLR 3.5 /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g 2013-02-13 07:44:09
+// $ANTLR 3.5 /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g 2013-02-13 12:44:41
 
 package org.uva.sea.ql.parser.antlr;
 import org.uva.sea.ql.ast.*;
@@ -107,6 +107,7 @@ public class QLParser extends Parser {
 
 		public Map<Ident,Type> typeEnv = new HashMap<Ident,Type>();
 		private void mapIdentToType(String identName,Type type){
+		//System.out.println("Adding: "+identName + type.toString());
 			typeEnv.put(new Ident(identName),type);
 		}
 		
@@ -123,7 +124,7 @@ public class QLParser extends Parser {
 
 
 	// $ANTLR start "parse"
-	// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:75:1: parse : FormStart FormId Lbr ( blockItem )* Rbr EOF -> ^( FormId ^( BLOCK ( blockItem )* ) ) ;
+	// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:76:1: parse : FormStart FormId Lbr ( blockItem )* Rbr EOF -> ^( FormId ^( BLOCK ( blockItem )* ) ) ;
 	public final QLParser.parse_return parse() throws RecognitionException {
 		QLParser.parse_return retval = new QLParser.parse_return();
 		retval.start = input.LT(1);
@@ -153,8 +154,8 @@ public class QLParser extends Parser {
 		try {
 			if ( state.backtracking>0 && alreadyParsedRule(input, 1) ) { return retval; }
 
-			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:76:2: ( FormStart FormId Lbr ( blockItem )* Rbr EOF -> ^( FormId ^( BLOCK ( blockItem )* ) ) )
-			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:76:4: FormStart FormId Lbr ( blockItem )* Rbr EOF
+			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:77:2: ( FormStart FormId Lbr ( blockItem )* Rbr EOF -> ^( FormId ^( BLOCK ( blockItem )* ) ) )
+			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:77:4: FormStart FormId Lbr ( blockItem )* Rbr EOF
 			{
 			FormStart1=(Token)match(input,FormStart,FOLLOW_FormStart_in_parse123); if (state.failed) return retval; 
 			if ( state.backtracking==0 ) stream_FormStart.add(FormStart1);
@@ -165,7 +166,7 @@ public class QLParser extends Parser {
 			Lbr3=(Token)match(input,Lbr,FOLLOW_Lbr_in_parse127); if (state.failed) return retval; 
 			if ( state.backtracking==0 ) stream_Lbr.add(Lbr3);
 
-			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:76:25: ( blockItem )*
+			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:77:25: ( blockItem )*
 			loop1:
 			while (true) {
 				int alt1=2;
@@ -176,7 +177,7 @@ public class QLParser extends Parser {
 
 				switch (alt1) {
 				case 1 :
-					// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:76:25: blockItem
+					// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:77:25: blockItem
 					{
 					pushFollow(FOLLOW_blockItem_in_parse129);
 					blockItem4=blockItem();
@@ -199,7 +200,7 @@ public class QLParser extends Parser {
 
 			if ( state.backtracking==0 ) {System.out.println("End grammar");}
 			// AST REWRITE
-			// elements: blockItem, FormId
+			// elements: FormId, blockItem
 			// token labels: 
 			// rule labels: retval
 			// token list labels: 
@@ -210,17 +211,17 @@ public class QLParser extends Parser {
 			RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.getTree():null);
 
 			root_0 = (Object)adaptor.nil();
-			// 76:80: -> ^( FormId ^( BLOCK ( blockItem )* ) )
+			// 77:80: -> ^( FormId ^( BLOCK ( blockItem )* ) )
 			{
-				// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:76:83: ^( FormId ^( BLOCK ( blockItem )* ) )
+				// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:77:83: ^( FormId ^( BLOCK ( blockItem )* ) )
 				{
 				Object root_1 = (Object)adaptor.nil();
 				root_1 = (Object)adaptor.becomeRoot(stream_FormId.nextNode(), root_1);
-				// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:76:92: ^( BLOCK ( blockItem )* )
+				// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:77:92: ^( BLOCK ( blockItem )* )
 				{
 				Object root_2 = (Object)adaptor.nil();
 				root_2 = (Object)adaptor.becomeRoot((Object)adaptor.create(BLOCK, "BLOCK"), root_2);
-				// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:76:100: ( blockItem )*
+				// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:77:100: ( blockItem )*
 				while ( stream_blockItem.hasNext() ) {
 					adaptor.addChild(root_2, stream_blockItem.nextTree());
 				}
@@ -270,7 +271,7 @@ public class QLParser extends Parser {
 
 
 	// $ANTLR start "blockItem"
-	// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:78:1: blockItem : ( questionAssignment | constantAssignment | ifBlock ) ^;
+	// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:79:1: blockItem : ( questionAssignment | constantAssignment | ifBlock ) ^;
 	public final QLParser.blockItem_return blockItem() throws RecognitionException {
 		QLParser.blockItem_return retval = new QLParser.blockItem_return();
 		retval.start = input.LT(1);
@@ -286,13 +287,13 @@ public class QLParser extends Parser {
 		try {
 			if ( state.backtracking>0 && alreadyParsedRule(input, 2) ) { return retval; }
 
-			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:79:2: ( ( questionAssignment | constantAssignment | ifBlock ) ^)
-			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:79:4: ( questionAssignment | constantAssignment | ifBlock ) ^
+			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:80:2: ( ( questionAssignment | constantAssignment | ifBlock ) ^)
+			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:80:4: ( questionAssignment | constantAssignment | ifBlock ) ^
 			{
 			root_0 = (Object)adaptor.nil();
 
 
-			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:79:4: ( questionAssignment | constantAssignment | ifBlock )
+			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:80:4: ( questionAssignment | constantAssignment | ifBlock )
 			int alt2=3;
 			int LA2_0 = input.LA(1);
 			if ( (LA2_0==Ident) ) {
@@ -350,7 +351,7 @@ public class QLParser extends Parser {
 
 			switch (alt2) {
 				case 1 :
-					// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:79:5: questionAssignment
+					// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:80:5: questionAssignment
 					{
 					pushFollow(FOLLOW_questionAssignment_in_blockItem161);
 					questionAssignment7=questionAssignment();
@@ -361,7 +362,7 @@ public class QLParser extends Parser {
 					}
 					break;
 				case 2 :
-					// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:79:26: constantAssignment
+					// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:80:26: constantAssignment
 					{
 					pushFollow(FOLLOW_constantAssignment_in_blockItem165);
 					constantAssignment8=constantAssignment();
@@ -372,7 +373,7 @@ public class QLParser extends Parser {
 					}
 					break;
 				case 3 :
-					// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:79:47: ifBlock
+					// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:80:47: ifBlock
 					{
 					pushFollow(FOLLOW_ifBlock_in_blockItem169);
 					ifBlock9=ifBlock();
@@ -417,7 +418,7 @@ public class QLParser extends Parser {
 
 
 	// $ANTLR start "questionAssignment"
-	// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:82:1: questionAssignment : Ident Assignment_Indicator String identType ( atom )? -> ^( ASSIGNMENT ^( IDENT Ident ) ^( ASSIGNMENT_TYPE identType ) ^( QUESTION_LABEL String ) ( ^( ASSIGNMENT_EXPRESSION atom ) )? ) ;
+	// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:83:1: questionAssignment : Ident Assignment_Indicator String identType ( atom )? -> ^( ASSIGNMENT ^( IDENT Ident ) ^( ASSIGNMENT_TYPE identType ) ^( QUESTION_LABEL String ) ( ^( ASSIGNMENT_EXPRESSION atom ) )? ) ;
 	public final QLParser.questionAssignment_return questionAssignment() throws RecognitionException {
 		QLParser.questionAssignment_return retval = new QLParser.questionAssignment_return();
 		retval.start = input.LT(1);
@@ -443,8 +444,8 @@ public class QLParser extends Parser {
 		try {
 			if ( state.backtracking>0 && alreadyParsedRule(input, 3) ) { return retval; }
 
-			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:83:2: ( Ident Assignment_Indicator String identType ( atom )? -> ^( ASSIGNMENT ^( IDENT Ident ) ^( ASSIGNMENT_TYPE identType ) ^( QUESTION_LABEL String ) ( ^( ASSIGNMENT_EXPRESSION atom ) )? ) )
-			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:83:4: Ident Assignment_Indicator String identType ( atom )?
+			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:84:2: ( Ident Assignment_Indicator String identType ( atom )? -> ^( ASSIGNMENT ^( IDENT Ident ) ^( ASSIGNMENT_TYPE identType ) ^( QUESTION_LABEL String ) ( ^( ASSIGNMENT_EXPRESSION atom ) )? ) )
+			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:84:4: Ident Assignment_Indicator String identType ( atom )?
 			{
 			Ident10=(Token)match(input,Ident,FOLLOW_Ident_in_questionAssignment186); if (state.failed) return retval; 
 			if ( state.backtracking==0 ) stream_Ident.add(Ident10);
@@ -460,7 +461,7 @@ public class QLParser extends Parser {
 			state._fsp--;
 			if (state.failed) return retval;
 			if ( state.backtracking==0 ) stream_identType.add(identType13.getTree());
-			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:83:50: ( atom )?
+			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:84:50: ( atom )?
 			int alt3=2;
 			int LA3_0 = input.LA(1);
 			if ( (LA3_0==BooleanType||LA3_0==Int||LA3_0==MoneyType||LA3_0==RoundLbr) ) {
@@ -474,7 +475,7 @@ public class QLParser extends Parser {
 			}
 			switch (alt3) {
 				case 1 :
-					// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:83:51: atom
+					// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:84:51: atom
 					{
 					pushFollow(FOLLOW_atom_in_questionAssignment197);
 					atom14=atom();
@@ -488,7 +489,7 @@ public class QLParser extends Parser {
 
 			if ( state.backtracking==0 ) {mapIdentToType((Ident10!=null?Ident10.getText():null),(identType13!=null?((QLParser.identType_return)identType13).t:null));}
 			// AST REWRITE
-			// elements: atom, String, identType, Ident
+			// elements: Ident, identType, atom, String
 			// token labels: 
 			// rule labels: retval
 			// token list labels: 
@@ -499,13 +500,13 @@ public class QLParser extends Parser {
 			RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.getTree():null);
 
 			root_0 = (Object)adaptor.nil();
-			// 83:103: -> ^( ASSIGNMENT ^( IDENT Ident ) ^( ASSIGNMENT_TYPE identType ) ^( QUESTION_LABEL String ) ( ^( ASSIGNMENT_EXPRESSION atom ) )? )
+			// 84:103: -> ^( ASSIGNMENT ^( IDENT Ident ) ^( ASSIGNMENT_TYPE identType ) ^( QUESTION_LABEL String ) ( ^( ASSIGNMENT_EXPRESSION atom ) )? )
 			{
-				// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:83:105: ^( ASSIGNMENT ^( IDENT Ident ) ^( ASSIGNMENT_TYPE identType ) ^( QUESTION_LABEL String ) ( ^( ASSIGNMENT_EXPRESSION atom ) )? )
+				// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:84:105: ^( ASSIGNMENT ^( IDENT Ident ) ^( ASSIGNMENT_TYPE identType ) ^( QUESTION_LABEL String ) ( ^( ASSIGNMENT_EXPRESSION atom ) )? )
 				{
 				Object root_1 = (Object)adaptor.nil();
 				root_1 = (Object)adaptor.becomeRoot((Object)adaptor.create(ASSIGNMENT, "ASSIGNMENT"), root_1);
-				// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:83:118: ^( IDENT Ident )
+				// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:84:118: ^( IDENT Ident )
 				{
 				Object root_2 = (Object)adaptor.nil();
 				root_2 = (Object)adaptor.becomeRoot((Object)adaptor.create(IDENT, "IDENT"), root_2);
@@ -513,7 +514,7 @@ public class QLParser extends Parser {
 				adaptor.addChild(root_1, root_2);
 				}
 
-				// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:83:133: ^( ASSIGNMENT_TYPE identType )
+				// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:84:133: ^( ASSIGNMENT_TYPE identType )
 				{
 				Object root_2 = (Object)adaptor.nil();
 				root_2 = (Object)adaptor.becomeRoot((Object)adaptor.create(ASSIGNMENT_TYPE, "ASSIGNMENT_TYPE"), root_2);
@@ -521,7 +522,7 @@ public class QLParser extends Parser {
 				adaptor.addChild(root_1, root_2);
 				}
 
-				// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:83:162: ^( QUESTION_LABEL String )
+				// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:84:162: ^( QUESTION_LABEL String )
 				{
 				Object root_2 = (Object)adaptor.nil();
 				root_2 = (Object)adaptor.becomeRoot((Object)adaptor.create(QUESTION_LABEL, "QUESTION_LABEL"), root_2);
@@ -529,9 +530,9 @@ public class QLParser extends Parser {
 				adaptor.addChild(root_1, root_2);
 				}
 
-				// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:83:189: ( ^( ASSIGNMENT_EXPRESSION atom ) )?
+				// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:84:189: ( ^( ASSIGNMENT_EXPRESSION atom ) )?
 				if ( stream_atom.hasNext() ) {
-					// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:83:189: ^( ASSIGNMENT_EXPRESSION atom )
+					// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:84:189: ^( ASSIGNMENT_EXPRESSION atom )
 					{
 					Object root_2 = (Object)adaptor.nil();
 					root_2 = (Object)adaptor.becomeRoot((Object)adaptor.create(ASSIGNMENT_EXPRESSION, "ASSIGNMENT_EXPRESSION"), root_2);
@@ -583,7 +584,7 @@ public class QLParser extends Parser {
 
 
 	// $ANTLR start "constantAssignment"
-	// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:88:1: constantAssignment : Ident Assignment_Indicator identType atom -> ^( ASSIGNMENT ^( IDENT Ident ) ^( ASSIGNMENT_TYPE identType ) ^( ASSIGNMENT_EXPRESSION atom ) ) ;
+	// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:89:1: constantAssignment : Ident Assignment_Indicator identType atom -> ^( ASSIGNMENT ^( IDENT Ident ) ^( ASSIGNMENT_TYPE identType ) ^( ASSIGNMENT_EXPRESSION atom ) ) ;
 	public final QLParser.constantAssignment_return constantAssignment() throws RecognitionException {
 		QLParser.constantAssignment_return retval = new QLParser.constantAssignment_return();
 		retval.start = input.LT(1);
@@ -606,8 +607,8 @@ public class QLParser extends Parser {
 		try {
 			if ( state.backtracking>0 && alreadyParsedRule(input, 4) ) { return retval; }
 
-			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:89:2: ( Ident Assignment_Indicator identType atom -> ^( ASSIGNMENT ^( IDENT Ident ) ^( ASSIGNMENT_TYPE identType ) ^( ASSIGNMENT_EXPRESSION atom ) ) )
-			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:89:4: Ident Assignment_Indicator identType atom
+			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:90:2: ( Ident Assignment_Indicator identType atom -> ^( ASSIGNMENT ^( IDENT Ident ) ^( ASSIGNMENT_TYPE identType ) ^( ASSIGNMENT_EXPRESSION atom ) ) )
+			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:90:4: Ident Assignment_Indicator identType atom
 			{
 			Ident15=(Token)match(input,Ident,FOLLOW_Ident_in_constantAssignment250); if (state.failed) return retval; 
 			if ( state.backtracking==0 ) stream_Ident.add(Ident15);
@@ -627,7 +628,7 @@ public class QLParser extends Parser {
 			if ( state.backtracking==0 ) stream_atom.add(atom18.getTree());
 			if ( state.backtracking==0 ) {mapIdentToType((Ident15!=null?Ident15.getText():null),(identType17!=null?((QLParser.identType_return)identType17).t:null));}
 			// AST REWRITE
-			// elements: atom, Ident, identType
+			// elements: Ident, atom, identType
 			// token labels: 
 			// rule labels: retval
 			// token list labels: 
@@ -638,13 +639,13 @@ public class QLParser extends Parser {
 			RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.getTree():null);
 
 			root_0 = (Object)adaptor.nil();
-			// 89:91: -> ^( ASSIGNMENT ^( IDENT Ident ) ^( ASSIGNMENT_TYPE identType ) ^( ASSIGNMENT_EXPRESSION atom ) )
+			// 90:91: -> ^( ASSIGNMENT ^( IDENT Ident ) ^( ASSIGNMENT_TYPE identType ) ^( ASSIGNMENT_EXPRESSION atom ) )
 			{
-				// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:89:94: ^( ASSIGNMENT ^( IDENT Ident ) ^( ASSIGNMENT_TYPE identType ) ^( ASSIGNMENT_EXPRESSION atom ) )
+				// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:90:94: ^( ASSIGNMENT ^( IDENT Ident ) ^( ASSIGNMENT_TYPE identType ) ^( ASSIGNMENT_EXPRESSION atom ) )
 				{
 				Object root_1 = (Object)adaptor.nil();
 				root_1 = (Object)adaptor.becomeRoot((Object)adaptor.create(ASSIGNMENT, "ASSIGNMENT"), root_1);
-				// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:89:107: ^( IDENT Ident )
+				// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:90:107: ^( IDENT Ident )
 				{
 				Object root_2 = (Object)adaptor.nil();
 				root_2 = (Object)adaptor.becomeRoot((Object)adaptor.create(IDENT, "IDENT"), root_2);
@@ -652,7 +653,7 @@ public class QLParser extends Parser {
 				adaptor.addChild(root_1, root_2);
 				}
 
-				// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:89:123: ^( ASSIGNMENT_TYPE identType )
+				// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:90:123: ^( ASSIGNMENT_TYPE identType )
 				{
 				Object root_2 = (Object)adaptor.nil();
 				root_2 = (Object)adaptor.becomeRoot((Object)adaptor.create(ASSIGNMENT_TYPE, "ASSIGNMENT_TYPE"), root_2);
@@ -660,7 +661,7 @@ public class QLParser extends Parser {
 				adaptor.addChild(root_1, root_2);
 				}
 
-				// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:89:152: ^( ASSIGNMENT_EXPRESSION atom )
+				// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:90:152: ^( ASSIGNMENT_EXPRESSION atom )
 				{
 				Object root_2 = (Object)adaptor.nil();
 				root_2 = (Object)adaptor.becomeRoot((Object)adaptor.create(ASSIGNMENT_EXPRESSION, "ASSIGNMENT_EXPRESSION"), root_2);
@@ -710,7 +711,7 @@ public class QLParser extends Parser {
 
 
 	// $ANTLR start "identType"
-	// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:93:1: identType returns [Type t] : ( BooleanType -> BooleanType | MoneyType -> MoneyType );
+	// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:94:1: identType returns [Type t] : ( BooleanType -> BooleanType | MoneyType -> MoneyType );
 	public final QLParser.identType_return identType() throws RecognitionException {
 		QLParser.identType_return retval = new QLParser.identType_return();
 		retval.start = input.LT(1);
@@ -729,7 +730,7 @@ public class QLParser extends Parser {
 		try {
 			if ( state.backtracking>0 && alreadyParsedRule(input, 5) ) { return retval; }
 
-			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:94:2: ( BooleanType -> BooleanType | MoneyType -> MoneyType )
+			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:95:2: ( BooleanType -> BooleanType | MoneyType -> MoneyType )
 			int alt4=2;
 			int LA4_0 = input.LA(1);
 			if ( (LA4_0==BooleanType) ) {
@@ -748,7 +749,7 @@ public class QLParser extends Parser {
 
 			switch (alt4) {
 				case 1 :
-					// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:94:4: BooleanType
+					// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:95:4: BooleanType
 					{
 					BooleanType19=(Token)match(input,BooleanType,FOLLOW_BooleanType_in_identType304); if (state.failed) return retval; 
 					if ( state.backtracking==0 ) stream_BooleanType.add(BooleanType19);
@@ -766,7 +767,7 @@ public class QLParser extends Parser {
 					RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.getTree():null);
 
 					root_0 = (Object)adaptor.nil();
-					// 94:40: -> BooleanType
+					// 95:40: -> BooleanType
 					{
 						adaptor.addChild(root_0, stream_BooleanType.nextNode());
 					}
@@ -778,7 +779,7 @@ public class QLParser extends Parser {
 					}
 					break;
 				case 2 :
-					// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:95:4: MoneyType
+					// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:96:4: MoneyType
 					{
 					MoneyType20=(Token)match(input,MoneyType,FOLLOW_MoneyType_in_identType317); if (state.failed) return retval; 
 					if ( state.backtracking==0 ) stream_MoneyType.add(MoneyType20);
@@ -796,7 +797,7 @@ public class QLParser extends Parser {
 					RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.getTree():null);
 
 					root_0 = (Object)adaptor.nil();
-					// 95:39: -> MoneyType
+					// 96:39: -> MoneyType
 					{
 						adaptor.addChild(root_0, stream_MoneyType.nextNode());
 					}
@@ -839,7 +840,7 @@ public class QLParser extends Parser {
 
 
 	// $ANTLR start "ifBlock"
-	// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:99:1: ifBlock : ifCondition ifStatementBlock ( elseBlock )? -> ^( IF_STATEMENT ^( IF_CONDITION ifCondition ) ^( IF_BLOCK_TRUE ifStatementBlock ) ( ^( IF_BLOCK_FALSE elseBlock ) )? ) ;
+	// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:100:1: ifBlock : ifCondition ifStatementBlock ( elseBlock )? -> ^( IF_STATEMENT ^( IF_CONDITION ifCondition ) ^( IF_BLOCK_TRUE ifStatementBlock ) ( ^( IF_BLOCK_FALSE elseBlock ) )? ) ;
 	public final QLParser.ifBlock_return ifBlock() throws RecognitionException {
 		QLParser.ifBlock_return retval = new QLParser.ifBlock_return();
 		retval.start = input.LT(1);
@@ -858,8 +859,8 @@ public class QLParser extends Parser {
 		try {
 			if ( state.backtracking>0 && alreadyParsedRule(input, 6) ) { return retval; }
 
-			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:100:2: ( ifCondition ifStatementBlock ( elseBlock )? -> ^( IF_STATEMENT ^( IF_CONDITION ifCondition ) ^( IF_BLOCK_TRUE ifStatementBlock ) ( ^( IF_BLOCK_FALSE elseBlock ) )? ) )
-			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:100:4: ifCondition ifStatementBlock ( elseBlock )?
+			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:101:2: ( ifCondition ifStatementBlock ( elseBlock )? -> ^( IF_STATEMENT ^( IF_CONDITION ifCondition ) ^( IF_BLOCK_TRUE ifStatementBlock ) ( ^( IF_BLOCK_FALSE elseBlock ) )? ) )
+			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:101:4: ifCondition ifStatementBlock ( elseBlock )?
 			{
 			pushFollow(FOLLOW_ifCondition_in_ifBlock339);
 			ifCondition21=ifCondition();
@@ -871,7 +872,7 @@ public class QLParser extends Parser {
 			state._fsp--;
 			if (state.failed) return retval;
 			if ( state.backtracking==0 ) stream_ifStatementBlock.add(ifStatementBlock22.getTree());
-			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:100:35: ( elseBlock )?
+			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:101:35: ( elseBlock )?
 			int alt5=2;
 			int LA5_0 = input.LA(1);
 			if ( (LA5_0==Else) ) {
@@ -879,7 +880,7 @@ public class QLParser extends Parser {
 			}
 			switch (alt5) {
 				case 1 :
-					// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:100:36: elseBlock
+					// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:101:36: elseBlock
 					{
 					pushFollow(FOLLOW_elseBlock_in_ifBlock346);
 					elseBlock23=elseBlock();
@@ -892,7 +893,7 @@ public class QLParser extends Parser {
 			}
 
 			// AST REWRITE
-			// elements: elseBlock, ifStatementBlock, ifCondition
+			// elements: elseBlock, ifCondition, ifStatementBlock
 			// token labels: 
 			// rule labels: retval
 			// token list labels: 
@@ -903,13 +904,13 @@ public class QLParser extends Parser {
 			RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.getTree():null);
 
 			root_0 = (Object)adaptor.nil();
-			// 100:49: -> ^( IF_STATEMENT ^( IF_CONDITION ifCondition ) ^( IF_BLOCK_TRUE ifStatementBlock ) ( ^( IF_BLOCK_FALSE elseBlock ) )? )
+			// 101:49: -> ^( IF_STATEMENT ^( IF_CONDITION ifCondition ) ^( IF_BLOCK_TRUE ifStatementBlock ) ( ^( IF_BLOCK_FALSE elseBlock ) )? )
 			{
-				// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:100:51: ^( IF_STATEMENT ^( IF_CONDITION ifCondition ) ^( IF_BLOCK_TRUE ifStatementBlock ) ( ^( IF_BLOCK_FALSE elseBlock ) )? )
+				// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:101:51: ^( IF_STATEMENT ^( IF_CONDITION ifCondition ) ^( IF_BLOCK_TRUE ifStatementBlock ) ( ^( IF_BLOCK_FALSE elseBlock ) )? )
 				{
 				Object root_1 = (Object)adaptor.nil();
 				root_1 = (Object)adaptor.becomeRoot((Object)adaptor.create(IF_STATEMENT, "IF_STATEMENT"), root_1);
-				// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:100:67: ^( IF_CONDITION ifCondition )
+				// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:101:67: ^( IF_CONDITION ifCondition )
 				{
 				Object root_2 = (Object)adaptor.nil();
 				root_2 = (Object)adaptor.becomeRoot((Object)adaptor.create(IF_CONDITION, "IF_CONDITION"), root_2);
@@ -917,7 +918,7 @@ public class QLParser extends Parser {
 				adaptor.addChild(root_1, root_2);
 				}
 
-				// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:100:97: ^( IF_BLOCK_TRUE ifStatementBlock )
+				// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:101:97: ^( IF_BLOCK_TRUE ifStatementBlock )
 				{
 				Object root_2 = (Object)adaptor.nil();
 				root_2 = (Object)adaptor.becomeRoot((Object)adaptor.create(IF_BLOCK_TRUE, "IF_BLOCK_TRUE"), root_2);
@@ -925,9 +926,9 @@ public class QLParser extends Parser {
 				adaptor.addChild(root_1, root_2);
 				}
 
-				// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:100:131: ( ^( IF_BLOCK_FALSE elseBlock ) )?
+				// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:101:131: ( ^( IF_BLOCK_FALSE elseBlock ) )?
 				if ( stream_elseBlock.hasNext() ) {
-					// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:100:131: ^( IF_BLOCK_FALSE elseBlock )
+					// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:101:131: ^( IF_BLOCK_FALSE elseBlock )
 					{
 					Object root_2 = (Object)adaptor.nil();
 					root_2 = (Object)adaptor.becomeRoot((Object)adaptor.create(IF_BLOCK_FALSE, "IF_BLOCK_FALSE"), root_2);
@@ -979,7 +980,7 @@ public class QLParser extends Parser {
 
 
 	// $ANTLR start "ifCondition"
-	// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:103:1: ifCondition : If RoundLbr orExpr RoundRbr -> orExpr ;
+	// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:104:1: ifCondition : If RoundLbr orExpr RoundRbr -> orExpr ;
 	public final QLParser.ifCondition_return ifCondition() throws RecognitionException {
 		QLParser.ifCondition_return retval = new QLParser.ifCondition_return();
 		retval.start = input.LT(1);
@@ -1003,8 +1004,8 @@ public class QLParser extends Parser {
 		try {
 			if ( state.backtracking>0 && alreadyParsedRule(input, 7) ) { return retval; }
 
-			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:104:2: ( If RoundLbr orExpr RoundRbr -> orExpr )
-			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:104:5: If RoundLbr orExpr RoundRbr
+			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:105:2: ( If RoundLbr orExpr RoundRbr -> orExpr )
+			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:105:5: If RoundLbr orExpr RoundRbr
 			{
 			If24=(Token)match(input,If,FOLLOW_If_in_ifCondition390); if (state.failed) return retval; 
 			if ( state.backtracking==0 ) stream_If.add(If24);
@@ -1032,7 +1033,7 @@ public class QLParser extends Parser {
 			RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.getTree():null);
 
 			root_0 = (Object)adaptor.nil();
-			// 104:34: -> orExpr
+			// 105:34: -> orExpr
 			{
 				adaptor.addChild(root_0, stream_orExpr.nextTree());
 			}
@@ -1073,7 +1074,7 @@ public class QLParser extends Parser {
 
 
 	// $ANTLR start "ifStatementBlock"
-	// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:107:1: ifStatementBlock : Lbr ( blockItem )* Rbr -> ^( BLOCK ( blockItem )* ) ;
+	// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:108:1: ifStatementBlock : Lbr ( blockItem )* Rbr -> ^( BLOCK ( blockItem )* ) ;
 	public final QLParser.ifStatementBlock_return ifStatementBlock() throws RecognitionException {
 		QLParser.ifStatementBlock_return retval = new QLParser.ifStatementBlock_return();
 		retval.start = input.LT(1);
@@ -1094,13 +1095,13 @@ public class QLParser extends Parser {
 		try {
 			if ( state.backtracking>0 && alreadyParsedRule(input, 8) ) { return retval; }
 
-			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:108:2: ( Lbr ( blockItem )* Rbr -> ^( BLOCK ( blockItem )* ) )
-			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:108:5: Lbr ( blockItem )* Rbr
+			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:109:2: ( Lbr ( blockItem )* Rbr -> ^( BLOCK ( blockItem )* ) )
+			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:109:5: Lbr ( blockItem )* Rbr
 			{
 			Lbr28=(Token)match(input,Lbr,FOLLOW_Lbr_in_ifStatementBlock415); if (state.failed) return retval; 
 			if ( state.backtracking==0 ) stream_Lbr.add(Lbr28);
 
-			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:108:10: ( blockItem )*
+			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:109:10: ( blockItem )*
 			loop6:
 			while (true) {
 				int alt6=2;
@@ -1111,7 +1112,7 @@ public class QLParser extends Parser {
 
 				switch (alt6) {
 				case 1 :
-					// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:108:10: blockItem
+					// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:109:10: blockItem
 					{
 					pushFollow(FOLLOW_blockItem_in_ifStatementBlock418);
 					blockItem29=blockItem();
@@ -1141,13 +1142,13 @@ public class QLParser extends Parser {
 			RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.getTree():null);
 
 			root_0 = (Object)adaptor.nil();
-			// 108:25: -> ^( BLOCK ( blockItem )* )
+			// 109:25: -> ^( BLOCK ( blockItem )* )
 			{
-				// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:108:28: ^( BLOCK ( blockItem )* )
+				// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:109:28: ^( BLOCK ( blockItem )* )
 				{
 				Object root_1 = (Object)adaptor.nil();
 				root_1 = (Object)adaptor.becomeRoot((Object)adaptor.create(BLOCK, "BLOCK"), root_1);
-				// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:108:36: ( blockItem )*
+				// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:109:36: ( blockItem )*
 				while ( stream_blockItem.hasNext() ) {
 					adaptor.addChild(root_1, stream_blockItem.nextTree());
 				}
@@ -1194,7 +1195,7 @@ public class QLParser extends Parser {
 
 
 	// $ANTLR start "elseBlock"
-	// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:110:1: elseBlock : Else Lbr ( blockItem )* Rbr -> ^( BLOCK ( blockItem )* ) ;
+	// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:111:1: elseBlock : Else Lbr ( blockItem )* Rbr -> ^( BLOCK ( blockItem )* ) ;
 	public final QLParser.elseBlock_return elseBlock() throws RecognitionException {
 		QLParser.elseBlock_return retval = new QLParser.elseBlock_return();
 		retval.start = input.LT(1);
@@ -1218,8 +1219,8 @@ public class QLParser extends Parser {
 		try {
 			if ( state.backtracking>0 && alreadyParsedRule(input, 9) ) { return retval; }
 
-			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:111:2: ( Else Lbr ( blockItem )* Rbr -> ^( BLOCK ( blockItem )* ) )
-			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:111:4: Else Lbr ( blockItem )* Rbr
+			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:112:2: ( Else Lbr ( blockItem )* Rbr -> ^( BLOCK ( blockItem )* ) )
+			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:112:4: Else Lbr ( blockItem )* Rbr
 			{
 			Else31=(Token)match(input,Else,FOLLOW_Else_in_elseBlock439); if (state.failed) return retval; 
 			if ( state.backtracking==0 ) stream_Else.add(Else31);
@@ -1227,7 +1228,7 @@ public class QLParser extends Parser {
 			Lbr32=(Token)match(input,Lbr,FOLLOW_Lbr_in_elseBlock441); if (state.failed) return retval; 
 			if ( state.backtracking==0 ) stream_Lbr.add(Lbr32);
 
-			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:111:13: ( blockItem )*
+			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:112:13: ( blockItem )*
 			loop7:
 			while (true) {
 				int alt7=2;
@@ -1238,7 +1239,7 @@ public class QLParser extends Parser {
 
 				switch (alt7) {
 				case 1 :
-					// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:111:13: blockItem
+					// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:112:13: blockItem
 					{
 					pushFollow(FOLLOW_blockItem_in_elseBlock443);
 					blockItem33=blockItem();
@@ -1268,13 +1269,13 @@ public class QLParser extends Parser {
 			RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.getTree():null);
 
 			root_0 = (Object)adaptor.nil();
-			// 111:28: -> ^( BLOCK ( blockItem )* )
+			// 112:28: -> ^( BLOCK ( blockItem )* )
 			{
-				// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:111:31: ^( BLOCK ( blockItem )* )
+				// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:112:31: ^( BLOCK ( blockItem )* )
 				{
 				Object root_1 = (Object)adaptor.nil();
 				root_1 = (Object)adaptor.becomeRoot((Object)adaptor.create(BLOCK, "BLOCK"), root_1);
-				// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:111:39: ( blockItem )*
+				// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:112:39: ( blockItem )*
 				while ( stream_blockItem.hasNext() ) {
 					adaptor.addChild(root_1, stream_blockItem.nextTree());
 				}
@@ -1321,7 +1322,7 @@ public class QLParser extends Parser {
 
 
 	// $ANTLR start "atom"
-	// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:117:1: atom : ( Int | Ident | BooleanType | MoneyType | RoundLbr !x= orExpr ^ RoundRbr !);
+	// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:118:1: atom : ( Int | Ident | BooleanType | MoneyType | RoundLbr !x= orExpr ^ RoundRbr !);
 	public final QLParser.atom_return atom() throws RecognitionException {
 		QLParser.atom_return retval = new QLParser.atom_return();
 		retval.start = input.LT(1);
@@ -1347,7 +1348,7 @@ public class QLParser extends Parser {
 		try {
 			if ( state.backtracking>0 && alreadyParsedRule(input, 10) ) { return retval; }
 
-			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:118:3: ( Int | Ident | BooleanType | MoneyType | RoundLbr !x= orExpr ^ RoundRbr !)
+			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:119:3: ( Int | Ident | BooleanType | MoneyType | RoundLbr !x= orExpr ^ RoundRbr !)
 			int alt8=5;
 			switch ( input.LA(1) ) {
 			case Int:
@@ -1383,7 +1384,7 @@ public class QLParser extends Parser {
 			}
 			switch (alt8) {
 				case 1 :
-					// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:118:5: Int
+					// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:119:5: Int
 					{
 					root_0 = (Object)adaptor.nil();
 
@@ -1397,7 +1398,7 @@ public class QLParser extends Parser {
 					}
 					break;
 				case 2 :
-					// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:119:5: Ident
+					// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:120:5: Ident
 					{
 					root_0 = (Object)adaptor.nil();
 
@@ -1411,7 +1412,7 @@ public class QLParser extends Parser {
 					}
 					break;
 				case 3 :
-					// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:120:5: BooleanType
+					// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:121:5: BooleanType
 					{
 					root_0 = (Object)adaptor.nil();
 
@@ -1425,7 +1426,7 @@ public class QLParser extends Parser {
 					}
 					break;
 				case 4 :
-					// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:121:5: MoneyType
+					// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:122:5: MoneyType
 					{
 					root_0 = (Object)adaptor.nil();
 
@@ -1439,7 +1440,7 @@ public class QLParser extends Parser {
 					}
 					break;
 				case 5 :
-					// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:123:6: RoundLbr !x= orExpr ^ RoundRbr !
+					// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:124:6: RoundLbr !x= orExpr ^ RoundRbr !
 					{
 					root_0 = (Object)adaptor.nil();
 
@@ -1485,7 +1486,7 @@ public class QLParser extends Parser {
 
 
 	// $ANTLR start "unExpr"
-	// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:126:1: unExpr : ( Sub atom -> ^( UNARY_MINUS atom ) | Not atom -> ^( UNARY_NEGATE atom ) | atom );
+	// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:127:1: unExpr : ( Sub atom -> ^( UNARY_MINUS atom ) | Not atom -> ^( UNARY_NEGATE atom ) | atom );
 	public final QLParser.unExpr_return unExpr() throws RecognitionException {
 		QLParser.unExpr_return retval = new QLParser.unExpr_return();
 		retval.start = input.LT(1);
@@ -1508,7 +1509,7 @@ public class QLParser extends Parser {
 		try {
 			if ( state.backtracking>0 && alreadyParsedRule(input, 11) ) { return retval; }
 
-			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:127:5: ( Sub atom -> ^( UNARY_MINUS atom ) | Not atom -> ^( UNARY_NEGATE atom ) | atom )
+			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:128:5: ( Sub atom -> ^( UNARY_MINUS atom ) | Not atom -> ^( UNARY_NEGATE atom ) | atom )
 			int alt9=3;
 			switch ( input.LA(1) ) {
 			case Sub:
@@ -1538,7 +1539,7 @@ public class QLParser extends Parser {
 			}
 			switch (alt9) {
 				case 1 :
-					// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:127:8: Sub atom
+					// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:128:8: Sub atom
 					{
 					Sub41=(Token)match(input,Sub,FOLLOW_Sub_in_unExpr536); if (state.failed) return retval; 
 					if ( state.backtracking==0 ) stream_Sub.add(Sub41);
@@ -1560,9 +1561,9 @@ public class QLParser extends Parser {
 					RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.getTree():null);
 
 					root_0 = (Object)adaptor.nil();
-					// 127:17: -> ^( UNARY_MINUS atom )
+					// 128:17: -> ^( UNARY_MINUS atom )
 					{
-						// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:127:20: ^( UNARY_MINUS atom )
+						// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:128:20: ^( UNARY_MINUS atom )
 						{
 						Object root_1 = (Object)adaptor.nil();
 						root_1 = (Object)adaptor.becomeRoot((Object)adaptor.create(UNARY_MINUS, "UNARY_MINUS"), root_1);
@@ -1579,7 +1580,7 @@ public class QLParser extends Parser {
 					}
 					break;
 				case 2 :
-					// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:128:8: Not atom
+					// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:129:8: Not atom
 					{
 					Not43=(Token)match(input,Not,FOLLOW_Not_in_unExpr556); if (state.failed) return retval; 
 					if ( state.backtracking==0 ) stream_Not.add(Not43);
@@ -1601,9 +1602,9 @@ public class QLParser extends Parser {
 					RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.getTree():null);
 
 					root_0 = (Object)adaptor.nil();
-					// 128:17: -> ^( UNARY_NEGATE atom )
+					// 129:17: -> ^( UNARY_NEGATE atom )
 					{
-						// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:128:20: ^( UNARY_NEGATE atom )
+						// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:129:20: ^( UNARY_NEGATE atom )
 						{
 						Object root_1 = (Object)adaptor.nil();
 						root_1 = (Object)adaptor.becomeRoot((Object)adaptor.create(UNARY_NEGATE, "UNARY_NEGATE"), root_1);
@@ -1620,7 +1621,7 @@ public class QLParser extends Parser {
 					}
 					break;
 				case 3 :
-					// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:129:8: atom
+					// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:130:8: atom
 					{
 					root_0 = (Object)adaptor.nil();
 
@@ -1665,7 +1666,7 @@ public class QLParser extends Parser {
 
 
 	// $ANTLR start "mulExpr"
-	// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:132:1: mulExpr : lhs= unExpr (op= ( Mul | Div ) ^rhs= unExpr )* ;
+	// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:133:1: mulExpr : lhs= unExpr (op= ( Mul | Div ) ^rhs= unExpr )* ;
 	public final QLParser.mulExpr_return mulExpr() throws RecognitionException {
 		QLParser.mulExpr_return retval = new QLParser.mulExpr_return();
 		retval.start = input.LT(1);
@@ -1682,8 +1683,8 @@ public class QLParser extends Parser {
 		try {
 			if ( state.backtracking>0 && alreadyParsedRule(input, 12) ) { return retval; }
 
-			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:133:5: (lhs= unExpr (op= ( Mul | Div ) ^rhs= unExpr )* )
-			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:133:9: lhs= unExpr (op= ( Mul | Div ) ^rhs= unExpr )*
+			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:134:5: (lhs= unExpr (op= ( Mul | Div ) ^rhs= unExpr )* )
+			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:134:9: lhs= unExpr (op= ( Mul | Div ) ^rhs= unExpr )*
 			{
 			root_0 = (Object)adaptor.nil();
 
@@ -1694,7 +1695,7 @@ public class QLParser extends Parser {
 			if (state.failed) return retval;
 			if ( state.backtracking==0 ) adaptor.addChild(root_0, lhs.getTree());
 
-			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:133:21: (op= ( Mul | Div ) ^rhs= unExpr )*
+			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:134:21: (op= ( Mul | Div ) ^rhs= unExpr )*
 			loop10:
 			while (true) {
 				int alt10=2;
@@ -1705,7 +1706,7 @@ public class QLParser extends Parser {
 
 				switch (alt10) {
 				case 1 :
-					// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:133:23: op= ( Mul | Div ) ^rhs= unExpr
+					// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:134:23: op= ( Mul | Div ) ^rhs= unExpr
 					{
 					op=input.LT(1);
 					op=input.LT(1);
@@ -1766,7 +1767,7 @@ public class QLParser extends Parser {
 
 
 	// $ANTLR start "addExpr"
-	// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:137:1: addExpr : lhs= mulExpr (op= ( Add | Sub ) ^rhs= mulExpr )* ;
+	// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:138:1: addExpr : lhs= mulExpr (op= ( Add | Sub ) ^rhs= mulExpr )* ;
 	public final QLParser.addExpr_return addExpr() throws RecognitionException {
 		QLParser.addExpr_return retval = new QLParser.addExpr_return();
 		retval.start = input.LT(1);
@@ -1783,8 +1784,8 @@ public class QLParser extends Parser {
 		try {
 			if ( state.backtracking>0 && alreadyParsedRule(input, 13) ) { return retval; }
 
-			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:138:5: (lhs= mulExpr (op= ( Add | Sub ) ^rhs= mulExpr )* )
-			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:138:9: lhs= mulExpr (op= ( Add | Sub ) ^rhs= mulExpr )*
+			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:139:5: (lhs= mulExpr (op= ( Add | Sub ) ^rhs= mulExpr )* )
+			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:139:9: lhs= mulExpr (op= ( Add | Sub ) ^rhs= mulExpr )*
 			{
 			root_0 = (Object)adaptor.nil();
 
@@ -1795,7 +1796,7 @@ public class QLParser extends Parser {
 			if (state.failed) return retval;
 			if ( state.backtracking==0 ) adaptor.addChild(root_0, lhs.getTree());
 
-			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:138:21: (op= ( Add | Sub ) ^rhs= mulExpr )*
+			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:139:21: (op= ( Add | Sub ) ^rhs= mulExpr )*
 			loop11:
 			while (true) {
 				int alt11=2;
@@ -1806,7 +1807,7 @@ public class QLParser extends Parser {
 
 				switch (alt11) {
 				case 1 :
-					// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:138:23: op= ( Add | Sub ) ^rhs= mulExpr
+					// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:139:23: op= ( Add | Sub ) ^rhs= mulExpr
 					{
 					op=input.LT(1);
 					op=input.LT(1);
@@ -1867,7 +1868,7 @@ public class QLParser extends Parser {
 
 
 	// $ANTLR start "relExpr"
-	// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:141:1: relExpr : lhs= addExpr (op= ( LT | LTEqu | GT | GTEqu | Equ | NotEqu ) ^rhs= addExpr )* ;
+	// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:142:1: relExpr : lhs= addExpr (op= ( LT | LTEqu | GT | GTEqu | Equ | NotEqu ) ^rhs= addExpr )* ;
 	public final QLParser.relExpr_return relExpr() throws RecognitionException {
 		QLParser.relExpr_return retval = new QLParser.relExpr_return();
 		retval.start = input.LT(1);
@@ -1884,8 +1885,8 @@ public class QLParser extends Parser {
 		try {
 			if ( state.backtracking>0 && alreadyParsedRule(input, 14) ) { return retval; }
 
-			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:142:5: (lhs= addExpr (op= ( LT | LTEqu | GT | GTEqu | Equ | NotEqu ) ^rhs= addExpr )* )
-			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:142:9: lhs= addExpr (op= ( LT | LTEqu | GT | GTEqu | Equ | NotEqu ) ^rhs= addExpr )*
+			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:143:5: (lhs= addExpr (op= ( LT | LTEqu | GT | GTEqu | Equ | NotEqu ) ^rhs= addExpr )* )
+			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:143:9: lhs= addExpr (op= ( LT | LTEqu | GT | GTEqu | Equ | NotEqu ) ^rhs= addExpr )*
 			{
 			root_0 = (Object)adaptor.nil();
 
@@ -1896,7 +1897,7 @@ public class QLParser extends Parser {
 			if (state.failed) return retval;
 			if ( state.backtracking==0 ) adaptor.addChild(root_0, lhs.getTree());
 
-			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:142:22: (op= ( LT | LTEqu | GT | GTEqu | Equ | NotEqu ) ^rhs= addExpr )*
+			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:143:22: (op= ( LT | LTEqu | GT | GTEqu | Equ | NotEqu ) ^rhs= addExpr )*
 			loop12:
 			while (true) {
 				int alt12=2;
@@ -1907,7 +1908,7 @@ public class QLParser extends Parser {
 
 				switch (alt12) {
 				case 1 :
-					// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:142:24: op= ( LT | LTEqu | GT | GTEqu | Equ | NotEqu ) ^rhs= addExpr
+					// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:143:24: op= ( LT | LTEqu | GT | GTEqu | Equ | NotEqu ) ^rhs= addExpr
 					{
 					op=input.LT(1);
 					op=input.LT(1);
@@ -1968,7 +1969,7 @@ public class QLParser extends Parser {
 
 
 	// $ANTLR start "andExpr"
-	// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:145:1: andExpr : lhs= relExpr ( And ^rhs= relExpr )* ;
+	// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:146:1: andExpr : lhs= relExpr ( And ^rhs= relExpr )* ;
 	public final QLParser.andExpr_return andExpr() throws RecognitionException {
 		QLParser.andExpr_return retval = new QLParser.andExpr_return();
 		retval.start = input.LT(1);
@@ -1985,8 +1986,8 @@ public class QLParser extends Parser {
 		try {
 			if ( state.backtracking>0 && alreadyParsedRule(input, 15) ) { return retval; }
 
-			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:146:5: (lhs= relExpr ( And ^rhs= relExpr )* )
-			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:146:9: lhs= relExpr ( And ^rhs= relExpr )*
+			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:147:5: (lhs= relExpr ( And ^rhs= relExpr )* )
+			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:147:9: lhs= relExpr ( And ^rhs= relExpr )*
 			{
 			root_0 = (Object)adaptor.nil();
 
@@ -1997,7 +1998,7 @@ public class QLParser extends Parser {
 			if (state.failed) return retval;
 			if ( state.backtracking==0 ) adaptor.addChild(root_0, lhs.getTree());
 
-			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:146:21: ( And ^rhs= relExpr )*
+			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:147:21: ( And ^rhs= relExpr )*
 			loop13:
 			while (true) {
 				int alt13=2;
@@ -2008,7 +2009,7 @@ public class QLParser extends Parser {
 
 				switch (alt13) {
 				case 1 :
-					// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:146:23: And ^rhs= relExpr
+					// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:147:23: And ^rhs= relExpr
 					{
 					And46=(Token)match(input,And,FOLLOW_And_in_andExpr768); if (state.failed) return retval;
 					if ( state.backtracking==0 ) {
@@ -2062,7 +2063,7 @@ public class QLParser extends Parser {
 
 
 	// $ANTLR start "orExpr"
-	// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:150:1: orExpr : lhs= andExpr ( Or ^rhs= andExpr )* ;
+	// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:151:1: orExpr : lhs= andExpr ( Or ^rhs= andExpr )* ;
 	public final QLParser.orExpr_return orExpr() throws RecognitionException {
 		QLParser.orExpr_return retval = new QLParser.orExpr_return();
 		retval.start = input.LT(1);
@@ -2079,8 +2080,8 @@ public class QLParser extends Parser {
 		try {
 			if ( state.backtracking>0 && alreadyParsedRule(input, 16) ) { return retval; }
 
-			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:151:5: (lhs= andExpr ( Or ^rhs= andExpr )* )
-			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:151:8: lhs= andExpr ( Or ^rhs= andExpr )*
+			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:152:5: (lhs= andExpr ( Or ^rhs= andExpr )* )
+			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:152:8: lhs= andExpr ( Or ^rhs= andExpr )*
 			{
 			root_0 = (Object)adaptor.nil();
 
@@ -2091,7 +2092,7 @@ public class QLParser extends Parser {
 			if (state.failed) return retval;
 			if ( state.backtracking==0 ) adaptor.addChild(root_0, lhs.getTree());
 
-			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:151:20: ( Or ^rhs= andExpr )*
+			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:152:20: ( Or ^rhs= andExpr )*
 			loop14:
 			while (true) {
 				int alt14=2;
@@ -2102,7 +2103,7 @@ public class QLParser extends Parser {
 
 				switch (alt14) {
 				case 1 :
-					// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:151:22: Or ^rhs= andExpr
+					// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:152:22: Or ^rhs= andExpr
 					{
 					Or47=(Token)match(input,Or,FOLLOW_Or_in_orExpr808); if (state.failed) return retval;
 					if ( state.backtracking==0 ) {

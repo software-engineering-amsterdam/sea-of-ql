@@ -9,14 +9,14 @@ public abstract class ComputedStat extends TypedStat{
 
 	private Value value;
 	private Expr expression;
+	
 	public ComputedStat(Ident ident, String label, Type type,Expr computableExpr) {
 		super(ident, label, type);
 		this.expression = computableExpr;
 	}
 
 	public Expr getExpr() {
-		// TODO Auto-generated method stub
-		return null;
+		return this.expression;
 	}
 	
 	private Value computeValue(){
@@ -24,7 +24,7 @@ public abstract class ComputedStat extends TypedStat{
 	}
 	
 	public Value getValue(){
-		return value;
+		return computeValue();
 	}
 
 	

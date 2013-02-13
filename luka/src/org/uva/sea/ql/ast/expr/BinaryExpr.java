@@ -1,5 +1,7 @@
 package org.uva.sea.ql.ast.expr;
 
+import org.uva.sea.ql.ast.visitor.Visitor;
+
 public abstract class BinaryExpr extends Expr {
 	protected final Expr lhs, rhs;
 
@@ -17,7 +19,12 @@ public abstract class BinaryExpr extends Expr {
 	}
 	
 	@Override
+	public abstract <T> T accept(Visitor<T> visitor);
+	
+	@Override
 	public String toString() {
-		return "Binary: " +this.getClass().toString()+ "  LHS:("+lhs.toString() + ")  RHS("+rhs.toString()+")"; 
+		return this.getClass().toString(); 
 	}
+	
+	
 }

@@ -1,7 +1,9 @@
 package org.uva.sea.ql.ast.visitor;
 
+import java.util.List;
 import java.util.Map;
 
+import org.uva.sea.ql.ast.error.ErrorMessage;
 import org.uva.sea.ql.ast.expr.Expr;
 import org.uva.sea.ql.ast.expr.Ident;
 import org.uva.sea.ql.ast.stat.AnswerableStat;
@@ -14,61 +16,79 @@ import org.uva.sea.ql.ast.stat.Stat;
 import org.uva.sea.ql.ast.stat.TypedStat;
 import org.uva.sea.ql.ast.type.Type;
 
-public class CheckStat implements StatementVisitor<Boolean>{
-	
-	//DEPENDS ON EXPRESSION CHECKER !
-	private final Map<Ident,Type> typeEnv;
-	
-	public CheckStat( Map<Ident,Type> typeEnv){
+public class CheckStat implements StatementVisitor {
+
+	private final Map<Ident, Type> typeEnv;
+	private List<ErrorMessage> errorList;
+
+	private CheckStat(Map<Ident, Type> typeEnv, List<ErrorMessage> errorList) {
 		this.typeEnv = typeEnv;
+		this.errorList = errorList;
 	}
 	
-	public Boolean visit(ComputedStat stat) {
-	     checkName(stat, stat.getExpr().typeOf(typeEnv));
-	     checkExpr(stat.getExpr());
-	     return true;
+	public static void checkStatBlock(Block block,Map<Ident, Type> typeEnv,List<ErrorMessage> errorList ){
+		CheckStat statChecker = new CheckStat(typeEnv,errorList);
+		block.accept(statChecker);
 	}
-	@Override
-	public Boolean visit(AnswerableStat stat) {
-		checkName(stat, stat.getType());
-		return false;
+	
+	private void addError(Stat stat, String message){
+		this.errorList.add(new ErrorMessage(stat, message));
 	}
 
 	@Override
-	public Boolean visit(IfThenStat stat) {
-		checkCondition(stat);
-		  
-		  return stat.getBody().accept(this);
-	}
-
-	private Boolean checkCondition(ConditionalStat stat) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-	@Override
-	public Boolean visit(IfThenElseStat stat) {
-		checkCondition(stat);
-		  stat.getBody().accept(this);
-		  stat.getElseBody().accept(this);
-		  return false;
-	}
-
-	@Override
-	public Boolean visit(Block stat) {
-		 for (Stat s: stat.getStatements()) {
-		     s.accept(this);
+	public void visit(Block stat) {
+		for (Stat s : stat.getStatements()) {
+			s.accept(this);
 		}
-		 return false;
 	}
-	
-	private Boolean checkExpr(Expr expr) {
-		// TODO Auto-generated method stub
-		return false;
+
+	private void checkCondition(ConditionalStat stat) {
+		checkExpr(stat.getExpr());
+		if(stat.getBody().getStatements().isEmpty()){
+			addError(stat, "Invalid if block size, must not be empty");
+		}
 	}
-	private Boolean checkName(TypedStat stat, Type typeOf) {
-		// TODO Auto-generated method stub
-		return false;
+
+	private boolean checkExpr(Expr expr) {
+		return CheckExpr.check(expr, typeEnv, errorList);
+	}
+
+	private void checkStatType(TypedStat stat, Type typeOf) {
 		
+		 if(!stat.getType().isCompatibleTo(typeOf)){
+			 addError(stat, "Given type:"+typeOf.toString()+ " and computed type:"+ stat.getType().toString()+ "do not match");
+		 }
+	}
+	private void checkLabel(AnswerableStat stat) {
+		if(stat.getLabel() == null || stat.getLabel().isEmpty()){
+			addError(stat, "Empty label for user question");
+		}
+		
+	}
+	@Override
+	public void visit(ComputedStat stat) {
+		checkStatType(stat, stat.getExpr().typeOf(typeEnv));
+		checkExpr(stat.getExpr());
+	}
+
+	@Override
+	public void visit(AnswerableStat stat) {
+		checkLabel(stat);
+		checkStatType(stat, stat.getType());
+	}
+
+
+	@Override
+	public void visit(IfThenStat stat) {
+		checkCondition(stat);
+		stat.getBody().accept(this);
+	}
+
+	@Override
+	public void visit(IfThenElseStat stat) {
+		checkCondition(stat);
+		stat.getBody().accept(this);
+		stat.getElseBody().accept(this);
 	}
 
 }

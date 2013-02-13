@@ -1,24 +1,26 @@
 form Box1HouseOwning {
-hasSoldHouse: "Did you sell a house in 2010?" boolean
-hasBoughtHouse: "Did you by a house in 2010?" boolean
+hasSoldHouse: "Did you sell a house in 2010?" money
+hasBoughtHouse: "Did you by a house in 2010?" money
+currentTax: "What is the current tax?" money
+currentTax2: money(currentTax * (sellingPrice3 + 15))
+ladidadiCash: "This is your max. cash:" money(currentTax * 2)
 hasCustomerLove: "Are you in love?" boolean
 if(!hasCustomerLove){
 lovePrice: "How much would you pay for love?" money
 }
 hasMaintLoan: "Did you enter a loan for maintenance/reconstruction?" boolean
-if(hasSoldHouse<(hasBoughtHouse * hasBoughtHouse)+ (2*3)){
+if(!hasSoldHouse<(hasBoughtHouse * hasBoughtHouse)+ (2*3)){
 sellingPrice: "Price the house was sold for:" money
 privateDebt: "Private debts for the sold house:" money
 valueResidue: "Value residue:" money(sellingPrice - privateDebt)
 }
-if(hasMaintLoan){
+if(!hasMaintLoan){
 sellingPrice2: "Price the house was sold for:" money
 privateDebt2: "Private debts for the sold house:" money
 valueResidue2: "Value residue:" money(sellingPrice - privateDebt)
 }else{
 sellingPrice3: "Price the house was sold for:" money
 currentTax1: money(19)
-currentTax2: money(currentTax * (sellingPrice3 + 15))
 if(currentTax - privateDebt2){
 privateDebt3: "Private debts for the sold house:" money
 }

@@ -1,19 +1,33 @@
 package org.uva.sea.ql.ast.error;
 
 import org.uva.sea.ql.ast.expr.Expr;
+import org.uva.sea.ql.ast.stat.Stat;
 
 public class ErrorMessage {
 
 	private final String errorMessage;
-	private final Expr expression;
-	
-	public ErrorMessage(Expr ex,String message){
+	private Expr expression;
+	private Stat statement;
+
+	public ErrorMessage(Expr ex, String message) {
 		this.expression = ex;
 		this.errorMessage = message;
 	}
-	
+
+	public ErrorMessage(Stat stat, String message) {
+		this.statement = stat;
+		this.errorMessage = message;
+	}
+
+	public String getErrorMeesage() {
+		String errorSource = (this.expression != null) ? "Expr: "+ this.expression.toString() : "Stat: " +this.statement.toString();
+		return "Error: '" + this.errorMessage + "' in "+errorSource;
+	}
+
 	@Override
 	public String toString() {
-		return "Error in:"+this.expression.toString() + " - with given error message: "+ this.errorMessage;
+		String errorSource = (this.expression != null) ? this.expression.toString() : this.statement.toString();
+		return this.errorMessage + "' in "+errorSource;
+		
 	}
 }

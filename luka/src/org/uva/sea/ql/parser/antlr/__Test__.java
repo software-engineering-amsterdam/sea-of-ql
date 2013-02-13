@@ -10,14 +10,20 @@ import org.antlr.runtime.RecognitionException;
 import org.antlr.runtime.tree.CommonTree;
 import org.antlr.runtime.tree.CommonTreeNodeStream;
 import org.uva.sea.ql.ast.error.ErrorMessage;
+import org.uva.sea.ql.ast.expr.Expr;
 import org.uva.sea.ql.ast.expr.Ident;
 import org.uva.sea.ql.ast.stat.AnswerableStat;
 import org.uva.sea.ql.ast.stat.Block;
+import org.uva.sea.ql.ast.stat.ComputedStat;
+import org.uva.sea.ql.ast.stat.ConditionalStat;
+import org.uva.sea.ql.ast.stat.HiddenComputetStat;
 import org.uva.sea.ql.ast.stat.IfThenElseStat;
 import org.uva.sea.ql.ast.stat.IfThenStat;
 import org.uva.sea.ql.ast.stat.Stat;
+import org.uva.sea.ql.ast.stat.VisibleComputetStat;
 import org.uva.sea.ql.ast.type.Type;
 import org.uva.sea.ql.ast.visitor.CheckExpr;
+import org.uva.sea.ql.ast.visitor.CheckStat;
 import org.uva.sea.ql.questionnaire.Questionnaire;
 
 
@@ -46,11 +52,29 @@ public class __Test__ {
 			    Questionnaire questionnaire = walker.walk();
 			    Block questionnaireStatementsBlock = questionnaire.getBlock();
 			    Map<Ident,Type> typeEnv = parser.typeEnv;
-			 
-			    List<ErrorMessage> errs = new ArrayList<ErrorMessage>();
+			    List<ErrorMessage> errorList = new ArrayList<ErrorMessage>();
+			    CheckStat.checkStatBlock(questionnaireStatementsBlock, typeEnv, errorList);
+			    printErrorList(errorList);
+//			    List<ErrorMessage> errorList = new ArrayList<ErrorMessage>();
 			    
+//			    for(Stat s : questionnaireStatementsBlock.getStatements()){
+//			    	
+//			    	if(s instanceof ComputedStat){
+//			    		Expr statementExpr = ((ComputedStat) s).getExpr();
+//			    		System.out.println("ComputedStat:"+ ((ComputedStat) s).getLabel());
+//			    		Boolean check = CheckExpr.check(statementExpr, typeEnv, errorList);
+//			    		System.out.println("check:"+check.toString());
+//			    	}else if(s instanceof AnswerableStat){
+//			    		//System.out.println("AnswerableStat:"+ ((AnswerableStat) s).getLabel());
+//			    	}else if(s instanceof ConditionalStat){
+//			    		Expr statementExpr = ((ConditionalStat) s).getExpr();
+//			    		System.out.println("ConditionalStat:"+statementExpr.toString());
+//			    		Boolean check = CheckExpr.check(statementExpr, typeEnv, errorList);
+//			    		System.out.println("check:"+check.toString());
+//			    	}
+//			    }
 			    
-				CheckExpr.check(null, typeEnv, errs);
+				//
 			  
 			}
 			
@@ -59,9 +83,13 @@ public class __Test__ {
 		}
 	}
 	
+	private static void printErrorList(List<ErrorMessage> errorList){
+		for(ErrorMessage error : errorList){
+			System.err.println(error.getErrorMeesage());
+		}
+	}
 	
-	
-	private static void printTypeEnf(Map<Ident,Type> typeEnv){
+	public static void printTypeEnf(Map<Ident,Type> typeEnv){
 		for(Ident id : typeEnv.keySet()){
 			System.out.println(id.toString()+" - "+ typeEnv.get(id).toString());
 		}

@@ -3,7 +3,7 @@ package org.uva.sea.ql.ast.expr;
 import java.util.Map;
 
 import org.uva.sea.ql.ast.type.Type;
-import org.uva.sea.ql.ast.visitor.ExpressionVisitor;
+import org.uva.sea.ql.ast.visitor.Visitor;
 
 public class Ident extends Expr {
 	//private final Value value;
@@ -15,13 +15,29 @@ public class Ident extends Expr {
 		this.name = idName;
 	}
 	
+	
+	
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((name == null) ? 0 : name.hashCode());
+		return result;
+	}
+
+
+	@Override
+	public boolean equals(Object obj) {
+		return ((Ident)obj).getName().equals(this.name);
+	}
+
+
+
 	@Override
 	public String toString() {
 		return "Ident:"+this.name;
 	}
-	public Ident(){
-		
-	}
+
 	public String getName(){
 		return this.name;
 	}
@@ -31,11 +47,11 @@ public class Ident extends Expr {
 	     if (typeEnv.containsKey(this)) {
 	        return typeEnv.get(this);
 	     }
-	     return null;//TODO new Error();
+	     throw new RuntimeException("EROR, NOT IN ENV!");
 	   }
 	
 	@Override
-	public <T> T accept(ExpressionVisitor<T> visitor) {
+	public <T> T accept(Visitor<T> visitor) {
 		return visitor.visit(this);
 	}
 

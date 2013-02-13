@@ -5,7 +5,7 @@ import java.util.Map;
 import org.uva.sea.ql.ast.expr.Ident;
 import org.uva.sea.ql.ast.type.MoneyType;
 import org.uva.sea.ql.ast.type.Type;
-import org.uva.sea.ql.ast.visitor.ExpressionVisitor;
+import org.uva.sea.ql.ast.visitor.Visitor;
 
 
 public class Money extends Value{
@@ -15,6 +15,10 @@ public class Money extends Value{
 	public Money(double val){
 		this.value = val;
 	}
+	
+	public double getValue(){
+		return this.value;
+	}
 
 	@Override
 	public Type typeOf(Map<Ident, Type> typeEnv) {
@@ -22,9 +26,8 @@ public class Money extends Value{
 	}
 
 	@Override
-	public <T> T accept(ExpressionVisitor<T> visitor) {
-		// TODO Auto-generated method stub
-		return null;
+	public <T> T accept(Visitor<T> visitor) {
+		return visitor.visit(this);
 	}
 
 //	@Override

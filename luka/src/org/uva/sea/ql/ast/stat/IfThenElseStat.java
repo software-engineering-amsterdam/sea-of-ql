@@ -19,9 +19,8 @@ public class IfThenElseStat extends ConditionalStat{
 		return this.elseBlock;
 	}
 	@Override
-	public <T> T accept(StatementVisitor<T> visitor) {
-		// TODO Auto-generated method stub
-		return null;
+	public void accept(StatementVisitor visitor) {
+		 visitor.visit(this);
 	}
 
 }
