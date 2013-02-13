@@ -25,6 +25,7 @@ public class QLCheckBox  implements ActionListener {
 
 	public QLCheckBox(String varName, Map<String, Value> declaredVar) {
 		chBox=new JCheckBox("Yes");
+		chBox.setName("QLCHECKBOX");
 		this.varName = varName;
 		this.declaredVar = declaredVar;
 

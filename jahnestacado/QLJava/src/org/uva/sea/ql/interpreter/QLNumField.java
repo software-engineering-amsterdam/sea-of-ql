@@ -24,10 +24,10 @@ public class QLNumField  implements ActionListener{
 	
 	public QLNumField(String varName,Map<String, Value> declaredVar){
 		txtField=new JTextField(8);
+		txtField.setName("QLNUMFIELD");
 		this.varName=varName;
 		this.declaredVar=declaredVar;
 		value=((DecimalLit) declaredVar.get(varName)).getValue();
-		txtField.setName("NUMFIELD");
 	}
 	
 	public static JTextField responsiveNumField(String varName,Map<String, Value> declaredVar) {

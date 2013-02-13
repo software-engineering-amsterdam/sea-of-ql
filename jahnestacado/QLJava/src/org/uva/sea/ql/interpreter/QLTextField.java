@@ -24,10 +24,11 @@ public class QLTextField implements ActionListener{
 	
 	public QLTextField(String varName,Map<String, Value> declaredVar){
 		txtField=new JTextField(8);
+		txtField.setName("QLTEXTFIELD");
 		this.varName=varName;
 		this.declaredVar=declaredVar;
 		value=((StringLit) declaredVar.get(varName)).getValue();
-		txtField.setName("TEXTFIELD");
+		
 	}
 	
 	public static JTextField responsiveTextField(String varName,Map<String, Value> declaredVar) {

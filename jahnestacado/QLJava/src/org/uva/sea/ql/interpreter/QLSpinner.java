@@ -29,7 +29,7 @@ public class QLSpinner  {
 	private QLSpinner(String varName,Map<String, Value> declaredVar){
 		this.varName=varName;
 		this.declaredVar=declaredVar;
-		spinner.setName("SPINNER");
+		spinner.setName("QLSPINNER");
 	
 	}
 	

@@ -20,6 +20,7 @@ public class ComputedQuestionPanel {
 	private final JLabel label;
 	private final JTextField computedValue;
 	private final JPanel panel;
+	private final static String txtFieldId="QLTEXTFIELD";
 
 	public ComputedQuestionPanel(ComputedQuestion qlElement,Map<String,Value> declaredVar){
 		panel=new JPanel(new MigLayout());
@@ -27,6 +28,7 @@ public class ComputedQuestionPanel {
 		label.setName("COM_QUESTION_PANEL");
 		
 		computedValue=new JTextField(8);
+		computedValue.setName(txtFieldId);
 		computedValue.setForeground(Color.blue);
 		computedValue.setBackground(Color.white);
 		computedValue.setHorizontalAlignment(JTextField.CENTER);

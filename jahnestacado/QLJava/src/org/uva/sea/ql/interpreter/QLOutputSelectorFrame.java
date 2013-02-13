@@ -8,6 +8,7 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import net.miginfocom.swing.MigLayout;
@@ -23,21 +24,19 @@ public class QLOutputSelectorFrame implements ActionListener{
 	private JComboBox comboBox;
 
 	
-	private QLOutputSelectorFrame(JFrame dialog, List<String> questionLabels, List<String> questionValues){
+	private QLOutputSelectorFrame(JFrame dialog,QLOutputState outputState){
 		this.dialog=dialog;
-		this.questionLabels=questionLabels;
-		this.questionValues=questionValues;
+		this.questionLabels=outputState.getQuestionLabels();
+		this.questionValues=outputState.getQuestionValues();
 		
 	}
 	
-	public static void showFormatSelector(String formName, List<String> questionLabels, List<String> questionValues){
+	public static void showFormatSelector(String formName,QLOutputState outputState){
 		JFrame frame=QLFrame.createQLFrame();
 		frame.setTitle(formName);
-		QLOutputSelectorFrame selector=new QLOutputSelectorFrame(frame,questionLabels,questionValues);
+		QLOutputSelectorFrame selector=new QLOutputSelectorFrame(frame,outputState);
 		selector.setContentPanel();
 		selector.showDialog();
-		
-		
 
 	}
 	
@@ -74,24 +73,34 @@ public class QLOutputSelectorFrame implements ActionListener{
 	private void showDialog() {
 		dialog.pack();
 		dialog.setLocationRelativeTo(null);
-
 		dialog.setVisible(true);
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
+		String title=dialog.getTitle();
 		switch (comboBox.getSelectedIndex()) {
 		case 0:
-			QLToPDF.createPdf(dialog.getTitle(), questionLabels, questionValues);
+			
+			QLToPDF.createPdf(title, questionLabels, questionValues);
+			showConfirmationMessage(title+".pdf file successful created!");
 			break;
 		case 1:
 			QLToJSON.generateJson(dialog.getTitle(), questionLabels,questionValues);
+			showConfirmationMessage(title+".json file successful created!");
+
 			break;
 
 		default:
 			return;
 		}
 
+	}
+	
+	private void showConfirmationMessage(String message){
+		JOptionPane.showMessageDialog(dialog,message);
+
+		
 	}
 
 }
