@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import org.junit.Test;
+import org.uva.sea.ql.ast.Expr;
 import org.uva.sea.ql.ast.Type;
 import org.uva.sea.ql.ast.expressions.binary.arithmetic.Add;
 import org.uva.sea.ql.ast.expressions.binary.arithmetic.Div;
@@ -41,47 +42,52 @@ public class TestExpressionTypeChecker {
 		_typeEnv.put(new Ident("str"),     new Str());
 	}
 	
+	private Boolean isValidExpression(Expr expr) {
+		return CheckExpr.check(expr, _typeEnv, _errorMessages);
+	}
+	
 	@Test
 	public void testAdds() throws ParseError {
-		assertEquals(CheckExpr.check((Add) _parser.parse("1 + 1"), _typeEnv, _errorMessages), true);
-		assertEquals(CheckExpr.check((Add) _parser.parse("1 + (2 + 3)"), _typeEnv, _errorMessages), true);
-		assertEquals(CheckExpr.check((Add) _parser.parse("1 + (2 + 3.0)"), _typeEnv, _errorMessages), true);
+		assertEquals(isValidExpression((Add) _parser.parse("1 + 1")), true);
+		assertEquals(isValidExpression((Add) _parser.parse("1 + 1")), true);
+		assertEquals(isValidExpression((Add) _parser.parse("1 + (2 + 3)")), true);
+		assertEquals(isValidExpression((Add) _parser.parse("1 + (2 + 3.0)")), true);
 		
-		assertEquals(CheckExpr.check((Add) _parser.parse("1 + a"), _typeEnv, _errorMessages), false);
-		assertEquals(CheckExpr.check((Add) _parser.parse("1 + true"), _typeEnv, _errorMessages), false);
-		assertEquals(CheckExpr.check((Add) _parser.parse("true + true"), _typeEnv, _errorMessages), false);
+		assertEquals(isValidExpression((Add) _parser.parse("1 + a")), false);
+		assertEquals(isValidExpression((Add) _parser.parse("1 + true")), false);
+		assertEquals(isValidExpression((Add) _parser.parse("true + true")), false);
 	}
 	
 	@Test
 	public void testMuls() throws ParseError {
-		assertEquals(CheckExpr.check((Mul) _parser.parse("1 * 1"), _typeEnv, _errorMessages), true);
-		assertEquals(CheckExpr.check((Mul) _parser.parse("1 * (2 * 3)"), _typeEnv, _errorMessages), true);
-		assertEquals(CheckExpr.check((Mul) _parser.parse("1 * (2 * 3.0)"), _typeEnv, _errorMessages), true);
+		assertEquals(isValidExpression((Mul) _parser.parse("1 * 1")), true);
+		assertEquals(isValidExpression((Mul) _parser.parse("1 * (2 * 3)")), true);
+		assertEquals(isValidExpression((Mul) _parser.parse("1 * (2 * 3.0)")), true);
 		
-		assertEquals(CheckExpr.check((Mul) _parser.parse("1 * a"), _typeEnv, _errorMessages), false);
-		assertEquals(CheckExpr.check((Mul) _parser.parse("1 * true"), _typeEnv, _errorMessages), false);
-		assertEquals(CheckExpr.check((Mul) _parser.parse("true * true"), _typeEnv, _errorMessages), false);
+		assertEquals(isValidExpression((Mul) _parser.parse("1 * a")), false);
+		assertEquals(isValidExpression((Mul) _parser.parse("1 * true")), false);
+		assertEquals(isValidExpression((Mul) _parser.parse("true * true")), false);
 	}
 	
 	@Test
 	public void testDivs() throws ParseError {
-		assertEquals(CheckExpr.check((Div) _parser.parse("10 / 2"), _typeEnv, _errorMessages), true);
-		assertEquals(CheckExpr.check((Div) _parser.parse("10 / (2 * 1)"), _typeEnv, _errorMessages), true);
-		assertEquals(CheckExpr.check((Div) _parser.parse("10 / (2 * 2.50)"), _typeEnv, _errorMessages), true);
+		assertEquals(isValidExpression((Div) _parser.parse("10 / 2")), true);
+		assertEquals(isValidExpression((Div) _parser.parse("10 / (2 * 1)")), true);
+		assertEquals(isValidExpression((Div) _parser.parse("10 / (2 * 2.50)")), true);
 		
-		assertEquals(CheckExpr.check((Div) _parser.parse("1 / a"), _typeEnv, _errorMessages), false);
-		assertEquals(CheckExpr.check((Div) _parser.parse("1 / true"), _typeEnv, _errorMessages), false);
-		assertEquals(CheckExpr.check((Div) _parser.parse("true / true"), _typeEnv, _errorMessages), false);
+		assertEquals(isValidExpression((Div) _parser.parse("1 / a")), false);
+		assertEquals(isValidExpression((Div) _parser.parse("1 / true")), false);
+		assertEquals(isValidExpression((Div) _parser.parse("true / true")), false);
 	}
 	
 	@Test
 	public void testSubs() throws ParseError {
-		assertEquals(CheckExpr.check((Sub) _parser.parse("10 - 10"), _typeEnv, _errorMessages), true);
-		assertEquals(CheckExpr.check((Sub) _parser.parse("10 - (2 * 5)"), _typeEnv, _errorMessages), true);
-		assertEquals(CheckExpr.check((Sub) _parser.parse("10 - (2 * 2.50)"), _typeEnv, _errorMessages), true);
+		assertEquals(isValidExpression((Sub) _parser.parse("10 - 10")), true);
+		assertEquals(isValidExpression((Sub) _parser.parse("10 - (2 * 5)")), true);
+		assertEquals(isValidExpression((Sub) _parser.parse("10 - (2 * 2.50)")), true);
 		
-		assertEquals(CheckExpr.check((Sub) _parser.parse("1 - a"), _typeEnv, _errorMessages), false);
-		assertEquals(CheckExpr.check((Sub) _parser.parse("1 - true"), _typeEnv, _errorMessages), false);
-		assertEquals(CheckExpr.check((Sub) _parser.parse("true - true"), _typeEnv, _errorMessages), false);
+		assertEquals(isValidExpression((Sub) _parser.parse("1 - a")), false);
+		assertEquals(isValidExpression((Sub) _parser.parse("1 - true")), false);
+		assertEquals(isValidExpression((Sub) _parser.parse("true - true")), false);
 	}
 }
