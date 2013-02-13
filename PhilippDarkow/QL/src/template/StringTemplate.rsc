@@ -28,9 +28,7 @@ private str genGetter(map[str,str] fields, str x) {
          '}";
 }
 
-private str generateLabel(str id, str label){
-	//value ll = toValue(id);
-	println("LLLLLL : <id>");
+private str generateQuestionLabel(str id, str label){
 	return "var <id>Label = document.createElement(\'label\');
 	 <id>Label.htmlFor = <id>;
 	 <id>Label.innerHTML = <label>; ";
@@ -43,21 +41,30 @@ private str specifyAttributes(str id){
 		<id>.setAttribute(\'value\',<id>) ";
 }
 
+private str createEndingLabel(str id){
+	println("LLLLLL : <id>");
+	return "var <id>EndLabel = document.createElement(\'label\');
+	 <id>Label.htmlFor = <id>;
+	 <id>Label.innerHTML = <label>; ";
+	return "Yes";
+}
 
 /** Method to generate Question
 */
 private str generateQuestion(str formId, question:easyQuestion(str id, str labelQuestion, Type tp)){
 	println("in generate Question <question>");
-	
+	// document.write(\"\<p\>  \</p\>\");
 	if(tp == boolean()){
-		str label = generateLabel(id, labelQuestion);
+		str label = generateQuestionLabel(id, labelQuestion);
 		str attributes = specifyAttributes(id);
-		//println("LABEL : <label>");
+		str check = createEndingLabel();
+		println("check : <check>");
 		return "var <id> = document.createElement(\"input\");
-		<attributes>
+		 <attributes> 
 		<label>
-		<formId>.appendChild(<id>Label); 
-		<formId>.appendChild(<id>); 
+		
+		<formId>.appendChild(<id>Label); 		
+		<formId>.appendChild(<id>); 		
 		 ";
 	}else if(tp == money()){
 		return "<labelQuestion> \<input type=\"checkbox\" id=<id> \> Yes";
@@ -87,13 +94,12 @@ private str generateQuestion(str formId, question:computedQuestion(str id, str l
 //	return ques;	
 //}
 
-private str generateBody(str id, Body body){
+public str generateBody(str id, Body body){
 	println("in generate Body <body>");
 	for(s <- body){
 		visit(s){
 			case Question q : {
-				return "<generateQuestion(id, q)> 
-				document.write(\"\\n\");";
+				return generateQuestion(id, q);
 			}
 			case Statement s : {
 				return generateStatement(s);
@@ -102,24 +108,13 @@ private str generateBody(str id, Body body){
 	}	
 }
 
-public str generateJavaScriptForm(Program P){
+public str generateQLForm(Program P){
 	if(program(str id, list[Body] Body) := P){
 		println("in generate JavaScriptForm");
 		str res = "\<!DOCTYPE html\>
 		\<html\>
 		\<head\>
-		\<script\>
-		function createForm(){
-			var <id> = document.createElement(\"form\");
-			<id>.setAttribute(\'method\',\"post\");
-			<id>.setAttribute(\'action\',\"submit.php\");
-			<id>.setAttribute(\'name\',<id>);
-			<for (s <- Body) { >
-			<generateBody(id,s)> 
-			
-			< } >
-			document.getElementsByTagName(\'body\')[0].appendChild(<id>);		
-		}
+		\<script src=\"<id>.js\"\>
 		\</script\>
 		\</head\>
 		\<body\>
@@ -127,35 +122,16 @@ public str generateJavaScriptForm(Program P){
 			createForm();
 		\</script\>
 		\</body\>
-		\</html\>";
-		generateJavaScript(id,res);
+		\</html\>";	
+		str functions = javaScriptCreateForm(id, Body);
+		generateQLProgram(id,res,functions);
 		return res;
 	}else{
 		return "not possible to generate java script code";
 	}
 }
 
-public str generateJavaScriptFormMoreHTML(Program P){
-	if(program(str id, list[Body] Body) := P){
-		println("in generate JavaScriptForm");
-		str res = "\<!DOCTYPE html\>
-		\<html\>
-		\<body\>
-		\<form action = \" \" method = \"post\" name=<id>\>
-		<for (s <- Body) { >
-		<generateBody(s)> \</br\>
-		< } >				
-		\</form\>
-		\</body\>
-		\</html\>";
-		generateJavaScript(id,res);
-		return res;
-	}else{
-		return "not possible to generate java script code";
-	}
-}
-
-public str generateJavaScriptForm(str txt) = generateJavaScriptForm(load(txt));
+public str generateQLForm(str txt) = generateQLForm(load(txt));
 
 
 //function yesno(thecheckbox, thelabel) {
