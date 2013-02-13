@@ -1,14 +1,14 @@
 package org.uva.sea.ql.parser.errors;
 
 import org.uva.sea.ql.ast.expression.Expr;
-import org.uva.sea.ql.ast.form.FormElement;
 
 public class OperatorTypeMismatchError extends SemanticError {
-	private final Expr expression;
+	private final static String FORMAT =
+			"Operator type mismatch: %s not defined for %s and %s";
 	
-	public OperatorTypeMismatchError(FormElement formElement, Expr expression,
-			String message)
-	{
-		
+	public OperatorTypeMismatchError(String op, String lhsType, String rhsType,
+			Expr expression)
+	{	
+		super(String.format(FORMAT, op, lhsType, rhsType), expression);
 	}
 }

@@ -32,11 +32,10 @@ import org.uva.sea.ql.ast.visitor.ExpressionVisitor;
 public class ExpressionTypeChecker implements ExpressionVisitor<Boolean>
 {
 	private ExpressionTypeEvaluator exprTypeEval;
-	private Map<String, Type> typeEnvironment;
-	private List<String> messages;
+	private Environment environment;
 	
-	private final IntType intType = new IntType();
-	private final BoolType boolType = new BoolType();
+	private final IntType intType = new IntType(null);
+	private final BoolType boolType = new BoolType(null);
 	
 	public ExpressionTypeChecker(Map<String, Type> typeEnvironment,
 			List<String> messages)
