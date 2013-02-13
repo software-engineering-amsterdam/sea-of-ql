@@ -3,7 +3,7 @@ package org.uva.sea.ql.ast.statements;
 import org.uva.sea.ql.ast.Statement;
 import org.uva.sea.ql.ast.Type;
 import org.uva.sea.ql.ast.Value;
-import org.uva.sea.ql.ast.visitor.Visitor;
+import org.uva.sea.ql.ast.visitor.IStatementVisitor;
 
 
 public class Question extends Statement {
@@ -31,7 +31,7 @@ public class Question extends Statement {
 	}
 
 	@Override
-	public void accept(Visitor visitor) {
+	public void accept(IStatementVisitor visitor) {
 		visitor.visit(this);
 	}
 }

@@ -1,16 +1,19 @@
 package org.uva.sea.ql.ast.expr.atom;
 
+import java.math.BigDecimal;
+import java.text.NumberFormat;
+
 import org.uva.sea.ql.visitor.IExpression;
 
 public class Money extends Numeric {
 
-	private final float value;
+	private final BigDecimal value;
 
-	public Money(float value) {
+	public Money(BigDecimal value) {
 		this.value = value;
 	}
 
-	public Float getValue() {
+	public BigDecimal getValue() {
 		return this.value;
 	}
 
@@ -21,7 +24,9 @@ public class Money extends Numeric {
 
 	@Override
 	public java.lang.String toString() {
-		return java.lang.String.format("Money (%.2f)", this.getValue());
+		java.lang.String formattedValue = NumberFormat.getCurrencyInstance()
+				.format(this.getValue());
+		return java.lang.String.format("Money (%s)", formattedValue);
 	}
 
 }

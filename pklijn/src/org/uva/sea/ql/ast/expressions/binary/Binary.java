@@ -38,7 +38,7 @@ public abstract class Binary extends Expr {
 					" should be of the same type, left is " + left.typeOf(environment) + 
 					" and right is " + right.typeOf(environment)));
 		}
-		else if (!this.allowedTypes.contains(left.typeOf(environment))) {
+		else if (!allowedArgumentTypes().contains(left.typeOf(environment))) {
 			errors.add(new Error(
 					"The type of the left and right arguments are not allowed in operation " + getName() + 
 					" allowed types are: " + getPrintableAllowedTypes() + ". Gotten " + left.typeOf(environment)));

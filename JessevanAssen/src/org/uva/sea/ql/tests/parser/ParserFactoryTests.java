@@ -12,7 +12,6 @@ public class ParserFactoryTests {
 
     @Test
     public void createParserIsCalled_returnsInstanceOfANTLRParser() {
-        Parser parser = ParserFactory.createParser();
         assertEquals(ANTLRParser.class, ParserFactory.createParser().getClass());
     }
 

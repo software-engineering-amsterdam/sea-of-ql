@@ -1,27 +1,29 @@
 package org.uva.sea.ql.ast.exp;
 
 import org.uva.sea.ql.ast.value.BooleanValue;
-import org.uva.sea.ql.ast.value.Value;
-import org.uva.sea.ql.visitor.ASTNodeVisitor;
+import org.uva.sea.ql.visitor.NaturalVisitor;
+import org.uva.sea.ql.visitor.ExpressionVisitor;
 
-public class And extends Binary {
+public class And extends Binary<BooleanValue, BooleanValue> {
 
-	public And(final Expression left, final Expression right) {
+	public And(final Expression<BooleanValue> left,
+			final Expression<BooleanValue> right) {
 		super(left, right);
 	}
 
 	@Override
-	public void accept(final ASTNodeVisitor visitor) {
-		visitor.visit(this);
+	public <T> T accept(final NaturalVisitor<T> visitor) {
+		return visitor.visit(this);
 	}
 
 	@Override
-	public BooleanValue evaluate() {
-		Value left = getLeft().evaluate();
-		Value right = getRight().evaluate();
+	public Nature getNature() {
+		return Nature.BOOLEAN;
+	}
 
-		return new BooleanValue(((BooleanValue) left).getValue()
-				&& ((BooleanValue) right).getValue());
+	@Override
+	public BooleanValue accept(final ExpressionVisitor visitor) {
+		return visitor.visit(this);
 	}
 
 }

@@ -1,8 +1,13 @@
 package org.uva.sea.ql.ast.expr.grouping;
 
+import org.uva.sea.ql.ast.expr.type.Type;
+import org.uva.sea.ql.ast.expr.value.Value;
+import org.uva.sea.ql.symbol.SymbolTable;
+
 
 public abstract class UnaryExpr extends Expr {
 
+	private static final long serialVersionUID = -7691090701019237207L;
 	private Expr rhs;
 	
 	protected UnaryExpr(int lineNumber, Expr rhs) {
@@ -12,6 +17,20 @@ public abstract class UnaryExpr extends Expr {
 	
 	public Expr getRhs() {
 		return rhs;
+	}
+	
+	protected Value getLeftValue() {
+		return rhs.evaluate();
+	}
+	
+	@Override
+	public Type getLeastUpperBoundsType(SymbolTable table) {
+		return getRhs().typeOf(table);
+	}
+	
+	@Override
+	public boolean isCompatibleToType(Type type, SymbolTable table) {
+		return type.isCompatibleTo(typeOf(table));
 	}
 
 }

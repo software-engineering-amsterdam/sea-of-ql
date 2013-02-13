@@ -5,42 +5,40 @@ import java.util.Map;
 
 import khosrow.uva.sea.ql.ast.expr.Ident;
 import khosrow.uva.sea.ql.ast.type.Type;
-import khosrow.uva.sea.ql.values.IValue;
+import khosrow.uva.sea.ql.values.Value;
 
 public class Env {
-	private final Map<Ident, Type> types;
-	private final Map<Ident, IValue> bindings;
+	private final Map<Ident, TypeValuePair> typeAndValues;
 	
 	public Env() {
-		this.types = new HashMap<Ident, Type>();
-		this.bindings = new HashMap<Ident, IValue>();
+		this.typeAndValues = new HashMap<Ident, TypeValuePair>();
 	}
 	
-	public boolean lookUpType(Ident name) {
-		if (types.containsKey(name)) 
+	public boolean lookUpIdent(Ident name) {
+		if (typeAndValues.containsKey(name)) 
 			return true;		
 		return false;
 	}
 	
 	public boolean lookUpValue(Ident name) {
-		if (bindings.containsKey(name)) 
+		if (typeAndValues.containsKey(name)) 
 			return true;		
 		return false;
 	}
 	
 	public Type typeOf(Ident name) {
-		return types.get(name);
+		return typeAndValues.get(name).getType();
 	}
 	
-	public IValue valueOf(Ident name) {
-		return bindings.get(name);
+	public Value valueOf(Ident name) {
+		return typeAndValues.get(name).getValue();
 	}
 	
 	public void declareType(Ident name, Type type) {
-		types.put(name, type);
+		typeAndValues.put(name, new TypeValuePair(type, type.initialize()));
 	}
 		
-	public void declareValue(Ident name, IValue value) {
-		bindings.put(name, value);
+	public void declareValue(Ident name, Value value) {
+		typeAndValues.get(name).setValue(value);
 	}
 }

@@ -1,22 +1,21 @@
 package org.uva.sea.ql.ast;
 
-import org.uva.sea.ql.ast.expr.Ident;
+import org.uva.sea.ql.ast.expression.Identifier;
 
-public class Form implements ASTNode {
+public class Form {
 	
-	private final Ident name;
-	private final FormElement body;
+	private final Identifier name;
+	private final Statement body;
 	
-	public Form(Ident name, FormElement body) {
+	public Form(Identifier name, Statement body) {
 		this.name = name;
 		this.body = body;
 	}
 	
-	public Ident getName() { return name; }
-	public FormElement getBody() { return body; }
+	public Identifier getName() { return name; }
+	public Statement getBody() { return body; }
 	
-	@Override
-	public <ReturnType, ParameterType> ReturnType accept(ASTNodeVisitor<ReturnType, ParameterType> visitor, ParameterType param) {
+	public <ReturnType, ParameterType> ReturnType accept(StatementVisitor<ReturnType, ParameterType> visitor, ParameterType param) {
 		return visitor.visit(this, param);
 	}
 }

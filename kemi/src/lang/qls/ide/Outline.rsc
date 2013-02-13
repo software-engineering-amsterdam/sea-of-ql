@@ -16,8 +16,6 @@ import ParseTree;
 import util::IDE;
 
 import lang::qls::ast::AST;
-import lang::qls::util::Implode;
-import lang::qls::util::Parse;
 
 // The root note of the stylesheet
 public node outlineStylesheet(Stylesheet sh) = 
@@ -81,7 +79,7 @@ private node outline(QuestionDefinition d:
 private node outline(DefaultDefinition d) =
     createNode(
       "DefaultDefinition",
-      "default <d.ident> (<size(d.styleRules)>)",
+      "default <d.ident.name> (<size(d.styleRules)>)",
       d@location,
       [outline(r) | r <- d.styleRules]
     );
@@ -95,7 +93,7 @@ private node outline(SectionRule r:
     outline(definition);
 
 private node outline(StyleRule r: 
-  typeStyleRule(attr, \value)) =
+  widgetStyleRule(attr, \value)) =
     createNode(
       "StyleRule",
       "<attr> <\value.name>",

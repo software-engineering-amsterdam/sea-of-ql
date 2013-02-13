@@ -2,7 +2,7 @@ package org.uva.sea.ql.ast.statement;
 
 import org.uva.sea.ql.ast.Expr;
 import org.uva.sea.ql.ast.Statement;
-import org.uva.sea.ql.interfaces.IVisitor;
+import org.uva.sea.ql.interfaces.IVisitorStatement;
 
 public class IfThen extends Statement{
 	
@@ -28,7 +28,7 @@ public class IfThen extends Statement{
 	
 	
 	@Override
-	public <T> T accept(IVisitor<T> visitor) {
+	public <T> T accept(IVisitorStatement<T> visitor) {
 		return visitor.visit(this);
 	}
 }

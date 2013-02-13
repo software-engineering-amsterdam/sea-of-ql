@@ -1,5 +1,5 @@
 /* The form contains multiple comments */
-form commentForm {
+form comment {
   /* Another comment */
   "My question"
     boolean theAnswer

@@ -1,5 +1,5 @@
 /* The stylesheet contains multiple comments */
-stylesheet commentForm {
+stylesheet comment {
   /* Another comment */
   question theAnswer
   question aDate
@@ -9,7 +9,7 @@ stylesheet commentForm {
    */
   
   default boolean {
-    type checkbox //Comment within a defaultDefinition
+    widget checkbox //Comment within a defaultDefinition
   }
   
   // Single line comment is supported as well. 

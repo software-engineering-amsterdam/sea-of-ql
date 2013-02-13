@@ -1,57 +1,74 @@
 package org.uva.sea.ql;
 
-import org.uva.sea.ql.ast.expression.Ident;
-import org.uva.sea.ql.ast.statement.Statement;
-import org.uva.sea.ql.evaluator.Environment;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 
-/**
- * Main program.
- */
+import org.uva.sea.ql.ui.ControlFactory;
+import org.uva.sea.ql.ui.control.PanelControl;
+import org.uva.sea.ql.ui.control.WindowControl;
+import org.uva.sea.ql.ui.swing.SwingControlFactory;
+import org.uva.sea.ql.visitor.evaluator.Error;
+
 public class Program {
-	/**
-	 * Holds the interpreter.
-	 */
 	private final QLInterpreter interpreter;
+	private final ControlFactory factory;
 
-	/**
-	 * Main application entry point.
-	 *
-	 * @param args
-	 */
 	public static void main( String[] args ) {
 		Program program = new Program();
 		program.run();
 	}
 
-	/**
-	 * Constructs a new Program instance.
-	 */
 	public Program() {
-		this.interpreter = new QLInterpreter();
+		this.factory = new SwingControlFactory();
+		this.interpreter = new QLInterpreter( this.factory );
 	}
 
-	/**
-	 * Runs the program.
-	 */
 	public void run() {
-		String source = "" +
-			"form Foo {" +
-			"	\"Bar?\" baz = false" +
-			"	if ( baz ) {" +
-			"		x = true" +
-			"	}" +
-			"	else {" +
-			"		x = false" +
-			"	}" +
-		"}";
+		String source = this.getFileContents( System.getProperty( "user.dir" ) + "/assets/sample.ql" );
 
-		Environment env = this.interpreter.getEnvironment();
 		this.interpreter.evaluate( source );
-		Statement ast = this.interpreter.getAST();
-		System.out.println( env.lookup( new Ident( "x" ) ).getValue() );
 
-		env.declareVariable( new Ident( "baz" ), new org.uva.sea.ql.evaluator.value.Boolean( true ) );
-		this.interpreter.evaluate( ast, env );
-		System.out.println( env.lookup( new Ident( "x" ) ).getValue() );
+		if ( this.interpreter.hasErrors() ) {
+			for ( Error error : this.interpreter.getErrors() ) {
+				System.err.println( error.toString() );
+			}
+
+			return;
+		}
+
+		PanelControl formPanel = this.interpreter.getResult();
+
+		WindowControl window = this.factory.createWindow( formPanel.getName(), formPanel );
+		window.show();
+	}
+
+	private String getFileContents( String fileName ) {
+		BufferedReader br = null;
+		StringBuffer sb = new StringBuffer();
+		String line;
+
+		try {
+			br = new BufferedReader( new FileReader( fileName ) );
+
+			while ( ( line = br.readLine() ) != null ) {
+				sb.append( line );
+			}
+		}
+		catch ( IOException e ) {
+			e.printStackTrace();
+		}
+		finally {
+			if ( br != null ) {
+				try {
+					br.close();
+				}
+				catch ( IOException e ) {
+					e.printStackTrace();
+				}
+			}
+		}
+
+		return sb.toString();
 	}
 }

@@ -7,3 +7,30 @@ lexical Ident
 lexical Int
 	= [0-9]+ !>> [0-9]
 	;
+
+lexical Boolean
+	= "true"
+	| "false"
+	;
+
+lexical Money
+	= [0-9]+ "."
+	| [0-9]+ "." [0-9]
+  	| [0-9]+ "." [0-9][0-9]
+  	;
+  
+lexical Label 
+	= "\"" LabelChar* "\""
+	;
+
+lexical LabelChar
+  	= [\\] << [\"]
+  	| ![\"]
+  	;
+  
+lexical Type
+  	= "boolean"
+  	| "integer"
+  	| "money"
+  	| "label"
+  	;

@@ -1,6 +1,6 @@
 package org.uva.sea.ql.ast.types;
 
-import java.awt.Component;
+import javax.swing.JComponent;
 
 import org.uva.sea.ql.ast.expressions.ASTNode;
 import org.uva.sea.ql.ast.values.Value;
@@ -18,6 +18,10 @@ public abstract class Type implements ASTNode {
 		return (obj.getClass().equals(this.getClass()));
 	}
 	
+	public int hashCode() {
+		return this.getClass().hashCode();
+	};
+	
 	public boolean isDefined() {
 		return true;
 	}
@@ -26,9 +30,9 @@ public abstract class Type implements ASTNode {
 		this.form = form;
 	}
 	
-	public abstract Component getAnswerField(boolean enabled);
+	public abstract JComponent getAnswerField(boolean enabled);
 	public abstract boolean hasValue();
-	public abstract Value getAnswerFieldValue(Component answerComponent);
+	public abstract Value getAnswerFieldValue(JComponent answerComponent);
 	public abstract void setAnswerFieldValue(Value value);
 	public abstract Value getDefaultValue();
 }

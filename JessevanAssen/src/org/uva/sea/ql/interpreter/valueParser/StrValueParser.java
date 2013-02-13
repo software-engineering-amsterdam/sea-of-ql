@@ -1,7 +1,7 @@
 package org.uva.sea.ql.interpreter.valueParser;
 
-import org.uva.sea.ql.ast.expr.value.Str;
-import org.uva.sea.ql.ast.expr.value.Value;
+import org.uva.sea.ql.ast.expression.value.Str;
+import org.uva.sea.ql.ast.expression.value.Value;
 
 public class StrValueParser implements ValueParser {
     private static final Str DEFAULT = new Str("");

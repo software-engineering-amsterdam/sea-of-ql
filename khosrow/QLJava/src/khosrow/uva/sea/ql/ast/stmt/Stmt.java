@@ -5,5 +5,5 @@ import khosrow.uva.sea.ql.visitor.IStmtVisitor;
 
 public abstract class Stmt extends ASTNode {
 	
-	public abstract void accept(IStmtVisitor visitor);
+	public abstract <T> T accept(IStmtVisitor<T> visitor);
 }

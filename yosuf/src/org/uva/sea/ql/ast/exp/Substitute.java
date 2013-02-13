@@ -1,27 +1,29 @@
 package org.uva.sea.ql.ast.exp;
 
 import org.uva.sea.ql.ast.value.IntegerValue;
-import org.uva.sea.ql.ast.value.Value;
-import org.uva.sea.ql.visitor.ASTNodeVisitor;
+import org.uva.sea.ql.visitor.NaturalVisitor;
+import org.uva.sea.ql.visitor.ExpressionVisitor;
 
-public class Substitute extends Binary {
+public class Substitute extends Binary<IntegerValue, IntegerValue> {
 
-	public Substitute(final Expression left, final Expression right) {
+	public Substitute(final Expression<IntegerValue> left,
+			final Expression<IntegerValue> right) {
 		super(left, right);
 	}
 
 	@Override
-	public void accept(final ASTNodeVisitor visitor) {
-		visitor.visit(this);
+	public <T> T accept(final NaturalVisitor<T> visitor) {
+		return visitor.visit(this);
 	}
 
 	@Override
-	public IntegerValue evaluate() {
-		Value left = getLeft().evaluate();
-		Value right = getRight().evaluate();
+	public IntegerValue accept(final ExpressionVisitor visitor) {
+		return visitor.visit(this);
+	}
 
-		return new IntegerValue(((IntegerValue) left).getValue()
-				- ((IntegerValue) right).getValue());
+	@Override
+	public Nature getNature() {
+		return Nature.NUMERIC;
 	}
 
 }

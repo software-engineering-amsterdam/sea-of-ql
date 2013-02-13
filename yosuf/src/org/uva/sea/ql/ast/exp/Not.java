@@ -1,24 +1,28 @@
 package org.uva.sea.ql.ast.exp;
 
 import org.uva.sea.ql.ast.value.BooleanValue;
-import org.uva.sea.ql.ast.value.Value;
-import org.uva.sea.ql.visitor.ASTNodeVisitor;
+import org.uva.sea.ql.visitor.NaturalVisitor;
+import org.uva.sea.ql.visitor.ExpressionVisitor;
 
-public class Not extends Unary {
+public class Not extends Unary<BooleanValue> {
 
-	public Not(final Expression operation) {
+	public Not(final Expression<BooleanValue> operation) {
 		super(operation);
 	}
 
 	@Override
-	public void accept(final ASTNodeVisitor visitor) {
-		visitor.visit(this);
+	public <T> T accept(final NaturalVisitor<T> visitor) {
+		return visitor.visit(this);
 	}
 
 	@Override
-	public BooleanValue evaluate() {
-		Value operationValue = getOperation().evaluate();
-
-		return new BooleanValue(!((BooleanValue) operationValue).getValue());
+	public BooleanValue accept(final ExpressionVisitor visitor) {
+		return visitor.visit(this);
 	}
+
+	@Override
+	public Nature getNature() {
+		return Nature.BOOLEAN;
+	}
+
 }

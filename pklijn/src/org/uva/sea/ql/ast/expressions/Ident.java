@@ -1,7 +1,9 @@
 package org.uva.sea.ql.ast.expressions;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.uva.sea.ql.ast.eval.Env;
 import org.uva.sea.ql.ast.types.Type;
@@ -59,7 +61,11 @@ public class Ident extends Expr {
 	
 	@Override
 	public String toString() {
-		return "Ident(" + name + ")";
+		return name;
 	}
 
+	@Override
+	public Set<Type> allowedArgumentTypes() {
+		return new HashSet<Type>();
+	}
 }

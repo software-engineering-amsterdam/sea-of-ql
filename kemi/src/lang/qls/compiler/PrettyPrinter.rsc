@@ -11,10 +11,10 @@
 module lang::qls::compiler::PrettyPrinter
 
 import lang::qls::ast::AST;
-
+import lang::qls::ast::Keyword;
 
 public str prettyPrint(Stylesheet s) =
-  "stylesheet <s.ident> {<for(st <- s.definitions) {>
+  "stylesheet <prettyPrint(s.ident)> {<for(st <- s.definitions) {>
   '  <prettyPrint(st)><}>
   '}
   '";
@@ -37,17 +37,17 @@ public str prettyPrint(SectionDefinition d) =
 
 public str prettyPrint(QuestionDefinition d:
   questionDefinition(ident)) =
-    "question <ident>";
+    "question <prettyPrint(ident)>";
 
 public str prettyPrint(QuestionDefinition d:
   questionDefinition(ident, styleRules)) =
-    "question <ident> {<for(r <- styleRules) {>
+    "question <prettyPrint(ident)> {<for(r <- styleRules) {>
     '  <prettyPrint(r)><}>
     '}
     '";
 
 public str prettyPrint(DefaultDefinition d) =
-  "default <d.ident> {<for(r <- d.styleRules) {>
+  "default <d.ident.name> {<for(r <- d.styleRules) {>
   '  <prettyPrint(r)><}>
   '}
   '";
@@ -61,9 +61,16 @@ public str prettyPrint(SectionRule r:
     prettyPrint(definition);
 
 public str prettyPrint(StyleRule r: 
-  typeStyleRule(attr, \value)) =
+  widgetStyleRule(attr, \value)) =
     "<attr> <\value.name>";
 
 public str prettyPrint(StyleRule r: 
   widthStyleRule(str attr, int \value)) =
     "<attr> <\value>";
+
+public default str prettyPrint(str ident) =
+  ident;
+
+public str prettyPrint(str ident) =
+  "\\<ident>"
+    when ident in keywords;

@@ -1,4 +1,17 @@
 TODO
 ----
-- Envionment
+- Environment
     - Add column and linenumber to TypeErrors.
+- Store type in question
+- Review!
+
+operator instanceof is only valid in some cases when the RHS is a type/interface, not a class.
+
+- Create a visitor that gathers identifier dependencies on expressions. They return a HashSet<Identifier>
+- The type checker needs an environment with an Identity:Type map
+- The evaluator needs an environment with an Identity:Value map
+- Use double dispatch for instanceof removal.
+- Use interface types as typehint for arguments and return types.
+- .class and getClass must be removed!
+- assert assumptions
+- make codelocation class to bundle column and linenumber QLLexer

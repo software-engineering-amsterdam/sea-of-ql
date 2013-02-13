@@ -33,46 +33,46 @@ public abstract class TestHelper<T> {
 	public void setClassAndString(Class<?> c) {
 		this.asClass = c;
 		if (c == Add.class) {
-			this.asString = Add.str;
+			this.asString = Add.STR;
 		}
 		if (c == Sub.class) {
-			this.asString = Sub.str;
+			this.asString = Sub.STR;
 		}
 		if (c == Mul.class) {
-			this.asString = Mul.str;
+			this.asString = Mul.STR;
 		}
 		if (c == Div.class) {
-			this.asString = Div.str;
+			this.asString = Div.STR;
 		}
 		if (c == Eq.class) {
-			this.asString = Eq.str;
+			this.asString = Eq.STR;
 		}
 		if (c == NEq.class) {
-			this.asString = NEq.str;
+			this.asString = NEq.STR;
 		}
 		if (c == LT.class) {
-			this.asString = LT.str;
+			this.asString = LT.STR;
 		}
 		if (c == LEq.class) {
-			this.asString = LEq.str;
+			this.asString = LEq.STR;
 		}
 		if (c == GT.class) {
-			this.asString = GT.str;
+			this.asString = GT.STR;
 		}
 		if (c == GEq.class) {
-			this.asString = GEq.str;
+			this.asString = GEq.STR;
 		}
 		if (c == Neg.class) {
-			this.asString = Neg.str;
+			this.asString = Neg.STR;
 		}
 		if (c == Not.class) {
-			this.asString = Not.str;
+			this.asString = Not.STR;
 		}
 		if (c == And.class) {
-			this.asString = And.str;
+			this.asString = And.STR;
 		}
 		if (c == Or.class) {
-			this.asString = Or.str;
+			this.asString = Or.STR;
 		}
 		if (this.asString == null) {
 			throw new RuntimeException("class not recognized");
