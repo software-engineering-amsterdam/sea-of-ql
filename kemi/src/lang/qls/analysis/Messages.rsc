@@ -10,7 +10,6 @@
 
 module lang::qls::analysis::Messages
 
-import lang::ql::ast::AST;
 import util::IDE;
 import util::LocationHelper;
 
