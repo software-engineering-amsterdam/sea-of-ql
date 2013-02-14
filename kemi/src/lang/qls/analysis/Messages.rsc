@@ -44,3 +44,6 @@ public Message typeWithInvalidAttr(str attr, str \type, loc location) =
 
 public Message typeWithInvalidWidget(str widget, str \type, loc location) =
   error("Widget <widget> not allowed for type <\type>", location);
+
+public Message invalidRangeType(str \type, loc location) =
+  error("Decimal ranges not allowed for type <\type>", location);

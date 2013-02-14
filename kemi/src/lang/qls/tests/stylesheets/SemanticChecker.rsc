@@ -72,26 +72,29 @@ public test bool testProposedSyntax() =
 public test bool testTaxOfficeExample() = 
   semanticChecker(|project://QL-R-kemi/stylesheets/taxOfficeExample.qs|, 0, 0);
 
-
+// Also misses six question definitions
 public test bool testWrongFilename() = 
   semanticChecker(|project://QL-R-kemi/stylesheets/wrongFilename.qs|, 6, 1);
 
 public test bool testWithoutForm() = 
   semanticChecker(|project://QL-R-kemi/stylesheets/withoutForm.qs|, 0, 1);
 
+// Also contains slider with invalid range
 public test bool testQuestionReuse() = 
-  semanticChecker(|project://QL-R-kemi/stylesheets/questionReuse.qs|, 0, 1);
+  semanticChecker(|project://QL-R-kemi/stylesheets/questionReuse.qs|, 0, 2);
 
+// Also contains slider with invalid range
 public test bool testUndefinedQuestions() = 
   semanticChecker(
     |project://QL-R-kemi/stylesheets/undefinedQuestions.qs|,
     0,
-    2
+    3
   );
 
 public test bool testDoubleName() = 
   semanticChecker(|project://QL-R-kemi/stylesheets/doubleName.qs|, 3, 0);
 
+// Also misses one question definition
 public test bool testDefaultRedefinition() = 
   semanticChecker(
     |project://QL-R-kemi/stylesheets/defaultRedefinition.qs|,
