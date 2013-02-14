@@ -10,24 +10,12 @@
 
 module lang::qls::ast::Keyword
 
+import Grammar;
+import lang::qls::syntax::QLS;
+import lang::rascal::grammar::definition::Keywords;
+
 public set[str] keywords = {
-  "stylesheet",
-  "page",
-  "section",
-  "question",
-  "default",
-  "boolean",
-  "integer",
-  "money",
-  "date",
-  "string",
-  "widget",
-  "width",
-  "text",
-  "number",
-  "datepicker",
-  "slider",
-  "radio",
-  "checkbox",
-  "select"
+  x | /prod(_, literal, _) <- getKeywords(grammar({}, #Stylesheet.definitions)), 
+  i <- literal, 
+  lit(x) := i
 };

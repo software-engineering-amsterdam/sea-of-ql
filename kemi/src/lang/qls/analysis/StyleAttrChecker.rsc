@@ -52,14 +52,14 @@ private set[Message] unallowedDefaultAttrErrors(Stylesheet s) =
 
 private set[Message] unallowedQuestionAttrErrors(Stylesheet s) {
   typeMap = getTypeMap(getAccompanyingForm(s));
-  set[Message] errors = {
-    typeWithInvalidAttr(r.attr.name, \type.name, r@location) | 
-    d <- getQuestionDefinitions(s), 
-    d.styleRules?,
-    identDefinition(d.ident) in typeMap,
-    \type := typeMap[identDefinition(d.ident)],
-    r <- d.styleRules,
-    !isAllowedAttr(\type, r.attr)
-  };
-  return errors;
+  return 
+    {
+      typeWithInvalidAttr(r.attr.name, \type.name, r@location) | 
+      d <- getQuestionDefinitions(s), 
+      d.styleRules?,
+      identDefinition(d.ident) in typeMap,
+      \type := typeMap[identDefinition(d.ident)],
+      r <- d.styleRules,
+      !isAllowedAttr(\type, r.attr)
+    };
 }
