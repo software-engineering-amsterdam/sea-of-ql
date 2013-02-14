@@ -48,6 +48,6 @@ public class BoolVal extends Value {
 	
 	@Override
 	protected boolean compareToBool(BoolVal arg) {
-		return arg.getValue() == getValue();
+		return arg.getValue().compareTo(getValue()) == 0;
 	}
 }
