@@ -75,14 +75,23 @@ void createValidatorFile(loc l){
 	writeFile(l, v);
 }
 
-public void javaScriptAddCheckFunction(str formId, str checkBoxId) {
-	str check = "function <checkBoxId>DoTheCheck(cb) {
+public void javaScriptAddCheckFunction(str formId, str checkBoxId, Type tp) {
+	str function = "";
+	if(tp == boolean()){
+	function = "function <checkBoxId> {
 		if(cb.checked == true)
 	{ cb.parentNode.children[2].innerHTML = \"No\"; }
 	if(cb.checked == false)
 	{ cb.parentNode.children[2].innerHTML = \"Yes\"; }
 	}"; 
-	appendToJavaScriptFile(formId, "\n <check>");
+	}else{
+	function = "function <checkBoxId> {
+	{ console.log(cb); }
+	if(isNaN(cb.value))
+	{ alert(\"is not number\"); }
+	}"; 
+	}
+	appendToJavaScriptFile(formId, "\n <function>");
 }
 
 public void javaScriptAddCheckStatementFunction(str formId, str checkBoxId, list[str] thenPart, list[str] children){

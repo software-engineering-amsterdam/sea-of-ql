@@ -57,6 +57,7 @@ str specifyAttributesNumeric(str id){
 	return "<id>.setAttribute(\'type\',\"text\");
 		<id>.setAttribute(\'id\',<id>);
 		<id>.setAttribute(\'name\',<id>);
+		<id>.setAttribute(\'onchange\',\"<id>CheckNumeric(this)\");
 		 ";
 }
 
@@ -81,7 +82,7 @@ str generateParagraph(str id, str att, str lab, str endlab, str formId){
 * @return p the paragraph as a string
 * @author Philipp
 */
-str generateParagraph(str id, str label, str attributes,str formId){
+str generateParagraph(str id, str label, str formId){
 	javaScriptAddGlobalVariable(formId, "var <id>Paragraph = document.createElement(\'p\');");
 	str p = "<id>Paragraph.setAttribute(\"class\", \'<id>Paragraph\');
 	<id>Paragraph.setAttribute(\"id\", <id>Paragraph);
@@ -102,14 +103,15 @@ private str generateQuestion(str formId, question:easyQuestion(str id, str label
 		str paragraph = generateParagraph(id, label, attributes, endLabelCheckbox, formId);
 		str cssLabel = cssEndLabels(id);
 		appendToCssFile(formId, cssLabel);
-		javaScriptAddCheckFunction(formId, id);
+		javaScriptAddCheckFunction(formId, "<id>DoTheCheck(cb)", tp);
 		return "<attributes> <label> <endLabelCheckbox> <paragraph>
 		<formId>.appendChild(<id>Paragraph);	
 		 ";
 	}else if(tp == money()){  // add the moment just a textfield
 		javaScriptAddGlobalVariable(formId, "var <id> = document.createElement(\"input\");");
 		str attributes = specifyAttributesNumeric(id);
-		str paragraph = generateParagraph(id, label, attributes, formId);
+		str paragraph = generateParagraph(id, label, formId);
+		javaScriptAddCheckFunction(formId, "<id>CheckNumeric(cb)", tp);
 		return "<attributes>
 		<label>
 		<paragraph>
@@ -117,7 +119,7 @@ private str generateQuestion(str formId, question:easyQuestion(str id, str label
 		 ";
 	}else if(tp == integer()){ // add the moment just a textfield
 		str attributes = specifyAttributesNumeric(id);
-		str paragraph = generateParagraph(id, label, attributes, formId);
+		str paragraph = generateParagraph(id, label, formId);
 		return "var <id> = document.createElement(\"input\");
 		<attributes>
 		<label>
@@ -126,7 +128,7 @@ private str generateQuestion(str formId, question:easyQuestion(str id, str label
 		 ";
 	}else if(tp == string()){
 		str attributes = specifyAttributesNumeric(id);
-		str paragraph = generateParagraph(id, label, attributes, formId);
+		str paragraph = generateParagraph(id, label, formId);
 		return "var <id> = document.createElement(\"input\");
 		<attributes>
 		<label>
@@ -139,9 +141,21 @@ private str generateQuestion(str formId, question:easyQuestion(str id, str label
 
 private str generateQuestion(str formId, question:computedQuestion(str id, str labelQuestion, Type tp, Expression exp)){
 	println("in generate computed Question <question>");
+	str label = generateQuestionLabel(formId, id, labelQuestion);
+	println("Label is : <label>");
+	println("Type is : <tp>");
+	println("EXP is : <exp>");
+	println("ID is : <id>");
 	if(tp == money()){
 		println("in integer generate computed Question");
-		return "<labelQuestion> \<input type=\"checkbox\" id=<id> \> Yes";
+		str paragraph = generateParagraph(id, label, formId);
+		javaScriptAddGlobalVariable(formId, "var <id> = document.createElement(\"input\");");
+		str attributes = specifyAttributesNumeric(id);
+		return "<attributes>
+		<label>
+		<paragraph>
+		<formId>.appendChild(<id>Paragraph);
+		";
 	}else if(tp == integer()){
 		println("in integer generate computed Question");
 	}else{
