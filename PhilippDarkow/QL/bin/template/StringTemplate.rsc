@@ -94,7 +94,6 @@ str generateParagraph(str id, str label, str attributes,str formId){
 /** Method to generate Question 
 */
 private str generateQuestion(str formId, question:easyQuestion(str id, str labelQuestion, Type tp)){
-	println("in generate Question <question>");
 	str label = generateQuestionLabel(formId, id, labelQuestion);
 	if(tp == boolean()){	
 		javaScriptAddGlobalVariable(formId, "var <id> = document.createElement(\"input\");");
@@ -108,7 +107,6 @@ private str generateQuestion(str formId, question:easyQuestion(str id, str label
 		<formId>.appendChild(<id>Paragraph);	
 		 ";
 	}else if(tp == money()){  // add the moment just a textfield
-		println("in money generate Easy Question");
 		javaScriptAddGlobalVariable(formId, "var <id> = document.createElement(\"input\");");
 		str attributes = specifyAttributesNumeric(id);
 		str paragraph = generateParagraph(id, label, attributes, formId);
@@ -118,7 +116,6 @@ private str generateQuestion(str formId, question:easyQuestion(str id, str label
 		<formId>.appendChild(<id>Paragraph);
 		 ";
 	}else if(tp == integer()){ // add the moment just a textfield
-		println("in integer generate Easy Question");
 		str attributes = specifyAttributesNumeric(id);
 		str paragraph = generateParagraph(id, label, attributes, formId);
 		return "var <id> = document.createElement(\"input\");
@@ -128,7 +125,6 @@ private str generateQuestion(str formId, question:easyQuestion(str id, str label
 		<formId>.appendChild(<id>Paragraph);
 		 ";
 	}else if(tp == string()){
-		println("in string generate Easy Question");
 		str attributes = specifyAttributesNumeric(id);
 		str paragraph = generateParagraph(id, label, attributes, formId);
 		return "var <id> = document.createElement(\"input\");
@@ -153,45 +149,27 @@ private str generateQuestion(str formId, question:computedQuestion(str id, str l
 	}	
 }
 
-bool getInitResultExpression(Expression exp){
-	return true;
-}
-
 str generateStatement(str formId, statement:ifStat(Expression exp, list[Body] thenPart)){
-	println("in generated if statement");
-	println("EXP : <toString(getChildren(exp))>");
-	str g = toString(getChildren(exp)[0]);
-	println("ggg : <g>");
+	str checkBoxId = toString(getChildren(exp)[0]);
 	list[str] children = [];
-	//javaScriptAddCheckStatementFunction(formId, g);  // need to get the body inside the method
-	println("Body ThenPart : <thenPart>");
-	list[str] k = [];
+	list[str] thenPartString = [];
 	for(s <- thenPart){
-		println("BUU : <s.question.id>");
-		k += generateBody(formId, s);
-		println("KK : <k>");
+		thenPartString += generateBody(formId, s);
 		visit (s) {
 			case Question q : {
 				children += q.id;
 			}
 		}		
 	}
-	javaScriptAddCheckStatementFunction(formId, g, k, children);
-	println("KKKKK : <k>");
-	return "<g>.setAttribute(\'onchange\',\"<g>DoTheCheckWithStatement(this)\");";
+	javaScriptAddCheckStatementFunction(formId, checkBoxId, thenPartString, children);
+	return "<checkBoxId>.setAttribute(\'onchange\',\"<checkBoxId>DoTheCheckWithStatement(this)\");";
 }
 
 public str generateBody(str id, Body body){
-	println("in generate Body <body>");
-	//for(s <- body){
-	//	println("S : <s>");
 	if(getName(body) == "statement"){
-		println("WE HAVE A STATEMENT");
 		visit(body){
 			case Statement s : {
-				println("Statement s : <s>");
-				return " //Create Statement method
-				<generateStatement(id, s)> ";
+				return "<generateStatement(id, s)> ";
 			}
 		}
 	}
@@ -201,14 +179,13 @@ public str generateBody(str id, Body body){
 			return temp;
 		}		
 	}
-	//}	
 }
 
 public str generateQLForm(Program P){
 	if(program(str id, list[Body] Body) := P){
 		println("in generate JavaScriptForm");
 		createQLOnHarddisk(id);
-		str res = "\<!DOCTYPE html\>
+		str result = "\<!DOCTYPE html\>
 		\<html\>
 		\<head\>
 		\<script src=\"<id>.js\"\> \</script\>
@@ -222,9 +199,8 @@ public str generateQLForm(Program P){
 		\</body\>
 		\</html\>";	
 		str functions = javaScriptCreateForm(id, Body);
-		appendToHTMLFile(id, res);
-		//appendToJavaScriptFile(id, functions);
-		return res;
+		appendToHTMLFile(id, result);
+		return result;
 	}else{
 		return "not possible to generate java script code";
 	}

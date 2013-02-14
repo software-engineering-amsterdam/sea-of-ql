@@ -14,25 +14,12 @@ import template::JavaScript;
 loc generateQLDirectory(){
 	l = |home:///TestQLJavaScript|;
 	if(isDirectory(l)){
-		println("NO CREATE");
 		return l;
 	}else{
-		println("create L : <l>");
 		mkDirectory(l);
 		return l;
 	}
 }
-
-void generateCSSFile(str id, str css, loc l){
-	l += "<id>.css";
-	if(isFile(l)){
-		println("append to file : <l>");
-		appendToFile(l, "\n <css>");
-	}else{
-		writeFile(l,css);
-	}
-}
-
 
 public void appendToHTMLFile(str formId, str text){
 	loc l = |home:///TestQLJavaScript|;
@@ -42,8 +29,7 @@ public void appendToHTMLFile(str formId, str text){
 
 public void appendToJavaScriptFile(str formId, str text){
 	loc l = |home:///TestQLJavaScript|;
-	l += "<formId>.js";
-	
+	l += "<formId>.js";	
 	appendToFile(l, "\n <text>");
 }
 
@@ -99,20 +85,14 @@ public void javaScriptAddCheckFunction(str formId, str checkBoxId) {
 }
 
 public void javaScriptAddCheckStatementFunction(str formId, str checkBoxId, list[str] thenPart, list[str] children){
-	println("THENPART!!!! : <thenPart>");
-	println("children : <children>");
-	str s = "";
+	str ifTrue = "";
 	for(i <- thenPart){
-		println("in Loop <i>");
-		s += i;
+		ifTrue += i;
 	}
-	println("SS!$%& : <s>");
-	list[str] u = split(".", s);
-	println("UUUU : <u>");
 	str check = "function <checkBoxId>DoTheCheckWithStatement(cb) {
-		if(cb.checked)
+	if(cb.checked)
 	{
-		<s>
+		<ifTrue>
 	}else {
 		<for(c <- children){>
 		<formId>.removeChild(<c>Paragraph);
@@ -122,11 +102,5 @@ public void javaScriptAddCheckStatementFunction(str formId, str checkBoxId, list
 	appendToJavaScriptFile(formId, "\n <check>");
 }
 
-str removeChildFromFrom(str formId, str id){
-	
-}
-
-public void javaScriptAddGlobalVariable(str formId, str globalID){
-	println("in add global");
+public void javaScriptAddGlobalVariable(str formId, str globalID) =
 	appendToJavaScriptFile(formId, globalID);
-}
