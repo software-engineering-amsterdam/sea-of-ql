@@ -20,10 +20,10 @@ import lang::ql::syntax::Type;
 import lang::qls::syntax::Color;
 import lang::qls::syntax::Keyword;
 import lang::qls::syntax::QLS;
-import lang::rascal::grammar::definition::Keywords;
+import util::ParseTreeHelper;
 
 public set[str] keywords = {
-  x | /prod(_, literal, _) <- getKeywords(grammar({}, #Stylesheet.definitions)), 
-  i <- literal, 
-  lit(x) := i
+  x |
+  /prod(_, literal, _) <- getKeywords(grammar({}, #Stylesheet.definitions)), 
+  lit(x) <- literal
 };

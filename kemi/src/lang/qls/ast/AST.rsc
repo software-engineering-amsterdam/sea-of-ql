@@ -98,7 +98,7 @@ anno loc SectionDefinition@location;
 anno loc SectionRule@location;
 anno loc QuestionDefinition@location;
 anno loc DefaultDefinition@location;
-anno loc StyleRule@location;
 anno loc Type@location;
+anno loc StyleRule@location;
 anno loc StyleAttr@location;
 anno loc WidgetStyleValue@location;

@@ -19,10 +19,10 @@ import lang::ql::syntax::Money;
 import lang::ql::syntax::QL;
 import lang::ql::syntax::String;
 import lang::ql::syntax::Type;
-import lang::rascal::grammar::definition::Keywords;
+import util::ParseTreeHelper;
 
 public set[str] keywords = {
-  x | /prod(_, literal, _) <- getKeywords(grammar({}, #Form.definitions)), 
-  i <- literal, 
-  lit(x) := i
+  x |
+  /prod(_, literal, _) <- getKeywords(grammar({}, #Stylesheet.definitions)), 
+  lit(x) <- literal
 };
