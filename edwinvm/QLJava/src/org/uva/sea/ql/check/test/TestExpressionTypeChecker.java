@@ -1,6 +1,8 @@
 package org.uva.sea.ql.check.test;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -42,52 +44,56 @@ public class TestExpressionTypeChecker {
 		_typeEnv.put(new Ident("str"),     new Str());
 	}
 	
-	private Boolean isValidExpression(Expr expr) {
-		return CheckExpr.check(expr, _typeEnv, _errorMessages);
+	private void isAValidExpression(Expr expr) {
+		assertTrue(CheckExpr.check(expr, _typeEnv, _errorMessages));
+	}
+	
+	private void isNotAValidExpression(Expr expr) {
+		assertFalse(CheckExpr.check(expr, _typeEnv, _errorMessages));
 	}
 	
 	@Test
 	public void testAdds() throws ParseError {
-		assertEquals(isValidExpression((Add) _parser.parse("1 + 1")), true);
-		assertEquals(isValidExpression((Add) _parser.parse("1 + 1")), true);
-		assertEquals(isValidExpression((Add) _parser.parse("1 + (2 + 3)")), true);
-		assertEquals(isValidExpression((Add) _parser.parse("1 + (2 + 3.0)")), true);
+		isAValidExpression((Add) _parser.parse("1 + 1"));
+		isAValidExpression((Add) _parser.parse("1 + 1"));
+		isAValidExpression((Add) _parser.parse("1 + (2 + 3)"));
+		isAValidExpression((Add) _parser.parse("1 + (2 + 3.0)"));
 		
-		assertEquals(isValidExpression((Add) _parser.parse("1 + a")), false);
-		assertEquals(isValidExpression((Add) _parser.parse("1 + true")), false);
-		assertEquals(isValidExpression((Add) _parser.parse("true + true")), false);
+		isNotAValidExpression((Add) _parser.parse("1 + a"));
+		isNotAValidExpression((Add) _parser.parse("1 + true"));
+		isNotAValidExpression((Add) _parser.parse("true + true"));
 	}
 	
 	@Test
 	public void testMuls() throws ParseError {
-		assertEquals(isValidExpression((Mul) _parser.parse("1 * 1")), true);
-		assertEquals(isValidExpression((Mul) _parser.parse("1 * (2 * 3)")), true);
-		assertEquals(isValidExpression((Mul) _parser.parse("1 * (2 * 3.0)")), true);
+		isAValidExpression((Mul) _parser.parse("1 * 1"));
+		isAValidExpression((Mul) _parser.parse("1 * (2 * 3)"));
+		isAValidExpression((Mul) _parser.parse("1 * (2 * 3.0)"));
 		
-		assertEquals(isValidExpression((Mul) _parser.parse("1 * a")), false);
-		assertEquals(isValidExpression((Mul) _parser.parse("1 * true")), false);
-		assertEquals(isValidExpression((Mul) _parser.parse("true * true")), false);
+		isNotAValidExpression((Mul) _parser.parse("1 * a"));
+		isNotAValidExpression((Mul) _parser.parse("1 * true"));
+		isNotAValidExpression((Mul) _parser.parse("true * true"));
 	}
 	
 	@Test
 	public void testDivs() throws ParseError {
-		assertEquals(isValidExpression((Div) _parser.parse("10 / 2")), true);
-		assertEquals(isValidExpression((Div) _parser.parse("10 / (2 * 1)")), true);
-		assertEquals(isValidExpression((Div) _parser.parse("10 / (2 * 2.50)")), true);
+		isAValidExpression((Div) _parser.parse("10 / 2"));
+		isAValidExpression((Div) _parser.parse("10 / (2 * 1)"));
+		isAValidExpression((Div) _parser.parse("10 / (2 * 2.50)"));
 		
-		assertEquals(isValidExpression((Div) _parser.parse("1 / a")), false);
-		assertEquals(isValidExpression((Div) _parser.parse("1 / true")), false);
-		assertEquals(isValidExpression((Div) _parser.parse("true / true")), false);
+		isNotAValidExpression((Div) _parser.parse("1 / a"));
+		isNotAValidExpression((Div) _parser.parse("1 / true"));
+		isNotAValidExpression((Div) _parser.parse("true / true"));
 	}
 	
 	@Test
 	public void testSubs() throws ParseError {
-		assertEquals(isValidExpression((Sub) _parser.parse("10 - 10")), true);
-		assertEquals(isValidExpression((Sub) _parser.parse("10 - (2 * 5)")), true);
-		assertEquals(isValidExpression((Sub) _parser.parse("10 - (2 * 2.50)")), true);
+		isAValidExpression((Sub) _parser.parse("10 - 10"));
+		isAValidExpression((Sub) _parser.parse("10 - (2 * 5)"));
+		isAValidExpression((Sub) _parser.parse("10 - (2 * 2.50)"));
 		
-		assertEquals(isValidExpression((Sub) _parser.parse("1 - a")), false);
-		assertEquals(isValidExpression((Sub) _parser.parse("1 - true")), false);
-		assertEquals(isValidExpression((Sub) _parser.parse("true - true")), false);
+		isNotAValidExpression((Sub) _parser.parse("1 - a"));
+		isNotAValidExpression((Sub) _parser.parse("1 - true"));
+		isNotAValidExpression((Sub) _parser.parse("true - true"));
 	}
 }
