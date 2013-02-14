@@ -40,9 +40,11 @@ private str CSS(Stylesheet s) {
 
   for(k <- typeMap) {
     rules = getStyleRules(k.ident, f, s);
-    ret += "\n/* Question <k.ident> */";
+    ret += "
+    '/* Question <k.ident> */";
     for(r <- rules) {
-      ret += "<CSS(k.ident, r)>\n";
+      ret += "<CSS(k.ident, r)>
+      '";
     }
   }
 
