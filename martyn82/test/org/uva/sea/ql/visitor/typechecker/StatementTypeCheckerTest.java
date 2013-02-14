@@ -1,4 +1,4 @@
-package org.uva.sea.ql.test.visitor.typechecker;
+package org.uva.sea.ql.visitor.typechecker;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -6,6 +6,7 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import org.junit.Test;
+import org.uva.sea.ql.StatementTest;
 import org.uva.sea.ql.ast.expression.Expression;
 import org.uva.sea.ql.ast.expression.IdentifierExpression;
 import org.uva.sea.ql.ast.expression.binary.arithmetic.AddExpression;
@@ -28,8 +29,7 @@ import org.uva.sea.ql.ast.statement.VariableDeclaration;
 import org.uva.sea.ql.ast.type.BooleanType;
 import org.uva.sea.ql.ast.type.IntegerType;
 import org.uva.sea.ql.parser.ParseError;
-import org.uva.sea.ql.test.StatementTest;
-import org.uva.sea.ql.test.visitor.VisitorTest;
+import org.uva.sea.ql.visitor.VisitorTest;
 import org.uva.sea.ql.visitor.evaluator.Environment;
 import org.uva.sea.ql.visitor.evaluator.Error;
 import org.uva.sea.ql.visitor.typechecker.ExpressionChecker;

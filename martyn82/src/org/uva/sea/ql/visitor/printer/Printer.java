@@ -5,11 +5,11 @@ import java.io.OutputStream;
 
 import org.uva.sea.ql.ast.statement.Statement;
 
-public class QLPrinter extends StatementPrinter {
+abstract public class Printer extends StatementToString {
 	private final OutputStream out;
 
-	public QLPrinter( OutputStream out ) {
-		super( new ExpressionPrinter() );
+	public Printer( OutputStream out ) {
+		super( new ExpressionToString() );
 		this.out = out;
 	}
 

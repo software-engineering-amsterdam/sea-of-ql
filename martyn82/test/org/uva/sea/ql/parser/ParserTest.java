@@ -1,4 +1,4 @@
-package org.uva.sea.ql.test.parser;
+package org.uva.sea.ql.parser;
 
 import org.uva.sea.ql.parser.Parser;
 import org.uva.sea.ql.parser.jacc.QLParser;

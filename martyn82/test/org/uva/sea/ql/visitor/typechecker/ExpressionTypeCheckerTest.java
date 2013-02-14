@@ -1,9 +1,10 @@
-package org.uva.sea.ql.test.visitor.typechecker;
+package org.uva.sea.ql.visitor.typechecker;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
+import org.uva.sea.ql.ExpressionTest;
 import org.uva.sea.ql.ast.expression.Expression;
 import org.uva.sea.ql.ast.expression.IdentifierExpression;
 import org.uva.sea.ql.ast.expression.binary.arithmetic.AddExpression;
@@ -27,8 +28,7 @@ import org.uva.sea.ql.ast.expression.unary.numeric.NegativeExpression;
 import org.uva.sea.ql.ast.expression.unary.numeric.PositiveExpression;
 import org.uva.sea.ql.ast.type.BooleanType;
 import org.uva.sea.ql.ast.type.IntegerType;
-import org.uva.sea.ql.test.ExpressionTest;
-import org.uva.sea.ql.test.visitor.VisitorTest;
+import org.uva.sea.ql.visitor.VisitorTest;
 import org.uva.sea.ql.visitor.evaluator.Environment;
 import org.uva.sea.ql.visitor.typechecker.ExpressionChecker;
 

@@ -1,4 +1,4 @@
-package org.uva.sea.ql.test;
+package org.uva.sea.ql;
 
 public interface StatementTest {
 	void testIfThen();

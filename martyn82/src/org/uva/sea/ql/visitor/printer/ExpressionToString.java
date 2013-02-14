@@ -16,7 +16,6 @@ import org.uva.sea.ql.ast.expression.binary.logical.AndExpression;
 import org.uva.sea.ql.ast.expression.binary.logical.OrExpression;
 import org.uva.sea.ql.ast.expression.literal.BooleanLiteral;
 import org.uva.sea.ql.ast.expression.literal.IntegerLiteral;
-import org.uva.sea.ql.ast.expression.literal.LiteralExpression;
 import org.uva.sea.ql.ast.expression.literal.MoneyLiteral;
 import org.uva.sea.ql.ast.expression.literal.StringLiteral;
 import org.uva.sea.ql.ast.expression.unary.UnaryExpression;
@@ -25,9 +24,9 @@ import org.uva.sea.ql.ast.expression.unary.numeric.NegativeExpression;
 import org.uva.sea.ql.ast.expression.unary.numeric.PositiveExpression;
 import org.uva.sea.ql.visitor.ExpressionVisitor;
 
-public class ExpressionPrinter implements ExpressionVisitor<String> {
-	private static final String TPL_BINARY = "( %s %s %s )";
-	private static final String TPL_UNARY = "( %s %s )";
+class ExpressionToString implements ExpressionVisitor<String> {
+	private static final String TPL_BINARY = "(%s %s %s)";
+	private static final String TPL_UNARY = "(%s %s)";
 
 	private String visitBinary( BinaryExpression node, String operator ) {
 		String left = node.getLhs().accept( this );
@@ -40,33 +39,29 @@ public class ExpressionPrinter implements ExpressionVisitor<String> {
 		return String.format( TPL_UNARY, operator, operand );
 	}
 
-	private String getName( LiteralExpression node ) {
-		return node.getClass().getSimpleName().toUpperCase();
-	}
-
 	@Override
 	public String visit( StringLiteral node ) {
-		return String.format( "%s(%s)", this.getName( node ), node.getValue() );
+		return String.format( "(%s)", node.getValue() );
 	}
 
 	@Override
 	public String visit( MoneyLiteral node ) {
-		return String.format( "%s(%.2f)", this.getName( node ), node.getValue() );
+		return String.format( "%.2f", node.getValue() );
 	}
 
 	@Override
 	public String visit( IntegerLiteral node ) {
-		return String.format( "%s(%d)", this.getName( node ), node.getValue() );
+		return String.format( "%d", node.getValue() );
 	}
 
 	@Override
 	public String visit( BooleanLiteral node ) {
-		return String.format( "%s(%b)", this.getName( node ), node.getValue() );
+		return String.format( "%b", node.getValue() );
 	}
 
 	@Override
 	public String visit( IdentifierExpression node ) {
-		return String.format( "%s(%s)", "IDENT", node.getName() );
+		return String.format( "%s", node.getName() );
 	}
 
 	@Override

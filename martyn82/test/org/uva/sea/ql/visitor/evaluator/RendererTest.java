@@ -1,8 +1,9 @@
-package org.uva.sea.ql.test.visitor.evaluator;
+package org.uva.sea.ql.visitor.evaluator;
 
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
+import org.uva.sea.ql.StatementTest;
 import org.uva.sea.ql.ast.expression.IdentifierExpression;
 import org.uva.sea.ql.ast.expression.binary.arithmetic.AddExpression;
 import org.uva.sea.ql.ast.expression.binary.comparison.EqualExpression;
@@ -23,7 +24,6 @@ import org.uva.sea.ql.ast.type.BooleanType;
 import org.uva.sea.ql.ast.type.IntegerType;
 import org.uva.sea.ql.ast.type.MoneyType;
 import org.uva.sea.ql.ast.type.StringType;
-import org.uva.sea.ql.test.StatementTest;
 import org.uva.sea.ql.ui.ControlFactory;
 import org.uva.sea.ql.ui.swing.SwingControlFactory;
 import org.uva.sea.ql.visitor.evaluator.Environment;

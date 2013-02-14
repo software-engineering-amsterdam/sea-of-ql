@@ -1,4 +1,4 @@
-package org.uva.sea.ql.test.visitor.evaluator;
+package org.uva.sea.ql.visitor.evaluator;
 
 import org.uva.sea.ql.ast.expression.Expression;
 import org.uva.sea.ql.visitor.evaluator.Environment;

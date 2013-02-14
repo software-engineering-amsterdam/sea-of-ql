@@ -1,9 +1,5 @@
 package org.uva.sea.ql;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
-
 import org.uva.sea.ql.ui.ControlFactory;
 import org.uva.sea.ql.ui.control.PanelControl;
 import org.uva.sea.ql.ui.control.WindowControl;
@@ -25,7 +21,7 @@ public class Program {
 	}
 
 	public void run() {
-		String source = this.getFileContents( System.getProperty( "user.dir" ) + "/assets/sample.ql" );
+		String source = FileLoader.getFileContents( System.getProperty( "user.dir" ) + "/assets/sample.ql" );
 
 		this.interpreter.evaluate( source );
 
@@ -41,34 +37,5 @@ public class Program {
 
 		WindowControl window = this.factory.createWindow( formPanel.getName(), formPanel );
 		window.show();
-	}
-
-	private String getFileContents( String fileName ) {
-		BufferedReader br = null;
-		StringBuffer sb = new StringBuffer();
-		String line;
-
-		try {
-			br = new BufferedReader( new FileReader( fileName ) );
-
-			while ( ( line = br.readLine() ) != null ) {
-				sb.append( line );
-			}
-		}
-		catch ( IOException e ) {
-			e.printStackTrace();
-		}
-		finally {
-			if ( br != null ) {
-				try {
-					br.close();
-				}
-				catch ( IOException e ) {
-					e.printStackTrace();
-				}
-			}
-		}
-
-		return sb.toString();
 	}
 }

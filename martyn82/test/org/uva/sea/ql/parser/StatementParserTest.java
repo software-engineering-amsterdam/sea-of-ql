@@ -1,9 +1,10 @@
-package org.uva.sea.ql.test.parser;
+package org.uva.sea.ql.parser;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
 import org.junit.Test;
+import org.uva.sea.ql.StatementTest;
 import org.uva.sea.ql.ast.statement.Assignment;
 import org.uva.sea.ql.ast.statement.FormDeclaration;
 import org.uva.sea.ql.ast.statement.IfThen;
@@ -14,7 +15,6 @@ import org.uva.sea.ql.ast.statement.Statement;
 import org.uva.sea.ql.ast.statement.VariableDeclaration;
 import org.uva.sea.ql.parser.Parser;
 import org.uva.sea.ql.parser.ParseError;
-import org.uva.sea.ql.test.StatementTest;
 
 public class StatementParserTest extends ParserTest implements StatementTest {
 	private final Parser parser;

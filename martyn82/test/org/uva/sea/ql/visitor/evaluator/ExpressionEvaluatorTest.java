@@ -1,8 +1,9 @@
-package org.uva.sea.ql.test.visitor.evaluator;
+package org.uva.sea.ql.visitor.evaluator;
 
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
+import org.uva.sea.ql.ExpressionTest;
 import org.uva.sea.ql.ast.expression.IdentifierExpression;
 import org.uva.sea.ql.ast.expression.binary.arithmetic.AddExpression;
 import org.uva.sea.ql.ast.expression.binary.arithmetic.DivideExpression;
@@ -24,7 +25,6 @@ import org.uva.sea.ql.ast.expression.unary.logical.NotExpression;
 import org.uva.sea.ql.ast.expression.unary.numeric.NegativeExpression;
 import org.uva.sea.ql.ast.expression.unary.numeric.PositiveExpression;
 import org.uva.sea.ql.ast.type.StringType;
-import org.uva.sea.ql.test.ExpressionTest;
 import org.uva.sea.ql.visitor.evaluator.Environment;
 import org.uva.sea.ql.visitor.evaluator.value.StringValue;
 
