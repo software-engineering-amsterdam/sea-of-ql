@@ -9,7 +9,7 @@ public data Type = string()|integer()|money()|natural();
 public data Program= program(str qLangName, list[Statement]body);
 
 public data Question=uncomputedQuestion(str id, str labelQuestion, Type tp)
-				|computeQuestion(str id, str labelQuestion, Type tp, Expression exp);
+				|computedQuestion(str id, str labelQuestion, Type tp, Expression exp);
 				
 public data Expression= id(str name)
 				| \int(int ivalue)
