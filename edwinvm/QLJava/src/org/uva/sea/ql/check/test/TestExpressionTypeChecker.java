@@ -1,6 +1,5 @@
 package org.uva.sea.ql.check.test;
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
@@ -42,14 +41,6 @@ public class TestExpressionTypeChecker {
 		_typeEnv.put(new Ident("money"),   new Money());
 		_typeEnv.put(new Ident("numeric"), new Numeric());
 		_typeEnv.put(new Ident("str"),     new Str());
-	}
-	
-	private void isAValidExpression(Expr expr) {
-		assertTrue(CheckExpr.check(expr, _typeEnv, _errorMessages));
-	}
-	
-	private void isNotAValidExpression(Expr expr) {
-		assertFalse(CheckExpr.check(expr, _typeEnv, _errorMessages));
 	}
 	
 	@Test
@@ -95,5 +86,17 @@ public class TestExpressionTypeChecker {
 		isNotAValidExpression((Sub) _parser.parse("1 - a"));
 		isNotAValidExpression((Sub) _parser.parse("1 - true"));
 		isNotAValidExpression((Sub) _parser.parse("true - true"));
+	}
+	
+	private void isAValidExpression(Expr expr) {
+		assertTrue(checkExpression(expr));
+	}
+	
+	private void isNotAValidExpression(Expr expr) {
+		assertFalse(checkExpression(expr));
+	}
+	
+	private Boolean checkExpression(Expr expr) {
+		return CheckExpr.check(expr, _typeEnv, _errorMessages);
 	}
 }
