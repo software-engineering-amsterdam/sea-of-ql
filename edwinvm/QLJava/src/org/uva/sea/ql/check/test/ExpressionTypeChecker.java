@@ -40,20 +40,20 @@ public class ExpressionTypeChecker {
 		_typeEnv.put(new Ident("str"),     new Str());
 	}
 	
-	public Expr parseExpression(String input) throws ParseError {
-		return (Expr) _parser.parse(input);
+	public void isAValidExpression(String input) throws ParseError {
+		assertTrue(checkExpression(parseExpression(input)));
 	}
 	
-	public void isAValidExpression(Expr expr) {
-		assertTrue(checkExpression(expr));
-	}
-	
-	public void isNotAValidExpression(Expr expr) {
-		assertFalse(checkExpression(expr));
+	public void isNotAValidExpression(String input) throws ParseError {
+		assertFalse(checkExpression(parseExpression(input)));
 	}
 	
 	private Boolean checkExpression(Expr expr) {
 		return CheckExpr.check(expr, _typeEnv, _errorMessages);
+	}
+	
+	private Expr parseExpression(String input) throws ParseError {
+		return (Expr) _parser.parse(input);
 	}
 	
 }
