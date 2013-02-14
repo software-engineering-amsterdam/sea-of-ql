@@ -94,10 +94,9 @@ public test bool testUndefinedQuestions() =
 public test bool testDoubleName() = 
   semanticChecker(|project://QL-R-kemi/stylesheets/doubleName.qs|, 3, 0);
 
-// Also misses one question definition
 public test bool testDefaultRedefinition() = 
   semanticChecker(
     |project://QL-R-kemi/stylesheets/defaultRedefinition.qs|,
-    2,
+    3,
     0
   );

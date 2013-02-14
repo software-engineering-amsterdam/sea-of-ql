@@ -11,24 +11,21 @@
 module lang::qls::analysis::SemanticChecker
 
 import IO;
-import List;
-import Set;
-import String;
 import Map;
+import lang::ql::analysis::State;
 import lang::ql::ast::AST;
 import lang::qls::analysis::Messages;
 import lang::qls::analysis::StyleAttrChecker;
 import lang::qls::analysis::WidgetTypeChecker;
 import lang::qls::ast::AST;
-import lang::qls::compiler::PrettyPrinter;
-import lang::qls::util::ParseHelper;
 import lang::qls::util::StyleHelper;
 import util::IDE;
 import util::LocationHelper;
 
+// Retrieve all errors and warnings regarding a Stylesheet s
 public set[Message] semanticChecker(Stylesheet s) =
   filenameDoesNotMatchErrors(s) +
-  getAccompanyingFormNotFoundErrors(s) +
+  accompanyingFormNotFoundErrors(s) +
   unallowedAttrErrors(s) +
   unallowedWidgetErrors(s) +
   alreadyUsedQuestionErrors(s) +
@@ -37,23 +34,21 @@ public set[Message] semanticChecker(Stylesheet s) =
   doubleNameWarnings(s) +
   defaultRedefinitionWarnings(s);
 
-
-public default set[Message] filenameDoesNotMatchErrors(Stylesheet s) = 
+private default set[Message] filenameDoesNotMatchErrors(Stylesheet s) = 
   {};
 
-public set[Message] filenameDoesNotMatchErrors(Stylesheet s) =
+private set[Message] filenameDoesNotMatchErrors(Stylesheet s) =
   {stylesheetDoesNotMatchFilename(s.ident, s@location)}
     when s.ident != basename(s@location);
 
-private default set[Message] getAccompanyingFormNotFoundErrors(Stylesheet s) =
+private default set[Message] accompanyingFormNotFoundErrors(Stylesheet s) =
   {};
 
-private set[Message] getAccompanyingFormNotFoundErrors(Stylesheet s) =
-  {getAccompanyingFormNotFound(s.ident, s@location)}
+private set[Message] accompanyingFormNotFoundErrors(Stylesheet s) =
+  {accompanyingFormNotFound(s.ident, s@location)}
     when !isFile(getAccompanyingFormLocation(s));
 
-
-public set[Message] alreadyUsedQuestionErrors(Stylesheet s) {
+private set[Message] alreadyUsedQuestionErrors(Stylesheet s) {
   set[Message] errors = {};
   list[QuestionDefinition] questionDefinitions = getQuestionDefinitions(s);
   map[str, loc] idents = ();
@@ -68,26 +63,25 @@ public set[Message] alreadyUsedQuestionErrors(Stylesheet s) {
   return errors;
 }
 
-public set[Message] undefinedQuestionErrors(Stylesheet s) {
+private set[Message] undefinedQuestionErrors(Stylesheet s) {
   if(!isFile(getAccompanyingFormLocation(s)))
     return {};
   
   set[Message] errors = {};
-  typeMap = getTypeMap(getAccompanyingForm(s));
-  qdefs = getQuestionDefinitions(s);
+  TypeMap typeMap = getTypeMap(getAccompanyingForm(s));
+  list[QuestionDefinition] qdefs = getQuestionDefinitions(s);
   
   return {questionUndefinedInForm(q@location) | q <- qdefs, 
     identDefinition(q.ident) notin typeMap};
 }
 
-public set[Message] unusedQuestionWarnings(Stylesheet s) {
-  list[QuestionDefinition] questionDefinitions = getQuestionDefinitions(s);
-  typeMap = getTypeMap(getAccompanyingForm(s));
+private set[Message] unusedQuestionWarnings(Stylesheet s) {
+  TypeMap typeMap = domainX(
+    getTypeMap(getAccompanyingForm(s)),
+    {identDefinition(d.ident) | d <- getQuestionDefinitions(s)}
+  );
   
-  for(d <- questionDefinitions) {
-    typeMap = domainX(typeMap, {identDefinition(d.ident)});
-  }
-  
+  // Show warning at the end of the Stylesheet
   loc warningLoc = s@location;
   warningLoc.offset = s@location.length - 1;
   warningLoc.length = 1;
@@ -97,12 +91,11 @@ public set[Message] unusedQuestionWarnings(Stylesheet s) {
   return {questionUnused(ident.ident, warningLoc) | ident <- typeMap};
 }
 
-public set[Message] doubleNameWarnings(Stylesheet s) {
-  return doublePageNameWarnings(s) +
-    doubleSectionNameWarnings(s);
-}
+private set[Message] doubleNameWarnings(Stylesheet s) =
+  doublePageNameWarnings(s) +
+  doubleSectionNameWarnings(s);
 
-public set[Message] doublePageNameWarnings(Stylesheet s) {
+private set[Message] doublePageNameWarnings(Stylesheet s) {
   set[Message] warnings = {};
   list[PageDefinition] pageDefinitions = getPageDefinitions(s);
   map[str, loc] pages = ();
@@ -117,7 +110,7 @@ public set[Message] doublePageNameWarnings(Stylesheet s) {
   return warnings;
 }
 
-public set[Message] doubleSectionNameWarnings(Stylesheet s) {
+private set[Message] doubleSectionNameWarnings(Stylesheet s) {
   set[Message] warnings = {};
   list[SectionDefinition] sectionDefinitions = getSectionDefinitions(s);
   map[str, loc] sections = ();
@@ -132,7 +125,7 @@ public set[Message] doubleSectionNameWarnings(Stylesheet s) {
   return warnings;
 }
 
-public set[Message] defaultRedefinitionWarnings(Stylesheet s) {
+private set[Message] defaultRedefinitionWarnings(Stylesheet s) {
   list[list[PageRule]] pdrules = [pd.pageRules | 
     pd <- getPageDefinitions(s)];
   list[list[SectionRule]] sdrules = [sd.sectionRules | 
@@ -151,11 +144,13 @@ private list[DefaultDefinition] getDefaultRedefinitions(list[&T] definitions) {
   set[Type] idents = {};
   list[DefaultDefinition] redefinitions = [];
   
-  for(definition(DefaultDefinition d) <- definitions) {
-    if(d.ident in idents) {
-      redefinitions += d;
-    } else {
-      idents += d.ident;
+  for(d <- definitions) {
+    if(d.defaultDefinition?) {
+      if(d.defaultDefinition.ident in idents) {
+        redefinitions += d.defaultDefinition;
+      } else {
+        idents += d.defaultDefinition.ident;
+      }
     }
   }
   return redefinitions;
