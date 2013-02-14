@@ -5,15 +5,15 @@ import org.uva.sea.ql.ast.expression.literal.StringLiteral;
 import org.uva.sea.ql.ast.type.Type;
 import org.uva.sea.ql.visitor.StatementVisitor;
 
-public class QuestionVariable extends QuestionDeclaration {
-	private final VarDeclaration varDeclaration;
+public class VariableQuestion extends QuestionDeclaration {
+	private final VariableDeclaration varDeclaration;
 
-	public QuestionVariable( StringLiteral label, VarDeclaration varDeclaration ) {
+	public VariableQuestion( StringLiteral label, VariableDeclaration varDeclaration ) {
 		super( label );
 		this.varDeclaration = varDeclaration;
 	}
 
-	public VarDeclaration getVarDeclaration() {
+	public VariableDeclaration getVarDeclaration() {
 		return this.varDeclaration;
 	}
 

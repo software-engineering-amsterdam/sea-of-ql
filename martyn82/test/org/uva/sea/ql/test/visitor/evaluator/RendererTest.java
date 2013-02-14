@@ -14,11 +14,11 @@ import org.uva.sea.ql.ast.statement.Assignment;
 import org.uva.sea.ql.ast.statement.FormDeclaration;
 import org.uva.sea.ql.ast.statement.IfThen;
 import org.uva.sea.ql.ast.statement.IfThenElse;
-import org.uva.sea.ql.ast.statement.QuestionComputed;
-import org.uva.sea.ql.ast.statement.QuestionVariable;
+import org.uva.sea.ql.ast.statement.ComputedQuestion;
+import org.uva.sea.ql.ast.statement.VariableQuestion;
 import org.uva.sea.ql.ast.statement.Statement;
 import org.uva.sea.ql.ast.statement.Statements;
-import org.uva.sea.ql.ast.statement.VarDeclaration;
+import org.uva.sea.ql.ast.statement.VariableDeclaration;
 import org.uva.sea.ql.ast.type.BooleanType;
 import org.uva.sea.ql.ast.type.IntegerType;
 import org.uva.sea.ql.ast.type.MoneyType;
@@ -149,16 +149,16 @@ public class RendererTest extends EvaluatorTest implements StatementTest {
 	@Override
 	@Test
 	public void testVarDeclaration() {
-		eval( new VarDeclaration( new IdentifierExpression( "x" ), BooleanType.BOOLEAN ) );
+		eval( new VariableDeclaration( new IdentifierExpression( "x" ), BooleanType.BOOLEAN ) );
 		assertEquals( false, eval( new IdentifierExpression( "x" ) ) );
 
-		eval( new VarDeclaration( new IdentifierExpression( "y" ), IntegerType.INTEGER ) );
+		eval( new VariableDeclaration( new IdentifierExpression( "y" ), IntegerType.INTEGER ) );
 		assertEquals( 0, eval( new IdentifierExpression( "y" ) ) );
 
-		eval( new VarDeclaration( new IdentifierExpression( "z" ), StringType.STRING ) );
+		eval( new VariableDeclaration( new IdentifierExpression( "z" ), StringType.STRING ) );
 		assertEquals( "", eval( new IdentifierExpression( "z" ) ) );
 
-		eval( new VarDeclaration( new IdentifierExpression( "u" ), MoneyType.MONEY ) );
+		eval( new VariableDeclaration( new IdentifierExpression( "u" ), MoneyType.MONEY ) );
 		assertEquals( 0d, eval( new IdentifierExpression( "u" ) ) );
 	}
 
@@ -173,12 +173,12 @@ public class RendererTest extends EvaluatorTest implements StatementTest {
 	@Test
 	public void testQuestionVariable() {
 		eval(
-			new QuestionVariable( new StringLiteral( "Foo bar?" ), new VarDeclaration( new IdentifierExpression( "x" ), BooleanType.BOOLEAN ) )
+			new VariableQuestion( new StringLiteral( "Foo bar?" ), new VariableDeclaration( new IdentifierExpression( "x" ), BooleanType.BOOLEAN ) )
 		);
 		assertEquals( false, eval( new IdentifierExpression( "x" ) ) );
 
 		eval(
-			new QuestionVariable( new StringLiteral( "Foo bar?" ), new VarDeclaration( new IdentifierExpression( "x" ), IntegerType.INTEGER ) )
+			new VariableQuestion( new StringLiteral( "Foo bar?" ), new VariableDeclaration( new IdentifierExpression( "x" ), IntegerType.INTEGER ) )
 		);
 		assertEquals( 0, eval( new IdentifierExpression( "x" ) ) );
 	}
@@ -187,14 +187,14 @@ public class RendererTest extends EvaluatorTest implements StatementTest {
 	@Test
 	public void testQuestionComputed() {
 		eval(
-			new QuestionComputed(
+			new ComputedQuestion(
 				new StringLiteral( "Foo Bar?" ),
 				new Assignment( new IdentifierExpression( "y" ), new EqualExpression( new BooleanLiteral( true ), new BooleanLiteral( true ) ) ) )
 		);
 		assertEquals( true, eval( new IdentifierExpression( "y" ) ) );
 
 		eval(
-			new QuestionComputed(
+			new ComputedQuestion(
 				new StringLiteral( "Foo Bar?" ),
 				new Assignment( new IdentifierExpression( "y" ), new AddExpression( new IntegerLiteral( 12 ), new MoneyLiteral( 23.4 ) ) ) )
 		);

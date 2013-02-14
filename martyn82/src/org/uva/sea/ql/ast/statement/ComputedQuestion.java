@@ -5,10 +5,10 @@ import org.uva.sea.ql.ast.expression.IdentifierExpression;
 import org.uva.sea.ql.ast.expression.literal.StringLiteral;
 import org.uva.sea.ql.visitor.StatementVisitor;
 
-public class QuestionComputed extends QuestionDeclaration {
+public class ComputedQuestion extends QuestionDeclaration {
 	private final Assignment assignment;
 
-	public QuestionComputed( StringLiteral label, Assignment assignment ) {
+	public ComputedQuestion( StringLiteral label, Assignment assignment ) {
 		super( label );
 		this.assignment = assignment;
 	}

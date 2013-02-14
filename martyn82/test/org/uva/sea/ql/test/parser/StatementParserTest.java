@@ -8,10 +8,10 @@ import org.uva.sea.ql.ast.statement.Assignment;
 import org.uva.sea.ql.ast.statement.FormDeclaration;
 import org.uva.sea.ql.ast.statement.IfThen;
 import org.uva.sea.ql.ast.statement.IfThenElse;
-import org.uva.sea.ql.ast.statement.QuestionComputed;
-import org.uva.sea.ql.ast.statement.QuestionVariable;
+import org.uva.sea.ql.ast.statement.ComputedQuestion;
+import org.uva.sea.ql.ast.statement.VariableQuestion;
 import org.uva.sea.ql.ast.statement.Statement;
-import org.uva.sea.ql.ast.statement.VarDeclaration;
+import org.uva.sea.ql.ast.statement.VariableDeclaration;
 import org.uva.sea.ql.parser.Parser;
 import org.uva.sea.ql.parser.ParseError;
 import org.uva.sea.ql.test.StatementTest;
@@ -52,8 +52,8 @@ public class StatementParserTest extends ParserTest implements StatementTest {
 			return;
 		}
 
-		assertEquals( QuestionVariable.class, root.getClass() );
-		assertEquals( VarDeclaration.class, ( (QuestionVariable) root ).getVarDeclaration().getClass() );
+		assertEquals( VariableQuestion.class, root.getClass() );
+		assertEquals( VariableDeclaration.class, ( (VariableQuestion) root ).getVarDeclaration().getClass() );
 	}
 
 	@Override
@@ -151,13 +151,13 @@ public class StatementParserTest extends ParserTest implements StatementTest {
 	@Override
 	@Test
 	public void testQuestionVariable() {
-		assertNode( QuestionVariable.class, "\"What?\" answer: boolean" );
+		assertNode( VariableQuestion.class, "\"What?\" answer: boolean" );
 	}
 
 	@Override
 	@Test
 	public void testQuestionComputed() {
-		assertNode( QuestionComputed.class, "\"This is the question?\" answer = (a && !b)" );
-		assertNode( QuestionComputed.class, "\"\" answer = 1 + answer2" );
+		assertNode( ComputedQuestion.class, "\"This is the question?\" answer = (a && !b)" );
+		assertNode( ComputedQuestion.class, "\"\" answer = 1 + answer2" );
 	}
 }

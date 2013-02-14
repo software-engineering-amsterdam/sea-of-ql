@@ -20,11 +20,11 @@ import org.uva.sea.ql.ast.statement.Assignment;
 import org.uva.sea.ql.ast.statement.FormDeclaration;
 import org.uva.sea.ql.ast.statement.IfThen;
 import org.uva.sea.ql.ast.statement.IfThenElse;
-import org.uva.sea.ql.ast.statement.QuestionComputed;
-import org.uva.sea.ql.ast.statement.QuestionVariable;
+import org.uva.sea.ql.ast.statement.ComputedQuestion;
+import org.uva.sea.ql.ast.statement.VariableQuestion;
 import org.uva.sea.ql.ast.statement.Statement;
 import org.uva.sea.ql.ast.statement.Statements;
-import org.uva.sea.ql.ast.statement.VarDeclaration;
+import org.uva.sea.ql.ast.statement.VariableDeclaration;
 import org.uva.sea.ql.ast.type.BooleanType;
 import org.uva.sea.ql.ast.type.IntegerType;
 import org.uva.sea.ql.parser.ParseError;
@@ -90,10 +90,10 @@ public class StatementTypeCheckerTest extends VisitorTest<Boolean> implements St
 	@Override
 	@Test
 	public void testVarDeclaration() {
-		assertTrue( typeCheck( new VarDeclaration( new IdentifierExpression( "z" ), BooleanType.BOOLEAN ) ) );
+		assertTrue( typeCheck( new VariableDeclaration( new IdentifierExpression( "z" ), BooleanType.BOOLEAN ) ) );
 		assertFalse( typeCheck( new AddExpression( new IntegerLiteral( 1 ), new IdentifierExpression( "z" ) ) ) );
 
-		assertTrue( typeCheck( new VarDeclaration( new IdentifierExpression( "x" ), IntegerType.INTEGER ) ) );
+		assertTrue( typeCheck( new VariableDeclaration( new IdentifierExpression( "x" ), IntegerType.INTEGER ) ) );
 		assertTrue( typeCheck( new Assignment( new IdentifierExpression( "x" ), new IntegerLiteral( 23 ) ) ) );
 
 		assertFalse( typeCheck( new Assignment( new IdentifierExpression( "x" ), new IdentifierExpression( "y" ) ) ) );
@@ -120,7 +120,7 @@ public class StatementTypeCheckerTest extends VisitorTest<Boolean> implements St
 					new BooleanLiteral( true ),
 					new Statements(
 						new Assignment( new IdentifierExpression( "x" ), new IntegerLiteral( 24 ) ),
-						new Statements( new VarDeclaration( new IdentifierExpression( "x" ), BooleanType.BOOLEAN ) )
+						new Statements( new VariableDeclaration( new IdentifierExpression( "x" ), BooleanType.BOOLEAN ) )
 					)
 				)
 			)
@@ -148,8 +148,8 @@ public class StatementTypeCheckerTest extends VisitorTest<Boolean> implements St
 				new IfThen(
 					new BooleanLiteral( true ),
 					new Statements(
-						new QuestionVariable(
-							new StringLiteral( "" ), new VarDeclaration( new IdentifierExpression( "x" ), BooleanType.BOOLEAN )
+						new VariableQuestion(
+							new StringLiteral( "" ), new VariableDeclaration( new IdentifierExpression( "x" ), BooleanType.BOOLEAN )
 						),
 						new Statements(
 							new Assignment( new IdentifierExpression( "x" ), new IntegerLiteral( 23 ) )
@@ -193,8 +193,8 @@ public class StatementTypeCheckerTest extends VisitorTest<Boolean> implements St
 				new IfThenElse(
 					new BooleanLiteral( true ),
 					new Statements(
-						new QuestionVariable(
-							new StringLiteral( "" ), new VarDeclaration( new IdentifierExpression( "x" ), BooleanType.BOOLEAN )
+						new VariableQuestion(
+							new StringLiteral( "" ), new VariableDeclaration( new IdentifierExpression( "x" ), BooleanType.BOOLEAN )
 						),
 						new Statements(
 							new Assignment( new IdentifierExpression( "x" ), new IntegerLiteral( 23 ) )
@@ -217,9 +217,9 @@ public class StatementTypeCheckerTest extends VisitorTest<Boolean> implements St
 				new FormDeclaration(
 					"formVar",
 					new Statements(
-						new QuestionVariable(
+						new VariableQuestion(
 							new StringLiteral( "label" ),
-							new VarDeclaration(
+							new VariableDeclaration(
 								new IdentifierExpression( "questionVar" ),
 								IntegerType.INTEGER
 							)
@@ -235,9 +235,9 @@ public class StatementTypeCheckerTest extends VisitorTest<Boolean> implements St
 	public void testQuestionVariable() {
 		assertTrue(
 			typeCheck(
-				new QuestionVariable(
+				new VariableQuestion(
 					new StringLiteral( "label" ),
-					new VarDeclaration(
+					new VariableDeclaration(
 						new IdentifierExpression( "var" ),
 						BooleanType.BOOLEAN
 					)
@@ -251,7 +251,7 @@ public class StatementTypeCheckerTest extends VisitorTest<Boolean> implements St
 	public void testQuestionComputed() {
 		assertTrue(
 			typeCheck(
-				new QuestionComputed(
+				new ComputedQuestion(
 					new StringLiteral( "label" ),
 					new Assignment(
 						new IdentifierExpression( "x" ),
@@ -266,7 +266,7 @@ public class StatementTypeCheckerTest extends VisitorTest<Boolean> implements St
 
 		assertFalse(
 			typeCheck(
-				new QuestionComputed(
+				new ComputedQuestion(
 					new StringLiteral( "label" ),
 					new Assignment(
 						new IdentifierExpression( "x" ),

@@ -6,11 +6,11 @@ import org.uva.sea.ql.ast.statement.Assignment;
 import org.uva.sea.ql.ast.statement.FormDeclaration;
 import org.uva.sea.ql.ast.statement.IfThen;
 import org.uva.sea.ql.ast.statement.IfThenElse;
-import org.uva.sea.ql.ast.statement.QuestionComputed;
-import org.uva.sea.ql.ast.statement.QuestionVariable;
+import org.uva.sea.ql.ast.statement.ComputedQuestion;
+import org.uva.sea.ql.ast.statement.VariableQuestion;
 import org.uva.sea.ql.ast.statement.Statement;
 import org.uva.sea.ql.ast.statement.Statements;
-import org.uva.sea.ql.ast.statement.VarDeclaration;
+import org.uva.sea.ql.ast.statement.VariableDeclaration;
 import org.uva.sea.ql.ast.type.Type;
 import org.uva.sea.ql.visitor.StatementVisitor;
 import org.uva.sea.ql.visitor.evaluator.Environment;
@@ -70,7 +70,7 @@ public class TypeChecker extends AbstractTypeChecker implements StatementVisitor
 	}
 
 	@Override
-	public Boolean visit( VarDeclaration node ) {
+	public Boolean visit( VariableDeclaration node ) {
 		if ( this.environment.isDeclared( node.getIdentifier() ) ) {
 			Type identType = this.environment.lookupType( node.getIdentifier() );
 			Type declaredType = node.getType();
@@ -124,7 +124,7 @@ public class TypeChecker extends AbstractTypeChecker implements StatementVisitor
 	}
 
 	@Override
-	public Boolean visit( QuestionVariable node ) {
+	public Boolean visit( VariableQuestion node ) {
 		if ( !node.getLabel().accept( this.expressionChecker ) ) {
 			return false;
 		}
@@ -133,7 +133,7 @@ public class TypeChecker extends AbstractTypeChecker implements StatementVisitor
 	}
 
 	@Override
-	public Boolean visit( QuestionComputed node ) {
+	public Boolean visit( ComputedQuestion node ) {
 		if ( !node.getLabel().accept( this.expressionChecker ) ) {
 			return false;
 		}

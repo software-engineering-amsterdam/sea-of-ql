@@ -4,11 +4,11 @@ import org.uva.sea.ql.ast.statement.Assignment;
 import org.uva.sea.ql.ast.statement.FormDeclaration;
 import org.uva.sea.ql.ast.statement.IfThen;
 import org.uva.sea.ql.ast.statement.IfThenElse;
-import org.uva.sea.ql.ast.statement.QuestionComputed;
-import org.uva.sea.ql.ast.statement.QuestionVariable;
+import org.uva.sea.ql.ast.statement.ComputedQuestion;
+import org.uva.sea.ql.ast.statement.VariableQuestion;
 import org.uva.sea.ql.ast.statement.Statement;
 import org.uva.sea.ql.ast.statement.Statements;
-import org.uva.sea.ql.ast.statement.VarDeclaration;
+import org.uva.sea.ql.ast.statement.VariableDeclaration;
 import org.uva.sea.ql.visitor.StatementVisitor;
 
 public class StatementPrinter implements StatementVisitor<String> {
@@ -39,7 +39,7 @@ public class StatementPrinter implements StatementVisitor<String> {
 	}
 
 	@Override
-	public String visit( VarDeclaration node ) {
+	public String visit( VariableDeclaration node ) {
 		String identifier = node.getIdentifier().accept( this.expressionVisitor );
 		String type = node.getType().getName();
 		return String.format( TPL_VARDECLARATION, identifier, type );
@@ -60,14 +60,14 @@ public class StatementPrinter implements StatementVisitor<String> {
 	}
 
 	@Override
-	public String visit( QuestionVariable node ) {
+	public String visit( VariableQuestion node ) {
 		String label = node.getLabel().accept( this.expressionVisitor );
 		String body = node.getVarDeclaration().accept( this );
 		return String.format( TPL_QUESTION, label, body );
 	}
 
 	@Override
-	public String visit( QuestionComputed node ) {
+	public String visit( ComputedQuestion node ) {
 		String label = node.getLabel().accept( this.expressionVisitor );
 		String body = node.getAssignment().accept( this );
 		return String.format( TPL_QUESTION, label, body );
