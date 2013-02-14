@@ -1,23 +1,22 @@
-form B66ox1HouseOwning {
-	hasSoldHouse: "Did you sell a house in 2010?" int
-		t1: "Did you sell a house in 2010?" int (hasSoldHouse)
-	
+form RentBenefit{
 
-	age: "What is your age?" int
-	isGirl: "Are you a girl?" boolean
-	if (age >= 18 && isGirl) {
-		whatItIsAllAbout: "Are you single?" boolean
-		if (whatItIsAllAbout) {
-			name: "What is your name?" string
-			name2: "So your name is:" string(name)
-		}
-	}
-	else {
-		lifeIsHard: "Go away" boolean(true)
+age : "How old are you?" int
+income: "What was your income for 2012?" money
+student: "Are you a student?" boolean
+rent: "How much do you pay for rent?" money
+roomate: "Do you have roomates?" boolean
+
+	if(roomate){
+	roomate2: "How many roomates do you have?" int
+	status: "Do they work?" boolean
+	
 	}
 
-	
-	
+benefit : "Your benefit for the year 2012 is (per month)" money ((rent)*0.3-income/12.0)
+
+
+
+
 
 
 

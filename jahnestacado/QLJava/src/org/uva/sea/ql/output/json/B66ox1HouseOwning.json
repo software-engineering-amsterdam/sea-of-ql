@@ -1,1 +1,8 @@
-{"qlForm":[{"formName":"B66ox1HouseOwning"},{"content":{"questions":[{"position":0,"answer":"2","question":"Did you sell a house in 2010?"},{"position":1,"answer":"2","question":"Did you sell a house in 2010?"}]}}]}
+{"qlForm":[{"formName":"B66ox1HouseOwning"},{"questions":[
+{"answer":"6","question":"Did you sell a house in 2010?"},
+{"answer":"6","question":"Did you sell a house in 2010?"},
+{"answer":"18","question":"What is your age?"},
+{"answer":"true","question":"Are you a girl?"},
+{"answer":"true","question":"Are you single?"},
+{"answer":"","question":"What is your name?"},
+{"answer":"","question":"So your name is:"}]}]}

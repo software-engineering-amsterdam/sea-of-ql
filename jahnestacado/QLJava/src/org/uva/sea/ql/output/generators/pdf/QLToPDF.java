@@ -48,7 +48,7 @@ public class QLToPDF {
 		this.questionValues=questionValues;
 	}
 
-    public static void createPdf(String frameName,List<String> questionLabels,List<String> questionValues) {
+    public static void generatePdf(String frameName,List<String> questionLabels,List<String> questionValues) {
     	QLToPDF generator=new QLToPDF(questionLabels,questionValues);
     	generator.putContent(frameName);
     	

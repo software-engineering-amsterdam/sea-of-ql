@@ -82,7 +82,7 @@ public class QLOutputSelectorFrame implements ActionListener{
 		switch (comboBox.getSelectedIndex()) {
 		case 0:
 			
-			QLToPDF.createPdf(title, questionLabels, questionValues);
+			QLToPDF.generatePdf(title, questionLabels, questionValues);
 			showConfirmationMessage(title+".pdf file successful created!");
 			break;
 		case 1:

@@ -3,7 +3,6 @@ package org.uva.sea.ql.output.generators.json;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.json.simple.JSONArray;
@@ -16,7 +15,6 @@ public class QLToJSON {
 	private final JSONObject qlForm = new JSONObject();
 
 	private QLToJSON(List<String> questionLabels, List<String> questionValues) {
-
 		this.questionLabels = questionLabels;
 		this.questionValues = questionValues;
 	}
@@ -36,18 +34,15 @@ public class QLToJSON {
 		JSONArray structure = new JSONArray();
 		structure.add(title);
 		
-		JSONObject content = new JSONObject();
-		JSONObject contentList = getContentList();
-		content.put("content", contentList);
+		JSONObject content = getContentList();
 		structure.add(content);
 		qlForm.put("qlForm", structure);
 	}
 
 	private void writeToFile(String frameName) {
 		try {
-
-			
-			String path = "src/org/uva/sea/ql/output/json/"+frameName+".json";
+			String path = "src/org/uva/sea/ql/output/json/" + frameName
+					+ ".json";
 			File filePath = new File(path);
 			FileWriter file = new FileWriter(filePath.getAbsolutePath());
 			file.write(qlForm.toJSONString());
@@ -57,9 +52,6 @@ public class QLToJSON {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-
-		System.out.println(qlForm);
-
 	}
 
 	@SuppressWarnings("unchecked")
@@ -68,14 +60,13 @@ public class QLToJSON {
 		JSONArray contentList = new JSONArray();
 		for (int i = 0; i <= contentsSize; i++) {
 			JSONObject question = new JSONObject();
-			question.put("position", i);
 			question.put("question", questionLabels.get(i));
 			question.put("answer", questionValues.get(i));
 			contentList.add(question);
 		}
 		JSONObject questionsList = new JSONObject();
-		questionsList.put("questions",contentList);
-		
+		questionsList.put("questions", contentList);
+
 		return questionsList;
 	}
 
