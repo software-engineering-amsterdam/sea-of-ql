@@ -23,6 +23,6 @@ import util::ParseTreeHelper;
 
 public set[str] keywords = {
   x |
-  /prod(_, literal, _) <- getKeywords(grammar({}, #Stylesheet.definitions)), 
+  /prod(_, literal, _) <- getKeywords(grammar({}, #Form.definitions)), 
   lit(x) <- literal
 };
