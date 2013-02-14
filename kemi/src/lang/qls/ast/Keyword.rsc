@@ -11,6 +11,14 @@
 module lang::qls::ast::Keyword
 
 import Grammar;
+import lang::ql::syntax::Comment;
+import lang::ql::syntax::Int;
+import lang::ql::syntax::Layout;
+import lang::ql::syntax::Money;
+import lang::ql::syntax::String;
+import lang::ql::syntax::Type;
+import lang::qls::syntax::Color;
+import lang::qls::syntax::Keyword;
 import lang::qls::syntax::QLS;
 import lang::rascal::grammar::definition::Keywords;
 
