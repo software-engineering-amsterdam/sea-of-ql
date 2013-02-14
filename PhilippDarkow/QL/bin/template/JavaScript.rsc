@@ -14,9 +14,19 @@ public str javaScriptCreateForm(str id, list[Body] Body){
 			<for (s <- Body) { >						
 			<generateBody(id,s)>					
 			< } >
+			<createSubmitButton(id)>
+			<id>.appendChild(<id>Submit);
 			document.getElementsByTagName(\'body\')[0].appendChild(<id>);		
 		} ";
 		appendToJavaScriptFile(id, f);
 		return f;
+}
+
+str createSubmitButton(str id){
+	str d = "<id>Submit = document.createElement(\'input\');
+	<id>Submit.setAttribute(\'type\',\"submit\");	
+		<id>Submit.setAttribute(\'name\',\"<id>Submit\");		
+		<id>Submit.setAttribute(\'value\',\"Click!\");	";
+	return d;
 }
 

@@ -54,7 +54,8 @@ void createEmptyHTMLFile(str id, loc dir){
 
 void createEmptyJavaScriptFile(str id, loc dir){
 	dir += "<id>.js";
-	writeFile(dir,"var <id>;");
+	writeFile(dir,"var <id>;
+	var <id>Submit;");
 }
 
 void createEmptyCSSFile(str id, loc dir){
@@ -92,7 +93,9 @@ public void javaScriptAddCheckStatementFunction(str formId, str checkBoxId, list
 	str check = "function <checkBoxId>DoTheCheckWithStatement(cb) {
 	if(cb.checked)
 	{
+		<formId>.removeChild(<formId>Submit);
 		<ifTrue>
+		<formId>.appendChild(<formId>Submit);
 	}else {
 		<for(c <- children){>
 		<formId>.removeChild(<c>Paragraph);
