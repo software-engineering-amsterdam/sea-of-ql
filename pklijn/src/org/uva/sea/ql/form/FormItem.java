@@ -41,5 +41,6 @@ public abstract class FormItem {
 		return errorText;
 	}
 
-	public abstract List<Tuple<Ident, Value>> getAllValues();
+	public abstract boolean isFinished(Env environment);
+	public abstract List<Tuple<Ident, Value>> getAllValues(Env environment);
 }
