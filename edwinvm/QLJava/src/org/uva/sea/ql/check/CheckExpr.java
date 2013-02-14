@@ -1,6 +1,5 @@
 package org.uva.sea.ql.check;
 
-import java.util.List;
 import java.util.Map;
 
 import org.uva.sea.ql.ast.Expr;
@@ -31,19 +30,19 @@ import org.uva.sea.ql.ast.expressions.unary.Neg;
 import org.uva.sea.ql.ast.expressions.unary.Not;
 import org.uva.sea.ql.ast.expressions.unary.Pos;
 import org.uva.sea.ql.ast.visitors.checkexpr.Visitor;
-import org.uva.sea.ql.parser.Message;
+import org.uva.sea.ql.parser.ErrorMessages;
 
 public class CheckExpr implements Visitor<Boolean> {
 	
 	private final Map<Ident, Type> _typeEnv;
-	private final List<Message> _messages;
+	private final ErrorMessages _errorMessages;
 	
-	private CheckExpr(Map<Ident, Type> typeEnv, List<Message> messages) {
+	private CheckExpr(Map<Ident, Type> typeEnv, ErrorMessages messages) {
 		_typeEnv = typeEnv;
-		_messages = messages;
+		_errorMessages = messages;
 	}
 	
-	public static boolean check(Expr expr, Map<Ident, Type> typeEnv, List<Message> errors) {
+	public static boolean check(Expr expr, Map<Ident, Type> typeEnv, ErrorMessages errors) {
 		CheckExpr exprChecker = new CheckExpr(typeEnv, errors);
 		return expr.accept(exprChecker);
 	}
@@ -213,6 +212,6 @@ public class CheckExpr implements Visitor<Boolean> {
 	}
 	
 	private void addError(Expr expr, String errorMessage) {
-		_messages.add(new Message("Type error for expr " + expr.toString() + ": " + errorMessage));
+		_errorMessages.add("Type error for expr " + expr.toString() + ": " + errorMessage);
 	}
 }
