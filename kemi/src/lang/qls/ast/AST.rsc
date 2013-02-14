@@ -59,15 +59,32 @@ data Type
   ;
 
 data StyleRule
-  = widgetStyleRule(str attr, WidgetStyleValue widgetValue)
-  | widthStyleRule(str attr, int widthValue)
+  = widgetStyleRule(StyleAttr attr, WidgetStyleValue widgetValue)
+  | intStyleRule(StyleAttr attr, int intValue)
+  | stringStyleRule(StyleAttr attr, str stringValue)
+  | colorStyleRule(StyleAttr attr, str colorValue)
+  ;
+
+data StyleAttr
+  = widget(str name)
+  | width(str name)
+  | fontsize(str name)
+  | labelFontsize(str name)
+  | font(str name)
+  | labelFont(str name)
+  | color(str name)
+  | labelColor(str name)
   ;
 
 data WidgetStyleValue
   = text(str name)
   | number(str name)
+  | number(str name, real min, real max)
+  | number(str name, real min, real max, real step)
   | datepicker(str name)
   | slider(str name)
+  | slider(str name, real min, real max)
+  | slider(str name, real min, real max, real step)
   | radio(str name)
   | checkbox(str name)
   | select(str name)
@@ -82,4 +99,6 @@ anno loc SectionRule@location;
 anno loc QuestionDefinition@location;
 anno loc DefaultDefinition@location;
 anno loc StyleRule@location;
-
+anno loc Type@location;
+anno loc StyleAttr@location;
+anno loc WidgetStyleValue@location;

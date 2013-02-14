@@ -12,12 +12,12 @@ import org.uva.sea.ql.ast.statement.QuestionComputed;
 import org.uva.sea.ql.ast.statement.QuestionVariable;
 import org.uva.sea.ql.ast.statement.Statement;
 import org.uva.sea.ql.ast.statement.VarDeclaration;
-import org.uva.sea.ql.parser.IParser;
+import org.uva.sea.ql.parser.Parser;
 import org.uva.sea.ql.parser.ParseError;
-import org.uva.sea.ql.test.IStatementTest;
+import org.uva.sea.ql.test.StatementTest;
 
-public class StatementParserTest extends ParserTest implements IStatementTest {
-	private final IParser parser;
+public class StatementParserTest extends ParserTest implements StatementTest {
+	private final Parser parser;
 
 	public StatementParserTest() {
 		super();
@@ -58,7 +58,7 @@ public class StatementParserTest extends ParserTest implements IStatementTest {
 
 	@Override
 	@Test
-	public void testIfThenElse() {
+	public void testIfThen() {
 		// literal conditions
 		assertNode( IfThen.class, "if ( true ) { }" );
 		assertNode( IfThen.class, "if ( false ) { }" );
@@ -97,6 +97,12 @@ public class StatementParserTest extends ParserTest implements IStatementTest {
 
 		// nested IFs
 		assertNode( IfThen.class, "if ( true ) { if ( false ) { } }" );
+	}
+
+	@Override
+	@Test
+	public void testIfThenElse() {
+		// nested if
 		assertNode( IfThenElse.class, "if ( true ) { } else if ( true ) { if ( false ) { } }" );
 
 		// else variant
@@ -144,7 +150,7 @@ public class StatementParserTest extends ParserTest implements IStatementTest {
 
 	@Override
 	@Test
-	public void testQuestionVar() {
+	public void testQuestionVariable() {
 		assertNode( QuestionVariable.class, "\"What?\" answer: boolean" );
 	}
 

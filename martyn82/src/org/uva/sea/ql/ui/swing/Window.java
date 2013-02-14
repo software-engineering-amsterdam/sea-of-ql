@@ -23,7 +23,7 @@ public class Window extends WindowControl {
 		this.frame.setLocation( 100, 100 );
 		this.frame.setSize( 500, 500 );
 
-		this.frame.add( (JPanel) this.getPanel().getControl() );
+		this.frame.add( (JPanel) this.getPanel().getInnerControl() );
 	}
 
 	@Override

@@ -44,21 +44,19 @@ private str createPage(str title, list[Question] questions) =
   '    \<script type=\"text/javascript\" src=\"qls.js\"\>\</script\>
   '    \<script type=\"text/javascript\" src=\"checking.js\"\>\</script\>
   '    \<script type=\"text/javascript\" src=\"styling.js\"\>\</script\>
+  '    \<link rel=\"stylesheet\" type=\"text/css\" href=\"style.css\" /\>
   '    \<script\>
   '      $(document).ready(function(){
   '        validate<title>();
   '      });
   '    \</script\>
-  '    \<style type=\"text/css\" \>
-  '      .error { float: none; color: red; padding-left: .5em; vertical-align: top; }
-  '    \</style\>
   '  \</head\>
   '  \<body\>
   '    \<form id=\"<title>\" method=\"post\" action=\"form.php\"\>
   '<for(q <- questions) {>
   '      <createQuestion(title, q)>
   '<}>
-  '      \<input type=\"submit\" value=\"Submit <title>\"\>
+  '      \<input id=\"submit\" type=\"submit\" value=\"Submit <title>\"\>
   '    \</form\>
   '  \</body\>
   '\</html\>
@@ -69,7 +67,7 @@ private str createQuestion(str title, Question q:
   if(\type.name == "boolean")
     return 
     "\<div id=\"<ident.ident>Block\"\>
-    '  \<label for=\"<ident.ident>\"\><trimQuotes(text.text)>\</label\>\<br /\>
+    '  \<label for=\"<ident.ident>\"\><trimQuotes(text.text)>\</label\>
     '  \<select id=\"<ident.ident>\" name=\"<ident.ident>\" form=\"<title>\"\>
     '  \<option value=\"\"\>Choose an answer\</option\>
     '  \<option value=\"true\"\>Yes\</option\>
@@ -80,7 +78,7 @@ private str createQuestion(str title, Question q:
     
   return 
     "\<div id=\"<ident.ident>Block\"\>
-    '  \<label for=\"<ident.ident>\"\><trimQuotes(text.text)>\</label\>\<br /\>
+    '  \<label for=\"<ident.ident>\"\><trimQuotes(text.text)>\</label\>
     '  \<input type=\"<\type.name>\" id=\"<ident.ident>\" name=\"<ident.ident>\" /\>
     '\</div\>
     '";
@@ -90,7 +88,7 @@ private str createQuestion(str title, Question q:
     question(QuestionText text, Type \type, IdentDefinition ident, 
     calculatedField)) =
   "\<div id=\"<ident.ident>Block\"\>
-  '  \<label for=\"<ident.ident>\"\><trimQuotes(text.text)>\</label\>\<br /\>
+  '  \<label for=\"<ident.ident>\"\><trimQuotes(text.text)>\</label\>
   '  \<input type=\"<\type.name>\" id=\"<ident.ident>\" name=\"<ident.ident>\" disabled=\"disabled\"/\>
   '\</div\>
   '";

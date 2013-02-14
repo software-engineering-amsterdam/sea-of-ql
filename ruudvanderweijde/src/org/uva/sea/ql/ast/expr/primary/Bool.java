@@ -1,10 +1,9 @@
 package org.uva.sea.ql.ast.expr.primary;
 
-import java.util.Map;
-
-import org.uva.sea.ql.ast.type.BooleanType;
-import org.uva.sea.ql.ast.type.Type;
+import org.uva.sea.ql.type.BooleanType;
+import org.uva.sea.ql.type.Type;
 import org.uva.sea.ql.visitor.IExpressionVisitor;
+import org.uva.sea.ql.visitor.typeCheck.TypeMapper;
 
 
 public class Bool extends Primary<Boolean> {
@@ -14,6 +13,7 @@ public class Bool extends Primary<Boolean> {
 		this.value = value;
 	}
 	
+	@Override
 	public Boolean getValue() {
 		return value;
 	}
@@ -24,7 +24,7 @@ public class Bool extends Primary<Boolean> {
 	}
 
 	@Override
-	public Type typeOf(Map<Ident, Type> typeEnv) {
+	public Type typeOf(TypeMapper typeMapper) {
 		return new BooleanType();
 	}
 

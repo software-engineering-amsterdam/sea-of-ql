@@ -21,6 +21,11 @@ public class MoneyValue extends NumberValue {
 	}
 
 	@Override
+	public String toString() {
+		return Double.toString( this.value );
+	}
+
+	@Override
 	public Value add( Value value ) {
 		return value.add( this );
 	}
@@ -36,117 +41,117 @@ public class MoneyValue extends NumberValue {
 	}
 
 	@Override
-	public Value sub( Value value ) {
-		return value.sub( this );
+	public Value subtract( Value value ) {
+		return value.subtract( this );
 	}
 
 	@Override
-	protected Value sub( IntegerValue value ) {
+	protected Value subtract( IntegerValue value ) {
 		return new MoneyValue( value.getValue() - this.value );
 	}
 
 	@Override
-	protected Value sub( MoneyValue value ) {
+	protected Value subtract( MoneyValue value ) {
 		return new MoneyValue( value.getValue() - this.value );
 	}
 
 	@Override
-	public Value div( Value value ) {
-		return value.div( this );
+	public Value divide( Value value ) {
+		return value.divide( this );
 	}
 
 	@Override
-	protected Value div( IntegerValue value ) {
+	protected Value divide( IntegerValue value ) {
 		return new MoneyValue( value.getValue() / this.value );
 	}
 
 	@Override
-	protected Value div( MoneyValue value ) {
+	protected Value divide( MoneyValue value ) {
 		return new MoneyValue( value.getValue() / this.value );
 	}
 
 	@Override
-	public Value mul( Value value ) {
-		return value.mul( this );
+	public Value multiply( Value value ) {
+		return value.multiply( this );
 	}
 
 	@Override
-	protected Value mul( IntegerValue value ) {
+	protected Value multiply( IntegerValue value ) {
 		return new MoneyValue( value.getValue() * this.value );
 	}
 
 	@Override
-	protected Value mul( MoneyValue value ) {
+	protected Value multiply( MoneyValue value ) {
 		return new MoneyValue( value.getValue() * this.value );
 	}
 
 	@Override
-	public Value geq( Value value ) {
-		return value.geq( this );
+	public Value greaterThanOrEquals( Value value ) {
+		return value.greaterThanOrEquals( this );
 	}
 
 	@Override
-	protected Value geq( IntegerValue value ) {
+	protected Value greaterThanOrEquals( IntegerValue value ) {
 		return new BooleanValue( value.getValue() >= this.value );
 	}
 
 	@Override
-	protected Value geq( MoneyValue value ) {
+	protected Value greaterThanOrEquals( MoneyValue value ) {
 		return new BooleanValue( value.getValue() >= this.value );
 	}
 
 	@Override
-	public Value gt( Value value ) {
-		return value.gt( this );
+	public Value greaterThan( Value value ) {
+		return value.greaterThan( this );
 	}
 
 	@Override
-	protected Value gt( IntegerValue value ) {
+	protected Value greaterThan( IntegerValue value ) {
 		return new BooleanValue( value.getValue() > this.value );
 	}
 
 	@Override
-	protected Value gt( MoneyValue value ) {
+	protected Value greaterThan( MoneyValue value ) {
 		return new BooleanValue( value.getValue() > this.value );
 	}
 
 	@Override
-	public Value leq( Value value ) {
-		return value.leq( this );
+	public Value lesserThanOrEquals( Value value ) {
+		return value.lesserThanOrEquals( this );
 	}
 
 	@Override
-	protected Value leq( IntegerValue value ) {
+	protected Value lesserThanOrEquals( IntegerValue value ) {
 		return new BooleanValue( value.getValue() <= this.value );
 	}
 
 	@Override
-	protected Value leq( MoneyValue value ) {
+	protected Value lesserThanOrEquals( MoneyValue value ) {
 		return new BooleanValue( value.getValue() <= this.value );
 	}
 
 	@Override
-	public Value lt( Value value ) {
-		return value.lt( this );
+	public Value lesserThan( Value value ) {
+		return value.lesserThan( this );
 	}
 
 	@Override
-	protected Value lt( IntegerValue value ) {
+	protected Value lesserThan( IntegerValue value ) {
 		return new BooleanValue( value.getValue() < this.value );
 	}
 
 	@Override
-	protected Value lt( MoneyValue value ) {
+	protected Value lesserThan( MoneyValue value ) {
 		return new BooleanValue( value.getValue() < this.value );
 	}
 
 	@Override
-	public Value neg() {
+	public Value negative() {
 		return new MoneyValue( -this.value );
 	}
 
 	@Override
-	public Value pos() {
+	public Value positive() {
 		return new MoneyValue( +this.value );
 	}
 }

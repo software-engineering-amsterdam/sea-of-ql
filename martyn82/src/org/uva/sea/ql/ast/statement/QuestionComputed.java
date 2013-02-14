@@ -1,14 +1,14 @@
 package org.uva.sea.ql.ast.statement;
 
 import org.uva.sea.ql.ast.expression.Expression;
-import org.uva.sea.ql.ast.expression.Ident;
-import org.uva.sea.ql.ast.expression.literal.Str;
+import org.uva.sea.ql.ast.expression.IdentifierExpression;
+import org.uva.sea.ql.ast.expression.literal.StringLiteral;
 import org.uva.sea.ql.visitor.StatementVisitor;
 
 public class QuestionComputed extends QuestionDeclaration {
 	private final Assignment assignment;
 
-	public QuestionComputed( Str label, Assignment assignment ) {
+	public QuestionComputed( StringLiteral label, Assignment assignment ) {
 		super( label );
 		this.assignment = assignment;
 	}
@@ -22,8 +22,8 @@ public class QuestionComputed extends QuestionDeclaration {
 	}
 
 	@Override
-	public Ident getIdent() {
-		return this.assignment.getIdent();
+	public IdentifierExpression getIdentifier() {
+		return this.assignment.getIdentifier();
 	}
 
 	@Override

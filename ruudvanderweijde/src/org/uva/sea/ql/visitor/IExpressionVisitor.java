@@ -23,7 +23,7 @@ import org.uva.sea.ql.ast.expr.unary.Pos;
 
 public interface IExpressionVisitor<T> {
 	
-	// Binary
+	// Binary Expressions
 	T visit(Add ast);
 	T visit(And ast);
 	T visit(Div ast);
@@ -37,14 +37,16 @@ public interface IExpressionVisitor<T> {
 	T visit(Or  ast);
 	T visit(Sub ast);
 	
-	// Unary
+	// Unary Expressions
 	T visit(Neg ast);
 	T visit(Not ast);
 	T visit(Pos ast);
 	
-	// Primary
+	// Primary Expressions
 	T visit(Bool  ast);
-	T visit(Ident ast);
 	T visit(Int   ast);
 	T visit(StringLiteral ast);
+
+	// Ident
+	T visit(Ident ast);
 }

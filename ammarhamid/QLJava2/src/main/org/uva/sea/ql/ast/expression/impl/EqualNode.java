@@ -1,18 +1,15 @@
 package org.uva.sea.ql.ast.expression.impl;
 
+import org.uva.sea.ql.ast.expression.BinaryNode;
 import org.uva.sea.ql.ast.expression.ExprNode;
-import org.uva.sea.ql.ast.value.Value;
-import org.uva.sea.ql.ast.value.impl.BooleanValue;
+import org.uva.sea.ql.value.Value;
 
-public class EqualNode extends ExprNode
+public class EqualNode extends BinaryNode
 {
-    private final ExprNode lhs;
-    private final ExprNode rhs;
 
     public EqualNode(final ExprNode lhs, final ExprNode rhs)
     {
-        this.lhs = lhs;
-        this.rhs = rhs;
+        super(lhs, rhs);
     }
 
     @Override
@@ -20,15 +17,12 @@ public class EqualNode extends ExprNode
     {
         final Value value1 = this.lhs.evaluate();
         final Value value2 = this.rhs.evaluate();
-
-        return new BooleanValue(value1.evaluate().equals(value2.evaluate()));
+        return value1.equal(value2);
     }
 
     @Override
-    public String toTreeString(final String indent)
+    protected String getOperator()
     {
-        return '\n' + indent + "==" + lhs.toTreeString(indent + "  ")
-                + rhs.toTreeString(indent + "  ");
-
+        return "==";
     }
 }

@@ -1,4 +1,4 @@
-form calculatedField {
+form calculatedField { 
   "What is your age?"
     integer number
   "Your age times three equals:"
