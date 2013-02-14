@@ -55,14 +55,14 @@ questionDeclaration returns [Stat stat]
 	{stat = new AnswerableStat(new Ident($Ident.text),$String.text,$identType.type);}
 	//Computed question:
 	  (^(ASSIGNMENT_EXPRESSION expression) 
-	  {stat = new VisibleComputetStat(new Ident($Ident.text),$String.text,$expression.result,$identType.type);} )?)
+	  {stat = new VisibleComputetStat(new Ident($Ident.text),$String.text,$expression.result,$identType.type);} )?) 
 		
 	 ;
 
 
 variableDeclaration returns [Stat stat]
 	: ^(ASSIGNMENT ^(IDENT Ident ) ^(ASSIGNMENT_TYPE identType) ^(ASSIGNMENT_EXPRESSION  expression))
-	{stat = new HiddenComputetStat(new Ident($Ident.text),$expression.result,$identType.type);}
+	{stat = new HiddenComputetStat(new Ident($Ident.text),$expression.result,$identType.type);} 
 	;
 	 
 

@@ -48,7 +48,7 @@ public class CheckStat implements StatementVisitor {
 	@Override
 	public void visit(AnswerableStat stat) {
 		checkLabel(stat);
-		checkStatType(stat, stat.getType());
+		checkStatType(stat, stat.getIdent().typeOf(typeEnv));//getType());
 	}
 
 	@Override
@@ -80,10 +80,10 @@ public class CheckStat implements StatementVisitor {
 	}
 
 	private void checkStatType(TypedStat stat, Type typeOf) {
-
-		if (!stat.getType().isCompatibleTo(typeOf)) {
+		//if (!stat.getType().isCompatibleTo(typeOf)) {
+		if (!stat.getIdent().typeOf(typeEnv).isCompatibleTo(typeOf)) {
 			addError(stat, "Given type:" + typeOf.toString()
-					+ " and computed type:" + stat.getType().toString()
+					+ " and computed type:" + stat.getIdent().typeOf(typeEnv)//getType().toString()
 					+ "do not match");
 		}
 	}

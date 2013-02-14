@@ -7,8 +7,8 @@ import org.uva.sea.ql.ast.visitor.StatementVisitor;
 
 public class HiddenComputetStat extends ComputedStat{
 
-	public HiddenComputetStat(Ident ident,Expr computableExpr , Type type) {
-		super(ident, "", type,computableExpr);
+	public HiddenComputetStat(Ident ident,Expr computableExpr, Type type) {
+		super(ident, "",type,computableExpr);
 	}
 
 	@Override

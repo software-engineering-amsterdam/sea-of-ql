@@ -10,8 +10,6 @@ public class Ident extends Expr {
 	private String name;
 	
 	public Ident(String idName) { 
-		
-		//super(this);
 		this.name = idName;
 	}
 	

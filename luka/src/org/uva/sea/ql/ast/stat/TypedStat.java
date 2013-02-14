@@ -11,7 +11,7 @@ public abstract class TypedStat extends Stat{
 	public TypedStat(Ident ident, String label, Type type){
 		this.ident = ident;
 		this.label = label;
-		this.type =type;
+	this.type =type;
 	}
 	
 	public Ident getIdent(){
