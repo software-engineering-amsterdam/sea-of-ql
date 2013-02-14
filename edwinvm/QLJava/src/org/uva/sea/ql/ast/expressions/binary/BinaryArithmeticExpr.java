@@ -1,12 +1,10 @@
 package org.uva.sea.ql.ast.expressions.binary;
 
-import java.util.Map;
-
 import org.uva.sea.ql.ast.Expr;
 import org.uva.sea.ql.ast.Type;
 import org.uva.sea.ql.ast.expressions.BinaryExpr;
-import org.uva.sea.ql.ast.expressions.literal.Ident;
 import org.uva.sea.ql.ast.types.Numeric;
+import org.uva.sea.ql.parser.SupportedTypes;
 
 public abstract class BinaryArithmeticExpr extends BinaryExpr {
 	protected BinaryArithmeticExpr(Expr lhs, Expr rhs) {
@@ -14,7 +12,7 @@ public abstract class BinaryArithmeticExpr extends BinaryExpr {
 	}
 	
 	@Override
-	public Type typeOf(Map<Ident, Type> typeEnv) {
+	public Type typeOf(SupportedTypes supportedTypes) {
 		return new Numeric();
 	}
 }

@@ -1,7 +1,5 @@
 package org.uva.sea.ql.check;
 
-import java.util.Map;
-
 import org.uva.sea.ql.ast.Expr;
 import org.uva.sea.ql.ast.Type;
 import org.uva.sea.ql.ast.expressions.LiteralExpr;
@@ -31,19 +29,20 @@ import org.uva.sea.ql.ast.expressions.unary.Not;
 import org.uva.sea.ql.ast.expressions.unary.Pos;
 import org.uva.sea.ql.ast.visitors.checkexpr.Visitor;
 import org.uva.sea.ql.parser.ErrorMessages;
+import org.uva.sea.ql.parser.SupportedTypes;
 
 public class CheckExpr implements Visitor<Boolean> {
 	
-	private final Map<Ident, Type> _typeEnv;
+	private final SupportedTypes _supportedTypes;
 	private final ErrorMessages _errorMessages;
 	
-	private CheckExpr(Map<Ident, Type> typeEnv, ErrorMessages messages) {
-		_typeEnv = typeEnv;
+	private CheckExpr(SupportedTypes supportedTypes, ErrorMessages messages) {
+		_supportedTypes = supportedTypes;
 		_errorMessages = messages;
 	}
 	
-	public static boolean check(Expr expr, Map<Ident, Type> typeEnv, ErrorMessages errors) {
-		CheckExpr exprChecker = new CheckExpr(typeEnv, errors);
+	public static boolean check(Expr expr, SupportedTypes supportedTypes, ErrorMessages errors) {
+		CheckExpr exprChecker = new CheckExpr(supportedTypes, errors);
 		return expr.accept(exprChecker);
 	}
 	
@@ -101,8 +100,8 @@ public class CheckExpr implements Visitor<Boolean> {
 			return false;
 		}
 		
-		Type lhsType = expr.getLhs().typeOf(_typeEnv);
-		Type rhsType = expr.getRhs().typeOf(_typeEnv);
+		Type lhsType = expr.getLhs().typeOf(_supportedTypes);
+		Type rhsType = expr.getRhs().typeOf(_supportedTypes);
 		
 		// Check if Types are compatible with BinaryNumericExpr
 		if (!(lhsType.isCompatibleToNumeric() && rhsType.isCompatibleToNumeric())) {
@@ -123,8 +122,8 @@ public class CheckExpr implements Visitor<Boolean> {
 			return false;
 		}
 		
-		Type lhsType = expr.getLhs().typeOf(_typeEnv);
-		Type rhsType = expr.getRhs().typeOf(_typeEnv);
+		Type lhsType = expr.getLhs().typeOf(_supportedTypes);
+		Type rhsType = expr.getRhs().typeOf(_supportedTypes);
 		
 		// Check if Types are compatible with BinaryBoolExpr
 		if (!(lhsType.isCompatibleToBool() && rhsType.isCompatibleToBool())) {
@@ -145,8 +144,8 @@ public class CheckExpr implements Visitor<Boolean> {
 			return false;
 		}
 		
-		Type lhsType = expr.getLhs().typeOf(_typeEnv);
-		Type rhsType = expr.getRhs().typeOf(_typeEnv);
+		Type lhsType = expr.getLhs().typeOf(_supportedTypes);
+		Type rhsType = expr.getRhs().typeOf(_supportedTypes);
 		
 		// Check if Types are compatible with BinaryBoolExpr
 		if (!(lhsType.isCompatibleToBool() && rhsType.isCompatibleToBool())) {
@@ -166,7 +165,7 @@ public class CheckExpr implements Visitor<Boolean> {
 			return false;
 		}
 		
-		Type exprType = expr.typeOf(_typeEnv);
+		Type exprType = expr.typeOf(_supportedTypes);
 		
 		// Check if Type is compatible with UnaryNumericExpr
 		if (!exprType.isCompatibleToNumeric()) {
@@ -186,7 +185,7 @@ public class CheckExpr implements Visitor<Boolean> {
 			return false;
 		}
 		
-		Type exprType = expr.typeOf(_typeEnv);
+		Type exprType = expr.typeOf(_supportedTypes);
 		
 		// Check if Type is compatible with UnaryLogicalExpr
 		if (!exprType.isCompatibleToBool()) {
@@ -199,7 +198,7 @@ public class CheckExpr implements Visitor<Boolean> {
 	}
 	
 	private Boolean checkLiteralExpr(LiteralExpr expr, String className) {
-		Type exprType = expr.typeOf(_typeEnv);
+		Type exprType = expr.typeOf(_supportedTypes);
 		
 		// Check if Type is compatible with LiteralExpr
 		if (!exprType.isCompatibleTo(exprType)) {
