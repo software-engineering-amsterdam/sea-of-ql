@@ -25,6 +25,7 @@ import org.uva.sea.ql.ast.type.Type;
 import org.uva.sea.ql.ast.visitor.CheckExpr;
 import org.uva.sea.ql.ast.visitor.CheckStat;
 import org.uva.sea.ql.questionnaire.Questionnaire;
+import org.uva.sea.ql.questionnaire.QuestionnaireProcessor;
 
 
 public class __Test__ {
@@ -50,11 +51,15 @@ public class __Test__ {
 
 			    
 			    Questionnaire questionnaire = walker.walk();
-			    Block questionnaireStatementsBlock = questionnaire.getBlock();
+			
 			    Map<Ident,Type> typeEnv = parser.typeEnv;
-			    List<ErrorMessage> errorList = new ArrayList<ErrorMessage>();
-			    CheckStat.checkStatBlock(questionnaireStatementsBlock, typeEnv, errorList);
-			    printErrorList(errorList);
+			    
+			    QuestionnaireProcessor processor = new QuestionnaireProcessor(questionnaire, typeEnv);
+			    processor.process();
+//			    Block questionnaireStatementsBlock = questionnaire.getBlock();
+			  //  List<ErrorMessage> errorList = new ArrayList<ErrorMessage>();
+			//    CheckStat.checkStatBlock(questionnaireStatementsBlock, typeEnv, errorList);
+			//    printErrorList(errorList);
 //			    List<ErrorMessage> errorList = new ArrayList<ErrorMessage>();
 			    
 //			    for(Stat s : questionnaireStatementsBlock.getStatements()){
@@ -83,17 +88,6 @@ public class __Test__ {
 		}
 	}
 	
-	private static void printErrorList(List<ErrorMessage> errorList){
-		for(ErrorMessage error : errorList){
-			System.err.println(error.getErrorMeesage());
-		}
-	}
-	
-	public static void printTypeEnf(Map<Ident,Type> typeEnv){
-		for(Ident id : typeEnv.keySet()){
-			System.out.println(id.toString()+" - "+ typeEnv.get(id).toString());
-		}
-	}
 	
 	
 	

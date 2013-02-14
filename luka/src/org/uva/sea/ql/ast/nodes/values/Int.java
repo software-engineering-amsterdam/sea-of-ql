@@ -143,5 +143,10 @@ public class Int extends Value {
 	protected Value gEqInt(Int arg) {
 		return new Bool(arg.getValue() >= getValue());
 	}
+	
+	@Override
+	public String toString() {
+		return "Int("+this.value+")";
+	}
 
 }

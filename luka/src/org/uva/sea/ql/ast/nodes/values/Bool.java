@@ -76,4 +76,8 @@ public class Bool extends Value {
 		return new Bool(!arg.getValue());
 	}
 
+	@Override
+	public String toString() {
+		return "Bool("+this.value+")";
+	}
 }

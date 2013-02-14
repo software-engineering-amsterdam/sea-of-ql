@@ -25,14 +25,11 @@ public class CheckStat implements StatementVisitor {
 		this.typeEnv = typeEnv;
 		this.errorList = errorList;
 	}
-	
-	public static void checkStatBlock(Block block,Map<Ident, Type> typeEnv,List<ErrorMessage> errorList ){
-		CheckStat statChecker = new CheckStat(typeEnv,errorList);
+
+	public static void checkStatBlock(Block block, Map<Ident, Type> typeEnv,
+		List<ErrorMessage> errorList) {
+		CheckStat statChecker = new CheckStat(typeEnv, errorList);
 		block.accept(statChecker);
-	}
-	
-	private void addError(Stat stat, String message){
-		this.errorList.add(new ErrorMessage(stat, message));
 	}
 
 	@Override
@@ -42,29 +39,6 @@ public class CheckStat implements StatementVisitor {
 		}
 	}
 
-	private void checkCondition(ConditionalStat stat) {
-		checkExpr(stat.getExpr());
-		if(stat.getBody().getStatements().isEmpty()){
-			addError(stat, "Invalid if block size, must not be empty");
-		}
-	}
-
-	private boolean checkExpr(Expr expr) {
-		return CheckExpr.check(expr, typeEnv, errorList);
-	}
-
-	private void checkStatType(TypedStat stat, Type typeOf) {
-		
-		 if(!stat.getType().isCompatibleTo(typeOf)){
-			 addError(stat, "Given type:"+typeOf.toString()+ " and computed type:"+ stat.getType().toString()+ "do not match");
-		 }
-	}
-	private void checkLabel(AnswerableStat stat) {
-		if(stat.getLabel() == null || stat.getLabel().isEmpty()){
-			addError(stat, "Empty label for user question");
-		}
-		
-	}
 	@Override
 	public void visit(ComputedStat stat) {
 		checkStatType(stat, stat.getExpr().typeOf(typeEnv));
@@ -77,7 +51,6 @@ public class CheckStat implements StatementVisitor {
 		checkStatType(stat, stat.getType());
 	}
 
-
 	@Override
 	public void visit(IfThenStat stat) {
 		checkCondition(stat);
@@ -89,6 +62,37 @@ public class CheckStat implements StatementVisitor {
 		checkCondition(stat);
 		stat.getBody().accept(this);
 		stat.getElseBody().accept(this);
+	}
+
+	private void addError(Stat stat, String message) {
+		this.errorList.add(new ErrorMessage(stat, message));
+	}
+
+	private void checkCondition(ConditionalStat stat) {
+		checkExpr(stat.getExpr());
+		if (stat.getBody().getStatements().isEmpty()) {
+			addError(stat, "Invalid if block size, must not be empty");
+		}
+	}
+
+	private boolean checkExpr(Expr expr) {
+		return CheckExpr.check(expr, typeEnv, errorList);
+	}
+
+	private void checkStatType(TypedStat stat, Type typeOf) {
+
+		if (!stat.getType().isCompatibleTo(typeOf)) {
+			addError(stat, "Given type:" + typeOf.toString()
+					+ " and computed type:" + stat.getType().toString()
+					+ "do not match");
+		}
+	}
+
+	private void checkLabel(AnswerableStat stat) {
+		if (stat.getLabel() == null || stat.getLabel().isEmpty()) {
+			addError(stat, "Empty label for user question");
+		}
+
 	}
 
 }

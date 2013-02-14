@@ -31,5 +31,8 @@ public class Money extends Value{
 	}
 
 
-
+	@Override
+	public String toString() {
+		return "Money("+this.value+")";
+	}
 }

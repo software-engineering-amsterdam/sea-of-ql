@@ -26,7 +26,6 @@ import org.uva.sea.ql.ast.nodes.values.Int;
 import org.uva.sea.ql.ast.nodes.values.Money;
 import org.uva.sea.ql.ast.nodes.values.Str;
 import org.uva.sea.ql.ast.type.Type;
-import org.uva.sea.ql.parser.antlr.__Test__;
 
 public class CheckExpr implements Visitor<Boolean> {
 

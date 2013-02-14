@@ -28,6 +28,10 @@ public class Str extends Value {
 		return visitor.visit(this);
 	}
 
+	@Override
+	public String toString() {
+		return "Str("+this.value+")";
+	}
 //	@Override
 //	public Type typeOf(Map<Ident, Type> typeEnv) {
 //		return new StringType();

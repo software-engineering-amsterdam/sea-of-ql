@@ -1,5 +1,8 @@
 package org.uva.sea.ql.ast.type;
 
+import org.uva.sea.ql.ast.nodes.values.Bool;
+import org.uva.sea.ql.ast.nodes.values.Value;
+
 
 public class BoolType extends Type {
 
@@ -15,4 +18,13 @@ public class BoolType extends Type {
 	     return true;
 	}
 	
+	@Override
+	public String toString() {
+		return "BoolType";
+	}
+
+	@Override
+	public Value getDefaultValue() {
+		return new Bool(false);
+	}
 }

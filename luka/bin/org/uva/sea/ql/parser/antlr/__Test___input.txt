@@ -9,7 +9,7 @@ if(!hasCustomerLove){
 lovePrice: "How much would you pay for love?" money
 }
 hasMaintLoan: "Did you enter a loan for maintenance/reconstruction?" boolean
-if(!hasSoldHouse<(hasBoughtHouse * hasBoughtHouse)+ (2*3)){
+if(hasSoldHouse<(hasBoughtHouse * hasBoughtHouse)+ (2*3)){
 sellingPrice: "Price the house was sold for:" money
 privateDebt: "Private debts for the sold house:" money
 valueResidue: "Value residue:" money(sellingPrice - privateDebt)
