@@ -22,9 +22,9 @@ public str capitalize(str s) {
 * @return str a string with java script code
 * @author Philipp
 */
-private str generateQuestionLabel(str id, str label){
-	return "var <id>Label = document.createElement(\'label\');
-	 <id>Label.htmlFor = <id>;
+private str generateQuestionLabel(str formId, str id, str label){
+	javaScriptAddGlobalVariable(formId, "var <id>Label = document.createElement(\'label\');");
+	return "<id>Label.htmlFor = <id>;
 	 <id>Label.innerHTML = <label>; ";
 }
 
@@ -33,9 +33,9 @@ private str generateQuestionLabel(str id, str label){
 * @return str a string with java script code
 * @author Philipp
 */
-private str createEndingLabel(str id){
-	return "var <id>EndLabel = document.createElement(\'label\');
-	 <id>EndLabel.htmlFor = <id>;
+private str createEndingLabel(str formId, str id){
+	javaScriptAddGlobalVariable(formId, "var <id>EndLabel = document.createElement(\'label\');");
+	return "<id>EndLabel.htmlFor = <id>;
 	 <id>EndLabel.innerHTML = \"Yes\"; 
 	 <id>EndLabel.class = \"<id>EndClass\" ";
 }
@@ -65,9 +65,9 @@ str specifyAttributesNumeric(str id){
 * @return p the paragraph as a string
 * @author Philipp
 */
-str generateParagraph(str id, str att, str lab, str endlab){
-	str p = "var <id>Paragraph = document.createElement(\'p\');
-	<id>Paragraph.setAttribute(\"class\", <id>Paragraph);
+str generateParagraph(str id, str att, str lab, str endlab, str formId){
+	javaScriptAddGlobalVariable(formId, "var <id>Paragraph = document.createElement(\'p\');");
+	str p = "<id>Paragraph.setAttribute(\"class\", \'<id>Paragraph\');
 	<id>Paragraph.setAttribute(\"id\", <id>Paragraph);
 	<id>Paragraph.appendChild(<id>Label);
 	<id>Paragraph.appendChild(<id>);
@@ -81,9 +81,9 @@ str generateParagraph(str id, str att, str lab, str endlab){
 * @return p the paragraph as a string
 * @author Philipp
 */
-str generateParagraph(str id, str label, str attributes){
-	str p = "var <id>Paragraph = document.createElement(\'p\');
-	<id>Paragraph.setAttribute(\"class\", <id>Paragraph);
+str generateParagraph(str id, str label, str attributes,str formId){
+	javaScriptAddGlobalVariable(formId, "var <id>Paragraph = document.createElement(\'p\');");
+	str p = "<id>Paragraph.setAttribute(\"class\", \'<id>Paragraph\');
 	<id>Paragraph.setAttribute(\"id\", <id>Paragraph);
 	<id>Paragraph.appendChild(<id>Label);
 	<id>Paragraph.appendChild(<id>);
@@ -95,18 +95,16 @@ str generateParagraph(str id, str label, str attributes){
 */
 private str generateQuestion(str formId, question:easyQuestion(str id, str labelQuestion, Type tp)){
 	println("in generate Question <question>");
-	str label = generateQuestionLabel(id, labelQuestion);
+	str label = generateQuestionLabel(formId, id, labelQuestion);
 	if(tp == boolean()){	
+		javaScriptAddGlobalVariable(formId, "var <id> = document.createElement(\"input\");");
 		str attributes = specifyAttributesCheckbox(id);
-		str check = createEndingLabel(id);
-		str paragraph = generateParagraph(id, label, attributes, check);
+		str check = createEndingLabel(formId, id);
+		str paragraph = generateParagraph(id, label, attributes, check, formId);
 		str cssLabel = cssEndLabels(id);
 		appendToCssFile(formId, cssLabel);
-		// if a checkbox we need to create a function to check the status
-		//javaScriptAddCheckFunction(formId, id);
 		javaScriptAddCheckFunction(formId, id);
-		return "var <id> = document.createElement(\"input\");
-		<attributes> 
+		return "<attributes> 
 		<label>
 		<check>
 		<paragraph>
@@ -115,7 +113,7 @@ private str generateQuestion(str formId, question:easyQuestion(str id, str label
 	}else if(tp == money()){  // add the moment just a textfield
 		println("in money generate Easy Question");
 		str attributes = specifyAttributesNumeric(id);
-		str paragraph = generateParagraph(id, label, attributes);
+		str paragraph = generateParagraph(id, label, attributes, formId);
 		return "var <id> = document.createElement(\"input\");
 		<attributes>
 		<label>
@@ -125,7 +123,7 @@ private str generateQuestion(str formId, question:easyQuestion(str id, str label
 	}else if(tp == integer()){ // add the moment just a textfield
 		println("in integer generate Easy Question");
 		str attributes = specifyAttributesNumeric(id);
-		str paragraph = generateParagraph(id, label, attributes);
+		str paragraph = generateParagraph(id, label, attributes, formId);
 		return "var <id> = document.createElement(\"input\");
 		<attributes>
 		<label>
@@ -135,7 +133,7 @@ private str generateQuestion(str formId, question:easyQuestion(str id, str label
 	}else if(tp == string()){
 		println("in string generate Easy Question");
 		str attributes = specifyAttributesNumeric(id);
-		str paragraph = generateParagraph(id, label, attributes);
+		str paragraph = generateParagraph(id, label, attributes, formId);
 		return "var <id> = document.createElement(\"input\");
 		<attributes>
 		<label>
@@ -162,16 +160,17 @@ str generateStatement(str formId, statement:ifStat(Expression exp, list[Body] th
 	println("EXP : <toString(getChildren(exp))>");
 	str g = toString(getChildren(exp)[0]);
 	println("ggg : <g>");
-	javaScriptAddCheckStatementFunction(formId, g);
+	//javaScriptAddCheckStatementFunction(formId, g);  // need to get the body inside the method
 	println("Body ThenPart : <thenPart>");
+	list[str] k = [];
 	for(s <- thenPart){
-		println("BUU : <s>");
+		println("BUU : <s.question.id>");
+		k += generateBody(formId, s);
+		println("KK : <k>");		
 	}
-	//bool checkExp = checkResultExpression();
-	//return "if(OwnHouse){
-	//	console.log(OwnHouse);
-	//	console.log(\'A if statement\');
-	//}";
+	javaScriptAddCheckStatementFunction(formId, g, k);
+	println("KKKKK : <k>");
+
 	return "<g>.setAttribute(\'onchange\',\"<g>DoTheCheckWithStatement(this)\");";
 }
 

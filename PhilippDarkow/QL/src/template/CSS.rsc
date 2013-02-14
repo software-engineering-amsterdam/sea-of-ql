@@ -10,7 +10,3 @@ public str cssEndLabels(str id){
  
 	return res;
 }
-
-
-
-//boughtHouseEndClass

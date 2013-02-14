@@ -1,6 +1,7 @@
 module template::File
 
 import IO;
+import Prelude;
 import template::StringTemplate;
 import template::CSS;
 import template::JavaScript;
@@ -56,6 +57,7 @@ public void createQLOnHarddisk(str id){
 	createEmptyHTMLFile(id, dir);
 	createEmptyJavaScriptFile(id, dir);
 	createEmptyCSSFile(id, dir);
+	createValidatorFile(dir);
 }
 
 void createEmptyHTMLFile(str id, loc dir){
@@ -95,16 +97,30 @@ public void javaScriptAddCheckFunction(str formId, str checkBoxId) {
 	appendToJavaScriptFile(formId, "\n <check>");
 }
 
-public void javaScriptAddCheckStatementFunction(str formId, str checkBoxId){
+public void javaScriptAddCheckStatementFunction(str formId, str checkBoxId, list[str] thenPart ){
+	println("THENPART!!!! : <thenPart[0]>");
+	str s = "";
+	for(i <- thenPart){
+		println("in Loop <i>");
+		//if(/var\s[\w\s\=\.\(\)\"]*\;/ := i){
+		//	println("MAKE GLOBAL");
+		//}else{
+		s += i;
+		//}
+	}
+	println("SS!$%& : <s>");
 	str check = "function <checkBoxId>DoTheCheckWithStatement(cb) {
-		if(cb)
-	{ console.log(\'!!!!!!!!\');
-	var wnHouse = document.createElement(\"input\");
-	wnHouse.setAttribute(\'type\',\"text\");
-		wnHouse.setAttribute(\'id\',wnHouse);
-		wnHouse.setAttribute(\'name\',wnHouse);
-		wnHouse.setAttribute(\'value\',wnHouse);
-		<formId>.appendChild(wnHouse);  }
+		if(cb.checked)
+	{
+		<s>
+	}else {
+		<formId>.removeChild(boughtHouseParagraph);
+	}
 	}";
 	appendToJavaScriptFile(formId, "\n <check>");
+}
+
+public void javaScriptAddGlobalVariable(str formId, str globalID){
+	println("in add global");
+	appendToJavaScriptFile(formId, globalID);
 }
