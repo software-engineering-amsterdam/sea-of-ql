@@ -11,16 +11,13 @@
 module lang::qls::analysis::WidgetTypeChecker
 
 import IO;
-import util::IDE;
-import util::Math;
-
+import lang::ql::analysis::State;
 import lang::ql::ast::AST;
 import lang::qls::analysis::Messages;
-import lang::qls::analysis::SemanticChecker;
 import lang::qls::ast::AST;
 import lang::qls::util::StyleHelper;
-
-import lang::qls::util::ParseHelper;
+import util::IDE;
+import util::Math;
 
 private map[Type, list[str]] allowedWidgets = (
   booleanType("boolean"):
@@ -53,7 +50,7 @@ private set[Message] unallowedDefaultWidgetErrors(Stylesheet s) =
   };
 
 private set[Message] unallowedQuestionWidgetErrors(Stylesheet s) {
-  typeMap = getTypeMap(getAccompanyingForm(s));
+  TypeMap typeMap = getTypeMap(getAccompanyingForm(s));
   return 
     { 
       typeWithInvalidWidget(widget.name, \type.name, r@location) |
@@ -66,7 +63,7 @@ private set[Message] unallowedQuestionWidgetErrors(Stylesheet s) {
     };
 }
 
-private str INTEGER_IDENT = "integer";
+private str INTEGER_IDENT_NAME = "integer";
 
 private bool isInteger(num number) =
   round(number) == number;
@@ -82,7 +79,7 @@ private set[Message] unallowedDefaultIntegerRangeErrors(Stylesheet s) =
   {
     invalidRangeType(d.ident.name, r@location) |
     d <- getDefaultDefinitions(s),
-    d.ident.name == INTEGER_IDENT,
+    d.ident.name == INTEGER_IDENT_NAME,
     r:widgetStyleRule(_, widget) <- d.styleRules,
     widget.min?,
     !hasIntegerRange(widget)
@@ -97,7 +94,7 @@ private set[Message] unallowedQuestionIntegerRangeErrors(Stylesheet s) {
       d.styleRules?,
       identDefinition(d.ident) in typeMap,
       \type := typeMap[identDefinition(d.ident)],
-      \type.name == INTEGER_IDENT,
+      \type.name == INTEGER_IDENT_NAME,
       r:widgetStyleRule(_, widget) <- d.styleRules,
       widget.min?,
       !hasIntegerRange(widget)
