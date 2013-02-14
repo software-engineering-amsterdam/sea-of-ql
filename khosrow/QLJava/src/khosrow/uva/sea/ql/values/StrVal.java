@@ -23,6 +23,6 @@ public class StrVal extends Value {
 	
 	@Override
 	protected boolean compareToString(StrVal arg) {
-		return arg.getValue() == getValue();
+		return arg.getValue().equalsIgnoreCase(getValue());
 	}
 }

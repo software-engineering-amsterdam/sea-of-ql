@@ -74,9 +74,28 @@ public class IfElseStatement extends IfStatement {
 	}
 	
 	@Override
-	public List<Tuple<Ident, Value>> getAllValues() {
-		List<Tuple<Ident, Value>> values = elseBodyEnvironment.getAllValues();
-		values.addAll(super.getAllValues());
+	public boolean isFinished(Env environment) {
+		if (!isExpressionValid(environment)) {
+			for (FormItem f : elseBody) {
+				if (!f.isFinished(elseBodyEnvironment)) {
+					return false;
+				}
+			}
+		}
+		else {
+			return super.isFinished(environment);
+		}
+		return true;
+	}
+	
+	@Override
+	public List<Tuple<Ident, Value>> getAllValues(Env environment) {
+		List<Tuple<Ident, Value>> values = super.getAllValues(environment);
+		if (!isExpressionValid(environment)) {
+			for (FormItem f : elseBody) {
+				values.addAll(f.getAllValues(elseBodyEnvironment));
+			}
+		}
 		return values;
 	}
 }

@@ -19,7 +19,7 @@ public class Question extends FormItem {
 	protected final Ident id;
 	protected final String label;
 	protected final Type questionType;
-	protected JLabel questionLabel;
+	protected final JLabel questionLabel;
 	protected JComponent answerComponent;
 	
 	public Question(Ident id, String question, Type questionType) {
@@ -84,7 +84,14 @@ public class Question extends FormItem {
 	}
 	
 	@Override
-	public List<Tuple<Ident, Value>> getAllValues() {
-		return new ArrayList<Tuple<Ident, Value>>();
+	public boolean isFinished(Env environment) {
+		return questionType.hasValue();
+	}
+	
+	@Override
+	public List<Tuple<Ident, Value>> getAllValues(Env environment) {
+		ArrayList<Tuple<Ident, Value>> values = new ArrayList<Tuple<Ident, Value>>();
+		values.add(new Tuple<Ident, Value>(id, environment.getValue(id)));
+		return values;
 	}
 }

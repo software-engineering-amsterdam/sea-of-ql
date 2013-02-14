@@ -1,4 +1,4 @@
-package org.uva.sea.ql.interpreter;
+package org.uva.sea.ql.gui;
 
 import java.awt.Image;
 import java.awt.Toolkit;
@@ -30,15 +30,16 @@ import com.apple.eawt.Application;
 public class FormBuilder implements ActionListener {
 	
 	private final String NEWLINECHAR = "\n";
-	private IParse parser;
-	private JFrame mainWindow;
-	private JButton selectFormButton;
-	private JButton backToMainButton;
+	private final IParse parser;
+	private final JButton selectFormButton;
+	private final JFrame mainWindow;
+	private final JButton backToMainButton;
 	
 	public FormBuilder() {
 		mainWindow = new JFrame();
 		mainWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		mainWindow.setLocationRelativeTo(null);
+		parser = new ANTLRParser();
 		Application application = Application.getApplication();
 		Image dockImage = Toolkit.getDefaultToolkit().getImage(System.getProperty("user.dir") + "/lib/logo.png");
 		application.setDockIconImage(dockImage);
@@ -56,7 +57,6 @@ public class FormBuilder implements ActionListener {
 	}
 	
 	public void displayForm(String formText) {
-		parser = new ANTLRParser();
 		try {
 			Form form = parser.parseForm(formText);
 			if (form.isFormValid()) {
