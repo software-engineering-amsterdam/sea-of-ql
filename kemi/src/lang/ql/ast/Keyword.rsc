@@ -10,13 +10,12 @@
 
 module lang::ql::ast::Keyword
 
+import Grammar;
+import lang::ql::syntax::QL;
+import lang::rascal::grammar::definition::Keywords;
+
 public set[str] keywords = {
-  "boolean",
-  "integer",
-  "money",
-  "date",
-  "string",
-  "true",
-  "false",
-  "form"
+  x | /prod(_, literal, _) <- getKeywords(grammar({}, #Form.definitions)), 
+  i <- literal, 
+  lit(x) := i
 };
