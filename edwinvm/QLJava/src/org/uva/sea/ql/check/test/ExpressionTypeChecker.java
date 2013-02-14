@@ -16,14 +16,19 @@ import org.uva.sea.ql.ast.types.Money;
 import org.uva.sea.ql.ast.types.Numeric;
 import org.uva.sea.ql.ast.types.Str;
 import org.uva.sea.ql.check.CheckExpr;
+import org.uva.sea.ql.parser.IParser;
 import org.uva.sea.ql.parser.Message;
+import org.uva.sea.ql.parser.ParseError;
+import org.uva.sea.ql.parser.antlr.check.ANTLRParserExpressions;
 
 public class ExpressionTypeChecker {
 	
+	private IParser _parser;
 	private final HashMap<Ident, Type> _typeEnv;
 	private final List<Message> _errorMessages;
 	
 	public ExpressionTypeChecker() {
+		_parser = new ANTLRParserExpressions();
 		_errorMessages = new ArrayList<Message>();
 		
 		_typeEnv = new HashMap<Ident, Type>();
@@ -33,6 +38,10 @@ public class ExpressionTypeChecker {
 		_typeEnv.put(new Ident("money"),   new Money());
 		_typeEnv.put(new Ident("numeric"), new Numeric());
 		_typeEnv.put(new Ident("str"),     new Str());
+	}
+	
+	public Expr parseExpression(String input) throws ParseError {
+		return (Expr) _parser.parse(input);
 	}
 	
 	public void isAValidExpression(Expr expr) {
