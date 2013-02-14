@@ -40,17 +40,12 @@ private str hideElement(str name) =
 private str assignVar(str ident) =
   "var <ident> = getFormValue(\"#<ident>\");";
   
-private set[str] getDirectDescendingIdents(Statement cond) {
-  list[Statement] items = cond.ifPart.body;
-  
-  for(ei <- cond.elseIfs)
-    items += ei.body;
-
-  for(ep <- cond.elsePart)
-    items += ep.body;
-  
-  return getDirectDescendingIdents(items);
-}
+private set[str] getDirectDescendingIdents(Statement cond) =
+  getDirectDescendingIdents(
+    cond.ifPart.body + 
+    [*ei.body | ei <- cond.elseIfs] +
+    [*ep.body | ep <- cond.elsePart]
+  );
 
 private set[str] getDirectDescendingIdents(list[Statement] items) =
   {q.answerIdentifier.ident | i <- items, question(Question q) := i};
