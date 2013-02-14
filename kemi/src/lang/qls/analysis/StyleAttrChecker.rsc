@@ -11,13 +11,12 @@
 module lang::qls::analysis::StyleAttrChecker
 
 import IO;
-import util::IDE;
-
+import lang::ql::analysis::State;
 import lang::ql::ast::AST;
 import lang::qls::analysis::Messages;
-import lang::qls::analysis::SemanticChecker;
 import lang::qls::ast::AST;
 import lang::qls::util::StyleHelper;
+import util::IDE;
 
 private list[str] defaultAttrs =
   ["widget", "label-fontsize", "label-font", "label-color"];
@@ -51,7 +50,7 @@ private set[Message] unallowedDefaultAttrErrors(Stylesheet s) =
   };
 
 private set[Message] unallowedQuestionAttrErrors(Stylesheet s) {
-  typeMap = getTypeMap(getAccompanyingForm(s));
+  TypeMap typeMap = getTypeMap(getAccompanyingForm(s));
   return 
     {
       typeWithInvalidAttr(r.attr.name, \type.name, r@location) | 
