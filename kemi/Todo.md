@@ -6,7 +6,6 @@
 * Think of something to do.
 
 # QLS
-* Checker for slider/number range datatypes (int / real)
 * blockIdent (<questionIdent>Block) and similars in some public function?
 * Refactoring / Adding comments
 * getDefinitions refactoring (StyleHelper QLS)
