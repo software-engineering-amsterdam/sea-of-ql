@@ -37,7 +37,7 @@ private str createEndingLabel(str formId, str id){
 	javaScriptAddGlobalVariable(formId, "var <id>EndLabel = document.createElement(\'label\');");
 	return "<id>EndLabel.htmlFor = <id>;
 	 <id>EndLabel.innerHTML = \"Yes\"; 
-	 <id>EndLabel.class = \"<id>EndClass\" ";
+	 <id>EndLabel.class = \"<id>EndClass\"; ";
 }
 
 /** Method to set the attributes of a checkBox in java script
@@ -99,23 +99,20 @@ private str generateQuestion(str formId, question:easyQuestion(str id, str label
 	if(tp == boolean()){	
 		javaScriptAddGlobalVariable(formId, "var <id> = document.createElement(\"input\");");
 		str attributes = specifyAttributesCheckbox(id);
-		str check = createEndingLabel(formId, id);
-		str paragraph = generateParagraph(id, label, attributes, check, formId);
+		str endLabelCheckbox = createEndingLabel(formId, id);
+		str paragraph = generateParagraph(id, label, attributes, endLabelCheckbox, formId);
 		str cssLabel = cssEndLabels(id);
 		appendToCssFile(formId, cssLabel);
 		javaScriptAddCheckFunction(formId, id);
-		return "<attributes> 
-		<label>
-		<check>
-		<paragraph>
+		return "<attributes> <label> <endLabelCheckbox> <paragraph>
 		<formId>.appendChild(<id>Paragraph);	
 		 ";
 	}else if(tp == money()){  // add the moment just a textfield
 		println("in money generate Easy Question");
+		javaScriptAddGlobalVariable(formId, "var <id> = document.createElement(\"input\");");
 		str attributes = specifyAttributesNumeric(id);
 		str paragraph = generateParagraph(id, label, attributes, formId);
-		return "var <id> = document.createElement(\"input\");
-		<attributes>
+		return "<attributes>
 		<label>
 		<paragraph>
 		<formId>.appendChild(<id>Paragraph);
@@ -146,8 +143,13 @@ private str generateQuestion(str formId, question:easyQuestion(str id, str label
 
 private str generateQuestion(str formId, question:computedQuestion(str id, str labelQuestion, Type tp, Expression exp)){
 	println("in generate computed Question <question>");
-	if(tp == boolean()){
+	if(tp == money()){
+		println("in integer generate computed Question");
 		return "<labelQuestion> \<input type=\"checkbox\" id=<id> \> Yes";
+	}else if(tp == integer()){
+		println("in integer generate computed Question");
+	}else{
+		println("ERROR TYPE IS NOT MONEY NOR INTEGER");
 	}	
 }
 
@@ -170,12 +172,7 @@ str generateStatement(str formId, statement:ifStat(Expression exp, list[Body] th
 	}
 	javaScriptAddCheckStatementFunction(formId, g, k);
 	println("KKKKK : <k>");
-
 	return "<g>.setAttribute(\'onchange\',\"<g>DoTheCheckWithStatement(this)\");";
-}
-
-str huhu(list[Body] body){
-	
 }
 
 public str generateBody(str id, Body body){

@@ -2,6 +2,7 @@ module template::File
 
 import IO;
 import Prelude;
+import syntax::AbstractSyntax;
 import template::StringTemplate;
 import template::CSS;
 import template::JavaScript;
@@ -90,34 +91,37 @@ void createValidatorFile(loc l){
 public void javaScriptAddCheckFunction(str formId, str checkBoxId) {
 	str check = "function <checkBoxId>DoTheCheck(cb) {
 		if(cb.checked == true)
-	{ cb.labels[1].innerHTML = \"No\"; }
+	{ cb.parentNode.children[2].innerHTML = \"No\"; }
 	if(cb.checked == false)
-	{ cb.labels[1].innerHTML = \"Yes\"; }
+	{ cb.parentNode.children[2].innerHTML = \"Yes\"; }
 	}"; 
 	appendToJavaScriptFile(formId, "\n <check>");
 }
 
 public void javaScriptAddCheckStatementFunction(str formId, str checkBoxId, list[str] thenPart ){
-	println("THENPART!!!! : <thenPart[0]>");
+	println("THENPART!!!! : <thenPart>");
+	//println("BODYYY : <body>");
 	str s = "";
 	for(i <- thenPart){
 		println("in Loop <i>");
-		//if(/var\s[\w\s\=\.\(\)\"]*\;/ := i){
-		//	println("MAKE GLOBAL");
-		//}else{
 		s += i;
-		//}
 	}
 	println("SS!$%& : <s>");
+	list[str] u = split(".", s);
+	println("UUUU : <u>");
 	str check = "function <checkBoxId>DoTheCheckWithStatement(cb) {
 		if(cb.checked)
 	{
 		<s>
 	}else {
-		<formId>.removeChild(boughtHouseParagraph);
+		<formId>.removeChild(<u[0]>Paragraph);
 	}
 	}";
 	appendToJavaScriptFile(formId, "\n <check>");
+}
+
+str removeChildFromFrom(str formId, str id){
+	
 }
 
 public void javaScriptAddGlobalVariable(str formId, str globalID){
