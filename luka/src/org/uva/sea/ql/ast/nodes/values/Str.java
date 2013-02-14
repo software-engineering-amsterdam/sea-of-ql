@@ -10,7 +10,7 @@ import org.uva.sea.ql.ast.visitor.Visitor;
 public class Str extends Value {
 
 	private final String value;
-
+	
 	public Str(String val) {
 		this.value = val;
 	}
@@ -42,5 +42,7 @@ public class Str extends Value {
 //		// TODO Auto-generated method stub
 //		return null;
 //	}
+
+
 
 }

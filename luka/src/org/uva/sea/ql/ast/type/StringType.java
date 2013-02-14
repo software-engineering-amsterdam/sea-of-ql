@@ -2,6 +2,7 @@ package org.uva.sea.ql.ast.type;
 
 import org.uva.sea.ql.ast.nodes.values.Str;
 import org.uva.sea.ql.ast.nodes.values.Value;
+import org.uva.sea.ql.ast.visitor.TypeVisitor;
 
 public class StringType extends Type {
 
@@ -21,5 +22,8 @@ public class StringType extends Type {
 		return new Str("");
 	}
 	
-	
+	@Override
+	public void accept(TypeVisitor visitor) {
+		visitor.visit(this);
+	}
 }
