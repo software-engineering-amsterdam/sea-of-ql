@@ -162,15 +162,21 @@ str generateStatement(str formId, statement:ifStat(Expression exp, list[Body] th
 	println("EXP : <toString(getChildren(exp))>");
 	str g = toString(getChildren(exp)[0]);
 	println("ggg : <g>");
+	list[str] children = [];
 	//javaScriptAddCheckStatementFunction(formId, g);  // need to get the body inside the method
 	println("Body ThenPart : <thenPart>");
 	list[str] k = [];
 	for(s <- thenPart){
 		println("BUU : <s.question.id>");
 		k += generateBody(formId, s);
-		println("KK : <k>");		
+		println("KK : <k>");
+		visit (s) {
+			case Question q : {
+				children += q.id;
+			}
+		}		
 	}
-	javaScriptAddCheckStatementFunction(formId, g, k);
+	javaScriptAddCheckStatementFunction(formId, g, k, children);
 	println("KKKKK : <k>");
 	return "<g>.setAttribute(\'onchange\',\"<g>DoTheCheckWithStatement(this)\");";
 }

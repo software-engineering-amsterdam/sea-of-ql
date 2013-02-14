@@ -98,9 +98,9 @@ public void javaScriptAddCheckFunction(str formId, str checkBoxId) {
 	appendToJavaScriptFile(formId, "\n <check>");
 }
 
-public void javaScriptAddCheckStatementFunction(str formId, str checkBoxId, list[str] thenPart ){
+public void javaScriptAddCheckStatementFunction(str formId, str checkBoxId, list[str] thenPart, list[str] children){
 	println("THENPART!!!! : <thenPart>");
-	//println("BODYYY : <body>");
+	println("children : <children>");
 	str s = "";
 	for(i <- thenPart){
 		println("in Loop <i>");
@@ -114,7 +114,9 @@ public void javaScriptAddCheckStatementFunction(str formId, str checkBoxId, list
 	{
 		<s>
 	}else {
-		<formId>.removeChild(<u[0]>Paragraph);
+		<for(c <- children){>
+		<formId>.removeChild(<c>Paragraph);
+		<}>
 	}
 	}";
 	appendToJavaScriptFile(formId, "\n <check>");
