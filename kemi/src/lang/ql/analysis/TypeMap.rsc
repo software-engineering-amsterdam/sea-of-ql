@@ -16,14 +16,15 @@ import lang::ql::ast::AST;
 import util::IDE;
 
 public TypeMapMessages typeMapper(IdentDefinition ident, Type \type, 
-    TypeMap tm) {
-  if(ident notin tm) {
-    tm[ident] = \type;
-    return <tm, {}>;
-  }
-  
-  if(tm[ident] != \type)
-    return <tm, {redeclaredMessage(\type@location)}>;
-  
-  return <tm, {alreadyDeclaredMessage(ident.ident, ident@location)}>;
-} 
+    TypeMap tm) = 
+  <tm + (ident : \type), {}>
+    when ident notin tm;
+
+public TypeMapMessages typeMapper(IdentDefinition ident, Type \type, 
+    TypeMap tm) = 
+  <tm, {redeclaredMessage(\type@location)}>
+    when tm[ident] != \type;
+
+public default TypeMapMessages typeMapper(IdentDefinition ident, Type \type, 
+    TypeMap tm) = 
+  <tm, {alreadyDeclaredMessage(ident.ident, ident@location)}>;

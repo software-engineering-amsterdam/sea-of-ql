@@ -169,7 +169,7 @@ private str styleJS(str ident, StyleRule r:
     widgetStyleRule(attr, number(name, min, max, step))) =
   numberJS(ident, min, max, step);
 
-private str numberJS(str ident, real min, real max, real step) =
+private str numberJS(str ident, num min, num max, num step) =
   "$(\"#<ident>\")
   '  .replaceWith(
   '    $(\"\<input /\>\")
@@ -208,7 +208,7 @@ private str styleJS(str ident, StyleRule r:
     widgetStyleRule(attr, slider(name, min, max, step))) =
   sliderJS(ident, min, max, step);
 
-private str sliderJS(str ident, real min, real max, real step) =
+private str sliderJS(str ident, num min, num max, num step) =
   "$(\"#<ident>\")
   '  .replaceWith(
   '    $(\"\<span /\>\")

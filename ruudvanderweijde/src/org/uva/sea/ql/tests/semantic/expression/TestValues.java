@@ -1,8 +1,6 @@
 package org.uva.sea.ql.tests.semantic.expression;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -18,7 +16,6 @@ import org.uva.sea.ql.tests.IParse;
 import org.uva.sea.ql.value.BooleanValue;
 import org.uva.sea.ql.value.IntegerValue;
 import org.uva.sea.ql.value.Value;
-import org.uva.sea.ql.visitor.typeCheck.ExpressionTypeVisitor;
 import org.uva.sea.ql.visitor.valueCheck.ExpressionValueVisitor;
 import org.uva.sea.ql.visitor.valueCheck.ValueMapper;
 
