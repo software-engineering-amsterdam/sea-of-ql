@@ -123,7 +123,7 @@ public class Form implements ActionListener {
 						JOptionPane.showMessageDialog(null, "The form results are now saved to the selected folder!");
 					}
 					catch (IOException ex) {
-						System.out.println(ex.getMessage());
+						JOptionPane.showMessageDialog(null, "There was an error while trying to save your form results.\nPlease try again.", "Error saving document", JOptionPane.ERROR_MESSAGE);
 					}
 				}
 			}
