@@ -20,4 +20,11 @@
 		<nature>org.eclipse.jdt.core.javanature</nature>
 		<nature>org.deved.antlride.core.nature</nature>
 	</natures>
+	<linkedResources>
+		<link>
+			<name>miglayout-4.0-swing.jar</name>
+			<type>1</type>
+			<locationURI>PARENT-4-PROJECT_LOC/Downloads/miglayout-4.0-swing.jar</locationURI>
+		</link>
+	</linkedResources>
 </projectDescription>

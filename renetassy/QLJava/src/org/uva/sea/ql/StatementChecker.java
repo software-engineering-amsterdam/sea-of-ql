@@ -13,7 +13,7 @@ import org.uva.sea.ql.ast.stmnt.Question;
 import org.uva.sea.ql.ast.stmnt.Statement;
 import org.uva.sea.ql.ast.types.Type;
 
-public class StatementChecker extends ASTVisitor {
+public class StatementChecker extends StatementVisitor implements IStatementVisitor  {
 	
 	private final Map<String, Type> typeEnvironment;
 	private List<QLError> errors;

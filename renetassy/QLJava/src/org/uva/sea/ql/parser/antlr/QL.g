@@ -8,6 +8,7 @@ import org.uva.sea.ql.ast.*;
 import org.uva.sea.ql.ast.expr.*;
 import org.uva.sea.ql.ast.stmnt.*;
 import org.uva.sea.ql.ast.types.*;
+import org.uva.sea.ql.ast.expr.values.*;
 }
 
 @lexer::header

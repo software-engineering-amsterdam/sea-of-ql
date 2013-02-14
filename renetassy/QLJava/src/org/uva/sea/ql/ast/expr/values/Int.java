@@ -1,24 +1,23 @@
-package org.uva.sea.ql.ast.expr;
+package org.uva.sea.ql.ast.expr.values;
 
 import java.util.Map;
 
 import org.uva.sea.ql.ExprTypeChecker;
-import org.uva.sea.ql.ast.types.BoolType;
+import org.uva.sea.ql.ast.types.IntType;
 import org.uva.sea.ql.ast.types.Type;
 
+public class Int extends Value {
 
-public class BoolLiteral extends Expr {
-	
-	private final String value;
-	
-	public BoolLiteral(String value) {
-		this.value=value;
+	private final int value;
+
+	public Int(int n) {
+		this.value = n;
 	}
-	
-	public String getValue() {
+
+	public int getValue() {
 		return value;
 	}
-	
+
 	@Override
 	public boolean accept(ExprTypeChecker visitor) {
 		return visitor.visit(this);
@@ -26,7 +25,6 @@ public class BoolLiteral extends Expr {
 
 	@Override
 	public Type isOfType(Map<String, Type> typeEnv) {
-		return new BoolType();
+		return new IntType();
 	}
-
 }

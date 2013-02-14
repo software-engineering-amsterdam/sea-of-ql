@@ -2,7 +2,7 @@ package org.uva.sea.ql.ast.stmnt;
 
 import java.util.List;
 
-import org.uva.sea.ql.ASTVisitor;
+import org.uva.sea.ql.StatementVisitor;
 
 public class Body extends Statement {
 	
@@ -17,7 +17,7 @@ public class Body extends Statement {
 	}
 
 	@Override
-	public boolean accept(ASTVisitor visitor) {
+	public boolean accept(StatementVisitor visitor) {
 		return visitor.visit(this);
 	}
 	

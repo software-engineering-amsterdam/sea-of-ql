@@ -1,9 +1,9 @@
 package org.uva.sea.ql.ast.stmnt;
 
-import org.uva.sea.ql.ASTVisitor;
+import org.uva.sea.ql.StatementVisitor;
 import org.uva.sea.ql.ast.expr.Expr;
 import org.uva.sea.ql.ast.expr.Ident;
-import org.uva.sea.ql.ast.expr.StringLiteral;
+import org.uva.sea.ql.ast.expr.values.StringLiteral;
 import org.uva.sea.ql.ast.types.Type;
 
 public class ComputedQuestion extends Question {
@@ -20,7 +20,7 @@ public class ComputedQuestion extends Question {
 	}
 	
 	@Override
-	public boolean accept(ASTVisitor visitor) {
+	public boolean accept(StatementVisitor visitor) {
 		return visitor.visit(this);
 	}
 
