@@ -1,5 +1,6 @@
 package org.uva.sea.ql.interpreter;
 
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
@@ -14,14 +15,21 @@ public class QLGenButton implements ActionListener {
 	private final JButton button = new JButton("Submit");
 	private final List<JPanel> questionPanelList;
 	private final JFrame frame;
-	private static final String genButtonId="GEN_BUTTON";
+	public static final String genButtonId="GEN_BUTTON";
 	
 
 	private QLGenButton(List<JPanel> questionPanelList,JFrame frame) {
 		this.questionPanelList = questionPanelList;
 		this.frame=frame;
+		setSettings();
+	}
+	
+	private void setSettings(){
 		button.addActionListener(this);
 		button.setName(genButtonId);
+		button.setBackground(Color.DARK_GRAY);
+		button.setForeground(Color.white);
+		
 	}
 
 	public static JButton responsiveButton(List<JPanel> questionPanelList,JFrame frame) {

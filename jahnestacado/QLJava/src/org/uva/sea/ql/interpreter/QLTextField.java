@@ -1,5 +1,6 @@
 package org.uva.sea.ql.interpreter;
 
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -19,16 +20,24 @@ public class QLTextField implements ActionListener{
 	private final Map<String, Value> declaredVar;
 	private final String value;
 	private final JTextField txtField;
+	private final static Color defaultColor= new Color(238,238,238);
+	public final static String QL_TXT_FIELD_ID="QL_TXT_FIELD_ID";
 
-	
+
 	
 	public QLTextField(String varName,Map<String, Value> declaredVar){
 		txtField=new JTextField(8);
-		txtField.setName("QLTEXTFIELD");
+		setSettings();
 		this.varName=varName;
 		this.declaredVar=declaredVar;
 		value=((StringLit) declaredVar.get(varName)).getValue();
 		
+	}
+	
+	private void setSettings(){
+		txtField.setName(QL_TXT_FIELD_ID);
+		txtField.setName("QLNUMFIELD");
+		txtField.setBackground(defaultColor);
 	}
 	
 	public static JTextField responsiveTextField(String varName,Map<String, Value> declaredVar) {

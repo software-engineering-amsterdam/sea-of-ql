@@ -15,6 +15,7 @@ import net.miginfocom.swing.MigLayout;
 
 import org.uva.sea.ql.output.generators.json.QLToJSON;
 import org.uva.sea.ql.output.generators.pdf.QLToPDF;
+import org.uva.sea.ql.swing.Renderer;
 
 public class QLOutputSelectorFrame implements ActionListener{
 	private final JFrame dialog;
@@ -28,7 +29,12 @@ public class QLOutputSelectorFrame implements ActionListener{
 		this.dialog=dialog;
 		this.questionLabels=outputState.getQuestionLabels();
 		this.questionValues=outputState.getQuestionValues();
-		
+	}
+	
+	private void setSettings(){
+		dialog.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		dialog.pack();
+		dialog.setLocationRelativeTo(Renderer.centerOfScreen);
 	}
 	
 	public static void showFormatSelector(String formName,QLOutputState outputState){
@@ -62,7 +68,6 @@ public class QLOutputSelectorFrame implements ActionListener{
 	private void setContentPanel(){
 		JPanel comboBoxPanel=getComboBoxPanel();
 		JPanel buttonPanel=getButtonPanel();
-
 		JPanel contentPanel=new JPanel(new MigLayout());
 		contentPanel.add(comboBoxPanel,"align label,wrap");
 		contentPanel.add(buttonPanel,"align label");
@@ -71,8 +76,7 @@ public class QLOutputSelectorFrame implements ActionListener{
 	
 	
 	private void showDialog() {
-		dialog.pack();
-		dialog.setLocationRelativeTo(null);
+		setSettings();
 		dialog.setVisible(true);
 	}
 
@@ -99,7 +103,6 @@ public class QLOutputSelectorFrame implements ActionListener{
 	private void showConfirmationMessage(String message){
 		JOptionPane.showMessageDialog(dialog,message);
 
-		
 	}
 
 }

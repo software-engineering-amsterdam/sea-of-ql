@@ -19,11 +19,11 @@ public class ComputedQuestionPanel {
 	private final JLabel label;
 	private final JTextField computedValue;
 	private final JPanel panel;
-	private final static String labelId="COM_QUESTION_PANEL";
+	public final static String COM_QUESTION_PANEL="COM_QUESTION_PANEL";
 
 	public ComputedQuestionPanel(ComputedQuestion qlElement,Map<String,Value> declaredVar){
-		panel=new JPanel(new MigLayout());
-		label=QLLabel.getQLLabel(qlElement.getLabel().getValue(),labelId);
+		panel=QLRowPanel.getQLRowPanel();
+		label=QLLabel.getQLLabel(qlElement.getLabel().getValue(),COM_QUESTION_PANEL);
 		computedValue=QLComputedField.getQLComputedField();
 		computedValue.setText(valueToString(qlElement, declaredVar));
 		addComponents();
@@ -32,7 +32,7 @@ public class ComputedQuestionPanel {
 	private void addComponents(){
 		panel.setLayout(new MigLayout());
 		panel.add(label,"align label");
-		panel.add(computedValue,"wrap");
+		panel.add(computedValue,"push, al right,wrap");
 		
 	}
 	
@@ -46,7 +46,9 @@ public class ComputedQuestionPanel {
 			return String.valueOf(((IntegerLit) ExprEvaluator.eval(qlElement.getExpr(), declaredVar)).getValue());
 		}
 		else if(qlElement.getType().isCompatibleToMoneyType()){
-			return String.valueOf(((DecimalLit) ExprEvaluator.eval(qlElement.getExpr(), declaredVar)).getValue());
+			float value=((DecimalLit) ExprEvaluator.eval(qlElement.getExpr(), declaredVar)).getValue();
+			float roundedValue=QLNumField.roundTo2Decimals(value);
+			return String.valueOf(roundedValue);
 		}
 		else if(qlElement.getType().isCompatibleToBoolType()){
 			return String.valueOf(((BoolLit) ExprEvaluator.eval(qlElement.getExpr(), declaredVar)).getValue());
@@ -54,7 +56,6 @@ public class ComputedQuestionPanel {
 		return (((StringLit) ExprEvaluator.eval(qlElement.getExpr(), declaredVar)).getValue());
 		
 	}
-	
 	
 
 

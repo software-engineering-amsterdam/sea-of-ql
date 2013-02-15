@@ -15,16 +15,20 @@ public class QLInputVerifier implements KeyListener {
 	private final JLabel alertMsg;
 	private final JTextField inputTextField;
 	private final Type type;
+	public final static String WARNING_LABEL_ID="WARNING_LABEL_ID";
 
 	private QLInputVerifier(JLabel alertMsg, JComponent component, Type type) {
 		this.alertMsg = alertMsg;
-		alertMsg.setForeground(Color.red);
 		this.inputTextField = (JTextField) component;
 		this.type = type;
+		setSettings();
+	}
+	
+	private void setSettings(){
+		alertMsg.setForeground(Color.red);
 		inputTextField.addKeyListener(this);
-		alertMsg.setName("WARNING");
+		alertMsg.setName(WARNING_LABEL_ID);
 		alertMsg.setFont(new Font("Courier New", Font.ITALIC, 10));
-
 	}
 
 	public static JLabel getVerifier(JComponent component, Type type) {

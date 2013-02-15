@@ -1,5 +1,6 @@
 package org.uva.sea.ql.interpreter;
 
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -20,14 +21,21 @@ public class QLNumField  implements ActionListener{
 	private final Map<String, Value> declaredVar;
 	private final Float value;
 	private final JTextField txtField;
+	private final static Color defaultColor= new Color(238,238,238);
+	public final static String NUM_FIELD_ID="QLNUMFIELD";
 	
 	
 	public QLNumField(String varName,Map<String, Value> declaredVar){
 		txtField=new JTextField(8);
-		txtField.setName("QLNUMFIELD");
 		this.varName=varName;
 		this.declaredVar=declaredVar;
 		value=((DecimalLit) declaredVar.get(varName)).getValue();
+		setSettings();
+	}
+	
+	private void setSettings(){
+		txtField.setName(NUM_FIELD_ID);
+		txtField.setBackground(defaultColor);
 	}
 	
 	public static JTextField responsiveNumField(String varName,Map<String, Value> declaredVar) {
@@ -53,8 +61,13 @@ public class QLNumField  implements ActionListener{
 	
 	private JTextField getTextField() {
 		txtField.addActionListener(this);
-		txtField.setText(value.toString());
+		String roundedDisplayedValue=String.valueOf(roundTo2Decimals(value));
+		txtField.setText(roundedDisplayedValue);
 		return txtField;
+	}
+	
+	public static float roundTo2Decimals(float num){
+		return Math.round(num*100.0)/100.0f;
 	}
 
 }

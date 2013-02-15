@@ -21,7 +21,8 @@ import org.uva.sea.ql.ast.expr.values.Value;
 public class QLSpinner  {
 	private final String varName;
 	private final Map<String, Value> declaredVar;
-	private final JSpinner spinner=new JSpinner(new SpinnerNumberModel(0, 0, 10000, 1));
+	private final JSpinner spinner=new JSpinner(new SpinnerNumberModel(0, 0, 1000, 1));
+	public final static String QL_SPINNER_ID="QLSPINNER";
 
    
 	

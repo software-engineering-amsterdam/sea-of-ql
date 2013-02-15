@@ -15,13 +15,7 @@ public class OutputData {
 	private final List<JPanel> questionPanelList;
 	private final QLOutputState outputState;
 	private final JFrame frame;
-	private final static String computedQuestionId="COM_QUESTION_PANEL";
-	private final static String questionId="QUESTION_PANEL";
-	private final static String numFieldId="QLNUMFIELD";
-	private final static String checkBoxId="QLCHECKBOX";
-	private final static String spinnerId="QLSPINNER";
-	private final static String txtFieldId="QLTEXTFIELD";
-	private final static String warningId="WARNING";
+	
 
 
 
@@ -45,15 +39,17 @@ public class OutputData {
 			for (int i = 0; i < components.length; i++) {
 				String id = components[i].getName();
 
-				if (id.equals("warningId")) {
+				if (id.equals(QLInputVerifier.WARNING_LABEL_ID)) {
 					getWarning(components[i]);
-				} else if (id.equals(computedQuestionId)|| id.equals(questionId)) {
+				} else if (id.equals(ComputedQuestionPanel.COM_QUESTION_PANEL)|| id.equals(QuestionPanel.QL_QUESTION_LABEL_ID)) {
 					getJLabelValue(components[i]);
-				} else if (id.equals(spinnerId)) {
+				} else if (id.equals(QLSpinner.QL_SPINNER_ID)) {
 					getJSpinnerValue(components[i]);
-				} else if (id.equals(txtFieldId) || id.equals(numFieldId)) {
+				} else if (id.equals(QLTextField.QL_TXT_FIELD_ID)
+						|| id.equals(QLNumField.NUM_FIELD_ID)
+						|| id.equals(QLComputedField.QL_COMPUTED_FIELD_ID)) {
 					getJTextFieldValue(components[i]);
-				} else if (id.equals(checkBoxId)) {
+				} else if (id.equals(QLCheckBox.QL_CHECKBOX_ID)) {
 					getJCheckBoxValue(components[i]);
 				}
 

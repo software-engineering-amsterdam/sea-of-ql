@@ -1,5 +1,7 @@
 package org.uva.sea.ql.interpreter;
 
+import java.awt.Color;
+
 import javax.swing.JLabel;
 
 public class QLLabel {
@@ -8,6 +10,7 @@ public class QLLabel {
 	private QLLabel(String text, String id) {
 		label = new JLabel(text);
 		label.setName(id);
+		setSettings();
 	}
 
 	public static JLabel getQLLabel(String text, String id) {
@@ -18,6 +21,10 @@ public class QLLabel {
 
 	private JLabel getLabel() {
 		return label;
+	}
+	
+	private void setSettings(){
+		label.setForeground(Color.white);
 	}
 
 }
