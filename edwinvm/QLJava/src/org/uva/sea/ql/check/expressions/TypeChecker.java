@@ -31,18 +31,18 @@ import org.uva.sea.ql.ast.visitors.checkexpr.Visitor;
 import org.uva.sea.ql.parser.ErrorMessages;
 import org.uva.sea.ql.parser.SupportedTypes;
 
-public class CheckExpr implements Visitor<Boolean> {
+public class TypeChecker implements Visitor<Boolean> {
 	
 	private final SupportedTypes _supportedTypes;
 	private final ErrorMessages _errorMessages;
 	
-	private CheckExpr(SupportedTypes supportedTypes, ErrorMessages messages) {
+	private TypeChecker(SupportedTypes supportedTypes, ErrorMessages messages) {
 		_supportedTypes = supportedTypes;
 		_errorMessages = messages;
 	}
 	
 	public static boolean check(Expr expr, SupportedTypes supportedTypes, ErrorMessages errors) {
-		CheckExpr exprChecker = new CheckExpr(supportedTypes, errors);
+		TypeChecker exprChecker = new TypeChecker(supportedTypes, errors);
 		return expr.accept(exprChecker);
 	}
 	

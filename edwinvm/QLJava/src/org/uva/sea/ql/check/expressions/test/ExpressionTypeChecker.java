@@ -9,7 +9,7 @@ import org.uva.sea.ql.ast.types.Int;
 import org.uva.sea.ql.ast.types.Money;
 import org.uva.sea.ql.ast.types.Numeric;
 import org.uva.sea.ql.ast.types.Str;
-import org.uva.sea.ql.check.expressions.CheckExpr;
+import org.uva.sea.ql.check.expressions.TypeChecker;
 import org.uva.sea.ql.parser.ErrorMessages;
 import org.uva.sea.ql.parser.IParser;
 import org.uva.sea.ql.parser.ParseError;
@@ -41,7 +41,7 @@ public class ExpressionTypeChecker {
 	}
 	
 	private Boolean checkExpression(Expr expr) {
-		return CheckExpr.check(expr, _supportedTypes, new ErrorMessages());
+		return TypeChecker.check(expr, _supportedTypes, new ErrorMessages());
 	}
 	
 	private Expr parseExpression(String input) throws ParseError {
