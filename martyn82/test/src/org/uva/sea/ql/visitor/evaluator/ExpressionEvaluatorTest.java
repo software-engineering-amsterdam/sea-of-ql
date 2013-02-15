@@ -25,7 +25,6 @@ import org.uva.sea.ql.ast.expression.unary.logical.NotExpression;
 import org.uva.sea.ql.ast.expression.unary.numeric.NegativeExpression;
 import org.uva.sea.ql.ast.expression.unary.numeric.PositiveExpression;
 import org.uva.sea.ql.ast.type.StringType;
-import org.uva.sea.ql.visitor.evaluator.Environment;
 import org.uva.sea.ql.visitor.evaluator.value.StringValue;
 
 public class ExpressionEvaluatorTest extends EvaluatorTest implements ExpressionTest {
