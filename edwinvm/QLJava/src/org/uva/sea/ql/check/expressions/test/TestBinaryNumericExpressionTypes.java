@@ -1,9 +1,9 @@
-package org.uva.sea.ql.check.test;
+package org.uva.sea.ql.check.expressions.test;
 
 import org.junit.Test;
 import org.uva.sea.ql.parser.ParseError;
 
-public class TestExpressionTypeChecker extends ExpressionTypeChecker {
+public class TestBinaryNumericExpressionTypes extends ExpressionTypeChecker {
 	
 	@Test
 	public void testAdds() throws ParseError {
