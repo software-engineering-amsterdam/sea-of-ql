@@ -11,6 +11,11 @@ public class Str extends Value {
 
 	private final String value;
 	
+	@Override
+	public boolean isDefined() {
+		return value !=null;
+	}
+
 	public Str(String val) {
 		this.value = val;
 	}
@@ -236,6 +241,7 @@ public class Str extends Value {
 		return null;
 	}
 
+	
 
 
 }

@@ -9,15 +9,16 @@ import org.uva.sea.ql.ast.visitor.Visitor;
 
 public class Int extends Numeric {
 
-	private final int value;
+//	private final int value;
 
 	public Int(int val) {
+		super(val);
 		this.value = val;
 	}
 
-	public Integer getValue() {
-		return this.value;
-	}
+//	public Integer getValue() {
+//		return this.value;
+//	}
 
 	@Override
 	public Type typeOf(Map<Ident, Type> typeEnv) {

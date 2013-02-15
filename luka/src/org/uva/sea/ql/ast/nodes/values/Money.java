@@ -10,16 +10,16 @@ import org.uva.sea.ql.ast.visitor.Visitor;
 
 public class Money extends Numeric {//Value{
 
-	private final Integer value;
+//	private final Integer value;
 	
 	public Money(Integer val){
-		super();
+		super(val);
 		this.value =  val;
 	}
 	
-	public Integer getValue(){
-		return this.value;
-	}
+//	PUBLIC INTEGER GETVALUE(){
+//		RETURN THIS.VALUE;
+//	}
 
 	@Override
 	public Type typeOf(Map<Ident, Type> typeEnv) {

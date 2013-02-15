@@ -15,6 +15,12 @@ public class Bool extends Value {
 	public Bool(boolean val) {
 		this.value = val;
 	}
+	
+	@Override
+	public boolean isDefined() {
+		return true;
+	}
+
 
 	public Boolean getValue() {
 		return this.value;
