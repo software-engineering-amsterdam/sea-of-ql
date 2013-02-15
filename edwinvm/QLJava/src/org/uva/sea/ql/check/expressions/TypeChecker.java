@@ -125,8 +125,8 @@ public class TypeChecker implements Visitor<Boolean> {
 		Type lhsType = expr.getLhs().typeOf(_supportedTypes);
 		Type rhsType = expr.getRhs().typeOf(_supportedTypes);
 		
-		// Check if Types are compatible with BinaryBoolExpr
-		if (!(lhsType.isCompatibleToBool() && rhsType.isCompatibleToBool())) {
+		// Check if Types are compatible with each other
+		if (!lhsType.isCompatibleTo(rhsType)) {
 			addError(expr, "invalid type for " + binarySymbol);
 			return false;
 		}
