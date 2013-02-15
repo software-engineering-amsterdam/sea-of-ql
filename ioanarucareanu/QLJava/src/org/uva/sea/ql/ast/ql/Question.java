@@ -1,32 +1,30 @@
 package org.uva.sea.ql.ast.ql;
 
+import org.uva.sea.ql.ast.Statement;
 import org.uva.sea.ql.ast.type.Type;
 import org.uva.sea.ql.ast.expr.Ident;
-import org.uva.sea.ql.ast.expr.value.StringValue;
 import org.uva.sea.ql.ast.expr.value.Value;
-import org.uva.sea.ql.semanticchecker.QLItemSemanticVisitor;
+import org.uva.sea.ql.semanticchecker.StatementSemanticVisitor;
 
 
-public class Question implements QLItem {
+public class Question extends Statement {
 	
 	private final Ident id;
-	private final StringValue label;
+	private final String label;
 	private final Type type;
-	private final Value<?> answer;  
 	
-	public Question(Ident id, StringValue label, Type type) {
+	public Question(Ident id, String label, Type type) {
 		super();
 		this.id = id;
 		this.label = label;
 		this.type = type;
-		this.answer = type.createValueOfType();
 	}
 
 	public Ident getId() {
 		return id;
 	}
 
-	public StringValue getLabel() {
+	public String getLabel() {
 		return label;
 	}
 
@@ -34,14 +32,15 @@ public class Question implements QLItem {
 		return type;
 	}
 
-	public Value<?> getAnswer() {
-		return answer;
+	@Override
+	public void accept(StatementSemanticVisitor visitor) {
+		visitor.visit(this);
 	}
 
 	@Override
-	public void accept(QLItem visitableElement, QLItemSemanticVisitor visitor) {
+	public boolean isDependent() {
 		
-		visitor.visit((Question) visitableElement);
+		return false;
 	}
 
 }

@@ -3,6 +3,7 @@ module lang::ql::ast::load
 import lang::ql::syntax::Syntax;
 import lang::ql::ast::AST;
 import ParseTree;
+import Prelude;
 
 public FORM load(str txt) = implode(#FORM, parse(#Form, txt));
 
@@ -19,3 +20,5 @@ public IF loadIF(str txt) = implode(#IF, parse(#If, txt));
 public ELSEIF loadEIF(str txt) = implode(#ELSEIF, parse(#ElseIf, txt));
 
 public ELSE loadELSE(str txt) = implode(#ELSE, parse(#Else, txt));
+
+public FORM loadTest(loc x) = implode(#FORM, parse(#Form, readFile(x)));

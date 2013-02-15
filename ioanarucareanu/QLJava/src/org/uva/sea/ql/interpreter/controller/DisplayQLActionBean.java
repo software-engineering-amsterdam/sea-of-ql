@@ -1,5 +1,6 @@
 package org.uva.sea.ql.interpreter.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.antlr.runtime.ANTLRStringStream;
@@ -11,6 +12,8 @@ import org.uva.sea.ql.ast.ql.QLForm;
 import org.uva.sea.ql.ast.ql.Question;
 import org.uva.sea.ql.parser.antlr.QLLexer;
 import org.uva.sea.ql.parser.antlr.QLParser;
+import org.uva.sea.ql.semanticchecker.SemanticVisitor;
+import org.uva.sea.ql.semanticchecker.ValidationReport;
 
 import net.sourceforge.stripes.action.ActionBean;
 import net.sourceforge.stripes.action.ActionBeanContext;
@@ -18,8 +21,6 @@ import net.sourceforge.stripes.action.DefaultHandler;
 import net.sourceforge.stripes.action.ForwardResolution;
 import net.sourceforge.stripes.action.Resolution;
 import net.sourceforge.stripes.action.UrlBinding;
-import net.sourceforge.stripes.validation.ValidateNestedProperties;
-import net.sourceforge.stripes.validation.Validate;
 
 
 @UrlBinding(value = DisplayQLActionBean.URL_BINDING)
@@ -33,7 +34,7 @@ public class DisplayQLActionBean implements ActionBean {
 	
 //	@ValidateNestedProperties({
 //	    @Validate(field="answer.value", required=true), })
-	private List<Question> simpleQuestions;
+	private List<AnswerableQuestion> questions;
 	
 	private ActionBeanContext context;
 	
@@ -46,9 +47,9 @@ public class DisplayQLActionBean implements ActionBean {
 						+ "hasBoughtHouse: \"Did you by a house in 2010?\" boolean\n"
 						+ "hasMaintLoan: \"Did you enter a loan for maintenance/reconstruction?\" boolean\n"
 						+ "if (hasSoldHouse) {\n"
-						+ "sellingPrice: \"Price the house was sold for:\" money\n"
-						+ "privateDebt: \"Private debts for the sold house:\" money\n"
-						+ "valueResidue: \"Value residue:\" money(sellingPrice - privateDebt)\n"
+						+ "sellingPrice: \"Price the house was sold for:\" int\n"
+						+ "privateDebt: \"Private debts for the sold house:\" int\n"
+						+ "valueResidue: \"Value residue:\" int(sellingPrice - privateDebt)\n"
 						+ "}\n" + "}");
 		QLLexer lexer = new QLLexer(stream);
 		TokenStream tokenStream = new CommonTokenStream(lexer);
@@ -60,16 +61,24 @@ public class DisplayQLActionBean implements ActionBean {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		simpleQuestions = QLFormUtil.getSimpleOuterQuestions(form);
+		SemanticVisitor visitor = new SemanticVisitor();		
+		questions = new ArrayList<AnswerableQuestion>();
+		ValidationReport validationReport = visitor.start(form); 
+		if (validationReport.getErrors().isEmpty()) {
+			List<Question> simpleQuestions = QLFormUtil.getSimpleOuterQuestions(form);
+			for (Question question : simpleQuestions) {
+				questions.add(new AnswerableQuestion(question));
+			}
+		}
         return new ForwardResolution(FORM_VIEW_PATH);
     }
-	 
-	public List<Question> getSimpleQuestions() {
-		return simpleQuestions;
+
+	public List<AnswerableQuestion> getQuestions() {
+		return questions;
 	}
 
-	public void setSimpleQuestions(List<Question> simpleQuestions) {
-		this.simpleQuestions = simpleQuestions;
+	public void setQuestions(List<AnswerableQuestion> questions) {
+		this.questions = questions;
 	}
 
 	@Override

@@ -7,6 +7,7 @@ import java.util.Map;
 import java.util.Set;
 
 import org.uva.sea.ql.ast.Block;
+import org.uva.sea.ql.ast.Statement;
 import org.uva.sea.ql.ast.expr.Add;
 import org.uva.sea.ql.ast.expr.And;
 import org.uva.sea.ql.ast.expr.Div;
@@ -16,10 +17,9 @@ import org.uva.sea.ql.ast.expr.Or;
 import org.uva.sea.ql.ast.expr.Sub;
 import org.uva.sea.ql.ast.ql.ComputedQuestion;
 import org.uva.sea.ql.ast.ql.ConditionalElseQuestion;
+import org.uva.sea.ql.ast.ql.ConditionalQuestion;
 import org.uva.sea.ql.ast.ql.QLForm;
-import org.uva.sea.ql.ast.ql.QLItem;
 import org.uva.sea.ql.ast.ql.Question;
-import org.uva.sea.ql.ast.ql.SimpleConditionalQuestion;
 import org.uva.sea.ql.ast.type.Type;
 import org.uva.sea.ql.ast.expr.rel.Eq;
 import org.uva.sea.ql.ast.expr.rel.GEq;
@@ -27,23 +27,23 @@ import org.uva.sea.ql.ast.expr.rel.GT;
 import org.uva.sea.ql.ast.expr.rel.LEq;
 import org.uva.sea.ql.ast.expr.rel.LT;
 import org.uva.sea.ql.ast.expr.rel.NEq;
-import org.uva.sea.ql.ast.expr.value.StringValue;
 
-public class SemanticVisitor implements QLItemSemanticVisitor, ExpressionSemanticVisitor {
+public class SemanticVisitor implements StatementSemanticVisitor, ExpressionSemanticVisitor {
 
 	private final Map<Ident, Type> symbolTable = new HashMap<Ident, Type>();
-	private final Set<StringValue> questionLabels = new HashSet<StringValue>();
+	private final Set<String> questionLabels = new HashSet<String>();
 	private final ValidationReport validationReport = new ValidationReport();
 
-	public void start(QLForm form) {
+	public ValidationReport start(QLForm form) {
 
-		form.accept(form, this);
+		form.accept(this);
+		return validationReport;
 	}
 	
-	private void visitBlockOfQLItems(Block<QLItem> block) {
-		List<QLItem> itemsToVisit = block.getBlockElements();
-		for (QLItem item : itemsToVisit) {
-			item.accept(item, this);
+	private void visitBlockOfQLItems(Block block) {
+		List<Statement> itemsToVisit = block.getBlockElements();
+		for (Statement item : itemsToVisit) {
+			item.accept(this);
 		}
 	}
 
@@ -56,7 +56,7 @@ public class SemanticVisitor implements QLItemSemanticVisitor, ExpressionSemanti
 		return true;
 	}
 	
-	private boolean tryAddLabel(StringValue label) {
+	private boolean tryAddLabel(String label) {
 		if (questionLabels.contains(label)) {
 			validationReport.addWarning("Duplicate question label: " + label);
 			return false;
@@ -78,19 +78,20 @@ public class SemanticVisitor implements QLItemSemanticVisitor, ExpressionSemanti
 	public void visit(ComputedQuestion question) {
 		tryAddSymbol(question.getId(), question.getType());
 		tryAddLabel(question.getLabel());
+		ExpressionTypeValidatorUtil.checkExprIsOfType(question.getExpr(), question.getType(), this, validationReport);
 	}
 
 	@Override
-	public void visit(SimpleConditionalQuestion question) {
+	public void visit(ConditionalQuestion question) {
 		ExpressionTypeValidatorUtil.checkConditionalExpr(question.getCondition(), this, validationReport);
-		visitBlockOfQLItems((Block<QLItem>)question.getStatements());
+		visitBlockOfQLItems(question.getStatements());
 	}
 
 	@Override
 	public void visit(ConditionalElseQuestion question) {
 		ExpressionTypeValidatorUtil.checkConditionalExpr(question.getCondition(), this, validationReport);
-		visitBlockOfQLItems((Block<QLItem>)question.getStatements());
-		visitBlockOfQLItems((Block<QLItem>)question.getElseStatements());
+		visitBlockOfQLItems(question.getStatements());
+		visitBlockOfQLItems(question.getElseStatements());
 	}
 
 	@Override

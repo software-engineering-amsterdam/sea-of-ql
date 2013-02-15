@@ -1,5 +1,6 @@
 package org.uva.sea.ql.form;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JPanel;
@@ -59,9 +60,9 @@ public class IfStatement extends FormItem {
 	}
 
 	@Override
-	public void buildForm(JPanel mainPanel) {
+	public void buildForm(JPanel mainPanel, Env environment, Form form) {
 		for (FormItem f : ifBody) {
-			f.buildForm(mainPanel);
+			f.buildForm(mainPanel, ifBodyEnvironment, form);
 		}
 	}
 	
@@ -73,15 +74,15 @@ public class IfStatement extends FormItem {
 	}
 	
 	@Override
-	public void eval(Env environment, Form form) {
+	public void eval(Env environment) {
 		setVisible(isExpressionValid(environment));
-		evalIfBody(environment, form);
+		evalIfBody(environment);
 	}
 	
-	protected void evalIfBody(Env environment, Form form) {
+	protected void evalIfBody(Env environment) {
 		if (isExpressionValid(environment)) {
 			for (FormItem f : ifBody) {
-				f.eval(ifBodyEnvironment, form);
+				f.eval(ifBodyEnvironment);
 			}
 		}
 	}
@@ -95,10 +96,24 @@ public class IfStatement extends FormItem {
 	}
 
 	@Override
-	public List<Tuple<Ident, Value>> getAllValues() {
-		List<Tuple<Ident, Value>> values = ifBodyEnvironment.getAllValues();
-		for (FormItem f : ifBody) {
-			values.addAll(f.getAllValues());
+	public boolean isFinished(Env environment) {
+		if (isExpressionValid(environment)) {
+			for (FormItem f : ifBody) {
+				if (!f.isFinished(ifBodyEnvironment)) {
+					return false;
+				}
+			}
+		}
+		return true;
+	}
+	
+	@Override
+	public List<Tuple<Ident, Value>> getAllValues(Env environment) {
+		List<Tuple<Ident, Value>> values = new ArrayList<Tuple<Ident, Value>>();
+		if (isExpressionValid(environment)) {
+			for (FormItem f : ifBody) {
+				values.addAll(f.getAllValues(ifBodyEnvironment));
+			}
 		}
 		return values;
 	}

@@ -46,7 +46,10 @@ public class Ident extends Expr {
 			return false;
 		return true;
 	}
-	
-	
+
+	@Override
+	public String toString() {
+		return "Ident [name=" + name + "]";
+	}
 
 }

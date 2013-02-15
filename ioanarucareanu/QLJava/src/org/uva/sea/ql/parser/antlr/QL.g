@@ -5,12 +5,12 @@ options {backtrack=true; memoize=true;}
 {
 package org.uva.sea.ql.parser.antlr;
 import org.uva.sea.ql.ast.*;
-import org.uva.sea.ql.ast.cond.*;
 import org.uva.sea.ql.ast.expr.*;
 import org.uva.sea.ql.ast.expr.rel.*;
 import org.uva.sea.ql.ast.expr.value.*;
 import org.uva.sea.ql.ast.ql.*;
 import org.uva.sea.ql.ast.type.*;
+import org.uva.sea.ql.semanticchecker.*;
 }
 
 @lexer::header
@@ -22,34 +22,34 @@ qlform returns [QLForm result]
 	: 'form' Ident '{' block '}' {$result = new QLForm(new Ident($Ident.text),  $block.result); }
 	;
 	
-block returns [Block<QLItem> result]
-	@init { Block<QLItem> block= new Block<QLItem>(); }
-	:  (qlitem { block.addBlockElement($qlitem.result); })* {$result = block; }
+block returns [Block result]
+	@init { Block block= new Block(); }
+	:  (statement { block.addBlockElement($statement.result); })* {$result = block; }
 	;
     
-qlitem returns [QLItem result]
+statement returns [Statement result]
 	: question {$result=$question.result;}
 	| computedQuestion {$result = $computedQuestion.result;}
 	| conditionalQuestion {$result = $conditionalQuestion.result;}
 	;
 	
 question returns [Question result]
-	: Ident ':' StringLit type {$result=new Question(new Ident($Ident.text),new StringValue($StringLit.text),$type.result);};
+	: Ident ':' StringLit type {$result=new Question(new Ident($Ident.text),$StringLit.text, $type.result);};
 	
 computedQuestion returns [ComputedQuestion result]
-  : Ident ':' StringLit type '(' expr=orExpr ')' {$result=new ComputedQuestion(new Ident($Ident.text),new StringValue($StringLit.text),$type.result,expr);};
+  : Ident ':' StringLit type '(' expr=orExpr ')' {$result=new ComputedQuestion(new Ident($Ident.text),$StringLit.text,$type.result,expr);};
 
 conditionalQuestion returns [ConditionalQuestion result]
   :'if' '(' expr=orExpr ')' '{' b1=block '}' 'else' '{' b2=block '}'  {$result=new ConditionalElseQuestion($expr.result,$b1.result,$b2.result);}
-  |'if' '(' expr=orExpr ')' '{' block '}' {$result=new SimpleConditionalQuestion($expr.result,$block.result);}
+  |'if' '(' expr=orExpr ')' '{' block '}' {$result=new ConditionalQuestion($expr.result,$block.result);}
   ; 
 
 type returns [Type result]
-	: BOOLEAN { $result = TypeFactory.getBoolType();}
-	| INTEGER { $result = TypeFactory.getIntType();}
-	| DECIMAL { $result = TypeFactory.getDecType();}
-	| STRING {$result = TypeFactory.getStringType();}
-	| MONEY {$result = TypeFactory.getMoneyType();}
+	: BOOLEAN { $result = ReturnTypeHolder.getBoolType();}
+	| INTEGER { $result = ReturnTypeHolder.getIntType();}
+	| DECIMAL { $result = ReturnTypeHolder.getDecType();}
+	| STRING {$result = ReturnTypeHolder.getStringType();}
+	| MONEY {$result = ReturnTypeHolder.getMoneyType();}
 	;
 	  
 primary returns [Expr result]
