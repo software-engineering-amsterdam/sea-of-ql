@@ -1,4 +1,4 @@
-package org.uva.sea.ql.check;
+package org.uva.sea.ql.check.expressions;
 
 import org.uva.sea.ql.ast.Expr;
 import org.uva.sea.ql.ast.Type;
