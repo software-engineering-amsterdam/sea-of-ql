@@ -34,8 +34,10 @@ public void appendToJavaScriptFile(str formId, str text){
 }
 
 public void appendToCssFile(str formId, str text){
+	println("in append to : <text>");
 	loc l = |home:///TestQLJavaScript|;
 	l += "<formId>.css";
+	println("L : <l>");
 	appendToFile(l, "\n <text>");
 }
 

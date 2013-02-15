@@ -111,6 +111,8 @@ private str generateQuestion(str formId, question:easyQuestion(str id, str label
 		javaScriptAddGlobalVariable(formId, "var <id> = document.createElement(\"input\");");
 		str attributes = specifyAttributesNumeric(id);
 		str paragraph = generateParagraph(id, label, formId);
+		str cssLabel = cssEndLabels(id);
+		appendToCssFile(formId, cssLabel);
 		javaScriptAddCheckFunction(formId, "<id>CheckNumeric(cb)", tp);
 		return "<attributes>
 		<label>
@@ -214,6 +216,7 @@ public str generateQLForm(Program P){
 		\</html\>";	
 		str functions = javaScriptCreateForm(id, Body);
 		appendToHTMLFile(id, result);
+		cssDiv(id);
 		return result;
 	}else{
 		return "not possible to generate java script code";
