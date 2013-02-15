@@ -12,7 +12,7 @@ public class MoneyType extends Type {
 	}
 
 	@Override
-	public String getHumanReadableType() {
+	public String toString() {
 		
 		return "money";
 	}

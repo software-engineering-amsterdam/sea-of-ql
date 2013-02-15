@@ -6,6 +6,9 @@ import org.antlr.runtime.RecognitionException;
 import org.uva.sea.ql.parser.test.IParse;
 import org.uva.sea.ql.parser.test.ParseError;
 import org.uva.sea.ql.ast.Expr;
+import org.uva.sea.ql.ast.Form;
+import org.uva.sea.ql.ast.Statement;
+import org.uva.sea.ql.ast.Type;
 import org.uva.sea.ql.ast.Value;
 
 public class ANTLRParser implements IParse {
@@ -27,6 +30,7 @@ public class ANTLRParser implements IParse {
 			}
 	} 
 	
+	@Override
 	public Value parseValue(String src) throws ParseError {
 		try {
 			return parse(src).value();
@@ -34,8 +38,54 @@ public class ANTLRParser implements IParse {
 			throw new ParseError(e.getMessage());
 			}
 	}
-	
-	
-	
-	
+	@Override
+	public Type parseType(String src) throws ParseError {
+		try {
+				return parse(src).type();
+			} catch (RecognitionException e) {
+				throw new ParseError(e.getMessage());
+				}
+			}
+
+	@Override
+	public Form parseForm(String src) throws ParseError {
+		try{
+				return parse(src).form();
+			}
+			catch (RecognitionException e) {
+				throw new ParseError(e.getMessage());
+				}
+			}
+		
+	@Override		
+	public Statement parseSimpleQuestion(String src) throws ParseError {
+		try{
+				return parse(src).simplequestion();
+			}
+			catch (RecognitionException e) {
+				throw new ParseError(e.getMessage());
+				}
+		}
+	@Override	
+	public Statement parseIfThen(String src) throws ParseError {
+		try{
+				return parse(src).ifthen();
+			}
+		catch (RecognitionException e) {
+				throw new ParseError(e.getMessage());
+			}
+		}
+		
+	@Override
+	public Statement parseIfThenElse(String src) throws ParseError {
+		try{
+				return parse(src).ifthenelse();
+			}
+			catch (RecognitionException e) {
+				throw new ParseError(e.getMessage());
+			}
+		}
+		
 }
+	
+

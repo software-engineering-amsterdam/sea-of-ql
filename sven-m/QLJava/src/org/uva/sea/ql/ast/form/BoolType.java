@@ -6,5 +6,4 @@ public class BoolType extends Type {
 	public BoolType(Location location) {
 		super(location);
 	}
-	
 }

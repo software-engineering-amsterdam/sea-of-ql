@@ -24,7 +24,7 @@ CONTACT
 
 TO DO
 ======================
-
+Implement generator for JavaScript.
 Known Bugs:
 -----------
    Fixed - 1. Equality must be implemented correctly..== operator must check that both expr (le,re) are of the same type.

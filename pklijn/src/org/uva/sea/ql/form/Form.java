@@ -7,6 +7,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -27,8 +28,8 @@ import org.uva.sea.ql.opencsv.CSVWriter;
 // TODO: Clean this class, merge some functions. etc..
 public class Form implements ActionListener {
 
-	private Ident id;
-	private List<FormItem> body;
+	private final Ident id;
+	private final List<FormItem> body;
 	private Env environment;
 	private JButton finishButton;
 	private JFrame mainWindow;
@@ -38,10 +39,6 @@ public class Form implements ActionListener {
 		this.body = formItems;
 	}
 
-	public Ident getIdentity() {
-		return id;
-	}
-	
 	public String getName() {
 		return id.getName();
 	}
@@ -59,8 +56,8 @@ public class Form implements ActionListener {
 	}
 	
 	public boolean isFormValid() {
-		boolean valid = true;
 		environment = new Env();
+		boolean valid = true;
 		for (FormItem f : body) {
 			if (!f.validate(environment))
 				valid = false;
@@ -70,16 +67,17 @@ public class Form implements ActionListener {
 	
 	public void eval() {
 		for (FormItem f : body) {
-			f.eval(environment, this);
+			f.eval(environment);
 		}
 		mainWindow.pack();
 	}
 	
 	public JPanel buildForm(JFrame mainWindow) {
+		assert isFormValid();
 		this.mainWindow = mainWindow;
 		JPanel formPanel = new JPanel(new MigLayout("hidemode 3"));
 		for (FormItem f : body) {
-			f.buildForm(formPanel);
+			f.buildForm(formPanel, environment, this);
 		}
 		finishButton = new JButton("Finish form");
 		finishButton.addActionListener(this);
@@ -88,10 +86,19 @@ public class Form implements ActionListener {
 		return formPanel;
 	}
 	
-	public List<Tuple<Ident,Value>> getAllValues() {
-		List<Tuple<Ident, Value>> values = environment.getAllValues();
+	public boolean isFinished() {
 		for (FormItem f : body) {
-			values.addAll(f.getAllValues());
+			if (!f.isFinished(environment)) {
+				return false;
+			}
+		}
+		return true;
+	}
+	
+	public List<Tuple<Ident,Value>> getAllValues() {
+		List<Tuple<Ident, Value>> values = new ArrayList<Tuple<Ident, Value>>();
+		for (FormItem f : body) {
+			values.addAll(f.getAllValues(environment));
 		}
 		return values;
 	}
@@ -99,21 +106,26 @@ public class Form implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == finishButton) {
-			List<Tuple<Ident, Value>> values = getAllValues();
-			File writeDirectory = getDirectory();
-			if (writeDirectory != null) {
-				try {
-					Date date = new Date();
-					DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd_HH-mm-ss");
-					CSVWriter writer = new CSVWriter(new FileWriter(writeDirectory.getPath() + File.separator + id.getName() + "-" + dateFormat.format(date) +".csv"));
-					for (Tuple<Ident, Value> v : values) {
-						writer.writeNext(new String[]{ v.getLeft().toString(), v.getRight().toString() });
+			if (!isFinished()) {
+				JOptionPane.showMessageDialog(null, "Please fill in all fields before finishing your questionaire");
+			}
+			else {
+				List<Tuple<Ident, Value>> values = getAllValues();
+				File writeDirectory = getDirectory();
+				if (writeDirectory != null) {
+					try {
+						Date date = new Date();
+						DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd_HH-mm-ss");
+						CSVWriter writer = new CSVWriter(new FileWriter(writeDirectory.getPath() + File.separator + id.getName() + "-" + dateFormat.format(date) +".csv"));
+						for (Tuple<Ident, Value> v : values) {
+							writer.writeNext(new String[]{ v.getLeft().toString(), v.getRight().toString() });
+						}
+						writer.close();
+						JOptionPane.showMessageDialog(null, "The form results are now saved to the selected folder!");
 					}
-					writer.close();
-					JOptionPane.showMessageDialog(null, "The form results are now saved to the selected folder!");
-				}
-				catch (IOException ex) {
-					System.out.println(ex.getMessage());
+					catch (IOException ex) {
+						JOptionPane.showMessageDialog(null, "There was an error while trying to save your form results.\nPlease try again.", "Error saving document", JOptionPane.ERROR_MESSAGE);
+					}
 				}
 			}
 		}

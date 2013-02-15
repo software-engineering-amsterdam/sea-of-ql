@@ -3,10 +3,8 @@ package org.uva.sea.ql.interpreter.controller;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.uva.sea.ql.ast.ql.ComputedQuestion;
-import org.uva.sea.ql.ast.ql.ConditionalQuestion;
+import org.uva.sea.ql.ast.Statement;
 import org.uva.sea.ql.ast.ql.QLForm;
-import org.uva.sea.ql.ast.ql.QLItem;
 import org.uva.sea.ql.ast.ql.Question;
 
 public class QLFormUtil {
@@ -18,12 +16,11 @@ public class QLFormUtil {
 	public static List<Question> getSimpleOuterQuestions(QLForm form) {
 		
 		List<Question> result = new ArrayList<Question>();
-		List<QLItem> items = form.getBlockOfItems().getBlockElements();
-		for(QLItem qlItem : items) {
-			if(qlItem instanceof ConditionalQuestion || qlItem instanceof ComputedQuestion) {
-				continue;
+		List<Statement> items = form.getBlockOfItems().getBlockElements();
+		for(Statement item : items) {
+			if (!item.isDependent()) {
+				result.add((Question)item);
 			}
-			result.add((Question)qlItem);
 		}
 		return result;
 	}

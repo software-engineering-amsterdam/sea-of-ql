@@ -13,8 +13,10 @@ module lang::qls::syntax::QLS
 extend lang::ql::syntax::Comment;
 extend lang::ql::syntax::Int;
 extend lang::ql::syntax::Layout;
+extend lang::ql::syntax::Money;
 extend lang::ql::syntax::String;
 extend lang::ql::syntax::Type;
+extend lang::qls::syntax::Color;
 extend lang::qls::syntax::Keyword;
 
 start syntax Stylesheet
@@ -59,25 +61,76 @@ syntax DefaultDefinition
 
 syntax StyleRule
   = widgetStyleRule: WidgetStyleAttr WidgetStyleValue
-  | widthStyleRule: WidthStyleAttr Int
+  | intStyleRule: IntStyleAttr Int
+  | stringStyleRule: StringStyleAttr String
+  | colorStyleRule: ColorStyleAttr Color
   ;
 
-lexical WidgetStyleValue
-  = text: "text"
-  | number: "number"
-  | datepicker: "datepicker"
-  | slider: "slider"
-  | radio: "radio"
-  | checkbox: "checkbox"
-  | select: "select"
+syntax WidgetStyleValue
+  = text: TextWidgetValue
+  | number: NumberWidgetValue
+  | number: NumberWidgetValue "[" Number "," Number "]"
+  | number: NumberWidgetValue "[" Number "," Number "," Number "]"
+  | datepicker: DatepickerWidgetValue
+  | slider: SliderWidgetValue
+  | slider: SliderWidgetValue "[" Number "," Number "]"
+  | slider: SliderWidgetValue "[" Number "," Number "," Number "]"
+  | radio: RadioWidgetValue
+  | checkbox: CheckboxWidgetValue
+  | select: SelectWidgetValue
+  ;
+
+lexical Number
+  = Int
+  | Money
+  ;
+
+lexical TextWidgetValue
+  = "text"
+  ;
+
+lexical NumberWidgetValue
+  = "number"
+  ;
+
+lexical DatepickerWidgetValue
+  = "datepicker"
+  ;
+
+lexical SliderWidgetValue
+  = "slider"
+  ;
+
+lexical RadioWidgetValue
+  = "radio"
+  ;
+
+lexical CheckboxWidgetValue
+  = "checkbox"
+  ;
+
+lexical SelectWidgetValue
+  = "select"
   ;
 
 lexical WidgetStyleAttr
-  = @category="Constant" "widget"
+  = @category="Identifier" widget: "widget"
   ;
 
-lexical WidthStyleAttr
-  = @category="Constant" "width"
+lexical IntStyleAttr
+  = @category="Identifier" width: "width"
+  | @category="Identifier" fontsize: "fontsize"
+  | @category="Identifier" labelFontsize: "label-fontsize"
+  ;
+
+lexical StringStyleAttr
+  = @category="Identifier" font: "font"
+  | @category="Identifier" labelFont: "label-font"
+  ;
+
+lexical ColorStyleAttr
+  = @category="Identifier" color: "color"
+  | @category="Identifier" labelColor: "label-color"
   ;
 
 syntax Ident

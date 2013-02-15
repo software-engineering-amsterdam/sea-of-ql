@@ -1,9 +1,12 @@
-form Box1HouseOwning {
-   hasSoldHouse: "Did you sell a house in 2010?" boolean
-   hasBoughtHouse: "Did you by a house in 2010?" boolean
-   ￼￼￼￼hasMaintLoan: "Did you enter a loan for maintenance/reconstruction?" boolean
-   if (hasSoldHouse) {
-￼￼   sellingPrice: "Price the house was sold for:" money
-￼￼   privateDebt: "Private debts for the sold house:" money
-   %%￼valueResidue: "Value residue:" money(sellingPrice - privateDebt)
+form box1HouseOwning { 
+	hasSoldHouse: "Did you sell a house in 2010?" bool a+b
+	hasBoughtHouse: "Did you by a house in 2010?" bool
+	if (hasSoldHouse) { 
+		sellingPrice: "What was the selling price of the house?" int
+	} elseIf(blabla){
+	whatblabla: "what is blabla?" str	
+	} else {
+	laatzitten: "laat dan maar zitten!" bool
+	}
+	hasBoughtHouse: "Did you by a house in 2010?" bool
 }

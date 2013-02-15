@@ -47,36 +47,58 @@ public class IfElseStatement extends IfStatement {
 	}
 
 	@Override
-	public void buildForm(JPanel mainPanel) {
-		super.buildForm(mainPanel);
+	public void buildForm(JPanel mainPanel, Env environment, Form form) {
+		super.buildForm(mainPanel, environment, form);
 		for (FormItem f : elseBody) {
-			f.buildForm(mainPanel);
+			f.buildForm(mainPanel, elseBodyEnvironment, form);
 		}
 	}
 	
 	@Override
 	public void setVisible(Boolean visible) {
-		super.setVisible(!visible);
+		// The ifBody will be set to false. This will be overwritten by the eval if setVisible is called
+		// by the eval function. If not, this will prevent a visibility bug with nested ifElse statements
+		super.setVisible(false);
 		for (FormItem f : elseBody) {
 			f.setVisible(visible);
 		}
 	}
 	
 	@Override
-	public void eval(Env environment, Form form) {
+	public void eval(Env environment) {
 		setVisible(!isExpressionValid(environment));
-		evalIfBody(environment, form);
+		super.setVisible(isExpressionValid(environment));
+		evalIfBody(environment);
 		if (!isExpressionValid(environment)) {
 			for (FormItem f : elseBody) {
-				f.eval(elseBodyEnvironment, form);
+				f.eval(elseBodyEnvironment);
 			}
 		}
 	}
 	
 	@Override
-	public List<Tuple<Ident, Value>> getAllValues() {
-		List<Tuple<Ident, Value>> values = elseBodyEnvironment.getAllValues();
-		values.addAll(super.getAllValues());
+	public boolean isFinished(Env environment) {
+		if (!isExpressionValid(environment)) {
+			for (FormItem f : elseBody) {
+				if (!f.isFinished(elseBodyEnvironment)) {
+					return false;
+				}
+			}
+		}
+		else {
+			return super.isFinished(environment);
+		}
+		return true;
+	}
+	
+	@Override
+	public List<Tuple<Ident, Value>> getAllValues(Env environment) {
+		List<Tuple<Ident, Value>> values = super.getAllValues(environment);
+		if (!isExpressionValid(environment)) {
+			for (FormItem f : elseBody) {
+				values.addAll(f.getAllValues(elseBodyEnvironment));
+			}
+		}
 		return values;
 	}
 }

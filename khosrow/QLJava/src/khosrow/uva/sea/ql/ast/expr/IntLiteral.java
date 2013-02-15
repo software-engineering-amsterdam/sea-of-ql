@@ -5,7 +5,6 @@ import khosrow.uva.sea.ql.ast.type.Type;
 import khosrow.uva.sea.ql.env.Env;
 import khosrow.uva.sea.ql.visitor.IExprVisitor;
 
-
 public class IntLiteral extends Literal<Integer> {
 	public IntLiteral(Integer value) {
 		super(value);

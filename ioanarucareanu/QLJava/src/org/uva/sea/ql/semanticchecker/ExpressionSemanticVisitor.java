@@ -13,7 +13,6 @@ import org.uva.sea.ql.ast.expr.rel.GT;
 import org.uva.sea.ql.ast.expr.rel.LEq;
 import org.uva.sea.ql.ast.expr.rel.LT;
 import org.uva.sea.ql.ast.expr.rel.NEq;
-import org.uva.sea.ql.ast.type.Type;
 
 public interface ExpressionSemanticVisitor {
 	

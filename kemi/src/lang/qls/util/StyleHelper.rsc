@@ -133,7 +133,7 @@ private list[node] getDefinitions(str qid, list[SectionRule] sectionRules, list[
  * importance (e.g. more specific binding).
  */ 
 public list[StyleRule] deDupeStyleRules(list[StyleRule] styleRules) {
-  map[str, StyleRule] rules = (r.attr : r | r <- styleRules);
+  map[StyleAttr, StyleRule] rules = (r.attr : r | r <- styleRules);
   return [rules[key] | key <- rules];
 }
 

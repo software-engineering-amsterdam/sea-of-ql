@@ -32,7 +32,7 @@ public class Main {
 		ValueMapper valueMapper = new ValueMapper();
 		List<Message> errors = new ArrayList<Message>();
 
-		String qlFile = System.getProperty("user.dir") + "/input/form.ql";
+		String qlFile = System.getProperty("user.dir") + "/files/input/form.ql";
 		String strInput = null;
 
 		try {

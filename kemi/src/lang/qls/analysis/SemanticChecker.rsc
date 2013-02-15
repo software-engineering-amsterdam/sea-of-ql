@@ -14,6 +14,7 @@ import IO;
 import List;
 import Set;
 import String;
+import Map;
 import lang::ql::ast::AST;
 import lang::qls::analysis::Messages;
 import lang::qls::analysis::StyleAttrChecker;
@@ -24,7 +25,6 @@ import lang::qls::util::ParseHelper;
 import lang::qls::util::StyleHelper;
 import util::IDE;
 import util::LocationHelper;
-import util::MapHelper;
 
 public set[Message] semanticChecker(Stylesheet s) =
   filenameDoesNotMatchErrors(s) +
@@ -85,7 +85,7 @@ public set[Message] unusedQuestionWarnings(Stylesheet s) {
   typeMap = getTypeMap(getAccompanyingForm(s));
   
   for(d <- questionDefinitions) {
-    typeMap = delete(typeMap, identDefinition(d.ident));
+    typeMap = domainX(typeMap, {identDefinition(d.ident)});
   }
   
   loc warningLoc = s@location;

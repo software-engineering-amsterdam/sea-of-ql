@@ -17,13 +17,13 @@ public abstract class FormItem {
 
 	public abstract String getPrintableText(int level);
 	
-	public abstract void buildForm(JPanel mainPanel);
+	public abstract void buildForm(JPanel mainPanel, Env environment, Form form);
 	
 	public abstract void setVisible(Boolean visible);
 	
 	public abstract boolean validate(Env environment);
 	
-	public abstract void eval(Env environment, Form form);
+	public abstract void eval(Env environment);
 	
 	protected String getIndent(int level) {
 		String indent = "";
@@ -41,5 +41,6 @@ public abstract class FormItem {
 		return errorText;
 	}
 
-	public abstract List<Tuple<Ident, Value>> getAllValues();
+	public abstract boolean isFinished(Env environment);
+	public abstract List<Tuple<Ident, Value>> getAllValues(Env environment);
 }
