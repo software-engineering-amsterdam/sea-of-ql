@@ -12,7 +12,12 @@ operator instanceof is only valid in some cases when the RHS is a type/interface
 - assert assumptions
 - make codelocation class to bundle column and linenumber QLLexer
 
-- review typechecker
+- review typecheckerhelper
 - review renderer (mixed responsibilities)
+- review environment
 
 - better place for either ui package or evaluator.value package, ui uses value
+
+- test for typeresolver
+- test for typeinitializer
+- test for controls
