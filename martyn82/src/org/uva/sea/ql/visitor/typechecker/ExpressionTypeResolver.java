@@ -54,7 +54,8 @@ class ExpressionTypeResolver implements ExpressionVisitor<Type> {
 		if ( leftType.isCompatibleToMoney() || rightType.isCompatibleToMoney() ) {
 			return MoneyType.MONEY;
 		}
-		else if ( leftType.isCompatibleToInt() || rightType.isCompatibleToInt() ) {
+
+		if ( leftType.isCompatibleToInt() || rightType.isCompatibleToInt() ) {
 			return IntegerType.INTEGER;
 		}
 
