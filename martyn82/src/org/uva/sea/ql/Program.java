@@ -2,7 +2,6 @@ package org.uva.sea.ql;
 
 import org.uva.sea.ql.ui.ControlFactory;
 import org.uva.sea.ql.ui.control.PanelControl;
-import org.uva.sea.ql.ui.control.WindowControl;
 import org.uva.sea.ql.ui.swing.SwingControlFactory;
 import org.uva.sea.ql.visitor.evaluator.Error;
 
@@ -21,21 +20,25 @@ public class Program {
 	}
 
 	public void run() {
-		String source = FileLoader.getFileContents( System.getProperty( "user.dir" ) + "/assets/sample.ql" );
-
+		String source = this.getProgramSource();
 		this.interpreter.evaluate( source );
 
 		if ( this.interpreter.hasErrors() ) {
-			for ( Error error : this.interpreter.getErrors() ) {
-				System.err.println( error.toString() );
-			}
-
+			this.dumpErrors();
 			return;
 		}
 
 		PanelControl formPanel = this.interpreter.getResult();
+		this.factory.createWindow( formPanel.getName(), formPanel ).show();
+	}
 
-		WindowControl window = this.factory.createWindow( formPanel.getName(), formPanel );
-		window.show();
+	private String getProgramSource() {
+		return FileLoader.getFileContents( System.getProperty( "user.dir" ) + "/assets/sample.ql" );
+	}
+
+	private void dumpErrors() {
+		for ( Error error : this.interpreter.getErrors() ) {
+			System.err.println( error.toString() );
+		}
 	}
 }
