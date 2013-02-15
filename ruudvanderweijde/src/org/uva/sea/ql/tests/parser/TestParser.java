@@ -142,7 +142,9 @@ public class TestParser {
 	@Test
 	public void testNums() throws ParseError {
 		assertEquals(parser.parseExpression("0").getClass(), Int.class);
+		assertEquals(parser.parseExpression("23").getClass(), Int.class);
 		assertEquals(parser.parseExpression("1223").getClass(), Int.class);
+		assertEquals(parser.parseExpression("544342").getClass(), Int.class);
 		assertEquals(parser.parseExpression("234234234").getClass(), Int.class);
 	}
 	

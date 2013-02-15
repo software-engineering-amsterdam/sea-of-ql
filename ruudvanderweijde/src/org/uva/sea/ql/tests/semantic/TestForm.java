@@ -37,7 +37,8 @@ public class TestForm {
 			+ "     sellingPrice: \"Price the house was sold for:\" integer\n"
 			+ "     privateDebt: \"Private debts for the sold house:\" integer\n"
 			+ "     valueResidue: \"Value residue:\" integer(sellingPrice - privateDebt)\n"
-			+ "   }\n" + "}\n";
+			+ "   }\n" 
+			+ "}\n";
 
 	
 	public TestForm(IParse parser) {
