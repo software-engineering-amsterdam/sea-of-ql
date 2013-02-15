@@ -57,16 +57,17 @@ public class Form implements ActionListener {
 	
 	public boolean isFormValid() {
 		environment = new Env();
+		boolean valid = true;
 		for (FormItem f : body) {
 			if (!f.validate(environment))
-				return false;
+				valid = false;
 		}
-		return true;
+		return valid;
 	}
 	
 	public void eval() {
 		for (FormItem f : body) {
-			f.eval(environment, this);
+			f.eval(environment);
 		}
 		mainWindow.pack();
 	}
@@ -76,7 +77,7 @@ public class Form implements ActionListener {
 		this.mainWindow = mainWindow;
 		JPanel formPanel = new JPanel(new MigLayout("hidemode 3"));
 		for (FormItem f : body) {
-			f.buildForm(formPanel);
+			f.buildForm(formPanel, environment, this);
 		}
 		finishButton = new JButton("Finish form");
 		finishButton.addActionListener(this);

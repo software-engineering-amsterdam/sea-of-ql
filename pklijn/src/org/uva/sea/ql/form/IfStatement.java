@@ -60,9 +60,9 @@ public class IfStatement extends FormItem {
 	}
 
 	@Override
-	public void buildForm(JPanel mainPanel) {
+	public void buildForm(JPanel mainPanel, Env environment, Form form) {
 		for (FormItem f : ifBody) {
-			f.buildForm(mainPanel);
+			f.buildForm(mainPanel, ifBodyEnvironment, form);
 		}
 	}
 	
@@ -74,15 +74,15 @@ public class IfStatement extends FormItem {
 	}
 	
 	@Override
-	public void eval(Env environment, Form form) {
+	public void eval(Env environment) {
 		setVisible(isExpressionValid(environment));
-		evalIfBody(environment, form);
+		evalIfBody(environment);
 	}
 	
-	protected void evalIfBody(Env environment, Form form) {
+	protected void evalIfBody(Env environment) {
 		if (isExpressionValid(environment)) {
 			for (FormItem f : ifBody) {
-				f.eval(ifBodyEnvironment, form);
+				f.eval(ifBodyEnvironment);
 			}
 		}
 	}
