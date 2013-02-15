@@ -143,27 +143,33 @@ public void javaScriptAddCheckStatementFunction(str formId, str checkBoxId, list
 public void javaScriptAddGlobalVariable(str formId, str globalID) =
 	appendToJavaScriptFile(formId, globalID);
 
-void addOnChangeForComputed(str formId, str id, str methodName ){
-
+void addOnChangeForComputedFunction(str formId, str id, str methodName ){
+	str result = "function <id>CheckNumeric(cb) {
+	{ console.log(cb); }
+	<methodName>Calculation(<methodName>);
+	if(isNaN(cb.value))
+	{ alert(\"is not number\"); }
+	} ";
+	appendToJavaScriptFile(formId, "\n <result>");
 }
 
 public void javaScriptAddEvaluateQuestion(str formId, str id, Expression exp){
 	println("in evaluate question");  // i need to create a onchange function which checks the values of the exps
 	println("EXPR : <exp>");
-	//list[str] expressionIds = [];
+	list[value] expressionIds = [];
 	top-down visit(exp){
 		case Expression e : {
 			println("EXPRES : <e>");
-			//if(getName(e) == "id"){
-			//	expressionIds += e;
-			//}else{
-			//	println("sub");	// I need to evaluate the expression sub
-			//}
+			if(getName(e) == "id"){
+				expressionIds += getChildren(e);
+			}
 		}
 	}
+	println("expressionIds : <toString(expressionIds[0])>");
 	str ev = evaluateExp(exp, money());
-	
-	
+	for(j <- expressionIds){
+	addOnChangeForComputedFunction(formId, toString(j) , id);
+	}
 	str result = "function <id>Calculation(cb) {
 	cb.value = <ev>;
 	}";
