@@ -5,143 +5,65 @@ import org.uva.sea.ql.ast.expr.Expr;
 public abstract class Value extends Expr {
 	protected Value value;
 
+	public abstract Object getValue();
+	
 	public boolean isDefined() { //TODO, does this make sense ?!
 		return this.value != null;
 	}
 
-	public Value add(Value arg) {
-		throw new UnsupportedOperationException();
-	}
-
+	public abstract Value add(Value arg);
 	// BOOLEAN
-	public Value and(Value arg) {
-		throw new UnsupportedOperationException();
-	}
+	public abstract Value and(Value arg);
+	public abstract Value or(Value arg);
 
-	public Value or(Value arg) {
-		throw new UnsupportedOperationException();
-	}
-
-	public Value equ(Value arg) {
-		// BOOL AND INT
-		throw new UnsupportedOperationException();
-	}
-
-	public Value nEqu(Value arg) {
-		throw new UnsupportedOperationException();
-	}
-
-	public Value not() {
-		throw new UnsupportedOperationException();
-	}
+	public abstract Value equ(Value arg) ;
+	public abstract Value nEqu(Value arg) ;
+	public abstract Value not() ; //Value val
 
 	// BOOLEAN INTERNAL
 
-	protected Value andBool(Bool arg) {
-		throw new UnsupportedOperationException();
-	}
+	protected abstract Value andBool(Bool arg);
+	protected abstract Value orBool(Bool arg) ;
+	protected abstract Value equBool(Bool arg) ;
 
-	protected Value orBool(Bool arg) {
-		throw new UnsupportedOperationException();
-	}
-
-	protected Value equBool(Bool arg) {
-		throw new UnsupportedOperationException();
-	}
-
-	protected Value notBool(Bool arg) {
-		throw new UnsupportedOperationException();
-	}
-
+	protected abstract Value notBool(Bool arg) ;
 	// INTEGER
 
-	public Value pos() {
-		throw new UnsupportedOperationException();
-	}
+	public abstract Value pos();
 
-	public Value div(Value arg) {
-		throw new UnsupportedOperationException();
-	}
+	public abstract Value div(Value arg);
+	public abstract Value mul(Value arg);
 
-	public Value mul(Value arg) {
-		throw new UnsupportedOperationException();
-	}
+	public abstract Value sub(Value arg) ;
+	public abstract Value neg() ;
 
-	public Value sub(Value arg) {
-		throw new UnsupportedOperationException();
-	}
+	public abstract Value lt(Value arg);
 
-	public Value neg() {
-		throw new UnsupportedOperationException();
-	}
+	public abstract Value lEq(Value arg);
+	public abstract Value gt(Value arg);
 
-	public Value lt(Value arg) {
-		throw new UnsupportedOperationException();
-	}
+	public abstract Value gEq(Value arg);
 
-	public Value lEq(Value arg) {
-		throw new UnsupportedOperationException();
-	}
-
-	public Value gt(Value arg) {
-		throw new UnsupportedOperationException();
-	}
-
-	public Value gEq(Value arg) {
-		throw new UnsupportedOperationException();
-	}
-
-	public Value pos(Value arg) {
-		throw new UnsupportedOperationException();
-	}
+//	public abstract Value pos(Value arg);
 
 	// INTEGER INTERNAL
-	protected Value addInt(Int arg) {
-		throw new UnsupportedOperationException();
-	}
+	protected abstract Value addInt(Numeric arg);
+	protected abstract Value divInt(Numeric arg) ;
 
-	protected Value divInt(Int arg) {
-		throw new UnsupportedOperationException();
-	}
+	protected abstract Value mulInt(Numeric arg);
 
-	protected Value mulInt(Int arg) {
-		throw new UnsupportedOperationException();
-	}
+	protected abstract Value subInt(Numeric arg);
 
-	protected Value subInt(Int arg) {
-		throw new UnsupportedOperationException();
-	}
+	protected abstract Value equInt(Numeric arg);
 
-	protected Value equInt(Int arg) {
-		throw new UnsupportedOperationException();
-	}
+	protected abstract Value posInt(Numeric arg);
 
-	protected Value posInt(Int arg) {
-		throw new UnsupportedOperationException();
-	}
+	protected abstract Value negInt(Numeric arg);
+	protected abstract Value ltInt(Numeric arg);
 
-	protected Value negInt(Int arg) {
-		throw new UnsupportedOperationException();
-	}
-
-	protected Value ltInt(Int arg) {
-		throw new UnsupportedOperationException();
-	}
-
-	protected Value lEqInt(Int arg) {
-		throw new UnsupportedOperationException();
-	}
-
-	protected Value gtInt(Int arg) {
-		throw new UnsupportedOperationException();
-	}
-
-	protected Value gEqInt(Int arg) {
-		throw new UnsupportedOperationException();
-	}
-
-	protected Value nEquInt(Int arg) {
-		throw new UnsupportedOperationException();
-	}
+	protected abstract Value lEqInt(Numeric arg);
+	protected abstract Value gtInt(Numeric arg) ;
+	protected abstract Value gEqInt(Numeric arg);
+	protected abstract Value nEquInt(Numeric arg);
 
 }

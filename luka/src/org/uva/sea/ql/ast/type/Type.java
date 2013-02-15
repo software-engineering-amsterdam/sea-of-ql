@@ -2,10 +2,11 @@ package org.uva.sea.ql.ast.type;
 
 import org.uva.sea.ql.ast.nodes.values.Value;
 import org.uva.sea.ql.ast.visitor.TypeVisitor;
+import org.uva.sea.ql.questionnaire.ui.Control;
 
 public abstract class Type {
 
-	public abstract void accept(TypeVisitor visitor);
+	public abstract Control accept(TypeVisitor visitor);
 	public abstract Value getDefaultValue();
 
 	public abstract boolean isCompatibleTo(Type t);

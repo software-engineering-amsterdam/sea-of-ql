@@ -8,15 +8,16 @@ import org.uva.sea.ql.ast.type.Type;
 import org.uva.sea.ql.ast.visitor.Visitor;
 
 
-public class Money extends Value{
+public class Money extends Numeric {//Value{
 
-	private final double value;
+	private final Integer value;
 	
-	public Money(double val){
-		this.value = val;
+	public Money(Integer val){
+		super();
+		this.value =  val;
 	}
 	
-	public double getValue(){
+	public Integer getValue(){
 		return this.value;
 	}
 
@@ -29,10 +30,70 @@ public class Money extends Value{
 	public <T> T accept(Visitor<T> visitor) {
 		return visitor.visit(this);
 	}
-
-
-	@Override
-	public String toString() {
-		return "Money("+this.value+")";
-	}
+//
+//
+//	@Override
+//	public String toString() {
+//		return "Money("+this.value+")";
+//	}
+//
+//	@Override
+//	public Value and(Value arg) {
+//		// TODO Auto-generated method stub
+//		return null;
+//	}
+//
+//	@Override
+//	public Value or(Value arg) {
+//		// TODO Auto-generated method stub
+//		return null;
+//	}
+//
+//	@Override
+//	public Value not() {
+//		// TODO Auto-generated method stub
+//		return null;
+//	}
+//
+//	@Override
+//	protected Value andBool(Bool arg) {
+//		// TODO Auto-generated method stub
+//		return null;
+//	}
+//
+//	@Override
+//	protected Value orBool(Bool arg) {
+//		// TODO Auto-generated method stub
+//		return null;
+//	}
+//
+//	@Override
+//	protected Value equBool(Bool arg) {
+//		// TODO Auto-generated method stub
+//		return null;
+//	}
+//
+//	@Override
+//	protected Value notBool(Bool arg) {
+//		// TODO Auto-generated method stub
+//		return null;
+//	}
+//
+//	@Override
+//	public Value pos() {
+//		// TODO Auto-generated method stub
+//		return null;
+//	}
+//
+//	@Override
+//	protected Value posInt(Numeric arg) {
+//		// TODO Auto-generated method stub
+//		return null;
+//	}
+//
+//	@Override
+//	protected Value gEqInt(Numeric arg) {
+//		// TODO Auto-generated method stub
+//		return null;
+//	}
 }

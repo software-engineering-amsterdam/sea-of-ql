@@ -16,4 +16,6 @@ public class VisibleComputetStat extends ComputedStat{
 		 visitor.visit(this);
 	}
 
+
+
 }

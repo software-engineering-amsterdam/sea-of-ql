@@ -69,7 +69,7 @@ public class CheckStat implements StatementVisitor {
 	}
 
 	private void checkCondition(ConditionalStat stat) {
-		checkExpr(stat.getExpr());
+		checkExpr(stat.getCondition());
 		if (stat.getBody().getStatements().isEmpty()) {
 			addError(stat, "Invalid if block size, must not be empty");
 		}

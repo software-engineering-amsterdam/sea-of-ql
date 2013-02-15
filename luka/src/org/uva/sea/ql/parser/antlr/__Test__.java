@@ -1,6 +1,5 @@
 package org.uva.sea.ql.parser.antlr;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -9,21 +8,12 @@ import org.antlr.runtime.CommonTokenStream;
 import org.antlr.runtime.RecognitionException;
 import org.antlr.runtime.tree.CommonTree;
 import org.antlr.runtime.tree.CommonTreeNodeStream;
-import org.uva.sea.ql.ast.error.ErrorMessage;
-import org.uva.sea.ql.ast.expr.Expr;
 import org.uva.sea.ql.ast.expr.Ident;
 import org.uva.sea.ql.ast.stat.AnswerableStat;
-import org.uva.sea.ql.ast.stat.Block;
-import org.uva.sea.ql.ast.stat.ComputedStat;
-import org.uva.sea.ql.ast.stat.ConditionalStat;
-import org.uva.sea.ql.ast.stat.HiddenComputetStat;
 import org.uva.sea.ql.ast.stat.IfThenElseStat;
 import org.uva.sea.ql.ast.stat.IfThenStat;
 import org.uva.sea.ql.ast.stat.Stat;
-import org.uva.sea.ql.ast.stat.VisibleComputetStat;
 import org.uva.sea.ql.ast.type.Type;
-import org.uva.sea.ql.ast.visitor.CheckExpr;
-import org.uva.sea.ql.ast.visitor.CheckStat;
 import org.uva.sea.ql.questionnaire.Questionnaire;
 import org.uva.sea.ql.questionnaire.QuestionnaireProcessor;
 
@@ -122,14 +112,14 @@ public class __Test__ {
 		    	}else if(qStat instanceof IfThenStat){
 		    		IfThenStat ifThen = (IfThenStat) qStat;
 //		    		printDebug("If:","--->");
-		    		printDebug("expr: ",ifThen.getExpr().toString());
+		    		printDebug("expr: ",ifThen.getCondition().toString());
 //		    		printDebug("body:",ifThen.getBody().getStatements().size()+"");
 //		    		printDebug("If:","<---");
 		    		recursivePrint(ifThen.getBody().getStatements());
 		    	}else if(qStat instanceof IfThenElseStat){
 		    		IfThenElseStat ifThenElse = (IfThenElseStat) qStat;
 //		    		printDebug("IfElse:","--->");
-		    		printDebug("expr:",ifThenElse.getExpr().toString());
+		    		printDebug("expr:",ifThenElse.getCondition().toString());
 //		    		printDebug("body:",ifThenElse.getBody().getStatements().size()+"");
 //		    		printDebug("IfBlock:","->");
 		    		recursivePrint(ifThenElse.getBody().getStatements());

@@ -2,7 +2,7 @@ package org.uva.sea.ql.ast.stat;
 
 import org.uva.sea.ql.ast.expr.Expr;
 
-public abstract class ConditionalStat extends Stat{
+public abstract class ConditionalStat implements Stat{
 
 	protected Expr condition;
 	protected Block trueBlock;
@@ -15,7 +15,7 @@ public abstract class ConditionalStat extends Stat{
 		return this.trueBlock;
 	}
 	
-	public Expr getExpr(){
+	public Expr getCondition(){
 		return this.condition;
 	}
 	

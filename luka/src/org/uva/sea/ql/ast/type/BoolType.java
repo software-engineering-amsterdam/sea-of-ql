@@ -3,6 +3,7 @@ package org.uva.sea.ql.ast.type;
 import org.uva.sea.ql.ast.nodes.values.Bool;
 import org.uva.sea.ql.ast.nodes.values.Value;
 import org.uva.sea.ql.ast.visitor.TypeVisitor;
+import org.uva.sea.ql.questionnaire.ui.Control;
 
 
 public class BoolType extends Type {
@@ -30,7 +31,7 @@ public class BoolType extends Type {
 	}
 
 	@Override
-	public void accept(TypeVisitor visitor) {
-		visitor.visit(this);
+	public Control accept(TypeVisitor visitor) {
+		return visitor.visit(this);
 	}
 }

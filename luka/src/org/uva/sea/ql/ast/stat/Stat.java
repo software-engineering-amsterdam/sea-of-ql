@@ -3,7 +3,7 @@ package org.uva.sea.ql.ast.stat;
 import org.uva.sea.ql.ast.visitor.StatementVisitor;
 
 
-public abstract class Stat  {
+public interface  Stat  {
 
-	 public abstract void accept(StatementVisitor visitor);
+	 public  void accept(StatementVisitor visitor);
 }

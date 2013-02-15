@@ -6,7 +6,7 @@ import java.util.List;
 import org.uva.sea.ql.ast.visitor.StatementVisitor;
 
 
-public class Block extends Stat{ 
+public class Block implements Stat{ 
 	
 	private List<Stat> statements;
 	
