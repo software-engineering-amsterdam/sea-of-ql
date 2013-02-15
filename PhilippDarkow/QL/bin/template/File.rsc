@@ -117,7 +117,7 @@ public void javaScriptAddCheckStatementFunction(str formId, str checkBoxId, list
 	appendToJavaScriptFile(formId, "\n <check>");
 }
 
-public void javaScriptAddCheckStatementFunction(str formId, str checkBoxId, list[str] thenPart, str exp){
+public void javaScriptAddCheckStatementFunction(str formId, str checkBoxId, list[str] thenPart, str exp,list[str] children){
 	str ifTrue = "";
 	for(i <- thenPart){
 		ifTrue += i;
@@ -128,6 +128,13 @@ public void javaScriptAddCheckStatementFunction(str formId, str checkBoxId, list
 		<formId>.removeChild(<formId>Submit);
 		<ifTrue>
 		<formId>.appendChild(<formId>Submit);
+	}else {
+		if(<children[0]>Paragraph.parentNode != null)
+		{
+		<for(c <- children){>
+		<formId>.removeChild(<c>Paragraph);
+		<}>
+		}
 	}
 	}";
 	appendToJavaScriptFile(formId, "\n <check>");
@@ -135,6 +142,10 @@ public void javaScriptAddCheckStatementFunction(str formId, str checkBoxId, list
 
 public void javaScriptAddGlobalVariable(str formId, str globalID) =
 	appendToJavaScriptFile(formId, globalID);
+
+void addOnChangeForComputed(str formId, str id, str methodName ){
+
+}
 
 public void javaScriptAddEvaluateQuestion(str formId, str id, Expression exp){
 	println("in evaluate question");  // i need to create a onchange function which checks the values of the exps
@@ -154,7 +165,7 @@ public void javaScriptAddEvaluateQuestion(str formId, str id, Expression exp){
 	
 	
 	str result = "function <id>Calculation(cb) {
-	cb.value = <ev>
+	cb.value = <ev>;
 	}";
 	
 	appendToJavaScriptFile(formId, "\n <result>");	

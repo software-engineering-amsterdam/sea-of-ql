@@ -66,7 +66,15 @@ str specifyAttributesCalculation(str id){
 	return "<id>.setAttribute(\'type\',\"text\");
 		<id>.setAttribute(\'id\',<id>);
 		<id>.setAttribute(\'name\',<id>);
+		<id>.setAttribute(\'readOnly\',\'readonly\');
 		<id>.setAttribute(\'onchange\',\"<id>Calculation(this)\");
+		 ";
+}
+
+str specifyAttributesTextField(str id){
+	return "<id>.setAttribute(\'type\',\"text\");
+		<id>.setAttribute(\'id\',<id>);
+		<id>.setAttribute(\'name\',<id>);
 		 ";
 }
 
@@ -129,19 +137,22 @@ private str generateQuestion(str formId, question:easyQuestion(str id, str label
 		<formId>.appendChild(<id>Paragraph);
 		 ";
 	}else if(tp == integer()){ // add the moment just a textfield
+		javaScriptAddGlobalVariable(formId, "var <id> = document.createElement(\"input\");");
 		str attributes = specifyAttributesNumeric(id);
 		str paragraph = generateParagraph(id, label, formId);
-		return "var <id> = document.createElement(\"input\");
-		<attributes>
+		str cssLabel = cssEndLabels(id);
+		appendToCssFile(formId, cssLabel);
+		javaScriptAddCheckFunction(formId, "<id>CheckNumeric(cb)", tp);
+		return "<attributes>
 		<label>
 		<paragraph>
 		<formId>.appendChild(<id>Paragraph);
 		 ";
 	}else if(tp == string()){
-		str attributes = specifyAttributesNumeric(id);
+		javaScriptAddGlobalVariable(formId, "var <id> = document.createElement(\"input\");");
+		str attributes = specifyAttributesTextField(id);
 		str paragraph = generateParagraph(id, label, formId);
-		return "var <id> = document.createElement(\"input\");
-		<attributes>
+		return "<attributes>
 		<label>
 		<paragraph>
 		<formId>.appendChild(<id>Paragraph);
@@ -158,7 +169,7 @@ private str generateQuestion(str formId, question:computedQuestion(str id, str l
 	println("EXP is : <exp>");
 	println("ID is : <id>");
 	if(tp == money()){
-		println("in integer generate computed Question");
+		println("in money generate computed Question");
 		str paragraph = generateParagraph(id, label, formId);
 		//evaluateExpression(exp, tp);
 		javaScriptAddGlobalVariable(formId, "var <id> = document.createElement(\"input\");");
@@ -196,8 +207,13 @@ str generateStatement(str formId, statement:ifStat(Expression exp, list[Body] th
 		javaScriptAddCheckStatementFunction(formId, checkBoxId, thenPartString, children);
 		return "<checkBoxId>.setAttribute(\'onchange\',\"<checkBoxId>DoTheCheckWithStatement(this)\");";
 	}else{
-		javaScriptAddCheckStatementFunction(formId, "hasMaintLoanValueCheck(cb)", thenPartString, evaluate);
-		return "hasMaintLoan.setAttribute(\'onchange\',\"hasMaintLoanValueCheck(this)\");";
+		// i need to get the expression 
+		javaScriptAddCheckStatementFunction(formId, "hasSoldHouseValueCheck(cb)", thenPartString, evaluate,children);
+		javaScriptAddCheckStatementFunction(formId, "boughtHouseValueCheck(cb)", thenPartString, evaluate,children);
+		// 
+		return "hasSoldHouse.setAttribute(\'onchange\',\"hasSoldHouseValueCheck(this)\");
+		boughtHouse.setAttribute(\'onchange\',\"boughtHouseValueCheck(this)\");
+		";
 	}
 }
 
