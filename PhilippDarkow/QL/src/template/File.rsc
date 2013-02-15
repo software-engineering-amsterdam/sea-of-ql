@@ -118,3 +118,7 @@ public void javaScriptAddCheckStatementFunction(str formId, str checkBoxId, list
 
 public void javaScriptAddGlobalVariable(str formId, str globalID) =
 	appendToJavaScriptFile(formId, globalID);
+
+public void javaScriptAddEvaluateQuestion(str formId, Expression exp){
+	println("in evaluate question");  // i need to create a onchange function which checks the values of the exps
+}

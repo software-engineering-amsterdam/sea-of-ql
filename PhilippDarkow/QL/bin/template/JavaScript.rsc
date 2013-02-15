@@ -4,6 +4,7 @@ import syntax::AbstractSyntax;
 import template::StringTemplate;
 import template::File;
 import template::CSS;
+import Prelude;
 
 public str javaScriptCreateForm(str id, list[Body] Body){
 	str f = "function createForm(){
@@ -36,4 +37,6 @@ str createSubmitButton(str id){
 		<id>Submit.setAttribute(\'value\',\"Click!\");	";
 	return d;
 }
+
+
 

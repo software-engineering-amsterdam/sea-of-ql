@@ -151,7 +151,9 @@ private str generateQuestion(str formId, question:computedQuestion(str id, str l
 	if(tp == money()){
 		println("in integer generate computed Question");
 		str paragraph = generateParagraph(id, label, formId);
+		//evaluateExpression(exp, tp);
 		javaScriptAddGlobalVariable(formId, "var <id> = document.createElement(\"input\");");
+		javaScriptAddEvaluateQuestion(formId, exp);
 		str attributes = specifyAttributesNumeric(id);
 		return "<attributes>
 		<label>
