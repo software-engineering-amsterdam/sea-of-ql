@@ -27,12 +27,12 @@ public class TestConditionals extends TestBase {
 		assertNotNull(conditions);
 		assertEquals(Eq.class, conditions.getClass());
 
-		final List<Statement> successElements = ((IfThen) result)
+		final List<Statement> successStatements = ((IfThen) result)
 				.getSuccessStatements();
-		assertEquals(1, successElements.size());
-		assertEquals(Question.class, successElements.get(0).getClass());
+		assertEquals(1, successStatements.size());
+		assertEquals(Question.class, successStatements.get(0).getClass());
 
-		final Question question = (Question) successElements.get(0);
+		final Question question = (Question) successStatements.get(0);
 		assertEquals(StringType.class, question.getExpectedType().getClass());
 
 		assertEquals("Have you bought this house?", question.getText());
@@ -49,23 +49,23 @@ public class TestConditionals extends TestBase {
 		assertNotNull(conditions);
 		assertEquals(Eq.class, conditions.getClass());
 
-		final List<Statement> successElements = ((IfThenElse) result)
+		final List<Statement> successStatements = ((IfThenElse) result)
 				.getSuccessStatements();
-		assertEquals(1, successElements.size());
-		assertEquals(Question.class, successElements.get(0).getClass());
+		assertEquals(1, successStatements.size());
+		assertEquals(Question.class, successStatements.get(0).getClass());
 
-		final Question question = (Question) successElements.get(0);
+		final Question question = (Question) successStatements.get(0);
 		assertEquals(StringType.class, question.getExpectedType().getClass());
 
 		assertEquals("Have you bought this house?", question.getText());
 		assertEquals("boughtHouse", question.getIdent().getName());
 
-		final List<Statement> elseElements = ((IfThenElse) result)
+		final List<Statement> elseStatements = ((IfThenElse) result)
 				.getElseStatements();
-		assertEquals(1, elseElements.size());
-		assertEquals(Question.class, elseElements.get(0).getClass());
+		assertEquals(1, elseStatements.size());
+		assertEquals(Question.class, elseStatements.get(0).getClass());
 
-		final Question elseQuestion = (Question) elseElements.get(0);
+		final Question elseQuestion = (Question) elseStatements.get(0);
 		assertEquals(StringType.class, elseQuestion.getExpectedType()
 				.getClass());
 

@@ -18,14 +18,14 @@ public class IfThen extends IfStatement {
 	 * 
 	 * @param conditions
 	 *            conditions
-	 * @param successElements
-	 *            form elements to display on success
+	 * @param successStatments
+	 *            form statements to display on success
 	 * @param syntaxPosition
 	 * 			  the original position of the expression in the input syntax
 	 */
 	public IfThen(final Expression conditions,
-			final List<Statement> successElements, final SyntaxPosition syntaxPosition) {
-		super(conditions, successElements, syntaxPosition);
+			final List<Statement> successStatements, final SyntaxPosition syntaxPosition) {
+		super(conditions, successStatements, syntaxPosition);
 	}
 
 	@Override

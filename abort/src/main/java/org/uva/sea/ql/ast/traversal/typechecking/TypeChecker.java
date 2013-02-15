@@ -60,12 +60,12 @@ public class TypeChecker implements IVisitor<Boolean> {
 
 	@Override
 	public Boolean visit(final Form form) {
-		// Check for errors in the form elements and return whether errors are found or not
-		final boolean elementErrors = checkElements(form.getStatements());
-		if (!elementErrors) {
+		// Check for errors in the form statements and return whether errors are found or not
+		final boolean statementErrors = checkStatements(form.getStatements());
+		if (!statementErrors) {
 			eventLog.addCorrectSemantics(form);
 		}
-		return elementErrors;
+		return statementErrors;
 	}
 
 	@Override
@@ -90,11 +90,10 @@ public class TypeChecker implements IVisitor<Boolean> {
 	@Override
 	public Boolean visit(final IfThenElse ifThenElse) {
 		final boolean errors = checkIfStatement(ifThenElse);
-		final boolean elseElementErrors = checkElements(ifThenElse
-				.getElseStatements());
+		final boolean elseStatementErrors = checkStatements(ifThenElse.getElseStatements());
 
-		// Errors are present deeper in the AST or in the success elements
-		return (errors || elseElementErrors);
+		// Errors are present deeper in the AST or in the success statements
+		return (errors || elseStatementErrors);
 	}
 
 	@Override
@@ -361,25 +360,25 @@ public class TypeChecker implements IVisitor<Boolean> {
 	 */
 	private boolean checkIfStatement(final IfStatement statement) {
 		final boolean conditionErrors = statement.getCondition().accept(this);
-		final boolean successElementsErrors = checkElements(statement
+		final boolean successStatementErrors = checkStatements(statement
 				.getSuccessStatements());
 
 		// Errors are present deeper in the AST
-		return (conditionErrors || successElementsErrors);
+		return (conditionErrors || successStatementErrors);
 	}
 
 	/**
-	 * Check for errors in form elements.
+	 * Check for errors in form statements.
 	 * 
-	 * @param elements elements to check
+	 * @param statements statements to check
 	 * @return whether there are errors found or not
 	 */
-	private boolean checkElements(final List<Statement> elements) {
+	private boolean checkStatements(final List<Statement> statements) {
 		boolean errors = false;
-		for (final Statement element : elements) {
+		for (final Statement statement : statements) {
 			// Errors deeper in the tree. As we still want to check errors on
 			// the same nesting level, we will continue the loop
-			if (element.accept(this))
+			if (statement.accept(this))
 			{
 				errors = true;
 			}

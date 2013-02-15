@@ -22,7 +22,7 @@ import org.uva.sea.ql.ast.types.datatypes.IntType;
 import org.uva.sea.ql.ast.types.datatypes.MoneyType;
 import org.uva.sea.ql.ast.types.datatypes.StringType;
 
-// Test form structure and element recognition (idents) after parsing
+// Test form structure and statement recognition (idents) after parsing
 public class TestForm extends TestBase {
 	// Form location
 	private static final String RESOURCE_FORM = "forms/form.ql";
