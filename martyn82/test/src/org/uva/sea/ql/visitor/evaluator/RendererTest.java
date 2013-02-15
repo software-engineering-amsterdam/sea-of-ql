@@ -12,22 +12,20 @@ import org.uva.sea.ql.ast.expression.literal.IntegerLiteral;
 import org.uva.sea.ql.ast.expression.literal.MoneyLiteral;
 import org.uva.sea.ql.ast.expression.literal.StringLiteral;
 import org.uva.sea.ql.ast.statement.Assignment;
+import org.uva.sea.ql.ast.statement.ComputedQuestion;
 import org.uva.sea.ql.ast.statement.FormDeclaration;
 import org.uva.sea.ql.ast.statement.IfThen;
 import org.uva.sea.ql.ast.statement.IfThenElse;
-import org.uva.sea.ql.ast.statement.ComputedQuestion;
-import org.uva.sea.ql.ast.statement.VariableQuestion;
 import org.uva.sea.ql.ast.statement.Statement;
 import org.uva.sea.ql.ast.statement.Statements;
 import org.uva.sea.ql.ast.statement.VariableDeclaration;
+import org.uva.sea.ql.ast.statement.VariableQuestion;
 import org.uva.sea.ql.ast.type.BooleanType;
 import org.uva.sea.ql.ast.type.IntegerType;
 import org.uva.sea.ql.ast.type.MoneyType;
 import org.uva.sea.ql.ast.type.StringType;
 import org.uva.sea.ql.ui.ControlFactory;
 import org.uva.sea.ql.ui.swing.SwingControlFactory;
-import org.uva.sea.ql.visitor.evaluator.Environment;
-import org.uva.sea.ql.visitor.evaluator.Renderer;
 
 public class RendererTest extends EvaluatorTest implements StatementTest {
 	private final ControlFactory factory;

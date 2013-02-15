@@ -1,5 +1,6 @@
 package org.uva.sea.ql.visitor.typechecker;
 
+import org.uva.sea.ql.ast.expression.Expression;
 import org.uva.sea.ql.ast.expression.IdentifierExpression;
 import org.uva.sea.ql.ast.expression.binary.arithmetic.AddExpression;
 import org.uva.sea.ql.ast.expression.binary.arithmetic.ArithmeticExpression;
@@ -26,10 +27,17 @@ import org.uva.sea.ql.ast.type.UndefinedType;
 import org.uva.sea.ql.visitor.ExpressionVisitor;
 import org.uva.sea.ql.visitor.evaluator.Environment;
 
-public class ExpressionChecker extends AbstractTypeChecker implements ExpressionVisitor<Boolean> {
+class ExpressionTypeChecker implements ExpressionVisitor<Boolean> {
+	private final TypeCheckerHelper helper;
+	private final Environment environment;
 
-	public ExpressionChecker( Environment environment ) {
-		super( environment );
+	public ExpressionTypeChecker( Environment environment ) {
+		this.environment = environment;
+		this.helper = new TypeCheckerHelper( this.environment );
+	}
+
+	private Type typeOf( Expression expression ) {
+		return this.helper.typeOf( expression );
 	}
 
 	private Boolean visitArithmeticExpression( ArithmeticExpression node ) {
@@ -44,7 +52,7 @@ public class ExpressionChecker extends AbstractTypeChecker implements Expression
 		Type rightType = this.typeOf( node.getRhs() );
 
 		if ( !( leftType.isCompatibleToNumber() && rightType.isCompatibleToNumber() ) ) {
-			this.addIncompatibleTypesError(
+			this.helper.addIncompatibleTypesError(
 				node.toString(),
 				"Number",
 				String.format( "%s and %s", leftType.getName(), rightType.getName() ),
@@ -68,7 +76,7 @@ public class ExpressionChecker extends AbstractTypeChecker implements Expression
 		Type rightType = this.typeOf( node.getRhs() );
 
 		if ( !( leftType.isCompatibleToBool() && rightType.isCompatibleToBool() ) ) {
-			this.addIncompatibleTypesError(
+			this.helper.addIncompatibleTypesError(
 				node.toString(),
 				"Boolean",
 				String.format( "%s and %s", leftType.getName(), rightType.getName() ),
@@ -92,7 +100,7 @@ public class ExpressionChecker extends AbstractTypeChecker implements Expression
 		Type rightType = this.typeOf( node.getRhs() );
 
 		if ( !( leftType.isCompatibleToNumber() && rightType.isCompatibleToNumber() ) ) {
-			this.addIncompatibleTypesError(
+			this.helper.addIncompatibleTypesError(
 				node.toString(),
 				"Number",
 				String.format( "%s and %s", leftType.getName(), rightType.getName() ),
@@ -112,7 +120,7 @@ public class ExpressionChecker extends AbstractTypeChecker implements Expression
 		Type expressionType = this.typeOf( node.getExpression() );
 
 		if ( !expressionType.isCompatibleToBool() ) {
-			this.addIncompatibleTypeError(
+			this.helper.addIncompatibleTypeError(
 				node.toString(), "Boolean.", expressionType.getName(), node
 			);
 			return false;
@@ -129,7 +137,7 @@ public class ExpressionChecker extends AbstractTypeChecker implements Expression
 		Type expressionType = this.typeOf( node.getExpression() );
 
 		if ( !expressionType.isCompatibleToNumber() ) {
-			this.addIncompatibleTypeError(
+			this.helper.addIncompatibleTypeError(
 				node.toString(), "Number.", expressionType.getName(), node
 			);
 			return false;
@@ -150,7 +158,7 @@ public class ExpressionChecker extends AbstractTypeChecker implements Expression
 		Type rightType = this.typeOf( node.getRhs() );
 
 		if ( !leftType.isCompatibleTo( rightType ) ) {
-			this.addIncompatibleTypesError(
+			this.helper.addIncompatibleTypesError(
 				node.toString(),
 				"same",
 				String.format( "%s and %s", leftType.getName(), rightType.getName() ),
@@ -187,7 +195,7 @@ public class ExpressionChecker extends AbstractTypeChecker implements Expression
 		Type identifierType = this.typeOf( node );
 
 		if ( identifierType.equals( UndefinedType.UNDEFINED ) ) {
-			this.addUndefinedError( node.getName(), node );
+			this.helper.addUndefinedError( node.getName(), node );
 			return false;
 		}
 

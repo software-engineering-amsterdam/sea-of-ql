@@ -14,34 +14,30 @@ import org.uva.sea.ql.visitor.typechecker.TypeChecker;
 
 public class QLInterpreter {
 	private final QLParser parser;
+	private final TypeChecker typeChecker;
 	private final ControlFactory factory;
 
 	private Environment environment;
 	private PanelControl result;
-	private Statement ast;
 
 	public QLInterpreter( ControlFactory factory ) {
 		this.parser = new QLParser();
+		this.typeChecker = new TypeChecker();
+
 		this.environment = new Environment();
 		this.factory = factory;
 	}
 
 	public boolean evaluate( String source ) {
-		try {
-			this.ast = this.parser.parse( source );
-		}
-		catch ( ParseError e ) {
-			e.printStackTrace();
-			throw new RuntimeException( e );
-		}
+		Statement root = this.parse( source );
+		this.typeChecker.check( root );
 
-		if ( !TypeChecker.typeCheck( this.ast, this.environment ) ) {
+		if ( this.typeChecker.hasErrors() ) {
 			this.dumpErrors();
 			return false;
 		}
 
-		this.result = Renderer.render( this.ast, this.environment, this.factory );
-
+		this.result = Renderer.render( root, this.factory );
 		return true;
 	}
 
@@ -53,8 +49,26 @@ public class QLInterpreter {
 		return this.environment.getErrors();
 	}
 
+	private Statement parse( String source ) {
+		Statement ast = null;
+
+		try {
+			ast = this.parser.parse( source );
+		}
+		catch ( ParseError e ) {
+			e.printStackTrace();
+			throw new RuntimeException( e );
+		}
+
+		return ast;
+	}
+
 	private void dumpErrors() {
-		for ( Error error : this.environment.getErrors() ) {
+		if ( !this.typeChecker.hasErrors() ) {
+			return;
+		}
+
+		for ( Error error : this.typeChecker.getErrors() ) {
 			System.err.println( error.toString() );
 		}
 	}

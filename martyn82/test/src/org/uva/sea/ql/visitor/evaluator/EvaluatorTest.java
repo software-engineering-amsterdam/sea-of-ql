@@ -1,8 +1,6 @@
 package org.uva.sea.ql.visitor.evaluator;
 
 import org.uva.sea.ql.ast.expression.Expression;
-import org.uva.sea.ql.visitor.evaluator.Environment;
-import org.uva.sea.ql.visitor.evaluator.Evaluator;
 
 abstract public class EvaluatorTest {
 	protected final Environment environment;

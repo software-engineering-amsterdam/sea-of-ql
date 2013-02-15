@@ -12,7 +12,7 @@ import org.uva.sea.ql.visitor.evaluator.value.MoneyValue;
 import org.uva.sea.ql.visitor.evaluator.value.StringValue;
 import org.uva.sea.ql.visitor.evaluator.value.Value;
 
-public class TypeInitializer implements TypeVisitor<Value> {
+class TypeInitializer implements TypeVisitor<Value> {
 	public static Value initType( Type node ) {
 		TypeInitializer init = new TypeInitializer();
 		return node.accept( init );

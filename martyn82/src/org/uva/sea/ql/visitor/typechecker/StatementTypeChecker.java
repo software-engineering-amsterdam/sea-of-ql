@@ -3,29 +3,35 @@ package org.uva.sea.ql.visitor.typechecker;
 import org.uva.sea.ql.ast.Node;
 import org.uva.sea.ql.ast.expression.Expression;
 import org.uva.sea.ql.ast.statement.Assignment;
+import org.uva.sea.ql.ast.statement.ComputedQuestion;
 import org.uva.sea.ql.ast.statement.FormDeclaration;
 import org.uva.sea.ql.ast.statement.IfThen;
 import org.uva.sea.ql.ast.statement.IfThenElse;
-import org.uva.sea.ql.ast.statement.ComputedQuestion;
-import org.uva.sea.ql.ast.statement.VariableQuestion;
 import org.uva.sea.ql.ast.statement.Statement;
 import org.uva.sea.ql.ast.statement.Statements;
 import org.uva.sea.ql.ast.statement.VariableDeclaration;
+import org.uva.sea.ql.ast.statement.VariableQuestion;
 import org.uva.sea.ql.ast.type.Type;
 import org.uva.sea.ql.visitor.StatementVisitor;
 import org.uva.sea.ql.visitor.evaluator.Environment;
 
-public class TypeChecker extends AbstractTypeChecker implements StatementVisitor<Boolean> {
-	private final ExpressionChecker expressionChecker;
+class StatementTypeChecker implements StatementVisitor<Boolean> {
+	private final TypeCheckerHelper helper;
+	private final Environment environment;
+	private final ExpressionTypeChecker expressionChecker;
 
-	public static boolean typeCheck( Statement statement, Environment environment ) {
-		TypeChecker checker = new TypeChecker( environment, new ExpressionChecker( environment ) );
-		return statement.accept( checker );
+	public StatementTypeChecker( Environment environment ) {
+		this( environment, new ExpressionTypeChecker( environment ) );
 	}
 
-	private TypeChecker( Environment environment, ExpressionChecker expressionChecker ) {
-		super( environment );
+	public StatementTypeChecker( Environment environment, ExpressionTypeChecker expressionChecker ) {
+		this.environment = environment;
 		this.expressionChecker = expressionChecker;
+		this.helper = new TypeCheckerHelper( this.environment );
+	}
+
+	private Type typeOf( Expression expression ) {
+		return this.helper.typeOf( expression );
 	}
 
 	private Boolean checkCondition( Expression condition, Node node ) {
@@ -36,7 +42,7 @@ public class TypeChecker extends AbstractTypeChecker implements StatementVisitor
 		Type conditionType = this.typeOf( condition );
 
 		if ( !conditionType.isCompatibleToBool() ) {
-			this.addIncompatibleTypeError( node.toString(), "Boolean", conditionType.getName(), node );
+			this.helper.addIncompatibleTypeError( node.toString(), "Boolean", conditionType.getName(), node );
 			return false;
 		}
 
@@ -76,7 +82,7 @@ public class TypeChecker extends AbstractTypeChecker implements StatementVisitor
 			Type declaredType = node.getType();
 
 			if ( !identType.equals( declaredType ) ) {
-				this.addAlreadyDeclaredError(
+				this.helper.addAlreadyDeclaredError(
 					node.getIdentifier().getName(),
 					node
 				);
@@ -111,7 +117,7 @@ public class TypeChecker extends AbstractTypeChecker implements StatementVisitor
 		Type rightType = this.typeOf( node.getExpression() );
 
 		if ( !leftType.isCompatibleTo( rightType ) ) {
-			this.addIncompatibleTypesError( node.toString(), leftType.getName(), rightType.getName(), node );
+			this.helper.addIncompatibleTypesError( node.toString(), leftType.getName(), rightType.getName(), node );
 			return false;
 		}
 

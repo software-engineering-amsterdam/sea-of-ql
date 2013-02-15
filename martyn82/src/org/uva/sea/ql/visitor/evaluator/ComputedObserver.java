@@ -7,7 +7,7 @@ import org.uva.sea.ql.ast.statement.ComputedQuestion;
 import org.uva.sea.ql.ui.control.Control;
 import org.uva.sea.ql.visitor.evaluator.value.Value;
 
-public class ComputedObserver implements Observer {
+class ComputedObserver implements Observer {
 	private final Control component;
 	private final Environment environment;
 	private final ComputedQuestion question;

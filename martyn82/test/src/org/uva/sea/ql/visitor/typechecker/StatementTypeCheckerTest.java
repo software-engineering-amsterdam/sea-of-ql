@@ -3,7 +3,6 @@ package org.uva.sea.ql.visitor.typechecker;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
 
 import org.junit.Test;
 import org.uva.sea.ql.StatementTest;
@@ -18,55 +17,36 @@ import org.uva.sea.ql.ast.expression.literal.IntegerLiteral;
 import org.uva.sea.ql.ast.expression.literal.MoneyLiteral;
 import org.uva.sea.ql.ast.expression.literal.StringLiteral;
 import org.uva.sea.ql.ast.statement.Assignment;
+import org.uva.sea.ql.ast.statement.ComputedQuestion;
 import org.uva.sea.ql.ast.statement.FormDeclaration;
 import org.uva.sea.ql.ast.statement.IfThen;
 import org.uva.sea.ql.ast.statement.IfThenElse;
-import org.uva.sea.ql.ast.statement.ComputedQuestion;
-import org.uva.sea.ql.ast.statement.VariableQuestion;
 import org.uva.sea.ql.ast.statement.Statement;
 import org.uva.sea.ql.ast.statement.Statements;
 import org.uva.sea.ql.ast.statement.VariableDeclaration;
+import org.uva.sea.ql.ast.statement.VariableQuestion;
 import org.uva.sea.ql.ast.type.BooleanType;
 import org.uva.sea.ql.ast.type.IntegerType;
-import org.uva.sea.ql.parser.ParseError;
 import org.uva.sea.ql.visitor.VisitorTest;
 import org.uva.sea.ql.visitor.evaluator.Environment;
-import org.uva.sea.ql.visitor.evaluator.Error;
-import org.uva.sea.ql.visitor.typechecker.ExpressionChecker;
-import org.uva.sea.ql.visitor.typechecker.TypeChecker;
-import org.uva.sea.ql.visitor.typechecker.TypeError;
 
 public class StatementTypeCheckerTest extends VisitorTest<Boolean> implements StatementTest {
-	private final ExpressionChecker expressionChecker;
+	private final StatementTypeChecker statementChecker;
+	private final ExpressionTypeChecker expressionChecker;
 	private final Environment environment;
 
 	public StatementTypeCheckerTest() {
 		super();
 
 		this.environment = new Environment();
-		this.expressionChecker = new ExpressionChecker( this.environment );
-	}
-
-	@Test
-	public void testExample() {
-		try {
-			TypeChecker.typeCheck( this.parser.parse( program ), this.environment );
-		}
-		catch ( ParseError e ) {
-			e.printStackTrace();
-			fail( e.getMessage() );
-			return;
-		}
-
-		if ( this.environment.getErrors().size() > 0 ) {
-			this.dumpErrors();
-		}
+		this.expressionChecker = new ExpressionTypeChecker( this.environment );
+		this.statementChecker = new StatementTypeChecker( this.environment, this.expressionChecker );
 	}
 
 	private Boolean typeCheck( Statement statement ) {
 		this.environment.getErrors().clear();
 
-		if ( !TypeChecker.typeCheck( statement, this.environment ) ) {
+		if ( !statement.accept( this.statementChecker ) ) {
 			return false;
 		}
 
@@ -79,12 +59,6 @@ public class StatementTypeCheckerTest extends VisitorTest<Boolean> implements St
 		}
 
 		return true;
-	}
-
-	private void dumpErrors() {
-		for ( Error error : this.environment.getErrors() ) {
-			System.err.println( error.toString() );
-		}
 	}
 
 	@Override

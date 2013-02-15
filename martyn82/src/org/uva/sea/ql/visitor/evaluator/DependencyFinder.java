@@ -28,7 +28,7 @@ import org.uva.sea.ql.ast.expression.unary.numeric.NegativeExpression;
 import org.uva.sea.ql.ast.expression.unary.numeric.PositiveExpression;
 import org.uva.sea.ql.visitor.ExpressionVisitor;
 
-public class DependencyFinder implements ExpressionVisitor<Void> {
+class DependencyFinder implements ExpressionVisitor<Void> {
 	private final Set<IdentifierExpression> dependencies;
 
 	public static void findDependencies( Expression expression, Set<IdentifierExpression> dependencies ) {

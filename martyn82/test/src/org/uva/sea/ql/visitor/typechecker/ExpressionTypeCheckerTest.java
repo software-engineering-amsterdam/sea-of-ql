@@ -30,17 +30,17 @@ import org.uva.sea.ql.ast.type.BooleanType;
 import org.uva.sea.ql.ast.type.IntegerType;
 import org.uva.sea.ql.visitor.VisitorTest;
 import org.uva.sea.ql.visitor.evaluator.Environment;
-import org.uva.sea.ql.visitor.typechecker.ExpressionChecker;
+import org.uva.sea.ql.visitor.typechecker.ExpressionTypeChecker;
 
 public class ExpressionTypeCheckerTest extends VisitorTest<Boolean> implements ExpressionTest {
-	private final ExpressionChecker expressionVisitor;
+	private final ExpressionTypeChecker expressionVisitor;
 	private final Environment environment;
 
 	public ExpressionTypeCheckerTest() {
 		super();
 
 		this.environment = new Environment();
-		this.expressionVisitor = new ExpressionChecker( this.environment );
+		this.expressionVisitor = new ExpressionTypeChecker( this.environment );
 	}
 
 	private Boolean typeCheck( Expression expression ) {
