@@ -34,9 +34,6 @@ str createSubmitButton(str id){
 	str d = "<id>Submit = document.createElement(\'input\');
 	<id>Submit.setAttribute(\'type\',\"submit\");	
 		<id>Submit.setAttribute(\'name\',\"<id>Submit\");		
-		<id>Submit.setAttribute(\'value\',\"Click!\");	";
+		<id>Submit.setAttribute(\'value\',\"Submit\");	";
 	return d;
 }
-
-
-

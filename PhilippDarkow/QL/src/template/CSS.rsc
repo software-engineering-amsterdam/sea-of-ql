@@ -16,6 +16,7 @@ public str cssEndLabels(str id){
 public void cssDiv(str id){
 	println("in CSS DIV : <id>Div");
 	str res = "div.<id>Div {
+	background: rgb(103, 111, 128);
 	text-align: center;
 	} ";
 	println("res : <res>");

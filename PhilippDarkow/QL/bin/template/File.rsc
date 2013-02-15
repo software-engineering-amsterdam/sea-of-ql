@@ -119,6 +119,21 @@ public void javaScriptAddCheckStatementFunction(str formId, str checkBoxId, list
 public void javaScriptAddGlobalVariable(str formId, str globalID) =
 	appendToJavaScriptFile(formId, globalID);
 
-public void javaScriptAddEvaluateQuestion(str formId, Expression exp){
+public void javaScriptAddEvaluateQuestion(str formId, str id, Expression exp){
 	println("in evaluate question");  // i need to create a onchange function which checks the values of the exps
+	println("EXPR : <exp>");
+	top-down visit(exp){
+		case Expression e : {
+			println("EXPRES : <e>");
+		}
+	}
+	
+	
+	str result = "function <id>Calculation(cb) {
+	console.log(\'!!!!!!!!\');
+	}";
+	
+	appendToJavaScriptFile(formId, "\n <result>");
+	
+	
 }

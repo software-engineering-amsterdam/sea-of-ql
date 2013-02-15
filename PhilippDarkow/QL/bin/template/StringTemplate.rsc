@@ -61,6 +61,14 @@ str specifyAttributesNumeric(str id){
 		 ";
 }
 
+str specifyAttributesCalculation(str id){
+	return "<id>.setAttribute(\'type\',\"text\");
+		<id>.setAttribute(\'id\',<id>);
+		<id>.setAttribute(\'name\',<id>);
+		<id>.setAttribute(\'onchange\',\"<id>Calculation(this)\");
+		 ";
+}
+
 /** Method to generate a paragraph for a boolean question has as endlabel Yes or No
 * @param id the id of the boolean question
 * @return p the paragraph as a string
@@ -153,8 +161,8 @@ private str generateQuestion(str formId, question:computedQuestion(str id, str l
 		str paragraph = generateParagraph(id, label, formId);
 		//evaluateExpression(exp, tp);
 		javaScriptAddGlobalVariable(formId, "var <id> = document.createElement(\"input\");");
-		javaScriptAddEvaluateQuestion(formId, exp);
-		str attributes = specifyAttributesNumeric(id);
+		javaScriptAddEvaluateQuestion(formId, id, exp);
+		str attributes = specifyAttributesCalculation(id);
 		return "<attributes>
 		<label>
 		<paragraph>
