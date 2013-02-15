@@ -25,18 +25,21 @@ import org.uva.sea.ql.ast.expressions.Ident;
 import org.uva.sea.ql.ast.values.Value;
 import org.uva.sea.ql.opencsv.CSVWriter;
 
-// TODO: Clean this class, merge some functions. etc..
 public class Form implements ActionListener {
 
 	private final Ident id;
 	private final List<FormItem> body;
-	private Env environment;
-	private JButton finishButton;
+	private final Env environment;
+	private final JButton finishButton;
 	private JFrame mainWindow;
 	
 	public Form(Ident id, List<FormItem> formItems) {
+		this.environment = new Env();
 		this.id = id;
 		this.body = formItems;
+		finishButton = new JButton("Finish form");
+		finishButton.addActionListener(this);
+		
 	}
 
 	public String getName() {
@@ -56,9 +59,10 @@ public class Form implements ActionListener {
 	}
 	
 	public boolean isFormValid() {
-		environment = new Env();
 		boolean valid = true;
 		for (FormItem f : body) {
+			// Don't return false right away, this way all
+			// errors are stored instead of only the first
 			if (!f.validate(environment))
 				valid = false;
 		}
@@ -79,8 +83,6 @@ public class Form implements ActionListener {
 		for (FormItem f : body) {
 			f.buildForm(formPanel, environment, this);
 		}
-		finishButton = new JButton("Finish form");
-		finishButton.addActionListener(this);
 		formPanel.add(finishButton, "span, growx");
 		eval();
 		return formPanel;
@@ -110,22 +112,9 @@ public class Form implements ActionListener {
 				JOptionPane.showMessageDialog(null, "Please fill in all fields before finishing your questionaire");
 			}
 			else {
-				List<Tuple<Ident, Value>> values = getAllValues();
 				File writeDirectory = getDirectory();
 				if (writeDirectory != null) {
-					try {
-						Date date = new Date();
-						DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd_HH-mm-ss");
-						CSVWriter writer = new CSVWriter(new FileWriter(writeDirectory.getPath() + File.separator + id.getName() + "-" + dateFormat.format(date) +".csv"));
-						for (Tuple<Ident, Value> v : values) {
-							writer.writeNext(new String[]{ v.getLeft().toString(), v.getRight().toString() });
-						}
-						writer.close();
-						JOptionPane.showMessageDialog(null, "The form results are now saved to the selected folder!");
-					}
-					catch (IOException ex) {
-						JOptionPane.showMessageDialog(null, "There was an error while trying to save your form results.\nPlease try again.", "Error saving document", JOptionPane.ERROR_MESSAGE);
-					}
+					writeValuesToDirectory(getAllValues(), writeDirectory);
 				}
 			}
 		}
@@ -139,5 +128,28 @@ public class Form implements ActionListener {
 			return fileChooser.getSelectedFile();
 		}
 		return null;
+	}
+	
+	private void writeValuesToDirectory(List<Tuple<Ident, Value>> values, File directory) {
+		Date date = new Date();
+		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd_HH-mm-ss");
+		try {
+			CSVWriter writer = new CSVWriter(
+					new FileWriter(
+							directory.getPath() + 
+							File.separator + 
+							id.getName() + 
+							"-" + 
+							dateFormat.format(date) + 
+							".csv"));
+			for (Tuple<Ident, Value> v : values) {
+				writer.writeNext(new String[]{ v.getLeft().toString(), v.getRight().toString() });
+			}
+			writer.close();
+			JOptionPane.showMessageDialog(null, "The form results are now saved to the selected folder!");
+		}
+		catch (IOException ex) {
+			JOptionPane.showMessageDialog(null, "There was an error while trying to save your form results.\nPlease try again.", "Error saving document", JOptionPane.ERROR_MESSAGE);
+		}
 	}
 }
