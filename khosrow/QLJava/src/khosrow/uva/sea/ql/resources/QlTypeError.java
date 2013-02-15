@@ -13,6 +13,9 @@ public class QlTypeError extends Type {
 	public String getMessage() {
 		return message;
 	}
+	
+	@Override
+	public boolean isError() { return true; }
 
 	@Override
 	public boolean isCompatibleTo(Type t) {

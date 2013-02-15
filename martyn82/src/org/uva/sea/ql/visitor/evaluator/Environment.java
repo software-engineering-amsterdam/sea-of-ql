@@ -62,7 +62,7 @@ public class Environment {
 
 	public void assign( IdentifierExpression identifier, Value value ) {
 		if ( !this.isDeclared( identifier ) ) {
-			throw new RuntimeException( "Variable " + identifier.getName() + " is undefined." );
+			throw new RuntimeException( "Variable " + identifier.getName() + " is not declared." );
 		}
 
 		this.bindings.get( identifier ).setValue( value );

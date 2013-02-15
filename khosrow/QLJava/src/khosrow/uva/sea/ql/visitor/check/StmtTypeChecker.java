@@ -26,7 +26,7 @@ public class StmtTypeChecker implements IStmtVisitor<Boolean> {
 
 	@Override
 	public Boolean visit(Assign stmt) {
-		return checkTypes(stmt.getIdent(), stmt.getExprTypeOf(env))	&& 
+		return checkTypes(stmt.getIdent(), stmt.exprTypeOf(env))	&& 
 			checkExpr(stmt.getExpr());
 	}
 
@@ -74,7 +74,7 @@ public class StmtTypeChecker implements IStmtVisitor<Boolean> {
 
 	private boolean checkTypes(Ident ident, Type assignedType) {
 		Type identType = ident.typeOf(env);		
-		if(hasTypeError(identType)) {
+		if(identType.isError()) {
 			addToErrorList(ident, ((QlTypeError)identType).getMessage());
 			return false;
 		}
@@ -92,16 +92,13 @@ public class StmtTypeChecker implements IStmtVisitor<Boolean> {
 	}
 	
 	private Boolean checkSataments(Stmts stmts) {
+		int countErrors = 0;
 		for(Stmt statement: stmts) {
 			if(!statement.accept(this))
-				return false;
+				countErrors++;
 		}
-		return true;
-	}
-	
-	private boolean hasTypeError(Type type) {
-		return type instanceof QlTypeError;
-	}
+		return countErrors == 0;
+	}	
 	
 	private void addToErrorList(ASTNode ast, String message) {
 		messages.add(new QlTypeError("Type error at node " + 

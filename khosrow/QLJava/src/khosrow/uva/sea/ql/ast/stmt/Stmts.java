@@ -28,7 +28,7 @@ public class Stmts extends Stmt implements Iterable<Stmt> {
 	}
 
 	@Override
-	public <T> T accept(IStmtVisitor<T> visitor) {
+	public <T> T accept(IStmtVisitor<T> visitor) {		
 		return visitor.visit(this);
-	}
+	}	
 }

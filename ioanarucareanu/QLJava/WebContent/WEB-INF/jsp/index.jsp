@@ -11,10 +11,10 @@
 <body>
 <div>
 <stripes:form beanclass="org.uva.sea.ql.interpreter.controller.DisplayQLActionBean" id="questionsForm">
-	<c:forEach items="${displayActionBean.simpleQuestions}" var="question">
-		${question.id.name}
-        ${question.label.value}
-        ${question.answer.value}
+	<c:forEach items="${displayActionBean.questions}" var="aQuestion">
+		${aQuestion.question.id.name}
+        ${aQuestion.question.label}
+        ${aQuestion.answer.value}
 	</c:forEach>
 </stripes:form>
 </div>

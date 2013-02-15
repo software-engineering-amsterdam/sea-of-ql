@@ -13,5 +13,6 @@ public abstract class Type extends ASTNode implements ITypeCompatible {
 	public boolean isCompatibleToMoney() { return false;}
 	public boolean isCompatibleToNumeric() { return false;}
 	public boolean isCompatibleToStr() { return false;}
+	public boolean isError() { return false; }
 
 }

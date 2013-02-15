@@ -47,28 +47,32 @@ public class IfElseStatement extends IfStatement {
 	}
 
 	@Override
-	public void buildForm(JPanel mainPanel) {
-		super.buildForm(mainPanel);
+	public void buildForm(JPanel mainPanel, Env environment, Form form) {
+		super.buildForm(mainPanel, environment, form);
 		for (FormItem f : elseBody) {
-			f.buildForm(mainPanel);
+			f.buildForm(mainPanel, elseBodyEnvironment, form);
 		}
 	}
 	
+	// TODO: Discuss this part with Tijs..
 	@Override
 	public void setVisible(Boolean visible) {
-		super.setVisible(!visible);
+		// The ifBody will be set to the same as the else. This will be overwritten by the eval if setVisible is
+		// called by the eval function. If not, this will prevent a visibility bug with nested ifElse statements
+		super.setVisible(visible);
 		for (FormItem f : elseBody) {
 			f.setVisible(visible);
 		}
 	}
 	
 	@Override
-	public void eval(Env environment, Form form) {
+	public void eval(Env environment) {
 		setVisible(!isExpressionValid(environment));
-		evalIfBody(environment, form);
+		super.setVisible(isExpressionValid(environment));
+		evalIfBody(environment);
 		if (!isExpressionValid(environment)) {
 			for (FormItem f : elseBody) {
-				f.eval(elseBodyEnvironment, form);
+				f.eval(elseBodyEnvironment);
 			}
 		}
 	}

@@ -11,6 +11,15 @@ public class ExpressionTypeValidatorUtil {
 		
 	}
 	
+	public static boolean checkExprIsOfType(Expr expr, Type type, ExpressionSemanticVisitor visitor, final ValidationReport errors) {
+		Type exprType = (Type) expr.accept(visitor);
+		if (!exprType.equals(type)) {
+			errors.addError("The type of the expression " + expr + " must be " + type);
+			return false;
+		}
+		return true;
+	}
+	
 	public static boolean checkConditionalExpr(Expr cond, ExpressionSemanticVisitor visitor, final ValidationReport errors) {
 		Type exprType = (Type) cond.accept(visitor);
 		if (!exprType.equals(ReturnTypeHolder.getBoolType())) {
@@ -57,7 +66,7 @@ public class ExpressionTypeValidatorUtil {
 		Type leftExprType = (Type) binary.getLeftExpr().accept(visitor);
 		Type rightExprType = (Type) binary.getRightExpr().accept(visitor);
 		if (!leftExprType.equals(type) || !rightExprType.equals(type)) {
-			errors.addError("Both members of the expression " + binary + " must be of type " + type.getHumanReadableType());
+			errors.addError("Both members of the expression " + binary + " must be of type " + type.toString() + ". Instead, left is " + leftExprType + " and right is " + rightExprType);
 			return false;
 		}
 		return true;

@@ -1,12 +1,7 @@
 package org.uva.sea.ql;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
-
 import org.uva.sea.ql.ui.ControlFactory;
 import org.uva.sea.ql.ui.control.PanelControl;
-import org.uva.sea.ql.ui.control.WindowControl;
 import org.uva.sea.ql.ui.swing.SwingControlFactory;
 import org.uva.sea.ql.visitor.evaluator.Error;
 
@@ -25,50 +20,25 @@ public class Program {
 	}
 
 	public void run() {
-		String source = this.getFileContents( System.getProperty( "user.dir" ) + "/assets/sample.ql" );
-
+		String source = this.getProgramSource();
 		this.interpreter.evaluate( source );
 
 		if ( this.interpreter.hasErrors() ) {
-			for ( Error error : this.interpreter.getErrors() ) {
-				System.err.println( error.toString() );
-			}
-
+			this.dumpErrors();
 			return;
 		}
 
 		PanelControl formPanel = this.interpreter.getResult();
-
-		WindowControl window = this.factory.createWindow( formPanel.getName(), formPanel );
-		window.show();
+		this.factory.createWindow( formPanel.getName(), formPanel ).show();
 	}
 
-	private String getFileContents( String fileName ) {
-		BufferedReader br = null;
-		StringBuffer sb = new StringBuffer();
-		String line;
+	private String getProgramSource() {
+		return FileLoader.getFileContents( System.getProperty( "user.dir" ) + "/assets/sample.ql" );
+	}
 
-		try {
-			br = new BufferedReader( new FileReader( fileName ) );
-
-			while ( ( line = br.readLine() ) != null ) {
-				sb.append( line );
-			}
+	private void dumpErrors() {
+		for ( Error error : this.interpreter.getErrors() ) {
+			System.err.println( error.toString() );
 		}
-		catch ( IOException e ) {
-			e.printStackTrace();
-		}
-		finally {
-			if ( br != null ) {
-				try {
-					br.close();
-				}
-				catch ( IOException e ) {
-					e.printStackTrace();
-				}
-			}
-		}
-
-		return sb.toString();
 	}
 }
