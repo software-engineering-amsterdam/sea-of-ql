@@ -12,7 +12,7 @@ public class StringType extends Type {
 	}
 
 	@Override
-	public String getHumanReadableType() {
+	public String toString() {
 		
 		return "text";
 	}

@@ -8,5 +8,6 @@ public abstract class Type implements ASTNode, ReturnType {
 	
 	abstract public Value<?> createValueOfType();
 	
-	abstract public String getHumanReadableType(); 
+	abstract public String toString(); 
+	
 }

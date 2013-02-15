@@ -12,7 +12,7 @@ public class DecimalType extends Type {
 	}
 
 	@Override
-	public String getHumanReadableType() {
+	public String toString() {
 		
 		return "decimal";
 	}
