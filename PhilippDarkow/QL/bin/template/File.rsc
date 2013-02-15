@@ -6,6 +6,7 @@ import syntax::AbstractSyntax;
 import template::StringTemplate;
 import template::CSS;
 import template::JavaScript;
+import template::EvaluateExpression;
 
 /** Method to generate a directory for the JavaScript Program
 * @return l the location of the directory
@@ -116,24 +117,49 @@ public void javaScriptAddCheckStatementFunction(str formId, str checkBoxId, list
 	appendToJavaScriptFile(formId, "\n <check>");
 }
 
+public void javaScriptAddCheckStatementFunction(str formId, str checkBoxId, list[str] thenPart, str exp){
+	str ifTrue = "";
+	for(i <- thenPart){
+		ifTrue += i;
+	}
+	str check = "function <checkBoxId> {
+	if(<exp>)
+	{
+		<formId>.removeChild(<formId>Submit);
+		<ifTrue>
+		<formId>.appendChild(<formId>Submit);
+	}
+	}";
+	appendToJavaScriptFile(formId, "\n <check>");
+}
+
 public void javaScriptAddGlobalVariable(str formId, str globalID) =
 	appendToJavaScriptFile(formId, globalID);
 
 public void javaScriptAddEvaluateQuestion(str formId, str id, Expression exp){
 	println("in evaluate question");  // i need to create a onchange function which checks the values of the exps
 	println("EXPR : <exp>");
+	//list[str] expressionIds = [];
 	top-down visit(exp){
 		case Expression e : {
 			println("EXPRES : <e>");
+			//if(getName(e) == "id"){
+			//	expressionIds += e;
+			//}else{
+			//	println("sub");	// I need to evaluate the expression sub
+			//}
 		}
 	}
+	str ev = evaluateExp(exp, money());
 	
 	
 	str result = "function <id>Calculation(cb) {
-	console.log(\'!!!!!!!!\');
+	cb.value = <ev>
 	}";
 	
-	appendToJavaScriptFile(formId, "\n <result>");
-	
-	
+	appendToJavaScriptFile(formId, "\n <result>");	
+}
+
+str evaluateHelper(){
+
 }

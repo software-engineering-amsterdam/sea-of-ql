@@ -9,6 +9,7 @@ import util::Load;
 import template::File;
 import template::JavaScript;
 import template::CSS;
+import template::EvaluateExpression;
 
 // Capitalize the first character of a string
 
@@ -176,6 +177,10 @@ private str generateQuestion(str formId, question:computedQuestion(str id, str l
 }
 
 str generateStatement(str formId, statement:ifStat(Expression exp, list[Body] thenPart)){
+	println("EXP : <exp>");
+	str evaluate = evaluateExp(exp, money());
+	println("EVALUATE IS : <evaluate>");
+	
 	str checkBoxId = toString(getChildren(exp)[0]);
 	list[str] children = [];
 	list[str] thenPartString = [];
@@ -187,8 +192,13 @@ str generateStatement(str formId, statement:ifStat(Expression exp, list[Body] th
 			}
 		}		
 	}
-	javaScriptAddCheckStatementFunction(formId, checkBoxId, thenPartString, children);
-	return "<checkBoxId>.setAttribute(\'onchange\',\"<checkBoxId>DoTheCheckWithStatement(this)\");";
+	if(size(getChildren(exp)) <= 1){ // for one booleans
+		javaScriptAddCheckStatementFunction(formId, checkBoxId, thenPartString, children);
+		return "<checkBoxId>.setAttribute(\'onchange\',\"<checkBoxId>DoTheCheckWithStatement(this)\");";
+	}else{
+		javaScriptAddCheckStatementFunction(formId, "hasMaintLoanValueCheck(cb)", thenPartString, evaluate);
+		return "hasMaintLoan.setAttribute(\'onchange\',\"hasMaintLoanValueCheck(this)\");";
+	}
 }
 
 public str generateBody(str id, Body body){
