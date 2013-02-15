@@ -14,7 +14,7 @@ public str javaScriptCreateForm(str id, list[Body] Body){
 			<id>Div.setAttribute(\'class\',\'<id>Div\');
 			<id> = document.createElement(\"form\");
 			<id>.setAttribute(\'method\',\"post\");
-			<id>.setAttribute(\'action\',\"submit.php\");
+			//<id>.setAttribute(\'action\',\"submit.php\");
 			<id>.setAttribute(\'name\',<id>);
 			<id>.setAttribute(\'id\',<id>);
 			<for (s <- Body) { >						
@@ -27,13 +27,21 @@ public str javaScriptCreateForm(str id, list[Body] Body){
 			document.getElementsByTagName(\'body\')[0].appendChild(<id>Div);		
 		} ";
 		appendToJavaScriptFile(id, f);
+		createSubmitMethod(id);
 		return f;
 }
-// <cssDiv(id)>
+
 str createSubmitButton(str id){
 	str d = "<id>Submit = document.createElement(\'input\');
 	<id>Submit.setAttribute(\'type\',\"submit\");	
 		<id>Submit.setAttribute(\'name\',\"<id>Submit\");		
-		<id>Submit.setAttribute(\'value\',\"Submit\");	";
+		<id>Submit.setAttribute(\'value\',\"Submit\");
+		<id>Submit.setAttribute(\'onclick\',\"submit<id>()\");	";
 	return d;
+}
+
+void createSubmitMethod(str id){
+	str result = "function submit<id>()
+	{ alert(\'submit button pressed\'); } ";
+	appendToJavaScriptFile(id, result);
 }
