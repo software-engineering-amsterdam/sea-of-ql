@@ -25,7 +25,7 @@ import org.uva.sea.ql.ast.types.datatypes.StringType;
 // Test form structure and element recognition (idents) after parsing
 public class TestForm extends TestBase {
 	// Form location
-	private static final String RESOURCE_FORM = "tests/form.ql";
+	private static final String RESOURCE_FORM = "forms/form.ql";
 	private Form form;
 
 	@Before

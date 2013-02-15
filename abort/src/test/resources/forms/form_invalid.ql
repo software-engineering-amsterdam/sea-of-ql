@@ -21,9 +21,9 @@ form Box1HouseOwning {
 		invisibleQuestion2: "Another question you should not see. How did you manage this time?" string
 	}
 	
-	if ("applepie" == "applepie") { "hello" }
+	if ("applepie" == "applepie") { wasntThatEasy: "Wasn't that easy?" boolean }
 	
-	if (true && "applepie" || 1 + true || "haha" + 2.000 || +true || -false || 1.2323 + (- bla) || 3==!8) { "hihi" }
+	if (true && "applepie" || 1 + true || "haha" + 2.000 || +true || -false || 1.2323 + (- bla) || 3==!8) { howDidYou: "how did you get here?" string }
 
 	hasSoldHouse: "Just to redeclare and annoy the type checker" integer	
 	valueResidue: "Redeclaration of a computed type!" money(29 * 2)

@@ -46,8 +46,8 @@ import org.uva.sea.ql.ast.types.literals.StringLiteral;
 // Test the type checking functionality
 public class TestTypeChecker extends TestBase {
 	// Filenames for forms to parse and type check
-	private static final String RESOURCE_FORM_VALID = "tests/form_valid.ql";
-	private static final String RESOURCE_FORM_INVALID = "tests/form_invalid.ql";
+	private static final String RESOURCE_FORM_VALID = "forms/form_valid.ql";
+	private static final String RESOURCE_FORM_INVALID = "forms/form_invalid.ql";
 
 	private final TypeChecker typeChecker = new TypeChecker();
 	private Form validForm;

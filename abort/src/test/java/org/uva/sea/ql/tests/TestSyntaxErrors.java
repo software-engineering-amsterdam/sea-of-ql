@@ -17,8 +17,8 @@ import org.uva.sea.ql.parser.errors.base.ISyntaxErrorReporter;
 
 // Test syntax error reporting and logging
 public class TestSyntaxErrors extends TestBase {
-	private static final String RESOURCE_FORM_SYNTAX_ERRORS = "tests/form_syntax_errors.ql";
-	private static final String RESOURCE_FORM_VALID = "tests/form_valid.ql";
+	private static final String RESOURCE_FORM_SYNTAX_ERRORS = "forms/form_syntax_errors.ql";
+	private static final String RESOURCE_FORM_VALID = "forms/form_valid.ql";
 	private final ISyntaxErrorReporter errorReporter = new SyntaxErrorReporter();
 	
 	@Override
