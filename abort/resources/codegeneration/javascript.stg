@@ -5,12 +5,21 @@ generate_dispatch(id) ::= <<
 >>
 
 generate_map(variables) ::= <<
-  var qlMap = {}, functionMap = {};
-  \$(document).ready(function() {
-$\t$initFunctionMap();$\n$
-$\t$initConditionalGUI();$\n$
+  var qlMap = {};
+  var functionMap = {};
+
     $variables$
+  
+  //TODO PROBABLY FUNCTIONS HAVE TO BE HERE INSTEAD..... TO PREVENT NEW FUNCTION instead of function 
+// var functionMap = {};
+  \$(document).ready(function() {
+// $\t$initFunctionMap();$\n$
+$\t$initConditionalGUI();$\n$
   });
+>>
+
+generate_map_function(id, expression) ::= <<
+  functionMap['$id$'] = function() { return ($expression$); }$\n$
 >>
 
 generate_map_var(name) ::= <<

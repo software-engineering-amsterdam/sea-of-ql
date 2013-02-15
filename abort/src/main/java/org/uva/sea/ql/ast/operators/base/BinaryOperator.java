@@ -1,6 +1,7 @@
 package org.uva.sea.ql.ast.operators.base;
 
 import org.uva.sea.ql.ast.base.Expression;
+import org.uva.sea.ql.ast.base.SyntaxPosition;
 
 /**
  * Binary Operator base for binary operators in the QL language.
@@ -24,9 +25,13 @@ public abstract class BinaryOperator extends Operator {
 	 *            left hand side of the operator.
 	 * @param rightHandSide
 	 *            right hand side of the operator.
+	 * @param syntaxPosition
+	 * 			  position of the original DSL syntax input.
 	 */
 	protected BinaryOperator(final Expression leftHandSide,
-			final Expression rightHandSide) {
+			final Expression rightHandSide, final SyntaxPosition syntaxPosition) {
+		super(syntaxPosition);
+		
 		this.leftHandSide = leftHandSide;
 		this.rightHandSide = rightHandSide;
 	}

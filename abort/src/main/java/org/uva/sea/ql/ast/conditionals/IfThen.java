@@ -3,7 +3,8 @@ package org.uva.sea.ql.ast.conditionals;
 import java.util.List;
 
 import org.uva.sea.ql.ast.base.Expression;
-import org.uva.sea.ql.ast.form.Element;
+import org.uva.sea.ql.ast.base.SyntaxPosition;
+import org.uva.sea.ql.ast.form.Statement;
 import org.uva.sea.ql.ast.traversal.base.IVisitor;
 
 /**
@@ -19,15 +20,16 @@ public class IfThen extends IfStatement {
 	 *            conditions
 	 * @param successElements
 	 *            form elements to display on success
+	 * @param syntaxPosition
+	 * 			  the original position of the expression in the input syntax
 	 */
 	public IfThen(final Expression conditions,
-			final List<Element> successElements) {
-		super(conditions, successElements);
+			final List<Statement> successElements, final SyntaxPosition syntaxPosition) {
+		super(conditions, successElements, syntaxPosition);
 	}
 
 	@Override
 	public <T> T accept(final IVisitor<T> visitor) {
-		// TODO: visit parent and elements
 		return visitor.visit(this);
 	}
 }

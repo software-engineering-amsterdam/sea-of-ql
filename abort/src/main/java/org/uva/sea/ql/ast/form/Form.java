@@ -3,6 +3,7 @@ package org.uva.sea.ql.ast.form;
 import java.util.List;
 
 import org.uva.sea.ql.ast.base.Node;
+import org.uva.sea.ql.ast.base.SyntaxPosition;
 import org.uva.sea.ql.ast.traversal.base.IVisitor;
 
 /**
@@ -17,36 +18,39 @@ public class Form extends Node {
 	 */
 	private final String name;
 	/**
-	 * The elements the form consists of.
+	 * The statements the form consists of.
 	 */
-	private final List<Element> elements;
+	private final List<Statement> statements;
 
 	/**
 	 * Constructor.
 	 * 
 	 * @param name
 	 *            form name
-	 * @param elements
-	 *            elements that are part of the form
+	 * @param statements
+	 *            statements that are part of the form
+	 * @param syntaxPosition
+	 * 			  the original position of the expression in the input syntax
 	 */
-	public Form(final String name, final List<Element> elements) {
+	public Form(final String name, final List<Statement> statements, final SyntaxPosition syntaxPosition) {
+		super(syntaxPosition);
+		
 		this.name = name;
-		this.elements = elements;
+		this.statements = statements;
 	}
 
 	@Override
 	public <T> T accept(final IVisitor<T> visitor) {
-		// TODO: visit parent and elements
 		return visitor.visit(this);
 	}
 
 	/**
-	 * Retrieve the elements the form consists of.
+	 * Retrieve the statements the form consists of.
 	 * 
-	 * @return form elements
+	 * @return form statements
 	 */
-	public final List<Element> getElements() {
-		return elements;
+	public final List<Statement> getStatements() {
+		return statements;
 	}
 
 	/**

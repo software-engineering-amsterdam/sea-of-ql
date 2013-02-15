@@ -1,6 +1,7 @@
 package org.uva.sea.ql.ast.operators.binary;
 
 import org.uva.sea.ql.ast.base.Expression;
+import org.uva.sea.ql.ast.base.SyntaxPosition;
 import org.uva.sea.ql.ast.operators.base.BinaryOperator;
 import org.uva.sea.ql.ast.traversal.base.IVisitor;
 import org.uva.sea.ql.ast.traversal.typechecking.SymbolTable;
@@ -22,9 +23,11 @@ public class Mul extends BinaryOperator {
 	 *            left hand side of the operator
 	 * @param rightHandSide
 	 *            right hand side of the operator
+	 * @param syntaxPosition
+	 * 			  the original position of the expression in the input syntax
 	 */
-	public Mul(final Expression leftHandSide, final Expression rightHandSide) {
-		super(leftHandSide, rightHandSide);
+	public Mul(final Expression leftHandSide, final Expression rightHandSide, final SyntaxPosition syntaxPosition)  {
+		super(leftHandSide, rightHandSide, syntaxPosition);
 	}
 
 	@Override

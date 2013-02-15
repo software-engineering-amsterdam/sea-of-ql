@@ -3,7 +3,8 @@ package org.uva.sea.ql.ast.conditionals;
 import java.util.List;
 
 import org.uva.sea.ql.ast.base.Expression;
-import org.uva.sea.ql.ast.form.Element;
+import org.uva.sea.ql.ast.base.SyntaxPosition;
+import org.uva.sea.ql.ast.form.Statement;
 import org.uva.sea.ql.ast.traversal.base.IVisitor;
 
 /**
@@ -13,39 +14,41 @@ import org.uva.sea.ql.ast.traversal.base.IVisitor;
  */
 public class IfThenElse extends IfStatement {
 	/**
-	 * Form elements to display when the conditions fail.
+	 * Form statements to display when the conditions fail.
 	 */
-	private final List<Element> elseElements;
+	private final List<Statement> elseStatements;
 
 	/**
 	 * Constructor.
 	 * 
 	 * @param conditions
 	 *            conditions
-	 * @param successElements
-	 *            form elements to display on a successful condition
-	 * @param elseElements
-	 *            form elements to display on an unsuccessful condition
+	 * @param successStatements
+	 *            form statements to display on a successful condition
+	 * @param elseStatements
+	 *            form statements to display on an unsuccessful condition
+	 * @param syntaxPosition
+	 * 			  the original position of the expression in the input syntax
 	 */
 	public IfThenElse(final Expression conditions,
-			final List<Element> successElements,
-			final List<Element> elseElements) {
-		super(conditions, successElements);
-		this.elseElements = elseElements;
+			final List<Statement> successStatements,
+			final List<Statement> elseStatements,
+			final SyntaxPosition syntaxPosition) {
+		super(conditions, successStatements, syntaxPosition);
+		this.elseStatements = elseStatements;
 	}
 
 	@Override
 	public <T> T accept(final IVisitor<T> visitor) {
-		// TODO: visit parent and elements
 		return visitor.visit(this);
 	}
 
 	/**
-	 * Retrieve the form elements to display on an unsuccessful condition.
+	 * Retrieve the form statements to display on an unsuccessful condition.
 	 * 
-	 * @return form elements
+	 * @return form statements
 	 */
-	public List<Element> getElseElements() {
-		return elseElements;
+	public List<Statement> getElseStatements() {
+		return elseStatements;
 	}
 }

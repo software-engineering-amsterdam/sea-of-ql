@@ -1,5 +1,6 @@
 package org.uva.sea.ql.ast.form;
 
+import org.uva.sea.ql.ast.base.SyntaxPosition;
 import org.uva.sea.ql.ast.traversal.base.IVisitor;
 import org.uva.sea.ql.ast.types.Ident;
 import org.uva.sea.ql.ast.types.datatypes.DataType;
@@ -9,7 +10,7 @@ import org.uva.sea.ql.ast.types.datatypes.DataType;
  * 
  * @author J. Dijkstra
  */
-public class Question extends Element {
+public class Question extends Statement {
 	/**
 	 * Identity.
 	 */
@@ -32,9 +33,12 @@ public class Question extends Element {
 	 *            question text
 	 * @param expectedType
 	 *            data type that the answer should be
+	 * @param syntaxPosition
+	 * 			  the original position of the expression in the input syntax
 	 */
 	public Question(final Ident ident, final String text,
-			final DataType expectedType) {
+			final DataType expectedType, final SyntaxPosition syntaxPosition) {
+		super(syntaxPosition);
 		this.ident = ident;
 		this.text = text;
 		this.expectedType = expectedType;
@@ -69,7 +73,6 @@ public class Question extends Element {
 
 	@Override
 	public <T> T accept(final IVisitor<T> visitor) {
-		// TODO: visit ident
 		return visitor.visit(this);
 	}
 }

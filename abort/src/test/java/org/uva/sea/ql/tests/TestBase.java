@@ -1,11 +1,14 @@
 package org.uva.sea.ql.tests;
 
 import java.io.IOException;
+import java.util.Calendar;
+import java.util.Random;
 
 import org.antlr.runtime.ANTLRInputStream;
 import org.antlr.runtime.ANTLRStringStream;
 import org.antlr.runtime.CommonTokenStream;
 import org.antlr.runtime.RecognitionException;
+import org.uva.sea.ql.ast.base.SyntaxPosition;
 import org.uva.sea.ql.ast.form.Form;
 import org.uva.sea.ql.parser.antlr.QLLexer;
 import org.uva.sea.ql.parser.antlr.QLParser;
@@ -16,6 +19,20 @@ import org.uva.sea.ql.parser.antlr.QLParser;
  * @author J. Dijkstra
  */
 abstract class TestBase {
+	/**
+	 * Randomizer used for generating a syntax position.
+	 */
+	private final Random random = new Random(Calendar.getInstance().getTimeInMillis());
+	
+	/**
+	 * Generate a random syntax position to use in the tests.
+	 * 
+	 * @return syntax position
+	 */
+	protected SyntaxPosition generateSyntaxPosition() {
+		return new SyntaxPosition(random.nextInt(500), random.nextInt(1000));
+	}
+	
 	/**
 	 * Parse a QL string.
 	 * 

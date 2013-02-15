@@ -2,6 +2,7 @@ package org.uva.sea.ql.ast.types.literals;
 
 import java.math.BigDecimal;
 
+import org.uva.sea.ql.ast.base.SyntaxPosition;
 import org.uva.sea.ql.ast.traversal.base.IVisitor;
 import org.uva.sea.ql.ast.traversal.typechecking.SymbolTable;
 import org.uva.sea.ql.ast.types.datatypes.DataType;
@@ -25,8 +26,11 @@ public class MoneyLiteral extends NumericLiteral {
 	 * 
 	 * @param value
 	 *            value of the data type.
+	 * @param syntaxPosition
+	 * 			  the original position of the expression in the input syntax
 	 */
-	public MoneyLiteral(final String value) {
+	public MoneyLiteral(final String value, final SyntaxPosition syntaxPosition) {
+		super(syntaxPosition);
 		this.value = new BigDecimal(value);
 	}
 

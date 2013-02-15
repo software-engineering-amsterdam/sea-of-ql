@@ -10,7 +10,7 @@ import org.junit.Test;
 import org.uva.sea.ql.ast.base.Node;
 import org.uva.sea.ql.ast.conditionals.IfThen;
 import org.uva.sea.ql.ast.conditionals.IfThenElse;
-import org.uva.sea.ql.ast.form.Element;
+import org.uva.sea.ql.ast.form.Statement;
 import org.uva.sea.ql.ast.form.Question;
 import org.uva.sea.ql.ast.operators.binary.Eq;
 import org.uva.sea.ql.ast.types.datatypes.StringType;
@@ -27,8 +27,8 @@ public class TestConditionals extends TestBase {
 		assertNotNull(conditions);
 		assertEquals(Eq.class, conditions.getClass());
 
-		final List<Element> successElements = ((IfThen) result)
-				.getSuccessElements();
+		final List<Statement> successElements = ((IfThen) result)
+				.getSuccessStatements();
 		assertEquals(1, successElements.size());
 		assertEquals(Question.class, successElements.get(0).getClass());
 
@@ -49,8 +49,8 @@ public class TestConditionals extends TestBase {
 		assertNotNull(conditions);
 		assertEquals(Eq.class, conditions.getClass());
 
-		final List<Element> successElements = ((IfThenElse) result)
-				.getSuccessElements();
+		final List<Statement> successElements = ((IfThenElse) result)
+				.getSuccessStatements();
 		assertEquals(1, successElements.size());
 		assertEquals(Question.class, successElements.get(0).getClass());
 
@@ -60,8 +60,8 @@ public class TestConditionals extends TestBase {
 		assertEquals("Have you bought this house?", question.getText());
 		assertEquals("boughtHouse", question.getIdent().getName());
 
-		final List<Element> elseElements = ((IfThenElse) result)
-				.getElseElements();
+		final List<Statement> elseElements = ((IfThenElse) result)
+				.getElseStatements();
 		assertEquals(1, elseElements.size());
 		assertEquals(Question.class, elseElements.get(0).getClass());
 

@@ -10,7 +10,15 @@ import org.uva.sea.ql.ast.types.datatypes.DataType;
  */
 public abstract class Expression extends Node {
 	/**
-	 * Retrieve the type the expression will return (necessary for typechecking).
+	 * Constructor.
+	 * @param position syntax position in the original DSL input
+	 */
+	protected Expression(final SyntaxPosition syntaxPosition) {
+		super(syntaxPosition);
+	}
+	
+	/**
+	 * Retrieve the type the expression will return (necessary for type checking).
 	 * 
 	 * @param symbolTable symbol table to look up the type, in case of an identifier
 	 * @return data type we expect

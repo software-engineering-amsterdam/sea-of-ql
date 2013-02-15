@@ -5,6 +5,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.uva.sea.ql.ast.base.SyntaxPosition;
+
 /**
  * Represents a log.
  * 
@@ -14,7 +16,7 @@ abstract class Log {
 	/**
 	 * Array to store the lines in, to easily present it in a later stage.
 	 */
-	private final List<Message> log = new ArrayList<Message>();
+	private final List<TypeMessage> log = new ArrayList<TypeMessage>();
 
 	/**
 	 * Time format to use when displaying the log.
@@ -38,7 +40,7 @@ abstract class Log {
 	 * @param line
 	 *            line to add
 	 */
-	public void add(final Message line) {
+	public void add(final TypeMessage line) {
 		log.add(line);
 	}
 
@@ -59,7 +61,7 @@ abstract class Log {
 
 		final StringBuffer buffer = new StringBuffer();
 
-		for (final Message line : log) {
+		for (final TypeMessage line : log) {
 			buffer.append(getStringRepresentation(line));
 		}
 
@@ -73,7 +75,7 @@ abstract class Log {
 	 *            stream to write the log to
 	 */
 	public void write(final PrintStream stream) {
-		for (final Message line : log) {
+		for (final TypeMessage line : log) {
 			stream.print(getStringRepresentation(line));
 		}
 	}
@@ -85,9 +87,16 @@ abstract class Log {
 	 *            line to retrieve the string representation of
 	 * @return string representation of the line
 	 */
-	private String getStringRepresentation(final Message line) {
-		return String.format("[%s]: %s -> %s\n", dateFormat.format(line
-				.getCalendar().getTime()), line.getNode().toString(), line
-				.getText());
+	private String getStringRepresentation(final TypeMessage line) {
+		final String nodeName = line.getNode().toString();
+		final String timestamp = dateFormat.format(line.getCalendar().getTime());
+		final SyntaxPosition syntaxPosition = line.getNodeSyntaxPosition();
+		
+		return String.format("[%s]: %s -> %s (line: %d, column: %s)\n",
+				timestamp,
+				nodeName,
+				line.getText(),
+				syntaxPosition.getLineNumber(),
+				syntaxPosition.getColumnNumber());
 	}
 }

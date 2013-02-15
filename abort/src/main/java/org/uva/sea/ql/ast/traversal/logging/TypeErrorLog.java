@@ -1,8 +1,7 @@
 package org.uva.sea.ql.ast.traversal.logging;
 
-import java.util.List;
-
-import org.uva.sea.ql.ast.base.Node;
+import org.uva.sea.ql.ast.base.Expression;
+import org.uva.sea.ql.ast.form.Statement;
 import org.uva.sea.ql.ast.operators.base.BinaryOperator;
 import org.uva.sea.ql.ast.operators.base.Operator;
 import org.uva.sea.ql.ast.traversal.base.HandSide;
@@ -15,26 +14,15 @@ import org.uva.sea.ql.ast.types.Ident;
  */
 public class TypeErrorLog extends Log {
 	/**
-	 * Add empty flow warning.
-	 * 
-	 * @param node
-	 *            node that contains the empty flow
-	 */
-	public void addEmptyFlow(final Node node) {
-		add(new Message(node, "Empty flow"));
-	}
-
-	/**
 	 * Add invalid reference error.
 	 * 
-	 * @param node
-	 *            node that has an invalid reference
+	 * @param expression
+	 *            expression that has an invalid reference
 	 * @param reference
 	 *            the name of the invalid reference
 	 */
-	public void addInvalidReference(final Node node, final String reference) {
-		add(new Message(node, String.format("Invalid reference to \"%s\"",
-				reference)));
+	public void addInvalidReference(final Expression expression) {
+		add(new TypeMessage(expression, "Invalid reference"));
 	}
 
 	/**
@@ -50,7 +38,7 @@ public class TypeErrorLog extends Log {
 		final String text = String.format(
 				"The %s is not of the type Integer or Money",
 				getHandSideString(handSide));
-		add(new Message(operator, text));
+		add(new TypeMessage(operator, text));
 	}
 
 	/**
@@ -65,7 +53,7 @@ public class TypeErrorLog extends Log {
 			final Operator operator) {
 		final String text = String.format("The %s is not of the type boolean",
 				getHandSideString(handSide));
-		add(new Message(operator, text));
+		add(new TypeMessage(operator, text));
 	}
 
 	/**
@@ -75,57 +63,20 @@ public class TypeErrorLog extends Log {
 	 *            operator that causes the error
 	 */
 	public void addBothSidesAreDifferentTypes(final BinaryOperator operator) {
-		add(new Message(operator, "Both sides have to be of the same type"));
+		add(new TypeMessage(operator, "Both sides have to be of the same type"));
 	}
 
 	/**
 	 * Add ident redeclaration error.
 	 * 
-	 * @param node
-	 *            node that redeclares an ident
+	 * @param statement
+	 *            statement that redeclares an ident
 	 * @param label
 	 *            label that gets redeclarated
 	 */
-	public void addLabelRedeclaration(final Node node, final Ident ident) {
-		add(new Message(node, String.format("Redeclaration of label \"%s\"",
+	public void addIdentRedeclaration(final Statement statement, final Ident ident) {
+		add(new TypeMessage(statement, String.format("Redeclaration of ident \"%s\"",
 				ident.getName())));
-	}
-
-	/**
-	 * Add expected different types error.
-	 * 
-	 * @param node
-	 * @param expectedTypes
-	 */
-	public void addExpectedDifferentTypes(final Node node,
-			final List<Class<? extends Node>> expectedTypes) {
-		// Create a representable list of the expected types
-		final StringBuffer buffer = new StringBuffer();
-		for (final Class<? extends Node> expectedType : expectedTypes) {
-			buffer.append(expectedType.getName()).append(", ");
-		}
-
-		// Remove the last divider of the expected type list
-		final String expectedTypesRepresentation = buffer.substring(0,
-				buffer.length() - 2);
-
-		add(new Message(node, String.format(
-				"Expected one of the following types: %s",
-				expectedTypesRepresentation)));
-	}
-
-	/**
-	 * Add different type expectation error.
-	 * 
-	 * @param node
-	 *            node that expects different types
-	 * @param expectedType
-	 *            expected type
-	 */
-	public void addExpectedDifferentType(final Node node,
-			final Class<? extends Node> expectedType) {
-		add(new Message(node, String.format("Expected the following type: %s ",
-				expectedType.getName())));
 	}
 
 	/**

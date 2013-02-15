@@ -3,13 +3,14 @@ package org.uva.sea.ql.ast.traversal.logging;
 import java.util.Calendar;
 
 import org.uva.sea.ql.ast.base.Node;
+import org.uva.sea.ql.ast.base.SyntaxPosition;
 
 /**
  * Represents a line in a log.
  * 
  * @author J. Dijkstra
  */
-public class Message {
+public class TypeMessage {
 	/**
 	 * Store the time the line was logged.
 	 */
@@ -33,7 +34,7 @@ public class Message {
 	 * @param text
 	 *            text to log about the node
 	 */
-	public Message(final Node node, final String text) {
+	public TypeMessage(final Node node, final String text) {
 		calendar = Calendar.getInstance();
 
 		this.node = node;
@@ -56,6 +57,15 @@ public class Message {
 	 */
 	public Node getNode() {
 		return node;
+	}
+	
+	/**
+	 * Retrieve the node this line represents its syntax position
+	 * 
+	 * @return syntax position
+	 */
+	public SyntaxPosition getNodeSyntaxPosition() {
+		return node.getSyntaxPosition();
 	}
 
 	/**

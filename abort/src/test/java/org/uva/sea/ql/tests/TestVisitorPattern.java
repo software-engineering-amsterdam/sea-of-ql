@@ -77,6 +77,7 @@ public class TestVisitorPattern extends TestBase {
 
 	@Test
 	public void testVisitorInterface() {
+		// Tests whether mocked objects really get visited by a visitor
 		final Add addMock = mock(Add.class);
 		final And andMock = mock(And.class);
 		final Div divMock = mock(Div.class);
@@ -159,8 +160,10 @@ public class TestVisitorPattern extends TestBase {
 	}
 
 	private void mockAndVerifyVisit(final Class<? extends IVisitable> visitable) {
+		// Verifies visits by the visitor
 		final IVisitable mockedVisitable = mock(visitable);
 		mockedVisitable.accept(visitor);
 		verify(mockedVisitable).accept(visitor);
+
 	}
 }

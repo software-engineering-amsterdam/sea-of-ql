@@ -3,35 +3,40 @@ package org.uva.sea.ql.ast.conditionals;
 import java.util.List;
 
 import org.uva.sea.ql.ast.base.Expression;
-import org.uva.sea.ql.ast.form.Element;
+import org.uva.sea.ql.ast.base.SyntaxPosition;
+import org.uva.sea.ql.ast.form.Statement;
 
 /**
  * Represents a base type of If statement in QL.
  * 
  * @author J. Dijkstra
  */
-public abstract class IfStatement extends Element {
+public abstract class IfStatement extends Statement {
 	/**
 	 * Condition for the if statement.
 	 */
 	private final Expression condition;
 	/**
-	 * Form elements displayed on a successful condition.
+	 * Form statements displayed on a successful condition.
 	 */
-	private final List<Element> successElements;
+	private final List<Statement> successStatements;
 
 	/**
 	 * Constructor.
 	 * 
 	 * @param condition
 	 *            condition for the if statement
-	 * @param successElements
-	 *            form elements displayed on a successful condition
+	 * @param successStatements
+	 *            form statements displayed on a successful condition
+	 * @param syntaxPosition
+	 * 			  the original position of the expression in the input syntax
 	 */
 	protected IfStatement(final Expression condition,
-			final List<Element> successElements) {
+			final List<Statement> successStatements, final SyntaxPosition syntaxPosition) {
+		super(syntaxPosition);
+		
 		this.condition = condition;
-		this.successElements = successElements;
+		this.successStatements = successStatements;
 	}
 
 	/**
@@ -44,12 +49,12 @@ public abstract class IfStatement extends Element {
 	}
 
 	/**
-	 * Retrieves form elements displayed on a successful condition.
-	 * 
-	 * @return form elements
+	 * Retrieves form statements displayed on a successful condition.
+	 *
+	 * @return form statements
 	 */
-	public final List<Element> getSuccessElements() {
-		return successElements;
+	public final List<Statement> getSuccessStatements() {
+		return successStatements;
 	}
 
 }

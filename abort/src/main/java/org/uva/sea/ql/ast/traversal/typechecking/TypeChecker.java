@@ -48,7 +48,7 @@ public class TypeChecker implements IVisitor<Boolean> {
 		// Check if the identifier has been declared before in the symbol table
 		final Ident identifier = computation.getIdent();
 		if (symbolTable.get(identifier) != null) {
-			errorLog.addLabelRedeclaration(computation, identifier);
+			errorLog.addIdentRedeclaration(computation, identifier);
 			return true;
 		}
 
@@ -61,7 +61,7 @@ public class TypeChecker implements IVisitor<Boolean> {
 	@Override
 	public Boolean visit(final Form form) {
 		// Check for errors in the form elements and return whether errors are found or not
-		final boolean elementErrors = checkElements(form.getElements());
+		final boolean elementErrors = checkElements(form.getStatements());
 		if (!elementErrors) {
 			eventLog.addCorrectSemantics(form);
 		}
@@ -73,7 +73,7 @@ public class TypeChecker implements IVisitor<Boolean> {
 		// Check if the identifier has been declared before in the symbol table
 		final Ident identifier = question.getIdent();
 		if (symbolTable.get(identifier) != null) {
-			errorLog.addLabelRedeclaration(question, identifier);
+			errorLog.addIdentRedeclaration(question, identifier);
 			return true;
 		}
 
@@ -91,7 +91,7 @@ public class TypeChecker implements IVisitor<Boolean> {
 	public Boolean visit(final IfThenElse ifThenElse) {
 		final boolean errors = checkIfStatement(ifThenElse);
 		final boolean elseElementErrors = checkElements(ifThenElse
-				.getElseElements());
+				.getElseStatements());
 
 		// Errors are present deeper in the AST or in the success elements
 		return (errors || elseElementErrors);
@@ -362,7 +362,7 @@ public class TypeChecker implements IVisitor<Boolean> {
 	private boolean checkIfStatement(final IfStatement statement) {
 		final boolean conditionErrors = statement.getCondition().accept(this);
 		final boolean successElementsErrors = checkElements(statement
-				.getSuccessElements());
+				.getSuccessStatements());
 
 		// Errors are present deeper in the AST
 		return (conditionErrors || successElementsErrors);
@@ -374,9 +374,9 @@ public class TypeChecker implements IVisitor<Boolean> {
 	 * @param elements elements to check
 	 * @return whether there are errors found or not
 	 */
-	private boolean checkElements(final List<Element> elements) {
+	private boolean checkElements(final List<Statement> elements) {
 		boolean errors = false;
-		for (final Element element : elements) {
+		for (final Statement element : elements) {
 			// Errors deeper in the tree. As we still want to check errors on
 			// the same nesting level, we will continue the loop
 			if (element.accept(this))
@@ -392,8 +392,7 @@ public class TypeChecker implements IVisitor<Boolean> {
 		final DataType type = expression.typeOf(symbolTable);
 		if (type == null) {
 			// Only idents should be able to get here
-			// TODO add line numbers
-			errorLog.addInvalidReference(expression, null);
+			errorLog.addInvalidReference(expression);
 		}
 		return type;
 	}

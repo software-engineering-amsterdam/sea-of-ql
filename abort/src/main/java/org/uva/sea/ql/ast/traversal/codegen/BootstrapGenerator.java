@@ -13,12 +13,14 @@ import java.util.Set;
 
 import org.stringtemplate.v4.ST;
 import org.stringtemplate.v4.STGroupFile;
+import org.uva.sea.ql.ast.base.Expression;
+import org.uva.sea.ql.ast.conditionals.IfStatement;
 import org.uva.sea.ql.ast.conditionals.IfThen;
 import org.uva.sea.ql.ast.conditionals.IfThenElse;
 import org.uva.sea.ql.ast.form.Computation;
-import org.uva.sea.ql.ast.form.Element;
 import org.uva.sea.ql.ast.form.Form;
 import org.uva.sea.ql.ast.form.Question;
+import org.uva.sea.ql.ast.form.Statement;
 import org.uva.sea.ql.ast.operators.base.BinaryOperator;
 import org.uva.sea.ql.ast.operators.binary.Add;
 import org.uva.sea.ql.ast.operators.binary.And;
@@ -45,7 +47,7 @@ import org.uva.sea.ql.ast.types.literals.IntLiteral;
 import org.uva.sea.ql.ast.types.literals.MoneyLiteral;
 import org.uva.sea.ql.ast.types.literals.StringLiteral;
 
-// TODO: wrapping class for header and body to return instead of ST's, hierarchy so that form returns a single element
+// TODO: wrapping class for header and body to return instead of ST's, hierarchy so that form returns a single etatement
 public class BootstrapGenerator implements IVisitor<ST> {
 	private final STGroupFile templateGroup = new STGroupFile("codegeneration/index.stg", '$', '$');
 	//private final ST bodyTemplate = templateGroup.getInstanceOf("body");
@@ -204,21 +206,23 @@ public class BootstrapGenerator implements IVisitor<ST> {
 		// initialVariables.add(computation.getIdent());
 		// headerTemplate.add("line", templateGroup.getInstanceOf("generate_dispatch").add("id", computation.getIdent().getName()));
 
+		addFunction(computation.getIdent(), computation.getExpression());
+
 		return computationTemplate;
 	}
-
+	
 	@Override
 	public ST visit(final Form form) {
 		final ST st = templateGroup.getInstanceOf("form");
-		st.add("fields", getFilledFormTemplates(form.getElements()));
+		st.add("fields", getFilledFormTemplates(form.getStatements()));
 
 		return st;
 	}
 	
-	private List<ST> getFilledFormTemplates(final List<Element> elements) {
+	private List<ST> getFilledFormTemplates(final List<Statement> etatements) {
 		final List<ST> templates = new ArrayList<ST>();
-		for (final Element element : elements) {
-			templates.add(element.accept(this));
+		for (final Statement etatement : etatements) {
+			templates.add(etatement.accept(this));
 		}
 		
 		return templates;
@@ -251,19 +255,25 @@ public class BootstrapGenerator implements IVisitor<ST> {
 	@Override
 	public ST visit(final IfThen ifThen) {
 		final ST template = templateGroup.getInstanceOf("if_then");
-		template.add("id", getConditionIdentifier());
-		template.add("condition", ifThen.getCondition().accept(this));
-		template.add("success_elements", getFilledFormTemplates(ifThen.getSuccessElements()));
+		initConditionalTemplate(template, ifThen);
 		return template;
 	}
 
+	private void initConditionalTemplate(final ST template, final IfStatement statement) {
+		final String id = getConditionIdentifier();
+		final ST conditionTemplate = statement.getCondition().accept(this);
+		template.add("id", id);
+		template.add("condition", conditionTemplate);
+		template.add("success_elements", getFilledFormTemplates(statement.getSuccessStatements()));
+
+		addFunction(id, statement.getCondition());
+	}
+	
 	@Override
 	public ST visit(final IfThenElse ifThenElse) {
 		final ST template = templateGroup.getInstanceOf("if_then_else");
-		template.add("id", getConditionIdentifier());
-		template.add("condition", ifThenElse.getCondition().accept(this));
-		template.add("success_elements", getFilledFormTemplates(ifThenElse.getSuccessElements()));
-		template.add("else_elements", getFilledFormTemplates(ifThenElse.getElseElements()));
+		initConditionalTemplate(template, ifThenElse);
+		template.add("else_elements", getFilledFormTemplates(ifThenElse.getElseStatements()));
 		return template;
 	}
 	
@@ -300,7 +310,7 @@ public class BootstrapGenerator implements IVisitor<ST> {
 		// only visited by computation
 		final ST st = templateGroup.getInstanceOf("ident");
 		st.add("name", ident.getName());
-		
+
 		references.put(ident, references.get(ident) + 1);
 		
 		return st;
@@ -314,12 +324,23 @@ public class BootstrapGenerator implements IVisitor<ST> {
 	}
 
 	private String getConditionIdentifier() {
-		final String conditionIdentifier = String.format("condition-%d", conditionalIdentifier);
+		final String conditionIdentifier = String.format("condition%d", conditionalIdentifier);
 		conditionalIdentifier++;	
 		return conditionIdentifier;
 	}
 	
 	private void initIdentifier(Ident ident) {
 		references.put(ident, 0);
+	}
+
+	private void addFunction(final Ident ident, final Expression expression) {
+		addFunction(ident.getName(), expression);
+	}
+	
+	private void addFunction(final String ident, final Expression expression) {
+		final ST functionTemplate = templateGroup.getInstanceOf("generate_map_function");
+		functionTemplate.add("id", ident);
+		functionTemplate.add("expression", expression.accept(this));
+		headerTemplate.add("line", functionTemplate);
 	}
 }

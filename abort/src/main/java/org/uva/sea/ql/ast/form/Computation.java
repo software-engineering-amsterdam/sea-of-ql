@@ -1,16 +1,17 @@
 package org.uva.sea.ql.ast.form;
 
 import org.uva.sea.ql.ast.base.Expression;
+import org.uva.sea.ql.ast.base.SyntaxPosition;
 import org.uva.sea.ql.ast.traversal.base.IVisitor;
 import org.uva.sea.ql.ast.types.Ident;
 import org.uva.sea.ql.ast.types.datatypes.DataType;
 
 /**
- * QL Computation to display in a form.
+ * Computation as defined in the QL language.
  * 
  * @author J. Dijkstra
  */
-public class Computation extends Element {
+public class Computation extends Statement {
 	/**
 	 * Identity.
 	 */
@@ -40,9 +41,13 @@ public class Computation extends Element {
 	 *            expected data type of the computation
 	 * @param calculationOperation
 	 *            calculation that should be done
+	 * @param syntaxPosition
+	 * 			  the original position of the expression in the input syntax
 	 */
 	public Computation(final Ident ident, final String description,
-			final DataType expectedType, final Expression calculationOperation) {
+			final DataType expectedType, final Expression calculationOperation, final SyntaxPosition syntaxPosition) {
+		super(syntaxPosition);
+		
 		this.ident = ident;
 		this.description = description;
 		this.expectedType = expectedType;
@@ -88,7 +93,6 @@ public class Computation extends Element {
 
 	@Override
 	public <T> T accept(final IVisitor<T> visitor) {
-		// TODO: visit parent and elements
 		return visitor.visit(this);
 	}
 }

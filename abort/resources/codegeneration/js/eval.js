@@ -1,24 +1,24 @@
 function initFunctionMap() {
-		getExpressionEntities().each(function() {
-			initExpressionAsFunction(this);
-		});
+	getExpressionEntities().each(function() {
+		initExpressionAsFunction(this);
+	});
 
-		getConditionEntities().each(function() {
-			initConditionalExpressionAsFunction(this);
-		});
+	getConditionEntities().each(function() {
+		initConditionalExpressionAsFunction(this);
+	});
 }
 
 function evaluateExpression(entity) {
 	var id = $(entity).attr('id');
-	var value = (functionMap[id])();
+	var value = functionMap[id]();
 	
 	qlMap[id] = value;
-	$(entity).val(value);
+	$(entity).val(value == NaN ? "Invalid or incomplete computation" : value);
 }
 
 function evaluateConditional(entity) {
 	var id = $(entity).attr('id');
-	var value = (functionMap[id])();
+	var value = functionMap[id]();
 	
 	if (value == true) {
 		$(entity).children('.success-elements').show();
@@ -96,7 +96,7 @@ function doesArrayContainIdReference(expressions, id) {
 		}
 	});
 	return false;
-} 
+}
 
 function initConditionalGUI() {
 	getConditionEntities().each(function() {
@@ -105,6 +105,7 @@ function initConditionalGUI() {
 }
 
 function updateGUI(updatedEntity, updatedId) {
+	console.log("update for: " + updatedId);
     qlMap[updatedId] = getValue(updatedEntity);
 	dispatchToDependencies(updatedId);
 }

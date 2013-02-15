@@ -1,5 +1,6 @@
 package org.uva.sea.ql.ast.types.literals;
 
+import org.uva.sea.ql.ast.base.SyntaxPosition;
 import org.uva.sea.ql.ast.traversal.base.IVisitor;
 import org.uva.sea.ql.ast.traversal.typechecking.SymbolTable;
 import org.uva.sea.ql.ast.types.datatypes.BoolType;
@@ -17,14 +18,17 @@ public class BoolLiteral extends LiteralType {
 	 * Value of this data type
 	 */
 	private final boolean value;
-
+	
 	/**
 	 * Constructor.
 	 * 
 	 * @param value
 	 *            value
+	 * @param syntaxPosition
+	 * 			  the original position of the expression in the input syntax
 	 */
-	public BoolLiteral(final boolean value) {
+	public BoolLiteral(final boolean value, final SyntaxPosition syntaxPosition) {
+		super(syntaxPosition);
 		this.value = value;
 	}
 

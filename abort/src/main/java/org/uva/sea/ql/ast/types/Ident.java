@@ -1,6 +1,7 @@
 package org.uva.sea.ql.ast.types;
 
 import org.uva.sea.ql.ast.base.Expression;
+import org.uva.sea.ql.ast.base.SyntaxPosition;
 import org.uva.sea.ql.ast.traversal.base.IVisitor;
 import org.uva.sea.ql.ast.traversal.typechecking.SymbolTable;
 import org.uva.sea.ql.ast.types.datatypes.DataType;
@@ -22,8 +23,11 @@ public class Ident extends Expression {
 	 * 
 	 * @param name
 	 *            name tag
+	 * @param syntaxPosition
+	 * 			  the original position of the expression in the input syntax
 	 */
-	public Ident(final String name) {
+	public Ident(final String name, final SyntaxPosition syntaxPosition) {
+		super(syntaxPosition);
 		this.name = name;
 	}
 
