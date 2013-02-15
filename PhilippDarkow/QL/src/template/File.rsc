@@ -12,9 +12,12 @@ import template::EvaluateExpression;
 * @return l the location of the directory
 * @ author Philipp
 */
-loc generateQLDirectory(){
-	l = |home:///TestQLJavaScript|;
+loc generateQLDirectory(str id){
+	l = |file:///wamp/www/|;
+	l += id;
+	println("L : <l>");
 	if(isDirectory(l)){
+		println("IS direc");
 		return l;
 	}else{
 		mkDirectory(l);
@@ -23,30 +26,31 @@ loc generateQLDirectory(){
 }
 
 public void appendToHTMLFile(str formId, str text){
-	loc l = |home:///TestQLJavaScript|;
+	l = |file:///wamp/www/<formId>|;
 	l += "<formId>.html";
 	appendToFile(l, "\n <text>");
 }
 
 public void appendToJavaScriptFile(str formId, str text){
-	loc l = |home:///TestQLJavaScript|;
+	l = |file:///wamp/www/<formId>|;
 	l += "<formId>.js";	
 	appendToFile(l, "\n <text>");
 }
 
 public void appendToCssFile(str formId, str text){
 	println("in append to : <text>");
-	loc l = |home:///TestQLJavaScript|;
+	loc l = |file:///wamp/www/<formId>|;
 	l += "<formId>.css";
 	println("L : <l>");
 	appendToFile(l, "\n <text>");
 }
 
 public void createQLOnHarddisk(str id){
-	loc dir = generateQLDirectory();
+	loc dir = generateQLDirectory(id);
 	createEmptyHTMLFile(id, dir);
 	createEmptyJavaScriptFile(id, dir);
 	createEmptyCSSFile(id, dir);
+	createEmptyPHPFile(id, dir);
 	createValidatorFile(dir);
 }
 
@@ -66,8 +70,13 @@ void createEmptyCSSFile(str id, loc dir){
 	writeFile(dir,"");
 }
 
+void createEmptyPHPFile(str id, loc dir){
+	dir += "<id>.php";
+	writeFile(dir,"");
+}
+
 public void generateCSSFile(str formId, str id){
-	loc dir = generateQLDirectory();
+	loc dir = generateQLDirectory(formId);
 	s = cssEndLabels(id);
 	generateCSSFile(formId,s,dir);
 }

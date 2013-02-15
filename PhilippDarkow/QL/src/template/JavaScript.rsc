@@ -14,7 +14,7 @@ public str javaScriptCreateForm(str id, list[Body] Body){
 			<id>Div.setAttribute(\'class\',\'<id>Div\');
 			<id> = document.createElement(\"form\");
 			<id>.setAttribute(\'method\',\"post\");
-			//<id>.setAttribute(\'action\',\"submit.php\");
+			<id>.setAttribute(\'action\',\"<id>.php\");
 			<id>.setAttribute(\'name\',<id>);
 			<id>.setAttribute(\'id\',<id>);
 			<for (s <- Body) { >						

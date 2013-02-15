@@ -241,6 +241,8 @@ public str generateQLForm(Program P){
 		\<html\>
 		\<head\>
 		\<script src=\"<id>.js\"\> \</script\>
+		\<script src=\"http://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.js\"\>\</script\>
+		\<script src=\"http://malsup.github.com/jquery.form.js\"\>\</script\> 
 		\<script src=\"gen_validatorv4.js\" type=\"text/javascript\"\> \</script\>
 		\<link href=\"<id>.css\" rel=\"stylesheet\" type=\"text/css\"\>
 		\</head\>
