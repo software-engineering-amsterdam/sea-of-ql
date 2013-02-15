@@ -3,7 +3,7 @@ package org.uva.sea.ql.ast.form;
 import org.uva.sea.ql.ast.Ident;
 import org.uva.sea.ql.ast.literals.StrLiteral;
 import org.uva.sea.ql.ast.types.Type;
-import org.uva.sea.ql.ast.visitor.Visitor;
+import org.uva.sea.ql.visitor.Visitor;
 
 /**
  * class: Question
@@ -46,7 +46,7 @@ public class Question extends FormElement {
 	 * @return type
 	 */
 	@Override
-	public void accept(Visitor visitor){
-		visitor.visit(this);
+	public <T> T accept(Visitor<T> visitor){
+		return visitor.visit(this);
 	}
 }

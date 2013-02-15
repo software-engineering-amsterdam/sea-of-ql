@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.uva.sea.ql.ast.Expr;
 import org.uva.sea.ql.ast.types.BoolType;
-import org.uva.sea.ql.ast.visitor.Visitor;
+import org.uva.sea.ql.visitor.Visitor;
 /**
  * class: Condition
  * @author Danny
@@ -72,7 +72,7 @@ public class Condition extends FormElement {
 	 * @return type
 	 */
 	@Override
-	public void accept(Visitor visitor){
-		visitor.visit(this);
+	public <T> T accept(Visitor<T> visitor){
+		return visitor.visit(this);
 	}
 }

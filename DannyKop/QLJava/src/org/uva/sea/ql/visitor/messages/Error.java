@@ -1,4 +1,4 @@
-package org.uva.sea.ql.ast.visitor.messages;
+package org.uva.sea.ql.visitor.messages;
 /**
  * Class: Error
  * @author Danny

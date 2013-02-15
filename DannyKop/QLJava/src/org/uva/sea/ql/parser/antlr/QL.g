@@ -141,7 +141,6 @@ type returns [Type result]
     | 'int'     {$result = new IntType();}
     ;
 // Tokens
-
 WS:	(' ' | '\t' | '\n' | '\r')+ { $channel=HIDDEN; };
 
 Comment: '/*' .* '*/' {$channel=HIDDEN;}
