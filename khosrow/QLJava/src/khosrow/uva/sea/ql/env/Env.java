@@ -38,7 +38,7 @@ public class Env {
 		typeAndValues.put(name, new TypeValuePair(type, type.initialize()));
 	}
 		
-	public void declareValue(Ident name, Value value) {
+	public void assignValue(Ident name, Value value) {
 		typeAndValues.get(name).setValue(value);
 	}
 }
