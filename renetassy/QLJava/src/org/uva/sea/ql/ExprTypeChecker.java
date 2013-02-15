@@ -25,7 +25,7 @@ import org.uva.sea.ql.ast.expr.values.Int;
 import org.uva.sea.ql.ast.expr.values.StringLiteral;
 import org.uva.sea.ql.ast.types.Type;
 
-public class ExprTypeChecker implements IExprVisitor {
+public class ExprTypeChecker implements IExprVisitor<Boolean> {
 	
 	private final Map<String, Type> typeEnvironment;
 	//private final List<String> errors;
@@ -54,7 +54,7 @@ public class ExprTypeChecker implements IExprVisitor {
 	}
 
 	@Override
-	public boolean visit(Add node) {
+	public Boolean visit(Add node) {
 		
 		boolean checkLeft = node.getLeft().accept(this);
 		boolean checkRight = node.getRight().accept(this);
@@ -77,7 +77,7 @@ public class ExprTypeChecker implements IExprVisitor {
 	}
 	
 	@Override
-	public boolean visit(And node) {
+	public Boolean visit(And node) {
 		
 		boolean checkLeft = node.getLeft().accept(this);
 		boolean checkRight = node.getRight().accept(this);
@@ -102,7 +102,7 @@ public class ExprTypeChecker implements IExprVisitor {
 	}
 
 	@Override
-	public boolean visit(Div node) {
+	public Boolean visit(Div node) {
 		
 		boolean checkLeft = node.getLeft().accept(this);
 		boolean checkRight = node.getRight().accept(this);
@@ -126,7 +126,7 @@ public class ExprTypeChecker implements IExprVisitor {
 	}
 
 	@Override
-	public boolean visit(Eq node) {
+	public Boolean visit(Eq node) {
 		
 		boolean checkLeft = node.getLeft().accept(this);
 		boolean checkRight = node.getRight().accept(this);
@@ -150,7 +150,7 @@ public class ExprTypeChecker implements IExprVisitor {
 	}
 
 	@Override
-	public boolean visit(GEq node) {
+	public Boolean visit(GEq node) {
 		
 		boolean checkLeft = node.getLeft().accept(this);
 		boolean checkRight = node.getRight().accept(this);
@@ -174,7 +174,7 @@ public class ExprTypeChecker implements IExprVisitor {
 	}
 
 	@Override
-	public boolean visit(GT node) {
+	public Boolean visit(GT node) {
 		
 		boolean checkLeft = node.getLeft().accept(this);
 		boolean checkRight = node.getRight().accept(this);
@@ -198,7 +198,7 @@ public class ExprTypeChecker implements IExprVisitor {
 	}
 
 	@Override
-	public boolean visit(Ident node) {
+	public Boolean visit(Ident node) {
 		
 		if(node.isOfType(typeEnvironment).isCompatibleToUndefined()) {
 			errors.add(new QLError("Variable " +node.getName()+ " is undefined "));
@@ -210,13 +210,13 @@ public class ExprTypeChecker implements IExprVisitor {
 	}
 
 	@Override
-	public boolean visit(Int node) {
+	public Boolean visit(Int node) {
 		return true;
 		
 	}
 
 	@Override
-	public boolean visit(LEq node) {
+	public Boolean visit(LEq node) {
 		
 		boolean checkLeft = node.getLeft().accept(this);
 		boolean checkRight = node.getRight().accept(this);
@@ -240,7 +240,7 @@ public class ExprTypeChecker implements IExprVisitor {
 	}
 
 	@Override
-	public boolean visit(LT node) {
+	public Boolean visit(LT node) {
 		
 		boolean checkLeft = node.getLeft().accept(this);
 		boolean checkRight = node.getRight().accept(this);
@@ -265,7 +265,7 @@ public class ExprTypeChecker implements IExprVisitor {
 	}
 
 	@Override
-	public boolean visit(Mul node) {
+	public Boolean visit(Mul node) {
 		
 		boolean checkLeft = node.getLeft().accept(this);
 		boolean checkRight = node.getRight().accept(this);
@@ -290,7 +290,7 @@ public class ExprTypeChecker implements IExprVisitor {
 	}
 
 	@Override
-	public boolean visit(Neg node) {
+	public Boolean visit(Neg node) {
 		
 		Type arg = node.getArg().isOfType(typeEnvironment);
 		
@@ -305,7 +305,7 @@ public class ExprTypeChecker implements IExprVisitor {
 	}
 
 	@Override
-	public boolean visit(NEq node) {
+	public Boolean visit(NEq node) {
 		
 		boolean checkLeft = node.getLeft().accept(this);
 		boolean checkRight = node.getRight().accept(this);
@@ -329,7 +329,7 @@ public class ExprTypeChecker implements IExprVisitor {
 	}
 
 	@Override
-	public boolean visit(Not node) {
+	public Boolean visit(Not node) {
 		
 		Type arg = node.getArg().isOfType(typeEnvironment);
 		
@@ -344,7 +344,7 @@ public class ExprTypeChecker implements IExprVisitor {
 	}
 
 	@Override
-	public boolean visit(Or node) {
+	public Boolean visit(Or node) {
 		
 		boolean checkLeft = node.getLeft().accept(this);
 		boolean checkRight = node.getRight().accept(this);
@@ -368,7 +368,7 @@ public class ExprTypeChecker implements IExprVisitor {
 	}
 
 	@Override
-	public boolean visit(Pos node) {
+	public Boolean visit(Pos node) {
 		
 		Type arg = node.getArg().isOfType(typeEnvironment);
 		
@@ -383,7 +383,7 @@ public class ExprTypeChecker implements IExprVisitor {
 	}
 
 	@Override
-	public boolean visit(Sub node) {
+	public Boolean visit(Sub node) {
 		
 		boolean checkLeft = node.getLeft().accept(this);
 		boolean checkRight = node.getRight().accept(this);
@@ -407,13 +407,13 @@ public class ExprTypeChecker implements IExprVisitor {
 	}
 
 	@Override
-	public boolean visit(BoolLiteral node) {
+	public Boolean visit(BoolLiteral node) {
 		return true;
 		
 	}
 
 	@Override
-	public boolean visit(StringLiteral node) {
+	public Boolean visit(StringLiteral node) {
 		return true;
 		
 	}

@@ -20,44 +20,44 @@ import org.uva.sea.ql.ast.expr.values.BoolLiteral;
 import org.uva.sea.ql.ast.expr.values.Int;
 import org.uva.sea.ql.ast.expr.values.StringLiteral;
 
-public interface IExprVisitor {
+public interface IExprVisitor<T> {
 	
-	public boolean visit(Add node);
+	T visit(Add node);
 	
-	public boolean visit(And node);
+	T visit(And node);
 	
-	public boolean visit(Div node);
+	T visit(Div node);
 	
-	public boolean visit(Eq node);
+	T visit(Eq node);
 	
-	public boolean visit(GEq node);
+	T visit(GEq node);
 	
-	public boolean visit(GT node);
+	T visit(GT node);
 	
-	public boolean visit(Ident node);
+	T visit(Ident node);
 	
-	public boolean visit(Int node);
+	T visit(Int node);
 	
-	public boolean visit(LEq node);
+	T visit(LEq node);
 	
-	public boolean visit(LT node);
+	T visit(LT node);
 	
-	public boolean visit(Mul node);
+	T visit(Mul node);
 	
-	public boolean visit(Neg node);
+	T visit(Neg node);
 	
-	public boolean visit(NEq node);
+	T visit(NEq node);
 	
-	public boolean visit(Not node);
+	T visit(Not node);
 	
-	public boolean visit(Or node);
+	T visit(Or node);
 	
-	public boolean visit(Pos node);
+	T visit(Pos node);
 	
-	public boolean visit(Sub node);
+	T visit(Sub node);
 	
-	public boolean visit(BoolLiteral node);
+	T visit(BoolLiteral node);
 	
-	public boolean visit(StringLiteral node);
+	T visit(StringLiteral node);
 	
 }

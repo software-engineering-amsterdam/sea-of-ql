@@ -1,6 +1,6 @@
 package org.uva.sea.ql.ast.stmnt;
 
-import org.uva.sea.ql.StatementVisitor;
+import org.uva.sea.ql.IStatementVisitor;
 import org.uva.sea.ql.ast.expr.Expr;
 
 public class IfStatement extends Statement {
@@ -22,7 +22,7 @@ public class IfStatement extends Statement {
 	}
 
 	@Override
-	public boolean accept(StatementVisitor visitor) {
+	public <T> T accept(IStatementVisitor<T> visitor) {
 		return visitor.visit(this);
 	}
 

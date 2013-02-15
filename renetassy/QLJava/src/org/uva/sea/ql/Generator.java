@@ -2,6 +2,8 @@ package org.uva.sea.ql;
 
 import java.awt.Dimension;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.swing.JFrame;
@@ -16,10 +18,14 @@ public class Generator {
 	private Form ast;
 	
 	private ANTLRParser parser = new ANTLRParser();
-	private ArrayList<QLError> errors;
 	private Map<String,Type> typeEnvironment;
+	private List<QLError> errors;
+	
 	private JFrame frame;
 
+	final int FRAME_WIDTH = 500;
+	final int FRAME_HEIGHT = 500;
+	
 	/**
 	 * @param args
 	 */
@@ -34,18 +40,18 @@ public class Generator {
 		frame = new JFrame();
 		
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setSize(new Dimension(500,500));
+		frame.setSize(new Dimension(FRAME_WIDTH,FRAME_HEIGHT));
 		frame.setVisible(true);
+		
+		errors = new ArrayList<QLError>();
+		typeEnvironment = new HashMap<String, Type> ();
 		
 		try {
 			
 			ast = parser.parseForm("form arxigos { question1 : \"inta fasi?\" int" +
 					" question2 : \"ti fasi?\" bool  }");
 			
-			//StatementChecker.check(ast, typeEnvironment, errors);
-			
-			//Renderer.render(ast);
-			
+			StatementChecker.check(ast, typeEnvironment, errors);
 			
 			frame.getContentPane().add(Renderer.render(ast));
 			
@@ -53,8 +59,8 @@ public class Generator {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		//frame.pack();
 		frame.setVisible(true);
-		//System.out.println(ast.toString());
 		
 	}
 

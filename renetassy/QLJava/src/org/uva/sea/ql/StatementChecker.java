@@ -13,7 +13,7 @@ import org.uva.sea.ql.ast.stmnt.Question;
 import org.uva.sea.ql.ast.stmnt.Statement;
 import org.uva.sea.ql.ast.types.Type;
 
-public class StatementChecker extends StatementVisitor implements IStatementVisitor  {
+public class StatementChecker implements IStatementVisitor<Boolean> {
 	
 	private final Map<String, Type> typeEnvironment;
 	private List<QLError> errors;
@@ -33,7 +33,7 @@ public class StatementChecker extends StatementVisitor implements IStatementVisi
 	}
 	
 	@Override
-	public boolean visit(Form form) {
+	public Boolean visit(Form form) {
 		
 		//Ident id = form.getID();
 		boolean checkBody = form.getBody().accept(this);
@@ -46,7 +46,7 @@ public class StatementChecker extends StatementVisitor implements IStatementVisi
 	}
 
 	@Override
-	public boolean visit(Question question) {
+	public Boolean visit(Question question) {
 		
 		Ident qID = question.getID();
 			
@@ -62,7 +62,7 @@ public class StatementChecker extends StatementVisitor implements IStatementVisi
 	}
 
 	@Override
-	public boolean visit(ComputedQuestion computedQuestion) {
+	public Boolean visit(ComputedQuestion computedQuestion) {
 		
 		
 		Ident qID = computedQuestion.getID();
@@ -93,7 +93,7 @@ public class StatementChecker extends StatementVisitor implements IStatementVisi
 	}
 
 	@Override
-	public boolean visit(IfStatement ifStatement) {
+	public Boolean visit(IfStatement ifStatement) {
 		
 		Expr expr = ifStatement.getExpr();
 		
@@ -121,7 +121,7 @@ public class StatementChecker extends StatementVisitor implements IStatementVisi
 	}
 
 	@Override
-	public boolean visit(Body body) {
+	public Boolean visit(Body body) {
 		
 		List<Statement> statements = body.getStatements();
 		boolean checkStatement = true;

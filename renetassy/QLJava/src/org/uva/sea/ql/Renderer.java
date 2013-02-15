@@ -16,7 +16,7 @@ import org.uva.sea.ql.ast.stmnt.Question;
 import org.uva.sea.ql.ast.stmnt.Statement;
 import net.miginfocom.swing.MigLayout;
 
-public class Renderer extends StatementVisitor {
+public class Renderer implements IStatementVisitor<Void> {
 	
 	private JPanel panel;
 	
@@ -40,30 +40,33 @@ public class Renderer extends StatementVisitor {
 	}
 
 	@Override
-	public boolean visit(Question question) {
+	public Void visit(Question question) {
 		
 		JComponent widget = typeToWidget(question);
 		JLabel label = new JLabel(question.getLabel().getValue());
 		panel.add(label);
 		panel.add(widget,"wrap");
-		//System.out.println("oeo");
-		return false;
+		
+		return null;
+		
 	}
 
 	@Override
-	public boolean visit(ComputedQuestion computedQuestion) {
+	public Void visit(ComputedQuestion computedQuestion) {
 		// TODO Auto-generated method stub
-		return false;
+
+		return null;
 	}
 
 	@Override
-	public boolean visit(IfStatement ifStatement) {
+	public Void visit(IfStatement ifStatement) {
 		// TODO Auto-generated method stub
-		return false;
+		
+		return null;
 	}
 
 	@Override
-	public boolean visit(Body body) {
+	public Void visit(Body body) {
 		
 		List<Statement> statements = body.getStatements();
 		
@@ -71,13 +74,17 @@ public class Renderer extends StatementVisitor {
 			statement.accept(this);
 		}
 		
-		return true;
+		return null;
+		
 	}
 
 	@Override
-	public boolean visit(Form form) {
+	public Void visit(Form form) {
+		
 		form.getBody().accept(this);
-		return true;
+		
+		return null;
+		
 	}
 	
 	private JComponent typeToWidget(Question q) {
@@ -99,8 +106,7 @@ public class Renderer extends StatementVisitor {
 			return widget;
 		}
 		
-		return null;
-		
+		return null;	
 	}
 
 }

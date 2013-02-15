@@ -6,16 +6,16 @@ import org.uva.sea.ql.ast.stmnt.ComputedQuestion;
 import org.uva.sea.ql.ast.stmnt.IfStatement;
 import org.uva.sea.ql.ast.stmnt.Question;
 
-public interface IStatementVisitor {
-	
-	public boolean visit(Question question);
-	
-	public boolean visit(ComputedQuestion computedQuestion);
+public interface IStatementVisitor<T> {
 
-	public boolean visit(IfStatement ifStatement);
+	T visit(Question question);
 	
-	public boolean visit(Body body);
+	T visit(ComputedQuestion computedQuestion);
+
+	T visit(IfStatement ifStatement);
 	
-	public boolean visit(Form form);
+	T visit(Body body);
 	
+	T visit(Form form);
+
 }

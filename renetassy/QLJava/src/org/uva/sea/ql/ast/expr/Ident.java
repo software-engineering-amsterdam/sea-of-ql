@@ -2,7 +2,7 @@ package org.uva.sea.ql.ast.expr;
 
 import java.util.Map;
 
-import org.uva.sea.ql.ExprTypeChecker;
+import org.uva.sea.ql.IExprVisitor;
 import org.uva.sea.ql.ast.types.Type;
 import org.uva.sea.ql.ast.types.UndefinedType;
 
@@ -19,7 +19,7 @@ public class Ident extends Expr {
 	}
 
 	@Override
-	public boolean accept(ExprTypeChecker visitor) {
+	public <T> T accept(IExprVisitor<T> visitor) {
 		return visitor.visit(this);
 	}
 

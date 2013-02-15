@@ -25,7 +25,6 @@ public class TestStatementChecker {
 		parser = new ANTLRParser();
 		errors = new ArrayList<QLError>();
 		typeEnvironment = new HashMap<String, Type> ();
-		//stmntChecker = new StatementChecker(typeEnvironment,errors);
 
 	}
 	
