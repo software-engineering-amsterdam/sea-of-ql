@@ -158,43 +158,29 @@ public class TypeChecker implements Visitor<Boolean> {
 	}
 	
 	private Boolean checkUnaryNumericExpr(UnaryExpr expr, String binarySymbol) {
-		boolean checkExpr = expr.accept(this);
-		
-		if (!checkExpr) {
-			// Type error occurred
-			return false;
-		}
-		
 		Type exprType = expr.typeOf(_supportedTypes);
 		
-		// Check if Type is compatible with UnaryNumericExpr
+		// Check if Type is compatible with UnaryExpr
 		if (!exprType.isCompatibleToNumeric()) {
 			addError(expr, "invalid type for " + binarySymbol);
 			return false;
 		}
 		
 		// No Type error
-		return true; 
+		return true;
 	}
 	
 	private Boolean checkUnaryLogicalExpr(UnaryExpr expr, String binarySymbol) {
-		boolean checkExpr = expr.accept(this);
-		
-		if (!checkExpr) {
-			// Type error occurred
-			return false;
-		}
-		
 		Type exprType = expr.typeOf(_supportedTypes);
 		
-		// Check if Type is compatible with UnaryLogicalExpr
+		// Check if Type is compatible with UnaryExpr
 		if (!exprType.isCompatibleToBool()) {
 			addError(expr, "invalid type for " + binarySymbol);
 			return false;
 		}
 		
 		// No Type error
-		return true; 
+		return true;
 	}
 	
 	private Boolean checkLiteralExpr(LiteralExpr expr, String className) {
