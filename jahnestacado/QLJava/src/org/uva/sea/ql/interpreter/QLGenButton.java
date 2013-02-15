@@ -11,15 +11,17 @@ import javax.swing.JPanel;
 
 public class QLGenButton implements ActionListener {
 
-	private final JButton button = new JButton("Generate");
+	private final JButton button = new JButton("Submit");
 	private final List<JPanel> questionPanelList;
 	private final JFrame frame;
+	private static final String genButtonId="GEN_BUTTON";
 	
 
 	private QLGenButton(List<JPanel> questionPanelList,JFrame frame) {
 		this.questionPanelList = questionPanelList;
 		this.frame=frame;
 		button.addActionListener(this);
+		button.setName(genButtonId);
 	}
 
 	public static JButton responsiveButton(List<JPanel> questionPanelList,JFrame frame) {

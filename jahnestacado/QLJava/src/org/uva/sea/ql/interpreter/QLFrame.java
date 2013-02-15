@@ -1,6 +1,10 @@
 package org.uva.sea.ql.interpreter;
 
+import java.awt.Dimension;
+
 import javax.swing.JFrame;
+
+import net.miginfocom.swing.MigLayout;
 
 public class QLFrame {
 	private final JFrame frame;
@@ -8,7 +12,9 @@ public class QLFrame {
 	public QLFrame(JFrame frame){
 		this.frame=frame;
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setResizable(false);       
+		frame.setLayout(new MigLayout("fill"));
+		frame.setSize(new Dimension (700,500));
+		frame.setResizable(true);       
 	}
 	
 	public static JFrame createQLFrame(){

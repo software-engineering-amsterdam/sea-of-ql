@@ -11,6 +11,8 @@ roomate: "Do you have roomates?" boolean
 	status: "Do they work?" boolean
 	
 	}
+	student2 : "Are you a part-time student?" boolean
+	hours: "How many hour per week do you study?" int
 
 benefit : "Your benefit for the year 2012 is (per month)" money ((rent)*0.3-income/12.0)
 
