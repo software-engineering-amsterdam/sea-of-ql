@@ -50,7 +50,7 @@ private set[Message] accompanyingFormNotFoundErrors(Stylesheet s) =
 
 private set[Message] alreadyUsedQuestionErrors(Stylesheet s) {
   set[Message] errors = {};
-  list[QuestionDefinition] questionDefinitions = getQuestionDefinitions(s);
+  list[Definition] questionDefinitions = getQuestionDefinitions(s);
   map[str, loc] idents = ();
   
   for(d <- questionDefinitions) {
@@ -69,7 +69,7 @@ private set[Message] undefinedQuestionErrors(Stylesheet s) {
   
   set[Message] errors = {};
   TypeMap typeMap = getTypeMap(getAccompanyingForm(s));
-  list[QuestionDefinition] qdefs = getQuestionDefinitions(s);
+  list[Definition] qdefs = getQuestionDefinitions(s);
   
   return {questionUndefinedInForm(q@location) | q <- qdefs, 
     identDefinition(q.ident) notin typeMap};
@@ -97,7 +97,7 @@ private set[Message] doubleNameWarnings(Stylesheet s) =
 
 private set[Message] doublePageNameWarnings(Stylesheet s) {
   set[Message] warnings = {};
-  list[PageDefinition] pageDefinitions = getPageDefinitions(s);
+  list[Definition] pageDefinitions = getPageDefinitions(s);
   map[str, loc] pages = ();
   
   for(d <- pageDefinitions) {
@@ -112,7 +112,7 @@ private set[Message] doublePageNameWarnings(Stylesheet s) {
 
 private set[Message] doubleSectionNameWarnings(Stylesheet s) {
   set[Message] warnings = {};
-  list[SectionDefinition] sectionDefinitions = getSectionDefinitions(s);
+  list[Definition] sectionDefinitions = getSectionDefinitions(s);
   map[str, loc] sections = ();
   
   for(d <- sectionDefinitions) {
@@ -132,27 +132,21 @@ private set[Message] defaultRedefinitionWarnings(Stylesheet s) =
   } + 
   {
     defaultAlreadyDefined(r@location) | 
-    d <- getPageDefinitions(s),
-    r <- getDefaultRedefinitions(d.layoutRules)
-  } + 
-  {
-    defaultAlreadyDefined(r@location) | 
-    d <- getSectionDefinitions(s),
-    r <- getDefaultRedefinitions(d.layoutRules)
+    d <- getPageDefinitions(s) + getSectionDefinitions(s),
+    r <- getDefaultRedefinitions(toDefinitionList(d.layoutRules))
   };
 
-private list[DefaultDefinition] getDefaultRedefinitions(list[&T] definitions) {
+private list[Definition] getDefaultRedefinitions(list[Definition] definitions) {
   set[Type] idents = {};
-  list[DefaultDefinition] redefinitions = [];
+  list[Definition] redefinitions = [];
   
-  for(d <- definitions) {
-    if(d.defaultDefinition?) {
-      if(d.defaultDefinition.ident in idents) {
-        redefinitions += d.defaultDefinition;
-      } else {
-        idents += d.defaultDefinition.ident;
-      }
+  for(Definition d: defaultDefinition(\type, _) <- definitions) {
+    if(\type in idents) {
+      redefinitions += d;
+    } else {
+      idents += \type;
     }
   }
+  
   return redefinitions;
 }

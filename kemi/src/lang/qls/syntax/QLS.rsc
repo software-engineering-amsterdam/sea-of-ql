@@ -24,10 +24,10 @@ start syntax Stylesheet
   ;
 
 syntax Definition
-  = @Foldable definition: PageDefinition
-  | @Foldable definition: SectionDefinition
-  | @Foldable definition: QuestionDefinition
-  | @Foldable definition: DefaultDefinition
+  = @Foldable PageDefinition
+  | @Foldable SectionDefinition
+  | @Foldable QuestionDefinition
+  | @Foldable DefaultDefinition
   ;
 
 syntax PageDefinition

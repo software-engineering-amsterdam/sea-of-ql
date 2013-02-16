@@ -46,7 +46,7 @@ private set[Message] unallowedDefaultAttrErrors(Stylesheet s) =
     typeWithInvalidAttr(r.attr.name, d.ident.name, r@location) | 
     d <- getDefaultDefinitions(s), 
     r <- d.styleRules, 
-    !isAllowedAttr(d.ident, r.attr)
+    !isAllowedAttr(d.\type, r.attr)
   };
 
 private set[Message] unallowedQuestionAttrErrors(Stylesheet s) {

@@ -15,33 +15,15 @@ data Stylesheet
   ;
 
 data Definition
-  = definition(PageDefinition pageDefinition)
-  | definition(SectionDefinition sectionDefinition)
-  | definition(QuestionDefinition questionDefinition)
-  | definition(DefaultDefinition defaultDefinition)
-  ;
-
-data PageDefinition
   = pageDefinition(str ident, list[LayoutRule] layoutRules)
-  ;
-
-data SectionDefinition
-  = sectionDefinition(str ident, list[LayoutRule] layoutRules)
+  | sectionDefinition(str ident, list[LayoutRule] layoutRules)
+  | questionDefinition(str ident)
+  | questionDefinition(str ident, list[StyleRule] styleRules)
+  | defaultDefinition(Type \type, list[StyleRule] styleRules)
   ;
 
 data LayoutRule
-  = layoutRule(SectionDefinition sectionDefinition)
-  | layoutRule(QuestionDefinition questionDefinition)
-  | layoutRule(DefaultDefinition defaultDefinition)
-  ;
-
-data QuestionDefinition
-  = questionDefinition(str ident)
-  | questionDefinition(str ident, list[StyleRule] styleRules)
-  ;
-
-data DefaultDefinition
-  = defaultDefinition(Type ident, list[StyleRule] styleRules)
+  = layoutRule(Definition definition)
   ;
 
 data Type
@@ -86,11 +68,7 @@ data WidgetStyleValue
 
 anno loc Stylesheet@location;
 anno loc Definition@location;
-anno loc PageDefinition@location;
-anno loc SectionDefinition@location;
 anno loc LayoutRule@location;
-anno loc QuestionDefinition@location;
-anno loc DefaultDefinition@location;
 anno loc Type@location;
 anno loc StyleRule@location;
 anno loc StyleAttr@location;

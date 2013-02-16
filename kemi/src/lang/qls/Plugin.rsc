@@ -13,14 +13,14 @@ module lang::qls::Plugin
 import IO;
 import ParseTree;
 import lang::ql::Plugin;
-import lang::qls::analysis::SemanticChecker;
+//import lang::qls::analysis::SemanticChecker;
 import lang::qls::ast::AST;
-import lang::qls::compiler::PrettyPrinter;
-import lang::qls::compiler::web::Web;
+//import lang::qls::compiler::PrettyPrinter;
+//import lang::qls::compiler::web::Web;
 import lang::qls::ide::Outline;
 import lang::qls::syntax::QLS;
 import lang::qls::util::ParseHelper;
-import lang::qls::util::StyleHelper;
+//import lang::qls::util::StyleHelper;
 import util::IDE;
 import util::Prompt;
 
@@ -73,23 +73,23 @@ public void setupQLS() {
   contribs = {
     outliner(node(Tree input) {
       return outlineStylesheet(implode(input));
-    }),
+    })//,
     
-    annotator(Tree (Tree input) {
-      return input[@messages=semanticChecker(implode(input))];
-    }),
+    //annotator(Tree (Tree input) {
+    //  return input[@messages=semanticChecker(implode(input))];
+    //}),
     
-    popup(
-      menu(LANG,[
-        action(ACTION_BUILD, build),
-        action(ACTION_FORMAT, format)
-      ])
-    ),
+    //popup(
+    //  menu(LANG,[
+    //    action(ACTION_BUILD, build),
+    //    action(ACTION_FORMAT, format)
+    //  ])
+    //),
     
-    builder(set[Message] (Tree input) {
-      messages = buildAndReturnMessages(implode(input), SHEET_TARGET);
-      return messages;
-    })
+    //builder(set[Message] (Tree input) {
+    //  messages = buildAndReturnMessages(implode(input), SHEET_TARGET);
+    //  return messages;
+    //})
   };
   
   registerContributions(LANG, contribs);

@@ -46,7 +46,7 @@ private set[Message] unallowedDefaultWidgetErrors(Stylesheet s) =
     typeWithInvalidWidget(widget.name, d.ident.name, r@location) |
     d <- getDefaultDefinitions(s),
     r:widgetStyleRule(_, widget) <- d.styleRules,
-    !isAllowedWidget(d.ident, widget.name)
+    !isAllowedWidget(d.\type, widget.name)
   };
 
 private set[Message] unallowedQuestionWidgetErrors(Stylesheet s) {
@@ -77,9 +77,9 @@ private default bool hasIntegerRange(WidgetStyleValue widget) =
 
 private set[Message] unallowedDefaultIntegerRangeErrors(Stylesheet s) = 
   {
-    invalidRangeType(d.ident.name, r@location) |
+    invalidRangeType(d.\type.name, r@location) |
     d <- getDefaultDefinitions(s),
-    d.ident.name == INTEGER_IDENT_NAME,
+    d.\type.name == INTEGER_IDENT_NAME,
     r:widgetStyleRule(_, widget) <- d.styleRules,
     widget.min?,
     !hasIntegerRange(widget)
