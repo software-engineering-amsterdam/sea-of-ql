@@ -125,7 +125,7 @@ public list[Definition] getChildSectionDefinitions(Stylesheet s) =
   [d | Definition d <- s.definitions, d is sectionDefinition];
 
 public list[Definition] getChildSectionDefinitions(Definition d) =
-  [s | Definition s <- d.layoutRules, s is sectionDefinition]
+  [s | Definition s <- toDefinitionList(d.layoutRules), s is sectionDefinition]
     when d is pageDefinition || d is sectionDefinition;
 
 public list[Definition] getQuestionDefinitions(Stylesheet s) =
@@ -135,7 +135,7 @@ public list[Definition] getChildQuestionDefinitions(Stylesheet s) =
   [d | Definition d <- s.definitions, d is questionDefinition];
 
 public list[Definition] getChildQuestionDefinitions(Definition d) =
-  [q | Definition q <- d.layoutRules, q is questionDefinition]
+  [q | Definition q <- toDefinitionList(d.layoutRules), q is questionDefinition]
     when d is pageDefinition || d is sectionDefinition;
 
 public list[Definition] getDefaultDefinitions(Stylesheet s) =

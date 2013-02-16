@@ -13,6 +13,7 @@ module lang::qls::compiler::web::JS
 import IO;
 import String;
 import util::StringHelper;
+import lang::ql::analysis::State;
 import lang::ql::ast::AST;
 import lang::qls::ast::AST;
 import lang::qls::util::StyleHelper;
@@ -41,93 +42,74 @@ public str JS(Stylesheet s) =
   '}
   '";
 
-private str pageName(PageDefinition p) =
-  "$(\"\<h1/\>\").text(\"<trimQuotes(p.ident)>\")";
+private str pageName(Definition d: pageDefinition(ident, _)) =
+  "$(\"\<h1/\>\").text(\"<trimQuotes(ident)>\")";
 
-private str sectionName(SectionDefinition s) =
-  "$(\"\<legend/\>\").text(\"<trimQuotes(s.ident)>\")";
+private str sectionName(Definition d: sectionDefinition(ident, _)) =
+  "$(\"\<legend/\>\").text(\"<trimQuotes(ident)>\")";
 
-private str blockIdent(QuestionDefinition q) =
-  "<q.ident>Block";
+private str blockIdent(Definition d) =
+  "<d.ident>Block"
+    when d is questionDefinition;
 
 private str layoutJS(Stylesheet s) {
   str ret = "";
   
   for(d <- s.definitions) {
-    switch(d) {
-      case definition(PageDefinition p):
-        ret += "<layoutJS(p, s)>";
-      
-      case definition(SectionDefinition sd):
-        ret += "<layoutJS(sd, s)>";
-      
-      case definition(QuestionDefinition q):
-        ret += "<layoutJS(q, s)>";
-    }
+    ret += "<layoutJS(d, getUniqueID(s))>";
   }
   
   return ret;
 }
 
-private str layoutJS(PageDefinition p, &T parent) {
+private str layoutJS(Definition d: pageDefinition(_, rules), str parentID) {
   str ret =
     "$(\"\<div /\>\")
     '  .attr({
-    '    id: \"<getUniqueID(p)>\",
+    '    id: \"<getUniqueID(d)>\",
     '    class: \"page\"
     '  })
-    '  .append(<pageName(p)>)
-    '  .appendTo($(\"#<getUniqueID(parent)>\"));
+    '  .append(<pageName(d)>)
+    '  .appendTo($(\"#<parentID>\"));
     '
     '";
   
-  for(d <- p.layoutRules) {
-    switch(d) {
-      case layoutRule(SectionDefinition s):
-        ret += "<layoutJS(s, p)>";
-      
-      case layoutRule(QuestionDefinition q):
-        ret += "<layoutJS(q, p)>";
-    }
+  for(Definition def <- getChildSectionDefinitions(d) + getChildQuestionDefinitions(d)) {
+    ret += "<layoutJS(def, getUniqueID(d))>";
   }
   
   return ret;
 }
 
-private str layoutJS(SectionDefinition s, &T parent) {
+private str layoutJS(Definition d: sectionDefinition(_, rules), str parentID) {
   str ret =
     "$(\"\<fieldset /\>\")
     '  .attr({
-    '    id: \"<getUniqueID(s)>\",
+    '    id: \"<getUniqueID(d)>\",
     '    class: \"section\"
     '  })
-    '  .append(<sectionName(s)>)
-    '  .appendTo($(\"#<getUniqueID(parent)>\"));
+    '  .append(<sectionName(d)>)
+    '  .appendTo($(\"#<parentID>\"));
     '
     '";
   
-  for(d <- s.layoutRules) {
-    switch(d) {
-      case layoutRule(SectionDefinition sd):
-        ret += "<layoutJS(sd, s)>";
-      
-      case layoutRule(QuestionDefinition q):
-        ret += "<layoutJS(q, s)>";
-    }
+  for(Definition def <- getChildSectionDefinitions(d) + getChildQuestionDefinitions(d)) {
+    ret += "<layoutJS(def, getUniqueID(d))>";
   }
   
   return ret;
 }
 
-private str layoutJS(QuestionDefinition q, &T parent) =
-  "$(\"#<blockIdent(q)>\")
-  '  .appendTo($(\"#<getUniqueID(parent)>\"));
+private str layoutJS(Definition d, str parentID) =
+  "$(\"#<blockIdent(d)>\")
+  '  .appendTo($(\"#<parentID>\"));
   '
-  '";
+  '"
+    when d is questionDefinition;
 
 private str styleJS(Stylesheet s) {
-  f = getAccompanyingForm(s);
-  typeMap = getTypeMap(f);
+  Form f = getAccompanyingForm(s);
+  TypeMap typeMap = getTypeMap(f);
 
   ret = "";
 
@@ -324,10 +306,10 @@ private str styleJS(str ident, StyleRule r:
 private str getUniqueID(Stylesheet s) =
   s.ident;
 
-private str getUniqueID(PageDefinition p) =
-  "page_<split(" ", trimQuotes(p.ident))[0]>_" +
-    "<p@location.begin.line>_<p@location.begin.column>";
+private str getUniqueID(Definition d: pageDefinition(ident, _)) =
+  "page_<split(" ", trimQuotes(ident))[0]>_" +
+    "<d@location.begin.line>_<d@location.begin.column>";
 
-private str getUniqueID(SectionDefinition s) =
-  "section_<split(" ", trimQuotes(s.ident))[0]>_" +
-    "<s@location.begin.line>_<s@location.begin.column>";
+private str getUniqueID(Definition d: sectionDefinition(ident, _)) =
+  "section_<split(" ", trimQuotes(ident))[0]>_" +
+    "<d@location.begin.line>_<d@location.begin.column>";
