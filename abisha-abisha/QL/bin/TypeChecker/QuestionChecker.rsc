@@ -1,24 +1,24 @@
-module TypeChecker::QuestionChecker
+//Still working on this
 
-//module typeChecker::TypeCheck
+module TypeChecker::QuestionChecker
 
 import Prelude;
 import syntax::abstractSyntax;
 import load::Load;
-//import typeChecker::ExpressionTypeChecker;
-//import typeChecker::TypeEnvironment;
-//import typeChecker::TypeHelper;
+import Message;
+import TypeChecker::ExpressionChecker;
 
+//public alias QLTENV = tuple[ map[str,Type] uncomputedQuestionTypes,map[str,Type]computedQuestionTypes, set[str]labels, set[Message] errors];
 public alias QLTENV = tuple[ rel[str id, str questionLabel, Type tp, bool isComputed] question, list[tuple[loc l, str msg]] errors];
 
 public QLTENV addError(QLTENV qlTenv, loc l, str msg) = qlTenv[errors = qlTenv.errors + <l, msg>];
-// to add an instance of a qltenv item
-public QLTENV addInstance(QLTENV qlTenv, str id, str questionLabel, Type tp, bool isComputed) = qlTenv[question = qlTenv.question + {<id,questionLabel,tp,isComputed>}]; //= qlTenv.errors + <l, msg> 
+
+public QLTENV addInstance(QLTENV qlTenv, str id, str questionLabel, Type tp, bool isComputed) = qlTenv[question = qlTenv.question + {<id,questionLabel,tp,isComputed>}]; 
 
 
 QLTENV checkStatement(statement:ifStat(Expression exp, list[Statement] body), QLTENV env)
 {
-    QLTENV env0 = <{},[]>;
+    QLTENV env0 = <{},[],()>;
     if(size(getChildren(exp)) == 1) return checkExp(exp,boolean() ,env);
     else
     {
@@ -27,44 +27,33 @@ QLTENV checkStatement(statement:ifStat(Expression exp, list[Statement] body), QL
     	else
     	{
     		set[Type] s = toSet(tp);
-    		if(size(s) == 1)// To compare expression when they have equal tp
+    		if(size(s) == 1)
     		{  	
     			return checkExp(exp,tp[0],env);
     		}
-    		else  // To compare expression or and and when the types are for example boolean || money < money
+    		else  // To compare Expr types
     		{				
-    			println("Set is : <s>");
-    			println("Not implemented");
     			return checkExp(exp,tp[0],env);
     		}
     	}
     }
 }
 
-/** Method to check an if else statement
-* @param statement the if else statement
-* @param thenpart thenpart of the statement
-* @param elsepart elsepart of the statement
-* @return env2 a QL type environment with the checked statement
-*/
+//check if statement
 QLTENV checkStatement(statement:ifElseStat(Expression exp, list[Statement] thenpart, list[Statement] elsepart), QLTENV env)
 {
     list[Type] tp = getExpressionType(exp,env);
     if(tp[0] == integer()) return checkIntExp(exp,tp[0],env);
     else
     {
-    	env0 = checkExp(exp, tp[0], env);    // check standart libary Message !!!
+    	env0 = checkExp(exp, tp[0], env);    
     	env1 = checkStatements(thenpart, env0);
     	env2 = checkStatements(elsepart, env1);
     	return env2;
 	}
 }
 
-/** Method to check easy question and save it in the environment
-* @param question the easy question
-* @param env the QL Type environment
-* @return env the enviroment
-*/
+//check the uncomputedQuestion
 QLTENV checkQuestion(question:uncomputedQuestion(str id, str labelQuestion, Type tp) , QLTENV env)
 {
 	if(checkIdentifiers(question, env) == false) 
@@ -72,11 +61,7 @@ QLTENV checkQuestion(question:uncomputedQuestion(str id, str labelQuestion, Type
 	else return addInstance(env, id , labelQuestion, tp, false );	
 }
 
-/** Method to check computed question and save it in the environment
-* @param question the computed question
-* @param env the QL Type environment
-* @return env the enviroment
-*/
+// check the computed question and save it in the environment
 
 QLTENV checkQuestion(question:computedQuestion(str id, str labelQuestion, Type tp, Expression exp) , QLTENV env)
 {  
@@ -91,33 +76,25 @@ QLTENV checkQuestion(question:computedQuestion(str id, str labelQuestion, Type t
 	 return addInstance(env, id, labelQuestion, tp, true);
 }
 
-QLTENV checkStatements(list[Statement] Body, QLTENV env){
-	visit(Statement){
+QLTENV checkStatements(list[Statement] Body, QLTENV env)
+{
+	visit(Statement)
+	{
         case Statement s: env = checkStatement(s,env);
-      };
+    };
 	return env;
 }
 
-/** Method to check the body of the QL program
-* @param Body the body of the QL program
-* @param env the QL Type enviroment
-* @return QLTENV the enviroment
-*/
-/*QLTENV checkStatement(list[Statement] Body, QLTENV env){
-	visit(Statement){
-     	case Question q : env = checkQuestion(q,env);
-        case Statement s: env = checkStatement(s,env);
-      };
-	return env;
-}
-*/
 // check the QL program
-public QLTENV checkProgram(Program P){                                                
-  if(program(str id, list[Statement] Body) := P){	 
-     QLTENV env = <{},[]>; 
-     env = checkStatement(Statement, env);
-	 return env;
-  } else
+public QLTENV checkProgram(Program P)
+{                                                
+	if(program(str id, list[Statement] Body) := P)
+  	{	 
+    	QLTENV env = <{},[]>; 
+     	env = checkStatement(Statement, env);
+	 	return env;
+  	}
+  	else
      throw "Cannot happen";
 }
                                                                                  
