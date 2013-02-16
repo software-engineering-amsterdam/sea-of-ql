@@ -6,8 +6,15 @@ options {backtrack=true; memoize=true;}
 @parser::header
 {
 package org.uva.sea.ql.parsers.antlr;
-import org.uva.sea.ql.ast.types.*; 
-import org.uva.sea.ql.ast.operations.*;
+import org.uva.sea.ql.core.dom.*; 
+import org.uva.sea.ql.core.dom.operators.*;
+import org.uva.sea.ql.core.dom.operators.arithmetic.*;
+import org.uva.sea.ql.core.dom.operators.conditional.*;
+import org.uva.sea.ql.core.dom.operators.relational.*;
+import org.uva.sea.ql.core.dom.operators.unary.*;
+import org.uva.sea.ql.core.dom.statements.*;
+import org.uva.sea.ql.core.dom.types.declarations.*;
+import org.uva.sea.ql.core.dom.types.primitive.*;
 }
 
 @lexer::header
@@ -24,7 +31,7 @@ formElementList returns [List<FormElement> result]
   ;
   
 formElement returns [FormElement result]
-  : IDENT COLON STRING type { $result = new FormElement(new Ident($IDENT.text), new StringLiteral($STRING.text), $type.result); }
+  : IDENT COLON STRING type { $result = new FormElement(new Identifier($IDENT.text), new StringLiteral($STRING.text), $type.result);}
   ;
   
 type returns [TypeDefinition result]
@@ -33,22 +40,22 @@ type returns [TypeDefinition result]
   | x='string'  {$result=new StringDefinition();}
   ;
 
-primary returns [Expr result] 
+primary returns [Expression result] 
   : INT   { $result = new IntLiteral($INT.text); }
   | BOOL  { $result = new BooleanLiteral($BOOL.text); } 
   | STRING {$result = new StringLiteral($STRING.text);}
-  | IDENT { $result = new Ident($IDENT.text); }
+  | IDENT { $result = new Identifier($IDENT.text); }
   | '(' x=orExpr ')'{ $result = $x.result; }
   ;
     
-unExpr returns [Expr result]
+unExpr returns [Expression result]
     :  '+' x=unExpr { $result = new Pos($x.result); }
     |  '-' x=unExpr { $result = new Neg($x.result); }
     |  '!' x=unExpr { $result = new Not($x.result); } 
     |  x=primary    { $result = $x.result; }
     ;    
     
-mulExpr returns [Expr result]
+mulExpr returns [Expression result]
     :   lhs=unExpr { $result=$lhs.result; } ( op=( '*' | '/' ) rhs=unExpr 
     { 
       if ($op.text.equals("*")) {
@@ -61,7 +68,7 @@ mulExpr returns [Expr result]
     ; 
     
   
-addExpr returns [Expr result]
+addExpr returns [Expression result]
     :   lhs=mulExpr { $result=$lhs.result; } ( op=('+' | '-') rhs=mulExpr
     { 
       if ($op.text.equals("+")) {
@@ -73,7 +80,7 @@ addExpr returns [Expr result]
     })*
     ;
   
-relExpr returns [Expr result]
+relExpr returns [Expression result]
     :   lhs=addExpr { $result=$lhs.result; } ( op=('<'|'<='|'>'|'>='|'=='|'!=') rhs=addExpr 
     { 
       if ($op.text.equals("<")) {
@@ -97,12 +104,12 @@ relExpr returns [Expr result]
     })*
     ;
     
-andExpr returns [Expr result]
+andExpr returns [Expression result]
     :   lhs=relExpr { $result=$lhs.result; } ( '&&' rhs=relExpr { $result = new And($result, rhs); } )*
     ;
     
 
-orExpr returns [Expr result]
+orExpr returns [Expression result]
     :   lhs=andExpr { $result = $lhs.result; } ( '||' rhs=andExpr { $result = new Or($result, rhs); } )*
     ;
 

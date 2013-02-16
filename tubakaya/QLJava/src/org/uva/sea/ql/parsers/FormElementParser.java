@@ -1,12 +1,12 @@
 package org.uva.sea.ql.parsers;
 
-import org.uva.sea.ql.ast.types.Expr;
+import org.uva.sea.ql.core.dom.Statement;
 import org.uva.sea.ql.parsers.antlr.QLParser;
 import org.antlr.runtime.RecognitionException;
 
-public class FormElementParser extends ParserBase {
+public class FormElementParser extends ParserBaseForStatements {
 
-	public Expr callExprUnderTest(QLParser parser) throws RecognitionException {
+	public Statement callExprUnderTest(QLParser parser) throws RecognitionException {
 		return parser.formElement();
 	}
 }
