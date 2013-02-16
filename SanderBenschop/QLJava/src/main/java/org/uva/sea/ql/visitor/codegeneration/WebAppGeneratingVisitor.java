@@ -22,13 +22,11 @@ import org.uva.sea.ql.ast.unary.Not;
 import org.uva.sea.ql.ast.unary.Positive;
 import org.uva.sea.ql.ast.unary.UnaryOperation;
 import org.uva.sea.ql.visitor.ASTNodeVisitor;
-import org.uva.sea.ql.visitor.codegeneration.codewrapper.CompositeStatementWebappCodeWrapper;
-import org.uva.sea.ql.visitor.codegeneration.codewrapper.SimpleExpressionWebappCodeWrapper;
-import org.uva.sea.ql.visitor.codegeneration.codewrapper.SimpleStatementWebappCodeWrapper;
-import org.uva.sea.ql.visitor.codegeneration.codewrapper.WebappCodeWrapper;
+import org.uva.sea.ql.visitor.codegeneration.codewrapper.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -68,12 +66,12 @@ public class WebAppGeneratingVisitor implements ASTNodeVisitor<WebappCodeWrapper
         ST computationHtmlTemplate = formTemplateGroup.getInstanceOf("computationHtml"), computationJSTemplate = formTemplateGroup.getInstanceOf("computationJS");
         WebappCodeWrapper expressionJSCodeWrapper = computation.getExpression().accept(this);
 
-        computationHtmlTemplate.add("id", computation.getIdentifier().getName());
-        computationHtmlTemplate.add("labelText", computation.getLabel().getValue());
-
         computationJSTemplate.add("name", computation.getIdentifier().getName());
         computationJSTemplate.add("variableSubscriptions", getSubscriptions(expressionJSCodeWrapper.getJavascriptCode()));
         computationJSTemplate.add("expression", expressionJSCodeWrapper.getJavascriptCode());
+
+        computationHtmlTemplate.add("id", computation.getIdentifier().getName());
+        computationHtmlTemplate.add("labelText", computation.getLabel().getValue());
 
         return new SimpleStatementWebappCodeWrapper(computationJSTemplate.render(), computationHtmlTemplate.render());
     }
@@ -95,12 +93,62 @@ public class WebAppGeneratingVisitor implements ASTNodeVisitor<WebappCodeWrapper
 
     @Override
     public WebappCodeWrapper visitIfStatement(IfStatement ifStatement) {
-        return null;
+        AppendingStatementWebappCodeWrapper ifStatementWrapper = new AppendingStatementWebappCodeWrapper();
+        UUID identifier = UUID.randomUUID();
+
+        ST ifStatementHtmlTemplate = formTemplateGroup.getInstanceOf("ifStatementHtml");
+        WebappCodeWrapper expressionJSCodeWrapper = ifStatement.getCondition().accept(this);
+
+        ifStatementWrapper.appendJavascriptCode(renderConditionalJSTemplate(identifier, expressionJSCodeWrapper));
+        ifStatementHtmlTemplate.add("identifier", identifier);
+
+        for(QLStatement successStatement : ifStatement.getSuccessBlock()) {
+            WebappCodeWrapper statementWrapper = successStatement.accept(this);
+            ifStatementHtmlTemplate.add("successBodyContent", statementWrapper.getHTMLCode());
+            ifStatementWrapper.appendJavascriptCode(statementWrapper.getJavascriptCode());
+        }
+
+        ifStatementWrapper.appendHtmlCode(ifStatementHtmlTemplate.render());
+
+        return ifStatementWrapper;
     }
 
     @Override
     public WebappCodeWrapper visitIfElseStatement(IfElseStatement ifElseStatement) {
-        return null;
+        AppendingStatementWebappCodeWrapper ifElseStatementWrapper = new AppendingStatementWebappCodeWrapper();
+        UUID identifier = UUID.randomUUID();
+
+        ST ifElseStatementHtmlTemplate = formTemplateGroup.getInstanceOf("ifElseStatementHtml");
+        WebappCodeWrapper expressionJSCodeWrapper = ifElseStatement.getCondition().accept(this);
+
+        ifElseStatementWrapper.appendJavascriptCode(renderConditionalJSTemplate(identifier, expressionJSCodeWrapper));
+        ifElseStatementHtmlTemplate.add("identifier", identifier);
+
+        for(QLStatement successStatement : ifElseStatement.getSuccessBlock()) {
+            WebappCodeWrapper statementWrapper = successStatement.accept(this);
+            ifElseStatementHtmlTemplate.add("successBodyContent", statementWrapper.getHTMLCode());
+            ifElseStatementWrapper.appendJavascriptCode(statementWrapper.getJavascriptCode());
+        }
+
+        for(QLStatement failureStatement : ifElseStatement.getFailureBlock()) {
+            WebappCodeWrapper statementWrapper = failureStatement.accept(this);
+            ifElseStatementHtmlTemplate.add("failureBodyContent", statementWrapper.getHTMLCode());
+            ifElseStatementWrapper.appendJavascriptCode(statementWrapper.getJavascriptCode());
+        }
+
+        ifElseStatementWrapper.appendHtmlCode(ifElseStatementHtmlTemplate.render());
+
+        return ifElseStatementWrapper;
+    }
+
+    private String renderConditionalJSTemplate(UUID identifier, WebappCodeWrapper expressionJSCodeWrapper) {
+        ST conditionalJSTemplate = formTemplateGroup.getInstanceOf("conditionalJS");
+        conditionalJSTemplate.add("identifier", identifier);
+        conditionalJSTemplate.add("parentController", formTemplateGroup.getInstanceOf("ifStatementParentController").render());
+        conditionalJSTemplate.add("variableSubscriptions", getSubscriptions(expressionJSCodeWrapper.getJavascriptCode()));
+        conditionalJSTemplate.add("expression", expressionJSCodeWrapper.getJavascriptCode());
+
+        return conditionalJSTemplate.render();
     }
 
     @Override

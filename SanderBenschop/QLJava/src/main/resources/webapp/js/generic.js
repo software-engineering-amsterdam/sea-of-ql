@@ -25,12 +25,13 @@ ql.MessageBus = Base.extend({
 ql.QuestionController = Base.extend({
     initialize : function(questionName) {
         this.questionName = questionName;
+        this.view = $("#" + this.questionName);
     },
 
     bind : function() {
-        var that = this, questionElement = $("#" + this.questionName);
-        questionElement.on("change", function() {
-            var value = that.parseValue(questionElement);
+        var that = this;
+        this.view.on("change", function() {
+            var value = that.parseValue(that.view);
             ql.variableMap[that.questionName] = value;
             ql.messageBus.signalVariableChanged(that.questionName);
         });
@@ -58,14 +59,65 @@ ql.StringTypeQuestionController = ql.StringQuestionController.extend({
 ql.ComputationController = Base.extend({
     initialize: function(computationName) {
         this.computationName = computationName;
+        this.view = $("#" + this.computationName);
     },
 
     dependenciesChanged : function() {
         var expressionOutcome = this.evaluateExpression();
-        $("#" + this.computationName).val(expressionOutcome);
+        this.view.val(expressionOutcome);
         if (expressionOutcome !== "") {
             ql.variableMap[this.computationName] = expressionOutcome;
             ql.messageBus.signalVariableChanged(this.computationName);
         }
+    }
+});
+
+ql.ConditionalController = Base.extend({
+    initialize : function(conditionalName) {
+        this.conditionalName = conditionalName;
+        this.view = $("#" + this.conditionalName);
+    },
+
+    dependenciesChanged : function() {
+        var booleanOutcome = this.evaluateExpression();
+        this.toggle(booleanOutcome);
+    },
+
+    toggle : function(booleanValue) {
+        if (booleanValue) {
+            this.onConditionalTrue();
+        } else {
+            this.onConditionalFalse();
+        }
+    }
+});
+
+ql.IfStatementController = ql.ConditionalController.extend({
+    initialize : function(conditionalName) {
+        ql.ConditionalController.initialize.call(this, conditionalName);
+    },
+
+    onConditionalTrue : function() {
+        this.view.find(".successBody").show();
+    },
+
+    onConditionalFalse : function() {
+        this.view.find(".successbody").hide();
+    }
+});
+
+ql.IfElseStatementController = ql.ConditionalController.extend({
+    initialize : function(conditionalName) {
+        ql.ConditionalController.initialize.call(this, conditionalName);
+    },
+
+    onConditionalTrue : function() {
+        this.view.find(".successBody").show();
+        this.view.find(".failureBody").hide();
+    },
+
+    onConditionalFalse : function() {
+        this.view.find(".successbody").hide();
+        this.view.find(".failureBody").show();
     }
 });

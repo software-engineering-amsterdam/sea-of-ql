@@ -14,7 +14,10 @@ import org.uva.sea.ql.ast.primary.Int;
 import org.uva.sea.ql.ast.primary.Str;
 import org.uva.sea.ql.ast.primary.typeClasses.BooleanType;
 import org.uva.sea.ql.ast.primary.typeClasses.IntegerType;
+import org.uva.sea.ql.ast.primary.typeClasses.StringType;
 import org.uva.sea.ql.ast.statement.Computation;
+import org.uva.sea.ql.ast.statement.IfElseStatement;
+import org.uva.sea.ql.ast.statement.IfStatement;
 import org.uva.sea.ql.ast.statement.Question;
 
 public class WebAppGeneratingVisitorTest {
@@ -38,9 +41,22 @@ public class WebAppGeneratingVisitorTest {
         Multiply twoTimesAge = new Multiply(new Int(2, sourceCodeInformation), new Ident("age", sourceCodeInformation), sourceCodeInformation);
         Computation computation = new Computation(new Ident("twoTimesAge", sourceCodeInformation), new Str("Two times age:", sourceCodeInformation), twoTimesAge);
 
+        List<QLStatement> maleQuestions = new ArrayList<QLStatement>();
+        maleQuestions.add(new Question(new Ident("likeBeer", sourceCodeInformation), new Str("Do you like beer?", sourceCodeInformation), new BooleanType()));
+        IfStatement ifStatement = new IfStatement(new Ident("male", sourceCodeInformation), maleQuestions);
+
+        List<QLStatement> liveInNetherlands = new ArrayList<QLStatement>();
+        liveInNetherlands.add(new Question(new Ident("howLongNetherlands", sourceCodeInformation), new Str("How many years have you lived in the Netherlands?", sourceCodeInformation), new IntegerType()));
+        List<QLStatement> noLiveInNetherlands = new ArrayList<QLStatement>();
+        noLiveInNetherlands.add(new Question(new Ident("whereLive", sourceCodeInformation), new Str("Where do you live?", sourceCodeInformation), new StringType()));
+        IfElseStatement ifElseStatement = new IfElseStatement(new Ident("male", sourceCodeInformation), liveInNetherlands, noLiveInNetherlands);
+
+
         statements.add(openQuestion);
         statements.add(closedQuestion);
         statements.add(computation);
+        statements.add(ifStatement);
+        statements.add(ifElseStatement);
 
         Form form = new Form("QLForm", statements);
         String code = webAppGeneratingVisitor.generateQLCodeForForm(form);
