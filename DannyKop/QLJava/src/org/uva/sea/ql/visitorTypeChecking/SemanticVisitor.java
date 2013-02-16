@@ -22,9 +22,10 @@ import org.uva.sea.ql.ast.expressions.unary.Not;
 import org.uva.sea.ql.ast.expressions.unary.Pos;
 import org.uva.sea.ql.ast.expressions.unary.UnaryExpr;
 import org.uva.sea.ql.ast.form.Computation;
-import org.uva.sea.ql.ast.form.Condition;
+import org.uva.sea.ql.ast.form.IfThen;
 import org.uva.sea.ql.ast.form.Form;
 import org.uva.sea.ql.ast.form.FormElement;
+import org.uva.sea.ql.ast.form.IfThenElse;
 import org.uva.sea.ql.ast.form.Question;
 import org.uva.sea.ql.ast.types.Type;
 import org.uva.sea.ql.visitor.SymbolTable;
@@ -94,21 +95,34 @@ public class SemanticVisitor implements Visitor<Boolean> {
 		return true;
 	}
 	@Override
-	public Boolean visit(Condition c) {		
-		c.getIf().accept(this);
-		if(c.getIfElements().isEmpty()){
+	public Boolean visit(IfThen i) {		
+		i.getIfExpr().accept(this);
+		if(i.getIfElements().isEmpty()){
 			errors.add(new Warning("if statement has no elements"));
 		}
-		for(FormElement fe : c.getIfElements()){
+		for(FormElement fe : i.getIfElements()){
 			fe.accept(this);
-		}
-		if(c.hasElse()){
-			for(FormElement fe : c.getElseElements()){
-				fe.accept(this);
-			}
 		}
 		return true;
 	}
+	@Override
+	public Boolean visit(IfThenElse i) {		
+		i.getIfExpr().accept(this);
+		if(i.getIfElements().isEmpty()){
+			errors.add(new Warning("if statement has no elements"));
+		}
+		for(FormElement fe : i.getIfElements()){
+			fe.accept(this);
+		}
+		
+		if(i.getElseElements().isEmpty()){
+			errors.add(new Warning("else statement has no elements"));
+		}
+		for(FormElement fe : i.getElseElements()){
+			fe.accept(this);
+		}
+		return true;
+	}	
 	@Override
 	public Boolean visit(Ident i) {
 		if(!st.hasIdentifier(i)){
