@@ -23,6 +23,19 @@ computationHtml(id, labelText) ::= <<
     <label for="computation_$id$">$labelText$</label><input type="text" id="computation_$id$" name="computation_$id$" readonly="readonly"/>
 >>
 
+computationJS(name, variableSubscriptions, expression) ::= <<
+    var $name$ComputationController = ql.ComputationController.extend({
+        initialize : function(name) {
+            ql.ComputationController.initialize.call(this, name);
+            $variableSubscriptions$
+        },
+
+        evaluateExpression : function() {
+            return $expression$;
+        }
+    }).new("computation_$name$");
+>>
+
 ifStatement(hashCode, successBodyContent) :: <<
     <div id="ifstatement_$hashCode$">
         <div class="successBody">
@@ -51,4 +64,8 @@ greaterThanOrEqualTo(leftHandSideExpr, rightHandSideExpr) ::= << $leftHandSideEx
 lessThan(leftHandSideExpr, rightHandSideExpr) ::= << $leftHandSideExpr$ < $rightHandSideExpr$ >>
 lessThanOrEqualTo(leftHandSideExpr, rightHandSideExpr) ::= << $leftHandSideExpr$ <= $rightHandSideExpr$ >>
 
-ident(name) ::= << ql.variableMap["$name$"] >>
+ident(name) ::= << $variableMapStart()$ $name$ $variableMapEnd()$ >>
+variableMapStart() ::= <<ql.variableMap[">>
+variableMapEnd() ::= <<"]>>
+
+variableSubscription(variableName) ::= << ql.messageBus.subscribeToVariable("$variableName$", this); >>;

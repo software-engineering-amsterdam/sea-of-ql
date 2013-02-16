@@ -27,6 +27,11 @@ import org.uva.sea.ql.visitor.codegeneration.codewrapper.SimpleExpressionWebappC
 import org.uva.sea.ql.visitor.codegeneration.codewrapper.SimpleStatementWebappCodeWrapper;
 import org.uva.sea.ql.visitor.codegeneration.codewrapper.WebappCodeWrapper;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public class WebAppGeneratingVisitor implements ASTNodeVisitor<WebappCodeWrapper> {
 
     private final STGroupFile pageTemplateGroup;
@@ -60,11 +65,32 @@ public class WebAppGeneratingVisitor implements ASTNodeVisitor<WebappCodeWrapper
 
     @Override
     public WebappCodeWrapper visitComputation(Computation computation) {
-        ST computationHtmlTemplate = formTemplateGroup.getInstanceOf("computationHtml");
+        ST computationHtmlTemplate = formTemplateGroup.getInstanceOf("computationHtml"), computationJSTemplate = formTemplateGroup.getInstanceOf("computationJS");
+        WebappCodeWrapper expressionJSCodeWrapper = computation.getExpression().accept(this);
+
         computationHtmlTemplate.add("id", computation.getIdentifier().getName());
         computationHtmlTemplate.add("labelText", computation.getLabel().getValue());
 
-        return new SimpleStatementWebappCodeWrapper("", computationHtmlTemplate.render());
+        computationJSTemplate.add("name", computation.getIdentifier().getName());
+        computationJSTemplate.add("variableSubscriptions", getSubscriptions(expressionJSCodeWrapper.getJavascriptCode()));
+        computationJSTemplate.add("expression", expressionJSCodeWrapper.getJavascriptCode());
+
+        return new SimpleStatementWebappCodeWrapper(computationJSTemplate.render(), computationHtmlTemplate.render());
+    }
+
+    private List<String> getSubscriptions(String expression) {
+        List<String> variableSubscriptions = new ArrayList<String>();
+
+        String preRegex = formTemplateGroup.getInstanceOf("variableMapStart").render(), postRegex = formTemplateGroup.getInstanceOf("variableMapEnd").render();
+        Pattern pattern = Pattern.compile(preRegex.replace("[", "\\[") + "(.+?)" + postRegex.replace("]", "\\]"));
+        Matcher matcher = pattern.matcher(expression);
+        while(matcher.find()) {
+            ST variableSubscriptionTemplate = formTemplateGroup.getInstanceOf("variableSubscription");
+            variableSubscriptionTemplate.add("variableName", matcher.group(1).trim());
+            variableSubscriptions.add(variableSubscriptionTemplate.render());
+        }
+
+        return variableSubscriptions;
     }
 
     @Override

@@ -4,11 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.uva.sea.ql.ast.Form;
 import org.uva.sea.ql.ast.QLStatement;
 import org.uva.sea.ql.ast.SourceCodeInformation;
+import org.uva.sea.ql.ast.binary.Multiply;
 import org.uva.sea.ql.ast.primary.Ident;
 import org.uva.sea.ql.ast.primary.Int;
 import org.uva.sea.ql.ast.primary.Str;
@@ -35,7 +35,8 @@ public class WebAppGeneratingVisitorTest {
 
         Question openQuestion = new Question(new Ident("age", sourceCodeInformation), new Str("How old are you?", sourceCodeInformation), new IntegerType());
         Question closedQuestion = new Question(new Ident("male", sourceCodeInformation), new Str("Are you male?", sourceCodeInformation), new BooleanType());
-        Computation computation = new Computation(new Ident("alwaysTen", sourceCodeInformation), new Str("Always 10:", sourceCodeInformation), new Int(10, sourceCodeInformation));
+        Multiply twoTimesAge = new Multiply(new Int(2, sourceCodeInformation), new Ident("age", sourceCodeInformation), sourceCodeInformation);
+        Computation computation = new Computation(new Ident("twoTimesAge", sourceCodeInformation), new Str("Two times age:", sourceCodeInformation), twoTimesAge);
 
         statements.add(openQuestion);
         statements.add(closedQuestion);
