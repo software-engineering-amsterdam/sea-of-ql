@@ -16,14 +16,17 @@ stylesheet taxOfficeExample {
         widget select
       }
       section "You sold a house" {
-        question sellingPrice
+        question sellingPrice {
+          widget number[0, 10000000, 10000]
+        }
+        
         question privateDebt {
-          widget slider
+          widget slider[0, 10000000, 10000]
         }
         
         question valueResidue
         default money {
-          width 150
+          width 400
           widget number
           font "Arial"
           fontsize 14

@@ -19,45 +19,34 @@ public str prettyPrint(Stylesheet s) =
   '}
   '";
 
-public str prettyPrint(Definition s:
-    definition(definition)) =
-  prettyPrint(definition);
-
-public str prettyPrint(PageDefinition d) =
-  "page <d.ident> {<for(r <- d.pageRules) {>
+public str prettyPrint(Definition d: pageDefinition(ident, rules)) =
+  "page <ident> {<for(r <- rules) {>
   '  <prettyPrint(r)><}>
   '}
   '";
 
-public str prettyPrint(SectionDefinition d) =
-  "section <d.ident> {<for(r <- d.sectionRules) {>
+public str prettyPrint(Definition d: sectionDefinition(ident, rules)) =
+  "section <ident> {<for(r <- rules) {>
   '  <prettyPrint(r)><}>
   '}
   '";
 
-public str prettyPrint(QuestionDefinition d:
-    questionDefinition(ident)) =
+public str prettyPrint(Definition d: questionDefinition(ident)) =
   "question <prettyPrint(ident)>";
 
-public str prettyPrint(QuestionDefinition d:
-    questionDefinition(ident, styleRules)) =
-  "question <prettyPrint(ident)> {<for(r <- styleRules) {>
+public str prettyPrint(Definition d: questionDefinition(ident, rules)) =
+  "question <prettyPrint(ident)> {<for(r <- rules) {>
   '  <prettyPrint(r)><}>
   '}
   '";
 
-public str prettyPrint(DefaultDefinition d) =
-  "default <d.ident.name> {<for(r <- d.styleRules) {>
+public str prettyPrint(Definition d: defaultDefinition(\type, rules)) =
+  "default <\type.name> {<for(r <- rules) {>
   '  <prettyPrint(r)><}>
   '}
   '";
 
-public str prettyPrint(PageRule r:
-    pageRule(definition)) =
-  prettyPrint(definition);
-
-public str prettyPrint(SectionRule r:
-    sectionRule(definition)) =
+public str prettyPrint(LayoutRule r: layoutRule(definition)) =
   prettyPrint(definition);
 
 public str prettyPrint(StyleRule r: 
