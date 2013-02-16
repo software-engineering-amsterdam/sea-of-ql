@@ -89,7 +89,7 @@ identType returns [Type type]
 	|  MoneyType  {$type = new MoneyType();}
 	| IntegerType {$type = new IntType();} 
 	| StringType {$type = new StringType();} 
-	| DoubleType {$t = new StringType();}  -> DoubleType
+	| DoubleType {$type = new DoubleType();}
 	;	
 
 expression returns [Expr result]
