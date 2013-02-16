@@ -35,12 +35,28 @@ public class ANTLRParser {//implements IParse {
 	
 	public static void testForm()
 	{
-		ANTLRStringStream stream = new ANTLRStringStream("form boxhousing1 {\n " + 
-				"hasSoldHouse : \"did you just sell you house! \" Boolean\n" +
-				"if(hasSoldHouse) {\n" +
-				"isExpensive : \"Is the house expensive?\" Boolean\n"+
-				"}" + "}");
-				CommonTokenStream tokens = new CommonTokenStream();
+		ANTLRStringStream stream = new ANTLRStringStream("" +
+                "form boxhousing1 { " +
+				"   hasSoldHouse : \"did you just sell you house! \" Boolean" +
+				"   if(hasSoldHouse) {" +
+				"       isExpensive : \"Is the house expensive?\" Boolean"+
+				"       isnice : \"Is the house nice?\" Boolean"+
+				"   }" +
+                "   else if(hasSoldHouse) {" +
+                "       if(hasSoldHouse) {" +
+                "          isExpensive : \"Is the house expensive?\" Boolean"+
+                "       }" +
+                "       else" +
+                "       {" +
+                "           isExpensive : \"Is the house expensive?\" Boolean" +
+                "       }" +
+                "       isExpensive : \"Is the house expensive?\" Boolean" +
+                "   }" +
+                "   else {" +
+                "      isCheap : \"Is the house cheap?\" Boolean" +
+                "   }"+
+                "}");
+		CommonTokenStream tokens = new CommonTokenStream();
 		tokens.setTokenSource(new QLLexer(stream));
 		QLParser parser = new QLParser(tokens);
 		try {
