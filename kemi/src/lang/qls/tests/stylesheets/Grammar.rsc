@@ -13,7 +13,6 @@ module lang::qls::tests::stylesheets::Grammar
 import lang::qls::ast::AST;
 import lang::qls::util::ParseHelper;
 
-
 public test bool testBasic() = 
   parseStylesheet(|project://QL-R-kemi/stylesheets/basic.qs|) is stylesheet;
 

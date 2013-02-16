@@ -21,7 +21,6 @@ private node outline(loc f) =
 private node outline(str s) =
   outlineStylesheet(parseStylesheet(s));
 
-
 public test bool testBasic() = 
   outline(|project://QL-R-kemi/stylesheets/basic.qs|) > "outline"();
 

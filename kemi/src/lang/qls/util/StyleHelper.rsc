@@ -11,9 +11,6 @@
 module lang::qls::util::StyleHelper
 
 import IO;
-import List;
-import Map;
-import String;
 import lang::ql::analysis::SemanticChecker;
 import lang::ql::analysis::State;
 import lang::ql::ast::AST;
@@ -21,34 +18,23 @@ import lang::ql::util::ParseHelper;
 import lang::qls::ast::AST;
 import lang::qls::util::ParseHelper;
 import util::StringHelper;
-
-import util::ValueUI;
+import List;
+import Map;
+import String;
 
 private loc FORM_LOC = |project://QL-R-kemi/forms/|;
 private str FORM_EXT = ".q";
 
-/* 
-alias CachedTypeMap = tuple[Form form, TypeMap typeMap];
-private CachedTypeMap cachedTypeMap = <form(identDefinition(""), []), ()>;
-
-public TypeMap getTypeMap(Form f) {
-  if(f != cachedTypeMap.form) {
-    cachedTypeMap = <f, semanticAnalysisState(f).definitions>;
-  }
-  return cachedTypeMap.typeMap;
-}
-I still want to disable this caching cruft. Just leave it up to rascal.
-This is way cleaner.
-*/
-public TypeMap getTypeMap(Form f) = semanticAnalysisState(f).definitions;
-
-// Return a stub when no accompanying form is found.
-public default Form getAccompanyingForm(Stylesheet s) =
-  form(identDefinition(""), []);
+public TypeMap getTypeMap(Form f) =
+  semanticAnalysisState(f).definitions;
 
 public Form getAccompanyingForm(Stylesheet s) =
   parseForm(getAccompanyingFormLocation(s))
     when isFile(getAccompanyingFormLocation(s));
+
+// Return a stub when no accompanying form is found.
+public default Form getAccompanyingForm(Stylesheet s) =
+  form(identDefinition(""), []);
 
 public loc getAccompanyingFormLocation(Stylesheet s) =
   FORM_LOC + "<s.ident><FORM_EXT>";
@@ -65,43 +51,31 @@ public list[StyleRule] getStyleRules(str questionIdent, Form f, Stylesheet s) {
       Definition d <- defs,
       d is pageDefinition || d is sectionDefinition
     ] +
-    [*r | d <- defs, questionDefinition(_, r) := d]; 
+    [*r | Definition d: questionDefinition(_, r) <- defs]; 
   
   return deDupeStyleRules(rules);
 }
 
 private list[StyleRule] getStyleRules(Type \type, list[Definition] defs) =
-  [
-    *d.styleRules |
-    d <- defs,
-    defaultDefinition(\type, _) := d
-  ];
+  [*d.styleRules | Definition d: defaultDefinition(\type, _) <- defs];
 
 private list[Definition] getDefinitions(str questionIdent, Stylesheet s) =
-  getDefinitions(questionIdent, s.definitions, []);
+  getDefinitions(questionIdent, s.definitions);
 
-private list[Definition] getDefinitions(str qid, list[Definition] definitions,
-    list[Definition] stack) {
-  for(s <- definitions) {
-    switch(s) {
-      case d:pageDefinition(_, rules): {
-        defs = getDefinitions(qid, rules, stack + d);
-        if(size(defs) > 0) return defs;
-      }
-      case d:sectionDefinition(_, rules): {
-        defs = getDefinitions(qid, rules, stack + d);
-        if(size(defs) > 0) return defs;
-      }
-      case d:questionDefinition(qid): return stack + d;
-      case d:questionDefinition(qid, _): return stack + d;
+private list[Definition] getDefinitions(str qid, list[Definition] definitions) {
+  for(d <- definitions) {
+    if(d is pageDefinition || d is sectionDefinition) {
+      defs = getDefinitions(qid, toDefinitionList(d.layoutRules));
+      if(size(defs) > 0)
+        return d + defs;
+    } else if(d is questionDefinition && d.ident == qid) {
+      return [d];
     }
   }
+  
+  // Question not found at all
   return [];
 }
-
-private list[Definition] getDefinitions(str qid, list[LayoutRule] layoutRules,
-    list[Definition] stack) =
-  getDefinitions(qid, toDefinitionList(layoutRules), stack);
 
 /*
  * The later an element occurs in the list, the higher it's 
@@ -137,6 +111,13 @@ public list[Definition] getChildQuestionDefinitions(Stylesheet s) =
 public list[Definition] getChildQuestionDefinitions(Definition d) =
   [q | Definition q <- toDefinitionList(d.layoutRules), q is questionDefinition]
     when d is pageDefinition || d is sectionDefinition;
+
+public list[Definition] getChildSectionsQuestions(Definition d) =
+  [
+    q |
+    Definition q <- toDefinitionList(d.layoutRules),
+    q is sectionDefinition || q is questionDefinition
+  ]; 
 
 public list[Definition] getDefaultDefinitions(Stylesheet s) =
   [d | /Definition d <- s, d is defaultDefinition];
