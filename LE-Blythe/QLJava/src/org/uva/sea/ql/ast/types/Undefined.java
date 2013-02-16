@@ -1,5 +1,7 @@
 package org.uva.sea.ql.ast.types;
 
+import org.uva.sea.ql.interfaces.IVisitorType;
+
 public class Undefined extends Type{
 	
 	@Override
@@ -13,4 +15,8 @@ public class Undefined extends Type{
 		return "Undefined";
 	}
 	
+	
+	public <T> T accept(IVisitorType<T> visitor){
+		return visitor.visit(this);
+	}
 }

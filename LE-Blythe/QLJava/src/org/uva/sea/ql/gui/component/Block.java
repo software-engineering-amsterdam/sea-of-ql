@@ -14,6 +14,10 @@ public class Block extends Statement {
 	public Block(List<Statement> statements, Environment environment){
 		super(environment);
 		this.statements = statements;
+		
+		for(Statement s: statements){
+			this.add(s);
+		}
 	}
 
 	

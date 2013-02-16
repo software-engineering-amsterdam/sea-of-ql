@@ -1,4 +1,4 @@
-package org.uva.sea.ql.checker;
+package org.uva.sea.ql.gui;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -6,15 +6,15 @@ import java.io.PrintStream;
 import java.util.Scanner;
 
 import org.uva.sea.ql.ast.Statement;
-import org.uva.sea.ql.checker.errors.Error;
+import org.uva.sea.ql.ast.statement.Form;
 import org.uva.sea.ql.parser.rats.ParseError;
 import org.uva.sea.ql.parser.rats.RatsParser;
 
-public class FormChecker {
+public class QLRenderer {
 
 	private PrintStream out;
 	
-	public FormChecker(){
+	public QLRenderer(){
 		this.out = new PrintStream(System.out);
 	}
 	
@@ -42,39 +42,22 @@ public class FormChecker {
 		return contents;
 	}
 	
-	
+
 	private Statement parse(String input) throws ParseError{
 		return new RatsParser().parse(input); 
 	}
 	
 	
-	private void checkForm(Statement form) throws Exception{
-		
-		VisitorStatementChecker visitor = new VisitorStatementChecker();
-		form.accept(visitor);
-		
-		if(visitor.getErrors().size() == 0){
-			out.printf("Form validation succeeded!\n");
-		}
-		else{
-			out.printf("Validation failed due to the following reasons:\n");
-			
-			for(Error e: visitor.getErrors())
-				out.printf("%s", e.getMessage());
-		}
-		
-	}
 	
-	
-	private void executeValidation(String filename) throws Exception{
+	private void execute(String filename) throws Exception{
 		String input = readFile(filename);
-		Statement form = parse(input);
+		Form form = (Form)parse(input);
 		
-		checkForm(form);
+		VisitorRenderStatement.Render(form);
 	}
 	
 	
-	public void start(String [ ] args){
+	private void start(String[] args){
 		
 		if(!correctNumberOfArgs(args)){
 			out.printf("Usage: FormChecker <ql-file>\n");
@@ -89,22 +72,18 @@ public class FormChecker {
 		}
 		
 		try{
-			executeValidation(filename);
+			execute(filename);
 		}
 		catch(FileNotFoundException e){
 			out.printf("Cannot open file %s\n", filename);
 		}
-		catch(ParseError e){
-			out.printf("Failed to correctly parse form:\n%s\n", e.getMessage());
-		}
 		catch(Exception e){
-			out.printf("A miscellaneous error occurred:\n%s\n", e.getMessage());
+			out.printf("Failure to interpret: %s", e.getMessage());
 		}
 	}
 	
 	
-	public static void main(String [ ] args){
-		new FormChecker().start(args);	
+	public static void main(String[] args){
+		new QLRenderer().start(args);
 	}
-	
 }
