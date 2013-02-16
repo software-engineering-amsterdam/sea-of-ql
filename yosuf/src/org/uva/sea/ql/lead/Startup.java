@@ -88,16 +88,19 @@ public final class Startup extends Application {
 		if (form != null && checkTypes(form)) {
 			evaluate(form);
 			new VisibleForm(model, form).start(stage);
+		} else {
+			System.exit(0);
 		}
-
-		else {
-
-		}
-
 	}
 
 	@SuppressWarnings("static-access")
 	public static void main(final String[] args) {
+		if (args.length > 0 && args[0].contains("help")) {
+			System.out.println("Use " + PATH_PROPERTY
+					+ " system property to provide the file path.\nExample: -D"
+					+ PATH_PROPERTY + "=/forms/taxes.txt");
+			System.exit(0);
+		}
 		new Startup().launch();
 	}
 }
