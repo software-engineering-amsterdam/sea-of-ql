@@ -29,27 +29,27 @@ import org.uva.sea.ql.ast.expr.values.IntegerLit;
 import org.uva.sea.ql.ast.expr.values.StringLit;
 import org.uva.sea.ql.ast.types.Type;
 import org.uva.sea.ql.visitor.IExprVisitor;
-import org.uva.sea.ql.visitor.checkers.error.QLError;
+import org.uva.sea.ql.visitor.checkers.error.QLErrorMSg;
 
 
 
 
 public class ExpressionChecker implements IExprVisitor<Boolean> {
 	private final Map<String, Type> declaredVar;
-	private final List<QLError> errorReport;
+	private final List<QLErrorMSg> errorReport;
 	
 
-	public ExpressionChecker(Map<String, Type> declaredVar, List<QLError> errorReport) {
+	public ExpressionChecker(Map<String, Type> declaredVar, List<QLErrorMSg> errorReport) {
 		this.declaredVar = declaredVar;
 		this.errorReport = errorReport;
 	}
 
-	public static boolean check(Expr expr, Map<String, Type> declaredVar,List<QLError> errorReport) {
+	public static boolean check(Expr expr, Map<String, Type> declaredVar,List<QLErrorMSg> errorReport) {
 		ExpressionChecker check = new ExpressionChecker(declaredVar, errorReport);
 		return expr.accept(check);
 	}
 	
-	private void addError(QLError message) {
+	private void addError(QLErrorMSg message) {
 		errorReport.add(message);
 	}
 
@@ -235,7 +235,7 @@ public class ExpressionChecker implements IExprVisitor<Boolean> {
 	private boolean isUndefined(Type ident, Expr node) {
 		if (ident.isCompatibleToUndefinedType()) {
 			Ident id = (Ident) node;
-			addError(new QLError("Variable '" + id.getName() + "' is undefined."));
+			addError(new QLErrorMSg("Variable '" + id.getName() + "' is undefined."));
 			return true;
 		}
 		return false;
@@ -263,8 +263,8 @@ public class ExpressionChecker implements IExprVisitor<Boolean> {
 	
 	
 	private boolean checkVarNames(Binary node) {
-		Type leftExprType = node.getLeftExpr().isOfType(declaredVar);
-		Type rightExprType = node.getRightExpr().isOfType(declaredVar);
+		Type leftExprType = node.getLeftExpr().getExprType(declaredVar);
+		Type rightExprType = node.getRightExpr().getExprType(declaredVar);
 		if (isUndefined(leftExprType, node.getLeftExpr())
 				|| isUndefined(rightExprType, node.getRightExpr())) {
 			return false;
@@ -274,7 +274,7 @@ public class ExpressionChecker implements IExprVisitor<Boolean> {
 	}
 	
 	private boolean checkVarName(Unary node) {
-		Type leftExprType = node.getLeftExpr().isOfType(declaredVar);
+		Type leftExprType = node.getLeftExpr().getExprType(declaredVar);
 		if (isUndefined(leftExprType, node.getLeftExpr())) {
 			return false;
 		}
@@ -284,11 +284,11 @@ public class ExpressionChecker implements IExprVisitor<Boolean> {
 	
 	
 	private boolean checkAlgebraicExpr(Binary node,String symbol){
-		Type leftExprType = node.getLeftExpr().isOfType(declaredVar);
-		Type rightExprType = node.getRightExpr().isOfType(declaredVar);
+		Type leftExprType = node.getLeftExpr().getExprType(declaredVar);
+		Type rightExprType = node.getRightExpr().getExprType(declaredVar);
 		Type declaredType=getQuestionsType();
 		if (!(leftExprType.isCompatibleToType(rightExprType) && rightExprType.isCompatibleToType(declaredType))) {
-		addError(new QLError("Invalid type for '"+symbol+"'. Both operands must be of the same Numeric type("+declaredType.getClass().getSimpleName()+")"));
+		addError(new QLErrorMSg("Invalid type for '"+symbol+"'. Both operands must be of the same Numeric type("+declaredType.getClass().getSimpleName()+")"));
 			return false;
 		}
 		return true;
@@ -297,10 +297,10 @@ public class ExpressionChecker implements IExprVisitor<Boolean> {
 	
 	
 	private boolean checkLogicalExpr(Binary node,String symbol){
-		Type leftExprType = node.getLeftExpr().isOfType(declaredVar);
-		Type rightExprType = node.getRightExpr().isOfType(declaredVar);
+		Type leftExprType = node.getLeftExpr().getExprType(declaredVar);
+		Type rightExprType = node.getRightExpr().getExprType(declaredVar);
 		if (!(leftExprType.isCompatibleToBoolType() && rightExprType.isCompatibleToBoolType())) {
-			errorReport.add(new QLError("Invalid type for '"+symbol+"'. Both operands must be of the Boolean type"));
+			errorReport.add(new QLErrorMSg("Invalid type for '"+symbol+"'. Both operands must be of the Boolean type"));
 			return false;
 		}
 		return true;
@@ -309,10 +309,10 @@ public class ExpressionChecker implements IExprVisitor<Boolean> {
 	
 	
 	private boolean isNumericOperand(Unary node,String symbol){
-		Type leftExprType = node.getLeftExpr().isOfType(declaredVar);
+		Type leftExprType = node.getLeftExpr().getExprType(declaredVar);
 		Type declaredType=getQuestionsType();
         if (!leftExprType.isCompatibleToType(declaredType)) {
-			errorReport.add(new QLError("Invalid type for '"+symbol+"'. Right operand must be of the Numeric type("+declaredType.getClass().getSimpleName()+")"));
+			errorReport.add(new QLErrorMSg("Invalid type for '"+symbol+"'. Right operand must be of the Numeric type("+declaredType.getClass().getSimpleName()+")"));
 			return false;
 		}
 		return true;
@@ -321,10 +321,10 @@ public class ExpressionChecker implements IExprVisitor<Boolean> {
 	
 	
 	private boolean isBoolOperand(Unary node,String symbol){
-		Type leftExprType = node.getLeftExpr().isOfType(declaredVar);
+		Type leftExprType = node.getLeftExpr().getExprType(declaredVar);
 
         if (!leftExprType.isCompatibleToBoolType()) {
-			errorReport.add(new QLError("Invalid type for '"+symbol+"'. Right operand must be of the Boolean type"));
+			errorReport.add(new QLErrorMSg("Invalid type for '"+symbol+"'. Right operand must be of the Boolean type"));
 			return false;
 		}
 		return true;
@@ -333,10 +333,10 @@ public class ExpressionChecker implements IExprVisitor<Boolean> {
 	
 	
 	private boolean checkComparisonExpr(Binary node,String symbol){
-		Type leftExprType = node.getLeftExpr().isOfType(declaredVar);
-		Type rightExprType = node.getRightExpr().isOfType(declaredVar);
+		Type leftExprType = node.getLeftExpr().getExprType(declaredVar);
+		Type rightExprType = node.getRightExpr().getExprType(declaredVar);
 		if (!(leftExprType.isCompatibleToType(rightExprType))) {
-			errorReport.add(new QLError("Invalid type for '"+symbol+"'. Both operands must be of the same type"));
+			errorReport.add(new QLErrorMSg("Invalid type for '"+symbol+"'. Both operands must be of the same type"));
 			return false;
 		}
 		return true;

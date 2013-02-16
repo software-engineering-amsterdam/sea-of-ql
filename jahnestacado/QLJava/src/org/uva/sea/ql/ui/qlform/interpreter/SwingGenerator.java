@@ -30,14 +30,14 @@ import org.uva.sea.ql.visitor.evaluator.ExprEvaluator;
 
 public class SwingGenerator implements IElementVisitor{
 	private final List<JPanel> questionPanelList;
-	private final Map<String,Value> declaredVar;
+	private final Map<String,Value> runTimeValues;
 	
 	
 	
 	
-	public SwingGenerator(List<JPanel> questionPanelList,Map<String,Value> declaredVar){
+	public SwingGenerator(List<JPanel> questionPanelList,Map<String,Value> runTimeValues){
 		this.questionPanelList=questionPanelList;
-		this.declaredVar=declaredVar;
+		this.runTimeValues=runTimeValues;
 		
 	}
 	
@@ -76,17 +76,17 @@ public class SwingGenerator implements IElementVisitor{
 	@Override
 	public void visit(Question qlElement) {
 		initVar(qlElement);
-		addQuestion(qlElement, declaredVar);
+		addQuestion(qlElement, runTimeValues);
 	}
 
 	
 	@Override
 	public void visit(ComputedQuestion qlElement) {
 		initVar(qlElement);   
-		Value value = ExprEvaluator.eval(qlElement.getExpr(),declaredVar);
-		declaredVar.put(qlElement.getId().getName(),value);
+		Value value = ExprEvaluator.eval(qlElement.getExpr(),runTimeValues);
+		runTimeValues.put(qlElement.getId().getName(),value);
 
-		addComputedQuestion(qlElement,declaredVar);
+		addComputedQuestion(qlElement,runTimeValues);
 
 	}
 	
@@ -97,7 +97,7 @@ public class SwingGenerator implements IElementVisitor{
 		Body body2 = qlElement.getElseBody();
 
 		Expr condition = qlElement.getCondition();
-		Value expr = ExprEvaluator.eval(condition, declaredVar);
+		Value expr = ExprEvaluator.eval(condition, runTimeValues);
 
 		if (!((BoolLit) expr).getValue())
 			body2.accept(this);
@@ -109,7 +109,7 @@ public class SwingGenerator implements IElementVisitor{
 	public void visit(IfThen qlElement) {
 		Body body = qlElement.getIfBody();
 		Expr condition = qlElement.getCondition();
-		Value expr = ExprEvaluator.eval(condition, declaredVar);
+		Value expr = ExprEvaluator.eval(condition, runTimeValues);
 
 		if (!((BoolLit) expr).getValue())
 			return;
@@ -136,11 +136,11 @@ public class SwingGenerator implements IElementVisitor{
 	
 	private void initVar(SingleLineElement qlElement){
 		String varName=qlElement.getId().getName();
-		if(declaredVar.containsKey(varName)){
-			Value value=declaredVar.get(varName);
-			declaredVar.put(varName, value);
+		if(runTimeValues.containsKey(varName)){
+			Value value=runTimeValues.get(varName);
+			runTimeValues.put(varName, value);
 		}
-		else declaredVar.put(varName,initValue(qlElement));
+		else runTimeValues.put(varName,initValue(qlElement));
 		
 	}
 	

@@ -20,7 +20,7 @@ public class Sub extends Algebraic {
 	}
 	
 	@Override
-	public Type isOfType(Map<String, Type> typeEnv) {
+	public Type getExprType(Map<String, Type> typeEnv) {
 		return new NumericType();
 	}
 

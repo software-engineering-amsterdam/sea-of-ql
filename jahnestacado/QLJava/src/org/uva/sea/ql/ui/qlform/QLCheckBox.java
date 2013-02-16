@@ -20,15 +20,15 @@ import org.uva.sea.ql.ui.qlform.interpreter.VariableUpdater;
 public class QLCheckBox implements ActionListener {
 
 	private final String varName;
-	private final Map<String, Value> declaredVar;
+	private final Map<String, Value> runTimeValues;
 	private final JCheckBox chBox;
 	public final static String QL_CHECKBOX_ID = "QL_CHECKBOX_ID";
 
-	public QLCheckBox(String varName, Map<String, Value> declaredVar) {
+	public QLCheckBox(String varName, Map<String, Value> runTimeValues) {
 		chBox = new JCheckBox("No");
 		chBox.setName(QL_CHECKBOX_ID);
 		this.varName = varName;
-		this.declaredVar = declaredVar;
+		this.runTimeValues = runTimeValues;
 		setSettings();
 
 	}
@@ -42,7 +42,7 @@ public class QLCheckBox implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		VariableUpdater varUpdater = new VariableUpdater(varName, declaredVar,
+		VariableUpdater varUpdater = new VariableUpdater(varName, runTimeValues,
 				new BoolLit(!getState()));
 		List<JPanel> questionList = new ArrayList<JPanel>();
 
@@ -64,7 +64,7 @@ public class QLCheckBox implements ActionListener {
 	}
 
 	private boolean getState() {
-		return ((BoolLit) declaredVar.get(varName)).getValue();
+		return ((BoolLit) runTimeValues.get(varName)).getValue();
 	}
 
 	private void setStatusText() {

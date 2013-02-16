@@ -15,18 +15,18 @@ import org.uva.sea.ql.ast.types.StringType;
 import org.uva.sea.ql.ast.types.Type;
 import org.uva.sea.ql.parser.antlr.ANTLRParser;
 import org.uva.sea.ql.visitor.checkers.ExpressionChecker;
-import org.uva.sea.ql.visitor.checkers.error.QLError;
+import org.uva.sea.ql.visitor.checkers.error.QLErrorMSg;
 
 public class TestTypes {
 
 	private ANTLRParser parser;
 	private Map<String,Type> declaredVars;
-	private List<QLError> errorReport;
+	private List<QLErrorMSg> errorReport;
 	private ExpressionChecker checker;
 
 	public TestTypes() {
 		parser = new ANTLRParser();
-		errorReport=new ArrayList<QLError>();
+		errorReport=new ArrayList<QLErrorMSg>();
 		declaredVars=new LinkedHashMap<String,Type>();
 		checker=new ExpressionChecker(declaredVars,errorReport);
 

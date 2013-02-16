@@ -27,11 +27,11 @@ public class QLNumField  implements ActionListener{
 	public final static String NUM_FIELD_ID="QLNUMFIELD";
 	
 	
-	public QLNumField(String varName,Map<String, Value> declaredVar){
+	public QLNumField(String varName,Map<String, Value> runTimeValues){
 		txtField=new JTextField(8);
 		this.varName=varName;
-		this.declaredVar=declaredVar;
-		value=((DecimalLit) declaredVar.get(varName)).getValue();
+		this.declaredVar=runTimeValues;
+		value=((DecimalLit) runTimeValues.get(varName)).getValue();
 		setSettings();
 	}
 	
@@ -40,8 +40,8 @@ public class QLNumField  implements ActionListener{
 		txtField.setBackground(defaultColor);
 	}
 	
-	public static JTextField responsiveNumField(String varName,Map<String, Value> declaredVar) {
-		QLNumField numField = new QLNumField(varName, declaredVar);
+	public static JTextField responsiveNumField(String varName,Map<String, Value> runTimeValues) {
+		QLNumField numField = new QLNumField(varName, runTimeValues);
 		return numField.getTextField();
 
 	}

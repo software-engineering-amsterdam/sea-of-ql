@@ -8,6 +8,6 @@ import org.uva.sea.ql.ast.types.Type;
 
 
 public abstract class Expr extends ASTNode implements VisitableExpr{
-	 public abstract Type isOfType(Map<String, Type> typeEnv);
+	 public abstract Type getExprType(Map<String, Type> typeEnv);
 
 }

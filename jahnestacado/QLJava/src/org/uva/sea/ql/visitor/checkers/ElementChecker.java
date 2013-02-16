@@ -18,22 +18,22 @@ import org.uva.sea.ql.ast.form.Question;
 import org.uva.sea.ql.ast.form.SingleLineElement;
 import org.uva.sea.ql.ast.types.Type;
 import org.uva.sea.ql.visitor.IElementVisitor;
-import org.uva.sea.ql.visitor.checkers.error.QLError;
+import org.uva.sea.ql.visitor.checkers.error.QLErrorMSg;
 
 public class ElementChecker implements IElementVisitor {
 	
 	private final Map<String,Type> declaredVar;
-	private final List<QLError> errorReport;
+	private final List<QLErrorMSg> errorReport;
 	 
 	
-	private ElementChecker(Map<String,Type> declaredVar,List<QLError> errorReport){
+	private ElementChecker(Map<String,Type> declaredVar,List<QLErrorMSg> errorReport){
 			this.declaredVar=declaredVar;
 			this.errorReport=errorReport;
 	}
 	
 	public static boolean checkQL(Form form){
 		Map<String,Type> declaredVar= new LinkedHashMap<String,Type>();
-		List<QLError> errorReport= new ArrayList<QLError>();
+		List<QLErrorMSg> errorReport= new ArrayList<QLErrorMSg>();
 		ElementChecker checker=new ElementChecker(declaredVar,errorReport);
 		form.accept(checker);
 		printErrors(errorReport);
@@ -48,7 +48,7 @@ public class ElementChecker implements IElementVisitor {
 		Type type=qlElement.getType();
 		
 		if(declaredVar.containsKey(id)){
-			addError(new QLError("Invalid variable name. Variable '"+id+"' is already declared"));
+			addError(new QLErrorMSg("Invalid variable name. Variable '"+id+"' is already declared"));
 			return;
 		}
 		
@@ -60,11 +60,11 @@ public class ElementChecker implements IElementVisitor {
 	private void checkComputedExpr(ComputedQuestion qlElement){
 		Expr computedExpr=qlElement.getExpr();
 		Type questionType=qlElement.getType();
-		Type exprType=computedExpr.isOfType(declaredVar);
+		Type exprType=computedExpr.getExprType(declaredVar);
 		ExpressionChecker.check(computedExpr,declaredVar, errorReport);
 
 		if(!(questionType.isCompatibleToType(exprType))){
-			addError(new QLError("Invalid expression type. Expression must be of '"+classToString(questionType)+"'."));
+			addError(new QLErrorMSg("Invalid expression type. Expression must be of '"+classToString(questionType)+"'."));
 			return;
 		}
 		
@@ -80,14 +80,14 @@ public class ElementChecker implements IElementVisitor {
 	
 	private void checkCondition(ConditionalElement qlElement){    
 		Expr condition=qlElement.getCondition(); 
-		Type conditionType=condition.isOfType(declaredVar);
+		Type conditionType=condition.getExprType(declaredVar);
 		ExpressionChecker.check(condition,declaredVar, errorReport);
 		if(conditionType.isCompatibleToUndefinedType()){
 			 Ident conditionID=(Ident) condition;
-			 addError(new QLError("Variable '"+conditionID.getName()+"' is undefined."));
+			 addError(new QLErrorMSg("Variable '"+conditionID.getName()+"' is undefined."));
 		}
 		else if(!conditionType.isCompatibleToBoolType()){ 
-			addError(new QLError("Invalid conditional expression. Expression can only be of 'Boolean' type."));
+			addError(new QLErrorMSg("Invalid conditional expression. Expression can only be of 'Boolean' type."));
 		}
 		
 	}
@@ -144,13 +144,13 @@ public class ElementChecker implements IElementVisitor {
 			
 	}
 	
-    private static void printErrors(List<QLError> errorReport){
-    	for(QLError error:errorReport){
+    private static void printErrors(List<QLErrorMSg> errorReport){
+    	for(QLErrorMSg error:errorReport){
     		System.out.println(error.getError());
     	}
     }
     
-    private void addError(QLError message){
+    private void addError(QLErrorMSg message){
     	errorReport.add(message);
     }
 	

@@ -20,12 +20,11 @@ public class QuestionPanel {
 	public final static String QL_QUESTION_LABEL_ID="QUESTION_PANEL";
 	
 	
-	public QuestionPanel(Question qlElement,Map<String,Value> declaredVar){
+	public QuestionPanel(Question qlElement,Map<String,Value> runTimeValues){
 		type=qlElement.getType();
 		panel=QLRowPanel.getQLRowPanel();
 		label=QLLabel.getQLLabel(qlElement.getLabel().getValue(),QL_QUESTION_LABEL_ID);
-		inputComponent=setInputComponent(qlElement.getId().getName(),type,declaredVar);
-	//	label.setName("QUESTION_PANEL");
+		inputComponent=setInputComponent(qlElement.getId().getName(),type,runTimeValues);
 		addComponents();
 	}
 	
@@ -35,21 +34,21 @@ public class QuestionPanel {
 		return panel;
 	}
 	
-	private JComponent setInputComponent(final String varName,Type type,final Map<String,Value> declaredVar){
+	private JComponent setInputComponent(final String varName,Type type,final Map<String,Value> runTimeValues){
 	
 		if (type.isCompatibleToStringType()) {
 			needsVerifier=true;
-			return QLTextField.responsiveTextField(varName, declaredVar);
+			return QLTextField.responsiveTextField(varName, runTimeValues);
 		} 
 		else if (type.isCompatibleToBoolType()) {
-			return QLCheckBox.responsiveCheckBox(varName, declaredVar);
+			return QLCheckBox.responsiveCheckBox(varName, runTimeValues);
 		}
 		if (type.isCompatibleToIntType()) {
-			return QLSpinner.responsiveSpinner(varName, declaredVar);
+			return QLSpinner.responsiveSpinner(varName, runTimeValues);
 		}
 		if (type.isCompatibleToMoneyType()) {
 			needsVerifier=true;
-			return QLNumField.responsiveNumField(varName, declaredVar);
+			return QLNumField.responsiveNumField(varName, runTimeValues);
 		} 
 		return null;
 	}

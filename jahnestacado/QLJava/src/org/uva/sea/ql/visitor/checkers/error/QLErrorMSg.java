@@ -1,9 +1,9 @@
 package org.uva.sea.ql.visitor.checkers.error;
 
-public class QLError {
+public class QLErrorMSg {
 	private final String errorMsg;
 	
-	public QLError(String errorMsg){
+	public QLErrorMSg(String errorMsg){
 		this.errorMsg=errorMsg;
 	}
 	

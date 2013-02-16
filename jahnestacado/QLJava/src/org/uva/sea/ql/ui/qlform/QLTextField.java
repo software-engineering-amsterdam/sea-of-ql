@@ -19,7 +19,7 @@ import org.uva.sea.ql.ui.qlform.interpreter.VariableUpdater;
 
 public class QLTextField implements ActionListener{
 	private final String varName;
-	private final Map<String, Value> declaredVar;
+	private final Map<String, Value> runTimeValues;
 	private final String value;
 	private final JTextField txtField;
 	private final static Color defaultColor= new Color(238,238,238);
@@ -27,12 +27,12 @@ public class QLTextField implements ActionListener{
 
 
 	
-	public QLTextField(String varName,Map<String, Value> declaredVar){
+	public QLTextField(String varName,Map<String, Value> runTimeValues){
 		txtField=new JTextField(8);
 		setSettings();
 		this.varName=varName;
-		this.declaredVar=declaredVar;
-		value=((StringLit) declaredVar.get(varName)).getValue();
+		this.runTimeValues=runTimeValues;
+		value=((StringLit) runTimeValues.get(varName)).getValue();
 		
 	}
 	
@@ -42,8 +42,8 @@ public class QLTextField implements ActionListener{
 		txtField.setBackground(defaultColor);
 	}
 	
-	public static JTextField responsiveTextField(String varName,Map<String, Value> declaredVar) {
-		QLTextField txtField = new QLTextField(varName, declaredVar);
+	public static JTextField responsiveTextField(String varName,Map<String, Value> runTimeValues) {
+		QLTextField txtField = new QLTextField(varName, runTimeValues);
 		return txtField.getTextField();
 
 	}
@@ -53,7 +53,7 @@ public class QLTextField implements ActionListener{
 		String input=txtField.getText();
 		if(!QLInputVerifier.isStringChar(input)) return;
 		
-		VariableUpdater varUpdater=new VariableUpdater(varName, declaredVar, new StringLit(input));
+		VariableUpdater varUpdater=new VariableUpdater(varName, runTimeValues, new StringLit(input));
 		List<JPanel> questionList=new ArrayList<JPanel>();
 		
 		JFrame frame = (JFrame) SwingUtilities.getRoot(txtField);

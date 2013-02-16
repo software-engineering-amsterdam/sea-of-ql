@@ -25,7 +25,7 @@ public class Ident extends Expr {
 	}
 	
 	@Override
-	public Type isOfType(Map<String, Type> typeEnv) {
+	public Type getExprType(Map<String, Type> typeEnv) {
 		if(typeEnv.containsKey(this.getName())){
 			return typeEnv.get(this.getName());
 			
