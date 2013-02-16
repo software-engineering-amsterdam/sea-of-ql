@@ -9,7 +9,7 @@ import org.uva.sea.ql.parser.ParseError;
 
 public class ASTNodeChecker {
 	
-	private IParser _parser;
+	private final IParser _parser;
 	
 	public ASTNodeChecker(IParser parser) {
 		_parser = parser;
@@ -20,6 +20,10 @@ public class ASTNodeChecker {
 	}
 	
 	public void expressionMatchesASTClass(String input, Class<?> astNode) throws ParseError {
+		match(input, astNode);
+	}
+	
+	public void match(String input, Class<?> astNode) throws ParseError {
 		assertEquals(getAstNodeFor(input), astNode);
 	}
 	
