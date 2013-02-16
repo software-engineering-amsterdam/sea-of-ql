@@ -60,8 +60,8 @@ public list[StyleRule] getStyleRules(str questionIdent, Form f, Stylesheet s) {
   defs = getDefinitions(questionIdent, s);
 
   list[StyleRule] rules = getStyleRules(\type, s.definitions) + 
-  [*getStyleRules(\type, d.pageRules) | PageDefinition d <- defs] +
-  [*getStyleRules(\type, d.sectionRules) | SectionDefinition d <- defs] +
+  [*getStyleRules(\type, d.layoutRules) | PageDefinition d <- defs] +
+  [*getStyleRules(\type, d.layoutRules) | SectionDefinition d <- defs] +
   [*r | d <- defs, questionDefinition(_, r) := d]; 
   
   return deDupeStyleRules(rules);
@@ -85,11 +85,11 @@ private list[node] getDefinitions(str qid, list[Definition] definitions, list[no
   for(s <- definitions) {
     switch(s) {
       case definition(PageDefinition d): {
-        defs = getDefinitions(qid, d.pageRules, stack + d);
+        defs = getDefinitions(qid, d.layoutRules, stack + d);
         if(size(defs) > 0) return defs;
       }
       case definition(SectionDefinition d): {
-        defs = getDefinitions(qid, d.sectionRules, stack + d);
+        defs = getDefinitions(qid, d.layoutRules, stack + d);
         if(size(defs) > 0) return defs;
       }
       case definition(QuestionDefinition d:questionDefinition(qid)): return stack + d;
@@ -99,29 +99,15 @@ private list[node] getDefinitions(str qid, list[Definition] definitions, list[no
   return [];
 }
 
-private list[node] getDefinitions(str qid, list[PageRule] pageRules, list[node] stack) {
-  for(r <- pageRules) {
+private list[node] getDefinitions(str qid, list[LayoutRule] layoutRules, list[node] stack) {
+  for(r <- layoutRules) {
     switch(r) {
-      case pageRule(SectionDefinition d): {
-        defs = getDefinitions(qid, d.sectionRules, stack + d);
+      case layoutRule(SectionDefinition d): {
+        defs = getDefinitions(qid, d.layoutRules, stack + d);
         if(size(defs) > 0) return defs;
       }
-      case pageRule(QuestionDefinition d:questionDefinition(qid)): return stack + d;
-      case pageRule(QuestionDefinition d:questionDefinition(qid, _)): return stack + d;
-    }
-  }
-  return [];
-}
-
-private list[node] getDefinitions(str qid, list[SectionRule] sectionRules, list[node] stack) {
-  for(r <- sectionRules) {
-    switch(r) {
-      case sectionRule(SectionDefinition d): {
-        defs = getDefinitions(qid, d.sectionRules, stack + d);
-        if(size(defs) > 0) return defs;
-      }
-      case sectionRule(QuestionDefinition d:questionDefinition(qid)): return stack + d;
-      case sectionRule(QuestionDefinition d:questionDefinition(qid, _)): return stack + d;
+      case layoutRule(QuestionDefinition d:questionDefinition(qid)): return stack + d;
+      case layoutRule(QuestionDefinition d:questionDefinition(qid, _)): return stack + d;
     }
   }
   return [];
@@ -147,10 +133,10 @@ public list[SectionDefinition] getChildSectionDefinitions(Stylesheet s) =
   [r.sectionDefinition | r <- s.definitions, r.sectionDefinition?];
 
 public list[SectionDefinition] getChildSectionDefinitions(PageDefinition p) =
-  [r.sectionDefinition | r <- p.pageRules, r.sectionDefinition?];
+  [r.sectionDefinition | r <- p.layoutRules, r.sectionDefinition?];
 
 public list[SectionDefinition] getChildSectionDefinitions(SectionDefinition s) =
-  [r.sectionDefinition | r <- s.sectionRules, r.sectionDefinition?];
+  [r.sectionDefinition | r <- s.layoutRules, r.sectionDefinition?];
 
 public list[QuestionDefinition] getQuestionDefinitions(Stylesheet s) =
   [d | /QuestionDefinition d <- s];
@@ -165,10 +151,10 @@ public list[QuestionDefinition] getChildQuestionDefinitions(Stylesheet s) =
   [d.questionDefinition | d <- s.definitions, d.questionDefinition?];
 
 public list[QuestionDefinition] getChildQuestionDefinitions(PageDefinition p) =
-  [d.questionDefinition | d <- p.pageRules, d.questionDefinition?];
+  [d.questionDefinition | d <- p.layoutRules, d.questionDefinition?];
 
 public list[QuestionDefinition] getChildQuestionDefinitions(SectionDefinition s) =
-  [d.questionDefinition | d <- s.sectionRules, d.questionDefinition?];
+  [d.questionDefinition | d <- s.layoutRules, d.questionDefinition?];
 
 public list[DefaultDefinition] getDefaultDefinitions(Stylesheet s) =
   [d | /DefaultDefinition d <- s];

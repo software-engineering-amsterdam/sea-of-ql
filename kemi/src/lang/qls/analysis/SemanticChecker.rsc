@@ -125,20 +125,21 @@ private set[Message] doubleSectionNameWarnings(Stylesheet s) {
   return warnings;
 }
 
-private set[Message] defaultRedefinitionWarnings(Stylesheet s) {
-  list[list[PageRule]] pdrules = [pd.pageRules | 
-    pd <- getPageDefinitions(s)];
-  list[list[SectionRule]] sdrules = [sd.sectionRules | 
-    sd <- getSectionDefinitions(s)];
-  
-  return 
-    {defaultAlreadyDefined(r@location) | 
-      r <- getDefaultRedefinitions(s.definitions)} + 
-    {defaultAlreadyDefined(r@location) | 
-      rules <- pdrules, r <- getDefaultRedefinitions(rules)} + 
-    {defaultAlreadyDefined(r@location) | 
-      rules <- sdrules, r <- getDefaultRedefinitions(rules)};
-}
+private set[Message] defaultRedefinitionWarnings(Stylesheet s) =
+  {
+    defaultAlreadyDefined(r@location) |
+    r <- getDefaultRedefinitions(s.definitions)
+  } + 
+  {
+    defaultAlreadyDefined(r@location) | 
+    d <- getPageDefinitions(s),
+    r <- getDefaultRedefinitions(d.layoutRules)
+  } + 
+  {
+    defaultAlreadyDefined(r@location) | 
+    d <- getSectionDefinitions(s),
+    r <- getDefaultRedefinitions(d.layoutRules)
+  };
 
 private list[DefaultDefinition] getDefaultRedefinitions(list[&T] definitions) {
   set[Type] idents = {};

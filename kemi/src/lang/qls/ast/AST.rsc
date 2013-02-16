@@ -22,23 +22,17 @@ data Definition
   ;
 
 data PageDefinition
-  = pageDefinition(str ident, list[PageRule] pageRules)
-  ;
-
-data PageRule
-  = pageRule(SectionDefinition sectionDefinition)
-  | pageRule(QuestionDefinition questionDefinition)
-  | pageRule(DefaultDefinition defaultDefinition)
+  = pageDefinition(str ident, list[LayoutRule] layoutRules)
   ;
 
 data SectionDefinition
-  = sectionDefinition(str ident, list[SectionRule] sectionRules)
+  = sectionDefinition(str ident, list[LayoutRule] layoutRules)
   ;
 
-data SectionRule
-  = sectionRule(SectionDefinition sectionDefinition)
-  | sectionRule(QuestionDefinition questionDefinition)
-  | sectionRule(DefaultDefinition defaultDefinition)
+data LayoutRule
+  = layoutRule(SectionDefinition sectionDefinition)
+  | layoutRule(QuestionDefinition questionDefinition)
+  | layoutRule(DefaultDefinition defaultDefinition)
   ;
 
 data QuestionDefinition
@@ -93,9 +87,8 @@ data WidgetStyleValue
 anno loc Stylesheet@location;
 anno loc Definition@location;
 anno loc PageDefinition@location;
-anno loc PageRule@location;
 anno loc SectionDefinition@location;
-anno loc SectionRule@location;
+anno loc LayoutRule@location;
 anno loc QuestionDefinition@location;
 anno loc DefaultDefinition@location;
 anno loc Type@location;

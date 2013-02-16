@@ -45,17 +45,17 @@ private node outline(Definition s:
 private node outline(PageDefinition d) =
     createNode(
       "PageDefinition",
-      "page <d.ident> (<size(d.pageRules)>)",
+      "page <d.ident> (<size(d.layoutRules)>)",
       d@location,
-      [outline(r) | r <- d.pageRules]
+      [outline(r) | r <- d.layoutRules]
     );
 
 private node outline(SectionDefinition d) = 
   createNode(
     "SectionDefinition",
-    "section <d.ident> (<size(d.sectionRules)>)",
+    "section <d.ident> (<size(d.layoutRules)>)",
     d@location,
-    [outline(r) | r <- d.sectionRules]
+    [outline(r) | r <- d.layoutRules]
   );
 
 private node outline(QuestionDefinition d:
@@ -84,13 +84,9 @@ private node outline(DefaultDefinition d) =
       [outline(r) | r <- d.styleRules]
     );
 
-private node outline(PageRule r:
-  pageRule(definition)) =
-    outline(definition);
-
-private node outline(SectionRule r:
-  sectionRule(definition)) =
-    outline(definition);
+private node outline(LayoutRule r:
+    layoutRule(definition)) =
+  outline(definition);
 
 private node outline(StyleRule r: 
   widgetStyleRule(attr, \value)) =

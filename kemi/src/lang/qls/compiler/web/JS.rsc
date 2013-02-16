@@ -81,12 +81,12 @@ private str layoutJS(PageDefinition p, &T parent) {
     '
     '";
   
-  for(d <- p.pageRules) {
+  for(d <- p.layoutRules) {
     switch(d) {
-      case pageRule(SectionDefinition s):
+      case layoutRule(SectionDefinition s):
         ret += "<layoutJS(s, p)>";
       
-      case pageRule(QuestionDefinition q):
+      case layoutRule(QuestionDefinition q):
         ret += "<layoutJS(q, p)>";
     }
   }
@@ -106,12 +106,12 @@ private str layoutJS(SectionDefinition s, &T parent) {
     '
     '";
   
-  for(d <- s.sectionRules) {
+  for(d <- s.layoutRules) {
     switch(d) {
-      case sectionRule(SectionDefinition sd):
+      case layoutRule(SectionDefinition sd):
         ret += "<layoutJS(sd, s)>";
       
-      case sectionRule(QuestionDefinition q):
+      case layoutRule(QuestionDefinition q):
         ret += "<layoutJS(q, s)>";
     }
   }

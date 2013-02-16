@@ -31,23 +31,17 @@ syntax Definition
   ;
 
 syntax PageDefinition
-  = pageDefinition: "page" String "{" PageRule* "}"
-  ;
-
-syntax PageRule
-  = @Foldable pageRule: SectionDefinition
-  | @Foldable pageRule: QuestionDefinition
-  | @Foldable pageRule: DefaultDefinition
+  = pageDefinition: "page" String "{" LayoutRule* "}"
   ;
 
 syntax SectionDefinition
-  = sectionDefinition: "section" String "{" SectionRule* "}"
+  = sectionDefinition: "section" String "{" LayoutRule* "}"
   ;
 
-syntax SectionRule
-  = @Foldable sectionRule: SectionDefinition
-  | @Foldable sectionRule: QuestionDefinition
-  | @Foldable sectionRule: DefaultDefinition
+syntax LayoutRule
+  = @Foldable layoutRule: SectionDefinition
+  | @Foldable layoutRule: QuestionDefinition
+  | @Foldable layoutRule: DefaultDefinition
   ;
 
 syntax QuestionDefinition

@@ -24,13 +24,13 @@ public str prettyPrint(Definition s:
   prettyPrint(definition);
 
 public str prettyPrint(PageDefinition d) =
-  "page <d.ident> {<for(r <- d.pageRules) {>
+  "page <d.ident> {<for(r <- d.layoutRules) {>
   '  <prettyPrint(r)><}>
   '}
   '";
 
 public str prettyPrint(SectionDefinition d) =
-  "section <d.ident> {<for(r <- d.sectionRules) {>
+  "section <d.ident> {<for(r <- d.layoutRules) {>
   '  <prettyPrint(r)><}>
   '}
   '";
@@ -52,12 +52,8 @@ public str prettyPrint(DefaultDefinition d) =
   '}
   '";
 
-public str prettyPrint(PageRule r:
-    pageRule(definition)) =
-  prettyPrint(definition);
-
-public str prettyPrint(SectionRule r:
-    sectionRule(definition)) =
+public str prettyPrint(LayoutRule r:
+    layoutRule(definition)) =
   prettyPrint(definition);
 
 public str prettyPrint(StyleRule r: 
