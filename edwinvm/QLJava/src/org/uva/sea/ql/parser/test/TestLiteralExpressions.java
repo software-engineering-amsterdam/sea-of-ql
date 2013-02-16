@@ -7,14 +7,8 @@ import org.uva.sea.ql.ast.expressions.literal.Int;
 import org.uva.sea.ql.ast.expressions.literal.Money;
 import org.uva.sea.ql.ast.expressions.literal.Str;
 import org.uva.sea.ql.parser.ParseError;
-import org.uva.sea.ql.parser.antlr.check.ANTLRParserExpressions;
 
-public class TestLiteralExpressions extends ASTNodeChecker {
-
-	public TestLiteralExpressions() {
-		super(new ANTLRParserExpressions());
-	}
-	
+public class TestLiteralExpressions extends ExpressionParserChecker {
 	@Test
 	public void testIds() throws ParseError {
 		expressionMatchesASTClass("a",              Ident.class);

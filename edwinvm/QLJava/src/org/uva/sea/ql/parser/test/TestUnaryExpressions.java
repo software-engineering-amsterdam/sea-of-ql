@@ -5,14 +5,8 @@ import org.uva.sea.ql.ast.expressions.unary.Neg;
 import org.uva.sea.ql.ast.expressions.unary.Not;
 import org.uva.sea.ql.ast.expressions.unary.Pos;
 import org.uva.sea.ql.parser.ParseError;
-import org.uva.sea.ql.parser.antlr.check.ANTLRParserExpressions;
 
-public class TestUnaryExpressions extends ASTNodeChecker {
-
-	public TestUnaryExpressions() {
-		super(new ANTLRParserExpressions());
-	}
-	
+public class TestUnaryExpressions extends ExpressionParserChecker {
 	@Test
 	public void testNegs() throws ParseError {
 		expressionMatchesASTClass("--x", Neg.class);

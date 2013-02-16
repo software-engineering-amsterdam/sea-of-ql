@@ -4,14 +4,8 @@ import org.junit.Test;
 import org.uva.sea.ql.ast.expressions.binary.logical.And;
 import org.uva.sea.ql.ast.expressions.binary.logical.Or;
 import org.uva.sea.ql.parser.ParseError;
-import org.uva.sea.ql.parser.antlr.check.ANTLRParserExpressions;
 
-public class TestBinaryLogicalExpressions extends ASTNodeChecker {
-
-	public TestBinaryLogicalExpressions() {
-		super(new ANTLRParserExpressions());
-	}
-	
+public class TestBinaryLogicalExpressions extends ExpressionParserChecker {
 	@Test
 	public void testAnds() throws ParseError {
 		expressionMatchesASTClass("a && b",      And.class);

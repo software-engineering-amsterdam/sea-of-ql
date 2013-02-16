@@ -8,14 +8,8 @@ import org.uva.sea.ql.ast.expressions.binary.relational.LEq;
 import org.uva.sea.ql.ast.expressions.binary.relational.LT;
 import org.uva.sea.ql.ast.expressions.binary.relational.NEq;
 import org.uva.sea.ql.parser.ParseError;
-import org.uva.sea.ql.parser.antlr.check.ANTLRParserExpressions;
 
-public class TestBinaryRelationalExpressions extends ASTNodeChecker {
-
-	public TestBinaryRelationalExpressions() {
-		super(new ANTLRParserExpressions());
-	}
-	
+public class TestBinaryRelationalExpressions extends ExpressionParserChecker {
 	@Test
 	public void testRels() throws ParseError {
 		expressionMatchesASTClass("a < b",       LT.class);

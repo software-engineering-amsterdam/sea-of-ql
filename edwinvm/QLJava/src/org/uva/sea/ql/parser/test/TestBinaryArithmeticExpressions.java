@@ -6,14 +6,8 @@ import org.uva.sea.ql.ast.expressions.binary.arithmetic.Div;
 import org.uva.sea.ql.ast.expressions.binary.arithmetic.Mul;
 import org.uva.sea.ql.ast.expressions.binary.arithmetic.Sub;
 import org.uva.sea.ql.parser.ParseError;
-import org.uva.sea.ql.parser.antlr.check.ANTLRParserExpressions;
 
-public class TestBinaryArithmeticExpressions extends ASTNodeChecker {
-
-	public TestBinaryArithmeticExpressions() {
-		super(new ANTLRParserExpressions());
-	}
-
+public class TestBinaryArithmeticExpressions extends ExpressionParserChecker {
 	@Test
 	public void testAdds() throws ParseError {
 		expressionMatchesASTClass("a + b",       Add.class);
