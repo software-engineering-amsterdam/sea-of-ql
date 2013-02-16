@@ -13,7 +13,7 @@ public str javaScriptCreateForm(str id, list[Body] Body){
 			<id>Div.setAttribute(\'id\',<id>Div);
 			<id>Div.setAttribute(\'class\',\'<id>Div\');
 			<id> = document.createElement(\"form\");
-			<id>.setAttribute(\'method\',\"post\");
+			<id>.setAttribute(\'method\',\"get\");
 			<id>.setAttribute(\'action\',\"<id>.php\");
 			<id>.setAttribute(\'name\',<id>);
 			<id>.setAttribute(\'id\',<id>);
