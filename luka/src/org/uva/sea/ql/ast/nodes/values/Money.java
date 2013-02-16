@@ -17,6 +17,10 @@ public class Money extends Numeric {//Value{
 		this.value =  val;
 	}
 	
+	public void setValue(Number d){
+		this.value = d.doubleValue();
+	}
+
 	@Override
 	public Double getValue() {
 		return this.value.doubleValue();

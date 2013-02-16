@@ -31,5 +31,9 @@ public abstract class Type {
 		return false;
 	}
 	
+	public boolean isCompatibleToDoule(){
+		return false;
+	}
+	
 	
 }

@@ -15,6 +15,11 @@ public class Int extends Numeric {
 		this.value = val;
 	}
 	
+	public void setValue(Number n){
+		this.value = n.intValue();
+	}
+
+	
 	@Override
 	public Integer getValue() {
 		return this.value.intValue();

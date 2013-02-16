@@ -22,6 +22,7 @@ import org.uva.sea.ql.ast.expr.Or;
 import org.uva.sea.ql.ast.expr.Pos;
 import org.uva.sea.ql.ast.expr.Sub;
 import org.uva.sea.ql.ast.nodes.values.Bool;
+import org.uva.sea.ql.ast.nodes.values.Doub;
 import org.uva.sea.ql.ast.nodes.values.Int;
 import org.uva.sea.ql.ast.nodes.values.Money;
 import org.uva.sea.ql.ast.nodes.values.Str;
@@ -79,6 +80,11 @@ public class CheckExpr implements Visitor<Boolean> {
 		return true;
 	}
 
+	@Override
+	public Boolean visit(Doub doub) {
+		return true;
+	}
+	
 	
 	@Override
 	public Boolean visit(Add ast) {
@@ -351,6 +357,8 @@ public class CheckExpr implements Visitor<Boolean> {
 		}
 		return true;
 	}
+
+
 
 	
 

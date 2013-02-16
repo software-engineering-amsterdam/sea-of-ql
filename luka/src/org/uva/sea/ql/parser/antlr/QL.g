@@ -99,6 +99,7 @@ identType  returns [Type t]
 	| MoneyType  {$t = new MoneyType();} -> MoneyType  //
 	| IntegerType {$t = new IntType();}  -> IntegerType //
 	| StringType {$t = new StringType();}  -> StringType
+	| DoubleType {$t = new StringType();}  -> DoubleType
 	;	
 
 
@@ -177,6 +178,7 @@ BooleanType : 'boolean'; //{ System.out.println("Lex Boolean: "+getText()); };
 MoneyType	: 'money'; //{ System.out.println("Lex Money: "+getText()); };
 IntegerType 	: 'integer';	
 StringType : 'string';	
+DoubleType : 'double';	
 If	: 'if'; //{ System.out.println("Lex IF: "+getText()); };
 Else	: 'else'; //{ System.out.println("Lex ELSE: "+getText()); };
 FormId 	: 'A'..'Z' ('a'..'z'|'A'..'Z'|'0'..'9')+;  //{ System.out.println("Lex FormId: "+getText()); };

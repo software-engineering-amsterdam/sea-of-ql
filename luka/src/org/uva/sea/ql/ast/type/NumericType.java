@@ -7,19 +7,28 @@ import org.uva.sea.ql.questionnaire.ui.control.Control;
 
 public class NumericType extends Type {
 
+	@Override
 	public boolean isCompatibleTo(Type t) {
 		return t.isCompatibleToNumeric();
 	}
 
+	@Override
 	public boolean isCompatibleToInt() {
 		return true;
 	}
 
+	@Override
 	public boolean isCompatibleToMoney() {
 		return true;
 	}
 
+	@Override
 	public boolean isCompatibleToNumeric() {
+		return true;
+	}
+
+	@Override
+	public boolean isCompatibleToDoule() {
 		return true;
 	}
 
