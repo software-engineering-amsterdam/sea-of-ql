@@ -54,11 +54,12 @@ public class IfElseStatement extends IfStatement {
 		}
 	}
 	
+	// TODO: Discuss this part with Tijs..
 	@Override
 	public void setVisible(Boolean visible) {
-		// The ifBody will be set to false. This will be overwritten by the eval if setVisible is called
-		// by the eval function. If not, this will prevent a visibility bug with nested ifElse statements
-		super.setVisible(false);
+		// The ifBody will be set to the same as the else. This will be overwritten by the eval if setVisible is
+		// called by the eval function. If not, this will prevent a visibility bug with nested ifElse statements
+		super.setVisible(visible);
 		for (FormItem f : elseBody) {
 			f.setVisible(visible);
 		}

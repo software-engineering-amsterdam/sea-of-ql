@@ -23,7 +23,3 @@ public class StringValue extends Expr {
 		return new org.uva.sea.ql.ast.types.TypeString();
 	}
 }
-
-//*****************************************************************
-// TYPE CHECK TODAS LAS EXPRESIONES (ORG.UVA.SEA.QL.AST.EXPR)
-//*****************************************************************

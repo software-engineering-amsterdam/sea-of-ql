@@ -12,8 +12,8 @@ import org.uva.sea.ql.ast.statements.StatementElement;
 public interface IStatementVisitor {
 	
 		public void visit (Form form);
-		public void visit (ComQuestion comquestions);
-		public void visit (IfThen ifthen);
+		public void visit (ComQuestion comQuestion);
+		public void visit (IfThen ifThen);
 		public void visit (IfThenElse ifThenElse);
 		public void visit (SimpleQuestion simpleQuestion);
 		public void visit (QuestionElement questionElement);

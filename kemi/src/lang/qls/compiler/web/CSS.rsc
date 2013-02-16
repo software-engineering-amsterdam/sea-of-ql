@@ -11,6 +11,7 @@
 module lang::qls::compiler::web::CSS
 
 import IO;
+import lang::ql::analysis::State;
 import lang::ql::ast::AST;
 import lang::qls::ast::AST;
 import lang::qls::util::StyleHelper;
@@ -22,10 +23,10 @@ public void CSS(Stylesheet sheet, loc dest) {
 }
 
 private str CSS(Stylesheet s) {
-  f = getAccompanyingForm(s);
-  typeMap = getTypeMap(f);
+  Form f = getAccompanyingForm(s);
+  TypeMap typeMap = getTypeMap(f);
 
-  ret =
+  return
     ".error {
     '  float: none;
     '  color: red;
@@ -36,17 +37,12 @@ private str CSS(Stylesheet s) {
     'label:first-child {
     '  display: block;
     '}
-    '";
-
-  for(k <- typeMap) {
-    rules = getStyleRules(k.ident, f, s);
-    ret += "\n/* Question <k.ident> */";
-    for(r <- rules) {
-      ret += "<CSS(k.ident, r)>\n";
-    }
-  }
-
-  return ret;
+    '
+    '<for(k <- typeMap) {>/* Question <k.ident> */
+    '<for(r <- getStyleRules(k.ident, f, s)) {><CSS(k.ident, r)>
+    '<}>
+    '<}>
+    ";
 }
 
 private str blockIdent(str ident) =

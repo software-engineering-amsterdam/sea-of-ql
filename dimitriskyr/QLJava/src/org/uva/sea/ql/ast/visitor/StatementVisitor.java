@@ -55,9 +55,9 @@ public class StatementVisitor implements IStatementVisitor {
 	}
 
 	@Override
-	public void visit(IfThen ifthen) {
-	checkCondition(ifthen);
-	ifthen.getIfBlock().accept(this);
+	public void visit(IfThen ifThen) {
+	checkCondition(ifThen);
+	ifThen.getIfBlock().accept(this);
 	}  
 
 	@Override
@@ -73,9 +73,9 @@ public class StatementVisitor implements IStatementVisitor {
 	}
 
 	@Override
-	public void visit(ComQuestion comQuestions) {
-	checkName(comQuestions, comQuestions.getExpression().typeOf(typeEnv));
-	checkExpr(comQuestions, comQuestions.getExpression());
+	public void visit(ComQuestion comQuestion) {
+	checkName(comQuestion, comQuestion.getExpression().typeOf(typeEnv));
+	checkExpr(comQuestion, comQuestion.getExpression());
 	}
 
 private void checkName(QuestionElement question, Type type) {
@@ -98,10 +98,10 @@ private void checkExpr(QuestionElement comQuestions, Expr expression) {
 	}
 	
 	private void checkCondition(StatementElement statement) {
-		Expr expr= statement.getExpression();
+		Expr expr= statement.getCondition();
 		CheckExpr.check(expr,typeEnv,errormessages);
 		if(!(expr.typeOf(typeEnv).isCompatibleToBoolean())){
-			errormessages.add("Wrong type (" + expr.typeOf(typeEnv) + "). The expression should be of type Boolean" );
+			errormessages.add("Wrong type (" + expr.typeOf(typeEnv) + "). The condition should be of type Boolean" );
 		}
 	}
 }
