@@ -10,16 +10,17 @@ import org.uva.sea.ql.ast.visitor.Visitor;
 
 public class Money extends Numeric {//Value{
 
-//	private final Integer value;
+//	private final double value;
 	
-	public Money(Integer val){
+	public Money(double val){
 		super(val);
 		this.value =  val;
 	}
 	
-//	PUBLIC INTEGER GETVALUE(){
-//		RETURN THIS.VALUE;
-//	}
+	@Override
+	public Double getValue() {
+		return this.value.doubleValue();
+	}
 
 	@Override
 	public Type typeOf(Map<Ident, Type> typeEnv) {
@@ -30,70 +31,56 @@ public class Money extends Numeric {//Value{
 	public <T> T accept(Visitor<T> visitor) {
 		return visitor.visit(this);
 	}
-//
-//
-//	@Override
-//	public String toString() {
-//		return "Money("+this.value+")";
-//	}
-//
-//	@Override
-//	public Value and(Value arg) {
-//		// TODO Auto-generated method stub
-//		return null;
-//	}
-//
-//	@Override
-//	public Value or(Value arg) {
-//		// TODO Auto-generated method stub
-//		return null;
-//	}
-//
-//	@Override
-//	public Value not() {
-//		// TODO Auto-generated method stub
-//		return null;
-//	}
-//
-//	@Override
-//	protected Value andBool(Bool arg) {
-//		// TODO Auto-generated method stub
-//		return null;
-//	}
-//
-//	@Override
-//	protected Value orBool(Bool arg) {
-//		// TODO Auto-generated method stub
-//		return null;
-//	}
-//
-//	@Override
-//	protected Value equBool(Bool arg) {
-//		// TODO Auto-generated method stub
-//		return null;
-//	}
-//
-//	@Override
-//	protected Value notBool(Bool arg) {
-//		// TODO Auto-generated method stub
-//		return null;
-//	}
-//
-//	@Override
-//	public Value pos() {
-//		// TODO Auto-generated method stub
-//		return null;
-//	}
-//
-//	@Override
-//	protected Value posInt(Numeric arg) {
-//		// TODO Auto-generated method stub
-//		return null;
-//	}
-//
-//	@Override
-//	protected Value gEqInt(Numeric arg) {
-//		// TODO Auto-generated method stub
-//		return null;
-//	}
+
+
+
+	@Override
+	protected Value addInt(Numeric arg) {
+		double result = arg.getValue().doubleValue() + getValue();
+		return new Money(result);
+	}
+
+	@Override
+	protected Value negInt(Numeric arg) {
+		return new Money(this.value.doubleValue());
+	}
+	
+	@Override
+	protected Value subInt(Numeric arg) {
+		double result = arg.getValue().doubleValue() - getValue();
+		return new Money(result);
+	}
+
+	@Override
+	protected Value mulInt(Numeric arg) {
+		double result = arg.getValue().doubleValue() * getValue();
+		return new Money(result);
+	}
+
+	@Override
+	protected Value divInt(Numeric arg) {
+		double result = arg.getValue().doubleValue() / getValue();
+		return new Money(result);
+	}
+
+	@Override
+	protected Value equInt(Numeric arg) {
+		return new Bool( arg.getValue().doubleValue() == getValue());
+	}
+
+	@Override
+	protected Value ltInt(Numeric arg) {
+		return new Bool(arg.getValue().doubleValue() < getValue());
+	}
+
+	@Override
+	protected Value lEqInt(Numeric arg) {
+		return new Bool(arg.getValue().doubleValue() <= getValue());
+	}
+
+	@Override
+	protected Value gtInt(Numeric arg) {
+		return new Bool(arg.getValue().doubleValue() > getValue());
+	}
+
 }

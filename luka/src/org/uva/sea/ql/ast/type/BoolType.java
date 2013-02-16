@@ -3,7 +3,7 @@ package org.uva.sea.ql.ast.type;
 import org.uva.sea.ql.ast.nodes.values.Bool;
 import org.uva.sea.ql.ast.nodes.values.Value;
 import org.uva.sea.ql.ast.visitor.TypeVisitor;
-import org.uva.sea.ql.questionnaire.ui.Control;
+import org.uva.sea.ql.questionnaire.ui.control.Control;
 
 
 public class BoolType extends Type {

@@ -40,7 +40,7 @@ public class Ident extends Expr {
 		if (typeEnv.containsKey(this)) {
 			return typeEnv.get(this);
 		}
-		throw new RuntimeException("EROR, NOT IN ENV!");
+		throw new RuntimeException("EROR, NOT IN ENV!"); //TODO no exception, just error if not in env yet
 	}
 
 	@Override

@@ -87,6 +87,8 @@ Block elseBl = new Block();
 identType returns [Type type]
 	:  BooleanType {$type = new BoolType();} 
 	|  MoneyType  {$type = new MoneyType();}
+	| IntegerType {$type = new IntType();} 
+	| StringType {$type = new StringType();} 
 	;	
 
 expression returns [Expr result]

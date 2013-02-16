@@ -95,8 +95,10 @@ constantAssignment
 	
 //
 identType  returns [Type t]	
-	: BooleanType {$t = new BoolType();}  -> BooleanType 
-	| MoneyType {$t = new MoneyType();}  -> MoneyType 
+	: BooleanType {$t = new BoolType();}  -> BooleanType  //
+	| MoneyType  {$t = new MoneyType();} -> MoneyType  //
+	| IntegerType {$t = new IntType();}  -> IntegerType //
+	| StringType {$t = new StringType();}  -> StringType
 	;	
 
 
@@ -123,6 +125,7 @@ atom
   | Ident 
   | BooleanType
   | MoneyType 
+  | IntegerType
  // | Integer {$result = new Ident($Integer.text, new int(1));}
   |  RoundLbr!  x=orExpr^ RoundRbr! 
   ;
@@ -172,7 +175,8 @@ Bool 	: 'true'
 
 BooleanType : 'boolean'; //{ System.out.println("Lex Boolean: "+getText()); };
 MoneyType	: 'money'; //{ System.out.println("Lex Money: "+getText()); };
-
+IntegerType 	: 'integer';	
+StringType : 'string';	
 If	: 'if'; //{ System.out.println("Lex IF: "+getText()); };
 Else	: 'else'; //{ System.out.println("Lex ELSE: "+getText()); };
 FormId 	: 'A'..'Z' ('a'..'z'|'A'..'Z'|'0'..'9')+;  //{ System.out.println("Lex FormId: "+getText()); };

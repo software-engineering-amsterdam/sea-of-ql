@@ -21,8 +21,8 @@ public class Bool extends Value {
 		return true;
 	}
 
-
-	public Boolean getValue() {
+	@Override
+	public Boolean getValue(){
 		return this.value;
 	}
 
