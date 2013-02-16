@@ -1,6 +1,7 @@
 module template::PHP
 
 import IO;
+import syntax::AbstractSyntax;
 
 public void createPostValuePHP(str formId, str varName){
 	str result = "echo \'{ \"message\": \"\' . $_POST[\'<varName>\'] . \'\" }\';";
@@ -52,6 +53,14 @@ if(! $retval )
 }
 echo \"Table <formId> created successfully\n\"; 
 mysql_close($conn); ";
+	appendToPHPFile(formId, result);
+}
+
+public void createColumnInTable(str formId, str id, Type tp){
+	println("in create column");
+	str result = "$insert<id> = \'ALTER TABLE <formId> ADD <id> int()\';
+	$retval = mysql_query( $insert<id>, $conn ); ";
+	println("append to php now");
 	appendToPHPFile(formId, result);
 }
 

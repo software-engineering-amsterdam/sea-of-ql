@@ -107,6 +107,8 @@ str generateParagraph(str id, str label, str formId){
 /** Method to generate Question 
 */
 private str generateQuestion(str formId, question:easyQuestion(str id, str labelQuestion, Type tp)){
+	println("in easy");
+	createColumnInTable(formId, id, tp);
 	appendToJavaScriptFile(formId, "var <id> = document.createElement(\"input\");");  //global variable
 	createPostValuePHP(formId, id);
 	str label = generateQuestionLabel(formId, id, labelQuestion);
@@ -132,6 +134,7 @@ private str generateQuestion(str formId, question:easyQuestion(str id, str label
 }
 
 private str generateQuestion(str formId, question:computedQuestion(str id, str labelQuestion, Type tp, Expression exp)){
+	createColumnInTable(formId, id, tp);
 	appendToJavaScriptFile(formId, "var <id> = document.createElement(\"input\");");
 	createPostValuePHP(formId, id);
 	str label = generateQuestionLabel(formId, id, labelQuestion);
