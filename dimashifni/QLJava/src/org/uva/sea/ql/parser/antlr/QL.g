@@ -19,7 +19,7 @@ package org.uva.sea.ql.parser.antlr;
 }
 
 form
-: 'form' Ident '{' block '}'
+: 'form'! Ident^ '{'! block '}'!
 ;
 
 block
@@ -31,7 +31,7 @@ statement
 ;
 
 assignment
-: Ident ':' StringLiteral type
+: Ident ':'^ StringLiteral type
 ;
 
 
@@ -40,15 +40,15 @@ ifStatement
 ;
 
 ifStat
-: 'if' orExpression '{' block '}'
+: 'if'^ orExpression '{'! block '}'!
 ;
 
 elseIfStat
-: 'else' ifStat
+: ('else' 'if')^ orExpression '{'! block '}'!
 ;
 
 elseStat
-: 'else' '{' block '}'
+: 'else'^ '{'! block '}'!
 ;
 
 
@@ -68,7 +68,7 @@ type
 primary returns [Expr result]
 : Int   { $result = new Int(Integer.parseInt($Int.text)); } 
 | Ident { $result = new Ident($Ident.text); } 
-| '(' x=orExpression ')' { $result = $x.result; }
+| '('! x=orExpression ')'! { $result = $x.result; }
 ;
     
 unaryExpression returns [Expr result]

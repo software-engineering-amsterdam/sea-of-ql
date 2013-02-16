@@ -24,7 +24,7 @@ public class ANTLRParser {//implements IParse {
 	public static void main(String[] args) throws RecognitionException
 	{
 		System.out.println("Start test..");			
-//		testForm();
+		testForm();
 		testPrimary();
 		testUnaryExpression();
 		testMultiplyExpression();
@@ -43,16 +43,16 @@ public class ANTLRParser {//implements IParse {
 				"       isExpensive : \"Is the house expensive?\" Boolean"+
 				"       isnice : \"Is the house nice?\" Boolean"+
 				"   }" +
-                "   else if(hasSoldHouse) {" +
-                "       if(hasSoldHouse) {" +
-                "          isExpensive : \"Is the house expensive?\" Boolean"+
-                "       }" +
-                "       else" +
-                "       {" +
-                "           isExpensive : \"Is the house expensive?\" Boolean" +
-                "       }" +
-                "       isExpensive : \"Is the house expensive?\" Boolean" +
-                "   }" +
+//                "   else if(hasSoldHouse) {" +
+//                "       if(hasSoldHouse) {" +
+//                "          isExpensive : \"Is the house expensive?\" Boolean"+
+//                "       }" +
+//                "       else" +
+//                "       {" +
+//                "           isExpensive : \"Is the house expensive?\" Boolean" +
+//                "       }" +
+//                "       isExpensive : \"Is the house expensive?\" Boolean" +
+//                "   }" +
                 "   else {" +
                 "      isCheap : \"Is the house cheap?\" Boolean" +
                 "   }"+
@@ -61,8 +61,8 @@ public class ANTLRParser {//implements IParse {
 		tokens.setTokenSource(new QLLexer(stream));
 		QLParser parser = new QLParser(tokens);
 		try {
-			parser.form();
-			System.out.println();
+            CommonTree commonTree = parser.form().tree;
+            System.out.println(commonTree.toStringTree());
 		} catch (RecognitionException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
