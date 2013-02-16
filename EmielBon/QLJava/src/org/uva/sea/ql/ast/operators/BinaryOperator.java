@@ -2,7 +2,7 @@ package org.uva.sea.ql.ast.operators;
 
 import org.uva.sea.ql.ast.Expression;
 
-public class BinaryOperator extends Expression {
+public abstract class BinaryOperator extends Expression {
 
 	protected final Expression leftOperand;
 	protected final Expression rightOperand;
