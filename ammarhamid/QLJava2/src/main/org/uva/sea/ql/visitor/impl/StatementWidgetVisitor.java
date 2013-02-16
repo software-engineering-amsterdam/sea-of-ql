@@ -12,6 +12,7 @@ import java.util.Collection;
 
 public class StatementWidgetVisitor implements StatementVisitor
 {
+    public static final String CONSTRAINTS = "right, gapright 12";
     private final JPanel panel;
 
     public StatementWidgetVisitor(final JPanel panel)
@@ -24,7 +25,7 @@ public class StatementWidgetVisitor implements StatementVisitor
     {
         final String question = assignmentNode.getQuestion();
         final Type type = assignmentNode.getType();
-        this.panel.add(new JLabel(question), "right");
+        this.panel.add(new JLabel(question), CONSTRAINTS);
         type.accept(new TypeWidgetVisitor(this.panel));
     }
 
