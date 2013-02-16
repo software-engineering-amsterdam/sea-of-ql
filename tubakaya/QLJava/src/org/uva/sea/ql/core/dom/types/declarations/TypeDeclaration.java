@@ -2,11 +2,11 @@ package org.uva.sea.ql.core.dom.types.declarations;
 
 import org.uva.sea.ql.core.dom.ASTNode;
 
-public abstract class TypeDefinition extends ASTNode{
+public abstract class TypeDeclaration extends ASTNode{
 	
 	private String typeName;
 
-	public TypeDefinition(String typeName) {
+	public TypeDeclaration(String typeName) {
 		this.typeName = typeName;
 	}
 

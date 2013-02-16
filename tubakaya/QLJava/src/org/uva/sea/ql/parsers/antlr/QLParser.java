@@ -191,7 +191,7 @@ public class QLParser extends Parser {
 
 		Token IDENT1=null;
 		Token STRING2=null;
-		TypeDefinition type3 =null;
+		TypeDeclaration type3 =null;
 
 		try {
 			if ( state.backtracking>0 && alreadyParsedRule(input, 3) ) { return result; }
@@ -227,8 +227,8 @@ public class QLParser extends Parser {
 
 	// $ANTLR start "type"
 	// C:\\Tubis\\School\\Software Construction\\WorkSpace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parsers\\antlr\\QL.g:37:1: type returns [TypeDefinition result] : (x= 'boolean' |x= 'integer' |x= 'string' );
-	public final TypeDefinition type() throws RecognitionException {
-		TypeDefinition result = null;
+	public final TypeDeclaration type() throws RecognitionException {
+		TypeDeclaration result = null;
 
 		int type_StartIndex = input.index();
 
@@ -266,21 +266,21 @@ public class QLParser extends Parser {
 					// C:\\Tubis\\School\\Software Construction\\WorkSpace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parsers\\antlr\\QL.g:38:5: x= 'boolean'
 					{
 					x=(Token)match(input,26,FOLLOW_26_in_type135); if (state.failed) return result;
-					if ( state.backtracking==0 ) {result = new BooleanDefinition(); }
+					if ( state.backtracking==0 ) {result = new BooleanDeclaration(); }
 					}
 					break;
 				case 2 :
 					// C:\\Tubis\\School\\Software Construction\\WorkSpace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parsers\\antlr\\QL.g:39:5: x= 'integer'
 					{
 					x=(Token)match(input,27,FOLLOW_27_in_type145); if (state.failed) return result;
-					if ( state.backtracking==0 ) {result =new IntDefinition();}
+					if ( state.backtracking==0 ) {result =new IntDeclaration();}
 					}
 					break;
 				case 3 :
 					// C:\\Tubis\\School\\Software Construction\\WorkSpace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parsers\\antlr\\QL.g:40:5: x= 'string'
 					{
 					x=(Token)match(input,28,FOLLOW_28_in_type155); if (state.failed) return result;
-					if ( state.backtracking==0 ) {result =new StringDefinition();}
+					if ( state.backtracking==0 ) {result =new StringDeclaration();}
 					}
 					break;
 
