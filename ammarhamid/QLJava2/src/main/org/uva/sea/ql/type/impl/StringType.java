@@ -1,15 +1,16 @@
 package org.uva.sea.ql.type.impl;
 
 import org.uva.sea.ql.type.Type;
+import org.uva.sea.ql.visitor.TypeVisitor;
 
-/**
- * TODO put some documentation !!
- *
- * @author Ammar.Hamid
- *         Date: 2/10/13 10:30 PM
- */
 public class StringType extends Type
 {
+
+    @Override
+    public void accept(TypeVisitor typeVisitor)
+    {
+        typeVisitor.visit(this);
+    }
 
     @Override
     public boolean isCompatibleTo(Type type)
