@@ -12,15 +12,15 @@ import khosrow.uva.sea.ql.visitor.IStmtVisitor;
 
 public class DeclEvaluator implements IStmtVisitor<Boolean> {
 	private final Env env;
-	private List<QlDeclarationError> messages;
+	private List<QlDeclarationError> declarationErros;
 
-	private DeclEvaluator(Env env, List<QlDeclarationError> messages) {
+	private DeclEvaluator(Env env, List<QlDeclarationError> declarationErros) {
 		this.env = env;
-		this.messages = messages;
+		this.declarationErros = declarationErros;
 	}
 	
-	public static boolean Evaluate(Form form, Env env, List<QlDeclarationError> messages) {
-		DeclEvaluator evaluator = new DeclEvaluator(env, messages);
+	public static boolean Evaluate(Form form, Env env, List<QlDeclarationError> declarationErros) {
+		DeclEvaluator evaluator = new DeclEvaluator(env, declarationErros);
 		return form.getStmts().accept(evaluator);
 	
 	}
@@ -74,7 +74,7 @@ public class DeclEvaluator implements IStmtVisitor<Boolean> {
 	}
 	
 	private void addToErrorList(ASTNode ast, String message) {
-		messages.add(new QlDeclarationError("Declaration error at node " + 
+		declarationErros.add(new QlDeclarationError("Declaration error at node " + 
 			ast.getClass() + ". Message: " + message));		
 	}
 }

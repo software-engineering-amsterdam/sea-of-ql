@@ -12,15 +12,15 @@ import khosrow.uva.sea.ql.visitor.IStmtVisitor;
 
 public class StmtTypeChecker implements IStmtVisitor<Boolean> {
 	private final Env env;
-	private final List<QlTypeError> messages;	
+	private final List<QlTypeError> typeErrors;	
 		
-	public StmtTypeChecker(Env env, List<QlTypeError> messages) {
+	public StmtTypeChecker(Env env, List<QlTypeError> typeErrors) {
 		this.env =  env;
-		this.messages = messages;
+		this.typeErrors = typeErrors;
 	}
 	
-	public static boolean Check(Stmt stmt, Env env, List<QlTypeError> messages) {
-		StmtTypeChecker checker = new StmtTypeChecker(env, messages);
+	public static boolean Check(Stmt stmt, Env env, List<QlTypeError> typeErrors) {
+		StmtTypeChecker checker = new StmtTypeChecker(env, typeErrors);
 		return stmt.accept(checker);
 	}
 
@@ -65,11 +65,11 @@ public class StmtTypeChecker implements IStmtVisitor<Boolean> {
 	}
 
 	public List<QlTypeError> getMessages() {
-		return messages;
+		return typeErrors;
 	}
 	
 	private boolean checkExpr(Expr expr) {
-		return ExprTypeChecker.Check(expr, env, messages);		
+		return ExprTypeChecker.Check(expr, env, typeErrors);		
 	}
 
 	private boolean checkTypes(Ident ident, Type assignedType) {
@@ -101,7 +101,7 @@ public class StmtTypeChecker implements IStmtVisitor<Boolean> {
 	}	
 	
 	private void addToErrorList(ASTNode ast, String message) {
-		messages.add(new QlTypeError("Type error at node " + 
+		typeErrors.add(new QlTypeError("Type error at node " + 
 			ast.getClass() + ". Message: " + message));		
 	}	
 }
