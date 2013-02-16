@@ -83,12 +83,12 @@ public test bool testWithoutForm() =
 public test bool testQuestionReuse() = 
   semanticChecker(|project://QL-R-kemi/stylesheets/questionReuse.qs|, 0, 2);
 
-// Also contains slider with invalid range
+// Also contains slider with invalid range, invalid attrs and invalid widgets
 public test bool testUndefinedQuestions() = 
   semanticChecker(
     |project://QL-R-kemi/stylesheets/undefinedQuestions.qs|,
     0,
-    3
+    10
   );
 
 public test bool testDoubleName() = 

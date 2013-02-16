@@ -43,7 +43,7 @@ public set[Message] unallowedAttrErrors(Stylesheet s) =
 
 private set[Message] unallowedDefaultAttrErrors(Stylesheet s) =
   {
-    typeWithInvalidAttr(r.attr.name, d.ident.name, r@location) | 
+    typeWithInvalidAttr(r.attr.name, d.\type.name, r@location) | 
     d <- getDefaultDefinitions(s), 
     r <- d.styleRules, 
     !isAllowedAttr(d.\type, r.attr)

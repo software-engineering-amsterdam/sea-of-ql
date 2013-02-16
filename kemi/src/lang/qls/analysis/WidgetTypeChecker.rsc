@@ -43,7 +43,7 @@ public set[Message] unallowedWidgetErrors(Stylesheet s) =
 
 private set[Message] unallowedDefaultWidgetErrors(Stylesheet s) = 
   {
-    typeWithInvalidWidget(widget.name, d.ident.name, r@location) |
+    typeWithInvalidWidget(widget.name, d.\type.name, r@location) |
     d <- getDefaultDefinitions(s),
     r:widgetStyleRule(_, widget) <- d.styleRules,
     !isAllowedWidget(d.\type, widget.name)
@@ -86,7 +86,7 @@ private set[Message] unallowedDefaultIntegerRangeErrors(Stylesheet s) =
   };
 
 private set[Message] unallowedQuestionIntegerRangeErrors(Stylesheet s) {
-  typeMap = getTypeMap(getAccompanyingForm(s));
+  TypeMap typeMap = getTypeMap(getAccompanyingForm(s));
   return 
     { 
       invalidRangeType(\type.name, r@location) |
