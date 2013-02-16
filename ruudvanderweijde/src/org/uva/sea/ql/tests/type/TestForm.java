@@ -1,32 +1,22 @@
-package org.uva.sea.ql.tests.semantic;
+package org.uva.sea.ql.tests.type;
 
 import static org.junit.Assert.assertEquals;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
-import org.junit.runners.Parameterized.Parameters;
+import org.uva.sea.ql.ast.expr.primary.Ident;
 import org.uva.sea.ql.message.Message;
 import org.uva.sea.ql.parser.ANTLRParser;
 import org.uva.sea.ql.parser.error.ParseError;
 import org.uva.sea.ql.tests.IParse;
+import org.uva.sea.ql.type.BooleanType;
+import org.uva.sea.ql.type.IntegerType;
 import org.uva.sea.ql.visitor.typeCheck.FormTypeCheckVisitor;
 import org.uva.sea.ql.visitor.typeCheck.TypeMapper;
 
-@RunWith(Parameterized.class)
 public class TestForm {
-
-	private IParse parser;
-
-	@Parameters
-	public static List<Object[]> theParsers() {
-		Object[][] data = new Object[][] { new Object[] {new ANTLRParser()} };
-		return Arrays.asList(data);
-	}
+	private final IParse parser = new ANTLRParser();
 	public static TypeMapper typeMapper = new TypeMapper();
 	public static ArrayList<Message> errors = new ArrayList<Message>();
 	private String formString = "form Box1HouseOwning {\n"
@@ -40,14 +30,16 @@ public class TestForm {
 			+ "   }\n" 
 			+ "}\n";
 
-	
-	public TestForm(IParse parser) {
-		this.parser = parser;
-	}
-
 	@Test
 	public void testProvidedForm() throws ParseError {
 		parser.parseForm(formString).accept(new FormTypeCheckVisitor(typeMapper, errors));
     	assertEquals(errors.size(), 0);
+    	
+		assertEquals(typeMapper.getType(new Ident("hasSoldHouse")).getClass(), BooleanType.class);
+		assertEquals(typeMapper.getType(new Ident("hasBoughtHouse")).getClass(), BooleanType.class);
+		assertEquals(typeMapper.getType(new Ident("hasMaintLoan")).getClass(), BooleanType.class);
+		assertEquals(typeMapper.getType(new Ident("sellingPrice")).getClass(), IntegerType.class);
+		assertEquals(typeMapper.getType(new Ident("privateDebt")).getClass(), IntegerType.class);
+		assertEquals(typeMapper.getType(new Ident("valueResidue")).getClass(), IntegerType.class);
 	}
 }

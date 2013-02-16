@@ -1,72 +1,35 @@
-package org.uva.sea.ql.tests.semantic.expression;
+package org.uva.sea.ql.tests.value.expression;
 
 import static org.junit.Assert.assertEquals;
+
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
-import org.junit.runners.Parameterized.Parameters;
 import org.uva.sea.ql.message.Message;
 import org.uva.sea.ql.parser.ANTLRParser;
 import org.uva.sea.ql.parser.error.ParseError;
 import org.uva.sea.ql.tests.IParse;
 import org.uva.sea.ql.value.BooleanValue;
 import org.uva.sea.ql.value.IntegerValue;
+import org.uva.sea.ql.value.StringValue;
 import org.uva.sea.ql.value.Value;
 import org.uva.sea.ql.visitor.valueCheck.ExpressionValueVisitor;
 import org.uva.sea.ql.visitor.valueCheck.ValueMapper;
 
-@RunWith(Parameterized.class)
 public class TestValues {
-
-	private IParse parser;
-
-	@Parameters
-	public static List<Object[]> theParsers() {
-		Object[][] data = new Object[][] { new Object[] {new ANTLRParser()} };
-		return Arrays.asList(data);
-	}
+	private final IParse parser = new ANTLRParser();
 	public static ValueMapper valueMapper = new ValueMapper();
 	public static ArrayList<Message> errors = new ArrayList<Message>();
 
-	
-	public TestValues(IParse parser) {
-		this.parser = parser;
-	}
-
 	@Test
 	public void testStringValue() throws ParseError {
-//		calculateBooleanValue(""25 - 19 || true + 12").accept(new ExpressionValueVisitor(valueMapper, errors)), this);
-//		calculateBooleanValue(""9 < 22 || 16 < 25 >= 14").accept(new ExpressionValueVisitor(valueMapper, errors)), this);
-//		calculateBooleanValue(""4 > 17 == 24 == false + 25").accept(new ExpressionValueVisitor(valueMapper, errors)), this);
-//		calculateBooleanValue(""23 / 23 && false <= 4").accept(new ExpressionValueVisitor(valueMapper, errors)), this);
-//		calculateBooleanValue(""false >= true <= 9 && 1").accept(new ExpressionValueVisitor(valueMapper, errors)), this);
-//		calculateBooleanValue(""6 <= 9 != 3 != 18 < 15").accept(new ExpressionValueVisitor(valueMapper, errors)), this);
-//		calculateBooleanValue(""9 + 1 == true").accept(new ExpressionValueVisitor(valueMapper, errors)), this);
-//		calculateBooleanValue(""23 != 9 < 23 > 11").accept(new ExpressionValueVisitor(valueMapper, errors)), this);
-//		calculateBooleanValue(""23 || false < 2").accept(new ExpressionValueVisitor(valueMapper, errors)), this);
-//		calculateBooleanValue(""6 || 6 - 21 / true").accept(new ExpressionValueVisitor(valueMapper, errors)), this);
-//		calculateBooleanValue(""18 + 22 >= 7 == 24").accept(new ExpressionValueVisitor(valueMapper, errors)), this);
-//		calculateBooleanValue(""false >= 12 >= false == 0 || 15").accept(new ExpressionValueVisitor(valueMapper, errors)), this);
-//		calculateBooleanValue(""5 && 1 * 18 - 13 != 11").accept(new ExpressionValueVisitor(valueMapper, errors)), this);
-//		calculateBooleanValue(""false != 24 * 18 / 21").accept(new ExpressionValueVisitor(valueMapper, errors)), this);
-//		calculateBooleanValue(""21 && 2 - 13").accept(new ExpressionValueVisitor(valueMapper, errors)), this);
-//		calculateBooleanValue(""18 > 10 <= 10 < true").accept(new ExpressionValueVisitor(valueMapper, errors)), this);
-//		calculateBooleanValue(""false <= 24 / 22 < 3").accept(new ExpressionValueVisitor(valueMapper, errors)), this);
-//		calculateBooleanValue(""true != false * 3").accept(new ExpressionValueVisitor(valueMapper, errors)), this);
-//		calculateBooleanValue(""4 && 19 > 22 < 19 || true || 24 >= 17").accept(new ExpressionValueVisitor(valueMapper, errors)), this);
-//		calculateBooleanValue(""7 && true * true < 4 * 12").accept(new ExpressionValueVisitor(valueMapper, errors)), this);
-//		calculateBooleanValue(""23 * true - false / fals").accept(new ExpressionValueVisitor(valueMapper, errors)), this);
-//		calculateBooleanValue(""11 / false != 6 - 1 != 18").accept(new ExpressionValueVisitor(valueMapper, errors)), this);
-//		calculateBooleanValue(""7 / 2 || true || 19 || 0").accept(new ExpressionValueVisitor(valueMapper, errors)), this);
+		calculateStringValue("\"a\"", "a");
+		calculateStringValue("\"word\"", "word");
+		calculateStringValue("\"This is a sentence.\"", "This is a sentence.");
 	}
 
 	@Test
 	public void testBooleanValue() throws ParseError {
-		
 		calculateBooleanValue("false", false);
 		calculateBooleanValue("true", true);
 		
@@ -173,16 +136,27 @@ public class TestValues {
 	}
 	
 	private void calculateIntegerValue(String strExpression, Integer expectedResult) throws ParseError {
-		Value value = parser.parseExpression(strExpression).accept(new ExpressionValueVisitor(valueMapper, errors));
+		Value value = getValueByExpression(strExpression);
 		assertEquals(value.getClass(), IntegerValue.class);
 		Integer intValue = ((IntegerValue)value).getValue();
 		assertEquals(intValue, expectedResult);
 	}
 	
 	private void calculateBooleanValue(String strExpression, Boolean expectedResult) throws ParseError {
-		Value value = parser.parseExpression(strExpression).accept(new ExpressionValueVisitor(valueMapper, errors));
+		Value value = getValueByExpression(strExpression);
 		assertEquals(value.getClass(), BooleanValue.class);
 		Boolean boolValue = ((BooleanValue)value).getValue();
 		assertEquals(boolValue, expectedResult);
+	}
+	
+	private void calculateStringValue(String strExpression, String expectedResult) throws ParseError {
+		Value value = getValueByExpression(strExpression);
+		assertEquals(value.getClass(), StringValue.class);
+		String stringValue = ((StringValue)value).getValue();
+		assertEquals(stringValue, expectedResult);
+	}
+	
+	private Value getValueByExpression(String strExpression) throws ParseError {
+		return parser.parseExpression(strExpression).accept(new ExpressionValueVisitor(valueMapper, errors));
 	}
 }

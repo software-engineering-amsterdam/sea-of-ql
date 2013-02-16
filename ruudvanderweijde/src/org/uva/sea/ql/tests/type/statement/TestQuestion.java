@@ -1,15 +1,10 @@
-package org.uva.sea.ql.tests.semantic.statement;
+package org.uva.sea.ql.tests.type.statement;
 
 import static org.junit.Assert.assertEquals;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
-import org.junit.runners.Parameterized.Parameters;
 import org.uva.sea.ql.ast.expr.primary.Ident;
 import org.uva.sea.ql.message.Message;
 import org.uva.sea.ql.parser.ANTLRParser;
@@ -21,22 +16,12 @@ import org.uva.sea.ql.type.StringType;
 import org.uva.sea.ql.visitor.typeCheck.FormTypeCheckVisitor;
 import org.uva.sea.ql.visitor.typeCheck.TypeMapper;
 
-@RunWith(Parameterized.class)
 public class TestQuestion {
-
-	private IParse parser;
-
-	@Parameters
-	public static List<Object[]> theParsers() {
-		Object[][] data = new Object[][] { new Object[] { new ANTLRParser() } };
-		return Arrays.asList(data);
-	}
-
+	private final IParse parser = new ANTLRParser();
 	private TypeMapper typeMapper = new TypeMapper();
 	private static ArrayList<Message> errors = new ArrayList<Message>();
 
-	public TestQuestion(IParse parser) {
-		this.parser = parser;
+	public TestQuestion() {
 		typeMapper = new TypeMapper();
 		errors.clear();
 	}
