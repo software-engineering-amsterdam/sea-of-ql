@@ -252,7 +252,7 @@ public class PrintExpressionVisitor implements Visitor<Boolean> {
 
 	@Override
 	public Boolean visit(ast.type.Int ast) {
-		System.out.println("xxxxx");
+		System.out.println("xxx");
 		return true;
 	}
 

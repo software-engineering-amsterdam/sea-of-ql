@@ -72,10 +72,13 @@ block			: /* empty */ { $$ = null; }
 //				;
 				
 
-statement 		: STR dec									{ $$ = new Question($1,$2); }
-				| IDENT '=' expression						{ $$ = new Assignment($1,$3); }
+statement 		: IDENT '=' expression						{ $$ = new Assignment($1,$3); }
+				| question
 				| dec
 				| ifcon
+				;
+
+question		: STR dec									{ $$ = new Question($1,$2); }
 				;
 				
 dec				: IDENT ':' dType							{ $$ = new Var($1,$3); }

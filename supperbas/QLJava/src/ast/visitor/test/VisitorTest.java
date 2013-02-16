@@ -34,19 +34,16 @@ public class VisitorTest {
 	
 	@Test
 	public void test() throws ParseError {
-		String program = " form Box1HouseOwning { a : integer a = 52 b : integer  }"; /* a : integer "+
-	"a = 52"+
-				" b : int }"; /* \"Did you\" hasMaintLoan: boolean }"; /*+
-				"\"Did you sell a house in 2010?\" hasSoldHouse: boolean }"; /* +
+		String program = " form Box1HouseOwning {"+
+				"\"Did you sell a house in 2010?\" hasSoldHouse: boolean "+
 				"\"Did you by a house in 2010?\" hasBoughtHouse: boolean "+
 				"\"Did you enter a loan for maintenance/reconstruction?\" "+
 				"hasMaintLoan: boolean "+
 				"if (hasSoldHouse) { "+
-					"\"Private debts for the sold house:\" privateDebt: money "+
-					"\"Price the house was sold for:\" sellingPrice: money "+
-					"\"Value residue:\" valueResidue = sellingPrice - privateDebt "+
+					"\"Private debts for the sold house:\" privateDebt: integer "+
+					"\"Price the house was sold for:\" sellingPrice: integer "+
 				"}"+
-			"}"; */
+			"}";
 		this.parser.parse( program ).accept(
 			new PrintExpressionVisitor()
 		);

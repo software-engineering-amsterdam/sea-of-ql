@@ -6,7 +6,6 @@ import parser.test.IParse;
 import parser.test.ParseError;
 
 import ast.Form;
-import ast.Statement;
 
 
 
@@ -21,7 +20,9 @@ public class JACCParser implements IParse {
 		//System.out.println(lexer.getColumn());
 		//System.out.println("xx");
 		if (!parser.parse()) {
-			//System.out.println(parser.lexer.tempStr.toString());
+			System.out.println(parser.yyerrmsgs);
+			System.out.println("xx");
+			//System.out.println(lexer.tempStr.toString());
 			//System.out.println("ERROR");
 			throw new ParseError("error");
 		}
