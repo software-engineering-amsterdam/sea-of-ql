@@ -1,14 +1,12 @@
 package org.uva.sea.ql.ast.types;
 
-import org.uva.sea.ql.ast.base.Expression;
-import org.uva.sea.ql.ast.base.SyntaxPosition;
+import org.uva.sea.ql.ast.base.*;
 import org.uva.sea.ql.ast.traversal.base.IVisitor;
 import org.uva.sea.ql.ast.traversal.typechecking.SymbolTable;
 import org.uva.sea.ql.ast.types.datatypes.DataType;
 
 /**
- * Identifier in the QL language. Not instantiated unless a type could not be
- * identified as another type in the grammar.
+ * Identifier in the QL language. Not instantiated unless a type could not be identified as another type in the grammar.
  * 
  * @author J. Dijkstra
  */
@@ -24,7 +22,7 @@ public class Ident extends Expression {
 	 * @param name
 	 *            name tag
 	 * @param syntaxPosition
-	 * 			  the original position of the expression in the input syntax
+	 *            the original position of the expression in the input syntax
 	 */
 	public Ident(final String name, final SyntaxPosition syntaxPosition) {
 		super(syntaxPosition);
@@ -53,18 +51,15 @@ public class Ident extends Expression {
 		if (this == obj) {
 			return true;
 		}
-		if (obj == null || getClass() != obj.getClass()) {
+		if ((obj == null) || (getClass() != obj.getClass())) {
 			return false;
 		}
 		final Ident other = (Ident) obj;
 		if (name == null) {
-			if (other.name != null)
-			{
+			if (other.name != null) {
 				return false;
 			}
-		}
-		else if (!name.equals(other.name))
-		{
+		} else if (!name.equals(other.name)) {
 			return false;
 		}
 		return true;

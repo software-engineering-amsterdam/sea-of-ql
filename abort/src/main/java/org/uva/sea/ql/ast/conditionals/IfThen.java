@@ -2,8 +2,7 @@ package org.uva.sea.ql.ast.conditionals;
 
 import java.util.List;
 
-import org.uva.sea.ql.ast.base.Expression;
-import org.uva.sea.ql.ast.base.SyntaxPosition;
+import org.uva.sea.ql.ast.base.*;
 import org.uva.sea.ql.ast.form.Statement;
 import org.uva.sea.ql.ast.traversal.base.IVisitor;
 
@@ -21,10 +20,10 @@ public class IfThen extends IfStatement {
 	 * @param successStatments
 	 *            form statements to display on success
 	 * @param syntaxPosition
-	 * 			  the original position of the expression in the input syntax
+	 *            the original position of the expression in the input syntax
 	 */
-	public IfThen(final Expression conditions,
-			final List<Statement> successStatements, final SyntaxPosition syntaxPosition) {
+	public IfThen(final Expression conditions, final List<Statement> successStatements,
+			final SyntaxPosition syntaxPosition) {
 		super(conditions, successStatements, syntaxPosition);
 	}
 

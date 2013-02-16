@@ -1,12 +1,10 @@
 package org.uva.sea.ql.ast.operators.binary;
 
-import org.uva.sea.ql.ast.base.Expression;
-import org.uva.sea.ql.ast.base.SyntaxPosition;
+import org.uva.sea.ql.ast.base.*;
 import org.uva.sea.ql.ast.operators.base.BinaryOperator;
 import org.uva.sea.ql.ast.traversal.base.IVisitor;
 import org.uva.sea.ql.ast.traversal.typechecking.SymbolTable;
-import org.uva.sea.ql.ast.types.datatypes.DataType;
-import org.uva.sea.ql.ast.types.datatypes.NumericType;
+import org.uva.sea.ql.ast.types.datatypes.*;
 
 /**
  * Represents Add operation in the QL language.
@@ -24,7 +22,7 @@ public class Add extends BinaryOperator {
 	 * @param rightHandSide
 	 *            right hand side of the operator
 	 * @param syntaxPosition
-	 * 			  the original position of the expression in the input syntax
+	 *            the original position of the expression in the input syntax
 	 */
 	public Add(final Expression leftHandSide, final Expression rightHandSide, final SyntaxPosition syntaxPosition) {
 		super(leftHandSide, rightHandSide, syntaxPosition);

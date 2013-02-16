@@ -1,14 +1,13 @@
 package org.uva.sea.ql.ast.traversal.typechecking;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 import org.uva.sea.ql.ast.types.Ident;
 import org.uva.sea.ql.ast.types.datatypes.DataType;
 
 /**
- * Stores labels from the grammar with their result types. References to these
- * labels their value could be used (e.g. in a computation)
+ * Stores labels from the grammar with their result types. References to these labels their value could be used (e.g. in
+ * a computation)
  * 
  * @author J. Dijkstra
  */
@@ -26,7 +25,9 @@ public class SymbolTable {
 
 	/**
 	 * Retrieve the data type for a declared identifier.
-	 * @param ident identifier to retrieve the data type for
+	 * 
+	 * @param ident
+	 *            identifier to retrieve the data type for
 	 * @return data type
 	 */
 	public DataType get(final Ident ident) {
@@ -35,8 +36,11 @@ public class SymbolTable {
 
 	/**
 	 * Add a declared identifier to the symbol table.
-	 * @param ident identifier
-	 * @param dataType data type
+	 * 
+	 * @param ident
+	 *            identifier
+	 * @param dataType
+	 *            data type
 	 */
 	public void add(final Ident ident, final DataType dataType) {
 		types.put(ident, dataType);

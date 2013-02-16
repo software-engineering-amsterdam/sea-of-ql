@@ -2,8 +2,7 @@ package org.uva.sea.ql.ast.traversal.logging;
 
 import java.util.Calendar;
 
-import org.uva.sea.ql.ast.base.Node;
-import org.uva.sea.ql.ast.base.SyntaxPosition;
+import org.uva.sea.ql.ast.base.*;
 
 /**
  * Represents a line in a log.
@@ -58,7 +57,7 @@ public class TypeMessage {
 	public Node getNode() {
 		return node;
 	}
-	
+
 	/**
 	 * Retrieve the node this line represents its syntax position
 	 * 

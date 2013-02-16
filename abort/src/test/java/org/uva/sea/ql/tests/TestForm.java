@@ -1,26 +1,18 @@
 package org.uva.sea.ql.tests;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.*;
 
 import java.io.IOException;
 import java.util.List;
 
 import org.antlr.runtime.RecognitionException;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.*;
 import org.uva.sea.ql.ast.base.Expression;
 import org.uva.sea.ql.ast.conditionals.IfThenElse;
-import org.uva.sea.ql.ast.form.Computation;
-import org.uva.sea.ql.ast.form.Statement;
-import org.uva.sea.ql.ast.form.Form;
-import org.uva.sea.ql.ast.form.Question;
+import org.uva.sea.ql.ast.form.*;
 import org.uva.sea.ql.ast.operators.binary.Sub;
 import org.uva.sea.ql.ast.types.Ident;
-import org.uva.sea.ql.ast.types.datatypes.BoolType;
-import org.uva.sea.ql.ast.types.datatypes.IntType;
-import org.uva.sea.ql.ast.types.datatypes.MoneyType;
-import org.uva.sea.ql.ast.types.datatypes.StringType;
+import org.uva.sea.ql.ast.types.datatypes.*;
 
 // Test form structure and statement recognition (idents) after parsing
 public class TestForm extends TestBase {
@@ -68,8 +60,7 @@ public class TestForm extends TestBase {
 
 		assertEquals(Question.class, question.getClass());
 		assertEquals(IntType.class, question.getExpectedType().getClass());
-		assertEquals("What was the width of the house in meters?",
-				question.getText());
+		assertEquals("What was the width of the house in meters?", question.getText());
 		assertEquals(new Ident("width", generateSyntaxPosition()), question.getIdent());
 	}
 
@@ -78,8 +69,7 @@ public class TestForm extends TestBase {
 
 		assertEquals(Question.class, question.getClass());
 		assertEquals(IntType.class, question.getExpectedType().getClass());
-		assertEquals("What was the length of the house in meters?",
-				question.getText());
+		assertEquals("What was the length of the house in meters?", question.getText());
 		assertEquals(new Ident("length", generateSyntaxPosition()), question.getIdent());
 	}
 
@@ -123,10 +113,8 @@ public class TestForm extends TestBase {
 
 		// test the else flow
 		assertEquals(1, ifThenElse.getElseStatements().size());
-		final Question questionElse = (Question) ifThenElse.getElseStatements()
-				.get(0);
-		assertEquals(StringType.class, questionElse.getExpectedType()
-				.getClass());
+		final Question questionElse = (Question) ifThenElse.getElseStatements().get(0);
+		assertEquals(StringType.class, questionElse.getExpectedType().getClass());
 		assertEquals(new Ident("reasonNotSelling", generateSyntaxPosition()), questionElse.getIdent());
 		assertEquals("Why did you not sell the house?", questionElse.getText());
 	}

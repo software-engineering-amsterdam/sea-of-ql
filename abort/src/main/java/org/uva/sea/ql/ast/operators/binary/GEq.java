@@ -1,12 +1,10 @@
 package org.uva.sea.ql.ast.operators.binary;
 
-import org.uva.sea.ql.ast.base.Expression;
-import org.uva.sea.ql.ast.base.SyntaxPosition;
+import org.uva.sea.ql.ast.base.*;
 import org.uva.sea.ql.ast.operators.base.BinaryOperator;
 import org.uva.sea.ql.ast.traversal.base.IVisitor;
 import org.uva.sea.ql.ast.traversal.typechecking.SymbolTable;
-import org.uva.sea.ql.ast.types.datatypes.BoolType;
-import org.uva.sea.ql.ast.types.datatypes.DataType;
+import org.uva.sea.ql.ast.types.datatypes.*;
 
 /**
  * Represents a greater than or equal to operation in the QL language.
@@ -24,9 +22,9 @@ public class GEq extends BinaryOperator {
 	 * @param rightHandSide
 	 *            right hand side of the operator
 	 * @param syntaxPosition
-	 * 			  the original position of the expression in the input syntax
+	 *            the original position of the expression in the input syntax
 	 */
-	public GEq(final Expression leftHandSide, final Expression rightHandSide, final SyntaxPosition syntaxPosition)  {
+	public GEq(final Expression leftHandSide, final Expression rightHandSide, final SyntaxPosition syntaxPosition) {
 		super(leftHandSide, rightHandSide, syntaxPosition);
 	}
 

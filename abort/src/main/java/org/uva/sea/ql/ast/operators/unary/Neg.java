@@ -1,12 +1,10 @@
 package org.uva.sea.ql.ast.operators.unary;
 
-import org.uva.sea.ql.ast.base.Expression;
-import org.uva.sea.ql.ast.base.SyntaxPosition;
+import org.uva.sea.ql.ast.base.*;
 import org.uva.sea.ql.ast.operators.base.UnaryOperator;
 import org.uva.sea.ql.ast.traversal.base.IVisitor;
 import org.uva.sea.ql.ast.traversal.typechecking.SymbolTable;
-import org.uva.sea.ql.ast.types.datatypes.DataType;
-import org.uva.sea.ql.ast.types.datatypes.NumericType;
+import org.uva.sea.ql.ast.types.datatypes.*;
 
 /**
  * Represents the negative operation in the QL language.
@@ -22,9 +20,9 @@ public class Neg extends UnaryOperator {
 	 * @param expression
 	 *            expression or operation the negative operation affects
 	 * @param syntaxPosition
-	 * 			  the original position of the expression in the input syntax
+	 *            the original position of the expression in the input syntax
 	 */
-	public Neg(final Expression expression, final SyntaxPosition syntaxPosition)  {
+	public Neg(final Expression expression, final SyntaxPosition syntaxPosition) {
 		super(expression, syntaxPosition);
 	}
 

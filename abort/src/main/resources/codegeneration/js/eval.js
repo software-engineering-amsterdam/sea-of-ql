@@ -12,7 +12,7 @@ function evaluateExpression(entity) {
 	var id = $(entity).attr('id');
 	var value = functionMap[id]();
 	
-	qlMap[id] = value;
+	variableMap[id] = value;
 	$(entity).val(value == NaN ? "Invalid or incomplete computation" : value);
 }
 
@@ -71,7 +71,7 @@ function getValue(field) {
 }
 
 function dispatchToDependencies(id) {
-	var matchPattern = new RegExp("\\s*qlMap\\['" + id + "'\\]\\s*");
+	var matchPattern = new RegExp("\\s*variableMap\\['" + id + "'\\]\\s*");
 	getExpressionEntities().each(function() {
 		var entity = this;
 		if (matchPattern.test($(this).data('expression'))) {
@@ -88,7 +88,7 @@ function dispatchToDependencies(id) {
 }
 
 function doesArrayContainIdReference(expressions, id) {
-	var referenceName = "qlMap['" + id + "']";
+	var referenceName = "variableMap['" + id + "']";
 
 	$(expressions).each(function(index) {
 		if (expressions[index] == referenceName) {
@@ -106,6 +106,6 @@ function initConditionalGUI() {
 
 function updateGUI(updatedEntity, updatedId) {
 	console.log("update for: " + updatedId);
-    qlMap[updatedId] = getValue(updatedEntity);
+    variableMap[updatedId] = getValue(updatedEntity);
 	dispatchToDependencies(updatedId);
 }

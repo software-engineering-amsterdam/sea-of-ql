@@ -34,10 +34,10 @@ public class Question extends Statement {
 	 * @param expectedType
 	 *            data type that the answer should be
 	 * @param syntaxPosition
-	 * 			  the original position of the expression in the input syntax
+	 *            the original position of the expression in the input syntax
 	 */
-	public Question(final Ident ident, final String text,
-			final DataType expectedType, final SyntaxPosition syntaxPosition) {
+	public Question(final Ident ident, final String text, final DataType expectedType,
+			final SyntaxPosition syntaxPosition) {
 		super(syntaxPosition);
 		this.ident = ident;
 		this.text = text;

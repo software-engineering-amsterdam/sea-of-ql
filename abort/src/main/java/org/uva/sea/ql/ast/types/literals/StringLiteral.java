@@ -3,15 +3,14 @@ package org.uva.sea.ql.ast.types.literals;
 import org.uva.sea.ql.ast.base.SyntaxPosition;
 import org.uva.sea.ql.ast.traversal.base.IVisitor;
 import org.uva.sea.ql.ast.traversal.typechecking.SymbolTable;
-import org.uva.sea.ql.ast.types.datatypes.DataType;
-import org.uva.sea.ql.ast.types.datatypes.StringType;
+import org.uva.sea.ql.ast.types.datatypes.*;
 
 /**
  * Represents a string literal in the QL language.
  * 
  * @author J. Dijkstra
  */
-public class StringLiteral extends LiteralType {
+public class StringLiteral extends LiteralType<String> {
 	private static final DataType TYPE = new StringType();
 
 	/**
@@ -25,7 +24,7 @@ public class StringLiteral extends LiteralType {
 	 * @param value
 	 *            value
 	 * @param syntaxPosition
-	 * 			  the original position of the expression in the input syntax
+	 *            the original position of the expression in the input syntax
 	 */
 	public StringLiteral(final String value, final SyntaxPosition syntaxPosition) {
 		super(syntaxPosition);
@@ -37,6 +36,7 @@ public class StringLiteral extends LiteralType {
 	 * 
 	 * @return value
 	 */
+	@Override
 	public String getValue() {
 		return value;
 	}

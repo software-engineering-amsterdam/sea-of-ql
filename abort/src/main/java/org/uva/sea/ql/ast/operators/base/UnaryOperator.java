@@ -1,7 +1,6 @@
 package org.uva.sea.ql.ast.operators.base;
 
-import org.uva.sea.ql.ast.base.Expression;
-import org.uva.sea.ql.ast.base.SyntaxPosition;
+import org.uva.sea.ql.ast.base.*;
 
 /**
  * Unary Operator base class for unary operators in the QL language.
@@ -20,11 +19,11 @@ public abstract class UnaryOperator extends Operator {
 	 * @param expression
 	 *            the expression or operation that the unary operator affects.
 	 * @param syntaxPosition
-	 * 			  the original position of the expression in the input syntax 
+	 *            the original position of the expression in the input syntax
 	 */
 	protected UnaryOperator(final Expression expression, final SyntaxPosition syntaxPosition) {
 		super(syntaxPosition);
-		
+
 		this.expression = expression;
 	}
 

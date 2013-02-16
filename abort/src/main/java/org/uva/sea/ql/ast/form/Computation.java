@@ -1,7 +1,6 @@
 package org.uva.sea.ql.ast.form;
 
-import org.uva.sea.ql.ast.base.Expression;
-import org.uva.sea.ql.ast.base.SyntaxPosition;
+import org.uva.sea.ql.ast.base.*;
 import org.uva.sea.ql.ast.traversal.base.IVisitor;
 import org.uva.sea.ql.ast.types.Ident;
 import org.uva.sea.ql.ast.types.datatypes.DataType;
@@ -25,8 +24,7 @@ public class Computation extends Statement {
 	 */
 	private final DataType expectedType;
 	/**
-	 * Calculation (expression) that the computation should do before displaying
-	 * it.
+	 * Calculation (expression) that the computation should do before displaying it.
 	 */
 	private final Expression expression;
 
@@ -42,12 +40,12 @@ public class Computation extends Statement {
 	 * @param calculationOperation
 	 *            calculation that should be done
 	 * @param syntaxPosition
-	 * 			  the original position of the expression in the input syntax
+	 *            the original position of the expression in the input syntax
 	 */
-	public Computation(final Ident ident, final String description,
-			final DataType expectedType, final Expression calculationOperation, final SyntaxPosition syntaxPosition) {
+	public Computation(final Ident ident, final String description, final DataType expectedType,
+			final Expression calculationOperation, final SyntaxPosition syntaxPosition) {
 		super(syntaxPosition);
-		
+
 		this.ident = ident;
 		this.description = description;
 		this.expectedType = expectedType;
@@ -82,8 +80,7 @@ public class Computation extends Statement {
 	}
 
 	/**
-	 * Retrieve the computation expression that has to be evaluated before
-	 * displayed.
+	 * Retrieve the computation expression that has to be evaluated before displayed.
 	 * 
 	 * @return computation expression
 	 */

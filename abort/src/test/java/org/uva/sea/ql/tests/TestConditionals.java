@@ -1,17 +1,14 @@
 package org.uva.sea.ql.tests;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.*;
 
 import java.util.List;
 
 import org.antlr.runtime.RecognitionException;
 import org.junit.Test;
 import org.uva.sea.ql.ast.base.Node;
-import org.uva.sea.ql.ast.conditionals.IfThen;
-import org.uva.sea.ql.ast.conditionals.IfThenElse;
-import org.uva.sea.ql.ast.form.Statement;
-import org.uva.sea.ql.ast.form.Question;
+import org.uva.sea.ql.ast.conditionals.*;
+import org.uva.sea.ql.ast.form.*;
 import org.uva.sea.ql.ast.operators.binary.Eq;
 import org.uva.sea.ql.ast.types.datatypes.StringType;
 
@@ -27,8 +24,7 @@ public class TestConditionals extends TestBase {
 		assertNotNull(conditions);
 		assertEquals(Eq.class, conditions.getClass());
 
-		final List<Statement> successStatements = ((IfThen) result)
-				.getSuccessStatements();
+		final List<Statement> successStatements = ((IfThen) result).getSuccessStatements();
 		assertEquals(1, successStatements.size());
 		assertEquals(Question.class, successStatements.get(0).getClass());
 
@@ -49,8 +45,7 @@ public class TestConditionals extends TestBase {
 		assertNotNull(conditions);
 		assertEquals(Eq.class, conditions.getClass());
 
-		final List<Statement> successStatements = ((IfThenElse) result)
-				.getSuccessStatements();
+		final List<Statement> successStatements = ((IfThenElse) result).getSuccessStatements();
 		assertEquals(1, successStatements.size());
 		assertEquals(Question.class, successStatements.get(0).getClass());
 
@@ -60,14 +55,12 @@ public class TestConditionals extends TestBase {
 		assertEquals("Have you bought this house?", question.getText());
 		assertEquals("boughtHouse", question.getIdent().getName());
 
-		final List<Statement> elseStatements = ((IfThenElse) result)
-				.getElseStatements();
+		final List<Statement> elseStatements = ((IfThenElse) result).getElseStatements();
 		assertEquals(1, elseStatements.size());
 		assertEquals(Question.class, elseStatements.get(0).getClass());
 
 		final Question elseQuestion = (Question) elseStatements.get(0);
-		assertEquals(StringType.class, elseQuestion.getExpectedType()
-				.getClass());
+		assertEquals(StringType.class, elseQuestion.getExpectedType().getClass());
 
 		assertEquals("whyNot", elseQuestion.getIdent().getName());
 		assertEquals("Why did you not buy this house?", elseQuestion.getText());

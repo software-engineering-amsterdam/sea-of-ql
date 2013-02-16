@@ -2,8 +2,7 @@ package org.uva.sea.ql.ast.traversal.logging;
 
 import org.uva.sea.ql.ast.base.Expression;
 import org.uva.sea.ql.ast.form.Statement;
-import org.uva.sea.ql.ast.operators.base.BinaryOperator;
-import org.uva.sea.ql.ast.operators.base.Operator;
+import org.uva.sea.ql.ast.operators.base.*;
 import org.uva.sea.ql.ast.traversal.base.HandSide;
 import org.uva.sea.ql.ast.types.Ident;
 
@@ -33,11 +32,8 @@ public class TypeErrorLog extends Log {
 	 * @param operator
 	 *            operator that has a hand side of the wrong type
 	 */
-	public void addTypeIsNotIntegerOrMoney(final HandSide handSide,
-			final Operator operator) {
-		final String text = String.format(
-				"The %s is not of the type Integer or Money",
-				getHandSideString(handSide));
+	public void addTypeIsNotIntegerOrMoney(final HandSide handSide, final Operator operator) {
+		final String text = String.format("The %s is not of the type Integer or Money", getHandSideString(handSide));
 		add(new TypeMessage(operator, text));
 	}
 
@@ -49,10 +45,8 @@ public class TypeErrorLog extends Log {
 	 * @param operator
 	 *            operator that has one hand side of the wrong type
 	 */
-	public void addTypeIsNotBoolean(final HandSide handSide,
-			final Operator operator) {
-		final String text = String.format("The %s is not of the type boolean",
-				getHandSideString(handSide));
+	public void addTypeIsNotBoolean(final HandSide handSide, final Operator operator) {
+		final String text = String.format("The %s is not of the type boolean", getHandSideString(handSide));
 		add(new TypeMessage(operator, text));
 	}
 
@@ -75,8 +69,7 @@ public class TypeErrorLog extends Log {
 	 *            label that gets redeclarated
 	 */
 	public void addIdentRedeclaration(final Statement statement, final Ident ident) {
-		add(new TypeMessage(statement, String.format("Redeclaration of ident \"%s\"",
-				ident.getName())));
+		add(new TypeMessage(statement, String.format("Redeclaration of ident \"%s\"", ident.getName())));
 	}
 
 	/**

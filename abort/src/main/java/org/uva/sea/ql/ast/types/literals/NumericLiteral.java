@@ -7,12 +7,12 @@ import org.uva.sea.ql.ast.base.SyntaxPosition;
  * 
  * @author J. Dijkstra
  */
-public abstract class NumericLiteral extends LiteralType {
+public abstract class NumericLiteral<T> extends LiteralType<T> {
 	/**
 	 * Constructor.
 	 * 
 	 * @param syntaxPosition
-	 * 			  the original position of the expression in the input syntax
+	 *            the original position of the expression in the input syntax
 	 */
 	public NumericLiteral(final SyntaxPosition syntaxPosition) {
 		super(syntaxPosition);

@@ -2,8 +2,7 @@ package org.uva.sea.ql.ast.form;
 
 import java.util.List;
 
-import org.uva.sea.ql.ast.base.Node;
-import org.uva.sea.ql.ast.base.SyntaxPosition;
+import org.uva.sea.ql.ast.base.*;
 import org.uva.sea.ql.ast.traversal.base.IVisitor;
 
 /**
@@ -30,11 +29,11 @@ public class Form extends Node {
 	 * @param statements
 	 *            statements that are part of the form
 	 * @param syntaxPosition
-	 * 			  the original position of the expression in the input syntax
+	 *            the original position of the expression in the input syntax
 	 */
 	public Form(final String name, final List<Statement> statements, final SyntaxPosition syntaxPosition) {
 		super(syntaxPosition);
-		
+
 		this.name = name;
 		this.statements = statements;
 	}

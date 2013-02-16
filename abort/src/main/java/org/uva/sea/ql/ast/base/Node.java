@@ -12,10 +12,12 @@ public abstract class Node implements IVisitable {
 	 * Syntax Position information to use later in type checking or referring to the original DSL input syntax.
 	 */
 	private final SyntaxPosition syntaxPosition;
-	
+
 	/**
 	 * Constructor.
-	 * @param position syntax position in the original DSL input
+	 * 
+	 * @param position
+	 *            syntax position in the original DSL input
 	 */
 	protected Node(final SyntaxPosition position) {
 		this.syntaxPosition = position;
@@ -23,14 +25,10 @@ public abstract class Node implements IVisitable {
 
 	/**
 	 * Retrieve the original syntax position (the position from the original input syntax).
+	 * 
 	 * @return syntax position
 	 */
 	public SyntaxPosition getSyntaxPosition() {
 		return syntaxPosition;
-	}
-	
-	@Override
-	public String toString() {
-		return getClass().toString();
 	}
 }

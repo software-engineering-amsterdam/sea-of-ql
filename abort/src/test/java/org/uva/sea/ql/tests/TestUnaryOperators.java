@@ -1,18 +1,13 @@
 package org.uva.sea.ql.tests;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.junit.Assert.*;
+import static org.mockito.Mockito.*;
 
 import org.antlr.runtime.RecognitionException;
 import org.junit.Test;
 import org.uva.sea.ql.ast.base.Expression;
 import org.uva.sea.ql.ast.operators.base.UnaryOperator;
-import org.uva.sea.ql.ast.operators.unary.Neg;
-import org.uva.sea.ql.ast.operators.unary.Not;
-import org.uva.sea.ql.ast.operators.unary.Pos;
+import org.uva.sea.ql.ast.operators.unary.*;
 
 // Test unary operations
 public class TestUnaryOperators extends TestBase {

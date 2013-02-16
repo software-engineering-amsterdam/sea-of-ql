@@ -1,29 +1,13 @@
 package org.uva.sea.ql.tests;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.junit.Assert.*;
+import static org.mockito.Mockito.*;
 
 import org.antlr.runtime.RecognitionException;
 import org.junit.Test;
-import org.uva.sea.ql.ast.base.Expression;
-import org.uva.sea.ql.ast.base.Node;
+import org.uva.sea.ql.ast.base.*;
 import org.uva.sea.ql.ast.operators.base.BinaryOperator;
-import org.uva.sea.ql.ast.operators.binary.Add;
-import org.uva.sea.ql.ast.operators.binary.And;
-import org.uva.sea.ql.ast.operators.binary.Div;
-import org.uva.sea.ql.ast.operators.binary.Eq;
-import org.uva.sea.ql.ast.operators.binary.GEq;
-import org.uva.sea.ql.ast.operators.binary.GT;
-import org.uva.sea.ql.ast.operators.binary.LEq;
-import org.uva.sea.ql.ast.operators.binary.LT;
-import org.uva.sea.ql.ast.operators.binary.Mul;
-import org.uva.sea.ql.ast.operators.binary.NEq;
-import org.uva.sea.ql.ast.operators.binary.Or;
-import org.uva.sea.ql.ast.operators.binary.Sub;
+import org.uva.sea.ql.ast.operators.binary.*;
 
 // Tests all binary operators
 public class TestBinaryOperators extends TestBase {

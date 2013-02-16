@@ -1,23 +1,14 @@
 package org.uva.sea.ql.tests;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
-import java.util.Calendar;
-import java.util.Random;
-
 import org.junit.Test;
-import org.uva.sea.ql.ast.base.Expression;
-import org.uva.sea.ql.ast.base.Node;
-import org.uva.sea.ql.ast.base.SyntaxPosition;
-import org.uva.sea.ql.ast.form.Form;
-import org.uva.sea.ql.ast.form.Statement;
+import org.uva.sea.ql.ast.base.*;
+import org.uva.sea.ql.ast.form.*;
 import org.uva.sea.ql.ast.operators.base.BinaryOperator;
 import org.uva.sea.ql.ast.traversal.base.HandSide;
-import org.uva.sea.ql.ast.traversal.logging.TypeErrorLog;
-import org.uva.sea.ql.ast.traversal.logging.TypeEventLog;
-import org.uva.sea.ql.ast.traversal.logging.TypeMessage;
+import org.uva.sea.ql.ast.traversal.logging.*;
 import org.uva.sea.ql.ast.types.Ident;
 
 // Test log functionality used for typechecking
@@ -26,10 +17,10 @@ public class TestLogs extends TestBase {
 	public void testEventLog() {
 		final TypeEventLog eventLog = new TypeEventLog();
 		assertEquals(0, eventLog.getLength());
-		
+
 		// Create a mocked form that contains a syntax position
 		final Form form = createNodeMock(Form.class);
-		
+
 		eventLog.add(new TypeMessage(form, "Successful event"));
 		assertTrue(eventLog.toString().contains("Successful event"));
 		eventLog.addCorrectSemantics(form);
@@ -46,7 +37,7 @@ public class TestLogs extends TestBase {
 	public void testErrorLog() {
 		final TypeErrorLog errorLog = new TypeErrorLog();
 		assertEquals(0, errorLog.getLength());
-		
+
 		// Test for a form error
 		errorLog.add(new TypeMessage(createNodeMock(Form.class), "Error example"));
 		assertTrue(errorLog.toString().contains("Error example"));
@@ -66,7 +57,7 @@ public class TestLogs extends TestBase {
 
 		assertEquals("", new TypeErrorLog().toString());
 	}
-	
+
 	// Create mocks that contain a syntax position
 	private <T extends Node> T createNodeMock(final Class<T> typeToMock) {
 		final T mockInstance = mock(typeToMock);

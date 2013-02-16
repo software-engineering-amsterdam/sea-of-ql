@@ -1,5 +1,6 @@
 package org.uva.sea.ql.ast.traversal.typechecking;
 
+import java.io.PrintStream;
 import java.util.List;
 
 import org.uva.sea.ql.ast.base.Expression;
@@ -15,8 +16,7 @@ import org.uva.sea.ql.ast.types.datatypes.DataType;
 import org.uva.sea.ql.ast.types.literals.*;
 
 /**
- * Visitor that type checks (semantics) of the abstract syntax tree. The tree it
- * checks has been parsed by ANTLR.
+ * Visitor that type checks (semantics) of the abstract syntax tree. The tree it checks has been parsed by ANTLR.
  * 
  * @author J. Dijkstra
  */
@@ -141,7 +141,7 @@ public class TypeChecker implements IVisitor<Boolean> {
 		final DataType leftType = leftHandSide.typeOf(symbolTable);
 		final DataType rightType = rightHandSide.typeOf(symbolTable);
 		// Invalid reference
-		if (leftType == null || rightType == null) {
+		if ((leftType == null) || (rightType == null)) {
 			return true;
 		}
 
@@ -239,18 +239,41 @@ public class TypeChecker implements IVisitor<Boolean> {
 		return checkNumericUnaryExpression(pos);
 	}
 
-	public TypeEventLog getEventLog() {
-		return eventLog;
+	/**
+	 * Write event log to a stream.
+	 * @param stream stream to write to
+	 */
+	public void writeEventLog(final PrintStream stream) {
+		eventLog.write(stream);
 	}
-
-	public TypeErrorLog getErrorLog() {
-		return errorLog;
+	
+	/**
+	 * Write error log to a stream.
+	 * @param stream stream to write to
+	 */
+	public void writeErrorLog(final PrintStream stream) {
+		errorLog.write(stream);
 	}
 
 	/**
+	 * Get the amount of events stored in the event log. 
+	 */
+	public int getEventCount() {
+		return errorLog.getLength();
+	}
+	
+	/**
+	 * Get the amount of errors stored in the error log. 
+	 */
+	public int getErrorCount() {
+		return errorLog.getLength();
+	}
+	
+	/**
 	 * Check numeric binary expressions for errors and log them.
 	 * 
-	 * @param operation the operation to check.
+	 * @param operation
+	 *            the operation to check.
 	 * @return whether errors are present or not.
 	 */
 	private boolean checkNumericBinaryExpression(final BinaryOperator operation) {
@@ -264,9 +287,10 @@ public class TypeChecker implements IVisitor<Boolean> {
 			return true;
 		}
 
+		// TODO: is this necessary?
 		final DataType leftHandSideType = checkTypeOf(leftHandSide);
 		final DataType rightHandSideType = checkTypeOf(rightHandSide);
-		if (leftHandSideType == null || rightHandSideType == null) {
+		if ((leftHandSideType == null) || (rightHandSideType == null)) {
 			return true;
 		}
 
@@ -287,9 +311,10 @@ public class TypeChecker implements IVisitor<Boolean> {
 	/**
 	 * Check boolean binary expressions for errors and log them.
 	 * 
-	 * @param operation the operation to check.
+	 * @param operation
+	 *            the operation to check.
 	 * @return whether errors are present or not.
-	 */	
+	 */
 	private Boolean checkBooleanBinaryExpression(final BinaryOperator operation) {
 		final Expression leftHandSide = operation.getLeftHandSide();
 		final Expression rightHandSide = operation.getRightHandSide();
@@ -303,8 +328,7 @@ public class TypeChecker implements IVisitor<Boolean> {
 
 		final DataType leftHandSideType = checkTypeOf(leftHandSide);
 		final DataType rightHandSideType = checkTypeOf(rightHandSide);
-		if (leftHandSideType == null || rightHandSideType == null)
-		{
+		if ((leftHandSideType == null) || (rightHandSideType == null)) {
 			return true;
 		}
 
@@ -325,7 +349,8 @@ public class TypeChecker implements IVisitor<Boolean> {
 	/**
 	 * Check unary numeric expressions for errors and log them.
 	 * 
-	 * @param operation the operation to check.
+	 * @param operation
+	 *            the operation to check.
 	 * @return whether errors are present or not.
 	 */
 	private Boolean checkNumericUnaryExpression(final UnaryOperator operation) {
@@ -355,13 +380,13 @@ public class TypeChecker implements IVisitor<Boolean> {
 	/**
 	 * Check for errors in an if statement.
 	 * 
-	 * @param statement if statement to check
+	 * @param statement
+	 *            if statement to check
 	 * @return whether errors were found or not
 	 */
 	private boolean checkIfStatement(final IfStatement statement) {
 		final boolean conditionErrors = statement.getCondition().accept(this);
-		final boolean successStatementErrors = checkStatements(statement
-				.getSuccessStatements());
+		final boolean successStatementErrors = checkStatements(statement.getSuccessStatements());
 
 		// Errors are present deeper in the AST
 		return (conditionErrors || successStatementErrors);
@@ -370,7 +395,8 @@ public class TypeChecker implements IVisitor<Boolean> {
 	/**
 	 * Check for errors in form statements.
 	 * 
-	 * @param statements statements to check
+	 * @param statements
+	 *            statements to check
 	 * @return whether there are errors found or not
 	 */
 	private boolean checkStatements(final List<Statement> statements) {
@@ -378,8 +404,7 @@ public class TypeChecker implements IVisitor<Boolean> {
 		for (final Statement statement : statements) {
 			// Errors deeper in the tree. As we still want to check errors on
 			// the same nesting level, we will continue the loop
-			if (statement.accept(this))
-			{
+			if (statement.accept(this)) {
 				errors = true;
 			}
 		}

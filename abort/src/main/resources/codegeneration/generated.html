@@ -66,42 +66,39 @@
     <script src="js/BigDecimal-all-last.min.js"></script>
     <script src="js/eval.js"></script>
 	<script type="text/javascript">
-    	  var qlMap = {};
-    	  var functionMap = {};
-
-    	    	
-    	    	functionMap['valueResidue'] = function() { return (qlMap['sellingPrice'] - qlMap['privateDebt']); }
-    	      functionMap['pricePerSquareMeter'] = function() { return (qlMap['sellingPrice'] / qlMap['width'] * qlMap['length']); }
-    	      functionMap['condition0'] = function() { return (qlMap['hasSoldHouse']); }
-    	      functionMap['area'] = function() { return (qlMap['width'] * qlMap['length']); }
-    	      functionMap['condition1'] = function() { return (Math.abs(1) === -Math.abs(1) || 1 <= -Math.abs(1) || -Math.abs(1) >= 1 || 1 !== 1 || !(1 === 1)); }
-    	      functionMap['invisibleComputation'] = function() { return (new BigDecimal('1.337') * 3); }
-    	      functionMap['condition2'] = function() { return (0 - 2 > 1 && 3 + 1 < 2); }
-    	      functionMap['condition3'] = function() { return (false); }
-    	     	$('#width').change(function() {
-    	     		updateGUI(this, "width");
-    	     	});
-    	     	$('#length').change(function() {
-    	     		updateGUI(this, "length");
-    	     	});
-    	     	$('#privateDebt').change(function() {
-    	     		updateGUI(this, "privateDebt");
-    	     	});
-    	     	$('#sellingPrice').change(function() {
-    	     		updateGUI(this, "sellingPrice");
-    	     	});
-    	     	$('#hasSoldHouse').change(function() {
-    	     		updateGUI(this, "hasSoldHouse");
-    	     	});
-
-
-
-    	  //TODO PROBABLY FUNCTIONS HAVE TO BE HERE INSTEAD..... TO PREVENT NEW FUNCTION instead of function 
-    	// var functionMap = {};
+     var variableMap = {};
+     var functionMap = {};
+    	  functionMap['valueResidue'] = function() { return (variableMap['sellingPrice'] - variableMap['privateDebt']); }
+    	  functionMap['pricePerSquareMeter'] = function() { return (variableMap['sellingPrice'] / variableMap['width'] * variableMap['length']); }
+    	  functionMap['condition0'] = function() { return (variableMap['hasSoldHouse']); }
+    	  functionMap['area'] = function() { return (variableMap['width'] * variableMap['length']); }
+    	  functionMap['condition1'] = function() { return (Math.abs(1) === -Math.abs(1) || 1 <= -Math.abs(1) || -Math.abs(1) >= 1 || 1 !== 1 || !(1 === 1)); }
+    	  functionMap['invisibleComputation'] = function() { return (new BigDecimal('1.337') * 3); }
+    	  functionMap['condition2'] = function() { return (0 - 2 > 1 && 3 + 1 < 2); }
+    	  functionMap['condition3'] = function() { return (false); }
     	  $(document).ready(function() {
-    	// 	initFunctionMap();
+    	    initConditionalGUI();
 
-    		initConditionalGUI();
+    	      $('#width').change(function() {
+    	        updateGUI(this, "width");
+    	      });
+
+    	      $('#length').change(function() {
+    	        updateGUI(this, "length");
+    	      });
+
+    	      $('#privateDebt').change(function() {
+    	        updateGUI(this, "privateDebt");
+    	      });
+
+    	      $('#sellingPrice').change(function() {
+    	        updateGUI(this, "sellingPrice");
+    	      });
+
+    	      $('#hasSoldHouse').change(function() {
+    	        updateGUI(this, "hasSoldHouse");
+    	      });
+
 
     	  });
     </script>
@@ -136,7 +133,7 @@
         		        </span>
         		        <input placeholder="Did you buy a house in 2010?" type="text" class="input-xlarge uneditable-input" readonly>
         		      </div>
-        		   </div><label class="control-label" for="width">What was the width of the house in meters?</label><div class="controls"><input id="width" name="width" type="text" placeholder="" class="input-xlarge"></div><label class="control-label" for="length">What was the length of the house in meters?</label><div class="controls"><input id="length" name="length" type="text" placeholder="" class="input-xlarge"></div><div id="condition0" class="if-then-else" data-condition="qlMap['hasSoldHouse']" data-conditional="true">
+        		   </div><label class="control-label" for="width">What was the width of the house in meters?</label><div class="controls"><input id="width" name="width" type="text" placeholder="" class="input-xlarge"></div><label class="control-label" for="length">What was the length of the house in meters?</label><div class="controls"><input id="length" name="length" type="text" placeholder="" class="input-xlarge"></div><div id="condition0" class="if-then-else" data-condition="variableMap['hasSoldHouse']" data-conditional="true">
         		    <div class="success-elements">
         		        <label class="control-label" for="sellingPrice">Price was sold for:</label>
         		                <div class="controls">
@@ -150,18 +147,18 @@
         		                    <span class="add-on">&euro;</span>
         		                    <input placeholder="" type="text" id="privateDebt" name="privateDebt" class="input-xlarge">
         		                  </div>
-        		                </div><label class="control-label" for="valueResidue">Value residue:</label><div class="controls"><input id="valueResidue" name="valueResidue" type="text" placeholder="Computation" data-expression="qlMap['sellingPrice'] - qlMap['privateDebt']" class="input-xlarge uneditable-input" readonly></div><label class="control-label" for="pricePerSquareMeter">Price per square meter</label><div class="controls"><input id="pricePerSquareMeter" name="pricePerSquareMeter" type="text" placeholder="Computation" data-expression="qlMap['sellingPrice'] / qlMap['width'] * qlMap['length']" class="input-xlarge uneditable-input" readonly></div>
+        		                </div><label class="control-label" for="valueResidue">Value residue:</label><div class="controls"><input id="valueResidue" name="valueResidue" type="text" placeholder="Computation" data-expression="variableMap['sellingPrice'] - variableMap['privateDebt']" data-type="org.uva.sea.ql.ast.form.Computation" class="input-xlarge uneditable-input" readonly></div><label class="control-label" for="pricePerSquareMeter">Price per square meter</label><div class="controls"><input id="pricePerSquareMeter" name="pricePerSquareMeter" type="text" placeholder="Computation" data-expression="variableMap['sellingPrice'] / variableMap['width'] * variableMap['length']" data-type="org.uva.sea.ql.ast.form.Computation" class="input-xlarge uneditable-input" readonly></div>
         		    </div>
         		    <div class="else-elements">
         		       <label class="control-label" for="reasonNotSelling">Why did you not sell the house?</label><div class="controls"><input id="reasonNotSelling" name="reasonNotSelling" type="text" placeholder="" class="input-xlarge"></div>
         		    </div>
-        		  </div><label class="control-label" for="area">Area of the house</label><div class="controls"><input id="area" name="area" type="text" placeholder="Computation" data-expression="qlMap['width'] * qlMap['length']" class="input-xlarge uneditable-input" readonly></div><label class="control-label" for="age">How old are you?</label><div class="controls"><input id="age" name="age" type="text" placeholder="" class="input-xlarge"></div><div id="condition1" class="if-then" data-condition="Math.abs(1) === -Math.abs(1) || 1 <= -Math.abs(1) || -Math.abs(1) >= 1 || 1 !== 1 || !(1 === 1)" data-conditional="true">
+        		  </div><label class="control-label" for="area">Area of the house</label><div class="controls"><input id="area" name="area" type="text" placeholder="Computation" data-expression="variableMap['width'] * variableMap['length']" data-type="org.uva.sea.ql.ast.form.Computation" class="input-xlarge uneditable-input" readonly></div><label class="control-label" for="age">How old are you?</label><div class="controls"><input id="age" name="age" type="text" placeholder="" class="input-xlarge"></div><div id="condition1" class="if-then" data-condition="Math.abs(1) === -Math.abs(1) || 1 <= -Math.abs(1) || -Math.abs(1) >= 1 || 1 !== 1 || !(1 === 1)" data-conditional="true">
         		      <div class="success-elements">
         		         <label class="control-label" for="impossible">For this question it is practically impossible to appear on your screen</label><div class="controls"><input id="impossible" name="impossible" type="text" placeholder="" class="input-xlarge"></div>
         		      </div>
         		  </div><div id="condition2" class="if-then" data-condition="0 - 2 > 1 && 3 + 1 < 2" data-conditional="true">
         		      <div class="success-elements">
-        		         <label class="control-label" for="invisibleQuestion">You should never be able to see this. How did you manage?</label><div class="controls"><input id="invisibleQuestion" name="invisibleQuestion" type="text" placeholder="" class="input-xlarge"></div><label class="control-label" for="invisibleComputation">Very weird computation</label><div class="controls"><input id="invisibleComputation" name="invisibleComputation" type="text" placeholder="Computation" data-expression="new BigDecimal('1.337') * 3" class="input-xlarge uneditable-input" readonly></div>
+        		         <label class="control-label" for="invisibleQuestion">You should never be able to see this. How did you manage?</label><div class="controls"><input id="invisibleQuestion" name="invisibleQuestion" type="text" placeholder="" class="input-xlarge"></div><label class="control-label" for="invisibleComputation">Very weird computation</label><div class="controls"><input id="invisibleComputation" name="invisibleComputation" type="text" placeholder="Computation" data-expression="new BigDecimal('1.337') * 3" data-type="org.uva.sea.ql.ast.form.Computation" class="input-xlarge uneditable-input" readonly></div>
         		      </div>
         		  </div><div id="condition3" class="if-then-else" data-condition="false" data-conditional="true">
         		    <div class="success-elements">

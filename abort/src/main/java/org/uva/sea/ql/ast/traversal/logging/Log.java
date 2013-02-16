@@ -2,8 +2,7 @@ package org.uva.sea.ql.ast.traversal.logging;
 
 import java.io.PrintStream;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 import org.uva.sea.ql.ast.base.SyntaxPosition;
 
@@ -25,8 +24,7 @@ abstract class Log {
 	/**
 	 * Date format used when displaying the log.
 	 */
-	private final SimpleDateFormat dateFormat = new SimpleDateFormat(
-			TIME_FORMAT);
+	private final SimpleDateFormat dateFormat = new SimpleDateFormat(TIME_FORMAT);
 
 	/**
 	 * Constructor that limits the scope to the this package.
@@ -91,12 +89,8 @@ abstract class Log {
 		final String nodeName = line.getNode().toString();
 		final String timestamp = dateFormat.format(line.getCalendar().getTime());
 		final SyntaxPosition syntaxPosition = line.getNodeSyntaxPosition();
-		
-		return String.format("[%s]: %s -> %s (line: %d, column: %s)\n",
-				timestamp,
-				nodeName,
-				line.getText(),
-				syntaxPosition.getLineNumber(),
-				syntaxPosition.getColumnNumber());
+
+		return String.format("[%s]: %s -> %s (line: %d, column: %s)\n", timestamp, nodeName, line.getText(),
+				syntaxPosition.getLineNumber(), syntaxPosition.getColumnNumber());
 	}
 }

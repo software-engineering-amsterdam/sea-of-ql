@@ -1,36 +1,15 @@
 package org.uva.sea.ql.tests;
 
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.*;
 
 import org.junit.Test;
-import org.uva.sea.ql.ast.conditionals.IfThen;
-import org.uva.sea.ql.ast.conditionals.IfThenElse;
-import org.uva.sea.ql.ast.form.Computation;
-import org.uva.sea.ql.ast.form.Form;
-import org.uva.sea.ql.ast.form.Question;
-import org.uva.sea.ql.ast.operators.binary.Add;
-import org.uva.sea.ql.ast.operators.binary.And;
-import org.uva.sea.ql.ast.operators.binary.Div;
-import org.uva.sea.ql.ast.operators.binary.Eq;
-import org.uva.sea.ql.ast.operators.binary.GEq;
-import org.uva.sea.ql.ast.operators.binary.GT;
-import org.uva.sea.ql.ast.operators.binary.LEq;
-import org.uva.sea.ql.ast.operators.binary.LT;
-import org.uva.sea.ql.ast.operators.binary.Mul;
-import org.uva.sea.ql.ast.operators.binary.NEq;
-import org.uva.sea.ql.ast.operators.binary.Or;
-import org.uva.sea.ql.ast.operators.binary.Sub;
-import org.uva.sea.ql.ast.operators.unary.Neg;
-import org.uva.sea.ql.ast.operators.unary.Not;
-import org.uva.sea.ql.ast.operators.unary.Pos;
-import org.uva.sea.ql.ast.traversal.base.IVisitable;
-import org.uva.sea.ql.ast.traversal.base.IVisitor;
+import org.uva.sea.ql.ast.conditionals.*;
+import org.uva.sea.ql.ast.form.*;
+import org.uva.sea.ql.ast.operators.binary.*;
+import org.uva.sea.ql.ast.operators.unary.*;
+import org.uva.sea.ql.ast.traversal.base.*;
 import org.uva.sea.ql.ast.types.Ident;
-import org.uva.sea.ql.ast.types.literals.BoolLiteral;
-import org.uva.sea.ql.ast.types.literals.IntLiteral;
-import org.uva.sea.ql.ast.types.literals.MoneyLiteral;
-import org.uva.sea.ql.ast.types.literals.StringLiteral;
+import org.uva.sea.ql.ast.types.literals.*;
 
 // Test whether the visitor pattern has been implemented as it should be.
 public class TestVisitorPattern extends TestBase {

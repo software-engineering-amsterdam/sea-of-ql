@@ -22,15 +22,16 @@ public class SyntaxErrorMessage {
 	private final int columnNumber;
 	private final String originalMessage;
 	private final Calendar calendar = Calendar.getInstance();
-	
+
 	public SyntaxErrorMessage(final int lineNumber, final int columnNumber, final String originalMessage) {
 		this.lineNumber = lineNumber;
 		this.columnNumber = columnNumber;
 		this.originalMessage = originalMessage;
 	}
-	
+
 	@Override
 	public String toString() {
-		return String.format("[%s] %s (line: %d, column: %d)\n", dateFormat.format(calendar.getTime()), originalMessage, lineNumber, columnNumber);
+		return String.format("[%s] %s (line: %d, column: %d)\n", dateFormat.format(calendar.getTime()),
+				originalMessage, lineNumber, columnNumber);
 	}
 }

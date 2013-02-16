@@ -1,5 +1,4 @@
-import "bootstrap.stg"
-import "javascript.stg"
+import "bootstrap_html.stg"
 
 page(title, fields, javascript) ::= <<
 <!DOCTYPE html>
@@ -70,6 +69,8 @@ page(title, fields, javascript) ::= <<
     <script src="js/BigDecimal-all-last.min.js"></script>
     <script src="js/eval.js"></script>
 	<script type="text/javascript">
+     var variableMap = {};
+     var functionMap = {};
     	$javascript$
     </script>
   </head>

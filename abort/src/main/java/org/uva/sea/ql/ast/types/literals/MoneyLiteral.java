@@ -5,15 +5,14 @@ import java.math.BigDecimal;
 import org.uva.sea.ql.ast.base.SyntaxPosition;
 import org.uva.sea.ql.ast.traversal.base.IVisitor;
 import org.uva.sea.ql.ast.traversal.typechecking.SymbolTable;
-import org.uva.sea.ql.ast.types.datatypes.DataType;
-import org.uva.sea.ql.ast.types.datatypes.MoneyType;
+import org.uva.sea.ql.ast.types.datatypes.*;
 
 /**
  * Represents the money literal as defined in the QL language.
  * 
  * @author J. Dijkstra
  */
-public class MoneyLiteral extends NumericLiteral {
+public class MoneyLiteral extends NumericLiteral<BigDecimal> {
 	private static final DataType TYPE = new MoneyType();
 
 	/**
@@ -27,7 +26,7 @@ public class MoneyLiteral extends NumericLiteral {
 	 * @param value
 	 *            value of the data type.
 	 * @param syntaxPosition
-	 * 			  the original position of the expression in the input syntax
+	 *            the original position of the expression in the input syntax
 	 */
 	public MoneyLiteral(final String value, final SyntaxPosition syntaxPosition) {
 		super(syntaxPosition);
@@ -39,6 +38,7 @@ public class MoneyLiteral extends NumericLiteral {
 	 * 
 	 * @return value
 	 */
+	@Override
 	public BigDecimal getValue() {
 		return value;
 	}

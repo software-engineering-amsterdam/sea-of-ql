@@ -1,0 +1,22 @@
+generate_dispatch_function(id) ::= <<
+  \$('#$id$').change(function() {
+    updateGUI(this, "$id$");
+  });
+  $\n$
+>>
+
+document_ready_block(code) ::= <<
+  \$(document).ready(function() {
+    initConditionalGUI();
+  
+    $code$
+  });
+>>
+
+generate_map_function(id, expression) ::= <<
+  functionMap['$id$'] = function() { return ($expression$); }$\n$
+>>
+
+generate_map_var(name) ::= <<
+  variableMap['$name$'] = '';
+>>
