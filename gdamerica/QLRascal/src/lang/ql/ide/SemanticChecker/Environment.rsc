@@ -26,6 +26,7 @@ public str required(str feedBackMsg, DataType req) = "<feedBackMsg> requires <re
 
 public str required(str feedBackMsg) = "<feedBackMsg>";
 
+
 public ENV addElement(ENV env, str id, str label, DataType elemTypeName, loc elemLoc) = env[elements = env.elements + <id, label, elemTypeName, elemLoc>];//add element to the ENV
 
 public ENV addError(ENV env, loc l, str msg) = env[errors = env.errors + <l, msg>];//add errors (if any) to ENV tuple and return a new ENV 
@@ -45,12 +46,12 @@ public set[Message] getMessages(ENV env){
 */
 private set[Message] getErrors(ENV env){
 
-	return aux = {v.l,v.msg | tuple[loc,str] v <-env.errors};
+	return aux = {error(v.msg,v.l) | tuple[loc l,str msg] v <-env.errors};
 
 }
 
 private set[Message] getWarnings(ENV env){
 
-	return aux = {v.l,v.msg | tuple[loc,str] v <-env.warnings};
+	return aux = {warning(v.msg,v.l) | tuple[loc l,str msg] v <-env.warnings};
 
 }

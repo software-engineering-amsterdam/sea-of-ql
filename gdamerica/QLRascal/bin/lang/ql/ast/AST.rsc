@@ -10,9 +10,9 @@ module lang::ql::ast::AST
 data Expr
   = ident(str name)
   | \int(int iValue)
-  | boolean(bool bValue)
+  | boolCon(bool bValue)
   | money(real mnValue)
-  | string(str strValue)
+  | strCon(str strValue)
   | date(str dtValue)
   | decimal(real decValue)
   | pos(Expr posValue)
