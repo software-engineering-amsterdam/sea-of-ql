@@ -36,5 +36,10 @@
 	<classpathentry kind="lib" path="lib/jetty-webapp-8.1.9.v20130131.jar"/>
 	<classpathentry kind="lib" path="lib/jetty-websocket-8.1.9.v20130131.jar"/>
 	<classpathentry kind="lib" path="lib/jetty-xml-8.1.9.v20130131.jar"/>
+	<classpathentry kind="lib" path="lib/jackson-core-asl-1.9.2.jar"/>
+	<classpathentry kind="lib" path="lib/jackson-jaxrs-1.9.2.jar"/>
+	<classpathentry kind="lib" path="lib/jackson-core-2.1.1.jar"/>
+	<classpathentry kind="lib" path="lib/jackson-annotations-2.1.1.jar"/>
+	<classpathentry kind="lib" path="lib/jackson-databind-2.1.1.jar"/>
 	<classpathentry kind="output" path="bin/classes"/>
 </classpath>

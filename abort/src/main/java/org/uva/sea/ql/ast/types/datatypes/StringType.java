@@ -10,4 +10,10 @@ public class StringType extends DataType {
 	public boolean isCompatibleToString() {
 		return true;
 	}
+	
+	@Override
+	public boolean isAssignableFrom(String input) {
+		// TODO Auto-generated method stub
+		return false;
+	}
 }

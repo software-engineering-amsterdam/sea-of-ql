@@ -10,4 +10,10 @@ public class NumericType extends DataType {
 	public boolean isCompatibleToNumeric() {
 		return true;
 	}
+	
+	@Override
+	public boolean isAssignableFrom(String input) {
+		// TODO Auto-generated method stub
+		return false;
+	}
 }

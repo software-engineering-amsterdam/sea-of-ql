@@ -7,7 +7,7 @@ package org.uva.sea.ql.ast.types.datatypes;
  */
 public abstract class DataType {
 	/**
-	 * Retrieves whether the current type is compatible with an int or not
+	 * Retrieves whether the current type is compatible with an int or not.
 	 * 
 	 * @return whether the current type is compatible with an int or not
 	 */
@@ -16,7 +16,7 @@ public abstract class DataType {
 	}
 
 	/**
-	 * Retrieves whether the current type is compatible with a numeric or not
+	 * Retrieves whether the current type is compatible with a numeric or not.
 	 * 
 	 * @return whether the current type is compatible with a numeric or not
 	 */
@@ -25,7 +25,7 @@ public abstract class DataType {
 	}
 
 	/**
-	 * Retrieves whether the current type is compatible with a string or not
+	 * Retrieves whether the current type is compatible with a string or not.
 	 * 
 	 * @return whether the current type is compatible with a string or not
 	 */
@@ -34,7 +34,7 @@ public abstract class DataType {
 	}
 
 	/**
-	 * Retrieves whether the current type is compatible with a bool or not
+	 * Retrieves whether the current type is compatible with a bool or not.
 	 * 
 	 * @return whether the current type is compatible with an bool or not
 	 */
@@ -43,7 +43,7 @@ public abstract class DataType {
 	}
 
 	/**
-	 * Retrieves whether the current type is compatible with the money type or not
+	 * Retrieves whether the current type is compatible with the money type or not.
 	 * 
 	 * @return whether the current type is compatible with the money type or not
 	 */
@@ -52,7 +52,7 @@ public abstract class DataType {
 	}
 
 	/**
-	 * Retrieves whether the current type is the same as the given type
+	 * Retrieves whether the current type is the same as the given type.
 	 * 
 	 * @return whether the current type is the same as the given type
 	 */
@@ -63,4 +63,12 @@ public abstract class DataType {
 
 		return getClass().equals(dataType.getClass());
 	}
+	
+	/**
+	 * Check whether the input could be parsed as the specific data type.
+	 * 
+	 * @param input input
+	 * @return whether it is possible if the type could be parsed
+	 */
+	public abstract boolean isAssignableFrom(final String input);
 }
