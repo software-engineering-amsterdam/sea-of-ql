@@ -23,12 +23,12 @@ public class TestBinaryRelationalExpressions extends ASTNodeChecker {
 		expressionMatchesASTClass("a < (b * c)", LT.class);
 		expressionMatchesASTClass("(a * b) < c", LT.class);
 		
-		expressionMatchesASTClass("(a == b)", Eq.class);
-		expressionMatchesASTClass("(a <= b)", LEq.class);
-		expressionMatchesASTClass("(a >= b)", GEq.class);
-		expressionMatchesASTClass("(a != b)", NEq.class);
+		expressionMatchesASTClass("(a == b)",    Eq.class);
+		expressionMatchesASTClass("(a <= b)",    LEq.class);
+		expressionMatchesASTClass("(a >= b)",    GEq.class);
+		expressionMatchesASTClass("(a != b)",    NEq.class);
 		
-		expressionMatchesASTClass("a + b > c", GT.class);
-		expressionMatchesASTClass("a > b + c", GT.class);
+		expressionMatchesASTClass("a + b > c",   GT.class);
+		expressionMatchesASTClass("a > b + c",   GT.class);
 	}
 }
