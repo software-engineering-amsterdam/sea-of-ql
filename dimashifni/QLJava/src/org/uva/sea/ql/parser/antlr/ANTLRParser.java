@@ -3,6 +3,7 @@ package org.uva.sea.ql.parser.antlr;
 import org.antlr.runtime.ANTLRStringStream;
 import org.antlr.runtime.CommonTokenStream;
 import org.antlr.runtime.RecognitionException;
+import org.antlr.runtime.tree.CommonTree;
 // import org.uva.sea.ql.ast.Expr;
 
 public class ANTLRParser {//implements IParse {
@@ -23,7 +24,7 @@ public class ANTLRParser {//implements IParse {
 	public static void main(String[] args) throws RecognitionException
 	{
 		System.out.println("Start test..");			
-		testForm();
+//		testForm();
 		testPrimary();
 		testUnaryExpression();
 		testMultiplyExpression();
@@ -91,7 +92,8 @@ public class ANTLRParser {//implements IParse {
 		tokens.setTokenSource(new QLLexer(stream));
 		QLParser parser = new QLParser(tokens);
 		try {
-			parser.unaryExpression();
+            CommonTree commonTree = parser.unaryExpression().tree;
+            System.out.println(commonTree.toStringTree());
 			System.out.println("OK unary");
 		} catch (RecognitionException e) {
 			// TODO Auto-generated catch block
@@ -106,8 +108,9 @@ public class ANTLRParser {//implements IParse {
 		tokens.setTokenSource(new QLLexer(stream));
 		QLParser parser = new QLParser(tokens);
 		try {
-			parser.multiplyExpression();
-			System.out.println("OK multiply");
+            CommonTree commonTree = parser.multiplyExpression().tree;
+            System.out.println(commonTree.toStringTree());
+            System.out.println("OK multiply");
 		} catch (RecognitionException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -121,9 +124,10 @@ public class ANTLRParser {//implements IParse {
 		tokens.setTokenSource(new QLLexer(stream));
 		QLParser parser = new QLParser(tokens);
 		try {
-			parser.addExpression();
-			System.out.println("OK add");
-		} catch (RecognitionException e) {
+            CommonTree commonTree = parser.addExpression().tree;
+            System.out.println(commonTree.toStringTree());
+            System.out.println("OK add");
+        } catch (RecognitionException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}		
@@ -136,7 +140,8 @@ public class ANTLRParser {//implements IParse {
 		tokens.setTokenSource(new QLLexer(stream));
 		QLParser parser = new QLParser(tokens);
 		try {
-			parser.relExpression();
+            CommonTree commonTree = parser.relExpression().tree;
+            System.out.println(commonTree.toStringTree());
 			System.out.println("OK rel");
 		} catch (RecognitionException e) {
 			// TODO Auto-generated catch block
@@ -151,7 +156,8 @@ public class ANTLRParser {//implements IParse {
 		tokens.setTokenSource(new QLLexer(stream));
 		QLParser parser = new QLParser(tokens);
 		try {
-			parser.andExpression();
+            CommonTree commonTree = parser.andExpression().tree;
+            System.out.println(commonTree.toStringTree());
 			System.out.println("OK and");
 		} catch (RecognitionException e) {
 			// TODO Auto-generated catch block
@@ -166,7 +172,8 @@ public class ANTLRParser {//implements IParse {
 		tokens.setTokenSource(new QLLexer(stream));
 		QLParser parser = new QLParser(tokens);
 		try {
-			parser.orExpression();
+            CommonTree commonTree = parser.orExpression().tree;
+            System.out.println(commonTree.toStringTree());
 			System.out.println("OK or");
 		} catch (RecognitionException e) {
 			// TODO Auto-generated catch block

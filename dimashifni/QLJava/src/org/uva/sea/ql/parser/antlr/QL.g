@@ -3,6 +3,8 @@ options
 {
 backtrack=true; 
 memoize=true;
+output=AST;
+ASTLabelType= CommonTree;
 }
 
 @parser::header
@@ -29,7 +31,7 @@ statement
 ;
 
 assignment
-: variable ':' StringLiteral type
+: Ident ':' StringLiteral type
 ;
 
 
@@ -50,22 +52,18 @@ elseStat
 ;
 
 
-variable
-: Ident
-;
-
 type
 : 'Integer'
 | 'Boolean'
 | 'StringLiteral'
 ;
 
-term
+/*term
 : Ident
 | Int
 | StringLiteral
 | Bool
-;
+;*/
 
 primary returns [Expr result]
 : Int   { $result = new Int(Integer.parseInt($Int.text)); } 
@@ -74,77 +72,41 @@ primary returns [Expr result]
 ;
     
 unaryExpression returns [Expr result]
-: '+' x=unaryExpression { $result = new Pos($x.result); }
-| '-' x=unaryExpression { $result = new Neg($x.result); }
-| '!' x=unaryExpression { $result = new Not($x.result); }
-| x=primary    { $result = $x.result; }
+: '+'^ x=unaryExpression { $result = new Pos($x.result); }
+| '-'^ x=unaryExpression { $result = new Neg($x.result); }
+| '!'^ x=unaryExpression { $result = new Not($x.result); }
+| y=primary    { $result = $y.result; }
 ;    
    
 multiplyExpression returns [Expr result]
-: lhs=unaryExpression { $result=$lhs.result; } ( op=( '*' | '/' ) rhs=unaryExpression 
-{ 
-  if ($op.text.equals("*")) 
-  {
-  	$result = new Mul($result, rhs);
-  }
-  if ($op.text.equals("/")) 
-  {
-    $result = new Div($result, rhs);      
-  }
-})*
+: lhs=unaryExpression { $result=$lhs.result; }
+  (('*'^ {$result = new Mul($result, $rhs.result);}
+  | '/'^ {$result = new Div($result, $rhs.result);})
+  rhs=unaryExpression)*
 ;
-    
-  
+
 addExpression returns [Expr result]
-: lhs=multiplyExpression { $result=$lhs.result; } ( op=('+' | '-') rhs=multiplyExpression
-{
-  if ($op.text.equals("+")) 
-  {
-  	$result = new Add($result, rhs);
-  }
-  if ($op.text.equals("-")) 
-  {
-  	$result = new Sub($result, rhs);      
-  }
-})*
+: lhs=multiplyExpression { $result=$lhs.result; }
+  (('+'^ { $result = new Add($result, $rhs.result); }
+  | '-'^ {$result = new Add($result, $rhs.result); }) rhs=multiplyExpression)*
 ;
   
 relExpression returns [Expr result]
-: lhs=addExpression { $result=$lhs.result; } ( op=('<'|'<='|'>'|'>='|'=='|'!=') rhs=addExpression 
-{
-  if ($op.text.equals("<")) 
-  {
-  	$result = new LT($result, rhs);
-  }
-  if ($op.text.equals("<=")) 
-  {
-    $result = new LEq($result, rhs);      
-  }
-  if ($op.text.equals(">")) 
-  {
-    $result = new GT($result, rhs);
-  }
-  if ($op.text.equals(">=")) 
-  {
-    $result = new GEq($result, rhs);      
-  }
-  if ($op.text.equals("==")) 
-  {
-    $result = new Eq($result, rhs);
-  }
-  if ($op.text.equals("!=")) 
-  {
-    $result = new NEq($result, rhs);
-  }
-})*
+: lhs=addExpression { $result=$lhs.result; }
+  (('<'^  {$result = new LT($result, $rhs.result);}
+  |'<='^ {$result = new LEq($result, $rhs.result);}
+  |'>'^  {$result = new GT($result, $rhs.result);}
+  |'>='^ {$result = new GEq($result, $rhs.result);}
+  |'=='^ {$result = new Eq($result, $rhs.result);}
+  |'!='^ {$result = new NEq($result, $rhs.result);}) rhs=addExpression)*
 ;
     
 andExpression returns [Expr result]
-: lhs=relExpression { $result=$lhs.result; } ( '&&' rhs=relExpression { $result = new And($result, rhs); } )*
+: lhs=relExpression { $result=$lhs.result; } ( '&&'^ rhs=relExpression { $result = new And($result, $rhs.result); } )*
 ;
 
 orExpression returns [Expr result]
-: lhs=andExpression { $result = $lhs.result; } ( '||' rhs=andExpression { $result = new Or($result, rhs); } )*
+: lhs=andExpression { $result = $lhs.result; } ( '||'^ rhs=andExpression { $result = new Or($result, $rhs.result); } )*
 ;
     
 // Tokens
