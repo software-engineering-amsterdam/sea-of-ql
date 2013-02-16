@@ -1,11 +1,11 @@
-// $ANTLR 3.5 /home/rene/workspace/sea-of-ql/renetassy/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g 2013-02-15 20:40:27
+// $ANTLR 3.5 /home/rene/workspace/sea-of-ql/renetassy/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g 2013-02-16 21:58:24
 
 package org.uva.sea.ql.parser.antlr;
 import org.uva.sea.ql.ast.*;
 import org.uva.sea.ql.ast.expr.*;
 import org.uva.sea.ql.ast.stmnt.*;
 import org.uva.sea.ql.ast.types.*;
-import org.uva.sea.ql.ast.expr.values.*;
+
 
 
 import org.antlr.runtime.*;
@@ -728,7 +728,7 @@ public class QLParser extends Parser {
 					// /home/rene/workspace/sea-of-ql/renetassy/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:58:6: Int
 					{
 					Int16=(Token)match(input,Int,FOLLOW_Int_in_primary285); if (state.failed) return result;
-					if ( state.backtracking==0 ) { result = new Int(Integer.parseInt((Int16!=null?Int16.getText():null))); }
+					if ( state.backtracking==0 ) { result = new IntLiteral(Integer.parseInt((Int16!=null?Int16.getText():null))); }
 					}
 					break;
 				case 2 :
@@ -943,7 +943,7 @@ public class QLParser extends Parser {
 					      if ((op!=null?op.getText():null).equals("*")) {
 					        result = new Mul(result, rhs);
 					      }
-					      if ((op!=null?op.getText():null).equals("<=")) {
+					      if ((op!=null?op.getText():null).equals("/")) {
 					        result = new Div(result, rhs);      
 					      }
 					    }

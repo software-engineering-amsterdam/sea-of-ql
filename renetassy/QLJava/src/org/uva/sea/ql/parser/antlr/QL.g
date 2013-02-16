@@ -8,7 +8,7 @@ import org.uva.sea.ql.ast.*;
 import org.uva.sea.ql.ast.expr.*;
 import org.uva.sea.ql.ast.stmnt.*;
 import org.uva.sea.ql.ast.types.*;
-import org.uva.sea.ql.ast.expr.values.*;
+
 }
 
 @lexer::header
@@ -55,7 +55,7 @@ form returns [Form result]
     ;
 	
 primary returns [Expr result]
-  	: Int   { $result = new Int(Integer.parseInt($Int.text)); }
+  	: Int   { $result = new IntLiteral(Integer.parseInt($Int.text)); }
   	| Bool { $result = new BoolLiteral ($Bool.text); }
   	| String { $result = new StringLiteral ($String.text); }
   	| Ident { $result = new Ident($Ident.text); }
@@ -75,7 +75,7 @@ mulExpr returns [Expr result]
       if ($op.text.equals("*")) {
         $result = new Mul($result, rhs);
       }
-      if ($op.text.equals("<=")) {
+      if ($op.text.equals("/")) {
         $result = new Div($result, rhs);      
       }
     })*

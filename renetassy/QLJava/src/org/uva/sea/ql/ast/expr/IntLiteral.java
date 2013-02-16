@@ -1,21 +1,20 @@
-package org.uva.sea.ql.ast.expr.values;
+package org.uva.sea.ql.ast.expr;
 
 import java.util.Map;
 
 import org.uva.sea.ql.IExprVisitor;
-import org.uva.sea.ql.ast.types.StringType;
+import org.uva.sea.ql.ast.types.IntType;
 import org.uva.sea.ql.ast.types.Type;
 
+public class IntLiteral extends Expr {
 
-public class StringLiteral extends Value {
-	
-	private final String value;
-	
-	public StringLiteral(String value) {
-		this.value=value;
+	private final int value;
+
+	public IntLiteral(int n) {
+		this.value = n;
 	}
-	
-	public String getValue() {
+
+	public int getValue() {
 		return value;
 	}
 
@@ -26,7 +25,6 @@ public class StringLiteral extends Value {
 
 	@Override
 	public Type isOfType(Map<String, Type> typeEnv) {
-		return new StringType();
+		return new IntType();
 	}
-
 }

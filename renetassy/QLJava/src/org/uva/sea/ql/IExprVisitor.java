@@ -2,11 +2,13 @@ package org.uva.sea.ql;
 
 import org.uva.sea.ql.ast.expr.Add;
 import org.uva.sea.ql.ast.expr.And;
+import org.uva.sea.ql.ast.expr.BoolLiteral;
 import org.uva.sea.ql.ast.expr.Div;
 import org.uva.sea.ql.ast.expr.Eq;
 import org.uva.sea.ql.ast.expr.GEq;
 import org.uva.sea.ql.ast.expr.GT;
 import org.uva.sea.ql.ast.expr.Ident;
+import org.uva.sea.ql.ast.expr.IntLiteral;
 import org.uva.sea.ql.ast.expr.LEq;
 import org.uva.sea.ql.ast.expr.LT;
 import org.uva.sea.ql.ast.expr.Mul;
@@ -15,10 +17,8 @@ import org.uva.sea.ql.ast.expr.Neg;
 import org.uva.sea.ql.ast.expr.Not;
 import org.uva.sea.ql.ast.expr.Or;
 import org.uva.sea.ql.ast.expr.Pos;
+import org.uva.sea.ql.ast.expr.StringLiteral;
 import org.uva.sea.ql.ast.expr.Sub;
-import org.uva.sea.ql.ast.expr.values.BoolLiteral;
-import org.uva.sea.ql.ast.expr.values.Int;
-import org.uva.sea.ql.ast.expr.values.StringLiteral;
 
 public interface IExprVisitor<T> {
 	
@@ -36,7 +36,7 @@ public interface IExprVisitor<T> {
 	
 	T visit(Ident node);
 	
-	T visit(Int node);
+	T visit(IntLiteral node);
 	
 	T visit(LEq node);
 	

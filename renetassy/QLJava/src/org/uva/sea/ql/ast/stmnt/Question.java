@@ -2,7 +2,7 @@ package org.uva.sea.ql.ast.stmnt;
 
 import org.uva.sea.ql.IStatementVisitor;
 import org.uva.sea.ql.ast.expr.Ident;
-import org.uva.sea.ql.ast.expr.values.StringLiteral;
+import org.uva.sea.ql.ast.expr.StringLiteral;
 import org.uva.sea.ql.ast.types.Type;
 
 public class Question extends Statement { 

@@ -1,6 +1,7 @@
 package org.uva.sea.ql;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.swing.JCheckBox;
 import javax.swing.JComponent;
@@ -14,13 +15,17 @@ import org.uva.sea.ql.ast.stmnt.ComputedQuestion;
 import org.uva.sea.ql.ast.stmnt.IfStatement;
 import org.uva.sea.ql.ast.stmnt.Question;
 import org.uva.sea.ql.ast.stmnt.Statement;
+import org.uva.sea.ql.values.Value;
+
 import net.miginfocom.swing.MigLayout;
 
 public class Renderer implements IStatementVisitor<Void> {
 	
+	private Map<String, Value> env;
+	
 	private JPanel panel;
 	
-	final int TEXTFIELD_SIZE = 20;
+	final int TEXTFIELD_SIZE = 15;
 	
 	public static JComponent render(Form form) {
 		
@@ -46,7 +51,7 @@ public class Renderer implements IStatementVisitor<Void> {
 		JLabel label = new JLabel(question.getLabel().getValue());
 		panel.add(label);
 		panel.add(widget,"wrap");
-		
+				
 		return null;
 		
 	}
