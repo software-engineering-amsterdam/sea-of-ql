@@ -1,13 +1,10 @@
 module lang::ql::compiler::GenerateHTMLForm
 
 import lang::ql::ast::AST;
-
-anno str ConditionalStatement@ref;
-anno str ElseIf@ref;
-anno str FormBodyItem@ref;
+import lang::ql::compiler::ExtractDependencies;
 
 public str generateHTMLForm(str ident,list[FormBodyItem] bodyItems){
-			   
+	dep=getDependenciesMap(bodyItems);		   
 	return
 	   "\<form name=\"<ident>\" method=\"POST\" \>
 	   ' <generateHTMLFormBody(bodyItems,"stats0")>
@@ -56,7 +53,7 @@ str generateHTMLCondBody(x:ifElseIfCond(Expr ifCondition,list[FormBodyItem] ifQu
     code+=generateHTMLFormBody(ifQuestions,"ifStats<x@ref>");
     
     for(elseBranch <- elseifBranch){
-        code+=generateHTMLCondBody(elseBranch,"elseIfStats<x@ref>e<elseCount>");
+        code+=generateHTMLCondBody(elseBranch,"elseIfStats<elseBranch@ref>");
         elseCount+=1;
     }
 	   
@@ -82,12 +79,12 @@ str generateHTMLQuestion(computedQuestion(str questionId, str questionLabel, Typ
 }
 
 str generateHTMLTextInput(str label,str varName,str id)=
-    "<label> : \<INPUT type=\"text\" name=\"<varName>\" id=\"<varName>\" \> \<br\>\n";
+    "<label> : \<INPUT type=\"text\" name=\"<varName>\" id=\"<varName>\" onchange=\"<varName>Trigger()\" \> \<br\>\n";
 		   
 str generateHTMLBooleanInput(str label,str varName,str id)=
-    "<label> : True\<INPUT type=\"radio\" name=\"<varName>\" id=\"<id>\" value=\"true\"\> 
-	           False\<INPUT type=\"radio\" name=\"<varName>\" id=\"<id>\" value=\"false\"\>\<br\>\n";
+    "<label> : True\<INPUT type=\"radio\" name=\"<varName>\" id=\"<varName>\" value=\"true\" onchange=\"<varName>Trigger()\"\> 
+	           False\<INPUT type=\"radio\" name=\"<varName>\" id=\"<varName>\" value=\"false\" onchange=\"<varName>Trigger()\"\>\<br\>\n";
 	
 str generateHTMLTextInputComputed(str label,str varName,str id)=
     "<label> : \<INPUT type=\"text\" name=\"<varName>\" id=\"<varName>\" 
-    			value=\"dwdw\" readonly=\"readonly\" \> \<br\>\n";	
+    			value=\"\" readonly=\"readonly\" onchange=\"<varName>Trigger()\" \> \<br\>\n";	
