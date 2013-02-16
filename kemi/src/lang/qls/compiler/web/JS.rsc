@@ -59,7 +59,7 @@ private str layoutJS(Definition d: pageDefinition(_, rules), str parentID) =
   '  .append(<pageName(d)>)
   '  .appendTo($(\"#<parentID>\"));
   '
-  '<for(def <- getChildSectionDefinitions(d) + getChildQuestionDefinitions(d)) {>
+  '<for(def <- getChildSectionsQuestions(d)) {>
   '<layoutJS(def, getUniqueID(d))>
   '<}>";
 
@@ -72,7 +72,7 @@ private str layoutJS(Definition d: sectionDefinition(_, rules), str parentID) =
   '  .append(<sectionName(d)>)
   '  .appendTo($(\"#<parentID>\"));
   '
-  '<for(def <- getChildSectionDefinitions(d) + getChildQuestionDefinitions(d)) {>
+  '<for(def <- getChildSectionsQuestions(d)) {>
   '<layoutJS(def, getUniqueID(d))>
   '<}>";
 

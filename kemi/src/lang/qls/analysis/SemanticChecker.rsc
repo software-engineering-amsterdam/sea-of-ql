@@ -11,7 +11,6 @@
 module lang::qls::analysis::SemanticChecker
 
 import IO;
-import Map;
 import lang::ql::analysis::State;
 import lang::ql::ast::AST;
 import lang::qls::analysis::Messages;
@@ -19,6 +18,7 @@ import lang::qls::analysis::StyleAttrChecker;
 import lang::qls::analysis::WidgetTypeChecker;
 import lang::qls::ast::AST;
 import lang::qls::util::StyleHelper;
+import Map;
 import util::IDE;
 import util::LocationHelper;
 
