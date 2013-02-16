@@ -18,6 +18,7 @@ import org.uva.sea.ql.ast.form.Question;
 import org.uva.sea.ql.ast.form.SingleLineElement;
 import org.uva.sea.ql.ast.types.Type;
 import org.uva.sea.ql.visitor.IElementVisitor;
+import org.uva.sea.ql.visitor.checkers.error.QLError;
 
 public class ElementChecker implements IElementVisitor {
 	

@@ -1,4 +1,4 @@
-package org.uva.sea.ql.interpreter;
+package org.uva.sea.ql.ui.qlform;
 
 import java.awt.Color;
 import java.awt.event.ActionEvent;
@@ -14,6 +14,8 @@ import javax.swing.SwingUtilities;
 
 import org.uva.sea.ql.ast.expr.values.BoolLit;
 import org.uva.sea.ql.ast.expr.values.Value;
+import org.uva.sea.ql.ui.qlform.interpreter.SwingGenerator;
+import org.uva.sea.ql.ui.qlform.interpreter.VariableUpdater;
 
 public class QLCheckBox implements ActionListener {
 
@@ -45,7 +47,7 @@ public class QLCheckBox implements ActionListener {
 		List<JPanel> questionList = new ArrayList<JPanel>();
 
 		JFrame frame = (JFrame) SwingUtilities.getRoot(chBox);
-		new SwingVisitor(questionList, varUpdater.getUpdatedValues()).regenerate(frame);
+		new SwingGenerator(questionList, varUpdater.getUpdatedValues()).regenerate(frame);
 
 	}
 

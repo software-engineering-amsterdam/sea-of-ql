@@ -1,4 +1,4 @@
-package org.uva.sea.ql.interpreter;
+package org.uva.sea.ql.ui.qlform.output;
 
 import java.awt.Component;
 import java.util.List;
@@ -10,6 +10,15 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JSpinner;
 import javax.swing.JTextField;
+
+import org.uva.sea.ql.ui.qlform.ComputedQuestionPanel;
+import org.uva.sea.ql.ui.qlform.QLCheckBox;
+import org.uva.sea.ql.ui.qlform.QLComputedField;
+import org.uva.sea.ql.ui.qlform.QLInputVerifier;
+import org.uva.sea.ql.ui.qlform.QLNumField;
+import org.uva.sea.ql.ui.qlform.QLSpinner;
+import org.uva.sea.ql.ui.qlform.QLTextField;
+import org.uva.sea.ql.ui.qlform.QuestionPanel;
 
 public class OutputData {
 	private final List<JPanel> questionPanelList;

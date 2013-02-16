@@ -1,4 +1,4 @@
-package org.uva.sea.ql.interpreter;
+package org.uva.sea.ql.ui.qlform.output;
 
 import java.util.ArrayList;
 import java.util.List;

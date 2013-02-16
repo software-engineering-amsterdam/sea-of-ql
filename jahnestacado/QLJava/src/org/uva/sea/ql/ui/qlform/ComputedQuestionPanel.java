@@ -1,4 +1,4 @@
-package org.uva.sea.ql.interpreter;
+package org.uva.sea.ql.ui.qlform;
 
 import java.util.Map;
 
@@ -14,6 +14,7 @@ import org.uva.sea.ql.ast.expr.values.IntegerLit;
 import org.uva.sea.ql.ast.expr.values.StringLit;
 import org.uva.sea.ql.ast.expr.values.Value;
 import org.uva.sea.ql.ast.form.ComputedQuestion;
+import org.uva.sea.ql.visitor.evaluator.ExprEvaluator;
 
 public class ComputedQuestionPanel {
 	private final JLabel label;

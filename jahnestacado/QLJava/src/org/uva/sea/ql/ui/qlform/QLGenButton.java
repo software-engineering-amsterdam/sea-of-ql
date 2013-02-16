@@ -1,4 +1,4 @@
-package org.uva.sea.ql.interpreter;
+package org.uva.sea.ql.ui.qlform;
 
 import java.awt.Color;
 import java.awt.event.ActionEvent;
@@ -8,6 +8,10 @@ import java.util.List;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+
+import org.uva.sea.ql.ui.qlform.output.OutputData;
+import org.uva.sea.ql.ui.qlform.output.QLOutputSelectorFrame;
+import org.uva.sea.ql.ui.qlform.output.QLOutputState;
 
 
 public class QLGenButton implements ActionListener {

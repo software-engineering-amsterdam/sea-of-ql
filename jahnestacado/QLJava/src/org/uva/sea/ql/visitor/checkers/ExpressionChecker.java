@@ -29,6 +29,7 @@ import org.uva.sea.ql.ast.expr.values.IntegerLit;
 import org.uva.sea.ql.ast.expr.values.StringLit;
 import org.uva.sea.ql.ast.types.Type;
 import org.uva.sea.ql.visitor.IExprVisitor;
+import org.uva.sea.ql.visitor.checkers.error.QLError;
 
 
 
@@ -334,7 +335,6 @@ public class ExpressionChecker implements IExprVisitor<Boolean> {
 	private boolean checkComparisonExpr(Binary node,String symbol){
 		Type leftExprType = node.getLeftExpr().isOfType(declaredVar);
 		Type rightExprType = node.getRightExpr().isOfType(declaredVar);
-		Type declaredType=getQuestionsType();
 		if (!(leftExprType.isCompatibleToType(rightExprType))) {
 			errorReport.add(new QLError("Invalid type for '"+symbol+"'. Both operands must be of the same type"));
 			return false;

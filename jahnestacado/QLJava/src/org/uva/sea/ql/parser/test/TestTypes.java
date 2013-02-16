@@ -15,7 +15,7 @@ import org.uva.sea.ql.ast.types.StringType;
 import org.uva.sea.ql.ast.types.Type;
 import org.uva.sea.ql.parser.antlr.ANTLRParser;
 import org.uva.sea.ql.visitor.checkers.ExpressionChecker;
-import org.uva.sea.ql.visitor.checkers.QLError;
+import org.uva.sea.ql.visitor.checkers.error.QLError;
 
 public class TestTypes {
 

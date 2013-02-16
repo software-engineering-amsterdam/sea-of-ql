@@ -1,4 +1,4 @@
-package org.uva.sea.ql.interpreter;
+package org.uva.sea.ql.ui.qlform;
 
 import java.awt.Dimension;
 import java.awt.ScrollPane;
@@ -18,7 +18,6 @@ public class QLScrollBar extends ScrollPane{
 		this.setSize(new Dimension(650,400));
 		this.setName(containerScrollPanelId);
 		this.setWheelScrollingEnabled(true);
-		
 	}
 	
 	public int getVerticalPosition(){

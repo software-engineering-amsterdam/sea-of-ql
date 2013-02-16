@@ -1,4 +1,4 @@
-package org.uva.sea.ql.interpreter;
+package org.uva.sea.ql.ui.qlform.output;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -15,7 +15,8 @@ import net.miginfocom.swing.MigLayout;
 
 import org.uva.sea.ql.output.generators.json.QLToJSON;
 import org.uva.sea.ql.output.generators.pdf.QLToPDF;
-import org.uva.sea.ql.swing.Renderer;
+import org.uva.sea.ql.ui.qlform.QLFrame;
+import org.uva.sea.ql.ui.qlform.renderer.Renderer;
 
 public class QLOutputSelectorFrame implements ActionListener{
 	private final JFrame dialog;

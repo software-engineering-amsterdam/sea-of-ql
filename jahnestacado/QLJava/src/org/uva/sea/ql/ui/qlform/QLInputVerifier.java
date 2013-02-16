@@ -1,4 +1,4 @@
-package org.uva.sea.ql.interpreter;
+package org.uva.sea.ql.ui.qlform;
 
 import java.awt.Color;
 import java.awt.Font;

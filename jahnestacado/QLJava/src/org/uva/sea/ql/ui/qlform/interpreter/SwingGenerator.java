@@ -1,4 +1,4 @@
-package org.uva.sea.ql.interpreter;
+package org.uva.sea.ql.ui.qlform.interpreter;
 
 import java.util.List;
 import java.util.Map;
@@ -22,17 +22,20 @@ import org.uva.sea.ql.ast.form.Question;
 import org.uva.sea.ql.ast.form.SingleLineElement;
 import org.uva.sea.ql.ast.types.Type;
 import org.uva.sea.ql.launcher.QLInputReader;
-import org.uva.sea.ql.swing.Renderer;
+import org.uva.sea.ql.ui.qlform.ComputedQuestionPanel;
+import org.uva.sea.ql.ui.qlform.QuestionPanel;
+import org.uva.sea.ql.ui.qlform.renderer.Renderer;
 import org.uva.sea.ql.visitor.IElementVisitor;
+import org.uva.sea.ql.visitor.evaluator.ExprEvaluator;
 
-public class SwingVisitor implements IElementVisitor{
+public class SwingGenerator implements IElementVisitor{
 	private final List<JPanel> questionPanelList;
 	private final Map<String,Value> declaredVar;
 	
 	
 	
 	
-	public SwingVisitor(List<JPanel> questionPanelList,Map<String,Value> declaredVar){
+	public SwingGenerator(List<JPanel> questionPanelList,Map<String,Value> declaredVar){
 		this.questionPanelList=questionPanelList;
 		this.declaredVar=declaredVar;
 		

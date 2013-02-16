@@ -1,4 +1,4 @@
-package org.uva.sea.ql.swing;
+package org.uva.sea.ql.ui.qlform.renderer;
 
 import java.awt.Component;
 import java.util.List;
@@ -6,9 +6,9 @@ import java.util.List;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-import org.uva.sea.ql.interpreter.QLContentPanel;
-import org.uva.sea.ql.interpreter.QLGenButton;
-import org.uva.sea.ql.interpreter.QLScrollBar;
+import org.uva.sea.ql.ui.qlform.QLContentPanel;
+import org.uva.sea.ql.ui.qlform.QLGenButton;
+import org.uva.sea.ql.ui.qlform.QLScrollBar;
 
 public class Renderer  {
 	public final static Component centerOfScreen=null;
