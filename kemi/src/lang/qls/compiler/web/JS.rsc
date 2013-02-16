@@ -11,24 +11,19 @@
 module lang::qls::compiler::web::JS
 
 import IO;
-import String;
-import util::StringHelper;
 import lang::ql::analysis::State;
 import lang::ql::ast::AST;
 import lang::qls::ast::AST;
 import lang::qls::util::StyleHelper;
-
-import lang::qls::util::ParseHelper;
+import String;
+import util::StringHelper;
 
 private str LABEL_CHOOSE = "Choose an answer";
 private str LABEL_TRUE = "Yes";
 private str LABEL_FALSE = "No";
 
-public void JS(Stylesheet sheet, loc dest) {
-  dest += "styling.js";
-  
-  writeFile(dest, JS(sheet));
-}
+public void JS(Stylesheet sheet, loc dest) =
+  writeFile(dest + "styling.js", JS(sheet));
 
 public str JS(Stylesheet s) =
   "function styling() {
@@ -52,53 +47,34 @@ private str blockIdent(Definition d) =
   "<d.ident>Block"
     when d is questionDefinition;
 
-private str layoutJS(Stylesheet s) {
-  str ret = "";
-  
-  for(d <- s.definitions) {
-    ret += "<layoutJS(d, getUniqueID(s))>";
-  }
-  
-  return ret;
-}
+private str layoutJS(Stylesheet s) =
+  "<for(d <- s.definitions) {><layoutJS(d, getUniqueID(s))><}>";
 
-private str layoutJS(Definition d: pageDefinition(_, rules), str parentID) {
-  str ret =
-    "$(\"\<div /\>\")
-    '  .attr({
-    '    id: \"<getUniqueID(d)>\",
-    '    class: \"page\"
-    '  })
-    '  .append(<pageName(d)>)
-    '  .appendTo($(\"#<parentID>\"));
-    '
-    '";
-  
-  for(Definition def <- getChildSectionDefinitions(d) + getChildQuestionDefinitions(d)) {
-    ret += "<layoutJS(def, getUniqueID(d))>";
-  }
-  
-  return ret;
-}
+private str layoutJS(Definition d: pageDefinition(_, rules), str parentID) =
+  "$(\"\<div /\>\")
+  '  .attr({
+  '    id: \"<getUniqueID(d)>\",
+  '    class: \"page\"
+  '  })
+  '  .append(<pageName(d)>)
+  '  .appendTo($(\"#<parentID>\"));
+  '
+  '<for(def <- getChildSectionDefinitions(d) + getChildQuestionDefinitions(d)) {>
+  '<layoutJS(def, getUniqueID(d))>
+  '<}>";
 
-private str layoutJS(Definition d: sectionDefinition(_, rules), str parentID) {
-  str ret =
-    "$(\"\<fieldset /\>\")
-    '  .attr({
-    '    id: \"<getUniqueID(d)>\",
-    '    class: \"section\"
-    '  })
-    '  .append(<sectionName(d)>)
-    '  .appendTo($(\"#<parentID>\"));
-    '
-    '";
-  
-  for(Definition def <- getChildSectionDefinitions(d) + getChildQuestionDefinitions(d)) {
-    ret += "<layoutJS(def, getUniqueID(d))>";
-  }
-  
-  return ret;
-}
+private str layoutJS(Definition d: sectionDefinition(_, rules), str parentID) =
+  "$(\"\<fieldset /\>\")
+  '  .attr({
+  '    id: \"<getUniqueID(d)>\",
+  '    class: \"section\"
+  '  })
+  '  .append(<sectionName(d)>)
+  '  .appendTo($(\"#<parentID>\"));
+  '
+  '<for(def <- getChildSectionDefinitions(d) + getChildQuestionDefinitions(d)) {>
+  '<layoutJS(def, getUniqueID(d))>
+  '<}>";
 
 private str layoutJS(Definition d, str parentID) =
   "$(\"#<blockIdent(d)>\")
@@ -111,17 +87,14 @@ private str styleJS(Stylesheet s) {
   Form f = getAccompanyingForm(s);
   TypeMap typeMap = getTypeMap(f);
 
-  ret = "";
-
-  for(k <- typeMap) {
-    rules = getStyleRules(k.ident, f, s);
-    ret += "//Question <k.ident>\n";
-    for(r:widgetStyleRule(_, _) <- rules) {
-      ret += "<styleJS(k.ident, r)>\n";
-    }
-  }
-
-  return ret;
+  return
+    "<for(IdentDefinition i <- typeMap) {>
+    '// Question <i.ident>
+    '<for(r:widgetStyleRule(_, _) <- getStyleRules(i.ident, f, s)) {>
+    '<styleJS(i.ident, r)>
+    '<}>
+    '<}>
+    '";
 }
 
 private str styleJS(str ident, StyleRule r: 
@@ -308,8 +281,8 @@ private str getUniqueID(Stylesheet s) =
 
 private str getUniqueID(Definition d: pageDefinition(ident, _)) =
   "page_<split(" ", trimQuotes(ident))[0]>_" +
-    "<d@location.begin.line>_<d@location.begin.column>";
+  "<d@location.begin.line>_<d@location.begin.column>";
 
 private str getUniqueID(Definition d: sectionDefinition(ident, _)) =
   "section_<split(" ", trimQuotes(ident))[0]>_" +
-    "<d@location.begin.line>_<d@location.begin.column>";
+  "<d@location.begin.line>_<d@location.begin.column>";
