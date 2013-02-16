@@ -126,8 +126,11 @@ public class QLLexer implements QLTokens {
 			case '-':
 			case ':':
 			case ';':
+			case '!':
 				nextChar();
 				return token = cOld;
+				//nextChar();
+				//return token = '!';
 
 			case '*': {
 				nextChar();
@@ -155,9 +158,6 @@ public class QLLexer implements QLTokens {
 				}
 				throw new RuntimeException("Unexpected character: " + (char) c);
 			}
-			case '!':
-				nextChar();
-				return token = '!';
 			case '<': {
 				nextChar();
 				if (c == '=') {
@@ -171,7 +171,11 @@ public class QLLexer implements QLTokens {
 				if (c == '=') {
 					return token = EQ;
 				}
-				throw new RuntimeException("Unexpected character: " + (char) c);
+				else {
+					nextChar();
+					return token = '=';
+				}
+				//throw new RuntimeException("Unexpected character: " + (char) c);
 			}
 			case '>': {
 				nextChar();
@@ -195,7 +199,8 @@ public class QLLexer implements QLTokens {
 						n = 10 * n + (c - '0');
 						nextChar();
 					} while (Character.isDigit(c));
-					yylval = new Int(n);
+					yylval = new ast.expression.value.Int(n);
+					System.out.println("FOUND");
 					return token = INT;
 				}
 				if (Character.isLetter(c)) {

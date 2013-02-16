@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import ast.Expression;
+import ast.Form;
 import ast.Type;
 import ast.expression.Binary;
 import ast.expression.binary.*;
@@ -303,6 +304,54 @@ public class CheckExpr implements Visitor<Boolean> {
 
 	@Override
 	public Boolean visit(Var ast) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Boolean visit(ast.type.Bool ast) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Boolean visit(ast.type.Str ast) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Boolean visit(Ident ast) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Boolean visit(Int ast) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Boolean visit(Message ast) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Boolean visit(ast.type.Money ast) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Boolean visit(Numeric ast) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Boolean visit(Block ast) {
 		// TODO Auto-generated method stub
 		return null;
 	}

@@ -8,14 +8,9 @@ import ast.expression.Unary;
 import ast.visitor.Visitor;
 
 public class Not extends Unary {
-	private final int level = 6;
 
 	public Not(Expression expr) {
 		super(expr);
-	}
-
-	public int getLevel() {
-		return level;
 	}
 	
 	@Override

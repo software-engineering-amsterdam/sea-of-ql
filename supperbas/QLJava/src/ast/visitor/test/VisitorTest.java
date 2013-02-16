@@ -34,7 +34,9 @@ public class VisitorTest {
 	
 	@Test
 	public void test() throws ParseError {
-		String program = " form Box1HouseOwning { \"Did you\" hasMaintLoan: boolean }"; /*+
+		String program = " form Box1HouseOwning { a : integer a = 52 b : integer  }"; /* a : integer "+
+	"a = 52"+
+				" b : int }"; /* \"Did you\" hasMaintLoan: boolean }"; /*+
 				"\"Did you sell a house in 2010?\" hasSoldHouse: boolean }"; /* +
 				"\"Did you by a house in 2010?\" hasBoughtHouse: boolean "+
 				"\"Did you enter a loan for maintenance/reconstruction?\" "+

@@ -8,14 +8,9 @@ import ast.expression.Binary;
 import ast.visitor.Visitor;
 
 public class Or extends Binary {
-	private final int level = 1;
 
 	public Or(Expression lhs, Expression rhs) {
 		super(lhs, rhs);
-	}
-
-	public int getLevel() {
-		return level;
 	}
 
 	@Override
