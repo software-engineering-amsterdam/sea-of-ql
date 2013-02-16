@@ -1,9 +1,8 @@
 package org.uva.sea.ql.ast.statement;
 
-import org.uva.sea.ql.ast.INode;
+import org.uva.sea.ql.ast.Node;
+import org.uva.sea.ql.visitor.StatementVisitor;
 
-/**
- * Represents a statement.
- */
-abstract public class Statement implements INode {
+abstract public class Statement extends Node {
+	abstract public <T> T accept( StatementVisitor<T> visitor );
 }

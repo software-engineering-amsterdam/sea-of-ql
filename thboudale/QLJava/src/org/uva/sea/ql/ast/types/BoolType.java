@@ -3,8 +3,8 @@ package org.uva.sea.ql.ast.types;
 public class BoolType extends Type {
 	private final String bType;
 	
-	public BoolType(String bType) {
-		this.bType = bType;
+	public BoolType() {
+		this.bType = "boolean";
 	}
 	
 	public String getBType() {

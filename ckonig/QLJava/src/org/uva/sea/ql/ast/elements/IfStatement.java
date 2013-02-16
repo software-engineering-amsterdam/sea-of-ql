@@ -1,48 +1,35 @@
 package org.uva.sea.ql.ast.elements;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import org.uva.sea.ql.ast.BinaryExpr;
-import org.uva.sea.ql.ast.Expr;
-import org.uva.sea.ql.visitor.ASTElement;
-import org.uva.sea.ql.visitor.ASTVisitor;
-import org.uva.sea.ql.visitor.VisitorException;
+import org.uva.sea.ql.ast.expressions.Expr;
+import org.uva.sea.ql.common.ElementVisitor;
+import org.uva.sea.ql.common.VisitorException;
 
-public class IfStatement extends Expr implements ASTElement {
+public class IfStatement extends BlockElement {
 	private Expr condition;
 	private Block content;
 
-	public IfStatement(Expr condition, Block content) {
-		this.condition = condition;
-		this.content = content;
+	public IfStatement(Expr cond, Block block) {
+		this.condition = cond;
+		this.content = block;
 	}
 
-	public Expr getCondition() {
-		return condition;
+	public final Expr getCondition() {
+		return this.condition;
 	}
 
-	public Block getContent() {
-		return content;
+	public final Block getContent() {
+		return this.content;
 	}
 
 	@Override
-	public void accept(ASTVisitor visitor) throws VisitorException{
+	public final void accept(ElementVisitor visitor) throws VisitorException {
 		visitor.visit(this);
 	}
-	public List<Ident> getIdents(){
-		return getIdents(condition);
+
+	public final List<Ident> getIdents() {
+		return Ident.getIdents(this.condition);
 	}
-	private List<Ident> getIdents(Expr e) {
-		List<Ident> idents = new ArrayList<>();
-		if (e.getClass().equals(Ident.class)) {
-			idents.add((Ident) e);
-		}
-		if (e instanceof BinaryExpr) {
-			BinaryExpr b = (BinaryExpr) e;
-			idents.addAll(getIdents(b.getLeft()));
-			idents.addAll(getIdents(b.getRight()));
-		}
-		return idents;
-	}
+
 }

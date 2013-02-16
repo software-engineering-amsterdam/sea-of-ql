@@ -14,14 +14,14 @@ import org.uva.sea.ql.parser.jacc.JACCParser;
 
 import org.uva.sea.ql.ast.Ident;
 import org.uva.sea.ql.ast.Int;
-import org.uva.sea.ql.ast.operators.numeric.Add;
-import org.uva.sea.ql.ast.operators.numeric.Div;
-import org.uva.sea.ql.ast.operators.numeric.Mul;
-import org.uva.sea.ql.ast.operators.numeric.Sub;
+import org.uva.sea.ql.ast.operators.binary.numeric.Add;
+import org.uva.sea.ql.ast.operators.binary.numeric.Div;
+import org.uva.sea.ql.ast.operators.binary.numeric.Mul;
+import org.uva.sea.ql.ast.operators.binary.numeric.Sub;
+import org.uva.sea.ql.ast.operators.binary.relational.GT;
+import org.uva.sea.ql.ast.operators.binary.relational.LEq;
+import org.uva.sea.ql.ast.operators.binary.relational.LT;
 
-import org.uva.sea.ql.ast.operators.relational.GT;
-import org.uva.sea.ql.ast.operators.relational.LEq;
-import org.uva.sea.ql.ast.operators.relational.LT;
 
 
 @RunWith(Parameterized.class)

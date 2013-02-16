@@ -5,28 +5,46 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
+import javax.swing.JFrame;
+
 import org.uva.sea.ql.ast.form.Question;
-import org.uva.sea.ql.parser.antlr.FormParser;
 import org.uva.sea.ql.parser.test.ParseError;
-import org.uva.sea.ql.visitor.print.Form;
+import org.uva.sea.ql.parser.test.form.Parser;
 
 public class Program {
+	private final static int FormLocation = 0;
 
 	public static void main(String[] args) {
-		String formText = Program.readResourceContent("questionForm.txt");
+		if (args.length != 1) {
+			throw new IllegalArgumentException("Example use: Program form.ql");
+		}
+
+		String formText = Program
+				.readResourceContent(args[Program.FormLocation]);
 
 		Question questionForm = null;
 
 		try {
-			FormParser formParser = new FormParser();
+			Parser formParser = new Parser();
 			questionForm = formParser.parseQuestionForm(formText);
 		} catch (ParseError e) {
-			// TODO Create meaningful error messages during parsing.
+			System.out.println("Parsing has failed:");
 			e.printStackTrace();
+			return;
 		}
 
-		Form printFormVisitor = new Form();
-		questionForm.accept(printFormVisitor);
+		org.uva.sea.ql.visitor.semantic.Form semanticFormVistor = new org.uva.sea.ql.visitor.semantic.Form();
+		Boolean isFormValid = questionForm.accept(semanticFormVistor);
+		if (!isFormValid) {
+			System.out.println("Form is invalid:");
+			for (String error : semanticFormVistor.getErrors()) {
+				System.out.println(error);
+			}
+		} else {
+			org.uva.sea.ql.visitor.eval.Form swingVisitor = new org.uva.sea.ql.visitor.eval.Form();
+			JFrame frame = questionForm.accept(swingVisitor);
+			frame.setVisible(true);
+		}
 	}
 
 	private static String readResourceContent(String location) {

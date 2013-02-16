@@ -1,25 +1,22 @@
 package org.uva.sea.ql.ast;
 
-import org.uva.sea.ql.ast.expr.Expr;
+import org.uva.sea.ql.ast.expression.Expression;
 
-public class If implements FormElement {
+public class If implements Statement {
 	
-	private final Expr condition;
-	private final FormElement ifBody;
-	private final FormElement elseBody;
+	private final Expression condition;
+	private final Statement ifBody;
 	
-	public If(Expr condition, FormElement ifBody, FormElement elseBody) {
+	public If(Expression condition, Statement ifBody) {
 		this.condition = condition;
 		this.ifBody = ifBody;
-		this.elseBody = elseBody;
 	}
 	
-	public Expr getCondition() { return condition; }
-	public FormElement getIfBody() { return ifBody; }
-	public FormElement getElseBody() { return elseBody; }
+	public Expression getCondition() { return condition; }
+	public Statement getIfBody() { return ifBody; }
 
 	@Override
-	public <ReturnType, ParameterType> ReturnType accept(ASTNodeVisitor<ReturnType, ParameterType> visitor, ParameterType param) {
+	public <ReturnType, ParameterType> ReturnType accept(StatementVisitor<ReturnType, ParameterType> visitor, ParameterType param) {
 		return visitor.visit(this, param);
 	}	
 }

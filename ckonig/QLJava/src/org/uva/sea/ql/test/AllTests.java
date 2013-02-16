@@ -8,5 +8,7 @@ import org.junit.runners.Suite.SuiteClasses;
 @SuiteClasses({ TestComparisons.class, TestFields.class,
 		TestLogical.class, TestMath.class, TestAssignments.class, TestValidator.class, TestHtmlGenerator.class })
 public class AllTests {
-
+    public AllTests(){
+        
+    }
 }

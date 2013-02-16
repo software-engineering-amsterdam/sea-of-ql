@@ -1,20 +1,30 @@
 package org.uva.sea.ql.ast.literal;
 
-import org.uva.sea.ql.ast.Expr;
+import java.util.List;
 
-public class StringLiteral extends Expr {
-	private final String value;
+import org.uva.sea.ql.ast.elements.Question;
+import org.uva.sea.ql.ast.expressions.Expr;
+import org.uva.sea.ql.ast.interfaces.ReturnTypes;
+import org.uva.sea.ql.ast.interfaces.Returns;
 
-	public StringLiteral(String s) {
-		this.value = s.replace("\"", "");
-	}
+public class StringLiteral extends Expr implements Returns {
+    private final String value;
 
-	public String getValue() {
-		return this.value;
-	}
+    public StringLiteral(String s) {
+        this.value = s.replace("\"", "");
+    }
 
-	@Override
-	public String toString() {
-		return this.value;
-	}
+    public final String getValue() {
+        return this.value;
+    }
+
+    @Override
+    public final String toString() {
+        return this.value;
+    }
+
+    @Override
+    public ReturnTypes getReturnType(List<Question> questions) {
+        return ReturnTypes.OTHER;
+    }
 }

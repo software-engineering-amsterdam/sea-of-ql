@@ -6,32 +6,54 @@ import java.util.HashMap;
 import java.util.Map;
 
 import ast.ASTNode;
-import ast.exprs.value.*;
-
+import ast.expression.value.*;
 
 public class QLLexer implements QLTokens {
 	private static final Map<String, Integer> KEYWORDS;
 
 	static {
 		KEYWORDS = new HashMap<String, Integer>();
+		KEYWORDS.put("form", FORM);
+		KEYWORDS.put("money", MONEY);
+		KEYWORDS.put("integer", tInt);
+		KEYWORDS.put("string", tStr);
+		KEYWORDS.put("if", IF);
+		KEYWORDS.put("else", ELSE);
+		KEYWORDS.put("boolean", tBool);
+		KEYWORDS.put("true", TRUE);
+		KEYWORDS.put("false", FALSE);
 	}
 
 	private int token;
 	private int c = ' ';
+	private int cOld = ' ';
+	private int line;
+	private int column;
+	public char[] tempStr;
 
 	private ASTNode yylval;
 	private final Reader input;
 
 	public QLLexer(Reader input) {
 		this.input = input;
+		line = 1;
+		column = 0;
 		nextChar();
 	}
 
 	private void nextChar() {
 		if (c >= 0) {
 			try {
+				cOld = c;
 				c = input.read();
-				System.out.println(c);
+				System.out.print((char) c);
+				if (c == '\n') {
+					System.out.println();
+					line++;
+					column = 0;
+				}
+				column++;
+				// System.out.println(c);
 			} catch (IOException e) {
 				c = -1;
 			}
@@ -41,6 +63,7 @@ public class QLLexer implements QLTokens {
 
 	public int nextToken() {
 		boolean inComment = false;
+		boolean inQuestion = false;
 		for (;;) {
 			if (inComment) {
 				while (c != '*' && c != -1) {
@@ -55,10 +78,25 @@ public class QLLexer implements QLTokens {
 					continue;
 				}
 			}
+			
+			if (inQuestion) {
+				while (c != '"' && c != -1) {
+					tempStr[tempStr.length] = (char)c; 
+					nextChar();
+				}
+				if (c == '"') {
+					nextChar();
+					inQuestion = false;
+					yylval = new Str(tempStr.toString());
+					return token = tStr;
+				}else{
+					throw new RuntimeException("Unexpected ENDINPUT"); 
+				}
+			}
 
 			while (c == ' ' || c == '\t' || c == '\n' || c == '\r') {
 				nextChar();
-				System.out.println("WS");
+				// System.out.println("WS");
 			}
 
 			if (c < 0) {
@@ -72,15 +110,25 @@ public class QLLexer implements QLTokens {
 					inComment = true;
 					nextChar();
 					continue;
+				} else if (c == '/') {
+					nextChar();
+					while (c != '\n' || c != ENDINPUT)
+						nextChar();
+					continue;
 				}
 				return token = '/';
 			}
 			case ')':
-				nextChar();
-				return token = ')';
 			case '(':
+			case '{':
+			case '}':
+			case '+':
+			case '-':
+			case ':':
+			case ';':
 				nextChar();
-				return token = '(';
+				return token = cOld;
+
 			case '*': {
 				nextChar();
 				if (inComment && c == '/') {
@@ -90,12 +138,7 @@ public class QLLexer implements QLTokens {
 				}
 				return token = '*';
 			}
-			case '+':
-				nextChar();
-				return token = '+';
-			case '-':
-				nextChar();
-				return token = '-';
+			
 			case '&': {
 				nextChar();
 				if (c == '&') {
@@ -138,6 +181,13 @@ public class QLLexer implements QLTokens {
 				}
 				return token = '>';
 			}
+			
+			case '"':{
+				inQuestion = true;
+				tempStr = null;
+				nextChar();
+			}
+			
 			default: {
 				if (Character.isDigit(c)) {
 					int n = 0;
@@ -156,6 +206,7 @@ public class QLLexer implements QLTokens {
 					} while (Character.isLetterOrDigit(c));
 					String name = sb.toString();
 					if (KEYWORDS.containsKey(name)) {
+						System.out.println("FOUND!");
 						return token = KEYWORDS.get(name);
 					}
 					yylval = new Ident(name);
@@ -173,6 +224,14 @@ public class QLLexer implements QLTokens {
 
 	public ASTNode getSemantic() {
 		return yylval;
+	}
+
+	public int getLine() {
+		return line;
+	}
+
+	public int getColumn() {
+		return column;
 	}
 
 }

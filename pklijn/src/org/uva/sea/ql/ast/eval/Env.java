@@ -4,14 +4,15 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.uva.sea.ql.ast.expressions.Ident;
+import org.uva.sea.ql.ast.types.NotDefinedType;
 import org.uva.sea.ql.ast.types.Type;
-//import org.uva.sea.ql.ast.values.Value;
+import org.uva.sea.ql.ast.values.Value;
 
 public class Env {
 	
 	private final Env parent;
-	private Map<Ident, Type> types;
-//	private Map<Ident, Value> values; //TODO: add values here!
+	private final Map<Ident, Type> types;
+	private final Map<Ident, Value> values;
 	
 	public Env() {
 		this(null);
@@ -20,7 +21,7 @@ public class Env {
 	public Env(Env parent) {
 		this.parent = parent;
 		types = new HashMap<Ident, Type>();
-//		values = new HashMap<Ident, Value>();
+		values = new HashMap<Ident, Value>();
 	}
 	
 	public Env getParent() {
@@ -33,17 +34,50 @@ public class Env {
 		else if (parent != null)
 			return parent.typeOf(ident);
 		else 
-			return null;
+			return new NotDefinedType();
+	}
+	
+	public boolean hasIdent(Ident ident) {
+		if (types.containsKey(ident))
+			return true;
+		else if (parent != null)
+			return parent.hasIdent(ident);
+		return false;
 	}
 	
 	public void addIdent(Ident ident, Type type) {
-		if (!types.containsKey(ident)) {
-			types.put(ident, type);
+		types.put(ident, type);
+	}
+	
+	public void addValue(Ident ident, Value value) {
+		if (hasValue(ident)) {
+			if (types.containsKey(ident))
+				values.put(ident, value);
+			else if (parent != null)
+				parent.addValue(ident, value);
 		}
-		else if (types.containsKey(ident)) {
-			if (types.get(ident) != type) {
-				throw new RuntimeException("Ident " + ident.getName() + " already exists but has different type");
-			}
+		else {
+			values.put(ident, value);
+		}
+	}
+	
+	public boolean hasValue(Ident ident) {
+		if (values.containsKey(ident))
+			return true;
+		else if (parent != null)
+			return parent.hasValue(ident);
+		return false;
+	}
+	
+	public Value getValue(Ident ident) {
+		if (hasValue(ident)) {
+			if (values.containsKey(ident))
+				return values.get(ident);
+			else if (parent != null)
+				return parent.getValue(ident);
+			throw new IllegalArgumentException("The ident " + ident.getName() + " does not exist in the values of this environment");
+		} else {
+			throw new IllegalArgumentException("The ident " + ident.getName() + " does not exist in the values of this environment");
 		}
 	}
 }

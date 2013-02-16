@@ -2,25 +2,15 @@ package org.uva.sea.ql.ast.primitive;
 
 import org.uva.sea.ql.ast.Primitive;
 import org.uva.sea.ql.ast.types.Type;
-import org.uva.sea.ql.interfaces.IVisitor;
+import org.uva.sea.ql.interfaces.IVisitorExpr;
 import org.uva.sea.ql.util.Environment;
 
 public class Int extends Primitive {
 
-	private Integer value;
-	
-	public Int(){
-		value = null;
-	}
-	
+	private int value;
 	
 	public Int(int n){
 		value = n;
-	}
-
-
-	public boolean isDefined(){
-		return value != null;
 	}
 	
 	
@@ -35,7 +25,7 @@ public class Int extends Primitive {
 	
 	
 	@Override
-	public <T> T accept(IVisitor<T> visitor) {
+	public <T> T accept(IVisitorExpr<T> visitor) {
 		return visitor.visit(this);
 	}	
 }

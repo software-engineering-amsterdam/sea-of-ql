@@ -2,25 +2,24 @@ package org.uva.sea.ql.ast.stmt.question;
 
 import org.uva.sea.ql.ast.expr.Expr;
 import org.uva.sea.ql.ast.expr.primary.Ident;
-import org.uva.sea.ql.ast.stmt.Question;
-import org.uva.sea.ql.ast.type.Type;
-import org.uva.sea.ql.visitor.FormVisitor;
+import org.uva.sea.ql.type.Type;
+import org.uva.sea.ql.visitor.IFormVisitor;
 
 public class ComputedQuestion extends Question {
 
-	private final Expr computation;
+	private final Expr expression;
 	
-	public ComputedQuestion(Ident id, String label, Type type, Expr computation) {
-		super(id, label, type);
-		this.computation = computation;
+	public ComputedQuestion(Ident id, String label, Type tp, Expr expression) {
+		super(id, label, tp);
+		this.expression = expression;
 	}
 
-	public Expr getComputation() {
-		return computation;
+	public Expr getExpr() {
+		return expression;
 	}
 	
 	@Override
-	public void accept(FormVisitor visitor) {
+	public void accept(IFormVisitor visitor) {
 		visitor.visit(this);
 	}
 }

@@ -9,6 +9,7 @@ import org.uva.sea.ql.ast.bool.*;
 import org.uva.sea.ql.ast.types.*;
 import org.uva.sea.ql.ast.math.*;
 import org.uva.sea.ql.ast.literal.*;
+import org.uva.sea.ql.ast.expressions.*;
 import org.uva.sea.ql.ast.elements.*;
 }
 
@@ -17,13 +18,13 @@ import org.uva.sea.ql.ast.elements.*;
 package org.uva.sea.ql.parser.antlr;
 }
 
-parse returns [Expr result]
+parse returns [Form result]
 :	 formDefinition EOF {$result = $formDefinition.result;};
 
-formDefinition returns [Expr result]
+formDefinition returns [Form result]
 	:	 Form formDeclaration {$result = $formDeclaration.result;};
 	
-formDeclaration returns [Expr result]
+formDeclaration returns [Form result]
 : 	FormIdent LEFTCBR blockContent RIGHTCBR {$result = new Form($FormIdent.text, $blockContent.result);};
 
 blockContent returns [Block result]
@@ -35,16 +36,16 @@ blockContent returns [Block result]
 : (blockLine {if($blockLine.result != null) {$result.addLine($blockLine.result);}} )* 
 ;
 	
-blockLine returns [Expr result]
+blockLine returns [BlockElement result]
 :  question {$result = $question.result;}
 | ifStatement {$result = $ifStatement.result;}
 ;
 
-question returns [Expr result]
+question returns [Question result]
 : Ident Assign String type {$result = new Question(new Ident($Ident.text), new StringLiteral($String.text), $type.result);}
 ;
 
-ifStatement returns [Expr result]
+ifStatement returns [IfStatement result]
 : 'if' LEFTBR orExpr RIGHTBR LEFTCBR blockContent RIGHTCBR {$result = new IfStatement($orExpr.result, $blockContent.result);}
 ;
 

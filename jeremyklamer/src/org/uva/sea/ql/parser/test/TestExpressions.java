@@ -12,16 +12,13 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
 import org.uva.sea.ql.ast.Add;
-import org.uva.sea.ql.ast.Expr;
 import org.uva.sea.ql.ast.Ident;
 import org.uva.sea.ql.ast.Int;
 import org.uva.sea.ql.ast.LT;
 import org.uva.sea.ql.ast.Mul;
-import org.uva.sea.ql.ast.type.BoolType;
 import org.uva.sea.ql.ast.type.Type;
+import org.uva.sea.ql.interpreter.IntVal;
 import org.uva.sea.ql.parser.antlr.ANTLRParser;
-
-import com.sun.org.apache.bcel.internal.generic.NEW;
 
 @RunWith(Parameterized.class)
 public class TestExpressions {
@@ -93,8 +90,56 @@ public class TestExpressions {
 	}
 	
 	@Test
-	public void testTypes() throws ParseError {
-
+	public void testCalcs() throws ParseError {
+		assertEquals(new Integer(32) , ((IntVal)parser.parse("8 * 4").interpret()).getVal());
+		assertEquals(new Integer(11) , ((IntVal)parser.parse("1 - 4 / 2 + 12").interpret()).getVal());
+		assertEquals(new Integer(45) , ((IntVal)parser.parse("3 - 18 + 15 * 4").interpret()).getVal());
+		assertEquals(new Integer(-30) , ((IntVal)parser.parse("(3 - 18) * 2").interpret()).getVal());
+		assertEquals(new Integer(-30) , ((IntVal)parser.parse("(3 - 18) * 2").interpret()).getVal());
+	}
+	
+	@Test
+	public void testUnaryTypes() throws ParseError {
+		Map<Ident, Type> testMap = new HashMap<Ident, Type>();
+		assertEquals(0 , parser.parse("3").checkType(testMap).size());
+		assertEquals(0 , parser.parse("-3").checkType(testMap).size());
+		assertEquals(0 , parser.parse("+3").checkType(testMap).size());
+		assertEquals(0 , parser.parse("true").checkType(testMap).size());
+		assertEquals(0 , parser.parse("!true").checkType(testMap).size());
+		assertEquals(1 , parser.parse("!3").checkType(testMap).size());
+		assertEquals(1 , parser.parse("+true").checkType(testMap).size());
+		assertEquals(1 , parser.parse("-true").checkType(testMap).size());
+	}
+	
+	@Test
+	public void testBinaryTypes() throws ParseError {
+		Map<Ident, Type> testMap = new HashMap<Ident, Type>();
+		assertEquals(0 , parser.parse("3 + 3").checkType(testMap).size());
+		assertEquals(0 , parser.parse("3 * 3").checkType(testMap).size());
+		assertEquals(0 , parser.parse("3 / 3").checkType(testMap).size());
+		assertEquals(0 , parser.parse("3 - 3").checkType(testMap).size());
+		assertEquals(0 , parser.parse("3 <= 3").checkType(testMap).size());
+		assertEquals(0 , parser.parse("3 < 3").checkType(testMap).size());
+		assertEquals(0 , parser.parse("3 == 3").checkType(testMap).size());
+		assertEquals(0 , parser.parse("3 > 3").checkType(testMap).size());
+		assertEquals(0 , parser.parse("3 >= 3").checkType(testMap).size());
+		assertEquals(0 , parser.parse("3 != 3").checkType(testMap).size());
+		assertEquals(0 , parser.parse("true && true").checkType(testMap).size());
+		assertEquals(0 , parser.parse("true || true").checkType(testMap).size());
+		
+		assertEquals(1 , parser.parse("3 + true").checkType(testMap).size());
+		assertEquals(1 , parser.parse("3 * true").checkType(testMap).size());
+		assertEquals(1 , parser.parse("3 / true").checkType(testMap).size());
+		assertEquals(1 , parser.parse("3 - true").checkType(testMap).size());
+		assertEquals(1 , parser.parse("3 <= true").checkType(testMap).size());
+		assertEquals(1 , parser.parse("3 < true").checkType(testMap).size());
+		assertEquals(1 , parser.parse("3 == true").checkType(testMap).size());
+		assertEquals(1 , parser.parse("3 > true").checkType(testMap).size());
+		assertEquals(1 , parser.parse("3 >= true").checkType(testMap).size());
+		assertEquals(1 , parser.parse("3 != true").checkType(testMap).size());
+		assertEquals(1 , parser.parse("3 && true").checkType(testMap).size());
+		assertEquals(1 , parser.parse("3 || true").checkType(testMap).size());
+		assertEquals(2 , parser.parse("3 + true * 8 - true + 3").checkType(testMap).size());
 	}
 	
 }

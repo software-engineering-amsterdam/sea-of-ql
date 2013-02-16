@@ -1,8 +1,14 @@
-// Output created by jacc on Mon Jan 21 14:19:54 CET 2013
+// Output created by jacc on Fri Jan 25 22:23:19 CET 2013
 
 package org.uva.sea.ql.parser.jacc;
 
 import org.uva.sea.ql.ast.*;
+import org.uva.sea.ql.ast.datatype.*;
+import org.uva.sea.ql.ast.expression.*;
+import org.uva.sea.ql.ast.expression.binary.*;
+import org.uva.sea.ql.ast.expression.literal.*;
+import org.uva.sea.ql.ast.expression.unary.*;
+import org.uva.sea.ql.ast.statement.*;
 
 class QLParser implements QLTokens {
     private int yyss = 100;
@@ -2200,21 +2206,6 @@ class QLParser implements QLTokens {
 
     protected String[] yyerrmsgs = {
     };
-
-//TODO: remove before production
-private void printNode(String item, ASTNode node) {
-        System.out.print("$" + item + " = " + node.getClass() + " (");
-
-        if (node.getClass() == Question.class) {
-          System.out.print(((Question)node).getIdentifier().getName());
-        } else if (node.getClass() == StatementList.class) {
-          System.out.print("StatementList");
-        } else {
-          System.out.print("something else : " + node.toString());
-        }
-        
-        System.out.println(")");
-}
 
 private QLLexer lexer; 
 private ASTNode result;

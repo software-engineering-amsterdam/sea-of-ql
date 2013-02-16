@@ -11,7 +11,11 @@ options
 {
 	package org.uva.sea.ql.parser;
 	import org.uva.sea.ql.ast.Node;
+	import org.uva.sea.ql.ast.statement.IfNode;
+	import org.uva.sea.ql.ast.statement.BlockNode;
+	import org.uva.sea.ql.ast.statement.AssignmentNode;
 	import org.uva.sea.ql.ast.expression.ExprNode;
+	import org.uva.sea.ql.ast.expression.impl.ValueNode;
 	import org.uva.sea.ql.ast.expression.impl.AddNode;
 	import org.uva.sea.ql.ast.expression.impl.AndNode;
 	import org.uva.sea.ql.ast.expression.impl.OrNode;
@@ -27,11 +31,17 @@ options
 	import org.uva.sea.ql.ast.expression.impl.NotNode;
 	import org.uva.sea.ql.ast.expression.impl.NegateNode;
 	import org.uva.sea.ql.ast.expression.impl.IdentifierNode;
-	import org.uva.sea.ql.ast.value.ValueNode;
-	import org.uva.sea.ql.ast.value.impl.IntegerNode;
-	import org.uva.sea.ql.ast.value.impl.BooleanNode;
-	import org.uva.sea.ql.ast.value.impl.MoneyNode;
-	import org.uva.sea.ql.ast.value.impl.StringNode;
+	import org.uva.sea.ql.VariableScope;
+	import org.uva.sea.ql.value.Value;
+	import org.uva.sea.ql.value.impl.IntegerValue;
+	import org.uva.sea.ql.value.impl.BooleanValue;
+	import org.uva.sea.ql.value.impl.MoneyValue;
+	import org.uva.sea.ql.value.impl.StringValue;
+}
+
+@members
+{
+    VariableScope currentScope = new VariableScope();
 }
 
 walk
@@ -39,30 +49,51 @@ walk
     ;   
    
 form
-	:	^(FORM Identifier ^(STATEMENTS statementBlock*))
+	:	^(FORM Identifier ^(BLOCK block))
 	;
 
-statementBlock
-	:	ifStatement
-		| assignmentStatement
+block returns [Node node]
+@init
+{
+    final BlockNode blockNode = new BlockNode();
+    $node = blockNode;
+    final VariableScope scope = new VariableScope(this.currentScope);
+    currentScope = scope;
+}
+@after
+{
+    currentScope = currentScope.getParent();
+}
+    :   (statement { blockNode.addStatement($statement.node); })*
+    ;
+
+statement returns [Node node]
+	:	ifStatement { $node = $ifStatement.node; }
+		| assignmentStatement { $node = $assignmentStatement.node; }
 	;
 
-ifStatement
+ifStatement returns [Node node]
+@init
+{
+    final IfNode ifNode = new IfNode();
+    $node = ifNode;
+}
 	:   ^(IF
-	        (^(EXPRESSION expression ^(STATEMENTS statementBlock+)))+
-	        (^(EXPRESSION ^(STATEMENTS statementBlock+)))
+	        (^(EXPRESSION expression ^(BLOCK b1=block)) { ifNode.addBranch($expression.node, $b1.node); })+
+	        (^(EXPRESSION ^(BLOCK b2=block)) { ifNode.addBranch(new ValueNode(new BooleanValue("true")), $b2.node); })?
 	     )
 	;
 
-assignmentStatement
-	:	^(ASSIGNMENT Identifier type)
+assignmentStatement returns [Node node]
+	:	^(ASSIGNMENT Identifier type) // TODO check !! { $node = new AssignmentNode($Identifier.text, $type.node, currentScope); }
 	;
 
-type
-	:	'boolean'
-		| 'integer'
-		| 'string'
-		| 'money'
+type returns [Node node]
+// TODO check with immutable value object
+	:	'boolean' {$node = new ValueNode(new BooleanValue("false")); }
+		| 'integer' {$node = new ValueNode(new IntegerValue(0)); }
+		| 'string' {$node = new ValueNode(new StringValue(""));}
+		| 'money' {$node = new ValueNode(new MoneyValue("0"));}
 	;
 
 expression returns [ExprNode node]
@@ -80,10 +111,10 @@ expression returns [ExprNode node]
     |   ^('/' lhs=expression rhs=expression) {$node = new DivideNode($lhs.node, $rhs.node);}
     |   ^(NOT op=expression) {$node = new NotNode($op.node);}
     |   ^(NEGATION op=expression) {$node = new NegateNode($op.node);}
-    |   Boolean  {$node = new BooleanNode($Boolean.text);}
-    |   Integer {$node = new IntegerNode($Integer.text);}
-    |   Money {$node = new MoneyNode($Money.text);}
-    |   StringLiteral {$node = new StringNode($StringLiteral.text);}
+    |   Boolean  {$node = new ValueNode(new BooleanValue($Boolean.text));}
+    |   Integer {$node = new ValueNode(new IntegerValue($Integer.text));}
+    |   Money {$node = new ValueNode(new MoneyValue($Money.text));}
+    |   StringLiteral {$node = new ValueNode(new StringValue($StringLiteral.text));}
     |   Identifier {$node = new IdentifierNode($Identifier.text);}
     ;
     

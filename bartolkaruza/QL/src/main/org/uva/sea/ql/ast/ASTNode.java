@@ -1,8 +1,6 @@
 package org.uva.sea.ql.ast;
 
-import org.uva.sea.ql.visitor.NodeVisitor;
+import java.io.Serializable;
 
-public interface ASTNode {
 
-	public void accept(NodeVisitor visitor);
-}
+public interface ASTNode extends Serializable {}

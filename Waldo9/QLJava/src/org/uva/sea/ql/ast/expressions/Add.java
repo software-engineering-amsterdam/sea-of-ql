@@ -1,16 +1,24 @@
 package org.uva.sea.ql.ast.expressions;
 
-import org.uva.sea.ql.ast.ASTNodeVisitor;
+import java.util.Map;
 
-public class Add extends BinaryTree {
+import org.uva.sea.ql.ast.types.IntType;
+import org.uva.sea.ql.ast.types.Type;
+
+public class Add extends Binary {
 
 	public Add(Expr result, Expr rhs) {
 		super(result, rhs);
 	}
 	
-	public void accept(ASTNodeVisitor visitor) {
-        super.accept(visitor);
-		visitor.visit(this);
+	@Override
+	public <T> T accept(ExprVisitor<T> visitor) {
+		return visitor.visit(this);
     }
+	
+	@Override
+	public Type typeOf(Map<String, Type> typeEnvironment) {
+		return new IntType();
+	}
 	
 }

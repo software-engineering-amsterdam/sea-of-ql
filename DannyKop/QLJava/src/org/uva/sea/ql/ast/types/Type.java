@@ -1,23 +1,42 @@
 package org.uva.sea.ql.ast.types;
 
 import org.uva.sea.ql.ast.ASTNode;
+import org.uva.sea.ql.visitor.Visitor;
 
-/**
- * interface: Type
- * @author Danny
- * 
- */
-public interface Type <T> extends ASTNode {
-	
+public abstract class Type implements ASTNode {
 	/**
-	 * getType()
-	 * @return String - the type description of the implemented type
+	 * isCompatibleWithInt
+	 * @return 
 	 */
-	public String getType();
+	public boolean isCompatibleWithInt() { 
+		return false; 
+	}
 	/**
-	 * getValue()
-	 * @return T - the value of the type
+	 * isCompatibleWithStr
+	 * @return
 	 */
-	public T getValue();
-	
+	public boolean isCompatibleWithStr() { 
+		return false; 
+	}
+	/**
+	 * isCompatibleWithBool
+	 * @return
+	 */
+	public boolean isCompatibleWithBool() { 
+		return false; 
+	}
+	/**
+	 * isCompatibleTo
+	 * @param t type
+	 * @return boolean - true if compatible false otherwise
+	 */
+	public abstract boolean isCompatibleTo(Type t);
+	/**
+	 * accept()
+	 * @param visitor
+	 */
+	@Override
+	public <T> T accept(Visitor<T> visitor){
+		return visitor.visit(this);
+	}
 }

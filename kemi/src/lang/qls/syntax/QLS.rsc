@@ -1,107 +1,143 @@
+@license{
+  Copyright (c) 2013 
+  All rights reserved. This program and the accompanying materials
+  are made available under the terms of the Eclipse Public License v1.0
+  which accompanies this distribution, and is available at
+  http://www.eclipse.org/legal/epl-v10.html
+}
+@contributor{Kevin van der Vlist - kevin@kevinvandervlist.nl}
+@contributor{Jimi van der Woning - Jimi.vanderWoning@student.uva.nl}
+
 module lang::qls::syntax::QLS
 
-// TODO support trailing empty lines
+extend lang::ql::syntax::Comment;
+extend lang::ql::syntax::Int;
+extend lang::ql::syntax::Layout;
+extend lang::ql::syntax::Money;
+extend lang::ql::syntax::String;
+extend lang::ql::syntax::Type;
+extend lang::qls::syntax::Color;
+extend lang::qls::syntax::Keyword;
+
 start syntax Stylesheet
-  = stylesheet: Statement+ statements
+  = stylesheet: "stylesheet" Ident "{" Definition* definitions "}"
   ;
 
-syntax Statement
-  = @Foldable ClassDefinition
-  | @Foldable TypeStyleDefinition
-  | @Foldable ClassStyleDefinition
-  | @Foldable IdentStyleDefinition
+syntax Definition
+  = @Foldable definition: PageDefinition
+  | @Foldable definition: SectionDefinition
+  | @Foldable definition: QuestionDefinition
+  | @Foldable definition: DefaultDefinition
   ;
 
-syntax ClassDefinition
-  = classDefinition: "class" Ident "{" ClassRule+ "}"
+syntax PageDefinition
+  = pageDefinition: "page" String "{" PageRule* "}"
   ;
 
-syntax ClassRule
-  = classRule: QuestionIdent
+syntax PageRule
+  = @Foldable pageRule: SectionDefinition
+  | @Foldable pageRule: QuestionDefinition
+  | @Foldable pageRule: DefaultDefinition
   ;
 
-syntax TypeStyleDefinition
-  = typeStyleDefinition: Type "{" StyleRule+ "}"
+syntax SectionDefinition
+  = sectionDefinition: "section" String "{" SectionRule* "}"
   ;
 
-syntax ClassStyleDefinition
-  = classStyleDefinition: ClassIdent "{" StyleRule+ "}"
+syntax SectionRule
+  = @Foldable sectionRule: SectionDefinition
+  | @Foldable sectionRule: QuestionDefinition
+  | @Foldable sectionRule: DefaultDefinition
   ;
 
-syntax IdentStyleDefinition
-  = identStyleDefinition: QuestionIdent "{" StyleRule+ "}"
+syntax QuestionDefinition
+  = questionDefinition: "question" Ident
+  | questionDefinition: "question" Ident "{" StyleRule* "}"
+  ;
+
+syntax DefaultDefinition
+  = defaultDefinition: "default" Type "{" StyleRule* "}"
   ;
 
 syntax StyleRule
-  = styleRule: StyleAttr StyleAttrValue
-  ; 
-
-lexical ClassIdent
-  = @category="NonterminalLabel" [.]Ident
-  ; 
-
-lexical QuestionIdent
-  = @category="Variable" [#]Ident
+  = widgetStyleRule: WidgetStyleAttr WidgetStyleValue
+  | intStyleRule: IntStyleAttr Int
+  | stringStyleRule: StringStyleAttr String
+  | colorStyleRule: ColorStyleAttr Color
   ;
 
-lexical Ident
-  = ([a-z A-Z 0-9 _] !<< [a-z A-Z][a-z A-Z 0-9 _]* !>> [a-z A-Z 0-9 _]) \ Keywords;
-
-lexical Type
-  = @category="Type" "boolean"
-  | @category="Type" "integer"
-  | @category="Type" "money"
-  | @category="Type" "date"
-  | @category="Type" "string"
-  ; 
-
-lexical StyleAttr
-  = @category="Identifier" "type"
-  | @category="Identifier" "width"
+syntax WidgetStyleValue
+  = text: TextWidgetValue
+  | number: NumberWidgetValue
+  | number: NumberWidgetValue "[" Number "," Number "]"
+  | number: NumberWidgetValue "[" Number "," Number "," Number "]"
+  | datepicker: DatepickerWidgetValue
+  | slider: SliderWidgetValue
+  | slider: SliderWidgetValue "[" Number "," Number "]"
+  | slider: SliderWidgetValue "[" Number "," Number "," Number "]"
+  | radio: RadioWidgetValue
+  | checkbox: CheckboxWidgetValue
+  | select: SelectWidgetValue
   ;
 
-syntax StyleAttrValue
-  = styleAttrValue: StyleTypeValue
-  | styleAttrValue: Int
+lexical Number
+  = Int
+  | Money
   ;
 
-lexical StyleTypeValue
+lexical TextWidgetValue
+  = "text"
+  ;
+
+lexical NumberWidgetValue
+  = "number"
+  ;
+
+lexical DatepickerWidgetValue
+  = "datepicker"
+  ;
+
+lexical SliderWidgetValue
+  = "slider"
+  ;
+
+lexical RadioWidgetValue
   = "radio"
-  | "checkbox"
   ;
 
-lexical Int
-  = [0-9]+ !>> [0-9]
+lexical CheckboxWidgetValue
+  = "checkbox"
   ;
 
-syntax WhitespaceOrComment 
-  = whitespace: Whitespace whitespace
-  | comment: Comment comment
-  ;
-  
-lexical Comment 
-  = @category="Comment" "/*" CommentChar* "*/"
-  | @category="Comment" "//" ![\n]* $
+lexical SelectWidgetValue
+  = "select"
   ;
 
-lexical CommentChar
-  = ![*]
-  | [*] !>> [/]
+lexical WidgetStyleAttr
+  = @category="Identifier" widget: "widget"
   ;
 
-lexical Whitespace = [\u0009-\u000D \u0020 \u0085 \u00A0 \u1680 \u180E \u2000-\u200A \u2028 \u2029 \u202F \u205F \u3000];
+lexical IntStyleAttr
+  = @category="Identifier" width: "width"
+  | @category="Identifier" fontsize: "fontsize"
+  | @category="Identifier" labelFontsize: "label-fontsize"
+  ;
 
-layout Standard = WhitespaceOrComment* !>> [\ \t\n\f\r] !>> "//" !>> "/*";
+lexical StringStyleAttr
+  = @category="Identifier" font: "font"
+  | @category="Identifier" labelFont: "label-font"
+  ;
 
-keyword Keywords 
-  = boolean: "boolean"
-  | \int: "integer"
-  | money: "money"
-  | date: "date"
-  | string: "string"
-  | form: "class"
-  | \type: "type"
-  | width: "width"
-  | radio: "radio"
-  | checkbox: "checkbox"
+lexical ColorStyleAttr
+  = @category="Identifier" color: "color"
+  | @category="Identifier" labelColor: "label-color"
+  ;
+
+syntax Ident
+  = @category="Variable" IdentLexical \ Keywords
+  | @category="Variable" ("\\" IdentLexical) \ Keywords
+  ;
+
+lexical IdentLexical
+  = [a-z A-Z 0-9 _] !<< [a-z A-Z][a-z A-Z 0-9 _]* !>> [a-z A-Z 0-9 _]
   ;

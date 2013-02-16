@@ -1,20 +1,24 @@
 package org.uva.sea.ql.ast.math;
 
-import org.uva.sea.ql.ast.AcceptsMathOperands;
-import org.uva.sea.ql.ast.BinaryExpr;
-import org.uva.sea.ql.ast.Expr;
-import org.uva.sea.ql.ast.ReturnsMathOperands;
+import org.uva.sea.ql.ast.expressions.Expr;
+import org.uva.sea.ql.common.ExprVisitor;
+import org.uva.sea.ql.common.VisitorException;
 
-public class Div extends BinaryExpr implements AcceptsMathOperands,
-		ReturnsMathOperands {
-	public static final String str = "/";
+public class Div extends BinaryMathOperator {
+    public static final String STR = "/";
 
-	public Div(Expr left, Expr right) {
-		super(left, right);
-	}
+    public Div(Expr left, Expr right) {
+        super(left, right);
+    }
 
-	@Override
-	public String toString() {
-		return str;
-	}
+    @Override
+    public final String toString() {
+        return STR;
+    }
+
+    @Override
+    public void accept(ExprVisitor visitor) throws VisitorException {
+        visitor.visit(this);
+    }
+
 }

@@ -38,10 +38,5 @@ public abstract class Node implements ICodeLocationInformation {
 	public final String getFileName() {
 		return info.getFileName();
 	}
-	
-	public void accept(ISyntaxTreeVisitor visitor)
-	{
-		visitor.visit(this);
-	}
 
 }

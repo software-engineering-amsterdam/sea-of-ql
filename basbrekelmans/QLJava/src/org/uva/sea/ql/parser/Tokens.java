@@ -1,28 +1,31 @@
-// Output created by jacc on Sun Jan 20 19:06:27 GMT 2013
+// Output created by jacc on Mon Jan 28 21:34:43 CET 2013
 
 package org.uva.sea.ql.parser;
 
 interface Tokens {
     int ENDINPUT = 0;
     int AND = 1;
-    int BOOLEANLITERAL = 2;
+    int BOOLEAN = 2;
     int ELSE = 3;
     int EQ = 4;
-    int FORM = 5;
-    int GEQ = 6;
-    int IDENTIFIER = 7;
-    int IF = 8;
-    int LEQ = 9;
-    int NEQ = 10;
-    int NEW = 11;
-    int NUMBERLITERAL = 12;
-    int OR = 13;
-    int STRINGLITERAL = 14;
-    int TYPE = 15;
-    int UMIN = 16;
-    int UNOT = 17;
-    int UPLUS = 18;
-    int error = 19;
+    int FALSE = 5;
+    int FORM = 6;
+    int GEQ = 7;
+    int IDENTIFIER = 8;
+    int IF = 9;
+    int INTEGER = 10;
+    int LEQ = 11;
+    int MONEY = 12;
+    int NEQ = 13;
+    int NUMBERLITERAL = 14;
+    int OR = 15;
+    int STRING = 16;
+    int STRINGLITERAL = 17;
+    int TRUE = 18;
+    int UMIN = 19;
+    int UNOT = 20;
+    int UPLUS = 21;
+    int error = 22;
     // '!' (code=33)
     // '(' (code=40)
     // ')' (code=41)

@@ -1,20 +1,30 @@
 package org.uva.sea.ql.ast.bool;
 
-import org.uva.sea.ql.ast.AcceptsBoolOperands;
-import org.uva.sea.ql.ast.BinaryExpr;
-import org.uva.sea.ql.ast.Expr;
-import org.uva.sea.ql.ast.ReturnsBoolOperands;
+import org.uva.sea.ql.ast.expressions.Expr;
+import org.uva.sea.ql.ast.interfaces.Accepts;
+import org.uva.sea.ql.ast.interfaces.ReturnTypes;
+import org.uva.sea.ql.common.ExprVisitor;
+import org.uva.sea.ql.common.VisitorException;
 
-public class And extends BinaryExpr implements AcceptsBoolOperands,
-		ReturnsBoolOperands {
-	public static final String str = "&&";
+public class And extends BinaryBooleanOperator implements Accepts {
+    public static final String STR = "&&";
 
-	public And(Expr left, Expr right) {
-		super(left, right);
-	}
+    public And(Expr left, Expr right) {
+        super(left, right);
+    }
 
-	@Override
-	public String toString() {
-		return str;
-	}
+    @Override
+    public final String toString() {
+        return STR;
+    }
+
+    @Override
+    public boolean accepts(ReturnTypes r) {
+        return r.equals(ReturnTypes.BOOLEAN);
+    }
+
+    @Override
+    public void accept(ExprVisitor visitor) throws VisitorException{
+        visitor.visit(this);        
+    }
 }

@@ -14,7 +14,11 @@ public class QLLexer implements QLTokens {
 	static {
 		KEYWORDS = new HashMap<String, Integer>();
 		KEYWORDS.put("form", FORM);
+		KEYWORDS.put("if", IF);
+		KEYWORDS.put("integer", INTEGER);
 		KEYWORDS.put("boolean", BOOLEAN);
+		KEYWORDS.put("string", STRING);
+		KEYWORDS.put("money", MONEY);
 		KEYWORDS.put("true", BOOLEANLITERAL);
 		KEYWORDS.put("false", BOOLEANLITERAL);
 	}
@@ -87,6 +91,9 @@ public class QLLexer implements QLTokens {
 			    	}
 			    	return token = '/'; 
 			    }
+				
+				// Statement end
+				case ';': nextChar(); return token = ';';
 				
 				// Block tokens
 				case '}': nextChar(); return token = '}';
@@ -209,7 +216,6 @@ public class QLLexer implements QLTokens {
 			    		if (name.equals("false")) yylval = new BooleanLiteral(false);
 			    		// Check for reserved words
 			    		if (KEYWORDS.containsKey(name)) {
-			    			System.out.println("!!!" + name);
 			    			return token = KEYWORDS.get(name);
 			    		}
 						yylval = new Identifier(name);

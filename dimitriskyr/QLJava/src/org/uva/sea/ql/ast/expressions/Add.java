@@ -1,22 +1,25 @@
 package org.uva.sea.ql.ast.expressions;
 
-import org.uva.sea.ql.ast.*;
+import java.util.Map;
 
-public class Add extends Expr{
-	private Expr lhs;
-	private Expr rhs;
-	
+import org.uva.sea.ql.ast.*;
+import org.uva.sea.ql.ast.types.NumericType;
+import org.uva.sea.ql.ast.values.Ident;
+import org.uva.sea.ql.ast.visitor.ICheckExprVisitor;
+
+public class Add extends BinaryExpression{
 	public Add (Expr lhs, Expr rhs){
-		this.lhs=lhs;	
-		this.rhs=rhs;
+		super(lhs,rhs);
 	}
-	
-	public Expr getLhs() {
-		return lhs;
+
+	@Override
+	public Type typeOf(Map<Ident, Type> typeEnv) {
+		return new NumericType();
 	}
-	
-	public Expr getRhs() {
-		return rhs;
-	} 
+
+	@Override
+	public <T> T accept(ICheckExprVisitor<T> visitor) {
+		return  visitor.visit(this);
+	}	
 	
 }

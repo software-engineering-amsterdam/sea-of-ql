@@ -1,13 +1,12 @@
 package org.uva.sea.ql.ast.expr.primary;
 
-import java.util.Map;
+import org.uva.sea.ql.type.IntegerType;
+import org.uva.sea.ql.type.Type;
+import org.uva.sea.ql.visitor.IExpressionVisitor;
+import org.uva.sea.ql.visitor.typeCheck.TypeMapper;
 
-import org.uva.sea.ql.ast.expr.Expr;
-import org.uva.sea.ql.ast.type.Type;
-import org.uva.sea.ql.visitor.ExpressionVisitor;
 
-
-public class Int extends Expr {
+public class Int extends Primary<Integer> {
 
 	private final int value;
 
@@ -15,18 +14,23 @@ public class Int extends Expr {
 		this.value = value;
 	}
 
-	public int getValue() {
+	@Override
+	public Integer getValue() {
 		return value;
 	}
-
+	
 	@Override
-	public Type typeOf(Map<Ident, Type> typeEnv) {
-		return new org.uva.sea.ql.ast.type.IntegerType();
+	public String toString() {
+		return "Int";
 	}
 
 	@Override
-	public <T> T accept(ExpressionVisitor<T> visitor) {
+	public Type typeOf(TypeMapper typeMapper) {
+		return new IntegerType();
+	}
+	
+	@Override
+	public <T> T accept(IExpressionVisitor<T> visitor) {
 		return visitor.visit(this);
 	}
-
 }

@@ -1,10 +1,5 @@
 package org.uva.sea.ql.ast;
 
+public abstract class ASTNode {
 
-import org.uva.sea.ql.visitor.Visitable;
-
-
-
-public abstract class ASTNode implements Visitable {
-		
 }

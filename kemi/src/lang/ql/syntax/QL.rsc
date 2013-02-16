@@ -1,7 +1,25 @@
+@license{
+  Copyright (c) 2013 
+  All rights reserved. This program and the accompanying materials
+  are made available under the terms of the Eclipse Public License v1.0
+  which accompanies this distribution, and is available at
+  http://www.eclipse.org/legal/epl-v10.html
+}
+@contributor{Kevin van der Vlist - kevin@kevinvandervlist.nl}
+@contributor{Jimi van der Woning - Jimi.vanderWoning@student.uva.nl}
+
 module lang::ql::syntax::QL
 
+extend lang::ql::syntax::Comment;
+extend lang::ql::syntax::Int;
+extend lang::ql::syntax::Keyword;
+extend lang::ql::syntax::Layout;
+extend lang::ql::syntax::Money;
+extend lang::ql::syntax::String;
+extend lang::ql::syntax::Type;
+
 start syntax Form = 
-  @Foldable form: "form" Ident formName "{" Statement+ formElements "}";
+  @Foldable form: "form" IdentDefinition formName "{" Statement+ formElements "}";
 
 syntax Statement 
   = question: Question question
@@ -23,8 +41,8 @@ syntax ElsePart =
 
 // What the ...?! Colons don't work, but equals signs do...
 start syntax Question 
-  = question: String questionText Type answerDataType Ident answerIdentifier
-  | question: String questionText Type answerDataType Ident answerIdentifier "=" Expr calculatedField
+  = question: QuestionText questionText Type answerDataType IdentDefinition answerIdentifier
+  | question: QuestionText questionText Type answerDataType IdentDefinition answerIdentifier "=" Expr calculatedField
   ;
 
 syntax Expr
@@ -58,46 +76,17 @@ syntax Expr
   > left or: Expr left "||" Expr right
   ;
 
-syntax WhitespaceOrComment 
-  = whitespace: Whitespace whitespace
-  | comment: Comment comment
-  ;   
-
-lexical Ident = 
-  @category="Variable" ([a-z A-Z 0-9 _] !<< [a-z A-Z][a-z A-Z 0-9 _]* !>> [a-z A-Z 0-9 _]) \ Keywords;
-
-lexical Type
-  = @category="Type" "boolean"
-  | @category="Type" "integer"
-  | @category="Type" "money"
-  | @category="Type" "date"
-  | @category="Type" "string"
+lexical IdentDefinition
+  = identDefinition: Ident ident
   ;
 
-lexical String = 
-  @category="Identifier" "\"" TextChar* "\"";
-
-lexical TextChar
-  = [\\] << [\"]
-  | ![\"]
-  ;
-
-lexical Int =
-  @category="Constant" [0-9]+ !>> [0-9]
+lexical QuestionText
+  = @category="Identifier" questionText: String questionText
   ;
 
 lexical Boolean
   = "true"
   | "false"
-  ;
-
-syntax Money = 
-  @category="Constant" LMoney;
-
-lexical LMoney
-  = [0-9]+ "."
-  | [0-9]+ "." [0-9]
-  | [0-9]+ "." [0-9][0-9]
   ;
 
 lexical Date = 
@@ -116,30 +105,12 @@ lexical Day
   = [0-2][0-9]
   | [3][0-1]
   ;
-  
-lexical Comment 
-  = @category="Comment" "/*" CommentChar* "*/"
-  | @category="Comment" "//" ![\n]* $
+
+syntax Ident
+  = @category="Variable" IdentLexical \ Keywords
+  | @category="Variable" ("\\" IdentLexical)
   ;
 
-lexical CommentChar
-  = ![*]
-  | [*] !>> [/]
-  ;
-
-lexical Whitespace = 
-  [\u0009-\u000D \u0020 \u0085 \u00A0 \u1680 \u180E \u2000-\u200A \u2028 \u2029 \u202F \u205F \u3000];
-
-layout Standard = 
-  WhitespaceOrComment* !>> [\ \t\n\f\r] !>> "//" !>> "/*";
-
-keyword Keywords 
-  = boolean: "boolean"
-  | \int: "integer"
-  | money: "money"
-  | date: "date"
-  | string: "string"
-  | \true: "true"
-  | \false: "false"
-  | form: "form"
+lexical IdentLexical
+  = [a-z A-Z 0-9 _] !<< [a-z A-Z][a-z A-Z 0-9 _]* !>> [a-z A-Z 0-9 _]
   ;

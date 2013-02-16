@@ -1,5 +1,5 @@
 @contributor{George Marmanidis -geo.marmani@gmail.com}
-module lang::ql::IDE::Outline
+module lang::ql::ide::Outline
 
 import lang::ql::ast::AST;
 import Node;
@@ -10,7 +10,7 @@ alias OND = tuple[ list[node] questions, list[node] conditionals];
 public OND addQuestion(OND nds, str qIdent,str qLabel,Type qType,bool isComputed,loc qloc) = nds[questions = nds.questions + setAnnotations("<qIdent>"(qLabel,qType,isComputed), ("label":"<qIdent>", "loc":qloc))];
 public OND addCondition(OND nds, str CondType,Expr CondExpr,loc qloc) = nds[conditionals = nds.conditionals + setAnnotations("Conditionals"(CondExpr), ("label":"<CondType>", "loc":qloc))];
 
-public node outline(form(str ident,list[FormBodyItem] formItem)) {
+public node outline(form(ident,formItem)) {
 	OND nds=<[],[]>; 
 	nds=outline(formItem,nds);
 	
@@ -21,7 +21,7 @@ public node outline(form(str ident,list[FormBodyItem] formItem)) {
  	return n;
  }
  
-OND outline(list[FormBodyItem] formItem,OND nds){
+OND outline(formItem,OND nds){
 	for(x<-formItem){
 		nds=outline(x,nds);
 	}
@@ -29,29 +29,27 @@ OND outline(list[FormBodyItem] formItem,OND nds){
 	return(nds);	
 } 
 
-OND outline(question(q),OND nds) {
-	
-	return outline(q,nds);
-}
+OND outline(question(q),OND nds) =outline(q,nds);
 
-OND outline(conditionalStatement(ConditionalStatement itemCondStatement),OND nds){
-	return outline(itemCondStatement,nds);;
-}
 
-OND outline(s:ifCond(Expr ifCondition,list[FormBodyItem] ifQuestion,list[FormBodyItem] elseQuestion),OND nds) {
+OND outline(conditionalStatement(itemCondStatement),OND nds)
+	= outline(itemCondStatement,nds);
+
+
+OND outline(s:ifCond(ifCondition,ifQuestion,elseQuestion),OND nds) {
 	nds=outline(ifQuestion,nds);
 	nds=outline(elseQuestion,nds);
 	nds=addCondition(nds,"If Else",ifCondition,s@location);
 	return nds;
 }
 
-OND outline(s:simpleIfCond(Expr ifCondition,list[FormBodyItem] ifQuestion),OND nds) {
+OND outline(s:simpleIfCond(ifCondition,ifQuestion),OND nds) {
 	nds=outline(ifQuestion,nds);
 	nds=addCondition(nds,"If",ifCondition,s@location);
 	return nds;
 }
 
-OND outline(s:ifElseIfCond(Expr ifCondition,list[FormBodyItem] ifQuestion,list[ElseIf] elseifBranch,list[FormBodyItem] elseQuestion),OND nds) {
+OND outline(s:ifElseIfCond(ifCondition,ifQuestion,elseifBranch,elseQuestion),OND nds) {
 	nds=outline(ifQuestion,nds);
 	nds=outline(elseQuestion,nds);
 	nds=outline(elseifBranch,nds);
@@ -59,26 +57,22 @@ OND outline(s:ifElseIfCond(Expr ifCondition,list[FormBodyItem] ifQuestion,list[E
 	return nds;
 }
 
-OND outline(list[ElseIf] elseifBranch,OND nds) {
+OND outline(elseifBranch,OND nds) {
 	for(x<-elseifBranch){
 		nds=outline(x,nds);
 	}
 	return nds;
 }
 
-OND outline(s:elseif(Expr ifExpression,list[FormBodyItem] elseQuestion),OND nds) {
+OND outline(s:elseif(ifExpression,elseQuestion),OND nds) {
 	nds=outline(elseQuestion,nds);
 	nds=addCondition(nds,"Else If",ifExpression,s@location);
 	return nds;
 }
 
+OND outline(q:simpleQuestion(questionId,questionLabel,questionType),OND nds)
+	= addQuestion(nds,questionId,questionLabel,questionType,false,q@location);
+	
 
-OND outline(q:simpleQuestion(str questionId,str questionLabel,Type questionType),OND nds) {
-	nds=addQuestion(nds,questionId,questionLabel,questionType,false,q@location);
-	return nds;
-}
-
-OND outline(Question q:computedQuestion(str questionId, str questionLabel, Type questionType, Expr questionComputation),OND nds) {
- 	nds=addQuestion(nds,questionId,questionLabel,questionType,true,q@location);
- 	return nds;
- }
+OND outline(Question q:computedQuestion(questionId,questionLabel,questionType,questionComputation),OND nds)
+ 	= addQuestion(nds,questionId,questionLabel,questionType,true,q@location);

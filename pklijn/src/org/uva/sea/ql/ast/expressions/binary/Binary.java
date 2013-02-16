@@ -33,10 +33,15 @@ public abstract class Binary extends Expr {
 		errors.addAll(right.checkType(environment));
 		
 		if (!left.typeOf(environment).equals(right.typeOf(environment))) {
-			errors.add(new Error("The type of the left and right expression of " + getName() + " should be of the same type"));
+			errors.add(new Error(
+					"The type of the left and right expression of " + getName() + 
+					" should be of the same type, left is " + left.typeOf(environment) + 
+					" and right is " + right.typeOf(environment)));
 		}
-		else if (!this.allowedTypes.contains(left.typeOf(environment))) {
-			errors.add(new Error("The type of the left and right arguments are not allowed in operation " + getName()));
+		else if (!allowedArgumentTypes().contains(left.typeOf(environment))) {
+			errors.add(new Error(
+					"The type of the left and right arguments are not allowed in operation " + getName() + 
+					" allowed types are: " + getPrintableAllowedTypes() + ". Gotten " + left.typeOf(environment)));
 		}
 		
 		return errors;

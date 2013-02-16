@@ -1,35 +1,47 @@
 package org.uva.sea.ql.ast.expression.impl;
 
-import org.uva.sea.ql.ast.exception.InvalidTypeException;
+import org.uva.sea.ql.ErrorMessage;
 import org.uva.sea.ql.ast.expression.ExprNode;
-import org.uva.sea.ql.ast.value.ValueNode;
-import org.uva.sea.ql.ast.value.impl.BooleanNode;
+import org.uva.sea.ql.ast.expression.UnaryNode;
+import org.uva.sea.ql.type.Type;
+import org.uva.sea.ql.type.impl.BooleanType;
+import org.uva.sea.ql.value.Value;
 
-public class NotNode extends ExprNode
+import java.util.Collection;
+
+public class NotNode extends UnaryNode
 {
-    private final ExprNode exprNode;
+    private static final String OPERATOR = "!";
 
     public NotNode(final ExprNode exprNode)
     {
-        this.exprNode = exprNode;
+        super(exprNode);
     }
 
     @Override
-    public ValueNode evaluate()
+    public Value evaluate()
     {
-        final ValueNode valueNode = this.exprNode.evaluate();
+        final Value value = this.exprNode.evaluate();
+        return value.not();
+    }
 
-        if(valueNode.isBooleanNode())
+    @Override
+    public boolean validate(final Collection<ErrorMessage> errors)
+    {
+        final Type type = this.exprNode.evaluate().getType();
+        final boolean compatible = type.isCompatibleTo(new BooleanType());
+
+        if(!compatible)
         {
-            return new BooleanNode(!valueNode.asBooleanNode().getValue());
+            errors.add(new ErrorMessage(this, "Invalid type for " + OPERATOR));
         }
 
-        throw new InvalidTypeException("Invalid operand type for not(!) operation: " + toTreeString(" "));
+        return compatible;
     }
 
     @Override
-    public String toTreeString(String indent)
+    public String toString()
     {
-        return '\n' + indent + "not(!)" + exprNode.toTreeString(indent + "  ");
+        return  OPERATOR + exprNode.toString();
     }
 }

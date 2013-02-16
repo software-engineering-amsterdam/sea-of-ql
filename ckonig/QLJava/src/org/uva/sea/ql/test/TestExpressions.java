@@ -4,16 +4,17 @@ import static org.junit.Assert.assertNotNull;
 
 import org.junit.Test;
 import org.uva.sea.ql.parser.antlr.ANTLRParser;
-import org.uva.sea.ql.test.common.CurrentTest;
+import org.uva.sea.ql.test.common.TestParser;
 
 public class TestExpressions {
+	protected final TestParser parser;
 
 	public TestExpressions() {
-		CurrentTest.setParser(new ANTLRParser());
+		this.parser = new TestParser(new ANTLRParser());
 	}
 
 	@Test
-	public void testDummy() {
+	public final void testDummy() {
 		assertNotNull(this);
 	}
 }

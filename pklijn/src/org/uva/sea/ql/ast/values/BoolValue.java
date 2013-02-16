@@ -27,4 +27,15 @@ public class BoolValue extends Value {
 		
 		return ((BoolValue)obj).getValue() == getValue();
 	}
+	
+	@Override
+	public int hashCode() {
+		Boolean b = new Boolean(value);
+		return b.hashCode();
+	}
+	
+	@Override
+	public String toString() {
+		return Boolean.toString(value);
+	}
 }

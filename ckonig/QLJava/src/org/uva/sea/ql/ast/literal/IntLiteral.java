@@ -1,18 +1,27 @@
 package org.uva.sea.ql.ast.literal;
 
-import org.uva.sea.ql.ast.Expr;
-import org.uva.sea.ql.ast.ReturnsMathOperands;
+import java.util.List;
 
-public class IntLiteral extends Expr implements ReturnsMathOperands{
+import org.uva.sea.ql.ast.elements.Question;
+import org.uva.sea.ql.ast.expressions.Expr;
+import org.uva.sea.ql.ast.interfaces.ReturnTypes;
+import org.uva.sea.ql.ast.interfaces.Returns;
 
-	private final int value;
+public class IntLiteral extends Expr implements Returns {
 
-	public IntLiteral(int n) {
-		this.value = n;
-	}
+    private final int value;
 
-	public int getValue() {
-		return value;
-	}
+    public IntLiteral(int n) {
+        this.value = n;
+    }
+
+    public final int getValue() {
+        return this.value;
+    }
+
+    @Override
+    public ReturnTypes getReturnType(List<Question> questions) {
+        return ReturnTypes.MATH;
+    }
 
 }

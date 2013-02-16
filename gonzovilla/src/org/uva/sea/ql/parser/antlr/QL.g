@@ -1,5 +1,5 @@
 grammar QL;
-options {language = Java;}
+//options {backtrack=true; memoize=true;}
 
 @parser::header
 {
@@ -21,16 +21,19 @@ form returns [Form result]
 	; 
 
 formUnit returns [FormUnit result]
-	: question    { $result = $question.result; }
-	| ifStatement { $result = $ifStatement.result; }
+	: question         { $result = $question.result; }
+  | computedQuestion { $result = $computedQuestion.result; }
+	| ifStatement      { $result = $ifStatement.result; }
 	;
 
 question returns [Question result]
 	: Ident ':' sentence '(' type ')' { $result = new Question($Ident.text, $sentence.text, $type.result); }
 	;
-	 
-//computedQuestion
-
+	  
+computedQuestion returns [ComputedQuestion result]
+	: Ident ':' '[' orExpr ']' sentence '(' type ')' { $result = new ComputedQuestion($Ident.text, $sentence.text, $orExpr.result, $type.result); }
+	;
+ 
 ifStatement returns [IfStatement result]
 	@init { List<FormUnit> formUnits = new ArrayList<FormUnit>();}
 	: 'if' '(' orExpr ')' 'then' (formUnit {formUnits.add($formUnit.result);})* 'endif' { $result = new IfStatement($orExpr.result, formUnits); }
@@ -41,7 +44,7 @@ type returns [Type result]
   | 'Integer' {$result = new TypeInt();}
   | 'String'  {$result = new TypeString();}
   ;
-
+ 
 sentence
   : '"' .* '"'
   ; 

@@ -1,44 +1,42 @@
 package org.uva.sea.ql.ast.expressions;
 
 import org.uva.sea.ql.ICodeLocationInformation;
-import org.uva.sea.ql.ast.types.QLType;
+import org.uva.sea.ql.ast.IExpressionVisitor;
 
 public class Identifier extends Simple {
 
 	private final String name;
-	private QLType type;
 	
 	public Identifier(ICodeLocationInformation codeLocation, String name) {
 		super(codeLocation);
 		this.name = name;
-		this.type = null;
 	}
 	
-	public Identifier(ICodeLocationInformation codeLocation, StringLiteral name, QLType type) {
+	public Identifier(ICodeLocationInformation codeLocation, StringLiteral name) {
 		super(codeLocation);
 		this.name = name.getValue();
-		this.type = type;
 	}
-	public String getName() {
-		return name;
+	
+	@Override
+	public boolean equals(Object obj) {
+		if (obj instanceof Identifier) {
+			Identifier identifier = (Identifier)obj;
+			return name.equals(identifier.getName());
+		}
+		return false;
 	}
 
 	@Override
-	public QLType getType() {
-		return type;
-	}
-	
-	public void setType(QLType value)
-	{
-		if (type == null) {
-			this.type = value;	
-		} else {
-			//invalid operation: we need to be able to set the type later
-			//when it is inferred from an assignment. We cannot change 
-			//the type once it is set.
-			throw new IllegalStateException("Unable to change type of identifier.");
-		}
-		
+	public int hashCode() {
+		return name.hashCode();
 	}
 
+	public String getName() {
+		return name;
+	}
+	
+	public <T> T accept(IExpressionVisitor<T> visitor)
+	{
+		return visitor.visit(this);
+	}
 }

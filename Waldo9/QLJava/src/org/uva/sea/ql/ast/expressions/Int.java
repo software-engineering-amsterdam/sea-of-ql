@@ -1,6 +1,9 @@
 package org.uva.sea.ql.ast.expressions;
 
-import org.uva.sea.ql.ast.ASTNodeVisitor;
+import java.util.Map;
+
+import org.uva.sea.ql.ast.types.IntType;
+import org.uva.sea.ql.ast.types.Type;
 
 public class Int extends Expr {
 
@@ -14,8 +17,14 @@ public class Int extends Expr {
 		return value;
 	}
 	
-	public void accept(ASTNodeVisitor visitor) {
-        visitor.visit(this);
+	@Override
+	public <T> T accept(ExprVisitor<T> visitor) {
+        return visitor.visit(this);
     }
+	
+	@Override
+	public Type typeOf(Map<String, Type> typeEnvironment) {
+		return new IntType();
+	}
 	
 }

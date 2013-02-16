@@ -13,19 +13,38 @@ import org.uva.sea.ql.ast.expressions.binary.*;
 import org.uva.sea.ql.ast.expressions.unary.*;
 import org.uva.sea.ql.ast.types.*;
 import org.uva.sea.ql.ast.form.*;
+import org.uva.sea.ql.ast.literals.*;
+import org.uva.sea.ql.parser.test.*;
+import java.util.LinkedList;
 }
 
 @lexer::header
 {
 package org.uva.sea.ql.parser.antlr;
 }
+@members {
+	private List<String> errors = new LinkedList<String>();
+	
+	public void displayRecognitionError(String[] tokenNames, RecognitionException e) { 
+        String hdr = getErrorHeader(e);        
+        String msg = getErrorMessage(e, tokenNames);	      
+	    
+	    errors.add(hdr + " -- " + msg);
+	       
+	}
+	public boolean isErrorFound(){
+		return this.errors.size() != 0;
+	}
+	public List<String> getErrors(){
+		return this.errors;
+	}
+}
 
 primary returns [Expr result]
-  : Int   { $result = new Int(Integer.parseInt($Int.text)); }
+  : Int   { $result = new IntLiteral(Integer.parseInt($Int.text)); }
   | Ident { $result = new Ident($Ident.text); }
-  | Bool { $result = new Bool($Bool.text);}
-  | Str { $result = new Str($Str.text);}
-  | Money { $result = new Money($Money.text); }
+  | Bool { $result = new BoolLiteral($Bool.text);}
+  | Str { $result = new StrLiteral($Str.text);}
   | '(' x=orExpr ')'{ $result = $x.result; }
   ;
     
@@ -42,13 +61,12 @@ mulExpr returns [Expr result]
       if ($op.text.equals("*")) {
         $result = new Mul($result, rhs);
       }
-      if ($op.text.equals("<=")) {
+      if ($op.text.equals("/")) {
         $result = new Div($result, rhs);      
       }
     })*
     ;
     
-  
 addExpr returns [Expr result]
     :   lhs=mulExpr { $result=$lhs.result; } ( op=('+' | '-') rhs=mulExpr
     { 
@@ -89,49 +107,48 @@ andExpr returns [Expr result]
     :   lhs=relExpr { $result=$lhs.result; } ( '&&' rhs=relExpr { $result = new And($result, rhs); } )*
     ;
     
-
 orExpr returns [Expr result]
     :   lhs=andExpr { $result = $lhs.result; } ( '||' rhs=andExpr { $result = new Or($result, rhs); } )*
     ;
 
 form returns [Form result]
-    : Form Ident LeftBrace formElements RightBrace { $result = new Form(new Ident($Ident.text), $formElements.result); };
+    : Form Ident '{' formElements '}' { $result = new Form(new Ident($Ident.text), $formElements.result); };
 
 formElement returns [FormElement result] 
-    : question {$result = $question.result;}
-    | condition {$result = $condition.result;}
+    : ifThenElse {$result = $ifThenElse.result;}
+    | ifThen {$result = $ifThen.result;}
     | computation {$result = $computation.result;}
+    | question {$result = $question.result;}
     ;
 
 formElements returns [ArrayList<FormElement> result]
     @init { result = new ArrayList<FormElement>(); }
     : (element = formElement { $result.add(element);})*
     ;
+ifThen returns [IfThen result]
+    :  If '(' orExpr ')' '{' formElements '}' { $result = new IfThen($orExpr.result, $formElements.result); }
+    ;
+ifThenElse returns [IfThenElse result]
+    : If '(' orExpr ')' '{' ifElems = formElements '}' Else '{' elseElems = formElements '}' { $result = new IfThenElse($orExpr.result, $ifElems.result, $elseElems.result);}
+    ;
 computation returns [Computation result]
-    : Ident ':' Str Vars '(' orExpr ')' { $result = new Computation(new Ident($Ident.text), $Str.text, $orExpr.result, $Vars.text); }
+    : Ident ':' Str type '(' orExpr ')' { $result = new Computation(new Ident($Ident.text), new StrLiteral($Str.text), $orExpr.result, $type.result); }
     ;
 question returns [Question result] 
-    : Ident ':' Str Vars { $result = new Question(new Ident($Ident.text), $Str.text, $Vars.text); }
+    : Ident ':' Str type { $result = new Question(new Ident($Ident.text), new StrLiteral($Str.text), $type.result); }
     ;
-condition returns [Condition result]
-    : If '(' orExpr ')' LeftBrace (question | condition | computation)* RightBrace { $result = new Condition($orExpr.result); }
-    // Else needs to be implemented
+type returns [Type result]
+    : 'boolean' {$result = new BoolType();}
+    | 'string'  {$result = new StrType();}
+    | 'int'     {$result = new IntType();}
     ;
 // Tokens
-Newline: ('\n' | '\r');
+WS:	(' ' | '\t' | '\n' | '\r')+ { $channel=HIDDEN; };
 
-WS:	(' ' | '\t' | Newline) { $channel=HIDDEN; };
+Comment: '/*' .* '*/' {$channel=HIDDEN;}
+        | '//'  ~ ('\n' | '\r')* {$channel=HIDDEN;};
 
-Comment: '/*' .* '*/' {$channel=HIDDEN;} 
-       | '//' ~(Newline)* {$channel=HIDDEN;};
-
-SpecialChars: ('!' | '?' | ',' | '.' | '<' | '>' | '=' | '+' | '-' | '[' | ']' | '|' | ':' | '/' | '\\');
-
-Vars: ('int' | 'boolean' | 'string' | 'money');
-
-LeftBrace: '{';
-
-RightBrace: '}';
+SpecialChars: ('!' | '?' | ',' | '.' | '<' | '>' | '=' | '+' | '-' | '[' | ']' | '|' | ':' | '/' | '\\' | '\'');
 
 Bool: ('true' | 'false');
 
@@ -144,7 +161,5 @@ Form: 'form';
 Str: '"' (Ident | WS | Int | SpecialChars)* '"';
 
 Ident:   ('a'..'z'|'A'..'Z')('a'..'z'|'A'..'Z'|'0'..'9'|'_')*;
-
-Money: ('0'..'9') ',' ('0'..'9')('0'..'9');
 
 Int: ('0'..'9')+;

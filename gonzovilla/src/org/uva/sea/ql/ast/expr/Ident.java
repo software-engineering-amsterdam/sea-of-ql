@@ -24,6 +24,4 @@ public class Ident extends Expr {
 			}
 			return new TypeError();
 	}
-
-
 }
