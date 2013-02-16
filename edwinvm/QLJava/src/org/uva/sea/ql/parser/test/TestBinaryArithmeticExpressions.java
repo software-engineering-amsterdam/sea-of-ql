@@ -19,38 +19,43 @@ public class TestBinaryArithmeticExpressions {
 		_parser = new ANTLRParserExpressions();
 	}
 	
+	private void expressionMatchesASTClass(String input, Class<?> astNode) throws ParseError {
+		assertEquals(_parser.parse(input).getClass(), astNode);
+	}
+	
 	@Test
 	public void testAdds() throws ParseError {
-		assertEquals(_parser.parse("a + b").getClass(), Add.class);
-		assertEquals(_parser.parse("a + b + c").getClass(), Add.class);
-		assertEquals(_parser.parse("(a + b + c)").getClass(), Add.class);
-		assertEquals(_parser.parse("a + (b + c)").getClass(), Add.class);
-		assertEquals(_parser.parse("(a + b) + c").getClass(), Add.class);
-		assertEquals(_parser.parse("(a + b)").getClass(), Add.class);
-		assertEquals(_parser.parse("a + b * c").getClass(), Add.class);
-		assertEquals(_parser.parse("a * b + c").getClass(), Add.class);
+		expressionMatchesASTClass("a + b",       Add.class);
+		expressionMatchesASTClass("a + b",       Add.class);
+		expressionMatchesASTClass("a + b + c",   Add.class);
+		expressionMatchesASTClass("(a + b + c)", Add.class);
+		expressionMatchesASTClass("a + (b + c)", Add.class);
+		expressionMatchesASTClass("(a + b) + c", Add.class);
+		expressionMatchesASTClass("(a + b)",     Add.class);
+		expressionMatchesASTClass("a + b * c",   Add.class);
+		expressionMatchesASTClass("a * b + c",   Add.class);
 	}
 
 	@Test
 	public void testMuls() throws ParseError {
-		assertEquals(_parser.parse("a * b").getClass(), Mul.class);
-		assertEquals(_parser.parse("a * b * c").getClass(), Mul.class);
-		assertEquals(_parser.parse("a * (b * c)").getClass(), Mul.class);
-		assertEquals(_parser.parse("(a * b) * c").getClass(), Mul.class);
-		assertEquals(_parser.parse("(a * b)").getClass(), Mul.class);
-		assertEquals(_parser.parse("(a + b) * c").getClass(), Mul.class);
-		assertEquals(_parser.parse("a * (b + c)").getClass(), Mul.class);
+		expressionMatchesASTClass("a * b",       Mul.class);
+		expressionMatchesASTClass("a * b * c",   Mul.class);
+		expressionMatchesASTClass("a * (b * c)", Mul.class);
+		expressionMatchesASTClass("(a * b) * c", Mul.class);
+		expressionMatchesASTClass("(a * b)",     Mul.class);
+		expressionMatchesASTClass("(a + b) * c", Mul.class);
+		expressionMatchesASTClass("a * (b + c)", Mul.class);
 	}
 	
 	@Test
 	public void testDivs() throws ParseError {
-		assertEquals(_parser.parse("a / b").getClass(), Div.class);
-		assertEquals(_parser.parse("a / (b * c)").getClass(), Div.class);
+		expressionMatchesASTClass("a / b",       Div.class);
+		expressionMatchesASTClass("a / (b * c)", Div.class);
 	}
 	
 	@Test
 	public void testSubs() throws ParseError {
-		assertEquals(_parser.parse("a - b").getClass(), Sub.class);
-		assertEquals(_parser.parse("a - (b * c)").getClass(), Sub.class);
+		expressionMatchesASTClass("a - b",       Sub.class);
+		expressionMatchesASTClass("a - (b * c)", Sub.class);
 	}
 }
