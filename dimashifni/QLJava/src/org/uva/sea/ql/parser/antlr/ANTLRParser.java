@@ -23,16 +23,17 @@ public class ANTLRParser {//implements IParse {
 	public static void main(String[] args) throws RecognitionException
 	{
 		System.out.println("Start test..");			
-		TestForm();
-		TestPrimary();
-		TestUnaryExpression();
-		TestMultiplyExpression();
-		TestAddExpression();
-		TestRelExpression();
-		TestAndExpression();
+		testForm();
+		testPrimary();
+		testUnaryExpression();
+		testMultiplyExpression();
+		testAddExpression();
+		testRelExpression();
+		testAndExpression();
+		testOrExpression();
 	}
 	
-	public static void TestForm()
+	public static void testForm()
 	{
 		ANTLRStringStream stream = new ANTLRStringStream("form boxhousing1 {\n " + 
 				"hasSoldHouse : \"did you just sell you house! \" Boolean\n" +
@@ -51,7 +52,7 @@ public class ANTLRParser {//implements IParse {
 		}		
 	}
 	
-	public static void TestPrimary()
+	public static void testPrimary()
 	{
 		final String testPrimary = "100000";
 		ANTLRStringStream stream = new ANTLRStringStream(testPrimary);
@@ -67,7 +68,7 @@ public class ANTLRParser {//implements IParse {
 		}
 	}
 	
-	public static void TestUnaryExpression()
+	public static void testUnaryExpression()
 	{
 		ANTLRStringStream stream = new ANTLRStringStream("+t");
 				CommonTokenStream tokens = new CommonTokenStream();
@@ -82,7 +83,7 @@ public class ANTLRParser {//implements IParse {
 		}		
 	}
 	
-	public static void TestMultiplyExpression()
+	public static void testMultiplyExpression()
 	{
 		ANTLRStringStream stream = new ANTLRStringStream("1*2");
 		CommonTokenStream tokens = new CommonTokenStream();
@@ -97,7 +98,7 @@ public class ANTLRParser {//implements IParse {
 		}
 	}
 	
-	public static void TestAddExpression()
+	public static void testAddExpression()
 	{
 		ANTLRStringStream stream = new ANTLRStringStream("a+b");
 				CommonTokenStream tokens = new CommonTokenStream();
@@ -112,9 +113,9 @@ public class ANTLRParser {//implements IParse {
 		}		
 	}
 	
-	public static void TestRelExpression()
+	public static void testRelExpression()
 	{
-		ANTLRStringStream stream = new ANTLRStringStream("a<b");
+		ANTLRStringStream stream = new ANTLRStringStream("a > b");
 				CommonTokenStream tokens = new CommonTokenStream();
 		tokens.setTokenSource(new QLLexer(stream));
 		QLParser parser = new QLParser(tokens);
@@ -127,7 +128,7 @@ public class ANTLRParser {//implements IParse {
 		}		
 	}
 	
-	public static void TestAndExpression()
+	public static void testAndExpression()
 	{
 		ANTLRStringStream stream = new ANTLRStringStream("a&&b");
 				CommonTokenStream tokens = new CommonTokenStream();
@@ -142,7 +143,7 @@ public class ANTLRParser {//implements IParse {
 		}		
 	}
 	
-	public static void TestOrExpression()
+	public static void testOrExpression()
 	{
 		ANTLRStringStream stream = new ANTLRStringStream("(a||b)");
 				CommonTokenStream tokens = new CommonTokenStream();
@@ -150,7 +151,7 @@ public class ANTLRParser {//implements IParse {
 		QLParser parser = new QLParser(tokens);
 		try {
 			parser.orExpression();
-			System.out.println();
+			System.out.println("OK or");
 		} catch (RecognitionException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

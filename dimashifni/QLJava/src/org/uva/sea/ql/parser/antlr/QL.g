@@ -93,7 +93,7 @@ addExpression returns [Expr result]
   {
   	$result = new Sub($result, rhs);      
   }
-})
+})*
 ;
   
 relExpression returns [Expr result]
