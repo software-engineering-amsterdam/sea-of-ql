@@ -76,7 +76,7 @@ unaryExpression returns [Expr result]
 | '-'^ x=unaryExpression { $result = new Neg($x.result); }
 | '!'^ x=unaryExpression { $result = new Not($x.result); }
 | y=primary    { $result = $y.result; }
-;    
+;
    
 multiplyExpression returns [Expr result]
 : lhs=unaryExpression { $result=$lhs.result; }
@@ -88,7 +88,7 @@ multiplyExpression returns [Expr result]
 addExpression returns [Expr result]
 : lhs=multiplyExpression { $result=$lhs.result; }
   (('+'^ { $result = new Add($result, $rhs.result); }
-  | '-'^ {$result = new Add($result, $rhs.result); }) rhs=multiplyExpression)*
+  | '-'^ {$result = new Sub($result, $rhs.result); }) rhs=multiplyExpression)*
 ;
   
 relExpression returns [Expr result]

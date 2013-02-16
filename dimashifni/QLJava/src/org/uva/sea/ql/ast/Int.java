@@ -11,5 +11,9 @@ public class Int extends Expr {
 	public int getValue() {
 		return value;
 	}
-	
+
+    @Override
+    public int evaluate() {
+        return value;
+    }
 }

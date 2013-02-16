@@ -4,6 +4,7 @@ import org.antlr.runtime.ANTLRStringStream;
 import org.antlr.runtime.CommonTokenStream;
 import org.antlr.runtime.RecognitionException;
 import org.antlr.runtime.tree.CommonTree;
+import org.uva.sea.ql.ast.Expr;
 // import org.uva.sea.ql.ast.Expr;
 
 public class ANTLRParser {//implements IParse {
@@ -24,14 +25,14 @@ public class ANTLRParser {//implements IParse {
 	public static void main(String[] args) throws RecognitionException
 	{
 		System.out.println("Start test..");			
-		testForm();
-		testPrimary();
-		testUnaryExpression();
+//		testForm();
+//		testPrimary();
+//		testUnaryExpression();
 		testMultiplyExpression();
-		testAddExpression();
-		testRelExpression();
-		testAndExpression();
-		testOrExpression();
+//		testAddExpression();
+//		testRelExpression();
+//		testAndExpression();
+//		testOrExpression();
 	}
 	
 	public static void testForm()
@@ -103,15 +104,17 @@ public class ANTLRParser {//implements IParse {
 	
 	public static void testMultiplyExpression()
 	{
-		ANTLRStringStream stream = new ANTLRStringStream("1*2");
+		ANTLRStringStream stream = new ANTLRStringStream("3*2");
 		CommonTokenStream tokens = new CommonTokenStream();
 		tokens.setTokenSource(new QLLexer(stream));
 		QLParser parser = new QLParser(tokens);
 		try {
-            CommonTree commonTree = parser.multiplyExpression().tree;
-            System.out.println(commonTree.toStringTree());
+//            CommonTree commonTree = parser.multiplyExpression().tree;
+//            System.out.println(commonTree.toStringTree());
+            Expr result = parser.multiplyExpression().result;
+            System.out.println(result.evaluate());
             System.out.println("OK multiply");
-		} catch (RecognitionException e) {
+        } catch (RecognitionException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
