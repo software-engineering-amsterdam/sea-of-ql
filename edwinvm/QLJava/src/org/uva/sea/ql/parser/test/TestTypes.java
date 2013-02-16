@@ -1,41 +1,25 @@
 package org.uva.sea.ql.parser.test;
 
-import static org.junit.Assert.assertEquals;
-
 import org.junit.Test;
 import org.uva.sea.ql.ast.types.Bool;
 import org.uva.sea.ql.ast.types.Int;
 import org.uva.sea.ql.ast.types.Money;
 import org.uva.sea.ql.ast.types.Str;
-import org.uva.sea.ql.parser.IParser;
 import org.uva.sea.ql.parser.ParseError;
 import org.uva.sea.ql.parser.antlr.check.ANTLRParserTypes;
 
-public class TestTypes {
-
-	private IParser _parser;
+public class TestTypes extends ASTNodeChecker {
 	
 	public TestTypes() {
-		_parser = new ANTLRParserTypes();
+		super(new ANTLRParserTypes());
 	}
 	
 	@Test
-	public void testBools() throws ParseError {
-		assertEquals(_parser.parse("boolean").getClass(), Bool.class);
-	}
-
+	public void testBools()   throws ParseError { expressionMatchesASTClass("boolean", Bool.class); }
 	@Test
-	public void testInts() throws ParseError {
-		assertEquals(_parser.parse("integer").getClass(), Int.class);
-	}
-	
+	public void testInts()    throws ParseError { expressionMatchesASTClass("integer", Int.class); }
 	@Test
-	public void testMoneys() throws ParseError {
-		assertEquals(_parser.parse("money").getClass(), Money.class);
-	}
-	
+	public void testMoneys()  throws ParseError { expressionMatchesASTClass("money",   Money.class); }
 	@Test
-	public void testStrings() throws ParseError {
-		assertEquals(_parser.parse("string").getClass(), Str.class);
-	}
+	public void testStrings() throws ParseError { expressionMatchesASTClass("string",  Str.class); }
 }
