@@ -17,7 +17,6 @@ import lang::ql::ast::AST;
 import lang::ql::util::ParseHelper;
 import lang::qls::ast::AST;
 import lang::qls::util::ParseHelper;
-import util::LocationHelper;
 import util::StringHelper;
 import List;
 import Map;
