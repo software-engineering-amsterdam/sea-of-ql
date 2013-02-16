@@ -1,5 +1,5 @@
 grammar QL;
-options  {output=Ast;} //backtrack=true; memoize=true;}
+options  {output=Ast;} //backtrack=true; memoize=true;
 
 
 
@@ -70,7 +70,11 @@ comquestion returns [Statement result]
 //end of questions 
                                            
 expression returns [Expr result] 
-  : value
+  : integer {$result = new Int(Integer.parseInt($integer.text));}
+  | bool { $result = new Bool(Boolean.parseBoolean($bool.text));}
+  | string { $result = new String_lit($string.text);}
+  | money {$result = new Money(Float.parseFloat($money.text));}
+  | ident {$result = new Ident($ident.text);}
   | '(' x=orExpr ')' {$result = $x.result;}
   ; 
 
@@ -160,15 +164,6 @@ type returns [Type result]
      }
     })+
   ; 
-
-value returns [Value result]
-  : integer {$result = new Int(Integer.parseInt($integer.text));}
-  | ident {$result = new Ident($ident.text);}
-  | bool { $result = new Bool(Boolean.parseBoolean($bool.text));}
-  | string { $result = new String_lit($string.text);}
-  | money {$result = new Money(Float.parseFloat($money.text));}
-  ;
- 
    
 integer : Int ; 
 string : String_literal ; 

@@ -8,5 +8,9 @@ import org.uva.sea.ql.ast.Expr;
  * @param <T>
  */
 public abstract class Literal<T> extends Expr {
+	/**
+	 * getValue
+	 * @return T 
+	 */
 	public abstract T getValue();
 }

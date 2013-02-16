@@ -19,7 +19,7 @@ public class StatementElement extends Statement{
 		this.elseBlock = elseBlock;
 	}
 	
-	public Expr getExpression() {
+	public Expr getCondition() {
 		return expression;
 	}
 	

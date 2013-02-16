@@ -10,6 +10,11 @@ public class MoneyVal extends NumericVal {
 	public Double getValue() {
 		return value;
 	}
+	
+	@Override
+	public String toString(){
+		return getValue().toString();
+	}
 
 	@Override
 	public Value add(Value arg) {

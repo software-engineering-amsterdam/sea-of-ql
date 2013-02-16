@@ -1,9 +1,12 @@
 module template::File
 
 import IO;
+import Prelude;
+import syntax::AbstractSyntax;
 import template::StringTemplate;
 import template::CSS;
 import template::JavaScript;
+import template::EvaluateExpression;
 
 /** Method to generate a directory for the JavaScript Program
 * @return l the location of the directory
@@ -12,25 +15,12 @@ import template::JavaScript;
 loc generateQLDirectory(){
 	l = |home:///TestQLJavaScript|;
 	if(isDirectory(l)){
-		println("NO CREATE");
 		return l;
 	}else{
-		println("create L : <l>");
 		mkDirectory(l);
 		return l;
 	}
 }
-
-void generateCSSFile(str id, str css, loc l){
-	l += "<id>.css";
-	if(isFile(l)){
-		println("append to file : <l>");
-		appendToFile(l, "\n <css>");
-	}else{
-		writeFile(l,css);
-	}
-}
-
 
 public void appendToHTMLFile(str formId, str text){
 	loc l = |home:///TestQLJavaScript|;
@@ -40,14 +30,15 @@ public void appendToHTMLFile(str formId, str text){
 
 public void appendToJavaScriptFile(str formId, str text){
 	loc l = |home:///TestQLJavaScript|;
-	l += "<formId>.js";
-	
+	l += "<formId>.js";	
 	appendToFile(l, "\n <text>");
 }
 
 public void appendToCssFile(str formId, str text){
+	println("in append to : <text>");
 	loc l = |home:///TestQLJavaScript|;
 	l += "<formId>.css";
+	println("L : <l>");
 	appendToFile(l, "\n <text>");
 }
 
@@ -56,6 +47,7 @@ public void createQLOnHarddisk(str id){
 	createEmptyHTMLFile(id, dir);
 	createEmptyJavaScriptFile(id, dir);
 	createEmptyCSSFile(id, dir);
+	createValidatorFile(dir);
 }
 
 void createEmptyHTMLFile(str id, loc dir){
@@ -65,7 +57,8 @@ void createEmptyHTMLFile(str id, loc dir){
 
 void createEmptyJavaScriptFile(str id, loc dir){
 	dir += "<id>.js";
-	writeFile(dir,"");
+	writeFile(dir,"var <id>;
+	var <id>Submit;");
 }
 
 void createEmptyCSSFile(str id, loc dir){
@@ -82,28 +75,102 @@ public void generateCSSFile(str formId, str id){
 void createValidatorFile(loc l){
 	l += "gen_validatorv4.js";
 	str v = readFile(|project://QL/src/template/Validator|);
-	println("VVV : <v>");
 	writeFile(l, v);
 }
 
-public void javaScriptAddCheckFunction(str formId, str checkBoxId) {
-	str check = "function <checkBoxId>DoTheCheck() {
-	//	if(document.<formId>.<checkBoxId>.checked == true)
-	{ alert(\'<checkBoxId> is checked\'); }
-	//if(document.<formId>.<checkBoxId>.checked == false)
-	//{ alert(\'<checkBoxId> is not checked\'); }
+public void javaScriptAddCheckFunction(str formId, str checkBoxId, Type tp) {
+	str function = "";
+	if(tp == boolean()){
+	function = "function <checkBoxId> {
+		if(cb.checked == true)
+	{ cb.parentNode.children[2].innerHTML = \"No\"; }
+	if(cb.checked == false)
+	{ cb.parentNode.children[2].innerHTML = \"Yes\"; }
 	}"; 
-	//javaScriptAddCheckFunction(formId, checkBoxId);
-	appendToJavaScriptFile(formId, "\n <check>");
-	//appendToFile(dir, "\n <check>");
+	}else{
+	function = "function <checkBoxId> {
+	{ console.log(cb); }
+	if(isNaN(cb.value))
+	{ alert(\"is not number\"); }
+	}"; 
+	}
+	appendToJavaScriptFile(formId, "\n <function>");
 }
 
-private str javaScriptAddCheckFunction(str formId, str checkBoxId) {
-	return "function <checkBoxId>DoTheCheck() {
-	//	if(document.<formId>.<checkBoxId>.checked == true)
-	{ alert(\'<checkBoxId> is checked\'); }
-	if(document.<formId>.<checkBoxId>.checked == false)
-	{ alert(\'<checkBoxId> is not checked\'); }
+public void javaScriptAddCheckStatementFunction(str formId, str checkBoxId, list[str] thenPart, list[str] children){
+	str ifTrue = "";
+	for(i <- thenPart){
+		ifTrue += i;
+	}
+	str check = "function <checkBoxId>DoTheCheckWithStatement(cb) {
+	if(cb.checked)
+	{
+		<formId>.removeChild(<formId>Submit);
+		<ifTrue>
+		<formId>.appendChild(<formId>Submit);
+	}else {
+		<for(c <- children){>
+		<formId>.removeChild(<c>Paragraph);
+		<}>
+	}
 	}";
+	appendToJavaScriptFile(formId, "\n <check>");
 }
 
+public void javaScriptAddCheckStatementFunction(str formId, str checkBoxId, list[str] thenPart, str exp,list[str] children){
+	str ifTrue = "";
+	for(i <- thenPart){
+		ifTrue += i;
+	}
+	str check = "function <checkBoxId> {
+	if(<exp>)
+	{
+		<formId>.removeChild(<formId>Submit);
+		<ifTrue>
+		<formId>.appendChild(<formId>Submit);
+	}else {
+		if(<children[0]>Paragraph.parentNode != null)
+		{
+		<for(c <- children){>
+		<formId>.removeChild(<c>Paragraph);
+		<}>
+		}
+	}
+	}";
+	appendToJavaScriptFile(formId, "\n <check>");
+}
+
+public void javaScriptAddGlobalVariable(str formId, str globalID) =
+	appendToJavaScriptFile(formId, globalID);
+
+void addOnChangeForComputed(str formId, str id, str methodName ){
+
+}
+
+public void javaScriptAddEvaluateQuestion(str formId, str id, Expression exp){
+	println("in evaluate question");  // i need to create a onchange function which checks the values of the exps
+	println("EXPR : <exp>");
+	//list[str] expressionIds = [];
+	top-down visit(exp){
+		case Expression e : {
+			println("EXPRES : <e>");
+			//if(getName(e) == "id"){
+			//	expressionIds += e;
+			//}else{
+			//	println("sub");	// I need to evaluate the expression sub
+			//}
+		}
+	}
+	str ev = evaluateExp(exp, money());
+	
+	
+	str result = "function <id>Calculation(cb) {
+	cb.value = <ev>;
+	}";
+	
+	appendToJavaScriptFile(formId, "\n <result>");	
+}
+
+str evaluateHelper(){
+
+}

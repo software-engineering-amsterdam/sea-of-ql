@@ -9,14 +9,13 @@ import org.uva.sea.ql.ast.Expr;
 import org.uva.sea.ql.ast.Form;
 import org.uva.sea.ql.ast.Statement;
 import org.uva.sea.ql.ast.Type;
-import org.uva.sea.ql.ast.Value;
 
 public class ANTLRParser implements IParse {
 
 	public QLParser parse(String src) throws ParseError {
 		ANTLRStringStream stream = new ANTLRStringStream(src);
 		CommonTokenStream tokens = new CommonTokenStream();
-		tokens.setTokenSource(new QLLexer(stream));
+		tokens.setTokenSource(new QLLexer(stream)); 
 		QLParser parser = new QLParser(tokens);
 		return parser;
 	}
@@ -30,14 +29,6 @@ public class ANTLRParser implements IParse {
 			}
 	} 
 	
-	@Override
-	public Value parseValue(String src) throws ParseError {
-		try {
-			return parse(src).value();
-			} catch (RecognitionException e) {
-			throw new ParseError(e.getMessage());
-			}
-	}
 	@Override
 	public Type parseType(String src) throws ParseError {
 		try {

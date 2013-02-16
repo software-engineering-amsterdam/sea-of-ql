@@ -10,11 +10,12 @@ module lang::ql::tests::TestFormChecker
 import lang::ql::ide::SemanticChecker::FormChecker;
 import lang::ql::ast::AST;
 import lang::ql::ide::SemanticChecker::Environment;
+import Type;
+import Message;
 
 loc testFile = |project://QLRascal/src/lang/ql/tests/test.q|;
 
+private set[Message] p(loc l) = checkForm(l);
 
-private ENV p(loc l) = checkForm(l);
-
-public test ENV testFormChecker() = p(testFile);
+public test set[Message] testFormChecker() = p(testFile);
 

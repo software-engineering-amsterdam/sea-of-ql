@@ -2,7 +2,7 @@ package org.uva.sea.ql.ast.operators;
 
 import org.uva.sea.ql.ast.Expression;
 
-public class UnaryOperator extends Expression {
+public abstract class UnaryOperator extends Expression {
 
 	protected final Expression operand;
 	

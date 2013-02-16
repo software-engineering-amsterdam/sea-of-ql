@@ -1,7 +1,8 @@
 package org.uva.sea.ql.ast.types;
 
 import org.uva.sea.ql.ast.ASTNode;
-import org.uva.sea.ql.ast.visitor.Visitor;
+import org.uva.sea.ql.visitor.TypeVisitor;
+import org.uva.sea.ql.visitor.Visitor;
 
 public abstract class Type implements ASTNode {
 	/**
@@ -36,7 +37,10 @@ public abstract class Type implements ASTNode {
 	 * @param visitor
 	 */
 	@Override
-	public void accept(Visitor visitor) { 
-		visitor.visit(this);
+	public <T> T accept(Visitor<T> visitor){
+		return visitor.visit(this);
+	}
+	public <T> T accept(TypeVisitor<T> visitor){
+		return visitor.visit(this);
 	}
 }

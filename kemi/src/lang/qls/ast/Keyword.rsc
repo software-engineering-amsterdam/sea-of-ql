@@ -10,24 +10,20 @@
 
 module lang::qls::ast::Keyword
 
+import Grammar;
+import lang::ql::syntax::Comment;
+import lang::ql::syntax::Int;
+import lang::ql::syntax::Layout;
+import lang::ql::syntax::Money;
+import lang::ql::syntax::String;
+import lang::ql::syntax::Type;
+import lang::qls::syntax::Color;
+import lang::qls::syntax::Keyword;
+import lang::qls::syntax::QLS;
+import util::ParseTreeHelper;
+
 public set[str] keywords = {
-  "stylesheet",
-  "page",
-  "section",
-  "question",
-  "default",
-  "boolean",
-  "integer",
-  "money",
-  "date",
-  "string",
-  "widget",
-  "width",
-  "text",
-  "number",
-  "datepicker",
-  "slider",
-  "radio",
-  "checkbox",
-  "select"
+  x |
+  /prod(_, literal, _) <- getKeywords(grammar({}, #Stylesheet.definitions)), 
+  lit(x) <- literal
 };

@@ -32,7 +32,7 @@ public class TestLiteralExpressions {
 	@Test
 	public void testNums() throws ParseError {
 		assertEquals(_parser.parse("0").getClass(), Int.class);
-		assertEquals(_parser.parse("1223").getClass(), Int.class);
+		assertEquals(_parser.parse("123").getClass(), Int.class);
 	}
 	
 	@Test
