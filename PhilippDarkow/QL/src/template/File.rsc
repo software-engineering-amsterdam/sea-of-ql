@@ -72,7 +72,8 @@ void createEmptyCSSFile(str id, loc dir){
 
 void createEmptyPHPFile(str id, loc dir){
 	dir += "<id>.php";
-	writeFile(dir,"");
+	writeFile(dir,"Thank you for answering the questions \</br\>
+	\<?php  echo \'{ \"message\": \"\' . $_POST[\'privateDebt\'] . \'\" }\';  ?\> ");
 }
 
 public void generateCSSFile(str formId, str id){

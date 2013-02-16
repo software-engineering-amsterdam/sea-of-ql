@@ -48,7 +48,7 @@ private str createEndingLabel(str formId, str id){
 private str specifyAttributesCheckbox(str id){
 	return "<id>.setAttribute(\'type\',\"checkbox\");
 		<id>.setAttribute(\'id\',<id>);
-		<id>.setAttribute(\'name\',<id>);
+		<id>.setAttribute(\'name\',\'<id>\');
 		<id>.setAttribute(\'value\',<id>);
 		<id>.setAttribute(\'onclick\',\"<id>DoTheCheck(this)\");
 		 ";
@@ -57,7 +57,7 @@ private str specifyAttributesCheckbox(str id){
 str specifyAttributesNumeric(str id){
 	return "<id>.setAttribute(\'type\',\"text\");
 		<id>.setAttribute(\'id\',<id>);
-		<id>.setAttribute(\'name\',<id>);
+		<id>.setAttribute(\'name\',\'<id>\');
 		<id>.setAttribute(\'onchange\',\"<id>CheckNumeric(this)\");
 		 ";
 }
@@ -65,7 +65,7 @@ str specifyAttributesNumeric(str id){
 str specifyAttributesCalculation(str id){
 	return "<id>.setAttribute(\'type\',\"text\");
 		<id>.setAttribute(\'id\',<id>);
-		<id>.setAttribute(\'name\',<id>);
+		<id>.setAttribute(\'name\',\'<id>\');
 		<id>.setAttribute(\'readOnly\',\'readonly\');
 		<id>.setAttribute(\'onchange\',\"<id>Calculation(this)\");
 		 ";
@@ -74,7 +74,7 @@ str specifyAttributesCalculation(str id){
 str specifyAttributesTextField(str id){
 	return "<id>.setAttribute(\'type\',\"text\");
 		<id>.setAttribute(\'id\',<id>);
-		<id>.setAttribute(\'name\',<id>);
+		<id>.setAttribute(\'name\',\'<id>\');
 		 ";
 }
 
@@ -143,10 +143,7 @@ private str generateQuestion(str formId, question:easyQuestion(str id, str label
 		str cssLabel = cssEndLabels(id);
 		appendToCssFile(formId, cssLabel);
 		javaScriptAddCheckFunction(formId, "<id>CheckNumeric(cb)", tp);
-		return "<attributes>
-		<label>
-		<paragraph>
-		<formId>.appendChild(<id>Paragraph);
+		return "<attributes> <label> <paragraph> <formId>.appendChild(<id>Paragraph);
 		 ";
 	}else if(tp == string()){
 		javaScriptAddGlobalVariable(formId, "var <id> = document.createElement(\"input\");");
@@ -162,16 +159,9 @@ private str generateQuestion(str formId, question:easyQuestion(str id, str label
 }
 
 private str generateQuestion(str formId, question:computedQuestion(str id, str labelQuestion, Type tp, Expression exp)){
-	println("in generate computed Question <question>");
 	str label = generateQuestionLabel(formId, id, labelQuestion);
-	println("Label is : <label>");
-	println("Type is : <tp>");
-	println("EXP is : <exp>");
-	println("ID is : <id>");
 	if(tp == money()){
-		println("in money generate computed Question");
 		str paragraph = generateParagraph(id, label, formId);
-		//evaluateExpression(exp, tp);
 		javaScriptAddGlobalVariable(formId, "var <id> = document.createElement(\"input\");");
 		javaScriptAddEvaluateQuestion(formId, id, exp);
 		str attributes = specifyAttributesCalculation(id);
@@ -203,14 +193,14 @@ str generateStatement(str formId, statement:ifStat(Expression exp, list[Body] th
 			}
 		}		
 	}
-	if(size(getChildren(exp)) <= 1){ // for one booleans
+	if(size(getChildren(exp)) <= 1){ 
 		javaScriptAddCheckStatementFunction(formId, checkBoxId, thenPartString, children);
 		return "<checkBoxId>.setAttribute(\'onchange\',\"<checkBoxId>DoTheCheckWithStatement(this)\");";
 	}else{
-		// i need to get the expression 
+		// i need to get the expression   !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 		javaScriptAddCheckStatementFunction(formId, "hasSoldHouseValueCheck(cb)", thenPartString, evaluate,children);
 		javaScriptAddCheckStatementFunction(formId, "boughtHouseValueCheck(cb)", thenPartString, evaluate,children);
-		// 
+		// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 		return "hasSoldHouse.setAttribute(\'onchange\',\"hasSoldHouseValueCheck(this)\");
 		boughtHouse.setAttribute(\'onchange\',\"boughtHouseValueCheck(this)\");
 		";
