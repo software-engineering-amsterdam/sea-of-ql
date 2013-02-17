@@ -1,7 +1,5 @@
 package org.uva.sea.ql.parser.test;
 
-import static org.junit.Assert.assertEquals;
-
 import org.uva.sea.ql.ast.statements.ConditionBlock;
 import org.uva.sea.ql.ast.statements.questions.AnswerableQuestion;
 import org.uva.sea.ql.ast.statements.questions.ComputedQuestion;
@@ -14,16 +12,8 @@ public class StatementParserChecker extends ASTNodeChecker {
 		super(parser);
 	}
 	
-	public void statementMatchesConditionBlock(String input) throws ParseError {
-		assertEquals(getAstNodeFor(input), ConditionBlock.class);
-	}
-	
-	public void statementMatchesAnswerableQuestion(String input) throws ParseError {
-		assertEquals(getAstNodeFor(input), AnswerableQuestion.class);
-	}
-	
-	public void statementMatchesComputedQuestion(String input) throws ParseError {
-		assertEquals(getAstNodeFor(input), ComputedQuestion.class);
-	}
+	public void statementMatchesConditionBlock(String input)     throws ParseError { match(input, ConditionBlock.class);     }
+	public void statementMatchesAnswerableQuestion(String input) throws ParseError { match(input, AnswerableQuestion.class); }
+	public void statementMatchesComputedQuestion(String input)   throws ParseError { match(input, ComputedQuestion.class);   }
 	
 }
